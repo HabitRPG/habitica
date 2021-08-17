@@ -137,12 +137,13 @@ const premium = {
     value: 2,
     text: t('hatchingPotionThunderstorm'),
     limited: true,
+    event: EVENTS.potions202108,
     _addlNotes: t('eventAvailabilityReturning', {
-      availableDate: t('dateEndNovember'),
-      previousDate: t('augustYYYY', { year: 2016 }),
+      availableDate: t('dateEndAugust'),
+      previousDate: t('novemberYYYY', { year: 2019 }),
     }),
     canBuy () {
-      return moment().isBetween('2019-11-12', '2019-12-02');
+      return moment().isBetween(EVENTS.potions202108.start, EVENTS.potions202108.end);
     },
   },
   Spooky: {
@@ -474,6 +475,18 @@ const premium = {
     }),
     canBuy () {
       return moment().isBetween(EVENTS.summer2021.start, EVENTS.summer2021.end);
+    },
+  },
+  Moonglow: {
+    value: 2,
+    text: t('hatchingPotionMoonglow'),
+    limited: true,
+    event: EVENTS.potions202108,
+    _addlNotes: t('premiumPotionAddlNotes', {
+      date: t('dateEndAugust'),
+    }),
+    canBuy () {
+      return moment().isBetween(EVENTS.potions202108.start, EVENTS.potions202108.end);
     },
   },
 };
