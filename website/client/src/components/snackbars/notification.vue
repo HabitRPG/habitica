@@ -117,7 +117,6 @@
   }
 
   .notification {
-    min-height: 40px;
     max-width: 330px;
     border-radius: 4px;
     background-color: $green-50;
@@ -126,7 +125,6 @@
     margin-left: 0.5rem;
     padding-left: 1rem !important;
     padding-right: 1rem !important;
-    line-height: 1.71;
 
     transition: opacity .5s, top .5s;
 
@@ -183,7 +181,7 @@
   .svg-icon {
     width: 24px;
     height: 24px;
-    margin: .5rem;
+    margin: 0.35rem;
   }
 
   .drop {
