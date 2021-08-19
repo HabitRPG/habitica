@@ -46,14 +46,20 @@ async function updateTeamTasks (team) {
       }
     });
     forEach(tasksByType.dailys, daily => {
+      let processChecklist = false;
       if (daily.completed) {
+        processChecklist = true;
         daily.completed = false;
       } else if (shouldDo(team.cron.lastProcessed, daily, teamLeader.preferences)) {
+        processChecklist = true;
         const delta = TASK_VALUE_CHANGE_FACTOR ** daily.value;
         daily.value -= delta;
         if (daily.value < MIN_TASK_VALUE) daily.value = MIN_TASK_VALUE;
       }
       daily.isDue = shouldDo(new Date(), daily, teamLeader.preferences);
+      if (processChecklist && daily.checklist.length > 0) {
+        daily.checklist.forEach(i => { i.completed = false; });
+      }
       toSave.push(daily.save());
     });
 
