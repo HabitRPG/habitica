@@ -85,7 +85,7 @@
         >
           <div
             class="task-clickable-area"
-            :class="{ 'cursor-auto': !isUser && !teamManagerAccess }"
+            :class="{ 'cursor-auto': showTaskLockIcon && !teamManagerAccess }"
             tabindex="0"
             @click="edit($event, task)"
             @keypress.enter="edit($event, task)"
@@ -225,7 +225,7 @@
               <label
                 v-markdown="item.text"
                 class="custom-control-label"
-                :class="{ 'cursor-auto': !isUser }"
+                :class="{ 'cursor-auto': showTaskLockIcon }"
                 :for="`checklist-${item.id}-${random}`"
               ></label>
             </div>
