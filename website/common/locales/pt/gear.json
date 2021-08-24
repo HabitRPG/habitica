@@ -892,7 +892,7 @@
     "headSpecialDandyHatNotes": "Que chapéu tão feliz! Irá ter um belo visual enquanto passeia com ele. Aumenta Constituição em <%= con %>.",
     "headSpecialKabutoText": "Kabuto",
     "headSpecialKabutoNotes": "Este elmo é funcional e bonito! Os seus inimigos irão ficar distraídos enquanto o admiram. Aumenta Inteligência em <%= int %>.",
-    "headSpecialNamingDay2017Text": "Elmo do Grifo Real Roxo",
+    "headSpecialNamingDay2017Text": "Elmo de Grifo Roxo Real",
     "headSpecialNamingDay2017Notes": "Feliz Dia de Nome! Use este feroz e empenado elmo para celebrar Habitica. Não concede benefícios.",
     "headSpecialTurkeyHelmBaseText": "Elmo de Perú",
     "headSpecialTurkeyHelmBaseNotes": "O seu visual de Dia de Perú irá estar completo quanto envergar este elmo com bico! Não concede benefícios.",
@@ -1782,5 +1782,6 @@
     "shieldArmoireBouncyBubblesNotes": "Complete o seu banho relaxante com estas exuberantes bolhas! Aumenta Força em <% = str%>. Armário Encantado: Conjunto Banho de Espuma (Item 4 de 4).",
     "headArmoireRubberDuckyNotes": "O companheiro perfeito para um deleitante dia de spa! Também é, supreendentemente, um profundo conhecedor de bugs de software. Aumenta Inteligência em <% = int%>. Armário Encantado: Conjunto Banho de Espuma (Item 1 de 4).",
     "armorArmoireBathtubNotes": "Hora de fazer uma pausa e relaxar um pouco? Aqui esta a sua própria banheira pessoal – e a garantia de que a água estará sempre na temperatura que você gosta! Aumenta Constituição em <% = con%>. Armário Encantado: Conjunto Banho de Espuma (Item 2 de 4).",
-    "weaponArmoireBuoyantBubblesNotes": "Estas bolhas continuam a flutuar eternamente, não se sabe como... Aumenta Percepção em <%= per %>. Armário Encantado: Conjunto Banho de Espuma (Item 3 de 4)."
+    "weaponArmoireBuoyantBubblesNotes": "Estas bolhas continuam a flutuar eternamente, não se sabe como... Aumenta Percepção em <%= per %>. Armário Encantado: Conjunto Banho de Espuma (Item 3 de 4).",
+    "armorArmoireBagpipersKiltText": "Kilt do Gaiteiro"
 }
