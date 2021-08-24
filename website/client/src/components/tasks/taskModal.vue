@@ -434,7 +434,7 @@
           <div class="form-group">
             <lockable-label
               :locked="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
-              :text="$t('resetStreak')"
+              :text="$t('resetCounter')"
             />
             <select-translated-array
               :disabled="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
@@ -549,7 +549,7 @@
                   <label
                     v-once
                     class="mb-1"
-                  >{{ $t('restoreStreak') }}</label>
+                  >{{ $t('adjustCounter') }}</label>
                   <div
                     class="row streak-inputs"
                     :class="{'both': task.up && task.down}"

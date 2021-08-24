@@ -252,6 +252,11 @@ const basicAchievs = {
     titleKey: 'achievementWildBlueYonder',
     textKey: 'achievementWildBlueYonderText',
   },
+  domesticated: {
+    icon: 'achievement-domesticated',
+    titleKey: 'achievementDomesticated',
+    textKey: 'achievementDomesticatedText',
+  },
 };
 Object.assign(achievementsData, basicAchievs);
 

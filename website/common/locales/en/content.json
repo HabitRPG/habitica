@@ -306,6 +306,7 @@
   "hatchingPotionMossyStone": "Mossy Stone",
   "hatchingPotionSunset": "Sunset",
   "hatchingPotionMoonglow": "Moonglow",
+  "hatchingPotionSolarSystem": "Solar System",
 
   "hatchingPotionNotes": "Pour this on an egg, and it will hatch as a <%= potText(locale) %> pet.",
   "premiumPotionAddlNotes": "Not usable on quest pet eggs. Available for purchase until <%= date(locale) %>.",

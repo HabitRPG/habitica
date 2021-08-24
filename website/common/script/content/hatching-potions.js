@@ -489,6 +489,13 @@ const premium = {
       return moment().isBetween(EVENTS.potions202108.start, EVENTS.potions202108.end);
     },
   },
+  SolarSystem: {
+    value: 2,
+    text: t('hatchingPotionSolarSystem'),
+    limited: true,
+    canBuy: hasQuestAchievementFunction('solarSystem'),
+    _addlNotes: t('premiumPotionUnlimitedNotes'),
+  },
 };
 
 const wacky = {

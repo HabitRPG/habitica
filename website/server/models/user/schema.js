@@ -144,6 +144,7 @@ export default new Schema({
     seasonalSpecialist: Boolean,
     violetsAreBlue: Boolean,
     wildBlueYonder: Boolean,
+    domesticated: Boolean,
     // Onboarding Guide
     createdTask: Boolean,
     completedTask: Boolean,

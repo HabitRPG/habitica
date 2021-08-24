@@ -10,6 +10,12 @@
   height: 219px;
 }
 
+.quest_solarSystem {
+  background: url("~@/assets/images/animated/quest_solarSystem.gif") no-repeat;
+  width: 219px;
+  height: 219px;
+}
+
 .Pet_HatchingPotion_Dessert, .Pet_HatchingPotion_Veggie, .Pet_HatchingPotion_Windup {
   width: 68px;
   height: 68px;

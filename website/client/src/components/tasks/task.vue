@@ -260,7 +260,8 @@
                 class="d-flex align-items-center"
               >
                 <div
-                  v-b-tooltip.hover.bottom="$t('streakCounter')"
+                  v-b-tooltip.hover.bottom="task.type === 'daily'
+                    ? $t('streakCounter') : $t('counter')"
                   class="svg-icon streak"
                   v-html="icons.streak"
                 ></div>
