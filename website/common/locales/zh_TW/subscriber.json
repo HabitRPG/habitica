@@ -178,7 +178,7 @@
     "mysterySet202102": "迷媚冠軍套裝",
     "mysterySet202009": "驚奇飛蛾套裝",
     "mysterySet202105": "星雲飛龍套裝",
-    "mysterySet202106": "海濱熱血套裝",
+    "mysterySet202106": "日落警報套裝",
     "mysterySet202104": "紫薊守護者套裝",
     "mysterySet202012": "雪霜鳳凰套裝",
     "mysterySet202011": "葉片魔術師套裝",
@@ -191,5 +191,7 @@
     "dropCapExplanation": "您的掉落將會於明日與您的任務一同被重設。然而，當任務完成時您將得持續去賺取黃金，經驗，和副本進展。",
     "usuallyGems": "通常<%= originalGems %>",
     "dropCapSubs": "Habitica 訂閱者們可以於每日找到雙倍的隨機項目並且獲得每月的神秘項目！",
-    "lookingForMoreItems": "尋找更多的項目嗎？"
+    "lookingForMoreItems": "尋找更多的項目嗎？",
+    "mysterySet202108": "火紅少年套裝",
+    "mysterySet202107": "海濱熱血套裝"
 }

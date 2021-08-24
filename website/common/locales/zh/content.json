@@ -182,7 +182,7 @@
     "questEggVelociraptorText": "迅猛龙",
     "questEggVelociraptorMountText": "迅猛龙",
     "questEggVelociraptorAdjective": "一只聪明的",
-    "eggNotes": "将一瓶孵化药水倒在这个宠物蛋上，你就能孵化出一只<%= eggAdjective(locale) %><%= eggText(locale) %>。",
+    "eggNotes": "将一瓶孵化药水倒在这个宠物蛋上，你就能孵化出<%= eggAdjective(locale) %><%= eggText(locale) %>。",
     "hatchingPotionBase": "普通",
     "hatchingPotionWhite": "白色",
     "hatchingPotionDesert": "沙漠",
@@ -198,7 +198,7 @@
     "hatchingPotionFloral": "草花",
     "hatchingPotionAquatic": "水族",
     "hatchingPotionEmber": "灰烬",
-    "hatchingPotionThunderstorm": "暴风雨",
+    "hatchingPotionThunderstorm": "雷暴",
     "hatchingPotionGhost": "鬼魂",
     "hatchingPotionRoyalPurple": "皇家紫",
     "hatchingPotionHolly": "冬青树",
@@ -367,5 +367,6 @@
     "hatchingPotionStainedGlass": "彩绘玻璃",
     "hatchingPotionPolkaDot": "波尔卡圆点",
     "hatchingPotionMossyStone": "青苔石",
-    "hatchingPotionSunset": "日落"
+    "hatchingPotionSunset": "日落",
+    "hatchingPotionMoonglow": "月光"
 }
