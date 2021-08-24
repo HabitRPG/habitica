@@ -69,10 +69,10 @@ import { mapState } from '@/libs/store';
 import notification from './notification';
 import { sleepAsync } from '../../../../common/script/libs/sleepAsync';
 
-const notificationsVisibleAtOnce = 4;
-const removalInterval = 2500;
-const delayDeleteAndNew = 60;
-const delayFilling = 240;
+const NOTIFICATIONS_VISIBLE_AT_ONCE = 4;
+const REMOVAL_INTERVAL = 2500;
+const DELAY_DELETE_AND_NEW = 60;
+const DELAY_FILLING_ENTRIES = 240;
 
 export default {
   components: {
@@ -191,7 +191,7 @@ export default {
             this.triggerFillUntilFull();
 
             this.triggerRemovalTimerIfAllowed();
-          }, delayDeleteAndNew);
+          }, DELAY_DELETE_AND_NEW);
         }
       }
     },
@@ -205,7 +205,7 @@ export default {
       // the generic checks - new notification array has enough items
       // is allowed to be filled and don't do anything while the visible items are 2
       if (notifications.length === 0 || !this.allowedToFillAgain
-          || this.visibleNotifications.length === notificationsVisibleAtOnce) {
+          || this.visibleNotifications.length === NOTIFICATIONS_VISIBLE_AT_ONCE) {
         this.debug('stop fill - 1');
         return;
       }
@@ -229,7 +229,7 @@ export default {
       }
 
       // fill the new items that needs to be visible
-      if (this.visibleNotifications.length < notificationsVisibleAtOnce) {
+      if (this.visibleNotifications.length < NOTIFICATIONS_VISIBLE_AT_ONCE) {
         const visibleIds = this.visibleNotifications.map(n => n.uuid);
 
         const notAddedYet = notifications.filter(n => !visibleIds.includes(n.uuid));
@@ -247,11 +247,11 @@ export default {
       this.updateAllowedToFillAgain();
     },
     async triggerFillUntilFull () {
-      for (let i = 0; i < notificationsVisibleAtOnce; i += 1) {
+      for (let i = 0; i < NOTIFICATIONS_VISIBLE_AT_ONCE; i += 1) {
         this.debug(`fill ${i}`);
         this.fillVisibleNotifications(this.notificationStore);
 
-        await sleepAsync(delayFilling); // eslint-disable-line no-await-in-loop
+        await sleepAsync(DELAY_FILLING_ENTRIES); // eslint-disable-line no-await-in-loop
       }
     },
     triggerRemovalTimerIfAllowed () {
@@ -286,7 +286,7 @@ export default {
 
           this.updateAllowedToFillAgain();
         }
-      }, removalInterval);
+      }, REMOVAL_INTERVAL);
     },
 
     stopNotificationsRemovalTimer () {
@@ -302,7 +302,7 @@ export default {
 
     updateAllowedToFillAgain () {
       const notificationsAmount = this.visibleNotificationsWithoutErrors.length;
-      this.allowedToFillAgain = notificationsAmount < notificationsVisibleAtOnce;
+      this.allowedToFillAgain = notificationsAmount < NOTIFICATIONS_VISIBLE_AT_ONCE;
 
       this.debug({
         allowedToFillAgain: this.allowedToFillAgain,

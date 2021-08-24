@@ -1,0 +1,5 @@
+@import url("../css/sprites.css");
+
+@for $i from 0 through 30 {
+  @import url("../css/sprites/spritesmith-main-#{$i}.css");
+}
