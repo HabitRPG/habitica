@@ -438,17 +438,14 @@ async function scoreTask (user, task, direction, req, res) {
     user,
   });
 
-  // Track when new users (first 7 days) score tasks
-  if (moment().diff(user.auth.timestamps.created, 'days') < 3) {
-    res.analytics.track('task score', {
-      uuid: user._id,
-      hitType: 'event',
-      category: 'behavior',
-      taskType: task.type,
-      direction,
-      headers: req.headers,
-    });
-  }
+  res.analytics.track('task score', {
+    uuid: user._id,
+    hitType: 'event',
+    category: 'behavior',
+    taskType: task.type,
+    direction,
+    headers: req.headers,
+  });
 
   return {
     task,

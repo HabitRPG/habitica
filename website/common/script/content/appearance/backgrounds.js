@@ -445,6 +445,16 @@ const backgrounds = {
     forested_lakeshore: { },
     water_mill: { },
   },
+  backgrounds072021: {
+    underwater_among_koi: { },
+    ghost_ship: { },
+    raging_river: { },
+  },
+  backgrounds082021: {
+    daytime_misty_forest: { },
+    rope_bridge: { },
+    stone_tower: { },
+  },
   timeTravelBackgrounds: {
     airship: {
       price: 1,

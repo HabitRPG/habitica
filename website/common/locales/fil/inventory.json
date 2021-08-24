@@ -3,8 +3,8 @@
     "foodItemType": "Pagkaing Pang-alaga",
     "eggsItemType": "Mga Itlog",
     "hatchingPotionsItemType": "Hatching Potions",
-    "specialItemType": "Special items",
-    "lockedItem": "Nakakandadong bagay",
-    "allItems": "Lahat ng Item",
+    "specialItemType": "Mga espesyal na gamit",
+    "lockedItem": "Nakakandadong Gamit",
+    "allItems": "Lahat ng Gamit",
     "petAndMount": "Pet at Mount"
 }

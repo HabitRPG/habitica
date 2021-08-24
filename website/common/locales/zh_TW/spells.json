@@ -6,7 +6,7 @@
     "spellWizardEarthText": "地震",
     "spellWizardEarthNotes": "你的精神之力震撼大地，並強化了你隊伍的智力！（基於：未增益智力）",
     "spellWizardFrostText": "酷寒冰霜",
-    "spellWizardFrostNotes": "一道法術讓冰霜凍結了您的所有連擊。明天所有任務連擊數都將不會歸零！ ",
+    "spellWizardFrostNotes": "一道法術讓冰霜凍結了您的所有連擊。明天所有任務連擊數都將不會歸零！",
     "spellWizardFrostAlreadyCast": "今天您已使用「極寒霜凍」技能。連擊數已被凍結，不需要再次施放。",
     "spellWarriorSmashText": "致命一擊",
     "spellWarriorSmashNotes": "您讓一個任務顏色變得更藍/不那麼深紅，並對魔王造成額外的傷害！（基於：力量）",
@@ -56,5 +56,5 @@
     "groupTasksNoCast": "你無法在群組任務上使用技能。",
     "spellNotOwned": "你不擁有這項技能。",
     "spellLevelTooHigh": "你需要達到等級<%= level %>才能使用這個技能。",
-    "spellAlreadyCast": "你已經釋放了該技能。無法獲得更多加成。"
+    "spellAlreadyCast": "釋放該技能無法獲得更多加成。"
 }

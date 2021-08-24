@@ -85,5 +85,14 @@
     "questInvitationNotificationInfo": "Zostałeś(-aś) zaproszony(-a) do przyłączenia się do misji",
     "questAlreadyStartedFriendly": "To wyzwanie już się zaczęło, jednak zawsze możesz załapać się na kolejne!",
     "questAlreadyStarted": "Wyzwanie już się zaczęło.",
-    "bossDamage": "Boss oberwał od Ciebie!"
+    "bossDamage": "Boss oberwał od Ciebie!",
+    "cancelQuest": "Anuluj Misję",
+    "backToSelection": "Powrót do wyboru Misji",
+    "yourQuests": "Twoje Misje",
+    "selectQuestModal": "Wybierz Misję",
+    "newItem": "Nowy Przedmiot",
+    "membersParticipating": "<%= accepted %> / <%= invited %> członków bierze udział",
+    "yourPartyIsNotOnQuest": "Twoja drużyna nie jest na Misji",
+    "selectQuest": "Wybierz misję",
+    "sureLeaveInactive": "Czy na pewno chcesz opuścić misję? Nie będziesz w stanie brać udziału."
 }

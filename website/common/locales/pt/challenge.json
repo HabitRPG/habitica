@@ -44,7 +44,7 @@
     "congratulations": "Parabéns!",
     "hurray": "Hurra!",
     "noChallengeOwner": "sem dono",
-    "challengeMemberNotFound": "Usuário não encontrado entre os membros do desafio",
+    "challengeMemberNotFound": "Utilizador não encontrado entre os membros do desafio",
     "onlyGroupLeaderChal": "Apenas o líder do grupo pode criar desafios",
     "tavChalsMinPrize": "Premio deve ser ao menos 1 Gema para Desafios Públicos.",
     "cantAfford": "Você não consegue pagar esse prêmio. Compre mais gemas ou reduza o tamanho do prêmio.",
@@ -100,5 +100,6 @@
     "viewProgress": "Ver Progresso",
     "selectMember": "Escolher Membro",
     "confirmKeepChallengeTasks": "Deseja manter as tarefas do desafio?",
-    "selectParticipant": "Escolha um Participante"
+    "selectParticipant": "Escolha um Participante",
+    "wonChallengeDesc": "<%= challengeName %> escolheu-te como vencedor! A tua vitória foi adicionada às tuas Conquistas."
 }

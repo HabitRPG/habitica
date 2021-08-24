@@ -362,6 +362,14 @@ const armor = {
     con: 6,
     set: 'medievalLaunderers',
   },
+  bathtub: {
+    con: 8,
+    set: 'bath',
+  },
+  bagpipersKilt: {
+    con: 6,
+    set: 'bonnieBagpiper',
+  },
 };
 
 const body = {
@@ -734,6 +742,14 @@ const head = {
     int: 6,
     set: 'medievalLaunderers',
   },
+  rubberDucky: {
+    int: 10,
+    set: 'bath',
+  },
+  glengarry: {
+    int: 6,
+    set: 'bonnieBagpiper',
+  },
 };
 
 const shield = {
@@ -981,6 +997,14 @@ const shield = {
   medievalLaundry: {
     per: 6,
     set: 'medievalLaunderers',
+  },
+  bouncyBubbles: {
+    str: 5,
+    set: 'bath',
+  },
+  bagpipes: {
+    str: 6,
+    set: 'bonnieBagpiper',
   },
 };
 
@@ -1283,6 +1307,10 @@ const weapon = {
   medievalWashboard: {
     str: 6,
     set: 'medievalLaunderers',
+  },
+  buoyantBubbles: {
+    per: 5,
+    set: 'bath',
   },
 };
 

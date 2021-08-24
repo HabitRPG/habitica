@@ -7,7 +7,7 @@
     "clearBrowserData": "Böngésző előzmények törlése",
     "communityExtensions": "<a href='http://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations' target='_blank'>Kiegészítők és bővítmények</a>",
     "communityFacebook": "Facebook",
-    "companyAbout": "Így működik",
+    "companyAbout": "Hogyan működik",
     "companyBlog": "Blog",
     "companyContribute": "Hozzájárulás",
     "companyDonate": "Adományozás",
@@ -182,5 +182,6 @@
     "signup": "Regisztráció",
     "getStarted": "Get Started!",
     "mobileApps": "Mobil alkalmazások",
-    "learnMore": "Tudj meg többet"
+    "learnMore": "Tudj meg többet",
+    "communityInstagram": "Instagram"
 }

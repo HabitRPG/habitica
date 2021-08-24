@@ -1,8 +1,10 @@
 {
-  "noItemsAvailableForType": "У вас немає <%= type %>.",
-  "foodItemType": "Їжа",
-  "eggsItemType": "Яйця",
-  "hatchingPotionsItemType": "Зілля Дозрівання",
-  "specialItemType": "Спеціальні Предмети",
-  "lockedItem": "Заблокований предмет"
+    "noItemsAvailableForType": "У вас немає <%= type %>.",
+    "foodItemType": "Їжа",
+    "eggsItemType": "Яйця",
+    "hatchingPotionsItemType": "Зілля Дозрівання",
+    "specialItemType": "Особливі предмети",
+    "lockedItem": "Заблокований предмет",
+    "petAndMount": "Улюбленець та скакун",
+    "allItems": "Усі предмети"
 }

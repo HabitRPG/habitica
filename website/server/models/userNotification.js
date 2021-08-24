@@ -67,6 +67,7 @@ const NOTIFICATION_TYPES = [
   'ACHIEVEMENT_SEASONAL_SPECIALIST',
   'ACHIEVEMENT_VIOLETS_ARE_BLUE',
   'ACHIEVEMENT_WILD_BLUE_YONDER',
+  'ACHIEVEMENT_DOMESTICATED',
   'ACHIEVEMENT', // generic achievement notification, details inside `notification.data`
   'DROP_CAP_REACHED',
 ];

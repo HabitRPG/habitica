@@ -157,7 +157,7 @@
     "alreadyHaveAccountLogin": "Já tens uma conta no Habitica? <strong>Iniciar sessão.</strong>",
     "dontHaveAccountSignup": "Não tens uma conta no Habitica? <strong>Inscrever.</strong>",
     "motivateYourself": "Motiva-te para atingir os teus objetivos.",
-    "timeToGetThingsDone": "Está na altura de te divertires enquanto completas os teus objetivos! Junta-te a mais de<%= userCountInMillions %> milhões de Habiticanos e melhora a tua vida uma tarefa de cada vez.",
+    "timeToGetThingsDone": "Está na altura de te divertires enquanto completas os teus objetivos! Junta-te a mais de <%= userCountInMillions %> milhões de Habiticanos e melhora a tua vida uma tarefa de cada vez.",
     "singUpForFree": "Inscreve-te Gratuitamente",
     "or": "OU",
     "gamifyYourLife": "Gamifique a Sua Vida",
@@ -177,11 +177,12 @@
     "muchmuchMoreDesc": "A nossa lista de tarefas completamente customizável deixa que dê forma a Habitica para melhor encaixar os seus objetivos pessoais. Trabalhe em projetos criativos, foque-se em tratar de sí ou persiga um sonho diferente - é consigo.",
     "levelUpAnywhere": "Passa de Nível em Qualquer Lugar",
     "levelUpAnywhereDesc": "As nossas aplicações tornam simples manter contra das suas tarefas no dia-a-dia. Complete os seus objetivos com um simples toque, não interessa onde esteja.",
-    "joinMany": "Junte-se aos mais de 2,000,000 de pessoas que se divertem a concretizar os seus objetivos!",
+    "joinMany": "Junte-se a mais de <%= userCountInMillions %> milhões de pessoas que se divertem a concretizar os seus objetivos!",
     "joinToday": "Junta-te ao Habitica Hoje",
     "signup": "Inscrever",
     "getStarted": "Comece!",
     "mobileApps": "Apps Móveis",
     "learnMore": "Saber Mais",
-    "minPasswordLength": "A senha deve conter 8 caracteres ou mais."
+    "minPasswordLength": "A senha deve conter 8 caracteres ou mais.",
+    "communityInstagram": "Instagram"
 }

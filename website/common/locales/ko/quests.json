@@ -74,5 +74,8 @@
     "rageStrikes": "Rage Strikes",
     "questAlreadyStarted": "퀘스트가 이미 시작되었습니다.",
     "bossDamage": "보스에게 대미지를 입혔습니다!",
-    "questInvitationNotificationInfo": "퀘스트에 초대받았습니다"
+    "questInvitationNotificationInfo": "퀘스트에 초대받았습니다",
+    "hatchingPotionQuests": "마법 부화 물약 퀘스트",
+    "selectQuest": "퀘스트 선택",
+    "yourPartyIsNotOnQuest": "파티는 퀘스트 중이 아닙니다"
 }

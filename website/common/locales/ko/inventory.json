@@ -5,5 +5,6 @@
     "hatchingPotionsItemType": "부화 물약",
     "specialItemType": "스페셜 아이템",
     "lockedItem": "잠긴아이템",
-    "allItems": "모든 아이템"
+    "allItems": "모든 아이템",
+    "petAndMount": "펫과 탑승펫"
 }
