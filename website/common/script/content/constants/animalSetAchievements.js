@@ -11,6 +11,21 @@ const ANIMAL_SET_ACHIEVEMENTS = {
     achievementKey: 'legendaryBestiary',
     notificationType: 'ACHIEVEMENT_LEGENDARY_BESTIARY',
   },
+  domesticated: {
+    type: 'pet',
+    species: [
+      'Ferret',
+      'GuineaPig',
+      'Rooster',
+      'FlyingPig',
+      'Rat',
+      'Rabbit',
+      'Horse',
+      'Cow',
+    ],
+    achievementKey: 'domesticated',
+    notificationType: 'ACHIEVEMENT_DOMESTICATED',
+  },
 };
 
 export default ANIMAL_SET_ACHIEVEMENTS;

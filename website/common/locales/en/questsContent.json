@@ -851,5 +851,12 @@
   "questStoneCollectCapricornRunes": "Capricorn Runes",
   "questStoneCollectMossyStones": "Mossy Stones",
   "questStoneDropMossyStonePotion": "Mossy Stone Hatching Potion",
-  "questStoneUnlockText": "Unlocks Mossy Stone Hatching Potions for purchase in the Market"
+  "questStoneUnlockText": "Unlocks Mossy Stone Hatching Potions for purchase in the Market",
+
+  "questSolarSystemText": "A Voyage of Cosmic Concentration",
+  "questSolarSystemNotes": "Your party is traveling through the cosmos, seeing the sights in a fantastical airship designed by talented space engineer @gawrone. Its meditationite propulsion relies on the calm of your Party to stay on course.<br><br>Up ahead in the clouds of sparkling galaxies, you spot an ominously pulsing star. “Keep your focus,” warns @beffymaroo. “If we get too distracted when we’re passing that nova, the pull between the star and our ship may veer us off course!”<br><br>As you near the star, pulses of strange energy come toward the ship.<br><br>“They’re Diversionoids, thought creatures trying to get us lost,” says @SabreCat. “If we can let them flow by without carrying us away, we should be able to stay pointed toward our goal!”",
+  "questSolarSystemCompletion": "Through careful practice, you and the crew manage to keep the Diversionoids from sweeping you overboard, just by noticing and acknowledging them without letting them take over. As you pass safely by the pulsing star, @gawrone notices a cluster of floating bottles and pulls them aboard. Each appears to contain a tiny solar system!<br><br>“Well, looks like our hard work has brought us some fine rewards!” says @beffymaroo. “Let’s see what celestial wonders might appear if we hatch pet eggs with these new potions.”",
+  "questSolarSystemBoss": "Diversionoids",
+  "questSolarSystemDropSolarSystemPotion": "Solar System Hatching Potion",
+  "questSolarSystemUnlockText": "Unlocks Solar System Hatching Potions for purchase in the Market"
 }
