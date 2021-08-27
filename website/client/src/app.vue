@@ -261,6 +261,12 @@ export default {
       this.$root.$emit('bv::show::modal', 'buy-modal');
     });
 
+    this.$root.$on('bv::modal::hidden', event => {
+      if (event.componentId === 'buy-modal') {
+        this.$root.$emit('buyModal::hidden', this.selectedItemToBuy.key);
+      }
+    });
+
     this.$root.$on('selectMembersModal::showItem', item => {
       this.selectedSpellToBuy = item;
       this.$root.$emit('bv::show::modal', 'select-member-modal');
