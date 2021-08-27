@@ -85,7 +85,7 @@
     "allocatePerPop": "Tambahkan satu poin kepada Persepsi",
     "allocateInt": "Poin yang diberikan untuk Kecerdasan:",
     "allocateIntPop": "Tambahkan satu poin kepada Kecerdasan",
-    "noMoreAllocate": "Sekarang kamu sudah mencapai level 100, kamu tidak akan mendapat poin atribut lagi. Kamu bisa terus menaikkan level, atau mulai petualangan baru dari level 1 dengan menggunakan <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a> yang sekarang bisa diambil gratis di Pasar.",
+    "noMoreAllocate": "Sekarang kamu sudah mencapai level 100, kamu tidak akan mendapat poin atribut lagi. Kamu bisa terus menaikkan level, atau mulai petualangan baru dari level 1 dengan menggunakan <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a>!",
     "stats": "Atribut",
     "achievs": "Pencapaian",
     "strength": "Kekuatan",
@@ -132,7 +132,7 @@
     "healerText": "Para Penyembuh lebih tahan terhadap luka, dan memperluas kekebalan tersebut ke teman-temannya. Melewatkan Keseharian dan Kebiasaan buruk tidak terlalu mengganggu mereka, dan mereka mempunyai berbagai cara untuk memulihkan Kesehatan akibat kegagalan. Mainkan Penyembuh jika kamu suka membantu temanmu, atau jika pemikiran untuk mengakali Kematian dengan kerja keras menginspirasimu!",
     "optOutOfClasses": "Matikan",
     "chooseClass": "Pilih Pekerjaan kamu",
-    "chooseClassLearnMarkdown": "[Belajar lebih banyak tentang sistem pekerjaan Habitica](http://habitica.fandom.com/wiki/Class_System)",
+    "chooseClassLearnMarkdown": "[Belajar lebih banyak tentang sistem kelas Habitica](https://habitica.fandom.com/wiki/Class_System)",
     "optOutOfClassesText": "Tidak peduli dengan pekerjaan? Mau memilih nanti? Tidak apa-apa - kamu akan Prajurit tanpa kemampuan khusus. Kamu bisa membaca tentang sistem pekerjaan nanti di wiki dan mengaktifkan kelas kapanpun kamu mau di Ikon Pengguna > Pengaturan.",
     "selectClass": "Pilih <%= heroClass %>",
     "select": "Pilih",
@@ -181,5 +181,10 @@
     "mainHand": "Tangan Utama",
     "offHand": "Tangan Lain",
     "statPoints": "Stat Points",
-    "pts": "poin"
+    "pts": "poin",
+    "chatCastSpellUser": "<%= username %> menggunakan <%= spell %> pada <%= target %>.",
+    "chatCastSpellParty": "<%= username %> menggunakan <%= spell %> untuk party.",
+    "notEnoughGold": "Emas tidak mencukupi.",
+    "purchasePetItemConfirm": "Pembelian ini akan melebihi sejumlah item yang kamu butuhkan untuk menetaskan <%= itemText %> peliharaan. Apa kamu yakin?",
+    "purchaseForGold": "Membeli dengan sejumlah <%= cost %> Gold?"
 }

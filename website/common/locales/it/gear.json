@@ -2413,7 +2413,7 @@
     "weaponSpecialSummer2021HealerText": "Bastone di Grano",
     "weaponSpecialSummer2021MageNotes": "Sia che le tue ambizioni magiche siano profonde ventimila leghe, sia che tu abbia intenzione di immergerti solo in acque poco profonde, questo strumento splendente ti servirà ai tuoi scopi! Aumenta l'intelligenza di <%= int %> e la percezione di <%= per %>. Edizione limitata Estate 2021.",
     "weaponSpecialSummer2021MageText": "Canna Nautiloide",
-    "headSpecialSummer2021HealerNotes": "Edizione limitata Estate 2021.",
+    "headSpecialSummer2021HealerNotes": "Prendi in prestiti le piume di un pappagallo per aiutarti nelle tue battaglie giornaliere! Aumenta INT di <%=int %>, Edizione limitata Estate 2021.",
     "armorArmoireBathtubText": "Vasca da bagno",
     "weaponArmoireBuoyantBubblesNotes": "Queste bollicine sembrano che continuano a galleggiare per sempre, in qualche modo... Aumenta la Percezione di <%= per %>. Scrigno incantato: Set di Bolle da Bagno (Articolo 3 di 4).",
     "shieldArmoireBouncyBubblesNotes": "Completa il tuo bagno rilassante con queste bolle lussuriose! Aumenta la Forza di <%= str %>. Scrigno Incantato: Set delle bolle da bagno (Articolo 4 di 4).",

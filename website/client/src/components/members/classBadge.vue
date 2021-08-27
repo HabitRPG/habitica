@@ -1,6 +1,6 @@
 <template>
   <div class="class-badge d-flex justify-content-center"
-       :style="{'--badge-size': badgeSize}">
+       :style="{'--badge-size': badgeSize + 'px'}">
     <div
       class="align-self-center svg-icon"
       :aria-label="$t(memberClass)"
@@ -24,7 +24,7 @@
   &.under-avatar {
     position: absolute;
     left: calc(50% - (16px));
-    bottom: -(var(--badge-size) / 2);
+    bottom: calc( (var(--badge-size) / 2) * -1);
     z-index: 1;
   }
 

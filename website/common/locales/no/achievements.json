@@ -6,5 +6,8 @@
     "achievementLostMasterclasser": "Quest Completionist: Masterclasser Series",
     "achievementLostMasterclasserText": "Completed all sixteen quests in the Masterclasser Quest Series and solved the mystery of the Lost Masterclasser!",
     "achievementJustAddWater": "Bare tilsett vann",
-    "achievementMindOverMatterText": "Har gjennomført dyreoppdragene Stein, Slim og Garn."
+    "achievementMindOverMatterText": "Har gjennomført dyreoppdragene Stein, Slim og Garn.",
+    "yourRewards": "Dine belønninger",
+    "yourProgress": "Din fremgang",
+    "onboardingProgress": "<%= prosentvis%>% progresjon"
 }

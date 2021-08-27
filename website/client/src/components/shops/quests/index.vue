@@ -513,6 +513,12 @@ export default {
       section: this.$t('shops'),
     });
     await this.$store.dispatch('worldState:getWorldState');
+
+    this.$root.$on('bv::modal::hidden', event => {
+      if (event.componentId === 'buy-quest-modal') {
+        this.$root.$emit('buyModal::hidden', this.selectedItemToBuy.key);
+      }
+    });
   },
   methods: {
     questItems (category, sortBy, searchBy, hideLocked, hidePinned) {

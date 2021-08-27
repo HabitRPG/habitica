@@ -30,5 +30,19 @@
     "termsAndAgreement": "การกดปุ่มนี้แสดงว่าคุณได้อ่านและตกลงตาม<a href='/static/terms'>ข้อกำหนดในการใช้บริการ</a> และ 7<a href='/static/privacy'>นโยบายความเป็นส่วนตัว</a>ของเรา",
     "marketing2Lead3Title": "ท้าทายกันและกัน",
     "marketing1Lead3Title": "หารางวัลสุ่ม",
-    "communityInstagram": "อินสตราแกรม"
+    "communityInstagram": "อินสตราแกรม",
+    "teams": "ทีม",
+    "school": "โรงเรียน",
+    "register": "ลงทะเบียน",
+    "privacy": "นโยบายความเป็นส่วนตัว",
+    "playButton": "เล่น",
+    "password": "รหัสผ่าน",
+    "mobileIOS": "iOS",
+    "getStarted": "เริ่มต้นเลย!",
+    "or": "หรือ",
+    "oldNews": "ข่าว",
+    "usernameTaken": "ชื่อผู้ใช้นี้ถูกไปใช้แล้ว",
+    "confirmPassword": "ยืนยันรหัสผ่าน",
+    "loginWithSocial": "เข้าสู่ระบบด้วย <%= social %>",
+    "marketing1Lead2Title": "ได้รับของชุดเกราะสุดเลิศ"
 }

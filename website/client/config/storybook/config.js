@@ -38,6 +38,7 @@ import Vue from 'vue';
 import BootstrapVue from 'bootstrap-vue';
 import StoreModule from '@/libs/store';
 import getStore from '@/store';
+import '../../src/filters/registerGlobals';
 
 import i18n from '../../../common/script/i18n';
 
@@ -64,6 +65,9 @@ store.state.user.data = {
     quest: {
 
     },
+  },
+  preferences: {
+
   },
 };
 

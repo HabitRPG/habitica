@@ -1776,5 +1776,10 @@
     "weaponSpecialFall2019WarriorText": "Колючий тризуб",
     "weaponSpecialFall2019RogueNotes": "Незалежно від того, диригуєте ви оркестром або співаєте арію, цей корисний пристрій не дає вам вільних рук для драматичних жестів!  Збільшує силу на <%= str  %>. Обмежена серія 2019 Осіння Шестерня.",
     "weaponSpecialFall2019RogueText": "Музичний стенд",
-    "weaponSpecialWinter2021RogueText": "Холлі ягідний мельник"
+    "weaponSpecialWinter2021RogueText": "Холлі ягідний мельник",
+    "weaponArmoireVernalTaperNotes": "Дні стають довшими, але ця свічка допоможе вам знайти дорогу до сходу сонця. Збільшує Статуру на <%= con %>. Зачарована шафа: набір весняного одягу (пункт 3 із 3).",
+    "weaponArmoireChefsSpoonText": "Ложка кухаря",
+    "weaponSpecialSummer2021WarriorText": "Водяне лезо",
+    "armorArmoireHeroicHerbalistRobeText": "Героїчний халат-травник",
+    "armorArmoireInvernessCapeNotes": "Цей міцний одяг дозволить вам шукати підказки в будь-яку погоду. Збільшує сприйняття та інтелект на <%= attrs %> кожен. Зачарована шафа: детективний комплект (предмет 2 з 4)."
 }

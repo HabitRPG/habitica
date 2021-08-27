@@ -577,6 +577,7 @@ export default {
           groupId,
           includeAllPublicFields: true,
         });
+        if (this.selectedPage === 'invites' && invites.length === 0) this.viewMembers();
         this.invites = invites;
       }
     },

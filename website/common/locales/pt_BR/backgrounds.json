@@ -26,7 +26,7 @@
     "backgroundVolcanoText": "Vulcão",
     "backgroundVolcanoNotes": "Esquente-se dentro de um Vulcão.",
     "backgrounds092014": "Conjunto 4: Lançado em Setembro de 2014",
-    "backgroundThunderstormText": "Tempestade",
+    "backgroundThunderstormText": "da Tempestade de Raios",
     "backgroundThunderstormNotes": "Conduza relâmpagos em uma Tempestade.",
     "backgroundAutumnForestText": "Floresta de Outono",
     "backgroundAutumnForestNotes": "Passeie por uma Floresta de Outono.",
@@ -476,8 +476,8 @@
     "backgroundPotionShopText": "Loja de Poções",
     "backgroundFlyingInAThunderstormNotes": "Persiga uma Tempestade Tumultuada tão perto quanto você ousa.",
     "backgroundFlyingInAThunderstormText": "Trovoada Tumultuada",
-    "backgroundFarmersMarketNotes": "Compre os alimentos mais frescos no Mercado do Fazendeiro.",
-    "backgroundFarmersMarketText": "Mercado do Fazendeiro",
+    "backgroundFarmersMarketNotes": "Escolha os alimentos mais frescos para comprar na Feira de Produtores.",
+    "backgroundFarmersMarketText": "Feira de Produtores",
     "backgrounds112019": "Conjunto 66: Lançado em Novembro de 2019",
     "backgroundHolidayMarketNotes": "Encontre presentes e decorações perfeitas em um Mercado de Férias.",
     "backgroundHolidayMarketText": "Mercado de Férias",
@@ -625,5 +625,12 @@
     "backgroundRagingRiverText": "Corredeira",
     "backgroundGhostShipNotes": "Prove que contos e lendas são verdadeiros ao colocar os pés a bordo de um Navio Fantasma.",
     "backgroundGhostShipText": "Navio Fantasma",
-    "backgrounds072021": "Conjunto 86: Lançado em Julho de 2021"
+    "backgrounds072021": "Conjunto 86: Lançado em Julho de 2021",
+    "backgroundDaytimeMistyForestNotes": "Banhe-se no brilho diurno que flui através da Floresta Nebulosa.",
+    "backgroundDaytimeMistyForestText": "Floresta Nebulosa",
+    "backgroundRopeBridgeNotes": "Mostre aos duvidosos que essa Ponte de Corda é perfeitamente segura.",
+    "backgroundRopeBridgeText": "Ponte de Corda",
+    "backgroundStoneTowerText": "Torre de Pedra",
+    "backgrounds082021": "Conjunto 87: Lançado em Agosto de 2021",
+    "backgroundStoneTowerNotes": "Contemple os parapeitos de uma Torre de Pedra para outra."
 }
