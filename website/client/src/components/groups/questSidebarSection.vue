@@ -113,11 +113,11 @@
                   <div
                     class="boss-health-bar"
                     :style="{width: bossHpPercent + '%'}"
-                  ></div>
-                  <div
-                    class="pending-health-bar"
-                    :style="{width: pendingHpPercent + '%'}"
                   >
+                    <div
+                      class="pending-health-bar"
+                      :style="{width: pendingHpInBossHpPercent + '%'}"
+                    ></div>
                   </div>
                 </div>
               </div>
@@ -291,12 +291,16 @@
     height: 0.75rem;
 
     display: inline-block;
+    position: relative;
   }
 
   .pending-health-bar {
     height: 0.75rem;
     background-color: $yellow-50;
     display: inline-block;
+
+    position: absolute;
+    right: 0;
   }
 
   .rage-details {
@@ -676,6 +680,15 @@ export default {
     },
     pendingHpPercent () {
       return percent(this.user.party.quest.progress.up, this.questData.boss.hp);
+    },
+    pendingHpInBossHpPercent () {
+      // Pending more than the current hp left, it is the full % of the pending bar
+      if (this.user.party.quest.progress.up > this.group.quest.progress.hp) {
+        return 100;
+      }
+
+      // otherwise the percent inside that hp bar is needed
+      return percent(this.user.party.quest.progress.up, this.group.quest.progress.hp);
     },
     questData () {
       if (!this.group.quest) return {};
