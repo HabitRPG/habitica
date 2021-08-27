@@ -177,9 +177,6 @@ export default {
     this.countdownString();
     this.timer = setInterval(this.countdownString, 1000);
   },
-  beforeDestroy () {
-    this.cancelAutoUpdate();
-  },
   methods: {
     stars () {
       const result = [];
@@ -232,6 +229,9 @@ export default {
     cancelAutoUpdate () {
       clearInterval(this.timer);
     },
+  },
+  beforeDestroy () {
+    this.cancelAutoUpdate();
   },
 };
 </script>

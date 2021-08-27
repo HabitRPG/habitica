@@ -28,11 +28,11 @@
               :name="member.profile.name"
               :backer="member.backer"
               :contributor="member.contributor"
-              :smaller-style="true"
+              :smallerStyle="true"
             />
             <inline-class-badge
-              v-if="member.stats"
               class="inline-class-badge"
+              v-if="member.stats"
               :member-class="member.stats.class"
             />
           </h3>
@@ -72,8 +72,8 @@
         :show-numbers="false"
       />
       <stats-bar
-        v-if="hasClass"
         class="mt-75 stats-bar"
+        v-if="hasClass"
         :icon="icons.mana"
         :value="member.stats.mp"
         :max-value="maxMP"

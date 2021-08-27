@@ -327,9 +327,6 @@ export default {
       }
     });
   },
-  beforeDestroy () {
-    this.cancelAutoUpdate();
-  },
   methods: {
     click () {
       this.$emit('click', {});
@@ -379,6 +376,9 @@ export default {
     cancelAutoUpdate () {
       clearInterval(this.timer);
     },
+  },
+  beforeDestroy () {
+    this.cancelAutoUpdate();
   },
 };
 </script>

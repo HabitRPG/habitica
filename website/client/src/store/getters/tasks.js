@@ -4,6 +4,7 @@ import { shouldDo } from '@/../../common/script/cron';
 import { orderSingleTypeTasks } from '@/libs/store/helpers/orderTasks';
 import { getActiveFilter, sortAndFilterTasks } from '@/libs/store/helpers/filterTasks';
 
+
 // Return all the tags belonging to an user task
 export function getTagsFor (store) {
   return task => store.state.user.data.tags
@@ -91,6 +92,7 @@ export function canEdit (store) {
         && Boolean(group.managers[userId]));
     const isUserChallenge = userId === (challenge
       && challenge.leader !== null && challenge.leader.id);
+
 
     switch (taskCategory) {
       case 'challenge':

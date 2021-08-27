@@ -8,10 +8,7 @@
     <div class="dialog-close">
       <close-icon @click="close()" />
     </div>
-    <h2
-      v-once
-      class="text-center textCondensed"
-    >
+    <h2 class="text-center textCondensed" v-once>
       {{ $t('participantsTitle') }}
     </h2>
     <div
@@ -113,6 +110,7 @@
       }
     }
   }
+
 
   #participant-list_modal_body {
     padding: 0;

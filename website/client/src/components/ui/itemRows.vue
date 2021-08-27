@@ -47,6 +47,7 @@ import ResizeDirective from '@/directives/resize.directive';
 import openedItemRowsMixin from '@/mixins/openedItemRows';
 import ShowMoreButton from '@/components/ui/showMoreButton';
 
+
 export default {
   components: { ShowMoreButton },
   directives: {

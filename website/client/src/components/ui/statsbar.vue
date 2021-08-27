@@ -17,10 +17,7 @@
         :style="{width: `${percent(value, maxValue)}%`}"
       ></div>
     </div>
-    <span
-      v-if="showNumbers"
-      class="small-text"
-    >
+    <span class="small-text" v-if="showNumbers">
       {{ value | statFloor }} / {{ maxValue }}
     </span>
     <b-tooltip

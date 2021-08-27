@@ -35,6 +35,7 @@ function removeLocalSetting (key) {
   return localStorage.removeItem(key);
 }
 
+
 export {
   CONSTANTS,
   getLocalSetting,

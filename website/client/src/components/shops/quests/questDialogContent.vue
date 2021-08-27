@@ -28,6 +28,7 @@
   </div>
 </template>
 
+
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
 
@@ -79,31 +80,17 @@ export default {
     UserLabel,
     QuestInfo,
   },
+  data () {
+    return {
+      leader: null,
+    };
+  },
   props: {
     item: {
       type: Object,
     },
     group: {
       type: Object,
-    },
-  },
-  data () {
-    return {
-      leader: null,
-    };
-  },
-  computed: {
-    itemText () {
-      if (this.item.text instanceof Function) {
-        return this.item.text();
-      }
-      return this.item.text;
-    },
-    itemNotes () {
-      if (this.item.notes instanceof Function) {
-        return this.item.notes();
-      }
-      return this.item.notes;
     },
   },
   async created () {
@@ -118,6 +105,20 @@ export default {
         this.leader = null;
       }
     }
+  },
+  computed: {
+    itemText () {
+      if (this.item.text instanceof Function) {
+        return this.item.text();
+      }
+      return this.item.text;
+    },
+    itemNotes () {
+      if (this.item.notes instanceof Function) {
+        return this.item.notes();
+      }
+      return this.item.notes;
+    },
   },
 };
 </script>

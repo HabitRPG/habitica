@@ -110,9 +110,6 @@ export default {
     this.countdownString();
     this.timer = setInterval(this.countdownString, 1000);
   },
-  beforeDestroy () {
-    this.cancelAutoUpdate();
-  },
   methods: {
     itemSelected (item) {
       this.$root.$emit('buyModal::showItem', item);
@@ -143,6 +140,9 @@ export default {
     cancelAutoUpdate () {
       clearInterval(this.timer);
     },
+  },
+  beforeDestroy () {
+    this.cancelAutoUpdate();
   },
 };
 </script>

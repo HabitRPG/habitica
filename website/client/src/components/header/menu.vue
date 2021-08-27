@@ -744,6 +744,7 @@ import selectUserModal from '@/components/payments/selectUserModal';
 import sync from '@/mixins/sync';
 import userDropdown from './userDropdown';
 
+
 export default {
   components: {
     creatorIntro,

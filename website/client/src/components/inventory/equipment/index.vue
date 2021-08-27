@@ -432,6 +432,7 @@ export default {
         }
       });
 
+
       each(this.gearTypesToStrings, (string, type) => {
         this.viewOptions[type].firstRender = false; // eslint-disable-line vue/no-side-effects-in-computed-properties, max-len
       });

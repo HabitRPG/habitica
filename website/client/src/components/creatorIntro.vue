@@ -826,6 +826,7 @@
       }
     }
 
+
     .text-center {
       .gem-lock, .gold-lock {
         display: inline-block;

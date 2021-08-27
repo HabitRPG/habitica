@@ -332,6 +332,7 @@ export default {
     margin-right: 12px;
     margin-bottom: 12px;
 
+
     width: calc(100% - 24px);
 
     padding-left: 0;
@@ -340,5 +341,6 @@ export default {
     max-width: unset; // disable col12 styling
     flex: unset;
   }
+
 
 </style>

@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="section"
-    :class="{'visible':visible}"
-  >
+  <div class="section" :class="{'visible':visible}">
     <div class="section-header d-flex align-items-center">
       <h3
         v-once

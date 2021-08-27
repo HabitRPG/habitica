@@ -49,6 +49,7 @@ export async function getGroup (store, payload) {
   return response.data.data;
 }
 
+
 export async function join (store, payload) {
   const { groupId } = payload;
   const { type } = payload;

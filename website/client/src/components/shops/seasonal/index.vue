@@ -222,6 +222,7 @@
     width: 50%;
     margin-bottom: 24px;
 
+
     .items {
       border-radius: 2px;
       background-color: #edecee;

@@ -6,15 +6,15 @@
     @hide="onHide()"
   >
     <div
-      v-if="currentEvent && currentEvent.promo === 'g1g1'"
       class="g1g1 d-flex flex-column text-center justify-content-center align-items-center"
+      v-if="currentEvent && currentEvent.promo === 'g1g1'"
     >
       <h1> {{ $t('g1g1') }} </h1>
       <p> {{ $t('g1g1Returning') }} </p>
     </div>
     <h2
-      v-else
       class="ml-2"
+      v-else
     >
       {{ $t('sendGift') }}
     </h2>
@@ -76,15 +76,15 @@
           <a
             class="cancel-link mx-auto mt-3"
             @click="close()"
-          >
+            >
             {{ $t('cancel') }}
           </a>
         </div>
       </div>
     </div>
     <div
-      slot="modal-footer"
       class="g1g1-fine-print text-center pt-3"
+      slot="modal-footer"
     >
       <strong>
         {{ $t ('howItWorks') }}

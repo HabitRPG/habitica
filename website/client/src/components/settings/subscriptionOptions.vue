@@ -41,6 +41,7 @@
   </div>
 </template>
 
+
 <style lang="scss">
   @import '~@/assets/scss/colors.scss';
   #subscription-form {

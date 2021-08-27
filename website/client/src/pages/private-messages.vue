@@ -316,6 +316,7 @@
     border-bottom: 1px solid $gray-500;
   }
 
+
   .conversations {
     overflow-x: hidden;
     overflow-y: auto;
@@ -461,6 +462,7 @@
       height: 40px;
       border-radius: 2px;
       margin-left: 1.5rem;
+
 
       &.disabled {
         cursor: default;

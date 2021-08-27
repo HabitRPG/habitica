@@ -139,6 +139,7 @@ import difficultyMediumIcon from '@/assets/svg/difficulty-medium.svg';
 import difficultyHardIcon from '@/assets/svg/difficulty-hard.svg';
 import selectList from '@/components/ui/selectList';
 
+
 export default {
   components: {
     selectList,

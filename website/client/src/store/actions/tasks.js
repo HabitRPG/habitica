@@ -43,6 +43,7 @@ export async function clearCompletedTodos (store) {
   store.state.tasks.data.todos = store.state.tasks.data.todos.filter(task => !task.completed);
 }
 
+
 export function order (store, [rawTasks, tasksOrder]) {
   const tasks = {
     habits: [],

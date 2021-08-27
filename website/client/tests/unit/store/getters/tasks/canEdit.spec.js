@@ -1,5 +1,6 @@
 import generateStore from '@/store';
 
+
 describe('canEdit getter', () => {
   let store;
   let group;
