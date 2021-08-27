@@ -19,7 +19,7 @@ const ANIMAL_SET_ACHIEVEMENTS = {
       'Rooster',
       'FlyingPig',
       'Rat',
-      'Rabbit',
+      'Bunny',
       'Horse',
       'Cow',
     ],
