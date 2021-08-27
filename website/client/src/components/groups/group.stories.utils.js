@@ -226,7 +226,6 @@ export const groupCollectionQuestPending = {
   id: '96ea599a-737b-47e2-ac17-8bd85b6ab62a',
 };
 
-
 export const collectionQuestLeaderParticipating = {
   leaderOnly: { challenges: false, getGems: false },
   quest: {

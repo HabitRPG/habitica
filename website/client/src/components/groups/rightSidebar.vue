@@ -25,9 +25,9 @@
           >
             <template v-slot:button-content>
               <span
+                v-once
                 class="svg-icon inline menuIcon"
                 v-html="icons.menuIcon"
-                v-once
               >
               </span>
             </template>
@@ -38,9 +38,9 @@
             >
               <span class="with-icon">
                 <span
+                  v-once
                   class="svg-icon icon-16 color"
                   v-html="icons.sparklesIcon"
-                  v-once
                 ></span>
                 <span v-once>
                   {{ $t('upgradeToGroup') }}
@@ -54,9 +54,9 @@
             >
               <span class="with-icon">
                 <span
+                  v-once
                   class="svg-icon icon-16 color"
                   v-html="icons.usersIcon"
-                  v-once
                 ></span>
                 <span v-once>
                   {{ $t(isParty ? 'inviteToParty' : 'inviteToGuild') }}
@@ -69,9 +69,9 @@
             >
               <span class="with-icon">
                 <span
+                  v-once
                   class="svg-icon icon-16 color"
                   v-html="icons.messageIcon"
-                  v-once
                 ></span>
                 <span v-once>
                   {{ $t(isParty ? 'messagePartyLeader' : 'messageGuildLeader') }}
@@ -85,9 +85,9 @@
             >
               <span class="with-icon">
                 <span
+                  v-once
                   class="svg-icon icon-16 color"
                   v-html="icons.editIcon"
-                  v-once
                 ></span>
                 <span v-once>
                   {{ isParty ? $t('editParty') : $t('editGuild') }}
@@ -101,9 +101,9 @@
             >
               <span class="with-icon">
                 <span
+                  v-once
                   class="svg-icon icon-16 color"
                   v-html="icons.leaveIcon"
-                  v-once
                 ></span>
                 <span v-once>
                   {{ isParty ? $t('leaveParty') : $t('leaveGuild') }}
@@ -149,7 +149,6 @@ import leaveIcon from '@/assets/svg/leave.svg';
 import editIcon from '@/assets/svg/edit.svg';
 import messageIcon from '@/assets/svg/message.svg';
 import usersIcon from '@/assets/svg/users.svg';
-
 
 export default {
   components: {

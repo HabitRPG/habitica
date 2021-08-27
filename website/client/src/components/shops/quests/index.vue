@@ -396,7 +396,6 @@
   }
 </style>
 
-
 <script>
 import _filter from 'lodash/filter';
 import _sortBy from 'lodash/sortBy';
@@ -425,7 +424,6 @@ import FilterSidebar from '@/components/ui/filterSidebar';
 import FilterGroup from '@/components/ui/filterGroup';
 import SelectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
 import QuestPopover from './questPopover';
-
 
 export default {
   components: {

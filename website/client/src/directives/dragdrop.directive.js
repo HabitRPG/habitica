@@ -1,7 +1,6 @@
 /*
 import {emit} from './directive.common';
 
-
 import _keys from 'lodash/keys';
 import _without from 'lodash/without';
 */

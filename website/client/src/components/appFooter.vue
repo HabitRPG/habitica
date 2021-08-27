@@ -6,12 +6,16 @@
       <div class="row">
         <div class="col-12 col-md-2">
           <h3>
-            <a href="https://itunes.apple.com/us/app/habitica/id994882113?ls=1&mt=8"
-               target="_blank">{{ $t('mobileIOS') }}</a>
+            <a
+              href="https://itunes.apple.com/us/app/habitica/id994882113?ls=1&mt=8"
+              target="_blank"
+            >{{ $t('mobileIOS') }}</a>
           </h3>
           <h3>
-            <a href="https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica"
-               target="_blank">{{ $t('mobileAndroid') }}</a>
+            <a
+              href="https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica"
+              target="_blank"
+            >{{ $t('mobileAndroid') }}</a>
           </h3>
         </div>
         <div class="col-12 col-md-2">
@@ -23,12 +27,16 @@
               </router-link>
             </li>
             <li>
-              <a href="https://habitica.wordpress.com/"
-                 target="_blank">{{ $t('companyBlog') }}</a>
+              <a
+                href="https://habitica.wordpress.com/"
+                target="_blank"
+              >{{ $t('companyBlog') }}</a>
             </li>
             <li>
-              <a href="http://blog.habitrpg.com/"
-                 target="_blank">{{ $t('tumblr') }}</a>
+              <a
+                href="http://blog.habitrpg.com/"
+                target="_blank"
+              >{{ $t('tumblr') }}</a>
             </li>
             <li>
               <router-link to="/static/faq">
@@ -36,8 +44,10 @@
               </router-link>
             </li>
             <li>
-              <a href="http://habitica.fandom.com/wiki/Whats_New"
-                 target="_blank">{{ $t('oldNews') }}</a>
+              <a
+                href="http://habitica.fandom.com/wiki/Whats_New"
+                target="_blank"
+              >{{ $t('oldNews') }}</a>
             </li>
             <!-- Commenting out merch page see https://github.com/HabitRPG/habitica/issues/12039
             <li>
@@ -62,8 +72,10 @@
           <h3>{{ $t('footerCommunity') }}</h3>
           <ul>
             <li>
-              <a target="_blank"
-                 href="/static/community-guidelines">{{ $t('communityGuidelines') }}</a>
+              <a
+                target="_blank"
+                href="/static/community-guidelines"
+              >{{ $t('communityGuidelines') }}</a>
             </li>
             <li>
               <router-link to="/hall/contributors">
@@ -76,17 +88,23 @@
               </router-link>
             </li>
             <li>
-              <a href="https://docs.google.com/forms/d/e/1FAIpQLScPhrwq_7P1C6PTrI3lbvTsvqGyTNnGzp1ugi1Ml0PFee_p5g/viewform?usp=sf_link"
-                 target="_blank">{{ $t('requestFeature') }}</a>
+              <a
+                href="https://docs.google.com/forms/d/e/1FAIpQLScPhrwq_7P1C6PTrI3lbvTsvqGyTNnGzp1ugi1Ml0PFee_p5g/viewform?usp=sf_link"
+                target="_blank"
+              >{{ $t('requestFeature') }}</a>
             </li>
             <li v-html="$t('communityExtensions')"></li>
             <li>
-              <a href="https://www.facebook.com/Habitica"
-                 target="_blank">{{ $t('communityFacebook') }}</a>
+              <a
+                href="https://www.facebook.com/Habitica"
+                target="_blank"
+              >{{ $t('communityFacebook') }}</a>
             </li>
             <li>
-              <a href="https://www.instagram.com/habitica"
-                 target="_blank">{{ $t('communityInstagram') }}</a>
+              <a
+                href="https://www.instagram.com/habitica"
+                target="_blank"
+              >{{ $t('communityInstagram') }}</a>
             </li>
           </ul>
         </div>
@@ -96,39 +114,57 @@
               <h3>{{ $t('footerDevs') }}</h3>
               <ul>
                 <li>
-                  <a href="/apidoc"
-                     target="_blank">{{ $t('APIv3') }}</a>
+                  <a
+                    href="/apidoc"
+                    target="_blank"
+                  >{{ $t('APIv3') }}</a>
                 </li>
                 <li>
-                  <a :href="getDataDisplayToolUrl"
-                     target="_blank">{{ $t('dataDisplayTool') }}</a>
+                  <a
+                    :href="getDataDisplayToolUrl"
+                    target="_blank"
+                  >{{ $t('dataDisplayTool') }}</a>
                 </li>
                 <li>
-                  <a href="http://habitica.fandom.com/wiki/Guidance_for_Blacksmiths"
-                     target="_blank">{{ $t('guidanceForBlacksmiths') }}</a>
+                  <a
+                    href="http://habitica.fandom.com/wiki/Guidance_for_Blacksmiths"
+                    target="_blank"
+                  >{{ $t('guidanceForBlacksmiths') }}</a>
                 </li>
               </ul>
             </div>
             <div class="col-6 social">
               <h3>{{ $t('footerSocial') }}</h3>
               <div class="icons">
-                <a class="social-circle"
-                   href="https://twitter.com/habitica"
-                   target="_blank">
-                  <div class="social-icon svg-icon"
-                       v-html="icons.twitter"></div>
+                <a
+                  class="social-circle"
+                  href="https://twitter.com/habitica"
+                  target="_blank"
+                >
+                  <div
+                    class="social-icon svg-icon"
+                    v-html="icons.twitter"
+                  ></div>
                 </a>
-                <a class="social-circle"
-                   href="https://www.instagram.com/habitica/"
-                   target="_blank">
-                  <div class="social-icon svg-icon instagram"
-                       v-html="icons.instagram"></div>
+                <a
+                  class="social-circle"
+                  href="https://www.instagram.com/habitica/"
+                  target="_blank"
+                >
+                  <div
+                    class="social-icon svg-icon instagram"
+                    v-html="icons.instagram"
+                  ></div>
                 </a>
-                <a class="social-circle"
-                   href="https://www.facebook.com/Habitica"
-                   target="_blank">
-                  <div class="social-icon facebook svg-icon"
-                       v-html="icons.facebook"></div>
+                <a
+                  class="social-circle"
+                  href="https://www.facebook.com/Habitica"
+                  target="_blank"
+                >
+                  <div
+                    class="social-icon facebook svg-icon"
+                    v-html="icons.facebook"
+                  ></div>
                 </a>
               </div>
             </div>
@@ -138,21 +174,31 @@
               {{ $t('donateText3') }}
             </div>
             <div class="col-12 col-md-4">
-              <button v-if="user"
-                      class="btn btn-contribute btn-front btn-flat"
-                      @click="donate()">
-                <div class="svg-icon heart"
-                     v-html="icons.heart"></div>
+              <button
+                v-if="user"
+                class="btn btn-contribute btn-front btn-flat"
+                @click="donate()"
+              >
+                <div
+                  class="svg-icon heart"
+                  v-html="icons.heart"
+                ></div>
                 <div class="text">
                   {{ $t('companyDonate') }}
                 </div>
               </button>
-              <div v-else
-                   class="btn btn-contribute btn-front btn-flat">
-                <a href="http://habitica.fandom.com/wiki/Contributing_to_Habitica"
-                   target="_blank">
-                  <div class="svg-icon heart"
-                       v-html="icons.heart"></div>
+              <div
+                v-else
+                class="btn btn-contribute btn-front btn-flat"
+              >
+                <a
+                  href="http://habitica.fandom.com/wiki/Contributing_to_Habitica"
+                  target="_blank"
+                >
+                  <div
+                    class="svg-icon heart"
+                    v-html="icons.heart"
+                  ></div>
                   <div class="text">{{ $t('companyContribute') }}</div>
                 </a>
               </div>
@@ -168,62 +214,106 @@
       <div class="row">
         <div class="col-12 col-md-5 text-center text-md-left">
           © 2021 Habitica. All rights reserved.
-          <div v-if="!IS_PRODUCTION && isUserLoaded"
-               class="debug float-left">
-            <button class="btn btn-primary"
-                    @click="debugMenuShown = !debugMenuShown">
+          <div
+            v-if="!IS_PRODUCTION && isUserLoaded"
+            class="debug float-left"
+          >
+            <button
+              class="btn btn-primary"
+              @click="debugMenuShown = !debugMenuShown"
+            >
               Toggle Debug Menu
             </button>
-            <div v-if="debugMenuShown"
-                 class="debug-group">
-              <a class="btn btn-secondary"
-                 @click="setHealthLow()">Health = 1</a>
-              <a class="btn btn-secondary"
-                 @click="addMissedDay(1)">+1 Missed Day</a>
-              <a class="btn btn-secondary"
-                 @click="addMissedDay(2)">+2 Missed Days</a>
-              <a class="btn btn-secondary"
-                 @click="addMissedDay(8)">+8 Missed Days</a>
-              <a class="btn btn-secondary"
-                 @click="addMissedDay(32)">+32 Missed Days</a>
-              <a class="btn btn-secondary"
-                 @click="addTenGems()">+10 Gems</a>
-              <a class="btn btn-secondary"
-                 @click="addHourglass()">+1 Mystic Hourglass</a>
-              <a class="btn btn-secondary"
-                 @click="addGold()">+500GP</a>
-              <a class="btn btn-secondary"
-                 @click="plusTenHealth()">+ 10HP</a>
-              <a class="btn btn-secondary"
-                 @click="addMana()">+MP</a>
-              <a class="btn btn-secondary"
-                 @click="addLevelsAndGold()">+Exp +GP +MP</a>
-              <a class="btn btn-secondary"
-                 @click="addExp()">+Exp</a>
-              <a class="btn btn-secondary"
-                 @click="addOneLevel()">+1 Level</a>
-              <a class="btn btn-secondary"
-                 tooltip="+1000 to boss quests. 300 items to collection quests"
-                 @click="addQuestProgress()">Quest Progress Up</a>
-              <a class="btn btn-secondary"
-                 @click="makeAdmin()">Make Admin</a>
-              <a class="btn btn-secondary"
-                 @click="openModifyInventoryModal()">Modify Inventory</a>
+            <div
+              v-if="debugMenuShown"
+              class="debug-group"
+            >
+              <a
+                class="btn btn-secondary"
+                @click="setHealthLow()"
+              >Health = 1</a>
+              <a
+                class="btn btn-secondary"
+                @click="addMissedDay(1)"
+              >+1 Missed Day</a>
+              <a
+                class="btn btn-secondary"
+                @click="addMissedDay(2)"
+              >+2 Missed Days</a>
+              <a
+                class="btn btn-secondary"
+                @click="addMissedDay(8)"
+              >+8 Missed Days</a>
+              <a
+                class="btn btn-secondary"
+                @click="addMissedDay(32)"
+              >+32 Missed Days</a>
+              <a
+                class="btn btn-secondary"
+                @click="addTenGems()"
+              >+10 Gems</a>
+              <a
+                class="btn btn-secondary"
+                @click="addHourglass()"
+              >+1 Mystic Hourglass</a>
+              <a
+                class="btn btn-secondary"
+                @click="addGold()"
+              >+500GP</a>
+              <a
+                class="btn btn-secondary"
+                @click="plusTenHealth()"
+              >+ 10HP</a>
+              <a
+                class="btn btn-secondary"
+                @click="addMana()"
+              >+MP</a>
+              <a
+                class="btn btn-secondary"
+                @click="addLevelsAndGold()"
+              >+Exp +GP +MP</a>
+              <a
+                class="btn btn-secondary"
+                @click="addExp()"
+              >+Exp</a>
+              <a
+                class="btn btn-secondary"
+                @click="addOneLevel()"
+              >+1 Level</a>
+              <a
+                class="btn btn-secondary"
+                tooltip="+1000 to boss quests. 300 items to collection quests"
+                @click="addQuestProgress()"
+              >Quest Progress Up</a>
+              <a
+                class="btn btn-secondary"
+                @click="makeAdmin()"
+              >Make Admin</a>
+              <a
+                class="btn btn-secondary"
+                @click="openModifyInventoryModal()"
+              >Modify Inventory</a>
             </div>
           </div>
         </div>
         <div class="col-12 col-md-2 text-center">
-          <div class="logo svg-icon"
-               v-html="icons.gryphon"></div>
+          <div
+            class="logo svg-icon"
+            v-html="icons.gryphon"
+          ></div>
         </div>
         <div class="col-12 col-md-5 text-center text-md-right my-1">
           <span class="ml-4">
-            <a target="_blank"
-               href="/static/privacy">{{ $t('privacy') }}</a>
+            <a
+              target="_blank"
+              href="/static/privacy"
+            >{{ $t('privacy') }}</a>
           </span>
           <span class="ml-4">
-            <a target="_blank"
-               href="/static/terms">{{ $t('terms') }}</a>
+            <a
+              target="_blank"
+              href="/static/terms"
+            >{{ $t('terms') }}</a>
           </span>
         </div>
       </div>

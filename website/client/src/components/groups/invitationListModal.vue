@@ -8,7 +8,10 @@
     <div class="dialog-close">
       <close-icon @click="close()" />
     </div>
-    <h2 class="text-center textCondensed" v-once>
+    <h2
+      v-once
+      class="text-center textCondensed"
+    >
       {{ $t('invitations') }}
     </h2>
     <div
@@ -24,17 +27,22 @@
         />
       </div>
       <div class="usernames">
-        <user-label :user="member" class="user-label" /> <br>
+        <user-label
+          :user="member"
+          class="user-label"
+        /> <br>
         <span class="username">
           @{{ member.auth.local.username }}
         </span>
       </div>
-      <div :class="{
-        'status': true,
-        'accepted': member.accepted === true,
-        'declined': member.accepted === false,
-        'pending': member.accepted === null
-      }">
+      <div
+        :class="{
+          'status': true,
+          'accepted': member.accepted === true,
+          'declined': member.accepted === false,
+          'pending': member.accepted === null
+        }"
+      >
         <div
           v-if="member.accepted === true"
           class="accepted float-right"
@@ -243,6 +251,7 @@ export default {
     ClassBadge,
     CloseIcon,
   },
+  props: ['group'],
   data () {
     return {
       icons: Object.freeze({
@@ -251,7 +260,6 @@ export default {
       }),
     };
   },
-  props: ['group'],
   computed: {
     ...mapGetters({
       partyMembers: 'party:members',
