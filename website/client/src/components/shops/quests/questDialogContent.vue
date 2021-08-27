@@ -28,7 +28,6 @@
   </div>
 </template>
 
-
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
 
@@ -80,11 +79,6 @@ export default {
     UserLabel,
     QuestInfo,
   },
-  data () {
-    return {
-      leader: null,
-    };
-  },
   props: {
     item: {
       type: Object,
@@ -93,18 +87,10 @@ export default {
       type: Object,
     },
   },
-  async created () {
-    if (this.group && this.group.quest && this.group.quest.active) {
-      try {
-        const fetchMemberResult = await this.$store.dispatch('members:fetchMember', {
-          memberId: this.group.quest.leader,
-        });
-
-        this.leader = fetchMemberResult;
-      } catch {
-        this.leader = null;
-      }
-    }
+  data () {
+    return {
+      leader: null,
+    };
   },
   computed: {
     itemText () {
@@ -119,6 +105,19 @@ export default {
       }
       return this.item.notes;
     },
+  },
+  async created () {
+    if (this.group && this.group.quest && this.group.quest.active) {
+      try {
+        const fetchMemberResult = await this.$store.dispatch('members:fetchMember', {
+          memberId: this.group.quest.leader,
+        });
+
+        this.leader = fetchMemberResult;
+      } catch {
+        this.leader = null;
+      }
+    }
   },
 };
 </script>

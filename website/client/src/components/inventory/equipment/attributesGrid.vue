@@ -40,7 +40,6 @@
 
   @import '~@/assets/scss/colors.scss';
 
-
   .attributes-group {
     border-radius: 4px;
     // unless we have a way to give a popover an id or class, it needs expand the attributes area

@@ -46,8 +46,8 @@
       </router-link>
     </secondary-menu>
     <div
-      class="g1g1-banner d-flex justify-content-center"
       v-if="$route.name === 'subscription' && promo === 'g1g1'"
+      class="g1g1-banner d-flex justify-content-center"
     >
       <div
         v-once
@@ -61,7 +61,9 @@
         > {{ $t('g1g1Event') }} </strong>
         <p
           class="mb-auto"
-        > {{ $t('g1g1Details') }} </p>
+        >
+          {{ $t('g1g1Details') }}
+        </p>
       </div>
       <div
         v-once
