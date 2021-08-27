@@ -320,8 +320,6 @@ export default {
   mounted () {
     this.countdownString();
     this.timer = setInterval(this.countdownString, 1000);
-  },
-  mounted () {
     this.$root.$on('buyModal::hidden', itemKey => {
       if (this.$refs && this.$refs.popover && itemKey === this.item.key) {
         this.$refs.popover.$emit('close');
