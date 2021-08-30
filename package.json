@@ -21,7 +21,7 @@
     "compression": "^1.7.4",
     "cookie-session": "^1.4.0",
     "coupon-code": "^0.4.5",
-    "csv-stringify": "^5.6.2",
+    "csv-stringify": "^5.6.4",
     "cwait": "^1.1.1",
     "domain-middleware": "~0.1.0",
     "eslint": "^6.8.0",
