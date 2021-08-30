@@ -49,7 +49,6 @@ describe('getTaskClasses getter', () => {
     expect(getTaskClasses(task, 'edit-modal-bg')).to.equal('task-better-modal-bg');
   });
 
-
   it('returns best task edit-modal-bg class', () => {
     const task = { type: 'todo', value: 12 };
     expect(getTaskClasses(task, 'edit-modal-bg')).to.equal('task-best-modal-bg');

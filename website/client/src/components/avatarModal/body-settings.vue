@@ -43,7 +43,6 @@ import gem from '@/assets/svg/gem.svg';
 const freeShirtKeys = Object.keys(appearance.shirt).filter(k => appearance.shirt[k].price === 0);
 const specialShirtKeys = Object.keys(appearance.shirt).filter(k => appearance.shirt[k].price !== 0);
 
-
 export default {
   components: {
     subMenu,

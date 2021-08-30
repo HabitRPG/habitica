@@ -32,7 +32,7 @@
       <div class="row">
         <div
           v-if="!loading &&
-          this.filteredChallenges.length === 0"
+            this.filteredChallenges.length === 0"
           class="no-challenges text-center col-md-6 offset-3"
         >
           <h2 v-once>
@@ -123,7 +123,6 @@ import challengeModal from './challengeModal';
 import challengeUtilities from '@/mixins/challengeUtilities';
 
 import positiveIcon from '@/assets/svg/positive.svg';
-
 
 export default {
   components: {

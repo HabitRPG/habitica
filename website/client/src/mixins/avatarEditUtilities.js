@@ -5,9 +5,7 @@ import get from 'lodash/get';
 import unlock from '@/../../common/script/ops/unlock';
 import buy from '@/../../common/script/ops/buy/buy';
 
-
 import appearanceSets from '@/../../common/script/content/appearance/sets';
-
 
 import { userStateMixin } from './userState';
 

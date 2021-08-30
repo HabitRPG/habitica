@@ -41,7 +41,6 @@ import subMenu from './sub-menu';
 import customizeOptions from './customize-options';
 import gem from '@/assets/svg/gem.svg';
 
-
 const skinsBySet = groupBy(appearance.skin, 'set.key');
 
 const freeSkinKeys = skinsBySet[undefined].map(s => s.key);

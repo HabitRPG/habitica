@@ -111,7 +111,6 @@
     height: 38px; // button + margin + padding
   }
 
-
   .icon-48 {
     width: 48px;
     height: 48px;
@@ -145,7 +144,6 @@
     top: -.5em;
   }
 </style>
-
 
 <script>
 import _filter from 'lodash/filter';

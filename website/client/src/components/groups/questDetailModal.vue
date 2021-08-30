@@ -13,7 +13,10 @@
     <h2 class="text-center textCondensed">
       {{ selectMode ? $t('selectQuest') : $t('questDetailsTitle') }}
     </h2>
-    <div class="quest-panel" v-if="selectMode">
+    <div
+      v-if="selectMode"
+      class="quest-panel"
+    >
       <div class="quest-panel-header">
         <h3>
           {{ $t('yourQuests') }}
@@ -77,13 +80,19 @@
       </div>
     </div>
     <div v-else>
-      <div v-if="questData" class="quest-combined-content">
+      <div
+        v-if="questData"
+        class="quest-combined-content"
+      >
         <questDialogContent
           :item="questData"
           :group="group"
           class="quest-detail"
         />
-        <quest-rewards :quest="questData" class="mt-4" />
+        <quest-rewards
+          :quest="questData"
+          class="mt-4"
+        />
       </div>
       <div
         v-if="!groupHasQuest"
