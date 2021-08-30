@@ -250,7 +250,7 @@
     "silverTier": "白銀層級",
     "bronzeTier": "青銅層級",
     "privacySettings": "隱私設定",
-    "onlyLeaderCreatesChallenges": "只有會長可以建立挑戰",
+    "onlyLeaderCreatesChallenges": "只有會長或隊長可以建立挑戰",
     "onlyLeaderCreatesChallengesDetail": "選擇此選項後，群組中的普通成員將無法為群組建立挑戰。",
     "privateGuild": "私人公會",
     "charactersRemaining": "剩餘<%= characters %>個字符",

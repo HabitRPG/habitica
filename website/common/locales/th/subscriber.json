@@ -9,7 +9,7 @@
     "mysteryItem": "ไอเทมพิเศษรายเดือนมากมาย",
     "mysteryItemText": "ทุกๆ เดือน คุณจะได้รับอุปกรณ์ตกแต่งพิเศษสำหรับตัวละครของคุณ! นอกจากนั้นแล้ว คุณจะยังได้สิทธิในการเข้าซื้ออุปกรณ์ตกแต่งจากเดือนในอดีต (หรืออนาคต!) จากนักเดินทางข้ามเวลาปริศนา ต่อการลงทะเบียนอย่างต่อเนื่องทุกๆ สามเดือนอีกด้วย",
     "exclusiveJackalopePet": "Exclusive pet",
-    "giftSubscription": "Want to gift a subscription to someone?",
+    "giftSubscription": "ต้องการให้ผลประโยชน์จากการลงทะเบียนกับใครบางคน?",
     "giftSubscriptionText4": "Thanks for supporting Habitica!",
     "groupPlans": "Group Plans",
     "subscribe": "ลงทะเบียน",
@@ -18,7 +18,7 @@
     "cancelSubInfoGroupPlan": "Because you have a free subscription from a Group Plan, you cannot cancel it. It will end when you are no longer in the Group. If you are the Group leader and want to cancel the entire Group Plan, you can do that from the group's \"Payment Details\" tab.",
     "cancelingSubscription": "กำลังยกเลิกการลงทะเบียน",
     "contactUs": "ติดต่อเรา",
-    "checkout": "Checkout",
+    "checkout": "ลงชื่อออก",
     "sureCancelSub": "คุณแน่ใจหรือว่าต้องการจะยกเลิกการลงทะเบียน?",
     "subGemPop": "Because you subscribe to Habitica, you can purchase a number of Gems each month using Gold.",
     "subGemName": "Subscriber Gems",
@@ -132,5 +132,8 @@
     "subscriptionBenefit6": "Earn Mystic Hourglasses for use in the Time Travelers' Shop!",
     "purchaseAll": "Purchase Set",
     "gemsRemaining": "gems remaining",
-    "notEnoughGemsToBuy": "You are unable to buy that amount of gems"
+    "notEnoughGemsToBuy": "You are unable to buy that amount of gems",
+    "giftASubscription": "ให้การลงทะเบียนเป็นของขวัญ",
+    "viewSubscriptions": "ดูรายการลงทะเบียน",
+    "organization": "องค์กร"
 }

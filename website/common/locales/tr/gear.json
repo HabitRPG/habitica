@@ -1751,5 +1751,14 @@
     "weaponSpecialSpring2019MageNotes": "Asanın ucundaki taşa gömülü bir sivrisinek mevcut! Dinozor DNA'sı içerebilir, belki de içermez. Zekayı <%= int %>, Sezgiyi <%= per %> artırır. Sınırlı sürüm 2019 İlkbahar Ekipmanı.",
     "weaponSpecialSpring2019MageText": "Amber Asa",
     "weaponSpecialSpring2019WarriorNotes": "Kötü alışkanlıklar bu kılıcın önünde diz çöküyor. Gücü <%= str %> artırır. Sınırlı Sürüm 2019 İlkbahar Ekipmanı.",
-    "weaponSpecialSpring2019RogueText": "Şimşek"
+    "weaponSpecialSpring2019RogueText": "Şimşek",
+    "weaponSpecialKS2019Text": "Efsanevi Grifon Kılıç",
+    "weaponSpecialSpring2019WarriorText": "Kök Kılıcı",
+    "weaponSpecialSpring2019RogueNotes": "Bu silahlar göğün ve yağmurun gücüne sahiptir. Suya batırılmış halde kullanmamanızı tavsiye ederiz. Gücü <%= str %> artırır. Sınırlı Sürüm 2019 İlkbahar Ekipmanı. ",
+    "weaponSpecialSummer2019MageText": "Parlak Çiçek",
+    "weaponSpecialSummer2019WarriorNotes": "Şimdi fraktallarla savaşıyorsun! <%= str %> arttırır. Sınırlı Sürüm 2019 Yaz Ekipmanı.",
+    "weaponSpecialSummer2019WarriorText": "Kırmızı Mercan",
+    "weaponSpecialSummer2019RogueNotes": "Bu antik ve güçlü silah deniz altındaki her savaşı kazanmanıza yardım edecek. Gücü <%= str %> arttırır. Sınırlı Sürüm 2019 Yaz Ekipmanı.",
+    "weaponSpecialSummer2019RogueText": "Antika Çapa",
+    "weaponSpecialSpring2019HealerText": "İlkbahar Şarkısı"
 }
