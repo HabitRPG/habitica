@@ -305,11 +305,11 @@ export default function unlock (user, req = {}, analytics) {
     user.balance -= cost;
 
     if (analytics) {
-      analytics.track('acquire item', {
+      analytics.track('buy', {
         uuid: user._id,
         itemKey: path,
         itemType: 'customization',
-        acquireMethod: 'Gems',
+        currency: 'Gems',
         gemCost: cost / 0.25,
         category: 'behavior',
         headers: req.headers,

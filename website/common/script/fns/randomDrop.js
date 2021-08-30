@@ -5,7 +5,6 @@ import reduce from 'lodash/reduce';
 import filter from 'lodash/filter';
 import pickBy from 'lodash/pickBy';
 import size from 'lodash/size';
-import moment from 'moment';
 import content from '../content/index';
 import i18n from '../i18n';
 import { daysSince } from '../cron';
@@ -156,43 +155,10 @@ export default function randomDrop (user, options, req = {}, analytics) {
     user.items.lastDrop.date = Number(new Date());
     user.items.lastDrop.count += 1;
 
-    const dropN = user.items.lastDrop.count;
-    const dropCapReached = dropN === maxDropCount;
-    const isEnrolledInDropCapTest = user._ABtests.dropCapNotif
-      && user._ABtests.dropCapNotif !== 'drop-cap-notif-not-enrolled';
-    const hasActiveDropCapNotif = isEnrolledInDropCapTest
-      && user._ABtests.dropCapNotif === 'drop-cap-notif-enabled';
-
-    // Unsubscribed users get a notification when they reach the drop cap
-    // One per day
-    if (
-      hasActiveDropCapNotif && dropCapReached
-      && user.addNotification
-      && user.isSubscribed && !user.isSubscribed()
-    ) {
-      const prevNotifIndex = user.notifications.findIndex(n => n.type === 'DROP_CAP_REACHED');
-      if (prevNotifIndex !== -1) user.notifications.splice(prevNotifIndex, 1);
-
-      user.addNotification('DROP_CAP_REACHED', {
-        message: i18n.t('dropCapReached', req.language),
-        items: dropN,
-      });
-    }
-
-    if (isEnrolledInDropCapTest && dropCapReached) {
-      analytics.track('drop cap reached', {
-        uuid: user._id,
-        dropCap: maxDropCount,
-        category: 'behavior',
-        headers: req.headers,
-      });
-    }
-
-    if (analytics && moment().diff(user.auth.timestamps.created, 'days') < 7) {
+    if (analytics) {
       analytics.track('dropped item', {
         uuid: user._id,
         itemKey: drop.key,
-        acquireMethod: 'Drop',
         category: 'behavior',
         headers: req.headers,
       });

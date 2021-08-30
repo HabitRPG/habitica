@@ -246,7 +246,6 @@
 </style>
 
 <script>
-import * as Analytics from '@/libs/analytics';
 import { setup as setupPayments } from '@/libs/payments';
 import amazonPaymentsModal from '@/components/payments/amazonModal';
 import AuthForm from '../auth/authForm.vue';
@@ -280,24 +279,10 @@ export default {
   },
   methods: {
     goToNewGroupPage () {
-      Analytics.track({
-        hitType: 'event',
-        eventCategory: 'group-plans-static',
-        eventAction: 'view',
-        eventLabel: 'view-auth-form',
-      });
-
       this.$root.$emit('bv::show::modal', 'group-plan');
     },
     authenticate () {
       this.modalPage = 'purchaseGroup';
-
-      Analytics.track({
-        hitType: 'event',
-        eventCategory: 'group-plans-static',
-        eventAction: 'view',
-        eventLabel: 'create-group',
-      });
     },
   },
 };

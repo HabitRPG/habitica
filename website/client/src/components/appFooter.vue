@@ -466,7 +466,6 @@ footer {
 import axios from 'axios';
 import moment from 'moment';
 import { mapState } from '@/libs/store';
-import * as Analytics from '@/libs/analytics';
 import gryphon from '@/assets/svg/gryphon.svg';
 import twitter from '@/assets/svg/twitter.svg';
 import facebook from '@/assets/svg/facebook.svg';
@@ -580,12 +579,6 @@ export default {
       this.$root.$emit('bv::show::modal', 'modify-inventory');
     },
     donate () {
-      Analytics.track({
-        hitType: 'event',
-        eventCategory: 'button',
-        eventAction: 'click',
-        eventLabel: 'Gems > Donate',
-      });
       this.$root.$emit('bv::show::modal', 'buy-gems', { alreadyTracked: true });
     },
   },

@@ -260,6 +260,7 @@ function _sendPurchaseDataToAmplitude (data) {
 
   amplitudeData.event_type = 'purchase';
   amplitudeData.revenue = data.purchaseValue;
+  amplitudeData.productId = data.itemPurchased;
 
   if (LOG_AMPLITUDE_EVENTS) {
     logger.info('Amplitude Purchase Event', amplitudeData);

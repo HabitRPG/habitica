@@ -105,7 +105,7 @@ export class AbstractBuyOperation {
   }
 
   analyticsLabel () { // eslint-disable-line class-methods-use-this
-    return 'acquire item';
+    return 'buy';
   }
 
   sendToAnalytics (additionalData = {}) {
@@ -151,7 +151,7 @@ export class AbstractGoldItemOperation extends AbstractBuyOperation {
     return {
       itemKey: this.getItemKey(this.item),
       itemType: this.getItemType(this.item),
-      acquireMethod: 'Gold',
+      currency: 'Gold',
       goldCost: this.getItemValue(this.item),
     };
   }
@@ -181,7 +181,7 @@ export class AbstractGemItemOperation extends AbstractBuyOperation {
     return {
       itemKey: this.getItemKey(this.item),
       itemType: this.getItemType(this.item),
-      acquireMethod: 'Gems',
+      currency: 'Gems',
       gemCost: this.getItemValue(this.item) * 4,
     };
   }
@@ -203,7 +203,7 @@ export class AbstractHourglassItemOperation extends AbstractBuyOperation {
   analyticsData () {
     return {
       itemKey: this.item.key,
-      acquireMethod: 'Hourglass',
+      currency: 'Hourglass',
     };
   }
 }

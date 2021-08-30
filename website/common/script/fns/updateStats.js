@@ -7,7 +7,7 @@ import {
 import { toNextLevel } from '../statHelpers';
 import autoAllocate from './autoAllocate';
 
-export default function updateStats (user, stats, req = {}, analytics) {
+export default function updateStats (user, stats) {
   let allocatedStatPoints;
   let totalStatPoints;
   let experienceToNextLevel;
@@ -88,15 +88,6 @@ export default function updateStats (user, stats, req = {}, analytics) {
       };
       if (user.markModified) user.markModified('items.quests');
 
-      if (analytics) {
-        analytics.track('acquire item', {
-          uuid: user._id,
-          itemKey: k,
-          acquireMethod: 'Level Drop',
-          category: 'behavior',
-          headers: req.headers,
-        });
-      }
       user._tmp.drop = {
         type: 'Quest',
         key: k,

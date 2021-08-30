@@ -4,7 +4,6 @@
     title="Empty"
     size="lg"
     hide-footer="hide-footer"
-    @shown="shown()"
   >
     <div
       slot="modal-header"
@@ -342,7 +341,6 @@
 </style>
 
 <script>
-import * as Analytics from '@/libs/analytics';
 import { mapState } from '@/libs/store';
 
 import upIcon from '@/assets/svg/up.svg';
@@ -368,14 +366,6 @@ export default {
     ...mapState({ user: 'user.data' }),
   },
   methods: {
-    shown () {
-      Analytics.track({
-        hitType: 'event',
-        eventCategory: 'button',
-        eventAction: 'click',
-        eventLabel: 'viewed-group-plan-overview',
-      });
-    },
     toggle (question) {
       this.expandedQuestions[question] = !this.expandedQuestions[question];
     },

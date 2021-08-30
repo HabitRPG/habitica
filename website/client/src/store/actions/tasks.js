@@ -3,6 +3,8 @@ import Vue from 'vue';
 import compact from 'lodash/compact';
 import omit from 'lodash/omit';
 import { loadAsyncResource } from '@/libs/asyncResource';
+import * as Analytics from '@/libs/analytics';
+import { CONSTANTS, getLocalSetting, setLocalSetting } from '@/libs/userlocalManager';
 
 export function fetchUserTasks (store, options = {}) {
   return loadAsyncResource({
@@ -107,6 +109,21 @@ export async function create (store, createdTask) {
     const taskDataIndex = tasksArr.findIndex(t => t._id === taskRes._id);
     if (taskDataIndex !== -1) {
       Vue.set(tasksArr, taskDataIndex, { ...tasksArr[taskDataIndex], ...taskRes });
+    }
+    const tasksCreatedCount = getLocalSetting(CONSTANTS.keyConstants.TASKS_CREATED_COUNT);
+    if (!tasksCreatedCount || tasksCreatedCount < 2) {
+      const uuid = store.state.user.data._id;
+      Analytics.track('task created', {
+        uuid,
+        hitType: 'event',
+        category: 'behavior',
+        taskType: taskRes.type,
+      });
+      if (!tasksCreatedCount) {
+        setLocalSetting(CONSTANTS.keyConstants.TASKS_CREATED_COUNT, 1);
+      } else {
+        setLocalSetting(CONSTANTS.keyConstants.TASKS_CREATED_COUNT, tasksCreatedCount + 1);
+      }
     }
   });
 }

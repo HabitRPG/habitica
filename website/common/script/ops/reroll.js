@@ -23,7 +23,7 @@ export default function reroll (user, tasks = [], req = {}, analytics) {
   if (analytics) {
     analytics.track('Fortify Potion', {
       uuid: user._id,
-      acquireMethod: 'Gems',
+      currency: 'Gems',
       gemCost: 4,
       category: 'behavior',
       headers: req.headers,

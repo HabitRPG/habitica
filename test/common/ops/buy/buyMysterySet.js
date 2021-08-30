@@ -88,14 +88,6 @@ describe('shared.ops.buyMysterySet', () => {
         expect(user.items.gear.owned).to.have.property('armor_mystery_301404', true);
         expect(user.items.gear.owned).to.have.property('head_mystery_301404', true);
         expect(user.items.gear.owned).to.have.property('eyewear_mystery_301404', true);
-        expect(analytics.track).to.be.calledOnce;
-        expect(analytics.track).to.be.calledWithMatch('acquire item', {
-          uuid: user._id,
-          itemKey: '301404',
-          itemType: 'Subscriber Gear',
-          acquireMethod: 'Hourglass',
-          category: 'behavior',
-        });
       });
     });
   });
