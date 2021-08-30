@@ -5,6 +5,7 @@ import reduce from 'lodash/reduce';
 import filter from 'lodash/filter';
 import pickBy from 'lodash/pickBy';
 import size from 'lodash/size';
+import moment from 'moment';
 import content from '../content/index';
 import i18n from '../i18n';
 import { daysSince } from '../cron';
@@ -155,7 +156,7 @@ export default function randomDrop (user, options, req = {}, analytics) {
     user.items.lastDrop.date = Number(new Date());
     user.items.lastDrop.count += 1;
 
-    if (analytics) {
+    if (analytics && moment().diff(user.auth.timestamps.created, 'days') < 7) {
       analytics.track('dropped item', {
         uuid: user._id,
         itemKey: drop.key,
