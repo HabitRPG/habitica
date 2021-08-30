@@ -438,15 +438,6 @@ async function scoreTask (user, task, direction, req, res) {
     user,
   });
 
-  res.analytics.track('task score', {
-    uuid: user._id,
-    hitType: 'event',
-    category: 'behavior',
-    taskType: task.type,
-    direction,
-    headers: req.headers,
-  });
-
   return {
     task,
     delta,

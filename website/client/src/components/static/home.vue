@@ -816,7 +816,6 @@ import kickstarter from '@/assets/images/home/kickstarter.svg';
 import lifehacker from '@/assets/images/home/lifehacker.svg';
 import makeuseof from '@/assets/images/home/make-use-of.svg';
 import thenewyorktimes from '@/assets/images/home/the-new-york-times.svg';
-import * as Analytics from '@/libs/analytics';
 import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
 
 export default {
@@ -944,12 +943,6 @@ export default {
       window.location.href = this.$route.query.redirectTo || '/';
     },
     playButtonClick () {
-      Analytics.track({
-        hitType: 'event',
-        eventCategory: 'button',
-        eventAction: 'click',
-        eventLabel: 'Play',
-      });
       this.$router.push('/register');
     },
     // @TODO: Abstract hello in to action or lib

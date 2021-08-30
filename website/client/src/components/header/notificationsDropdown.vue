@@ -146,7 +146,6 @@ import ACHIEVEMENT_MIND_OVER_MATTER from './notifications/mindOverMatter';
 import ONBOARDING_COMPLETE from './notifications/onboardingComplete';
 import GIFT_ONE_GET_ONE from './notifications/g1g1';
 import OnboardingGuide from './onboardingGuide';
-import DROP_CAP_REACHED from './notifications/dropCapReached';
 
 export default {
   components: {
@@ -176,7 +175,6 @@ export default {
     OnboardingGuide,
     ONBOARDING_COMPLETE,
     GIFT_ONE_GET_ONE,
-    DROP_CAP_REACHED,
   },
   data () {
     return {
@@ -202,7 +200,7 @@ export default {
         'GROUP_TASK_CLAIMED', 'NEW_MYSTERY_ITEMS', 'CARD_RECEIVED',
         'NEW_INBOX_MESSAGE', 'NEW_CHAT_MESSAGE', 'UNALLOCATED_STATS_POINTS',
         'ACHIEVEMENT_JUST_ADD_WATER', 'ACHIEVEMENT_LOST_MASTERCLASSER', 'ACHIEVEMENT_MIND_OVER_MATTER',
-        'VERIFY_USERNAME', 'ONBOARDING_COMPLETE', 'DROP_CAP_REACHED',
+        'VERIFY_USERNAME', 'ONBOARDING_COMPLETE',
       ],
     };
   },

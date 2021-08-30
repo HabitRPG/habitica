@@ -72,11 +72,10 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation { // eslint-d
 
   _trackDropAnalytics (userId, key) {
     this.analytics.track(
-      'dropped item',
+      'Enchanted Armoire',
       {
         uuid: userId,
         itemKey: key,
-        acquireMethod: 'Armoire',
         category: 'behavior',
         headers: this.req.headers,
       },

@@ -6,6 +6,8 @@ const CONSTANTS = {
     CURRENT_EQUIPMENT_DRAWER_TAB: 'current-equipment-drawer-tab',
     STABLE_SORT_STATE: 'stable-sort-state',
     ONBOARDING_PANEL_STATE: 'onboarding-panel-state',
+    TASKS_CREATED_COUNT: 'tasks-created-count',
+    TASKS_SCORED_COUNT: 'tasks-scored-count',
   },
   drawerStateValues: {
     DRAWER_CLOSED: 'drawer-closed',

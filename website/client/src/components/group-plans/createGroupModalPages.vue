@@ -133,7 +133,6 @@
 </style>
 
 <script>
-import * as Analytics from '@/libs/analytics';
 import { mapState } from '@/libs/store';
 import paymentsMixin from '../../mixins/payments';
 import paymentsButtons from '@/components/payments/buttons/list';
@@ -174,12 +173,6 @@ export default {
   },
   methods: {
     changePage (page) {
-      Analytics.track({
-        hitType: 'event',
-        eventCategory: 'group-plans-static',
-        eventAction: 'view',
-        eventLabel: page,
-      });
       this.activePage = page;
       window.scrollTo(0, 0);
     },

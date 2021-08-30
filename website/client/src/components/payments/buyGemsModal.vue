@@ -363,7 +363,6 @@
 
 <script>
 import moment from 'moment';
-import * as Analytics from '@/libs/analytics';
 import { mapState } from '@/libs/store';
 import markdown from '@/directives/markdown';
 import paymentsMixin from '@/mixins/payments';
@@ -449,22 +448,11 @@ export default {
   async mounted () {
     await this.$store.dispatch('worldState:getWorldState');
 
-    this.$root.$on('bv::show::modal', (modalId, data = {}) => {
+    this.$root.$on('bv::show::modal', modalId => {
       if (modalId === 'buy-gems') {
         // We force reloading the world state every time the modal is reopened
         // To make sure the promo status is always up to date
         this.$store.dispatch('worldState:getWorldState', { forceLoad: true });
-
-        // Track opening of gems modal unless it's been already tracked
-        // For example the gems button in the menu already tracks the event by itself
-        if (data.alreadyTracked !== true) {
-          Analytics.track({
-            hitType: 'event',
-            eventCategory: 'button',
-            eventAction: 'click',
-            eventLabel: 'Gems > Wallet',
-          });
-        }
       }
     });
   },
