@@ -72,7 +72,7 @@
     "toRequired": "Musíš zadat hodnotu vlastnictví",
     "startDate": "Datum začátku",
     "streaks": "Ocenění za série úspěšnosti",
-    "streakName": "<%= count %>ocenění za sérii úspěšnosti",
+    "streakName": "<%= count %> ocenění za sérii úspěšnosti",
     "streakText": "Získal  <%= count %> ocenění za splnění 21-denní série plnění každodenních úkolů",
     "streakSingular": "Sériář",
     "streakSingularText": "Právě završil 21 dní dlouhou sérii úspěšnosti na denním úkolu",

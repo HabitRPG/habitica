@@ -1,10 +1,10 @@
 {
-    "noItemsAvailableForType": "You have no <%= type %>.",
+    "noItemsAvailableForType": "คุณไม่มี  <%= type %>.",
     "foodItemType": "อาหารสัตว์",
-    "eggsItemType": "Eggs",
-    "hatchingPotionsItemType": "Hatching Potions",
-    "specialItemType": "Special items",
-    "lockedItem": "Locked Item",
+    "eggsItemType": "ไข่",
+    "hatchingPotionsItemType": "นำ้ยาฟักไข่",
+    "specialItemType": "ไอเทมพิเศษ",
+    "lockedItem": "ไอเทมที่ถูกกล็อกอยู่",
     "allItems": "ไอเทมทั้งหมด",
     "petAndMount": "สัตว์เลี้ยง และสัตว์พาหนะ"
 }

@@ -135,5 +135,8 @@
     "addTags": "Adicionar etiquetas...",
     "sureDeleteType": "Você tem certeza que deseja deletar este(a) <%= type %>?",
     "deleteTaskType": "Delete este(a) <%= type %>",
-    "tomorrow": "Amanhã"
+    "tomorrow": "Amanhã",
+    "resetCounter": "Resetar Contador",
+    "adjustCounter": "Ajustar Contador",
+    "counter": "Contador"
 }

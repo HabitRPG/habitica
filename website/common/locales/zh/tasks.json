@@ -2,7 +2,7 @@
     "clearCompleted": "清除已完成任务",
     "clearCompletedDescription": "已完成的待办事项将为普通用户保留30天，为订阅用户保留90天后从系统中删除。",
     "clearCompletedConfirm": "你确定要删除已经完成的待办事项吗？",
-    "addMultipleTip": "<strong>提示：</strong>要添加多个<%= taskType %>，请使用换行符（Shift + Enter）分隔每个任务，然後按“Enter”键",
+    "addMultipleTip": "<strong>提示：</strong>要添加多个<%= taskType %>，请使用换行符（Shift + Enter）分隔每个任务，然后按“Enter”键",
     "addATask": "新增一个<%= type %>",
     "editATask": "编辑<%= type %>",
     "createTask": "创建一个<%= type %>",
@@ -34,7 +34,7 @@
     "hard": "困难",
     "attributes": "属性",
     "progress": "进度",
-    "daily": "每日任务",
+    "daily": "每日",
     "dailies": "每日任务",
     "dailysDesc": "每日任务可以定期重复。请选择最适合您的日程表！",
     "streakCounter": "连击记录",
@@ -135,5 +135,8 @@
     "pressEnterToAddTag": "按“Enter”添加标签：'<%= tagName %>'",
     "enterTag": "输入标签",
     "addTags": "添加标签...",
-    "tomorrow": "明天"
+    "tomorrow": "明天",
+    "resetCounter": "重置次数",
+    "counter": "次数",
+    "adjustCounter": "调整次数"
 }
