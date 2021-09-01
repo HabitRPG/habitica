@@ -61,11 +61,14 @@ const api = {};
  * @apiParam (Body) {String="str","int","per","con"} [attribute] User's attribute to use,
  *                                                               options are: "str", "int",
  *                                                               "per", "con"
+ * @apiParam (Body) {Array} [checklist] An array of checklist items. For example,
+ *                                      [{"text":"buy tools", "completed":true},
+ *                                       {"text":"build shed", "completed":false}]
  * @apiParam (Body) {Boolean} [collapseChecklist=false] Determines if a checklist will be displayed
  * @apiParam (Body) {String} [notes] Extra notes
  * @apiParam (Body) {Date} [date] Due date to be shown in task list. Only valid for type "todo."
  * @apiParam (Body) {Number="0.1","1","1.5","2"} [priority=1] Difficulty, options are 0.1, 1,
- *                                                            1.5, 2; eqivalent of Trivial,
+ *                                                            1.5, 2; equivalent of Trivial,
  *                                                            Easy, Medium, Hard.
  * @apiParam (Body) {String[]} [reminders] Array of reminders, each an object that must
  *                                         include: a UUID, startDate and time.
@@ -110,6 +113,7 @@ const api = {};
  *       "alias":"hab-api-tasks",
  *       "notes":"Update the tasks api on GitHub",
  *       "tags":["ed427623-9a69-4aac-9852-13deb9c190c3"],
+ *       "checklist":[{"text":"read wiki","completed":true},{"text":"write code"}],
  *       "priority":2
  *     }
  *
@@ -150,7 +154,16 @@ const api = {};
  *         "createdAt": "2017-01-12T02:11:02.876Z",
  *         "updatedAt": "2017-01-12T02:11:02.876Z",
  *         "checklist": [
- *
+ *            {
+ *              "completed": true,
+ *              "text": "read wiki",
+ *              "id": "91edadda-fb62-4e6e-b110-aff26f936678"
+ *            },
+ *            {
+ *              "completed": false,
+ *              "text": "write code",
+ *              "id": "d1ddad50-ab22-49c4-8261-9996ae337b6a"
+ *            }
  *         ],
  *         "collapseChecklist": false,
  *         "completed": false,
@@ -226,7 +239,7 @@ api.createUserTasks = {
  * @apiParam (Body) {String} [notes] Extra notes
  * @apiParam (Body) {Date} [date] Due date to be shown in task list. Only valid for type "todo."
  * @apiParam (Body) {Number="0.1","1","1.5","2"} [priority=1] Difficulty, options are 0.1, 1,
- *                                                            1.5, 2; eqivalent of Trivial,
+ *                                                            1.5, 2; equivalent of Trivial,
  *                                                            Easy, Medium, Hard.
  * @apiParam (Body) {String[]} [reminders] Array of reminders, each an object that must
  *                                         include: a UUID, startDate and time.
@@ -540,7 +553,7 @@ api.getTask = {
  * @apiParam (Body) {String} [notes] Extra notes
  * @apiParam (Body) {Date} [date] Due date to be shown in task list. Only valid for type "todo."
  * @apiParam (Body) {Number="0.1","1","1.5","2"} [priority=1] Difficulty, options are 0.1, 1,
- *                                                            1.5, 2; eqivalent of Trivial,
+ *                                                            1.5, 2; equivalent of Trivial,
  *                                                            Easy, Medium, Hard.
  * @apiParam (Body) {String[]} [reminders] Array of reminders, each an object that must include:
  *                                         a UUID, startDate and time.
@@ -861,6 +874,7 @@ api.moveTask = {
  * @apiParam (Path) {String} taskId The task _id or alias
  *
  * @apiParam (Body) {String} text The text of the checklist item
+ * @apiParam (Body) {Boolean} [completed=false] Whether the checklist item is checked off.
  *
  * @apiParamExample {json} Example body data:
  * {"text":"Do this subtask"}
@@ -976,10 +990,11 @@ api.scoreCheckListItem = {
  * @apiParam (Path) {String} taskId The task _id or alias
  * @apiParam (Path) {UUID} itemId The checklist item _id
  *
- * @apiParam (body) {String} text The text that will replace the current checkitem text.
+ * @apiParam (Body) {String} text The replacement text for the current checklist item.
+ * @apiParam (Body) {Boolean} [completed=false] Whether the checklist item is checked off.
  *
  * @apiParamExample {json} Example body:
- * {"text":"Czech 1"}
+ * {"text":"learn Czech", "completed":true}
  *
  * @apiSuccess {Object} data The updated task
  *
