@@ -81,6 +81,7 @@
         v-for="drop in getDropsList(quest.drop.items, false)"
         :key="drop.type+'_'+drop.key"
         :item="{}"
+        class="item-with-label"
       >
         <countBadge
           slot="badges"
@@ -223,5 +224,14 @@ export default {
     justify-content: center;
 
     padding-bottom: 1rem;
+  }
+
+  .item-with-label ::v-deep .image {
+    height: 68px;
+    width: 68px;
+
+    .rewards_pet {
+      margin-top: -20px
+    }
   }
 </style>

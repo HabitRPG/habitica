@@ -19,9 +19,9 @@ export const QuestHelperMixin = {
         case 'quests':
           return `inventory_quest_scroll_${drop.key}`;
         case 'mounts':
-          return `Mount_Icon_${drop.key}`;
+          return `rewards_mount Mount_Icon_${drop.key}`;
         case 'pets':
-          return `Pet-${drop.key}`;
+          return `rewards_pet Pet-${drop.key}`;
         default:
           return `shop_${drop.key}`;
       }
