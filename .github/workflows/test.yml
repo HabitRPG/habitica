@@ -220,3 +220,24 @@ jobs:
         NODE_ENV: test
     - run: npm run test:unit
       working-directory: ./website/client
+
+  production-build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: cp config.json.example config.json
+    - name: npm install
+      run: |
+        npm install
+      env:
+        CI: true
+        NODE_ENV: production
