@@ -113,11 +113,11 @@ export default function purchase (user, req = {}, analytics) {
   }
 
   if (analytics) {
-    analytics.track('acquire item', {
+    analytics.track('buy', {
       uuid: user._id,
       itemKey: key,
       itemType: type,
-      acquireMethod: 'Gems',
+      currency: 'Gems',
       gemCost: price * 4,
       quantityPurchased: quantity,
       category: 'behavior',

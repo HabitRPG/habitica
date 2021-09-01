@@ -11,7 +11,7 @@ function markNotificationAsRead (user) {
   if (index !== -1) user.notifications.splice(index, 1);
 }
 
-export default function openMysteryItem (user, req = {}, analytics) {
+export default function openMysteryItem (user, req = {}) {
   const { mysteryItems } = user.purchased.plan;
   let item = mysteryItems.shift();
 
@@ -31,17 +31,6 @@ export default function openMysteryItem (user, req = {}, analytics) {
   if (user.markModified) {
     user.markModified('purchased.plan.mysteryItems');
     user.markModified('items.gear.owned');
-  }
-
-  if (analytics) {
-    analytics.track('open mystery item', {
-      uuid: user._id,
-      itemKey: item,
-      itemType: 'Subscriber Gear',
-      acquireMethod: 'Subscriber',
-      category: 'behavior',
-      headers: req.headers,
-    });
   }
 
   return [

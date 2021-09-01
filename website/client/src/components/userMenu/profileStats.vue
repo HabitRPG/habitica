@@ -337,7 +337,6 @@ import autoAllocate from '@/../../common/script/fns/autoAllocate';
 import allocateBulk from '@/../../common/script/ops/stats/allocateBulk';
 import statsComputed from '@/../../common/script/libs/statsComputed';
 
-
 const DROP_ANIMALS = keys(Content.pets);
 const TOTAL_NUMBER_OF_DROP_ANIMALS = DROP_ANIMALS.length;
 export default {
@@ -693,7 +692,6 @@ export default {
   .save-row {
     margin-top: 1em;
   }
-
 
     .gear.box {
       vertical-align: top;

@@ -262,7 +262,6 @@
 <script>
 import logo from '@/assets/svg/logo.svg';
 import purpleLogo from '@/assets/svg/purple-logo.svg';
-import * as Analytics from '@/libs/analytics';
 
 export default {
   data () {
@@ -286,13 +285,6 @@ export default {
       }
 
       // @TODO duplicate of code in home.vue
-
-      Analytics.track({
-        hitType: 'event',
-        eventCategory: 'button',
-        eventAction: 'click',
-        eventLabel: 'Play',
-      });
       this.$router.push('/register');
     },
     scrollToMobileApp () {

@@ -139,7 +139,6 @@
 
 <script>
 import { mapState } from '@/libs/store';
-import * as Analytics from '@/libs/analytics';
 import userIcon from '@/assets/svg/user.svg';
 import MenuDropdown from '../ui/customMenuDropdown';
 import MessageCount from './messageCount';
@@ -178,13 +177,6 @@ export default {
       this.$router.push({ name: startingPage });
     },
     toLearnMore () {
-      Analytics.track({
-        hitType: 'event',
-        eventCategory: 'button',
-        eventAction: 'click',
-        eventLabel: 'User Dropdown > Subscriptions',
-      });
-
       this.$router.push({ name: 'subscription' });
     },
     logout () {

@@ -87,7 +87,10 @@
                           </div>
                         </div>
                       </div>
-                      <div v-if="tagsType.key === 'tags'" class="col-6 dragSpace">
+                      <div
+                        v-if="tagsType.key === 'tags'"
+                        class="col-6 dragSpace"
+                      >
                         <input
                           v-model="newTag"
                           class="new-tag-item edit-tag-item inline-edit-input form-control"

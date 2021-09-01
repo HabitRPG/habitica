@@ -199,16 +199,6 @@ api.createUserTasks = {
     res.respond(201, tasks.length === 1 ? tasks[0] : tasks);
 
     tasks.forEach(task => {
-      if (user.flags.welcomed) { // Don't send Habitica default tasks to analytics
-        res.analytics.track('task create', {
-          uuid: user._id,
-          hitType: 'event',
-          category: 'behavior',
-          taskType: task.type,
-          headers: req.headers,
-        });
-      }
-
       taskActivityWebhook.send(user, {
         type: 'created',
         task,
@@ -326,7 +316,7 @@ api.createChallengeTasks = {
     if (challenge) challenge.addTasks(tasks);
 
     tasks.forEach(task => {
-      res.analytics.track('task create', {
+      res.analytics.track('challenge task created', {
         uuid: user._id,
         hitType: 'event',
         category: 'behavior',

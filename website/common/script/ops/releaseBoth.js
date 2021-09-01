@@ -23,21 +23,6 @@ export default function releaseBoth (user, req = {}) {
   let giveBeastMasterAchievement = true;
   let giveMountMasterAchievement = true;
 
-  // @TODO: We are only offering the free version now
-  // if (!user.achievements.triadBingo) {
-  //   if (analytics) {
-  //     analytics.track('release pets & mounts', {
-  //       uuid: user._id,
-  //       acquireMethod: 'Gems',
-  //       gemCost: 6,
-  //       category: 'behavior',
-  //       headers: req.headers,
-  //     });
-  //   }
-  //
-  //   user.balance -= 1.5;
-  // }
-
   const mountInfo = content.mountInfo[user.items.currentMount];
 
   if (mountInfo && mountInfo.type === 'drop') {

@@ -29,11 +29,11 @@ export default function buyMysterySet (user, req = {}, analytics) {
   });
 
   if (analytics) {
-    analytics.track('acquire item', {
+    analytics.track('buy', {
       uuid: user._id,
       itemKey: mysterySet.key,
       itemType: 'Subscriber Gear',
-      acquireMethod: 'Hourglass',
+      currency: 'Hourglass',
       category: 'behavior',
       headers: req.headers,
     });

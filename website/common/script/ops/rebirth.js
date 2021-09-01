@@ -26,11 +26,11 @@ export default function rebirth (user, tasks = [], req = {}, analytics) {
 
   if (notFree) {
     user.balance -= 1.5;
-    analyticsData.acquireMethod = 'Gems';
+    analyticsData.currency = 'Gems';
     analyticsData.gemCost = 6;
   } else {
+    analyticsData.currency = 'Free';
     analyticsData.gemCost = 0;
-    analyticsData.acquireMethod = '> 100';
   }
 
   if (analytics) {

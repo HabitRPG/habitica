@@ -43,7 +43,7 @@ export default function releasePets (user, req = {}, analytics) {
   if (analytics) {
     analytics.track('release pets', {
       uuid: user._id,
-      acquireMethod: 'Gems',
+      currency: 'Gems',
       gemCost: 4,
       category: 'behavior',
       headers: req.headers,

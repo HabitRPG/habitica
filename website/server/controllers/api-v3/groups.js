@@ -158,6 +158,7 @@ api.createGroup = {
       groupType: savedGroup.type,
       privacy: savedGroup.privacy,
       headers: req.headers,
+      invited: false,
     };
 
     if (savedGroup.privacy === 'public') {
@@ -206,6 +207,7 @@ api.createGroupPlan = {
       groupType: savedGroup.type,
       privacy: savedGroup.privacy,
       headers: req.headers,
+      invited: false,
     });
 
     // do not remove chat flags data as we've just created the group
@@ -714,6 +716,7 @@ api.joinGroup = {
       groupType: group.type,
       privacy: group.privacy,
       headers: req.headers,
+      invited: isUserInvited,
     };
 
     if (group.privacy === 'public') {

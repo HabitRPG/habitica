@@ -1,6 +1,5 @@
 import times from 'lodash/times';
 import introjs from 'intro.js';
-import * as Analytics from '@/libs/analytics';
 
 let showingTour = false;
 
@@ -159,15 +158,6 @@ export default {
         opts.steps = opts.steps.concat(this.chapters[chapter][p]);
       });
 
-      Analytics.track({
-        hitType: 'event',
-        eventCategory: 'behavior',
-        eventAction: 'tutorial',
-        eventLabel: `${chapter}-web`,
-        eventValue: page + 1,
-        complete: true,
-      });
-
       // @TODO: Do we always need to initialize here?
       const intro = introjs();
       intro.setOptions({
@@ -193,15 +183,6 @@ export default {
 
       // Mark tour complete
       ups[`flags.tour.${chapter}`] = -2; // @TODO: Move magic numbers to enum
-
-      Analytics.track({
-        hitType: 'event',
-        eventCategory: 'behavior',
-        eventAction: 'tutorial',
-        eventLabel: `${chapter}-web`,
-        eventValue: lastKnownStep,
-        complete: true,
-      });
 
       this.$store.dispatch('user:set', ups);
     },

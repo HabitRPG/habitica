@@ -35,7 +35,6 @@
   </b-modal>
 </template>
 
-
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
   @import '~@/assets/scss/mixins.scss';
@@ -79,7 +78,6 @@
     }
   }
 </style>
-
 
 <script>
 import markdownDirective from '@/directives/markdown';

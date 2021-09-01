@@ -114,5 +114,8 @@
     "achievementWildBlueYonder": "Un grand ciel bleu",
     "achievementVioletsAreBlueModalText": "Vous avez fait éclore tous les familiers bleu barbe-à-papa !",
     "achievementVioletsAreBlueText": "A fait éclore tous les familiers bleu barbe-à-papa.",
-    "achievementVioletsAreBlue": "Comme un bleu"
+    "achievementVioletsAreBlue": "Comme un bleu",
+    "achievementDomesticatedModalText": "Vous avez collecté tous les familiers domestiqués !",
+    "achievementDomesticatedText": "A fait éclore tous les familiers domestiqués de couleur standard : furet, cochon d'inde, coq, cochon volant, rat, lapin, cheval et vache !",
+    "achievementDomesticated": "Apprivoisés"
 }

@@ -163,7 +163,7 @@
     </div>
     <countdown-banner
       v-if="item.event && item.owned == null"
-      :endDate = "endDate"
+      :end-date="endDate"
     />
     <div
       v-if="item.key === 'rebirth_orb' && item.value > 0 && user.stats.lvl >= 100"
