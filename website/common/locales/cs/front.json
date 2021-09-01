@@ -1,6 +1,6 @@
 {
-    "FAQ": "FAQ",
-    "termsAndAgreement": "Kliknutím na tlačítko níže označuješ, že jsi četl/a a souhlasíš s <a href='/static/terms'>Podmínkami užívání služby</a> a <a href='/static/privacy'>Ochranou soukromí</a>.",
+    "FAQ": "ČKD",
+    "termsAndAgreement": "Kliknutím na tlačítko níže dáváš najevo, že jsi četl/a a souhlasíš s <a href='/static/terms'>Podmínkami užívání služby</a> a <a href='/static/privacy'>Ochranou soukromí</a>.",
     "accept1Terms": "Kliknutím na následující tlačítko souhlasím s",
     "accept2Terms": "a",
     "chores": "Domácí práce",

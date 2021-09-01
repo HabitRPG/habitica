@@ -135,5 +135,8 @@
     "pressEnterToAddTag": "Premi invio per aggiungere l'etichetta: '<%= tagName %>'",
     "enterTag": "Aggiungi una etichetta",
     "addTags": "Aggiungi etichette...",
-    "tomorrow": "Domani"
+    "tomorrow": "Domani",
+    "resetCounter": "Resetta il Contatore",
+    "adjustCounter": "Aggiusta il Contatore",
+    "counter": "Contatore"
 }

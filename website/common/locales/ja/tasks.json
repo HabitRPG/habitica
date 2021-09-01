@@ -135,5 +135,8 @@
     "pressEnterToAddTag": "Enterキーでタグを追加：'<%= tagName %>'",
     "enterTag": "タグを入力してください",
     "addTags": "タグを追加…",
-    "tomorrow": "明日"
+    "tomorrow": "明日",
+    "resetCounter": "回数をリセット",
+    "counter": "回数",
+    "adjustCounter": "回数を修正"
 }
