@@ -135,5 +135,8 @@
     "pressEnterToAddTag": "Appuyez sur Entrée pour ajouter l'étiquette : '<%= tagName %>'",
     "enterTag": "Entrez une étiquette",
     "addTags": "Ajouter des étiquettes ...",
-    "tomorrow": "Demain"
+    "tomorrow": "Demain",
+    "resetCounter": "Réinitialiser le compteur",
+    "adjustCounter": "Ajuster le compteur",
+    "counter": "Compteur"
 }

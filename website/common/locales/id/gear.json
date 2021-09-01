@@ -10,7 +10,7 @@
     "gearNotOwned": "Kamu tidak memiliki item ini.",
     "noGearItemsOfType": "Kamu tidak memiliki item ini.",
     "noGearItemsOfClass": "Kamu sudah mempunyai semua perlengkapan pekerjaanmu! Lebih banyak lagi akan dirilis selama Grand Gala, dekat titik balik matahari dan ekuinoks.",
-    "classLockedItem": "Item ini hanya tersedia untuk pekerjaan tertentu. Ganti pekerjaanmu di bawah ikon Pengguna > Pengaturan > Membangun Karakter!",
+    "classLockedItem": "Item ini hanya tersedia untuk kelas tertentu. Pada level 10 keatas, kamu dapat mengubah kelasmu di bawah ikon Pengguna > Pengaturan > Membangun Karakter!",
     "tierLockedItem": "Item ini hanya tersedia setelah kamu sudah membeli item sebelumnya dalam seri ini. Terus bekerja keras untuk mendapatkan item teratas!",
     "sortByType": "Jenis",
     "sortByPrice": "Harga",
@@ -27,7 +27,7 @@
     "weaponWarrior1Text": "Pedang",
     "weaponWarrior1Notes": "Pedang prajurit biasa. Meningkatkan Kekuatan sebesar <%= str %>.",
     "weaponWarrior2Text": "Kapak",
-    "weaponWarrior2Notes": "Senjata pemotong bermata dua. Meningkatkan Kekuatan sebesar <%= str %>",
+    "weaponWarrior2Notes": "Senjata pemotong bermata dua. Meningkatkan Kekuatan sebesar <%= str %>.",
     "weaponWarrior3Text": "Bintang Kejora",
     "weaponWarrior3Notes": "Pemukul yang berat dengan duri yang mengerikan. Meningkatkan Kekuatan sebesar <%= str %>.",
     "weaponWarrior4Text": "Pedang Safir",
@@ -1747,5 +1747,6 @@
     "eyewearArmoirePlagueDoctorMaskNotes": "An authentic mask worn by the doctors who battle the Plague of Procrastination. Increases Constitution and Intelligence by <%= attrs %> each. Enchanted Armoire: Plague Doctor Set (Item 2 of 3).",
     "eyewearArmoireGoofyGlassesText": "Goofy Glasses",
     "eyewearArmoireGoofyGlassesNotes": "Perfect for going incognito or just making your partymates giggle. Increases Perception by <%= per %>. Enchanted Armoire: Independent Item.",
-    "twoHandedItem": "Item dua tangan."
+    "twoHandedItem": "Item dua tangan.",
+    "weaponSpecialKS2019Text": "Pedang Mythic Gryphon"
 }

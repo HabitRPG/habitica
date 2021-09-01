@@ -168,7 +168,7 @@
     "usernameIssueSlur": "登录名不得含有不恰当的语言。",
     "usernameIssueForbidden": "登录名不得含有限制词。",
     "usernameIssueLength": "登录名的长度必须在1至20个字符之间。",
-    "usernameIssueInvalidCharacters": "登陆名只能含有字母a至z，数字0至9，连字符，或者下划线。",
+    "usernameIssueInvalidCharacters": "登录名只能含有字母a至z，数字0至9，连字符，或者下划线。",
     "currentUsername": "现在的登录名：",
     "displaynameIssueLength": "角色名的长度必须在1至30个字符之间。",
     "displaynameIssueSlur": "角色名不得含有不恰当的语言。",
