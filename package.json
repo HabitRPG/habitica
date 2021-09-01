@@ -52,7 +52,7 @@
     "mongoose": "^5.13.7",
     "morgan": "^1.10.0",
     "nconf": "^0.11.3",
-    "node-gcm": "^1.0.4",
+    "node-gcm": "^1.0.5",
     "on-headers": "^1.0.2",
     "passport": "^0.4.1",
     "passport-facebook": "^3.0.0",
