@@ -154,6 +154,7 @@
         <input
           v-model="workingChallenge.prize"
           type="number"
+          class="form-control"
           :min="minPrize"
           :max="maxPrize"
           @change="enableSubmit"
