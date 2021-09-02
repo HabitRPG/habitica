@@ -360,11 +360,12 @@
               >{{ $t('dataDisplayTool') }}</a>
             </li>
             <li>
-              <router-link
-                to="/groups/guild/a29da26b-37de-4a71-b0c6-48e72a900dac"
+              <a
+                :href="bugReportMailto"
+                target="_blank"
               >
-                {{ $t('reportProblem') }}
-              </router-link>
+                {{ $t('reportBug') }}
+              </a>
             </li>
             <li>
               <a
@@ -789,6 +790,7 @@ import tierStaff from '@/assets/svg/tier-staff.svg';
 
 import * as quests from '@/../../common/script/content/quests';
 import staffList from '../../libs/staffList';
+import reportBug from '@/mixins/reportBug.js';
 
 export default {
   components: {
@@ -797,6 +799,7 @@ export default {
     sidebarSection,
     chat,
   },
+  mixins: [reportBug],
   data () {
     return {
       groupId: TAVERN_ID,
