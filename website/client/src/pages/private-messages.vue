@@ -420,7 +420,7 @@
     padding-right: 1.5rem;
 
     textarea {
-      background: #fff;
+      background: $white;
       display: inline-block;
       vertical-align: bottom;
       border-radius: 2px;
