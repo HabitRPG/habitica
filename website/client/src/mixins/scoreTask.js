@@ -3,6 +3,8 @@ import Vue from 'vue';
 import notifications from './notifications';
 import scoreTask from '@/../../common/script/ops/scoreTask';
 import { mapState } from '@/libs/store';
+import * as Analytics from '@/libs/analytics';
+import { CONSTANTS, getLocalSetting, setLocalSetting } from '@/libs/userlocalManager';
 
 export default {
   mixins: [notifications],
@@ -69,6 +71,22 @@ export default {
       });
 
       this.handleTaskScoreNotifications(response.data.data._tmp || {});
+
+      const tasksScoredCount = getLocalSetting(CONSTANTS.keyConstants.TASKS_SCORED_COUNT);
+      if (!tasksScoredCount || tasksScoredCount < 2) {
+        Analytics.track('task scored', {
+          uuid: user._id,
+          hitType: 'event',
+          category: 'behavior',
+          taskType: task.type,
+          direction,
+        });
+        if (!tasksScoredCount) {
+          setLocalSetting(CONSTANTS.keyConstants.TASKS_SCORED_COUNT, 1);
+        } else {
+          setLocalSetting(CONSTANTS.keyConstants.TASKS_SCORED_COUNT, tasksScoredCount + 1);
+        }
+      }
     },
     async handleTaskScoreNotifications (tmpObject = {}) {
       const { user } = this;

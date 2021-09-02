@@ -54,7 +54,7 @@ function purchaseItem (user, item, price, type, key) {
   } else if (type === 'bundles') {
     const subType = item.type;
     forEach(item.bundleKeys, bundledKey => {
-      if (!user.items[subType][bundledKey] || user.items[subType][key] < 0) {
+      if (!user.items[subType][bundledKey] || user.items[subType][bundledKey] < 0) {
         user.items[subType][bundledKey] = 0;
       }
       user.items[subType][bundledKey] += 1;
@@ -113,11 +113,11 @@ export default function purchase (user, req = {}, analytics) {
   }
 
   if (analytics) {
-    analytics.track('acquire item', {
+    analytics.track('buy', {
       uuid: user._id,
       itemKey: key,
       itemType: type,
-      acquireMethod: 'Gems',
+      currency: 'Gems',
       gemCost: price * 4,
       quantityPurchased: quantity,
       category: 'behavior',

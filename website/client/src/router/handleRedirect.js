@@ -1,5 +1,4 @@
 import { CONSTANTS, getLocalSetting, setLocalSetting } from '@/libs/userlocalManager';
-import * as Analytics from '@/libs/analytics';
 
 export default function (to, from, next) {
   const { redirect } = to.params;
@@ -40,13 +39,6 @@ export default function (to, from, next) {
         if (newGroup && newGroup._id) {
           // Handle new user signup
           if (newAppState.newSignup === true) {
-            Analytics.track({
-              hitType: 'event',
-              eventCategory: 'group-plans-static',
-              eventAction: 'view',
-              eventLabel: 'paid-with-stripe',
-            });
-
             return next({
               name: 'groupPlanDetailTaskInformation',
               params: { groupId: newGroup._id },

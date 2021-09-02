@@ -35,7 +35,6 @@
     <mind-over-matter />
     <onboarding-complete />
     <first-drops />
-    <drop-cap-reached-modal />
   </div>
 </template>
 
@@ -118,6 +117,7 @@ import { mapState } from '@/libs/store';
 import { MAX_LEVEL_HARD_CAP } from '@/../../common/script/constants';
 import notifications from '@/mixins/notifications';
 import guide from '@/mixins/guide';
+import { CONSTANTS, setLocalSetting } from '@/libs/userlocalManager';
 
 import yesterdailyModal from './tasks/yesterdailyModal';
 import newStuff from './news/modal';
@@ -147,7 +147,6 @@ import loginIncentives from './achievements/login-incentives';
 import onboardingComplete from './achievements/onboardingComplete';
 import verifyUsername from './settings/verifyUsername';
 import firstDrops from './achievements/firstDrops';
-import DropCapReachedModal from '@/components/achievements/dropCapReached';
 
 const NOTIFICATIONS = {
   CHALLENGE_JOINED_ACHIEVEMENT: {
@@ -419,6 +418,14 @@ const NOTIFICATIONS = {
       achievement: 'wildBlueYonder',
     },
   },
+  ACHIEVEMENT_DOMESTICATED: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementDomesticated')}`,
+    modalId: 'generic-achievement',
+    data: {
+      achievement: 'domesticated',
+    },
+  },
 };
 
 export default {
@@ -451,7 +458,6 @@ export default {
     justAddWater,
     onboardingComplete,
     firstDrops,
-    DropCapReachedModal,
   },
   mixins: [notifications, guide],
   data () {
@@ -482,7 +488,7 @@ export default {
       'ACHIEVEMENT_FRESHWATER_FRIENDS', 'ACHIEVEMENT_GOOD_AS_GOLD', 'ACHIEVEMENT_ALL_THAT_GLITTERS',
       'ACHIEVEMENT_BONE_COLLECTOR', 'ACHIEVEMENT_SKELETON_CREW', 'ACHIEVEMENT_SEEING_RED',
       'ACHIEVEMENT_RED_LETTER_DAY', 'ACHIEVEMENT_LEGENDARY_BESTIARY', 'ACHIEVEMENT_SEASONAL_SPECIALIST',
-      'ACHIEVEMENT_VIOLETS_ARE_BLUE', 'ACHIEVEMENT_WILD_BLUE_YONDER',
+      'ACHIEVEMENT_VIOLETS_ARE_BLUE', 'ACHIEVEMENT_WILD_BLUE_YONDER', 'ACHIEVEMENT_DOMESTICATED',
     ].forEach(type => {
       handledNotifications[type] = true;
     });
@@ -803,6 +809,10 @@ export default {
       // Run Cron
       await axios.post('/api/v4/cron');
 
+      // Reset daily analytics actions
+      setLocalSetting(CONSTANTS.keyConstants.TASKS_SCORED_COUNT, 0);
+      setLocalSetting(CONSTANTS.keyConstants.TASKS_CREATED_COUNT, 0);
+
       // Sync
       await Promise.all([
         this.$store.dispatch('user:fetch', { forceLoad: true }),
@@ -909,6 +919,7 @@ export default {
           case 'ACHIEVEMENT_SEASONAL_SPECIALIST':
           case 'ACHIEVEMENT_VIOLETS_ARE_BLUE':
           case 'ACHIEVEMENT_WILD_BLUE_YONDER':
+          case 'ACHIEVEMENT_DOMESTICATED':
           case 'GENERIC_ACHIEVEMENT':
             this.showNotificationWithModal(notification);
             break;

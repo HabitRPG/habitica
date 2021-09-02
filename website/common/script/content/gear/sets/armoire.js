@@ -366,6 +366,10 @@ const armor = {
     con: 8,
     set: 'bath',
   },
+  bagpipersKilt: {
+    con: 6,
+    set: 'bonnieBagpiper',
+  },
 };
 
 const body = {
@@ -742,6 +746,10 @@ const head = {
     int: 10,
     set: 'bath',
   },
+  glengarry: {
+    int: 6,
+    set: 'bonnieBagpiper',
+  },
 };
 
 const shield = {
@@ -993,6 +1001,10 @@ const shield = {
   bouncyBubbles: {
     str: 5,
     set: 'bath',
+  },
+  bagpipes: {
+    str: 6,
+    set: 'bonnieBagpiper',
   },
 };
 

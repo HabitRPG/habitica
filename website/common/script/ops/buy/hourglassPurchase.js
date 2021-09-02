@@ -83,11 +83,11 @@ export default function purchaseHourglass (user, req = {}, analytics, quantity =
   }
 
   if (analytics) {
-    analytics.track('acquire item', {
+    analytics.track('buy', {
       uuid: user._id,
       itemKey: key,
       itemType: type,
-      acquireMethod: 'Hourglass',
+      currency: 'Hourglass',
       category: 'behavior',
       headers: req.headers,
     });

@@ -275,6 +275,15 @@ export default function unlock (user, req = {}, analytics) {
 
   if (isFullSet) {
     paths.forEach(pathPart => purchaseItem(pathPart, setType, user));
+
+    if (isBackground) {
+      paths.forEach(pathPart => {
+        const [key, value] = splitPathItem(pathPart);
+        const backgroundContent = content.backgroundsFlat[value];
+        const itemInfo = getItemInfo(user, key, backgroundContent);
+        removeItemByPath(user, itemInfo.path);
+      });
+    }
   } else {
     const [key, value] = splitPathItem(path);
 
@@ -296,11 +305,11 @@ export default function unlock (user, req = {}, analytics) {
     user.balance -= cost;
 
     if (analytics) {
-      analytics.track('acquire item', {
+      analytics.track('buy', {
         uuid: user._id,
         itemKey: path,
         itemType: 'customization',
-        acquireMethod: 'Gems',
+        currency: 'Gems',
         gemCost: cost / 0.25,
         category: 'behavior',
         headers: req.headers,

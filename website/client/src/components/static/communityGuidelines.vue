@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <h1>{{ $t('communityGuidelines') }}</h1>
     <hr>
-    <p>{{ $t('lastUpdated') }} March 29, 2018</p>
+    <p>{{ $t('lastUpdated') }} July 28, 2021</p>
     <h2 id="welcome">
       {{ $t('commGuideHeadingWelcome') }}
     </h2>
@@ -14,27 +14,32 @@
       </div>
     </div>
     <p v-html="$t('commGuidePara003')"></p>
-    <p v-html="$t('commGuidePara004')"></p>
     <h2 id="interactions">
       {{ $t('commGuideHeadingInteractions') }}
     </h2>
+    <p v-html="$t('commGuidePara015')"></p>
+    <p v-html="$t('commGuidePara016')"></p>
+    <p v-html="$t('commGuidePara017')"></p>
+    <ul>
+      <li v-html="$t('commGuideList01A')"></li>
+      <li v-html="$t('commGuideList01B')"></li>
+      <li v-html="$t('commGuideList01C')"></li>
+      <li v-html="$t('commGuideList01D')"></li>
+      <li v-html="$t('commGuideList01E')"></li>
+      <li v-html="$t('commGuideList01F')"></li>
+    </ul>
     <div class="media align-items-center">
-      <div class="media-body">
-        <p v-html="$t('commGuidePara015')"></p>
-        <p v-html="$t('commGuidePara016')"></p>
-      </div>
       <img src="~@/assets/images/community-guidelines/publicSpaces.png">
     </div>
     <ul>
       <li v-html="$t('commGuideList02A')"></li>
       <li v-html="$t('commGuideList02B')"></li>
+      <li v-html="$t('commGuideList02G')"></li>
       <li v-html="$t('commGuideList02C')"></li>
       <li v-html="$t('commGuideList02D')"></li>
       <li v-html="$t('commGuideList02E')"></li>
       <li v-html="$t('commGuideList02F')"></li>
-      <li v-html="$t('commGuideList02G')"></li>
-      <li v-html="$t('commGuideList02H')"></li>
-      <li v-html="$t('commGuideList02I')"></li>
+      <li v-html="$t('commGuideList02M')"></li>
       <li v-html="$t('commGuideList02J')"></li>
       <li v-html="$t('commGuideList02K')"></li>
       <li v-html="$t('commGuideList02L')"></li>
@@ -93,6 +98,7 @@
       <li v-html="$t('commGuideList05E')"></li>
       <li v-html="$t('commGuideList05F')"></li>
       <li v-html="$t('commGuideList05G')"></li>
+      <li v-html="$t('commGuideList05H')"></li>
     </ul>
     <h4>{{ $t('commGuideHeadingModerateInfractions') }}</h4>
     <p v-html="$t('commGuidePara054')"></p>
@@ -134,6 +140,7 @@
     <ul>
       <li v-html="$t('commGuideList09A')"></li>
       <li v-html="$t('commGuideList09C')"></li>
+      <li v-html="$t('commGuideList09D')"></li>
     </ul>
     <h4>{{ $t('commGuideHeadingModerateConsequences') }}</h4>
     <ul>
@@ -145,7 +152,6 @@
       </li>
       <li v-html="$t('commGuideList10C')"></li>
       <li v-html="$t('commGuideList10D')"></li>
-      <li v-html="$t('commGuideList10E')"></li>
       <li v-html="$t('commGuideList10F')"></li>
     </ul>
     <h4>{{ $t('commGuideHeadingMinorConsequences') }}</h4>
@@ -178,14 +184,15 @@
       <img src="~@/assets/images/community-guidelines/staff.png">
       <div class="media-body">
         <ul>
-          <li>{{ $t('commGuideAKA', {habitName: 'Beffymaroo', realName: 'Beth'}) }}</li>
           <li>{{ $t('commGuideAKA', {habitName: 'Viirus', realName: 'Phillip'}) }}</li>
           <li>
             {{ $t('commGuideAKA', {habitName: 'redphoenix', realName: 'Vicky'}) }}
             ({{ $t('commGuideOnGitHub', {gitHubName: 'veeeeeee'}) }})
           </li>
+          <li>{{ $t('commGuideAKA', {habitName: 'Beffymaroo', realName: 'Beth'}) }}</li>
           <li>{{ $t('commGuideAKA', {habitName: 'SabreCat', realName: 'Sabe'}) }}</li>
-          <li>{{ $t('commGuideAKA', {habitName: 'paglias', realName: 'Matteo'}) }}</li>
+          <li>{{ $t('commGuideAKA', {habitName: 'Apollo', realName: 'Tressley'}) }}</li>
+          <li>{{ $t('commGuideAKA', {habitName: 'Piyo', realName: 'Sara'}) }}</li>
         </ul>
       </div>
     </div>
@@ -195,25 +202,24 @@
       <div class="media-body">
         <p v-html="$t('commGuidePara011')"></p>
         <ul>
-          <li>Bailey (It's Bailey {{ $t('commGuidePara011a') }})</li>
-          <li>Ryan (deilann {{ $t('commGuidePara011b') }})</li>
+          <li>Dewines</li>
+          <li>Nakonana</li>
           <li>Cantras</li>
           <li>Alys (LadyAlys {{ $t('commGuidePara011c') }})</li>
           <li>Fox_town</li>
-          <li>Blade ({{ $t('commGuideOnGitHub', {gitHubName: 'crookedneighbor'}) }})</li>
-          <li>Daniel the Bard</li>
+          <li>MaybeSteveRogers</li>
           <li>shanaqui</li>
-          <li>Dewines</li>
-          <li>Megan</li>
-          <li>Breadstrings</li>
         </ul>
       </div>
     </div>
     <p v-html="$t('commGuidePara012')"></p>
     <p v-html="$t('commGuidePara013')"></p>
     <p>
-      {{ $t('commGuidePara014') }}&nbsp;
-      <em>lefnire, Slappybag, litenull, Shaner, Bobbyroberts99, wc8</em>
+      {{ $t('commGuidePara014') }}<br>
+      <em>
+        Lemoness, lefnire, Slappybag, litenull, Shaner, Bobbyroberts99, wc8,
+        deilann, Breadstrings, Megan, Blade, and Daniel the Bard
+      </em>
     </p>
     <h2 id="final">
       {{ $t('commGuideHeadingFinal') }}

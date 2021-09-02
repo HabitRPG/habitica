@@ -7,7 +7,6 @@ import { userStyles } from '../../config/storybook/mock.data';
 import content from '../../../common/script/content/index';
 import getters from '@/store/getters';
 
-
 storiesOf('Face Avatar', module)
   .add('simple', () => ({
     components: { FaceAvatar },

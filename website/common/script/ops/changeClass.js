@@ -71,8 +71,7 @@ export default function changeClass (user, req = {}, analytics) {
       analytics.track('change class', {
         uuid: user._id,
         class: klass,
-        acquireMethod: balanceRemoved === 0 ? 'Free' : 'Gems',
-        gemCost: balanceRemoved / 0.25,
+        currency: balanceRemoved === 0 ? 'Free' : 'Gems',
         category: 'behavior',
         headers: req.headers,
       });

@@ -3,9 +3,9 @@
     "defaultHabit2Text": "Makan Makanan Cepat Saji (Klik pensil untuk edit)",
     "defaultHabit3Text": "Naik Tangga/Lift (Klik pensil untuk edit)",
     "defaultHabit4Text": "Tambahkan tugas ke Habitica",
-    "defaultHabit4Notes": "Boleh saja Kebiasaan, Keseharian, atau Tugas",
+    "defaultHabit4Notes": "Boleh Kebiasaan, Harian, atau To Do",
     "defaultTodo1Text": "Bergabung dengan Habitica (Beri tanda ceklis!)",
-    "defaultTodoNotes": "Kamu dapat menyelesaikan To-Do, mengubahnya, atau menghapusnya.",
+    "defaultTodoNotes": "Kamu dapat menyelesaikan To Do, mengubahnya, atau menghapusnya.",
     "defaultReward1Text": "Istirahat 15 menit",
     "defaultReward2Text": "Berikan hadiah kepada dirimu sendiri",
     "defaultReward2Notes": "Nonton TV, main game, makan enak, terserah kamu!",
@@ -15,5 +15,12 @@
     "defaultTag4": "Sekolah",
     "defaultTag5": "Tim",
     "defaultTag6": "Pekerjaan rumah",
-    "defaultTag7": "Kreativitas"
+    "defaultTag7": "Kreativitas",
+    "exerciseHabit": "10 menit kardio >> + 1o menit kardio",
+    "workTodoProjectNotes": "Klik untuk menentukan nama proyek + tenggat waktu!",
+    "workTodoProject": "Tugas proyek >> Menyelesaikan tugas proyek",
+    "workDailyImportantTaskNotes": "Klik untuk menentukan tugas terpenting",
+    "workDailyImportantTask": "Tugas terpenting >> Mengerjakan tugas terpenting hari ini",
+    "workHabitMail": "Memproses email",
+    "exerciseDailyText": "Stretching >> Berolahraga rutin setiap hari"
 }

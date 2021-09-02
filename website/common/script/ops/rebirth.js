@@ -8,6 +8,7 @@ import {
 import equip from './equip';
 import { removePinnedGearByClass } from './pinnedGearUtils';
 import isFreeRebirth from '../libs/isFreeRebirth';
+import setDebuffPotionItems from '../libs/setDebuffPotionItems';
 
 const USERSTATSLIST = ['per', 'int', 'con', 'str', 'points', 'gp', 'exp', 'mp'];
 
@@ -25,11 +26,11 @@ export default function rebirth (user, tasks = [], req = {}, analytics) {
 
   if (notFree) {
     user.balance -= 1.5;
-    analyticsData.acquireMethod = 'Gems';
+    analyticsData.currency = 'Gems';
     analyticsData.gemCost = 6;
   } else {
+    analyticsData.currency = 'Free';
     analyticsData.gemCost = 0;
-    analyticsData.acquireMethod = '> 100';
   }
 
   if (analytics) {
@@ -108,6 +109,7 @@ export default function rebirth (user, tasks = [], req = {}, analytics) {
   if (user.addNotification) user.addNotification('REBIRTH_ACHIEVEMENT');
 
   user.stats.buffs = {};
+  setDebuffPotionItems(user);
 
   return [
     { user, tasks },

@@ -26,8 +26,8 @@
     "backgroundVolcanoText": "Vulcão",
     "backgroundVolcanoNotes": "Aqueça-se dentro de um vulcão.",
     "backgrounds092014": "KIT 4: Lançado em Setembro de 2014",
-    "backgroundThunderstormText": "Tempestade",
-    "backgroundThunderstormNotes": "Conduza relâmpagos em uma tempestade.",
+    "backgroundThunderstormText": "da Tempestade de Raios",
+    "backgroundThunderstormNotes": "Conduza relâmpagos em uma Tempestade de Raios.",
     "backgroundAutumnForestText": "Floresta de Outono",
     "backgroundAutumnForestNotes": "Passeie por uma Floresta de Outono.",
     "backgroundHarvestFieldsText": "Campos de Colheita",
@@ -581,5 +581,6 @@
     "backgroundRestingInTheInnText": "Descansando na Taverna",
     "backgrounds122020": "KIT 79: Lançado em Dezembro de 2020",
     "backgroundRiverOfLavaText": "Rio de Lava",
-    "backgrounds112020": "KIT 78: Lançado em Novembro de 2020"
+    "backgrounds112020": "KIT 78: Lançado em Novembro de 2020",
+    "backgroundGhostShipText": "Navio Fantasma"
 }

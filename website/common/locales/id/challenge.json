@@ -100,5 +100,8 @@
     "viewProgress": "Lihat Progres",
     "selectMember": "Pilih Anggota",
     "confirmKeepChallengeTasks": "Apakah kamu mau menyimpan tugas dari tantangan ini?",
-    "selectParticipant": "Pilih Seorang Peserta"
+    "selectParticipant": "Pilih Seorang Peserta",
+    "wonChallengeDesc": "<%= challengeName %> memilihmu sebagai pemenang! Kemenanganmu telah dimasukkan ke Pencapaian.",
+    "yourReward": "Hadiahmu",
+    "filters": "Filters"
 }

@@ -540,8 +540,8 @@
   "backgroundMonsterMakersWorkshopNotes": "Experiment with discredited sciences in a Monster Maker's Workshop.",
 
   "backgrounds112019": "SET 66: Released November 2019",
-  "backgroundFarmersMarketText": "Farmer's Market",
-  "backgroundFarmersMarketNotes": "Shop for the freshest of foods at a Farmer's Market.",
+  "backgroundFarmersMarketText": "Farmers' Market",
+  "backgroundFarmersMarketNotes": "Shop for the freshest of foods at the Farmers' Market.",
   "backgroundFlyingInAThunderstormText": "Tumultuous Thunderstorm",
   "backgroundFlyingInAThunderstormNotes": "Chase a Tumultuous Thunderstorm as closely as you dare.",
   "backgroundPotionShopText": "Potion Shop",
@@ -706,6 +706,14 @@
   "backgroundGhostShipNotes": "Prove tales and legends true when you step aboard a Ghost Ship.",
   "backgroundRagingRiverText": "Raging River",
   "backgroundRagingRiverNotes": "Stand amid the mighty current of a Raging River.",
+
+  "backgrounds082021": "SET 87: Released August 2021",
+  "backgroundStoneTowerText": "Stone Tower",
+  "backgroundStoneTowerNotes": "Gaze from the parapets of one Stone Tower to another.",
+  "backgroundRopeBridgeText": "Rope Bridge",
+  "backgroundRopeBridgeNotes": "Demonstrate to doubters that this Rope Bridge is perfectly safe.",
+  "backgroundDaytimeMistyForestText": "Misty Forest",
+  "backgroundDaytimeMistyForestNotes": "Bathe in the glow of daylight streaming through a Misty Forest.",
 
   "timeTravelBackgrounds": "Steampunk Backgrounds",
   "backgroundAirshipText": "Airship",

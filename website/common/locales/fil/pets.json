@@ -41,5 +41,15 @@
     "veteranTiger": "Beteranong Tigre",
     "veteranWolf": "Beteranong Lobo",
     "etherealLion": "Ethereal na Leon",
-    "wackyPets": "Mga Wacky na Alaga"
+    "wackyPets": "Mga Wacky na Alaga",
+    "beastMasterText2": " at pinakawalan ang kanilang mga alaga ng <%= count %> beses",
+    "beastMasterText": "Nahanap ang lahat ng 90 na alaga (napakahirap, batiin ang user na ito!)",
+    "beastMasterName": "Beast Master",
+    "beastAchievement": "Nakamit mo ang \"Beast Master\" na Achievement sa pagkolekta ng lahat ng mga alaga!",
+    "beastMasterProgress": "Beast Master Progress",
+    "premiumPotionNoDropExplanation": "Ang mga Mahiwagang Hatching Potion ay hindi magagamit sa mga itlog na nakuha mula sa mga Quest. Ang nag-iisang paraan upang makakuha ng mga Mahiwagang Hatching Potion ay sa pagbili nito sa ibaba, hindi mula sa random drops.",
+    "dropsExplanationEggs": "Magwaldas ng mga Hiyas upang mas mabilis na makakuha ng mga itlog, kung ayaw mong hintaying ma-drop ang mga standard na itlog, o ulitin ang mga Quest upang makakuha ng Quest eggs. <a href=\"http://habitica.fandom.com/wiki/Drops\">Matuto pa tungkol sa drop system.</a>",
+    "dropsExplanation": "Mas mabilis na makakuha ng ganitong mga gamit sa pamamagitan ng mga Hiyas kung ayaw mong hintayin ang pag-drop pagtapos ng kada gawain. <a href=\"http://habitica.fandom.com/wiki/Drops\">Matuto pa tungkol sa drop system.</a>",
+    "noSaddlesAvailable": "Wala kang Saddle.",
+    "noFoodAvailable": "Wala kang Pagkaing Pang-Alaga."
 }

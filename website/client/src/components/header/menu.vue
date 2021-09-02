@@ -725,7 +725,6 @@ body.modal-open #habitica-menu {
 
 <script>
 import { mapState, mapGetters } from '@/libs/store';
-import * as Analytics from '@/libs/analytics';
 import { goToModForm } from '@/libs/modform';
 
 import gemIcon from '@/assets/svg/gem.svg';
@@ -743,7 +742,6 @@ import sendGemsModal from '@/components/payments/sendGemsModal';
 import selectUserModal from '@/components/payments/selectUserModal';
 import sync from '@/mixins/sync';
 import userDropdown from './userDropdown';
-
 
 export default {
   components: {
@@ -805,13 +803,6 @@ export default {
       this.$root.$emit('bv::show::modal', 'create-party-modal');
     },
     showBuyGemsModal () {
-      Analytics.track({
-        hitType: 'event',
-        eventCategory: 'button',
-        eventAction: 'click',
-        eventLabel: 'Gems > Toolbar',
-      });
-
       this.$root.$emit('bv::show::modal', 'buy-gems', { alreadyTracked: true });
     },
     dropdownDesktop (hover) {

@@ -6,9 +6,9 @@
     >
       <div class="col-12 text-center">
         <div
+          v-once
           class="svg-icon quest-icon color"
           v-html="icons.questIcon"
-          v-once
         ></div>
         <h4 v-once>
           {{ $t('yourPartyIsNotOnQuest') }}
@@ -86,8 +86,10 @@
                 </div>
               </div>
             </div>
-            <div v-if="hasPendingQuestItems"
-                 class="item-progress-pending mb-2">
+            <div
+              v-if="hasPendingQuestItems"
+              class="item-progress-pending mb-2"
+            >
               <div class="pending-amount pt-2 pb-2">
                 {{ $t('questItemsPending', { amount: user.party.quest.progress.collectedItems }) }}
               </div>
@@ -113,11 +115,11 @@
                   <div
                     class="boss-health-bar"
                     :style="{width: bossHpPercent + '%'}"
-                  ></div>
-                  <div
-                    class="pending-health-bar"
-                    :style="{width: pendingHpPercent + '%'}"
                   >
+                    <div
+                      class="pending-health-bar"
+                      :style="{width: pendingHpInBossHpPercent + '%'}"
+                    ></div>
                   </div>
                 </div>
               </div>
@@ -126,9 +128,9 @@
               <div class="col-6">
                 <span class="float-left hp-value">
                   <div
+                    v-once
                     class="svg-icon health-icon"
                     v-html="icons.healthNoPaddingIcon"
-                    v-once
                   ></div>
                   {{
                     (Math.ceil(parseFloat(group.quest.progress.hp) * 100) / 100)
@@ -151,9 +153,9 @@
                   progress on the group doc? Each user could have different progress.-->
                 <span class="float-right pending-value">
                   <div
+                    v-once
                     class="svg-icon sword-icon"
                     v-html="icons.swordIcon"
-                    v-once
                   ></div>
                   {{
                     (user.party.quest.progress.up || 0)
@@ -187,9 +189,9 @@
               <div class="col-6">
                 <span class="float-left rage-value">
                   <div
+                    v-once
                     class="svg-icon rage-icon icon-16"
                     v-html="icons.rageIcon"
-                    v-once
                   >
                   </div>
                   <span
@@ -229,8 +231,10 @@
         ></div>
       </div>
     </div>
-    <div v-if="onPendingQuest || onActiveQuest"
-         class="quest-buttons">
+    <div
+      v-if="onPendingQuest || onActiveQuest"
+      class="quest-buttons"
+    >
       <button
         class="btn btn-secondary w-100"
         @click="openQuestDetails()"
@@ -238,8 +242,10 @@
         {{ $t('viewDetails') }}
       </button>
     </div>
-    <div v-if="userIsQuestLeader && !onActiveQuest"
-         class="quest-buttons">
+    <div
+      v-if="userIsQuestLeader && !onActiveQuest"
+      class="quest-buttons"
+    >
       <button
         class="btn btn-success w-100"
         @click="startQuest()"
@@ -291,12 +297,16 @@
     height: 0.75rem;
 
     display: inline-block;
+    position: relative;
   }
 
   .pending-health-bar {
     height: 0.75rem;
     background-color: $yellow-50;
     display: inline-block;
+
+    position: absolute;
+    right: 0;
   }
 
   .rage-details {
@@ -676,6 +686,15 @@ export default {
     },
     pendingHpPercent () {
       return percent(this.user.party.quest.progress.up, this.questData.boss.hp);
+    },
+    pendingHpInBossHpPercent () {
+      // Pending more than the current hp left, it is the full % of the pending bar
+      if (this.user.party.quest.progress.up > this.group.quest.progress.hp) {
+        return 100;
+      }
+
+      // otherwise the percent inside that hp bar is needed
+      return percent(this.user.party.quest.progress.up, this.group.quest.progress.hp);
     },
     questData () {
       if (!this.group.quest) return {};

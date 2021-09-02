@@ -68,6 +68,9 @@ export default {
     this.countdownString();
     this.timer = setInterval(this.countdownString, 1000);
   },
+  beforeDestroy () {
+    this.cancelAutoUpdate();
+  },
   methods: {
     countdownString () {
       const diffDuration = moment.duration(moment(this.endDate).diff(moment()));
@@ -97,9 +100,6 @@ export default {
     cancelAutoUpdate () {
       clearInterval(this.timer);
     },
-  },
-  beforeDestroy () {
-    this.cancelAutoUpdate();
   },
 };
 </script>

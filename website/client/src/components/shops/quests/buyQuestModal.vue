@@ -17,7 +17,7 @@
       <close-icon @click="hideDialog()" />
     </div>
     <h2 class="text-center textCondensed">
-      {{$t('questDetailsTitle') }}
+      {{ $t('questDetailsTitle') }}
     </h2>
     <div
       v-if="item != null"
@@ -83,7 +83,7 @@
     </div>
     <countdown-banner
       v-if="item.event"
-      :endDate="endDate"
+      :end-date="endDate"
     />
     <div
       slot="modal-footer"

@@ -112,7 +112,6 @@ b-dropdown(:text="$t('sort')", right=true)
 import { mapState } from '@/libs/store';
 import groupUtilities from '@/mixins/groupsUtilities';
 
-
 import PublicGuildItem from './publicGuildItem';
 import Sidebar from './groupSidebar';
 

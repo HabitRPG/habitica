@@ -450,6 +450,11 @@ const backgrounds = {
     ghost_ship: { },
     raging_river: { },
   },
+  backgrounds082021: {
+    daytime_misty_forest: { },
+    rope_bridge: { },
+    stone_tower: { },
+  },
   timeTravelBackgrounds: {
     airship: {
       price: 1,

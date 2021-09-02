@@ -396,7 +396,6 @@
   }
 </style>
 
-
 <script>
 import _filter from 'lodash/filter';
 import _sortBy from 'lodash/sortBy';
@@ -425,7 +424,6 @@ import FilterSidebar from '@/components/ui/filterSidebar';
 import FilterGroup from '@/components/ui/filterGroup';
 import SelectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
 import QuestPopover from './questPopover';
-
 
 export default {
   components: {
@@ -513,6 +511,12 @@ export default {
       section: this.$t('shops'),
     });
     await this.$store.dispatch('worldState:getWorldState');
+
+    this.$root.$on('bv::modal::hidden', event => {
+      if (event.componentId === 'buy-quest-modal') {
+        this.$root.$emit('buyModal::hidden', this.selectedItemToBuy.key);
+      }
+    });
   },
   methods: {
     questItems (category, sortBy, searchBy, hideLocked, hidePinned) {

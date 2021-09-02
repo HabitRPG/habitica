@@ -76,5 +76,6 @@
     "questInvitationNotificationInfo": "Byli jste pozváni, abyste se připojili k výpravě",
     "hatchingPotionQuests": "Výpravy pro kouzelný lektvar",
     "bossDamage": "Ublížil/a jsi bossovi!",
-    "questAlreadyStarted": "Výprava už začala."
+    "questAlreadyStarted": "Výprava už začala.",
+    "questAlreadyStartedFriendly": "Výprava už začala, ale můžeš přece stihnout tu následující!"
 }

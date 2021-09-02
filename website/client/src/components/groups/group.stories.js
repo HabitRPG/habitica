@@ -38,6 +38,9 @@ storiesOf('Group Components|Party/Quest States', module)
         party: {
 
         },
+        preferences: {
+
+        },
       },
     },
     challengeOptions: {},
@@ -67,6 +70,9 @@ storiesOf('Group Components|Party/Quest States', module)
       data: {
         _id: 'some-user',
         party: {
+
+        },
+        preferences: {
 
         },
       },
@@ -102,6 +108,9 @@ storiesOf('Group Components|Party/Quest States', module)
         party: {
 
         },
+        preferences: {
+
+        },
       },
     },
     challengeOptions: {},
@@ -121,6 +130,9 @@ storiesOf('Group Components|Party/Quest States', module)
       data: {
         _id: '05ca98f4-4706-47b5-8d02-142e6e78ba2e',
         party: {
+
+        },
+        preferences: {
 
         },
       },
@@ -144,6 +156,9 @@ storiesOf('Group Components|Party/Quest States', module)
         party: {
 
         },
+        preferences: {
+
+        },
       },
     },
     challengeOptions: {},
@@ -163,6 +178,9 @@ storiesOf('Group Components|Party/Quest States', module)
       data: {
         _id: 'just-a-member',
         party: {
+
+        },
+        preferences: {
 
         },
       },
@@ -189,6 +207,9 @@ storiesOf('Group Components|Party/Quest States', module)
           quest: {
             RSVPNeeded: true,
           },
+        },
+        preferences: {
+
         },
       },
     },
@@ -218,6 +239,9 @@ storiesOf('Group Components|Party/Quest States', module)
             },
           },
         },
+        preferences: {
+
+        },
       },
     },
     challengeOptions: {},
@@ -245,6 +269,9 @@ storiesOf('Group Components|Party/Quest States', module)
               collect: {},
             },
           },
+        },
+        preferences: {
+
         },
       },
     },
@@ -274,6 +301,9 @@ storiesOf('Group Components|Party/Quest States', module)
             },
           },
         },
+        preferences: {
+
+        },
       },
     },
     challengeOptions: {},
@@ -301,6 +331,9 @@ storiesOf('Group Components|Party/Quest States', module)
               collect: {},
             },
           },
+        },
+        preferences: {
+
         },
       },
     },
@@ -330,6 +363,9 @@ storiesOf('Group Components|Party/Quest States', module)
             },
           },
         },
+        preferences: {
+
+        },
       },
     },
     challengeOptions: {},
@@ -354,6 +390,9 @@ storiesOf('Group Components|Party/Quest States', module)
       data: {
         _id: 'some-user',
         party: {
+
+        },
+        preferences: {
 
         },
       },

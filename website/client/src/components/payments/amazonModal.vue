@@ -56,7 +56,6 @@
 <script>
 import axios from 'axios';
 import pick from 'lodash/pick';
-import * as Analytics from '@/libs/analytics';
 import { mapState } from '@/libs/store';
 import { CONSTANTS, setLocalSetting } from '@/libs/userlocalManager';
 import paymentsMixin from '@/mixins/payments';
@@ -261,13 +260,6 @@ export default {
           if (newGroup && newGroup._id) {
             // Handle new user signup
             if (!this.$store.state.isUserLoggedIn) {
-              Analytics.track({
-                hitType: 'event',
-                eventCategory: 'group-plans-static',
-                eventAction: 'view',
-                eventLabel: 'paid-with-amazon',
-              });
-
               this.storePaymentStatusAndReload(`${habiticaUrl}/group-plans/${newGroup._id}/task-information?showGroupOverview=true`);
               return;
             }

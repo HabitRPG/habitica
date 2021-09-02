@@ -1,6 +1,5 @@
 import generateStore from '@/store';
 
-
 describe('canDelete getter', () => {
   let store;
   let group;

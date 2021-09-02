@@ -92,11 +92,11 @@
         <!-- Task title, description and icons-->
         <div
           class="task-content"
-          :class="[{'cursor-auto': !teamManagerAccess}, contentClass]"
+          :class="contentClass"
         >
           <div
             class="task-clickable-area"
-            :class="{'task-clickable-area-user': isUser}"
+            :class="{ 'cursor-auto': !isUser && !teamManagerAccess }"
             tabindex="0"
             @click="edit($event, task)"
             @keypress.enter="edit($event, task)"
@@ -236,6 +236,7 @@
               <label
                 v-markdown="item.text"
                 class="custom-control-label"
+                :class="{ 'cursor-auto': !isUser }"
                 :for="`checklist-${item.id}-${random}`"
               ></label>
             </div>
@@ -259,7 +260,8 @@
                 class="d-flex align-items-center"
               >
                 <div
-                  v-b-tooltip.hover.bottom="$t('streakCounter')"
+                  v-b-tooltip.hover.bottom="task.type === 'daily'
+                    ? $t('streakCounter') : $t('counter')"
                   class="svg-icon streak"
                   v-html="icons.streak"
                 ></div>
@@ -493,6 +495,7 @@
     padding: 7px 8px;
     padding-bottom: 0px;
     border: transparent solid 1px;
+    cursor: pointer;
 
     &-user {
       padding-right: 0px;
@@ -603,7 +606,6 @@
     padding-top: 0px;
     padding-bottom: 7px;
     flex-grow: 1;
-    cursor: pointer;
     background: $white;
     border: 1px solid transparent;
     transition-duration: 0.15;
@@ -632,6 +634,7 @@
     text-align: center;
     color: $gray-200;
     border: transparent solid 1px;
+    cursor: pointer;
 
     &:focus {
       border: $purple-400 solid 1px;
@@ -668,6 +671,7 @@
     }
 
     .custom-control-label {
+      cursor: pointer;
       margin-left: 6px;
       padding-top: 0px;
       min-width: 0px;

@@ -3804,6 +3804,41 @@ const quests = {
       unlock: t('questStoneUnlockText'),
     },
   },
+  solarSystem: {
+    text: t('questSolarSystemText'),
+    notes: t('questSolarSystemNotes'),
+    completion: t('questSolarSystemCompletion'),
+    value: 1,
+    category: 'timeTravelers',
+    canBuy () {
+      return false;
+    },
+    boss: {
+      name: t('questSolarSystemBoss'),
+      hp: 1500,
+      str: 2.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'SolarSystem',
+          text: t('questSolarSystemDropSolarSystemPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'SolarSystem',
+          text: t('questSolarSystemDropSolarSystemPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'SolarSystem',
+          text: t('questSolarSystemDropSolarSystemPotion'),
+        },
+      ],
+      gp: 90,
+      exp: 900,
+      unlock: t('questSolarSystemUnlockText'),
+    },
+  },
 };
 
 each(quests, (v, key) => {

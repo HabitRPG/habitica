@@ -719,7 +719,6 @@ import achievementsLib from '@/../../common/script/libs/achievements';
 import Content from '@/../../common/script/content';
 import profileStats from './profileStats';
 
-
 import message from '@/assets/svg/message.svg';
 import gift from '@/assets/svg/gift.svg';
 import block from '@/assets/svg/block.svg';

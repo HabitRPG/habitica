@@ -149,7 +149,6 @@ import challengeUtilities from '@/mixins/challengeUtilities';
 import challengeIcon from '@/assets/svg/challenge.svg';
 import positiveIcon from '@/assets/svg/positive.svg';
 
-
 export default {
   components: {
     Sidebar,
