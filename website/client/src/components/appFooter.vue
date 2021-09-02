@@ -83,9 +83,12 @@
               </router-link>
             </li>
             <li>
-              <router-link to="/groups/guild/a29da26b-37de-4a71-b0c6-48e72a900dac">
+              <a
+                :href="bugReportMailto"
+                target="_blank"
+              >
                 {{ $t('reportBug') }}
-              </router-link>
+              </a>
             </li>
             <li>
               <a
@@ -472,12 +475,14 @@ import facebook from '@/assets/svg/facebook.svg';
 import instagram from '@/assets/svg/instagram.svg';
 import heart from '@/assets/svg/heart.svg';
 import buyGemsModal from './payments/buyGemsModal.vue';
+import reportBug from '@/mixins/reportBug.js';
 
 const IS_PRODUCTION = process.env.NODE_ENV === 'production'; // eslint-disable-line no-process-env
 export default {
   components: {
     buyGemsModal,
   },
+  mixins: [reportBug],
   data () {
     return {
       icons: Object.freeze({

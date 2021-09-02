@@ -309,12 +309,13 @@
               >
                 {{ $t('overview') }}
               </router-link>
-              <router-link
+              <a
                 class="topbar-dropdown-item dropdown-item"
-                to="/groups/guild/a29da26b-37de-4a71-b0c6-48e72a900dac"
+                :href="bugReportMailto"
+                target="_blank"
               >
                 {{ $t('reportBug') }}
-              </router-link>
+              </a>
               <router-link
                 class="topbar-dropdown-item dropdown-item"
                 to="/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a"
@@ -742,6 +743,7 @@ import sendGemsModal from '@/components/payments/sendGemsModal';
 import selectUserModal from '@/components/payments/selectUserModal';
 import sync from '@/mixins/sync';
 import userDropdown from './userDropdown';
+import reportBug from '@/mixins/reportBug.js';
 
 export default {
   components: {
@@ -753,7 +755,7 @@ export default {
     selectUserModal,
     userDropdown,
   },
-  mixins: [sync],
+  mixins: [sync, reportBug],
   data () {
     return {
       isUserDropdownOpen: false,
