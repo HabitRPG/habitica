@@ -53,6 +53,7 @@ export default {
         });
         this.group.quest = quest;
         partyState.data.quest = quest;
+        this.$store.dispatch('party:getMembers', { forceLoad: true });
       } else {
         if (!window.confirm(this.$t('sureCancel'))) {
           return false;
