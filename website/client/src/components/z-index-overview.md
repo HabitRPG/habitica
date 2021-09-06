@@ -1,7 +1,7 @@
 # List of the current zIndexes
 
 |Type|zIndex|File|
-|-|-|
+|:-|:-|:-|
 |Progress Bar|1600|app.vue|
 |Create App Menu|999|create-task.scss|
 |Loading Screen|1050|loading-screen.scss|
