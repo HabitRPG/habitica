@@ -367,5 +367,7 @@
     "hatchingPotionStainedGlass": "Buntglas",
     "hatchingPotionPolkaDot": "Pünktchen",
     "hatchingPotionMossyStone": "Bemooster Stein",
-    "hatchingPotionSunset": "Sonnenuntergang"
+    "hatchingPotionSunset": "Sonnenuntergang",
+    "hatchingPotionSolarSystem": "Sonnensystem",
+    "hatchingPotionMoonglow": "Mondschein"
 }

@@ -40,9 +40,9 @@
     "hideMissing": "Hide Missing",
     "amountExperience": "<%= amount %> Experience",
     "amountGold": "<%= amount %> Gold",
-    "namedHatchingPotion": "<%= type %> Hatching Potion",
-    "buyGems": "ซื้อ Gem",
-    "purchaseGems": "ซื้อ Gem",
+    "namedHatchingPotion": "<%= type %> นำ้ยาฟักไข่",
+    "buyGems": "ซื้ออัญมณี",
+    "purchaseGems": "ซื้ออัญมณี",
     "items": "Items",
     "AZ": "A-Z",
     "sort": "Sort",
@@ -118,5 +118,6 @@
     "welcome3": "Progress in life and the game!",
     "welcome3notes": "As you improve your life, your avatar will level up and unlock pets, quests, equipment, and more!",
     "imReady": "เข้าสู่ Habitica",
-    "limitedOffer": "Available until <%= date %>"
+    "limitedOffer": "Available until <%= date %>",
+    "nGems": "<%= nGems %> อัญมณี"
 }

@@ -133,7 +133,7 @@
     "weaponSpecialSummerRogueText": "Pedang Bajak Laut",
     "weaponSpecialSummerRogueNotes": "Awas! Kau akan membuat Keseharianmu berjalan di atas palang kayu! Meningkatkan Kekuatan sebesar <%= str %>. Perlengkapan Musim Panas 2014 Edisi Terbatas.",
     "weaponSpecialSummerWarriorText": "Pembelah Lautan",
-    "weaponSpecialSummerWarriorNotes": "Tidak ada tugas manapun yang sanggup menghadapi belati ini! Meningkatkan Kekuatan sebesar <%= str %>. Perlengkapan Musim Panas 2014 Edisi Terbatas.",
+    "weaponSpecialSummerWarriorNotes": "Tidak ada tugas di daftar To Do manapun yang sanggup menghadapi belati ini! Meningkatkan Kekuatan sebesar <%= str %>. Perlengkapan Musim Panas 2014 Edisi Terbatas.",
     "weaponSpecialSummerMageText": "Penangkap Rumput Laut",
     "weaponSpecialSummerMageNotes": "Trisula ini digunakan untuk mendapatkan rumput laut secara efektif, menambah penghasilan panen petani rumput laut! Meningkatkan Kecerdasan sebesar <%= int %> dan Persepsi sebesar <%= per %>. Perlengkapan Musim Panas 2014 Edisi Terbatas.",
     "weaponSpecialSummerHealerText": "Tongkat Karang Laut",
@@ -1748,5 +1748,6 @@
     "eyewearArmoireGoofyGlassesText": "Goofy Glasses",
     "eyewearArmoireGoofyGlassesNotes": "Perfect for going incognito or just making your partymates giggle. Increases Perception by <%= per %>. Enchanted Armoire: Independent Item.",
     "twoHandedItem": "Item dua tangan.",
-    "weaponSpecialKS2019Text": "Pedang Mythic Gryphon"
+    "weaponSpecialKS2019Text": "Pedang Mythic Gryphon",
+    "weaponSpecialKS2019Notes": "Melengkung bagaikan paruh dan cakar gryphon, tombak indah ini mengingatkanmu untuk terus berjuang ketika tugas-tugas mulai menjenuhkan. Menambahkan Kekuatan sebanyak <%=str%>."
 }
