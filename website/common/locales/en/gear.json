@@ -562,6 +562,8 @@
   "weaponArmoireMedievalWashboardNotes": "Scrub-a-dub-dub! It's time to apply some elbow grease and get that laundry clean. Increases Strength by <%= str %>. Enchanted Armoire: Medieval Launderers Set (Item 5 of 6).",
   "weaponArmoireBuoyantBubblesText": "Buoyant Bubbles",
   "weaponArmoireBuoyantBubblesNotes": "These bubbles just keep on floating forever, somehow... Increases Perception by <%= per %>. Enchanted Armoire: Bubble Bath Set (Item 3 of 4).",
+  "weaponArmoireHeraldsBuisineText": "Herald's Buisine",
+  "weaponArmoireHeraldsBuisineNotes": "Any announcement will sound so much better following fanfare from this trumpet. Increases Strength by <%= str %>. Enchanted Armoire: Herald Set (Item 3 of 4).",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -1215,6 +1217,8 @@
   "armorArmoireBathtubNotes": "Time for a little R&R? Here's your own personal bathtub -- and a guarantee that the water is always the right temperature! Increases Constitution by <%= con %>. Enchanted Armoire: Bubble Bath Set (Item 2 of 4).",
   "armorArmoireBagpipersKiltText": "Bagpiper's Kilt",
   "armorArmoireBagpipersKiltNotes": "A good sturdy kilt will serve you well. Increases Constitution by <%= con %>. Enchanted Armoire: Bagpiper Set (Item 2 of 3).",
+  "armorArmoireHeraldsTunicText": "Herald's Tunic",
+  "armorArmoireHeraldsTunicNotes": "Get ready to spread good news far and wide in this colorful, royal outfit. Increases Constitution by <%= con %>. Enchanted Armoire: Herald Set (Item1 of 4).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -1888,6 +1892,8 @@
   "headArmoireRubberDuckyNotes": "The perfect companion for an indulgent spa day! Also surprisingly knowledgeable about a range of software issues. Increases Intelligence by <%= int %>. Enchanted Armoire: Bubble Bath Set (Item 1 of 4).",
   "headArmoireGlengarryText": "Glengarry",
   "headArmoireGlengarryNotes": "A traditional cap full of pride and history. Increases Intelligence by <%= int %>. Enchanted Armoire: Bagpiper Set (Item 1 of 3).",
+  "headArmoireHeraldsCapText": "Herald's Cap",
+  "headArmoireHeraldsCapNotes": "This herald’s hat includes a perky plume. Increases Intelligence by <%= int %>. Enchanted Armoire: Herald Set (Item 2 of 4).",
 
   "offhand": "off-hand item",
   "offhandCapitalized": "Off-Hand Item",
@@ -2242,6 +2248,8 @@
   "shieldArmoireBouncyBubblesNotes": "Complete your relaxing bath with these exuberant bubbles! Increases Strength by <%= str %>. Enchanted Armoire: Bubble Bath Set (Item 4 of 4).",
   "shieldArmoireBagpipesText": "Bagpipes",
   "shieldArmoireBagpipesNotes": "The uncharitable might say you're planning to wake the dead with these bagpipes -- but you know you're just motivating your Party to success! Increases Strength by <%= str %>. Enchanted Armoire: Bagpiper Set (Item 3 of 3).",
+  "shieldArmoireHeraldsMessageScrollText": "Herald's Message Scroll",
+  "shieldArmoireHeraldsMessageScrollNotes": "What exciting news does this scroll contain? Could it be about a new pet or a long habit streak? Increases Perception by <%= per %>. Enchanted Armoire: Herald Set (Item 4 of 4)",
 
   "back": "Back Accessory",
   "backCapitalized": "Back Accessory",

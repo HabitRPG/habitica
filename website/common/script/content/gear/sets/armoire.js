@@ -370,6 +370,10 @@ const armor = {
     con: 6,
     set: 'bonnieBagpiper',
   },
+  heraldsTunic: {
+    con: 6,
+    set: 'herald',
+  },
 };
 
 const body = {
@@ -750,6 +754,10 @@ const head = {
     int: 6,
     set: 'bonnieBagpiper',
   },
+  heraldsCap: {
+    int: 6,
+    set: 'herald',
+  },
 };
 
 const shield = {
@@ -1005,6 +1013,10 @@ const shield = {
   bagpipes: {
     str: 6,
     set: 'bonnieBagpiper',
+  },
+  heraldsMessageScroll: {
+    per: 6,
+    set: 'herald',
   },
 };
 
@@ -1311,6 +1323,10 @@ const weapon = {
   buoyantBubbles: {
     per: 5,
     set: 'bath',
+  },
+  heraldsBuisine: {
+    str: 6,
+    set: 'herald',
   },
 };
 
