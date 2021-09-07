@@ -455,6 +455,11 @@ const backgrounds = {
     rope_bridge: { },
     stone_tower: { },
   },
+  backgrounds092021: {
+    autumn_lakeshore: { },
+    autumn_poplars: { },
+    vineyard: { },
+  },
   timeTravelBackgrounds: {
     airship: {
       price: 1,
