@@ -1,10 +1,10 @@
 {
     "clearCompleted": "Borttagning slutförd",
-    "clearCompletedDescription": "Slutförda Att göra uppgifter blir borttagna efter 30 dagar för icke-abonnenter och 90 dagar för abonnenter.",
+    "clearCompletedDescription": "Slutförda Att göra uppgifter raderas efter 30 dagar för användare utan ett abonnemang och efter 90 dagar för abonnenter.",
     "clearCompletedConfirm": "Är du säker på att du vill radera dina slutförda Att göra uppgifter?",
-    "addMultipleTip": "<strong>Tips:</strong> för att lägga till fler <%= taskType %>, separera var och en med en radbrytning (shift + enter) och klicka sedan \"enter.\"",
+    "addMultipleTip": "<strong>Tips:</strong> för att lägga till fler <%= taskType %>, separera var och en med en radbrytning (Shift + Enter) och klicka sedan på \"Enter.\"",
     "addATask": "Lägg till en <%= type %>",
-    "editATask": "Redigera en <%= type %>",
+    "editATask": "Redigera <%= type %>",
     "createTask": "Skapa <%= type %>",
     "addTaskToUser": "Lägg till en uppgift",
     "scheduled": "Schemalagda",
@@ -27,7 +27,7 @@
     "notes": "Anteckningar",
     "advancedSettings": "Avancerade inställningar",
     "difficulty": "Svårighetsgrad",
-    "difficultyHelp": "Svårighetsgraden beskriver hur utmanande en Vana, Daglig uppgift eller Uppgift är för dig att slutföra. En högre svårighetsgrad resulterar i större belöningar när en Uppgift slutförs, men även större skada när en Daglig uppgift missas eller en negativ Vana klickas.",
+    "difficultyHelp": "Svårighetsgraden beskriver hur utmanande en Vana, Daglig uppgift eller en Att göra uppgift är för dig att slutföra. En högre svårighetsgrad resulterar i större belöningar när en Uppgift slutförs, men även större skada när en Daglig uppgift missas eller en negativ Vana klickas.",
     "trivial": "Trivial",
     "easy": "Lätt",
     "medium": "Medel",
@@ -95,7 +95,7 @@
     "invalidTasksType": "Uppgiftstypen måste vara en utav \"vanor\", \"dagliga uppgifter\", \"att göra\", \"belöningar\".",
     "invalidTasksTypeExtra": "Uppgiftstypen måste vara en utav \"vanor\", \"dagliga uppgifter\", \"att göra\", \"belöningar\", \"slutförda att göra\".",
     "cantDeleteChallengeTasks": "En uppgift som tillhör en utmaning can inte raderas.",
-    "checklistOnlyDailyTodo": "Checklistor stöds bara på Dagliga Uppgifter och Att-Göra",
+    "checklistOnlyDailyTodo": "Checklistor stöds bara på Dagliga uppgifter och Att göra uppgiter",
     "checklistItemNotFound": "Ingen checklista med det angivna id hittades.",
     "itemIdRequired": "\"itemId\" måste vara en giltig UUID.",
     "tagNotFound": "Inget etikettföremål hittades med givet id.",
@@ -135,5 +135,8 @@
     "addTags": "Lägg till etiketter...",
     "sureDeleteType": "Är du säker på att du vill radera <%= type %>?",
     "deleteTaskType": "Radera <%= type %>",
-    "tomorrow": "Imorgon"
+    "tomorrow": "Imorgon",
+    "resetCounter": "Återställ räknare",
+    "adjustCounter": "Justera räknare",
+    "counter": "Räknare"
 }
