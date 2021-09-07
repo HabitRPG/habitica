@@ -152,6 +152,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    purchased: {
+      type: Boolean,
+      default: false,
+    },
   },
   data () {
     return {
@@ -206,7 +210,7 @@ export default {
       return collect.text;
     },
     countdownString () {
-      if (!this.quest.event) return;
+      if (!this.quest.event || this.purchased) return;
       const diffDuration = moment.duration(moment(this.quest.event.end).diff(moment()));
 
       if (diffDuration.asSeconds() <= 0) {
