@@ -29,5 +29,12 @@
     "veteranWolf": "หมาป่าผ่านศึก",
     "etherealLion": "สิงโตสวรรค์",
     "magicMounts": "สัตว์พาหนะเวทมนต์",
-    "magicPets": "สัตว์เลี้ยงเวทมนต์"
+    "magicPets": "สัตว์เลี้ยงเวทมนต์",
+    "beastMasterName": "นักฝึกสัตว์ร้าย",
+    "beastMasterProgress": "ความก้าวหน้าสู่การเป็นนักฝึกสัตว์ร้าย",
+    "beastMasterText2": " และได้ปลดปล่อยสัตว์เลี้ยงของเขา <%= count %> ครั้ง",
+    "mountMasterProgress": "ความก้าวหน้าในเส้นทางสู่ผู้เชี่ยวชาญด้านสัตว์พาหนะ",
+    "mantisShrimp": "กั้ง",
+    "magicalBee": "ผึ่งเวทย์มนต์",
+    "hydra": "ไฮดร้า"
 }

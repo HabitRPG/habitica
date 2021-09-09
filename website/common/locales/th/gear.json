@@ -114,7 +114,7 @@
     "weaponSpecialTachiNotes": "This light and curved sword will shred your tasks to ribbons! Increases Strength by <%= str %>.",
     "weaponSpecialAetherCrystalsText": "Aether Crystals",
     "weaponSpecialAetherCrystalsNotes": "These bracers and crystals once belonged to the Lost Masterclasser herself. Increases all Stats by <%= attrs %>.",
-    "weaponSpecialYetiText": "Yeti-Tamer Spear",
+    "weaponSpecialYetiText": "หอกฝึกเยติ",
     "weaponSpecialYetiNotes": "This spear allows its user to command any yeti. Increases Strength by <%= str %>. Limited Edition 2013-2014 Winter Gear.",
     "weaponSpecialSkiText": "Ski-sassin Pole",
     "weaponSpecialSkiNotes": "A weapon capable of destroying hordes of enemies! It also helps the user make very nice parallel turns. Increases Strength by <%= str %>. Limited Edition 2013-2014 Winter Gear.",
@@ -1741,5 +1741,6 @@
     "eyewearArmoirePlagueDoctorMaskNotes": "An authentic mask worn by the doctors who battle the Plague of Procrastination. Increases Constitution and Intelligence by <%= attrs %> each. Enchanted Armoire: Plague Doctor Set (Item 2 of 3).",
     "eyewearArmoireGoofyGlassesText": "Goofy Glasses",
     "eyewearArmoireGoofyGlassesNotes": "Perfect for going incognito or just making your partymates giggle. Increases Perception by <%= per %>. Enchanted Armoire: Independent Item.",
-    "twoHandedItem": "Two-handed item."
+    "twoHandedItem": "Two-handed item.",
+    "weaponSpecialWinter2021WarriorText": "ด้ายตกปลาที่แข็งแกร่ง"
 }

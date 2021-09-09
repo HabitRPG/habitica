@@ -114,5 +114,7 @@
     "achievementWildBlueYonder": "Дикая синева впереди",
     "achievementWildBlueYonderText": "Собраны все синие сахарные скакуны.",
     "achievementWildBlueYonderModalText": "Вы собрали всех синих сахарных скакунов!",
-    "achievementVioletsAreBlue": "Фиалки синие"
+    "achievementVioletsAreBlue": "Фиалки синие",
+    "achievementDomesticatedText": "Собраны все одомашненные питомцы: хорёк, морская свинка, петух, летающая свинья, крыса, кролик, лошадь и корова!",
+    "achievementDomesticatedModalText": "Вы собрали всех одомашненных питомцев!"
 }
