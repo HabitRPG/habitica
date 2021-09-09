@@ -7,20 +7,24 @@
           {{ $t('reportAccountProblems') }}
           &colon;&nbsp;
           <a href="mailto:admin@habitica.com">admin&commat;habitica&period;com</a>
-          <br>
-          {{ $t('reportBug') }}
-          &colon;&nbsp;
-          <a
-            target="_blank"
-            href="/groups/guild/a29da26b-37de-4a71-b0c6-48e72a900dac"
-          >Report a Bug guild</a>&nbsp;or&nbsp;
-          <a
-            target="_blank"
-            href="https://github.com/HabitRPG/habitica/issues?q=is%3Aopen"
-          >GitHub</a>
           <span v-if="user">
             <br>
+            {{ $t('reportBug') }}
+            &colon;&nbsp;
+            <a
+              :href="bugReportMailto"
+              target="_blank"
+            >
+            admin&commat;habitica&period;com
+            </a>
+            <br>
             {{ $t('reportCommunityIssues') }}
+            &colon;&nbsp;
+            <a href="mailto:admin@habitica.com">admin&commat;habitica&period;com</a>
+          </span>
+          <span v-else>
+            <br>
+            {{ $t('reportBug') }}
             &colon;&nbsp;
             <a href="mailto:admin@habitica.com">admin&commat;habitica&period;com</a>
           </span>
@@ -52,8 +56,10 @@
 <script>
 import { mapState } from '@/libs/store';
 import { goToModForm } from '@/libs/modform';
+import reportBug from '@/mixins/reportBug.js';
 
 export default {
+  mixins: [reportBug],
   computed: {
     ...mapState({
       user: 'user.data',
