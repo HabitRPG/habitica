@@ -135,5 +135,8 @@
     "deleteTaskType": "Удалить <%= type %>",
     "sureDeleteType": "Вы уверены, что хотите удалить <%= type %>?",
     "tomorrow": "Завтра",
-    "pressEnterToAddTag": "Нажмите Enter, чтобы добавить тег: '<%= tagName %>'"
+    "pressEnterToAddTag": "Нажмите Enter, чтобы добавить тег: '<%= tagName %>'",
+    "counter": "Счётчик",
+    "adjustCounter": "Настроить счётчик",
+    "resetCounter": "Сбросить счётчик"
 }

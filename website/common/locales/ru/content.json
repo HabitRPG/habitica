@@ -367,5 +367,7 @@
     "hatchingPotionAutumnLeaf": "Осенний лист",
     "hatchingPotionPolkaDot": "Пятнистый",
     "hatchingPotionMossyStone": "Мохокаменный",
-    "hatchingPotionSunset": "Закат"
+    "hatchingPotionSunset": "Закат",
+    "hatchingPotionSolarSystem": "Гелиосистемный",
+    "hatchingPotionMoonglow": "Луносветный"
 }
