@@ -27,7 +27,7 @@
     position: fixed;
     right: 10px;
     width: 350px;
-    z-index: 1400; // 1400 is above modal backgrounds
+    z-index: 999;
 
     top: var(--current-scrollY);
 
