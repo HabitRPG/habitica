@@ -5,7 +5,7 @@
   "main": "./website/server/index.js",
   "dependencies": {
     "@babel/core": "^7.15.0",
-    "@babel/preset-env": "^7.15.0",
+    "@babel/preset-env": "^7.15.4",
     "@babel/register": "^7.15.3",
     "@google-cloud/trace-agent": "^5.1.5",
     "@parse/node-apn": "^4.1.1",
