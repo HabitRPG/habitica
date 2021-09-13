@@ -74,10 +74,19 @@ async function cronAsync (req, res) {
     }
 
     const tasks = await Tasks.Task.find({
-      userId: user._id,
-      $or: [ // Exclude completed todos
-        { type: 'todo', completed: false },
-        { type: { $in: ['habit', 'daily', 'reward'] } },
+      $and: [
+        {
+          $or: [
+            { userId: user._id },
+            { userId: { $exists: false }, 'group.assignedUsers': user._id },
+          ],
+        },
+        {
+          $or: [ // Exclude completed todos
+            { type: 'todo', completed: false },
+            { type: { $in: ['habit', 'daily', 'reward'] } },
+          ],
+        },
       ],
     }).exec();
 
