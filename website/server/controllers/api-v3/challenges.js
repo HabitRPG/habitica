@@ -864,15 +864,16 @@ api.cloneChallenge = {
       ...challengeToClone.tasksOrder.habits,
       ...challengeToClone.tasksOrder.dailys,
       ...challengeToClone.tasksOrder.todos,
-      ...challengeToClone.tasksOrder.rewards
+      ...challengeToClone.tasksOrder.rewards,
     ];
 
     const challengeTasks = await Promise.all(challengeTaskIds.map(async taskId => {
       const task = Tasks.Task.findById(taskId).exec();
       return task;
     }));
-    
-    challengeTasks.reverse(); // last task should be added first and vice-versa, since new tasks are prepended
+
+    // last task should be added first and vice-versa, since new tasks are prepended
+    challengeTasks.reverse();
 
     const tasksToClone = challengeTasks.map(task => {
       const clonedTask = cloneDeep(task.toObject());
