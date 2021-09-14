@@ -54,8 +54,8 @@ const featuredItems = {
         path: 'quests.slime',
       },
       {
-        type: 'quests',
-        path: 'quests.taskwoodsTerror1',
+        type: 'bundles',
+        path: 'bundles.birdBuddies',
       },
     ];
   },
