@@ -5,7 +5,7 @@ export default {
     ...mapState({ user: 'user.data' }),
     bugReportMailto () {
       let subscriptionInfo = 'Not Subscribed';
-      if (this.user.purchased.plan.planId) {
+      if (this.user.purchased.plan.customerId) {
         subscriptionInfo = `
           Subscription: ${this.user.purchased.plan.planId}%0d%0a
           Payment Platform: ${this.user.purchased.plan.paymentMethod}%0d%0a
