@@ -249,7 +249,6 @@ export default {
     },
     async showPartyMembers () {
       this.group = await this.$store.dispatch('party:getParty');
-      this.$store.state.memberModalOptions.loading = true;
       this.group = this.$store.state.party.data;
       this.membersLoaded = true;
       this.members = this.partyMembers;
