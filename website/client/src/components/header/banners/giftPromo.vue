@@ -63,7 +63,6 @@
 </style>
 
 <script>
-import * as Analytics from '@/libs/analytics';
 import { mapState } from '@/libs/store';
 import BaseBanner from './base';
 
@@ -95,13 +94,6 @@ export default {
   },
   methods: {
     showSelectUser () {
-      Analytics.track({
-        hitType: 'event',
-        eventCategory: 'button',
-        eventAction: 'click',
-        eventLabel: 'Gift Promo Banner',
-      });
-
       this.$root.$emit('bv::show::modal', 'select-user-modal');
     },
   },

@@ -89,7 +89,6 @@
 </style>
 
 <script>
-import * as Analytics from '@/libs/analytics';
 import { mapState } from '@/libs/store';
 import BaseBanner from './base';
 
@@ -118,14 +117,7 @@ export default {
   },
   methods: {
     openGemsModal () {
-      Analytics.track({
-        hitType: 'event',
-        eventCategory: 'button',
-        eventAction: 'click',
-        eventLabel: 'Gems Promo Banner',
-      });
-
-      this.$root.$emit('bv::show::modal', 'buy-gems', { alreadyTracked: true });
+      this.$root.$emit('bv::show::modal', 'buy-gems');
     },
   },
 };

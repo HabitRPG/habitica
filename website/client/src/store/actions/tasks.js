@@ -113,16 +113,18 @@ export async function create (store, createdTask) {
     const tasksCreatedCount = getLocalSetting(CONSTANTS.keyConstants.TASKS_CREATED_COUNT);
     if (!tasksCreatedCount || tasksCreatedCount < 2) {
       const uuid = store.state.user.data._id;
-      Analytics.track('task created', {
-        uuid,
+      Analytics.track({
+        eventName: 'task created',
+        eventAction: 'click',
+        eventCategory: 'behavior',
         hitType: 'event',
-        category: 'behavior',
+        uuid,
         taskType: taskRes.type,
       });
       if (!tasksCreatedCount) {
         setLocalSetting(CONSTANTS.keyConstants.TASKS_CREATED_COUNT, 1);
       } else {
-        setLocalSetting(CONSTANTS.keyConstants.TASKS_CREATED_COUNT, tasksCreatedCount + 1);
+        setLocalSetting(CONSTANTS.keyConstants.TASKS_CREATED_COUNT, Number(tasksCreatedCount) + 1);
       }
     }
   });

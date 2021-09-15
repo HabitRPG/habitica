@@ -74,17 +74,19 @@ export default {
 
       const tasksScoredCount = getLocalSetting(CONSTANTS.keyConstants.TASKS_SCORED_COUNT);
       if (!tasksScoredCount || tasksScoredCount < 2) {
-        Analytics.track('task scored', {
-          uuid: user._id,
+        Analytics.track({
+          eventName: 'task scored',
+          eventAction: 'click',
+          eventCategory: 'behavior',
           hitType: 'event',
-          category: 'behavior',
+          uuid: user._id,
           taskType: task.type,
           direction,
         });
         if (!tasksScoredCount) {
           setLocalSetting(CONSTANTS.keyConstants.TASKS_SCORED_COUNT, 1);
         } else {
-          setLocalSetting(CONSTANTS.keyConstants.TASKS_SCORED_COUNT, tasksScoredCount + 1);
+          setLocalSetting(CONSTANTS.keyConstants.TASKS_SCORED_COUNT, Number(tasksScoredCount) + 1);
         }
       }
     },
