@@ -1218,7 +1218,7 @@
   "armorArmoireBagpipersKiltText": "Bagpiper's Kilt",
   "armorArmoireBagpipersKiltNotes": "A good sturdy kilt will serve you well. Increases Constitution by <%= con %>. Enchanted Armoire: Bagpiper Set (Item 2 of 3).",
   "armorArmoireHeraldsTunicText": "Herald's Tunic",
-  "armorArmoireHeraldsTunicNotes": "Get ready to spread good news far and wide in this colorful, royal outfit. Increases Constitution by <%= con %>. Enchanted Armoire: Herald Set (Item1 of 4).",
+  "armorArmoireHeraldsTunicNotes": "Get ready to spread good news far and wide in this colorful, royal outfit. Increases Constitution by <%= con %>. Enchanted Armoire: Herald Set (Item 1 of 4).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
