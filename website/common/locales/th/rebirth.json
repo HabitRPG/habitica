@@ -7,8 +7,8 @@
     "rebirthText": "เริ่มต้น <%= rebirths %> การผจญภัยครั้งใหม่",
     "rebirthOrb": "Used an Orb of Rebirth to start over after attaining Level <%= level %>.",
     "rebirthOrb100": "Used an Orb of Rebirth to start over after attaining Level 100 or higher.",
-    "rebirthOrbNoLevel": "ใช้ลูกแก้วแห่งการเกิดใหม่เพื่อเริ่มต้นใหม่อีกครั้ง",
-    "rebirthPop": "Instantly restart your character as a Level 1 Warrior while retaining achievements, collectibles, and equipment. Your tasks and their history will remain but they will be reset to yellow. Your streaks will be removed except from challenge tasks. Your Gold, Experience, Mana, and the effects of all Skills will be removed. All of this will take effect immediately. For more information, see the wiki's <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a> page.",
+    "rebirthOrbNoLevel": "ใช้ลูกแก้วแห่งการกำเนิดเพื่อเกิดใหม่อีกครั้ง",
+    "rebirthPop": "เริ่มต้นตัวละครของคุณที่นักรบเลเวล 1 โดยที่ยังเก็บความสำเร็จ และอุปกรณ์ต่างๆเอาไว้ ประวัติภารกิจของคุณจะคงอยู่แต่มันจะกลับไปเป็นสีเหลือง จำนวนครั้งที่คุณได้ทำจะยังคงอยู่ยกเว้นในภารกิจจากชาเลนจ์ เหรียญทอง ค่าประสบการณ์ มานาและบัฟที่ได้จากสกิลจะถูกลบ ทั้งหมดที่กล่าวมาข้างต้นจะถูกดำเนินการโดยทันที สำหรับข้อมูลเพิ่มเติม ศึกษาได้ใน วิกิ<a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>ลูกแก้วแห่งการเกิดใหม่</a> page.",
     "rebirthName": "ลูกแก้วแห่งการเกิดใหม่",
     "rebirthComplete": "คุณเกิดใหม่แล้ว!"
 }

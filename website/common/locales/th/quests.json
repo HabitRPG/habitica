@@ -83,5 +83,10 @@
     "noQuestToStartTitle": "หาเควสที่จะเริ่มต้นไม่ได้?",
     "membersParticipating": "<%= accepted %> / <%= invited %> การเข้าร่วมของสมาชิก",
     "yourPartyIsNotOnQuest": "ปาร์ตี้ของคุณไม่ได้อยู่ระหว่างทำเควส",
-    "chatBossDontAttack": "<%= username %> โจมตี <%= bossName %> ไป <%= userDamage %> หน่วยความเสียหาย. <%= bossName %> ไม่โจมตี, เพราะมันเคารพความจริงที่ว่าthat there are some bugs post-maintenance, and it doesn't want to hurt anyone unfairly. It will continue its rampage soon!"
+    "chatBossDontAttack": "<%= username %> โจมตี <%= bossName %> ไป <%= userDamage %> หน่วยความเสียหาย. <%= bossName %> ไม่โจมตี, เพราะมันเคารพความจริงที่ว่าthat there are some bugs post-maintenance, and it doesn't want to hurt anyone unfairly. It will continue its rampage soon!",
+    "selectQuestModal": "เลือกเควส",
+    "yourQuests": "เควสของคุณ",
+    "backToSelection": "กลับไปที่ขั้นตอนการเลือกเควส",
+    "cancelQuest": "ยกเลิกเควส",
+    "questOwner": "เจ้าของเควส"
 }
