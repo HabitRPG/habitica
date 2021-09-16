@@ -2360,7 +2360,7 @@
     "shieldArmoireHoneyFoodText": "飾りのはちみつ",
     "shieldArmoireMeatFoodNotes": "時には、多少のタンパク質は強く大きく育つのに必要です。ペットの中には他のペットより強く肉を望むペットがいるようです！力が<%= str %>上がります。ラッキー宝箱：ペットのえさセット（10個中5個目のアイテム）。",
     "shieldArmoireMeatFoodText": "飾りの肉",
-    "shieldArmoireMilkFoodNotes": "ミルクが健康が良いということは多くのことわざになっていますが、ミルクを好むペットはただクリーミーな味わいが大好きなだけなのです。体質と力がそれぞれ<%= attrs %>上がります。ラッキー宝箱：ペットのえさセット（10個中10個目のアイテム）。",
+    "shieldArmoireMilkFoodNotes": "ミルクが健康が良いということは多くのことわざになっていますが、ミルクを好むペットはただクリーミーな味わいが大好きなだけなのです。体質と力がそれぞれ<%= attrs %>上がります。ラッキー宝箱：ペットのえさセット（10個中10個目のアイテム）",
     "shieldArmoireMilkFoodText": "飾りのミルク",
     "shieldArmoirePinkCottonCandyFoodNotes": "甘い物好きなペットのための甘いごちそうです。でも、どんなペットがこれを一番好きなんでしょうか？知能が<%= int %>上がります。ラッキー宝箱：ペットのえさセット（10個中4個目のアイテム）。",
     "shieldArmoireBlueCottonCandyFoodNotes": "甘い物好きなペットのための甘いごちそうです。でも、どんなペットがこれを一番好きなんでしょうか？体質が<%= con %>上がります。ラッキー宝箱：ペットのえさセット（10個中9個目のアイテム）。",
@@ -2431,5 +2431,17 @@
     "headArmoireGlengarryNotes": "歴史と誇りが詰まった伝統的な帽子です。知能が<%= int %>上がります。ラッキー宝箱：バグパイプ吹きセット（3個中1個目のアイテム）。",
     "headArmoireGlengarryText": "グレンガリー帽",
     "armorArmoireBagpipersKiltNotes": "頑丈で良いキルトで、喜びに包まれるでしょう。体質が<%= con %>上がります。ラッキー宝箱：バグパイプ吹きセット（3個中2個目のアイテム）。",
-    "armorArmoireBagpipersKiltText": "バグパイプ吹きのキルト"
+    "armorArmoireBagpipersKiltText": "バグパイプ吹きのキルト",
+    "backMystery202109Text": "月下蝶の羽根",
+    "headAccessoryMystery202109Text": "月下蝶の触覚",
+    "backMystery202109Notes": "黄昏時の空気を音もなくなめらかに飛びましょう。効果なし。2021年9月の有料会員アイテム。",
+    "headAccessoryMystery202109Notes": "そよ風の中にまじる花の香りや風の変化の香りを感じましょう。効果なし。2021年9月の有料会員アイテム。",
+    "weaponArmoireHeraldsBuisineText": "伝令官の古式トランペット",
+    "armorArmoireHeraldsTunicText": "伝令官のチュニック",
+    "weaponArmoireHeraldsBuisineNotes": "このトランペットのファンファーレの後であれば、どんな発表でもとても素敵に感じるでしょう。力が<%= str %>上がります。ラッキー宝箱：伝令官セット（4個中3個目のアイテム）。",
+    "armorArmoireHeraldsTunicNotes": "この高貴でカラフルな外套で、良いニュースを遠くにまで広める準備をしましょう。体質が<%= con %>上がります。ラッキー宝箱：伝令官セット（4個中1個目のアイテム）。",
+    "shieldArmoireHeraldsMessageScrollText": "伝令官の巻物",
+    "headArmoireHeraldsCapText": "伝令官の帽子",
+    "headArmoireHeraldsCapNotes": "この伝令官の帽子には陽気な羽根飾りがついています。知能が<%= int %>上がります。ラッキー宝箱：伝令官セット（4個中2個目のアイテム）。",
+    "shieldArmoireHeraldsMessageScrollNotes": "どんなワクワクするニュースがこの巻物には書かれているのでしょう？新しいペットや長～い連続実行についてでしょうか？知覚が<%= per %>上がります。ラッキー宝箱：伝令官セット（4個中4個目のアイテム）"
 }

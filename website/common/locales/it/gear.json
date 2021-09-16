@@ -2431,5 +2431,17 @@
     "headArmoireGlengarryNotes": "Un copricapo tradizionale colpo di orgoglio e storia. Aumenta l'Intelligenza di <%= int %>. Scrigno Incantato: Set del Suonatore di Cornamusa (Oggetto 1 di 3).",
     "headArmoireGlengarryText": "Berretto scozzese",
     "armorArmoireBagpipersKiltNotes": "Un buon kilt resistente che ti servirà bene. Aumenta la Costituzione di <%= con %>. Scrigo Incantato: Set del Suonatore di Cornamusa (Oggetto 2 di 3).",
-    "armorArmoireBagpipersKiltText": "Kilt del Suonatore di Cornamusa"
+    "armorArmoireBagpipersKiltText": "Kilt del Suonatore di Cornamusa",
+    "backMystery202109Notes": "Vola leggiadramente nell'aria del tramonto senza un suono. Nessun beneficio. Oggetto per Abbonati Settembre 2021.",
+    "headAccessoryMystery202109Text": "Antenne del Lepidottero Lunare",
+    "shieldArmoireHeraldsMessageScrollNotes": "Quali notizie eccitanti conterrà questa pergamenta? Sarà un nuovo animaletto o una lunga serie di una abitudine? Aumenta Percezione di <%= per %>. Scrigno Incantato: Set dell'Eraldo (Oggetto 4 di 4)",
+    "backMystery202109Text": "Ali del Lepidottero Lunare",
+    "headArmoireHeraldsCapText": "Copricapo dell'Eraldo",
+    "headAccessoryMystery202109Notes": "Senti il profumo dei fiori nella brezza o l'odore del cambiamento nel vento. Nessun beneficio. Oggetto per Abbonati Settembre 2021.",
+    "armorArmoireHeraldsTunicText": "Tunica dell'Eraldo",
+    "weaponArmoireHeraldsBuisineText": "Buisine dell'Eraldo",
+    "weaponArmoireHeraldsBuisineNotes": "Gli annunci suoneranno molto meglio seguendo la fanfara di questa tromba. Aumenta la Forza di <%= str %>. Scrigno Incantato: Set dell'Eraldo (Oggetto 3 di 4).",
+    "armorArmoireHeraldsTunicNotes": "Preparati a spargere le buone notizie con questo completo colorato e regale. Aumenta Costituzione di <%= con %>. Scrigno Incantato: Set dell'Eraldo (Oggetto 1 di 4).",
+    "headArmoireHeraldsCapNotes": "Questo copricapo dell'eraldo include un vivace pennacchio. Aumenta Intelligenza di <%= int %>. Scrigno Incantato: Set dell'Eraldo (Oggetto 2 di 4).",
+    "shieldArmoireHeraldsMessageScrollText": "Pergamena dell'Eraldo"
 }

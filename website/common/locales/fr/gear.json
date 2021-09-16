@@ -2431,5 +2431,17 @@
     "armorArmoireBagpipersKiltNotes": "Un bon kilt solide vous servira bien. Augmente la constitution de <%= con %>. Armoire enchantée : ensemble de cornemuse (objet 2 de 3).",
     "headArmoireGlengarryNotes": "Un calot traditionnel plein de fierté et d'histoire. Augmente l'intelligence de <%= int %>. Armoire enchantée : ensemble de cornemuse (objet 1 de 3).",
     "headArmoireGlengarryText": "Glengarry",
-    "armorArmoireBagpipersKiltText": "Kilt de cornemuse"
+    "armorArmoireBagpipersKiltText": "Kilt de cornemuse",
+    "headArmoireHeraldsCapNotes": "Ce chapeau de héraut comporte une joyeuse plume. Augmente l'intelligence de <%= int %>. Armoire enchantée : ensemble du Héraut (objet 2 de 4).",
+    "weaponArmoireHeraldsBuisineText": "Buisine du Héraut",
+    "armorArmoireHeraldsTunicText": "Tunique du Héraut",
+    "shieldArmoireHeraldsMessageScrollText": "Parchemin à message du Héraut",
+    "headAccessoryMystery202109Text": "Antennes lépidoptériennes lunaires",
+    "backMystery202109Text": "Ailes lépidoptériennes lunaires",
+    "headArmoireHeraldsCapText": "Chapeau du Héraut",
+    "armorArmoireHeraldsTunicNotes": "Préparez-vous à répandre la bonne nouvelle partout dans ce royal habit coloré. Augmente la constitution de <%= con %>. Armoire enchantée : ensemble du Héraut (objet 1 de 4).",
+    "headAccessoryMystery202109Notes": "Humez le parfum des fleurs dans la brise ou les effluves du changement dans le vent. Ne confère aucun bonus. Équipement d'abonnement de septembre 2021.",
+    "shieldArmoireHeraldsMessageScrollNotes": "Quelles nouvelles excitantes ce parchemin contient-il ? Pourraient-elles concerner un nouvel animal de compagnie ou une longue série d'habitudes ? Augmente la perception de <%= per %>. Armoire enchantée : ensemble du Héraut (objet 4 de 4)",
+    "backMystery202109Notes": "Planez délicatement et sans un bruit dans l'air du crépuscule. Ne confère aucun bonus. Équipement d'abonnement de septembre 2021.",
+    "weaponArmoireHeraldsBuisineNotes": "N'importe quelle annonce sonnera mieux après la fanfare de cette trompette. Augmente la force de <%= str %>. Armoire enchantée : ensemble de Héraut (objet 3 de 4)."
 }
