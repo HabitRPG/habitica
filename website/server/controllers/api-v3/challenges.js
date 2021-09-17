@@ -860,10 +860,20 @@ api.cloneChallenge = {
 
     const { savedChal } = await createChallenge(user, req, res);
 
-    const challengeTasks = await Tasks.Task.find({
-      'challenge.id': challengeToClone._id,
-      userId: { $exists: false },
-    }).exec();
+    const challengeTaskIds = [
+      ...challengeToClone.tasksOrder.habits,
+      ...challengeToClone.tasksOrder.dailys,
+      ...challengeToClone.tasksOrder.todos,
+      ...challengeToClone.tasksOrder.rewards,
+    ];
+
+    const challengeTasks = await Promise.all(challengeTaskIds.map(async taskId => {
+      const task = Tasks.Task.findById(taskId).exec();
+      return task;
+    }));
+
+    // last task should be added first and vice-versa, since new tasks are prepended
+    challengeTasks.reverse();
 
     const tasksToClone = challengeTasks.map(task => {
       const clonedTask = cloneDeep(task.toObject());
