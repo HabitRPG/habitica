@@ -38,7 +38,7 @@
     "eslint-plugin-mocha": "^5.3.0",
     "eslint-plugin-vue": "^6.2.2",
     "habitica-markdown": "^3.0.0",
-    "hellojs": "^1.19.4",
+    "hellojs": "^1.19.5",
     "inspectpack": "^4.7.1",
     "intro.js": "^4.2.2",
     "jquery": "^3.6.0",
