@@ -150,10 +150,14 @@ const premium = {
     value: 2,
     text: t('hatchingPotionSpooky'),
     limited: true,
+    event: EVENTS.fall2021,
     _addlNotes: t('eventAvailabilityReturning', {
       availableDate: t('dateEndOctober'),
-      previousDate: t('september2017'),
+      previousDate: t('septemberYYYY', { year: 2019 }),
     }),
+    canBuy () {
+      return moment().isBefore(EVENTS.fall2021.end);
+    },
   },
   Ghost: {
     value: 2,
@@ -227,10 +231,14 @@ const premium = {
     value: 2,
     text: t('hatchingPotionGlow'),
     limited: true,
+    event: EVENTS.fall2021,
     _addlNotes: t('eventAvailabilityReturning', {
       availableDate: t('dateEndOctober'),
-      previousDate: t('september2018'),
+      previousDate: t('septemberYYYY', { year: 2019 }),
     }),
+    canBuy () {
+      return moment().isBefore(EVENTS.fall2021.end);
+    },
   },
   Frost: {
     value: 2,
@@ -408,13 +416,14 @@ const premium = {
     value: 2,
     text: t('hatchingPotionVampire'),
     limited: true,
-    event: EVENTS.fall2020,
-    canBuy () {
-      return moment().isBefore('2020-11-02');
-    },
-    _addlNotes: t('premiumPotionAddlNotes', {
-      date: t('dateEndOctober'),
+    event: EVENTS.fall2021,
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndOctober'),
+      previousDate: t('septemberYYYY', { year: 2020 }),
     }),
+    canBuy () {
+      return moment().isBefore(EVENTS.fall2021.end);
+    },
   },
   AutumnLeaf: {
     value: 2,

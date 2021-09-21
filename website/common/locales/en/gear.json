@@ -407,6 +407,15 @@
   "weaponSpecialSummer2021HealerText": "Staff of Corn",
   "weaponSpecialSummer2021HealerNotes": "Not to get corny, but this staff is a lifesaver. Increases Intelligence by <%= int %>. Limited Edition 2021 Summer Gear.",
 
+  "weaponSpecialFall2021RogueText": "Dripping Goo",
+  "weaponSpecialFall2021RogueNotes": "What on Earth did you get into? When people say Rogues have sticky fingers, this is not what they mean! Increases Strength by <%= str %>. Limited Edition 2021 Autumn Gear.",
+  "weaponSpecialFall2021WarriorText": "Horse Rider's Axe",
+  "weaponSpecialFall2021WarriorNotes": "This stylized, single-bladed axe is ideal for chopping... pumpkins! Increases Strength by <%= str %>. Limited Edition 2021 Autumn Gear.",
+  "weaponSpecialFall2021MageText": "Staff of Pure Thought",
+  "weaponSpecialFall2021MageNotes": "Knowledge seeks knowledge. Formed of memories and desires, this fearsome hand grasps for more. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2021 Autumn Gear.",
+  "weaponSpecialFall2021HealerText": "Summoning Wand",
+  "weaponSpecialFall2021HealerNotes": "Use this wand to summon healing flames and a ghostly creature to help you. Increases Intelligence by <%= int %>. Limited Edition 2021 Autumn Gear.",
+
   "weaponMystery201411Text": "Pitchfork of Feasting",
   "weaponMystery201411Notes": "Stab your enemies or dig in to your favorite foods - this versatile pitchfork does it all! Confers no benefit. November 2014 Subscriber Item.",
   "weaponMystery201502Text": "Shimmery Winged Staff of Love and Also Truth",
@@ -951,6 +960,15 @@
   "armorSpecialSummer2021MageNotes": "Ever-tightening whirls of nacre provide an arcane geometry that focuses protective spellwork. Increases Intelligence by <%= int %>. Limited Edition 2021 Summer Gear.",
   "armorSpecialSummer2021HealerText": "Parrot Plumage",
   "armorSpecialSummer2021HealerNotes": "Your enemies might suspect you're a featherweight, but this armor will keep you safe while you help your Party. Increases Constitution by <%= con %>. Limited Edition 2021 Summer Gear.",
+
+  "armorSpecialFall2021RogueText": "Unfortunately Not Slimeproof Armor",
+  "armorSpecialFall2021RogueNotes": "It's got a skullcap, leather tunic, and metal rivets! It's great! But it does not provide a hermetic seal against goop! Increases Perception by <%= per %>. Limited Edition 2021 Autumn Gear.",
+  "armorSpecialFall2021WarriorText": "Formal Wool Suit",
+  "armorSpecialFall2021WarriorNotes": "A stunning suit that’s perfect to wear when crossing bridges in the dead of night. Increases Constitution by <%= con %>. Limited Edition 2021 Autumn Gear.",
+  "armorSpecialFall2021MageText": "Gown of the Darkness Beneath",
+  "armorSpecialFall2021MageNotes": "Collars with many pointy protrusions are the high fashion of low villains. Increases Intelligence by <%= int %>. Limited Edition 2021 Autumn Gear.",
+  "armorSpecialFall2021HealerText": "Summoner's Robes",
+  "armorSpecialFall2021HealerNotes": "Made of durable, flame-resistant fabric, these robes are perfect to wear when conjuring healing flames. Increases Constitution by <%= con %>. Limited Edition 2021 Autumn Gear.",
 
   "armorMystery201402Text": "Messenger Robes",
   "armorMystery201402Notes": "Shimmering and strong, these robes have many pockets to carry letters. Confers no benefit. February 2014 Subscriber Item.",
@@ -1606,6 +1624,15 @@
   "headSpecialSummer2021HealerText": "Parrot Mask",
   "headSpecialSummer2021HealerNotes": "Borrow the plumage of a parrot to help you in your daily battles! Increases Intelligence by <%= int %>. Limited Edition 2021 Summer Gear.",
 
+  "headSpecialFall2021RogueText": "You Have Been Engulfed",
+  "headSpecialFall2021RogueNotes": "Welp, you're stuck. Now you are doomed to roam dungeon corridors, collecting debris. DOOOOMED! Increases Perception by <%= per %>. Limited Edition 2021 Autumn Gear.",
+  "headSpecialFall2021WarriorText": "Headless Cravat",
+  "headSpecialFall2021WarriorNotes": "Lose your head over this formal collar and tie that complete your suit. Increases Strength by <%= str %>. Limited Edition 2021 Autumn Gear.",
+  "headSpecialFall2021MageText": "Brain Eater Mask",
+  "headSpecialFall2021MageNotes": "The tentacles surrounding the mouth grab prey and hold its delicious thoughts close for you to savor. Increases Perception by <%= per %>. Limited Edition 2021 Autumn Gear.",
+  "headSpecialFall2021HealerText": "Summoner's Mask",
+  "headSpecialFall2021HealerNotes": "Your own magic turns your hair into shocking, bright flames when you don this mask. Increases Intelligence by <%= int %>. Limited Edition 2021 Autumn Gear.",
+
   "headSpecialGaymerxText": "Rainbow Warrior Helm",
   "headSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special helmet is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
 
@@ -2110,6 +2137,11 @@
   "shieldSpecialSummer2021WarriorNotes": "This enchanted water droplet soaks up magic and resists the blows of the reddest Dailies. Increases Constitution by <%= con %>. Limited Edition 2021 Summer Gear.",
   "shieldSpecialSummer2021HealerText": "Sunflower Seed Shield",
   "shieldSpecialSummer2021HealerNotes": "So much potential in this shield! But for now you can use it to protect your friends. Increases Constitution by <%= con %>. Limited Edition 2021 Summer Gear.",
+
+  "shieldSpecialFall2021WarriorText": "Jack-o-Lantern Shield",
+  "shieldSpecialFall2021WarriorNotes": "This festive shield with its crooked smile will both protect you and light your way on a dark night. It nicely doubles for a head, should you need one! Increases Constitution by <%= con %>. Limited Edition 2021 Autumn Gear.",
+  "shieldSpecialFall2021HealerText": "Summoned Creature",
+  "shieldSpecialFall2021HealerNotes": "An ethereal being rises from your magical flames to grant you extra protection. Increases Constitution by <%= con %>. Limited Edition 2021 Autumn Gear.",
 
   "shieldMystery201601Text": "Resolution Slayer",
   "shieldMystery201601Notes": "This blade can be used to parry away all distractions. Confers no benefit. January 2016 Subscriber Item.",

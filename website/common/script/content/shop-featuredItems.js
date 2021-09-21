@@ -4,23 +4,23 @@ import moment from 'moment';
 // path: 'premiumHatchingPotions.Rainbow',
 const featuredItems = {
   market () {
-    if (moment().isBefore('2021-08-31T20:00-04:00')) {
+    if (moment().isBefore('2021-10-31T20:00-04:00')) {
       return [
         {
           type: 'armoire',
           path: 'armoire',
         },
         {
-          type: 'food',
-          path: 'food.Saddle',
+          type: 'premiumHatchingPotion',
+          path: 'premiumHatchingPotions.Glow',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Thunderstorm',
+          path: 'premiumHatchingPotions.Spooky',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Moonglow',
+          path: 'premiumHatchingPotions.Vampire',
         },
       ];
     }
@@ -31,15 +31,15 @@ const featuredItems = {
       },
       {
         type: 'food',
-        path: 'food.Strawberry',
+        path: 'food.Chocolate',
       },
       {
         type: 'hatchingPotions',
-        path: 'hatchingPotions.Base',
+        path: 'hatchingPotions.Shade',
       },
       {
         type: 'eggs',
-        path: 'eggs.Dragon',
+        path: 'eggs.BearCub',
       },
     ];
   },
@@ -47,11 +47,11 @@ const featuredItems = {
     return [
       {
         type: 'quests',
-        path: 'quests.sloth',
+        path: 'quests.slime',
       },
       {
         type: 'quests',
-        path: 'quests.slime',
+        path: 'quests.horse',
       },
       {
         type: 'bundles',
