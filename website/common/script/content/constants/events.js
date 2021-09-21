@@ -9,11 +9,22 @@ const gemsPromo = {
 };
 
 export const EVENTS = {
+  noCurrentEvent: {
+    start: '2021-10-31T20:00-04:00',
+    end: '2021-12-31T20:00-04:00',
+    season: 'normal',
+    npcImageSuffix: '',
+  },
+  fall2021: {
+    start: '2021-09-21T08:00-04:00',
+    end: '2021-10-31T20:00-04:00',
+    npcImageSuffix: 'fall',
+    season: 'fall',
+    gear: true,
+  },
   bundle202109: {
     start: '2021-09-13T08:00-04:00',
     end: '2021-09-30T20:00-04:00',
-    season: 'normal',
-    npcImageSuffix: '',
   },
   potions202108: {
     start: '2021-08-17T08:00-04:00',

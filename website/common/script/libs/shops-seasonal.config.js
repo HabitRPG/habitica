@@ -30,14 +30,14 @@ export default {
 
   pinnedSets: SHOP_OPEN
     ? {
-      healer: 'summer2021ParrotHealerSet',
-      rogue: 'summer2021ClownfishRogueSet',
-      warrior: 'summer2021FlyingFishWarriorSet',
-      wizard: 'summer2021NautilusMageSet',
+      healer: 'fall2021FlameSummonerHealerSet',
+      rogue: 'fall2021OozeRogueSet',
+      warrior: 'fall2021HeadlessWarriorSet',
+      wizard: 'fall2021BrainEaterMageSet',
     }
     : {},
 
-  availableSpells: SHOP_OPEN && moment().isAfter('2021-07-06T08:00-04:00')
+  availableSpells: SHOP_OPEN && moment().isBefore('2021-07-06T08:00-04:00')
     ? [
       'seafoam',
     ]
@@ -45,5 +45,5 @@ export default {
 
   availableQuests: [],
 
-  featuredSet: 'summer2020CrocodileRogueSet',
+  featuredSet: 'fall2020DeathsHeadMothHealerSet',
 };

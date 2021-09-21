@@ -153,35 +153,35 @@ const SEASONAL_SETS = {
     'stitchWitchSet',
     'potionerSet',
 
-    // fall 2016
     'fall2016BlackWidowSet',
     'fall2016SwampThingSet',
     'fall2016WickedSorcererSet',
     'fall2016GorgonHealerSet',
 
-    // fall 2017
     'fall2017TrickOrTreatSet',
     'fall2017HabitoweenSet',
     'fall2017MasqueradeSet',
     'fall2017HauntedHouseSet',
 
-    // fall 2018
     'fall2018MinotaurWarriorSet',
     'fall2018CandymancerMageSet',
     'fall2018CarnivorousPlantSet',
     'fall2018AlterEgoSet',
 
-    // fall 2019
     'fall2019CyclopsSet',
     'fall2019LichSet',
     'fall2019OperaticSpecterSet',
     'fall2019RavenSet',
 
-    // fall 2020
     'fall2020TwoHeadedRogueSet',
     'fall2020WraithWarriorSet',
     'fall2020ThirdEyeMageSet',
     'fall2020DeathsHeadMothHealerSet',
+
+    'fall2021OozeRogueSet',
+    'fall2021HeadlessWarriorSet',
+    'fall2021BrainEaterMageSet',
+    'fall2021FlameSummonerHealerSet',
   ],
 };
 

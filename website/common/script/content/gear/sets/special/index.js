@@ -205,18 +205,22 @@ const armor = {
   },
   fallRogue: {
     set: 'vampireSmiterSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fallWarrior: {
     set: 'monsterOfScienceSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fallMage: {
     set: 'witchyWizardSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fallHealer: {
     set: 'mummyMedicSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   winter2015Rogue: {
@@ -283,18 +287,22 @@ const armor = {
   },
   fall2015Rogue: {
     set: 'battleRogueSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2015Warrior: {
     set: 'scarecrowWarriorSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2015Mage: {
     set: 'stitchWitchSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2015Healer: {
     set: 'potionerSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   gaymerx: {
@@ -367,18 +375,22 @@ const armor = {
   },
   fall2016Rogue: {
     set: 'fall2016BlackWidowSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2016Warrior: {
     set: 'fall2016SwampThingSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2016Mage: {
     set: 'fall2016WickedSorcererSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2016Healer: {
     set: 'fall2016GorgonHealerSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   winter2017Rogue: {
@@ -445,18 +457,22 @@ const armor = {
   },
   fall2017Rogue: {
     set: 'fall2017TrickOrTreatSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2017Warrior: {
     set: 'fall2017HabitoweenSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2017Mage: {
     set: 'fall2017MasqueradeSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2017Healer: {
     set: 'fall2017HauntedHouseSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   winter2018Rogue: {
@@ -523,18 +539,22 @@ const armor = {
   },
   fall2018Rogue: {
     set: 'fall2018AlterEgoSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2018Warrior: {
     set: 'fall2018MinotaurWarriorSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2018Mage: {
     set: 'fall2018CandymancerMageSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2018Healer: {
     set: 'fall2018CarnivorousPlantSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   turkeyArmorGilded: {
@@ -692,15 +712,23 @@ const armor = {
   },
   fall2020Rogue: {
     set: 'fall2020TwoHeadedRogueSet',
+    event: EVENTS.fall2021,
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2020Warrior: {
     set: 'fall2020WraithWarriorSet',
+    event: EVENTS.fall2021,
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2020Mage: {
     set: 'fall2020ThirdEyeMageSet',
+    event: EVENTS.fall2021,
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2020Healer: {
     set: 'fall2020DeathsHeadMothHealerSet',
+    event: EVENTS.fall2021,
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   winter2021Rogue: {
     set: 'winter2021HollyIvyRogueSet',
@@ -743,6 +771,18 @@ const armor = {
   },
   summer2021Healer: {
     set: 'summer2021ParrotHealerSet',
+  },
+  fall2021Rogue: {
+    set: 'fall2021OozeRogueSet',
+  },
+  fall2021Warrior: {
+    set: 'fall2021HeadlessWarriorSet',
+  },
+  fall2021Mage: {
+    set: 'fall2021BrainEaterMageSet',
+  },
+  fall2021Healer: {
+    set: 'fall2021FlameSummonerHealerSet',
   },
 };
 
@@ -1070,7 +1110,7 @@ const eyewear = {
     canOwn: ownsItem('eyewear_special_yellowHalfMoon'),
   },
   fall2019Rogue: {
-    event: EVENTS.fall2019,
+    event: EVENTS.fall2021,
     specialClass: 'rogue',
     set: 'fall2019OperaticSpecterSet',
     text: t('eyewearSpecialFall2019RogueText'),
@@ -1079,7 +1119,7 @@ const eyewear = {
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2019Healer: {
-    event: EVENTS.fall2019,
+    event: EVENTS.fall2021,
     specialClass: 'healer',
     set: 'fall2019LichSet',
     text: t('eyewearSpecialFall2019HealerText'),
@@ -1280,18 +1320,22 @@ const head = {
   },
   fallRogue: {
     set: 'vampireSmiterSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fallWarrior: {
     set: 'monsterOfScienceSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fallMage: {
     set: 'witchyWizardSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fallHealer: {
     set: 'mummyMedicSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   winter2015Rogue: {
@@ -1358,18 +1402,22 @@ const head = {
   },
   fall2015Rogue: {
     set: 'battleRogueSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2015Warrior: {
     set: 'scarecrowWarriorSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2015Mage: {
     set: 'stitchWitchSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2015Healer: {
     set: 'potionerSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   gaymerx: {
@@ -1442,18 +1490,22 @@ const head = {
   },
   fall2016Rogue: {
     set: 'fall2016BlackWidowSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2016Warrior: {
     set: 'fall2016SwampThingSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2016Mage: {
     set: 'fall2016WickedSorcererSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2016Healer: {
     set: 'fall2016GorgonHealerSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   winter2017Rogue: {
@@ -1526,18 +1578,22 @@ const head = {
   },
   fall2017Rogue: {
     set: 'fall2017TrickOrTreatSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2017Warrior: {
     set: 'fall2017HabitoweenSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2017Mage: {
     set: 'fall2017MasqueradeSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2017Healer: {
     set: 'fall2017HauntedHouseSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   nye2017: {
@@ -1604,18 +1660,22 @@ const head = {
   },
   fall2018Rogue: {
     set: 'fall2018AlterEgoSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2018Warrior: {
     set: 'fall2018MinotaurWarriorSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2018Mage: {
     set: 'fall2018CandymancerMageSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2018Healer: {
     set: 'fall2018CarnivorousPlantSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   turkeyHelmGilded: {
@@ -1779,15 +1839,23 @@ const head = {
   },
   fall2020Rogue: {
     set: 'fall2020TwoHeadedRogueSet',
+    event: EVENTS.fall2021,
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2020Warrior: {
     set: 'fall2020WraithWarriorSet',
+    event: EVENTS.fall2021,
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2020Mage: {
     set: 'fall2020ThirdEyeMageSet',
+    event: EVENTS.fall2021,
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2020Healer: {
     set: 'fall2020DeathsHeadMothHealerSet',
+    event: EVENTS.fall2021,
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   winter2021Rogue: {
     set: 'winter2021HollyIvyRogueSet',
@@ -1830,6 +1898,18 @@ const head = {
   },
   summer2021Healer: {
     set: 'summer2021ParrotHealerSet',
+  },
+  fall2021Rogue: {
+    set: 'fall2021OozeRogueSet',
+  },
+  fall2021Warrior: {
+    set: 'fall2021HeadlessWarriorSet',
+  },
+  fall2021Mage: {
+    set: 'fall2021BrainEaterMageSet',
+  },
+  fall2021Healer: {
+    set: 'fall2021FlameSummonerHealerSet',
   },
 };
 
@@ -2238,14 +2318,17 @@ const shield = {
   },
   fallRogue: {
     set: 'vampireSmiterSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fallWarrior: {
     set: 'monsterOfScienceSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fallHealer: {
     set: 'mummyMedicSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   winter2015Rogue: {
@@ -2292,14 +2375,17 @@ const shield = {
   },
   fall2015Rogue: {
     set: 'battleRogueSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2015Warrior: {
     set: 'scarecrowWarriorSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2015Healer: {
     set: 'potionerSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   winter2016Rogue: {
@@ -2346,14 +2432,17 @@ const shield = {
   },
   fall2016Rogue: {
     set: 'fall2016BlackWidowSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2016Warrior: {
     set: 'fall2016SwampThingSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2016Healer: {
     set: 'fall2016GorgonHealerSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   winter2017Rogue: {
@@ -2400,14 +2489,17 @@ const shield = {
   },
   fall2017Rogue: {
     set: 'fall2017TrickOrTreatSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2017Warrior: {
     set: 'fall2017HabitoweenSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2017Healer: {
     set: 'fall2017HauntedHouseSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   winter2018Rogue: {
@@ -2456,14 +2548,17 @@ const shield = {
     set: 'fall2018AlterEgoSet',
     text: t('shieldSpecialFall2018RogueText'),
     notes: t('shieldSpecialFall2018RogueNotes', { str: 8 }),
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2018Warrior: {
     set: 'fall2018MinotaurWarriorSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2018Healer: {
     set: 'fall2018CarnivorousPlantSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   winter2019Rogue: {
@@ -2589,12 +2684,18 @@ const shield = {
     set: 'fall2020TwoHeadedRogueSet',
     text: t('shieldSpecialFall2020RogueText'),
     notes: t('shieldSpecialFall2020RogueNotes', { str: 8 }),
+    event: EVENTS.fall2021,
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2020Warrior: {
     set: 'fall2020WraithWarriorSet',
+    event: EVENTS.fall2021,
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2020Healer: {
     set: 'fall2020DeathsHeadMothHealerSet',
+    event: EVENTS.fall2021,
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   winter2021Rogue: {
     set: 'winter2021HollyIvyRogueSet',
@@ -2622,6 +2723,15 @@ const shield = {
   },
   summer2021Healer: {
     set: 'summer2021ParrotHealerSet',
+  },
+  fall2021Rogue: {
+    set: 'fall2021OozeRogueSet',
+  },
+  fall2021Warrior: {
+    set: 'fall2021HeadlessWarriorSet',
+  },
+  fall2021Healer: {
+    set: 'fall2021FlameSummonerHealerSet',
   },
 };
 
@@ -2832,18 +2942,22 @@ const weapon = {
   },
   fallRogue: {
     set: 'vampireSmiterSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fallWarrior: {
     set: 'monsterOfScienceSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fallMage: {
     set: 'witchyWizardSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fallHealer: {
     set: 'mummyMedicSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   winter2015Rogue: {
@@ -2904,18 +3018,22 @@ const weapon = {
   },
   fall2015Rogue: {
     set: 'battleRogueSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2015Warrior: {
     set: 'scarecrowWarriorSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2015Mage: {
     set: 'stitchWitchSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2015Healer: {
     set: 'potionerSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   winter2016Rogue: {
@@ -2976,18 +3094,22 @@ const weapon = {
   },
   fall2016Rogue: {
     set: 'fall2016BlackWidowSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2016Warrior: {
     set: 'fall2016SwampThingSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2016Mage: {
     set: 'fall2016WickedSorcererSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2016Healer: {
     set: 'fall2016GorgonHealerSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   winter2017Rogue: {
@@ -3048,18 +3170,22 @@ const weapon = {
   },
   fall2017Rogue: {
     set: 'fall2017TrickOrTreatSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2017Warrior: {
     set: 'fall2017HabitoweenSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2017Mage: {
     set: 'fall2017MasqueradeSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2017Healer: {
     set: 'fall2017HauntedHouseSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   winter2018Rogue: {
@@ -3120,18 +3246,22 @@ const weapon = {
   },
   fall2018Rogue: {
     set: 'fall2018AlterEgoSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2018Warrior: {
     set: 'fall2018MinotaurWarriorSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2018Mage: {
     set: 'fall2018CandymancerMageSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2018Healer: {
     set: 'fall2018CarnivorousPlantSet',
+    event: EVENTS.fall2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   winter2019Rogue: {
@@ -3278,15 +3408,23 @@ const weapon = {
   },
   fall2020Rogue: {
     set: 'fall2020TwoHeadedRogueSet',
+    event: EVENTS.fall2021,
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2020Warrior: {
     set: 'fall2020WraithWarriorSet',
+    event: EVENTS.fall2021,
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2020Mage: {
     set: 'fall2020ThirdEyeMageSet',
+    event: EVENTS.fall2021,
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   fall2020Healer: {
     set: 'fall2020DeathsHeadMothHealerSet',
+    event: EVENTS.fall2021,
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   winter2021Rogue: {
     set: 'winter2021HollyIvyRogueSet',
@@ -3323,6 +3461,18 @@ const weapon = {
   },
   summer2021Healer: {
     set: 'summer2021ParrotHealerSet',
+  },
+  fall2021Rogue: {
+    set: 'fall2021OozeRogueSet',
+  },
+  fall2021Warrior: {
+    set: 'fall2021HeadlessWarriorSet',
+  },
+  fall2021Mage: {
+    set: 'fall2021BrainEaterMageSet',
+  },
+  fall2021Healer: {
+    set: 'fall2021FlameSummonerHealerSet',
   },
 };
 
