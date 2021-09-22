@@ -21,6 +21,7 @@ export const EVENTS = {
     npcImageSuffix: '_fall',
     season: 'fall',
     gear: true,
+    gemsPromo,
   },
   bundle202109: {
     start: '2021-09-13T08:00-04:00',
