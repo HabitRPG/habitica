@@ -36,5 +36,5 @@ export default function staticMiddleware (expressApp) {
   expressApp.use('/storybook', express.static(`${BASE_DIR}/website/client/dist/storybook`));
 
   /* APIdoc files, not cached yet. */
-  expressApp.use('/apidoc', express.static(`${BASE_DIR}/apidoc_build`));
+  expressApp.use('/apidoc', express.static(`${BASE_DIR}/apidoc/html`));
 }
