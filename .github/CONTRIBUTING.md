@@ -4,7 +4,7 @@
 
 # Pull Request
 
-[Please see these instructions for adding a pull request](http://habitica.fandom.com/wiki/Using_Your_Local_Install_to_Modify_Habitica%27s_Website_and_API)
+[Please see these instructions for adding a pull request](https://habitica.fandom.com/wiki/Using_Your_Local_Install_to_Modify_Habitica's_Website_and_API)
 
 # Requesting a feature
 
@@ -12,4 +12,4 @@ Habitica uses [this Google form](https://docs.google.com/forms/d/e/1FAIpQLScPhrw
 
 # Contributing Code
 
-See [Contributing to Habitica](http://habitica.fandom.com/wiki/Contributing_to_Habitica#Coders_.28Web_.26_Mobile.29)
+See [Contributing to Habitica](https://habitica.fandom.com/wiki/Contributing_to_Habitica#Coders_.28Web_.26_Mobile.29)

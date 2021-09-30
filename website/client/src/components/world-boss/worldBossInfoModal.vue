@@ -45,7 +45,7 @@
       <div class="col-12 text-center">
         <a
           class="footer-link"
-          href="http://habitica.fandom.com/wiki/World_Bosses"
+          href="https://habitica.fandom.com/wiki/World_Bosses"
           target="_blank"
         >{{ $t('worldBossLink') }}</a>
       </div>

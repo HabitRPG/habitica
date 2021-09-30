@@ -45,7 +45,7 @@
             </li>
             <li>
               <a
-                href="http://habitica.fandom.com/wiki/Whats_New"
+                href="https://habitica.fandom.com/wiki/Whats_New"
                 target="_blank"
               >{{ $t('oldNews') }}</a>
             </li>
@@ -130,7 +130,7 @@
                 </li>
                 <li>
                   <a
-                    href="http://habitica.fandom.com/wiki/Guidance_for_Blacksmiths"
+                    href="https://habitica.fandom.com/wiki/Guidance_for_Blacksmiths"
                     target="_blank"
                   >{{ $t('guidanceForBlacksmiths') }}</a>
                 </li>
@@ -195,7 +195,7 @@
                 class="btn btn-contribute btn-front btn-flat"
               >
                 <a
-                  href="http://habitica.fandom.com/wiki/Contributing_to_Habitica"
+                  href="https://habitica.fandom.com/wiki/Contributing_to_Habitica"
                   target="_blank"
                 >
                   <div

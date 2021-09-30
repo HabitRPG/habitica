@@ -329,12 +329,12 @@
               >{{ $t('requestAF') }}</a>
               <a
                 class="topbar-dropdown-item dropdown-item"
-                href="http://habitica.fandom.com/wiki/Contributing_to_Habitica"
+                href="https://habitica.fandom.com/wiki/Contributing_to_Habitica"
                 target="_blank"
               >{{ $t('contributing') }}</a>
               <a
                 class="topbar-dropdown-item dropdown-item"
-                href="http://habitica.fandom.com/wiki/Habitica_Wiki"
+                href="https://habitica.fandom.com/wiki/Habitica_Wiki"
                 target="_blank"
               >{{ $t('wiki') }}</a>
             </div>
