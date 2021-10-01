@@ -348,7 +348,7 @@
             <li>
               <a
                 v-once
-                href="http://habitica.fandom.com/wiki/Habitica_Wiki"
+                href="https://habitica.fandom.com/wiki/Habitica_Wiki"
                 target="_blank"
               >{{ $t('wiki') }}</a>
             </li>
