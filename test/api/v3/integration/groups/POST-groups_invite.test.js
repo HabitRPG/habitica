@@ -7,7 +7,7 @@ import {
 } from '../../../../helpers/api-integration/v3';
 
 const INVITES_LIMIT = 100;
-const PARTY_LIMIT_MEMBERS = 30;
+const PARTY_LIMIT_MEMBERS = 29;
 const MAX_EMAIL_INVITES_BY_USER = 200;
 
 describe('Post /groups/:groupId/invite', () => {
