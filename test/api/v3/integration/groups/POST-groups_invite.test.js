@@ -650,7 +650,7 @@ describe('Post /groups/:groupId/invite', () => {
         .to.eventually.be.rejected.and.eql({
           code: 400,
           error: 'BadRequest',
-          message: t('partyExceedsMembersLimit', { maxMembersParty: PARTY_LIMIT_MEMBERS }),
+          message: t('partyExceedsMembersLimit', { maxMembersParty: PARTY_LIMIT_MEMBERS + 1 }),
         });
     }).timeout(10000);
   });
