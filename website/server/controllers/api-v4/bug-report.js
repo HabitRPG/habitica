@@ -39,6 +39,7 @@ api.bugReport = {
 
     const emailData = {
       USER_ID: user._id,
+      USER_USERNAME: user.auth.local.username,
       USER_LEVEL: user.stats.lvl,
       USER_CLASS: user.stats.class,
       USER_DAILIES_PAUSED: user.preferences.sleep,
