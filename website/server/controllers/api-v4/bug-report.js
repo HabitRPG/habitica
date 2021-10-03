@@ -1,6 +1,6 @@
+import nconf from 'nconf';
 import { authWithHeaders } from '../../middlewares/auth';
 import { sendTxn } from '../../libs/email';
-import nconf from 'nconf';
 
 const api = {};
 
@@ -37,7 +37,7 @@ api.bugReport = {
 
     const { user } = res.locals;
 
-    const email_data = {
+    const emailData = {
       USER_ID: user._id,
       USER_LEVEL: user.stats.lvl,
       USER_CLASS: user.stats.class,
@@ -51,16 +51,16 @@ api.bugReport = {
       USER_CONSECUTIVE_MONTHS: user.purchased.plan.consecutive.count,
       USER_OFFSET_MONTHS: user.purchased.plan.consecutive.offset,
       USER_HOURGLASSES: user.purchased.plan.consecutive.trinkets,
-      REPORT_MSG: message
+      REPORT_MSG: message,
     };
 
     const adminMail = nconf.get('ADMIN_EMAIL');
 
-    sendTxn(adminMail, 'report-a-bug', email_data);
+    sendTxn(adminMail, 'report-a-bug', emailData);
 
     res.status(200).send({
       ok: true,
-      email_data
+      emailData,
     });
   },
 };
