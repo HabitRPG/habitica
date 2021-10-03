@@ -17,6 +17,7 @@
 
 <script>
 import BaseNotification from './base';
+import { PAGES } from '@/libs/consts';
 
 export default {
   components: {
@@ -25,7 +26,7 @@ export default {
   props: ['notification', 'canRemove'],
   methods: {
     action () {
-      this.$router.push('/private-messages');
+      this.$router.push(PAGES.PRIVATE_MESSAGES);
     },
   },
 };

@@ -201,5 +201,6 @@
   "selected": "Selected",
   "howManyToBuy": "How many would you like to buy?",
   "contactForm": "Contact the Moderation Team",
-  "loadEarlierMessages": "Load Earlier Messages"
+  "loadEarlierMessages": "Load Earlier Messages",
+  "emptyReportBugMessage": "Report Bug Message missing"
 }
