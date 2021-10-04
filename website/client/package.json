@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve --max_old_space_size=4096",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit --require ./tests/unit/helpers.js",
     "lint": "vue-cli-service lint .",
