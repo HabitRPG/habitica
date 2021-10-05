@@ -12,7 +12,7 @@
       @click="openGemsModal"
     >
       <img
-        v-if="eventName === 'fall2020'"
+        v-if="eventName === 'fall_extra_gems'"
         class="d-none d-xl-block"
         srcset="
     ~@/assets/images/gems/fall-confetti-left/confetti.png,
@@ -21,7 +21,7 @@
         src="~@/assets/images/gems/fall-confetti-left/confetti.png"
       >
       <img
-        v-else-if="eventName === 'fall2020SecondPromo'"
+        v-else-if="eventName === 'spooky_extra_gems'"
         class="d-none d-xl-block"
         srcset="
     ~@/assets/images/gems/spooky-confetti-left/confetti.png,
@@ -31,7 +31,7 @@
       >
       <div class="promo-test">
         <img
-          v-if="eventName === 'fall2020'"
+          v-if="eventName === 'fall_extra_gems'"
           srcset="
       ~@/assets/images/gems/fall-text/text.png,
       ~@/assets/images/gems/fall-text/text@2x.png 2x,
@@ -39,7 +39,7 @@
           src="~@/assets/images/gems/fall-text/text.png"
         >
         <img
-          v-else-if="eventName === 'fall2020SecondPromo'"
+          v-else-if="eventName === 'spooky_extra_gems'"
           srcset="
       ~@/assets/images/gems/spooky-text/text.png,
       ~@/assets/images/gems/spooky-text/text@2x.png 2x,
@@ -48,7 +48,7 @@
         >
       </div>
       <img
-        v-if="eventName === 'fall2020'"
+        v-if="eventName === 'fall_extra_gems'"
         class="d-none d-xl-block"
         srcset="
     ~@/assets/images/gems/fall-confetti-right/confetti.png,
@@ -57,7 +57,7 @@
         src="~@/assets/images/gems/fall-confetti-right/confetti.png"
       >
       <img
-        v-else-if="eventName === 'fall2020SecondPromo'"
+        v-else-if="eventName === 'spooky_extra_gems'"
         class="d-none d-xl-block"
         srcset="
     ~@/assets/images/gems/spooky-confetti-right/confetti.png,
@@ -72,11 +72,11 @@
 <style lang="scss" scoped>
 @import '~@/assets/scss/colors.scss';
 
-.gems-promo-banner-fall2020 {
+.gems-promo-banner-fall_extra_gems {
   background: $gray-10;
 }
 
-.gems-promo-banner-fall2020SecondPromo {
+.gems-promo-banner-spooky_extra_gems {
   background: $black;
 }
 
@@ -105,8 +105,8 @@ export default {
     },
     showGemsPromoBanner () {
       const currEvt = this.currentEvent;
-      if (!currEvt) return false;
-      return currEvt.event === 'fall2020' || currEvt.event === 'fall2020SecondPromo';
+      if (!currEvt || !currEvt.gemsPromo) return false;
+      return true;
     },
     bannerClass () {
       const bannerClass = 'gems-promo-banner';
