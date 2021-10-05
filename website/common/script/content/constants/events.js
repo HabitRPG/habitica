@@ -16,11 +16,12 @@ export const EVENTS = {
     npcImageSuffix: '',
   },
   fall_extra_gems: { // eslint-disable-line camelcase
-    start: '2021-09-23T14:00-04:00',
-    end: '2021-10-31T20:00-04:00',
+    start: '2021-10-05T08:00-04:00',
+    end: '2021-10-12T20:00-04:00',
     npcImageSuffix: '_fall',
     season: 'fall',
     gemsPromo,
+    promo: 'fall_extra_gems',
   },
   fall2021: {
     start: '2021-09-21T08:00-04:00',
