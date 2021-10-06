@@ -71,7 +71,7 @@ export async function sendTxn (mailingInfoArray, emailType, variables, personalV
     mailingInfoArray = [mailingInfoArray]; // eslint-disable-line no-param-reassign
   }
 
-  for (let entry of mailingInfoArray) {
+  for (const entry of mailingInfoArray) {
     if (typeof entry === 'string'
       && (typeof entry._id === 'undefined' && typeof entry.email === 'undefined')
     ) {
