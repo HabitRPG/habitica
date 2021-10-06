@@ -67,7 +67,17 @@ export function getGroupUrl (group) {
 
 // Send a transactional email using Mandrill through the external email server
 export async function sendTxn (mailingInfoArray, emailType, variables, personalVariables) {
-  mailingInfoArray = Array.isArray(mailingInfoArray) ? mailingInfoArray : [mailingInfoArray]; // eslint-disable-line no-param-reassign, max-len
+  if (!Array.isArray(mailingInfoArray)) {
+    mailingInfoArray = [mailingInfoArray]; // eslint-disable-line no-param-reassign
+  }
+
+  for (let entry of mailingInfoArray) {
+    if (typeof entry === 'string'
+      && (typeof entry._id === 'undefined' && typeof entry.email === 'undefined')
+    ) {
+      throw new Error('Argument Error mailingInfoArray: does not contain email or _id');
+    }
+  }
 
   variables = [ // eslint-disable-line no-param-reassign
     { name: 'BASE_URL', content: BASE_URL },

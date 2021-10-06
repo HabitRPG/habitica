@@ -1,7 +1,7 @@
 <template>
   <form
-      class="form"
-      @submit.prevent.stop="sendBugReport()"
+    class="form"
+    @submit.prevent.stop="sendBugReport()"
   >
     <p class="form-text">
       Bug Details:
@@ -9,16 +9,17 @@
     <textarea
       v-model="message"
       class="form-control"
-      rows="5">
+      rows="5"
+    >
 
     </textarea>
 
-    <br >
-    <br >
+    <br>
+    <br>
 
     <button
-        class="btn btn-block btn-info"
-        type="submit"
+      class="btn btn-block btn-info"
+      type="submit"
     >
       Send Bug Report
     </button>
@@ -29,18 +30,18 @@
 import axios from 'axios';
 
 export default {
-  name: 'bug-report',
+  name: 'BugReport',
+  data () {
+    return {
+      message: '',
+    };
+  },
   methods: {
     async sendBugReport () {
       await axios.post('/api/v4/bug-report', {
         message: this.message,
       });
     },
-  },
-  data () {
-    return {
-      message: '',
-    };
   },
 };
 </script>

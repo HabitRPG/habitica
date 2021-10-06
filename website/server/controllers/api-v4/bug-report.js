@@ -55,13 +55,14 @@ api.bugReport = {
       REPORT_MSG: message,
     };
 
-    const adminMail = nconf.get('ADMIN_EMAIL');
+    const adminMail = { email: nconf.get('ADMIN_EMAIL') };
 
-    sendTxn(adminMail, 'report-a-bug', emailData);
+    const sendMailResult = await sendTxn(adminMail, 'report-a-bug', emailData);
 
     res.status(200).send({
       ok: true,
       emailData,
+      sendMailResult,
     });
   },
 };

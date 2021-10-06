@@ -192,6 +192,28 @@ describe('emails', () => {
       expect(got.post).not.to.be.called;
     });
 
+    it('throws error when mail target is only a string', () => {
+      sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(true);
+      const attachEmail = requireAgain(pathToEmailLib);
+      const sendTxnEmail = attachEmail.sendTxn;
+      const emailType = 'an email type';
+      const mailingInfo = 'my email';
+
+      expect(sendTxnEmail(mailingInfo, emailType)).to.throw;
+    });
+
+    it('throws error when mail target has no _id or email', () => {
+      sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(true);
+      const attachEmail = requireAgain(pathToEmailLib);
+      const sendTxnEmail = attachEmail.sendTxn;
+      const emailType = 'an email type';
+      const mailingInfo = {
+
+      };
+
+      expect(sendTxnEmail(mailingInfo, emailType)).to.throw;
+    });
+
     it('uses getUserInfo in case of user data', () => {
       sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(true);
       const attachEmail = requireAgain(pathToEmailLib);
