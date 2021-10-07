@@ -93,7 +93,7 @@
     "mysterySet301405": "Conjunto de Accesorios Steampunk",
     "mysterySet301703": "Conjunto de Pavo real Steampunk",
     "mysterySet301704": "Conjunto de Faisán Steampunk",
-    "mysterySetwondercon": "Wondercon",
+    "mysterySetwondercon": "WonderCon",
     "subUpdateCard": "Actualiza la tarjeta de crédito",
     "subUpdateTitle": "Actualización",
     "subUpdateDescription": "Actualiza la tarjeta de pago.",
@@ -193,5 +193,7 @@
     "mysterySet202105": "Conjunto del Dragón Nebuloso",
     "mysterySet202106": "Conjunto de Sirena Ocaso",
     "mysterySet202108": "Conjunto del shounen del fuego",
-    "mysterySet202107": "Conjunto de playero entusiasta"
+    "mysterySet202107": "Conjunto de playero entusiasta",
+    "mysterySet202109": "Conjunto Lepidóptero Lunar",
+    "mysterySet202110": "Conjunto de gárgola musgosa"
 }

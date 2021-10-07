@@ -6,9 +6,9 @@
     "achievementLostMasterclasser": "مكمل المغامرات: سلسلة الخبير",
     "achievementLostMasterclasserText": "لقد أكملت جميع المغامرات الستة عشرة في سلسلة مغامرات الخبير و حللت لغز الخبيرة المفقودة!",
     "foundNewItems": "لقد وجدت اغراضاً جديدة!",
-    "onboardingCompleteDescSmall": "إذا اردت المزيد، الق نظرة على الانجازات و ابدأ فى تجميعها!",
+    "onboardingCompleteDescSmall": "ان كنت ترغب بالمزيد، اتطلع على الانجازات و ابدأ بالتحصيل!",
     "onboardingComplete": "لقد أكملت مهام بدء اللعبة!",
-    "earnedAchievement": "لقد حققت إنجازاً!",
+    "earnedAchievement": "لقد حصلت على إنجاز !",
     "viewAchievements": "الإطلاع على الانجازات",
     "letsGetStarted": "هيا بنا!",
     "yourProgress": "تقدمك",
@@ -114,5 +114,8 @@
     "achievementUndeadUndertakerModalText": "لقد أكملت ترويض جميع حيوانات الركوب من الأحياء الموتى!",
     "achievementUndeadUndertakerText": "أكمل/ت ترويض جميع حيوانات الركوب من الأحياء الموتى.",
     "achievementUndeadUndertaker": "متعهد الأحياء الموتى",
-    "achievementKickstarter2019Text": "من مساهمي حملة كيك-ستارتر للدبابيس"
+    "achievementKickstarter2019Text": "من مساهمي حملة كيك-ستارتر للدبابيس",
+    "achievementDomesticatedModalText": "لقد جمعت كل الحيوانات الأليفة المستأنسة!",
+    "achievementDomesticatedText": "لقد فقس جميع الألوان القياسية للحيوانات الأليفة المستأنسة: النمس ، وخنزير غينيا ، والديك ، والخنزير الطائر ، والجرذ ، والأرنب ، والحصان ، والبقر!",
+    "achievementDomesticated": "ا-يا-ا-يا-يو"
 }

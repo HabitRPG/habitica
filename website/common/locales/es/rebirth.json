@@ -1,10 +1,10 @@
 {
     "rebirthNew": "Renacimiento: ¡Nueva aventura disponible!",
     "rebirthUnlock": "¡Has desbloqueado el Renacimiento! Este objeto especial del Mercado te permite empezar un juego nuevo en el nivel 1, manteniendo tus tareas, logros, mascotas, y más. Úsalo para comenzar una nueva vida en Habitica por si sientes que ya lo lograste todo, o para experimentar nuevas funciones con la perspectiva de un personaje nuevo.",
-    "rebirthAchievement": "¡Has comenzado una nueva aventura! Este es Renacimiento <%= number %> para ti, y el Nivel más alto que has conseguido es <%= level %>. Para apilar este Logro, ¡empieza tu aventura siguiente después de haber conseguido un  nivel más alto!",
+    "rebirthAchievement": "¡Has comenzado una nueva aventura! Este es tu renacimiento número <%= number %>, y el nivel más alto que has conseguido es <%= level %>. Para apilar este logro, ¡empieza tu siguiente aventura después de haber conseguido un nivel más alto!",
     "rebirthAchievement100": "¡Has comenzado una nueva aventura! Este es el Renacimiento <%= number %> para ti, y el Nivel más alto que has conseguido es 100 o superior. Para acumular este Logro, ¡empieza tu aventura siguiente después de haber conseguido al menos el nivel 100!",
     "rebirthBegan": "Comienza una nueva aventura",
-    "rebirthText": "Comenzó <%= rebirths %>  nuevas aventuras",
+    "rebirthText": "Has comenzado <%= rebirths %> nuevas aventuras",
     "rebirthOrb": "Usó un Orbe de Renacimiento para comenzar de nuevo después de alcanzar el Nivel <%= level %>.",
     "rebirthOrb100": "Usó un Orbe de Renacimiento para comenzar de nuevo después de alcanzar el Nivel 100 o superior.",
     "rebirthOrbNoLevel": "Usó un Orbe de Renacimiento para comenzar de nuevo.",
