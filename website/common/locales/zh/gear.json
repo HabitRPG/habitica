@@ -206,7 +206,7 @@
     "weaponSpecialFall2016RogueNotes": "感受蜘蛛咬伤的刺痛！增加<%= str %>点力量。2016年秋季限定版装备。",
     "weaponSpecialFall2016WarriorText": "攻击之根",
     "weaponSpecialFall2016WarriorNotes": "用这些扭曲的树根攻击你的任务吧！增加<%= str %>点力量。2016年秋季限定版装备。",
-    "weaponSpecialFall2016MageText": "不详的宝珠",
+    "weaponSpecialFall2016MageText": "不祥的宝珠",
     "weaponSpecialFall2016MageNotes": "不要向这颗宝珠寻求你的未来…增加<%= int %>点智力和<%= per %>点感知。2016年秋季限定版装备。",
     "weaponSpecialFall2016HealerText": "毒蛇",
     "weaponSpecialFall2016HealerNotes": "一口伤害一口奶。增加<%= int %>点智力。2016年秋季限定版装备。",

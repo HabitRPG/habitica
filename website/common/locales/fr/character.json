@@ -70,7 +70,7 @@
     "level": "Niveau",
     "levelUp": "Montée de niveau !",
     "gainedLevel": "Vous avez passé un niveau !",
-    "leveledUp": "En atteignant vos buts dans la vie réelle, vous avez atteint le <strong>niveau <%= level %></strong> !",
+    "leveledUp": "En atteignant vos buts dans la vie réelle, vous avez atteint le <strong>niveau <%= level %>!</strong>",
     "huzzah": "Bravo !",
     "mana": "Mana",
     "hp": "Vie",

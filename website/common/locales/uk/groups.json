@@ -339,5 +339,14 @@
     "recurringCompletion": "None - Group task does not complete",
     "singleCompletion": "Single - Completes when any assigned user finishes",
     "allAssignedCompletion": "All - Completes when all assigned users finish",
-    "newPartyPlaceholder": "Введіть назву вашого гурту."
+    "newPartyPlaceholder": "Введіть назву вашого гурту.",
+    "leaveGuild": "Залишити гільдію",
+    "features": "Особливості",
+    "joinParty": "Приєднуйтесь до вечірки",
+    "PMCanNotReply": "Ви не можете відповісти на цю розмову",
+    "PMUserDoesNotReceiveMessages": "Цей користувач більше не отримує приватних повідомлень",
+    "PMDisabled": "Вимкніть приватні повідомлення",
+    "editParty": "Редагувати вечірку",
+    "joinGuild": "Приєднатись до гільдії",
+    "editGuild": "Редагувати гільдію"
 }

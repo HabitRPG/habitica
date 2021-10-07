@@ -8,7 +8,7 @@
     "messageCannotFeedPet": "No se puede alimentar a esta mascota.",
     "messageAlreadyMount": "Ya tienes esa montura. Intenta alimentar a otra mascota.",
     "messageEvolve": "Has dominado a <%= egg %>, ¡vamos a dar una vuelta!",
-    "messageLikesFood": "¡A <%= egg %> le gusta mucho<%= foodText %>!",
+    "messageLikesFood": "¡A <%= egg %> le gusta mucho <%= foodText %>!",
     "messageDontEnjoyFood": "<%= egg %> se come <%= foodText %> pero no parece que lo disfrute.",
     "messageBought": "Has comprado <%= itemText %>",
     "messageUnEquipped": "Te has quitado <%= itemText %>.",
