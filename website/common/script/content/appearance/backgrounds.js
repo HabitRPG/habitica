@@ -460,6 +460,11 @@ const backgrounds = {
     autumn_poplars: { },
     vineyard: { },
   },
+  backgrounds102021: {
+    cryptic_candles: { },
+    haunted_photo: { },
+    undead_hands: { },
+  },
   timeTravelBackgrounds: {
     airship: {
       price: 1,
