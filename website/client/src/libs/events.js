@@ -3,4 +3,6 @@ export const EVENTS = {
   RESYNC_COMPLETED: 'habitica::resync-completed',
 
   PM_REFRESH: 'pm::refresh',
+
+  BANNER_HEIGHT_UPDATED: 'banner:height_updated',
 };

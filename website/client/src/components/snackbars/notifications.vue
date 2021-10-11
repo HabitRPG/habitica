@@ -68,6 +68,8 @@
 import { mapState } from '@/libs/store';
 import notification from './notification';
 import { sleepAsync } from '../../../../common/script/libs/sleepAsync';
+import { getBannerHeight } from '@/libs/banner.func';
+import { EVENTS } from '@/libs/events';
 
 const NOTIFICATIONS_VISIBLE_AT_ONCE = 4;
 const REMOVAL_INTERVAL = 2500;
@@ -95,12 +97,14 @@ export default {
       removalIntervalId: null,
       notificationTopY: '0px',
       preventMultipleWatchExecution: false,
+      gemsPromoBannerHeight: null,
     };
   },
   computed: {
     ...mapState({
       notificationStore: 'notificationStore',
       userSleeping: 'user.data.preferences.sleep',
+      currentEvent: 'worldState.data.currentEvent',
     }),
     notificationsTopPosClass () {
       const base = 'notifications-top-pos-';
@@ -115,12 +119,23 @@ export default {
       return `${base}${modifier} scroll-${this.scrollY}`;
     },
     notificationBannerHeight () {
-      let scrollPosToCheck = 0;
+      let scrollPosToCheck = 56;
+
       if (this.userSleeping) {
-        scrollPosToCheck = 98;
-      } else {
-        scrollPosToCheck = 56;
+        scrollPosToCheck += 42;
       }
+
+      if (this.currentEvent
+          && this.currentEvent.event
+      ) {
+        console.info('has event');
+        scrollPosToCheck += this.gemsPromoBannerHeight ?? 0;
+      }
+
+      console.info({
+        scrollPosToCheck,
+      });
+
       return scrollPosToCheck;
     },
     visibleNotificationsWithoutErrors () {
@@ -151,14 +166,23 @@ export default {
 
       this.preventMultipleWatchExecution = false;
     },
+    currentEvent: function currentEventChanged () {
+      this.gemsPromoBannerHeight = getBannerHeight('gems-promo');
+      console.info('gems height on tick', this.gemsPromoBannerHeight);
+    },
   },
   mounted () {
     window.addEventListener('scroll', this.updateScrollY, { passive: true });
     this.updateScrollY();
-  },
 
+    this.$root.$on(EVENTS.BANNER_HEIGHT_UPDATED, () => {
+      this.gemsPromoBannerHeight = getBannerHeight('gems-promo');
+    });
+  },
   destroyed () {
     window.removeEventListener('scroll', this.updateScrollY, { passive: true });
+
+    this.$root.$off(EVENTS.BANNER_HEIGHT_UPDATED);
   },
   methods: {
     debug (...args) {
