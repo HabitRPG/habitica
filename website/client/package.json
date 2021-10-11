@@ -16,7 +16,7 @@
     "@storybook/addons": "6.3.8",
     "@storybook/addon-actions": "6.3.10",
     "@storybook/addon-knobs": "6.2.9",
-    "@storybook/addon-links": "6.3.9",
+    "@storybook/addon-links": "6.3.10",
     "@storybook/addon-notes": "5.3.21",
     "@storybook/vue": "6.3.9",
     "@vue/cli-plugin-babel": "^4.5.13",
