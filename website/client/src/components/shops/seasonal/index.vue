@@ -371,6 +371,7 @@ import SelectTranslatedArray from '@/components/tasks/modal-controls/selectTrans
 import FilterSidebar from '@/components/ui/filterSidebar';
 import FilterGroup from '@/components/ui/filterGroup';
 import { getClassName } from '../../../../../common/script/libs/getClassName';
+import { worldStateMixin } from '@/mixins/worldState';
 
 export default {
   components: {
@@ -382,7 +383,7 @@ export default {
     ShopItem,
     toggleSwitch,
   },
-  mixins: [buyMixin, currencyMixin, pinUtils],
+  mixins: [buyMixin, currencyMixin, pinUtils, worldStateMixin],
   data () {
     return {
       viewOptions: {},
@@ -506,7 +507,7 @@ export default {
       this.searchTextThrottled = this.searchText.toLowerCase();
     }, 250),
   },
-  async mounted () {
+  mounted () {
     this.$store.dispatch('common:setTitle', {
       subSection: this.$t('seasonalShop'),
       section: this.$t('shops'),
@@ -516,7 +517,7 @@ export default {
       this.backgroundUpdate = new Date();
     });
 
-    await this.$store.dispatch('worldState:getWorldState');
+    this.triggerGetWorldState();
   },
   beforeDestroy () {
     this.$root.$off('buyModal::boughtItem');

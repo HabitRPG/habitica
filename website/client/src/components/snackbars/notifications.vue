@@ -70,6 +70,7 @@ import notification from './notification';
 import { sleepAsync } from '../../../../common/script/libs/sleepAsync';
 import { getBannerHeight } from '@/libs/banner.func';
 import { EVENTS } from '@/libs/events';
+import { worldStateMixin } from '@/mixins/worldState';
 
 const NOTIFICATIONS_VISIBLE_AT_ONCE = 4;
 const REMOVAL_INTERVAL = 2500;
@@ -77,6 +78,9 @@ const DELAY_DELETE_AND_NEW = 60;
 const DELAY_FILLING_ENTRIES = 240;
 
 export default {
+  mixins: [
+    worldStateMixin,
+  ],
   components: {
     notification,
   },
@@ -171,18 +175,26 @@ export default {
       console.info('gems height on tick', this.gemsPromoBannerHeight);
     },
   },
-  mounted () {
+  async mounted () {
     window.addEventListener('scroll', this.updateScrollY, { passive: true });
     this.updateScrollY();
 
     this.$root.$on(EVENTS.BANNER_HEIGHT_UPDATED, () => {
       this.gemsPromoBannerHeight = getBannerHeight('gems-promo');
     });
+    this.$root.$on(EVENTS.WORLD_STATE_LOADED, () => {
+      this.gemsPromoBannerHeight = getBannerHeight('gems-promo');
+    });
+
+    await this.triggerGetWorldState();
+
+    this.gemsPromoBannerHeight = getBannerHeight('gems-promo');
   },
   destroyed () {
     window.removeEventListener('scroll', this.updateScrollY, { passive: true });
 
     this.$root.$off(EVENTS.BANNER_HEIGHT_UPDATED);
+    this.$root.$off(EVENTS.WORLD_STATE_LOADED);
   },
   methods: {
     debug (...args) {
