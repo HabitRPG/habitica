@@ -74,6 +74,19 @@
         v-if="members.length > 3"
         class="row gradient"
       ></div>
+      <div
+        v-if="isLoadMoreAvailable"
+        class="row"
+      >
+        <div class="col-12 text-center">
+          <button
+            class="btn btn-secondary"
+            @click="loadMoreMembers()"
+          >
+            {{ $t('loadMore') }}
+          </button>
+        </div>
+      </div>
     </b-modal>
   </div>
 </template>
@@ -157,11 +170,13 @@ export default {
   components: {
     MemberDetails,
   },
-  props: ['group', 'hideBadge', 'item'],
+  props: ['hideBadge', 'item'],
   data () {
     return {
       sortOption: '',
       members: [],
+      group: {},
+      invites: [],
       memberToRemove: '',
       sortOptions: [
         {
@@ -210,6 +225,14 @@ export default {
 
       return this.members;
     },
+    isLoadMoreAvailable () {
+      // Only available if the current length of `members` is less than the
+      // total size of the Group/Challenge
+      return this.members.length < this.$store.state.memberModalOptions.memberCount;
+    },
+    challengeId () {
+      return this.$store.state.memberModalOptions.challengeId;
+    },
     groupId () {
       return this.$store.state.groupId || this.group._id;
     },
@@ -222,7 +245,20 @@ export default {
     },
   },
   methods: {
+    loadMembers (payload = null) {
+      // Remove unnecessary data
+      if (payload && payload.challengeId) {
+        delete payload.challengeId;
+      }
+
+      return this.$store.dispatch('members:getGroupMembers', payload);
+    },
     async getMembers () {
+      this.group = await this.$store.dispatch('party:getParty');
+      this.group = this.$store.state.party.data;
+      this.$store.state.memberModalOptions.memberCount = this.group.memberCount;
+      this.$store.state.memberModalOptions.fetchMoreMembers = this.loadMembers;
+
       const { groupId } = this;
       if (groupId && groupId !== 'challenge') {
         const members = await this.$store.dispatch('members:getGroupMembers', {
@@ -230,6 +266,11 @@ export default {
           includeAllPublicFields: true,
         });
         this.members = members;
+        const invites = await this.$store.dispatch('members:getGroupInvites', {
+          groupId,
+          includeAllPublicFields: true,
+        });
+        this.invites = invites;
       }
 
       if ((!this.members || this.members.length === 0)
@@ -241,6 +282,20 @@ export default {
       if (!this.members || (this.members.length === 0 && !this.groupId)) {
         this.members = [this.user];
       }
+      this.$store.state.memberModalOptions.viewingMembers = this.members;
+    },
+    async loadMoreMembers () {
+      const lastMember = this.members[this.members.length - 1];
+      if (!lastMember) return;
+
+      const newMembers = await this.$store.state.memberModalOptions.fetchMoreMembers({
+        challengeId: this.challengeId,
+        groupId: this.groupId,
+        lastMemberId: lastMember._id,
+        includeAllPublicFields: true,
+      });
+
+      this.members = this.members.concat(newMembers);
     },
     close () {
       this.$root.$emit('bv::hide::modal', 'select-member-modal');

@@ -145,6 +145,9 @@ export default {
       currentWidth: 0,
       inviteModalGroup: undefined,
       inviteModalGroupType: undefined,
+      group: {},
+      members: [],
+      membersLoaded: false,
     };
   },
   computed: {
@@ -236,14 +239,26 @@ export default {
         this.$root.$emit('bv::show::modal', 'create-party-modal');
       }
     },
-    async showPartyMembers () {
-      const party = await this.$store.dispatch('party:getParty');
+    loadMembers (payload = null) {
+      // Remove unnecessary data
+      if (payload && payload.challengeId) {
+        delete payload.challengeId;
+      }
 
+      return this.$store.dispatch('members:getGroupMembers', payload);
+    },
+    async showPartyMembers () {
+      this.group = await this.$store.dispatch('party:getParty');
+      this.group = this.$store.state.party.data;
+      this.membersLoaded = true;
+      this.members = this.partyMembers;
+      this.$store.state.memberModalOptions.loading = false;
       this.$root.$emit('habitica:show-member-modal', {
-        groupId: party.data._id,
-        viewingMembers: this.partyMembers,
-        group: party.data,
-        fetchMoreMembers: p => this.$store.dispatch('members:getGroupMembers', p),
+        groupId: this.group._id,
+        group: this.group,
+        memberCount: this.group.memberCount,
+        viewingMembers: this.members,
+        fetchMoreMembers: this.loadMembers,
       });
     },
     setPartyMembersWidth ($event) {

@@ -37,9 +37,9 @@ export default {
     }
     : {},
 
-  availableSpells: SHOP_OPEN && moment().isBefore('2021-07-06T08:00-04:00')
+  availableSpells: SHOP_OPEN && moment().isBetween('2021-10-12T08:00-04:00', CURRENT_EVENT.end)
     ? [
-      'seafoam',
+      'spookySparkles',
     ]
     : [],
 

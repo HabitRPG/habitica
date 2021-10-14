@@ -18,7 +18,7 @@
     "greenblue": "Fuertes",
     "edit": "Editar",
     "save": "Guardar",
-    "addChecklist": "Aňadir lista",
+    "addChecklist": "Añadir lista",
     "checklist": "Lista",
     "newChecklistItem": "Nuevo punto de lista",
     "expandChecklist": "Expandir lista",
@@ -135,5 +135,8 @@
     "addTags": "Añade etiquetas...",
     "sureDeleteType": "¿Estás seguro de que quieres eliminar este <%= type %>?",
     "deleteTaskType": "Elimina este <%= type %>",
-    "tomorrow": "Mañana"
+    "tomorrow": "Mañana",
+    "counter": "Contador",
+    "resetCounter": "Resetear contador",
+    "adjustCounter": "Ajustar contador"
 }

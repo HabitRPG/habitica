@@ -24,7 +24,7 @@
     "ghostJackolantern": "Fantasma de Jack-O-Lantern",
     "glowJackolantern": "Calabaza de Halloween Fosforescente",
     "seasonalShop": "Tienda de temporada",
-    "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
+    "seasonalShopClosedTitle": "<%= linkStart %>Leslie <%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Hechicera Estacional<%= linkEnd %>",
     "seasonalShopClosedText": "¡¡La Tienda de Temporada está actualmente cerrada!! Solo está abierta durante las cuatro Grandes Galas de Habitica.",
     "seasonalShopSummerText": "¡¡Feliz Verano Splash!! ¿Te gustaría comprar algunos artículos raros? ¡Asegúrate de conseguirlos antes de que la Gala termine!",
@@ -165,7 +165,7 @@
     "summer2019WaterLilyMageSet": "Nenúfar (Mago)",
     "summer2019SeaTurtleWarriorSet": "Tortuga Marina (Guerrero)",
     "augustYYYY": "Agosto del <%= year %>",
-    "decemberYYYY": "Diciembre  <%= year %>",
+    "decemberYYYY": "Diciembre <%= year %>",
     "winter2020LanternSet": "Linterna (Pícaro)",
     "winter2020WinterSpiceSet": "Especia de Invierno (Sanador)",
     "winter2020CarolOfTheMageSet": "Villancico del Mago",
@@ -207,5 +207,9 @@
     "summer2021ClownfishRogueSet": "Pez payaso (Pícaro)",
     "summer2021ParrotHealerSet": "Loro (Sanador)",
     "summer2021NautilusMageSet": "Nautilo (Mago)",
-    "summer2021FlyingFishWarriorSet": "Pez volador (Guerrero)"
+    "summer2021FlyingFishWarriorSet": "Pez volador (Guerrero)",
+    "fall2021BrainEaterMageSet": "Comecerebros (Mago)",
+    "fall2021FlameSummonerHealerSet": "Invocador de la llama (Sanador)",
+    "fall2021HeadlessWarriorSet": "Acéfalo (Guerrero)",
+    "fall2021OozeRogueSet": "Rezumar (Pícaro)"
 }

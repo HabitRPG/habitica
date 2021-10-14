@@ -71,7 +71,7 @@
     "beeminderDesc": "Laissez Beeminder contrôler automatiquement vos tâches à faire provenant d'Habitica. Vous pouvez vous engager à effectuer un certain nombre de tâches à faire par jour ou par semaine, ou vous pouvez vous engager à diminuer progressivement le nombre de tâches à faire que vous n'avez pas encore effectuées. (Par \"s'engager\" Beeminder vous menace d'avoir à payer de l'argent pour de vrai ! Mais vous pouvez aussi simplement apprécier les graphiques sophistiqués de Beeminder.)",
     "chromeChatExtension": "L'extension Habitica Chat Client pour Chrome",
     "chromeChatExtensionDesc": "L'extension Habitica Chat Client pour Chrome ajoute une fenêtre de discussion intuitive à l'ensemble du site habitica.com. Elle permet aux utilisateurs et utilisatrices de discuter dans la taverne, avec leur équipe et dans les guildes dont ils sont membres.",
-    "otherExtensions": "<a target=\"blank\" href=\"http://habitica.fandom.com/fr/wiki/Extensions,_modules_compl%C3%A9mentaires_et_personnalisations\">Autres extensions</a>",
+    "otherExtensions": "<a target=\"blank\" href=\"https://habitica.fandom.com/fr/wiki/Extensions,_modules_compl%C3%A9mentaires_et_personnalisations\">Autres extensions</a>",
     "otherDesc": "Trouvez d'autres applications, extensions et outils sur le wiki d'Habitica.",
     "resetDo": "Allez-y, réinitialisez mon compte !",
     "resetComplete": "Réinitialisation terminée !",

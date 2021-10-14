@@ -2436,12 +2436,13 @@
     "headAccessoryMystery202109Text": "Antenas lunares de Lepidópteros",
     "shieldArmoireHeraldsMessageScrollText": "Pergaminho de mensagem do Arauto",
     "armorArmoireHeraldsTunicText": "Túnica do Arauto",
-    "headArmoireHeraldsCapText": "Boné do Arauto",
+    "headArmoireHeraldsCapText": "Chapéu de Arauto",
     "backMystery202109Text": "Asas Lepidópteras Lunares",
-    "weaponArmoireHeraldsBuisineNotes": "Qualquer anúncio vai soar muito melhor se for seguido pelo som desse trompete. Aumenta a força em <%= str %>. Armário Encantado : Conjunto do Arauto (Item 3 de 4).",
-    "armorArmoireHeraldsTunicNotes": "Fique pronto para espalhar boas notícias em toda parte nessa roupa colorida e real. Aumenta Constituição de <%= con %>. Armário Encantado: Conjunto do Arauto (Item1 de 4).",
-    "headArmoireHeraldsCapNotes": "Este chapéu de Arauto inclui uma pluma alegre. Aumenta Inteligência de <%= int %>. Armário Encantado: Conjunto do Arauto (Item 2 de 4).",
-    "shieldArmoireHeraldsMessageScrollNotes": "Que notícias empolgantes este pergaminho contém? Será sobre um novo animal de estimação ou uma longa sequência de hábitos? Aumenta a percepção em <% = por%>. Armário Encantado: Conjunto do Arauto (Item 4 de 4)",
-    "backMystery202109Notes": "Deslize suavemente pelo ar do crepúsculo sem fazer barulho. Não confere benefícios. Setembro de 2021 Item de assinante.",
-    "headAccessoryMystery202109Notes": "Sinta o perfume das flores na brisa ou o cheiro da mudança no vento. Não confere benefícios. Setembro de 2021 Item de assinante."
+    "weaponArmoireHeraldsBuisineNotes": "Qualquer anúncio vai soar muito melhor se for seguido pelo som desse trompete. Aumenta a Força em <%= str %>. Armário Encantado : Conjunto do Arauto (Item 3 de 4).",
+    "armorArmoireHeraldsTunicNotes": "Fique pronto para espalhar boas notícias em toda parte nessa roupa colorida e real. Aumenta Constituição em <%= con %>. Armário Encantado: Conjunto do Arauto (Item1 de 4).",
+    "headArmoireHeraldsCapNotes": "Este Chapéu de Arauto inclui uma pluma alegre. Aumenta Inteligência de <%= int %>. Armário Encantado: Conjunto do Arauto (Item 2 de 4).",
+    "shieldArmoireHeraldsMessageScrollNotes": "Que notícias empolgantes este pergaminho contém? Será sobre um novo Mascote ou um longo combo de hábitos? Aumenta a Percepção em <%= per %>. Armário Encantado: Conjunto do Arauto (Item 4 de 4)",
+    "backMystery202109Notes": "Deslize suavemente pelo ar do crepúsculo sem fazer barulho. Não confere benefícios. Item de Assinante de Setembro de 2021.",
+    "headAccessoryMystery202109Notes": "Sinta o perfume das flores na brisa ou o cheiro da mudança no vento. Não confere benefícios. Item de Assinante de Setembro de 2021.",
+    "headSpecialFall2021RogueText": "Engolido pelo Cubo Gelatinoso"
 }

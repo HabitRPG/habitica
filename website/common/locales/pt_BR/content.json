@@ -193,7 +193,7 @@
     "hatchingPotionCottonCandyPink": "Rosa Algodão-Doce",
     "hatchingPotionCottonCandyBlue": "Azul Algodão-Doce",
     "hatchingPotionGolden": "de Cor Dourada",
-    "hatchingPotionSpooky": "Assustadora",
+    "hatchingPotionSpooky": "Abóbora",
     "hatchingPotionPeppermint": "Hortelã",
     "hatchingPotionFloral": "Floral",
     "hatchingPotionAquatic": "Aquática",
@@ -369,5 +369,5 @@
     "hatchingPotionMossyStone": "de Pedra com Musgo",
     "hatchingPotionMoonglow": "de Brilho da Lua",
     "hatchingPotionSunset": "do Pôr do Sol",
-    "hatchingPotionSolarSystem": "Sistema Solar"
+    "hatchingPotionSolarSystem": "do Sistema Solar"
 }

@@ -1,8 +1,8 @@
-[//]: # (Before logging this issue, please contact site administrators from the Habitica website's Help menu. Most bugs can be handled quickly there. If a GitHub issue is needed, staff will let you know. It is recommended that you don't create a new issue unless advised to.)
+[//]: # (Before logging this issue, please contact site administrators from "Report a Bug" in the Habitica website's Help menu. If a GitHub issue is needed, staff will let you know and will most likely log one on your behalf. It is recommended that you don't create a new issue unless advised to.)
 
-[//]: # (Bugs in the mobile apps can also be reported there.)
+[//]: # (Bugs in the mobile apps can be reported via Menu > About > Support.)
 
-[//]: # (If you have a feature request, use "Help > Request a Feature", not GitHub or the Report a Bug guild.)
+[//]: # (If you have a feature request, use "Help > Request a Feature", not GitHub.)
 
 [//]: # (For more guidelines see https://github.com/HabitRPG/habitica/issues/2760)
 
