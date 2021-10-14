@@ -592,20 +592,6 @@ describe('User Model', () => {
   });
 
   context('pre-save hook', () => {
-    it('enrolls users that signup through web in the Drop Cap AB test', async () => {
-      let user = new User();
-      user.registeredThrough = 'habitica-web';
-      user = await user.save();
-      expect(user._ABtests.dropCapNotif).to.exist;
-    });
-
-    it('does not enroll users that signup through modal in the Drop Cap AB test', async () => {
-      let user = new User();
-      user.registeredThrough = 'habitica-ios';
-      user = await user.save();
-      expect(user._ABtests.dropCapNotif).to.not.exist;
-    });
-
     it('marks the last news post as read for new users', async () => {
       const lastNewsPost = { _id: '1' };
       sandbox.stub(NewsPost, 'lastNewsPost').returns(lastNewsPost);
