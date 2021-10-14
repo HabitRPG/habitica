@@ -2422,7 +2422,7 @@
     "armorArmoireBathtubText": "Baignoire",
     "weaponArmoireBuoyantBubblesNotes": "Ces bulles continuent à flotter pour toujours, en quelque sorte... Augmente la perception de <%= per %>. Armoire enchantée : ensemble de bulles du bain (objet 3 de 4).",
     "weaponArmoireBuoyantBubblesText": "Bulles flottantes",
-    "eyewearMystery202108Notes": "Fixez du regard vos ennemis (ou vos plus grosses tâches !) avec ce regard, et ils n'auront aucune chance. Ne confère aucun bonus. Équipement d'abonnement d'août 2021. ",
+    "eyewearMystery202108Notes": "Fixez du regard vos ennemis (ou vos plus grosses tâches !) avec ce regard, et ils n'auront aucune chance. Ne confère aucun bonus. Équipement d'abonnement d'août 2021.",
     "eyewearMystery202108Text": "Yeux flamboyants",
     "headMystery202108Notes": "Vous avez l'air en forme, juste pour dire. Ne confère aucun bonus. Équipement d'abonnement d'août 2021.",
     "headMystery202108Text": "Chevelure shonen flamboyante",
@@ -2475,5 +2475,13 @@
     "armorMystery202110Text": "Armure de gargouille moussue",
     "armorMystery202110Notes": "Cette mousse de velours vous fait paraître fragile à l'extérieur, mais vous êtes protégé par de la pierre solide. Ne confère aucun bonus.Équipement d'abonnement d'octobre 2021.",
     "headMystery202110Text": "Casque de gargouille moussue",
-    "headMystery202110Notes": "Le visage effrayant de ce casque de pierre va sûrement repousser le forces du mal et les mauvaises habitudes ! Ne confère aucun bonus. Équipement d'abonnement d'octobre 2021."
+    "headMystery202110Notes": "Le visage effrayant de ce casque de pierre va sûrement repousser le forces du mal et les mauvaises habitudes ! Ne confère aucun bonus. Équipement d'abonnement d'octobre 2021.",
+    "weaponArmoireSkullLanternText": "Lanterne crâne",
+    "weaponArmoireSkullLanternNotes": "Laissez sa lueur vous guider à travers les nuits les plus sombres de vos aventures. Augmente l'intelligence de <%= int %>. Armoire enchantée : Objet indépendant.",
+    "armorArmoireSoftBlackSuitText": "Doux costume noir",
+    "armorArmoireSoftBlackSuitNotes": "Le noir est une couleur mystérieuse. Cela vous inspirera sûrement les rêves les plus intéressants. Augmente la constitution et la perception de <%= attrs %> chacun. Armoire enchantée : ensemble d'habits noirs (objet 2 de 3).",
+    "headArmoireBlackFloppyHatText": "Chapeau souple noir",
+    "headArmoireBlackFloppyHatNotes": "Beaucoup de sort ont été brodés dans ce chapeau, lui donnant une couleur noir vive. Augmente la constitution, la perception et la force de <%= attrs %>. Armoire enchantée : ensemble d'habits noirs (objet 1 de 3).",
+    "shieldArmoireSoftBlackPillowText": "Doux oreiller noir",
+    "shieldArmoireSoftBlackPillowNotes": "Le courageux guerrier emporte toujours un oreiller dans ses expéditions. Protégez-vous des tâches fatigantes... même quand vous faites la sieste. Augmente l'intelligence et la perception de <%= attrs %> chacun. Armoire enchantée : ensemble d'habits noirs (objet 3 de 3)."
 }

@@ -10,10 +10,10 @@
     "mysteryItemText": "ทุกๆ เดือน คุณจะได้รับอุปกรณ์ตกแต่งพิเศษสำหรับตัวละครของคุณ! นอกจากนั้นแล้ว คุณจะยังได้สิทธิในการเข้าซื้ออุปกรณ์ตกแต่งจากเดือนในอดีต (หรืออนาคต!) จากนักเดินทางข้ามเวลาปริศนา ต่อการลงทะเบียนอย่างต่อเนื่องทุกๆ สามเดือนอีกด้วย",
     "exclusiveJackalopePet": "Exclusive pet",
     "giftSubscription": "ต้องการให้ผลประโยชน์จากการลงทะเบียนกับใครบางคน?",
-    "giftSubscriptionText4": "Thanks for supporting Habitica!",
-    "groupPlans": "Group Plans",
+    "giftSubscriptionText4": "ขอบคุณที่ช่วยสนับสนุนแฮบบิททิก้า!",
+    "groupPlans": "แพลนกลุ่ม",
     "subscribe": "ลงทะเบียน",
-    "nowSubscribed": "You are now subscribed to Habitica!",
+    "nowSubscribed": "คุณได้เป็นสมาชิกของแฮบบิททิก้าแล้ว!",
     "cancelSub": "ยกเลิกการลงทะเบียน",
     "cancelSubInfoGroupPlan": "Because you have a free subscription from a Group Plan, you cannot cancel it. It will end when you are no longer in the Group. If you are the Group leader and want to cancel the entire Group Plan, you can do that from the group's \"Payment Details\" tab.",
     "cancelingSubscription": "กำลังยกเลิกการเป็นสมาชิก",
@@ -140,5 +140,6 @@
     "subCanceledTitle": "ยกเลิกการเป็นสมาชิกแล้ว",
     "subscriptionStats": "สถานะการเป็นสมาชิก",
     "confirmCancelSub": "คุณแน่ใจหรือไม่ที่จะเลิกเป็นสมาชิก? คุณจะเสียสิทธิพิเศษทั้งหมดของการเป็นสมาชิก",
-    "cancelYourSubscription": "ต้องการยกเลิกการเป็นสมาชิกใช่หรือไม่?"
+    "cancelYourSubscription": "ต้องการยกเลิกการเป็นสมาชิกใช่หรือไม่?",
+    "cancelSubInfoGoogle": "โปรดไปที่หน้า \"บัญชี\" > \"การเป็นสมาชิก\" ของ Google Play Store เพื่อยกเลิกการเป็นสมาชิกหรือเพื่อดูวันสิ้นสุดการเป็นสมาชิกหากคุณได้ยกเลิกแล้ว หน้าต่างนี้ไม่สามารถแสดงสถานะการเป็นสมาชิกของคุณ"
 }

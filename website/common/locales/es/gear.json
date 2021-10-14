@@ -2360,7 +2360,7 @@
     "headAccessoryMystery202105Notes": "Ponte estos iridiscentes cuernos e invoca la magia de la luz de las estrellas. No otorga ningún beneficio. Artículo de suscriptor de mayo 2021.",
     "backMystery202009Notes": "¡Deja que estas enormes alas te lleven a nuevas alturas! No otorga ningún beneficio. Artículo de suscriptor de septiembre 2020.",
     "bodyMystery202107Text": "Exuberante flamenco flotante",
-    "eyewearMystery202108Notes": "Mira con ellos fijamente a tus enemigos (¡o a tus tareas más poderosas!) y no tendrán ninguna oportunidad. No otorga ningún beneficio. Artículo de suscriptor de agosto 2021. ",
+    "eyewearMystery202108Notes": "Mira con ellos fijamente a tus enemigos (¡o a tus tareas más poderosas!) y no tendrán ninguna oportunidad. No otorga ningún beneficio. Artículo de suscriptor de agosto 2021.",
     "eyewearMystery201907Text": "Gafas de sol azucaradas",
     "headAccessoryMystery202009Notes": "Estos plumosos apéndices te ayudarán a encontrar tu camino incluso en la oscuridad de la noche. No otorga ningún beneficio. Artículo de suscriptor de septiembre 2020.",
     "shieldArmoireBouncyBubblesNotes": "¡Completa tu relajante baño con estas exuberantes burbujas! Aumenta la fuerza en <%= str %>. Armario Encantado: conjunto de baño de burbujas (artículo 4 de 4).",
@@ -2475,5 +2475,13 @@
     "shieldArmoireHeraldsMessageScrollNotes": "¿Qué emocionantes noticias contiene este pergamino? ¿Podría tratarse de una nueva mascota o de una buena racha cumpliendo hábitos? Aumenta la percepción en <%= per %>. Armario Encantado: conjunto de heraldo (artículo 4 de 4)",
     "backSpecialNamingDay2020Notes": "¡Feliz día del nombramiento! Mueve esta fiera cola pixelada mientras celebras el bautizo de Habitica. No otorga ningún beneficio.",
     "bodyMystery202107Notes": "¡Este fiel compañero nunca te defraudará y siempre mantendrá tu espíritu en alto! No otorga ningún beneficio. Artículo de suscriptor de julio 2021.",
-    "eyewearSpecialRedHalfMoonNotes": "Gafas de montura roja y lentes de luna creciente. No otorga ningún beneficio."
+    "eyewearSpecialRedHalfMoonNotes": "Gafas de montura roja y lentes de luna creciente. No otorga ningún beneficio.",
+    "headArmoireBlackFloppyHatNotes": "Se le han cosido tantos hechizos a este sencillo gorro, que ha adquirido un profundo color negro. Aumenta la constitución, percepción y la fuerza en <%= attrs %> cada uno. Armario Encantado: conjunto confortable negro (artículo 1 de 3).",
+    "shieldArmoireSoftBlackPillowNotes": "Un valiente guerrero empaca siempre una almohada en cualquier expedición. Protégete de las tareas más tediosas... incluso mientras te echas la siesta. Aumenta la inteligencia y la percepción en <%= attrs %> cada uno. Armario Encantado: conjunto confortable negro (artículo 3 de 3).",
+    "weaponArmoireSkullLanternText": "Linterna de calavera",
+    "weaponArmoireSkullLanternNotes": "Deja que su resplandor sea tu guía en las noches más oscuras de tus aventuras. Aumenta la inteligencia en <%= int %>. Armario Encantado: artículo independiente.",
+    "armorArmoireSoftBlackSuitNotes": "El negro es un color misterioso. Seguro que te inspirará los sueños más interesantes. Aumenta la constitución y la percepción en <%= attrs %> cada uno. Armario Encantado: conjunto confortable negro (artículo 2 de 3).",
+    "armorArmoireSoftBlackSuitText": "Pijama suave negro",
+    "headArmoireBlackFloppyHatText": "Gorro flexible negro",
+    "shieldArmoireSoftBlackPillowText": "Almohada suave negra"
 }
