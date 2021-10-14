@@ -65,6 +65,8 @@
 </style>
 
 <script>
+import debounce from 'lodash/debounce';
+
 import { mapState } from '@/libs/store';
 import notification from './notification';
 import { sleepAsync } from '../../../../common/script/libs/sleepAsync';
@@ -102,6 +104,7 @@ export default {
       notificationTopY: '0px',
       preventMultipleWatchExecution: false,
       gemsPromoBannerHeight: null,
+      sleepingBannerHeight: null,
     };
   },
   computed: {
@@ -125,20 +128,15 @@ export default {
     notificationBannerHeight () {
       let scrollPosToCheck = 56;
 
-      if (this.userSleeping) {
-        scrollPosToCheck += 42;
+      if (this.sleepingBannerHeight) {
+        scrollPosToCheck += this.sleepingBannerHeight;
       }
 
       if (this.currentEvent
           && this.currentEvent.event
       ) {
-        console.info('has event');
         scrollPosToCheck += this.gemsPromoBannerHeight ?? 0;
       }
-
-      console.info({
-        scrollPosToCheck,
-      });
 
       return scrollPosToCheck;
     },
@@ -172,26 +170,27 @@ export default {
     },
     currentEvent: function currentEventChanged () {
       this.gemsPromoBannerHeight = getBannerHeight('gems-promo');
-      console.info('gems height on tick', this.gemsPromoBannerHeight);
     },
   },
   async mounted () {
-    window.addEventListener('scroll', this.updateScrollY, { passive: true });
-    this.updateScrollY();
+    window.addEventListener('scroll', this.updateScrollY, {
+      passive: true,
+    });
 
     this.$root.$on(EVENTS.BANNER_HEIGHT_UPDATED, () => {
-      this.gemsPromoBannerHeight = getBannerHeight('gems-promo');
+      this.updateBannerHeightAndScrollY();
     });
     this.$root.$on(EVENTS.WORLD_STATE_LOADED, () => {
-      this.gemsPromoBannerHeight = getBannerHeight('gems-promo');
+      this.updateBannerHeightAndScrollY();
     });
 
     await this.triggerGetWorldState();
-
-    this.gemsPromoBannerHeight = getBannerHeight('gems-promo');
+    this.updateBannerHeightAndScrollY();
   },
   destroyed () {
-    window.removeEventListener('scroll', this.updateScrollY, { passive: true });
+    window.removeEventListener('scroll', this.updateScrollY, {
+      passive: true,
+    });
 
     this.$root.$off(EVENTS.BANNER_HEIGHT_UPDATED);
     this.$root.$off(EVENTS.WORLD_STATE_LOADED);
@@ -349,10 +348,16 @@ export default {
      * This updates the position of all notifications so that its always at the top,
      * unless the header is visible then its under the header
      */
-    updateScrollY () {
+    updateScrollY: debounce(function updateScrollY () {
       const topY = Math.min(window.scrollY, this.notificationBannerHeight) - 10;
 
       this.notificationTopY = `${this.notificationBannerHeight - topY}px`;
+    }, 16),
+
+    updateBannerHeightAndScrollY () {
+      this.gemsPromoBannerHeight = getBannerHeight('gems-promo');
+      this.sleepingBannerHeight = getBannerHeight('damage-paused');
+      this.updateScrollY();
     },
   },
 };

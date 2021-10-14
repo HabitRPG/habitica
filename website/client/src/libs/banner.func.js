@@ -20,9 +20,9 @@ export function getBannerHeight (bannerId) {
     .getPropertyValue(`--banner-${bannerId}-height`);
 
   if (heightProp?.includes('rem')) {
-    return heightProp.replace('rem', '') * 16; // FontSize
+    return Number(heightProp.replace('rem', '') * 16); // FontSize
   }
 
   // || if the left side is an empty string
-  return heightProp?.replace('px', '') || 0;
+  return Number(heightProp?.replace('px', '') || 0);
 }
