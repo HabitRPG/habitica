@@ -688,6 +688,7 @@ api.updateTask = {
           -user.preferences.timezoneOffset,
         ).date()];
       }
+      if (task.streak === undefined) task.streak = 0;
     }
 
     setNextDue(task, user);
