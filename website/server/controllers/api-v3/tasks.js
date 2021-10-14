@@ -689,6 +689,7 @@ api.updateTask = {
         ).date()];
       }
       if (task.streak === undefined) task.streak = 0;
+      task.streak = Math.trunc(task.streak);
     }
 
     setNextDue(task, user);
