@@ -66,7 +66,6 @@ async function cronAsync (req, res) {
     res.locals.user = user;
     const { daysMissed, timezoneUtcOffsetFromUserPrefs } = user.daysUserHasMissed(now, req);
 
-    user.enrollInDropCapABTest(req.headers['x-client']);
     await updateLastCron(user, now);
 
     if (daysMissed <= 0) {

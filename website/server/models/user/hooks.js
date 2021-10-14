@@ -163,8 +163,6 @@ function _setUpNewUser (user) {
 
   user.markModified('items achievements');
 
-  user.enrollInDropCapABTest(user.registeredThrough);
-
   if (user.registeredThrough === 'habitica-web') {
     taskTypes = ['habit', 'daily', 'todo', 'reward', 'tag'];
 
