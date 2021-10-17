@@ -240,7 +240,7 @@ TaskSchema.statics.findMultipleByIdOrAlias = async function findByIdOrAlias (
 };
 
 // Sanitize user tasks linked to a challenge
-// See http://habitica.fandom.com/wiki/Challenges#Challenge_Participant.27s_Permissions for more info
+// See https://habitica.fandom.com/wiki/Challenges#Challenge_Participant.27s_Permissions for more info
 TaskSchema.statics.sanitizeUserChallengeTask = function sanitizeUserChallengeTask (taskObj) {
   const initialSanitization = this.sanitize(taskObj);
 

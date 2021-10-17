@@ -2420,5 +2420,16 @@
     "headSpecialSummer2021MageNotes": "Die Visierloch-Augen auf dieser gesprenkelte Kappe mögen deine Fähigkeit, Unterwasser zu sehen, zwar nicht allzu sehr zu verbessern, doch deinen Feinden gehen sie definitiv auf die Nerven. Erhöht deine Wahrnehmung um <%= per %>. Limitierte Edition der 2021 Sommerausrüstung.",
     "headSpecialSummer2021MageText": "Nautilus Haube",
     "headSpecialSummer2021WarriorNotes": "Dieser Helm hält dich sicher und seine Magie lässt dich Unterwasser atmen! Erhöht deine Stärke um <%= str %>. Limitierte Edition der 2021 Sommerausrüstung.",
-    "headSpecialSummer2021RogueNotes": "Es ist mutig, strahlend und lustig. Genau wie du! Erhöht deine Wahrnehmung um <%= per %>. Limitierte Edition der 2021 Sommerausrüstung."
+    "headSpecialSummer2021RogueNotes": "Es ist mutig, strahlend und lustig. Genau wie du! Erhöht deine Wahrnehmung um <%= per %>. Limitierte Edition der 2021 Sommerausrüstung.",
+    "weaponSpecialSummer2021MageText": "Nautiloid Stock",
+    "weaponSpecialFall2021RogueText": "Tropfender Glibber",
+    "shieldArmoireHeraldsMessageScrollText": "Schriftrolle mit der Botschaft des Herolds",
+    "headSpecialFall2021HealerText": "Die Maske des Beschwörers",
+    "headSpecialFall2021WarriorText": "Kopfloses Halstuch",
+    "shieldSpecialFall2021HealerText": "Beschworene Kreatur",
+    "backMystery202109Text": "Mondflügel der Lepidoptera",
+    "weaponSpecialFall2021RogueNotes": "Wo zum Teufel bist Du nur hineingeraten? Wenn Leute sagen, Schurken haben klebrige Finger, dann meinen sie nicht sowas! Erhöht Stärke um <%= str %>. Limitierte Ausgage 2021 Herbstausrüstung.",
+    "weaponSpecialFall2021WarriorText": "Reiter-Axt",
+    "headMystery202110Text": "Moosbewachsener Wasserspeierhelm",
+    "armorMystery202110Text": "Moosbewachsene Wasserspeierrüstung"
 }

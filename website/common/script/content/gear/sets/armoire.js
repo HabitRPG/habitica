@@ -374,6 +374,11 @@ const armor = {
     con: 6,
     set: 'herald',
   },
+  softBlackSuit: {
+    con: 7,
+    per: 7,
+    set: 'blackLoungewear',
+  },
 };
 
 const body = {
@@ -758,6 +763,12 @@ const head = {
     int: 6,
     set: 'herald',
   },
+  blackFloppyHat: {
+    con: 7,
+    per: 7,
+    str: 7,
+    set: 'blackLoungewear',
+  },
 };
 
 const shield = {
@@ -1017,6 +1028,11 @@ const shield = {
   heraldsMessageScroll: {
     per: 6,
     set: 'herald',
+  },
+  softBlackPillow: {
+    int: 5,
+    per: 5,
+    set: 'blackLoungewear',
   },
 };
 
@@ -1327,6 +1343,9 @@ const weapon = {
   heraldsBuisine: {
     str: 6,
     set: 'herald',
+  },
+  skullLantern: {
+    int: 10,
   },
 };
 

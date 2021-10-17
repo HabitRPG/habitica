@@ -50,7 +50,7 @@
     "unallocatedStatsPoints": "你有<span class=\"notification-bold-blue\"><%= points %>点没分配的属性点</span>",
     "beginningOfConversation": "现在开始和<%= userName %>愉快的聊天吧。",
     "messageDeletedUser": "抱歉，此用户已删除其帐户。",
-    "messageMissingDisplayName": "缺少角色名。",
+    "messageMissingDisplayName": "缺少昵称。",
     "reportedMessage": "你已将此信息上报给管理员。",
     "canDeleteNow": "请确认你确实想要删除此信息。",
     "beginningOfConversationReminder": "记住要善待和尊重他人并遵守社区准则！",

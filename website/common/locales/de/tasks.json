@@ -135,5 +135,8 @@
     "pressEnterToAddTag": "Drücke Enter um das Tag '<%= tagName %>' hinzuzufügen",
     "enterTag": "Gib ein Tag ein",
     "addTags": "Tags hinzufügen…",
-    "tomorrow": "Morgen"
+    "tomorrow": "Morgen",
+    "counter": "Zähler",
+    "adjustCounter": "Zähler anpassen",
+    "resetCounter": "Zähler zurücksetzen"
 }

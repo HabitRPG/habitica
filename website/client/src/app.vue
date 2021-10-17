@@ -38,7 +38,7 @@
       <template v-else>
         <template v-if="isUserLoaded">
           <damage-paused-banner />
-          <!-- <gems-promo-banner /> -->
+          <gems-promo-banner />
           <gift-promo-banner />
           <notifications-display />
           <app-menu />
@@ -154,7 +154,7 @@ import { loadProgressBar } from 'axios-progress-bar';
 import AppMenu from './components/header/menu';
 import AppHeader from './components/header/index';
 import DamagePausedBanner from './components/header/banners/damagePaused';
-// import GemsPromoBanner from './components/header/banners/gemsPromo';
+import GemsPromoBanner from './components/header/banners/gemsPromo';
 import GiftPromoBanner from './components/header/banners/giftPromo';
 import AppFooter from './components/appFooter';
 import notificationsDisplay from './components/notifications';
@@ -186,7 +186,7 @@ export default {
     AppHeader,
     AppFooter,
     DamagePausedBanner,
-    // GemsPromoBanner,
+    GemsPromoBanner,
     GiftPromoBanner,
     notificationsDisplay,
     snackbars,

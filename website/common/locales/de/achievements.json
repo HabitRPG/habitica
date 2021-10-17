@@ -85,7 +85,7 @@
     "achievementFreshwaterFriendsText": "Hat die Axolotl-, Frosch- und Nilpferdhaustier-Quests erfüllt.",
     "achievementFreshwaterFriends": "Süßwasser-Freunde",
     "achievementAllThatGlittersModalText": "Du hast alle goldenen Reittiere gezähmt!",
-    "achievementGoodAsGoldText": "Hat alle goldene Haustiere eingesammelt.",
+    "achievementGoodAsGoldText": "Hat alle goldenen Haustiere gesammelt.",
     "achievementGoodAsGoldModalText": "Du hast alle goldenen Haustiere eingesammelt!",
     "achievementAllThatGlittersText": "Hat alle goldenen Reittiere gezähmt.",
     "achievementAllThatGlitters": "Alles, was glänzt",
@@ -109,10 +109,13 @@
     "achievementSeasonalSpecialistModalText": "Du hast alle saisonalen Quests abgeschlossen!",
     "achievementSeasonalSpecialistText": "Hat alle Quests der Frühlings- und Winter-Saison abgeschlossen: Eierjagd, Wildernder Weihnachtswichtel, und Finde das Jungtier!",
     "achievementSeasonalSpecialist": "Saisonal Spezial",
-    "achievementWildBlueYonderModalText": "Du hast alle blaue Zuckerwatte Reittiere gezähmt!",
-    "achievementWildBlueYonderText": "Hat alle blaue Zuckerwatte Reittiere gezähmt.",
+    "achievementWildBlueYonderModalText": "Du hast alle blauen Zuckerwatte-Reittiere gezähmt!",
+    "achievementWildBlueYonderText": "Hat alle blauen Zuckerwatte-Reittiere gezähmt.",
     "achievementWildBlueYonder": "Weite Ferne",
-    "achievementVioletsAreBlueModalText": "Du hast alle blaue Zuckerwatte Haustiere gesammelt!",
-    "achievementVioletsAreBlueText": "Hat alle blaue Zuckerwatte Haustiere gesammelt.",
-    "achievementVioletsAreBlue": "Veilchen sind blau"
+    "achievementVioletsAreBlueModalText": "Du hast alle blauen Zuckerwattehaustiere gesammelt!",
+    "achievementVioletsAreBlueText": "Hat alle blauen Zuckerwattehaustiere gesammelt.",
+    "achievementVioletsAreBlue": "Veilchen sind blau",
+    "achievementDomesticated": "E-I-E-I-O",
+    "achievementDomesticatedModalText": "Du hast alle zähmbaren Tiere gesammelt!",
+    "achievementDomesticatedText": "Hat alle Standardfarben für gezähmte Tiere ausgebrütet: Frettchen, Meerschweinchen, Hahn, Fliegendes Schwein, Ratte, Häschen, Pferd und Kuh!"
 }
