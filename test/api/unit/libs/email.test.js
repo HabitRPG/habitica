@@ -151,6 +151,8 @@ describe('emails', () => {
   describe('sendTxnEmail', () => {
     beforeEach(() => {
       sandbox.stub(got, 'post').returns(defer().promise);
+      sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(true);
+      sandbox.stub(nconf, 'get').withArgs('EMAIL_SERVER_URL').returns(undefined);
     });
 
     afterEach(() => {
@@ -158,7 +160,6 @@ describe('emails', () => {
     });
 
     it('can send a txn email to one recipient', () => {
-      sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(true);
       const attachEmail = requireAgain(pathToEmailLib);
       const sendTxnEmail = attachEmail.sendTxn;
       const emailType = 'an email type';
@@ -179,7 +180,6 @@ describe('emails', () => {
     });
 
     it('does not send email if address is missing', () => {
-      sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(true);
       const attachEmail = requireAgain(pathToEmailLib);
       const sendTxnEmail = attachEmail.sendTxn;
       const emailType = 'an email type';
@@ -193,7 +193,6 @@ describe('emails', () => {
     });
 
     it('throws error when mail target is only a string', () => {
-      sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(true);
       const attachEmail = requireAgain(pathToEmailLib);
       const sendTxnEmail = attachEmail.sendTxn;
       const emailType = 'an email type';
@@ -203,7 +202,6 @@ describe('emails', () => {
     });
 
     it('throws error when mail target has no _id or email', () => {
-      sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(true);
       const attachEmail = requireAgain(pathToEmailLib);
       const sendTxnEmail = attachEmail.sendTxn;
       const emailType = 'an email type';
@@ -215,7 +213,6 @@ describe('emails', () => {
     });
 
     it('throws error when variables not an array', () => {
-      sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(true);
       const attachEmail = requireAgain(pathToEmailLib);
       const sendTxnEmail = attachEmail.sendTxn;
       const emailType = 'an email type';
@@ -228,7 +225,6 @@ describe('emails', () => {
       expect(sendTxnEmail(mailingInfo, emailType, variables)).to.throw;
     });
     it('throws error when variables array not contain name/content', () => {
-      sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(true);
       const attachEmail = requireAgain(pathToEmailLib);
       const sendTxnEmail = attachEmail.sendTxn;
       const emailType = 'an email type';
@@ -246,7 +242,6 @@ describe('emails', () => {
     });
 
     it('uses getUserInfo in case of user data', () => {
-      sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(true);
       const attachEmail = requireAgain(pathToEmailLib);
       const sendTxnEmail = attachEmail.sendTxn;
       const emailType = 'an email type';
@@ -264,7 +259,6 @@ describe('emails', () => {
     });
 
     it('sends email with some default variables', () => {
-      sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(true);
       const attachEmail = requireAgain(pathToEmailLib);
       const sendTxnEmail = attachEmail.sendTxn;
       const emailType = 'an email type';
