@@ -83,15 +83,15 @@ export async function sendTxn (mailingInfoArray, emailType, variables, personalV
     throw new Error('Argument Error variables: is not an array');
   }
 
+  variables = [ // eslint-disable-line no-param-reassign
+    { name: 'BASE_URL', content: BASE_URL },
+  ].concat(variables || []);
+
   for (const variable of variables) {
     if (!variable.name || !variable.content) {
       throw new Error('Argument Error variables: does not contain name or content');
     }
   }
-
-  variables = [ // eslint-disable-line no-param-reassign
-    { name: 'BASE_URL', content: BASE_URL },
-  ].concat(variables || []);
 
   // It's important to pass at least a user with its `preferences`
   // as we need to check if he unsubscribed
@@ -181,7 +181,8 @@ export async function sendTxn (mailingInfoArray, emailType, variables, personalV
 export function convertVariableObjectToArray (variableObject) {
   const variablesArray = [];
 
-  for (const propName in variableObject) {
+  const objectKeys = Object.keys(variableObject);
+  for (const propName of objectKeys) {
     variablesArray.push({
       name: propName,
       content: variableObject[propName],

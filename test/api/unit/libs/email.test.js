@@ -239,7 +239,7 @@ describe('emails', () => {
       const variables = [
         {
 
-        }
+        },
       ];
 
       expect(sendTxnEmail(mailingInfo, emailType, variables)).to.throw;
