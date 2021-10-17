@@ -151,8 +151,10 @@ describe('emails', () => {
   describe('sendTxnEmail', () => {
     beforeEach(() => {
       sandbox.stub(got, 'post').returns(defer().promise);
-      sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(true);
-      sandbox.stub(nconf, 'get').withArgs('EMAIL_SERVER_URL').returns(undefined);
+
+      const nconfGetStub = sandbox.stub(nconf, 'get');
+      nconfGetStub.withArgs('IS_PROD').returns(true);
+      nconfGetStub.withArgs('EMAIL_SERVER_URL').returns(undefined);
     });
 
     afterEach(() => {
