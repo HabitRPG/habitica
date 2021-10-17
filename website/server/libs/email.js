@@ -79,6 +79,16 @@ export async function sendTxn (mailingInfoArray, emailType, variables, personalV
     }
   }
 
+  if (!Array.isArray(variables)) {
+    throw new Error('Argument Error variables: is not an array');
+  }
+
+  for (const variable of variables) {
+    if (!variable.name || !variable.content) {
+      throw new Error('Argument Error variables: does not contain name or content');
+    }
+  }
+
   variables = [ // eslint-disable-line no-param-reassign
     { name: 'BASE_URL', content: BASE_URL },
   ].concat(variables || []);
@@ -166,4 +176,17 @@ export async function sendTxn (mailingInfoArray, emailType, variables, personalV
   }
 
   return null;
+}
+
+export function convertVariableObjectToArray (variableObject) {
+  const variablesArray = [];
+
+  for (const propName in variableObject) {
+    variablesArray.push({
+      name: propName,
+      content: variableObject[propName],
+    });
+  }
+
+  return variablesArray;
 }

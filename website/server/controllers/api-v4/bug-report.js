@@ -1,6 +1,6 @@
 import nconf from 'nconf';
 import { authWithHeaders } from '../../middlewares/auth';
-import { sendTxn } from '../../libs/email';
+import { convertVariableObjectToArray, sendTxn } from '../../libs/email';
 
 const api = {};
 
@@ -57,7 +57,11 @@ api.bugReport = {
 
     const adminMail = { email: nconf.get('ADMIN_EMAIL') };
 
-    const sendMailResult = await sendTxn(adminMail, 'report-a-bug', emailData);
+    const sendMailResult = await sendTxn(
+      adminMail,
+      'report-a-bug',
+      convertVariableObjectToArray(emailData),
+    );
 
     res.status(200).send({
       ok: true,

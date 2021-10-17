@@ -214,6 +214,37 @@ describe('emails', () => {
       expect(sendTxnEmail(mailingInfo, emailType)).to.throw;
     });
 
+    it('throws error when variables not an array', () => {
+      sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(true);
+      const attachEmail = requireAgain(pathToEmailLib);
+      const sendTxnEmail = attachEmail.sendTxn;
+      const emailType = 'an email type';
+      const mailingInfo = {
+        name: 'my name',
+        email: 'my@email',
+      };
+      const variables = {};
+
+      expect(sendTxnEmail(mailingInfo, emailType, variables)).to.throw;
+    });
+    it('throws error when variables array not contain name/content', () => {
+      sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(true);
+      const attachEmail = requireAgain(pathToEmailLib);
+      const sendTxnEmail = attachEmail.sendTxn;
+      const emailType = 'an email type';
+      const mailingInfo = {
+        name: 'my name',
+        email: 'my@email',
+      };
+      const variables = [
+        {
+
+        }
+      ];
+
+      expect(sendTxnEmail(mailingInfo, emailType, variables)).to.throw;
+    });
+
     it('uses getUserInfo in case of user data', () => {
       sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(true);
       const attachEmail = requireAgain(pathToEmailLib);
