@@ -79,7 +79,7 @@ export async function sendTxn (mailingInfoArray, emailType, variables, personalV
     }
   }
 
-  if (!Array.isArray(variables)) {
+  if (variables && !Array.isArray(variables)) {
     throw new Error('Argument Error variables: is not an array');
   }
 
