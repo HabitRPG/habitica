@@ -7,6 +7,7 @@ import {
   NotImplementedError,
   BadRequest,
 } from '../../libs/errors';
+import updateUserBalance from '../updateUserBalance';
 
 export class AbstractBuyOperation {
   /**
@@ -80,7 +81,7 @@ export class AbstractBuyOperation {
     throw new NotImplementedError('extractAndValidateParams');
   }
 
-  executeChanges () { // eslint-disable-line class-methods-use-this
+  async executeChanges () { // eslint-disable-line class-methods-use-this
     throw new NotImplementedError('executeChanges');
   }
 
@@ -88,14 +89,14 @@ export class AbstractBuyOperation {
     throw new NotImplementedError('sendToAnalytics');
   }
 
-  purchase () {
+  async purchase () {
     if (!this.multiplePurchaseAllowed() && this.quantity > 1) {
       throw new NotAuthorized(this.i18n('messageNotAbleToBuyInBulk'));
     }
 
     this.extractAndValidateParams(this.user, this.req);
 
-    const resultObj = this.executeChanges(this.user, this.item, this.req, this.analytics);
+    const resultObj = await this.executeChanges(this.user, this.item, this.req, this.analytics);
 
     if (this.analytics) {
       this.sendToAnalytics(this.analyticsData());
@@ -141,7 +142,7 @@ export class AbstractGoldItemOperation extends AbstractBuyOperation {
     }
   }
 
-  subtractCurrency (user, item) {
+  async subtractCurrency (user, item) {
     const itemValue = this.getItemValue(item);
 
     user.stats.gp -= itemValue * this.quantity;
@@ -171,10 +172,10 @@ export class AbstractGemItemOperation extends AbstractBuyOperation {
     }
   }
 
-  subtractCurrency (user, item) {
+  async subtractCurrency (user, item) {
     const itemValue = this.getItemValue(item);
 
-    user.balance -= itemValue * this.quantity;
+    await updateUserBalance(user, -(itemValue * this.quantity), 'spend', item.type);
   }
 
   analyticsData () {
@@ -196,7 +197,7 @@ export class AbstractHourglassItemOperation extends AbstractBuyOperation {
     }
   }
 
-  subtractCurrency (user) { // eslint-disable-line class-methods-use-this
+  async subtractCurrency (user) { // eslint-disable-line class-methods-use-this
     user.purchased.plan.consecutive.trinkets -= 1;
   }
 

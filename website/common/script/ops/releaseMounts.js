@@ -4,8 +4,9 @@ import i18n from '../i18n';
 import {
   NotAuthorized,
 } from '../libs/errors';
+import updateUserBalance from './updateUserBalance';
 
-export default function releaseMounts (user, req = {}, analytics) {
+export default async function releaseMounts (user, req = {}, analytics) {
   if (user.balance < 1) {
     throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
   }
@@ -14,7 +15,7 @@ export default function releaseMounts (user, req = {}, analytics) {
     throw new NotAuthorized(i18n.t('notEnoughMounts', req.language));
   }
 
-  user.balance -= 1;
+  await updateUserBalance(user, -1, 'release_mounts');
 
   let giveMountMasterAchievement = true;
 

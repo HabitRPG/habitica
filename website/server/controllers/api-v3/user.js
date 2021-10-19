@@ -22,6 +22,7 @@ import {
 } from '../../libs/email';
 import * as inboxLib from '../../libs/inbox';
 import * as userLib from '../../libs/user';
+import logger from '../../libs/logger';
 
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS_TECH_ASSISTANCE_EMAIL');
 const DELETE_CONFIRMATION = 'DELETE';
@@ -941,7 +942,7 @@ api.changeClass = {
   url: '/user/change-class',
   async handler (req, res) {
     const { user } = res.locals;
-    const changeClassRes = common.ops.changeClass(user, req, res.analytics);
+    const changeClassRes = await common.ops.changeClass(user, req, res.analytics);
     await user.save();
     res.respond(200, ...changeClassRes);
   },
@@ -1013,7 +1014,8 @@ api.purchase = {
     if (req.body.quantity) quantity = req.body.quantity;
     req.quantity = quantity;
 
-    const purchaseRes = common.ops.buy(user, req, res.analytics);
+    logger.info("AAAAHHHHHH");
+    const purchaseRes = await common.ops.buy(user, req, res.analytics);
     await user.save();
     res.respond(200, ...purchaseRes);
   },
@@ -1185,7 +1187,7 @@ api.userReleasePets = {
   url: '/user/release-pets',
   async handler (req, res) {
     const { user } = res.locals;
-    const releasePetsRes = common.ops.releasePets(user, req, res.analytics);
+    const releasePetsRes = await common.ops.releasePets(user, req, res.analytics);
     await user.save();
     res.respond(200, ...releasePetsRes);
   },
@@ -1270,7 +1272,7 @@ api.userReleaseMounts = {
   url: '/user/release-mounts',
   async handler (req, res) {
     const { user } = res.locals;
-    const releaseMountsRes = common.ops.releaseMounts(user, req, res.analytics);
+    const releaseMountsRes = await common.ops.releaseMounts(user, req, res.analytics);
     await user.save();
     res.respond(200, ...releaseMountsRes);
   },
@@ -1346,7 +1348,7 @@ api.userUnlock = {
   url: '/user/unlock',
   async handler (req, res) {
     const { user } = res.locals;
-    const unlockRes = common.ops.unlock(user, req, res.analytics);
+    const unlockRes = await common.ops.unlock(user, req, res.analytics);
     await user.save();
     res.respond(200, ...unlockRes);
   },

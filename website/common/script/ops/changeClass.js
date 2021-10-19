@@ -8,8 +8,9 @@ import {
   BadRequest,
 } from '../libs/errors';
 import { removePinnedGearByClass, removePinnedItemsByOwnedGear, addPinnedGearByClass } from './pinnedGearUtils';
+import updateUserBalance from './updateUserBalance';
 
-function resetClass (user, req = {}) {
+async function resetClass (user, req = {}) {
   removePinnedGearByClass(user);
 
   let balanceRemoved = 0;
@@ -19,7 +20,7 @@ function resetClass (user, req = {}) {
     user.preferences.autoAllocate = false;
   } else {
     if (user.balance < 0.75) throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
-    user.balance -= 0.75;
+    await updateUserBalance(user, -0.75, 'change_class');
     balanceRemoved = 0.75;
   }
 
@@ -33,7 +34,7 @@ function resetClass (user, req = {}) {
   return balanceRemoved;
 }
 
-export default function changeClass (user, req = {}, analytics) {
+export default async function changeClass (user, req = {}, analytics) {
   const klass = get(req, 'query.class');
   let balanceRemoved = 0;
   // user.flags.classSelected is set to false after the user paid the 3 gems
@@ -42,10 +43,10 @@ export default function changeClass (user, req = {}, analytics) {
   } else if (!klass) {
     // if no class is specified, reset points and set user.flags.classSelected to false.
     // User will have paid 3 gems and will be prompted to select class.
-    balanceRemoved = resetClass(user, req);
+    balanceRemoved = await resetClass(user, req);
   } else if (klass === 'warrior' || klass === 'rogue' || klass === 'wizard' || klass === 'healer') {
     if (user.flags.classSelected) {
-      balanceRemoved = resetClass(user, req);
+      balanceRemoved = await resetClass(user, req);
     }
 
     user.stats.class = klass;
