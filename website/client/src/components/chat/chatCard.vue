@@ -285,7 +285,7 @@ export default {
       let link = links[i].pathname;
 
       // Internet Explorer does not provide the leading slash character in the pathname
-      link = link.charAt(0) === '/' ? link : '/' + link;
+      link = link.charAt(0) === '/' ? link : `/${link}`;
 
       if (link.startsWith('/profile/')) {
         links[i].onclick = ev => {
