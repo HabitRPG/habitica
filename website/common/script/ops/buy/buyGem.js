@@ -61,7 +61,6 @@ export class BuyGemOperation extends AbstractGoldItemOperation { // eslint-disab
 
   executeChanges (user, item) {
     updateUserBalance(user, 0.25 * this.quantity, 'buy_gold');
-    user.balance += 0.25 * this.quantity;
     user.purchased.plan.gemsBought += this.quantity;
 
     this.subtractCurrency(user, item);

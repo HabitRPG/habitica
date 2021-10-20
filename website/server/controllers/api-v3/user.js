@@ -494,7 +494,7 @@ api.buy = {
     let quantity = 1;
     if (req.body.quantity) quantity = req.body.quantity;
     req.quantity = quantity;
-    const buyRes = common.ops.buy(user, req, res.analytics);
+    const buyRes = await common.ops.buy(user, req, res.analytics);
 
     await user.save();
     res.respond(200, ...buyRes);
@@ -542,7 +542,7 @@ api.buyGear = {
   url: '/user/buy-gear/:key',
   async handler (req, res) {
     const { user } = res.locals;
-    const buyGearRes = common.ops.buy(user, req, res.analytics);
+    const buyGearRes = await common.ops.buy(user, req, res.analytics);
     await user.save();
     res.respond(200, ...buyGearRes);
   },
@@ -584,7 +584,7 @@ api.buyArmoire = {
     const { user } = res.locals;
     req.type = 'armoire';
     req.params.key = 'armoire';
-    const buyArmoireResponse = common.ops.buy(user, req, res.analytics);
+    const buyArmoireResponse = await common.ops.buy(user, req, res.analytics);
     await user.save();
     res.respond(200, ...buyArmoireResponse);
   },
@@ -624,7 +624,7 @@ api.buyHealthPotion = {
     const { user } = res.locals;
     req.type = 'potion';
     req.params.key = 'potion';
-    const buyHealthPotionResponse = common.ops.buy(user, req, res.analytics);
+    const buyHealthPotionResponse = await common.ops.buy(user, req, res.analytics);
     await user.save();
     res.respond(200, ...buyHealthPotionResponse);
   },
@@ -666,7 +666,7 @@ api.buyMysterySet = {
   async handler (req, res) {
     const { user } = res.locals;
     req.type = 'mystery';
-    const buyMysterySetRes = common.ops.buy(user, req, res.analytics);
+    const buyMysterySetRes = await common.ops.buy(user, req, res.analytics);
     await user.save();
     res.respond(200, ...buyMysterySetRes);
   },
@@ -709,7 +709,7 @@ api.buyQuest = {
   async handler (req, res) {
     const { user } = res.locals;
     req.type = 'quest';
-    const buyQuestRes = common.ops.buy(user, req, res.analytics);
+    const buyQuestRes = await common.ops.buy(user, req, res.analytics);
     await user.save();
     res.respond(200, ...buyQuestRes);
   },
@@ -751,7 +751,7 @@ api.buySpecialSpell = {
   async handler (req, res) {
     const { user } = res.locals;
     req.type = 'special';
-    const buySpecialSpellRes = common.ops.buy(user, req);
+    const buySpecialSpellRes = await common.ops.buy(user, req);
     await user.save();
     res.respond(200, ...buySpecialSpellRes);
   },
@@ -1055,7 +1055,7 @@ api.userPurchaseHourglass = {
     const { user } = res.locals;
     const quantity = req.body.quantity || 1;
     if (quantity < 1 || !Number.isInteger(quantity)) throw new BadRequest(res.t('invalidQuantity'), req.language);
-    const purchaseHourglassRes = common.ops.buy(
+    const purchaseHourglassRes = await common.ops.buy(
       user,
       req,
       res.analytics,

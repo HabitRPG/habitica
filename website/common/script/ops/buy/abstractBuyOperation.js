@@ -8,6 +8,7 @@ import {
   BadRequest,
 } from '../../libs/errors';
 import updateUserBalance from '../updateUserBalance';
+import updateUserHourglasses from '../updateUserHourglasses';
 
 export class AbstractBuyOperation {
   /**
@@ -175,7 +176,7 @@ export class AbstractGemItemOperation extends AbstractBuyOperation {
   async subtractCurrency (user, item) {
     const itemValue = this.getItemValue(item);
 
-    await updateUserBalance(user, -(itemValue * this.quantity), 'spend', item.type);
+    await updateUserBalance(user, -(itemValue * this.quantity), 'spend', item.key, item.text());
   }
 
   analyticsData () {
@@ -197,8 +198,8 @@ export class AbstractHourglassItemOperation extends AbstractBuyOperation {
     }
   }
 
-  async subtractCurrency (user) { // eslint-disable-line class-methods-use-this
-    user.purchased.plan.consecutive.trinkets -= 1;
+  async subtractCurrency (user, item) { // eslint-disable-line class-methods-use-this
+    await updateUserHourglasses(user, -1, 'spend', item.text());
   }
 
   analyticsData () {

@@ -45,10 +45,10 @@ export default async function buy (
     }
     case 'backgrounds':
       if (!hourglass) throw new BadRequest(errorMessage('useUnlockForCosmetics'));
-      buyRes = hourglassPurchase(user, req, analytics);
+      buyRes = await hourglassPurchase(user, req, analytics);
       break;
     case 'mystery':
-      buyRes = buyMysterySet(user, req, analytics);
+      buyRes = await buyMysterySet(user, req, analytics);
       break;
     case 'potion': {
       const buyOp = new BuyHealthPotionOperation(user, req, analytics);
@@ -64,7 +64,7 @@ export default async function buy (
     }
     case 'quests': {
       if (hourglass) {
-        buyRes = hourglassPurchase(user, req, analytics, quantity);
+        buyRes = await hourglassPurchase(user, req, analytics, quantity);
       } else {
         const buyOp = new BuyQuestWithGemOperation(user, req, analytics);
 

@@ -57,7 +57,7 @@ api.addHourglass = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    user.purchased.plan.consecutive.trinkets += 1;
+    await user.purchased.plan.updateHourglasses(user._id, 1, 'debug')
 
     await user.save();
 

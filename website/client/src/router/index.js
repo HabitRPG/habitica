@@ -45,6 +45,7 @@ const Notifications = () => import(/* webpackChunkName: "settings" */'@/componen
 const PromoCode = () => import(/* webpackChunkName: "settings" */'@/components/settings/promoCode');
 const Site = () => import(/* webpackChunkName: "settings" */'@/components/settings/site');
 const Subscription = () => import(/* webpackChunkName: "settings" */'@/components/settings/subscription');
+const Transactions = () => import(/* webpackChunkName: "settings" */'@/components/settings/purchaseHistory');
 
 // Hall
 const HallPage = () => import(/* webpackChunkName: "hall" */'@/components/hall/index');
@@ -261,6 +262,11 @@ const router = new VueRouter({
               name: 'subscription',
               path: 'subscription',
               component: Subscription,
+            },
+            {
+              name: 'transactions',
+              path: 'transactions',
+              component: Transactions,
             },
             {
               name: 'notifications',
