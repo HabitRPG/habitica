@@ -44,7 +44,7 @@ function getItemAndPrice (user, type, key, req) {
 }
 
 async function purchaseItem (user, item, price, type, key) {
-  await updateUserBalance(user, -price, 'spend', `${item.text()} ${type}`);
+  await updateUserBalance(user, -price, 'spend', item.key, `${item.text()} ${type}`);
 
   if (type === 'gear') {
     user.items.gear.owned = {

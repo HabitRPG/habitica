@@ -2,7 +2,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 import * as userLib from '../../libs/user';
 import { verifyDisplayName } from '../../libs/user/validation';
 import common from '../../../common';
-import { model as GemTransaction } from '../../models/gemTransaction';
+import { model as Transaction } from '../../models/transaction';
 const api = {};
 
 /*
@@ -307,7 +307,7 @@ api.unequip = {
   url: '/user/purchase-history',
   async handler (req, res) {
     const { user } = res.locals;
-    const transactions = await GemTransaction.find({ userId: user._id })
+    const transactions = await Transaction.find({ userId: user._id }).sort({ createdAt: -1 })
     res.respond(200, transactions);
   },
 };
