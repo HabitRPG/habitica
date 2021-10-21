@@ -2421,5 +2421,10 @@
     "armorArmoireBathtubNotes": "¿Tiempo para relajarse? Aquí tienes tu propia bañera personal -- ¡Y con la garantía de que el agua siempre está a la temperatura adecuada! Aumenta la Constitución en <%= con %>. Armario Encantado: Conjunto de Baño de Burbujas (Artículo 2 de 4).",
     "armorArmoireBathtubText": "Bañera",
     "weaponArmoireBuoyantBubblesNotes": "Estas burbujas siguen y siguen flotando para siempre, de alguna manera... Aumenta la Percepción en <%= per %>. Armario Encantado: Conjunto de Baño de Burbujas (Artículo 3 de 4).",
-    "weaponArmoireBuoyantBubblesText": "Burbujas Flotantes"
+    "weaponArmoireBuoyantBubblesText": "Burbujas Flotantes",
+    "weaponSpecialFall2021MageText": "Bastón de pensamiento puro",
+    "armorSpecialFall2021WarriorText": "Traje formal de lana",
+    "weaponArmoireSkullLanternText": "Linterna de cráneo",
+    "weaponArmoireSkullLanternNotes": "Deja esto brillar en las noches más oscuras de tus aventuras. Aumenta la Inteliencia por <%= int =%>. Armario encantado: Objeto independiente.",
+    "armorSpecialFall2021RogueText": "Armadura afortunadamente no a prueba de slime"
 }

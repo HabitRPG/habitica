@@ -476,7 +476,7 @@
     "backgroundPotionShopText": "Uitbroeddrankenwinkel",
     "backgroundFlyingInAThunderstormNotes": "Achtervolg een Driftige Donderstorm, zo dichtbij als je durft.",
     "backgroundFlyingInAThunderstormText": "Driftige Donderstorm",
-    "backgroundFarmersMarketNotes": "Koop het meest verse voedsel bij een Boerenmarkt.",
+    "backgroundFarmersMarketNotes": "Koop het meest verse voedsel bij de Boerenmarkt.",
     "backgrounds112019": "SET 66: Uitgebracht in November 2019",
     "backgroundClocktowerNotes": "Plaats je geheime schuilplaats achter de wijzerplaat van een Kloktoren.",
     "backgroundClocktowerText": "Kloktoren",
@@ -620,5 +620,6 @@
     "backgroundClotheslineText": "Waslijn",
     "backgrounds062021": "SET 85: uitgebracht in juni 2021",
     "backgroundUnderwaterAmongKoiText": "Onderwater tussen koi",
-    "backgrounds072021": "SET 86: uitgebracht in juli 2021"
+    "backgrounds072021": "SET 86: uitgebracht in juli 2021",
+    "backgroundVineyardText": "Wijngaard"
 }

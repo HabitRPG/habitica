@@ -182,7 +182,7 @@
     "offHand": "Ліва рука",
     "statPoints": "Очки",
     "pts": "очк",
-    "chatCastSpellUser": "<%= username %> накладає закляття <%= spell %> на<%= target %>.",
+    "chatCastSpellUser": "<%= username %> накладає закляття <%= spell %> на <%= target %>.",
     "chatCastSpellParty": "<%= username %> накладає закляття <%= spell %> на команду.",
     "notEnoughGold": "Не вистачає золота.",
     "purchasePetItemConfirm": "Ця покупка перевищує кількість речей, необхідних для виведення всіх <%= itemText %> улюбленців. Ви впевнені?",
