@@ -120,7 +120,7 @@ export async function create (store, createdTask) {
         hitType: 'event',
         uuid,
         taskType: taskRes.type,
-      });
+      }, { trackOnClient: true });
       if (!tasksCreatedCount) {
         setLocalSetting(CONSTANTS.keyConstants.TASKS_CREATED_COUNT, 1);
       } else {

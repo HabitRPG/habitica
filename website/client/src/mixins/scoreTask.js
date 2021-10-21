@@ -82,7 +82,7 @@ export default {
           uuid: user._id,
           taskType: task.type,
           direction,
-        });
+        }, { trackOnClient: true });
         if (!tasksScoredCount) {
           setLocalSetting(CONSTANTS.keyConstants.TASKS_SCORED_COUNT, 1);
         } else {
