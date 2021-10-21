@@ -24,7 +24,7 @@ async function checkForActiveCron (user, now) {
     ],
   }, {
     $set: {
-      _cronSignature
+      _cronSignature,
     },
   }).exec();
 
