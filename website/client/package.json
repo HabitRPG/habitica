@@ -23,7 +23,7 @@
     "@vue/cli-plugin-eslint": "^4.5.13",
     "@vue/cli-plugin-router": "^4.5.13",
     "@vue/cli-plugin-unit-mocha": "^4.5.13",
-    "@vue/cli-service": "^4.5.13",
+    "@vue/cli-service": "^4.5.14",
     "@vue/test-utils": "1.0.0-beta.29",
     "amplitude-js": "^8.8.0",
     "axios": "^0.22.0",
