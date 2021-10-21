@@ -58,7 +58,7 @@
     "habitBirthdayPluralText": "Heeft <%= count %> keer meegedaan aan het verjaardagsfeest van Habitica!",
     "habiticaDay": "Naamdag van Habitica",
     "habiticaDaySingularText": "Heeft de naamdag van Habitica gevierd! Dankjewel dat je een fantastische gebruiker bent.",
-    "habiticaDayPluralText": "Heeft <%= count %>  naamdagen gevierd! Dank je wel dat je een fantastische gebruiker bent.",
+    "habiticaDayPluralText": "Heeft <%= count %> naamdagen gevierd! Dank je wel dat je een fantastische gebruiker bent.",
     "achievementDilatory": "Redder van Dralen",
     "achievementDilatoryText": "Heeft geholpen de Donkere Draak van Dralen te verslaan tijdens het Zomerse Spetterevenement 2014!",
     "costumeContest": "Deelnemer verkleedwedstrijd",
