@@ -117,5 +117,11 @@
   "achievementWildBlueYonderModalText": "You tamed all the Cotton Candy Blue Mounts!",
   "achievementDomesticated": "E-I-E-I-O",
   "achievementDomesticatedText": "Has hatched all standard colors of domesticated pets: Ferret, Guinea Pig, Rooster, Flying Pig, Rat, Bunny, Horse, and Cow!",
-  "achievementDomesticatedModalText": "You collected all the domesticated pets!"
+  "achievementDomesticatedModalText": "You collected all the domesticated pets!",
+  "achievementShadyCustomer": "Shady Customer",
+  "achievementShadyCustomerText": "Has collected all Shade Pets.",
+  "achievementShadyCustomerModalText": "You collected all the Shade Pets!",
+  "achievementShadeOfItAll": "The Shade of It All",
+  "achievementShadeOfItAllText": "Has tamed all Shade Mounts.",
+  "achievementShadeOfItAllModalText": "You tamed all the Shade Mounts!"
 }

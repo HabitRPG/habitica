@@ -145,6 +145,8 @@ export default new Schema({
     violetsAreBlue: Boolean,
     wildBlueYonder: Boolean,
     domesticated: Boolean,
+    shadyCustomer: Boolean,
+    shadeOfItAll: Boolean,
     // Onboarding Guide
     createdTask: Boolean,
     completedTask: Boolean,

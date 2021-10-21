@@ -426,6 +426,22 @@ const NOTIFICATIONS = {
       achievement: 'domesticated',
     },
   },
+  ACHIEVEMENT_SHADY_CUSTOMER: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementShadyCustomer')}`,
+    modalId: 'generic-achievement',
+    data: {
+      achievement: 'shadyCustomer',
+    },
+  },
+  ACHIEVEMENT_SHADE_OF_IT_ALL: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementShadeOfItAll')}`,
+    modalId: 'generic-achievement',
+    data: {
+      achievement: 'shadeOfItAll',
+    },
+  },
 };
 
 export default {
@@ -489,6 +505,7 @@ export default {
       'ACHIEVEMENT_BONE_COLLECTOR', 'ACHIEVEMENT_SKELETON_CREW', 'ACHIEVEMENT_SEEING_RED',
       'ACHIEVEMENT_RED_LETTER_DAY', 'ACHIEVEMENT_LEGENDARY_BESTIARY', 'ACHIEVEMENT_SEASONAL_SPECIALIST',
       'ACHIEVEMENT_VIOLETS_ARE_BLUE', 'ACHIEVEMENT_WILD_BLUE_YONDER', 'ACHIEVEMENT_DOMESTICATED',
+      'ACHIEVEMENT_SHADY_CUSTOMER', 'ACHIEVEMENT_SHADE_OF_IT_ALL',
     ].forEach(type => {
       handledNotifications[type] = true;
     });
@@ -920,6 +937,8 @@ export default {
           case 'ACHIEVEMENT_VIOLETS_ARE_BLUE':
           case 'ACHIEVEMENT_WILD_BLUE_YONDER':
           case 'ACHIEVEMENT_DOMESTICATED':
+          case 'ACHIEVEMENT_SHADY_CUSTOMER':
+          case 'ACHIEVEMENT_SHADE_OF_IT_ALL':
           case 'GENERIC_ACHIEVEMENT':
             this.showNotificationWithModal(notification);
             break;
