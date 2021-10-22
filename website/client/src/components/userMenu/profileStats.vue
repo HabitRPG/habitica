@@ -357,7 +357,7 @@ export default {
         body: this.$t('bodyAccess'),
         weapon: this.$t('mainHand'),
         _skip: 'skip',
-        shield: this.$t('offHand'),
+        shield: this.$t('offHandCapitalized'),
       },
 
       allocateStatsList: {

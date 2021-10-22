@@ -398,7 +398,7 @@ export default {
 
       gearTypesToStrings: Object.freeze({ // TODO use content.itemList?
         weapon: i18n.t('weaponCapitalized'),
-        shield: i18n.t('offHand'),
+        shield: i18n.t('offHandCapitalized'),
         head: i18n.t('headgearCapitalized'),
         armor: i18n.t('armorCapitalized'),
         headAccessory: i18n.t('headAccessory'),
