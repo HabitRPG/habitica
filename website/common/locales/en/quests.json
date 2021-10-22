@@ -41,7 +41,6 @@
   "questConfirm": "Are you sure you want to start this Quest? Not all Party members have accepted the Quest invite. Quests start automatically after all members respond to the invite.",
   "sureCancel": "Are you sure you want to cancel this Quest? Canceling the Quest will cancel all accepted and pending invitations. The Quest will be returned to the owner's inventory.",
   "sureAbort": "Are you sure you want to cancel this Quest? All progress will be lost. The Quest will be returned to the owner's inventory.",
-  "bossRageTitle": "Rage",
   "bossRageDescription": "When this bar fills, the boss will unleash a special attack!",
   "selectQuest": "Select Quest",
   "startQuest": "Start Quest",

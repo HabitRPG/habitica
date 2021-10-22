@@ -4,7 +4,7 @@ const ITEM_LIST = {
   weapon:          { localeKey: 'weapon', isEquipment: true },
   armor:           { localeKey: 'armor', isEquipment: true },
   head:            { localeKey: 'headgear', isEquipment: true },
-  shield:          { localeKey: 'offhand', isEquipment: true },
+  shield:          { localeKey: 'offHand', isEquipment: true },
   back:            { localeKey: 'back', isEquipment: true },
   body:            { localeKey: 'body', isEquipment: true },
   headAccessory:   { localeKey: 'headAccessory', isEquipment: true },

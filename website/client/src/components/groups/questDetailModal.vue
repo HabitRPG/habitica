@@ -11,7 +11,7 @@
       <close-icon @click="close()" />
     </div>
     <h2 class="text-center textCondensed">
-      {{ selectMode ? $t('selectQuest') : $t('questDetailsTitle') }}
+      {{ selectMode ? $t('selectQuest') : $t('questDetails') }}
     </h2>
     <div
       v-if="selectMode"

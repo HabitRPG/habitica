@@ -26,7 +26,7 @@
       v-once
       class="text"
     >
-      {{ $t('levelup') }}
+      {{ $t('levelUp') }}
     </p>
 
     <section

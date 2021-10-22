@@ -36,13 +36,13 @@
             class="btn btn-primary"
             @click="unlink('keep-all')"
           >
-            {{ $t('keepThem') }}
+            {{ $t('keepTasks') }}
           </button>
           <button
             class="btn btn-danger"
             @click="unlink('remove-all')"
           >
-            {{ $t('removeThem') }}
+            {{ $t('removeTasks') }}
           </button>
         </div>
       </div>
@@ -53,13 +53,13 @@
             class="btn btn-primary"
             @click="unlink('keep-all')"
           >
-            {{ $t('keepThem') }}
+            {{ $t('keepTasks') }}
           </button>
           <button
             class="btn btn-danger"
             @click="unlink('remove-all')"
           >
-            {{ $t('removeThem') }}
+            {{ $t('removeTasks') }}
           </button>
         </div>
       </div>
@@ -67,9 +67,9 @@
       <!--div(v-if='brokenChallengeTask.challenge.broken
       === "UNSUBSCRIBED"')p {{ $t('unsubChallenge') }}
 p
-  a(@click="unlink('keep-all')") {{ $t('keepThem') }}
+  a(@click="unlink('keep-all')") {{ $t('keepTasks') }}
   | &nbsp;|&nbsp;
-      a(@click="unlink('remove-all')") {{ $t('removeThem') }}-->
+      a(@click="unlink('remove-all')") {{ $t('removeTasks') }}-->
     </div>
   </b-modal>
 </template>

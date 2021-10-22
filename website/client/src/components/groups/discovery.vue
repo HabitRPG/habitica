@@ -28,7 +28,7 @@ b-dropdown(:text="$t('sort')", right=true)
               class="svg-icon positive-icon"
               v-html="icons.positiveIcon"
             ></div>
-            <span v-once>{{ $t('createGuild2') }}</span>
+            <span v-once>{{ $t('create') }}</span>
           </button>
         </div>
       </div>

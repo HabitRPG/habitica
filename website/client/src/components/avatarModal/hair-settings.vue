@@ -51,7 +51,7 @@
       id="bangs"
     >
       <customize-options
-        :items="hairBangs"
+        :items="bangs"
         :current-value="user.preferences.hair.bangs"
       />
     </div>

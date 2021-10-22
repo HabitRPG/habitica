@@ -321,7 +321,7 @@
                 v-once
                 to="/static/community-guidelines"
               >
-                {{ $t('communityGuidelinesLink') }}
+                {{ $t('communityGuidelines') }}
               </router-link>
             </li>
             <li>
