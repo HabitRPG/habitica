@@ -236,6 +236,20 @@ describe('emails', () => {
 
       expect(sendTxn(mailingInfo, emailType, variables)).to.throw;
     });
+    it('throws no error when variables array contain name but no content', () => {
+      const emailType = 'an email type';
+      const mailingInfo = {
+        name: 'my name',
+        email: 'my@email',
+      };
+      const variables = [
+        {
+          name: 'MY_VAR'
+        },
+      ];
+
+      expect(sendTxn(mailingInfo, emailType, variables)).to.not.throw;
+    });
 
     it('uses getUserInfo in case of user data', () => {
       const emailType = 'an email type';

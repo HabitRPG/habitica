@@ -88,7 +88,7 @@ export async function sendTxn (mailingInfoArray, emailType, variables, personalV
   ].concat(variables || []);
 
   for (const variable of variables) {
-    if (!variable.name || !variable.content) {
+    if (typeof variable.name === 'undefined' && typeof variable.content === 'undefined') {
       throw new Error('Argument Error variables: does not contain name or content');
     }
   }
