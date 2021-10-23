@@ -244,7 +244,7 @@ describe('emails', () => {
       };
       const variables = [
         {
-          name: 'MY_VAR'
+          name: 'MY_VAR',
         },
       ];
 
