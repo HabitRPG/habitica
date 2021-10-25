@@ -15,7 +15,7 @@
               :href="bugReportMailto"
               target="_blank"
             >
-            admin&commat;habitica&period;com
+              admin&commat;habitica&period;com
             </a>
             <br>
             {{ $t('reportCommunityIssues') }}

@@ -19,51 +19,48 @@ describe('shared.ops.changeClass', () => {
     user.stats.flagSelected = false;
   });
 
-  it('user is not level 10', done => {
+  it('user is not level 10', async () => {
     user.stats.lvl = 9;
     try {
-      changeClass(user, { query: { class: 'rogue' } });
+      await await changeClass(user, { query: { class: 'rogue' } });
     } catch (err) {
       expect(err).to.be.an.instanceof(NotAuthorized);
       expect(err.message).to.equal(i18n.t('lvl10ChangeClass'));
-      done();
     }
   });
 
-  it('req.query.class is an invalid class', done => {
+  it('req.query.class is an invalid class', async () => {
     user.flags.classSelected = false;
     user.preferences.disableClasses = false;
 
     try {
-      changeClass(user, { query: { class: 'cellist' } });
+      await changeClass(user, { query: { class: 'cellist' } });
     } catch (err) {
       expect(err).to.be.an.instanceof(BadRequest);
       expect(err.message).to.equal(i18n.t('invalidClass'));
-      done();
     }
   });
 
   context('req.query.class is a valid class', () => {
-    it('errors if user.stats.flagSelected is true and user.balance < 0.75', done => {
+    it('errors if user.stats.flagSelected is true and user.balance < 0.75', async () => {
       user.flags.classSelected = true;
       user.preferences.disableClasses = false;
       user.balance = 0;
 
       try {
-        changeClass(user, { query: { class: 'rogue' } });
+        await changeClass(user, { query: { class: 'rogue' } });
       } catch (err) {
         expect(err).to.be.an.instanceof(NotAuthorized);
         expect(err.message).to.equal(i18n.t('notEnoughGems'));
-        done();
       }
     });
 
-    it('changes class', () => {
+    it('changes class', async () => {
       user.stats.class = 'healer';
       user.items.gear.owned.weapon_healer_3 = true;
       user.items.gear.equipped.weapon = 'weapon_healer_3';
 
-      const [data] = changeClass(user, { query: { class: 'rogue' } });
+      const [data] = await changeClass(user, { query: { class: 'rogue' } });
       expect(data).to.eql({
         preferences: user.preferences,
         stats: user.stats,
@@ -81,7 +78,7 @@ describe('shared.ops.changeClass', () => {
   });
 
   context('req.query.class is missing or user.stats.flagSelected is true', () => {
-    it('has user.preferences.disableClasses === true', () => {
+    it('has user.preferences.disableClasses === true', async () => {
       user.balance = 1;
       user.preferences.disableClasses = true;
       user.preferences.autoAllocate = true;
@@ -92,7 +89,7 @@ describe('shared.ops.changeClass', () => {
       user.stats.int = 4;
       user.flags.classSelected = true;
 
-      const [data] = changeClass(user);
+      const [data] = await changeClass(user);
       expect(data).to.eql({
         preferences: user.preferences,
         stats: user.stats,
@@ -112,18 +109,17 @@ describe('shared.ops.changeClass', () => {
     });
 
     context('has user.preferences.disableClasses !== true', () => {
-      it('and less than 3 gems', done => {
+      it('and less than 3 gems', async () => {
         user.balance = 0.5;
         try {
-          changeClass(user);
+          await changeClass(user);
         } catch (err) {
           expect(err).to.be.an.instanceof(NotAuthorized);
           expect(err.message).to.equal(i18n.t('notEnoughGems'));
-          done();
         }
       });
 
-      it('and at least 3 gems', () => {
+      it('and at least 3 gems', async () => {
         user.balance = 1;
         user.stats.points = 45;
         user.stats.str = 1;
@@ -132,7 +128,7 @@ describe('shared.ops.changeClass', () => {
         user.stats.int = 4;
         user.flags.classSelected = true;
 
-        const [data] = changeClass(user);
+        const [data] = await changeClass(user);
         expect(data).to.eql({
           preferences: user.preferences,
           stats: user.stats,

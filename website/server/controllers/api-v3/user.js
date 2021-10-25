@@ -1014,7 +1014,7 @@ api.purchase = {
     if (req.body.quantity) quantity = req.body.quantity;
     req.quantity = quantity;
 
-    logger.info("AAAAHHHHHH");
+    logger.info('AAAAHHHHHH');
     const purchaseRes = await common.ops.buy(user, req, res.analytics);
     await user.save();
     res.respond(200, ...purchaseRes);

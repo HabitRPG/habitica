@@ -135,7 +135,8 @@ async function grantEndOfTheMonthPerks (user, now) {
           plan.consecutive.offset = planMonthsLength - 1;
         }
         if (perkAmountNeeded > 0) {
-          await plan.updateHourglasses(user._id, perkAmountNeeded, 'subscription_perk') // one Hourglass every 3 months
+          // one Hourglass every 3 months
+          await plan.updateHourglasses(user._id, perkAmountNeeded, 'subscription_perk'); // eslint-disable-line no-await-in-loop
           plan.consecutive.gemCapExtra += 5 * perkAmountNeeded; // 5 extra Gems every 3 months
           // cap it at 50 (hard 25 limit + extra 25)
           if (plan.consecutive.gemCapExtra > 25) plan.consecutive.gemCapExtra = 25;

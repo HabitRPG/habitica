@@ -26,7 +26,7 @@ export default async function rebirth (user, tasks = [], req = {}, analytics) {
   };
 
   if (notFree) {
-    await updateUserBalance(-1.5, 'rebirth');
+    await updateUserBalance(user, -1.5, 'rebirth');
     analyticsData.currency = 'Gems';
     analyticsData.gemCost = 6;
   } else {

@@ -4,14 +4,12 @@ import baseModel from '../libs/baseModel';
 
 const { Schema } = mongoose;
 
-export const currencies = ['gems', 'hourglasses']
+export const currencies = ['gems', 'hourglasses'];
 export const transactionTypes = ['buy_money', 'buy_gold', 'contribution', 'spend', 'gift_send', 'gift_receive', 'debug', 'create_challenge', 'create_guild', 'change_class', 'rebirth', 'release_pets', 'release_mounts', 'reroll', 'contribution', 'subscription_perks'];
 
 export const schema = new Schema({
-  currency: {
-    $type: String, enum: currencies, required: true },
-  transactionType: {
-    $type: String, enum: transactionTypes, required: true },
+  currency: { $type: String, enum: currencies, required: true },
+  transactionType: { $type: String, enum: transactionTypes, required: true },
   reference: { $type: String },
   referenceText: { $type: String },
   amount: { $type: Number, required: true },
