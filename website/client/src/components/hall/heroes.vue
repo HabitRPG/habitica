@@ -1,17 +1,16 @@
 <template>
+<div>
   <div class="row standard-page">
     <small
       class="muted"
-      v-html="$t('blurbHallContributors')"
-    ></small>
-    <div class="well">
+      v-html="$t('blurbHallContributors')"></small>
+  </div>
+  <div class="row standard-page">
+    <div>
       <div v-if="user.contributor.admin">
         <h2>Reward User</h2>
-        <div class="row">
-          <div
-            v-if="!hero.profile"
-            class="form col-6"
-          >
+        <div class="row" v-if="!hero.profile">
+          <div class="form col-6">
             <div class="form-group">
               <input
                 v-model="heroID"
@@ -30,10 +29,9 @@
             </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row" v-if="hero && hero.profile">
           <div
-            v-if="hero && hero.profile"
-            class="form col-6"
+            class="form col-4"
             submit="saveHero(hero)"
           >
             <router-link :to="{'name': 'userProfile', 'params': {'userId': hero._id}}">
@@ -89,6 +87,8 @@
                 </span>
               </small>
             </div>
+          </div>
+          <div class="col-8">
             <div class="accordion">
               <div
                 class="accordion-group"
@@ -197,9 +197,27 @@
                   </div>
                 </div>
               </div>
+              <div
+                class="accordion-group"
+                heading="Transactions"
+              >
+                <h4
+                  class="expand-toggle"
+                  :class="{'open': expandTransactions}"
+                  @click="toggleTransactionsOpen"
+                >
+                  Transactions
+                </h4>
+                <div v-if="expandTransactions">
+                      <purchase-history-table
+    :gemTransactions="gemTransactions"
+    :hourglassTransactions="hourglassTransactions" />
+                </div>
+              </div>
             </div>
             <!-- h4 Backer Status-->
             <!-- Add backer stuff like tier, disable adds, etcs-->
+          </div>
             <div class="form-group">
               <button
                 class="form-control btn btn-primary"
@@ -207,8 +225,13 @@
               >
                 Save
               </button>
+              <button
+                class="form-control btn btn-secondary float-right"
+                @click="clearHero()"
+              >
+                Cancel
+              </button>
             </div>
-          </div>
         </div>
       </div>
       <div class="table-responsive">
@@ -263,6 +286,7 @@
       </div>
     </div>
   </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -283,10 +307,12 @@ import content from '@/../../common/script/content';
 import gear from '@/../../common/script/content/gear';
 import notifications from '@/mixins/notifications';
 import userLink from '../userLink';
+import PurchaseHistoryTable from '../ui/purchaseHistoryTable.vue';
 
 export default {
   components: {
     userLink,
+    PurchaseHistoryTable,
   },
   directives: {
     markdown: markdownDirective,
@@ -297,6 +323,8 @@ export default {
       heroes: [],
       hero: {},
       heroID: '',
+      gemTransactions: [],
+      hourglassTransactions: [],
       currentHeroIndex: -1,
       allItemPaths: this.getAllItemPaths(),
       quests,
@@ -308,6 +336,7 @@ export default {
       gear,
       expandItems: false,
       expandAuth: false,
+      expandTransactions: false,
     };
   },
   computed: {
@@ -384,10 +413,24 @@ export default {
       this.heroes[this.currentHeroIndex] = heroUpdated;
       this.currentHeroIndex = -1;
     },
+    async clearHero () {
+      this.hero = {};
+      this.heroID = -1;
+      this.currentHeroIndex = -1;
+    },
     populateContributorInput (id, index) {
       this.heroID = id;
       window.scrollTo(0, 200);
       this.loadHero(id, index);
+    },
+    async toggleTransactionsOpen () {
+      this.expandTransactions = !this.expandTransactions;
+      if (this.expandTransactions) {
+        const transactions = await this.$store.dispatch('members:getPurchaseHistory', { memberId: this.hero._id });
+        console.log(transactions);
+        this.gemTransactions = transactions.filter(transaction => transaction.currency === 'gems');
+        this.hourglassTransactions = transactions.filter(transaction => transaction.currency === 'hourglasses');
+      }
     },
   },
 };

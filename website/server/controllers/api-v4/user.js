@@ -281,25 +281,9 @@ api.unequip = {
 };
 
 /**
- * @api {post} /api/v4/user/unequip/:type Unequip all items by type
- * @apiName UserUnEquipByType
+ * @api {get} /api/v4/user/purchase-history Get users purchase history
+ * @apiName UserGetPurchaseHistory
  * @apiGroup User
- *
- * @apiParam (Path) {String="pet-mount-background","costume","equipped"} type The type of items
- *                                                                       to unequip.
- *
- * @apiParamExample {URL} Example-URL
- * https://habitica.com/api/v4/user/unequip/equipped
- *
- * @apiSuccess {Object} data user.items
- * @apiSuccess {String} message Optional success message for unequipping an items
- *
- * @apiSuccessExample {json} Example return:
- *  {
- *   "success": true,
- *   "data": {---DATA TRUNCATED---},
- *   "message": "Battle Gear unequipped.
- * }
  *
  */
 api.purchaseHistory = {
