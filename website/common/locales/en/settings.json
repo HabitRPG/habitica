@@ -196,7 +196,7 @@
     "transaction_contribution": "Through contribution",
     "transaction_spend": "Spent on",
     "transaction_gift_send": "Gifted to",
-    "transaction_gift_received": "Received from",
+    "transaction_gift_receive": "Received from",
     "transaction_create_challenge": "Created challenge",
     "transaction_create_guild": "Created guild",
     "transaction_change_class": "Changed class",

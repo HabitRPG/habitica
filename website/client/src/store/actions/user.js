@@ -174,8 +174,9 @@ export function markPrivMessagesRead (store) {
   return axios.post('/api/v4/user/mark-pms-read');
 }
 
-export function getPurchaseHistory () {
-  return axios.get('/api/v4/user/purchase-history');
+export async function getPurchaseHistory () {
+  const response = await axios.get('/api/v4/user/purchase-history');
+  return response.data.data;
 }
 
 
