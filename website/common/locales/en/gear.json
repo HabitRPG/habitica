@@ -1932,7 +1932,7 @@
   "headArmoireBlackFloppyHatText": "Black Floppy Hat",
   "headArmoireBlackFloppyHatNotes": "Many spells have been sewn into this simple hat, giving it a bold black color. Increases Constitution, Perception, and Strength by <%= attrs %> each. Enchanted Armoire: Black Loungewear Set (Item 1 of 3).",
 
-  "offHand": "off-hand item",
+  "offhand": "off-hand item",
   "offHandCapitalized": "Off-Hand Item",
 
   "shieldBase0Text": "No Off-Hand Equipment",

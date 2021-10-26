@@ -1,5 +1,5 @@
 {
-  "faq": "FAQ",
+  "FAQ": "FAQ",
   "termsAndAgreement": "By clicking the button below, you are indicating that you have read and agree to the <a href='/static/terms'>Terms of Service</a> and <a href='/static/privacy'>Privacy Policy</a>.",
   "chores": "Chores",
   "clearBrowserData": "Clear Browser Data",

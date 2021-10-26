@@ -103,7 +103,7 @@
   "autoAllocate": "Auto Allocate",
   "spells": "Skills",
   "skillsTitle": "<%= classStr %> Skills",
-  "todo": "To Do",
+  "toDo": "To Do",
   "tourStatsPage": "This is your Stats page! Earn achievements by completing the listed tasks.",
   "tourTavernPage": "Welcome to the Tavern, an all-ages chat room! You can keep your Dailies from hurting you in case of illness or travel by clicking \"Pause Damage\". Come say hi!",
   "tourPartyPage": "Your Party will help you stay accountable. Invite friends to unlock a Quest Scroll!",

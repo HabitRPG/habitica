@@ -54,7 +54,7 @@
         class="no-party d-none d-md-flex  justify-content-center text-center mr-4"
       >
         <div class="align-self-center">
-          <h3>{{ $t('battleMonsters') }}</h3>
+          <h3>{{ $t('battleWithFriends') }}</h3>
           <span
             class="small-text"
             v-html="$t('inviteFriendsParty')"
