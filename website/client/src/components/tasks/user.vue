@@ -197,7 +197,7 @@
             target="create-task-btn"
             placement="bottom"
           >
-            {{ $t('addTaskToUser') }}
+            {{ $t('addTask') }}
           </b-tooltip>
         </div>
       </div>

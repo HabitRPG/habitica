@@ -103,7 +103,7 @@
           :disabled="!Boolean(selectedQuest) || loading"
           @click="questInit()"
         >
-          {{ $t('inviteToPartyOrQuest') }}
+          {{ $t('inviteParty') }}
         </button>
       </div>
       <div

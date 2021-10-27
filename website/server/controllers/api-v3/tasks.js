@@ -511,27 +511,27 @@ api.getTask = {
     const task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
 
     if (!task) {
-      throw new NotFound(res.t('taskNotFound'));
+      throw new NotFound(res.t('messageTaskNotFound'));
     } else if (task.group.id && !task.userId) {
       // @TODO: Abstract this access snippet
       const fields = requiredGroupFields.concat(' managers');
       const group = await Group.getGroup({ user, groupId: task.group.id, fields });
-      if (!group) throw new NotFound(res.t('taskNotFound'));
+      if (!group) throw new NotFound(res.t('messageTaskNotFound'));
 
       const isNotGroupLeader = group.leader !== user._id;
-      if (!group.isMember(user) && isNotGroupLeader) throw new NotFound(res.t('taskNotFound'));
+      if (!group.isMember(user) && isNotGroupLeader) throw new NotFound(res.t('messageTaskNotFound'));
     // If the task belongs to a challenge make sure the user has rights (leader, admin or members)
     } else if (task.challenge.id && !task.userId) {
       const challenge = await Challenge.findOne({ _id: task.challenge.id }).select('leader').exec();
       // @TODO: Abstract this access snippet
-      if (!challenge) throw new NotFound(res.t('taskNotFound'));
+      if (!challenge) throw new NotFound(res.t('messageTaskNotFound'));
       if (!challenge.canModify(user) && !challenge.isMember(user)) {
-        throw new NotFound(res.t('taskNotFound'));
+        throw new NotFound(res.t('messageTaskNotFound'));
       }
 
     // If the task is owned by a user make it's the current one
     } else if (task.userId !== user._id) {
-      throw new NotFound(res.t('taskNotFound'));
+      throw new NotFound(res.t('messageTaskNotFound'));
     }
 
     res.respond(200, task);
@@ -607,14 +607,14 @@ api.updateTask = {
     const { taskId } = req.params;
     const task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
     if (!task) {
-      throw new NotFound(res.t('taskNotFound'));
+      throw new NotFound(res.t('messageTaskNotFound'));
     }
 
     const group = await getGroupFromTaskAndUser(task, user);
     const challenge = await getChallengeFromTask(task);
     // Verify that the user can modify the task.
     if (!task) {
-      throw new NotFound(res.t('taskNotFound'));
+      throw new NotFound(res.t('messageTaskNotFound'));
     } else if (task.group.id && !task.userId) {
       // If the task is in a group and only modifying `collapseChecklist`,
       // the modification should be allowed.
@@ -825,7 +825,7 @@ api.moveTask = {
     const task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
 
     if (!task) {
-      throw new NotFound(res.t('taskNotFound'));
+      throw new NotFound(res.t('messageTaskNotFound'));
     }
 
     const group = await getGroupFromTaskAndUser(task, user);
@@ -913,7 +913,7 @@ api.addChecklistItem = {
     const task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
 
     if (!task) {
-      throw new NotFound(res.t('taskNotFound'));
+      throw new NotFound(res.t('messageTaskNotFound'));
     }
 
     const group = await getGroupFromTaskAndUser(task, user);
@@ -965,7 +965,7 @@ api.scoreCheckListItem = {
     const { taskId } = req.params;
     const task = await Tasks.Task.findByIdOrAlias(taskId, user._id, { userId: user._id });
 
-    if (!task) throw new NotFound(res.t('taskNotFound'));
+    if (!task) throw new NotFound(res.t('messageTaskNotFound'));
     if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
 
     const item = _.find(task.checklist, { id: req.params.itemId });
@@ -1021,7 +1021,7 @@ api.updateChecklistItem = {
     const task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
 
     if (!task) {
-      throw new NotFound(res.t('taskNotFound'));
+      throw new NotFound(res.t('messageTaskNotFound'));
     }
 
     const group = await getGroupFromTaskAndUser(task, user);
@@ -1085,7 +1085,7 @@ api.removeChecklistItem = {
     const task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
 
     if (!task) {
-      throw new NotFound(res.t('taskNotFound'));
+      throw new NotFound(res.t('messageTaskNotFound'));
     }
 
     const group = await getGroupFromTaskAndUser(task, user);
@@ -1150,7 +1150,7 @@ api.addTagToTask = {
     const { taskId } = req.params;
     const task = await Tasks.Task.findByIdOrAlias(taskId, user._id, { userId: user._id });
 
-    if (!task) throw new NotFound(res.t('taskNotFound'));
+    if (!task) throw new NotFound(res.t('messageTaskNotFound'));
     const { tagId } = req.params;
 
     const alreadyTagged = task.tags.indexOf(tagId) !== -1;
@@ -1206,7 +1206,7 @@ api.removeTagFromTask = {
     const { taskId } = req.params;
     const task = await Tasks.Task.findByIdOrAlias(taskId, user._id, { userId: user._id });
 
-    if (!task) throw new NotFound(res.t('taskNotFound'));
+    if (!task) throw new NotFound(res.t('messageTaskNotFound'));
 
     const hasTag = removeFromArray(task.tags, req.params.tagId);
     if (!hasTag) throw new NotFound(res.t('tagNotFound'));
@@ -1320,7 +1320,7 @@ api.unlinkOneTask = {
 
     const task = await Tasks.Task.findByIdOrAlias(taskId, user._id, { userId: user._id });
 
-    if (!task) throw new NotFound(res.t('taskNotFound'));
+    if (!task) throw new NotFound(res.t('messageTaskNotFound'));
     if (!task.challenge.id) throw new BadRequest(res.t('cantOnlyUnlinkChalTask'));
     if (!task.challenge.broken) throw new BadRequest(res.t('cantOnlyUnlinkChalTask'));
 
@@ -1418,7 +1418,7 @@ api.deleteTask = {
     const task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
 
     if (!task) {
-      throw new NotFound(res.t('taskNotFound'));
+      throw new NotFound(res.t('messageTaskNotFound'));
     }
     const group = await getGroupFromTaskAndUser(task, user);
     const challenge = await getChallengeFromTask(task);

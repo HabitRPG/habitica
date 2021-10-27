@@ -100,7 +100,7 @@
           <span v-if="isLeader || isAdmin">
             <b-dropdown
               class="create-dropdown select-list"
-              :text="$t('addTaskToChallenge')"
+              :text="$t('addTask')"
               :variant="'success'"
             >
               <b-dropdown-item

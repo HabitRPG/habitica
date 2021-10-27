@@ -320,7 +320,7 @@
                 class="topbar-dropdown-item dropdown-item"
                 to="/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a"
               >
-                {{ $t('askAQuestion') }}
+                {{ $t('askQuestion') }}
               </router-link>
               <a
                 class="topbar-dropdown-item dropdown-item"
