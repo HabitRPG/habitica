@@ -80,7 +80,7 @@ describe('POST /tasks/unlink-all/:challengeId', () => {
     await expect(user.get(`/tasks/${daily._id}`)).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
-      message: t('taskNotFound'),
+      message: t('messageTaskNotFound'),
     });
   });
 

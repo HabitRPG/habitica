@@ -21,7 +21,7 @@ describe('GET /tasks/:id', () => {
         await expect(user.get(`/tasks/${dummyId}`)).to.eventually.be.rejected.and.eql({
           code: 404,
           error: 'NotFound',
-          message: t('taskNotFound'),
+          message: t('messageTaskNotFound'),
         });
       });
     });
@@ -63,7 +63,7 @@ describe('GET /tasks/:id', () => {
         await expect(anotherUser.get(`/tasks/${task._id}`)).to.eventually.be.rejected.and.eql({
           code: 404,
           error: 'NotFound',
-          message: t('taskNotFound'),
+          message: t('messageTaskNotFound'),
         });
       });
     });
@@ -118,7 +118,7 @@ describe('GET /tasks/:id', () => {
         await expect(user.get(`/tasks/${task._id}`)).to.eventually.be.rejected.and.eql({
           code: 404,
           error: 'NotFound',
-          message: t('taskNotFound'),
+          message: t('messageTaskNotFound'),
         });
       });
     });
@@ -163,7 +163,7 @@ describe('GET /tasks/:id', () => {
         await expect(user.get(`/tasks/${task._id}`)).to.eventually.be.rejected.and.eql({
           code: 404,
           error: 'NotFound',
-          message: t('taskNotFound'),
+          message: t('messageTaskNotFound'),
         });
       });
     });

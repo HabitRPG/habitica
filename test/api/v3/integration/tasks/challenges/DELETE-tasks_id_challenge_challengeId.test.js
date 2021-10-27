@@ -31,7 +31,7 @@ describe('DELETE /tasks/:id', () => {
     await expect(user.del(`/tasks/${generateUUID()}`)).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
-      message: t('taskNotFound'),
+      message: t('messageTaskNotFound'),
     });
   });
 
@@ -51,7 +51,7 @@ describe('DELETE /tasks/:id', () => {
     await expect(user.get(`/tasks/${task._id}`)).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
-      message: t('taskNotFound'),
+      message: t('messageTaskNotFound'),
     });
   });
 
@@ -93,7 +93,7 @@ describe('DELETE /tasks/:id', () => {
       await expect(anotherUser.get(`/tasks/${task._id}`)).to.eventually.be.rejected.and.eql({
         code: 404,
         error: 'NotFound',
-        message: t('taskNotFound'),
+        message: t('messageTaskNotFound'),
       });
     });
 
@@ -111,7 +111,7 @@ describe('DELETE /tasks/:id', () => {
       await expect(anotherUser.get(`/tasks/${anotherUsersNewChallengeTaskID}`)).to.eventually.be.rejected.and.eql({
         code: 404,
         error: 'NotFound',
-        message: t('taskNotFound'),
+        message: t('messageTaskNotFound'),
       });
     });
   });
