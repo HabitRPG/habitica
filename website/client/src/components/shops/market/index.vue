@@ -172,6 +172,7 @@ import buyMixin from '@/mixins/buy';
 import currencyMixin from '../_currencyMixin';
 import inventoryUtils from '@/mixins/inventoryUtils';
 import pinUtils from '@/mixins/pinUtils';
+import { worldStateMixin } from '@/mixins/worldState';
 
 const sortItems = ['AZ', 'sortByNumber'].map(g => ({ id: g }));
 
@@ -192,7 +193,14 @@ export default {
     CategoryRow,
     MarketFilter,
   },
-  mixins: [notifications, buyMixin, currencyMixin, inventoryUtils, pinUtils],
+  mixins: [
+    notifications,
+    buyMixin,
+    currencyMixin,
+    inventoryUtils,
+    pinUtils,
+    worldStateMixin,
+  ],
   data () {
     return {
       viewOptions: {
@@ -301,12 +309,13 @@ export default {
       this.searchTextThrottled = this.searchText.toLowerCase();
     }, 250),
   },
-  async mounted () {
+  mounted () {
     this.$store.dispatch('common:setTitle', {
       subSection: this.$t('market'),
       section: this.$t('shops'),
     });
-    await this.$store.dispatch('worldState:getWorldState');
+
+    this.triggerGetWorldState();
   },
   methods: {
     sellItem (itemScope) {

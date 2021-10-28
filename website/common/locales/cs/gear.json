@@ -1955,5 +1955,19 @@
     "weaponSpecialWinter2021WarriorNotes": "S tím to navijákem vytáhneš i obří kusy! Zvyšuje sílu o <%= str %>. Výzbroj z limitované edice pro zimu 2020-2021.",
     "weaponSpecialWinter2021WarriorText": "Mocný rybářský prut",
     "weaponSpecialWinter2021RogueNotes": "Převlek i zbraň. Tento cesmínový cep ti pomůže řešit i ty nejtěžší úkoly. Zvyšuje sílu o <%= str %>. Výzbroj z limitované edice pro podzim 2021.",
-    "weaponSpecialWinter2021RogueText": "Cep cesmínové bobule"
+    "weaponSpecialWinter2021RogueText": "Cep cesmínové bobule",
+    "weaponSpecialSpring2021WarriorNotes": "Zapřáhni sílu Slunce proti tvým nepřátelům a nechej si Slunečním kamenem přinést štěstí! Zvyšuje sílu o <%= str %>. Výzbroj z limitované edice pro jaro 2021.",
+    "weaponSpecialSpring2021RogueText": "Květ zimozelu",
+    "weaponSpecialSummer2021RogueText": "Chapadla sasanky",
+    "weaponSpecialSpring2021HealerText": "Vrbová větev",
+    "weaponSpecialSpring2021RogueNotes": "Víš, co je lepší než dvoukvěté rostliny? ČTYŘKVĚTÉ rostliny! Zvyšuje sílu o <%= str %>. Výzbroj z limitované edice pro jaro 2021.",
+    "weaponSpecialWinter2021HealerText": "Ovločkovaná tyč",
+    "headSpecialNye2020Notes": "Dostal jsi Výstřední párty čapku! Nos ji s pýchou při vstupování do Nového roku! Nepřináší žádné výhody.",
+    "weaponSpecialSpring2021MageText": "Labutí pero",
+    "weaponSpecialSpring2021WarriorText": "Kladivo ze Slunce",
+    "headSpecialNye2020Text": "Výstřední párty čapka",
+    "weaponSpecialWinter2021MageText": "Kouzelný měsíční phaser",
+    "weaponSpecialWinter2021MageNotes": "Tato mocná zbraň je rozhodně víc než jen phaser. Usměrni svou energii, zaměř se na průběh měsíce a studuj časoprostor. Zvyšuje inteligenci o <%= int %> a vnímání o <%= per %>. Výzbroj z limitované edice pro zimu 2020-2021.",
+    "weaponSpecialSpring2021MageNotes": "Hoď, poraž, šlapej, odpočívej! Pírko sviští časem, aby dirigovalo hudbu tvých kouzel. Zvyšuje inteligenci o <%= int %> a vnímání o <%= per %>. Výzbroj z limitované edice pro jaro 2021.",
+    "weaponSpecialSpring2021HealerNotes": "Kůra a listy této čerstvě uříznuté větve jsou známy pro jejich schopnost zmírnění bolesti. Nebo můžeš větev zasadit a dívat se, jak roste! Zvyšuje inteligenci o <%= int %>. Výzbroj z limitované edice pro jaro 2021."
 }

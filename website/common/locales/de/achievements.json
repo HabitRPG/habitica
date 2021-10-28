@@ -117,5 +117,10 @@
     "achievementVioletsAreBlue": "Veilchen sind blau",
     "achievementDomesticated": "E-I-E-I-O",
     "achievementDomesticatedModalText": "Du hast alle zähmbaren Tiere gesammelt!",
-    "achievementDomesticatedText": "Hat alle Standardfarben für gezähmte Tiere ausgebrütet: Frettchen, Meerschweinchen, Hahn, Fliegendes Schwein, Ratte, Häschen, Pferd und Kuh!"
+    "achievementDomesticatedText": "Hat alle Standardfarben für gezähmte Tiere ausgebrütet: Frettchen, Meerschweinchen, Hahn, Fliegendes Schwein, Ratte, Häschen, Pferd und Kuh!",
+    "achievementShadeOfItAll": "Der Schatten über allen",
+    "achievementShadeOfItAllModalText": "Du hast alle Schatten-Reittiere gezähmt!",
+    "achievementShadyCustomerModalText": "Du hast alle Schatten-Haustiere gesammelt!",
+    "achievementShadeOfItAllText": "Hat alle Schatten-Reittiere gezähmt.",
+    "achievementShadyCustomerText": "Hat alle Schatten-Haustiere gesammelt."
 }

@@ -36,8 +36,8 @@
     "UUID": "User ID",
     "loadUser": "Load Yooser",
     "noAdminAccess": "U no haz admin access.",
-    "userNotFound": "User not found.",
-    "invalidUUID": "UUID must be valid",
+    "userNotFound": "No can find usr.",
+    "invalidUUID": "UUID needz 2 be valid",
     "title": "Taitul",
     "moreDetails": "More details (1-7)",
     "moreDetails2": "more details (8-9)",
@@ -49,9 +49,9 @@
     "balance": "Balanz",
     "playerTiers": "Playur Teerz",
     "tier": "Teer",
-    "conRewardsURL": "http://habitica.wikia.com/wiki/Contributor_Rewards",
+    "conRewardsURL": "https://habitica.fandom.com/wiki/Contributor_Rewards",
     "surveysSingle": "Helpd Habitica groah, eithr by filin out survai or helpin wif majur testin efort. Thx!",
     "surveysMultiple": "Helpd Habitica groah on <%= count %> ocashunz, eithr by filin out survai or helpin wif majur testin efort. Thx!",
     "blurbHallPatrons": "Dis is teh Hal ov Patronz, where we honr teh nobl aventururz hoo backd Habiticaz originul Kickstarter. We thank dem 4 helpin us bring Habitica 2 laif!",
-    "blurbHallContributors": "This is the Hall of Contributors, where open-source contributors to Habitica are honored. Whether through code, art, music, writing, or even just helpfulness, they have earned <a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'> gems, exclusive equipment</a>, and <a href='http://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'>prestigious titles</a>. You can contribute to Habitica, too! <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'> Find out more here. </a>"
+    "blurbHallContributors": "This is the Hall of Contributors, where open-source contributors to Habitica are honored. Whether through code, art, music, writing, or even just helpfulness, they have earned <a href='https://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'> gems, exclusive equipment</a>, and <a href='https://habitica.fandom.com/wiki/Contributor_Titles' target='_blank'>prestigious titles</a>. You can contribute to Habitica, too! <a href='https://habitica.fandom.com/wiki/Contributing_to_Habitica' target='_blank'> Find out more here. </a>"
 }

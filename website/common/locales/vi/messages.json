@@ -10,8 +10,8 @@
     "messageEvolve": "Bạn đã thuần hoá <%= egg %>, hãy leo lên nó và dạo chơi!",
     "messageLikesFood": "<%= egg %> rất thích <%= foodText %>!",
     "messageDontEnjoyFood": "<%= egg %> ăn <%= foodText %> nhưng có vẻ không thích nó.",
-    "messageBought": "Đã mua <%= itemText %>",
-    "messageUnEquipped": "<%= itemText %> đã gỡ bỏ",
+    "messageBought": "Bạn đã mua <%= itemText %>",
+    "messageUnEquipped": "Bạn đã cởi bỏ <%= itemText %>.",
     "messageMissingEggPotion": "Bạn thiếu trứng hoặc lọ thuốc đó",
     "messageInvalidEggPotionCombo": "Bạn không thể làm nở Trứng Thú Nhiệm Vụ với Thuốc Nở Ma Thuật! Thử với một quả trứng khác.",
     "messageAlreadyPet": "Bạn đã sở hữu loại thú này. Hãy thử kết hợp để tạo loại thú mới!",
@@ -53,5 +53,8 @@
     "messageMissingDisplayName": "Thiếu tên hiển thị.",
     "canDeleteNow": "Bạn bây giờ có thể xóa tin nhắn nếu bạn muốn.",
     "reportedMessage": "Bạn đã báo cáo tin nhắn này tới Điều hành viên.",
-    "beginningOfConversationReminder": "Nhớ là hãy tốt bụng, tôn trọng, và tuân theo Nội quy Cộng đồng!"
+    "beginningOfConversationReminder": "Nhớ là hãy tốt bụng, tôn trọng, và tuân theo Nội quy Cộng đồng!",
+    "messageBattleGearUnEquipped": "Bạn đã cởi bỏ Trang bị Chiến đấu.",
+    "messageCostumeUnEquipped": "Bạn đã cởi bỏ Trang phục.",
+    "messagePetMountUnEquipped": "Bạn đã cất đi Thú cưng và Thú cưỡi."
 }

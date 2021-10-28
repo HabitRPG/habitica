@@ -367,5 +367,7 @@
     "hatchingPotionStainedGlass": "Vitral",
     "hatchingPotionPolkaDot": "con Lunares",
     "hatchingPotionMossyStone": "Piedra Musgosa",
-    "hatchingPotionSunset": "Atardecer"
+    "hatchingPotionSunset": "Atardecer",
+    "hatchingPotionSolarSystem": "Sistema Solar",
+    "hatchingPotionMoonglow": "Brillo de Luna"
 }
