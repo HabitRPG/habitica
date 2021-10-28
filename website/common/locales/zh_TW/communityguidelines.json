@@ -1,5 +1,4 @@
 {
-
     "tavernCommunityGuidelinesPlaceholder": "友情提示：這裡的討論適合所有年齡層，所以請保持適當的內容和言語！如果您有任何問題，歡迎查閱側邊欄位的社群守則。",
     "lastUpdated": "最後更新：",
     "commGuideHeadingWelcome": "歡迎來到Habitica！",
@@ -120,5 +119,15 @@
     "commGuideLink05": "<a href='https://trello.com/b/mXK3Eavg/' target='_blank'>Trello 手機看板</a>：對於手機版Habitica有啥新功能想建議？請在這裡回報。",
     "commGuideLink06": "<a href='https://trello.com/b/vwuE9fbO/' target='_blank'>Trello 美術看板</a>：提交新的像素畫作品的地方。",
     "commGuideLink07": "<a href='https://trello.com/b/nnv4QIRX/' target='_blank'>Trello 副本看板</a>：提交新的副本故事寫作的地方。",
-    "commGuidePara069": "以上插圖由下列富有天賦的藝術家提供："
+    "commGuidePara069": "以上插圖由下列富有天賦的藝術家提供：",
+    "commGuideList01F": "不允許乞求付費物品，刷信息，或使用大字體/全大寫。",
+    "commGuideList09D": "去除或降低參與者階級",
+    "commGuideList01D": "請遵守管理者的要求。",
+    "commGuideList01B": "不允許：任何暴力，有威脅性，推廣歧視等等的信息。包括表情包，圖片和笑話。",
+    "commGuidePara017": "這是快捷版，但是我們建議你在下面仔細地看看：",
+    "commGuideList01A": "這些條約對所有空間適用，包括私人工會，隊伍聊天和信息。",
+    "commGuideList01C": "所有討論必須對所有年齡段人群適用，請勿使用髒話。",
+    "commGuideList01E": "不要在酒館裡煽動或參與有爭議的談話。",
+    "commGuideList02M": "不要在群組計劃裡索要或乞求寶石，訂閱或會員。這在酒館，公共或私人的聊天空間和在私人訊息中都不被允許。如果你收到索要付費物品的信息，請舉報該消息。重複或嚴重的寶石或訂閱乞求，尤其在警告之後，可能會導致賬號封禁。",
+    "commGuideList05H": "嚴重或重複地常識詐騙或威脅其他玩家贈與付費物品"
 }
