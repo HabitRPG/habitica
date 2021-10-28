@@ -282,11 +282,15 @@ export default {
   mounted () {
     const links = this.$refs.markdownContainer.getElementsByTagName('a');
     for (let i = 0; i < links.length; i += 1) {
-      const link = links[i];
-      if (links[i].getAttribute('href').startsWith('/profile/')) {
+      let link = links[i].pathname;
+
+      // Internet Explorer does not provide the leading slash character in the pathname
+      link = link.charAt(0) === '/' ? link : `/${link}`;
+
+      if (link.startsWith('/profile/')) {
         links[i].onclick = ev => {
           ev.preventDefault();
-          this.$router.push({ path: link.getAttribute('href') });
+          this.$router.push({ path: link });
         };
       }
     }

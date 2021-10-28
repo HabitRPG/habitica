@@ -58,7 +58,7 @@
     "hideAchievements": "Cacher les <%= category %>",
     "showAllAchievements": "Voir tous les <%= category %>",
     "onboardingCompleteDesc": "Vous avec mérité <strong>5 accomplissements</strong> et <strong class=\"gold-amount\">100 pièces d'or</strong> pour avoir complété la liste.",
-    "earnedAchievement": "Vous avez mérité un accomplissement!",
+    "earnedAchievement": "Vous avez gagné un succès !",
     "viewAchievements": "Voir les succès",
     "letsGetStarted": "Commençons !",
     "onboardingProgress": "<%= percentage %>% de progression",
@@ -117,5 +117,11 @@
     "achievementVioletsAreBlue": "Comme un bleu",
     "achievementDomesticatedModalText": "Vous avez collecté tous les familiers domestiqués !",
     "achievementDomesticatedText": "A fait éclore tous les familiers domestiqués de couleur standard : furet, cochon d'inde, coq, cochon volant, rat, lapin, cheval et vache !",
-    "achievementDomesticated": "Apprivoisés"
+    "achievementDomesticated": "Apprivoisés",
+    "achievementShadyCustomer": "Une place à l'ombre",
+    "achievementShadyCustomerModalText": "Vous avez collecté tous les familiers d'ombre !",
+    "achievementShadyCustomerText": "A collecté tous les familiers d'ombre.",
+    "achievementShadeOfItAllModalText": "Vous avez dompté tous les familiers d'ombre !",
+    "achievementShadeOfItAll": "Dans l'ombre des géants",
+    "achievementShadeOfItAllText": "A dompté tous les familiers d'ombre."
 }

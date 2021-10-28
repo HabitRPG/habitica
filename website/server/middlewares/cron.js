@@ -25,7 +25,6 @@ async function checkForActiveCron (user, now) {
   }, {
     $set: {
       _cronSignature,
-      'auth.timestamps.loggedin': now,
     },
   }).exec();
 
@@ -66,7 +65,6 @@ async function cronAsync (req, res) {
     res.locals.user = user;
     const { daysMissed, timezoneUtcOffsetFromUserPrefs } = user.daysUserHasMissed(now, req);
 
-    user.enrollInDropCapABTest(req.headers['x-client']);
     await updateLastCron(user, now);
 
     if (daysMissed <= 0) {
@@ -143,6 +141,7 @@ async function cronAsync (req, res) {
     }, {
       $set: {
         _cronSignature: 'NOT_RUNNING',
+        'auth.timestamps.loggedin': now,
       },
     }).exec();
 

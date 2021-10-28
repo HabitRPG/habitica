@@ -4,7 +4,7 @@
     "alarmingFriends": "Amici Inquietanti",
     "alarmingFriendsText": "È stato spaventato <%= count %> volte dai compagni di squadra.",
     "agriculturalFriends": "Amici Floreali",
-    "agriculturalFriendsText": "I tuoi compagni di squadra ti hanno trasformato in un fiore <%= count %>  volte.",
+    "agriculturalFriendsText": "I tuoi compagni di squadra ti hanno trasformato in un fiore <%= count %> volte.",
     "aquaticFriends": "Amici acquatici",
     "aquaticFriendsText": "Sei stato spruzzato <%= count %> volte dai tuoi compagni di squadra.",
     "valentineCard": "Biglietto di San Valentino",
@@ -206,5 +206,9 @@
     "summer2021ClownfishRogueSet": "Pesce pagliaccio (Ladro)",
     "summer2021ParrotHealerSet": "Pappagallo (Guaritore)",
     "summer2021NautilusMageSet": "Nautilus (Mago)",
-    "summer2021FlyingFishWarriorSet": "Pesce volante (Guerriero)"
+    "summer2021FlyingFishWarriorSet": "Pesce volante (Guerriero)",
+    "fall2021HeadlessWarriorSet": "Senza testa (Guerriero)",
+    "fall2021BrainEaterMageSet": "Mangiacervelli (mago)",
+    "fall2021OozeRogueSet": "Melma (ladro)",
+    "fall2021FlameSummonerHealerSet": "Fiammevocatore (Guaritore)"
 }
