@@ -6,7 +6,7 @@
     "spellWizardEarthText": "EARTHQUAEK",
     "spellWizardEarthNotes": "Ur mentl powr shaekz da erth an buffz ur Partyz Intelligence! (Basd on: Unbuffd INT)",
     "spellWizardFrostText": "CHILLIN FROST",
-    "spellWizardFrostNotes": "Wif 1 cast, ice freezez al ur streekz so they wont reset 2 zero tomrrw! ",
+    "spellWizardFrostNotes": "Wif 1 cast, ice freezez al ur streekz so they wont reset 2 zero tomrrw!",
     "spellWizardFrostAlreadyCast": "U ALREDI CAST DIS. UR STREKS R FROZEN, U NO CAST DIS AGAIN.",
     "spellWarriorSmashText": "BROOTUL SMASH",
     "spellWarriorSmashNotes": "U maek task moar blue/les red an do xtra damage 2 Bosez! (Basd on: STR)",
@@ -24,7 +24,7 @@
     "spellRogueToolsOfTradeNotes": "Ur triky talenz buff ur hole Partyz Perception! (Basd on: Unbuffd PER)",
     "spellRogueStealthText": "STEALF",
     "spellRogueStealthNotes": "Wif eech cast, sum ov ur undun Dailyz wont give u damege 2nite. There streekz an colrz wont chaeng. (Basd on: PER)",
-    "spellRogueStealthDaliesAvoided": "<%= originalText %> NUMBR OV DAYLEES AVOIDD: <%= number %>.",
+    "spellRogueStealthDaliesAvoided": "<%= originalText %> NUMBR OV DAYLEES ULL AVOYD: <%= number %>.",
     "spellRogueStealthMaxedOut": "U HAS ALREADY AVOIDD ALL UR DAYLEES; DERE'S NO NEED 2 CAST DIS AGAIN.",
     "spellHealerHealText": "HEALIN LITE",
     "spellHealerHealNotes": "Shinin lite givez u helth! (Basd on: CON an INT)",
@@ -55,5 +55,6 @@
     "challengeTasksNoCast": "Castin skil on chalenge taskz is not allowd.",
     "groupTasksNoCast": "Castin skil on group taskz is not allowd.",
     "spellNotOwned": "U NO OWN DIS SKILL.",
-    "spellLevelTooHigh": "U MUST B LEVOOL <%= level %> 2 YOOSE DIS SKILL."
+    "spellLevelTooHigh": "U MUST B LEVOOL <%= level %> 2 YOOSE DIS SKILL.",
+    "spellAlreadyCast": "USIN DIS SKIL AGIN WONT DO NE MOAR STUF 4 U."
 }

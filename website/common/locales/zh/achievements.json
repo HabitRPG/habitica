@@ -117,5 +117,11 @@
     "achievementVioletsAreBlueText": "已集齐所有蓝色棉花糖宠物。",
     "achievementDomesticated": "咿呀咿呀哟",
     "achievementDomesticatedText": "已孵化所有基础颜色的家养宠物：雪貂、豚鼠、公鸡、飞猪、老鼠、兔子、马和奶牛！",
-    "achievementDomesticatedModalText": "你集齐了所有家养宠物！"
+    "achievementDomesticatedModalText": "你集齐了所有家养宠物！",
+    "achievementShadyCustomer": "暗影之客",
+    "achievementShadyCustomerModalText": "你集齐了所有暗影宠物！",
+    "achievementShadeOfItAll": "暗影之始",
+    "achievementShadeOfItAllText": "已驯服所有暗影坐骑。",
+    "achievementShadeOfItAllModalText": "你驯服了所有暗影坐骑！",
+    "achievementShadyCustomerText": "已集齐所有暗影宠物。"
 }

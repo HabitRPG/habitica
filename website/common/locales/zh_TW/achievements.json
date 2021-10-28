@@ -117,5 +117,11 @@
     "achievementVioletsAreBlue": "藍色紫羅蘭",
     "achievementDomesticated": "咿呀咿呀喲",
     "achievementDomesticatedText": "已孵化所有基礎顏色的家養寵物：雪貂、豚鼠、公雞、飛豬、老鼠、兔子、馬和奶牛！",
-    "achievementDomesticatedModalText": "你集齊了所有家養寵物！"
+    "achievementDomesticatedModalText": "你集齊了所有家養寵物！",
+    "achievementShadyCustomer": "陰影之客",
+    "achievementShadyCustomerText": "已集齊所有暗影寵物。",
+    "achievementShadeOfItAll": "陰暗之始",
+    "achievementShadeOfItAllText": "已馴服所有暗影坐騎。",
+    "achievementShadeOfItAllModalText": "你馴服了所有暗影坐騎！",
+    "achievementShadyCustomerModalText": "你集齊了所有暗影寵物！"
 }
