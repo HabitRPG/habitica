@@ -571,6 +571,8 @@ export default {
     async getMembers () {
       this.members = this.$store.state.memberModalOptions.viewingMembers;
 
+      await this.searchMembers('');
+
       const { groupId } = this;
       if (groupId && groupId !== 'challenge') {
         const invites = await this.$store.dispatch('members:getGroupInvites', {

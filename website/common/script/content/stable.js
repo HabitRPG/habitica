@@ -128,6 +128,7 @@ const canFindSpecial = {
     'JackOLantern-Base': false,
     'JackOLantern-Glow': false,
     'JackOLantern-Ghost': false,
+    'JackOLantern-RoyalPurple': false,
     // Naming Day
     'Gryphon-RoyalPurple': false,
     // Summer Splash Orca
@@ -194,6 +195,7 @@ const specialMounts = {
   'Hippogriff-Hopeful': 'hopefulHippogriffMount',
   'Gryphon-Gryphatrice': 'gryphatrice',
   'JackOLantern-Glow': 'glowJackolantern',
+  'JackOLantern-RoyalPurple': 'royalPurpleJackolantern',
 };
 
 each(specialPets, (translationString, key) => {

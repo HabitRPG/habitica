@@ -36,7 +36,7 @@
     "mustLvlQuest": "Je moet niveau <%= level %> zijn om deze queeste te kunnen kopen!",
     "unlockByQuesting": "Om deze queeste vrij te spelen moet je eerst <%= title %> voltooien.",
     "questConfirm": "Weet je zeker dat je deze queeste wil beginnen? Nog niet alle gezelschapsgenoten hebben de uitnodiging voor de queeste geaccepteerd. Queesten starten automatisch wanneer alle spelers op hun uitnodiging hebben gereageerd.",
-    "sureCancel": "Ben je zeker dat je deze queeste wilt beëindigen? Het beëindigen van de queeste zal alle aangenomen en opstaande uitnodigingen annuleren. De queeste-rol zal geretourneerd worden naar de boedel van de eigenaar.",
+    "sureCancel": "Weet je zeker dat je deze queeste wilt verlaten? Het verlaten van de queeste zal alle aangenomen en openstaande uitnodigingen annuleren. De queeste zal geretourneerd worden naar de boedel van de eigenaar.",
     "sureAbort": "Weet je zeker dat je deze queeste wilt annuleren? Alle vooruitgang zal verloren gaan. De queeste zal geretourneerd worden naar de boedel van de eigenaar.",
     "doubleSureAbort": "Weet je het echt heel zeker? Zorg ervoor dat ze niet voor altijd een hekel aan je krijgen!",
     "bossRageTitle": "Woede",
@@ -85,11 +85,15 @@
     "tavernBossTired": "<%= bossName %> probeert <%= rageName %> los te laten, maar is te moe.",
     "chatQuestCancelled": "<%= gebruikersnaam %> heeft de gezelschapszoektocht geannuleerd <%= questName %>.",
     "chatQuestAborted": "<%= gebruikersnaam %> heeft de gezelschapszoektocht afgebroken <%= questName %>.",
-    "bossDamage": "Je hebt schade toegebracht aan de de Eindbaas!",
+    "bossDamage": "Je hebt schade toegebracht aan de Eindbaas!",
     "noQuestToStartTitle": "Kun je geen queeste vinden om te beginnen?",
     "membersParticipating": "<%= accepted %> / <%= invited %> gezelschapsgenoten doen mee",
     "yourPartyIsNotOnQuest": "Je gezelschap is niet op een queeste",
     "selectQuest": "Selecteer queeste",
     "sureLeaveInactive": "Weet je zeker dat je de queeste wilt verlaten? Je zult niet meer in staat zijn om deel te nemen.",
-    "questItemsPending": "<%= amount %> voorwerpen in afwachting"
+    "questItemsPending": "<%= amount %> voorwerpen in afwachting",
+    "newItem": "Nieuw voorwerp",
+    "selectQuestModal": "Selecteer een queeste",
+    "yourQuests": "Jouw queestes",
+    "cancelQuest": "Annuleer queeste"
 }

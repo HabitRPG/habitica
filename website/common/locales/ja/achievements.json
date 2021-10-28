@@ -117,5 +117,11 @@
     "achievementVioletsAreBlue": "スミレは青い",
     "achievementDomesticated": "ゆかいな牧場",
     "achievementDomesticatedModalText": "飼育できるのペットクエストを完了しました！",
-    "achievementDomesticatedText": "フェレット、モルモット、おんどり、空飛ぶ豚、ネズミ、ウサギ、馬、牛のペットクエストを完了しました！"
+    "achievementDomesticatedText": "フェレット、モルモット、おんどり、空飛ぶ豚、ネズミ、ウサギ、馬、牛のペットクエストを完了しました！",
+    "achievementShadyCustomerModalText": "影のペットをすべて集めました！",
+    "achievementShadeOfItAll": "全てを影に染める",
+    "achievementShadeOfItAllText": "影の乗騎をすべて手なずけました。",
+    "achievementShadeOfItAllModalText": "影の乗騎を全て手なづずけました！",
+    "achievementShadyCustomer": "影の顧客",
+    "achievementShadyCustomerText": "影のペットをすべて集めました。"
 }

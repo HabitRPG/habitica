@@ -114,5 +114,7 @@
     "achievementWildBlueYonderText": "Ha domesticado todas las monturas de algodón de azúcar azul.",
     "achievementWildBlueYonder": "Salvaje y azul lejanía",
     "achievementVioletsAreBlueModalText": "¡Lograste obtener todas las mascotas de algodón de azúcar azul!",
-    "achievementVioletsAreBlueText": "Ha obtenido todas las mascotas de algodón de azúcar azul."
+    "achievementVioletsAreBlueText": "Ha obtenido todas las mascotas de algodón de azúcar azul.",
+    "achievementDomesticatedText": "¡Has eclosionado todos los colores base de mascotas domesticas: hurón, cobaya, gallo, cerdo volador, ratón, conejo, caballo y vaca!",
+    "achievementDomesticatedModalText": "¡Has eclosionado todas las mascotas domésticas!"
 }

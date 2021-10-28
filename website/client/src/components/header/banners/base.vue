@@ -50,6 +50,10 @@ body.modal-open .habitica-top-banner {
 
 <script>
 import closeIcon from '@/assets/svg/close.svg';
+import {
+  clearBannerSetting, hideBanner, isBannerHidden, updateBannerHeight,
+} from '@/libs/banner.func';
+import { EVENTS } from '@/libs/events';
 
 export default {
   props: {
@@ -93,29 +97,30 @@ export default {
     canShow: {
       handler (newVal) {
         const valToSet = newVal === true ? this.height : '0px';
-        document.documentElement.style
-          .setProperty(`--banner-${this.bannerId}-height`, valToSet);
+        updateBannerHeight(this.bannerId, valToSet);
+        this.$root.$emit(EVENTS.BANNER_HEIGHT_UPDATED);
       },
       immediate: true,
     },
     show (newVal) {
       // When the show condition is set to false externally, remove the session storage setting
       if (newVal === false) {
-        window.sessionStorage.removeItem(`hide-banner-${this.bannerId}`);
+        clearBannerSetting(this.bannerId);
         this.hidden = false;
       }
     },
   },
   mounted () {
-    const hideStatus = window.sessionStorage.getItem(`hide-banner-${this.bannerId}`);
-    if (hideStatus === 'true') {
+    if (isBannerHidden(this.bannerId)) {
       this.hidden = true;
     }
   },
   methods: {
     close () {
-      window.sessionStorage.setItem(`hide-banner-${this.bannerId}`, 'true');
+      hideBanner(this.bannerId);
       this.hidden = true;
+
+      this.$root.$emit(EVENTS.BANNER_HIDDEN, this.bannerId);
     },
   },
 };

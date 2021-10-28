@@ -377,6 +377,7 @@ import svgClose from '@/assets/svg/close.svg';
 import gifts from '@/assets/svg/gifts.svg';
 
 import paymentsButtons from '@/components/payments/buttons/list';
+import { worldStateMixin } from '@/mixins/worldState';
 
 export default {
   components: {
@@ -385,7 +386,7 @@ export default {
   directives: {
     markdown,
   },
-  mixins: [paymentsMixin],
+  mixins: [paymentsMixin, worldStateMixin],
   data () {
     return {
       icons: Object.freeze({
@@ -446,13 +447,13 @@ export default {
     },
   },
   async mounted () {
-    await this.$store.dispatch('worldState:getWorldState');
+    await this.triggerGetWorldState();
 
     this.$root.$on('bv::show::modal', modalId => {
       if (modalId === 'buy-gems') {
         // We force reloading the world state every time the modal is reopened
         // To make sure the promo status is always up to date
-        this.$store.dispatch('worldState:getWorldState', { forceLoad: true });
+        this.triggerGetWorldState(true);
       }
     });
   },

@@ -65,12 +65,6 @@
             <!-- eslint-enable vue/no-use-v-if-with-v-for -->
           </div>
         </div>
-        <div
-          v-if="data && data.nextRewardAt"
-          class="col-12 text-center"
-        >
-          <h4>{{ $t('countLeft', {count: data.nextRewardAt - user.loginIncentives}) }}</h4>
-        </div>
       </div>
       <div class="row">
         <div

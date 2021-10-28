@@ -55,7 +55,7 @@
     "custom": "Personalizzato",
     "wishlist": "Lista dei desideri",
     "wrongItemType": "Il tipo di oggetto \"<%= type %>\" non è valido.",
-    "wrongItemPath": "Il percorso (path) oggetto \"<%= path %>\"  non è valido.",
+    "wrongItemPath": "Il percorso \"<%= path %>\" non è valido.",
     "unpinnedItem": "Hai rimosso <%= item %> dalla Lista dei Desideri. Non apparirà più nella colonna delle ricompense.",
     "cannotUnpinArmoirPotion": "La Pozione di Cura e lo Scrigno Incantato non possono essere rimossi dalla Lista dei Desideri.",
     "purchasedItem": "Hai comprato <%= itemName %>",

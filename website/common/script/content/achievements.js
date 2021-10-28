@@ -257,6 +257,16 @@ const basicAchievs = {
     titleKey: 'achievementDomesticated',
     textKey: 'achievementDomesticatedText',
   },
+  shadyCustomer: {
+    icon: 'achievement-shadyCustomer',
+    titleKey: 'achievementShadyCustomer',
+    textKey: 'achievementShadyCustomerText',
+  },
+  shadeOfItAll: {
+    icon: 'achievement-shadeOfItAll',
+    titleKey: 'achievementShadeOfItAll',
+    textKey: 'achievementShadeOfItAllText',
+  },
 };
 Object.assign(achievementsData, basicAchievs);
 

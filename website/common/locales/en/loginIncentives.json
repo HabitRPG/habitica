@@ -3,7 +3,6 @@
   "earnedRewardForDevotion": "You have earned <%= reward %> for being committed to improving your life.",
   "nextRewardUnlocksIn": "Check-ins until your next prize: <%= numberOfCheckinsLeft %>",
   "awesome": "Awesome!",
-  "countLeft": "Check-ins until next reward: <%= count %>",
   "incentivesDescription": "When it comes to building habits, consistency is key. Each day you check-in you get closer to a prize.",
   "checkinEarned": "Your Check-In Counter went up!",
   "unlockedCheckInReward": "You unlocked a Check-In Prize!",
