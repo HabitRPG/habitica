@@ -13,7 +13,7 @@ import {
 } from '../../../helpers/common.helper';
 
 describe('shared.ops.purchase', () => {
-  const SEASONAL_FOOD = 'Meat';
+  const SEASONAL_FOOD = 'Candy-Base';
   let user;
   const goldPoints = 40;
   const analytics = { track () {} };
