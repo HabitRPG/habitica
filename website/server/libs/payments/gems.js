@@ -96,7 +96,7 @@ function getAmountForGems (data) {
 
 async function updateUserBalance (data, amount) {
   if (data.gift) {
-    await data.gift.member.updateBalance(amount, 'gift_received', data.user._id, data.user.profile.name);
+    await data.gift.member.updateBalance(amount, 'gift_receive', data.user._id, data.user.profile.name);
     return;
   }
 
