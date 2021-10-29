@@ -63,13 +63,6 @@
           </button>
         </div>
       </div>
-      <!-- @TODO: I ported this over, but do we use it anymore?-->
-      <!--div(v-if='brokenChallengeTask.challenge.broken
-      === "UNSUBSCRIBED"')p {{ $t('unsubChallenge') }}
-p
-  a(@click="unlink('keep-all')") {{ $t('keepTasks') }}
-  | &nbsp;|&nbsp;
-      a(@click="unlink('remove-all')") {{ $t('removeTasks') }}-->
     </div>
   </b-modal>
 </template>
