@@ -427,7 +427,6 @@ export default {
       this.expandTransactions = !this.expandTransactions;
       if (this.expandTransactions) {
         const transactions = await this.$store.dispatch('members:getPurchaseHistory', { memberId: this.hero._id });
-        console.log(transactions);
         this.gemTransactions = transactions.filter(transaction => transaction.currency === 'gems');
         this.hourglassTransactions = transactions.filter(transaction => transaction.currency === 'hourglasses');
       }
