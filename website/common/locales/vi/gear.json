@@ -1794,5 +1794,10 @@
     "weaponSpecialWinter2020HealerNotes": "Vẫy vẫy nó, và mùi hương của nó sẽ triệu hồi những người bạn và người giúp đỡ của bạn bắt đầu nấu ăn và nướng bánh! Tăng <%= int %> điểm Trí tuệ. Trang bị giới hạn phiên bản mùa Đông 2019-2020.",
     "weaponSpecialWinter2020HealerText": "Quyền trượng Đinh Hương",
     "weaponSpecialWinter2020MageNotes": "Với sự rèn luyện, bạn có thể bung chiêu phép thuật này với bất kỳ tần số nào mà mình muốn: tiếng ngâm thiền, chuông lễ hội, hay hoặc THÔNG BÁO NHIỆM VỤ ĐỎ ĐÃ TỚI KỲ HẠN. Tăng <%= int %> điểm Trí tuệ và <%= per %> điểm Trực giác. Trang bị giới hạn phiên bản mùa Đông 2019-2020.",
-    "weaponSpecialWinter2020MageText": "Gợn sóng âm thanh"
+    "weaponSpecialWinter2020MageText": "Gợn sóng âm thanh",
+    "headSpecialNye2020Notes": "Bạn đã nhận được một chiếc Nón Lộng Lẫy! Hãy đeo nó với niềm tự hào khi reo lên trong năm mới! Không mang lại lợi ích gì.",
+    "weaponSpecialWinter2021WarriorText": "Cần Câu Mạnh Mẽ",
+    "weaponSpecialSpring2021MageText": "Lông Thiên Nga",
+    "weaponSpecialFall2020WarriorText": "Thanh Kiếm Bóng Ma",
+    "headSpecialNye2020Text": "Nón Lộng Lẫy"
 }

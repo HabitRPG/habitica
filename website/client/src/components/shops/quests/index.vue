@@ -424,6 +424,7 @@ import FilterSidebar from '@/components/ui/filterSidebar';
 import FilterGroup from '@/components/ui/filterGroup';
 import SelectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
 import QuestPopover from './questPopover';
+import { worldStateMixin } from '@/mixins/worldState';
 
 export default {
   components: {
@@ -441,7 +442,7 @@ export default {
     PinBadge,
     QuestInfo,
   },
-  mixins: [buyMixin, currencyMixin, pinUtils],
+  mixins: [buyMixin, currencyMixin, pinUtils, worldStateMixin],
   data () {
     return {
       viewOptions: {},
@@ -510,7 +511,7 @@ export default {
       subSection: this.$t('quests'),
       section: this.$t('shops'),
     });
-    await this.$store.dispatch('worldState:getWorldState');
+    await this.triggerGetWorldState();
 
     this.$root.$on('bv::modal::hidden', event => {
       if (event.componentId === 'buy-quest-modal') {
