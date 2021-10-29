@@ -115,7 +115,7 @@ export async function create (store, createdTask) {
       const uuid = store.state.user.data._id;
       Analytics.track({
         eventName: 'task created',
-        eventAction: 'click',
+        eventAction: 'task created',
         eventCategory: 'behavior',
         hitType: 'event',
         uuid,

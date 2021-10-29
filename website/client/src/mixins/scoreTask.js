@@ -76,7 +76,7 @@ export default {
       if (!tasksScoredCount || tasksScoredCount < 2) {
         Analytics.track({
           eventName: 'task scored',
-          eventAction: 'click',
+          eventAction: 'task scored',
           eventCategory: 'behavior',
           hitType: 'event',
           uuid: user._id,
