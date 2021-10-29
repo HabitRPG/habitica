@@ -56,7 +56,7 @@ api.flagPrivateMessage = {
  * @apiGroup User
  *
  */
- api.purchaseHistory = {
+api.purchaseHistory = {
   method: 'GET',
   middlewares: [authWithHeaders(), ensureAdmin],
   url: '/members/:memberId/purchase-history',
@@ -64,7 +64,9 @@ api.flagPrivateMessage = {
     req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
-    const transactions = await Transaction.find({ userId: req.params.memberId }).sort({ createdAt: -1 });
+    const transactions = await Transaction
+      .find({ userId: req.params.memberId })
+      .sort({ createdAt: -1 });
     res.respond(200, transactions);
   },
 };

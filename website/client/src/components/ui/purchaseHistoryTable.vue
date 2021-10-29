@@ -120,14 +120,6 @@ export default {
       return moment(value).toDate().toString();
     },
   },
-  data () {
-    return {
-      icons: Object.freeze({
-        gem: svgGem,
-        hourglass: svgHourglass,
-      }),
-    };
-  },
   props: {
     gemTransactions: {
       type: Array,
@@ -137,6 +129,14 @@ export default {
       type: Array,
       required: true,
     },
+  },
+  data () {
+    return {
+      icons: Object.freeze({
+        gem: svgGem,
+        hourglass: svgHourglass,
+      }),
+    };
   },
   methods: {
     entryReferenceText (entry) {
