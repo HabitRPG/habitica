@@ -217,7 +217,7 @@
             <tr>
               <th>{{ $t('name') }}</th>
               <th v-if="user.contributor && user.contributor.admin">
-                {{ $t('UserId') }}
+                {{ $t('userId') }}
               </th>
               <th>{{ $t('contribLevel') }}</th>
               <th>{{ $t('title') }}</th>
