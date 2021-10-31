@@ -58,11 +58,17 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      padding-right: 25px; /* To allow enough room for the down arrow to be displayed */
     }
 
     .selectListItem {
       position: relative;
-      padding-right: 1.625rem;
+
+      .dropdown-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
 
       &:not(.showIcon) {
         .svg-icon.check-icon {
@@ -71,10 +77,7 @@
       }
 
       .svg-icon.check-icon.color {
-        position: absolute;
-        right: 0.855rem;
-        top: 0.688rem;
-        bottom: 0.688rem;
+        margin-left: 10px; /* So the flex item (checkmark) will have some spacing from the text */
         width: 0.77rem;
         height: 0.615rem;
         color: $purple-300;
