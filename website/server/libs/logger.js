@@ -148,6 +148,32 @@ const loggerInterface = {
     logger.info(message, data);
   },
 
+  warn (...args) {
+    if (!_config.loggingEnabled) return;
+
+    const [_message, _data] = args;
+    const isMessageString = typeof _message === 'string';
+
+    const message = isMessageString ? _message : 'No message provided for log.';
+    let data;
+
+    if (args.length === 1) {
+      if (isMessageString) {
+        data = {};
+      } else {
+        data = { extraData: _message };
+      }
+    } else if (!isMessageString || args.length > 2) {
+      throw new Error('logger.info accepts up to two arguments: a message and an object with extra data to log.');
+    } else if (_.isPlainObject(_data)) {
+      data = _data;
+    } else {
+      data = { extraData: _data };
+    }
+
+    logger.warn(message, data);
+  },
+
   // Accepts two argument,
   // an Error object (required)
   // and an object of additional data to log alongside the error
