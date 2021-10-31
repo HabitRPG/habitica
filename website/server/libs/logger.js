@@ -120,7 +120,7 @@ if (IS_PROD) {
   _config.loggingEnabled = false;
 }
 
-// exports a public interface insteaf of accessing directly the logger module
+// exports a public interface instead of accessing directly the logger module
 const loggerInterface = {
   info (...args) {
     if (!_config.loggingEnabled) return;
