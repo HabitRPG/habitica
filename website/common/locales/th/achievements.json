@@ -19,7 +19,7 @@
     "achievementBackToBasicsModalText": "คุณสะสมสัตว์เลี้ยงพื้นฐานครบแล้ว!",
     "achievementBackToBasicsText": "สะสมสัตว์เลี้ยงพื้นฐานครบแล้ว",
     "achievementBackToBasics": "กลับคืนสู่สิ่งที่เป็นพื้นฐาน",
-    "achievementJustAddWater": "แค่เพิ่มนำ้เอง",
+    "achievementJustAddWater": "แค่เพิ่มนำ้",
     "achievementLostMasterclasserModalText": "คุณทำเควสทั้ง 16 ในชุดมาสเตอร์คลาส และไขปริศนาการหายไปของมาสเตอร์คลาสได้สำเร็จ!",
     "foundNewItemsCTA": "ไปสู่คลังเก็บของของคุณ และลองใช้นำ้ยาฟักไข่ กับไข่ อันใหม่ของคุณ!",
     "foundNewItemsExplanation": "การทำภารกิจให้สำเร็จ จะทำให้คุณมีโอกาศพบไอเทมใหม่ เช่น ไข่, นำ้ยาฟักไข่, และอาหารสัตว์",
@@ -39,5 +39,8 @@
     "achievementMonsterMagusText": "ได้สะสมสัตว์เลี้ยงซอมบี้ทั้งหมด",
     "achievementMonsterMagus": "สัตว์ประหลาดเวทย์มนต์",
     "achievementPartyOn": "ปาร์ตี้ของคุณได้กลายเป็นปาร์ตี้ 4 คนแล้ว!",
-    "achievementPearlyProModalText": "คุณได้ฝึกสัตว์พาหนะสีขาวทั้งหมดแล้ว!"
+    "achievementPearlyProModalText": "คุณได้ฝึกสัตว์พาหนะสีขาวทั้งหมดแล้ว!",
+    "achievementMindOverMatterText": "ทำเควสสัตว์เลี้ยงหิน สไลม์ และเส้นด้าย สำเร็จแล้ว",
+    "achievementMindOverMatter": "ใจเป็นนาย",
+    "achievementAllYourBase": "เบสทั้งหมดของคุณ"
 }

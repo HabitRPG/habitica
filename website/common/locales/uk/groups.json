@@ -240,7 +240,7 @@
     "memberCount": "Member Count",
     "recentActivity": "Recent Activity",
     "myGuilds": "Мої ґільдії",
-    "guildsDiscovery": "Discover Guilds",
+    "guildsDiscovery": "Знайти ґільдії",
     "role": "Role",
     "guildLeader": "Guild Leader",
     "member": "Member",
@@ -348,5 +348,6 @@
     "PMDisabled": "Вимкніть приватні повідомлення",
     "editParty": "Редагувати вечірку",
     "joinGuild": "Приєднатись до гільдії",
-    "editGuild": "Редагувати гільдію"
+    "editGuild": "Редагувати гільдію",
+    "viewDetails": "Переглянути деталі"
 }

@@ -71,7 +71,7 @@
     "beeminderDesc": "讓Beeminder自動監控您的Habitica待辦事項。您可以致力於保持每天或每週完成待辦事達目標的次數，或是您也可以致力於逐漸減少未完成的待辦事項數量。（「致力於」在Beeminder裡指的是您將會處於必須付出真實金錢的恐懼之下！雖然您也可能只是喜歡Beeminder花俏的圖騰。）",
     "chromeChatExtension": "Chrome Chat 擴充功能",
     "chromeChatExtensionDesc": "Habitica 的 Chrome 擴充功能會在 habitica.com 增加聊天視窗。讓玩家可以進行酒館、隊伍和公會裡的聊天。",
-    "otherExtensions": "<a target='blank' href='http://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations'>其他擴充功能</a>",
+    "otherExtensions": "<a target='blank' href='https://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations'>其他擴充功能</a>",
     "otherDesc": "在Habitica wiki尋找其他的應用程序、擴充功能、工具。",
     "resetDo": "好，重置我的帳號！",
     "resetComplete": "重置完成！",

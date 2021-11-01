@@ -22,7 +22,7 @@
     "locked": "잠긴",
     "shirts": "상의",
     "shirt": "상의",
-    "specialShirts": "특별한 상의",
+    "specialShirts": "스페셜 상의",
     "skin": "피부",
     "color": "색",
     "hair": "머리카락",
@@ -85,7 +85,7 @@
     "allocatePerPop": "Add a Point to Perception",
     "allocateInt": "지력에 분배된 포인트",
     "allocateIntPop": "Add a Point to Intelligence",
-    "noMoreAllocate": "이제 당신은 레벨 100에 도잘했기에, 당신은 더 이상 스탯 포인트를 얻지 못합니다. 당신은 레벨 업을 계속하거나<a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>를 이용해 레벨 1에서 새로운 모험을 시작할 수 있습니다부활궤도</a>!",
+    "noMoreAllocate": "레벨 100에 도달하면 능력치 포인트를 더 얻을 수 없습니다. 더 레벨을 올릴 수도 있고, <a href='https://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>환생의 구를 사용해 레벨 1에서 새로운 모험을 시작할 수도 있습니다</a>!",
     "stats": "스테이터스",
     "achievs": "업적",
     "strength": "근력",
@@ -185,5 +185,6 @@
     "chatCastSpellUser": "<%= username %> 이 <%= spell %> 를<%= target %>에게 시전했습니다.",
     "chatCastSpellParty": "<%= username %> 이 파티를 위해 <%= spell %> 를 시전했습니다.",
     "purchaseForGold": "<%= cost %> 골드로 구매합니까?",
-    "purchasePetItemConfirm": "이 구매는 당신이 모든 반려동물을 부화시키기 위한 아이템들의 수를 능가할 것입니다. <%= itemText %> 정말 괜찮겠습니까?"
+    "purchasePetItemConfirm": "이 구매는 당신이 모든 반려동물을 부화시키기 위한 아이템들의 수를 능가할 것입니다. <%= itemText %> 정말 괜찮겠습니까?",
+    "notEnoughGold": "골드가 부족합니다."
 }

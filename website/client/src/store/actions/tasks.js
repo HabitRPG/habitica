@@ -115,12 +115,12 @@ export async function create (store, createdTask) {
       const uuid = store.state.user.data._id;
       Analytics.track({
         eventName: 'task created',
-        eventAction: 'click',
+        eventAction: 'task created',
         eventCategory: 'behavior',
         hitType: 'event',
         uuid,
         taskType: taskRes.type,
-      });
+      }, { trackOnClient: true });
       if (!tasksCreatedCount) {
         setLocalSetting(CONSTANTS.keyConstants.TASKS_CREATED_COUNT, 1);
       } else {

@@ -175,8 +175,12 @@ import BaseNotification from './base';
 
 import health from '@/assets/svg/health.svg';
 import sword from '@/assets/svg/sword.svg';
+import { worldStateMixin } from '@/mixins/worldState';
 
 export default {
+  mixins: [
+    worldStateMixin,
+  ],
   components: {
     BaseNotification,
   },
@@ -203,8 +207,8 @@ export default {
       return this.questData.boss.hp.toLocaleString();
     },
   },
-  async mounted () {
-    await this.$store.dispatch('worldState:getWorldState');
+  mounted () {
+    this.triggerGetWorldState();
   },
   methods: {
     action () {

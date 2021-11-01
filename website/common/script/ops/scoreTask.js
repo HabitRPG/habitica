@@ -286,7 +286,8 @@ export default function scoreTask (options = {}, req = {}, analytics) {
     if (cron) {
       delta += _changeTaskValue(user, task, direction, times, cron);
       _subtractPoints(user, task, stats, delta);
-      if (!user.stats.buffs.streaks) task.streak = 0;
+      // Chilling frost should not affect challenge or group dailies
+      if (!user.stats.buffs.streaks || task.challenge.id || task.group.id) task.streak = 0;
     } else {
       delta += _changeTaskValue(user, task, direction, times, cron);
       if (direction === 'down') delta = _calculateDelta(task, direction, cron); // recalculate delta for unchecking so the gp and exp come out correctly

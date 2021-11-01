@@ -118,6 +118,7 @@
     "welcome3": "Progress in life and the game!",
     "welcome3notes": "As you improve your life, your avatar will level up and unlock pets, quests, equipment, and more!",
     "imReady": "เข้าสู่ Habitica",
-    "limitedOffer": "Available until <%= date %>",
-    "nGems": "<%= nGems %> อัญมณี"
+    "limitedOffer": "เข้าถึงได้จนถึง<%= date %>",
+    "nGems": "<%= nGems %> อัญมณี",
+    "limitedAvailabilityDays": "เข้าถึงได้เป็นเวลา <%= days %>วัน<%= hours %>ชม. <%= minutes %>นาที"
 }

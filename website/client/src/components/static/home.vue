@@ -108,16 +108,6 @@
             <div class="text-center">
               <button
                 class="social-button"
-                @click="socialAuth('facebook')"
-              >
-                <div
-                  class="svg-icon social-icon"
-                  v-html="icons.facebookIcon"
-                ></div>
-                <span>{{ $t('signUpWithSocial', {social: 'Facebook'}) }}</span>
-              </button>
-              <button
-                class="social-button"
                 @click="socialAuth('google')"
               >
                 <div

@@ -25,7 +25,7 @@
     "weaponWarrior0Text": "ดาบฝึกหัด",
     "weaponWarrior0Notes": "อาวุธสำหรับการฝึก ไม่เพิ่มค่าสถานะใดๆ",
     "weaponWarrior1Text": "ดาบ",
-    "weaponWarrior1Notes": "มีดดาบธรรมดาของทหาร เพิ่ม Strength <%= str %>",
+    "weaponWarrior1Notes": "มีดดาบธรรมดาของทหาร เพิ่มความแข็งแกร่ง <%= str %>",
     "weaponWarrior2Text": "ขวาน",
     "weaponWarrior2Notes": "Double-bitted chopping weapon. Increases Strength by <%= str %>.",
     "weaponWarrior3Text": "ลูกตุ้มหนาม",

@@ -85,7 +85,7 @@
     "allocatePerPop": "Adicionar Ponto em Percepção",
     "allocateInt": "Pontos distribuídos em Inteligência:",
     "allocateIntPop": "Adicionar Ponto em Inteligência",
-    "noMoreAllocate": "Agora que você chegou no nível 100, você não receberá mais nenhum Ponto de Atributo. Você pode continuar subindo de nível ou começar uma nova aventura no nível 1 usando um <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Orbe do Renascimento</a>!",
+    "noMoreAllocate": "Agora que você chegou no nível 100, você não receberá mais nenhum Ponto de Atributo. Você pode continuar subindo de nível ou começar uma nova aventura no nível 1 usando o <a href='https://habitica.fandom.com/pt-br/wiki/Orbe_do_Renascimento' target='_blank'>Orbe do Renascimento</a>!",
     "stats": "Atributos",
     "achievs": "Conquistas",
     "strength": "Força",

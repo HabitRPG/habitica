@@ -62,6 +62,13 @@ const ANIMAL_COLOR_ACHIEVEMENTS = [
     mountAchievement: 'wildBlueYonder',
     mountNotificationType: 'ACHIEVEMENT_WILD_BLUE_YONDER',
   },
+  {
+    color: 'Shade',
+    petAchievement: 'shadyCustomer',
+    petNotificationType: 'ACHIEVEMENT_SHADY_CUSTOMER',
+    mountAchievement: 'shadeOfItAll',
+    mountNotificationType: 'ACHIEVEMENT_SHADE_OF_IT_ALL',
+  },
 ];
 
 export default ANIMAL_COLOR_ACHIEVEMENTS;
