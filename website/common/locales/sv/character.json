@@ -64,7 +64,7 @@
     "gearAchievement": "Du har förtjänat prestationen \"Ultimat rustning\" för att ha uppgraderat din utrustning till max för din klass!. Du har fått tag på all utrustning för:",
     "gearAchievementNotification": "Du har fått prestationen \"Ultimat rustning\" för att ha uppgraderat din utrustning till max för din klass!",
     "moreGearAchievements": "För att få fler Ultimat utrustning-emblem, ändra klass på <a href='/user/settings/site' target='_blank'>Inställningar &gt; Hemsida sidan</a> och köp utrustningen för en ny klass!",
-    "armoireUnlocked": "För mer utrustning, kolla in det <strong>Förtrollade vapenskåpet!</strong> Clicka på det Förtrollade vapenskåpet för en slumpmässig chans att få speciell utrustning! Det kan också ge dig XP eller mat.",
+    "armoireUnlocked": "För mer utrustning, kolla in det <strong>Förtrollade skåpet!</strong> Clicka på det Förtrollade skåpet för en slumpmässig chans att få speciell utrustning! Det kan också ge dig XP eller mat.",
     "ultimGearName": "Fullkomlig utrustning - <%= ultClass %>",
     "ultimGearText": "Har uppgraderat till den maximala vapen- och rustningsuppsättningen för <%= ultClass %>klassen.",
     "level": "Level",

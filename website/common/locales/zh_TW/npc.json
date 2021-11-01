@@ -127,5 +127,8 @@
     "nMonthsSubscriptionGift": "<%= nMonths %> 月度訂閱（禮物）",
     "nGemsGift": "<%= nGems %> 寶石（禮物）",
     "nGems": "<%= nGems %> 寶石",
-    "amountExp": "<%= amount %> 經驗"
+    "amountExp": "<%= amount %> 經驗",
+    "limitedAvailabilityHours": "購買時間剩餘<%= hours %>小時 <%= minutes %>分鐘",
+    "limitedAvailabilityDays": "購買時間剩餘<%= days %>天 <%= hours %>小時 <%= minutes %>分鐘",
+    "limitedAvailabilityMinutes": "購買時間剩餘<%= minutes %>分鐘<%= seconds %>秒"
 }
