@@ -12,6 +12,7 @@ const api = {};
  * Since it needs the Users Data, it requires authentication.
  *
  * @apiParam (Body) {String} message Bug Report Message to sent
+ * @apiParam (Body) {String} email User Email
  *
  * @apiSuccess {Object} data Result of this bug report
  * @apiSuccess {Boolean} data.ok Status of this report
@@ -29,16 +30,22 @@ api.bugReport = {
       message: {
         notEmpty: { errorMessage: res.t('emptyReportBugMessage') },
       },
+      email: {
+        notEmpty: true,
+        errorMessage: res.t('missingEmail'),
+        isEmail: { errorMessage: res.t('notAnEmail') },
+      },
     });
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    const { message } = req.body;
+    const { message, email } = req.body;
 
     const { user } = res.locals;
 
     const emailData = {
       USER_ID: user._id,
+      USER_EMAIL: email,
       USER_USERNAME: user.auth.local.username,
       USER_LEVEL: user.stats.lvl,
       USER_CLASS: user.stats.class,
