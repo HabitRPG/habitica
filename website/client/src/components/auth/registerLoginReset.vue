@@ -1,21 +1,5 @@
 <template>
   <div class="form-wrapper">
-    <div
-      v-if="forgotPassword && preOutage"
-      class="warning-banner d-flex"
-    >
-      <div class="warning-box ml-auto my-auto mr-2 d-flex">
-        <div
-          class="svg-icon exclamation m-auto"
-          v-html="icons.exclamation"
-        >
-        </div>
-      </div>
-      <div class="mr-auto my-auto">
-        Habitica emails will be temporarily unavailable on <strong>January 11, 2020</strong> from
-        <strong>1:00 - 7:00 AM EST</strong>.
-      </div>
-    </div>
     <div id="top-background">
       <div class="seamless_stars_varied_opacity_repeat"></div>
     </div>
@@ -35,7 +19,10 @@
           ></div>
         </div>
       </div>
-      <div class="form-group row text-center">
+      <div
+        class="form-group row text-center"
+        v-if="!registering"
+      >
         <div class="col-12 col-md-12">
           <div
             class="btn btn-secondary social-button"
@@ -48,9 +35,7 @@
             <div
               class="text"
             >
-              {{ registering
-                ? $t('signUpWithSocial', {social: 'Facebook'})
-                : $t('loginWithSocial', {social: 'Facebook'}) }}
+              {{ $t('loginWithSocial', {social: 'Facebook'}) }}
             </div>
           </div>
         </div>
@@ -648,7 +633,6 @@
 <script>
 import axios from 'axios';
 import hello from 'hellojs';
-import moment from 'moment';
 import debounce from 'lodash/debounce';
 import isEmail from 'validator/lib/isEmail';
 import { buildAppleAuthUrl } from '../../libs/auth';
@@ -737,9 +721,6 @@ export default {
         || this.emailInvalid
         || this.passwordInvalid
         || this.passwordConfirmInvalid;
-    },
-    preOutage () {
-      return moment.utc().isBefore('2020-01-12');
     },
   },
   watch: {
