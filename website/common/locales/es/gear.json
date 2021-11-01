@@ -2483,5 +2483,9 @@
     "armorArmoireSoftBlackSuitNotes": "El negro es un color misterioso. Seguro que te inspirará los sueños más interesantes. Aumenta la constitución y la percepción en <%= attrs %> cada uno. Armario Encantado: conjunto confortable negro (artículo 2 de 3).",
     "armorArmoireSoftBlackSuitText": "Pijama suave negro",
     "headArmoireBlackFloppyHatText": "Gorro flexible negro",
-    "shieldArmoireSoftBlackPillowText": "Almohada suave negra"
+    "shieldArmoireSoftBlackPillowText": "Almohada suave negra",
+    "weaponMystery202111Text": "Bastón de Cronomante",
+    "weaponMystery202111Notes": "Da forma al flujo temporal con este misterioso y poderoso bastón. No otorga ningún beneficio. Artículo de suscriptor de Noviembre 2021.",
+    "headMystery202111Notes": "Un sombrero fino y elegante, con gafas que te permiten ver a través del tiempo. Mola, ¿verdad? No otorga ningún beneficio. Artículo de suscriptor de Noviembre 2021.",
+    "headMystery202111Text": "Sombrero de Cronovisión"
 }

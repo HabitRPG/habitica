@@ -2475,5 +2475,17 @@
     "headMystery202110Notes": "这顶石质头盔上的可怕面容将会击退恶意的力量，甚至是坏习惯！没有属性加成。2021年10月订阅者物品。",
     "shieldSpecialFall2021WarriorText": "Jack-o-Lantern的盾牌",
     "shieldSpecialFall2021HealerText": "被召唤的生物",
-    "shieldArmoireSoftBlackPillowText": "柔黑色的枕头"
+    "shieldArmoireSoftBlackPillowText": "柔黑色的枕头",
+    "weaponMystery202111Text": "时间之杖",
+    "weaponMystery202111Notes": "用这根神秘而强大的法杖来塑造时间的流动。没有属性加成。2021年11月订阅者物品。",
+    "headMystery202111Text": "时间帽",
+    "headMystery202111Notes": "一顶精美别致的帽子，带有能让你看穿时间的护目镜。很酷，对吧？没有属性加成。2021年11月订阅者物品。",
+    "headArmoireBlackFloppyHatNotes": "这顶简单的帽子被缝上了许多咒语。体质、感知和力量各增加 <%= attrs %>。魔法衣橱：黑色便装（1/3）.",
+    "shieldSpecialFall2021WarriorNotes": "这个带有扭曲微笑的节日盾牌将会保护你并且在黑暗中照亮你的道路。如果你需要的话，也可以作为另一个头！增加<%= con %>点体质。2021年秋季限定版装备。",
+    "headArmoireHeraldsCapNotes": "这顶传令官的帽子带有活泼的羽毛装饰。增加<%= int %>点智力。魔法衣橱：传令官套装（2/4）。",
+    "shieldArmoireHeraldsMessageScrollNotes": "这卷轴中有什么令人振奋的消息？是关于新宠物还是一个长期的习惯？增加<%= per %>点感知。魔法衣橱：传令官套装（4/4）",
+    "shieldArmoireSoftBlackPillowNotes": "勇敢的战士为任何探险打包了一个枕头。在令人厌烦的任务中保护自己......即使在你打盹的时候。魔法衣橱：柔黑色套装（3/3）。",
+    "backMystery202109Notes": "无声无息的在暮色中轻柔地滑过。没有属性加成。2021年9月订阅者物品。",
+    "headAccessoryMystery202109Notes": "感受微风中的花香和风中变化的芬芳。没有属性加成。2021年9月订阅者物品。",
+    "shieldSpecialFall2021HealerNotes": "魔法火焰中浮现出轻灵的气息，为你提供额外的保护。增加<%= con %>点体质。2021年秋季限定版装备。"
 }

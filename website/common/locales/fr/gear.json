@@ -2483,5 +2483,9 @@
     "headArmoireBlackFloppyHatText": "Chapeau souple noir",
     "headArmoireBlackFloppyHatNotes": "Beaucoup de sort ont été brodés dans ce chapeau, lui donnant une couleur noir vive. Augmente la constitution, la perception et la force de <%= attrs %>. Armoire enchantée : ensemble d'habits noirs (objet 1 de 3).",
     "shieldArmoireSoftBlackPillowText": "Doux oreiller noir",
-    "shieldArmoireSoftBlackPillowNotes": "Le courageux guerrier emporte toujours un oreiller dans ses expéditions. Protégez-vous des tâches fatigantes... même quand vous faites la sieste. Augmente l'intelligence et la perception de <%= attrs %> chacun. Armoire enchantée : ensemble d'habits noirs (objet 3 de 3)."
+    "shieldArmoireSoftBlackPillowNotes": "Le courageux guerrier emporte toujours un oreiller dans ses expéditions. Protégez-vous des tâches fatigantes... même quand vous faites la sieste. Augmente l'intelligence et la perception de <%= attrs %> chacun. Armoire enchantée : ensemble d'habits noirs (objet 3 de 3).",
+    "weaponMystery202111Text": "Bâton de chronomancie",
+    "weaponMystery202111Notes": "Modelez le flux du temps avec ce puissant et mystérieux bâton. Ne confère aucun bonus. Équipement d'abonnement de novembre 2021.",
+    "headMystery202111Text": "Chapeau de chronovision",
+    "headMystery202111Notes": "Un chapeau raffiné et subtil, avec des lunettes qui vous font voir à travers le temps. Plutôt cool, non ? Ne confère aucun bonus. Équipement d'abonnement de novembre 2021."
 }

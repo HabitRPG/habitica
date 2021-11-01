@@ -135,5 +135,8 @@
     "pressEnterToAddTag": "按“Enter”添加標籤：'<%= tagName %>'",
     "enterTag": "輸入標籤",
     "addTags": "添加標籤...",
-    "tomorrow": "明天"
+    "tomorrow": "明天",
+    "counter": "計數器",
+    "adjustCounter": "修正計數器",
+    "resetCounter": "重設計數器"
 }

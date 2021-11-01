@@ -117,5 +117,11 @@
     "achievementVioletsAreBlue": "Фиалки синие",
     "achievementDomesticatedText": "Собраны все одомашненные питомцы: хорёк, морская свинка, петух, летающая свинья, крыса, кролик, лошадь и корова!",
     "achievementDomesticatedModalText": "Вы собрали всех одомашненных питомцев!",
-    "achievementDomesticated": "И-ай-и-ай-о"
+    "achievementDomesticated": "И-ай-и-ай-о",
+    "achievementShadyCustomerText": "Собраны все теневые питомцы.",
+    "achievementShadyCustomerModalText": "Вы собрали всех теневых питомцев!",
+    "achievementShadeOfItAllModalText": "Вы собрали всех теневых скакунов!",
+    "achievementShadyCustomer": "Сомнительно-темный клиент",
+    "achievementShadeOfItAll": "Тень всего этого",
+    "achievementShadeOfItAllText": "Собраны все теневые скакуны."
 }
