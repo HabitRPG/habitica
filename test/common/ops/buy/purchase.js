@@ -13,7 +13,7 @@ import {
 } from '../../../helpers/common.helper';
 
 describe('shared.ops.purchase', () => {
-  const SEASONAL_FOOD = 'Candy_Base';
+  const SEASONAL_FOOD = moment().isBefore('2021-11-02T20:00-04:00') ? 'Candy_Base' : 'Meat';
   let user;
   const goldPoints = 40;
   const analytics = { track () {} };
