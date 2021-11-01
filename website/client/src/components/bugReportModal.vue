@@ -13,11 +13,11 @@
       </h2>
 
       <div v-once>
-        {{ $t('reportBugDescribe') }}
+        {{ $t('reportBugHeaderDescribe') }}
       </div>
 
       <div class="dialog-close">
-        <close-icon @click="close()"/>
+        <close-icon @click="close()" :purple="true"/>
       </div>
     </div>
     <div>
@@ -142,6 +142,12 @@ label {
 .submit-button {
   width: auto;
 }
+
+.error-label {
+  font-size: 12px;
+  line-height: 1.33;
+  color: $maroon-10;
+}
 </style>
 
 <script>
@@ -174,6 +180,9 @@ export default {
         message: this.message,
         email: this.email,
       });
+    },
+    close () {
+      this.$root.$emit('bv::hide::modal', 'bug-report-modal');
     },
   },
   computed: {
