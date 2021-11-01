@@ -311,7 +311,7 @@
               </router-link>
               <a
                 class="topbar-dropdown-item dropdown-item"
-                :href="bugReportMailto"
+                @click.prevent="openBugReportModal()"
                 target="_blank"
               >
                 {{ $t('reportBug') }}

@@ -9,13 +9,11 @@
           <a href="mailto:admin@habitica.com">admin&commat;habitica&period;com</a>
           <span v-if="user">
             <br>
-            {{ $t('reportBug') }}
-            &colon;&nbsp;
             <a
-              :href="bugReportMailto"
+              @click.prevent="openBugReportModal()"
               target="_blank"
             >
-            admin&commat;habitica&period;com
+              {{ $t('reportBug') }}
             </a>
             <br>
             {{ $t('reportCommunityIssues') }}

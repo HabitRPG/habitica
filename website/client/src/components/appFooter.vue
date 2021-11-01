@@ -84,7 +84,7 @@
             </li>
             <li>
               <a
-                :href="bugReportMailto"
+                @click.prevent="openBugReportModal()"
                 target="_blank"
               >
                 {{ $t('reportBug') }}

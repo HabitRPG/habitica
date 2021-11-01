@@ -33,6 +33,7 @@
       <payments-success-modal />
       <sub-cancel-modal-confirm v-if="isUserLoaded" />
       <sub-canceled-modal v-if="isUserLoaded" />
+      <bug-report-modal v-if="isUserLoaded" />
       <snackbars />
       <router-view v-if="!isUserLoggedIn || isStaticPage" />
       <template v-else>
@@ -177,6 +178,9 @@ import {
   removeLocalSetting,
 } from '@/libs/userlocalManager';
 
+const bugReportModal = () => import(/* webpackChunkName: "bug-report-modal" */'@/components/bugReportModal');
+
+
 const COMMUNITY_MANAGER_EMAIL = process.env.EMAILS_COMMUNITY_MANAGER_EMAIL; // eslint-disable-line
 
 export default {
@@ -196,6 +200,7 @@ export default {
     paymentsSuccessModal,
     subCancelModalConfirm,
     subCanceledModal,
+    bugReportModal,
   },
   mixins: [notifications, spellsMixin],
   data () {
