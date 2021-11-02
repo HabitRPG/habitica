@@ -12,7 +12,7 @@
         {{ $t('reportBug') }}
       </h2>
 
-      <div v-once>
+      <div v-once class="report-bug-header-describe">
         {{ $t('reportBugHeaderDescribe') }}
       </div>
 
@@ -34,7 +34,7 @@
           >
             {{ $t('email') }}
           </label>
-          <div class="mb-2" v-once>
+          <div class="mb-2 description-label" v-once>
             {{ $t('reportEmailText') }}
           </div>
           <input
@@ -55,7 +55,7 @@
         <label v-once>
           {{ $t('reportDescription') }}
         </label>
-        <div class="mb-2" v-once>
+        <div class="mb-2 description-label" v-once>
           {{ $t('reportDescriptionText') }}
         </div>
         <textarea
@@ -131,12 +131,21 @@ h2 {
   background-image: linear-gradient(288deg, #{$purple-200}, #{$purple-300});
 }
 
+.report-bug-header-describe {
+  font-size: 14px;
+  line-height: 1.71;
+  color: $purple-600;
+}
+
 label {
   font-weight: bold;
+  line-height: 1.71;
+  color: $gray-50;
 }
 
 .cancel-link {
   color: $blue-10;
+  line-height: 1.71;
 }
 
 .submit-button {
@@ -147,6 +156,12 @@ label {
   font-size: 12px;
   line-height: 1.33;
   color: $maroon-10;
+}
+
+.description-label {
+  font-size: 12px;
+  line-height: 1.33;
+  color: $gray-100;
 }
 </style>
 

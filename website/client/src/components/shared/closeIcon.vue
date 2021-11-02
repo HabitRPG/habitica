@@ -51,6 +51,7 @@ export default {
 
     &.purple {
       --icon-color: #{$purple-400};
+      --icon-color-hover: #{$purple-500};
     }
 
     ::v-deep svg path {
