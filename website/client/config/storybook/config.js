@@ -42,7 +42,14 @@ store.state.user.data = {
   },
   auth: {
     local: {
-      email: 'example@example.com',
+      // email: 'example@example.com',
+    },
+    facebook: {
+      emails: [
+        {
+          value: 'test@test.de',
+        },
+      ],
     },
   },
 };

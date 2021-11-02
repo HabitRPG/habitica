@@ -213,7 +213,17 @@ export default {
     },
   },
   mounted () {
-    this.email = this.user.auth?.local?.email;
+    const { user } = this;
+
+    let email = user.auth?.local?.email;
+
+    if (!email) {
+      if (user.auth?.facebook?.emails) {
+        email = user.auth.facebook.emails?.[0]?.value;
+      }
+    }
+
+    this.email = email;
   },
 };
 </script>
