@@ -169,6 +169,7 @@ label {
 import axios from 'axios';
 import isEmail from 'validator/lib/isEmail';
 import closeIcon from '@/components/shared/closeIcon';
+import { mapState } from '@/libs/store';
 
 export default {
   components: {
@@ -201,6 +202,7 @@ export default {
     },
   },
   computed: {
+    ...mapState({ user: 'user.data' }),
     emailValid () {
       if (this.email.length <= 3) return false;
       return isEmail(this.email);
@@ -209,6 +211,9 @@ export default {
       if (this.email.length <= 3) return false;
       return !this.emailValid;
     },
+  },
+  mounted () {
+    this.email = this.user.auth?.local?.email;
   },
 };
 </script>
