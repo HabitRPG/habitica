@@ -1347,6 +1347,58 @@ const weapon = {
   skullLantern: {
     int: 10,
   },
+  potionBase: {
+    str: 3,
+    int: 3,
+    con: 3,
+    per: 3,
+    set: 'hatchingPotions',
+  },
+  potionBlue: {
+    int: 4,
+    con: 8,
+    set: 'hatchingPotions',
+  },
+  potionDesert: {
+    str: 4,
+    con: 8,
+    set: 'hatchingPotions',
+  },
+  potionGolden: {
+    str: 6,
+    int: 6,
+    set: 'hatchingPotions',
+  },
+  potionPink: {
+    int: 4,
+    con: 8,
+    set: 'hatchingPotions',
+  },
+  potionRed: {
+    str: 6,
+    con: 6,
+    set: 'hatchingPotions',
+  },
+  potionShade: {
+    int: 9,
+    per: 3,
+    set: 'hatchingPotions',
+  },
+  potionSkeleton: {
+    str: 9,
+    int: 3,
+    set: 'hatchingPotions',
+  },
+  potionWhite: {
+    con: 5,
+    per: 7,
+    set: 'hatchingPotions',
+  },
+  potionZombie: {
+    con: 4,
+    per: 8,
+    set: 'hatchingPotions',
+  },
 };
 
 forEach({
