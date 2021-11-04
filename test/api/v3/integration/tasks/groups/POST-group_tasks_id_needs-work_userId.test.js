@@ -38,7 +38,7 @@ describe('POST /tasks/:id/needs-work/:userId', () => {
       .to.eventually.be.rejected.and.to.eql({
         code: 404,
         error: 'NotFound',
-        message: t('taskNotFound'),
+        message: t('messageTaskNotFound'),
       });
   });
 

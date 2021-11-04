@@ -42,7 +42,7 @@
             {{ $t('noChallengeTitle') }}
           </h2>
           <p v-once>
-            {{ $t('challengeDescription1') }}
+            {{ $t('challengeDetails') }}
           </p>
           <p v-once>
             {{ $t('challengeDescription2') }}

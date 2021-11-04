@@ -27,7 +27,7 @@ describe('POST /user/reset', () => {
     await expect(user.get(`/tasks/${task._id}`)).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
-      message: t('taskNotFound'),
+      message: t('messageTaskNotFound'),
     });
 
     expect(user.tasksOrder.habits).to.be.empty;
@@ -45,7 +45,7 @@ describe('POST /user/reset', () => {
     await expect(user.get(`/tasks/${task._id}`)).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
-      message: t('taskNotFound'),
+      message: t('messageTaskNotFound'),
     });
 
     expect(user.tasksOrder.dailys).to.be.empty;
@@ -63,7 +63,7 @@ describe('POST /user/reset', () => {
     await expect(user.get(`/tasks/${task._id}`)).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
-      message: t('taskNotFound'),
+      message: t('messageTaskNotFound'),
     });
 
     expect(user.tasksOrder.todos).to.be.empty;
@@ -81,7 +81,7 @@ describe('POST /user/reset', () => {
     await expect(user.get(`/tasks/${task._id}`)).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
-      message: t('taskNotFound'),
+      message: t('messageTaskNotFound'),
     });
 
     expect(user.tasksOrder.rewards).to.be.empty;

@@ -135,7 +135,7 @@ api.getBackgroundShopItems = {
     const resObject = {
       identifier: 'backgroundShop',
       text: res.t('backgroundShop'),
-      notes: res.t('backgroundShopText'),
+      notes: res.t('backgroundShop'),
       imageName: 'background_shop',
       sets: shops.getBackgroundShopSets(user, req.language),
     };

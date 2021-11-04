@@ -1957,7 +1957,7 @@
   "headArmoireBlackFloppyHatNotes": "Many spells have been sewn into this simple hat, giving it a bold black color. Increases Constitution, Perception, and Strength by <%= attrs %> each. Enchanted Armoire: Black Loungewear Set (Item 1 of 3).",
 
   "offhand": "off-hand item",
-  "offhandCapitalized": "Off-Hand Item",
+  "offHandCapitalized": "Off-Hand Item",
 
   "shieldBase0Text": "No Off-Hand Equipment",
   "shieldBase0Notes": "No shield or other off-hand item.",
@@ -2320,7 +2320,6 @@
   "shieldArmoireSoftBlackPillowNotes": "The brave warrior packs a pillow for any expedition. Guard yourself from tiresome tasks... even while you nap. Increases Intelligence and Perception by <%= attrs %> each. Enchanted Armoire: Black Loungewear Set (Item 3 of 3).",
 
   "back": "Back Accessory",
-  "backCapitalized": "Back Accessory",
   "backBase0Text": "No Back Accessory",
   "backBase0Notes": "No Back Accessory.",
   "animalTails": "Animal Tails",
@@ -2414,7 +2413,6 @@
   "backWolfTailNotes": "This tail makes you look like a loyal wolf! Confers no benefit.",
 
   "body": "Body Accessory",
-  "bodyCapitalized": "Body Accessory",
   "bodyBase0Text": "No Body Accessory",
   "bodyBase0Notes": "No Body Accessory.",
 
@@ -2470,8 +2468,7 @@
   "bodyArmoireClownsBowtieText": "Clown's Bow-Tie",
   "bodyArmoireClownsBowtieNotes": "A nice bow-tie is no joking matter, even for a clown. Increases Strength, Intelligence, Constitution and Perception by <%= attrs %> each. Enchanted Armoire: Clown Set (Item 5 of 5).",
 
-  "headAccessory": "head accessory",
-  "headAccessoryCapitalized": "Head Accessory",
+  "headAccessory": "Head Accessory",
   "accessories": "Accessories",
   "animalEars": "Animal Ears",
 
@@ -2588,7 +2585,6 @@
   "headAccessoryArmoireGogglesOfBookbindingNotes": "These goggles will help you zero in on any task, large or small! Increases Perception by <%= per %>. Enchanted Armoire: Bookbinder Set (Item 1 of 4).",
 
   "eyewear": "Eyewear",
-  "eyewearCapitalized": "Eyewear",
   "eyewearBase0Text": "No Eyewear",
   "eyewearBase0Notes": "No Eyewear.",
 

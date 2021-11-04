@@ -30,7 +30,6 @@
   "contribLevel": "Contrib Tier",
   "hallContributors": "Hall of Contributors",
   "hallPatrons": "Hall of Patrons",
-  "UUID": "User ID",
   "noAdminAccess": "You don't have admin access.",
   "userNotFound": "User not found.",
   "invalidUUID": "UUID must be valid",

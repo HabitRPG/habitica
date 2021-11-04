@@ -21,7 +21,7 @@
               v-else
             >{{ $t('sendGiftCost', {cost: gift.gems.amount / 4}) }}</span>
           </div>
-          {{ $t('gemsPopoverTitle') }}
+          {{ $t('gems') }}
         </h3>
         <div class="panel-body">
           <div class="d-flex mb-3">

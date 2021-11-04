@@ -144,7 +144,7 @@ api.groupMoveTask = {
     const to = Number(req.params.position);
 
     if (!task) {
-      throw new NotFound(res.t('taskNotFound'));
+      throw new NotFound(res.t('messageTaskNotFound'));
     }
 
     if (task.type === 'todo' && task.completed) throw new BadRequest(res.t('cantMoveCompletedTodo'));
@@ -197,7 +197,7 @@ api.assignTask = {
     const task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
 
     if (!task) {
-      throw new NotFound(res.t('taskNotFound'));
+      throw new NotFound(res.t('messageTaskNotFound'));
     }
 
     if (!task.group.id) {
@@ -272,7 +272,7 @@ api.unassignTask = {
     const task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
 
     if (!task) {
-      throw new NotFound(res.t('taskNotFound'));
+      throw new NotFound(res.t('messageTaskNotFound'));
     }
 
     if (!task.group.id) {
@@ -332,7 +332,7 @@ api.approveTask = {
     }).exec();
 
     if (!task) {
-      throw new NotFound(res.t('taskNotFound'));
+      throw new NotFound(res.t('messageTaskNotFound'));
     }
 
     const fields = requiredGroupFields.concat(' managers');
@@ -440,7 +440,7 @@ api.taskNeedsWork = {
     ]);
 
     if (!task) {
-      throw new NotFound(res.t('taskNotFound'));
+      throw new NotFound(res.t('messageTaskNotFound'));
     }
 
     const fields = requiredGroupFields.concat(' managers');

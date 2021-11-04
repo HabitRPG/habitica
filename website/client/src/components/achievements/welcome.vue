@@ -52,7 +52,7 @@
           class="btn btn-primary btn-lg flex-column"
           @click="ready()"
         >
-          {{ $t('imReady') }}
+          {{ $t('enterHabitica') }}
         </button>
       </div>
       <div class="col-3"></div>

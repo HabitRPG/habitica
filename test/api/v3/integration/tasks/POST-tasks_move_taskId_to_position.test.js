@@ -23,7 +23,7 @@ describe('POST /tasks/:taskId/move/to/:position', () => {
     await expect(user.post(`/tasks/${generateUUID()}/move/to/1`)).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
-      message: t('taskNotFound'),
+      message: t('messageTaskNotFound'),
     });
   });
 

@@ -47,7 +47,7 @@ describe('GET /tasks/:taskId', () => {
     await expect(user.get(`/tasks/${generateUUID()}`)).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
-      message: t('taskNotFound'),
+      message: t('messageTaskNotFound'),
     });
   });
 
@@ -68,7 +68,7 @@ describe('GET /tasks/:taskId', () => {
         await expect(anotherUser.get(`/tasks/${task._id}`)).to.eventually.be.rejected.and.eql({
           code: 404,
           error: 'NotFound',
-          message: t('taskNotFound'),
+          message: t('messageTaskNotFound'),
         });
       });
     });

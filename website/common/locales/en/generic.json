@@ -49,7 +49,6 @@
   "notEnoughGems": "Not enough Gems",
   "alreadyHave": "Whoops! You already have this item. No need to buy it again!",
   "delete": "Delete",
-  "gemsPopoverTitle": "Gems",
   "gems": "Gems",
   "needMoreGems": "Need More Gems?",
   "needMoreGemsInfo": "Purchase Gems now, or become a subscriber to buy Gems with Gold, get monthly mystery items, enjoy increased drop caps and more!",
@@ -201,5 +200,6 @@
   "selected": "Selected",
   "howManyToBuy": "How many would you like to buy?",
   "contactForm": "Contact the Moderation Team",
-  "loadEarlierMessages": "Load Earlier Messages"
+  "loadEarlierMessages": "Load Earlier Messages",
+  "askQuestion": "Ask a Question"
 }

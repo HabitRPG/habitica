@@ -17,7 +17,7 @@
       <close-icon @click="hideDialog()" />
     </div>
     <h2 class="text-center textCondensed">
-      {{ $t('questDetailsTitle') }}
+      {{ $t('questDetails') }}
     </h2>
     <div
       v-if="item != null"

@@ -320,13 +320,13 @@
                 class="topbar-dropdown-item dropdown-item"
                 to="/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a"
               >
-                {{ $t('askAQuestion') }}
+                {{ $t('askQuestion') }}
               </router-link>
               <a
                 class="topbar-dropdown-item dropdown-item"
                 href="https://docs.google.com/forms/d/e/1FAIpQLScPhrwq_7P1C6PTrI3lbvTsvqGyTNnGzp1ugi1Ml0PFee_p5g/viewform?usp=sf_link"
                 target="_blank"
-              >{{ $t('requestAF') }}</a>
+              >{{ $t('requestFeature') }}</a>
               <a
                 class="topbar-dropdown-item dropdown-item"
                 href="https://habitica.fandom.com/wiki/Contributing_to_Habitica"

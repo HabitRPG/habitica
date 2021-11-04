@@ -26,7 +26,7 @@
               class="svg-icon positive-icon"
               v-html="icons.positiveIcon"
             ></div>
-            <span v-once>{{ $t('createGuild2') }}</span>
+            <span v-once>{{ $t('create') }}</span>
           </button>
           <!-- @TODO: Add when we implement recent activity
           .float-rightspan.dropdown-label {{ $t('sortBy') }}

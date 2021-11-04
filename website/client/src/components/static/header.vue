@@ -123,7 +123,7 @@
         class="btn btn-primary pull-right"
         @click="playButtonClick()"
       >
-        {{ $t('playButtonFull') }}
+        {{ $t('enterHabitica') }}
       </button>
     </div>
     <router-link

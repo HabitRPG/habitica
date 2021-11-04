@@ -36,13 +36,13 @@
             class="btn btn-primary"
             @click="unlink('keep-all')"
           >
-            {{ $t('keepThem') }}
+            {{ $t('keepTasks') }}
           </button>
           <button
             class="btn btn-danger"
             @click="unlink('remove-all')"
           >
-            {{ $t('removeThem') }}
+            {{ $t('removeTasks') }}
           </button>
         </div>
       </div>
@@ -53,23 +53,16 @@
             class="btn btn-primary"
             @click="unlink('keep-all')"
           >
-            {{ $t('keepThem') }}
+            {{ $t('keepTasks') }}
           </button>
           <button
             class="btn btn-danger"
             @click="unlink('remove-all')"
           >
-            {{ $t('removeThem') }}
+            {{ $t('removeTasks') }}
           </button>
         </div>
       </div>
-      <!-- @TODO: I ported this over, but do we use it anymore?-->
-      <!--div(v-if='brokenChallengeTask.challenge.broken
-      === "UNSUBSCRIBED"')p {{ $t('unsubChallenge') }}
-p
-  a(@click="unlink('keep-all')") {{ $t('keepThem') }}
-  | &nbsp;|&nbsp;
-      a(@click="unlink('remove-all')") {{ $t('removeThem') }}-->
     </div>
   </b-modal>
 </template>

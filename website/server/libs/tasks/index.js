@@ -262,7 +262,7 @@ async function getChallengeFromTask (task) {
 
 function verifyTaskModification (task, user, group, challenge, res) {
   if (!task) {
-    throw new NotFound(res.t('taskNotFound'));
+    throw new NotFound(res.t('messageTaskNotFound'));
   } else if (task.group.id && !task.userId) {
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
@@ -274,7 +274,7 @@ function verifyTaskModification (task, user, group, challenge, res) {
 
   // If the task is owned by a user make it's the current one
   } else if (task.userId !== user._id) {
-    throw new NotFound(res.t('taskNotFound'));
+    throw new NotFound(res.t('messageTaskNotFound'));
   }
 }
 
@@ -474,7 +474,7 @@ export async function scoreTasks (user, taskScorings, req, res) {
     }
   });
 
-  if (Object.keys(tasks).length === 0) throw new NotFound(res.t('taskNotFound'));
+  if (Object.keys(tasks).length === 0) throw new NotFound(res.t('messageTaskNotFound'));
 
   // Score each task separately to make sure changes to user._tmp don't overlap.
   // scoreTask is an async function but the only async operation happens when a group task
