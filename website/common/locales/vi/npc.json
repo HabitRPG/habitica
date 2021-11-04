@@ -42,7 +42,7 @@
     "amountGold": "<%= amount %> Vàng",
     "namedHatchingPotion": "<%= type %> Lọ thuốc ấp trứng",
     "buyGems": "Mua Ngọc",
-    "purchaseGems": "Thanh toán Gem",
+    "purchaseGems": "Thanh toán Ngọc",
     "items": "Vật phẩm",
     "AZ": "A-Z",
     "sort": "Sắp xếp",
@@ -123,5 +123,12 @@
     "paymentAutoRenew": "Gói đăng ký này sẽ tự động làm mới tới khi nó bị hủy. Nếu bạn cần hủy Gói đăng ký này, bạn có thể làm điều đó từ cài đặt của bạn.",
     "paymentSubBillingWithMethod": "Gói đăng ký của bạn sẽ được thanh toán <strong>$<%= amount %></strong> mỗi <strong><%= months %> tháng</strong> bằng <strong><%= paymentMethod %></strong>.",
     "invalidUnlockSet": "Bộ vật phẩm này không hợp lệ và không thể mở khóa.",
-    "cannotUnpinItem": "Vật phẩm này không thể gỡ ghim."
+    "cannotUnpinItem": "Vật phẩm này không thể gỡ ghim.",
+    "limitedAvailabilityMinutes": "Tồn tại cho <%= minutes %> phút <%= seconds %> giây",
+    "nGemsGift": "<%= nGems %> Ngọc (Quà Tặng)",
+    "nGems": "<%= nGems %> Ngọc",
+    "amountExp": "<%= amount %> Kinh nghiệm",
+    "nMonthsSubscriptionGift": "<%= nMonths %> Tháng Gói đăng ký (Quà Tặng)",
+    "limitedAvailabilityDays": "Tồn tại cho <%= days %> ngày <%= hours %> tiếng <%= minutes %> phút",
+    "limitedAvailabilityHours": "Tồn tại cho <%= hours %> tiếng <%= minutes %> phút"
 }

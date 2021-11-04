@@ -8,7 +8,7 @@
     "reachedGoldToGemCapQuantity": "Your requested amount <%= quantity %> exceeds the Gold=>Gem conversion cap <%= convCap %> for this month. We have this to prevent abuse / farming. The cap resets within the first three days of each month.",
     "mysteryItem": "Exclusive monthly items",
     "mysteryItemText": "Each month you will receive a unique cosmetic item for your avatar! Plus, for every three months of consecutive subscription, the Mysterious Time Travelers will grant you access to historic (and futuristic!) cosmetic items.",
-    "exclusiveJackalopePet": "Exclusive pet",
+    "exclusiveJackalopePet": "限定寵物",
     "giftSubscription": "Want to gift a subscription to someone?",
     "giftSubscriptionText4": "Thanks for supporting Habitica!",
     "groupPlans": "Group Plans",
