@@ -4,7 +4,7 @@
   "version": "4.211.0",
   "main": "./website/server/index.js",
   "dependencies": {
-    "@babel/core": "^7.15.8",
+    "@babel/core": "^7.16.0",
     "@babel/preset-env": "^7.15.8",
     "@babel/register": "^7.15.3",
     "@google-cloud/trace-agent": "^5.1.5",
