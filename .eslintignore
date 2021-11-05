@@ -12,6 +12,7 @@ apidoc/html/
 content_cache/
 i18n_cache/
 node_modules/
+/test/selenium/
 
 # Old migrations, disabled
 migrations/archive/*

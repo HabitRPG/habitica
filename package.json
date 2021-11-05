@@ -98,6 +98,7 @@
     "test:common": "istanbul cover --dir coverage/common --report lcovonly node_modules/mocha/bin/_mocha -- test/common --recursive",
     "test:content": "istanbul cover --dir coverage/content --report lcovonly node_modules/mocha/bin/_mocha -- test/content --recursive",
     "test:nodemon": "gulp test:nodemon",
+    "test:selenium": "cd test/selenium && npm run test",
     "coverage": "COVERAGE=true mocha --require register-handlers.js --reporter html-cov > coverage.html; open coverage.html",
     "sprites": "gulp sprites:compile",
     "client:dev": "cd website/client && npm run serve",
