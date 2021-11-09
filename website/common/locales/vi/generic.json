@@ -190,7 +190,7 @@
     "dismissAll": "Dismiss All",
     "messages": "Messages",
     "emptyMessagesLine1": "You don't have any messages",
-    "emptyMessagesLine2": "Send a message to start a conversation!",
+    "emptyMessagesLine2": "Bạn có thể gửi một tin nhắn mới tới một người dùng bằng việc xem Hồ sơ của họ và bấm vào nút \"Nhắn tin\".",
     "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> sent you a message",
     "letsgo": "Let's Go!",
     "selected": "Selected",

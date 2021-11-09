@@ -138,5 +138,6 @@
     "pressEnterToAddTag": "Нажмите Enter, чтобы добавить тег: '<%= tagName %>'",
     "counter": "Счётчик",
     "adjustCounter": "Настроить счётчик",
-    "resetCounter": "Сбросить счётчик"
+    "resetCounter": "Сбросить счётчик",
+    "editTagsText": "Изменить теги"
 }

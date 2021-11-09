@@ -2164,7 +2164,7 @@
     "armorArmoireHeroicHerbalistRobeNotes": "Riecht immer angenehm nach allerlei Kräutern. Erhöht Ausdauer und Intelligenz um je <%= attrs %>. Verzauberter Schrank: Heroischer-Herbalist-Set (Gegenstand 1 von 3).",
     "headAccessoryMystery202009Notes": "Diese federigen Antennen werden Dir dabei helfen, selbst in der Dunkelheit der Nacht, den Weg zu finden. Gewährt keinen Attributbonus. Abonnentengegenstand, September 2020.",
     "backMystery202009Notes": "Lass diese riesigen Flügel Dich in ungekannte Höhen bringen! Gewährt keinen Attributbonus. Abonnentengegenstand, September 2020.",
-    "shieldArmoireMortarAndPestleNotes": "Das wichtigste Equipment im Arsenal eines Herbalisten! Zermahle die Zutaten für Deine Kräutermixturen und lege Dich ins Zeug! Erhöht Ausdauer um <%= con %>. Verzauberter Schrank: Heroischer-Herbalist-Set (Gegenstand 2 von 3).",
+    "shieldArmoireMortarAndPestleNotes": "Die wichtigste Ausrüstung im Arsenal eines Herbalisten! Zermahle die Zutaten für Deine Kräutermixturen und lege Dich ins Zeug! Erhöht Ausdauer um <%= con %>. Verzauberter Schrank: Heroischer-Herbalist-Set (Gegenstand 2 von 3).",
     "headArmoireHeroicHerbalistCrispinetteNotes": "Dieser praktische Kopfschmuck wird Dir helfen Deine Haare im Zaum zu halten... Es schadet nicht, dass er auch zu einem geheimnisvollen Ruf beiträgt. Erhöht Intelligenz um <%= int %>. Verzauberter Schrank: Heroischer-Herbalist-Set (Gegenstand 3 von 3).",
     "headArmoireGuardiansBonnetNotes": "Setze diese fesselnde Haube auf, damit sie Dir beim Hüten Deiner Aufgaben hilft! Erhöht Ausdauer um <%= con %>. Verzauberter Schrank: Wächter der Weidegänger-Set (Gegenstand 1 von3).",
     "headArmoireGuardiansBonnetText": "Wächterhaube",

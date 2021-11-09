@@ -138,5 +138,6 @@
     "tomorrow": "明天",
     "resetCounter": "重置次数",
     "counter": "次数",
-    "adjustCounter": "调整次数"
+    "adjustCounter": "调整次数",
+    "editTagsText": "编辑标签"
 }

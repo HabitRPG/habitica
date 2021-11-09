@@ -69,7 +69,7 @@
     "yourProgress": "Dina framsteg",
     "onboardingCompleteDescSmall": "Om du vill ha ännu mer, ta en titt på dina Prestationer och börja samla!",
     "achievementGoodAsGold": "Bra som Guld",
-    "yourRewards": "Dina Belöningar",
+    "yourRewards": "Dina belöningar",
     "achievementTickledPinkModalText": "Du har samlat alla Sockervaddsrosa Husdjur!",
     "achievementTickledPinkText": "Har samlat alla Sockervaddsrosa Husdjur.",
     "onboardingComplete": "Du har slutfört dina introduktionsuppgifter!",
@@ -114,5 +114,14 @@
     "achievementSeasonalSpecialistText": "Har slutfört alla säsongsuppdrag för vår och vinter: Äggjakt, Pälsjägartomten, och, Hitta Björnungen!",
     "achievementSeasonalSpecialist": "Säsongsspecialist",
     "achievementLegendaryBestiaryModalText": "Du har samlat alla mystiska husdjur!",
-    "achievementLegendaryBestiaryText": "Har kläckt alla vanliga mystiska husdjur: Drake, Flygande Gris, Grip, Sjöorm, och Enhörning!"
+    "achievementLegendaryBestiaryText": "Har kläckt alla vanliga mystiska husdjur: Drake, Flygande Gris, Grip, Sjöorm, och Enhörning!",
+    "achievementDomesticated": "E-I-E-I-O",
+    "achievementDomesticatedModalText": "Du har samlat alla tama Husdjur!",
+    "achievementDomesticatedText": "Du har kläckt alla vanliga färger av tama husdjur: Iller, Marsvin, Tupp, Flygande gris, Råtta, Kanin, Häst, och Ko!",
+    "achievementShadyCustomer": "Skum kund",
+    "achievementShadyCustomerText": "Har samlat alla Mörka Husdjur.",
+    "achievementShadyCustomerModalText": "Du har samlat alla Mörka Husdjur!",
+    "achievementShadeOfItAll": "Skuggan av allt",
+    "achievementShadeOfItAllText": "Har tämjt alla Mörka Riddjur.",
+    "achievementShadeOfItAllModalText": "Du har tämjt alla Mörka Riddjur!"
 }

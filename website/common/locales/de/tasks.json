@@ -138,5 +138,6 @@
     "tomorrow": "Morgen",
     "counter": "Zähler",
     "adjustCounter": "Zähler anpassen",
-    "resetCounter": "Zähler zurücksetzen"
+    "resetCounter": "Zähler zurücksetzen",
+    "editTagsText": "Tags bearbeiten"
 }
