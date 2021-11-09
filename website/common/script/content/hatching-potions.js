@@ -125,12 +125,13 @@ const premium = {
     value: 2,
     text: t('hatchingPotionEmber'),
     limited: true,
+    event: EVENTS.potions202111,
     _addlNotes: t('eventAvailabilityReturning', {
       availableDate: t('dateEndNovember'),
-      previousDate: t('augustYYYY', { year: 2017 }),
+      previousDate: t('novemberYYYY', { year: 2019 }),
     }),
     canBuy () {
-      return moment().isBetween('2019-11-12', '2019-12-02');
+      return moment().isBefore(EVENTS.potions202111.end);
     },
   },
   Thunderstorm: {
@@ -429,12 +430,14 @@ const premium = {
     value: 2,
     text: t('hatchingPotionAutumnLeaf'),
     limited: true,
-    canBuy () {
-      return moment().isBefore('2020-12-02');
-    },
-    _addlNotes: t('premiumPotionAddlNotes', {
-      date: t('dateEndNovember'),
+    event: EVENTS.potions202111,
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndNovember'),
+      previousDate: t('novemberYYYY', { year: 2020 }),
     }),
+    canBuy () {
+      return moment().isBefore(EVENTS.potions202111.end);
+    },
   },
   BlackPearl: {
     value: 2,
