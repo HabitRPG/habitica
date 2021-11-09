@@ -103,5 +103,6 @@
     "createChallengeCloneTasks": "复制挑战任务",
     "filters": "过滤器",
     "wonChallengeDesc": "恭喜你赢得了<%= challengeName %> 挑战！你的胜利已记录在成就中。",
-    "yourReward": "你获得的奖励"
+    "yourReward": "你获得的奖励",
+    "removeTasks": "删除任务"
 }

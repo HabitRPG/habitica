@@ -201,5 +201,6 @@
     "loadEarlierMessages": "以前のメッセージを読み込む",
     "finish": "終了",
     "congratulations": "おめでとうございます！",
-    "onboardingAchievs": "初心者入門の実績"
+    "onboardingAchievs": "初心者入門の実績",
+    "askQuestion": "質問する"
 }

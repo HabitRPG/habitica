@@ -138,5 +138,6 @@
     "tomorrow": "Demain",
     "resetCounter": "Réinitialiser le compteur",
     "adjustCounter": "Ajuster le compteur",
-    "counter": "Compteur"
+    "counter": "Compteur",
+    "editTagsText": "Modifier les étiquettes"
 }

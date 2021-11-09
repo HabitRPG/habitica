@@ -201,5 +201,6 @@
     "loadEarlierMessages": "Charger les messages précédents",
     "finish": "Terminer",
     "congratulations": "Félicitations !",
-    "onboardingAchievs": "succès de démarrage"
+    "onboardingAchievs": "succès de démarrage",
+    "askQuestion": "Poser une question"
 }
