@@ -178,6 +178,8 @@ const bannedWords = [
   'nofap',
   'fapping',
   'no nut',
+  'no-nut',
+  'no-nut-november',
   'masturbate',
   'masturbates',
   'masturbating',
