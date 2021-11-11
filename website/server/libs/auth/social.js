@@ -53,34 +53,43 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
     return loginRes(user, req, res);
   }
 
-  const generatedUsername = generateUsername();
 
-  user = {
-    auth: {
-      [network]: {
-        id: profile.id,
-        emails: profile.emails,
-      },
-      local: {
-        username: generatedUsername,
-        lowerCaseUsername: generatedUsername,
-      },
-    },
-    profile: {
-      name: profile.displayName || profile.name || profile.username,
-    },
-    preferences: {
-      language: req.language,
-    },
-    flags: {
-      verifiedUsername: true,
-    },
-  };
+  const email;
+  if (profile.emails && profile.emails[0] && profile.emails[0].value) {
+      email = profile.emails[0].value.toLowerCase()
+    }
+
+  if (!existingUser) {
+    existingUser = await User.findOne({ 'auth.local.email': email }, { 'auth.local': 1 }).exec();
+  }
 
   if (existingUser) {
     existingUser.auth[network] = user.auth[network];
     user = existingUser;
   } else {
+    const generatedUsername = generateUsername();
+
+    user = {
+      auth: {
+        [network]: {
+          id: profile.id,
+          emails: profile.emails,
+        },
+        local: {
+          username: generatedUsername,
+          lowerCaseUsername: generatedUsername,
+        },
+      },
+      profile: {
+        name: profile.displayName || profile.name || profile.username,
+      },
+      preferences: {
+        language: req.language,
+      },
+      flags: {
+        verifiedUsername: true,
+      },
+    };
     user = new User(user);
     user.registeredThrough = req.headers['x-client']; // Not saved, used to create the correct tasks based on the device used
   }
@@ -94,13 +103,9 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
   const response = loginRes(user, req, res);
 
   // Clean previous email preferences
-  if (
-    savedUser.auth[network].emails
-    && savedUser.auth[network].emails[0]
-    && savedUser.auth[network].emails[0].value
-  ) {
+  if (email) {
     EmailUnsubscription
-      .remove({ email: savedUser.auth[network].emails[0].value.toLowerCase() })
+      .remove({ email: email })
       .exec()
       .then(() => {
         if (!existingUser) {
