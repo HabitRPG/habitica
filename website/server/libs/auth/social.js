@@ -78,6 +78,7 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
         local: {
           username: generatedUsername,
           lowerCaseUsername: generatedUsername,
+          email: email;
         },
       },
       profile: {
