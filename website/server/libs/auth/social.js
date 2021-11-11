@@ -24,7 +24,7 @@ function _passportProfile (network, accessToken) {
 }
 
 export async function loginSocial (req, res) { // eslint-disable-line import/prefer-default-export
-  const existingUser = res.locals.user;
+  let existingUser = res.locals.user;
   const { network } = req.body;
 
   const isSupportedNetwork = common.constants.SUPPORTED_SOCIAL_NETWORKS
@@ -48,16 +48,15 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
   // User already signed up
   if (user) {
     if (existingUser) {
-      throw new NotAuthorized(res.t('socialAlreadyExists'))
+      throw new NotAuthorized(res.t('socialAlreadyExists'));
     }
     return loginRes(user, req, res);
   }
 
-
-  const email;
+  let email;
   if (profile.emails && profile.emails[0] && profile.emails[0].value) {
-      email = profile.emails[0].value.toLowerCase()
-    }
+    email = profile.emails[0].value.toLowerCase();
+  }
 
   if (!existingUser) {
     existingUser = await User.findOne({ 'auth.local.email': email }, { 'auth.local': 1 }).exec();
@@ -78,7 +77,7 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
         local: {
           username: generatedUsername,
           lowerCaseUsername: generatedUsername,
-          email: email;
+          email,
         },
       },
       profile: {
@@ -106,7 +105,7 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
   // Clean previous email preferences
   if (email) {
     EmailUnsubscription
-      .remove({ email: email })
+      .remove({ email })
       .exec()
       .then(() => {
         if (!existingUser) {
