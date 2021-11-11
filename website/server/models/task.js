@@ -5,7 +5,6 @@ import _ from 'lodash';
 import shared from '../../common';
 import baseModel from '../libs/baseModel';
 import { preenHistory } from '../libs/preening';
-import { SHARED_COMPLETION } from '../libs/groupTasks'; // eslint-disable-line import/no-cycle
 
 const { Schema } = mongoose;
 
@@ -142,9 +141,7 @@ export const TaskSchema = new Schema({
       requestedDate: { $type: Date },
     },
     sharedCompletion: {
-      $type: String,
-      enum: _.values(SHARED_COMPLETION),
-      default: SHARED_COMPLETION.single,
+      $type: String, // legacy data
     },
     managerNotes: { $type: String },
     completedBy: { $type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid for group completing user.'] },

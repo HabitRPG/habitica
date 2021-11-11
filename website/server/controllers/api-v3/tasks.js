@@ -775,17 +775,12 @@ api.scoreTask = {
 
     const userStats = user.stats.toJSON();
 
-    // group tasks that require a manager's approval
-    if (taskResponse.requiresApproval === true) {
-      res.respond(202, { requiresApproval: true }, taskResponse.message);
-    } else {
-      const resJsonData = _.assign({
-        delta: taskResponse.delta,
-        _tmp: user._tmp,
-      }, userStats);
+    const resJsonData = _.assign({
+      delta: taskResponse.delta,
+      _tmp: user._tmp,
+    }, userStats);
 
-      res.respond(200, resJsonData);
-    }
+    res.respond(200, resJsonData);
   },
 };
 

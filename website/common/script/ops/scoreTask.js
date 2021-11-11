@@ -234,11 +234,6 @@ export default function scoreTask (options = {}, req = {}, analytics) {
     exp: user.stats.exp,
   };
 
-  if (
-    task.group && task.group.approval && task.group.approval.required
-    && !task.group.approval.approved && !(task.type === 'todo' && cron)
-  ) return 0;
-
   // This is for setting one-time temporary flags,
   // such as streakBonus or itemDropped. Useful for notifying
   // the API consumer, then cleared afterwards

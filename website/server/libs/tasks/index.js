@@ -17,7 +17,6 @@ import {
   NotAuthorized,
 } from '../errors';
 import {
-  SHARED_COMPLETION,
   handleSharedCompletion,
 } from '../groupTasks';
 import shared from '../../../common';
@@ -67,7 +66,6 @@ async function createTasks (req, res, options = {}) {
       if (taskData.requiresApproval) {
         newTask.group.approval.required = true;
       }
-      newTask.group.sharedCompletion = taskData.sharedCompletion || SHARED_COMPLETION.default;
       newTask.group.managerNotes = taskData.managerNotes || '';
     } else {
       newTask.userId = user._id;
@@ -296,22 +294,23 @@ async function handleChallengeTask (task, delta, direction) {
   }
 }
 
-async function handleGroupTask (task, delta, direction) {
+async function handleTeamTask (task, delta, direction) {
   if (task.group && task.group.taskId) {
     // Wrapping everything in a try/catch block because if an error occurs
     // using `await` it MUST NOT bubble up because the request has already been handled
     try {
-      const groupTask = await Tasks.Task.findOne({
+      const teamTask = await Tasks.Task.findOne({
         _id: task.group.taskId,
       }).exec();
 
-      if (groupTask) {
-        await handleSharedCompletion(groupTask, task);
-
-        const groupDelta = groupTask.group.assignedUsers
-          ? delta / groupTask.group.assignedUsers.length
+      if (teamTask) {
+        const groupDelta = teamTask.group.assignedUsers
+          ? delta / teamTask.group.assignedUsers.length
           : delta;
-        await groupTask.scoreChallengeTask(groupDelta, direction);
+        await teamTask.scoreChallengeTask(groupDelta, direction);
+        if (task.type === 'daily' || task.type === 'todo') {
+          await handleSharedCompletion(teamTask);
+        }
       }
     } catch (e) {
       logger.error(e, 'Error scoring group task');
@@ -371,17 +370,23 @@ async function scoreTask (user, task, direction, req, res) {
     if (!localTask) throw new NotFound('Task not found.');
   }
 
-  const wasCompleted = task.completed;
+  const targetTask = localTask || task;
+
+  const wasCompleted = targetTask.completed;
   const firstTask = !user.achievements.completedTask;
   let delta;
 
   if (rollbackUser) {
-    delta = shared.ops.scoreTask({ task, user: rollbackUser, direction }, req, res.analytics);
+    delta = shared.ops.scoreTask({
+      task: targetTask,
+      user: rollbackUser,
+      direction,
+    }, req, res.analytics);
     rollbackUser.addNotification('GROUP_TASK_NEEDS_WORK', {
-      message: res.t('taskNeedsWork', { taskText: task.text, managerName: user.profile.name }, rollbackUser.preferences.language),
+      message: res.t('taskNeedsWork', { taskText: targetTask.text, managerName: user.profile.name }, rollbackUser.preferences.language),
       task: {
-        id: task._id,
-        text: task.text,
+        id: targetTask._id,
+        text: targetTask.text,
       },
       group: {
         id: group._id,
@@ -394,51 +399,51 @@ async function scoreTask (user, task, direction, req, res) {
     });
     await rollbackUser.save();
   } else {
-    delta = shared.ops.scoreTask({ task, user, direction }, req, res.analytics);
+    delta = shared.ops.scoreTask({ task: targetTask, user, direction }, req, res.analytics);
   }
   // Drop system (don't run on the client,
   // as it would only be discarded since ops are sent to the API, not the results)
-  if (direction === 'up' && !firstTask) shared.fns.randomDrop(user, { task, delta }, req, res.analytics);
+  if (direction === 'up' && !firstTask) shared.fns.randomDrop(user, { task: targetTask, delta }, req, res.analytics);
 
   // If a todo was completed or uncompleted move it in or out of the user.tasksOrder.todos list
   // TODO move to common code?
   let pullTask;
   let pushTask;
-  if (task.type === 'todo') {
+  if (targetTask.type === 'todo') {
     if (!wasCompleted && task.completed) {
       // @TODO: mongoose's push and pull should be atomic and help with
       // our concurrency issues. If not, we need to use this update $pull and $push
-      pullTask = localTask ? localTask._id : task._id;
+      pullTask = targetTask._id;
     } else if (
       wasCompleted
-      && !task.completed
+      && !targetTask.completed
       && user.tasksOrder.todos.indexOf(task._id) === -1
     ) {
-      pushTask = localTask ? localTask._id : task._id;
+      pushTask = targetTask._id;
     }
   }
 
-  if (task.completed && task.group.id && !task.userId) {
-    task.group.completedBy = user._id;
+  if (targetTask.completed && targetTask.group.id && !targetTask.userId) {
+    targetTask.group.completedBy = user._id;
   }
 
   setNextDue(task, user);
 
   if (localTask) {
-    localTask.completed = task.completed;
-    localTask.value = Number(task.value) + Number(delta);
+    localTask.completed = targetTask.completed;
+    localTask.value = Number(targetTask.value) + Number(delta);
     await localTask.save();
   }
 
   taskScoredWebhook.send(user, {
-    task,
+    task: targetTask,
     direction,
     delta,
     user,
   });
 
   return {
-    task,
+    task: targetTask,
     delta,
     direction,
     pullTask,
@@ -529,7 +534,7 @@ export async function scoreTasks (user, taskScorings, req, res) {
   return returnDatas.map(data => {
     // Handle challenge and group tasks tasks here because the task must have been saved first
     handleChallengeTask(data.task, data.delta, data.direction);
-    handleGroupTask(data.task, data.delta, data.direction);
+    handleTeamTask(data.task, data.delta, data.direction);
 
     return { id: data.task._id, delta: data.delta, _tmp: data._tmp };
   });
