@@ -28,7 +28,7 @@ const timeTravelerStore = user => {
     if (
       k === 'wondercon'
       || ownedKeys.indexOf(v.items[0].key) !== -1
-      || (moment(k).isAfter() && moment(k).isBefore('3000-01-01'))
+      || (moment(k).add(1, 'months').isAfter() && moment(k).isBefore('3000-01-01'))
     ) {
       return m;
     }
