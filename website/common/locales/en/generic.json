@@ -102,6 +102,8 @@
   "reportDescriptionText": "Include screenshots or Javascript console errors if helpful.",
   "reportDescriptionPlaceholder": "Describe the bug in detail here",
   "submitBugReport": "Submit Bug Report",
+  "reportSent": "Bug report sent!",
+  "reportSentDescription": "We’ll get back to you once our team has a chance to investigate. Thank you for reporting the issue.",
   "overview": "Overview for New Users",
   "dateFormat": "Date Format",
   "achievementStressbeast": "Savior of Stoïkalm",

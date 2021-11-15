@@ -1,6 +1,6 @@
 <template>
   <b-modal
-    id="bug-report-modal"
+    :id="modalId"
     size="md"
     :hide-footer="true"
   >
@@ -170,6 +170,7 @@ import axios from 'axios';
 import isEmail from 'validator/lib/isEmail';
 import closeIcon from '@/components/shared/closeIcon';
 import { mapState } from '@/libs/store';
+import { MODALS } from '@/libs/consts';
 
 export default {
   components: {
@@ -180,6 +181,7 @@ export default {
       message: '',
       email: '',
       messageInvalid: false,
+      modalId: MODALS.BUG_REPORT,
     };
   },
   methods: {
@@ -196,9 +198,15 @@ export default {
         message: this.message,
         email: this.email,
       });
+
+      this.message = '';
+
+      this.close();
+
+      this.$root.$emit('bv::show::modal', MODALS.BUG_REPORT_SUCCESS);
     },
     close () {
-      this.$root.$emit('bv::hide::modal', 'bug-report-modal');
+      this.$root.$emit('bv::hide::modal', MODALS.BUG_REPORT);
     },
   },
   computed: {
@@ -217,10 +225,16 @@ export default {
 
     let email = user.auth?.local?.email;
 
-    if (!email) {
-      if (user.auth?.facebook?.emails) {
-        email = user.auth.facebook.emails?.[0]?.value;
-      }
+    if (!email && user.auth?.facebook?.emails) {
+      email = user.auth.facebook.emails?.[0]?.value;
+    }
+
+    if (!email && user.auth?.google?.emails) {
+      email = user.auth.google.emails?.[0]?.value;
+    }
+
+    if (!email && user.auth?.apple?.emails) {
+      email = user.auth.apple.emails?.[0]?.value;
     }
 
     this.email = email;
