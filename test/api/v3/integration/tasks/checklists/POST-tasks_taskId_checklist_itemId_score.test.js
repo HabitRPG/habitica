@@ -80,7 +80,7 @@ describe('POST /tasks/:taskId/checklist/:itemId/score', () => {
     await expect(user.post(`/tasks/${generateUUID()}/checklist/${generateUUID()}/score`)).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
-      message: t('taskNotFound'),
+      message: t('messageTaskNotFound'),
     });
   });
 

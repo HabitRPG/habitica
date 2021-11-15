@@ -2,7 +2,6 @@
   "backgrounds": "Backgrounds",
   "background": "Background",
   "backgroundShop": "Background Shop",
-  "backgroundShopText": "Background Shop",
   "noBackground": "No Background Selected",
 
   "backgrounds062014": "SET 1: Released June 2014",
@@ -730,6 +729,14 @@
   "backgroundHauntedPhotoNotes": "Find yourself trapped in the monochrome world of a Haunted Photo.",
   "backgroundUndeadHandsText": "Undead Hands",
   "backgroundUndeadHandsNotes": "Try to escape from the clutches of Undead Hands.",
+
+  "backgrounds112021": "SET 90: Released November 2021",
+  "backgroundFortuneTellersShopText": "Fortune Teller's Shop",
+  "backgroundFortuneTellersShopNotes": "Seek tantalizing hints of your future in a Fortune Teller's Shop.",
+  "backgroundInsideAPotionBottleText": "Inside a Potion Bottle",
+  "backgroundInsideAPotionBottleNotes": "Peer through the glass while hoping for rescue from Inside a Potion Bottle.",
+  "backgroundSpiralStaircaseText": "Spiral Staircase",
+  "backgroundSpiralStaircaseNotes": "Climb up, down, round and round a Spiral Staircase.",
 
   "timeTravelBackgrounds": "Steampunk Backgrounds",
   "backgroundAirshipText": "Airship",

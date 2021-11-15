@@ -41,7 +41,7 @@
             <a
               target="_blank"
               :href="`https://oldgods.net/habitica/habitrpg_user_data_display.html?uuid=` + user._id"
-            >{{ $t('dataTool') }}</a>
+            >{{ $t('dataDisplayTool') }}</a>
             <br>
             {{ $t('dataToolDesc') }}
           </li>

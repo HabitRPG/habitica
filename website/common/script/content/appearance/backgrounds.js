@@ -465,6 +465,11 @@ const backgrounds = {
     haunted_photo: { },
     undead_hands: { },
   },
+  backgrounds112021: {
+    fortune_tellers_shop: { },
+    inside_a_potion_bottle: { },
+    spiral_staircase: { },
+  },
   timeTravelBackgrounds: {
     airship: {
       price: 1,

@@ -12,13 +12,13 @@
           class="btn btn-primary"
           @click="leaveChallenge('keep')"
         >
-          {{ $t('keepThem') }}
+          {{ $t('keepTasks') }}
         </button>
         <button
           class="btn btn-danger"
           @click="leaveChallenge('remove-all')"
         >
-          {{ $t('removeThem') }}
+          {{ $t('removeTasks') }}
         </button>
       </div>
     </div>

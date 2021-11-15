@@ -49,7 +49,7 @@
                   v-if="tagsType.key !== 'groups' && !editingTags"
                   class="d-block"
                   @click="editTags(tagsType.key)"
-                >{{ $t('editTags2') }}</a>
+                >{{ $t('editTagsText') }}</a>
               </div>
               <div class="tags-list container">
                 <div
@@ -197,7 +197,7 @@
             target="create-task-btn"
             placement="bottom"
           >
-            {{ $t('addTaskToUser') }}
+            {{ $t('addTask') }}
           </b-tooltip>
         </div>
       </div>

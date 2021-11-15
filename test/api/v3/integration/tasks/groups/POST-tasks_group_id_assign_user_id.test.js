@@ -42,7 +42,7 @@ describe('POST /tasks/:taskId/assign/:memberId', () => {
       .to.eventually.be.rejected.and.eql({
         code: 404,
         error: 'NotFound',
-        message: t('taskNotFound'),
+        message: t('messageTaskNotFound'),
       });
   });
 

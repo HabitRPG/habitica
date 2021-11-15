@@ -137,7 +137,7 @@ describe('PUT /tasks/:taskId/checklist/:itemId', () => {
     await expect(user.put(`/tasks/${generateUUID()}/checklist/${generateUUID()}`)).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
-      message: t('taskNotFound'),
+      message: t('messageTaskNotFound'),
     });
   });
 

@@ -109,7 +109,7 @@
     "achievementSeasonalSpecialistModalText": "Je hebt alle seizoensgebonden missies voltooid!",
     "achievementSeasonalSpecialistText": "Heeft alle seizoensmissies in de lente en de winter voltooid: Eierenjacht, pelsjagende Kerstman, en vind de welp!",
     "achievementSeasonalSpecialist": "Seizoensspecialist",
-    "achievementWildBlueYonderModalText": "Je hebt alle suikerspinblauwe rijdieren verzamelt!",
+    "achievementWildBlueYonderModalText": "Je hebt alle suikerspinblauwe rijdieren verzameld!",
     "achievementWildBlueYonderText": "Heeft alle suikerspinblauwe rijdieren verzamelt.",
     "achievementWildBlueYonder": "Wild blauw daarginds",
     "achievementVioletsAreBlueModalText": "Je hebt alle suikerspinblauwe huisdieren verzamelt!",
@@ -117,5 +117,11 @@
     "achievementVioletsAreBlue": "Viooltjes zijn blauw",
     "achievementDomesticated": "Hia-hia-ho",
     "achievementDomesticatedText": "Heeft alle basiskleuren van de gedomesticeerde huisdieren uit laten komen: fret, cavia, haan, vliegend varken, rat, konijn, paard en koe!",
-    "achievementDomesticatedModalText": "Je hebt alle gedomesticeerde huisdieren verzameld!"
+    "achievementDomesticatedModalText": "Je hebt alle gedomesticeerde huisdieren verzameld!",
+    "achievementShadyCustomer": "Zijn ze schaduwlijk?",
+    "achievementShadyCustomerText": "Heeft alle schaduwhuisdieren verzameld.",
+    "achievementShadyCustomerModalText": "Je hebt alle schaduwhuisdieren verzameld!",
+    "achievementShadeOfItAll": "Uit de schaduw getreden",
+    "achievementShadeOfItAllText": "Heeft alle schaduwrijdieren getemd.",
+    "achievementShadeOfItAllModalText": "Je hebt alle schaduwrijdieren getemd!"
 }

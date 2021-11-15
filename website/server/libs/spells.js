@@ -24,7 +24,7 @@ async function castTaskSpell (res, req, targetId, user, spell, quantity = 1) {
     _id: targetId,
     userId: user._id,
   }).exec();
-  if (!task) throw new NotFound(res.t('taskNotFound'));
+  if (!task) throw new NotFound(res.t('messageTaskNotFound'));
   if (task.challenge.id) throw new BadRequest(res.t('challengeTasksNoCast'));
   if (task.group.id) throw new BadRequest(res.t('groupTasksNoCast'));
 

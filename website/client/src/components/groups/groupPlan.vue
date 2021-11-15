@@ -222,7 +222,7 @@
         >
           <button
             class="btn btn-secondary form-control"
-            :value="$t('createGroupPlan')"
+            :value="$t('create')"
             @click="createGroup()"
           ></button>
         </div>
@@ -232,7 +232,7 @@
             :disabled="!newGroupIsReady"
             @click="createGroup()"
           >
-            {{ $t('createGroupPlan') }}
+            {{ $t('create') }}
           </button>
         </div>
       </div>

@@ -1,5 +1,5 @@
 <template>
-  <sidebar-section :title="$t('questDetailsTitle')">
+  <sidebar-section :title="$t('questDetails')">
     <div
       v-if="!onPendingQuest && !onActiveQuest"
       class="row no-quest-section"

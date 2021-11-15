@@ -58,7 +58,7 @@ export default {
             orphan: true,
             intro: this.$t('tourTavernPage'),
             final: true,
-            proceed: this.$t('tourAwesome'),
+            proceed: this.$t('awesome'),
             hideNavigation: true,
           },
         ]],

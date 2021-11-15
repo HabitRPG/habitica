@@ -10,7 +10,7 @@
           <tr>
             <th>{{ $t('name') }}</th>
             <th v-if="user.contributor.admin">
-              {{ $t('UUID') }}
+              {{ $t('userId') }}
             </th>
             <th>{{ $t('backerTier') }}</th>
           </tr>

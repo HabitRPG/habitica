@@ -126,5 +126,9 @@
     "nGemsGift": "<%= nGems %> самоцветов (подарок)",
     "nGems": "<%= nGems %> самоцветов",
     "paymentSubBillingWithMethod": "На вашу подписку будет выставлен платеж в <strong>$<%= amount %></strong> каждый <strong><%= months %> месяц</strong> посредством <strong><%= paymentMethod %></strong>.",
-    "invalidUnlockSet": "Данный набор предметов недоступен и не может быть разблокирован."
+    "invalidUnlockSet": "Данный набор предметов недоступен и не может быть разблокирован.",
+    "limitedAvailabilityMinutes": "Доступно <%= minutes %>м <%= seconds %>с",
+    "limitedAvailabilityHours": "Доступно <%= hours %>ч <%= minutes %>м",
+    "amountExp": "<%= amount %> опыта",
+    "limitedAvailabilityDays": "Доступно <%= days %>д <%= hours %>ч <%= minutes %>м"
 }

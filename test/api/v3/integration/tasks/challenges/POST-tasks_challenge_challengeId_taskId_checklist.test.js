@@ -24,7 +24,7 @@ describe('POST /tasks/:taskId/checklist/', () => {
     })).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
-      message: t('taskNotFound'),
+      message: t('messageTaskNotFound'),
     });
   });
 

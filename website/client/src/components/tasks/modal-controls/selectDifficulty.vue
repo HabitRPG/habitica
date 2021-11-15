@@ -39,6 +39,7 @@
   .difficulty-item {
     display: flex;
     align-items: center;
+    width: 100%;
 
     div.svg-icon {
       ::v-deep svg {

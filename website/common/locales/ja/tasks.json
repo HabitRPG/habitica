@@ -138,5 +138,6 @@
     "tomorrow": "明日",
     "resetCounter": "回数をリセット",
     "counter": "回数",
-    "adjustCounter": "回数を修正"
+    "adjustCounter": "回数を修正",
+    "editTagsText": "タグを編集"
 }

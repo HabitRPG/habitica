@@ -14,7 +14,7 @@ describe('GET /shops/backgrounds', () => {
     const shop = await user.get('/shops/backgrounds');
     expect(shop.identifier).to.equal('backgroundShop');
     expect(shop.text).to.eql(t('backgroundShop'));
-    expect(shop.notes).to.eql(t('backgroundShopText'));
+    expect(shop.notes).to.eql(t('backgroundShop'));
     expect(shop.imageName).to.equal('background_shop');
     expect(shop.sets).to.be.an('array');
 

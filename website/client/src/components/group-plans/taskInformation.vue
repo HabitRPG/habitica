@@ -64,7 +64,7 @@
           target="create-task-btn"
           placement="bottom"
         >
-          {{ $t('addTaskToGroupPlan') }}
+          {{ $t('create') }}
         </b-tooltip>
       </div>
     </div>

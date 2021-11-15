@@ -65,7 +65,7 @@ describe('POST /tasks/unlink-one/:taskId', () => {
       .to.eventually.be.rejected.and.eql({
         code: 404,
         error: 'NotFound',
-        message: t('taskNotFound'),
+        message: t('messageTaskNotFound'),
       });
   });
 
