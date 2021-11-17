@@ -90,7 +90,7 @@ describe('language middleware', () => {
         checkResT(res);
       });
 
-      xit('uses query even if the request includes a user and session', () => {
+      it('uses query even if the request includes a user and session', () => {
         req.query = {
           lang: 'es',
         };
