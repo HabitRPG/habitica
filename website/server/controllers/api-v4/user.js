@@ -129,7 +129,7 @@ api.updateUser = {
  *   },
  *   "message": "You have been reborn!"
  *     {
- *       "type": "REBIRTH_ACHIEVEMENT",
+ *       "type": "ACHIEVEMENT_REBIRTH",
  *       "data": {},
  *       "id": "424d69fa-3a6d-47db-96a4-6db42ed77a43"
  *     }

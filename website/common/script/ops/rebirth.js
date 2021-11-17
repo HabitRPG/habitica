@@ -106,7 +106,7 @@ export default function rebirth (user, tasks = [], req = {}, analytics) {
     user.flags.lastFreeRebirth = new Date();
   }
 
-  if (user.addNotification) user.addNotification('REBIRTH_ACHIEVEMENT');
+  if (user.addNotification) user.addNotification('ACHIEVEMENT_REBIRTH');
 
   user.stats.buffs = {};
   setDebuffPotionItems(user);
