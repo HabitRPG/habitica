@@ -19,6 +19,12 @@ export function attachTranslateFunction (req, res, next) {
 }
 
 export function getUserLanguage (req, res, next) {
+  // In case the language is specified in the request url, use intersection
+  if (req.query.lang) {
+    req.language = translations[req.query.lang] ? req.query.lang : 'en';
+    return next();
+  }
+
   // If the request is authenticated, use the user's preferred language
   if (res.locals && res.locals.user) {
     req.language = getLanguageFromUser(res.locals.user, req);
@@ -37,12 +43,6 @@ export function getUserLanguage (req, res, next) {
         return next();
       })
       .catch(next);
-  }
-
-  // In case the language is specified in the request url, use intersection
-  if (req.query.lang) {
-    req.language = translations[req.query.lang] ? req.query.lang : 'en';
-    return next();
   }
 
   // Otherwise get from browser
