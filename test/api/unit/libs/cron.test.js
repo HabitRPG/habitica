@@ -307,7 +307,7 @@ describe('cron', async () => {
         clock = sinon.useFakeTimers(moment().utcOffset(0).startOf('month').add(10, 'months')
           .add(2, 'days')
           .toDate());
-          await cron({
+        await cron({
           user: user1, tasksByType, daysMissed, analytics,
         });
         expect(user1.purchased.plan.consecutive.count).to.equal(10);
@@ -342,7 +342,7 @@ describe('cron', async () => {
         clock = sinon.useFakeTimers(moment().utcOffset(0).startOf('month').add(1, 'months')
           .add(2, 'days')
           .toDate());
-          await cron({
+        await cron({
           user: user3, tasksByType, daysMissed, analytics,
         });
         expect(user3.purchased.plan.consecutive.count).to.equal(1);
@@ -355,7 +355,7 @@ describe('cron', async () => {
         clock = sinon.useFakeTimers(moment().utcOffset(0).startOf('month').add(2, 'months')
           .add(2, 'days')
           .toDate());
-          await cron({
+        await cron({
           user: user3, tasksByType, daysMissed, analytics,
         });
         expect(user3.purchased.plan.consecutive.count).to.equal(2);
@@ -368,7 +368,7 @@ describe('cron', async () => {
         clock = sinon.useFakeTimers(moment().utcOffset(0).startOf('month').add(3, 'months')
           .add(2, 'days')
           .toDate());
-          await cron({
+        await cron({
           user: user3, tasksByType, daysMissed, analytics,
         });
         expect(user3.purchased.plan.consecutive.count).to.equal(3);
@@ -381,7 +381,7 @@ describe('cron', async () => {
         clock = sinon.useFakeTimers(moment().utcOffset(0).startOf('month').add(4, 'months')
           .add(2, 'days')
           .toDate());
-          await cron({
+        await cron({
           user: user3, tasksByType, daysMissed, analytics,
         });
         expect(user3.purchased.plan.consecutive.count).to.equal(4);
@@ -394,7 +394,7 @@ describe('cron', async () => {
         clock = sinon.useFakeTimers(moment().utcOffset(0).startOf('month').add(5, 'months')
           .add(2, 'days')
           .toDate());
-          await cron({
+        await cron({
           user: user3, tasksByType, daysMissed, analytics,
         });
         expect(user3.purchased.plan.consecutive.count).to.equal(5);
@@ -407,7 +407,7 @@ describe('cron', async () => {
         clock = sinon.useFakeTimers(moment().utcOffset(0).startOf('month').add(6, 'months')
           .add(2, 'days')
           .toDate());
-          await cron({
+        await cron({
           user: user3, tasksByType, daysMissed, analytics,
         });
         expect(user3.purchased.plan.consecutive.count).to.equal(6);
@@ -420,7 +420,7 @@ describe('cron', async () => {
         clock = sinon.useFakeTimers(moment().utcOffset(0).startOf('month').add(7, 'months')
           .add(2, 'days')
           .toDate());
-          await cron({
+        await cron({
           user: user3, tasksByType, daysMissed, analytics,
         });
         expect(user3.purchased.plan.consecutive.count).to.equal(7);
@@ -433,7 +433,7 @@ describe('cron', async () => {
         clock = sinon.useFakeTimers(moment().utcOffset(0).startOf('month').add(10, 'months')
           .add(2, 'days')
           .toDate());
-          await cron({
+        await cron({
           user: user3, tasksByType, daysMissed, analytics,
         });
         expect(user3.purchased.plan.consecutive.count).to.equal(10);
@@ -468,7 +468,7 @@ describe('cron', async () => {
         clock = sinon.useFakeTimers(moment().utcOffset(0).startOf('month').add(1, 'months')
           .add(2, 'days')
           .toDate());
-          await cron({
+        await cron({
           user: user6, tasksByType, daysMissed, analytics,
         });
         expect(user6.purchased.plan.consecutive.count).to.equal(1);
@@ -481,7 +481,7 @@ describe('cron', async () => {
         clock = sinon.useFakeTimers(moment().utcOffset(0).startOf('month').add(6, 'months')
           .add(2, 'days')
           .toDate());
-          await cron({
+        await cron({
           user: user6, tasksByType, daysMissed, analytics,
         });
         expect(user6.purchased.plan.consecutive.count).to.equal(6);
@@ -507,7 +507,7 @@ describe('cron', async () => {
         clock = sinon.useFakeTimers(moment().utcOffset(0).startOf('month').add(13, 'months')
           .add(2, 'days')
           .toDate());
-          await cron({
+        await cron({
           user: user6, tasksByType, daysMissed, analytics,
         });
         expect(user6.purchased.plan.consecutive.count).to.equal(13);
@@ -520,7 +520,7 @@ describe('cron', async () => {
         clock = sinon.useFakeTimers(moment().utcOffset(0).startOf('month').add(19, 'months')
           .add(2, 'days')
           .toDate());
-          await cron({
+        await cron({
           user: user6, tasksByType, daysMissed, analytics,
         });
         expect(user6.purchased.plan.consecutive.count).to.equal(19);
@@ -555,7 +555,7 @@ describe('cron', async () => {
         clock = sinon.useFakeTimers(moment().utcOffset(0).startOf('month').add(1, 'months')
           .add(2, 'days')
           .toDate());
-          await cron({
+        await cron({
           user: user12, tasksByType, daysMissed, analytics,
         });
         expect(user12.purchased.plan.consecutive.count).to.equal(1);
