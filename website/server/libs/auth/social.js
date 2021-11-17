@@ -58,12 +58,15 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
     email = profile.emails[0].value.toLowerCase();
   }
 
-  if (!existingUser) {
-    existingUser = await User.findOne({ 'auth.local.email': email }, { 'auth.local': 1 }).exec();
+  if (!existingUser && email) {
+    existingUser = await User.findOne({ 'auth.local.email': email }).exec();
   }
 
   if (existingUser) {
-    existingUser.auth[network] = user.auth[network];
+    existingUser.auth[network] = {
+      id: profile.id,
+      emails: profile.emails,
+    };
     user = existingUser;
   } else {
     const generatedUsername = generateUsername();
@@ -97,10 +100,10 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
   const savedUser = await user.save();
 
   if (!existingUser) {
-    user.newUser = true;
+    savedUser.newUser = true;
   }
 
-  const response = loginRes(user, req, res);
+  const response = loginRes(savedUser, req, res);
 
   // Clean previous email preferences
   if (email) {
