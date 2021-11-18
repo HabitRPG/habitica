@@ -137,56 +137,6 @@ const basicAchievs = {
     titleKey: 'achievementJustAddWater',
     textKey: 'achievementJustAddWaterText',
   },
-  backToBasics: {
-    icon: 'achievement-backToBasics',
-    titleKey: 'achievementBackToBasics',
-    textKey: 'achievementBackToBasicsText',
-  },
-  allYourBase: {
-    icon: 'achievement-allYourBase',
-    titleKey: 'achievementAllYourBase',
-    textKey: 'achievementAllYourBaseText',
-  },
-  dustDevil: {
-    icon: 'achievement-dustDevil',
-    titleKey: 'achievementDustDevil',
-    textKey: 'achievementDustDevilText',
-  },
-  aridAuthority: {
-    icon: 'achievement-aridAuthority',
-    titleKey: 'achievementAridAuthority',
-    textKey: 'achievementAridAuthorityText',
-  },
-  monsterMagus: {
-    icon: 'achievement-monsterMagus',
-    titleKey: 'achievementMonsterMagus',
-    textKey: 'achievementMonsterMagusText',
-  },
-  undeadUndertaker: {
-    icon: 'achievement-undeadUndertaker',
-    titleKey: 'achievementUndeadUndertaker',
-    textKey: 'achievementUndeadUndertakerText',
-  },
-  primedForPainting: {
-    icon: 'achievement-primedForPainting',
-    titleKey: 'achievementPrimedForPainting',
-    textKey: 'achievementPrimedForPaintingText',
-  },
-  pearlyPro: {
-    icon: 'achievement-pearlyPro',
-    titleKey: 'achievementPearlyPro',
-    textKey: 'achievementPearlyProText',
-  },
-  tickledPink: {
-    icon: 'achievement-tickledPink',
-    titleKey: 'achievementTickledPink',
-    textKey: 'achievementTickledPinkText',
-  },
-  rosyOutlook: {
-    icon: 'achievement-rosyOutlook',
-    titleKey: 'achievementRosyOutlook',
-    textKey: 'achievementRosyOutlookText',
-  },
   bugBonanza: {
     icon: 'achievement-bugBonanza',
     titleKey: 'achievementBugBonanza',
@@ -202,36 +152,6 @@ const basicAchievs = {
     titleKey: 'achievementFreshwaterFriends',
     textKey: 'achievementFreshwaterFriendsText',
   },
-  goodAsGold: {
-    icon: 'achievement-goodAsGold',
-    titleKey: 'achievementGoodAsGold',
-    textKey: 'achievementGoodAsGoldText',
-  },
-  allThatGlitters: {
-    icon: 'achievement-allThatGlitters',
-    titleKey: 'achievementAllThatGlitters',
-    textKey: 'achievementAllThatGlittersText',
-  },
-  boneCollector: {
-    icon: 'achievement-boneCollector',
-    titleKey: 'achievementBoneCollector',
-    textKey: 'achievementBoneCollectorText',
-  },
-  skeletonCrew: {
-    icon: 'achievement-skeletonCrew',
-    titleKey: 'achievementSkeletonCrew',
-    textKey: 'achievementSkeletonCrewText',
-  },
-  seeingRed: {
-    icon: 'achievement-seeingRed',
-    titleKey: 'achievementSeeingRed',
-    textKey: 'achievementSeeingRedText',
-  },
-  redLetterDay: {
-    icon: 'achievement-redLetterDay',
-    titleKey: 'achievementRedLetterDay',
-    textKey: 'achievementRedLetterDayText',
-  },
   legendaryBestiary: {
     icon: 'achievement-legendaryBestiary',
     titleKey: 'achievementLegendaryBestiary',
@@ -242,25 +162,113 @@ const basicAchievs = {
     titleKey: 'achievementSeasonalSpecialist',
     textKey: 'achievementSeasonalSpecialistText',
   },
-  violetsAreBlue: {
-    icon: 'achievement-violetsAreBlue',
-    titleKey: 'achievementVioletsAreBlue',
-    textKey: 'achievementVioletsAreBlueText',
-  },
-  wildBlueYonder: {
-    icon: 'achievement-wildBlueYonder',
-    titleKey: 'achievementWildBlueYonder',
-    textKey: 'achievementWildBlueYonderText',
-  },
   domesticated: {
     icon: 'achievement-domesticated',
     titleKey: 'achievementDomesticated',
     textKey: 'achievementDomesticatedText',
   },
+};
+Object.assign(achievementsData, basicAchievs);
+
+const petColorAchievs = {
+  backToBasics: {
+    icon: 'achievement-backToBasics',
+    titleKey: 'achievementBackToBasics',
+    textKey: 'achievementBackToBasicsText',
+  },
+  dustDevil: {
+    icon: 'achievement-dustDevil',
+    titleKey: 'achievementDustDevil',
+    textKey: 'achievementDustDevilText',
+  },
+  monsterMagus: {
+    icon: 'achievement-monsterMagus',
+    titleKey: 'achievementMonsterMagus',
+    textKey: 'achievementMonsterMagusText',
+  },
+  primedForPainting: {
+    icon: 'achievement-primedForPainting',
+    titleKey: 'achievementPrimedForPainting',
+    textKey: 'achievementPrimedForPaintingText',
+  },
+  tickledPink: {
+    icon: 'achievement-tickledPink',
+    titleKey: 'achievementTickledPink',
+    textKey: 'achievementTickledPinkText',
+  },
+  goodAsGold: {
+    icon: 'achievement-goodAsGold',
+    titleKey: 'achievementGoodAsGold',
+    textKey: 'achievementGoodAsGoldText',
+  },
+  boneCollector: {
+    icon: 'achievement-boneCollector',
+    titleKey: 'achievementBoneCollector',
+    textKey: 'achievementBoneCollectorText',
+  },
+  seeingRed: {
+    icon: 'achievement-seeingRed',
+    titleKey: 'achievementSeeingRed',
+    textKey: 'achievementSeeingRedText',
+  },
+  violetsAreBlue: {
+    icon: 'achievement-violetsAreBlue',
+    titleKey: 'achievementVioletsAreBlue',
+    textKey: 'achievementVioletsAreBlueText',
+  },
   shadyCustomer: {
     icon: 'achievement-shadyCustomer',
     titleKey: 'achievementShadyCustomer',
     textKey: 'achievementShadyCustomerText',
+  },
+};
+Object.assign(achievementsData, petColorAchievs);
+
+const mountColorAchievs = {
+  allYourBase: {
+    icon: 'achievement-allYourBase',
+    titleKey: 'achievementAllYourBase',
+    textKey: 'achievementAllYourBaseText',
+  },
+  aridAuthority: {
+    icon: 'achievement-aridAuthority',
+    titleKey: 'achievementAridAuthority',
+    textKey: 'achievementAridAuthorityText',
+  },
+  undeadUndertaker: {
+    icon: 'achievement-undeadUndertaker',
+    titleKey: 'achievementUndeadUndertaker',
+    textKey: 'achievementUndeadUndertakerText',
+  },
+  pearlyPro: {
+    icon: 'achievement-pearlyPro',
+    titleKey: 'achievementPearlyPro',
+    textKey: 'achievementPearlyProText',
+  },
+  rosyOutlook: {
+    icon: 'achievement-rosyOutlook',
+    titleKey: 'achievementRosyOutlook',
+    textKey: 'achievementRosyOutlookText',
+  },
+  allThatGlitters: {
+    icon: 'achievement-allThatGlitters',
+    titleKey: 'achievementAllThatGlitters',
+    textKey: 'achievementAllThatGlittersText',
+  },
+  skeletonCrew: {
+    icon: 'achievement-skeletonCrew',
+    titleKey: 'achievementSkeletonCrew',
+    textKey: 'achievementSkeletonCrewText',
+  },
+  redLetterDay: {
+    icon: 'achievement-redLetterDay',
+    titleKey: 'achievementRedLetterDay',
+    textKey: 'achievementRedLetterDayText',
+  },
+  wildBlueYonder: {
+    icon: 'achievement-wildBlueYonder',
+    titleKey: 'achievementWildBlueYonder',
+    textKey: 'achievementWildBlueYonderText',
   },
   shadeOfItAll: {
     icon: 'achievement-shadeOfItAll',
@@ -268,7 +276,7 @@ const basicAchievs = {
     textKey: 'achievementShadeOfItAllText',
   },
 };
-Object.assign(achievementsData, basicAchievs);
+Object.assign(achievementsData, mountColorAchievs);
 
 const onboardingAchievs = {
   createdTask: {

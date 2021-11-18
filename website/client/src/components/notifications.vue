@@ -288,183 +288,183 @@ const NOTIFICATIONS = {
     },
   },
   // pet and mount color collection achievement noticfications
-  // ACHIEVEMENT_PET_COLOR: {
-  //   achievement: true,
-  //   label: $t => `${$t('achievement')}: ${$t('petColorAchievement')}`,
-  //   modalId: 'generic-achievement',
-  //   data: { // THIS IS WHERE MY PROBLEM IS
-  //     achievement: 'petColorAchievement', // defined manually until the server sends all the necessary data
-  //   },
-  // },
-  // ACHIEVEMENT_MOUNT_COLOR: {
-  //   achievement: true,
-  //   label: $t => `${$t('achievement')}: ${$t('mountColorAchievement')}`,
-  //   modalId: 'generic-achievement',
-  //   data: { // THIS IS WHERE MY PROBLEM IS
-  //     achievement: 'mountColorAchievement', // defined manually until the server sends all the necessary data
-  //   },
-  // },
+  ACHIEVEMENT_PET_COLOR: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('petColorAchievement')}`,
+    modalId: 'generic-achievement',
+    data: {
+      achievement: 'petColorAchievs', // defined in website/common/script/content/achievements.js
+    },
+  },
+  ACHIEVEMENT_MOUNT_COLOR: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('mountColorAchievement')}`,
+    modalId: 'generic-achievement',
+    data: { // THIS IS WHERE MY PROBLEM IS
+      achievement: 'mountColorAchievs', // defined in website/common/script/content/achievements.js
+    },
+  },
   // pet and mount color notifications
-  ACHIEVEMENT_ALL_YOUR_BASE: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementAllYourBase')}`,
-    modalId: 'generic-achievement',
-    data: {
-      achievement: 'allYourBase', // defined manually until the server sends all the necessary data
-    },
-  },
-  ACHIEVEMENT_BACK_TO_BASICS: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementBackToBasics')}`,
-    modalId: 'generic-achievement',
-    data: {
-      achievement: 'backToBasics',
-    },
-  },
-  ACHIEVEMENT_DUST_DEVIL: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementDustDevil')}`,
-    modalId: 'generic-achievement',
-    data: {
-      achievement: 'dustDevil',
-    },
-  },
-  ACHIEVEMENT_ARID_AUTHORITY: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementAridAuthority')}`,
-    modalId: 'generic-achievement',
-    data: {
-      achievement: 'aridAuthority',
-    },
-  },
-  ACHIEVEMENT_MONSTER_MAGUS: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementMonsterMagus')}`,
-    modalId: 'generic-achievement',
-    data: {
-      achievement: 'monsterMagus',
-    },
-  },
-  ACHIEVEMENT_UNDEAD_UNDERTAKER: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementUndeadUndertaker')}`,
-    modalId: 'generic-achievement',
-    data: {
-      achievement: 'undeadUndertaker',
-    },
-  },
-  ACHIEVEMENT_PRIMED_FOR_PAINTING: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementPrimedForPainting')}`,
-    modalId: 'generic-achievement',
-    data: {
-      achievement: 'primedForPainting',
-    },
-  },
-  ACHIEVEMENT_PEARLY_PRO: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementPearlyPro')}`,
-    modalId: 'generic-achievement',
-    data: {
-      achievement: 'pearlyPro',
-    },
-  },
-  ACHIEVEMENT_TICKLED_PINK: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementTickledPink')}`,
-    modalId: 'generic-achievement',
-    data: {
-      achievement: 'tickledPink',
-    },
-  },
-  ACHIEVEMENT_ROSY_OUTLOOK: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementRosyOutlook')}`,
-    modalId: 'generic-achievement',
-    data: {
-      achievement: 'rosyOutlook',
-    },
-  },
-  ACHIEVEMENT_GOOD_AS_GOLD: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementGoodAsGold')}`,
-    modalId: 'generic-achievement',
-    data: {
-      achievement: 'goodAsGold',
-    },
-  },
-  ACHIEVEMENT_ALL_THAT_GLITTERS: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementAllThatGlitters')}`,
-    modalId: 'generic-achievement',
-    data: {
-      achievement: 'allThatGlitters',
-    },
-  },
-  ACHIEVEMENT_BONE_COLLECTOR: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementBoneCollector')}`,
-    modalId: 'generic-achievement',
-    data: {
-      achievement: 'boneCollector',
-    },
-  },
-  ACHIEVEMENT_SKELETON_CREW: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementSkeletonCrew')}`,
-    modalId: 'generic-achievement',
-    data: {
-      achievement: 'skeletonCrew',
-    },
-  },
-  ACHIEVEMENT_SEEING_RED: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementSeeingRed')}`,
-    modalId: 'generic-achievement',
-    data: {
-      achievement: 'seeingRed',
-    },
-  },
-  ACHIEVEMENT_RED_LETTER_DAY: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementRedLetterDay')}`,
-    modalId: 'generic-achievement',
-    data: {
-      achievement: 'redLetterDay',
-    },
-  },
-  ACHIEVEMENT_VIOLETS_ARE_BLUE: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementVioletsAreBlue')}`,
-    modalId: 'generic-achievement',
-    data: {
-      achievement: 'violetsAreBlue',
-    },
-  },
-  ACHIEVEMENT_WILD_BLUE_YONDER: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementWildBlueYonder')}`,
-    modalId: 'generic-achievement',
-    data: {
-      achievement: 'wildBlueYonder',
-    },
-  },
-  ACHIEVEMENT_SHADY_CUSTOMER: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementShadyCustomer')}`,
-    modalId: 'generic-achievement',
-    data: {
-      achievement: 'shadyCustomer',
-    },
-  },
-  ACHIEVEMENT_SHADE_OF_IT_ALL: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementShadeOfItAll')}`,
-    modalId: 'generic-achievement',
-    data: {
-      achievement: 'shadeOfItAll',
-    },
-  },
+  // ACHIEVEMENT_ALL_YOUR_BASE: {
+  //   achievement: true,
+  //   label: $t => `${$t('achievement')}: ${$t('achievementAllYourBase')}`,
+  //   modalId: 'generic-achievement',
+  //   data: {
+  //     achievement: 'allYourBase', // defined manually until the server sends all necessary data
+  //   },
+  // },
+  // ACHIEVEMENT_BACK_TO_BASICS: {
+  //   achievement: true,
+  //   label: $t => `${$t('achievement')}: ${$t('achievementBackToBasics')}`,
+  //   modalId: 'generic-achievement',
+  //   data: {
+  //     achievement: 'backToBasics',
+  //   },
+  // },
+  // ACHIEVEMENT_DUST_DEVIL: {
+  //   achievement: true,
+  //   label: $t => `${$t('achievement')}: ${$t('achievementDustDevil')}`,
+  //   modalId: 'generic-achievement',
+  //   data: {
+  //     achievement: 'dustDevil',
+  //   },
+  // },
+  // ACHIEVEMENT_ARID_AUTHORITY: {
+  //   achievement: true,
+  //   label: $t => `${$t('achievement')}: ${$t('achievementAridAuthority')}`,
+  //   modalId: 'generic-achievement',
+  //   data: {
+  //     achievement: 'aridAuthority',
+  //   },
+  // },
+  // ACHIEVEMENT_MONSTER_MAGUS: {
+  //   achievement: true,
+  //   label: $t => `${$t('achievement')}: ${$t('achievementMonsterMagus')}`,
+  //   modalId: 'generic-achievement',
+  //   data: {
+  //     achievement: 'monsterMagus',
+  //   },
+  // },
+  // ACHIEVEMENT_UNDEAD_UNDERTAKER: {
+  //   achievement: true,
+  //   label: $t => `${$t('achievement')}: ${$t('achievementUndeadUndertaker')}`,
+  //   modalId: 'generic-achievement',
+  //   data: {
+  //     achievement: 'undeadUndertaker',
+  //   },
+  // },
+  // ACHIEVEMENT_PRIMED_FOR_PAINTING: {
+  //   achievement: true,
+  //   label: $t => `${$t('achievement')}: ${$t('achievementPrimedForPainting')}`,
+  //   modalId: 'generic-achievement',
+  //   data: {
+  //     achievement: 'primedForPainting',
+  //   },
+  // },
+  // ACHIEVEMENT_PEARLY_PRO: {
+  //   achievement: true,
+  //   label: $t => `${$t('achievement')}: ${$t('achievementPearlyPro')}`,
+  //   modalId: 'generic-achievement',
+  //   data: {
+  //     achievement: 'pearlyPro',
+  //   },
+  // },
+  // ACHIEVEMENT_TICKLED_PINK: {
+  //   achievement: true,
+  //   label: $t => `${$t('achievement')}: ${$t('achievementTickledPink')}`,
+  //   modalId: 'generic-achievement',
+  //   data: {
+  //     achievement: 'tickledPink',
+  //   },
+  // },
+  // ACHIEVEMENT_ROSY_OUTLOOK: {
+  //   achievement: true,
+  //   label: $t => `${$t('achievement')}: ${$t('achievementRosyOutlook')}`,
+  //   modalId: 'generic-achievement',
+  //   data: {
+  //     achievement: 'rosyOutlook',
+  //   },
+  // },
+  // ACHIEVEMENT_GOOD_AS_GOLD: {
+  //   achievement: true,
+  //   label: $t => `${$t('achievement')}: ${$t('achievementGoodAsGold')}`,
+  //   modalId: 'generic-achievement',
+  //   data: {
+  //     achievement: 'goodAsGold',
+  //   },
+  // },
+  // ACHIEVEMENT_ALL_THAT_GLITTERS: {
+  //   achievement: true,
+  //   label: $t => `${$t('achievement')}: ${$t('achievementAllThatGlitters')}`,
+  //   modalId: 'generic-achievement',
+  //   data: {
+  //     achievement: 'allThatGlitters',
+  //   },
+  // },
+  // ACHIEVEMENT_BONE_COLLECTOR: {
+  //   achievement: true,
+  //   label: $t => `${$t('achievement')}: ${$t('achievementBoneCollector')}`,
+  //   modalId: 'generic-achievement',
+  //   data: {
+  //     achievement: 'boneCollector',
+  //   },
+  // },
+  // ACHIEVEMENT_SKELETON_CREW: {
+  //   achievement: true,
+  //   label: $t => `${$t('achievement')}: ${$t('achievementSkeletonCrew')}`,
+  //   modalId: 'generic-achievement',
+  //   data: {
+  //     achievement: 'skeletonCrew',
+  //   },
+  // },
+  // ACHIEVEMENT_SEEING_RED: {
+  //   achievement: true,
+  //   label: $t => `${$t('achievement')}: ${$t('achievementSeeingRed')}`,
+  //   modalId: 'generic-achievement',
+  //   data: {
+  //     achievement: 'seeingRed',
+  //   },
+  // },
+  // ACHIEVEMENT_RED_LETTER_DAY: {
+  //   achievement: true,
+  //   label: $t => `${$t('achievement')}: ${$t('achievementRedLetterDay')}`,
+  //   modalId: 'generic-achievement',
+  //   data: {
+  //     achievement: 'redLetterDay',
+  //   },
+  // },
+  // ACHIEVEMENT_VIOLETS_ARE_BLUE: {
+  //   achievement: true,
+  //   label: $t => `${$t('achievement')}: ${$t('achievementVioletsAreBlue')}`,
+  //   modalId: 'generic-achievement',
+  //   data: {
+  //     achievement: 'violetsAreBlue',
+  //   },
+  // },
+  // ACHIEVEMENT_WILD_BLUE_YONDER: {
+  //   achievement: true,
+  //   label: $t => `${$t('achievement')}: ${$t('achievementWildBlueYonder')}`,
+  //   modalId: 'generic-achievement',
+  //   data: {
+  //     achievement: 'wildBlueYonder',
+  //   },
+  // },
+  // ACHIEVEMENT_SHADY_CUSTOMER: {
+  //   achievement: true,
+  //   label: $t => `${$t('achievement')}: ${$t('achievementShadyCustomer')}`,
+  //   modalId: 'generic-achievement',
+  //   data: {
+  //     achievement: 'shadyCustomer',
+  //   },
+  // },
+  // ACHIEVEMENT_SHADE_OF_IT_ALL: {
+  //   achievement: true,
+  //   label: $t => `${$t('achievement')}: ${$t('achievementShadeOfItAll')}`,
+  //   modalId: 'generic-achievement',
+  //   data: {
+  //     achievement: 'shadeOfItAll',
+  //   },
+  // },
 };
 
 export default {
@@ -548,29 +548,29 @@ export default {
       'ACHIEVEMENT_DOMESTICATED',
       'ACHIEVEMENT_LEGENDARY_BESTIARY',
       // pet and mount color collection achievement notifications
-      // 'ACHIEVEMENT_PET_COLOR',
-      // 'ACHIEVEMENT_MOUNT_COLOR',
+      'ACHIEVEMENT_PET_COLOR',
+      'ACHIEVEMENT_MOUNT_COLOR',
       // pet and mount color achievements
-      'ACHIEVEMENT_ALL_YOUR_BASE',
-      'ACHIEVEMENT_BACK_TO_BASICS',
-      'ACHIEVEMENT_DUST_DEVIL',
-      'ACHIEVEMENT_ARID_AUTHORITY',
-      'ACHIEVEMENT_MONSTER_MAGUS',
-      'ACHIEVEMENT_UNDEAD_UNDERTAKER',
-      'ACHIEVEMENT_PRIMED_FOR_PAINTING',
-      'ACHIEVEMENT_PEARLY_PRO',
-      'ACHIEVEMENT_TICKLED_PINK',
-      'ACHIEVEMENT_ROSY_OUTLOOK',
-      'ACHIEVEMENT_GOOD_AS_GOLD',
-      'ACHIEVEMENT_ALL_THAT_GLITTERS',
-      'ACHIEVEMENT_BONE_COLLECTOR',
-      'ACHIEVEMENT_SKELETON_CREW',
-      'ACHIEVEMENT_SEEING_RED',
-      'ACHIEVEMENT_RED_LETTER_DAY',
-      'ACHIEVEMENT_VIOLETS_ARE_BLUE',
-      'ACHIEVEMENT_WILD_BLUE_YONDER',
-      'ACHIEVEMENT_SHADY_CUSTOMER',
-      'ACHIEVEMENT_SHADE_OF_IT_ALL',
+      // 'ACHIEVEMENT_ALL_YOUR_BASE',
+      // 'ACHIEVEMENT_BACK_TO_BASICS',
+      // 'ACHIEVEMENT_DUST_DEVIL',
+      // 'ACHIEVEMENT_ARID_AUTHORITY',
+      // 'ACHIEVEMENT_MONSTER_MAGUS',
+      // 'ACHIEVEMENT_UNDEAD_UNDERTAKER',
+      // 'ACHIEVEMENT_PRIMED_FOR_PAINTING',
+      // 'ACHIEVEMENT_PEARLY_PRO',
+      // 'ACHIEVEMENT_TICKLED_PINK',
+      // 'ACHIEVEMENT_ROSY_OUTLOOK',
+      // 'ACHIEVEMENT_GOOD_AS_GOLD',
+      // 'ACHIEVEMENT_ALL_THAT_GLITTERS',
+      // 'ACHIEVEMENT_BONE_COLLECTOR',
+      // 'ACHIEVEMENT_SKELETON_CREW',
+      // 'ACHIEVEMENT_SEEING_RED',
+      // 'ACHIEVEMENT_RED_LETTER_DAY',
+      // 'ACHIEVEMENT_VIOLETS_ARE_BLUE',
+      // 'ACHIEVEMENT_WILD_BLUE_YONDER',
+      // 'ACHIEVEMENT_SHADY_CUSTOMER',
+      // 'ACHIEVEMENT_SHADE_OF_IT_ALL',
       // why aren't all quest completion notifications here?
       // Just Add Water, Mind Over Matter, and Lost Masterclasser are missing
     ].forEach(type => {
@@ -989,28 +989,8 @@ export default {
           case 'ACHIEVEMENT_SEASONAL_SPECIALIST':
           case 'ACHIEVEMENT_DOMESTICATED':
           case 'ACHIEVEMENT_LEGENDARY_BESTIARY':
-          // case 'ACHIEVEMENT_PET_COLOR':
-          // case 'ACHIEVEMENT_MOUNT_COLOR':
-          case 'ACHIEVEMENT_ALL_YOUR_BASE':
-          case 'ACHIEVEMENT_BACK_TO_BASICS':
-          case 'ACHIEVEMENT_DUST_DEVIL':
-          case 'ACHIEVEMENT_ARID_AUTHORITY':
-          case 'ACHIEVEMENT_MONSTER_MAGUS':
-          case 'ACHIEVEMENT_UNDEAD_UNDERTAKER':
-          case 'ACHIEVEMENT_PRIMED_FOR_PAINTING':
-          case 'ACHIEVEMENT_PEARLY_PRO':
-          case 'ACHIEVEMENT_TICKLED_PINK':
-          case 'ACHIEVEMENT_ROSY_OUTLOOK':
-          case 'ACHIEVEMENT_GOOD_AS_GOLD':
-          case 'ACHIEVEMENT_ALL_THAT_GLITTERS':
-          case 'ACHIEVEMENT_BONE_COLLECTOR':
-          case 'ACHIEVEMENT_SKELETON_CREW':
-          case 'ACHIEVEMENT_SEEING_RED':
-          case 'ACHIEVEMENT_RED_LETTER_DAY':
-          case 'ACHIEVEMENT_VIOLETS_ARE_BLUE':
-          case 'ACHIEVEMENT_WILD_BLUE_YONDER':
-          case 'ACHIEVEMENT_SHADY_CUSTOMER':
-          case 'ACHIEVEMENT_SHADE_OF_IT_ALL':
+          case 'ACHIEVEMENT_PET_COLOR':
+          case 'ACHIEVEMENT_MOUNT_COLOR':
           case 'GENERIC_ACHIEVEMENT':
             this.showNotificationWithModal(notification);
             break;
