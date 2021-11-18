@@ -21,6 +21,9 @@ api.geti18nBrowserScript = {
   url: '/i18n/browser-script',
   async handler (req, res) {
     if (IS_PROD) {
+      res.set({
+        'Cache-Control': 'private'
+      });
       res.sendFile(`${BROWSER_SCRIPT_CACHE_PATH}${req.language}.js`);
     } else {
       res.set({
