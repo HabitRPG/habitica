@@ -290,7 +290,7 @@ const NOTIFICATIONS = {
   // pet and mount color collection achievement noticfications
   ACHIEVEMENT_PET_COLOR: {
     achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('petColorAchievement')}`,
+    label: $t => `${$t('achievement')}: ${$t('achievementPetColor')}`,
     modalId: 'generic-achievement',
     data: {
       achievement: 'petColorAchievs', // defined in website/common/script/content/achievements.js
@@ -989,11 +989,20 @@ export default {
           case 'ACHIEVEMENT_SEASONAL_SPECIALIST':
           case 'ACHIEVEMENT_DOMESTICATED':
           case 'ACHIEVEMENT_LEGENDARY_BESTIARY':
-          case 'ACHIEVEMENT_PET_COLOR':
-          case 'ACHIEVEMENT_MOUNT_COLOR':
           case 'GENERIC_ACHIEVEMENT':
             this.showNotificationWithModal(notification);
             break;
+          case 'ACHIEVEMENT_PET_COLOR': {
+            const { achievement } = notification.data;
+            const upperCaseAchievement = achievement.charAt(0).toUpperCase() + achievement.slice(1);
+            const achievementTitleKey = `achievement${upperCaseAchievement}`;
+            NOTIFICATIONS.ACHIEVEMENT_PET_COLOR.label = $t => `${$t('achievement')}: ${$t(achievementTitleKey)}`;
+            NOTIFICATIONS.ACHIEVEMENT_PET_COLOR.data.modalText = $t => $t(achievementModalTextKey);
+            this.showNotificationWithModal(notification);
+            Vue.set(this.user.achievements, achievement, true);
+            break;
+          }
+          case 'ACHIEVEMENT_MOUNT_COLOR':
           case 'ACHIEVEMENT': { // generic achievement
             const { achievement } = notification.data;
             const upperCaseAchievement = achievement.charAt(0).toUpperCase() + achievement.slice(1);

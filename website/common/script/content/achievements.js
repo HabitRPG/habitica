@@ -210,6 +210,7 @@ const petColorAchievs = {
     icon: 'achievement-seeingRed',
     titleKey: 'achievementSeeingRed',
     textKey: 'achievementSeeingRedText',
+    modalTextKey: 'achievementSeeingRedModalText',
   },
   violetsAreBlue: {
     icon: 'achievement-violetsAreBlue',
