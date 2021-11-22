@@ -43,6 +43,8 @@ api.bugReport = {
 
     const { user } = res.locals;
 
+    const BROWSER_UA = req.get('User-Agent');
+
     const emailData = {
       USER_ID: user._id,
       USER_EMAIL: email,
@@ -60,6 +62,7 @@ api.bugReport = {
       USER_OFFSET_MONTHS: user.purchased.plan.consecutive.offset,
       USER_HOURGLASSES: user.purchased.plan.consecutive.trinkets,
       REPORT_MSG: message,
+      BROWSER_UA,
     };
 
     const adminMail = { email: nconf.get('ADMIN_EMAIL') };
