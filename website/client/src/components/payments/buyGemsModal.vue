@@ -475,6 +475,7 @@ export default {
     },
     showSelectUser () {
       this.$root.$emit('bv::show::modal', 'select-user-modal');
+      this.close();
     },
   },
 };
