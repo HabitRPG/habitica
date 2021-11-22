@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "mocha": "^9.1.2"
+  },
+  "dependencies": {
+    "selenium-webdriver": "^4.0.0-rc-2"
+  }
+}
