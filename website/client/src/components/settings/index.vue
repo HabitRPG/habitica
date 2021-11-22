@@ -48,6 +48,7 @@
     <div
       v-if="$route.name === 'subscription' && promo === 'g1g1'"
       class="g1g1-banner d-flex justify-content-center"
+      @click="showSelectUser"
     >
       <div
         v-once
@@ -91,6 +92,7 @@
     width: 100%;
     height: 5.75rem;
     background-image: linear-gradient(90deg, $teal-50 0%, $purple-400 100%);
+    cursor: pointer;
   }
 
   .left-gift {
@@ -131,6 +133,11 @@ export default {
     promo () {
       if (!this.currentEvent || !this.currentEvent.promo) return 'none';
       return this.currentEvent.promo;
+    },
+  },
+  methods: {
+    showSelectUser () {
+      this.$root.$emit('bv::show::modal', 'select-user-modal');
     },
   },
 };
