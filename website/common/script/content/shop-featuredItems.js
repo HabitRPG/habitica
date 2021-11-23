@@ -54,8 +54,8 @@ const featuredItems = {
         path: 'quests.horse',
       },
       {
-        type: 'bundles',
-        path: 'bundles.birdBuddies',
+        type: 'quests',
+        path: 'quests.butterfly',
       },
     ];
   },
