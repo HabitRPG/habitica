@@ -53,6 +53,7 @@
       <div
         v-if="currentEvent && currentEvent.promo && currentEvent.promo === 'g1g1'"
         class="gift-promo-banner d-flex justify-content-around align-items-center px-4"
+        @click="showSelectUser"
       >
         <div
           v-once
@@ -313,6 +314,7 @@
     width: 100%;
     height: 5rem;
     background-image: linear-gradient(90deg, $teal-50 0%, $purple-400 100%);
+    cursor: pointer;
 
     .announce-text {
       color: $white;
@@ -470,6 +472,10 @@ export default {
     },
     close () {
       this.$root.$emit('bv::hide::modal', 'buy-gems');
+    },
+    showSelectUser () {
+      this.$root.$emit('bv::show::modal', 'select-user-modal');
+      this.close();
     },
   },
 };
