@@ -122,24 +122,6 @@ const basicAchievs = {
     titleKey: 'invitedFriend',
     textKey: 'invitedFriendText',
   },
-};
-Object.assign(achievementsData, basicAchievs);
-
-const animalSetAchievs = {
-  legendaryBestiary: {
-    icon: 'achievement-legendaryBestiary',
-    titleKey: 'achievementLegendaryBestiary',
-    textKey: 'achievementLegendaryBestiaryText',
-  },
-  domesticated: {
-    icon: 'achievement-domesticated',
-    titleKey: 'achievementDomesticated',
-    textKey: 'achievementDomesticatedText',
-  },
-};
-Object.assign(achievementsData, animalSetAchievs);
-
-const questAchievs = {
   bareNecessities: {
     icon: 'achievement-bareNecessities',
     titleKey: 'achievementBareNecessities',
@@ -176,7 +158,21 @@ const questAchievs = {
     textKey: 'achievementSeasonalSpecialistText',
   },
 };
-Object.assign(achievementsData, questAchievs);
+Object.assign(achievementsData, basicAchievs);
+
+const animalSetAchievs = {
+  legendaryBestiary: {
+    icon: 'achievement-legendaryBestiary',
+    titleKey: 'achievementLegendaryBestiary',
+    textKey: 'achievementLegendaryBestiaryText',
+  },
+  domesticated: {
+    icon: 'achievement-domesticated',
+    titleKey: 'achievementDomesticated',
+    textKey: 'achievementDomesticatedText',
+  },
+};
+Object.assign(achievementsData, animalSetAchievs);
 
 const petColorAchievs = {
   backToBasics: {
