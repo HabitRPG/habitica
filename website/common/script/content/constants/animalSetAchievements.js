@@ -9,7 +9,7 @@ const ANIMAL_SET_ACHIEVEMENTS = {
       'Unicorn',
     ],
     achievementKey: 'legendaryBestiary',
-    notificationType: 'ACHIEVEMENT_LEGENDARY_BESTIARY',
+    notificationType: 'ACHIEVEMENT_ANIMAL_SET',
   },
   domesticated: {
     type: 'pet',
@@ -24,7 +24,7 @@ const ANIMAL_SET_ACHIEVEMENTS = {
       'Cow',
     ],
     achievementKey: 'domesticated',
-    notificationType: 'ACHIEVEMENT_DOMESTICATED',
+    notificationType: 'ACHIEVEMENT_ANIMAL_SET',
   },
 };
 

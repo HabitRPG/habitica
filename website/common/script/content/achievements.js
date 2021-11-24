@@ -122,6 +122,44 @@ const basicAchievs = {
     titleKey: 'invitedFriend',
     textKey: 'invitedFriendText',
   },
+};
+Object.assign(achievementsData, basicAchievs);
+
+const animalSetAchievs = {
+  legendaryBestiary: {
+    icon: 'achievement-legendaryBestiary',
+    titleKey: 'achievementLegendaryBestiary',
+    textKey: 'achievementLegendaryBestiaryText',
+  },
+  domesticated: {
+    icon: 'achievement-domesticated',
+    titleKey: 'achievementDomesticated',
+    textKey: 'achievementDomesticatedText',
+  },
+};
+Object.assign(achievementsData, animalSetAchievs);
+
+const questAchievs = {
+  bareNecessities: {
+    icon: 'achievement-bareNecessities',
+    titleKey: 'achievementBareNecessities',
+    textKey: 'achievementBareNecessitiesText',
+  },
+  bugBonanza: {
+    icon: 'achievement-bugBonanza',
+    titleKey: 'achievementBugBonanza',
+    textKey: 'achievementBugBonanzaText',
+  },
+  freshwaterFriends: {
+    icon: 'achievement-freshwaterFriends',
+    titleKey: 'achievementFreshwaterFriends',
+    textKey: 'achievementFreshwaterFriendsText',
+  },
+  justAddWater: {
+    icon: 'achievement-justAddWater',
+    titleKey: 'achievementJustAddWater',
+    textKey: 'achievementJustAddWaterText',
+  },
   lostMasterclasser: {
     icon: 'achievement-lostMasterclasser',
     titleKey: 'achievementLostMasterclasser',
@@ -132,43 +170,13 @@ const basicAchievs = {
     titleKey: 'achievementMindOverMatter',
     textKey: 'achievementMindOverMatterText',
   },
-  justAddWater: {
-    icon: 'achievement-justAddWater',
-    titleKey: 'achievementJustAddWater',
-    textKey: 'achievementJustAddWaterText',
-  },
-  bugBonanza: {
-    icon: 'achievement-bugBonanza',
-    titleKey: 'achievementBugBonanza',
-    textKey: 'achievementBugBonanzaText',
-  },
-  bareNecessities: {
-    icon: 'achievement-bareNecessities',
-    titleKey: 'achievementBareNecessities',
-    textKey: 'achievementBareNecessitiesText',
-  },
-  freshwaterFriends: {
-    icon: 'achievement-freshwaterFriends',
-    titleKey: 'achievementFreshwaterFriends',
-    textKey: 'achievementFreshwaterFriendsText',
-  },
-  legendaryBestiary: {
-    icon: 'achievement-legendaryBestiary',
-    titleKey: 'achievementLegendaryBestiary',
-    textKey: 'achievementLegendaryBestiaryText',
-  },
   seasonalSpecialist: {
     icon: 'achievement-seasonalSpecialist',
     titleKey: 'achievementSeasonalSpecialist',
     textKey: 'achievementSeasonalSpecialistText',
   },
-  domesticated: {
-    icon: 'achievement-domesticated',
-    titleKey: 'achievementDomesticated',
-    textKey: 'achievementDomesticatedText',
-  },
 };
-Object.assign(achievementsData, basicAchievs);
+Object.assign(achievementsData, questAchievs);
 
 const petColorAchievs = {
   backToBasics: {

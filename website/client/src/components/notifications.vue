@@ -270,21 +270,13 @@ const NOTIFICATIONS = {
       achievement: 'seasonalSpecialist',
     },
   },
-  // animal set achievements
-  ACHIEVEMENT_DOMESTICATED: {
+  // animal set collection achievements
+  ACHIEVEMENT_ANIMAL_SET: {
     achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementDomesticated')}`,
+    label: $t => `${$t('achievement')}: ${$t('achievementAnimalSet')}`,
     modalId: 'generic-achievement',
     data: {
-      achievement: 'domesticated',
-    },
-  },
-  ACHIEVEMENT_LEGENDARY_BESTIARY: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementLegendaryBestiary')}`,
-    modalId: 'generic-achievement',
-    data: {
-      achievement: 'legendaryBestiary',
+      achievement: 'animalSetAchievs', // defined in website/common/script/content/achievements.js
     },
   },
   // pet and mount color collection achievement noticfications
@@ -298,7 +290,7 @@ const NOTIFICATIONS = {
   },
   ACHIEVEMENT_MOUNT_COLOR: {
     achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('mountColorAchievement')}`,
+    label: $t => `${$t('achievement')}: ${$t('achievementMountColor')}`,
     modalId: 'generic-achievement',
     data: { // THIS IS WHERE MY PROBLEM IS
       achievement: 'mountColorAchievs', // defined in website/common/script/content/achievements.js
@@ -384,8 +376,7 @@ export default {
       'ACHIEVEMENT_FRESHWATER_FRIENDS',
       'ACHIEVEMENT_SEASONAL_SPECIALIST',
       // animal set achievements
-      'ACHIEVEMENT_DOMESTICATED',
-      'ACHIEVEMENT_LEGENDARY_BESTIARY',
+      'ACHIEVEMENT_ANIMAL_SET',
       // pet and mount color collection achievement notifications
       'ACHIEVEMENT_PET_COLOR',
       'ACHIEVEMENT_MOUNT_COLOR',
@@ -805,11 +796,19 @@ export default {
           case 'ACHIEVEMENT_BARE_NECESSITIES':
           case 'ACHIEVEMENT_FRESHWATER_FRIENDS':
           case 'ACHIEVEMENT_SEASONAL_SPECIALIST':
-          case 'ACHIEVEMENT_DOMESTICATED':
-          case 'ACHIEVEMENT_LEGENDARY_BESTIARY':
           case 'GENERIC_ACHIEVEMENT':
             this.showNotificationWithModal(notification);
             break;
+          case 'ACHIEVEMENT_ANIMAL_SET': {
+            const { achievement } = notification.data;
+            const upperCaseAchievement = achievement.charAt(0).toUpperCase() + achievement.slice(1);
+            const achievementTitleKey = `achievement${upperCaseAchievement}`;
+            NOTIFICATIONS.ACHIEVEMENT_ANIMAL_SET.label = $t => `${$t('achievement')}: ${$t(achievementTitleKey)}`;
+            NOTIFICATIONS.ACHIEVEMENT_ANIMAL_SET.data.modalText = $t => $t(achievementTitleKey);
+            this.showNotificationWithModal(notification);
+            Vue.set(this.user.achievements, achievement, true);
+            break;
+          }
           case 'ACHIEVEMENT_PET_COLOR': {
             const { achievement } = notification.data;
             const upperCaseAchievement = achievement.charAt(0).toUpperCase() + achievement.slice(1);
