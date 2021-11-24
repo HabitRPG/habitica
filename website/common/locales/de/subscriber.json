@@ -22,7 +22,7 @@
     "sureCancelSub": "Bist Du sicher, dass Du das Abonnement kündigen willst?",
     "subGemPop": "Weil Du Abonnent von Habitica bist, kannst Du pro Monat eine bestimmte Anzahl von Edelsteinen mit Gold kaufen.",
     "subGemName": "Abonnenten-Edelsteine",
-    "maxBuyGems": "Du hast diesen Monat schon die erlaubte Menge Edelsteine gekauft. Innert der ersten drei Tage des folgenden Monats werden sie wieder verfügbar. Danke für Dein Abonnement!",
+    "maxBuyGems": "Du hast diesen Monat schon die erlaubte Menge Edelsteine gekauft. Innerhalb der ersten drei Tage des folgenden Monats werden neue verfügbar sein. Danke für Dein Abonnement!",
     "timeTravelers": "Mysteriöse Zeitreisende",
     "timeTravelersPopoverNoSubMobile": "Sieht aus als bräuchtest Du eine Mystische Sanduhr um das Zeitportal zu öffnen und die Mysteriösen Zeitreisenden herbei zu rufen.",
     "timeTravelersPopover": "Deine Mystische Sanduhr hat unser Zeitportal geöffnet! Wähle etwas aus, was wir für Dich aus der Vergangenheit oder Zukunft holen sollen.",
@@ -197,5 +197,6 @@
     "mysterySet202107": "Strandiges Keen Set",
     "mysterySet202109": "Mondschmetterlings-Set",
     "mysterySet202108": "Feuriges Shōnen Set",
-    "mysterySet202110": "Moosbewachsenes Wasserspeier Set"
+    "mysterySet202110": "Moosbewachsenes Wasserspeier Set",
+    "mysterySet202111": "Kosmisches Zeitzauberei Set"
 }

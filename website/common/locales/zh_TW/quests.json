@@ -21,7 +21,7 @@
     "declined": "拒絕",
     "rejected": "拒絕",
     "pending": "等待中",
-    "questCollection": "+<%= val %>個副本道具被找到",
+    "questCollection": "+<%= val %>個副本物品被找到",
     "questDamage": "+<%= val %>點傷害給boss",
     "begin": "開始",
     "bossHP": "Boss生命值",
