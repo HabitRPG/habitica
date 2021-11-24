@@ -22,7 +22,7 @@ api.geti18nBrowserScript = {
   async handler (req, res) {
     if (IS_PROD) {
       res.set({
-        'Cache-Control': 'private'
+        'Cache-Control': 'private',
       });
       res.sendFile(`${BROWSER_SCRIPT_CACHE_PATH}${req.language}.js`);
     } else {
