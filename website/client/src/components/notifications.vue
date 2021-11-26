@@ -206,37 +206,47 @@ const NOTIFICATIONS = {
     label: $t => `${$t('achievement')}: ${$t('gearAchievementNotification')}`,
     modalId: 'ultimate-gear',
   },
-  // stable achievements
-  ACHIEVEMENT_BEAST_MASTER: {
+  // master achievements
+  ACHIEVEMENT_MASTER: {
     achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('beastAchievement')}`,
+    label: $t => `${$t('achievement')}: ${$t('achievementMaster')}`,
     modalId: 'generic-achievement',
     data: {
-      message: $t => $t('achievement'),
-      modalText: $t => $t('beastAchievement'),
-      achievement: 'beastMaster',
+      // message: $t => $t('achievement'),
+      achievement: 'masterAchievs', // defined in website/common/script/content/achievements.js
     },
   },
-  ACHIEVEMENT_MOUNT_MASTER: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('mountAchievement')}`,
-    modalId: 'generic-achievement',
-    data: {
-      message: $t => $t('achievement'),
-      modalText: $t => $t('mountAchievement'),
-      achievement: 'mountMaster',
-    },
-  },
-  ACHIEVEMENT_TRIAD_BINGO: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('triadBingoAchievement')}`,
-    modalId: 'generic-achievement',
-    data: {
-      message: $t => $t('achievement'),
-      modalText: $t => $t('triadBingoAchievement'),
-      achievement: 'triadBingo',
-    },
-  },
+  // ACHIEVEMENT_BEAST_MASTER: {
+  //   achievement: true,
+  //   label: $t => `${$t('achievement')}: ${$t('beastAchievement')}`,
+  //   modalId: 'generic-achievement',
+  //   data: {
+  //     message: $t => $t('achievement'),
+  //     modalText: $t => $t('beastAchievement'),
+  //     achievement: 'beastMaster',
+  //   },
+  // },
+  // ACHIEVEMENT_MOUNT_MASTER: {
+  //   achievement: true,
+  //   label: $t => `${$t('achievement')}: ${$t('mountAchievement')}`,
+  //   modalId: 'generic-achievement',
+  //   data: {
+  //     message: $t => $t('achievement'),
+  //     modalText: $t => $t('mountAchievement'),
+  //     achievement: 'mountMaster',
+  //   },
+  // },
+  // ACHIEVEMENT_TRIAD_BINGO: {
+  //   achievement: true,
+  //   label: $t => `${$t('achievement')}: ${$t('triadBingoAchievement')}`,
+  //   modalId: 'generic-achievement',
+  //   data: {
+  //     message: $t => $t('achievement'),
+  //     modalText: $t => $t('triadBingoAchievement'),
+  //     achievement: 'triadBingo',
+  //   },
+  // },
+  //
   // quest achievements
   ACHIEVEMENT_BUG_BONANZA: {
     achievement: true,
@@ -367,6 +377,7 @@ export default {
       'ACHIEVEMENT_STREAK',
       'ACHIEVEMENT_ULTIMATE_GEAR',
       // stable achievement notifications
+      'ACHIEVEMENT_MASTER',
       'ACHIEVEMENT_BEAST_MASTER',
       'ACHIEVEMENT_MOUNT_MASTER',
       'ACHIEVEMENT_TRIAD_BINGO',
@@ -789,9 +800,6 @@ export default {
           case 'ACHIEVEMENT_PARTY_ON':
           case 'ACHIEVEMENT_PARTY_UP':
           case 'ACHIEVEMENT_ULTIMATE_GEAR':
-          case 'ACHIEVEMENT_BEAST_MASTER':
-          case 'ACHIEVEMENT_MOUNT_MASTER':
-          case 'ACHIEVEMENT_TRIAD_BINGO':
           case 'ACHIEVEMENT_BUG_BONANZA':
           case 'ACHIEVEMENT_BARE_NECESSITIES':
           case 'ACHIEVEMENT_FRESHWATER_FRIENDS':
@@ -799,6 +807,16 @@ export default {
           case 'GENERIC_ACHIEVEMENT':
             this.showNotificationWithModal(notification);
             break;
+          case 'ACHIEVEMENT_MASTER': {
+            const { achievement } = notification.data;
+            const upperCaseAchievement = achievement.charAt(0).toUpperCase() + achievement.slice(1);
+            const achievementTitleKey = `achievement${upperCaseAchievement}`;
+            NOTIFICATIONS.ACHIEVEMENT_MASTER.label = $t => `${$t('achievement')}: ${$t(achievementTitleKey)}`;
+            NOTIFICATIONS.ACHIEVEMENT_MASTER.data.modalText = $t => $t(achievementTitleKey);
+            this.showNotificationWithModal(notification);
+            Vue.set(this.user.achievements, achievement, true);
+            break;
+          }
           case 'ACHIEVEMENT_ANIMAL_SET': {
             const { achievement } = notification.data;
             const upperCaseAchievement = achievement.charAt(0).toUpperCase() + achievement.slice(1);
