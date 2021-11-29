@@ -207,13 +207,13 @@ const NOTIFICATIONS = {
     modalId: 'ultimate-gear',
   },
   // stable achievements
-  ACHIEVEMENT_stable: {
+  ACHIEVEMENT_STABLE: {
     achievement: true,
     label: $t => `${$t('achievement')}: ${$t('achievementStable')}`,
     modalId: 'generic-achievement',
     data: {
       // message: $t => $t('achievement'),
-      achievement: 'masterAchievs', // defined in website/common/script/content/achievements.js
+      achievement: 'stableAchievs', // defined in website/common/script/content/achievements.js
     },
   },
   // ACHIEVEMENT_BEAST_MASTER: {
