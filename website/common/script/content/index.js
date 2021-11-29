@@ -46,7 +46,7 @@ api.achievements = achievements;
 api.questSeriesAchievements = QUEST_SERIES_ACHIEVEMENTS;
 api.animalColorAchievements = ANIMAL_COLOR_ACHIEVEMENTS;
 api.animalSetAchievements = ANIMAL_SET_ACHIEVEMENTS;
-api.masterAchievements = STABLE_ACHIEVEMENTS;
+api.stableAchievements = STABLE_ACHIEVEMENTS;
 
 api.quests = quests;
 api.questsByLevel = questsByLevel;
