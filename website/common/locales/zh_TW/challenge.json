@@ -103,5 +103,6 @@
     "selectParticipant": "選擇一名參與者",
     "wonChallengeDesc": "<%= challengeName %> 選擇您作為獲勝者！您的勝利已記錄在您的成就中。",
     "yourReward": "獎勵",
-    "filters": "過濾器"
+    "filters": "過濾器",
+    "removeTasks": "刪除任務"
 }

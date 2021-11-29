@@ -30,7 +30,7 @@
     "armoireEquipment": "<%= image %> מצאתם ציוד נדיר בארמואר: <%= dropText %>! מגניב!",
     "armoireFood": "<%= image %> You rummage in the Armoire and find <%= dropText %>. What's that doing in here?",
     "armoireExp": "אתם נאבקים בארמואר ומרוויחים ניסיון. קבלו!",
-    "messageInsufficientGems": "אין לכם די אבני חן!",
+    "messageInsufficientGems": "אין מספיק יהלומים!",
     "messageGroupAlreadyInParty": "כבר בחבורה, נסו לרענן.",
     "messageGroupOnlyLeaderCanUpdate": "רק מנהיג הקבוצה יכול לעדכן את הקבוצה!",
     "messageGroupRequiresInvite": "לא ניתן להצטרף לקבוצה שאתם לא מוזמנים אליה.",
