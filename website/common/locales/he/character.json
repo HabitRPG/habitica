@@ -140,7 +140,7 @@
     "stealthNewDay": "בתחילתו של יום חדש, הימנע מלחטוף נזק ממטלות יומיות שלא ביצעת.",
     "streaksFrozen": "רצפים קפואים",
     "streaksFrozenText": "הרצפים של המטלות היומיות שלא ביצעת לא יתאפסו בסוף היום",
-    "purchaseFor": "לרכוש בתמורה ל <%= cost %> אבני חן?",
+    "purchaseFor": "לרכוש בתמורה ל־<%= cost %> יהלומים?",
     "purchaseForHourglasses": "Purchase for <%= cost %> Hourglasses?",
     "notEnoughMana": "אין לך מספיק מאנה.",
     "invalidTarget": "You can't cast a skill on that.",

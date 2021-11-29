@@ -71,7 +71,7 @@
     "commGuideList08B": "這項行為帶來的後果",
     "commGuideList08C": "如果可以的話，如何做才能改正此處境，並恢復原狀。",
     "commGuidePara060A": "依需要，在出現違規行為時，您可能會收到私信或電子郵件，並附帶違規行為發生的貼文。在某些情況下，您可能完全不會被公開譴責。",
-    "commGuidePara060B": "如果您的帳號被封鎖了 (這是一種嚴重的處置)，您將無法登入Habitica。此時當您嘗試登入時會收到一封錯誤訊息。<strong>如果您希望請求恢復帳號或是想道歉，請寄信到<a href='mailto:admin@habitica.com' target='_blank'>admin@habitica.com</a>並附帶您的UUID</strong> (它會顯示在錯誤訊息中) 與工作人員聯絡。若希望被重新考慮或復原，主動聯繫是<strong>您的</strong>責任。",
+    "commGuidePara060B": "如果您的帳號被封鎖了 (這是一種嚴重的處置)，您將無法登入Habitica。此時當您嘗試登入時會收到一封錯誤訊息。<strong>如果您希望請求恢復帳號或是想道歉，請寄信到<a href='mailto:admin@habitica.com' target='_blank'>admin@habitica.com</a>並附帶您的UserID</strong> 或@username(它會顯示在錯誤訊息中) 與工作人員聯絡。若希望被重新考慮或復原，主動聯繫是<strong>您的</strong>責任。",
     "commGuideHeadingSevereConsequences": "嚴重處置的例子",
     "commGuideList09A": "帳號封鎖 (請見上述)",
     "commGuideList09C": "永久禁用 (凍結) 在貢獻者層級的進展",

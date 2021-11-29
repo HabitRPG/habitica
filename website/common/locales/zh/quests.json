@@ -21,7 +21,7 @@
     "declined": "已拒绝",
     "rejected": "已拒绝",
     "pending": "等待中",
-    "questCollection": "找到+<%= val %>个副本掉落物品",
+    "questCollection": "找到+<%= val %>个副本物品",
     "questDamage": "即将对boss造成+<%= val %>点伤害",
     "begin": "开始",
     "bossHP": "Boss生命值",
