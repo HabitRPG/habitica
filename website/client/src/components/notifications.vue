@@ -271,7 +271,7 @@ const NOTIFICATIONS = {
     achievement: true,
     label: $t => `${$t('achievement')}: ${$t('achievementMountColor')}`,
     modalId: 'generic-achievement',
-    data: { // THIS IS WHERE MY PROBLEM IS
+    data: {
       achievement: 'mountColorAchievs', // defined in website/common/script/content/achievements.js
     },
   },
@@ -347,9 +347,6 @@ export default {
       'ACHIEVEMENT_ULTIMATE_GEAR',
       // stable achievement notifications
       'ACHIEVEMENT_STABLE',
-      // 'ACHIEVEMENT_BEAST_MASTER',
-      // 'ACHIEVEMENT_MOUNT_MASTER',
-      // 'ACHIEVEMENT_TRIAD_BINGO',
       // pet quest achievement notifications
       'ACHIEVEMENT_BUG_BONANZA',
       'ACHIEVEMENT_BARE_NECESSITIES',
