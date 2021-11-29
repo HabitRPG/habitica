@@ -808,9 +808,7 @@ export default {
             this.showNotificationWithModal(notification);
             break;
           case 'ACHIEVEMENT_STABLE': {
-            const { achievement } = notification.data;
-            const upperCaseAchievement = achievement.charAt(0).toUpperCase() + achievement.slice(1);
-            const achievementTitleKey = `achievement${upperCaseAchievement}`;
+            const { achievement, achievementTitleKey } = notification.data;
             NOTIFICATIONS.ACHIEVEMENT_STABLE.label = $t => `${$t('achievement')}: ${$t(achievementTitleKey)}`;
             NOTIFICATIONS.ACHIEVEMENT_STABLE.data.modalText = $t => $t(achievementTitleKey);
             this.showNotificationWithModal(notification);

@@ -250,7 +250,7 @@ schema.pre('save', true, function preSaveUser (next, done) {
       && this.achievements.beastMaster !== true
     ) {
       this.achievements.beastMaster = true;
-      this.addNotification('ACHIEVEMENT_STABLE');
+      this.addNotification('ACHIEVEMENT_STABLE', { achievement: 'beastMaster', achievementTitleKey: 'beastMasterName' });
     }
 
     // Determines if Mount Master should be awarded
@@ -261,7 +261,7 @@ schema.pre('save', true, function preSaveUser (next, done) {
       && this.achievements.mountMaster !== true
     ) {
       this.achievements.mountMaster = true;
-      this.addNotification('ACHIEVEMENT_STABLE');
+      this.addNotification('ACHIEVEMENT_STABLE', { achievement: 'mountMaster', achievementTitleKey: 'mountMasterName' });
     }
 
     // Determines if Triad Bingo should be awarded
@@ -273,7 +273,7 @@ schema.pre('save', true, function preSaveUser (next, done) {
       && this.achievements.triadBingo !== true
     ) {
       this.achievements.triadBingo = true;
-      this.addNotification('ACHIEVEMENT_STABLE');
+      this.addNotification('ACHIEVEMENT_STABLE', { achievement: 'triadBingo', achievementTitleKey: 'triadBingoName' });
     }
 
     // EXAMPLE CODE for allowing all existing and new players to be
