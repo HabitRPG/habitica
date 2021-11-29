@@ -1,3 +1,9 @@
+.quest_cow {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-15.png');
+  background-position: -1760px 0px;
+  width: 174px;
+  height: 213px;
+}
 .quest_dilatory {
   background-image: url('~@/assets/images/sprites/spritesmith-main-15.png');
   background-position: -440px 0px;
@@ -12,7 +18,7 @@
 }
 .quest_dilatoryDistress2 {
   background-image: url('~@/assets/images/sprites/spritesmith-main-15.png');
-  background-position: -1760px -567px;
+  background-position: -1935px -392px;
   width: 150px;
   height: 150px;
 }
@@ -42,13 +48,13 @@
 }
 .quest_egg {
   background-image: url('~@/assets/images/sprites/spritesmith-main-15.png');
-  background-position: -1760px -359px;
+  background-position: -1935px -184px;
   width: 165px;
   height: 207px;
 }
 .quest_evilsanta {
   background-image: url('~@/assets/images/sprites/spritesmith-main-15.png');
-  background-position: -1760px -1171px;
+  background-position: -1935px -845px;
   width: 118px;
   height: 131px;
 }
@@ -174,7 +180,7 @@
 }
 .quest_mayhemMistiflying1 {
   background-image: url('~@/assets/images/sprites/spritesmith-main-15.png');
-  background-position: -1760px -718px;
+  background-position: -1935px -543px;
   width: 150px;
   height: 150px;
 }
@@ -264,7 +270,7 @@
 }
 .quest_penguin {
   background-image: url('~@/assets/images/sprites/spritesmith-main-15.png');
-  background-position: -1760px -175px;
+  background-position: -1935px 0px;
   width: 190px;
   height: 183px;
 }
@@ -294,7 +300,7 @@
 }
 .quest_rooster {
   background-image: url('~@/assets/images/sprites/spritesmith-main-15.png');
-  background-position: -1760px 0px;
+  background-position: 0px -1697px;
   width: 213px;
   height: 174px;
 }
@@ -366,7 +372,7 @@
 }
 .quest_stoikalmCalamity1 {
   background-image: url('~@/assets/images/sprites/spritesmith-main-15.png');
-  background-position: -1760px -869px;
+  background-position: -1935px -694px;
   width: 150px;
   height: 150px;
 }
@@ -387,10 +393,4 @@
   background-position: -1540px -220px;
   width: 219px;
   height: 219px;
-}
-.quest_taskwoodsTerror1 {
-  background-image: url('~@/assets/images/sprites/spritesmith-main-15.png');
-  background-position: -1760px -1020px;
-  width: 150px;
-  height: 150px;
 }

@@ -1,1452 +1,1446 @@
-.Mount_Body_Wolf-Watery {
+.Mount_Body_Wolf-Thunderstorm {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
   background-position: 0px 0px;
   width: 135px;
   height: 135px;
 }
-.Mount_Body_Wolf-White {
+.Mount_Body_Wolf-Turquoise {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
   background-position: -136px 0px;
   width: 135px;
   height: 135px;
 }
-.Mount_Body_Wolf-Windup {
+.Mount_Body_Wolf-Vampire {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
   background-position: 0px -136px;
   width: 135px;
   height: 135px;
 }
-.Mount_Body_Wolf-Zombie {
+.Mount_Body_Wolf-Watery {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
   background-position: -136px -136px;
   width: 135px;
   height: 135px;
 }
+.Mount_Body_Wolf-White {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
+  background-position: -272px 0px;
+  width: 135px;
+  height: 135px;
+}
+.Mount_Body_Wolf-Windup {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
+  background-position: -272px -136px;
+  width: 135px;
+  height: 135px;
+}
+.Mount_Body_Wolf-Zombie {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
+  background-position: 0px -272px;
+  width: 135px;
+  height: 135px;
+}
 .Mount_Body_Yarn-Base {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -212px -520px;
+  background-position: -530px -532px;
   width: 105px;
   height: 105px;
 }
 .Mount_Body_Yarn-CottonCandyBlue {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -318px -520px;
+  background-position: -726px 0px;
   width: 105px;
   height: 105px;
 }
 .Mount_Body_Yarn-CottonCandyPink {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -424px -520px;
+  background-position: -726px -106px;
   width: 105px;
   height: 105px;
 }
 .Mount_Body_Yarn-Desert {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -530px -520px;
+  background-position: -726px -212px;
   width: 105px;
   height: 105px;
 }
 .Mount_Body_Yarn-Golden {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -711px 0px;
+  background-position: -726px -318px;
   width: 105px;
   height: 105px;
 }
 .Mount_Body_Yarn-Red {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -711px -106px;
+  background-position: -726px -424px;
   width: 105px;
   height: 105px;
 }
 .Mount_Body_Yarn-Shade {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -711px -212px;
+  background-position: -726px -530px;
   width: 105px;
   height: 105px;
 }
 .Mount_Body_Yarn-Skeleton {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -711px -318px;
+  background-position: 0px -647px;
   width: 105px;
   height: 105px;
 }
 .Mount_Body_Yarn-White {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -711px -424px;
+  background-position: -106px -647px;
   width: 105px;
   height: 105px;
 }
 .Mount_Body_Yarn-Zombie {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: 0px -635px;
+  background-position: -212px -647px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Alligator-Base {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -106px -635px;
+  background-position: -318px -647px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Alligator-CottonCandyBlue {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -212px -635px;
+  background-position: -424px -647px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Alligator-CottonCandyPink {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -318px -635px;
+  background-position: -530px -647px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Alligator-Desert {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -424px -635px;
+  background-position: -636px -647px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Alligator-Golden {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -530px -635px;
+  background-position: -832px 0px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Alligator-Red {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -636px -635px;
+  background-position: -832px -106px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Alligator-Shade {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -817px 0px;
+  background-position: -832px -212px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Alligator-Skeleton {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -817px -106px;
+  background-position: -832px -318px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Alligator-White {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -817px -212px;
+  background-position: -832px -424px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Alligator-Zombie {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -817px -318px;
+  background-position: -832px -530px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Armadillo-Base {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -817px -424px;
+  background-position: -832px -636px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Armadillo-CottonCandyBlue {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -817px -530px;
+  background-position: 0px -753px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Armadillo-CottonCandyPink {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: 0px -741px;
+  background-position: -106px -753px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Armadillo-Desert {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -106px -741px;
+  background-position: -212px -753px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Armadillo-Golden {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -212px -741px;
+  background-position: -318px -753px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Armadillo-Red {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -318px -741px;
+  background-position: -424px -753px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Armadillo-Shade {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -424px -741px;
+  background-position: -530px -753px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Armadillo-Skeleton {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -530px -741px;
+  background-position: -636px -753px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Armadillo-White {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -636px -741px;
+  background-position: -742px -753px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Armadillo-Zombie {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -742px -741px;
+  background-position: -938px 0px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Axolotl-Base {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -923px 0px;
+  background-position: -938px -106px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Axolotl-CottonCandyBlue {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -923px -106px;
+  background-position: -938px -212px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Axolotl-CottonCandyPink {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -923px -212px;
+  background-position: -938px -318px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Axolotl-Desert {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -923px -318px;
+  background-position: -938px -424px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Axolotl-Golden {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -923px -424px;
+  background-position: -938px -530px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Axolotl-Red {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -923px -530px;
+  background-position: -938px -636px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Axolotl-Shade {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -923px -636px;
+  background-position: -938px -742px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Axolotl-Skeleton {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: 0px -847px;
+  background-position: 0px -859px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Axolotl-White {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -106px -847px;
+  background-position: -106px -859px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Axolotl-Zombie {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -212px -847px;
+  background-position: -212px -859px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Badger-Base {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -318px -847px;
+  background-position: -318px -859px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Badger-CottonCandyBlue {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -424px -847px;
+  background-position: -424px -859px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Badger-CottonCandyPink {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -530px -847px;
+  background-position: -530px -859px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Badger-Desert {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -636px -847px;
+  background-position: -636px -859px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Badger-Golden {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -742px -847px;
+  background-position: -742px -859px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Badger-Red {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -848px -847px;
+  background-position: -848px -859px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Badger-Shade {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1029px 0px;
+  background-position: -1044px 0px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Badger-Skeleton {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1029px -106px;
+  background-position: -1044px -106px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Badger-White {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1029px -212px;
+  background-position: -1044px -212px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Badger-Zombie {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1029px -318px;
+  background-position: -1044px -318px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-Amber {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1029px -424px;
+  background-position: -1044px -424px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-Aquatic {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1029px -530px;
+  background-position: -1044px -530px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-Aurora {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1029px -636px;
+  background-position: -1044px -636px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-AutumnLeaf {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1029px -742px;
+  background-position: -1044px -742px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-Base {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: 0px -953px;
+  background-position: -1044px -848px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-BirchBark {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -106px -953px;
+  background-position: 0px -965px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-BlackPearl {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -212px -953px;
+  background-position: -106px -965px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-Bronze {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -318px -953px;
+  background-position: -212px -965px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-Celestial {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -424px -953px;
+  background-position: -318px -965px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-CottonCandyBlue {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -530px -953px;
+  background-position: -424px -965px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-CottonCandyPink {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -636px -953px;
+  background-position: -530px -965px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-Cupid {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -742px -953px;
+  background-position: -636px -965px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-Desert {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -848px -953px;
+  background-position: -742px -965px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-Ember {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -954px -953px;
+  background-position: -848px -965px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-Fairy {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1135px 0px;
+  background-position: -954px -965px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-Floral {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1135px -106px;
+  background-position: -1150px 0px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-Fluorite {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1135px -212px;
+  background-position: -1150px -106px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-Frost {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1135px -318px;
+  background-position: -1150px -212px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-Ghost {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1135px -424px;
+  background-position: -1150px -318px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-Glass {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1135px -530px;
+  background-position: -1150px -424px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-Glow {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1135px -636px;
+  background-position: -1150px -530px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-Golden {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1135px -742px;
+  background-position: -1150px -636px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-Holly {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1135px -848px;
+  background-position: -1150px -742px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-IcySnow {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: 0px -1059px;
+  background-position: -1150px -848px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-Moonglow {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -106px -1059px;
+  background-position: -1150px -954px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-MossyStone {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -212px -1059px;
+  background-position: 0px -1071px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-Onyx {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -318px -1059px;
+  background-position: -106px -1071px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-Peppermint {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -424px -1059px;
+  background-position: -212px -1071px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-Polar {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -530px -1059px;
+  background-position: -318px -1071px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-PolkaDot {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -636px -1059px;
+  background-position: -424px -1071px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-Rainbow {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -742px -1059px;
+  background-position: -530px -1071px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-Red {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -848px -1059px;
+  background-position: -636px -1071px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-RoseQuartz {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -954px -1059px;
+  background-position: -742px -1071px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-RoyalPurple {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1060px -1059px;
+  background-position: -848px -1071px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-Ruby {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1241px 0px;
+  background-position: -954px -1071px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-SandSculpture {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1241px -106px;
+  background-position: -1060px -1071px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-Shade {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1241px -212px;
+  background-position: -1256px 0px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-Shadow {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1241px -318px;
+  background-position: -1256px -106px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-Shimmer {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1241px -424px;
+  background-position: -1256px -212px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-Silver {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1241px -530px;
+  background-position: -1256px -318px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-Skeleton {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1241px -636px;
+  background-position: -1256px -424px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-SolarSystem {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1241px -742px;
+  background-position: -1256px -530px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-Spooky {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1241px -848px;
+  background-position: -1256px -636px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-StainedGlass {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1241px -954px;
+  background-position: -1256px -742px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-StarryNight {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -272px 0px;
+  background-position: -136px -272px;
   width: 120px;
   height: 120px;
 }
 .Mount_Head_BearCub-Sunset {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: 0px -1165px;
+  background-position: -1256px -848px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-Sunshine {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -106px -1165px;
+  background-position: -1256px -954px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-Thunderstorm {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -212px -1165px;
+  background-position: -1256px -1060px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-Turquoise {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -318px -1165px;
+  background-position: 0px -1177px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-Vampire {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -424px -1165px;
+  background-position: -106px -1177px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-Watery {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -530px -1165px;
+  background-position: -212px -1177px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-White {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -636px -1165px;
+  background-position: -318px -1177px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-Windup {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -742px -1165px;
+  background-position: -424px -1177px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_BearCub-Zombie {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -848px -1165px;
+  background-position: -530px -1177px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Beetle-Base {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -954px -1165px;
+  background-position: -636px -1177px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Beetle-CottonCandyBlue {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1060px -1165px;
+  background-position: -742px -1177px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Beetle-CottonCandyPink {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1166px -1165px;
+  background-position: -848px -1177px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Beetle-Desert {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1347px 0px;
+  background-position: -954px -1177px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Beetle-Golden {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1347px -106px;
+  background-position: -1060px -1177px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Beetle-Red {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1347px -212px;
+  background-position: -1166px -1177px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Beetle-Shade {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1347px -318px;
+  background-position: -1362px 0px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Beetle-Skeleton {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1347px -424px;
+  background-position: -1362px -106px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Beetle-White {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1347px -530px;
+  background-position: -1362px -212px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Beetle-Zombie {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1347px -636px;
+  background-position: -1362px -318px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Bunny-Base {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1347px -742px;
+  background-position: -1362px -424px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Bunny-CottonCandyBlue {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1347px -848px;
+  background-position: -1362px -530px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Bunny-CottonCandyPink {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1347px -954px;
+  background-position: -1362px -636px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Bunny-Desert {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1347px -1060px;
+  background-position: -1362px -742px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Bunny-Golden {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: 0px -1271px;
+  background-position: -1362px -848px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Bunny-Red {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -106px -1271px;
+  background-position: -1362px -954px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Bunny-Shade {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -212px -1271px;
+  background-position: -1362px -1060px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Bunny-Skeleton {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -318px -1271px;
+  background-position: -1362px -1166px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Bunny-White {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -424px -1271px;
+  background-position: 0px -1283px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Bunny-Zombie {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -530px -1271px;
+  background-position: -106px -1283px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Butterfly-Base {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -393px 0px;
+  background-position: -408px 0px;
   width: 105px;
   height: 123px;
 }
 .Mount_Head_Butterfly-CottonCandyBlue {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -393px -124px;
+  background-position: -408px -124px;
   width: 105px;
   height: 123px;
 }
 .Mount_Head_Butterfly-CottonCandyPink {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: 0px -272px;
+  background-position: -408px -248px;
   width: 105px;
   height: 123px;
 }
 .Mount_Head_Butterfly-Desert {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -106px -272px;
+  background-position: -514px 0px;
   width: 105px;
   height: 123px;
 }
 .Mount_Head_Butterfly-Golden {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -212px -272px;
+  background-position: -514px -124px;
   width: 105px;
   height: 123px;
 }
 .Mount_Head_Butterfly-Red {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -318px -272px;
+  background-position: -514px -248px;
   width: 105px;
   height: 123px;
 }
 .Mount_Head_Butterfly-Shade {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -499px 0px;
+  background-position: 0px -408px;
   width: 105px;
   height: 123px;
 }
 .Mount_Head_Butterfly-Skeleton {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -499px -124px;
+  background-position: -106px -408px;
   width: 105px;
   height: 123px;
 }
 .Mount_Head_Butterfly-White {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -499px -248px;
+  background-position: -212px -408px;
   width: 105px;
   height: 123px;
 }
 .Mount_Head_Butterfly-Zombie {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: 0px -396px;
+  background-position: -318px -408px;
   width: 105px;
   height: 123px;
 }
 .Mount_Head_Cactus-Amber {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -636px -1271px;
+  background-position: -212px -1283px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-Aquatic {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -742px -1271px;
+  background-position: -318px -1283px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-Aurora {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -848px -1271px;
+  background-position: -424px -1283px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-AutumnLeaf {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -954px -1271px;
+  background-position: -530px -1283px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-Base {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1060px -1271px;
+  background-position: -636px -1283px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-BirchBark {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1166px -1271px;
+  background-position: -742px -1283px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-BlackPearl {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1272px -1271px;
+  background-position: -848px -1283px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-Bronze {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1453px 0px;
+  background-position: -954px -1283px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-Celestial {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1453px -106px;
+  background-position: -1060px -1283px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-CottonCandyBlue {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1453px -212px;
+  background-position: -1166px -1283px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-CottonCandyPink {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1453px -318px;
+  background-position: -1272px -1283px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-Cupid {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1453px -424px;
+  background-position: -1468px 0px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-Desert {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1453px -530px;
+  background-position: -1468px -106px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-Ember {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1453px -636px;
+  background-position: -1468px -212px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-Fairy {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1453px -742px;
+  background-position: -1468px -318px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-Floral {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1453px -848px;
+  background-position: -1468px -424px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-Fluorite {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1453px -954px;
+  background-position: -1468px -530px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-Frost {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1453px -1060px;
+  background-position: -1468px -636px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-Ghost {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1453px -1166px;
+  background-position: -1468px -742px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-Glass {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: 0px -1377px;
+  background-position: -1468px -848px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-Glow {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -106px -1377px;
+  background-position: -1468px -954px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-Golden {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -212px -1377px;
+  background-position: -1468px -1060px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-Holly {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -318px -1377px;
+  background-position: -1468px -1166px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-IcySnow {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -424px -1377px;
+  background-position: -1468px -1272px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-Moonglow {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -530px -1377px;
+  background-position: 0px -1389px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-MossyStone {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -636px -1377px;
+  background-position: -106px -1389px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-Onyx {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -742px -1377px;
+  background-position: -212px -1389px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-Peppermint {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -848px -1377px;
+  background-position: -318px -1389px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-PolkaDot {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -954px -1377px;
+  background-position: -424px -1389px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-Rainbow {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1060px -1377px;
+  background-position: -530px -1389px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-Red {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1166px -1377px;
+  background-position: -636px -1389px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-RoseQuartz {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1272px -1377px;
+  background-position: -742px -1389px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-RoyalPurple {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1378px -1377px;
+  background-position: -848px -1389px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-Ruby {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1559px 0px;
+  background-position: -954px -1389px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-SandSculpture {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1559px -106px;
+  background-position: -1060px -1389px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-Shade {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1559px -212px;
+  background-position: -1166px -1389px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-Shadow {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1559px -318px;
+  background-position: -1272px -1389px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-Shimmer {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1559px -424px;
+  background-position: -1378px -1389px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-Silver {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1559px -530px;
+  background-position: -1574px 0px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-Skeleton {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1559px -636px;
+  background-position: -1574px -106px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-SolarSystem {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1559px -742px;
+  background-position: -1574px -212px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-Spooky {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1559px -848px;
+  background-position: -1574px -318px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-StainedGlass {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1559px -954px;
+  background-position: -1574px -424px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-StarryNight {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -272px -121px;
+  background-position: -257px -272px;
   width: 120px;
   height: 120px;
 }
 .Mount_Head_Cactus-Sunset {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1559px -1060px;
+  background-position: -1574px -530px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-Sunshine {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1559px -1166px;
+  background-position: -1574px -636px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-Thunderstorm {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1559px -1272px;
+  background-position: -1574px -742px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-Turquoise {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: 0px -1483px;
+  background-position: -1574px -848px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-Vampire {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -106px -1483px;
+  background-position: -1574px -954px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-Watery {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -212px -1483px;
+  background-position: -1574px -1060px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-White {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -318px -1483px;
+  background-position: -1574px -1166px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-Windup {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -424px -1483px;
+  background-position: -1574px -1272px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cactus-Zombie {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -530px -1483px;
+  background-position: -1574px -1378px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cheetah-Base {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -636px -1483px;
+  background-position: 0px -1495px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cheetah-CottonCandyBlue {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -742px -1483px;
+  background-position: -106px -1495px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cheetah-CottonCandyPink {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -848px -1483px;
+  background-position: -212px -1495px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cheetah-Desert {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -954px -1483px;
+  background-position: -318px -1495px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cheetah-Golden {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1060px -1483px;
+  background-position: -424px -1495px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cheetah-Red {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1166px -1483px;
+  background-position: -530px -1495px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cheetah-Shade {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1272px -1483px;
+  background-position: -636px -1495px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cheetah-Skeleton {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1378px -1483px;
+  background-position: -742px -1495px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cheetah-White {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1484px -1483px;
+  background-position: -848px -1495px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cheetah-Zombie {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1665px 0px;
+  background-position: -954px -1495px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cow-Base {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1665px -106px;
+  background-position: -1060px -1495px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cow-CottonCandyBlue {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1665px -212px;
+  background-position: -1166px -1495px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cow-CottonCandyPink {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1665px -318px;
+  background-position: -1272px -1495px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cow-Desert {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1665px -424px;
+  background-position: -1378px -1495px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cow-Golden {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1665px -530px;
+  background-position: -1484px -1495px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cow-Red {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1665px -636px;
+  background-position: -1680px 0px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cow-Shade {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1665px -742px;
+  background-position: -1680px -106px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cow-Skeleton {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1665px -848px;
+  background-position: -1680px -212px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cow-White {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1665px -954px;
+  background-position: -1680px -318px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cow-Zombie {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1665px -1060px;
+  background-position: -1680px -424px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Cuttlefish-Base {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -106px -396px;
+  background-position: -424px -408px;
   width: 105px;
   height: 114px;
 }
 .Mount_Head_Cuttlefish-CottonCandyBlue {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -212px -396px;
+  background-position: -620px 0px;
   width: 105px;
   height: 114px;
 }
 .Mount_Head_Cuttlefish-CottonCandyPink {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -318px -396px;
+  background-position: -620px -115px;
   width: 105px;
   height: 114px;
 }
 .Mount_Head_Cuttlefish-Desert {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -424px -396px;
+  background-position: -620px -230px;
   width: 105px;
   height: 114px;
 }
 .Mount_Head_Cuttlefish-Golden {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -605px 0px;
+  background-position: -620px -345px;
   width: 105px;
   height: 114px;
 }
 .Mount_Head_Cuttlefish-Red {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -605px -115px;
+  background-position: 0px -532px;
   width: 105px;
   height: 114px;
 }
 .Mount_Head_Cuttlefish-Shade {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -605px -230px;
+  background-position: -106px -532px;
   width: 105px;
   height: 114px;
 }
 .Mount_Head_Cuttlefish-Skeleton {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -605px -345px;
+  background-position: -212px -532px;
   width: 105px;
   height: 114px;
 }
 .Mount_Head_Cuttlefish-White {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: 0px -520px;
+  background-position: -318px -532px;
   width: 105px;
   height: 114px;
 }
 .Mount_Head_Cuttlefish-Zombie {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -106px -520px;
+  background-position: -424px -532px;
   width: 105px;
   height: 114px;
 }
 .Mount_Head_Deer-Base {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1665px -1166px;
+  background-position: -1680px -530px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Deer-CottonCandyBlue {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1665px -1272px;
+  background-position: -1680px -636px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Deer-CottonCandyPink {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1665px -1378px;
+  background-position: -1680px -742px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Deer-Desert {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: 0px -1589px;
+  background-position: -1680px -848px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Deer-Golden {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -106px -1589px;
+  background-position: -1680px -954px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Deer-Red {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -212px -1589px;
+  background-position: -1680px -1060px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Deer-Shade {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -318px -1589px;
+  background-position: -1680px -1166px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Deer-Skeleton {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -424px -1589px;
+  background-position: -1680px -1272px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Deer-White {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -530px -1589px;
+  background-position: -1680px -1378px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Deer-Zombie {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -636px -1589px;
+  background-position: -1680px -1484px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Dolphin-Base {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -742px -1589px;
+  background-position: 0px -1601px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Dolphin-CottonCandyBlue {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -848px -1589px;
+  background-position: -106px -1601px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Dolphin-CottonCandyPink {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -954px -1589px;
+  background-position: -212px -1601px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Dolphin-Desert {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1060px -1589px;
+  background-position: -318px -1601px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Dolphin-Golden {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1166px -1589px;
+  background-position: -424px -1601px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Dolphin-Red {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1272px -1589px;
+  background-position: -530px -1601px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Dolphin-Shade {
   background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1378px -1589px;
-  width: 105px;
-  height: 105px;
-}
-.Mount_Head_Dolphin-Skeleton {
-  background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1484px -1589px;
-  width: 105px;
-  height: 105px;
-}
-.Mount_Head_Dolphin-White {
-  background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1590px -1589px;
-  width: 105px;
-  height: 105px;
-}
-.Mount_Head_Dolphin-Zombie {
-  background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1771px 0px;
-  width: 105px;
-  height: 105px;
-}
-.Mount_Head_Dragon-Amber {
-  background-image: url('~@/assets/images/sprites/spritesmith-main-21.png');
-  background-position: -1771px -106px;
+  background-position: -636px -1601px;
   width: 105px;
   height: 105px;
 }
