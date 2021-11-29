@@ -206,10 +206,10 @@ const NOTIFICATIONS = {
     label: $t => `${$t('achievement')}: ${$t('gearAchievementNotification')}`,
     modalId: 'ultimate-gear',
   },
-  // master achievements
-  ACHIEVEMENT_MASTER: {
+  // stable achievements
+  ACHIEVEMENT_stable: {
     achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementMaster')}`,
+    label: $t => `${$t('achievement')}: ${$t('achievementStable')}`,
     modalId: 'generic-achievement',
     data: {
       // message: $t => $t('achievement'),
@@ -377,10 +377,10 @@ export default {
       'ACHIEVEMENT_STREAK',
       'ACHIEVEMENT_ULTIMATE_GEAR',
       // stable achievement notifications
-      'ACHIEVEMENT_MASTER',
-      'ACHIEVEMENT_BEAST_MASTER',
-      'ACHIEVEMENT_MOUNT_MASTER',
-      'ACHIEVEMENT_TRIAD_BINGO',
+      'ACHIEVEMENT_STABLE',
+      // 'ACHIEVEMENT_BEAST_MASTER',
+      // 'ACHIEVEMENT_MOUNT_MASTER',
+      // 'ACHIEVEMENT_TRIAD_BINGO',
       // pet quest achievement notifications
       'ACHIEVEMENT_BUG_BONANZA',
       'ACHIEVEMENT_BARE_NECESSITIES',
@@ -807,12 +807,12 @@ export default {
           case 'GENERIC_ACHIEVEMENT':
             this.showNotificationWithModal(notification);
             break;
-          case 'ACHIEVEMENT_MASTER': {
+          case 'ACHIEVEMENT_STABLE': {
             const { achievement } = notification.data;
             const upperCaseAchievement = achievement.charAt(0).toUpperCase() + achievement.slice(1);
             const achievementTitleKey = `achievement${upperCaseAchievement}`;
-            NOTIFICATIONS.ACHIEVEMENT_MASTER.label = $t => `${$t('achievement')}: ${$t(achievementTitleKey)}`;
-            NOTIFICATIONS.ACHIEVEMENT_MASTER.data.modalText = $t => $t(achievementTitleKey);
+            NOTIFICATIONS.ACHIEVEMENT_STABLE.label = $t => `${$t('achievement')}: ${$t(achievementTitleKey)}`;
+            NOTIFICATIONS.ACHIEVEMENT_STABLE.data.modalText = $t => $t(achievementTitleKey);
             this.showNotificationWithModal(notification);
             Vue.set(this.user.achievements, achievement, true);
             break;

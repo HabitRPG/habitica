@@ -12,7 +12,7 @@ import {
   QUEST_SERIES_ACHIEVEMENTS,
   ANIMAL_COLOR_ACHIEVEMENTS,
   ANIMAL_SET_ACHIEVEMENTS,
-  MASTER_ACHIEVEMENTS,
+  STABLE_ACHIEVEMENTS,
 } from './constants';
 
 import achievements from './achievements';
@@ -46,7 +46,7 @@ api.achievements = achievements;
 api.questSeriesAchievements = QUEST_SERIES_ACHIEVEMENTS;
 api.animalColorAchievements = ANIMAL_COLOR_ACHIEVEMENTS;
 api.animalSetAchievements = ANIMAL_SET_ACHIEVEMENTS;
-api.masterAchievements = MASTER_ACHIEVEMENTS;
+api.masterAchievements = STABLE_ACHIEVEMENTS;
 
 api.quests = quests;
 api.questsByLevel = questsByLevel;

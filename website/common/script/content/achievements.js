@@ -55,7 +55,7 @@ const seasonalSpellAchievs = {
 };
 Object.assign(achievementsData, seasonalSpellAchievs);
 
-const masterAchievs = {
+const stableAchievs = {
   beastMaster: {
     icon: 'achievement-rat',
     titleKey: 'beastMasterName',
@@ -75,7 +75,7 @@ const masterAchievs = {
     text2Key: 'triadBingoText2',
   },
 };
-Object.assign(achievementsData, masterAchievs);
+Object.assign(achievementsData, stableAchievs);
 
 const basicAchievs = {
   partyUp: {
