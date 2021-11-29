@@ -216,37 +216,6 @@ const NOTIFICATIONS = {
       achievement: 'stableAchievs', // defined in website/common/script/content/achievements.js
     },
   },
-  // ACHIEVEMENT_BEAST_MASTER: {
-  //   achievement: true,
-  //   label: $t => `${$t('achievement')}: ${$t('beastAchievement')}`,
-  //   modalId: 'generic-achievement',
-  //   data: {
-  //     message: $t => $t('achievement'),
-  //     modalText: $t => $t('beastAchievement'),
-  //     achievement: 'beastMaster',
-  //   },
-  // },
-  // ACHIEVEMENT_MOUNT_MASTER: {
-  //   achievement: true,
-  //   label: $t => `${$t('achievement')}: ${$t('mountAchievement')}`,
-  //   modalId: 'generic-achievement',
-  //   data: {
-  //     message: $t => $t('achievement'),
-  //     modalText: $t => $t('mountAchievement'),
-  //     achievement: 'mountMaster',
-  //   },
-  // },
-  // ACHIEVEMENT_TRIAD_BINGO: {
-  //   achievement: true,
-  //   label: $t => `${$t('achievement')}: ${$t('triadBingoAchievement')}`,
-  //   modalId: 'generic-achievement',
-  //   data: {
-  //     message: $t => $t('achievement'),
-  //     modalText: $t => $t('triadBingoAchievement'),
-  //     achievement: 'triadBingo',
-  //   },
-  // },
-  //
   // quest achievements
   ACHIEVEMENT_BUG_BONANZA: {
     achievement: true,
