@@ -74,7 +74,6 @@ describe('PUT /challenges/:challengeId', () => {
     expect(res.memberCount).to.equal(2);
     expect(res.tasksOrder).not.to.equal('new order');
     expect(res.official).to.equal(false);
-    expect(res.shortName).not.to.equal('new short name');
 
     expect(res.leader).to.eql({
       _id: user._id,
