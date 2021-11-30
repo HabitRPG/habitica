@@ -125,6 +125,15 @@ const basicAchievs = {
     titleKey: 'invitedFriend',
     textKey: 'invitedFriendText',
   },
+};
+Object.assign(achievementsData, basicAchievs);
+
+const questSeriesAchievs = {
+  lostMasterclasser: {
+    icon: 'achievement-lostMasterclasser',
+    titleKey: 'achievementLostMasterclasser',
+    textKey: 'achievementLostMasterclasserText',
+  },
   bareNecessities: {
     icon: 'achievement-bareNecessities',
     titleKey: 'achievementBareNecessities',
@@ -145,11 +154,6 @@ const basicAchievs = {
     titleKey: 'achievementJustAddWater',
     textKey: 'achievementJustAddWaterText',
   },
-  lostMasterclasser: {
-    icon: 'achievement-lostMasterclasser',
-    titleKey: 'achievementLostMasterclasser',
-    textKey: 'achievementLostMasterclasserText',
-  },
   mindOverMatter: {
     icon: 'achievement-mindOverMatter',
     titleKey: 'achievementMindOverMatter',
@@ -161,7 +165,7 @@ const basicAchievs = {
     textKey: 'achievementSeasonalSpecialistText',
   },
 };
-Object.assign(achievementsData, basicAchievs);
+Object.assign(achievementsData, questSeriesAchievs);
 
 const animalSetAchievs = {
   legendaryBestiary: {

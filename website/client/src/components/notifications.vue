@@ -30,9 +30,9 @@
       v-if="notificationData && notificationData.achievement"
       :data="notificationData"
     />
-    <just-add-water />
+    <!-- <just-add-water /> -->
     <lost-masterclasser />
-    <mind-over-matter />
+    <!-- <mind-over-matter /> -->
     <onboarding-complete />
     <first-drops />
   </div>
@@ -140,9 +140,9 @@ import streak from './achievements/streak';
 import ultimateGear from './achievements/ultimateGear';
 import wonChallenge from './achievements/wonChallenge';
 import genericAchievement from './achievements/genericAchievement';
-import justAddWater from './achievements/justAddWater';
+// import justAddWater from './achievements/justAddWater';
 import lostMasterclasser from './achievements/lostMasterclasser';
-import mindOverMatter from './achievements/mindOverMatter';
+// import mindOverMatter from './achievements/mindOverMatter';
 import loginIncentives from './achievements/login-incentives';
 import onboardingComplete from './achievements/onboardingComplete';
 import verifyUsername from './settings/verifyUsername';
@@ -209,48 +209,52 @@ const NOTIFICATIONS = {
   // stable achievements
   ACHIEVEMENT_STABLE: {
     achievement: true,
-    // label: $t => `${$t('achievement')}: ${$t('achievementStable')}`,
     modalId: 'generic-achievement',
     data: {
-      // message: $t => $t('achievement'),
-      // modalText: $t => $t('achievementNotification'),
       achievement: 'stableAchievs', // defined in website/common/script/content/achievements.js
     },
   },
-
   // quest achievements
-  ACHIEVEMENT_BUG_BONANZA: {
+  ACHIEVEMENT_QUESTS: {
     achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementBugBonanza')}`,
+    // label: $t => `${$t('achievement')}: ${$t('achievementQuestSeries')}`,
     modalId: 'generic-achievement',
     data: {
-      achievement: 'bugBonanza',
+      achievement: 'questSeriesAchievs', // defined in website/common/script/content/achievements.js
     },
   },
-  ACHIEVEMENT_BARE_NECESSITIES: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementBareNecessities')}`,
-    modalId: 'generic-achievement',
-    data: {
-      achievement: 'bareNecessities',
-    },
-  },
-  ACHIEVEMENT_FRESHWATER_FRIENDS: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementFreshwaterFriends')}`,
-    modalId: 'generic-achievement',
-    data: {
-      achievement: 'freshwaterFriends',
-    },
-  },
-  ACHIEVEMENT_SEASONAL_SPECIALIST: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementSeasonalSpecialist')}`,
-    modalId: 'generic-achievement',
-    data: {
-      achievement: 'seasonalSpecialist',
-    },
-  },
+  // ACHIEVEMENT_BUG_BONANZA: {
+  //   achievement: true,
+  //   label: $t => `${$t('achievement')}: ${$t('achievementBugBonanza')}`,
+  //   modalId: 'generic-achievement',
+  //   data: {
+  //     achievement: 'bugBonanza',
+  //   },
+  // },
+  // ACHIEVEMENT_BARE_NECESSITIES: {
+  //   achievement: true,
+  //   label: $t => `${$t('achievement')}: ${$t('achievementBareNecessities')}`,
+  //   modalId: 'generic-achievement',
+  //   data: {
+  //     achievement: 'bareNecessities',
+  //   },
+  // },
+  // ACHIEVEMENT_FRESHWATER_FRIENDS: {
+  //   achievement: true,
+  //   label: $t => `${$t('achievement')}: ${$t('achievementFreshwaterFriends')}`,
+  //   modalId: 'generic-achievement',
+  //   data: {
+  //     achievement: 'freshwaterFriends',
+  //   },
+  // },
+  // ACHIEVEMENT_SEASONAL_SPECIALIST: {
+  //   achievement: true,
+  //   label: $t => `${$t('achievement')}: ${$t('achievementSeasonalSpecialist')}`,
+  //   modalId: 'generic-achievement',
+  //   data: {
+  //     achievement: 'seasonalSpecialist',
+  //   },
+  // },
   // animal set collection achievements
   ACHIEVEMENT_ANIMAL_SET: {
     achievement: true,
@@ -305,8 +309,8 @@ export default {
     verifyUsername,
     genericAchievement,
     lostMasterclasser,
-    mindOverMatter,
-    justAddWater,
+    // mindOverMatter,
+    // justAddWater,
     onboardingComplete,
     firstDrops,
   },
@@ -349,18 +353,17 @@ export default {
       'ACHIEVEMENT_ULTIMATE_GEAR',
       // stable achievement notifications
       'ACHIEVEMENT_STABLE',
-      // pet quest achievement notifications
-      'ACHIEVEMENT_BUG_BONANZA',
-      'ACHIEVEMENT_BARE_NECESSITIES',
-      'ACHIEVEMENT_FRESHWATER_FRIENDS',
-      'ACHIEVEMENT_SEASONAL_SPECIALIST',
+      // quest series notifications
+      'ACHIEVEMENT_QUESTS',
+      // 'ACHIEVEMENT_BUG_BONANZA',
+      // 'ACHIEVEMENT_BARE_NECESSITIES',
+      // 'ACHIEVEMENT_FRESHWATER_FRIENDS',
+      // 'ACHIEVEMENT_SEASONAL_SPECIALIST',
       // animal set achievements
       'ACHIEVEMENT_ANIMAL_SET',
       // pet and mount color collection achievement notifications
       'ACHIEVEMENT_PET_COLOR',
       'ACHIEVEMENT_MOUNT_COLOR',
-      // why aren't all quest completion notifications here?
-      // Just Add Water, Mind Over Matter, and Lost Masterclasser are missing
     ].forEach(type => {
       handledNotifications[type] = true;
     });
@@ -768,13 +771,16 @@ export default {
           case 'ACHIEVEMENT_PARTY_ON':
           case 'ACHIEVEMENT_PARTY_UP':
           case 'ACHIEVEMENT_ULTIMATE_GEAR':
-          case 'ACHIEVEMENT_BUG_BONANZA':
-          case 'ACHIEVEMENT_BARE_NECESSITIES':
-          case 'ACHIEVEMENT_FRESHWATER_FRIENDS':
-          case 'ACHIEVEMENT_SEASONAL_SPECIALIST':
           case 'GENERIC_ACHIEVEMENT':
             this.showNotificationWithModal(notification);
             break;
+          case 'ACHIEVEMENT_QUESTS': {
+            const { achievement, achievementTitleKey } = notification.data;
+            NOTIFICATIONS.ACHIEVEMENT_QUESTS.label = $t => `${$t('achievement')}: ${$t(achievementTitleKey)}`;
+            this.showNotificationWithModal(notification);
+            Vue.set(this.user.achievements, achievement, true);
+            break;
+          }
           case 'ACHIEVEMENT_STABLE': {
             const { achievement, achievementNotification } = notification.data;
             NOTIFICATIONS.ACHIEVEMENT_STABLE.label = $t => `${$t('achievement')}: ${$t(achievementNotification)}`;
