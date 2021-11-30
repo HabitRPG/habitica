@@ -61,18 +61,21 @@ const stableAchievs = {
     titleKey: 'beastMasterName',
     textKey: 'beastMasterText',
     text2Key: 'beastMasterText2',
+    notificationText: 'beastAchievement',
   },
   mountMaster: {
     icon: 'achievement-wolf',
     titleKey: 'mountMasterName',
     textKey: 'mountMasterText',
     text2Key: 'mountMasterText2',
+    notificationText: 'mountAchievement',
   },
   triadBingo: {
     icon: 'achievement-triadbingo',
     titleKey: 'triadBingoName',
     textKey: 'triadBingoText',
     text2Key: 'triadBingoText2',
+    notificationText: 'triadBingoAchievement',
   },
 };
 Object.assign(achievementsData, stableAchievs);

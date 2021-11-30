@@ -209,13 +209,15 @@ const NOTIFICATIONS = {
   // stable achievements
   ACHIEVEMENT_STABLE: {
     achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementStable')}`,
+    // label: $t => `${$t('achievement')}: ${$t('achievementStable')}`,
     modalId: 'generic-achievement',
     data: {
       // message: $t => $t('achievement'),
+      // modalText: $t => $t('achievementNotification'),
       achievement: 'stableAchievs', // defined in website/common/script/content/achievements.js
     },
   },
+
   // quest achievements
   ACHIEVEMENT_BUG_BONANZA: {
     achievement: true,
@@ -774,9 +776,8 @@ export default {
             this.showNotificationWithModal(notification);
             break;
           case 'ACHIEVEMENT_STABLE': {
-            const { achievement, achievementTitleKey } = notification.data;
-            NOTIFICATIONS.ACHIEVEMENT_STABLE.label = $t => `${$t('achievement')}: ${$t(achievementTitleKey)}`;
-            NOTIFICATIONS.ACHIEVEMENT_STABLE.data.modalText = $t => $t(achievementTitleKey);
+            const { achievement, achievementNotification } = notification.data;
+            NOTIFICATIONS.ACHIEVEMENT_STABLE.label = $t => `${$t('achievement')}: ${$t(achievementNotification)}`;
             this.showNotificationWithModal(notification);
             Vue.set(this.user.achievements, achievement, true);
             break;
@@ -786,7 +787,6 @@ export default {
             const upperCaseAchievement = achievement.charAt(0).toUpperCase() + achievement.slice(1);
             const achievementTitleKey = `achievement${upperCaseAchievement}`;
             NOTIFICATIONS.ACHIEVEMENT_ANIMAL_SET.label = $t => `${$t('achievement')}: ${$t(achievementTitleKey)}`;
-            NOTIFICATIONS.ACHIEVEMENT_ANIMAL_SET.data.modalText = $t => $t(achievementTitleKey);
             this.showNotificationWithModal(notification);
             Vue.set(this.user.achievements, achievement, true);
             break;
@@ -796,7 +796,6 @@ export default {
             const upperCaseAchievement = achievement.charAt(0).toUpperCase() + achievement.slice(1);
             const achievementTitleKey = `achievement${upperCaseAchievement}`;
             NOTIFICATIONS.ACHIEVEMENT_PET_COLOR.label = $t => `${$t('achievement')}: ${$t(achievementTitleKey)}`;
-            NOTIFICATIONS.ACHIEVEMENT_PET_COLOR.data.modalText = $t => $t(achievementTitleKey);
             this.showNotificationWithModal(notification);
             Vue.set(this.user.achievements, achievement, true);
             break;
@@ -806,7 +805,6 @@ export default {
             const upperCaseAchievement = achievement.charAt(0).toUpperCase() + achievement.slice(1);
             const achievementTitleKey = `achievement${upperCaseAchievement}`;
             NOTIFICATIONS.ACHIEVEMENT_MOUNT_COLOR.label = $t => `${$t('achievement')}: ${$t(achievementTitleKey)}`;
-            NOTIFICATIONS.ACHIEVEMENT_MOUNT_COLOR.data.modalText = $t => $t(achievementTitleKey);
             this.showNotificationWithModal(notification);
             Vue.set(this.user.achievements, achievement, true);
             break;
