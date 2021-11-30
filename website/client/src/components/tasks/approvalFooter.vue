@@ -38,6 +38,7 @@
 
 <script>
 import findIndex from 'lodash/findIndex';
+import keys from 'lodash/keys';
 import { mapState } from '@/libs/store';
 import approvalModal from './approvalModal';
 import sync from '@/mixins/sync';
@@ -52,16 +53,17 @@ export default {
     ...mapState({ user: 'user.data' }),
     userIsAssigned () {
       return this.task.group.assignedUsers
-        && this.task.group.assignedUsers.indexOf(this.user._id) !== -1;
+        && Boolean(this.task.group.assignedUsers[this.user._id]);
     },
     message () {
       const { assignedUsers } = this.task.group;
+      const assignedUsersKeys = keys(assignedUsers);
       const assignedUsersNames = [];
-      const assignedUsersLength = assignedUsers.length;
+      const assignedUsersLength = assignedUsersKeys.length;
 
       // @TODO: Eh, I think we only ever display one user name
       if (this.group && this.group.members) {
-        assignedUsers.forEach(userId => {
+        assignedUsersKeys.forEach(userId => {
           const index = findIndex(this.group.members, member => member._id === userId);
           const assignedMember = this.group.members[index];
           assignedUsersNames.push(`@${assignedMember.auth.local.username}`);

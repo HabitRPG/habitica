@@ -1502,9 +1502,18 @@ schema.methods.updateTask = async function updateTask (taskToSync, options = {})
 schema.methods.syncTask = async function groupSyncTask (taskToSync, user, assigningUser) {
   const group = this;
   const toSave = [];
+  const assignmentData = {
+    assignedDate: new Date(),
+    assigningUsername: assigningUser && assigningUser._id !== user._id
+      ? assigningUser.auth.local.username : null,
+    completed: false,
+  };
 
-  if (taskToSync.group.assignedUsers.indexOf(user._id) === -1) {
-    taskToSync.group.assignedUsers.push(user._id);
+  if (!taskToSync.group.assignedUsers) {
+    taskToSync.group.assignedUsers = {};
+  }
+  if (!taskToSync.group.assignedUsers[user._id]) {
+    taskToSync.group.assignedUsers[user._id] = assignmentData;
   }
 
   // Sync tags
@@ -1538,7 +1547,6 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user, assign
     matchingTask.group.id = taskToSync.group.id;
     matchingTask.userId = user._id;
     matchingTask.group.taskId = taskToSync._id;
-    matchingTask.group.assignedDate = new Date();
     user.tasksOrder[`${taskToSync.type}s`].unshift(matchingTask._id);
   } else {
     _.merge(matchingTask, syncableAttrs(taskToSync));
@@ -1547,13 +1555,9 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user, assign
     if (orderList.indexOf(matchingTask._id) === -1 && (matchingTask.type !== 'todo' || !matchingTask.completed)) orderList.push(matchingTask._id);
   }
 
-  matchingTask.group.approval.required = taskToSync.group.approval.required;
   matchingTask.group.assignedUsers = taskToSync.group.assignedUsers;
   matchingTask.group.sharedCompletion = taskToSync.group.sharedCompletion;
   matchingTask.group.managerNotes = taskToSync.group.managerNotes;
-  if (assigningUser && user._id !== assigningUser._id) {
-    matchingTask.group.assigningUsername = assigningUser.auth.local.username;
-  }
 
   //  sync checklist
   if (taskToSync.checklist) {

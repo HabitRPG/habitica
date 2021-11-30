@@ -71,7 +71,7 @@
               v-else
               class="svg-icon check"
               :class="{
-                'display-check-icon': task.completed || task.group.approval.requested,
+                'display-check-icon': task.completed,
                 [controlClass.checkbox]: true,
               }"
               v-html="icons.check"
@@ -1040,7 +1040,7 @@ export default {
     },
     isOpenTask () {
       if (!this.isGroupTask) return false;
-      if (this.task.group.assignedUsers.length > 0) return false;
+      if (this.task.group.assignedUsers) return false;
       return true;
     },
     showTaskLockIcon () {
@@ -1052,7 +1052,9 @@ export default {
           return true;
         }
         if (this.isOpenTask) return false;
-        if (this.task.group.assignedUsers.indexOf(this.user._id) !== -1) return false;
+        if (this.task.group.assignedUsers && this.task.group.assignedUsers[this.user._id]) {
+          return false;
+        }
       }
       return true;
     },

@@ -1283,8 +1283,8 @@ export default {
           this.memberNamesById[member._id] = member.profile.name;
         });
         this.assignedMembers = [];
-        if (this.task.group?.assignedUsers?.length > 0) {
-          this.assignedMembers = this.task.group.assignedUsers;
+        if (this.task.group?.assignedUsers) {
+          this.assignedMembers = keys(this.task.group.assignedUsers);
         }
       }
 
@@ -1474,7 +1474,14 @@ export default {
             userId: memberId,
           }));
           Promise.all(promises);
-          this.task.group.assignedUsers = this.assignedMembers;
+          this.assignedMembers.forEach(memberId => {
+            if (!this.task.assignedUsers) this.task.assignedUsers = {};
+            this.task.assignedUsers[memberId] = {
+              assignedDate: new Date(),
+              assigningUsername: this.user.auth.local.username,
+              completed: false,
+            };
+          });
           this.$emit('taskCreated', this.task);
         } else {
           this.createTask(this.task);
