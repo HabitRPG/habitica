@@ -1,3 +1,6 @@
+chromedriver.exe
 node_modules
 config.json
-*.exe
+.nyc_output
+habitica
+*.txt
