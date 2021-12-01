@@ -8,7 +8,7 @@ var runPartyTests = async function(driver) {
     this.timeout(10000);
     beforeEach(async function () {
       navigatePage(driver, getUrl('party'));
-      await waitFunction(1000);
+      await waitFunction(2000);
     });
     it('Party Message Test', async function() {
       let chatText = await driver.findElement(
