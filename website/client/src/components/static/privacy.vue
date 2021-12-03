@@ -1,314 +1,312 @@
 <template>
   <!-- eslint-disable max-len -->
   <div class="container-fluid">
-    <h1>Privacy Policy</h1>
-    <p class="pagemeta">
-      Last updated July 27, 2015
-      <br>
-      <small>(Corrected grammar errors and updated company name)</small>
-      <br>
-      <br>
+    <h1>Privacy Notice</h1>
+    <p class="strong pagemeta">
+      Last Updated: October 28, 2021
     </p>
     <p>
-      <strong>PLEASE READ THIS PRIVACY POLICY CAREFULLY&period;</strong>
-      <br>By accessing or otherwise using habitica&period;com or any sub domains thereto &lpar;'the Sites'&rpar;&comma;
-      or using a habitica&period;com or Habitica application on a mobile device &lpar;'the Applications'&rpar;&comma;
-      you agree to be bound contractually by this Privacy Policy&period; Individually
-      or collectively&comma; the Applications and the Sites may be referred to as
-      the 'Services&period;'
+      HabitRPG, Inc. (“HabitRPG,” “we,” “us,” or “our”) welcomes you. This privacy notice (the “Privacy
+      Notice”) describes how we process the information we collect about or from you through our Website
+      located at <a href='https://habitica.com/static/home'>https://habitica.com/static/home</a> and/or our Apps
+      (our “Digital Platforms”), from our users, subscribers, visitors and other users of our technology and
+      platforms (together with our Digital Platforms, the “Habitica Service” or the “Service”), and when you
+      otherwise interact with us. This Privacy Notice may be updated by us from time to time without notice to
+      you. By accepting this Privacy Notice, accessing or using the Service, or otherwise manifesting your
+      assent to this Privacy Notice, you agree to be bound by this Privacy Notice. If you do not agree to (or
+      cannot comply with) all of the terms of this Privacy Notice, you may not access or use the Service.
     </p>
     <p>
-      To review material modifications and their effective dates scroll
-      to the bottom of the page&period;
+      Capitalized terms not defined in this Privacy Notice shall have the meaning set forth in our Terms of
+      Service.
+    </p>
+    <h2>THE INFORMATION WE COLLECT AND HOW WE USE IT</h2>
+    <p>
+      In the course of operating the Service, HabitRPG collects or receives the following types of information
+      from visitors to the Website; users, subscribers or other users of its Platforms; and from third-party
+      integration partners, which may include personal information.
+    </p>
+    <h3>Contact Information</h3>
+    <p>
+      We collect contact information through our Service; contact information typically includes your name,
+      email address, phone number and any other information you provide in messages to us. We use such
+      contact information for purposes such as providing you with information about the Service, responding to
+      your inquiries, sending you email alerts (including marketing emails), verifying your identity or providing
+      you the Service.
+    </p>
+    <h3>Account Access Information</h3>
+    <p>
+      In connection with the creation of an account on our Platforms, we collect account credentials such as
+      your email, username, and password. We use this account information to create your account, including to
+      verify your identity. We also use this information to manage your account, including your transactions. If
+      you choose to log into your account through Google, Apple or Facebook, we capture and store the User
+      ID and email address connected to the respective account, so we can verify your identity when you log in.
+    </p>
+    <h3>User Content</h3>
+    <p>
+      As explained in more detail in the Terms of Service, HabitRPG allows you to upload and receive content,
+      including text, photos, images, task lists, graphics, artwork, links to outside content, and or other material.
+      It is your decision what kind of personal information (if any) you submit. We do not use personal
+      information posted in your content in any way except as needed to enforce the community guidelines and
+      terms of service or to provide assistance and troubleshooting issues with service to the account.
+    </p>
+    <h3>Transaction Information</h3>
+    <p>
+      When you make, or attempt to make, a purchase, sale or other transaction as a user or subscriber through
+      one of our Platforms, we may collect certain information from you, including your name, billing address,
+      mailing address, email address, and phone number. We refer to this information as “Transaction
+      Information.” We use the Transaction Information that we collect generally to facilitate transactions
+      between users through our Platforms (including providing you with invoices and/or transaction
+      confirmations). Additionally, we use this Transaction Information to: communicate with you; screen our
+      transactions for potential risk or fraud; and when in line with the preferences you have shared with us,
+      provide you with information or advertising relating to our products or Service. Our third-party payment
+      processing providers may also collect from you, process and store your payment information including
+      credit card information and/or bank account information in accordance with their respective privacy
+      policies linked to below:
+    </p>
+    <ul>
+      <li>For Stripe, visit: <a href='https://stripe.com/privacy' target='_blank'>https://stripe.com/privacy</a></li>
+      <li>For Amazon Pay, visit: <a href='https://pay.amazon.com/help/201751600' target='_blank'>https://pay.amazon.com/help/201751600</a></li>
+      <li>For PayPal, visit: <a href='https://www.paypal.com/us/webapps/mpp/ua/privacy-full' target='_blank'>https://www.paypal.com/us/webapps/mpp/ua/privacy-full</a></li>
+      <li>For Apple Pay, visit: <a href='https://www.apple.com/legal/privacy/data/en/apple-pay/' target='_blank'>https://www.apple.com/legal/privacy/data/en/apple-pay/</a></li>
+      <li>For Google Pay, visit: <a href='https://support.google.com/googlepay/answer/10223752?hl=en&co=GENIE.Platform%3DAndroid' target='_blank'>https://support.google.com/googlepay/answer/10223752?hl=en&co=GENIE.Platform%3DAndroid</a></li>
+    </ul>
+    <p>
+      We reserve the right to change our payment vendors at any time, or to use additional payment vendors, at
+      our discretion, and will update this Privacy Notice from time to time accordingly.
+    </p>
+    <h3>Server Log, Device and Other Technical Information</h3>
+    <p>
+      Our servers keep log files that record data each time a device accesses those servers. The log files may
+      contain data about the nature of such access, including the device’s IP address, user agent string (e.g.,
+      operating system and browser type/version), and the pages you have clicked on while on our Service, and
+      details regarding your activity on the Service such as time spent on the Service and other performance and
+      usage data. We may use these log files for purposes such as assisting in monitoring and troubleshooting
+      errors and incidents, analyzing traffic, or optimizing the user experience.
+    </p>
+    <h3>Cookies and Similar Technologies</h3>
+    <p>
+      We may collect information using cookies, web beacons, tags, pixel and other similar technologies to
+      record information about how you use the Website, and to facilitate log-in and payments. Cookies are
+      small packets of data that a website stores on your computer’s or mobile device’s hard drive (or other
+      storage medium) so that your computer will “remember” information about your use. We use both first
+      and third party session cookies and persistent cookies. Below is a general primer on session and persistent
+      cookies; information collected by cookies depends on its particular purpose. For more information, please
+      see the information regarding analytics providers discussed further below.
+    </p>
+    <ul>
+      <li><strong>Session Cookies</strong>: We use session cookies to make it easier for you to navigate our Service. A
+        session ID cookie expires when you close the Service.</li>
+      <li><strong>Persistent Cookies</strong>: A persistent cookie remains on your device for an extended period of time or
+        until you delete it. Persistent cookies enable us to track and target the interests of our visitors to
+        personalize the experience on our Service.</li>
+    </ul>
+    <p>
+      If you do not want us to place a cookie on your device, you may be able to turn that feature off on your
+      device. You may refuse to accept cookies from the Service at any time by activating the setting on your
+      browser which allows you to refuse cookies. Further information about the procedure to follow in order to
+      disable cookies can be found on your Internet browser provider’s website via your help screen. You may
+      wish to refer to <a href='http://www.allaboutcookies.org/manage-cookies/index.html' target='_blank'>
+      http://www.allaboutcookies.org/manage-cookies/index.html</a> for information on commonly used browsers.
+      For more information about targeting and advertising cookies and how you can opt out, you can also visit
+      <a href='http://optout.aboutads.info' target='_blank'>http://optout.aboutads.info</a>. Please be aware
+      that if cookies are disabled, not all features of the Service may operate properly or as intended.
+    </p>
+    <h3>Third-Party Analytics Providers</h3>
+    <p>
+      We use one or more third–party analytics Service to evaluate your use of the Service, as the case may be,
+      by compiling reports on activity (based on their collection of IP addresses, Internet service provider,
+      browser type, operating system and language, referring and exit pages and URLs, data and time, amount
+      of time spent on particular pages, what sections of the Service you visit, number of links clicked, search
+      terms and other similar usage data) and analyzing performance metrics. These third parties use cookies
+      and other technologies to help collect, analyze, and provide us reports or other data.
     </p>
     <p>
-      <strong>
-        1&period; Privacy Statement&semi; Collection of Personal
-        Information&period;
-      </strong>
-      <br>1&period;1 HabitRPG, Inc. owns and operates this business&period; All
-      references to 'we'&comma; 'us'&comma; shall be construed to mean HabitRPG, Inc.&period;
+      By accessing and using the Service, you consent to the processing of data about you by these analytics
+      providers in the manner and for the purposes set out in this Privacy Notice. For more information on these
+      third parties, including how to opt out from certain data collection, please visit the sites below. Please be
+      advised that if you opt out of any service, you may not be able to use the full functionality of the Service.
+    </p>
+    <ul>
+      <li>For Google Analytics, visit: <a href='https://marketingplatform.google.com/about/analytics/' target='_blank'>https://marketingplatform.google.com/about/analytics/</a></li>
+      <li>For Amplitude, visit: <a href='https://amplitude.com/privacy' target='_blank'>https://amplitude.com/privacy</a></li>
+    </ul>
+    <h3>Third-Party Advertisers/Remarketers</h3>
+    <p>
+      We may share or receive information about you with/from third parties, including, but not limited to,
+      advertising and remarketing providers, or similar partners, for purposes of personalizing or otherwise
+      understanding how you engage with ads or other content. These third parties may use cookies, pixel tags,
+      or other technologies to collect information in furtherance of such purposes, including to tailor, target
+      (i.e., behavioral, contextual, retargeting, and remarketing), analyze, report on, and/or manage advertising
+      campaigns or other initiatives. For example, when a browser visits a site, pixel tags enable us and these
+      third-parties to recognize certain cookies stored within the browser to learn which ads or other content
+      bring a user to a given site. Information that we may receive from these third-parties, including through
+      their service providers, may include advertising identifiers, IP addresses, reports, and campaign data.
     </p>
     <p>
-      1&period;2 We understand that visitors to this website are concerned
-      about the privacy of information&period; The following describes our privacy
-      policy regarding information&comma; including personal information&comma; that we
-      collect through this website&period;
+      By accessing and using the Service, you consent to the processing of data about you by these
+      advertisers/remarketing providers in the manner and for the purposes set out in this Privacy Notice.
     </p>
     <p>
-      <strong>2&period; Modification of Privacy Policy&period;</strong>
-      <br>We reserve the right to modify this Privacy Policy at any time&comma;
-      and without prior notice&comma; by posting an amended Privacy Policy that is
-      always accessible by clicking on the 'Privacy Policy' link on this
-      site&apos;s home page&period; Your continued use of this site indicates your
-      acceptance of the amended Privacy Policy&period; You should check the Privacy
-      Policy through this link periodically for modifications by clicking on
-      the link provided near the top of the Privacy Policy for a listing of
-      material modifications and their effective dates&period; Regarding personal
-      information&comma; if any modifications are materially less restrictive on our
-      use or disclosure of the personal information previously disclosed by
-      you&comma; we will obtain your consent before implementing such revisions with
-      respect to such information&period;
+      For more information on our advertising partner Google AdMob, please visit <a
+      href='https://policies.google.com/privacy?hl=en' target='_blank'>https://policies.google.com/privacy?hl=en</a>.
+    </p>
+    <h3>Geolocation Information</h3>
+    <p>
+      We may, with your consent, automatically collect geolocation information from your device via your
+      browser’s location Service. This consent may be provided by you on the device level (e.g., you have
+      consented to location Service generally through your browser’s settings) or by accepting our request for
+      geolocation access on the Service. Please consult your browser’s documentation regarding how to turn off
+      location Service. If you disable location Service, you may not be able to use the full array of features and
+      functionalities available through our Service.
+    </p>
+    <h3>Aggregate and De-identified Data</h3>
+    <p>
+      In an ongoing effort to better understand our users and the Service, we might analyze your information in
+      aggregate and/or de-identified form to operate, maintain, manage, and improve the Service. We may
+      share this aggregate or de-identified data with our affiliates, agents, and business partners. We may also
+      disclose aggregated or de-identified user statistics to describe the Service to current and prospective
+      business partners and to other third parties for other lawful purposes.
+    </p>
+    <h3>Onward Transfer to Third Parties</h3>
+    <ul>
+      <li>
+        Like many businesses, we hire other companies to perform certain business-related services. We
+        may disclose personal information to certain types of third party companies but only to the extent
+        needed to enable them to provide such service. The types of companies that may receive personal
+        information   and   their   functions   are:   hosting   service,   technical   assistance,   database
+        management/back-up service, use analytics, marketing, and customer service.
+      </li>
+      <li>
+        To provide our Service and administer promotional programs, we may share your personal
+        information   with   our   third-party   promotional   and   marketing   partners,   including,   without
+        limitation, businesses participating in our various programs.
+      </li>
+      <li>
+        We may also disclose personal information to our parent companies, subsidiaries, affiliates, joint
+        ventures, or other companies under common control to support the marketing and sale of our
+        products and Service.
+      </li>
+    </ul>
+    <h3>Business Transfers</h3>
+    <p>
+      In the event of a merger, dissolution, reorganization or similar corporate event, or the sale of all or
+      substantially all of our assets, we expect that the information that we have collected, including personal
+      information, would be transferred to the surviving entity in a merger or the acquiring entity. All such
+      transfers shall be subject to our commitments with respect to the privacy and confidentiality of such
+      personal information as set forth in this Privacy Notice. This Notice shall be binding upon HabitRPG and
+      its legal successors in interest.
+    </p>
+    <h3>Disclosure to Public Authorities</h3>
+    <p>
+      We are required to disclose personal information in response to lawful requests by public authorities,
+      including for the purpose of meeting national security or law enforcement requirements. We may also
+      disclose personal information to other third parties when compelled to do so by government authorities or
+      required by law or regulation including, but not limited to, in response to court orders and subpoenas.
+    </p>
+    <h2>UPDATES AND OPT-OUTS</h2>
+    <p>
+      On the website:<br>You can update your user profile on the Website by clicking the avatar box in the
+      upper left hand corner of the browser window, or by going to “Settings” and then selecting the “Profile”
+      option in the menu.
     </p>
     <p>
-      <strong>3&period; Collection of Anonymous&comma; Passive Information&period;</strong>
-      <br>We reserve the right to monitor your use of the services&period; As you
-      navigate through the services&comma; certain anonymous information may be
-      passively collected &lpar;that is&comma; gathered without your actively providing
-      the information&rpar; using various technologies&comma; such as cookies&comma; Internet
-      tags or web beacons&comma; and navigational data collection &lpar;log files&comma; server
-      logs&comma; clickstream&rpar;&period; The following is a listing and a brief explanation
-      of passive information collection methodologies which we may use from
-      time to time to better understand how the Services are being used&period;
+      You can fully delete or reset your account via the “Settings” option on the Website.
     </p>
     <p>
-      3&period;1 A 'cookie' is a text file that this site sends to your
-      browser in the form of a text file The information generated by the
-      cookie about your use of this site &lpar;including your IP address&rpar; will be
-      transmitted to and stored&period; Most browsers automatically accept cookies&comma;
-      but they usually can be modified to decline cookies if you prefer&semi;
-      however&comma; certain features of this site might not work without cookies&period;
+      On the mobile apps for iOS Versions 3.4.3 and Android versions 3.4.1.1 and below:
+      You can update your user profile on the mobile apps by tapping the Settings gear in the menu and then
+      selecting the “Profile” option.
     </p>
     <p>
-      3&period;2 'Session' cookies are temporary bits of information that are
-      used to improve navigation&comma; block visitors from providing information
-      where inappropriate &lpar;the Services 'remembers' previous entries of age or
-      country of origin that were outside the specified parameters and blocks
-      subsequent changes&rpar;&comma; and collect aggregate statistical information on
-      the Services&period; They are erased once you exit your Web browser or
-      otherwise turn off your computer&period;
+      You can fully delete or reset your account on the mobile apps by tapping the Settings gear in the menu
+      and then selecting the “Authentication” option.
     </p>
     <p>
-      3&period;3 'Persistent' cookies are more permanent bits of information
-      that are placed on the hard drive of your computer and stay there unless
-      you delete the cookie&period; Persistent cookies store information on your
-      computer for a number of purposes&comma; such as retrieving certain
-      information you have previously provided&comma; helping to determine what
-      areas of the Services you may find most valuable&comma; and customizing the
-      Services based on your preferences on an ongoing basis&period; Persistent
-      cookies placed by this site in your computer do not hold personal
-      information&period;
+      If you would like us to fully delete your account, please email us at admin@habitica and we will handle
+      your request within 30 days.
     </p>
     <p>
-      3&period;4 You can set your browser to accept all cookies&comma; to reject all
-      cookies&comma; or to notify you whenever a cookie is offered so that you can
-      decide each time whether to accept it&period; To learn more about cookies and
-      how to specify your preferences&comma; please search for 'cookie' in the
-      'Help' portion of your browser&period;
+      You may opt out at any time from the use of your personal information for direct marketing purposes by
+      emailing the instructions to <a href='mailto:admin@habitica.com'>admin@habitica.com</a> or by clicking
+      on the “Unsubscribe” link located on the bottom of any HabitRPG marketing email and following the
+      instructions found on the page to which the link takes you. Please allow us a reasonable time to process
+      your request. You cannot opt out of receiving transactional e-mails related to the Service.
     </p>
+    <h2>HOW WE PROTECT YOUR INFORMATION</h2>
     <p>
-      3&period;5 An Internet Protocol &lpar;IP&rpar; address is a number assigned to
-      your computer by your Internet service provider so you can access the
-      Internet and is generally considered to be non-personally identifiable
-      information&comma; because in most cases an IP address is dynamic &lpar;changing
-      each time you connect to the Internet&rpar;&comma; rather than static &lpar;unique to a
-      particular user&apos;s computer&rpar;&period; The IP address can be used to diagnose
-      problems with a server&comma; report aggregate information&comma; determine the
-      fastest route for your computer to use in connecting to a site&comma; and
-      administer and improve the Services&period;
+      HabitRPG takes very seriously the security and privacy of the personal information that it collects
+      pursuant to this Privacy Notice. Accordingly, we implement reasonable security measures designed to
+      protect your personal information from loss, misuse and unauthorized access, disclosure, alteration and
+      destruction, taking into account the risks involved in processing and the nature of such data, and to
+      comply with applicable laws and regulations. Please understand, however, that no security system is
+      impenetrable. We cannot guarantee the security of our databases or the databases of the third parties with
+      which we may share your information (as permitted herein), nor can we guarantee that the information
+      you supply will not be intercepted while being transmitted over the Internet. In particular, e-mail sent to
+      us may not be secure, and you should therefore take special care in deciding what information you send to
+      us via e-mail.
     </p>
+    <h2>CHILDREN</h2>
     <p>
-      3&period;6 'Internet tags' &lpar;also known as Web Beacons&comma; single-pixel
-      GIFs&comma; clear GIFs&comma; invisible GIFs&comma; and 1-by-1 GIFs&rpar; are smaller than
-      cookies and tell the Web site server information such as the IP address
-      and browser type related to the visitor&apos;s computer&period; Tags may be placed
-      both on online advertisements that bring people to the Services and on
-      different pages of the Services&period; Such tags indicate how many times a
-      page is opened and which information is consulted&period;
+      The Service are intended for users 13 years or older; you are not permitted to access or use the Service if
+      you are younger than 13. We do not knowingly collect personal information from children under the age
+      of 13 through the Service. If you are under 13, please do not give us any personal information. We
+      encourage parents and legal guardians to monitor their children’s Internet usage and to help enforce our
+      Privacy Notice by instructing their children to never provide personal information without their
+      permission. If you have reason to believe that a child under the age of 13 has provided personal
+      information to us, please contact us at admin@habitica.com, and we will endeavor to delete that
+      information from our databases.
     </p>
+    <h2>IMPORTANT NOTICE TO ALL NON-US RESIDENTS</h2>
     <p>
-      3&period;7 'Navigational data' &lpar;log files&comma; server logs&comma; and clickstream
-      data&rpar; are used for system management&comma; to improve the content of the
-      Services&comma; market research purposes&comma; and to communicate information to
-      visitors&period;
+      Our servers are located in the US. Please be aware that your information may be transferred to, processed,
+      maintained, and used on computers, servers, and systems located outside of your state, province, country,
+      or other governmental jurisdiction where the privacy laws may not be as protective as those in your
+      country of origin. If you are located outside the United States and choose to use the Service, you do so at
+      your own risk.
     </p>
+    <h2>CALIFORNIA PRIVACY RIGHTS</h2>
     <p>
-      <strong>4&period; Use and Sharing of Anonymous&comma; Passive Information&period;</strong>
-      <br>The Services may make full use of passively collected anonymous
-      information&comma; including without limitation the right to use such
-      information to provide better service to Service users&comma; customize the
-      Services based on your preferences&comma; compile and analyze statistics and
-      trends&comma; and otherwise administer and improve the Services for your use&period; We
-      reserve the right to share this anonymous&comma; passive information in
-      aggregated form&period;
+      Pursuant to Section 1798.83 of the California Civil Code, residents of California have the right to obtain
+      certain information about the types of personal information that companies with whom they have an
+      established business relationship (and that are not otherwise exempt) have shared with third parties for
+      direct marketing purposes during the preceding calendar year, including the names and addresses of those
+      third parties, and examples of the types of Service or products marketed by those third parties. If you wish
+      to submit a request pursuant to Section 1798.83, please contact HabitRPG via email at
+      <a href='mailto:admin@habitica.com'>admin@habitica.com</a>.
     </p>
+    <h2>DO NOT TRACK</h2>
     <p>
-      <strong>5&period; 3rd Party Behavioral Ads&semi; Google&apos;s AdSense Network&period;</strong>
-      <br>5&period;1 We reserve the right to use anonymous&comma; passive information
-      about your visits to this and other websites &lpar;not including your name&comma;
-      address&comma; email address or telephone number&rpar; for purposes of serving our
-      ads and third party ads that are targeted to your interests &lpar;'3rd Party
-      Behavioral Ads'&rpar;&period; We reserve the right to share anonymous&comma; passive
-      information collected on the services with third parties for purposes of
-      serving 3rd Party Behavioral Ads&period; These 3rd Party Behavioral Ads do not
-      identify you personally&period; Instead&comma; they associate your behavioral data on
-      visited sites with your browser&comma; so that the ads your computer sees on
-      this site are more likely to be relevant to your interests&period; 3rd Party
-      Behavioral Ads require that that you be served with a cookie containing
-      a tracking code&period; You may refuse the use of cookies by selecting the
-      appropriate settings on your browser&semi; however&comma; please note that if you
-      do this you may not be able to use the full functionality of this site&period;
+      HabitRPG does not respond to “Do Not Track” settings or other related mechanisms on our Website at
+      this time.
     </p>
+    <h2>NEVADA PRIVACY RIGHTS</h2>
     <p>
-      5&period;2 We reserve the right to participate in Google&apos;s AdSense
-      network for purposes of serving 3rd Party Behavioral Ads&period; Google uses
-      DoubleClick&apos;s DART cookie for serving 3rd Party Behavioral Ads over the
-      AdSense network&period; You may opt out of the use of the DART cookie&period; For
-      information regarding how to opt out&comma; go to
-      http&colon;&sol;&sol;www&period;google&period;com&sol;privacy&UnderBar;ads&period;html&period;
+      If you are a resident of Nevada, you have the right to opt-out of the sale of certain personal information to
+      third parties. You can exercise this right by contacting us at admin@habitica.com with the subject line
+      “Nevada Do Not Sell Request” and providing us with your name and the email address associated with
+      your account.
     </p>
+    <h2>LINKS TO EXTERNAL WEBSITES</h2>
     <p>
-      <strong>6&period; Use of 3rd Party Analytics&period;</strong>
-      <br>We reserve the right to use analytics services provided by
-      third parties&period; These services use 3rd party cookies to collect
-      anonymous&comma; passive information about your use of this site &lpar;see
-      explanation of cookies in Collection of Anonymous&comma; Passive Information
-      above&rpar;&period; We use this information for the purpose of evaluating your use
-      of the Services&comma; compiling reports on activity&comma; and providing other
-      services&period; These web analytics services may also transfer this
-      information to third parties where required to do so by law&comma; or where
-      such third parties process the information on the service&apos;s behalf&period;
+      The Service may contain links to third-party websites (“<span style="text-decoration: underline;">External
+      Sites</span>”). HabitRPG has no control over the privacy practices or the content of any such External Sites.
+      As such, we are not responsible for the content or the privacy policies of such External Sites. You should
+      check the applicable privacy notice or privacy policy and terms of use when visiting any such External Sites.
     </p>
+    <h2>CHANGES TO THIS PRIVACY NOTICE</h2>
     <p>
-      <strong>7&period; Collection of Personal Information&semi; Categories&period;</strong>
-      <br>We will ask you for personal information when you sign up for any
-      specific benefit or purpose that requires registration&period; Personal
-      information that we collect may vary with each registration&comma; and it may
-      include one or more of the following categories&colon; name&comma; physical
-      address&comma; an email address&comma; phone number&comma; and credit card information
-      including credit card number&comma; expiration date&comma; and billing address&comma;
-      emergency contact information&comma; current medications&comma; allergies&comma; medical
-      insurance information&period;
+      This Privacy Notice is effective as of the last updated date stated at the top of this Privacy Notice. We
+      may change this Privacy Notice from time to time with or without notice to you. By accessing the Service
+      after we make any such changes to this Privacy Notice, you are deemed to have accepted such changes.
+      Please be aware that, to the extent permitted by applicable law, our use of the information collected is
+      governed by the Privacy Notice in effect at the time we collect the information. Please refer back to this
+      Privacy Notice on a regular basis.
     </p>
+    <h2>HOW TO CONTACT US</h2>
     <p>
-      <strong>
-        8&period; Use And Sharing of Personal Information&colon; General
-        Policy And Exceptions&period;
-      </strong>
-      <br>Our general policy is that we will use your personal information&comma;
-      including combining your personal information with passive information
-      collected from this site&comma; only for&colon; the performance of the services or
-      transaction for which it was given&comma; our private&comma; internal reporting for
-      this site&comma; and security assessments for this site&comma; and we will not
-      share&comma; sell&comma; or rent your personal information to others&period; The only
-      exceptions to this general policy&colon; &lpar;i&rpar; are described in the subsections
-      below&comma; and &lpar;ii&rpar; if you explicitly approve through our site&period;
-    </p>
-    <p>
-      8&period;1 Affiliates And Service Providers&period; We reserve the right to
-      provide such information to our affiliates or subsidiaries&comma; or trusted
-      service providers for the purpose of hosting our servers or processing
-      or archiving personal information for us&period; We require that these parties
-      agree to privacy and security safeguards for this information that are
-      consistent with this Privacy Policy&period;
-    </p>
-    <p>
-      8&period;2 Acquisition&semi; Bankruptcy&period; In the event that we are acquired by
-      or merged with a third party entity&comma; we reserve the right to transfer
-      such information as part of such merger&comma; acquisition&comma; sale&comma; or other
-      change of control&period; In the unlikely event of our bankruptcy&comma; insolvency&comma;
-      reorganization&comma; receivership&comma; or assignment for the benefit of
-      creditors&comma; or the application of laws or equitable principles affecting
-      creditors&apos; rights generally&comma; we reserve the right to transfer such
-      information to protect our rights or as required by law&period;
-    </p>
-    <p>
-      8&period;3 Enforcement&semi; Legal Process&period; We reserve the right to transfer
-      such information if we have a good faith belief that access&comma; use&comma;
-      preservation or disclosure of such information is reasonably necessary
-      &lpar;i&rpar; to satisfy any applicable law&comma; regulation&comma; legal process or
-      enforceable governmental request&comma; or &lpar;ii&rpar; to investigate or enforce
-      violations of our rights or the security of this site&period;
-    </p>
-    <p>
-      8&period;4 Miscellaneous&period; We reserve the right to share personal
-      information with the following additional parties&colon; online organizers
-      using our tools and resellers of our products and services from whose
-      site the sale originated &lpar;even though the sale originates at site of the
-      reseller&comma; registration and collection of personal information occurs at
-      this site&rpar;&period;
-    </p>
-    <p>
-      <strong>
-        9&period; Onward Transfer of Personal Information Outside Your
-        Country of Residence&period;
-      </strong>
-      <br>Any personal information which we may collect on this site will
-      be stored and processed in our servers located only in the United
-      States&period; By using this site&comma; if you reside outside the United States&comma; you
-      consent to the transfer of personal information outside your country of
-      residence to the United States&period;
-    </p>
-    <p>
-      <strong>10&period; Security of Personal Information&period;</strong>
-      <br>We follow reasonable and appropriate industry standards to
-      protect your personal information and data&period; Unfortunately&comma; no data
-      transmission over the Internet or method of data storage can be
-      guaranteed 100&percnt; secure&period; Therefore&comma; while we strive to protect your
-      personal information by following generally accepted industry standards&comma;
-      we cannot ensure or warrant the absolute security of any information you
-      transmit to us or archive at this site&period;
-    </p>
-    <p>
-      <strong>11&period; Changing And Updating Personal Information&period;</strong>
-      <br>Upon request&comma; we will permit you to request or make changes or
-      updates to your personal information for legitimate purposes&period; We request
-      identification prior to approving such requests&period; We reserve the right to
-      decline any requests that are unreasonably repetitive or systematic&comma;
-      require unreasonable time or effort of our technical or administrative
-      personnel&comma; or undermine the privacy rights of others&period; We reserve the
-      right to permit you to access your personal information in any account
-      you establish with this site for purposes of making your own changes or
-      updates&comma; and in such case&comma; instructions for making such changes or
-      updates will be provided where necessary&period;
-    </p>
-    <p>
-      <strong>12&period; Email From This Site&semi; Opt-Out Rights&period;</strong>
-      <br>If you supply us with your e-mail address you may receive
-      periodic messages from us with information specific to the Services and
-      required for the normal functioning of the Services as well as for new
-      products or services or upcoming events&period; If you prefer not to receive
-      periodic email messages&comma; you may opt-out by following the instructions
-      on the email&period;
-    </p>
-    <p>
-      <strong>13&period; Children&apos;s Online Policy&period;</strong>
-      <br>We are committed to preserving online privacy for all of our
-      website visitors&comma; including children&period; This site is a general audience
-      site&period; Consistent with the Children&apos;s Online Privacy Protection Act
-      &lpar;COPPA&rpar;&comma; we will not knowingly collect any information from&comma; or sell to&comma;
-      children under the age of 13&period; If you are a parent or guardian who has
-      discovered that your child under the age of 13 has submitted his or her
-      personally identifiable information without your permission or consent&comma;
-      we will remove the information from our active list&comma; at your request&period; To
-      request the removal of your child&apos;s information&comma; please email us at
-      <a
-        href="mailto:admin@habitica.com"
-        target="_blank"
-      >admin@habitica.com</a> and be sure to include in
-      your message the same login information that your child submitted&period;
-    </p>
-    <p>
-      <strong>
-        14&period; Email And Other Messages Through This Site&semi; ECPA
-        Notice&period;
-      </strong>
-      <br>This site treats email messages and other electronic messages
-      that are sent through this site and not viewable by others as
-      confidential and private&comma; except as required by law&comma; including without
-      limitation&comma; the Electronic Communications Privacy Act of 1986&comma; 18 U&period;S&period;C&period;
-      Sections 2701-2711 &lpar;the 'ECPA'&rpar;&period; The ECPA permits this site&apos;s limited
-      ability to intercept and&sol;or disclose electronic messages&comma; for example
-      &lpar;i&rpar; as necessary to operate our system or to protect our rights or
-      property&comma; &lpar;ii&rpar; upon legal demand &lpar;court orders&comma; warrants&comma; subpoenas&rpar;&comma; or
-      &lpar;iii&rpar; where we receive information inadvertently which appears to
-      pertain to the commission of a crime&period; This site is not considered a
-      'secure communications medium' under the ECPA&period;
-    </p>
-    <p>
-      <strong>15&period; Contact Us&period;</strong>
-      <br>If you have any questions regarding this Privacy Policy&comma; please
-      contact the owner and operator of this website business&colon;
+      If you have questions about this Privacy Notice, please e-mail us at <a href='mailto:admin@habitica.com'>
+      admin@habitica.com</a> with “Privacy Notice” in the subject line.
     </p>
     <address>
       <strong>HabitRPG, Inc.</strong>
