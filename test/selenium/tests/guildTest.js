@@ -5,10 +5,10 @@ const assert = require('assert');
 
 var runGuildTests = async function(driver) {
   describe('Guild page tests in guildTest.js', function() {
-    this.timeout(10000);
+    this.timeout(12000);
     beforeEach(async function () {
       navigatePage(driver, getUrl('groups/myGuilds'));
-      await waitFunction(1000);
+      await waitFunction(2000);
     });
     it('Testing my guilds page - filters', async function() {
       let guildItems = await driver.findElements(

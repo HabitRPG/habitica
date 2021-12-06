@@ -14,7 +14,11 @@ To properly run the Selenium tests, some configurations must be made manually on
 
 - Create an account on the local instance. Put the credentials in `config.json`, following the `config.json.example` format.
 
+- Make sure the popup for the welcome back dailies has been closed.
+
 - Purchase a sword and leather armor. Equip the sword but not the leather armor.
+
+- Use the violet background for the account profile.
 
 - Create your own party for the test account.
 

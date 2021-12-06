@@ -101,7 +101,7 @@ var runInventoryTests = async function(driver) {
       let initialCons = await consElement.getText();
       initialCons = parseInt(initialCons)
       await driver.actions().sendKeys(Key.ESCAPE).perform();
-      await waitFunction(200);
+      await waitFunction(800);
       // Equip armor
       let armorElement = await driver.findElement(
         By.xpath(

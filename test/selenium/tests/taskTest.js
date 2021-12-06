@@ -1,6 +1,7 @@
 const { Builder, By, Key, until } = require('selenium-webdriver');
 const { SeleniumServer } = require('selenium-webdriver/remote');
-const { waitFunction, navigatePage, getUrl, generateMessage } = require('../util/util');
+const { waitFunction, navigatePage, getUrl, generateMessage,
+  checkIfElementExistsXpath } = require('../util/util');
 const { getHealth } = require('../util/common.js');
 const assert = require('assert');
 
@@ -14,6 +15,7 @@ function setDriver(dr) {
 var runTaskTests = function (driver) {
   setDriver(driver);
   describe('Task tests in taskTest.js', function () {
+    this.timeout(20000);
     beforeEach(function () {
       navigatePage(driver, getUrl());
     });
@@ -67,21 +69,139 @@ var runTaskTests = function (driver) {
       assert.equal(currHealth < startHealth, true);
     });
 
-    it('Testing add todo', async function() {
+    it('Testing add and delete todo', async function() {
       let addTodoBar = await driver.findElement(
         By.xpath("//textarea[@placeholder='Add a To Do']")
       );
       let taskTitle = generateMessage();
       await addTodoBar.sendKeys(taskTitle);
       await addTodoBar.sendKeys(Key.ENTER);
-
+      await waitFunction(500);
       let newTodo = await driver.findElement(
         By.xpath(
           "//h3[@class='task-title markdown']/" +
           `p[contains(text(), '${taskTitle}')]`
         )
       );
-      assert.equal(await newTodo.getText(), taskTitle);
+      let newTodoText = await newTodo.getText();
+      assert.equal(newTodoText, taskTitle);
+      // test deletion
+      let dropdown = await driver.findElement(
+        By.xpath(
+          "//h3[@class='task-title markdown']/" +
+          `p[contains(text(), '${taskTitle}')]` +
+          "/parent::node()/following-sibling::div"
+        )
+      );
+      dropdown.click();
+      let deleteButton = await driver.findElement(
+        By.xpath(
+          "//h3[@class='task-title markdown']/" +
+          `p[contains(text(), '${taskTitle}')]` +
+          "/parent::node()/following-sibling::div" +
+          "/descendant::span[@class='dropdown-icon-item delete-task-item']"
+        )
+      );
+      deleteButton.click();
+      await waitFunction(500);
+      let alert = await driver.switchTo().alert();
+      await alert.accept();
+      await waitFunction(500);
+      let result = await checkIfElementExistsXpath(
+        driver,
+        `//h3[@class='task-title markdown']/p[contains(text(), '${taskTitle}')]`
+      );
+      assert.equal(result, false);
+    })
+
+    it('Testing add and delete daily', async function() {
+      let addTodoBar = await driver.findElement(
+        By.xpath("//textarea[@placeholder='Add a Daily']")
+      );
+      let taskTitle = generateMessage();
+      await addTodoBar.sendKeys(taskTitle);
+      await addTodoBar.sendKeys(Key.ENTER);
+      await waitFunction(500);
+      let newTodo = await driver.findElement(
+        By.xpath(
+          "//h3[@class='task-title markdown']/" +
+          `p[contains(text(), '${taskTitle}')]`
+        )
+      );
+      let newTodoText = await newTodo.getText();
+      assert.equal(newTodoText, taskTitle);
+      // test deletion
+      let dropdown = await driver.findElement(
+        By.xpath(
+          "//h3[@class='task-title markdown']/" +
+          `p[contains(text(), '${taskTitle}')]` +
+          "/parent::node()/following-sibling::div"
+        )
+      );
+      dropdown.click();
+      let deleteButton = await driver.findElement(
+        By.xpath(
+          "//h3[@class='task-title markdown']/" +
+          `p[contains(text(), '${taskTitle}')]` +
+          "/parent::node()/following-sibling::div" +
+          "/descendant::span[@class='dropdown-icon-item delete-task-item']"
+        )
+      );
+      deleteButton.click();
+      await waitFunction(500);
+      let alert = await driver.switchTo().alert();
+      await alert.accept();
+      await waitFunction(500);
+      let result = await checkIfElementExistsXpath(
+        driver,
+        `//h3[@class='task-title markdown']/p[contains(text(), '${taskTitle}')]`
+      );
+      assert.equal(result, false);
+    })
+
+    it('Testing add and delete habit', async function() {
+      let addTodoBar = await driver.findElement(
+        By.xpath("//textarea[@placeholder='Add a Habit']")
+      );
+      let taskTitle = generateMessage();
+      await addTodoBar.sendKeys(taskTitle);
+      await addTodoBar.sendKeys(Key.ENTER);
+      await waitFunction(500);
+      let newTodo = await driver.findElement(
+        By.xpath(
+          "//h3[@class='task-title markdown']/" +
+          `p[contains(text(), '${taskTitle}')]`
+        )
+      );
+      let newTodoText = await newTodo.getText();
+      assert.equal(newTodoText, taskTitle);
+      // test deletion
+      let dropdown = await driver.findElement(
+        By.xpath(
+          "//h3[@class='task-title markdown']/" +
+          `p[contains(text(), '${taskTitle}')]` +
+          "/parent::node()/following-sibling::div"
+        )
+      );
+      dropdown.click();
+      let deleteButton = await driver.findElement(
+        By.xpath(
+          "//h3[@class='task-title markdown']/" +
+          `p[contains(text(), '${taskTitle}')]` +
+          "/parent::node()/following-sibling::div" +
+          "/descendant::span[@class='dropdown-icon-item delete-task-item']"
+        )
+      );
+      deleteButton.click();
+      await waitFunction(500);
+      let alert = await driver.switchTo().alert();
+      await alert.accept();
+      await waitFunction(500);
+      let result = await checkIfElementExistsXpath(
+        driver,
+        `//h3[@class='task-title markdown']/p[contains(text(), '${taskTitle}')]`
+      );
+      assert.equal(result, false);
     })
   });
 }

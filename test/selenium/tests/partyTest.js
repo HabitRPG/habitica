@@ -48,7 +48,7 @@ var runPartyTests = async function(driver) {
         By.xpath("//button[contains(text(), 'Update Party')]")
       );
       await updatePartyBtn.click();
-      await waitFunction(500);
+      await waitFunction(800);
       let partyDescription = await driver.findElement(
         By.xpath(`//p[contains(text(), '${message}')]`)
       );

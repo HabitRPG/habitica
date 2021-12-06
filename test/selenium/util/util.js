@@ -4,7 +4,7 @@ const { URL } = require('../config/config.js');
 /**
  * Basic function to wait for a certain period of time
  */
-var waitFunction= function (time) {
+var waitFunction= function(time) {
   return new Promise((res) => {
     setTimeout(res, time);
   });
@@ -13,7 +13,7 @@ var waitFunction= function (time) {
 /**
  * Basic function to scroll to an element
  */
-var scrollToElement = function (driver, element) {
+var scrollToElement = function(driver, element) {
   driver.executeScript("arguments[0].scrollIntoView()", element);
 }
 
