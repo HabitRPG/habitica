@@ -22,7 +22,7 @@
     "companyContribute": "Đóng góp",
     "companyBlog": "Blog",
     "companyAbout": "Cách hoạt động",
-    "communityExtensions": "<a href='http://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations' target='_blank'>Các công cụ mở rộng & thêm vào</a>",
+    "communityExtensions": "<a href='https://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations' target='_blank'>Các ứng dụng mở rộng & Tiện ích</a>",
     "clearBrowserData": "Xóa Dữ liệu Trình duyệt",
     "marketing3Header": "Những ứng dụng và chương trình mở rộng",
     "marketing2Lead3": "Những thử thách cho phép bạn tranh đua với bạn bè và người lạ. Bất kì ai làm tốt nhất cho tới cuối cùng của thử thách sẽ thắng được những phần thưởng đặc biệt.",
@@ -109,7 +109,7 @@
     "passwordConfirmationMatch": "Xác nhận mật khẩu không khớp.",
     "usernameTaken": "Tên đăng nhập đã được dùng.",
     "usernameTOSRequirements": "Tên đăng nhập phải tuân theo <a href='/static/terms' target='_blank'>Điều khoản Dịch vụ</a> và <a href='/static/community-guidelines' target='_blank'>Nội quy Cộng đồng</a> của chúng tôi. Nếu bạn trước đó chưa đặt một tên đăng nhập, tên đăng nhập của bạn sẽ được tự tạo ra.",
-    "usernameInfo": "Tên đăng nhập hiện nay là những tên đăng nhập riêng biệt mà sẽ được nhìn thấy bên cạnh tên hiển thị của bạn và được dùng cho những lời mời, nói chuyện @mentions, và nhắn tin. <br><br>Nếu bạn muốn tìm hiểu thêm về sự thay đổi này, <a href='http://habitica.fandom.com/wiki/Player_Names' target='_blank'>ghé thăm wiki của chúng tôi</a>.",
+    "usernameInfo": "Tên đăng nhập hiện nay là những tên đăng nhập riêng biệt mà sẽ được nhìn thấy bên cạnh tên hiển thị của bạn và được dùng cho những lời mời, nói chuyện @mentions, và nhắn tin. <br><br>Nếu bạn muốn tìm hiểu thêm về sự thay đổi này, <a href='https://habitica.fandom.com/wiki/Player_Names' target='_blank'>ghé thăm wiki của chúng tôi</a>.",
     "usernameTime": "Giờ là lúc thiết lập tên người dùng của bạn!",
     "newEmailRequired": "Thiếu địa chỉ email mới.",
     "emailTaken": "Địa chỉ email đã được dùng trong một tài khoản khác.",
@@ -177,6 +177,7 @@
     "password": "Mật khẩu",
     "setNewPass": "Đặt Mật khẩu mới",
     "marketing4Header": "Sử dụng cho Tổ chức",
-    "marketing3Lead2": "Những **Công cụ của bên thứ 3** gắn Habitica vào những khía cạnh khác nhau trong cuộc sống của bạn. API của chúng tôi cung cấp sự tích hợp dễ dàng cho những thứ như [Mở rộng Chrome](https://chrome.google.com/webstore/detail/habitica/pidkmpibnnnhneohdgjclfdjpijggmjj?hl=en-US), cho những thứ bạn mất điểm khi truy cập những trang web không năng suất, và kiếm điểm khi ở những trang năng xuất. [Tìm hiểu thêm ở đây](http://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations).",
-    "marketing3Lead2Title": "Tích hợp"
+    "marketing3Lead2": "Những **Công cụ của bên thứ 3** gắn Habitica vào những khía cạnh khác nhau trong cuộc sống của bạn. API của chúng tôi cung cấp sự tích hợp dễ dàng cho những thứ như [Mở rộng Chrome](https://chrome.google.com/webstore/detail/habitica/pidkmpibnnnhneohdgjclfdjpijggmjj?hl=en-US), cho những thứ bạn mất điểm khi truy cập những trang web không năng suất, và kiếm điểm khi ở những trang năng xuất. [Tìm hiểu thêm ở đây](https://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations).",
+    "marketing3Lead2Title": "Tích hợp",
+    "enterHabitica": "Vào Habitica"
 }

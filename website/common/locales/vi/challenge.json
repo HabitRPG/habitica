@@ -100,5 +100,9 @@
     "viewProgress": "View Progress",
     "selectMember": "Chọn Thành viên",
     "confirmKeepChallengeTasks": "Bạn có muốn giữ nguyên nhiệm vụ của thử thách?",
-    "selectParticipant": "Chọn một người tham gia"
+    "selectParticipant": "Chọn một người tham gia",
+    "filters": "Bộ lọc",
+    "wonChallengeDesc": "<%= challengeName %> đã chọn bạn là người chiến thắng! Chiến thắng của bạn đã được ghi nhận trong Những thành tựu của bạn.",
+    "yourReward": "Phần thưởng của bạn",
+    "removeTasks": "Xóa Công việc"
 }

@@ -144,19 +144,10 @@ function _setUpNewUser (user) {
   user.items.quests.dustbunnies = 1;
   user.purchased.background.violet = true;
   user.preferences.background = 'violet';
-  if (moment().isBefore('2021-11-02T20:00-04:00')) {
-    user.migration = '20211028_habitoween_ladder';
-    user.items.pets['JackOLantern-Base'] = 5;
-    user.items.food.Candy_Skeleton = 1;
-    user.items.food.Candy_Base = 1;
-    user.items.food.Candy_CottonCandyBlue = 1;
-    user.items.food.Candy_CottonCandyPink = 1;
-    user.items.food.Candy_Shade = 1;
-    user.items.food.Candy_White = 1;
-    user.items.food.Candy_Golden = 1;
-    user.items.food.Candy_Zombie = 1;
-    user.items.food.Candy_Desert = 1;
-    user.items.food.Candy_Red = 1;
+  if (moment().isBefore('2021-11-28T20:00-05:00')) {
+    user.migration = '20211124_harvest_feast';
+    user.items.pets['Turkey-Base'] = 5;
+    user.items.currentPet = 'Turkey-Base';
   }
 
   user.markModified('items achievements');
