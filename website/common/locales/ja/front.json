@@ -1,6 +1,6 @@
 {
     "FAQ": "よくある質問",
-    "termsAndAgreement": "下のボタンをクリックすることで、<a href='/static/terms'>利用規約</a>と<a href='/static/privacy'>プライバシーポリシー</a>の\n内容に同意したものとみなします。",
+    "termsAndAgreement": "下のボタンをクリックすることで、<a href='/static/terms'>利用規約</a>と<a href='/static/privacy'>プライバシーポリシー</a>の内容に同意したものとみなします。",
     "accept1Terms": "私は以下のことを承諾し、ボタンをクリックします：",
     "accept2Terms": "そして",
     "chores": "雑用",
@@ -78,7 +78,7 @@
     "pkQuestion7": "Habiticaがドット絵風グラフィック（ピクセルアート）を採用している理由は？",
     "pkAnswer7": "Habiticaはいくつかの理由のため、ピクセルアートを使っています。楽しくてノスタルジックな要素に加えて、ピクセルアートは力を貸したいボランティアのアーティストたちにとっても非常に取っつきやすいのです。たくさんの異なるアーティストたちが貢献するときでも、ピクセルアートは一貫性を保ちやすく、私たちが多数の新しいコンテンツを迅速に作り出すことを可能にしています！",
     "pkQuestion8": "Habiticaは人々の現実の生活にどのような影響を与えていますか？",
-    "pkAnswer8": "こちらで、たくさんの体験談を読むことができます：\nhttps://habitversary.tumblr.com",
+    "pkAnswer8": "こちらで、たくさんの体験談を読むことができます：https://habitversary.tumblr.com",
     "pkMoreQuestions": "このリストにない質問がおありですか？ admin@habitica.comまでメールしてください！",
     "pkPromo": "プロモーション",
     "pkLogo": "ロゴ",
