@@ -1405,7 +1405,6 @@ const weapon = {
   },
   regalSceptre: {
     per: 7,
-    twoHanded: true,
     set: 'regal',
   },
 };
