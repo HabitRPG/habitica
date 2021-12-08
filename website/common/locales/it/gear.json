@@ -2512,5 +2512,9 @@
     "offHandCapitalized": "Oggetto mano secondaria",
     "armorMystery202112Text": "Coda di Ondina Antartica",
     "headMystery202111Text": "Cappello della Cronovisione",
-    "headMystery202112Text": "Corona d'Ondina Antartica"
+    "headMystery202112Text": "Corona d'Ondina Antartica",
+    "weaponArmoireRegalSceptreText": "Scettro reale",
+    "weaponArmoireRegalSceptreNotes": "Mostra tutta la tua autorità regale prendendo in mano questo scettro ingioiellato. Aumenta la percezione di <%= per %>. Scrigno Incantato. Set regale (Oggetto 2 di 2).",
+    "headArmoireRegalCrownText": "Corona reale",
+    "headArmoireRegalCrownNotes": "Qualsiasi monarca sarebbe fortunato ad avere una corona così maestosa ed elegante. Aumenta l'intelligenza di <%= int %>. Scrigno incantato: Set regale (oggetto 1 di 2)."
 }
