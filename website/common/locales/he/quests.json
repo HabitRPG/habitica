@@ -47,7 +47,7 @@
     "questInviteNotFound": "לא נמצאה הזמנה להרפתקה.",
     "guildQuestsNotSupported": "לא ניתן להזמין גילדות להרפתקה.",
     "questNotOwned": "אין ברשותכם את המגילה הזו.",
-    "questNotGoldPurchasable": "ההרפתקה ״<%= key %>״ אינה ניתנת לרכישה באמצעות זהב.",
+    "questNotGoldPurchasable": "לא ניתן לרכוש את ההרפתקה \"<%= key %>\" עם מטבעות זהב.",
     "questNotGemPurchasable": "Quest \"<%= key %>\" is not a Gem-purchasable quest.",
     "questAlreadyUnderway": "החבורה שלכם נמצאת כבר במהלכה של הרפתקה. נסו שוב כשזו תסתיים.",
     "questAlreadyAccepted": "כבר הסכמתם להזמנה להרפתקה.",

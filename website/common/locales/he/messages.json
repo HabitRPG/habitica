@@ -16,7 +16,7 @@
     "messageInvalidEggPotionCombo": "לא תוכלו להבקיע ביצים של חיות מחמד באמצעות שיקויים קסומים! נסו ביצים אחרות.",
     "messageAlreadyPet": "כבר השגתם חיית מחמד זו. נסו שילוב אחר!",
     "messageHatched": "הביצה שלכם בקעה! בקרו באורווה כדי לראות את חיית המחמד החדשה שלכם.",
-    "messageNotEnoughGold": "אין מספיק זהב",
+    "messageNotEnoughGold": "אין מספיק מטבעות",
     "messageTwoHandedEquip": "אחיזה ב<%= twoHandedText %> דורשת שתי ידיים, ולכן הורדתם את <%= offHandedText %>.",
     "messageTwoHandedUnequip": "אחיזה ב<%= twoHandedText %> דורשת שתי ידיים, ולכן הורדתם את הציוד הזה כשהתחמשתם ב<%= offHandedText %>.",
     "messageDropFood": "You've found <%= dropText %>!",
