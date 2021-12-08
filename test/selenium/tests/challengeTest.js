@@ -5,15 +5,18 @@ const { challengeMessage, taskMessage } = require('../util/challenge.js')
 const assert = require('assert');
 const challenge = require('../util/challenge.js');
 
+/**
+ * Tests workflow for adding challenge to party.
+ */
 var runChallengeTests = function(driver) {
   describe('Challenge tests in challengeTest.js', async function() {
-    this.timeout(24000);
+    this.timeout(30000);
     beforeEach(async function () {
       navigatePage(driver, getUrl('party'));
       // This page seems to take longer to load
       await waitFunction(5000);
     });
-    it('Party challenge', async function() {
+    it('Comprehensive party challenge test', async function() {
 
       let createChallenge = await driver.findElement(
         By.xpath("//button[contains(text(), 'Create Challenge')]")
@@ -90,7 +93,7 @@ var runChallengeTests = function(driver) {
       await createTask.click();
       // Now check the new task
       await driver.get(getUrl(''));
-      await waitFunction(2000)
+      await waitFunction(2500);
       let newTask = await driver.findElement(
         By.xpath(
           `//p[contains(text(), '${newTaskTitle}')]`

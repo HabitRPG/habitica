@@ -2,38 +2,25 @@ const { Builder, By, Key, until } = require('selenium-webdriver');
 const { SeleniumServer } = require('selenium-webdriver/remote');
 const { waitFunction, navigatePage, getUrl, generateMessage,
   checkIfElementExistsXpath } = require('../util/util');
-const { getHealth } = require('../util/common.js');
+const { getHealth, getExp, deletePanel } = require('../util/common.js');
 const assert = require('assert');
 
-var driver;
-
-// Keeps driver so helpers don't 
-function setDriver(dr) {
-  driver = dr;
-}
-
+/**
+ * This file tests the task functionality.
+ * This includes dailies, habits, and todos.
+ */
 var runTaskTests = function (driver) {
-  setDriver(driver);
   describe('Task tests in taskTest.js', function () {
     this.timeout(20000);
-    beforeEach(function () {
+    beforeEach(async function () {
       navigatePage(driver, getUrl());
+      await waitFunction(1000);
     });
     it('Daily Task test', async function () {
-      // First get current EXP Level
-      // Define function to get the element and value
-      let progressBars = await driver.findElements(
-        By.className('progress-container')
-      );
-      let expBar = progressBars[1];
-      async function getExp() {
-        let expString = await expBar.getText();
-        // now we have intial exp to test the values
-        let exp = parseInt(expString.split('/')[0]);
-        return exp;
-      }
+      await deletePanel(driver);
+
       // now we have intial exp to test the values
-      let initialExp = await getExp();
+      let initialExp = await getExp(driver);
 
       let dailyCheckbox = await driver.findElement(
         By.className('task-control daily-todo-control')
@@ -41,19 +28,17 @@ var runTaskTests = function (driver) {
       // click here works
       await dailyCheckbox.click();
       await waitFunction(500);
-      //this.timeout(1000);
       // Check the functionality
-      let currExp = await getExp();
+      let currExp = await getExp(driver);
       // exp diff is inconsistent
       // Now currently checks if exp increased
-      // This test is flakey, it appears by adding code for waiting,
-      // the test is more stable
       assert.equal(currExp > initialExp, true,
         'Checking if exp updates properly');
-      await waitFunction(100);
+      await waitFunction(200);
       // Revert the task completion
       await dailyCheckbox.click();
-      currExp = await getExp();
+      await waitFunction(1500);
+      currExp = await getExp(driver);
       assert.equal(currExp, initialExp, 'Testing daily task uncheck');
     });
 
@@ -103,7 +88,7 @@ var runTaskTests = function (driver) {
         )
       );
       deleteButton.click();
-      await waitFunction(500);
+      await waitFunction(700);
       let alert = await driver.switchTo().alert();
       await alert.accept();
       await waitFunction(500);
@@ -148,7 +133,7 @@ var runTaskTests = function (driver) {
         )
       );
       deleteButton.click();
-      await waitFunction(500);
+      await waitFunction(700);
       let alert = await driver.switchTo().alert();
       await alert.accept();
       await waitFunction(500);
@@ -193,7 +178,7 @@ var runTaskTests = function (driver) {
         )
       );
       deleteButton.click();
-      await waitFunction(500);
+      await waitFunction(700);
       let alert = await driver.switchTo().alert();
       await alert.accept();
       await waitFunction(500);

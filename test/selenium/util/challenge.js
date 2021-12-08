@@ -2,11 +2,11 @@ const { Builder, By, Key, until } = require('selenium-webdriver');
 const { URL } = require('../config/config.js');
 const { generateMessage } = require('./util.js');
 
-var challengeMessage = function() {
+const challengeMessage = function() {
   return 'Challenge ' + generateMessage();
 }
 
-var taskMessage = function() {
+const taskMessage = function() {
   return 'Challenge Task ' + generateMessage();
 }
 

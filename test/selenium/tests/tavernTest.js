@@ -1,8 +1,11 @@
 const { Builder, By, Key, until } = require('selenium-webdriver');
 const { SeleniumServer } = require('selenium-webdriver/remote');
-const { waitFunction, getUrl, navigatePage } = require('../util/util');
+const { waitFunction, getUrl, navigatePage, generateMessage } = require('../util/util');
 const assert = require('assert');
 
+/**
+ * Tavern chat test
+ */
 var runTavernTests = async function(driver) {
   describe('Running tests on tavern chat', function() {
     this.timeout(10000);
@@ -15,8 +18,7 @@ var runTavernTests = async function(driver) {
         By.css('textarea')
       );
       // Write a message in the chat
-      let num =  Math.floor(Math.random() * (9999 - 1000) + 1000);
-      let testMessage = 'Test Message ' + num;
+      let testMessage = generateMessage();
       await chatText.sendKeys(testMessage);
       let sendButton = await driver.findElement(By.xpath(
         "//button[contains(text(), 'Send')]"

@@ -16,10 +16,17 @@ const { runPartyTests } = require('./tests/partyTest.js');
 const { runShopTests } = require('./tests/shopTest.js');
 const { runQuestTests } = require('./tests/questTest.js');
 const { runChallengeTests } = require('./tests/challengeTest.js');
+const { runPlayerClassTests } = require('./tests/playerClassTest.js');
 
+/**
+ * This is the main test suite that starts selenium to
+ * run the tests.
+ * 
+ * Website must be running locally/in hosted testing URL
+ */
 describe("Running Selenium Testing", async function () {
   it('Loading Selenium Webdriver and logging in', async function () {
-    this.timeout(100000);
+    this.timeout(200000);
     let options = new Options();
     options.addArguments('log-level=3');
     let driver = await new Builder().forBrowser('chrome').withCapabilities(options).build();
@@ -42,6 +49,7 @@ describe("Running Selenium Testing", async function () {
         assert.equal(currUrl, getUrl(), "Login did not work");
 
         // Run all the tests here
+        // When testing/debugging you can comment out some tests
         runDebugSetupTests(driver);
         runTaskTests(driver);
         runInventoryTests(driver);
@@ -54,6 +62,7 @@ describe("Running Selenium Testing", async function () {
         runPartyTests(driver);
         runQuestTests(driver);
         runChallengeTests(driver);
+        runPlayerClassTests(driver);
       }
       catch (err) {
         console.log("ERROR IN TESTING");

@@ -5,6 +5,10 @@ const { navigatePage, getUrl, waitFunction,
 const { getGold, getHealth } = require('../util/common.js');
 const assert = require('assert');
 
+/**
+ * Test rewards, sepcifically the custom reward and the healing
+ * potion.
+ */
 var runRewardTests = async function(driver) {
   describe('Now Running tests on rewardTest.js', function() {
     this.timeout(10000);
@@ -14,27 +18,27 @@ var runRewardTests = async function(driver) {
     });
     it('Reward tests', async function() {
       // Get amount of gold
-      let goldElem = await driver.findElement(
-        By.className("item-with-icon gold"),
-        By.xpath("//div[@class='item-with-icon gold']//descendant::span")
+      let initialGold = await getGold(driver);
+
+      // Get reward value
+      let rewardElement = await driver.findElement(
+        By.xpath(
+          "//div[contains(@class, 'task-reward-control-bg')]" +
+          "/div[@class='small-text']"
+        )
       );
-      let initialGold = Number(await goldElem.getText());
+      let rewardValue = await rewardElement.getText();
+      rewardValue = parseInt(rewardValue);
 
       // Click Reward
       let customReward = await driver.findElement(
-        By.xpath(
-          "//div[contains(@class, 'task-reward-control-bg')]"
-        )
+        By.css('div.task-reward-control-bg')
       );
       await customReward.click();
 
       // Recheck gold
-      goldElem = await driver.findElement(
-        By.className("item-with-icon gold"),
-        By.xpath("//div[@class='item-with-icon gold']//descendant::span")
-      );
-      let currGold = Number(await goldElem.getText());
-      assert.equal(currGold, initialGold - 12);
+      let currGold = await getGold(driver);
+      assert.equal(currGold, initialGold - rewardValue);
     });
     it('Testing reward potion', async function() {
       // Turn health back to 1 to test potion

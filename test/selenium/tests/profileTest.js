@@ -3,12 +3,15 @@ const { SeleniumServer } = require('selenium-webdriver/remote');
 const { navigatePage, waitFunction, generateMessage, getUrl } = require('../util/util');
 const assert = require('assert');
 
+/**
+ * Test profile editing.
+ */
 var runProfileTests = async function(driver) {
   describe('Profile tests in profileTest.js', function() {
     this.timeout(10000);
     beforeEach(async function () {
       navigatePage(driver, getUrl('user/profile'));
-      await waitFunction(1500);
+      await waitFunction(2000);
     });
     it('Updating profile test', async function() {
       let editButton = driver.findElement(
@@ -18,7 +21,8 @@ var runProfileTests = async function(driver) {
       let aboutSection = await driver.findElement(
         By.xpath("//textarea[@placeholder='Please introduce yourself']")
       );
-      aboutSection.clear();
+      await aboutSection.clear();
+      await waitFunction(500);
       let message = generateMessage();
       aboutSection.sendKeys(message);
       let saveButton = await driver.findElement(

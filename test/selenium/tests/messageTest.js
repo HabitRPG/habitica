@@ -1,8 +1,12 @@
 const { Builder, By, Key, until } = require('selenium-webdriver');
 const { SeleniumServer } = require('selenium-webdriver/remote');
 const { navigatePage, waitFunction, generateMessage, getUrl } = require('../util/util');
+const { LOGIN } = require('../config/config.js');
 const assert = require('assert');
 
+/**
+ * Test messaging by sending a message to the same account.
+ */
 var runMessageTests = async function(driver) {
   describe('Private Message Tests in messageTest.js', function() {
     this.timeout(10000);
@@ -14,7 +18,7 @@ var runMessageTests = async function(driver) {
       // Use self messages
       let conversation = await driver.findElement(
         By.xpath(
-        "//div[contains(text(), 'seleniumTester')]/ancestor::div[@class='conversation']"
+        `//div[contains(text(), '${LOGIN.USERNAME}')]/ancestor::div[@class='conversation']`
       ));
       await conversation.click();
       await waitFunction(500);

@@ -6,6 +6,7 @@ const assert = require('assert');
 
 /**
  * Here we add health, GP to set up for other tests
+ * using the debug panel functionality
  */
 var runDebugSetupTests = function(driver) {
   describe('Testing debug Menu, also setting up for subsequent tests', function() {
@@ -71,7 +72,7 @@ var runDebugSetupTests = function(driver) {
       );
       let currGems = parseInt(await gemsElement.getText());
       assert.equal(currGems, prevGems + 10);
-      
+      // remove the notifications elements to avoid overlaps
       deleteElement(driver, 'animations-holder');
     });
   })

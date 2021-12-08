@@ -5,33 +5,19 @@ const { navigatePage, waitFunction, getUrl, checkIfElementExistsCss,
   checkIfElementExistsXpath} = require('../util/util');
 const assert = require('assert');
 
+/**
+ * Test adding quest to party workflow.
+ * Note: your party cannot be already doing a quest.
+ */
 var runQuestTests = async function (driver) {
   describe('Quest tests in questTest.js', function () {
     this.timeout(20000);
     it('Comprehensive add quest workflow', async function () {
       await driver.get(getUrl('inventory/items'));
       await waitFunction(1000);
-      // Check if slime quest scroll owned
-      if (!checkIfElementExistsClassName('inventory_quest_scroll_slime')) {
-        // Buy Scroll
-        await driver.get(getUrl('shops/quests'));
-        await waitFunction(1000);
-        let questScroll = await driver.findElement(
-          By.className('inventory_quest_scroll_slime')
-        );
-        await questScroll.click();
-        await waitFunction(600);
-        let buyNow = await driver.findElement(
-          By.xpath("//button[contains(text(), 'Buy Now')]")
-        );
-        await buyNow.click();
-        let alert = await driver.switchTo().alert();
-        await alert.accept();
-        await waitFunction(400);
-      }
       // Use quest scroll on party
       await driver.get(getUrl('party'));
-      await waitFunction(1000);
+      await waitFunction(2000);
       let selectQuest = driver.findElement(
         By.xpath("//button[contains(text(), 'Select Quest')]")
       );
