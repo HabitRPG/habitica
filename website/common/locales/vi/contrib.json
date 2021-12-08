@@ -49,9 +49,9 @@
     "balance": "Cân bằng",
     "playerTiers": "Cấp bậc của người chơi",
     "tier": "Cấp bậc",
-    "conRewardsURL": "http://habitica.wikia.com/wiki/Contributor_Rewards",
+    "conRewardsURL": "https://habitica.wikia.com/wiki/Contributor_Rewards",
     "surveysSingle": "Đã giúp Habitica phát triển, bằng cách tham gia khảo sát hoặc tham gia thử nghiệm. Xin cảm ơn bạn!",
     "surveysMultiple": "Đã giúp Habitica phát triển <%= count %> lần, bằng cách tham gia khảo sát hoặc tham gia thử nghiệm. Xin cảm ơn bạn!",
     "blurbHallPatrons": "Đây là Đại Sảnh Của Người Hậu Thuẫn, nơi mà chúng ta vinh danh những nhà thám hiểm cao quý đã ủng hộ Kickstarter ban đầu của Habitica . Chúng ta cảm ơn họ vì đã giúp chúng ta biến Habitica thành hiện thực!",
-    "blurbHallContributors": "Đây là nơi mà những Người có đóng góp với Habitica được vinh danh. Dù đóng góp những dòng mã lập trình, những giai điệu, những bức vẽ, những bài viết, hay chỉ đơn giản là giúp ích cho người khác, họ đã nhận được <a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'> Đá Quý, Trang Bị có 1-0-2</a>, và <a href='http://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'> danh hiệu uy tín</a>. Bạn cũng có thể đóng góp cho Habitica! <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'> Vui lòng nhấn vào đây để biết thêm thông tin chi tiết. </a>"
+    "blurbHallContributors": "Đây là nơi mà những Người có đóng góp với Habitica được vinh danh. Dù đóng góp những dòng mã lập trình, những giai điệu, những bức vẽ, những bài viết, hay chỉ đơn giản là giúp ích cho người khác, họ đã nhận được <a href='https://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'> Đá Quý, Trang Bị có 1-0-2</a>, và <a href='https://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'> danh hiệu uy tín</a>. Bạn cũng có thể đóng góp cho Habitica! <a href='https://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'> Vui lòng nhấn vào đây để biết thêm thông tin chi tiết. </a>"
 }

@@ -138,5 +138,6 @@
     "tomorrow": "Domani",
     "resetCounter": "Resetta il Contatore",
     "adjustCounter": "Aggiusta il Contatore",
-    "counter": "Contatore"
+    "counter": "Contatore",
+    "editTagsText": "Modifica etichette"
 }

@@ -1,11 +1,11 @@
 {
     "lostAllHealth": "אזלו לך נקודות הבריאות!",
     "dontDespair": "לא להתייאש!",
-    "deathPenaltyDetails": "איבדת דרגה, את הזהב שלך, ופריט כלשהו, אך אפשר לקבלם בחזרה באמצעות עבודה קשה! בהצלחה--יהיה בסדר.",
+    "deathPenaltyDetails": "איבדת דרגה, את מטבעות הזהב שלך, ופריט כלשהו, אך אפשר לקבלם בחזרה באמצעות עבודה קשה! בהצלחה--יהיה בסדר.",
     "refillHealthTryAgain": "מילוי נקודות הבריאות וניסיון חוזר",
     "dyingOftenTips": "זה קורה לעיתים קרובות? <a href='http://habitica.fandom.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'>הינה כמה עצות!</a>",
     "losingHealthWarning": "זהירות - נקודות הבריאות אוזלות!",
-    "losingHealthWarning2": "אל תתנו לבריאות לרדת לאפס! אחרת תרדו דרגה, תאבדו זהב ופריט ציוד.",
+    "losingHealthWarning2": "לא לתת לבריאות שלך לרדת לאפס! אחרת, הדמות שלך תרד בדרגה, תאבד את כל מטבעות הזהב, וגם פריט ציוד.",
     "toRegainHealth": "כדי לצבור בריאות בחזרה:",
     "lowHealthTips1": "יש לעלות בדרגה כדי להחלים לגמרי!",
     "lowHealthTips2": "רכשו שיקוי בריאות בעמודת הפרסים כדי להחזיר 15 נקודות בריאות.",

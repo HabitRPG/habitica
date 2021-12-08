@@ -117,5 +117,11 @@
     "achievementVioletsAreBlue": "Le Viole sono Blu",
     "achievementDomesticatedModalText": "Hai collezionato tutti gli animali addomesticati!",
     "achievementDomesticatedText": "Ha fatto schiudere tutti i colori degli animali domestici: furetti, porcellini d'india, galli, maialini volanti, ratti, conigli, cavalli e mucche!",
-    "achievementDomesticated": "I-A-I-A-OH"
+    "achievementDomesticated": "I-A-I-A-OH",
+    "achievementShadyCustomer": "Oscuro cliente",
+    "achievementShadyCustomerModalText": "Hai collezionato tutti gli animali oscuri!",
+    "achievementShadyCustomerText": "Ha raccolto tutti gli animali oscuri.",
+    "achievementShadeOfItAll": "L'ombra di tutto",
+    "achievementShadeOfItAllText": "Ha domato tutte le cavalcature oscure.",
+    "achievementShadeOfItAllModalText": "Hai domato tutte le cavalcature oscure!"
 }
