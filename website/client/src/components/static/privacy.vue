@@ -29,10 +29,10 @@
     <h3>Contact Information</h3>
     <p>
       We collect contact information through our Service; contact information typically includes your name,
-      email address, phone number and any other information you provide in messages to us. We use such
-      contact information for purposes such as providing you with information about the Service, responding to
-      your inquiries, sending you email alerts (including marketing emails), verifying your identity or providing
-      you the Service.
+      email address, and any other information you provide in messages to us. We use such contact information
+      for purposes such as providing you with information about the Service, responding to your inquiries,
+      sending you email alerts (including marketing emails), verifying your identity or providing you the
+      Service.
     </p>
     <h3>Account Access Information</h3>
     <p>
@@ -98,8 +98,9 @@
       <li><strong>Session Cookies</strong>: We use session cookies to make it easier for you to navigate our Service. A
         session ID cookie expires when you close the Service.</li>
       <li><strong>Persistent Cookies</strong>: A persistent cookie remains on your device for an extended period of time or
-        until you delete it. Persistent cookies enable us to track and target the interests of our visitors to
-        personalize the experience on our Service.</li>
+        until you delete it. Persistent cookies enable us to better understand how you interact with the Service and to
+        provide visitors with a better and more personalized experience by retaining information about their identity and
+        preferences, including but not limited to keeping them logged in even if the browser is closed.</li>
     </ul>
     <p>
       If you do not want us to place a cookie on your device, you may be able to turn that feature off on your
@@ -275,17 +276,17 @@
       to submit a request pursuant to Section 1798.83, please contact HabitRPG via email at
       <a href='mailto:admin@habitica.com'>admin@habitica.com</a>.
     </p>
-    <h2>DO NOT TRACK</h2>
-    <p>
-      HabitRPG does not respond to “Do Not Track” settings or other related mechanisms on our Website at
-      this time.
-    </p>
     <h2>NEVADA PRIVACY RIGHTS</h2>
     <p>
       If you are a resident of Nevada, you have the right to opt-out of the sale of certain personal information to
       third parties. You can exercise this right by contacting us at admin@habitica.com with the subject line
       “Nevada Do Not Sell Request” and providing us with your name and the email address associated with
       your account.
+    </p>
+    <h2>DO NOT TRACK</h2>
+    <p>
+      HabitRPG does not respond to “Do Not Track” settings or other related mechanisms on our Website at
+      this time.
     </p>
     <h2>LINKS TO EXTERNAL WEBSITES</h2>
     <p>
@@ -310,8 +311,8 @@
     </p>
     <address>
       <strong>HabitRPG, Inc.</strong>
-      <br>11870 Santa Monica Blvd., Suite 106-577
-      <br>Los Angeles, CA 90025
+      <br>202 Bicknell Ave., Ground Floor
+      <br>Santa Monica, CA 90405
       <br>Email&colon;&nbsp;
       <a href="mailto:admin@habitica.com">admin@habitica.com</a>
     </address>

@@ -597,6 +597,8 @@
   "weaponArmoirePotionBlueNotes": "Life is a little bit fluffier and a whole lot bluer with this potion to make cotton candy blue beasts! Increases Intelligence by <%= int %> and Constitution by <%= con %>. Enchanted Armoire: Potion Set (Item 9 of 10)",
   "weaponArmoirePotionGoldenText": "Decorative Golden Potion",
   "weaponArmoirePotionGoldenNotes": "With this potion, your pet can have a heart of gold… and ears of gold… and a tail of gold… Increases Strength and Intelligence by <%= attrs %> each. Enchanted Armoire: Potion Set (Item 10 of 10)",
+  "weaponArmoireRegalSceptreText": "Regal Sceptre",
+  "weaponArmoireRegalSceptreNotes": "Display your regal authority by taking this bejeweled staff in hand. Increases Perception by <%= per %>. Enchanted Armoire: Regal Set (Item 2 of 2).",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -1959,6 +1961,8 @@
   "headArmoireHeraldsCapNotes": "This herald’s hat includes a perky plume. Increases Intelligence by <%= int %>. Enchanted Armoire: Herald Set (Item 2 of 4).",
   "headArmoireBlackFloppyHatText": "Black Floppy Hat",
   "headArmoireBlackFloppyHatNotes": "Many spells have been sewn into this simple hat, giving it a bold black color. Increases Constitution, Perception, and Strength by <%= attrs %> each. Enchanted Armoire: Black Loungewear Set (Item 1 of 3).",
+  "headArmoireRegalCrownText": "Regal Crown",
+  "headArmoireRegalCrownNotes": "Any monarch would be lucky to have such a majestic, smart-looking crown. Increases Intelligence by <%= int %>. Enchanted Armoire: Regal Set (Item 1 of 2).",
 
   "offhand": "off-hand item",
   "offHandCapitalized": "Off-Hand Item",

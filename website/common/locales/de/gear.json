@@ -2490,5 +2490,7 @@
     "headSpecialFall2021HealerNotes": "Deine eigene Magie lässt deine Haare zu schockierenden, hellen Flammen werden, wenn du diese Maske aufsetzt. Erhöht Intelligenz um <%= int %>. Limitierte Ausgabe 2021 Herbstausrüstung.",
     "weaponArmoireSkullLanternText": "Totenkopflaterne",
     "weaponArmoireSkullLanternNotes": "Lasse ihr Leuchten deinen Weg durch die tiefste Finsternis erhellen. Erhöht Intelligenz um <%= int %>. Verzauberter Schrank:Unabhängiger Gegenstand.",
-    "offHandCapitalized": "Schildhand-Gegenstand"
+    "offHandCapitalized": "Schildhand-Gegenstand",
+    "armorMystery202112Text": "Antarktischer Nixenschwanz",
+    "armorMystery202112Notes": "Gleite mit diesem schimmerden Schwanz durch eisige Gewässser ohne jegliche Kälte zu spühren. Gewährt keinen Attributbonus. Dezember 2021 Abonnentengegenstand."
 }
