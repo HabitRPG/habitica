@@ -775,8 +775,9 @@ export default {
             this.showNotificationWithModal(notification);
             break;
           case 'ACHIEVEMENT_QUESTS': {
-            const { achievement, achievementTitleKey } = notification.data;
-            NOTIFICATIONS.ACHIEVEMENT_QUESTS.label = $t => `${$t('achievement')}: ${$t(achievementTitleKey)}`;
+            const { achievement, achievementNotification } = notification.data;
+            NOTIFICATIONS.ACHIEVEMENT_QUESTS.label = $t => `${$t('achievement')}:
+          ${$t(achievementNotification)}`;
             this.showNotificationWithModal(notification);
             Vue.set(this.user.achievements, achievement, true);
             break;

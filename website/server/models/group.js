@@ -1068,22 +1068,17 @@ schema.methods.finishQuest = async function finishQuest (quest) {
 
       const questAchievementUpdate = { $set: {}, $push: {} };
       questAchievementUpdate.$set[`achievements.${achievement}`] = true;
-      const achievementTitleCase = 'achievement'`${achievement}``${achievement
+      const achievementTitleCase = `achievement${achievement
         .slice(0, 1)
         .toUpperCase()}${achievement.slice(1, achievement.length)}`;
-      const achievementSnakeCase = `ACHIEVEMENT_${_.snakeCase(achievement).toUpperCase()}`;
+      // const achievementSnakeCase = `ACHIEVEMENT_${_.snakeCase(achievement).toUpperCase()}`;
       questAchievementUpdate.$push = {
         notifications: new UserNotification({
-          type: achievementSnakeCase, // this is where the error is: `mindOverMatter`
-          // is not a valid enum value for path `type`.
+          type: 'ACHIEVEMENT_QUESTS',
           data: {
             achievement,
-            // message: achievementTitleCase,
-            message: `${shared.i18n.t('modalAchievement')} ${shared.i18n.t(
-              `achievement${achievementTitleCase}`,
-            )}`,
-            // modalText: achievementTitleCase,
-            modalText: shared.i18n.t(`achievement${achievementTitleCase}ModalText`),
+            message: `${shared.i18n.t('modalAchievement')} ${shared.i18n.t(achievementTitleCase)}`,
+            modalText: shared.i18n.t(`${achievementTitleCase}ModalText`),
           },
         }).toObject(),
       };
