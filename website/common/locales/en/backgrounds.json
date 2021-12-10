@@ -739,10 +739,10 @@
   "backgroundSpiralStaircaseNotes": "Climb up, down, round and round a Spiral Staircase.",
 
   "backgrounds122021": "SET 91: Released December 2021",
-  "backgroundWinterCanyonShopText": "Winter Canyon",
-  "backgroundWinterCanyonShopNotes": "Adventure in a Winter Canyon!",
-  "backgroundIcePalaceShopText": "Ice Palace",
-  "backgroundIcePalaceShopNotes": "Reign in the Ice Palace.",
+  "backgroundWinterCanyonText": "Winter Canyon",
+  "backgroundWinterCanyonNotes": "Adventure in a Winter Canyon!",
+  "backgroundIcePalaceText": "Ice Palace",
+  "backgroundIcePalaceNotes": "Reign in the Ice Palace.",
   "backgroundFrozenPolarWatersText": "Frozen Polar Waters",
   "backgroundFrozenPolarWatersNotes": "Explore Frozen Polar Waters.",
 
