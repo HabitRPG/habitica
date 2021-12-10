@@ -1,3 +1,4 @@
+import { v4 as generateUUID } from 'uuid';
 import {
   generateUser,
   requester,
@@ -12,14 +13,15 @@ describe('GET /user/auth/apple', () => {
   let randomAppleId = '123456';
 
   beforeEach(async () => {
+    api = requester();
+    user = await generateUser();
     randomAppleId = generateUUID();
     const expectedResult = { id: randomAppleId, name: 'an apple user' };
     sandbox.stub(appleAuth, 'appleProfile').returns(Promise.resolve(expectedResult));
   });
 
-  beforeEach(async () => {
-    api = requester();
-    user = await generateUser();
+  afterEach(async () => {
+    appleAuth.appleProfile.restore();
   });
 
   it('registers a new user', async () => {
