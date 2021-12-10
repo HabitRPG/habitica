@@ -3,38 +3,31 @@ import mongoose from 'mongoose';
 import _ from 'lodash';
 import validator from 'validator';
 import nconf from 'nconf';
-import { // eslint-disable-line import/no-cycle
+import {
+  // eslint-disable-line import/no-cycle
   model as User,
   nameFields,
 } from './user';
 import shared from '../../common';
 import { model as Challenge } from './challenge'; // eslint-disable-line import/no-cycle
-import {
-  chatModel as Chat,
-  setUserStyles,
-  messageDefaults,
-} from './message';
+import { chatModel as Chat, setUserStyles, messageDefaults } from './message';
 import * as Tasks from './task';
 import { removeFromArray } from '../libs/collectionManipulators';
 import payments from '../libs/payments/payments'; // eslint-disable-line import/no-cycle
-import { // eslint-disable-line import/no-cycle
+import {
+  // eslint-disable-line import/no-cycle
   groupChatReceivedWebhook,
   questActivityWebhook,
 } from '../libs/webhook';
-import {
-  InternalServerError,
-  BadRequest,
-  NotAuthorized,
-} from '../libs/errors';
+import { InternalServerError, BadRequest, NotAuthorized } from '../libs/errors';
 import baseModel from '../libs/baseModel';
 import { sendTxn as sendTxnEmail } from '../libs/email'; // eslint-disable-line import/no-cycle
 import { sendNotification as sendPushNotification } from '../libs/pushNotifications'; // eslint-disable-line import/no-cycle
-import { // eslint-disable-line import/no-cycle
+import {
+  // eslint-disable-line import/no-cycle
   syncableAttrs,
 } from '../libs/tasks/utils';
-import {
-  schema as SubscriptionPlanSchema,
-} from './subscriptionPlan';
+import { schema as SubscriptionPlanSchema } from './subscriptionPlan';
 import logger from '../libs/logger';
 import amazonPayments from '../libs/payments/amazon'; // eslint-disable-line import/no-cycle
 import stripePayments from '../libs/payments/stripe'; // eslint-disable-line import/no-cycle
@@ -73,85 +66,108 @@ export const SPAM_MIN_EXEMPT_CONTRIB_LEVEL = 4;
 export const MAX_CHAT_COUNT = 200;
 export const MAX_SUBBED_GROUP_CHAT_COUNT = 400;
 
-export const schema = new Schema({
-  name: { $type: String, required: true },
-  summary: { $type: String, maxlength: MAX_SUMMARY_SIZE_FOR_GUILDS },
-  description: String,
-  leader: {
-    $type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid for group leader.'], required: true,
-  },
-  type: { $type: String, enum: ['guild', 'party'], required: true },
-  privacy: {
-    $type: String, enum: ['private', 'public'], default: 'private', required: true,
-  },
-  chat: Array, // Used for backward compatibility, but messages aren't stored here
-  bannedWordsAllowed: { $type: Boolean, required: false },
-  leaderOnly: { // restrict group actions to leader (members can't do them)
-    challenges: { $type: Boolean, default: false, required: true },
-    // invites: {$type: Boolean, default: false, required: true},
-    // Some group plans prevent members from getting gems
-    getGems: { $type: Boolean, default: false },
-  },
-  memberCount: { $type: Number, default: 1 },
-  challengeCount: { $type: Number, default: 0 },
-  balance: { $type: Number, default: 0 },
-  logo: String,
-  leaderMessage: String,
-  quest: {
-    key: String,
-    active: { $type: Boolean, default: false },
-    leader: { $type: String, ref: 'User' },
-    progress: {
-      hp: Number,
-      collect: {
+export const schema = new Schema(
+  {
+    name: { $type: String, required: true },
+    summary: { $type: String, maxlength: MAX_SUMMARY_SIZE_FOR_GUILDS },
+    description: String,
+    leader: {
+      $type: String,
+      ref: 'User',
+      validate: [v => validator.isUUID(v), 'Invalid uuid for group leader.'],
+      required: true,
+    },
+    type: { $type: String, enum: ['guild', 'party'], required: true },
+    privacy: {
+      $type: String,
+      enum: ['private', 'public'],
+      default: 'private',
+      required: true,
+    },
+    chat: Array, // Used for backward compatibility, but messages aren't stored here
+    bannedWordsAllowed: { $type: Boolean, required: false },
+    leaderOnly: {
+      // restrict group actions to leader (members can't do them)
+      challenges: { $type: Boolean, default: false, required: true },
+      // invites: {$type: Boolean, default: false, required: true},
+      // Some group plans prevent members from getting gems
+      getGems: { $type: Boolean, default: false },
+    },
+    memberCount: { $type: Number, default: 1 },
+    challengeCount: { $type: Number, default: 0 },
+    balance: { $type: Number, default: 0 },
+    logo: String,
+    leaderMessage: String,
+    quest: {
+      key: String,
+      active: { $type: Boolean, default: false },
+      leader: { $type: String, ref: 'User' },
+      progress: {
+        hp: Number,
+        collect: {
+          $type: Schema.Types.Mixed,
+          default: () => ({}),
+        }, // {feather: 5, ingot: 3}
+        rage: Number, // limit break / "energy stored in shell", for explosion-attacks
+      },
+
+      // Shows boolean for each party-member who has accepted the quest.
+      // Eg {UUID: true, UUID: false}. Once all users click
+      // 'Accept', the quest begins.
+      // If a false user waits too long, probably a good sign to prod them or boot them.
+      // TODO when booting user, remove from .joined and check again if we can now start the quest
+      members: {
         $type: Schema.Types.Mixed,
         default: () => ({}),
-      }, // {feather: 5, ingot: 3}
-      rage: Number, // limit break / "energy stored in shell", for explosion-attacks
+      },
+      extra: {
+        $type: Schema.Types.Mixed,
+        default: () => ({}),
+      },
     },
-
-    // Shows boolean for each party-member who has accepted the quest.
-    // Eg {UUID: true, UUID: false}. Once all users click
-    // 'Accept', the quest begins.
-    // If a false user waits too long, probably a good sign to prod them or boot them.
-    // TODO when booting user, remove from .joined and check again if we can now start the quest
-    members: {
+    tasksOrder: {
+      habits: [{ $type: String, ref: 'Task' }],
+      dailys: [{ $type: String, ref: 'Task' }],
+      todos: [{ $type: String, ref: 'Task' }],
+      rewards: [{ $type: String, ref: 'Task' }],
+    },
+    purchased: {
+      plan: {
+        $type: SubscriptionPlanSchema,
+        default: () => ({}),
+      },
+    },
+    managers: {
       $type: Schema.Types.Mixed,
       default: () => ({}),
     },
-    extra: {
-      $type: Schema.Types.Mixed,
-      default: () => ({}),
-    },
+    categories: [
+      {
+        slug: { $type: String },
+        name: { $type: String },
+      },
+    ],
   },
-  tasksOrder: {
-    habits: [{ $type: String, ref: 'Task' }],
-    dailys: [{ $type: String, ref: 'Task' }],
-    todos: [{ $type: String, ref: 'Task' }],
-    rewards: [{ $type: String, ref: 'Task' }],
+  {
+    strict: true,
+    minimize: false, // So empty objects are returned
+    typeKey: '$type', // So that we can use fields named `type`
   },
-  purchased: {
-    plan: {
-      $type: SubscriptionPlanSchema,
-      default: () => ({}),
-    },
-  },
-  managers: {
-    $type: Schema.Types.Mixed,
-    default: () => ({}),
-  },
-  categories: [{
-    slug: { $type: String },
-    name: { $type: String },
-  }],
-}, {
-  strict: true,
-  minimize: false, // So empty objects are returned
-  typeKey: '$type', // So that we can use fields named `type`
-});
+);
 
 schema.plugin(baseModel, {
-  noSet: ['_id', 'balance', 'quest', 'memberCount', 'chat', 'bannedWordsAllowed', 'challengeCount', 'tasksOrder', 'purchased', 'managers'],
+  noSet: [
+    '_id',
+    'balance',
+    'quest',
+    'memberCount',
+    'chat',
+    'bannedWordsAllowed',
+    'challengeCount',
+    'tasksOrder',
+    'purchased',
+    'managers',
+  ],
   private: ['purchased.plan'],
   toJSONTransform (plainObj, originalDoc) {
     if (plainObj.purchased) plainObj.purchased.active = originalDoc.hasActiveGroupPlan();
@@ -208,7 +224,8 @@ function _cleanQuestParty (merge) {
 // return a clean user.quest of a particular user while keeping his progress
 function _cleanQuestUser (userProgress) {
   if (!userProgress) {
-    userProgress = { // eslint-disable-line no-param-reassign
+    userProgress = {
+      // eslint-disable-line no-param-reassign
       up: 0,
       down: 0,
       collect: {},
@@ -230,8 +247,12 @@ function _cleanQuestUser (userProgress) {
 
 schema.statics.getGroup = async function getGroup (options = {}) {
   const {
-    user, groupId, fields, optionalMembership = false,
-    populateLeader = false, requireMembership = false,
+    user,
+    groupId,
+    fields,
+    optionalMembership = false,
+    populateLeader = false,
+    requireMembership = false,
   } = options;
   let query;
 
@@ -279,9 +300,13 @@ export const VALID_QUERY_TYPES = ['party', 'guilds', 'privateGuilds', 'publicGui
 
 schema.statics.getGroups = async function getGroups (options = {}) {
   const {
-    user, types, groupFields = basicFields,
-    sort = '-memberCount', populateLeader = false,
-    paginate = false, page = 0, // optional pagination for public guilds
+    user,
+    types,
+    groupFields = basicFields,
+    sort = '-memberCount',
+    populateLeader = false,
+    paginate = false,
+    page = 0, // optional pagination for public guilds
     filters = {},
   } = options;
   const queries = [];
@@ -291,11 +316,18 @@ schema.statics.getGroups = async function getGroups (options = {}) {
   if (!areValidTypes) throw new BadRequest(shared.i18n.t('groupTypesRequired'));
 
   types.forEach(type => {
-    switch (type) { // eslint-disable-line default-case
+    switch (
+      type // eslint-disable-line default-case
+    ) {
       case 'party': {
-        queries.push(this.getGroup({
-          user, groupId: 'party', fields: groupFields, populateLeader,
-        }));
+        queries.push(
+          this.getGroup({
+            user,
+            groupId: 'party',
+            fields: groupFields,
+            populateLeader,
+          }),
+        );
         break;
       }
       case 'guilds': {
@@ -340,7 +372,10 @@ schema.statics.getGroups = async function getGroups (options = {}) {
         if (paginate === true) {
           publicGuildsQuery.limit(GUILDS_PER_PAGE).skip(page * GUILDS_PER_PAGE);
         }
-        publicGuildsQuery.sort(sort).lean().exec();
+        publicGuildsQuery
+          .sort(sort)
+          .lean()
+          .exec();
         queries.push(publicGuildsQuery);
 
         break;
@@ -354,12 +389,16 @@ schema.statics.getGroups = async function getGroups (options = {}) {
     }
   });
 
-  const groupsArray = _.reduce(await Promise.all(queries), (previousValue, currentValue) => {
-    // don't add anything to the results if the query returned null or an empty array
-    if (_.isEmpty(currentValue)) return previousValue;
-    // otherwise concat the new results to the previousValue
-    return previousValue.concat(Array.isArray(currentValue) ? currentValue : [currentValue]);
-  }, []);
+  const groupsArray = _.reduce(
+    await Promise.all(queries),
+    (previousValue, currentValue) => {
+      // don't add anything to the results if the query returned null or an empty array
+      if (_.isEmpty(currentValue)) return previousValue;
+      // otherwise concat the new results to the previousValue
+      return previousValue.concat(Array.isArray(currentValue) ? currentValue : [currentValue]);
+    },
+    [],
+  );
 
   return groupsArray;
 };
@@ -460,11 +499,7 @@ function getInviteCount (uuids, emails) {
  * @throws BadRequest An error describing the issue with the invitations
  */
 schema.statics.validateInvitations = async function getInvitationErr (invites, res, group = null) {
-  const {
-    uuids,
-    emails,
-    usernames,
-  } = invites;
+  const { uuids, emails, usernames } = invites;
   const errorString = getInviteError(uuids, emails, usernames);
   if (errorString) throw new BadRequest(res.t(errorString));
 
@@ -491,7 +526,11 @@ schema.statics.validateInvitations = async function getInvitationErr (invites, r
     memberCount += totalInvites;
 
     if (memberCount > shared.constants.PARTY_LIMIT_MEMBERS) {
-      throw new BadRequest(res.t('partyExceedsMembersLimit', { maxMembersParty: shared.constants.PARTY_LIMIT_MEMBERS + 1 }));
+      throw new BadRequest(
+        res.t('partyExceedsMembersLimit', {
+          maxMembersParty: shared.constants.PARTY_LIMIT_MEMBERS + 1,
+        }),
+      );
     }
   }
 };
@@ -511,7 +550,8 @@ schema.methods.removeGroupInvitations = async function removeGroupInvitations ()
     if (group.type === 'party') {
       removeFromArray(user.invitations.parties, { id: group._id });
       user.invitations.party = user.invitations.parties.length > 0
-        ? user.invitations.parties[user.invitations.parties.length - 1] : {};
+        ? user.invitations.parties[user.invitations.parties.length - 1]
+        : {};
       this.markModified('invitations.party');
     } else {
       removeFromArray(user.invitations.guilds, { id: group._id });
@@ -526,7 +566,8 @@ schema.methods.removeGroupInvitations = async function removeGroupInvitations ()
 schema.methods.isMember = function isGroupMember (user) {
   if (this._id === TAVERN_ID) {
     return true; // everyone is considered part of the tavern
-  } if (this.type === 'party') {
+  }
+  if (this.type === 'party') {
     return user.party._id === this._id;
   } // guilds
   return user.guilds.indexOf(this._id) !== -1;
@@ -544,9 +585,15 @@ schema.methods.getMemberCount = async function getMemberCount () {
 
 schema.methods.sendChat = function sendChat (options = {}) {
   const {
-    message, user, metaData,
-    client, flagCount = 0, info = {},
-    translate, mentions, mentionedMembers,
+    message,
+    user,
+    metaData,
+    client,
+    flagCount = 0,
+    info = {},
+    translate,
+    mentions,
+    mentionedMembers,
   } = options;
   const newMessage = messageDefaults(message, user, client, flagCount, info);
 
@@ -599,7 +646,8 @@ schema.methods.sendChat = function sendChat (options = {}) {
 
   // Then add the new notification
   const lastSeenUpdateAddNew = {
-    $set: { // old notification, supported until mobile is updated and we release api v4
+    $set: {
+      // old notification, supported until mobile is updated and we release api v4
       [`newMessages.${this._id}`]: { name: this.name, value: true },
     },
     $push: {
@@ -610,8 +658,7 @@ schema.methods.sendChat = function sendChat (options = {}) {
     },
   };
 
-  User
-    .update(query, lastSeenUpdateRemoveOld, { multi: true })
+  User.update(query, lastSeenUpdateRemoveOld, { multi: true })
     .exec()
     .then(() => User.update(query, lastSeenUpdateAddNew, { multi: true }).exec())
     .catch(err => logger.error(err));
@@ -721,7 +768,9 @@ schema.methods.startQuest = async function startQuest (user) {
   await User.find({
     _id: { $in: Object.keys(this.quest.members) },
   })
-    .select('party.quest party._id items.quests auth preferences.emailNotifications preferences.pushNotifications preferences.language pushDevices profile.name webhooks')
+    .select(
+      'party.quest party._id items.quests auth preferences.emailNotifications preferences.pushNotifications preferences.language pushDevices profile.name webhooks',
+    )
     .lean()
     .exec()
     .then(partyMembers => {
@@ -748,33 +797,48 @@ schema.methods.startQuest = async function startQuest (user) {
     user.items.quests[this.quest.key] -= 1;
     user.markModified('items.quests');
     promises.push(user.save());
-  } else { // another user is starting the quest, update the leader separately
-    promises.push(User.update({ _id: this.quest.leader }, {
-      $inc: {
-        [`items.quests.${this.quest.key}`]: -1,
-      },
-    }).exec());
+  } else {
+    // another user is starting the quest, update the leader separately
+    promises.push(
+      User.update(
+        { _id: this.quest.leader },
+        {
+          $inc: {
+            [`items.quests.${this.quest.key}`]: -1,
+          },
+        },
+      ).exec(),
+    );
   }
 
   // update the remaining users
-  promises.push(User.update({
-    _id: { $in: nonUserQuestMembers },
-  }, {
-    $set: {
-      'party.quest.key': this.quest.key,
-      'party.quest.progress.down': 0,
-      'party.quest.completed': null,
-    },
-  }, { multi: true }).exec());
+  promises.push(
+    User.update(
+      {
+        _id: { $in: nonUserQuestMembers },
+      },
+      {
+        $set: {
+          'party.quest.key': this.quest.key,
+          'party.quest.progress.down': 0,
+          'party.quest.completed': null,
+        },
+      },
+      { multi: true },
+    ).exec(),
+  );
 
   await Promise.all(promises);
 
   // update the users who are not participating
   // Do not block updates
-  User.update({
-    _id: { $in: nonMembers },
-  }, _cleanQuestParty(),
-  { multi: true }).exec();
+  User.update(
+    {
+      _id: { $in: nonMembers },
+    },
+    _cleanQuestParty(),
+    { multi: true },
+  ).exec();
 
   const newMessage = this.sendChat({
     message: `\`${shared.i18n.t('chatQuestStarted', { questName: quest.text('en') }, 'en')}\``,
@@ -818,9 +882,7 @@ schema.methods.startQuest = async function startQuest (user) {
   });
 
   // Send emails in bulk
-  sendTxnEmail(membersToEmail, 'quest-started', [
-    { name: 'PARTY_URL', content: '/party' },
-  ]);
+  sendTxnEmail(membersToEmail, 'quest-started', [{ name: 'PARTY_URL', content: '/party' }]);
 };
 
 schema.methods.sendGroupChatReceivedWebhooks = function sendGroupChatReceivedWebhooks (chat) {
@@ -839,7 +901,10 @@ schema.methods.sendGroupChatReceivedWebhooks = function sendGroupChatReceivedWeb
     query.guilds = this._id;
   }
 
-  User.find(query).select({ webhooks: 1 }).lean().exec()
+  User.find(query)
+    .select({ webhooks: 1 })
+    .lean()
+    .exec()
     .then(users => {
       users.forEach(user => {
         groupChatReceivedWebhook.send(user, {
@@ -874,7 +939,9 @@ function _getUserUpdateForQuestReward (itemToAward, allAwardedItems) {
   };
   const dropK = itemToAward.key;
 
-  switch (itemToAward.type) { // eslint-disable-line default-case
+  switch (
+    itemToAward.type // eslint-disable-line default-case
+  ) {
     case 'gear': {
       // TODO This means they can lose their new gear on death, is that what we want?
       updates.$set[`items.gear.owned.${dropK}`] = true;
@@ -884,7 +951,10 @@ function _getUserUpdateForQuestReward (itemToAward, allAwardedItems) {
     case 'food':
     case 'hatchingPotions':
     case 'quests': {
-      updates.$inc[`items.${itemToAward.type}.${dropK}`] = _.filter(allAwardedItems, { type: itemToAward.type, key: itemToAward.key }).length;
+      updates.$inc[`items.${itemToAward.type}.${dropK}`] = _.filter(allAwardedItems, {
+        type: itemToAward.type,
+        key: itemToAward.key,
+      }).length;
       break;
     }
     case 'pets': {
@@ -998,22 +1068,29 @@ schema.methods.finishQuest = async function finishQuest (quest) {
 
       const questAchievementUpdate = { $set: {}, $push: {} };
       questAchievementUpdate.$set[`achievements.${achievement}`] = true;
-      const achievementTitleCase = `${achievement.slice(0, 1).toUpperCase()}${achievement.slice(1, achievement.length)}`;
+      const achievementTitleCase = 'achievement'`${achievement}``${achievement
+        .slice(0, 1)
+        .toUpperCase()}${achievement.slice(1, achievement.length)}`;
       const achievementSnakeCase = `ACHIEVEMENT_${_.snakeCase(achievement).toUpperCase()}`;
       questAchievementUpdate.$push = {
         notifications: new UserNotification({
-          type: achievementSnakeCase,
+          type: achievementSnakeCase, // this is where the error is: `mindOverMatter`
+          // is not a valid enum value for path `type`.
           data: {
             achievement,
-            message: `${shared.i18n.t('modalAchievement')} ${shared.i18n.t(`achievement${achievementTitleCase}`)}`,
+            // message: achievementTitleCase,
+            message: `${shared.i18n.t('modalAchievement')} ${shared.i18n.t(
+              `achievement${achievementTitleCase}`,
+            )}`,
+            // modalText: achievementTitleCase,
             modalText: shared.i18n.t(`achievement${achievementTitleCase}ModalText`),
           },
         }).toObject(),
       };
 
-      promises.push(participants.map(userId => _updateUserWithRetries(
-        userId, questAchievementUpdate, null, questAchievementQuery,
-      )));
+      promises.push(
+        participants.map(userId => _updateUserWithRetries(userId, questAchievementUpdate, null, questAchievementQuery)),
+      );
     }
   });
 
@@ -1021,15 +1098,13 @@ schema.methods.finishQuest = async function finishQuest (quest) {
 };
 
 function _isOnQuest (user, progress, group) {
-  return group && progress && group.quest && group.quest.active
-    && group.quest.members[user._id] === true;
+  return (
+    group && progress && group.quest && group.quest.active && group.quest.members[user._id] === true
+  );
 }
 
 schema.methods._processBossQuest = async function processBossQuest (options) {
-  const {
-    user,
-    progress,
-  } = options;
+  const { user, progress } = options;
 
   const group = this;
   const quest = questScrolls[group.quest.key];
@@ -1043,7 +1118,11 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
   group.quest.progress.hp -= progress.up;
   if (CRON_SAFE_MODE || CRON_SEMI_SAFE_MODE) {
     const groupMessage = group.sendChat({
-      message: `\`${shared.i18n.t('chatBossDontAttack', { bossName: quest.boss.name('en') }, 'en')}\``,
+      message: `\`${shared.i18n.t(
+        'chatBossDontAttack',
+        { bossName: quest.boss.name('en') },
+        'en',
+      )}\``,
       info: {
         type: 'boss_dont_attack',
         user: user.profile.name,
@@ -1054,9 +1133,16 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
     promises.push(groupMessage.save());
   } else {
     const groupMessage = group.sendChat({
-      message: `\`${shared.i18n.t('chatBossDamage', {
-        username: user.profile.name, bossName: quest.boss.name('en'), userDamage: progress.up.toFixed(1), bossDamage: Math.abs(down).toFixed(1),
-      }, user.preferences.language)}\``,
+      message: `\`${shared.i18n.t(
+        'chatBossDamage',
+        {
+          username: user.profile.name,
+          bossName: quest.boss.name('en'),
+          userDamage: progress.up.toFixed(1),
+          bossDamage: Math.abs(down).toFixed(1),
+        },
+        user.preferences.language,
+      )}\``,
       info: {
         type: 'boss_damage',
         user: user.profile.name,
@@ -1099,8 +1185,7 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
 
   await User.updateMany(
     {
-      _id:
-      { $in: this.getParticipatingQuestMembers() },
+      _id: { $in: this.getParticipatingQuestMembers() },
     },
     updates,
   ).exec();
@@ -1116,7 +1201,11 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
   // Boss slain, finish quest
   if (group.quest.progress.hp <= 0) {
     const questFinishChat = group.sendChat({
-      message: `\`${shared.i18n.t('chatBossDefeated', { bossName: quest.boss.name('en') }, 'en')}\``,
+      message: `\`${shared.i18n.t(
+        'chatBossDefeated',
+        { bossName: quest.boss.name('en') },
+        'en',
+      )}\``,
       info: {
         type: 'boss_defeated',
         quest: quest.key,
@@ -1133,10 +1222,7 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
 };
 
 schema.methods._processCollectionQuest = async function processCollectionQuest (options) {
-  const {
-    user,
-    progress,
-  } = options;
+  const { user, progress } = options;
 
   const group = this;
   const quest = questScrolls[group.quest.key];
@@ -1147,13 +1233,16 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
 
   // Create an array of item names, one item name per item that still needs to
   // be collected so that items are found proportionally to how many are needed.
-  const remainingItems = [].concat(...Object.keys(quest.collect).map(item => {
-    let count = quest.collect[item].count - (group.quest.progress.collect[item] || 0);
-    if (count < 0) { // This could only happen if there's a bug, but just in case.
-      count = 0;
-    }
-    return Array(count).fill(item);
-  }));
+  const remainingItems = [].concat(
+    ...Object.keys(quest.collect).map(item => {
+      let count = quest.collect[item].count - (group.quest.progress.collect[item] || 0);
+      if (count < 0) {
+        // This could only happen if there's a bug, but just in case.
+        count = 0;
+      }
+      return Array(count).fill(item);
+    }),
+  );
 
   // slice() will grab only what is available even if requested slice is larger
   // than the array, so we don't need to worry about overfilling quest items.
@@ -1163,14 +1252,22 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
     group.quest.progress.collect[item] += 1;
   });
 
-  let foundText = _.reduce(itemsFound, (m, v, k) => {
-    m.push(`${v} ${quest.collect[k].text('en')}`);
-    return m;
-  }, []);
+  let foundText = _.reduce(
+    itemsFound,
+    (m, v, k) => {
+      m.push(`${v} ${quest.collect[k].text('en')}`);
+      return m;
+    },
+    [],
+  );
 
   foundText = foundText.join(', ');
   const foundChat = group.sendChat({
-    message: `\`${shared.i18n.t('chatFindItems', { username: user.profile.name, items: foundText }, 'en')}\``,
+    message: `\`${shared.i18n.t(
+      'chatFindItems',
+      { username: user.profile.name, items: foundText },
+      'en',
+    )}\``,
     info: {
       type: 'user_found_items',
       user: user.profile.name,
@@ -1211,7 +1308,8 @@ schema.statics.processQuestProgress = async function processQuestProgress (user,
 
   const questType = quest.boss ? 'Boss' : 'Collection';
 
-  await group[`_process${questType}Quest`]({ // _processBossQuest, _processCollectionQuest
+  await group[`_process${questType}Quest`]({
+    // _processBossQuest, _processCollectionQuest
     user,
     progress,
     group,
@@ -1228,7 +1326,8 @@ const tavernQ = { _id: TAVERN_ID, 'quest.key': { $ne: null } };
 // we use process.nextTick because at this point the model is not yet available
 process.nextTick(() => {
   model // eslint-disable-line no-use-before-define
-    .findOne(tavernQ).exec()
+    .findOne(tavernQ)
+    .exec()
     .then(tavern => {
       if (!tavern) return; // No tavern quest
 
@@ -1295,7 +1394,11 @@ schema.statics.tavernBoss = async function tavernBoss (user, progress) {
 
     if (!scene) {
       const tiredChat = tavern.sendChat({
-        message: `\`${shared.i18n.t('tavernBossTired', { rageName: quest.boss.rage.title('en'), bossName: quest.boss.name('en') }, 'en')}\``,
+        message: `\`${shared.i18n.t(
+          'tavernBossTired',
+          { rageName: quest.boss.rage.title('en'), bossName: quest.boss.name('en') },
+          'en',
+        )}\``,
         info: {
           type: 'tavern_boss_rage_tired',
           quest: quest.key,
@@ -1347,7 +1450,11 @@ schema.statics.tavernBoss = async function tavernBoss (user, progress) {
   return Promise.all(chatPromises);
 };
 
-schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepChallenges = 'leave-challenges') {
+schema.methods.leave = async function leaveGroup (
+  user,
+  keep = 'keep-all',
+  keepChallenges = 'leave-challenges',
+) {
   const group = this;
   const update = {};
 
@@ -1376,8 +1483,7 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
     userId: { $exists: false },
     'group.assignedUsers': user._id,
   }).exec();
-  const assignedTasksToRemoveUserFrom = assignedTasks
-    .map(task => this.unlinkTask(task, user, keep, false));
+  const assignedTasksToRemoveUserFrom = assignedTasks.map(task => this.unlinkTask(task, user, keep, false));
   await Promise.all(assignedTasksToRemoveUserFrom);
 
   this.unlinkTags(user);
@@ -1405,9 +1511,13 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
     // so we don't accidentally delete a group that still has users in it
     let members;
     if (group.type === 'guild') {
-      members = await User.find({ guilds: group._id }).select('_id').exec();
+      members = await User.find({ guilds: group._id })
+        .select('_id')
+        .exec();
     } else {
-      members = await User.find({ 'party._id': group._id }).select('_id').exec();
+      members = await User.find({ 'party._id': group._id })
+        .select('_id')
+        .exec();
     }
     _.remove(members, { _id: user._id });
 
@@ -1422,7 +1532,9 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
   if (group.leader === user._id) {
     const query = group.type === 'party' ? { 'party._id': group._id } : { guilds: group._id };
     query._id = { $ne: user._id };
-    const seniorMember = await User.findOne(query).select('_id').exec();
+    const seniorMember = await User.findOne(query)
+      .select('_id')
+      .exec();
 
     // could be missing in case of public guild (that can have 0 members)
     // with 1 member who is leaving
@@ -1530,7 +1642,8 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user, assign
 
   let matchingTask = await Tasks.Task.findOne(findQuery).exec();
 
-  if (!matchingTask) { // If the task is new, create it
+  if (!matchingTask) {
+    // If the task is new, create it
     matchingTask = new Tasks[taskToSync.type](Tasks.Task.sanitize(syncableAttrs(taskToSync)));
     matchingTask.group.id = taskToSync.group.id;
     matchingTask.userId = user._id;
@@ -1541,7 +1654,10 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user, assign
     _.merge(matchingTask, syncableAttrs(taskToSync));
     // Make sure the task is in user.tasksOrder
     const orderList = user.tasksOrder[`${taskToSync.type}s`];
-    if (orderList.indexOf(matchingTask._id) === -1 && (matchingTask.type !== 'todo' || !matchingTask.completed)) orderList.push(matchingTask._id);
+    if (
+      orderList.indexOf(matchingTask._id) === -1
+      && (matchingTask.type !== 'todo' || !matchingTask.completed)
+    ) orderList.push(matchingTask._id);
   }
 
   matchingTask.group.approval.required = taskToSync.group.approval.required;
@@ -1572,8 +1688,10 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user, assign
 };
 
 schema.methods.unlinkTask = async function groupUnlinkTask (
-  unlinkingTask, user,
-  keep, saveUser = true,
+  unlinkingTask,
+  user,
+  keep,
+  saveUser = true,
 ) {
   const findQuery = {
     'group.taskId': unlinkingTask._id,
@@ -1591,8 +1709,11 @@ schema.methods.unlinkTask = async function groupUnlinkTask (
     // When multiple tasks are being unlinked at the same time,
     // save the user once outside of this function
     if (saveUser) await user.save();
-  } else { // keep = 'remove-all'
-    const task = await Tasks.Task.findOne(findQuery).select('_id type completed').exec();
+  } else {
+    // keep = 'remove-all'
+    const task = await Tasks.Task.findOne(findQuery)
+      .select('_id type completed')
+      .exec();
     // Remove task from user.tasksOrder and delete them
     if (task && (task.type !== 'todo' || !task.completed)) {
       removeFromArray(user.tasksOrder[`${task.type}s`], task._id);
@@ -1616,36 +1737,51 @@ schema.methods.removeTask = async function groupRemoveTask (task) {
   const removalPromises = [];
 
   // Delete individual task copies and related notifications
-  const userTasks = await Tasks.Task.find({
-    userId: { $exists: true },
-    'group.id': group.id,
-    'group.taskId': task._id,
-  }, { userId: 1, _id: 1 }).exec();
+  const userTasks = await Tasks.Task.find(
+    {
+      userId: { $exists: true },
+      'group.id': group.id,
+      'group.taskId': task._id,
+    },
+    { userId: 1, _id: 1 },
+  ).exec();
 
   userTasks.forEach(async userTask => {
-    const assignedUser = await User.findOne({ _id: userTask.userId }, 'notifications tasksOrder').exec();
+    const assignedUser = await User.findOne(
+      { _id: userTask.userId },
+      'notifications tasksOrder',
+    ).exec();
 
-    let notificationIndex = assignedUser.notifications.findIndex(notification => notification
-      && notification.type === 'GROUP_TASK_ASSIGNED'
-      && notification.data && notification.data.taskId === task._id);
-
-    if (notificationIndex !== -1) {
-      assignedUser.notifications.splice(notificationIndex, 1);
-    }
-
-    notificationIndex = assignedUser.notifications.findIndex(notification => notification
-      && notification.type === 'GROUP_TASK_NEEDS_WORK'
-      && notification.data && notification.data.task
-      && notification.data.task.id === userTask._id);
+    let notificationIndex = assignedUser.notifications.findIndex(
+      notification => notification
+        && notification.type === 'GROUP_TASK_ASSIGNED'
+        && notification.data
+        && notification.data.taskId === task._id,
+    );
 
     if (notificationIndex !== -1) {
       assignedUser.notifications.splice(notificationIndex, 1);
     }
 
-    notificationIndex = assignedUser.notifications.findIndex(notification => notification
-      && notification.type === 'GROUP_TASK_APPROVED'
-      && notification.data && notification.data.task
-      && notification.data.task._id === userTask._id);
+    notificationIndex = assignedUser.notifications.findIndex(
+      notification => notification
+        && notification.type === 'GROUP_TASK_NEEDS_WORK'
+        && notification.data
+        && notification.data.task
+        && notification.data.task.id === userTask._id,
+    );
+
+    if (notificationIndex !== -1) {
+      assignedUser.notifications.splice(notificationIndex, 1);
+    }
+
+    notificationIndex = assignedUser.notifications.findIndex(
+      notification => notification
+        && notification.type === 'GROUP_TASK_APPROVED'
+        && notification.data
+        && notification.data.task
+        && notification.data.task._id === userTask._id,
+    );
 
     if (notificationIndex !== -1) {
       assignedUser.notifications.splice(notificationIndex, 1);
@@ -1663,9 +1799,12 @@ schema.methods.removeTask = async function groupRemoveTask (task) {
 
   // Remove old notifications
   managers.forEach(manager => {
-    const notificationIndex = manager.notifications.findIndex(notification => notification
-      && notification.data && notification.data.groupTaskId === task._id
-      && notification.type === 'GROUP_TASK_APPROVAL');
+    const notificationIndex = manager.notifications.findIndex(
+      notification => notification
+        && notification.data
+        && notification.data.groupTaskId === task._id
+        && notification.type === 'GROUP_TASK_APPROVAL',
+    );
 
     if (notificationIndex !== -1) {
       manager.notifications.splice(notificationIndex, 1);
@@ -1684,7 +1823,8 @@ schema.methods.removeTask = async function groupRemoveTask (task) {
 schema.methods.checkChatSpam = function groupCheckChatSpam (user) {
   if (this._id !== TAVERN_ID) {
     return false;
-  } if (user.contributor && user.contributor.level >= SPAM_MIN_EXEMPT_CONTRIB_LEVEL) {
+  }
+  if (user.contributor && user.contributor.level >= SPAM_MIN_EXEMPT_CONTRIB_LEVEL) {
     return false;
   }
 
@@ -1708,8 +1848,9 @@ schema.methods.checkChatSpam = function groupCheckChatSpam (user) {
 schema.methods.hasActiveGroupPlan = function hasActiveGroupPlan () {
   const now = new Date();
   const { plan } = this.purchased;
-  return plan && plan.customerId
-    && (!plan.dateTerminated || moment(plan.dateTerminated).isAfter(now));
+  return (
+    plan && plan.customerId && (!plan.dateTerminated || moment(plan.dateTerminated).isAfter(now))
+  );
 };
 
 schema.methods.hasNotCancelled = function hasNotCancelled () {
@@ -1744,7 +1885,8 @@ if (!nconf.get('IS_TEST')) {
   model.countDocuments({ _id: TAVERN_ID }, (err, ct) => {
     if (err) throw err;
     if (ct > 0) return;
-    new model({ // eslint-disable-line new-cap
+    new model({
+      // eslint-disable-line new-cap
       _id: TAVERN_ID,
       leader: '7bde7864-ebc5-4ee2-a4b7-1070d464cdb0', // Siena Leslie
       name: 'Tavern',
