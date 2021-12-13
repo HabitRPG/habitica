@@ -21,7 +21,6 @@ export const CHAT_FLAG_FROM_SHADOW_MUTE = 10;
 // @TODO use those constants to replace hard-coded numbers
 
 export const SUPPORTED_SOCIAL_NETWORKS = [
-  { key: 'facebook', name: 'Facebook' },
   { key: 'google', name: 'Google' },
   { key: 'apple', name: 'Apple' },
 ];

@@ -13,11 +13,6 @@ function getUser () {
         username: 'username',
         email: 'email@email',
       },
-      facebook: {
-        emails: [{
-          value: 'email@facebook',
-        }],
-      },
       google: {
         emails: [{
           value: 'email@google',
@@ -62,30 +57,12 @@ describe('emails', () => {
       expect(data).to.have.property('canSend', true);
     });
 
-    it('returns correct user data [facebook users]', () => {
-      const attachEmail = requireAgain(pathToEmailLib);
-      const { getUserInfo } = attachEmail;
-      const user = getUser();
-      delete user.profile.name;
-      delete user.auth.local.email;
-      delete user.auth.google.emails;
-      delete user.auth.apple.emails;
-
-      const data = getUserInfo(user, ['name', 'email', '_id', 'canSend']);
-
-      expect(data).to.have.property('name', user.auth.local.username);
-      expect(data).to.have.property('email', user.auth.facebook.emails[0].value);
-      expect(data).to.have.property('_id', user._id);
-      expect(data).to.have.property('canSend', true);
-    });
-
     it('returns correct user data [google users]', () => {
       const attachEmail = requireAgain(pathToEmailLib);
       const { getUserInfo } = attachEmail;
       const user = getUser();
       delete user.profile.name;
       delete user.auth.local.email;
-      delete user.auth.facebook.emails;
       delete user.auth.apple.emails;
 
       const data = getUserInfo(user, ['name', 'email', '_id', 'canSend']);
@@ -103,7 +80,6 @@ describe('emails', () => {
       delete user.profile.name;
       delete user.auth.local.email;
       delete user.auth.google.emails;
-      delete user.auth.facebook.emails;
 
       const data = getUserInfo(user, ['name', 'email', '_id', 'canSend']);
 
@@ -118,7 +94,6 @@ describe('emails', () => {
       const { getUserInfo } = attachEmail;
       const user = getUser();
       delete user.auth.local.email;
-      delete user.auth.facebook;
       delete user.auth.google;
       delete user.auth.apple;
 

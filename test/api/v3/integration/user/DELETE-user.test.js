@@ -289,45 +289,6 @@ describe('DELETE /user', () => {
     });
   });
 
-  context('user with Facebook auth', async () => {
-    beforeEach(async () => {
-      user = await generateUser({
-        auth: {
-          facebook: {
-            id: 'facebook-id',
-          },
-        },
-      });
-    });
-
-    it('returns an error if confirmation phrase is wrong', async () => {
-      await expect(user.del('/user', {
-        password: 'just-do-it',
-      })).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('incorrectDeletePhrase', { magicWord: 'DELETE' }),
-      });
-    });
-
-    it('returns an error if confirmation phrase is not supplied', async () => {
-      await expect(user.del('/user', {
-        password: '',
-      })).to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: t('missingPassword'),
-      });
-    });
-
-    it('deletes a Facebook user', async () => {
-      await user.del('/user', {
-        password: DELETE_CONFIRMATION,
-      });
-      await expect(checkExistence('users', user._id)).to.eventually.eql(false);
-    });
-  });
-
   context('user with Google auth', async () => {
     beforeEach(async () => {
       user = await generateUser({
