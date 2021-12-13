@@ -30,14 +30,11 @@ describe('POST /user/reset-password', async () => {
     await user.update({ 'auth.google.emails': [{ value: email }] });
     await user.sync();
     const previousPassword = user.auth.local.passwordResetCode;
-    console.log(previousPassword);
     const response = await user.post(endpoint, {
       email,
     });
     expect(response).to.eql({ data: {}, message: t('passwordReset') });
     await user.sync();
-    console.log(user.auth)
-    console.log(user.auth.local.hashed_password + " OLD " + previousPassword);
     expect(user.auth.local.passwordResetCode).to.not.eql(previousPassword);
   });
 
