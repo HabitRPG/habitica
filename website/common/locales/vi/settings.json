@@ -71,7 +71,7 @@
     "beeminderDesc": "Để Beeminder tự động quản lí Việc cần làm của bạn trên Habitica. Bạn có thể ủy thác để duy trì một số lượng mục tiêu Việc cần làm đã hoàn thành mỗi ngày hay mỗi tuần, hoặc bạn có thể ủy thác giảm dần dần số lượng Việc cần làm chưa hoàn thành còn lại. (Việc \"ủy thác\" Beeminder có nghĩa bạn ở dưới mối nguy hiểm phải trả tiền thật! Nhưng bạn có lẽ cũng chỉ đơn giản là thích biểu đồ sịn xò của Beeminder.)",
     "chromeChatExtension": "Chrome Chat Extension",
     "chromeChatExtensionDesc": "The Chrome Chat Extension for Habitica adds an intuitive chat box to all of habitica.com. It allows users to chat in the Tavern, their party, and any guilds they are in.",
-    "otherExtensions": "<a target='blank' href='http://habitica.wikia.com/wiki/Extensions,_Add-Ons,_and_Customizations'>Other Extensions</a>",
+    "otherExtensions": "<a target='blank' href='https://habitica.wikia.com/wiki/Extensions,_Add-Ons,_and_Customizations'>Những tiện ích mở rộng khác</a>",
     "otherDesc": "Find other apps, extensions, and tools on the Habitica wiki.",
     "resetDo": "Hãy đặt lại tài khoản của tôi!",
     "resetComplete": "Reset complete!",
@@ -181,5 +181,7 @@
     "newPMNotificationTitle": "Tin nhắn mới từ <%= name %>",
     "chatExtensionDesc": "Tiện ích Mở rộng Trò chuyện cho Habitica thêm một khung trò chuyện trực quan tới tất cả thuộc habitica.com. Nó cho phép người dùng nói chuyện trong Quán rượu, tổ đội của họ, và bất kỳ Bang hội nào họ tham gia.",
     "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Mở rộng Trò chuyện trên Chrome</a> và <a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>Mở rộng Trò chuyện trên Firefox</a>",
-    "displaynameIssueNewline": "Tên hiển thị có thể không chứa dấu chéo ngược theo sau chữ N."
+    "displaynameIssueNewline": "Tên hiển thị có thể không chứa dấu chéo ngược theo sau chữ N.",
+    "resetAccount": "Đặt lại Tài khoản",
+    "giftedSubscriptionWinterPromo": "Xin chào <%= username %>, bạn đã nhận được Gói đăng ký <%= monthCount %> tháng như là một phần của khuyến mãi ngày lễ tặng quà của chúng tôi!"
 }

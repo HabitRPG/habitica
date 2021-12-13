@@ -103,5 +103,6 @@
     "selectParticipant": "Seleziona un partecipante",
     "filters": "Filtri",
     "wonChallengeDesc": "<%= challengeName %> ti ha scelto come vincitore! La tua vittoria sarà registrata nelle tue Medaglie.",
-    "yourReward": "La tua ricompensa"
+    "yourReward": "La tua ricompensa",
+    "removeTasks": "Rimuovi Attività"
 }

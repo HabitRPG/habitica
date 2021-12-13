@@ -86,7 +86,7 @@
     "displayNameSuccess": "Nome pubblico cambiato con successo",
     "emailSuccess": "Email cambiata con successo",
     "detachSocial": "Scollega <%= network %>",
-    "detachedSocial": "<%= network %>  è stato scollegato dal tuo account con successo",
+    "detachedSocial": "<%= network %> è stato scollegato dal tuo account con successo",
     "addedLocalAuth": "Autenticazione locale aggiunta con successo",
     "data": "Dati utente",
     "email": "Email",

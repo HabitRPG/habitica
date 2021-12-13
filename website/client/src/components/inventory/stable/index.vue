@@ -179,7 +179,7 @@
           </div>
         </div>
         <show-more-button
-          v-if="petGroup.key !== 'specialPets' && !(petGroup.key === 'wackyPets' && selectedSortBy !== 'sortByColor')"
+          v-if="petRowCount[petGroup.key] > 1 && petGroup.key !== 'specialPets' && !(petGroup.key === 'wackyPets' && selectedSortBy !== 'sortByColor')"
           :show-all="$_openedItemRows_isToggled(petGroup.key)"
           class="show-more-button"
           @click="setShowMore(petGroup.key)"
@@ -238,7 +238,7 @@
           </div>
         </div>
         <show-more-button
-          v-if="mountGroup.key !== 'specialMounts'"
+          v-if="mountRowCount[mountGroup.key] > 1 && mountGroup.key !== 'specialMounts'"
           :show-all="$_openedItemRows_isToggled(mountGroup.key)"
           @click="setShowMore(mountGroup.key)"
         />
@@ -522,6 +522,9 @@ export default {
       currentDraggingFood: null,
 
       selectedDrawerTab: 0,
+
+      petRowCount: {},
+      mountRowCount: {},
     };
   },
   computed: {
@@ -774,8 +777,9 @@ export default {
     pets (animalGroup, hideMissing, sortBy, searchText) {
       const pets = this.listAnimals(animalGroup, 'pet', hideMissing, sortBy, searchText);
 
-      // Don't group special
+      // Don't group special, no 'show more' button either
       if (animalGroup.key === 'specialPets' || (animalGroup.key === 'wackyPets' && sortBy !== 'sortByColor')) {
+        this.petRowCount[animalGroup.key] = 1;
         return { none: pets };
       }
 
@@ -787,14 +791,22 @@ export default {
       } else if (sortBy === 'sortByHatchable') {
         groupKey = i => (i.isHatchable() ? 0 : 1);
       }
+      const groupedPets = groupBy(pets, groupKey);
 
-      return groupBy(pets, groupKey);
+      // Pets are rendered as grouped "rows". Count helps decide if show more button is necessary.
+      if (sortBy === 'AZ') {
+        this.petRowCount[animalGroup.key] = 1;
+      } else {
+        this.petRowCount[animalGroup.key] = Object.keys(groupedPets).length;
+      }
+      return groupedPets;
     },
     mounts (animalGroup, hideMissing, sortBy, searchText) {
       const mounts = this.listAnimals(animalGroup, 'mount', hideMissing, sortBy, searchText);
 
       // Don't group special
       if (animalGroup.key === 'specialMounts') {
+        this.mountRowCount[animalGroup.key] = 1;
         return { none: mounts };
       }
 
@@ -804,8 +816,13 @@ export default {
       } else if (sortBy === 'AZ') {
         groupKey = '';
       }
-
-      return groupBy(mounts, groupKey);
+      const groupedMounts = groupBy(mounts, groupKey);
+      if (sortBy === 'AZ') {
+        this.mountRowCount[animalGroup.key] = 1;
+      } else {
+        this.mountRowCount[animalGroup.key] = Object.keys(groupedMounts).length;
+      }
+      return groupedMounts;
     },
     // Actions
     updateHideMissing (newVal) {

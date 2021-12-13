@@ -135,5 +135,9 @@
     "pressEnterToAddTag": "Nhấn Enter để thêm thẻ: '<%= tagName %>'",
     "enterTag": "Nhập một thẻ",
     "addTags": "Thêm thẻ...",
-    "tomorrow": "Ngày mai"
+    "tomorrow": "Ngày mai",
+    "resetCounter": "Đặt lại Bộ đếm",
+    "editTagsText": "Chỉnh sửa Thẻ",
+    "counter": "Bộ đếm",
+    "adjustCounter": "Điều chỉnh Bộ đếm"
 }

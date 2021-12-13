@@ -365,9 +365,10 @@
     "hatchingPotionBlackPearl": "Schwarze Perle",
     "hatchingPotionAutumnLeaf": "Herbstlaub",
     "hatchingPotionStainedGlass": "Buntglas",
-    "hatchingPotionPolkaDot": "Pünktchen",
-    "hatchingPotionMossyStone": "Bemooster Stein",
+    "hatchingPotionPolkaDot": "Tupfen",
+    "hatchingPotionMossyStone": "Moosbedeckter Stein",
     "hatchingPotionSunset": "Sonnenuntergang",
     "hatchingPotionSolarSystem": "Sonnensystem",
-    "hatchingPotionMoonglow": "Mondschein"
+    "hatchingPotionMoonglow": "Mondschein",
+    "hatchingPotionOnyx": "Onyx"
 }

@@ -6,7 +6,7 @@
     "spellWizardEarthText": "Động Đất",
     "spellWizardEarthNotes": "Sức mạnh tinh thần của bạn làm rung chuyển cả Trái đất và tạo hiệu ứng tăng điểm INT lên toàn Tổ đội (Dựa vào: Unbuffed INT)",
     "spellWizardFrostText": "Sương Băng",
-    "spellWizardFrostNotes": "With one cast, ice freezes all your streaks so they won't reset to zero tomorrow!",
+    "spellWizardFrostNotes": "Với một lần làm phép, đóng băng tất cả Chuỗi liên tục của bạn để chúng không đặt lại vào ngày mai!",
     "spellWizardFrostAlreadyCast": "Bạn đã dùng kỹ năng vào hôm nay. Chuỗi liên tục của bạn đã đóng băng, và không cần phải dùng kỹ năng này lại.",
     "spellWarriorSmashText": "Cuồng quyền",
     "spellWarriorSmashNotes": "Bạn làm một Công việc thêm xanh/bớt đỏ và tăng sát thương tới Quái vật! (Dựa vào: STR)",
@@ -55,5 +55,6 @@
     "challengeTasksNoCast": "Casting a skill on challenge tasks is not allowed.",
     "groupTasksNoCast": "Casting a skill on group tasks is not allowed.",
     "spellNotOwned": "You don't own this skill.",
-    "spellLevelTooHigh": "You must be level <%= level %> to use this skill."
+    "spellLevelTooHigh": "You must be level <%= level %> to use this skill.",
+    "spellAlreadyCast": "Sử dụng kỹ năng này sẽ không có hiệu ứng gì thêm."
 }

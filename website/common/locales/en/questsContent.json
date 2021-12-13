@@ -858,5 +858,14 @@
   "questSolarSystemCompletion": "Through careful practice, you and the crew manage to keep the Diversionoids from sweeping you overboard, just by noticing and acknowledging them without letting them take over. As you pass safely by the pulsing star, @gawrone notices a cluster of floating bottles and pulls them aboard. Each appears to contain a tiny solar system!<br><br>“Well, looks like our hard work has brought us some fine rewards!” says @beffymaroo. “Let’s see what celestial wonders might appear if we hatch pet eggs with these new potions.”",
   "questSolarSystemBoss": "Diversionoids",
   "questSolarSystemDropSolarSystemPotion": "Solar System Hatching Potion",
-  "questSolarSystemUnlockText": "Unlocks Solar System Hatching Potions for purchase in the Market"
+  "questSolarSystemUnlockText": "Unlocks Solar System Hatching Potions for purchase in the Market",
+
+  "questOnyxText": "The Onyx Odyssey",
+  "questOnyxNotes": "@Vikte, @aspiring_advocate, and @starsystemic know you’ve been feeling unmotivated lately and decide that a fun day out might boost your mood. However, “fun” apparently means going deep-sea diving to search the Dark Crevasse for treasure! You don your diving gear, board the boat, and row towards the ancient city of Dilatory. As you travel, you ask them what kind of treasure you’re looking for.<br><br>“Pluto runes!” says @Vikte.<br><br>“No, Leo runes!” says @aspiring_advocate.<br><br>“No, onyx stones!” says @starsystemic.<br><br>As they argue among themselves, you look into the ocean and see the cave entrance directly below you! Excited, you jump up, and dive into the sea, leaving the trio to watch as you swim towards the Dark Crevasse to search for the treasure yourself.",
+  "questOnyxCompletion": "As you enter the Dark Crevasse, the mantis shrimps that live there dart away, seemingly scared of you. However, they quickly return carrying small coloured orbs, and you realise that these are the treasures that the others wanted! You pocket a healthy collection of each type, say goodbye to the shrimps, and head back to the boat where the others help you aboard.<br><br>“Where have you been?” @Vikte exclaims. In response you show them the treasure you’ve collected.<br><br>“These ingredients make Onyx Magic Hatching Potions!”, @aspiring_advocate says excitedly as you begin to head back to shore.<br><br>“So… we can hatch Onyx pets!” @starsystemic smiles. “Didn’t we say this would be fun?”<br><br>You smile back, excited for your new pets, and ready to finish your tasks!",
+  "questOnyxCollectPlutoRunes": "Pluto Runes",
+  "questOnyxCollectLeoRunes": "Leo Runes",
+  "questOnyxCollectOnyxStones": "Onyx Stones",
+  "questOnyxDropOnyxPotion": "Onyx Hatching Potion",
+  "questOnyxUnlockText": "Unlocks Onyx Hatching Potions for purchase in the Market"
 }

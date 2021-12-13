@@ -2508,5 +2508,13 @@
     "weaponArmoirePotionZombieNotes": "Utilisez cette potion pour faire éclore un familier zombie, mais faites attention au cas où il commencerait à vous grignoter ! Augmente la constitution de <%= con %> et la perception de <%= per %>. Armoire enchantée : ensemble de potions (objet 7 de 10)",
     "weaponArmoirePotionBlueNotes": "Vous vivrez la vie un peu plus moelleuse et beaucoup plus en bleu avec cette potion pour faire des bêtes en barbe à papa bleue ! Augmente l'intelligence de <%= int %> et la constitution de <%= con %>. Armoire enchantée : ensemble de potions (objet 9 de 10)",
     "weaponArmoirePotionRedNotes": "Cette potion va vous en faire voir de toutes les couleurs, mais surtout rouge ! Augmente la force et la constitution de <%= attrs %> chacune. Armoire enchantée : ensemble de potions (objet 4 de 10)",
-    "offHandCapitalized": "Objet de main secondaire"
+    "offHandCapitalized": "Objet de main secondaire",
+    "weaponArmoireRegalSceptreText": "Sceptre régalien",
+    "headMystery202112Text": "Couronne d'ondine arctique",
+    "headMystery202112Notes": "Cette couronne gelée brille comme les profondeurs cachées d'un iceberg. Ne confère aucun bonus. Équipement d'abonnement de décembre 2021.",
+    "headArmoireRegalCrownText": "Couronne régalienne",
+    "armorMystery202112Text": "Queue d'ondine arctique",
+    "armorMystery202112Notes": "Glissez à travers les mers de glace sans vous refroidir avec cette queue chatoyante. Ne confère aucun bonus. Équipement d'abonnement de décembre 2021.",
+    "weaponArmoireRegalSceptreNotes": "Affichez votre autorité régalienne en tenant ce bâton incrusté de pierres précieuses dans votre main. Augmente la perception de <%= per %>. Armoire enchantée : ensemble régalien (objet 2 de 2).",
+    "headArmoireRegalCrownNotes": "Tout monarque aurait de la change d'avoir une si majestueuse couronne. Armoire enchantée : ensemble régalien (objet 1 de 2)."
 }
