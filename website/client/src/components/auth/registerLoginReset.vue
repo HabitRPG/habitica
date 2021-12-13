@@ -19,27 +19,6 @@
           ></div>
         </div>
       </div>
-      <div
-        v-if="!registering"
-        class="form-group row text-center"
-      >
-        <div class="col-12 col-md-12">
-          <div
-            class="btn btn-secondary social-button"
-            @click="socialAuth('facebook')"
-          >
-            <div
-              class="svg-icon social-icon"
-              v-html="icons.facebookIcon"
-            ></div>
-            <div
-              class="text"
-            >
-              {{ $t('loginWithSocial', {social: 'Facebook'}) }}
-            </div>
-          </div>
-        </div>
-      </div>
       <div class="form-group row text-center">
         <div class="col-12 col-md-12">
           <div
@@ -642,7 +621,6 @@ import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
 import exclamation from '@/assets/svg/exclamation.svg';
 import gryphon from '@/assets/svg/gryphon.svg';
 import habiticaIcon from '@/assets/svg/habitica-logo.svg';
-import facebookSquareIcon from '@/assets/svg/facebook-square.svg';
 import googleIcon from '@/assets/svg/google.svg';
 import appleIcon from '@/assets/svg/apple_black.svg';
 
@@ -665,7 +643,6 @@ export default {
       exclamation,
       gryphon,
       habiticaIcon,
-      facebookIcon: facebookSquareIcon,
       googleIcon,
       appleIcon,
     });
@@ -755,8 +732,6 @@ export default {
   },
   mounted () {
     hello.init({
-      facebook: process.env.FACEBOOK_KEY, // eslint-disable-line
-      // windows: WINDOWS_CLIENT_ID,
       google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line
     });
   },
