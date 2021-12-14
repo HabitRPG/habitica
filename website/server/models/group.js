@@ -3,8 +3,7 @@ import mongoose from 'mongoose';
 import _ from 'lodash';
 import validator from 'validator';
 import nconf from 'nconf';
-import {
-  // eslint-disable-line import/no-cycle
+import { // eslint-disable-line import/no-cycle
   model as User,
   nameFields,
 } from './user';
@@ -14,8 +13,7 @@ import { chatModel as Chat, setUserStyles, messageDefaults } from './message';
 import * as Tasks from './task';
 import { removeFromArray } from '../libs/collectionManipulators';
 import payments from '../libs/payments/payments'; // eslint-disable-line import/no-cycle
-import {
-  // eslint-disable-line import/no-cycle
+import { // eslint-disable-line import/no-cycle
   groupChatReceivedWebhook,
   questActivityWebhook,
 } from '../libs/webhook';
@@ -224,8 +222,7 @@ function _cleanQuestParty (merge) {
 // return a clean user.quest of a particular user while keeping his progress
 function _cleanQuestUser (userProgress) {
   if (!userProgress) {
-    userProgress = {
-      // eslint-disable-line no-param-reassign
+    userProgress = { // eslint-disable-line no-param-reassign
       up: 0,
       down: 0,
       collect: {},
@@ -316,8 +313,7 @@ schema.statics.getGroups = async function getGroups (options = {}) {
   if (!areValidTypes) throw new BadRequest(shared.i18n.t('groupTypesRequired'));
 
   types.forEach(type => {
-    switch (
-      type // eslint-disable-line default-case
+    switch (type // eslint-disable-line default-case
     ) {
       case 'party': {
         queries.push(
@@ -939,8 +935,7 @@ function _getUserUpdateForQuestReward (itemToAward, allAwardedItems) {
   };
   const dropK = itemToAward.key;
 
-  switch (
-    itemToAward.type // eslint-disable-line default-case
+  switch (itemToAward.type // eslint-disable-line default-case
   ) {
     case 'gear': {
       // TODO This means they can lose their new gear on death, is that what we want?
@@ -1481,7 +1476,12 @@ schema.methods.leave = async function leaveGroup (
     userId: { $exists: false },
     'group.assignedUsers': user._id,
   }).exec();
-  const assignedTasksToRemoveUserFrom = assignedTasks.map(task => this.unlinkTask(task, user, keep, false));
+  const assignedTasksToRemoveUserFrom = assignedTasks.map(task => this.unlinkTask(
+    task,
+    user,
+    keep,
+    false,
+  ));
   await Promise.all(assignedTasksToRemoveUserFrom);
 
   this.unlinkTags(user);
@@ -1883,8 +1883,7 @@ if (!nconf.get('IS_TEST')) {
   model.countDocuments({ _id: TAVERN_ID }, (err, ct) => {
     if (err) throw err;
     if (ct > 0) return;
-    new model({
-      // eslint-disable-line new-cap
+    new model({ // eslint-disable-line new-cap
       _id: TAVERN_ID,
       leader: '7bde7864-ebc5-4ee2-a4b7-1070d464cdb0', // Siena Leslie
       name: 'Tavern',
