@@ -3,7 +3,7 @@
   <div class="container-fluid">
     <h1>Privacy Notice</h1>
     <p class="strong pagemeta">
-      Last Updated: October 28, 2021
+      Last Updated: December 10, 2021
     </p>
     <p>
       HabitRPG, Inc. (“HabitRPG,” “we,” “us,” or “our”) welcomes you. This privacy notice (the “Privacy
