@@ -25,16 +25,10 @@ api.bugReport = {
   url: '/bug-report',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkBody({
-      message: {
-        notEmpty: { errorMessage: res.t('emptyReportBugMessage') },
-      },
-      email: {
-        notEmpty: true,
-        errorMessage: res.t('missingEmail'),
-        isEmail: { errorMessage: res.t('notAnEmail') },
-      },
-    });
+    req.checkBody('message', res.t('emptyReportBugMessage')).notEmpty();
+    req.checkBody('email', res.t('missingEmail')).notEmpty();
+    req.checkBody('email', res.t('notAnEmail')).isEmail();
+
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
