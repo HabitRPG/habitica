@@ -30,9 +30,6 @@
       v-if="notificationData && notificationData.achievement"
       :data="notificationData"
     />
-    <!-- <just-add-water /> -->
-    <lost-masterclasser />
-    <!-- <mind-over-matter /> -->
     <onboarding-complete />
     <first-drops />
   </div>
@@ -140,9 +137,6 @@ import streak from './achievements/streak';
 import ultimateGear from './achievements/ultimateGear';
 import wonChallenge from './achievements/wonChallenge';
 import genericAchievement from './achievements/genericAchievement';
-// import justAddWater from './achievements/justAddWater';
-import lostMasterclasser from './achievements/lostMasterclasser';
-// import mindOverMatter from './achievements/mindOverMatter';
 import loginIncentives from './achievements/login-incentives';
 import onboardingComplete from './achievements/onboardingComplete';
 import verifyUsername from './settings/verifyUsername';
@@ -308,9 +302,6 @@ export default {
     loginIncentives,
     verifyUsername,
     genericAchievement,
-    lostMasterclasser,
-    // mindOverMatter,
-    // justAddWater,
     onboardingComplete,
     firstDrops,
   },
@@ -775,9 +766,10 @@ export default {
             this.showNotificationWithModal(notification);
             break;
           case 'ACHIEVEMENT_QUESTS': {
-            const { achievement, achievementNotification } = notification.data;
-            NOTIFICATIONS.ACHIEVEMENT_QUESTS.label = $t => `${$t('achievement')}:
-          ${$t(achievementNotification)}`;
+            const { achievement } = notification.data;
+            const upperCaseAchievement = achievement.charAt(0).toUpperCase() + achievement.slice(1);
+            const achievementTitleKey = `achievement${upperCaseAchievement}`;
+            NOTIFICATIONS.ACHIEVEMENT_QUESTS.label = $t => `${$t('achievement')}: ${$t(achievementTitleKey)}`;
             this.showNotificationWithModal(notification);
             Vue.set(this.user.achievements, achievement, true);
             break;

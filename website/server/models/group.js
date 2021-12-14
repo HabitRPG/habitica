@@ -1071,20 +1071,23 @@ schema.methods.finishQuest = async function finishQuest (quest) {
       const achievementTitleCase = `achievement${achievement
         .slice(0, 1)
         .toUpperCase()}${achievement.slice(1, achievement.length)}`;
-      // const achievementSnakeCase = `ACHIEVEMENT_${_.snakeCase(achievement).toUpperCase()}`;
       questAchievementUpdate.$push = {
         notifications: new UserNotification({
           type: 'ACHIEVEMENT_QUESTS',
           data: {
             achievement,
-            message: `${shared.i18n.t('modalAchievement')} ${shared.i18n.t(achievementTitleCase)}`,
+            message: `${shared.i18n.t('modalAchievement')}
+              ${shared.i18n.t(achievementTitleCase)}`,
             modalText: shared.i18n.t(`${achievementTitleCase}ModalText`),
           },
         }).toObject(),
       };
 
       promises.push(
-        participants.map(userId => _updateUserWithRetries(userId, questAchievementUpdate, null, questAchievementQuery)),
+        participants.map(userId => _updateUserWithRetries(userId,
+          questAchievementUpdate,
+          null,
+          questAchievementQuery)),
       );
     }
   });
