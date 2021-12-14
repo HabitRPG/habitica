@@ -3,7 +3,7 @@
   <div class="container-fluid">
     <h1>Privacy Notice</h1>
     <p class="strong pagemeta">
-      Last Updated: October 28, 2021
+      Last Updated: December 10, 2021
     </p>
     <p>
       HabitRPG, Inc. (“HabitRPG,” “we,” “us,” or “our”) welcomes you. This privacy notice (the “Privacy
@@ -224,8 +224,8 @@
       and then selecting the “Authentication” option.
     </p>
     <p>
-      If you would like us to fully delete your account, please email us at admin@habitica and we will handle
-      your request within 30 days.
+      If you would like us to fully delete your account and all data associated with it, please email us at
+      admin@habitica and we will handle your request within 30 days.
     </p>
     <p>
       You may opt out at any time from the use of your personal information for direct marketing purposes by
