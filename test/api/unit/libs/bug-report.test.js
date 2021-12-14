@@ -23,7 +23,7 @@ describe('bug-report', () => {
     const userAgent = 'The UserAgent with a bunch of weird browser engine levels';
 
     const user = generateUser({
-      _id: userId
+      _id: userId,
     });
 
     const result = await bugReportLogic(
@@ -36,12 +36,12 @@ describe('bug-report', () => {
       emailData: {
         BROWSER_UA: userAgent,
         REPORT_MSG: userMessage,
-        USER_CLASS: "warrior",
+        USER_CLASS: 'warrior',
         USER_CONSECUTIVE_MONTHS: 0,
-        USER_COSTUME: "false",
+        USER_COSTUME: 'false',
         USER_CUSTOMER_ID: undefined,
         USER_CUSTOM_DAY: 0,
-        USER_DAILIES_PAUSED: "false",
+        USER_DAILIES_PAUSED: 'false',
         USER_EMAIL: userMail,
         USER_HOURGLASSES: 0,
         USER_ID: userId,

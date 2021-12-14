@@ -37,7 +37,7 @@ api.bugReport = {
     const BROWSER_UA = req.get('User-Agent');
 
     const {
-      emailData, sendMailResult
+      emailData, sendMailResult,
     } = bugReportLogic(
       user, email, message, BROWSER_UA,
     );
