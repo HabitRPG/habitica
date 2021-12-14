@@ -1,604 +1,86 @@
 <template>
   <!-- eslint-disable max-len -->
   <div class="container-fluid">
-    <h1>Terms of Use</h1>
-    <p class="pagemeta">
-      Last updated July 27, 2015
-      <br>
-      <small>(Corrected minimum age requirement to under 13 years of age per COPPA)</small>
-      <br>
-      <br>
-    </p>
-    <p>
-      HabitRPG &lpar;or 'we'&rpar; provides services through our
-      software applications for various devices and platforms &lpar;'HabitRPG
-      Applications'&rpar; and the HabitRPG&period;com domain&comma; and any sub domains thereto
-      &lpar;the 'Sites'&rpar;&period; Individually or collectively&comma; HabitRPG Applications and
-      Sites may be referred to as the 'Services'&period;
-    </p>
-    <p>
-      Please read the following terms and conditions &lpar;'Terms of
-      Service'&rpar; carefully&period; These Terms of Service govern your access to and
-      use of the Services and HabitRPG Content &lpar;defined below&rpar; and set forth
-      the legally binding terms for your use of the Services and HabitRPG
-      Content&comma; whether or not you have registered as a Member&period;
-    </p>
-    <p>
-      Certain areas of the Services &lpar;and your access to or use of
-      HabitRPG Content&rpar; may have different terms and conditions posted or may
-      require you to agree with and accept additional terms and conditions&period; If
-      there is a conflict between these Terms of Service and terms and
-      conditions posted for a specific area of the Services or HabitRPG
-      Content&comma; the latter terms and conditions will take precedence with
-      respect to your use of or access to that area of the Services or HabitRPG
-      Content&period;
-    </p>
-    <p>
-      YOU ACKNOWLEDGE AND AGREE THAT&comma; BY CLICKING ON THE 'I AGREE' OR
-      'I ACCEPT' BUTTON&comma; OR BY ACCESSING OR USING THE SERVICES OR BY
-      DOWNLOADING OR POSTING ANY CONTENT FROM OR ON THE SITES OR THROUGH THE
-      SERVICES&comma; YOU ARE INDICATING THAT YOU HAVE READ&comma; UNDERSTAND AND AGREE TO
-      BE BOUND BY THESE TERMS&comma; WHETHER OR NOT YOU HAVE REGISTERED AS A MEMBER&comma;
-      AND AGREE TO OUR PRIVACY POLICY AS DESCRIBED BELOW&period; IF YOU DO NOT AGREE
-      TO THESE TERMS&comma; THEN YOU HAVE NO RIGHT TO ACCESS OR USE THE SERVICES OR
-      HABITRPG CONTENT&period;
-    </p>
-    <p>
-      <strong>Modification</strong>
-      <br>HabitRPG reserves the right&comma; at its sole discretion&comma; to modify&comma;
-      discontinue or terminate the Services&comma; including any portion thereof on
-      a global or individual basis&comma; or to modify these Terms of Service&comma; at
-      any time and without prior notice&period; If we modify these Terms of Service&comma;
-      we will update the 'Last Updated Date' above and post the modification
-      on the Sites and perhaps elsewhere within the Services&period; By continuing to
-      access or use the Services after we have posted a modification to these
-      Terms of Service or have provided you with notice of a modification&comma; you
-      are indicating that you agree to be bound by the modified Terms of
-      Service&period; If the modified Terms of Service are not acceptable to you&comma;
-      your only recourse is to cease using the Services&period;
-    </p>
-    <p>
-      <strong>Eligibility and HabitRPG Account Registration</strong>
-      <br>In order to access certain features of the Sites and Services&comma; and to
-      post any Public User Content &lpar;defined below&rpar; on the Sites or through the
-      Services&comma; you must register to create an account &lpar;'HabitRPG Account'&rpar; and
-      become a 'Member'&period; In compliance with privacy laws&comma; we do not allow
-      people below the age of 13 to create accounts&semi; please see our Privacy
-      Policy for further information&period; During the registration process&comma; you
-      will be required to provide certain information and you will establish a
-      username and a password&period; You agree to provide accurate&comma; current and
-      complete information during the registration process and to update such
-      information to keep it accurate&comma; current and complete&period; HabitRPG reserves
-      the right to suspend or terminate your HabitRPG Account if any
-      information provided during the registration process or thereafter
-      proves to be inaccurate&comma; not current or incomplete&period; If you are not a
-      Member you may browse all areas of the Sites or use the parts of the
-      Services that are not limited to Members only&period; You are responsible for
-      safeguarding your password&period; You agree not to disclose your password to
-      any third party and to take sole responsibility for any activities or
-      actions under your HabitRPG Account&comma; whether or not you have authorized
-      such activities or actions&period; You agree to immediately notify HabitRPG of
-      any unauthorized use of your HabitRPG Account&period; We are not liable for any
-      damages or losses caused by someone using your account without your
-      permission&period;
-    </p>
-    <p>
-      <strong>Privacy</strong>
-      <br>See
-      <a href="/static/privacy">HabitRPG&apos;s Privacy Policy</a> for
-      information and notices concerning HabitRPG&apos;s collection and use of your
-      personal information&period; If you have any questions about the HabitRPG
-      Privacy Policy&comma; please contact HabitRPG at privacy AT HabitRPG&period;com&period; By
-      accessing the Services you are agreeing to the terms of our Privacy
-      Policy&period;
-    </p>
-    <p>
-      <strong>Content</strong>
-      <br>Certain types of content are made available through the Services&period;
-      'HabitRPG Content' means&comma; collectively&comma; the text&comma; data&comma; graphics&comma; images&comma;
-      illustrations&comma; forms and look and feel attributes&comma; HabitRPG trademarks
-      and logos and other content made available through the Services&comma;
-      including any technology or code making up the Services&comma; excluding User
-      Content&period; 'Public User Content' means the text&comma; data&comma; graphics&comma; images&comma; photos&comma;
-      video or audiovisual content&comma; hypertext links and any other content uploaded&comma;
-      transmitted or submitted by a Member via the Services with the intent to share
-      with other users&period; 'Private User Content' means data created through the services
-      exclusively for personal use or private sharing&period;
-      This includes tasks and related data created in HabitRPG Tasks that have not
-      been explicitly shared publicly&period;
-      You understand that by using any of the Services&comma; you may encounter content
-      that may be deemed offensive&comma; indecent&comma; or objectionable&comma; which content
-      may or may not be identified as having explicit language&comma; and that the
-      results of any search or entering of a particular URL may automatically
-      and unintentionally generate links or references to objectionable
-      material&period; Nevertheless&comma; you agree to use the Services at your sole risk
-      and that we shall not have any liability to you for content that may be
-      found to be offensive&comma; indecent&comma; or objectionable&period;
-    </p>
-    <p>
-      <strong>Ownership</strong>
-      <br>The Services and HabitRPG Content are protected by copyright&comma; trademark&comma;
-      and other laws of the United States and foreign countries&period; Except as
-      expressly provided in these Terms of Service&comma; HabitRPG and its licensors
-      exclusively own all right&comma; title and interest in and to the Services and
-      HabitRPG Content&comma; including all associated intellectual property rights&period;
-      You will not remove&comma; alter or obscure any copyright&comma; trademark&comma; service
-      mark or other proprietary rights notices incorporated in or accompanying
-      the Services or HabitRPG Content&period;
-    </p>
-    <p>
-      <strong>HabitRPG License</strong>
-      <br>Subject to your compliance with the terms and conditions of these Terms
-      of Service&comma; HabitRPG grants you a limited&comma; non-exclusive&comma;
-      non-transferable license&comma; without the right to sublicense&comma; to access&comma;
-      use&comma; view&comma; download and print&comma; where applicable&comma; the Services and any
-      HabitRPG Content solely for your personal and non-commercial purposes&period;
-      You will not use&comma; copy&comma; adapt&comma; modify&comma; prepare derivative works based
-      upon&comma; distribute&comma; license&comma; sell&comma; transfer&comma; publicly display&comma; publicly
-      perform&comma; transmit&comma; stream&comma; broadcast or otherwise exploit the Services
-      or HabitRPG Content&comma; except as expressly permitted in these Terms of
-      Service&period; No licenses or rights are granted to you by implication or
-      otherwise under any intellectual property rights owned or controlled by
-      HabitRPG or its licensors&comma; except for the licenses and rights expressly
-      granted in these Terms of Service&period; With respect to HabitRPG Applications&comma;
-      your license is limited to use of such applications on platforms and
-      devices that you own or control&comma; and you may not distribute or make the
-      HabitRPG Applications available over a network where it could be used by
-      multiple devices at the same time&period;
-    </p>
-    <p>
-      <strong>Public User Content</strong>
-      <br>By making available any Public User Content through the Services&comma; you hereby
-      grant to HabitRPG a worldwide&comma; irrevocable&comma; perpetual&comma; non-exclusive&comma;
-      transferable&comma; royalty-free license&comma; with the right to sublicense&comma; to
-      use&comma; copy&comma; adapt&comma; modify&comma; distribute&comma; license&comma; sell&comma; transfer&comma; publicly
-      display&comma; publicly perform&comma; transmit&comma; stream&comma; broadcast and otherwise
-      exploit such Public User Content only on&comma; through or by means of the Services&period;
-      HabitRPG does not claim any ownership rights in any such Public User Content and
-      nothing in these Terms of Service will be deemed to restrict any rights
-      that you may have to use and exploit any such Public User Content&period;
-    </p>
-    <p>
-      You acknowledge and agree that you are solely responsible for all
-      Public User Content that you make available through the Services&period; Accordingly&comma;
-      you represent and warrant that&colon; &lpar;i&rpar; you either are the sole and
-      exclusive owner of all Public User Content that you make available through the
-      Services or you have all rights&comma; licenses&comma; consents and releases that
-      are necessary to grant to HabitRPG the rights in such Public User Content&comma; as
-      contemplated under these Terms of Service&semi; and &lpar;ii&rpar; neither the User
-      Content nor your posting&comma; uploading&comma; publication&comma; submission or
-      transmittal of the Public User Content or HabitRPG&apos;s use of the Public User Content &lpar;or
-      any portion thereof&rpar; on&comma; through or by means of the Services will
-      infringe&comma; misappropriate or violate a third party&apos;s patent&comma; copyright&comma;
-      trademark&comma; trade secret&comma; moral rights or other intellectual property
-      rights&comma; or rights of publicity or privacy&comma; or result in the violation of
-      any applicable law or regulation&period;
-    </p>
-    <p>
-      Copyrighted Materials&colon; No Infringing Use&period; You will not use the
-      Services to offer&comma; display&comma; distribute&comma; transmit&comma; route&comma; provide
-      connections to or store any material that infringes copyrighted works or
-      otherwise violates or promotes the violation of the intellectual
-      property rights of any third party&period; HabitRPG has adopted and implemented
-      a policy that provides for the termination in appropriate circumstances
-      of the accounts of users who repeatedly infringe or are believed to be
-      or are charged with repeatedly infringing the rights of copyright
-      holders&period;
-    </p>
-    <p>
-      <strong>Notify Us of Infringers</strong>
-      <br>If you believe that something on the Services violates your copyright&comma;
-      notify our copyright agent in writing&period; The contact information for our
-      copyright agent is at the bottom of this section&period;
-    </p>
-    <p>
-      In order for us to take action&comma; you must do the following in your
-      notice&colon;
-    </p>
-    <p>
-      &lpar;1&rpar; provide your physical or electronic signature&semi; &lpar;2&rpar; identify
-      the copyrighted work that you believe is being infringed&semi; &lpar;3&rpar; identify
-      the item on the Services that you think is infringing your work and
-      include sufficient information about where the material is located on
-      the Services &lpar;including which website and URL&rpar; so that we can find it&semi;
-      &lpar;4&rpar; provide us with a way to contact you&comma; such as your address&comma;
-      telephone number&comma; or e-mail&semi; &lpar;5&rpar; provide a statement that you believe in
-      good faith that the item you have identified as infringing is not
-      authorized by the copyright owner&comma; its agent&comma; or the law to be used on
-      the Services&semi; and &lpar;6&rpar; provide a statement that the information you
-      provide in your notice is accurate&comma; and that &lpar;under penalty of perjury&rpar;&comma;
-      you are authorized to act on behalf of the copyright owner whose work is
-      being infringed&period;
-    </p>
-    <p>Here is the contact information for our copyright agent&colon;</p>
-    <p>
-      Copyright Enforcement
-      <br>HabitRPG, Inc.
-      <br>11870 Santa Monica Blvd., Suite 106-577
-      <br>Los Angeles, CA 90025
-      <br>E-Mail&colon;
-      <a href="mailto:admin@habitica.com">admin@habitica.com</a>
-    </p>
-    <p>
-      Again&comma; we cannot take action unless you give us all the required
-      information&period;
-    </p>
-    <p>
-      <strong>Ratings and Comments & Feedback&period;</strong>
-      <br>You can rate and make comments about content made available through the
-      Services &lpar;'Comments'&rpar;&period; HabitRPG advises you to exercise caution and good
-      judgment when leaving such Comments&period; Once you complete and submit your
-      Comments to the Services you will not be able to go back and edit your
-      Comments&period; You should also be aware that you could be held legally
-      responsible for damages to someone&apos;s reputation if your Comments are
-      deemed to be defamatory&period; Without limiting any other terms of this Terms
-      of Service&comma; HabitRPG may&comma; but is under no obligation to&comma; monitor or
-      censor Comments and disclaims any and all liability relating thereto&period;
-      Notwithstanding the foregoing&comma; HabitRPG does reserve the right&comma; in its
-      sole discretion&comma; to remove any Comments that it deems to be improper&comma;
-      inappropriate or inconsistent with the online activities that are
-      permitted under these Terms of Service&period; We welcome and encourage you to
-      provide feedback&comma; comments and suggestions for improvements to the
-      Services &lpar;'Feedback'&rpar;&period; You may submit Feedback by emailing us at support
-      AT HabitRPG&period;com&period; You acknowledge and agree that all Comments and Feedback
-      will be the sole and exclusive property of HabitRPG and you hereby
-      irrevocably assign to HabitRPG and agree to irrevocably assign to HabitRPG
-      all of your right&comma; title&comma; and interest in and to all Comments and
-      Feedback&comma; including without limitation all worldwide patent rights&comma;
-      copyright rights&comma; trade secret rights&comma; and other proprietary or
-      intellectual property rights therein&period; At HabitRPG&apos;s request and expense&comma;
-      you will execute documents and take such further acts as HabitRPG may
-      reasonably request to assist HabitRPG to acquire&comma; perfect&comma; and maintain
-      its intellectual property rights and other legal protections for the
-      Comments and Feedback&period;
-    </p>
-    <p>
-      <strong>Interactions between Users</strong>
-      <br>You are solely responsible for your interactions &lpar;including any
-      disputes&rpar; with other users&period; You understand that HabitRPG does not in any
-      way screen HabitRPG users&comma; except to only allow people aged 13 and over
-      to create accounts&period; You are solely responsible for&comma; and will exercise
-      caution&comma; discretion&comma; common sense and judgment in&comma; using the Services
-      and disclosing personal information to other HabitRPG users&period; You agree to
-      take reasonable precautions in all interactions with other HabitRPG
-      users&comma; particularly if you decide to meet a HabitRPG user offline&comma; or in
-      person&period; Your use of the Services&comma; HabitRPG Content and any other content
-      made available through the Services is at your sole risk and discretion
-      and HabitRPG hereby disclaims any and all liability to you or any third
-      party relating thereto&period; HabitRPG reserves the right to contact Members&comma;
-      in compliance with applicable law&comma; in order to evaluate compliance with
-      the rules and policies in these Terms of Service&period; You will cooperate
-      fully with HabitRPG to investigate any suspected unlawful&comma; fraudulent or
-      improper activity&comma; including&comma; without limitation&comma; granting authorized
-      HabitRPG representatives access to any password-protected portions of
-      your HabitRPG Account&period;
-    </p>
-    <p>
-      <strong>General Prohibitions</strong>
-      <br>You agree not to do any of the following while using the Services or
-      HabitRPG Content&colon;
-      <br>
-    </p>
+    <h1>Terms of Service</h1>
+    <p class="strong pagemeta">Last Updated: December 14, 2021</p>
+    <p>Thanks for choosing Habitica!</p>
+    <p>Our Service is provided by HabitRPG, Inc. ("HabitRPG"). By accepting these Terms of Service and our Privacy Policy located at: <a href="https://habitica.com/static/privacy" target="_blank">https://habitica.com/static/privacy</a> (collectively, the "Agreement"), registering for the Service (as defined below), accessing or using any part of the Service, or otherwise manifesting your assent to the Agreement, you acknowledge that you have read, understood, and agree to be legally bound by the Agreement. If you do not agree to (or cannot comply with) the Agreement, you are not permitted to access or use the Service.</p>
+    <p>By accepting or agreeing to this Agreement on behalf of a company or other legal entity, you represent and warrant that you have the authority to bind that company or other legal entity to the Agreement and, in such event, "you" and "your" will refer and apply to that company or other legal entity.</p>
+    <p class="strong">THE SECTIONS BELOW TITLED "BINDING ARBITRATION," AND "CLASS ACTION WAIVER" CONTAIN A BINDING ARBITRATION AGREEMENT AND CLASS ACTION WAIVER. THEY AFFECT YOUR LEGAL RIGHTS. PLEASE READ THEM.</p>
+    <h2>Changes to the Terms of Service</h2>
+    <p>These Terms of Service are effective as of the last updated date stated at the top of this page. We may change these Terms of Service from time to time with or without notice to you. By accessing the Service after we make any such changes to this Terms of Service, you are deemed to have accepted such changes. Please be aware that, to the extent permitted by applicable law, our use of the information collected is governed by the Terms of Service in effect at the time we collect the information. Please refer back to this Terms of Service on a regular basis.</p>
+    <p>Our Service allows you to upload, store, send, download, or receive content, including but not limited to information, text, graphics, artwork, or other material ("Content"). You retain ownership of any intellectual property rights that you have in your Content. You hereby grant HabitRPG a worldwide, perpetual, irrevocable, sublicenseable, transferable, assignable, non-exclusive, and royalty-free right and license to use, reproduce, distribute, adapt, modify, translate, create derivative works of, publicly perform, publicly display, digitally perform, make, have made, sell, offer for sale, and import your Content, including all intellectual property rights therein. You represent, warrant, and agree that your Content does not and will not violate any third-party intellectual property, privacy, or other rights, and that you have all right, title and interest in and to your Content required to grant us the license above. We reserve the right at all times, but have no obligation, to delete or refuse to use or distribute any Content on or through the Service, including your Content.</p>
+    <h2>Ideas and Suggestions/Requests</h2>
+    <p>HabitRPG appreciates receiving your ideas, comments, suggestions and requests regarding the Service ("Unsolicited Ideas"). By submitting your Unsolicited Ideas (in any form or medium), you are transferring all your right, title and interest therein exclusively to HabitRPG. As the owner of Unsolicited Ideas, we have unrestricted rights to use, disclose and process the Unsolicited Ideas for any purpose whatsoever without any compensation to you. You also give up any claim that any use, disclosure and processing by us or our licensees of your Unsolicited Ideas violates any of your rights, including moral rights, privacy rights, rights to publicity, proprietary or other rights, and rights to credit for the material or ideas set for therein.</p>
+    <h2>Software in Our Service</h2>
+    <p>When the Service requires or includes downloadable software ("Software"), it may may update automatically on your device once a new version or features become available to you. Some platforms may let you adjust your automatic update settings.</p>
+    <p>HabitRPG hereby grants you a personal, worldwide, royalty-free, non-assignable and non-exclusive license to use the Software provided by HabitRPG as part of the Service. You may not copy, modify, distribute, sell, or lease any part of our Service or included Software you are explicitly allowed to do so by the GPL-3.0 license, or you have our written permission for those parts not covered by the open source license.</p>
+    <p>Third party applications may use one of the permitted logos and signifiers in order to represent their applicability to the Service, but may not claim formal association with and/or impersonate HabitRPG or our staff without prior written consent. Third Party applications, the companies that own or provide them, and their employees and agents, are not authorized to make any promises or representations on our behalf, or change the terms of this Agreement.</p>
+    <p>We allow for personal, non-commercial uses like fanart under Commercial Commons License CC-NC-SA 3.0 terms.</p>
+    <p>Outside the above explicitly allowed use cases, you may not use our trademarks, service marks, trade names, logos, domain names, taglines, or trade dress without a signed written contract with us granting you a license to do so.</p>
+    <h2>Modifying and Termination of Service</h2>
+    <p>HabitRPG reserves the right, in its sole discretion, to add, modify, or remove functionalities or features from the Service, and improve, change and/or update the Service. We may also suspend or terminate the Service at any time, with or without notice to you.</p>
+    <p>You can choose to stop using our Service at any time. We may suspend or cease providing the Service to you at any time, including if we determine in our sole discretion, that:</p>
     <ul>
-      <li>
-        Post&comma; upload&comma; publish&comma; submit or transmit any text&comma; graphics&comma;
-        images&comma; software&comma; music&comma; audio&comma; video&comma; information or other material
-        that&colon; &lpar;i&rpar; infringes&comma; misappropriates or violates a third party&apos;s
-        patent&comma; copyright&comma; trademark&comma; trade secret&comma; moral rights or other
-        intellectual property rights&comma; or rights of publicity or privacy&semi; &lpar;ii&rpar;
-        violates&comma; or encourages any conduct that would violate&comma; any applicable
-        law or regulation or would give rise to civil liability&semi; &lpar;iii&rpar; is
-        fraudulent&comma; false&comma; misleading or deceptive&semi; &lpar;iv&rpar; is defamatory&comma;
-        obscene&comma; pornographic&comma; vulgar or offensive&semi; &lpar;v&rpar; promotes
-        discrimination&comma; bigotry&comma; racism&comma; hatred&comma; harassment or harm against any
-        individual or group&semi; &lpar;vi&rpar; is violent or threatening or promotes
-        violence or actions that are threatening to any other person&semi; or &lpar;vii&rpar;
-        promotes illegal or harmful activities or substances &lpar;including but not
-        limited to activities that promote or provide instructional information
-        regarding the manufacture or purchase of illegal weapons or illegal
-        substances&rpar;&period;
-      </li>
-      <li>
-        Use&comma; display&comma; mirror&comma; frame or utilize framing techniques to
-        enclose the Services&comma; or any individual element or materials within the
-        Services&comma; HabitRPG&apos;s name&comma; any HabitRPG trademark&comma; logo or other
-        proprietary information&comma; the content of any text or the layout and
-        design of any page or form contained on a page&comma; without HabitRPG&apos;s
-        express written consent&semi;
-      </li>
-      <li>
-        Access&comma; tamper with&comma; or use non-public areas of the Services&comma;
-        HabitRPG&apos;s computer systems&comma; or the technical delivery systems of
-        HabitRPG&apos;s providers&semi;
-      </li>
-      <li>
-        Attempt to probe&comma; scan&comma; or test the vulnerability of any
-        HabitRPG system or network or breach any security or authentication
-        measures&semi;
-      </li>
-      <li>
-        Avoid&comma; bypass&comma; remove&comma; deactivate&comma; impair&comma; descramble or
-        otherwise circumvent any technological measure implemented by HabitRPG
-        or any of HabitRPG&apos;s providers or any other third party &lpar;including
-        another user&rpar; to protect the Services or HabitRPG Content&semi;
-      </li>
-      <li>
-        Attempt to access or search the Services or HabitRPG Content or
-        download HabitRPG Content from the Services through the use of any
-        engine&comma; software&comma; tool&comma; agent&comma; device or mechanism &lpar;including spiders&comma;
-        robots&comma; crawlers&comma; data mining tools or the like&rpar; other than the
-        software and&sol;or search agents provided by HabitRPG or other generally
-        available third party web browsers &lpar;such as Google Chrome&comma; Microsoft
-        Internet Explorer&comma; Mozilla Firefox&comma; Safari or Opera&rpar;&semi;
-      </li>
-      <li>
-        Send any unsolicited or unauthorized advertising&comma; promotional
-        materials&comma; email&comma; junk mail&comma; spam&comma; chain letters or other form of
-        solicitation&semi;
-      </li>
-      <li>
-        Use any meta tags or other hidden text or metadata utilizing a
-        HabitRPG trademark&comma; logo URL or product name without HabitRPG&apos;s express
-        written consent&semi;
-      </li>
-      <li>
-        Use the Services or HabitRPG Content for any commercial purpose
-        or the benefit of any third party or in any manner not permitted by
-        these Terms of Service&semi;
-      </li>
-      <li>
-        Forge any TCP&sol;IP packet header or any part of the header
-        information in any email or newsgroup posting&comma; or in any way use the
-        Services or HabitRPG Content to send altered&comma; deceptive or false
-        source-identifying information&semi;
-      </li>
-      <li>
-        Attempt to decipher&comma; decompile&comma; disassemble or reverse
-        engineer any of the software used to provide the Services or HabitRPG
-        Content&semi;
-      </li>
-      <li>
-        Interfere with&comma; or attempt to interfere with&comma; the access of
-        any user&comma; host or network&comma; including&comma; without limitation&comma; sending a
-        virus&comma; overloading&comma; flooding&comma; spamming&comma; or mail-bombing the Services&semi;
-      </li>
-      <li>
-        Collect or store any personally identifiable information from
-        the Services from other users of the Services without their express
-        permission&semi;
-      </li>
-      <li>
-        Impersonate or misrepresent your affiliation with any person
-        or entity&semi; Violate any applicable law or regulation&semi; or
-      </li>
-      <li>
-        Encourage or enable any other individual to do any of the
-        foregoing&period;
-      </li>
+     <li>You have violated any part of this Agreement, the Privacy Policy, or the Community Guidelines;</li>
+     <li>We have stopped offering the Service in your region; or</li>
+     <li>Doing so would be in the best interests of our community, the Service, or the rights of a third party.</li>
     </ul>
-    <p>
-      HabitRPG will have the right to investigate and prosecute
-      violations of any of the above&comma; including intellectual property rights
-      infringement and Services security issues&comma; to the fullest extent of the
-      law&period; HabitRPG may involve and cooperate with law enforcement authorities
-      in prosecuting users who violate these Terms of Service&period; You acknowledge
-      that HabitRPG has no obligation to monitor your access to or use of the
-      Services or HabitRPG Content or to review or edit any Public User Content&comma; but
-      has the right to do so for the purpose of operating the Services&comma; to
-      ensure your compliance with these Terms of Service&comma; or to comply with
-      applicable law or the order or requirement of a court&comma; administrative
-      agency or other governmental body&period; HabitRPG reserves the right&comma; at any
-      time and without prior notice&comma; to remove or disable access to any
-      HabitRPG Content&comma; including&comma; any Public User Content&comma; that HabitRPG&comma; in its sole
-      discretion&comma; considers to be in violation of these Terms of Service or
-      otherwise harmful to the Services&period;
-    </p>
-    <p>
-      <strong>Links</strong>
-      <br>The Services may contain links to third-party websites or resources&period; You
-      acknowledge and agree that HabitRPG is not responsible or liable for&colon; &lpar;i&rpar;
-      the availability or accuracy of such websites or resources&semi; or &lpar;ii&rpar; the
-      content&comma; products&comma; or services on or available from such websites or
-      resources&period; Links to such websites or resources do not imply any
-      endorsement by HabitRPG of such websites or resources or the content&comma;
-      products&comma; or services available from such websites or resources&period; You
-      acknowledge sole responsibility for and assume all risk arising from
-      your use of any such websites or resources&period;
-    </p>
-    <p>
-      <strong>Termination and HabitRPG Account&semi; Cancellation</strong>
-      <br>Without limiting other remedies&comma; HabitRPG may at any time suspend or
-      terminate your HabitRPG Account and refuse to provide access to the
-      Services&period; In addition&comma; HabitRPG may notify authorities or take any
-      actions it deems appropriate&comma; without notice to you&comma; if HabitRPG suspects
-      or determines&comma; in its own discretion&comma; that you may have or there is a
-      significant risk that you have &lpar;i&rpar; failed to comply with any provision
-      of these Terms of Service or any policies or rules established by
-      HabitRPG&semi; or &lpar;ii&rpar; engaged in actions relating to or in the course of
-      using the Services that may be illegal or cause liability&comma; harm&comma;
-      embarrassment&comma; harassment&comma; abuse or disruption for you&comma; HabitRPG Users&comma;
-      HabitRPG or any other third parties or the Services&period;
-    </p>
-    <p>
-      You may terminate your HabitRPG Account at any time and for any
-      reason by sending email to support AT HabitRPG&period;com&period; Upon any termination
-      by a Member&comma; the related account will no longer be accessible&period;
-    </p>
-    <p>
-      After any termination&comma; you understand and acknowledge that we
-      will have no further obligation to provide the Services and all licenses
-      and other rights granted to you by these Terms of Service will
-      immediately cease&period; HabitRPG will not be liable to you or any third party
-      for termination of the Services or termination of your use of either&period;
-      UPON ANY TERMINATION OR SUSPENSION&comma; ANY CONTENT&comma; MATERIALS OR
-      INFORMATION &lpar;INCLUDING PUBLIC USER CONTENT&rpar; THAT YOU HAVE SUBMITTED ON THE
-      SERVICES OR THAT WHICH IS RELATED TO YOUR ACCOUNT MAY NO LONGER BE
-      ACCESSED BY YOU&period; Furthermore&comma; HabitRPG will have no obligation to
-      maintain any information stored in our database related to your account
-      or to forward any information to you or any third party&period;
-    </p>
-    <p>
-      Any suspension&comma; termination or cancellation will not affect your
-      obligations to HabitRPG under these Terms of Service &lpar;including&comma; without
-      limitation&comma; proprietary rights and ownership&comma; indemnification and
-      limitation of liability&rpar;&comma; which by their sense and context are intended
-      to survive such suspension&comma; termination or cancellation&period;
-    </p>
-    <p>
-      <strong>Disclaimers</strong>
-      <br>THE SERVICES&comma; HABITRPG CONTENT AND PUBLIC USER CONTENT ARE PROVIDED 'AS IS'&comma;
-      WITHOUT WARRANTY OF ANY KIND&comma; EITHER EXPRESS OR IMPLIED&period; WITHOUT
-      LIMITING THE FOREGOING&comma; HABITRPG EXPLICITLY DISCLAIMS ANY WARRANTIES OF
-      MERCHANTABILITY&comma; FITNESS FOR A PARTICULAR PURPOSE&comma; QUIET ENJOYMENT OR
-      NON-INFRINGEMENT&comma; AND ANY WARRANTIES ARISING OUT OF COURSE OF DEALING OR
-      USAGE OF TRADE&period;
-    </p>
-    <p>
-      HABITRPG MAKES NO WARRANTY THAT THE SERVICES&comma; HABITRPG CONTENT OR
-      PUBLIC USER CONTENT WILL MEET YOUR REQUIREMENTS OR BE AVAILABLE ON AN
-      UNINTERRUPTED&comma; SECURE&comma; OR ERROR-FREE BASIS&period; HABITRPG MAKES NO WARRANTY
-      REGARDING THE QUALITY OF ANY PRODUCTS&comma; SERVICES OR CONTENT PURCHASED OR
-      OBTAINED THROUGH THE SERVICES OR THE ACCURACY&comma; TIMELINESS&comma; TRUTHFULNESS&comma;
-      COMPLETENESS OR RELIABILITY OF ANY CONTENT OBTAINED THROUGH THE
-      SERVICES&period;
-    </p>
-    <p>
-      NO ADVICE OR INFORMATION&comma; WHETHER ORAL OR WRITTEN&comma; OBTAINED FROM
-      HABITRPG OR THROUGH THE SERVICES&comma; HABITRPG CONTENT OR PUBLIC USER CONTENT&comma; WILL
-      CREATE ANY WARRANTY NOT EXPRESSLY MADE HEREIN&period;
-    </p>
-    <p>
-      <strong>Indemnity</strong>
-      <br>You agree to defend&comma; indemnify&comma; and hold HabitRPG&comma; its officers&comma;
-      directors&comma; employees and agents&comma; harmless from and against any claims&comma;
-      liabilities&comma; damages&comma; losses&comma; and expenses&comma; including&comma; without
-      limitation&comma; reasonable legal and accounting fees&comma; arising out of or in
-      any way connected with Public User Content you submit to HabitRPG&comma; your access
-      to or use of the Services or HabitRPG Content&comma; or your violation of these
-      Terms of Service&period;
-    </p>
-    <p>
-      <strong>Limitation of Liability</strong>
-      <br>YOU ACKNOWLEDGE AND AGREE THAT&comma; TO THE MAXIMUM EXTENT PERMITTED BY LAW&comma;
-      THE ENTIRE RISK ARISING OUT OF YOUR ACCESS TO AND USE OF THE SERVICES
-      AND CONTENT THEREIN REMAINS WITH YOU&period; NEITHER HABITRPG NOR ANY OTHER
-      PARTY INVOLVED IN CREATING&comma; PRODUCING&comma; OR DELIVERING THE SERVICES OR
-      HABITRPG CONTENT WILL BE LIABLE FOR ANY INCIDENTAL&comma; SPECIAL&comma; EXEMPLARY OR
-      CONSEQUENTIAL DAMAGES&comma; INCLUDING LOST PROFITS&comma; LOSS OF DATA OR LOSS OF
-      GOODWILL&comma; SERVICE INTERRUPTION&comma; COMPUTER DAMAGE OR SYSTEM FAILURE OR THE
-      COST OF SUBSTITUTE PRODUCTS OR SERVICES&comma; ARISING OUT OF OR IN CONNECTION
-      WITH THESE TERMS OR FROM THE USE OF OR INABILITY TO USE THE SERVICES OR
-      CONTENT THEREIN&comma; WHETHER BASED ON WARRANTY&comma; CONTRACT&comma; TORT &lpar;INCLUDING
-      NEGLIGENCE&rpar;&comma; PRODUCT LIABILITY OR ANY OTHER LEGAL THEORY&comma; AND WHETHER OR
-      NOT HABITRPG HAS BEEN INFORMED OF THE POSSIBILITY OF SUCH DAMAGE&comma; EVEN IF
-      A LIMITED REMEDY SET FORTH HEREIN IS FOUND TO HAVE FAILED OF ITS
-      ESSENTIAL PURPOSE&period; YOU SPECIFICALLY ACKNOWLEDGE THAT HABITRPG IS NOT
-      LIABLE FOR THE DEFAMATORY&comma; OFFENSIVE OR ILLEGAL CONDUCT OF OTHER USERS
-      OR THIRD PARTIES AND THAT THE RISK OF INJURY FROM THE FOREGOING RESTS
-      ENTIRELY WITH YOU&period; FURTHER&comma; HABITRPG WILL HAVE NO LIABILITY TO YOU OR TO
-      ANY THIRD PARTY FOR ANY PUBLIC USER CONTENT OR THIRD-PARTY CONTENT UPLOADED
-      ONTO OR DOWNLOADED FROM THE SITES OR THROUGH THE SERVICES&period;
-    </p>
-    <p>
-      IN NO EVENT WILL HABITRPG&apos;S AGGREGATE LIABILITY ARISING OUT OF OR
-      IN CONNECTION WITH THESE TERMS OF SERVICE OR FROM THE USE OF OR
-      INABILITY TO USE THE SITE&comma; SERVICES OR CONTENT THEREIN EXCEED ONE
-      HUNDRED U&period;S&period; DOLLARS &lpar;&dollar;100&rpar;&period; THE LIMITATIONS OF DAMAGES SET FORTH ABOVE
-      ARE FUNDAMENTAL ELEMENTS OF THE BASIS OF THE BARGAIN BETWEEN HABITRPG AND
-      YOU&period; SOME JURISDICTIONS DO NOT ALLOW THE EXCLUSION OR LIMITATION OF
-      LIABILITY FOR CONSEQUENTIAL OR INCIDENTAL DAMAGES&comma; SO THE ABOVE
-      LIMITATION MAY NOT APPLY TO YOU&period;
-    </p>
-    <p>
-      <strong>Proprietary Rights Notices</strong>
-      <br>All trademarks&comma; service marks&comma; logos&comma; trade names and any other
-      proprietary designations of HabitRPG used herein are trademarks or
-      registered trademarks of HabitRPG&period; Any other trademarks&comma; service marks&comma;
-      logos&comma; trade names and any other proprietary designations are the
-      trademarks or registered trademarks of their respective parties&period;
-    </p>
-    <p>
-      <strong>Controlling Law and Jurisdiction</strong>
-      <br>These Terms of Service and any action related thereto will be governed
-      by the laws of the State of California without regard to its conflict of
-      laws provisions&period; The exclusive jurisdiction and venue of any action with
-      respect to the subject matter of these Terms of Service will be the
-      courts having jurisdiction over disputes arising in Santa Clara County&comma;
-      California&comma; and each of the parties hereto waives any objection to
-      jurisdiction and venue in such courts&period;
-    </p>
-    <p>
-      YOU AGREE THAT IF YOU WANT TO SUE US&comma; YOU MUST FILE YOUR LAWSUIT
-      WITHIN ONE YEAR AFTER THE EVENT THAT GAVE RISE TO YOUR LAWSUIT&period;
-      OTHERWISE&comma; YOUR LAWSUIT WILL BE PERMANENTLY BARRED&period;
-    </p>
-    <p>
-      <strong>Export Control</strong>
-      <br>You may not use or otherwise export or re-export the Services except as
-      authorized by United States law and the laws of the jurisdiction in
-      which the Services were obtained&period; In particular&comma; but without limitation&comma;
-      the Services may not be exported or re-exported &lpar;a&rpar; into any U&period;S&period;
-      embargoed countries or &lpar;b&rpar; to anyone on the U&period;S&period; Treasury Department&apos;s
-      list of Specially Designated Nationals or the U&period;S&period; Department of
-      Commerce Denied Person&apos;s List or Entity List&period; By using the Services&comma; you
-      represent and warrant that you are not located in any such country or on
-      any such list&period; You also agree that you will not use these products for
-      any purposes prohibited by United States law&comma; including&comma; without
-      limitation&comma; the development&comma; design&comma; manufacture or production of
-      nuclear&comma; missiles&comma; or chemical or biological weapons&period;
-    </p>
-    <p>
-      <strong>Entire Agreement</strong>
-      <br>These Terms of Service constitute the entire and exclusive understanding
-      and agreement between HabitRPG and you regarding the Services and HabitRPG
-      Content&comma; and these Terms of Service supersede and replace any and all
-      prior oral or written understandings or agreements between HabitRPG and
-      you regarding the Services and HabitRPG Content&period;
-    </p>
-    <p>
-      <strong>Assignment</strong>
-      <br>You may not assign or transfer these Terms of Service&comma; by operation of
-      law or otherwise&comma; without HabitRPG&apos;s prior written consent&period; Any attempt
-      by you to assign or transfer these Terms of Service&comma; without such
-      consent&comma; will be null and of no effect&period; HabitRPG may freely assign these
-      Terms of Service&period; Subject to the foregoing&comma; these Terms of Service will
-      bind and inure to the benefit of the parties&comma; their successors and
-      permitted assigns&period;
-    </p>
-    <p>
-      <strong>Notices</strong>
-      <br>You consent to the use of&colon; &lpar;i&rpar; electronic means to complete these Terms
-      of Service and to deliver any notices or other communications permitted
-      or required hereunder&semi; and &lpar;ii&rpar; electronic records to store information
-      related to these Terms of Service or your use of the Services&period; Any
-      notices or other communications permitted to required hereunder&comma;
-      including those regarding modifications to these Terms of Service&comma; will
-      be in writing and given&colon; &lpar;x&rpar; by HabitRPG via email &lpar;in each case to the
-      address that you provide&rpar; or &lpar;y&rpar; by posting to the Sites or Services&period;
-      For notices made by e-mail&comma; the date of receipt will be deemed the date
-      on which such notice is transmitted&period;
-    </p>
-    <p>
-      <strong>General</strong>
-      <br>The failure of HabitRPG to enforce any right or provision of these Terms
-      of Service will not constitute a waiver of future enforcement of that
-      right or provision&period; The waiver of any such right or provision will be
-      effective only if in writing and signed by a duly authorized
-      representative of HabitRPG&period; Except as expressly set forth in these Terms
-      of Service&comma; the exercise by either party of any of its remedies under
-      these Terms of Service will be without prejudice to its other remedies
-      under these Terms of Service or otherwise&period; If for any reason a court of
-      competent jurisdiction finds any provision of these Terms of Service
-      invalid or unenforceable&comma; that provision will be enforced to the maximum
-      extent permissible and the other provisions of these Terms of Service
-      will remain in full force and effect&period;
-    </p>
-    <p>
-      <strong>Contacting Us</strong>
-      <br>If you have any questions about these Terms of Service&comma; please contact
-      us at
-      <a href="mailto:admin@habitica.com">admin@habitica.com</a>
-    </p>
+    <p>If your account is terminated, you will no longer have access to it, including to any of the associated data or Content. You will not be entitled to any refunds and we will have no liability to you. We also reserve the right to terminate any other accounts you may have created, as well as access to any other HabitRPG Service (also without refunds or liability to you).</p>
+    <p>You understand and agree that using the Service comes with the risk that your account may be terminated or suspended at our discretion and at any time. Please keep this risk in mind and comport yourself appropriately.</p>
+    <h2>API</h2>
+    <p>You may access your Service data via the Application Program Interface ("API"). By using API you are automatically bound by the Agreement.</p>
+    <h2>Using Our Service</h2>
+    <p>You must follow any policies made available to you within the Service, including but not limited to the Terms of Service, Privacy Policy, and Community Guidelines. You may only use our Service as permitted by law. HabitRPG may investigate and/or suspend or terminate our Service to you at any time if we find your use of our Service violates the Terms and/or any policies.</p>
+    <p>Using our Service does not grant you ownership of any intellectual property rights in our Service or the content you may have access to. You may not use any copyrighted content in our Service unless you obtain permission from the content owner and/or are otherwise permitted by law. The Terms do not grant you the right to use any branding or logos used in our Service. Our Service may display some logos, trademarks, or branding materials that are not the property of HabitRPG. Such content is the sole responsibility of the entity that makes it available.</p>
+    <p>You may not abuse and/or misuse our Service, including but not limited to the following actions:</p>
+    <ul>
+     <li>Using the Service for any unlawful purposes or activities;</li>
+     <li>Uploading any content to the Service in violation of any applicable law, including but not limited to intellectual property laws and publicity laws;</li>
+     <li>Sending unsolicited promotions or advertisements;</li>
+     <li>Accessing or tampering with the Service's server systems;</li>
+     <li>Interfering with or disrupting the access of any user, host, or network;</li>
+     <li>Abusing or submitting excessively frequent requests to the Service via the API</li>
+     <li>Spamming chat, whether for personal or commercial purposes, by disrupting the flow of conversation with repeated postings;</li>
+     <li>Impersonating any person, business, or entity, including an employee of HabitRPG, or member of the Habitica moderation team, or communicating in any way that makes it appear that the communication originates from Habitica staff or HabitRPG;</li>
+     <li>Transmitting or communicating any content which, in the sole and exclusive discretion of HabitRPG, is deemed offensive, including language that is unlawful, harmful, threatening, abusive, harassing, defamatory, vulgar, obscene, sexually explicit, or racially, ethically, or otherwise objectionable,</li>
+     <li>Participating in any action which, in the sole and exclusive judgment of HabitRPG, defrauds any other user of the Game, including by scamming or social engineering; or</li>
+     <li>Inducing or encouraging others to violate the Community Guidelines or the Agreement.</li>
+    </ul>
+    <p>HabitRPG, in its sole discretion, will determine what constitutes abuse and/or misuse of our Service.</p>
+    <h2>Premium Service and Payments</h2>
+    <p>You may choose our free Service or paid Service ("Premium") depending on your needs. We do not guarantee when, if ever, Premium features will be available in the free Service. You may upgrade from free Service to Premium at any time by any of the following methods:</p>
+    <ul>
+     <li>Web: Selecting the user icon in the top right corner and selecting "Subscription" from the dropdown menu,</li>
+     <li>Web: Clicking the green gem icon in the navigation bar at the top of the screen and following instructions to Subscribe or Buy Gems,</li>
+     <li>Android: Tap the menu icon in the top left corner of the main screen and select "Gems & Subscription". Follow the instructions to make a purchase.</li>
+     <li>iOS: Tap the menu icon in the lower right and select "Gems & Subscriptions". Follow the instructions to make a purchase.</li>
+    </ul>
+    <p>You will be charged the amount shown on Pricing before you can access Premium Service. All prices shown on Pricing are inclusive of any applicable sales taxes, levies, value-added taxes, or duties imposed by taxing authorities, and you are responsible for payment of all such taxes, levies, or duties. We may revise the Pricing at any time and may, from time to time, modify, amend, or supplement our fees and fee-billing methods. Such changes shall be effective upon posting on the Pricing page or elsewhere in the Service. If there is a dispute regarding payment of fees to us, we reserve the right to terminate or suspend your account at our sole discretion.</p>
+    <p>BY PURCHASING PREMIUM YOU EXPRESSLY UNDERSTAND AND AGREE TO OUR REFUND POLICY:</p>
+    <p>WITHIN THIRTY (30) DAYS OF YOUR PREMIUM PAYMENT DATE AS SHOWN ON YOUR PAYMENT BILL, YOU CAN REQUEST A FULL REFUND BY CONTACTING US AT ADMIN@HABITICA.COM. AFTER THIRTY (30) DAYS OF YOUR PREMIUM PAYMENT DATE, ANY PAYMENT REFUND IS SOLELY SUBJECT TO OUR DISCRETION. THE REFUND SHALL BE YOUR SOLE AND EXCLUSIVE REMEDY.</p>
+    <p>FOR ANY CUSTOMER WHO PURCHASED PREMIUM IN APPLE INC.'s APP STORE ("APP STORE"), PLEASE CONTACT APPLE INC.'s SUPPORT TEAM: <a href="http://reportaproblem.apple.com" target="_blank">http://reportaproblem.apple.com</a>. APPLE'S APP STORE DOES NOT ALLOW DEVELOPERS TO ISSUE REFUND FOR APP STORE PURCHASES MADE BY CUSTOMERS.</p>
+    <h2>Warranty Disclaimer</h2>
+    <p>THE SERVICE AND ANY CONTENT MADE AVAILABLE BY HABITRPG VIA THE SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT ANY WARRANTIES OF ANY KIND, INCLUDING, WITHOUT LIMITATION, THAT THE SERVICE OR CONTENT WILL OPERATE ERROR-FREE OR THAT THE SERVICE OR CONTENT OR ITS SERVERS ARE FREE OF COMPUTER VIRUSES OR SIMILAR CONTAMINATION OR DESTRUCTIVE FEATURES.</p>
+    <p>WE DISCLAIM ALL WARRANTIES, INCLUDING, BUT NOT LIMITED TO, WARRANTIES OF TITLE, MERCHANTABILITY, NON-INFRINGEMENT OF THIRD PARTIES' RIGHTS, AND FITNESS FOR PARTICULAR PURPOSE AND ANY WARRANTIES ARISING FROM A COURSE OF DEALING, COURSE OF PERFORMANCE, OR USAGE OF TRADE.</p>
+    <p>WE RESERVE THE RIGHT TO MAKE CHANGES, CORRECTIONS, AND/OR IMPROVEMENTS TO THE SERVICE OR THE CONTENT AT ANY TIME WITHOUT NOTICE.</p>
+    <p>IN CONNECTION WITH ANY WARRANTY, CONTRACT, OR COMMON LAW TORT CLAIMS: (I) WE AND OUR LICENSORS SHALL NOT BE LIABLE FOR ANY INCIDENTAL OR CONSEQUENTIAL DAMAGES, LOST PROFITS, OR DAMAGES RESULTING FROM LOST DATA OR BUSINESS INTERRUPTION RESULTING FROM THE USE OR INABILITY TO ACCESS AND USE THE SERVICE OR CONTENT POSTED BY HABITPRG, EVEN IF WE HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES; AND (II) ANY DIRECT DAMAGES THAT YOU MAY SUFFER AS A RESULT OF YOUR USE OF THE PLATFORM SHALL BE LIMITED TO THE GREATER OF (I) MONIES YOU HAVE PAID US IN CONNECTION WITH YOUR USE OF THE PLATFORM DURING THE TWELVE (12) MONTHS IMMEDIATELY PRECEDING THE EVENTS GIVING RISE TO THE CLAIM, OR (II) ONE HUNDRED US DOLLARS ($100).</p>
+    <p>SOME JURISDICTIONS DO NOT ALLOW THE EXCLUSION OF CERTAIN WARRANTIES. THEREFORE, SOME OF THE ABOVE LIMITATIONS ON WARRANTIES IN THIS SECTION MAY NOT APPLY TO YOU. NOTHING IN THIS AGREEMENT SHALL AFFECT ANY NON-WAIVABLE STATUTORY RIGHTS THAT APPLY TO YOU.</p>
+    <h2>Indemnification</h2>
+    <p>You agree to defend, indemnify, and hold us and our officers, directors, employees, agents, successors, licensees, licensors, and assigns harmless from and against any damages, liabilities, losses, expenses, claims, actions, and/or demands, including, without limitation, reasonable legal and accounting fees, arising or resulting from: (i) your breach of any of your representations, warranties or other obligations under this Agreement; (ii) your use or misuse of the Service or content posted or made available by HabitRPG; and/or (iii) your violation of any third-party rights, including without limitation any copyright, trademark, property, publicity, or privacy right. We shall provide notice to you of any such claim, suit, or proceeding and shall assist you, at your expense, in defending any such claim, suit, or proceeding. We reserve the right to assume the exclusive defense and control (at your expense) of any matter that is subject to indemnification under this section. In such case, you agree to cooperate with any reasonable requests assisting our defense of such matter.</p>
+    <h2>Compliance with Applicable Laws</h2>
+    <p>The Service is based in the United States. We make no claims concerning whether the Service or posted content may be downloaded, viewed, or be appropriate for use outside of the United States. If you access the Service or such content from outside of the United States, you do so at your own risk. Whether inside or outside of the United States, you are solely responsible for ensuring compliance with the laws of your specific jurisdiction.</p>
+    <h2>Binding Arbitration</h2>
+    <p>In the event of a dispute arising under or relating to this Agreement or the Service (each, a "<u>Dispute</u>"), such dispute will be finally and exclusively resolved by binding arbitration governed by the Federal Arbitration Act ("<u>FAA</u>"). Any election to arbitrate, at any time, shall be final and binding on the other party. NEITHER PARTY SHALL HAVE THE RIGHT TO LITIGATE SUCH CLAIM IN COURT OR TO HAVE A JURY TRIAL, EXCEPT EITHER PARTY MAY BRING ITS CLAIM IN ITS LOCAL SMALL CLAIMS COURT, IF PERMITTED BY THAT SMALL CLAIMS COURT RULES AND IF WITHIN SUCH COURT'S JURISDICTION. ARBITRATION IS DIFFERENT FROM COURT, AND DISCOVERY AND APPEAL RIGHTS MAY ALSO BE LIMITED IN ARBITRATION. All disputes will be resolved before a neutral arbitrator selected jointly by the parties, whose decision will be final, except for a limited right of appeal under the FAA. The arbitration shall be commenced and conducted by JAMS pursuant to its then current Comprehensive Arbitration Rules and Procedures and in accordance with the Expedited Procedures in those rules, or, where appropriate, pursuant to JAMS' Streamlined Arbitration Rules and Procedures. All applicable JAMS' rules and procedures are available at the JAMS website <a href="https://www.jamsadr.com" target="_blank">www.jamsadr.com</a>. Each party will be responsible for paying any JAMS filing, administrative, and arbitrator fees in accordance with JAMS rules. Judgment on the arbitrator's award may be entered in any court having jurisdiction. This clause shall not preclude parties from seeking provisional remedies in aid of arbitration from a court of appropriate jurisdiction. The arbitration may be conducted in person, through the submission of documents, by phone, or online. If conducted in person, the arbitration shall take place in the United States county where you reside. The parties may litigate in court to compel arbitration, to stay a proceeding pending arbitration, or to confirm, modify, vacate, or enter judgment on the award entered by the arbitrator. The parties shall cooperate in good faith in the voluntary and informal exchange of all non-privileged documents and other information (including electronically stored information) relevant to the Dispute immediately after commencement of the arbitration. As set forth below, nothing in this Agreement will prevent us from seeking injunctive relief in any court of competent jurisdiction as necessary to protect our proprietary interests.</p>
+    <p>ANY CLAIMS, ACTIONS OR PROCEEDINGS BY YOU MUST BE COMMENCED WITHIN ONE YEAR AFTER THE EVENT THAT GAVE RISE TO YOUR CLAIM OCCURS. ALL OTHER CLAIMS YOU MAY HAVE ARE PERMANENTLY BARRED.</p>
+    <h2>Class Action Waiver</h2>
+    <p>You agree that any arbitration or proceeding shall be limited to the Dispute between us and you individually. To the full extent permitted by law, (i) no arbitration or proceeding shall be joined with any other; (ii) there is no right or authority for any Dispute to be arbitrated or resolved on a class action-basis or to utilize class action procedures; and (iii) there is no right or authority for any Dispute to be brought in a purported representative capacity on behalf of the general public or any other persons. YOU AGREE THAT YOU MAY BRING CLAIMS AGAINST US ONLY IN YOUR INDIVIDUAL CAPACITY AND NOT AS A PLAINTIFF OR CLASS MEMBER IN ANY PURPORTED CLASS OR REPRESENTATIVE PROCEEDING.</p>
+    <h2>Equitable Relief</h2>
+    <p>You acknowledge and agree that in the event of a breach or threatened violation of our intellectual property rights and confidential and proprietary information by you, we will suffer irreparable harm and will therefore be entitled to injunctive relief to enforce this Agreement. We may, without waiving any other remedies under this Agreement, seek from any court having jurisdiction any interim, equitable, provisional, or injunctive relief that is necessary to protect our rights and property pending the outcome of the arbitration referenced above.</p>
+    <h2>Contact Us</h2>
+    <p>If you have any questions about the Agreement, or want to report a violation (including DMCA take-down notices relating to infringement of copyright) please contact us at <a href="mailto:admin@habitica.com">admin@habitica.com</a>.</p>
+    <h2>Miscellaneous</h2>
+    <p>This Agreement and any action related thereto will be governed by the laws of the State of California without regard to its conflict of laws provisions. Our failure to act on or enforce any provision of this Agreement shall not be construed as a waiver of that provision or any other provision therein. No waiver shall be effective against us unless made in writing, and no such waiver shall be construed as a waiver in any other or subsequent instance. Except as expressly agreed by us and you in writing, this Agreement constitutes the entire agreement between you and us with respect to the subject matter, and supersedes all previous or contemporaneous agreements, whether written or oral, between the parties with respect to the subject matter. The section headings are provided merely for convenience and shall not be given any legal import. This Agreement will inure to the benefit of our successors, assigns, licensees, and sublicensees.</p>
   </div>
   <!-- eslint-enable max-len -->
 </template>

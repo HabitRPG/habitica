@@ -13,10 +13,10 @@
     "storybook:serve": "vue-cli-service storybook:serve -p 6006 -c config/storybook"
   },
   "dependencies": {
-    "@storybook/addons": "6.3.12",
-    "@storybook/addon-actions": "6.3.12",
+    "@storybook/addons": "6.4.9",
+    "@storybook/addon-actions": "6.4.9",
     "@storybook/addon-knobs": "6.2.9",
-    "@storybook/addon-links": "6.3.12",
+    "@storybook/addon-links": "6.4.9",
     "@storybook/addon-notes": "5.3.21",
     "@storybook/vue": "6.3.12",
     "@vue/cli-plugin-babel": "^4.5.15",
@@ -32,7 +32,7 @@
     "bootstrap": "^4.6.0",
     "bootstrap-vue": "^2.21.2",
     "chai": "^4.3.4",
-    "core-js": "^3.19.2",
+    "core-js": "^3.19.3",
     "eslint": "^6.8.0",
     "eslint-config-habitrpg": "^6.2.0",
     "eslint-plugin-mocha": "^5.3.0",
