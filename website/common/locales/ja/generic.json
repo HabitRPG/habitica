@@ -202,5 +202,6 @@
     "finish": "終了",
     "congratulations": "おめでとうございます！",
     "onboardingAchievs": "初心者入門の実績",
-    "askQuestion": "質問する"
+    "askQuestion": "質問する",
+    "submitBugReport": "バグレポートを送信"
 }

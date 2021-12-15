@@ -1,8 +1,19 @@
 {
-  "achievement": "Achievement",
-  "onwards": "Onwards!",
-  "levelup": "By accomplishing your real life goals, you leveled up and are now fully healed!",
-  "reachedLevel": "You Reached Level <%= level %>",
-  "achievementLostMasterclasser": "Quest Completionist: Masterclasser Series",
-  "achievementLostMasterclasserText": "Completed all sixteen quests in the Masterclasser Quest Series and solved the mystery of the Lost Masterclasser!"
+    "achievement": "Sasniegums",
+    "onwards": "Aiziet!",
+    "levelup": "Kā atlīdzību, par to, ka joprojām virzies uz priekšu, tu esi ieguvis jaunu līmeni un esi pilnībā izveseļojies!",
+    "reachedLevel": "Tu sasniedzi <%= level %> līmeni",
+    "achievementLostMasterclasser": "",
+    "achievementLostMasterclasserText": "",
+    "foundNewItemsExplanation": "Pabeidzot uzdevumus, tu vari atrast jaunas lietas kā Olas, Perēšanas Dziras un Pārtiku priekš Mājdzīvniekiem.",
+    "foundNewItems": "Tu atradi jaunas lietas!",
+    "yourProgress": "Tavs progress",
+    "earnedAchievement": "Tu ieguvi jaunu Sasniegumu!",
+    "viewAchievements": "Parādīt Sasniegumus",
+    "showAllAchievements": "Parādīt visus <%= category %>",
+    "hideAchievements": "Paslēpt <%= category %>",
+    "letsGetStarted": "Sāksim!",
+    "onboardingComplete": "Tu pabeidzi visus pašreizējos uzdevumus!",
+    "yourRewards": "Tavi Apbalvojumi",
+    "foundNewItemsCTA": "Aizej uz savu inventāru un pamēģini salikt kopā Perēšanas dziru un Olu!"
 }

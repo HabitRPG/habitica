@@ -103,5 +103,6 @@
     "selectParticipant": "Вибрати учасника",
     "wonChallengeDesc": "<%= challengeName %> обрав(-ла) Вас переможцем. Перемога записана у досягненнях.",
     "yourReward": "Ваша винагорода",
-    "filters": "Фільтри"
+    "filters": "Фільтри",
+    "removeTasks": "Видалити завдання"
 }

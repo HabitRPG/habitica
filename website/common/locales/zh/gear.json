@@ -2508,5 +2508,13 @@
     "weaponArmoirePotionPinkNotes": "有了这瓶粉色棉花糖孵化药水，生活都变得越来越甜、越来越粉红了！增加<%= int %>点智力和<%= con %>点体质。魔法衣橱：孵化药水套装（8/10）",
     "weaponArmoirePotionShadeNotes": "是时候在蛋上撒一些暗影药水来孵化一只暗影宠物了！增加<%= int %>点智力和<%= per %>点感知。魔法衣橱：孵化药水套装（5/10）",
     "weaponArmoirePotionBlueNotes": "使用一些蓝色棉花糖药水来让生活变得更加蓬松和蓝色！增加<%= int %>点智力和 <%= con %>点体质。魔法衣橱：孵化药水套装（9/10）",
-    "offHandCapitalized": "副手物品"
+    "offHandCapitalized": "副手物品",
+    "weaponArmoireRegalSceptreText": "帝王权杖",
+    "weaponArmoireRegalSceptreNotes": "握住这根镶满宝石的手杖，展示您的权威。增加<%= per %>点感知。魔法衣橱：王者套装（2/2）。",
+    "armorMystery202112Text": "南极温蒂妮的尾巴",
+    "headArmoireRegalCrownText": "王者的皇冠",
+    "headArmoireRegalCrownNotes": "任何一位君主都会以拥有这顶威严而英俊的皇冠为幸运。增加<%= int %>点智力。魔法衣橱：王者套装（1/2）。",
+    "armorMystery202112Notes": "用这条微光闪闪的尾巴在冰冻的海洋中滑行，你不会为此感到寒冷。没有属性加成。2021年12月订阅者物品。",
+    "headMystery202112Text": "南极温蒂妮的皇冠",
+    "headMystery202112Notes": "这顶结冰的皇冠像冰山中隐藏的裂缝一样闪闪发光。没有属性加成。2021年12月订阅者物品。"
 }

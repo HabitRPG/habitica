@@ -341,9 +341,9 @@
     "foodPieRedThe": "Червоний вишневий пиріг",
     "foodPieRedA": "Шматок червоного вишневого пирога",
     "premiumPotionUnlimitedNotes": "Не може бути використано на квестових яйцях.",
-    "hatchingPotionMossyStone": "Моховий камінь",
-    "hatchingPotionPolkaDot": "У горошок",
-    "hatchingPotionStainedGlass": "Вітражне скло",
+    "hatchingPotionMossyStone": "Мохо-кам'яний",
+    "hatchingPotionPolkaDot": "Плямистий",
+    "hatchingPotionStainedGlass": "Вітражно-скляний",
     "hatchingPotionBlackPearl": "Чорна перлина",
     "hatchingPotionAutumnLeaf": "Осінній листок",
     "hatchingPotionVampire": "Вампір",
@@ -353,7 +353,7 @@
     "hatchingPotionDessert": "Цукровий",
     "hatchingPotionBirchBark": "Березовий",
     "hatchingPotionRuby": "Рубіновий",
-    "hatchingPotionAurora": "Аврора",
+    "hatchingPotionAurora": "Полярно-сяйний",
     "hatchingPotionAmber": "Бурштиновий",
     "hatchingPotionShadow": "Тінь",
     "hatchingPotionSilver": "Срібний",
@@ -366,5 +366,9 @@
     "questEggDolphinAdjective": "бадьорий",
     "questEggDolphinMountText": "Дельфін",
     "questEggDolphinText": "Дельфін",
-    "hatchingPotionWindup": "Заводний"
+    "hatchingPotionWindup": "Заводний",
+    "hatchingPotionSolarSystem": "Геліосистемний",
+    "hatchingPotionSunset": "Загравний",
+    "hatchingPotionMoonglow": "Місяцесяйний",
+    "hatchingPotionOnyx": "Оніксовий"
 }

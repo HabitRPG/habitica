@@ -2512,5 +2512,9 @@
     "weaponArmoirePotionGoldenText": "黄金のたまごがえしの薬の飾り",
     "weaponArmoirePotionGoldenNotes": "このたまごがえしの薬で、あなたのペットのハートは黄金になり(優しい心を持ち)ます……そして耳も黄金に……しっぽも黄金に……力と知能がそれぞれ<%= attrs %>上がります。ラッキー宝箱：たまごがえしの薬セット（10個中10個目のアイテム）",
     "headMystery202112Text": "南極のウィディーネのかんむり",
-    "headMystery202112Notes": "この凍ったかんむりは、氷山の隠れた亀裂のようにかすかに光ります。効果なし。2020年12月の寄付会員アイテム。"
+    "headMystery202112Notes": "この凍ったかんむりは、氷山の隠れた亀裂のようにかすかに光ります。効果なし。2020年12月の寄付会員アイテム。",
+    "weaponArmoireRegalSceptreText": "王錫",
+    "weaponArmoireRegalSceptreNotes": "この宝石で飾られた杖を手に持って、あなたの王者としての威厳を示しましょう。知覚が<%= per %>上がります。ラッキー宝箱：王者セット（2個中2個目のアイテム）。",
+    "headArmoireRegalCrownText": "王者の冠",
+    "headArmoireRegalCrownNotes": "どんな君主でもこんな威厳のあるかっこいい王冠を持っていたら幸運でしょう。知能が<%= int %>上がります。ラッキー宝箱：王者セット（2個中2個目のアイテム）。"
 }
