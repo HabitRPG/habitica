@@ -30,7 +30,7 @@ describe('GET /members/:memberId/purchase-history', () => {
     });
   });
 
-  it('returns achievements based on given user', async () => {
+  it('returns purchase history based on given user', async () => {
     const member = await generateUser();
     const response = await user.get(`/members/${member._id}/purchase-history`);
     expect(response.length).to.equal(0);

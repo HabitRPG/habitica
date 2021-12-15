@@ -73,7 +73,7 @@
   @import '~@/assets/scss/colors.scss';
 
   .svg-icon {
-      vertical-align: middle;
+    vertical-align: middle;
   }
 
   .amount {
@@ -83,26 +83,25 @@
   }
 
 
-    .added::before {
-        content: "+";
-    }
+  .added::before {
+    content: "+";
+  }
 
   .gems {
     color: $gems-color;
 
-
     &.deducted {
-            color: $red-10;
-        }
+      color: $red-10;
     }
+  }
 
   .hourglasses {
-        font-weight: bold;
-        color: $hourglass-color;
-        &.deducted {
-            color: $red-10;
-        }
-      }
+    font-weight: bold;
+    color: $hourglass-color;
+    &.deducted {
+      color: $red-10;
+    }
+  }
 </style>
 
 <script>

@@ -39,7 +39,7 @@ describe('shared.ops.releaseMounts', () => {
     delete user.items.mounts[mountsKeys[0]];
 
     try {
-      await await releaseMounts(user);
+      await releaseMounts(user);
     } catch (err) {
       expect(err).to.be.an.instanceof(NotAuthorized);
       expect(err.message).to.equal(i18n.t('notEnoughMounts'));
