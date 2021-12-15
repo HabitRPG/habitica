@@ -206,7 +206,7 @@
     "leaderCannotLeaveGroupWithActiveGroup": "A leader can not leave a group while the group has an active plan",
     "youHaveGroupPlan": "You have a free subscription because you are a member of a group that has a Group Plan. This will end when you are no longer in the group that has a Group Plan. Any months of extra subscription credit you have will be applied at the end of the Group Plan.",
     "cancelGroupSub": "Закінчити груповий план",
-    "confirmCancelGroupPlan": "Ви впевнені що хочете завершити груповий план та  забрати його вигоди з усіх учасників, включаючи їх безкоштовні підписки?",
+    "confirmCancelGroupPlan": "Ви впевнені що хочете завершити груповий план? Всі учасники групи втратять свої підписки та переваги.",
     "canceledGroupPlan": "Закінченний груповий план",
     "groupPlanCanceled": "Груповий план стане неактивним",
     "purchasedGroupPlanPlanExtraMonths": "You have <%= months %> months of extra group plan credit.",

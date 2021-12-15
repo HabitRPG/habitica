@@ -110,9 +110,9 @@
     "weaponSpecialNomadsScimitarNotes": "The curved blade of this Scimitar is perfect for attacking Tasks from the back of a mount! Increases Intelligence by <%= int %>.",
     "weaponSpecialFencingFoilText": "Fencing Foil",
     "weaponSpecialFencingFoilNotes": "Should anyone dare to impugn your honor, you'll be ready with this fine foil! Increases Strength by <%= str %>.",
-    "weaponSpecialTachiText": "Tachi",
+    "weaponSpecialTachiText": "대도",
     "weaponSpecialTachiNotes": "이 가볍고 굽은 칼은 당신의 할 일을 잘게 썰어버릴 겁니다! 근력을 <%= str %>만큼 올려줍니다.",
-    "weaponSpecialAetherCrystalsText": "Aether Crystals",
+    "weaponSpecialAetherCrystalsText": "에테르 크리스탈",
     "weaponSpecialAetherCrystalsNotes": "These bracers and crystals once belonged to the Lost Masterclasser herself. Increases all Stats by <%= attrs %>.",
     "weaponSpecialYetiText": "설인 조련사의 창",
     "weaponSpecialYetiNotes": "이 창은 사용자가 어떤 설인이라도 다룰 수 있게 합니다. 근력을 <%= str %> 만큼 올려줍니다. 2013-2014 겨울 장비 한정판.",
@@ -1746,5 +1746,6 @@
     "headMystery202011Text": "잎 장식 마법사 모자",
     "backMystery202012Text": "서리화염 날개",
     "headMystery202012Text": "서리화염 가면",
-    "weaponSpecialKS2019Notes": "그리폰의 부리와 발톱처럼 구부러진 이 화려한 폴암은 다가올 목표가 벅차게 느껴질 때 힘을 발휘하도록 상기시켜줍니다. 근력을 <%= str %> 만큼 올려줍니다."
+    "weaponSpecialKS2019Notes": "그리폰의 부리와 발톱처럼 구부러진 이 화려한 폴암은 다가올 목표가 벅차게 느껴질 때 힘을 발휘하도록 상기시켜줍니다. 근력을 <%= str %> 만큼 올려줍니다.",
+    "weaponSpecialKS2019Text": "신화적인 그리폰 글레이브"
 }
