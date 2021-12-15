@@ -33,6 +33,8 @@
       <payments-success-modal />
       <sub-cancel-modal-confirm v-if="isUserLoaded" />
       <sub-canceled-modal v-if="isUserLoaded" />
+      <bug-report-modal v-if="isUserLoaded" />
+      <bug-report-success-modal v-if="isUserLoaded" />
       <snackbars />
       <router-view v-if="!isUserLoggedIn || isStaticPage" />
       <template v-else>
@@ -177,6 +179,10 @@ import {
   removeLocalSetting,
 } from '@/libs/userlocalManager';
 
+const bugReportModal = () => import(/* webpackChunkName: "bug-report-modal" */'@/components/bugReportModal');
+const bugReportSuccessModal = () => import(/* webpackChunkName: "bug-report-success-modal" */'@/components/bugReportSuccessModal');
+
+
 const COMMUNITY_MANAGER_EMAIL = process.env.EMAILS_COMMUNITY_MANAGER_EMAIL; // eslint-disable-line
 
 export default {
@@ -196,6 +202,8 @@ export default {
     paymentsSuccessModal,
     subCancelModalConfirm,
     subCanceledModal,
+    bugReportModal,
+    bugReportSuccessModal,
   },
   mixins: [notifications, spellsMixin],
   data () {
@@ -406,7 +414,10 @@ export default {
         this.$store.state.isUserLoaded = true;
         Analytics.setUser();
         Analytics.updateUser();
-
+        return axios.get('/api/v4/i18n/browser-script', { language: this.user.preferences.language });
+      }).then(() => {
+        const i18nData = window && window['habitica-i18n'];
+        this.$loadLocale(i18nData);
         this.hideLoadingScreen();
 
         // Adjust the timezone offset

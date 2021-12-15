@@ -470,6 +470,11 @@ const backgrounds = {
     inside_a_potion_bottle: { },
     spiral_staircase: { },
   },
+  backgrounds122021: {
+    winter_canyon: { },
+    ice_palace: { },
+    frozen_polar_waters: { },
+  },
   timeTravelBackgrounds: {
     airship: {
       price: 1,

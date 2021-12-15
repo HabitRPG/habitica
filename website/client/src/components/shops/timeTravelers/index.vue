@@ -391,7 +391,7 @@ export default {
       return Object.values(this.viewOptions).some(g => g.selected);
     },
     imageURLs () {
-      if (!this.currentEvent || !this.currentEvent.season) {
+      if (!this.currentEvent || !this.currentEvent.season || this.currentEvent.season === 'thanksgiving') {
         return {
           background: 'url(/static/npc/normal/time_travelers_background.png)',
           npc: this.closed ? 'url(/static/npc/normal/time_travelers_closed_banner.png)'

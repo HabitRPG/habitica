@@ -841,11 +841,11 @@ export default {
   },
   computed: {
     emailValid () {
-      if (this.email.length <= 3) return false;
+      if (this.email.length < 1) return false;
       return isEmail(this.email);
     },
     emailInvalid () {
-      if (this.email.length <= 3) return false;
+      if (this.email.length < 1) return false;
       return !isEmail(this.email);
     },
     usernameValid () {

@@ -82,9 +82,17 @@
                 {{ $t('hall') }}
               </router-link>
             </li>
-            <li>
+            <li v-if="user">
               <a
-                :href="bugReportMailto"
+                @click.prevent="openBugReportModal()"
+                target="_blank"
+              >
+                {{ $t('reportBug') }}
+              </a>
+            </li>
+            <li v-else>
+              <a
+                href="mailto:admin@habitica.com?subject=Habitica Web Bug Report"
                 target="_blank"
               >
                 {{ $t('reportBug') }}

@@ -54,7 +54,7 @@
     "shops": "Obchody",
     "custom": "Vlastní",
     "wishlist": "Seznam přání",
-    "wrongItemType": "Item typu \"<%= type %>\" není platný.",
+    "wrongItemType": "Předmět typu \"<%= type %>\" není platný.",
     "wrongItemPath": "Cesta k předmětu \"<%= path %>\" je nesprávná.",
     "unpinnedItem": "Odepnul jsi <%= item %>! Nebude se nadále zobrazovat ve tvém sloupci odměn.",
     "cannotUnpinArmoirPotion": "Lektvar zdraví a Začarovanou almaru nelze odepnout.",
@@ -94,7 +94,7 @@
     "classGearText": "Gratuluji k vybrání povolání! Přidal jsem ti základní zbraň do tvého inventáře. Podívej se dolů a vybav se!",
     "autoAllocate": "Připisovat automaticky",
     "spells": "Dovednosti",
-    "skillsTitle": "Dovednosti",
+    "skillsTitle": "<%= classStr %> Dovednosti",
     "toDo": "úkol",
     "tourStatsPage": "Tohle je stránka s tvými statistikami! Získej ocenění za splnění vyjmenovaných úkolů.",
     "tourTavernPage": "Vítej v Krčmě, chatu pro všechny věkové kategorie! V případě nemoci, nebo třeba dovolené, se můžeš ochránit proti zranění za nesplněné Denní úkoly kliknutím na \"Pauznout poškození\". Přijď nás pozdravit!",
@@ -123,5 +123,12 @@
     "paymentAutoRenew": "Toto předplatné se automaticky obnoví, dokud nebude zrušeno. Pokud potřebujete předplatné zrušit, můžete tak učinit z nastavení.",
     "cannotUnpinItem": "Tuto položku nelze odepnout.",
     "paymentSubBillingWithMethod": "Tvé předplatné <strong>$<%= amount %> bude účtováno </strong> každé/CZ <strong><%= months %> měsíce/ů </strong> skrze <strong><%= paymentMethod %></strong>.",
-    "invalidUnlockSet": "Tento set předmětů je prošlý a nemůže být odemčen."
+    "invalidUnlockSet": "Tento set předmětů je prošlý a nemůže být odemčen.",
+    "amountExp": "<%= amount %> Zk",
+    "limitedAvailabilityDays": "K získání na <%= dny %>d <%= hodin%>h <%= minut %>m",
+    "nGemsGift": "<%= nGems %> Drahokamy (Dárek)",
+    "nMonthsSubscriptionGift": "<%= nMonths %> Měsíční odběr (Dárek)",
+    "nGems": "<%= nGems %> Drahokamy",
+    "limitedAvailabilityHours": "K získání na <%= hodin %>h <%= minut %>m",
+    "limitedAvailabilityMinutes": "K získání na <%= minut %>m <%= sekund %>s"
 }

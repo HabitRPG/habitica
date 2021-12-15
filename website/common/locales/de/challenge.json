@@ -103,5 +103,6 @@
     "selectParticipant": "Wähle einen Teilnehmer aus",
     "filters": "Filter",
     "wonChallengeDesc": "Du hast die Herausforderung <%= challengeName %> gewonnen! Dein Erfolg wird unter den Errungenschaften in Deinem Profil aufgezeichnet.",
-    "yourReward": "Deine Belohnung"
+    "yourReward": "Deine Belohnung",
+    "removeTasks": "Aufgaben entfernen"
 }

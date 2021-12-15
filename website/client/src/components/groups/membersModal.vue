@@ -389,6 +389,7 @@ import messageIcon from '@/assets/members/message.svg';
 import starIcon from '@/assets/members/star.svg';
 import dots from '@/assets/svg/dots.svg';
 import SelectList from '@/components/ui/selectList';
+import { PAGES } from '@/libs/consts';
 
 export default {
   components: {
@@ -558,7 +559,7 @@ export default {
       });
 
       this.$root.$emit('bv::hide::modal', 'members-modal');
-      this.$router.push('/private-messages');
+      this.$router.push(PAGES.PRIVATE_MESSAGES);
     },
     async searchMembers (searchTerm = '') {
       this.members = await this.$store.state.memberModalOptions.fetchMoreMembers({

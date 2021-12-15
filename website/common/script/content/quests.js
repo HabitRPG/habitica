@@ -3839,6 +3839,47 @@ const quests = {
       unlock: t('questSolarSystemUnlockText'),
     },
   },
+  onyx: {
+    text: t('questOnyxText'),
+    notes: t('questOnyxNotes'),
+    completion: t('questOnyxCompletion'),
+    value: 4,
+    category: 'hatchingPotion',
+    collect: {
+      onyxStone: {
+        text: t('questOnyxCollectOnyxStones'),
+        count: 25,
+      },
+      plutoRune: {
+        text: t('questOnyxCollectPlutoRunes'),
+        count: 10,
+      },
+      leoRune: {
+        text: t('questOnyxCollectLeoRunes'),
+        count: 10,
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'Onyx',
+          text: t('questOnyxDropOnyxPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Onyx',
+          text: t('questOnyxDropOnyxPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Onyx',
+          text: t('questOnyxDropOnyxPotion'),
+        },
+      ],
+      gp: 50,
+      exp: 100,
+      unlock: t('questOnyxUnlockText'),
+    },
+  },
 };
 
 each(quests, (v, key) => {

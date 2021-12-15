@@ -769,6 +769,10 @@ const head = {
     str: 7,
     set: 'blackLoungewear',
   },
+  regalCrown: {
+    int: 7,
+    set: 'regal',
+  },
 };
 
 const shield = {
@@ -1398,6 +1402,10 @@ const weapon = {
     con: 4,
     per: 8,
     set: 'hatchingPotions',
+  },
+  regalSceptre: {
+    per: 7,
+    set: 'regal',
   },
 };
 
