@@ -65,7 +65,7 @@ describe('shared.ops.buyArmoire', () => {
       user.stats.gp = 50;
 
       try {
-        await await buyArmoire(user);
+        await buyArmoire(user);
       } catch (err) {
         expect(err).to.be.an.instanceof(NotAuthorized);
         expect(err.message).to.equal(i18n.t('messageNotEnoughGold'));

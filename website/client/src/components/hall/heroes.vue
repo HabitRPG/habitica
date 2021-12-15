@@ -439,7 +439,7 @@ export default {
       this.heroes[this.currentHeroIndex] = heroUpdated;
       this.currentHeroIndex = -1;
     },
-    async clearHero () {
+    clearHero () {
       this.hero = {};
       this.heroID = -1;
       this.currentHeroIndex = -1;
