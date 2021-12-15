@@ -20,9 +20,11 @@
         class="draft"
       >DRAFT</small>
       <h2 class="title">
-        {{ getPostDate(post) }} - {{ post.title.toUpperCase() }}
+        {{ post.title.toUpperCase() }}
       </h2>
-
+      <small>
+        {{ getPostedOn(post) }}
+      </small>
       <hr>
 
       <div v-html="renderMarkdown(post.text)"></div>
@@ -51,7 +53,8 @@ h1 {
   }
 
   .title {
-    display: inline;
+    text-align: left;
+    margin-bottom: 4px;
   }
 
   .draft {
@@ -105,9 +108,12 @@ export default {
     renderMarkdown (text) {
       return habiticaMarkdown.unsafeHTMLRender(text);
     },
-    getPostDate (post) {
-      const format = this.user ? this.user.preferences.dateFormat.toUpperCase() : 'MM/DD/yyyy';
-      return moment(post.publishDate).format(format);
+    getPostedOn (post) {
+      const publishDate = moment(post.publishDate)
+        .utcOffset(-300)
+        .format(this.user.preferences.dateFormat.toUpperCase());
+      const publishTime = moment(post.publishDate).utcOffset(-300).format('LT');
+      return this.$t('newStuffPostedOn', { publishDate, publishTime });
     },
   },
 };
