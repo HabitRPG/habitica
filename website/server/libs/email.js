@@ -67,11 +67,31 @@ export function getGroupUrl (group) {
 
 // Send a transactional email using Mandrill through the external email server
 export async function sendTxn (mailingInfoArray, emailType, variables, personalVariables) {
-  mailingInfoArray = Array.isArray(mailingInfoArray) ? mailingInfoArray : [mailingInfoArray]; // eslint-disable-line no-param-reassign, max-len
+  if (!Array.isArray(mailingInfoArray)) {
+    mailingInfoArray = [mailingInfoArray]; // eslint-disable-line no-param-reassign
+  }
+
+  for (const entry of mailingInfoArray) {
+    if (typeof entry === 'string'
+      && (typeof entry._id === 'undefined' && typeof entry.email === 'undefined')
+    ) {
+      throw new Error('Argument Error mailingInfoArray: does not contain email or _id');
+    }
+  }
+
+  if (variables && !Array.isArray(variables)) {
+    throw new Error('Argument Error variables: is not an array');
+  }
 
   variables = [ // eslint-disable-line no-param-reassign
     { name: 'BASE_URL', content: BASE_URL },
   ].concat(variables || []);
+
+  for (const variable of variables) {
+    if (typeof variable.name === 'undefined' && typeof variable.content === 'undefined') {
+      throw new Error('Argument Error variables: does not contain name or content');
+    }
+  }
 
   // It's important to pass at least a user with its `preferences`
   // as we need to check if he unsubscribed
@@ -156,4 +176,18 @@ export async function sendTxn (mailingInfoArray, emailType, variables, personalV
   }
 
   return null;
+}
+
+export function convertVariableObjectToArray (variableObject) {
+  const variablesArray = [];
+
+  const objectKeys = Object.keys(variableObject);
+  for (const propName of objectKeys) {
+    variablesArray.push({
+      name: propName,
+      content: variableObject[propName],
+    });
+  }
+
+  return variablesArray;
 }

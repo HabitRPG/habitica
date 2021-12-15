@@ -4,6 +4,7 @@ import getStore from '@/store';
 import handleRedirect from './handleRedirect';
 
 import ParentPage from '@/components/parentPage';
+import { PAGES } from '@/libs/consts';
 
 // NOTE: when adding a page make sure to implement setTitle
 
@@ -201,7 +202,7 @@ const router = new VueRouter({
         },
       ],
     },
-    { path: '/private-messages', name: 'privateMessages', component: MessagesIndex },
+    { path: PAGES.PRIVATE_MESSAGES, name: 'privateMessages', component: MessagesIndex },
     {
       name: 'challenges',
       path: '/challenges',

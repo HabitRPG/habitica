@@ -311,6 +311,7 @@ import bronzeGuildBadgeIcon from '@/assets/svg/bronze-guild-badge-small.svg';
 import QuestDetailModal from './questDetailModal';
 import RightSidebar from '@/components/groups/rightSidebar';
 import InvitationListModal from './invitationListModal';
+import { PAGES } from '@/libs/consts';
 
 export default {
   components: {
@@ -554,7 +555,7 @@ export default {
       this.$root.$emit('bv::show::modal', 'group-gems-modal');
     },
     messageLeader () {
-      window.open(`/private-messages?uuid=${this.group.leader.id}`);
+      window.open(`${PAGES.PRIVATE_MESSAGES}?uuid=${this.group.leader.id}`);
     },
   },
 };
