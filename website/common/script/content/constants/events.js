@@ -10,8 +10,21 @@ const gemsPromo = {
 
 export const EVENTS = {
   noCurrentEvent: {
-    start: '2021-11-30T20:00-04:00',
-    end: '2021-12-31T20:00-04:00',
+    start: '2022-01-06T20:00-05:00',
+    end: '2022-02-28T20:00-05:00',
+    season: 'normal',
+    npcImageSuffix: '',
+  },
+  winter2022Promo: {
+    start: '2021-12-16T08:00-05:00',
+    end: '2022-01-06T20:00-05:00',
+    promo: 'g1g1',
+    season: 'normal',
+    npcImageSuffix: '',
+  },
+  prePromoNoEvent: {
+    start: '2021-11-28T20:00-05:00',
+    end: '2021-12-16T08:00-05:00',
     season: 'normal',
     npcImageSuffix: '',
   },

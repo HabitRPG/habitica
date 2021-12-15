@@ -66,6 +66,7 @@
 
 <script>
 import debounce from 'lodash/debounce';
+import find from 'lodash/find';
 
 import { mapState } from '@/libs/store';
 import notification from './notification';
@@ -111,8 +112,11 @@ export default {
     ...mapState({
       notificationStore: 'notificationStore',
       userSleeping: 'user.data.preferences.sleep',
-      currentEvent: 'worldState.data.currentEvent',
+      currentEventList: 'worldState.data.currentEventList',
     }),
+    currentEvent () {
+      return find(this.currentEventList, event => Boolean(event.gemsPromo) || Boolean(event.promo));
+    },
     isEventActive () {
       return Boolean(this.currentEvent?.event);
     },

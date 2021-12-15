@@ -111,6 +111,7 @@
 </style>
 
 <script>
+import find from 'lodash/find';
 import { mapState } from '@/libs/store';
 import SecondaryMenu from '@/components/secondaryMenu';
 import gifts from '@/assets/svg/gifts-vertical.svg';
@@ -128,8 +129,11 @@ export default {
   },
   computed: {
     ...mapState({
-      currentEvent: 'worldState.data.currentEvent',
+      currentEventList: 'worldState.data.currentEventList',
     }),
+    currentEvent () {
+      return find(this.currentEventList, event => Boolean(event.promo));
+    },
     promo () {
       if (!this.currentEvent || !this.currentEvent.promo) return 'none';
       return this.currentEvent.promo;
