@@ -161,7 +161,10 @@ async function registerLocal (req, res, { isV3 = false }) {
   };
 
   if (existingUser) {
-    const hasSocialAuth = common.constants.SUPPORTED_SOCIAL_NETWORKS.find(network => {
+    let networks = common.constants.SUPPORTED_SOCIAL_NETWORKS;
+    // need to insert FB here to allow users who only have FB auth to connect local auth.
+    networks.insert({ key: 'facebook', name: 'Facebook' })
+    const hasSocialAuth = networks.find(network => {
       if (existingUser.auth.hasOwnProperty(network.key)) { // eslint-disable-line no-prototype-builtins, max-len
         return existingUser.auth[network.key].id;
       }
