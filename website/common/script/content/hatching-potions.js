@@ -508,6 +508,13 @@ const premium = {
     canBuy: hasQuestAchievementFunction('solarSystem'),
     _addlNotes: t('premiumPotionUnlimitedNotes'),
   },
+  Onyx: {
+    value: 2,
+    text: t('hatchingPotionOnyx'),
+    limited: true,
+    canBuy: hasQuestAchievementFunction('onyx'),
+    _addlNotes: t('premiumPotionUnlimitedNotes'),
+  },
 };
 
 const wacky = {

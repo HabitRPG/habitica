@@ -4,10 +4,10 @@
     "habitica": "해비티카",
     "onward": "Onward!",
     "done": "완료",
-    "gotIt": "이해했어요!",
+    "gotIt": "알겠어요!",
     "titleTimeTravelers": "시간여행자",
     "titleSeasonalShop": "계절상점",
-    "saveEdits": "편집한 것 저장",
+    "saveEdits": "변경사항 저장",
     "showMore": "더 보기",
     "showLess": "덜 보기",
     "markdownHelpLink": "Markdown formatting help",
@@ -200,5 +200,6 @@
     "congratulations": "축하합니다!",
     "options": "설정",
     "finish": "끝내기",
-    "loadEarlierMessages": "이전 메시지 불러오기"
+    "loadEarlierMessages": "이전 메시지 불러오기",
+    "onboardingAchievs": "첫 단계 업적"
 }

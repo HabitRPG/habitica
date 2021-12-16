@@ -18,7 +18,7 @@ import {
 import shared from '../../../common';
 import { sendNotification as sendPushNotification } from '../pushNotifications'; // eslint-disable-line import/no-cycle
 import calculateSubscriptionTerminationDate from './calculateSubscriptionTerminationDate';
-import { getCurrentEvent } from '../worldState'; // eslint-disable-line import/no-cycle
+import { getCurrentEventList } from '../worldState'; // eslint-disable-line import/no-cycle
 
 // @TODO: Abstract to shared/constant
 const JOINED_GROUP_PLAN = 'joined group plan';
@@ -245,8 +245,9 @@ async function createSubscription (data) {
 
     // Only send push notifications if sending to a user other than yourself
     if (data.gift.member._id !== data.user._id) {
-      const currentEvent = getCurrentEvent();
-      if (currentEvent && currentEvent.promo && currentEvent.promo === 'g1g1') {
+      const currentEventList = getCurrentEventList();
+      const currentEvent = _.find(currentEventList, event => Boolean(event.promo));
+      if (currentEvent && currentEvent.promo === 'g1g1') {
         const promoData = {
           user: data.user,
           gift: {

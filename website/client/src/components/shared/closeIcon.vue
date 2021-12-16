@@ -2,6 +2,11 @@
   <button
     title="close dialog"
     @click="$emit('click', $event)"
+    :style="{
+      '--icon-color': iconColor,
+      '--icon-color-hover': iconColorHover,
+    }"
+    :class="{'purple': purple}"
   >
     <div
       v-once
@@ -16,6 +21,7 @@ import svgClose from '@/assets/svg/close.svg';
 
 export default {
   name: 'CloseIcon',
+  props: ['iconColor', 'iconColorHover', 'purple'],
   data () {
     return {
       icons: Object.freeze({
@@ -43,13 +49,18 @@ export default {
     width: 1rem;
     height: 1rem;
 
+    &.purple {
+      --icon-color: #{$purple-400};
+      --icon-color-hover: #{$purple-500};
+    }
+
     ::v-deep svg path {
-      stroke: $gray-200;
+      stroke: var(--icon-color, #{$gray-200});
     }
 
     &:hover {
       ::v-deep svg path {
-        stroke: $gray-100;
+        stroke: var(--icon-color-hover, #{$gray-100});
       }
     }
   }

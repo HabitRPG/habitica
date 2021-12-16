@@ -103,5 +103,6 @@
     "selectParticipant": "참가자 선택",
     "wonChallengeDesc": "<%= challengeName %>의 우승자로 선정되었습니다! 우승은 업적에 기록됩니다.",
     "yourReward": "보상",
-    "filters": "필터"
+    "filters": "필터",
+    "removeTasks": "과제 삭제"
 }

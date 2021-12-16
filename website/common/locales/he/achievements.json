@@ -9,7 +9,7 @@
     "letsGetStarted": "בואו נתחיל!",
     "yourProgress": "ההתקדמות שלך",
     "onboardingProgress": "<%= percentage %>% התקדמות",
-    "gettingStartedDesc": "יש להשלים את משימות ההסתגלות ולאחר שכולן יושלמו תרוויח/י <strong>5 הישגים</strong> ו־<strong class=\"gold-amount\">100 מטבעות זהב</strong>!",
+    "gettingStartedDesc": "בעת השלמת משימות ההסתגלות הללו מרוויחים <strong>5 הישגים</strong> ו־<strong class=\"gold-amount\">100 מטבעות זהב</strong>!",
     "yourRewards": "הפרסים שלך",
     "foundNewItems": "מצאת פריטים חדשים!",
     "hideAchievements": "הסתרת <%= category %>",
