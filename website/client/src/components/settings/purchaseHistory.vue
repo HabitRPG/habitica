@@ -1,8 +1,9 @@
 <template>
   <div class="standard-page">
     <purchase-history-table
-    :gemTransactions="gemTransactions"
-    :hourglassTransactions="hourglassTransactions" />
+      :gem-transactions="gemTransactions"
+      :hourglass-transactions="hourglassTransactions"
+    />
   </div>
 </template>
 
