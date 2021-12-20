@@ -96,12 +96,11 @@ function getAmountForGems (data) {
 
 async function updateUserBalance (data, amount) {
   if (data.gift) {
-    await user.updateBalance(amount, 'gift_received', data.user._id, data.user.profile.name);
-    await createBuyTransaction(data.gift.member._id, amount)
+    await data.gift.member.updateBalance(amount, 'gift_received', data.user._id, data.user.profile.name);
     return;
   }
 
-  await user.updateBalance(amount, 'buy_money');
+  await data.user.updateBalance(amount, 'buy_money');
 }
 
 export async function buyGems (data) {

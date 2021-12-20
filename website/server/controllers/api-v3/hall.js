@@ -266,7 +266,7 @@ api.updateHero = {
       hero.flags.contributor = true;
       let tierDiff = newTier - oldTier; // can be 2+ tier increases at once
       while (tierDiff) {
-        await hero.updateBalance(gemsPerTier[newTier] / 4, 'contribution', newTier);
+        await hero.updateBalance(gemsPerTier[newTier] / 4, 'contribution', newTier); // eslint-disable-line no-await-in-loop
         tierDiff -= 1;
         newTier -= 1; // give them gems for the next tier down if they weren't already that tier
       }

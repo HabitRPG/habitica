@@ -199,7 +199,7 @@ export class AbstractHourglassItemOperation extends AbstractBuyOperation {
   }
 
   async subtractCurrency (user, item) { // eslint-disable-line class-methods-use-this
-    await updateUserHourglasses(user, -1, 'spend', item.text());
+    await updateUserHourglasses(user, -1, 'spend', item.key);
   }
 
   analyticsData () {

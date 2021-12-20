@@ -14,15 +14,15 @@
             >{{ entry.createdAt | timeAgo }}</span>
           </td>
           <td>
-              <span
-                class="svg-icon inline icon-24"
-                aria-hidden="true"
-                v-html="icons.gem"
-              ></span>
-              <span
-                class="amount gems"
-                :class="entry.amount < 0 ? 'deducted' : 'added'"
-              >{{ entry.amount * 4 }}</span>
+            <span
+              class="svg-icon inline icon-24"
+              aria-hidden="true"
+              v-html="icons.gem"
+            ></span>
+            <span
+              class="amount gems"
+              :class="entry.amount < 0 ? 'deducted' : 'added'"
+            >{{ entry.amount * 4 }}</span>
           </td>
           <td>
             <span>{{ transactionTypeText(entry.transactionType) }}</span>
@@ -47,15 +47,15 @@
             >{{ entry.createdAt | timeAgo }}</span>
           </td>
           <td>
-              <span
-                class="svg-icon inline icon-24"
-                aria-hidden="true"
-                v-html="icons.hourglass"
-              ></span>
-              <span
-                class="amount hourglasses"
-                :class="entry.amount < 0 ? 'deducted' : 'added'"
-              >{{ entry.amount }}</span>
+            <span
+              class="svg-icon inline icon-24"
+              aria-hidden="true"
+              v-html="icons.hourglass"
+            ></span>
+            <span
+              class="amount hourglasses"
+              :class="entry.amount < 0 ? 'deducted' : 'added'"
+            >{{ entry.amount }}</span>
           </td>
           <td>
             <span>{{ transactionTypeText(entry.transactionType) }}</span>

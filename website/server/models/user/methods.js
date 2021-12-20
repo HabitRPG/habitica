@@ -527,17 +527,20 @@ schema.methods.getSecretData = function getSecretData () {
   return user.secret;
 };
 
-schema.methods.updateBalance = async function updateBalance (amount, transactionType, reference, referenceText) {
+schema.methods.updateBalance = async function updateBalance (amount,
+  transactionType,
+  reference,
+  referenceText) {
   this.balance += amount;
 
-  if (transactionType === "buy_gold") {
+  if (transactionType === 'buy_gold') {
     // Bulk these together in case the user is not using the bulk-buy feature
     const lastTransaction = await Transaction.findOne({ userId: this._id },
       null,
-      { sort: { createdAt: -1 }})
-    if (lastTransaction.transactionType == transactionType) {
-      lastTransaction.amount += amount
-      await lastTransaction.save()
+      { sort: { createdAt: -1 } });
+    if (lastTransaction.transactionType === transactionType) {
+      lastTransaction.amount += amount;
+      await lastTransaction.save();
     }
   }
 
@@ -547,6 +550,6 @@ schema.methods.updateBalance = async function updateBalance (amount, transaction
     transactionType,
     amount,
     reference,
-    referenceText
+    referenceText,
   });
-}
+};

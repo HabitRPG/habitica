@@ -13,7 +13,7 @@ describe('shared.ops.buyQuestGems', () => {
   const goldPoints = 40;
   const analytics = { track () {} };
 
-  function buyQuest (_user, _req, _analytics) {
+  async function buyQuest (_user, _req, _analytics) {
     const buyOp = new BuyQuestWithGemOperation(_user, _req, _analytics);
 
     return buyOp.purchase();
@@ -44,19 +44,19 @@ describe('shared.ops.buyQuestGems', () => {
       user.pinnedItems.push({ type: 'quests', key: 'gryphon' });
     });
 
-    it('purchases quests', () => {
+    it('purchases quests', async () => {
       const key = 'gryphon';
 
-      buyQuest(user, { params: { key } });
+      await buyQuest(user, { params: { key } });
 
       expect(user.items.quests[key]).to.equal(1);
       expect(pinnedGearUtils.removeItemByPath.notCalled).to.equal(true);
     });
-    it('if a user\'s count of a quest scroll is negative, it will be reset to 0 before incrementing when they buy a new one.', () => {
+    it('if a user\'s count of a quest scroll is negative, it will be reset to 0 before incrementing when they buy a new one.', async () => {
       const key = 'dustbunnies';
       user.items.quests[key] = -1;
 
-      buyQuest(user, { params: { key } });
+      await buyQuest(user, { params: { key } });
 
       expect(user.items.quests[key]).to.equal(1);
       expect(pinnedGearUtils.removeItemByPath.notCalled).to.equal(true);
@@ -73,26 +73,25 @@ describe('shared.ops.buyQuestGems', () => {
       user.purchased.plan.customerId = 'customer-id';
     });
 
-    it('errors when user does not have enough gems', done => {
+    it('errors when user does not have enough gems', async () => {
       user.balance = 1;
       const key = 'gryphon';
 
       try {
-        buyQuest(user, {
+        await buyQuest(user, {
           params: { key },
           quantity: 2,
         });
       } catch (err) {
         expect(err).to.be.an.instanceof(NotAuthorized);
         expect(err.message).to.equal(i18n.t('notEnoughGems'));
-        done();
       }
     });
 
-    it('makes bulk purchases of quests', () => {
+    it('makes bulk purchases of quests', async () => {
       const key = 'gryphon';
 
-      buyQuest(user, {
+      await buyQuest(user, {
         params: { key },
         quantity: 3,
       });

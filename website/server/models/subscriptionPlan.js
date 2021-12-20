@@ -45,16 +45,20 @@ schema.plugin(baseModel, {
   _id: false,
 });
 
-schema.methods.updateHourglasses = async function updateHourglasses (userId, amount, transactionType, reference, referenceText) {
+schema.methods.updateHourglasses = async function updateHourglasses (userId,
+  amount,
+  transactionType,
+  reference,
+  referenceText) {
   this.consecutive.trinkets += amount;
   await Transaction.create({
     currency: 'hourglasses',
-    userId: userId,
+    userId,
     transactionType,
     amount,
     reference,
-    referenceText
+    referenceText,
   });
-}
+};
 
 export const model = mongoose.model('SubscriptionPlan', schema);
