@@ -39,6 +39,7 @@
       </router-link>
       <router-link
         class="nav-link"
+        v-if="user.contributor.admin"
         :to="{name: 'transactions'}"
         :class="{'active': $route.name === 'transactions'}"
       >
@@ -137,6 +138,7 @@ export default {
   computed: {
     ...mapState({
       currentEventList: 'worldState.data.currentEventList',
+      user: 'user.data',
     }),
     currentEvent () {
       return find(this.currentEventList, event => Boolean(event.promo));
