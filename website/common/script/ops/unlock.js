@@ -6,6 +6,7 @@ import { NotAuthorized, BadRequest } from '../libs/errors';
 import { removeItemByPath } from './pinnedGearUtils';
 import getItemInfo from '../libs/getItemInfo';
 import content from '../content/index';
+import updateUserBalance from './updateUserBalance';
 
 const incentiveBackgrounds = ['blue', 'green', 'red', 'purple', 'yellow'];
 
@@ -302,7 +303,7 @@ export default function unlock (user, req = {}, analytics) {
   }
 
   if (!unlockedAlready) {
-    user.balance -= cost;
+    updateUserBalance(user, -cost, 'spend', path);
 
     if (analytics) {
       analytics.track('buy', {

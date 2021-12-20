@@ -34,7 +34,7 @@ api.addTenGems = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    user.balance += 2.5;
+    await user.updateBalance(2.5, 'debug');
 
     await user.save();
 

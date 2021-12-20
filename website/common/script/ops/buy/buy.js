@@ -20,7 +20,7 @@ import { BuyHourglassMountOperation } from './buyMount';
 
 // @TODO: when we are sure buy is the only function used, let's move the buy files to a folder
 
-export default function buy (
+export default async function buy (
   user, req = {}, analytics, options = { quantity: 1, hourglass: false },
 ) {
   const key = get(req, 'params.key');
@@ -40,7 +40,7 @@ export default function buy (
     case 'armoire': {
       const buyOp = new BuyArmoireOperation(user, req, analytics);
 
-      buyRes = buyOp.purchase();
+      buyRes = await buyOp.purchase();
       break;
     }
     case 'backgrounds':
@@ -53,13 +53,13 @@ export default function buy (
     case 'potion': {
       const buyOp = new BuyHealthPotionOperation(user, req, analytics);
 
-      buyRes = buyOp.purchase();
+      buyRes = await buyOp.purchase();
       break;
     }
     case 'gems': {
       const buyOp = new BuyGemOperation(user, req, analytics);
 
-      buyRes = buyOp.purchase();
+      buyRes = await buyOp.purchase();
       break;
     }
     case 'quests': {
@@ -68,7 +68,7 @@ export default function buy (
       } else {
         const buyOp = new BuyQuestWithGemOperation(user, req, analytics);
 
-        buyRes = buyOp.purchase();
+        buyRes = await buyOp.purchase();
       }
       break;
     }
@@ -77,12 +77,12 @@ export default function buy (
     case 'food':
     case 'gear':
     case 'bundles':
-      buyRes = purchaseOp(user, req, analytics);
+      buyRes = await purchaseOp(user, req, analytics);
       break;
     case 'mounts': {
       const buyOp = new BuyHourglassMountOperation(user, req, analytics);
 
-      buyRes = buyOp.purchase();
+      buyRes = await buyOp.purchase();
       break;
     }
     case 'pets':
@@ -91,19 +91,19 @@ export default function buy (
     case 'quest': {
       const buyOp = new BuyQuestWithGoldOperation(user, req, analytics);
 
-      buyRes = buyOp.purchase();
+      buyRes = await buyOp.purchase();
       break;
     }
     case 'special': {
       const buyOp = new BuySpellOperation(user, req, analytics);
 
-      buyRes = buyOp.purchase();
+      buyRes = await buyOp.purchase();
       break;
     }
     default: {
       const buyOp = new BuyMarketGearOperation(user, req, analytics);
 
-      buyRes = buyOp.purchase();
+      buyRes = await buyOp.purchase();
       break;
     }
   }

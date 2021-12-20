@@ -2,7 +2,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 import * as userLib from '../../libs/user';
 import { verifyDisplayName } from '../../libs/user/validation';
 import common from '../../../common';
-
+import { model as GemTransaction } from '../../models/gemTransaction';
 const api = {};
 
 /*
@@ -276,6 +276,39 @@ api.unequip = {
     const equipRes = common.ops.unEquipByType(user, req);
     await user.save();
     res.respond(200, ...equipRes);
+  },
+};
+
+/**
+ * @api {post} /api/v4/user/unequip/:type Unequip all items by type
+ * @apiName UserUnEquipByType
+ * @apiGroup User
+ *
+ * @apiParam (Path) {String="pet-mount-background","costume","equipped"} type The type of items
+ *                                                                       to unequip.
+ *
+ * @apiParamExample {URL} Example-URL
+ * https://habitica.com/api/v4/user/unequip/equipped
+ *
+ * @apiSuccess {Object} data user.items
+ * @apiSuccess {String} message Optional success message for unequipping an items
+ *
+ * @apiSuccessExample {json} Example return:
+ *  {
+ *   "success": true,
+ *   "data": {---DATA TRUNCATED---},
+ *   "message": "Battle Gear unequipped.
+ * }
+ *
+ */
+ api.purchaseHistory = {
+  method: 'GET',
+  middlewares: [authWithHeaders()],
+  url: '/user/purchase-history',
+  async handler (req, res) {
+    const { user } = res.locals;
+    const transactions = await GemTransaction.find({ userId: user._id })
+    res.respond(200, transactions);
   },
 };
 

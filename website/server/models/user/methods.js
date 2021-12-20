@@ -23,6 +23,8 @@ import amazonPayments from '../../libs/payments/amazon'; // eslint-disable-line 
 import stripePayments from '../../libs/payments/stripe'; // eslint-disable-line import/no-cycle
 import paypalPayments from '../../libs/payments/paypal'; // eslint-disable-line import/no-cycle
 import { model as NewsPost } from '../newsPost';
+import { model as GemTransaction } from '../../models/gemTransaction';
+import logger from '../../libs/logger';
 
 const { daysSince } = common;
 
@@ -525,3 +527,13 @@ schema.methods.getSecretData = function getSecretData () {
 
   return user.secret;
 };
+
+schema.methods.updateBalance = async function updateBalance (amount, transactionType, reference) {
+  this.balance += amount;
+  await GemTransaction.create({
+    userId: this._id,
+    transactionType,
+    amount,
+    reference
+  });
+}

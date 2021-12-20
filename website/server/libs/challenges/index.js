@@ -65,10 +65,10 @@ export async function createChallenge (user, req, res) {
       // User pays remainder of prize cost after group
       const remainder = prizeCost - group.balance;
       group.balance = 0;
-      user.balance -= remainder;
+      await user.updateBalance(-remainder, 'create_challenge');
     } else {
       // User pays for all of prize
-      user.balance -= prizeCost;
+      await user.updateBalance(-prizeCost, 'create_challenge');
     }
   }
 

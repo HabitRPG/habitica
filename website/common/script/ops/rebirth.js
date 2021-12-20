@@ -9,10 +9,11 @@ import equip from './equip';
 import { removePinnedGearByClass } from './pinnedGearUtils';
 import isFreeRebirth from '../libs/isFreeRebirth';
 import setDebuffPotionItems from '../libs/setDebuffPotionItems';
+import updateUserBalance from './updateUserBalance';
 
 const USERSTATSLIST = ['per', 'int', 'con', 'str', 'points', 'gp', 'exp', 'mp'];
 
-export default function rebirth (user, tasks = [], req = {}, analytics) {
+export default async function rebirth (user, tasks = [], req = {}, analytics) {
   const notFree = !isFreeRebirth(user);
 
   if (user.balance < 1.5 && notFree) {
@@ -25,7 +26,7 @@ export default function rebirth (user, tasks = [], req = {}, analytics) {
   };
 
   if (notFree) {
-    user.balance -= 1.5;
+    await updateUserBalance(-1.5, 'rebirth');
     analyticsData.currency = 'Gems';
     analyticsData.gemCost = 6;
   } else {
