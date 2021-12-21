@@ -251,7 +251,7 @@ describe('payments/index', () => {
         });
 
         afterEach(() => {
-          worldState.getCurrentEvent.restore();
+          worldState.getCurrentEventList.restore();
         });
 
         it('sends a private message about the gift', async () => {
