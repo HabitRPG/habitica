@@ -247,7 +247,7 @@ describe('payments/index', () => {
 
       context('No Active Promotion', () => {
         beforeEach(() => {
-          sinon.stub(worldState, 'getCurrentEvent').returns(null);
+          sinon.stub(worldState, 'getCurrentEventList').returns([]);
         });
 
         afterEach(() => {
