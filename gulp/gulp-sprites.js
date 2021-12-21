@@ -131,8 +131,8 @@ gulp.task('sprites:clean', done => {
   clean(`${IMG_DIST_PATH}spritesmith*,${CSS_DIST_PATH}spritesmith*}`, done);
 });
 
-gulp.task('sprites:checkCompiledDimensions', gulp.series('sprites:main', 'sprites:largeSprites', done => {
-  console.log('Verifiying that images do not exceed max dimensions'); // eslint-disable-line no-console
+gulp.task('sprites:checkCompiledDimensions', gulp.series('sprites:main', done => {
+  console.log('Verifying that images do not exceed max dimensions'); // eslint-disable-line no-console
 
   let numberOfSheetsThatAreTooBig = 0;
 
