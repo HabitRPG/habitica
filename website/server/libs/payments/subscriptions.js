@@ -293,6 +293,7 @@ async function createSubscription (data) {
     paymentMethod: data.paymentMethod,
     months: group ? 1 : months,
     groupId,
+    autoRenews,
   });
 }
 
