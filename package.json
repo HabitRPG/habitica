@@ -19,7 +19,7 @@
     "body-parser": "^1.19.1",
     "bootstrap": "^4.6.0",
     "compression": "^1.7.4",
-    "cookie-session": "^1.4.0",
+    "cookie-session": "^2.0.0",
     "coupon-code": "^0.4.5",
     "csv-stringify": "^5.6.5",
     "cwait": "^1.1.1",
