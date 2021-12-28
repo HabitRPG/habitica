@@ -71,7 +71,7 @@
     "beeminderDesc": "Pozwól aby Beeminder automatycznie monitorował twoje zadania Do Zrobienia w Habitica. Możesz zadeklarować ilość zadań Do Zrobienia ukończonych na dzień lub tydzień lub do stopniowego redukowania ilości nieukończonych zadań Do Zrobienia. (\"Deklaracja\" dla Beeminder oznacza zapłacenie prawdziwych pieniędzy w razie nie wywiązania się! Ale może po prostu lubisz ich wymyślne wykresy.)",
     "chromeChatExtension": "Habitica chat - rozszerzenie dla Chrome",
     "chromeChatExtensionDesc": "Rozszerzenie z Czatem dla przeglądarki Chrome dodaje intuicyjny czat dla całego habitica.com. Pozwala użytkownikom rozmawiać w Tawernie, razem z drużyną i gildiami.",
-    "otherExtensions": "<a target='blank' href='http://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations'>Inne Rozszerzenia</a>",
+    "otherExtensions": "<a target='blank' href='https://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations'>Inne Rozszerzenia</a>",
     "otherDesc": "Znajdź inne aplikacje, rozszerzenia i narzędzia na Habitica wiki.",
     "resetDo": "Zrób to, zresetuj moje konto!",
     "resetComplete": "Reset ukończony!",
@@ -135,7 +135,7 @@
     "generate": "Generuj",
     "getCodes": "Zdobądź kody",
     "webhooks": "Webhooki",
-    "webhooksInfo": "Habitica udostępnia webhooki, które umożliwiają przesyłanie informacji o pewnych działaniach występujących na twoim koncie do skryptów na innej stronie internetowej. \nTutaj można wykazać te skrypty. Bądź ostrożny, gdyż wpisanie niepoprawnych URL może spowodować w Habitica błędy lub spowolnienia.  Więcej informacji znajdziesz na stronie wiki <a target=\"_blank\" href=\"https://habitica.fandom.com/wiki/Webhooks\">Webhooki</a>.",
+    "webhooksInfo": "Habitica udostępnia webhooki, które umożliwiają przesyłanie informacji o pewnych działaniach występujących na twoim koncie do skryptów na innej stronie internetowej. Tutaj można wykazać te skrypty. Bądź ostrożny, gdyż wpisanie niepoprawnych URL może spowodować w Habitica błędy lub spowolnienia. Więcej informacji znajdziesz na stronie wiki <a target=\"_blank\" href=\"https://habitica.fandom.com/wiki/Webhooks\">Webhooki</a>.",
     "enabled": "Włączone",
     "webhookURL": "Link do webhooka",
     "invalidUrl": "Nieprawidłowy url",
@@ -183,5 +183,11 @@
     "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>rozszerzenie Chrome Chat</a> oraz <a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>rozszerzenie Firefox Chat</a>",
     "displaynameIssueNewline": "Nazwy gracza nie mogą zawierać ukośnika z następującą po nim literą N.",
     "resetAccount": "Zresetuj konto",
-    "giftedSubscriptionWinterPromo": "Hej <%= username %>, otrzymałeś  <%= monthCount %> miesięcy abonamentu w ramach naszej promocji wręczania prezentów!"
+    "giftedSubscriptionWinterPromo": "Hej <%= username %>, otrzymałeś <%= monthCount %> miesięcy abonamentu w ramach naszej promocji wręczania prezentów!",
+    "mentioning": "Wspominanie",
+    "everywhere": "Wszędzie",
+    "suggestMyUsername": "Zasugeruj moją nazwę użytkownika",
+    "onlyPrivateSpaces": "Tylko w prywatnych przestrzeniach",
+    "bannedWordUsedInProfile": "Twoja Nazwa Gracza lub Opis zawierały nieprzyzwoity język.",
+    "bannedSlurUsedInProfile": "Twoja Nazwa Gracza lub Opis zawierały wyzwisko, więc odebrano Ci możliwość korzystania z czatu."
 }

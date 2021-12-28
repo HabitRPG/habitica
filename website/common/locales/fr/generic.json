@@ -202,5 +202,16 @@
     "finish": "Terminer",
     "congratulations": "Félicitations !",
     "onboardingAchievs": "succès de démarrage",
-    "askQuestion": "Poser une question"
+    "askQuestion": "Poser une question",
+    "reportBugHeaderDescribe": "Merci de nous décrire le problème que vous rencontrez, et notre équipe essayera de vous aider.",
+    "reportEmailText": "Cela sera utilisé uniquement pour vous contacter pour ce problème.",
+    "reportEmailPlaceholder": "Votre adresse email",
+    "reportEmailError": "Veuillez fournir une adresse email valide",
+    "reportDescription": "Description",
+    "reportDescriptionText": "Vous pouvez inclure des copies d'écran ou des erreurs de console Javascript si c'est utile.",
+    "reportDescriptionPlaceholder": "Décrivez le problème en détail ici",
+    "submitBugReport": "Envoyer le rapport de bug",
+    "reportSent": "Rapport de bug envoyé !",
+    "reportSentDescription": "Nous vous ferons un retour dès que notre équipe aura pu investiguer ce problème. Merci de nous avoir signalé le problème.",
+    "emptyReportBugMessage": "Message du rapport de bug manquant"
 }

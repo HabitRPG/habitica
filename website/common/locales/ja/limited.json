@@ -188,7 +188,7 @@
     "fall2020WraithWarriorSet": "レイス（戦士）",
     "royalPurpleJackolantern": "ロイヤルパープルのジャック･オ･ランタン",
     "novemberYYYY": "<%= year %>年11月",
-    "g1g1Limitations": "このイベントは日本時間で12月17日の22:00時から1月7日10:00時までの期間限定です。プロモーションは他のプレイヤーにギフトを贈った際にのみ適用されます。もしギフトを受け取った人がすでに有料会員の場合、有料会員期間が延長されます。この延長は、現在の有料会員期間を満了もしくはキャンセルした後にのみ適用されます。",
+    "g1g1Limitations": "このイベントは日本時間で12月16日の22:00時から1月6日10:00時までの期間限定です。プロモーションは他のプレイヤーにギフトを贈った際にのみ適用されます。もしギフトを受け取った人がすでに有料会員の場合、有料会員期間が延長されます。この延長は、現在の有料会員期間を満了もしくはキャンセルした後にのみ適用されます。",
     "limitations": "制限事項",
     "g1g1HowItWorks": "「有料プランをプレゼントする」をタップして、贈る相手のユーザーネームを入力し、プレゼントする有料プランの期間を選択してください。自動的にあなたのアカウントにもプレゼントした分と同じ期間のプランが無料で適用されます。",
     "howItWorks": "機能説明",
@@ -211,5 +211,9 @@
     "fall2021BrainEaterMageSet": "ブレインイーター（魔道士）",
     "fall2021FlameSummonerHealerSet": "炎の召喚士（治療師）",
     "fall2021OozeRogueSet": "どろどろ（盗賊）",
-    "fall2021HeadlessWarriorSet": "首なし（戦士）"
+    "fall2021HeadlessWarriorSet": "首なし（戦士）",
+    "winter2022StockingWarriorSet": "靴下（戦士）",
+    "winter2022FireworksRogueSet": "花火（盗賊）",
+    "winter2022PomegranateMageSet": "ザクロ（魔道士）",
+    "winter2022IceCrystalHealerSet": "氷の結晶（治療師）"
 }
