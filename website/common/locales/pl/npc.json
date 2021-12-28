@@ -1,6 +1,6 @@
 {
     "npc": "NPC",
-    "npcAchievementName": "<%= key %> NPC",
+    "npcAchievementName": "<%= key %> postać niegrająca",
     "npcAchievementText": "Wsparł projekt na Kickstarterze na maksymalnym poziomie!",
     "welcomeTo": "Witamy w",
     "welcomeBack": "Witaj ponownie!",
@@ -62,12 +62,12 @@
     "ianTextMobile": "Czy mogę zaciekawić cię paroma zwojami misji? Aktywuj je, aby wraz z drużyną walczyć przeciw potworom!",
     "featuredQuests": "Wyróżnione misje!",
     "cannotBuyItem": "Nie możesz tego kupić.",
-    "mustPurchaseToSet": "Trzeba kupić  <%= val %>, aby ustawić na <%= key %>.",
+    "mustPurchaseToSet": "Trzeba kupić <%= val %>, aby ustawić na <%= key %>.",
     "typeRequired": "Typ jest wymagany",
     "positiveAmountRequired": "Dodatnia ilość jest wymagana",
     "notAccteptedType": "Typ musi zostać być jednym z: [eggs, hatchingPotions, premiumHatchingPotions, food, quests, gear]",
     "contentKeyNotFound": "Nie znaleziono klawisza dla <%= type %>",
-    "plusGem": "+  <%= count %> Klejnotów",
+    "plusGem": "+<%= count %> Klejnotów",
     "typeNotSellable": "Gatunek nie jest na sprzedaż. Musi być jednym z <%= acceptedTypes %>",
     "userItemsKeyNotFound": "Klawisz nie został znaleziony dla user.items <%= type %>",
     "userItemsNotEnough": "Nie masz wystarczająco <%= type %>",
@@ -105,7 +105,7 @@
     "tourHallPage": "Witaj w Galerii Bohaterów, gdzie honorujemy wolontariuszy pracujących na rzecz Habitiki. Współtworzyli kod, obrazy, muzykę, pisali teksty albo byli po prostu pomocni, za co otrzymali klejnoty, wyjątkowe wyposażenie i prestiżowe tytuły. Ty także możesz dać Habitice coś od siebie!",
     "tourPetsPage": "Witaj w Stajni! Za każdym razem, kiedy wykonasz zadanie, masz losową szansę na otrzymanie Jajka lub Eliksiru Wyklucia, dzięki któremu możesz wykluwać swoje Zwierzaki. Za każdym razem, kiedy wyklujesz Zwierzaka, pojawi się on tutaj. Kliknij na jego zdjęcie, aby dodaj go do twojego Awataru. Karm zwierzaki, aby wyrosły na silne i dorodne Wierzchowce.",
     "tourMountsPage": "Kiedy już wykarmisz chowańca wystarczająco, żeby stał się wierzchowcem, pojawi się tutaj. Kliknij na wierzchowca, żeby na niego wsiąść!",
-    "tourEquipmentPage": "Tutaj znajduje się Twoje wyposażenie! Twój rynsztunek wpływa na statystyki. Jeśli chcesz, by Twój awatar posiadał inny rynsztunek bez zmiany statystyk, kliknij \"Dostosuj strój\".",
+    "tourEquipmentPage": "Tutaj znajduje się Twoje wyposażenie! Twój rynsztunek wpływa na statystyki. Jeśli chcesz, by Twój awatar posiadał inny rynsztunek bez zmiany statystyk, kliknij \"Dostosuj strój\"",
     "equipmentAlreadyOwned": "Już posiadasz tę część ekwipunku",
     "tourOkay": "Oki!",
     "tourAwesome": "Świetnie!",
@@ -127,5 +127,8 @@
     "nGems": "<%= nGems %> Klejnotów",
     "nMonthsSubscriptionGift": "<%= nMonths %> Miesięcy Abonamentu (Podarunek)",
     "nGemsGift": "<%= nGems %> Klejnoty (Podarunek)",
-    "limitedAvailabilityHours": "Dostępne przez <%= hours %>h <%= minutes %>m"
+    "limitedAvailabilityHours": "Dostępne przez <%= hours %>h <%= minutes %>m",
+    "limitedAvailabilityDays": "Dostępne przez <%= days %>d <%= hours %>godz <%= minutes %>min",
+    "limitedAvailabilityMinutes": "Dostępne przez <%= minutes %>min. <%= seconds %>s",
+    "amountExp": "<%= amount %> Doświadczenia"
 }

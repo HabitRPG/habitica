@@ -205,5 +205,9 @@
     "askQuestion": "質問する",
     "submitBugReport": "バグレポートを送信",
     "reportDescription": "説明",
-    "reportBugHeaderDescribe": "遭遇したバグの詳細を教えてください。折り返し連絡します。"
+    "reportBugHeaderDescribe": "遭遇したバグの詳細を教えてください。折り返し連絡します。",
+    "reportSent": "バグの報告を送信しました！",
+    "reportDescriptionPlaceholder": "以下にバグの詳細を記入してください",
+    "reportEmailError": "有効なメールアドレスをご入力ください",
+    "reportEmailPlaceholder": "あなたのメールアドレス"
 }

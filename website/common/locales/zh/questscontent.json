@@ -111,7 +111,7 @@
     "questGoldenknight3DropHoney": "蜂蜜（食物）",
     "questGoldenknight3DropGoldenPotion": "金色孵化药水",
     "questGoldenknight3DropWeapon": "Mustaine的碎石流星锤（副手武器）",
-    "questGroupEarnable": "可以获得副本",
+    "questGroupEarnable": "可获得的副本",
     "questBasilistText": "普通的清单魔蛇",
     "questBasilistNotes": "集市上发生了一场骚乱——那种能把人吓跑光的。而你作为一名勇敢的冒险者，却明知山有虎偏向虎山行，发现了由一堆未完成的待办事项聚合成的一个怪兽：普通的清单魔蛇！附近的Habitica居民被基础列表的长度吓得不能动弹，更别提着手工作了。这时你听到@Arcosine 在不远处喊道：“快！赶在有人被纸割伤之前，完成你的待办事项和每日任务来打败这条怪兽！”冒险者们，速战速决，完成你们的任务——但是注意！如果你有任何未完成的每日任务，这条清单蛇就会攻击你和你的队伍！",
     "questBasilistCompletion": "这条清单魔蛇碎成了漫天的碎纸片，微微地闪着彩虹色。“吁，”@Arcosine 说道，“有你们在真是太棒了！”你从地上的碎纸片中收集起散落的金币，感觉自己与以前相比更加老练了。",
@@ -738,10 +738,11 @@
     "questSolarSystemNotes": "你的队伍正乘坐由天才太空工程师@gawrone设计的奇幻飞艇在宇宙中旅行。飞艇的冥想推进力依赖于你们队伍的冷静。<br><br>在闪闪发光的星系云层中，你们发现了一颗不祥的脉动星，“保持你的注意力，”@beffymaroo警告。“如果我们在经过那颗新星时分心，那颗星对我们飞船吸引力可能会使我们偏离航线！”<br><br>当你接近那颗星时，奇怪的能量脉冲向飞船袭来。<br><br>“它们是分心怪，这种思想生物想让我们迷失方向，”@SabreCat说。“如果能任由它们静静飘过，而不让思绪被带跑，那我们应该就能一心向目标迈进！”",
     "questSolarSystemText": "宇宙集中之旅",
     "questOnyxText": "玛瑙奥德赛",
-    "questOnyxNotes": "@Vikte, @aspiring_advocate，和@starsystemic知道你最近感觉一直没什么动力，决定带你度过愉快的一天来改善你的心情。“乐趣”明显意味着潜水去深海搜索黑暗裂缝中的宝藏！你穿上你的潜水装备，登上船，向着拖延古城划去。在你们旅行的过程中，你问他们想要寻找什么类的宝藏。“冥王星符文！”@Vikte说。<br><br>“不，狮子符文！”@aspiring_advocate说道。“不，玛瑙石！”@starsystemic说。当他们互相争吵时，你望向大海，看到了正下方的洞穴入口！你跳起来，潜入了大海，三人看着你游向黑暗的裂缝并且开始寻找你自己的宝藏。",
+    "questOnyxNotes": "@Vikte, @aspiring_advocate，和@starsystemic知道你最近总感觉没什么动力，于是他们决定拉上你去找点乐趣。而这“乐趣”显然意味着潜水去深海搜索黑暗裂缝中的宝藏！你穿上你的潜水装备，登上船，向着拖延古城划去。在你们旅行的过程中，你问他们想要寻找什么类的宝藏。<br><br>“冥王星符文！”@Vikte说。<br><br>“不，狮子符文！”<br><br>@aspiring_advocate说道。<br><br>“不，玛瑙石！”@starsystemic说。<br><br>当他们互相争吵时，你望向大海，看到了正下方的洞穴入口！太棒了！你跳起来，潜入了大海。船上三人看着你游向黑暗的裂缝。你开始独自寻找宝藏。",
     "questOnyxCollectPlutoRunes": "冥王星符文",
     "questOnyxCollectLeoRunes": "狮子符文",
     "questOnyxCollectOnyxStones": "玛瑙石",
     "questOnyxDropOnyxPotion": "玛瑙孵化药水",
-    "questOnyxUnlockText": "在市场中解锁玛瑙孵化药水以购买"
+    "questOnyxUnlockText": "在市场中解锁玛瑙孵化药水以购买",
+    "questOnyxCompletion": "你进入黑暗裂缝。生活在那里的螳螂虾飞快地跑开，它们似乎很害怕你。然而，它们又很快地带着小的彩色球体回来了。你意识到这些是其他人想要的宝物！你把每种类型的宝物都装进口袋里，向虾子们告别。然后回到船边，其他人帮助你上船。<br><br>“你去哪里了？”@Vikte惊呼。作为回应，你向他们展示了你收集的宝物。<br><br>“这些材料可以制作玛瑙魔法孵化药水！”，@aspiring_advocate兴奋地说，你开始往岸上走去。<br><br>“也就是说......我们可以孵化玛瑙宠物！”@starsystemic笑着说。\"我们就说了这会很有趣吧？\"<br><br>你以微笑作为回应，为新宠物的到来感到兴奋，并做好准备完成任务！"
 }
