@@ -514,6 +514,9 @@ const quests = {
     completion: t('questEggHuntCompletion'),
     value: 1,
     category: 'pet',
+    canBuy () {
+      return CURRENT_EVENT && CURRENT_EVENT.season === 'spring';
+    },
     event: CURRENT_EVENT && CURRENT_EVENT.season === 'spring' ? CURRENT_EVENT : null,
     collect: {
       plainEgg: {
@@ -3579,6 +3582,9 @@ const quests = {
     completion: t('questWaffleCompletion'),
     value: 4,
     category: 'hatchingPotion',
+    canBuy () {
+      return CURRENT_EVENT && CURRENT_EVENT.season === 'spring';
+    },
     event: CURRENT_EVENT && CURRENT_EVENT.season === 'spring' ? CURRENT_EVENT : null,
     boss: {
       name: t('questWaffleBoss'),
@@ -3876,9 +3882,6 @@ each(quests, (v, key) => {
   defaults(v, {
     key,
     canBuy () {
-      if (v.event) {
-        return moment().isBetween(v.event.start, v.event.end);
-      }
       return true;
     },
   });
