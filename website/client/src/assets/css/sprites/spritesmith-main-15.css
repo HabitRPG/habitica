@@ -1,6 +1,12 @@
+.quest_atom1 {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-15.png');
+  background-position: -1082px -1332px;
+  width: 250px;
+  height: 150px;
+}
 .quest_atom2 {
   background-image: url('~@/assets/images/sprites/spritesmith-main-15.png');
-  background-position: -1333px -1332px;
+  background-position: -642px -1534px;
   width: 207px;
   height: 138px;
 }
@@ -24,7 +30,7 @@
 }
 .quest_basilist {
   background-image: url('~@/assets/images/sprites/spritesmith-main-15.png');
-  background-position: -642px -1534px;
+  background-position: -191px -1721px;
   width: 189px;
   height: 141px;
 }
@@ -168,7 +174,7 @@
 }
 .quest_goldenknight2 {
   background-image: url('~@/assets/images/sprites/spritesmith-main-15.png');
-  background-position: -1082px -1332px;
+  background-position: -1333px -1332px;
   width: 250px;
   height: 150px;
 }
