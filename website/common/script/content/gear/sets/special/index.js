@@ -1768,6 +1768,12 @@ const head = {
   winter2022Healer: {
     set: 'winter2022IceCrystalHealerSet',
   },
+  nye2021: {
+    text: t('headSpecialNye2021Text'),
+    notes: t('headSpecialNye2021Notes'),
+    value: 0,
+    canOwn: ownsItem('head_special_nye2021'),
+  },
 };
 
 const headStats = {

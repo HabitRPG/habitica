@@ -423,7 +423,10 @@
   "weaponSpecialWinter2022MageText": "Pomegranate Staff",
   "weaponSpecialWinter2022MageNotes": "The berries on this staff contain an ancient magic to be wielded in winter. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2021-2022 Winter Gear.",
   "weaponSpecialWinter2022HealerText": "Crystalline Ice Wand",
-  "weaponSpecialWinter2022HealerNotes": "Touch this solid-water implement to a friend's neck and they'll jump out of their chair! But they'll feel better afterward. Hopefully.Increases Intelligence by <%= int %>. Limited Edition 2021-2022 Winter Gear.",
+  "weaponSpecialWinter2022HealerNotes": "Touch this solid-water implement to a friend's neck and they'll jump out of their chair! But they'll feel better afterward. Hopefully. Increases Intelligence by <%= int %>. Limited Edition 2021-2022 Winter Gear.",
+
+  "headSpecialNye2021Text": "Preposterous Party Hat",
+  "headSpecialNye2021Notes": "You've received a Preposterous Party Hat! Wear it with pride while ringing in the New Year! Confers no benefit.",
 
   "weaponMystery201411Text": "Pitchfork of Feasting",
   "weaponMystery201411Notes": "Stab your enemies or dig in to your favorite foods - this versatile pitchfork does it all! Confers no benefit. November 2014 Subscriber Item.",
