@@ -209,5 +209,7 @@
     "reportSent": "バグの報告を送信しました！",
     "reportDescriptionPlaceholder": "以下にバグの詳細を記入してください",
     "reportEmailError": "有効なメールアドレスをご入力ください",
-    "reportEmailPlaceholder": "あなたのメールアドレス"
+    "reportEmailPlaceholder": "あなたのメールアドレス",
+    "reportEmailText": "バグの報告に関してのみ使用してください。",
+    "reportDescriptionText": "役に立つ場合は、スクリーンショットやコンソールによるJavascriptのエラー表示も添付してください。"
 }

@@ -2540,5 +2540,9 @@
     "headSpecialWinter2022MageText": "ザクロのかぶと",
     "headSpecialWinter2022MageNotes": "厚い殻のおかげで、このお祝いのフルーティーなかぶとは、\"ベリー\"ストロングです。知覚が<%= per %>上がります。2021年-2022年冬の限定装備。",
     "headSpecialWinter2022HealerText": "氷の結晶のかんむり",
-    "headSpecialWinter2022HealerNotes": "極めて小さな欠陥と不純物が、この頭飾りの腕を予測できない方向に枝分かれさせます。象徴的ですね！そして、この頭飾りはとってもとっても綺麗です！知能が<%= int %>上がります。2021年-2022年冬の限定装備。"
+    "headSpecialWinter2022HealerNotes": "極めて小さな欠陥と不純物が、この頭飾りの腕を予測できない方向に枝分かれさせます。象徴的ですね！そして、この頭飾りはとってもとっても綺麗です！知能が<%= int %>上がります。2021年-2022年冬の限定装備。",
+    "shieldSpecialWinter2022WarriorText": "ジングルベルシールド",
+    "shieldSpecialWinter2022WarriorNotes": "ジングルベル、ジングルベル、ジングルベルシールド。ジングルベルで守り、ジングルベルで受け流します。体質が<%= con %>上がります。2021年-2022年冬の限定装備。",
+    "shieldSpecialWinter2022HealerText": "溶けない氷の結晶",
+    "shieldSpecialWinter2022HealerNotes": "手の中で溶けても、内側からの氷のエレメントの力で再生します。体質が<%= con %>上がります。2021年-2022年冬の限定装備。"
 }
