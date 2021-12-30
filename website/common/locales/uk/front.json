@@ -28,9 +28,9 @@
     "login": "Увійти",
     "logout": "Вийти",
     "marketing1Header": "Improve Your Habits by Playing a Game",
-    "marketing1Lead1Title": "Your Life, the Role Playing Game",
-    "marketing1Lead1": "Habitica — це відеогра, з допомогою якої ви можете поліпшити свої звички у реальному житті. Вона „гейміфікує“ ваше життя, перетворюючи всі ваші завдання (звички, щоденні справи та завдання) на маленьких потвор, яких вам потрібно побороти. Чим ліпше вам це вдаватиметься, тим більше ви просуватиметеся грою. Кожна ваша помилка у реальному житті відкидатиме назад вашого персонажа у грі.",
-    "marketing1Lead2Title": "Отримуйте файнички",
+    "marketing1Lead1Title": "Ваше життя, як рольова гра",
+    "marketing1Lead1": "Habitica — це гра, з допомогою якої ви можете поліпшити свої звички у реальному житті. Вона „гейміфікує“ ваше життя, перетворюючи всі ваші завдання (звички, щоденні справи та завдання) на маленьких потвор, яких вам потрібно побороти. Чим ліпше вам це вдаватиметься, тим більше ви просуватиметеся грою. Кожна ваша помилка у реальному житті відкидатиме назад вашого персонажа у грі.",
+    "marketing1Lead2Title": "Отримуйте різноманітне спорядження",
     "marketing1Lead2": "Improve your habits to build up your avatar. Show off the sweet gear you've earned!",
     "marketing1Lead3Title": "Знаходьте випадкові призи",
     "marketing1Lead3": "For some, it's the gamble that motivates them: a system called \"stochastic rewards.\" Habitica accommodates all reinforcement and punishment styles: positive, negative, predictable, and random.",
@@ -61,7 +61,7 @@
     "password": "Пароль",
     "playButton": "Грати",
     "playButtonFull": "Enter Habitica",
-    "presskit": "Press Kit",
+    "presskit": "Для преси",
     "presskitText": "Thanks for your interest in Habitica! The following images can be used for articles or videos about Habitica. For more information, please contact us at <%= pressEnquiryEmail %>.",
     "pkQuestion1": "What inspired Habitica? How did it start?",
     "pkAnswer1": "If you’ve ever invested time in leveling up a character in a game, it’s hard not to wonder how great your life would be if you put all of that effort into improving your real-life self instead of your avatar. We starting building Habitica to address that question. <br /> Habitica officially launched with a Kickstarter in 2013, and the idea really took off. Since then, it’s grown into a huge project, supported by our awesome open-source volunteers and our generous users.",
@@ -87,7 +87,7 @@
     "pkWebsite": "Веб-сайт",
     "pkiOS": "iOS",
     "pkAndroid": "Android",
-    "privacy": "Політику Конфіденційности",
+    "privacy": "Політика конфіденційності",
     "register": "Зареєструватися",
     "school": "School",
     "sync": "Синхронізуватися",
@@ -184,5 +184,6 @@
     "mobileApps": "Мобільні додатки",
     "learnMore": "Learn More",
     "minPasswordLength": "Пароль повинен містити не менше 8 символів.",
-    "communityInstagram": "Instagram"
+    "communityInstagram": "Instagram",
+    "enterHabitica": "Повернутись в Habitica"
 }

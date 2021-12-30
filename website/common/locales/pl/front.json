@@ -5,7 +5,7 @@
     "accept2Terms": "oraz",
     "chores": "Obowiązkami",
     "clearBrowserData": "Wyczyść dane wyszukiwarki",
-    "communityExtensions": "<a href='http://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations' target='_blank'>Dodatki i rozszerzenia</a>",
+    "communityExtensions": "<a href='https://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations' target='_blank'>Dodatki i rozszerzenia</a>",
     "communityFacebook": "Facebook",
     "companyAbout": "Jak to działa",
     "companyBlog": "Blog",
@@ -44,7 +44,7 @@
     "marketing3Header": "Aplikacje i rozszerzenia",
     "marketing3Lead1": "Aplikacje na **iPhone i Androida** pozwalają ci zadbać o wszystko w podróży. Rozumiemy, że logowanie się na stronę by poklikać guziczki może być kłopotliwe.",
     "marketing3Lead2Title": "Integracje",
-    "marketing3Lead2": "Dodatki **innych firm** wiążą Habitikę z różnymi aspektami Twojego życia. Nasze API zapewnia łatwą integrację dla takich dodatków jak [rozszerzenie dla Chrome](https://chrome.google.com/webstore/detail/habitica/pidkmpibnnnhneohdgjclfdjpijggmjj?hl=en-US), które odbiera Ci punkty za przebywanie na bezproduktywnych stronach internetowych, a dodaje punkty za strony produktywne. [Tutaj dowiesz się więcej](http://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations).",
+    "marketing3Lead2": "Dodatki **innych firm** wiążą Habitikę z różnymi aspektami Twojego życia. Nasze API zapewnia łatwą integrację dla takich dodatków jak [rozszerzenie dla Chrome](https://chrome.google.com/webstore/detail/habitica/pidkmpibnnnhneohdgjclfdjpijggmjj?hl=en-US), które odbiera Ci punkty za przebywanie na bezproduktywnych stronach internetowych, a dodaje punkty za strony produktywne. [Tutaj dowiesz się więcej](https://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations).",
     "marketing4Header": "Użycie przez organizacje",
     "marketing4Lead1": "Edukacja jest jedną z najlepszych sfer dla gamifikacji. Wiadomo, że obecnie uczniowie i ich telefony i gry są praktycznie nierozłączni; wykorzystaj to! Niech twoi uczniowie zmierzą się w koleżeńskich pojedynkach. Wyróżniaj dobre zachowanie rzadkimi nagrodami. Obserwuj jak ich oceny i zachowanie się poprawiają.",
     "marketing4Lead1Title": "Gamifikacja w edukacji",
@@ -123,7 +123,7 @@
     "emailTaken": "Adres e-mail jest już używany.",
     "newEmailRequired": "Brakuje nowego adresu e-mail.",
     "usernameTime": "Nadszedł czas aby podać nazwę użytkownika!",
-    "usernameInfo": "Nazwy logowania są obecnie unikalnymi nazwami użytkowników, które będą widoczne obok Twojej nazwy gracza i będą używane do zaproszeń czatów i wiadomości.<br><br>Jeśli chcesz uzyskać więcej informacji o tej zmianie, <a href='http://habitica.fandom.com/wiki/Player_Names' target='_blank'>przeczytaj artykuł na wiki</a>.",
+    "usernameInfo": "Nazwy logowania są obecnie unikalnymi nazwami użytkowników, które będą widoczne obok Twojej nazwy gracza i będą używane do zaproszeń czatów i wiadomości.<br><br>Jeśli chcesz uzyskać więcej informacji o tej zmianie, <a href='https://habitica.fandom.com/wiki/Player_Names' target='_blank'>przeczytaj artykuł na wiki</a>.",
     "usernameTOSRequirements": "Nazwy użytkowników muszą spełniać wymagania określone w <a href='/static/terms' target='_blank'>Warunkach korzystania z Usług</a> oraz <a href='/static/community-guidelines' target='_blank'>Wytycznych Wspólnoty</a>. Jeśli wcześniej nie ustawiono nazwy logowania, to nazwa użytkownika zostanie wygenerowana automatycznie.",
     "usernameTaken": "Nazwa użytkownika jest już zajęta.",
     "passwordConfirmationMatch": "Potwierdzenie hasła nie jest identyczne z hasłem.",
@@ -184,5 +184,6 @@
     "mobileApps": "Aplikacje mobilne",
     "learnMore": "Dowiedz się więcej",
     "communityInstagram": "Instagram",
-    "minPasswordLength": "Hasło musi zawierać co najmniej 8 znaków."
+    "minPasswordLength": "Hasło musi zawierać co najmniej 8 znaków.",
+    "enterHabitica": "Wstąp w Habitikę"
 }

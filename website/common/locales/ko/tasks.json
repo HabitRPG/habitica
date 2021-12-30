@@ -1,6 +1,6 @@
 {
     "clearCompleted": "삭제 완료",
-    "clearCompletedDescription": "완료된 할 일 목록은 비회원은 30일, 회원은 90일 뒤에 삭제됩니다.",
+    "clearCompletedDescription": "완료된 할 일 목록은 비 구독 회원은 30일, 구독 회원은 90일 뒤에 삭제됩니다.",
     "clearCompletedConfirm": "완료한 할 일 목록을 삭제하시겠습니까?",
     "addMultipleTip": "<strong>Tip:</strong>한 번에 여러 개 추가를 원한다면 <%= taskType %>, 줄 바꿈 (Shift + Enter)을 이용해서 한 줄에 하나씩 입력한 뒤 \"Enter\"를 누르시면 됩니다.",
     "addATask": "<%= type %> 추가",
@@ -24,8 +24,8 @@
     "expandChecklist": "체크리스트 확장",
     "collapseChecklist": "체크리스트 접기",
     "text": "제목",
-    "notes": "Notes",
-    "advancedSettings": "Advanced Settings",
+    "notes": "노트",
+    "advancedSettings": "고급 설정",
     "difficulty": "난이도",
     "difficultyHelp": "Difficulty describes how challenging a Habit, Daily, or To-Do is for you to complete. A higher difficulty results in greater rewards when a Task is completed, but also greater damage when a Daily is missed or a negative Habit is clicked.",
     "trivial": "사소함",
@@ -34,8 +34,8 @@
     "hard": "어려움",
     "attributes": "Stats",
     "progress": "진행상황",
-    "daily": "일일과제",
-    "dailies": "일일과제 목록",
+    "daily": "일일 과제",
+    "dailies": "일일 과제 목록",
     "dailysDesc": "Dailies repeat on a regular basis. Choose the schedule that works best for you!",
     "streakCounter": "연속 기록 카운터",
     "repeat": "반복하기",
@@ -128,5 +128,8 @@
     "yesterDailiesCallToAction": "Start My New Day!",
     "sessionOutdated": "Your session is outdated. Please refresh or sync.",
     "errorTemporaryItem": "This item is temporary and cannot be pinned.",
-    "addATitle": "제목 추가"
+    "addATitle": "제목 추가",
+    "enterTag": "태그를 입력하세요",
+    "addTags": "태그 추가하기...",
+    "addNotes": "노트 추가"
 }

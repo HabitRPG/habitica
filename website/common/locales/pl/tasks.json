@@ -135,5 +135,9 @@
     "sureDeleteType": "Czy jesteś pewny, że chcesz usunąć to <%= type %>?",
     "deleteTaskType": "Usuń to <%= type %>",
     "tomorrow": "Jutro",
-    "addNotes": "Dodaj notatki"
+    "addNotes": "Dodaj notatki",
+    "adjustCounter": "Dostosuj Licznik",
+    "editTagsText": "Edytuj Tagi",
+    "counter": "Licznik",
+    "resetCounter": "Zresetuj Licznik"
 }

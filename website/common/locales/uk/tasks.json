@@ -7,7 +7,7 @@
     "editATask": "Редагувати <%= type %>",
     "createTask": "Створити <%= type %>",
     "addTaskToUser": "Додати завдання",
-    "scheduled": "Заплановані",
+    "scheduled": "З дедлайном",
     "theseAreYourTasks": "Це ваші <%= taskType %>",
     "habit": "Звичка",
     "habits": "Звички",
@@ -135,5 +135,9 @@
     "deleteTaskType": "Видалити <%= type %>",
     "tomorrow": "Завтра",
     "addNotes": "Додати примітку",
-    "addATitle": "Додати назву"
+    "addATitle": "Додати назву",
+    "adjustCounter": "Відрегулювати лічильник",
+    "counter": "Лічильник",
+    "resetCounter": "Скинути лічильник",
+    "editTagsText": "Редагувати теги"
 }

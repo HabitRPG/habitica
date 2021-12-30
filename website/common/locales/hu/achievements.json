@@ -8,7 +8,7 @@
     "achievementMindOverMatter": "Az elme hatalma az anyag felett",
     "achievementJustAddWater": "Elég egy vízcsepp",
     "achievementBackToBasics": "Vissza az alapokhoz",
-    "achievementBackToBasicsText": "Begyűjtötted az összes alap szintű állatot.",
+    "achievementBackToBasicsText": "Begyűjtötte az összes alap állatot.",
     "achievementMindOverMatterModalText": "Teljesítetted a kő, nyálka, és fonál háziállat küldetéseket!",
     "achievementMindOverMatterText": "Teljesítette a kő, nyálka, és fonál háziállat küldetéseket.",
     "achievementLostMasterclasserModalText": "Teljesítetted mind a tizenhat küldetést a Kasztmester küldetéssorozatban és megoldottad az Elveszett kasztmester rejtélyét!",
@@ -26,6 +26,8 @@
     "onboardingCompleteDescSmall": "Ha még többet szeretnél, ellenőrizd a kitüntetéseket, és kezdd el gyűjtésüket!",
     "onboardingComplete": "Minden kitűzött célod teljesítetted!",
     "yourProgress": "Előrehaladásod",
-    "achievementJustAddWaterText": "Teljesítetted a Polip, a Tengeri csikó, a Tintahal, a Bálna, a Teknős, a Tengeri csupaszcsiga, a Tengeri kígyó, valamint a Delfin kisállat kihívásokat.",
-    "yourRewards": "Kitüntetéseid"
+    "achievementJustAddWaterText": "Teljesítette a Polip, a Csikóhal, a Tintahal, a Bálna, a Tengeri teknős, a Csupaszkopoltyús csiga, a Tengeri kígyó, valamint a Delfin kisállat kihívásokat.",
+    "yourRewards": "Kitüntetéseid",
+    "achievementJustAddWaterModalText": "Teljesítetted a Polip, a Csikóhal, a Tintahal, a Bálna, a Tengeri teknős, a Csupaszkopoltyús csiga, a Tengeri kígyó, valamint a Delfin kisállat kihívásokat!",
+    "achievementBackToBasicsModalText": "Begyűjtötted az összes alap állatot!"
 }

@@ -80,7 +80,7 @@
     "perfectText": "已完成每日任务<%= count %>天。你将获得完美日成就，且在明天你会得到全属性+level/2 的增益。等级高于100的部分不会得到增益。",
     "perfectSingular": "完美日",
     "perfectSingularText": "已完成当日的所有任务。你将获得完美日成就，且在明天你会得到全属性+level/2 的增益。等级高于100的部分不会得到增益。",
-    "fortifyName": "稳固药剂",
+    "fortifyName": "稳固药水",
     "fortifyPop": "将所有任务恢复至中性状态（黄色），并补满的生命值。",
     "fortify": "稳固",
     "fortifyComplete": "加固完成！",

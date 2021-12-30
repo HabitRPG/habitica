@@ -188,7 +188,7 @@
     "septemberYYYY": "September <%= year %>",
     "royalPurpleJackolantern": "Purpurne Kürbislaterne",
     "novemberYYYY": "November <%= year %>",
-    "g1g1Limitations": "Dies ist eine Zeit-beschränkte Aktion und startet am 17. Dezember um 13:00 Uhr (GMT) und wird am 7. Januar um 01:00 Nachts (GMT) enden. Dieses Angebot ist nur gültig wenn Du einen anderen Habitikianer beschenkst. Wenn Du, oder die beschenkte Person, bereits ein Abo haben wird dieses, sobald es abläuft oder gekündigt wird, um die Zeit des Geschenkes verlängert werden.",
+    "g1g1Limitations": "Dies ist eine zeitlich beschränkte Aktion, die am 16. Dezember um 13:00 Uhr (GMT) startet und am 6. Januar um 01:00 Nachts (GMT) endet. Dieses Angebot ist nur gültig, wenn Du einen anderen Habitikianer beschenkst. Wenn Du oder die beschenkte Person bereits ein Abo haben, wird dieses, sobald es abläuft oder gekündigt wird, um die Zeit des Geschenkes verlängert werden.",
     "limitations": "Einschränkungen",
     "g1g1HowItWorks": "Gebe den Account-Namen ein, welchem Du das Geschenk machen willst. Dann wähle die Länge des Abos, das du verschenken möchtest und schließe den Vorgang ab. Dein Account wird automatisch mit dem selben Abo belohnt, das Du gerade verschenkt hast.",
     "howItWorks": "So funktioniert es",
@@ -211,5 +211,10 @@
     "fall2021HeadlessWarriorSet": "Kopflos (Krieger)",
     "fall2021BrainEaterMageSet": "Gehirnesser (Magier)",
     "fall2021FlameSummonerHealerSet": "Flammenbote (Heiler)",
-    "fall2021OozeRogueSet": "Schlamm (Schurke)"
+    "fall2021OozeRogueSet": "Schlamm (Schurke)",
+    "winter2022FireworksRogueSet": "Feuerwerk (Schurke)",
+    "winter2022StockingWarriorSet": "Strumpf (Krieger)",
+    "winter2022IceCrystalHealerSet": "Eiskristall (Heiler)",
+    "winter2022PomegranateMageSet": "Granatapfel (Magier)",
+    "januaryYYYY": "Januar <%= year %>"
 }
