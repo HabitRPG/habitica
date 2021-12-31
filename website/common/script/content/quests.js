@@ -7,6 +7,13 @@ import t from './translation';
 import {
   EVENTS,
   USER_CAN_OWN_QUEST_CATEGORIES,
+  // future constants for quest variable
+  // QUEST_GENERIC
+  // QUEST_SERIES,
+  // QUEST_MASTERCLASSER,
+  // QUEST_PETS,
+  // QUESTS_HATCHING_POTIONS,
+  // QUESTS_TIME_TRAVELERS
 } from './constants';
 
 const CURRENT_EVENT = find(
@@ -58,11 +65,14 @@ const quests = {
       exp: 42,
     },
   },
-  // chain quests
+  // series quests
   atom1: {
     text: t('questAtom1Text'),
     notes: t('questAtom1Notes'),
     completion: t('questAtom1Completion'),
+    // prerequisite: {
+    //   lvl: 15,
+    // },
     group: 'questGroupAtom',
     value: 4,
     lvl: 15,
@@ -91,6 +101,10 @@ const quests = {
     notes: t('questAtom2Notes'),
     completion: t('questAtom2Completion'),
     group: 'questGroupAtom',
+    // prerequisite: {
+    //   lvl: 15,
+    //   atom1: true,
+    // },
     previous: 'atom1',
     value: 4,
     lvl: 15,
@@ -117,6 +131,11 @@ const quests = {
     text: t('questAtom3Text'),
     notes: t('questAtom3Notes'),
     group: 'questGroupAtom',
+    // prerequisite: {
+    //   lvl: 15,
+    //   atom1: true,
+    //   atom2: true,
+    // },
     previous: 'atom2',
     completion: t('questAtom3Completion'),
     value: 4,
