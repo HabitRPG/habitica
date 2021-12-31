@@ -4,7 +4,6 @@ import spritesmith from 'gulp.spritesmith';
 import clean from 'rimraf';
 import sizeOf from 'image-size';
 import mergeStream from 'merge-stream';
-import { basename } from 'path';
 import { sync } from 'glob';
 import { each } from 'lodash';
 import vinylBuffer from 'vinyl-buffer';
@@ -118,47 +117,12 @@ function createSpritesStream (name, src) {
 }
 
 gulp.task('sprites:main', () => {
-  const mainSrc = sync('website/raw_sprites/spritesmith/**/*.png');
+  const mainSrc = sync('habitica-images/**/*.png');
   return createSpritesStream('main', mainSrc);
-});
-
-gulp.task('sprites:largeSprites', () => {
-  const largeSrc = sync('website/raw_sprites/spritesmith_large/**/*.png');
-  return createSpritesStream('largeSprites', largeSrc);
 });
 
 gulp.task('sprites:clean', done => {
   clean(`${IMG_DIST_PATH}spritesmith*,${CSS_DIST_PATH}spritesmith*}`, done);
 });
 
-gulp.task('sprites:checkCompiledDimensions', gulp.series('sprites:main', done => {
-  console.log('Verifying that images do not exceed max dimensions'); // eslint-disable-line no-console
-
-  let numberOfSheetsThatAreTooBig = 0;
-
-  const distSpritesheets = sync(`${IMG_DIST_PATH}*.png`);
-
-  each(distSpritesheets, img => {
-    const spriteSize = calculateImgDimensions(img);
-
-    if (spriteSize > MAX_SPRITESHEET_SIZE) {
-      numberOfSheetsThatAreTooBig += 1;
-      const name = basename(img, '.png');
-      console.error(`WARNING: ${name} might be too big - ${spriteSize} > ${MAX_SPRITESHEET_SIZE}`); // eslint-disable-line no-console
-    }
-  });
-
-  if (numberOfSheetsThatAreTooBig > 0) {
-    // https://github.com/HabitRPG/habitica/pull/6683#issuecomment-185462180
-    console.error( // eslint-disable-line no-console
-      `${numberOfSheetsThatAreTooBig} sheets might too big for mobile Safari to be able to handle
-      them, but there is a margin of error in these calculations so it is probably okay. Mention
-      this to an admin so they can test a staging site on mobile Safari after your PR is merged.`,
-    );
-  } else {
-    console.log('All images are within the correct dimensions'); // eslint-disable-line no-console
-  }
-  done();
-}));
-
-gulp.task('sprites:compile', gulp.series('sprites:clean', 'sprites:checkCompiledDimensions', done => done()));
+gulp.task('sprites:compile', gulp.series('sprites:clean', 'sprites:main', done => done()));
