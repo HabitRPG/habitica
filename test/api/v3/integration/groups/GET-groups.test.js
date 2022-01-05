@@ -229,20 +229,17 @@ describe('GET /groups', () => {
       await groups[32].update({ name: 'guild with most members', memberCount: 199 });
       await groups[33].update({ name: 'guild with less members', memberCount: -100 });
 
-      console.log(groups.length);
       const page0 = await expect(user.get('/groups?type=publicGuilds&paginate=true'))
         .to.eventually.have.a.lengthOf(GUILD_PER_PAGE);
       expect(page0[0].name).to.equal('guild with most members');
 
       await expect(user.get('/groups?type=publicGuilds&paginate=true&page=1'))
         .to.eventually.have.a.lengthOf(GUILD_PER_PAGE);
-      const test = await user.get('/groups?type=publicGuilds&paginate=true&page=2');
-      console.log(test);
       const page2 = await expect(user.get('/groups?type=publicGuilds&paginate=true&page=2'))
         // 1 created now, 4 by other tests, -1 for no more tavern.
         .to.eventually.have.a.lengthOf(1 + 4 - 1);
       expect(page2[3].name).to.equal('guild with less members');
-    }).timeout(30000);
+    }).timeout(10000);
   });
 
   it('makes sure that the tavern doesn\'t show up when guilds is passed as a query', async () => {
