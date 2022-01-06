@@ -379,6 +379,10 @@ const armor = {
     per: 7,
     set: 'blackLoungewear',
   },
+  shootingStarCostume: {
+    con: 10,
+    set: 'shootingStar',
+  },
 };
 
 const body = {
@@ -772,6 +776,10 @@ const head = {
   regalCrown: {
     int: 7,
     set: 'regal',
+  },
+  shootingStarCrown: {
+    per: 10,
+    set: 'shootingStar',
   },
 };
 
@@ -1406,6 +1414,12 @@ const weapon = {
   regalSceptre: {
     per: 7,
     set: 'regal',
+  },
+  shootingStarSpell: {
+    str: 5,
+    int: 5,
+    set: 'shootingStar',
+    twoHanded: true,
   },
 };
 

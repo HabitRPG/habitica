@@ -613,6 +613,8 @@
   "weaponArmoirePotionGoldenNotes": "With this potion, your pet can have a heart of gold… and ears of gold… and a tail of gold… Increases Strength and Intelligence by <%= attrs %> each. Enchanted Armoire: Potion Set (Item 10 of 10)",
   "weaponArmoireRegalSceptreText": "Regal Sceptre",
   "weaponArmoireRegalSceptreNotes": "Display your regal authority by taking this bejeweled staff in hand. Increases Perception by <%= per %>. Enchanted Armoire: Regal Set (Item 2 of 2).",
+  "weaponArmoireShootingStarSpellText": "Stardust Sparkles",
+  "weaponArmoireShootingStarSpellNotes": "Surround yourself in a spell of stardust magic to help you make all your wishes come true. Increases Strength and Intelligence by <%= attrs %> each. Enchanted Armoire: Stardust Set (Item 3 of 3).",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -1292,6 +1294,8 @@
   "armorArmoireHeraldsTunicNotes": "Get ready to spread good news far and wide in this colorful, royal outfit. Increases Constitution by <%= con %>. Enchanted Armoire: Herald Set (Item 1 of 4).",
   "armorArmoireSoftBlackSuitText": "Soft Black Suit",
   "armorArmoireSoftBlackSuitNotes": "Black is a mysterious colour. It’s sure to inspire the most interesting dreams. Increases Constitution and Perception by <%= attrs %> each. Enchanted Armoire: Black Loungewear Set (Item 2 of 3).",
+  "armorArmoireShootingStarCostumeText": "Star Gown",
+  "armorArmoireShootingStarCostumeNotes": "Rumored to have been spun out of the night sky itself, this flowy gown lets you rise above all obstacles in your path. Increases Constitution by <%= con %>. Enchanted Armoire: Stardust Set (Item 2 of 3).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -1995,6 +1999,8 @@
   "headArmoireBlackFloppyHatNotes": "Many spells have been sewn into this simple hat, giving it a bold black color. Increases Constitution, Perception, and Strength by <%= attrs %> each. Enchanted Armoire: Black Loungewear Set (Item 1 of 3).",
   "headArmoireRegalCrownText": "Regal Crown",
   "headArmoireRegalCrownNotes": "Any monarch would be lucky to have such a majestic, smart-looking crown. Increases Intelligence by <%= int %>. Enchanted Armoire: Regal Set (Item 1 of 2).",
+  "headArmoireShootingStarCrownText": "Star Crown",
+  "headArmoireShootingStarCrownNotes": "With this brightly shining headpiece, you will literally be the star of your own adventure! Increases Perception by <%= per %>. Enchanted Armoire: Stardust Set (Item 1 of 3).",
 
   "offhand": "off-hand item",
   "offHandCapitalized": "Off-Hand Item",
