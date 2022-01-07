@@ -98,7 +98,7 @@ const quests = {
     notes: t('questAtom2Notes'),
     completion: t('questAtom2Completion'),
     group: 'questGroupAtom',
-    previous: 'atom1',
+    previous1: 'atom1',
     value: 4,
     lvl: 15,
     category: 'unlockable',
@@ -124,7 +124,8 @@ const quests = {
     text: t('questAtom3Text'),
     notes: t('questAtom3Notes'),
     group: 'questGroupAtom',
-    previous: 'atom2',
+    previous1: 'atom1',
+    previous2: 'atom2',
     completion: t('questAtom3Completion'),
     value: 4,
     lvl: 15,
@@ -187,7 +188,7 @@ const quests = {
     completion: t('questGoldenknight2Completion'),
     group: 'questGroupGoldenknight',
     value: 4,
-    previous: 'goldenknight1',
+    previous1: 'goldenknight1',
     lvl: 40,
     category: 'unlockable',
     boss: {
@@ -208,13 +209,13 @@ const quests = {
       exp: 750,
     },
   },
-<<<<<<< HEAD
   goldenknight3: {
     text: t('questGoldenknight3Text'),
     notes: t('questGoldenknight3Notes'),
     group: 'questGroupGoldenknight',
     completion: t('questGoldenknight3Completion'),
-    previous: 'goldenknight2',
+    previous1: 'goldenknight1',
+    previous2: 'goldenknight2',
     value: 4,
     lvl: 40,
     category: 'unlockable',
@@ -222,23 +223,6 @@ const quests = {
       name: t('questGoldenknight3Boss'),
       hp: 1700,
       str: 3.5,
-=======
-  egg: {
-    text: t('questEggHuntText'),
-    notes: t('questEggHuntNotes'),
-    completion: t('questEggHuntCompletion'),
-    value: 1,
-    category: 'pet',
-    canBuy () {
-      return CURRENT_EVENT && CURRENT_EVENT.season === 'spring';
-    },
-    event: CURRENT_EVENT && CURRENT_EVENT.season === 'spring' ? CURRENT_EVENT : null,
-    collect: {
-      plainEgg: {
-        text: t('questEggHuntCollectPlainEgg'),
-        count: 40,
-      },
->>>>>>> upstream/develop
     },
     drop: {
       items: [
@@ -307,7 +291,7 @@ const quests = {
     notes: t('questMoon2Notes'),
     group: 'questGroupMoon',
     completion: t('questMoon2Completion'),
-    previous: 'moon1',
+    previous1: 'moon1',
     value: 4,
     category: 'unlockable',
     unlockCondition: {
@@ -337,7 +321,8 @@ const quests = {
     notes: t('questMoon3Notes'),
     group: 'questGroupMoon',
     completion: t('questMoon3Completion'),
-    previous: 'moon2',
+    previous1: 'moon1',
+    previous2: 'moon2',
     value: 4,
     category: 'unlockable',
     unlockCondition: {
@@ -370,9 +355,6 @@ const quests = {
     value: 4,
     lvl: 60,
     category: 'unlockable',
-    unlockCondition: {
-      lvl: 60,
-    },
     collect: {
       moonstone: {
         text: t('questMoonstone1CollectMoonstone'),
@@ -398,13 +380,9 @@ const quests = {
     completion: t('questMoonstone2Completion'),
     group: 'questGroupMoonstone',
     value: 4,
-    // lvl: 60,
-    previous: 'moonstone1',
+    lvl: 60,
+    previous1: 'moonstone1',
     category: 'unlockable',
-    unlockCondition: {
-      lvl: 60,
-      previous: 'moonstone1',
-    },
     boss: {
       name: t('questMoonstone2Boss'),
       hp: 1500,
@@ -428,14 +406,11 @@ const quests = {
     notes: t('questMoonstone3Notes'),
     group: 'questGroupMoonstone',
     completion: t('questMoonstone3Completion'),
-    previous: 'moonstone2',
+    previous1: 'moonstone1',
+    previous2: 'moonstone2',
     value: 4,
     lvl: 60,
     category: 'unlockable',
-    unlockCondition: {
-      lvl: 60,
-      previous: 'moonstone2',
-    },
     boss: {
       name: t('questMoonstone3Boss'),
       hp: 2000,
@@ -519,7 +494,7 @@ const quests = {
     value: 4,
     lvl: 30,
     category: 'unlockable',
-    previous: 'vice1',
+    previous1: 'vice1',
     collect: {
       lightCrystal: {
         text: t('questVice2CollectLightCrystal'),
@@ -544,7 +519,8 @@ const quests = {
     notes: t('questVice3Notes'),
     group: 'questGroupVice',
     completion: t('questVice3Completion'),
-    previous: 'vice2',
+    previous1: 'vice1',
+    previous2: 'vice2',
     value: 4,
     lvl: 30,
     category: 'unlockable',
@@ -617,7 +593,7 @@ const quests = {
     notes: t('questDilatoryDistress2Notes'),
     group: 'questGroupDilatoryDistress',
     completion: t('questDilatoryDistress2Completion'),
-    previous: 'dilatoryDistress1',
+    previous1: 'dilatoryDistress1',
     value: 4,
     goldValue: 300,
     category: 'gold',
@@ -657,7 +633,8 @@ const quests = {
     notes: t('questDilatoryDistress3Notes'),
     group: 'questGroupDilatoryDistress',
     completion: t('questDilatoryDistress3Completion'),
-    previous: 'dilatoryDistress2',
+    previous1: 'dilatoryDistress1',
+    previous2: 'dilatoryDistress2',
     value: 4,
     goldValue: 400,
     category: 'gold',
@@ -738,7 +715,7 @@ const quests = {
     notes: t('questMayhemMistiflying2Notes'),
     group: 'questGroupMayhemMistiflying',
     completion: t('questMayhemMistiflying2Completion'),
-    previous: 'mayhemMistiflying1',
+    previous1: 'mayhemMistiflying1',
     value: 4,
     goldValue: 300,
     category: 'gold',
@@ -773,7 +750,8 @@ const quests = {
     notes: t('questMayhemMistiflying3Notes'),
     group: 'questGroupMayhemMistiflying',
     completion: t('questMayhemMistiflying3Completion'),
-    previous: 'mayhemMistiflying2',
+    previous1: 'mayhemMistiflying1',
+    previous2: 'mayhemMistiflying2',
     value: 4,
     goldValue: 400,
     category: 'gold',
@@ -854,7 +832,7 @@ const quests = {
     notes: t('questStoikalmCalamity2Notes'),
     group: 'questGroupStoikalmCalamity',
     completion: t('questStoikalmCalamity2Completion'),
-    previous: 'stoikalmCalamity1',
+    previous1: 'stoikalmCalamity1',
     value: 4,
     goldValue: 300,
     category: 'gold',
@@ -881,7 +859,8 @@ const quests = {
     notes: t('questStoikalmCalamity3Notes'),
     group: 'questGroupStoikalmCalamity',
     completion: t('questStoikalmCalamity3Completion'),
-    previous: 'stoikalmCalamity2',
+    previous1: 'stoikalmCalamity1',
+    previous2: 'stoikalmCalamity2',
     value: 4,
     goldValue: 400,
     category: 'gold',
@@ -962,7 +941,7 @@ const quests = {
     notes: t('questTaskwoodsTerror2Notes'),
     group: 'questGroupTaskwoodsTerror',
     completion: t('questTaskwoodsTerror2Completion'),
-    previous: 'taskwoodsTerror1',
+    previous1: 'taskwoodsTerror1',
     value: 4,
     goldValue: 300,
     category: 'gold',
@@ -997,7 +976,8 @@ const quests = {
     notes: t('questTaskwoodsTerror3Notes'),
     group: 'questGroupTaskwoodsTerror',
     completion: t('questTaskwoodsTerror3Completion'),
-    previous: 'taskwoodsTerror2',
+    previous1: 'taskwoodsTerror1',
+    previous2: 'taskwoodsTerror2',
     value: 4,
     goldValue: 400,
     category: 'gold',
@@ -1101,7 +1081,7 @@ const quests = {
     text: t('questLostMasterclasser2Text'),
     notes: t('questLostMasterclasser2Notes'),
     group: 'questGroupLostMasterclasser',
-    previous: 'lostMasterclasser1',
+    previous1: 'lostMasterclasser1',
     completion: t('questLostMasterclasser2Completion'),
     value: 4,
     goldValue: 500,
@@ -1164,7 +1144,8 @@ const quests = {
     notes: t('questLostMasterclasser3Notes'),
     group: 'questGroupLostMasterclasser',
     completion: t('questLostMasterclasser3Completion'),
-    previous: 'lostMasterclasser2',
+    previous1: 'lostMasterclasser1',
+    previous2: 'lostMasterclasser2',
     value: 4,
     goldValue: 600,
     category: 'gold',
@@ -1217,7 +1198,9 @@ const quests = {
     notes: t('questLostMasterclasser4Notes'),
     group: 'questGroupLostMasterclasser',
     completion: t('questLostMasterclasser4Completion'),
-    previous: 'lostMasterclasser3',
+    previous1: 'lostMasterclasser1',
+    previous2: 'lostMasterclasser2',
+    previous3: 'lostMasterclasser3',
     value: 4,
     goldValue: 700,
     category: 'gold',
@@ -3393,7 +3376,6 @@ const quests = {
       unlock: t('questTurquoiseUnlockText'),
     },
   },
-<<<<<<< HEAD
   // time travelers quests
   robot: {
     text: t('questRobotText'),
@@ -3416,28 +3398,6 @@ const quests = {
       spring: {
         text: t('questRobotCollectSprings'),
         count: 10,
-=======
-  waffle: {
-    text: t('questWaffleText'),
-    notes: t('questWaffleNotes'),
-    completion: t('questWaffleCompletion'),
-    value: 4,
-    category: 'hatchingPotion',
-    canBuy () {
-      return CURRENT_EVENT && CURRENT_EVENT.season === 'spring';
-    },
-    event: CURRENT_EVENT && CURRENT_EVENT.season === 'spring' ? CURRENT_EVENT : null,
-    boss: {
-      name: t('questWaffleBoss'),
-      hp: 500,
-      str: 2,
-      rage: {
-        title: t('questWaffleRageTitle'),
-        description: t('questWaffleRageDescription'),
-        value: 50,
-        progressDrain: 0.5,
-        effect: t('questWaffleRageEffect'),
->>>>>>> upstream/develop
       },
     },
     drop: {

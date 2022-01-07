@@ -31,24 +31,36 @@ function lockQuest (quest, user) {
     && user.achievements.quests.taskwoodsTerror3);
   }
 
-  // checks for multiple prerequisites
-  // if (quest.prerequisite === true) return true;
-
   // level requirements
   if (quest.lvl && user.stats.lvl < quest.lvl) return true;
 
-  // unlockCondition requirements
+  // unlockCondition requirements for Lunar Battle
   if (quest.unlockCondition
     && (quest.key === 'moon1' || quest.key === 'moon2' || quest.key === 'moon3')) {
     return user.loginIncentives < quest.unlockCondition.incentiveThreshold;
   }
 
-  // checks to make sure that previous quest has been completed
+  // checks to make sure 1st quest completed (previous1)
   if (user.achievements.quests) {
-    return quest.previous
-    && !user.achievements.quests[quest.previous];
+    return quest.previous1
+    && !user.achievements.quests[quest.previous1];
   }
-  return quest.previous;
+
+  // checks to make sure 1st and 2nd quests completed (previous1 and previous2)
+  if (user.achievements.quests) {
+    return quest.previous1
+    && !user.achievements.quests[quest.previous1]
+    && !user.achievements.quests[quest.previous2];
+  }
+
+  // checks to make sure 1st, 2nd, & 3rd quests completed (previous1, previous2, previous3)
+  if (user.achievements.quests) {
+    return quest.previous1
+    && !user.achievements.quests[quest.previous1]
+    && !user.achievements.quests[quest.previous2]
+    && !user.achievements.quests[quest.previous3];
+  }
+  return quest.previous1;
 }
 
 function isItemSuggested (officialPinnedItems, itemInfo) {
