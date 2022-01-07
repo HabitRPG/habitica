@@ -208,6 +208,7 @@ const quests = {
       exp: 750,
     },
   },
+<<<<<<< HEAD
   goldenknight3: {
     text: t('questGoldenknight3Text'),
     notes: t('questGoldenknight3Notes'),
@@ -221,6 +222,23 @@ const quests = {
       name: t('questGoldenknight3Boss'),
       hp: 1700,
       str: 3.5,
+=======
+  egg: {
+    text: t('questEggHuntText'),
+    notes: t('questEggHuntNotes'),
+    completion: t('questEggHuntCompletion'),
+    value: 1,
+    category: 'pet',
+    canBuy () {
+      return CURRENT_EVENT && CURRENT_EVENT.season === 'spring';
+    },
+    event: CURRENT_EVENT && CURRENT_EVENT.season === 'spring' ? CURRENT_EVENT : null,
+    collect: {
+      plainEgg: {
+        text: t('questEggHuntCollectPlainEgg'),
+        count: 40,
+      },
+>>>>>>> upstream/develop
     },
     drop: {
       items: [
@@ -3375,6 +3393,7 @@ const quests = {
       unlock: t('questTurquoiseUnlockText'),
     },
   },
+<<<<<<< HEAD
   // time travelers quests
   robot: {
     text: t('questRobotText'),
@@ -3397,6 +3416,28 @@ const quests = {
       spring: {
         text: t('questRobotCollectSprings'),
         count: 10,
+=======
+  waffle: {
+    text: t('questWaffleText'),
+    notes: t('questWaffleNotes'),
+    completion: t('questWaffleCompletion'),
+    value: 4,
+    category: 'hatchingPotion',
+    canBuy () {
+      return CURRENT_EVENT && CURRENT_EVENT.season === 'spring';
+    },
+    event: CURRENT_EVENT && CURRENT_EVENT.season === 'spring' ? CURRENT_EVENT : null,
+    boss: {
+      name: t('questWaffleBoss'),
+      hp: 500,
+      str: 2,
+      rage: {
+        title: t('questWaffleRageTitle'),
+        description: t('questWaffleRageDescription'),
+        value: 50,
+        progressDrain: 0.5,
+        effect: t('questWaffleRageEffect'),
+>>>>>>> upstream/develop
       },
     },
     drop: {
@@ -3909,9 +3950,6 @@ each(quests, (v, key) => {
   defaults(v, {
     key,
     canBuy () {
-      if (v.event) {
-        return moment().isBetween(v.event.start, v.event.end);
-      }
       return true;
     },
   });

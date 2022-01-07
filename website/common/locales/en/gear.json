@@ -423,7 +423,10 @@
   "weaponSpecialWinter2022MageText": "Pomegranate Staff",
   "weaponSpecialWinter2022MageNotes": "The berries on this staff contain an ancient magic to be wielded in winter. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2021-2022 Winter Gear.",
   "weaponSpecialWinter2022HealerText": "Crystalline Ice Wand",
-  "weaponSpecialWinter2022HealerNotes": "Touch this solid-water implement to a friend's neck and they'll jump out of their chair! But they'll feel better afterward. Hopefully.Increases Intelligence by <%= int %>. Limited Edition 2021-2022 Winter Gear.",
+  "weaponSpecialWinter2022HealerNotes": "Touch this solid-water implement to a friend's neck and they'll jump out of their chair! But they'll feel better afterward. Hopefully. Increases Intelligence by <%= int %>. Limited Edition 2021-2022 Winter Gear.",
+
+  "headSpecialNye2021Text": "Preposterous Party Hat",
+  "headSpecialNye2021Notes": "You've received a Preposterous Party Hat! Wear it with pride while ringing in the New Year! Confers no benefit.",
 
   "weaponMystery201411Text": "Pitchfork of Feasting",
   "weaponMystery201411Notes": "Stab your enemies or dig in to your favorite foods - this versatile pitchfork does it all! Confers no benefit. November 2014 Subscriber Item.",
@@ -447,6 +450,8 @@
   "weaponMystery202104Notes": "Your enemies had better look out- you've got powerful and prickly defenses! Confers no benefit. April 2021 Subscriber Item.",
   "weaponMystery202111Text": "Chronomancer's Staff",
   "weaponMystery202111Notes": "Shape the flow of time with this mysterious and powerful staff. Confers no benefit. November 2021 Subscriber Item.",
+  "weaponMystery202201Text": "Midnight Confetti Cannon",
+  "weaponMystery202201Notes": "Unleash a cloud of gold and silver glitter when the clock strikes midnight. Happy New Year! Now who's cleaning this up? Confers no benefit. January 2022 Subscriber Item.",
   "weaponMystery301404Text": "Steampunk Cane",
   "weaponMystery301404Notes": "Excellent for taking a turn about town. March 3015 Subscriber Item. Confers no benefit.",
 
@@ -608,6 +613,8 @@
   "weaponArmoirePotionGoldenNotes": "With this potion, your pet can have a heart of gold… and ears of gold… and a tail of gold… Increases Strength and Intelligence by <%= attrs %> each. Enchanted Armoire: Potion Set (Item 10 of 10)",
   "weaponArmoireRegalSceptreText": "Regal Sceptre",
   "weaponArmoireRegalSceptreNotes": "Display your regal authority by taking this bejeweled staff in hand. Increases Perception by <%= per %>. Enchanted Armoire: Regal Set (Item 2 of 2).",
+  "weaponArmoireShootingStarSpellText": "Stardust Sparkles",
+  "weaponArmoireShootingStarSpellNotes": "Surround yourself in a spell of stardust magic to help you make all your wishes come true. Increases Strength and Intelligence by <%= attrs %> each. Enchanted Armoire: Stardust Set (Item 3 of 3).",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -1287,6 +1294,8 @@
   "armorArmoireHeraldsTunicNotes": "Get ready to spread good news far and wide in this colorful, royal outfit. Increases Constitution by <%= con %>. Enchanted Armoire: Herald Set (Item 1 of 4).",
   "armorArmoireSoftBlackSuitText": "Soft Black Suit",
   "armorArmoireSoftBlackSuitNotes": "Black is a mysterious colour. It’s sure to inspire the most interesting dreams. Increases Constitution and Perception by <%= attrs %> each. Enchanted Armoire: Black Loungewear Set (Item 2 of 3).",
+  "armorArmoireShootingStarCostumeText": "Star Gown",
+  "armorArmoireShootingStarCostumeNotes": "Rumored to have been spun out of the night sky itself, this flowy gown lets you rise above all obstacles in your path. Increases Constitution by <%= con %>. Enchanted Armoire: Stardust Set (Item 2 of 3).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -1990,6 +1999,8 @@
   "headArmoireBlackFloppyHatNotes": "Many spells have been sewn into this simple hat, giving it a bold black color. Increases Constitution, Perception, and Strength by <%= attrs %> each. Enchanted Armoire: Black Loungewear Set (Item 1 of 3).",
   "headArmoireRegalCrownText": "Regal Crown",
   "headArmoireRegalCrownNotes": "Any monarch would be lucky to have such a majestic, smart-looking crown. Increases Intelligence by <%= int %>. Enchanted Armoire: Regal Set (Item 1 of 2).",
+  "headArmoireShootingStarCrownText": "Star Crown",
+  "headArmoireShootingStarCrownNotes": "With this brightly shining headpiece, you will literally be the star of your own adventure! Increases Perception by <%= per %>. Enchanted Armoire: Stardust Set (Item 1 of 3).",
 
   "offhand": "off-hand item",
   "offHandCapitalized": "Off-Hand Item",
@@ -2692,6 +2703,8 @@
   "eyewearMystery201907Notes": "Look awesome while protecting your eyes from harmful UV rays! Confers no benefit. July 2019 Subscriber Item.",
   "eyewearMystery202108Text": "Fiery Eyes",
   "eyewearMystery202108Notes": "Stare down your enemies (or your biggest tasks!) with these and they don't stand a chance. Confers no benefit. August 2021 Subscriber Item.",
+  "eyewearMystery202201Text": "Midnight Merrymaker's Mask",
+  "eyewearMystery202201Notes": "Ring in the new year with an air of mystery in this stylish feathered mask. Confers no benefit. January 2022 Subscriber Item.",
   "eyewearMystery301404Text": "Eyewear Goggles",
   "eyewearMystery301404Notes": "No eyewear could be fancier than a pair of goggles - except, perhaps, for a monocle. Confers no benefit. April 3015 Subscriber Item.",
   "eyewearMystery301405Text": "Monocle",

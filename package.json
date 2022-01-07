@@ -1,12 +1,12 @@
 {
   "name": "habitica",
   "description": "A habit tracker app which treats your goals like a Role Playing Game.",
-  "version": "4.215.1",
+  "version": "4.218.0",
   "main": "./website/server/index.js",
   "dependencies": {
-    "@babel/core": "^7.16.5",
-    "@babel/preset-env": "^7.16.5",
-    "@babel/register": "^7.16.5",
+    "@babel/core": "^7.16.7",
+    "@babel/preset-env": "^7.16.7",
+    "@babel/register": "^7.16.7",
     "@google-cloud/trace-agent": "^5.1.6",
     "@parse/node-apn": "^5.1.0",
     "@slack/webhook": "^6.0.0",

@@ -47,7 +47,7 @@
     "dropsExplanation": "Get these items faster with Gems if you don't want to wait for them to drop when completing a task. <a href=\"http://habitica.fandom.com/wiki/Drops\">Learn more about the drop system.</a>",
     "dropsExplanationEggs": "Spend Gems to get eggs more quickly, if you don't want to wait for standard eggs to drop, or to repeat Quests to earn Quest eggs. <a href=\"http://habitica.fandom.com/wiki/Drops\">Learn more about the drop system.</a>",
     "premiumPotionNoDropExplanation": "Magic Hatching Potions cannot be used on eggs received from Quests. The only way to get Magic Hatching Potions is by buying them below, not from random drops.",
-    "beastMasterProgress": "Прогрес Володару Звірів",
+    "beastMasterProgress": "Прогрес Володаря звірів",
     "beastAchievement": "Ви здобули досягнення „Звіролов“ за збір усіх улюбленців!",
     "beastMasterName": "Володар Звірів",
     "beastMasterText": "Зібрав усіх 90 улюбленців (шалено важко, привітайте цього гравця!)",
@@ -108,5 +108,10 @@
     "notEnoughPets": "You have not collected enough pets",
     "notEnoughMounts": "You have not collected enough mounts",
     "notEnoughPetsMounts": "You have not collected enough pets and mounts",
-    "wackyPets": "Дивакуваті Улюбленці"
+    "wackyPets": "Дивакуваті Улюбленці",
+    "tooMuchFood": "Ви намагаєтеся згодувати своєму улюбленцю занадто багато їжі, дію скасовано",
+    "invalidAmount": "Недійсна кількість їжі, має бути цілим додатним числом",
+    "notEnoughFood": "У Вас немає достатньо їжі",
+    "gryphatrice": "Грифолиск",
+    "filterByWacky": "Дивакуваті"
 }
