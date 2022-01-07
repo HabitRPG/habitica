@@ -61,11 +61,14 @@ function lockQuest (quest, user) {
     if (intersection(quest.prereqQuests, achievedQuestKeys) !== quest.prereqQuests) return true;
   }
 
+<<<<<<< HEAD
   // OR THIS
   // if (intersection(quest.prereqQuests, keys(user.quest.achievements)) !== quest.prereqQuests) {
   //   return true;
   // }
 
+=======
+>>>>>>> d0e9339d3b19d8c1f323b052d7146979193dddfd
   // then if we've passed all the checks, at the end
   return false;
 
