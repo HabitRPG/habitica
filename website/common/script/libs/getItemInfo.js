@@ -1,4 +1,6 @@
 import _mapValues from 'lodash/mapValues';
+import intersection from 'lodash/intersection'; // there's probably other ways to do this, but, quick way to hit what I'm thinking of
+import keys from 'lodash/keys';
 import i18n from '../i18n';
 import content from '../content/index';
 import { BadRequest } from './errors';
@@ -17,7 +19,9 @@ function userAbleToStartMasterclasser (user) {
 
 function lockQuest (quest, user) {
   // masterclasser requirement
-  if (quest.key === 'lostMasterclasser1') return !userAbleToStartMasterclasser(user);
+  if (quest.key === 'lostMasterclasser1') {
+    return !userAbleToStartMasterclasser(user);
+  }
   if (quest.key === 'lostMasterclasser2'
   || quest.key === 'lostMasterclasser3'
   || quest.key === 'lostMasterclasser4') {
@@ -40,27 +44,32 @@ function lockQuest (quest, user) {
     return user.loginIncentives < quest.unlockCondition.incentiveThreshold;
   }
 
-  // checks to make sure 1st quest completed (previous1)
+  // checks to make sure previous quest in chain is completed
   if (user.achievements.quests) {
-    return quest.previous1
-    && !user.achievements.quests[quest.previous1];
+    return quest.previous
+    && !user.achievements.quests[quest.previous];
   }
 
-  // checks to make sure 1st and 2nd quests completed (previous1 and previous2)
-  if (user.achievements.quests) {
-    return quest.previous1
-    && !user.achievements.quests[quest.previous1]
-    && !user.achievements.quests[quest.previous2];
+  // TEST THIS ON MONDAYYYY
+  if (quest.lvl && user.stats.lvl < quest.lvl) return true;
+  if (quest.unlockCondition
+    && quest.unlockCondition.incentiveThreshold
+    && user.loginIncentives < quest.unlockCondition.incentiveThreshold) return true;
+  if (quest.prereqQuests) {
+    if (!user.achievements.quests) return true;
+    const achievedQuestKeys = keys(user.achievements.quests);
+    if (intersection(quest.prereqQuests, achievedQuestKeys) !== quest.prereqQuests) return true;
   }
 
-  // checks to make sure 1st, 2nd, & 3rd quests completed (previous1, previous2, previous3)
-  if (user.achievements.quests) {
-    return quest.previous1
-    && !user.achievements.quests[quest.previous1]
-    && !user.achievements.quests[quest.previous2]
-    && !user.achievements.quests[quest.previous3];
-  }
-  return quest.previous1;
+  // OR THIS
+  // if (intersection(quest.prereqQuests, keys(user.quest.achievements)) !== quest.prereqQuests) {
+  //   return true;
+  // }
+
+  // then if we've passed all the checks, at the end
+  return false;
+
+  // return quest.previous; //what was at the end of the function before
 }
 
 function isItemSuggested (officialPinnedItems, itemInfo) {
