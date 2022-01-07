@@ -70,9 +70,6 @@ const quests = {
     text: t('questAtom1Text'),
     notes: t('questAtom1Notes'),
     completion: t('questAtom1Completion'),
-    // prerequisite: {
-    //   lvl: 15,
-    // },
     group: 'questGroupAtom',
     value: 4,
     lvl: 15,
@@ -101,10 +98,6 @@ const quests = {
     notes: t('questAtom2Notes'),
     completion: t('questAtom2Completion'),
     group: 'questGroupAtom',
-    // prerequisite: {
-    //   lvl: 15,
-    //   atom1: true,
-    // },
     previous: 'atom1',
     value: 4,
     lvl: 15,
@@ -131,11 +124,6 @@ const quests = {
     text: t('questAtom3Text'),
     notes: t('questAtom3Notes'),
     group: 'questGroupAtom',
-    // prerequisite: {
-    //   lvl: 15,
-    //   atom1: true,
-    //   atom2: true,
-    // },
     previous: 'atom2',
     completion: t('questAtom3Completion'),
     value: 4,
@@ -364,6 +352,9 @@ const quests = {
     value: 4,
     lvl: 60,
     category: 'unlockable',
+    unlockCondition: {
+      lvl: 60,
+    },
     collect: {
       moonstone: {
         text: t('questMoonstone1CollectMoonstone'),
@@ -389,9 +380,13 @@ const quests = {
     completion: t('questMoonstone2Completion'),
     group: 'questGroupMoonstone',
     value: 4,
-    lvl: 60,
+    // lvl: 60,
     previous: 'moonstone1',
     category: 'unlockable',
+    unlockCondition: {
+      lvl: 60,
+      previous: 'moonstone1',
+    },
     boss: {
       name: t('questMoonstone2Boss'),
       hp: 1500,
@@ -419,6 +414,10 @@ const quests = {
     value: 4,
     lvl: 60,
     category: 'unlockable',
+    unlockCondition: {
+      lvl: 60,
+      previous: 'moonstone2',
+    },
     boss: {
       name: t('questMoonstone3Boss'),
       hp: 2000,

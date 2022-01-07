@@ -18,10 +18,18 @@ function userAbleToStartMasterclasser (user) {
 function lockQuest (quest, user) {
   // masterclasser requirement
   if (quest.key === 'lostMasterclasser1') return !userAbleToStartMasterclasser(user);
-  if (quest.key === 'lostMasterclasser2' || quest.key === 'lostMasterclasser3' || quest.key === 'lostMasterclasser4') {
-    return !(userAbleToStartMasterclasser(user) && user.achievements.quests[quest.previous]);
+  if (quest.key === 'lostMasterclasser2'
+  || quest.key === 'lostMasterclasser3'
+  || quest.key === 'lostMasterclasser4') {
+    return !(userAbleToStartMasterclasser(user)
+    && user.achievements.quests[quest.previous]);
   }
-  if (quest.key === 'lostMasterclasser1') return !(user.achievements.quests.dilatoryDistress3 && user.achievements.quests.mayhemMistiflying3 && user.achievements.quests.stoikalmCalamity3 && user.achievements.quests.taskwoodsTerror3);
+  if (quest.key === 'lostMasterclasser1') {
+    return !(user.achievements.quests.dilatoryDistress3
+    && user.achievements.quests.mayhemMistiflying3
+    && user.achievements.quests.stoikalmCalamity3
+    && user.achievements.quests.taskwoodsTerror3);
+  }
 
   // checks for multiple prerequisites
   // if (quest.prerequisite === true) return true;
@@ -30,13 +38,15 @@ function lockQuest (quest, user) {
   if (quest.lvl && user.stats.lvl < quest.lvl) return true;
 
   // unlockCondition requirements
-  if (quest.unlockCondition && (quest.key === 'moon1' || quest.key === 'moon2' || quest.key === 'moon3')) {
+  if (quest.unlockCondition
+    && (quest.key === 'moon1' || quest.key === 'moon2' || quest.key === 'moon3')) {
     return user.loginIncentives < quest.unlockCondition.incentiveThreshold;
   }
 
   // checks to make sure that previous quest has been completed
   if (user.achievements.quests) {
-    return quest.previous && !user.achievements.quests[quest.previous];
+    return quest.previous
+    && !user.achievements.quests[quest.previous];
   }
   return quest.previous;
 }
