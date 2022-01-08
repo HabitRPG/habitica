@@ -11,50 +11,59 @@ import isFreeRebirth from './isFreeRebirth';
 import getOfficialPinnedItems from './getOfficialPinnedItems';
 
 function userAbleToStartMasterclasser (user) {
-  return user.achievements.quests.dilatoryDistress3
+  return (
+    user.achievements.quests.dilatoryDistress3
     && user.achievements.quests.mayhemMistiflying3
     && user.achievements.quests.stoikalmCalamity3
-    && user.achievements.quests.taskwoodsTerror3;
+    && user.achievements.quests.taskwoodsTerror3
+  );
 }
 
 function lockQuest (quest, user) {
   // masterclasser requirement
+  // roll this into other series checks
   if (quest.key === 'lostMasterclasser1') {
     return !userAbleToStartMasterclasser(user);
   }
-  if (quest.key === 'lostMasterclasser2'
-  || quest.key === 'lostMasterclasser3'
-  || quest.key === 'lostMasterclasser4') {
-    return !(userAbleToStartMasterclasser(user)
-    && user.achievements.quests[quest.previous]);
+  if (
+    quest.key === 'lostMasterclasser2'
+    || quest.key === 'lostMasterclasser3'
+    || quest.key === 'lostMasterclasser4'
+  ) {
+    return !(userAbleToStartMasterclasser(user) && user.achievements.quests[quest.previous]);
   }
   if (quest.key === 'lostMasterclasser1') {
-    return !(user.achievements.quests.dilatoryDistress3
-    && user.achievements.quests.mayhemMistiflying3
-    && user.achievements.quests.stoikalmCalamity3
-    && user.achievements.quests.taskwoodsTerror3);
+    return !(
+      user.achievements.quests.dilatoryDistress3
+      && user.achievements.quests.mayhemMistiflying3
+      && user.achievements.quests.stoikalmCalamity3
+      && user.achievements.quests.taskwoodsTerror3
+    );
   }
 
   // level requirements
   if (quest.lvl && user.stats.lvl < quest.lvl) return true;
 
   // unlockCondition requirements for Lunar Battle
-  if (quest.unlockCondition
-    && (quest.key === 'moon1' || quest.key === 'moon2' || quest.key === 'moon3')) {
+  if (
+    quest.unlockCondition
+    && (quest.key === 'moon1' || quest.key === 'moon2' || quest.key === 'moon3')
+  ) {
     return user.loginIncentives < quest.unlockCondition.incentiveThreshold;
   }
 
   // checks to make sure previous quest in chain is completed
   if (user.achievements.quests) {
-    return quest.previous
-    && !user.achievements.quests[quest.previous];
+    return quest.previous && !user.achievements.quests[quest.previous];
   }
 
   // TEST THIS ON MONDAYYYY
   if (quest.lvl && user.stats.lvl < quest.lvl) return true;
-  if (quest.unlockCondition
+  if (
+    quest.unlockCondition
     && quest.unlockCondition.incentiveThreshold
-    && user.loginIncentives < quest.unlockCondition.incentiveThreshold) return true;
+    && user.loginIncentives < quest.unlockCondition.incentiveThreshold
+  ) return true;
   if (quest.prereqQuests) {
     if (!user.achievements.quests) return true;
     const achievedQuestKeys = keys(user.achievements.quests);
@@ -106,7 +115,9 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
 
   let itemInfo;
 
-  switch (type) { // eslint-disable-line default-case
+  switch (
+    type // eslint-disable-line default-case
+  ) {
     case 'eggs':
       itemInfo = {
         key: item.key,
@@ -145,7 +156,9 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         locked: false,
         currency: 'gems',
         purchaseType: 'hatchingPotions',
-        path: item.wacky ? `wackyHatchingPotions.${item.key}` : `premiumHatchingPotions.${item.key}`,
+        path: item.wacky
+          ? `wackyHatchingPotions.${item.key}`
+          : `premiumHatchingPotions.${item.key}`,
         pinType: 'premiumHatchingPotion',
         event: item.event,
       };
