@@ -68,7 +68,7 @@
     "rimraf": "^3.0.2",
     "short-uuid": "^4.2.0",
     "stripe": "^8.195.0",
-    "superagent": "^6.1.0",
+    "superagent": "^7.0.1",
     "universal-analytics": "^0.5.3",
     "useragent": "^2.1.9",
     "uuid": "^8.3.2",
