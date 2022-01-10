@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@storybook/addons": "6.4.9",
-    "@storybook/addon-actions": "6.4.9",
+    "@storybook/addon-actions": "6.4.10",
     "@storybook/addon-knobs": "6.2.9",
     "@storybook/addon-links": "6.4.9",
     "@storybook/addon-notes": "5.3.21",
