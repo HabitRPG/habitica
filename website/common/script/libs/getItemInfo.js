@@ -115,8 +115,8 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
 
   let itemInfo;
 
-  switch (
-    type // eslint-disable-line default-case
+  switch ( // eslint-disable-line default-case
+    type
   ) {
     case 'eggs':
       itemInfo = {
