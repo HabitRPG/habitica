@@ -10,63 +10,70 @@ import isPinned from './isPinned';
 import isFreeRebirth from './isFreeRebirth';
 import getOfficialPinnedItems from './getOfficialPinnedItems';
 
-function userAbleToStartMasterclasser (user) {
-  return (
-    user.achievements.quests.dilatoryDistress3
-    && user.achievements.quests.mayhemMistiflying3
-    && user.achievements.quests.stoikalmCalamity3
-    && user.achievements.quests.taskwoodsTerror3
-  );
-}
+// function userAbleToStartMasterclasser (user) {
+//   return (
+//     user.achievements.quests.dilatoryDistress3
+//     && user.achievements.quests.mayhemMistiflying3
+//     && user.achievements.quests.stoikalmCalamity3
+//     && user.achievements.quests.taskwoodsTerror3
+//   );
+// }
 
 function lockQuest (quest, user) {
   // masterclasser requirement
   // roll this into other series checks
-  if (quest.key === 'lostMasterclasser1') {
-    return !userAbleToStartMasterclasser(user);
-  }
-  if (
-    quest.key === 'lostMasterclasser2'
-    || quest.key === 'lostMasterclasser3'
-    || quest.key === 'lostMasterclasser4'
-  ) {
-    return !(userAbleToStartMasterclasser(user) && user.achievements.quests[quest.previous]);
-  }
-  if (quest.key === 'lostMasterclasser1') {
-    return !(
-      user.achievements.quests.dilatoryDistress3
-      && user.achievements.quests.mayhemMistiflying3
-      && user.achievements.quests.stoikalmCalamity3
-      && user.achievements.quests.taskwoodsTerror3
-    );
-  }
+  // if (quest.key === 'lostMasterclasser1') {
+  //   return !userAbleToStartMasterclasser(user);
+  // }
+  // if (
+  //   quest.key === 'lostMasterclasser2'
+  //   || quest.key === 'lostMasterclasser3'
+  //   || quest.key === 'lostMasterclasser4'
+  // ) {
+  //   return !(userAbleToStartMasterclasser(user) && user.achievements.quests[quest.previous]);
+  // }
+  // if (quest.key === 'lostMasterclasser1') {
+  //   return !(
+  //     user.achievements.quests.dilatoryDistress3
+  //     && user.achievements.quests.mayhemMistiflying3
+  //     && user.achievements.quests.stoikalmCalamity3
+  //     && user.achievements.quests.taskwoodsTerror3
+  //   );
+  // }
 
   // level requirements
-  if (quest.lvl && user.stats.lvl < quest.lvl) return true;
+  // if (quest.lvl && user.stats.lvl < quest.lvl) return true;
 
   // unlockCondition requirements for Lunar Battle
-  if (
-    quest.unlockCondition
-    && (quest.key === 'moon1' || quest.key === 'moon2' || quest.key === 'moon3')
-  ) {
-    return user.loginIncentives < quest.unlockCondition.incentiveThreshold;
-  }
+  // fix this bc we shouldn't be hard coding in specific quests
+  // if (
+  //   quest.unlockCondition
+  //   && (quest.key === 'moon1' || quest.key === 'moon2' || quest.key === 'moon3')
+  // ) {
+  //   return user.loginIncentives < quest.unlockCondition.incentiveThreshold;
+  // }
 
   // checks to make sure previous quest in chain is completed
-  if (user.achievements.quests) {
-    return quest.previous && !user.achievements.quests[quest.previous];
-  }
+  // if (user.achievements.quests) {
+  //   return quest.previous && !user.achievements.quests[quest.previous];
+  // }
 
-  // TEST THIS ON MONDAYYYY
+  // checks quest & user level against quest level
   if (quest.lvl && user.stats.lvl < quest.lvl) return true;
+
+  // checks unlockCondition.incentiveThreshold
   if (
     quest.unlockCondition
     && quest.unlockCondition.incentiveThreshold
     && user.loginIncentives < quest.unlockCondition.incentiveThreshold
   ) return true;
+
+  // checks series quests, including Masterclasser
   if (quest.prereqQuests) {
     if (!user.achievements.quests) return true;
+
     const achievedQuestKeys = keys(user.achievements.quests);
+    // console.log(achievedQuestKeys); // this is returning all quests in array even if value = 0
     if (intersection(quest.prereqQuests, achievedQuestKeys) !== quest.prereqQuests) return true;
   }
 
