@@ -127,7 +127,7 @@ const quests = {
     text: t('questAtom3Text'),
     notes: t('questAtom3Notes'),
     group: 'questGroupAtom',
-    previous: 'atom1',
+    previous: 'atom2',
     prereqQuests: [
       'atom1',
       'atom2',
