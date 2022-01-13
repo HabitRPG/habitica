@@ -1,6 +1,4 @@
 import _mapValues from 'lodash/mapValues';
-import intersection from 'lodash/intersection';
-import keys from 'lodash/keys';
 import i18n from '../i18n';
 import content from '../content/index';
 import { BadRequest } from './errors';
@@ -11,16 +9,13 @@ import isFreeRebirth from './isFreeRebirth';
 import getOfficialPinnedItems from './getOfficialPinnedItems';
 
 function lockQuest (quest, user) {
-  // checks series quests, including Masterclasser
-
+  // checks series quests, including Masterclasser?
   if (quest.prereqQuests) {
     if (!user.achievements.quests) return true;
-    const achievedQuestKeys = keys(user.achievements.quests);
-    if (intersection(quest.prereqQuests, achievedQuestKeys) !== quest.prereqQuests) {
-      return true;
+    for (const prereq of quest.prereqQuests) {
+      if (!user.achievements.quests[prereq]) return true;
     }
   }
-
   // checks quest & user level against quest level
   if (quest.lvl && user.stats.lvl < quest.lvl) return true;
 
@@ -30,14 +25,12 @@ function lockQuest (quest, user) {
     && quest.unlockCondition.incentiveThreshold
     && user.loginIncentives < quest.unlockCondition.incentiveThreshold
   ) return true;
-
   if (user.achievements.quests) {
     return quest.previous
     && !user.achievements.quests[quest.previous];
   }
-
-  // then if we've passed all the checks, at the end
-  return false;
+  // then if we've passed all the checks
+  return quest.previous;
 }
 
 function isItemSuggested (officialPinnedItems, itemInfo) {
