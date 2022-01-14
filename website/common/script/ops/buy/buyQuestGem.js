@@ -8,7 +8,7 @@ import content from '../../content/index';
 
 import errorMessage from '../../libs/errorMessage';
 import { AbstractGemItemOperation } from './abstractBuyOperation';
-import getItemInfo from '../../libs/getItemInfo';
+// import itemInfo from '../../libs/getItemInfo';
 
 export class BuyQuestWithGemOperation extends AbstractGemItemOperation { // eslint-disable-line import/prefer-default-export, max-len
   multiplePurchaseAllowed () { // eslint-disable-line class-methods-use-this
@@ -27,6 +27,10 @@ export class BuyQuestWithGemOperation extends AbstractGemItemOperation { // esli
     return 'quest';
   }
 
+  getItemLock (item) { // eslint-disable-line class-methods-use-this
+    return item.locked;
+  }
+
   extractAndValidateParams (user, req) {
     this.key = get(req, 'params.key');
     const { key } = this;
@@ -34,10 +38,10 @@ export class BuyQuestWithGemOperation extends AbstractGemItemOperation { // esli
 
     const item = content.quests[key];
 
-    if (getItemInfo.locked) {
-      throw new
-      BadRequest(errorMessage(`Prerequisites for ${getItemInfo.text} not met.`));
-    }
+    // if (quest.locked) {
+    //   throw new
+    //   BadRequest(errorMessage(`Prerequisites for ${itemInfo.text} not met.`));
+    // }
 
     if (!item) throw new NotFound(errorMessage('questNotFound', { key }));
 

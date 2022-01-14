@@ -55,6 +55,15 @@ export class AbstractBuyOperation {
   }
 
   /**
+   * Returns the item lock status
+   * @param item
+   * @returns {String}
+   */
+  getItemLock (item) { // eslint-disable-line class-methods-use-this
+    return item.locked;
+  }
+
+  /**
    * Shortcut to get the translated string without passing `req.language`
    * @param {String} key - translation key
    * @param {*=} params
@@ -139,6 +148,10 @@ export class AbstractGoldItemOperation extends AbstractBuyOperation {
     if (item && item.canOwn && !item.canOwn(user)) {
       throw new NotAuthorized(this.i18n('cannotBuyItem'));
     }
+
+    if (item.locked === 'locked') {
+      throw new NotAuthorized(this.i18n('cannotBuyItem'));
+    }
   }
 
   subtractCurrency (user, item) {
@@ -168,6 +181,10 @@ export class AbstractGemItemOperation extends AbstractBuyOperation {
 
     if (!user.balance || user.balance < itemValue * this.quantity) {
       throw new NotAuthorized(this.i18n('notEnoughGems'));
+    }
+
+    if (item.locked === 'locked') {
+      throw new NotAuthorized(this.i18n('cannotBuyItem'));
     }
   }
 
