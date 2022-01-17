@@ -14,13 +14,6 @@ export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation { // es
     return true;
   }
 
-  // userAbleToStartMasterClasser (user) { // eslint-disable-line class-methods-use-this
-  //   return user.achievements.quests.dilatoryDistress3
-  //     && user.achievements.quests.mayhemMistiflying3
-  //     && user.achievements.quests.stoikalmCalamity3
-  //     && user.achievements.quests.taskwoodsTerror3;
-  // }
-
   getItemKey () {
     return this.key;
   }

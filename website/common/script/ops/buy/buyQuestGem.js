@@ -38,11 +38,6 @@ export class BuyQuestWithGemOperation extends AbstractGemItemOperation { // esli
 
     const item = content.quests[key];
 
-    // if (quest.locked) {
-    //   throw new
-    //   BadRequest(errorMessage(`Prerequisites for ${itemInfo.text} not met.`));
-    // }
-
     if (!item) throw new NotFound(errorMessage('questNotFound', { key }));
 
     if (item.category === 'gold') {
