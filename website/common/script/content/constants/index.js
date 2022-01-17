@@ -33,4 +33,3 @@ export { default as ANIMAL_COLOR_ACHIEVEMENTS } from './animalColorAchievements'
 export { default as ANIMAL_SET_ACHIEVEMENTS } from './animalSetAchievements';
 export { default as QUEST_SERIES_ACHIEVEMENTS } from './questSeriesAchievements';
 export { default as ITEM_LIST } from './itemList';
-export { default as QUEST_SERIES } from './questSeries';
