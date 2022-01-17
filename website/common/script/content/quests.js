@@ -7,13 +7,6 @@ import t from './translation';
 import {
   EVENTS,
   USER_CAN_OWN_QUEST_CATEGORIES,
-  // future constants for quest variable
-  // QUEST_GENERIC
-  // QUEST_SERIES,
-  // QUEST_MASTERCLASSER,
-  // QUEST_PETS,
-  // QUESTS_HATCHING_POTIONS,
-  // QUESTS_TIME_TRAVELERS
 } from './constants';
 
 const CURRENT_EVENT = find(
