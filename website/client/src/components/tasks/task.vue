@@ -270,7 +270,7 @@
                   <span
                     v-if="task.up"
                     class="m-0"
-                  >+{{ task.counterUp }}</span>
+                  >{{ task.counterUp > 0 || task.down ? '+' : '' }}{{ task.counterUp }}</span>
                   <span
                     v-if="task.up && task.down"
                     class="m-0"
@@ -278,7 +278,7 @@
                   <span
                     v-if="task.down"
                     class="m-0"
-                  >-{{ task.counterDown }}</span>
+                  >{{ task.counterDown > 0 || task.up ? '-' : '' }}{{ task.counterDown }}</span>
                 </span>
               </div>
               <div
