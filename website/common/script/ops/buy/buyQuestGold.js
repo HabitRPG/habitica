@@ -26,10 +26,6 @@ export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation { // es
     return 'quest';
   }
 
-  getItemLock (item) { // eslint-disable-line class-methods-use-this
-    return item.locked;
-  }
-
   extractAndValidateParams (user, req) {
     this.key = get(req, 'params.key');
     const { key } = this;

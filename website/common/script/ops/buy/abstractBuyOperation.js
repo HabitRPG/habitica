@@ -55,15 +55,6 @@ export class AbstractBuyOperation {
   }
 
   /**
-   * Returns the item lock status
-   * @param item
-   * @returns {String}
-   */
-  getItemLock (item) { // eslint-disable-line class-methods-use-this
-    return item.locked;
-  }
-
-  /**
    * Shortcut to get the translated string without passing `req.language`
    * @param {String} key - translation key
    * @param {*=} params
