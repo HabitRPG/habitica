@@ -42,7 +42,7 @@ export default function rebirth (user, tasks = [], req = {}, analytics) {
 
   each(tasks, task => {
     if (!task.challenge || !task.challenge.id || task.challenge.broken) {
-      if (task.type !== 'reward') {
+      if (task.type !== 'reward' && task.type !== 'todo') {
         task.value = 0;
       }
       if (task.type === 'daily') {
@@ -51,6 +51,11 @@ export default function rebirth (user, tasks = [], req = {}, analytics) {
       if (task.type === 'habit') {
         task.counterDown = 0;
         task.counterUp = 0;
+      }
+      if (task.type === 'todo') {
+        if (task.complete !== true) {
+          task.value = 0;
+        }
       }
     }
   });
