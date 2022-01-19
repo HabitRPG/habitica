@@ -52,10 +52,8 @@ export default function rebirth (user, tasks = [], req = {}, analytics) {
         task.counterDown = 0;
         task.counterUp = 0;
       }
-      if (task.type === 'todo') {
-        if (task.complete !== true) {
-          task.value = 0;
-        }
+      if (task.type === 'todo' && task.complete !== true) {
+        task.value = 0;
       }
     }
   });
