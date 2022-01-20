@@ -163,7 +163,6 @@ export class AbstractGoldItemOperation extends AbstractBuyOperation {
 
 export class AbstractGemItemOperation extends AbstractBuyOperation {
   canUserPurchase (user, item) {
-    console.log(item);
     this.item = item;
     const itemValue = this.getItemValue(item);
 
