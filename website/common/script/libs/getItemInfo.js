@@ -9,7 +9,7 @@ import isFreeRebirth from './isFreeRebirth';
 import getOfficialPinnedItems from './getOfficialPinnedItems';
 
 function lockQuest (quest, user) {
-  // checks series quests, including Masterclasser?
+  // checks series quests, including Masterclasser
   if (quest.prereqQuests) {
     if (!user.achievements.quests) return true;
     for (const prereq of quest.prereqQuests) {

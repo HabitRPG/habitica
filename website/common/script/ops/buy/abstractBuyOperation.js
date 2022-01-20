@@ -140,7 +140,7 @@ export class AbstractGoldItemOperation extends AbstractBuyOperation {
       throw new NotAuthorized(this.i18n('cannotBuyItem'));
     }
 
-    if (item.locked === 'locked') {
+    if (item.locked) {
       throw new NotAuthorized(this.i18n('cannotBuyItem'));
     }
   }
@@ -163,6 +163,7 @@ export class AbstractGoldItemOperation extends AbstractBuyOperation {
 
 export class AbstractGemItemOperation extends AbstractBuyOperation {
   canUserPurchase (user, item) {
+    console.log(item);
     this.item = item;
     const itemValue = this.getItemValue(item);
 
@@ -174,7 +175,7 @@ export class AbstractGemItemOperation extends AbstractBuyOperation {
       throw new NotAuthorized(this.i18n('notEnoughGems'));
     }
 
-    if (item.locked === 'locked') {
+    if (item.locked) {
       throw new NotAuthorized(this.i18n('cannotBuyItem'));
     }
   }

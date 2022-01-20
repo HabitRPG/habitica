@@ -560,14 +560,8 @@ export default {
         this.selectedItemToBuy = null;
       }
     },
-    isGearLocked (gear) {
-      if (gear.value > this.userStats.gp) {
-        return true;
-      }
-
-      return false;
-    },
     selectItem (item) {
+      if (item.locked) return;
       this.selectedItemToBuy = item;
 
       this.$root.$emit('bv::show::modal', 'buy-quest-modal');
