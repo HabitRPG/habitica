@@ -643,8 +643,8 @@
     "backgrounds102021": "第89组：2021年10月推出",
     "backgroundCrypticCandlesText": "神秘蜡烛",
     "backgroundCrypticCandlesNotes": "在神秘蜡烛中召唤神秘力量。",
-    "backgroundHauntedPhotoText": "心灵像片",
-    "backgroundHauntedPhotoNotes": "发现自己被困在黑白色的闹鬼像片中。",
+    "backgroundHauntedPhotoText": "闹鬼相片",
+    "backgroundHauntedPhotoNotes": "发现自己被困在黑白色的闹鬼相片中。",
     "backgroundUndeadHandsText": "亡灵之手",
     "backgroundUndeadHandsNotes": "尝试从抓住你的亡灵之手中逃离。",
     "backgroundSpiralStaircaseNotes": "爬上爬下，爬下爬上，绕着旋转楼梯转啊转。",
@@ -653,5 +653,12 @@
     "backgroundFortuneTellersShopText": "算命师的小屋",
     "backgroundInsideAPotionBottleText": "在药水瓶中",
     "backgroundInsideAPotionBottleNotes": "透过玻璃向外张望，满心希望能从这药水瓶里被救出来。",
-    "backgroundSpiralStaircaseText": "旋转楼梯"
+    "backgroundSpiralStaircaseText": "旋转楼梯",
+    "backgroundFrozenPolarWatersText": "冰冻的极地水域",
+    "backgroundFrozenPolarWatersNotes": "探索冰冻的极地水域。",
+    "backgroundWinterCanyonText": "冬日峡谷",
+    "backgroundWinterCanyonNotes": "在冬日峡谷探险！",
+    "backgroundIcePalaceText": "冰雪宫殿",
+    "backgroundIcePalaceNotes": "统治冰宫。",
+    "backgrounds122021": "第91组：2021年12月推出"
 }

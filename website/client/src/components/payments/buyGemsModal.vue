@@ -364,6 +364,7 @@
 </style>
 
 <script>
+import find from 'lodash/find';
 import moment from 'moment';
 import { mapState } from '@/libs/store';
 import markdown from '@/directives/markdown';
@@ -408,8 +409,11 @@ export default {
     ...mapState({
       user: 'user.data',
       originalGemsBlocks: 'content.gems',
-      currentEvent: 'worldState.data.currentEvent',
+      currentEventList: 'worldState.data.currentEventList',
     }),
+    currentEvent () {
+      return find(this.currentEventList, event => Boolean(event.gemsPromo) || Boolean(event.promo));
+    },
     eventName () {
       return this.currentEvent && this.currentEvent.event;
     },

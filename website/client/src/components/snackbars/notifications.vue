@@ -66,6 +66,7 @@
 
 <script>
 import debounce from 'lodash/debounce';
+import find from 'lodash/find';
 
 import { mapState } from '@/libs/store';
 import notification from './notification';
@@ -103,7 +104,7 @@ export default {
       removalIntervalId: null,
       notificationTopY: '0px',
       preventMultipleWatchExecution: false,
-      gemsPromoBannerHeight: null,
+      eventPromoBannerHeight: null,
       sleepingBannerHeight: null,
     };
   },
@@ -111,8 +112,14 @@ export default {
     ...mapState({
       notificationStore: 'notificationStore',
       userSleeping: 'user.data.preferences.sleep',
-      currentEvent: 'worldState.data.currentEvent',
+      currentEventList: 'worldState.data.currentEventList',
     }),
+    currentEvent () {
+      return find(this.currentEventList, event => Boolean(event.gemsPromo) || Boolean(event.promo));
+    },
+    isEventActive () {
+      return Boolean(this.currentEvent?.event);
+    },
     notificationsTopPosClass () {
       const base = 'notifications-top-pos-';
       let modifier = '';
@@ -132,10 +139,8 @@ export default {
         scrollPosToCheck += this.sleepingBannerHeight;
       }
 
-      if (this.currentEvent
-          && this.currentEvent.event
-      ) {
-        scrollPosToCheck += this.gemsPromoBannerHeight ?? 0;
+      if (this.isEventActive) {
+        scrollPosToCheck += this.eventPromoBannerHeight ?? 0;
       }
 
       return scrollPosToCheck;
@@ -169,7 +174,7 @@ export default {
       this.preventMultipleWatchExecution = false;
     },
     currentEvent: function currentEventChanged () {
-      this.gemsPromoBannerHeight = getBannerHeight('gems-promo');
+      this.updateEventBannerHeight();
     },
   },
   async mounted () {
@@ -355,9 +360,30 @@ export default {
     }, 16),
 
     updateBannerHeightAndScrollY () {
-      this.gemsPromoBannerHeight = getBannerHeight('gems-promo');
+      this.updateEventBannerHeight();
       this.sleepingBannerHeight = getBannerHeight('damage-paused');
       this.updateScrollY();
+    },
+
+    updateEventBannerHeight () {
+      if (this.isEventActive) {
+        this.eventPromoBannerHeight = getBannerHeight(this.currentEventBannerName());
+      }
+    },
+
+    currentEventBannerName () {
+      // if there are any other types of promo bars
+      // this method needs to be updated
+
+      if (this.currentEvent?.promo) {
+        return 'gift-promo';
+      }
+
+      if (this.currentEvent?.gemsPromo) {
+        return 'gems-promo';
+      }
+
+      return '';
     },
   },
 };

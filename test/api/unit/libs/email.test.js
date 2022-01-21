@@ -148,9 +148,18 @@ describe('emails', () => {
     });
   });
 
-  describe('sendTxnEmail', () => {
+  describe('sendTxn', () => {
+    let sendTxn = null;
+
     beforeEach(() => {
       sandbox.stub(got, 'post').returns(defer().promise);
+
+      const nconfGetStub = sandbox.stub(nconf, 'get');
+      nconfGetStub.withArgs('IS_PROD').returns(true);
+      nconfGetStub.withArgs('BASE_URL').returns('BASE_URL');
+
+      const attachEmail = requireAgain(pathToEmailLib);
+      sendTxn = attachEmail.sendTxn;
     });
 
     afterEach(() => {
@@ -158,16 +167,14 @@ describe('emails', () => {
     });
 
     it('can send a txn email to one recipient', () => {
-      sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(true);
-      const attachEmail = requireAgain(pathToEmailLib);
-      const sendTxnEmail = attachEmail.sendTxn;
       const emailType = 'an email type';
       const mailingInfo = {
         name: 'my name',
         email: 'my@email',
       };
 
-      sendTxnEmail(mailingInfo, emailType);
+      sendTxn(mailingInfo, emailType);
+      expect(got.post).to.be.called;
       expect(got.post).to.be.calledWith('undefined/job', sinon.match({
         json: {
           data: {
@@ -179,27 +186,77 @@ describe('emails', () => {
     });
 
     it('does not send email if address is missing', () => {
-      sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(true);
-      const attachEmail = requireAgain(pathToEmailLib);
-      const sendTxnEmail = attachEmail.sendTxn;
       const emailType = 'an email type';
       const mailingInfo = {
         name: 'my name',
         // email: 'my@email',
       };
 
-      sendTxnEmail(mailingInfo, emailType);
+      sendTxn(mailingInfo, emailType);
       expect(got.post).not.to.be.called;
     });
 
+    it('throws error when mail target is only a string', () => {
+      const emailType = 'an email type';
+      const mailingInfo = 'my email';
+
+      expect(sendTxn(mailingInfo, emailType)).to.throw;
+    });
+
+    it('throws error when mail target has no _id or email', () => {
+      const emailType = 'an email type';
+      const mailingInfo = {
+
+      };
+
+      expect(sendTxn(mailingInfo, emailType)).to.throw;
+    });
+
+    it('throws error when variables not an array', () => {
+      const emailType = 'an email type';
+      const mailingInfo = {
+        name: 'my name',
+        email: 'my@email',
+      };
+      const variables = {};
+
+      expect(sendTxn(mailingInfo, emailType, variables)).to.throw;
+    });
+    it('throws error when variables array not contain name/content', () => {
+      const emailType = 'an email type';
+      const mailingInfo = {
+        name: 'my name',
+        email: 'my@email',
+      };
+      const variables = [
+        {
+
+        },
+      ];
+
+      expect(sendTxn(mailingInfo, emailType, variables)).to.throw;
+    });
+    it('throws no error when variables array contain name but no content', () => {
+      const emailType = 'an email type';
+      const mailingInfo = {
+        name: 'my name',
+        email: 'my@email',
+      };
+      const variables = [
+        {
+          name: 'MY_VAR',
+        },
+      ];
+
+      expect(sendTxn(mailingInfo, emailType, variables)).to.not.throw;
+    });
+
     it('uses getUserInfo in case of user data', () => {
-      sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(true);
-      const attachEmail = requireAgain(pathToEmailLib);
-      const sendTxnEmail = attachEmail.sendTxn;
       const emailType = 'an email type';
       const mailingInfo = getUser();
 
-      sendTxnEmail(mailingInfo, emailType);
+      sendTxn(mailingInfo, emailType);
+      expect(got.post).to.be.called;
       expect(got.post).to.be.calledWith('undefined/job', sinon.match({
         json: {
           data: {
@@ -211,17 +268,15 @@ describe('emails', () => {
     });
 
     it('sends email with some default variables', () => {
-      sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(true);
-      const attachEmail = requireAgain(pathToEmailLib);
-      const sendTxnEmail = attachEmail.sendTxn;
       const emailType = 'an email type';
       const mailingInfo = {
         name: 'my name',
         email: 'my@email',
       };
-      const variables = [1, 2, 3];
+      const variables = [];
 
-      sendTxnEmail(mailingInfo, emailType, variables);
+      sendTxn(mailingInfo, emailType, variables);
+      expect(got.post).to.be.called;
       expect(got.post).to.be.calledWith('undefined/job', sinon.match({
         json: {
           data: {

@@ -109,7 +109,19 @@
     "achievementSeasonalSpecialist": "Sezonowy Ekspert",
     "achievementLegendaryBestiaryModalText": "Zebrałeś wszystkie mityczne chowańce!",
     "achievementLegendaryBestiaryText": "Wykluł/a wszystkie podstawowe kolory mitycznych chowańców: Smoka, Latającą Świnię, Gryfa, Węża Morskiego i Jednorożca!",
-    "achievementWildBlueYonderText": "Oswojono wszystkie Wierzchowce Niebieskiej Waty Cukrowej",
+    "achievementWildBlueYonderText": "Oswojono wszystkie Wierzchowce Niebieskiej Waty Cukrowej.",
     "achievementVioletsAreBlue": "Fiołki są niebieskie",
-    "achievementVioletsAreBlueText": "Zebrano wszystkie Chowańce Niebieskiej Waty Cukrowej."
+    "achievementVioletsAreBlueText": "Zebrano wszystkie Chowańce Niebieskiej Waty Cukrowej.",
+    "achievementDomesticated": "Dziadek farmę miał",
+    "achievementVioletsAreBlueModalText": "Zebrałeś wszystkie Chowańce Niebieskiej Waty Cukrowej!",
+    "achievementWildBlueYonder": "W siną dal",
+    "achievementDomesticatedModalText": "Oswoiłeś wszystkie domowe chowańce!",
+    "achievementWildBlueYonderModalText": "Oswoiłeś wszystkie Wierzchowce Niebieskiej Waty Cukrowej!",
+    "achievementDomesticatedText": "Wykluł/a wszystkie podstawowe kolory domowych chowańców: fretkę, świnkę morską, koguta, latającą świnię, szczura, królika, konia i krowę!",
+    "achievementShadyCustomer": "Klient spod ciemnej gwiazdy",
+    "achievementShadyCustomerText": "Oswojono wszystkie cieniste chowańce.",
+    "achievementShadyCustomerModalText": "Oswoiłeś wszystkie cieniste chowańce!",
+    "achievementShadeOfItAllText": "Oswojono wszystkie cieniste wierzchowce.",
+    "achievementShadeOfItAllModalText": "Oswoiłeś wszystkie cieniste wierzchowce!",
+    "achievementShadeOfItAll": "Cień nad Cieniami"
 }

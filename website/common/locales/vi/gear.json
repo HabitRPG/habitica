@@ -1799,5 +1799,7 @@
     "weaponSpecialWinter2021WarriorText": "Cần Câu Mạnh Mẽ",
     "weaponSpecialSpring2021MageText": "Lông Thiên Nga",
     "weaponSpecialFall2020WarriorText": "Thanh Kiếm Bóng Ma",
-    "headSpecialNye2020Text": "Nón Lộng Lẫy"
+    "headSpecialNye2020Text": "Nón Lộng Lẫy",
+    "weaponSpecialFall2020RogueText": "Dao găm Sắc bén",
+    "weaponSpecialFall2020RogueNotes": "Đâm kẻ thù của bạn bằng một đòn tấn công sắc nét! Ngay cả bộ giáp dày nhất cũng sẽ nhường chỗ cho lưỡi kiếm của bạn. Tăng Sức mạnh thêm <% = str%>. Phiên bản giới hạn 2020 Autumn Gear."
 }

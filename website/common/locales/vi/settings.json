@@ -122,7 +122,7 @@
     "subscriptionRateText": "Lặp lại <strong>$<%= price %> USD</strong> mỗi <strong><%= months %> tháng</strong>",
     "benefits": "Lợi ích",
     "coupon": "Phiếu giảm giá",
-    "couponText": "We sometimes have events and give out coupon codes for special gear. (eg, those who stop by our Wondercon booth)",
+    "couponText": "Chúng tôi thỉnh thoảng có sự kiện và cho những mã khuyến mãi cho Trang bị đặc biệt. (ví dụ như những người dừng ở sạp Wondercon của chúng tôi)",
     "apply": "Áp dụng",
     "promoCode": "Promo Code",
     "promoCodeApplied": "Promo Code Applied! Check your inventory",
@@ -183,5 +183,11 @@
     "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Mở rộng Trò chuyện trên Chrome</a> và <a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>Mở rộng Trò chuyện trên Firefox</a>",
     "displaynameIssueNewline": "Tên hiển thị có thể không chứa dấu chéo ngược theo sau chữ N.",
     "resetAccount": "Đặt lại Tài khoản",
-    "giftedSubscriptionWinterPromo": "Xin chào <%= username %>, bạn đã nhận được Gói đăng ký <%= monthCount %> tháng như là một phần của khuyến mãi ngày lễ tặng quà của chúng tôi!"
+    "giftedSubscriptionWinterPromo": "Xin chào <%= username %>, bạn đã nhận được Gói đăng ký <%= monthCount %> tháng như là một phần của khuyến mãi ngày lễ tặng quà của chúng tôi!",
+    "mentioning": "Đề cập tới",
+    "bannedWordUsedInProfile": "Tên Hiển thị hoặc mục Về tôi của bạn chứa ngôn từ không phù hợp.",
+    "suggestMyUsername": "Gợi ý tên đăng nhập của tôi",
+    "everywhere": "Mọi nơi",
+    "onlyPrivateSpaces": "Chỉ ở những không gian riêng tư",
+    "bannedSlurUsedInProfile": "Tên Hiển thị hoặc mục Về tôi của bạn chứa từ chửi bậy, và quyền trò chuyện của bạn đã bị thu hồi."
 }

@@ -210,6 +210,7 @@
 
 <script>
 import debounce from 'lodash/debounce';
+import find from 'lodash/find';
 import isUUID from 'validator/lib/isUUID';
 import { mapState } from '@/libs/store';
 import closeIcon from '@/assets/svg/close.svg';
@@ -227,8 +228,11 @@ export default {
   },
   computed: {
     ...mapState({
-      currentEvent: 'worldState.data.currentEvent',
+      currentEventList: 'worldState.data.currentEventList',
     }),
+    currentEvent () {
+      return find(this.currentEventList, event => Boolean(event.gemsPromo) || Boolean(event.promo));
+    },
     searchCannotSubmit () {
       if (this.userSearchTerm.length < 1) return true;
       return typeof this.foundUser._id === 'undefined';

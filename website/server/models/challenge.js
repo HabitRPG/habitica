@@ -68,7 +68,7 @@ schema.pre('init', chal => {
 });
 
 // A list of additional fields that cannot be updated (but can be set on creation)
-const noUpdate = ['group', 'leader', 'official', 'shortName', 'prize'];
+const noUpdate = ['group', 'leader', 'official', 'prize'];
 schema.statics.sanitizeUpdate = function sanitizeUpdate (updateObj) {
   return this.sanitize(updateObj, noUpdate);
 };

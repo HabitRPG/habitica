@@ -187,7 +187,7 @@
     "septemberYYYY": "Settembre <%= year %>",
     "royalPurpleJackolantern": "Zucca di Halloween Porpora",
     "novemberYYYY": "Novembre <%= year %>",
-    "g1g1Limitations": "Questo è un evento a tempo limitato che inizia il 17 dicembre alle 14:00 ora italiana (13:00 UTC) e terminerà l'8 gennaio alle 2:00 ora italiana (1:00 UTC). Questa promozione si applica solo quando fai un regalo a un altro Habitante. Se tu o il destinatario del regalo avete già un abbonamento, l'abbonamento in regalo aggiungerà mesi di credito che verranno utilizzati solo dopo l'annullamento o la scadenza dell'abbonamento corrente.",
+    "g1g1Limitations": "Questo è un evento a tempo limitato che inizia il 16 dicembre alle 14:00 ora italiana (13:00 UTC) e terminerà il 6 gennaio alle 2:00 ora italiana (1:00 UTC). Questa promozione si applica solo quando fai un regalo a un altro Habitante. Se tu o il destinatario del regalo avete già un abbonamento, l'abbonamento in regalo aggiungerà mesi di credito che verranno utilizzati solo dopo l'annullamento o la scadenza dell'abbonamento corrente.",
     "limitations": "Limitazioni",
     "g1g1HowItWorks": "Digita il nome utente dell'account a cui desideri regalare. Da lì, scegli la durata che desideri regalare. Il tuo account verrà automaticamente ricompensato con la stesso livello di abbonamento che hai appena regalato.",
     "howItWorks": "Come funziona",
@@ -210,5 +210,10 @@
     "fall2021HeadlessWarriorSet": "Senza testa (Guerriero)",
     "fall2021BrainEaterMageSet": "Mangiacervelli (mago)",
     "fall2021OozeRogueSet": "Melma (ladro)",
-    "fall2021FlameSummonerHealerSet": "Fiammevocatore (Guaritore)"
+    "fall2021FlameSummonerHealerSet": "Fiammevocatore (Guaritore)",
+    "winter2022StockingWarriorSet": "Calze (Guerriero)",
+    "winter2022IceCrystalHealerSet": "Cristallo di ghiaccio (Guaritore)",
+    "januaryYYYY": "Gennaio <%= year %>",
+    "winter2022FireworksRogueSet": "Fuochi d'artificio (Ladro)",
+    "winter2022PomegranateMageSet": "Melograno (Mago)"
 }

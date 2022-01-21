@@ -182,6 +182,7 @@ function sendSubscriptionNotification ({
   paymentMethod,
   months,
   groupId,
+  autoRenews,
 }) {
   if (SKIP_SUB_METHOD) {
     return;
@@ -194,8 +195,10 @@ function sendSubscriptionNotification ({
     text = `${buyer.name} ${buyer.id} ${buyer.email} bought a ${months}-month gift subscription for ${recipient.name} ${recipient.id} ${recipient.email}${promoString} using ${paymentMethod} on ${timestamp}`;
   } else if (groupId) {
     text = `${buyer.name} ${buyer.id} ${buyer.email} bought a 1-month recurring group-plan for ${groupId} using ${paymentMethod} on ${timestamp}`;
-  } else {
+  } else if (autoRenews) {
     text = `${buyer.name} ${buyer.id} ${buyer.email} bought a ${months}-month recurring subscription using ${paymentMethod} on ${timestamp}`;
+  } else {
+    text = `${buyer.name} ${buyer.id} ${buyer.email} bought a ${months}-month non-recurring subscription using ${paymentMethod} on ${timestamp}`;
   }
 
   subscriptionSlack

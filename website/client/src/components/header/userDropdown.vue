@@ -143,6 +143,7 @@ import userIcon from '@/assets/svg/user.svg';
 import MenuDropdown from '../ui/customMenuDropdown';
 import MessageCount from './messageCount';
 import { EVENTS } from '@/libs/events';
+import { PAGES } from '@/libs/consts';
 
 export default {
   components: {
@@ -170,7 +171,7 @@ export default {
       if (this.$router.history.current.name === 'privateMessages') {
         this.$root.$emit(EVENTS.PM_REFRESH);
       } else {
-        this.$router.push('/private-messages');
+        this.$router.push(PAGES.PRIVATE_MESSAGES);
       }
     },
     showProfile (startingPage) {

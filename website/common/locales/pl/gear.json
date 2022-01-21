@@ -279,8 +279,8 @@
     "weaponSpecialWinter2019WarriorText": "Snowflake Halberd",
     "weaponSpecialWinter2019WarriorNotes": "This snowflake was grown, ice crystal by ice crystal, into a diamond-hard blade! Increases Strength by <%= str %>. Limited Edition 2018-2019 Winter Gear.",
     "weaponSpecialWinter2019MageText": "Fiery Dragon Staff",
-    "weaponSpecialWinter2019MageNotes": "Ostrożnie! Ta wybuchowa rzecz jest gotowa pomóc Ci znaleźć się we wszystkich kątach jednocześnie.  Zwiększa Inteligencję o <%= int %> oraz Percepcję o <%= per %>. Edycja Limitowana 2018-2019 Zimowe Wyposażenie.",
-    "weaponSpecialWinter2019HealerText": "Wand of Winter",
+    "weaponSpecialWinter2019MageNotes": "Ostrożnie! Ta wybuchowa laska jest gotowa pomóc Ci znaleźć się we wszystkich kątach jednocześnie.  Zwiększa Inteligencję o <%= int %> oraz Percepcję o <%= per %>. Edycja Limitowana 2018-2019 Zimowe Wyposażenie.",
+    "weaponSpecialWinter2019HealerText": "Zimowa Różdżka",
     "weaponSpecialWinter2019HealerNotes": "Winter can be a time of rest and healing, and so this wand of winter magic can help to soothe the most grievous hurts. Increases Intelligence by <%= int %>. Limited Edition 2018-2019 Winter Gear.",
     "weaponMystery201411Text": "Widły Ucztowania",
     "weaponMystery201411Notes": "Dźgaj swoich wrogów lub rzuć się na ulubione potrawy - te wielofunkcyjne widły nadają się do wszystkiego! Brak dodatkowych korzyści. Przedmiot Abonencki Listopad 2014.",
@@ -1783,5 +1783,9 @@
     "armorSpecialWinter2021WarriorText": "Ocieplana Kurtka",
     "headSpecialWinter2021WarriorText": "Ocieplany Kaptur",
     "weaponSpecialWinter2021WarriorText": "Potężna Wędka",
-    "weaponSpecialKS2019Text": "Mityczna Glewia Gryfa"
+    "weaponSpecialKS2019Text": "Mityczna Glewia Gryfa",
+    "weaponSpecialKS2019Notes": "Zakrzywiona jak dziób i pazury gryfa, ta paradna broń drzewcowa przypomina Ci by dzielnie działać nawet kiedy zadania wydają się trudne.",
+    "weaponSpecialSpring2019RogueNotes": "Te bronie posiadają moc nieba i deszczu. Zalecamy by nie używać ich jeśli jest się częściowo zanurzonym w wodzie. Zwiększa Siłę o <%=str %>. Edycja Limitowana 2019 Wiosenne Wyposażenie.",
+    "eyewearArmoireClownsNoseNotes": "Ten dodatek sprawi, że wszyscy wywęszą, że jesteś klaunem! Zwiększa inteligencję o <%= int %>. Zaczarowana Skrzynia: Zestaw Klauna (Przedmiot 2 z 5).",
+    "eyewearArmoireClownsNoseText": "Nos Klauna"
 }

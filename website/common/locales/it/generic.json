@@ -202,5 +202,16 @@
     "options": "Opzioni",
     "onboardingAchievs": "Medaglie Iniziali",
     "finish": "Finito",
-    "askQuestion": "Fai una domanda"
+    "askQuestion": "Fai una domanda",
+    "reportEmailPlaceholder": "Il tuo indirizzo email",
+    "reportDescription": "Descrizione",
+    "reportDescriptionText": "Se lo ritieni utile includi screenshot o gli errori della console Javascript.",
+    "submitBugReport": "Invia la segnalazione bug",
+    "reportSent": "Segnalazione bug inviata!",
+    "reportBugHeaderDescribe": "Descrivi il bug che stai riscontrando e il nostro team ti contatterà.",
+    "reportEmailText": "Verrà utilizzato solo per contattarti in merito alla segnalazione del bug.",
+    "reportEmailError": "Si prega di fornire un indirizzo email valido",
+    "reportDescriptionPlaceholder": "Descrivi il bug in dettaglio qui sotto",
+    "reportSentDescription": "Ti contatteremo non appena il nostro team avrà indagato sul problema. Grazie per la segnalazione.",
+    "emptyReportBugMessage": "Messaggio mancante"
 }

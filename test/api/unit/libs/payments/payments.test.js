@@ -247,11 +247,11 @@ describe('payments/index', () => {
 
       context('No Active Promotion', () => {
         beforeEach(() => {
-          sinon.stub(worldState, 'getCurrentEvent').returns(null);
+          sinon.stub(worldState, 'getCurrentEventList').returns([]);
         });
 
         afterEach(() => {
-          worldState.getCurrentEvent.restore();
+          worldState.getCurrentEventList.restore();
         });
 
         it('sends a private message about the gift', async () => {
@@ -268,14 +268,14 @@ describe('payments/index', () => {
 
       context('Active Promotion', () => {
         beforeEach(() => {
-          sinon.stub(worldState, 'getCurrentEvent').returns({
+          sinon.stub(worldState, 'getCurrentEventList').returns([{
             ...common.content.events.winter2021Promo,
             event: 'winter2021',
-          });
+          }]);
         });
 
         afterEach(() => {
-          worldState.getCurrentEvent.restore();
+          worldState.getCurrentEventList.restore();
         });
 
         it('creates a gift subscription for purchaser and recipient if none exist', async () => {

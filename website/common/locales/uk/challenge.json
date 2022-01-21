@@ -85,7 +85,7 @@
     "shortName": "Коротка назва",
     "shortNamePlaceholder": "Який короткий тег слід використовувати для вашого випробування?",
     "updateChallenge": "Оновити випробування",
-    "haveNoChallenges": "Ця группа не має випробувань",
+    "haveNoChallenges": "Ця команда не має випробувань",
     "loadMore": "Докладніше",
     "exportChallengeCsv": "Експортувати випробування",
     "editingChallenge": "Редагувати випробування",
@@ -103,5 +103,6 @@
     "selectParticipant": "Вибрати учасника",
     "wonChallengeDesc": "<%= challengeName %> обрав(-ла) Вас переможцем. Перемога записана у досягненнях.",
     "yourReward": "Ваша винагорода",
-    "filters": "Фільтри"
+    "filters": "Фільтри",
+    "removeTasks": "Видалити завдання"
 }

@@ -177,18 +177,27 @@ const premium = {
     value: 2,
     text: t('hatchingPotionHolly'),
     limited: true,
-    canBuy () {
-      return moment().isBetween('2019-12-19', '2020-02-02');
-    },
     _addlNotes: t('eventAvailabilityReturning', {
       availableDate: t('dateEndJanuary'),
-      previousDate: t('decemberYYYY', { year: 2016 }),
+      previousDate: t('januaryYYYY', { year: 2020 }),
     }),
+    event: EVENTS.winter2022,
+    canBuy () {
+      return moment().isBetween(EVENTS.winter2022.start, EVENTS.winter2022.end);
+    },
   },
   Peppermint: {
     value: 2,
     text: t('hatchingPotionPeppermint'),
     limited: true,
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndJanuary'),
+      previousDate: t('januaryYYYY', { year: 2018 }),
+    }),
+    event: EVENTS.winter2022,
+    canBuy () {
+      return moment().isBetween(EVENTS.winter2022.start, EVENTS.winter2022.end);
+    },
   },
   StarryNight: {
     value: 2,
@@ -450,12 +459,13 @@ const premium = {
     value: 2,
     text: t('hatchingPotionStainedGlass'),
     limited: true,
-    _addlNotes: t('premiumPotionAddlNotes', {
-      date: t('dateEndJanuary'),
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndJanuary'),
+      previousDate: t('januaryYYYY', { year: 2021 }),
     }),
-    event: EVENTS.winter2021,
+    event: EVENTS.winter2022,
     canBuy () {
-      return moment().isBetween('2020-12-22T08:00-04:00', '2021-01-31T20:00-04:00');
+      return moment().isBetween(EVENTS.winter2022.start, EVENTS.winter2022.end);
     },
   },
   PolkaDot: {
