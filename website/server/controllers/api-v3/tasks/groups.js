@@ -1,3 +1,4 @@
+import isUUID from 'validator/lib/isUUID';
 import { authWithHeaders } from '../../../middlewares/auth';
 import * as Tasks from '../../../models/task';
 import { model as Group } from '../../../models/group';
@@ -169,30 +170,31 @@ api.groupMoveTask = {
 };
 
 /**
- * @api {post} /api/v3/tasks/:taskId/assign/:assignedUserId Assign a group task to a user
- * @apiDescription Assigns a user to a group task
+ * @api {post} /api/v3/tasks/:taskId/assign Assign a group task to a user or users
+ * @apiDescription Assign users to a group task
  * @apiName AssignTask
  * @apiGroup Task
  *
  * @apiParam (Path) {UUID} taskId The id of the task that will be assigned
- * @apiParam (Path) {UUID} assignedUserId The id of the user that will be assigned to the task
+ * @apiParam (Body) {UUID[]} [assignedUserIds] Array of user IDs to be assigned to the task
  *
  * @apiSuccess data The assigned task
  */
 api.assignTask = {
   method: 'POST',
-  url: '/tasks/:taskId/assign/:assignedUserId',
+  url: '/tasks/:taskId/assign',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('taskId', apiError('taskIdRequired')).notEmpty().isUUID();
-    req.checkParams('assignedUserId', res.t('userIdRequired')).notEmpty().isUUID();
 
     const reqValidationErrors = req.validationErrors();
     if (reqValidationErrors) throw reqValidationErrors;
 
     const { user } = res.locals;
-    const { assignedUserId } = req.params;
-    const assignedUser = await User.findById(assignedUserId).exec();
+    const assignedUserIds = req.body;
+    for (const userId of assignedUserIds) {
+      if (!isUUID(userId)) throw new BadRequest('Assigned users must be UUIDs');
+    }
 
     const { taskId } = req.params;
     const task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
@@ -211,18 +213,21 @@ api.assignTask = {
 
     if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
+    const assignedUsers = await User.find({ _id: { $in: assignedUserIds } }).exec();
     const promises = [];
     const taskText = task.text;
     const userName = `@${user.auth.local.username}`;
 
-    if (user._id !== assignedUserId) {
-      assignedUser.addNotification('GROUP_TASK_ASSIGNED', {
-        message: res.t('youHaveBeenAssignedTask', { managerName: userName, taskText }),
-        taskId: task._id,
-      });
+    for (const userToAssign of assignedUsers) {
+      if (user._id !== userToAssign._id) {
+        userToAssign.addNotification('GROUP_TASK_ASSIGNED', {
+          message: res.t('youHaveBeenAssignedTask', { managerName: userName, taskText }),
+          taskId: task._id,
+        });
+      }
     }
 
-    promises.push(group.syncTask(task, assignedUser, user));
+    promises.push(group.syncTask(task, assignedUsers, user));
     promises.push(group.save());
     await Promise.all(promises);
 

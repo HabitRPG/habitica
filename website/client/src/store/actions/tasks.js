@@ -204,7 +204,7 @@ export async function createGroupTasks (store, payload) {
 }
 
 export async function assignTask (store, payload) {
-  const response = await axios.post(`/api/v4/tasks/${payload.taskId}/assign/${payload.userId}`);
+  const response = await axios.post(`/api/v4/tasks/${payload.taskId}/assign`, payload.assignedUserIds);
   return response.data.data;
 }
 

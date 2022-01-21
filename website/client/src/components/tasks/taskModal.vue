@@ -1469,11 +1469,10 @@ export default {
             tasks: [this.task],
           });
           Object.assign(this.task, response);
-          const promises = this.assignedMembers.map(memberId => this.$store.dispatch('tasks:assignTask', {
+          await this.$store.dispatch('tasks:assignTask', {
             taskId: this.task._id,
-            userId: memberId,
-          }));
-          Promise.all(promises);
+            assignedUserIds: this.assignedMembers,
+          });
           this.assignedMembers.forEach(memberId => {
             if (!this.task.assignedUsers) this.task.assignedUsers = {};
             this.task.assignedUsers[memberId] = {
@@ -1520,7 +1519,7 @@ export default {
       } else {
         await this.$store.dispatch('tasks:assignTask', {
           taskId: this.task._id,
-          userId: memberId,
+          assignedUserIds: [memberId],
         });
       }
     },

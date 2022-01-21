@@ -140,7 +140,10 @@ export const TaskSchema = new Schema({
       $type: String, default: 'singleCompletion', // legacy data
     },
     managerNotes: { $type: String },
-    completedBy: { $type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid for group completing user.'] },
+    completedBy: {
+      $type: Schema.Types.Mixed,
+      default: () => ({}), // { 'UUID': Date }
+    },
   },
 
   reminders: [reminderSchema],

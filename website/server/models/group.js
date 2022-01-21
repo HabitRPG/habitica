@@ -1499,82 +1499,84 @@ schema.methods.updateTask = async function updateTask (taskToSync, options = {})
   await taskSchema.update(updateQuery, updateCmd, { multi: true }).exec();
 };
 
-schema.methods.syncTask = async function groupSyncTask (taskToSync, user, assigningUser) {
+schema.methods.syncTask = async function groupSyncTask (taskToSync, users, assigningUser) {
   const group = this;
   const toSave = [];
-  const assignmentData = {
-    assignedDate: new Date(),
-    assigningUsername: assigningUser && assigningUser._id !== user._id
-      ? assigningUser.auth.local.username : null,
-    completed: false,
-  };
+  for (const user of users) {
+    const assignmentData = {
+      assignedDate: new Date(),
+      assigningUsername: assigningUser && assigningUser._id !== user._id
+        ? assigningUser.auth.local.username : null,
+      completed: false,
+    };
 
-  if (!taskToSync.group.assignedUsers) {
-    taskToSync.group.assignedUsers = {};
-  }
-  if (!taskToSync.group.assignedUsers[user._id]) {
-    taskToSync.group.assignedUsers[user._id] = assignmentData;
-  }
-
-  // Sync tags
-  const userTags = user.tags;
-  const i = _.findIndex(userTags, { id: group._id });
-
-  if (i !== -1) {
-    if (userTags[i].name !== group.name) {
-      // update the name - it's been changed since
-      userTags[i].name = group.name;
-      userTags[i].group = group._id;
+    if (!taskToSync.group.assignedUsers) {
+      taskToSync.group.assignedUsers = {};
     }
-  } else {
-    userTags.push({
-      id: group._id,
-      name: group.name,
-      group: group._id,
-    });
+    if (!taskToSync.group.assignedUsers[user._id]) {
+      taskToSync.group.assignedUsers[user._id] = assignmentData;
+    }
+
+    // Sync tags
+    const userTags = user.tags;
+    const i = _.findIndex(userTags, { id: group._id });
+
+    if (i !== -1) {
+      if (userTags[i].name !== group.name) {
+        // update the name - it's been changed since
+        userTags[i].name = group.name;
+        userTags[i].group = group._id;
+      }
+    } else {
+      userTags.push({
+        id: group._id,
+        name: group.name,
+        group: group._id,
+      });
+    }
+
+    const findQuery = {
+      'group.taskId': taskToSync._id,
+      userId: user._id,
+      'group.id': group._id,
+    };
+
+    let matchingTask = await Tasks.Task.findOne(findQuery).exec(); // eslint-disable-line
+
+    if (!matchingTask) { // If the task is new, create it
+      matchingTask = new Tasks[taskToSync.type](Tasks.Task.sanitize(syncableAttrs(taskToSync)));
+      matchingTask.group.id = taskToSync.group.id;
+      matchingTask.userId = user._id;
+      matchingTask.group.taskId = taskToSync._id;
+      user.tasksOrder[`${taskToSync.type}s`].unshift(matchingTask._id);
+    } else {
+      _.merge(matchingTask, syncableAttrs(taskToSync));
+      // Make sure the task is in user.tasksOrder
+      const orderList = user.tasksOrder[`${taskToSync.type}s`];
+      if (orderList.indexOf(matchingTask._id) === -1 && (matchingTask.type !== 'todo' || !matchingTask.completed)) orderList.push(matchingTask._id);
+    }
+    matchingTask.group.assignedUsers = taskToSync.group.assignedUsers;
+    matchingTask.group.sharedCompletion = taskToSync.group.sharedCompletion;
+    matchingTask.group.managerNotes = taskToSync.group.managerNotes;
+
+    //  sync checklist
+    if (taskToSync.checklist) {
+      taskToSync.checklist.forEach(element => {
+        const newCheckList = { completed: false };
+        newCheckList.linkId = element.id;
+        newCheckList.text = element.text;
+        matchingTask.checklist.push(newCheckList);
+      });
+    }
+
+    // don't override the notes, but provide it if not provided
+    if (!matchingTask.notes) matchingTask.notes = taskToSync.notes;
+    // add tag if missing
+    if (matchingTask.tags.indexOf(group._id) === -1) matchingTask.tags.push(group._id);
+
+    toSave.push(matchingTask.save(), user.save());
   }
-
-  const findQuery = {
-    'group.taskId': taskToSync._id,
-    userId: user._id,
-    'group.id': group._id,
-  };
-
-  let matchingTask = await Tasks.Task.findOne(findQuery).exec();
-
-  if (!matchingTask) { // If the task is new, create it
-    matchingTask = new Tasks[taskToSync.type](Tasks.Task.sanitize(syncableAttrs(taskToSync)));
-    matchingTask.group.id = taskToSync.group.id;
-    matchingTask.userId = user._id;
-    matchingTask.group.taskId = taskToSync._id;
-    user.tasksOrder[`${taskToSync.type}s`].unshift(matchingTask._id);
-  } else {
-    _.merge(matchingTask, syncableAttrs(taskToSync));
-    // Make sure the task is in user.tasksOrder
-    const orderList = user.tasksOrder[`${taskToSync.type}s`];
-    if (orderList.indexOf(matchingTask._id) === -1 && (matchingTask.type !== 'todo' || !matchingTask.completed)) orderList.push(matchingTask._id);
-  }
-
-  matchingTask.group.assignedUsers = taskToSync.group.assignedUsers;
-  matchingTask.group.sharedCompletion = taskToSync.group.sharedCompletion;
-  matchingTask.group.managerNotes = taskToSync.group.managerNotes;
-
-  //  sync checklist
-  if (taskToSync.checklist) {
-    taskToSync.checklist.forEach(element => {
-      const newCheckList = { completed: false };
-      newCheckList.linkId = element.id;
-      newCheckList.text = element.text;
-      matchingTask.checklist.push(newCheckList);
-    });
-  }
-
-  // don't override the notes, but provide it if not provided
-  if (!matchingTask.notes) matchingTask.notes = taskToSync.notes;
-  // add tag if missing
-  if (matchingTask.tags.indexOf(group._id) === -1) matchingTask.tags.push(group._id);
-
-  toSave.push(matchingTask.save(), taskToSync.save(), user.save());
+  toSave.push(taskToSync.save());
   return Promise.all(toSave);
 };
 
