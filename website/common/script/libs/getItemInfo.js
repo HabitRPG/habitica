@@ -25,10 +25,8 @@ function lockQuest (quest, user) {
     && quest.unlockCondition.incentiveThreshold
     && user.loginIncentives < quest.unlockCondition.incentiveThreshold
   ) return true;
-  if (user.achievements.quests) {
-    return quest.previous
-    && !user.achievements.quests[quest.previous];
-  }
+  if (user.achievements.quests
+    && !user.achievements.quests[quest.previous]);
   // then if we've passed all the checks
   return quest.previous;
 }

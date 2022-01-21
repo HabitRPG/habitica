@@ -8,7 +8,6 @@ import content from '../../content/index';
 
 import errorMessage from '../../libs/errorMessage';
 import { AbstractGemItemOperation } from './abstractBuyOperation';
-// import itemInfo from '../../libs/getItemInfo';
 
 export class BuyQuestWithGemOperation extends AbstractGemItemOperation { // eslint-disable-line import/prefer-default-export, max-len
   multiplePurchaseAllowed () { // eslint-disable-line class-methods-use-this

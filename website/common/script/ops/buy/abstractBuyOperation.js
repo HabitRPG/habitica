@@ -139,10 +139,6 @@ export class AbstractGoldItemOperation extends AbstractBuyOperation {
     if (item && item.canOwn && !item.canOwn(user)) {
       throw new NotAuthorized(this.i18n('cannotBuyItem'));
     }
-
-    if (item.locked) {
-      throw new NotAuthorized(this.i18n('cannotBuyItem'));
-    }
   }
 
   subtractCurrency (user, item) {
