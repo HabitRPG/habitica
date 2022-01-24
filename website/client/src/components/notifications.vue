@@ -217,38 +217,6 @@ const NOTIFICATIONS = {
       achievement: 'questSeriesAchievs', // defined in website/common/script/content/achievements.js
     },
   },
-  // ACHIEVEMENT_BUG_BONANZA: {
-  //   achievement: true,
-  //   label: $t => `${$t('achievement')}: ${$t('achievementBugBonanza')}`,
-  //   modalId: 'generic-achievement',
-  //   data: {
-  //     achievement: 'bugBonanza',
-  //   },
-  // },
-  // ACHIEVEMENT_BARE_NECESSITIES: {
-  //   achievement: true,
-  //   label: $t => `${$t('achievement')}: ${$t('achievementBareNecessities')}`,
-  //   modalId: 'generic-achievement',
-  //   data: {
-  //     achievement: 'bareNecessities',
-  //   },
-  // },
-  // ACHIEVEMENT_FRESHWATER_FRIENDS: {
-  //   achievement: true,
-  //   label: $t => `${$t('achievement')}: ${$t('achievementFreshwaterFriends')}`,
-  //   modalId: 'generic-achievement',
-  //   data: {
-  //     achievement: 'freshwaterFriends',
-  //   },
-  // },
-  // ACHIEVEMENT_SEASONAL_SPECIALIST: {
-  //   achievement: true,
-  //   label: $t => `${$t('achievement')}: ${$t('achievementSeasonalSpecialist')}`,
-  //   modalId: 'generic-achievement',
-  //   data: {
-  //     achievement: 'seasonalSpecialist',
-  //   },
-  // },
   // animal set collection achievements
   ACHIEVEMENT_ANIMAL_SET: {
     achievement: true,
@@ -346,10 +314,6 @@ export default {
       'ACHIEVEMENT_STABLE',
       // quest series notifications
       'ACHIEVEMENT_QUESTS',
-      // 'ACHIEVEMENT_BUG_BONANZA',
-      // 'ACHIEVEMENT_BARE_NECESSITIES',
-      // 'ACHIEVEMENT_FRESHWATER_FRIENDS',
-      // 'ACHIEVEMENT_SEASONAL_SPECIALIST',
       // animal set achievements
       'ACHIEVEMENT_ANIMAL_SET',
       // pet and mount color collection achievement notifications

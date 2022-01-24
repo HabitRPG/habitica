@@ -51,6 +51,40 @@ const NOTIFICATION_TYPES = [
   // pet and mount color collection achievement notifications
   'ACHIEVEMENT_PET_COLOR',
   'ACHIEVEMENT_MOUNT_COLOR',
+  'ACHIEVEMENT_ALL_YOUR_BASE', // deprecated
+  'ACHIEVEMENT_BACK_TO_BASICS', // deprecated
+  'ACHIEVEMENT_JUST_ADD_WATER', // deprecated
+  'ACHIEVEMENT_LOST_MASTERCLASSER', // deprecated
+  'ACHIEVEMENT_MIND_OVER_MATTER', // deprecated
+  'ACHIEVEMENT_DUST_DEVIL', // deprecated
+  'ACHIEVEMENT_ARID_AUTHORITY', // deprecated
+  'ACHIEVEMENT_PARTY_UP', // deprecated
+  'ACHIEVEMENT_PARTY_ON', // deprecated
+  'ACHIEVEMENT_BEAST_MASTER', // deprecated
+  'ACHIEVEMENT_MOUNT_MASTER', // deprecated
+  'ACHIEVEMENT_TRIAD_BINGO', // deprecated
+  'ACHIEVEMENT_MONSTER_MAGUS', // deprecated
+  'ACHIEVEMENT_UNDEAD_UNDERTAKER', // deprecated
+  'ACHIEVEMENT_PRIMED_FOR_PAINTING', // deprecated
+  'ACHIEVEMENT_PEARLY_PRO', // deprecated
+  'ACHIEVEMENT_TICKLED_PINK', // deprecated
+  'ACHIEVEMENT_ROSY_OUTLOOK', // deprecated
+  'ACHIEVEMENT_BUG_BONANZA', // deprecated
+  'ACHIEVEMENT_BARE_NECESSITIES', // deprecated
+  'ACHIEVEMENT_FRESHWATER_FRIENDS', // deprecated
+  'ACHIEVEMENT_GOOD_AS_GOLD', // deprecated
+  'ACHIEVEMENT_ALL_THAT_GLITTERS', // deprecated
+  'ACHIEVEMENT_BONE_COLLECTOR', // deprecated
+  'ACHIEVEMENT_SKELETON_CREW', // deprecated
+  'ACHIEVEMENT_SEEING_RED', // deprecated
+  'ACHIEVEMENT_RED_LETTER_DAY', // deprecated
+  'ACHIEVEMENT_LEGENDARY_BESTIARY', // deprecated
+  'ACHIEVEMENT_SEASONAL_SPECIALIST', // deprecated
+  'ACHIEVEMENT_VIOLETS_ARE_BLUE', // deprecated
+  'ACHIEVEMENT_WILD_BLUE_YONDER', // deprecated
+  'ACHIEVEMENT_DOMESTICATED', // deprecated
+  'ACHIEVEMENT_SHADY_CUSTOMER', // deprecated
+  'ACHIEVEMENT_SHADE_OF_IT_ALL', // deprecated
 ];
 
 const { Schema } = mongoose;

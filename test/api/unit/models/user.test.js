@@ -686,12 +686,6 @@ describe('User Model', () => {
       expect(user.notifications.find(
         notification => notification.type === 'ACHIEVEMENT_STABLE',
       )).to.exist;
-      // expect(user.notifications.find(
-      // notification => notification.type === 'ACHIEVEMENT_MOUNT_MASTER',
-    // )).to.exist;
-      // expect(user.notifications.find(
-      // notification => notification.type === 'ACHIEVEMENT_TRIAD_BINGO',
-    // )).to.exist;
     });
 
     context('manage unallocated stats points notifications', () => {
