@@ -194,10 +194,7 @@
                   <h4 class="popover-content-title">
                     {{ context.item.text }}
                   </h4>
-                  <questInfo
-                    :quest="context.item"
-                    :purchased="true"
-                  />
+                  <questInfo :quest="context.item" :purchased="true" />
                 </div>
                 <div v-else>
                   <h4 class="popover-content-title">

@@ -1,6 +1,6 @@
 import passport from 'passport';
 import common from '../../../common';
-import { BadRequest, NotAuthorized } from '../errors';
+import { BadRequest } from '../errors';
 import logger from '../logger';
 import {
   generateUsername,
@@ -24,7 +24,7 @@ function _passportProfile (network, accessToken) {
 }
 
 export async function loginSocial (req, res) { // eslint-disable-line import/prefer-default-export
-  let existingUser = res.locals.user;
+  const existingUser = res.locals.user;
   const { network } = req.body;
 
   const isSupportedNetwork = common.constants.SUPPORTED_SOCIAL_NETWORKS
@@ -47,52 +47,37 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
 
   // User already signed up
   if (user) {
-    if (existingUser) {
-      throw new NotAuthorized(res.t('socialAlreadyExists'));
-    }
     return loginRes(user, req, res);
   }
 
-  let email;
-  if (profile.emails && profile.emails[0] && profile.emails[0].value) {
-    email = profile.emails[0].value.toLowerCase();
-  }
+  const generatedUsername = generateUsername();
 
-  if (!existingUser && email) {
-    existingUser = await User.findOne({ 'auth.local.email': email }).exec();
-  }
+  user = {
+    auth: {
+      [network]: {
+        id: profile.id,
+        emails: profile.emails,
+      },
+      local: {
+        username: generatedUsername,
+        lowerCaseUsername: generatedUsername,
+      },
+    },
+    profile: {
+      name: profile.displayName || profile.name || profile.username,
+    },
+    preferences: {
+      language: req.language,
+    },
+    flags: {
+      verifiedUsername: true,
+    },
+  };
 
   if (existingUser) {
-    existingUser.auth[network] = {
-      id: profile.id,
-      emails: profile.emails,
-    };
+    existingUser.auth[network] = user.auth[network];
     user = existingUser;
   } else {
-    const generatedUsername = generateUsername();
-
-    user = {
-      auth: {
-        [network]: {
-          id: profile.id,
-          emails: profile.emails,
-        },
-        local: {
-          username: generatedUsername,
-          lowerCaseUsername: generatedUsername,
-          email,
-        },
-      },
-      profile: {
-        name: profile.displayName || profile.name || profile.username,
-      },
-      preferences: {
-        language: req.language,
-      },
-      flags: {
-        verifiedUsername: true,
-      },
-    };
     user = new User(user);
     user.registeredThrough = req.headers['x-client']; // Not saved, used to create the correct tasks based on the device used
   }
@@ -100,15 +85,19 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
   const savedUser = await user.save();
 
   if (!existingUser) {
-    savedUser.newUser = true;
+    user.newUser = true;
   }
 
-  const response = loginRes(savedUser, req, res);
+  const response = loginRes(user, req, res);
 
   // Clean previous email preferences
-  if (email) {
+  if (
+    savedUser.auth[network].emails
+    && savedUser.auth[network].emails[0]
+    && savedUser.auth[network].emails[0].value
+  ) {
     EmailUnsubscription
-      .remove({ email })
+      .remove({ email: savedUser.auth[network].emails[0].value.toLowerCase() })
       .exec()
       .then(() => {
         if (!existingUser) {
