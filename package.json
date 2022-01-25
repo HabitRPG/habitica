@@ -38,7 +38,7 @@
     "gulp-nodemon": "^2.5.0",
     "gulp.spritesmith": "^6.12.1",
     "habitica-markdown": "^3.0.0",
-    "helmet": "^5.0.1",
+    "helmet": "^5.0.2",
     "image-size": "^1.0.1",
     "in-app-purchase": "^1.11.3",
     "js2xmlparser": "^4.0.2",
