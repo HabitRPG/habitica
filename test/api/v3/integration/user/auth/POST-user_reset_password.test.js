@@ -25,6 +25,19 @@ describe('POST /user/reset-password', async () => {
     expect(user.auth.local.hashed_password).to.not.eql(previousPassword);
   });
 
+  it('resets password for social users', async () => {
+    const email = `${user.auth.local.username}+google@example.com`;
+    await user.update({ 'auth.google.emails': [{ value: email }] });
+    await user.sync();
+    const previousPassword = user.auth.local.passwordResetCode;
+    const response = await user.post(endpoint, {
+      email,
+    });
+    expect(response).to.eql({ data: {}, message: t('passwordReset') });
+    await user.sync();
+    expect(user.auth.local.passwordResetCode).to.not.eql(previousPassword);
+  });
+
   it('same message on error as on success', async () => {
     const response = await user.post(endpoint, {
       email: 'nonExistent@email.com',

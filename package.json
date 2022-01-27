@@ -4,8 +4,8 @@
   "version": "4.218.0",
   "main": "./website/server/index.js",
   "dependencies": {
-    "@babel/core": "^7.16.7",
-    "@babel/preset-env": "^7.16.8",
+    "@babel/core": "^7.16.12",
+    "@babel/preset-env": "^7.16.11",
     "@babel/register": "^7.16.9",
     "@google-cloud/trace-agent": "^5.1.6",
     "@parse/node-apn": "^5.1.0",
@@ -67,8 +67,8 @@
     "remove-markdown": "^0.3.0",
     "rimraf": "^3.0.2",
     "short-uuid": "^4.2.0",
-    "stripe": "^8.195.0",
-    "superagent": "^6.1.0",
+    "stripe": "^8.199.0",
+    "superagent": "^7.1.1",
     "universal-analytics": "^0.5.3",
     "useragent": "^2.1.9",
     "uuid": "^8.3.2",
@@ -110,7 +110,7 @@
     "apidoc": "gulp apidoc"
   },
   "devDependencies": {
-    "axios": "^0.24.0",
+    "axios": "^0.25.0",
     "chai": "^4.3.4",
     "chai-as-promised": "^7.1.1",
     "chai-moment": "^0.1.0",
