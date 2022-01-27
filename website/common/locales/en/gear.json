@@ -1299,7 +1299,7 @@
   "armorArmoireShootingStarCostumeText": "Star Gown",
   "armorArmoireShootingStarCostumeNotes": "Rumored to have been spun out of the night sky itself, this flowy gown lets you rise above all obstacles in your path. Increases Constitution by <%= con %>. Enchanted Armoire: Stardust Set (Item 2 of 3).",
   "armorArmoireSoftVioletSuitText": "Soft Violet Suit",
-  "armorArmoireSoftVioletSuitNotes": "PLACEHOLDER",
+  "armorArmoireSoftVioletSuitNotes": "PLACEHOLDER. Violet Loungewear Set (Item 2 of 3).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -1850,7 +1850,7 @@
   "headArmoireRedHairbowText": "Red Hairbow",
   "headArmoireRedHairbowNotes": "Become strong, tough, and smart while wearing this beautiful Red Hairbow! Increases Strength by <%= str %>, Constitution by <%= con %>, and Intelligence by <%= int %>. Enchanted Armoire: Red Hairbow Set (Item 1 of 2).",
   "headArmoireVioletFloppyHatText": "Violet Floppy Hat",
-  "headArmoireVioletFloppyHatNotes": "Many spells have been sewn into this simple hat, giving it a pleasing purple color. Increases Perception by <%= per %>, Intelligence by <%= int %>, and Constitution by <%= con %>. Enchanted Armoire: Independent Item.",
+  "headArmoireVioletFloppyHatNotes": "Many spells have been sewn into this simple hat, giving it a pleasing purple color. Increases Perception by <%= per %>, Intelligence by <%= int %>, and Constitution by <%= con %>. Enchanted Armoire: Violet Loungewear Set (Item 1 of 3).",
   "headArmoireGladiatorHelmText": "Gladiator Helm",
   "headArmoireGladiatorHelmNotes": "To be a gladiator you must be not only strong.... but cunning. Increases Intelligence by <%= int %> and Perception by <%= per %>. Enchanted Armoire: Gladiator Set (Item 1 of 3).",
   "headArmoireRancherHatText": "Rancher Hat",
@@ -2374,7 +2374,7 @@
   "shieldArmoireSoftBlackPillowText": "Soft Black Pillow",
   "shieldArmoireSoftBlackPillowNotes": "The brave warrior packs a pillow for any expedition. Guard yourself from tiresome tasks... even while you nap. Increases Intelligence and Perception by <%= attrs %> each. Enchanted Armoire: Black Loungewear Set (Item 3 of 3).",
   "shieldArmoireSoftVioletPillowText": "Soft Violet Pillow",
-  "shieldArmoireSoftVioletPillowNotes": "PLACEHOLDER",
+  "shieldArmoireSoftVioletPillowNotes": "PLACEHOLDER. Violet Loungewear Set (Item 3 of 3).",
 
   "back": "Back Accessory",
   "backBase0Text": "No Back Accessory",
