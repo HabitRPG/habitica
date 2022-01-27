@@ -616,7 +616,7 @@
   "weaponArmoireShootingStarSpellText": "Stardust Sparkles",
   "weaponArmoireShootingStarSpellNotes": "Surround yourself in a spell of stardust magic to help you make all your wishes come true. Increases Strength and Intelligence by <%= attrs %> each. Enchanted Armoire: Stardust Set (Item 3 of 3).",
   "weaponArmoirePinkLongbowText": "Pink Longbow",
-  "weaponArmoirePinkLongbowNotes": "Be a cupid-in-training, mastering both archery and matters of the heart with this beautiful bow. Increases Perception by <% = per %> and Strength by <%= str %>. Enchanted Armoire: Independent Item.",
+  "weaponArmoirePinkLongbowNotes": "Be a cupid-in-training, mastering both archery and matters of the heart with this beautiful bow. Increases Perception by <%= per %> and Strength by <%= str %>. Enchanted Armoire: Independent Item.",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
