@@ -7,7 +7,7 @@
     "editATask": "Редагувати <%= type %>",
     "createTask": "Створити <%= type %>",
     "addTaskToUser": "Додати завдання",
-    "scheduled": "Заплановані",
+    "scheduled": "З дедлайном",
     "theseAreYourTasks": "Це ваші <%= taskType %>",
     "habit": "Звичка",
     "habits": "Звички",
@@ -139,5 +139,5 @@
     "adjustCounter": "Відрегулювати лічильник",
     "counter": "Лічильник",
     "resetCounter": "Скинути лічильник",
-    "editTagsText": "Змінити теги"
+    "editTagsText": "Редагувати теги"
 }

@@ -1,14 +1,14 @@
 {
     "rebirthNew": "Odrodzenie – nowa przygoda czeka!",
     "rebirthUnlock": "Odblokowałeś opcję odrodzenia! Specjalna Kula, którą możesz kupić na targu, pozwoli Ci rozpocząć grę od nowa na poziomie 1, przy czym zachowasz wszystkie swoje zadania, chowańce, itd. Jeśli masz wrażenie, że wszystko już w tej grze osiągnąłeś, wykorzystaj tę funkcję aby ją odświeżyć. Poczuj się znów jak nowo narodzony!",
-    "rebirthAchievement": "Rozpocząłeś nową przygodę! To Twoje Odrodzenie numer <%= number %>, a najwyższy poziom, jaki udało Ci się osiągnąć, to <%= level %>.  Aby powielić to Osiągnięcie, rozpocznij następną przygodę po osiągnięciu jeszcze wyższego Poziomu!",
-    "rebirthAchievement100": "Rozpocząłeś nową przygodę! To Twoje Odrodzenie numer <%= number %>, a najwyższy poziom, jaki udało Ci się osiągnąć, to 100 lub wyżej.  Aby powielić to Osiągnięcie, rozpocznij następną przygodę po osiągnięciu co najmniej 100 poziomu!",
+    "rebirthAchievement": "Rozpocząłeś nową przygodę! To Twoje Odrodzenie numer <%= number %>, a najwyższy poziom, jaki udało Ci się osiągnąć, to <%= level %>. Aby powielić to Osiągnięcie, rozpocznij następną przygodę po osiągnięciu jeszcze wyższego Poziomu!",
+    "rebirthAchievement100": "Rozpocząłeś nową przygodę! To Twoje Odrodzenie numer <%= number %>, a najwyższy poziom, jaki udało Ci się osiągnąć, to 100 lub wyżej. Aby powielić to Osiągnięcie, rozpocznij następną przygodę po osiągnięciu co najmniej 100 poziomu!",
     "rebirthBegan": "Rozpoczęto nową przygodę",
     "rebirthText": "Rozpoczęto nową przygodę po raz <%= rebirths %>",
     "rebirthOrb": "Wykorzystano Kulę Odrodzenia aby rozpocząć grę od nowa po osiągnięciu <%= level %> Poziomu.",
     "rebirthOrb100": "Wykorzystano Kulę Odrodzenia, aby rozpocząć grę od nowa po osiągnięciu Poziomu 100 lub wyższego.",
     "rebirthOrbNoLevel": "Wykorzystano Kulę Odrodzenia aby rozpocząć grę od nowa.",
-    "rebirthPop": "Natychmiastowo odtworzy twoją postać jako Wojownika na 1 poziomie, z równoczesnym zachowaniem osiągnięć, przedmiotów kolekcjonerskich i ekwipunku. Twoje zadania i ich historia będą zachowane, ale zostaną zresetowane do żółtego poziomu. Twoje serie zostaną usunięte z wyjątkiem zadań pochodzących z aktywnych wyzwań oraz planów grupowych. Twoje Złoto, Punkty Doświadczenia, Mana i Umiejętności zostaną usunięte. Wszystkie te efekty zajdą natychmiastowo. Szczegółowe informacje znajdziesz na stronie wiki <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Kula Odrodzenia</a>.",
+    "rebirthPop": "Natychmiastowo odtworzy twoją postać jako Wojownika na 1 poziomie, z równoczesnym zachowaniem osiągnięć, przedmiotów kolekcjonerskich i ekwipunku. Twoje zadania i ich historia będą zachowane, ale zostaną zresetowane do żółtego poziomu. Twoje serie zostaną usunięte z wyjątkiem zadań pochodzących z aktywnych wyzwań oraz planów grupowych. Twoje Złoto, Punkty Doświadczenia, Mana i Umiejętności zostaną usunięte. Wszystkie te efekty zajdą natychmiastowo. Szczegółowe informacje znajdziesz na stronie wiki <a href='https://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Kula Odrodzenia</a>.",
     "rebirthName": "Kula Odrodzenia",
     "rebirthComplete": "Odrodziłeś się!",
     "nextFreeRebirth": "<strong><%= days %> dni</strong> do <strong>DARMOWEJ</strong> Kuli Odrodzenia"

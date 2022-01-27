@@ -9,7 +9,9 @@ import {
   USER_CAN_OWN_QUEST_CATEGORIES,
 } from './constants';
 
-const CURRENT_EVENT = find(EVENTS, event => moment().isBetween(event.start, event.end));
+const CURRENT_EVENT = find(
+  EVENTS, event => moment().isBetween(event.start, event.end) && Boolean(event.season),
+);
 const userCanOwnQuestCategories = USER_CAN_OWN_QUEST_CATEGORIES;
 
 const quests = {
@@ -260,10 +262,7 @@ const quests = {
     },
   },
   evilsanta: {
-    canBuy () {
-      return CURRENT_EVENT && CURRENT_EVENT.season === 'winter';
-    },
-    event: EVENTS.winter2021,
+    event: CURRENT_EVENT && CURRENT_EVENT.season === 'winter' ? CURRENT_EVENT : null,
     text: t('questEvilSantaText'),
     notes: t('questEvilSantaNotes'),
     addlNotes: t('evilSantaAddlNotes'),
@@ -288,10 +287,7 @@ const quests = {
     },
   },
   evilsanta2: {
-    canBuy () {
-      return CURRENT_EVENT && CURRENT_EVENT.season === 'winter';
-    },
-    event: EVENTS.winter2021,
+    event: CURRENT_EVENT && CURRENT_EVENT.season === 'winter' ? CURRENT_EVENT : null,
     text: t('questEvilSanta2Text'),
     notes: t('questEvilSanta2Notes'),
     addlNotes: t('evilSantaAddlNotes'),
@@ -518,10 +514,10 @@ const quests = {
     completion: t('questEggHuntCompletion'),
     value: 1,
     category: 'pet',
-    event: EVENTS.spring2021,
     canBuy () {
-      return moment().isBefore(EVENTS.spring2021.end);
+      return CURRENT_EVENT && CURRENT_EVENT.season === 'spring';
     },
+    event: CURRENT_EVENT && CURRENT_EVENT.season === 'spring' ? CURRENT_EVENT : null,
     collect: {
       plainEgg: {
         text: t('questEggHuntCollectPlainEgg'),
@@ -3586,10 +3582,10 @@ const quests = {
     completion: t('questWaffleCompletion'),
     value: 4,
     category: 'hatchingPotion',
-    event: EVENTS.spring2021,
     canBuy () {
-      return moment().isBefore(EVENTS.spring2021.end);
+      return CURRENT_EVENT && CURRENT_EVENT.season === 'spring';
     },
+    event: CURRENT_EVENT && CURRENT_EVENT.season === 'spring' ? CURRENT_EVENT : null,
     boss: {
       name: t('questWaffleBoss'),
       hp: 500,
@@ -3886,9 +3882,6 @@ each(quests, (v, key) => {
   defaults(v, {
     key,
     canBuy () {
-      if (v.event) {
-        return moment().isBetween(v.event.start, v.event.end);
-      }
       return true;
     },
   });

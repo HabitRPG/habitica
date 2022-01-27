@@ -103,5 +103,6 @@
     "selectParticipant": "Wybierz Uczestnika",
     "yourReward": "Twoja Nagroda",
     "filters": "Filtry",
-    "wonChallengeDesc": "<%= challengeName %> wybrał cię jako zwycięzca! Twoja wygrana została zapisana w Osiągnięciach."
+    "wonChallengeDesc": "<%= challengeName %> wybrał cię jako zwycięzca! Twoja wygrana została zapisana w Osiągnięciach.",
+    "removeTasks": "Usuń Zadania"
 }

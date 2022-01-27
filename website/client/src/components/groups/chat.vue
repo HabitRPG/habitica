@@ -27,7 +27,7 @@
           @keydown.tab="handleTab($event)"
           @keydown.up="selectPreviousAutocomplete($event)"
           @keydown.down="selectNextAutocomplete($event)"
-          @keydown.enter="selectAutocomplete($event)"
+          @keypress.enter="selectAutocomplete($event)"
           @keydown.esc="handleEscape($event)"
           @paste="disableMessageSendShortcut()"
         ></textarea>
@@ -247,8 +247,13 @@ export default {
 
     selectAutocomplete (e) {
       if (this.$refs.autocomplete.searchActive) {
-        e.preventDefault();
-        this.$refs.autocomplete.makeSelection();
+        if (this.$refs.autocomplete.selected !== null) {
+          e.preventDefault();
+          this.$refs.autocomplete.makeSelection();
+        } else {
+          // no autocomplete selected, newline instead
+          this.$refs.autocomplete.cancel();
+        }
       }
     },
 

@@ -52,7 +52,7 @@
     "quantity": "Кількістю",
     "cost": "Вартістю",
     "shops": "Магазини",
-    "custom": "Індивідуальне",
+    "custom": "Індивідуальні",
     "wishlist": "Відібрані",
     "wrongItemType": "The item type \"<%= type %>\" is not valid.",
     "wrongItemPath": "The item path \"<%= path %>\" is not valid.",
