@@ -18,35 +18,35 @@ const SEASONAL_SETS = {
     'festiveFairySet',
     'cocoaSet',
 
-    // winter 2017
     'winter2017IceHockeySet',
     'winter2017WinterWolfSet',
     'winter2017SugarPlumSet',
     'winter2017FrostyRogueSet',
 
-    // winter 2018
     'winter2018ConfettiSet',
     'winter2018GiftWrappedSet',
     'winter2018MistletoeSet',
     'winter2018ReindeerSet',
 
-    // winter 2019
     'winter2019PoinsettiaSet',
     'winter2019WinterStarSet',
     'winter2019BlizzardSet',
     'winter2019PyrotechnicSet',
 
-    // winter 2020
     'winter2020CarolOfTheMageSet',
     'winter2020LanternSet',
     'winter2020EvergreenSet',
     'winter2020WinterSpiceSet',
 
-    // winter 2021
     'winter2021WinterMoonMageSet',
     'winter2021HollyIvyRogueSet',
     'winter2021IceFishingWarriorSet',
     'winter2021ArcticExplorerHealerSet',
+
+    'winter2022FireworksRogueSet',
+    'winter2022StockingWarriorSet',
+    'winter2022PomegranateMageSet',
+    'winter2022IceCrystalHealerSet',
   ],
   spring: [
     // spring 2014

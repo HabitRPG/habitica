@@ -1,0 +1,3 @@
+[submodule "habitica-images"]
+	path = habitica-images
+	url = https://github.com/HabitRPG/habitica-images

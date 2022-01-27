@@ -66,7 +66,7 @@
     "moreGearAchievements": "By zdobyć więcej osiągnięć Uzbrojony po zęby, zmień klasę na <a href='/user/settings/site' target='_blank'>stronie ustawień</a> i kup wyposażenie dla swojej nowej klasy!",
     "armoireUnlocked": "Jeśli chcesz więcej wyposażenia, sprawdź <strong>Zaczarowaną Skrzynię!</strong> Kliknij na Nagrodę Zaczarowanej Skrzyni, aby dostać szansę na specjalne wyposażenie! Możesz również otrzymać punkty doświadczenia lub jedzenie.",
     "ultimGearName": "Uzbrojony po zęby - <%= ultClass %>",
-    "ultimGearText": "Broń i zbroja  dla klasy <%= ultClass %> zostały maksymalnie ulepszone.",
+    "ultimGearText": "Broń i zbroja dla klasy <%= ultClass %> zostały maksymalnie ulepszone.",
     "level": "Poziom",
     "levelUp": "Zyskujesz poziom!",
     "gainedLevel": "Zdobyłeś poziom!",
@@ -85,7 +85,7 @@
     "allocatePerPop": "Dodaj punkt do Percepcji",
     "allocateInt": "Punkty przydzielone do Inteligencji:",
     "allocateIntPop": "Dodaj punkt do Inteligencji",
-    "noMoreAllocate": "Teraz, gdy osiągnąłeś poziom 100, nie będziesz już zyskiwać punktów statystyk. Możesz dalej podnosić poziom lub zacząć nową przygodę od poziomu 1 używając <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Kuli Odrodzenia</a>!",
+    "noMoreAllocate": "Teraz, gdy osiągnąłeś poziom 100, nie będziesz już zyskiwać punktów statystyk. Możesz dalej podnosić poziom lub zacząć nową przygodę od poziomu 1 używając <a href='https://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Kuli Odrodzenia</a>!",
     "stats": "Statystyki",
     "achievs": "Osiągnięcia",
     "strength": "Siła",
@@ -185,5 +185,6 @@
     "chatCastSpellUser": "<%= username %> rzuca zaklęcie <%= spell %> na <%= target %>.",
     "chatCastSpellParty": "<%= username %> rzuca zaklęcie <%= spell %> dla drużyny.",
     "purchasePetItemConfirm": "Ten zakup przekroczyłby liczbę przedmiotów potrzebnych do wyklucia wszystkich możliwych <%= itemText %> chowańców. Czy nadal chcesz kupić?",
-    "purchaseForGold": "Kupić za <%= cost %> szt. złota?"
+    "purchaseForGold": "Kupić za <%= cost %> szt. złota?",
+    "notEnoughGold": "Masz za mało złota."
 }

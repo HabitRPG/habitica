@@ -1,6 +1,5 @@
 .DS_Store
 website/build
-website/raw_sprites/spritesmith
 website/transpiled-babel/
 website/common/transpiled-babel/
 node_modules

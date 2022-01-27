@@ -188,7 +188,7 @@
     "septemberYYYY": "Septembre <%= year %>",
     "royalPurpleJackolantern": "Citrouille d'Habitoween pourpre royal",
     "novemberYYYY": "Novembre <%= year %>",
-    "g1g1Limitations": "Il s'agit d'un événement limité dans le temps, qui démarre le 17 décembre à 08h00 ET (13h00 UTC) et qui finit le 7 Janvier à 20h00 ET (01h00 UTC). Cette promotion ne s'applique que lorsque vous offrez à quelqu'un d'autre. Si la personne désignée a déjà un abonnement, l'abonnement offert ajoutera des mois d'abonnement qui ne seront utilisés qu'après la fin de leur abonnement actuel.",
+    "g1g1Limitations": "Il s'agit d'un événement limité dans le temps, qui démarre le 16 décembre à 08h00 ET (13h00 UTC) et qui finit le 6 Janvier à 20h00 ET (01h00 UTC). Cette promotion ne s'applique que lorsque vous offrez à quelqu'un d'autre. Si la personne désignée a déjà un abonnement, l'abonnement offert ajoutera des mois d'abonnement qui ne seront utilisés qu'après la fin de leur abonnement actuel.",
     "limitations": "Limitations",
     "g1g1HowItWorks": "Entrez l'identifiant du compte auquel vous voulez faire un cadeau. Puis choisissez la durée d'abonnement que vous voulez offrir et validez. Vous recevrez automatiquement la même durée d'abonnement que celle que vous venez d'offrir.",
     "howItWorks": "Comment ça marche",
@@ -211,5 +211,10 @@
     "fall2021BrainEaterMageSet": "Mangeur de cerveau (Mage)",
     "fall2021FlameSummonerHealerSet": "Invoqueur de flamme (Guérisseur)",
     "fall2021OozeRogueSet": "Blob (Voleur)",
-    "fall2021HeadlessWarriorSet": "Sans-tête (Guerrier)"
+    "fall2021HeadlessWarriorSet": "Sans-tête (Guerrier)",
+    "winter2022FireworksRogueSet": "Feu d'artifice (Voleur)",
+    "winter2022StockingWarriorSet": "Chaussette (Guerrier)",
+    "winter2022PomegranateMageSet": "Grenade (Mage)",
+    "winter2022IceCrystalHealerSet": "Cristal de glace (Guérisseur)",
+    "januaryYYYY": "Janvier <%= year %>"
 }

@@ -89,6 +89,7 @@
 </style>
 
 <script>
+import find from 'lodash/find';
 import { mapState } from '@/libs/store';
 import BaseBanner from './base';
 
@@ -98,8 +99,11 @@ export default {
   },
   computed: {
     ...mapState({
-      currentEvent: 'worldState.data.currentEvent',
+      currentEventList: 'worldState.data.currentEventList',
     }),
+    currentEvent () {
+      return find(this.currentEventList, event => Boolean(event.gemsPromo));
+    },
     eventName () {
       return this.currentEvent && this.currentEvent.event;
     },

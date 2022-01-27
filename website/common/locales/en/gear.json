@@ -416,6 +416,18 @@
   "weaponSpecialFall2021HealerText": "Summoning Wand",
   "weaponSpecialFall2021HealerNotes": "Use this wand to summon healing flames and a ghostly creature to help you. Increases Intelligence by <%= int %>. Limited Edition 2021 Autumn Gear.",
 
+  "weaponSpecialWinter2022RogueText": "Shooting Star Firework",
+  "weaponSpecialWinter2022RogueNotes": "Silver and gold are beloved of Rogues, right? These are totally on theme. Increases Strength by <%= str %>. Limited Edition 2021-2022 Winter Gear.",
+  "weaponSpecialWinter2022WarriorText": "Candy Cane Sword",
+  "weaponSpecialWinter2022WarriorNotes": "How many licks does it take to sharpen this candy cane into the perfect sword? Increases Strength by <%= str %>. Limited Edition 2021-2022 Winter Gear.",
+  "weaponSpecialWinter2022MageText": "Pomegranate Staff",
+  "weaponSpecialWinter2022MageNotes": "The berries on this staff contain an ancient magic to be wielded in winter. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2021-2022 Winter Gear.",
+  "weaponSpecialWinter2022HealerText": "Crystalline Ice Wand",
+  "weaponSpecialWinter2022HealerNotes": "Touch this solid-water implement to a friend's neck and they'll jump out of their chair! But they'll feel better afterward. Hopefully. Increases Intelligence by <%= int %>. Limited Edition 2021-2022 Winter Gear.",
+
+  "headSpecialNye2021Text": "Preposterous Party Hat",
+  "headSpecialNye2021Notes": "You've received a Preposterous Party Hat! Wear it with pride while ringing in the New Year! Confers no benefit.",
+
   "weaponMystery201411Text": "Pitchfork of Feasting",
   "weaponMystery201411Notes": "Stab your enemies or dig in to your favorite foods - this versatile pitchfork does it all! Confers no benefit. November 2014 Subscriber Item.",
   "weaponMystery201502Text": "Shimmery Winged Staff of Love and Also Truth",
@@ -438,6 +450,8 @@
   "weaponMystery202104Notes": "Your enemies had better look out- you've got powerful and prickly defenses! Confers no benefit. April 2021 Subscriber Item.",
   "weaponMystery202111Text": "Chronomancer's Staff",
   "weaponMystery202111Notes": "Shape the flow of time with this mysterious and powerful staff. Confers no benefit. November 2021 Subscriber Item.",
+  "weaponMystery202201Text": "Midnight Confetti Cannon",
+  "weaponMystery202201Notes": "Unleash a cloud of gold and silver glitter when the clock strikes midnight. Happy New Year! Now who's cleaning this up? Confers no benefit. January 2022 Subscriber Item.",
   "weaponMystery301404Text": "Steampunk Cane",
   "weaponMystery301404Notes": "Excellent for taking a turn about town. March 3015 Subscriber Item. Confers no benefit.",
 
@@ -599,6 +613,8 @@
   "weaponArmoirePotionGoldenNotes": "With this potion, your pet can have a heart of gold… and ears of gold… and a tail of gold… Increases Strength and Intelligence by <%= attrs %> each. Enchanted Armoire: Potion Set (Item 10 of 10)",
   "weaponArmoireRegalSceptreText": "Regal Sceptre",
   "weaponArmoireRegalSceptreNotes": "Display your regal authority by taking this bejeweled staff in hand. Increases Perception by <%= per %>. Enchanted Armoire: Regal Set (Item 2 of 2).",
+  "weaponArmoireShootingStarSpellText": "Stardust Sparkles",
+  "weaponArmoireShootingStarSpellNotes": "Surround yourself in a spell of stardust magic to help you make all your wishes come true. Increases Strength and Intelligence by <%= attrs %> each. Enchanted Armoire: Stardust Set (Item 3 of 3).",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -996,6 +1012,15 @@
   "armorSpecialFall2021HealerText": "Summoner's Robes",
   "armorSpecialFall2021HealerNotes": "Made of durable, flame-resistant fabric, these robes are perfect to wear when conjuring healing flames. Increases Constitution by <%= con %>. Limited Edition 2021 Autumn Gear.",
 
+  "armorSpecialWinter2022RogueText": "Dazzling Explosion",
+  "armorSpecialWinter2022RogueNotes": "If they're seeing stars, they're not seeing you! Yes, let's go with that. Increases Perception by <%= per %>. Limited Edition 2021-2022 Winter Gear.",
+  "armorSpecialWinter2022WarriorText": "Fuzzy Stocking",
+  "armorSpecialWinter2022WarriorNotes": "Who says you can’t be snug and cozy while doing battle with everyday tasks? Increases Constitution by <%= con %>. Limited Edition 2021-2022 Winter Gear.",
+  "armorSpecialWinter2022MageText": "Pomegranate Protection",
+  "armorSpecialWinter2022MageNotes": "Enemies should watch out for fruit juice stains when you approach! Increases Intelligence by <%= int %>. Limited Edition 2021-2022 Winter Gear.",
+  "armorSpecialWinter2022HealerText": "Crystalline Ice Armor",
+  "armorSpecialWinter2022HealerNotes": "Glide as if skating, just above the ground, a glittering ethereal figure come to bring cool and calm. Increases Constitution by <%= con %>. Limited Edition 2021-2022 Winter Gear.",
+
   "armorMystery201402Text": "Messenger Robes",
   "armorMystery201402Notes": "Shimmering and strong, these robes have many pockets to carry letters. Confers no benefit. February 2014 Subscriber Item.",
   "armorMystery201403Text": "Forest Walker Armor",
@@ -1269,6 +1294,8 @@
   "armorArmoireHeraldsTunicNotes": "Get ready to spread good news far and wide in this colorful, royal outfit. Increases Constitution by <%= con %>. Enchanted Armoire: Herald Set (Item 1 of 4).",
   "armorArmoireSoftBlackSuitText": "Soft Black Suit",
   "armorArmoireSoftBlackSuitNotes": "Black is a mysterious colour. It’s sure to inspire the most interesting dreams. Increases Constitution and Perception by <%= attrs %> each. Enchanted Armoire: Black Loungewear Set (Item 2 of 3).",
+  "armorArmoireShootingStarCostumeText": "Star Gown",
+  "armorArmoireShootingStarCostumeNotes": "Rumored to have been spun out of the night sky itself, this flowy gown lets you rise above all obstacles in your path. Increases Constitution by <%= con %>. Enchanted Armoire: Stardust Set (Item 2 of 3).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -1665,6 +1692,15 @@
   "headSpecialFall2021HealerText": "Summoner's Mask",
   "headSpecialFall2021HealerNotes": "Your own magic turns your hair into shocking, bright flames when you don this mask. Increases Intelligence by <%= int %>. Limited Edition 2021 Autumn Gear.",
 
+  "headSpecialWinter2022RogueText": "Thundering Finale",
+  "headSpecialWinter2022RogueNotes": "What? Huh? There's a Rogue where? I'm sorry, I can't hear anything over these fireworks! Increases Perception by <%= per %>. Limited Edition 2021-2022 Winter Gear.",
+  "headSpecialWinter2022WarriorText": "Fuzzy Stocking Cap",
+  "headSpecialWinter2022WarriorNotes": "In festive green with soft red trim, this hat is guaranteed to keep you warm all winter. Increases Strength by <%= str %>. Limited Edition 2021-2022 Winter Gear.",
+  "headSpecialWinter2022MageText": "Pomegranate Helm",
+  "headSpecialWinter2022MageNotes": "Due to its thick husk, this festive, fruity helmet is berry strong. Increases Perception by <%= per %>. Limited Edition 2021-2022 Winter Gear.",
+  "headSpecialWinter2022HealerText": "Crystalline Ice Crown",
+  "headSpecialWinter2022HealerNotes": "Minute imperfections and impurities send the arms of this headdress branching out in unpredictable directions. It's symbolic! And also very, very pretty. Increases Intelligence by <%= int %>. Limited Edition 2021-2022 Winter Gear.",
+
   "headSpecialGaymerxText": "Rainbow Warrior Helm",
   "headSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special helmet is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
 
@@ -1963,6 +1999,8 @@
   "headArmoireBlackFloppyHatNotes": "Many spells have been sewn into this simple hat, giving it a bold black color. Increases Constitution, Perception, and Strength by <%= attrs %> each. Enchanted Armoire: Black Loungewear Set (Item 1 of 3).",
   "headArmoireRegalCrownText": "Regal Crown",
   "headArmoireRegalCrownNotes": "Any monarch would be lucky to have such a majestic, smart-looking crown. Increases Intelligence by <%= int %>. Enchanted Armoire: Regal Set (Item 1 of 2).",
+  "headArmoireShootingStarCrownText": "Star Crown",
+  "headArmoireShootingStarCrownNotes": "With this brightly shining headpiece, you will literally be the star of your own adventure! Increases Perception by <%= per %>. Enchanted Armoire: Stardust Set (Item 1 of 3).",
 
   "offhand": "off-hand item",
   "offHandCapitalized": "Off-Hand Item",
@@ -2184,6 +2222,11 @@
   "shieldSpecialFall2021WarriorNotes": "This festive shield with its crooked smile will both protect you and light your way on a dark night. It nicely doubles for a head, should you need one! Increases Constitution by <%= con %>. Limited Edition 2021 Autumn Gear.",
   "shieldSpecialFall2021HealerText": "Summoned Creature",
   "shieldSpecialFall2021HealerNotes": "An ethereal being rises from your magical flames to grant you extra protection. Increases Constitution by <%= con %>. Limited Edition 2021 Autumn Gear.",
+
+  "shieldSpecialWinter2022WarriorText": "Jingle Bell Shield",
+  "shieldSpecialWinter2022WarriorNotes": "This is a jingle bell, jingle bell, jingle bell shield. Jingle bell protect and jingle bell deflect. Increases Constitution by <%= con %>. Limited Edition 2021-2022 Winter Gear.",
+  "shieldSpecialWinter2022HealerText": "Enduring Ice Crystal",
+  "shieldSpecialWinter2022HealerNotes": "Though it melts in your hand, the power of elemental ice replenishes it from within. Increases Constitution by <%= con %>. Limited Edition 2021-2022 Winter Gear.",
 
   "shieldMystery201601Text": "Resolution Slayer",
   "shieldMystery201601Notes": "This blade can be used to parry away all distractions. Confers no benefit. January 2016 Subscriber Item.",
@@ -2660,6 +2703,8 @@
   "eyewearMystery201907Notes": "Look awesome while protecting your eyes from harmful UV rays! Confers no benefit. July 2019 Subscriber Item.",
   "eyewearMystery202108Text": "Fiery Eyes",
   "eyewearMystery202108Notes": "Stare down your enemies (or your biggest tasks!) with these and they don't stand a chance. Confers no benefit. August 2021 Subscriber Item.",
+  "eyewearMystery202201Text": "Midnight Merrymaker's Mask",
+  "eyewearMystery202201Notes": "Ring in the new year with an air of mystery in this stylish feathered mask. Confers no benefit. January 2022 Subscriber Item.",
   "eyewearMystery301404Text": "Eyewear Goggles",
   "eyewearMystery301404Notes": "No eyewear could be fancier than a pair of goggles - except, perhaps, for a monocle. Confers no benefit. April 3015 Subscriber Item.",
   "eyewearMystery301405Text": "Monocle",

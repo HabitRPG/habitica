@@ -7,7 +7,7 @@ import {
 } from '../content/constants';
 
 const CURRENT_EVENT = find(
-  EVENTS, event => moment().isBetween(event.start, event.end),
+  EVENTS, event => moment().isBetween(event.start, event.end) && Boolean(event.season),
 );
 
 const SHOP_OPEN = CURRENT_EVENT && ['winter', 'spring', 'summer', 'fall'].includes(CURRENT_EVENT.season);
@@ -30,20 +30,20 @@ export default {
 
   pinnedSets: SHOP_OPEN
     ? {
-      healer: 'fall2021FlameSummonerHealerSet',
-      rogue: 'fall2021OozeRogueSet',
-      warrior: 'fall2021HeadlessWarriorSet',
-      wizard: 'fall2021BrainEaterMageSet',
+      healer: 'winter2022IceCrystalHealerSet',
+      rogue: 'winter2022FireworksRogueSet',
+      warrior: 'winter2022StockingWarriorSet',
+      wizard: 'winter2022PomegranateMageSet',
     }
     : {},
 
-  availableSpells: SHOP_OPEN && moment().isBetween('2021-10-12T08:00-04:00', CURRENT_EVENT.end)
+  availableSpells: SHOP_OPEN && moment().isBetween('2021-12-30T08:00-04:00', CURRENT_EVENT.end)
     ? [
-      'spookySparkles',
+      'snowball',
     ]
     : [],
 
   availableQuests: [],
 
-  featuredSet: 'fall2020DeathsHeadMothHealerSet',
+  featuredSet: 'winter2021ArcticExplorerHealerSet',
 };

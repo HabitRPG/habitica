@@ -202,5 +202,13 @@
     "finish": "Завершить",
     "congratulations": "Поздравляем!",
     "onboardingAchievs": "Достижения освоения",
-    "askQuestion": "Задать вопрос"
+    "askQuestion": "Задать вопрос",
+    "reportBugHeaderDescribe": "Пожалуйста, опишите проблему, с которой вы столкнулись, и наша команда свяжется с вами.",
+    "reportEmailText": "Это будет использовано только для того, чтобы связаться с вами по поводу сообщения об ошибке.",
+    "reportEmailPlaceholder": "Ваш email",
+    "reportEmailError": "Пожалуйста, укажите действительный email",
+    "reportDescription": "Описание",
+    "reportDescriptionPlaceholder": "Здесь опишите подробно ошибку",
+    "submitBugReport": "Отправить сообщение об ошибке",
+    "reportSent": "Сообщение об ошибке отправлено!"
 }

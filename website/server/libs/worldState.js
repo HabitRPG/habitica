@@ -23,7 +23,7 @@ export function getCurrentEvent () {
 
     const now = moment();
 
-    return now.isBetween(event.start, event.end) && Boolean(event.npcImageSuffix);
+    return now.isBetween(event.start, event.end); // && Boolean(event.npcImageSuffix);
   });
 
   if (!currEvtKey) return null;

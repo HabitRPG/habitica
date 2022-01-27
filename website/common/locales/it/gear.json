@@ -2516,5 +2516,19 @@
     "weaponArmoireRegalSceptreText": "Scettro reale",
     "weaponArmoireRegalSceptreNotes": "Mostra tutta la tua autorità regale prendendo in mano questo scettro ingioiellato. Aumenta la percezione di <%= per %>. Scrigno Incantato. Set regale (Oggetto 2 di 2).",
     "headArmoireRegalCrownText": "Corona reale",
-    "headArmoireRegalCrownNotes": "Qualsiasi monarca sarebbe fortunato ad avere una corona così maestosa ed elegante. Aumenta l'intelligenza di <%= int %>. Scrigno incantato: Set regale (oggetto 1 di 2)."
+    "headArmoireRegalCrownNotes": "Qualsiasi monarca sarebbe fortunato ad avere una corona così maestosa ed elegante. Aumenta l'intelligenza di <%= int %>. Scrigno incantato: Set regale (oggetto 1 di 2).",
+    "headSpecialNye2021Notes": "Hai ricevuto un cappello da festa assurdo! Indossalo con orgoglio mentre arriva il nuovo anno! Non conferisce alcun bonus.",
+    "headSpecialNye2021Text": "Cappello da festa assurdo",
+    "weaponMystery202201Text": "Cannone spara coriandoli di mezzanotte",
+    "weaponMystery202201Notes": "Scatena una nuvola di glitter oro ed argento quando l'orologio suona la mezzanotte. Buon anno! Ora chi pulirà tutto questo? Non conferisce alcun bonus. Oggetto abbonati gennaio 2022.",
+    "armorSpecialWinter2022RogueNotes": "Se vedono le stelle, non vedono te! Sì, usiamo questo. Aumenta la percezione di <%= per %>. Edizione limitata inverno 2021-2022.",
+    "weaponSpecialWinter2022HealerNotes": "Tocca il collo di un amico con questo strumento d'acqua solida e salterà dalla sedia! Ma dopo si sentiranno meglio. Forse. Aumenta l'intelligenza di <%= int %>. Edizione limitata inverno 2021-2022.",
+    "weaponSpecialWinter2022RogueNotes": "I ladri amano l'oro e l'argento, giusto? Questi sono perfettamente a tema. Aumenta la Forza di <%= str %>. Edizione limitata inverno 2021-2022.",
+    "weaponSpecialWinter2022RogueText": "Stella filante",
+    "weaponSpecialWinter2022WarriorText": "Spada di bastoncini di zucchero",
+    "weaponSpecialWinter2022WarriorNotes": "Quante leccate ci vogliono per affilare questo bastoncino di zucchero in una spada perfetta? Aumenta la Forza di <%= str %>. Edizione limitata inverno 2021-2022.",
+    "weaponSpecialWinter2022MageText": "Bastone Melograno",
+    "weaponSpecialWinter2022MageNotes": "Le bacche di questo bastone racchiudono un'antica magia da esercitare in inverno. Aumenta l'intelligenza di <%= int %> e la percezione di <%= per %>. Edizione limitata inverno 2021-2022.",
+    "weaponSpecialWinter2022HealerText": "Bacchetta di Ghiaccio Cristallino",
+    "armorSpecialWinter2022RogueText": "Esplosione abbagliante"
 }

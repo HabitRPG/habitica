@@ -5,7 +5,7 @@
     "onward": "Tiếp tục!",
     "done": "Hoàn thành",
     "gotIt": "Đã hiểu!",
-    "titleTimeTravelers": "Nhà du hành thời gian",
+    "titleTimeTravelers": "Nhà du hành Thời gian",
     "titleSeasonalShop": "Cửa hàng theo mùa",
     "saveEdits": "Lưu chỉnh sửa",
     "showMore": "Hiện thêm",
@@ -201,5 +201,17 @@
     "finish": "Hoàn thành",
     "loadEarlierMessages": "Tải những tin nhắn trước",
     "demo": "Bản thử",
-    "congratulations": "Chúc mừng!"
+    "congratulations": "Chúc mừng!",
+    "reportEmailText": "Nó sẽ chỉ được dùng để liên lạc với bạn về báo cáo lỗi.",
+    "reportEmailPlaceholder": "Địa chỉ email của bạn",
+    "reportEmailError": "Vui lòng cung cấp một địa chỉ email hợp lệ",
+    "reportDescription": "Mô tả",
+    "reportDescriptionText": "Kèm thêm ảnh chụp màn hình hay lỗi Javascript trên console nếu có ích.",
+    "submitBugReport": "Gửi Báo cáo Lỗi",
+    "reportSent": "Báo cáo lỗi đã được gửi!",
+    "askQuestion": "Hỏi một Câu hỏi",
+    "reportBugHeaderDescribe": "Vui lòng mô tả lỗi bạn gặp và đội ngũ của chúng tôi sẽ liên lạc lại với bạn.",
+    "reportSentDescription": "Chúng tôi sẽ liên lạc lại với bạn khi đội ngũ của chúng tôi có cơ hội tìm hiểu. Cảm ơn vì đã báo cáo vấn đề.",
+    "reportDescriptionPlaceholder": "Mô tả lỗi chi tiết ở đây",
+    "emptyReportBugMessage": "Tin nhắn của Báo cáo lỗi bị thiếu"
 }

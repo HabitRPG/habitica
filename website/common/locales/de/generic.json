@@ -202,5 +202,16 @@
     "finish": "Abschliessen",
     "congratulations": "Gratulation!",
     "onboardingAchievs": "Einstiegserfolge",
-    "askQuestion": "Stell eine Frage"
+    "askQuestion": "Stell eine Frage",
+    "reportEmailPlaceholder": "Deine E-Mail-Adresse",
+    "reportSent": "Fehlermeldung gesendet!",
+    "reportBugHeaderDescribe": "Bitte beschreibe den Fehler, auf den Du gestoßen bist, und unser Team wird sich bei Dir melden.",
+    "reportSentDescription": "Vielen Dank für Deine Fehlermeldung. Wir werden uns sobald wie möglich bei Dir melden.",
+    "reportEmailText": "Diese wird nur benutzt, um Dich bezüglich der Fehlermeldung zu kontaktieren.",
+    "reportEmailError": "Bitte gib eine gültige E-Mail-Adresse an",
+    "emptyReportBugMessage": "Keine Fehlermeldungs-Nachricht vorhanden",
+    "reportDescription": "Beschreibung",
+    "reportDescriptionText": "Füge hilfreiche Screenshots oder Fehlermeldungen der Javascript-Konsole ein.",
+    "reportDescriptionPlaceholder": "Beschreibe den Fehler hier im Detail",
+    "submitBugReport": "Sende eine Fehlermeldung"
 }
