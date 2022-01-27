@@ -68,7 +68,7 @@ h1 {
 </style>
 
 <script>
-import moment from 'moment';
+import moment from 'moment-timezone';
 import habiticaMarkdown from 'habitica-markdown';
 import { mapState } from '@/libs/store';
 import seasonalNPC from '@/mixins/seasonalNPC';
@@ -112,7 +112,7 @@ export default {
       const publishDate = moment(post.publishDate)
         .utcOffset(-300)
         .format(this.user.preferences.dateFormat.toUpperCase());
-      const publishTime = moment(post.publishDate).utcOffset(-300).format('LT');
+      const publishTime = moment(post.publishDate).tz('America/New_York').format('LT z');
       return this.$t('newStuffPostedOn', { publishDate, publishTime });
     },
   },
