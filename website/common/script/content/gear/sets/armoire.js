@@ -442,6 +442,7 @@ const head = {
     per: 5,
     int: 5,
     con: 5,
+    set: 'violetLoungewear',
   },
   gladiatorHelm: {
     notes: t('headArmoireGladiatorHelmNotes', { per: 7, int: 7 }),
