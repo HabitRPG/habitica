@@ -384,6 +384,8 @@ const armor = {
     set: 'shootingStar',
   },
   softVioletSuit: {
+    con: 7,
+    str: 7,
     set: 'violetLoungewear',
   },
 };
@@ -1050,6 +1052,7 @@ const shield = {
     set: 'blackLoungewear',
   },
   softVioletPillow: {
+    int: 10,
     set: 'violetLoungewear',
   },
 };
@@ -1428,6 +1431,8 @@ const weapon = {
     twoHanded: true,
   },
   pinkLongbow: {
+    per: 6,
+    str: 5,
     twoHanded: true,
   },
 };
