@@ -178,6 +178,11 @@ const animalSetAchievs = {
     titleKey: 'achievementDomesticated',
     textKey: 'achievementDomesticatedText',
   },
+  zodiacZookeeper: {
+    icon: 'achievement-zodiac',
+    titleKey: 'achievementZodiacZookeeper',
+    textKey: 'achievementZodiacZookeeperText',
+  },
 };
 Object.assign(achievementsData, animalSetAchievs);
 

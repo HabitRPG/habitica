@@ -85,6 +85,7 @@ const NOTIFICATION_TYPES = [
   'ACHIEVEMENT_DOMESTICATED', // deprecated
   'ACHIEVEMENT_SHADY_CUSTOMER', // deprecated
   'ACHIEVEMENT_SHADE_OF_IT_ALL', // deprecated
+  'ACHIEVEMENT_ZODIAC_ZOOKEEPER', // deprecated
 ];
 
 const { Schema } = mongoose;
