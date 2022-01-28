@@ -716,6 +716,12 @@ const armor = {
   winter2022Healer: {
     set: 'winter2022IceCrystalHealerSet',
   },
+  birthday2022: {
+    text: t('armorSpecialBirthday2022Text'),
+    notes: t('armorSpecialBirthday2022Notes'),
+    value: 0,
+    canOwn: ownsItem('armor_special_birthday2022'),
+  },
 };
 
 const armorStats = {
