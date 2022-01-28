@@ -71,6 +71,11 @@ export default function purchaseHourglass (user, req = {}, analytics, quantity =
         [key]: 5,
       };
       if (user.markModified) user.markModified('items.pets');
+      const itemInfo = getItemInfo(user, 'timeTravelersStable', {
+        key,
+        type,
+      });
+      removeItemByPath(user, itemInfo.path);
     }
 
     if (type === 'mounts') {
@@ -79,6 +84,11 @@ export default function purchaseHourglass (user, req = {}, analytics, quantity =
         [key]: true,
       };
       if (user.markModified) user.markModified('items.mounts');
+      const itemInfo = getItemInfo(user, 'timeTravelersStable', {
+        key,
+        type,
+      });
+      removeItemByPath(user, itemInfo.path);
     }
   }
 

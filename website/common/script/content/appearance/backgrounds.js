@@ -475,6 +475,11 @@ const backgrounds = {
     ice_palace: { },
     frozen_polar_waters: { },
   },
+  backgrounds012022: {
+    meteor_shower: { },
+    palm_tree_with_fairy_lights: { },
+    snowy_farm: { },
+  },
   timeTravelBackgrounds: {
     airship: {
       price: 1,

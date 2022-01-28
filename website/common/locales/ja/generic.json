@@ -211,5 +211,7 @@
     "reportEmailError": "有効なメールアドレスをご入力ください",
     "reportEmailPlaceholder": "あなたのメールアドレス",
     "reportEmailText": "バグの報告に関してのみ使用してください。",
-    "reportDescriptionText": "役に立つ場合は、スクリーンショットやコンソールによるJavascriptのエラー表示も添付してください。"
+    "reportDescriptionText": "役に立つ場合は、スクリーンショットやコンソールによるJavascriptのエラー表示も添付してください。",
+    "emptyReportBugMessage": "バグ報告のメッセージがありません",
+    "reportSentDescription": "問題を報告していただきありがとうございます。いったん運営で問題を調査して、あなたに再度連絡をします。"
 }
