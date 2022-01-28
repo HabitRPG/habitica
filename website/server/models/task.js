@@ -133,16 +133,14 @@ export const TaskSchema = new Schema({
       // key is assigned UUID, with
       // { assignedDate: Date,
       // assigningUsername: '@username',
-      // completed: Boolean }
+      // completed: Boolean,
+      // completedDate: Date }
     },
     taskId: { $type: String, ref: 'Task', validate: [v => validator.isUUID(v), 'Invalid uuid for group task.'] },
-    sharedCompletion: {
-      $type: String, default: 'singleCompletion', // legacy data
-    },
     managerNotes: { $type: String },
     completedBy: {
-      $type: Schema.Types.Mixed,
-      default: () => ({}), // { 'UUID': Date }
+      userId: { $type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid for task completing user.'] },
+      date: { $type: Date },
     },
   },
 

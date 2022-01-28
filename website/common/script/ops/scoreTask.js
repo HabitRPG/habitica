@@ -1,3 +1,4 @@
+import find from 'lodash/find';
 import timesLodash from 'lodash/times';
 import reduce from 'lodash/reduce';
 import moment from 'moment';
@@ -330,13 +331,37 @@ export default function scoreTask (options = {}, req = {}, analytics) {
       delta += _changeTaskValue(user, task, direction, times, cron);
     } else {
       if (direction === 'up') {
-        task.dateCompleted = new Date();
-        task.completed = true;
-        if (task.group) task.group.completedBy = user._id;
+        if (task.group.id) {
+          if (!task.group.assignedUsers) {
+            task.group.completedBy = {
+              userId: user._id,
+              date: new Date(),
+            };
+            task.completed = true;
+          } else {
+            task.group.assignedUsers[user._id].completed = true;
+            task.group.assignedUsers[user._id].completedDate = new Date();
+            if (!find(task.group.assignedUsers, assignedUser => !assignedUser.completed)) {
+              task.dateCompleted = new Date();
+              task.completed = true;
+            }
+          }
+          if (task.markModified) task.markModified('group');
+        } else {
+          task.dateCompleted = new Date();
+          task.completed = true;
+        }
       } else if (direction === 'down') {
         task.completed = false;
         task.dateCompleted = undefined;
-        if (task.group && task.group.completedBy) task.group.completedBy = undefined;
+        if (task.group.id) {
+          if (task.group.completedBy) task.group.completedBy = {};
+          if (task.group.assignedUsers && task.group.assignedUsers[user._id]) {
+            task.group.assignedUsers[user._id].completed = false;
+            task.group.assignedUsers[user._id].completedDate = undefined;
+          }
+          if (task.markModified) task.markModified('group');
+        }
       }
 
       delta += _changeTaskValue(user, task, direction, times, cron);

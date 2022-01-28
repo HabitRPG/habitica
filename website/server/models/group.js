@@ -1466,9 +1466,7 @@ schema.methods.updateTask = async function updateTask (taskToSync, options = {})
     updateCmd.$set[key] = syncableAttributes[key];
   }
 
-  updateCmd.$set['group.approval.required'] = taskToSync.group.approval.required;
   updateCmd.$set['group.assignedUsers'] = taskToSync.group.assignedUsers;
-  updateCmd.$set['group.sharedCompletion'] = taskToSync.group.sharedCompletion;
   updateCmd.$set['group.managerNotes'] = taskToSync.group.managerNotes;
 
   const taskSchema = Tasks[taskToSync.type];
@@ -1516,6 +1514,7 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, users, assig
     if (!taskToSync.group.assignedUsers[user._id]) {
       taskToSync.group.assignedUsers[user._id] = assignmentData;
     }
+    taskToSync.markModified('group.assignedUsers');
 
     // Sync tags
     const userTags = user.tags;
@@ -1556,7 +1555,6 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, users, assig
       if (orderList.indexOf(matchingTask._id) === -1 && (matchingTask.type !== 'todo' || !matchingTask.completed)) orderList.push(matchingTask._id);
     }
     matchingTask.group.assignedUsers = taskToSync.group.assignedUsers;
-    matchingTask.group.sharedCompletion = taskToSync.group.sharedCompletion;
     matchingTask.group.managerNotes = taskToSync.group.managerNotes;
 
     //  sync checklist
@@ -1589,8 +1587,9 @@ schema.methods.unlinkTask = async function groupUnlinkTask (
     userId: user._id,
   };
 
-  const assignedUserIndex = unlinkingTask.group.assignedUsers.indexOf(user._id);
-  unlinkingTask.group.assignedUsers.splice(assignedUserIndex, 1);
+  delete unlinkingTask.group.assignedUsers[user._id];
+  unlinkingTask.markModified('group.assignedUsers');
+  const promises = [unlinkingTask.save()];
 
   if (keep === 'keep-all') {
     await Tasks.Task.update(findQuery, {
@@ -1608,16 +1607,14 @@ schema.methods.unlinkTask = async function groupUnlinkTask (
       user.markModified('tasksOrder');
     }
 
-    const promises = [unlinkingTask.save()];
     if (task) {
       promises.push(task.remove());
     }
     // When multiple tasks are being unlinked at the same time,
     // save the user once outside of this function
     if (saveUser) promises.push(user.save());
-
-    await Promise.all(promises);
   }
+  await Promise.all(promises);
 };
 
 schema.methods.removeTask = async function groupRemoveTask (task) {

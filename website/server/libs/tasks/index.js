@@ -305,7 +305,7 @@ async function handleTeamTask (task, delta, direction) {
 
       if (teamTask) {
         const groupDelta = teamTask.group.assignedUsers
-          ? delta / teamTask.group.assignedUsers.length
+          ? delta / _.keys(teamTask.group.assignedUsers).length
           : delta;
         await teamTask.scoreChallengeTask(groupDelta, direction);
         if (task.type === 'daily' || task.type === 'todo') {
@@ -328,14 +328,19 @@ async function handleTeamTask (task, delta, direction) {
 */
 async function scoreTask (user, task, direction, req, res) {
   if (task.type === 'daily' || task.type === 'todo') {
-    if (task.completed && direction === 'up') {
+    if (task.group.id && task.group.assignedUsers) {
+      if (task.group.assignedUsers[user._id].completed && direction === 'up') {
+        throw new NotAuthorized(res.t('sessionOutdated'));
+      } else if (!task.group.assignedUsers[user._id].completed && direction === 'down') {
+        throw new NotAuthorized(res.t('sessionOutdated'));
+      }
+    } else if (task.completed && direction === 'up') {
       throw new NotAuthorized(res.t('sessionOutdated'));
     } else if (!task.completed && direction === 'down') {
       throw new NotAuthorized(res.t('sessionOutdated'));
     }
   }
 
-  let localTask;
   let rollbackUser;
   let group;
 
@@ -347,46 +352,36 @@ async function scoreTask (user, task, direction, req, res) {
     });
   }
   if (
-    group && task.group.id && !task.userId
-    && direction === 'down'
-    && ['todo', 'daily'].includes(task.type)
-    && task.completed
-    && task.group.completedBy !== user._id
+    group && task.group.id && !task.userId // Task is on team board
+    && ['todo', 'daily'].includes(task.type) // Task is a To Do or Daily
+    && direction === 'down' // Task is being "unchecked"
   ) {
-    if (group.leader !== user._id && !group.managers[user._id]) {
+    const userIsManagement = group.leader === user._id || Boolean(group.managers[user._id]);
+    if (!userIsManagement
+      && !(task.group.completedBy && task.group.completedBy.userId === user._id)
+      && !(task.group.assignedUsers && task.group.assignedUsers[user._id])
+    ) {
       throw new BadRequest('Cannot uncheck task you did not complete if not a manager.');
     }
-    rollbackUser = await User.findOne({ _id: task.group.completedBy });
-    task.group.completedBy = undefined;
-  } else if (task.group.id && !task.userId && task.group.assignedUsers.length > 0) {
-    // Task is being scored from team board, and a user copy should exist
-    if (!task.group.assignedUsers.includes(user._id)) {
-      throw new BadRequest('Task has not been assigned to this user.');
-    }
-
-    localTask = await Tasks.Task.findOne(
-      { userId: user._id, 'group.taskId': task._id },
-    ).exec();
-    if (!localTask) throw new NotFound('Task not found.');
+    rollbackUser = await User.findOne({ _id: task.group.completedBy.userId });
+    task.group.completedBy = {};
   }
 
-  const targetTask = localTask || task;
-
-  const wasCompleted = targetTask.completed;
+  const wasCompleted = task.completed;
   const firstTask = !user.achievements.completedTask;
   let delta;
 
   if (rollbackUser) {
     delta = shared.ops.scoreTask({
-      task: targetTask,
+      task,
       user: rollbackUser,
       direction,
     }, req, res.analytics);
     rollbackUser.addNotification('GROUP_TASK_NEEDS_WORK', {
-      message: res.t('taskNeedsWork', { taskText: targetTask.text, managerName: user.profile.name }, rollbackUser.preferences.language),
+      message: res.t('taskNeedsWork', { taskText: task.text, managerName: user.profile.name }, rollbackUser.preferences.language),
       task: {
-        id: targetTask._id,
-        text: targetTask.text,
+        id: task._id,
+        text: task.text,
       },
       group: {
         id: group._id,
@@ -399,51 +394,70 @@ async function scoreTask (user, task, direction, req, res) {
     });
     await rollbackUser.save();
   } else {
-    delta = shared.ops.scoreTask({ task: targetTask, user, direction }, req, res.analytics);
+    delta = shared.ops.scoreTask({ task, user, direction }, req, res.analytics);
   }
   // Drop system (don't run on the client,
   // as it would only be discarded since ops are sent to the API, not the results)
-  if (direction === 'up' && !firstTask) shared.fns.randomDrop(user, { task: targetTask, delta }, req, res.analytics);
+  if (direction === 'up' && !firstTask) shared.fns.randomDrop(user, { task, delta }, req, res.analytics);
 
   // If a todo was completed or uncompleted move it in or out of the user.tasksOrder.todos list
   // TODO move to common code?
   let pullTask;
   let pushTask;
-  if (targetTask.type === 'todo') {
+  if (task.type === 'todo') {
     if (!wasCompleted && task.completed) {
       // @TODO: mongoose's push and pull should be atomic and help with
       // our concurrency issues. If not, we need to use this update $pull and $push
-      pullTask = targetTask._id;
+      pullTask = task._id;
     } else if (
       wasCompleted
-      && !targetTask.completed
+      && !task.completed
       && user.tasksOrder.todos.indexOf(task._id) === -1
     ) {
-      pushTask = targetTask._id;
+      pushTask = task._id;
     }
   }
 
-  if (targetTask.completed && targetTask.group.id && !targetTask.userId) {
-    targetTask.group.completedBy = user._id;
+  if (task.completed && task.group.id
+    && !task.userId && !task.group.assignedUsers) {
+    task.group.completedBy = {
+      userId: user._id,
+      date: new Date(),
+    };
   }
 
   setNextDue(task, user);
 
-  if (localTask) {
-    localTask.completed = targetTask.completed;
-    localTask.value = Number(targetTask.value) + Number(delta);
-    await localTask.save();
-  }
-
   taskScoredWebhook.send(user, {
-    task: targetTask,
+    task,
     direction,
     delta,
     user,
   });
 
+  if (group) {
+    let role;
+    if (group.leader === user._id) {
+      role = 'leader';
+    } else if (group.managers[user._id]) {
+      role = 'manager';
+    } else {
+      role = 'member';
+    }
+    res.analytics.track('team task scored', {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      taskType: task.type,
+      direction,
+      headers: req.headers,
+      groupID: group._id,
+      role,
+    });
+  }
+
   return {
-    task: targetTask,
+    task,
     delta,
     direction,
     pullTask,

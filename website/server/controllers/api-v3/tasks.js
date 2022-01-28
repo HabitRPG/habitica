@@ -688,7 +688,7 @@ api.updateTask = {
     setNextDue(task, user);
     const savedTask = await task.save();
 
-    if (group && task.group.id && task.group.assignedUsers.length > 0) {
+    if (group && task.group.id && task.group.assignedUsers) {
       const updateCheckListItems = _.remove(sanitizedObj.checklist, checklist => {
         const indexOld = _.findIndex(oldCheckList, check => check.id === checklist.id);
         if (indexOld !== -1) return checklist.text !== oldCheckList[indexOld].text;
@@ -702,7 +702,7 @@ api.updateTask = {
 
     if (challenge) {
       challenge.updateTask(savedTask);
-    } else if (group && task.group.id && task.group.assignedUsers.length > 0) {
+    } else if (group && task.group.id && task.group.assignedUsers) {
       await group.updateTask(savedTask);
     } else {
       taskActivityWebhook.send(user, {

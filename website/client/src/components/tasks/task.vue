@@ -58,8 +58,8 @@
             class="task-control daily-todo-control"
             :class="controlClass.inner"
             tabindex="0"
-            @click="score(task.completed ? 'down' : 'up' )"
-            @keypress.enter="score(task.completed ? 'down' : 'up' )"
+            @click="score(showCheckIcon ? 'down' : 'up' )"
+            @keypress.enter="score(showCheckIcon ? 'down' : 'up' )"
           >
             <div
               v-if="showTaskLockIcon"
@@ -71,7 +71,7 @@
               v-else
               class="svg-icon check"
               :class="{
-                'display-check-icon': task.completed,
+                'display-check-icon': showCheckIcon,
                 [controlClass.checkbox]: true,
               }"
               v-html="icons.check"
@@ -1043,12 +1043,22 @@ export default {
       if (this.task.group.assignedUsers) return false;
       return true;
     },
+    showCheckIcon () {
+      if (this.isGroupTask && this.task.group.assignedUsers
+        && this.task.group.assignedUsers[this.user._id]) {
+        return this.task.group.assignedUsers[this.user._id].completed;
+      }
+      return this.task.completed;
+    },
     showTaskLockIcon () {
       if (this.isUser) return false;
       if (this.isGroupTask) {
         if (this.task.completed) {
-          if (this.task.group.completedBy === this.user._id) return false;
-          if (this.teamManagerAccess) return false;
+          if (this.task.group.assignedUsers && this.task.group.assignedUsers[this.user._id]) {
+            return false;
+          }
+          if (this.task.group.completedBy.userId === this.user._id) return false;
+          if (this.teamManagerAccess && !this.task.group.assignedUsers) return false;
           return true;
         }
         if (this.isOpenTask) return false;

@@ -17,7 +17,6 @@ async function updateTeamTasks (team) {
   ) {
     const tasks = await Tasks.Task.find({
       'group.id': team._id,
-      'group.assignedUsers': [],
       userId: { $exists: false },
       $or: [
         { type: 'todo', completed: false },
@@ -51,9 +50,18 @@ async function updateTeamTasks (team) {
         processChecklist = true;
         daily.completed = false;
       } else if (shouldDo(team.cron.lastProcessed, daily, teamLeader.preferences)) {
+        let assignments = 0;
+        let completions = 0;
+        for (const assignedUser in daily.group.assignedUsers) {
+          if (Object.prototype.hasOwnProperty.call(daily.group.assignedUsers, assignedUser)) {
+            assignments += 1;
+            if (assignedUser.completed) completions += 1;
+            assignedUser.completed = false;
+          }
+        }
         processChecklist = true;
         const delta = TASK_VALUE_CHANGE_FACTOR ** daily.value;
-        daily.value -= delta;
+        daily.value -= ((completions / assignments) * delta);
         if (daily.value < MIN_TASK_VALUE) daily.value = MIN_TASK_VALUE;
       }
       daily.isDue = shouldDo(new Date(), daily, teamLeader.preferences);
