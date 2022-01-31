@@ -31,7 +31,7 @@
     "babel-eslint": "^10.1.0",
     "bootstrap": "^4.6.0",
     "bootstrap-vue": "^2.21.2",
-    "chai": "^4.3.4",
+    "chai": "^4.3.6",
     "core-js": "^3.20.3",
     "eslint": "^6.8.0",
     "eslint-config-habitrpg": "^6.2.0",
