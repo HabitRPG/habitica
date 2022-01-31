@@ -185,5 +185,6 @@
     "learnMore": "了解更多",
     "communityInstagram": "Instagram",
     "minPasswordLength": "密码至少需要8个字符。",
-    "enterHabitica": "进入Habitica"
+    "enterHabitica": "进入Habitica",
+    "socialAlreadyExists": "该社交账号已与现存的Habitica账户连接。"
 }

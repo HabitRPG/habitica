@@ -196,7 +196,7 @@
     "winter2021ArcticExplorerHealerSet": "极地探索者（医者）",
     "winter2021WinterMoonMageSet": "冬月（法师）",
     "winter2021IceFishingWarriorSet": "冰钓（战士）",
-    "g1g1Limitations": "该限时活动从美国东部时间12月17日上午8:00(13:00 UTC)开始，于美国东部时间1月7日下午8:00(1:00 UTC)结束。该促销活动只允许您将订阅赠送给另一位Habitica居民。如果您或您的礼物接受者当前的订阅尚未到期或取消，赠送所获得的订阅将进行顺延。",
+    "g1g1Limitations": "该限时活动从美国东部时间12月16日上午8:00(13:00 UTC)开始，于美国东部时间1月6日下午8:00(1:00 UTC)结束。该促销活动只允许您将订阅赠送给另一位Habitica居民。如果您或您的礼物接受者当前的订阅尚未到期或取消，赠送所获得的订阅将进行顺延。",
     "limitations": "限制因素",
     "g1g1HowItWorks": "输入你想赠送订阅的账号的用户名。选择你想赠送订阅的时长。你的账号将免费获得一份相同的订阅。",
     "spring2021TwinFlowerRogueSet": "林奈花（盗贼）",
@@ -211,5 +211,10 @@
     "fall2021BrainEaterMageSet": "食脑者（法师）",
     "fall2021FlameSummonerHealerSet": "火炎召唤师（医者）",
     "fall2021OozeRogueSet": "滴漏者（盗贼）",
-    "fall2021HeadlessWarriorSet": "无头（战士）"
+    "fall2021HeadlessWarriorSet": "无头（战士）",
+    "winter2022FireworksRogueSet": "烟花（盗贼）",
+    "winter2022StockingWarriorSet": "长袜（战士）",
+    "winter2022PomegranateMageSet": "石榴（法师）",
+    "winter2022IceCrystalHealerSet": "冰晶（医者）",
+    "januaryYYYY": "<%= year %>年1月"
 }

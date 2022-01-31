@@ -28,7 +28,7 @@
     "create": "作る",
     "userId": "ユーザー ID",
     "invite": "招待する",
-    "leave": "やめる",
+    "leave": "脱退",
     "invitedToParty": "パーティー「<span class=\"notification-bold\"><%- party %></span>」に招待されました",
     "invitedToPrivateGuild": "<span class=\"notification-bold\"><%- guild %></span> プライベートギルドに招待されました",
     "invitedToPublicGuild": "<span class=\"notification-bold-blue\"><%- guild %></span> ギルドに招待されました",
