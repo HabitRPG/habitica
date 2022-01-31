@@ -20,8 +20,8 @@
         </div>
       </div>
       <div
-        v-if="!registering"
         class="form-group row text-center"
+        v-if="!registering"
       >
         <div class="col-12 col-md-12">
           <div
