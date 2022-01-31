@@ -144,10 +144,10 @@ function _setUpNewUser (user) {
   user.items.quests.dustbunnies = 1;
   user.purchased.background.violet = true;
   user.preferences.background = 'violet';
-  if (moment().isBefore('2022-01-02T20:00-05:00')) {
-    user.migration = '20211213_nye';
-    user.items.gear.owned.head_special_nye = true;
-    user.items.gear.equipped.head = 'head_special_nye';
+  if (moment().isBefore('2022-02-01T20:00-05:00')) {
+    user.migration = '20220131_habit_birthday';
+    user.items.gear.owned.armor_special_birthday = true;
+    user.items.gear.equipped.armor = 'armor_special_birthday';
   }
 
   user.markModified('items achievements');
