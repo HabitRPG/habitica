@@ -42,7 +42,7 @@ export class BuyQuestWithGemOperation extends AbstractGemItemOperation { // esli
     this.canUserPurchase(user, item);
   }
 
-  executeChanges (user, item, req) {
+  async executeChanges (user, item, req) {
     if (
       !user.items.quests[item.key]
       || user.items.quests[item.key] < 0
@@ -53,7 +53,7 @@ export class BuyQuestWithGemOperation extends AbstractGemItemOperation { // esli
     };
     if (user.markModified) user.markModified('items.quests');
 
-    this.subtractCurrency(user, item, this.quantity);
+    await this.subtractCurrency(user, item, this.quantity);
 
     return [
       user.items.quests,

@@ -50,6 +50,19 @@ export async function createChallenge (user, req, res) {
     throw new NotAuthorized(res.t('tavChalsMinPrize'));
   }
 
+  group.challengeCount += 1;
+
+  if (!req.body.summary) {
+    req.body.summary = req.body.name;
+  }
+  req.body.leader = user._id;
+  req.body.official = !!(user.contributor.admin && req.body.official);
+  const challenge = new Challenge(Challenge.sanitize(req.body));
+
+  // First validate challenge so we don't save group if it's invalid (only runs sync validators)
+  const challengeValidationErrors = challenge.validateSync();
+  if (challengeValidationErrors) throw challengeValidationErrors;
+
   if (prize > 0) {
     const groupBalance = group.balance && group.leader === user._id ? group.balance : 0;
     const prizeCost = prize / 4;
@@ -65,25 +78,12 @@ export async function createChallenge (user, req, res) {
       // User pays remainder of prize cost after group
       const remainder = prizeCost - group.balance;
       group.balance = 0;
-      user.balance -= remainder;
+      await user.updateBalance(-remainder, 'create_challenge', challenge._id, challenge.text);
     } else {
       // User pays for all of prize
-      user.balance -= prizeCost;
+      await user.updateBalance(-prizeCost, 'create_challenge', challenge._id, challenge.text);
     }
   }
-
-  group.challengeCount += 1;
-
-  if (!req.body.summary) {
-    req.body.summary = req.body.name;
-  }
-  req.body.leader = user._id;
-  req.body.official = !!(user.contributor.admin && req.body.official);
-  const challenge = new Challenge(Challenge.sanitize(req.body));
-
-  // First validate challenge so we don't save group if it's invalid (only runs sync validators)
-  const challengeValidationErrors = challenge.validateSync();
-  if (challengeValidationErrors) throw challengeValidationErrors;
 
   const results = await Promise.all([challenge.save({
     validateBeforeSave: false, // already validated

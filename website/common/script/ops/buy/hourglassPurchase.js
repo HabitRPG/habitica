@@ -10,8 +10,9 @@ import {
 import errorMessage from '../../libs/errorMessage';
 import getItemInfo from '../../libs/getItemInfo';
 import { removeItemByPath } from '../pinnedGearUtils';
+import updateUserHourglasses from '../updateUserHourglasses';
 
-export default function purchaseHourglass (user, req = {}, analytics, quantity = 1) {
+export default async function purchaseHourglass (user, req = {}, analytics, quantity = 1) {
   const key = get(req, 'params.key');
   if (!key) throw new BadRequest(errorMessage('missingKeyParam'));
 
@@ -30,7 +31,7 @@ export default function purchaseHourglass (user, req = {}, analytics, quantity =
     }
 
     user.purchased.background[key] = true;
-    user.purchased.plan.consecutive.trinkets -= 1;
+    await updateUserHourglasses(user, -1, 'spend', key);
     const itemInfo = getItemInfo(user, 'background', content.backgroundsFlat[key]);
     removeItemByPath(user, itemInfo.path);
 
@@ -43,7 +44,7 @@ export default function purchaseHourglass (user, req = {}, analytics, quantity =
 
     if (!user.items.quests[key] || user.items.quests[key] < 0) user.items.quests[key] = 0;
     user.items.quests[key] += quantity;
-    user.purchased.plan.consecutive.trinkets -= quantity;
+    await updateUserHourglasses(user, -quantity, 'spend', key);
 
     if (user.markModified) user.markModified('items.quests');
   } else {
@@ -63,7 +64,7 @@ export default function purchaseHourglass (user, req = {}, analytics, quantity =
       throw new NotAuthorized(i18n.t('notEnoughHourglasses', req.language));
     }
 
-    user.purchased.plan.consecutive.trinkets -= 1;
+    await updateUserHourglasses(user, -1, 'spend', key);
 
     if (type === 'pets') {
       user.items.pets = {
