@@ -176,7 +176,7 @@
     "spring2019OrchidWarriorSet": "Orchidee (Krijger)",
     "june2018": "Juni 2018",
     "mayYYYY": "Mei <%= year %>",
-    "g1g1Limitations": "Dit is een in tijd begrensde actie die begint op 17 december om 13:00 uur GMT, en eindigt op 7 januari om 01:00 uur 's-nachts (GMT). Het aanbod is alleen dan geldig, wanneer je aan een andere Habiticaan schenkt. Wanneer jij, of de ontvanger, al over een abonnement beschikt, zullen de geschonken abonnementsmaanden hieraan toegevoegd worden, en alleen dan gebruikt worden als het huidige abonnement afloopt, of wordt opgezegd.",
+    "g1g1Limitations": "Dit is een in tijd begrensde actie die begint op 16 december om 14:00, en eindigt op 7 januari om 02:00. Het aanbod is alleen dan geldig, wanneer je aan een andere Habiticaan schenkt. Wanneer jij, of de ontvanger, al over een abonnement beschikt, zullen de geschonken abonnementsmaanden hieraan toegevoegd worden, en alleen dan gebruikt worden als het huidige abonnement afloopt, of wordt opgezegd.",
     "limitations": "Beperkingen",
     "g1g1HowItWorks": "Type de gebruikersnaam in van degene aan wie je wilt geven. Kies dan de duur van het abonnement dat je wilt geven, en rondt af. Jouw account krijgt automatisch hetzelfde abonnement cadeau.",
     "howItWorks": "Zo werkt het",
@@ -207,5 +207,14 @@
     "summer2021ClownfishRogueSet": "Clownvis (Dief)",
     "summer2021ParrotHealerSet": "Papegaai (Genezer)",
     "summer2021NautilusMageSet": "Nautilus (Magiër)",
-    "summer2021FlyingFishWarriorSet": "Vliegende vis (Krijger)"
+    "summer2021FlyingFishWarriorSet": "Vliegende vis (Krijger)",
+    "januaryYYYY": "Januari <%= year %>",
+    "fall2021OozeRogueSet": "Slijm (Dief)",
+    "fall2021HeadlessWarriorSet": "Hoofdeloos (Krijger)",
+    "fall2021BrainEaterMageSet": "Hersenvreter (Magiër)",
+    "fall2021FlameSummonerHealerSet": "Vlammenoproeper (Genezer)",
+    "winter2022FireworksRogueSet": "Vuurwerk (Dief)",
+    "winter2022StockingWarriorSet": "Kous (Krijger)",
+    "winter2022PomegranateMageSet": "Granaatappel (Magiër)",
+    "winter2022IceCrystalHealerSet": "IJskristal (Genezer)"
 }
