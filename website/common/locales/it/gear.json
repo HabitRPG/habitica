@@ -2556,5 +2556,7 @@
     "headSpecialWinter2022WarriorNotes": "In verde festivo con morbide rifiniture rosse, questo cappello ti terrà al caldo per tutto l'inverno. Aumenta la Forza di <%= str %>. Edizione Limitata Inverno 2021-2022.",
     "headSpecialWinter2022HealerNotes": "Minuscole imperfezioni e impurità portano le estremità di questo copricapo a diramarsi in direzioni imprevedibili. È simbolico! E anche molto, molto carino. Aumenta l'Intelligenza di <%= int %>. Edizione Limitata Inverno 2021-2022.",
     "shieldSpecialWinter2022WarriorNotes": "Questo è uno scudo jingle bell, jingle bell, jingle bell. Jingle bell protegge e jingle bell deflette. Aumenta la Costituzione di <%= con %>. Edizione Limitata Inverno 2021-2022.",
-    "shieldSpecialWinter2022WarriorText": "Scudo Jingle Bell"
+    "shieldSpecialWinter2022WarriorText": "Scudo Jingle Bell",
+    "armorSpecialBirthday2022Text": "Abiti da festa assurdi",
+    "armorSpecialBirthday2022Notes": "Buon compleanno, Habitica! Indossa questi Abiti da Festa Assurdi per celebrare questo giorno meraviglioso. Non conferisce alcun bonus."
 }
