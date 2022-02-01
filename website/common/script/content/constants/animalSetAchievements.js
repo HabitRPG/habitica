@@ -38,7 +38,7 @@ const ANIMAL_SET_ACHIEVEMENTS = {
       'Monkey',
       'Rooster',
       'Wolf',
-      'Tiger',
+      'TigerCub',
       'FlyingPig',
       'Dragon',
     ],
