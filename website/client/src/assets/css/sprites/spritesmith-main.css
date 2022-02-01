@@ -450,8 +450,8 @@
 }
 .achievement-zodiac2x {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/achievement-zodiac2x.png');
-  width: 68px;
-  height: 68px;
+  width: 60px;
+  height: 64px;
 }
 .background_afternoon_picnic {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_afternoon_picnic.png');
@@ -25078,6 +25078,21 @@
   width: 114px;
   height: 90px;
 }
+.shop_eyewear_mystery_202202 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_eyewear_mystery_202202.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_head_mystery_202202 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_head_mystery_202202.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_set_mystery_202202 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_set_mystery_202202.png');
+  width: 68px;
+  height: 68px;
+}
 .broad_armor_mystery_301404 {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_mystery_301404.png');
   width: 90px;
@@ -33343,18 +33358,8 @@
   width: 68px;
   height: 68px;
 }
-.shop_eyewear_mystery_202202 {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_eyewear_mystery_202202.png');
-  width: 68px;
-  height: 68px;
-}
 .shop_gem {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_gem.png');
-  width: 68px;
-  height: 68px;
-}
-.shop_head_mystery_202202 {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_head_mystery_202202.png');
   width: 68px;
   height: 68px;
 }
@@ -33385,11 +33390,6 @@
 }
 .shop_seafoam {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_seafoam.png');
-  width: 68px;
-  height: 68px;
-}
-.shop_set_mystery_202202 {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_set_mystery_202202.png');
   width: 68px;
   height: 68px;
 }

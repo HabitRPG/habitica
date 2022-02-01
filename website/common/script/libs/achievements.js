@@ -215,6 +215,7 @@ function _getBasicAchievements (user, language) {
   _addSimple(result, user, { path: 'domesticated', language });
   _addSimple(result, user, { path: 'shadyCustomer', language });
   _addSimple(result, user, { path: 'shadeOfItAll', language });
+  _addSimple(result, user, { path: 'zodiacZookeeper', language });
 
   _addSimpleWithMasterCount(result, user, { path: 'beastMaster', language });
   _addSimpleWithMasterCount(result, user, { path: 'mountMaster', language });

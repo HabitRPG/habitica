@@ -147,6 +147,7 @@ export default new Schema({
     domesticated: Boolean,
     shadyCustomer: Boolean,
     shadeOfItAll: Boolean,
+    zodiacZookeeper: Boolean,
     // Onboarding Guide
     createdTask: Boolean,
     completedTask: Boolean,

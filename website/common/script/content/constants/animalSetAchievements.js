@@ -26,6 +26,25 @@ const ANIMAL_SET_ACHIEVEMENTS = {
     achievementKey: 'domesticated',
     notificationType: 'ACHIEVEMENT_DOMESTICATED',
   },
+  zodiacZookeeper: {
+    type: 'pet',
+    species: [
+      'Rat',
+      'Cow',
+      'Bunny',
+      'Snake',
+      'Horse',
+      'Sheep',
+      'Monkey',
+      'Rooster',
+      'Wolf',
+      'TigerCub',
+      'FlyingPig',
+      'Dragon',
+    ],
+    achievementKey: 'zodiacZookeeper',
+    notificationType: 'ACHIEVEMENT_ZODIAC_ZOOKEEPER',
+  },
 };
 
 export default ANIMAL_SET_ACHIEVEMENTS;
