@@ -293,36 +293,69 @@ export default function scoreTask (options = {}, req = {}, analytics) {
       _gainMP(user, max([1, 0.01 * statsComputed(user).maxMP]) * (direction === 'down' ? -1 : 1));
 
       if (direction === 'up') {
-        task.streak += 1;
-        // Give a streak achievement when the streak is a multiple of 21
-        if (task.streak !== 0 && task.streak % 21 === 0) {
-          user.achievements.streak = user.achievements.streak ? user.achievements.streak + 1 : 1;
-          if (user.addNotification) user.addNotification('STREAK_ACHIEVEMENT');
-        }
-        if (task.group) task.group.completedBy = user._id;
-        task.completed = true;
+        if (task.group.id) {
+          if (!task.group.assignedUsers) {
+            task.group.completedBy = {
+              userId: user._id,
+              date: new Date(),
+            };
+            task.completed = true;
+            task.streak += 1;
+          } else {
+            task.group.assignedUsers[user._id].completed = true;
+            task.group.assignedUsers[user._id].completedDate = new Date();
+            if (!find(task.group.assignedUsers, assignedUser => !assignedUser.completed)) {
+              task.dateCompleted = new Date();
+              task.completed = true;
+              task.streak += 1;
+            }
+          }
+          if (task.markModified) task.markModified('group');
+        } else {
+          task.streak += 1;
+          // Give a streak achievement when the streak is a multiple of 21
+          if (task.streak !== 0 && task.streak % 21 === 0) {
+            user.achievements.streak = user.achievements.streak ? user.achievements.streak + 1 : 1;
+            if (user.addNotification) user.addNotification('STREAK_ACHIEVEMENT');
+          }
+          task.completed = true;
 
-        // Save history entry for daily
-        task.history = task.history || [];
-        const historyEntry = {
-          date: Number(new Date()),
-          value: task.value,
-          isDue: task.isDue,
-          completed: true,
-        };
-        task.history.push(historyEntry);
+          // Save history entry for daily
+          task.history = task.history || [];
+          const historyEntry = {
+            date: Number(new Date()),
+            value: task.value,
+            isDue: task.isDue,
+            completed: true,
+          };
+          task.history.push(historyEntry);
+        }
       } else if (direction === 'down') {
-        // Remove a streak achievement if streak was a multiple of 21 and the daily was undone
-        if (task.streak !== 0 && task.streak % 21 === 0) {
-          user.achievements.streak = user.achievements.streak ? user.achievements.streak - 1 : 0;
-        }
-        task.streak -= 1;
-        if (task.group && task.group.completedBy) task.group.completedBy = undefined;
-        task.completed = false;
+        if (task.group.id) {
+          if (!task.group.assignedUsers
+            || !find(task.group.assignedUsers, assignedUser => !assignedUser.completed)
+          ) {
+            task.streak -= 1;
+            task.completed = false;
+          }
+          if (task.group.completedBy) task.group.completedBy = {};
+          if (task.group.assignedUsers && task.group.assignedUsers[user._id]) {
+            task.group.assignedUsers[user._id].completed = false;
+            task.group.assignedUsers[user._id].completedDate = undefined;
+          }
+          if (task.markModified) task.markModified('group');
+        } else {
+          // Remove a streak achievement if streak was a multiple of 21 and the daily was undone
+          if (task.streak !== 0 && task.streak % 21 === 0) {
+            user.achievements.streak = user.achievements.streak ? user.achievements.streak - 1 : 0;
+          }
+          task.streak -= 1;
+          task.completed = false;
 
-        // Delete history entry when daily unchecked
-        if (task.history || task.history.length > 0) {
-          task.history.splice(-1, 1);
+          // Delete history entry when daily unchecked
+          if (task.history || task.history.length > 0) {
+            task.history.splice(-1, 1);
+          }
         }
       }
     }

@@ -10,8 +10,8 @@
       :purpose="taskFormPurpose"
       :group-id="groupId"
       @cancel="cancelTaskModal()"
-      @taskCreated="taskCreated"
-      @taskEdited="taskEdited"
+      @taskCreated="loadTasks"
+      @taskEdited="loadTasks"
       @taskDestroyed="taskDestroyed"
     />
     <div class="row tasks-navigation">
@@ -326,15 +326,6 @@ export default {
       Vue.nextTick(() => {
         this.$root.$emit('bv::show::modal', 'task-modal');
       });
-    },
-    taskCreated (task) {
-      task.group.id = this.group._id;
-      this.tasksByType[task.type].unshift(task);
-    },
-    taskEdited (task) {
-      const index = findIndex(this.tasksByType[task.type], taskItem => taskItem._id === task._id);
-      this.tasksByType[task.type].splice(index, 1, task);
-      this.loadTasks();
     },
     taskDestroyed (task) {
       const index = findIndex(this.tasksByType[task.type], taskItem => taskItem._id === task._id);
