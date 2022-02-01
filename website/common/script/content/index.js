@@ -187,7 +187,7 @@ api.specialMounts = stable.specialMounts;
 api.mountInfo = stable.mountInfo;
 
 // For seasonal events, change this constant:
-const FOOD_SEASON = moment().isBefore('2021-11-02T20:00-04:00') ? 'Candy' : 'Normal';
+const FOOD_SEASON = moment().isBefore('2021-02-01T20:00-05:00') ? 'Cake' : 'Normal';
 
 api.food = {
   Meat: {
