@@ -1,7 +1,5 @@
 import defaults from 'lodash/defaults';
 import each from 'lodash/each';
-// import find from 'lodash/find';
-// import moment from 'moment';
 import sortBy from 'lodash/sortBy';
 import t from './translation';
 import {
@@ -26,21 +24,18 @@ const questSeries = QUEST_SERIES;
 const questTimeTravel = QUEST_TIME_TRAVEL;
 const questWorld = QUEST_WORLD;
 
-// need to reconstruct a flat list from these by --
-// check for a lodash object tht will combine multiple objects into one obects
-// I've added an additional ayer to the tree that the api and the rest of the
-// code in this file are not expecting hence api.quests not being found
+// this uses the spread operator, which allows us to combine multiple objects into one
+const quests = {
+  ...questGeneric,
+  ...questMasterclasser,
+  ...questPets,
+  ...questPotions,
+  ...questSeasonal,
+  ...questSeries,
+  ...questTimeTravel,
+  ...questWorld,
+};
 
-const quests = questGeneric.concat(
-  questMasterclasser,
-  questPets,
-  questPotions,
-  questSeasonal,
-  questSeries,
-  questTimeTravel,
-  questWorld,
-);
-console.log(quests);
 each(quests, (v, key) => {
   defaults(v, {
     key,
