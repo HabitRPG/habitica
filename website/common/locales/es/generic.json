@@ -201,5 +201,17 @@
     "loadEarlierMessages": "Cargar Mensajes Anteriores",
     "finish": "Terminar",
     "congratulations": "¡Enhorabuena!",
-    "onboardingAchievs": "Logros de incorporación"
+    "onboardingAchievs": "Logros de incorporación",
+    "reportEmailError": "Por favor, introduzca un correo electrónico válido",
+    "reportDescription": "Descripción",
+    "reportDescriptionPlaceholder": "Describe el error detalladamente aquí",
+    "submitBugReport": "Enviar informe de error",
+    "reportSent": "¡Informe de errores enviado!",
+    "emptyReportBugMessage": "No se ha encontrado mensaje de informe de errores",
+    "reportBugHeaderDescribe": "Por favor, describe el error que estás experimentando y nuestro equipo se pondrá en contacto contigo.",
+    "reportEmailText": "Esto solo se utilizará para contactar contigo en relación con el informe de error.",
+    "reportEmailPlaceholder": "Tu correo electrónico",
+    "reportDescriptionText": "Si lo crees conveniente, incluye capturas de pantalla o errores de la consola de Javascript.",
+    "reportSentDescription": "Nos pondremos en contacto contigo en cuanto nuestro equipo haya podido estudiarlo. Gracias por informarnos del problema.",
+    "askQuestion": "Haz una pregunta"
 }

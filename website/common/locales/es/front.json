@@ -5,7 +5,7 @@
     "accept2Terms": "y la",
     "chores": "Tareas del hogar",
     "clearBrowserData": "Borrar datos del navegador",
-    "communityExtensions": "<a href='http://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations' target='_blank'>Extensiones</a>",
+    "communityExtensions": "<a href='https://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations' target='_blank'>Complementos y Extensiones</a>",
     "communityFacebook": "Facebook",
     "companyAbout": "Cómo funciona",
     "companyBlog": "Blog",
@@ -44,7 +44,7 @@
     "marketing3Header": "Aplicaciones y extensiones",
     "marketing3Lead1": "Las apps **iPhone & Android** te permiten encargarte de tus cosas sobre la marcha. Sabemos que iniciar sesión en la web para pulsar botones puede ser un fastidio.",
     "marketing3Lead2Title": "Integraciones",
-    "marketing3Lead2": "Otras **Herramientas de Terceros** unen Habitica a otros aspectos de tu vida. Nuestra API ofrece una integración sencilla a cosas como la [Extensión de Chrome](https://chrome.google.com/webstore/detail/habitica/pidkmpibnnnhneohdgjclfdjpijggmjj?hl=en-US), con la que pierdes puntos cuando visitas webs improductivas, y los ganas cuando visitas webs productivas. [Descubre más aquí](http://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations).",
+    "marketing3Lead2": "Otras **Herramientas de Terceros** unen Habitica a otros aspectos de tu vida. Nuestra API ofrece una integración sencilla a cosas como la [Extensión de Chrome](https://chrome.google.com/webstore/detail/habitica/pidkmpibnnnhneohdgjclfdjpijggmjj?hl=en-US), con la que pierdes puntos cuando visitas webs improductivas, y los ganas cuando visitas webs productivas. [Más información aquí](https://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations).",
     "marketing4Header": "Uso Organizacional",
     "marketing4Lead1": "La educación es uno de los mejores sectores para la gamificación. Todos sabemos lo enganchados que están los estudiantes a los teléfonos y a los juegos hoy en día; ¡Aprovechemos ese poder! Enfrenta a tus estudiantes en competiciones amistosas. Recompensa el buen comportamiento con premios excepcionales. Observa cómo sus notas y su comportamiento se elevan.",
     "marketing4Lead1Title": "Juegos en la Educación",
@@ -123,7 +123,7 @@
     "emailTaken": "Ya existe una cuenta con esa dirección de correo electrónico.",
     "newEmailRequired": "Falta la nueva dirección de correo electrónico.",
     "usernameTime": "¡Es la hora de establecer tu nombre de usuario!",
-    "usernameInfo": "Los nombres de inicio de sesión ahora son nombres de usuario únicos que serán visibles junto a tu nombre público, y se utilizará para invitaciones, @menciones en los chats y mensajes. <br><br>Si quieres saber más sobre este cambio, <a href='http://habitica.fandom.com/wiki/Player_Names' target='_blank'>visita nuestra wiki</a>.",
+    "usernameInfo": "Los nombres de inicio de sesión ahora son nombres de usuario únicos que serán visibles junto a tu nombre público, y se utilizarán para invitaciones, @menciones en los chats y mensajes. <br><br>Si quieres saber más sobre este cambio, <a href='https://habitica.fandom.com/wiki/Player_Names' target='_blank'>visita nuestra wiki</a>.",
     "usernameTOSRequirements": "Los nombres de usuario deben adecuarse a nuestros <a href='/static/terms' target='_blank'>Términos de Servicio</a> y <a href='/static/community-guidelines' target='_blank'>Normas de la Comunidad</a>. Si no has establecido un nombre de inicio de sesión, tu nombre de usuario será autogenerado.",
     "usernameTaken": "Este nombre de usuario ya está cogido.",
     "passwordConfirmationMatch": "Las contraseñas no coinciden.",
@@ -184,5 +184,6 @@
     "mobileApps": "Apps para móvil",
     "learnMore": "Saber más",
     "communityInstagram": "Instagram",
-    "minPasswordLength": "La contraseña debe contener 8 caracteres o más."
+    "minPasswordLength": "La contraseña debe contener 8 caracteres o más.",
+    "enterHabitica": "Adéntrate en Habitica"
 }

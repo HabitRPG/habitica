@@ -14,7 +14,7 @@ describe('shared.ops.buyQuest', () => {
   let user;
   const analytics = { track () {} };
 
-  function buyQuest (_user, _req, _analytics) {
+  async function buyQuest (_user, _req, _analytics) {
     const buyOp = new BuyQuestWithGoldOperation(_user, _req, _analytics);
 
     return buyOp.purchase();
@@ -29,9 +29,9 @@ describe('shared.ops.buyQuest', () => {
     analytics.track.restore();
   });
 
-  it('buys a Quest scroll', () => {
+  it('buys a Quest scroll', async () => {
     user.stats.gp = 205;
-    buyQuest(user, {
+    await buyQuest(user, {
       params: {
         key: 'dilatoryDistress1',
       },
@@ -43,11 +43,11 @@ describe('shared.ops.buyQuest', () => {
     expect(analytics.track).to.be.calledOnce;
   });
 
-  it('if a user\'s count of a quest scroll is negative, it will be reset to 0 before incrementing when they buy a new one.', () => {
+  it('if a user\'s count of a quest scroll is negative, it will be reset to 0 before incrementing when they buy a new one.', async () => {
     user.stats.gp = 205;
     const key = 'dilatoryDistress1';
     user.items.quests[key] = -1;
-    buyQuest(user, {
+    await buyQuest(user, {
       params: { key },
     }, analytics);
     expect(user.items.quests[key]).to.equal(1);
@@ -55,14 +55,14 @@ describe('shared.ops.buyQuest', () => {
     expect(analytics.track).to.be.calledOnce;
   });
 
-  it('buys a Quest scroll with the right quantity if a string is passed for quantity', () => {
+  it('buys a Quest scroll with the right quantity if a string is passed for quantity', async () => {
     user.stats.gp = 1000;
-    buyQuest(user, {
+    await buyQuest(user, {
       params: {
         key: 'dilatoryDistress1',
       },
     }, analytics);
-    buyQuest(user, {
+    await buyQuest(user, {
       params: {
         key: 'dilatoryDistress1',
       },
@@ -74,10 +74,10 @@ describe('shared.ops.buyQuest', () => {
     });
   });
 
-  it('does not buy a Quest scroll when an invalid quantity is passed', done => {
+  it('does not buy a Quest scroll when an invalid quantity is passed', async () => {
     user.stats.gp = 1000;
     try {
-      buyQuest(user, {
+      await buyQuest(user, {
         params: {
           key: 'dilatoryDistress1',
         },
@@ -88,14 +88,13 @@ describe('shared.ops.buyQuest', () => {
       expect(err.message).to.equal(i18n.t('invalidQuantity'));
       expect(user.items.quests).to.eql({});
       expect(user.stats.gp).to.equal(1000);
-      done();
     }
   });
 
-  it('does not buy Quests without enough Gold', done => {
+  it('does not buy Quests without enough Gold', async () => {
     user.stats.gp = 1;
     try {
-      buyQuest(user, {
+      await buyQuest(user, {
         params: {
           key: 'dilatoryDistress1',
         },
@@ -105,14 +104,13 @@ describe('shared.ops.buyQuest', () => {
       expect(err.message).to.equal(i18n.t('messageNotEnoughGold'));
       expect(user.items.quests).to.eql({});
       expect(user.stats.gp).to.equal(1);
-      done();
     }
   });
 
-  it('does not buy nonexistent Quests', done => {
+  it('does not buy nonexistent Quests', async () => {
     user.stats.gp = 9999;
     try {
-      buyQuest(user, {
+      await buyQuest(user, {
         params: {
           key: 'snarfblatter',
         },
@@ -122,13 +120,12 @@ describe('shared.ops.buyQuest', () => {
       expect(err.message).to.equal(errorMessage('questNotFound', { key: 'snarfblatter' }));
       expect(user.items.quests).to.eql({});
       expect(user.stats.gp).to.equal(9999);
-      done();
     }
   });
 
-  it('does not buy the Mystery of the Masterclassers', done => {
+  it('does not buy the Mystery of the Masterclassers', async () => {
     try {
-      buyQuest(user, {
+      await buyQuest(user, {
         params: {
           key: 'lostMasterclasser1',
         },
@@ -137,14 +134,13 @@ describe('shared.ops.buyQuest', () => {
       expect(err).to.be.an.instanceof(NotAuthorized);
       expect(err.message).to.equal(i18n.t('questUnlockLostMasterclasser'));
       expect(user.items.quests).to.eql({});
-      done();
     }
   });
 
-  it('does not buy Gem-premium Quests', done => {
+  it('does not buy Gem-premium Quests', async () => {
     user.stats.gp = 9999;
     try {
-      buyQuest(user, {
+      await buyQuest(user, {
         params: {
           key: 'kraken',
         },
@@ -154,23 +150,21 @@ describe('shared.ops.buyQuest', () => {
       expect(err.message).to.equal(i18n.t('questNotGoldPurchasable', { key: 'kraken' }));
       expect(user.items.quests).to.eql({});
       expect(user.stats.gp).to.equal(9999);
-      done();
     }
   });
 
-  it('returns error when key is not provided', done => {
+  it('returns error when key is not provided', async () => {
     try {
-      buyQuest(user);
+      await buyQuest(user);
     } catch (err) {
       expect(err).to.be.an.instanceof(BadRequest);
       expect(err.message).to.equal(errorMessage('missingKeyParam'));
-      done();
     }
   });
 
-  it('does not buy a quest without completing previous quests', done => {
+  it('does not buy a quest without completing previous quests', async () => {
     try {
-      buyQuest(user, {
+      await buyQuest(user, {
         params: {
           key: 'dilatoryDistress3',
         },
@@ -179,7 +173,6 @@ describe('shared.ops.buyQuest', () => {
       expect(err).to.be.an.instanceof(NotAuthorized);
       expect(err.message).to.equal(i18n.t('mustComplete', { quest: 'dilatoryDistress2' }));
       expect(user.items.quests).to.eql({});
-      done();
     }
   });
 });

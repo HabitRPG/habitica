@@ -2550,5 +2550,11 @@
     "headSpecialNye2021Notes": "Du hast einen Absurden Partyhut erhalten! Trag ihn mit Stolz, während Du das neue Jahr einläutest! Gewährt keinen Attributbonus.",
     "eyewearMystery202201Text": "Mitternächtliche Spaßvogel-Maske",
     "eyewearMystery202201Notes": "Läute das neue Jahr in dieser eleganten, mit Federn geschmückten Maske ein, die Dir ein geheimnissvolles Auftreten verleiht. Gewährt keinen Attributbonus. Jänner 2022 Abonnentengegenstand.",
-    "weaponMystery202201Text": "Mitternachts-Konfettikanone"
+    "weaponMystery202201Text": "Mitternächtliche Konfettikanone",
+    "weaponArmoireShootingStarSpellText": "Funkelnder Meteoritenstaub",
+    "armorArmoireShootingStarCostumeText": "Sternenrobe",
+    "headArmoireShootingStarCrownText": "Sternenkrone",
+    "weaponArmoireShootingStarSpellNotes": "Umgib Dich mit einem Zauber aus Meteoritenstaub – er wird Dir helfen, alle Wünsche zu erfüllen. Erhöht Intelligenz und Stärke um jeweils <%= attrs %>. Verzauberter Schrank: Meteoritenstaub-Set (Gegenstand 3 von 3).",
+    "armorArmoireShootingStarCostumeNotes": "Es wird gemunkelt, dass diese Robe, deren Stoff wie das Licht des Mondes fällt, aus dem Nachthimmel selbst gesponnen wurde. Sie wird Dir helfen, alle Hindernisse in Deinem Weg zu überwinden. Erhöht Ausdauer um <%= con %>. Verzauberter Schrank: Meteoritenstaub-Set (Gegenstand 2 von 3).",
+    "headArmoireShootingStarCrownNotes": "Mit diesem hell strahlenden Kopfschmuck wirst du buchstäblich zum Star Deines eigenen Abenteuers! Erhöht Wahrnehmung um <%= per %>. Verzauberter Schrank: Meteoritenstaub-Set (Gegenstand 1 von 3)."
 }

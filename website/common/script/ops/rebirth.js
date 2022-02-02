@@ -9,10 +9,11 @@ import equip from './equip';
 import { removePinnedGearByClass } from './pinnedGearUtils';
 import isFreeRebirth from '../libs/isFreeRebirth';
 import setDebuffPotionItems from '../libs/setDebuffPotionItems';
+import updateUserBalance from './updateUserBalance';
 
 const USERSTATSLIST = ['per', 'int', 'con', 'str', 'points', 'gp', 'exp', 'mp'];
 
-export default function rebirth (user, tasks = [], req = {}, analytics) {
+export default async function rebirth (user, tasks = [], req = {}, analytics) {
   const notFree = !isFreeRebirth(user);
 
   if (user.balance < 1.5 && notFree) {
@@ -25,7 +26,7 @@ export default function rebirth (user, tasks = [], req = {}, analytics) {
   };
 
   if (notFree) {
-    user.balance -= 1.5;
+    await updateUserBalance(user, -1.5, 'rebirth');
     analyticsData.currency = 'Gems';
     analyticsData.gemCost = 6;
   } else {
@@ -42,7 +43,7 @@ export default function rebirth (user, tasks = [], req = {}, analytics) {
 
   each(tasks, task => {
     if (!task.challenge || !task.challenge.id || task.challenge.broken) {
-      if (task.type !== 'reward') {
+      if (task.type !== 'reward' && task.type !== 'todo') {
         task.value = 0;
       }
       if (task.type === 'daily') {
@@ -51,6 +52,9 @@ export default function rebirth (user, tasks = [], req = {}, analytics) {
       if (task.type === 'habit') {
         task.counterDown = 0;
         task.counterUp = 0;
+      }
+      if (task.type === 'todo' && task.completed !== true) {
+        task.value = 0;
       }
     }
   });

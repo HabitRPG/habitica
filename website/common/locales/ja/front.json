@@ -185,5 +185,6 @@
     "learnMore": "もっと詳しく知る",
     "communityInstagram": "Instagram",
     "minPasswordLength": "パスワードは8文字以上にする必要があります。",
-    "enterHabitica": "Habiticaをはじめる"
+    "enterHabitica": "Habiticaをはじめる",
+    "socialAlreadyExists": "このソーシャルログインは、すでに存在しているHabiticaアカウントにリンクされています。"
 }

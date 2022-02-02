@@ -58,7 +58,7 @@ const CLEAR_BUFFS = {
   streaks: false,
 };
 
-function grantEndOfTheMonthPerks (user, now) {
+async function grantEndOfTheMonthPerks (user, now) {
   // multi-month subscriptions are for multiples of 3 months
   const SUBSCRIPTION_BASIC_BLOCK_LENGTH = 3;
   const { plan } = user.purchased;
@@ -135,7 +135,8 @@ function grantEndOfTheMonthPerks (user, now) {
           plan.consecutive.offset = planMonthsLength - 1;
         }
         if (perkAmountNeeded > 0) {
-          plan.consecutive.trinkets += perkAmountNeeded; // one Hourglass every 3 months
+          // one Hourglass every 3 months
+          await plan.updateHourglasses(user._id, perkAmountNeeded, 'subscription_perks'); // eslint-disable-line no-await-in-loop
           plan.consecutive.gemCapExtra += 5 * perkAmountNeeded; // 5 extra Gems every 3 months
           // cap it at 50 (hard 25 limit + extra 25)
           if (plan.consecutive.gemCapExtra > 25) plan.consecutive.gemCapExtra = 25;
@@ -279,7 +280,7 @@ function awardLoginIncentives (user) {
 }
 
 // Perform various beginning-of-day reset actions.
-export function cron (options = {}) {
+export async function cron (options = {}) {
   const {
     user, tasksByType, analytics, now = new Date(), daysMissed, timezoneUtcOffsetFromUserPrefs,
   } = options;
@@ -304,7 +305,7 @@ export function cron (options = {}) {
   }
 
   if (user.isSubscribed()) {
-    grantEndOfTheMonthPerks(user, now);
+    await grantEndOfTheMonthPerks(user, now);
   }
 
   const { plan } = user.purchased;
