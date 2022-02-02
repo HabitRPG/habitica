@@ -108,12 +108,6 @@ shops.checkMarketGearLocked = function checkMarketGearLocked (user, items) {
       gear.locked = true;
     }
 
-    if (Boolean(gear.specialClass) && Boolean(gear.set)) {
-      const currentSet = gear.set === seasonalShopConfig.pinnedSets[gear.specialClass];
-
-      gear.locked = currentSet && user.stats.class !== gear.specialClass;
-    }
-
     if (gear.canOwn) {
       gear.locked = !gear.canOwn(user);
     }
@@ -122,6 +116,12 @@ shops.checkMarketGearLocked = function checkMarketGearLocked (user, items) {
 
     if (itemOwned === false && !availableGear.includes(gear.path)) {
       gear.locked = true;
+    }
+
+    if (Boolean(gear.specialClass) && Boolean(gear.set)) {
+      const currentSet = gear.set === seasonalShopConfig.pinnedSets[gear.specialClass];
+
+      gear.locked = currentSet && user.stats.class !== gear.specialClass;
     }
 
     gear.owned = itemOwned;
