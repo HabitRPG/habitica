@@ -7,22 +7,22 @@ import t from './translation';
 import {
   USER_CAN_OWN_QUEST_CATEGORIES,
   QUEST_GENERIC,
-  QUEST_SERIES,
   QUEST_MASTERCLASSER,
-  QUEST_SEASONAL,
   QUEST_PETS,
   QUEST_POTIONS,
+  QUEST_SEASONAL,
+  QUEST_SERIES,
   QUEST_TIME_TRAVEL,
   QUEST_WORLD,
 } from './constants';
 
 const userCanOwnQuestCategories = USER_CAN_OWN_QUEST_CATEGORIES;
 const questGeneric = QUEST_GENERIC;
-const questSeries = QUEST_SERIES;
 const questMasterclasser = QUEST_MASTERCLASSER;
-const questSeasonal = QUEST_SEASONAL;
 const questPets = QUEST_PETS;
 const questPotions = QUEST_POTIONS;
+const questSeasonal = QUEST_SEASONAL;
+const questSeries = QUEST_SERIES;
 const questTimeTravel = QUEST_TIME_TRAVEL;
 const questWorld = QUEST_WORLD;
 
@@ -31,16 +31,15 @@ const questWorld = QUEST_WORLD;
 // I've added an additional ayer to the tree that the api and the rest of the
 // code in this file are not expecting hence api.quests not being found
 
-const quests = [
-  questGeneric,
-  questSeries,
+const quests = questGeneric.concat(
   questMasterclasser,
-  questSeasonal,
   questPets,
   questPotions,
+  questSeasonal,
+  questSeries,
   questTimeTravel,
   questWorld,
-];
+);
 console.log(quests);
 each(quests, (v, key) => {
   defaults(v, {
