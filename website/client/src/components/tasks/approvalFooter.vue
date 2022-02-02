@@ -8,6 +8,30 @@
         class="mr-auto ml-2"
         v-html="message"
       ></div>
+      <div
+        class="ml-auto mr-2 text-right gray-100"
+        v-if="task.group.assignedUsers"
+      >
+        <span
+          v-if="completionsCount"
+          class="mr-1"
+        >
+          {{ completionsCount }}/{{ assignedUsersCount }}
+        </span>
+        <a
+          v-if="!showStatus"
+          class="blue-10"
+          @click="showStatus = !showStatus"
+        >
+          {{ $t('viewStatus') }}
+        </a>
+        <a
+          v-if="showStatus"
+          @click="showStatus = !showStatus"
+        >
+          {{ $t('close') }}
+        </a>
+      </div>
     </div>
   </div>
 </template>
@@ -23,6 +47,13 @@
     padding-bottom: 0.25rem;
     padding-top: 0.25rem;
     z-index: 9;
+
+    .blue-10 {
+      color: $blue-10;
+    }
+    .gray-100 {
+      color: $gray-100;
+    }
   }
 
   .approve-color {
@@ -39,6 +70,7 @@
 <script>
 import findIndex from 'lodash/findIndex';
 import keys from 'lodash/keys';
+import reduce from 'lodash/reduce';
 import { mapState } from '@/libs/store';
 import approvalModal from './approvalModal';
 import sync from '@/mixins/sync';
@@ -49,37 +81,44 @@ export default {
   },
   mixins: [sync],
   props: ['task', 'group'],
+  data () {
+    return {
+      showStatus: false,
+    };
+  },
   computed: {
     ...mapState({ user: 'user.data' }),
     userIsAssigned () {
       return this.task.group.assignedUsers
         && Boolean(this.task.group.assignedUsers[this.user._id]);
     },
+    assignedUsersKeys () {
+      return keys(this.task.group.assignedUsers);
+    },
+    assignedUsersCount () {
+      return this.assignedUsersKeys.length;
+    },
+    completionsCount () {
+      return reduce(this.task.group.assignedUsers, (count, assignment) => {
+        if (assignment.completed) return count + 1;
+        return count;
+      }, 0);
+    },
     message () {
-      const { assignedUsers } = this.task.group;
-      const assignedUsersKeys = keys(assignedUsers);
-      const assignedUsersNames = [];
-      const assignedUsersLength = assignedUsersKeys.length;
-
-      // @TODO: Eh, I think we only ever display one user name
-      if (this.group && this.group.members) {
-        assignedUsersKeys.forEach(userId => {
-          const index = findIndex(this.group.members, member => member._id === userId);
-          const assignedMember = this.group.members[index];
-          assignedUsersNames.push(`@${assignedMember.auth.local.username}`);
-        });
-      }
-
-      if (assignedUsersLength === 1 && !this.userIsAssigned) {
-        return this.$t('assignedToUser', { userName: assignedUsersNames[0] });
-      } if (assignedUsersLength > 1 && !this.userIsAssigned) {
-        return this.$t('assignedToMembers', { userCount: assignedUsersLength });
-      } if (assignedUsersLength > 1 && this.userIsAssigned) {
-        return this.$t('assignedToYouAndMembers', { userCount: assignedUsersLength - 1 });
+      if (this.assignedUsersCount === 1 && !this.userIsAssigned) {
+        const index = findIndex(
+          this.group.members, member => member._id === this.assignedUsersKeys[0],
+        );
+        const userName = this.group.members[index].auth.local.username;
+        return this.$t('assignedToUser', { userName });
+      } if (this.assignedUsersCount > 1 && !this.userIsAssigned) {
+        return this.$t('assignedToMembers', { userCount: this.assignedUsersCount });
+      } if (this.assignedUsersCount > 1 && this.userIsAssigned) {
+        return this.$t('assignedToYouAndMembers', { userCount: this.assignedUsersCount - 1 });
       } if (this.userIsAssigned) {
         return this.$t('youAreAssigned');
-      } // if (assignedUsersLength === 0) {
-      return this.$t('taskIsUnassigned');
+      } // Task is open; we shouldn't be showing message at all
+      return this.$t('error');
     },
     userIsManager () {
       if (

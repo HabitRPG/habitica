@@ -175,9 +175,9 @@
   "onlyGroupLeaderCanEditTasks": "Not authorized to manage tasks!",
   "onlyGroupTasksCanBeAssigned": "Only group tasks can be assigned",
   "assignedTo": "Assign To",
-  "assignedToUser": "Assigned to <strong><%- userName %></strong>",
+  "assignedToUser": "Assigned to <strong>@<%- userName %></strong>",
   "assignedToMembers": "Assigned to <strong><%= userCount %> users</strong>",
-  "assignedToYouAndMembers": "Assigned to you and <strong><%= userCount %> users</strong>",
+  "assignedToYouAndMembers": "Assigned to <strong>you and <%= userCount %> users</strong>",
   "youAreAssigned": "Assigned to you",
   "taskIsUnassigned": "This task is unassigned",
   "unassigned": "Unassigned",
@@ -364,5 +364,6 @@
   "assignedDateOnly": "Assigned on <strong><%= date %></strong>",
   "assignedDateAndUser": "Assigned by <strong>@<%- username %></strong> on <strong><%= date %></strong>",
   "claimRewards": "Claim Rewards",
-  "dayStart": "<strong>Day start</strong>: <%= startTime %>"
+  "dayStart": "<strong>Day start</strong>: <%= startTime %>",
+  "viewStatus": "View Status"
 }
