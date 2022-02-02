@@ -1588,7 +1588,11 @@ schema.methods.unlinkTask = async function groupUnlinkTask (
   };
 
   delete unlinkingTask.group.assignedUsers[user._id];
+  if (Object.keys(unlinkingTask.group.assignedUsers).length === 0) {
+    unlinkingTask.group.assignedUsers = undefined;
+  }
   unlinkingTask.markModified('group.assignedUsers');
+
   const promises = [unlinkingTask.save()];
 
   if (keep === 'keep-all') {

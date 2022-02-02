@@ -456,6 +456,7 @@
             <a
               v-if="assignedMembers.length > 0"
               class="col-2 text-right mt-1"
+              @click="clearAssignments"
             >
               {{ $t('clear') }}
             </a>
@@ -1522,6 +1523,17 @@ export default {
           assignedUserIds: [memberId],
         });
       }
+    },
+    async clearAssignments () {
+      if (this.purpose === 'edit') {
+        for (const assignedMember of this.assignedMembers) {
+          await this.$store.dispatch('tasks:unassignTask', { // eslint-disable-line no-await-in-loop
+            taskId: this.task._id,
+            userId: assignedMember,
+          });
+        }
+      }
+      this.assignedMembers = [];
     },
     focusInput () {
       this.$refs.inputToFocus.focus();
