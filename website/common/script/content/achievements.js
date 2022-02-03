@@ -267,6 +267,11 @@ const basicAchievs = {
     titleKey: 'achievementShadeOfItAll',
     textKey: 'achievementShadeOfItAllText',
   },
+  zodiacZookeeper: {
+    icon: 'achievement-zodiac',
+    titleKey: 'achievementZodiacZookeeper',
+    textKey: 'achievementZodiacZookeeperText',
+  },
 };
 Object.assign(achievementsData, basicAchievs);
 

@@ -26,7 +26,7 @@
         <!-- eslint-enable vue/no-use-v-if-with-v-for -->
         <customize-options
           :items="set.options"
-          :current-value="user.preferences.skin"
+          :current-value="user.preferences.hair.color"
           :full-set="!hideSet(set) && !userOwnsSet('hair', set.keys, 'color')"
           @unlock="unlock(`hair.color.${set.keys.join(',hair.color.')}`)"
         />

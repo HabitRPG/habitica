@@ -201,5 +201,14 @@
     "loadEarlierMessages": "Carregar mensagens anteriores",
     "finish": "Finalizar",
     "congratulations": "Parabéns!",
-    "onboardingAchievs": "Conquistas de Integração"
+    "onboardingAchievs": "Conquistas de Integração",
+    "reportBugHeaderDescribe": "Descreva o problema que você está experimentando, e nosso time entrará em contato.",
+    "reportEmailText": "Só o usaremos para entrar em contato sobre o problema relatado.",
+    "reportEmailPlaceholder": "Seu endereço de e-mail",
+    "reportEmailError": "Forneça um endereço válido de e-mail",
+    "reportDescription": "Descrição",
+    "reportDescriptionPlaceholder": "Descreva detalhadamente o problema aqui",
+    "submitBugReport": "Enviar relatório de erro",
+    "reportSent": "Relatório de erro enviado!",
+    "reportSentDescription": "Responderemos assim que nossa equipe conseguir verificar. Obrigado por relatar o problema."
 }

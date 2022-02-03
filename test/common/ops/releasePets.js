@@ -23,98 +23,96 @@ describe('shared.ops.releasePets', () => {
     user.balance = 1;
   });
 
-  it('returns an error when user balance is too low', done => {
+  it('returns an error when user balance is too low', async () => {
     user.balance = 0;
 
     try {
-      releasePets(user);
+      await releasePets(user);
     } catch (err) {
       expect(err).to.be.an.instanceof(NotAuthorized);
       expect(err.message).to.equal(i18n.t('notEnoughGems'));
-      done();
     }
   });
 
-  it('returns an error when user does not have all pets', done => {
+  it('returns an error when user does not have all pets', async () => {
     const petKeys = Object.keys(user.items.pets);
     delete user.items.pets[petKeys[0]];
 
     try {
-      releasePets(user);
+      await releasePets(user);
     } catch (err) {
       expect(err).to.be.an.instanceof(NotAuthorized);
       expect(err.message).to.equal(i18n.t('notEnoughPets'));
-      done();
     }
   });
 
-  it('releases pets', () => {
-    const message = releasePets(user)[1];
+  it('releases pets', async () => {
+    const message = await releasePets(user)[1];
 
     expect(message).to.equal(i18n.t('petsReleased'));
     expect(user.items.pets[animal]).to.equal(0);
   });
 
-  it('removes drop currentPet', () => {
+  it('removes drop currentPet', async () => {
     const petInfo = content.petInfo[user.items.currentPet];
     expect(petInfo.type).to.equal('drop');
-    releasePets(user);
+    await releasePets(user);
 
     expect(user.items.currentPet).to.be.empty;
   });
 
-  it('leaves non-drop pets equipped', () => {
+  it('leaves non-drop pets equipped', async () => {
     const questAnimal = 'Gryphon-Base';
     user.items.currentPet = questAnimal;
     user.items.pets[questAnimal] = 5;
 
     const petInfo = content.petInfo[user.items.currentPet];
     expect(petInfo.type).to.not.equal('drop');
-    releasePets(user);
+    await releasePets(user);
 
     expect(user.items.currentPet).to.equal(questAnimal);
   });
 
-  it('decreases user\'s balance', () => {
-    releasePets(user);
+  it('decreases user\'s balance', async () => {
+    await releasePets(user);
 
     expect(user.balance).to.equal(0);
   });
 
-  it('incremenets beastMasterCount', () => {
-    releasePets(user);
+  it('incremenets beastMasterCount', async () => {
+    await releasePets(user);
 
     expect(user.achievements.beastMasterCount).to.equal(1);
   });
 
-  it('does not increment beastMasterCount if any pet is level 0 (released)', () => {
+  it('does not increment beastMasterCount if any pet is level 0 (released)', async () => {
     const beastMasterCountBeforeRelease = user.achievements.beastMasterCount;
     user.items.pets[animal] = 0;
 
     try {
-      releasePets(user);
+      await releasePets(user);
     } catch (e) {
       expect(user.achievements.beastMasterCount).to.equal(beastMasterCountBeforeRelease);
     }
   });
 
-  it('does not increment beastMasterCount if any pet is missing (null)', () => {
+  it('does not increment beastMasterCount if any pet is missing (null)', async () => {
     const beastMasterCountBeforeRelease = user.achievements.beastMasterCount;
     user.items.pets[animal] = null;
 
     try {
-      releasePets(user);
+      await releasePets(user);
     } catch (e) {
       expect(user.achievements.beastMasterCount).to.equal(beastMasterCountBeforeRelease);
     }
   });
 
-  it('does not increment beastMasterCount if any pet is missing (undefined)', () => {
+  it('does not increment beastMasterCount if any pet is missing (undefined)', async () => {
     const beastMasterCountBeforeRelease = user.achievements.beastMasterCount;
     delete user.items.pets[animal];
 
     try {
-      releasePets(user);
+      await releasePets(user);
     } catch (e) {
       expect(user.achievements.beastMasterCount).to.equal(beastMasterCountBeforeRelease);
     }
