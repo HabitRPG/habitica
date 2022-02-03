@@ -14,12 +14,12 @@ export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation { // es
     return true;
   }
 
-  // userAbleToStartMasterClasser (user) { // eslint-disable-line class-methods-use-this
-  //   return user.achievements.quests.dilatoryDistress3
-  //     && user.achievements.quests.mayhemMistiflying3
-  //     && user.achievements.quests.stoikalmCalamity3
-  //     && user.achievements.quests.taskwoodsTerror3;
-  // }
+  userAbleToStartMasterClasser (user) { // eslint-disable-line class-methods-use-this
+    return user.achievements.quests.dilatoryDistress3
+      && user.achievements.quests.mayhemMistiflying3
+      && user.achievements.quests.stoikalmCalamity3
+      && user.achievements.quests.taskwoodsTerror3;
+  }
 
   getItemKey () {
     return this.key;
@@ -31,10 +31,6 @@ export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation { // es
 
   getItemType () { // eslint-disable-line class-methods-use-this
     return 'quest';
-  }
-
-  getItemLock (item) { // eslint-disable-line class-methods-use-this
-    return item.locked;
   }
 
   extractAndValidateParams (user, req) {
@@ -57,8 +53,7 @@ export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation { // es
 
   checkPrerequisites (user, questKey) {
     const item = content.quests[questKey];
-    if (questKey.startsWith('lostMasterclasser')
-    && !this.userAbleToStartMasterClasser(user)) {
+    if (questKey === 'lostMasterclasser1' && !this.userAbleToStartMasterClasser(user)) {
       throw new NotAuthorized(this.i18n('questUnlockLostMasterclasser'));
     }
 

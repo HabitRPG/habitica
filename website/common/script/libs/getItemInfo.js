@@ -9,27 +9,12 @@ import isFreeRebirth from './isFreeRebirth';
 import getOfficialPinnedItems from './getOfficialPinnedItems';
 
 function lockQuest (quest, user) {
-  // checks series quests, including Masterclasser?
-  if (quest.prereqQuests) {
-    if (!user.achievements.quests) return true;
-    for (const prereq of quest.prereqQuests) {
-      if (!user.achievements.quests[prereq]) return true;
-    }
-  }
-  // checks quest & user level against quest level
+  if (quest.key === 'lostMasterclasser1') return !(user.achievements.quests.dilatoryDistress3 && user.achievements.quests.mayhemMistiflying3 && user.achievements.quests.stoikalmCalamity3 && user.achievements.quests.taskwoodsTerror3);
   if (quest.lvl && user.stats.lvl < quest.lvl) return true;
-
-  // checks unlockCondition.incentiveThreshold
-  if (
-    quest.unlockCondition
-    && quest.unlockCondition.incentiveThreshold
-    && user.loginIncentives < quest.unlockCondition.incentiveThreshold
-  ) return true;
-  if (user.achievements.quests) {
-    return quest.previous
-    && !user.achievements.quests[quest.previous];
+  if (quest.unlockCondition && (quest.key === 'moon1' || quest.key === 'moon2' || quest.key === 'moon3')) {
+    return user.loginIncentives < quest.unlockCondition.incentiveThreshold;
   }
-  // then if we've passed all the checks
+  if (user.achievements.quests) return quest.previous && !user.achievements.quests[quest.previous];
   return quest.previous;
 }
 
@@ -67,9 +52,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
 
   let itemInfo;
 
-  switch ( // eslint-disable-line default-case
-    type
-  ) {
+  switch (type) { // eslint-disable-line default-case
     case 'eggs':
       itemInfo = {
         key: item.key,
@@ -108,9 +91,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         locked: false,
         currency: 'gems',
         purchaseType: 'hatchingPotions',
-        path: item.wacky
-          ? `wackyHatchingPotions.${item.key}`
-          : `premiumHatchingPotions.${item.key}`,
+        path: item.wacky ? `wackyHatchingPotions.${item.key}` : `premiumHatchingPotions.${item.key}`,
         pinType: 'premiumHatchingPotion',
         event: item.event,
       };
