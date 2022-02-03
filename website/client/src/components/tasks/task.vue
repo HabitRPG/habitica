@@ -889,6 +889,7 @@ import lockIcon from '@/assets/svg/lock.svg';
 import menuIcon from '@/assets/svg/menu.svg';
 import markdownDirective from '@/directives/markdown';
 import scoreTask from '@/mixins/scoreTask';
+import sync from '@/mixins/sync';
 import approvalFooter from './approvalFooter';
 import MenuDropdown from '../ui/customMenuDropdown';
 
@@ -900,7 +901,7 @@ export default {
   directives: {
     markdown: markdownDirective,
   },
-  mixins: [scoreTask],
+  mixins: [scoreTask, sync],
   // @TODO: maybe we should store the group on state?
   props: {
     task: {},
@@ -1142,7 +1143,10 @@ export default {
         this.task.completed = !this.task.completed;
         this.playTaskScoreSound(this.task, direction);
       } else {
-        this.taskScore(this.task, direction);
+        await this.taskScore(this.task, direction);
+      }
+      if (direction === 'down' && ['daily', 'todo'].includes(this.task.type)) {
+        this.sync();
       }
     },
     handleBrokenTask (task) {
