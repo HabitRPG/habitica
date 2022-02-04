@@ -1,19 +1,30 @@
 <template>
-  <div>
+  <div
+    class="gray-100"
+  >
     <div
       v-if="showStatus"
     >
       <div
         v-for="completion in completionsList"
         :key="completion.userId"
-        class="completion-row mb-1"
+        class="completion-row"
       >
-        <div>
-          <span v-if="completion.completed">✅</span>
-          <span v-else>❎</span>
-          <span>@{{ completion.userName }}</span>
+        <div
+          class="px-3 py-2"
+        >
+          <div>
+            <span v-if="completion.completed">✅</span>
+            <span v-else>❎</span>
+            <strong> @{{ completion.userName }} </strong>
+          </div>
+          <div
+            v-if='completion.completedDate'
+            :class="{'green-10': completion.completedToday}"
+          >
+            {{ completion.completedDateString }}
+          </div>
         </div>
-        <div v-if='completion.completedDate'>{{ completion.completedDateString }}</div>
       </div>
     </div>
     <div
@@ -24,7 +35,7 @@
         v-html="message"
       ></div>
       <div
-        class="ml-auto mr-2 text-right gray-100"
+        class="ml-auto mr-2 text-right"
         v-if="task.group.assignedUsers"
       >
         <span
@@ -54,10 +65,9 @@
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
   .claim-bottom-message {
-    background-color: $gray-700;
+    background-color: $gray-600;
     border-bottom-left-radius: 2px;
     border-bottom-right-radius: 2px;
-    color: $gray-200;
     font-size: 12px;
     padding-bottom: 0.25rem;
     padding-top: 0.25rem;
@@ -66,12 +76,22 @@
     .blue-10 {
       color: $blue-10;
     }
-    .gray-100 {
-      color: $gray-100;
+  }
+  .completion-row {
+    height: 3rem;
+    background-color: $gray-700;
+    font-size: 12px;
+
+    &:not(:last-of-type) {
+      border-bottom: 1px solid $gray-500;
+    }
+
+    .green-10 {
+      color: $green-10;
     }
   }
-  .completion-row { // temporary
-    height: 2rem;
+  .gray-100 {
+    color: $gray-100;
   }
 </style>
 
@@ -128,6 +148,7 @@ export default {
           completed: this.task.group.assignedUsers[userId].completed,
           completedDate,
           completedDateString,
+          completedToday: moment().diff(completedDate, 'days') === 0,
         });
       }
       return completionsArray;
