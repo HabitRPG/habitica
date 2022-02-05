@@ -224,7 +224,7 @@
       </div>
       <div class="row">
         <div class="col-12 col-md-5 text-center text-md-left">
-          © 2021 Habitica. All rights reserved.
+          © {{ currentYear }} Habitica. All rights reserved.
           <div
             v-if="!IS_PRODUCTION && isUserLoaded"
             class="debug float-left"
@@ -512,6 +512,10 @@ export default {
       if (!this.user) return null;
       return `${base}?uuid=${this.user._id}`;
     },
+    currentYear() {
+      const currentDate = new Date();
+      return currentDate.getFullYear();
+    }
   },
   methods: {
     plusTenHealth () {
