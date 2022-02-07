@@ -615,6 +615,8 @@
   "weaponArmoireRegalSceptreNotes": "Display your regal authority by taking this bejeweled staff in hand. Increases Perception by <%= per %>. Enchanted Armoire: Regal Set (Item 2 of 2).",
   "weaponArmoireShootingStarSpellText": "Stardust Sparkles",
   "weaponArmoireShootingStarSpellNotes": "Surround yourself in a spell of stardust magic to help you make all your wishes come true. Increases Strength and Intelligence by <%= attrs %> each. Enchanted Armoire: Stardust Set (Item 3 of 3).",
+  "weaponArmoirePinkLongbowText": "Pink Longbow",
+  "weaponArmoirePinkLongbowNotes": "Be a cupid-in-training, mastering both archery and matters of the heart with this beautiful bow. Increases Perception by <%= per %> and Strength by <%= str %>. Enchanted Armoire: Independent Item.",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -1299,6 +1301,8 @@
   "armorArmoireSoftBlackSuitNotes": "Black is a mysterious colour. It’s sure to inspire the most interesting dreams. Increases Constitution and Perception by <%= attrs %> each. Enchanted Armoire: Black Loungewear Set (Item 2 of 3).",
   "armorArmoireShootingStarCostumeText": "Star Gown",
   "armorArmoireShootingStarCostumeNotes": "Rumored to have been spun out of the night sky itself, this flowy gown lets you rise above all obstacles in your path. Increases Constitution by <%= con %>. Enchanted Armoire: Stardust Set (Item 2 of 3).",
+  "armorArmoireSoftVioletSuitText": "Soft Violet Suit",
+  "armorArmoireSoftVioletSuitNotes": "Purple is a luxurious color. Relax in style after you’ve accomplished all your daily tasks. Increases Constitution and Strength by <%= attrs %> each. Enchanted Armoire: Violet Loungewear Set (Item 2 of 3).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -1851,7 +1855,7 @@
   "headArmoireRedHairbowText": "Red Hairbow",
   "headArmoireRedHairbowNotes": "Become strong, tough, and smart while wearing this beautiful Red Hairbow! Increases Strength by <%= str %>, Constitution by <%= con %>, and Intelligence by <%= int %>. Enchanted Armoire: Red Hairbow Set (Item 1 of 2).",
   "headArmoireVioletFloppyHatText": "Violet Floppy Hat",
-  "headArmoireVioletFloppyHatNotes": "Many spells have been sewn into this simple hat, giving it a pleasing purple color. Increases Perception by <%= per %>, Intelligence by <%= int %>, and Constitution by <%= con %>. Enchanted Armoire: Independent Item.",
+  "headArmoireVioletFloppyHatNotes": "Many spells have been sewn into this simple hat, giving it a pleasing purple color. Increases Perception by <%= per %>, Intelligence by <%= int %>, and Constitution by <%= con %>. Enchanted Armoire: Violet Loungewear Set (Item 1 of 3).",
   "headArmoireGladiatorHelmText": "Gladiator Helm",
   "headArmoireGladiatorHelmNotes": "To be a gladiator you must be not only strong.... but cunning. Increases Intelligence by <%= int %> and Perception by <%= per %>. Enchanted Armoire: Gladiator Set (Item 1 of 3).",
   "headArmoireRancherHatText": "Rancher Hat",
@@ -2374,6 +2378,8 @@
   "shieldArmoireHeraldsMessageScrollNotes": "What exciting news does this scroll contain? Could it be about a new pet or a long habit streak? Increases Perception by <%= per %>. Enchanted Armoire: Herald Set (Item 4 of 4)",
   "shieldArmoireSoftBlackPillowText": "Soft Black Pillow",
   "shieldArmoireSoftBlackPillowNotes": "The brave warrior packs a pillow for any expedition. Guard yourself from tiresome tasks... even while you nap. Increases Intelligence and Perception by <%= attrs %> each. Enchanted Armoire: Black Loungewear Set (Item 3 of 3).",
+  "shieldArmoireSoftVioletPillowText": "Soft Violet Pillow",
+  "shieldArmoireSoftVioletPillowNotes": "The clever warrior packs a pillow for any expedition. Protect yourself from procrastination-induced panic... even while you nap. Increases Intelligence by <%= int %>. Enchanted Armoire: Violet Loungewear Set (Item 3 of 3).",
 
   "back": "Back Accessory",
   "backBase0Text": "No Back Accessory",
