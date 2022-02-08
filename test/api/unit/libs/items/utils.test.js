@@ -99,23 +99,26 @@ describe('Items Utils', () => {
       expect(castItemVal('items.food.Cake_Invalid', '5')).to.equal(5);
     });
 
-    it('converts values for mounts paths to numbers', () => {
-      expect(castItemVal('items.mounts.Cactus-Base', 'true')).to.equal(true);
-      expect(castItemVal('items.mounts.Aether-Invisible', 'false')).to.equal(false);
-      expect(castItemVal('items.mounts.Aether-Invalid', 'true')).to.equal(true);
-      expect(castItemVal('items.mounts.Aether-Invalid', 'truish')).to.equal(true);
-      expect(castItemVal('items.mounts.Aether-Invalid', 0)).to.equal(false);
-    });
-
     it('converts values for quests paths to numbers', () => {
       expect(castItemVal('items.quests.atom3', '5')).to.equal(5);
       expect(castItemVal('items.quests.invalid', '5')).to.equal(5);
     });
 
-    it('converts values for owned gear', () => {
+    it('converts values for mounts paths to true/null', () => {
+      // mounts are never false but can be null (function contains more details)
+      expect(castItemVal('items.mounts.Cactus-Base', 'true')).to.equal(true);
+      expect(castItemVal('items.mounts.Aether-Invisible', 'null')).to.equal(null);
+      expect(castItemVal('items.mounts.Aether-Invisible', 'false')).to.equal(null);
+      expect(castItemVal('items.mounts.Aether-Invalid', 'true')).to.equal(true);
+      expect(castItemVal('items.mounts.Aether-Invalid', 'truthy')).to.equal(true);
+      expect(castItemVal('items.mounts.Aether-Invalid', 0)).to.equal(null);
+    });
+
+    it('converts values for owned gear to true/false', () => {
       expect(castItemVal('items.gear.owned.shield_warrior_0', 'true')).to.equal(true);
       expect(castItemVal('items.gear.owned.invalid', 'false')).to.equal(false);
-      expect(castItemVal('items.gear.owned.invalid', 'thruthy')).to.equal(true);
+      expect(castItemVal('items.gear.owned.invalid', 'null')).to.equal(false);
+      expect(castItemVal('items.gear.owned.invalid', 'truthy')).to.equal(true);
       expect(castItemVal('items.gear.owned.invalid', 0)).to.equal(false);
     });
   });

@@ -800,7 +800,7 @@ export default {
 
     await this.reload();
 
-    // close members modal if the Private Messages page is opened in an existing tab
+    // close modal if the Private Messages page is opened in an existing tab
     this.$root.$emit('bv::hide::modal', 'profile');
     this.$root.$emit('bv::hide::modal', 'members-modal');
 

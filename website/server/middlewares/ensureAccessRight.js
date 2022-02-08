@@ -3,7 +3,7 @@ import {
 } from '../libs/errors';
 import apiError from '../libs/apiError';
 
-export function ensureAdmin (req, res, next) {
+export function ensureAdmin (req, res, next) { // @TODO replace with ensurePriv
   const { user } = res.locals;
 
   if (!user.contributor.admin) {
@@ -13,7 +13,7 @@ export function ensureAdmin (req, res, next) {
   return next();
 }
 
-export function ensureNewsPoster (req, res, next) {
+export function ensureNewsPoster (req, res, next) { // @TODO replace with ensurePriv
   const { user } = res.locals;
 
   if (!user.contributor.newsPoster) {
@@ -23,7 +23,7 @@ export function ensureNewsPoster (req, res, next) {
   return next();
 }
 
-export function ensureSudo (req, res, next) {
+export function ensureSudo (req, res, next) { // @TODO replace with ensurePriv
   const { user } = res.locals;
 
   if (!user.contributor.sudo) {
@@ -31,4 +31,16 @@ export function ensureSudo (req, res, next) {
   }
 
   return next();
+}
+
+export function ensurePriv (priv) {
+  return function ensurePrivHandler (req, res, next) {
+    const { user } = res.locals;
+
+    if (!user.contributor.priv[priv]) {
+      return next(new NotAuthorized(apiError('noPrivAccess')));
+    }
+
+    return next();
+  };
 }

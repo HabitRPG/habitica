@@ -257,7 +257,7 @@
           </thead>
           <tbody>
             <tr
-              v-for="(hero, index) in heroes"
+              v-for="hero in heroes"
               :key="hero._id"
             >
               <td>
@@ -278,38 +278,22 @@
                 class="btn-link"
                 :key="hero._id"
               >
-                <td>
-                  <user-link
-                    v-if="hero.contributor && hero.contributor.admin"
-                    :user="hero"
-                    :popover="$t('gamemaster')"
-                    popover-trigger="mouseenter"
-                    popover-placement="right"
-                  />
-                  <user-link
-                    v-if="!hero.contributor || !hero.contributor.admin"
-                    :user="hero"
-                  />
-                </td>
-                <td
-                  v-if="user.contributor.admin"
-                  class="btn-link"
-                  @click="populateContributorInput(hero._id, index)"
-                >
+                <router-link :to="{ name: 'adminPanelUser', params: { userIdentifier: hero._id } }">
                   {{ hero._id }}
-                </td>
-                <td>{{ hero.contributor.level }}</td>
-                <td>{{ hero.contributor.text }}</td>
-                <td>
-                  <div
-                    v-markdown="hero.contributor.contributions"
-                    target="_blank"
-                  ></div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+                </router-link>
+              </td>
+
+              <td>{{ hero.contributor.level }}</td>
+              <td>{{ hero.contributor.text }}</td>
+              <td>
+                <div
+                  v-markdown="hero.contributor.contributions"
+                  target="_blank"
+                ></div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
@@ -438,24 +422,6 @@ export default {
       this.heroID = -1;
       this.heroes[this.currentHeroIndex] = heroUpdated;
       this.currentHeroIndex = -1;
-    },
-    clearHero () {
-      this.hero = {};
-      this.heroID = -1;
-      this.currentHeroIndex = -1;
-    },
-    populateContributorInput (id, index) {
-      this.heroID = id;
-      window.scrollTo(0, 200);
-      this.loadHero(id, index);
-    },
-    async toggleTransactionsOpen () {
-      this.expandTransactions = !this.expandTransactions;
-      if (this.expandTransactions) {
-        const transactions = await this.$store.dispatch('members:getPurchaseHistory', { memberId: this.hero._id });
-        this.gemTransactions = transactions.filter(transaction => transaction.currency === 'gems');
-        this.hourglassTransactions = transactions.filter(transaction => transaction.currency === 'hourglasses');
-      }
     },
   },
 };

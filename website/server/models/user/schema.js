@@ -171,6 +171,10 @@ export default new Schema({
     },
     admin: Boolean,
     newsPoster: Boolean,
+    priv: {
+      userSupport: Boolean, // access User Support feature in Admin Panel
+      userSupportPlus: Boolean, // see extra data in User Support feature
+    },
     sudo: Boolean,
     // Artisan, Friend, Blacksmith, etc
     text: String,
