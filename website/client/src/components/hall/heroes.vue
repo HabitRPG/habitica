@@ -261,17 +261,17 @@
                 :key="hero._id"
               >
                 <td>
-                    <user-link
-                      v-if="hero.contributor && hero.contributor.admin"
-                      :user="hero"
-                      :popover="$t('gamemaster')"
-                      popover-trigger="mouseenter"
-                      popover-placement="right"
-                    />
-                    <user-link
-                      v-else
-                      :user="hero"
-                    />
+                  <user-link
+                    v-if="hero.contributor && hero.contributor.admin"
+                    :user="hero"
+                    :popover="$t('gamemaster')"
+                    popover-trigger="mouseenter"
+                    popover-placement="right"
+                  />
+                  <user-link
+                    v-else
+                    :user="hero"
+                  />
                 </td>
                 <td
                   v-if="user.contributor.admin"
