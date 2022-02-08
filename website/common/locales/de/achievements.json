@@ -123,5 +123,8 @@
     "achievementShadyCustomerModalText": "Du hast alle Schatten-Haustiere gesammelt!",
     "achievementShadeOfItAllText": "Hat alle Schatten-Reittiere gezähmt.",
     "achievementShadyCustomerText": "Hat alle Schatten-Haustiere gesammelt.",
-    "achievementShadyCustomer": "Der Schatten in Dir"
+    "achievementShadyCustomer": "Der Schatten in Dir",
+    "achievementZodiacZookeeper": "Tierkreiszeichen-Pfleger",
+    "achievementZodiacZookeeperText": "Hat alle Tierkreiszeichen-Tiere ausgebrütet: Ratte, Kalb, Kaninchen, Schlange, Fohlen, Schaf, Affe, Hahn, Wolf, Tiger, Fliegendes Ferkel, und Drache!",
+    "achievementZodiacZookeeperModalText": "Du hast alle Tierkreiszeichen-Tiere eingesammelt!"
 }
