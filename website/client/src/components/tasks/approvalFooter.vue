@@ -8,14 +8,26 @@
       <div
         v-for="completion in completionsList"
         :key="completion.userId"
-        class="completion-row"
+        class="d-flex completion-row"
       >
+        <div class="control">
+          <div
+            class="inner d-flex justify-content-center align-items-center p-auto"
+            :class="{interactive: iconClass(completion) !== 'lock'}"
+            @click="iconClass(completion) !== 'lock' ? needsWork(completion) : null"
+          >
+            <div
+              class="icon"
+              :class="iconClass(completion)"
+              v-html="icons[iconClass(completion)]"
+            >
+            </div>
+          </div>
+        </div>
         <div
-          class="px-3 py-2"
+          class="px-3 py-2 info"
         >
           <div>
-            <span v-if="completion.completed">✅</span>
-            <span v-else>❎</span>
             <strong> @{{ completion.userName }} </strong>
           </div>
           <div
@@ -77,21 +89,60 @@
       color: $blue-10;
     }
   }
+
   .completion-row {
     height: 3rem;
     background-color: $gray-700;
     font-size: 12px;
 
-    &:not(:last-of-type) {
-      border-bottom: 1px solid $gray-500;
+    .control {
+      background-color: $gray-200;
+      border-top: 1px solid $gray-100;
+      width: 44px;
+      height: 48px;
+      padding: 9px 6px;
+
+      .inner {
+        width: 28px;
+        height: 28px;
+        padding: 6px;
+        border-radius: 2px;
+        background-color: rgba($white, 0.5);
+        cursor: default;
+
+        &.interactive {
+          cursor: pointer;
+
+          &:hover {
+            background-color: rgba($white, 0.75);
+          }
+        }
+
+        .icon {
+          color: $gray-10;
+
+          &.lock {
+            width: 10px;
+          }
+          &.check {
+            margin-left: 2px;
+            width: 12px;
+          }
+        }
+      }
     }
 
-    .green-10 {
-      color: $green-10;
+    .info {
+      width: 100%;
+      border-top: 1px solid $gray-600;
     }
   }
+
   .gray-100 {
     color: $gray-100;
+  }
+  .green-10 {
+    color: $green-10;
   }
 </style>
 
@@ -101,12 +152,18 @@ import keys from 'lodash/keys';
 import moment from 'moment';
 import reduce from 'lodash/reduce';
 import { mapState } from '@/libs/store';
+import checkIcon from '@/assets/svg/check.svg';
+import lockIcon from '@/assets/svg/lock.svg';
 
 export default {
   props: ['task', 'group'],
   data () {
     return {
       showStatus: false,
+      icons: Object.freeze({
+        check: checkIcon,
+        lock: lockIcon,
+      }),
     };
   },
   computed: {
@@ -171,6 +228,19 @@ export default {
         return this.$t('youAreAssigned');
       } // Task is open; we shouldn't be showing message at all
       return this.$t('error');
+    },
+  },
+  methods: {
+    iconClass (completion) {
+      if ((this.userIsAssigned || this.userIsManager) && completion.completed) return 'check';
+      return 'lock';
+    },
+    needsWork (completion) {
+      this.$store.dispatch('tasks:needsWork', {
+        taskId: this.task._id,
+        userId: completion.userId,
+      });
+      this.task.group.assignedUsers[completion.userId].completed = false;
     },
   },
 };

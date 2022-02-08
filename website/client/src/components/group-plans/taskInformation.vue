@@ -128,7 +128,6 @@
 import Vue from 'vue';
 import cloneDeep from 'lodash/cloneDeep';
 import findIndex from 'lodash/findIndex';
-import groupBy from 'lodash/groupBy';
 import moment from 'moment';
 import taskDefaults from '@/../../common/script/libs/taskDefaults';
 import TaskColumn from '../tasks/column';
@@ -279,22 +278,9 @@ export default {
         groupId: this.searchId,
       });
 
-      const groupedApprovals = await this.loadApprovals();
-
       tasks.forEach(task => {
-        if (
-          groupedApprovals[task._id]
-          && groupedApprovals[task._id].length > 0
-        ) task.approvals = groupedApprovals[task._id];
         this.tasksByType[task.type].push(task);
       });
-    },
-    async loadApprovals () {
-      const approvalRequests = await this.$store.dispatch('tasks:getGroupApprovals', {
-        groupId: this.searchId,
-      });
-
-      return groupBy(approvalRequests, 'group.taskId');
     },
     editTask (task) {
       this.taskFormPurpose = 'edit';
