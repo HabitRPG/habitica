@@ -16,7 +16,7 @@
       v-else
       class="d-flex flex-column mx-auto align-items-center"
     >
-      {{ $t('sendGift') }}
+      {{ $t('sendAGift') }}
     </h2>
     <div class="d-flex flex-column align-items-center">
       <div
@@ -80,12 +80,6 @@
               {{ $t('nextButton') }}
             </div>
           </button>
-          <a
-            class="cancel-link mx-auto mt-3"
-            @click="close()"
-          >
-            {{ $t('cancel') }}
-          </a>
         </div>
       </div>
     </div>
@@ -117,6 +111,14 @@
   @import '~@/assets/scss/mixins.scss';
 
   #select-user-modal {
+    .modal-content {
+      width: 448px;
+      height: 308px;
+      border-radius: 8px;
+      box-shadow: 0 14px 28px 0 rgba(26, 24, 29, 0.24), 0 10px 10px 0 rgba(26, 24, 29, 0.28);
+      background-color: var(--white);
+    }
+
     .input-group {
       margin-top: 0rem;
     }
