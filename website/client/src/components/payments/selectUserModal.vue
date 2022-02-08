@@ -14,10 +14,17 @@
     </div>
     <h2
       v-else
-      class="ml-2"
+      class="d-flex flex-column mx-auto align-items-center"
     >
       {{ $t('sendGift') }}
     </h2>
+    <div class="d-flex flex-column align-items-center">
+      <div
+        class="svg-big-gift"
+        v-once
+        v-html="icons.bigGift"
+      ></div>
+    </div>
     <div class="d-flex flex-column align-items-center">
       <div
         class="modal-close"
@@ -70,7 +77,7 @@
             <div
               v-else
             >
-              {{ $t('selectGift') }}
+              {{ $t('nextButton') }}
             </div>
           </button>
           <a
@@ -192,6 +199,17 @@
     border-color: $purple-500;
   }
 
+  h2 {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    color: $purple-300;
+  }
+
+  .svg-big-gift {
+    width: 176px;
+    height: 64px;
+  }
+
   .modal-close {
     position: absolute;
     width: 18px;
@@ -214,6 +232,7 @@ import find from 'lodash/find';
 import isUUID from 'validator/lib/isUUID';
 import { mapState } from '@/libs/store';
 import closeIcon from '@/assets/svg/close.svg';
+import bigGiftIcon from '@/assets/svg/big-gift.svg';
 
 export default {
   data () {
@@ -223,6 +242,7 @@ export default {
       foundUser: {},
       icons: Object.freeze({
         close: closeIcon,
+        bigGift: bigGiftIcon,
       }),
     };
   },
