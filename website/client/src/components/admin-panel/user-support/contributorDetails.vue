@@ -9,23 +9,68 @@
     </h3>
     <div v-if="expand">
       <form @submit.prevent="saveHero({hero, msg: 'Contributor details', clearData: true})">
-        <div class="checkbox">
-          <label>
-            <input
-              v-model="hero.contributor.admin"
-              type="checkbox"
-            >
-            Moderator abilities (see flags, clear flags, use this admin form)
-          </label>
-        </div>
-        <div class="checkbox">
-          <label>
-            <input
-              v-model="hero.contributor.newsPoster"
-              type="checkbox"
-            >
-            News poster (Bailey CMS)
-          </label>
+        <div>
+          <label>Permissions</label>
+          <div class="checkbox">
+            <label>
+              <input
+                v-model="hero.permissions.fullAccess"
+                :disabled="!user.permissions.fullAccess"
+                type="checkbox"
+              >
+              Full Admin Access (Allows access to everything. EVERYTHING)
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input
+                v-model="hero.permissions.userSupport"
+                :disabled="!user.permissions.fullAccess"
+                type="checkbox"
+              >
+              User Support (Access this form, access purchase history)
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input
+                v-model="hero.permissions.news"
+                :disabled="!user.permissions.fullAccess"
+                type="checkbox"
+              >
+              News poster (Bailey CMS)
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input
+                v-model="hero.permissions.moderator"
+                :disabled="!user.permissions.fullAccess"
+                type="checkbox"
+              >
+              Community Moderator (ban and mute users, access chat flags, manage social spaces)
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input
+                v-model="hero.permissions.challengeAdmin"
+                :disabled="!user.permissions.fullAccess"
+                type="checkbox"
+              >
+              Challenge Admin (can create official habitica challenges and admin all challenges)
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input
+                v-model="hero.permissions.coupons"
+                :disabled="!user.permissions.fullAccess"
+                type="checkbox"
+              >
+              Coupon Creator (can manage coupon codes)
+            </label>
+          </div>
         </div>
         <div class="form-group">
           <label>Title</label>
@@ -116,6 +161,8 @@
 import markdownDirective from '@/directives/markdown';
 import saveHero from '../mixins/saveHero';
 
+import { mapState } from '@/libs/store';
+
 function resetData (self) {
   self.expand = self.hero.contributor.level;
 }
@@ -127,6 +174,9 @@ export default {
   mixins: [
     saveHero,
   ],
+  computed: {
+    ...mapState({ user: 'user.data' }),
+  },
   props: {
     resetCounter: {
       type: Number,

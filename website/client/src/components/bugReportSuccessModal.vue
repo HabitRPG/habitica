@@ -17,15 +17,22 @@
       </div>
     </div>
     <div>
-      <span class="svg-icon check-icon"
-            v-html="icons.checkCircleIcon"
+      <span
+        class="svg-icon check-icon"
+        v-html="icons.checkCircleIcon"
       ></span>
 
-      <div class="title" v-once>
+      <div
+        v-once
+        class="title"
+      >
         {{ $t('reportSent') }}
       </div>
 
-      <div class="text mt-3 mb-4" v-once>
+      <div
+        v-once
+        class="text mt-3 mb-4"
+      >
         {{ $t('reportSentDescription') }}
       </div>
     </div>
@@ -143,12 +150,12 @@ export default {
       modalId: MODALS.BUG_REPORT_SUCCESS,
     };
   },
+  computed: {},
+  mounted () {},
   methods: {
     close () {
       this.$root.$emit('bv::hide::modal', MODALS.BUG_REPORT_SUCCESS);
     },
   },
-  computed: {},
-  mounted () {},
 };
 </script>

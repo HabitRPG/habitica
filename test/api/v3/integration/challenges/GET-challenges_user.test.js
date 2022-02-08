@@ -231,7 +231,7 @@ describe('GET challenges/user', () => {
       publicGuild = group;
 
       await user.update({
-        'contributor.admin': true,
+        'permissions.challengeAdmin': true,
       });
 
       officialChallenge = await generateChallenge(user, group, {

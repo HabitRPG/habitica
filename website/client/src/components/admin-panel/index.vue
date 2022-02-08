@@ -16,7 +16,7 @@
           >
           <input
             type="submit"
-            value="Load User (click or hit enter)"
+            value="Load User"
             class="btn btn-secondary"
           >
         </form>

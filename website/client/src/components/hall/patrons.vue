@@ -9,7 +9,7 @@
         <thead>
           <tr>
             <th>{{ $t('name') }}</th>
-            <th v-if="user.contributor.admin">
+            <th v-if="user.hasPermission('userSupport')">
               {{ $t('userId') }}
             </th>
             <th>{{ $t('backerTier') }}</th>
@@ -28,7 +28,7 @@
               ></a>
               {{ patron.profile.name }}
             </td>
-            <td v-if="user.contributor.admin">
+            <td v-if="user.hasPermission('userSupport')">
               {{ patron._id }}
             </td>
             <td>{{ patron.backer.tier }}</td>

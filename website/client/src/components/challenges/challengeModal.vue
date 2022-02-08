@@ -112,7 +112,7 @@
           <!-- eslint-disable vue/no-use-v-if-with-v-for -->
           <div
             v-for="group in categoryOptions"
-            v-if="group.key !== 'habitica_official' || user.contributor.admin"
+            v-if="group.key !== 'habitica_official' || user.hasPermission('challengeAdmin')"
             :key="group.key"
             class="form-check"
           >

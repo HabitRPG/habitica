@@ -23,7 +23,7 @@
     </div>
     <div class="footer text-center">
       <button
-        v-if="user.contributor.admin"
+        v-if="user.hasPermission('moderator')"
         class="pull-left btn btn-danger"
         @click="clearFlagCount()"
       >

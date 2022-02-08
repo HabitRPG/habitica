@@ -5,7 +5,7 @@
       class="mentioned-icon"
     ></div>
     <div
-      v-if="user.contributor.admin && msg.flagCount"
+      v-if="user.hasPermission('moderator') && msg.flagCount"
       class="message-hidden"
     >
       {{ flagCountDescription }}
@@ -54,7 +54,7 @@
         </div>
         <div
           v-if="(user.flags.communityGuidelinesAccepted && msg.uuid !== 'system')
-            && (!isMessageReported || user.contributor.admin)"
+            && (!isMessageReported || user.hasPermission('moderator'))"
           class="action d-flex align-items-center"
           @click="report(msg)"
         >
@@ -68,7 +68,7 @@
           </div>
         </div>
         <div
-          v-if="msg.uuid === user._id || user.contributor.admin"
+          v-if="msg.uuid === user._id || user.hasPermission('moderator')"
           class="action d-flex align-items-center"
           @click="remove()"
         >

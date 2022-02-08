@@ -85,7 +85,7 @@ schema.methods.isMember = function isChallengeMember (user) {
 
 // Returns true if the user can modify (close, selectWinner, ...) the challenge
 schema.methods.canModify = function canModifyChallenge (user) {
-  return user.contributor.admin || this.isLeader(user);
+  return user.hasPermission('challengeAdmin') || this.isLeader(user);
 };
 
 // Returns true if user can join the challenge

@@ -84,6 +84,7 @@ describe('PUT /user', () => {
       'gem balance': { balance: 100 },
       auth: { 'auth.blocked': true, 'auth.timestamps.created': new Date() },
       contributor: { 'contributor.level': 9, 'contributor.admin': true, 'contributor.text': 'some text' },
+      permissions: { 'permissions.fullAccess': true, 'permissions.news': true, 'permissions.moderator': 'some text' },
       backer: { 'backer.tier': 10, 'backer.npc': 'Bilbo' },
       subscriptions: { 'purchased.plan.extraMonths': 500, 'purchased.plan.consecutive.trinkets': 1000 },
       'customization gem purchases': { 'purchased.background.tavern': true, 'purchased.skin.bear': true },

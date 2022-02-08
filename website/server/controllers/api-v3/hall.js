@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import validator from 'validator';
 import { authWithHeaders } from '../../middlewares/auth';
-import { ensureAdmin, ensurePriv } from '../../middlewares/ensureAccessRight';
+import { ensurePermission } from '../../middlewares/ensureAccessRight';
 import { model as User } from '../../models/user';
 import { model as Group } from '../../models/group';
 import common from '../../../common';
@@ -146,7 +146,7 @@ api.getHeroes = {
 // Note, while the following routes are called getHero / updateHero
 // they can be used by admins to get/update any user
 
-const heroAdminFields = 'auth balance contributor flags items lastCron party preferences profile.name purchased secret';
+const heroAdminFields = 'auth balance contributor flags items lastCron party preferences profile.name purchased secret permissions';
 const heroAdminFieldsToFetch = heroAdminFields; // these variables will make more sense when...
 const heroAdminFieldsToShow = heroAdminFields; // ... apiTokenObscured is added
 
@@ -172,7 +172,7 @@ const heroPartyAdminFields = 'balance challengeCount leader leaderOnly memberCou
 api.getHero = {
   method: 'GET',
   url: '/hall/heroes/:heroId',
-  middlewares: [authWithHeaders(), ensureAdmin],
+  middlewares: [authWithHeaders(), ensurePermission('userSupport')],
   async handler (req, res) {
     req.checkParams('heroId', res.t('heroIdRequired')).notEmpty();
 
@@ -254,7 +254,7 @@ const gemsPerTier = {
 api.updateHero = {
   method: 'PUT',
   url: '/hall/heroes/:heroId',
-  middlewares: [authWithHeaders(), ensureAdmin],
+  middlewares: [authWithHeaders(), ensurePermission('userSupport')],
   async handler (req, res) {
     const { heroId } = req.params;
     const updateData = req.body;
@@ -287,6 +287,7 @@ api.updateHero = {
     }
 
     if (updateData.contributor) _.assign(hero.contributor, updateData.contributor);
+    if (updateData.permissions && res.locals.user.hasPermission('fullAccess')) _.assign(hero.permissions, updateData.permissions);
     if (updateData.purchased && updateData.purchased.ads) {
       hero.purchased.ads = updateData.purchased.ads;
     }
@@ -359,7 +360,7 @@ api.updateHero = {
 api.getHeroParty = { // @TODO XXX add tests
   method: 'GET',
   url: '/hall/heroes/party/:groupId',
-  middlewares: [authWithHeaders(), ensurePriv('userSupport')],
+  middlewares: [authWithHeaders(), ensurePermission('userSupport')],
   async handler (req, res) {
     req.checkParams('groupId', apiError('groupIdRequired')).notEmpty().isUUID();
 

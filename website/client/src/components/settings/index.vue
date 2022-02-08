@@ -38,7 +38,7 @@
         {{ $t('subscription') }}
       </router-link>
       <router-link
-        v-if="user.contributor.admin"
+        v-if="user.hasPermission('userSupport')"
         class="nav-link"
         :to="{name: 'transactions'}"
         :class="{'active': $route.name === 'transactions'}"

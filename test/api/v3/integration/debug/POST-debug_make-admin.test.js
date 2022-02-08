@@ -14,14 +14,12 @@ describe('POST /debug/make-admin', () => {
     nconf.set('IS_PROD', false);
   });
 
-  it('makes user an admine', async () => {
+  it('makes user an admin', async () => {
     await user.post('/debug/make-admin');
 
     await user.sync();
 
-    expect(user.contributor.admin).to.eql(true); // @TODO make this unnecessary
-    expect(user.contributor.priv.userSupport).to.eql(true);
-    expect(user.contributor.priv.userSupportPlus).to.eql(true);
+    expect(user.permissions.fullAccess).to.eql(true);
   });
 
   it('returns error when not in production mode', async () => {

@@ -8,7 +8,7 @@
     </div>
     <div class="row standard-page">
       <div>
-        <div v-if="user.contributor.admin">
+        <div v-if="user.hasPermission('userSupport')">
           <h2>Reward User</h2>
           <div
             v-if="!hero.profile"
@@ -242,58 +242,61 @@
             </div>
           </div>
         </div>
-      <div class="table-responsive">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>{{ $t('name') }}</th>
-              <th v-if="user.contributor && user.contributor.admin">
-                {{ $t('userId') }}
-              </th>
-              <th>{{ $t('contribLevel') }}</th>
-              <th>{{ $t('title') }}</th>
-              <th>{{ $t('contributions') }}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              v-for="hero in heroes"
-              :key="hero._id"
-            >
-              <td>
-                <user-link
-                  v-if="hero.contributor && hero.contributor.admin"
-                  :user="hero"
-                  :popover="$t('gamemaster')"
-                  popover-trigger="mouseenter"
-                  popover-placement="right"
-                />
-                <user-link
-                  v-if="!hero.contributor || !hero.contributor.admin"
-                  :user="hero"
-                />
-              </td>
-              <td
-                v-if="user.contributor.admin"
-                class="btn-link"
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>{{ $t('name') }}</th>
+                <th v-if="user.hasPermission('userSupport')">
+                  {{ $t('userId') }}
+                </th>
+                <th>{{ $t('contribLevel') }}</th>
+                <th>{{ $t('title') }}</th>
+                <th>{{ $t('contributions') }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="hero in heroes"
                 :key="hero._id"
               >
-                <router-link :to="{ name: 'adminPanelUser', params: { userIdentifier: hero._id } }">
-                  {{ hero._id }}
-                </router-link>
-              </td>
-
-              <td>{{ hero.contributor.level }}</td>
-              <td>{{ hero.contributor.text }}</td>
-              <td>
-                <div
-                  v-markdown="hero.contributor.contributions"
-                  target="_blank"
-                ></div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                <td>
+                  <user-link
+                    v-if="hero.hasPermission('userSupport')"
+                    :user="hero"
+                    :popover="$t('gamemaster')"
+                    popover-trigger="mouseenter"
+                    popover-placement="right"
+                  />
+                  <user-link
+                    v-if="!hero.hasPermission('userSupport')"
+                    :user="hero"
+                  />
+                </td>
+                <td
+                  v-if="user.hasPermission('userSupport')"
+                  :key="hero._id"
+                  class="btn-link"
+                >
+                  <router-link
+                    :to="{ name: 'adminPanelUser',
+                           params: { userIdentifier: hero._id } }"
+                  >
+                    {{ hero._id }}
+                  </router-link>
+                </td>
+                <td>{{ hero.contributor.level }}</td>
+                <td>{{ hero.contributor.text }}</td>
+                <td>
+                  <div
+                    v-markdown="hero.contributor.contributions"
+                    target="_blank"
+                  ></div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
@@ -307,7 +310,6 @@
 
 <script>
 import each from 'lodash/each';
-
 import markdownDirective from '@/directives/markdown';
 import styleHelper from '@/mixins/styleHelper';
 import { mapState } from '@/libs/store';
@@ -394,11 +396,9 @@ export default {
     },
     getFormattedItemReference (pathPrefix, itemKeys, values) {
       let finishedString = '\n'.concat('path: ', pathPrefix, ', ', 'value: {', values, '}\n');
-
       each(itemKeys, key => {
         finishedString = finishedString.concat('\t', pathPrefix, '.', key, '\n');
       });
-
       return finishedString;
     },
     async loadHero (uuid, heroIndex) {
@@ -415,13 +415,25 @@ export default {
       this.expandAuth = false;
     },
     async saveHero () {
-      this.hero.contributor.admin = this.hero.contributor.level > 7;
       const heroUpdated = await this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
       this.text('User updated');
       this.hero = {};
       this.heroID = -1;
       this.heroes[this.currentHeroIndex] = heroUpdated;
       this.currentHeroIndex = -1;
+    },
+    clearHero () {
+      this.hero = {};
+      this.heroID = -1;
+      this.currentHeroIndex = -1;
+    },
+    async toggleTransactionsOpen () {
+      this.expandTransactions = !this.expandTransactions;
+      if (this.expandTransactions) {
+        const transactions = await this.$store.dispatch('members:getPurchaseHistory', { memberId: this.hero._id });
+        this.gemTransactions = transactions.filter(transaction => transaction.currency === 'gems');
+        this.hourglassTransactions = transactions.filter(transaction => transaction.currency === 'hourglasses');
+      }
     },
   },
 };

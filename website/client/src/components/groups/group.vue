@@ -372,7 +372,7 @@ export default {
       return this.user._id === this.group.leader._id;
     },
     isAdmin () {
-      return Boolean(this.user.contributor.admin);
+      return Boolean(this.user.hasPermission('moderator'));
     },
     isMember () {
       return this.isMemberOfGroup(this.user, this.group);

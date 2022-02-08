@@ -37,7 +37,7 @@ export default class GroupChatReporter extends ChatReporter {
     const group = await Group.getGroup({
       user: this.user,
       groupId: this.groupId,
-      optionalMembership: this.user.contributor.admin,
+      optionalMembership: this.user.hasPermission('moderator'),
     });
     if (!group) throw new NotFound(this.res.t('groupNotFound'));
 
@@ -72,13 +72,13 @@ export default class GroupChatReporter extends ChatReporter {
     // Log user ids that have flagged the message
     if (!message.flags) message.flags = {};
     // TODO fix error type
-    if (message.flags[this.user._id] && !this.user.contributor.admin) throw new NotFound(this.res.t('messageGroupChatFlagAlreadyReported'));
+    if (message.flags[this.user._id] && !this.user.hasPermission('moderator')) throw new NotFound(this.res.t('messageGroupChatFlagAlreadyReported'));
     message.flags[this.user._id] = true;
     message.markModified('flags');
 
     // Log total number of flags (publicly viewable)
     if (!message.flagCount) message.flagCount = 0;
-    if (this.user.contributor.admin) {
+    if (this.user.hasPermission('moderator')) {
       // Arbitrary amount, higher than 2
       message.flagCount = 5;
     } else if (increaseFlagCount) {

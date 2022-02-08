@@ -104,9 +104,7 @@ api.makeAdmin = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    user.contributor.admin = true; // @TODO make this unnecessary
-    user.contributor.priv.userSupport = true;
-    user.contributor.priv.userSupportPlus = true;
+    user.permissions.fullAccess = true;
 
     await user.save();
 

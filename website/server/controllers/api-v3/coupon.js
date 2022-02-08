@@ -5,7 +5,7 @@ import {
   authWithHeaders,
   authWithSession,
 } from '../../middlewares/auth';
-import { ensureSudo } from '../../middlewares/ensureAccessRight';
+import { ensurePermission } from '../../middlewares/ensureAccessRight';
 import * as couponsLib from '../../libs/coupons';
 import apiError from '../../libs/apiError';
 import { model as Coupon } from '../../models/coupon';
@@ -35,7 +35,7 @@ const api = {};
 api.getCoupons = {
   method: 'GET',
   url: '/coupons',
-  middlewares: [authWithSession, ensureSudo],
+  middlewares: [authWithSession, ensurePermission('coupons')],
   async handler (req, res) {
     const coupons = await Coupon.find().sort('createdAt').lean().exec();
 
@@ -70,7 +70,7 @@ api.getCoupons = {
 api.generateCoupons = {
   method: 'POST',
   url: '/coupons/generate/:event',
-  middlewares: [authWithHeaders(), ensureSudo],
+  middlewares: [authWithHeaders(), ensurePermission('coupons')],
   async handler (req, res) {
     req.checkParams('event', apiError('eventRequired')).notEmpty();
     req.checkQuery('count', apiError('countRequired')).notEmpty().isNumeric();

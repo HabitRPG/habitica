@@ -60,7 +60,7 @@ describe('POST /tasks/challenge/:challengeId', () => {
   });
 
   it('allows non-leader admin to add tasks to a challenge when not a member', async () => {
-    const admin = await generateUser({ 'contributor.admin': true });
+    const admin = await generateUser({ 'permissions.challengeAdmin': true });
     const task = await admin.post(`/tasks/challenge/${challenge._id}`, {
       text: 'test habit from admin',
       type: 'habit',

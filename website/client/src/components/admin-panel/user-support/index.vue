@@ -1,5 +1,5 @@
 <template>
-  <div v-if="user.contributor.priv.userSupport">
+  <div v-if="user.permissions.userSupport">
     <div
       v-if="hero && hero.profile"
       class="row"

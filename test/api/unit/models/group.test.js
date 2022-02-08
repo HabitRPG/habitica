@@ -1029,7 +1029,7 @@ describe('Group Model', () => {
         expect(toJSON.chat.length).to.equal(1);
       });
 
-      it('shows messages with >= 2 flag to admins', async () => {
+      it('shows messages with >= 2 flag to moderators', async () => {
         party.chat = [{
           flagCount: 3,
           info: {
@@ -1037,12 +1037,12 @@ describe('Group Model', () => {
             quest: 'basilist',
           },
         }];
-        const admin = new User({ 'contributor.admin': true });
+        const admin = new User({ 'permissions.moderator': true });
         const toJSON = await Group.toJSONCleanChat(party, admin);
         expect(toJSON.chat.length).to.equal(1);
       });
 
-      it('doesn\'t show flagged messages to non-admins', async () => {
+      it('doesn\'t show flagged messages to non-moderators', async () => {
         party.chat = [{
           flagCount: 3,
           info: {

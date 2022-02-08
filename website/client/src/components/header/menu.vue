@@ -298,7 +298,7 @@
             </router-link>
             <div class="topbar-dropdown">
               <router-link
-                v-if="user.contributor.priv.userSupport || user.contributor.priv.newsPoster"
+                v-if="user.permissions.userSupport || user.permissions.newsPoster"
                 class="topbar-dropdown-item dropdown-item"
                 :to="{name: 'adminPanel'}"
               >
@@ -318,8 +318,8 @@
               </router-link>
               <a
                 class="topbar-dropdown-item dropdown-item"
-                @click.prevent="openBugReportModal()"
                 target="_blank"
+                @click.prevent="openBugReportModal()"
               >
                 {{ $t('reportBug') }}
               </a>

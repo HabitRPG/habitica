@@ -1,6 +1,6 @@
 import { authWithHeaders } from '../../middlewares/auth';
 import { chatReporterFactory } from '../../libs/chatReporting/chatReporterFactory';
-import { ensureAdmin } from '../../middlewares/ensureAccessRight';
+import { ensurePermission } from '../../middlewares/ensureAccessRight';
 import { model as Transaction } from '../../models/transaction';
 
 const api = {};
@@ -58,7 +58,7 @@ api.flagPrivateMessage = {
  */
 api.purchaseHistory = {
   method: 'GET',
-  middlewares: [authWithHeaders(), ensureAdmin],
+  middlewares: [authWithHeaders(), ensurePermission('userSupport')],
   url: '/members/:memberId/purchase-history',
   async handler (req, res) {
     req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();

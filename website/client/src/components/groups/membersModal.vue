@@ -468,7 +468,7 @@ export default {
       return this.user._id === this.group.leader || this.user._id === this.group.leader._id;
     },
     isAdmin () {
-      return Boolean(this.user.contributor.admin);
+      return Boolean(this.user.hasPermission('moderator'));
     },
     isLoadMoreAvailable () {
       // Only available if the current length of `members` is less than the

@@ -214,7 +214,7 @@ export default {
     canViewFlag (message) {
       if (message.uuid === this.user._id) return true;
       if (!message.flagCount || message.flagCount < 2) return true;
-      return this.user.contributor.admin;
+      return this.user.hasPermission('moderator');
     },
     loadProfileCache: debounce(function loadProfileCache (screenPosition) {
       this._loadProfileCache(screenPosition);

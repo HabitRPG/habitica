@@ -396,7 +396,7 @@ export default {
       return this.user._id === this.challenge.leader._id;
     },
     isAdmin () {
-      return Boolean(this.user.contributor.admin);
+      return Boolean(this.user.hasPermission('challengeAdmin'));
     },
     canJoin () {
       return !this.isMember;

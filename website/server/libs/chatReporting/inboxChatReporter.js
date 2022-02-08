@@ -30,7 +30,7 @@ export default class InboxChatReporter extends ChatReporter {
     const validationErrors = this.req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    if (this.user.contributor.admin && this.req.query.userId) {
+    if (this.user.hasPermission('moderator') && this.req.query.userId) {
       this.inboxUser = await User.findOne({ _id: this.req.query.userId }).exec();
     }
 
@@ -103,7 +103,7 @@ export default class InboxChatReporter extends ChatReporter {
     // Log user ids that have flagged the message
     if (!message.flags) message.flags = {};
     // TODO fix error type
-    if (message.flags[this.user._id] && !this.user.contributor.admin) {
+    if (message.flags[this.user._id] && !this.user.hasPermission('moderator')) {
       throw new BadRequest(this.res.t('messageGroupChatFlagAlreadyReported'));
     }
 

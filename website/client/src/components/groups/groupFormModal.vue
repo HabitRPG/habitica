@@ -213,7 +213,7 @@ label.custom-control-label(v-once) {{ $t('allowGuildInvitationsFromNonMembers') 
           <!-- eslint-disable vue/no-use-v-if-with-v-for -->
           <div
             v-for="group in categoryOptions"
-            v-if="group.key !== 'habitica_official' || user.contributor.admin"
+            v-if="group.key !== 'habitica_official' || user.hasPermission('challengeAdmin')"
             :key="group.key"
             class="form-check"
           >
@@ -512,7 +512,7 @@ export default {
       return this.workingGroup.type === 'party';
     },
     isAdmin () {
-      return Boolean(this.user.contributor.admin);
+      return Boolean(this.user.hasPermission('moderator'));
     },
   },
   watch: {

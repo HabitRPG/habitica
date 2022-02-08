@@ -393,7 +393,7 @@ schema.statics.toJSONCleanChat = async function groupToJSONCleanChat (group, use
         chatMsg.timestamp = chatMsg.timestamp.getTime();
       }
 
-      if (!user.contributor.admin) {
+      if (!user.hasPermission('userSupport')) {
         // Flags are hidden to non admins
         chatMsg.flags = {};
         if (chatMsg._meta) chatMsg._meta = undefined;

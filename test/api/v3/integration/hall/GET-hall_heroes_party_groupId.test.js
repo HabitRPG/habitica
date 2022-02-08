@@ -11,7 +11,7 @@ describe('GET /heroes/party/:groupId', () => {
 
   before(async () => {
     user = await generateUser({
-      'contributor.priv.userSupport': true,
+      'permissions.userSupport': true,
     });
   });
 
