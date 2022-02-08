@@ -260,21 +260,7 @@
               v-for="(hero, index) in heroes"
               :key="hero._id"
             >
-              <td>
-                <user-link
-                  v-if="hero.contributor && hero.contributor.admin"
-                  :user="hero"
-                  :popover="$t('gamemaster')"
-                  popover-trigger="mouseenter"
-                  popover-placement="right"
-                />
-                <user-link
-                  v-if="!hero.contributor || !hero.contributor.admin"
-                  :user="hero"
-                />
-              </td>
               <td
-                v-if="user.contributor.admin"
                 class="btn-link"
                 :key="hero._id"
               >
