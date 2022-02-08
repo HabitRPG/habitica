@@ -869,6 +869,7 @@
 import moment from 'moment';
 import { v4 as uuid } from 'uuid';
 import isEmpty from 'lodash/isEmpty';
+import keys from 'lodash/keys';
 import { mapState, mapGetters, mapActions } from '@/libs/store';
 
 import positiveIcon from '@/assets/svg/positive.svg';
@@ -1059,7 +1060,10 @@ export default {
             return false;
           }
           if (this.task.group.completedBy.userId === this.user._id) return false;
-          if (this.teamManagerAccess && !this.task.group.assignedUsers) return false;
+          if (this.teamManagerAccess) {
+            if (!this.task.group.assignedUsers) return false;
+            if (keys(this.task.group.assignedUsers).length === 1) return false;
+          }
           return true;
         }
         if (this.isOpenTask) return false;

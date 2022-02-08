@@ -328,7 +328,7 @@ async function handleTeamTask (task, delta, direction) {
 */
 async function scoreTask (user, task, direction, req, res) {
   if (task.type === 'daily' || task.type === 'todo') {
-    if (task.group.id && task.group.assignedUsers) {
+    if (task.group.id && task.group.assignedUsers && task.group.assignedUsers[user._id]) {
       if (task.group.assignedUsers[user._id].completed && direction === 'up') {
         throw new NotAuthorized(res.t('sessionOutdated'));
       } else if (!task.group.assignedUsers[user._id].completed && direction === 'down') {
@@ -363,7 +363,12 @@ async function scoreTask (user, task, direction, req, res) {
     ) {
       throw new BadRequest('Cannot uncheck task you did not complete if not a manager.');
     }
-    rollbackUser = await User.findOne({ _id: task.group.completedBy.userId });
+    if (task.group.assignedUsers && _.keys(task.group.assignedUsers).length === 1) {
+      const rollbackUserId = _.keys(task.group.assignedUsers)[0];
+      rollbackUser = await User.findOne({ _id: rollbackUserId });
+    } else {
+      rollbackUser = await User.findOne({ _id: task.group.completedBy.userId });
+    }
     task.group.completedBy = {};
   }
 

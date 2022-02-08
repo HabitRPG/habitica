@@ -39,13 +39,13 @@
         v-if="task.group.assignedUsers"
       >
         <span
-          v-if="completionsCount"
+          v-if="assignedUsersCount > 1 && completionsCount && !showStatus"
           class="mr-1"
         >
           {{ completionsCount }}/{{ assignedUsersCount }}
         </span>
         <a
-          v-if="!showStatus"
+          v-if="assignedUsersCount > 1 && !showStatus"
           class="blue-10"
           @click="showStatus = !showStatus"
         >
@@ -132,24 +132,27 @@ export default {
       }, 0);
     },
     completionsList () {
+      if (this.assignedUsersCount === 1) return [];
       const completionsArray = [];
       for (const userId of this.assignedUsersKeys) {
-        const index = findIndex(this.group.members, member => member._id === userId);
-        const { completedDate } = this.task.group.assignedUsers[userId];
-        let completedDateString;
-        if (completedDate && moment().diff(completedDate, 'days') > 0) {
-          completedDateString = `Last completed ${moment(completedDate).format('M/D/YY')}`;
-        } else {
-          completedDateString = `Completed today at ${moment(completedDate).format('h:mm A')}`;
+        if (userId !== this.user._id) {
+          const index = findIndex(this.group.members, member => member._id === userId);
+          const { completedDate } = this.task.group.assignedUsers[userId];
+          let completedDateString;
+          if (completedDate && moment().diff(completedDate, 'days') > 0) {
+            completedDateString = `Last completed ${moment(completedDate).format('M/D/YY')}`;
+          } else {
+            completedDateString = `Completed today at ${moment(completedDate).format('h:mm A')}`;
+          }
+          completionsArray.push({
+            userId,
+            userName: this.group.members[index].auth.local.username,
+            completed: this.task.group.assignedUsers[userId].completed,
+            completedDate,
+            completedDateString,
+            completedToday: moment().diff(completedDate, 'days') === 0,
+          });
         }
-        completionsArray.push({
-          userId,
-          userName: this.group.members[index].auth.local.username,
-          completed: this.task.group.assignedUsers[userId].completed,
-          completedDate,
-          completedDateString,
-          completedToday: moment().diff(completedDate, 'days') === 0,
-        });
       }
       return completionsArray;
     },
