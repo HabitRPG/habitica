@@ -20,11 +20,9 @@
         class="draft"
       >DRAFT</small>
       <h2 class="title">
-        {{ post.title.toUpperCase() }}
+        {{ getPostDate(post) }} - {{ post.title.toUpperCase() }}
       </h2>
-      <small>
-        {{ getPostedOn(post) }}
-      </small>
+
       <hr>
 
       <div v-html="renderMarkdown(post.text)"></div>
@@ -53,8 +51,7 @@ h1 {
   }
 
   .title {
-    text-align: left;
-    margin-bottom: 4px;
+    display: inline;
   }
 
   .draft {
@@ -68,7 +65,7 @@ h1 {
 </style>
 
 <script>
-import moment from 'moment-timezone';
+import moment from 'moment';
 import habiticaMarkdown from 'habitica-markdown';
 import { mapState } from '@/libs/store';
 import seasonalNPC from '@/mixins/seasonalNPC';
@@ -108,12 +105,9 @@ export default {
     renderMarkdown (text) {
       return habiticaMarkdown.unsafeHTMLRender(text);
     },
-    getPostedOn (post) {
-      const publishDate = moment(post.publishDate)
-        .utcOffset(-300)
-        .format(this.user.preferences.dateFormat.toUpperCase());
-      const publishTime = moment(post.publishDate).tz('America/New_York').format('LT z');
-      return this.$t('newStuffPostedOn', { publishDate, publishTime });
+    getPostDate (post) {
+      const format = this.user ? this.user.preferences.dateFormat.toUpperCase() : 'MM/DD/yyyy';
+      return moment(post.publishDate).format(format);
     },
   },
 };
