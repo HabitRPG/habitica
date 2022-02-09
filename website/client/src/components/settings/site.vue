@@ -291,14 +291,16 @@
             </li>
           </ul>
           <hr>
-          <div v-if="!user.auth.local.email">
-            <p>{{ $t('addLocalAuth') }}</p>
+          <div v-if="!user.auth.local.has_password">
+            <h5 v-if="!user.auth.local.email">{{ $t('addLocalAuth') }}</h5>
+            <h5 v-if="user.auth.local.email">{{ $t('addPasswordAuth') }}</h5>
             <div
               class="form"
               name="localAuth"
               novalidate="novalidate"
             >
-              <div class="form-group">
+              <div class="form-group"
+               v-if="!user.auth.local.email">
                 <input
                   v-model="localAuth.email"
                   class="form-control"
@@ -421,11 +423,11 @@
               {{ $t('saveAndConfirm') }}
             </button>
           </div>
-          <h5 v-if="user.auth.local.email">
+          <h5 v-if="user.auth.local.has_password">
             {{ $t('changeEmail') }}
           </h5>
           <div
-            v-if="user.auth.local.email"
+            v-if="user.auth.local.has_password"
             class="form"
             name="changeEmail"
             novalidate="novalidate"
@@ -455,11 +457,11 @@
               {{ $t('submit') }}
             </button>
           </div>
-          <h5 v-if="user.auth.local.email">
+          <h5 v-if="user.auth.local.has_password">
             {{ $t('changePass') }}
           </h5>
           <div
-            v-if="user.auth.local.email"
+            v-if="user.auth.local.has_password"
             class="form"
             name="changePassword"
             novalidate="novalidate"
@@ -865,6 +867,9 @@ export default {
       }
     },
     async addLocalAuth () {
+      if (this.localAuth.email === '') {
+        this.localAuth.email = this.user.auth.local.email;
+      }
       await axios.post('/api/v4/user/auth/local/register', this.localAuth);
       window.alert(this.$t('addedLocalAuth')); // eslint-disable-line no-alert
     },

@@ -38,6 +38,12 @@ schema.plugin(baseModel, {
       plainObj.flags.newStuff = originalDoc.checkNewStuff();
     }
 
+    if (originalDoc.auth.local.hashed_password) {
+      plainObj.auth.local.has_password = true;
+    } else {
+      plainObj.auth.local.has_password = false;
+    }
+
     return plainObj;
   },
 });

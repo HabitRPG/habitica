@@ -128,12 +128,14 @@ async function registerLocal (req, res, { isV3 = false }) {
   }, { 'auth.local': 1 }).exec();
 
   if (user) {
-    if (email === user.auth.local.email) throw new NotAuthorized(res.t('emailTaken'));
-    // Check that the lowercase username isn't already used
-    if (existingUser) {
-      if (lowerCaseUsername === user.auth.local.lowerCaseUsername && existingUser._id !== user._id) throw new NotAuthorized(res.t('usernameTaken'));
-    } else if (lowerCaseUsername === user.auth.local.lowerCaseUsername) {
-      throw new NotAuthorized(res.t('usernameTaken'));
+    if (user._id !== existingUser._id) {
+      if (email === user.auth.local.email) throw new NotAuthorized(res.t('emailTaken'));
+      // Check that the lowercase username isn't already used
+      if (existingUser) {
+        if (lowerCaseUsername === user.auth.local.lowerCaseUsername && existingUser._id !== user._id) throw new NotAuthorized(res.t('usernameTaken'));
+      } else if (lowerCaseUsername === user.auth.local.lowerCaseUsername) {
+        throw new NotAuthorized(res.t('usernameTaken'));
+      }
     }
   }
 
@@ -166,7 +168,7 @@ async function registerLocal (req, res, { isV3 = false }) {
       }
       return false;
     });
-    if (!hasSocialAuth) throw new NotAuthorized(res.t('onlySocialAttachLocal'));
+    if (!hasSocialAuth && existingUser.auth.local.hashed_password) throw new NotAuthorized(res.t('onlySocialAttachLocal'));
     existingUser.auth.local = newUser.auth.local;
     newUser = existingUser;
   } else {
