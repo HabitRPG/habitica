@@ -153,7 +153,8 @@ function resetData (self) {
   // compare the user's time zones to see if they're different
   const newTimezone = self.hero.preferences.timezoneOffset;
   const oldTimezone = self.hero.preferences.timezoneOffsetAtLastCron;
-  if ((newTimezone === undefined || oldTimezone === undefined) && (self.cronError || flags.cronCount > 0)) {
+  if ((newTimezone === undefined || oldTimezone === undefined)
+      && (self.cronError || self.hero.flags.cronCount > 0)) {
     self.timezoneMissingError = true;
     self.errorsOrWarningsExist = true;
   } else if (newTimezone !== oldTimezone) {
