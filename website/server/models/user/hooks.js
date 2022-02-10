@@ -40,7 +40,7 @@ schema.plugin(baseModel, {
 
     if (plainObj.auth && plainObj.auth.local && originalDoc.auth.local.hashed_password) {
       plainObj.auth.local.has_password = true;
-    } else if (plainObj.auth && plainObj.auth.local) {
+    } else if (plainObj.auth && plainObj.auth.local && originalDoc.auth.local.email) {
       plainObj.auth.local.has_password = false;
     }
 
