@@ -312,7 +312,6 @@
 import each from 'lodash/each';
 import markdownDirective from '@/directives/markdown';
 import styleHelper from '@/mixins/styleHelper';
-import { mapState } from '@/libs/store';
 import * as quests from '@/../../common/script/content/quests';
 import { mountInfo, petInfo } from '@/../../common/script/content/stable';
 import content from '@/../../common/script/content';
@@ -351,9 +350,6 @@ export default {
       expandAuth: false,
       expandTransactions: false,
     };
-  },
-  computed: {
-    ...mapState({ user: 'user.data' }),
   },
   async mounted () {
     this.$store.dispatch('common:setTitle', {

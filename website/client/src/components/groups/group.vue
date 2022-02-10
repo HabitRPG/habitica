@@ -288,7 +288,7 @@
 import extend from 'lodash/extend';
 import groupUtilities from '@/mixins/groupsUtilities';
 import styleHelper from '@/mixins/styleHelper';
-import { mapState, mapGetters } from '@/libs/store';
+import { mapGetters } from '@/libs/store';
 import * as Analytics from '@/libs/analytics';
 import participantListModal from './participantListModal';
 import groupFormModal from './groupFormModal';
@@ -357,9 +357,6 @@ export default {
     };
   },
   computed: {
-    ...mapState({
-      user: 'user.data',
-    }),
     ...mapGetters({
       partyMembers: 'party:members',
     }),

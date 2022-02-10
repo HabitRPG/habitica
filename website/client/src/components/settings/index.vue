@@ -140,7 +140,6 @@ export default {
   computed: {
     ...mapState({
       currentEventList: 'worldState.data.currentEventList',
-      user: 'user.data',
     }),
     currentEvent () {
       return find(this.currentEventList, event => Boolean(event.promo));

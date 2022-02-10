@@ -372,7 +372,6 @@ label.custom-control-label(v-once) {{ $t('allowGuildInvitationsFromNonMembers') 
 </style>
 
 <script>
-import { mapState } from '@/libs/store';
 import toggleSwitch from '@/components/ui/toggleSwitch';
 import markdownDirective from '@/directives/markdown';
 import gemIcon from '@/assets/svg/gem.svg';
@@ -493,7 +492,6 @@ export default {
     return data;
   },
   computed: {
-    ...mapState({ user: 'user.data' }),
     editingGroup () {
       return this.$store.state.editingGroup;
     },

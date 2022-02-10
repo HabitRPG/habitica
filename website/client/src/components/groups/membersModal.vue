@@ -379,7 +379,6 @@
 <script>
 import orderBy from 'lodash/orderBy';
 import isEmpty from 'lodash/isEmpty';
-import { mapState } from '@/libs/store';
 
 import removeMemberModal from '@/components/members/removeMemberModal';
 import loadingGryphon from '@/components/ui/loadingGryphon';
@@ -399,8 +398,8 @@ export default {
     removeMemberModal,
     loadingGryphon,
   },
-  props: ['hideBadge'],
   mixins: [userStateMixin],
+  props: ['hideBadge'],
   data () {
     return {
       sortOption: {
@@ -464,7 +463,6 @@ export default {
     };
   },
   computed: {
-    ...mapState({ user: 'user.data' }),
     isLeader () {
       if (!this.group || !this.group.leader) return false;
       return this.user._id === this.group.leader || this.user._id === this.group.leader._id;

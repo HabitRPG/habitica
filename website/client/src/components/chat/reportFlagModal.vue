@@ -88,7 +88,6 @@
 </style>
 
 <script>
-import { mapState } from '@/libs/store';
 import notifications from '@/mixins/notifications';
 import markdownDirective from '@/directives/markdown';
 import { userStateMixin } from '../../mixins/userState';
@@ -111,9 +110,6 @@ export default {
       groupId: '',
       reportComment: '',
     };
-  },
-  computed: {
-    ...mapState({ user: 'user.data' }),
   },
   mounted () {
     this.$root.$on('habitica::report-chat', this.handleReport);

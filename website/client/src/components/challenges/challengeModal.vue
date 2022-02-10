@@ -285,8 +285,8 @@ export default {
   directives: {
     markdown: markdownDirective,
   },
-  props: ['groupId'],
   mixins: [userStateMixin],
+  props: ['groupId'],
   data () {
     const categoryOptions = [
       {

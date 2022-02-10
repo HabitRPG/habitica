@@ -161,6 +161,7 @@ export default {
     chatCard,
     Avatar,
   },
+  mixins: [userStateMixin],
   props: {
     chat: {},
     groupType: {},

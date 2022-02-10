@@ -214,7 +214,6 @@ import { CHAT_FLAG_LIMIT_FOR_HIDING, CHAT_FLAG_FROM_SHADOW_MUTE } from '@/../../
 
 export default {
   components: { userLink },
-  mixins: [userStateMixin],
   filters: {
     timeAgo (value) {
       return moment(value).fromNow();
@@ -224,6 +223,7 @@ export default {
       return moment(value).toDate().toString();
     },
   },
+  mixins: [userStateMixin],
   props: {
     msg: {},
     groupId: {},

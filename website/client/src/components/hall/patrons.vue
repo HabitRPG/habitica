@@ -40,7 +40,6 @@
 </template>
 
 <script>
-import { mapState } from '@/libs/store';
 import styleHelper from '@/mixins/styleHelper';
 import { userStateMixin } from '../../mixins/userState';
 
@@ -50,9 +49,6 @@ export default {
     return {
       patrons: [],
     };
-  },
-  computed: {
-    ...mapState({ user: 'user.data' }),
   },
   async mounted () {
     this.$store.dispatch('common:setTitle', {
