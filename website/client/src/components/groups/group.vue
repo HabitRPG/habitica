@@ -312,6 +312,7 @@ import QuestDetailModal from './questDetailModal';
 import RightSidebar from '@/components/groups/rightSidebar';
 import InvitationListModal from './invitationListModal';
 import { PAGES } from '@/libs/consts';
+import { userStateMixin } from '../../mixins/userState';
 
 export default {
   components: {
@@ -327,7 +328,7 @@ export default {
   directives: {
     markdown: markdownDirective,
   },
-  mixins: [groupUtilities, styleHelper],
+  mixins: [groupUtilities, styleHelper, userStateMixin],
   props: ['groupId'],
   data () {
     return {
@@ -372,7 +373,7 @@ export default {
       return this.user._id === this.group.leader._id;
     },
     isAdmin () {
-      return Boolean(this.user.hasPermission('moderator'));
+      return Boolean(this.hasPermission(this.user, 'moderator'));
     },
     isMember () {
       return this.isMemberOfGroup(this.user, this.group);

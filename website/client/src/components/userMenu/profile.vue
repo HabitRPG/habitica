@@ -59,7 +59,7 @@
           ></div>
         </button>
         <button
-          v-if="userLoggedIn.hasPermission('moderator')"
+          v-if="hasPermission(userLoggedIn, 'moderator')"
           v-b-tooltip.hover.right="'Admin - Toggle Tools'"
           class="btn btn-secondary positive-icon d-flex justify-content-center align-items-center"
           @click="toggleAdminTools()"
@@ -71,7 +71,7 @@
         </button>
       </div>
       <div
-        v-if="userLoggedIn.hasPermission('moderator') && adminToolsLoaded"
+        v-if="hasPermission(userLoggedIn, 'moderator') && adminToolsLoaded"
         class="row admin-profile-actions"
       >
         <div class="col-12 text-right">

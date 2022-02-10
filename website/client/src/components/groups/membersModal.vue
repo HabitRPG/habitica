@@ -390,6 +390,7 @@ import starIcon from '@/assets/members/star.svg';
 import dots from '@/assets/svg/dots.svg';
 import SelectList from '@/components/ui/selectList';
 import { PAGES } from '@/libs/consts';
+import { userStateMixin } from '../../mixins/userState';
 
 export default {
   components: {
@@ -399,6 +400,7 @@ export default {
     loadingGryphon,
   },
   props: ['hideBadge'],
+  mixins: [userStateMixin],
   data () {
     return {
       sortOption: {
@@ -468,7 +470,7 @@ export default {
       return this.user._id === this.group.leader || this.user._id === this.group.leader._id;
     },
     isAdmin () {
-      return Boolean(this.user.hasPermission('moderator'));
+      return Boolean(this.hasPermission(this.user, 'moderator'));
     },
     isLoadMoreAvailable () {
       // Only available if the current length of `members` is less than the

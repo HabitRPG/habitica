@@ -149,7 +149,7 @@ import moment from 'moment';
 import axios from 'axios';
 import debounce from 'lodash/debounce';
 import findIndex from 'lodash/findIndex';
-import { mapState } from '@/libs/store';
+import { userStateMixin } from '../../mixins/userState';
 
 import Avatar from '../avatar';
 import copyAsTodoModal from './copyAsTodoModal';
@@ -182,7 +182,6 @@ export default {
     };
   },
   computed: {
-    ...mapState({ user: 'user.data' }),
     // @TODO: We need a different lazy load mechnism.
     // But honestly, adding a paging route to chat would solve this
     messages () {
@@ -214,7 +213,7 @@ export default {
     canViewFlag (message) {
       if (message.uuid === this.user._id) return true;
       if (!message.flagCount || message.flagCount < 2) return true;
-      return this.user.hasPermission('moderator');
+      return this.hasPermission(this.user, 'moderator');
     },
     loadProfileCache: debounce(function loadProfileCache (screenPosition) {
       this._loadProfileCache(screenPosition);

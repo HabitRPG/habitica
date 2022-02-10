@@ -8,7 +8,7 @@
     </div>
     <div class="row standard-page">
       <div>
-        <div v-if="user.hasPermission('userSupport')">
+        <div v-if="hasPermission(user, 'userSupport')">
           <h2>Reward User</h2>
           <div
             v-if="!hero.profile"
@@ -247,7 +247,7 @@
             <thead>
               <tr>
                 <th>{{ $t('name') }}</th>
-                <th v-if="user.hasPermission('userSupport')">
+                <th v-if="hasPermission(user, 'userSupport')">
                   {{ $t('userId') }}
                 </th>
                 <th>{{ $t('contribLevel') }}</th>
@@ -262,19 +262,19 @@
               >
                 <td>
                   <user-link
-                    v-if="hero.hasPermission('userSupport')"
+                    v-if="hasPermission(hero, 'userSupport')"
                     :user="hero"
                     :popover="$t('gamemaster')"
                     popover-trigger="mouseenter"
                     popover-placement="right"
                   />
                   <user-link
-                    v-if="!hero.hasPermission('userSupport')"
+                    v-if="!hasPermission(hero, 'userSupport')"
                     :user="hero"
                   />
                 </td>
                 <td
-                  v-if="user.hasPermission('userSupport')"
+                  v-if="hasPermission(hero, 'userSupport')"
                   :key="hero._id"
                   class="btn-link"
                 >
@@ -320,6 +320,7 @@ import gear from '@/../../common/script/content/gear';
 import notifications from '@/mixins/notifications';
 import userLink from '../userLink';
 import PurchaseHistoryTable from '../ui/purchaseHistoryTable.vue';
+import { userStateMixin } from '../../mixins/userState';
 
 export default {
   components: {
@@ -329,7 +330,7 @@ export default {
   directives: {
     markdown: markdownDirective,
   },
-  mixins: [notifications, styleHelper],
+  mixins: [notifications, styleHelper, userStateMixin],
   data () {
     return {
       heroes: [],

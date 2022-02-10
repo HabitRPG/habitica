@@ -213,7 +213,7 @@ label.custom-control-label(v-once) {{ $t('allowGuildInvitationsFromNonMembers') 
           <!-- eslint-disable vue/no-use-v-if-with-v-for -->
           <div
             v-for="group in categoryOptions"
-            v-if="group.key !== 'habitica_official' || user.hasPermission('challengeAdmin')"
+            v-if="group.key !== 'habitica_official' || hasPermission(user, 'challengeAdmin')"
             :key="group.key"
             class="form-check"
           >
@@ -379,6 +379,7 @@ import gemIcon from '@/assets/svg/gem.svg';
 import informationIcon from '@/assets/svg/information.svg';
 
 import { MAX_SUMMARY_SIZE_FOR_GUILDS } from '@/../../common/script/constants';
+import { userStateMixin } from '../../mixins/userState';
 
 // @TODO: Not sure the best way to pass party creating status
 // Since we need the modal in the header, passing props doesn't work
@@ -393,6 +394,7 @@ export default {
   directives: {
     markdown: markdownDirective,
   },
+  mixins: [userStateMixin],
   data () {
     const data = {
       workingGroup: {
@@ -512,7 +514,7 @@ export default {
       return this.workingGroup.type === 'party';
     },
     isAdmin () {
-      return Boolean(this.user.hasPermission('moderator'));
+      return Boolean(this.hasPermission(this.user, 'moderator'));
     },
   },
   watch: {
