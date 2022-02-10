@@ -224,7 +224,7 @@
       </div>
       <div class="row">
         <div class="col-12 col-md-5 text-center text-md-left">
-          © 2021 Habitica. All rights reserved.
+          © 2022 Habitica. All rights reserved.
           <div
             v-if="!IS_PRODUCTION && isUserLoaded"
             class="debug float-left"

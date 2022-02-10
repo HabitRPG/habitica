@@ -242,40 +242,22 @@
             </div>
           </div>
         </div>
-      <div class="table-responsive">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>{{ $t('name') }}</th>
-              <th v-if="user.contributor && user.contributor.admin">
-                {{ $t('userId') }}
-              </th>
-              <th>{{ $t('contribLevel') }}</th>
-              <th>{{ $t('title') }}</th>
-              <th>{{ $t('contributions') }}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              v-for="(hero, index) in heroes"
-              :key="hero._id"
-            >
-              <td>
-                <user-link
-                  v-if="hero.contributor && hero.contributor.admin"
-                  :user="hero"
-                  :popover="$t('gamemaster')"
-                  popover-trigger="mouseenter"
-                  popover-placement="right"
-                />
-                <user-link
-                  v-if="!hero.contributor || !hero.contributor.admin"
-                  :user="hero"
-                />
-              </td>
-              <td
-                v-if="user.contributor.admin"
-                class="btn-link"
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>{{ $t('name') }}</th>
+                <th v-if="user.contributor && user.contributor.admin">
+                  {{ $t('userId') }}
+                </th>
+                <th>{{ $t('contribLevel') }}</th>
+                <th>{{ $t('title') }}</th>
+                <th>{{ $t('contributions') }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="(hero, index) in heroes"
                 :key="hero._id"
               >
                 <td>
@@ -287,7 +269,7 @@
                     popover-placement="right"
                   />
                   <user-link
-                    v-if="!hero.contributor || !hero.contributor.admin"
+                    v-else
                     :user="hero"
                   />
                 </td>

@@ -2556,5 +2556,7 @@
     "headArmoireShootingStarCrownText": "Sternenkrone",
     "weaponArmoireShootingStarSpellNotes": "Umgib Dich mit einem Zauber aus Meteoritenstaub – er wird Dir helfen, alle Wünsche zu erfüllen. Erhöht Intelligenz und Stärke um jeweils <%= attrs %>. Verzauberter Schrank: Meteoritenstaub-Set (Gegenstand 3 von 3).",
     "armorArmoireShootingStarCostumeNotes": "Es wird gemunkelt, dass diese Robe, deren Stoff wie das Licht des Mondes fällt, aus dem Nachthimmel selbst gesponnen wurde. Sie wird Dir helfen, alle Hindernisse in Deinem Weg zu überwinden. Erhöht Ausdauer um <%= con %>. Verzauberter Schrank: Meteoritenstaub-Set (Gegenstand 2 von 3).",
-    "headArmoireShootingStarCrownNotes": "Mit diesem hell strahlenden Kopfschmuck wirst du buchstäblich zum Star Deines eigenen Abenteuers! Erhöht Wahrnehmung um <%= per %>. Verzauberter Schrank: Meteoritenstaub-Set (Gegenstand 1 von 3)."
+    "headArmoireShootingStarCrownNotes": "Mit diesem hell strahlenden Kopfschmuck wirst du buchstäblich zum Star Deines eigenen Abenteuers! Erhöht Wahrnehmung um <%= per %>. Verzauberter Schrank: Meteoritenstaub-Set (Gegenstand 1 von 3).",
+    "armorSpecialBirthday2022Text": "Verkehrte Partyroben",
+    "armorSpecialBirthday2022Notes": "Happy Birthday, Habitica! Trage diese verkehrten Partyroben, um diesen wunderbaren Tag zu feiern. Gewährt keinen Attributbonus."
 }
