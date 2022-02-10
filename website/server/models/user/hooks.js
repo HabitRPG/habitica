@@ -38,9 +38,9 @@ schema.plugin(baseModel, {
       plainObj.flags.newStuff = originalDoc.checkNewStuff();
     }
 
-    if (originalDoc.auth.local.hashed_password) {
+    if (plainObj.auth && plainObj.auth.local && originalDoc.auth.local.hashed_password) {
       plainObj.auth.local.has_password = true;
-    } else {
+    } else if (plainObj.auth && plainObj.auth.local) {
       plainObj.auth.local.has_password = false;
     }
 
