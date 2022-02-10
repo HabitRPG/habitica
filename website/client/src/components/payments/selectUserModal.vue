@@ -112,6 +112,11 @@
 
   #select-user-modal {
 
+    .modal-content {
+      height:308px;
+      width:448px;
+    }
+
     .input-group {
       margin-top: 0rem;
     }
