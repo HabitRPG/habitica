@@ -2556,5 +2556,11 @@
     "armorArmoireShootingStarCostumeText": "星のガウン",
     "armorArmoireShootingStarCostumeNotes": "夜空から広がって独立したと噂されるこの流れるようなガウンを着れば、あなたの行く先のどんな障害でも越えてゆけるようになります。体質が<%= con %>上がります。ラッキー宝箱：流れ星セット（3個中2個目のアイテム）。",
     "headArmoireShootingStarCrownText": "星のかんむり",
-    "headArmoireShootingStarCrownNotes": "このまばゆく輝く頭の飾りで、あなたは文字通り自分の冒険のスターになるでしょう。知覚が<%= per %>上がります。ラッキー宝箱：流れ星セット（3個中1個目のアイテム）。"
+    "headArmoireShootingStarCrownNotes": "このまばゆく輝く頭の飾りで、あなたは文字通り自分の冒険のスターになるでしょう。知覚が<%= per %>上がります。ラッキー宝箱：流れ星セット（3個中1個目のアイテム）。",
+    "armorSpecialBirthday2022Text": "じつにばかげたパーティーローブ",
+    "armorSpecialBirthday2022Notes": "誕生日おめでとう、Habitica!　このすばらしい日を祝うために、このじつにばかげたパーティローブを着てください。効果なし。",
+    "headMystery202202Text": "ターコイズのツインテール",
+    "headMystery202202Notes": "青い髪をてにいれた！効果なし。2022年2月の有料会員アイテム。",
+    "eyewearMystery202202Text": "ターコイズの瞳とチーク",
+    "eyewearMystery202202Notes": "陽気な歌があなたの頬を染めたようです。効果なし。2022年2月の有料会員アイテム"
 }
