@@ -10,8 +10,8 @@
           <span v-if="user">
             <br>
             <a
-              @click.prevent="openBugReportModal()"
               target="_blank"
+              @click.prevent="openBugReportModal()"
             >
               {{ $t('reportBug') }}
             </a>
