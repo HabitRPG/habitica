@@ -15,7 +15,7 @@ describe('PUT /heroes/:heroId', () => {
 
   before(async () => {
     user = await generateUser({
-      contributor: { admin: true },
+      contributor: { 'permissions.userSupport': true },
     });
   });
 

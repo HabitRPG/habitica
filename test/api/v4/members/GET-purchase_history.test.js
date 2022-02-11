@@ -8,7 +8,7 @@ describe('GET /members/:memberId/purchase-history', () => {
 
   before(async () => {
     user = await generateUser({
-      contributor: { admin: true },
+      permissions: { userSupport: true },
     });
   });
 

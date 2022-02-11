@@ -14,7 +14,7 @@ describe('GET /heroes/:heroId', () => {
 
   before(async () => {
     user = await generateUser({
-      contributor: { admin: true },
+      permissions: { userSupport: true },
     });
   });
 

@@ -120,7 +120,7 @@ describe('POST /user/reset', () => {
 
   it('does not delete secret', async () => {
     const admin = await generateUser({
-      contributor: { admin: true },
+      permissions: { userSupport: true },
     });
 
     const hero = await generateUser({

@@ -26,7 +26,7 @@ describe('ensure access middlewares', () => {
       ensurePermission('userSupport')(req, res, next);
 
       const calledWith = next.getCall(0).args;
-      expect(calledWith[0].message).to.equal(i18n.t('noAdminAccess'));
+      expect(calledWith[0].message).to.equal(i18n.t('noPrivAccess'));
       expect(calledWith[0] instanceof NotAuthorized).to.equal(true);
     });
 
@@ -47,7 +47,7 @@ describe('ensure access middlewares', () => {
       ensurePermission('news')(req, res, next);
 
       const calledWith = next.getCall(0).args;
-      expect(calledWith[0].message).to.equal(apiError('noNewsPosterAccess'));
+      expect(calledWith[0].message).to.equal(apiError('noPrivAccess'));
       expect(calledWith[0] instanceof NotAuthorized).to.equal(true);
     });
 
@@ -68,7 +68,7 @@ describe('ensure access middlewares', () => {
       ensurePermission('coupons')(req, res, next);
 
       const calledWith = next.getCall(0).args;
-      expect(calledWith[0].message).to.equal(apiError('noSudoAccess'));
+      expect(calledWith[0].message).to.equal(apiError('noPrivAccess'));
       expect(calledWith[0] instanceof NotAuthorized).to.equal(true);
     });
 
