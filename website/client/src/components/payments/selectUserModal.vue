@@ -301,7 +301,7 @@ export default {
       this.foundUser = result;
     }, 500),
     selectUser () {
-      this.$root.$emit('habitica::send-gems', this.foundUser);
+      this.$root.$emit('habitica::send-gift', this.foundUser);
       this.close();
     },
     onHide () {
