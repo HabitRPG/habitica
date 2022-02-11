@@ -56,7 +56,10 @@
         >
           <div
             class="task-control daily-todo-control"
-            :class="controlClass.inner"
+            :class="[
+              { 'task-not-scoreable': showTaskLockIcon },
+              controlClass.inner,
+            ]"
             tabindex="0"
             @click="score(showCheckIcon ? 'down' : 'up' )"
             @keypress.enter="score(showCheckIcon ? 'down' : 'up' )"
@@ -127,7 +130,6 @@
                     </span>
                   </div>
                   <div
-                    v-if="isUser"
                     class="dropdown-item"
                     tabindex="0"
                     @click="moveToTop"
@@ -142,7 +144,6 @@
                     </span>
                   </div>
                   <div
-                    v-if="isUser"
                     class="dropdown-item"
                     tabindex="0"
                     @click="moveToBottom"

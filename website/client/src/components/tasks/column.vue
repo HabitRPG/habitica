@@ -347,6 +347,9 @@
 import throttle from 'lodash/throttle';
 import isEmpty from 'lodash/isEmpty';
 import draggable from 'vuedraggable';
+import { shouldDo } from '@/../../common/script/cron';
+import inAppRewards from '@/../../common/script/libs/inAppRewards';
+import taskDefaults from '@/../../common/script/libs/taskDefaults';
 import Task from './task';
 import ClearCompletedTodos from './clearCompletedTodos';
 import buyMixin from '@/mixins/buy';
@@ -357,9 +360,6 @@ import BuyQuestModal from '@/components/shops/quests/buyQuestModal.vue';
 import PinBadge from '@/components/ui/pinBadge';
 
 import notifications from '@/mixins/notifications';
-import { shouldDo } from '@/../../common/script/cron';
-import inAppRewards from '@/../../common/script/libs/inAppRewards';
-import taskDefaults from '@/../../common/script/libs/taskDefaults';
 
 import {
   getTypeLabel,
@@ -576,18 +576,25 @@ export default {
     },
     async moveTo (task, where) { // where is 'top' or 'bottom'
       const taskIdToMove = task._id;
-      const list = this.getUnfilteredTaskList(this.type);
+      const list = this.taskListOverride || this.getUnfilteredTaskList(this.type);
 
       const oldPosition = list.findIndex(t => t._id === taskIdToMove);
       const moved = list.splice(oldPosition, 1);
       const newPosition = where === 'top' ? 0 : list.length;
       list.splice(newPosition, 0, moved[0]);
 
-      const newOrder = await this.$store.dispatch('tasks:move', {
-        taskId: taskIdToMove,
-        position: newPosition,
-      });
-      this.user.tasksOrder[`${this.type}s`] = newOrder;
+      if (!this.isUser) {
+        await this.$store.dispatch('tasks:moveGroupTask', {
+          taskId: taskIdToMove,
+          position: newPosition,
+        });
+      } else {
+        const newOrder = await this.$store.dispatch('tasks:move', {
+          taskId: taskIdToMove,
+          position: newPosition,
+        });
+        this.user.tasksOrder[`${this.type}s`] = newOrder;
+      }
     },
     async rewardSorted (data) {
       const rewardsList = this.inAppRewards;
