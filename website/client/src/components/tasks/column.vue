@@ -64,7 +64,7 @@
         v-if="activeFilter.label === 'complete2' && isUser === true && taskList.length > 0"
       />
       <div
-        v-if="isUser === true"
+        v-if="isUser === true && taskList.length < 3"
         ref="columnBackground"
         class="column-background"
         :class="{'initial-description': initialColumnDescription}"
