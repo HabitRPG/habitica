@@ -4,7 +4,7 @@ import moment from 'moment';
 // path: 'premiumHatchingPotions.Rainbow',
 const featuredItems = {
   market () {
-    if (moment().isBefore('2022-01-31T20:00-05:00')) {
+    if (moment().isBefore('2022-02-28T20:00-05:00')) {
       return [
         {
           type: 'armoire',
@@ -12,15 +12,15 @@ const featuredItems = {
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.StainedGlass',
+          path: 'premiumHatchingPotions.Cupid',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Peppermint',
+          path: 'premiumHatchingPotions.RoseQuartz',
         },
         {
-          type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Holly',
+          type: 'hatchingPotions',
+          path: 'hatchingPotions.CottonCandyPink',
         },
       ];
     }
