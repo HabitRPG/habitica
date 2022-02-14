@@ -10,7 +10,7 @@ describe('PUT /heroes/:heroId', () => {
 
   const heroFields = [
     '_id', 'auth', 'balance', 'contributor', 'flags', 'items', 'lastCron',
-    'party', 'preferences', 'profile', 'purchased', 'secret',
+    'party', 'preferences', 'profile', 'purchased', 'secret', 'permissions'
   ];
 
   before(async () => {
@@ -23,7 +23,7 @@ describe('PUT /heroes/:heroId', () => {
     await expect(nonAdmin.put(`/hall/heroes/${user._id}`)).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
-      message: t('noAdminAccess'),
+      message: t('noPrivAccess'),
     });
   });
 

@@ -15,7 +15,7 @@ describe('GET /news/:newsID', () => {
   };
   beforeEach(async () => {
     user = await generateUser({
-      'contributor.newsPoster': true,
+      'permissions.news': true,
     });
   });
 

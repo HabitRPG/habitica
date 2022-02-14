@@ -15,7 +15,7 @@ describe('GET /news', () => {
   before(async () => {
     api = requester();
     const user = await generateUser({
-      'contributor.newsPoster': true,
+      'permissions.news': true,
     });
 
     await Promise.all([

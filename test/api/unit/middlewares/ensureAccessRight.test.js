@@ -26,7 +26,7 @@ describe('ensure access middlewares', () => {
       ensurePermission('userSupport')(req, res, next);
 
       const calledWith = next.getCall(0).args;
-      expect(calledWith[0].message).to.equal(i18n.t('noPrivAccess'));
+      expect(calledWith[0].message).to.equal(apiError('noPrivAccess'));
       expect(calledWith[0] instanceof NotAuthorized).to.equal(true);
     });
 
