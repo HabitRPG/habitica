@@ -11,7 +11,7 @@ const gemsPromo = {
 export const EVENTS = {
   noCurrentEvent: {
     start: '2022-01-31T20:00-05:00',
-    end: '2022-02-28T20:00-05:00',
+    end: '2022-02-13T20:00-05:00',
     season: 'normal',
     npcImageSuffix: '',
   },
