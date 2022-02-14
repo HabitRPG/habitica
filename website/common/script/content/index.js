@@ -133,7 +133,7 @@ api.cardTypes = {
   valentine: {
     key: 'valentine',
     messageOptions: 4,
-    yearRound: moment().isBefore('2022-02-17T20:00-05:00'),
+    yearRound: moment().isBefore('2022-02-18T20:00-05:00'),
   },
   birthday: {
     key: 'birthday',
