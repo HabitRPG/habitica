@@ -25,7 +25,7 @@ import {
 import content from './content/index';
 import * as count from './count';
 // TODO under api.libs.cron?
-import { daysSince, DAY_MAPPING, shouldDo } from './cron';
+import { daysSince, DAY_MAPPING, shouldDo, getPlanContext } from './cron';
 import apiErrors from './errors/apiErrorMessages';
 import commonErrors from './errors/commonErrorMessages';
 import autoAllocate from './fns/autoAllocate';
@@ -93,13 +93,15 @@ import { unEquipByType } from './ops/unequip';
 import getOfficialPinnedItems from './libs/getOfficialPinnedItems';
 import { sleepAsync } from './libs/sleepAsync';
 
-const api = {};
-api.content = content;
-api.errors = errors;
-api.i18n = i18n;
-api.shouldDo = shouldDo;
-api.daysSince = daysSince;
-api.DAY_MAPPING = DAY_MAPPING;
+const api = {
+  content,
+  errors,
+  i18n,
+  shouldDo,
+  getPlanContext,
+  daysSince,
+  DAY_MAPPING
+};
 
 api.constants = {
   MAX_INCENTIVES,

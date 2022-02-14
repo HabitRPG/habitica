@@ -11,9 +11,8 @@ import { revealMysteryItems } from './payments/subscriptions';
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
 const { MAX_INCENTIVES } = common.constants;
-const { shouldDo } = common;
+const { shouldDo, i18n, getPlanContext } = common;
 const { scoreTask } = common.ops;
-const { i18n } = common;
 const { loginIncentives } = common.content;
 // const maxPMs = 200;
 
@@ -61,10 +60,8 @@ const CLEAR_BUFFS = {
 function grantEndOfTheMonthPerks (user, now) {
   // multi-month subscriptions are for multiples of 3 months
   const SUBSCRIPTION_BASIC_BLOCK_LENGTH = 3;
-  const { plan } = user.purchased;
-  const subscriptionEndDate = moment(plan.dateTerminated).isBefore() ? moment(plan.dateTerminated).startOf('month') : moment(now).startOf('month');
-  const dateUpdatedMoment = moment(plan.dateUpdated).startOf('month');
-  const elapsedMonths = moment(subscriptionEndDate).diff(dateUpdatedMoment, 'months');
+
+  const { plan, elapsedMonths } = getPlanContext(user, now);
 
   if (elapsedMonths > 0) {
     plan.dateUpdated = now;
@@ -72,9 +69,6 @@ function grantEndOfTheMonthPerks (user, now) {
     // Give perks based on consecutive blocks
     // If they already got perks for those blocks (eg, 6mo subscription,
     // subscription gifts, etc) - then dec the offset until it hits 0
-    _.defaults(plan.consecutive, {
-      count: 0, offset: 0, trinkets: 0, gemCapExtra: 0,
-    });
 
     // Award mystery items
     revealMysteryItems(user, elapsedMonths);

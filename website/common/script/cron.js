@@ -250,3 +250,31 @@ export function shouldDo (day, dailyTask, options = {}) {
   }
   return false;
 }
+
+/*
+ * This is a helper method to get all the needed informations of the plan
+ *
+ * currently used in cron and the "next hourglass in" feature
+ */
+export function getPlanContext (user, now) {
+  const { plan } = user.purchased;
+
+  defaults(plan.consecutive, {
+    count: 0, offset: 0, trinkets: 0, gemCapExtra: 0,
+  });
+
+  const subscriptionEndDate = moment(plan.dateTerminated).isBefore()
+    ? moment(plan.dateTerminated).startOf('month')
+    : moment(now).startOf('month');
+  const dateUpdatedMoment = moment(plan.dateUpdated).startOf('month');
+  const elapsedMonths = moment(subscriptionEndDate).diff(dateUpdatedMoment, 'months');
+
+  return {
+    plan,
+    subscriptionEndDate,
+    dateUpdatedMoment,
+    elapsedMonths,
+    offset: plan.consecutive.offset, // months until the new hourglass is added
+    nextHourglassDate: moment(plan.dateUpdated).add(plan.consecutive.offset, 'months'),
+  };
+}
