@@ -99,7 +99,7 @@ export function mockStore ({
       user: {
         data: {
           ...userData,
-        }
+        },
       },
       ...state,
     },
