@@ -93,9 +93,9 @@ export const EVENTS = {
     end: '2021-04-02T08:00-05:00',
     aprilFools: 'invert',
   },
-  valentines2021: {
-    start: '2021-02-14T08:00-05:00',
-    end: '2021-02-17T08:00-05:00',
+  valentines2022: {
+    start: '2022-02-14T08:00-05:00',
+    end: '2022-02-18T08:00-05:00',
     season: 'valentines',
     npcImageSuffix: 'valentines',
   },
