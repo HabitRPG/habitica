@@ -14,19 +14,19 @@ describe('POST /coupons/generate/:event', () => {
 
   beforeEach(async () => {
     user = await generateUser({
-      'contributor.sudo': true,
+      'permissions.coupons': true,
     });
   });
 
-  it('returns an error if user has no sudo permission', async () => {
+  it('returns an error if user has no coupons permission', async () => {
     await user.update({
-      'contributor.sudo': false,
+      'permissions.coupons': false,
     });
 
     await expect(user.post('/coupons/generate/aaa')).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
-      message: apiError('noSudoAccess'),
+      message: apiError('noPrivAccess'),
     });
   });
 
@@ -48,7 +48,7 @@ describe('POST /coupons/generate/:event', () => {
 
   it('should generate coupons', async () => {
     await user.update({
-      'contributor.sudo': true,
+      'permissions.coupons': true,
     });
 
     const coupons = await user.post('/coupons/generate/wondercon?count=2');
