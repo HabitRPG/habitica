@@ -87,7 +87,7 @@ export const userStyles = {
 
 export function mockStore ({
   userData,
-  ...state,
+  ...state
 }) {
   return {
     getters,
