@@ -25,7 +25,9 @@ import {
 import content from './content/index';
 import * as count from './count';
 // TODO under api.libs.cron?
-import { daysSince, DAY_MAPPING, shouldDo, getPlanContext } from './cron';
+import {
+  daysSince, DAY_MAPPING, shouldDo, getPlanContext
+} from './cron';
 import apiErrors from './errors/apiErrorMessages';
 import commonErrors from './errors/commonErrorMessages';
 import autoAllocate from './fns/autoAllocate';
@@ -100,7 +102,7 @@ const api = {
   shouldDo,
   getPlanContext,
   daysSince,
-  DAY_MAPPING
+  DAY_MAPPING,
 };
 
 api.constants = {
