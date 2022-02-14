@@ -1,7 +1,7 @@
 {
     "achievement": "成就",
     "onwards": "继续！",
-    "levelup": "通过完成现实生活中的目标，恭喜升级，并回满了血！",
+    "levelup": "在完成你现实生活中的目标后，你已经升级并回满了血！",
     "reachedLevel": "你升到了第<%= level %>级",
     "achievementLostMasterclasser": "副本征服者：大师鉴别者副本线",
     "achievementLostMasterclasserText": "完成了“大师鉴别者”副本线的全部16个副本，揭开了迷失的大师鉴别者的神秘面纱！",
@@ -123,5 +123,7 @@
     "achievementShadeOfItAll": "暗影之始",
     "achievementShadeOfItAllText": "已驯服所有暗影坐骑。",
     "achievementShadeOfItAllModalText": "你驯服了所有暗影坐骑！",
-    "achievementShadyCustomerText": "已集齐所有暗影宠物。"
+    "achievementShadyCustomerText": "已集齐所有暗影宠物。",
+    "achievementZodiacZookeeper": "十二生肖饲养员",
+    "achievementZodiacZookeeperModalText": "你集齐了所有十二生肖宠物！"
 }

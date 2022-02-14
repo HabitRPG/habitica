@@ -2456,5 +2456,12 @@
     "weaponSpecialFall2021HealerText": "Varinha da Invocação",
     "weaponSpecialFall2021HealerNotes": "Use essa varinha para invocar chamas curativas e uma criatura fantasmagórica para lhe ajudar. Aumenta Inteligência em <%= int %>. Equipamento de Edição Limitada. Outono de 2021.",
     "weaponArmoireSkullLanternText": "Lanterna de Caveira",
-    "weaponArmoireSkullLanternNotes": "Deixe que o brilho dele seja seu guia através das noites mais escuras de suas aventuras. Aumenta Inteligência em <%= int %>. Armário Encantado: Item Independente."
+    "weaponArmoireSkullLanternNotes": "Deixe que o brilho dele seja seu guia através das noites mais escuras de suas aventuras. Aumenta Inteligência em <%= int %>. Armário Encantado: Item Independente.",
+    "weaponSpecialWinter2022RogueNotes": "Prata e ouro são amados pelos Gatunos, certo? Esses tem tudo a ver. Aumenta a Força em <%= str %>. Edição Limitada do Equipamento de Inverno de 2021-2022.",
+    "weaponSpecialWinter2022WarriorText": "Espada Bengala Doce",
+    "weaponSpecialWinter2022HealerNotes": "Encoste essa ferramenta de água sólida no pescoço de um(a) amigo(a) e ele(a) cairá da cadeira! Mas logo depois se sentirá bem. Com sorte. Aumenta e Inteligência em <%= int %>. Edição Limitada do Equipamento de Inverno de 2021-2022.",
+    "weaponSpecialWinter2022WarriorNotes": "Quantas lambidas são necessárias para transformar essa bengala doce em uma espada perfeita? Aumenta a Força em <%= str %>. Edição Limitada do Equipamento de Inverno de 2021-2022.",
+    "weaponSpecialWinter2022MageText": "Cajado Romã",
+    "weaponSpecialWinter2022MageNotes": "As frutinhas deste cajado contém uma magia anciã que se lança no inverno. Aumenta a Inteligência em <%= int %> e a Percepção em <%= per %>. Edição Limitada do Equipamento de Inverno de 2021-2022.",
+    "weaponSpecialWinter2022HealerText": "Varinha Gelo Cristalino"
 }

@@ -70,6 +70,7 @@ const NOTIFICATION_TYPES = [
   'ACHIEVEMENT_DOMESTICATED',
   'ACHIEVEMENT_SHADY_CUSTOMER',
   'ACHIEVEMENT_SHADE_OF_IT_ALL',
+  'ACHIEVEMENT_ZODIAC_ZOOKEEPER',
   'ACHIEVEMENT', // generic achievement notification, details inside `notification.data`
   'DROP_CAP_REACHED',
 ];

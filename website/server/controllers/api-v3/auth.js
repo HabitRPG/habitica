@@ -341,14 +341,7 @@ api.resetPassword = {
     if (validationErrors) throw validationErrors;
 
     const email = req.body.email.toLowerCase();
-    const user = await User.findOne({
-      $or: [
-        { 'auth.local.email': email },
-        { 'auth.apple.emails.value': email },
-        { 'auth.google.emails.value': email },
-        { 'auth.facebook.emails.value': email },
-      ],
-    }).exec();
+    const user = await User.findOne({ 'auth.local.email': email }).exec();
 
     if (user) {
       // create an encrypted link to be used to reset the password
