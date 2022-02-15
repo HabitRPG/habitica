@@ -130,6 +130,12 @@ export default {
     },
   },
   computed: {
+    ...mapState({
+      currentEventList: 'worldState.data.currentEventList',
+    }),
+    currentEvent () {
+      return find(this.currentEventList, event => Boolean(event.gemsPromo) || Boolean(event.promo));
+    },
     mounted () {
       this.$root.$on('habitica::send-gift', data => {
         this.userReceivingGems = data;
