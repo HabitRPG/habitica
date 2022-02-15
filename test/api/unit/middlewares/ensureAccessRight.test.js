@@ -4,7 +4,6 @@ import {
   generateReq,
   generateNext,
 } from '../../../helpers/api-unit.helper';
-import i18n from '../../../../website/common/script/i18n';
 import { ensurePermission } from '../../../../website/server/middlewares/ensureAccessRight';
 import { NotAuthorized } from '../../../../website/server/libs/errors';
 import apiError from '../../../../website/server/libs/apiError';
@@ -61,7 +60,7 @@ describe('ensure access middlewares', () => {
     });
   });
 
-  context('ensure sudo', () => {
+  context('ensure coupons', () => {
     it('returns not authorized when user does not have access to coupon calls', () => {
       res.locals = { user: { permissions: { coupons: false } } };
 

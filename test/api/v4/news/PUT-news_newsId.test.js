@@ -26,7 +26,7 @@ describe('PUT /news/:newsID', () => {
     await expect(nonAdminUser.put('/news/1234')).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
-      message: 'You don\'t have news poster access.',
+      message: 'You don\'t have the required privileges.',
     });
   });
 

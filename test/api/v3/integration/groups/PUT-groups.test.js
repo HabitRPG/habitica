@@ -104,7 +104,7 @@ describe('PUT /group', () => {
     // Update the bannedWordsAllowed property for the group
     const response = await groupLeader.put(`/groups/${group._id}`, updateGroupDetails);
 
-    expect(groupLeader.hasPermission('moderator')).to.eql(true);
+    expect(groupLeader.permissions.fullAccess).to.eql(true);
     expect(response.bannedWordsAllowed).to.eql(true);
   });
 
@@ -128,7 +128,7 @@ describe('PUT /group', () => {
     // Update the bannedWordsAllowed property for the group
     const response = await groupLeader.put(`/groups/${group._id}`, updateGroupDetails);
 
-    expect(groupLeader.hasPermission('moderator')).to.eql(false);
+    expect(groupLeader.permissions.moderator).to.eql(false);
     expect(response.bannedWordsAllowed).to.eql(undefined);
   });
 });

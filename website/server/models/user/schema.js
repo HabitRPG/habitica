@@ -170,7 +170,6 @@ export default new Schema({
       max: 9,
     },
     admin: Boolean,
-    sudo: Boolean,
     // Artisan, Friend, Blacksmith, etc
     text: String,
     // a markdown textarea to list their contributions + links

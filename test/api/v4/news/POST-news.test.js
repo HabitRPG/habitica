@@ -25,7 +25,7 @@ describe('POST /news', () => {
     await expect(nonAdminUser.post('/news')).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
-      message: t('noPrivAccess'),
+      message: 'You don\'t have the required privileges.',
     });
   });
 
