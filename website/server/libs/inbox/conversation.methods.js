@@ -96,7 +96,7 @@ export async function listConversations (owner, page) {
 
       const isOwnerBlocked = user.blocks.includes(owner._id);
 
-      conversation.canReceive = !(user.optOut || isOwnerBlocked) || owner.isAdmin();
+      conversation.canReceive = !(user.optOut || isOwnerBlocked) || owner.hasPermission('moderator');
     }
 
     return conversation;

@@ -180,7 +180,6 @@ describe('POST /members/send-private-message', () => {
     });
     const receiver = await generateUser({ 'inbox.blocks': [userToSendMessage._id] });
 
-    console.log(userToSendMessage);
     await userToSendMessage.post('/members/send-private-message', {
       message: messageToSend,
       toUserId: receiver._id,

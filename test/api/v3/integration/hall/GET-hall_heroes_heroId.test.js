@@ -24,7 +24,7 @@ describe('GET /heroes/:heroId', () => {
     await expect(nonAdmin.get(`/hall/heroes/${user._id}`)).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
-      message: t('noAdminAccess'),
+      message: t('noPrivAccess'),
     });
   });
 
