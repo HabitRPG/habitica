@@ -49,6 +49,7 @@
             v-model="userSearchTerm"
             class="form-control"
             type="text"
+            ref="textBox"
             :placeholder="$t('usernameOrUserId')"
             :class="{
               'input-valid': foundUser._id,
@@ -301,13 +302,19 @@ export default {
       this.foundUser = result;
     }, 500),
     selectUser () {
-      this.$root.$emit('bv::hide::modal', 'send-gift', this.foundUser);
+      this.$root.$emit('habitica::send-gift', this.foundUser);
       this.close();
     },
     onHide () {
       this.userNotFound = false;
       this.userSearchTerm = '';
       this.foundUser = {};
+    },
+    onOpen () {
+      if (this.show) {
+        this.nextTick();
+        this.$refs.textBox.$el.focus();
+      }
     },
   },
 };

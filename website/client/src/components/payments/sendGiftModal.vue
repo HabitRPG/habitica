@@ -7,7 +7,7 @@
     @hide="onHide()"
   >
       <div
-      class="panel panel-default"
+      class="panel"
       >
       <h2
         class="d-flex flex-column mx-auto align-items-center"
@@ -25,7 +25,6 @@
         ></div>
       </div>
     </div>
-  </b-modal>
   </b-modal>
 </template>
 
@@ -97,11 +96,11 @@
 // module imports
 
 // mixins imports
-import paymentsMixin from '../../mixins/payments';
-import notificationsMixin from '../../mixins/notifications';
+// import paymentsMixin from '../../mixins/payments';
+// import notificationsMixin from '../../mixins/notifications';
 
 // component imports
-import subscriptionOptions from './subscriptionOptions.vue';
+// import subscriptionOptions from './subscriptionOptions.vue';
 
 // svg imports
 import amazonPayLogo from '@/assets/svg/amazonpay.svg';
@@ -112,10 +111,10 @@ import paypalLogo from '@/assets/svg/paypal-logo.svg';
 
 export default {
   components: {
-    subscriptionOptions,
+    // subscriptionOptions,
   },
-  mixins:[],
-  data() {
+  mixins: [],
+  data () {
     return {
       subscription: {
         key: null,
@@ -127,21 +126,22 @@ export default {
         logo,
         paypalLogo,
       }),
-    },
+    };
   },
   computed: {
-    ...mapState({
-      currentEventList: 'worldState.data.currentEventList',
-    }),
-    currentEvent () {
-      return find(this.currentEventList, event => Boolean(event.gemsPromo) || Boolean(event.promo));
-    },
-    mounted () {
-      this.$root.$on('habitica::send-gift', data => {
-        this.userReceivingGems = data;
-        this.$root.$emit('bv::show::modal', 'send-gift');
-      });
-    },
+    // ...mapState({
+    //   currentEventList: 'worldState.data.currentEventList',
+    // }),
+    // currentEvent () {
+    //   return find(this.currentEventList, event => Boolean(event.gemsPromo)
+    // || Boolean(event.promo));
+    // },
+  },
+  mounted () {
+    this.$root.$on('habitica::send-gift', data => {
+      this.userReceivingGems = data;
+      this.$root.$emit('bv::show::modal', 'send-gift');
+    });
   },
   methods: {
     showSelectUser () {
