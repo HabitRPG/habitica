@@ -51,28 +51,63 @@
         v-if="task.group.assignedUsers"
       >
         <span
-          v-if="assignedUsersCount > 1 && completionsCount && !showStatus"
-          class="mr-1"
+          v-if="assignedUsersCount > 1 && completionsCount"
+          class="mr-1 d-inline-flex align-items-center"
         >
-          {{ completionsCount }}/{{ assignedUsersCount }}
+          <span
+            class="small-check my-auto"
+            v-if="!showStatus"
+            :class="{'green-50': completionsCount === assignedUsersCount}"
+            v-html="icons.check"
+          ></span>
+          <span
+            class="my-auto ml-1 mr-2"
+            v-if="!showStatus"
+          >
+            {{ completionsCount }}/{{ assignedUsersCount }}
+          </span>
+          <a
+            v-if="assignedUsersCount > 1 && !showStatus"
+            class="blue-10"
+            @click="showStatus = !showStatus"
+          >
+            {{ $t('viewStatus') }}
+          </a>
+          <a
+            v-if="showStatus"
+            @click="showStatus = !showStatus"
+          >
+            {{ $t('close') }}
+          </a>
         </span>
-        <a
-          v-if="assignedUsersCount > 1 && !showStatus"
-          class="blue-10"
-          @click="showStatus = !showStatus"
-        >
-          {{ $t('viewStatus') }}
-        </a>
-        <a
-          v-if="showStatus"
-          @click="showStatus = !showStatus"
-        >
-          {{ $t('close') }}
-        </a>
       </div>
     </div>
   </div>
 </template>
+
+<style lang="scss">
+  .small-check {
+    display: inline-flex;
+    width: 16px;
+    height: 16px;
+    border-radius: 2px;
+    padding-left: 2px;
+    background-color: #e1e0e3;
+
+    svg {
+      margin: auto;
+      width: 8px;
+
+      path {
+        fill: #878190;
+      }
+    }
+
+    &.green-50 svg path {
+      fill: #20b780;
+    }
+  }
+</style>
 
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
@@ -98,7 +133,7 @@
     .control {
       background-color: $gray-200;
       border-top: 1px solid $gray-100;
-      width: 44px;
+      width: 40px;
       height: 48px;
       padding: 9px 6px;
 
