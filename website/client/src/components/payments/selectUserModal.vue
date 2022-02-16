@@ -112,7 +112,6 @@
   @import '~@/assets/scss/mixins.scss';
 
   #select-user-modal {
-
     .modal-content {
       height:308px;
       width:448px;
@@ -204,6 +203,7 @@
     font-size: 1.25rem;
     line-height: 1.75rem;
     color: $purple-300;
+    padding-top: 1rem;
   }
 
   .svg-big-gift {
@@ -228,6 +228,7 @@
 </style>
 
 <script>
+// import { nextTick } from 'vue'; // may not need this? I don't know!
 import debounce from 'lodash/debounce';
 import find from 'lodash/find';
 import isUUID from 'validator/lib/isUUID';
@@ -310,12 +311,12 @@ export default {
       this.userSearchTerm = '';
       this.foundUser = {};
     },
-    onOpen () {
-      if (this.show) {
-        this.nextTick();
-        this.$refs.textBox.$el.focus();
-      }
-    },
+    // trying to get cursor to focus in the text field
+    // onOpen () {
+    //   this.nextTick(() => {
+    //     this.$refs.textBox.focus();
+    //   });
+    // },
   },
 };
 </script>

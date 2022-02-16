@@ -6,15 +6,14 @@
     size="md"
     @hide="onHide()"
   >
-      <div
-      class="panel"
+    <div
+    class="panel"
       >
       <h2
         class="d-flex flex-column mx-auto align-items-center"
       >
         {{ $t('sendAGift') }}
       </h2>
-
       <div
         class="modal-close"
         @click="close()"
@@ -24,12 +23,59 @@
           v-html="icons.close"
         ></div>
       </div>
+      <div class="row">
+        <div class="col-12 col-md-6 offset-md-3 text-center nav">
+          <member-details :member="user" />
+          <div
+            class="nav-item"
+            :class="{active: selectedPage === 'profile'}"
+            @click="selectPage('profile')"
+          >
+            {{ $t('profile') }}
+          </div>
+          <avatar :member="userReceivingGems" />
+        </div>
+      </div>
     </div>
   </b-modal>
 </template>
 
+<style lang="scss">
+  @import '~@/assets/scss/mixins.scss';
+
+  #send-gift {
+
+    .modal-header {
+      padding-top: 0.6rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 0;
+    }
+
+    .modal-body {
+    }
+
+    .input-group {
+    }
+
+    .modal-dialog {
+    }
+
+    .modal-footer {
+      padding: 0rem;
+
+      > * {
+        margin: 0rem 0.25rem 0.25rem 0.25rem;
+      }
+    }
+  }
+</style>
 <style scoped lang="scss">
   @import '~@/assets/scss/colors.scss';
+
+  h2 {
+    color: $purple-300;
+    font-size: 1.25rem;
+  }
 
   .extra-months {
     border-radius: 2px;
@@ -57,9 +103,9 @@
     font-weight: bold;
   }
 
-  .subscribe-option {
-    border-bottom: 1px solid $gray-600;
-  }
+  // .subscribe-option {
+  //   border-bottom: 1px solid $gray-600;
+  // }
 
   .svg-amazon-pay {
     width: 208px;
@@ -94,6 +140,12 @@
 
 <script>
 // module imports
+// import toArray from 'lodash/toArray';
+// import omitBy from 'lodash/omitBy';
+// import orderBy from 'lodash/orderBy';
+
+// libs imports
+import { mapState } from '@/libs/store';
 
 // mixins imports
 // import paymentsMixin from '../../mixins/payments';
@@ -101,6 +153,8 @@
 
 // component imports
 // import subscriptionOptions from './subscriptionOptions.vue';
+import memberDetails from '../memberDetails';
+import avatar from '../avatar.vue';
 
 // svg imports
 import amazonPayLogo from '@/assets/svg/amazonpay.svg';
@@ -112,6 +166,8 @@ import paypalLogo from '@/assets/svg/paypal-logo.svg';
 export default {
   components: {
     // subscriptionOptions,
+    memberDetails,
+    avatar,
   },
   mixins: [],
   data () {
@@ -126,20 +182,22 @@ export default {
         logo,
         paypalLogo,
       }),
+      userReceivingGift: null,
     };
   },
   computed: {
-    // ...mapState({
+    ...mapState({
     //   currentEventList: 'worldState.data.currentEventList',
     // }),
     // currentEvent () {
-    //   return find(this.currentEventList, event => Boolean(event.gemsPromo)
+    //   return find(this.currentEventList, event => Boolean(event.GiftPromo)
     // || Boolean(event.promo));
-    // },
+      userLoggedIn: 'user.data',
+    }),
   },
   mounted () {
     this.$root.$on('habitica::send-gift', data => {
-      this.userReceivingGems = data;
+      this.userReceivingGift = data;
       this.$root.$emit('bv::show::modal', 'send-gift');
     });
   },
@@ -147,6 +205,19 @@ export default {
     showSelectUser () {
       this.$root.$emit('bv::show::modal', 'select-user-modal');
     },
+    displayName () {
+      return this.userReceivingGift.profile.name;
+    },
+    // why is this not working? I do not know! doublecheck with sendGemsModal.vue
+    // receiverUserName () {
+    //   if (
+    //     this.userReceivingGift.auth
+    //     && this.userReceivingGift.auth.local
+    //     && this.userReceivingGift.auth.local.username
+    //   ) {
+    //     return this.userReceivingGift.auth.local.username;
+    //   }
+    // },
     onHide () {
       this.gift.message = '';
       this.sendingInProgress = false;
