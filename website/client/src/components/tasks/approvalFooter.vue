@@ -44,6 +44,7 @@
     >
       <div
         class="mr-auto ml-2"
+        :class="{'green-10': showGreen}"
         v-html="message"
       ></div>
       <div
@@ -230,9 +231,10 @@ export default {
         if (userId !== this.user._id) {
           const index = findIndex(this.group.members, member => member._id === userId);
           const { completedDate } = this.task.group.assignedUsers[userId];
+          if (!completedDate) return [];
           let completedDateString;
-          if (completedDate && moment().diff(completedDate, 'days') > 0) {
-            completedDateString = `Last completed ${moment(completedDate).format('M/D/YY')}`;
+          if (moment().diff(completedDate, 'days') > 0) {
+            completedDateString = `Completed ${moment(completedDate).format('M/D/YY')}`;
           } else {
             completedDateString = `Completed today at ${moment(completedDate).format('h:mm A')}`;
           }
@@ -249,20 +251,44 @@ export default {
       return completionsArray;
     },
     message () {
-      if (this.assignedUsersCount === 1 && !this.userIsAssigned) {
+      if (this.assignedUsersCount > 1) { // Multi assigned
+        if (this.userIsAssigned) {
+          return this.$t('assignedToYouAndMembers', { userCount: this.assignedUsersCount - 1 });
+        }
+        return this.$t('assignedToMembers', { userCount: this.assignedUsersCount });
+      }
+      if (this.assignedUsersCount === 1) { // Singly assigned
+        const userId = this.assignedUsersKeys[0];
         const index = findIndex(
-          this.group.members, member => member._id === this.assignedUsersKeys[0],
+          this.group.members, member => member._id === userId,
         );
         const userName = this.group.members[index].auth.local.username;
+
+        if (this.task.group.assignedUsers[userId].completed) { // completed
+          const { completedDate } = this.task.group.assignedUsers[userId];
+          if (this.userIsAssigned) {
+            if (moment().diff(completedDate, 'days') > 0) {
+              return `<strong>You</strong> completed ${moment(completedDate).format('M/D/YY')}`;
+            }
+            return `<strong>You</strong> completed today at ${moment(completedDate).format('h:mm A')}`;
+          }
+          if (moment().diff(completedDate, 'days') > 0) {
+            return `<strong>@${userName}</strong> completed ${moment(completedDate).format('M/D/YY')}`;
+          }
+          return `<strong>@${userName}</strong> completed today at ${moment(completedDate).format('h:mm A')}`;
+        }
+        if (this.userIsAssigned) {
+          return this.$t('youAreAssigned');
+        }
         return this.$t('assignedToUser', { userName });
-      } if (this.assignedUsersCount > 1 && !this.userIsAssigned) {
-        return this.$t('assignedToMembers', { userCount: this.assignedUsersCount });
-      } if (this.assignedUsersCount > 1 && this.userIsAssigned) {
-        return this.$t('assignedToYouAndMembers', { userCount: this.assignedUsersCount - 1 });
-      } if (this.userIsAssigned) {
-        return this.$t('youAreAssigned');
-      } // Task is open; we shouldn't be showing message at all
-      return this.$t('error');
+      }
+      return this.$t('error'); // task is open, or the other conditions aren't hitting right
+    },
+    showGreen () {
+      if (this.assignedUsersCount !== 1) return false;
+      const userId = this.assignedUsersKeys[0];
+      const completion = this.task.group.assignedUsers[userId];
+      return completion.completed && moment().diff(completion.completedDate, 'days') < 1;
     },
   },
   methods: {
