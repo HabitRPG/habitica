@@ -209,15 +209,16 @@ export default {
       return this.userReceivingGift.profile.name;
     },
     // why is this not working? I do not know! doublecheck with sendGemsModal.vue
-    // receiverUserName () {
-    //   if (
-    //     this.userReceivingGift.auth
-    //     && this.userReceivingGift.auth.local
-    //     && this.userReceivingGift.auth.local.username
-    //   ) {
-    //     return this.userReceivingGift.auth.local.username;
-    //   }
-    // },
+    receiverUserName () {
+      if (
+        this.userReceivingGift.auth
+        && this.userReceivingGift.auth.local
+        && this.userReceivingGift.auth.local.username
+      ) {
+        return this.userReceivingGift.auth.local.username;
+      }
+      return
+    },
     onHide () {
       this.gift.message = '';
       this.sendingInProgress = false;
