@@ -2173,7 +2173,7 @@
     "armorSpecialFall2021HealerNotes": "Hechas de tela duradera y resistente a las llamas, estos hábitos son perfectos para conjurar llamas curativas. Aumenta la constitución en <% = con%>. Equipamiento de edición limitada de otoño 2021.",
     "armorMystery202103Text": "Toga de observación floral",
     "armorMystery202110Text": "Armadura de gárgola musgosa",
-    "armorSpecialFall2021RogueNotes": "¡Tiene un gorrito, una túnica de cuero y remaches de metal! ¡Es chulísima! ¡Pero no ofrece impermeabilidad contra bichos pegajosos! Aumenta la percepción en un <% = per%>. Equipamiento de edición limitada de otoño 2021.",
+    "armorSpecialFall2021RogueNotes": "¡Tiene un gorrito, una túnica de cuero y remaches de metal! ¡Es chulísima! ¡Pero no ofrece impermeabilidad contra bichos pegajosos! Aumenta la percepción en un <%= per %>. Equipamiento de edición limitada de otoño 2021.",
     "armorSpecialFall2021MageNotes": "Los cuellos con muchas protuberancias puntiagudas están de moda entre los villanos de baja categoría. Aumenta la inteligencia en <% = int%>. Equipamiento de edición limitada de otoño 2021.",
     "armorSpecialSpring2021RogueNotes": "Nadie te verá esperando entre los arbustos con esta astuta armadura; ahora pareces una planta visto desde cualquier ángulo. Aumenta la percepción en <%= per %>. Equipamiento de edición limitada de primavera 2021.",
     "armorSpecialSummer2021WarriorText": "Armadura de aletas",
