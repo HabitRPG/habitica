@@ -23,18 +23,15 @@
           v-html="icons.close"
         ></div>
       </div>
-      <div class="row">
-        <div class="col-12 col-md-6 offset-md-3 text-center nav">
-          <member-details :member="user" />
-          <div
-            class="nav-item"
-            :class="{active: selectedPage === 'profile'}"
-            @click="selectPage('profile')"
-          >
-            {{ $t('profile') }}
-          </div>
-          <avatar :member="userReceivingGems" />
-        </div>
+      <div>
+        <member-details
+          :member="userReceivingGift"
+          :condensed="true"
+          :classBadgePosition="false"
+          class="d-flex flex-column mx-auto align-items-center"
+        />
+        <h3 class="d-flex flex-column mx-auto align-items-center">WHY IS THIS SO HARD</h3>
+        <h4 class="d-flex flex-column mx-auto align-items-center">i don't know</h4>
       </div>
     </div>
   </b-modal>
@@ -152,9 +149,9 @@ import { mapState } from '@/libs/store';
 // import notificationsMixin from '../../mixins/notifications';
 
 // component imports
-// import subscriptionOptions from './subscriptionOptions.vue';
+// import subscriptionOptions from './settings/subscriptionOptions.vue';
 import memberDetails from '../memberDetails';
-import avatar from '../avatar.vue';
+// import userLink from '../userLink';
 
 // svg imports
 import amazonPayLogo from '@/assets/svg/amazonpay.svg';
@@ -167,7 +164,7 @@ export default {
   components: {
     // subscriptionOptions,
     memberDetails,
-    avatar,
+    // userLink,
   },
   mixins: [],
   data () {
@@ -183,6 +180,8 @@ export default {
         paypalLogo,
       }),
       userReceivingGift: null,
+      avatarOnly: false,
+      displayName: null,
     };
   },
   computed: {
@@ -205,9 +204,6 @@ export default {
     showSelectUser () {
       this.$root.$emit('bv::show::modal', 'select-user-modal');
     },
-    displayName () {
-      return this.userReceivingGift.profile.name;
-    },
     // why is this not working? I do not know! doublecheck with sendGemsModal.vue
     receiverUserName () {
       if (
@@ -217,7 +213,7 @@ export default {
       ) {
         return this.userReceivingGift.auth.local.username;
       }
-      return
+      return this.userReceivingGems.profile.name;
     },
     onHide () {
       this.gift.message = '';
