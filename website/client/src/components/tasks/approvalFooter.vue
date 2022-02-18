@@ -44,7 +44,7 @@
     >
       <div
         class="mr-auto ml-2"
-        :class="{'green-10': showGreen}"
+        :class="{'green-10': showGreen && task.type === 'todo'}"
         v-html="message"
       ></div>
       <div
@@ -80,6 +80,12 @@
           >
             {{ $t('close') }}
           </a>
+        </span>
+        <span
+          v-if="assignedUsersCount === 1 && task.type === 'daily'"
+          :class="{'green-10': showGreen}"
+        >
+          {{ formattedCompletionTime }}
         </span>
       </div>
     </div>
@@ -264,7 +270,7 @@ export default {
         );
         const userName = this.group.members[index].auth.local.username;
 
-        if (this.task.group.assignedUsers[userId].completed) { // completed
+        if (this.task.type === 'todo' && this.task.group.assignedUsers[userId].completed) { // completed
           const { completedDate } = this.task.group.assignedUsers[userId];
           if (this.userIsAssigned) {
             if (moment().diff(completedDate, 'days') > 0) {
@@ -289,6 +295,14 @@ export default {
       const userId = this.assignedUsersKeys[0];
       const completion = this.task.group.assignedUsers[userId];
       return completion.completed && moment().diff(completion.completedDate, 'days') < 1;
+    },
+    formattedCompletionTime () {
+      const userId = this.assignedUsersKeys[0];
+      const completion = this.task.group.assignedUsers[userId];
+      if (!completion.completed) return '';
+      const { completedDate } = completion;
+      if (moment().diff(completedDate, 'days') < 1) return moment(completedDate).format('h:mm A');
+      return moment(completedDate).format('M/D/YY');
     },
   },
   methods: {
