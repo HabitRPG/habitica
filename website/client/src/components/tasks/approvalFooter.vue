@@ -83,9 +83,20 @@
         </span>
         <span
           v-if="assignedUsersCount === 1 && task.type === 'daily'"
-          :class="{'green-10': showGreen}"
+          class="mr-1 d-inline-flex"
         >
-          {{ formattedCompletionTime }}
+          <span
+            v-if="singleAssignLastDone"
+            v-html="icons.lastComplete"
+            class="last-completed mr-1"
+            :class="{'gray-200': !showGreen}"
+          >
+          </span>
+          <span
+            :class="{'green-10': showGreen}"
+          >
+            {{ formattedCompletionTime }}
+        </span>
         </span>
       </div>
     </div>
@@ -93,6 +104,11 @@
 </template>
 
 <style lang="scss">
+  .gray-200 > svg > g > path {
+    fill: #878190;
+  }
+
+
   .small-check {
     display: inline-flex;
     width: 16px;
@@ -186,6 +202,15 @@
   .green-10 {
     color: $green-10;
   }
+
+  .last-completed {
+    width: 16px;
+    height: 14px;
+
+    + .green-10 {
+      margin-top: 1px;
+    }
+  }
 </style>
 
 <script>
@@ -196,6 +221,7 @@ import reduce from 'lodash/reduce';
 import { mapState } from '@/libs/store';
 import checkIcon from '@/assets/svg/check.svg';
 import lockIcon from '@/assets/svg/lock.svg';
+import lastComplete from '@/assets/svg/last-complete.svg';
 
 export default {
   props: ['task', 'group'],
@@ -204,6 +230,7 @@ export default {
       showStatus: false,
       icons: Object.freeze({
         check: checkIcon,
+        lastComplete,
         lock: lockIcon,
       }),
     };
@@ -290,19 +317,22 @@ export default {
       }
       return this.$t('error'); // task is open, or the other conditions aren't hitting right
     },
+    singleAssignLastDone () {
+      const userId = this.assignedUsersKeys[0];
+      const completion = this.task.group.assignedUsers[userId];
+      if (!completion.completed) return null;
+      return completion.completedDate;
+    },
     showGreen () {
       if (this.assignedUsersCount !== 1) return false;
-      const userId = this.assignedUsersKeys[0];
-      const completion = this.task.group.assignedUsers[userId];
-      return completion.completed && moment().diff(completion.completedDate, 'days') < 1;
+      return this.singleAssignLastDone && moment().diff(this.singleAssignLastDone, 'days') < 1;
     },
     formattedCompletionTime () {
-      const userId = this.assignedUsersKeys[0];
-      const completion = this.task.group.assignedUsers[userId];
-      if (!completion.completed) return '';
-      const { completedDate } = completion;
-      if (moment().diff(completedDate, 'days') < 1) return moment(completedDate).format('h:mm A');
-      return moment(completedDate).format('M/D/YY');
+      if (!this.singleAssignLastDone) return '';
+      if (moment().diff(this.singleAssignLastDone, 'days') < 1) {
+        return moment(this.singleAssignLastDone).format('h:mm A');
+      }
+      return moment(this.singleAssignLastDone).format('M/D/YY');
     },
   },
   methods: {
