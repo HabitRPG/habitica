@@ -1,7 +1,6 @@
 <template>
   <b-modal
     id="send-gift"
-    :title="title"
     :hide-footer="true"
     size="md"
     @hide="onHide()"
@@ -23,15 +22,31 @@
           v-html="icons.close"
         ></div>
       </div>
+        <div
+        v-if="userReceivingGift"
+        >
+          <!-- user avatar -->
+          <member-details
+            :member="userReceivingGift"
+            :condensed="true"
+            :classBadgePosition="'hidden'"
+            class="d-flex flex-column mx-auto align-items-center"
+          />
+          <div>
+            <!-- user profile name and @username except it's not the right one -->
+            <h1 class= "flex-spacer">{{ userReceivingGift.profile.name }}</h1>
+            <div
+              v-if="userReceivingGift.auth
+              && userReceivingGift.auth.local
+              && userReceivingGift.auth.local.username"
+              class="name"
+            >
+              @{{ userReceivingGift.auth.local.username }}
+            </div>
+        </div>
+      </div>
       <div>
-        <member-details
-          :member="userReceivingGift"
-          :condensed="true"
-          :classBadgePosition="false"
-          class="d-flex flex-column mx-auto align-items-center"
-        />
-        <h3 class="d-flex flex-column mx-auto align-items-center">WHY IS THIS SO HARD</h3>
-        <h4 class="d-flex flex-column mx-auto align-items-center">i don't know</h4>
+        <subscription-options />
       </div>
     </div>
   </b-modal>
@@ -43,8 +58,8 @@
   #send-gift {
 
     .modal-header {
-      padding-top: 0.6rem;
-      padding-bottom: 0.6rem;
+      padding-top: 0rem;
+      padding-bottom: 0rem;
       border-bottom: 0;
     }
 
@@ -57,13 +72,13 @@
     .modal-dialog {
     }
 
-    .modal-footer {
-      padding: 0rem;
-
-      > * {
-        margin: 0rem 0.25rem 0.25rem 0.25rem;
-      }
-    }
+    // .modal-footer {
+    //   padding: 0rem;
+    //
+    //   > * {
+    //     margin: 0rem 0.25rem 0.25rem 0.25rem;
+    //   }
+    // }
   }
 </style>
 <style scoped lang="scss">
@@ -100,12 +115,8 @@
     font-weight: bold;
   }
 
-  // .subscribe-option {
-  //   border-bottom: 1px solid $gray-600;
-  // }
-
-  .svg-amazon-pay {
-    width: 208px;
+  .subscribe-option {
+    border-bottom: 1px solid $gray-600;
   }
 
   .svg-close {
@@ -118,66 +129,47 @@
     }
   }
 
-  .svg-gift-box {
-    width: 32px;
-    height: 32px;
-  }
-
-  .svg-logo {
-    width: 256px;
-    height: 56px;
-  }
-
-  .svg-paypal {
-    width: 148px;
-    height: 40px;
-  }
-
 </style>
 
 <script>
-// module imports
-// import toArray from 'lodash/toArray';
-// import omitBy from 'lodash/omitBy';
-// import orderBy from 'lodash/orderBy';
 
 // libs imports
-import { mapState } from '@/libs/store';
+// import { mapState } from '@/libs/store';
 
 // mixins imports
-// import paymentsMixin from '../../mixins/payments';
-// import notificationsMixin from '../../mixins/notifications';
+import paymentsMixin from '../../mixins/payments';
 
 // component imports
-// import subscriptionOptions from './settings/subscriptionOptions.vue';
+import subscriptionOptions from '../settings/subscriptionOptions.vue';
 import memberDetails from '../memberDetails';
-// import userLink from '../userLink';
+
 
 // svg imports
-import amazonPayLogo from '@/assets/svg/amazonpay.svg';
+// import amazonPayLogo from '@/assets/svg/amazonpay.svg';
 import closeIcon from '@/assets/svg/close.svg';
-import creditCardIcon from '@/assets/svg/credit-card-icon.svg';
-import logo from '@/assets/svg/habitica-logo-purple.svg';
-import paypalLogo from '@/assets/svg/paypal-logo.svg';
+// import creditCardIcon from '@/assets/svg/credit-card-icon.svg';
+// import logo from '@/assets/svg/habitica-logo-purple.svg';
+// import paypalLogo from '@/assets/svg/paypal-logo.svg';
 
 export default {
   components: {
-    // subscriptionOptions,
+    subscriptionOptions,
     memberDetails,
-    // userLink,
   },
-  mixins: [],
+  mixins: [
+    paymentsMixin,
+  ],
   data () {
     return {
       subscription: {
         key: null,
       },
       icons: Object.freeze({
-        amazonPayLogo,
+        // amazonPayLogo,
         closeIcon,
-        creditCardIcon,
-        logo,
-        paypalLogo,
+        // creditCardIcon,
+        // logo,
+        // paypalLogo,
       }),
       userReceivingGift: null,
       avatarOnly: false,
@@ -185,20 +177,7 @@ export default {
     };
   },
   computed: {
-    ...mapState({
-    //   currentEventList: 'worldState.data.currentEventList',
-    // }),
-    // currentEvent () {
-    //   return find(this.currentEventList, event => Boolean(event.GiftPromo)
-    // || Boolean(event.promo));
-      userLoggedIn: 'user.data',
-    }),
-  },
-  mounted () {
-    this.$root.$on('habitica::send-gift', data => {
-      this.userReceivingGift = data;
-      this.$root.$emit('bv::show::modal', 'send-gift');
-    });
+
   },
   methods: {
     showSelectUser () {
@@ -215,13 +194,21 @@ export default {
       }
       return this.userReceivingGems.profile.name;
     },
-    onHide () {
-      this.gift.message = '';
-      this.sendingInProgress = false;
-    },
+    // we'll need this later
+    // onHide () {
+    //   this.gift.message = '';
+    //   this.sendingInProgress = false;
+    // },
     close () {
       this.$root.$emit('bv::hide::modal', 'send-gift');
     },
+  },
+  mounted () {
+    this.$root.$on('habitica::send-gift', data => {
+      console.log(data);
+      this.userReceivingGift = data;
+      this.$root.$emit('bv::show::modal', 'send-gift');
+    });
   },
 };
 </script>
