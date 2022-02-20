@@ -185,12 +185,12 @@
           <div class="header-mini mb-3">
             {{ $t('subscriptionStats') }}
           </div>
-          <div class="d-flex justify-content-around">
+          <div class="d-flex justify-content-evenly">
             <div class="ml-4 mr-3">
               <div class="d-flex justify-content-center align-items-center">
                 <div
                   v-once
-                  class="svg-icon svg-calendar mr-2"
+                  class="svg-icon svg-calendar mr-1"
                   v-html="icons.calendarIcon"
                 >
                 </div>
@@ -208,7 +208,7 @@
               <div class="d-flex justify-content-center align-items-center">
                 <div
                   v-once
-                  class="svg-icon svg-gem mr-2"
+                  class="svg-icon svg-gem mr-1"
                   v-html="icons.gemIcon"
                 >
                 </div>
@@ -225,7 +225,7 @@
               <div class="d-flex justify-content-center align-items-center">
                 <div
                   v-once
-                  class="svg-icon svg-hourglass mt-1 mr-2"
+                  class="svg-icon svg-hourglass mt-1 mr-1"
                   v-html="icons.hourglassIcon"
                 >
                 </div>
@@ -250,7 +250,7 @@
             v-html="icons.heartIcon"
           >
           </div>
-          <div class="">
+          <div class="thanks-for-support">
             {{ $t('giftSubscriptionText4') }}
           </div>
         </div>
@@ -445,7 +445,7 @@
   .subscribe-card {
     padding-top: 2rem;
     width: 28rem;
-    border-radius: 4px;
+    border-radius: 8px;
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
     background-color: $white;
   }
@@ -548,6 +548,19 @@
     font-size: 12px;
     font-style: italic;
     line-height: 1.33;
+    color: $gray-100;
+    margin-left: 100px;
+    margin-right: 100px;
+  }
+
+  .justify-content-evenly {
+    justify-content: space-evenly;
+  }
+
+  .thanks-for-support {
+    font-size: 12px;
+    line-height: 1.33;
+    text-align: center;
     color: $gray-100;
   }
 </style>
