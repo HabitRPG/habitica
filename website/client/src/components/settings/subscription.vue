@@ -186,7 +186,7 @@
             {{ $t('subscriptionStats') }}
           </div>
           <div class="d-flex justify-content-evenly">
-            <div class="ml-4 mr-3">
+            <div>
               <div class="d-flex justify-content-center align-items-center">
                 <div
                   v-once
