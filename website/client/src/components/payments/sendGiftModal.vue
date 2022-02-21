@@ -5,49 +5,75 @@
     size="md"
     @hide="onHide()"
   >
-    <div
-    class="panel"
+    <div>
+      <!-- header -->
+      <div
+      class="modal-close"
+      @click="close()"
       >
-      <h2
-        class="d-flex flex-column mx-auto align-items-center"
-      >
+      <div
+      class="svg-icon"
+      v-html="icons.close"
+      ></div>
+      <h2>
         {{ $t('sendAGift') }}
       </h2>
-      <div
-        class="modal-close"
-        @click="close()"
-      >
-        <div
-          class="svg-icon"
-          v-html="icons.close"
-        ></div>
       </div>
-        <div
-        v-if="userReceivingGift"
-        >
-          <!-- user avatar -->
-          <member-details
-            :member="userReceivingGift"
-            :condensed="true"
-            :classBadgePosition="'hidden'"
-            class="d-flex flex-column mx-auto align-items-center"
-          />
-          <div>
-            <!-- user profile name and @username except it's not the right one -->
-            <h1 class= "flex-spacer">{{ userReceivingGift.profile.name }}</h1>
-            <div
-              v-if="userReceivingGift.auth
-              && userReceivingGift.auth.local
-              && userReceivingGift.auth.local.username"
-              class="name"
-            >
-              @{{ userReceivingGift.auth.local.username }}
-            </div>
+      <!-- user avatar -->
+      <div
+      v-if="userReceivingGift"
+      >
+        <avatar
+        :member="userReceivingGift"
+        :hideClassBadge="true"
+        />
+      <div>
+        <!-- user display name and username -->
+        <h1>{{ displayName }}</h1>
+        <div>
+          @{{ userName }}
         </div>
       </div>
+      </div>
+      <!-- menu area -->
+      <div class="row">
+        <div class="col-12 col-md-6 offset-md-4 text-center nav">
+          <div
+            class="nav-item"
+            :class="{active: selectedPage === 'subscription'}"
+            @click="selectPage('subscription')"
+          >
+            {{ $t('subscription') }}
+          </div>
+          <div
+            class="nav-item"
+            :class="{active: selectedPage === 'gems'}"
+            @click="selectPage('gems')"
+          >
+            {{ $t('gems') }}
+          </div>
+        </div>
+      </div>
+      <!-- subscriber block -->
       <div>
         <subscription-options />
       </div>
+      <!-- gem block -->
+      <h3>
+        {{ $t('howManyGemsPurchase') }}
+      </h3>
+      <div>
+        <!-- need to figure out the arguments here; also :disabled=0 needs to be set somehow! -->
+        <payments-buttons
+        :stripe-fn="() => redirectToStripe({ gemsBlock: selectedGemsBlock })"
+        :paypal-fn="() => openPaypal({
+          url: paypalCheckoutLink, type: 'gems', gemsBlock: selectedGemsBlock
+        })"
+        :amazon-data="{type: 'single', gemsBlock: selectedGemsBlock}"/>
+      </div>
+      <h3>
+        {{ $t ('howManyGemsSend') }}
+      </h3>
     </div>
   </b-modal>
 </template>
@@ -140,21 +166,18 @@
 import paymentsMixin from '../../mixins/payments';
 
 // component imports
+import avatar from '../avatar';
 import subscriptionOptions from '../settings/subscriptionOptions.vue';
-import memberDetails from '../memberDetails';
-
+import paymentsButtons from '@/components/payments/buttons/list';
 
 // svg imports
-// import amazonPayLogo from '@/assets/svg/amazonpay.svg';
 import closeIcon from '@/assets/svg/close.svg';
-// import creditCardIcon from '@/assets/svg/credit-card-icon.svg';
-// import logo from '@/assets/svg/habitica-logo-purple.svg';
-// import paypalLogo from '@/assets/svg/paypal-logo.svg';
 
 export default {
   components: {
+    avatar,
     subscriptionOptions,
-    memberDetails,
+    paymentsButtons,
   },
   mixins: [
     paymentsMixin,
@@ -165,34 +188,15 @@ export default {
         key: null,
       },
       icons: Object.freeze({
-        // amazonPayLogo,
         closeIcon,
-        // creditCardIcon,
-        // logo,
-        // paypalLogo,
       }),
       userReceivingGift: null,
-      avatarOnly: false,
-      displayName: null,
+      selectedPage: 'subscription',
     };
-  },
-  computed: {
-
   },
   methods: {
     showSelectUser () {
       this.$root.$emit('bv::show::modal', 'select-user-modal');
-    },
-    // why is this not working? I do not know! doublecheck with sendGemsModal.vue
-    receiverUserName () {
-      if (
-        this.userReceivingGift.auth
-        && this.userReceivingGift.auth.local
-        && this.userReceivingGift.auth.local.username
-      ) {
-        return this.userReceivingGift.auth.local.username;
-      }
-      return this.userReceivingGems.profile.name;
     },
     // we'll need this later
     // onHide () {
@@ -201,6 +205,18 @@ export default {
     // },
     close () {
       this.$root.$emit('bv::hide::modal', 'send-gift');
+    },
+  },
+  computed: {
+    userName () {
+      const userName = this.userReceivingGift.auth
+      && this.userReceivingGift.auth.local
+      && this.userReceivingGift.auth.local.username;
+      return userName;
+    },
+    displayName () {
+      const displayName = this.userReceivingGift.profile.name;
+      return displayName;
     },
   },
   mounted () {
