@@ -291,7 +291,7 @@
     "foodCandyWhite": "Vanilla Candy",
     "foodCandyWhiteThe": "the Vanilla Candy",
     "foodCandyWhiteA": "Vanilla Candy",
-    "foodCandyGolden": "Honey Candy",
+    "foodCandyGolden": "Honey Sweety",
     "foodCandyGoldenThe": "the Honey Candy",
     "foodCandyGoldenA": "Honey Candy",
     "foodCandyZombie": "Rotten Candy",
@@ -365,5 +365,10 @@
     "hatchingPotionAutumnLeaf": "Autumn Leaf",
     "hatchingPotionStainedGlass": "Stained Glass",
     "hatchingPotionBlackPearl": "Black Pearl",
-    "hatchingPotionPolkaDot": "Polka Dot"
+    "hatchingPotionPolkaDot": "Polka Dot",
+    "hatchingPotionSunset": "Sunset",
+    "hatchingPotionMossyStone": "Mossy Stone",
+    "hatchingPotionSolarSystem": "Solar System",
+    "hatchingPotionMoonglow": "Moonglow",
+    "hatchingPotionOnyx": "Onyx"
 }
