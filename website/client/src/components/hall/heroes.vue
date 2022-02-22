@@ -269,7 +269,7 @@
                     popover-placement="right"
                   />
                   <user-link
-                    v-if="!hasPermission(hero, 'userSupport')"
+                    v-else
                     :user="hero"
                   />
                 </td>

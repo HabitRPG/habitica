@@ -72,5 +72,11 @@
     "foundNewItemsCTA": "גש לציוד שלך על ונסה להשתמש בשיקוי הבקיעה החדש שלך על ביצה‎!",
     "onboardingCompleteDesc": "הרווחת <strong>5 הישגים</strong> ו־<strong class=\"gold-amount\">100 מטבעות זהב</strong> על השלמת הרשימה.",
     "onboardingComplete": "השלמת את משימות ההכשרה שלך!",
-    "onboardingCompleteDescSmall": "אם ברצונך להשיג אפילו עוד, אפשר לבדוק את ההישגים שלנו!"
+    "onboardingCompleteDescSmall": "אם ברצונך להשיג אפילו עוד, אפשר לבדוק את ההישגים שלנו!",
+    "achievementVioletsAreBlue": "הסיגליות כחולות",
+    "achievementBugBonanzaText": "השלים את משימת חיות המחמד של החיפושית, הפרפר, החילזון והעכביש",
+    "achievementGoodAsGoldText": "אסף את כל החיות הזהב",
+    "achievementSeasonalSpecialistModalText": "השלמת את כל המשימות העונתיות!",
+    "achievementShadyCustomer": "לקוח חשוד",
+    "achievementShadeOfItAll": "הצל של הכל"
 }

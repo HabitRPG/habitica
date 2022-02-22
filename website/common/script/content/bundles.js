@@ -190,7 +190,7 @@ const bundles = {
       'gryphon',
     ],
     canBuy () {
-      return moment().isBefore('2021-02-28T08:00-05:00');
+      return moment().isBefore('2022-02-28T20:00-05:00');
     },
     type: 'quests',
     value: 7,

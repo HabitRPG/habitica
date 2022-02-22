@@ -189,5 +189,22 @@
     "everywhere": "所有地方",
     "suggestMyUsername": "用户名建议",
     "mentioning": "提及",
-    "bannedWordUsedInProfile": "你的昵称或文本含有不适当的语言。"
+    "bannedWordUsedInProfile": "你的昵称或文本含有不适当的语言。",
+    "gemTransactions": "宝石交易",
+    "hourglassTransactions": "神秘沙漏交易",
+    "noHourglassTransactions": "你还没有进行任何神秘沙漏教育。",
+    "transaction_debug": "调试操作",
+    "transaction_contribution": "通过贡献",
+    "transaction_spend": "花在",
+    "transaction_gift_send": "送给",
+    "transaction_gift_receive": "来自",
+    "transaction_create_challenge": "创建挑战",
+    "transaction_create_guild": "创建公会",
+    "transaction_rebirth": "使用重生球",
+    "transaction_release_mounts": "放走坐骑",
+    "transaction_reroll": "使用稳固药水",
+    "transaction_subscription_perks": "订阅福利",
+    "transactions": "交易",
+    "transaction_release_pets": "放走宠物",
+    "noGemTransactions": "你还没有进行任何宝石交易。"
 }
