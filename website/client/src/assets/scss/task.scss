@@ -323,7 +323,7 @@
           background: $gray-600;
 
           .task-title, .task-notes {
-            color: $gray-300 !important;
+            opacity: 0.75;
           }
         }
       }

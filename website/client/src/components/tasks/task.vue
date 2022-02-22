@@ -397,7 +397,7 @@
     border: $purple-400 solid 1px;
 
     :not(task-best-control-inner-habit) { // round icon
-      border-radius: 2px;
+      border-radius: 4px;
     }
   }
 
@@ -419,7 +419,7 @@
     margin-bottom: 2px;
     box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
     background: white;
-    border-radius: 2px;
+    border-radius: 4px;
     position: relative;
 
     &:hover:not(.task-not-editable),
@@ -442,7 +442,7 @@
     &:hover:not(.task-not-editable),
     &:focus-within:not(.task-not-editable) {
       border: $purple-400 solid 1px;
-      border-radius: 3px;
+      border-radius: 5px;
       margin: -1px; // to counter the border width
       margin-bottom: 1px;
       transition: none; // with transition, the border color switches from black to $purple-400
@@ -488,7 +488,7 @@
     }
 
     &:focus {
-      border-radius: 2px;
+      border-radius: 4px;
       border: $purple-400 solid 1px;
     }
   }
@@ -602,8 +602,8 @@
     }
 
     &.reward-content {
-      border-top-left-radius: 2px;
-      border-bottom-left-radius: 2px;
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
     }
   }
 
@@ -766,8 +766,8 @@
     }
   }
   .left-control {
-    border-top-left-radius: 2px;
-    border-bottom-left-radius: 2px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
     min-height: 60px;
     border: 1px solid transparent;
     border-right: none;
@@ -779,15 +779,15 @@
   .task:not(.type_habit) {
     .left-control {
       & + .task-content {
-        border-top-right-radius: 2px;
-        border-bottom-right-radius: 2px;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
       }
     }
   }
 
   .right-control {
-    border-top-right-radius: 2px;
-    border-bottom-right-radius: 2px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
     min-height: 56px;
     border: 1px solid transparent;
     border-left: none;
