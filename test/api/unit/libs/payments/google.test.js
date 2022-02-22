@@ -256,7 +256,7 @@ describe('Google Payments', () => {
           expirationDate,
         });
       iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
-        .returns([{ expirationDate: expirationDate.toDate(), autoRenewig: false }]);
+        .returns([{ expirationDate: expirationDate.toDate(), autoRenewing: false }]);
       iapIsValidatedStub = sinon.stub(iap, 'isValidated')
         .returns(true);
 
@@ -328,7 +328,7 @@ describe('Google Payments', () => {
 
     it('should not cancel a user subscription with autorenew', async () => {
       iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
-      .returns([{ autoRenewig: true }]);
+        .returns([{ autoRenewing: true }]);
       await googlePayments.cancelSubscribe(user, headers);
 
       expect(iapSetupStub).to.be.calledOnce;
