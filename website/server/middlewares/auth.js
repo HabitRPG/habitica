@@ -11,7 +11,7 @@ import common from '../../common';
 import { getLanguageFromUser } from '../libs/language';
 
 const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS_COMMUNITY_MANAGER_EMAIL');
-const USER_FIELDS_ALWAYS_LOADED = ['_id', 'notifications', 'preferences', 'auth', 'flags'];
+const USER_FIELDS_ALWAYS_LOADED = ['_id', 'notifications', 'preferences', 'auth', 'flags', 'permissions'];
 
 function getUserFields (options, req) {
   // A list of user fields that aren't needed for the route and are not loaded from the db.
