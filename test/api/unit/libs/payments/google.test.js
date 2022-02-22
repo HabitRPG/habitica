@@ -327,6 +327,7 @@ describe('Google Payments', () => {
     });
 
     it('should not cancel a user subscription with autorenew', async () => {
+      iap.getPurchaseData.restore();
       iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
         .returns([{ autoRenewing: true }]);
       await googlePayments.cancelSubscribe(user, headers);
