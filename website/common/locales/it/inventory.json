@@ -3,8 +3,8 @@
     "foodItemType": "Cibo per Animali",
     "eggsItemType": "Uova",
     "hatchingPotionsItemType": "Pozioni di Schiusa",
-    "specialItemType": "Oggetti speciali",
-    "lockedItem": "Oggetti bloccati",
-    "allItems": "Tutti gli oggetti",
-    "petAndMount": "Animali e cavalcature"
+    "specialItemType": "Oggetti Speciali",
+    "lockedItem": "Oggetto Bloccato",
+    "allItems": "Tutti gli Oggetti",
+    "petAndMount": "Animale Domestico e Cavalcatura"
 }

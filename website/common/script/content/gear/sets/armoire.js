@@ -383,6 +383,11 @@ const armor = {
     con: 10,
     set: 'shootingStar',
   },
+  softVioletSuit: {
+    con: 7,
+    str: 7,
+    set: 'violetLoungewear',
+  },
 };
 
 const body = {
@@ -437,6 +442,7 @@ const head = {
     per: 5,
     int: 5,
     con: 5,
+    set: 'violetLoungewear',
   },
   gladiatorHelm: {
     notes: t('headArmoireGladiatorHelmNotes', { per: 7, int: 7 }),
@@ -1046,6 +1052,10 @@ const shield = {
     per: 5,
     set: 'blackLoungewear',
   },
+  softVioletPillow: {
+    int: 10,
+    set: 'violetLoungewear',
+  },
 };
 
 const headAccessory = {
@@ -1419,6 +1429,11 @@ const weapon = {
     str: 5,
     int: 5,
     set: 'shootingStar',
+    twoHanded: true,
+  },
+  pinkLongbow: {
+    per: 6,
+    str: 5,
     twoHanded: true,
   },
 };

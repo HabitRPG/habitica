@@ -138,7 +138,7 @@
     "accountSuspended": "Ce compte, identifiant “<%= userId %>”, a été bloqué pour avoir enfreint les règles de vie en communauté (https://habitica.com/static/community-guidelines) ou les conditions d’utilisation (https://habitica.com/static/terms). Pour plus d’informations, ou pour demander un déblocage, merci d’envoyer un courriel à notre gestionnaire de la communauté : <%= communityManagerEmail %>, ou demandez à un parent ou à un tuteur de leur envoyer un courriel. Merci d'y inclure votre @identifiant.",
     "accountSuspendedTitle": "Le compte a été suspendu",
     "unsupportedNetwork": "Ce réseau n'est actuellement pas pris en charge.",
-    "cantDetachSocial": "Votre compte n'a pas d'autre méthode d'authentification ; vous ne pouvez pas dissocier cette méthode d'authentification.",
+    "cantDetachSocial": "Votre compte n'a pas d'autre méthode d'authentification ; vous ne pouvez pas désaffecter cette méthode d'authentification.",
     "onlySocialAttachLocal": "L'authentification locale ne peut être ajoutée que sur un compte social.",
     "invalidReqParams": "Paramètres de la requête invalides.",
     "memberIdRequired": "\"member\" doit être un UUID valide.",
@@ -185,5 +185,6 @@
     "learnMore": "En savoir plus",
     "communityInstagram": "Instagram",
     "minPasswordLength": "Le mot de passe doit faire au moins 8 caractères.",
-    "enterHabitica": "Entrez dans Habitica"
+    "enterHabitica": "Entrez dans Habitica",
+    "socialAlreadyExists": "Cet identifiant social est déjà lié à un compte Habitica existant."
 }

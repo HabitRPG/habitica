@@ -23,6 +23,7 @@ import amazonPayments from '../../libs/payments/amazon'; // eslint-disable-line 
 import stripePayments from '../../libs/payments/stripe'; // eslint-disable-line import/no-cycle
 import paypalPayments from '../../libs/payments/paypal'; // eslint-disable-line import/no-cycle
 import { model as NewsPost } from '../newsPost';
+import { model as Transaction } from '../transaction';
 
 const { daysSince } = common;
 
@@ -524,4 +525,31 @@ schema.methods.getSecretData = function getSecretData () {
   const user = this;
 
   return user.secret;
+};
+
+schema.methods.updateBalance = async function updateBalance (amount,
+  transactionType,
+  reference,
+  referenceText) {
+  this.balance += amount;
+
+  if (transactionType === 'buy_gold') {
+    // Bulk these together in case the user is not using the bulk-buy feature
+    const lastTransaction = await Transaction.findOne({ userId: this._id },
+      null,
+      { sort: { createdAt: -1 } });
+    if (lastTransaction.transactionType === transactionType) {
+      lastTransaction.amount += amount;
+      await lastTransaction.save();
+    }
+  }
+
+  await Transaction.create({
+    currency: 'gems',
+    userId: this._id,
+    transactionType,
+    amount,
+    reference,
+    referenceText,
+  });
 };

@@ -42,7 +42,7 @@
     "hideAchievements": "Gizle <%= category %>",
     "showAllAchievements": "Hepsini göster <%= category %>",
     "onboardingCompleteDesc": "Listeyi tamamladığın için <strong> 5 başarı </strong> ve <strong class=\"gold-amount\"> 100 altın </strong> kazandın.",
-    "onboardingProgress": "<%= percentage %>%  ilerleme",
+    "onboardingProgress": "<%= percentage %>% ilerleme",
     "gettingStartedDesc": "Bu işe alım görevlerini tamamladığınızda, işiniz bittiğinde <strong>5 Başarı</strong> ve <strong class=\"gold-amount\">100 Altın</strong> kazanacaksınız!",
     "achievementKickstarter2019Text": "2019 Kickstarter Rozet Projesini destekledi",
     "achievementKickstarter2019": "Kickstarter Rozet Destekçisi",
@@ -109,5 +109,5 @@
     "achievementLegendaryBestiary": "İtbarak",
     "achievementSeasonalSpecialistModalText": "Sezon görevlerinin hepsi tamamlandı!",
     "achievementSeasonalSpecialistText": "İlkbahar ve kış sezonu görevlerinin tümü tamamlandı: Yumurta Avı, Avcı Noel Baba, ve Yavruyu Bul!",
-    "achievementVioletsAreBlueModalText": "Mavi Pamuk Şeker Hayvanlar'ın hepsini topladın."
+    "achievementVioletsAreBlueModalText": "Mavi Pamuk Şeker Hayvanlar'ın hepsini topladın!"
 }

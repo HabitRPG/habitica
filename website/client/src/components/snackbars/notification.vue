@@ -1,10 +1,17 @@
 <template>
   <div class="notification-animation-holder">
-    <div class="notification-holder"
-         @click="handleOnClick()">
-      <div v-if="notification.type === 'drop'"
-           class="icon-item">
-        <div :class="notification.icon" class="icon-negative-margin"></div>
+    <div
+      class="notification-holder"
+      @click="handleOnClick()"
+    >
+      <div
+        v-if="notification.type === 'drop'"
+        class="icon-item"
+      >
+        <div
+          :class="notification.icon"
+          class="icon-negative-margin"
+        ></div>
       </div>
 
       <div
@@ -32,7 +39,10 @@
               class="svg-icon"
               v-html="icons.gold"
             ></div>
-            <div class="icon-text" v-html="notification.text"></div>
+            <div
+              class="icon-text"
+              v-html="notification.text"
+            ></div>
           </div>
         </div>
         <div
@@ -63,7 +73,10 @@
               class="svg-icon"
               v-html="icons.mana"
             ></div>
-            <div class="icon-text" v-html="notification.text"></div>
+            <div
+              class="icon-text"
+              v-html="notification.text"
+            ></div>
           </div>
         </div>
         <div
@@ -78,7 +91,10 @@
               class="svg-icon"
               v-html="icons.sword"
             ></div>
-            <div class="icon-text" v-html="notification.text"></div>
+            <div
+              class="icon-text"
+              v-html="notification.text"
+            ></div>
           </div>
         </div>
         <div
@@ -98,7 +114,6 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </template>

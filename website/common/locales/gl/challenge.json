@@ -71,7 +71,7 @@
     "addTask": "Engadir Tarefa",
     "editChallenge": "Editar Desafío",
     "challengeDescription": "Descrición do Desafío",
-    "selectChallengeWinnersDescription": "Elixe un ganador entre os participantes do Desafío.",
+    "selectChallengeWinnersDescription": "Elixe un ganador entre os participantes do Desafío",
     "awardWinners": "Ganador do Premio",
     "doYouWantedToDeleteChallenge": "¿Queres eliminar este Desafío?",
     "deleteChallenge": "Borrar Desafío",
@@ -103,5 +103,6 @@
     "selectParticipant": "Select a Participant",
     "yourReward": "A túa Recompensa",
     "wonChallengeDesc": "¡<%= challengeName %> elixiute como ganador! A túa vitoria rexistrouse nos teus Logros.",
-    "filters": "Filtros"
+    "filters": "Filtros",
+    "removeTasks": "Sacar Tarefas"
 }

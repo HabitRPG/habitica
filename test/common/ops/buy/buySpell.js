@@ -15,7 +15,7 @@ describe('shared.ops.buySpecialSpell', () => {
   let user;
   const analytics = { track () {} };
 
-  function buySpecialSpell (_user, _req, _analytics) {
+  async function buySpecialSpell (_user, _req, _analytics) {
     const buyOp = new BuySpellOperation(_user, _req, _analytics);
 
     return buyOp.purchase();
@@ -29,19 +29,18 @@ describe('shared.ops.buySpecialSpell', () => {
     analytics.track.restore();
   });
 
-  it('throws an error if params.key is missing', done => {
+  it('throws an error if params.key is missing', async () => {
     try {
-      buySpecialSpell(user);
+      await buySpecialSpell(user);
     } catch (err) {
       expect(err).to.be.an.instanceof(BadRequest);
       expect(err.message).to.equal(errorMessage('missingKeyParam'));
-      done();
     }
   });
 
-  it('throws an error if the spell doesn\'t exists', done => {
+  it('throws an error if the spell doesn\'t exists', async () => {
     try {
-      buySpecialSpell(user, {
+      await buySpecialSpell(user, {
         params: {
           key: 'notExisting',
         },
@@ -49,14 +48,13 @@ describe('shared.ops.buySpecialSpell', () => {
     } catch (err) {
       expect(err).to.be.an.instanceof(NotFound);
       expect(err.message).to.equal(errorMessage('spellNotFound', { spellId: 'notExisting' }));
-      done();
     }
   });
 
-  it('throws an error if the user doesn\'t have enough gold', done => {
+  it('throws an error if the user doesn\'t have enough gold', async () => {
     user.stats.gp = 1;
     try {
-      buySpecialSpell(user, {
+      await buySpecialSpell(user, {
         params: {
           key: 'thankyou',
         },
@@ -64,15 +62,14 @@ describe('shared.ops.buySpecialSpell', () => {
     } catch (err) {
       expect(err).to.be.an.instanceof(NotAuthorized);
       expect(err.message).to.equal(i18n.t('messageNotEnoughGold'));
-      done();
     }
   });
 
-  it('buys an item', () => {
+  it('buys an item', async () => {
     user.stats.gp = 11;
     const item = content.special.thankyou;
 
-    const [data, message] = buySpecialSpell(user, {
+    const [data, message] = await buySpecialSpell(user, {
       params: {
         key: 'thankyou',
       },
