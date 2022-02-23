@@ -30,9 +30,9 @@
       <div>
         <!-- user display name and username -->
         <h1>{{ displayName }}</h1>
-        <div>
-          @{{ userName }}
-        </div>
+      </div>
+      <div>
+        @{{ userName }}
       </div>
       </div>
       <!-- menu area -->
@@ -191,12 +191,27 @@ export default {
         closeIcon,
       }),
       userReceivingGift: null,
+      // this might need to be computed depending on where $emit is happening
       selectedPage: 'subscription',
+      gift: {
+        type: 'gems',
+        gems: {
+          amount: 0,
+          fromBalance: true,
+        },
     };
   },
   methods: {
     showSelectUser () {
       this.$root.$emit('bv::show::modal', 'select-user-modal');
+    },
+    selectPage (page) {
+      this.selectedPage = page || 'subscription';
+      window.history.replaceState(null, null, '');
+      this.$store.dispatch('common:setTitle', {
+        section: this.$t('subscription'),
+        subSection: this.$t(this.startingPage),
+      });
     },
     // we'll need this later
     // onHide () {
@@ -219,12 +234,17 @@ export default {
       return displayName;
     },
   },
+  watch: {
+    startingPage () {
+      this.selectedPage = this.startingPage;
+    },
+  },
   mounted () {
     this.$root.$on('habitica::send-gift', data => {
-      console.log(data);
       this.userReceivingGift = data;
       this.$root.$emit('bv::show::modal', 'send-gift');
     });
+    this.selectPage(this.startingPage);
   },
 };
 </script>
