@@ -55,8 +55,9 @@ async function updateTeamTasks (team) {
         for (const assignedUser in daily.group.assignedUsers) {
           if (Object.prototype.hasOwnProperty.call(daily.group.assignedUsers, assignedUser)) {
             assignments += 1;
-            if (assignedUser.completed) completions += 1;
-            assignedUser.completed = false;
+            if (daily.group.assignedUsers[assignedUser].completed) completions += 1;
+            daily.group.assignedUsers[assignedUser].completed = false;
+            daily.markModified('group.assignedUsers');
           }
         }
         processChecklist = true;

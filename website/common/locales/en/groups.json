@@ -365,5 +365,6 @@
   "assignedDateAndUser": "Assigned by <strong>@<%- username %></strong> on <strong><%= date %></strong>",
   "claimRewards": "Claim Rewards",
   "dayStart": "<strong>Day start</strong>: <%= startTime %>",
-  "viewStatus": "View Status"
+  "viewStatus": "View Status",
+  "lastCompleted": "Last completed"
 }

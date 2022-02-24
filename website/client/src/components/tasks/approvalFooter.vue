@@ -32,7 +32,7 @@
           </div>
           <div
             v-if='completion.completedDate'
-            :class="{'green-10': completion.completedToday}"
+            :class="{'green-10': completion.completed}"
           >
             {{ completion.completedDateString }}
           </div>
@@ -44,7 +44,7 @@
     >
       <div
         class="mr-auto ml-2"
-        :class="{'green-10': showGreen && task.type === 'todo'}"
+        :class="{'green-10': showGreen}"
         v-html="message"
       ></div>
       <div
@@ -82,17 +82,18 @@
           </a>
         </span>
         <span
-          v-if="assignedUsersCount === 1 && task.type === 'daily'"
+          v-if="assignedUsersCount === 1 && task.type === 'daily' && !task.completed"
           class="mr-1 d-inline-flex"
         >
           <span
-            v-if="singleAssignLastDone"
             v-html="icons.lastComplete"
+            v-b-tooltip.hover.bottom="$t('lastCompleted')"
             class="last-completed mr-1"
             :class="{'gray-200': !showGreen}"
           >
           </span>
           <span
+            class="my-auto"
             :class="{'green-10': showGreen}"
           >
             {{ formattedCompletionTime }}
@@ -142,6 +143,7 @@
     padding-bottom: 0.25rem;
     padding-top: 0.25rem;
     z-index: 9;
+    height: 24px;
 
     .blue-10 {
       color: $blue-10;
@@ -206,10 +208,7 @@
   .last-completed {
     width: 16px;
     height: 14px;
-
-    + .green-10 {
-      margin-top: 1px;
-    }
+    margin-bottom: 4px;
   }
 </style>
 
@@ -277,7 +276,6 @@ export default {
             completed: this.task.group.assignedUsers[userId].completed,
             completedDate,
             completedDateString,
-            completedToday: moment().diff(completedDate, 'days') === 0,
           });
         }
       }
@@ -297,7 +295,7 @@ export default {
         );
         const userName = this.group.members[index].auth.local.username;
 
-        if (this.task.type === 'todo' && this.task.group.assignedUsers[userId].completed) { // completed
+        if (this.task.group.assignedUsers[userId].completed) { // completed
           const { completedDate } = this.task.group.assignedUsers[userId];
           if (this.userIsAssigned) {
             if (moment().diff(completedDate, 'days') > 0) {
@@ -320,7 +318,6 @@ export default {
     singleAssignLastDone () {
       const userId = this.assignedUsersKeys[0];
       const completion = this.task.group.assignedUsers[userId];
-      if (!completion.completed) return null;
       return completion.completedDate;
     },
     showGreen () {
