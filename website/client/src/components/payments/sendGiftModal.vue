@@ -60,7 +60,6 @@
       <div>
         <subscription-options
         v-show="selectedPage === 'subscription'"
-        id="userProfile"
         />
       </div>
       <!-- gem block -->
@@ -69,42 +68,41 @@
       class="standard-page"
       >
       <!-- buy gems with money -->
-        <h3>
-          {{ $t('howManyGemsPurchase') }}
-        </h3>
-        <div v-if="showAmountToBuy(item)">
+        <div
+        v-if="showAmountToBuy(item)"
+        class="purchase-amount"
+        >
+        <h3 class="how-many-to-buy">{{ $t('howManyGemsPurchase') }}</h3>
+          <span
+          class="svg-gems inline icon-32"
+          v-html="icons.gems"
+          >
+        </span>
           <div class="box">
             <input
               v-model.number="selectedAmountToBuy"
               class="form-control"
               type="number"
-              min="0"
+              min="1"
               step="1"
             >
           </div>
-          <div
-          class="svg-gems"
-          v-html="icons.gems"
-          >
+          <div>
+            <p>{{ $t('sendGiftCost') }}</p>
+            <p>{{ $t('wantToSendOwnGems') }}</p>
           </div>
-        <p>
-          {{ $t('wantToSendOwnGems') }}
-        </p>
-          <!-- need to figure out arguments here; also :disabled=0 needs to be set somehow! -->
         <payments-buttons
         :stripe-fn="() => redirectToStripe({ gemsBlock: selectedGemsBlock })"
         :paypal-fn="() => openPaypal({
           url: paypalCheckoutLink, type: 'gems', gemsBlock: selectedGemsBlock
         })"
         :amazon-data="{type: 'single', gemsBlock: selectedGemsBlock}"/>
-        <!-- send gems from balance -->
-        <h3>
-          {{ $t ('howManyGemsSend') }}
-        </h3>
-        <p>
-          {{ $t('needToPurchaseGems') }}
-        </p>
-        </div>
+      </div>
+    </div>
+      <!-- send gems from balance -->
+      <div class="purchase-amount">
+        <h3 class="how-many-to-buy">{{ $t ('howManyGemsSend') }}</h3>
+        <p>{{ $t('needToPurchaseGems') }}</p>
       </div>
     </div>
   </b-modal>
@@ -128,6 +126,37 @@
     }
 
     .modal-dialog {
+    }
+
+    .purchase-amount {
+      margin-top: 24px;
+
+      .how-many-to-buy {
+        margin-bottom: 16px;
+      }
+
+      .box {
+        display: inline-block;
+        width: 74px;
+        height: 40px;
+        border-radius: 2px;
+        // background-color: $white;
+        box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+        margin-right: 24px;
+
+        input {
+          width: 100%;
+          border: none;
+        }
+
+        input::-webkit-contacts-auto-fill-button {
+          visibility: hidden;
+          display: none !important;
+          pointer-events: none;
+          position: absolute;
+          right: 0;
+        }
+      }
     }
 
     // .modal-footer {
@@ -187,6 +216,15 @@
     }
   }
 
+  span.svg-icon.inline.icon-32 {
+    height: 32px;
+    width: 32px;
+
+    margin-right: 8px;
+
+    vertical-align: middle;
+  }
+
   .nav {
     font-weight: bold;
     min-height: 40px;
@@ -240,7 +278,7 @@ export default {
       },
       icons: Object.freeze({
         closeIcon,
-        svgGem,
+        gems: svgGem,
       }),
       userReceivingGift: null,
       // this might need to be computed depending on where $emit is happening
