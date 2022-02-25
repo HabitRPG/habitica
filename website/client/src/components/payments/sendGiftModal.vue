@@ -11,13 +11,14 @@
       class="modal-close"
       @click="close()"
       >
-      <div
-      class="svg-icon"
-      v-html="icons.close"
-      ></div>
-      <h2>
-        {{ $t('sendAGift') }}
-      </h2>
+        <div
+        class="svg-icon"
+        v-html="icons.close"
+        >
+        </div>
+        <h2>
+          {{ $t('sendAGift') }}
+        </h2>
       </div>
       <!-- user avatar -->
       <div
@@ -67,22 +68,43 @@
       v-show="selectedPage === 'gems'"
       class="standard-page"
       >
-
+      <!-- buy gems with money -->
         <h3>
           {{ $t('howManyGemsPurchase') }}
         </h3>
-        <div>
-          <!-- need to figure out the arguments here; also :disabled=0 needs to be set somehow! -->
-          <payments-buttons
-          :stripe-fn="() => redirectToStripe({ gemsBlock: selectedGemsBlock })"
-          :paypal-fn="() => openPaypal({
-            url: paypalCheckoutLink, type: 'gems', gemsBlock: selectedGemsBlock
-          })"
-          :amazon-data="{type: 'single', gemsBlock: selectedGemsBlock}"/>
-        </div>
+        <div v-if="showAmountToBuy(item)">
+          <div class="box">
+            <input
+              v-model.number="selectedAmountToBuy"
+              class="form-control"
+              type="number"
+              min="0"
+              step="1"
+            >
+          </div>
+          <div
+          class="svg-gems"
+          v-html="icons.gems"
+          >
+          </div>
+        <p>
+          {{ $t('wantToSendOwnGems') }}
+        </p>
+          <!-- need to figure out arguments here; also :disabled=0 needs to be set somehow! -->
+        <payments-buttons
+        :stripe-fn="() => redirectToStripe({ gemsBlock: selectedGemsBlock })"
+        :paypal-fn="() => openPaypal({
+          url: paypalCheckoutLink, type: 'gems', gemsBlock: selectedGemsBlock
+        })"
+        :amazon-data="{type: 'single', gemsBlock: selectedGemsBlock}"/>
+        <!-- send gems from balance -->
         <h3>
           {{ $t ('howManyGemsSend') }}
         </h3>
+        <p>
+          {{ $t('needToPurchaseGems') }}
+        </p>
+        </div>
       </div>
     </div>
   </b-modal>
@@ -200,6 +222,7 @@ import paymentsButtons from '@/components/payments/buttons/list';
 
 // svg imports
 import closeIcon from '@/assets/svg/close.svg';
+import svgGem from '@/assets/svg/gem.svg';
 
 export default {
   components: {
@@ -217,6 +240,7 @@ export default {
       },
       icons: Object.freeze({
         closeIcon,
+        svgGem,
       }),
       userReceivingGift: null,
       // this might need to be computed depending on where $emit is happening
@@ -239,11 +263,9 @@ export default {
     },
     selectPage (page) {
       this.selectedPage = page || 'subscription';
-      window.history.replaceState(null, null, '');
-      this.$store.dispatch('common:setTitle', {
-        section: this.$t('subscription'),
-        subSection: this.$t(this.startingPage),
-      });
+    },
+    showAmountToBuy () {
+      return true;
     },
     // we'll need this later
     // onHide () {

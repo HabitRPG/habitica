@@ -5,6 +5,8 @@
     "sendGems": "Send Gems",
     "howManyGemsPurchase": "How many Gems would you like to purchase?",
     "howManyGemsSend":"How many Gems would you like to send?",
+    "needToPurchaseGems": "Need to purchase Gems as a gift?",
+    "wantToSendOwnGems": "Want to send your own Gems?",
     "buyGemsGold": "Buy Gems with Gold",
     "mustSubscribeToPurchaseGems": "Must subscribe to purchase gems with GP",
     "reachedGoldToGemCapQuantity": "Your requested amount <%= quantity %> exceeds the amount you can buy for this month (<%= convCap %>). The full amount becomes available within the first three days of each month. Thanks for subscribing!",
