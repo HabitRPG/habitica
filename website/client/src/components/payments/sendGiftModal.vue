@@ -37,11 +37,12 @@
       </div>
       <!-- menu area -->
       <div class="row">
-        <div class="col-12 col-md-6 offset-md-4 text-center nav">
+        <div class="col-12 col-md-8 offset-md-2 text-center nav">
           <div
             class="nav-item"
             :class="{active: selectedPage === 'subscription'}"
             @click="selectPage('subscription')"
+
           >
             {{ $t('subscription') }}
           </div>
@@ -56,24 +57,33 @@
       </div>
       <!-- subscriber block -->
       <div>
-        <subscription-options />
+        <subscription-options
+        v-show="selectedPage === 'subscription'"
+        id="userProfile"
+        />
       </div>
       <!-- gem block -->
-      <h3>
-        {{ $t('howManyGemsPurchase') }}
-      </h3>
-      <div>
-        <!-- need to figure out the arguments here; also :disabled=0 needs to be set somehow! -->
-        <payments-buttons
-        :stripe-fn="() => redirectToStripe({ gemsBlock: selectedGemsBlock })"
-        :paypal-fn="() => openPaypal({
-          url: paypalCheckoutLink, type: 'gems', gemsBlock: selectedGemsBlock
-        })"
-        :amazon-data="{type: 'single', gemsBlock: selectedGemsBlock}"/>
+      <div
+      v-show="selectedPage === 'gems'"
+      class="standard-page"
+      >
+
+        <h3>
+          {{ $t('howManyGemsPurchase') }}
+        </h3>
+        <div>
+          <!-- need to figure out the arguments here; also :disabled=0 needs to be set somehow! -->
+          <payments-buttons
+          :stripe-fn="() => redirectToStripe({ gemsBlock: selectedGemsBlock })"
+          :paypal-fn="() => openPaypal({
+            url: paypalCheckoutLink, type: 'gems', gemsBlock: selectedGemsBlock
+          })"
+          :amazon-data="{type: 'single', gemsBlock: selectedGemsBlock}"/>
+        </div>
+        <h3>
+          {{ $t ('howManyGemsSend') }}
+        </h3>
       </div>
-      <h3>
-        {{ $t ('howManyGemsSend') }}
-      </h3>
     </div>
   </b-modal>
 </template>
@@ -155,6 +165,24 @@
     }
   }
 
+  .nav {
+    font-weight: bold;
+    min-height: 40px;
+    justify-content: center;
+  }
+
+  .nav-item {
+    display: inline-block;
+    margin: 0 1.2em;
+    padding: 1em;
+  }
+
+  .nav-item:hover, .nav-item.active {
+    color: #4f2a93;
+    border-bottom: 2px solid #4f2a93;
+    cursor: pointer;
+  }
+
 </style>
 
 <script>
@@ -199,11 +227,15 @@ export default {
           amount: 0,
           fromBalance: true,
         },
+      },
     };
   },
   methods: {
     showSelectUser () {
       this.$root.$emit('bv::show::modal', 'select-user-modal');
+    },
+    close () {
+      this.$root.$emit('bv::hide::modal', 'send-gift');
     },
     selectPage (page) {
       this.selectedPage = page || 'subscription';
@@ -218,9 +250,6 @@ export default {
     //   this.gift.message = '';
     //   this.sendingInProgress = false;
     // },
-    close () {
-      this.$root.$emit('bv::hide::modal', 'send-gift');
-    },
   },
   computed: {
     userName () {
