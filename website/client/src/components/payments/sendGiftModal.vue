@@ -12,7 +12,6 @@
       @click="close()"
       >
         <div
-        class="svg-icon"
         v-html="icons.close"
         >
         </div>
@@ -49,8 +48,8 @@
           </div>
           <div
             class="nav-item"
-            :class="{active: selectedPage === 'gems'}"
-            @click="selectPage('gems')"
+            :class="{active: selectedPage === 'buyGems'}"
+            @click="selectPage('buyGems')"
           >
             {{ $t('gems') }}
           </div>
@@ -62,9 +61,11 @@
         v-show="selectedPage === 'subscription'"
         />
       </div>
+
+
       <!-- gem block -->
       <div
-      v-show="selectedPage === 'gems'"
+      v-show="selectedPage === 'buyGems'"
       class="standard-page"
       >
       <!-- buy gems with money -->
@@ -73,23 +74,28 @@
         class="purchase-amount"
         >
         <h3 class="how-many-to-buy">{{ $t('howManyGemsPurchase') }}</h3>
-          <span
-          class="svg-gems inline icon-32"
-          v-html="icons.gems"
-          >
-        </span>
-          <div class="box">
-            <input
-              v-model.number="selectedAmountToBuy"
-              class="form-control"
-              type="number"
-              min="1"
-              step="1"
-            >
-          </div>
+        <div
+          class="box"
+          name="gemsToBuy"
+        >
+        <span
+        class="gem-display gem"
+        v-html="icons.gem"
+        >
+        <input
+        v-model.number="selectedAmountToBuy"
+        >
+      </span>
+      </div>
           <div>
             <p>{{ $t('sendGiftCost') }}</p>
-            <p>{{ $t('wantToSendOwnGems') }}</p>
+              <div
+              :class="{active: selectedPage === 'ownGems'}"
+              @click="selectPage('ownGems')"
+              class="mx-auto mt-3 blue-10"
+              >
+              {{ $t('wantToSendOwnGems') }}
+            </div>
           </div>
         <payments-buttons
         :stripe-fn="() => redirectToStripe({ gemsBlock: selectedGemsBlock })"
@@ -100,10 +106,21 @@
       </div>
     </div>
       <!-- send gems from balance -->
+      <div
+      v-show="selectedPage === 'ownGems'"
+      class="standard-page">
+
       <div class="purchase-amount">
         <h3 class="how-many-to-buy">{{ $t ('howManyGemsSend') }}</h3>
-        <p>{{ $t('needToPurchaseGems') }}</p>
+          <div
+          :class="{active: selectedPage === 'buyGems'}"
+          @click="selectPage('buyGems')"
+          class="mx-auto mt-3 blue-10"
+          >
+          {{ $t('needToPurchaseGems') }}
+          </div>
       </div>
+    </div>
     </div>
   </b-modal>
 </template>
@@ -136,25 +153,30 @@
       }
 
       .box {
-        display: inline-block;
-        width: 74px;
-        height: 40px;
+        width: 94px;
+        height: 32px;
+        margin: 16px 82px 12px 81px;
+        padding: 0 16px 0 0;
         border-radius: 2px;
-        // background-color: $white;
-        box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
-        margin-right: 24px;
+        border: solid 1px var(--gray-400);
+        background-color: var(--white);
 
         input {
-          width: 100%;
-          border: none;
+          width: 34px;
+          height: 24px;
+          margin: 4px 0 4px 12px;
+          // font-size: 14px;
+          line-height: 1.71;
+          color: var(--gray-50);
         }
 
-        input::-webkit-contacts-auto-fill-button {
-          visibility: hidden;
-          display: none !important;
-          pointer-events: none;
-          position: absolute;
-          right: 0;
+        .gem-display {
+          width: 32px;
+          height: 32px;
+          margin: 0 12px 0 0;
+          padding: 8px;
+          border-radius: 2px;
+          background-color: var(--gray-600);
         }
       }
     }
@@ -197,6 +219,10 @@
     color: $green-10;
   }
 
+  .blue-10 {
+    color: $blue-10;
+  }
+
   .header-mini {
     font-size: 12px;
     font-weight: bold;
@@ -216,13 +242,13 @@
     }
   }
 
-  span.svg-icon.inline.icon-32 {
-    height: 32px;
-    width: 32px;
+  .gem {
+    width: 1rem;
+    height: 1rem;
+    object-fit: contain;
+    margin: 4px 0 4px 12px;
+    line-height: 1.71;
 
-    margin-right: 8px;
-
-    vertical-align: middle;
   }
 
   .nav {
@@ -278,7 +304,7 @@ export default {
       },
       icons: Object.freeze({
         closeIcon,
-        gems: svgGem,
+        gem: svgGem,
       }),
       userReceivingGift: null,
       // this might need to be computed depending on where $emit is happening
