@@ -202,5 +202,12 @@
     "noGemTransactions": "まだジェムの取引をなにもしていません。",
     "noHourglassTransactions": "まだ神秘の砂時計の取引をなにもしていません。",
     "transaction_debug": "デバッグアクション",
-    "transaction_contribution": "貢献を通じて"
+    "transaction_contribution": "貢献を通じて",
+    "transaction_gift_send": "ギフトを贈った相手",
+    "transaction_gift_receive": "受け取った相手",
+    "transaction_create_challenge": "作ったチャレンジ",
+    "transaction_create_guild": "作ったギルド",
+    "transaction_rebirth": "転生のオーブの使用",
+    "transaction_spend": "使用",
+    "transaction_reroll": "防御の薬の使用"
 }

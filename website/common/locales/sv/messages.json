@@ -52,5 +52,6 @@
     "messageDeletedUser": "Tyvärr har denna användare raderat sitt konto.",
     "messageMissingDisplayName": "Visningsnamn saknas.",
     "reportedMessage": "Du har rapporterat det här meddelandet till moderatorerna.",
-    "canDeleteNow": "Du kan radera meddelandet nu om du vill."
+    "canDeleteNow": "Du kan radera meddelandet nu om du vill.",
+    "beginningOfConversationReminder": "Kom ihåg att vara trevlig, respektfull, och att följa gemenskapens riktlinjer!"
 }
