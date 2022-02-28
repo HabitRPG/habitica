@@ -281,6 +281,10 @@ export default {
       tasks.forEach(task => {
         this.tasksByType[task.type].push(task);
       });
+
+      if (this.editingTask && this.editingTask.completed) {
+        this.loadGroupCompletedTodos();
+      }
     },
     editTask (task) {
       this.taskFormPurpose = 'edit';
