@@ -617,6 +617,8 @@
   "weaponArmoireShootingStarSpellNotes": "Surround yourself in a spell of stardust magic to help you make all your wishes come true. Increases Strength and Intelligence by <%= attrs %> each. Enchanted Armoire: Stardust Set (Item 3 of 3).",
   "weaponArmoirePinkLongbowText": "Pink Longbow",
   "weaponArmoirePinkLongbowNotes": "Be a cupid-in-training, mastering both archery and matters of the heart with this beautiful bow. Increases Perception by <%= per %> and Strength by <%= str %>. Enchanted Armoire: Independent Item.",
+  "weaponArmoireGardenersWateringCanText": "Watering Can",
+  "weaponArmoireGardenersWateringCanNotes": "You can’t get far without water! Have an infinite supply on hand with this magic, refilling watering can. Increases Intelligence by <%= int %>. Enchanted Armoire: Gardener Set (Item 4 of 4).",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -1303,6 +1305,8 @@
   "armorArmoireShootingStarCostumeNotes": "Rumored to have been spun out of the night sky itself, this flowy gown lets you rise above all obstacles in your path. Increases Constitution by <%= con %>. Enchanted Armoire: Stardust Set (Item 2 of 3).",
   "armorArmoireSoftVioletSuitText": "Soft Violet Suit",
   "armorArmoireSoftVioletSuitNotes": "Purple is a luxurious color. Relax in style after you’ve accomplished all your daily tasks. Increases Constitution and Strength by <%= attrs %> each. Enchanted Armoire: Violet Loungewear Set (Item 2 of 3).",
+  "armorArmoireGardenersOverallsText": "Gardener's Overalls",
+   "armorArmoireGardenersOverallsNotes": "Don’t be afraid to work down in the dirt when you’re wearing these durable overalls. Increases Constitution by <%= con %>. Enchanted Armoire: Gardener Set (Item 1 of 4).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -2010,6 +2014,8 @@
   "headArmoireRegalCrownNotes": "Any monarch would be lucky to have such a majestic, smart-looking crown. Increases Intelligence by <%= int %>. Enchanted Armoire: Regal Set (Item 1 of 2).",
   "headArmoireShootingStarCrownText": "Star Crown",
   "headArmoireShootingStarCrownNotes": "With this brightly shining headpiece, you will literally be the star of your own adventure! Increases Perception by <%= per %>. Enchanted Armoire: Stardust Set (Item 1 of 3).",
+  "headArmoireGardenersSunHatText": "Gardener's Sun Hat",
+ "headArmoireGardenersSunHatNotes": "The bright light of the day star won’t shine in your eyes when you wear this wide-brimmed hat. Increases Perception by <%= per %>. Enchanted Armoire: Gardener Set (Item 2 of 4).",
 
   "offhand": "off-hand item",
   "offHandCapitalized": "Off-Hand Item",
@@ -2380,6 +2386,8 @@
   "shieldArmoireSoftBlackPillowNotes": "The brave warrior packs a pillow for any expedition. Guard yourself from tiresome tasks... even while you nap. Increases Intelligence and Perception by <%= attrs %> each. Enchanted Armoire: Black Loungewear Set (Item 3 of 3).",
   "shieldArmoireSoftVioletPillowText": "Soft Violet Pillow",
   "shieldArmoireSoftVioletPillowNotes": "The clever warrior packs a pillow for any expedition. Protect yourself from procrastination-induced panic... even while you nap. Increases Intelligence by <%= int %>. Enchanted Armoire: Violet Loungewear Set (Item 3 of 3).",
+  "shieldArmoireGardenersSpadeText": "Gardener's Spade",
+  "shieldArmoireGardenersSpadeNotes": "Whether you’re digging in the garden, searching for buried treasure, or creating a secret tunnel, this trusty spade is at your side. Increases Strength by <%= str %>. Enchanted Armoire: Gardener Set (Item 3 of 4).",
 
   "back": "Back Accessory",
   "backBase0Text": "No Back Accessory",
