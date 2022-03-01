@@ -41,6 +41,7 @@
     </div>
     <div
       class="claim-bottom-message d-flex align-items-center"
+      v-if="group"
     >
       <div
         class="mr-auto ml-2"
@@ -82,7 +83,8 @@
           </a>
         </span>
         <span
-          v-if="assignedUsersCount === 1 && task.type === 'daily' && !task.completed"
+          v-if="assignedUsersCount === 1 && task.type === 'daily'
+            && !task.completed && singleAssignLastDone"
           class="mr-1 d-inline-flex"
         >
           <span
@@ -97,7 +99,7 @@
             :class="{'green-10': showGreen}"
           >
             {{ formattedCompletionTime }}
-        </span>
+          </span>
         </span>
       </div>
     </div>
@@ -263,7 +265,6 @@ export default {
         if (userId !== this.user._id) {
           const index = findIndex(this.group.members, member => member._id === userId);
           const { completedDate } = this.task.group.assignedUsers[userId];
-          if (!completedDate) return [];
           let completedDateString;
           if (moment().diff(completedDate, 'days') > 0) {
             completedDateString = `Completed ${moment(completedDate).format('M/D/YY')}`;

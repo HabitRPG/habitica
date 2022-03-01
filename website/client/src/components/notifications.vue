@@ -816,7 +816,7 @@ export default {
       const yesterUtcOffset = yesterDay.utcOffset();
 
       dailys.forEach(task => {
-        if (task && task.group.approval && task.group.approval.requested) return;
+        if (task.group && task.group.id) return;
         if (task.completed) return;
         const due = shouldDo(yesterDay, task, { timezoneUtcOffset: yesterUtcOffset });
         if (task.yesterDaily && due) this.yesterDailies.push(task);
