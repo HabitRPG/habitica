@@ -185,8 +185,8 @@
           <div class="header-mini mb-3">
             {{ $t('subscriptionStats') }}
           </div>
-          <div class="d-flex justify-content-evenly">
-            <div>
+          <div class="d-flex">
+            <div class="stat-column">
               <div class="d-flex justify-content-center align-items-center">
                 <div
                   v-once
@@ -204,7 +204,7 @@
               </div>
             </div>
             <div class="stats-spacer"></div>
-            <div>
+            <div class="stat-column">
               <div class="d-flex justify-content-center align-items-center">
                 <div
                   v-once
@@ -221,7 +221,7 @@
               </div>
             </div>
             <div class="stats-spacer"></div>
-            <div>
+            <div class="stat-column">
               <div class="d-flex justify-content-center align-items-center">
                 <div
                   v-once
@@ -562,6 +562,10 @@
     line-height: 1.33;
     text-align: center;
     color: $gray-100;
+  }
+
+  .stat-column {
+    width: 33%;
   }
 </style>
 
