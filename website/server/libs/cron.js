@@ -11,7 +11,7 @@ import { revealMysteryItems } from './payments/subscriptions';
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
 const { MAX_INCENTIVES } = common.constants;
-const { shouldDo, i18n, getPlanContext } = common;
+const { shouldDo, i18n, getPlanContext, getPlanMonths } = common;
 const { scoreTask } = common.ops;
 const { loginIncentives } = common.content;
 // const maxPMs = 200;
@@ -98,15 +98,7 @@ async function grantEndOfTheMonthPerks (user, now) {
 
       if (plan.consecutive.offset < 0) {
         if (plan.planId) {
-          // NB gift subscriptions don't have a planID
-          // (which doesn't matter because we don't need to reapply perks
-          // for them and by this point they should have expired anyway)
-          const planIdRegExp = new RegExp('_([0-9]+)mo'); // e.g., matches 'google_6mo' / 'basic_12mo' and captures '6' / '12'
-          const match = plan.planId.match(planIdRegExp);
-          if (match !== null && match[0] !== null) {
-            // 3 for 3-month recurring subscription, etc
-            planMonthsLength = match[1]; // eslint-disable-line prefer-destructuring
-          }
+          planMonthsLength = getPlanMonths(plan);
         }
 
         // every 3 months you get one set of perks - this variable records how many sets you need

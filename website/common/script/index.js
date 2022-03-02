@@ -26,7 +26,7 @@ import content from './content/index';
 import * as count from './count';
 // TODO under api.libs.cron?
 import {
-  daysSince, DAY_MAPPING, shouldDo, getPlanContext,
+  daysSince, DAY_MAPPING, shouldDo, getPlanContext, getPlanMonths,
 } from './cron';
 import apiErrors from './errors/apiErrorMessages';
 import commonErrors from './errors/commonErrorMessages';
@@ -101,6 +101,7 @@ const api = {
   i18n,
   shouldDo,
   getPlanContext,
+  getPlanMonths,
   daysSince,
   DAY_MAPPING,
 };

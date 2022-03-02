@@ -251,6 +251,20 @@ export function shouldDo (day, dailyTask, options = {}) {
   return false;
 }
 
+export function getPlanMonths (plan) {
+  // NB gift subscriptions don't have a planID
+  // (which doesn't matter because we don't need to reapply perks
+  // for them and by this point they should have expired anyway)
+  const planIdRegExp = new RegExp('_([0-9]+)mo'); // e.g., matches 'google_6mo' / 'basic_12mo' and captures '6' / '12'
+  const match = plan.planId.match(planIdRegExp);
+  if (match !== null && match[0] !== null) {
+    // 3 for 3-month recurring subscription, etc
+    return match[1]; // eslint-disable-line prefer-destructuring
+  }
+
+  return 1;
+}
+
 /*
  * This is a helper method to get all the needed informations of the plan
  *
@@ -263,11 +277,40 @@ export function getPlanContext (user, now) {
     count: 0, offset: 0, trinkets: 0, gemCapExtra: 0,
   });
 
+  const nowMoment = moment(now);
+
   const subscriptionEndDate = moment(plan.dateTerminated).isBefore()
     ? moment(plan.dateTerminated).startOf('month')
-    : moment(now).startOf('month');
+    : nowMoment.startOf('month');
   const dateUpdatedMoment = moment(plan.dateUpdated).startOf('month');
   const elapsedMonths = moment(subscriptionEndDate).diff(dateUpdatedMoment, 'months');
+
+  let possibleNextHourglassDate = moment(plan.dateCreated)
+    .add(plan.consecutive.count + plan.consecutive.offset, 'months');
+
+  console.info({
+    preAdd: possibleNextHourglassDate.toISOString(),
+  });
+
+  if (possibleNextHourglassDate.isAfter(nowMoment) && plan.consecutive.offset === 0) {
+    const monthsToAdd = getPlanMonths(plan);
+    console.info('offset 0, adding plan months: ', monthsToAdd);
+    possibleNextHourglassDate = possibleNextHourglassDate.add(monthsToAdd, 'months');
+  }
+
+  if (possibleNextHourglassDate.isBefore(nowMoment)) {
+    const months = Math.abs(possibleNextHourglassDate.diff(nowMoment, 'months'));
+
+    possibleNextHourglassDate = possibleNextHourglassDate.add(months, 'months');
+  }
+
+  console.info({
+    possibleNextHourglassDate,
+    plan,
+    nowMoment,
+    now,
+    valid: nowMoment.isValid(),
+  });
 
   return {
     plan,
@@ -275,6 +318,6 @@ export function getPlanContext (user, now) {
     dateUpdatedMoment,
     elapsedMonths,
     offset: plan.consecutive.offset, // months until the new hourglass is added
-    nextHourglassDate: moment(plan.dateUpdated).add(plan.consecutive.offset, 'months'),
+    nextHourglassDate: possibleNextHourglassDate,
   };
 }
