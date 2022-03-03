@@ -43,6 +43,10 @@
           :reset-counter="resetCounter"
         />
 
+        <transactions
+          :hero="hero"
+        />
+
         <contributor-details
           :hero="hero"
           :reset-counter="resetCounter"
