@@ -255,6 +255,7 @@ export function getPlanMonths (plan) {
   // NB gift subscriptions don't have a planID
   // (which doesn't matter because we don't need to reapply perks
   // for them and by this point they should have expired anyway)
+  if (!plan.planId) return 1;
   const planIdRegExp = new RegExp('_([0-9]+)mo'); // e.g., matches 'google_6mo' / 'basic_12mo' and captures '6' / '12'
   const match = plan.planId.match(planIdRegExp);
   if (match !== null && match[0] !== null) {
@@ -288,13 +289,8 @@ export function getPlanContext (user, now) {
   let possibleNextHourglassDate = moment(plan.dateCreated)
     .add(plan.consecutive.count + plan.consecutive.offset, 'months');
 
-  console.info({
-    preAdd: possibleNextHourglassDate.toISOString(),
-  });
-
   if (possibleNextHourglassDate.isAfter(nowMoment) && plan.consecutive.offset === 0) {
     const monthsToAdd = getPlanMonths(plan);
-    console.info('offset 0, adding plan months: ', monthsToAdd);
     possibleNextHourglassDate = possibleNextHourglassDate.add(monthsToAdd, 'months');
   }
 
@@ -303,14 +299,6 @@ export function getPlanContext (user, now) {
 
     possibleNextHourglassDate = possibleNextHourglassDate.add(months, 'months');
   }
-
-  console.info({
-    possibleNextHourglassDate,
-    plan,
-    nowMoment,
-    now,
-    valid: nowMoment.isValid(),
-  });
 
   return {
     plan,

@@ -6,7 +6,7 @@ function localMoment (timeString, utcOffset) {
   return moment(timeString).utcOffset(utcOffset, true);
 }
 
-describe.only('cron utility functions', () => {
+describe('cron utility functions', () => {
   describe('startOfDay', () => {
     it('is zero when no daystart configured', () => {
       const options = { now: moment('2020-02-02 09:30:00Z'), timezoneOffset: 0 };
@@ -182,30 +182,30 @@ describe.only('cron utility functions', () => {
     });
   });
 
-  describe.only('getPlanContext', () => {
+  describe('getPlanContext', () => {
     function baseUserData (count, offset, planId) {
       return {
         purchased: {
           plan: {
-            "consecutive": {
-              "count": count,
-              "offset": offset,
-              "gemCapExtra": 25,
-              "trinkets": 19
+            consecutive: {
+              count,
+              offset,
+              gemCapExtra: 25,
+              trinkets: 19,
             },
-            "quantity": 1,
-            "extraMonths": 0,
-            "gemsBought": 0,
-            "owner": "116b4133-8fb7-43f2-b0de-706621a8c9d8",
-            "nextBillingDate": null,
-            "nextPaymentProcessing": null,
-            "planId": planId,
-            "customerId": "group-plan",
-            "dateUpdated": "2022-02-10T22:38:52.144Z",
-            "paymentMethod": "Group Plan",
-            "dateTerminated": null,
-            "lastBillingDate": null,
-            "dateCreated": "2017-02-10T19:00:00.355Z",
+            quantity: 1,
+            extraMonths: 0,
+            gemsBought: 0,
+            owner: '116b4133-8fb7-43f2-b0de-706621a8c9d8',
+            nextBillingDate: null,
+            nextPaymentProcessing: null,
+            planId,
+            customerId: 'group-plan',
+            dateUpdated: '2022-02-10T22:38:52.144Z',
+            paymentMethod: 'Group Plan',
+            dateTerminated: null,
+            lastBillingDate: null,
+            dateCreated: '2017-02-10T19:00:00.355Z',
           },
         },
       };
@@ -213,20 +213,20 @@ describe.only('cron utility functions', () => {
 
     describe('1-month plan', () => {
       it('nextHourglassDate before "now"', () => {
-        const now = new Date(2022, 2,1);
+        const now = new Date(2022, 2, 1);
 
-        const user = baseUserData(59, 0, "group_plan_auto")
+        const user = baseUserData(59, 0, 'group_plan_auto');
 
         const planContext = getPlanContext(user, now);
 
         expect(planContext.nextHourglassDate.toISOString())
-          .to.equal('2022-03-10T19:00:00.355Z')
+          .to.equal('2022-03-10T19:00:00.355Z');
       });
 
       it('nextHourglassDate after "now", should increase to the next month', () => {
         const now = new Date(2022, 2, 11);
 
-        const user = baseUserData(60, 0, "group_plan_auto")
+        const user = baseUserData(60, 0, 'group_plan_auto');
 
         const planContext = getPlanContext(user, now);
 
@@ -237,20 +237,20 @@ describe.only('cron utility functions', () => {
 
     describe('3-month plan', () => {
       it('nextHourglassDate before "now"', () => {
-        const now = new Date(2022, 2,1);
+        const now = new Date(2022, 2, 1);
 
-        const user = baseUserData(59, 0, "basic_3mo")
+        const user = baseUserData(59, 0, 'basic_3mo');
 
         const planContext = getPlanContext(user, now);
 
         expect(planContext.nextHourglassDate.toISOString())
-          .to.equal('2022-03-10T18:00:00.355Z')
+          .to.equal('2022-03-10T18:00:00.355Z');
       });
 
       it('nextHourglassDate after "now", should increase to the next month', () => {
         const now = new Date(2022, 2, 11);
 
-        const user = baseUserData(60, 0, "basic_3mo")
+        const user = baseUserData(60, 0, 'basic_3mo');
 
         const planContext = getPlanContext(user, now);
 
@@ -258,5 +258,5 @@ describe.only('cron utility functions', () => {
           .to.equal('2022-06-10T18:00:00.355Z'); // summer time changes the hour ^^
       });
     });
-  })
+  });
 });
