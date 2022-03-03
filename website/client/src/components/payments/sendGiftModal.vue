@@ -13,7 +13,7 @@
         @click="close()"
       >
         <div
-          class="svg-icon"
+          class="svg-close"
           v-html="icons.closeIcon"
         >
         </div>
@@ -25,22 +25,22 @@
       </div>
       <!-- user avatar -->
       <div
-      v-if="userReceivingGift"
-      class="modal-body"
+        v-if="userReceivingGift"
+        class="modal-body"
       >
         <avatar
-        :member="userReceivingGift"
-        :hideClassBadge="true"
-        class="d-flex flex-column mx-auto align-items-center"
+          :member="userReceivingGift"
+          :hideClassBadge="true"
+          class="d-flex flex-column mx-auto align-items-center"
         />
         <div class="vertical-space"></div>
       <div
-      class="d-flex flex-column mx-auto align-items-center display-name">
+        class="d-flex flex-column mx-auto align-items-center display-name">
         <!-- user display name and username -->
-        {{ displayName }}
+          {{ displayName }}
       </div>
       <div
-      class="d-flex flex-column mx-auto align-items-center user-name">
+        class="d-flex flex-column mx-auto align-items-center user-name">
         @{{ userName }}
       </div>
       </div>
@@ -68,14 +68,14 @@
         <!-- subscriber block -->
         <div>
           <subscription-options
-          v-show="selectedPage === 'subscription'"
+            v-show="selectedPage === 'subscription'"
           />
         </div>
 
 
         <!-- gem block -->
         <div
-        v-show="selectedPage === 'buyGems'"
+          v-show="selectedPage === 'buyGems'"
         >
         <!-- buy gems with money -->
           <div
@@ -84,62 +84,90 @@
           >
           </div>
           <div class="form-group">
-            <label
-              v-once
-              class="mb-1"
-            >{{ $t('howManyGemsPurchase') }}</label>
+            <label v-once>
+              {{ $t('howManyGemsPurchase') }}
+            </label>
+            <div class="d-flex flex-column align-items-center">
             <div class="input-group">
               <div class="input-group-prepend input-group-icon align-items-center">
                 <div
-                  class="svg-icon gem"
+                  class="gem"
                   v-html="icons.gemIcon"
                 ></div>
               </div>
               <input
-                v-model="maxGems"
+                id="gemsForm"
+                v-model="gift.gems.amount"
                 class="form-control"
                 type="number"
-                required="required"
-                placeholder="16"
+                placeholder=""
                 min="0"
               >
+              <!-- <button onclick='stepUp'>-</button> -->
             </div>
+          </div>
           </div>
           <div>
             <!-- <p>{{ $t('sendGiftCost') }}</p> -->
               <div
-              :class="{active: selectedPage === 'ownGems'}"
-              @click="selectPage('ownGems')"
-              class="mx-auto mt-3 blue-10"
+                :class="{active: selectedPage === 'ownGems'}"
+                @click="selectPage('ownGems')"
+                class="mx-auto mt-3 gem-state-change"
               >
               {{ $t('wantToSendOwnGems') }}
             </div>
           </div>
           <payments-buttons
-          :stripe-fn="() => redirectToStripe({ gemsBlock: selectedGemsBlock })"
-          :paypal-fn="() => openPaypal({
-            url: paypalCheckoutLink, type: 'gems', gemsBlock: selectedGemsBlock
-          })"
-          :amazon-data="{type: 'single', gemsBlock: selectedGemsBlock}"/>
+            :stripe-fn="() => redirectToStripe({ gemsBlock: selectedGemsBlock })"
+            :paypal-fn="() => openPaypal({
+              url: paypalCheckoutLink, type: 'gems', gemsBlock: selectedGemsBlock
+            })"
+            :amazon-data="{type: 'single', gemsBlock: selectedGemsBlock}"/>
         </div>
       </div>
         <!-- send gems from balance -->
         <div
-        v-show="selectedPage === 'ownGems'"
-        class="standard-page">
-
-        <div class="purchase-amount">
-          <h3 class="how-many-to-buy">{{ $t ('howManyGemsSend') }}</h3>
+          v-show="selectedPage === 'ownGems'"
+          >
+          <div class="form-group">
+            <label v-once>
+              {{ $t('howManyGemsSend') }}
+            </label>
+          <div class="d-flex flex-column align-items-center">
+            <div class="input-group">
+              <div class="input-group-prepend input-group-icon align-items-center">
+                <div
+                  class="gem"
+                  v-html="icons.gemIcon"
+                ></div>
+              </div>
+              <input
+                id="gemsForm"
+                v-model="gift.gems.amount"
+                class="form-control"
+                type="number"
+                placeholder=""
+                min="0"
+              >
+            </div>
+              <p>
+                <span class="balance-text">
+                  {{ $t('yourBalance') }}</span>
+                <span
+                    class="gem"
+                    v-html="icons.gemIcon"
+                    style="display: inline-block;"
+                  ></span>
+                <span class="balance-gems">{{ maxGems }}</span>
+              </p>
             <div
-            :class="{active: selectedPage === 'buyGems'}"
-            @click="selectPage('buyGems')"
-            class="mx-auto mt-3 blue-10"
+              :class="{active: selectedPage === 'buyGems'}"
+              @click="selectPage('buyGems')"
+              class="mx-auto mt-3 gem-state-change"
             >
             {{ $t('needToPurchaseGems') }}
             </div>
-            <p>
-              Max Gems: {{ maxGems }} [placeholder for maxGems function data]
-            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -177,7 +205,7 @@
       top: 16px;
       cursor: pointer;
 
-      .svg-icon {
+      .svg-close {
         width: 12px;
         height: 12px;
         color: #878190;
@@ -193,41 +221,70 @@
   @import '~@/assets/scss/colors.scss';
 
   h2 {
-    color: #6133B4;
+    color: $purple-300;
+    padding-top: 2rem;
   }
 
   label {
-    color: $purple-300;
-    font-size: 1.25rem;
-  }
-
-  .gray-10 {
-    color: $gray-10;
-  }
-
-  .gray-50 {
     color: $gray-50;
-  }
-
-  .gray-400 {
-    color: $gray-400;
-  }
-
-  .gray-600 {
-    color: $gray-600;
-  }
-
-  .green-10 {
-    color: $green-10;
-  }
-
-  .blue-10 {
-    color: $blue-10;
-  }
-
-  .header-mini {
-    font-size: 12px;
+    font-size: 0.875rem;
     font-weight: bold;
+    line-height: 1.71;
+    margin-top: 0.75rem;
+    margin-bottom: 0.875rem;
+    width: 100%;
+    text-align: center;
+  }
+
+  .input-group {
+    width: 94px;
+    height: 32px;
+    margin: 16px 96px 24px 95px;
+    padding: 0 16px 0 0;
+    border-radius: 2px;
+    border: solid 1px $gray-400;
+    background-color: $white;
+  }
+
+  input[type="number"] {
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+    width: 34px;
+    font-size: 0.875rem;
+  }
+
+  .gem {
+    width: 16px;
+    height: 16px;
+  }
+
+  .balance-text {
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: $gray-100;
+    line-height: 1.33;
+    // margin: 12px 8px 24px 70px;
+  }
+
+  .balance-gem-icon {
+    // margin: 12px 4px 24px 8px;
+    // object-fit: contain;
+  }
+
+  // .balance-gems {
+  //   font-size: 0.75px;
+  //   color: $gray-100;
+  //   line-height: 1.33;
+  //   margin: 12px 8px 24px 70px;
+  // }
+
+  .gem-state-change {
+    color: $blue-10;
+    font-size: 0.875rem;
+    height: 24px;
+    margin: 24px 48px 0;
+    text-align: center;
   }
 
   .vertical-space {
@@ -245,7 +302,7 @@
   font-size: 0.75rem;
   line-height: 1.33;
   text-align: center;
-  color: #686274;
+  color: $gray-100;
   }
 
   .nav {
@@ -254,7 +311,7 @@
     minimum-height: 32px;
     text-align: center;
     padding: 8px 0 0;
-    color:#6133B4;
+    color: $purple-300;
     justify-content: center;
   }
 
@@ -265,50 +322,20 @@
   }
 
   .nav-item:hover, .nav-item.active {
-    color: #4f2a93;
-    border-bottom: 2px solid #4f2a93;
+    color: $purple-200;
+    border-bottom: 2px solid $purple-200;
     cursor: pointer;
   }
 
   .background-fill {
-    background-color: #F9F9F9;
+    background-color: $gray-700;
   }
 
   .subscribe-option {
-    border-bottom: 1px solid #EDECEE;
+    border-bottom: 1px solid $gray-600;
+    background-color: $gray-700;
   }
 
-  .purchase-amount {
-    margin-top: 24px;
-  }
-
-  // .input-group {
-  //   width: 34px;
-  //   height: 24px;
-  //   margin: 4px 0 4px 12px;
-  //   // font-size: 14px;
-  //   // line-height: 1.71;
-  //   color: #4E4A57;
-  //   // display: inline-block;
-  // }
-
-  // .input-group-prepend {
-  //   width: 100px;
-  //   height: 16px;
-  //   margin: 16px 82px 12px 81px;
-  //   padding: 8px;
-  //   border-radius: 2px;
-  //   background-color: #EDECEE;
-  //   display: inline-block;
-  // }
-  .svg-icon {
-
-  }
-
-  .gem {
-    width: 16px;
-    height: 16px;
-  }
 </style>
 
 <script>
@@ -321,6 +348,7 @@ import paymentsMixin from '../../mixins/payments';
 
 // component imports
 import avatar from '../avatar';
+// import userLink from '../memberDetails'; // in case I need to do the tier color/icon
 import subscriptionOptions from '../settings/subscriptionOptions.vue';
 import paymentsButtons from '@/components/payments/buttons/list';
 

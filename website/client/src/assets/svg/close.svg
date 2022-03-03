@@ -1,5 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12">
-    <g fill="none" fill-rule="evenodd" stroke="#A5A1AC" stroke-width="2">
-        <path d="M1 11L11 1M11 11L1 1"/>
-    </g>
+<svg width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <path id="wb8cortnka" d="M12.197 2 14 3.803 9.802 8 14 12.197 12.197 14 8 9.802 3.803 14 2 12.197 6.198 8 2 3.803 3.803 2 8 6.198z"/>
+    </defs>
+    <use fill="#878190" fill-rule="nonzero" xlink:href="#wb8cortnka" transform="translate(-2 -2)"/>
 </svg>
