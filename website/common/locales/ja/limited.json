@@ -141,7 +141,7 @@
     "dateEndOctober": "10月31日",
     "dateEndNovember": "11月30日",
     "dateEndJanuary": "1月31日",
-    "dateEndFebruary": "2月29日",
+    "dateEndFebruary": "2月28日",
     "winterPromoGiftHeader": "有料プランをプレゼントすると、同じプランを無料で利用できます！",
     "winterPromoGiftDetails1": "1月6日までの間に限り、誰かに有料プランをプレゼントすると、あなた自身も同じプランを無料で利用できます！",
     "winterPromoGiftDetails2": "もしあなたやプレゼントする相手がすでに定期的な有料プランに加入している場合、プレゼントした有料プランは、すでに加入している有料プランを解約するか期限が切れた後にのみ有効になります。どうぞご注意ください。皆様のご支援に心から感謝します！ <3",
@@ -215,5 +215,6 @@
     "winter2022StockingWarriorSet": "靴下（戦士）",
     "winter2022FireworksRogueSet": "花火（盗賊）",
     "winter2022PomegranateMageSet": "ザクロ（魔道士）",
-    "winter2022IceCrystalHealerSet": "氷の結晶（治療師）"
+    "winter2022IceCrystalHealerSet": "氷の結晶（治療師）",
+    "januaryYYYY": "<%= year %>年1月"
 }
