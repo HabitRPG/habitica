@@ -98,7 +98,6 @@ import PrivilegesAndGems from './privilegesAndGems';
 import ContributorDetails from './contributorDetails';
 import Transactions from './transactions';
 
-import { mapState } from '@/libs/store';
 import { userStateMixin } from '../../../mixins/userState';
 
 export default {

@@ -3,13 +3,15 @@
     <h3
       class="expand-toggle"
       :class="{'open': expand}"
-      @click="toggleTransactionsOpen">
+      @click="toggleTransactionsOpen"
+    >
       Transactions
     </h3>
     <div v-if="expand">
-        <purchase-history-table
-            :gem-transactions="gemTransactions"
-            :hourglass-transactions="hourglassTransactions" />
+      <purchase-history-table
+        :gem-transactions="gemTransactions"
+        :hourglass-transactions="hourglassTransactions"
+      />
     </div>
   </div>
 </template>

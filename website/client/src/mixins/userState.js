@@ -10,8 +10,8 @@ export const userCustomStateMixin = fieldname => {
     methods: {
       hasPermission (user, permission) {
         return Boolean((user.permissions
-          && (user.permissions[permission] || user.permissions.fullAccess)) ||
-          (user.contributor && user.contributor.admin));
+          && (user.permissions[permission] || user.permissions.fullAccess))
+          || (user.contributor && user.contributor.admin));
       },
     },
   };
