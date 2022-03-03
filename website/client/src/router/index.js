@@ -425,10 +425,12 @@ router.beforeEach(async (to, from, next) => {
   if (routePrivilegeNeeded) {
     // Redirect non-admin users when trying to access a page.
     if (!isUserLoaded) await store.dispatch('user:fetch');
-    const userHasPriv = routePrivilegeNeeded.some(
-      privName => store.state.user.data.permissions[privName],
-    );
-    if (!userHasPriv) return next({ name: 'tasks' });
+    if (!store.state.user.data.permissions.fullAccess) {
+      const userHasPriv = routePrivilegeNeeded.some(
+        privName => store.state.user.data.permissions[privName],
+      );
+      if (!userHasPriv) return next({ name: 'tasks' });
+    }
   }
 
   // Redirect old guild urls

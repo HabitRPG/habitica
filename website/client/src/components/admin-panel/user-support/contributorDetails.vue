@@ -15,7 +15,7 @@
             <label>
               <input
                 v-model="hero.permissions.fullAccess"
-                :disabled="!user.permissions.fullAccess"
+                :disabled="!hasPermission(user, 'fullAccess')"
                 type="checkbox"
               >
               Full Admin Access (Allows access to everything. EVERYTHING)
@@ -25,7 +25,7 @@
             <label>
               <input
                 v-model="hero.permissions.userSupport"
-                :disabled="!user.permissions.fullAccess"
+                :disabled="!hasPermission(user, 'fullAccess')"
                 type="checkbox"
               >
               User Support (Access this form, access purchase history)
@@ -35,7 +35,7 @@
             <label>
               <input
                 v-model="hero.permissions.news"
-                :disabled="!user.permissions.fullAccess"
+                :disabled="!hasPermission(user, 'fullAccess')"
                 type="checkbox"
               >
               News poster (Bailey CMS)
@@ -45,7 +45,7 @@
             <label>
               <input
                 v-model="hero.permissions.moderator"
-                :disabled="!user.permissions.fullAccess"
+                :disabled="!hasPermission(user, 'fullAccess')"
                 type="checkbox"
               >
               Community Moderator (ban and mute users, access chat flags, manage social spaces)
@@ -55,7 +55,7 @@
             <label>
               <input
                 v-model="hero.permissions.challengeAdmin"
-                :disabled="!user.permissions.fullAccess"
+                :disabled="!hasPermission(user, 'fullAccess')"
                 type="checkbox"
               >
               Challenge Admin (can create official habitica challenges and admin all challenges)
@@ -65,7 +65,7 @@
             <label>
               <input
                 v-model="hero.permissions.coupons"
-                :disabled="!user.permissions.fullAccess"
+                :disabled="!hasPermission(user, 'fullAccess')"
                 type="checkbox"
               >
               Coupon Creator (can manage coupon codes)

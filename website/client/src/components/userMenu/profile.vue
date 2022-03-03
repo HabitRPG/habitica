@@ -736,6 +736,7 @@ import challenge from '@/assets/svg/challenge.svg';
 import member from '@/assets/svg/member-icon.svg';
 import staff from '@/assets/svg/tier-staff.svg';
 import error404 from '../404';
+import { userCustomStateMixin } from '../../mixins/userState';
 // @TODO: EMAILS.COMMUNITY_MANAGER_EMAIL
 const COMMUNITY_MANAGER_EMAIL = 'admin@habitica.com';
 
@@ -748,6 +749,7 @@ export default {
     profileStats,
     error404,
   },
+  mixins: [userCustomStateMixin('userLoggedIn')],
   props: ['userId', 'startingPage'],
   data () {
     return {
@@ -786,7 +788,6 @@ export default {
   },
   computed: {
     ...mapState({
-      userLoggedIn: 'user.data',
       flatGear: 'content.gear.flat',
     }),
     userJoinedDate () {
