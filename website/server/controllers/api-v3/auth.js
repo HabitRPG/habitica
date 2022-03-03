@@ -343,7 +343,7 @@ api.resetPassword = {
     const email = req.body.email.toLowerCase();
     const user = await User.findOne({
       $or: [
-        { 'auth.local.username': email },
+        { 'auth.local.username': email.replace('@', '') },
         { 'auth.local.email': email },
         { 'auth.apple.emails.value': email },
         { 'auth.google.emails.value': email },

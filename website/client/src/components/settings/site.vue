@@ -429,7 +429,7 @@
               {{ $t('saveAndConfirm') }}
             </button>
           </div>
-          <h5 v-if="user.auth.local.has_password">
+          <h5>
             {{ $t('changeEmail') }}
           </h5>
           <div
@@ -857,7 +857,7 @@ export default {
       if (network === 'apple') {
         window.location.href = buildAppleAuthUrl();
       } else {
-        const auth = await hello(network).login({ scope: 'email' });
+        const auth = await hello(network).login({ scope: 'email', options: { force: true } });
 
         await this.$store.dispatch('auth:socialAuth', {
           auth,
@@ -881,6 +881,7 @@ export default {
       }
       await axios.post('/api/v4/user/auth/local/register', this.localAuth);
       window.alert(this.$t('addedLocalAuth')); // eslint-disable-line no-alert
+      window.location.href = '/';
     },
     restoreEmptyUsername () {
       if (this.usernameUpdates.username.length < 1) {

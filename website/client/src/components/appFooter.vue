@@ -84,8 +84,8 @@
             </li>
             <li v-if="user">
               <a
-                @click.prevent="openBugReportModal()"
                 target="_blank"
+                @click.prevent="openBugReportModal()"
               >
                 {{ $t('reportBug') }}
               </a>

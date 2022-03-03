@@ -134,6 +134,7 @@
     "saveCustomDayStart": "Save Custom Day Start",
     "registration": "Registration",
     "addLocalAuth": "Add Email and Password Login",
+    "addPasswordAuth": "Add Password ",
     "generateCodes": "Generate Codes",
     "generate": "Generate",
     "getCodes": "Get Codes",
