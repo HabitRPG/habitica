@@ -53,18 +53,18 @@
         v-if="task.group.assignedUsers"
       >
         <span
-          v-if="assignedUsersCount > 1 && completionsCount"
+          v-if="assignedUsersCount > 1"
           class="mr-1 d-inline-flex align-items-center"
         >
           <span
             class="small-check my-auto"
-            v-if="!showStatus"
+            v-if="!showStatus && completionsCount"
             :class="{'green-50': completionsCount === assignedUsersCount}"
             v-html="icons.check"
           ></span>
           <span
             class="my-auto ml-1 mr-2"
-            v-if="!showStatus"
+            v-if="!showStatus && completionsCount"
           >
             {{ completionsCount }}/{{ assignedUsersCount }}
           </span>

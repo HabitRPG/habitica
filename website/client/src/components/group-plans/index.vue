@@ -39,7 +39,7 @@
       </strong>
       <a href="mailto:testing@habitica.com">Submit bugs and feedback to testing@habitica.com.</a>
     </div>
-    <div class="col-12">
+    <div class="col-12 px-0">
       <router-view />
     </div>
   </div>
