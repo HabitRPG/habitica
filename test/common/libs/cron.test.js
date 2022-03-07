@@ -219,8 +219,8 @@ describe('cron utility functions', () => {
 
       const planContext = getPlanContext(user, now);
 
-      expect(planContext.nextHourglassDate.toISOString())
-        .to.equal('2022-05-10T02:00:00.144Z'); // summer time changes the hour ^^
+      expect(planContext.nextHourglassDate.toISOString(true))
+        .to.equal('2022-05-10T04:00:00.144+02:00');
     });
 
     it('offset 1, next date in 2 months', () => {
@@ -231,8 +231,8 @@ describe('cron utility functions', () => {
 
       const planContext = getPlanContext(user, now);
 
-      expect(planContext.nextHourglassDate.toISOString())
-        .to.equal('2022-04-10T02:00:00.144Z'); // summer time changes the hour ^^
+      expect(planContext.nextHourglassDate.toISOString(true))
+        .to.equal('2022-04-10T04:00:00.144+02:00');
     });
 
     it('offset 1, next date in 2 months - with any plan', () => {
@@ -243,8 +243,8 @@ describe('cron utility functions', () => {
 
       const planContext = getPlanContext(user, now);
 
-      expect(planContext.nextHourglassDate.toISOString())
-        .to.equal('2022-04-10T02:00:00.144Z'); // summer time changes the hour ^^
+      expect(planContext.nextHourglassDate.toISOString(true))
+        .to.equal('2022-04-10T04:00:00.144+02:00');
     });
   });
 });
