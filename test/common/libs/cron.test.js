@@ -212,7 +212,8 @@ describe('cron utility functions', () => {
     }
 
     it('offset 0, next date in 3 months', () => {
-      const now = new Date(2022, 2, 1);
+      const nowMoment = moment('2022-02-01 00:00:01+01:00');
+      const now = nowMoment.toDate();
 
       const user = baseUserData(59, 0, 'group_plan_auto');
 
@@ -223,7 +224,8 @@ describe('cron utility functions', () => {
     });
 
     it('offset 1, next date in 2 months', () => {
-      const now = new Date(2022, 2, 11);
+      const nowMoment = moment('2022-02-11 00:00:01+01:00');
+      const now = nowMoment.toDate();
 
       const user = baseUserData(60, 1, 'group_plan_auto');
 
@@ -234,7 +236,8 @@ describe('cron utility functions', () => {
     });
 
     it('offset 1, next date in 2 months - with any plan', () => {
-      const now = new Date(2022, 2, 11);
+      const nowMoment = moment('2022-02-11 00:00:01+01:00');
+      const now = nowMoment.toDate();
 
       const user = baseUserData(60, 1, 'basic_3mo');
 
