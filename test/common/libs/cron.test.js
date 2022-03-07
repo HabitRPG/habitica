@@ -201,50 +201,47 @@ describe('cron utility functions', () => {
             nextPaymentProcessing: null,
             planId,
             customerId: 'group-plan',
-            dateUpdated: '2022-02-10T03:00:00.144Z',
+            dateUpdated: '2022-02-10T03:00:00.144+01:00',
             paymentMethod: 'Group Plan',
             dateTerminated: null,
             lastBillingDate: null,
-            dateCreated: '2017-02-10T19:00:00.355Z',
+            dateCreated: '2017-02-10T19:00:00.355+01:00',
           },
         },
       };
     }
 
     it('offset 0, next date in 3 months', () => {
-      const nowMoment = moment('2022-02-01 00:00:01+01:00');
-      const now = nowMoment.toDate();
+      const now = new Date(2022, 2, 1);
 
       const user = baseUserData(59, 0, 'group_plan_auto');
 
       const planContext = getPlanContext(user, now);
 
       expect(planContext.nextHourglassDate.toISOString(true))
-        .to.equal('2022-05-10T04:00:00.144+02:00');
+        .to.equal('2022-05-10T03:00:00.144+02:00');
     });
 
     it('offset 1, next date in 2 months', () => {
-      const nowMoment = moment('2022-02-11 00:00:01+01:00');
-      const now = nowMoment.toDate();
+      const now = new Date(2022, 2, 11);
 
       const user = baseUserData(60, 1, 'group_plan_auto');
 
       const planContext = getPlanContext(user, now);
 
       expect(planContext.nextHourglassDate.toISOString(true))
-        .to.equal('2022-04-10T04:00:00.144+02:00');
+        .to.equal('2022-04-10T03:00:00.144+02:00');
     });
 
     it('offset 1, next date in 2 months - with any plan', () => {
-      const nowMoment = moment('2022-02-11 00:00:01+01:00');
-      const now = nowMoment.toDate();
+      const now = new Date(2022, 2, 11);
 
       const user = baseUserData(60, 1, 'basic_3mo');
 
       const planContext = getPlanContext(user, now);
 
       expect(planContext.nextHourglassDate.toISOString(true))
-        .to.equal('2022-04-10T04:00:00.144+02:00');
+        .to.equal('2022-04-10T03:00:00.144+02:00');
     });
   });
 });
