@@ -44,7 +44,6 @@
         @{{ userName }}
       </div>
       </div>
-      <div class="">
         <!-- menu area -->
         <div class="row">
           <div class="col-12 col-md-8 offset-md-2 text-center nav">
@@ -76,76 +75,13 @@
         <!-- gem block -->
         <div
           v-show="selectedPage === 'buyGems'"
-          class=""
+          class="gem-group"
         >
         <!-- buy gems with money -->
-          <div
-          v-if="showAmountToBuy(item)"
-          class="buy-gems"
-          >
-          </div>
-          <div class="form-group">
-            <label v-once>
-              {{ $t('howManyGemsPurchase') }}
-            </label>
-            <div class="d-flex flex-column align-items-center">
-            <div class="input-group">
-              <div class="input-group-prepend input-group-icon align-items-center">
-                <div
-                  class="gem"
-                  v-html="icons.gemIcon"
-                ></div>
-              </div>
-              <input
-                id="gemsForm"
-                v-model="gift.gems.amount"
-                class="form-control"
-                type="number"
-                placeholder=""
-                min="0"
-              >
-            </div>
-          </div>
-          </div>
-          <div>
-            Total:
-          </div>
-          <div>
-            $100.00
-          </div>
-            <!-- <p>{{ $t('sendGiftCost') }}</p> -->
-            <div class="d-flex flex-column justify-content-center align-items-middle mt-3">
-            <button
-            class="btn btn-primary mx-auto mt-2"
-            type="submit"
-            >
-            Send Gems
-            </button>
-            </div>
-              <div
-                :class="{active: selectedPage === 'ownGems'}"
-                @click="selectPage('ownGems')"
-                class="mx-auto mt-3 gem-state-change"
-              >
-              {{ $t('wantToSendOwnGems') }}
-            </div>
-          <payments-buttons
-            :stripe-fn="() => redirectToStripe({ gemsBlock: selectedGemsBlock })"
-            :paypal-fn="() => openPaypal({
-              url: paypalCheckoutLink, type: 'gems', gemsBlock: selectedGemsBlock
-            })"
-            :amazon-data="{type: 'single', gemsBlock: selectedGemsBlock}"/>
-        </div>
-      </div>
-        <!-- send gems from balance -->
-        <div
-          v-show="selectedPage === 'ownGems'"
-          class="own-gems"
-          >
-          <div class="form-group">
-            <label v-once>
-              {{ $t('howManyGemsSend') }}
-            </label>
+          <label v-once>
+            {{ $t('howManyGemsPurchase') }}
+          </label>
+
           <div class="d-flex flex-column align-items-center">
             <div class="input-group">
               <div class="input-group-prepend input-group-icon align-items-center">
@@ -163,25 +99,84 @@
                 min="0"
               >
             </div>
-              <p>
-                <span class="balance-text">
-                  {{ $t('yourBalance') }}</span>
-                <span
-                    class="gem"
-                    v-html="icons.gemIcon"
-                    style="display: inline-block;"
-                  ></span>
-                <span class="balance-gems">{{ maxGems }}</span>
-              </p>
+          </div>
+
+        <div class="">
+          {{ $t('sendGiftTotal') }}
+        </div>
+        <div class="">
+          {{ $t ('sendGiftAmount')}}
+        </div>
+        <div
+          :class="{active: selectedPage === 'ownGems'}"
+          @click="selectPage('ownGems')"
+          class="gem-state-change"
+        >
+          {{ $t('wantToSendOwnGems') }}
+        </div>
+        <payments-buttons
+          :stripe-fn="() => redirectToStripe({ gemsBlock: selectedGemsBlock })"
+          :paypal-fn="() => openPaypal({
+            url: paypalCheckoutLink, type: 'gems', gemsBlock: selectedGemsBlock
+          })"
+          :amazon-data="{type: 'single', gemsBlock: selectedGemsBlock}"/>
+      </div>
+        <!-- send gems from balance -->
+      <div
+        v-show="selectedPage === 'ownGems'"
+        class="gem-group"
+        >
+        <label v-once>
+          {{ $t('howManyGemsSend') }}
+        </label>
+        <div class="d-flex flex-column align-items-center">
+          <div class="input-group">
+            <div class="input-group-prepend input-group-icon align-items-center">
+              <div
+                class="gem"
+                v-html="icons.gemIcon"
+              ></div>
+            </div>
+              <input
+                id="gemsForm"
+                v-model="gift.gems.amount"
+                class="form-control"
+                type="number"
+                placeholder=""
+                min="0"
+              >
+            </div>
+          </div>
+          <div class="align-items-middle">
+            <div class="d-flex justify-content-center align-items-middle">
+              <span class="balance-text">
+                {{ $t('yourBalance') }}</span>
+              <span
+                  class="gem balance-gem-icon"
+                  v-html="icons.gemIcon"
+                  style="display: inline-block;"
+                ></span>
+              <span
+                class="balance-gems">
+                {{ maxGems }}
+              </span>
+            </div>
+            <div class="d-flex flex-column justify-content-center align-items-middle mt-3">
+              <button
+              class="btn btn-primary mx-auto mt-2"
+              type="submit"
+              >
+              Send Gems
+            </button>
+            </div>
             <div
-              :class="{active: selectedPage === 'buyGems'}"
-              @click="selectPage('buyGems')"
-              class="mx-auto mt-3 gem-state-change"
+            :class="{active: selectedPage === 'buyGems'}"
+            @click="selectPage('buyGems')"
+            class="gem-state-change"
             >
             {{ $t('needToPurchaseGems') }}
             </div>
           </div>
-        </div>
       </div>
     </div>
   </b-modal>
@@ -197,22 +192,10 @@
   box-shadow: 0 14px 28px 0 rgba(26, 24, 29, 0.24), 0 10px 10px 0 rgba(26, 24, 29, 0.28);
   }
 
-
   #send-gift {
     .modal-body{
       padding: 0px;
     }
-
-    .modal-header {
-      padding-top: 0rem;
-      padding-bottom: 0rem;
-      border-bottom: 0;
-    }
-
-    // .subscribe-options {
-    //   background-color: #F9F9F9;
-    //   border-bottom: 1px solid #EDECEE;
-    // }
 
     .modal-close {
       position: absolute;
@@ -240,11 +223,6 @@
     padding-top: 2rem;
   }
 
-  .form-group {
-    margin: 0 0 0 0;
-    background-color: $gray-700;
-    padding-bottom: 0px;
-  }
 
   .avatar-spacer {
     height: 9px;
@@ -268,13 +246,13 @@
   .row {
     background-color: $gray-700;
     margin: 0 0 0 0;
-    minimum-height: 32px;
+    min-height: 32px;
   }
 
   .nav {
     font-weight: bold;
     font-size: 0.75rem;
-    minimum-height: 32px;
+    min-height: 32px;
     text-align: center;
     padding: 16px 0 0 0;
     color: $purple-300;
@@ -292,12 +270,18 @@
     cursor: pointer;
   }
 
+  .gem-group {
+    padding: 12px 0 24px 0;
+    background-color: $gray-700;
+    margin: 0 0 0 0;
+  }
+
   label {
     color: $gray-50;
     font-size: 0.875rem;
     font-weight: bold;
     line-height: 1.71;
-    margin-top: 0.75rem;
+    padding-top: 0.75rem;
     margin-bottom: 0.875rem;
     width: 100%;
     text-align: center;
@@ -306,7 +290,7 @@
   .input-group {
     width: 94px;
     height: 32px;
-    margin: 16px 96px 24px 95px;
+    margin: 0px 96px 0px 95px;
     padding: 0 16px 0 0;
     border-radius: 2px;
     border: solid 1px $gray-400;
@@ -326,42 +310,33 @@
     height: 16px;
   }
 
-  .own-gems {
-    background-color: $gray-700;
-  }
-
-  .send-gems {
-    background-color: $gray-700;
-  }
-
   .balance-text {
     font-size: 0.75rem;
     font-weight: bold;
     color: $gray-100;
     line-height: 1.33;
-    // margin: 12px 8px 24px 70px;
+    margin: 12px 0px 24px 70px;
   }
 
   .balance-gem-icon {
-    // margin: 12px 4px 24px 8px;
+    margin: 8px 4px 24px 8px;
     // object-fit: contain;
   }
 
-  // .balance-gems {
-  //   font-size: 0.75px;
-  //   color: $gray-100;
-  //   line-height: 1.33;
-  //   margin: 12px 8px 24px 70px;
-  // }
+  .balance-gems {
+    font-size: 0.75rem;
+    color: $gray-100;
+    line-height: 1.33;
+    margin: 12px 71px 24px 4px;
+  }
 
   .gem-state-change {
     color: $blue-10;
     font-size: 0.875rem;
-    height: 24px;
+    min-height: 24px;
     margin: 24px 48px 0;
     text-align: center;
     cursor: pointer;
-    background-color: $gray-700;
   }
 </style>
 
