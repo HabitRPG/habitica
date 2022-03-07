@@ -1175,7 +1175,7 @@
     "headArmoireRedHairbowText": "Serre-tête rouge",
     "headArmoireRedHairbowNotes": "Devenez fort, tenace et brillant en portant ce magnifique serre-tête rouge ! Augmente la force de <%= str %>, la constitution de <%= con %>, et l'intelligence de <%= int %>. Armoire enchantée : ensemble du serre-tête rouge (objet 1 sur 2).",
     "headArmoireVioletFloppyHatText": "Chapeau négligé violet",
-    "headArmoireVioletFloppyHatNotes": "De nombreux sorts furent tissés dans la trame même de ce simple chapeau, lui donnant une agréable couleur violette. Augmente la perception de <%= per %>, l'intelligence de <%= int %> et la constitution de <%= con %>. Armoire enchantée : objet indépendant.",
+    "headArmoireVioletFloppyHatNotes": "De nombreux sorts furent tissés dans la trame même de ce simple chapeau, lui donnant une agréable couleur violette. Augmente la perception de <%= per %>, l'intelligence de <%= int %> et la constitution de <%= con %>. Ensemble de vêtements de détente violet (objet 1 de 3).",
     "headArmoireGladiatorHelmText": "Heaume de gladiateur",
     "headArmoireGladiatorHelmNotes": "Pour être un gladiateur, vous devez non seulement être fort... mais rusé. Augmente l'intelligence de <%= int %> et la perception de <%= per %>. Armoire enchantée : ensemble de gladiature (objet 1 sur 3).",
     "headArmoireRancherHatText": "Chapeau d'éleveur",
@@ -2556,5 +2556,17 @@
     "armorArmoireShootingStarCostumeNotes": "Prétendument tissée à partir du ciel nocturne lui-même, cette robe flottante vous permet de vous élever au-dessus de tous les obstacles. Augmente la constitution de <%= con %>. Armoire enchantée : ensemble de poussière d'étoile (objet 2 de 3).",
     "headArmoireShootingStarCrownNotes": "Avec ce couvre-chef éblouissant, vous serez littéralement la star de votre aventure ! Augmente la perception de <%= per %>. Armoire enchantée : ensemble de poussière d'étoile (objet 1 de 3).",
     "headArmoireShootingStarCrownText": "Couronne Étoilée",
-    "weaponArmoireShootingStarSpellNotes": "Entourez-vous d'un tourbillon magique de poussière d'étoile pour vous aider à réaliser tous vos souhaits. Augmente la force et l'intelligence de <%= attrs %>. Armoire enchantée : ensemble de poussière d'étoile (objet 3 de 3)."
+    "weaponArmoireShootingStarSpellNotes": "Entourez-vous d'un tourbillon magique de poussière d'étoile pour vous aider à réaliser tous vos souhaits. Augmente la force et l'intelligence de <%= attrs %>. Armoire enchantée : ensemble de poussière d'étoile (objet 3 de 3).",
+    "armorSpecialBirthday2022Text": "Robes de fête grotesques",
+    "shieldArmoireSoftVioletPillowText": "Coussin doux violet",
+    "eyewearMystery202202Text": "Yeux turquoise avec du blushs",
+    "eyewearMystery202202Notes": "Un chant joyeux donne de la couleur à vos joues. Ne confère aucun bonus. Équipement d'abonnement de février 2022",
+    "armorSpecialBirthday2022Notes": "Joyeux anniversaire, Habitica ! Portez ces robes de fêtes scandaleuses pour célébrer ce jour merveilleux. Ne confère aucun bonus.",
+    "headMystery202202Notes": "Il vous faut des cheveux bleus ! Ne confère aucun bonus. Équipement d'abonnement de février 2022.",
+    "headMystery202202Text": "Queues jumelles turquoises",
+    "weaponArmoirePinkLongbowText": "Arc long rose",
+    "armorArmoireSoftVioletSuitText": "Costume doux violet",
+    "shieldArmoireSoftVioletPillowNotes": "Un guerrier intelligent emportera un oreiller pour n'importe quelle expédition. Protégez-vous de toute panique induite par la procrastination... même pendant votre sieste. Augmente l'intelligence de <%= int %>. Armoire enchantée : Ensemble de vêtements de détente violet (objet 3 de 3).",
+    "weaponArmoirePinkLongbowNotes": "Comportez-vous comme un apprenti-cupidon, en apprenant la maîtrise de l'archerie et des choses du cœur avec ce magnifique arc. Augmente la perception de <%= per %> et la force de <%= str %>. Armoire enchantée : Objet indépendant.",
+    "armorArmoireSoftVioletSuitNotes": "Le pourpre est une couleur luxueuse. Relaxez-vous avec style après avoir accompli vos tâches quotidiennes. Augmente la constitution et la force de <%= attrs %> chacune. Armoire enchantée : ensemble de vêtements de détente violet (objet 2 de 3)."
 }

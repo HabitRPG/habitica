@@ -6,7 +6,7 @@ function localMoment (timeString, utcOffset) {
   return moment(timeString).utcOffset(utcOffset, true);
 }
 
-describe.only('cron utility functions', () => {
+describe('cron utility functions', () => {
   describe('startOfDay', () => {
     it('is zero when no daystart configured', () => {
       const options = { now: moment('2020-02-02 09:30:00Z'), timezoneOffset: 0 };
@@ -187,34 +187,34 @@ describe.only('cron utility functions', () => {
       return {
         purchased: {
           plan: {
-            "consecutive": {
-              "count": count,
-              "offset": offset,
-              "gemCapExtra": 25,
-              "trinkets": 19
+            consecutive: {
+              count,
+              offset,
+              gemCapExtra: 25,
+              trinkets: 19,
             },
-            "quantity": 1,
-            "extraMonths": 0,
-            "gemsBought": 0,
-            "owner": "116b4133-8fb7-43f2-b0de-706621a8c9d8",
-            "nextBillingDate": null,
-            "nextPaymentProcessing": null,
-            "planId": planId,
-            "customerId": "group-plan",
-            "dateUpdated": "2022-02-10T03:00:00.144Z",
-            "paymentMethod": "Group Plan",
-            "dateTerminated": null,
-            "lastBillingDate": null,
-            "dateCreated": "2017-02-10T19:00:00.355Z",
+            quantity: 1,
+            extraMonths: 0,
+            gemsBought: 0,
+            owner: '116b4133-8fb7-43f2-b0de-706621a8c9d8',
+            nextBillingDate: null,
+            nextPaymentProcessing: null,
+            planId,
+            customerId: 'group-plan',
+            dateUpdated: '2022-02-10T03:00:00.144Z',
+            paymentMethod: 'Group Plan',
+            dateTerminated: null,
+            lastBillingDate: null,
+            dateCreated: '2017-02-10T19:00:00.355Z',
           },
         },
       };
     }
 
     it('offset 0, next date in 3 months', () => {
-      const now = new Date(2022, 2,1);
+      const now = new Date(2022, 2, 1);
 
-      const user = baseUserData(59, 0, "group_plan_auto")
+      const user = baseUserData(59, 0, 'group_plan_auto');
 
       const planContext = getPlanContext(user, now);
 
@@ -225,7 +225,7 @@ describe.only('cron utility functions', () => {
     it('offset 1, next date in 2 months', () => {
       const now = new Date(2022, 2, 11);
 
-      const user = baseUserData(60, 1, "group_plan_auto")
+      const user = baseUserData(60, 1, 'group_plan_auto');
 
       const planContext = getPlanContext(user, now);
 
@@ -236,7 +236,7 @@ describe.only('cron utility functions', () => {
     it('offset 1, next date in 2 months - with any plan', () => {
       const now = new Date(2022, 2, 11);
 
-      const user = baseUserData(60, 1, "basic_3mo")
+      const user = baseUserData(60, 1, 'basic_3mo');
 
       const planContext = getPlanContext(user, now);
 

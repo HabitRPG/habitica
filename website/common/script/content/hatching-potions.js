@@ -3,13 +3,10 @@ import defaults from 'lodash/defaults';
 import each from 'lodash/each';
 import moment from 'moment';
 import t from './translation';
-import {
-  EVENTS,
-} from './constants';
+import { EVENTS } from './constants';
 
 function hasQuestAchievementFunction (key) {
-  return user => user.achievements.quests
-      && user.achievements.quests[key] > 0;
+  return user => user.achievements.quests && user.achievements.quests[key] > 0;
 }
 
 const drops = {
@@ -66,7 +63,7 @@ const premium = {
     text: t('hatchingPotionCupid'),
     limited: true,
     canBuy () {
-      return moment().isBefore('2021-02-28T20:00-05:00');
+      return moment().isBefore('2022-02-28T20:00-05:00');
     },
   },
   Shimmer: {
@@ -280,7 +277,7 @@ const premium = {
     text: t('hatchingPotionRoseQuartz'),
     limited: true,
     canBuy () {
-      return moment().isBefore('2021-02-28T20:00-05:00');
+      return moment().isBefore('2022-02-28T20:00-05:00');
     },
   },
   Celestial: {
@@ -588,9 +585,12 @@ each(wacky, (pot, key) => {
     notes: t('hatchingPotionNotes', {
       potText: pot.text,
     }),
-    _addlNotes: pot._season && pot._season !== '_PENDING_' ? t('eventAvailability', {
-      date: t(`dateEnd${pot._season}`),
-    }) : null,
+    _addlNotes:
+      pot._season && pot._season !== '_PENDING_'
+        ? t('eventAvailability', {
+          date: t(`dateEnd${pot._season}`),
+        })
+        : null,
     premium: false,
     limited: true,
     wacky: true,
@@ -603,8 +603,5 @@ each(wacky, (pot, key) => {
 const all = assign({}, drops, premium, wacky);
 
 export {
-  drops,
-  premium,
-  wacky,
-  all,
+  drops, premium, wacky, all,
 };

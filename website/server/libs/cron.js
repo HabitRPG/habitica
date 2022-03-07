@@ -11,7 +11,12 @@ import { revealMysteryItems } from './payments/subscriptions';
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
 const { MAX_INCENTIVES } = common.constants;
-const { shouldDo, i18n, getPlanContext, getPlanMonths } = common;
+const {
+  shouldDo,
+  i18n,
+  getPlanContext,
+  getPlanMonths,
+} = common;
 const { scoreTask } = common.ops;
 const { loginIncentives } = common.content;
 // const maxPMs = 200;

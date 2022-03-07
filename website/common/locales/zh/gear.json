@@ -2556,5 +2556,7 @@
     "shieldSpecialWinter2022WarriorNotes": "叮叮当，叮叮当，叮当盾响叮当。叮当防御多快乐~ 叮当偏转攻~击~ 增加<%= con %>点体质。2021-2022年冬季限定版装备。",
     "shieldSpecialWinter2022WarriorText": "叮当盾",
     "shieldSpecialWinter2022HealerText": "持久冰晶",
-    "headSpecialWinter2022HealerNotes": "微小的瑕疵和杂质让冰晶的枝杈向不可预知的方向延伸。这是很有象征性的！而且非常非常漂亮。增加<%= int %>点智力。2020-2021年冬季限定版装备。"
+    "headSpecialWinter2022HealerNotes": "微小的瑕疵和杂质让冰晶的枝杈向不可预知的方向延伸。这是很有象征性的！而且非常非常漂亮。增加<%= int %>点智力。2020-2021年冬季限定版装备。",
+    "weaponArmoirePinkLongbowText": "粉色长弓",
+    "weaponArmoirePinkLongbowNotes": "用这张美丽的弓来同时修炼箭术与爱情，做未来的丘比特。增加<%=per>点感知与<%=str%>点力量。魔法衣橱：独立装备。"
 }

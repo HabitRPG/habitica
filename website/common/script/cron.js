@@ -255,6 +255,7 @@ export function getPlanMonths (plan) {
   // NB gift subscriptions don't have a planID
   // (which doesn't matter because we don't need to reapply perks
   // for them and by this point they should have expired anyway)
+  if (!plan.planId) return 1;
   const planIdRegExp = new RegExp('_([0-9]+)mo'); // e.g., matches 'google_6mo' / 'basic_12mo' and captures '6' / '12'
   const match = plan.planId.match(planIdRegExp);
   if (match !== null && match[0] !== null) {

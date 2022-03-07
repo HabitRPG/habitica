@@ -61,7 +61,7 @@
     "earnedAchievement": "你得到了一个成就！",
     "viewAchievements": "查看成就",
     "letsGetStarted": "我们开始吧！",
-    "onboardingProgress": "<%= percentage %>% 完成",
+    "onboardingProgress": "达成 <%= percentage %>%",
     "gettingStartedDesc": "完成这些新手任务后，你将会获得<strong>5项成就</strong>和<strong class=\"gold-amount\">100枚金币</strong>！",
     "achievementRosyOutlookModalText": "你集齐了所有粉色棉花糖坐骑！",
     "achievementRosyOutlookText": "已驯服所有粉色棉花糖坐骑。",
@@ -125,5 +125,6 @@
     "achievementShadeOfItAllModalText": "你驯服了所有暗影坐骑！",
     "achievementShadyCustomerText": "已集齐所有暗影宠物。",
     "achievementZodiacZookeeper": "十二生肖饲养员",
-    "achievementZodiacZookeeperModalText": "你集齐了所有十二生肖宠物！"
+    "achievementZodiacZookeeperModalText": "你集齐了所有十二生肖宠物！",
+    "achievementZodiacZookeeperText": "已经孵化了所有的十二生肖宠物。鼠、牛、兔、蛇、马、羊、猴、鸡、狼、虎、飞猪和龙！"
 }

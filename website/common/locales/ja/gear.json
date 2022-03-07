@@ -2562,5 +2562,15 @@
     "headMystery202202Text": "ターコイズのツインテール",
     "headMystery202202Notes": "青い髪をてにいれた！効果なし。2022年2月の有料会員アイテム。",
     "eyewearMystery202202Text": "ターコイズの瞳とチーク",
-    "eyewearMystery202202Notes": "陽気な歌があなたの頬を染めたようです。効果なし。2022年2月の有料会員アイテム"
+    "eyewearMystery202202Notes": "陽気な歌があなたの頬を染めたようです。効果なし。2022年2月の有料会員アイテム",
+    "weaponArmoirePinkLongbowText": "ピンクの長弓",
+    "armorArmoireSoftVioletSuitText": "柔らかい紫のスーツ",
+    "shieldArmoireSoftVioletPillowText": "柔らかい紫のまくら",
+    "weaponArmoirePinkLongbowNotes": "この美しい弓でアーチェリーと縁結びを習得して、キューピッド一年生になりましょう。知覚が<%= per %> 、力が<%= str %>上がります。ラッキー宝箱 : 個別のアイテム。",
+    "armorArmoireSoftVioletSuitNotes": "紫はラグジュアリーな色です。日課を全て完了したら、オシャレにくつろぎましょう。体質と力がぞれぞれ<%= attrs %>上がります。ラッキー宝箱：紫の部屋着セット(3個中2個目のアイテム)。",
+    "shieldArmoireSoftVioletPillowNotes": "利口な戦士はどんな冒険にもまくらを持っていきます。先延ばしで起きたパニックから身を守るために……うたた寝しているときでさえ。ラッキー宝箱：紫の部屋着セット（3個中3個目のアイテム）。",
+    "backMystery202203Text": "不屈のトンボの羽",
+    "backMystery202203Notes": "このきらきらの羽で空のクリーチャーたちをぶっちぎりましょう。効果なし。2022年3月の有料会員アイテム。",
+    "headAccessoryMystery202203Text": "不屈のトンボのサークレット",
+    "headAccessoryMystery202203Notes": "もっと早く飛びたいって？このサークレットの小さな羽根飾りは見た目よりもパワフルですよ！効果なし。2022年3月の有料会員アイテム。"
 }

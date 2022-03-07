@@ -2,7 +2,7 @@
     "settings": "Ajustes",
     "language": "Idioma",
     "americanEnglishGovern": "En caso de que hubiese alguna discrepancia en las traducciones, prima la versión en inglés estadounidense.",
-    "helpWithTranslation": "¿Te gustaría ayudar con la traducción de Habitica? ¡Genial! ¡Entonces visita <a href=\"/groups/guild/7732f64c-33ee-4cce-873c-fc28f147a6f7\">la Aspiring Linguists Guild</a>!",
+    "helpWithTranslation": "¿Te gustaría ayudar con la traducción de Habitica? ¡Genial! ¡Entonces visita <a href=\"/groups/guild/7732f64c-33ee-4cce-873c-fc28f147a6f7\">el Aspiring Linguists Guild</a>!",
     "stickyHeader": "Cabecera fija",
     "newTaskEdit": "Abrir nuevas tareas en el modo de edición",
     "dailyDueDefaultView": "Marcar Tareas Diarias como 'Por hacer' por defecto",
@@ -60,7 +60,7 @@
     "deleteSocialAccountText": "¿Estás seguro? ¡Esto eliminará tu cuenta para siempre, y nunca podrá ser restaurada! Necesitarás crear una nueva cuenta para usar Habitica de nuevo. Las Gemas depositadas o gastadas no serán reembolsadas. Si estás absolutamente seguro, escriba \"<%= magicWord %>\" en el cuadro de texto de abajo.",
     "API": "API",
     "APIv3": "API v. 3",
-    "APIText": "Copie esto para usarlo en aplicaciones de terceros. Sin embargo, pensá en tu API Token como una contraseña, no la compartas en público. En ocasiones se te solicitará tu ID de Usuario, pero nunca publiques tu API Token donde otros puedan verla, incluyendo Github.",
+    "APIText": "Copie esto para usarlo en aplicaciones de terceros. Sin embargo, pensa en tu API Token como una contraseña, no la compartas en público. En ocasiones se te solicitará tu ID de Usuario, pero nunca publiques tu API Token donde otros puedan verla, incluyendo Github.",
     "APIToken": "API Token (esto es una contraseña - mira la advertencia de arriba!)",
     "showAPIToken": "Enseñar la ficha API",
     "hideAPIToken": "Esconder la ficha API",
@@ -208,5 +208,6 @@
     "transaction_debug": "Depuración",
     "transaction_contribution": "A través de contribuciones",
     "transaction_spend": "Gastado en",
-    "transaction_release_mounts": "Monturas sueltas"
+    "transaction_release_mounts": "Monturas sueltas",
+    "transaction_subscription_perks": "Beneficio de la suscripción"
 }

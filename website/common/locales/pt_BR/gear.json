@@ -1175,7 +1175,7 @@
     "headArmoireRedHairbowText": "Laço de Cabelo Vermelho",
     "headArmoireRedHairbowNotes": "Torne-se forte, resistente e inteligente enquanto veste este bonito Laço de Cabelo Vermelho! Aumenta Força em <%= str %>, Constituição em <%= con %> e Inteligência em <%= int %>. Armário Encantado: Conjunto do Laço de Cabelo Vermelho. (Item 1 de 2).",
     "headArmoireVioletFloppyHatText": "Chapéu Macio Violeta",
-    "headArmoireVioletFloppyHatNotes": "Muitas magias foram costuradas neste simples chapéu, dando a ele uma agradável cor violeta. Aumenta Percepção em <%= per %>, Inteligência em <%= int %> e Constituição em <%= con %>. Armário Encantado: Item independente.",
+    "headArmoireVioletFloppyHatNotes": "Muitas magias foram costuradas neste simples chapéu, dando a ele uma agradável cor violeta. Aumenta Percepção em <%= per %>, Inteligência em <%= int %> e Constituição em <%= con %>. Armário Encantado: Conjunto de Roupas Violetas para Ficar em Casa (Item 1 de 3).",
     "headArmoireGladiatorHelmText": "Elmo de Gladiadores",
     "headArmoireGladiatorHelmNotes": "Para ser um gladiador você não pode ser só forte... mas também astuto. Aumenta Inteligência em <%= int %> e Percepção em <%= per %>. Armário Encantado: Conjunto de Gladiador (item 1 de 3).",
     "headArmoireRancherHatText": "Chapéu de Rancheiros",
@@ -2461,7 +2461,8 @@
     "weaponSpecialWinter2022WarriorText": "Espada Bengala Doce",
     "weaponSpecialWinter2022HealerNotes": "Encoste essa ferramenta de água sólida no pescoço de um(a) amigo(a) e ele(a) cairá da cadeira! Mas logo depois se sentirá bem. Com sorte. Aumenta e Inteligência em <%= int %>. Edição Limitada do Equipamento de Inverno de 2021-2022.",
     "weaponSpecialWinter2022WarriorNotes": "Quantas lambidas são necessárias para transformar essa bengala doce em uma espada perfeita? Aumenta a Força em <%= str %>. Edição Limitada do Equipamento de Inverno de 2021-2022.",
-    "weaponSpecialWinter2022MageText": "Cajado Romã",
+    "weaponSpecialWinter2022MageText": "Cajado de Romã",
     "weaponSpecialWinter2022MageNotes": "As frutinhas deste cajado contém uma magia anciã que se lança no inverno. Aumenta a Inteligência em <%= int %> e a Percepção em <%= per %>. Edição Limitada do Equipamento de Inverno de 2021-2022.",
-    "weaponSpecialWinter2022HealerText": "Varinha Gelo Cristalino"
+    "weaponSpecialWinter2022HealerText": "Varinha Gelo Cristalino",
+    "weaponArmoirePinkLongbowText": "Arco Longo Cor de Rosa"
 }
