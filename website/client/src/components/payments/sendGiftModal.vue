@@ -33,7 +33,7 @@
           :hideClassBadge="true"
           class="d-flex flex-column mx-auto align-items-center"
         />
-        <div class="vertical-space"></div>
+        <div class="avatar-spacer"></div>
       <div
         class="d-flex flex-column mx-auto align-items-center display-name">
         <!-- user display name and username -->
@@ -76,11 +76,12 @@
         <!-- gem block -->
         <div
           v-show="selectedPage === 'buyGems'"
+          class=""
         >
         <!-- buy gems with money -->
           <div
           v-if="showAmountToBuy(item)"
-          class=""
+          class="buy-gems"
           >
           </div>
           <div class="form-group">
@@ -103,12 +104,24 @@
                 placeholder=""
                 min="0"
               >
-              <!-- <button onclick='stepUp'>-</button> -->
             </div>
           </div>
           </div>
           <div>
+            Total:
+          </div>
+          <div>
+            $100.00
+          </div>
             <!-- <p>{{ $t('sendGiftCost') }}</p> -->
+            <div class="d-flex flex-column justify-content-center align-items-middle mt-3">
+            <button
+            class="btn btn-primary mx-auto mt-2"
+            type="submit"
+            >
+            Send Gems
+            </button>
+            </div>
               <div
                 :class="{active: selectedPage === 'ownGems'}"
                 @click="selectPage('ownGems')"
@@ -116,7 +129,6 @@
               >
               {{ $t('wantToSendOwnGems') }}
             </div>
-          </div>
           <payments-buttons
             :stripe-fn="() => redirectToStripe({ gemsBlock: selectedGemsBlock })"
             :paypal-fn="() => openPaypal({
@@ -128,6 +140,7 @@
         <!-- send gems from balance -->
         <div
           v-show="selectedPage === 'ownGems'"
+          class="own-gems"
           >
           <div class="form-group">
             <label v-once>
@@ -196,6 +209,11 @@
       border-bottom: 0;
     }
 
+    // .subscribe-options {
+    //   background-color: #F9F9F9;
+    //   border-bottom: 1px solid #EDECEE;
+    // }
+
     .modal-close {
       position: absolute;
       width: 18px;
@@ -211,9 +229,6 @@
         color: #878190;
       }
 
-      .subscribe-option {
-        background-color: #F9F9F9;
-      }
   }
 }
 </style>
@@ -223,6 +238,58 @@
   h2 {
     color: $purple-300;
     padding-top: 2rem;
+  }
+
+  .form-group {
+    margin: 0 0 0 0;
+    background-color: $gray-700;
+    padding-bottom: 0px;
+  }
+
+  .avatar-spacer {
+    height: 9px;
+  }
+
+  .display-name {
+    font-size: 0.875rem;
+    font-weight: bold;
+    line-height: 1.71;
+    margin: 0px 6px 0 20px;
+  }
+
+  .user-name {
+  font-size: 0.75rem;
+  line-height: 1.33;
+  text-align: center;
+  color: $gray-100;
+  padding-bottom: 24px;
+  }
+
+  .row {
+    background-color: $gray-700;
+    margin: 0 0 0 0;
+    minimum-height: 32px;
+  }
+
+  .nav {
+    font-weight: bold;
+    font-size: 0.75rem;
+    minimum-height: 32px;
+    text-align: center;
+    padding: 16px 0 0 0;
+    color: $purple-300;
+    justify-content: center;
+  }
+
+  .nav-item {
+    display: inline-block;
+    padding: 0 20px 6px 20px;
+  }
+
+  .nav-item:hover, .nav-item.active {
+    color: $purple-300;
+    border-bottom: 2px solid #9a62ff;
+    cursor: pointer;
   }
 
   label {
@@ -251,12 +318,20 @@
     -moz-appearance: textfield;
     appearance: textfield;
     width: 34px;
-    font-size: 0.875rem;
+    font-size: 0.75rem;
   }
 
   .gem {
     width: 16px;
     height: 16px;
+  }
+
+  .own-gems {
+    background-color: $gray-700;
+  }
+
+  .send-gems {
+    background-color: $gray-700;
   }
 
   .balance-text {
@@ -285,57 +360,9 @@
     height: 24px;
     margin: 24px 48px 0;
     text-align: center;
-  }
-
-  .vertical-space {
-    height: 9px;
-  }
-
-  .display-name {
-    font-size: 0.875rem;
-    font-weight: bold;
-    line-height: 1.71;
-    margin: 0px 6px 0 20px;
-  }
-
-  .user-name {
-  font-size: 0.75rem;
-  line-height: 1.33;
-  text-align: center;
-  color: $gray-100;
-  }
-
-  .nav {
-    font-weight: bold;
-    font-size: 0.75rem;
-    minimum-height: 32px;
-    text-align: center;
-    padding: 8px 0 0;
-    color: $purple-300;
-    justify-content: center;
-  }
-
-  .nav-item {
-    display: inline-block;
-    margin: 0 1.2em;
-    padding: 1em;
-  }
-
-  .nav-item:hover, .nav-item.active {
-    color: $purple-200;
-    border-bottom: 2px solid $purple-200;
     cursor: pointer;
-  }
-
-  .background-fill {
     background-color: $gray-700;
   }
-
-  .subscribe-option {
-    border-bottom: 1px solid $gray-600;
-    background-color: $gray-700;
-  }
-
 </style>
 
 <script>
