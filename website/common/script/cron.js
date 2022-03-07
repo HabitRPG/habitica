@@ -285,32 +285,12 @@ export function getPlanContext (user, now) {
   const dateUpdatedMoment = moment(plan.dateUpdated).startOf('month');
   const elapsedMonths = moment(subscriptionEndDate).diff(dateUpdatedMoment, 'months');
 
-  let possibleNextHourglassDate = moment(plan.dateCreated)
-    .add(plan.consecutive.count + plan.consecutive.offset, 'months');
+  const monthsTillNextHourglass = plan.consecutive.offset === 0
+    ? 3
+    : 3 - (plan.consecutive.offset % 3);
 
-  console.info({
-    preAdd: possibleNextHourglassDate.toISOString(),
-  });
-
-  if (possibleNextHourglassDate.isAfter(nowMoment) && plan.consecutive.offset === 0) {
-    const monthsToAdd = getPlanMonths(plan);
-    console.info('offset 0, adding plan months: ', monthsToAdd);
-    possibleNextHourglassDate = possibleNextHourglassDate.add(monthsToAdd, 'months');
-  }
-
-  if (possibleNextHourglassDate.isBefore(nowMoment)) {
-    const months = Math.abs(possibleNextHourglassDate.diff(nowMoment, 'months'));
-
-    possibleNextHourglassDate = possibleNextHourglassDate.add(months, 'months');
-  }
-
-  console.info({
-    possibleNextHourglassDate,
-    plan,
-    nowMoment,
-    now,
-    valid: nowMoment.isValid(),
-  });
+  const possibleNextHourglassDate = moment(plan.dateUpdated)
+    .add(monthsTillNextHourglass, 'months');
 
   return {
     plan,

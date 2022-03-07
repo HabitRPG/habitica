@@ -182,7 +182,7 @@ describe.only('cron utility functions', () => {
     });
   });
 
-  describe.only('getPlanContext', () => {
+  describe('getPlanContext', () => {
     function baseUserData (count, offset, planId) {
       return {
         purchased: {
@@ -201,7 +201,7 @@ describe.only('cron utility functions', () => {
             "nextPaymentProcessing": null,
             "planId": planId,
             "customerId": "group-plan",
-            "dateUpdated": "2022-02-10T22:38:52.144Z",
+            "dateUpdated": "2022-02-10T03:00:00.144Z",
             "paymentMethod": "Group Plan",
             "dateTerminated": null,
             "lastBillingDate": null,
@@ -211,52 +211,37 @@ describe.only('cron utility functions', () => {
       };
     }
 
-    describe('1-month plan', () => {
-      it('nextHourglassDate before "now"', () => {
-        const now = new Date(2022, 2,1);
+    it('offset 0, next date in 3 months', () => {
+      const now = new Date(2022, 2,1);
 
-        const user = baseUserData(59, 0, "group_plan_auto")
+      const user = baseUserData(59, 0, "group_plan_auto")
 
-        const planContext = getPlanContext(user, now);
+      const planContext = getPlanContext(user, now);
 
-        expect(planContext.nextHourglassDate.toISOString())
-          .to.equal('2022-03-10T19:00:00.355Z')
-      });
-
-      it('nextHourglassDate after "now", should increase to the next month', () => {
-        const now = new Date(2022, 2, 11);
-
-        const user = baseUserData(60, 0, "group_plan_auto")
-
-        const planContext = getPlanContext(user, now);
-
-        expect(planContext.nextHourglassDate.toISOString())
-          .to.equal('2022-04-10T18:00:00.355Z'); // summer time changes the hour ^^
-      });
+      expect(planContext.nextHourglassDate.toISOString())
+        .to.equal('2022-05-10T02:00:00.144Z'); // summer time changes the hour ^^
     });
 
-    describe('3-month plan', () => {
-      it('nextHourglassDate before "now"', () => {
-        const now = new Date(2022, 2,1);
+    it('offset 1, next date in 2 months', () => {
+      const now = new Date(2022, 2, 11);
 
-        const user = baseUserData(59, 0, "basic_3mo")
+      const user = baseUserData(60, 1, "group_plan_auto")
 
-        const planContext = getPlanContext(user, now);
+      const planContext = getPlanContext(user, now);
 
-        expect(planContext.nextHourglassDate.toISOString())
-          .to.equal('2022-03-10T18:00:00.355Z')
-      });
-
-      it('nextHourglassDate after "now", should increase to the next month', () => {
-        const now = new Date(2022, 2, 11);
-
-        const user = baseUserData(60, 0, "basic_3mo")
-
-        const planContext = getPlanContext(user, now);
-
-        expect(planContext.nextHourglassDate.toISOString())
-          .to.equal('2022-06-10T18:00:00.355Z'); // summer time changes the hour ^^
-      });
+      expect(planContext.nextHourglassDate.toISOString())
+        .to.equal('2022-04-10T02:00:00.144Z'); // summer time changes the hour ^^
     });
-  })
+
+    it('offset 1, next date in 2 months - with any plan', () => {
+      const now = new Date(2022, 2, 11);
+
+      const user = baseUserData(60, 1, "basic_3mo")
+
+      const planContext = getPlanContext(user, now);
+
+      expect(planContext.nextHourglassDate.toISOString())
+        .to.equal('2022-04-10T02:00:00.144Z'); // summer time changes the hour ^^
+    });
+  });
 });
