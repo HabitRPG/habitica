@@ -201,7 +201,7 @@ describe('cron utility functions', () => {
             nextPaymentProcessing: null,
             planId,
             customerId: 'group-plan',
-            dateUpdated: '2022-02-10T03:00:00.144+01:00',
+            dateUpdated: '2022-05-10T03:00:00.144+01:00',
             paymentMethod: 'Group Plan',
             dateTerminated: null,
             lastBillingDate: null,
@@ -219,7 +219,7 @@ describe('cron utility functions', () => {
       const planContext = getPlanContext(user, now);
 
       expect(planContext.nextHourglassDate.toISOString(true))
-        .to.equal('2022-05-10T03:00:00.144+02:00');
+        .to.equal('2022-08-10T04:00:00.144+02:00');
     });
 
     it('offset 1, next date in 2 months', () => {
@@ -230,7 +230,7 @@ describe('cron utility functions', () => {
       const planContext = getPlanContext(user, now);
 
       expect(planContext.nextHourglassDate.toISOString(true))
-        .to.equal('2022-04-10T03:00:00.144+02:00');
+        .to.equal('2022-07-10T04:00:00.144+02:00');
     });
 
     it('offset 1, next date in 2 months - with any plan', () => {
@@ -241,7 +241,7 @@ describe('cron utility functions', () => {
       const planContext = getPlanContext(user, now);
 
       expect(planContext.nextHourglassDate.toISOString(true))
-        .to.equal('2022-04-10T03:00:00.144+02:00');
+        .to.equal('2022-07-10T04:00:00.144+02:00');
     });
   });
 });
