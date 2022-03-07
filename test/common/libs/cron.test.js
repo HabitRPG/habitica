@@ -218,8 +218,8 @@ describe('cron utility functions', () => {
 
       const planContext = getPlanContext(user, now);
 
-      expect(planContext.nextHourglassDate.toISOString(true))
-        .to.equal('2022-08-10T04:00:00.144+02:00');
+      expect(planContext.nextHourglassDate)
+        .to.be.sameMoment('2022-08-10T02:00:00.144Z');
     });
 
     it('offset 1, next date in 2 months', () => {
@@ -229,8 +229,8 @@ describe('cron utility functions', () => {
 
       const planContext = getPlanContext(user, now);
 
-      expect(planContext.nextHourglassDate.toISOString(true))
-        .to.equal('2022-07-10T04:00:00.144+02:00');
+      expect(planContext.nextHourglassDate)
+        .to.be.sameMoment('2022-07-10T02:00:00.144Z');
     });
 
     it('offset 1, next date in 2 months - with any plan', () => {
@@ -240,8 +240,8 @@ describe('cron utility functions', () => {
 
       const planContext = getPlanContext(user, now);
 
-      expect(planContext.nextHourglassDate.toISOString(true))
-        .to.equal('2022-07-10T04:00:00.144+02:00');
+      expect(planContext.nextHourglassDate)
+        .to.be.sameMoment('2022-07-10T02:00:00.144Z');
     });
   });
 });
