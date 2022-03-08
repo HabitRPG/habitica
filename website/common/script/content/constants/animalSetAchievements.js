@@ -20,6 +20,8 @@ const ANIMAL_SET_ACHIEVEMENTS = {
       'Pterodactyl',
       'Gryphon',
       'Falcon',
+      'Rooster',
+      'Peacock',
     ],
     achievementKey: 'birdsOfAFeather',
     notificationType: 'ACHIEVEMENT_BIRDS_OF_A_FEATHER',
