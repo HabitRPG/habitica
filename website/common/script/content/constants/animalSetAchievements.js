@@ -11,6 +11,19 @@ const ANIMAL_SET_ACHIEVEMENTS = {
     achievementKey: 'legendaryBestiary',
     notificationType: 'ACHIEVEMENT_LEGENDARY_BESTIARY',
   },
+  birdsOfAFeather: {
+    type: 'pet',
+    species: [
+      'FlyingPig',
+      'Owl',
+      'Parrot',
+      'Pterodactyl',
+      'Gryphon',
+      'Falcon',
+    ],
+    achievementKey: 'birdsOfAFeather',
+    notificationType: 'ACHIEVEMENT_BIRDS_OF_A_FEATHER',
+  },
   domesticated: {
     type: 'pet',
     species: [
