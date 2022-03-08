@@ -110,6 +110,21 @@
     "achievementLegendaryBestiary": "Bestiarium Creaturarum Fabularium",
     "achievementLegendaryBestiaryModalText": "Omnes creaturas fabulares collegisti!",
     "achievementSeasonalSpecialistText": "Omnias investigationes Veris et Hiemis perfecit: Investigationem Ovi, Patrem Natalem Insidiosum, Catalum Inveniendum!",
-    "achievementLegendaryBestiaryText": "Omnias creaturas fabulares coloris soliti excudit: Draconem, Suem volantem, Gryphum, Serpentem Maris, Unicornem!",
-    "achievementVioletsAreBlueText": "Omnia animalia caerulei dulcis gossypii coloris collegit."
+    "achievementLegendaryBestiaryText": "Omnias creaturas fabulares coloris soliti incubuit: Draconem, Suem volantem, Gryphum, Serpentem Maris, Unicornem!",
+    "achievementVioletsAreBlueText": "Omnia animalia caerulei dulcis gossypii coloris collegit.",
+    "achievementWildBlueYonderModalText": "Omnia caerulei dulcis gossypii coloris domuisti!",
+    "achievementDomesticatedText": "Omnia domestica animalia soliti coloris incubuit: Furritum, Caviam Porcellum, Gallum, Suem Volantem, Ratum, Cuniculum, Equum, Bovem!",
+    "achievementWildBlueYonder": "Caeli Caerula Templa",
+    "achievementWildBlueYonderText": "Omnia iumenta caerulei dulcis gossypii coloris domuit.",
+    "achievementDomesticated": "I - Ae - I - Ae - O",
+    "achievementDomesticatedModalText": "Omnia animalia domestica collegisti!",
+    "achievementShadyCustomer": "Umbra et Imago",
+    "achievementShadyCustomerText": "Omnia animalia umbrae coloris collegit.",
+    "achievementZodiacZookeeperText": "Omnia animalia Zodiaci incubuit: Ratum, Bovem, Cuniculum, Serpentem, Equum, Ovem, Simiam, Gallum, Lupum, Tigrem, Suem Volantem, Draconem!",
+    "achievementZodiacZookeeper": "Zodiaci Custos",
+    "achievementZodiacZookeeperModalText": "Omnia animalia Zodiaci collegisti!",
+    "achievementShadyCustomerModalText": "Omnia animalia umbrae coloris collegisti!",
+    "achievementShadeOfItAll": "Umbra Gigantum",
+    "achievementShadeOfItAllText": "Omnia iumenta umbrae coloris domuit.",
+    "achievementShadeOfItAllModalText": "Omnia iumenta umbrae coloris domuisti!"
 }
