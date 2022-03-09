@@ -50,7 +50,7 @@
       ></div>
       <div
         class="ml-auto mr-2 text-right"
-        v-if="task.group.assignedUsers"
+        v-if="task.group.assignedUsers && ['daily','todo'].indexOf(task.type) !== -1"
       >
         <span
           v-if="assignedUsersCount > 1"
