@@ -26,6 +26,21 @@ const ANIMAL_SET_ACHIEVEMENTS = {
     achievementKey: 'domesticated',
     notificationType: 'ACHIEVEMENT_DOMESTICATED',
   },
+  birdsOfAFeather: {
+    type: 'pet',
+    species: [
+      'FlyingPig',
+      'Owl',
+      'Parrot',
+      'Pterodactyl',
+      'Gryphon',
+      'Falcon',
+      'Rooster',
+      'Peacock',
+    ],
+    achievementKey: 'birdsOfAFeather',
+    notificationType: 'ACHIEVEMENT_BIRDS_OF_A_FEATHER',
+  },
   zodiacZookeeper: {
     type: 'pet',
     species: [
