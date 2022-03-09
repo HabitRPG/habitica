@@ -232,8 +232,6 @@ describe('cron utility functions', () => {
     });
 
     it('offset 2, next date in 2 months - with any plan', () => {
-      const now = new Date(2022, 2, 11);
-
       const user = baseUserData(60, 2, 'basic_3mo');
 
       const planContext = getPlanContext(user, now);
