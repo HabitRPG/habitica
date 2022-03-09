@@ -388,6 +388,10 @@ const armor = {
     str: 7,
     set: 'violetLoungewear',
   },
+  gardenersOveralls: {
+    con: 7,
+    set: 'gardenerSet',
+  },
 };
 
 const body = {
@@ -787,6 +791,10 @@ const head = {
     per: 10,
     set: 'shootingStar',
   },
+  gardenersSunHat: {
+    per: 7,
+    set: 'gardenerSet',
+  },
 };
 
 const shield = {
@@ -1055,6 +1063,10 @@ const shield = {
   softVioletPillow: {
     int: 10,
     set: 'violetLoungewear',
+  },
+  gardenersSpade: {
+    str: 8,
+    set: 'gardenerSet',
   },
 };
 
@@ -1435,6 +1447,10 @@ const weapon = {
     per: 6,
     str: 5,
     twoHanded: true,
+  },
+  gardenersWateringCan: {
+    int: 8,
+    set: 'gardenerSet',
   },
 };
 
