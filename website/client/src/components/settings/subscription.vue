@@ -213,11 +213,11 @@
                 >
                 </div>
                 <div class="number-heavy">
-                  {{ user.purchased.plan.consecutive.gemCapExtra }}
+                  {{ gemCap }}
                 </div>
               </div>
               <div class="stats-label">
-                {{ $t('gemCapExtra') }}
+                {{ $t('gemCap') }}
               </div>
             </div>
             <div class="stats-spacer"></div>
@@ -571,7 +571,6 @@
 
 <script>
 import axios from 'axios';
-import min from 'lodash/min';
 import moment from 'moment';
 import { mapState } from '@/libs/store';
 
@@ -696,23 +695,10 @@ export default {
         months: parseFloat(this.user.purchased.plan.extraMonths).toFixed(2),
       };
     },
-    buyGemsGoldCap () {
-      return {
-        amount: min(this.gemGoldCap),
-      };
-    },
-    gemGoldCap () {
-      const baseCap = 25;
-      const gemCapIncrement = 5;
-      const capIncrementThreshold = 3;
-      const { gemCapExtra } = this.user.purchased.plan.consecutive;
-      const blocks = subscriptionBlocks[this.subscription.key].months / capIncrementThreshold;
-      const flooredBlocks = Math.floor(blocks);
-
-      const userTotalDropCap = baseCap + gemCapExtra + flooredBlocks * gemCapIncrement;
-      const maxDropCap = 50;
-
-      return [userTotalDropCap, maxDropCap];
+    gemCap () {
+      return planGemLimits.convCap
+          + this.user.purchased.plan.consecutive.gemCapExtra
+          + this.user.purchased.plan.gemsBought;
     },
     numberOfMysticHourglasses () {
       const numberOfHourglasses = subscriptionBlocks[this.subscription.key].months / 3;

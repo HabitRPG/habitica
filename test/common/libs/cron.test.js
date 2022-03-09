@@ -183,6 +183,8 @@ describe('cron utility functions', () => {
   });
 
   describe('getPlanContext', () => {
+    const now = new Date(2022, 5, 1);
+
     function baseUserData (count, offset, planId) {
       return {
         purchased: {
@@ -212,9 +214,7 @@ describe('cron utility functions', () => {
     }
 
     it('offset 0, next date in 3 months', () => {
-      const now = new Date(2022, 2, 1);
-
-      const user = baseUserData(59, 0, 'group_plan_auto');
+      const user = baseUserData(60, 0, 'group_plan_auto');
 
       const planContext = getPlanContext(user, now);
 
@@ -222,21 +222,19 @@ describe('cron utility functions', () => {
         .to.be.sameMoment('2022-08-10T02:00:00.144Z');
     });
 
-    it('offset 1, next date in 2 months', () => {
-      const now = new Date(2022, 2, 11);
-
+    it('offset 1, next date in 1 months', () => {
       const user = baseUserData(60, 1, 'group_plan_auto');
 
       const planContext = getPlanContext(user, now);
 
       expect(planContext.nextHourglassDate)
-        .to.be.sameMoment('2022-07-10T02:00:00.144Z');
+        .to.be.sameMoment('2022-06-10T02:00:00.144Z');
     });
 
-    it('offset 1, next date in 2 months - with any plan', () => {
+    it('offset 2, next date in 2 months - with any plan', () => {
       const now = new Date(2022, 2, 11);
 
-      const user = baseUserData(60, 1, 'basic_3mo');
+      const user = baseUserData(60, 2, 'basic_3mo');
 
       const planContext = getPlanContext(user, now);
 

@@ -23,6 +23,7 @@ storiesOf('Subscriptions/Detail Page', module)
             customerId: 'customer-id',
             planId: 'plan-id',
             subscriptionId: 'sub-id',
+            gemsBought: 22,
             dateUpdated: new Date(2021, 0, 15),
             consecutive: {
               count: 2,

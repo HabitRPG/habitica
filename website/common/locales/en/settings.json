@@ -155,6 +155,7 @@
     "purchasedPlanExtraMonths": "You have <strong><%= months %> months</strong> of extra subscription credit.",
     "consecutiveSubscription": "Consecutive Subscription",
     "consecutiveMonths": "Consecutive Months:",
+    "gemCap": "Gem Cap",
     "gemCapExtra": "Gem Cap Bonus",
     "mysticHourglasses": "Mystic Hourglasses:",
     "mysticHourglassesTooltip": "Mystic Hourglasses",

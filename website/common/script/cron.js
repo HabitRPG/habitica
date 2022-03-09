@@ -286,9 +286,7 @@ export function getPlanContext (user, now) {
   const dateUpdatedMoment = moment(plan.dateUpdated).startOf('month');
   const elapsedMonths = moment(subscriptionEndDate).diff(dateUpdatedMoment, 'months');
 
-  const monthsTillNextHourglass = plan.consecutive.offset === 0
-    ? 3
-    : 3 - (plan.consecutive.offset % 3);
+  const monthsTillNextHourglass = plan.consecutive.offset || (3 - (plan.consecutive.count % 3));
 
   const possibleNextHourglassDate = moment(plan.dateUpdated)
     .add(monthsTillNextHourglass, 'months');
