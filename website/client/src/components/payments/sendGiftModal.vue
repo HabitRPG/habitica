@@ -55,9 +55,11 @@
             >
               {{ $t('subscription') }}
             </div>
+
+            <!-- need to figure out how to make this bit disable .active for 'subscription'-->
             <div
               class="nav-item"
-              :class="{active: selectedPage === 'buyGems'}"
+              :class="{active: [selectedPage ? 'buyGems' : 'ownGems']}"
               @click="selectPage('buyGems')"
             >
               {{ $t('gems') }}
@@ -185,11 +187,15 @@
 <style lang="scss">
   @import '~@/assets/scss/mixins.scss';
 
+  .modal-dialog {
+    max-width: 448px;
+  }
+
   .modal-content {
-  width: 448px;
-  padding: 0px 0 32px;
-  border-radius: 8px;
-  box-shadow: 0 14px 28px 0 rgba(26, 24, 29, 0.24), 0 10px 10px 0 rgba(26, 24, 29, 0.28);
+    width: 402px;
+    padding: 0px 0 32px;
+    border-radius: 8px;
+    box-shadow: 0 14px 28px 0 rgba(26, 24, 29, 0.24), 0 10px 10px 0 rgba(26, 24, 29, 0.28);
   }
 
   #send-gift {
@@ -223,7 +229,6 @@
     padding-top: 2rem;
   }
 
-
   .avatar-spacer {
     height: 9px;
   }
@@ -236,11 +241,11 @@
   }
 
   .user-name {
-  font-size: 0.75rem;
-  line-height: 1.33;
-  text-align: center;
-  color: $gray-100;
-  padding-bottom: 24px;
+    font-size: 0.75rem;
+    line-height: 1.33;
+    text-align: center;
+    color: $gray-100;
+    padding-bottom: 16px;
   }
 
   .row {
@@ -253,7 +258,6 @@
     font-weight: bold;
     font-size: 0.75rem;
     min-height: 32px;
-    text-align: center;
     padding: 16px 0 0 0;
     color: $purple-300;
     justify-content: center;
@@ -261,7 +265,7 @@
 
   .nav-item {
     display: inline-block;
-    padding: 0 20px 6px 20px;
+    padding: 0px 8px 6px 8px;
   }
 
   .nav-item:hover, .nav-item.active {
@@ -270,10 +274,18 @@
     cursor: pointer;
   }
 
+  .nav-item.inactive {
+    color: $purple-300;
+    border-bottom: 0px;
+    cursor: pointer;
+  }
+
   .gem-group {
-    padding: 12px 0 24px 0;
+    padding: 0 0 24px 0;
     background-color: $gray-700;
     margin: 0 0 0 0;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px
   }
 
   label {
@@ -281,8 +293,7 @@
     font-size: 0.875rem;
     font-weight: bold;
     line-height: 1.71;
-    padding-top: 0.75rem;
-    margin-bottom: 0.875rem;
+    margin: 12px 0 16px 0;
     width: 100%;
     text-align: center;
   }
@@ -291,7 +302,7 @@
     width: 94px;
     height: 32px;
     margin: 0px 96px 0px 95px;
-    padding: 0 16px 0 0;
+    padding: 0;
     border-radius: 2px;
     border: solid 1px $gray-400;
     background-color: $white;
@@ -315,11 +326,11 @@
     font-weight: bold;
     color: $gray-100;
     line-height: 1.33;
-    margin: 12px 0px 24px 70px;
+    margin: 12px 0px 0px 70px;
   }
 
   .balance-gem-icon {
-    margin: 8px 4px 24px 8px;
+    margin: 8px 4px 0px 8px;
     // object-fit: contain;
   }
 
@@ -327,14 +338,14 @@
     font-size: 0.75rem;
     color: $gray-100;
     line-height: 1.33;
-    margin: 12px 71px 24px 4px;
+    margin: 12px 71px 0px 4px;
   }
 
   .gem-state-change {
     color: $blue-10;
     font-size: 0.875rem;
     min-height: 24px;
-    margin: 24px 48px 0;
+    margin: 16px 48px 0;
     text-align: center;
     cursor: pointer;
   }
