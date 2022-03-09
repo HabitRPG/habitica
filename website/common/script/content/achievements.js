@@ -173,6 +173,11 @@ const animalSetAchievs = {
     titleKey: 'achievementLegendaryBestiary',
     textKey: 'achievementLegendaryBestiaryText',
   },
+  birdsOfAFeather: {
+    icon: 'achievement-birdsOfAFeather',
+    titleKey: 'achievementBirdsOfAFeather',
+    textKey: 'achievementBirdsOfAFeatherText',
+  },
   domesticated: {
     icon: 'achievement-domesticated',
     titleKey: 'achievementDomesticated',
