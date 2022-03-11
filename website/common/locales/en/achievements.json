@@ -125,9 +125,9 @@
   "achievementShadeOfItAllText": "Has tamed all Shade Mounts.",
   "achievementShadeOfItAllModalText": "You tamed all the Shade Mounts!",
   "achievementZodiacZookeeper": "Zodiac Zookeeper",
-  "achievementZodiacZookeeperText": "Has hatched all the zodiac pets: Rat, Cow, Bunny, Snake, Horse, Sheep, Monkey, Rooster, Wolf, Tiger, Flying Pig, and Dragon!",
+  "achievementZodiacZookeeperText": "Has hatched all standard colors of zodiac pets: Rat, Cow, Bunny, Snake, Horse, Sheep, Monkey, Rooster, Wolf, Tiger, Flying Pig, and Dragon!",
   "achievementZodiacZookeeperModalText": "You collected all the zodiac pets!",
   "achievementBirdsOfAFeather": "Birds of a Feather",
-  "achievementBirdsOfAFeatherText": "Has hatched all the flying pets: Flying Pig, Owl, Parrot, Pterodactyl, Gryphon, and Falcon.",
+  "achievementBirdsOfAFeatherText": "Has hatched all standard colors of flying pets: Flying Pig, Owl, Parrot, Pterodactyl, Gryphon, and Falcon.",
   "achievementBirdsOfAFeatherModalText":"You collected all the flying pets!"
 }
