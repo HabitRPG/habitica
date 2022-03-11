@@ -137,7 +137,7 @@
           {{ $t('howManyGemsSend') }}
         </label>
         <div class="d-flex align-items-center justify-content-center">
-          <div class="green-circle justify-items-end">
+          <div class="gray-circle d-flex align-self-end">
             <div
               class="icon-negative"
               v-html="icons.negative"
@@ -161,7 +161,7 @@
               min="0"
             >
         </div>
-          <div class="green-circle justify-content-start">
+          <div class="gray-circle">
             <div
               class="icon-positive"
               v-html="icons.positive"
@@ -335,14 +335,14 @@
     font-size: 0.75rem;
   }
 
-  .green-circle {
+  .gray-circle {
     border-radius: 100%;
     border: solid 2px $gray-300;
-    padding: 8px;
+    // padding: 8px;
     width: 32px;
     height: 32px;
-    margin: 16px;
   }
+
 
   .icon-gem {
     width: 16px;
@@ -352,15 +352,17 @@
   .icon-positive {
     width: 16px;
     height: 16px;
-    object-fit: contain;
+    // object-fit: contain;
     color: $gray-300;
+    // padding: 8px;
   }
 
   .icon-negative {
     width: 16px;
     height: 16px;
-    object-fit: contain;
+    // object-fit: contain;
     color: $gray-300;
+    // padding: 8px;
   }
 
   .balance-text {

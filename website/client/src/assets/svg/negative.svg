@@ -1,3 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="10" height="2" viewBox="0 0 10 2">
-  <path fill-rule="evenodd" d="M0 0h10v2H0z"/>
+<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <path id="j2974hw4ga" d="M3 7h10v2H3z"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <mask id="xh6v2p5edb" fill="#fff">
+            <use xlink:href="#j2974hw4ga"/>
+        </mask>
+        <use fill="#878190" xlink:href="#j2974hw4ga"/>
+        <g mask="url(#xh6v2p5edb)" fill="#878190">
+            <path d="M0 0h16v16H0z"/>
+        </g>
+    </g>
 </svg>
