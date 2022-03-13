@@ -126,5 +126,8 @@
     "achievementShadyCustomerText": "Coletou todos os Mascotes das Sombras.",
     "achievementZodiacZookeeperModalText": "Você coletou todos os mascotes do zodíaco!",
     "achievementZodiacZookeeper": "Guarda dos Animais do Zodíaco",
-    "achievementZodiacZookeeperText": "Chocou todos os mascotes do zodíaco: Rato, Vaca, Coelho, Cobra, Cavalo, Ovelha, Macaco, Galo, Lobo, Tigre, Porco Voador e Dragão!"
+    "achievementZodiacZookeeperText": "Chocou todos os mascotes do zodíaco: Rato, Vaca, Coelho, Cobra, Cavalo, Ovelha, Macaco, Galo, Lobo, Tigre, Porco Voador e Dragão!",
+    "achievementBirdsOfAFeather": "Valeu a Pena",
+    "achievementBirdsOfAFeatherText": "Coletou todos os mascotes voadores: Porco Voador, Coruja, Papagaio, Pterodáctilo, Grifo e Falcão.",
+    "achievementBirdsOfAFeatherModalText": "Você coletou todos os mascotes voadores!"
 }
