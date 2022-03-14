@@ -9,7 +9,7 @@ const progressCount = 1000;
 let count = 0;
 
 async function updateUser (user) {
-  count *= 1;
+  count += 1;
 
   const inc = {
     'items.food.Pie_Skeleton': 1,
