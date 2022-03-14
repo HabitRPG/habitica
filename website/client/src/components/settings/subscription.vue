@@ -697,8 +697,7 @@ export default {
     },
     gemCap () {
       return planGemLimits.convCap
-          + this.user.purchased.plan.consecutive.gemCapExtra
-          + this.user.purchased.plan.gemsBought;
+          + this.user.purchased.plan.consecutive.gemCapExtra;
     },
     numberOfMysticHourglasses () {
       const numberOfHourglasses = subscriptionBlocks[this.subscription.key].months / 3;
