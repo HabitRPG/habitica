@@ -37,7 +37,15 @@
         <div
           class="d-flex flex-column mx-auto align-items-center display-name">
           <!-- user display name and username -->
-            {{ displayName }}
+
+            <user-link
+              :user-id="userName"
+              :name="displayName"
+              :backer="userBacker"
+              :contributor="userContributor"
+              :class="display-name"
+              />
+            <!-- {{ displayName }} -->
         </div>
         <div
           class="d-flex flex-column mx-auto align-items-center user-name">
@@ -87,7 +95,15 @@
           {{ $t('howManyGemsPurchase') }}
         </label>
 
-        <div class="d-flex flex-row align-items-center">
+        <div class="d-flex flex-row align-items-center justify-content-center">
+          <div class="gray-circle">
+            <div
+              class="icon-negative"
+              v-html="icons.negativeIcon"
+            ></div>
+            <!-- @click @keypress.enter & @tabindex will need to be added above -->
+            <!-- v-else might be needed above -->
+          </div>
           <div class="input-group">
             <div class="input-group-prepend input-group-icon align-items-center">
               <div
@@ -104,14 +120,22 @@
               min="0"
             >
           </div>
-        </div>
-
-        <div class="">
-          {{ $t('sendGiftTotal') }}
-        </div>
-        <div class="">
-          {{ $t ('sendGiftAmount')}}
-        </div>
+          <div class="gray-circle">
+            <div
+              class="icon-positive"
+              v-html="icons.positiveIcon"
+              ></div>
+              <!-- :class @click @keypress.enter & @tabindex will need to be added above -->
+              <!-- v-else might be needed above -->
+          </div>
+          </div>
+          <div class="buy-gem-total">
+            {{ $t('sendGiftTotal') }}
+          </div>
+          <div class="buy-gem-amount">
+            $30.75
+            <!-- {{ $t ('sendGiftAmount')}} -->
+          </div>
         <div
           :class="{active: selectedPage === 'ownGems'}"
           @click="selectPage('ownGems')"
@@ -137,10 +161,10 @@
           {{ $t('howManyGemsSend') }}
         </label>
         <div class="d-flex align-items-center justify-content-center">
-          <div class="gray-circle d-flex align-self-end">
+          <div class="gray-circle">
             <div
               class="icon-negative"
-              v-html="icons.negative"
+              v-html="icons.negativeIcon"
             ></div>
             <!-- @click @keypress.enter & @tabindex will need to be added above -->
             <!-- v-else might be needed above -->
@@ -164,7 +188,7 @@
           <div class="gray-circle">
             <div
               class="icon-positive"
-              v-html="icons.positive"
+              v-html="icons.positiveIcon"
               ></div>
               <!-- :class @click @keypress.enter & @tabindex will need to be added above -->
               <!-- v-else might be needed above -->
@@ -259,6 +283,10 @@
     margin: 0px 6px 0 20px;
   }
 
+  .display-name a:hover{
+    text-decoration: none;
+  }
+
   .user-name {
     font-size: 0.75rem;
     line-height: 1.33;
@@ -320,7 +348,7 @@
   .input-group {
     width: 94px;
     height: 32px;
-    margin: 0px 96px 0px 95px;
+    margin: 0px 16px 0px 16px;
     padding: 0;
     border-radius: 2px;
     border: solid 1px $gray-400;
@@ -343,7 +371,6 @@
     height: 32px;
   }
 
-
   .icon-gem {
     width: 16px;
     height: 16px;
@@ -352,17 +379,36 @@
   .icon-positive {
     width: 16px;
     height: 16px;
-    // object-fit: contain;
     color: $gray-300;
-    // padding: 8px;
+    padding: 8px;
+    // object-fit: contain;
   }
 
   .icon-negative {
     width: 16px;
     height: 16px;
-    // object-fit: contain;
     color: $gray-300;
-    // padding: 8px;
+    padding: 8px;
+    // object-fit: contain;
+  }
+
+  .buy-gem-total {
+    font-size: 0.875rem;
+    font-weight: bold;
+    line-height: 1.71;
+    padding-top: 24px;
+    text-align: center;
+    height: 28px;
+  }
+
+  .buy-gem-amount {
+    font-size: 1.25rem;
+    font-weight: bold;
+    line-height: 1.4;
+    margin: 16px 0 24px 0;
+    text-align: center;
+    height: 28px;
+    color: $green-10;
   }
 
   .balance-text {
@@ -405,7 +451,7 @@ import paymentsMixin from '../../mixins/payments';
 
 // component imports
 import avatar from '../avatar';
-// import userLink from '../memberDetails'; // in case I need to do the tier color/icon
+import userLink from '../userLink'; // in case I need to do the tier color/icon
 import subscriptionOptions from '../settings/subscriptionOptions.vue';
 import paymentsButtons from '@/components/payments/buttons/list';
 
@@ -420,6 +466,7 @@ export default {
     avatar,
     subscriptionOptions,
     paymentsButtons,
+    userLink,
   },
   mixins: [
     paymentsMixin,
@@ -432,8 +479,8 @@ export default {
       icons: Object.freeze({
         closeIcon,
         gemIcon,
-        positive: positiveIcon,
-        negative: negativeIcon,
+        positiveIcon,
+        negativeIcon,
       }),
       userReceivingGift: null,
       // this might need to be computed depending on where $emit is happening
@@ -480,12 +527,27 @@ export default {
       const displayName = this.userReceivingGift.profile.name;
       return displayName;
     },
+    userBacker () {
+      const userBacker = this.userReceivingGift.backer;
+      return userBacker;
+    },
+    userContributor () {
+      const userContributor = this.userReceivingGift.contributor;
+      return userContributor;
+    },
+
     fromBal () {
       return this.gift.type === 'gems' && this.gift.gems.fromBalance;
     },
     maxGems () {
       const maxGems = this.fromBal ? this.userLoggedIn.balance * 4 : 9999;
       return maxGems;
+    },
+    tierIcon () {
+      if (this.isNPC) {
+        return this.icons.tierNPC;
+      }
+      return this.icons[`tier${this.level}`];
     },
   },
   watch: {
