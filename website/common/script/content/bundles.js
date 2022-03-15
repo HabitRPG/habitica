@@ -114,7 +114,7 @@ const bundles = {
       'guineapig',
     ],
     canBuy () {
-      return moment().isBetween('2018-05-08', '2018-06-02');
+      return moment().isBetween('2022-03-15T08:00-04:00', '2022-05-31T20:00-04:00');
     },
     type: 'quests',
     value: 7,
