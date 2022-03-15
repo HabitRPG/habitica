@@ -1,14 +1,11 @@
-<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <defs>
-        <path id="j2974hw4ga" d="M3 7h10v2H3z"/>
-    </defs>
-    <g fill="none" fill-rule="evenodd">
-        <mask id="xh6v2p5edb" fill="#fff">
-            <use xlink:href="#j2974hw4ga"/>
-        </mask>
-        <use fill="#878190" xlink:href="#j2974hw4ga"/>
-        <g mask="url(#xh6v2p5edb)" fill="#878190">
-            <path d="M0 0h16v16H0z"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Icon/Negative</title>
+    <g id="Modals" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Shop-Modals" transform="translate(-136.000000, -655.000000)" fill="#878190">
+            <g id="Icon/Negative" transform="translate(136.000000, 655.000000)">
+                <rect id="Mask" x="3" y="7" width="10" height="2"></rect>
+            </g>
         </g>
     </g>
 </svg>
