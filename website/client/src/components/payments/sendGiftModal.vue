@@ -371,9 +371,9 @@
   .gray-circle {
     border-radius: 100%;
     border: solid 2px $gray-300;
-    // padding: 8px;
     width: 32px;
     height: 32px;
+    cursor: pointer;
   }
 
   .icon-gem {
@@ -382,19 +382,17 @@
   }
 
   .icon-positive {
-    width: 16px;
-    height: 16px;
-    color: $gray-300;
-    padding: 8px;
-    // object-fit: contain;
+    width: 10px;
+    height: 10px;
+    color: $gray-300 !important;
+    margin: 4px auto;
   }
 
   .icon-negative {
-    width: 16px;
-    height: 16px;
-    color: $gray-300;
-    padding: 8px;
-    // object-fit: contain;
+    width: 10px;
+    height: 10px;
+    color: $gray-300 !important;
+    margin: 4px auto;
   }
 
   .buy-gem-total {
