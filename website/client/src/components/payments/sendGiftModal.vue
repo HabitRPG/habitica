@@ -453,9 +453,6 @@
     padding: 24px 0;
   }
 
-  .payments-column {
-    background: $white;
-  }
 </style>
 
 <script>
