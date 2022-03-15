@@ -76,7 +76,7 @@
         </div>
       </div>
       <!-- subscriber block -->
-      <div>
+      <div class="subscribe-option">
         <subscription-options
           v-show="selectedPage === 'subscription'"
         />
@@ -86,8 +86,8 @@
       <!-- gem block -->
       <div
         v-show="selectedPage === 'buyGems'"
-        class="gem-group"
       >
+      <div class="gem-group">
 
 
       <!-- buy gems with money -->
@@ -143,6 +143,8 @@
         >
           {{ $t('wantToSendOwnGems') }}
         </div>
+      </div>
+      <div class="payment-buttons">
         <payments-buttons
           :stripe-fn="() => redirectToStripe({ gemsBlock: selectedGemsBlock })"
           :paypal-fn="() => openPaypal({
@@ -150,13 +152,15 @@
           })"
           :amazon-data="{type: 'single', gemsBlock: selectedGemsBlock}"/>
       </div>
+    </div>
 
 
         <!-- send gems from balance -->
       <div
         v-show="selectedPage === 'ownGems'"
-        class="gem-group"
         >
+        <div class="gem-group">
+
         <label v-once>
           {{ $t('howManyGemsSend') }}
         </label>
@@ -224,6 +228,7 @@
           >
           {{ $t('needToPurchaseGems') }}
           </div>
+        </div>
       </div>
     </div>
   </b-modal>
@@ -435,9 +440,21 @@
     color: $blue-10;
     font-size: 0.875rem;
     min-height: 24px;
-    margin: 16px 48px 0;
+    margin: 16px 0 0;
     text-align: center;
     cursor: pointer;
+  }
+
+  .subscribe-option {
+    background: $gray-700;
+  }
+
+  .payment-buttons {
+    padding: 24px 0;
+  }
+
+  .payments-column {
+    background: $white;
   }
 </style>
 
