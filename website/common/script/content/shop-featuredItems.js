@@ -44,7 +44,7 @@ const featuredItems = {
     ];
   },
   quests () {
-    if (moment().isBefore('2022-05-31T20:00-04:00')) {
+    if (moment().isBefore('2022-03-31T20:00-04:00')) {
       return [
         {
           type: 'bundles',
