@@ -2568,5 +2568,17 @@
     "armorArmoireSoftVioletSuitText": "Costume doux violet",
     "shieldArmoireSoftVioletPillowNotes": "Un guerrier intelligent emportera un oreiller pour n'importe quelle expédition. Protégez-vous de toute panique induite par la procrastination... même pendant votre sieste. Augmente l'intelligence de <%= int %>. Armoire enchantée : Ensemble de vêtements de détente violet (objet 3 de 3).",
     "weaponArmoirePinkLongbowNotes": "Comportez-vous comme un apprenti-cupidon, en apprenant la maîtrise de l'archerie et des choses du cœur avec ce magnifique arc. Augmente la perception de <%= per %> et la force de <%= str %>. Armoire enchantée : Objet indépendant.",
-    "armorArmoireSoftVioletSuitNotes": "Le pourpre est une couleur luxueuse. Relaxez-vous avec style après avoir accompli vos tâches quotidiennes. Augmente la constitution et la force de <%= attrs %> chacune. Armoire enchantée : ensemble de vêtements de détente violet (objet 2 de 3)."
+    "armorArmoireSoftVioletSuitNotes": "Le pourpre est une couleur luxueuse. Relaxez-vous avec style après avoir accompli vos tâches quotidiennes. Augmente la constitution et la force de <%= attrs %> chacune. Armoire enchantée : ensemble de vêtements de détente violet (objet 2 de 3).",
+    "weaponArmoireGardenersWateringCanNotes": "Vous n'irez pas loin sans eau ! Vous en aurez une infinité sous la main avec cet arrosoir magique qui se remplit tout seul. Augmente l'intelligence de <%= int %>. Armoire enchantée : Ensemble de jardinage (objet 4 de 4).",
+    "headAccessoryMystery202203Notes": "Vous avez besoin d'un peu plus de vitesse ? Les petites ailes décoratives sur ce diadème sont plus puissantes qu'elles n'en ont l'air ! Ne confère aucun bonus. Équipement d'abonnement de mars 2022.",
+    "weaponArmoireGardenersWateringCanText": "Arrosoir",
+    "armorArmoireGardenersOverallsText": "Salopette de jardinage",
+    "armorArmoireGardenersOverallsNotes": "N'ayez pas peur de travailler dans la terre lorsque vous portez cette salopette résistante. Augmente la constitution de <%= con %>. Armoire enchantée : ensemble de jardinage (objet 1 de 4).",
+    "headArmoireGardenersSunHatText": "Chapeau de jardinage",
+    "headArmoireGardenersSunHatNotes": "La lumière aveuglante de l'astre solaire ne vous éblouira pas lorsque vous porterez ce chapeau à large bord. Augmente la perception de (objet 2 de 4). Armoire enchantée : ensemble de jardinage (objet 2 de 4).",
+    "shieldArmoireGardenersSpadeText": "Bêche de jardinage",
+    "shieldArmoireGardenersSpadeNotes": "Que vous creusiez dans le jardin, cherchant un trésor enfoui, ou fabriquant un tunnel secret, cette bêche fiable est à vos côtés. Augmente la force de <%= str %>. Armoire enchantée : ensemble de jardinage (objet 3 de 4).",
+    "headAccessoryMystery202203Text": "Diadème de libellule intrépide",
+    "backMystery202203Text": "Ailes de libellule intrépide",
+    "backMystery202203Notes": "Volez plus vite que toutes les autres créatures du ciel avec ces ailes scintillantes. Ne confère aucun bonus. Équipement d'abonnement de mars 2022."
 }
