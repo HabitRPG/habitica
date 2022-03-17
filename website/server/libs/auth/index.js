@@ -128,7 +128,11 @@ async function registerLocal (req, res, { isV3 = false }) {
   }, { 'auth.local': 1 }).exec();
 
   if (user) {
-    if (email === user.auth.local.email && existingUser._id !== user._id) throw new NotAuthorized(res.t('emailTaken'));
+    if (existingUser) {
+      if (email === user.auth.local.email && existingUser._id !== user._id) throw new NotAuthorized(res.t('emailTaken'));
+    } else {
+      throw new NotAuthorized(res.t('emailTaken'));
+    }
     // Check that the lowercase username isn't already used
     if (existingUser) {
       if (lowerCaseUsername === user.auth.local.lowerCaseUsername && existingUser._id !== user._id) throw new NotAuthorized(res.t('usernameTaken'));
