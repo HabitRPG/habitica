@@ -261,9 +261,12 @@
       cursor: pointer;
 
       .icon-close {
-        width: 12px;
-        height: 12px;
-        color: #878190;
+        width: 15px;
+        height: 15px;
+
+        & ::v-deep svg path {
+          fill: #878190;
+        }
       }
 
   }
@@ -384,15 +387,21 @@
   .icon-positive {
     width: 10px;
     height: 10px;
-    color: $gray-300 !important;
     margin: 4px auto;
+
+    & ::v-deep svg path {
+      fill: $gray-300;
+    }
   }
 
   .icon-negative {
     width: 10px;
     height: 10px;
-    color: $gray-300 !important;
     margin: 4px auto;
+
+    & ::v-deep svg path {
+      fill: $gray-300;
+    }
   }
 
   .buy-gem-total {
