@@ -2,7 +2,7 @@
     "settings": "Ajustes",
     "language": "Idioma",
     "americanEnglishGovern": "En caso de que hubiese alguna discrepancia en las traducciones, prima la versión en inglés estadounidense.",
-    "helpWithTranslation": "¿Te gustaría ayudar con la traducción de Habitica? ¡Genial! ¡Entonces visita <a href=\"/groups/guild/7732f64c-33ee-4cce-873c-fc28f147a6f7\">la Aspiring Linguists Guild</a>!",
+    "helpWithTranslation": "¿Te gustaría ayudar con la traducción de Habitica? ¡Genial! ¡Entonces visita <a href=\"/groups/guild/7732f64c-33ee-4cce-873c-fc28f147a6f7\">el Aspiring Linguists Guild</a>!",
     "stickyHeader": "Cabecera fija",
     "newTaskEdit": "Abrir nuevas tareas en el modo de edición",
     "dailyDueDefaultView": "Marcar Tareas Diarias como 'Por hacer' por defecto",
@@ -208,5 +208,6 @@
     "transaction_debug": "Depuración",
     "transaction_contribution": "A través de contribuciones",
     "transaction_spend": "Gastado en",
-    "transaction_release_mounts": "Monturas sueltas"
+    "transaction_release_mounts": "Monturas sueltas",
+    "transaction_subscription_perks": "Beneficio de la suscripción"
 }

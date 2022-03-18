@@ -136,7 +136,7 @@
     "notEnoughGemsToBuy": "You are unable to buy that amount of gems",
     "organization": "Організація",
     "giftASubscription": "Подаруйте підписку",
-    "confirmCancelSub": "Ви впевнені, що хочете скасувати підписку?  Ви втратите всі переваги передплати.",
+    "confirmCancelSub": "Ви впевнені, що хочете скасувати підписку? Ви втратите всі її переваги.",
     "mysticHourglassNeededNoSub": "Для цього предмета потрібні містичні пісочні годинники. Ви заробляєте їх, ставши підписником Habitica.",
     "subWillBecomeInactive": "Стане неактивним",
     "viewSubscriptions": "Переглянути підписки",
@@ -153,5 +153,8 @@
     "mysterySet201909": "Привітний набір жолудів",
     "mysterySet201906": "Прохання Koi Set",
     "mysterySet201905": "Сліпучий набір дракона",
-    "mysterySet201902": "Набір загадкових розчавлень"
+    "mysterySet201902": "Набір загадкових розчавлень",
+    "cancelYourSubscription": "Скасувати Вашу підписку?",
+    "subCanceledTitle": "Підписка скасована",
+    "subscriptionCanceled": "Ваша підписка скасована"
 }

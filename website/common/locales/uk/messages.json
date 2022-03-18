@@ -36,7 +36,7 @@
     "messageGroupRequiresInvite": "Ви не можете приєднатися до команди, до якої не були запрошені.",
     "messageGroupCannotRemoveSelf": "Ви не можете видалити себе!",
     "messageGroupChatBlankMessage": "Ви не можете відправити пусте повідомлення",
-    "messageGroupChatLikeOwnMessage": "Ви не можете залишити лайк під своїм повідомленням.",
+    "messageGroupChatLikeOwnMessage": "Ви не можете залишити вподобайку під своїм повідомленням.",
     "messageGroupChatFlagAlreadyReported": "Ви вже поскаржились на це повідомлення",
     "messageGroupChatNotFound": "Повідомлення не знайдено!",
     "messageGroupChatAdminClearFlagCount": "Тільки адміністратор може очистити лічильник відміток!",
