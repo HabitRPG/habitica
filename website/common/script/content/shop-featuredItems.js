@@ -75,7 +75,7 @@ const featuredItems = {
       },
     ];
   },
-  seasonal: 'winter2021Warrior',
+  seasonal: 'spring2021Healer',
   timeTravelers: [
     // TODO
   ],

@@ -96,7 +96,14 @@ const SEASONAL_SETS = {
     'spring2021WillowHealerSet',
     'spring2021SunstoneWarriorSet',
     'spring2021TwinFlowerRogueSet',
+
+    // spring 2022
+    'spring2022ForsythiaMageSet',
+    'spring2022PeridotHealerSet',
+    'spring2022RainstormWarriorSet',
+    'spring2022MagpieRogueSet',
   ],
+
   summer: [
     // summer 2014
     'daringSwashbucklerSet',

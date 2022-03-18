@@ -428,6 +428,15 @@
   "headSpecialNye2021Text": "Preposterous Party Hat",
   "headSpecialNye2021Notes": "You've received a Preposterous Party Hat! Wear it with pride while ringing in the New Year! Confers no benefit.",
 
+  "weaponSpecialSpring2022RogueText": "Giant Earring Stud",
+  "weaponSpecialSpring2022RogueNotes": "A shiny! It’s so shiny and gleaming and pretty and nice and all yours! Increases Strength by <%= str %>. Limited Edition 2022 Spring Gear.",
+  "weaponSpecialSpring2022WarriorText": "Inside-Out Umbrella",
+  "weaponSpecialSpring2022WarriorNotes": "Yikes! Guess that wind was a little stronger than you thought, huh? Increases Strength by <%= str %>, Limited Edition 2022 Spring Gear.",
+  "weaponSpecialSpring2022MageText": "Forsythia Staff",
+  "weaponSpecialSpring2022MageNotes": "These bright yellow bells are ready to channel your powerful springtime magic. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2022 Spring Gear.",
+  "weaponSpecialSpring2022HealerText": "Peridot Wand",
+  "weaponSpecialSpring2022HealerNotes": "Use this wand to tap into peridot’s healing properties, whether it be to bring calm, positivity, or kindheartedness. Increases Intelligence by <%= int %>. Limited Edition 2022 Spring Gear.",
+
   "weaponMystery201411Text": "Pitchfork of Feasting",
   "weaponMystery201411Notes": "Stab your enemies or dig in to your favorite foods - this versatile pitchfork does it all! Confers no benefit. November 2014 Subscriber Item.",
   "weaponMystery201502Text": "Shimmery Winged Staff of Love and Also Truth",
@@ -1025,6 +1034,15 @@
   "armorSpecialWinter2022MageNotes": "Enemies should watch out for fruit juice stains when you approach! Increases Intelligence by <%= int %>. Limited Edition 2021-2022 Winter Gear.",
   "armorSpecialWinter2022HealerText": "Crystalline Ice Armor",
   "armorSpecialWinter2022HealerNotes": "Glide as if skating, just above the ground, a glittering ethereal figure come to bring cool and calm. Increases Constitution by <%= con %>. Limited Edition 2021-2022 Winter Gear.",
+
+  "armorSpecialSpring2022RogueText": "Magpie Costume",
+  "armorSpecialSpring2022RogueNotes": "With iridescent metallic blue-gray and lighter patches on your feathers, you will be the finest flying friend at the spring fling! Increases Perception by <%= per %>. Limited Edition 2022 Spring Gear.",
+  "armorSpecialSpring2022WarriorText": "Rain Slicker",
+  "armorSpecialSpring2022WarriorNotes": "This slicker and boots are so formidable you could sing in the rain or jump in every puddle but still be warm and dry! Increases Constitution by <%= con %>. Limited Edition 2022 Spring Gear.",
+  "armorSpecialSpring2022MageText": "Forsythia Robe",
+  "armorSpecialSpring2022MageNotes": "Show you’re ready to spring forward into the season with this robe adorned with forsythia flower petals. Intelligence by <%= int %>.Limited Edition 2022 Spring Gear.",
+  "armorSpecialSpring2022HealerText": "Peridot Armor",
+  "armorSpecialSpring2022HealerNotes": " Drive away fears and nightmares simply by wearing this green gem garment. Increases Constitution by <%= con %>. Limited Edition 2022 Spring Gear.",
 
   "armorMystery201402Text": "Messenger Robes",
   "armorMystery201402Notes": "Shimmering and strong, these robes have many pockets to carry letters. Confers no benefit. February 2014 Subscriber Item.",
@@ -1708,6 +1726,15 @@
   "headSpecialWinter2022HealerText": "Crystalline Ice Crown",
   "headSpecialWinter2022HealerNotes": "Minute imperfections and impurities send the arms of this headdress branching out in unpredictable directions. It's symbolic! And also very, very pretty. Increases Intelligence by <%= int %>. Limited Edition 2021-2022 Winter Gear.",
 
+  "headSpecialSpring2022RogueText": "Magpie Mask",
+  "headSpecialSpring2022RogueNotes": "Be as clever as a magpie when wearing this mask. Maybe you’ll even be able to whistle, trill, and mimic as well as one, too. Increases Perception by <%= per %>. Limited Edition 2022 Spring Gear.",
+  "headSpecialSpring2022WarriorText": "Rain Slicker Hood",
+  "headSpecialSpring2022WarriorNotes": "Tut tut, it looks like rain! Stand tall and pull up your hood to stay dry. Increases Strength by <%= str %>. Limited Edition 2022 Spring Gear.",
+  "headSpecialSpring2022MageText": "Forsythia Helmet",
+  "headSpecialSpring2022MageNotes": "Stay dry during a rainstorm with this protective helmet of downturned petals.Increases Perception by <%= per %>. Limited Edition 2022 Spring Gear.",
+  "headSpecialSpring2022HealerText": "Peridot Helmet",
+  "headSpecialSpring2022HealerNotes": "This mysterious helmet preserves your privacy as you tackle your tasks. Increases Intelligence by <%= int %>. Limited Edition 2022 Spring Gear.",
+
   "headSpecialGaymerxText": "Rainbow Warrior Helm",
   "headSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special helmet is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
 
@@ -2236,6 +2263,11 @@
   "shieldSpecialWinter2022WarriorNotes": "This is a jingle bell, jingle bell, jingle bell shield. Jingle bell protect and jingle bell deflect. Increases Constitution by <%= con %>. Limited Edition 2021-2022 Winter Gear.",
   "shieldSpecialWinter2022HealerText": "Enduring Ice Crystal",
   "shieldSpecialWinter2022HealerNotes": "Though it melts in your hand, the power of elemental ice replenishes it from within. Increases Constitution by <%= con %>. Limited Edition 2021-2022 Winter Gear.",
+
+  "shieldSpecialSpring2022WarriorText": "Raincloud",
+  "shieldSpecialSpring2022WarriorNotes": "Ever had one of those days when it seems like a raincloud is following you around? Well, consider yourself lucky, because the prettiest flowers will soon be growing at your feet! Increases Constitution by <%= con %>. Limited Edition 2022 Spring Gear.",
+  "shieldSpecialSpring2022HealerText": "Peridot Shield",
+  "shieldSpecialSpring2022HealerNotes": "Formed by molten rock of the upper mantle, this shield can withstand any hit that comes its way. Increases Constitution by <%= con %>. Limited Edition 2022 Spring Gear.",
 
   "shieldMystery201601Text": "Resolution Slayer",
   "shieldMystery201601Notes": "This blade can be used to parry away all distractions. Confers no benefit. January 2016 Subscriber Item.",
