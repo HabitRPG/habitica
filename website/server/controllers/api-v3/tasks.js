@@ -838,17 +838,6 @@ api.moveTask = {
 
     // In memory updates
     const order = owner.tasksOrder[`${task.type}s`];
-    if (order.indexOf(task._id) === -1) { // task is missing from list, list needs repair
-      const taskList = await Tasks.Task.find({ type: task.type }, { _id: 1 }).exec();
-      for (const foundTask of taskList) {
-        if (order.indexOf(foundTask._id) === -1) {
-          order.push(foundTask._id);
-        }
-      }
-      const fixQuery = { $set: {} };
-      fixQuery.$set[`tasksOrder.${task.type}s`] = order;
-      await owner.update(fixQuery).exec();
-    }
     moveTask(order, task._id, to);
 
     // Server updates
