@@ -838,6 +838,28 @@ api.moveTask = {
 
     // In memory updates
     const order = owner.tasksOrder[`${task.type}s`];
+    if (order.indexOf(task._id) === -1) { // task is missing from list, list needs repair
+      const taskListQuery = { type: task.type };
+      if (group) {
+        taskListQuery['group.id'] = owner._id;
+      } else if (challenge) {
+        taskListQuery['challenge.id'] = owner._id;
+      } else {
+        taskListQuery.userId = owner._id;
+      }
+      const taskList = await Tasks.Task.find(
+        taskListQuery,
+        { _id: 1 },
+      ).exec();
+      for (const foundTask of taskList) {
+        if (order.indexOf(foundTask._id) === -1) {
+          order.push(foundTask._id);
+        }
+      }
+      const fixQuery = { $set: {} };
+      fixQuery.$set[`tasksOrder.${task.type}s`] = order;
+      await owner.update(fixQuery).exec();
+    }
     moveTask(order, task._id, to);
 
     // Server updates
