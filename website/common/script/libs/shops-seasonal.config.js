@@ -15,7 +15,7 @@ const SHOP_OPEN = CURRENT_EVENT && ['winter', 'spring', 'summer', 'fall'].includ
 export default {
   opened: SHOP_OPEN,
 
-  currentSeason: SHOP_OPEN ? upperFirst(CURRENT_EVENT.season) : 'Closed',
+  currentSeason: SHOP_OPEN ? upperFirst(CURRENT_EVENT.season) : 'Spring',
 
   dateRange: {
     start: CURRENT_EVENT ? moment(CURRENT_EVENT.start) : moment().subtract(1, 'days').toDate(),
@@ -30,10 +30,10 @@ export default {
 
   pinnedSets: SHOP_OPEN
     ? {
-      healer: 'winter2022IceCrystalHealerSet',
-      rogue: 'winter2022FireworksRogueSet',
-      warrior: 'winter2022StockingWarriorSet',
-      wizard: 'winter2022PomegranateMageSet',
+      healer: 'spring2022PeridotHealerSet',
+      rogue: 'spring2022MagpieRogueSet',
+      warrior: 'spring2022RainstormWarriorSet',
+      wizard: 'spring2022ForsythiaMageSet',
     }
     : {},
 
@@ -45,5 +45,5 @@ export default {
 
   availableQuests: [],
 
-  featuredSet: 'winter2021ArcticExplorerHealerSet',
+  featuredSet: 'spring2022PeridotHealerSet',
 };
