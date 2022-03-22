@@ -15,7 +15,7 @@ const SHOP_OPEN = CURRENT_EVENT && ['winter', 'spring', 'summer', 'fall'].includ
 export default {
   opened: SHOP_OPEN,
 
-  currentSeason: SHOP_OPEN ? upperFirst(CURRENT_EVENT.season) : 'Spring',
+  currentSeason: SHOP_OPEN ? upperFirst(CURRENT_EVENT.season) : 'Closed',
 
   dateRange: {
     start: CURRENT_EVENT ? moment(CURRENT_EVENT.start) : moment().subtract(1, 'days').toDate(),
@@ -37,13 +37,17 @@ export default {
     }
     : {},
 
-  availableSpells: SHOP_OPEN && moment().isBetween('2021-12-30T08:00-04:00', CURRENT_EVENT.end)
+  availableSpells: SHOP_OPEN && moment().isBetween('2022-04-12T08:00-05:00', CURRENT_EVENT.end)
     ? [
-      'snowball',
+      'shinySeed',
     ]
     : [],
 
-  availableQuests: [],
+  availableQuests: SHOP_OPEN && CURRENT_EVENT.season === 'spring'
+    ? [
+      'egg',
+    ]
+    : [],
 
-  featuredSet: 'spring2022PeridotHealerSet',
+  featuredSet: 'spring2021TwinFlowerRogueSet',
 };

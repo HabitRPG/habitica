@@ -52,7 +52,7 @@ const featuredItems = {
         },
         {
           type: 'quests',
-          path: 'quests.turquoise',
+          path: 'quests.egg',
         },
         {
           type: 'quests',
