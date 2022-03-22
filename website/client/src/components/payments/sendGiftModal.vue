@@ -187,6 +187,7 @@
               type="number"
               placeholder=""
               min="0"
+              :max="maxGems"
             >
         </div>
           <div class="gray-circle">
@@ -215,10 +216,13 @@
           </div>
           <div class="d-flex flex-column justify-content-center align-items-middle mt-3">
             <button
+            v-if="fromBal"
             class="btn btn-primary mx-auto mt-2"
             type="submit"
+            :disabled="sendingInProgress"
+            @click="sendGift()"
             >
-            Send Gems
+              {{ $t("send") }}
             </button>
           </div>
           <div
@@ -495,7 +499,7 @@ export default {
   data () {
     return {
       subscription: {
-        key: null,
+        key: '',
       },
       icons: Object.freeze({
         closeIcon,
@@ -513,6 +517,9 @@ export default {
           fromBalance: true,
         },
       },
+      sendingInProgress: false,
+      userReceivingGems: null,
+      amazonPayments: {},
     };
   },
   methods: {
@@ -527,6 +534,27 @@ export default {
     },
     showAmountToBuy () {
       return true;
+    },
+    async sendGift () {
+      this.sendingInProgress = true;
+      await this.$store.dispatch('members:transferGems', {
+        toUserId: this.userReceivingGems._id,
+        gemAmount: this.gift.gems.amount,
+      });
+      this.close();
+      setTimeout(() => { // wait for the send gem modal to be closed
+        this.$root.$emit('habitica:payment-success', {
+          paymentMethod: 'balance',
+          paymentCompleted: true,
+          paymentType: 'gift-gems-balance',
+          gift: {
+            gems: {
+              amount: this.gift.gems.amount,
+            },
+          },
+          giftReceiver: this.receiverName,
+        });
+      }, 500);
     },
     // we'll need this later
     // onHide () {
@@ -556,19 +584,18 @@ export default {
       const userContributor = this.userReceivingGift.contributor;
       return userContributor;
     },
-
+    tierIcon () {
+      if (this.isNPC) {
+        return this.icons.tierNPC;
+      }
+      return this.icons[`tier${this.level}`];
+    },
     fromBal () {
       return this.gift.type === 'gems' && this.gift.gems.fromBalance;
     },
     maxGems () {
       const maxGems = this.fromBal ? this.userLoggedIn.balance * 4 : 9999;
       return maxGems;
-    },
-    tierIcon () {
-      if (this.isNPC) {
-        return this.icons.tierNPC;
-      }
-      return this.icons[`tier${this.level}`];
     },
   },
   watch: {
