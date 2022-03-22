@@ -485,6 +485,11 @@ const backgrounds = {
     orange_grove: { },
     iridescent_clouds: { },
   },
+  backgrounds032022: {
+    animals_den: { },
+    brick_wall_with_ivy: { },
+    flowering_prairie: { },
+  },
   timeTravelBackgrounds: {
     airship: {
       price: 1,

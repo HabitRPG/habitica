@@ -44,30 +44,30 @@ const featuredItems = {
     ];
   },
   quests () {
-    if (moment().isBefore('2022-02-28T20:00-05:00')) {
+    if (moment().isBefore('2022-03-31T20:00-04:00')) {
       return [
         {
           type: 'bundles',
-          path: 'bundles.mythicalMarvels',
+          path: 'bundles.cuddleBuddies',
         },
         {
           type: 'quests',
-          path: 'quests.onyx',
+          path: 'quests.egg',
         },
         {
           type: 'quests',
-          path: 'quests.dolphin',
+          path: 'quests.ghost_stag',
         },
       ];
     }
     return [
       {
         type: 'quests',
-        path: 'quests.snake',
+        path: 'quests.ferret',
       },
       {
         type: 'quests',
-        path: 'quests.turquoise',
+        path: 'quests.silver',
       },
       {
         type: 'quests',
@@ -75,7 +75,7 @@ const featuredItems = {
       },
     ];
   },
-  seasonal: 'winter2021Warrior',
+  seasonal: 'spring2021Healer',
   timeTravelers: [
     // TODO
   ],
