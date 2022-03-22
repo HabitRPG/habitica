@@ -670,15 +670,19 @@ const armor = {
   },
   spring2021Rogue: {
     set: 'spring2021TwinFlowerRogueSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2021Warrior: {
     set: 'spring2021SunstoneWarriorSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2021Mage: {
     set: 'spring2021SwanMageSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2021Healer: {
     set: 'spring2021WillowHealerSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   summer2021Rogue: {
     set: 'summer2021ClownfishRogueSet',
@@ -716,6 +720,19 @@ const armor = {
   winter2022Healer: {
     set: 'winter2022IceCrystalHealerSet',
   },
+  spring2022Rogue: {
+    set: 'spring2022MagpieRogueSet',
+  },
+  spring2022Warrior: {
+    set: 'spring2022RainstormWarriorSet',
+  },
+  spring2022Mage: {
+    set: 'spring2022ForsythiaMageSet',
+  },
+  spring2022Healer: {
+    set: 'spring2022PeridotHealerSet',
+  },
+
   birthday2022: {
     text: t('armorSpecialBirthday2022Text'),
     notes: t('armorSpecialBirthday2022Notes'),
@@ -1728,15 +1745,19 @@ const head = {
   },
   spring2021Rogue: {
     set: 'spring2021TwinFlowerRogueSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2021Warrior: {
     set: 'spring2021SunstoneWarriorSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2021Mage: {
     set: 'spring2021SwanMageSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2021Healer: {
     set: 'spring2021WillowHealerSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   summer2021Rogue: {
     set: 'summer2021ClownfishRogueSet',
@@ -1779,6 +1800,18 @@ const head = {
     notes: t('headSpecialNye2021Notes'),
     value: 0,
     canOwn: ownsItem('head_special_nye2021'),
+  },
+  spring2022Rogue: {
+    set: 'spring2022MagpieRogueSet',
+  },
+  spring2022Warrior: {
+    set: 'spring2022RainstormWarriorSet',
+  },
+  spring2022Mage: {
+    set: 'spring2022ForsythiaMageSet',
+  },
+  spring2022Healer: {
+    set: 'spring2022PeridotHealerSet',
   },
 };
 
@@ -2504,12 +2537,15 @@ const shield = {
   },
   spring2021Rogue: {
     set: 'spring2021TwinFlowerRogueSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2021Warrior: {
     set: 'spring2021SunstoneWarriorSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2021Healer: {
     set: 'spring2021WillowHealerSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   summer2021Rogue: {
     set: 'summer2021ClownfishRogueSet',
@@ -2537,6 +2573,15 @@ const shield = {
   },
   winter2022Healer: {
     set: 'winter2022IceCrystalHealerSet',
+  },
+  spring2022Rogue: {
+    set: 'spring2022MagpieRogueSet',
+  },
+  spring2022Warrior: {
+    set: 'spring2022RainstormWarriorSet',
+  },
+  spring2022Healer: {
+    set: 'spring2022PeridotHealerSet',
   },
 };
 
@@ -3168,15 +3213,19 @@ const weapon = {
   },
   spring2021Rogue: {
     set: 'spring2021TwinFlowerRogueSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2021Warrior: {
     set: 'spring2021SunstoneWarriorSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2021Mage: {
     set: 'spring2021SwanMageSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2021Healer: {
     set: 'spring2021WillowHealerSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   summer2021Rogue: {
     set: 'summer2021ClownfishRogueSet',
@@ -3213,6 +3262,18 @@ const weapon = {
   },
   winter2022Healer: {
     set: 'winter2022IceCrystalHealerSet',
+  },
+  spring2022Rogue: {
+    set: 'spring2022MagpieRogueSet',
+  },
+  spring2022Warrior: {
+    set: 'spring2022RainstormWarriorSet',
+  },
+  spring2022Mage: {
+    set: 'spring2022ForsythiaMageSet',
+  },
+  spring2022Healer: {
+    set: 'spring2022PeridotHealerSet',
   },
 };
 

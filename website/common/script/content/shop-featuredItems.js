@@ -44,7 +44,7 @@ const featuredItems = {
     ];
   },
   quests () {
-    if (moment().isBefore('2022-05-31T20:00-04:00')) {
+    if (moment().isBefore('2022-03-31T20:00-04:00')) {
       return [
         {
           type: 'bundles',
@@ -52,7 +52,7 @@ const featuredItems = {
         },
         {
           type: 'quests',
-          path: 'quests.turquoise',
+          path: 'quests.egg',
         },
         {
           type: 'quests',
@@ -75,7 +75,7 @@ const featuredItems = {
       },
     ];
   },
-  seasonal: 'winter2021Warrior',
+  seasonal: 'spring2021Healer',
   timeTravelers: [
     // TODO
   ],
