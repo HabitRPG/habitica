@@ -431,7 +431,7 @@
   "weaponSpecialSpring2022RogueText": "Giant Earring Stud",
   "weaponSpecialSpring2022RogueNotes": "A shiny! It’s so shiny and gleaming and pretty and nice and all yours! Increases Strength by <%= str %>. Limited Edition 2022 Spring Gear.",
   "weaponSpecialSpring2022WarriorText": "Inside-Out Umbrella",
-  "weaponSpecialSpring2022WarriorNotes": "Yikes! Guess that wind was a little stronger than you thought, huh? Increases Strength by <%= str %>, Limited Edition 2022 Spring Gear.",
+  "weaponSpecialSpring2022WarriorNotes": "Yikes! Guess that wind was a little stronger than you thought, huh? Increases Strength by <%= str %>. Limited Edition 2022 Spring Gear.",
   "weaponSpecialSpring2022MageText": "Forsythia Staff",
   "weaponSpecialSpring2022MageNotes": "These bright yellow bells are ready to channel your powerful springtime magic. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2022 Spring Gear.",
   "weaponSpecialSpring2022HealerText": "Peridot Wand",
