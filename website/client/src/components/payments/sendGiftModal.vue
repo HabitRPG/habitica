@@ -37,7 +37,6 @@
         <div
           class="d-flex flex-column mx-auto align-items-center display-name">
           <!-- user display name and username -->
-
             <user-link
               :user-id="userName"
               :name="displayName"
@@ -45,7 +44,6 @@
               :contributor="userContributor"
               :class="display-name"
               />
-            <!-- {{ displayName }} -->
         </div>
         <div
           class="d-flex flex-column mx-auto align-items-center user-name">
@@ -133,7 +131,7 @@
             {{ $t('sendGiftTotal') }}
           </div>
           <div class="buy-gem-amount">
-            $30.75
+            {{ showTotalAmount }}
             <!-- {{ $t ('sendGiftAmount')}} -->
           </div>
         <div
@@ -534,6 +532,10 @@ export default {
     },
     showAmountToBuy () {
       return true;
+    },
+    showTotalAmount () {
+      const showTotalAmount = this.gift.gems.amount * 0.25;
+      return showTotalAmount;
     },
     async sendGift () {
       this.sendingInProgress = true;
