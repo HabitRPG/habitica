@@ -111,11 +111,10 @@
             </div>
             <input
               id="gemsForm"
-              v-model="gift.gems.amount"
+              v-model.number="gemsToBuy"
               class="form-control"
-              type="number"
               placeholder=""
-              min="0"
+              min="1"
             >
           </div>
           <div class="gray-circle">
@@ -127,13 +126,15 @@
               <!-- v-else might be needed above -->
           </div>
           </div>
+          <!-- the word "total" -->
           <div class="buy-gem-total">
             {{ $t('sendGiftTotal') }}
           </div>
+          <!-- the actual dollar amount -->
           <div class="buy-gem-amount">
-            {{ showTotalAmount }}
-            <!-- {{ $t ('sendGiftAmount')}} -->
-          </div>
+          <span v-if="NaN">$0.00</span>
+          <span v-else>${{ gemsToBuy * 0.25 }}</span>
+        </div>
         <div
           :class="{active: selectedPage === 'ownGems'}"
           @click="selectPage('ownGems')"
@@ -158,7 +159,6 @@
         v-show="selectedPage === 'ownGems'"
         >
         <div class="gem-group">
-
         <label v-once>
           {{ $t('howManyGemsSend') }}
         </label>
@@ -518,6 +518,7 @@ export default {
       sendingInProgress: false,
       userReceivingGems: null,
       amazonPayments: {},
+      gemCost: 1,
     };
   },
   methods: {
@@ -529,34 +530,6 @@ export default {
     },
     selectPage (page) {
       this.selectedPage = page || 'subscription';
-    },
-    showAmountToBuy () {
-      return true;
-    },
-    showTotalAmount () {
-      const showTotalAmount = this.gift.gems.amount * 0.25;
-      return showTotalAmount;
-    },
-    async sendGift () {
-      this.sendingInProgress = true;
-      await this.$store.dispatch('members:transferGems', {
-        toUserId: this.userReceivingGems._id,
-        gemAmount: this.gift.gems.amount,
-      });
-      this.close();
-      setTimeout(() => { // wait for the send gem modal to be closed
-        this.$root.$emit('habitica:payment-success', {
-          paymentMethod: 'balance',
-          paymentCompleted: true,
-          paymentType: 'gift-gems-balance',
-          gift: {
-            gems: {
-              amount: this.gift.gems.amount,
-            },
-          },
-          giftReceiver: this.receiverName,
-        });
-      }, 500);
     },
     // we'll need this later
     // onHide () {
