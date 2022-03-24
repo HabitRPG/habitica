@@ -161,6 +161,21 @@ api.groupMoveTask = {
 
     const order = group.tasksOrder[`${task.type}s`];
 
+    if (order.indexOf(task._id) === -1) { // task is missing from list, list needs repair
+      const taskList = await Tasks.Task.find(
+        { 'group.id': group._id, userId: { $exists: false }, type: task.type },
+        { _id: 1 },
+      ).exec();
+      for (const foundTask of taskList) {
+        if (order.indexOf(foundTask._id) === -1) {
+          order.push(foundTask._id);
+        }
+      }
+      const fixQuery = { $set: {} };
+      fixQuery.$set[`tasksOrder.${task.type}s`] = order;
+      await group.update(fixQuery).exec();
+    }
+
     moveTask(order, task._id, to);
 
     await group.save();

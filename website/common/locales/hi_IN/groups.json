@@ -340,7 +340,7 @@
     "singleCompletion": "Single - Completes when any assigned user finishes",
     "allAssignedCompletion": "All - Completes when all assigned users finish",
     "cannotRemoveQuestOwner": "आप सक्रिय लड़ाई के स्वामी को नहीं निकाल सकते। पहले युद्ध को निरस्त करो।",
-    "giftMessageTooLong": "उपहार संदेशों के लिए अधिकतम लंबाई <% = maxGiftMessageLength%> है।",
+    "giftMessageTooLong": "उपहार संदेशों के लिए अधिकतम लंबाई <%= maxGiftMessageLength %> है।",
     "sendGiftToWhom": "आप किसे उपहार भेजना चाहेंगे?",
     "selectSubscription": "सदस्यता का चयन करें",
     "selectGift": "एक उपहार का चयन करें",

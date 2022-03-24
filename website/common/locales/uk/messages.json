@@ -1,7 +1,7 @@
 {
     "messageLostItem": "Зламано: <%= itemText %>.",
     "messageTaskNotFound": "Завдання не знайдено.",
-    "messageTagNotFound": "Тег не знайдений.",
+    "messageTagNotFound": "Ярлик не знайдено.",
     "messagePetNotFound": ":pet немає у user.items.pets",
     "messageFoodNotFound": ":food нема у user.items.food",
     "messageNotAvailable": "Зараз цей предмет купити неможливо.",

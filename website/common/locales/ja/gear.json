@@ -2572,5 +2572,9 @@
     "backMystery202203Text": "不屈のトンボの羽",
     "backMystery202203Notes": "このきらきらの羽で空のクリーチャーたちをぶっちぎりましょう。効果なし。2022年3月の有料会員アイテム。",
     "headAccessoryMystery202203Text": "不屈のトンボのサークレット",
-    "headAccessoryMystery202203Notes": "もっと早く飛びたいって？このサークレットの小さな羽根飾りは見た目よりもパワフルですよ！効果なし。2022年3月の有料会員アイテム。"
+    "headAccessoryMystery202203Notes": "もっと早く飛びたいって？このサークレットの小さな羽根飾りは見た目よりもパワフルですよ！効果なし。2022年3月の有料会員アイテム。",
+    "weaponArmoireGardenersWateringCanText": "じょうろ",
+    "weaponArmoireGardenersWateringCanNotes": "水なしじゃ何事も上手くいきません！この魔法の水源じょうろで無限の供給を手にしましょう。知能が<%= int %>上がります。ラッキー宝箱：ガーデナーセット（4個中4個目のアイテム）。",
+    "armorArmoireGardenersOverallsText": "ガーデナーのオーバーオール",
+    "armorArmoireGardenersOverallsNotes": "この丈夫なオーバーオールを着ているときは土の作業を怖がらなくても大丈夫。体質が<%= con %>上がります。ラッキー宝箱：ガーデナーセット（4個中1個目のアイテム）。"
 }
