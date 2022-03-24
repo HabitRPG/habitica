@@ -94,13 +94,17 @@
         </label>
 
         <div class="d-flex flex-row align-items-center justify-content-center">
-          <div class="gray-circle">
+          <!-- @keypress.enter not working here while it does work attached to the icon?
+          & @tabindex will need to be added below -->
+          <div
+            class="gray-circle"
+            @click="gift.gems.amount--"
+            @keyup.native="preventNegative($event)"
+            >
             <div
               class="icon-negative"
               v-html="icons.negativeIcon"
-            ></div>
-            <!-- @click @keypress.enter & @tabindex will need to be added above -->
-            <!-- v-else might be needed above -->
+              ></div>
           </div>
           <div class="input-group">
             <div class="input-group-prepend input-group-icon align-items-center">
@@ -111,19 +115,22 @@
             </div>
             <input
               id="gemsForm"
-              v-model.number="gemsToBuy"
+              v-model.number="gift.gems.amount"
               class="form-control"
-              placeholder=""
+              placeholder="0"
               min="1"
+              max="9999"
             >
           </div>
-          <div class="gray-circle">
+          <!-- @tabindex will need to be added below -->
+          <div
+            class="gray-circle"
+            @click="gift.gems.amount++"
+            >
             <div
               class="icon-positive"
               v-html="icons.positiveIcon"
               ></div>
-              <!-- :class @click @keypress.enter & @tabindex will need to be added above -->
-              <!-- v-else might be needed above -->
           </div>
           </div>
           <!-- the word "total" -->
@@ -132,8 +139,9 @@
           </div>
           <!-- the actual dollar amount -->
           <div class="buy-gem-amount">
-          <span v-if="NaN">$0.00</span>
-          <span v-else>${{ gemsToBuy * 0.25 }}</span>
+            <span>
+              {{ $t('sendGiftAmount', {cost: gift.gems.amount * 0.25}) }}
+            </span>
         </div>
         <div
           :class="{active: selectedPage === 'ownGems'}"
@@ -163,13 +171,17 @@
           {{ $t('howManyGemsSend') }}
         </label>
         <div class="d-flex align-items-center justify-content-center">
-          <div class="gray-circle">
+          <!-- @keypress.enter not working here while it does work attached to the icon?
+          & @tabindex will need to be added below -->
+          <div
+            class="gray-circle"
+            @click="gift.gems.amount--"
+            @keyup.native="preventNegative($event)"
+            >
             <div
               class="icon-negative"
               v-html="icons.negativeIcon"
-            ></div>
-            <!-- @click @keypress.enter & @tabindex will need to be added above -->
-            <!-- v-else might be needed above -->
+              ></div>
           </div>
         <div class="input-group">
           <div class="input-group-prepend input-group-icon align-items-center">
@@ -182,19 +194,20 @@
               id="gemsForm"
               v-model="gift.gems.amount"
               class="form-control"
-              type="number"
-              placeholder=""
+              placeholder="0"
               min="0"
               :max="maxGems"
             >
         </div>
-          <div class="gray-circle">
+        <!-- @tabindex will need to be added below -->
+          <div
+            class="gray-circle"
+            @click="gift.gems.amount++"
+            >
             <div
               class="icon-positive"
               v-html="icons.positiveIcon"
               ></div>
-              <!-- :class @click @keypress.enter & @tabindex will need to be added above -->
-              <!-- v-else might be needed above -->
           </div>
         </div>
           <div class="align-items-middle">
@@ -365,20 +378,17 @@
     background-color: $white;
   }
 
-  input[type="number"] {
-    -webkit-appearance: textfield;
-    -moz-appearance: textfield;
-    appearance: textfield;
-    width: 34px;
-    font-size: 0.75rem;
-  }
-
   .gray-circle {
     border-radius: 100%;
     border: solid 2px $gray-300;
     width: 32px;
     height: 32px;
     cursor: pointer;
+
+    &:hover,
+    &:focus-within {
+      border-color: $purple-400;
+    }
   }
 
   .icon-gem {
@@ -394,6 +404,9 @@
     & ::v-deep svg path {
       fill: $gray-300;
     }
+    &:hover {
+      fill: $purple-400;
+    }
   }
 
   .icon-negative {
@@ -403,6 +416,9 @@
 
     & ::v-deep svg path {
       fill: $gray-300;
+    }
+    &:hover {
+      fill: $purple-400;
     }
   }
 
