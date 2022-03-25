@@ -396,29 +396,20 @@
     height: 16px;
   }
 
-  .icon-positive {
-    width: 10px;
-    height: 10px;
-    margin: 4px auto;
-
+  .icon-positive:hover, .icon-negative:hover {
+    &:focus-within,
     & ::v-deep svg path {
-      fill: $gray-300;
-    }
-    &:hover {
       fill: $purple-400;
     }
   }
 
-  .icon-negative {
+  .icon-positive, .icon-negative {
     width: 10px;
     height: 10px;
     margin: 4px auto;
 
     & ::v-deep svg path {
       fill: $gray-300;
-    }
-    &:hover {
-      fill: $purple-400;
     }
   }
 
