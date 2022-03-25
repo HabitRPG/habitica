@@ -126,5 +126,7 @@
     "achievementShadyCustomer": "Cliente sombrío",
     "achievementZodiacZookeeper": "Cuidador del Zodíaco",
     "achievementZodiacZookeeperText": "¡Has eclosionado todas las mascotas del zodíaco: Rata, Vaca, Conejo, Serpiente, Caballo, Oveja, Mono, Gallo, Lobo, Tigre, Cerdo Volador y Dragón!",
-    "achievementZodiacZookeeperModalText": "¡Has conseguido todas las mascotas del zodíaco!"
+    "achievementZodiacZookeeperModalText": "¡Has conseguido todas las mascotas del zodíaco!",
+    "achievementBirdsOfAFeatherText": "Has eclosionado todas las mascotas voladoras: Cerdo volador, Búho, Loro, Pterodáctilo, Grifo y Halcón.",
+    "achievementBirdsOfAFeatherModalText": "¡Has conseguido todas las mascotas voladoras!"
 }

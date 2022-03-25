@@ -216,5 +216,7 @@
     "winter2022StockingWarriorSet": "Strumpf (Krieger)",
     "winter2022IceCrystalHealerSet": "Eiskristall (Heiler)",
     "winter2022PomegranateMageSet": "Granatapfel (Magier)",
-    "januaryYYYY": "Januar <%= year %>"
+    "januaryYYYY": "Januar <%= year %>",
+    "spring2022MagpieRogueSet": "Elster (Schurke)",
+    "spring2022RainstormWarriorSet": "Gewitterregen (Krieger)"
 }
