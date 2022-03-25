@@ -123,5 +123,11 @@
     "achievementShadyCustomerText": "A collecté tous les familiers d'ombre.",
     "achievementShadeOfItAllModalText": "Vous avez dompté tous les familiers d'ombre !",
     "achievementShadeOfItAll": "Dans l'ombre des géants",
-    "achievementShadeOfItAllText": "A dompté tous les familiers d'ombre."
+    "achievementShadeOfItAllText": "A dompté tous les familiers d'ombre.",
+    "achievementZodiacZookeeper": "Le Zoo-diaque",
+    "achievementZodiacZookeeperModalText": "Vous avez collecté tous les familiers du zodiaque !",
+    "achievementZodiacZookeeperText": "A collecté tous les familiers du zodiaque : Rat, Vache, Lapin, Serpent, Cheval, Mouton, Singe, Coq, Loup, Tigre, Cochon volant et Dragon !",
+    "achievementBirdsOfAFeatherText": "A collecté tous les familiers volants : Cochon volant, Hibou, Perroquet, Pterodactyle, Griffon, et Faucon.",
+    "achievementBirdsOfAFeather": "Oiseaux à une Plume",
+    "achievementBirdsOfAFeatherModalText": "Vous avez collecté tous les familiers volants !"
 }

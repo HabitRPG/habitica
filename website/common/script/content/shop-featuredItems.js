@@ -44,35 +44,19 @@ const featuredItems = {
     ];
   },
   quests () {
-    if (moment().isBefore('2022-01-11T08:00-05:00')) {
-      return [
-        {
-          type: 'quests',
-          path: 'quests.evilsanta',
-        },
-        {
-          type: 'quests',
-          path: 'quests.evilsanta2',
-        },
-        {
-          type: 'quests',
-          path: 'quests.penguin',
-        },
-      ];
-    }
-    if (moment().isBefore('2022-01-31T20:00-05:00')) {
+    if (moment().isBefore('2022-03-31T20:00-04:00')) {
       return [
         {
           type: 'bundles',
-          path: 'bundles.winterQuests',
+          path: 'bundles.cuddleBuddies',
         },
         {
           type: 'quests',
-          path: 'quests.silver',
+          path: 'quests.egg',
         },
         {
           type: 'quests',
-          path: 'quests.sheep',
+          path: 'quests.ghost_stag',
         },
       ];
     }
@@ -83,7 +67,7 @@ const featuredItems = {
       },
       {
         type: 'quests',
-        path: 'quests.bronze',
+        path: 'quests.silver',
       },
       {
         type: 'quests',
@@ -91,7 +75,7 @@ const featuredItems = {
       },
     ];
   },
-  seasonal: 'winter2021Warrior',
+  seasonal: 'spring2021Healer',
   timeTravelers: [
     // TODO
   ],
