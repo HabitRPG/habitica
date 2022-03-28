@@ -5,7 +5,7 @@
     "buyGemsGold": "Придбати самоцвіти за золото",
     "mustSubscribeToPurchaseGems": "Must subscribe to purchase gems with GP",
     "reachedGoldToGemCap": "You've reached the Gold=>Gem conversion cap <%= convCap %> for this month. We have this to prevent abuse / farming. The cap resets within the first three days of each month.",
-    "reachedGoldToGemCapQuantity": "Запитана вами сума <% = кількість%> перевищує суму, яку ви можете придбати за цей місяць (<% = convCap%>). Повна сума стає доступною протягом перших трьох днів кожного місяця. Дякуємо за підписку!",
+    "reachedGoldToGemCapQuantity": "Запитана вами сума <%= quantity %> перевищує суму, яку ви можете придбати за цей місяць (<%= convCap %>). Повна сума стає доступною протягом перших трьох днів кожного місяця. Дякуємо за підписку!",
     "mysteryItem": "Екслюзивні місячні проекти",
     "mysteryItemText": "Кожен місяць ви будете отримувати унікальні косметичні деталі для вашого аватара! Крім того, за кожні три місяці безперервної підписки Мандрівники Таємного Часу надаватимуть вам доступ до історичних (і футуристичних!) косметичних товарів.",
     "exclusiveJackalopePet": "Exclusive pet",
