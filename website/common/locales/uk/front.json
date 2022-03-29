@@ -1,6 +1,6 @@
 {
     "FAQ": "ЧаПи",
-    "termsAndAgreement": "",
+    "termsAndAgreement": "Натискаючи кнопку нижче, Ви підтверджуєте, що прочитали та погоджуєтеся з <a href='/static/terms'>Умовами використання</a> та <a href='/static/privacy'>Політикою конфіденційності</a>.",
     "accept1Terms": "Натискаючи кнопку внизу, я приймаю",
     "accept2Terms": "та",
     "chores": "Робота по дому",
