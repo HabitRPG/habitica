@@ -140,7 +140,7 @@
           <!-- the actual dollar amount -->
           <div class="buy-gem-amount">
             <span>
-              {{ $t('sendGiftAmount', {cost: gift.gems.amount * 0.25}) }}
+              {{ $t('sendGiftAmount', {cost: formatter.format(gift.gems.amount * 0.25)}) }}
             </span>
         </div>
         <div
@@ -578,6 +578,14 @@ export default {
     maxGems () {
       const maxGems = this.fromBal ? this.userLoggedIn.balance * 4 : 9999;
       return maxGems;
+    },
+    formatter () {
+      const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 2,
+      });
+      return formatter;
     },
   },
   watch: {
