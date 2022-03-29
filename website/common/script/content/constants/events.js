@@ -18,7 +18,7 @@ export const EVENTS = {
   spring2022: {
     start: '2022-03-22T08:00-05:00',
     end: '2022-04-30T20:00-05:00',
-    npcImageSuffix: 'spring',
+    npcImageSuffix: '_spring',
     season: 'spring',
     gear: true,
   },
