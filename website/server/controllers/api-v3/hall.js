@@ -287,7 +287,7 @@ api.updateHero = {
     }
 
     if (updateData.contributor) _.assign(hero.contributor, updateData.contributor);
-    if (updateData.permissions && res.locals.user.hasPermission('fullAccess')) _.assign(hero.permissions, updateData.permissions);
+    if (updateData.permissions && res.locals.user.hasPermission('userSupport')) _.assign(hero.permissions, updateData.permissions);
     if (updateData.purchased && updateData.purchased.ads) {
       hero.purchased.ads = updateData.purchased.ads;
     }
