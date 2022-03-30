@@ -312,29 +312,28 @@ describe('cron middleware', () => {
 
   it('cron should not run more than once', async () => {
     user.lastCron = moment(new Date()).subtract({ days: 2 });
-    const now = new Date();
     await user.save();
 
     sandbox.spy(cronLib, 'cron');
 
     await Promise.all([new Promise((resolve, reject) => {
+      cronMiddleware(req, res, err => {
+        if (err) return reject(err);
+        return resolve();
+      });
+    }), new Promise((resolve, reject) => {
+      cronMiddleware(req, res, err => {
+        if (err) return reject(err);
+        return resolve();
+      });
+    }), new Promise((resolve, reject) => {
+      setTimeout(() => {
         cronMiddleware(req, res, err => {
           if (err) return reject(err);
           return resolve();
         });
-      }), new Promise((resolve, reject) => {
-          cronMiddleware(req, res, err => {
-            if (err) return reject(err);
-            return resolve();
-          });
-      }), new Promise((resolve, reject) => {
-        setTimeout(() => {
-          cronMiddleware(req, res, err => {
-            if (err) return reject(err);
-            return resolve();
-          }
-        )}, 400);
-      })
+      }, 400);
+    }),
     ]);
 
     expect(cronLib.cron).to.be.calledOnce;

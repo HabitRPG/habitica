@@ -381,10 +381,10 @@ schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
     this.preferences.timezoneOffset = -timezoneUtcOffsetFromBrowser;
     timezoneUtcOffsetFromUserPrefs = timezoneUtcOffsetFromBrowser;
   }
-  
+
   let lastCronTime = this.lastCron;
   if (this.auth.timestamps.loggedIn < lastCronTime) {
-    lastCronTime = this.auth.timestamps.loggedIn
+    lastCronTime = this.auth.timestamps.loggedIn;
   }
   // How many days have we missed using the user's current timezone:
   let daysMissed = daysSince(lastCronTime, defaults({ now }, this.preferences));
