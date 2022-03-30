@@ -74,11 +74,12 @@
         </div>
       </div>
       <!-- subscriber block -->
-      <div class="subscribe-option">
-        <subscription-options
-          v-show="selectedPage === 'subscription'"
-        />
-      </div>
+      <!-- <div class="subscribe-option"> -->
+          <subscription-options
+            v-show="selectedPage === 'subscription'"
+            class="subscribe-option"
+          />
+      <!-- </div> -->
 
 
       <!-- gem block -->
@@ -151,14 +152,14 @@
           {{ $t('wantToSendOwnGems') }}
         </div>
       </div>
-      <div class="payment-buttons">
         <payments-buttons
           :stripe-fn="() => redirectToStripe({ gemsBlock: selectedGemsBlock })"
           :paypal-fn="() => openPaypal({
             url: paypalCheckoutLink, type: 'gems', gemsBlock: selectedGemsBlock
           })"
-          :amazon-data="{type: 'single', gemsBlock: selectedGemsBlock}"/>
-      </div>
+          :amazon-data="{type: 'single', gemsBlock: selectedGemsBlock}"
+          class="payment-buttons"
+          />
     </div>
 
 
@@ -462,6 +463,13 @@
   }
 
   .subscribe-option {
+    background: $gray-700;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    padding-bottom: 24px;
+  }
+
+  .subscription-options {
     background: $gray-700;
   }
 
