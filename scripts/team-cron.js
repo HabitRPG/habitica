@@ -62,7 +62,9 @@ async function updateTeamTasks (team) {
         }
         processChecklist = true;
         const delta = TASK_VALUE_CHANGE_FACTOR ** daily.value;
-        daily.value -= ((completions / assignments) * delta);
+        if (assignments > 0) {
+          daily.value -= ((completions / assignments) * delta);
+        }
         if (daily.value < MIN_TASK_VALUE) daily.value = MIN_TASK_VALUE;
       }
       daily.isDue = shouldDo(new Date(), daily, teamLeader.preferences);
