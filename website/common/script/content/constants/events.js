@@ -20,6 +20,7 @@ export const EVENTS = {
     end: '2022-04-30T20:00-05:00',
     npcImageSuffix: '_spring',
     season: 'spring',
+    aprilFools: 'virtual',
     gear: true,
   },
   valentines2022: {
