@@ -125,7 +125,7 @@
   "passwordConfirmationMatch": "Password confirmation doesn't match password.",
   "minPasswordLength": "Password must be 8 characters or more.",
   "passwordResetPage": "Reset Password",
-  "passwordReset": "If we have your emailor username on file, instructions for setting a new password have been sent to your email.",
+  "passwordReset": "If we have your email or username on file, instructions for setting a new password have been sent to your email.",
   "invalidLoginCredentialsLong": "Uh-oh - your email address / username or password is incorrect.\n- Make sure they are typed correctly. Your username and password are case-sensitive.\n- You may have signed up with Facebook or Google-sign-in, not email so double-check by trying them.\n- If you forgot your password, click \"Forgot Password\".",
   "invalidCredentials": "There is no account that uses those credentials.",
   "accountSuspended": "This account, User ID \"<%= userId %>\", has been blocked for breaking the Community Guidelines (https://habitica.com/static/community-guidelines) or Terms of Service (https://habitica.com/static/terms). For details or to ask to be unblocked, please email our Community Manager at <%= communityManagerEmail %> or ask your parent or guardian to email them. Please include your @Username in the email.",
