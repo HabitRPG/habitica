@@ -224,7 +224,7 @@
             </div>
             <router-link
               class="nav-link"
-              :to="{name: 'groupPlan'}"
+              :to="groupPlanTopLink"
             >
               {{ $t('group') }}
             </router-link>
@@ -780,6 +780,13 @@ export default {
       groupPlans: 'groupPlans.data',
       modalStack: 'modalStack',
     }),
+    groupPlanTopLink () {
+      if (!this.groupPlans || this.groupPlans.length === 0) return { name: 'groupPlan' };
+      return {
+        name: 'groupPlanDetailTaskInformation',
+        params: { groupId: this.groupPlans[0]._id },
+      };
+    },
   },
   mounted () {
     this.getUserGroupPlans();
@@ -839,7 +846,6 @@ export default {
       element.classList.add('down');
       element.lastChild.style.maxHeight = `${element.lastChild.scrollHeight}px`;
     },
-
     closeMenu () {
       Array.from(document.getElementsByClassName('droppable')).forEach(droppableElement => {
         this.closeDropdown(droppableElement);
