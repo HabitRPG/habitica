@@ -7,7 +7,7 @@
     "editATask": "עריכת <%= type %>",
     "createTask": "יצירת <%= type %>",
     "addTaskToUser": "הוספת משימה",
-    "scheduled": "מתוכנן",
+    "scheduled": "מתוכננות",
     "theseAreYourTasks": "אלה ה<%= taskType %> שלך",
     "habit": "הרגל",
     "habits": "הרגלים",

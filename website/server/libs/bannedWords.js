@@ -120,6 +120,7 @@ const bannedWords = [
   'sh\\*tty',
   'sh\\*tting',
   'fuck',
+  'fucks',
   'fucking',
   'fucked',
   'fuckwit',
