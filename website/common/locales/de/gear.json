@@ -2594,5 +2594,19 @@
     "headSpecialSpring2022WarriorText": "Regenmantelkapuze",
     "headSpecialSpring2022WarriorNotes": "Huch, es sieht nach Regen aus! Steh auf und zieh Dir die Kapuze über, um trocken zu bleiben. Erhöht Stärke um <%= str %>. Limitierte Ausgabe 2022 Frühlingsausrüstung.",
     "shieldSpecialSpring2022WarriorText": "Regenwolke",
-    "shieldSpecialSpring2022WarriorNotes": "Kennst Du diese Tage, an denen es sich anfühlt, als würde Dir eine Regenwolke auf Schritt und Tritt folgen? Tja, Du kannst Dich glücklich schätzen, denn schon bald werden die schönsten Blumen zu Deinen Füßen blühen! Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe 2022 Frühlingsausrüstung."
+    "shieldSpecialSpring2022WarriorNotes": "Kennst Du diese Tage, an denen es sich anfühlt, als würde Dir eine Regenwolke auf Schritt und Tritt folgen? Tja, Du kannst Dich glücklich schätzen, denn schon bald werden die schönsten Blumen zu Deinen Füßen blühen! Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe 2022 Frühlingsausrüstung.",
+    "weaponSpecialSpring2022MageText": "Forsythienstab",
+    "weaponSpecialSpring2022MageNotes": "Diese strahlend gelben Glocken sind bereit, Deine mächtige Frühlingsmagie zu lenken. Erhöht Intelligenz um <%= int %> und Wahrnehmung um <%= per %>. Limitierte Ausgabe 2022 Frühlingsausrüstung.",
+    "armorSpecialSpring2022MageText": "Forsythienrobe",
+    "headSpecialSpring2022MageText": "Forsythienhelm",
+    "headSpecialSpring2022MageNotes": "Mithilfe dieses Helms aus umgedrehten Blüten bleibst Du bei jedem Frühlingsgewitter trocken. Erhöht Wahrnehmung um <%= per %>. Limitierte Ausgabe 2022 Frühlingsausrüstung.",
+    "armorSpecialSpring2022MageNotes": "Diese mit Forsythienblüten geschmückte Robe zeigt allen, dass Du bereit bist, flink und federleicht in den Frühling zu fliegen. Intelligenz um <%= int %>. Limitierte Ausgabe 2022 Frühlingsausrüstung.",
+    "weaponSpecialSpring2022HealerText": "Abendsmaragd-Zauberstab",
+    "weaponSpecialSpring2022HealerNotes": "Benutze diesen Zauberstab, um die Heilkräfte des Abendsmaragds zu entfalten – mögen sie Dir Ruhe, Zufriedenheit und Güte bringen. Erhöht Intelligenz um <%= int %>. Limitierte Ausgabe 2022 Frühlingsausrüstung.",
+    "armorSpecialSpring2022HealerText": "Abendsmaragd-Rüstung",
+    "armorSpecialSpring2022HealerNotes": " Vertreibe Angst und Alpträume mit diesem grünen Edelstein-Gewand. Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe 2022 Frühlingsausrüstung.",
+    "headSpecialSpring2022HealerText": "Abendsmaragd-Helm",
+    "headSpecialSpring2022HealerNotes": "Dieser geheimnisvolle Helm bewahrt Deine Privatsphäre während Du diverse Aufgaben anpackst. Erhöht Intelligenz um <%= int %>. Limitierte Ausgabe 2022 Frühlingsausrüstung.",
+    "shieldSpecialSpring2022HealerText": "Abendsmaragd-Schild",
+    "shieldSpecialSpring2022HealerNotes": "Aus geschmolzenem Stein aus der Erdkruste geformt, kann dieses Schild jedem noch so harten Schlag widerstehen, der ihm in den Weg kommt. Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe 2022 Frühlingsausrüstung."
 }

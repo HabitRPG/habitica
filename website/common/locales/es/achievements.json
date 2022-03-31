@@ -124,9 +124,10 @@
     "achievementShadeOfItAllModalText": "¡Has domado todas las monturas sombrías!",
     "achievementShadyCustomerText": "Ha conseguido todas las mascotas sombrías.",
     "achievementShadyCustomer": "Cliente sombrío",
-    "achievementZodiacZookeeper": "Cuidador del Zodíaco",
+    "achievementZodiacZookeeper": "Cuidador del Zodiaco",
     "achievementZodiacZookeeperText": "¡Has eclosionado todas las mascotas del zodíaco: Rata, Vaca, Conejo, Serpiente, Caballo, Oveja, Mono, Gallo, Lobo, Tigre, Cerdo Volador y Dragón!",
     "achievementZodiacZookeeperModalText": "¡Has conseguido todas las mascotas del zodíaco!",
-    "achievementBirdsOfAFeatherText": "Has eclosionado todas las mascotas voladoras: Cerdo volador, Búho, Loro, Pterodáctilo, Grifo y Halcón.",
-    "achievementBirdsOfAFeatherModalText": "¡Has conseguido todas las mascotas voladoras!"
+    "achievementBirdsOfAFeatherText": "Has eclosionado todas las mascotas voladoras: Cerdo Volador, Búho, Loro, Pterodáctilo, Grifo, Halcón, Pavo Real y Gallo.",
+    "achievementBirdsOfAFeatherModalText": "¡Has conseguido todas las mascotas voladoras!",
+    "achievementBirdsOfAFeather": "Aves de Pluma"
 }
