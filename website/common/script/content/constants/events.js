@@ -20,8 +20,12 @@ export const EVENTS = {
     end: '2022-04-30T20:00-05:00',
     npcImageSuffix: '_spring',
     season: 'spring',
-    aprilFools: 'virtual',
     gear: true,
+  },
+  aprilFools2022: {
+    start: '2022-04-01T08:00-05:00',
+    end: '2022-04-02T08:00-05:00',
+    aprilFools: 'virtual',
   },
   valentines2022: {
     start: '2022-02-14T08:00-05:00',
