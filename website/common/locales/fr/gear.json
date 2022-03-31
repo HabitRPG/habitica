@@ -2608,5 +2608,11 @@
     "headSpecialSpring2022RogueNotes": "Faites preuve d'autant d'intelligence qu'une pie en portant ce masque. Peut-être serez vous également capable de siffler, de triller et d'imitée comme l'une d'elles, aussi. Augmente la perception de <%= per %>. Équipement en édition limitée du printemps 2022.",
     "headSpecialSpring2022MageNotes": "Restez au sec pendant les pluies diluviennes avec ce casque protecteur avec des rebords à pétales. Augmente la perception de <%= per %>. Équipement en édition limitée du printemps 2022.",
     "shieldSpecialSpring2022WarriorNotes": "Vous avez déjà eu l'impression qu'un nuage pluvieux vous suivait où que vous alliez ? Réjouissez-vous, parce que bientôt les plus jolies fleurs pousseront à vos pieds ! Augmente la constitution de <%= con %>. Équipement en édition limitée du printemps 2022.",
-    "shieldSpecialSpring2022WarriorText": "Nuage pluvieux"
+    "shieldSpecialSpring2022WarriorText": "Nuage pluvieux",
+    "armorMystery202204Text": "Capsule d'aventure virtuelle",
+    "armorMystery202204Notes": "On dirait que vos tâches requièrent maintenant d'appuyer sur ces mystérieux boutons ! Que peuvent-ils bien faire ? Ne confère aucun bonus. Équipement d'abonnement d'avril 2022.",
+    "eyewearMystery202204BText": "Visage virtuel",
+    "eyewearMystery202204BNotes": "Quelle est votre humeur du jour ? Exprimez vous avec ces écrans amusants. Ne confère aucun bonus. Équipement d'abonnement d'avril 2022.",
+    "eyewearMystery202204AText": "Visage virtuel",
+    "eyewearMystery202204ANotes": "Quelle est votre humeur du jour ? Exprimez vous avec ces écrans amusants. Ne confère aucun bonus. Équipement d'abonnement d'avril 2022."
 }

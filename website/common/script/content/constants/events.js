@@ -22,6 +22,11 @@ export const EVENTS = {
     season: 'spring',
     gear: true,
   },
+  aprilFools2022: {
+    start: '2022-04-01T08:00-05:00',
+    end: '2022-04-02T08:00-05:00',
+    aprilFools: 'virtual',
+  },
   valentines2022: {
     start: '2022-02-14T08:00-05:00',
     end: '2022-02-18T20:00-05:00',

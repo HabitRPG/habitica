@@ -2576,5 +2576,7 @@
     "weaponArmoireGardenersWateringCanText": "じょうろ",
     "weaponArmoireGardenersWateringCanNotes": "水なしじゃ何事も上手くいきません！この魔法の水源じょうろで無限の供給を手にしましょう。知能が<%= int %>上がります。ラッキー宝箱：ガーデナーセット（4個中4個目のアイテム）。",
     "armorArmoireGardenersOverallsText": "ガーデナーのオーバーオール",
-    "armorArmoireGardenersOverallsNotes": "この丈夫なオーバーオールを着ているときは土の作業を怖がらなくても大丈夫。体質が<%= con %>上がります。ラッキー宝箱：ガーデナーセット（4個中1個目のアイテム）。"
+    "armorArmoireGardenersOverallsNotes": "この丈夫なオーバーオールを着ているときは土の作業を怖がらなくても大丈夫。体質が<%= con %>上がります。ラッキー宝箱：ガーデナーセット（4個中1個目のアイテム）。",
+    "weaponSpecialSpring2022RogueText": "大きなボタン型ピアス",
+    "weaponSpecialSpring2022RogueNotes": "ぴっかぴか！輝いてて光ってて可愛くってステキでしかもあなたのもの！力が<%= str %>上がります。2022年春の限定装備。"
 }
