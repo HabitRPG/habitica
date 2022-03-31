@@ -75,6 +75,7 @@
       </div>
       <!-- subscriber block -->
       <!-- <div class="subscribe-option"> -->
+      <!-- canNOT get the payments-buttons to not have the background -->
           <subscription-options
             v-show="selectedPage === 'subscription'"
             class="subscribe-option"
@@ -153,11 +154,10 @@
         </div>
       </div>
         <payments-buttons
-          :stripe-fn="() => redirectToStripe({ gemsBlock: selectedGemsBlock })"
+          :stripe-fn="() => redirectToStripe({gift, uuid: userReceivingGems, displayName})"
           :paypal-fn="() => openPaypal({
-            url: paypalCheckoutLink, type: 'gems', gemsBlock: selectedGemsBlock
-          })"
-          :amazon-data="{type: 'single', gemsBlock: selectedGemsBlock}"
+            url: paypalCheckoutLink, type: 'gems', giftedTo: userReceivingGems, displayName })"
+          :amazon-data="{type: 'single', gift, giftedTo: userReceivingGems, displayName}"
           class="payment-buttons"
           />
     </div>
@@ -284,8 +284,7 @@
           fill: #878190;
         }
       }
-
-  }
+    }
 }
 </style>
 <style scoped lang="scss">
