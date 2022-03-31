@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "कृपया ध्यान दें कि आपका प्रदर्शन नाम, प्रोफ़ाइल फ़ोटो, और चरित्र को <a href='https://habitica.com/static/community-guidelines 'target='_blank'> समुदाय दिशानिर्देशों </a> का पालन करना होगा (जैसे नहीं अपवित्रता, कोई वयस्क विषय, कोई अपमान नहीं, आदि)। यदि आपके पास कोई प्रश्न है या नहीं, तो उचित है, कृपया ईमेल करें <% = hrefBlankCommunityManagerEmail.com>!",
+    "communityGuidelinesWarning": "कृपया ध्यान दें कि आपका प्रदर्शन नाम, प्रोफ़ाइल फ़ोटो, और चरित्र को <a href='https://habitica.com/static/community-guidelines 'target='_blank'> समुदाय दिशानिर्देशों </a> का पालन करना होगा (जैसे नहीं अपवित्रता, कोई वयस्क विषय, कोई अपमान नहीं, आदि)। यदि आपके पास कोई प्रश्न है या नहीं, तो उचित है, कृपया ईमेल करें <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "प्रोफ़ाइल",
     "avatar": "चरित्र को अनुकूलित करें",
     "editAvatar": "चरित्र संपादित करें",
@@ -185,5 +185,5 @@
     "chatCastSpellUser": "<%= username %> <%= target %> पर <%= spell %> डाले |",
     "chatCastSpellParty": "<%= username %> पार्टी के लिए <%= spell %> डाले",
     "purchaseForGold": "<%=cost%> सोने का उपयोग कर खरीदें?",
-    "purchasePetItemConfirm": "यह खरीद उन सभी वस्तुओं की संख्या से अधिक हो जाएगी, जिन्हें आपको हर संभव <% = itemText%> पालतू जानवरों से जोड़ना है। क्या आपको यकीन है?"
+    "purchasePetItemConfirm": "यह खरीद उन सभी वस्तुओं की संख्या से अधिक हो जाएगी, जिन्हें आपको हर संभव <%= itemText %> पालतू जानवरों से जोड़ना है। क्या आपको यकीन है?"
 }

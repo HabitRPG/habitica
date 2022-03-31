@@ -126,5 +126,8 @@
     "achievementShadyCustomerText": "影のペットをすべて集めました。",
     "achievementZodiacZookeeper": "十二支の飼育係",
     "achievementZodiacZookeeperModalText": "十二支のペットをすべて集めました！",
-    "achievementZodiacZookeeperText": "ネズミ、牛、トラ、ウサギ、ドラゴン、ヘビ、馬、羊、さる、雄鶏、狼、空飛ぶ豚のペットをすべて集めました！"
+    "achievementZodiacZookeeperText": "ネズミ、牛、トラ、ウサギ、ドラゴン、ヘビ、馬、羊、さる、雄鶏、狼、空飛ぶ豚のペットをすべて集めました！",
+    "achievementBirdsOfAFeather": "同じ羽の鳥は群れを作る",
+    "achievementBirdsOfAFeatherText": "空飛ぶペット（空飛ぶ豚、フクロウ、オウム、翼竜、フリフォン、たか、クジャク、おんどり）をすべて集めました。",
+    "achievementBirdsOfAFeatherModalText": "空飛ぶペットをすべて集めました！"
 }
