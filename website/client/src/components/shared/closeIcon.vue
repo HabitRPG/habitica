@@ -1,12 +1,12 @@
 <template>
   <button
     title="close dialog"
-    @click="$emit('click', $event)"
     :style="{
       '--icon-color': iconColor,
       '--icon-color-hover': iconColorHover,
     }"
     :class="{'purple': purple}"
+    @click="$emit('click', $event)"
   >
     <div
       v-once
