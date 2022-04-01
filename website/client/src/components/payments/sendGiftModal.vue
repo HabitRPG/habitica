@@ -38,7 +38,7 @@
           class="d-flex flex-column mx-auto align-items-center display-name">
           <!-- user display name and username -->
             <user-link
-              :user-id="userName"
+              :user-id="displayName"
               :name="displayName"
               :backer="userBacker"
               :contributor="userContributor"
@@ -101,7 +101,6 @@
           <div
             class="gray-circle"
             @click="gift.gems.amount--"
-            @keyup.native="preventNegative($event)"
             >
             <div
               class="icon-negative"
@@ -119,7 +118,7 @@
               id="gemsForm"
               v-model.number="gift.gems.amount"
               class="form-control"
-              placeholder="0"
+              placeholder="1"
               min="1"
               max="9999"
             >
@@ -177,7 +176,6 @@
           <div
             class="gray-circle"
             @click="gift.gems.amount--"
-            @keyup.native="preventNegative($event)"
             >
             <div
               class="icon-negative"
@@ -385,22 +383,22 @@
     height: 32px;
     cursor: pointer;
 
-    &:hover,
-    &:focus-within {
+    &:hover {
       border-color: $purple-400;
+    }
+  }
+
+  .gray-circle:hover{
+    .icon-positive, .icon-negative {
+      & ::v-deep svg path {
+        fill: $purple-400
+      }
     }
   }
 
   .icon-gem {
     width: 16px;
     height: 16px;
-  }
-
-  .icon-positive:hover, .icon-negative:hover {
-    &:focus-within,
-    & ::v-deep svg path {
-      fill: $purple-400;
-    }
   }
 
   .icon-positive, .icon-negative {
@@ -530,7 +528,6 @@ export default {
         },
       },
       sendingInProgress: false,
-      userReceivingGems: null,
       amazonPayments: {},
       gemCost: 1,
     };
@@ -544,6 +541,27 @@ export default {
     },
     selectPage (page) {
       this.selectedPage = page || 'subscription';
+    },
+    async sendGift () {
+      this.sendingInProgress = true;
+      await this.$store.dispatch('members:transferGems', {
+        toUserId: this.userReceivingGift._id,
+        gemAmount: this.gift.gems.amount,
+      });
+      this.close();
+      setTimeout(() => { // wait for the send gem modal to be closed
+        this.$root.$emit('habitica:payment-success', {
+          paymentMethod: 'balance',
+          paymentCompleted: true,
+          paymentType: 'gift-gems-balance',
+          gift: {
+            gems: {
+              amount: this.gift.gems.amount,
+            },
+          },
+          giftReceiver: this.userName,
+        });
+      }, 500);
     },
     // we'll need this later
     // onHide () {
