@@ -36,10 +36,10 @@
     </div>
     <div class="form-horizontal">
       <div class="form-group">
-        <div>
+        <small>
           <p v-html="$t('timezoneUTC', {utc: timezoneOffsetToUtc})"></p>
           <p v-html="$t('timezoneInfo')"></p>
-        </div>
+        </small>
       </div>
     </div>
   </div>
@@ -55,13 +55,19 @@ export default {
   name: 'dayStartAdjustment',
   data () {
     const dayStartOptions = [];
-    for (let number = 0; number < 24; number += 1) {
+    for (let number = 0; number <= 12; number += 1) {
       const meridian = number < 12 ? 'AM' : 'PM';
       const hour = number % 12;
+      const timeWithMeridian = `(${hour || 12}:00 ${meridian})`;
       const option = {
         value: number,
-        name: `+${number} hours (${hour || 12}:00 ${meridian})`,
+        name: `+${number} hours ${timeWithMeridian}`,
       };
+
+      if (number === 0) {
+        option.name = `Default ${timeWithMeridian}`;
+      }
+
       dayStartOptions.push(option);
     }
 
