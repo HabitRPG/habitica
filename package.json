@@ -47,7 +47,7 @@
     "lodash": "^4.17.21",
     "merge-stream": "^2.0.0",
     "method-override": "^3.0.0",
-    "moment": "^2.29.1",
+    "moment": "^2.29.2",
     "moment-recur": "^1.0.7",
     "mongoose": "^5.13.7",
     "morgan": "^1.10.0",
