@@ -531,11 +531,11 @@ const wacky = {
     limited: true,
     event: EVENTS.spring2021,
     _addlNotes: t('eventAvailabilityReturning', {
-      availableDate: t('dateEndMarch'),
-      previousDate: t('marchYYYY', { year: 2019 }),
+      availableDate: t('dateEndApril'),
+      previousDate: t('aprilYYYY', { year: 2021 }),
     }),
     canBuy () {
-      return moment().isBetween('2021-04-01T08:00-05:00', EVENTS.spring2021.end);
+      return moment().isBetween('2022-04-07T08:00-05:00', EVENTS.spring2022.end);
     },
   },
   Dessert: {
@@ -543,6 +543,12 @@ const wacky = {
     limited: true,
     _addlNotes: t('premiumPotionUnlimitedNotes'),
     canBuy: hasQuestAchievementFunction('waffle'),
+  },
+  VirtualPet: {
+    text: t('hatchingPotionVirtualPet'),
+    limited: true,
+    _addlNotes: t('premiumPotionUnlimitedNotes'),
+    canBuy: hasQuestAchievementFunction('virtualPet'),
   },
 };
 
