@@ -85,7 +85,7 @@
     "allocatePerPop": "Adde Punctum Perceptioni",
     "allocateInt": "Puncta Intelligentiae distributa:",
     "allocateIntPop": "Adde Punctum Intelligentiae",
-    "noMoreAllocate": "Gradu centesimo facto nullis punctis proprietatis afficeris. Pergas, si vis, gradus assequi aut iter novum gradu primo ineas utens <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orbe Renascientiae</a>!",
+    "noMoreAllocate": "Gradu centesimo facto nullis punctis proprietatis afficeris. Pergas, si vis, gradus assequi aut iter novum gradu primo ineas utens <a href='https://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Orbe Renascientiae</a>!",
     "stats": "Statisticae",
     "achievs": "Res Gestae",
     "strength": "Vis",
@@ -185,5 +185,6 @@
     "chatCastSpellParty": "<%= username %> <%= spell %> conturbernio incantat.",
     "chatCastSpellUser": "<%= username %> <%= spell %> super <%= target %> incantat.",
     "purchasePetItemConfirm": "Hanc rem emens numerum rerum superabis, quibus rebus tibi opus est ad incubanda <%= itemText %> animalia, quae incubari possunt. Certe visne?",
-    "purchaseForGold": "<%= cost %> aurine emere?"
+    "purchaseForGold": "<%= cost %> aurine emere?",
+    "notEnoughGold": "Non satis auri."
 }

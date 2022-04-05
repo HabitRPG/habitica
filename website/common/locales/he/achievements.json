@@ -3,8 +3,8 @@
     "onwards": "הלאה!",
     "levelup": "על ידי ביצוע משימות מחייך האמיתיים, עלית רמה והחיים שלך עכשיו מלאים!",
     "reachedLevel": "הגעת לשלב <%= level %>",
-    "achievementLostMasterclasser": "Quest Completionist: Masterclasser Series",
-    "achievementLostMasterclasserText": "Completed all sixteen quests in the Masterclasser Quest Series and solved the mystery of the Lost Masterclasser!",
+    "achievementLostMasterclasser": "",
+    "achievementLostMasterclasserText": "",
     "viewAchievements": "הצגת ההישגים",
     "letsGetStarted": "בואו נתחיל!",
     "yourProgress": "ההתקדמות שלך",
@@ -78,5 +78,16 @@
     "achievementGoodAsGoldText": "אסף את כל החיות הזהב",
     "achievementSeasonalSpecialistModalText": "השלמת את כל המשימות העונתיות!",
     "achievementShadyCustomer": "לקוח חשוד",
-    "achievementShadeOfItAll": "הצל של הכל"
+    "achievementShadeOfItAll": "הצל של הכל",
+    "achievementSeeingRedModalText": "אספת את כל חיות המחמד האדומות!",
+    "achievementGoodAsGoldModalText": "אספת את כל חיות המחמד המוזהבות!",
+    "achievementRedLetterDayText": "אולפו כל חיות הרכיבה האדומות.",
+    "achievementAllThatGlittersText": "אולפו כל חיות הרכיבה המוזהבות.",
+    "achievementBoneCollectorModalText": "אספת את כל חיות המחמד מסוג שלד!",
+    "achievementSeeingRedText": "נאספו כל חיות המחמד האדומות.",
+    "achievementAllThatGlittersModalText": "אילפת את כל חיות הרכיבה המוזהבות!",
+    "achievementSkeletonCrewModalText": "אילפת את כל חיות הרכיבה מסוג שלד!",
+    "achievementBoneCollectorText": "נאספו כל חיות המחמד מסוג שלד.",
+    "achievementRedLetterDayModalText": "אילפת את כל חיות הרכיבה האדומות!",
+    "achievementSkeletonCrewText": "אולפו כל חיות הרכיבה מסוג שלד."
 }
