@@ -1,7 +1,7 @@
 {
     "achievement": "Succès",
     "onwards": "En avant !",
-    "levelup": "Pour avoir accompli vos objectifs dans la vraie vie, vous avez gagné un niveau et vous vous retrouvez complètement guéri !",
+    "levelup": "Pour avoir accompli vos objectifs dans la vraie vie, vous avez gagné un niveau et vous vous êtes complètement rétabli !",
     "reachedLevel": "Vous avez atteint le niveau <%= level %>",
     "achievementLostMasterclasser": "Achèvement de quêtes : série de la maîtresse des classes",
     "achievementLostMasterclasserText": "A achevé les 16 quêtes de la série de quêtes de la maîtresse des classes, et a résolu le mystère de la maîtresse des classes oubliée !",
@@ -127,7 +127,7 @@
     "achievementZodiacZookeeper": "Le Zoo-diaque",
     "achievementZodiacZookeeperModalText": "Vous avez collecté tous les familiers du zodiaque !",
     "achievementZodiacZookeeperText": "A collecté tous les familiers du zodiaque : Rat, Vache, Lapin, Serpent, Cheval, Mouton, Singe, Coq, Loup, Tigre, Cochon volant et Dragon !",
-    "achievementBirdsOfAFeatherText": "A collecté tous les familiers volants : Cochon volant, Hibou, Perroquet, Pterodactyle, Griffon, et Faucon.",
+    "achievementBirdsOfAFeatherText": "A collecté tous les familiers volants : Cochon volant, Hibou, Perroquet, Pterodactyle, Griffon, Faucon, Paon et Coq.",
     "achievementBirdsOfAFeather": "Oiseaux à une Plume",
     "achievementBirdsOfAFeatherModalText": "Vous avez collecté tous les familiers volants !"
 }

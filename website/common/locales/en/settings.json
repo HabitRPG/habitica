@@ -56,7 +56,7 @@
     "newUsername": "New Username",
     "dangerZone": "Danger Zone",
     "resetText1": "WARNING! This resets many parts of your account. This is highly discouraged, but some people find it useful in the beginning after playing with the site for a short time.",
-    "resetText2": "You will lose all your levels, Gold, and Experience points. All your tasks (except those from challenges) will be deleted permanently and you will lose all of their historical data. You will lose all your equipment except Subscriber Mystery Items and free commemorative items. You will be able to buy the deleted items back, including all limited edition equipment (you will need to be in the correct class to re-buy class-specific gear). You will keep your current class, achievements  and your pets and mounts. You might prefer to use an Orb of Rebirth instead, which is a much safer option and which will preserve your tasks and equipment.",
+    "resetText2": "You will lose all your levels, Gold, and Experience points. All your tasks (except those from challenges) will be deleted permanently and you will lose all of their historical data. You will lose all your equipment except Subscriber Mystery Items and free commemorative items. You will be able to buy the deleted items back, including all limited edition equipment (you will need to be in the correct class to re-buy class-specific gear). You will keep your current class, achievements and your pets and mounts. You might prefer to use an Orb of Rebirth instead, which is a much safer option and which will preserve your tasks and equipment.",
     "deleteLocalAccountText": "Are you sure? This will delete your account forever, and it can never be restored! You will need to register a new account to use Habitica again. Banked or spent Gems will not be refunded. If you're absolutely certain, type your password into the text box below.",
     "deleteSocialAccountText": "Are you sure? This will delete your account forever, and it can never be restored! You will need to register a new account to use Habitica again. Banked or spent Gems will not be refunded. If you're absolutely certain, type \"<%= magicWord %>\" into the text box below.",
     "API": "API",
@@ -134,6 +134,7 @@
     "saveCustomDayStart": "Save Custom Day Start",
     "registration": "Registration",
     "addLocalAuth": "Add Email and Password Login",
+    "addPasswordAuth": "Add Password",
     "generateCodes": "Generate Codes",
     "generate": "Generate",
     "getCodes": "Get Codes",
@@ -200,9 +201,9 @@
     "transaction_create_challenge": "Created challenge",
     "transaction_create_guild": "Created guild",
     "transaction_change_class": "Changed class",
-    "transaction_rebirth": "Used orb of rebirth",
+    "transaction_rebirth": "Used Orb of Rebirth",
     "transaction_release_pets": "Released pets",
     "transaction_release_mounts": "Released mounts",
-    "transaction_reroll": "Used fortify potion",
+    "transaction_reroll": "Used Fortify Potion",
     "transaction_subscription_perks": "From subscription perk"
 }
