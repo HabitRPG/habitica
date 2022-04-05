@@ -291,14 +291,22 @@
             </li>
           </ul>
           <hr>
-          <div v-if="!user.auth.local.email">
-            <p>{{ $t('addLocalAuth') }}</p>
+          <div v-if="!user.auth.local.has_password">
+            <h5 v-if="!user.auth.local.email">
+              {{ $t('addLocalAuth') }}
+            </h5>
+            <h5 v-if="user.auth.local.email">
+              {{ $t('addPasswordAuth') }}
+            </h5>
             <div
               class="form"
               name="localAuth"
               novalidate="novalidate"
             >
-              <div class="form-group">
+              <div
+                v-if="!user.auth.local.email"
+                class="form-group"
+              >
                 <input
                   v-model="localAuth.email"
                   class="form-control"
@@ -421,7 +429,7 @@
               {{ $t('saveAndConfirm') }}
             </button>
           </div>
-          <h5 v-if="user.auth.local.email">
+          <h5>
             {{ $t('changeEmail') }}
           </h5>
           <div
@@ -439,7 +447,10 @@
                 :placeholder="$t('newEmail')"
               >
             </div>
-            <div class="form-group">
+            <div
+              v-if="user.auth.local.has_password"
+              class="form-group"
+            >
               <input
                 v-model="emailUpdates.password"
                 class="form-control"
@@ -455,11 +466,11 @@
               {{ $t('submit') }}
             </button>
           </div>
-          <h5 v-if="user.auth.local.email">
+          <h5 v-if="user.auth.local.has_password">
             {{ $t('changePass') }}
           </h5>
           <div
-            v-if="user.auth.local.email"
+            v-if="user.auth.local.has_password"
             class="form"
             name="changePassword"
             novalidate="novalidate"
@@ -846,7 +857,7 @@ export default {
       if (network === 'apple') {
         window.location.href = buildAppleAuthUrl();
       } else {
-        const auth = await hello(network).login({ scope: 'email' });
+        const auth = await hello(network).login({ scope: 'email', options: { force: true } });
 
         await this.$store.dispatch('auth:socialAuth', {
           auth,
@@ -865,8 +876,12 @@ export default {
       }
     },
     async addLocalAuth () {
+      if (this.localAuth.email === '') {
+        this.localAuth.email = this.user.auth.local.email;
+      }
       await axios.post('/api/v4/user/auth/local/register', this.localAuth);
       window.alert(this.$t('addedLocalAuth')); // eslint-disable-line no-alert
+      window.location.href = '/';
     },
     restoreEmptyUsername () {
       if (this.usernameUpdates.username.length < 1) {
