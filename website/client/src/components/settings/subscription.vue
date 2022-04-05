@@ -229,7 +229,7 @@
                   v-html="icons.hourglassIcon"
                 >
                 </div>
-                <div class="number-heavy" v-b-tooltip.hover.top="nextHourGlassDate.format('L')">
+                <div class="number-heavy">
                   {{ nextHourGlass }}
                 </div>
               </div>
