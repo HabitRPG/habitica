@@ -3891,11 +3891,11 @@ const quests = {
       hp: 500,
       str: 2,
       rage: {
-        title: t('questWaffleVirtualPetTitle'),
+        title: t('questVirtualPetRageTitle'),
         description: t('questVirtualPetRageDescription'),
         value: 50,
         progressDrain: 0.5,
-        effect: t('questWaffleRageEffect'),
+        effect: t('questVirtualPetRageEffect'),
       },
     },
     drop: {
@@ -3903,15 +3903,15 @@ const quests = {
         {
           type: 'hatchingPotions',
           key: 'VirtualPet',
-          text: t('questVirtualPetDropDessertPotion'),
+          text: t('questVirtualPetDropVirtualPetPotion'),
         }, {
           type: 'hatchingPotions',
           key: 'VirtualPet',
-          text: t('questVirtualPetDropDessertPotion'),
+          text: t('questVirtualPetDropVirtualPetPotion'),
         }, {
           type: 'hatchingPotions',
           key: 'VirtualPet',
-          text: t('questVirtualPetDropDessertPotion'),
+          text: t('questVirtualPetDropVirtualPetPotion'),
         },
       ],
       gp: 40,

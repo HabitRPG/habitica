@@ -16,7 +16,13 @@
   height: 219px;
 }
 
-.Pet_HatchingPotion_Dessert, .Pet_HatchingPotion_Veggie, .Pet_HatchingPotion_Windup {
+.quest_virtualPet {
+  background: url("~@/assets/images/animated/quest_virtualPet.gif") no-repeat;
+  width: 219px;
+  height: 219px;
+}
+
+.Pet_HatchingPotion_Dessert, .Pet_HatchingPotion_Veggie, .Pet_HatchingPotion_Windup, .Pet_HatchingPotion_VirtualPet {
   width: 68px;
   height: 68px;
 }
@@ -31,6 +37,10 @@
 
 .Pet_HatchingPotion_Windup {
   background: url("~@/assets/images/animated/Pet_HatchingPotion_Windup.gif") no-repeat;
+}
+
+.Pet_HatchingPotion_VirtualPet {
+  background: url("~@/assets/images/animated/Pet_HatchingPotion_VirtualPet.gif") no-repeat;
 }
 
 .Gems {

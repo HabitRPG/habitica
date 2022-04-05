@@ -875,7 +875,7 @@
   "questVirtualPetBoss": "Wotchimon",
   "questVirtualPetRageTitle": "The Beepening",
   "questVirtualPetRageDescription": "This bar fills when you don't complete your Dailies. When it is full, the Wotchiman will heal 30% of its remaining health!",
-  "questVirtualPetRageEffect": "Wotchimon uses Bothersome Beep!\n\nWotchiman sounds a bothersome beep, and its happiness bar suddenly disappears!",
+  "questVirtualPetRageEffect": "`Wotchimon uses Bothersome Beep!` Wotchimon sounds a bothersome beep, and its happiness bar suddenly disappears! Pending damage reduced.",
   "questVirtualPetDropVirtualPetPotion": "Virtual Pet Hatching Potion",
-  "questVirtualPetUnlockText": "Unlocks Virtual Pet Hatching Potion for purchase in the Market",
+  "questVirtualPetUnlockText": "Unlocks Virtual Pet Hatching Potion for purchase in the Market"
 }
