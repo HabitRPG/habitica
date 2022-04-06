@@ -1,23 +1,23 @@
 .quest_lostMasterclasser4 {
-  background: url("~@/assets/images/animated/quest_lostMasterclasser4.gif") no-repeat;
+  background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/quest_lostMasterclasser4.gif") no-repeat;
   width: 219px;
   height: 219px;
 }
 
 .quest_windup {
-  background: url("~@/assets/images/animated/quest_windup.gif") no-repeat;
+  background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/quest_windup.gif") no-repeat;
   width: 219px;
   height: 219px;
 }
 
 .quest_solarSystem {
-  background: url("~@/assets/images/animated/quest_solarSystem.gif") no-repeat;
+  background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/quest_solarSystem.gif") no-repeat;
   width: 219px;
   height: 219px;
 }
 
 .quest_virtualpet {
-  background: url("~@/assets/images/animated/quest_virtualpet.gif") no-repeat;
+  background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/quest_virtualpet.gif") no-repeat;
   width: 219px;
   height: 219px;
 }
@@ -28,19 +28,19 @@
 }
 
 .Pet_HatchingPotion_Dessert {
-  background: url("~@/assets/images/animated/Pet_HatchingPotion_Dessert.gif") no-repeat;
+  background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet_HatchingPotion_Dessert.gif") no-repeat;
 }
 
 .Pet_HatchingPotion_Veggie {
-  background: url("~@/assets/images/animated/Pet_HatchingPotion_Veggie.gif") no-repeat;
+  background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet_HatchingPotion_Veggie.gif") no-repeat;
 }
 
 .Pet_HatchingPotion_Windup {
-  background: url("~@/assets/images/animated/Pet_HatchingPotion_Windup.gif") no-repeat;
+  background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet_HatchingPotion_Windup.gif") no-repeat;
 }
 
 .Pet_HatchingPotion_VirtualPet {
-  background: url("~@/assets/images/animated/Pet_HatchingPotion_VirtualPet.gif") no-repeat;
+  background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet_HatchingPotion_VirtualPet.gif") no-repeat;
 }
 
 .Gems {
@@ -78,7 +78,7 @@
 
 /* Critical */
 .weapon_special_critical {
-  background: url("~@/assets/images/animated/weapon_special_critical.gif") no-repeat;
+  background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_special_critical.gif") no-repeat;
   width: 90px;
   height: 90px;
   margin-left:-12px;
@@ -95,32 +95,32 @@
 }
 
 .head_special_0 {
-  background: url("~@/assets/images/animated/BackerOnly-Equip-ShadeHelmet.gif") no-repeat;
+  background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/BackerOnly-Equip-ShadeHelmet.gif") no-repeat;
 }
 .head_special_1 {
-  background: url("~@/assets/images/animated/ContributorOnly-Equip-CrystalHelmet.gif") no-repeat;
+  background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/ContributorOnly-Equip-CrystalHelmet.gif") no-repeat;
   margin-top: 3px;
 }
 
 .broad_armor_special_0,.slim_armor_special_0 {
-  background: url("~@/assets/images/animated/BackerOnly-Equip-ShadeArmor.gif") no-repeat;
+  background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/BackerOnly-Equip-ShadeArmor.gif") no-repeat;
 }
 .broad_armor_special_1,.slim_armor_special_1 {
-  background: url("~@/assets/images/animated/ContributorOnly-Equip-CrystalArmor.gif") no-repeat;
+  background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/ContributorOnly-Equip-CrystalArmor.gif") no-repeat;
 }
 
 .shield_special_0 {
-  background: url("~@/assets/images/animated/BackerOnly-Shield-TormentedSkull.gif") no-repeat;
+  background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/BackerOnly-Shield-TormentedSkull.gif") no-repeat;
 }
 
 .weapon_special_0 {
-  background: url("~@/assets/images/animated/BackerOnly-Weapon-DarkSoulsBlade.gif") no-repeat;
+  background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/BackerOnly-Weapon-DarkSoulsBlade.gif") no-repeat;
 }
 
 .Pet-Wolf-Cerberus {
   width: 105px;
   height: 72px;
-  background: url("~@/assets/images/animated/BackerOnly-Pet-CerberusPup.gif") no-repeat;
+  background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/BackerOnly-Pet-CerberusPup.gif") no-repeat;
 }
 
 .broad_armor_special_ks2019, .slim_armor_special_ks2019, .eyewear_special_ks2019, .head_special_ks2019, .shield_special_ks2019 {
@@ -129,29 +129,29 @@
 }
 
 .broad_armor_special_ks2019, .slim_armor_special_ks2019 {
-  background: url("~@/assets/images/animated/BackerOnly-Equip-MythicGryphonArmor.gif") no-repeat;
+  background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/BackerOnly-Equip-MythicGryphonArmor.gif") no-repeat;
 }
 
 .eyewear_special_ks2019 {
-  background: url("~@/assets/images/animated/BackerOnly-Equip-MythicGryphonVisor.gif") no-repeat;
+  background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/BackerOnly-Equip-MythicGryphonVisor.gif") no-repeat;
 }
 
 .head_special_ks2019 {
-  background: url("~@/assets/images/animated/BackerOnly-Equip-MythicGryphonHelm.gif") no-repeat;
+  background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/BackerOnly-Equip-MythicGryphonHelm.gif") no-repeat;
 }
 
 .shield_special_ks2019 {
-  background: url("~@/assets/images/animated/BackerOnly-Equip-MythicGryphonShield.gif") no-repeat;
+  background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/BackerOnly-Equip-MythicGryphonShield.gif") no-repeat;
 }
 
 .weapon_special_ks2019 {
-  background: url("~@/assets/images/animated/BackerOnly-Equip-MythicGryphonGlaive.gif") no-repeat;
+  background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/BackerOnly-Equip-MythicGryphonGlaive.gif") no-repeat;
   width: 120px;
   height: 120px;
 }
 
 .Pet-Gryphon-Gryphatrice {
-  background: url("~@/assets/images/animated/BackerOnly-Pet-Gryphatrice.gif") no-repeat;
+  background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/BackerOnly-Pet-Gryphatrice.gif") no-repeat;
   width: 81px;
   height: 99px;
 }
@@ -162,11 +162,11 @@
 }
 
 .Mount_Head_Gryphon-Gryphatrice {
-  background: url("~@/assets/images/animated/BackerOnly-Mount-Head-Gryphatrice.gif") no-repeat;
+  background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/BackerOnly-Mount-Head-Gryphatrice.gif") no-repeat;
 }
 
 .Mount_Body_Gryphon-Gryphatrice {
-  background: url("~@/assets/images/animated/BackerOnly-Mount-Body-Gryphatrice.gif") no-repeat;
+  background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/BackerOnly-Mount-Body-Gryphatrice.gif") no-repeat;
 }
 
 .background_airship, .background_clocktower, .background_steamworks {
@@ -175,15 +175,15 @@
 }
 
 .background_airship {
-  background: url("~@/assets/images/animated/background_airship.gif") no-repeat;
+  background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_airship.gif") no-repeat;
 }
 
 .background_clocktower {
-  background: url("~@/assets/images/animated/background_clocktower.gif") no-repeat;
+  background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_clocktower.gif") no-repeat;
 }
 
 .background_steamworks {
-  background: url("~@/assets/images/animated/background_steamworks.gif") no-repeat;
+  background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_steamworks.gif") no-repeat;
 }
 
 /* FIXME figure out how to handle customize menu!!
