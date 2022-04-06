@@ -548,7 +548,7 @@ const wacky = {
     text: t('hatchingPotionVirtualPet'),
     limited: true,
     _addlNotes: t('premiumPotionUnlimitedNotes'),
-    canBuy: hasQuestAchievementFunction('virtualPet'),
+    canBuy: hasQuestAchievementFunction('virtualpet'),
   },
 };
 
