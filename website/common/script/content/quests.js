@@ -3876,7 +3876,7 @@ const quests = {
       unlock: t('questOnyxUnlockText'),
     },
   },
-  virtualPet: {
+  virtualpet: {
     text: t('questVirtualPetText'),
     notes: t('questVirtualPetNotes'),
     completion: t('questVirtualPetCompletion'),
