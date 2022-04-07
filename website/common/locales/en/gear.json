@@ -1326,7 +1326,9 @@
   "armorArmoireSoftVioletSuitText": "Soft Violet Suit",
   "armorArmoireSoftVioletSuitNotes": "Purple is a luxurious color. Relax in style after you’ve accomplished all your daily tasks. Increases Constitution and Strength by <%= attrs %> each. Enchanted Armoire: Violet Loungewear Set (Item 2 of 3).",
   "armorArmoireGardenersOverallsText": "Gardener's Overalls",
-   "armorArmoireGardenersOverallsNotes": "Don’t be afraid to work down in the dirt when you’re wearing these durable overalls. Increases Constitution by <%= con %>. Enchanted Armoire: Gardener Set (Item 1 of 4).",
+  "armorArmoireGardenersOverallsNotes": "Don’t be afraid to work down in the dirt when you’re wearing these durable overalls. Increases Constitution by <%= con %>. Enchanted Armoire: Gardener Set (Item 1 of 4).",
+  "armorArmoireStrawRaincoatText": "Straw Raincoat",
+  "armorArmoireStrawRaincoatNotes":"This woven straw cape will keep you dry and your armor from rusting while on your quest. Just don’t venture too near a candle! Increases Constitution by <%= con %>. Enchanted Armoire: Straw Raincoat Set (Item 1 of 2).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -2044,7 +2046,9 @@
   "headArmoireShootingStarCrownText": "Star Crown",
   "headArmoireShootingStarCrownNotes": "With this brightly shining headpiece, you will literally be the star of your own adventure! Increases Perception by <%= per %>. Enchanted Armoire: Stardust Set (Item 1 of 3).",
   "headArmoireGardenersSunHatText": "Gardener's Sun Hat",
- "headArmoireGardenersSunHatNotes": "The bright light of the day star won’t shine in your eyes when you wear this wide-brimmed hat. Increases Perception by <%= per %>. Enchanted Armoire: Gardener Set (Item 2 of 4).",
+  "headArmoireGardenersSunHatNotes": "The bright light of the day star won’t shine in your eyes when you wear this wide-brimmed hat. Increases Perception by <%= per %>. Enchanted Armoire: Gardener Set (Item 2 of 4).",
+  "headArmoireStrawRainHatText": "Straw Rain Hat",
+  "headArmoireStrawRainHatNotes": "You’ll be able to spot every obstacle in your path when you wear this water-resistant, conical hat. Increases Perception by <%= per %>. Enchanted Armoire: Straw Raincoat Set (Item 2 of 2).",
 
   "offhand": "off-hand item",
   "offHandCapitalized": "Off-Hand Item",

@@ -135,5 +135,8 @@
     "gemsRemaining": "gems remaining",
     "notEnoughGemsToBuy": "You are unable to buy that amount of gems",
     "mysterySet201902": "סט קריפטיק קראש",
-    "mysterySet201903": "סט ביצה טעימה"
+    "mysterySet201903": "סט ביצה טעימה",
+    "organization": "ארגון",
+    "giftASubscription": "הענקת מינוי במתנה",
+    "viewSubscriptions": "הצגת המינויים"
 }
