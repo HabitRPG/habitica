@@ -382,8 +382,12 @@ schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
     timezoneUtcOffsetFromUserPrefs = timezoneUtcOffsetFromBrowser;
   }
 
+  let lastCronTime = this.lastCron;
+  if (this.auth.timestamps.loggedIn < lastCronTime) {
+    lastCronTime = this.auth.timestamps.loggedIn;
+  }
   // How many days have we missed using the user's current timezone:
-  let daysMissed = daysSince(this.lastCron, defaults({ now }, this.preferences));
+  let daysMissed = daysSince(lastCronTime, defaults({ now }, this.preferences));
 
   if (timezoneUtcOffsetAtLastCron !== timezoneUtcOffsetFromUserPrefs) {
     // Give the user extra time based on the difference in timezones
@@ -395,7 +399,7 @@ schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
     // Since cron last ran, the user's timezone has changed.
     // How many days have we missed using the old timezone:
     const daysMissedNewZone = daysMissed;
-    const daysMissedOldZone = daysSince(this.lastCron, defaults({
+    const daysMissedOldZone = daysSince(lastCronTime, defaults({
       now,
       timezoneUtcOffsetOverride: timezoneUtcOffsetAtLastCron,
     }, this.preferences));
@@ -435,7 +439,7 @@ schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
         const timezoneOffsetDiff = timezoneUtcOffsetFromUserPrefs - timezoneUtcOffsetAtLastCron;
         // e.g., for dangerous zone change: -300 - -240 = -60 or 600 - 660= -60
 
-        this.lastCron = moment(this.lastCron).subtract(timezoneOffsetDiff, 'minutes');
+        this.lastCron = moment(lastCronTime).subtract(timezoneOffsetDiff, 'minutes');
         // NB: We don't change this.auth.timestamps.loggedin so that will still record
         // the time that the previous cron actually ran.
         // From now on we can ignore the old timezone:

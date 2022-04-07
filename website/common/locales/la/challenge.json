@@ -100,5 +100,9 @@
     "viewProgress": "View Progress",
     "selectMember": "Elige Sodalem",
     "confirmKeepChallengeTasks": "Do you want to keep challenge tasks?",
-    "selectParticipant": "Eligo Participantem"
+    "selectParticipant": "Eligo Participantem",
+    "wonChallengeDesc": "Provocationis <%= challengeName %> victor es! Victoria in Rerum Perfectarum inscripta est.",
+    "filters": "Cola",
+    "yourReward": "Praemium tuum",
+    "removeTasks": "Munera aufer"
 }

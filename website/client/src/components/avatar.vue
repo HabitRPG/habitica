@@ -79,7 +79,6 @@
         ></span>
         <!-- Pet-->
         <span
-          v-if="member.items.currentPet"
           class="current-pet"
           :class="petClass"
         ></span>
@@ -131,10 +130,12 @@
 import some from 'lodash/some';
 import moment from 'moment';
 import { mapState } from '@/libs/store';
+import foolPet from '../mixins/foolPet';
 
 import ClassBadge from '@/components/members/classBadge';
 
 export default {
+  mixins: [foolPet],
   components: {
     ClassBadge,
   },
@@ -243,11 +244,12 @@ export default {
     petClass () {
       if (some(
         this.currentEventList,
-        event => moment().isBetween(event.start, event.end) && event.aprilFools && event.aprilFools === 'invert',
+        event => moment().isBetween(event.start, event.end) && event.aprilFools && event.aprilFools === 'virtual',
       )) {
-        return `Pet-${this.member.items.currentPet} invert`;
+        return this.foolPet(this.member.items.currentPet);
       }
-      return `Pet-${this.member.items.currentPet}`;
+      if (this.member.items.currentPet) return `Pet-${this.member.items.currentPet}`;
+      return '';
     },
   },
   methods: {
