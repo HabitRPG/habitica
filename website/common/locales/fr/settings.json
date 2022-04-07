@@ -209,5 +209,6 @@
     "transaction_create_challenge": "Créé un défi",
     "transaction_change_class": "Changé de classe",
     "transaction_rebirth": "Utilisé l'orbe de résurrection",
-    "transaction_release_pets": "Libéré les familiers"
+    "transaction_release_pets": "Libéré les familiers",
+    "addPasswordAuth": "Ajouter le mot de passe"
 }
