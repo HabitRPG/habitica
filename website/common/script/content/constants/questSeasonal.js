@@ -1,6 +1,6 @@
 import find from 'lodash/find';
 import moment from 'moment';
-import EVENTS from 'events';
+import { EVENTS } from './events';
 import t from '../translation';
 
 const CURRENT_EVENT = find(
@@ -33,6 +33,9 @@ const QUEST_SEASONAL = {
       gp: 20,
       exp: 100,
     },
+    canBuy () {
+      return this.event && moment().isBetween(this.event.start, this.event.end);
+    },
   },
   evilsanta2: {
     event: CURRENT_EVENT && CURRENT_EVENT.season === 'winter' ? CURRENT_EVENT : null,
@@ -62,6 +65,9 @@ const QUEST_SEASONAL = {
       ],
       gp: 20,
       exp: 100,
+    },
+    canBuy () {
+      return this.event && moment().isBetween(this.event.start, this.event.end);
     },
   },
   // spring
@@ -125,6 +131,9 @@ const QUEST_SEASONAL = {
       gp: 0,
       exp: 0,
     },
+    canBuy () {
+      return this.event && moment().isBetween(this.event.start, this.event.end);
+    },
   },
   waffle: {
     text: t('questWaffleText'),
@@ -164,6 +173,9 @@ const QUEST_SEASONAL = {
       gp: 40,
       exp: 500,
       unlock: t('questWaffleUnlockText'),
+    },
+    canBuy () {
+      return this.event && moment().isBetween(this.event.start, this.event.end);
     },
   },
 };
