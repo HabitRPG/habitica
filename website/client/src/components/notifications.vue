@@ -567,7 +567,7 @@ export default {
             this.showNotificationWithModal(notification, {
               achievement: true,
               modalId: notification.data.modalId || 'generic-achievement',
-              label: $t => `${$t('achievement')}: ${$t(achievementTitleKey)}`;
+              label: $t => `${$t('achievement')}: ${$t(achievementTitleKey)}`,
               data: {
                 message: $t => $t('achievement'),
                 modalText: $t => $t(achievementTitleKey);
