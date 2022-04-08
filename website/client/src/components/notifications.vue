@@ -570,7 +570,7 @@ export default {
               label: $t => `${$t('achievement')}: ${$t(achievementTitleKey)}`,
               data: {
                 message: $t => $t('achievement'),
-                modalText: $t => $t(achievementTitleKey);
+                modalText: $t => $t(achievementTitleKey),
               },
             });
 
