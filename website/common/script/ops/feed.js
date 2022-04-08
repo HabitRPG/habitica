@@ -129,7 +129,7 @@ export default function feed (user, req = {}, analytics) {
         user.achievements[achievement.mountAchievement] = true;
         if (user.addNotification) {
           const achievementString = `achievement${upperFirst(achievement.mountAchievement)}`;
-          user.addNotification(achievement.mountNotificationType, {
+          user.addNotification('ACHIEVEMENT', {
             label: `${'achievement'}: ${achievementString}`,
             achievement: achievement.mountAchievement,
             message: `${i18n.t('modalAchievement')} ${i18n.t(achievementString)}`,

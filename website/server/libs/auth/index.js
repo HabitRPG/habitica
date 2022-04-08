@@ -52,7 +52,7 @@ async function _handleGroupInvitation (user, invite) {
     inviter = await User.findById(inviter);
     if (!inviter.achievements.invitedFriend) {
       inviter.achievements.invitedFriend = true;
-      inviter.addNotification('ACHIEVEMENT_INVITED_FRIEND');
+      inviter.addNotification('ACHIEVEMENT');
       await inviter.save();
     }
   } catch (err) {

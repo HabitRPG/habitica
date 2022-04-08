@@ -20,7 +20,7 @@ const TASK_KEYS_TO_REMOVE = [
 export function addUserJoinChallengeNotification (user) {
   if (user.achievements.joinedChallenge) return;
   user.achievements.joinedChallenge = true;
-  user.addNotification('ACHIEVEMENT_CHALLENGE_JOINED');
+  user.addNotification('ACHIEVEMENT');
 }
 
 export function getChallengeGroupResponse (group) {

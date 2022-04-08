@@ -300,7 +300,7 @@ export default function scoreTask (options = {}, req = {}, analytics) {
         // Give a streak achievement when the streak is a multiple of 21
         if (task.streak !== 0 && task.streak % 21 === 0) {
           user.achievements.streak = user.achievements.streak ? user.achievements.streak + 1 : 1;
-          if (user.addNotification) user.addNotification('ACHIEVEMENT_STREAK');
+          if (user.addNotification) user.addNotification('ACHIEVEMENT');
         }
         task.completed = true;
 

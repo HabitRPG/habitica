@@ -14,7 +14,7 @@ describe('shared.fns.ultimateGear', () => {
     user.addNotification = sinon.spy();
   });
 
-  it('sets armoirEnabled when partial achievement already achieved', () => {
+  it('sets armoireEnabled when partial achievement already achieved', () => {
     const items = {
       gear: {
         owned: {
@@ -33,7 +33,7 @@ describe('shared.fns.ultimateGear', () => {
 
     expect(user.flags.armoireEnabled).to.equal(true);
     expect(user.addNotification).to.be.calledOnce;
-    expect(user.addNotification).to.be.calledWith('ACHIEVEMENT_ULTIMATE_GEAR');
+    expect(user.addNotification).to.be.calledWith('ACHIEVEMENT');
   });
 
   it('does not set armoireEnabled when gear is not owned', () => {

@@ -142,125 +142,6 @@ import onboardingComplete from './achievements/onboardingComplete';
 import verifyUsername from './settings/verifyUsername';
 import firstDrops from './achievements/firstDrops';
 
-const NOTIFICATIONS = {
-  // general notifications
-  NEW_CONTRIBUTOR_LEVEL: {
-    achievement: true,
-    label: $t => $t('modalContribAchievement'),
-    modalId: 'contributor',
-    sticky: true,
-  },
-  // achievement notifications
-  ACHIEVEMENT: { // data filled in handleUserNotifications
-    achievement: true,
-    modalId: 'generic-achievement',
-    label: null, // data filled in handleUserNotifications
-    data: {
-      message: $t => $t('achievement'),
-      modalText: null, // data filled in handleUserNotifications
-    },
-  },
-  ACHIEVEMENT_CHALLENGE_JOINED: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('joinedChallenge')}`,
-    modalId: 'joined-challenge',
-  },
-  ACHIEVEMENT_GUILD_JOINED: {
-    label: $t => `${$t('achievement')}: ${$t('joinedGuild')}`,
-    achievement: true,
-    modalId: 'joined-guild',
-  },
-  ACHIEVEMENT_INVITED_FRIEND: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('invitedFriend')}`,
-    modalId: 'invited-friend',
-  },
-  ACHIEVEMENT_PARTY_ON: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementPartyOn')}`,
-    modalId: 'generic-achievement',
-    data: {
-      message: $t => $t('achievement'),
-      modalText: $t => $t('achievementPartyOn'),
-      achievement: 'partyOn',
-    },
-  },
-  ACHIEVEMENT_PARTY_UP: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementPartyUp')}`,
-    modalId: 'generic-achievement',
-    data: {
-      message: $t => $t('achievement'),
-      modalText: $t => $t('achievementPartyUp'),
-      achievement: 'partyUp',
-    },
-  },
-  ACHIEVEMENT_ULTIMATE_GEAR: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('gearAchievementNotification')}`,
-    modalId: 'ultimate-gear',
-  },
-  // stable achievements
-  ACHIEVEMENT_STABLE: {
-    achievement: true,
-    modalId: 'generic-achievement',
-    data: {
-      achievement: 'stableAchievs', // defined in website/common/script/content/achievements.js
-    },
-  },
-  // quest achievements
-  ACHIEVEMENT_QUESTS: {
-    achievement: true,
-    // label: $t => `${$t('achievement')}: ${$t('achievementQuestSeries')}`,
-    modalId: 'generic-achievement',
-    data: {
-      achievement: 'questSeriesAchievs', // defined in website/common/script/content/achievements.js
-    },
-  },
-  // animal set collection achievements
-  ACHIEVEMENT_ANIMAL_SET: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementAnimalSet')}`,
-    modalId: 'generic-achievement',
-    data: {
-      achievement: 'animalSetAchievs', // defined in website/common/script/content/achievements.js
-    },
-  },
-  // pet and mount color collection achievement noticfications
-  ACHIEVEMENT_PET_COLOR: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementPetColor')}`,
-    modalId: 'generic-achievement',
-    data: {
-      achievement: 'petColorAchievs', // defined in website/common/script/content/achievements.js
-    },
-  },
-  ACHIEVEMENT_MOUNT_COLOR: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementMountColor')}`,
-    modalId: 'generic-achievement',
-    data: {
-      achievement: 'mountColorAchievs', // defined in website/common/script/content/achievements.js
-    },
-  },
-  ACHIEVEMENT_ZODIAC_ZOOKEEPER: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementZodiacZookeeper')}`,
-    modalId: 'generic-achievement',
-    data: {
-      achievement: 'zodiacZookeeper',
-    },
-  },
-  ACHIEVEMENT_BIRDS_OF_A_FEATHER: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementBirdsOfAFeather')}`,
-    modalId: 'generic-achievement',
-    data: {
-      achievement: 'birdsOfAFeather',
-    },
-  },
-};
-
 export default {
   components: {
     yesterdailyModal,
@@ -306,7 +187,7 @@ export default {
     const handledNotifications = {};
 
     [
-      // general notifications
+      'ACHIEVEMENT',
       'CRON',
       'FIRST_DROPS',
       'GUILD_PROMPT',
@@ -315,26 +196,6 @@ export default {
       'ONBOARDING_COMPLETE',
       'REBIRTH_ENABLED',
       'WON_CHALLENGE',
-      // achievement notifications
-      'ACHIEVEMENT',
-      'GENERIC_ACHIEVEMENT', // what's the different between this and 'ACHIEVEMENT'?
-      'ACHIEVEMENT_CHALLENGE_JOINED',
-      'ACHIEVEMENT_GUILD_JOINED',
-      'ACHIEVEMENT_INVITED_FRIEND',
-      'ACHIEVEMENT_PARTY_ON',
-      'ACHIEVEMENT_PARTY_UP',
-      'ACHIEVEMENT_REBIRTH',
-      'ACHIEVEMENT_STREAK',
-      'ACHIEVEMENT_ULTIMATE_GEAR',
-      // stable achievement notifications
-      'ACHIEVEMENT_STABLE',
-      // quest series notifications
-      'ACHIEVEMENT_QUESTS',
-      // animal set achievements
-      'ACHIEVEMENT_ANIMAL_SET',
-      // pet and mount color collection achievement notifications
-      'ACHIEVEMENT_PET_COLOR',
-      'ACHIEVEMENT_MOUNT_COLOR',
     ].forEach(type => {
       handledNotifications[type] = true;
     });
@@ -482,9 +343,7 @@ export default {
       this.playSound('Death');
       this.$root.$emit('bv::show::modal', 'death');
     },
-    showNotificationWithModal (notification, forceToModal) {
-      const config = NOTIFICATIONS[notification.type];
-
+    showNotificationWithModal (notification, config) {
       if (!config) {
         return;
       }
@@ -510,14 +369,11 @@ export default {
       }
 
       this.notificationData = data;
-      if (forceToModal) {
+
+      this.text(config.label(this.$t), () => {
+        this.notificationData = data;
         this.$root.$emit('bv::show::modal', config.modalId);
-      } else {
-        this.text(config.label(this.$t), () => {
-          this.notificationData = data;
-          this.$root.$emit('bv::show::modal', config.modalId);
-        }, !config.sticky, 10000);
-      }
+      }, !config.sticky, 10000);
     },
     debounceCheckUserAchievements: debounce(function debounceCheck () {
       this.checkUserAchievements();
@@ -704,6 +560,28 @@ export default {
 
         // @TODO: Use factory function instead
         switch (notification.type) { // eslint-disable-line default-case
+          case 'ACHIEVEMENT': {
+            const { achievement } = notification.data;
+            const upperCaseAchievement = achievement.charAt(0).toUpperCase() + achievement.slice(1);
+            const achievementTitleKey = `achievement${upperCaseAchievement}`;
+            this.showNotificationWithModal(notification, {
+              achievement: true,
+              modalId: notification.data.modalId || 'generic-achievement',
+              label: $t => `${$t('achievement')}: ${$t(achievementTitleKey)}`;
+              data: {
+                message: $t => $t('achievement'),
+                modalText: $t => $t(achievementTitleKey);
+              },
+            });
+
+            // Set the achievement as it's not defined in the user schema
+            Vue.set(this.user.achievements, achievement, true);
+            break;
+          }
+          case 'CRON':
+            // Not needed because it's shown already by the userHp and userMp watchers
+            // Keeping an empty block so that it gets read
+            break;
           case 'FIRST_DROPS':
             if (notification.data) {
               this.$store.state.firstDropsOptions.egg = notification.data.egg;
@@ -719,96 +597,19 @@ export default {
               this.$root.$emit('bv::show::modal', 'testingletiant');
             }
             break;
-          case 'REBIRTH_ENABLED':
-            this.$root.$emit('bv::show::modal', 'rebirth-enabled');
-            break;
-          case 'WON_CHALLENGE':
-            this.$root.$emit('habitica:won-challenge', notification);
-            break;
-          case 'ACHIEVEMENT_REBIRTH':
-            this.playSound('Achievement_Unlocked');
-            this.$root.$emit('bv::show::modal', 'rebirth');
-            break;
-          case 'ACHIEVEMENT_STREAK':
-            this.text(`${this.$t('streaks')}: ${this.user.achievements.streak}`, () => {
-              this.$root.$emit('bv::show::modal', 'streak');
-            }, this.user.preferences.suppressModals.streak);
-            this.playSound('Achievement_Unlocked');
-            break;
-          case 'NEW_CONTRIBUTOR_LEVEL':
-          case 'ACHIEVEMENT_CHALLENGE_JOINED':
-          case 'ACHIEVEMENT_GUILD_JOINED':
-          case 'ACHIEVEMENT_INVITED_FRIEND':
-          case 'ACHIEVEMENT_PARTY_ON':
-          case 'ACHIEVEMENT_PARTY_UP':
-          case 'ACHIEVEMENT_ULTIMATE_GEAR':
-          case 'GENERIC_ACHIEVEMENT':
-            this.showNotificationWithModal(notification);
-            break;
-          case 'ACHIEVEMENT_QUESTS': {
-            const { achievement } = notification.data;
-            const upperCaseAchievement = achievement.charAt(0).toUpperCase() + achievement.slice(1);
-            const achievementTitleKey = `achievement${upperCaseAchievement}`;
-            NOTIFICATIONS.ACHIEVEMENT_QUESTS.label = $t => `${$t('achievement')}: ${$t(achievementTitleKey)}`;
-            this.showNotificationWithModal(notification);
-            Vue.set(this.user.achievements, achievement, true);
-            break;
-          }
-          case 'ACHIEVEMENT_STABLE': {
-            const { achievement, achievementNotification } = notification.data;
-            NOTIFICATIONS.ACHIEVEMENT_STABLE.label = $t => `${$t('achievement')}: ${$t(achievementNotification)}`;
-            this.showNotificationWithModal(notification);
-            Vue.set(this.user.achievements, achievement, true);
-            break;
-          }
-          case 'ACHIEVEMENT_ANIMAL_SET': {
-            const { achievement } = notification.data;
-            const upperCaseAchievement = achievement.charAt(0).toUpperCase() + achievement.slice(1);
-            const achievementTitleKey = `achievement${upperCaseAchievement}`;
-            NOTIFICATIONS.ACHIEVEMENT_ANIMAL_SET.label = $t => `${$t('achievement')}: ${$t(achievementTitleKey)}`;
-            this.showNotificationWithModal(notification);
-            Vue.set(this.user.achievements, achievement, true);
-            break;
-          }
-          case 'ACHIEVEMENT_PET_COLOR': {
-            const { achievement } = notification.data;
-            const upperCaseAchievement = achievement.charAt(0).toUpperCase() + achievement.slice(1);
-            const achievementTitleKey = `achievement${upperCaseAchievement}`;
-            NOTIFICATIONS.ACHIEVEMENT_PET_COLOR.label = $t => `${$t('achievement')}: ${$t(achievementTitleKey)}`;
-            this.showNotificationWithModal(notification);
-            Vue.set(this.user.achievements, achievement, true);
-            break;
-          }
-          case 'ACHIEVEMENT_MOUNT_COLOR': {
-            const { achievement } = notification.data;
-            const upperCaseAchievement = achievement.charAt(0).toUpperCase() + achievement.slice(1);
-            const achievementTitleKey = `achievement${upperCaseAchievement}`;
-            NOTIFICATIONS.ACHIEVEMENT_MOUNT_COLOR.label = $t => `${$t('achievement')}: ${$t(achievementTitleKey)}`;
-            this.showNotificationWithModal(notification);
-            Vue.set(this.user.achievements, achievement, true);
-            break;
-          }
-          case 'ACHIEVEMENT': { // generic achievement
-            const { achievement } = notification.data;
-            const upperCaseAchievement = achievement.charAt(0).toUpperCase() + achievement.slice(1);
-            const achievementTitleKey = `achievement${upperCaseAchievement}`;
-            NOTIFICATIONS.ACHIEVEMENT.label = $t => `${$t('achievement')}: ${$t(achievementTitleKey)}`;
-            NOTIFICATIONS.ACHIEVEMENT.data.modalText = $t => $t(achievementTitleKey);
-            this.showNotificationWithModal(notification);
-
-            // Set the achievement as it's not defined in the user schema
-            Vue.set(this.user.achievements, achievement, true);
-            break;
-          }
-          case 'CRON':
-            // Not needed because it's shown already by the userHp and userMp watchers
-            // Keeping an empty block so that it gets read
-            break;
           case 'LOGIN_INCENTIVE':
             if (this.user.flags.tour.intro === this.TOUR_END && this.user.flags.welcomed) {
               this.notificationData = notification.data;
               this.$root.$emit('bv::show::modal', 'login-incentives');
             }
+            break;
+          case 'NEW_CONTRIBUTOR_LEVEL':
+            this.showNotificationWithModal(notification, {
+              achievement: true,
+              label: $t => $t('modalContribAchievement'),
+              modalId: 'contributor',
+              sticky: true,
+            });
             break;
           case 'ONBOARDING_COMPLETE':
             // Award rewards
@@ -823,6 +624,12 @@ export default {
               // Otherwise use the modal
               this.$root.$emit('bv::show::modal', 'onboarding-complete');
             }
+            break;
+          case 'REBIRTH_ENABLED':
+            this.$root.$emit('bv::show::modal', 'rebirth-enabled');
+            break;
+          case 'WON_CHALLENGE':
+            this.$root.$emit('habitica:won-challenge', notification);
             break;
         }
 

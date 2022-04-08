@@ -34,59 +34,50 @@ const NOTIFICATION_TYPES = [
   'WON_CHALLENGE',
   // achievement notifications
   'ACHIEVEMENT', // generic achievement notification, details inside `notification.data`
-  'ACHIEVEMENT_CHALLENGE_JOINED',
-  'ACHIEVEMENT_GUILD_JOINED',
-  'ACHIEVEMENT_PARTY_ON',
-  'ACHIEVEMENT_PARTY_UP',
-  'ACHIEVEMENT_INVITED_FRIEND',
-  'ACHIEVEMENT_REBIRTH',
-  'ACHIEVEMENT_STREAK',
-  'ACHIEVEMENT_ULTIMATE_GEAR',
-  // stable achievements
-  'ACHIEVEMENT_STABLE',
-  // quest achievements
-  'ACHIEVEMENT_QUESTS',
-  // animal set achievements
-  'ACHIEVEMENT_ANIMAL_SET',
-  // pet and mount color collection achievement notifications
-  'ACHIEVEMENT_PET_COLOR',
-  'ACHIEVEMENT_MOUNT_COLOR',
+  'ACHIEVEMENT_ALL_THAT_GLITTERS', // deprecated
   'ACHIEVEMENT_ALL_YOUR_BASE', // deprecated
-  'ACHIEVEMENT_BACK_TO_BASICS', // deprecated
-  'ACHIEVEMENT_JUST_ADD_WATER', // deprecated
-  'ACHIEVEMENT_LOST_MASTERCLASSER', // deprecated
-  'ACHIEVEMENT_MIND_OVER_MATTER', // deprecated
-  'ACHIEVEMENT_DUST_DEVIL', // deprecated
   'ACHIEVEMENT_ARID_AUTHORITY', // deprecated
-  'ACHIEVEMENT_PARTY_UP', // deprecated
-  'ACHIEVEMENT_PARTY_ON', // deprecated
-  'ACHIEVEMENT_BEAST_MASTER', // deprecated
-  'ACHIEVEMENT_MOUNT_MASTER', // deprecated
-  'ACHIEVEMENT_TRIAD_BINGO', // deprecated
-  'ACHIEVEMENT_MONSTER_MAGUS', // deprecated
-  'ACHIEVEMENT_UNDEAD_UNDERTAKER', // deprecated
-  'ACHIEVEMENT_PRIMED_FOR_PAINTING', // deprecated
-  'ACHIEVEMENT_PEARLY_PRO', // deprecated
-  'ACHIEVEMENT_TICKLED_PINK', // deprecated
-  'ACHIEVEMENT_ROSY_OUTLOOK', // deprecated
-  'ACHIEVEMENT_BUG_BONANZA', // deprecated
+  'ACHIEVEMENT_BACK_TO_BASICS', // deprecated
   'ACHIEVEMENT_BARE_NECESSITIES', // deprecated
+  'ACHIEVEMENT_BEAST_MASTER', // deprecated
+  'ACHIEVEMENT_BIRDS_OF_A_FEATHER', // deprecated
+  'ACHIEVEMENT_BONE_COLLECTOR', // deprecated
+  'ACHIEVEMENT_BUG_BONANZA', // deprecated
+  'CHALLENGE_JOINED_ACHIEVEMENT', // deprecated
+  'ACHIEVEMENT_DOMESTICATED', // deprecated
+  'ACHIEVEMENT_DUST_DEVIL', // deprecated
   'ACHIEVEMENT_FRESHWATER_FRIENDS', // deprecated
   'ACHIEVEMENT_GOOD_AS_GOLD', // deprecated
-  'ACHIEVEMENT_ALL_THAT_GLITTERS', // deprecated
-  'ACHIEVEMENT_BONE_COLLECTOR', // deprecated
-  'ACHIEVEMENT_SKELETON_CREW', // deprecated
-  'ACHIEVEMENT_SEEING_RED', // deprecated
-  'ACHIEVEMENT_RED_LETTER_DAY', // deprecated
+  'GUILD_JOINED_ACHIEVEMENT', // deprecated
+  'INVITED_FRIEND_ACHIEVEMENT', // deprecated
+  'ACHIEVEMENT_JUST_ADD_WATER', // deprecated
   'ACHIEVEMENT_LEGENDARY_BESTIARY', // deprecated
+  'ACHIEVEMENT_LOST_MASTERCLASSER', // deprecated
+  'ACHIEVEMENT_MIND_OVER_MATTER', // deprecated
+  'ACHIEVEMENT_MONSTER_MAGUS', // deprecated
+  'ACHIEVEMENT_MOUNT_MASTER', // deprecated
+  'ACHIEVEMENT_PARTY_ON', // deprecated
+  'ACHIEVEMENT_PARTY_ON', // deprecated
+  'ACHIEVEMENT_PARTY_UP', // deprecated
+  'ACHIEVEMENT_PARTY_UP', // deprecated
+  'ACHIEVEMENT_PEARLY_PRO', // deprecated
+  'ACHIEVEMENT_PRIMED_FOR_PAINTING', // deprecated
+  'REBIRTH_ACHIEVEMENT', // deprecated
+  'ACHIEVEMENT_RED_LETTER_DAY', // deprecated
+  'ACHIEVEMENT_ROSY_OUTLOOK', // deprecated
   'ACHIEVEMENT_SEASONAL_SPECIALIST', // deprecated
+  'ACHIEVEMENT_SEEING_RED', // deprecated
+  'ACHIEVEMENT_SHADE_OF_IT_ALL', // deprecated
+  'ACHIEVEMENT_SHADY_CUSTOMER', // deprecated
+  'ACHIEVEMENT_SKELETON_CREW', // deprecated
+  'STREAK_ACHIEVEMENT', // deprecated
+  'ACHIEVEMENT_TICKLED_PINK', // deprecated
+  'ACHIEVEMENT_TRIAD_BINGO', // deprecated
+  'ULTIMATE_GEAR_ACHIEVEMENT', // deprecated
+  'ACHIEVEMENT_UNDEAD_UNDERTAKER', // deprecated
   'ACHIEVEMENT_VIOLETS_ARE_BLUE', // deprecated
   'ACHIEVEMENT_WILD_BLUE_YONDER', // deprecated
-  'ACHIEVEMENT_DOMESTICATED', // deprecated
-  'ACHIEVEMENT_SHADY_CUSTOMER', // deprecated
-  'ACHIEVEMENT_SHADE_OF_IT_ALL', // deprecated
   'ACHIEVEMENT_ZODIAC_ZOOKEEPER', // deprecated
-  'ACHIEVEMENT_BIRDS_OF_A_FEATHER', // deprecated
 ];
 
 const { Schema } = mongoose;

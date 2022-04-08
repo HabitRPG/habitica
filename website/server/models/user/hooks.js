@@ -259,7 +259,7 @@ schema.pre('save', true, function preSaveUser (next, done) {
     ) {
       this.achievements.beastMaster = true;
       this.addNotification(
-        'ACHIEVEMENT_STABLE',
+        'ACHIEVEMENT',
         {
           achievement: 'beastMaster',
           achievementNotification: 'beastAchievement',
@@ -276,7 +276,7 @@ schema.pre('save', true, function preSaveUser (next, done) {
     ) {
       this.achievements.mountMaster = true;
       this.addNotification(
-        'ACHIEVEMENT_STABLE',
+        'ACHIEVEMENT',
         {
           achievement: 'mountMaster',
           achievementNotification: 'mountAchievement',
@@ -294,7 +294,7 @@ schema.pre('save', true, function preSaveUser (next, done) {
     ) {
       this.achievements.triadBingo = true;
       this.addNotification(
-        'ACHIEVEMENT_STABLE',
+        'ACHIEVEMENT',
         {
           achievement: 'triadBingo',
           achievementNotification: 'triadBingoAchievement',

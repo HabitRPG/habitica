@@ -128,7 +128,7 @@ api.createGroup = {
       user.guilds.push(group._id);
       if (!user.achievements.joinedGuild) {
         user.achievements.joinedGuild = true;
-        user.addNotification('ACHIEVEMENT_GUILD_JOINED');
+        user.addNotification('ACHIEVEMENT');
       }
     } else {
       if (group.privacy !== 'private') throw new NotAuthorized(res.t('partyMustbePrivate'));
@@ -599,7 +599,7 @@ api.joinGroup = {
       user.guilds.push(group._id); // Add group to user's guilds
       if (!user.achievements.joinedGuild) {
         user.achievements.joinedGuild = true;
-        user.addNotification('ACHIEVEMENT_GUILD_JOINED');
+        user.addNotification('ACHIEVEMENT');
       }
     }
     if (!isUserInvited) throw new NotAuthorized(res.t('messageGroupRequiresInvite'));
@@ -646,7 +646,7 @@ api.joinGroup = {
 
     if (group.type === 'party' && inviter) {
       if (group.memberCount > 1) {
-        const notification = new UserNotification({ type: 'ACHIEVEMENT_PARTY_UP' });
+        const notification = new UserNotification({ type: 'ACHIEVEMENT' });
 
         promises.push(User.update(
           {
@@ -664,13 +664,13 @@ api.joinGroup = {
         if (inviter) {
           if (inviter.achievements.partyUp !== true) {
             inviter.achievements.partyUp = true;
-            inviter.addNotification('ACHIEVEMENT_PARTY_UP');
+            inviter.addNotification('ACHIEVEMENT');
           }
         }
       }
 
       if (group.memberCount > 3) {
-        const notification = new UserNotification({ type: 'ACHIEVEMENT_PARTY_ON' });
+        const notification = new UserNotification({ type: 'ACHIEVEMENT' });
 
         promises.push(User.update(
           {
@@ -688,7 +688,7 @@ api.joinGroup = {
         if (inviter) {
           if (inviter.achievements.partyOn !== true) {
             inviter.achievements.partyOn = true;
-            inviter.addNotification('ACHIEVEMENT_PARTY_ON');
+            inviter.addNotification('ACHIEVEMENT');
           }
         }
       }

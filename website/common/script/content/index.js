@@ -9,13 +9,13 @@ import {
   CLASSES,
   GEAR_TYPES,
   ITEM_LIST,
-  QUEST_SERIES_ACHIEVEMENTS,
-  ANIMAL_COLOR_ACHIEVEMENTS,
-  ANIMAL_SET_ACHIEVEMENTS,
-  STABLE_ACHIEVEMENTS,
 } from './constants';
 
-import achievements from './achievements';
+import achievements from './achievements/achievementList';
+import ANIMAL_COLOR_ACHIEVEMENTS from './achievements/animalColors';
+import ANIMAL_SET_ACHIEVEMENTS from './achievements/animalSets';
+import QUEST_SERIES_ACHIEVEMENTS from './achievements/questSeries';
+import STABLE_ACHIEVEMENTS from './achievements/stable';
 
 import * as eggs from './eggs';
 import * as hatchingPotions from './hatching-potions';

@@ -340,9 +340,9 @@ describe('POST /group/:groupId/join', () => {
       await leader.sync();
 
       expect(member).to.have.nested.property('achievements.partyUp', true);
-      expect(member.notifications.find(notification => notification.type === 'ACHIEVEMENT_PARTY_UP')).to.exist;
+      expect(member.notifications.find(notification => notification.type === 'ACHIEVEMENT')).to.exist;
       expect(leader).to.have.nested.property('achievements.partyUp', true);
-      expect(leader.notifications.find(notification => notification.type === 'ACHIEVEMENT_PARTY_UP')).to.exist;
+      expect(leader.notifications.find(notification => notification.type === 'ACHIEVEMENT')).to.exist;
     });
 
     it('does not award Party On achievement to party of size 2', async () => {
@@ -366,9 +366,9 @@ describe('POST /group/:groupId/join', () => {
       await leader.sync();
 
       expect(member).to.have.nested.property('achievements.partyOn', true);
-      expect(member.notifications.find(notification => notification.type === 'ACHIEVEMENT_PARTY_ON')).to.exist;
+      expect(member.notifications.find(notification => notification.type === 'ACHIEVEMENT')).to.exist;
       expect(leader).to.have.nested.property('achievements.partyOn', true);
-      expect(leader.notifications.find(notification => notification.type === 'ACHIEVEMENT_PARTY_ON')).to.exist;
+      expect(leader.notifications.find(notification => notification.type === 'ACHIEVEMENT')).to.exist;
     });
   });
 });

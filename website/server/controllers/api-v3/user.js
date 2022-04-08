@@ -1396,7 +1396,7 @@ api.userRevive = {
  *   },
  *   "message": "You have been reborn!"
  *     {
- *       "type": "ACHIEVEMENT_REBIRTH",
+ *       "type": "ACHIEVEMENT",
  *       "data": {},
  *       "id": "424d69fa-3a6d-47db-96a4-6db42ed77a43"
  *     }
