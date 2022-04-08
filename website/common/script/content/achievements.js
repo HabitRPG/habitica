@@ -297,6 +297,16 @@ const mountColorAchievs = {
     titleKey: 'achievementShadeOfItAll',
     textKey: 'achievementShadeOfItAllText',
   },
+  zodiacZookeeper: {
+    icon: 'achievement-zodiac',
+    titleKey: 'achievementZodiacZookeeper',
+    textKey: 'achievementZodiacZookeeperText',
+  },
+  birdsOfAFeather: {
+    icon: 'achievement-birdsOfAFeather',
+    titleKey: 'achievementBirdsOfAFeather',
+    textKey: 'achievementBirdsOfAFeatherText',
+  },
 };
 Object.assign(achievementsData, mountColorAchievs);
 

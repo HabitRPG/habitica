@@ -113,6 +113,11 @@ export async function removeMember (store, payload) {
   return response;
 }
 
+export async function getPurchaseHistory (store, payload) {
+  const response = await axios.get(`${apiv4Prefix}/members/${payload.memberId}/purchase-history`);
+  return response.data.data;
+}
+
 // export async function selectMember (uid) {
 //   let memberIsReady = _checkIfMemberIsReady(members[uid]);
 //

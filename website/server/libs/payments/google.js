@@ -246,7 +246,7 @@ api.cancelSubscribe = async function cancelSubscribe (user, headers) {
     if (purchases.length === 0) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
     const subscriptionData = purchases[0];
     // Check to make sure the sub isn't active anymore.
-    if (subscriptionData.autoRenews) return;
+    if (subscriptionData.autoRenewing !== false) return;
 
     dateTerminated = new Date(Number(subscriptionData.expirationDate));
   } catch (err) {

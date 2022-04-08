@@ -21,11 +21,7 @@ import * as eggs from './eggs';
 import * as hatchingPotions from './hatching-potions';
 import * as stable from './stable';
 import gear from './gear';
-import {
-  quests,
-  questsByLevel,
-  userCanOwnQuestCategories,
-} from './quests';
+import { quests, questsByLevel, userCanOwnQuestCategories } from './quests';
 
 import appearances from './appearance';
 import { backgroundsTree, backgroundsFlat } from './appearance/backgrounds';
@@ -59,7 +55,23 @@ api.spells = spells;
 api.subscriptionBlocks = subscriptionBlocks;
 api.gems = gemsBlock;
 
-api.audioThemes = ['danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme', 'rosstavoTheme', 'dewinTheme', 'airuTheme', 'beatscribeNesTheme', 'arashiTheme', 'maflTheme', 'pizildenTheme', 'farvoidTheme', 'spacePenguinTheme', 'lunasolTheme', 'triumphTheme'];
+api.audioThemes = [
+  'danielTheBard',
+  'gokulTheme',
+  'luneFoxTheme',
+  'wattsTheme',
+  'rosstavoTheme',
+  'dewinTheme',
+  'airuTheme',
+  'beatscribeNesTheme',
+  'arashiTheme',
+  'maflTheme',
+  'pizildenTheme',
+  'farvoidTheme',
+  'spacePenguinTheme',
+  'lunasolTheme',
+  'triumphTheme',
+];
 
 api.mystery = timeTravelers.mystery;
 api.timeTravelerStore = timeTravelers.timeTravelerStore;
@@ -123,7 +135,7 @@ api.cardTypes = {
   valentine: {
     key: 'valentine',
     messageOptions: 4,
-    yearRound: moment().isBefore('2021-02-28T20:00-05:00'),
+    yearRound: moment().isBefore('2022-02-18T20:00-05:00'),
   },
   birthday: {
     key: 'birthday',
@@ -189,7 +201,7 @@ api.specialMounts = stable.specialMounts;
 api.mountInfo = stable.mountInfo;
 
 // For seasonal events, change this constant:
-const FOOD_SEASON = moment().isBefore('2021-11-02T20:00-04:00') ? 'Candy' : 'Normal';
+const FOOD_SEASON = moment().isBefore('2022-02-02T20:00-05:00') ? 'Cake' : 'Normal';
 
 api.food = {
   Meat: {
@@ -634,7 +646,8 @@ api.userDefaults = {
         t('defaultTag4'), // School
         t('defaultTag6'), // Chores
       ],
-    }, {
+    },
+    {
       type: 'habit',
       text: t('defaultHabit2Text'),
       value: 0,
@@ -644,7 +657,8 @@ api.userDefaults = {
       tags: [
         t('defaultTag3'), // Health + Wellness
       ],
-    }, {
+    },
+    {
       type: 'habit',
       text: t('defaultHabit3Text'),
       value: 0,
@@ -677,17 +691,23 @@ api.userDefaults = {
   tags: [
     {
       name: t('defaultTag1'),
-    }, {
+    },
+    {
       name: t('defaultTag2'),
-    }, {
+    },
+    {
       name: t('defaultTag3'),
-    }, {
+    },
+    {
       name: t('defaultTag4'),
-    }, {
+    },
+    {
       name: t('defaultTag5'),
-    }, {
+    },
+    {
       name: t('defaultTag6'),
-    }, {
+    },
+    {
       name: t('defaultTag7'),
     },
   ],

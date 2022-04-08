@@ -811,6 +811,16 @@ describe('User Model', () => {
       expect(daysMissed).to.eql(5);
     });
 
+    it('correctly handles a cron that did not complete', () => {
+      const now = moment();
+      user.lastCron = moment(now).subtract(2, 'days');
+      user.auth.timestamps.loggedIn = moment(now).subtract(5, 'days');
+
+      const { daysMissed } = user.daysUserHasMissed(now);
+
+      expect(daysMissed).to.eql(5);
+    });
+
     it('uses timezone from preferences to calculate days missed', () => {
       const now = moment('2017-07-08 01:00:00Z');
       user.lastCron = moment('2017-07-04 13:00:00Z');

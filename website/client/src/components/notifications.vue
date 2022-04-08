@@ -243,6 +243,22 @@ const NOTIFICATIONS = {
       achievement: 'mountColorAchievs', // defined in website/common/script/content/achievements.js
     },
   },
+  ACHIEVEMENT_ZODIAC_ZOOKEEPER: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementZodiacZookeeper')}`,
+    modalId: 'generic-achievement',
+    data: {
+      achievement: 'zodiacZookeeper',
+    },
+  },
+  ACHIEVEMENT_BIRDS_OF_A_FEATHER: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementBirdsOfAFeather')}`,
+    modalId: 'generic-achievement',
+    data: {
+      achievement: 'birdsOfAFeather',
+    },
+  },
 };
 
 export default {

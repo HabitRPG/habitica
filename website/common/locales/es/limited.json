@@ -141,7 +141,7 @@
     "dateEndOctober": "31 de octubre",
     "dateEndNovember": "30 de noviembre",
     "dateEndJanuary": "31 de enero",
-    "dateEndFebruary": "29 de febrero",
+    "dateEndFebruary": "28 de febrero",
     "winterPromoGiftHeader": "¡REGALA UNA SUSCRIPCIÓN, RECIBE OTRA GRATIS!",
     "winterPromoGiftDetails1": "Solo hasta el 6 de enero, cuando regales una suscripción a alguien, ¡obtienes la misma suscripción gratis!",
     "winterPromoGiftDetails2": "Por favor, ten en cuenta que si tú o la persona que recibe el regalo ya tenéis una suscripción recurrente, la suscripción regalada solo empezará después de que esa suscripción sea cancelada o haya expirado. ¡Muchas gracias por tu apoyo! <3",
@@ -188,7 +188,7 @@
     "fall2020WraithWarriorSet": "Espectro (Guerrero)",
     "royalPurpleJackolantern": "Calabaza de Halloween púrpura real",
     "novemberYYYY": "Noviembre <%= year %>",
-    "g1g1Limitations": "Este es un evento por tiempo limitado, comenzando el 17 de Diciembre a las 8:00 AM ET (13:00 UTC) y terminando el 7 de Enero a las 8:00 PM ET (1:00 UTC). Esta promoción sólo es válida cuando haces un regalo a otro Habiticano. Si tu o el receptor de tu regalo ya tenéis una suscripción, la suscripción regalada añadirá meses de crédito que sólo se usarán cuando la suscripción actual sea cancelada o expire.",
+    "g1g1Limitations": "Este es un evento por tiempo limitado que comienza el 17 de Diciembre a las 8:00 AM ET (13:00 UTC) y termina el 7 de Enero a las 8:00 PM ET (1:00 UTC). Esta promoción sólo es válida cuando se hace un regalo a otro Habiticano. Si tu o el receptor de tu regalo ya tenéis una suscripción, la suscripción regalada añadirá meses de crédito que sólo se usarán cuando la suscripción actual sea cancelada o expire.",
     "limitations": "Limitaciones",
     "g1g1HowItWorks": "Escribe el nombre de usuario de la cuenta a la que quieres hacerle el regalo. Desde ahí, selecciona la duración de la suscripción que quieres regalar y realiza el pago. Tu cuenta será automaticamente recompensada con el mismo nivel de suscripción que acabas de regalar.",
     "howItWorks": "Cómo funciona",
@@ -211,5 +211,14 @@
     "fall2021BrainEaterMageSet": "Comecerebros (Mago)",
     "fall2021FlameSummonerHealerSet": "Invocador de la llama (Sanador)",
     "fall2021HeadlessWarriorSet": "Acéfalo (Guerrero)",
-    "fall2021OozeRogueSet": "Rezumar (Pícaro)"
+    "fall2021OozeRogueSet": "Rezumar (Pícaro)",
+    "januaryYYYY": "Enero <%= year %>",
+    "winter2022FireworksRogueSet": "Fuegos Artificiales (Pícaro)",
+    "winter2022StockingWarriorSet": "Calcetín (Guerrero)",
+    "winter2022PomegranateMageSet": "Granada (Mago)",
+    "winter2022IceCrystalHealerSet": "Cristal de Hielo (Sanador)",
+    "spring2022MagpieRogueSet": "Urraca (Pícaro)",
+    "spring2022RainstormWarriorSet": "Tempestad (Guerrero)",
+    "spring2022ForsythiaMageSet": "Forsitia (Mago)",
+    "spring2022PeridotHealerSet": "Peridoto (Sanador)"
 }

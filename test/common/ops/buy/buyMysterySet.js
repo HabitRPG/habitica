@@ -35,18 +35,17 @@ describe('shared.ops.buyMysterySet', () => {
 
   context('Mystery Sets', () => {
     context('failure conditions', () => {
-      it('does not grant mystery sets without Mystic Hourglasses', done => {
+      it('does not grant mystery sets without Mystic Hourglasses', async () => {
         try {
-          buyMysterySet(user, { params: { key: '201501' } });
+          await buyMysterySet(user, { params: { key: '201501' } });
         } catch (err) {
           expect(err).to.be.an.instanceof(NotAuthorized);
           expect(err.message).to.eql(i18n.t('notEnoughHourglasses'));
           expect(user.items.gear.owned).to.have.property('weapon_warrior_0', true);
-          done();
         }
       });
 
-      it('does not grant mystery set that has already been purchased', done => {
+      it('does not grant mystery set that has already been purchased', async () => {
         user.purchased.plan.consecutive.trinkets = 1;
         user.items.gear.owned = {
           weapon_warrior_0: true,
@@ -57,30 +56,28 @@ describe('shared.ops.buyMysterySet', () => {
         };
 
         try {
-          buyMysterySet(user, { params: { key: '301404' } });
+          await buyMysterySet(user, { params: { key: '301404' } });
         } catch (err) {
           expect(err).to.be.an.instanceof(NotFound);
           expect(err.message).to.eql(i18n.t('mysterySetNotFound'));
           expect(user.purchased.plan.consecutive.trinkets).to.eql(1);
-          done();
         }
       });
 
-      it('returns error when key is not provided', done => {
+      it('returns error when key is not provided', async () => {
         try {
-          buyMysterySet(user);
+          await buyMysterySet(user);
         } catch (err) {
           expect(err).to.be.an.instanceof(BadRequest);
           expect(err.message).to.equal(errorMessage('missingKeyParam'));
-          done();
         }
       });
     });
 
     context('successful purchases', () => {
-      it('buys Steampunk Accessories Set', () => {
+      it('buys Steampunk Accessories Set', async () => {
         user.purchased.plan.consecutive.trinkets = 1;
-        buyMysterySet(user, { params: { key: '301404' } }, analytics);
+        await buyMysterySet(user, { params: { key: '301404' } }, analytics);
 
         expect(user.purchased.plan.consecutive.trinkets).to.eql(0);
         expect(user.items.gear.owned).to.have.property('weapon_warrior_0', true);

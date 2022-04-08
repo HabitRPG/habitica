@@ -238,7 +238,7 @@ export async function reroll (req, res, { isV3 = false }) {
     ...Tasks.taskIsGroupOrChallengeQuery,
   };
   const tasks = await Tasks.Task.find(query).exec();
-  const rerollRes = common.ops.reroll(user, tasks, req, res.analytics);
+  const rerollRes = await common.ops.reroll(user, tasks, req, res.analytics);
   if (isV3) {
     rerollRes[0].user = await rerollRes[0].user.toJSONWithInbox();
   }
@@ -259,7 +259,7 @@ export async function rebirth (req, res, { isV3 = false }) {
     ...Tasks.taskIsGroupOrChallengeQuery,
   }).exec();
 
-  const rebirthRes = common.ops.rebirth(user, tasks, req, res.analytics);
+  const rebirthRes = await common.ops.rebirth(user, tasks, req, res.analytics);
   if (isV3) {
     rebirthRes[0].user = await rebirthRes[0].user.toJSONWithInbox();
   }

@@ -1,10 +1,11 @@
 import moment from 'moment';
+import { EVENTS } from './constants';
 // Magic Hatching Potions are configured like this:
 // type: 'premiumHatchingPotion',  // note no "s" at the end
 // path: 'premiumHatchingPotions.Rainbow',
 const featuredItems = {
   market () {
-    if (moment().isBefore('2022-01-31T20:00-05:00')) {
+    if (moment().isBefore(EVENTS.spring2022.end)) {
       return [
         {
           type: 'armoire',
@@ -12,15 +13,15 @@ const featuredItems = {
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.StainedGlass',
+          path: 'premiumHatchingPotions.Shimmer',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Peppermint',
+          path: 'premiumHatchingPotions.Celestial',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Holly',
+          path: 'premiumHatchingPotions.PolkaDot',
         },
       ];
     }
@@ -44,35 +45,19 @@ const featuredItems = {
     ];
   },
   quests () {
-    if (moment().isBefore('2022-01-11T08:00-05:00')) {
-      return [
-        {
-          type: 'quests',
-          path: 'quests.evilsanta',
-        },
-        {
-          type: 'quests',
-          path: 'quests.evilsanta2',
-        },
-        {
-          type: 'quests',
-          path: 'quests.penguin',
-        },
-      ];
-    }
-    if (moment().isBefore('2022-01-31T20:00-05:00')) {
+    if (moment().isBefore('2022-03-31T20:00-04:00')) {
       return [
         {
           type: 'bundles',
-          path: 'bundles.winterQuests',
+          path: 'bundles.cuddleBuddies',
         },
         {
           type: 'quests',
-          path: 'quests.silver',
+          path: 'quests.egg',
         },
         {
           type: 'quests',
-          path: 'quests.sheep',
+          path: 'quests.ghost_stag',
         },
       ];
     }
@@ -83,7 +68,7 @@ const featuredItems = {
       },
       {
         type: 'quests',
-        path: 'quests.bronze',
+        path: 'quests.silver',
       },
       {
         type: 'quests',
@@ -91,7 +76,7 @@ const featuredItems = {
       },
     ];
   },
-  seasonal: 'winter2021Warrior',
+  seasonal: 'spring2021Healer',
   timeTravelers: [
     // TODO
   ],

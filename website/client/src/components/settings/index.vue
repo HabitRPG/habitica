@@ -38,6 +38,14 @@
         {{ $t('subscription') }}
       </router-link>
       <router-link
+        v-if="user.contributor.admin"
+        class="nav-link"
+        :to="{name: 'transactions'}"
+        :class="{'active': $route.name === 'transactions'}"
+      >
+        {{ $t('transactions') }}
+      </router-link>
+      <router-link
         class="nav-link"
         :to="{name: 'notifications'}"
         :class="{'active': $route.name === 'notifications'}"
@@ -130,6 +138,7 @@ export default {
   computed: {
     ...mapState({
       currentEventList: 'worldState.data.currentEventList',
+      user: 'user.data',
     }),
     currentEvent () {
       return find(this.currentEventList, event => Boolean(event.promo));

@@ -1,7 +1,7 @@
 {
     "achievement": "成就",
     "onwards": "继续！",
-    "levelup": "通过完成现实生活中的目标，恭喜升级，并回满了血！",
+    "levelup": "在完成你现实生活中的目标后，你已经升级并回满了血！",
     "reachedLevel": "你升到了第<%= level %>级",
     "achievementLostMasterclasser": "副本征服者：大师鉴别者副本线",
     "achievementLostMasterclasserText": "完成了“大师鉴别者”副本线的全部16个副本，揭开了迷失的大师鉴别者的神秘面纱！",
@@ -61,7 +61,7 @@
     "earnedAchievement": "你得到了一个成就！",
     "viewAchievements": "查看成就",
     "letsGetStarted": "我们开始吧！",
-    "onboardingProgress": "<%= percentage %>% 完成",
+    "onboardingProgress": "达成 <%= percentage %>%",
     "gettingStartedDesc": "完成这些新手任务后，你将会获得<strong>5项成就</strong>和<strong class=\"gold-amount\">100枚金币</strong>！",
     "achievementRosyOutlookModalText": "你集齐了所有粉色棉花糖坐骑！",
     "achievementRosyOutlookText": "已驯服所有粉色棉花糖坐骑。",
@@ -123,5 +123,10 @@
     "achievementShadeOfItAll": "暗影之始",
     "achievementShadeOfItAllText": "已驯服所有暗影坐骑。",
     "achievementShadeOfItAllModalText": "你驯服了所有暗影坐骑！",
-    "achievementShadyCustomerText": "已集齐所有暗影宠物。"
+    "achievementShadyCustomerText": "已集齐所有暗影宠物。",
+    "achievementZodiacZookeeper": "十二生肖饲养员",
+    "achievementZodiacZookeeperModalText": "你集齐了所有十二生肖宠物！",
+    "achievementZodiacZookeeperText": "已经孵化了所有的十二生肖宠物。鼠、牛、兔、蛇、马、羊、猴、鸡、狼、虎、飞猪和龙！",
+    "achievementBirdsOfAFeather": "展翅高飞",
+    "achievementBirdsOfAFeatherText": "已经孵化了所有的飞行宠物：飞猪、猫头鹰、鹦鹉、翼龙、狮鹫和猎鹰。"
 }

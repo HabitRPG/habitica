@@ -177,11 +177,11 @@
     "muchmuchMoreDesc": "Our fully customizable task list means that you can shape Habitica to fit your personal goals. Work on creative projects, emphasize self-care, or pursue a different dream -- it's all up to you.",
     "levelUpAnywhere": "Gå upp en nivå var som helst",
     "levelUpAnywhereDesc": "Våra mobilappar gör det enkelt att hålla reda på dina uppgifter när du är i farten. Utför dina mål med ett tryck, oberoende på vart du är.",
-    "joinMany": "Anslut dig till mer än 2,000,000 människor som har roligt medans de utför sina mål!",
+    "joinMany": "Häng med över <%= userCountInMillions %> miljoner människor som har kul medan de slutför sina mål!",
     "joinToday": "Gå med i Habitica idag",
-    "signup": "Bli Medlem",
-    "getStarted": "Get Started!",
-    "mobileApps": "Mobil Appar",
-    "learnMore": "Lär Dig Mer",
+    "signup": "Bli medlem",
+    "getStarted": "Kom igång!",
+    "mobileApps": "Mobilappar",
+    "learnMore": "Lär dig mer",
     "communityInstagram": "Instagram"
 }
