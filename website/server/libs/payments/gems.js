@@ -94,19 +94,19 @@ function getAmountForGems (data) {
   return gemsBlock.gems / 4;
 }
 
-function updateUserBalance (data, amount) {
+async function updateUserBalance (data, amount) {
   if (data.gift) {
-    data.gift.member.balance += amount;
+    await data.gift.member.updateBalance(amount, 'gift_receive', data.user._id, data.user.profile.name);
     return;
   }
 
-  data.user.balance += amount;
+  await data.user.updateBalance(amount, 'buy_money');
 }
 
 export async function buyGems (data) {
   const amt = getAmountForGems(data);
 
-  updateUserBalance(data, amt);
+  await updateUserBalance(data, amt);
   data.user.purchased.txnCount += 1;
 
   if (!data.gift) txnEmail(data.user, 'donation');

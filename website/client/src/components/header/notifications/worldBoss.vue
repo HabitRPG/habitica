@@ -178,12 +178,12 @@ import sword from '@/assets/svg/sword.svg';
 import { worldStateMixin } from '@/mixins/worldState';
 
 export default {
-  mixins: [
-    worldStateMixin,
-  ],
   components: {
     BaseNotification,
   },
+  mixins: [
+    worldStateMixin,
+  ],
   data () {
     const questData = quests.quests.dysheartener;
 

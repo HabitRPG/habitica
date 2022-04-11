@@ -84,8 +84,8 @@
             </li>
             <li v-if="user">
               <a
-                @click.prevent="openBugReportModal()"
                 target="_blank"
+                @click.prevent="openBugReportModal()"
               >
                 {{ $t('reportBug') }}
               </a>
@@ -224,7 +224,7 @@
       </div>
       <div class="row">
         <div class="col-12 col-md-5 text-center text-md-left">
-          © 2021 Habitica. All rights reserved.
+          © {{ currentYear }} Habitica. All rights reserved.
           <div
             v-if="!IS_PRODUCTION && isUserLoaded"
             class="debug float-left"
@@ -511,6 +511,10 @@ export default {
       const base = 'https://oldgods.net/habitrpg/habitrpg_user_data_display.html';
       if (!this.user) return null;
       return `${base}?uuid=${this.user._id}`;
+    },
+    currentYear () {
+      const currentDate = new Date();
+      return currentDate.getFullYear();
     },
   },
   methods: {

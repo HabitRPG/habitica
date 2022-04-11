@@ -19,43 +19,42 @@ describe('shared.ops.reroll', () => {
     tasks = [generateDaily(), generateReward()];
   });
 
-  it('returns an error when user balance is too low', done => {
+  it('returns an error when user balance is too low', async () => {
     user.balance = 0;
 
     try {
-      reroll(user);
+      await reroll(user);
     } catch (err) {
       expect(err).to.be.an.instanceof(NotAuthorized);
       expect(err.message).to.equal(i18n.t('notEnoughGems'));
-      done();
     }
   });
 
-  it('rerolls a user with enough gems', () => {
-    const [, message] = reroll(user);
+  it('rerolls a user with enough gems', async () => {
+    const [, message] = await reroll(user);
 
     expect(message).to.equal(i18n.t('fortifyComplete'));
   });
 
-  it('reduces a user\'s balance', () => {
-    reroll(user);
+  it('reduces a user\'s balance', async () => {
+    await reroll(user);
 
     expect(user.balance).to.equal(0);
   });
 
-  it('resets a user\'s health points', () => {
+  it('resets a user\'s health points', async () => {
     user.stats.hp = 40;
 
-    reroll(user);
+    await reroll(user);
 
     expect(user.stats.hp).to.equal(50);
   });
 
-  it('resets user\'s taks values except for rewards to 0', () => {
+  it('resets user\'s taks values except for rewards to 0', async () => {
     tasks[0].value = 1;
     tasks[1].value = 1;
 
-    reroll(user, tasks);
+    await reroll(user, tasks);
 
     expect(tasks[0].value).to.equal(0);
     expect(tasks[1].value).to.equal(1);

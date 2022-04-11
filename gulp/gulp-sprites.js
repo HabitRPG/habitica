@@ -1,15 +1,8 @@
 import gulp from 'gulp';
-import imagemin from 'gulp-imagemin';
 import spritesmith from 'gulp.spritesmith';
 import clean from 'rimraf';
-import sizeOf from 'image-size';
 import mergeStream from 'merge-stream';
 import { sync } from 'glob';
-import { each } from 'lodash';
-import vinylBuffer from 'vinyl-buffer';
-
-// https://github.com/Ensighten/grunt-spritesmith/issues/67#issuecomment-34786248
-const MAX_SPRITESHEET_SIZE = 1024 * 1024 * 3;
 
 const IMG_DIST_PATH = 'website/client/src/assets/images/sprites/';
 const CSS_DIST_PATH = 'website/client/src/assets/css/sprites/';
@@ -17,49 +10,6 @@ const CSS_DIST_PATH = 'website/client/src/assets/css/sprites/';
 function checkForSpecialTreatment (name) {
   const regex = /^hair|skin|beard|mustach|shirt|flower|^headAccessory_special_\w+Ears|^eyewear_special_\w+TopFrame|^eyewear_special_\w+HalfMoon/;
   return name.match(regex) || name === 'head_0';
-}
-
-function calculateImgDimensions (img, addPadding) {
-  let dims = sizeOf(img);
-
-  const requiresSpecialTreatment = checkForSpecialTreatment(img);
-  if (requiresSpecialTreatment) {
-    const newWidth = dims.width < 90 ? 90 : dims.width;
-    const newHeight = dims.height < 90 ? 90 : dims.height;
-    dims = {
-      width: newWidth,
-      height: newHeight,
-    };
-  }
-
-  let padding = 0;
-
-  if (addPadding) {
-    padding = dims.width * 8 + dims.height * 8;
-  }
-
-  if (!dims.width || !dims.height) console.error('MISSING DIMENSIONS:', dims); // eslint-disable-line no-console
-
-  const totalPixelSize = dims.width * dims.height + padding;
-
-  return totalPixelSize;
-}
-
-function calculateSpritesheetsSrcIndicies (src) {
-  let totalPixels = 0;
-  const slices = [0];
-
-  each(src, (img, index) => {
-    const imageSize = calculateImgDimensions(img, true);
-    totalPixels += imageSize;
-
-    if (totalPixels > MAX_SPRITESHEET_SIZE) {
-      slices.push(index - 1);
-      totalPixels = imageSize;
-    }
-  });
-
-  return slices;
 }
 
 function cssVarMap (sprite) {
@@ -85,33 +35,22 @@ function cssVarMap (sprite) {
 }
 
 function createSpritesStream (name, src) {
-  const spritesheetSliceIndicies = calculateSpritesheetsSrcIndicies(src);
   const stream = mergeStream();
 
-  each(spritesheetSliceIndicies, (start, index) => {
-    const slicedSrc = src.slice(start, spritesheetSliceIndicies[index + 1]);
+  const spriteData = gulp.src(src)
+    .pipe(spritesmith({
+      imgName: `spritesmith-${name}.png`,
+      cssName: `spritesmith-${name}.css`,
+      algorithm: 'binary-tree',
+      padding: 1,
+      cssTemplate: 'website/raw_sprites/css/css.template.handlebars',
+      cssVarMap,
+    }));
 
-    const spriteData = gulp.src(slicedSrc)
-      .pipe(spritesmith({
-        imgName: `spritesmith-${name}-${index}.png`,
-        cssName: `spritesmith-${name}-${index}.css`,
-        algorithm: 'binary-tree',
-        padding: 1,
-        cssTemplate: 'website/raw_sprites/css/css.template.handlebars',
-        cssVarMap,
-      }));
+  const cssStream = spriteData.css
+    .pipe(gulp.dest(CSS_DIST_PATH));
 
-    const imgStream = spriteData.img
-      .pipe(vinylBuffer())
-      .pipe(imagemin())
-      .pipe(gulp.dest(IMG_DIST_PATH));
-
-    const cssStream = spriteData.css
-      .pipe(gulp.dest(CSS_DIST_PATH));
-
-    stream.add(imgStream);
-    stream.add(cssStream);
-  });
+  stream.add(cssStream);
 
   return stream;
 }

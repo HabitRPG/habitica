@@ -185,5 +185,6 @@
     "learnMore": "Maggiori informazioni",
     "communityInstagram": "Instagram",
     "minPasswordLength": "La password deve essere di almeno 8 caratteri.",
-    "enterHabitica": "Entra in Habitica"
+    "enterHabitica": "Entra in Habitica",
+    "socialAlreadyExists": "Questo social è già collegato ad un account di Habitica."
 }

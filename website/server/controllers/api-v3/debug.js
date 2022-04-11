@@ -34,7 +34,7 @@ api.addTenGems = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    user.balance += 2.5;
+    await user.updateBalance(2.5, 'debug');
 
     await user.save();
 
@@ -57,7 +57,7 @@ api.addHourglass = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    user.purchased.plan.consecutive.trinkets += 1;
+    await user.purchased.plan.updateHourglasses(user._id, 1, 'debug');
 
     await user.save();
 

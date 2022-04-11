@@ -4,6 +4,7 @@ import i18n from '../i18n';
 import {
   NotAuthorized,
 } from '../libs/errors';
+import updateUserBalance from './updateUserBalance';
 
 export default function releasePets (user, req = {}, analytics) {
   if (user.balance < 1) {
@@ -14,7 +15,7 @@ export default function releasePets (user, req = {}, analytics) {
     throw new NotAuthorized(i18n.t('notEnoughPets', req.language));
   }
 
-  user.balance -= 1;
+  updateUserBalance(user, -1, 'release_pets');
 
   let giveBeastMasterAchievement = true;
 

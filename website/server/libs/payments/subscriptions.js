@@ -161,7 +161,7 @@ async function createSubscription (data) {
     plan.consecutive.offset += months;
     plan.consecutive.gemCapExtra += perks * 5;
     if (plan.consecutive.gemCapExtra > 25) plan.consecutive.gemCapExtra = 25;
-    plan.consecutive.trinkets += perks;
+    await plan.updateHourglasses(data.user._id, perks, 'subscription_perks'); // one Hourglass every 3 months
   }
 
   if (recipient !== group) {

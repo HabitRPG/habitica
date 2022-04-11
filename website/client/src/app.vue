@@ -530,6 +530,5 @@ export default {
 <style src="intro.js/minified/introjs.min.css"></style>
 <style src="axios-progress-bar/dist/nprogress.css"></style>
 <style src="@/assets/scss/index.scss" lang="scss"></style>
-<style src="@/assets/css/sprites/spritesmith-largeSprites-0.css"></style>
 <style src="@/assets/scss/sprites.scss" lang="scss"></style>
 <style src="smartbanner.js/dist/smartbanner.min.css"></style>

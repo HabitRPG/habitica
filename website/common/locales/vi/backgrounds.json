@@ -314,7 +314,7 @@
     "backgrounds122017": "Tập 43: Ra mắt vào tháng 12 năm 2017",
     "backgroundCrosscountrySkiTrailText": "Đường trượt tuyết băng đồng",
     "backgroundCrosscountrySkiTrailNotes": "Lướt dọc con đường trượt tuyết băng đồng",
-    "backgroundStarryWinterNightText": "Bầu trời đêm mùa dông đầy sao",
+    "backgroundStarryWinterNightText": "Bầu trời đêm mùa đông đầy sao",
     "backgroundStarryWinterNightNotes": "Ngắm nhìn Bầu trời đêm mùa đông đầy sao",
     "backgroundToymakersWorkshopText": "Xưởng cho người làm đồ chơi",
     "backgroundToymakersWorkshopNotes": "Đắm mình trong sự kỳ diệu của Xưởng cho người làm đồ chơi",
@@ -456,8 +456,8 @@
     "backgroundPotionShopText": "Cửa hàng Lọ thuốc",
     "backgroundFlyingInAThunderstormNotes": "Đuổi theo trận Sấm sét rền vang gần nhất nếu bạn dám.",
     "backgroundFlyingInAThunderstormText": "Sấm sét rền vang",
-    "backgroundFarmersMarketNotes": "Mua sắm thức ăn tươi nhất ở Chợ của Nông dân.",
-    "backgroundFarmersMarketText": "Chợ của Nông dân",
+    "backgroundFarmersMarketNotes": "Mua thức ăn tươi ngon nhất ở Chợ Nông sản.",
+    "backgroundFarmersMarketText": "Chợ Nông sản",
     "backgrounds112019": "BỘ 66: Ra mắt vào Tháng Mười Một 2019",
     "backgroundMonsterMakersWorkshopNotes": "Thí nghiệm với Ngụy khoa học trong một Xưởng Sản xuất Quái vật.",
     "backgroundMonsterMakersWorkshopText": "Xưởng Sản xuất Quái vật",
@@ -548,5 +548,7 @@
     "backgroundJungleCanopyText": "Tán rừng",
     "backgroundCampingOutNotes": "Tận hưởng không khí bằng việc Cắm trại ngoài trời.",
     "backgroundCampingOutText": "Cắm trại ngoài trời",
-    "backgrounds082020": "BỘ 75: Ra mắt vào tháng Tám 2020"
+    "backgrounds082020": "BỘ 75: Ra mắt vào tháng Tám 2020",
+    "backgroundFlyingOverAnAutumnForestText": "Bay qua Rừng Mùa thu",
+    "backgrounds092020": "BỘ 76: Ra mắt vào Tháng Chín 2020"
 }

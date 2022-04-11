@@ -38,5 +38,9 @@
     "healthDailyNotes": "יש ללחוץ כדי לעשות שינויים כלשהם!",
     "exerciseTodoNotes": "יש ללחוץ כדי להוסיף רשימה!",
     "exerciseTodoText": "קביעת זמני אימון",
-    "selfCareDailyNotes": "יש ללחוץ כדי לשנות את לוח הזמנים!"
+    "selfCareDailyNotes": "יש ללחוץ כדי לשנות את לוח הזמנים!",
+    "defaultHabitText": "לחיצה כאן תהפוך את סוג ההרגל להרגל רע שהיית רוצה להפסיק",
+    "creativityTodoNotes": "אפשר ללחוץ כאן כדי לציין את שם המיזם שלך",
+    "schoolDailyNotes": "אפשר ללחוץ כאן ולשנות את שעת שיעורי הבית שלך!",
+    "creativityTodoText": "השלמת מיזם יצירתי"
 }

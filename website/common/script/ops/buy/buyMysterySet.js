@@ -8,8 +8,11 @@ import {
   NotFound,
 } from '../../libs/errors';
 import errorMessage from '../../libs/errorMessage';
+import updateUserHourglasses from '../updateUserHourglasses';
+import { removeItemByPath } from '../pinnedGearUtils';
+import getItemInfo from '../../libs/getItemInfo';
 
-export default function buyMysterySet (user, req = {}, analytics) {
+export default async function buyMysterySet (user, req = {}, analytics) {
   const key = get(req, 'params.key');
   if (!key) throw new BadRequest(errorMessage('missingKeyParam'));
 
@@ -27,6 +30,9 @@ export default function buyMysterySet (user, req = {}, analytics) {
   each(mysterySet.items, item => {
     user.items.gear.owned[item.key] = true;
   });
+
+  const itemInfo = getItemInfo(user, 'mystery_set', mysterySet);
+  removeItemByPath(user, itemInfo.path);
 
   if (analytics) {
     analytics.track('buy', {
@@ -46,7 +52,7 @@ export default function buyMysterySet (user, req = {}, analytics) {
 
   if (user.markModified) user.markModified('items.gear.owned');
 
-  user.purchased.plan.consecutive.trinkets -= 1;
+  await updateUserHourglasses(user, -1, 'spend', mysterySet.text());
 
   return [
     { items: user.items, purchasedPlanConsecutive: user.purchased.plan.consecutive },

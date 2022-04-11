@@ -30,7 +30,7 @@
     "earnedAchievement": "¡Has conseguido un logro!",
     "viewAchievements": "Ver los Logros",
     "letsGetStarted": "¡Comencemos!",
-    "onboardingProgress": "<%= Porcentaje%>% de progreso",
+    "onboardingProgress": "<%= percentage %>% de progreso",
     "gettingStartedDesc": "¡Completa estas tareas de integración y conseguirás <strong>5 logros</strong> y <strong class=\"gold-amount\">100 Oro</strong> en cuanto acabes!",
     "achievementCompletedTaskText": "Completó su primera tarea.",
     "achievementCompletedTask": "Completa una tarea",
