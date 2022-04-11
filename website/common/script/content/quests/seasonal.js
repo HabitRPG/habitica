@@ -1,6 +1,6 @@
 import find from 'lodash/find';
 import moment from 'moment';
-import { EVENTS } from './events';
+import { EVENTS } from '../constants/events';
 import t from '../translation';
 
 const CURRENT_EVENT = find(
