@@ -141,7 +141,7 @@
     "dateEndOctober": "31 de octubre",
     "dateEndNovember": "30 de noviembre",
     "dateEndJanuary": "31 de enero",
-    "dateEndFebruary": "29 de febrero",
+    "dateEndFebruary": "28 de febrero",
     "winterPromoGiftHeader": "¡REGALA UNA SUSCRIPCIÓN, RECIBE OTRA GRATIS!",
     "winterPromoGiftDetails1": "Solo hasta el 6 de enero, cuando regales una suscripción a alguien, ¡obtienes la misma suscripción gratis!",
     "winterPromoGiftDetails2": "Por favor, ten en cuenta que si tú o la persona que recibe el regalo ya tenéis una suscripción recurrente, la suscripción regalada solo empezará después de que esa suscripción sea cancelada o haya expirado. ¡Muchas gracias por tu apoyo! <3",
@@ -216,5 +216,9 @@
     "winter2022FireworksRogueSet": "Fuegos Artificiales (Pícaro)",
     "winter2022StockingWarriorSet": "Calcetín (Guerrero)",
     "winter2022PomegranateMageSet": "Granada (Mago)",
-    "winter2022IceCrystalHealerSet": "Cristal de Hielo (Sanador)"
+    "winter2022IceCrystalHealerSet": "Cristal de Hielo (Sanador)",
+    "spring2022MagpieRogueSet": "Urraca (Pícaro)",
+    "spring2022RainstormWarriorSet": "Tempestad (Guerrero)",
+    "spring2022ForsythiaMageSet": "Forsitia (Mago)",
+    "spring2022PeridotHealerSet": "Peridoto (Sanador)"
 }

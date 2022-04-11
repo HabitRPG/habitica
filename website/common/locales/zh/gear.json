@@ -2556,5 +2556,15 @@
     "shieldSpecialWinter2022WarriorNotes": "叮叮当，叮叮当，叮当盾响叮当。叮当防御多快乐~ 叮当偏转攻~击~ 增加<%= con %>点体质。2021-2022年冬季限定版装备。",
     "shieldSpecialWinter2022WarriorText": "叮当盾",
     "shieldSpecialWinter2022HealerText": "持久冰晶",
-    "headSpecialWinter2022HealerNotes": "微小的瑕疵和杂质让冰晶的枝杈向不可预知的方向延伸。这是很有象征性的！而且非常非常漂亮。增加<%= int %>点智力。2020-2021年冬季限定版装备。"
+    "headSpecialWinter2022HealerNotes": "微小的瑕疵和杂质让冰晶的枝杈向不可预知的方向延伸。这是很有象征性的！而且非常非常漂亮。增加<%= int %>点智力。2020-2021年冬季限定版装备。",
+    "weaponArmoirePinkLongbowText": "粉色长弓",
+    "weaponArmoirePinkLongbowNotes": "用这张美丽的弓来同时修炼箭术与爱情，做未来的丘比特。增加<%=per>点感知与<%=str%>点力量。魔法衣橱：独立装备。",
+    "headMystery202202Notes": "你得要有蓝色的头发！没有属性加成。2022年2月订阅者物品。",
+    "eyewearMystery202202Notes": "欢快的歌声使你的面颊浮上红晕。没有属性加成。2022年2月订阅者物品",
+    "headMystery202202Text": "绿松石双马尾",
+    "eyewearMystery202202Text": "绿松石般的双眼与绯红的双颊",
+    "headAccessoryMystery202203Text": "无畏蜻蜓羽饰",
+    "headAccessoryMystery202203Notes": "需要特别的加速吗? 这首饰上的小小装饰翅膀可比它们看起来厉害多了！没有属性加成。2022年3月订阅者物品。",
+    "backMystery202203Text": "无畏蜻蜓双翼",
+    "backMystery202203Notes": "带上这双闪闪发光的翅膀，你将比天空中所有的生物都要耀眼。没有属性加成。2022年3月订阅者物品。"
 }

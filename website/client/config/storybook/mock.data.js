@@ -1,4 +1,5 @@
 import { v4 as generateUUID } from 'uuid';
+import getters from '@/store/getters';
 
 export const userStyles = {
   contributor: {
@@ -82,3 +83,25 @@ export const userStyles = {
     classSelected: true,
   },
 };
+
+
+export function mockStore ({
+  userData,
+  ...state
+}) {
+  return {
+    getters,
+    dispatch: () => {
+    },
+    watch: () => {
+    },
+    state: {
+      user: {
+        data: {
+          ...userData,
+        },
+      },
+      ...state,
+    },
+  };
+}

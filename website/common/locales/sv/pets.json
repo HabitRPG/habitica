@@ -17,7 +17,7 @@
     "veteranTiger": "Veterantiger",
     "veteranLion": "Veteranlejon",
     "veteranBear": "Veteranbjörn",
-    "veteranFox": "Veteran Fox",
+    "veteranFox": "Veteranräv",
     "cerberusPup": "Cerberusvalp",
     "hydra": "Hydra",
     "mantisShrimp": "Mantisräka",
@@ -109,5 +109,6 @@
     "notEnoughMounts": "Du har inte samlat ihop nog med riddjur",
     "notEnoughPetsMounts": "Du har inte samlat ihop nog med husdjur och riddjur",
     "filterByWacky": "Knasig",
-    "wackyPets": "Knasiga husdjur"
+    "wackyPets": "Knasiga husdjur",
+    "tooMuchFood": "Du försöker ge ditt husdjur för mycket foder, åtgärden avbröts"
 }
