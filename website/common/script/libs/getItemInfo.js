@@ -19,16 +19,16 @@ function lockQuest (quest, user) {
   // checks quest & user level against quest level
   if (quest.lvl && user.stats.lvl < quest.lvl) return true;
 
-  // checks unlockCondition.incentiveThreshold
+  // checks unlockCondition.incentiveThreshold for Lunar Battle
   if (
     quest.unlockCondition
     && quest.unlockCondition.incentiveThreshold
     && user.loginIncentives < quest.unlockCondition.incentiveThreshold
   ) return true;
   if (user.achievements.quests
-    && !user.achievements.quests[quest.previous]);
-  // then if we've passed all the checks
-  return quest.previous;
+    && !user.achievements.quests[quest.prereqQuests]);
+  // // then if we've passed all the checks
+  return false;
 }
 
 function isItemSuggested (officialPinnedItems, itemInfo) {

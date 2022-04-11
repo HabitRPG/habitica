@@ -329,7 +329,7 @@ const quests = {
     notes: t('questMoon3Notes'),
     group: 'questGroupMoon',
     completion: t('questMoon3Completion'),
-    previous1: 'moon2',
+    previous: 'moon2',
     prereqQuests: [
       'moon1',
       'moon2',
