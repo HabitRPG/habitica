@@ -209,5 +209,8 @@
     "transaction_contribution": "A través de contribuciones",
     "transaction_spend": "Gastado en",
     "transaction_release_mounts": "Monturas sueltas",
-    "transaction_subscription_perks": "Beneficio de la suscripción"
+    "transaction_subscription_perks": "Beneficio de la suscripción",
+    "addPasswordAuth": "Añadir contraseña",
+    "gemCap": "Límite de Gemas",
+    "nextHourglass": "Siguiente Reloj de Arena"
 }
