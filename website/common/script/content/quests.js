@@ -3876,6 +3876,49 @@ const quests = {
       unlock: t('questOnyxUnlockText'),
     },
   },
+  virtualpet: {
+    text: t('questVirtualPetText'),
+    notes: t('questVirtualPetNotes'),
+    completion: t('questVirtualPetCompletion'),
+    value: 4,
+    category: 'hatchingPotion',
+    canBuy () {
+      return CURRENT_EVENT && CURRENT_EVENT.season === 'spring';
+    },
+    event: CURRENT_EVENT && CURRENT_EVENT.season === 'spring' ? CURRENT_EVENT : null,
+    boss: {
+      name: t('questVirtualPetBoss'),
+      hp: 500,
+      str: 2,
+      rage: {
+        title: t('questVirtualPetRageTitle'),
+        description: t('questVirtualPetRageDescription'),
+        value: 50,
+        progressDrain: 0.5,
+        effect: t('questVirtualPetRageEffect'),
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'VirtualPet',
+          text: t('questVirtualPetDropVirtualPetPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'VirtualPet',
+          text: t('questVirtualPetDropVirtualPetPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'VirtualPet',
+          text: t('questVirtualPetDropVirtualPetPotion'),
+        },
+      ],
+      gp: 40,
+      exp: 500,
+      unlock: t('questVirtualPetUnlockText'),
+    },
+  },
 };
 
 each(quests, (v, key) => {
