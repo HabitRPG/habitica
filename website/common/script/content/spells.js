@@ -360,9 +360,9 @@ spells.special = {
     previousPurchase: true,
     target: 'user',
     notes: t('spellSpecialShinySeedNotes'),
-    event: EVENTS.spring2021,
+    event: EVENTS.spring2022,
     canOwn () {
-      return moment().isBetween('2021-04-06T08:00-05:00', EVENTS.spring2021.end);
+      return moment().isBetween('2022-04-14T08:00-05:00', EVENTS.spring2022.end);
     },
     cast (user, target, req) {
       if (!user.items.special.shinySeed) throw new NotAuthorized(t('spellNotOwned')(req.language));

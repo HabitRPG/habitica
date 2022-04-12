@@ -1,8 +1,22 @@
 {
-  "achievement": "Achievement",
-  "onwards": "Onwards!",
-  "levelup": "By accomplishing your real life goals, you leveled up and are now fully healed!",
-  "reachedLevel": "You Reached Level <%= level %>",
-  "achievementLostMasterclasser": "Quest Completionist: Masterclasser Series",
-  "achievementLostMasterclasserText": "Completed all sixteen quests in the Masterclasser Quest Series and solved the mystery of the Lost Masterclasser!"
+    "achievement": "Achievement",
+    "onwards": "Onwards!",
+    "levelup": "By accomplishing your real life goals, you leveled up and are now fully healed!",
+    "reachedLevel": "You Reached Level <%= level %>",
+    "achievementLostMasterclasser": "Quest Completionist: Masterclasser Series",
+    "achievementLostMasterclasserText": "Completed all sixteen quests in the Masterclasser Quest Series and solved the mystery of the Lost Masterclasser!",
+    "foundNewItems": "നിങ്ങൾ പുതിയ ഇനങ്ങൾ കണ്ടെത്തി!",
+    "yourProgress": "നിങ്ങളുടെ പുരോഗതി",
+    "foundNewItemsCTA": "നിങ്ങളുടെ ഇൻവെന്ററിയിലേക്ക് പോയി നിങ്ങളുടെ പുതുതായി വിരിഞ്ഞ പായസവും മുട്ടയും സംയോജിപ്പിക്കാൻ ശ്രമിക്കുക!",
+    "earnedAchievement": "നിങ്ങൾ ഒരു നേട്ടം നേടി!",
+    "onboardingProgress": "<%= percentage %>% പുരോഗതി",
+    "showAllAchievements": "എല്ലാം കാണിക്കൂ <%= category %>",
+    "letsGetStarted": "നമുക്ക് തുടങ്ങാം!",
+    "yourRewards": "നിങ്ങളുടെ പ്രതിഫലം",
+    "hideAchievements": "മറയ്ക്കുക <%= category %>",
+    "gettingStartedDesc": "ഈ ഓൺബോർഡിംഗ് ജോലികൾ പൂർത്തിയാക്കുക, നിങ്ങൾ സമ്പാദിക്കും <strong>5 നേട്ടങ്ങൾ</strong>നിങ്ങൾ പൂർത്തിയാക്കിക്കഴിഞ്ഞാൽ <strong class=\"gold-amount\">100 Gold</strong> എന്നിവയും!",
+    "viewAchievements": "നേട്ടങ്ങൾ കാണിക്കുക",
+    "onboardingComplete": "നിങ്ങൾ നിങ്ങളുടെ ഓൺബോർഡിംഗ് ജോലികൾ പൂർത്തിയാക്കുക!",
+    "onboardingCompleteDescSmall": "നിങ്ങൾക്ക് കൂടുതൽ വേണമെങ്കിൽ, നേട്ടങ്ങൾ പരിശോധിച്ച് ശേഖരിക്കാൻ ആരംഭിക്കുക!",
+    "foundNewItemsExplanation": "ചുമതലകൾ പൂർത്തിയാക്കുന്നത് മുട്ടകൾ, വിരിയിക്കുന്ന മരുന്നുകൾ, വളർത്തുമൃഗങ്ങളുടെ ഭക്ഷണം തുടങ്ങിയ ഇനങ്ങൾ കണ്ടെത്താനുള്ള അവസരം നൽകുന്നു."
 }
