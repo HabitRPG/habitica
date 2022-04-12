@@ -33648,6 +33648,11 @@
   width: 68px;
   height: 68px;
 }
+.inventory_quest_scroll_virtualpet {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/inventory_quest_scroll_virtualpet.png');
+  width: 68px;
+  height: 68px;
+}
 .inventory_quest_scroll_waffle {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/inventory_quest_scroll_waffle.png');
   width: 68px;
@@ -50113,8 +50118,8 @@
   width: 81px;
   height: 99px;
 }
-.Pet-BearCub-Virtual {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-BearCub-Virtual.png');
+.Pet-BearCub-VirtualPet {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-BearCub-VirtualPet.png');
   width: 81px;
   height: 99px;
 }
@@ -50543,8 +50548,8 @@
   width: 81px;
   height: 99px;
 }
-.Pet-Cactus-Virtual {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Cactus-Virtual.png');
+.Pet-Cactus-VirtualPet {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Cactus-VirtualPet.png');
   width: 81px;
   height: 99px;
 }
@@ -51078,8 +51083,8 @@
   width: 81px;
   height: 99px;
 }
-.Pet-Dragon-Virtual {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Dragon-Virtual.png');
+.Pet-Dragon-VirtualPet {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Dragon-VirtualPet.png');
   width: 81px;
   height: 99px;
 }
@@ -51508,8 +51513,8 @@
   width: 81px;
   height: 99px;
 }
-.Pet-FlyingPig-Virtual {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-FlyingPig-Virtual.png');
+.Pet-FlyingPig-VirtualPet {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-FlyingPig-VirtualPet.png');
   width: 81px;
   height: 99px;
 }
@@ -51793,8 +51798,8 @@
   width: 81px;
   height: 99px;
 }
-.Pet-Fox-Virtual {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Fox-Virtual.png');
+.Pet-Fox-VirtualPet {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Fox-VirtualPet.png');
   width: 81px;
   height: 99px;
 }
@@ -52463,8 +52468,8 @@
   width: 81px;
   height: 99px;
 }
-.Pet-LionCub-Virtual {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-LionCub-Virtual.png');
+.Pet-LionCub-VirtualPet {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-LionCub-VirtualPet.png');
   width: 81px;
   height: 99px;
 }
@@ -52963,8 +52968,8 @@
   width: 81px;
   height: 99px;
 }
-.Pet-PandaCub-Virtual {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-PandaCub-Virtual.png');
+.Pet-PandaCub-VirtualPet {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-PandaCub-VirtualPet.png');
   width: 81px;
   height: 99px;
 }
@@ -54208,8 +54213,8 @@
   width: 81px;
   height: 99px;
 }
-.Pet-TigerCub-Virtual {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-TigerCub-Virtual.png');
+.Pet-TigerCub-VirtualPet {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-TigerCub-VirtualPet.png');
   width: 81px;
   height: 99px;
 }
@@ -54808,8 +54813,8 @@
   width: 81px;
   height: 99px;
 }
-.Pet-Wolf-Virtual {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Wolf-Virtual.png');
+.Pet-Wolf-VirtualPet {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Wolf-VirtualPet.png');
   width: 81px;
   height: 99px;
 }
