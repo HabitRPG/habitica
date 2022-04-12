@@ -2602,5 +2602,17 @@
     "headSpecialSpring2022MageText": "レンギョウヘルメット",
     "headSpecialSpring2022MageNotes": "この下向きの花びらで守られているヘルメットで、嵐の中でも濡れずにいましょう。知覚が<%= per %>上がります。2022年春の限定装備。",
     "headSpecialSpring2022HealerText": "ペリドットヘルメット",
-    "headSpecialSpring2022HealerNotes": "このヘルメットをかぶればタスクに取り組む時にプライバシーを保護できます。知能が<%= int %>上がります。2022年春の限定装備。"
+    "headSpecialSpring2022HealerNotes": "このヘルメットをかぶればタスクに取り組む時にプライバシーを保護できます。知能が<%= int %>上がります。2022年春の限定装備。",
+    "shieldSpecialSpring2022WarriorText": "雨雲",
+    "shieldSpecialSpring2022HealerText": "ペリドットシールド",
+    "headArmoireGardenersSunHatText": "ガーデナーの日よけ帽",
+    "headArmoireGardenersSunHatNotes": "このつば広の帽子をかぶっていれば太陽のまばゆい光が目に入ることはありません。知覚が<%= per %>上がります。ラッキー宝箱：ガーデナーセット（4個中2個目のアイテム）。",
+    "shieldSpecialSpring2022HealerNotes": "マントルの上の方の溶けた岩で作られたこのシールドは、体質が<%= con %>上がります。どんな攻撃にも耐えることができます。体質が<%= con %>上がります。2022年春の限定装備。",
+    "shieldSpecialSpring2022WarriorNotes": "雨雲に付きまとわれていると思うような日をすごした経験がありますか？その雨であなたの足下の綺麗な花が育っているので体質が<%= con %>上がります。ラッキーですよ！2022年春の限定装備。",
+    "shieldArmoireGardenersSpadeText": "ガーデナーのシャベル",
+    "shieldArmoireGardenersSpadeNotes": "庭を掘ったり、埋まったお宝を探したり、秘密のトンネルを作ったりするどんな時もこのシャベルは信頼できてあなたの味方です。力が<%= str %>上がります。ラッキー宝箱：ガーデナーセット（4個中3個目のアイテム）。",
+    "eyewearMystery202204AText": "バーチャルフェイス",
+    "eyewearMystery202204BText": "バーチャルフェイス",
+    "eyewearMystery202204BNotes": "今日の気分は？この愉快な画面で自分を表現してみましょう。効果なし。2021年4月の有料会員アイテム。",
+    "eyewearMystery202204ANotes": "今日の気分は？この愉快な画面で自分を表現してみましょう。効果なし。2021年4月の有料会員アイテム。"
 }
