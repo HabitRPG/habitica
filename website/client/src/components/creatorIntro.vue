@@ -159,7 +159,7 @@
           <toggle-switch
             v-model="filterBackgrounds"
             class="backgroundFilterToggle"
-            :label="'Hide locked backgrounds'"
+            :label="'Show Unlocked Backgrounds'"
           />
         </div>
         <div
@@ -247,6 +247,7 @@
           </div>
         </div>
         <sub-menu
+          v-if="!filterBackgrounds"
           class="text-center"
           :items="bgSubMenuItems"
           :active-sub-page="activeSubPage"
