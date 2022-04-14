@@ -226,7 +226,7 @@
               :key="network.key"
             >
               <button
-                v-if="!user.auth[network.key].id"
+                v-if="!user.auth[network.key].id && network.key !== 'facebook'"
                 class="btn btn-primary mb-2"
                 @click="socialAuth(network.key, user)"
               >
