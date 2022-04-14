@@ -213,49 +213,7 @@
           {{ $t('enableClass') }}
         </button>
         <hr>
-        <div>
-          <h5>{{ $t('customDayStart') }}</h5>
-          <div class="alert alert-warning">
-            {{ $t('customDayStartInfo1') }}
-          </div>
-          <div class="form-horizontal">
-            <div class="form-group">
-              <div class="col-7">
-                <select
-                  v-model="newDayStart"
-                  class="form-control"
-                >
-                  <option
-                    v-for="option in dayStartOptions"
-                    :key="option.value"
-                    :value="option.value"
-                  >
-                    {{ option.name }}
-                  </option>
-                </select>
-              </div>
-              <div class="col-5">
-                <button
-                  class="btn btn-block btn-primary mt-1"
-                  :disabled="newDayStart === user.preferences.dayStart"
-                  @click="openDayStartModal()"
-                >
-                  {{ $t('saveCustomDayStart') }}
-                </button>
-              </div>
-            </div>
-          </div>
-          <hr>
-        </div>
-        <h5>{{ $t('timezone') }}</h5>
-        <div class="form-horizontal">
-          <div class="form-group">
-            <div class="col-12">
-              <p v-html="$t('timezoneUTC', {utc: timezoneOffsetToUtc})"></p>
-              <p v-html="$t('timezoneInfo')"></p>
-            </div>
-          </div>
-        </div>
+        <day-start-adjustment />
       </div>
     </div>
     <div class="col-sm-6">
@@ -268,7 +226,7 @@
               :key="network.key"
             >
               <button
-                v-if="!user.auth[network.key].id"
+                v-if="!user.auth[network.key].id && network.key !== 'facebook'"
                 class="btn btn-primary mb-2"
                 @click="socialAuth(network.key, user)"
               >
@@ -429,7 +387,9 @@
               {{ $t('saveAndConfirm') }}
             </button>
           </div>
-          <h5>
+          <h5
+            v-if="user.auth.local.email"
+          >
             {{ $t('changeEmail') }}
           </h5>
           <div
@@ -539,25 +499,20 @@
 
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
-
   input {
     color: $gray-50;
   }
-
   .usersettings h5 {
     margin-top: 1em;
   }
-
   .iconalert > div > span {
     line-height: 25px;
   }
-
   .iconalert > div:after {
     clear: both;
     content: '';
     display: table;
   }
-
   .input-error {
     color: $red-50;
     font-size: 90%;
@@ -568,16 +523,15 @@
 
 <script>
 import hello from 'hellojs';
-import moment from 'moment';
 import axios from 'axios';
 import debounce from 'lodash/debounce';
 import { mapState } from '@/libs/store';
 import restoreModal from './restoreModal';
 import resetModal from './resetModal';
 import deleteModal from './deleteModal';
+import dayStartAdjustment from './dayStartAdjustment';
 import { SUPPORTED_SOCIAL_NETWORKS } from '@/../../common/script/constants';
 import changeClass from '@/../../common/script/ops/changeClass';
-import getUtcOffset from '@/../../common/script/fns/getUtcOffset';
 import notificationsMixin from '../../mixins/notifications';
 import sounds from '../../libs/sounds';
 import { buildAppleAuthUrl } from '../../libs/auth';
@@ -590,27 +544,15 @@ export default {
     restoreModal,
     resetModal,
     deleteModal,
+    dayStartAdjustment,
   },
   mixins: [notificationsMixin],
   data () {
-    const dayStartOptions = [];
-    for (let number = 0; number < 24; number += 1) {
-      const meridian = number < 12 ? 'AM' : 'PM';
-      const hour = number % 12;
-      const option = {
-        value: number,
-        name: `${hour || 12}:00 ${meridian}`,
-      };
-      dayStartOptions.push(option);
-    }
-
     return {
       SOCIAL_AUTH_NETWORKS: [],
       party: {},
       // Made available by the server as a script
       availableFormats: ['MM/dd/yyyy', 'dd/MM/yyyy', 'yyyy/MM/dd'],
-      dayStartOptions,
-      newDayStart: 0,
       temporaryDisplayName: '',
       usernameUpdates: { username: '' },
       emailUpdates: {},
@@ -633,13 +575,6 @@ export default {
     }),
     availableAudioThemes () {
       return ['off', ...this.content.audioThemes];
-    },
-    timezoneOffsetToUtc () {
-      const offsetString = moment().utcOffset(getUtcOffset(this.user)).format('Z');
-      return `UTC${offsetString}`;
-    },
-    dayStart () {
-      return this.user.preferences.dayStart;
     },
     hasClass () {
       return this.$store.getters['members:hasClass'](this.user);
@@ -690,7 +625,6 @@ export default {
     this.SOCIAL_AUTH_NETWORKS = SUPPORTED_SOCIAL_NETWORKS;
     // @TODO: We may need to request the party here
     this.party = this.$store.state.party;
-    this.newDayStart = this.user.preferences.dayStart;
     this.usernameUpdates.username = this.user.auth.local.username || null;
     this.temporaryDisplayName = this.user.profile.name;
     this.emailUpdates.newEmail = this.user.auth.local.email || null;
@@ -790,32 +724,6 @@ export default {
         return false;
       });
     },
-    calculateNextCron () {
-      let nextCron = moment().hours(this.newDayStart).minutes(0).seconds(0)
-        .milliseconds(0);
-
-      const currentHour = moment().format('H');
-      if (currentHour >= this.newDayStart) {
-        nextCron = nextCron.add(1, 'day');
-      }
-
-      return nextCron.format(`${this.user.preferences.dateFormat.toUpperCase()} @ h:mm a`);
-    },
-    openDayStartModal () {
-      const nextCron = this.calculateNextCron();
-      // @TODO: Add generic modal
-      if (!window.confirm(this.$t('sureChangeCustomDayStartTime', { time: nextCron }))) return; // eslint-disable-line no-alert
-      this.saveDayStart();
-      // $rootScope.openModal('change-day-start', { scope: $scope });
-    },
-    async saveDayStart () {
-      this.user.preferences.dayStart = this.newDayStart;
-      await axios.post('/api/v4/user/custom-day-start', {
-        dayStart: this.newDayStart,
-      });
-      // @TODO
-      // Notification.text(response.data.data.message);
-    },
     async changeLanguage (e) {
       const newLang = e.target.value;
       this.user.preferences.language = newLang;
@@ -857,12 +765,10 @@ export default {
       if (network === 'apple') {
         window.location.href = buildAppleAuthUrl();
       } else {
-        const auth = await hello(network).login({ scope: 'email', options: { force: true } });
-
+        const auth = await hello(network).login({ scope: 'email' });
         await this.$store.dispatch('auth:socialAuth', {
           auth,
         });
-
         window.location.href = '/';
       }
     },
@@ -880,8 +786,7 @@ export default {
         this.localAuth.email = this.user.auth.local.email;
       }
       await axios.post('/api/v4/user/auth/local/register', this.localAuth);
-      window.alert(this.$t('addedLocalAuth')); // eslint-disable-line no-alert
-      window.location.href = '/';
+      window.location.href = '/user/settings/site';
     },
     restoreEmptyUsername () {
       if (this.usernameUpdates.username.length < 1) {
