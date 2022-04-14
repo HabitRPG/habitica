@@ -387,10 +387,13 @@
               {{ $t('saveAndConfirm') }}
             </button>
           </div>
-          <h5>
+          <h5
+            v-if="user.auth.local.email"
+          >
             {{ $t('changeEmail') }}
           </h5>
           <div
+            v-if="user.auth.local.email"
             class="form"
             name="changeEmail"
             novalidate="novalidate"
@@ -783,7 +786,7 @@ export default {
         this.localAuth.email = this.user.auth.local.email;
       }
       await axios.post('/api/v4/user/auth/local/register', this.localAuth);
-      window.alert(this.$t('addedLocalAuth')); // eslint-disable-line no-alert
+      window.location.href = '/user/settings/site';
     },
     restoreEmptyUsername () {
       if (this.usernameUpdates.username.length < 1) {
