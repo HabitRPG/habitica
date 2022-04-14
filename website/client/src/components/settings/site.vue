@@ -557,7 +557,8 @@ export default {
       passwordUpdates: {},
       localAuth: {
         username: '',
-        email: '',        password: '',
+        email: '',
+        password: '',
         confirmPassword: '',
       },
       displayNameIssues: [],
