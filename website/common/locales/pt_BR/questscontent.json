@@ -744,5 +744,13 @@
     "questOnyxNotes": "@Vikte, @aspiring_advocate e @starsystemic sabem da falta de motivação que tomou conta de você nos últimos tempos e decidem que um dia de diversão pode ajudar a melhorar o seu humor. No entanto, “diversão”, para eles, aparentemente significa mergulhar em alto mar para procurar por tesouros na Fenda Sombria! Vocês vestem seus equipamentos de mergulho, embarcam no bote e remam em direção à antiga cidade de Lentópolis. Durante a viagem, você aproveita para perguntar ao grupo que tipo de tesouro, exatamente, vocês estão procurando.<br><br>“Runas de Plutão!”, responde @Vikte.<br><br>“Não, Runas de Leão!”, exclama @aspiring_advocate.<br><br>“Não, pedras ônix!”, retruca @starsystemic.<br><br>Enquanto eles discutem entre si, você olha para o oceano e avista a entrada da caverna logo abaixo de vocês! Com animação, você dá um salto e mergulha no mar, deixando para trás o trio, que assiste de camarote enquanto você nada em direção à Fenda Sombria para procurar os tesouros ali escondidos.",
     "questOnyxUnlockText": "Desbloqueia Poções de Eclosão Ônix para compra no Mercado",
     "questOnyxCollectOnyxStones": "Pedras Ônix",
-    "questOnyxDropOnyxPotion": "Poção Mágica de Eclosão Ônix"
+    "questOnyxDropOnyxPotion": "Poção Mágica de Eclosão Ônix",
+    "questVirtualPetRageTitle": "O Apitamento",
+    "questVirtualPetUnlockText": "Desbloqueia Poções de Eclosão de Mascote Virtual para compra no Mercado",
+    "questVirtualPetRageDescription": "Essa barra enche quando você não completa suas Diárias. Quando estiver completamente cheia, o Gotchimonstro irá curar 30% de sua vida restante!",
+    "questVirtualPetRageEffect": "`O Gotchimonstro usa Apito Irritante!` Gotchimonstro emite um bipe irritante e sua barrinha de felicidade desaparece de repente! Dano pendente reduzido.",
+    "questVirtualPetDropVirtualPetPotion": "Poção de Eclosão de Mascote Virtual",
+    "questVirtualPetBoss": "Gotchimonstro",
+    "questVirtualPetText": "Caos Virtual depois do Primeiro de Abril: O apitamento",
+    "questVirtualPetNotes": "É uma calma e prazerosa manhã de primavera em Habitica, uma semana após um memorável Primeiro de Abril. Você e @Beffymaroo estão no estábulo cuidando de seus mascotes (que ainda estão um pouco confusos com o tempo gasto virtualmente!).<br><br>Você ouve um estrondo longínquo e um som de bipe, suave no início mas que fica cada vez mais alto, como se estivesse se aproximando. Uma forma oval aparece no horizonte e ao se aproximar, apitando cada vez mais alto, você vê que é um bichinho virtual gigantesco!<br><br>\"Ah, não!\" @Beffymaroo exclama, \"Eu acho que o Primeiro de Abril deixou alguns assuntos inacabados com o grandalhão aqui, parece que ele quer atenção!\"<br><br>O bichinho virtual apita nervosamente, fazendo uma birra virtual e retumbando cada vez mais perto."
 }
