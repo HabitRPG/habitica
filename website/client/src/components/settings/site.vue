@@ -387,7 +387,7 @@
               {{ $t('saveAndConfirm') }}
             </button>
           </div>
-          <h5>
+          <h5 v-if="user.auth.local.has_password">
             {{ $t('changeEmail') }}
           </h5>
           <div
@@ -497,25 +497,20 @@
 
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
-
   input {
     color: $gray-50;
   }
-
   .usersettings h5 {
     margin-top: 1em;
   }
-
   .iconalert > div > span {
     line-height: 25px;
   }
-
   .iconalert > div:after {
     clear: both;
     content: '';
     display: table;
   }
-
   .input-error {
     color: $red-50;
     font-size: 90%;
@@ -562,8 +557,7 @@ export default {
       passwordUpdates: {},
       localAuth: {
         username: '',
-        email: '',
-        password: '',
+        email: '',        password: '',
         confirmPassword: '',
       },
       displayNameIssues: [],
@@ -768,12 +762,10 @@ export default {
       if (network === 'apple') {
         window.location.href = buildAppleAuthUrl();
       } else {
-        const auth = await hello(network).login({ scope: 'email', options: { force: true } });
-
+        const auth = await hello(network).login({ scope: 'email' });
         await this.$store.dispatch('auth:socialAuth', {
           auth,
         });
-
         window.location.href = '/';
       }
     },
@@ -792,7 +784,6 @@ export default {
       }
       await axios.post('/api/v4/user/auth/local/register', this.localAuth);
       window.alert(this.$t('addedLocalAuth')); // eslint-disable-line no-alert
-      window.location.href = '/';
     },
     restoreEmptyUsername () {
       if (this.usernameUpdates.username.length < 1) {
