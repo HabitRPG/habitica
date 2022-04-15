@@ -643,8 +643,8 @@
     "backgroundCrypticCandlesText": "Velas crípticas",
     "backgroundCrypticCandlesNotes": "Invoca fuerzas arcanas entre estas velas crípticas.",
     "backgroundHauntedPhotoText": "Foto encantada",
-    "backgroundUndeadHandsText": "Mano no-muertas",
-    "backgroundUndeadHandsNotes": "Intenta escapar de las garras de estas manos no-muertas.",
+    "backgroundUndeadHandsText": "Manos muertas vivientes",
+    "backgroundUndeadHandsNotes": "Intenta escapar de las garras de estas Manos muertas vivientes.",
     "backgrounds102021": "89.ª Serie: publicada en octubre de 2021",
     "backgroundHauntedPhotoNotes": "Te ves atrapado en el monocromático mundo de una foto encantada.",
     "backgroundIcePalaceNotes": "Reina desde el Palacio de Hielo.",
@@ -684,5 +684,9 @@
     "backgroundFlowerShopNotes": "Disfruta el suave aroma de una Tienda de Flores.",
     "backgroundBlossomingTreesNotes": "Entretente bajo Árboles Florecidos.",
     "backgroundAnimalsDenText": "Cubil de una Criatura del Bosque",
-    "backgroundAnimalsDenNotes": "Ponte Cómodo en el Cubil de una Criatura del Bosque."
+    "backgroundAnimalsDenNotes": "Ponte Cómodo en el Cubil de una Criatura del Bosque.",
+    "backgroundFloweringPrairieNotes": "Brinca por una pradera floreciente.",
+    "backgroundFloweringPrairieText": "Pradera floreciente",
+    "backgroundSpringtimeLakeText": "Lago de Primavera",
+    "backgroundSpringtimeLakeNotes": "Disfruta las vistas a orillas de un Lago de Primavera."
 }
