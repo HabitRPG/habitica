@@ -36,7 +36,7 @@ function cssVarMap (sprite) {
 
   if (sprite.name.indexOf('hair_base') !== -1) {
     const styleArray = sprite.name.split('_').slice(2, 3);
-    if (Number(styleArray[0]) > 14){
+    if (Number(styleArray[0]) > 14) {
       sprite.custom.px.offsetY = '0'; // don't crop updos
     }
   }
