@@ -744,5 +744,14 @@
     "questOnyxCollectLeoRunes": "Rune del Leone",
     "questOnyxCollectOnyxStones": "Pietre d'Onice",
     "questOnyxDropOnyxPotion": "Pozione di Schiusa Onice",
-    "questOnyxUnlockText": "Sblocca l'acquisto delle Pozioni di Schiusa Onice nel negozio"
+    "questOnyxUnlockText": "Sblocca l'acquisto delle Pozioni di Schiusa Onice nel negozio",
+    "questVirtualPetText": "Caos Virtuale con il pesce d'aprile: L'accensione",
+    "questVirtualPetBoss": "Wotchimon",
+    "questVirtualPetRageTitle": "L'accensione",
+    "questVirtualPetRageDescription": "Questa barra si riempie quando non completi le tue Attività giornaliere. Quando è piena, il Wotchiman curerà il 30% della sua salute rimanente!",
+    "questVirtualPetRageEffect": "`Wotchimon usa il Bip Fastidioso!` Wotchimon emette un bip fastidioso e la sua barra della felicità scompare improvvisamente! I danni in sospeso vengono ridotti.",
+    "questVirtualPetDropVirtualPetPotion": "Pozione di Schiusa Virtuale",
+    "questVirtualPetUnlockText": "Sblocca le Pozioni di Schiusa virtuali nel Negozio",
+    "questVirtualPetNotes": "È una tranquilla e piacevole mattina di primavera ad Habitica, una settimana dopo un memorabile pesce d'aprile. Tu e @Beffymaroo siete presso le stalle a occuparvi dei vostri animali che sono ancora un po' confusi dal loro trascorso virtuale!).<br><br>In lontananza sentite un rimbombo ed una serie di bip, inizialmente deboli ma poi sempre più forti, come se si stessero avvicinando. Un uovo appare all'orizzonte e mentre si avvicina, emettendo dei bip sempre più forti, vedete che è un gigantesco animale domestico virtuale!<br><br>\"Oh no\", esclama @Beffymaroo, \"Penso che il pesce d'aprile gli abbia lasciato ancora qualcosa in sospeso, sembra cercare la nostra attenzione!<br><br>L'animale virtuale emette un bip rabbioso, entra in una furia virtuale ed inizia ad avvicinarsi sempre di più.",
+    "questVirtualPetCompletion": "Un'attenta pressione dei pulsanti sembra aver soddisfatto i misteriosi bisogni dell'animale virtuale, ed alla fine si è calmato e sembrebbe soddisfatto.<br><br>Improvvisamente, in uno scoppio di coriandoli, il Pesce d'Aprile appare con un cesto pieno di strane pozioni che emettono dei flebili bip.<br><br>\"Che tempismo, Pesce d'Aprile\", dice @Beffymaroo con un sorriso ironico. \"Sospetto che questo grosso tizio che suona sia un tuo conoscente.\"<br><br>\"Uh, sì\", dice il Pesce, imbarazzato. “Mi dispiace tanto per questo, e grazie a entrambi per esservi presi cura di Wotchimon! Prendete queste pozioni in segno di ringraziamento, possono riportare indietro i tuoi animali virtuali ogni volta che vuolete!\"<br><br>Non sei sicuro al 100% di voler proprio tutti quei bip, ma sono sicuramente carini quindi vale la pena provare!"
 }
