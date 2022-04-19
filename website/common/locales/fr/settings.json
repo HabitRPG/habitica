@@ -42,7 +42,7 @@
     "sureChangeCustomDayStartTime": "Voulez-vous vraiment changer l'heure personnalisée de début de journée ? Vos quotidiennes seront réinitialisées la prochaine fois que vous utiliserez Habitica après <%= time %>. Faites attention à les avoir complétées d'ici là !",
     "customDayStartHasChanged": "Votre heure personnalisée de début de journée a été changée.",
     "nextCron": "Vos tâches quotidiennes seront réinitialisées la prochaine fois que vous utiliserez Habitica après <%= time %>. Faites attention à compléter vos tâches quotidiennes avant cette heure !",
-    "customDayStartInfo1": "Par défaut, Habitica vérifie et réinitialise vos tâches quotidiennes à minuit dans votre fuseau horaire. Vous pouvez personnaliser cette heure ici.",
+    "customDayStartInfo1": "Habitica vérifie et réinitialise vos tâches quotidiennes à minuit dans votre fuseau horaire. Vous pouvez ajuster cette heure ici.",
     "misc": "Divers",
     "showHeader": "Montrer le bandeau",
     "changePass": "Changer le mot de passe",
@@ -159,7 +159,7 @@
     "amazonPayments": "Paiments Amazon",
     "amazonPaymentsRecurring": "Cocher la case ci-dessous est nécessaire pour créer votre abonnement. Cela permet à votre compte Amazon d'être utilisé pour les paiements en cours de <strong>cet</strong> abonnement. Cela n'utilisera pas automatiquement votre compte Amazon pour de futurs achats.",
     "timezone": "Fuseau horaire",
-    "timezoneUTC": "Habitica utilise le fuseau horaire réglé sur votre PC, qui est le suivant : <strong><%= utc %></strong>",
+    "timezoneUTC": "Votre fuseau horaire est défini par votre ordinateur, avec la valeur suivante : <strong><%= utc %></strong>",
     "timezoneInfo": "Si ce n'est pas le bon fuseau horaire, commencez par actualiser la page en utilisant le bouton Actualiser de votre navigateur, pour vous assurer qu'Habitica est à jour. Si ce n'est toujours pas le bon, réglez le fuseau horaire sur votre PC et actualisez cette page à nouveau. <br><br><strong>Si vous utilisez Habitica sur d'autres PC ou appareils mobiles, le fuseau horaire doit être le même sur tous.</strong> Si vos quotidiennes continuent d'être réinitialisées à la mauvaise heure, répétez cette vérification sur tous les PCs que vous utilisez et sur le navigateur de vos appareils mobiles.",
     "push": "Notification push",
     "about": "À propos",
@@ -210,5 +210,10 @@
     "transaction_change_class": "Changé de classe",
     "transaction_rebirth": "Utilisé l'orbe de résurrection",
     "transaction_release_pets": "Libéré les familiers",
-    "addPasswordAuth": "Ajouter le mot de passe"
+    "addPasswordAuth": "Ajouter le mot de passe",
+    "gemCap": "Limite de gemmes",
+    "nextHourglass": "Prochain sablier",
+    "nextHourglassDescription": "Les abonnés reçoivent des sabliers mystiques\nlors des trois premiers jours de chaque mois.",
+    "dayStartAdjustment": "Ajustement de début de journée",
+    "adjustment": "Ajustement"
 }

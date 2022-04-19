@@ -37,7 +37,7 @@ export default {
     }
     : {},
 
-  availableSpells: SHOP_OPEN && moment().isBetween('2022-04-12T08:00-05:00', CURRENT_EVENT.end)
+  availableSpells: SHOP_OPEN && moment().isBetween('2022-04-14T08:00-05:00', CURRENT_EVENT.end)
     ? [
       'shinySeed',
     ]

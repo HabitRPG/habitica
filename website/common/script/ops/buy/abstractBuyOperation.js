@@ -171,10 +171,6 @@ export class AbstractGemItemOperation extends AbstractBuyOperation {
     if (!user.balance || user.balance < itemValue * this.quantity) {
       throw new NotAuthorized(this.i18n('notEnoughGems'));
     }
-
-    if (item.locked) {
-      throw new NotAuthorized(this.i18n('cannotBuyItem'));
-    }
   }
 
   async subtractCurrency (user, item) {

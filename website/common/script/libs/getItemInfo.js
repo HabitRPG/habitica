@@ -65,9 +65,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
 
   let itemInfo;
 
-  switch ( // eslint-disable-line default-case
-    type
-  ) {
+  switch (type) { // eslint-disable-line default-case
     case 'eggs':
       itemInfo = {
         key: item.key,
@@ -106,9 +104,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         locked: false,
         currency: 'gems',
         purchaseType: 'hatchingPotions',
-        path: item.wacky
-          ? `wackyHatchingPotions.${item.key}`
-          : `premiumHatchingPotions.${item.key}`,
+        path: item.wacky ? `wackyHatchingPotions.${item.key}` : `premiumHatchingPotions.${item.key}`,
         pinType: 'premiumHatchingPotion',
         event: item.event,
       };

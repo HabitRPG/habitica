@@ -13,7 +13,7 @@
     "companyDonate": "Spenden",
     "forgotPassword": "Passwort vergessen?",
     "emailNewPass": "Einen Link per E-Mail senden, um das Passwort zurückzusetzen",
-    "forgotPasswordSteps": "Trage die E-Mail-Adresse ein, mit der Du Deinen Habitica-Account aktiviert hast.",
+    "forgotPasswordSteps": "Trage deinen Benutzernamen oder die E-Mail-Adresse ein, mit der Du Deinen Habitica-Account aktiviert hast.",
     "sendLink": "Link senden",
     "featuredIn": "Vorgestellt in",
     "footerDevs": "Entwickler",
@@ -129,7 +129,7 @@
     "passwordConfirmationMatch": "Die Passwörter stimmen nicht überein.",
     "invalidLoginCredentials": "Falscher Benutzername und/oder E-Mail und/oder Passwort.",
     "passwordResetPage": "Passwort zurücksetzen",
-    "passwordReset": "Wenn wir Deine E-Mail-Adresse kennen, wurden Anweisungen zum Passwort-Zurücksetzen dorthin verschickt.",
+    "passwordReset": "Wenn wir Deine E-Mail-Adresse oder Deinen Benutzernamen kennen, wurden Anweisungen zum Passwort-Zurücksetzen dorthin verschickt.",
     "passwordResetEmailSubject": "Passwort-Reset für Habitica",
     "passwordResetEmailText": "Wenn Du das Passwort für <%= username %> zurücksetzen möchtest, folge bitte dem Link <%= passwordResetLink %>, um ein neues zu setzen. Dieser Link wird in 24 Stunden ungültig. Wenn Du keinen Passwort-Reset angefordert hast, kannst Du diese E-Mail ignorieren.",
     "passwordResetEmailHtml": "Wenn Du das Passwort für <strong><%= username %></strong> auf Habitica zurücksetzen möchtest, folge bitte <a href=\"<%= passwordResetLink %>\">diesem Link </a>, um ein neues zu setzen. Dieser Link wird in 24 Stunden ungültig.<br/><br>Wenn Du keinen Passwort-Reset angefordert hast, kannst Du diese E-Mail ignorieren.",
@@ -150,7 +150,7 @@
     "confirmPassword": "Passwort bestätigen",
     "usernameLimitations": "Der Benutzername muss zwischen 1 und 20 Buchstaben lang sein und darf nur die Buchstaben von A bis Z, Nummern von 0 bis 9, Bindestriche und Unterstriche beinhalten und darf keine unangemessenen Begriffe enthalten.",
     "usernamePlaceholder": "z.B., HabitRabbit",
-    "emailPlaceholder": "z.B., rabbit@beispiel.com",
+    "emailPlaceholder": "z.B., gryphon@beispiel.com",
     "passwordPlaceholder": "z.B., ******************",
     "confirmPasswordPlaceholder": "Stelle sicher, dass es das gleiche Passwort ist!",
     "joinHabitica": "Habitica beitreten",
@@ -186,5 +186,6 @@
     "communityInstagram": "Instagram",
     "minPasswordLength": "Das Passwort muss mindestens 8 Zeichen haben.",
     "enterHabitica": "Tritt ein in Habitica",
-    "socialAlreadyExists": "Diese Social-Media-Zugangsdaten sind bereits mit einem schon bestehenden Habitica-Konto verknüpft."
+    "socialAlreadyExists": "Diese Social-Media-Zugangsdaten sind bereits mit einem schon bestehenden Habitica-Konto verknüpft.",
+    "emailUsernamePlaceholder": "z.B., habitrabbit oder gryphon@beispiel.com"
 }

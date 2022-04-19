@@ -42,7 +42,7 @@
     "sureChangeCustomDayStartTime": "Bist Du sicher, dass Du Deinen individuellen Tageswechsel umstellen willst? Deine Tagesaufgaben werden das nächste Mal zurückgesetzt, wenn Du Habitica nach <%= time %> verwendest. Stelle sicher, dass Du bis dahin Deine Aufgaben erledigt hast!",
     "customDayStartHasChanged": "Dein persönlicher Tagesstart wurde geändert.",
     "nextCron": "Deine Tagesaufgaben werden das nächste Mal überprüft und zurückgesetzt, wenn Du Habitica das erste Mal nach <%= time %> nutzt. Stelle sicher, dass Du Deine Tagesaufgaben vor diesem Zeitpunkt erledigt hast!",
-    "customDayStartInfo1": "Normalerweise werden Deine Tagesaufgaben jeden Tag um Mitternacht Deiner Ortszeit von Habitica überprüft und zurückgesetzt. Du kannst diesen Zeitpunkt hier ändern.",
+    "customDayStartInfo1": "Deine Tagesaufgaben werden jeden Tag um Mitternacht Deiner Ortszeit von Habitica überprüft und zurückgesetzt. Du kannst hier ändern, wenn das zu einem anderen Zeitpunkt geschehen soll.",
     "misc": "Verschiedenes",
     "showHeader": "Header anzeigen",
     "changePass": "Passwort ändern",
@@ -159,7 +159,7 @@
     "amazonPayments": "Amazon-Zahlungen",
     "amazonPaymentsRecurring": "Die untenstehende Checkbox muss abgehakt werden, um Dein Abo zu erstellen. Dies ermöglicht, Deinen Amazon-Account für wiederkehrende Zahlungen für <strong>dieses</strong> Abo zu benutzen. Es führt nicht dazu, dass Dein Amazon-Account automatisch auch für zukünftige Einkäufe benutzt wird.",
     "timezone": "Zeitzone",
-    "timezoneUTC": "Habitica verwendet die Zeitzone, welche an Deinem PC eingestellt ist: <strong><%= utc %></strong>",
+    "timezoneUTC": "Deine Zeitzone wird von Deinem PC festgelegt, und ist: <strong><%= utc %></strong>",
     "timezoneInfo": "Wenn diese Zeitzone falsch ist, lade die Seite mit Hilfe Deines Browsers erneut, um sicherzustellen, dass Habitica die aktuellen Informationen darstellt. Ist diese immer noch falsch, passe die Zeitzone Deines PCs an und lade die Seite erneut.<br><br> <strong>Wenn Du Habitica auf anderen PCs oder Mobilgeräten verwendest, muss die Zeitzone auf allen übereinstimmen.</strong> Wenn Deine Tagesaufgaben zur falschen Zeit zurückgesetzt werden, wiederhole diese Prüfung auf allen anderen PCs und in einem Browser Deiner Mobilgeräte.",
     "push": "Push",
     "about": "Über",
@@ -209,5 +209,11 @@
     "transaction_debug": "Debug-Aktion",
     "transaction_contribution": "Durch Beiträge",
     "transaction_release_pets": "Haustiere freigelassen",
-    "transaction_release_mounts": "Reittiere freigelassen"
+    "transaction_release_mounts": "Reittiere freigelassen",
+    "addPasswordAuth": "Passwort hinzufügen",
+    "nextHourglassDescription": "Abonnierende erhalten Mystische Sanduhren\ninnerhalb der ersten drei Tages des Monats.",
+    "gemCap": "Edelsteinobergrenze",
+    "nextHourglass": "Nächste Sanduhr",
+    "adjustment": "Änderung",
+    "dayStartAdjustment": "Änderung des Tageswechsel"
 }
