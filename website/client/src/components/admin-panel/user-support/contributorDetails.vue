@@ -162,6 +162,7 @@ import markdownDirective from '@/directives/markdown';
 import saveHero from '../mixins/saveHero';
 
 import { mapState } from '@/libs/store';
+import { userStateMixin } from '../../../mixins/userState';
 
 function resetData (self) {
   self.expand = self.hero.contributor.level;
@@ -172,6 +173,7 @@ export default {
     markdown: markdownDirective,
   },
   mixins: [
+    userStateMixin,
     saveHero,
   ],
   computed: {

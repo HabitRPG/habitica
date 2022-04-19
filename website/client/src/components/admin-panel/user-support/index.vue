@@ -152,6 +152,10 @@ export default {
         };
       }
 
+      if (!this.hero.permissions) {
+        this.hero.permissions = {};
+      }
+
       this.hasParty = false;
       this.partyNotExistError = false;
       this.adminHasPrivForParty = true;
