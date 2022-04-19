@@ -2,7 +2,7 @@ import defaults from 'lodash/defaults';
 import each from 'lodash/each';
 import sortBy from 'lodash/sortBy';
 import t from './translation';
-import USER_CAN_OWN_QUEST_CATEGORIES from './constants';
+import { USER_CAN_OWN_QUEST_CATEGORIES } from './constants';
 import QUEST_GENERIC from './quests/generic';
 import QUEST_MASTERCLASSER from './quests/masterclasser';
 import QUEST_PETS from './quests/pets';
