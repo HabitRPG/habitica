@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-import { startOfDay, daysSince } from '../../../website/common/script/cron';
+import { startOfDay, daysSince, getPlanContext } from '../../../website/common/script/cron';
 
 function localMoment (timeString, utcOffset) {
   return moment(timeString).utcOffset(utcOffset, true);
@@ -179,6 +179,65 @@ describe('cron utility functions', () => {
       const result = daysSince(localMoment('1989-11-08', -timezoneOffset), options);
 
       expect(result).to.equal(0);
+    });
+  });
+
+  describe('getPlanContext', () => {
+    const now = new Date(2022, 5, 1);
+
+    function baseUserData (count, offset, planId) {
+      return {
+        purchased: {
+          plan: {
+            consecutive: {
+              count,
+              offset,
+              gemCapExtra: 25,
+              trinkets: 19,
+            },
+            quantity: 1,
+            extraMonths: 0,
+            gemsBought: 0,
+            owner: '116b4133-8fb7-43f2-b0de-706621a8c9d8',
+            nextBillingDate: null,
+            nextPaymentProcessing: null,
+            planId,
+            customerId: 'group-plan',
+            dateUpdated: '2022-05-10T03:00:00.144+01:00',
+            paymentMethod: 'Group Plan',
+            dateTerminated: null,
+            lastBillingDate: null,
+            dateCreated: '2017-02-10T19:00:00.355+01:00',
+          },
+        },
+      };
+    }
+
+    it('offset 0, next date in 3 months', () => {
+      const user = baseUserData(60, 0, 'group_plan_auto');
+
+      const planContext = getPlanContext(user, now);
+
+      expect(planContext.nextHourglassDate)
+        .to.be.sameMoment('2022-08-10T02:00:00.144Z');
+    });
+
+    it('offset 1, next date in 1 months', () => {
+      const user = baseUserData(60, 1, 'group_plan_auto');
+
+      const planContext = getPlanContext(user, now);
+
+      expect(planContext.nextHourglassDate)
+        .to.be.sameMoment('2022-06-10T02:00:00.144Z');
+    });
+
+    it('offset 2, next date in 2 months - with any plan', () => {
+      const user = baseUserData(60, 2, 'basic_3mo');
+
+      const planContext = getPlanContext(user, now);
+
+      expect(planContext.nextHourglassDate)
+        .to.be.sameMoment('2022-07-10T02:00:00.144Z');
     });
   });
 });

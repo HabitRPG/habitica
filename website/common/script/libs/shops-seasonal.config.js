@@ -30,20 +30,24 @@ export default {
 
   pinnedSets: SHOP_OPEN
     ? {
-      healer: 'winter2022IceCrystalHealerSet',
-      rogue: 'winter2022FireworksRogueSet',
-      warrior: 'winter2022StockingWarriorSet',
-      wizard: 'winter2022PomegranateMageSet',
+      healer: 'spring2022PeridotHealerSet',
+      rogue: 'spring2022MagpieRogueSet',
+      warrior: 'spring2022RainstormWarriorSet',
+      wizard: 'spring2022ForsythiaMageSet',
     }
     : {},
 
-  availableSpells: SHOP_OPEN && moment().isBetween('2021-12-30T08:00-04:00', CURRENT_EVENT.end)
+  availableSpells: SHOP_OPEN && moment().isBetween('2022-04-14T08:00-05:00', CURRENT_EVENT.end)
     ? [
-      'snowball',
+      'shinySeed',
     ]
     : [],
 
-  availableQuests: [],
+  availableQuests: SHOP_OPEN && CURRENT_EVENT.season === 'spring'
+    ? [
+      'egg',
+    ]
+    : [],
 
-  featuredSet: 'winter2021ArcticExplorerHealerSet',
+  featuredSet: 'spring2021TwinFlowerRogueSet',
 };

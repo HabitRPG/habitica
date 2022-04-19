@@ -269,13 +269,13 @@
         <label
           v-once
           for="usernameInput"
-        >{{ $t('email') }}</label>
+        >{{ $t('emailOrUsername') }}</label>
         <input
           id="usernameInput"
           v-model="username"
           class="form-control"
           type="text"
-          :placeholder="$t('emailPlaceholder')"
+          :placeholder="$t('emailUsernamePlaceholder')"
         >
       </div>
       <div class="text-center">

@@ -90,6 +90,7 @@
     "addedLocalAuth": "Successfully added local authentication",
     "data": "Δεδομένα",
     "email": "Email",
+    "emailOrUsername": "Username or Email",
     "registerWithSocial": "Register with <%= network %>",
     "registeredWithSocial": "Registered with <%= network %>",
     "emailNotifications": "Ειδοποιήσεις email",

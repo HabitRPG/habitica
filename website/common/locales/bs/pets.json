@@ -72,7 +72,7 @@
     "notEnoughPetsMounts": "Niste prikupili dovoljno ljubimaca i jahalica",
     "notEnoughMounts": "Niste prikupili dovoljno jahalica",
     "notEnoughPets": "Niste prikupili dovoljno ljubimaca",
-    "clickOnPotionToHatch": "Kliknite napitak za izlijeganje da biste ga iskoristili na <% = eggName%> i izlegnite novog ljubimca!",
+    "clickOnPotionToHatch": "Kliknite napitak za izlijeganje da biste ga iskoristili na <%= eggName %> i izlegnite novog ljubimca!",
     "hatchDialogText": "Izlijte svoj napitak za izlijeganje <%= potionName %> na jaje <%= eggName %> i ono će se izleći u <%= petName %>.",
     "clickOnEggToHatch": "Kliknite na jaje da koristite vaš <%= potionName %> napitak za izlijeganje i izlegnite novog ljubimca!",
     "dragThisPotion": "Povucite <%= potionName %> do jajeta i izlegnite novog ljubimca!",

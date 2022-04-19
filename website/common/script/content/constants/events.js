@@ -10,10 +10,22 @@ const gemsPromo = {
 
 export const EVENTS = {
   noCurrentEvent: {
-    start: '2022-02-18T20:00-05:00',
-    end: '2022-03-31T20:00-05:00',
+    start: '2022-04-30T20:00-05:00',
+    end: '2022-06-30T20:00-05:00',
     season: 'normal',
     npcImageSuffix: '',
+  },
+  spring2022: {
+    start: '2022-03-22T08:00-05:00',
+    end: '2022-04-30T20:00-05:00',
+    npcImageSuffix: '_spring',
+    season: 'spring',
+    gear: true,
+  },
+  aprilFools2022: {
+    start: '2022-04-01T08:00-05:00',
+    end: '2022-04-02T08:00-05:00',
+    aprilFools: 'virtual',
   },
   valentines2022: {
     start: '2022-02-14T08:00-05:00',
