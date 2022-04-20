@@ -311,12 +311,6 @@ export default {
       this.userSearchTerm = '';
       this.foundUser = {};
     },
-    // trying to get cursor to focus in the text field
-    // onOpen () {
-    //   this.nextTick(() => {
-    //     this.$refs.textBox.focus();
-    //   });
-    // },
   },
 };
 </script>

@@ -152,11 +152,8 @@
           {{ $t('wantToSendOwnGems') }}
         </div>
       </div>
+        <!-- need to add Stripe, Paypal, and Amazon purchase functions here -->
         <payments-buttons
-          :stripe-fn="() => redirectToStripe({gift, uuid: userReceivingGems, displayName})"
-          :paypal-fn="() => openPaypal({
-            url: paypalCheckoutLink, type: 'gems', giftedTo: userReceivingGems, displayName })"
-          :amazon-data="{type: 'single', gift, giftedTo: userReceivingGems, displayName}"
           class="payment-buttons"
           />
     </div>
@@ -517,7 +514,7 @@ export default {
         positiveIcon,
         negativeIcon,
       }),
-      userReceivingGift: null,
+      userReceivingGift: '',
       // this might need to be computed depending on where $emit is happening
       selectedPage: 'subscription',
       gift: {
@@ -533,9 +530,9 @@ export default {
     };
   },
   methods: {
-    showSelectUser () {
-      this.$root.$emit('bv::show::modal', 'select-user-modal');
-    },
+    // showSelectUser () {
+    //   this.$root.$emit('bv::show::modal', 'select-user-modal');
+    // },
     close () {
       this.$root.$emit('bv::hide::modal', 'send-gift');
     },
@@ -581,6 +578,7 @@ export default {
     },
     displayName () {
       const displayName = this.userReceivingGift.profile.name;
+      // console.log(displayName);
       return displayName;
     },
     userBacker () {
@@ -623,7 +621,14 @@ export default {
       this.userReceivingGift = data;
       this.$root.$emit('bv::show::modal', 'send-gift');
     });
-    this.selectPage(this.startingPage);
+    if (this.$store.state.giftModalOptions.startingPage) {
+      this.selectedPage = this.$store.state.giftModalOptions.startingPage;
+      this.$store.state.giftModalOptions.startingPage = '';
+      this.selectPage(this.selectedPage);
+    } else {
+      // this.selectedPage = this.startingPage;
+      this.selectPage(this.startingPage);
+    }
   },
 };
 </script>
