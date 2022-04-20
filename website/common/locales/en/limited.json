@@ -193,6 +193,7 @@
   "septemberYYYY": "September <%= year %>",
   "decemberYYYY": "December <%= year %>",
   "marchYYYY": "March <%= year %>",
+  "aprilYYYY": "April <%= year %>",
   "mayYYYY": "May <%= year %>",
   "juneYYYY": "June <%= year %>",
   "novemberYYYY": "November <%= year %>",

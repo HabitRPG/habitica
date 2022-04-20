@@ -529,7 +529,7 @@ const wacky = {
   Veggie: {
     text: t('hatchingPotionVeggie'),
     limited: true,
-    event: EVENTS.spring2021,
+    event: EVENTS.spring2022,
     _addlNotes: t('eventAvailabilityReturning', {
       availableDate: t('dateEndApril'),
       previousDate: t('aprilYYYY', { year: 2021 }),
