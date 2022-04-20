@@ -63,7 +63,6 @@
             {{ $t('subscription') }}
           </div>
 
-            <!-- need to figure out how to make this bit disable .active for 'subscription'-->
           <div
             class="nav-item"
             :class="{active: selectedPage !== 'subscription'}"
@@ -100,7 +99,7 @@
           & @tabindex will need to be added below -->
           <div
             class="gray-circle"
-            @click="gift.gems.amount--"
+            @click="gift.gems.amount <= 0 ? 0 : gift.gems.amount--"
             >
             <div
               class="icon-negative"
@@ -172,7 +171,7 @@
           & @tabindex will need to be added below -->
           <div
             class="gray-circle"
-            @click="gift.gems.amount--"
+            @click="gift.gems.amount <= 0 ? 0 : gift.gems.amount--"
             >
             <div
               class="icon-negative"
@@ -198,7 +197,7 @@
         <!-- @tabindex will need to be added below -->
           <div
             class="gray-circle"
-            @click="gift.gems.amount++"
+            @click="gift.gems.amount < maxGems ? gift.gems.amount++ : maxGems"
             >
             <div
               class="icon-positive"
@@ -515,6 +514,8 @@ export default {
         negativeIcon,
       }),
       userReceivingGift: '',
+      name: '',
+      display: '',
       // this might need to be computed depending on where $emit is happening
       selectedPage: 'subscription',
       gift: {
@@ -619,16 +620,16 @@ export default {
   mounted () {
     this.$root.$on('habitica::send-gift', data => {
       this.userReceivingGift = data;
+      if (this.$store.state.giftModalOptions.startingPage) {
+        this.selectedPage = this.$store.state.giftModalOptions.startingPage;
+        this.$store.state.giftModalOptions.startingPage = '';
+        this.selectPage(this.selectedPage);
+      } else {
+        // this.selectedPage = this.startingPage;
+        this.selectPage(this.startingPage);
+      }
       this.$root.$emit('bv::show::modal', 'send-gift');
     });
-    if (this.$store.state.giftModalOptions.startingPage) {
-      this.selectedPage = this.$store.state.giftModalOptions.startingPage;
-      this.$store.state.giftModalOptions.startingPage = '';
-      this.selectPage(this.selectedPage);
-    } else {
-      // this.selectedPage = this.startingPage;
-      this.selectPage(this.startingPage);
-    }
   },
 };
 </script>
