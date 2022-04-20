@@ -514,9 +514,8 @@ export default {
         negativeIcon,
       }),
       userReceivingGift: '',
-      name: '',
-      display: '',
-      // this might need to be computed depending on where $emit is happening
+      name: '', // here bc it was throwing an error otherwise needs fixing
+      display: '', // here bc it was throwing an error otherwise needs fixing
       selectedPage: 'subscription',
       gift: {
         type: 'gems',
@@ -561,11 +560,9 @@ export default {
         });
       }, 500);
     },
-    // we'll need this later
-    // onHide () {
-    //   this.gift.message = '';
-    //   this.sendingInProgress = false;
-    // },
+    onHide () {
+      this.sendingInProgress = false;
+    },
   },
   computed: {
     ...mapState({
