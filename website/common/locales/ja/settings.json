@@ -42,7 +42,7 @@
     "sureChangeCustomDayStartTime": "日付更新の時間を変更しますか？　あなたの日課は<%= time %>以降に、初めてHabiticaを使ったタイミングで更新されます。それまでに日課を片付けておきましょう！",
     "customDayStartHasChanged": "日付更新時間が変更されました。",
     "nextCron": "あなたの日課が次に更新されるのは <%= time %> です。この時間までに日課を片付けておきましょう!",
-    "customDayStartInfo1": "Habitica の標準設定では、日課は、毎日あなたのタイム ゾーンでの深夜に更新されます。その時間をカスタマイズします。",
+    "customDayStartInfo1": "Habitica は毎日あなたのタイム ゾーンでの深夜に日課のチェックとリセットをします。ここでデフォルト時間をすぎた時間にチェックとリセットするように調整できます。",
     "misc": "その他",
     "showHeader": "ヘッダーを表示する",
     "changePass": "パスワードを変更する",
@@ -159,7 +159,7 @@
     "amazonPayments": "Amazon ペイメント",
     "amazonPaymentsRecurring": "有料プランに加入するには、以下のチェックボックスをチェックする必要があります。これをチェックするとあなたのAmazonアカウントを<strong>有料プランのため</strong>の継続した支払いに利用することを承認します。あなたのAmazonアカウントが今後何らかの購入のために自動的に使われてしまうことはありません。",
     "timezone": "タイム ゾーン",
-    "timezoneUTC": "Habitica はお使いのPCに設定されたタイム ゾーンを利用します。現在の設定 : <strong><%= utc %></strong>",
+    "timezoneUTC": "コンピューターに設定されたあなたのタイムゾーン : <strong><%= utc %></strong>",
     "timezoneInfo": "タイムゾーンの設定が間違っているなら、このページをブラウザのリロード ( 再読み込み ) またはリフレッシュ ( 更新 ) ボタンで、Habitica を最新の状態にしてください。それでもまだ間違っているなら、PC のタイムゾーンを調整し、再度このページをリロード ( 再読み込み ) してください<br><br><strong>もし、別のPCやモバイル機器でも Habitica を使っているなら、すべてを同じタイムゾーンに設定しなくてはなりません。</strong> もし日課がも違った時間にリセットされたら、これまでのチェックを別のすべてのPCとモバイル機器の Web ブラウザでくり返してください。",
     "push": "プッシュ",
     "about": "プロフィール",
@@ -209,5 +209,6 @@
     "transaction_create_guild": "作ったギルド",
     "transaction_rebirth": "転生のオーブの使用",
     "transaction_spend": "使用",
-    "transaction_reroll": "防御の薬の使用"
+    "transaction_reroll": "防御の薬の使用",
+    "addPasswordAuth": "パスワードを追加"
 }

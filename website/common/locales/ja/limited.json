@@ -216,5 +216,9 @@
     "winter2022FireworksRogueSet": "花火（盗賊）",
     "winter2022PomegranateMageSet": "ザクロ（魔道士）",
     "winter2022IceCrystalHealerSet": "氷の結晶（治療師）",
-    "januaryYYYY": "<%= year %>年1月"
+    "januaryYYYY": "<%= year %>年1月",
+    "spring2022RainstormWarriorSet": "どしゃぶり（戦士）",
+    "spring2022ForsythiaMageSet": "レンギョウ（魔道士）",
+    "spring2022PeridotHealerSet": "ペリドット（治療師）",
+    "spring2022MagpieRogueSet": "カササギ（盗賊）"
 }

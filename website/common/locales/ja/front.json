@@ -13,7 +13,7 @@
     "companyDonate": "寄付",
     "forgotPassword": "パスワードを忘れましたか？",
     "emailNewPass": "パスワード再設定リンクをメールで受け取る",
-    "forgotPasswordSteps": "Habiticaのアカウント登録に使ったメールアドレスを入力してください。",
+    "forgotPasswordSteps": "Habiticaのアカウント登録に使ったユーザーネームかメールアドレスを入力してください。",
     "sendLink": "リンクを送る",
     "featuredIn": "記事掲載",
     "footerDevs": "開発者",
@@ -129,7 +129,7 @@
     "passwordConfirmationMatch": "パスワードが不一致です。",
     "invalidLoginCredentials": "ユーザー名とパスワードのいずれかまたは両方が無効です。",
     "passwordResetPage": "パスワードをリセットする",
-    "passwordReset": "もし入力されたメールアドレスが私たちのユーザーリストにあったのなら、新しいパスワードを設定する方法の説明が送信されたはずです。",
+    "passwordReset": "ユーザーネームかメールアドレスが登録されていた場合、新しいパスワードの設定方法がメールで送信されます。",
     "passwordResetEmailSubject": "パスワードのリセット",
     "passwordResetEmailText": "Habiticaで <%= username %> のパスワードのリセットを頼んだのなら、新しいパスワードを設定するために <%= passwordResetLink %> に行ってください。このリンクは24時間後に無効になります。パスワードのリセットを頼んでいない場合、このメールを無視しても結構です。",
     "passwordResetEmailHtml": "Habiticaで <strong><%= username %></strong> のパスワードのリセットを頼んだのなら、新しいパスワードを設定するために <a href=\"<%= passwordResetLink %>\"> ここ </a>にクリックしてください。このリンクは24時間後に無効になります。<br/><br>パスワードのリセットを頼んでいない場合、このメールを無視しても結構です。",
@@ -150,7 +150,7 @@
     "confirmPassword": "新しいパスワードを確認する",
     "usernameLimitations": "ユーザー名は1～20文字以内の長さでなくてはなりません。使える文字は、a～zの英字、0～9の数字、ハイフン、アンダーバーのみです。不適切な言葉を含めることはできません。",
     "usernamePlaceholder": "例: HabitRabbit",
-    "emailPlaceholder": "例: rabbit@example.com",
+    "emailPlaceholder": "例: gryphon@example.com",
     "passwordPlaceholder": "例: ******************",
     "confirmPasswordPlaceholder": "パスワードが間違っていないか確かめてください!",
     "joinHabitica": "Habiticaに参加する",
@@ -186,5 +186,6 @@
     "communityInstagram": "Instagram",
     "minPasswordLength": "パスワードは8文字以上にする必要があります。",
     "enterHabitica": "Habiticaをはじめる",
-    "socialAlreadyExists": "このソーシャルログインは、すでに存在しているHabiticaアカウントにリンクされています。"
+    "socialAlreadyExists": "このソーシャルログインは、すでに存在しているHabiticaアカウントにリンクされています。",
+    "emailUsernamePlaceholder": "例：habitrabbitもしくはgryphon@example.com"
 }

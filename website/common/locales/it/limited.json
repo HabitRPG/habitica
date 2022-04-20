@@ -215,5 +215,9 @@
     "winter2022IceCrystalHealerSet": "Cristallo di ghiaccio (Guaritore)",
     "januaryYYYY": "Gennaio <%= year %>",
     "winter2022FireworksRogueSet": "Fuochi d'artificio (Ladro)",
-    "winter2022PomegranateMageSet": "Melograno (Mago)"
+    "winter2022PomegranateMageSet": "Melograno (Mago)",
+    "spring2022MagpieRogueSet": "Gazza (Ladro)",
+    "spring2022RainstormWarriorSet": "Temporale (Guerriero)",
+    "spring2022ForsythiaMageSet": "Forsizia (Mago)",
+    "spring2022PeridotHealerSet": "Peridoto (Guaritore)"
 }

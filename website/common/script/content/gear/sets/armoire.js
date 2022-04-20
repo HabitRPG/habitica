@@ -392,6 +392,10 @@ const armor = {
     con: 7,
     set: 'gardenerSet',
   },
+  strawRaincoat: {
+    con: 9,
+    set: 'strawRaincoat',
+  },
 };
 
 const body = {
@@ -794,6 +798,10 @@ const head = {
   gardenersSunHat: {
     per: 7,
     set: 'gardenerSet',
+  },
+  strawRainHat: {
+    per: 9,
+    set: 'strawRaincoat',
   },
 };
 

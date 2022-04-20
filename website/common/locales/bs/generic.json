@@ -63,7 +63,7 @@
     "achievementDilatoryText": "Pomogao je poraziti Stravičnog zmaja odgađanja tokom Ljetnjeg festivala 2014!",
     "costumeContest": "Kostimirani takmičar",
     "costumeContestText": "Učestvovao u takmičenju kostima za Noć vještica. Pogledajte neke od sjajnih objava na blog.habitrpg.com!",
-    "costumeContestTextPlural": "Učestvovalo u <% = count%> takmičenjima kostima za Noć vještica. Pogledajte neke od sjajnih objava na blog.habitrpg.com!",
+    "costumeContestTextPlural": "Učestvovalo u <%= count %> takmičenjima kostima za Noć vještica. Pogledajte neke od sjajnih objava na blog.habitrpg.com!",
     "newPassSent": "Ako imamo vašu e-poštu u evidenciji, poslana su vam uputstva za postavljanje nove šifre.",
     "error": "Greška",
     "menu": "Izbornik",

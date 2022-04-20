@@ -20,17 +20,25 @@ function cssVarMap (sprite) {
   if (requiresSpecialTreatment) {
     sprite.custom = {
       px: {
-        offsetX: `-${sprite.x + 25}px`,
-        offsetY: `-${sprite.y + 15}px`,
+        offsetX: '-25px',
+        offsetY: '-15px',
         width: '60px',
         height: '60px',
       },
     };
   }
-  if (sprite.name.indexOf('shirt') !== -1) sprite.custom.px.offsetY = `-${sprite.y + 35}px`; // even more for shirts
+
+  // even more for shirts
+  if (sprite.name.indexOf('shirt') !== -1) {
+    sprite.custom.px.offsetX = '-29px';
+    sprite.custom.px.offsetY = '-42px';
+  }
+
   if (sprite.name.indexOf('hair_base') !== -1) {
     const styleArray = sprite.name.split('_').slice(2, 3);
-    if (Number(styleArray[0]) > 14) sprite.custom.px.offsetY = `-${sprite.y}px`; // don't crop updos
+    if (Number(styleArray[0]) > 14) {
+      sprite.custom.px.offsetY = '0'; // don't crop updos
+    }
   }
 }
 

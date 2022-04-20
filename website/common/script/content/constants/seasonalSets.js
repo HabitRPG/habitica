@@ -67,36 +67,37 @@ const SEASONAL_SETS = {
     'cleverDogSet',
     'braveMouseSet',
 
-    // spring 2017
     'spring2017FelineWarriorSet',
     'spring2017CanineConjurorSet',
     'spring2017FloralMouseSet',
     'spring2017SneakyBunnySet',
 
-    // spring 2018
     'spring2018TulipMageSet',
     'spring2018SunriseWarriorSet',
     'spring2018DucklingRogueSet',
     'spring2018GarnetHealerSet',
 
-    // spring 2019
     'spring2019AmberMageSet',
     'spring2019OrchidWarriorSet',
     'spring2019CloudRogueSet',
     'spring2019RobinHealerSet',
 
-    // spring 2020
     'spring2020BeetleWarriorSet',
     'spring2020IrisHealerSet',
     'spring2020LapisLazuliRogueSet',
     'spring2020PuddleMageSet',
 
-    // spring 2021
     'spring2021SwanMageSet',
     'spring2021WillowHealerSet',
     'spring2021SunstoneWarriorSet',
     'spring2021TwinFlowerRogueSet',
+
+    'spring2022ForsythiaMageSet',
+    'spring2022PeridotHealerSet',
+    'spring2022RainstormWarriorSet',
+    'spring2022MagpieRogueSet',
   ],
+
   summer: [
     // summer 2014
     'daringSwashbucklerSet',

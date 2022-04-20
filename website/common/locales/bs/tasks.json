@@ -77,7 +77,7 @@
     "streakSingular": "Ponavljač",
     "streakSingularText": "Obavljeno je 21-dnevni niz svakodnevnih zadataka",
     "perfectName": "<%= count %> potpunih dana",
-    "perfectText": "Završili sve svakodnevne zadatke za <% = count%> dana. Ovim postignućem dobijate +nivo/2 poda ojačanja za sve statuse za sljedeći dan. Oni iznad nivoa 100 ne dobijaju nikakve dodatne efekte ojačanja.",
+    "perfectText": "Završili sve svakodnevne zadatke za <%= count %> dana. Ovim postignućem dobijate +nivo/2 poda ojačanja za sve statuse za sljedeći dan. Oni iznad nivoa 100 ne dobijaju nikakve dodatne efekte ojačanja.",
     "perfectSingular": "Potpun dan",
     "perfectSingularText": "Završili sve aktivne svakodnevne zadatke u jednom danu. Ovim postignućem dobijate +nivo/2 boda za ojačanje za sve statuse za sljedeći dan. Oni iznad nivoa 100 ne dobijaju nikakve dodatne efekte ojačanja.",
     "fortifyName": "Napitak okrepljenja",

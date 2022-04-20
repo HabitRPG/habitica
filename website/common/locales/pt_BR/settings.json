@@ -189,5 +189,8 @@
     "mentioning": "Mencionando",
     "bannedWordUsedInProfile": "O seu Nome de Exibição ou texto na seção Sobre continha linguagem inapropriada.",
     "onlyPrivateSpaces": "Somente em espaços privados",
-    "bannedSlurUsedInProfile": "Seu Nome de Exibição ou texto na seção Sobre continha ofensa. Seus privilégios de bate-papo foram revogados."
+    "bannedSlurUsedInProfile": "Seu Nome de Exibição ou texto na seção Sobre continha ofensa. Seus privilégios de bate-papo foram revogados.",
+    "addPasswordAuth": "Adicionar senha",
+    "gemCap": "Limite de Gemas",
+    "nextHourglass": "Próxima Ampulheta Mística"
 }
