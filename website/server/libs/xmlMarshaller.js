@@ -23,7 +23,36 @@ export function marshallUserData (userData) {
     type: i.type,
   }));
 
-  return js2xml.parse('user', userData, {
+  const copyUserData = JSON.parse(JSON.stringify(userData));
+
+  const newPurchased = {};
+  if (userData.purchased != null) {
+    for (const itemType in userData.purchased) {
+      if (userData.purchased[itemType] != null) {
+        if (typeof userData.purchased[itemType] === 'object') {
+          const fixedData = [];
+          for (const item in userData.purchased[itemType]) {
+            if (item != null) {
+              if(typeof userData.purchased[itemType][item] === 'object')
+              {
+                fixedData.push({item : userData.purchased[itemType][item]})
+              }
+              else
+              { 
+                fixedData.push(item);
+              }
+            }
+          }
+          newPurchased[itemType] = fixedData;
+        } else {
+          newPurchased[itemType] = userData.purchased[itemType];
+        }
+      }
+    }
+    copyUserData.purchased = newPurchased;
+  }
+
+  return js2xml.parse('user', copyUserData, {
     cdataInvalidChars: true,
     replaceInvalidChars: true,
     declaration: {
