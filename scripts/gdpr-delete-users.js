@@ -40,7 +40,7 @@ async function deleteHabiticaData (user, email) {
     'auth.local.passwordHashMethod': 'bcrypt',
   };
   if (!user.auth.local.email) set['auth.local.email'] = `${user._id}@example.com`;
-  await User.update(
+  await User.updateOne(
     { _id: user._id },
     { $set: set },
   );

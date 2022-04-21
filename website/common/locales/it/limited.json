@@ -219,5 +219,6 @@
     "spring2022MagpieRogueSet": "Gazza (Ladro)",
     "spring2022RainstormWarriorSet": "Temporale (Guerriero)",
     "spring2022ForsythiaMageSet": "Forsizia (Mago)",
-    "spring2022PeridotHealerSet": "Peridoto (Guaritore)"
+    "spring2022PeridotHealerSet": "Peridoto (Guaritore)",
+    "aprilYYYY": "Aprile <%= year %>"
 }

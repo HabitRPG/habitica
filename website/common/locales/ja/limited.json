@@ -9,7 +9,7 @@
     "aquaticFriendsText": "パーティーの仲間から <%= count %>回、水の生き物に変えられました。",
     "valentineCard": "バレンタインカード",
     "valentineCardExplanation": "チョコレートのようなあまったる～いポエムに耐えて、双方ともに「愛情あふれる友達」のバッジを手に入れました！",
-    "valentineCardNotes": "パーティメンバーにバレンタインカードを送りましょう。",
+    "valentineCardNotes": "パーティーメンバーにバレンタインカードを送りましょう。",
     "valentine0": "「バラは赤く\n\n私の日課は青い\n\n私はしあわせ、だって\n\nあなたと一緒のパーティーだから！」",
     "valentine1": "「バラは赤く\n\nスミレは美しい\n\nともに手をとりあって\n\n悪い習慣と戦おう！」",
     "valentine2": "「バラは赤く\n\nこの詩は古くさい\n\nあなたのお気に召すことを願う\n\nだって10ゴールド払ったんだもの。」",
@@ -220,5 +220,6 @@
     "spring2022RainstormWarriorSet": "どしゃぶり（戦士）",
     "spring2022ForsythiaMageSet": "レンギョウ（魔道士）",
     "spring2022PeridotHealerSet": "ペリドット（治療師）",
-    "spring2022MagpieRogueSet": "カササギ（盗賊）"
+    "spring2022MagpieRogueSet": "カササギ（盗賊）",
+    "aprilYYYY": "<%= year %>年4月"
 }
