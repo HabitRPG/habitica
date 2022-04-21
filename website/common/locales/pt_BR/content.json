@@ -344,7 +344,7 @@
     "questEggRobotMountText": "Robô",
     "hatchingPotionSilver": "de Prata",
     "hatchingPotionBronze": "de Bronze",
-    "hatchingPotionSunshine": "Raio de Sol",
+    "hatchingPotionSunshine": "do Raio de Sol",
     "questEggRobotAdjective": "futurista",
     "questEggDolphinAdjective": "animado",
     "questEggDolphinText": "Golfinho",
@@ -370,5 +370,6 @@
     "hatchingPotionMoonglow": "de Brilho da Lua",
     "hatchingPotionSunset": "do Pôr do Sol",
     "hatchingPotionSolarSystem": "do Sistema Solar",
-    "hatchingPotionOnyx": "Ônix"
+    "hatchingPotionOnyx": "Ônix",
+    "hatchingPotionVirtualPet": "Mascote Virtual"
 }

@@ -13,7 +13,7 @@
     "companyDonate": "Doar",
     "forgotPassword": "Esqueceu a senha?",
     "emailNewPass": "Enviar por Email uma Nova Senha",
-    "forgotPasswordSteps": "Digite o endereço de e-mail que você usou para registrar sua conta no Habitica.",
+    "forgotPasswordSteps": "Digite seu nome de usuário ou o endereço de e-mail que você usou para registrar sua conta no Habitica.",
     "sendLink": "Enviar Link",
     "featuredIn": "Visto em",
     "footerDevs": "Desenvolvedores",
@@ -129,7 +129,7 @@
     "passwordConfirmationMatch": "A confirmação de senha não corresponde à senha.",
     "invalidLoginCredentials": "Nome de usuário e/ou e-mail e/ou senha incorretos.",
     "passwordResetPage": "Mudar a Senha",
-    "passwordReset": "Se nós tivermos seu e-mail nos nossos arquivos, as instruções para mudar sua senha já foram mandadas para o seu e-mail.",
+    "passwordReset": "Se nós tivermos seu e-mail ou nome de usuário nos nossos arquivos, as instruções para mudar sua senha já foram mandadas para o seu e-mail.",
     "passwordResetEmailSubject": "Reiniciar senha do Habitica",
     "passwordResetEmailText": "Se você pediu para mudar a senha do usuário <%= username %> no Habitica, vá para <%= passwordResetLink %> para definir uma nova senha. Esse link irá expirar após 24 horas. Se você não pediu para mudar a senha, ignore este e-mail.",
     "passwordResetEmailHtml": "Se você pediu para mudar a senha do usuário <strong><%= username %></strong> no Habitica, <a href=\"<%= passwordResetLink %>\">clique aqui</a>  para definir uma nova senha. O link irá expirar após 24 horas. <br/><br>Se você não pediu para mudar a senha, ignore este e-mail.",
@@ -184,5 +184,8 @@
     "mobileApps": "Aplicativos Móveis",
     "learnMore": "Aprenda Mais",
     "communityInstagram": "Instagram",
-    "minPasswordLength": "Senhas devem possuir 8 caracteres ou mais."
+    "minPasswordLength": "Senhas devem possuir 8 caracteres ou mais.",
+    "enterHabitica": "Entrar no Habitica",
+    "emailUsernamePlaceholder": "Ex: habitilebre ou grifo@exemplo.com",
+    "socialAlreadyExists": "Este login já está vinculado a uma conta existente do Habitica."
 }
