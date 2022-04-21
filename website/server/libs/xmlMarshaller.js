@@ -33,12 +33,9 @@ export function marshallUserData (userData) {
           const fixedData = [];
           for (const item in userData.purchased[itemType]) {
             if (item != null) {
-              if(typeof userData.purchased[itemType][item] === 'object')
-              {
-                fixedData.push({item : userData.purchased[itemType][item]})
-              }
-              else
-              { 
+              if (typeof userData.purchased[itemType][item] === 'object') {
+                fixedData.push({ item: userData.purchased[itemType][item] });
+              } else {
                 fixedData.push(item);
               }
             }
