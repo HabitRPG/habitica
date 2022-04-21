@@ -159,7 +159,7 @@
           <toggle-switch
             v-model="filterBackgrounds"
             class="backgroundFilterToggle"
-            :label="'Show Unlocked Backgrounds'"
+            :label="$t('hideLockedBackgrounds')"
           />
         </div>
         <div
