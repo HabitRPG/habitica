@@ -42,6 +42,7 @@
           <damage-paused-banner />
           <gems-promo-banner />
           <gift-promo-banner />
+          <teams-testing-banner />
           <notifications-display />
           <app-menu />
           <div
@@ -158,6 +159,7 @@ import AppHeader from './components/header/index';
 import DamagePausedBanner from './components/header/banners/damagePaused';
 import GemsPromoBanner from './components/header/banners/gemsPromo';
 import GiftPromoBanner from './components/header/banners/giftPromo';
+import TeamsTestingBanner from './components/header/banners/teamsTesting';
 import AppFooter from './components/appFooter';
 import notificationsDisplay from './components/notifications';
 import snackbars from './components/snackbars/notifications';
@@ -194,6 +196,7 @@ export default {
     DamagePausedBanner,
     GemsPromoBanner,
     GiftPromoBanner,
+    TeamsTestingBanner,
     notificationsDisplay,
     snackbars,
     BuyModal,
