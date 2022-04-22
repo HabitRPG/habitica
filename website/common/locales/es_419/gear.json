@@ -2452,5 +2452,12 @@
     "headSpecialNye2021Notes": "¡Has recibido un Gorro de Fiesta Ridículo! ¡Llévalo con orgullo para dar la bienvenida al Año Nuevo! No otorga ningún beneficio.",
     "weaponSpecialSpring2022HealerText": "Vara de peridoto",
     "weaponSpecialSpring2022HealerNotes": "Utiliza esta vara para acceder a las propiedades curativas del peridoto, ya sea para llevar la calma, la positividad, o la bondad. Aumenta la Inteligencia en <%= int %>. Equipamiento de Edición Limitada de Primavera 2022.",
-    "weaponMystery202111Text": "Bastón de Cronomante"
+    "weaponMystery202111Text": "Bastón de Cronomante",
+    "weaponArmoireHeraldsBuisineText": "Bocina de Heraldo",
+    "weaponArmoireHeraldsBuisineNotes": "Cualquier anuncio sonará mucho mejor seguido de la fanfarria de esta trompeta. Aumenta la fuerza en <%= str %>. Armario Encantado: Conjunto de Heraldo (artículo 3 de 4).",
+    "weaponArmoirePotionBaseText": "Poción Base Decorativa",
+    "weaponArmoirePotionBaseNotes": "Las mascotas que eclosionas con estas pociones serán muchas cosas, ¡pero no básicas! Aumenta la Fuerza, Inteligencia, Constitución y Percepción en <%= attrs %>. Armario Encantado: Conjunto de Pociones (Artículo 1 de 10)",
+    "weaponMystery202201Text": "Cañón de Confeti de Medianoche",
+    "weaponMystery202201Notes": "Libera una nube de dorada y plateada brillantina cuando el reloj toque la medianoche. ¡Feliz año nuevo! Y ¿quién va a limpiar esto? No otorga ningún beneficio. Artículo de suscriptor de Enero de 2022.",
+    "weaponMystery202111Notes": "Da forma al flujo temporal con este bastón misterioso y poderoso. No otorga ningún beneficio. Artículo de suscriptor de Noviembre 2021."
 }

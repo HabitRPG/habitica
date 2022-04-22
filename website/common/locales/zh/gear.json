@@ -2572,5 +2572,5 @@
     "armorSpecialBirthday2022Text": "荒谬派对长袍",
     "armorSpecialBirthday2022Notes": "生日快乐，Habitica！穿上这件荒谬的派对长袍，庆祝这美妙的一天吧。没有属性加成。",
     "weaponSpecialSpring2022RogueText": "巨型耳钉",
-    "weaponSpecialSpring2022WarriorNotes": "呀! 我想那风比你想象的要大一些，是吧? 强度增加 <%= str %>. 限量版2022年春运装备。"
+    "weaponSpecialSpring2022WarriorNotes": "呀！我想那风比你想象的要大一些，是吧？增加<%= str %>点力量。2022年春季限定版装备。"
 }

@@ -602,7 +602,7 @@
     "questSquirrelDropSquirrelEgg": "Esquilo (Ovo)",
     "questSquirrelUnlockText": "Desbloqueia Ovos de Esquilo para compra no Mercado",
     "cuddleBuddiesText": "Pacote de Missões Amiguinhos Fofos",
-    "cuddleBuddiesNotes": "Contém 'A Coelhinha Ladra', 'O Furão Nefasto' e 'A Gangue do Porquinho da Índia'. Disponível até 31 de Maio.",
+    "cuddleBuddiesNotes": "Contém 'A Coelhinha Ladra', 'O Furão Nefasto' e 'A Gangue do Porquinho da Índia'. Disponível até 31 de Março.",
     "aquaticAmigosText": "Pacote de Missões Amigos Aquáticos",
     "aquaticAmigosNotes": "Contém 'O Axolote Mágico', 'O Kraken do Incorpleto', e 'O Chamado do Octothulu'. Disponível até 31 de Agosto.",
     "questSeaSerpentText": "Perigo nas Profundezas: Ataque da Serpente Marinha!",
@@ -628,7 +628,7 @@
     "oddballsText": "Pacote de Missões dos Boladões",
     "oddballsNotes": "Contém 'O Regente Geleia', 'Fuja da Criatura da Caverna' e Um Novelo Enrolado'. Disponível até o dia 30 de Abril.",
     "birdBuddiesText": "Pacote de Missões Amigos dos Pássaros",
-    "birdBuddiesNotes": "Contém 'A Abominável Ave das Neves', 'O Galo Raivoso' e 'O Pavão Puxaempurra'. Disponível até o dia 31 de Dezembro.",
+    "birdBuddiesNotes": "Contém 'A Abominável Ave das Neves', 'O Galo Raivoso' e 'O Pavão Puxaempurra'. Disponível até o dia 30 de Setembro.",
     "questVelociraptorText": "O Veloci-Rapper",
     "questVelociraptorNotes": "Você está compartilhando bolos de mel com @*~Seraphina~*, @Procyon P e @Lilith of Alfheim em um lago nas Estepes de Stoïkalm. De repente, uma voz triste interrompe seu piquenique. <br><br><em>Meus Hábitos foram atingidos, perdi minhas Diárias,<br> Estou perdendo, afundando com dúvidas e incertezas,<br> No topo do meu jogo eu costumava voar,<br> Mas, agora eu apenas deixo qualquer Prazo passar.</em><br><br>@*~Seraphina~* se esconde atrás de um carrinho de grama. \"É um Veloci-Rapper. Ele parece...perturbado?\"<br><br> Você cerra os punhos com determinação. “Só tem uma coisa a fazer. É hora de uma batalha de Rap!\"",
     "questVelociraptorCompletion": "Você correu pela grama, confrontando o Veloci-Rapper.<br><br><em> Olha aqui, rapper, você não é um perdido,<br>Você é mais forte do que qualquer Hábito Negativo!<br>Verifique seus Afazeres como um chefão,<br> Não se lamente por um dia perdido em vão!</em><br><br>Cheio de confiança renovada, ele deixa o freestyle para outro dia, largando para trás três ovos onde sentou-se.",
@@ -752,5 +752,6 @@
     "questVirtualPetDropVirtualPetPotion": "Poção de Eclosão de Mascote Virtual",
     "questVirtualPetBoss": "Gotchimonstro",
     "questVirtualPetText": "Caos Virtual depois do Primeiro de Abril: O apitamento",
-    "questVirtualPetNotes": "É uma calma e prazerosa manhã de primavera em Habitica, uma semana após um memorável Primeiro de Abril. Você e @Beffymaroo estão no estábulo cuidando de seus mascotes (que ainda estão um pouco confusos com o tempo gasto virtualmente!).<br><br>Você ouve um estrondo longínquo e um som de bipe, suave no início mas que fica cada vez mais alto, como se estivesse se aproximando. Uma forma oval aparece no horizonte e ao se aproximar, apitando cada vez mais alto, você vê que é um bichinho virtual gigantesco!<br><br>\"Ah, não!\" @Beffymaroo exclama, \"Eu acho que o Primeiro de Abril deixou alguns assuntos inacabados com o grandalhão aqui, parece que ele quer atenção!\"<br><br>O bichinho virtual apita nervosamente, fazendo uma birra virtual e retumbando cada vez mais perto."
+    "questVirtualPetNotes": "É uma calma e prazerosa manhã de primavera em Habitica, uma semana após um memorável Primeiro de Abril. Você e @Beffymaroo estão no estábulo cuidando de seus mascotes (que ainda estão um pouco confusos com o tempo gasto virtualmente!).<br><br>Você ouve um estrondo longínquo e um som de bipe, suave no início mas que fica cada vez mais alto, como se estivesse se aproximando. Uma forma oval aparece no horizonte e ao se aproximar, apitando cada vez mais alto, você vê que é um bichinho virtual gigantesco!<br><br>\"Ah, não!\" @Beffymaroo exclama, \"Eu acho que o Primeiro de Abril deixou alguns assuntos inacabados com o grandalhão aqui, parece que ele quer atenção!\"<br><br>O bichinho virtual apita nervosamente, fazendo uma birra virtual e retumbando cada vez mais perto.",
+    "questVirtualPetCompletion": "Alguns cuidados apertos de botões parecem ter satisfeito as misteriosas necessidades virtuais do mascote, e ele finalmente se acalmou, parecendo contente.<br><br>Repentinamente em uma explosão de confete, o Piadista aparece com uma cesta cheia de estranhas poções emitindo suaves apitos.<br><br>\"Que sincronia, hein, Piadista,\" @Beffymaroo diz com um sorriso amargo. \"Suspeito que esse camarada apitante seja um conhecido seu.\"<br><br>\"Hã, sim,\" o Piadista diz timidamente. \"Perdão por isso, e obrigado a vocês por cuidarem do Assistimon! Pegue essas poções como agradecimento, elas podem trazer de volta seus mascotes virtuais sempre que quiserem!\"<br><br>Você não está 100% certo de que simpatiza com toda a apitação, mas eles são fofos, então vale o risco!"
 }
