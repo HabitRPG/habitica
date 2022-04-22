@@ -854,6 +854,7 @@ export default {
           eventAction: 'cron failed',
           eventCategory: 'behavior',
           hitType: 'event',
+          responseCode: response.status,
         }, { trackOnClient: true });
       }
 
