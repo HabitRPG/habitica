@@ -117,8 +117,7 @@
               id="gemsForm"
               v-model.number="gift.gems.amount"
               class="form-control"
-              placeholder="1"
-              min="1"
+              min="0"
               max="9999"
             >
           </div>
@@ -140,7 +139,7 @@
           <!-- the actual dollar amount -->
           <div class="buy-gem-amount">
             <span>
-              {{ $t('sendGiftAmount', {cost: formatter.format(gift.gems.amount * 0.25)}) }}
+              {{ $t('sendGiftAmount', {cost: formatter.format(totalGems)}) }}
             </span>
         </div>
         <div
@@ -154,6 +153,16 @@
         <!-- need to add Stripe, Paypal, and Amazon purchase functions here -->
         <payments-buttons
           class="payment-buttons"
+          :stripe-fn="() => redirectToStripe({
+            gems: totalGems,
+          })"
+          :paypal-fn="() => openPaypal({
+            url: paypalPurchaseLink,
+            type: 'gems'})"
+          :amazon-data="{
+            type: 'single',
+            boughtGems: totalGems
+          }"
           />
     </div>
 
@@ -189,7 +198,6 @@
               id="gemsForm"
               v-model="gift.gems.amount"
               class="form-control"
-              placeholder="0"
               min="0"
               :max="maxGems"
             >
@@ -278,6 +286,9 @@
           fill: #878190;
         }
       }
+    }
+    #subscription-form .subscribe-option {
+      background: #F9F9F9;
     }
 }
 </style>
@@ -456,14 +467,10 @@
   }
 
   .subscribe-option {
-    background: $gray-700;
+    // background: $gray-700;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
     padding-bottom: 24px;
-  }
-
-  .subscription-options {
-    background: $gray-700;
   }
 
   .payment-buttons {
@@ -607,6 +614,10 @@ export default {
         minimumFractionDigits: 2,
       });
       return formatter;
+    },
+    totalGems () {
+      const totalGems = this.gift.gems.amount * 0.25;
+      return totalGems;
     },
   },
   watch: {
