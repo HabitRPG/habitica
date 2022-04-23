@@ -31,7 +31,7 @@
     "armoireFood": "<%= image %>宝箱をあさって<%= dropText %>を見つけました。何でこんな所に?",
     "armoireExp": "宝箱と格闘して、経験値を得ました。どうぞっ!",
     "messageInsufficientGems": "ジェムが足りません!",
-    "messageGroupAlreadyInParty": "もし既にパーティに入っているならページを更新してください。",
+    "messageGroupAlreadyInParty": "既にパーティーに参加している場合は、更新をお試しください。",
     "messageGroupOnlyLeaderCanUpdate": "グループリーダーだけがグループを更新できます！",
     "messageGroupRequiresInvite": "招待されていないグループに参加することはできません。",
     "messageGroupCannotRemoveSelf": "自分自身を削除することはできません!",

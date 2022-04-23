@@ -874,7 +874,7 @@
   "questVirtualPetCompletion": "Some careful button pushing seems to have fulfilled the virtual pet’s mysterious needs, and finally it has quieted down and appears content.<br><br>Suddenly in a burst of confetti, the April Fool appears with a basket full of strange potions emitting soft beeps.<br><br>“What timing, April Fool,” @Beffymaroo says with a wry smile. “I suspect this large beeping fellow is an acquaintance of yours.”<br><br>“Uh, yes,” the Fool says, sheepishly. “So sorry about that, and thank you both for taking care of Wotchimon! Take these potions in the way of thanks, they can bring your Virtual pets back anytime you like!”<br><br>You’re not 100% sure you’re on board with all the beeping, but they’re sure cute so it’s worth a shot!",
   "questVirtualPetBoss": "Wotchimon",
   "questVirtualPetRageTitle": "The Beepening",
-  "questVirtualPetRageDescription": "This bar fills when you don't complete your Dailies. When it is full, the Wotchiman will heal 30% of its remaining health!",
+  "questVirtualPetRageDescription": "This bar fills when you don't complete your Dailies. When it is full, the Wotchimon will take away some of your party's pending damage!",
   "questVirtualPetRageEffect": "`Wotchimon uses Bothersome Beep!` Wotchimon sounds a bothersome beep, and its happiness bar suddenly disappears! Pending damage reduced.",
   "questVirtualPetDropVirtualPetPotion": "Virtual Pet Hatching Potion",
   "questVirtualPetUnlockText": "Unlocks Virtual Pet Hatching Potion for purchase in the Market"
