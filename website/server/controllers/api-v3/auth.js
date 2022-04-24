@@ -343,6 +343,7 @@ api.resetPassword = {
     const email = req.body.email.toLowerCase();
     const user = await User.findOne({
       $or: [
+        { 'auth.local.username': email.replace(/^@/, '') },
         { 'auth.local.email': email },
         { 'auth.apple.emails.value': email },
         { 'auth.google.emails.value': email },
@@ -392,7 +393,9 @@ api.updateEmail = {
     if (!user.auth.local.email) throw new BadRequest(res.t('userHasNoLocalRegistration'));
 
     req.checkBody('newEmail', res.t('newEmailRequired')).notEmpty().isEmail();
-    req.checkBody('password', res.t('missingPassword')).notEmpty();
+    if (user.auth.local.hashed_password) {
+      req.checkBody('password', res.t('missingPassword')).notEmpty();
+    }
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
@@ -402,13 +405,15 @@ api.updateEmail = {
 
     if (emailAlreadyInUse) throw new NotAuthorized(res.t('cannotFulfillReq', { techAssistanceEmail: TECH_ASSISTANCE_EMAIL }));
 
-    const { password } = req.body;
-    const isValidPassword = await passwordUtils.compare(user, password);
-    if (!isValidPassword) throw new NotAuthorized(res.t('wrongPassword'));
+    if (user.auth.local.hashed_password) {
+      const { password } = req.body;
+      const isValidPassword = await passwordUtils.compare(user, password);
+      if (!isValidPassword) throw new NotAuthorized(res.t('wrongPassword'));
 
-    // if password is using old sha1 encryption, change it
-    if (user.auth.local.passwordHashMethod === 'sha1') {
-      await passwordUtils.convertToBcrypt(user, password);
+      // if password is using old sha1 encryption, change it
+      if (user.auth.local.passwordHashMethod === 'sha1') {
+        await passwordUtils.convertToBcrypt(user, password);
+      }
     }
 
     user.auth.local.email = req.body.newEmail.toLowerCase();

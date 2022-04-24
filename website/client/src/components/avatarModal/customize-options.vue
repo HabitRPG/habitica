@@ -125,6 +125,16 @@ export default {
       box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
       background-color: $white;
 
+      .sprite.customize-option.shirt {
+        margin-left: -3px !important;
+        // otherwise its overriden by the .outer-option-background:not(.none) { rules
+      }
+
+      .sprite.customize-option.skin {
+        margin-left: -8px !important;
+        // otherwise its overriden by the .outer-option-background:not(.none) { rules
+      }
+
       .option {
         border: none;
         border-radius: 2px;
@@ -203,16 +213,8 @@ export default {
   .outer-option-background:not(.none) {
 
     .sprite.customize-option {
-      // margin: 0 auto;
-      //margin-left: -3px;
-      //margin-top: -7px;
       margin-top: 0;
       margin-left: 0;
-
-      &.size, &.shirt {
-        margin-top: -8px;
-        margin-left: -4px;
-      }
 
       &.color-bangs {
         margin-top: 3px;

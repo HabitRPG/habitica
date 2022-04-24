@@ -141,7 +141,7 @@
     "dateEndOctober": "31 ottobre",
     "dateEndNovember": "30 Novembre",
     "dateEndJanuary": "31 gennaio",
-    "dateEndFebruary": "29 Febbraio",
+    "dateEndFebruary": "28 Febbraio",
     "winterPromoGiftHeader": "REGALA UN ABBONAMENTO, NE OTTIENI UNO GRATIS!",
     "winterPromoGiftDetails1": "Solo fino al 6 gennaio, quando regali a qualcuno un abbonamento, ricevi lo stesso abbonamento gratuitamente!",
     "winterPromoGiftDetails2": "Per favore nota che se tu o la persona a cui stai facendo il regalo avete già un abbonamento che si rinnova automaticamente, l'abbonamento regalato inizierà solo che l'abbonamento sarà cancellato o finirà. Grazie infinite per il supporto! <3",
@@ -215,5 +215,10 @@
     "winter2022IceCrystalHealerSet": "Cristallo di ghiaccio (Guaritore)",
     "januaryYYYY": "Gennaio <%= year %>",
     "winter2022FireworksRogueSet": "Fuochi d'artificio (Ladro)",
-    "winter2022PomegranateMageSet": "Melograno (Mago)"
+    "winter2022PomegranateMageSet": "Melograno (Mago)",
+    "spring2022MagpieRogueSet": "Gazza (Ladro)",
+    "spring2022RainstormWarriorSet": "Temporale (Guerriero)",
+    "spring2022ForsythiaMageSet": "Forsizia (Mago)",
+    "spring2022PeridotHealerSet": "Peridoto (Guaritore)",
+    "aprilYYYY": "Aprile <%= year %>"
 }

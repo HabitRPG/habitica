@@ -93,7 +93,7 @@
       <div class="subscribe-card mx-auto">
         <div
           v-if="hasSubscription && !hasCanceledSubscription"
-          class="d-flex flex-column align-items-center my-4"
+          class="d-flex flex-column align-items-center"
         >
           <div class="round-container bg-green-10 d-flex align-items-center justify-content-center">
             <div
@@ -102,7 +102,7 @@
               v-html="icons.checkmarkIcon"
             ></div>
           </div>
-          <h2 class="green-10 mx-auto">
+          <h2 class="green-10 mx-auto mb-75">
             {{ $t('youAreSubscribed') }}
           </h2>
           <div
@@ -180,17 +180,17 @@
         </div>
         <div
           v-if="hasSubscription"
-          class="bg-gray-700 p-2 text-center"
+          class="bg-gray-700 py-3 mt-4 mb-3 text-center"
         >
           <div class="header-mini mb-3">
             {{ $t('subscriptionStats') }}
           </div>
-          <div class="d-flex justify-content-around">
-            <div class="ml-4 mr-3">
+          <div class="d-flex">
+            <div class="stat-column">
               <div class="d-flex justify-content-center align-items-center">
                 <div
                   v-once
-                  class="svg-icon svg-calendar mr-2"
+                  class="svg-icon svg-calendar mr-1"
                   v-html="icons.calendarIcon"
                 >
                 </div>
@@ -204,49 +204,53 @@
               </div>
             </div>
             <div class="stats-spacer"></div>
-            <div>
+            <div class="stat-column">
               <div class="d-flex justify-content-center align-items-center">
                 <div
                   v-once
-                  class="svg-icon svg-gem mr-2"
+                  class="svg-icon svg-gem mr-1"
                   v-html="icons.gemIcon"
                 >
                 </div>
                 <div class="number-heavy">
-                  {{ user.purchased.plan.consecutive.gemCapExtra }}
+                  {{ gemCap }}
                 </div>
               </div>
               <div class="stats-label">
-                {{ $t('gemCapExtra') }}
+                {{ $t('gemCap') }}
               </div>
             </div>
             <div class="stats-spacer"></div>
-            <div>
+            <div class="stat-column">
               <div class="d-flex justify-content-center align-items-center">
                 <div
                   v-once
-                  class="svg-icon svg-hourglass mt-1 mr-2"
+                  class="svg-icon svg-hourglass mt-1 mr-1"
                   v-html="icons.hourglassIcon"
                 >
                 </div>
                 <div class="number-heavy">
-                  {{ user.purchased.plan.consecutive.trinkets }}
+                  {{ nextHourGlass }}
                 </div>
               </div>
               <div class="stats-label">
-                {{ $t('mysticHourglassesTooltip') }}
+                {{ $t('nextHourglass') }}*
               </div>
             </div>
           </div>
+
+          <div class="mt-4 nextHourglassDescription" v-once>
+            *{{ $t('nextHourglassDescription') }}
+          </div>
         </div>
-        <div class="d-flex flex-column justify-content-center align-items-center mt-4 mb-3">
+        <div class="d-flex flex-column justify-content-center align-items-center mb-3">
           <div
             v-once
-            class="svg-icon svg-heart mb-1"
+            class="svg-icon svg-heart mb-2"
             v-html="icons.heartIcon"
           >
           </div>
-          <div class="stats-label">
+          <div class="thanks-for-support">
             {{ $t('giftSubscriptionText4') }}
           </div>
         </div>
@@ -350,7 +354,7 @@
   .cancel-card {
     width: 28rem;
     border: 2px solid $gray-500;
-    border-radius: 4px;
+    border-radius: 8px;
   }
 
   .disabled {
@@ -405,7 +409,10 @@
   }
 
   .number-heavy {
-    font-size: 24px;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1.4;
+    color: $gray-50;
   }
 
   .Pet-Jackalope-RoyalPurple {
@@ -423,7 +430,10 @@
 
   .stats-label {
     font-size: 12px;
-    color: $gray-200;
+    color: $gray-100;
+    margin-top: 6px;
+    font-weight: bold;
+    line-height: 1.33;
   }
 
   .stats-spacer {
@@ -433,8 +443,9 @@
   }
 
   .subscribe-card {
+    padding-top: 2rem;
     width: 28rem;
-    border-radius: 4px;
+    border-radius: 8px;
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
     background-color: $white;
   }
@@ -452,7 +463,14 @@
     height: 40px;
   }
 
-  .svg-calendar, .svg-heart {
+  .svg-calendar {
+    width: 24px;
+    height: 24px;
+
+    margin-right: 2px;
+  }
+
+  .svg-heart {
     width: 24px;
     height: 24px;
   }
@@ -479,8 +497,10 @@
   }
 
   .svg-gem {
-    width: 32px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
+
+    margin-right: 2px;
   }
 
   .svg-gems {
@@ -494,8 +514,10 @@
   }
 
   .svg-hourglass {
-    width: 28px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
+
+    margin-right: 2px;
   }
 
   .svg-gift-box {
@@ -521,11 +543,34 @@
   .w-55 {
     width: 55%;
   }
+
+  .nextHourglassDescription {
+    font-size: 12px;
+    font-style: italic;
+    line-height: 1.33;
+    color: $gray-100;
+    margin-left: 100px;
+    margin-right: 100px;
+  }
+
+  .justify-content-evenly {
+    justify-content: space-evenly;
+  }
+
+  .thanks-for-support {
+    font-size: 12px;
+    line-height: 1.33;
+    text-align: center;
+    color: $gray-100;
+  }
+
+  .stat-column {
+    width: 33%;
+  }
 </style>
 
 <script>
 import axios from 'axios';
-import min from 'lodash/min';
 import moment from 'moment';
 import { mapState } from '@/libs/store';
 
@@ -551,6 +596,7 @@ import logo from '@/assets/svg/habitica-logo-purple.svg';
 import paypalLogo from '@/assets/svg/paypal-logo.svg';
 import subscriberGems from '@/assets/svg/subscriber-gems.svg';
 import subscriberHourglasses from '@/assets/svg/subscriber-hourglasses.svg';
+import { getPlanContext } from '@/../../common/script/cron';
 
 export default {
   components: {
@@ -649,23 +695,9 @@ export default {
         months: parseFloat(this.user.purchased.plan.extraMonths).toFixed(2),
       };
     },
-    buyGemsGoldCap () {
-      return {
-        amount: min(this.gemGoldCap),
-      };
-    },
-    gemGoldCap () {
-      const baseCap = 25;
-      const gemCapIncrement = 5;
-      const capIncrementThreshold = 3;
-      const { gemCapExtra } = this.user.purchased.plan.consecutive;
-      const blocks = subscriptionBlocks[this.subscription.key].months / capIncrementThreshold;
-      const flooredBlocks = Math.floor(blocks);
-
-      const userTotalDropCap = baseCap + gemCapExtra + flooredBlocks * gemCapIncrement;
-      const maxDropCap = 50;
-
-      return [userTotalDropCap, maxDropCap];
+    gemCap () {
+      return planGemLimits.convCap
+          + this.user.purchased.plan.consecutive.gemCapExtra;
     },
     numberOfMysticHourglasses () {
       const numberOfHourglasses = subscriptionBlocks[this.subscription.key].months / 3;
@@ -718,6 +750,16 @@ export default {
     },
     subscriptionEndDate () {
       return moment(this.user.purchased.plan.dateTerminated).format('MM/DD/YYYY');
+    },
+    nextHourGlassDate () {
+      const currentPlanContext = getPlanContext(this.user, new Date());
+
+      return currentPlanContext.nextHourglassDate;
+    },
+    nextHourGlass () {
+      const nextHourglassMonth = this.nextHourGlassDate.format('MMM');
+
+      return nextHourglassMonth;
     },
   },
   mounted () {

@@ -1307,7 +1307,7 @@
     "shieldSpecialDiamondStaveText": "Diamentowa klepka",
     "shieldSpecialDiamondStaveNotes": "Ta wartościowa klepka ma magiczne moce. Zwiększa Inteligencję o <%= int %>.",
     "shieldSpecialRoguishRainbowMessageText": "Łobuzerska Tęczowa Wiadomość",
-    "shieldSpecialRoguishRainbowMessageNotes": "Ta błyszcząca koperta zawiera słowa zachęty od Habitan, oraz trochę magii by przyspieszyć twoje przesyłki! Zwiększa Inteligencję o <%= per %>.",
+    "shieldSpecialRoguishRainbowMessageNotes": "Ta błyszcząca koperta zawiera słowa zachęty od Habitan, oraz trochę magii by przyspieszyć twoje przesyłki! Zwiększa Inteligencję o <%= int %>.",
     "shieldSpecialLootBagText": "Torba na łupy",
     "shieldSpecialLootBagNotes": "Ta torba jest idealna to trzymania tych wszystkich rzeczy, które podstępnie odebrałeś Zadaniom! Zwiększa Siłę o <%= str %>.",
     "shieldSpecialWintryMirrorText": "Lodowe Lustro",

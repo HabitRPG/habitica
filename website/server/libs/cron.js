@@ -11,9 +11,13 @@ import { revealMysteryItems } from './payments/subscriptions';
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
 const { MAX_INCENTIVES } = common.constants;
-const { shouldDo } = common;
+const {
+  shouldDo,
+  i18n,
+  getPlanContext,
+  getPlanMonths,
+} = common;
 const { scoreTask } = common.ops;
-const { i18n } = common;
 const { loginIncentives } = common.content;
 // const maxPMs = 200;
 
@@ -58,13 +62,11 @@ const CLEAR_BUFFS = {
   streaks: false,
 };
 
-function grantEndOfTheMonthPerks (user, now) {
+async function grantEndOfTheMonthPerks (user, now) {
   // multi-month subscriptions are for multiples of 3 months
   const SUBSCRIPTION_BASIC_BLOCK_LENGTH = 3;
-  const { plan } = user.purchased;
-  const subscriptionEndDate = moment(plan.dateTerminated).isBefore() ? moment(plan.dateTerminated).startOf('month') : moment(now).startOf('month');
-  const dateUpdatedMoment = moment(plan.dateUpdated).startOf('month');
-  const elapsedMonths = moment(subscriptionEndDate).diff(dateUpdatedMoment, 'months');
+
+  const { plan, elapsedMonths } = getPlanContext(user, now);
 
   if (elapsedMonths > 0) {
     plan.dateUpdated = now;
@@ -72,9 +74,6 @@ function grantEndOfTheMonthPerks (user, now) {
     // Give perks based on consecutive blocks
     // If they already got perks for those blocks (eg, 6mo subscription,
     // subscription gifts, etc) - then dec the offset until it hits 0
-    _.defaults(plan.consecutive, {
-      count: 0, offset: 0, trinkets: 0, gemCapExtra: 0,
-    });
 
     // Award mystery items
     revealMysteryItems(user, elapsedMonths);
@@ -104,15 +103,7 @@ function grantEndOfTheMonthPerks (user, now) {
 
       if (plan.consecutive.offset < 0) {
         if (plan.planId) {
-          // NB gift subscriptions don't have a planID
-          // (which doesn't matter because we don't need to reapply perks
-          // for them and by this point they should have expired anyway)
-          const planIdRegExp = new RegExp('_([0-9]+)mo'); // e.g., matches 'google_6mo' / 'basic_12mo' and captures '6' / '12'
-          const match = plan.planId.match(planIdRegExp);
-          if (match !== null && match[0] !== null) {
-            // 3 for 3-month recurring subscription, etc
-            planMonthsLength = match[1]; // eslint-disable-line prefer-destructuring
-          }
+          planMonthsLength = getPlanMonths(plan);
         }
 
         // every 3 months you get one set of perks - this variable records how many sets you need
@@ -135,7 +126,8 @@ function grantEndOfTheMonthPerks (user, now) {
           plan.consecutive.offset = planMonthsLength - 1;
         }
         if (perkAmountNeeded > 0) {
-          plan.consecutive.trinkets += perkAmountNeeded; // one Hourglass every 3 months
+          // one Hourglass every 3 months
+          await plan.updateHourglasses(user._id, perkAmountNeeded, 'subscription_perks'); // eslint-disable-line no-await-in-loop
           plan.consecutive.gemCapExtra += 5 * perkAmountNeeded; // 5 extra Gems every 3 months
           // cap it at 50 (hard 25 limit + extra 25)
           if (plan.consecutive.gemCapExtra > 25) plan.consecutive.gemCapExtra = 25;
@@ -279,7 +271,7 @@ function awardLoginIncentives (user) {
 }
 
 // Perform various beginning-of-day reset actions.
-export function cron (options = {}) {
+export async function cron (options = {}) {
   const {
     user, tasksByType, analytics, now = new Date(), daysMissed, timezoneUtcOffsetFromUserPrefs,
   } = options;
@@ -304,7 +296,7 @@ export function cron (options = {}) {
   }
 
   if (user.isSubscribed()) {
-    grantEndOfTheMonthPerks(user, now);
+    await grantEndOfTheMonthPerks(user, now);
   }
 
   const { plan } = user.purchased;

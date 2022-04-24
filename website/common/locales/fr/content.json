@@ -179,8 +179,8 @@
     "questEggAlligatorText": "Alligator",
     "questEggAlligatorMountText": "Alligator",
     "questEggAlligatorAdjective": "un rusé",
-    "questEggVelociraptorText": "Velociraptor",
-    "questEggVelociraptorMountText": "Velociraptor",
+    "questEggVelociraptorText": "Vélociraptor",
+    "questEggVelociraptorMountText": "Vélociraptor",
     "questEggVelociraptorAdjective": "un intelligent",
     "eggNotes": "Trouvez une potion d’éclosion à verser sur cet œuf et il en sortira <%= eggAdjective(locale) %> bébé <%= eggText(locale) %>.",
     "hatchingPotionBase": "de base",
@@ -370,5 +370,6 @@
     "hatchingPotionSunset": "couché de soleil",
     "hatchingPotionMoonglow": "lune de miel",
     "hatchingPotionSolarSystem": "système solaire",
-    "hatchingPotionOnyx": "Onyx"
+    "hatchingPotionOnyx": "onyx",
+    "hatchingPotionVirtualPet": "Familier virtuel"
 }

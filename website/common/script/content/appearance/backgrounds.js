@@ -480,6 +480,21 @@ const backgrounds = {
     palm_tree_with_fairy_lights: { },
     snowy_farm: { },
   },
+  backgrounds022022: {
+    winter_waterfall: { },
+    orange_grove: { },
+    iridescent_clouds: { },
+  },
+  backgrounds032022: {
+    animals_den: { },
+    brick_wall_with_ivy: { },
+    flowering_prairie: { },
+  },
+  backgrounds042022: {
+    blossoming_trees: { },
+    flower_shop: { },
+    springtime_lake: { },
+  },
   timeTravelBackgrounds: {
     airship: {
       price: 1,

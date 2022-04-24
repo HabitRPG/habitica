@@ -3,13 +3,14 @@ import i18n from '../i18n';
 import {
   NotAuthorized,
 } from '../libs/errors';
+import updateUserBalance from './updateUserBalance';
 
-export default function reroll (user, tasks = [], req = {}, analytics) {
+export default async function reroll (user, tasks = [], req = {}, analytics) {
   if (user.balance < 1) {
     throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
   }
 
-  user.balance -= 1;
+  await updateUserBalance(user, -1, 'reroll');
   user.stats.hp = 50;
 
   each(tasks, task => {

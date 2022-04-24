@@ -7,6 +7,7 @@ import {
 } from '../../libs/errors';
 import { AbstractGoldItemOperation } from './abstractBuyOperation';
 import planGemLimits from '../../libs/planGemLimits';
+import updateUserBalance from '../updateUserBalance';
 
 export class BuyGemOperation extends AbstractGoldItemOperation { // eslint-disable-line import/prefer-default-export, max-len
   multiplePurchaseAllowed () { // eslint-disable-line class-methods-use-this
@@ -59,7 +60,7 @@ export class BuyGemOperation extends AbstractGoldItemOperation { // eslint-disab
   }
 
   executeChanges (user, item) {
-    user.balance += 0.25 * this.quantity;
+    updateUserBalance(user, 0.25 * this.quantity, 'buy_gold');
     user.purchased.plan.gemsBought += this.quantity;
 
     this.subtractCurrency(user, item);

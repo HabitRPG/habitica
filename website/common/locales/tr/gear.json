@@ -1760,5 +1760,6 @@
     "weaponSpecialSummer2019WarriorText": "Kırmızı Mercan",
     "weaponSpecialSummer2019RogueNotes": "Bu antik ve güçlü silah deniz altındaki her savaşı kazanmanıza yardım edecek. Gücü <%= str %> arttırır. Sınırlı Sürüm 2019 Yaz Ekipmanı.",
     "weaponSpecialSummer2019RogueText": "Antika Çapa",
-    "weaponSpecialSpring2019HealerText": "İlkbahar Şarkısı"
+    "weaponSpecialSpring2019HealerText": "İlkbahar Şarkısı",
+    "weaponSpecialSummer2019HealerText": "Baloncuk Asası"
 }

@@ -124,7 +124,7 @@ api.createGroup = {
 
       group.balance = 1;
 
-      user.balance -= 1;
+      await user.updateBalance(-1, 'create_guild', group._id, group.name);
       user.guilds.push(group._id);
       if (!user.achievements.joinedGuild) {
         user.achievements.joinedGuild = true;

@@ -6,6 +6,7 @@ import { NotAuthorized, BadRequest } from '../libs/errors';
 import { removeItemByPath } from './pinnedGearUtils';
 import getItemInfo from '../libs/getItemInfo';
 import content from '../content/index';
+import updateUserBalance from './updateUserBalance';
 
 const incentiveBackgrounds = ['blue', 'green', 'red', 'purple', 'yellow'];
 
@@ -204,7 +205,7 @@ function buildResponse ({ purchased, preference, items }, ownsAlready, language)
 // If item is already purchased -> equip it
 // Otherwise unlock it
 // @TODO refactor and take as parameter the set name, for single items use the buy ops
-export default function unlock (user, req = {}, analytics) {
+export default async function unlock (user, req = {}, analytics) {
   const path = get(req.query, 'path');
 
   if (!path) {
@@ -302,7 +303,7 @@ export default function unlock (user, req = {}, analytics) {
   }
 
   if (!unlockedAlready) {
-    user.balance -= cost;
+    await updateUserBalance(user, -cost, 'spend', path);
 
     if (analytics) {
       analytics.track('buy', {

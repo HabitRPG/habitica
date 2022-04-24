@@ -146,5 +146,6 @@
     "dropCapSubs": "Os subscritores do Habitica podem encontrar o dobro dos itens aleatórios por dia e receber mensalmente itens misteriosos!",
     "lookingForMoreItems": "À Procura de Mais Itens?",
     "usuallyGems": "Normalmente <%= originalGems %>",
-    "mysterySet202106": "Conjunto Sereia do Pôr do Sol"
+    "mysterySet202106": "Conjunto Sereia do Pôr do Sol",
+    "mysterySet202203": "Conjunto Libélula Destemida"
 }

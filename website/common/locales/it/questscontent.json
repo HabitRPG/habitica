@@ -602,7 +602,7 @@
     "questSquirrelDropSquirrelEgg": "Scoiattolo (Uovo)",
     "questSquirrelUnlockText": "Sblocca l'acquisto delle uova di Scoiattolo nel Mercato",
     "cuddleBuddiesText": "Pacchetto di Missioni degli Amici Coccolosi",
-    "cuddleBuddiesNotes": "Contiene \"La Coniglietta Ladra\", \"Il Furetto Nefando\" e \"La Gand dei Porcellini d'India\". Disponibile fino al 31 Marzo.",
+    "cuddleBuddiesNotes": "Contiene \"La Coniglietta Ladra\", \"Il Furetto Nefando\" e \"La Gang dei Porcellini d'India\". Disponibile fino al 31 Marzo.",
     "aquaticAmigosText": "Pacchetto di Missioni degli Amici Acquatici",
     "aquaticAmigosNotes": "Contiene \"Il Magico Axolotl\", \"Il Kraken dell'Inkompletezza\", e \"Il Richiamo di Octothulu\". Disponibile fino al 31 agosto.",
     "questSeaSerpentText": "Pericolo nelle Profondità: Il Serpente Marino Colpisce!",
@@ -744,5 +744,14 @@
     "questOnyxCollectLeoRunes": "Rune del Leone",
     "questOnyxCollectOnyxStones": "Pietre d'Onice",
     "questOnyxDropOnyxPotion": "Pozione di Schiusa Onice",
-    "questOnyxUnlockText": "Sblocca l'acquisto delle Pozioni di Schiusa Onice nel negozio"
+    "questOnyxUnlockText": "Sblocca l'acquisto delle Pozioni di Schiusa Onice nel negozio",
+    "questVirtualPetText": "Caos Virtuale con il pesce d'aprile: L'accensione",
+    "questVirtualPetBoss": "Wotchimon",
+    "questVirtualPetRageTitle": "L'accensione",
+    "questVirtualPetRageDescription": "Questa barra si riempie quando non completi le tue Attività giornaliere. Quando è piena, il Wotchiman curerà il 30% della sua salute rimanente!",
+    "questVirtualPetRageEffect": "`Wotchimon usa il Bip Fastidioso!` Wotchimon emette un bip fastidioso e la sua barra della felicità scompare improvvisamente! I danni in sospeso sono stati ridotti.",
+    "questVirtualPetDropVirtualPetPotion": "Pozione di Schiusa Virtuale",
+    "questVirtualPetUnlockText": "Sblocca le Pozioni di Schiusa virtuali nel Negozio",
+    "questVirtualPetNotes": "È una tranquilla e piacevole mattina di primavera ad Habitica, una settimana dopo un memorabile pesce d'aprile. Tu e @Beffymaroo siete presso le stalle a occuparvi dei vostri animali che sono ancora un po' confusi dal loro trascorso virtuale!).<br><br>In lontananza sentite un rimbombo ed una serie di bip, inizialmente deboli ma poi sempre più forti, come se si stessero avvicinando. Un uovo appare all'orizzonte e mentre si avvicina, emettendo dei bip sempre più forti, vedete che è un gigantesco animale domestico virtuale!<br><br>\"Oh no\", esclama @Beffymaroo, \"Penso che il pesce d'aprile gli abbia lasciato ancora qualcosa in sospeso, sembra cercare la nostra attenzione!<br><br>L'animale virtuale emette un bip rabbioso, entra in una furia virtuale ed inizia ad avvicinarsi sempre di più.",
+    "questVirtualPetCompletion": "L'aver premuto con cura i giusti tasti sembra aver soddisfatto i misteriosi bisogni dell'animaletto virtuale, il quale si è finalmente tranquillizzato ed appare contento.<br><br>Improvvisamente, con uno scoppio di coriandoli, appare il Giullare d'Aprile con una cesta colma di strane pozioni che emettono suoni tenui..<br><br>\"Che tempismo, Giullare d'Aprile, \" disse @Beffymaroo con un sorriso ironico. \"Ho il sospetto che questo grosso tizio a segnale intermittente sia una tua conoscienza.\"<br><br>\"Ecco, sì,\" disse il Giullare, con aria mortificata. \"Mi spiace molto di ciò che è accaduto e vi ringrazio entrambi per esservi presi cura di Wotchimon! Prendete queste pozioni come segno di ringraziamento; possono far tornare indietro i vostri animaletti Virtuali ogni qualvolta lo desideriate!\"<br><br>Non siete sicuri al 100% di aver capito bene con tutti questi 'bip bip', ma gli animaletti sono così carini che vale la pena provare!"
 }
