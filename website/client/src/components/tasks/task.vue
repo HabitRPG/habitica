@@ -268,18 +268,26 @@
                 <span v-if="task.type === 'daily'">{{ task.streak }}</span>
                 <span v-if="task.type === 'habit'">
                   <span
-                    v-if="task.up && task.counterUp != 0"
+                    v-if="task.up && task.counterUp != 0 && task.counterDown !=0"
                     class="m-0"
                   >+{{ task.counterUp }}</span>
+                  <span
+                    v-else-if="task.up && task.counterUp != 0 && task.counterDown ==0"
+                    class="m-0"
+                  >{{ task.counterUp }}</span>
                   <span v-else-if="task.up">0</span>
                   <span
                     v-if="task.up && task.down"
                     class="m-0"
                   >&nbsp;|&nbsp;</span>
                   <span
-                    v-if="task.down && task.counterDown != 0"
+                    v-if="task.down && task.counterDown != 0 && task.counterUp !=0"
                     class="m-0"
                   >-{{ task.counterDown }}</span>
+                  <span
+                    v-else-if="task.up && task.counterDown != 0 && task.counterUp ==0"
+                    class="m-0"
+                  >{{ task.counterDown }}</span>
                   <span v-else-if="task.down">0</span>
                 </span>
               </div>
