@@ -285,7 +285,7 @@
                     class="m-0"
                   >-{{ task.counterDown }}</span>
                   <span
-                    v-else-if="task.up && task.counterDown != 0 && task.counterUp ==0"
+                    v-else-if="task.down && task.counterDown != 0 && task.counterUp ==0"
                     class="m-0"
                   >{{ task.counterDown }}</span>
                   <span v-else-if="task.down">0</span>
