@@ -611,9 +611,9 @@ schema.methods.sendChat = function sendChat (options = {}) {
   };
 
   User
-    .updateMany(query, lastSeenUpdateRemoveOld, { multi: true })
+    .updateOne(query, lastSeenUpdateRemoveOld, { multi: true })
     .exec()
-    .then(() => User.updateMany(query, lastSeenUpdateAddNew, { multi: true }).exec())
+    .then(() => User.updateOne(query, lastSeenUpdateAddNew, { multi: true }).exec())
     .catch(err => logger.error(err));
 
   if (this.type === 'party' && user) {
