@@ -5,9 +5,7 @@
       <div class="mb-4">
         {{ $t('customDayStartInfo1') }}
       </div>
-      <h3 v-once>
-        {{ $t('adjustment') }}
-      </h3>
+      <h3 v-once>{{ $t('adjustment') }}</h3>
       <div class="form-horizontal">
         <div class="form-group">
           <div class="">
@@ -54,7 +52,7 @@ import getUtcOffset from '../../../../common/script/fns/getUtcOffset';
 import { mapState } from '@/libs/store';
 
 export default {
-  name: 'DayStartAdjustment',
+  name: 'dayStartAdjustment',
   data () {
     const dayStartOptions = [];
     for (let number = 0; number <= 12; number += 1) {

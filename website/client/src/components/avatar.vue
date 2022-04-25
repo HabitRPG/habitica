@@ -135,10 +135,10 @@ import foolPet from '../mixins/foolPet';
 import ClassBadge from '@/components/members/classBadge';
 
 export default {
+  mixins: [foolPet],
   components: {
     ClassBadge,
   },
-  mixins: [foolPet],
   props: {
     member: {
       type: Object,
