@@ -4,7 +4,7 @@
 // rather than do it online. Even when I point them to
 // the FAQ (http://goo.gl/1uoPGQ) they insist...
 
-db.users.update(
+db.users.updateOne(
   { _id: '' },
   {
     $set: {

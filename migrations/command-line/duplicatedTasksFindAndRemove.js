@@ -83,7 +83,7 @@ db.users.aggregate([
   // print( "\n" ); printjson(data);
   data.troublesomeIds.forEach(taskid => {
     print(`non-unique task: ${taskid}`); // eslint-disable-line no-restricted-globals
-    db.users.update({
+    db.users.updateOne({
       _id: uuid,
       todos: { $elemMatch: { id: taskid } },
     }, {
@@ -92,7 +92,7 @@ db.users.aggregate([
   });
 });
 
-db.users.update(
+db.users.updateOne(
   { _id: uuid },
   { $pull: { todos: { id: 'de666' } } },
   { multi: false },

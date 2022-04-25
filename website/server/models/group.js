@@ -611,9 +611,9 @@ schema.methods.sendChat = function sendChat (options = {}) {
   };
 
   User
-    .update(query, lastSeenUpdateRemoveOld, { multi: true })
+    .updateMany(query, lastSeenUpdateRemoveOld, { multi: true })
     .exec()
-    .then(() => User.update(query, lastSeenUpdateAddNew, { multi: true }).exec())
+    .then(() => User.updateMany(query, lastSeenUpdateAddNew, { multi: true }).exec())
     .catch(err => logger.error(err));
 
   if (this.type === 'party' && user) {
@@ -661,7 +661,7 @@ schema.methods.handleQuestInvitation = async function handleQuestInvitation (use
   // to prevent multiple concurrent requests overriding updates
   // see https://github.com/HabitRPG/habitica/issues/11398
   const Group = this.constructor;
-  const result = await Group.update(
+  const result = await Group.updateOne(
     {
       _id: this._id,
       [`quest.members.${user._id}`]: { $type: 10 }, // match BSON Type Null (type number 10)
@@ -709,7 +709,7 @@ schema.methods.startQuest = async function startQuest (user) {
 
   // Persist quest.members early to avoid simultaneous handling of accept/reject
   // while processing the rest of this script
-  await this.update({ $set: { 'quest.members': this.quest.members } }).exec();
+  await this.updateOne({ $set: { 'quest.members': this.quest.members } }).exec();
 
   const nonUserQuestMembers = _.keys(this.quest.members);
   removeFromArray(nonUserQuestMembers, user._id);
@@ -749,7 +749,7 @@ schema.methods.startQuest = async function startQuest (user) {
     user.markModified('items.quests');
     promises.push(user.save());
   } else { // another user is starting the quest, update the leader separately
-    promises.push(User.update({ _id: this.quest.leader }, {
+    promises.push(User.updateOne({ _id: this.quest.leader }, {
       $inc: {
         [`items.quests.${this.quest.key}`]: -1,
       },
@@ -757,7 +757,7 @@ schema.methods.startQuest = async function startQuest (user) {
   }
 
   // update the remaining users
-  promises.push(User.update({
+  promises.push(User.updateOne({
     _id: { $in: nonUserQuestMembers },
   }, {
     $set: {
@@ -771,7 +771,7 @@ schema.methods.startQuest = async function startQuest (user) {
 
   // update the users who are not participating
   // Do not block updates
-  User.update({
+  User.updateMany({
     _id: { $in: nonMembers },
   }, _cleanQuestParty(),
   { multi: true }).exec();
@@ -903,7 +903,7 @@ function _getUserUpdateForQuestReward (itemToAward, allAwardedItems) {
 async function _updateUserWithRetries (userId, updates, numTry = 1, query = {}) {
   query._id = userId;
   try {
-    return await User.update(query, updates).exec();
+    return await User.updateOne(query, updates).exec();
   } catch (err) {
     if (numTry < MAX_UPDATE_RETRIES) {
       numTry += 1; // eslint-disable-line no-param-reassign
@@ -949,7 +949,7 @@ schema.methods.finishQuest = async function finishQuest (quest) {
   this.markModified('quest');
 
   if (this._id === TAVERN_ID) {
-    return User.update({}, updates, { multi: true }).exec();
+    return User.updateOne({}, updates, { multi: true }).exec();
   }
 
   const promises = participants.map(userId => {
@@ -1388,9 +1388,9 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
 
   // remove the group from the user's groups
   if (group.type === 'guild') {
-    promises.push(User.update({ _id: user._id }, { $pull: { guilds: group._id } }).exec());
+    promises.push(User.updateOne({ _id: user._id }, { $pull: { guilds: group._id } }).exec());
   } else {
-    promises.push(User.update({ _id: user._id }, { $set: { party: {} } }).exec());
+    promises.push(User.updateOne({ _id: user._id }, { $set: { party: {} } }).exec());
 
     update.$unset = { [`quest.members.${user._id}`]: 1 };
   }
@@ -1428,7 +1428,7 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
     // with 1 member who is leaving
     if (seniorMember) update.$set = { leader: seniorMember._id };
   }
-  promises.push(group.update(update).exec());
+  promises.push(group.updateOne(update).exec());
 
   return Promise.all(promises);
 };
@@ -1493,7 +1493,7 @@ schema.methods.updateTask = async function updateTask (taskToSync, options = {})
 
   // Updating instead of loading and saving for performances,
   // risks becoming a problem if we introduce more complexity in tasks
-  await taskSchema.update(updateQuery, updateCmd, { multi: true }).exec();
+  await taskSchema.updateMany(updateQuery, updateCmd, { multi: true }).exec();
 };
 
 schema.methods.syncTask = async function groupSyncTask (taskToSync, user, assigningUser) {
@@ -1584,7 +1584,7 @@ schema.methods.unlinkTask = async function groupUnlinkTask (
   unlinkingTask.group.assignedUsers.splice(assignedUserIndex, 1);
 
   if (keep === 'keep-all') {
-    await Tasks.Task.update(findQuery, {
+    await Tasks.Task.updateOne(findQuery, {
       $set: { group: {} },
     }).exec();
 

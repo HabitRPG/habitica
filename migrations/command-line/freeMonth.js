@@ -1,6 +1,6 @@
 // mongo habitrpg ./node_modules/moment/moment.js ./migrations/freeMonth.js
 
-db.users.update(
+db.users.updateOne(
   { _id: '' },
   {
     $set: {
