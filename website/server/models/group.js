@@ -611,9 +611,9 @@ schema.methods.sendChat = function sendChat (options = {}) {
   };
 
   User
-    .updateOne(query, lastSeenUpdateRemoveOld, { multi: true })
+    .updateMany(query, lastSeenUpdateRemoveOld, { multi: true })
     .exec()
-    .then(() => User.updateOne(query, lastSeenUpdateAddNew, { multi: true }).exec())
+    .then(() => User.updateMany(query, lastSeenUpdateAddNew, { multi: true }).exec())
     .catch(err => logger.error(err));
 
   if (this.type === 'party' && user) {
@@ -709,7 +709,7 @@ schema.methods.startQuest = async function startQuest (user) {
 
   // Persist quest.members early to avoid simultaneous handling of accept/reject
   // while processing the rest of this script
-  await this.updateMany({ $set: { 'quest.members': this.quest.members } }).exec();
+  await this.updateOne({ $set: { 'quest.members': this.quest.members } }).exec();
 
   const nonUserQuestMembers = _.keys(this.quest.members);
   removeFromArray(nonUserQuestMembers, user._id);
