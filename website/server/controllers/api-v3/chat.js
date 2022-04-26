@@ -1,4 +1,6 @@
+import moment from 'moment';
 import nconf from 'nconf';
+import isNumber from 'lodash/isNumber';
 import { authWithHeaders } from '../../middlewares/auth';
 import { model as Group } from '../../models/group';
 import { model as User } from '../../models/user';
@@ -23,6 +25,7 @@ import bannedSlurs from '../../libs/bannedSlurs';
 import apiError from '../../libs/apiError';
 import highlightMentions from '../../libs/highlightMentions';
 
+const ACCOUNT_MIN_CHAT_AGE = isNumber(nconf.get('ACCOUNT_MIN_CHAT_AGE')) ? nconf.get('ACCOUNT_MIN_CHAT_AGE') : 2;
 const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map(email => ({ email, canSend: true }));
 
 /**
@@ -124,6 +127,11 @@ api.postChat = {
     if (validationErrors) throw validationErrors;
 
     const group = await Group.getGroup({ user, groupId });
+
+    // Check if account is newer than the minimum age for chat participation
+    if (moment().diff(user.auth.timestamps.created, 'minutes') <= ACCOUNT_MIN_CHAT_AGE) {
+      throw new BadRequest(res.t('chatTemporarilyUnavailable'));
+    }
 
     // Check message for banned slurs
     if (textContainsBannedSlur(req.body.message)) {

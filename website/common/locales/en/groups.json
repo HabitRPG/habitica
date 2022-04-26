@@ -363,5 +363,6 @@
   "managerNotes": "Manager's Notes",
   "assignedDateOnly": "Assigned on <strong><%= date %></strong>",
   "assignedDateAndUser": "Assigned by <strong>@<%- username %></strong> on <strong><%= date %></strong>",
-  "claimRewards": "Claim Rewards"
+  "claimRewards": "Claim Rewards",
+  "chatTemporarilyUnavailable": "Chat is temporarily unavailable. Please try again later."
 }

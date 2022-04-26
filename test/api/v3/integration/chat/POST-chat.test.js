@@ -17,6 +17,7 @@ import { CHAT_FLAG_FROM_SHADOW_MUTE, MAX_MESSAGE_LENGTH } from '../../../../../w
 import * as email from '../../../../../website/server/libs/email';
 
 const BASE_URL = nconf.get('BASE_URL');
+nconf.set('ACCOUNT_MIN_CHAT_AGE', 0);
 
 describe('POST /chat', () => {
   let user; let groupWithChat; let member; let
@@ -461,6 +462,17 @@ describe('POST /chat', () => {
           message: t('bannedSlurUsed'),
         });
     });
+  });
+
+  it('errors when user account is too young', async () => {
+    nconf.set('ACCOUNT_MIN_CHAT_AGE', 1000);
+    await expect(user.post('/groups/habitrpg/chat', { message: 'hi im new' }))
+      .to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('chatTemporarilyUnavailable'),
+      });
+    nconf.set('ACCOUNT_MIN_CHAT_AGE', 0);
   });
 
   it('creates a chat', async () => {
