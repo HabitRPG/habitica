@@ -709,7 +709,7 @@ schema.methods.startQuest = async function startQuest (user) {
 
   // Persist quest.members early to avoid simultaneous handling of accept/reject
   // while processing the rest of this script
-  await this.updateOne({ $set: { 'quest.members': this.quest.members } }).exec();
+  await this.updateMany({ $set: { 'quest.members': this.quest.members } }).exec();
 
   const nonUserQuestMembers = _.keys(this.quest.members);
   removeFromArray(nonUserQuestMembers, user._id);
@@ -757,7 +757,7 @@ schema.methods.startQuest = async function startQuest (user) {
   }
 
   // update the remaining users
-  promises.push(User.updateOne({
+  promises.push(User.updateMany({
     _id: { $in: nonUserQuestMembers },
   }, {
     $set: {
@@ -949,7 +949,7 @@ schema.methods.finishQuest = async function finishQuest (quest) {
   this.markModified('quest');
 
   if (this._id === TAVERN_ID) {
-    return User.updateOne({}, updates, { multi: true }).exec();
+    return User.updateMany({}, updates, { multi: true }).exec();
   }
 
   const promises = participants.map(userId => {
