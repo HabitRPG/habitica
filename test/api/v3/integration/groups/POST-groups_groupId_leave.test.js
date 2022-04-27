@@ -37,6 +37,7 @@ describe('POST /groups/:groupId/leave', () => {
         leader = groupLeader;
         member = members[0]; // eslint-disable-line prefer-destructuring
         memberCount = group.memberCount;
+        await members[0].update({ 'auth.timestamps.created': new Date('2022-01-01') });
       });
 
       it('prevents non members from leaving', async () => {
@@ -152,6 +153,10 @@ describe('POST /groups/:groupId/leave', () => {
             type: 'guild',
           },
           invites: 1,
+          leaderDetails: {
+            'auth.timestamps.created': new Date('2022-01-01'),
+            balance: 10,
+          },
         });
 
         privateGuild = group;

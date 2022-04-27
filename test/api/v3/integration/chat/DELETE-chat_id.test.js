@@ -15,6 +15,10 @@ describe('DELETE /groups/:groupId/chat/:chatId', () => {
         type: 'guild',
         privacy: 'public',
       },
+      leaderDetails: {
+        'auth.timestamps.created': new Date('2022-01-01'),
+        balance: 10,
+      },
     });
 
     groupWithChat = group;

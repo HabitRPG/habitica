@@ -18,6 +18,10 @@ describe('POST /groups/:id/chat/:id/clearflags', () => {
         type: 'guild',
         privacy: 'public',
       },
+      leaderDetails: {
+        'auth.timestamps.created': new Date('2022-01-01'),
+        balance: 10,
+      },
     });
 
     groupWithChat = group;
@@ -65,6 +69,7 @@ describe('POST /groups/:id/chat/:id/clearflags', () => {
         members: 1,
       });
 
+      await members[0].update({ 'auth.timestamps.created': new Date('2022-01-01') });
       let privateMessage = await members[0].post(`/groups/${group._id}/chat`, { message: 'Some message' });
       privateMessage = privateMessage.message;
 
