@@ -153,19 +153,13 @@
         <!-- need to add Stripe, Paypal, and Amazon purchase functions here -->
         <payments-buttons
           class="payment-buttons"
-          :stripe-fn="() => redirectToStripe({
-            gems: totalGems,
+          :stripe-fn="() => redirectToStripe({gift, uuid: userReceivingGift._id, receiverName})"
+          :paypal-fn="() => openPaypalGift({
+            gift: gift, giftedTo: userReceivingGift._id, receiverName,
           })"
-          :paypal-fn="() => openPaypal({
-            url: paypalPurchaseLink,
-            type: 'gems'})"
-          :amazon-data="{
-            type: 'single',
-            boughtGems: totalGems
-          }"
+          :amazon-data="{type: 'single', gift, giftedTo: userReceivingGift._id, receiverName}"
           />
     </div>
-
 
         <!-- send gems from balance -->
       <div
@@ -520,7 +514,9 @@ export default {
         positiveIcon,
         negativeIcon,
       }),
-      userReceivingGift: '',
+      userReceivingGift: {
+        profile: '', // here bc it was throwing an error otherwise needs fixing
+      },
       name: '', // here bc it was throwing an error otherwise needs fixing
       display: '', // here bc it was throwing an error otherwise needs fixing
       selectedPage: 'subscription',
@@ -537,9 +533,6 @@ export default {
     };
   },
   methods: {
-    // showSelectUser () {
-    //   this.$root.$emit('bv::show::modal', 'select-user-modal');
-    // },
     close () {
       this.$root.$emit('bv::hide::modal', 'send-gift');
     },
@@ -563,7 +556,7 @@ export default {
               amount: this.gift.gems.amount,
             },
           },
-          giftReceiver: this.userName,
+          giftReceiver: this.receiverName,
         });
       }, 500);
     },
@@ -583,7 +576,6 @@ export default {
     },
     displayName () {
       const displayName = this.userReceivingGift.profile.name;
-      // console.log(displayName);
       return displayName;
     },
     userBacker () {
@@ -619,6 +611,16 @@ export default {
       const totalGems = this.gift.gems.amount * 0.25;
       return totalGems;
     },
+    receiverName () {
+      if (
+        this.userReceivingGift.auth
+        && this.userReceivingGift.auth.local
+        && this.userReceivingGift.auth.local.username
+      ) {
+        return this.userReceivingGift.auth.local.username;
+      }
+      return this.userReceivingGift.profile.name;
+    },
   },
   watch: {
     startingPage () {
@@ -633,7 +635,6 @@ export default {
         this.$store.state.giftModalOptions.startingPage = '';
         this.selectPage(this.selectedPage);
       } else {
-        // this.selectedPage = this.startingPage;
         this.selectPage(this.startingPage);
       }
       this.$root.$emit('bv::show::modal', 'send-gift');
