@@ -21,11 +21,12 @@ async function updateTeamTasks (team) {
       boardTask.group.assigningUsername = undefined;
       boardTask.group.sharedCompletion = undefined;
       const assignedUsers = clone(boardTask.group.assignedUsers);
-      boardTask.group.assignedUsers = {};
+      boardTask.group.assignedUsers = null;
       for (const assignedUser of assignedUsers) {
         const userTask = find(teamUserTasks, task => task.userId === assignedUser
            && task.group.taskId === boardTask._id);
         if (userTask) {
+          if (!boardTask.group.assignedUsers) boardTask.group.assignedUsers = {};
           boardTask.group.assignedUsers[assignedUser] = {
             assignedDate: userTask.group.assignedDate,
             assigningUsername: userTask.group.assigningUsername,
