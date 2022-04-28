@@ -23,6 +23,9 @@ import { getMatchesByWordArray } from '../../libs/stringUtils';
 import bannedSlurs from '../../libs/bannedSlurs';
 import apiError from '../../libs/apiError';
 import highlightMentions from '../../libs/highlightMentions';
+import { getAnalyticsServiceByEnvironment } from '../../libs/analyticsService';
+
+const analytics = getAnalyticsServiceByEnvironment();
 
 const ACCOUNT_MIN_CHAT_AGE = Number(nconf.get('ACCOUNT_MIN_CHAT_AGE'));
 const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map(email => ({ email, canSend: true }));
@@ -192,6 +195,12 @@ api.postChat = {
 
     // Check if account is newer than the minimum age for chat participation
     if (moment().diff(user.auth.timestamps.created, 'minutes') < ACCOUNT_MIN_CHAT_AGE) {
+      analytics.track('chat age error', {
+        uuid: user._id,
+        hitType: 'event',
+        category: 'behavior',
+        headers: req.headers,
+      });
       throw new BadRequest(res.t('chatTemporarilyUnavailable'));
     }
 
