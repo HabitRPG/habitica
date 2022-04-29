@@ -164,14 +164,14 @@
     "summer2019ConchHealerSet": "Caracola (Sanador)",
     "summer2019WaterLilyMageSet": "Nenúfar (Mago)",
     "summer2019SeaTurtleWarriorSet": "Tortuga Marina (Guerrero)",
-    "augustYYYY": "Agosto del <%= year %>",
+    "augustYYYY": "Agosto <%= year %>",
     "decemberYYYY": "Diciembre <%= year %>",
     "winter2020LanternSet": "Linterna (Pícaro)",
     "winter2020WinterSpiceSet": "Especia de Invierno (Sanador)",
     "winter2020CarolOfTheMageSet": "Villancico del Mago",
     "winter2020EvergreenSet": "Siempre Joven (Guerrero)",
-    "mayYYYY": "Mayo del <%= year %>",
-    "marchYYYY": "Marzo del <%= year %>",
+    "mayYYYY": "Mayo <%= year %>",
+    "marchYYYY": "Marzo <%= year %>",
     "summer2020CrocodileRogueSet": "Cocodrilo (Pícaro)",
     "summer2020SeaGlassHealerSet": "Cristal Marino (Sanador)",
     "summer2020OarfishMageSet": "Regaleco (Mago)",
@@ -220,5 +220,6 @@
     "spring2022MagpieRogueSet": "Urraca (Pícaro)",
     "spring2022RainstormWarriorSet": "Tempestad (Guerrero)",
     "spring2022ForsythiaMageSet": "Forsitia (Mago)",
-    "spring2022PeridotHealerSet": "Peridoto (Sanador)"
+    "spring2022PeridotHealerSet": "Peridoto (Sanador)",
+    "aprilYYYY": "Abril <%= year %>"
 }
