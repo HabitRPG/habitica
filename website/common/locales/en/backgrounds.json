@@ -3,6 +3,7 @@
   "background": "Background",
   "backgroundShop": "Background Shop",
   "noBackground": "No Background Selected",
+  "hideLockedBackgrounds": "Hide locked backgrounds",
 
   "backgrounds062014": "SET 1: Released June 2014",
   "backgroundBeachText": "Beach",
@@ -769,6 +770,14 @@
   "backgroundBrickWallWithIvyNotes": "Admire a Brick Wall with Ivy.",
   "backgroundFloweringPrairieText": "Flowering Prairie",
   "backgroundFloweringPrairieNotes": "Frolic through a Flowering Prairie.",
+
+  "backgrounds042022": "SET 95: Released April 2022",
+  "backgroundBlossomingTreesText": "Blossoming Trees",
+  "backgroundBlossomingTreesNotes": "Dally beneath Blossoming Trees.",
+  "backgroundFlowerShopText": "Flower Shop",
+  "backgroundFlowerShopNotes": "Enjoy the sweet scent of a Flower Shop.",
+  "backgroundSpringtimeLakeText": "Springtime Lake",
+  "backgroundSpringtimeLakeNotes": "Take in the sights along the shores of a Springtime Lake.",
 
   "timeTravelBackgrounds": "Steampunk Backgrounds",
   "backgroundAirshipText": "Airship",

@@ -258,9 +258,9 @@
     "foodCakeShade": "巧克力蛋糕",
     "foodCakeShadeThe": "巧克力蛋糕",
     "foodCakeShadeA": "一个巧克力蛋糕",
-    "foodCakeWhite": "忌廉蛋糕",
-    "foodCakeWhiteThe": "忌廉蛋糕",
-    "foodCakeWhiteA": "一个忌廉蛋糕",
+    "foodCakeWhite": "奶油蛋糕",
+    "foodCakeWhiteThe": "奶油蛋糕",
+    "foodCakeWhiteA": "一个奶油蛋糕",
     "foodCakeGolden": "蜂蜜蛋糕",
     "foodCakeGoldenThe": "蜂蜜蛋糕",
     "foodCakeGoldenA": "一个蜂蜜蛋糕",
@@ -370,5 +370,6 @@
     "hatchingPotionSunset": "日落",
     "hatchingPotionMoonglow": "月光",
     "hatchingPotionSolarSystem": "太阳系",
-    "hatchingPotionOnyx": "玛瑙"
+    "hatchingPotionOnyx": "玛瑙",
+    "hatchingPotionVirtualPet": "电子宠物"
 }

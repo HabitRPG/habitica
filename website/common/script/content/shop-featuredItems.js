@@ -1,10 +1,11 @@
 import moment from 'moment';
+import { EVENTS } from './constants';
 // Magic Hatching Potions are configured like this:
 // type: 'premiumHatchingPotion',  // note no "s" at the end
 // path: 'premiumHatchingPotions.Rainbow',
 const featuredItems = {
   market () {
-    if (moment().isBefore('2022-02-28T20:00-05:00')) {
+    if (moment().isBefore(EVENTS.spring2022.end)) {
       return [
         {
           type: 'armoire',
@@ -12,15 +13,15 @@ const featuredItems = {
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Cupid',
+          path: 'premiumHatchingPotions.Shimmer',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.RoseQuartz',
+          path: 'premiumHatchingPotions.Celestial',
         },
         {
-          type: 'hatchingPotions',
-          path: 'hatchingPotions.CottonCandyPink',
+          type: 'premiumHatchingPotion',
+          path: 'premiumHatchingPotions.PolkaDot',
         },
       ];
     }
@@ -44,7 +45,7 @@ const featuredItems = {
     ];
   },
   quests () {
-    if (moment().isBefore('2022-05-31T20:00-04:00')) {
+    if (moment().isBefore('2022-03-31T20:00-04:00')) {
       return [
         {
           type: 'bundles',
@@ -52,7 +53,7 @@ const featuredItems = {
         },
         {
           type: 'quests',
-          path: 'quests.turquoise',
+          path: 'quests.egg',
         },
         {
           type: 'quests',
@@ -75,7 +76,7 @@ const featuredItems = {
       },
     ];
   },
-  seasonal: 'winter2021Warrior',
+  seasonal: 'spring2021Healer',
   timeTravelers: [
     // TODO
   ],

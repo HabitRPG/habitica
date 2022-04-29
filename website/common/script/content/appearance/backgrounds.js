@@ -490,6 +490,11 @@ const backgrounds = {
     brick_wall_with_ivy: { },
     flowering_prairie: { },
   },
+  backgrounds042022: {
+    blossoming_trees: { },
+    flower_shop: { },
+    springtime_lake: { },
+  },
   timeTravelBackgrounds: {
     airship: {
       price: 1,

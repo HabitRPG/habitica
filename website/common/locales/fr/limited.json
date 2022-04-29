@@ -216,5 +216,10 @@
     "winter2022StockingWarriorSet": "Chaussette (Guerrier)",
     "winter2022PomegranateMageSet": "Grenade (Mage)",
     "winter2022IceCrystalHealerSet": "Cristal de glace (Guérisseur)",
-    "januaryYYYY": "Janvier <%= year %>"
+    "januaryYYYY": "Janvier <%= year %>",
+    "spring2022MagpieRogueSet": "Pie (Voleur)",
+    "spring2022RainstormWarriorSet": "Flot diluvien (Guerrier)",
+    "spring2022ForsythiaMageSet": "Forsythia (Mage)",
+    "spring2022PeridotHealerSet": "Péridot (Guérisseur)",
+    "aprilYYYY": "Avril <%= year %>"
 }

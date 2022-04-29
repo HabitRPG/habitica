@@ -1,3 +1,7 @@
 # Files not included in deployments to Heroku, to save on file size.
 
 /habitica-images
+/test
+/migrations
+/scripts
+/database_reports

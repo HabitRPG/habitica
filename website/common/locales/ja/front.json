@@ -13,7 +13,7 @@
     "companyDonate": "寄付",
     "forgotPassword": "パスワードを忘れましたか？",
     "emailNewPass": "パスワード再設定リンクをメールで受け取る",
-    "forgotPasswordSteps": "Habiticaのアカウント登録に使ったメールアドレスを入力してください。",
+    "forgotPasswordSteps": "Habiticaのアカウント登録に使ったユーザーネームかメールアドレスを入力してください。",
     "sendLink": "リンクを送る",
     "featuredIn": "記事掲載",
     "footerDevs": "開発者",
@@ -38,7 +38,7 @@
     "marketing2Lead1Title": "仲間と一緒に生産性を高めよう",
     "marketing2Lead1": "Habitica を一人でプレーすることもできますが、だれかと協力し、競争し、責任を感じあいはじめてこそ、Habitica の本領発揮です。自分を成長させるプログラムでいちばん効果的なのは、社会的な責任感です。責任感と競争を実現する環境として、ビデオゲーム以上のものがあるでしょうか?",
     "marketing2Lead2Title": "モンスターと戦おう",
-    "marketing2Lead2": "戦いのないロールプレイングゲームがありますか?　あなたの仲間のパーティーでボスと戦いましょう。ボス戦は 「連帯責任モード」になります。あなたがスポーツジムに行くのをさぼった日は、ボスが *パーティ全員*にダメージを与えます！",
+    "marketing2Lead2": "ロールプレイングゲームに戦いは不可欠ですよね？ パーティーと一緒にモンスターと戦いましょう。モンスターとの戦いは「連帯責任モード」です。あなたがスポーツジムに行くのをさぼった日は、モンスターが *パーティ全員* にダメージを与えます！",
     "marketing2Lead3Title": "チャレンジで競おう",
     "marketing2Lead3": "「チャレンジ」を通して友達やHabiticaで出会った人と競争してみましょう。チャレンジの勝者は特別な賞品を手にすることができます。",
     "marketing3Header": "アプリと拡張機能",
@@ -129,7 +129,7 @@
     "passwordConfirmationMatch": "パスワードが不一致です。",
     "invalidLoginCredentials": "ユーザー名とパスワードのいずれかまたは両方が無効です。",
     "passwordResetPage": "パスワードをリセットする",
-    "passwordReset": "もし入力されたメールアドレスが私たちのユーザーリストにあったのなら、新しいパスワードを設定する方法の説明が送信されたはずです。",
+    "passwordReset": "ユーザーネームかメールアドレスが登録されていた場合、新しいパスワードの設定方法がメールで送信されます。",
     "passwordResetEmailSubject": "パスワードのリセット",
     "passwordResetEmailText": "Habiticaで <%= username %> のパスワードのリセットを頼んだのなら、新しいパスワードを設定するために <%= passwordResetLink %> に行ってください。このリンクは24時間後に無効になります。パスワードのリセットを頼んでいない場合、このメールを無視しても結構です。",
     "passwordResetEmailHtml": "Habiticaで <strong><%= username %></strong> のパスワードのリセットを頼んだのなら、新しいパスワードを設定するために <a href=\"<%= passwordResetLink %>\"> ここ </a>にクリックしてください。このリンクは24時間後に無効になります。<br/><br>パスワードのリセットを頼んでいない場合、このメールを無視しても結構です。",
@@ -150,7 +150,7 @@
     "confirmPassword": "新しいパスワードを確認する",
     "usernameLimitations": "ユーザー名は1～20文字以内の長さでなくてはなりません。使える文字は、a～zの英字、0～9の数字、ハイフン、アンダーバーのみです。不適切な言葉を含めることはできません。",
     "usernamePlaceholder": "例: HabitRabbit",
-    "emailPlaceholder": "例: rabbit@example.com",
+    "emailPlaceholder": "例: gryphon@example.com",
     "passwordPlaceholder": "例: ******************",
     "confirmPasswordPlaceholder": "パスワードが間違っていないか確かめてください!",
     "joinHabitica": "Habiticaに参加する",
@@ -186,5 +186,6 @@
     "communityInstagram": "Instagram",
     "minPasswordLength": "パスワードは8文字以上にする必要があります。",
     "enterHabitica": "Habiticaをはじめる",
-    "socialAlreadyExists": "このソーシャルログインは、すでに存在しているHabiticaアカウントにリンクされています。"
+    "socialAlreadyExists": "このソーシャルログインは、すでに存在しているHabiticaアカウントにリンクされています。",
+    "emailUsernamePlaceholder": "例：habitrabbitもしくはgryphon@example.com"
 }

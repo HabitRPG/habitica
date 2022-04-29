@@ -200,14 +200,17 @@
     "transaction_create_challenge": "Desafío creado",
     "transaction_create_guild": "Gremio creado",
     "transaction_change_class": "Clase cambiada",
-    "transaction_rebirth": "Orbe de renacimiento usado",
+    "transaction_rebirth": "Orbe de Renacimiento usado",
     "transaction_release_pets": "Mascotas soltadas",
-    "transaction_reroll": "Poción de fortalecimiento usada",
+    "transaction_reroll": "Poción de Fortalecimiento usada",
     "hourglassTransactions": "Transacciones de Relojes de Arena",
     "transaction_gift_receive": "Recibido de",
     "transaction_debug": "Depuración",
     "transaction_contribution": "A través de contribuciones",
     "transaction_spend": "Gastado en",
     "transaction_release_mounts": "Monturas sueltas",
-    "transaction_subscription_perks": "Beneficio de la suscripción"
+    "transaction_subscription_perks": "Beneficio de la suscripción",
+    "addPasswordAuth": "Añadir contraseña",
+    "gemCap": "Límite de Gemas",
+    "nextHourglass": "Siguiente Reloj de Arena"
 }
