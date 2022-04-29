@@ -56,16 +56,16 @@ describe('xml marshaller marshalls user data (with purchases)', () => {
 
   it('maps the purchases field with data that begins with a number', () => {
     const userData = userDataWith({
-      'purchased': {
-        'ads': false,
-        'txnCount': 0,
-        'skin': {
-          'eb052b': true,
+      purchased: {
+        ads: false,
+        txnCount: 0,
+        skin: {
+          eb052b: true,
           '0ff591': true,
           '2b43f6': true,
-          'd7a9f7': true,
+          d7a9f7: true,
           '800ed0': true,
-          'rainbow': true,
+          rainbow: true,
         },
       },
     });
@@ -101,23 +101,23 @@ describe('xml marshaller marshalls user data (with purchases nested)', () => {
 
   it('maps the purchases field with data that begins with a number and nested objects', () => {
     const userData = userDataWith({
-      'purchased': {
-        'ads': false,
-        'txnCount': 0,
-        'skin': {
-          'eb052b': true,
+      purchased: {
+        ads: false,
+        txnCount: 0,
+        skin: {
+          eb052b: true,
           '0ff591': true,
           '2b43f6': true,
-          'd7a9f7': true,
+          d7a9f7: true,
           '800ed0': true,
-          'rainbow': true,
+          rainbow: true,
         },
-        'plan': {
-          'consecutive': {
-            'count': 0,
-            'offset': 0,
-            'gemCapExtra': 0,
-            'trinkets': 0,
+        plan: {
+          consecutive: {
+            count: 0,
+            offset: 0,
+            gemCapExtra: 0,
+            trinkets: 0,
           },
         },
       },
