@@ -217,6 +217,6 @@
     "spring2022RainstormWarriorSet": "Tempestad (Guerrero)",
     "spring2022ForsythiaMageSet": "Forsitia (Mago)",
     "spring2022PeridotHealerSet": "Peridoto (Sanador)",
-    "januaryYYYY": "Enero <%= year %>",
-    "aprilYYYY": "Abril <%= year %>"
+    "januaryYYYY": "Enero, <%= year %>",
+    "aprilYYYY": "Abril, <%= year %>"
 }
