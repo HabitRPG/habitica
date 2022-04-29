@@ -179,5 +179,6 @@
     "marketing4Header": "Sử dụng cho Tổ chức",
     "marketing3Lead2": "Những **Công cụ của bên thứ 3** gắn Habitica vào những khía cạnh khác nhau trong cuộc sống của bạn. API của chúng tôi cung cấp sự tích hợp dễ dàng cho những thứ như [Mở rộng Chrome](https://chrome.google.com/webstore/detail/habitica/pidkmpibnnnhneohdgjclfdjpijggmjj?hl=en-US), cho những thứ bạn mất điểm khi truy cập những trang web không năng suất, và kiếm điểm khi ở những trang năng xuất. [Tìm hiểu thêm ở đây](https://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations).",
     "marketing3Lead2Title": "Tích hợp",
-    "enterHabitica": "Vào Habitica"
+    "enterHabitica": "Vào Habitica",
+    "socialAlreadyExists": "Đăng nhập bằng tài khoản mạng xã hội này đã được liên kết với một tài khoản Habitica đã tồn tại."
 }

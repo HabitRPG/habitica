@@ -27,7 +27,7 @@
     "weaponWarrior1Text": "तलवार",
     "weaponWarrior1Notes": "Common soldier's blade. Increases Strength by <%= str %>.",
     "weaponWarrior2Text": "कुल्हाड़ी",
-    "weaponWarrior2Notes": "डबल साइडेड चॉपिंग हथियार। <% = Str%> द्वारा ताकत बढ़ाता है।",
+    "weaponWarrior2Notes": "डबल साइडेड चॉपिंग हथियार। <%= str %> द्वारा ताकत बढ़ाता है।",
     "weaponWarrior3Text": "सुबह का तारा",
     "weaponWarrior3Notes": "Heavy club with brutal spikes. Increases Strength by <%= str %>.",
     "weaponWarrior4Text": "Sapphire Blade",

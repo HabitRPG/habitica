@@ -23,6 +23,7 @@ import amazonPayments from '../../libs/payments/amazon'; // eslint-disable-line 
 import stripePayments from '../../libs/payments/stripe'; // eslint-disable-line import/no-cycle
 import paypalPayments from '../../libs/payments/paypal'; // eslint-disable-line import/no-cycle
 import { model as NewsPost } from '../newsPost';
+import { model as Transaction } from '../transaction';
 
 const { daysSince } = common;
 
@@ -381,8 +382,12 @@ schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
     timezoneUtcOffsetFromUserPrefs = timezoneUtcOffsetFromBrowser;
   }
 
+  let lastCronTime = this.lastCron;
+  if (this.auth.timestamps.loggedIn < lastCronTime) {
+    lastCronTime = this.auth.timestamps.loggedIn;
+  }
   // How many days have we missed using the user's current timezone:
-  let daysMissed = daysSince(this.lastCron, defaults({ now }, this.preferences));
+  let daysMissed = daysSince(lastCronTime, defaults({ now }, this.preferences));
 
   if (timezoneUtcOffsetAtLastCron !== timezoneUtcOffsetFromUserPrefs) {
     // Give the user extra time based on the difference in timezones
@@ -394,7 +399,7 @@ schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
     // Since cron last ran, the user's timezone has changed.
     // How many days have we missed using the old timezone:
     const daysMissedNewZone = daysMissed;
-    const daysMissedOldZone = daysSince(this.lastCron, defaults({
+    const daysMissedOldZone = daysSince(lastCronTime, defaults({
       now,
       timezoneUtcOffsetOverride: timezoneUtcOffsetAtLastCron,
     }, this.preferences));
@@ -434,7 +439,7 @@ schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
         const timezoneOffsetDiff = timezoneUtcOffsetFromUserPrefs - timezoneUtcOffsetAtLastCron;
         // e.g., for dangerous zone change: -300 - -240 = -60 or 600 - 660= -60
 
-        this.lastCron = moment(this.lastCron).subtract(timezoneOffsetDiff, 'minutes');
+        this.lastCron = moment(lastCronTime).subtract(timezoneOffsetDiff, 'minutes');
         // NB: We don't change this.auth.timestamps.loggedin so that will still record
         // the time that the previous cron actually ran.
         // From now on we can ignore the old timezone:
@@ -524,4 +529,31 @@ schema.methods.getSecretData = function getSecretData () {
   const user = this;
 
   return user.secret;
+};
+
+schema.methods.updateBalance = async function updateBalance (amount,
+  transactionType,
+  reference,
+  referenceText) {
+  this.balance += amount;
+
+  if (transactionType === 'buy_gold') {
+    // Bulk these together in case the user is not using the bulk-buy feature
+    const lastTransaction = await Transaction.findOne({ userId: this._id },
+      null,
+      { sort: { createdAt: -1 } });
+    if (lastTransaction.transactionType === transactionType) {
+      lastTransaction.amount += amount;
+      await lastTransaction.save();
+    }
+  }
+
+  await Transaction.create({
+    currency: 'gems',
+    userId: this._id,
+    transactionType,
+    amount,
+    reference,
+    referenceText,
+  });
 };

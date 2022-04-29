@@ -40,28 +40,27 @@ describe('shared.ops.buy', () => {
     analytics.track.restore();
   });
 
-  it('returns error when key is not provided', done => {
+  it('returns error when key is not provided', async () => {
     try {
-      buy(user);
+      await buy(user);
     } catch (err) {
       expect(err).to.be.an.instanceof(BadRequest);
       expect(err.message).to.equal(errorMessage('missingKeyParam'));
-      done();
     }
   });
 
-  it('recovers 15 hp', () => {
+  it('recovers 15 hp', async () => {
     user.stats.hp = 30;
-    buy(user, { params: { key: 'potion' } }, analytics);
+    await buy(user, { params: { key: 'potion' } }, analytics);
     expect(user.stats.hp).to.eql(45);
 
     expect(analytics.track).to.be.calledOnce;
   });
 
-  it('adds equipment to inventory', () => {
+  it('adds equipment to inventory', async () => {
     user.stats.gp = 31;
 
-    buy(user, { params: { key: 'armor_warrior_1' } });
+    await buy(user, { params: { key: 'armor_warrior_1' } });
 
     expect(user.items.gear.owned).to.eql({
       weapon_warrior_0: true,
@@ -90,10 +89,10 @@ describe('shared.ops.buy', () => {
     });
   });
 
-  it('buys Steampunk Accessories Set', () => {
+  it('buys Steampunk Accessories Set', async () => {
     user.purchased.plan.consecutive.trinkets = 1;
 
-    buy(user, {
+    await buy(user, {
       params: {
         key: '301404',
       },
@@ -108,10 +107,10 @@ describe('shared.ops.buy', () => {
     expect(user.items.gear.owned).to.have.property('eyewear_mystery_301404', true);
   });
 
-  it('buys a Quest scroll', () => {
+  it('buys a Quest scroll', async () => {
     user.stats.gp = 205;
 
-    buy(user, {
+    await buy(user, {
       params: {
         key: 'dilatoryDistress1',
       },
@@ -122,11 +121,11 @@ describe('shared.ops.buy', () => {
     expect(user.stats.gp).to.equal(5);
   });
 
-  it('buys a special item', () => {
+  it('buys a special item', async () => {
     user.stats.gp = 11;
     const item = content.special.thankyou;
 
-    const [data, message] = buy(user, {
+    const [data, message] = await buy(user, {
       params: {
         key: 'thankyou',
       },
@@ -144,15 +143,15 @@ describe('shared.ops.buy', () => {
     }));
   });
 
-  it('allows for bulk purchases', () => {
+  it('allows for bulk purchases', async () => {
     user.stats.hp = 30;
-    buy(user, { params: { key: 'potion' }, quantity: 2 });
+    await buy(user, { params: { key: 'potion' }, quantity: 2 });
     expect(user.stats.hp).to.eql(50);
   });
 
-  it('errors if user supplies a non-numeric quantity', done => {
+  it('errors if user supplies a non-numeric quantity', async () => {
     try {
-      buy(user, {
+      await buy(user, {
         params: {
           key: 'dilatoryDistress1',
         },
@@ -162,13 +161,12 @@ describe('shared.ops.buy', () => {
     } catch (err) {
       expect(err).to.be.an.instanceof(BadRequest);
       expect(err.message).to.equal(errorMessage('invalidQuantity'));
-      done();
     }
   });
 
-  it('errors if user supplies a negative quantity', done => {
+  it('errors if user supplies a negative quantity', async () => {
     try {
-      buy(user, {
+      await buy(user, {
         params: {
           key: 'dilatoryDistress1',
         },
@@ -178,13 +176,12 @@ describe('shared.ops.buy', () => {
     } catch (err) {
       expect(err).to.be.an.instanceof(BadRequest);
       expect(err.message).to.equal(errorMessage('invalidQuantity'));
-      done();
     }
   });
 
-  it('errors if user supplies a decimal quantity', done => {
+  it('errors if user supplies a decimal quantity', async () => {
     try {
-      buy(user, {
+      await buy(user, {
         params: {
           key: 'dilatoryDistress1',
         },
@@ -194,7 +191,6 @@ describe('shared.ops.buy', () => {
     } catch (err) {
       expect(err).to.be.an.instanceof(BadRequest);
       expect(err.message).to.equal(errorMessage('invalidQuantity'));
-      done();
     }
   });
 });

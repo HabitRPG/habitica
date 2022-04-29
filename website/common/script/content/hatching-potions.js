@@ -3,13 +3,10 @@ import defaults from 'lodash/defaults';
 import each from 'lodash/each';
 import moment from 'moment';
 import t from './translation';
-import {
-  EVENTS,
-} from './constants';
+import { EVENTS } from './constants';
 
 function hasQuestAchievementFunction (key) {
-  return user => user.achievements.quests
-      && user.achievements.quests[key] > 0;
+  return user => user.achievements.quests && user.achievements.quests[key] > 0;
 }
 
 const drops = {
@@ -66,20 +63,20 @@ const premium = {
     text: t('hatchingPotionCupid'),
     limited: true,
     canBuy () {
-      return moment().isBefore('2021-02-28T20:00-05:00');
+      return moment().isBefore('2022-02-28T20:00-05:00');
     },
   },
   Shimmer: {
     value: 2,
     text: t('hatchingPotionShimmer'),
     limited: true,
-    event: EVENTS.spring2020,
+    event: EVENTS.spring2022,
     _addlNotes: t('eventAvailabilityReturning', {
       availableDate: t('dateEndMarch'),
-      previousDate: t('marchYYYY', { year: 2018 }),
+      previousDate: t('marchYYYY', { year: 2020 }),
     }),
     canBuy () {
-      return moment().isBefore('2020-05-02');
+      return moment().isBefore(EVENTS.spring2022.end);
     },
   },
   Fairy: {
@@ -280,20 +277,20 @@ const premium = {
     text: t('hatchingPotionRoseQuartz'),
     limited: true,
     canBuy () {
-      return moment().isBefore('2021-02-28T20:00-05:00');
+      return moment().isBefore('2022-02-28T20:00-05:00');
     },
   },
   Celestial: {
     value: 2,
     text: t('hatchingPotionCelestial'),
     limited: true,
-    event: EVENTS.spring2020,
+    event: EVENTS.spring2022,
     _addlNotes: t('eventAvailabilityReturning', {
       availableDate: t('dateEndMarch'),
-      previousDate: t('marchYYYY', { year: 2019 }),
+      previousDate: t('marchYYYY', { year: 2020 }),
     }),
     canBuy () {
-      return moment().isBefore('2020-05-02');
+      return moment().isBefore(EVENTS.spring2022.end);
     },
   },
   Sunshine: {
@@ -472,12 +469,13 @@ const premium = {
     value: 2,
     text: t('hatchingPotionPolkaDot'),
     limited: true,
-    event: EVENTS.spring2021,
-    _addlNotes: t('premiumPotionAddlNotes', {
-      date: t('dateEndMarch'),
+    event: EVENTS.spring2022,
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndMarch'),
+      previousDate: t('marchYYYY', { year: 2021 }),
     }),
     canBuy () {
-      return moment().isBefore(EVENTS.spring2021.end);
+      return moment().isBefore(EVENTS.spring2022.end);
     },
   },
   MossyStone: {
@@ -531,13 +529,13 @@ const wacky = {
   Veggie: {
     text: t('hatchingPotionVeggie'),
     limited: true,
-    event: EVENTS.spring2021,
+    event: EVENTS.spring2022,
     _addlNotes: t('eventAvailabilityReturning', {
-      availableDate: t('dateEndMarch'),
-      previousDate: t('marchYYYY', { year: 2019 }),
+      availableDate: t('dateEndApril'),
+      previousDate: t('aprilYYYY', { year: 2021 }),
     }),
     canBuy () {
-      return moment().isBetween('2021-04-01T08:00-05:00', EVENTS.spring2021.end);
+      return moment().isBetween('2022-04-07T08:00-05:00', EVENTS.spring2022.end);
     },
   },
   Dessert: {
@@ -545,6 +543,12 @@ const wacky = {
     limited: true,
     _addlNotes: t('premiumPotionUnlimitedNotes'),
     canBuy: hasQuestAchievementFunction('waffle'),
+  },
+  VirtualPet: {
+    text: t('hatchingPotionVirtualPet'),
+    limited: true,
+    _addlNotes: t('premiumPotionUnlimitedNotes'),
+    canBuy: hasQuestAchievementFunction('virtualpet'),
   },
 };
 
@@ -588,9 +592,12 @@ each(wacky, (pot, key) => {
     notes: t('hatchingPotionNotes', {
       potText: pot.text,
     }),
-    _addlNotes: pot._season && pot._season !== '_PENDING_' ? t('eventAvailability', {
-      date: t(`dateEnd${pot._season}`),
-    }) : null,
+    _addlNotes:
+      pot._season && pot._season !== '_PENDING_'
+        ? t('eventAvailability', {
+          date: t(`dateEnd${pot._season}`),
+        })
+        : null,
     premium: false,
     limited: true,
     wacky: true,
@@ -603,8 +610,5 @@ each(wacky, (pot, key) => {
 const all = assign({}, drops, premium, wacky);
 
 export {
-  drops,
-  premium,
-  wacky,
-  all,
+  drops, premium, wacky, all,
 };

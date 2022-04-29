@@ -98,7 +98,7 @@
     "localStorageTryFirst": "如果你在使用Habitica中遇到了问题，点击下方的按钮清除这个网站的本地存储和cookies（不影响其他网站）。在这之后你需要重新登录，所以在此之前你需要知道你的登录信息，可以在设置-> <%= linkStart %>网站<%= linkEnd %>中找到。",
     "localStorageTryNext": "如果问题持续发生，如果你还没上报这个错误，请使用<%= linkStart %>报告一个错误<%= linkEnd %>。",
     "localStorageClear": "清除数据",
-    "localStorageClearExplanation": "此按钮会抹掉本地存储和大部分cookies，并且注销。",
+    "localStorageClearExplanation": "此按钮会抹掉本地存储和大部分cookies，并且从该电脑上退出账号。",
     "username": "用户名",
     "emailOrUsername": "电子邮箱或用户名（区分大小写）",
     "work": "工作",
@@ -129,7 +129,7 @@
     "passwordConfirmationMatch": "密码不匹配。",
     "invalidLoginCredentials": "错误的用户名 和/或 电子邮件 和/或 密码。",
     "passwordResetPage": "重置密码",
-    "passwordReset": "如果我们已经记录您的电子邮箱，说明您的新密码已发送到您的电子邮箱中。",
+    "passwordReset": "如果我们已经记录过您的电子邮箱，说明指导您设定新密码的邮件已发送到您的电子邮箱中。",
     "passwordResetEmailSubject": "Habitica的密码重置",
     "passwordResetEmailText": "如果你在Habitica的用户  <%= username %> 希望重置密码，请前往<%= passwordResetLink %>去设置一个新的密码。这个链接会在24小时后到期。如果你没有请求重置密码，请忽略这封邮件。",
     "passwordResetEmailHtml": "如果你在Habitica的用户  <strong><%= username %> </strong>希望重置密码，<a href=\"<%= passwordResetLink %>\">点击这里</a> 去设置一个新的密码。这个链接会在24小时后到期。<br/><br>如果你没有请求重置密码，请忽略这封邮件。",
@@ -150,7 +150,7 @@
     "confirmPassword": "确认密码",
     "usernameLimitations": "用户名的长度必须在1至20个字符之间，只允许含有字母a至z、数字0至9、连字符及下划线，且不得违反条款要求。",
     "usernamePlaceholder": "例如，HabitRabbit",
-    "emailPlaceholder": "例如，rabbit@example.com",
+    "emailPlaceholder": "例如，gryphon@example.com",
     "passwordPlaceholder": "例如，******************",
     "confirmPasswordPlaceholder": "确保你的密码相同！",
     "joinHabitica": "加入Habitica",
@@ -185,5 +185,7 @@
     "learnMore": "了解更多",
     "communityInstagram": "Instagram",
     "minPasswordLength": "密码至少需要8个字符。",
-    "enterHabitica": "进入Habitica"
+    "enterHabitica": "进入Habitica",
+    "socialAlreadyExists": "该社交账号已与现存的Habitica账户连接。",
+    "emailUsernamePlaceholder": "例如 habitrabbit 或者 gryphon@example.com"
 }

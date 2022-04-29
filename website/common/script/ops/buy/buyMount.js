@@ -32,7 +32,7 @@ export class BuyHourglassMountOperation extends AbstractHourglassItemOperation {
     });
   }
 
-  executeChanges (user) {
+  async executeChanges (user, item) {
     user.items.mounts = {
       ...user.items.mounts,
       [this.key]: true,
@@ -40,7 +40,7 @@ export class BuyHourglassMountOperation extends AbstractHourglassItemOperation {
 
     if (user.markModified) user.markModified('items.mounts');
 
-    this.subtractCurrency(user);
+    await this.subtractCurrency(user, item);
 
     const message = this.i18n('hourglassPurchase');
 

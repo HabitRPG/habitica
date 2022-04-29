@@ -123,5 +123,11 @@
     "achievementShadeOfItAll": "A Sombra de Tudo",
     "achievementShadeOfItAllText": "Domou todas as Montarias das Sombras.",
     "achievementShadeOfItAllModalText": "Você domou todas as Montarias das Sombras!",
-    "achievementShadyCustomerText": "Coletou todos os Mascotes das Sombras."
+    "achievementShadyCustomerText": "Coletou todos os Mascotes das Sombras.",
+    "achievementZodiacZookeeperModalText": "Você coletou todos os mascotes do zodíaco!",
+    "achievementZodiacZookeeper": "Guarda dos Animais do Zodíaco",
+    "achievementZodiacZookeeperText": "Chocou todas as cores padrão dos mascotes do zodíaco: Rato, Vaca, Coelho, Cobra, Cavalo, Ovelha, Macaco, Galo, Lobo, Tigre, Porco Voador e Dragão!",
+    "achievementBirdsOfAFeather": "Valeu a Pena",
+    "achievementBirdsOfAFeatherText": "Coletou todas as cores padrão dos mascotes voadores: Porco Voador, Coruja, Papagaio, Pterodáctilo, Grifo e Falcão.",
+    "achievementBirdsOfAFeatherModalText": "Você coletou todos os mascotes voadores!"
 }

@@ -87,7 +87,7 @@ async function cronAsync (req, res) {
     tasks.forEach(task => tasksByType[`${task.type}s`].push(task));
 
     // Run cron
-    const progress = cron({
+    const progress = await cron({
       user,
       tasksByType,
       now,

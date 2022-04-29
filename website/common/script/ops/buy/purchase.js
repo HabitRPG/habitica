@@ -12,6 +12,7 @@ import {
 
 import { removeItemByPath } from '../pinnedGearUtils';
 import getItemInfo from '../../libs/getItemInfo';
+import updateUserBalance from '../updateUserBalance';
 
 function getItemAndPrice (user, type, key, req) {
   let item;
@@ -42,8 +43,8 @@ function getItemAndPrice (user, type, key, req) {
   return { item, price };
 }
 
-function purchaseItem (user, item, price, type, key) {
-  user.balance -= price;
+async function purchaseItem (user, item, price, type, key) {
+  await updateUserBalance(user, -price, 'spend', item.key, `${item.text()} ${type}`);
 
   if (type === 'gear') {
     user.items.gear.owned = {
@@ -74,7 +75,7 @@ function purchaseItem (user, item, price, type, key) {
 
 const acceptedTypes = ['eggs', 'hatchingPotions', 'food', 'gear', 'bundles'];
 const singlePurchaseTypes = ['gear'];
-export default function purchase (user, req = {}, analytics) {
+export default async function purchase (user, req = {}, analytics) {
   const type = get(req.params, 'type');
   const key = get(req.params, 'key');
 
@@ -108,10 +109,11 @@ export default function purchase (user, req = {}, analytics) {
     removeItemByPath(user, itemInfo.path);
   }
 
+  /* eslint-disable no-await-in-loop */
   for (let i = 0; i < quantity; i += 1) {
-    purchaseItem(user, item, price, type, key);
+    await purchaseItem(user, item, price, type, key);
   }
-
+  /* eslint-enable no-await-in-loop */
   if (analytics) {
     analytics.track('buy', {
       uuid: user._id,

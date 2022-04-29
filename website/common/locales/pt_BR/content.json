@@ -205,7 +205,7 @@
     "hatchingPotionCupid": "Cupido",
     "hatchingPotionShimmer": "Cintilante",
     "hatchingPotionFairy": "Fada",
-    "hatchingPotionStarryNight": "Noite Estrelada",
+    "hatchingPotionStarryNight": "da Noite Estrelada",
     "hatchingPotionRainbow": "Arco-Íris",
     "hatchingPotionGlass": "de Vidro",
     "hatchingPotionGlow": "que Brilha-no-Escuro",
@@ -344,7 +344,7 @@
     "questEggRobotMountText": "Robô",
     "hatchingPotionSilver": "de Prata",
     "hatchingPotionBronze": "de Bronze",
-    "hatchingPotionSunshine": "Raio de Sol",
+    "hatchingPotionSunshine": "do Raio de Sol",
     "questEggRobotAdjective": "futurista",
     "questEggDolphinAdjective": "animado",
     "questEggDolphinText": "Golfinho",
@@ -364,10 +364,12 @@
     "hatchingPotionVampire": "Vampiro",
     "hatchingPotionBlackPearl": "Pérola Negra",
     "hatchingPotionAutumnLeaf": "Folha de Outono",
-    "hatchingPotionStainedGlass": "Vitral Colorido",
+    "hatchingPotionStainedGlass": "de Vitral Colorido",
     "hatchingPotionPolkaDot": "com Bolinhas",
     "hatchingPotionMossyStone": "de Pedra com Musgo",
     "hatchingPotionMoonglow": "de Brilho da Lua",
     "hatchingPotionSunset": "do Pôr do Sol",
-    "hatchingPotionSolarSystem": "do Sistema Solar"
+    "hatchingPotionSolarSystem": "do Sistema Solar",
+    "hatchingPotionOnyx": "Ônix",
+    "hatchingPotionVirtualPet": "Mascote Virtual"
 }

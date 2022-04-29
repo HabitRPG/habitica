@@ -33,7 +33,7 @@ describe('shared.ops.buyArmoire', () => {
   const YIELD_EXP = 0.9;
   const analytics = { track () {} };
 
-  function buyArmoire (_user, _req, _analytics) {
+  async function buyArmoire (_user, _req, _analytics) {
     const buyOp = new BuyArmoireOperation(_user, _req, _analytics);
 
     return buyOp.purchase();
@@ -61,11 +61,11 @@ describe('shared.ops.buyArmoire', () => {
   });
 
   context('failure conditions', () => {
-    it('does not open if user does not have enough gold', done => {
+    it('does not open if user does not have enough gold', async () => {
       user.stats.gp = 50;
 
       try {
-        buyArmoire(user);
+        await buyArmoire(user);
       } catch (err) {
         expect(err).to.be.an.instanceof(NotAuthorized);
         expect(err.message).to.equal(i18n.t('messageNotEnoughGold'));
@@ -74,17 +74,16 @@ describe('shared.ops.buyArmoire', () => {
         });
         expect(user.items.food).to.be.empty;
         expect(user.stats.exp).to.eql(0);
-        done();
       }
     });
   });
 
   context('non-gear awards', () => {
-    it('gives Experience', () => {
+    it('gives Experience', async () => {
       const previousExp = user.stats.exp;
       randomValFns.trueRandom.returns(YIELD_EXP);
 
-      buyArmoire(user);
+      await buyArmoire(user);
 
       expect(user.items.gear.owned).to.eql({ weapon_warrior_0: true });
       expect(user.items.food).to.be.empty;
@@ -92,12 +91,12 @@ describe('shared.ops.buyArmoire', () => {
       expect(user.stats.gp).to.equal(100);
     });
 
-    it('gives food', () => {
+    it('gives food', async () => {
       const previousExp = user.stats.exp;
 
       randomValFns.trueRandom.returns(YIELD_FOOD);
 
-      buyArmoire(user);
+      await buyArmoire(user);
 
       expect(user.items.gear.owned).to.eql({ weapon_warrior_0: true });
       expect(user.items.food).to.not.be.empty;
@@ -105,12 +104,12 @@ describe('shared.ops.buyArmoire', () => {
       expect(user.stats.gp).to.equal(100);
     });
 
-    it('does not give equipment if all equipment has been found', () => {
+    it('does not give equipment if all equipment has been found', async () => {
       randomValFns.trueRandom.returns(YIELD_EQUIPMENT);
       user.items.gear.owned = getFullArmoire();
       user.stats.gp = 150;
 
-      buyArmoire(user);
+      await buyArmoire(user);
 
       expect(user.items.gear.owned).to.eql(getFullArmoire());
       const armoireCount = count.remainingGearInSet(user.items.gear.owned, 'armoire');
@@ -122,13 +121,13 @@ describe('shared.ops.buyArmoire', () => {
   });
 
   context('gear awards', () => {
-    it('always drops equipment the first time', () => {
+    it('always drops equipment the first time', async () => {
       delete user.flags.armoireOpened;
       randomValFns.trueRandom.returns(YIELD_EXP);
 
       expect(_.size(user.items.gear.owned)).to.equal(1);
 
-      buyArmoire(user);
+      await buyArmoire(user);
 
       expect(_.size(user.items.gear.owned)).to.equal(2);
 
@@ -140,7 +139,7 @@ describe('shared.ops.buyArmoire', () => {
       expect(user.stats.gp).to.equal(100);
     });
 
-    it('gives more equipment', () => {
+    it('gives more equipment', async () => {
       randomValFns.trueRandom.returns(YIELD_EQUIPMENT);
       user.items.gear.owned = {
         weapon_warrior_0: true,
@@ -150,7 +149,7 @@ describe('shared.ops.buyArmoire', () => {
 
       expect(_.size(user.items.gear.owned)).to.equal(2);
 
-      buyArmoire(user, {}, analytics);
+      await buyArmoire(user, {}, analytics);
 
       expect(_.size(user.items.gear.owned)).to.equal(3);
 

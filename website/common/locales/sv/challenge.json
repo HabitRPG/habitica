@@ -103,5 +103,6 @@
     "selectParticipant": "Välj en Deltagare",
     "filters": "Filter",
     "wonChallengeDesc": "<%= challengeName %> har utsett dig som vinnare! Din seger har noterats bland dina Prestationer.",
-    "yourReward": "Din belöning"
+    "yourReward": "Din belöning",
+    "removeTasks": "Ta bort uppgifter"
 }

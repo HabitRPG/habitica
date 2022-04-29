@@ -13,7 +13,7 @@
     "companyDonate": "Fai una donazione",
     "forgotPassword": "Password dimenticata?",
     "emailNewPass": "Ricevi per e-mail il link per reimpostare la password",
-    "forgotPasswordSteps": "Inserisci l'indirizzo e-mail che hai usato per registrare il tuo account Habitica.",
+    "forgotPasswordSteps": "Inserisci il tuo nome utente o l'indirizzo e-mail che hai usato per registrare il tuo account Habitica.",
     "sendLink": "Invia link",
     "featuredIn": "Apparso su",
     "footerDevs": "Sviluppatori",
@@ -129,7 +129,7 @@
     "passwordConfirmationMatch": "La password non corrisponde alla conferma.",
     "invalidLoginCredentials": "Nome utente e/o email e/o password scorretto/i.",
     "passwordResetPage": "Reimposta password",
-    "passwordReset": "Se abbiamo il tuo indirizzo e-mail in archivio, abbiamo inviato a quell'indirizzo le istruzioni per creare una nuova password.",
+    "passwordReset": "Se il tuo indirizzo e-mail o il tuo nome utete hanno trovato riscontro nel nostro database, riceverai a breve le istruzioni via email per generare una nuova password.",
     "passwordResetEmailSubject": "Reset della password di Habitica",
     "passwordResetEmailText": "Se hai richiesto la reimpostazione della password per <%= username %> su Habitica, apri <%= passwordResetLink %> per crearne una nuova. Il link sarà valido per 24 ore. Se non hai richiesto la reimpostazione della password, per favore ignora questa e-mail.",
     "passwordResetEmailHtml": "Se hai richiesto la reimpostazione della password per <strong><%= username %></strong> su Habitica, <a href=\"<%= passwordResetLink %>\">clicca qui</a> per crearne una nuova. Il link sarà valido per 24 ore.<br/><br>Se non hai richiesto la reimpostazione della password, per favore ignora questa e-mail.",
@@ -150,7 +150,7 @@
     "confirmPassword": "Conferma password",
     "usernameLimitations": "I nomi utenti devono avere tra 1 e 20 caratteri, contenere solo lettere da a a z, numeri da 0 a 9, trattini, o trattini bassi, e non possono includere parole inappropriate.",
     "usernamePlaceholder": "es. HabitRabbit",
-    "emailPlaceholder": "es. rabbit@esempio.it",
+    "emailPlaceholder": "es. grifone@example.com",
     "passwordPlaceholder": "es. ******************",
     "confirmPasswordPlaceholder": "Assicurati che sia la stessa password!",
     "joinHabitica": "Unisciti ad Habitca",
@@ -185,5 +185,7 @@
     "learnMore": "Maggiori informazioni",
     "communityInstagram": "Instagram",
     "minPasswordLength": "La password deve essere di almeno 8 caratteri.",
-    "enterHabitica": "Entra in Habitica"
+    "enterHabitica": "Entra in Habitica",
+    "socialAlreadyExists": "Questo social è già collegato ad un account di Habitica.",
+    "emailUsernamePlaceholder": "es. habitrabbit oppure grifone@example.com"
 }

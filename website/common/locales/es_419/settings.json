@@ -39,7 +39,7 @@
     "xml": "(XML)",
     "json": "(JSON)",
     "customDayStart": "Comienzo de día personalizado",
-    "sureChangeCustomDayStartTime": "¿Estas seguro de que quieres cambiar tu Inicio de Día Personalizado? Tus diarias se resetearan la primera vez que uses Habitica después de <%= time %>.  ¡Asegúrate de haber completado tus diarias antes de eso!",
+    "sureChangeCustomDayStartTime": "¿Estas seguro de que quieres cambiar tu Inicio de Día Personalizado? Tus diarias se resetearan la primera vez que uses Habitica después de <%= time %>. ¡Asegúrate de haber completado tus diarias antes de eso!",
     "customDayStartHasChanged": "Tu inicio de dia personalizado a cambiado.",
     "nextCron": "Tus Diarias se reiniciarán la primera vez que uses Habitica después de <%= time %>. ¡Asegúrate de haber completado tus Diarias antes de esa hora!",
     "customDayStartInfo1": "Habitica por defecto chequea y reinicia tus Diarias a la medianoche en tu propia zona horaria cada día. Puedes personalizar ese horario aquí.",

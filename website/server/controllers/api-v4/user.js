@@ -2,6 +2,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 import * as userLib from '../../libs/user';
 import { verifyDisplayName } from '../../libs/user/validation';
 import common from '../../../common';
+import { model as Transaction } from '../../models/transaction';
 
 const api = {};
 
@@ -276,6 +277,23 @@ api.unequip = {
     const equipRes = common.ops.unEquipByType(user, req);
     await user.save();
     res.respond(200, ...equipRes);
+  },
+};
+
+/**
+ * @api {get} /api/v4/user/purchase-history Get users purchase history
+ * @apiName UserGetPurchaseHistory
+ * @apiGroup User
+ *
+ */
+api.purchaseHistory = {
+  method: 'GET',
+  middlewares: [authWithHeaders()],
+  url: '/user/purchase-history',
+  async handler (req, res) {
+    const { user } = res.locals;
+    const transactions = await Transaction.find({ userId: user._id }).sort({ createdAt: -1 });
+    res.respond(200, transactions);
   },
 };
 
