@@ -219,11 +219,19 @@ describe('GET /groups', () => {
 
     it('returns 30 guilds per page ordered by number of members', async () => {
       await user.update({ balance: 9000 });
-      const groups = await Promise.all(_.times(60, i => generateGroup(user, {
-        name: `public guild ${i} - is member`,
-        type: 'guild',
-        privacy: 'public',
-      })));
+      const delay = () => new Promise(resolve => setTimeout(resolve, 40));
+      const promises = [];
+
+      for (let i = 0; i < 60; i += 1) {
+        promises.push(generateGroup(user, {
+          name: `public guild ${i} - is member`,
+          type: 'guild',
+          privacy: 'public',
+        }));
+        await delay(); // eslint-disable-line no-await-in-loop
+      }
+
+      const groups = await Promise.all(promises);
 
       // update group number 32 and not the first to make sure sorting works
       await groups[32].update({ name: 'guild with most members', memberCount: 199 });
