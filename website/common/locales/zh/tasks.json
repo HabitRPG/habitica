@@ -7,7 +7,7 @@
     "editATask": "编辑<%= type %>",
     "createTask": "创建一个<%= type %>",
     "addTaskToUser": "新增任務",
-    "scheduled": "限时",
+    "scheduled": "已排程",
     "theseAreYourTasks": "这些是你的<%= taskType %>",
     "habit": "习惯",
     "habits": "习惯",

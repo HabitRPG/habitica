@@ -137,8 +137,12 @@ api.createGroup = {
       user.party._id = group._id;
     }
 
-    const results = await Promise.all([user.save(), group.save()]);
-    const savedGroup = results[1];
+    let savedGroup;
+
+    await Group.db.transaction(async session => {
+      await user.save({ session });
+      savedGroup = await group.save({ session });
+    });
 
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
     // await Q.ninvoke(savedGroup, 'populate', ['leader', nameFields]);
