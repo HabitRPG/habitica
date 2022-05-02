@@ -18,7 +18,19 @@
     >
       {{ $t('sendAGift') }}
     </h2>
-    <div class="d-flex flex-column align-items-center">
+    <div
+      v-if="currentEvent && currentEvent.promo === 'g1g1'"
+      class="g1g1-margin d-flex flex-column align-items-center"
+    >
+    <div
+      class="svg-big-gift"
+      v-once
+      v-html="icons.bigGift"
+    ></div>
+    </div>
+    <div
+    v-else
+    class="d-flex flex-column align-items-center">
       <div
         class="svg-big-gift"
         v-once
@@ -27,9 +39,19 @@
     </div>
     <div class="d-flex flex-column align-items-center">
       <div
-        class="modal-close"
+        v-if="currentEvent && currentEvent.promo === 'g1g1'"
+        class="g1g1-modal-close"
         @click="close()"
       >
+        <div
+          class="g1g1-svg-icon"
+          v-html="icons.close"
+        ></div>
+      </div>
+      <div
+      v-else
+      class="modal-close"
+      @click="close()">
         <div
           class="svg-icon"
           v-html="icons.close"
@@ -81,6 +103,17 @@
               {{ $t('nextButton') }}
             </div>
           </button>
+          <div
+          v-if="currentEvent && currentEvent.promo ==='g1g1'"
+          class="g1g1-cancel d-flex justify-content-center"
+          v-html="$t('cancel')"
+          @click="close()"
+          >
+          {{ $t('cancel') }}
+        </div>
+        <div
+        v-else>
+        </div>
         </div>
       </div>
     </div>
@@ -113,7 +146,6 @@
 
   #select-user-modal {
     .modal-content {
-      height:308px;
       width:448px;
     }
 
@@ -122,8 +154,8 @@
     }
 
     .modal-dialog {
-      width: 29.5rem;
-      margin-top: 25vh;
+      width: 448px;
+      margin-top: 10vh;
     }
 
     .modal-footer {
@@ -153,12 +185,12 @@
 
   .g1g1 {
     background-image: url('~@/assets/images/g1g1-send.png');
-    background-size: 472px 152px;
-    width: 470px;
+    background-size: 446px 152px;
+    width: 446px;
     height: 152px;
-    margin: -1rem 0rem 0rem -1rem;
-    border-radius: 0.3rem 0.3rem 0rem 0rem;
-    padding: 1.5rem;
+    margin: -16px 0px 0px -16px;
+    border-radius: 4.8px 4.8px 0px 0px;
+    padding: 24px;
     color: $white;
 
     h1 {
@@ -173,6 +205,31 @@
       margin-left: 4rem;
       margin-right: 4rem;
       margin-bottom: 0rem;
+    }
+  }
+
+  .g1g1-margin {
+    margin-top: 24px;
+  }
+
+  .g1g1-cancel {
+    margin-top: 16px;
+    color: $blue-10;
+    cursor: pointer;
+  }
+
+  .g1g1-modal-close {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    padding: 4px;
+    right: 16px;
+    top: 16px;
+    cursor: pointer;
+
+    .g1g1-svg-icon {
+      width: 12px;
+      height: 12px;
     }
   }
 
