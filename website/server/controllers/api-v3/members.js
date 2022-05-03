@@ -668,7 +668,7 @@ api.sendPrivateMessage = {
     if (!receiver.flags.verifiedUsername) delete receiver.auth.local.username;
 
     const objections = sender.getObjectionsToInteraction('send-private-message', receiver);
-    if (objections.length > 0 && !sender.isAdmin()) throw new NotAuthorized(res.t(objections[0]));
+    if (objections.length > 0 && !sender.hasPermission('moderator')) throw new NotAuthorized(res.t(objections[0]));
 
     const messageSent = await sentMessage(sender, receiver, message, res.t);
 

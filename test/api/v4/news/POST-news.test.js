@@ -16,16 +16,16 @@ describe('POST /news', () => {
   };
   beforeEach(async () => {
     user = await generateUser({
-      'contributor.newsPoster': true,
+      'permissions.news': true,
     });
   });
 
   it('disallows access to non-admins', async () => {
-    const nonAdminUser = await generateUser({ 'contributor.newsPoster': false });
+    const nonAdminUser = await generateUser({ 'permissions.news': false });
     await expect(nonAdminUser.post('/news')).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
-      message: 'You don\'t have news poster access.',
+      message: 'You don\'t have the required privileges.',
     });
   });
 

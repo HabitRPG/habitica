@@ -15,16 +15,16 @@ describe('DELETE /news/:newsID', () => {
   };
   beforeEach(async () => {
     user = await generateUser({
-      'contributor.newsPoster': true,
+      'permissions.news': true,
     });
   });
 
   it('disallows access to non-newsPosters', async () => {
-    const nonAdminUser = await generateUser({ 'contributor.newsPoster': false });
+    const nonAdminUser = await generateUser({ 'permissions.news': false });
     await expect(nonAdminUser.del(`/news/${v4()}`)).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
-      message: 'You don\'t have news poster access.',
+      message: t('noPrivAccess'),
     });
   });
 
