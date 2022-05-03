@@ -8,7 +8,7 @@
     </div>
     <div class="row standard-page">
       <div>
-        <div v-if="user.contributor.admin">
+        <div v-if="hasPermission(user, 'userSupport')">
           <h2>Reward User</h2>
           <div
             v-if="!hero.profile"
@@ -247,7 +247,7 @@
             <thead>
               <tr>
                 <th>{{ $t('name') }}</th>
-                <th v-if="user.contributor && user.contributor.admin">
+                <th v-if="hasPermission(user, 'userSupport')">
                   {{ $t('userId') }}
                 </th>
                 <th>{{ $t('contribLevel') }}</th>
@@ -257,12 +257,12 @@
             </thead>
             <tbody>
               <tr
-                v-for="(hero, index) in heroes"
+                v-for="hero in heroes"
                 :key="hero._id"
               >
                 <td>
                   <user-link
-                    v-if="hero.contributor && hero.contributor.admin"
+                    v-if="hasPermission(hero, 'userSupport')"
                     :user="hero"
                     :popover="$t('gamemaster')"
                     popover-trigger="mouseenter"
@@ -274,11 +274,16 @@
                   />
                 </td>
                 <td
-                  v-if="user.contributor.admin"
+                  v-if="hasPermission(hero, 'userSupport')"
+                  :key="hero._id"
                   class="btn-link"
-                  @click="populateContributorInput(hero._id, index)"
                 >
-                  {{ hero._id }}
+                  <router-link
+                    :to="{ name: 'adminPanelUser',
+                           params: { userIdentifier: hero._id } }"
+                  >
+                    {{ hero._id }}
+                  </router-link>
                 </td>
                 <td>{{ hero.contributor.level }}</td>
                 <td>{{ hero.contributor.text }}</td>
@@ -305,10 +310,8 @@
 
 <script>
 import each from 'lodash/each';
-
 import markdownDirective from '@/directives/markdown';
 import styleHelper from '@/mixins/styleHelper';
-import { mapState } from '@/libs/store';
 import * as quests from '@/../../common/script/content/quests';
 import { mountInfo, petInfo } from '@/../../common/script/content/stable';
 import content from '@/../../common/script/content';
@@ -316,6 +319,7 @@ import gear from '@/../../common/script/content/gear';
 import notifications from '@/mixins/notifications';
 import userLink from '../userLink';
 import PurchaseHistoryTable from '../ui/purchaseHistoryTable.vue';
+import { userStateMixin } from '../../mixins/userState';
 
 export default {
   components: {
@@ -325,7 +329,7 @@ export default {
   directives: {
     markdown: markdownDirective,
   },
-  mixins: [notifications, styleHelper],
+  mixins: [notifications, styleHelper, userStateMixin],
   data () {
     return {
       heroes: [],
@@ -346,9 +350,6 @@ export default {
       expandAuth: false,
       expandTransactions: false,
     };
-  },
-  computed: {
-    ...mapState({ user: 'user.data' }),
   },
   async mounted () {
     this.$store.dispatch('common:setTitle', {
@@ -392,11 +393,9 @@ export default {
     },
     getFormattedItemReference (pathPrefix, itemKeys, values) {
       let finishedString = '\n'.concat('path: ', pathPrefix, ', ', 'value: {', values, '}\n');
-
       each(itemKeys, key => {
         finishedString = finishedString.concat('\t', pathPrefix, '.', key, '\n');
       });
-
       return finishedString;
     },
     async loadHero (uuid, heroIndex) {
@@ -413,7 +412,6 @@ export default {
       this.expandAuth = false;
     },
     async saveHero () {
-      this.hero.contributor.admin = this.hero.contributor.level > 7;
       const heroUpdated = await this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
       this.text('User updated');
       this.hero = {};
@@ -425,11 +423,6 @@ export default {
       this.hero = {};
       this.heroID = -1;
       this.currentHeroIndex = -1;
-    },
-    populateContributorInput (id, index) {
-      this.heroID = id;
-      window.scrollTo(0, 200);
-      this.loadHero(id, index);
     },
     async toggleTransactionsOpen () {
       this.expandTransactions = !this.expandTransactions;

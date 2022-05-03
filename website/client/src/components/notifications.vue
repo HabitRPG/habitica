@@ -118,6 +118,7 @@ import { MAX_LEVEL_HARD_CAP } from '@/../../common/script/constants';
 import notifications from '@/mixins/notifications';
 import guide from '@/mixins/guide';
 import { CONSTANTS, setLocalSetting } from '@/libs/userlocalManager';
+import * as Analytics from '@/libs/analytics';
 
 import yesterdailyModal from './tasks/yesterdailyModal';
 import newStuff from './news/modal';
@@ -841,11 +842,21 @@ export default {
     },
     async runCronAction () {
       // Run Cron
-      await axios.post('/api/v4/cron');
-
-      // Reset daily analytics actions
-      setLocalSetting(CONSTANTS.keyConstants.TASKS_SCORED_COUNT, 0);
-      setLocalSetting(CONSTANTS.keyConstants.TASKS_CREATED_COUNT, 0);
+      const response = await axios.post('/api/v4/cron');
+      if (response.status === 200) {
+        // Reset daily analytics actions
+        setLocalSetting(CONSTANTS.keyConstants.TASKS_SCORED_COUNT, 0);
+        setLocalSetting(CONSTANTS.keyConstants.TASKS_CREATED_COUNT, 0);
+      } else {
+        // Note a failed cron event, for our records and investigation
+        Analytics.track({
+          eventName: 'cron failed',
+          eventAction: 'cron failed',
+          eventCategory: 'behavior',
+          hitType: 'event',
+          responseCode: response.status,
+        }, { trackOnClient: true });
+      }
 
       // Sync
       await Promise.all([

@@ -176,7 +176,7 @@ describe('POST /members/send-private-message', () => {
 
   it('allows admin to send when sender has blocked the admin', async () => {
     userToSendMessage = await generateUser({
-      'contributor.admin': 1,
+      'permissions.moderator': true,
     });
     const receiver = await generateUser({ 'inbox.blocks': [userToSendMessage._id] });
 
@@ -204,7 +204,7 @@ describe('POST /members/send-private-message', () => {
 
   it('allows admin to send when to user has opted out of messaging', async () => {
     userToSendMessage = await generateUser({
-      'contributor.admin': 1,
+      'permissions.moderator': true,
     });
     const receiver = await generateUser({ 'inbox.optOut': true });
 

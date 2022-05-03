@@ -8,7 +8,7 @@ describe('GET /members/:memberId/purchase-history', () => {
 
   before(async () => {
     user = await generateUser({
-      contributor: { admin: true },
+      permissions: { userSupport: true },
     });
   });
 
@@ -26,7 +26,7 @@ describe('GET /members/:memberId/purchase-history', () => {
     await expect(nonAdmin.get(`/members/${member._id}/purchase-history`)).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
-      message: t('noAdminAccess'),
+      message: t('noPrivAccess'),
     });
   });
 

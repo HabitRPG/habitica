@@ -30,7 +30,7 @@
     "express": "^4.17.3",
     "express-basic-auth": "^1.2.1",
     "express-validator": "^5.2.0",
-    "glob": "^7.2.0",
+    "glob": "^8.0.1",
     "got": "^11.8.3",
     "gulp": "^4.0.0",
     "gulp-babel": "^8.0.0",

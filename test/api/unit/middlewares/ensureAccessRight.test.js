@@ -4,8 +4,7 @@ import {
   generateReq,
   generateNext,
 } from '../../../helpers/api-unit.helper';
-import i18n from '../../../../website/common/script/i18n';
-import { ensureAdmin, ensureSudo, ensureNewsPoster } from '../../../../website/server/middlewares/ensureAccessRight';
+import { ensurePermission } from '../../../../website/server/middlewares/ensureAccessRight';
 import { NotAuthorized } from '../../../../website/server/libs/errors';
 import apiError from '../../../../website/server/libs/apiError';
 
@@ -20,20 +19,20 @@ describe('ensure access middlewares', () => {
   });
 
   context('ensure admin', () => {
-    it('returns not authorized when user is not an admin', () => {
-      res.locals = { user: { contributor: { admin: false } } };
+    it('returns not authorized when user is not in userSupport', () => {
+      res.locals = { user: { permissions: { userSupport: false } } };
 
-      ensureAdmin(req, res, next);
+      ensurePermission('userSupport')(req, res, next);
 
       const calledWith = next.getCall(0).args;
-      expect(calledWith[0].message).to.equal(i18n.t('noAdminAccess'));
+      expect(calledWith[0].message).to.equal(apiError('noPrivAccess'));
       expect(calledWith[0] instanceof NotAuthorized).to.equal(true);
     });
 
-    it('passes when user is an admin', () => {
-      res.locals = { user: { contributor: { admin: true } } };
+    it('passes when user is an userSuppor', () => {
+      res.locals = { user: { permissions: { userSupport: true } } };
 
-      ensureAdmin(req, res, next);
+      ensurePermission('userSupport')(req, res, next);
 
       expect(next).to.be.calledOnce;
       expect(next.args[0]).to.be.empty;
@@ -42,40 +41,40 @@ describe('ensure access middlewares', () => {
 
   context('ensure newsPoster', () => {
     it('returns not authorized when user is not a newsPoster', () => {
-      res.locals = { user: { contributor: { newsPoster: false } } };
+      res.locals = { user: { permissions: { news: false } } };
 
-      ensureNewsPoster(req, res, next);
+      ensurePermission('news')(req, res, next);
 
       const calledWith = next.getCall(0).args;
-      expect(calledWith[0].message).to.equal(apiError('noNewsPosterAccess'));
+      expect(calledWith[0].message).to.equal(apiError('noPrivAccess'));
       expect(calledWith[0] instanceof NotAuthorized).to.equal(true);
     });
 
     it('passes when user is a newsPoster', () => {
-      res.locals = { user: { contributor: { newsPoster: true } } };
+      res.locals = { user: { permissions: { news: true } } };
 
-      ensureNewsPoster(req, res, next);
+      ensurePermission('news')(req, res, next);
 
       expect(next).to.be.calledOnce;
       expect(next.args[0]).to.be.empty;
     });
   });
 
-  context('ensure sudo', () => {
-    it('returns not authorized when user is not a sudo user', () => {
-      res.locals = { user: { contributor: { sudo: false } } };
+  context('ensure coupons', () => {
+    it('returns not authorized when user does not have access to coupon calls', () => {
+      res.locals = { user: { permissions: { coupons: false } } };
 
-      ensureSudo(req, res, next);
+      ensurePermission('coupons')(req, res, next);
 
       const calledWith = next.getCall(0).args;
-      expect(calledWith[0].message).to.equal(apiError('noSudoAccess'));
+      expect(calledWith[0].message).to.equal(apiError('noPrivAccess'));
       expect(calledWith[0] instanceof NotAuthorized).to.equal(true);
     });
 
-    it('passes when user is a sudo user', () => {
-      res.locals = { user: { contributor: { sudo: true } } };
+    it('passes when user has access to coupon calls', () => {
+      res.locals = { user: { permissions: { coupons: true } } };
 
-      ensureSudo(req, res, next);
+      ensurePermission('coupons')(req, res, next);
 
       expect(next).to.be.calledOnce;
       expect(next.args[0]).to.be.empty;

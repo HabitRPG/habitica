@@ -46,7 +46,7 @@ export function canDelete (store) {
     const user = store.state.user.data;
     const userId = user.id || user._id;
 
-    const isUserAdmin = user.contributor && !!user.contributor.admin;
+    const isUserAdmin = user.permissions && user.permissions.challengeAdmin;
     const isUserGroupLeader = group && (group.leader
       && group.leader._id === userId);
     const isUserGroupManager = group && (group.managers
@@ -84,7 +84,7 @@ export function canEdit (store) {
     const user = store.state.user.data;
     const userId = user.id || user._id;
 
-    const isUserAdmin = user.contributor && !!user.contributor.admin;
+    const isUserAdmin = user.permissions && user.permissions.challengeAdmin;
     const isUserGroupLeader = group && (group.leader
       && group.leader._id === userId);
     const isUserGroupManager = group && (group.managers

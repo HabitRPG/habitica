@@ -15,7 +15,7 @@ describe('POST /coupons/enter/:code', () => {
   beforeEach(async () => {
     user = await generateUser();
     sudoUser = await generateUser({
-      'contributor.sudo': true,
+      'permissions.coupons': true,
     });
   });
 

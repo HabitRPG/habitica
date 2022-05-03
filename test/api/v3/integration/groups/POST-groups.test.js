@@ -2,6 +2,7 @@ import {
   generateUser,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
+import { model as Group } from '../../../../../website/server/models/group';
 
 describe('POST /group', () => {
   let user;
@@ -202,6 +203,23 @@ describe('POST /group', () => {
         const updatedUser = await user.get('/user');
 
         expect(updatedUser.balance).to.eql(user.balance - 1);
+      });
+
+      it('does not deduct the gems from user when guild creation fails', async () => {
+        const stub = sinon.stub(Group.prototype, 'save').rejects();
+        const promise = user.post('/groups', {
+          name: groupName,
+          type: groupType,
+          privacy: groupPrivacy,
+        });
+
+        await expect(promise).to.eventually.be.rejected;
+
+        const updatedUser = await user.get('/user');
+
+        expect(updatedUser.balance).to.eql(user.balance);
+
+        stub.restore();
       });
     });
   });

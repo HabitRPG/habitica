@@ -522,7 +522,11 @@ schema.methods.isAdmin = function isAdmin () {
 };
 
 schema.methods.isNewsPoster = function isNewsPoster () {
-  return Boolean(this.contributor && this.contributor.newsPoster);
+  return this.hasPermission('news');
+};
+
+schema.methods.hasPermission = function hasPermission (permission) {
+  return Boolean(this.permissions && (this.permissions[permission] || this.permissions.fullAccess));
 };
 
 // When converting to json add inbox messages from the Inbox collection

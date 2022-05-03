@@ -105,7 +105,7 @@ describe('GET /tasks/:id', () => {
 
       it('can get challenge task if admin', async () => {
         const admin = await generateUser({
-          'contributor.admin': true,
+          'permissions.challengeAdmin': true,
         });
 
         const getTask = await admin.get(`/tasks/${task._id}`);

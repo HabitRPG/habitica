@@ -143,12 +143,11 @@ export default {
   },
   methods: {
     close () {
+      this.validateInputs();
       this.$root.$emit('bv::hide::modal', 'restore');
     },
     restore () {
-      if (this.restoreValues.stats.lvl < 1) {
-        // @TODO:
-        // Notification.error(env.t('invalidLevel'), true);
+      if (!this.validateInputs()) {
         return;
       }
 
@@ -174,6 +173,35 @@ export default {
 
       this.$store.dispatch('user:set', settings);
       this.$root.$emit('bv::hide::modal', 'restore');
+    },
+    validateInputs () {
+      const canRestore = ['hp', 'exp', 'gp', 'mp'];
+      let valid = true;
+
+      for (const stat of canRestore) {
+        if (this.restoreValues.stats[stat] === '') {
+          this.restoreValues.stats[stat] = this.user.stats[stat];
+          valid = false;
+        }
+      }
+
+      const inputLevel = Number(this.restoreValues.stats.lvl);
+      if (this.restoreValues.stats.lvl === ''
+        || !Number.isInteger(inputLevel)
+        || inputLevel < 1) {
+        this.restoreValues.stats.lvl = this.user.stats.lvl;
+        valid = false;
+      }
+
+      const inputStreak = Number(this.restoreValues.achievements.streak);
+      if (this.restoreValues.achievements.streak === ''
+        || !Number.isInteger(inputStreak)
+        || inputStreak < 0) {
+        this.restoreValues.achievements.streak = this.user.achievements.streak;
+        valid = false;
+      }
+
+      return valid;
     },
   },
 };

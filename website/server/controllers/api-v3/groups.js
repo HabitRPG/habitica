@@ -137,8 +137,12 @@ api.createGroup = {
       user.party._id = group._id;
     }
 
-    const results = await Promise.all([user.save(), group.save()]);
-    const savedGroup = results[1];
+    let savedGroup;
+
+    await Group.db.transaction(async session => {
+      await user.save({ session });
+      savedGroup = await group.save({ session });
+    });
 
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
     // await Q.ninvoke(savedGroup, 'populate', ['leader', nameFields]);
@@ -463,12 +467,12 @@ api.updateGroup = {
 
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
-    const optionalMembership = Boolean(user.contributor.admin);
+    const optionalMembership = Boolean(user.hasPermission('moderator'));
     const group = await Group.getGroup({ user, groupId: req.params.groupId, optionalMembership });
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    if (user.contributor.admin) {
+    if (user.hasPermission('moderator')) {
       if (req.body.bannedWordsAllowed === true) {
         group.bannedWordsAllowed = true;
       } else {
@@ -477,7 +481,7 @@ api.updateGroup = {
     }
 
     if (group.leader !== user._id && group.type === 'party') throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
-    else if (group.leader !== user._id && !user.contributor.admin) throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
+    else if (group.leader !== user._id && !user.hasPermission('moderator')) throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
 
     if (req.body.leader !== user._id && group.hasNotCancelled()) throw new NotAuthorized(res.t('cannotChangeLeaderWithActiveGroupPlan'));
 
@@ -932,7 +936,7 @@ api.removeGroupMember = {
 
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
-    const optionalMembership = Boolean(user.contributor.admin);
+    const optionalMembership = Boolean(user.hasPermission('moderator'));
     const group = await Group.getGroup({
       user, groupId: req.params.groupId, optionalMembership, fields: '-chat',
     }); // Do not fetch chat
@@ -942,9 +946,9 @@ api.removeGroupMember = {
     const uuid = req.params.memberId;
 
     if (group.leader !== user._id && group.type === 'party') throw new NotAuthorized(res.t('onlyLeaderCanRemoveMember'));
-    if (group.leader !== user._id && !user.contributor.admin) throw new NotAuthorized(res.t('onlyLeaderCanRemoveMember'));
+    if (group.leader !== user._id && !user.hasPermission('moderator')) throw new NotAuthorized(res.t('onlyLeaderCanRemoveMember'));
 
-    if (group.leader === uuid && user.contributor.admin) throw new NotAuthorized(res.t('cannotRemoveCurrentLeader'));
+    if (group.leader === uuid && user.hasPermission('moderator')) throw new NotAuthorized(res.t('cannotRemoveCurrentLeader'));
 
     if (user._id === uuid) throw new NotAuthorized(res.t('memberCannotRemoveYourself'));
 
