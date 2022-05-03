@@ -51,7 +51,6 @@
         </div>
       </div>
 
-
         <!-- menu area -->
       <div class="row">
         <div class="col-12 col-md-8 offset-md-2 text-center nav">
@@ -72,15 +71,12 @@
           </div>
         </div>
       </div>
+
       <!-- subscriber block -->
-      <!-- <div class="subscribe-option"> -->
-      <!-- canNOT get the payments-buttons to not have the background -->
           <subscription-options
             v-show="selectedPage === 'subscription'"
             class="subscribe-option"
           />
-      <!-- </div> -->
-
 
       <!-- gem block -->
       <div
@@ -95,8 +91,6 @@
         </label>
 
         <div class="d-flex flex-row align-items-center justify-content-center">
-          <!-- @keypress.enter not working here while it does work attached to the icon?
-          & @tabindex will need to be added below -->
           <div
             class="gray-circle"
             @click="gift.gems.amount <= 0 ? 0 : gift.gems.amount--"
@@ -121,7 +115,6 @@
               max="9999"
             >
           </div>
-          <!-- @tabindex will need to be added below -->
           <div
             class="gray-circle"
             @click="gift.gems.amount++"
@@ -132,16 +125,20 @@
               ></div>
           </div>
           </div>
+
           <!-- the word "total" -->
           <div class="buy-gem-total">
             {{ $t('sendGiftTotal') }}
           </div>
+
           <!-- the actual dollar amount -->
           <div class="buy-gem-amount">
             <span>
               {{ $t('sendGiftAmount', {cost: formatter.format(totalGems)}) }}
             </span>
         </div>
+
+        <!-- change to sending own gems page -->
         <div
           :class="{active: selectedPage === 'ownGems'}"
           @click="selectPage('ownGems')"
@@ -150,7 +147,8 @@
           {{ $t('wantToSendOwnGems') }}
         </div>
       </div>
-        <!-- need to add Stripe, Paypal, and Amazon purchase functions here -->
+
+        <!-- paying for gems -->
         <payments-buttons
           class="payment-buttons"
           :stripe-fn="() => redirectToStripe({gift, uuid: userReceivingGift._id, receiverName})"
@@ -170,8 +168,6 @@
           {{ $t('howManyGemsSend') }}
         </label>
         <div class="d-flex align-items-center justify-content-center">
-          <!-- @keypress.enter not working here while it does work attached to the icon?
-          & @tabindex will need to be added below -->
           <div
             class="gray-circle"
             @click="gift.gems.amount <= 0 ? 0 : gift.gems.amount--"
@@ -196,7 +192,6 @@
               :max="maxGems"
             >
         </div>
-        <!-- @tabindex will need to be added below -->
           <div
             class="gray-circle"
             @click="gift.gems.amount < maxGems ? gift.gems.amount++ : maxGems"
@@ -233,6 +228,8 @@
               {{ $t("send") }}
             </button>
           </div>
+
+          <!-- change to buying gems page -->
           <div
           :class="{active: selectedPage === 'buyGems'}"
           @click="selectPage('buyGems')"
@@ -255,7 +252,6 @@
 
     .modal-content {
       width: 448px;
-      // padding: 0px 0 32px;
       border-radius: 8px;
       box-shadow: 0 14px 28px 0 rgba(26, 24, 29, 0.24), 0 10px 10px 0 rgba(26, 24, 29, 0.28);
     }
@@ -441,7 +437,6 @@
 
   .balance-gem-margin {
     margin: 8px 4px 0px 8px;
-    // object-fit: contain;
   }
 
   .balance-gems {
@@ -461,7 +456,6 @@
   }
 
   .subscribe-option {
-    // background: $gray-700;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
     padding-bottom: 24px;
@@ -515,10 +509,10 @@ export default {
         negativeIcon,
       }),
       userReceivingGift: {
-        profile: '', // here bc it was throwing an error otherwise needs fixing
+        profile: '', // here bc it was throwing an error
       },
-      name: '', // here bc it was throwing an error otherwise needs fixing
-      display: '', // here bc it was throwing an error otherwise needs fixing
+      name: '', // here bc it was throwing an error
+      display: '', // here bc it was throwing an error
       selectedPage: 'subscription',
       gift: {
         type: 'gems',

@@ -155,7 +155,6 @@
 
     .modal-dialog {
       width: 448px;
-      margin-top: 10vh;
     }
 
     .modal-footer {
@@ -165,7 +164,16 @@
         margin: 0rem 0.25rem 0.25rem 0.25rem;
       }
     }
-  }
+
+    body.modal-open .modal {
+      display: flex !important;
+      height: 100%;
+    }
+
+    body.modal-open .modal .modal-dialog {
+        margin: auto;
+    }
+}
 </style>
 
 <style lang="scss" scoped>
@@ -218,6 +226,13 @@
     cursor: pointer;
   }
 
+  .g1g1-fine-print {
+    color: $gray-100;
+    background-color: $gray-700;
+    font-size: 0.75rem;
+    line-height: 1.33;
+  }
+
   .g1g1-modal-close {
     position: absolute;
     width: 18px;
@@ -230,14 +245,15 @@
     .g1g1-svg-icon {
       width: 12px;
       height: 12px;
+
+      & ::v-deep svg path {
+        fill: #FFFFFF;
+      }
     }
   }
 
-  .g1g1-fine-print {
-    color: $gray-100;
-    background-color: $gray-700;
-    font-size: 0.75rem;
-    line-height: 1.33;
+  .g1g1-modal-dialog {
+    margin-top: 10vh;
   }
 
   .input-error {
@@ -282,6 +298,7 @@
       height: 12px;
     }
   }
+
 </style>
 
 <script>
