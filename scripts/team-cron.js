@@ -9,7 +9,13 @@ const MIN_TASK_VALUE = -47.27;
 
 async function updateTeamTasks (team) {
   const toSave = [];
-  const teamLeader = await User.findOne({ _id: team.leader }, 'preferences').exec();
+  let teamLeader = await User.findOne({ _id: team.leader }, 'preferences').exec();
+
+  if (!teamLeader) { // why would this happen?
+    teamLeader = {
+      preferences: { }, // when options are sanitized this becomes CDS 0 at UTC
+    };
+  }
 
   if (
     !team.cron || !team.cron.lastProcessed
