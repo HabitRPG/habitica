@@ -1822,21 +1822,21 @@ describe('Group Model', () => {
         };
 
         it('doesn\'t retry successful operations', async () => {
-          sandbox.stub(User, 'updateMany').returns(successfulMock);
+          sandbox.stub(User, 'updateOne').returns(successfulMock);
 
           await party.finishQuest(quest);
 
-          expect(User.updateMany).to.be.calledThrice;
+          expect(User.updateOne).to.be.calledThrice;
         });
 
         it('stops retrying when a successful update has occurred', async () => {
-          const updateStub = sandbox.stub(User, 'updateMany');
+          const updateStub = sandbox.stub(User, 'updateOne');
           updateStub.onCall(0).returns(failedMock);
           updateStub.returns(successfulMock);
 
           await party.finishQuest(quest);
 
-          expect(User.updateMany.callCount).to.equal(4);
+          expect(User.updateOne.callCount).to.equal(4);
         });
 
         it('retries failed updates at most five times per user', async () => {
@@ -2095,14 +2095,14 @@ describe('Group Model', () => {
           sandbox.spy(User, 'updateOne');
           await party.finishQuest(quest);
 
-          expect(User.updateMany).to.be.calledThrice;
+          expect(User.updateOne).to.be.calledThrice;
           expect(User.updateOne).to.be.calledWithMatch({
             _id: questLeader._id,
           });
-          expect(User.updateMany).to.be.calledWithMatch({
+          expect(User.updateOne).to.be.calledWithMatch({
             _id: participatingMember._id,
           });
-          expect(User.updateMany).to.be.calledWithMatch({
+          expect(User.updateOne).to.be.calledWithMatch({
             _id: sleepingParticipatingMember._id,
           });
         });
