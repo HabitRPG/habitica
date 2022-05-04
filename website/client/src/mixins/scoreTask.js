@@ -40,15 +40,11 @@ export default {
       const canScoreTask = await this.beforeTaskScore(task);
       if (!canScoreTask) return;
 
-      if (direction === 'down' && task.group.completedBy && task.group.completedBy !== user._id) {
-        task.completed = false;
-      } else {
-        try {
-          scoreTask({ task, user, direction });
-        } catch (err) {
-          this.text(err.message);
-          return;
-        }
+      try {
+        scoreTask({ task, user, direction });
+      } catch (err) {
+        this.text(err.message);
+        return;
       }
 
       this.playTaskScoreSound(task, direction);

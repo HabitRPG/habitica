@@ -143,7 +143,7 @@ export default {
         scrollPosToCheck += this.eventPromoBannerHeight ?? 0;
       }
 
-      return scrollPosToCheck;
+      return scrollPosToCheck + 48; // teams testing banner is always on, for now
     },
     visibleNotificationsWithoutErrors () {
       return this.visibleNotifications.filter(n => n.type !== 'error');

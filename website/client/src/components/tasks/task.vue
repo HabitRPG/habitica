@@ -4,7 +4,8 @@
       class="task transition"
       :class="[{
         'groupTask': task.group.id,
-        'task-not-editable': !teamManagerAccess
+        'task-not-editable': !teamManagerAccess,
+        'task-not-scoreable': showTaskLockIcon,
       }, `type_${task.type}`
       ]"
       @click="castEnd($event, task)"
@@ -88,7 +89,7 @@
         >
           <div
             class="task-clickable-area"
-            :class="{ 'cursor-auto': showTaskLockIcon && !teamManagerAccess }"
+            :class="{ 'cursor-auto': !teamManagerAccess }"
             tabindex="0"
             @click="edit($event, task)"
             @keypress.enter="edit($event, task)"
@@ -361,7 +362,10 @@
         <div
           v-if="task.type === 'reward'"
           class="right-control d-flex align-items-center justify-content-center reward-control"
-          :class="controlClass.bg"
+          :class="[
+            { 'task-not-scoreable': showTaskLockIcon },
+            controlClass.bg,
+          ]"
           tabindex="0"
           @click="score('down')"
           @keypress.enter="score('down')"
@@ -422,8 +426,8 @@
     border-radius: 4px;
     position: relative;
 
-    &:hover:not(.task-not-editable),
-    &:focus-within:not(.task-not-editable) {
+    &:hover:not(.task-not-editable.task-not-scoreable),
+    &:focus-within:not(.task-not-editable.task-not-scoreable) {
       box-shadow: 0 1px 8px 0 rgba($black, 0.12), 0 4px 4px 0 rgba($black, 0.16);
       z-index: 11;
     }
@@ -439,8 +443,8 @@
   }
 
   .task.groupTask {
-    &:hover:not(.task-not-editable),
-    &:focus-within:not(.task-not-editable) {
+    &:hover:not(.task-not-editable.task-not-scoreable),
+    &:focus-within:not(.task-not-editable.task-not-scoreable) {
       border: $purple-400 solid 1px;
       border-radius: 5px;
       margin: -1px; // to counter the border width
@@ -1148,10 +1152,7 @@ export default {
         this.task.completed = !this.task.completed;
         this.playTaskScoreSound(this.task, direction);
       } else {
-        await this.taskScore(this.task, direction);
-      }
-      if (direction === 'down' && ['daily', 'todo'].includes(this.task.type)) {
-        this.sync();
+        this.taskScore(this.task, direction);
       }
     },
     handleBrokenTask (task) {
