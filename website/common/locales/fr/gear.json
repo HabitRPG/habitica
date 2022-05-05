@@ -2618,5 +2618,9 @@
     "armorArmoireStrawRaincoatText": "Ciret de paille",
     "armorArmoireStrawRaincoatNotes": "Cette cape en paille tressée vous gardera au sec et évitera à votre armure de rouiller pendant les quêtes. Mais ne vous aventurez pas trop près des bougies ! Augmente la constitution de <%= con %>. Armoire enchantée : ensemble de pluie en paille (objet 1 de 2).",
     "headArmoireStrawRainHatText": "Chapeau de pluie en paille",
-    "headArmoireStrawRainHatNotes": "Vous pourrez détecter tous les obstacles sur votre chemin en portant ce chapeau imperméable et canonique. Augmente la perception de <%= per %>. Armoire enchantée : ensemble de pluie en paille (objet 2 de 2)."
+    "headArmoireStrawRainHatNotes": "Vous pourrez détecter tous les obstacles sur votre chemin en portant ce chapeau imperméable et canonique. Augmente la perception de <%= per %>. Armoire enchantée : ensemble de pluie en paille (objet 2 de 2).",
+    "backMystery202205Text": "Ailes crépusculaires",
+    "backMystery202205Notes": "Le puissant battement de ces vastes ailes résonne dans les dunes. Ne confère aucun bonus. Équipement d'abonnement de mai 2022.",
+    "headAccessoryMystery202205Text": "Cornes de dragon aux ailes crépusculaires",
+    "headAccessoryMystery202205Notes": "Ces cornes éblouissantes sont aussi brillantes qu'un coucher de soleil dans le désert. Ne confère aucun bonus. Équipement d'abonnement de mai 2022."
 }
