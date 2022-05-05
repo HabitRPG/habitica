@@ -495,6 +495,11 @@ const backgrounds = {
     flower_shop: { },
     springtime_lake: { },
   },
+  backgrounds052022: {
+    on_a_castle_wall: { },
+    enchanted_music_room: { },
+    castle_gate: { },
+  },
   timeTravelBackgrounds: {
     airship: {
       price: 1,
