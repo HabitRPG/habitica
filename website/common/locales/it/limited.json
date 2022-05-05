@@ -30,7 +30,7 @@
     "seasonalShopSummerText": "Buon Summer Splash!! Vuoi comprare degli oggetti rari? Assicurati di prenderli prima della fine del Gala!",
     "seasonalShopFallText": "Buon Fall Festival!! Vuoi comprare degli oggetti rari? Assicurati di prenderli prima della fine del Gala!",
     "seasonalShopWinterText": "Buon Winter Wonderland!! Vuoi comprare degli oggetti rari? Assicurati di prenderli prima della fine del Gala!",
-    "seasonalShopSpringText": "Buon Spring Fling!! Vuoi comprare degli oggetti rari? Assicurati di prenderli prima della fine del Gala!",
+    "seasonalShopSpringText": "Buona Festa di Primavera!! Vuoi comprare degli oggetti rari? Assicurati di prenderli prima della fine del Gala!",
     "seasonalShopFallTextBroken": "Oh... Benvenuto nel Negozio Stagionale... Abbiamo in vendita oggetti dell'Edizione Stagionale autunnale, o qualcosa del genere... Tutto quello che vedi qui sarà disponibile per l'acquisto durante l'evento \"Fall Festival\" di ogni anno, ma siamo aperti sono fino al 31 ottobre... Penso che dovresti rifornirti ora altrimenti dovrai aspettare... e aspettare... e aspettare... <strong>*sigh*</strong>",
     "seasonalShopBrokenText": "Il mio padiglione!!!!!!! Le mie decorazioni!!!! Oh, il Dysheartener ha distrutto tutto :( Ti prego, aiutami a sconfiggerlo nella Taverna perché io possa ricostruire!",
     "seasonalShopRebirth": "Se hai comprato questo equipaggiamento in passato ma attualmente non lo possiedi, potrai riacquistarlo dalla colonna delle Ricompense. All'inizio potrai comprare solo gli oggetti per la tua classe attuale (Guerriero, se non l'hai ancora scelta/cambiata), ma niente paura, gli altri oggetti specifici per le varie classi diventeranno disponibili se ti converti a quella classe.",
@@ -217,7 +217,7 @@
     "winter2022FireworksRogueSet": "Fuochi d'artificio (Ladro)",
     "winter2022PomegranateMageSet": "Melograno (Mago)",
     "spring2022MagpieRogueSet": "Gazza (Ladro)",
-    "spring2022RainstormWarriorSet": "Temporale (Guerriero)",
+    "spring2022RainstormWarriorSet": "Tempesta (Guerriero)",
     "spring2022ForsythiaMageSet": "Forsizia (Mago)",
     "spring2022PeridotHealerSet": "Peridoto (Guaritore)",
     "aprilYYYY": "Aprile <%= year %>"

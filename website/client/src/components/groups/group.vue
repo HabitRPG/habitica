@@ -288,7 +288,7 @@
 import extend from 'lodash/extend';
 import groupUtilities from '@/mixins/groupsUtilities';
 import styleHelper from '@/mixins/styleHelper';
-import { mapState, mapGetters } from '@/libs/store';
+import { mapGetters } from '@/libs/store';
 import * as Analytics from '@/libs/analytics';
 import participantListModal from './participantListModal';
 import groupFormModal from './groupFormModal';
@@ -312,6 +312,7 @@ import QuestDetailModal from './questDetailModal';
 import RightSidebar from '@/components/groups/rightSidebar';
 import InvitationListModal from './invitationListModal';
 import { PAGES } from '@/libs/consts';
+import { userStateMixin } from '../../mixins/userState';
 
 export default {
   components: {
@@ -327,7 +328,7 @@ export default {
   directives: {
     markdown: markdownDirective,
   },
-  mixins: [groupUtilities, styleHelper],
+  mixins: [groupUtilities, styleHelper, userStateMixin],
   props: ['groupId'],
   data () {
     return {
@@ -356,9 +357,6 @@ export default {
     };
   },
   computed: {
-    ...mapState({
-      user: 'user.data',
-    }),
     ...mapGetters({
       partyMembers: 'party:members',
     }),
@@ -372,7 +370,7 @@ export default {
       return this.user._id === this.group.leader._id;
     },
     isAdmin () {
-      return Boolean(this.user.contributor.admin);
+      return Boolean(this.hasPermission(this.user, 'moderator'));
     },
     isMember () {
       return this.isMemberOfGroup(this.user, this.group);

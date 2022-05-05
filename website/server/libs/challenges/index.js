@@ -56,7 +56,7 @@ export async function createChallenge (user, req, res) {
     req.body.summary = req.body.name;
   }
   req.body.leader = user._id;
-  req.body.official = !!(user.contributor.admin && req.body.official);
+  req.body.official = !!(user.hasPermission('challengeAdmin') && req.body.official);
   const challenge = new Challenge(Challenge.sanitize(req.body));
 
   // First validate challenge so we don't save group if it's invalid (only runs sync validators)
