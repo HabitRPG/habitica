@@ -23,7 +23,7 @@
     </div>
     <div class="footer text-center">
       <button
-        v-if="user.contributor.admin"
+        v-if="hasPermission(user, 'moderator')"
         class="pull-left btn btn-danger"
         @click="clearFlagCount()"
       >
@@ -88,15 +88,15 @@
 </style>
 
 <script>
-import { mapState } from '@/libs/store';
 import notifications from '@/mixins/notifications';
 import markdownDirective from '@/directives/markdown';
+import { userStateMixin } from '../../mixins/userState';
 
 export default {
   directives: {
     markdown: markdownDirective,
   },
-  mixins: [notifications],
+  mixins: [notifications, userStateMixin],
   data () {
     const abuseFlagModalBody = {
       firstLinkStart: '<a href="/static/community-guidelines" target="_blank">',
@@ -110,9 +110,6 @@ export default {
       groupId: '',
       reportComment: '',
     };
-  },
-  computed: {
-    ...mapState({ user: 'user.data' }),
   },
   mounted () {
     this.$root.$on('habitica::report-chat', this.handleReport);

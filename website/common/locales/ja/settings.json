@@ -210,5 +210,10 @@
     "transaction_rebirth": "転生のオーブの使用",
     "transaction_spend": "使用",
     "transaction_reroll": "防御の薬の使用",
-    "addPasswordAuth": "パスワードを追加"
+    "addPasswordAuth": "パスワードを追加",
+    "gemCap": "ジェムの上限",
+    "nextHourglass": "次の神秘の砂時計",
+    "adjustment": "調整",
+    "dayStartAdjustment": "一日の始まりの時間の調整",
+    "nextHourglassDescription": "有料会員は神秘の砂時計を\n月初めの3日以内に受け取ります。"
 }

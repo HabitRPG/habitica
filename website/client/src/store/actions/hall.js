@@ -26,3 +26,9 @@ export async function getPatrons (store, payload) {
   const response = await axios.get(url);
   return response.data.data;
 }
+
+export async function getHeroParty (store, payload) {
+  const url = `/api/v4/hall/heroes/party/${payload.groupId}`;
+  const response = await axios.get(url);
+  return response.data.data;
+}

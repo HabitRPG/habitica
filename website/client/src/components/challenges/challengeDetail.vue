@@ -321,7 +321,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import omit from 'lodash/omit';
 import { v4 as uuid } from 'uuid';
 
-import { mapState } from '@/libs/store';
+import { userStateMixin } from '../../mixins/userState';
 import memberSearchDropdown from '@/components/members/memberSearchDropdown';
 import closeChallengeModal from './closeChallengeModal';
 import Column from '../tasks/column';
@@ -358,7 +358,7 @@ export default {
     userLink,
     groupLink,
   },
-  mixins: [challengeMemberSearchMixin],
+  mixins: [challengeMemberSearchMixin, userStateMixin],
   props: ['challengeId'],
   data () {
     return {
@@ -387,7 +387,6 @@ export default {
     };
   },
   computed: {
-    ...mapState({ user: 'user.data' }),
     isMember () {
       return this.user.challenges.indexOf(this.challenge._id) !== -1;
     },
@@ -396,7 +395,7 @@ export default {
       return this.user._id === this.challenge.leader._id;
     },
     isAdmin () {
-      return Boolean(this.user.contributor.admin);
+      return this.hasPermission(this.user, 'challengeAdmin');
     },
     canJoin () {
       return !this.isMember;

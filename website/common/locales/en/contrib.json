@@ -31,6 +31,7 @@
   "hallContributors": "Hall of Contributors",
   "hallPatrons": "Hall of Patrons",
   "noAdminAccess": "You don't have admin access.",
+  "noPrivAccess": "You don't have the required privileges.",
   "userNotFound": "User not found.",
   "invalidUUID": "UUID must be valid",
   "title": "Title",

@@ -692,5 +692,6 @@
     "backgroundFlowerShopText": "お花屋さん",
     "backgroundFlowerShopNotes": "お花屋さんで良い香りを楽しみましょう。",
     "backgroundSpringtimeLakeText": "春の湖",
-    "backgroundSpringtimeLakeNotes": "春の湖のほとりに沿って観光しましょう。"
+    "backgroundSpringtimeLakeNotes": "春の湖のほとりに沿って観光しましょう。",
+    "hideLockedBackgrounds": "ロックされた背景を表示しない"
 }
