@@ -335,7 +335,7 @@ export default {
   },
   methods: {
     iconClass (completion) {
-      if ((this.userIsAssigned || this.userIsManager) && completion.completed) return 'check';
+      if (this.userIsManager && completion.completed) return 'check';
       return 'lock';
     },
     needsWork (completion) {
