@@ -404,7 +404,7 @@ async function scoreTask (user, task, direction, req, res) {
   const wasCompleted = task.completed;
 
   const firstTask = !user.achievements.completedTask;
-  const [delta] = shared.ops.scoreTask({ task, user, direction }, req, res.analytics);
+  const delta = shared.ops.scoreTask({ task, user, direction }, req, res.analytics);
   // Drop system (don't run on the client,
   // as it would only be discarded since ops are sent to the API, not the results)
   if (direction === 'up' && !firstTask) shared.fns.randomDrop(user, { task, delta }, req, res.analytics);
