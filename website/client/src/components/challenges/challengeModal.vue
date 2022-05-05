@@ -112,7 +112,7 @@
           <!-- eslint-disable vue/no-use-v-if-with-v-for -->
           <div
             v-for="group in categoryOptions"
-            v-if="group.key !== 'habitica_official' || user.contributor.admin"
+            v-if="group.key !== 'habitica_official' || hasPermission(user, 'challengeAdmin')"
             :key="group.key"
             class="form-check"
           >
@@ -277,14 +277,15 @@ import clone from 'lodash/clone';
 import throttle from 'lodash/throttle';
 
 import markdownDirective from '@/directives/markdown';
+import { userStateMixin } from '../../mixins/userState';
 
 import { TAVERN_ID, MIN_SHORTNAME_SIZE_FOR_CHALLENGES, MAX_SUMMARY_SIZE_FOR_CHALLENGES } from '@/../../common/script/constants';
-import { mapState } from '@/libs/store';
 
 export default {
   directives: {
     markdown: markdownDirective,
   },
+  mixins: [userStateMixin],
   props: ['groupId'],
   data () {
     const categoryOptions = [
@@ -378,7 +379,6 @@ export default {
     };
   },
   computed: {
-    ...mapState({ user: 'user.data' }),
     creating () {
       return !this.workingChallenge.id;
     },

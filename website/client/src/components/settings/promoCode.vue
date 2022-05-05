@@ -22,7 +22,7 @@
       <div>
         <small>{{ $t('couponText') }}</small>
       </div>
-      <div v-if="user.contributor.sudo">
+      <div v-if="user.permissions.coupons">
         <hr>
         <h4>{{ $t('generateCodes') }}</h4>
         <div

@@ -877,7 +877,7 @@ describe('User Model', () => {
 
     expect(user.isNewsPoster()).to.equal(false);
 
-    user.contributor.newsPoster = true;
+    user.permissions = { news: true };
     expect(user.isNewsPoster()).to.equal(true);
   });
 

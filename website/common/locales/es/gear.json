@@ -29,13 +29,13 @@
     "weaponWarrior2Text": "Hacha",
     "weaponWarrior2Notes": "Arma cortante de doble filo. Aumenta la fuerza en <%= str %>.",
     "weaponWarrior3Text": "Lucero del alba",
-    "weaponWarrior3Notes": "Maza pesada con brutales espinas, Incrementa la Fuerza en <%= str %>.",
+    "weaponWarrior3Notes": "Maza pesada con brutales espinas. Aumenta la Fuerza en <%= str %>.",
     "weaponWarrior4Text": "Espada de Zafiro",
-    "weaponWarrior4Notes": "Espada cuyos filos cortan como el viento del norte. Incrementa la Fuerza en <%= str %>.",
+    "weaponWarrior4Notes": "Espada cuyos filos cortan como el viento del norte. Aumenta la Fuerza en <%= str %>.",
     "weaponWarrior5Text": "Espada de Rubí",
-    "weaponWarrior5Notes": "Arma que no pierde el brillo del forjado. Incrementa la Fuerza en <%= str %>.",
+    "weaponWarrior5Notes": "Arma que no pierde el brillo del forjado. Aumenta la Fuerza en <%= str %>.",
     "weaponWarrior6Text": "Espada Dorada",
-    "weaponWarrior6Notes": "La perdición de las criaturas de la oscuridad. Incrementa la Fuerza en <%= str %>.",
+    "weaponWarrior6Notes": "La perdición de las criaturas de la oscuridad. Aumenta la Fuerza en <%= str %>.",
     "weaponRogue0Text": "Daga",
     "weaponRogue0Notes": "El arma más básica de un Pícaro. No otorga ningún beneficio.",
     "weaponRogue1Text": "Espada corta",
@@ -2592,5 +2592,6 @@
     "armorSpecialSpring2022HealerNotes": "Ahuyenta los miedos y pesadillas simplemente llevando esta prenda de gema verde.Aumenta la constitución en <%= con %>.Aumenta la constitución en <%= con %>. Equipamiento de Edición Limitada de Primavera 2022.",
     "armorArmoireGardenersOverallsText": "Mono de Jardinero",
     "armorArmoireGardenersOverallsNotes": "No tengas miedo de trabajar en la tierra cuando estés llevando estos monos duraderos. Aumenta la constitución en <%= con %>. Armario Encantado: Conjunto de Jardinería (Artículo 1 de 4).",
-    "weaponSpecialSpring2022RogueText": "Pendiente de Botón Gigante"
+    "weaponSpecialSpring2022RogueText": "Pendiente de Botón Gigante",
+    "armorSpecialSpring2022WarriorText": "Impermeable"
 }
