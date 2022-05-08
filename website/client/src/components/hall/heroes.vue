@@ -274,7 +274,7 @@
                   />
                 </td>
                 <td
-                  v-if="hasPermission(hero, 'userSupport')"
+                  v-if="hasPermission(user, 'userSupport')"
                   :key="hero._id"
                   class="btn-link"
                 >
