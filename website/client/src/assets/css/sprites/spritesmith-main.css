@@ -675,6 +675,11 @@
   width: 141px;
   height: 147px;
 }
+.background_castle_gate {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_castle_gate.png');
+  width: 141px;
+  height: 147px;
+}
 .background_champions_colosseum {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_champions_colosseum.png');
   width: 141px;
@@ -857,6 +862,11 @@
 }
 .background_elegant_garden {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_elegant_garden.png');
+  width: 141px;
+  height: 147px;
+}
+.background_enchanted_music_room {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_enchanted_music_room.png');
   width: 141px;
   height: 147px;
 }
@@ -1386,6 +1396,11 @@
 }
 .background_old_fashioned_bakery {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_old_fashioned_bakery.png');
+  width: 141px;
+  height: 147px;
+}
+.background_on_a_castle_wall {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_on_a_castle_wall.png');
   width: 141px;
   height: 147px;
 }
@@ -2171,6 +2186,11 @@
   width: 68px;
   height: 68px;
 }
+.icon_background_castle_gate {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_castle_gate.png');
+  width: 68px;
+  height: 68px;
+}
 .icon_background_champions_colosseum {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_champions_colosseum.png');
   width: 68px;
@@ -2358,6 +2378,11 @@
 }
 .icon_background_elegant_garden {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_elegant_garden.png');
+  width: 68px;
+  height: 68px;
+}
+.icon_background_enchanted_music_room {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_enchanted_music_room.png');
   width: 68px;
   height: 68px;
 }
@@ -2887,6 +2912,11 @@
 }
 .icon_background_old_fashioned_bakery {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_old_fashioned_bakery.png');
+  width: 68px;
+  height: 68px;
+}
+.icon_background_on_a_castle_wall {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_on_a_castle_wall.png');
   width: 68px;
   height: 68px;
 }
@@ -19055,6 +19085,11 @@
   width: 114px;
   height: 90px;
 }
+.shield_armoire_snareDrum {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shield_armoire_snareDrum.png');
+  width: 114px;
+  height: 90px;
+}
 .shield_armoire_softBlackPillow {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shield_armoire_softBlackPillow.png');
   width: 114px;
@@ -19082,6 +19117,11 @@
 }
 .shield_armoire_softVioletPillow {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shield_armoire_softVioletPillow.png');
+  width: 114px;
+  height: 90px;
+}
+.shield_armoire_spanishGuitar {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shield_armoire_spanishGuitar.png');
   width: 114px;
   height: 90px;
 }
@@ -20240,6 +20280,11 @@
   width: 68px;
   height: 68px;
 }
+.shop_shield_armoire_snareDrum {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_shield_armoire_snareDrum.png');
+  width: 68px;
+  height: 68px;
+}
 .shop_shield_armoire_softBlackPillow {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_shield_armoire_softBlackPillow.png');
   width: 68px;
@@ -20267,6 +20312,11 @@
 }
 .shop_shield_armoire_softVioletPillow {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_shield_armoire_softVioletPillow.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_shield_armoire_spanishGuitar {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_shield_armoire_spanishGuitar.png');
   width: 68px;
   height: 68px;
 }
@@ -20482,6 +20532,11 @@
 }
 .shop_weapon_armoire_hoofClippers {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_armoire_hoofClippers.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_weapon_armoire_huntingHorn {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_armoire_huntingHorn.png');
   width: 68px;
   height: 68px;
 }
@@ -21313,6 +21368,11 @@
 .weapon_armoire_hoofClippers {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_armoire_hoofClippers.png');
   width: 90px;
+  height: 90px;
+}
+.weapon_armoire_huntingHorn {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_armoire_huntingHorn.png');
+  width: 114px;
   height: 90px;
 }
 .weapon_armoire_ironCrook {
