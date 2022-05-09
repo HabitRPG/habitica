@@ -2,17 +2,15 @@ import defaults from 'lodash/defaults';
 import each from 'lodash/each';
 import sortBy from 'lodash/sortBy';
 import t from './translation';
-import {
-  USER_CAN_OWN_QUEST_CATEGORIES,
-  QUEST_GENERIC,
-  QUEST_MASTERCLASSER,
-  QUEST_PETS,
-  QUEST_POTIONS,
-  QUEST_SEASONAL,
-  QUEST_SERIES,
-  QUEST_TIME_TRAVEL,
-  QUEST_WORLD,
-} from './constants';
+import { USER_CAN_OWN_QUEST_CATEGORIES } from './constants';
+import QUEST_GENERIC from './quests/generic';
+import QUEST_MASTERCLASSER from './quests/masterclasser';
+import QUEST_PETS from './quests/pets';
+import QUEST_POTIONS from './quests/potions';
+import QUEST_SEASONAL from './quests/seasonal';
+import QUEST_SERIES from './quests/series';
+import QUEST_TIME_TRAVEL from './quests/timeTravel';
+import QUEST_WORLD from './quests/world';
 
 const userCanOwnQuestCategories = USER_CAN_OWN_QUEST_CATEGORIES;
 const questGeneric = QUEST_GENERIC;
