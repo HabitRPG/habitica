@@ -629,7 +629,7 @@
   "weaponArmoireGardenersWateringCanText": "Watering Can",
   "weaponArmoireGardenersWateringCanNotes": "You can’t get far without water! Have an infinite supply on hand with this magic, refilling watering can. Increases Intelligence by <%= int %>. Enchanted Armoire: Gardener Set (Item 4 of 4).",
   "weaponArmoireHuntingHornText": "Hunting Horn",
-  "weaponArmoireHuntingHornNotes": "Twooooo! Twoo! Twoo! Gather your party for an adventure or quest by playing this horn. Increases strength by <%= str %> and intelligence by <%= int %>. Enchanted Armoire: Musical Instrument Set 1 (Item 1 of 3)",
+  "weaponArmoireHuntingHornNotes": "Twooooo! Twoo! Twoo! Gather your party for an adventure or quest by playing this horn. Increases Strength by <%= str %> and Intelligence by <%= int %>. Enchanted Armoire: Musical Instrument Set 1 (Item 1 of 3)",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -2429,9 +2429,9 @@
   "shieldArmoireGardenersSpadeText": "Gardener's Spade",
   "shieldArmoireGardenersSpadeNotes": "Whether you’re digging in the garden, searching for buried treasure, or creating a secret tunnel, this trusty spade is at your side. Increases Strength by <%= str %>. Enchanted Armoire: Gardener Set (Item 3 of 4).",
   "shieldArmoireSpanishGuitarText": "Spanish Guitar",
-  "shieldArmoireSpanishGuitarNotes": "Tink! Tink! Thrummm! Gather your party for a concert or celebration by playing this guitar. Increases perception by <%= per %> and intelligence by <%= int %>. Enchanted Armoire: Musical Instrument Set 1 (Item 2 of 3)",
+  "shieldArmoireSpanishGuitarNotes": "Tink! Tink! Thrummm! Gather your party for a concert or celebration by playing this guitar. Increases Perception by <%= per %> and Intelligence by <%= int %>. Enchanted Armoire: Musical Instrument Set 1 (Item 2 of 3)",
   "shieldArmoireSnareDrumText": "Snare Drum",
-  "shieldArmoireSnareDrumNotes": "Rat-a-tat-tat! Gather your party for a parade or march into battle by playing this drum. Increases constitution by <%= con %> and intelligence by <%= int %>. Enchanted Armoire: Musical Instrument Set 1 (Item 3 of 3)",
+  "shieldArmoireSnareDrumNotes": "Rat-a-tat-tat! Gather your party for a parade or march into battle by playing this drum. Increases Constitution by <%= con %> and Intelligence by <%= int %>. Enchanted Armoire: Musical Instrument Set 1 (Item 3 of 3)",
 
   "back": "Back Accessory",
   "backBase0Text": "No Back Accessory",
