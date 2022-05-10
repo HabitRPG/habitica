@@ -2572,5 +2572,9 @@
     "armorSpecialBirthday2022Text": "荒谬派对长袍",
     "armorSpecialBirthday2022Notes": "生日快乐，Habitica！穿上这件荒谬的派对长袍，庆祝这美妙的一天吧。没有属性加成。",
     "weaponSpecialSpring2022RogueText": "巨型耳钉",
-    "weaponSpecialSpring2022WarriorNotes": "呀！我想那风比你想象的要大一些，是吧？增加<%= str %>点力量。2022年春季限定版装备。"
+    "weaponSpecialSpring2022WarriorNotes": "呀！我想那风比你想象的要大一些，是吧？增加<%= str %>点力量。2022年春季限定版装备。",
+    "backMystery202205Text": "夕暮之翼",
+    "headAccessoryMystery202205Text": "夕暮翼龙角",
+    "backMystery202205Notes": "沙丘间回荡着这对巨大翅膀用力拍打的声音。没有属性加成。2022年5月订阅者物品。",
+    "headAccessoryMystery202205Notes": "这对耀眼的角如沙漠的落日一般明亮。没有属性加成。2022年5月订阅者物品。"
 }

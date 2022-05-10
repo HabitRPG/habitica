@@ -247,9 +247,6 @@
             <thead>
               <tr>
                 <th>{{ $t('name') }}</th>
-                <th v-if="hasPermission(user, 'userSupport')">
-                  {{ $t('userId') }}
-                </th>
                 <th>{{ $t('contribLevel') }}</th>
                 <th>{{ $t('title') }}</th>
                 <th>{{ $t('contributions') }}</th>
@@ -272,18 +269,17 @@
                     v-else
                     :user="hero"
                   />
-                </td>
-                <td
-                  v-if="hasPermission(hero, 'userSupport')"
-                  :key="hero._id"
-                  class="btn-link"
-                >
-                  <router-link
-                    :to="{ name: 'adminPanelUser',
-                           params: { userIdentifier: hero._id } }"
-                  >
+                  <span v-if="hasPermission(user, 'userSupport')">
+                    <br>
                     {{ hero._id }}
-                  </router-link>
+                    <br>
+                    <router-link
+                      :to="{ name: 'adminPanelUser',
+                             params: { userIdentifier: hero._id } }"
+                    >
+                      admin panel
+                    </router-link>
+                  </span>
                 </td>
                 <td>{{ hero.contributor.level }}</td>
                 <td>{{ hero.contributor.text }}</td>
