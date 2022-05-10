@@ -25,7 +25,7 @@
           </div>
         </div>
         <div
-          class="px-3 py-2 info"
+          class="px-75 py-2 info"
         >
           <div>
             <strong> @{{ completion.userName }} </strong>

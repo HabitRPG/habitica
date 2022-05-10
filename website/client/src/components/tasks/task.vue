@@ -88,7 +88,7 @@
           :class="contentClass"
         >
           <div
-            class="task-clickable-area pt-1 px-3 pb-0"
+            class="task-clickable-area pt-1 px-75 pb-0"
             :class="{ 'cursor-auto': !teamManagerAccess }"
             tabindex="0"
             @click="edit($event, task)"
