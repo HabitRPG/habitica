@@ -21,6 +21,7 @@ RUN npm install -g gulp-cli mocha
 RUN mkdir -p /usr/src/habitrpg
 WORKDIR /usr/src/habitrpg
 RUN git clone --branch release --depth 1 https://github.com/HabitRPG/habitica.git /usr/src/habitrpg
+RUN git config --global url."https://".insteadOf git://
 RUN npm set unsafe-perm true
 RUN npm install
 
