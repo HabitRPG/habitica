@@ -1,5 +1,5 @@
 // Give contrib.level 7+ free subscription for life
-db.users.updateOne(
+db.users.updateMany(
   {
     'contributor.level': { $gte: 7 },
     'purchased.plan.customerId': null,

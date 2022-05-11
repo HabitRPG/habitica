@@ -1,5 +1,4 @@
-db.users.updateOne(
+db.users.updateMany(
   {},
   { $inc: { 'achievements.habiticaDays': 1 } },
-  { multi: 1 },
 );

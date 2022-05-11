@@ -611,9 +611,9 @@ schema.methods.sendChat = function sendChat (options = {}) {
   };
 
   User
-    .updateMany(query, lastSeenUpdateRemoveOld, { multi: true })
+    .updateMany(query, lastSeenUpdateRemoveOld)
     .exec()
-    .then(() => User.updateMany(query, lastSeenUpdateAddNew, { multi: true }).exec())
+    .then(() => User.updateMany(query, lastSeenUpdateAddNew).exec())
     .catch(err => logger.error(err));
 
   if (this.type === 'party' && user) {
@@ -765,7 +765,7 @@ schema.methods.startQuest = async function startQuest (user) {
       'party.quest.progress.down': 0,
       'party.quest.completed': null,
     },
-  }, { multi: true }).exec());
+  }).exec());
 
   await Promise.all(promises);
 
@@ -773,8 +773,7 @@ schema.methods.startQuest = async function startQuest (user) {
   // Do not block updates
   User.updateMany({
     _id: { $in: nonMembers },
-  }, _cleanQuestParty(),
-  { multi: true }).exec();
+  }, _cleanQuestParty()).exec();
 
   const newMessage = this.sendChat({
     message: `\`${shared.i18n.t('chatQuestStarted', { questName: quest.text('en') }, 'en')}\``,
@@ -949,7 +948,7 @@ schema.methods.finishQuest = async function finishQuest (quest) {
   this.markModified('quest');
 
   if (this._id === TAVERN_ID) {
-    return User.updateMany({}, updates, { multi: true }).exec();
+    return User.updateMany({}, updates).exec();
   }
 
   const promises = participants.map(userId => {
@@ -1493,7 +1492,7 @@ schema.methods.updateTask = async function updateTask (taskToSync, options = {})
 
   // Updating instead of loading and saving for performances,
   // risks becoming a problem if we introduce more complexity in tasks
-  await taskSchema.updateMany(updateQuery, updateCmd, { multi: true }).exec();
+  await taskSchema.updateMany(updateQuery, updateCmd).exec();
 };
 
 schema.methods.syncTask = async function groupSyncTask (taskToSync, user, assigningUser) {
