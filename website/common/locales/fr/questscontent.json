@@ -188,7 +188,7 @@
     "questTRexUndeadCompletion": "Les yeux brillants du tyrannosaure virent au noir, et il reprend sa place sur son piédestal. Tout le monde pousse un soupir de soulagement. \"Regardez !\" s'exclame @Baconsaur. \"Certains des œufs fossilisés paraissent luisants et comme neufs ! Peut-être pourrez-vous les faire éclore ?\"",
     "questTRexUndeadBoss": "Tyrannosaure squelettique",
     "questTRexUndeadRageTitle": "Soin squelettique",
-    "questTRexUndeadRageDescription": "Cette barre se remplit lorsque vous ne complétez pas vos tâches Quotidiennes. Lorsqu'elle est pleine, le tyrannosaure squelettique se soigne à hauteur de 30% de sa santé restante !",
+    "questTRexUndeadRageDescription": "Cette barre se remplit lorsque vous ne complétez pas vos tâches quotidiennes. Lorsqu'elle est pleine, le tyrannosaure squelettique se soigne à hauteur de 30% de sa santé restante !",
     "questTRexUndeadRageEffect": "Le tyrannosaure squelette utilise SOIN SQUELETTIQUE !\n\nLe monstre laisse échapper un rugissement surnaturel, et certains de ses os brisés se ressoudent !",
     "questTRexDropTRexEgg": "Tyrannosaure (œuf)",
     "questTRexUnlockText": "Déverrouille l'achat d’œufs de tyrannosaure au marché",
@@ -744,5 +744,14 @@
     "questOnyxCollectLeoRunes": "Runes du lion",
     "questOnyxCollectOnyxStones": "Pierres d'onyx",
     "questOnyxDropOnyxPotion": "Potion d'éclosion onyx",
-    "questOnyxUnlockText": "Déverrouille l'achat de potions d'éclosion onyx au marché"
+    "questOnyxUnlockText": "Déverrouille l'achat de potions d'éclosion onyx au marché",
+    "questVirtualPetText": "Pagaille virtuelle avec le poisson d'avril : L'événe-biiip",
+    "questVirtualPetNotes": "C'est un matin de printemps calme et agréable à Habitica, une semaine après un mémorable premier avril. Vous et @Beffymaroo êtes à l'écurie en train de vous occuper de vos animaux de compagnie (qui sont encore un peu désorientés par le temps qu'ils ont passé virtuellement !)<br><br>Au loin, vous entendez un grondement et un bip, d'abord faible mais dont le volume augmente comme s'il se rapprochait. Une forme d'œuf apparaît à l'horizon et à mesure qu'elle s'approche, en émettant des bips de plus en plus forts, vous voyez qu'il s'agit d'un gigantesque animal de compagnie virtuel !<br><br>\"Oh non\", s'exclame @Beffymaroo, \"Je pense que le poisson d'avril n'a pas terminé son travail avec ce grand gaillard, il semble vouloir attirer l'attention !\".<br><br>L'animal virtuel émet un bip furieux, fait une crise de colère virtuelle et se rapproche de plus en plus.",
+    "questVirtualPetBoss": "Wotchimon",
+    "questVirtualPetRageTitle": "L'événe-biiip",
+    "questVirtualPetRageEffect": "`Wotchimon utilise Bip énervant !` Wotchimon fait un bip énervant, et sa barre de joie disparaît soudain ! Les dégâts en cours sont réduits.",
+    "questVirtualPetDropVirtualPetPotion": "Potion d'éclosion de familier virtuel",
+    "questVirtualPetUnlockText": "Déverrouille l'achat de potions d'éclosion de familier virtuel au marché",
+    "questVirtualPetRageDescription": "Cette barre se remplit quand vous n'effectuez pas vos quotidiennes. Quand elle sera pleine, le Wotchimon fera disparaître une partie des dégâts en cours de votre équipe !",
+    "questVirtualPetCompletion": "Quelques pressions sur des boutons semblent avoir satisfait les besoins mystérieux de l'animal virtuel, qui s'est finalement calmé et semble content.<br><br>Soudain, dans une explosion de confettis, le poisson d'avril apparaît avec un panier rempli d'étranges potions émettant de doux bips.<br><br>\"Quel timing, poisson d'avril\", dit @Beffymaroo avec un sourire en coin. \"Je soupçonne que ce grand gaillard qui émet des bips est une de vos connaissances.\"<br><br>\"Euh, oui,\" dit-il, penaud. \"Je suis vraiment désolé, et je vous remercie tous les deux d'avoir pris soin de Wotchimon ! Prenez ces potions en guise de remerciement, elles peuvent faire retransformer vos animaux de façon virtuelle quand vous le souhaitez !\".<br><br>Vous doutez d'être 100% d'accord avec tous ces bips, mais comme ils sont mignons, ça vaut le coup d'essayer !"
 }
