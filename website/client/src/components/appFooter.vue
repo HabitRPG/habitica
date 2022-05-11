@@ -2,73 +2,61 @@
   <div class="row footer-row">
     <buy-gems-modal v-if="user" />
     <!--modify-inventory(v-if="isUserLoaded")-->
-    <footer class="col-12 expanded">
+    <footer>
       <div class="row">
-        <div class="col-12 col-md-2">
-          <h3>
-            <a
+        <div class="col-sm">
+          <h3>{{ $t('footerProduct') }}</h3>
+          <ul>
+            <li>
+              <a
               href="https://itunes.apple.com/us/app/habitica/id994882113?ls=1&mt=8"
               target="_blank"
-            >{{ $t('mobileIOS') }}</a>
-          </h3>
-          <h3>
-            <a
+              >{{ $t('mobileIOS') }}</a>
+            </li>
+            <li>
+              <a
               href="https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica"
               target="_blank"
-            >{{ $t('mobileAndroid') }}</a>
-          </h3>
-        </div>
-        <div class="col-12 col-md-2">
-          <h3>{{ $t('footerCompany') }}</h3>
-          <ul>
+              >{{ $t('mobileAndroid') }}</a>
+            </li>
+            <li>
+              Group Plans [placeholder]
+            </li>
             <li>
               <router-link to="/static/features">
                 {{ $t('companyAbout') }}
               </router-link>
             </li>
+          </ul>
+        </div>
+        <div class="col-sm">
+          <h3>{{ $t('footerCompany') }}</h3>
+          <ul>
             <li>
-              <a
-                href="https://habitica.wordpress.com/"
-                target="_blank"
-              >{{ $t('companyBlog') }}</a>
-            </li>
-            <li>
-              <a
-                href="http://blog.habitrpg.com/"
-                target="_blank"
-              >{{ $t('tumblr') }}</a>
-            </li>
-            <li>
-              <router-link to="/static/faq">
-                {{ $t('FAQ') }}
+              <router-link to="/static/contact">
+                {{ $t('contactUs') }}
               </router-link>
             </li>
-            <li>
-              <a
-                href="https://habitica.fandom.com/wiki/Whats_New"
-                target="_blank"
-              >{{ $t('oldNews') }}</a>
-            </li>
-            <!-- Commenting out merch page see https://github.com/HabitRPG/habitica/issues/12039
-            <li>
-              <router-link to="/static/merch">
-                {{ $t('merch') }}
-              </router-link>
-            </li>
-            -->
             <li>
               <router-link to="/static/press-kit">
                 {{ $t('presskit') }}
               </router-link>
             </li>
             <li>
-              <router-link to="/static/contact">
-                {{ $t('contactUs') }}
-              </router-link>
+              <a
+              href="https://habitica.wordpress.com/"
+              target="_blank"
+              >{{ $t('companyBlog') }}</a>
+            </li>
+            <li>
+              <a
+              href="https://habitica.fandom.com/wiki/Whats_New"
+              target="_blank"
+              >{{ $t('oldNews') }}</a>
             </li>
           </ul>
         </div>
-        <div class="col-12 col-md-2">
+        <div class="col-sm">
           <h3>{{ $t('footerCommunity') }}</h3>
           <ul>
             <li>
@@ -82,149 +70,178 @@
                 {{ $t('hall') }}
               </router-link>
             </li>
-            <li v-if="user">
-              <a
-                target="_blank"
-                @click.prevent="openBugReportModal()"
-              >
-                {{ $t('reportBug') }}
-              </a>
-            </li>
-            <li v-else>
-              <a
-                href="mailto:admin@habitica.com?subject=Habitica Web Bug Report"
-                target="_blank"
-              >
-                {{ $t('reportBug') }}
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://docs.google.com/forms/d/e/1FAIpQLScPhrwq_7P1C6PTrI3lbvTsvqGyTNnGzp1ugi1Ml0PFee_p5g/viewform?usp=sf_link"
-                target="_blank"
-              >{{ $t('requestFeature') }}</a>
-            </li>
-            <li v-html="$t('communityExtensions')"></li>
-            <li>
-              <a
-                href="https://www.facebook.com/Habitica"
-                target="_blank"
-              >{{ $t('communityFacebook') }}</a>
-            </li>
-            <li>
-              <a
-                href="https://www.instagram.com/habitica"
-                target="_blank"
-              >{{ $t('communityInstagram') }}</a>
-            </li>
           </ul>
         </div>
-        <div class="col-12 col-md-6">
-          <div class="row">
-            <div class="col-6">
-              <h3>{{ $t('footerDevs') }}</h3>
-              <ul>
-                <li>
-                  <a
-                    href="/apidoc"
-                    target="_blank"
-                  >{{ $t('APIv3') }}</a>
-                </li>
-                <li>
-                  <a
-                    :href="getDataDisplayToolUrl"
-                    target="_blank"
-                  >{{ $t('dataDisplayTool') }}</a>
-                </li>
-                <li>
-                  <a
-                    href="https://habitica.fandom.com/wiki/Guidance_for_Blacksmiths"
-                    target="_blank"
-                  >{{ $t('guidanceForBlacksmiths') }}</a>
-                </li>
-              </ul>
-            </div>
-            <div class="col-6 social">
-              <h3>{{ $t('footerSocial') }}</h3>
-              <div class="icons">
+        <div class="col-sm">
+          <h3>Support [placeholder]</h3>
+            <ul>
+              <li>
+                <router-link to="/static/faq">
+                  {{ $t('FAQ') }}
+                </router-link>
+              </li>
+              <li v-if="user">
                 <a
-                  class="social-circle"
-                  href="https://twitter.com/habitica"
-                  target="_blank"
+                target="_blank"
+                @click.prevent="openBugReportModal()"
                 >
-                  <div
-                    class="social-icon svg-icon"
-                    v-html="icons.twitter"
-                  ></div>
-                </a>
+                {{ $t('reportBug') }}
+              </a>
+              </li>
+              <li v-else>
                 <a
-                  class="social-circle"
-                  href="https://www.instagram.com/habitica/"
-                  target="_blank"
+                href="mailto:admin@habitica.com?subject=Habitica Web Bug Report"
+                target="_blank"
                 >
-                  <div
-                    class="social-icon svg-icon instagram"
-                    v-html="icons.instagram"
-                  ></div>
-                </a>
+                {{ $t('reportBug') }}
+              </a>
+              </li>
+              <li>
                 <a
-                  class="social-circle"
-                  href="https://www.facebook.com/Habitica"
-                  target="_blank"
-                >
-                  <div
-                    class="social-icon facebook svg-icon"
-                    v-html="icons.facebook"
-                  ></div>
-                </a>
-              </div>
-            </div>
+                href="https://docs.google.com/forms/d/e/1FAIpQLScPhrwq_7P1C6PTrI3lbvTsvqGyTNnGzp1ugi1Ml0PFee_p5g/viewform?usp=sf_link"
+                target="_blank"
+                >{{ $t('requestFeature') }}</a>
+              </li>
+              <li>
+                Wiki [placeholder]
+              </li>
+            </ul>
+        </div>
+        <div class="col-sm">
+          <h3>{{ $t('footerDevs') }}</h3>
+            <ul>
+              <li>
+                <a
+                href="/apidoc"
+                target="_blank"
+                >{{ $t('APIv3') }}</a>
+              </li>
+              <li>
+                <a
+                :href="getDataDisplayToolUrl"
+                target="_blank"
+                >{{ $t('dataDisplayTool') }}</a>
+              </li>
+              <li>
+                <a
+                href="https://habitica.fandom.com/wiki/Guidance_for_Blacksmiths"
+                target="_blank"
+                >{{ $t('guidanceForBlacksmiths') }}</a>
+              </li>
+              <li v-html="$t('communityExtensions')"></li>
+            </ul>
           </div>
-          <div class="row">
-            <div class="col-12 col-md-8">
-              {{ $t('donateText3') }}
-            </div>
-            <div class="col-12 col-md-4">
-              <button
-                v-if="user"
-                class="btn btn-contribute btn-front btn-flat"
-                @click="donate()"
+        </div>
+        <div class="row">
+          <div class="col-sm-3">
+            {{ $t('donateText3') }}
+          </div>
+          <div class="col-sm">
+            <button
+              v-if="user"
+              class="btn btn-contribute btn-front btn-flat"
+              @click="donate()"
+            >
+              <div
+                class="svg-icon heart"
+                v-html="icons.heart"
+              ></div>
+              <div class="text">
+                {{ $t('companyDonate') }}
+              </div>
+            </button>
+            <div
+              v-else
+              class="btn btn-contribute btn-front btn-flat"
+            >
+              <a
+                href="https://habitica.fandom.com/wiki/Contributing_to_Habitica"
+                target="_blank"
               >
                 <div
                   class="svg-icon heart"
                   v-html="icons.heart"
                 ></div>
-                <div class="text">
-                  {{ $t('companyDonate') }}
-                </div>
-              </button>
-              <div
-                v-else
-                class="btn btn-contribute btn-front btn-flat"
-              >
-                <a
-                  href="https://habitica.fandom.com/wiki/Contributing_to_Habitica"
-                  target="_blank"
-                >
-                  <div
-                    class="svg-icon heart"
-                    v-html="icons.heart"
-                  ></div>
-                  <div class="text">{{ $t('companyContribute') }}</div>
-                </a>
-              </div>
+                <div class="text">{{ $t('companyContribute') }}</div>
+              </a>
             </div>
           </div>
         </div>
-      </div>
+        <div class="col-sm">
+          <h3>{{ $t('footerSocial') }}</h3>
+          <div class="icons">
+            <a
+            class="social-circle"
+            href="https://www.instagram.com/habitica/"
+            target="_blank"
+            >
+            <div
+            class="social-icon svg-icon instagram"
+            v-html="icons.instagram"
+            ></div>
+            </a>
+            <a
+              class="social-circle"
+              href="https://twitter.com/habitica"
+              target="_blank"
+            >
+              <div
+                class="social-icon svg-icon"
+                v-html="icons.twitter"
+              ></div>
+            </a>
+            <a
+              class="social-circle"
+              href="https://www.facebook.com/Habitica"
+              target="_blank"
+            >
+              <div
+                class="social-icon facebook svg-icon"
+                v-html="icons.facebook"
+              ></div>
+            </a><a
+              class="social-circle"
+              href="https://www.tumblr.com/Habitica"
+              target="_blank"
+            >
+              <div
+                class="social-icon tumblr svg-icon"
+                v-html="icons.tumblr"
+              ></div>
+            </a>
+          </div>
+        </div>
       <div class="row">
-        <div class="col-12">
+        <div class="">
           <hr>
         </div>
       </div>
-      <div class="row">
-        <div class="col-12 col-md-5 text-center text-md-left">
-          © {{ currentYear }} Habitica. All rights reserved.
+        <div class="row">
+          <div class="">
+            © {{ currentYear }} Habitica. All rights reserved.
+          </div>
+          <div class="">
+            <div
+              class="logo svg-icon"
+              v-html="icons.gryphon"
+            ></div>
+          </div>
+          <div class="">
+            <span class="">
+              <a
+                target="_blank"
+                href="/static/privacy"
+              >{{ $t('privacy') }}</a>
+            </span>
+            <span class="">
+              <a
+                target="_blank"
+                href="/static/terms"
+              >{{ $t('terms') }}</a>
+            </span>
+          </div>
+        </div>
+        <div class="row">
           <div
             v-if="!IS_PRODUCTION && isUserLoaded"
             class="debug float-left"
@@ -307,46 +324,27 @@
             </div>
           </div>
         </div>
-        <div class="col-12 col-md-2 text-center">
-          <div
-            class="logo svg-icon"
-            v-html="icons.gryphon"
-          ></div>
-        </div>
-        <div class="col-12 col-md-5 text-center text-md-right my-1">
-          <span class="ml-4">
-            <a
-              target="_blank"
-              href="/static/privacy"
-            >{{ $t('privacy') }}</a>
-          </span>
-          <span class="ml-4">
-            <a
-              target="_blank"
-              href="/static/terms"
-            >{{ $t('terms') }}</a>
-          </span>
-        </div>
-      </div>
-    </footer>
-  </div>
+      </footer>
+    </div>
 </template>
 
 <style lang="scss" scoped>
+  @import '~@/assets/scss/colors.scss';
 .footer-row {
   margin: 0;
   flex: 0 1 auto;
   z-index: 10;
 }
 footer {
-  color: #c3c0c7;
+  background-color: $gray-500;
+  color: $gray-50;
   padding-bottom: 3em;
   a {
     color: #2995cd;
   }
 }
 h3 {
-  color: #878190;
+  font-weight: bold;
 }
 ul {
   padding-left: 0;
@@ -384,20 +382,23 @@ li {
   }
 }
 .social-circle {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: #c3c0c7;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  background-color: $gray-50;
   display: flex;
-  margin-left: 1em;
+  margin: 0 8px 0 8px;
   &:first-child {
     margin-left: 0;
   }
+  &:last-child {
+    margin-right: 0;
+  }
   &:hover {
-    background-color: #a5a1ac;
+    background-color: $purple-300;
   }
   .social-icon {
-    color: #e1e0e3;
+    color: $gray-500;
     width: 16px;
     margin: auto;
   }
@@ -406,7 +407,7 @@ li {
   width: 24px;
   height: 24px;
   margin: 0 auto;
-  color: #e1e0e3;
+  color: $gray-200;
 }
 .debug-group {
   position: absolute;
@@ -453,12 +454,12 @@ li {
 }
 footer {
   &.expanded {
-    padding-left: 6em;
-    padding-right: 6em;
-    padding-top: 3em;
-    background: #e1e0e3;
-    color: #878190;
-    min-height: 408px;
+    // padding-left: 6em;
+    // padding-right: 6em;
+    // padding-top: 3em;
+    background: #E1E0E3;
+    color: #4E4A57;
+    min-height: 356px;
     a {
       color: #878190;
     }
