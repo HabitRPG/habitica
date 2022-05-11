@@ -450,10 +450,6 @@
     background-color: $white;
   }
 
-  // .subscribe-option {
-  //   border-bottom: 1px solid $gray-600;
-  // }
-
   .svg-amazon-pay {
     width: 208px;
   }

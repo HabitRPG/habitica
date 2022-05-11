@@ -29,24 +29,23 @@
         class="modal-body"
       >
         <avatar
-          :member="userReceivingGift"
-          :hideClassBadge="true"
-          class="d-flex flex-column mx-auto align-items-center"
+        :member="userReceivingGift"
+        :hideClassBadge="true"
+        class="d-flex flex-column mx-auto align-items-center"
         />
         <div class="avatar-spacer"></div>
         <div
           class="d-flex flex-column mx-auto align-items-center display-name">
           <!-- user display name and username -->
             <user-link
-              :user-id="displayName"
-              :name="displayName"
-              :backer="userBacker"
-              :contributor="userContributor"
-              :class="display-name"
-              />
+            :user-id="displayName"
+            :name="displayName"
+            :backer="userBacker"
+            :contributor="userContributor"
+            :class="display-name"
+            />
         </div>
-        <div
-          class="d-flex flex-column mx-auto align-items-center user-name">
+        <div class="d-flex flex-column mx-auto align-items-center user-name">
           @{{ userName }}
         </div>
       </div>
@@ -74,8 +73,8 @@
 
       <!-- subscriber block -->
           <subscription-options
-            v-show="selectedPage === 'subscription'"
-            class="subscribe-option"
+          v-show="selectedPage === 'subscription'"
+          class="subscribe-option"
           />
 
       <!-- gem block -->
@@ -108,11 +107,11 @@
               ></div>
             </div>
             <input
-              id="gemsForm"
-              v-model.number="gift.gems.amount"
-              class="form-control"
-              min="0"
-              max="9999"
+            id="gemsForm"
+            v-model.number="gift.gems.amount"
+            class="form-control"
+            min="0"
+            max="9999"
             >
           </div>
           <div
@@ -134,7 +133,7 @@
           <!-- the actual dollar amount -->
           <div class="buy-gem-amount">
             <span>
-              {{ $t('sendGiftAmount', {cost: formatter.format(totalGems)}) }}
+              {{formatter.format(totalGems)}}
             </span>
         </div>
 
@@ -150,12 +149,12 @@
 
         <!-- paying for gems -->
         <payments-buttons
-          class="payment-buttons"
-          :stripe-fn="() => redirectToStripe({gift, uuid: userReceivingGift._id, receiverName})"
-          :paypal-fn="() => openPaypalGift({
-            gift: gift, giftedTo: userReceivingGift._id, receiverName,
-          })"
-          :amazon-data="{type: 'single', gift, giftedTo: userReceivingGift._id, receiverName}"
+        class="payment-buttons"
+        :stripe-fn="() => redirectToStripe({gift, uuid: userReceivingGift._id, receiverName})"
+        :paypal-fn="() => openPaypalGift({
+          gift: gift, giftedTo: userReceivingGift._id, receiverName,
+        })"
+        :amazon-data="{type: 'single', gift, giftedTo: userReceivingGift._id, receiverName}"
           />
     </div>
 
@@ -170,7 +169,7 @@
         <div class="d-flex align-items-center justify-content-center">
           <div
             class="gray-circle"
-            @click="gift.gems.amount <= 0 ? 0 : gift.gems.amount--"
+            @click="gift.gems.amount <= 0 ? gift.gems.amount = 0 : gift.gems.amount--"
             >
             <div
               class="icon-negative"
@@ -185,11 +184,11 @@
             ></div>
           </div>
             <input
-              id="gemsForm"
-              v-model="gift.gems.amount"
-              class="form-control"
-              min="0"
-              :max="maxGems"
+            id="gemsForm"
+            v-model="gift.gems.amount"
+            class="form-control"
+            min="0"
+            :max="maxGems"
             >
         </div>
           <div
@@ -207,10 +206,10 @@
               <span class="balance-text">
                 {{ $t('yourBalance') }}</span>
               <span
-                  class="icon-gem balance-gem-margin"
-                  v-html="icons.gemIcon"
-                  style="display: inline-block;"
-                ></span>
+                class="icon-gem balance-gem-margin"
+                v-html="icons.gemIcon"
+                style="display: inline-block;"
+              ></span>
               <span
                 class="balance-gems">
                 {{ maxGems }}
@@ -388,7 +387,7 @@
   .gray-circle:hover{
     .icon-positive, .icon-negative {
       & ::v-deep svg path {
-        fill: $purple-400
+        fill: $purple-400;
       }
     }
   }
@@ -477,7 +476,7 @@ import paymentsMixin from '../../mixins/payments';
 
 // component imports
 import avatar from '../avatar';
-import userLink from '../userLink'; // in case I need to do the tier color/icon
+import userLink from '../userLink';
 import subscriptionOptions from '../settings/subscriptionOptions.vue';
 import paymentsButtons from '@/components/payments/buttons/list';
 
@@ -509,10 +508,10 @@ export default {
         negativeIcon,
       }),
       userReceivingGift: {
-        profile: '', // here bc it was throwing an error
+        profile: '',
       },
-      name: '', // here bc it was throwing an error
-      display: '', // here bc it was throwing an error
+      name: '',
+      display: '',
       selectedPage: 'subscription',
       gift: {
         type: 'gems',

@@ -100,7 +100,7 @@
             <div
               v-else
             >
-              {{ $t('nextButton') }}
+              {{ $t('next') }}
             </div>
           </button>
           <div
