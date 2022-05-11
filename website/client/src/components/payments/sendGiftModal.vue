@@ -193,7 +193,7 @@
         </div>
           <div
             class="gray-circle"
-            @click="gift.gems.amount < maxGems ? gift.gems.amount++ : maxGems"
+            @click="gift.gems.amount < maxGems ? gift.gems.amount++ : gift.gems.amount = maxGems"
             >
             <div
               class="icon-positive"
