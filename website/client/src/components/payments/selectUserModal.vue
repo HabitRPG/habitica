@@ -14,15 +14,44 @@
     </div>
     <h2
       v-else
-      class="ml-2"
+      class="d-flex flex-column mx-auto align-items-center"
     >
-      {{ $t('sendGift') }}
+      {{ $t('sendAGift') }}
     </h2>
+    <div
+      v-if="currentEvent && currentEvent.promo === 'g1g1'"
+      class="g1g1-margin d-flex flex-column align-items-center"
+    >
+    <div
+      class="svg-big-gift"
+      v-once
+      v-html="icons.bigGift"
+    ></div>
+    </div>
+    <div
+    v-else
+    class="d-flex flex-column align-items-center">
+      <div
+        class="svg-big-gift"
+        v-once
+        v-html="icons.bigGift"
+      ></div>
+    </div>
     <div class="d-flex flex-column align-items-center">
       <div
-        class="modal-close"
+        v-if="currentEvent && currentEvent.promo === 'g1g1'"
+        class="g1g1-modal-close"
         @click="close()"
       >
+        <div
+          class="g1g1-svg-icon"
+          v-html="icons.close"
+        ></div>
+      </div>
+      <div
+      v-else
+      class="modal-close"
+      @click="close()">
         <div
           class="svg-icon"
           v-html="icons.close"
@@ -42,6 +71,7 @@
             v-model="userSearchTerm"
             class="form-control"
             type="text"
+            ref="textBox"
             :placeholder="$t('usernameOrUserId')"
             :class="{
               'input-valid': foundUser._id,
@@ -70,15 +100,20 @@
             <div
               v-else
             >
-              {{ $t('selectGift') }}
+              {{ $t('next') }}
             </div>
           </button>
-          <a
-            class="cancel-link mx-auto mt-3"
-            @click="close()"
+          <div
+          v-if="currentEvent && currentEvent.promo ==='g1g1'"
+          class="g1g1-cancel d-flex justify-content-center"
+          v-html="$t('cancel')"
+          @click="close()"
           >
-            {{ $t('cancel') }}
-          </a>
+          {{ $t('cancel') }}
+        </div>
+        <div
+        v-else>
+        </div>
         </div>
       </div>
     </div>
@@ -110,13 +145,16 @@
   @import '~@/assets/scss/mixins.scss';
 
   #select-user-modal {
+    .modal-content {
+      width:448px;
+    }
+
     .input-group {
       margin-top: 0rem;
     }
 
     .modal-dialog {
-      width: 29.5rem;
-      margin-top: 25vh;
+      width: 448px;
     }
 
     .modal-footer {
@@ -126,7 +164,16 @@
         margin: 0rem 0.25rem 0.25rem 0.25rem;
       }
     }
-  }
+
+    body.modal-open .modal {
+      display: flex !important;
+      height: 100%;
+    }
+
+    body.modal-open .modal .modal-dialog {
+        margin: auto;
+    }
+}
 </style>
 
 <style lang="scss" scoped>
@@ -146,12 +193,12 @@
 
   .g1g1 {
     background-image: url('~@/assets/images/g1g1-send.png');
-    background-size: 472px 152px;
-    width: 470px;
+    background-size: 446px 152px;
+    width: 446px;
     height: 152px;
-    margin: -1rem 0rem 0rem -1rem;
-    border-radius: 0.3rem 0.3rem 0rem 0rem;
-    padding: 1.5rem;
+    margin: -16px 0px 0px -16px;
+    border-radius: 4.8px 4.8px 0px 0px;
+    padding: 24px;
     color: $white;
 
     h1 {
@@ -169,11 +216,44 @@
     }
   }
 
+  .g1g1-margin {
+    margin-top: 24px;
+  }
+
+  .g1g1-cancel {
+    margin-top: 16px;
+    color: $blue-10;
+    cursor: pointer;
+  }
+
   .g1g1-fine-print {
     color: $gray-100;
     background-color: $gray-700;
     font-size: 0.75rem;
     line-height: 1.33;
+  }
+
+  .g1g1-modal-close {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    padding: 4px;
+    right: 16px;
+    top: 16px;
+    cursor: pointer;
+
+    .g1g1-svg-icon {
+      width: 12px;
+      height: 12px;
+
+      & ::v-deep svg path {
+        fill: #FFFFFF;
+      }
+    }
+  }
+
+  .g1g1-modal-dialog {
+    margin-top: 10vh;
   }
 
   .input-error {
@@ -192,6 +272,18 @@
     border-color: $purple-500;
   }
 
+  h2 {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    color: $purple-300;
+    padding-top: 1rem;
+  }
+
+  .svg-big-gift {
+    width: 176px;
+    height: 64px;
+  }
+
   .modal-close {
     position: absolute;
     width: 18px;
@@ -206,14 +298,17 @@
       height: 12px;
     }
   }
+
 </style>
 
 <script>
+// import { nextTick } from 'vue'; // may not need this? I don't know!
 import debounce from 'lodash/debounce';
 import find from 'lodash/find';
 import isUUID from 'validator/lib/isUUID';
 import { mapState } from '@/libs/store';
 import closeIcon from '@/assets/svg/close.svg';
+import bigGiftIcon from '@/assets/svg/big-gift.svg';
 
 export default {
   data () {
@@ -223,6 +318,7 @@ export default {
       foundUser: {},
       icons: Object.freeze({
         close: closeIcon,
+        bigGift: bigGiftIcon,
       }),
     };
   },
@@ -281,7 +377,7 @@ export default {
       this.foundUser = result;
     }, 500),
     selectUser () {
-      this.$root.$emit('habitica::send-gems', this.foundUser);
+      this.$root.$emit('habitica::send-gift', this.foundUser);
       this.close();
     },
     onHide () {
