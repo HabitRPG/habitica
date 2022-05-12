@@ -23,34 +23,34 @@
           {{ $t('sendAGift') }}
         </h2>
       </div>
+
       <!-- user avatar -->
       <div
         v-if="userReceivingGift"
         class="modal-body"
       >
         <avatar
-        :member="userReceivingGift"
-        :hideClassBadge="true"
-        class="d-flex flex-column mx-auto align-items-center"
+          :member="userReceivingGift"
+          :hideClassBadge="true"
+          class="d-flex flex-column mx-auto align-items-center"
         />
         <div class="avatar-spacer"></div>
-        <div
-          class="d-flex flex-column mx-auto align-items-center display-name">
+        <div class="d-flex flex-column mx-auto align-items-center display-name">
           <!-- user display name and username -->
-            <user-link
+          <user-link
             :user-id="displayName"
             :name="displayName"
             :backer="userBacker"
             :contributor="userContributor"
             :class="display-name"
-            />
+          />
         </div>
         <div class="d-flex flex-column mx-auto align-items-center user-name">
           @{{ userName }}
         </div>
       </div>
 
-        <!-- menu area -->
+      <!-- menu area -->
       <div class="row">
         <div class="col-12 col-md-8 offset-md-2 text-center nav">
           <div
@@ -60,7 +60,6 @@
           >
             {{ $t('subscription') }}
           </div>
-
           <div
             class="nav-item"
             :class="{active: selectedPage !== 'subscription'}"
@@ -72,57 +71,54 @@
       </div>
 
       <!-- subscriber block -->
-          <subscription-options
-          v-show="selectedPage === 'subscription'"
-          class="subscribe-option"
-          />
+      <subscription-options
+        v-show="selectedPage === 'subscription'"
+        class="subscribe-option"
+      />
 
       <!-- gem block -->
       <div
         v-show="selectedPage === 'buyGems'"
       >
-      <div class="gem-group">
-
-
-      <!-- buy gems with money -->
-        <label v-once>
-          {{ $t('howManyGemsPurchase') }}
-        </label>
-
-        <div class="d-flex flex-row align-items-center justify-content-center">
-          <div
-            class="gray-circle"
-            @click="gift.gems.amount <= 0 ? 0 : gift.gems.amount--"
-            >
+        <div class="gem-group">
+          <!-- buy gems with money -->
+          <label v-once>
+            {{ $t('howManyGemsPurchase') }}
+          </label>
+          <div class="d-flex flex-row align-items-center justify-content-center">
             <div
-              class="icon-negative"
-              v-html="icons.negativeIcon"
-              ></div>
-          </div>
-          <div class="input-group">
-            <div class="input-group-prepend input-group-icon align-items-center">
+              class="gray-circle"
+              @click="gift.gems.amount <= 0 ? 0 : gift.gems.amount--"
+            >
               <div
-                class="icon-gem"
-                v-html="icons.gemIcon"
+                class="icon-negative"
+                v-html="icons.negativeIcon"
               ></div>
             </div>
-            <input
-            id="gemsForm"
-            v-model.number="gift.gems.amount"
-            class="form-control"
-            min="0"
-            max="9999"
-            >
-          </div>
-          <div
-            class="gray-circle"
-            @click="gift.gems.amount++"
-            >
+            <div class="input-group">
+              <div class="input-group-prepend input-group-icon align-items-center">
+                <div
+                  class="icon-gem"
+                  v-html="icons.gemIcon"
+                ></div>
+              </div>
+              <input
+                id="gemsForm"
+                v-model.number="gift.gems.amount"
+                class="form-control"
+                min="0"
+                max="9999"
+              >
+            </div>
             <div
-              class="icon-positive"
-              v-html="icons.positiveIcon"
+              class="gray-circle"
+              @click="gift.gems.amount++"
+            >
+              <div
+                class="icon-positive"
+                v-html="icons.positiveIcon"
               ></div>
-          </div>
+            </div>
           </div>
 
           <!-- the word "total" -->
@@ -135,76 +131,77 @@
             <span>
               {{formatter.format(totalGems)}}
             </span>
-        </div>
+          </div>
 
-        <!-- change to sending own gems page -->
-        <div
-          :class="{active: selectedPage === 'ownGems'}"
-          @click="selectPage('ownGems')"
-          class="gem-state-change"
-        >
-          {{ $t('wantToSendOwnGems') }}
+          <!-- change to sending own gems page -->
+          <div
+            :class="{active: selectedPage === 'ownGems'}"
+            @click="selectPage('ownGems')"
+            class="gem-state-change"
+          >
+            {{ $t('wantToSendOwnGems') }}
+          </div>
         </div>
-      </div>
 
         <!-- paying for gems -->
         <payments-buttons
-        class="payment-buttons"
-        :stripe-fn="() => redirectToStripe({gift, uuid: userReceivingGift._id, receiverName})"
-        :paypal-fn="() => openPaypalGift({
-          gift: gift, giftedTo: userReceivingGift._id, receiverName,
-        })"
-        :amazon-data="{type: 'single', gift, giftedTo: userReceivingGift._id, receiverName}"
-          />
-    </div>
+          class="payment-buttons"
+          :stripe-fn="() => redirectToStripe({gift, uuid: userReceivingGift._id, receiverName})"
+          :paypal-fn="() => openPaypalGift({
+            gift: gift, giftedTo: userReceivingGift._id, receiverName,
+          })"
+          :amazon-data="{type: 'single', gift, giftedTo: userReceivingGift._id, receiverName}"
+        />
+      </div>
 
-        <!-- send gems from balance -->
+      <!-- send gems from balance -->
       <div
         v-show="selectedPage === 'ownGems'"
-        >
+      >
         <div class="gem-group">
-        <label v-once>
-          {{ $t('howManyGemsSend') }}
-        </label>
-        <div class="d-flex align-items-center justify-content-center">
-          <div
-            class="gray-circle"
-            @click="gift.gems.amount <= 0 ? gift.gems.amount = 0 : gift.gems.amount--"
-            >
+          <label v-once>
+            {{ $t('howManyGemsSend') }}
+          </label>
+          <div class="d-flex align-items-center justify-content-center">
             <div
-              class="icon-negative"
-              v-html="icons.negativeIcon"
+              class="gray-circle"
+              @click="gift.gems.amount <= 0 ? gift.gems.amount = 0 : gift.gems.amount--"
+            >
+              <div
+                class="icon-negative"
+                v-html="icons.negativeIcon"
               ></div>
-          </div>
-        <div class="input-group">
-          <div class="input-group-prepend input-group-icon align-items-center">
+            </div>
+            <div class="input-group">
+              <div class="input-group-prepend input-group-icon align-items-center">
+                <div
+                  class="icon-gem"
+                  v-html="icons.gemIcon"
+                ></div>
+              </div>
+              <input
+                id="gemsForm"
+                v-model="gift.gems.amount"
+                class="form-control"
+                min="0"
+                :max="maxGems"
+              >
+            </div>
             <div
-              class="icon-gem"
-              v-html="icons.gemIcon"
-            ></div>
-          </div>
-            <input
-            id="gemsForm"
-            v-model="gift.gems.amount"
-            class="form-control"
-            min="0"
-            :max="maxGems"
+              class="gray-circle"
+              @click="gift.gems.amount < maxGems ? gift.gems.amount++ : gift.gems.amount = maxGems"
             >
-        </div>
-          <div
-            class="gray-circle"
-            @click="gift.gems.amount < maxGems ? gift.gems.amount++ : gift.gems.amount = maxGems"
-            >
-            <div
-              class="icon-positive"
-              v-html="icons.positiveIcon"
+              <div
+                class="icon-positive"
+                v-html="icons.positiveIcon"
               ></div>
+            </div>
           </div>
-        </div>
           <div class="align-items-middle">
             <div class="d-flex justify-content-center align-items-middle">
               <span class="balance-text">
-                {{ $t('yourBalance') }}</span>
+                {{ $t('yourBalance') }}
+              </span>
               <span
                 class="icon-gem balance-gem-margin"
                 v-html="icons.gemIcon"
@@ -218,11 +215,11 @@
           </div>
           <div class="d-flex flex-column justify-content-center align-items-middle mt-3">
             <button
-            v-if="fromBal"
-            class="btn btn-primary mx-auto mt-2"
-            type="submit"
-            :disabled="sendingInProgress"
-            @click="sendGift()"
+              v-if="fromBal"
+              class="btn btn-primary mx-auto mt-2"
+              type="submit"
+              :disabled="sendingInProgress"
+              @click="sendGift()"
             >
               {{ $t("send") }}
             </button>
@@ -230,11 +227,11 @@
 
           <!-- change to buying gems page -->
           <div
-          :class="{active: selectedPage === 'buyGems'}"
-          @click="selectPage('buyGems')"
-          class="gem-state-change"
+            :class="{active: selectedPage === 'buyGems'}"
+            @click="selectPage('buyGems')"
+            class="gem-state-change"
           >
-          {{ $t('needToPurchaseGems') }}
+            {{ $t('needToPurchaseGems') }}
           </div>
         </div>
       </div>
