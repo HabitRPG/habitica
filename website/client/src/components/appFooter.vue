@@ -4,6 +4,7 @@
     <!--modify-inventory(v-if="isUserLoaded")-->
     <footer>
       <div class="row">
+        <!-- Product -->
         <div class="col-sm">
           <h3>{{ $t('footerProduct') }}</h3>
           <ul>
@@ -20,7 +21,10 @@
               >{{ $t('mobileAndroid') }}</a>
             </li>
             <li>
-              Group Plans [placeholder]
+              <router-link to="/group-plans">
+                {{ $t('groupPlans') }}
+              </router-link>
+
             </li>
             <li>
               <router-link to="/static/features">
@@ -29,6 +33,7 @@
             </li>
           </ul>
         </div>
+        <!-- Company -->
         <div class="col-sm">
           <h3>{{ $t('footerCompany') }}</h3>
           <ul>
@@ -56,6 +61,7 @@
             </li>
           </ul>
         </div>
+        <!-- Community -->
         <div class="col-sm">
           <h3>{{ $t('footerCommunity') }}</h3>
           <ul>
@@ -70,10 +76,17 @@
                 {{ $t('hall') }}
               </router-link>
             </li>
+            <li>
+              <a
+              href="https://habitica.fandom.com/wiki/Contributing_to_Habitica"
+              target="_blank"
+              >{{ $t('companyContribute') }}</a>
+            </li>
           </ul>
         </div>
+        <!-- Support -->
         <div class="col-sm">
-          <h3>Support [placeholder]</h3>
+          <h3>{{ $t ('support') }}</h3>
             <ul>
               <li>
                 <router-link to="/static/faq">
@@ -103,10 +116,14 @@
                 >{{ $t('requestFeature') }}</a>
               </li>
               <li>
-                Wiki [placeholder]
+                <a
+                href="https://habitica.fandom.com/"
+                target="_blank"
+                >{{ $t('wiki') }}</a>
               </li>
             </ul>
         </div>
+        <!-- Developers -->
         <div class="col-sm">
           <h3>{{ $t('footerDevs') }}</h3>
             <ul>
@@ -128,11 +145,18 @@
                 target="_blank"
                 >{{ $t('guidanceForBlacksmiths') }}</a>
               </li>
-              <li v-html="$t('communityExtensions')"></li>
+              <li>
+                <a
+                href="https://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations"
+                target="_blank">
+                {{ $t('communityExtensions') }}</a>
+                <!-- v-html="$t('communityExtensions')"> -->
+              </li>
             </ul>
           </div>
         </div>
         <div class="row">
+          <!-- Help Support Habitica -->
           <div class="col-sm-3">
             {{ $t('donateText3') }}
           </div>
@@ -167,6 +191,7 @@
             </div>
           </div>
         </div>
+        <!-- Social -->
         <div class="col-sm">
           <h3>{{ $t('footerSocial') }}</h3>
           <div class="icons">
@@ -186,7 +211,7 @@
               target="_blank"
             >
               <div
-                class="social-icon svg-icon"
+                class="social-icon svg-icon twitter"
                 v-html="icons.twitter"
               ></div>
             </a>
@@ -200,7 +225,7 @@
                 v-html="icons.facebook"
               ></div>
             </a><a
-              class="social-circle"
+              class="social-circle tumblr svg-icon"
               href="https://www.tumblr.com/Habitica"
               target="_blank"
             >
@@ -338,9 +363,12 @@
 footer {
   background-color: $gray-500;
   color: $gray-50;
-  padding-bottom: 3em;
+  padding: 2em 8.875em 2.5em;
   a {
-    color: #2995cd;
+    color: $gray-50;
+  }
+  a:hover {
+    color: $purple-300
   }
 }
 h3 {
@@ -354,13 +382,13 @@ li {
   margin-bottom: 0.5em;
 }
 .social {
-  h3 {
-    text-align: right;
-  }
+  // h3 {
+  //   text-align: right;
+  // }
 }
 .icons {
   display: flex;
-  justify-content: flex-end;
+  // justify-content: flex-end;
   flex-shrink: 1;
 }
 // smaller than desktop
@@ -383,7 +411,7 @@ li {
 }
 .social-circle {
   width: 24px;
-  height: 24px;
+  // height: 24px;
   border-radius: 4px;
   background-color: $gray-50;
   display: flex;
@@ -400,7 +428,7 @@ li {
   .social-icon {
     color: $gray-500;
     width: 16px;
-    margin: auto;
+    // margin: auto;
   }
 }
 .logo {
@@ -448,9 +476,23 @@ li {
 .heart svg {
   margin-top: 0.1em;
 }
+// this nonsense needs fixing
 .facebook svg {
   width: 10px;
   margin: 0 auto;
+}
+.instagram svg {
+  height: 24px;
+  width: 24px;
+}
+.twitter svg {
+  height: 24px;
+  width: 16px;
+  margin-left: 4px;
+}
+.tumblr svg {
+  height: 24px;
+  width: 24px;
 }
 footer {
   &.expanded {
@@ -475,14 +517,20 @@ footer {
 </style>
 
 <script>
+// modules
 import axios from 'axios';
 import moment from 'moment';
-import { mapState } from '@/libs/store';
+
+// images
 import gryphon from '@/assets/svg/gryphon.svg';
 import twitter from '@/assets/svg/twitter.svg';
 import facebook from '@/assets/svg/facebook.svg';
 import instagram from '@/assets/svg/instagram.svg';
+import tumblr from '@/assets/svg/tumblr.svg';
 import heart from '@/assets/svg/heart.svg';
+
+// components & modals
+import { mapState } from '@/libs/store';
 import buyGemsModal from './payments/buyGemsModal.vue';
 import reportBug from '@/mixins/reportBug.js';
 
@@ -499,6 +547,7 @@ export default {
         twitter,
         facebook,
         instagram,
+        tumblr,
         heart,
       }),
       debugMenuShown: false,
