@@ -673,7 +673,7 @@
     "backgroundOrangeGroveNotes": "漫步在芬芳的橙树林中。",
     "backgroundWinterWaterfallText": "冬季瀑布",
     "backgrounds022022": "第93组：2022年2月推出",
-    "backgrounds032022": "第94组：2022年5月推出",
+    "backgrounds032022": "第94组：2022年3月推出",
     "backgroundAnimalsDenText": "林地的动物巢穴",
     "backgroundAnimalsDenNotes": "舒适的蜷缩在林地的动物巢穴中。",
     "backgroundBrickWallWithIvyText": "布满常春藤的砖墙",
@@ -688,5 +688,6 @@
     "backgroundBlossomingTreesText": "开着鲜花的大树",
     "backgroundBlossomingTreesNotes": "在开着鲜花的大树下嬉戏玩闹。",
     "backgroundIridescentCloudsText": "彩虹之云",
-    "backgroundIridescentCloudsNotes": "漂浮在彩虹之云中。"
+    "backgroundIridescentCloudsNotes": "漂浮在彩虹之云中。",
+    "hideLockedBackgrounds": "隐藏未解锁的背景"
 }
