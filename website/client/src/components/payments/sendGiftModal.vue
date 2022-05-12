@@ -88,7 +88,7 @@
           <div class="d-flex flex-row align-items-center justify-content-center">
             <div
               class="gray-circle"
-              @click="gift.gems.amount <= 0 ? 0 : gift.gems.amount--"
+              @click="gift.gems.amount <= 0 ? gift.gems.amount = 0 : gift.gems.amount--"
             >
               <div
                 class="icon-negative"
