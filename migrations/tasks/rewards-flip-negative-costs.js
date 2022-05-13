@@ -37,7 +37,7 @@ async function flipNegativeCostsValues () {
 
     const promises = rewards.map(reward => {
       const positiveValue = Math.abs(reward.value);
-      return Task.update({ _id: reward._id }, { $set: { value: positiveValue } }).exec();
+      return Task.updateOne({ _id: reward._id }, { $set: { value: positiveValue } }).exec();
     });
 
     // eslint-disable-next-line no-await-in-loop

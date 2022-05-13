@@ -79,7 +79,7 @@ function updateUser (user) {
     };
   }
 
-  dbUsers.update({
+  dbUsers.updateOne({
     _id: user._id,
   }, update);
 

@@ -52,7 +52,7 @@ async function processUsers () {
       if (user.tasksOrder.dailys.length > 0) tasksIds = tasksIds.concat(user.tasksOrder.dailys);
       if (user.tasksOrder.habits.length > 0) tasksIds = tasksIds.concat(user.tasksOrder.habits);
 
-      const userPromise = usersTest.update({ _id: user._id }, user, { upsert: true });
+      const userPromise = usersTest.updateOne({ _id: user._id }, user, { upsert: true });
       userPromises.push(userPromise);
     }).then(() => Promise.all(userPromises))
     .then(() => {

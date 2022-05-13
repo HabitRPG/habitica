@@ -107,7 +107,7 @@ function updateHabit (habit, timezoneOffset, dayStart) {
       })
       .value();
 
-    return dbTasks.update({ _id: habit._id }, {
+    return dbTasks.updateOne({ _id: habit._id }, {
       $set: { history: habit.history },
     });
   }
@@ -129,7 +129,7 @@ function updateUser (user) {
     userId: user._id,
   })
     .then(habits => Promise.all(habits.map(habit => updateHabit(habit, timezoneOffset, dayStart))))
-    .then(() => dbUsers.update({ _id: user._id }, {
+    .then(() => dbUsers.updateOne({ _id: user._id }, {
       $set: { migration: migrationName },
     }))
     .catch(err => {

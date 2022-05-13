@@ -79,7 +79,7 @@ switch (OP) {
         cancel_url: 'https://habitica.com',
       },
     };
-    paypal.billingPlan.update(nconf.get('PAYPAL_BILLING_PLANS_basic_12mo'), updatePayload, (err, res) => {
+    paypal.billingPlan.updateOne(nconf.get('PAYPAL_BILLING_PLANS_basic_12mo'), updatePayload, (err, res) => {
       console.log({ err, plan: res });
     });
     break;
@@ -100,7 +100,7 @@ switch (OP) {
       }];
 
       // Activate the plan by changing status to Active
-      paypal.billingPlan.update(plan.id, billingPlanUpdateAttributes, (err2, response) => {
+      paypal.billingPlan.updateOne(plan.id, billingPlanUpdateAttributes, (err2, response) => {
         console.log({ err: err2, response, id: plan.id });
       });
 

@@ -24,7 +24,7 @@ export default async function accountTransfer () {
   const newPets = { ...fromAccount.items.pets, ...toAccount.items.pets };
   const newBackgrounds = { ...fromAccount.purchased.background, ...toAccount.purchased.background };
 
-  await Users.update({ _id: toAccountId }, {
+  await Users.updateOne({ _id: toAccountId }, {
     $set: {
       'items.pets': newPets,
       'items.mounts': newMounts,

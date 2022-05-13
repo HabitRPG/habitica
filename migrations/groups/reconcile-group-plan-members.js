@@ -67,7 +67,7 @@ async function fixGroupPlanMembers () {
 
     console.info(`${group._id}, ${group.purchased.plan.customerId}, ${group.purchased.plan.planId}, ${group.purchased.plan.quantity}, ${group.memberCount}, ${canonicalMemberCount}`);
 
-    const groupUpdate = await dbGroups.update(
+    const groupUpdate = await dbGroups.updateOne(
       { _id: group._id },
       {
         $set: {
@@ -81,14 +81,14 @@ async function fixGroupPlanMembers () {
     fixedGroupCount += 1;
     if (group.purchased.plan.paymentMethod === 'Stripe') {
       await stripePayments.chargeForAdditionalGroupMember(group);
-      await dbGroups.update(
+      await dbGroups.updateOne(
         { _id: group._id },
         { $set: { 'purchased.plan.quantity': canonicalMemberCount + 2 } },
       );
     }
 
     if (incorrectQuantity) {
-      await dbGroups.update(
+      await dbGroups.updateOne(
         { _id: group._id },
         { $set: { 'purchased.plan.quantity': canonicalMemberCount + 2 } },
       );

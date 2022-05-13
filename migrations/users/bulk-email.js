@@ -25,7 +25,7 @@ async function updateUser (user) {
     [{ name: 'BASE_URL', content: BASE_URL }], // Add variables from template
   );
 
-  return User.update({ _id: user._id }, { $set: { migration: MIGRATION_NAME } }).exec();
+  return User.updateOne({ _id: user._id }, { $set: { migration: MIGRATION_NAME } }).exec();
 }
 
 export default async function processUsers () {

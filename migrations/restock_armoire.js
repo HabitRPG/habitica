@@ -62,7 +62,7 @@ function updateUser (user) {
 
   const set = { migration: migrationName, 'flags.armoireEmpty': false };
 
-  dbUsers.update({ _id: user._id }, { $set: set });
+  dbUsers.updateOne({ _id: user._id }, { $set: set });
 
   if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
   if (user._id === authorUuid) console.warn(`${authorName} processed`);

@@ -66,7 +66,7 @@ async function updateUser (user) {
       migration: MIGRATION_NAME,
       tags: user.tags,
     };
-    return User.update({ _id: user._id }, { $set: set }).exec();
+    return User.updateOne({ _id: user._id }, { $set: set }).exec();
   }
 
   return null;

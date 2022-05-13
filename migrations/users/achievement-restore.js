@@ -83,7 +83,7 @@ export default async function achievementRestore () {
     const oldUser = await UsersOld.findOne({ _id: userId }, 'achievements');
     const newUser = await Users.findOne({ _id: userId }, 'achievements');
     const achievementUpdate = getAchievementUpdate(newUser, oldUser);
-    await Users.update(
+    await Users.updateOne(
       { _id: userId },
       {
         $set: {

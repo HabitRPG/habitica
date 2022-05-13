@@ -41,7 +41,7 @@ function updatetask (task) {
   count += 1;
   const set = { yesterDaily: true };
 
-  dbTasks.update({ _id: task._id }, { $set: set });
+  dbTasks.updateOne({ _id: task._id }, { $set: set });
 
   if (count % progressCount === 0) console.warn(`${count} ${task._id}`);
   if (task._id === authorUuid) console.warn(`${authorName} processed`);

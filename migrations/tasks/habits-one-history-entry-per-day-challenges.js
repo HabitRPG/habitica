@@ -106,7 +106,7 @@ function updateChallengeHabit (habit) {
       })
       .value();
 
-    return dbTasks.update({ _id: habit._id }, {
+    return dbTasks.updateOne({ _id: habit._id }, {
       $set: { history: habit.history },
     });
   }

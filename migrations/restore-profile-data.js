@@ -87,7 +87,7 @@ function updateUser (user) {
 
         if (Object.keys(set).length !== 0 && set.constructor === Object) {
           console.log(set);
-          return dbUsers.update({ _id: user._id }, { $set: set });
+          return dbUsers.updateOne({ _id: user._id }, { $set: set });
         }
 
         return null;

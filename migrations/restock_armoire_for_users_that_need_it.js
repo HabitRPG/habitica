@@ -142,7 +142,7 @@ function updateUser (user) {
     // console.log("don't change: " + user._id); // FOR TESTING
     } else {
       // console.log("change: " + user._id); // FOR TESTING
-      dbUsers.update({ _id: user._id }, { $set: set });
+      dbUsers.updateOne({ _id: user._id }, { $set: set });
     }
   } else {
     // this user already has armoire marked as containing items to be bought

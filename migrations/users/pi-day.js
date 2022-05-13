@@ -43,11 +43,12 @@ async function updateUser (user) {
 
   if (push) {
     return User
-      .update({ _id: user._id }, { $inc: inc, $set: set, $push: { pinnedItems: { $each: push } } })
+      .updateOne({ _id: user._id },
+        { $inc: inc, $set: set, $push: { pinnedItems: { $each: push } } })
       .exec();
   }
   return User
-    .update({ _id: user._id }, { $inc: inc, $set: set })
+    .updateOne({ _id: user._id }, { $inc: inc, $set: set })
     .exec();
 }
 
