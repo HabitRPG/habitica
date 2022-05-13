@@ -28,7 +28,7 @@ export class BuyMarketGearOperation extends AbstractGoldItemOperation { // eslin
     const checkSpecialClass = item.klass === 'special' && item.specialClass && item.specialClass !== user.stats.class;
 
     // check for different class gear
-    if (checkKlass || checkSpecialClass) {
+    if ((checkKlass || checkSpecialClass) && user.items.gear.owned[item.key] !== false) {
       throw new NotAuthorized(this.i18n('cannotBuyItem'));
     }
   }
