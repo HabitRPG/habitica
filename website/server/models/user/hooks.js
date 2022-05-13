@@ -38,6 +38,12 @@ schema.plugin(baseModel, {
       plainObj.flags.newStuff = originalDoc.checkNewStuff();
     }
 
+    if (plainObj.auth && plainObj.auth.local && originalDoc.auth.local.hashed_password) {
+      plainObj.auth.local.has_password = true;
+    } else if (plainObj.auth && plainObj.auth.local && originalDoc.auth.local.email) {
+      plainObj.auth.local.has_password = false;
+    }
+
     return plainObj;
   },
 });
@@ -144,10 +150,21 @@ function _setUpNewUser (user) {
   user.items.quests.dustbunnies = 1;
   user.purchased.background.violet = true;
   user.preferences.background = 'violet';
-  if (moment().isBefore('2022-02-02T20:00-05:00')) {
-    user.migration = '20220131_habit_birthday';
-    user.items.gear.owned.armor_special_birthday = true;
-    user.items.gear.equipped.armor = 'armor_special_birthday';
+  if (moment().isBefore('2022-03-15T20:00-04:00')) {
+    user.items.gear.owned.head_special_piDay = true;
+    user.items.gear.equipped.head = 'head_special_piDay';
+    user.items.gear.owned.shield_special_piDay = true;
+    user.items.gear.equipped.shield = 'shield_special_piDay';
+    user.items.food.Pie_Skeleton = 1;
+    user.items.food.Pie_Base = 1;
+    user.items.food.Pie_CottonCandyBlue = 1;
+    user.items.food.Pie_CottonCandyPink = 1;
+    user.items.food.Pie_Shade = 1;
+    user.items.food.Pie_White = 1;
+    user.items.food.Pie_Golden = 1;
+    user.items.food.Pie_Zombie = 1;
+    user.items.food.Pie_Desert = 1;
+    user.items.food.Pie_Red = 1;
   }
 
   user.markModified('items achievements');
@@ -241,7 +258,13 @@ schema.pre('save', true, function preSaveUser (next, done) {
       && this.achievements.beastMaster !== true
     ) {
       this.achievements.beastMaster = true;
-      this.addNotification('ACHIEVEMENT_BEAST_MASTER');
+      this.addNotification(
+        'ACHIEVEMENT_STABLE',
+        {
+          achievement: 'beastMaster',
+          achievementNotification: 'beastAchievement',
+        },
+      );
     }
 
     // Determines if Mount Master should be awarded
@@ -252,7 +275,13 @@ schema.pre('save', true, function preSaveUser (next, done) {
       && this.achievements.mountMaster !== true
     ) {
       this.achievements.mountMaster = true;
-      this.addNotification('ACHIEVEMENT_MOUNT_MASTER');
+      this.addNotification(
+        'ACHIEVEMENT_STABLE',
+        {
+          achievement: 'mountMaster',
+          achievementNotification: 'mountAchievement',
+        },
+      );
     }
 
     // Determines if Triad Bingo should be awarded
@@ -264,7 +293,13 @@ schema.pre('save', true, function preSaveUser (next, done) {
       && this.achievements.triadBingo !== true
     ) {
       this.achievements.triadBingo = true;
-      this.addNotification('ACHIEVEMENT_TRIAD_BINGO');
+      this.addNotification(
+        'ACHIEVEMENT_STABLE',
+        {
+          achievement: 'triadBingo',
+          achievementNotification: 'triadBingoAchievement',
+        },
+      );
     }
 
     // EXAMPLE CODE for allowing all existing and new players to be

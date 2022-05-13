@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Imajte na umu da vaše ime za prikaz, fotografija profila i prikaz moraju biti u skladu s <a href='https://habitica.com/static/community-guidelines' target='_blank'> Smjernicama zajednice </a> ( npr. bez psovki, bez tema za odrasle, bez vrijeđanja itd.). Ako imate bilo kakvih pitanja o tome je li nešto prikladno ili ne, slobodno pišite na <% = hrefBlankCommunityManagerEmail%>!",
+    "communityGuidelinesWarning": "Imajte na umu da vaše ime za prikaz, fotografija profila i prikaz moraju biti u skladu s <a href='https://habitica.com/static/community-guidelines' target='_blank'> Smjernicama zajednice </a> ( npr. bez psovki, bez tema za odrasle, bez vrijeđanja itd.). Ako imate bilo kakvih pitanja o tome je li nešto prikladno ili ne, slobodno pišite na <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "Profil",
     "avatar": "Prilagodi avatar",
     "editAvatar": "Uredi avatar",

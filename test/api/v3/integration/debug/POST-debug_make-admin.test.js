@@ -3,7 +3,7 @@ import {
   generateUser,
 } from '../../../../helpers/api-integration/v3';
 
-describe('POST /debug/make-admin (pended for v3 prod testing)', () => {
+describe('POST /debug/make-admin', () => {
   let user;
 
   before(async () => {
@@ -14,12 +14,12 @@ describe('POST /debug/make-admin (pended for v3 prod testing)', () => {
     nconf.set('IS_PROD', false);
   });
 
-  it('makes user an admine', async () => {
+  it('makes user an admin', async () => {
     await user.post('/debug/make-admin');
 
     await user.sync();
 
-    expect(user.contributor.admin).to.eql(true);
+    expect(user.permissions.fullAccess).to.eql(true);
   });
 
   it('returns error when not in production mode', async () => {

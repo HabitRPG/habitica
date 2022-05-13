@@ -634,7 +634,7 @@ describe('User Model', () => {
       user = await user.save();
       // verify that it's been awarded
       expect(user.achievements.beastMaster).to.equal(true);
-      expect(user.notifications.find(notification => notification.type === 'ACHIEVEMENT_BEAST_MASTER')).to.exist;
+      expect(user.notifications.find(notification => notification.type === 'ACHIEVEMENT_STABLE')).to.exist;
 
       // reset the user
       user.achievements.beastMasterCount = 0;
@@ -683,9 +683,9 @@ describe('User Model', () => {
 
       user = await user.save();
       // verify that it's been awarded
-      expect(user.notifications.find(notification => notification.type === 'ACHIEVEMENT_BEAST_MASTER')).to.exist;
-      expect(user.notifications.find(notification => notification.type === 'ACHIEVEMENT_MOUNT_MASTER')).to.exist;
-      expect(user.notifications.find(notification => notification.type === 'ACHIEVEMENT_TRIAD_BINGO')).to.exist;
+      expect(user.notifications.find(
+        notification => notification.type === 'ACHIEVEMENT_STABLE',
+      )).to.exist;
     });
 
     context('manage unallocated stats points notifications', () => {
@@ -811,6 +811,16 @@ describe('User Model', () => {
       expect(daysMissed).to.eql(5);
     });
 
+    it('correctly handles a cron that did not complete', () => {
+      const now = moment();
+      user.lastCron = moment(now).subtract(2, 'days');
+      user.auth.timestamps.loggedIn = moment(now).subtract(5, 'days');
+
+      const { daysMissed } = user.daysUserHasMissed(now);
+
+      expect(daysMissed).to.eql(5);
+    });
+
     it('uses timezone from preferences to calculate days missed', () => {
       const now = moment('2017-07-08 01:00:00Z');
       user.lastCron = moment('2017-07-04 13:00:00Z');
@@ -867,7 +877,7 @@ describe('User Model', () => {
 
     expect(user.isNewsPoster()).to.equal(false);
 
-    user.contributor.newsPoster = true;
+    user.permissions = { news: true };
     expect(user.isNewsPoster()).to.equal(true);
   });
 

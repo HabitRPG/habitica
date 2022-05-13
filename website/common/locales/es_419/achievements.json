@@ -30,7 +30,7 @@
     "earnedAchievement": "¡Has conseguido un logro!",
     "viewAchievements": "Ver los Logros",
     "letsGetStarted": "¡Comencemos!",
-    "onboardingProgress": "<%= Porcentaje%>% de progreso",
+    "onboardingProgress": "<%= percentage %>% de progreso",
     "gettingStartedDesc": "¡Completa estas tareas de integración y conseguirás <strong>5 logros</strong> y <strong class=\"gold-amount\">100 Oro</strong> en cuanto acabes!",
     "achievementCompletedTaskText": "Completó su primera tarea.",
     "achievementCompletedTask": "Completa una tarea",
@@ -116,5 +116,18 @@
     "achievementVioletsAreBlueModalText": "¡Lograste obtener todas las mascotas de algodón de azúcar azul!",
     "achievementVioletsAreBlueText": "Ha obtenido todas las mascotas de algodón de azúcar azul.",
     "achievementDomesticatedText": "¡Has eclosionado todos los colores base de mascotas domesticas: hurón, cobaya, gallo, cerdo volador, ratón, conejo, caballo y vaca!",
-    "achievementDomesticatedModalText": "¡Has eclosionado todas las mascotas domésticas!"
+    "achievementDomesticatedModalText": "¡Has eclosionado todas las mascotas domésticas!",
+    "achievementDomesticated": "I-A-I-A-O",
+    "achievementBirdsOfAFeather": "Aves de Pluma",
+    "achievementBirdsOfAFeatherText": "Has eclosionado todas las mascotas voladoras: Cerdo Volador, Búho, Loro, Pterodáctilo, Grifo, Halcón, Pavo Real y Gallo.",
+    "achievementZodiacZookeeper": "Cuidador del Zodíaco",
+    "achievementZodiacZookeeperModalText": "¡Has conseguido todas las mascotas del zodíaco!",
+    "achievementBirdsOfAFeatherModalText": "¡Has conseguido todas las mascotas voladoras!",
+    "achievementShadeOfItAll": "La sombra de todo ello",
+    "achievementShadeOfItAllText": "Ha domado todas las monturas sombrías.",
+    "achievementShadyCustomer": "Cliente sombrío",
+    "achievementShadyCustomerText": "Ha conseguido todas las mascotas sombrías.",
+    "achievementShadyCustomerModalText": "¡Has conseguido todas las mascotas sombrías!",
+    "achievementShadeOfItAllModalText": "¡Has domado todas las monturas sombrías!",
+    "achievementZodiacZookeeperText": "¡Has eclosionado todas las mascotas del zodíaco de color básico: Rata, Vaca, Conejo, Serpiente, Caballo, Oveja, Mono, Gallo, Lobo, Tigre, Cerdo Volador y Dragón!"
 }

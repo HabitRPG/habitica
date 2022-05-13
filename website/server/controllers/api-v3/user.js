@@ -22,7 +22,6 @@ import {
 } from '../../libs/email';
 import * as inboxLib from '../../libs/inbox';
 import * as userLib from '../../libs/user';
-import logger from '../../libs/logger';
 
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS_TECH_ASSISTANCE_EMAIL');
 const DELETE_CONFIRMATION = 'DELETE';
@@ -383,6 +382,7 @@ api.getUserAnonymized = {
     delete user.achievements.challenges;
     delete user.notifications;
     delete user.secret;
+    delete user.permissions;
 
     _.forEach(user.inbox.messages, msg => {
       msg.text = 'inbox message text';
@@ -1014,7 +1014,6 @@ api.purchase = {
     if (req.body.quantity) quantity = req.body.quantity;
     req.quantity = quantity;
 
-    logger.info('AAAAHHHHHH');
     const purchaseRes = await common.ops.buy(user, req, res.analytics);
     await user.save();
     res.respond(200, ...purchaseRes);

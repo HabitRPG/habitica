@@ -9,7 +9,22 @@ const ANIMAL_SET_ACHIEVEMENTS = {
       'Unicorn',
     ],
     achievementKey: 'legendaryBestiary',
-    notificationType: 'ACHIEVEMENT_LEGENDARY_BESTIARY',
+    notificationType: 'ACHIEVEMENT_ANIMAL_SET',
+  },
+  birdsOfAFeather: {
+    type: 'pet',
+    species: [
+      'FlyingPig',
+      'Owl',
+      'Parrot',
+      'Pterodactyl',
+      'Gryphon',
+      'Falcon',
+      'Rooster',
+      'Peacock',
+    ],
+    achievementKey: 'birdsOfAFeather',
+    notificationType: 'ACHIEVEMENT_ANIMAL_SET',
   },
   domesticated: {
     type: 'pet',
@@ -24,7 +39,7 @@ const ANIMAL_SET_ACHIEVEMENTS = {
       'Cow',
     ],
     achievementKey: 'domesticated',
-    notificationType: 'ACHIEVEMENT_DOMESTICATED',
+    notificationType: 'ACHIEVEMENT_ANIMAL_SET',
   },
   zodiacZookeeper: {
     type: 'pet',
@@ -38,12 +53,12 @@ const ANIMAL_SET_ACHIEVEMENTS = {
       'Monkey',
       'Rooster',
       'Wolf',
-      'TigerCub',
+      'Tiger',
       'FlyingPig',
       'Dragon',
     ],
     achievementKey: 'zodiacZookeeper',
-    notificationType: 'ACHIEVEMENT_ZODIAC_ZOOKEEPER',
+    notificationType: 'ACHIEVEMENT_ANIMAL_SET',
   },
 };
 

@@ -19,27 +19,6 @@
           ></div>
         </div>
       </div>
-      <div
-        class="form-group row text-center"
-        v-if="!registering"
-      >
-        <div class="col-12 col-md-12">
-          <div
-            class="btn btn-secondary social-button"
-            @click="socialAuth('facebook')"
-          >
-            <div
-              class="svg-icon social-icon"
-              v-html="icons.facebookIcon"
-            ></div>
-            <div
-              class="text"
-            >
-              {{ $t('loginWithSocial', {social: 'Facebook'}) }}
-            </div>
-          </div>
-        </div>
-      </div>
       <div class="form-group row text-center">
         <div class="col-12 col-md-12">
           <div
@@ -269,13 +248,13 @@
         <label
           v-once
           for="usernameInput"
-        >{{ $t('email') }}</label>
+        >{{ $t('emailOrUsername') }}</label>
         <input
           id="usernameInput"
           v-model="username"
           class="form-control"
           type="text"
-          :placeholder="$t('emailPlaceholder')"
+          :placeholder="$t('emailUsernamePlaceholder')"
         >
       </div>
       <div class="text-center">

@@ -7,9 +7,9 @@
   >
     <div class="modal-body">
       <br>
-      <strong v-if="user.auth.local.email">{{ $t('deleteLocalAccountText') }}</strong>
+      <strong v-if="user.auth.local.has_password">{{ $t('deleteLocalAccountText') }}</strong>
       <strong
-        v-if="!user.auth.local.email"
+        v-if="!user.auth.local.has_password"
       >{{ $t('deleteSocialAccountText', {magicWord: 'DELETE'}) }}</strong>
       <div class="row mt-3">
         <div class="col-6">

@@ -118,5 +118,8 @@
     "welcome3": "تقدم في الحياة واللعبة!",
     "welcome3notes": "As you improve your life, your avatar will level up and unlock pets, quests, equipment, and more!",
     "imReady": "ادخل Habitica",
-    "limitedOffer": "Available until <%= date %>"
+    "limitedOffer": "Available until <%= date %>",
+    "nGemsGift": "<%= nGems %> الماس (هدية)",
+    "amountExp": "<%= amount %> خبرة",
+    "nGems": "<%= nGems %> الماس"
 }

@@ -12,6 +12,7 @@ import {
   QUEST_SERIES_ACHIEVEMENTS,
   ANIMAL_COLOR_ACHIEVEMENTS,
   ANIMAL_SET_ACHIEVEMENTS,
+  STABLE_ACHIEVEMENTS,
 } from './constants';
 
 import achievements from './achievements';
@@ -20,11 +21,7 @@ import * as eggs from './eggs';
 import * as hatchingPotions from './hatching-potions';
 import * as stable from './stable';
 import gear from './gear';
-import {
-  quests,
-  questsByLevel,
-  userCanOwnQuestCategories,
-} from './quests';
+import { quests, questsByLevel, userCanOwnQuestCategories } from './quests';
 
 import appearances from './appearance';
 import { backgroundsTree, backgroundsFlat } from './appearance/backgrounds';
@@ -45,6 +42,7 @@ api.achievements = achievements;
 api.questSeriesAchievements = QUEST_SERIES_ACHIEVEMENTS;
 api.animalColorAchievements = ANIMAL_COLOR_ACHIEVEMENTS;
 api.animalSetAchievements = ANIMAL_SET_ACHIEVEMENTS;
+api.stableAchievements = STABLE_ACHIEVEMENTS;
 
 api.quests = quests;
 api.questsByLevel = questsByLevel;
@@ -57,7 +55,23 @@ api.spells = spells;
 api.subscriptionBlocks = subscriptionBlocks;
 api.gems = gemsBlock;
 
-api.audioThemes = ['danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme', 'rosstavoTheme', 'dewinTheme', 'airuTheme', 'beatscribeNesTheme', 'arashiTheme', 'maflTheme', 'pizildenTheme', 'farvoidTheme', 'spacePenguinTheme', 'lunasolTheme', 'triumphTheme'];
+api.audioThemes = [
+  'danielTheBard',
+  'gokulTheme',
+  'luneFoxTheme',
+  'wattsTheme',
+  'rosstavoTheme',
+  'dewinTheme',
+  'airuTheme',
+  'beatscribeNesTheme',
+  'arashiTheme',
+  'maflTheme',
+  'pizildenTheme',
+  'farvoidTheme',
+  'spacePenguinTheme',
+  'lunasolTheme',
+  'triumphTheme',
+];
 
 api.mystery = timeTravelers.mystery;
 api.timeTravelerStore = timeTravelers.timeTravelerStore;
@@ -121,7 +135,7 @@ api.cardTypes = {
   valentine: {
     key: 'valentine',
     messageOptions: 4,
-    yearRound: moment().isBefore('2021-02-28T20:00-05:00'),
+    yearRound: moment().isBefore('2022-02-18T20:00-05:00'),
   },
   birthday: {
     key: 'birthday',
@@ -632,7 +646,8 @@ api.userDefaults = {
         t('defaultTag4'), // School
         t('defaultTag6'), // Chores
       ],
-    }, {
+    },
+    {
       type: 'habit',
       text: t('defaultHabit2Text'),
       value: 0,
@@ -642,7 +657,8 @@ api.userDefaults = {
       tags: [
         t('defaultTag3'), // Health + Wellness
       ],
-    }, {
+    },
+    {
       type: 'habit',
       text: t('defaultHabit3Text'),
       value: 0,
@@ -675,17 +691,23 @@ api.userDefaults = {
   tags: [
     {
       name: t('defaultTag1'),
-    }, {
+    },
+    {
       name: t('defaultTag2'),
-    }, {
+    },
+    {
       name: t('defaultTag3'),
-    }, {
+    },
+    {
       name: t('defaultTag4'),
-    }, {
+    },
+    {
       name: t('defaultTag5'),
-    }, {
+    },
+    {
       name: t('defaultTag6'),
-    }, {
+    },
+    {
       name: t('defaultTag7'),
     },
   ],

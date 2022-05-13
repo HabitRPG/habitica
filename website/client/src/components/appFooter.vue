@@ -84,8 +84,8 @@
             </li>
             <li v-if="user">
               <a
-                @click.prevent="openBugReportModal()"
                 target="_blank"
+                @click.prevent="openBugReportModal()"
               >
                 {{ $t('reportBug') }}
               </a>
@@ -224,7 +224,7 @@
       </div>
       <div class="row">
         <div class="col-12 col-md-5 text-center text-md-left">
-          © 2021 Habitica. All rights reserved.
+          © {{ currentYear }} Habitica. All rights reserved.
           <div
             v-if="!IS_PRODUCTION && isUserLoaded"
             class="debug float-left"
@@ -512,6 +512,10 @@ export default {
       if (!this.user) return null;
       return `${base}?uuid=${this.user._id}`;
     },
+    currentYear () {
+      const currentDate = new Date();
+      return currentDate.getFullYear();
+    },
   },
   methods: {
     plusTenHealth () {
@@ -585,7 +589,7 @@ export default {
     async makeAdmin () {
       await axios.post('/api/v4/debug/make-admin');
       // @TODO: Notification.text('You are now an admin!
-      // Go to the Hall of Heroes to change your contributor level.');
+      // Reload the website then go to Help > Admin Panel to set contributor level, etc.');
       // @TODO: sync()
     },
     openModifyInventoryModal () {

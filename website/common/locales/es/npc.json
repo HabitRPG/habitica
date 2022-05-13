@@ -130,5 +130,6 @@
     "limitedAvailabilityDays": "Disponible por <%= days %>d <%= hours %>h <%= minutes %>m",
     "limitedAvailabilityMinutes": "Disponible por <%= minutes %>m <%= seconds %>s",
     "limitedAvailabilityHours": "Disponible por <%= hours %>h <%= minutes %>m",
-    "amountExp": "<%= amount %> Exp"
+    "amountExp": "<%= amount %> Exp",
+    "newStuffPostedOn": "Publicado el <%= publishDate %>, <%= publishTime %>"
 }

@@ -7,7 +7,7 @@ import { setup as setupPayments } from '@/libs/payments';
 
 setupPayments();
 
-storiesOf('Payments Buttons', module)
+storiesOf('Subscriptions/Payments Buttons', module)
   .add('simple', () => ({
     components: { PaymentsButtonsList },
     template: `

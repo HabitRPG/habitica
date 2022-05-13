@@ -38,7 +38,7 @@
         {{ $t('subscription') }}
       </router-link>
       <router-link
-        v-if="user.contributor.admin"
+        v-if="hasPermission(user, 'userSupport')"
         class="nav-link"
         :to="{name: 'transactions'}"
         :class="{'active': $route.name === 'transactions'}"
@@ -123,11 +123,13 @@ import find from 'lodash/find';
 import { mapState } from '@/libs/store';
 import SecondaryMenu from '@/components/secondaryMenu';
 import gifts from '@/assets/svg/gifts-vertical.svg';
+import { userStateMixin } from '../../mixins/userState';
 
 export default {
   components: {
     SecondaryMenu,
   },
+  mixins: [userStateMixin],
   data () {
     return {
       icons: Object.freeze({
@@ -138,7 +140,6 @@ export default {
   computed: {
     ...mapState({
       currentEventList: 'worldState.data.currentEventList',
-      user: 'user.data',
     }),
     currentEvent () {
       return find(this.currentEventList, event => Boolean(event.promo));

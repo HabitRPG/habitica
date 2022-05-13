@@ -175,8 +175,9 @@
     "goToSettings": "Go to Settings",
     "usernameVerifiedConfirmation": "Your username, <%= username %>, is confirmed!",
     "usernameNotVerified": "Please confirm your username.",
-    "changeUsernameDisclaimer": "Detta användarnamn kommer användas för inbjudningar, @omnämnanden i chatten, och meddelanden.",
+    "changeUsernameDisclaimer": "Ditt användarnamn används för inbjudningar, @omnämnanden i chatten och meddelanden. Det måste vara mellan 1 och 20 tecken, kan bara innehålla bokstäver från A-Z, nummer från 0-9, bindestreck och understreck, och kan inte innehålla olämpligt språk.",
     "verifyUsernameVeteranPet": "One of these Veteran Pets will be waiting for you after you've finished confirming!",
     "subscriptionReminders": "Prenumeration Påminnelser",
-    "newPMNotificationTitle": "Nytt Meddelande från <%= namn %>"
+    "newPMNotificationTitle": "Nytt Meddelande från <%= namn %>",
+    "resetAccount": "Återställ konto"
 }

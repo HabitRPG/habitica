@@ -9,13 +9,24 @@ import isFreeRebirth from './isFreeRebirth';
 import getOfficialPinnedItems from './getOfficialPinnedItems';
 
 function lockQuest (quest, user) {
-  if (quest.key === 'lostMasterclasser1') return !(user.achievements.quests.dilatoryDistress3 && user.achievements.quests.mayhemMistiflying3 && user.achievements.quests.stoikalmCalamity3 && user.achievements.quests.taskwoodsTerror3);
-  if (quest.lvl && user.stats.lvl < quest.lvl) return true;
-  if (quest.unlockCondition && (quest.key === 'moon1' || quest.key === 'moon2' || quest.key === 'moon3')) {
-    return user.loginIncentives < quest.unlockCondition.incentiveThreshold;
+  // checks series quests, including Masterclasser
+  if (quest.prereqQuests) {
+    if (!user.achievements.quests) return true;
+    for (const prereq of quest.prereqQuests) {
+      if (!user.achievements.quests[prereq]) return true;
+    }
   }
-  if (user.achievements.quests) return quest.previous && !user.achievements.quests[quest.previous];
-  return quest.previous;
+  // checks quest & user level against quest level
+  if (quest.lvl && user.stats.lvl < quest.lvl) return true;
+
+  // checks unlockCondition.incentiveThreshold for Lunar Battle
+  if (
+    quest.unlockCondition
+    && quest.unlockCondition.incentiveThreshold
+    && user.loginIncentives < quest.unlockCondition.incentiveThreshold
+  ) return true;
+  // // then if we've passed all the checks
+  return false;
 }
 
 function isItemSuggested (officialPinnedItems, itemInfo) {

@@ -13,7 +13,7 @@
     "companyDonate": "Faire un don",
     "forgotPassword": "Mot de passe oublié ?",
     "emailNewPass": "Envoyer un lien de réinitialisation par courriel",
-    "forgotPasswordSteps": "Entrez l'adresse courriel que vous avez utilisée pour créer votre compte Habitica.",
+    "forgotPasswordSteps": "Entrez votre identifiant ou l'adresse courriel que vous avez utilisée pour créer votre compte Habitica.",
     "sendLink": "Envoyer le lien",
     "featuredIn": "Présenté dans",
     "footerDevs": "Développeurs",
@@ -129,7 +129,7 @@
     "passwordConfirmationMatch": "La confirmation du mot de passe ne correspond pas au mot de passe.",
     "invalidLoginCredentials": "Identifiant, courriel ou mot de passe incorrect.",
     "passwordResetPage": "Réinitialiser le mot de passe",
-    "passwordReset": "Si nous avons votre courriel dans nos fichiers, un nouveau mot de passe vous a été envoyé.",
+    "passwordReset": "Si nous avons votre courriel ou votre identifiant dans nos fichiers, un nouveau mot de passe vous a été envoyé.",
     "passwordResetEmailSubject": "Mot de passe réinitialisé pour Habitica",
     "passwordResetEmailText": "Si vous avez demandé une réinitialisation de mot de passe pour <%= username %> sur Habitica, rendez-vous sur <%= passwordResetLink %> pour en définir un nouveau. Le lien expirera après 24 heures. Si vous n'avez pas demandé de réinitialisation, vous pouvez ignorer ce courriel.",
     "passwordResetEmailHtml": "Si vous avez demandé une réinitialisation de mot de passe pour <strong><%= username %></strong> sur Habitica, rendez-vous sur <a href=\"<%= passwordResetLink %>\"> ce lien</a> pour en définir un nouveau. Le lien expirera après 24 heures.<br/><br>Si vous n'avez pas demandé de réinitialisation, vous pouvez ignorer ce courriel.",
@@ -150,7 +150,7 @@
     "confirmPassword": "Confirmer le mot de passe",
     "usernameLimitations": "L'identifiant doit faire de 1 à 20 caractères, contenir des lettres de a à z, des chiffres de 0 à 9, des traits d'union et/ou des tirets bas, et ne peut contenir de mot grossier.",
     "usernamePlaceholder": "par exemple Wasabitica",
-    "emailPlaceholder": "par exemple wasabi@exemple.com",
+    "emailPlaceholder": "par exemple gryphon@exemple.com",
     "passwordPlaceholder": "par exemple ******************",
     "confirmPasswordPlaceholder": "Assurez-vous qu'il s'agit du même mot de passe !",
     "joinHabitica": "Rejoindre Habitica",
@@ -186,5 +186,6 @@
     "communityInstagram": "Instagram",
     "minPasswordLength": "Le mot de passe doit faire au moins 8 caractères.",
     "enterHabitica": "Entrez dans Habitica",
-    "socialAlreadyExists": "Cet identifiant social est déjà lié à un compte Habitica existant."
+    "socialAlreadyExists": "Cet identifiant social est déjà lié à un compte Habitica existant.",
+    "emailUsernamePlaceholder": "par exemple habitrabbit ou gryphon@example.com"
 }

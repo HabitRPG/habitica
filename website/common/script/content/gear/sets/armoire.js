@@ -383,6 +383,19 @@ const armor = {
     con: 10,
     set: 'shootingStar',
   },
+  softVioletSuit: {
+    con: 7,
+    str: 7,
+    set: 'violetLoungewear',
+  },
+  gardenersOveralls: {
+    con: 7,
+    set: 'gardenerSet',
+  },
+  strawRaincoat: {
+    con: 9,
+    set: 'strawRaincoat',
+  },
 };
 
 const body = {
@@ -437,6 +450,7 @@ const head = {
     per: 5,
     int: 5,
     con: 5,
+    set: 'violetLoungewear',
   },
   gladiatorHelm: {
     notes: t('headArmoireGladiatorHelmNotes', { per: 7, int: 7 }),
@@ -781,6 +795,14 @@ const head = {
     per: 10,
     set: 'shootingStar',
   },
+  gardenersSunHat: {
+    per: 7,
+    set: 'gardenerSet',
+  },
+  strawRainHat: {
+    per: 9,
+    set: 'strawRaincoat',
+  },
 };
 
 const shield = {
@@ -1045,6 +1067,24 @@ const shield = {
     int: 5,
     per: 5,
     set: 'blackLoungewear',
+  },
+  softVioletPillow: {
+    int: 10,
+    set: 'violetLoungewear',
+  },
+  gardenersSpade: {
+    str: 8,
+    set: 'gardenerSet',
+  },
+  spanishGuitar: {
+    per: 5, // this might need to go back to 6
+    int: 6,
+    set: 'musicalInstrumentOne',
+  },
+  snareDrum: {
+    con: 5,
+    int: 6,
+    set: 'musicalInstrumentOne',
   },
 };
 
@@ -1420,6 +1460,20 @@ const weapon = {
     int: 5,
     set: 'shootingStar',
     twoHanded: true,
+  },
+  pinkLongbow: {
+    per: 6,
+    str: 5,
+    twoHanded: true,
+  },
+  gardenersWateringCan: {
+    int: 8,
+    set: 'gardenerSet',
+  },
+  huntingHorn: {
+    str: 5,
+    int: 6,
+    set: 'musicalInstrumentOne',
   },
 };
 

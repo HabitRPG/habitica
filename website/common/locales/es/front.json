@@ -13,7 +13,7 @@
     "companyDonate": "Donar",
     "forgotPassword": "¿Has olvidado la contraseña?",
     "emailNewPass": "Enviar un link de cambio de contraseña",
-    "forgotPasswordSteps": "Introduce la dirección de correo electrónico que utilizaste para registrarte en Habitica.",
+    "forgotPasswordSteps": "Introduce tu nombre de usuario o la dirección de correo electrónico que utilizaste para registrarte en Habitica.",
     "sendLink": "Enviar link",
     "featuredIn": "Hablan de nosotros en",
     "footerDevs": "Desarrolladores",
@@ -129,7 +129,7 @@
     "passwordConfirmationMatch": "Las contraseñas no coinciden.",
     "invalidLoginCredentials": "El nombre de usuario y/o correo electrónico y/o conseña no son correctos.",
     "passwordResetPage": "Restablecer Contraseña",
-    "passwordReset": "Si tenemos constancia de tu correo electrónico, te hemos enviado un mensaje con las instrucciones a seguir para establecer una nueva contraseña.",
+    "passwordReset": "Si tenemos constancia de tu correo electrónico o nombre de usuario, te hemos enviado un mensaje con las instrucciones a seguir para establecer una nueva contraseña.",
     "passwordResetEmailSubject": "Restablecer contraseña para Habitica",
     "passwordResetEmailText": "Si has solicitado restablecer la contraseña del usuario <%= username %> en Habitica, entra en <%= passwordResetLink %> para establecer una nueva. El enlace expira tras 24 horas. Si no has solicitado restablecer una contraseña, por favor ignora este mensaje.",
     "passwordResetEmailHtml": "Si has solicitado restablecer la contraseña del usuario <strong><%= username %></strong> en Habitica, <a href=\"<%= passwordResetLink %>\">haz clic aquí</a> para establecer una nueva. El enlace expira tras 24 horas.<br/><br>Si no has solicitado restablecer una contraseña, por favor ignora este mensaje.",
@@ -150,7 +150,7 @@
     "confirmPassword": "Confirmar contraseña",
     "usernameLimitations": "El nombre de usuario debe tener entre 1 y 20 caracteres, que tengan solo letras entre la a y la z, números del 0 al 9, guiones o barras bajas, y no pueden incluir términos inapropiados.",
     "usernamePlaceholder": "p.e., HabitRabbit",
-    "emailPlaceholder": "p.e., rabbit@example.com",
+    "emailPlaceholder": "p.e., gryphon@example.com",
     "passwordPlaceholder": "p.e., ******************",
     "confirmPasswordPlaceholder": "¡Asegúrate de que es la misma contraseña!",
     "joinHabitica": "Únete a Habitica",
@@ -185,5 +185,7 @@
     "learnMore": "Saber más",
     "communityInstagram": "Instagram",
     "minPasswordLength": "La contraseña debe contener 8 caracteres o más.",
-    "enterHabitica": "Adéntrate en Habitica"
+    "enterHabitica": "Adéntrate en Habitica",
+    "emailUsernamePlaceholder": "p.e., habitrabbit o gryphon@example.com",
+    "socialAlreadyExists": "Esta identificación social ya está vinculado a una cuenta Habitica existente."
 }

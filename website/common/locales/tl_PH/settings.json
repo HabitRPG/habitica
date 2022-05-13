@@ -1,8 +1,8 @@
 {
-    "settings": "Mga Seting",
-    "language": "Lengguwahe",
-    "americanEnglishGovern": "Sa pagkakataon ng pagkakaiba sa mga pagsasalin ang American English ang susundin.",
-    "helpWithTranslation": "Nais mo bang tumulang sa pagsasalin ng Habitica? Magaling! Bisitahin <a href=\"/groups/guild/7732f64c-33ee-4cce-873c-fc28f147a6f7\">the Aspiring Linguists Guild</a> na!",
+    "settings": "Mga Setting",
+    "language": "Wikà",
+    "americanEnglishGovern": "Sa mga pagkakátaon na may pagkakaiba ang pagsasalin, pátakarán ng American English ang sundin.",
+    "helpWithTranslation": "Nais mo bang tumulong sa pagsasalin ng Habitica? Hanep! Dalawin ang <a href=\"/groups/guild/7732f64c-33ee-4cce-873c-fc28f147a6f7\">the Aspiring Linguists Guild</a>!",
     "stickyHeader": "Sticky na header",
     "newTaskEdit": "Buksan ang mga bagong gawain sa edit.",
     "dailyDueDefaultView": "Iset ang mga Pang-araw-araw na Gawain sa 'angkop' na tab",
@@ -40,7 +40,7 @@
     "json": "(JSON)",
     "customDayStart": "Sadyang Simula ng Araw",
     "sureChangeCustomDayStartTime": "Are you sure you want to change your Custom Day Start time? Your Dailies will next reset the first time you use Habitica after <%= time %>. Make sure you have completed your Dailies before then!",
-    "customDayStartHasChanged": "Your custom day start has changed.",
+    "customDayStartHasChanged": "Nagbago ang sadyang simula ng iyóng araw.",
     "nextCron": "Ang mga Pang-araw-araw na Gawain ay uulit sa unang beses na gumamit ka ng Habitica pagtapos ng <%= time %>.  Siguraduhing natapos mo ang iyong mga Pang-araw-araw na Gawain bago ang oras na ito!",
     "customDayStartInfo1": "Ang Habitica ay sinusuri at inuulit ang iyong mga Pang-araw-araw na Gawain sa hating-gabi dipende sa iyong sariling time zone. Maaari itong baguhin dito.",
     "misc": "Iba pa",
@@ -176,5 +176,6 @@
     "usernameVerifiedConfirmation": "Your username, <%= username %>, is confirmed!",
     "usernameNotVerified": "Please confirm your username.",
     "changeUsernameDisclaimer": "We will be transitioning login names to unique, public usernames soon. This username will be used for invitations, @mentions in chat, and messaging.",
-    "verifyUsernameVeteranPet": "One of these Veteran Pets will be waiting for you after you've finished confirming!"
+    "verifyUsernameVeteranPet": "One of these Veteran Pets will be waiting for you after you've finished confirming!",
+    "dayStartAdjustment": "Isaayos ang Simulâ ng Araw"
 }

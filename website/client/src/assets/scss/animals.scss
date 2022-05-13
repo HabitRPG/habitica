@@ -19,6 +19,11 @@
   top: -16px !important;
 }
 
-.Pet.Pet-FlyingPig-Veggie, .Pet.Pet-FlyingPig-Dessert {
+.Pet.Pet-FlyingPig-Veggie, .Pet.Pet-FlyingPig-Dessert, .Pet.Pet-FlyingPig-VirtualPet {
   top: -28px !important;
+}
+
+.Pet[class*="Virtual"] {
+  left: 1.25rem;
+  bottom: 0.5rem;
 }

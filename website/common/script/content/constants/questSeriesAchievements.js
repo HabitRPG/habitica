@@ -17,10 +17,21 @@ const QUEST_SERIES_ACHIEVEMENTS = {
     'lostMasterclasser3',
     'lostMasterclasser4',
   ],
-  mindOverMatter: [
-    'rock',
-    'slime',
-    'yarn',
+  bareNecessities: [
+    'monkey',
+    'sloth',
+    'treeling',
+  ],
+  bugBonanza: [
+    'beetle',
+    'butterfly',
+    'snail',
+    'spider',
+  ],
+  freshwaterFriends: [
+    'axolotl',
+    'frog',
+    'hippo',
   ],
   justAddWater: [
     'octopus',
@@ -32,21 +43,10 @@ const QUEST_SERIES_ACHIEVEMENTS = {
     'seaserpent',
     'dolphin',
   ],
-  bugBonanza: [
-    'beetle',
-    'butterfly',
-    'snail',
-    'spider',
-  ],
-  bareNecessities: [
-    'monkey',
-    'sloth',
-    'treeling',
-  ],
-  freshwaterFriends: [
-    'axolotl',
-    'frog',
-    'hippo',
+  mindOverMatter: [
+    'rock',
+    'slime',
+    'yarn',
   ],
   seasonalSpecialist: [
     'egg',

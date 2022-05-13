@@ -59,7 +59,7 @@
     "unpinnedItem": "<%= item %>のピン留めを外しました！今後ごほうび欄には表示されません。",
     "cannotUnpinArmoirPotion": "体力回復の薬とラッキー宝箱のピンを外すことはできません。",
     "purchasedItem": "<%= itemName %>を購入しました",
-    "ianTextMobile": "クエストの巻物はいかがですか？　巻物を使って、パーティの仲間と共にモンスターと戦いましょう！",
+    "ianTextMobile": "クエストの巻物はいかがですか？ 巻物を使って、パーティーの仲間と共にモンスターと戦いましょう！",
     "featuredQuests": "注目クエスト！",
     "cannotBuyItem": "このアイテムは買えません。",
     "mustPurchaseToSet": "<%= key %> にセットする <%= val %> を購入しなくてはなりません。",
@@ -130,5 +130,6 @@
     "limitedAvailabilityDays": "購入できる期間は残り<%= days %>日<%= hours %>時間<%= minutes %>分です",
     "limitedAvailabilityHours": "購入できる期間は残り<%= hours %>時間<%= minutes %>分です",
     "limitedAvailabilityMinutes": "購入できる期間は残り<%= minutes %>分<%= seconds %>秒です",
-    "amountExp": "<%= amount %>経験値"
+    "amountExp": "<%= amount %>経験値",
+    "newStuffPostedOn": "<%= publishDate %> <%= publishTime %>に投稿"
 }

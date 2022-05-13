@@ -123,5 +123,11 @@
     "achievementShadyCustomerText": "Ha raccolto tutti gli animali oscuri.",
     "achievementShadeOfItAll": "L'ombra di tutto",
     "achievementShadeOfItAllText": "Ha domato tutte le cavalcature oscure.",
-    "achievementShadeOfItAllModalText": "Hai domato tutte le cavalcature oscure!"
+    "achievementShadeOfItAllModalText": "Hai domato tutte le cavalcature oscure!",
+    "achievementBirdsOfAFeather": "Pennuti che si somigliano",
+    "achievementBirdsOfAFeatherModalText": "Hai collezionato tutti gli animali volanti!",
+    "achievementBirdsOfAFeatherText": "Ha schiuso i volatili: Maiale Volante, Gufo, Pappagallo, Pterodattilo, Grifone, Falcóne, Pavone e Gallo, in tutte le colorazioni standard.",
+    "achievementZodiacZookeeper": "Custode dello Zoodiaco",
+    "achievementZodiacZookeeperModalText": "Hai collezionato tutti gli animali dello zodiaco!",
+    "achievementZodiacZookeeperText": "Ha schiuso gli animali zodiacali: Ratto, Mucca, Coniglietto, Serpente, Cavallo, Pecora, Scimmia, Gallo, Lupo, Tigre, Maiale Volante e Drago, in tutte le colorazioni standard!"
 }

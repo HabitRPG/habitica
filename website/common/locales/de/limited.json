@@ -141,7 +141,7 @@
     "dateEndOctober": "31. Oktober",
     "dateEndNovember": "30. November",
     "dateEndJanuary": "31. Januar",
-    "dateEndFebruary": "29. Februar",
+    "dateEndFebruary": "28. Februar",
     "winterPromoGiftHeader": "VERSCHENK EIN ABO, BEKOMME EINS UMSONST!",
     "winterPromoGiftDetails1": "Nur bis zum 6. Januar: wenn Du jemandem ein Abonnement schenkst, erhältst Du das gleiche Abonnement gratis für Dich!",
     "winterPromoGiftDetails2": "Bitte bedenke, dass das geschenkte Abonnement, falls Du oder Deine beschenkte Person bereits über ein sich wiederholendes Abonnement verfügen, erst dann startet, wenn das alte Abonnement gekündigt wird oder ausläuft. Herzlichen Dank für Deine Unterstützung! <3",
@@ -216,5 +216,10 @@
     "winter2022StockingWarriorSet": "Strumpf (Krieger)",
     "winter2022IceCrystalHealerSet": "Eiskristall (Heiler)",
     "winter2022PomegranateMageSet": "Granatapfel (Magier)",
-    "januaryYYYY": "Januar <%= year %>"
+    "januaryYYYY": "Januar <%= year %>",
+    "spring2022MagpieRogueSet": "Elster (Schurke)",
+    "spring2022RainstormWarriorSet": "Gewitterregen (Krieger)",
+    "spring2022ForsythiaMageSet": "Forsythie (Magier)",
+    "spring2022PeridotHealerSet": "Abendsmaragd (Heiler)",
+    "aprilYYYY": "April <%= year %>"
 }

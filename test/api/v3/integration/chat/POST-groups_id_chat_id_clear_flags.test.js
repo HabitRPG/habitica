@@ -23,7 +23,7 @@ describe('POST /groups/:id/chat/:id/clearflags', () => {
     groupWithChat = group;
     author = groupLeader;
     nonAdmin = await generateUser({ 'auth.timestamps.created': moment().subtract(USER_AGE_FOR_FLAGGING + 1, 'days').toDate() });
-    admin = await generateUser({ 'contributor.admin': true });
+    admin = await generateUser({ 'permissions.moderator': true });
 
     message = await author.post(`/groups/${groupWithChat._id}/chat`, { message: 'Some message' });
     message = message.message;
