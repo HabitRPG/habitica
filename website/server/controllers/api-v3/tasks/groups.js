@@ -236,6 +236,7 @@ api.assignTask = {
       if (user._id !== userToAssign._id) {
         userToAssign.addNotification('GROUP_TASK_ASSIGNED', {
           message: res.t('youHaveBeenAssignedTask', { managerName: userName, taskText }),
+          groupId: group._id,
           taskId: task._id,
         });
       }
