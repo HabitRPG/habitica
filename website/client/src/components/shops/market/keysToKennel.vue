@@ -89,9 +89,6 @@ export default {
           try {
             this.$store.dispatch('shops:releasePets', { user: this.user });
             this.text(this.$t('releasePetsSuccess'));
-            // this.$router.push({name: 'stable'});
-            // Reload because achievement is set in user.save instead of common
-            window.location.reload(true);
           } catch (err) {
             window.alert(err.message); // eslint-disable-line no-alert
           }
@@ -112,9 +109,6 @@ export default {
           try {
             this.$store.dispatch('shops:releaseMounts', { user: this.user });
             this.text(this.$t('releaseMountsSuccess'));
-            // this.$router.push({name: 'stable'});
-            // Reload because achievement is set in user.save instead of common
-            window.location.reload(true);
           } catch (err) {
             window.alert(err.message); // eslint-disable-line no-alert
           }
@@ -135,9 +129,6 @@ export default {
           try {
             this.$store.dispatch('shops:releaseBoth', { user: this.user });
             this.text(this.$t('releaseBothSuccess'));
-            // this.$router.push({name: 'stable'});
-            // Reload because achievement is set in user.save instead of common
-            window.location.reload(true);
           } catch (err) {
             window.alert(err.message); // eslint-disable-line no-alert
           }
