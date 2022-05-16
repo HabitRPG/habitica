@@ -2,7 +2,7 @@
     "termsAndAgreement": "아래에 있는 버튼을 클릭함으로써, 당신은 <a href='/static/terms'>서비스 약관</a> 과 <a href='/static/privacy'> 개인정보 정책</a>을 읽었고 이에 동의했음을 표시합니다.",
     "FAQ": "자주 하는 질문",
     "sendLink": "링크 보내기",
-    "forgotPasswordSteps": "Habitica 계정으로 등록할 메일 주소를 입력하세요.",
+    "forgotPasswordSteps": "Habitica 계정등록에 사용한 아이디•이메일 주소를 입력하세요.",
     "emailNewPass": "메일로 비밀번호 재설정 링크 보내기",
     "forgotPassword": "비밀번호를 잊으셨습니까?",
     "companyDonate": "기부하기",

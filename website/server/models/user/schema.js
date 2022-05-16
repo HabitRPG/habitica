@@ -171,8 +171,6 @@ export default new Schema({
       max: 9,
     },
     admin: Boolean,
-    newsPoster: Boolean,
-    sudo: Boolean,
     // Artisan, Friend, Blacksmith, etc
     text: String,
     // a markdown textarea to list their contributions + links
@@ -180,7 +178,14 @@ export default new Schema({
     // user can own Critical Hammer of Bug-Crushing if this has a truthy value
     critical: String,
   },
-
+  permissions: {
+    fullAccess: Boolean, // esentially what was previously contributor.admin. Can do everything
+    news: Boolean,
+    userSupport: Boolean, // access User Support feature in Admin Panel
+    challengeAdmin: Boolean, // Can manage and administrate challenges
+    moderator: Boolean, // Can ban, flag users and manage social spaces
+    coupons: Boolean, // Can generate and request coupons
+  },
   balance: { $type: Number, default: 0 },
 
   purchased: {

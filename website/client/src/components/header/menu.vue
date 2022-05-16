@@ -3,7 +3,7 @@
     <creator-intro />
     <profileModal />
     <report-flag-modal />
-    <send-gems-modal />
+    <send-gift-modal />
     <select-user-modal />
     <b-navbar
       id="habitica-menu"
@@ -297,6 +297,14 @@
               {{ $t('help') }}
             </router-link>
             <div class="topbar-dropdown">
+              <router-link
+                v-if="user.permissions.fullAccess ||
+                  user.permissions.userSupport || user.permissions.newsPoster"
+                class="topbar-dropdown-item dropdown-item"
+                :to="{name: 'adminPanel'}"
+              >
+                Admin Panel
+              </router-link>
               <router-link
                 class="topbar-dropdown-item dropdown-item"
                 :to="{name: 'faq'}"
@@ -739,7 +747,7 @@ import creatorIntro from '../creatorIntro';
 import notificationMenu from './notificationsDropdown';
 import profileModal from '../userMenu/profileModal';
 import reportFlagModal from '../chat/reportFlagModal';
-import sendGemsModal from '@/components/payments/sendGemsModal';
+import sendGiftModal from '@/components/payments/sendGiftModal';
 import selectUserModal from '@/components/payments/selectUserModal';
 import sync from '@/mixins/sync';
 import userDropdown from './userDropdown';
@@ -751,7 +759,7 @@ export default {
     notificationMenu,
     profileModal,
     reportFlagModal,
-    sendGemsModal,
+    sendGiftModal,
     selectUserModal,
     userDropdown,
   },

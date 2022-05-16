@@ -36,11 +36,10 @@ const QUEST_SERIES = {
     notes: t('questAtom2Notes'),
     completion: t('questAtom2Completion'),
     group: 'questGroupAtom',
-    prerequisite: {
-      lvl: 15,
-      atom1: true,
-    },
     previous: 'atom1',
+    prereqQuests: [
+      'atom1',
+    ],
     value: 4,
     lvl: 15,
     category: 'unlockable',
@@ -67,12 +66,11 @@ const QUEST_SERIES = {
     notes: t('questAtom3Notes'),
     group: 'questGroupAtom',
     previous: 'atom2',
+    prereqQuests: [
+      'atom1',
+      'atom2',
+    ],
     completion: t('questAtom3Completion'),
-    prerequisite: {
-      lvl: 15,
-      atom1: true,
-      atom2: true,
-    },
     value: 4,
     lvl: 15,
     category: 'unlockable',
@@ -135,6 +133,9 @@ const QUEST_SERIES = {
     group: 'questGroupGoldenknight',
     value: 4,
     previous: 'goldenknight1',
+    prereqQuests: [
+      'goldenknight1',
+    ],
     lvl: 40,
     category: 'unlockable',
     boss: {
@@ -161,6 +162,10 @@ const QUEST_SERIES = {
     group: 'questGroupGoldenknight',
     completion: t('questGoldenknight3Completion'),
     previous: 'goldenknight2',
+    prereqQuests: [
+      'goldenknight1',
+      'goldenknight2',
+    ],
     value: 4,
     lvl: 40,
     category: 'unlockable',
@@ -237,6 +242,9 @@ const QUEST_SERIES = {
     group: 'questGroupMoon',
     completion: t('questMoon2Completion'),
     previous: 'moon1',
+    prereqQuests: [
+      'moon1',
+    ],
     value: 4,
     category: 'unlockable',
     unlockCondition: {
@@ -267,6 +275,10 @@ const QUEST_SERIES = {
     group: 'questGroupMoon',
     completion: t('questMoon3Completion'),
     previous: 'moon2',
+    prereqQuests: [
+      'moon1',
+      'moon2',
+    ],
     value: 4,
     category: 'unlockable',
     unlockCondition: {
@@ -326,6 +338,9 @@ const QUEST_SERIES = {
     value: 4,
     lvl: 60,
     previous: 'moonstone1',
+    prereqQuests: [
+      'moonstone1',
+    ],
     category: 'unlockable',
     boss: {
       name: t('questMoonstone2Boss'),
@@ -351,6 +366,10 @@ const QUEST_SERIES = {
     group: 'questGroupMoonstone',
     completion: t('questMoonstone3Completion'),
     previous: 'moonstone2',
+    prereqQuests: [
+      'moonstone1',
+      'moonstone2',
+    ],
     value: 4,
     lvl: 60,
     category: 'unlockable',
@@ -438,6 +457,9 @@ const QUEST_SERIES = {
     lvl: 30,
     category: 'unlockable',
     previous: 'vice1',
+    prereqQuests: [
+      'vice1',
+    ],
     collect: {
       lightCrystal: {
         text: t('questVice2CollectLightCrystal'),
@@ -463,6 +485,10 @@ const QUEST_SERIES = {
     group: 'questGroupVice',
     completion: t('questVice3Completion'),
     previous: 'vice2',
+    prereqQuests: [
+      'vice1',
+      'vice2',
+    ],
     value: 4,
     lvl: 30,
     category: 'unlockable',

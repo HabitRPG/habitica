@@ -21,7 +21,7 @@ describe('POST /coupons/validate/:code', () => {
 
   it('returns true if coupon code is valid', async () => {
     const sudoUser = await generateUser({
-      'contributor.sudo': true,
+      'permissions.coupons': true,
     });
 
     const [coupon] = await sudoUser.post('/coupons/generate/wondercon?count=1');

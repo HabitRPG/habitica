@@ -39,7 +39,7 @@ describe('canEdit getter', () => {
   });
 
   it('can Edit any challenge task if admin', () => {
-    store.state.user.data.contributor.admin = true;
+    store.state.user.data.permissions = { challengeAdmin: true };
 
     expect(store.getters['tasks:canEdit'](task, 'challenge', true, null, challenge)).to.equal(true);
     expect(store.getters['tasks:canEdit'](task, 'challenge', false, null, challenge)).to.equal(true);

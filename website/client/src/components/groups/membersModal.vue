@@ -379,7 +379,6 @@
 <script>
 import orderBy from 'lodash/orderBy';
 import isEmpty from 'lodash/isEmpty';
-import { mapState } from '@/libs/store';
 
 import removeMemberModal from '@/components/members/removeMemberModal';
 import loadingGryphon from '@/components/ui/loadingGryphon';
@@ -390,6 +389,7 @@ import starIcon from '@/assets/members/star.svg';
 import dots from '@/assets/svg/dots.svg';
 import SelectList from '@/components/ui/selectList';
 import { PAGES } from '@/libs/consts';
+import { userStateMixin } from '../../mixins/userState';
 
 export default {
   components: {
@@ -398,6 +398,7 @@ export default {
     removeMemberModal,
     loadingGryphon,
   },
+  mixins: [userStateMixin],
   props: ['hideBadge'],
   data () {
     return {
@@ -462,13 +463,12 @@ export default {
     };
   },
   computed: {
-    ...mapState({ user: 'user.data' }),
     isLeader () {
       if (!this.group || !this.group.leader) return false;
       return this.user._id === this.group.leader || this.user._id === this.group.leader._id;
     },
     isAdmin () {
-      return Boolean(this.user.contributor.admin);
+      return Boolean(this.hasPermission(this.user, 'moderator'));
     },
     isLoadMoreAvailable () {
       // Only available if the current length of `members` is less than the

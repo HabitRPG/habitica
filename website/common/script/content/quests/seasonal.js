@@ -33,9 +33,6 @@ const QUEST_SEASONAL = {
       gp: 20,
       exp: 100,
     },
-    canBuy () {
-      return this.event && moment().isBetween(this.event.start, this.event.end);
-    },
   },
   evilsanta2: {
     event: CURRENT_EVENT && CURRENT_EVENT.season === 'winter' ? CURRENT_EVENT : null,
@@ -65,9 +62,6 @@ const QUEST_SEASONAL = {
       ],
       gp: 20,
       exp: 100,
-    },
-    canBuy () {
-      return this.event && moment().isBetween(this.event.start, this.event.end);
     },
   },
   // spring
@@ -131,8 +125,45 @@ const QUEST_SEASONAL = {
       gp: 0,
       exp: 0,
     },
-    canBuy () {
-      return this.event && moment().isBetween(this.event.start, this.event.end);
+  },
+  waffle: {
+    text: t('questWaffleText'),
+    notes: t('questWaffleNotes'),
+    completion: t('questWaffleCompletion'),
+    value: 4,
+    category: 'hatchingPotion',
+    event: CURRENT_EVENT && CURRENT_EVENT.season === 'spring' ? CURRENT_EVENT : null,
+    boss: {
+      name: t('questWaffleBoss'),
+      hp: 500,
+      str: 2,
+      rage: {
+        title: t('questWaffleRageTitle'),
+        description: t('questWaffleRageDescription'),
+        value: 50,
+        progressDrain: 0.5,
+        effect: t('questWaffleRageEffect'),
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'Dessert',
+          text: t('questWaffleDropDessertPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Dessert',
+          text: t('questWaffleDropDessertPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Dessert',
+          text: t('questWaffleDropDessertPotion'),
+        },
+      ],
+      gp: 40,
+      exp: 500,
+      unlock: t('questWaffleUnlockText'),
     },
   },
   virtualpet: {
@@ -176,49 +207,6 @@ const QUEST_SEASONAL = {
       gp: 40,
       exp: 500,
       unlock: t('questVirtualPetUnlockText'),
-    },
-  },
-  waffle: {
-    text: t('questWaffleText'),
-    notes: t('questWaffleNotes'),
-    completion: t('questWaffleCompletion'),
-    value: 4,
-    category: 'hatchingPotion',
-    event: CURRENT_EVENT && CURRENT_EVENT.season === 'spring' ? CURRENT_EVENT : null,
-    boss: {
-      name: t('questWaffleBoss'),
-      hp: 500,
-      str: 2,
-      rage: {
-        title: t('questWaffleRageTitle'),
-        description: t('questWaffleRageDescription'),
-        value: 50,
-        progressDrain: 0.5,
-        effect: t('questWaffleRageEffect'),
-      },
-    },
-    drop: {
-      items: [
-        {
-          type: 'hatchingPotions',
-          key: 'Dessert',
-          text: t('questWaffleDropDessertPotion'),
-        }, {
-          type: 'hatchingPotions',
-          key: 'Dessert',
-          text: t('questWaffleDropDessertPotion'),
-        }, {
-          type: 'hatchingPotions',
-          key: 'Dessert',
-          text: t('questWaffleDropDessertPotion'),
-        },
-      ],
-      gp: 40,
-      exp: 500,
-      unlock: t('questWaffleUnlockText'),
-    },
-    canBuy () {
-      return this.event && moment().isBetween(this.event.start, this.event.end);
     },
   },
 };
