@@ -3,32 +3,19 @@ import {
 } from '../libs/errors';
 import apiError from '../libs/apiError';
 
-export function ensureAdmin (req, res, next) {
-  const { user } = res.locals;
+export function ensurePermission (permission) {
+  return function ensurePermissionHandler (req, res, next) {
+    const { user } = res.locals;
 
-  if (!user.contributor.admin) {
-    return next(new NotAuthorized(res.t('noAdminAccess')));
-  }
+    if (user.permissions.fullAccess) {
+      // No matter what is checked, fullAccess admins can do it
+      return next();
+    }
 
-  return next();
-}
+    if (!user.permissions[permission]) {
+      return next(new NotAuthorized(apiError('noPrivAccess')));
+    }
 
-export function ensureNewsPoster (req, res, next) {
-  const { user } = res.locals;
-
-  if (!user.contributor.newsPoster) {
-    return next(new NotAuthorized(apiError('noNewsPosterAccess')));
-  }
-
-  return next();
-}
-
-export function ensureSudo (req, res, next) {
-  const { user } = res.locals;
-
-  if (!user.contributor.sudo) {
-    return next(new NotAuthorized(apiError('noSudoAccess')));
-  }
-
-  return next();
+    return next();
+  };
 }

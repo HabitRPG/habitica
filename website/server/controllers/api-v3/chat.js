@@ -401,14 +401,14 @@ api.clearChatFlags = {
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    if (!user.contributor.admin) {
+    if (!user.hasPermission('moderator')) {
       throw new NotAuthorized(res.t('messageGroupChatAdminClearFlagCount'));
     }
 
     const group = await Group.getGroup({
       user,
       groupId,
-      optionalMembership: user.contributor.admin,
+      optionalMembership: user.hasPermission('moderator'),
     });
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
@@ -550,7 +550,7 @@ api.deleteChat = {
     const message = await Chat.findOne({ _id: chatId }).exec();
     if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
 
-    if (user._id !== message.uuid && !user.contributor.admin) {
+    if (user._id !== message.uuid && !user.hasPermission('moderator')) {
       throw new NotAuthorized(res.t('onlyCreatorOrAdminCanDeleteChat'));
     }
 

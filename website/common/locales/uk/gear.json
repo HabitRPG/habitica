@@ -112,7 +112,7 @@
     "weaponSpecialFencingFoilNotes": "Should anyone dare to impugn your honor, you'll be ready with this fine foil! Increases Strength by <%= str %>.",
     "weaponSpecialTachiText": "Тачі (японський меч)",
     "weaponSpecialTachiNotes": "Цей легкий і вигнутий меч поріже Ваші завдання на шматочки! Збільшує силу на <%= str %>.",
-    "weaponSpecialAetherCrystalsText": "Aether Crystals",
+    "weaponSpecialAetherCrystalsText": "Кристали ефіру",
     "weaponSpecialAetherCrystalsNotes": "These bracers and crystals once belonged to the Lost Masterclasser herself. Increases all Stats by <%= attrs %>.",
     "weaponSpecialYetiText": "Спис приборкувача Єті",
     "weaponSpecialYetiNotes": "This spear allows its user to command any yeti. Increases Strength by <%= str %>. Limited Edition 2013-2014 Winter Gear.",

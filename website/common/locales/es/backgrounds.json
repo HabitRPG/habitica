@@ -672,8 +672,8 @@
     "backgroundWinterWaterfallNotes": "Maravíllate en la catarata invernal.",
     "backgroundIridescentCloudsText": "Nubes iridiscentes",
     "backgroundIridescentCloudsNotes": "Flota entre nubes iridiscentes.",
-    "backgroundOrangeGroveText": "Campo de naranjos",
-    "backgroundOrangeGroveNotes": "Pasea por un fragante campo de naranjos.",
+    "backgroundOrangeGroveText": "Naranjal",
+    "backgroundOrangeGroveNotes": "Deambula por un naranjal fragante.",
     "backgrounds022022": "93.ª serie: publicada en febrero de 2022",
     "backgrounds032022": "94.ª serie: publiccada en marzo de 2022",
     "backgroundBrickWallWithIvyText": "Pared de Ladrillo con Hiedra",
@@ -688,5 +688,6 @@
     "backgroundFloweringPrairieNotes": "Brinca por una pradera floreciente.",
     "backgroundFloweringPrairieText": "Pradera floreciente",
     "backgroundSpringtimeLakeText": "Lago de Primavera",
-    "backgroundSpringtimeLakeNotes": "Disfruta las vistas a orillas de un Lago de Primavera."
+    "backgroundSpringtimeLakeNotes": "Disfruta las vistas a orillas de un Lago de Primavera.",
+    "hideLockedBackgrounds": "Esconde fondos cerrados"
 }

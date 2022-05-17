@@ -298,6 +298,14 @@
             </router-link>
             <div class="topbar-dropdown">
               <router-link
+                v-if="user.permissions.fullAccess ||
+                  user.permissions.userSupport || user.permissions.newsPoster"
+                class="topbar-dropdown-item dropdown-item"
+                :to="{name: 'adminPanel'}"
+              >
+                Admin Panel
+              </router-link>
+              <router-link
                 class="topbar-dropdown-item dropdown-item"
                 :to="{name: 'faq'}"
               >

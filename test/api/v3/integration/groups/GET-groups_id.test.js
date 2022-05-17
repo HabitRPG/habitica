@@ -315,7 +315,7 @@ describe('GET /groups/:id', () => {
 
       beforeEach(async () => {
         admin = await generateUser({
-          'contributor.admin': true,
+          'permissions.moderator': true,
         });
       });
 
