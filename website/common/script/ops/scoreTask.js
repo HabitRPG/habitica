@@ -420,5 +420,5 @@ export default function scoreTask (options = {}, req = {}, analytics) {
     checkOnboardingStatus(user, req, analytics);
   }
 
-  return [delta];
+  return delta;
 }

@@ -140,9 +140,6 @@ import NEW_INBOX_MESSAGE from './notifications/newPrivateMessage';
 import NEW_CHAT_MESSAGE from './notifications/newChatMessage';
 import WORLD_BOSS from './notifications/worldBoss';
 import VERIFY_USERNAME from './notifications/verifyUsername';
-import ACHIEVEMENT_JUST_ADD_WATER from './notifications/justAddWater';
-import ACHIEVEMENT_LOST_MASTERCLASSER from './notifications/lostMasterclasser';
-import ACHIEVEMENT_MIND_OVER_MATTER from './notifications/mindOverMatter';
 import ONBOARDING_COMPLETE from './notifications/onboardingComplete';
 import GIFT_ONE_GET_ONE from './notifications/g1g1';
 import OnboardingGuide from './onboardingGuide';
@@ -167,9 +164,6 @@ export default {
     CARD_RECEIVED,
     NEW_INBOX_MESSAGE,
     NEW_CHAT_MESSAGE,
-    ACHIEVEMENT_JUST_ADD_WATER,
-    ACHIEVEMENT_LOST_MASTERCLASSER,
-    ACHIEVEMENT_MIND_OVER_MATTER,
     WorldBoss: WORLD_BOSS,
     VERIFY_USERNAME,
     OnboardingGuide,
@@ -194,13 +188,24 @@ export default {
       // listed in the order they should appear in the notifications panel.
       // NOTE: Those not listed here won't be shown in the notification panel!
       handledNotifications: [
-        'NEW_STUFF', 'GIFT_ONE_GET_ONE', 'GROUP_TASK_NEEDS_WORK',
-        'GUILD_INVITATION', 'PARTY_INVITATION', 'CHALLENGE_INVITATION',
-        'QUEST_INVITATION', 'GROUP_TASK_ASSIGNED', 'GROUP_TASK_APPROVAL', 'GROUP_TASK_APPROVED',
-        'GROUP_TASK_CLAIMED', 'NEW_MYSTERY_ITEMS', 'CARD_RECEIVED',
-        'NEW_INBOX_MESSAGE', 'NEW_CHAT_MESSAGE', 'UNALLOCATED_STATS_POINTS',
-        'ACHIEVEMENT_JUST_ADD_WATER', 'ACHIEVEMENT_LOST_MASTERCLASSER', 'ACHIEVEMENT_MIND_OVER_MATTER',
-        'VERIFY_USERNAME', 'ONBOARDING_COMPLETE',
+        'NEW_STUFF',
+        'GIFT_ONE_GET_ONE',
+        'GROUP_TASK_NEEDS_WORK',
+        'GUILD_INVITATION',
+        'PARTY_INVITATION',
+        'CHALLENGE_INVITATION',
+        'QUEST_INVITATION',
+        'GROUP_TASK_ASSIGNED',
+        'GROUP_TASK_APPROVAL',
+        'GROUP_TASK_APPROVED',
+        'GROUP_TASK_CLAIMED',
+        'NEW_MYSTERY_ITEMS',
+        'CARD_RECEIVED',
+        'NEW_INBOX_MESSAGE',
+        'NEW_CHAT_MESSAGE',
+        'UNALLOCATED_STATS_POINTS',
+        'VERIFY_USERNAME',
+        'ONBOARDING_COMPLETE',
       ],
     };
   },
