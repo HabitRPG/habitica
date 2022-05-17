@@ -52,20 +52,22 @@ async function updateTeamTasks (team) {
     });
     forEach(tasksByType.dailys, daily => {
       let processChecklist = false;
+      let assignments = 0;
+      let completions = 0;
+      for (const assignedUser in daily.group.assignedUsers) {
+        if (Object.prototype.hasOwnProperty.call(daily.group.assignedUsers, assignedUser)) {
+          assignments += 1;
+          if (daily.group.assignedUsers[assignedUser].completed) {
+            completions += 1;
+            daily.group.assignedUsers[assignedUser].completed = false;
+          }
+        }
+      }
+      if (completions > 0) daily.markModified('group.assignedUsers');
       if (daily.completed) {
         processChecklist = true;
         daily.completed = false;
       } else if (shouldDo(team.cron.lastProcessed, daily, teamLeader.preferences)) {
-        let assignments = 0;
-        let completions = 0;
-        for (const assignedUser in daily.group.assignedUsers) {
-          if (Object.prototype.hasOwnProperty.call(daily.group.assignedUsers, assignedUser)) {
-            assignments += 1;
-            if (daily.group.assignedUsers[assignedUser].completed) completions += 1;
-            daily.group.assignedUsers[assignedUser].completed = false;
-            daily.markModified('group.assignedUsers');
-          }
-        }
         processChecklist = true;
         const delta = TASK_VALUE_CHANGE_FACTOR ** daily.value;
         if (assignments > 0) {
