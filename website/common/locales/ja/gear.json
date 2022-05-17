@@ -2620,5 +2620,13 @@
     "headAccessoryMystery202205Text": "黄昏の翼をもつドラゴンの角",
     "headAccessoryMystery202205Notes": "砂漠の日の入りのようにまばゆい角です。効果なし。2021年5月の有料会員アイテム。",
     "weaponArmoireHuntingHornText": "狩猟用ホルン",
-    "weaponArmoireHuntingHornNotes": "プオーーー！プオー！プオー！この角笛を吹いて冒険やクエストにパーティーを集めましょう。力が<%= str %>、知能が<%= int %>上がります。ラッキー宝箱：楽器セット（3個中1つ目のアイテム）"
+    "weaponArmoireHuntingHornNotes": "プオーーー！プオー！プオー！この角笛を吹いて冒険やクエストにパーティーを集めましょう。力が<%= str %>、知能が<%= int %>上がります。ラッキー宝箱：楽器セット（3個中1つ目のアイテム）",
+    "headArmoireStrawRainHatNotes": "この耐水の円錐形の帽子をかぶれば、あなたのゆく道の途上にある障害物を一目で見つけることができるようになるでしょう。知覚が<%= per %>上がります。ラッキー宝箱：蓑セット（2個中2個目のアイテム）。",
+    "armorArmoireStrawRaincoatText": "蓑",
+    "armorArmoireStrawRaincoatNotes": "このわらを編んで作られたケープは、クエスト中にあなたを濡れさせず、よろいをさび付かせません。ろうそくの近くには近づかないように！体質が<%= con %>上がります。ラッキー宝箱：蓑セット（2個中1個目のアイテム）。",
+    "headArmoireStrawRainHatText": "笠",
+    "shieldArmoireSpanishGuitarText": "クラシックギター",
+    "shieldArmoireSnareDrumText": "スネアドラム",
+    "shieldArmoireSpanishGuitarNotes": "ジャン！ジャン！ジャカジャーン！このギターを弾いてコンサートやお祝いのためにパーティーを集めましょう。知覚が<%= per %>、知能が<%= int %>上がります。ラッキー宝箱：楽器セット（3個中2つ目のアイテム）",
+    "shieldArmoireSnareDrumNotes": "ラッタタッタタ！このドラムを演奏して、バトルに続くパレードや行進のためにパーティーを集めましょう。体質が <%= con %>、知能が <%= int %>上がります。ラッキー宝箱：楽器セット（3個中3つ目のアイテム）"
 }
