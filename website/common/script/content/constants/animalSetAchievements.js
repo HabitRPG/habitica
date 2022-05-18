@@ -41,6 +41,20 @@ const ANIMAL_SET_ACHIEVEMENTS = {
     achievementKey: 'domesticated',
     notificationType: 'ACHIEVEMENT_ANIMAL_SET',
   },
+  reptacularRumble: {
+    type: 'pet',
+    species: [
+      'Alligator',
+      'Pterodactyl',
+      'Snake',
+      'Triceratops',
+      'TRex',
+      'Turtle',
+      'Velociraptor',
+    ],
+    achievementKey: 'reptacularRumble',
+    notificationType: 'ACHIEVEMENT_ANIMAL_SET',
+  },
   zodiacZookeeper: {
     type: 'pet',
     species: [
