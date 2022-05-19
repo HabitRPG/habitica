@@ -135,5 +135,9 @@
     "deleteTaskType": "Eliminar <%= type %>",
     "tomorrow": "Mañana",
     "addNotes": "Añadir notas",
-    "addATitle": "Añadir un título"
+    "addATitle": "Añadir un título",
+    "counter": "Contador",
+    "editTagsText": "Editar Etiquetas",
+    "adjustCounter": "Ajustar Contador",
+    "resetCounter": "Reiniciar Contador"
 }
