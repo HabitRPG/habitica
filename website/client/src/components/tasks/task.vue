@@ -1162,6 +1162,18 @@ export default {
     async score (direction) {
       if (this.showTaskLockIcon) return;
       if (this.task.type === 'habit' && !this.task[direction]) return;
+      if (
+        this.isGroupTask && direction === 'down'
+        && ['todo', 'daily'].indexOf(this.task.type) !== -1
+        && this.task.group.assignedUsers && !this.task.group.assignedUsers[this.user._id]
+      ) {
+        this.$store.dispatch('tasks:needsWork', {
+          taskId: this.task._id,
+          userId: keys(this.task.group.assignedUsers)[0],
+        });
+        this.task.completed = false;
+        return;
+      }
       if (this.isYesterdaily === true) {
         await this.beforeTaskScore(this.task);
         this.task.completed = !this.task.completed;
