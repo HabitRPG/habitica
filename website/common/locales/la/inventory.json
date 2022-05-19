@@ -4,5 +4,7 @@
     "eggsItemType": "Ova",
     "hatchingPotionsItemType": "Potiones Incubantes",
     "specialItemType": "Res Propriae",
-    "lockedItem": "Res Obserata"
+    "lockedItem": "Res Obserata",
+    "petAndMount": "Animalia Domestica et Iumenta",
+    "allItems": "Totae Res"
 }
