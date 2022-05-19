@@ -155,15 +155,18 @@
             </ul>
           </div>
         </div>
-        <div class="row">
+        <div class="row justify-content">
           <!-- Help Support Habitica -->
-          <div class="col-sm-3">
-            {{ $t('donateText3') }}
+          <div class="col-12 col-sm-7">
+            <h3>{{ $t('helpSupportHabitica') }}</h3>
+            <div class="donate-text">
+              {{ $t('donateText3') }}
+            </div>
           </div>
-          <div class="col-sm">
+          <div class="col-2">
             <button
               v-if="user"
-              class="btn btn-contribute btn-front btn-flat"
+              class="btn btn-contribute"
               @click="donate()"
             >
               <div
@@ -176,7 +179,7 @@
             </button>
             <div
               v-else
-              class="btn btn-contribute btn-front btn-flat"
+              class="btn btn-contribute"
             >
               <a
                 href="https://habitica.fandom.com/wiki/Contributing_to_Habitica"
@@ -190,11 +193,11 @@
               </a>
             </div>
           </div>
-        </div>
+
         <!-- Social -->
-        <div class="col-sm">
+        <div class="col-12 col-sm-2 social">
           <h3>{{ $t('footerSocial') }}</h3>
-          <div class="icons">
+          <div class="icons align-items-center">
             <a
             class="social-circle"
             href="https://www.instagram.com/habitica/"
@@ -236,6 +239,7 @@
             </a>
           </div>
         </div>
+      </div>
       <div class="row">
         <div class="">
           <hr>
@@ -360,6 +364,7 @@
   flex: 0 1 auto;
   z-index: 10;
 }
+
 footer {
   background-color: $gray-500;
   color: $gray-50;
@@ -371,26 +376,43 @@ footer {
     color: $purple-300
   }
 }
+
 h3 {
   font-weight: bold;
 }
+
 ul {
   padding-left: 0;
   list-style-type: none;
 }
+
 li {
   margin-bottom: 0.5em;
 }
-.social {
-  // h3 {
-  //   text-align: right;
-  // }
+
+hr {
+  width: 1156px;
+  height: 1px;
+  margin: 0 0 15px;
+  background-color: $gray-400;
 }
+
+.social {
+margin-left: 60px;
+}
+
 .icons {
   display: flex;
-  // justify-content: flex-end;
   flex-shrink: 1;
+  height: 32px;
 }
+
+.donate-text{
+  font-size: 0.75rem;
+  font-color: $gray-100;
+  line-height: 1.33;
+}
+
 // smaller than desktop
 @media only screen and (max-width: 992px) {
   .social-circle {
@@ -399,19 +421,22 @@ li {
     margin-left: 0.75em !important;
   }
 }
+
 //mobile view
 @media screen and (max-width: 770px) {
   .footer-main {
     display: flex;
     flex-direction: column;
   }
+
   .logo-container {
     order: 1;
   }
 }
+
 .social-circle {
   width: 24px;
-  // height: 24px;
+  height: 24px;
   border-radius: 4px;
   background-color: $gray-50;
   display: flex;
@@ -427,16 +452,18 @@ li {
   }
   .social-icon {
     color: $gray-500;
-    width: 16px;
+    width: 24px;
     // margin: auto;
   }
 }
+
 .logo {
   width: 24px;
   height: 24px;
   margin: 0 auto;
   color: $gray-200;
 }
+
 .debug-group {
   position: absolute;
   background: #fff;
@@ -444,17 +471,22 @@ li {
   border-radius: 2px;
   padding: 2em;
 }
+
 .btn-contribute {
-  background: #c3c0c7;
+  background: $white;
   box-shadow: none;
-  border-radius: 4px;
-  font-family: Roboto Condensed, sans-serif;
-  &:hover {
-    background: #a5a1ac;
-    .text {
-      color: white;
-    }
-  }
+  border-radius: 2px;
+  width: 175px;
+  height: 32px;
+  color: $gray-50;
+  text-align: center;
+  line-height: 1.71;
+  font-weight: bold;
+  font-size: 0.875rem;
+  vertical-align: middle;
+  padding: 0;
+  margin: 32px 24px 24px 24px;
+  box-shadow: 0 1px 3px 0 rgba(26, 24, 29, 0.12), 0 1px 2px 0 rgba(26, 24, 29, 0.24);
   a {
     display: flex;
   }
@@ -476,24 +508,29 @@ li {
 .heart svg {
   margin-top: 0.1em;
 }
+
 // this nonsense needs fixing
 .facebook svg {
   width: 10px;
   margin: 0 auto;
 }
+
 .instagram svg {
   height: 24px;
   width: 24px;
 }
+
 .twitter svg {
   height: 24px;
   width: 16px;
   margin-left: 4px;
 }
+
 .tumblr svg {
   height: 24px;
   width: 24px;
 }
+
 footer {
   &.expanded {
     // padding-left: 6em;
