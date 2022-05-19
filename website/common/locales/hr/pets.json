@@ -1,1 +1,16 @@
-{}
+{
+    "magicPets": "Ljubimci čarobnih napitaka",
+    "noActivePet": "Nema trenutnog ljubimca",
+    "activeMount": "Trenutna jahaća životinja",
+    "questPets": "Pustolovni ljubimci",
+    "mounts": "Jahaće životinje",
+    "wackyPets": "Šašavi ljubimci",
+    "petsFound": "Pronađeni ljubimci",
+    "activePet": "Trenutni ljubimac",
+    "noActiveMount": "Nema jahaće životinje",
+    "stable": "Štala",
+    "mountsTamed": "Pripitomljene jahaće životinje",
+    "questMounts": "Pustolovne jahaće životinje",
+    "magicMounts": "Jahaće životinje čarobnih napitaka",
+    "pets": "Ljubimci"
+}
