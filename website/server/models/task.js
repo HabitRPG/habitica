@@ -363,7 +363,7 @@ export const HabitSchema = new Schema(_.defaults({
   counterDown: { $type: Number, default: 0 },
   frequency: { $type: String, default: 'daily', enum: ['daily', 'weekly', 'monthly'] },
 }, habitDailySchema()), subDiscriminatorOptions);
-export const habit = Task.discriminator('habit', HabitSchema);
+export const habit = Task.discriminator('habit', HabitSchema, { clone: false });
 
 export const DailySchema = new Schema(_.defaults({
   frequency: { $type: String, default: 'weekly', enum: ['daily', 'weekly', 'monthly', 'yearly'] },
@@ -400,13 +400,13 @@ export const DailySchema = new Schema(_.defaults({
   nextDue: [{ $type: String }],
   yesterDaily: { $type: Boolean, default: true, required: true },
 }, habitDailySchema(), dailyTodoSchema()), subDiscriminatorOptions);
-export const daily = Task.discriminator('daily', DailySchema);
+export const daily = Task.discriminator('daily', DailySchema, { clone: false });
 
 export const TodoSchema = new Schema(_.defaults({
   dateCompleted: Date,
   date: Date, // due date for todos
 }, dailyTodoSchema()), subDiscriminatorOptions);
-export const todo = Task.discriminator('todo', TodoSchema);
+export const todo = Task.discriminator('todo', TodoSchema, { clone: false });
 
 export const RewardSchema = new Schema({}, subDiscriminatorOptions);
-export const reward = Task.discriminator('reward', RewardSchema);
+export const reward = Task.discriminator('reward', RewardSchema, { clone: false });
