@@ -238,11 +238,11 @@ describe('cron middleware', () => {
     await user.save();
 
     const updatedUser = user.toObject();
-    updatedUser.nMatched = 0;
+    updatedUser.matchedCount = 0;
 
     sandbox.spy(cronLib, 'recoverCron');
 
-    sandbox.stub(User, 'update')
+    sandbox.stub(User, 'updateOne')
       .withArgs({
         _id: user._id,
         $or: [

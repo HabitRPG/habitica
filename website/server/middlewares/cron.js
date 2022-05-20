@@ -16,7 +16,7 @@ async function checkForActiveCron (user, now) {
 
   // To avoid double cron we first set _cronSignature
   // and then check that it's not changed while processing
-  const userUpdateResult = await User.update({
+  const userUpdateResult = await User.updateOne({
     _id: user._id,
     $or: [ // Make sure last cron was successful or failed before cronRetryTime
       { _cronSignature: 'NOT_RUNNING' },

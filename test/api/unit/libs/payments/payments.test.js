@@ -559,13 +559,10 @@ describe('payments/index', () => {
       it('does not award mystery item when user already has the item in the mystery box', async () => {
         user.purchased.plan.mysteryItems = [mayMysteryItem];
 
-        sandbox.spy(user.purchased.plan.mysteryItems, 'push');
-
         data = { paymentMethod: 'PaymentMethod', user, sub: { key: 'basic_3mo' } };
         await api.createSubscription(data);
 
-        expect(user.purchased.plan.mysteryItems.push).to.be.calledOnce;
-        expect(user.purchased.plan.mysteryItems.push).to.be.calledWith('head_mystery_201605');
+        expect(user.purchased.plan.mysteryItems).to.have.a.lengthOf(2);
       });
     });
   });
