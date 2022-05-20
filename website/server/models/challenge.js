@@ -110,7 +110,7 @@ schema.methods.addToUser = async function addChallengeToUser (user) {
     { $push: { challenges: this._id } },
   ).exec();
 
-  return !!result.nModified;
+  return !!result.modifiedCount;
 };
 
 // Returns true if user can view the challenge

@@ -30,7 +30,7 @@ async function checkForActiveCron (user, now) {
 
   // If the cron signature is already set, cron is running in another request
   // throw an error and recover later,
-  if (userUpdateResult.nMatched === 0 || userUpdateResult.nModified === 0) {
+  if (userUpdateResult.matchedCount === 0 || userUpdateResult.modifiedCount === 0) {
     throw new Error('CRON_ALREADY_RUNNING');
   }
 }

@@ -669,12 +669,12 @@ schema.methods.handleQuestInvitation = async function handleQuestInvitation (use
     { $set: { [`quest.members.${user._id}`]: accept } },
   ).exec();
 
-  if (result.nModified) {
+  if (result.modifiedCount) {
     // update also current instance so future operations will work correctly
     this.quest.members[user._id] = accept;
   }
 
-  return Boolean(result.nModified);
+  return Boolean(result.modifiedCount);
 };
 
 schema.methods.startQuest = async function startQuest (user) {
