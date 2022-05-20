@@ -34,7 +34,7 @@
           </ul>
         </div>
         <!-- Company -->
-        <div class="col-sm">
+        <div class="col-md">
           <h3>{{ $t('footerCompany') }}</h3>
           <ul>
             <li>
@@ -62,7 +62,7 @@
           </ul>
         </div>
         <!-- Community -->
-        <div class="col-sm">
+        <div class="col-md">
           <h3>{{ $t('footerCommunity') }}</h3>
           <ul>
             <li>
@@ -85,7 +85,7 @@
           </ul>
         </div>
         <!-- Support -->
-        <div class="col-sm">
+        <div class="col-md">
           <h3>{{ $t ('support') }}</h3>
             <ul>
               <li>
@@ -124,7 +124,7 @@
             </ul>
         </div>
         <!-- Developers -->
-        <div class="col-sm">
+        <div class="col-md">
           <h3>{{ $t('footerDevs') }}</h3>
             <ul>
               <li>
@@ -157,13 +157,13 @@
         </div>
         <div class="row justify-content">
           <!-- Help Support Habitica -->
-          <div class="col-12 col-sm-7">
+          <div class="col-md-7">
             <h3>{{ $t('helpSupportHabitica') }}</h3>
             <div class="donate-text">
               {{ $t('donateText3') }}
             </div>
           </div>
-          <div class="col-2">
+          <div class="col">
             <button
               v-if="user"
               class="btn btn-contribute"
@@ -195,7 +195,7 @@
           </div>
 
         <!-- Social -->
-        <div class="col-12 col-sm-2 social">
+        <div class="col social">
           <h3>{{ $t('footerSocial') }}</h3>
           <div class="icons align-items-center">
             <a
@@ -241,7 +241,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="">
+        <div class="col-12">
           <hr>
         </div>
       </div>
@@ -391,14 +391,13 @@ li {
 }
 
 hr {
-  width: 1156px;
   height: 1px;
   margin: 0 0 15px;
   background-color: $gray-400;
 }
 
 .social {
-margin-left: 60px;
+  padding-left: 36px;
 }
 
 .icons {
