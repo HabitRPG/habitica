@@ -93,6 +93,7 @@
                   {{ $t('FAQ') }}
                 </router-link>
               </li>
+              <!-- link isn't underlined on hover for some reason... -->
               <li v-if="user">
                 <a
                 target="_blank"
@@ -166,30 +167,24 @@
           <div class="col">
             <button
               v-if="user"
-              class="btn btn-contribute"
+              class="btn btn-contribute justify-content-between"
               @click="donate()"
             >
-              <div
-                class="svg-icon heart"
-                v-html="icons.heart"
-              ></div>
               <div class="text">
-                {{ $t('companyDonate') }}
+                💜 {{ $t('companyDonate') }}
               </div>
             </button>
             <div
               v-else
-              class="btn btn-contribute"
+              class="btn btn-contribute justify-content-between"
             >
               <a
                 href="https://habitica.fandom.com/wiki/Contributing_to_Habitica"
                 target="_blank"
               >
-                <div
-                  class="svg-icon heart"
-                  v-html="icons.heart"
-                ></div>
-                <div class="text">{{ $t('companyContribute') }}</div>
+                <div class="text">
+                  💜 {{ $t('companyContribute') }}
+                </div>
               </a>
             </div>
           </div>
@@ -245,18 +240,18 @@
           <hr>
         </div>
       </div>
-        <div class="row">
-          <div class="">
+        <div class="row colophon align-items-center">
+          <div class="col">
             © {{ currentYear }} Habitica. All rights reserved.
           </div>
-          <div class="">
+          <div class="col align-items-end">
             <div
               class="logo svg-icon"
               v-html="icons.gryphon"
             ></div>
           </div>
-          <div class="">
-            <span class="">
+          <div class="d-flex col justify-content-end">
+            <span class="privacy-policy">
               <a
                 target="_blank"
                 href="/static/privacy"
@@ -288,7 +283,7 @@
               <a
                 class="btn btn-secondary"
                 @click="setHealthLow()"
-              >Health = 1</a>
+              >Reduce Health to 1</a>
               <a
                 class="btn btn-secondary"
                 @click="addMissedDay(1)"
@@ -346,10 +341,6 @@
                 class="btn btn-secondary"
                 @click="makeAdmin()"
               >Make Admin</a>
-              <a
-                class="btn btn-secondary"
-                @click="openModifyInventoryModal()"
-              >Modify Inventory</a>
             </div>
           </div>
         </div>
@@ -368,7 +359,7 @@
 footer {
   background-color: $gray-500;
   color: $gray-50;
-  padding: 2em 8.875em 2.5em;
+  padding: 32px 142px 40px;
   a {
     color: $gray-50;
   }
@@ -387,12 +378,12 @@ ul {
 }
 
 li {
-  margin-bottom: 0.5em;
+  margin-bottom: 8px;
 }
 
 hr {
   height: 1px;
-  margin: 0 0 15px;
+  margin: 0 0 13px;
   background-color: $gray-400;
 }
 
@@ -406,6 +397,9 @@ hr {
   height: 32px;
 }
 
+.heart {
+}
+
 .donate-text{
   font-size: 0.75rem;
   font-color: $gray-100;
@@ -417,7 +411,7 @@ hr {
   .social-circle {
     height: 32px !important;
     width: 32px !important;
-    margin-left: 0.75em !important;
+    margin-left: 12px !important;
   }
 }
 
@@ -446,29 +440,40 @@ hr {
   &:last-child {
     margin-right: 0;
   }
-  &:hover {
-    background-color: $purple-300;
-  }
-  .social-icon {
-    color: $gray-500;
-    width: 24px;
-    // margin: auto;
-  }
+}
+
+.colophon {
+  height: 24px;
+  line-height: 1.71;
 }
 
 .logo {
   width: 24px;
   height: 24px;
-  margin: 0 auto;
+  margin: 0px auto 5px;
   color: $gray-200;
 }
 
+.privacy-policy {
+  padding-right: 16px;
+}
+
+.debug {
+  margin-top: 16px;
+}
+
 .debug-group {
-  position: absolute;
-  background: #fff;
   top: -300px;
+  background: $gray-600;
   border-radius: 2px;
-  padding: 2em;
+  padding: 16px;
+  width: 60%;
+  box-shadow: 0 1px 3px 0 rgba(26, 24, 29, 0.12), 0 1px 2px 0 rgba(26, 24, 29, 0.24);
+  margin-top: 8px;
+}
+
+ .debug-group .btn {
+  margin: 2px
 }
 
 .btn-contribute {
@@ -492,8 +497,8 @@ hr {
   .heart {
     max-height: 25px;
     width: 18px;
-    margin-right: 0.5em;
-    margin-bottom: 0.2em;
+    margin-right: 8px;
+    margin-bottom: 3.2px;
   }
   .text,
   .heart {
@@ -505,36 +510,35 @@ hr {
 
 <style lang="scss">
 .heart svg {
-  margin-top: 0.1em;
+  margin-top: 1.6px;
 }
 
-// this nonsense needs fixing
-.facebook svg {
-  width: 10px;
-  margin: 0 auto;
-}
-
+// need to figure out how to do a hover here
 .instagram svg {
-  height: 24px;
-  width: 24px;
+  background-color: #e1e0e3;
+  // &:hover {
+  //   background-color: #878190 !important;
+  // }
 }
 
 .twitter svg {
-  height: 24px;
-  width: 16px;
-  margin-left: 4px;
+  background-color: #e1e0e3;
+}
+
+.facebook svg {
+  color: #878190;
+  background-color: #e1e0e3;
 }
 
 .tumblr svg {
-  height: 24px;
-  width: 24px;
+  background-color: #e1e0e3;
 }
 
 footer {
   &.expanded {
-    // padding-left: 6em;
-    // padding-right: 6em;
-    // padding-top: 3em;
+    padding-left: 96px;
+    padding-right: 96px;
+    padding-top: 48px;
     background: #E1E0E3;
     color: #4E4A57;
     min-height: 356px;
@@ -545,8 +549,8 @@ footer {
       color: #c3c0c7;
     }
     @media screen and (max-width: 770px) {
-      padding-left: 1em;
-      padding-right: 1em;
+      padding-left: 16px;
+      padding-right: 16px;
     }
   }
 }
@@ -677,9 +681,6 @@ export default {
       // @TODO: Notification.text('You are now an admin!
       // Reload the website then go to Help > Admin Panel to set contributor level, etc.');
       // @TODO: sync()
-    },
-    openModifyInventoryModal () {
-      this.$root.$emit('bv::show::modal', 'modify-inventory');
     },
     donate () {
       this.$root.$emit('bv::show::modal', 'buy-gems', { alreadyTracked: true });
