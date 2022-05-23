@@ -299,28 +299,32 @@ schema.statics.getGroups = async function getGroups (options = {}) {
         break;
       }
       case 'guilds': {
-        const query = {
-          type: 'guild',
-          _id: { $in: user.guilds, $ne: TAVERN_ID },
-        };
-        _.assign(query, filters);
-        const userGuildsQuery = this.find(query).select(groupFields);
-        if (populateLeader === true) userGuildsQuery.populate('leader', nameFields);
-        userGuildsQuery.sort(sort).exec();
-        queries.push(userGuildsQuery);
+        if (user.guilds.length > 0) {
+          const query = {
+            type: 'guild',
+            _id: { $in: user.guilds, $ne: TAVERN_ID },
+          };
+          _.assign(query, filters);
+          const userGuildsQuery = this.find(query).select(groupFields);
+          if (populateLeader === true) userGuildsQuery.populate('leader', nameFields);
+          userGuildsQuery.sort(sort);
+          queries.push(userGuildsQuery);
+        }
         break;
       }
       case 'privateGuilds': {
-        const query = {
-          type: 'guild',
-          privacy: 'private',
-          _id: { $in: user.guilds },
-        };
-        _.assign(query, filters);
-        const privateGuildsQuery = this.find(query).select(groupFields);
-        if (populateLeader === true) privateGuildsQuery.populate('leader', nameFields);
-        privateGuildsQuery.sort(sort).exec();
-        queries.push(privateGuildsQuery);
+        if (user.guilds.length > 0) {
+          const query = {
+            type: 'guild',
+            privacy: 'private',
+            _id: { $in: user.guilds },
+          };
+          _.assign(query, filters);
+          const privateGuildsQuery = this.find(query).select(groupFields);
+          if (populateLeader === true) privateGuildsQuery.populate('leader', nameFields);
+          privateGuildsQuery.sort(sort);
+          queries.push(privateGuildsQuery);
+        }
         break;
       }
       // NOTE: when returning publicGuilds we use `.lean()` so all
@@ -340,7 +344,7 @@ schema.statics.getGroups = async function getGroups (options = {}) {
         if (paginate === true) {
           publicGuildsQuery.limit(GUILDS_PER_PAGE).skip(page * GUILDS_PER_PAGE);
         }
-        publicGuildsQuery.sort(sort).lean().exec();
+        publicGuildsQuery.sort(sort).lean();
         queries.push(publicGuildsQuery);
 
         break;

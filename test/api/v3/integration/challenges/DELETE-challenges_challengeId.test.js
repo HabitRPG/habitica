@@ -87,7 +87,7 @@ describe('DELETE /challenges/:challengeId', () => {
       const testTask = _.find(tasks, task => task.text === taskText);
 
       expect(testTask.challenge.broken).to.eql('CHALLENGE_DELETED');
-      expect(testTask.challenge.winner).to.be.null;
+      expect(testTask.challenge.winner).to.be.undefined;
     });
   });
 });
