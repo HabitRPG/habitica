@@ -343,6 +343,10 @@ function _getSpecialAchievements (user, language) {
     _addSimple(result, user, { path: 'kickstarter2019', language });
   }
 
+  if (user.achievements.groupsBeta2022) {
+    _addSimple(result, user, { path: 'groupsBeta2022', language });
+  }
+
   return result;
 }
 

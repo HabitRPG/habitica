@@ -347,6 +347,11 @@ const specialAchievs = {
     titleKey: 'achievementKickstarter2019',
     textKey: 'achievementKickstarter2019Text',
   },
+  groupsBeta2022: {
+    icon: 'achievement-groupsBeta2022',
+    titleKey: 'achievementGroupsBeta2022',
+    textKey: 'achievementGroupsBeta2022Text',
+  },
 };
 Object.assign(achievementsData, specialAchievs);
 

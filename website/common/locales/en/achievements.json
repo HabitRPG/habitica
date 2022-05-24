@@ -129,5 +129,8 @@
   "achievementZodiacZookeeperModalText": "You collected all the zodiac pets!",
   "achievementBirdsOfAFeather": "Birds of a Feather",
   "achievementBirdsOfAFeatherText": "Has hatched all standard colors of flying pets: Flying Pig, Owl, Parrot, Pterodactyl, Gryphon, Falcon, Peacock, and Rooster.",
-  "achievementBirdsOfAFeatherModalText":"You collected all the flying pets!"
+  "achievementBirdsOfAFeatherModalText":"You collected all the flying pets!",
+  "achievementGroupsBeta2022":"Interactive Beta Tester",
+  "achievementGroupsBeta2022Text":"You and your group provided invaluable feedback to help Habitica test.",
+  "achievementGroupsBeta2022ModalText":"You and your groups helped Habitica by testing and providing feedback!"
 }
