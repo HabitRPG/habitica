@@ -406,27 +406,6 @@ hr {
   line-height: 1.33;
 }
 
-// smaller than desktop
-@media only screen and (max-width: 992px) {
-  .social-circle {
-    height: 32px !important;
-    width: 32px !important;
-    margin-left: 12px !important;
-  }
-}
-
-//mobile view
-@media screen and (max-width: 770px) {
-  .footer-main {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .logo-container {
-    order: 1;
-  }
-}
-
 .social-circle {
   width: 24px;
   height: 24px;
@@ -506,6 +485,36 @@ hr {
     vertical-align: bottom;
   }
 }
+
+
+// Extra small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {
+  footer {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+// Small devices (landscape phones, less than 768px)
+@media (max-width: 767.98px) {}
+
+// Medium devices (tablets, less than 992px)
+@media (max-width: 991.98px) {}
+
+// Large devices (desktops, less than 1200px)
+@media (max-width: 1199.98px) {}
+
+// Extra large devices (large desktops)
+// No media query since the extra-large breakpoint has no upper bound on its width
+
+// bootstrap extra-large
+@media (max-width: 1440px) {
+  .social {
+    padding-left: 20px;
+  }
+}
+
+
 </style>
 
 <style lang="scss">
