@@ -186,7 +186,7 @@ const animalSetAchievs = {
   reptacularRumble: {
     icon: 'achievement-reptacularRumble',
     titleKey: 'achievementReptacularRumble',
-    textKey: 'achievementReptacularRumble',
+    textKey: 'achievementReptacularRumbleText',
   },
   zodiacZookeeper: {
     icon: 'achievement-zodiac',
