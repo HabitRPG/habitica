@@ -305,8 +305,11 @@ api.unassignTask = {
     const notificationIndex = assignedUser.notifications.findIndex(notification => notification && notification.data && notification.type === 'GROUP_TASK_ASSIGNED' && notification.data.taskId === task._id);
 
     if (notificationIndex !== -1) {
+      const notificationId = assignedUser.notifications[notificationIndex].id;
       assignedUser.notifications.splice(notificationIndex, 1);
-      await assignedUser.save();
+      await assignedUser.update({
+        $pull: { notifications: { id: notificationId } },
+      }).exec();
     }
 
     res.respond(200, task);
