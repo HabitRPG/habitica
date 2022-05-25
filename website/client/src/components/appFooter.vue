@@ -5,7 +5,7 @@
     <footer>
       <div class="row">
         <!-- Product -->
-        <div class="col-sm">
+        <div class="col-6 col-sm">
           <h3>{{ $t('footerProduct') }}</h3>
           <ul>
             <li>
@@ -34,7 +34,7 @@
           </ul>
         </div>
         <!-- Company -->
-        <div class="col-md">
+        <div class="col-6 col-sm">
           <h3>{{ $t('footerCompany') }}</h3>
           <ul>
             <li>
@@ -62,7 +62,7 @@
           </ul>
         </div>
         <!-- Community -->
-        <div class="col-md">
+        <div class="col-6 col-sm">
           <h3>{{ $t('footerCommunity') }}</h3>
           <ul>
             <li>
@@ -85,7 +85,7 @@
           </ul>
         </div>
         <!-- Support -->
-        <div class="col-md">
+        <div class="col-6 col-sm">
           <h3>{{ $t ('support') }}</h3>
             <ul>
               <li>
@@ -125,7 +125,7 @@
             </ul>
         </div>
         <!-- Developers -->
-        <div class="col-md">
+        <div class="col-6 col-sm">
           <h3>{{ $t('footerDevs') }}</h3>
             <ul>
               <li>
@@ -156,15 +156,15 @@
             </ul>
           </div>
         </div>
-        <div class="row justify-content">
+        <div class="row justify-content d-flex">
           <!-- Help Support Habitica -->
-          <div class="col-md-7">
+          <div class="col-sm-7 support">
             <h3>{{ $t('helpSupportHabitica') }}</h3>
             <div class="donate-text">
               {{ $t('donateText3') }}
             </div>
           </div>
-          <div class="col">
+          <div class="col col-md-3">
             <button
               v-if="user"
               class="btn btn-contribute justify-content-between"
@@ -190,51 +190,51 @@
           </div>
 
         <!-- Social -->
-        <div class="col social">
-          <h3>{{ $t('footerSocial') }}</h3>
-          <div class="icons align-items-center">
-            <a
-            class="social-circle"
-            href="https://www.instagram.com/habitica/"
-            target="_blank"
-            >
-            <div
-            class="social-icon svg-icon instagram"
-            v-html="icons.instagram"
-            ></div>
-            </a>
-            <a
+          <div class="col col-md-2 social">
+            <h3>{{ $t('footerSocial') }}</h3>
+            <div class="icons align-items-center">
+              <a
               class="social-circle"
-              href="https://twitter.com/habitica"
+              href="https://www.instagram.com/habitica/"
               target="_blank"
-            >
+              >
               <div
-                class="social-icon svg-icon twitter"
-                v-html="icons.twitter"
+              class="social-icon svg-icon instagram"
+              v-html="icons.instagram"
               ></div>
-            </a>
-            <a
-              class="social-circle"
-              href="https://www.facebook.com/Habitica"
-              target="_blank"
-            >
-              <div
-                class="social-icon facebook svg-icon"
-                v-html="icons.facebook"
-              ></div>
-            </a><a
-              class="social-circle tumblr svg-icon"
-              href="https://www.tumblr.com/Habitica"
-              target="_blank"
-            >
-              <div
-                class="social-icon tumblr svg-icon"
-                v-html="icons.tumblr"
-              ></div>
-            </a>
+              </a>
+              <a
+                class="social-circle"
+                href="https://twitter.com/habitica"
+                target="_blank"
+              >
+                <div
+                  class="social-icon svg-icon twitter"
+                  v-html="icons.twitter"
+                ></div>
+              </a>
+              <a
+                class="social-circle"
+                href="https://www.facebook.com/Habitica"
+                target="_blank"
+              >
+                <div
+                  class="social-icon facebook svg-icon"
+                  v-html="icons.facebook"
+                ></div>
+              </a><a
+                class="social-circle"
+                href="https://www.tumblr.com/Habitica"
+                target="_blank"
+              >
+                <div
+                  class="social-icon tumblr svg-icon"
+                  v-html="icons.tumblr"
+                ></div>
+              </a>
+            </div>
           </div>
         </div>
-      </div>
       <div class="row">
         <div class="col-12">
           <hr>
@@ -468,7 +468,7 @@ hr {
   font-size: 0.875rem;
   vertical-align: middle;
   padding: 0;
-  margin: 32px 24px 24px 24px;
+  margin: 32px 0 32px 24px;
   box-shadow: 0 1px 3px 0 rgba(26, 24, 29, 0.12), 0 1px 2px 0 rgba(26, 24, 29, 0.24);
   a {
     display: flex;
@@ -486,34 +486,39 @@ hr {
   }
 }
 
-
 // Extra small devices (portrait phones, less than 576px)
-@media (max-width: 575.98px) {
+@media (max-width: 576px) {
   footer {
     padding-left: 10px;
     padding-right: 10px;
   }
+  .support {
+    flex-direction: row-reverse;
+  }
 }
 
 // Small devices (landscape phones, less than 768px)
-@media (max-width: 767.98px) {}
+@media (max-width: 768px) {}
 
 // Medium devices (tablets, less than 992px)
-@media (max-width: 991.98px) {}
+@media (max-width: 992px) {}
 
 // Large devices (desktops, less than 1200px)
-@media (max-width: 1199.98px) {}
+@media (max-width: 1440px) {
+  .social {
+    margin-left: -60px;
+  }
+}
 
 // Extra large devices (large desktops)
 // No media query since the extra-large breakpoint has no upper bound on its width
 
 // bootstrap extra-large
-@media (max-width: 1440px) {
+@media (min-width: 1440.02px) {
   .social {
     padding-left: 20px;
   }
 }
-
 
 </style>
 
@@ -525,44 +530,53 @@ hr {
 // need to figure out how to do a hover here
 .instagram svg {
   background-color: #e1e0e3;
-  // &:hover {
-  //   background-color: #878190 !important;
-  // }
+  fill: #878190
 }
 
+.instagram svg:hover {
+  fill: #6133B4 !important;
+}
 .twitter svg {
   background-color: #e1e0e3;
+  fill: #878190
 }
 
 .facebook svg {
-  color: #878190;
   background-color: #e1e0e3;
+  fill: #878190;
+  height: 24px;
+  width: 24px;
 }
 
+svg:hover {
+  fill: #6133B4;
+}
 .tumblr svg {
   background-color: #e1e0e3;
+  fill: #878190
 }
 
-footer {
-  &.expanded {
-    padding-left: 96px;
-    padding-right: 96px;
-    padding-top: 48px;
-    background: #E1E0E3;
-    color: #4E4A57;
-    min-height: 356px;
-    a {
-      color: #878190;
-    }
-    .logo {
-      color: #c3c0c7;
-    }
-    @media screen and (max-width: 770px) {
-      padding-left: 16px;
-      padding-right: 16px;
-    }
-  }
-}
+
+// footer {
+//   &.expanded {
+//     padding-left: 96px;
+//     padding-right: 96px;
+//     padding-top: 48px;
+//     background: #E1E0E3;
+//     color: #4E4A57;
+//     min-height: 356px;
+//     a {
+//       color: #878190;
+//     }
+//     .logo {
+//       color: #c3c0c7;
+//     }
+//     @media screen and (max-width: 770px) {
+//       padding-left: 16px;
+//       padding-right: 16px;
+//     }
+//   }
+// }
 </style>
 
 <script>
