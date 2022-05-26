@@ -94,22 +94,26 @@
                 </router-link>
               </li>
               <!-- link isn't underlined on hover for some reason... -->
-              <li v-if="user">
-                <a
-                target="_blank"
-                @click.prevent="openBugReportModal()"
-                >
-                {{ $t('reportBug') }}
-              </a>
-              </li>
-              <li v-else>
-                <a
-                href="mailto:admin@habitica.com?subject=Habitica Web Bug Report"
-                target="_blank"
-                >
-                {{ $t('reportBug') }}
-              </a>
-              </li>
+                <li
+                  v-if="user"
+                  >
+                    <a
+                    target="_blank"
+                    @click.prevent="openBugReportModal()"
+                    >
+                      {{ $t('reportBug') }}
+                  </a>
+                </li>
+                <li
+                  v-else
+                  >
+                    <a
+                    href="mailto:admin@habitica.com?subject=Habitica Web Bug Report"
+                    target="_blank"
+                    >
+                      {{ $t('reportBug') }}
+                    </a>
+                </li>
               <li>
                 <a
                 href="https://docs.google.com/forms/d/e/1FAIpQLScPhrwq_7P1C6PTrI3lbvTsvqGyTNnGzp1ugi1Ml0PFee_p5g/viewform?usp=sf_link"
@@ -364,7 +368,8 @@ footer {
     color: $gray-50;
   }
   a:hover {
-    color: $purple-300
+    color: $purple-300;
+    text-decoration: underline;
   }
 }
 
@@ -382,7 +387,6 @@ li {
 }
 
 hr {
-  height: 1px;
   margin: 0 0 13px;
   background-color: $gray-400;
 }
@@ -473,17 +477,10 @@ hr {
   a {
     display: flex;
   }
-  .heart {
-    max-height: 25px;
-    width: 18px;
-    margin-right: 8px;
-    margin-bottom: 3.2px;
-  }
-  .text,
-  .heart {
-    display: inline-block;
-    vertical-align: bottom;
-  }
+  .text{
+  display: inline-block;
+  vertical-align: bottom;
+}
 }
 
 // Extra small devices (portrait phones, less than 576px)
@@ -523,22 +520,19 @@ hr {
 </style>
 
 <style lang="scss">
-.heart svg {
-  margin-top: 1.6px;
-}
 
-// need to figure out how to do a hover here
 .instagram svg {
   background-color: #e1e0e3;
-  fill: #878190
+  fill: #878190;
+  height: 24px;
+  width: 24px;
 }
 
-.instagram svg:hover {
-  fill: #6133B4 !important;
-}
 .twitter svg {
   background-color: #e1e0e3;
-  fill: #878190
+  fill: #878190;
+  height: 24px;
+  width: 24px;
 }
 
 .facebook svg {
@@ -548,14 +542,16 @@ hr {
   width: 24px;
 }
 
+.tumblr svg {
+  background-color: #e1e0e3;
+  fill: #878190;
+  height: 24px;
+  width: 24px;
+}
+
 svg:hover {
   fill: #6133B4;
 }
-.tumblr svg {
-  background-color: #e1e0e3;
-  fill: #878190
-}
-
 
 // footer {
 //   &.expanded {
