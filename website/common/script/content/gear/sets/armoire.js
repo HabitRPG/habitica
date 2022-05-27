@@ -1076,6 +1076,16 @@ const shield = {
     str: 8,
     set: 'gardenerSet',
   },
+  spanishGuitar: {
+    per: 5, // this might need to go back to 6
+    int: 6,
+    set: 'musicalInstrumentOne',
+  },
+  snareDrum: {
+    con: 5,
+    int: 6,
+    set: 'musicalInstrumentOne',
+  },
 };
 
 const headAccessory = {
@@ -1459,6 +1469,11 @@ const weapon = {
   gardenersWateringCan: {
     int: 8,
     set: 'gardenerSet',
+  },
+  huntingHorn: {
+    str: 5,
+    int: 6,
+    set: 'musicalInstrumentOne',
   },
 };
 

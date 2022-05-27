@@ -11,6 +11,9 @@ const QUEST_SEASONAL = {
   // winter
   evilsanta: {
     event: CURRENT_EVENT && CURRENT_EVENT.season === 'winter' ? CURRENT_EVENT : null,
+    canBuy () {
+      return this.event && moment().isBetween(this.event.start, this.event.end);
+    },
     text: t('questEvilSantaText'),
     notes: t('questEvilSantaNotes'),
     addlNotes: t('evilSantaAddlNotes'),
@@ -33,12 +36,12 @@ const QUEST_SEASONAL = {
       gp: 20,
       exp: 100,
     },
-    canBuy () {
-      return this.event && moment().isBetween(this.event.start, this.event.end);
-    },
   },
   evilsanta2: {
     event: CURRENT_EVENT && CURRENT_EVENT.season === 'winter' ? CURRENT_EVENT : null,
+    canBuy () {
+      return this.event && moment().isBetween(this.event.start, this.event.end);
+    },
     text: t('questEvilSanta2Text'),
     notes: t('questEvilSanta2Notes'),
     addlNotes: t('evilSantaAddlNotes'),
@@ -66,18 +69,18 @@ const QUEST_SEASONAL = {
       gp: 20,
       exp: 100,
     },
-    canBuy () {
-      return this.event && moment().isBetween(this.event.start, this.event.end);
-    },
   },
   // spring
   egg: {
+    event: CURRENT_EVENT && CURRENT_EVENT.season === 'spring' ? CURRENT_EVENT : null,
+    canBuy () {
+      return this.event && moment().isBetween(this.event.start, this.event.end);
+    },
     text: t('questEggHuntText'),
     notes: t('questEggHuntNotes'),
     completion: t('questEggHuntCompletion'),
     value: 1,
     category: 'pet',
-    event: CURRENT_EVENT && CURRENT_EVENT.season === 'spring' ? CURRENT_EVENT : null,
     collect: {
       plainEgg: {
         text: t('questEggHuntCollectPlainEgg'),
@@ -131,60 +134,17 @@ const QUEST_SEASONAL = {
       gp: 0,
       exp: 0,
     },
+  },
+  waffle: {
+    event: CURRENT_EVENT && CURRENT_EVENT.season === 'spring' ? CURRENT_EVENT : null,
     canBuy () {
       return this.event && moment().isBetween(this.event.start, this.event.end);
     },
-  },
-  virtualpet: {
-    text: t('questVirtualPetText'),
-    notes: t('questVirtualPetNotes'),
-    completion: t('questVirtualPetCompletion'),
-    value: 4,
-    category: 'hatchingPotion',
-    canBuy () {
-      return CURRENT_EVENT && CURRENT_EVENT.season === 'spring';
-    },
-    event: CURRENT_EVENT && CURRENT_EVENT.season === 'spring' ? CURRENT_EVENT : null,
-    boss: {
-      name: t('questVirtualPetBoss'),
-      hp: 500,
-      str: 2,
-      rage: {
-        title: t('questVirtualPetRageTitle'),
-        description: t('questVirtualPetRageDescription'),
-        value: 50,
-        progressDrain: 0.5,
-        effect: t('questVirtualPetRageEffect'),
-      },
-    },
-    drop: {
-      items: [
-        {
-          type: 'hatchingPotions',
-          key: 'VirtualPet',
-          text: t('questVirtualPetDropVirtualPetPotion'),
-        }, {
-          type: 'hatchingPotions',
-          key: 'VirtualPet',
-          text: t('questVirtualPetDropVirtualPetPotion'),
-        }, {
-          type: 'hatchingPotions',
-          key: 'VirtualPet',
-          text: t('questVirtualPetDropVirtualPetPotion'),
-        },
-      ],
-      gp: 40,
-      exp: 500,
-      unlock: t('questVirtualPetUnlockText'),
-    },
-  },
-  waffle: {
     text: t('questWaffleText'),
     notes: t('questWaffleNotes'),
     completion: t('questWaffleCompletion'),
     value: 4,
     category: 'hatchingPotion',
-    event: CURRENT_EVENT && CURRENT_EVENT.season === 'spring' ? CURRENT_EVENT : null,
     boss: {
       name: t('questWaffleBoss'),
       hp: 500,
@@ -217,8 +177,48 @@ const QUEST_SEASONAL = {
       exp: 500,
       unlock: t('questWaffleUnlockText'),
     },
+  },
+  virtualpet: {
+    event: CURRENT_EVENT && CURRENT_EVENT.season === 'spring' ? CURRENT_EVENT : null,
     canBuy () {
       return this.event && moment().isBetween(this.event.start, this.event.end);
+    },
+    text: t('questVirtualPetText'),
+    notes: t('questVirtualPetNotes'),
+    completion: t('questVirtualPetCompletion'),
+    value: 4,
+    category: 'hatchingPotion',
+    boss: {
+      name: t('questVirtualPetBoss'),
+      hp: 500,
+      str: 2,
+      rage: {
+        title: t('questVirtualPetRageTitle'),
+        description: t('questVirtualPetRageDescription'),
+        value: 50,
+        progressDrain: 0.5,
+        effect: t('questVirtualPetRageEffect'),
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'VirtualPet',
+          text: t('questVirtualPetDropVirtualPetPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'VirtualPet',
+          text: t('questVirtualPetDropVirtualPetPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'VirtualPet',
+          text: t('questVirtualPetDropVirtualPetPotion'),
+        },
+      ],
+      gp: 40,
+      exp: 500,
+      unlock: t('questVirtualPetUnlockText'),
     },
   },
 };

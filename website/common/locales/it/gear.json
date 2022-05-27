@@ -2618,5 +2618,15 @@
     "headArmoireStrawRainHatNotes": "Sarai in grado di individuare ogni ostacolo sul tuo cammino quando indossi questo cappello conico resistente all'acqua. Aumenta la percezione di <%= per %>. Scrigno incantato: Set impermeabile di paglia (oggetto 2 di 2).",
     "armorArmoireSoftVioletSuitText": "Morbido vestito viola",
     "backMystery202203Notes": "Supera tutte le altre creature del cielo con queste ali scintillanti. Non conferisce alcun bonus. Oggetto abbonati aprile 2022.",
-    "backMystery202203Text": "Ali di libellula impavida"
+    "backMystery202203Text": "Ali di libellula impavida",
+    "backMystery202205Text": "Ali del Crepuscolo",
+    "headAccessoryMystery202205Text": "Corna di Drago Alate Crepuscolari",
+    "backMystery202205Notes": "Il potente battito di queste vaste ali può essere sentito echeggiare tra le dune. Non conferisce alcun bonus. Oggetto Abbonati maggio 2022.",
+    "headAccessoryMystery202205Notes": "Queste corna smaglianti brillano come un tramonto nel deserto. Non conferiscono alcun beneficio. Oggetto Abbonati maggio 2022.",
+    "weaponArmoireHuntingHornText": "Corno da Caccia",
+    "weaponArmoireHuntingHornNotes": "Tuuuuuu! Tuuu! Tuuu! Raduna la tua squadra per un'avventura o una missione suonando questo corno. Aumenta la Forza di <%= str %> e l'Intelligenza di <%= int %>. Scrigno Incantato: Set Strumento Musicale 1 (Oggetto 1 di 3)",
+    "shieldArmoireSnareDrumText": "Tamburo Rullante",
+    "shieldArmoireSnareDrumNotes": "Ra-ta-ta-ta! Raduna la tua squadra per una parata o per una marcia in battaglia suonando questo tamburo. Aumenta la Costituzione di <%= con %> e l'Intelligenza di <%= int %>. Scrigno Incantato: Set Strumento Musicale 1 (Oggetto 3 di 3)",
+    "shieldArmoireSpanishGuitarText": "Chitarra Spagnola",
+    "shieldArmoireSpanishGuitarNotes": "Tin! Tin! Trummm! Raduna la tua squadra per un concerto o per una festa, suonando questa chitarra. Aumenta la Percezione di <%= per %> e l'Intelligenza di <%= int %>. Scrigno Incantato: Set Strumento Musicale 1 (Oggetto 2 di 3)"
 }

@@ -9,7 +9,7 @@
         <thead>
           <tr>
             <th>{{ $t('name') }}</th>
-            <th v-if="user.contributor.admin">
+            <th v-if="hasPermission(user, 'userSupport')">
               {{ $t('userId') }}
             </th>
             <th>{{ $t('backerTier') }}</th>
@@ -28,7 +28,7 @@
               ></a>
               {{ patron.profile.name }}
             </td>
-            <td v-if="user.contributor.admin">
+            <td v-if="hasPermission(user, 'userSupport')">
               {{ patron._id }}
             </td>
             <td>{{ patron.backer.tier }}</td>
@@ -40,18 +40,15 @@
 </template>
 
 <script>
-import { mapState } from '@/libs/store';
 import styleHelper from '@/mixins/styleHelper';
+import { userStateMixin } from '../../mixins/userState';
 
 export default {
-  mixins: [styleHelper],
+  mixins: [styleHelper, userStateMixin],
   data () {
     return {
       patrons: [],
     };
-  },
-  computed: {
-    ...mapState({ user: 'user.data' }),
   },
   async mounted () {
     this.$store.dispatch('common:setTitle', {

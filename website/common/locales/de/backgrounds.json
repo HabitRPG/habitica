@@ -692,5 +692,6 @@
     "backgroundFlowerShopText": "Blumenladen",
     "backgroundFlowerShopNotes": "Genieße den süßen Duft eines Blumenladens.",
     "backgroundSpringtimeLakeText": "Frühlingssee",
-    "backgroundSpringtimeLakeNotes": "Genieße die Aussicht an den Ufern eines Frühlingssees."
+    "backgroundSpringtimeLakeNotes": "Genieße die Aussicht an den Ufern eines Frühlingssees.",
+    "hideLockedBackgrounds": "Verstecke nicht erworbene Hintergründe"
 }

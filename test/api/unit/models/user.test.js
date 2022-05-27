@@ -634,7 +634,7 @@ describe('User Model', () => {
       user = await user.save();
       // verify that it's been awarded
       expect(user.achievements.beastMaster).to.equal(true);
-      expect(user.notifications.find(notification => notification.type === 'ACHIEVEMENT_BEAST_MASTER')).to.exist;
+      expect(user.notifications.find(notification => notification.type === 'ACHIEVEMENT_STABLE')).to.exist;
 
       // reset the user
       user.achievements.beastMasterCount = 0;
@@ -683,9 +683,9 @@ describe('User Model', () => {
 
       user = await user.save();
       // verify that it's been awarded
-      expect(user.notifications.find(notification => notification.type === 'ACHIEVEMENT_BEAST_MASTER')).to.exist;
-      expect(user.notifications.find(notification => notification.type === 'ACHIEVEMENT_MOUNT_MASTER')).to.exist;
-      expect(user.notifications.find(notification => notification.type === 'ACHIEVEMENT_TRIAD_BINGO')).to.exist;
+      expect(user.notifications.find(
+        notification => notification.type === 'ACHIEVEMENT_STABLE',
+      )).to.exist;
     });
 
     context('manage unallocated stats points notifications', () => {
@@ -877,7 +877,7 @@ describe('User Model', () => {
 
     expect(user.isNewsPoster()).to.equal(false);
 
-    user.contributor.newsPoster = true;
+    user.permissions = { news: true };
     expect(user.isNewsPoster()).to.equal(true);
   });
 
