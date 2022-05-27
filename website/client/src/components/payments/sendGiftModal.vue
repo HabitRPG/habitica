@@ -62,7 +62,7 @@
           </div>
           <div
             class="nav-item"
-            :class="{active: selectedPage !== 'subscription'}"
+            :class="{active: selectedPage === 'subscription'}"
             @click="selectPage('buyGems')"
           >
             {{ $t('gems') }}
@@ -336,7 +336,7 @@
   }
 
   .nav-item.inactive {
-    color: $purple-300;
+    color: $gray-300;
     border-bottom: 0px;
     cursor: pointer;
   }
@@ -392,6 +392,7 @@
   .icon-gem {
     width: 16px;
     height: 16px;
+    margin-bottom: 4px;
   }
 
   .icon-positive, .icon-negative {
