@@ -33,7 +33,7 @@ schema.plugin(baseModel, {
     'reference',
     'referenceText',
     'amount',
-    'currentAmount'
+    'currentAmount',
   ], // Nothing can be set from the client
   timestamps: true,
   _id: false, // using custom _id
