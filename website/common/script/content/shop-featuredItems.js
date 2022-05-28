@@ -1,11 +1,11 @@
 import moment from 'moment';
-import { EVENTS } from './constants';
+// import { EVENTS } from './constants';
 // Magic Hatching Potions are configured like this:
 // type: 'premiumHatchingPotion',  // note no "s" at the end
 // path: 'premiumHatchingPotions.Rainbow',
 const featuredItems = {
   market () {
-    if (moment().isBefore(EVENTS.spring2022.end)) {
+    if (moment().isBefore('2022-05-31T20:00-04:00')) {
       return [
         {
           type: 'armoire',
@@ -13,15 +13,15 @@ const featuredItems = {
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Shimmer',
+          path: 'premiumHatchingPotions.Sunshine',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Celestial',
+          path: 'premiumHatchingPotions.Floral',
         },
         {
-          type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.PolkaDot',
+          type: 'hatchingPotions',
+          path: 'hatchingPotions.Golden',
         },
       ];
     }
@@ -45,19 +45,19 @@ const featuredItems = {
     ];
   },
   quests () {
-    if (moment().isBefore('2022-03-31T20:00-04:00')) {
+    if (moment().isBefore('2022-05-31T20:00-04:00')) {
       return [
         {
           type: 'bundles',
-          path: 'bundles.cuddleBuddies',
+          path: 'bundles.delightfulDinos',
         },
         {
           type: 'quests',
-          path: 'quests.egg',
+          path: 'quests.alligator',
         },
         {
           type: 'quests',
-          path: 'quests.ghost_stag',
+          path: 'quests.turtle',
         },
       ];
     }

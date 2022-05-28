@@ -22,7 +22,7 @@
     "magicPets": "Animalia Magica",
     "petsFound": "Animalia Inventa",
     "activePet": "Animal Electum",
-    "pets": "Animalia",
+    "pets": "Animalia Domestica",
     "stable": "Stabulum",
     "noActiveMount": "Nullus Iumentum Electus",
     "noActivePet": "Nullus Animal Electum",
@@ -39,5 +39,11 @@
     "petName": "<%= egg(locale) %> <%= potion(locale) %>",
     "hatchedPet": "Incubuisti novum animal nominatum <%= potion %> <%= egg %>!",
     "hopefulHippogriffMount": "Hopeful Hippogriff (Pet)",
-    "hopefulHippogriffPet": "Hopeful Hippogriff (Pet)"
+    "hopefulHippogriffPet": "Hopeful Hippogriff (Pet)",
+    "invisibleAether": "Aether Caecus",
+    "quickInventory": "Citum Index Bonorum",
+    "noSaddlesAvailable": "Non est tibi ullum Stratum.",
+    "food": "Cibus et Strata",
+    "haveHatchablePet": "Habes potionem incubantem <%= potion %> atque ovum %= egg %> ad incubandum hoc animalem domesticum! <b>Deprime</b> ad incubandum!",
+    "noFoodAvailable": "Non est tibi ullus Cibus."
 }
