@@ -35,7 +35,6 @@
               />
             </span>
             <span v-else v-html="entryReferenceText(entry)"></span>
-            {{ entry.reference }}
           </td>
           <td v-if="entry.currentAmount">
             <span
