@@ -74,6 +74,8 @@ export async function createChallenge (user, req, res) {
     if (groupBalance >= prizeCost) {
       // Group pays for all of prize
       group.balance -= prizeCost;
+
+      await user.updateBalance(0, 'create_challenge', challenge._id, challenge.name+'\n'+'Balance removed from Group: '+group._id);
     } else if (groupBalance > 0) {
       // User pays remainder of prize cost after group
       const remainder = prizeCost - group.balance;
