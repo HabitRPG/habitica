@@ -14,6 +14,13 @@
       >
         <!-- eslint-enable vue/no-use-v-if-with-v-for -->
         <div
+          v-if="gift.subscription"
+          class="subscription-text ml-2 mb-1"
+          v-html="$t('giftSubscriptionRateText', {price: block.price, months: block.months})"
+        >
+        </div>
+        <div
+          v-else
           class="subscription-text ml-2 mb-1"
           v-html="$t('subscriptionRateText', {price: block.price, months: block.months})"
         >
@@ -25,7 +32,17 @@
         </div>
       </b-form-radio>
     </b-form-group>
+    <payment-buttons
+    v-if="gift.subscription"
+      :disabled="!gift.subscription.key && gift.gems.amount < 1"
+      :stripe-fn="() => redirectToStripe({gift, uuid: userReceivingGift._id, receiverName})"
+      :paypal-fn="() => openPaypalGift({
+        gift: gift, giftedTo: userReceivingGift._id, receiverName,
+        })"
+      :amazon-data="{type: 'single', gift, giftedTo: userReceivingGift._id, receiverName}"
+      />
     <payments-buttons
+    v-else
       :disabled="!subscription.key"
       :stripe-fn="() => redirectToStripe({
         subscription: subscription.key,
@@ -105,6 +122,15 @@ export default {
     return {
       subscription: {
         key: null,
+      },
+      userReceivingGift: {
+        profile: '',
+      },
+      receiverName: '',
+      gift: {
+        subscription: { key: '' },
+        type: 'gems',
+        gems: { amount: 0 },
       },
     };
   },

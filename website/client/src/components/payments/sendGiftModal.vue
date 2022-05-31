@@ -276,6 +276,11 @@
     #subscription-form .subscribe-option {
       background: #F9F9F9;
     }
+
+    #subscription-form .selected {
+      background: rgba(213, 200, 255, 0.32);
+      // using rgba for transparency
+    }
 }
 </style>
 <style scoped lang="scss">
