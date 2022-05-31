@@ -3,7 +3,7 @@
     <creator-intro />
     <profileModal />
     <report-flag-modal />
-    <send-gift-modal />
+    <send-gems-modal />
     <select-user-modal />
     <b-navbar
       id="habitica-menu"
@@ -747,7 +747,7 @@ import creatorIntro from '../creatorIntro';
 import notificationMenu from './notificationsDropdown';
 import profileModal from '../userMenu/profileModal';
 import reportFlagModal from '../chat/reportFlagModal';
-import sendGiftModal from '@/components/payments/sendGiftModal';
+import sendGemsModal from '@/components/payments/sendGemsModal';
 import selectUserModal from '@/components/payments/selectUserModal';
 import sync from '@/mixins/sync';
 import userDropdown from './userDropdown';
@@ -759,7 +759,7 @@ export default {
     notificationMenu,
     profileModal,
     reportFlagModal,
-    sendGiftModal,
+    sendGemsModal,
     selectUserModal,
     userDropdown,
   },

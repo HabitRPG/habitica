@@ -969,8 +969,7 @@ export default {
       axios.post(`/api/v4/user/block/${this.user._id}`);
     },
     openSendGemsModal () {
-      this.$store.state.giftModalOptions.startingPage = 'buyGems';
-      this.$root.$emit('habitica::send-gift', this.user);
+      this.$root.$emit('habitica::send-gems', this.user);
     },
     adminTurnOnShadowMuting () {
       if (!this.hero.flags) {
