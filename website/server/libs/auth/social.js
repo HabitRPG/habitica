@@ -96,7 +96,7 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
     user = new User(user);
     user.registeredThrough = req.headers['x-client']; // Not saved, used to create the correct tasks based on the device used
   }
-
+  if (!user.auth.local.email) user.auth.local.email = email;
   const savedUser = await user.save();
 
   if (!existingUser) {

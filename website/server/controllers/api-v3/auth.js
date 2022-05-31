@@ -19,6 +19,7 @@ import {
   hasBackupAuth,
   loginSocial,
   registerLocal,
+  socialEmailToLocal,
 } from '../../libs/auth';
 import { verifyUsername } from '../../libs/user/validation';
 
@@ -478,6 +479,7 @@ api.resetPasswordSetNewOne = {
     // set new password and make sure it's using bcrypt for hashing
     await passwordUtils.convertToBcrypt(user, String(newPassword));
     user.auth.local.passwordResetCode = undefined; // Reset saved password reset code
+    if (!user.auth.local.email) user.auth.local.email = await socialEmailToLocal(user);
     await user.save();
 
     return res.respond(200, {}, res.t('passwordChangeSuccess'));
