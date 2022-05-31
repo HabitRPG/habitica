@@ -222,9 +222,10 @@ async function registerLocal (req, res, { isV3 = false }) {
 }
 
 async function socialEmailToLocal (user) {
-  const socialEmail = (user.auth.apple && user.auth.apple.emails && user.auth.apple.emails[0].value)
-    || (user.auth.google && user.auth.google.emails && user.auth.google.emails[0].value)
-    || (user.auth.facebook && user.auth.facebook.emails && user.auth.facebook.emails[0].value);
+  const socialEmail = (user.auth.google && user.auth.google.emails
+    && user.auth.google.emails[0].value)
+    || (user.auth.facebook && user.auth.facebook.emails && user.auth.facebook.emails[0].value)
+    || (user.auth.apple && user.auth.apple.emails && user.auth.apple.emails[0].value);
   if (socialEmail) {
     const conflictingUser = await User.findOne(
       { 'auth.local.email': socialEmail },
