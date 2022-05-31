@@ -27,10 +27,9 @@
     position: fixed;
     right: 10px;
     width: 350px;
-    top: var(--current-scrollY);
+    z-index: 9999; // to keep it above modal overlays
 
-    // Our z-indexes are fairly scattered. Using this for now to keep it above modal overlays.
-    z-index: 9999;
+    top: var(--current-scrollY);
 
     justify-content: flex-end;
     display: flex;
