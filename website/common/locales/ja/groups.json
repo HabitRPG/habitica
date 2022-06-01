@@ -378,5 +378,6 @@
     "joinParty": "パーティーに参加する",
     "editGuild": "ギルドを編集",
     "editParty": "パーティーを編集",
-    "leaveGuild": "ギルドを脱退する"
+    "leaveGuild": "ギルドを脱退する",
+    "sendGiftTotal": "トータル："
 }

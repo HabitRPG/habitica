@@ -378,5 +378,6 @@
     "joinParty": "Unisciti alla squadra",
     "editGuild": "Modifica gilda",
     "editParty": "Modifica squadra",
-    "leaveGuild": "Lascia la gilda"
+    "leaveGuild": "Lascia la gilda",
+    "sendGiftTotal": "Totale:"
 }
