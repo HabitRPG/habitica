@@ -23,6 +23,21 @@ function _passportProfile (network, accessToken) {
   });
 }
 
+export async function socialEmailToLocal (user) {
+  const socialEmail = (user.auth.google && user.auth.google.emails
+    && user.auth.google.emails[0].value)
+    || (user.auth.facebook && user.auth.facebook.emails && user.auth.facebook.emails[0].value)
+    || (user.auth.apple && user.auth.apple.emails && user.auth.apple.emails[0].value);
+  if (socialEmail) {
+    const conflictingUser = await User.findOne(
+      { 'auth.local.email': socialEmail },
+      { _id: 1 },
+    ).exec();
+    if (!conflictingUser) return socialEmail;
+  }
+  return null;
+}
+
 export async function loginSocial (req, res) { // eslint-disable-line import/prefer-default-export
   let existingUser = res.locals.user;
   const { network } = req.body;
@@ -56,8 +71,10 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
       throw new NotAuthorized(res.t('socialAlreadyExists'));
     }
     if (!user.auth.local.email) {
-      user.auth.local.email = email;
-      await user.save();
+      user.auth.local.email = await socialEmailToLocal(user);
+      if (user.auth.local.email) {
+        await user.save();
+      }
     }
     return loginRes(user, req, res);
   }

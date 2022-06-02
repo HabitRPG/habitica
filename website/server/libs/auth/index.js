@@ -12,7 +12,10 @@ import common from '../../../common';
 import logger from '../logger';
 import { decrypt } from '../encryption';
 import { model as Group } from '../../models/group';
-import { loginSocial } from './social';
+import {
+  loginSocial,
+  socialEmailToLocal,
+} from './social';
 import { loginRes } from './utils';
 import { verifyUsername } from '../user/validation';
 
@@ -218,21 +221,6 @@ async function registerLocal (req, res, { isV3 = false }) {
     });
   }
 
-  return null;
-}
-
-async function socialEmailToLocal (user) {
-  const socialEmail = (user.auth.google && user.auth.google.emails
-    && user.auth.google.emails[0].value)
-    || (user.auth.facebook && user.auth.facebook.emails && user.auth.facebook.emails[0].value)
-    || (user.auth.apple && user.auth.apple.emails && user.auth.apple.emails[0].value);
-  if (socialEmail) {
-    const conflictingUser = await User.findOne(
-      { 'auth.local.email': socialEmail },
-      { _id: 1 },
-    ).exec();
-    if (!conflictingUser) return socialEmail;
-  }
   return null;
 }
 
