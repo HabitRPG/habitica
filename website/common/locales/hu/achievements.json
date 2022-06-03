@@ -59,5 +59,16 @@
     "achievementCreatedTaskModalText": "Hozz létre egy feladatot, amit szeretnél ezen a héten teljesíteni",
     "achievementMonsterMagus": "Szörnymágus",
     "achievementCompletedTaskModalText": "Pipáld ki valamelyik feladatodat hogy jutalmakat kapj",
-    "achievementPartyOn": "A csapatod 4 főre nőtt!"
+    "achievementPartyOn": "A csapatod 4 főre nőtt!",
+    "achievementPrimedForPaintingModalText": "Összegyűjtötted az összes Fehér Állatokat!",
+    "achievementPearlyProText": "Megszelidítette az összes fehér hátast.",
+    "achievementTickledPinkText": "Összegyűjtötte az összes Rózsaszín Vattacukor Állatokat.",
+    "achievementTickledPinkModalText": "Összegyűjtötted az összes Rózsaszínű Vattacukor Állatokat!",
+    "achievementPearlyProModalText": "Megszelidítetted az összes fehér hátast!",
+    "achievementBugBonanzaText": "Befejezte a Bogár, Pillangó, Csiga és Pók kisállat küldetéseket.",
+    "achievementBugBonanzaModalText": "Befejezted a Bogár, Pillangó, Csiga és Pók kisállat küldetéseket!",
+    "achievementGoodAsGoldModalText": "Összegyűjtötted az összes Arany Állatokat!",
+    "achievementGoodAsGold": "Jó mint a arany",
+    "achievementGoodAsGoldText": "Összegyűjtötte az összes Arany Állatokat.",
+    "achievementPrimedForPaintingText": "Összegyűjtötte az összes Fehér Állatokat."
 }

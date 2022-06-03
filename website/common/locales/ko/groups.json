@@ -14,7 +14,7 @@
     "contributing": "Contributing",
     "faq": "FAQ",
     "tutorial": "튜토리얼",
-    "glossary": "<a target='_blank' href='http://habitica.wikia.com/wiki/Glossary'>용어</a>",
+    "glossary": "<a target='_blank' href='https://habitica.wikia.com/wiki/Glossary'>용어</a>",
     "wiki": "위키",
     "requestAF": "새로운 기능 요청",
     "dataTool": "데이터 표시 도구",
@@ -73,7 +73,7 @@
     "confirmGuild": "길드를 4Gems 로 생성하시겠습니까?",
     "confirm": "확인함",
     "leaveGroup": "Leave Guild",
-    "leaveParty": "Leave Party",
+    "leaveParty": "파티 탈퇴",
     "send": "보내기",
     "pmsMarkedRead": "Your Private Messages have been marked as read",
     "possessiveParty": "<%= name %>의 파티",
@@ -341,5 +341,11 @@
     "allAssignedCompletion": "All - Completes when all assigned users finish",
     "pmReported": "이 메시지를 신고해주셔서 감사합니다.",
     "blockedToSendToThisUser": "당신은 이 유저을 차단했기에 이 유저에게 메시지를 보낼 수 없습니다.",
-    "PMDisabled": "개인적인 메시지를 해제"
+    "PMDisabled": "개인적인 메시지를 해제",
+    "features": "기능",
+    "joinParty": "파티 가입",
+    "joinGuild": "길드 가입",
+    "editGuild": "길드 수정",
+    "leaveGuild": "길드 탈퇴",
+    "editParty": "파티 수정"
 }

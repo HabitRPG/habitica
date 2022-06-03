@@ -367,5 +367,9 @@
     "hatchingPotionFluorite": "Fluoriet",
     "hatchingPotionPolkaDot": "Stip",
     "hatchingPotionMossyStone": "Mossige steen",
-    "hatchingPotionSunset": "Zonsondergang"
+    "hatchingPotionSunset": "Zonsondergang",
+    "hatchingPotionSolarSystem": "Zonnestelsel",
+    "hatchingPotionMoonglow": "Maangloei",
+    "hatchingPotionOnyx": "Onyx",
+    "hatchingPotionVirtualPet": "Virtuele Huisdier"
 }

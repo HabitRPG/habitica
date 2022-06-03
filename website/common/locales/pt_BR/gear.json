@@ -2543,5 +2543,7 @@
     "armorArmoireShootingStarCostumeText": "Vestes de Estrela",
     "armorArmoireSoftVioletSuitNotes": "O roxo é uma cor luxuosa. Relaxe com estilo depois de completar todas suas diárias. Aumenta Constituição e Força em <%= attrs %> cada. Armário Encantado: Conjunto de Roupas Violetas para Ficar em Casa (Item 2 de 3).",
     "armorArmoireGardenersOverallsText": "Macacão de Jardineiro",
-    "armorArmoireShootingStarCostumeNotes": "Ditas caídas do céu, estas vestes o elevam acima de quaisquer obstáculos em seu caminho. Aumenta Constituição em <%= con %>. Armário Encantado: Conjunto de Pó Estelar (Item 2 de 3)."
+    "armorArmoireShootingStarCostumeNotes": "Ditas caídas do céu, estas vestes o elevam acima de quaisquer obstáculos em seu caminho. Aumenta Constituição em <%= con %>. Armário Encantado: Conjunto de Pó Estelar (Item 2 de 3).",
+    "headMystery202206Text": "Coroa da Sílfide do Mar",
+    "backMystery202206Text": "Asas da Sílfide do Mar"
 }
