@@ -53,5 +53,6 @@
     "surveysSingle": "アンケートへの回答、または大きなテストに努力していただき、Habitica の成長を手伝っていただきました。ありがとうございます!",
     "surveysMultiple": "<%= count %> 回にわたって、アンケートへの回答、または大きなテストに努力していただき、Habitica の成長を手伝っていただきました。ありがとうございます!",
     "blurbHallPatrons": "こちらは、資金協力で後援いただいた方々の記念館です。Habitica の源流となった Kickstarter で資金協力してくださった気高い冒険者のみなさんを誇りに思っています。Habitica に命を吹き込むことに手を貸してくれた彼らに感謝をささげましょう!",
-    "blurbHallContributors": "こちらは Habitica のオープンソースの貢献者を称える貢献者記念館です。コード、画像、音楽、文章、または親切に助言することによって、彼らは<a href='https://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'>ジェム、特別な装備</a>、<a href='https://habitica.fandom.com/wiki/Contributor_Titles' target='_blank'>名誉ある肩書き</a>を手にしました。あなたも Habitica に貢献できます！ <a href='https://habitica.fandom.com/ja/wiki/Habiticaへの貢献' target='_blank'> 詳しくはこちらをご覧ください。</a>"
+    "blurbHallContributors": "こちらは Habitica のオープンソースの貢献者を称える貢献者記念館です。コード、画像、音楽、文章、または親切に助言することによって、彼らは<a href='https://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'>ジェム、特別な装備</a>、<a href='https://habitica.fandom.com/wiki/Contributor_Titles' target='_blank'>名誉ある肩書き</a>を手にしました。あなたも Habitica に貢献できます！ <a href='https://habitica.fandom.com/ja/wiki/Habiticaへの貢献' target='_blank'> 詳しくはこちらをご覧ください。</a>",
+    "noPrivAccess": "必要な権限を持っていません。"
 }

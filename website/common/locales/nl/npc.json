@@ -129,5 +129,6 @@
     "nMonthsSubscriptionGift": "<%= nMonths %> Maand(en) Abonnement (Cadeau)",
     "limitedAvailabilityMinutes": "Beschikbaar voor <%= minutes %>m <%= seconds %>s",
     "limitedAvailabilityHours": "Beschikbaar voor <%= hours %>h <%= minutes %>m",
-    "limitedAvailabilityDays": "Beschikbaar voor <%= days %>d <%= hours %>h <%= minutes %>m"
+    "limitedAvailabilityDays": "Beschikbaar voor <%= days %>d <%= hours %>h <%= minutes %>m",
+    "amountExp": "<%= amount %> Exp"
 }

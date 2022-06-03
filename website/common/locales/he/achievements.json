@@ -3,8 +3,8 @@
     "onwards": "הלאה!",
     "levelup": "על ידי ביצוע משימות מחייך האמיתיים, עלית רמה והחיים שלך עכשיו מלאים!",
     "reachedLevel": "הגעת לשלב <%= level %>",
-    "achievementLostMasterclasser": "",
-    "achievementLostMasterclasserText": "",
+    "achievementLostMasterclasser": "משלים ההרפתקאות: סדרת הרב-אמן",
+    "achievementLostMasterclasserText": "השלימו את כל שש-עשר המשימות בסדרת הרפתקאות של הרב-אמנים ופתרו את תעלומת הרב-אמן האבוד!",
     "viewAchievements": "הצגת ההישגים",
     "letsGetStarted": "בואו נתחיל!",
     "yourProgress": "ההתקדמות שלך",
@@ -75,7 +75,7 @@
     "onboardingCompleteDescSmall": "אם ברצונך להשיג אפילו עוד, אפשר לבדוק את ההישגים שלנו!",
     "achievementVioletsAreBlue": "הסיגליות כחולות",
     "achievementBugBonanzaText": "השלים את משימת חיות המחמד של החיפושית, הפרפר, החילזון והעכביש",
-    "achievementGoodAsGoldText": "אסף את כל החיות הזהב",
+    "achievementGoodAsGoldText": "אסף את כל החיות המוזהבות.",
     "achievementSeasonalSpecialistModalText": "השלמת את כל המשימות העונתיות!",
     "achievementShadyCustomer": "לקוח חשוד",
     "achievementShadeOfItAll": "הצל של הכל",
@@ -89,5 +89,10 @@
     "achievementSkeletonCrewModalText": "אילפת את כל חיות הרכיבה מסוג שלד!",
     "achievementBoneCollectorText": "נאספו כל חיות המחמד מסוג שלד.",
     "achievementRedLetterDayModalText": "אילפת את כל חיות הרכיבה האדומות!",
-    "achievementSkeletonCrewText": "אולפו כל חיות הרכיבה מסוג שלד."
+    "achievementSkeletonCrewText": "אולפו כל חיות הרכיבה מסוג שלד.",
+    "achievementAllThatGlitters": "כל הנוצץ",
+    "achievementLostMasterclasserModalText": "השלמת את כל שש-עשר המשימות בסדרת הרפתקאות של הרב-אמנים ופתרת את תעלומת הרב-אמן האבוד!",
+    "achievementGoodAsGold": "זהוב וטוב",
+    "achievementBugBonanzaModalText": "השלמת את משימת חיות המחמד של החיפושית, הפרפר, החילזון והעכביש",
+    "achievementBareNecessities": "רק את הטוב"
 }

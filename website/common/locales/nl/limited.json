@@ -141,7 +141,7 @@
     "dateEndOctober": "31 oktober",
     "dateEndNovember": "30 November",
     "dateEndJanuary": "31 januari",
-    "dateEndFebruary": "29 Februari",
+    "dateEndFebruary": "28 Februari",
     "winterPromoGiftHeader": "GEEF EEN ABONNEMENT CADEAU, KRIJG ER ZELF OOK EEN GRATIS!",
     "winterPromoGiftDetails1": "Alleen tot 6 Januari, wanneer je iemand een abonnement schenkt, krijg je hetzelfde abonnenemt gratis voor jezelf!",
     "winterPromoGiftDetails2": "Denk eraan dat als jij of je geschenk ontvanger al een terugkerend abonnenemt bevat, het geschonken abonnement pas start nadat dat abonnement is afgezegd of afgelopen is. Hartelijk dank voor je steun! <3",
@@ -216,5 +216,10 @@
     "winter2022FireworksRogueSet": "Vuurwerk (Dief)",
     "winter2022StockingWarriorSet": "Kous (Krijger)",
     "winter2022PomegranateMageSet": "Granaatappel (Magiër)",
-    "winter2022IceCrystalHealerSet": "IJskristal (Genezer)"
+    "winter2022IceCrystalHealerSet": "IJskristal (Genezer)",
+    "spring2022MagpieRogueSet": "Ekster (Dief)",
+    "spring2022RainstormWarriorSet": "Regenstorm (Krijger)",
+    "spring2022ForsythiaMageSet": "Forsythia (Magiër)",
+    "spring2022PeridotHealerSet": "Peridoot (Genezer)",
+    "aprilYYYY": "April <%= year %>"
 }

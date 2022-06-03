@@ -378,5 +378,6 @@
     "editParty": "Party bearbeiten",
     "leaveGuild": "Gilde verlassen",
     "viewDetails": "Details ansehen",
-    "upgradeToGroup": "Auf Gruppenplan upgraden"
+    "upgradeToGroup": "Auf Gruppenplan upgraden",
+    "sendGiftTotal": "Insgesamt:"
 }
