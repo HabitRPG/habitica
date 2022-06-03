@@ -29,9 +29,6 @@ import {
 import baseModel from '../libs/baseModel';
 import { sendTxn as sendTxnEmail } from '../libs/email'; // eslint-disable-line import/no-cycle
 import { sendNotification as sendPushNotification } from '../libs/pushNotifications'; // eslint-disable-line import/no-cycle
-import { // eslint-disable-line import/no-cycle
-  syncableAttrs,
-} from '../libs/tasks/utils';
 import {
   schema as SubscriptionPlanSchema,
 } from './subscriptionPlan';
@@ -1444,58 +1441,6 @@ schema.methods.unlinkTags = function unlinkTags (user) {
   });
 };
 
-/**
- * Updates all linked tasks for a group task
- *
- * @param  taskToSync  The group task that will be synced
- * @param  options.newCheckListItem  The new checklist item
- *          that needs to be synced to all assigned users
- * @param  options.removedCheckListItem  The removed checklist item that
- *          needs to be removed from all assigned users
- *
- * @return The created tasks
- */
-schema.methods.updateTask = async function updateTask (taskToSync, options = {}) {
-  const group = this;
-
-  const updateCmd = { $set: {} };
-
-  const syncableAttributes = syncableAttrs(taskToSync);
-  for (const key of Object.keys(syncableAttributes)) {
-    updateCmd.$set[key] = syncableAttributes[key];
-  }
-
-  updateCmd.$set['group.assignedUsers'] = taskToSync.group.assignedUsers;
-  updateCmd.$set['group.managerNotes'] = taskToSync.group.managerNotes;
-
-  const taskSchema = Tasks[taskToSync.type];
-
-  const updateQuery = {
-    userId: { $exists: true },
-    'group.id': group.id,
-    'group.taskId': taskToSync._id,
-  };
-
-  if (options.newCheckListItem) {
-    const newCheckList = { completed: false };
-    newCheckList.linkId = options.newCheckListItem.id;
-    newCheckList.text = options.newCheckListItem.text;
-    updateCmd.$push = { checklist: newCheckList };
-  }
-
-  if (options.removedCheckListItemId) {
-    updateCmd.$pull = { checklist: { linkId: { $in: [options.removedCheckListItemId] } } };
-  }
-
-  if (options.updateCheckListItems) {
-    updateCmd.$set.checklist = taskToSync.checklist;
-  }
-
-  // Updating instead of loading and saving for performances,
-  // risks becoming a problem if we introduce more complexity in tasks
-  await taskSchema.update(updateQuery, updateCmd, { multi: true }).exec();
-};
-
 schema.methods.syncTask = async function groupSyncTask (taskToSync, users, assigningUser) {
   const group = this;
   const toSave = [];
@@ -1532,46 +1477,6 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, users, assig
         group: group._id,
       });
     }
-
-    const findQuery = {
-      'group.taskId': taskToSync._id,
-      userId: user._id,
-      'group.id': group._id,
-    };
-
-    let matchingTask = await Tasks.Task.findOne(findQuery).exec(); // eslint-disable-line
-
-    if (!matchingTask) { // If the task is new, create it
-      matchingTask = new Tasks[taskToSync.type](Tasks.Task.sanitize(syncableAttrs(taskToSync)));
-      matchingTask.group.id = taskToSync.group.id;
-      matchingTask.userId = user._id;
-      matchingTask.group.taskId = taskToSync._id;
-      user.tasksOrder[`${taskToSync.type}s`].unshift(matchingTask._id);
-    } else {
-      _.merge(matchingTask, syncableAttrs(taskToSync));
-      // Make sure the task is in user.tasksOrder
-      const orderList = user.tasksOrder[`${taskToSync.type}s`];
-      if (orderList.indexOf(matchingTask._id) === -1 && (matchingTask.type !== 'todo' || !matchingTask.completed)) orderList.push(matchingTask._id);
-    }
-    matchingTask.group.assignedUsers = taskToSync.group.assignedUsers;
-    matchingTask.group.managerNotes = taskToSync.group.managerNotes;
-
-    //  sync checklist
-    if (taskToSync.checklist) {
-      taskToSync.checklist.forEach(element => {
-        const newCheckList = { completed: false };
-        newCheckList.linkId = element.id;
-        newCheckList.text = element.text;
-        matchingTask.checklist.push(newCheckList);
-      });
-    }
-
-    // don't override the notes, but provide it if not provided
-    if (!matchingTask.notes) matchingTask.notes = taskToSync.notes;
-    // add tag if missing
-    if (matchingTask.tags.indexOf(group._id) === -1) matchingTask.tags.push(group._id);
-
-    toSave.push(matchingTask.save(), user.save());
   }
   toSave.push(taskToSync.save());
   return Promise.all(toSave);

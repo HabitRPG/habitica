@@ -632,7 +632,6 @@ api.updateTask = {
       verifyTaskModification(task, user, group, challenge, res);
     }
 
-    const oldCheckList = task.checklist;
     // we have to convert task to an object because otherwise things
     // don't get merged correctly. Bad for performances?
     const [updatedTaskObj] = common.ops.updateTask(task.toObject(), req);
@@ -688,23 +687,11 @@ api.updateTask = {
     setNextDue(task, user);
     const savedTask = await task.save();
 
-    if (group && task.group.id && task.group.assignedUsers) {
-      const updateCheckListItems = _.remove(sanitizedObj.checklist, checklist => {
-        const indexOld = _.findIndex(oldCheckList, check => check.id === checklist.id);
-        if (indexOld !== -1) return checklist.text !== oldCheckList[indexOld].text;
-        return false; // Only return changes. Adding and remove are handled differently
-      });
-
-      await group.updateTask(savedTask, { updateCheckListItems });
-    }
-
     res.respond(200, savedTask);
 
     if (challenge) {
       challenge.updateTask(savedTask);
-    } else if (group && task.group.id && task.group.assignedUsers) {
-      await group.updateTask(savedTask);
-    } else {
+    } else if (!group) {
       taskActivityWebhook.send(user, {
         type: 'updated',
         task: savedTask,
@@ -954,9 +941,6 @@ api.addChecklistItem = {
 
     res.respond(200, savedTask);
     if (challenge) challenge.updateTask(savedTask);
-    if (group && task.group.id && task.group.assignedUsers.length > 0) {
-      await group.updateTask(savedTask, { newCheckListItem });
-    }
   },
 };
 
@@ -1061,9 +1045,6 @@ api.updateChecklistItem = {
 
     res.respond(200, savedTask);
     if (challenge) challenge.updateTask(savedTask);
-    if (group && task.group.id && task.group.assignedUsers.length > 0) {
-      await group.updateTask(savedTask);
-    }
   },
 };
 
@@ -1123,9 +1104,6 @@ api.removeChecklistItem = {
     const savedTask = await task.save();
     res.respond(200, savedTask);
     if (challenge) challenge.updateTask(savedTask);
-    if (group && task.group.id && task.group.assignedUsers.length > 0) {
-      await group.updateTask(savedTask, { removedCheckListItemId: req.params.itemId });
-    }
   },
 };
 
