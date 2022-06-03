@@ -20,7 +20,7 @@
     "@storybook/addons": "6.4.19",
     "@storybook/vue": "6.3.13",
     "@vue/cli-plugin-babel": "^4.5.15",
-    "@vue/cli-plugin-eslint": "^4.5.15",
+    "@vue/cli-plugin-eslint": "^4.5.17",
     "@vue/cli-plugin-router": "^4.5.15",
     "@vue/cli-plugin-unit-mocha": "^4.5.15",
     "@vue/cli-service": "^4.5.15",
