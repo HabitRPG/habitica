@@ -378,5 +378,6 @@
     "groupActivityNotificationTitle": "<%= user %> опублікував в <%= group %>",
     "managerNotes": "Нотатки менеджера",
     "assignedDateOnly": "Назначено на <strong><%= date %></strong>",
-    "assignedDateAndUser": "Назначено <strong>@<%- username %></strong> на <strong><%= date %></strong>"
+    "assignedDateAndUser": "Назначено <strong>@<%- username %></strong> на <strong><%= date %></strong>",
+    "sendGiftTotal": "Всього:"
 }
