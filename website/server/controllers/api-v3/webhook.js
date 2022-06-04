@@ -43,7 +43,7 @@ const api = {};
  * @apiParamExample {json} Task Activity Example
  *   {
  *     "enabled": true, // default
- *     "url": "http://some-webhook-url.com",
+ *     "url": "https://some-webhook-url.com",
  *     "label": "My Webhook",
  *     "type": "taskActivity", // default
  *     "options": {
@@ -56,7 +56,7 @@ const api = {};
  * @apiParamExample {json} Group Chat Received Example
  *   {
  *     "enabled": true,
- *     "url": "http://some-webhook-url.com",
+ *     "url": "https://some-webhook-url.com",
  *     "label": "My Chat Webhook",
  *     "type": "groupChatReceived",
  *     "options": {
@@ -66,7 +66,7 @@ const api = {};
  * @apiParamExample {json} User Activity Example
  *   {
  *     "enabled": true,
- *     "url": "http://some-webhook-url.com",
+ *     "url": "https://some-webhook-url.com",
  *     "label": "My Activity Webhook",
  *     "type": "userActivity",
  *     "options": { // set at least one to true
@@ -78,7 +78,7 @@ const api = {};
  * @apiParamExample {json} Quest Activity Example
  *   {
  *     "enabled": true,
- *     "url": "http://some-webhook-url.com",
+ *     "url": "https://some-webhook-url.com",
  *     "label": "My Quest Webhook",
  *     "type": "questActivity",
  *     "options": { // set at least one to true
@@ -89,7 +89,7 @@ const api = {};
  *   }
  * @apiParamExample {json} Minimal Example
  *   {
- *     "url": "http://some-webhook-url.com"
+ *     "url": "https://some-webhook-url.com"
  *   }
  *
  * @apiSuccess (201) {Object} data The created webhook
