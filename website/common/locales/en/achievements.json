@@ -132,5 +132,8 @@
   "achievementBirdsOfAFeatherModalText": "You collected all the flying pets!",
   "achievementReptacularRumble": "Reptacular Rumble",
   "achievementReptacularRumbleText": "Has hatched all the standard colors of reptile pets: Alligator, Pterodactyl, Snake, Triceratops, Turtle, Tyrannosaurus Rex, and Velociraptor!",
-  "achievementReptacularRumbleModalText": "You collected all the reptile pets!"
+  "achievementReptacularRumbleModalText": "You collected all the reptile pets!",
+  "achievementGroupsBeta2022":"Interactive Beta Tester",
+  "achievementGroupsBeta2022Text":"You and your group provided invaluable feedback to help Habitica test.",
+  "achievementGroupsBeta2022ModalText":"You and your groups helped Habitica by testing and providing feedback!"
 }
