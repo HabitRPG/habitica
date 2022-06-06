@@ -500,6 +500,11 @@ const backgrounds = {
     enchanted_music_room: { },
     castle_gate: { },
   },
+  backgrounds062022: {
+    beach_with_dunes: { },
+    mountain_waterfall: { },
+    sailboat_at_sunset: { },
+  },
   timeTravelBackgrounds: {
     airship: {
       price: 1,
