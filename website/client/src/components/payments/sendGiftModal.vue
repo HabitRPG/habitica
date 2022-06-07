@@ -62,7 +62,11 @@
           </div>
           <div
             class="nav-item"
+<<<<<<< HEAD
             :class="{active: selectedPage === 'subscription'}"
+=======
+            :class="{active: selectedPage !== 'subscription'}"
+>>>>>>> parent of e16c12fc7f... Revert "Gifting Modal Redesign (#13964)"
             @click="selectPage('buyGems')"
           >
             {{ $t('gems') }}
@@ -276,11 +280,14 @@
     #subscription-form .subscribe-option {
       background: #F9F9F9;
     }
+<<<<<<< HEAD
 
     #subscription-form .selected {
       background: rgba(213, 200, 255, 0.32);
       // using rgba for transparency
     }
+=======
+>>>>>>> parent of e16c12fc7f... Revert "Gifting Modal Redesign (#13964)"
 }
 </style>
 <style scoped lang="scss">
@@ -341,7 +348,11 @@
   }
 
   .nav-item.inactive {
+<<<<<<< HEAD
     color: $gray-300;
+=======
+    color: $purple-300;
+>>>>>>> parent of e16c12fc7f... Revert "Gifting Modal Redesign (#13964)"
     border-bottom: 0px;
     cursor: pointer;
   }
@@ -397,7 +408,10 @@
   .icon-gem {
     width: 16px;
     height: 16px;
+<<<<<<< HEAD
     margin-bottom: 4px;
+=======
+>>>>>>> parent of e16c12fc7f... Revert "Gifting Modal Redesign (#13964)"
   }
 
   .icon-positive, .icon-negative {
