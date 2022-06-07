@@ -1,11 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>Icon/Close</title>
-    <g id="Modals" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Shop-Modals" transform="translate(-183.000000, -655.000000)" fill="#878190" fill-rule="nonzero">
-            <g id="Icon/Close" transform="translate(183.000000, 655.000000)">
-                <polygon id="Mask" points="12.1973467 2 14 3.80265326 9.80187117 8 14 12.1973467 12.1973467 14 8 9.80187117 3.80265326 14 2 12.1973467 6.19812883 8 2 3.80265326 3.80265326 2 8 6.19812883"></polygon>
-            </g>
-        </g>
+<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12">
+    <g fill="none" fill-rule="evenodd" stroke="#A5A1AC" stroke-width="2">
+        <path d="M1 11L11 1M11 11L1 1"/>
     </g>
 </svg>

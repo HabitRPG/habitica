@@ -156,6 +156,7 @@ export default new Schema({
     hatchedPet: Boolean,
     fedPet: Boolean,
     purchasedEquipment: Boolean,
+    groupsBeta2022: Boolean,
   },
 
   backer: {

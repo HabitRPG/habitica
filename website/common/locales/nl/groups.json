@@ -378,5 +378,6 @@
     "joinGuild": "Lid worden van gilde",
     "editGuild": "Gilde aanpassen",
     "editParty": "Groep aanpassen",
-    "leaveGuild": "Verlaat Gilde"
+    "leaveGuild": "Verlaat Gilde",
+    "sendGiftTotal": "Totaal:"
 }

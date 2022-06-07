@@ -27,8 +27,12 @@
     position: fixed;
     right: 10px;
     width: 350px;
+<<<<<<< HEAD
     z-index: 9999; // Our z-indexes are fairly scattered.
     // Using this for now to keep it above modal overlays.
+=======
+    z-index: 9999; // to keep it above modal overlays
+>>>>>>> upstream/develop
 
     top: var(--current-scrollY);
 

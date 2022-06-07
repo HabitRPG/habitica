@@ -95,5 +95,8 @@
     "newItem": "Nieuw voorwerp",
     "selectQuestModal": "Selecteer een queeste",
     "yourQuests": "Jouw queestes",
-    "cancelQuest": "Annuleer queeste"
+    "cancelQuest": "Annuleer queeste",
+    "questOwner": "Queeste Eigenaar",
+    "ownerOnly": "Eigenaar-beperkt",
+    "backToSelection": "Terug naar Queeste selectie"
 }
