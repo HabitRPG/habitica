@@ -32,6 +32,7 @@
         </div>
       </b-form-radio>
     </b-form-group>
+    <!-- :disabled="!subscription.key" is the original code -->
     <payment-buttons
     v-if="gift.subscription"
       :disabled="!gift.subscription.key && gift.gems.amount < 1"
