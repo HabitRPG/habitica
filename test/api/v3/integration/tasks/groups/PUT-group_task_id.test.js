@@ -22,6 +22,7 @@ describe('PUT /tasks/:id', () => {
         type: 'guild',
       },
       members: 2,
+      upgradeToGroupPlan: true,
     });
 
     guild = group;

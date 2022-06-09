@@ -7,7 +7,11 @@ import {
 describe('POST /tasks/clearCompletedTodos', () => {
   it('deletes all completed todos except the ones from a challenge and group', async () => {
     const user = await generateUser({ balance: 1 });
-    const guild = await generateGroup(user);
+    const guild = await generateGroup(
+      user,
+      {},
+      { 'purchased.plan.customerId': 'group-unlimited' },
+    );
     const challenge = await generateChallenge(user, guild);
     await user.post(`/challenges/${challenge._id}/join`);
 

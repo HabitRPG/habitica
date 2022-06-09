@@ -19,6 +19,7 @@ describe('Groups DELETE /tasks/:id', () => {
         type: 'guild',
       },
       members: 2,
+      upgradeToGroupPlan: true,
     });
 
     guild = group;
@@ -77,18 +78,18 @@ describe('Groups DELETE /tasks/:id', () => {
 
     await user.sync();
     await member2.sync();
-    expect(user.notifications.length).to.equal(2);
-    expect(user.notifications[1].type).to.equal('GROUP_TASK_APPROVAL');
-    expect(member2.notifications.length).to.equal(2);
-    expect(member2.notifications[1].type).to.equal('GROUP_TASK_APPROVAL');
+    expect(user.notifications.length).to.equal(3); // mystery items
+    expect(user.notifications[2].type).to.equal('GROUP_TASK_APPROVAL');
+    expect(member2.notifications.length).to.equal(3);
+    expect(member2.notifications[2].type).to.equal('GROUP_TASK_APPROVAL');
 
     await member2.del(`/tasks/${task._id}`);
 
     await user.sync();
     await member2.sync();
 
-    expect(user.notifications.length).to.equal(1);
-    expect(member2.notifications.length).to.equal(1);
+    expect(user.notifications.length).to.equal(2);
+    expect(member2.notifications.length).to.equal(2);
   });
 
   it('deletes task from assigned user', async () => {
