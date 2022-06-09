@@ -5,6 +5,8 @@ import { v4 as generateUUID } from 'uuid';
 import { ApiUser, ApiGroup, ApiChallenge } from '../api-classes';
 import { requester } from '../requester';
 import * as Tasks from '../../../../website/server/models/task';
+import payments from '../../../../website/server/libs/payments/payments';
+import { model as User } from '../../../../website/server/models/user';
 
 // Creates a new user and returns it
 // If you need the user to have specific requirements,
@@ -77,6 +79,26 @@ export async function generateGroup (leader, details = {}, update = {}) {
   return apiGroup;
 }
 
+async function _upgradeToGroupPlan (groupLeader, group) {
+  const groupLeaderModel = await User.findById(groupLeader._id).exec();
+
+  // Create subscription
+  const paymentData = {
+    user: groupLeaderModel,
+    groupId: group._id,
+    sub: {
+      key: 'basic_3mo',
+    },
+    customerId: 'customer-id',
+    paymentMethod: 'Payment Method',
+    headers: {
+      'x-client': 'habitica-web',
+      'user-agent': '',
+    },
+  };
+  await payments.createSubscription(paymentData);
+}
+
 // This is generate group + the ability to create
 // real users to populate it. The settings object
 // takes in:
@@ -95,6 +117,7 @@ export async function generateGroup (leader, details = {}, update = {}) {
 export async function createAndPopulateGroup (settings = {}) {
   const numberOfMembers = settings.members || 0;
   const numberOfInvites = settings.invites || 0;
+  const upgradeToGroupPlan = settings.upgradeToGroupPlan || false;
   const { groupDetails } = settings;
   const leaderDetails = settings.leaderDetails || { balance: 10 };
 
@@ -123,6 +146,10 @@ export async function createAndPopulateGroup (settings = {}) {
   await Promise.all(invitationPromises);
 
   await Promise.all(invitees.map(invitee => invitee.sync()));
+
+  if (upgradeToGroupPlan) {
+    await _upgradeToGroupPlan(groupLeader, group);
+  }
 
   return {
     groupLeader,
