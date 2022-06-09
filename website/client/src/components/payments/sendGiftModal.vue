@@ -52,16 +52,16 @@
 
       <!-- menu area -->
       <div class="row">
-        <div class="col-12 col-md-8 offset-md-2 text-center nav">
+        <div class="col-md-8 offset-md-2 text-center nav">
           <div
-            class="nav-item"
+            class="nav-link"
             :class="{active: selectedPage === 'subscription'}"
             @click="selectPage('subscription')"
           >
             {{ $t('subscription') }}
           </div>
           <div
-            class="nav-item"
+            class="nav-link"
             :class="{active: selectedPage !== 'subscription'}"
             @click="selectPage('buyGems')"
           >
@@ -129,7 +129,7 @@
           <!-- the actual dollar amount -->
           <div class="buy-gem-amount">
             <span>
-              {{formatter.format(totalGems)}}
+              {{ formatter.format(totalGems) }}
             </span>
           </div>
 
@@ -204,11 +204,12 @@
               </span>
               <span
                 class="icon-gem balance-gem-margin"
-                v-html="icons.gemIcon"
                 style="display: inline-block;"
+                v-html="icons.gemIcon"
               ></span>
               <span
-                class="balance-gems">
+                class="balance-gems"
+              >
                 {{ maxGems }}
               </span>
             </div>
@@ -228,8 +229,8 @@
           <!-- change to buying gems page -->
           <div
             :class="{active: selectedPage === 'buyGems'}"
-            @click="selectPage('buyGems')"
             class="gem-state-change"
+            @click="selectPage('buyGems')"
           >
             {{ $t('needToPurchaseGems') }}
           </div>
@@ -325,25 +326,25 @@
     font-size: 0.75rem;
     min-height: 32px;
     padding: 16px 0 0 0;
-    color: $purple-300;
     justify-content: center;
   }
 
-  .nav-item {
+  .nav-link {
+    color: $gray-100;
     display: inline-block;
     padding: 0px 8px 6px 8px;
-  }
 
-  .nav-item:hover, .nav-item.active {
+    &.active {
+    color: $purple-300;
+    border-bottom: 2px solid $purple-400;
+    cursor: pointer
+    }
+
+    &:hover {
     color: $purple-300;
     border-bottom: 2px solid $purple-400;
     cursor: pointer;
-  }
-
-  .nav-item.inactive {
-    color: $gray-300;
-    border-bottom: 0px;
-    cursor: pointer;
+    }
   }
 
   .gem-group {
@@ -528,38 +529,6 @@ export default {
       gemCost: 1,
     };
   },
-  methods: {
-    close () {
-      this.$root.$emit('bv::hide::modal', 'send-gift');
-    },
-    selectPage (page) {
-      this.selectedPage = page || 'subscription';
-    },
-    async sendGift () {
-      this.sendingInProgress = true;
-      await this.$store.dispatch('members:transferGems', {
-        toUserId: this.userReceivingGift._id,
-        gemAmount: this.gift.gems.amount,
-      });
-      this.close();
-      setTimeout(() => { // wait for the send gem modal to be closed
-        this.$root.$emit('habitica:payment-success', {
-          paymentMethod: 'balance',
-          paymentCompleted: true,
-          paymentType: 'gift-gems-balance',
-          gift: {
-            gems: {
-              amount: this.gift.gems.amount,
-            },
-          },
-          giftReceiver: this.receiverName,
-        });
-      }, 500);
-    },
-    onHide () {
-      this.sendingInProgress = false;
-    },
-  },
   computed: {
     ...mapState({
       userLoggedIn: 'user.data',
@@ -635,6 +604,39 @@ export default {
       }
       this.$root.$emit('bv::show::modal', 'send-gift');
     });
+  },
+  methods: {
+    close () {
+      this.$root.$emit('bv::hide::modal', 'send-gift');
+    },
+    selectPage (page) {
+      this.selectedPage = page || 'subscription';
+      this.gift.gems.amount = 0;
+    },
+    async sendGift () {
+      this.sendingInProgress = true;
+      await this.$store.dispatch('members:transferGems', {
+        toUserId: this.userReceivingGift._id,
+        gemAmount: this.gift.gems.amount,
+      });
+      this.close();
+      setTimeout(() => { // wait for the send gem modal to be closed
+        this.$root.$emit('habitica:payment-success', {
+          paymentMethod: 'balance',
+          paymentCompleted: true,
+          paymentType: 'gift-gems-balance',
+          gift: {
+            gems: {
+              amount: this.gift.gems.amount,
+            },
+          },
+          giftReceiver: this.receiverName,
+        });
+      }, 500);
+    },
+    onHide () {
+      this.sendingInProgress = false;
+    },
   },
 };
 </script>

@@ -34,16 +34,16 @@
     </b-form-group>
     <!-- :disabled="!subscription.key" is the original code -->
     <payment-buttons
-    v-if="gift.subscription"
-      :disabled="!gift.subscription.key && gift.gems.amount < 1"
+      v-if="gift.subscription.key"
+      :disabled="!subscription.key && gift.gems.amount < 1"
       :stripe-fn="() => redirectToStripe({gift, uuid: userReceivingGift._id, receiverName})"
       :paypal-fn="() => openPaypalGift({
         gift: gift, giftedTo: userReceivingGift._id, receiverName,
-        })"
+      })"
       :amazon-data="{type: 'single', gift, giftedTo: userReceivingGift._id, receiverName}"
-      />
+    />
     <payments-buttons
-    v-else
+      v-else
       :disabled="!subscription.key"
       :stripe-fn="() => redirectToStripe({
         subscription: subscription.key,
