@@ -2,7 +2,7 @@
 
 // For some reason people often to contact me to cancel their sub,
 // rather than do it online. Even when I point them to
-// the FAQ (http://goo.gl/1uoPGQ) they insist...
+// the FAQ (https://habitica.fandom.com/wiki/FAQ) they insist...
 
 db.users.update(
   { _id: '' },

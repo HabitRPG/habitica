@@ -58,7 +58,7 @@ const updatablePaths = [
 ];
 
 // This tells us for which paths users can call `PUT /user`.
-// The trick here is to only accept leaf paths, not root/intermediate paths (see http://goo.gl/OEzkAs)
+// The trick here is to only accept leaf paths, not root/intermediate paths (see https://goo.gl/OEzkAs)
 const acceptablePUTPaths = _.reduce(UserSchema.paths, (accumulator, val, leaf) => {
   const found = _.find(updatablePaths, rootPath => leaf.indexOf(rootPath) === 0);
 
