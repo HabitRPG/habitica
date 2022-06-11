@@ -39,6 +39,5 @@ export default {
   directionUpDown: '"direction" is required and must be "up" or "down".',
   invalidTaskIdentifier: 'A task is identified by its UUID or alias.',
   invalidTaskScorings: 'This API route expects a body in the form of [{id, direction}].',
-
   summaryLengthExceedsMax : "Summary length is too high."
 };
