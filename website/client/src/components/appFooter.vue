@@ -34,7 +34,7 @@
             </li>
             <li>
               <a
-                href="http://blog.habitrpg.com/"
+                href="https://blog.habitrpg.com/"
                 target="_blank"
               >{{ $t('tumblr') }}</a>
             </li>
