@@ -141,7 +141,7 @@
     "dateEndOctober": "31 октября",
     "dateEndNovember": "30 ноября",
     "dateEndJanuary": "31 января",
-    "dateEndFebruary": "29 февраля",
+    "dateEndFebruary": "28 февраля",
     "winterPromoGiftHeader": "ПОДАРИТЕ ПОДПИСКУ И ПОЛУЧИТЕ ОДНУ БЕСПЛАТНО!",
     "winterPromoGiftDetails1": "Только до 6 января, когда вы дарите кому-то подписку, вы получаете такую же бесплатно!",
     "winterPromoGiftDetails2": "Обратите внимание, что если у вас или у получателя вашего подарка уже есть подписка, то подаренная начнется только после того, как эта действующая будет отменена или истечет срок ее действия. Большое спасибо за вашу поддержку! <3",
@@ -216,5 +216,10 @@
     "winter2022StockingWarriorSet": "Чулок (Воин)",
     "winter2022PomegranateMageSet": "Гранат (Маг)",
     "winter2022IceCrystalHealerSet": "Ледяной кристалл (Целитель)",
-    "januaryYYYY": "Январь <%= year %>"
+    "januaryYYYY": "Январь <%= year %>",
+    "spring2022RainstormWarriorSet": "Ливень (Воин)",
+    "spring2022MagpieRogueSet": "Сорока (Разбойник)",
+    "spring2022ForsythiaMageSet": "Форзиция (Маг)",
+    "spring2022PeridotHealerSet": "Хризолит (Целитель)",
+    "aprilYYYY": "Апрель <%= year %>"
 }

@@ -19,7 +19,7 @@ const Timer = require('./utils/timer');
 const connectToDb = require('./utils/connect').connectToDb;
 const closeDb = require('./utils/connect').closeDb;
 
-const message = '`This party\'s collection quest has been made easier! For details, refer to http://habitica.fandom.com/wiki/User_blog:LadyAlys/Collection_Quests_are_Now_Easier`';
+const message = '`This party\'s collection quest has been made easier! For details, refer to https://habitica.fandom.com/wiki/User_blog:LadyAlys/Collection_Quests_are_Now_Easier`';
 
 const timer = new Timer();
 

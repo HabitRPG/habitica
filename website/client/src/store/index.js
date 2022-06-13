@@ -124,9 +124,6 @@ export default function () {
       profileOptions: {
         startingPage: '',
       },
-      giftModalOptions: {
-        startingPage: '',
-      },
       rageModalOptions: {
         npc: '',
       },

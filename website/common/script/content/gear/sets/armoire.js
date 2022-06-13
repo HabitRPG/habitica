@@ -1475,6 +1475,41 @@ const weapon = {
     int: 6,
     set: 'musicalInstrumentOne',
   },
+  blueKite: {
+    str: 3,
+    con: 3,
+    int: 3,
+    per: 3,
+    set: 'kite',
+  },
+  greenKite: {
+    str: 3,
+    con: 3,
+    int: 3,
+    per: 3,
+    set: 'kite',
+  },
+  orangeKite: {
+    str: 3,
+    con: 3,
+    int: 3,
+    per: 3,
+    set: 'kite',
+  },
+  pinkKite: {
+    str: 3,
+    con: 3,
+    int: 3,
+    per: 3,
+    set: 'kite',
+  },
+  yellowKite: {
+    str: 3,
+    con: 3,
+    int: 3,
+    per: 3,
+    set: 'kite',
+  },
 };
 
 forEach({

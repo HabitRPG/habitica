@@ -28,7 +28,7 @@ app.post('/webhooks/:id', (req, res) => {
 });
 
 // Helps close down server from within mocha test
-// See http://stackoverflow.com/a/37054753/2601552
+// See https://stackoverflow.com/a/37054753/2601552
 const sockets = {};
 server.on('connection', socket => {
   const id = uuid();

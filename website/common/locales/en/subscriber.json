@@ -3,10 +3,6 @@
     "subscriptions": "Subscriptions",
     "viewSubscriptions": "View Subscriptions",
     "sendGems": "Send Gems",
-    "howManyGemsPurchase": "How many Gems would you like to purchase?",
-    "howManyGemsSend":"How many Gems would you like to send?",
-    "needToPurchaseGems": "Need to purchase Gems as a gift?",
-    "wantToSendOwnGems": "Want to send your own Gems?",
     "buyGemsGold": "Buy Gems with Gold",
     "mustSubscribeToPurchaseGems": "Must subscribe to purchase gems with GP",
     "reachedGoldToGemCapQuantity": "Your requested amount <%= quantity %> exceeds the amount you can buy for this month (<%= convCap %>). The full amount becomes available within the first three days of each month. Thanks for subscribing!",
@@ -138,6 +134,7 @@
     "mysterySet202203": "Dauntless Dragonfly Set",
     "mysterySet202204": "Virtual Adventurer Set",
     "mysterySet202205": "Dusk-Winged Dragon Set",
+    "mysterySet202206": "Sea Sprite Set",
     "mysterySet301404": "Steampunk Standard Set",
     "mysterySet301405": "Steampunk Accessories Set",
     "mysterySet301703": "Peacock Steampunk Set",
@@ -200,6 +197,5 @@
     "needToUpdateCard": "Need to update your card?",
     "readyToResubscribe": "Are you ready to resubscribe?",
     "cancelYourSubscription": "Cancel your subscription?",
-    "cancelSubAlternatives": "If you're having technical problems or Habitica doesn't seem to be working out for you, please consider <a href='mailto:admin@habitica.com'>contacting us</a>. We want to help you get the most from Habitica.",
-    "sendAGift": "Send Gift"
+    "cancelSubAlternatives": "If you're having technical problems or Habitica doesn't seem to be working out for you, please consider <a href='mailto:admin@habitica.com'>contacting us</a>. We want to help you get the most from Habitica."
 }

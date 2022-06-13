@@ -2620,5 +2620,13 @@
     "backMystery202205Text": "Dämmerungs-Flügel",
     "headAccessoryMystery202205Notes": "Diese glänzenden Hörner sind so hell wie ein Sonnenuntergang in der Wüste. Gewährt keinen Attributbonus. Mai 2022 Abonnentengegenstand.",
     "backMystery202205Notes": "Das mächtige Schlagen dieser gewaltigen Flügel hallt von den Dünen wider. Gewährt keinen Attributbonus. Mai 2022 Abonnentengegenstand.",
-    "headAccessoryMystery202205Text": "Dämmerungsschwingen Drachen Hörner"
+    "headAccessoryMystery202205Text": "Dämmerungsschwingen Drachen Hörner",
+    "weaponArmoireHuntingHornText": "Jagdhorn",
+    "weaponArmoireHuntingHornNotes": "Tuuut! Tuut! Tuut! Rufe deine Party für ein Abenteuer oder eine Quest zusammen, indem Du auf diesem Horn spielst. Erhöht Stärke um <%= str %> und Intelligenz um <%= int %>. Verzauberter Schrank: Musikinstrument Set 1 (Gegenstand 1 von 3)",
+    "headArmoireStrawRainHatText": "Stroh-Regenhut",
+    "shieldArmoireSnareDrumText": "Kleine Trommel",
+    "shieldArmoireSnareDrumNotes": "Rat-a-tat-ta! Rufe Deine Party für eine Parade oder einen Marsch zusammen, indem Du auf deiser Trommel spielst. Erhöht Ausdauer um <%= con %> und Intelligenz um <%= int %>. Musikinstrument Set 1 (Gegenstand 3 von 3)",
+    "shieldArmoireSpanishGuitarNotes": "Kling! Kling! Klooong! Rufe Deine Party für ein Konzert oder eine Feierlichkeit zusammen, indem Du auf dieser Gitarre spielst. Erhöht Wahrnehmung um <%= per %> und Intelligenz um <%= int %>. Verzauberter Schrank: Musikinstrument Set 1 (Gegenstand 2 von 3)",
+    "shieldArmoireSpanishGuitarText": "Spanische Gitarre",
+    "armorArmoireStrawRaincoatNotes": "Dieser gewebte Strohumhang wird Dich während Deiner Quest trocken halten und Deine Rüstung vor dem Rosten bewahren. Wage Dich jedoch nicht zu nah an Kerzen heran. Erhöht Ausdauer um <%= con %>. Verzauberter Schrank: Stroh Regenmantel Set (Gegenstand 1 von 2)."
 }

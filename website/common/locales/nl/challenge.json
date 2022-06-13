@@ -103,5 +103,6 @@
     "selectParticipant": "Selecteer een deelnemer",
     "wonChallengeDesc": "<%= challengeName %> heeft jou uitgeroepen tot winnaar! Je overwinning is opgenomen in je Prestaties.",
     "yourReward": "Jouw Beloning",
-    "filters": "Filters"
+    "filters": "Filters",
+    "removeTasks": "Verwijder Taak"
 }

@@ -1,6 +1,5 @@
 <template>
   <div class="payments-column mx-auto mt-auto">
-    <h4>{{ $t('choosePaymentMethod') }}</h4>
     <button
       v-if="stripeAvailable"
       class="btn btn-primary payment-button payment-item with-icon"
@@ -80,13 +79,6 @@
       box-shadow: none;
       cursor: default !important;
     }
-  }
-
-  h4 {
-    font-size: 0.875rem;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 1rem;
   }
 </style>
 

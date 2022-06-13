@@ -2622,5 +2622,11 @@
     "backMystery202205Text": "Ailes crépusculaires",
     "backMystery202205Notes": "Le puissant battement de ces vastes ailes résonne dans les dunes. Ne confère aucun bonus. Équipement d'abonnement de mai 2022.",
     "headAccessoryMystery202205Text": "Cornes de dragon aux ailes crépusculaires",
-    "headAccessoryMystery202205Notes": "Ces cornes éblouissantes sont aussi brillantes qu'un coucher de soleil dans le désert. Ne confère aucun bonus. Équipement d'abonnement de mai 2022."
+    "headAccessoryMystery202205Notes": "Ces cornes éblouissantes sont aussi brillantes qu'un coucher de soleil dans le désert. Ne confère aucun bonus. Équipement d'abonnement de mai 2022.",
+    "weaponArmoireHuntingHornText": "Corne de chasse",
+    "weaponArmoireHuntingHornNotes": "Taïaut ! Taïaut ! Rassemblez votre équipe pour une aventure ou une quête en soufflant dans cette corne. Augmente la force de <%= str %> et l'intelligence de <%= int %>. Armoire enchantée : ensemble d'instruments de musique 1 (objet 1 de 3)",
+    "shieldArmoireSpanishGuitarText": "Guitare espagnole",
+    "shieldArmoireSpanishGuitarNotes": "Dzing ! Dzing ! Rassemblez votre équipe pour un concert ou un fête en jouant de cette guitare. Augmente la perception de <%= per %> et l'intelligence de <%= int %>. Armoire enchantée : ensemble d'instruments de musique 1 ((objet 2 de 3)",
+    "shieldArmoireSnareDrumText": "Caisse-claire",
+    "shieldArmoireSnareDrumNotes": "Rat-a-tat-tat ! Rassemblez votre équipe pour une parade ou un défilé en jouant de ce tambour. Augmente la constitution de <%= con %> et l'intelligence de <%= int %>. Armoire enchantée : ensemble d'instruments de musique 1 (objet 3 de 3)"
 }
