@@ -10,21 +10,20 @@
           <ul>
             <li>
               <a
-              href="https://itunes.apple.com/us/app/habitica/id994882113?ls=1&mt=8"
-              target="_blank"
+                href="https://itunes.apple.com/us/app/habitica/id994882113?ls=1&mt=8"
+                target="_blank"
               >{{ $t('mobileIOS') }}</a>
             </li>
             <li>
               <a
-              href="https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica"
-              target="_blank"
+                href="https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica"
+                target="_blank"
               >{{ $t('mobileAndroid') }}</a>
             </li>
             <li>
               <router-link to="/group-plans">
                 {{ $t('groupPlans') }}
               </router-link>
-
             </li>
             <li>
               <router-link to="/static/features">
@@ -49,14 +48,14 @@
             </li>
             <li>
               <a
-              href="https://habitica.wordpress.com/"
-              target="_blank"
+                href="https://habitica.wordpress.com/"
+                target="_blank"
               >{{ $t('companyBlog') }}</a>
             </li>
             <li>
               <a
-              href="https://habitica.fandom.com/wiki/Whats_New"
-              target="_blank"
+                href="https://habitica.fandom.com/wiki/Whats_New"
+                target="_blank"
               >{{ $t('oldNews') }}</a>
             </li>
           </ul>
@@ -78,8 +77,8 @@
             </li>
             <li>
               <a
-              href="https://habitica.fandom.com/wiki/Contributing_to_Habitica"
-              target="_blank"
+                href="https://habitica.fandom.com/wiki/Contributing_to_Habitica"
+                target="_blank"
               >{{ $t('companyContribute') }}</a>
             </li>
           </ul>
@@ -87,269 +86,269 @@
         <!-- Support -->
         <div class="col-6 col-sm">
           <h3>{{ $t ('support') }}</h3>
-            <ul>
-              <li>
-                <router-link to="/static/faq">
-                  {{ $t('FAQ') }}
-                </router-link>
-              </li>
-              <!-- link isn't underlined on hover for some reason... -->
-                <li
-                  v-if="user"
-                  >
-                    <a
-                    target="_blank"
-                    @click.prevent="openBugReportModal()"
-                    >
-                      {{ $t('reportBug') }}
-                  </a>
-                </li>
-                <li
-                  v-else
-                  >
-                    <a
-                    href="mailto:admin@habitica.com?subject=Habitica Web Bug Report"
-                    target="_blank"
-                    >
-                      {{ $t('reportBug') }}
-                    </a>
-                </li>
-              <li>
-                <a
+          <ul>
+            <li>
+              <router-link to="/static/faq">
+                {{ $t('FAQ') }}
+              </router-link>
+            </li>
+            <!-- link isn't underlined on hover for some reason... -->
+            <li
+              v-if="user"
+            >
+              <a
+                target="_blank"
+                @click.prevent="openBugReportModal()"
+              >
+                {{ $t('reportBug') }}
+              </a>
+            </li>
+            <li
+              v-else
+            >
+              <a
+                href="mailto:admin@habitica.com?subject=Habitica Web Bug Report"
+                target="_blank"
+              >
+                {{ $t('reportBug') }}
+              </a>
+            </li>
+            <li>
+              <a
                 href="https://docs.google.com/forms/d/e/1FAIpQLScPhrwq_7P1C6PTrI3lbvTsvqGyTNnGzp1ugi1Ml0PFee_p5g/viewform?usp=sf_link"
                 target="_blank"
-                >{{ $t('requestFeature') }}</a>
-              </li>
-              <li>
-                <a
+              >{{ $t('requestFeature') }}</a>
+            </li>
+            <li>
+              <a
                 href="https://habitica.fandom.com/"
                 target="_blank"
-                >{{ $t('wiki') }}</a>
-              </li>
-            </ul>
+              >{{ $t('wiki') }}</a>
+            </li>
+          </ul>
         </div>
         <!-- Developers -->
         <div class="col-6 col-sm">
           <h3>{{ $t('footerDevs') }}</h3>
-            <ul>
-              <li>
-                <a
+          <ul>
+            <li>
+              <a
                 href="/apidoc"
                 target="_blank"
-                >{{ $t('APIv3') }}</a>
-              </li>
-              <li>
-                <a
+              >{{ $t('APIv3') }}</a>
+            </li>
+            <li>
+              <a
                 :href="getDataDisplayToolUrl"
                 target="_blank"
-                >{{ $t('dataDisplayTool') }}</a>
-              </li>
-              <li>
-                <a
+              >{{ $t('dataDisplayTool') }}</a>
+            </li>
+            <li>
+              <a
                 href="https://habitica.fandom.com/wiki/Guidance_for_Blacksmiths"
                 target="_blank"
-                >{{ $t('guidanceForBlacksmiths') }}</a>
-              </li>
-              <li>
-                <a
+              >{{ $t('guidanceForBlacksmiths') }}</a>
+            </li>
+            <li>
+              <a
                 href="https://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations"
                 target="_blank">
                 {{ $t('communityExtensions') }}</a>
-                <!-- v-html="$t('communityExtensions')"> -->
-              </li>
-            </ul>
+              <!-- v-html="$t('communityExtensions')"> -->
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row justify-content d-flex">
+        <!-- Help Support Habitica -->
+        <div class="col-sm-7 support">
+          <h3>{{ $t('helpSupportHabitica') }}</h3>
+          <div class="donate-text">
+            {{ $t('donateText3') }}
           </div>
         </div>
-        <div class="row justify-content d-flex">
-          <!-- Help Support Habitica -->
-          <div class="col-sm-7 support">
-            <h3>{{ $t('helpSupportHabitica') }}</h3>
-            <div class="donate-text">
-              {{ $t('donateText3') }}
+        <div class="col col-md-3">
+          <button
+            v-if="user"
+            class="btn btn-contribute justify-content-between"
+            @click="donate()"
+          >
+            <div class="text">
+              💜 {{ $t('companyDonate') }}
             </div>
-          </div>
-          <div class="col col-md-3">
-            <button
-              v-if="user"
-              class="btn btn-contribute justify-content-between"
-              @click="donate()"
+          </button>
+          <div
+            v-else
+            class="btn btn-contribute justify-content-between"
+          >
+            <a
+              href="https://habitica.fandom.com/wiki/Contributing_to_Habitica"
+              target="_blank"
             >
               <div class="text">
-                💜 {{ $t('companyDonate') }}
+                💜 {{ $t('companyContribute') }}
               </div>
-            </button>
-            <div
-              v-else
-              class="btn btn-contribute justify-content-between"
-            >
-              <a
-                href="https://habitica.fandom.com/wiki/Contributing_to_Habitica"
-                target="_blank"
-              >
-                <div class="text">
-                  💜 {{ $t('companyContribute') }}
-                </div>
-              </a>
-            </div>
+            </a>
           </div>
+        </div>
 
         <!-- Social -->
-          <div class="col col-md-2 social">
-            <h3>{{ $t('footerSocial') }}</h3>
-            <div class="icons align-items-center">
-              <a
+        <div class="col col-md-2 social">
+          <h3>{{ $t('footerSocial') }}</h3>
+          <div class="icons align-items-center">
+            <a
               class="social-circle"
               href="https://www.instagram.com/habitica/"
               target="_blank"
-              >
+            >
               <div
-              class="social-icon svg-icon instagram"
-              v-html="icons.instagram"
+                class="social-icon svg-icon instagram"
+                v-html="icons.instagram"
               ></div>
-              </a>
-              <a
-                class="social-circle"
-                href="https://twitter.com/habitica"
-                target="_blank"
-              >
-                <div
-                  class="social-icon svg-icon twitter"
-                  v-html="icons.twitter"
-                ></div>
-              </a>
-              <a
-                class="social-circle"
-                href="https://www.facebook.com/Habitica"
-                target="_blank"
-              >
-                <div
-                  class="social-icon facebook svg-icon"
-                  v-html="icons.facebook"
-                ></div>
-              </a><a
-                class="social-circle"
-                href="https://www.tumblr.com/Habitica"
-                target="_blank"
-              >
-                <div
-                  class="social-icon tumblr svg-icon"
-                  v-html="icons.tumblr"
-                ></div>
-              </a>
-            </div>
+            </a>
+            <a
+              class="social-circle"
+              href="https://twitter.com/habitica"
+              target="_blank"
+            >
+              <div
+                class="social-icon svg-icon twitter"
+                v-html="icons.twitter"
+              ></div>
+            </a>
+            <a
+              class="social-circle"
+              href="https://www.facebook.com/Habitica"
+              target="_blank"
+            >
+              <div
+                class="social-icon facebook svg-icon"
+                v-html="icons.facebook"
+              ></div>
+            </a><a
+              class="social-circle"
+              href="https://www.tumblr.com/Habitica"
+              target="_blank"
+            >
+              <div
+                class="social-icon tumblr svg-icon"
+                v-html="icons.tumblr"
+              ></div>
+            </a>
           </div>
         </div>
+      </div>
       <div class="row">
         <div class="col-12">
           <hr>
         </div>
       </div>
-        <div class="row colophon align-items-center">
-          <div class="col">
-            © {{ currentYear }} Habitica. All rights reserved.
-          </div>
-          <div class="col align-items-end">
-            <div
-              class="logo svg-icon"
-              v-html="icons.gryphon"
-            ></div>
-          </div>
-          <div class="d-flex col justify-content-end">
-            <span class="privacy-policy">
-              <a
-                target="_blank"
-                href="/static/privacy"
-              >{{ $t('privacy') }}</a>
-            </span>
-            <span class="">
-              <a
-                target="_blank"
-                href="/static/terms"
-              >{{ $t('terms') }}</a>
-            </span>
-          </div>
+      <div class="row colophon align-items-center">
+        <div class="col">
+          © {{ currentYear }} Habitica. All rights reserved.
         </div>
-        <div class="row">
+        <div class="col align-items-end">
           <div
-            v-if="!IS_PRODUCTION && isUserLoaded"
-            class="debug float-left"
+            class="logo svg-icon"
+            v-html="icons.gryphon"
+          ></div>
+        </div>
+        <div class="d-flex col justify-content-end">
+          <span class="privacy-policy">
+            <a
+              target="_blank"
+              href="/static/privacy"
+            >{{ $t('privacy') }}</a>
+          </span>
+          <span class="">
+            <a
+              target="_blank"
+              href="/static/terms"
+            >{{ $t('terms') }}</a>
+          </span>
+        </div>
+      </div>
+      <div class="row">
+        <div
+          v-if="!IS_PRODUCTION && isUserLoaded"
+          class="debug float-left"
+        >
+          <button
+            class="btn btn-primary"
+            @click="debugMenuShown = !debugMenuShown"
           >
-            <button
-              class="btn btn-primary"
-              @click="debugMenuShown = !debugMenuShown"
-            >
-              Toggle Debug Menu
-            </button>
-            <div
-              v-if="debugMenuShown"
-              class="debug-group"
-            >
-              <a
-                class="btn btn-secondary"
-                @click="setHealthLow()"
-              >Reduce Health to 1</a>
-              <a
-                class="btn btn-secondary"
-                @click="addMissedDay(1)"
-              >+1 Missed Day</a>
-              <a
-                class="btn btn-secondary"
-                @click="addMissedDay(2)"
-              >+2 Missed Days</a>
-              <a
-                class="btn btn-secondary"
-                @click="addMissedDay(8)"
-              >+8 Missed Days</a>
-              <a
-                class="btn btn-secondary"
-                @click="addMissedDay(32)"
-              >+32 Missed Days</a>
-              <a
-                class="btn btn-secondary"
-                @click="addTenGems()"
-              >+10 Gems</a>
-              <a
-                class="btn btn-secondary"
-                @click="addHourglass()"
-              >+1 Mystic Hourglass</a>
-              <a
-                class="btn btn-secondary"
-                @click="addGold()"
-              >+500GP</a>
-              <a
-                class="btn btn-secondary"
-                @click="plusTenHealth()"
-              >+ 10HP</a>
-              <a
-                class="btn btn-secondary"
-                @click="addMana()"
-              >+MP</a>
-              <a
-                class="btn btn-secondary"
-                @click="addLevelsAndGold()"
-              >+Exp +GP +MP</a>
-              <a
-                class="btn btn-secondary"
-                @click="addExp()"
-              >+Exp</a>
-              <a
-                class="btn btn-secondary"
-                @click="addOneLevel()"
-              >+1 Level</a>
-              <a
-                class="btn btn-secondary"
-                tooltip="+1000 to boss quests. 300 items to collection quests"
-                @click="addQuestProgress()"
-              >Quest Progress Up</a>
-              <a
-                class="btn btn-secondary"
-                @click="makeAdmin()"
-              >Make Admin</a>
-            </div>
+            Toggle Debug Menu
+          </button>
+          <div
+            v-if="debugMenuShown"
+            class="debug-group"
+          >
+            <a
+              class="btn btn-secondary"
+              @click="setHealthLow()"
+            >Reduce Health to 1</a>
+            <a
+              class="btn btn-secondary"
+              @click="addMissedDay(1)"
+            >+1 Missed Day</a>
+            <a
+              class="btn btn-secondary"
+              @click="addMissedDay(2)"
+            >+2 Missed Days</a>
+            <a
+              class="btn btn-secondary"
+              @click="addMissedDay(8)"
+            >+8 Missed Days</a>
+            <a
+              class="btn btn-secondary"
+              @click="addMissedDay(32)"
+            >+32 Missed Days</a>
+            <a
+              class="btn btn-secondary"
+              @click="addTenGems()"
+            >+10 Gems</a>
+            <a
+              class="btn btn-secondary"
+              @click="addHourglass()"
+            >+1 Mystic Hourglass</a>
+            <a
+              class="btn btn-secondary"
+              @click="addGold()"
+            >+500GP</a>
+            <a
+              class="btn btn-secondary"
+              @click="plusTenHealth()"
+            >+ 10HP</a>
+            <a
+              class="btn btn-secondary"
+              @click="addMana()"
+            >+MP</a>
+            <a
+              class="btn btn-secondary"
+              @click="addLevelsAndGold()"
+            >+Exp +GP +MP</a>
+            <a
+              class="btn btn-secondary"
+              @click="addExp()"
+            >+Exp</a>
+            <a
+              class="btn btn-secondary"
+              @click="addOneLevel()"
+            >+1 Level</a>
+            <a
+              class="btn btn-secondary"
+              tooltip="+1000 to boss quests. 300 items to collection quests"
+              @click="addQuestProgress()"
+            >Quest Progress Up</a>
+            <a
+              class="btn btn-secondary"
+              @click="makeAdmin()"
+            >Make Admin</a>
           </div>
         </div>
-      </footer>
-    </div>
+      </div>
+    </footer>
+  </div>
 </template>
 
 <style lang="scss" scoped>
