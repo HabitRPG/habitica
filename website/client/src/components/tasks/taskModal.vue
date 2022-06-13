@@ -71,45 +71,31 @@
         >
       </div>
       <div
-        v-if="isUserTask || isChallengeTask || isOriginalChallengeTask"
         class="form-group mb-0"
       >
-        <label
-          class="d-flex align-items-center justify-content-between mb-1"
-        >
-          <span
-            :class="cssClass('headings')"
-          >{{ $t('notes') }}</span>
-          <small>
+        <div class="d-flex">
+          <lockable-label
+            class="mr-auto"
+            :class-override="cssClass('headings')"
+            :locked="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
+            :text="`${$t('notes')}`"
+          />
+          <small
+            class="my-1"
+          >
             <a
               target="_blank"
               href="https://habitica.fandom.com/wiki/Markdown_Cheat_Sheet"
               :class="cssClass('headings')"
             >{{ $t('markdownHelpLink') }}</a>
           </small>
-        </label>
+        </div>
         <textarea
           v-model="task.notes"
           class="form-control input-notes"
           :class="cssClass('input')"
+          :disabled="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
           :placeholder="$t('addNotes')"
-        ></textarea>
-      </div>
-      <div
-        v-if="showManagerNotes"
-        class="form-group mb-0 mt-3"
-      >
-        <lockable-label
-          :class-override="cssClass('headings')"
-          :locked="groupAccessRequiredAndOnPersonalPage"
-          :text="$t('managerNotes')"
-        />
-        <textarea
-          v-model="managerNotes"
-          class="form-control input-notes"
-          :class="cssClass('input')"
-          :placeholder="$t('addNotes')"
-          :disabled="groupAccessRequiredAndOnPersonalPage"
         ></textarea>
       </div>
       <div
@@ -405,7 +391,7 @@
           </div>
         </div>
         <div
-          v-if="isUserTask"
+          v-if="!challengeAccessRequired && !groupAccessRequiredAndOnPersonalPage"
           class="tags-select option mt-3"
         >
           <div class="tags-inline form-group row">
@@ -1085,7 +1071,6 @@ export default {
         calendar: calendarIcon,
         grip: gripIcon,
       }),
-      managerNotes: '',
       members: [],
       membersNameAndId: [],
       memberNamesById: {},
@@ -1148,12 +1133,6 @@ export default {
       return ['daily', 'todo'].indexOf(this.task.type) > -1
         && !this.isOriginalChallengeTask
         && (!this.groupAccessRequiredAndOnPersonalPage || this.checklist.length > 0);
-    },
-    showManagerNotes () {
-      return Boolean(this.task.group && this.task.group.managerNotes)
-        || (
-          !this.groupAccessRequiredAndOnPersonalPage && this.managers.indexOf(this.user._id) !== -1
-        );
     },
     isChallengeTask () {
       return Boolean(this.task.challenge && this.task.challenge.id);
@@ -1261,10 +1240,6 @@ export default {
       createTag: 'tags:createTag',
     }),
     async syncTask () {
-      if (this.task && this.task.group && this.task.group.managerNotes) {
-        this.managerNotes = this.task.group.managerNotes;
-      }
-
       if (this.groupId) {
         const members = await this.$store.dispatch('members:getGroupMembers', {
           groupId: this.groupId,
@@ -1282,7 +1257,7 @@ export default {
         });
         this.assignedMembers = [];
         if (this.task.group?.assignedUsers) {
-          this.assignedMembers = keys(this.task.group.assignedUsers);
+          this.assignedMembers = this.task.group.assignedUsers;
         }
       }
 
@@ -1443,12 +1418,6 @@ export default {
       if (!this.canSave) return;
       if (this.newChecklistItem) this.addChecklistItem();
 
-      // TODO Fix up permissions on task.group so we don't have to keep doing these hacks
-      if (this.groupId) {
-        this.task.managerNotes = this.managerNotes;
-        this.task.group.managerNotes = this.managerNotes;
-      }
-
       if (this.task.type === 'reward' && this.task.value === '') {
         this.task.value = 0;
       }
@@ -1472,8 +1441,8 @@ export default {
             assignedUserIds: this.assignedMembers,
           });
           this.assignedMembers.forEach(memberId => {
-            if (!this.task.assignedUsers) this.task.assignedUsers = {};
-            this.task.assignedUsers[memberId] = {
+            if (!this.task.assignedUsersDetail) this.task.assignedUsersDetail = {};
+            this.task.assignedUsersDetail[memberId] = {
               assignedDate: new Date(),
               assigningUsername: this.user.auth.local.username,
               completed: false,
@@ -1500,7 +1469,6 @@ export default {
       this.$root.$emit('bv::hide::modal', 'task-modal');
     },
     onClose () {
-      if (this.task.group && this.task.group.managerNotes) this.managerNotes = null;
       this.newChecklistItem = '';
       this.$emit('cancel');
     },

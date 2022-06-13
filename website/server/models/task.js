@@ -129,10 +129,12 @@ export const TaskSchema = new Schema({
     id: { $type: String, ref: 'Group', validate: [v => validator.isUUID(v), 'Invalid uuid for group task.'] },
     assignedDate: { $type: Date }, // To be removed
     assigningUsername: { $type: String }, // To be removed
-    assignedUsers: {
+    assignedUsers: [{ $type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid for group assigned user.'] }],
+    assignedUsersDetail: {
       $type: Schema.Types.Mixed,
       // key is assigned UUID, with
       // { assignedDate: Date,
+      // assignedUsername: '@username',
       // assigningUsername: '@username',
       // completed: Boolean,
       // completedDate: Date }

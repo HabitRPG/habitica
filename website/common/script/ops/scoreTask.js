@@ -302,9 +302,9 @@ export default function scoreTask (options = {}, req = {}, analytics) {
             task.completed = true;
             task.streak += 1;
           } else {
-            task.group.assignedUsers[user._id].completed = true;
-            task.group.assignedUsers[user._id].completedDate = new Date();
-            if (!find(task.group.assignedUsers, assignedUser => !assignedUser.completed)) {
+            task.group.assignedUsersDetail[user._id].completed = true;
+            task.group.assignedUsersDetail[user._id].completedDate = new Date();
+            if (!find(task.group.assignedUsersDetail, assignedUser => !assignedUser.completed)) {
               task.dateCompleted = new Date();
               task.completed = true;
               task.streak += 1;
@@ -332,16 +332,16 @@ export default function scoreTask (options = {}, req = {}, analytics) {
         }
       } else if (direction === 'down') {
         if (task.group.id) {
-          if (!task.group.assignedUsers
-            || !find(task.group.assignedUsers, assignedUser => !assignedUser.completed)
+          if (!task.group.assignedUsersDetail
+            || !find(task.group.assignedUsersDetail, assignedUser => !assignedUser.completed)
           ) {
             task.streak -= 1;
             task.completed = false;
           }
           if (task.group.completedBy) task.group.completedBy = {};
-          if (task.group.assignedUsers && task.group.assignedUsers[user._id]) {
-            task.group.assignedUsers[user._id].completed = false;
-            task.group.assignedUsers[user._id].completedDate = undefined;
+          if (task.group.assignedUsersDetail && task.group.assignedUsersDetail[user._id]) {
+            task.group.assignedUsersDetail[user._id].completed = false;
+            task.group.assignedUsersDetail[user._id].completedDate = undefined;
           }
           if (task.markModified) task.markModified('group');
         } else {
@@ -372,9 +372,9 @@ export default function scoreTask (options = {}, req = {}, analytics) {
             };
             task.completed = true;
           } else {
-            task.group.assignedUsers[user._id].completed = true;
-            task.group.assignedUsers[user._id].completedDate = new Date();
-            if (!find(task.group.assignedUsers, assignedUser => !assignedUser.completed)) {
+            task.group.assignedUsersDetail[user._id].completed = true;
+            task.group.assignedUsersDetail[user._id].completedDate = new Date();
+            if (!find(task.group.assignedUsersDetail, assignedUser => !assignedUser.completed)) {
               task.dateCompleted = new Date();
               task.completed = true;
             }
@@ -389,9 +389,9 @@ export default function scoreTask (options = {}, req = {}, analytics) {
         task.dateCompleted = undefined;
         if (task.group.id) {
           if (task.group.completedBy) task.group.completedBy = {};
-          if (task.group.assignedUsers && task.group.assignedUsers[user._id]) {
-            task.group.assignedUsers[user._id].completed = false;
-            task.group.assignedUsers[user._id].completedDate = undefined;
+          if (task.group.assignedUsersDetail && task.group.assignedUsersDetail[user._id]) {
+            task.group.assignedUsersDetail[user._id].completed = false;
+            task.group.assignedUsersDetail[user._id].completedDate = undefined;
           }
           if (task.markModified) task.markModified('group');
         }

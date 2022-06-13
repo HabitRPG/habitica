@@ -150,7 +150,7 @@ async function getTasks (req, res, options = {}) {
     dueDate,
   } = options;
 
-  let query = { userId: user._id };
+  let query = { $or: [{ userId: user._id }, { 'group.assignedUsers': user._id }] };
   let limit;
   let sort;
   const owner = group || challenge || user;
@@ -188,10 +188,12 @@ async function getTasks (req, res, options = {}) {
       query.type = type.slice(0, -1); // removing the final "s"
     }
   } else {
-    query.$or = [ // Exclude completed todos
-      { type: 'todo', completed: false },
-      { type: { $in: ['habit', 'daily', 'reward'] } },
-    ];
+    query.$and = [{
+      $or: [ // Exclude completed todos
+        { type: 'todo', completed: false },
+        { type: { $in: ['habit', 'daily', 'reward'] } },
+      ],
+    }];
   }
 
   const mQuery = Tasks.Task.find(query);

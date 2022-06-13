@@ -1447,18 +1447,24 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, users, assig
   for (const user of users) {
     const assignmentData = {
       assignedDate: new Date(),
+      assignedUsername: user.auth.local.username,
       assigningUsername: assigningUser && assigningUser._id !== user._id
         ? assigningUser.auth.local.username : null,
       completed: false,
     };
 
     if (!taskToSync.group.assignedUsers) {
-      taskToSync.group.assignedUsers = {};
+      taskToSync.group.assignedUsers = [];
     }
-    if (!taskToSync.group.assignedUsers[user._id]) {
-      taskToSync.group.assignedUsers[user._id] = assignmentData;
+    taskToSync.group.assignedUsers.push(user._id);
+
+    if (!taskToSync.group.assignedUsersDetail) {
+      taskToSync.group.assignedUsersDetail = {};
     }
-    taskToSync.markModified('group.assignedUsers');
+    if (!taskToSync.group.assignedUsersDetail[user._id]) {
+      taskToSync.group.assignedUsersDetail[user._id] = assignmentData;
+    }
+    taskToSync.markModified('group.assignedUsersDetail');
 
     // Sync tags
     const userTags = user.tags;
@@ -1488,14 +1494,16 @@ schema.methods.unlinkTask = async function groupUnlinkTask (
 ) {
   const findQuery = {
     'group.taskId': unlinkingTask._id,
-    userId: user._id,
+    'group.assignedUsers': user._id,
   };
 
-  delete unlinkingTask.group.assignedUsers[user._id];
-  if (Object.keys(unlinkingTask.group.assignedUsers).length === 0) {
+  delete unlinkingTask.group.assignedUsersDetail[user._id];
+  const assignedUserIndex = unlinkingTask.group.assignedUsers.indexOf(user._id);
+  unlinkingTask.group.assignedUsers.splice(assignedUserIndex, 1);
+  if (unlinkingTask.group.assignedUsers.length === 0) {
     unlinkingTask.group.assignedUsers = undefined;
   }
-  unlinkingTask.markModified('group.assignedUsers');
+  unlinkingTask.markModified('group');
 
   const promises = [unlinkingTask.save()];
 

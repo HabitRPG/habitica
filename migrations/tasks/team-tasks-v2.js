@@ -1,4 +1,3 @@
-import clone from 'lodash/clone';
 import filter from 'lodash/filter';
 import find from 'lodash/find';
 import isArray from 'lodash/isArray';
@@ -20,18 +19,25 @@ async function updateTeamTasks (team) {
       boardTask.group.assignedDate = undefined;
       boardTask.group.assigningUsername = undefined;
       boardTask.group.sharedCompletion = undefined;
-      const assignedUsers = clone(boardTask.group.assignedUsers);
-      boardTask.group.assignedUsers = null;
-      for (const assignedUser of assignedUsers) {
+
+      for (const assignedUser of boardTask.group.assignedUsers) {
         const userTask = find(teamUserTasks, task => task.userId === assignedUser
            && task.group.taskId === boardTask._id);
+        if (!boardTask.group.assignedUsersDetail) boardTask.group.assignedUsersDetail = {};
         if (userTask) {
-          if (!boardTask.group.assignedUsers) boardTask.group.assignedUsers = {};
-          boardTask.group.assignedUsers[assignedUser] = {
+          boardTask.group.assignedUsersDetail[assignedUser] = {
             assignedDate: userTask.group.assignedDate,
             assigningUsername: userTask.group.assigningUsername,
             completed: userTask.completed || false,
             completedDate: userTask.dateCompleted,
+          };
+          toSave.push(Tasks.Task.findByIdAndDelete(userTask._id));
+        } else {
+          boardTask.group.assignedUsersDetail[assignedUser] = {
+            assignedDate: new Date(),
+            assigningUsername: null,
+            completed: false,
+            completedDate: null,
           };
         }
       }

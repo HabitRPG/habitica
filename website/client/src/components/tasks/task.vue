@@ -98,7 +98,7 @@
               <h3
                 v-markdown="task.text"
                 class="task-title markdown"
-                :class="{ 'has-notes': task.notes || (!isUser && task.group.managerNotes)}"
+                :class="{ 'has-notes': task.notes }"
               ></h3>
               <menu-dropdown
                 v-if="!isRunningYesterdailies && showOptions"
@@ -177,7 +177,7 @@
               </menu-dropdown>
             </div>
             <div
-              v-markdown="displayNotes"
+              v-markdown="task.notes"
               class="task-notes small-text"
               :class="{'has-checklist': task.notes && hasChecklist}"
             ></div>
@@ -889,7 +889,6 @@
 import moment from 'moment';
 import { v4 as uuid } from 'uuid';
 import isEmpty from 'lodash/isEmpty';
-import keys from 'lodash/keys';
 import { mapState, mapGetters, mapActions } from '@/libs/store';
 
 import positiveIcon from '@/assets/svg/positive.svg';
@@ -1056,19 +1055,15 @@ export default {
       if (!this.group.leader && !this.group.managers) return false;
       return (this.group.leader._id === this.user._id || this.group.managers[this.user._id]);
     },
-    displayNotes () {
-      if (this.isGroupTask && !this.isUser) return this.task.group.managerNotes;
-      return this.task.notes;
-    },
     isOpenTask () {
       if (!this.isGroupTask) return false;
-      if (this.task.group.assignedUsers) return false;
+      if (this.task.group.assignedUsers.length > 0) return false;
       return true;
     },
     showCheckIcon () {
-      if (this.isGroupTask && this.task.group.assignedUsers
-        && this.task.group.assignedUsers[this.user._id]) {
-        return this.task.group.assignedUsers[this.user._id].completed;
+      if (this.isGroupTask && this.task.group.assignedUsersDetail
+        && this.task.group.assignedUsersDetail[this.user._id]) {
+        return this.task.group.assignedUsersDetail[this.user._id].completed;
       }
       return this.task.completed;
     },
@@ -1076,18 +1071,20 @@ export default {
       if (this.isUser) return false;
       if (this.isGroupTask) {
         if (this.task.completed) {
-          if (this.task.group.assignedUsers && this.task.group.assignedUsers[this.user._id]) {
+          if (this.task.group.assignedUsersDetail
+            && this.task.group.assignedUsersDetail[this.user._id]
+          ) {
             return false;
           }
           if (this.task.group.completedBy.userId === this.user._id) return false;
           if (this.teamManagerAccess) {
             if (!this.task.group.assignedUsers) return false;
-            if (keys(this.task.group.assignedUsers).length === 1) return false;
+            if (this.task.group.assignedUsers.length === 1) return false;
           }
           return true;
         }
         if (this.isOpenTask) return false;
-        if (this.task.group.assignedUsers && this.task.group.assignedUsers[this.user._id]) {
+        if (this.task.group.assignedUsersDetail[this.user._id]) {
           return false;
         }
       }
@@ -1165,11 +1162,11 @@ export default {
       if (
         this.isGroupTask && direction === 'down'
         && ['todo', 'daily'].indexOf(this.task.type) !== -1
-        && this.task.group.assignedUsers && !this.task.group.assignedUsers[this.user._id]
+        && !this.task.group.assignedUsersDetail[this.user._id]
       ) {
         this.$store.dispatch('tasks:needsWork', {
           taskId: this.task._id,
-          userId: keys(this.task.group.assignedUsers)[0],
+          userId: this.task.group.assignedUsers[0],
         });
         this.task.completed = false;
         return;

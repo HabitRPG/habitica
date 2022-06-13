@@ -41,7 +41,6 @@
     </div>
     <div
       class="claim-bottom-message d-flex align-items-center"
-      v-if="group"
     >
       <div
         class="mr-auto ml-2"
@@ -215,8 +214,6 @@
 </style>
 
 <script>
-import findIndex from 'lodash/findIndex';
-import keys from 'lodash/keys';
 import moment from 'moment';
 import reduce from 'lodash/reduce';
 import { mapState } from '@/libs/store';
@@ -239,21 +236,18 @@ export default {
   computed: {
     ...mapState({ user: 'user.data' }),
     userIsAssigned () {
-      return this.task.group.assignedUsers
-        && Boolean(this.task.group.assignedUsers[this.user._id]);
+      return this.task.group.assignedUsersDetail
+        && Boolean(this.task.group.assignedUsersDetail[this.user._id]);
     },
     userIsManager () {
       return this.group
       && (this.group.leader.id === this.user._id || this.group.managers[this.user._id]);
     },
-    assignedUsersKeys () {
-      return keys(this.task.group.assignedUsers);
-    },
     assignedUsersCount () {
-      return this.assignedUsersKeys.length;
+      return this.task.group.assignedUsers.length;
     },
     completionsCount () {
-      return reduce(this.task.group.assignedUsers, (count, assignment) => {
+      return reduce(this.task.group.assignedUsersDetail, (count, assignment) => {
         if (assignment.completed) return count + 1;
         return count;
       }, 0);
@@ -261,10 +255,9 @@ export default {
     completionsList () {
       if (this.assignedUsersCount === 1) return [];
       const completionsArray = [];
-      for (const userId of this.assignedUsersKeys) {
+      for (const userId of this.task.group.assignedUsers) {
         if (userId !== this.user._id) {
-          const index = findIndex(this.group.members, member => member._id === userId);
-          const { completedDate } = this.task.group.assignedUsers[userId];
+          const { completedDate } = this.task.group.assignedUsersDetail[userId];
           let completedDateString;
           if (moment().diff(completedDate, 'days') > 0) {
             completedDateString = `Completed ${moment(completedDate).format('M/D/YY')}`;
@@ -273,8 +266,8 @@ export default {
           }
           completionsArray.push({
             userId,
-            userName: this.group.members[index].auth.local.username,
-            completed: this.task.group.assignedUsers[userId].completed,
+            userName: this.task.group.assignedUsersDetail[userId].assignedUsername,
+            completed: this.task.group.assignedUsersDetail[userId].completed,
             completedDate,
             completedDateString,
           });
@@ -290,14 +283,11 @@ export default {
         return this.$t('assignedToMembers', { userCount: this.assignedUsersCount });
       }
       if (this.assignedUsersCount === 1) { // Singly assigned
-        const userId = this.assignedUsersKeys[0];
-        const index = findIndex(
-          this.group.members, member => member._id === userId,
-        );
-        const userName = this.group.members[index].auth.local.username;
+        const userId = this.task.group.assignedUsers[0];
+        const userName = this.task.group.assignedUsersDetail[userId].assignedUsername;
 
-        if (this.task.group.assignedUsers[userId].completed) { // completed
-          const { completedDate } = this.task.group.assignedUsers[userId];
+        if (this.task.group.assignedUsersDetail[userId].completed) { // completed
+          const { completedDate } = this.task.group.assignedUsersDetail[userId];
           if (this.userIsAssigned) {
             if (moment().diff(completedDate, 'days') > 0) {
               return `<strong>You</strong> completed ${moment(completedDate).format('M/D/YY')}`;
@@ -317,8 +307,8 @@ export default {
       return this.$t('error'); // task is open, or the other conditions aren't hitting right
     },
     singleAssignLastDone () {
-      const userId = this.assignedUsersKeys[0];
-      const completion = this.task.group.assignedUsers[userId];
+      const userId = this.task.group.assignedUsers[0];
+      const completion = this.task.group.assignedUsersDetail[userId];
       return completion.completedDate;
     },
     showGreen () {
@@ -343,7 +333,7 @@ export default {
         taskId: this.task._id,
         userId: completion.userId,
       });
-      this.task.group.assignedUsers[completion.userId].completed = false;
+      this.task.group.assignedUsersDetail[completion.userId].completed = false;
     },
   },
 };
