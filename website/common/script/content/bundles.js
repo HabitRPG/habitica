@@ -128,6 +128,7 @@ const bundles = {
       'kraken',
       'octopus',
     ],
+    event: EVENTS.bundle202206,
     canBuy () {
       return moment().isBefore(EVENTS.bundle202206.end);
     },
