@@ -326,10 +326,63 @@ describe('Google Payments', () => {
       });
     });
 
+    it('should cancel a user subscription with multiple inactive subscriptions', async () => {
+      const laterDate = moment.utc().add(7, 'days');
+      iap.getPurchaseData.restore();
+      iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
+        .returns([{ expirationDate, autoRenewing: false },
+          { expirationDate: laterDate, autoRenewing: false },
+        ]);
+      await googlePayments.cancelSubscribe(user, headers);
+
+      expect(iapSetupStub).to.be.calledOnce;
+      expect(iapValidateStub).to.be.calledOnce;
+      expect(iapValidateStub).to.be.calledWith(iap.GOOGLE, {
+        data: receipt,
+        signature,
+      });
+      expect(iapIsValidatedStub).to.be.calledOnce;
+      expect(iapIsValidatedStub).to.be.calledWith({
+        expirationDate,
+      });
+      expect(iapGetPurchaseDataStub).to.be.calledOnce;
+
+      expect(paymentCancelSubscriptionSpy).to.be.calledOnce;
+      expect(paymentCancelSubscriptionSpy).to.be.calledWith({
+        user,
+        paymentMethod: googlePayments.constants.PAYMENT_METHOD_GOOGLE,
+        nextBill: laterDate.toDate(),
+        headers,
+      });
+    });
+
     it('should not cancel a user subscription with autorenew', async () => {
       iap.getPurchaseData.restore();
       iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
         .returns([{ autoRenewing: true }]);
+      await googlePayments.cancelSubscribe(user, headers);
+
+      expect(iapSetupStub).to.be.calledOnce;
+      expect(iapValidateStub).to.be.calledOnce;
+      expect(iapValidateStub).to.be.calledWith(iap.GOOGLE, {
+        data: receipt,
+        signature,
+      });
+      expect(iapIsValidatedStub).to.be.calledOnce;
+      expect(iapIsValidatedStub).to.be.calledWith({
+        expirationDate,
+      });
+      expect(iapGetPurchaseDataStub).to.be.calledOnce;
+
+      expect(paymentCancelSubscriptionSpy).to.not.be.called;
+    });
+
+    it('should not cancel a user subscription with multiple subscriptions with one autorenew', async () => {
+      iap.getPurchaseData.restore();
+      iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
+        .returns([{ expirationDate, autoRenewing: false },
+          { autoRenewing: true },
+          { expirationDate, autoRenewing: false }]);
       await googlePayments.cancelSubscribe(user, headers);
 
       expect(iapSetupStub).to.be.calledOnce;

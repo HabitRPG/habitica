@@ -16,7 +16,7 @@ AWS.config.update({
 const BUCKET_NAME = config.S3.bucket;
 const s3 = new AWS.S3();
 
-// Adapted from http://stackoverflow.com/a/22210077/2601552
+// Adapted from https://stackoverflow.com/a/22210077/2601552
 function uploadFile (buffer, fileName) {
   return new Promise((resolve, reject) => {
     s3.putObject({
