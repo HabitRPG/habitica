@@ -739,7 +739,7 @@ export default {
       } else if (attribute === 'email') {
         this.user.auth.local.email = updates.newEmail;
         window.alert(this.$t('emailSuccess')); // eslint-disable-line no-alert
-      } else if(attribute === 'password') {
+      } else if (attribute === 'password') {
         this.passwordUpdates = {};
         this.$store.dispatch('snackbars:add', {
           title: 'Habitica',
