@@ -5,7 +5,7 @@ import { EVENTS } from './constants';
 // path: 'premiumHatchingPotions.Rainbow',
 const featuredItems = {
   market () {
-    if (moment().isBefore('EVENTS.potions202206.end')) {
+    if (moment().isBefore(EVENTS.summer2022.end)) {
       return [
         {
           type: 'armoire',

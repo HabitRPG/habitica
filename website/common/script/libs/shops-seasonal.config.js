@@ -30,7 +30,7 @@ export default {
 
   pinnedSets: SHOP_OPEN
     ? {
-      healer: 'summer2022AngelfishHealer',
+      healer: 'summer2022AngelfishHealerSet',
       rogue: 'summer2022CrabRogueSet',
       warrior: 'summer2022WaterspoutWarriorSet',
       wizard: 'summer2022MantaRayMageSet',
