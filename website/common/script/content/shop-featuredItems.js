@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { EVENTS } from './constants';
+// import { EVENTS } from './constants';
 // Magic Hatching Potions are configured like this:
 // type: 'premiumHatchingPotion',  // note no "s" at the end
 // path: 'premiumHatchingPotions.Rainbow',
@@ -45,34 +45,34 @@ const featuredItems = {
     ];
   },
   quests () {
-    if (moment().isBefore(EVENTS.bundle202206.end)) {
+    if (moment().isBefore('2022-05-31T20:00-04:00')) {
       return [
         {
           type: 'bundles',
-          path: 'bundles.aquaticAmigos',
+          path: 'bundles.delightfulDinos',
         },
         {
           type: 'quests',
-          path: 'quests.seaserpent',
+          path: 'quests.alligator',
         },
         {
           type: 'quests',
-          path: 'quests.dolphin',
+          path: 'quests.turtle',
         },
       ];
     }
     return [
       {
         type: 'quests',
-        path: 'quests.badger',
+        path: 'quests.ferret',
       },
       {
         type: 'quests',
-        path: 'quests.onyx',
+        path: 'quests.silver',
       },
       {
         type: 'quests',
-        path: 'quests.rooster',
+        path: 'quests.basilist',
       },
     ];
   },
