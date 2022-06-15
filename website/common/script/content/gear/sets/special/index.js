@@ -2617,7 +2617,7 @@ const shield = {
   spring2022Healer: {
     set: 'spring2022PeridotHealerSet',
   },
-    summer2022Rogue: {
+  summer2022Rogue: {
     set: 'summer2022CrabRogueSet',
   },
   summer2022Warrior: {
