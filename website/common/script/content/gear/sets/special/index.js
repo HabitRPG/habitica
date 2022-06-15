@@ -1842,7 +1842,7 @@ const head = {
     set: 'summer2022MantaRayMageSet',
   },
   summer2022Healer: {
-    set: 'summer2022AngelfishHealer',
+    set: 'summer2022AngelfishHealerSet',
   },
 };
 
@@ -2624,7 +2624,7 @@ const shield = {
     set: 'summer2022WaterspoutWarriorSet',
   },
   summer2022Healer: {
-    set: 'summer2022AngelfishHealer',
+    set: 'summer2022AngelfishHealerSet',
   },
 };
 
