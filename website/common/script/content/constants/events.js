@@ -15,6 +15,10 @@ export const EVENTS = {
     season: 'normal',
     npcImageSuffix: '',
   },
+  potions202206: {
+    start: '2022-06-21T08:00-04:00',
+    end: '2022-07-31T20:00-04:00',
+  },
   summer2022: {
     start: '2022-06-21T08:00-04:00',
     end: '2022-07-31T20:00-04:00',
