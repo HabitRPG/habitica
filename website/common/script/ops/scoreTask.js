@@ -294,7 +294,7 @@ export default function scoreTask (options = {}, req = {}, analytics) {
 
       if (direction === 'up') {
         if (task.group.id) {
-          if (!task.group.assignedUsers) {
+          if (!task.group.assignedUsers || task.group.assignedUsers.length === 0) {
             task.group.completedBy = {
               userId: user._id,
               date: new Date(),
@@ -365,7 +365,7 @@ export default function scoreTask (options = {}, req = {}, analytics) {
     } else {
       if (direction === 'up') {
         if (task.group.id) {
-          if (!task.group.assignedUsers) {
+          if (!task.group.assignedUsers || task.group.assignedUsers.length === 0) {
             task.group.completedBy = {
               userId: user._id,
               date: new Date(),

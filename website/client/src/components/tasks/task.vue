@@ -1078,7 +1078,9 @@ export default {
           }
           if (this.task.group.completedBy.userId === this.user._id) return false;
           if (this.teamManagerAccess) {
-            if (!this.task.group.assignedUsers) return false;
+            if (!this.task.group.assignedUsers || this.task.group.assignedUsers.length === 0) {
+              return false;
+            }
             if (this.task.group.assignedUsers.length === 1) return false;
           }
           return true;
@@ -1162,11 +1164,12 @@ export default {
       if (
         this.isGroupTask && direction === 'down'
         && ['todo', 'daily'].indexOf(this.task.type) !== -1
-        && !this.task.group.assignedUsersDetail[this.user._id]
+        && (!this.task.group.assignedUsersDetail
+          || !this.task.group.assignedUsersDetail[this.user._id])
       ) {
         this.$store.dispatch('tasks:needsWork', {
           taskId: this.task._id,
-          userId: this.task.group.assignedUsers[0],
+          userId: this.task.group.assignedUsers[0] || this.task.group.completedBy.userId,
         });
         this.task.completed = false;
         return;

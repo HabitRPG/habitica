@@ -355,10 +355,10 @@ api.taskNeedsWork = {
     if (['daily', 'todo'].indexOf(task.type) === -1) {
       throw new BadRequest('Cannot roll back use of Habits or Rewards.');
     }
-    if (!task.group.assignedUsersDetail || !task.group.assignedUsersDetail[assignedUserId]) {
-      throw new BadRequest('User not assigned to this task.');
-    }
-    if (!task.group.assignedUsersDetail[assignedUserId].completed) {
+    if (
+      (task.group.completedBy.userId && task.group.completedBy.userId !== assignedUserId)
+      || (task.group.assignedUsersDetail && !(task.group.assignedUsersDetail[assignedUserId]
+        && task.group.assignedUsersDetail[assignedUserId].completed))) {
       throw new BadRequest('Task not completed by this user.');
     }
 

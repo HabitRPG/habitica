@@ -1,5 +1,7 @@
 import moment from 'moment';
-import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
+import compact from 'lodash/compact';
+import keys from 'lodash/keys';
 import validator from 'validator';
 import {
   setNextDue,
@@ -150,23 +152,52 @@ async function getTasks (req, res, options = {}) {
     dueDate,
   } = options;
 
-  let query = { $or: [{ userId: user._id }, { 'group.assignedUsers': user._id }] };
+  let query;
   let limit;
   let sort;
+  let upgradedGroups;
   const owner = group || challenge || user;
 
   if (challenge) {
     query = { 'challenge.id': challenge.id, userId: { $exists: false } };
   } else if (group) {
-    query = { 'group.id': group._id, userId: { $exists: false } };
+    query = { 'group.id': group._id };
+  } else {
+    upgradedGroups = await Group.find(
+      {
+        _id: { $in: user.guilds.concat(user.party._id) },
+        'purchased.plan.customerId': { $exists: true },
+        $or: [
+          { 'purchased.plan.dateTerminated': { $exists: false } },
+          { 'purchased.plan.dateTerminated': null },
+          { 'purchased.plan.dateTerminated': { $gt: new Date() } },
+        ],
+      },
+      { _id: 1 },
+    ).exec();
+    if (upgradedGroups.length > 0) {
+      const upgradedGroupIds = [];
+      for (const upgradedGroup of upgradedGroups) {
+        upgradedGroupIds.push(upgradedGroup._id);
+      }
+      query = {
+        $or: [
+          { userId: user._id },
+          { 'group.assignedUsers': user._id },
+          { 'group.id': { $in: upgradedGroupIds }, 'group.assignedUsers.0': { $exists: false } },
+        ],
+      };
+    } else {
+      query = { userId: user._id };
+    }
   }
 
   const { type } = req.query;
 
   if (type) {
     if (type === 'todos') {
-      query.completed = false; // Exclude completed todos
       query.type = 'todo';
+      query.completed = false; // Exclude completed todos
     } else if (type === 'completedTodos' || type === '_allCompletedTodos') { // _allCompletedTodos is currently in BETA and is likely to be removed in future
       limit = 30;
 
@@ -177,7 +208,13 @@ async function getTasks (req, res, options = {}) {
       query.type = 'todo';
       query.completed = true;
 
-      if (owner._id === user._id) {
+      if (upgradedGroups && upgradedGroups.length > 0) {
+        query.$or = [
+          { userId: user._id },
+          { 'group.assignedUsers': user._id },
+          { 'group.completedBy.userId': user._id },
+        ];
+      } else if (owner._id === user._id) {
         query.userId = user._id;
       }
 
@@ -234,7 +271,7 @@ async function getTasks (req, res, options = {}) {
   });
 
   // Remove empty values from the array and add any unordered task
-  orderedTasks = _.compact(orderedTasks).concat(unorderedTasks);
+  orderedTasks = compact(orderedTasks).concat(unorderedTasks);
   return orderedTasks;
 }
 
@@ -307,7 +344,7 @@ async function handleTeamTask (task, delta, direction) {
 
       if (teamTask) {
         const groupDelta = teamTask.group.assignedUsers
-          ? delta / _.keys(teamTask.group.assignedUsers).length
+          ? delta / keys(teamTask.group.assignedUsers).length
           : delta;
         await teamTask.scoreChallengeTask(groupDelta, direction);
         if (task.type === 'daily' || task.type === 'todo') {
@@ -330,10 +367,12 @@ async function handleTeamTask (task, delta, direction) {
 */
 async function scoreTask (user, task, direction, req, res) {
   if (task.type === 'daily' || task.type === 'todo') {
-    if (task.group.id && task.group.assignedUsers && task.group.assignedUsers[user._id]) {
-      if (task.group.assignedUsers[user._id].completed && direction === 'up') {
+    if (task.group.id && task.group.assignedUsersDetail
+      && task.group.assignedUsersDetail[user._id]
+    ) {
+      if (task.group.assignedUsersDetail[user._id].completed && direction === 'up') {
         throw new NotAuthorized(res.t('sessionOutdated'));
-      } else if (!task.group.assignedUsers[user._id].completed && direction === 'down') {
+      } else if (!task.group.assignedUsersDetail[user._id].completed && direction === 'down') {
         throw new NotAuthorized(res.t('sessionOutdated'));
       }
     } else if (task.completed && direction === 'up') {
@@ -361,12 +400,12 @@ async function scoreTask (user, task, direction, req, res) {
     const userIsManagement = group.leader === user._id || Boolean(group.managers[user._id]);
     if (!userIsManagement
       && !(task.group.completedBy && task.group.completedBy.userId === user._id)
-      && !(task.group.assignedUsers && task.group.assignedUsers[user._id])
+      && !(task.group.assignedUsersDetail && task.group.assignedUsersDetail[user._id])
     ) {
       throw new BadRequest('Cannot uncheck task you did not complete if not a manager.');
     }
-    if (task.group.assignedUsers && _.keys(task.group.assignedUsers).length === 1) {
-      const rollbackUserId = _.keys(task.group.assignedUsers)[0];
+    if (task.group.assignedUsers && keys(task.group.assignedUsers).length === 1) {
+      const rollbackUserId = keys(task.group.assignedUsers)[0];
       rollbackUser = await User.findOne({ _id: rollbackUserId });
     } else {
       rollbackUser = await User.findOne({ _id: task.group.completedBy.userId });
@@ -471,7 +510,7 @@ async function scoreTask (user, task, direction, req, res) {
     pushTask,
     // clone user._tmp so that it's not overwritten by other score operations
     // when using the bulk scoring API
-    _tmp: _.cloneDeep(user._tmp),
+    _tmp: cloneDeep(user._tmp),
   };
 }
 
