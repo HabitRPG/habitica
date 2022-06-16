@@ -18,6 +18,7 @@ describe('GET /approvals/group/:groupId', () => {
         type: 'guild',
       },
       members: 2,
+      upgradeToGroupPlan: true,
     });
 
     guild = group;

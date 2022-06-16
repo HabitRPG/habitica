@@ -6,7 +6,7 @@
     <noscript class="banner">
       {{ $t('jsDisabledHeadingFull') }}
       <br />
-      <a href="http://www.enable-javascript.com/" target="_blank">{{ $t('jsDisabledLink') }}</a>
+      <a href="https://www.enable-javascript.com/" target="_blank">{{ $t('jsDisabledLink') }}</a>
     </noscript>
     <div
       id="intro-signup"

@@ -119,7 +119,7 @@ function path(obj, path, def) {
  * @param {String} path dot separated
  * @param {*} def default value ( if result undefined )
  * @returns {*}
- * http://stackoverflow.com/a/16190716
+ * https://stackoverflow.com/a/16190716
  * Usage: console.log(path(someObject, pathname));
  */
     for(var i = 0,path = path.split('.'),len = path.length; i < len; i++){

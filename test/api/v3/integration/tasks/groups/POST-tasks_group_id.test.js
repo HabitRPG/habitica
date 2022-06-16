@@ -26,6 +26,7 @@ describe('POST /tasks/group/:groupid', () => {
         privacy: 'private',
       },
       members: 1,
+      upgradeToGroupPlan: true,
     });
 
     guild = group;
