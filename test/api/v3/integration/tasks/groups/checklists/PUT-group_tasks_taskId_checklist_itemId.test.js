@@ -15,6 +15,7 @@ describe('PUT group /tasks/:taskId/checklist/:itemId', () => {
         type: 'guild',
       },
       members: 2,
+      upgradeToGroupPlan: true,
     });
 
     guild = group;

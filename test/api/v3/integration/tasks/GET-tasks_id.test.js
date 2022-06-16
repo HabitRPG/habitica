@@ -134,6 +134,7 @@ describe('GET /tasks/:id', () => {
           type: 'guild',
         },
         members: 1,
+        upgradeToGroupPlan: true,
       });
 
       group = groupData.group;

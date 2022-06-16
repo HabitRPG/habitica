@@ -127,7 +127,13 @@
     "achievementZodiacZookeeper": "Cuidador del Zodiaco",
     "achievementZodiacZookeeperText": "¡Ha eclosionado todas las mascotas del zodíaco de color básico: Rata, Vaca, Conejo, Serpiente, Caballo, Oveja, Mono, Gallo, Lobo, Tigre, Cerdo Volador y Dragón!",
     "achievementZodiacZookeeperModalText": "¡Has conseguido todas las mascotas del zodíaco!",
-    "achievementBirdsOfAFeatherText": "Ha eclosionado todas las mascotas voladoras de color básico: Cerdo Volador, Búho, Loro, Pterodáctilo, Grifo, Halcón, Pavo Real y Gallo.",
+    "achievementBirdsOfAFeatherText": "¡Ha eclosionado todas las mascotas voladoras de color básico: Cerdo Volador, Búho, Loro, Pterodáctilo, Grifo, Halcón, Pavo Real y Gallo!",
     "achievementBirdsOfAFeatherModalText": "¡Has conseguido todas las mascotas voladoras!",
-    "achievementBirdsOfAFeather": "Aves de Pluma"
+    "achievementBirdsOfAFeather": "Aves de Pluma",
+    "achievementReptacularRumbleModalText": "¡Has coleccionado todas las mascotas reptiles!",
+    "achievementReptacularRumbleText": "!Has incubado todos los colores estándar de las mascotas reptiles: caimán, pterodáctilo, serpiente, triceratops, tortuga, tiranosaurio rex y velociraptor!",
+    "achievementGroupsBeta2022": "Probador Beta interactivo",
+    "achievementGroupsBeta2022Text": "Tu y tu grupo brindaron comentarios increibles para ayudar a Habitica a realizar la prueba.",
+    "achievementGroupsBeta2022ModalText": "¡Usted y sus grupos ayudaron a Habitica probando y proporcionando comentarios!",
+    "achievementReptacularRumble": "Rumble reptacular"
 }

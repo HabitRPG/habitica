@@ -402,7 +402,7 @@ describe('POST /chat', () => {
       });
     });
 
-    it('does not allow slurs in private groups', async () => {
+    it('allows slurs in private groups', async () => {
       const { group, members } = await createAndPopulateGroup({
         groupDetails: {
           name: 'Party',
@@ -412,42 +412,9 @@ describe('POST /chat', () => {
         members: 1,
       });
 
-      await expect(members[0].post(`/groups/${group._id}/chat`, { message: testSlurMessage })).to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: t('bannedSlurUsed'),
-      });
+      const message = await members[0].post(`/groups/${group._id}/chat`, { message: testSlurMessage });
 
-      // Email sent to mods
-      await sleep(0.5);
-      expect(email.sendTxn).to.be.calledThrice;
-      expect(email.sendTxn.args[2][1]).to.eql('slur-report-to-mods');
-
-      // Slack message to mods
-      expect(IncomingWebhook.prototype.send).to.be.calledOnce;
-      /* eslint-disable camelcase */
-      expect(IncomingWebhook.prototype.send).to.be.calledWith({
-        text: `${members[0].profile.name} (${members[0].id}) tried to post a slur`,
-        attachments: [{
-          fallback: 'Slur Message',
-          color: 'danger',
-          author_name: `@${members[0].auth.local.username} ${members[0].profile.name} (${members[0].auth.local.email}; ${members[0]._id})`,
-          title: 'Slur in Party - (private party)',
-          title_link: undefined,
-          text: testSlurMessage,
-          mrkdwn_in: [
-            'text',
-          ],
-        }],
-      });
-      /* eslint-enable camelcase */
-
-      // Chat privileges are revoked
-      await expect(members[0].post(`/groups/${groupWithChat._id}/chat`, { message: testMessage })).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('chatPrivilegesRevoked'),
-      });
+      expect(message.message.id).to.exist;
     });
 
     it('errors when slur is typed in mixed case', async () => {

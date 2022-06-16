@@ -70,7 +70,7 @@
     "foundNewItemsCTA": "¡Ve a tu inventario e intenta combinar tu nueva poción de eclosión y un huevo!",
     "foundNewItemsExplanation": "Completar tareas te da la oportunidad de encontrar artículos como Huevos, Pociones de Eclosión y Comida para Mascotas.",
     "foundNewItems": "¡Encontraste nuevos artículos!",
-    "onboardingCompleteDescSmall": "¡Si quieres aún más, mira los Logros y comienza a coleccionar!",
+    "onboardingCompleteDescSmall": "¡Si quieres aún más, revisa los Logros y comienza a coleccionar!",
     "onboardingComplete": "¡Completaste tus tareas de integración!",
     "achievementRosyOutlookModalText": "¡Has domesticado todas las monturas de algodón de azúcar rosa!",
     "achievementRosyOutlookText": "Ha domesticado todas las monturas de algodón de azúcar rosa.",
@@ -119,7 +119,7 @@
     "achievementDomesticatedModalText": "¡Has eclosionado todas las mascotas domésticas!",
     "achievementDomesticated": "I-A-I-A-O",
     "achievementBirdsOfAFeather": "Aves de Pluma",
-    "achievementBirdsOfAFeatherText": "Has eclosionado todas las mascotas voladoras: Cerdo Volador, Búho, Loro, Pterodáctilo, Grifo, Halcón, Pavo Real y Gallo.",
+    "achievementBirdsOfAFeatherText": "¡Has eclosionado todas las mascotas voladoras: Cerdo Volador, Búho, Loro, Pterodáctilo, Grifo, Halcón, Pavo Real y Gallo!",
     "achievementZodiacZookeeper": "Cuidador del Zodíaco",
     "achievementZodiacZookeeperModalText": "¡Has conseguido todas las mascotas del zodíaco!",
     "achievementBirdsOfAFeatherModalText": "¡Has conseguido todas las mascotas voladoras!",
@@ -129,5 +129,8 @@
     "achievementShadyCustomerText": "Ha conseguido todas las mascotas sombrías.",
     "achievementShadyCustomerModalText": "¡Has conseguido todas las mascotas sombrías!",
     "achievementShadeOfItAllModalText": "¡Has domado todas las monturas sombrías!",
-    "achievementZodiacZookeeperText": "¡Has eclosionado todas las mascotas del zodíaco de color básico: Rata, Vaca, Conejo, Serpiente, Caballo, Oveja, Mono, Gallo, Lobo, Tigre, Cerdo Volador y Dragón!"
+    "achievementZodiacZookeeperText": "¡Has eclosionado todas las mascotas del zodíaco de color básico: Rata, Vaca, Conejo, Serpiente, Caballo, Oveja, Mono, Gallo, Lobo, Tigre, Cerdo Volador y Dragón!",
+    "achievementReptacularRumbleText": "¡Has eclosionado todos los colores estándar de las mascotas reptiles: Caimán, Pterodáctilo, Serpiente, Triceratops, Tortuga, Tiranosaurio, y Velociraptor!",
+    "achievementReptacularRumble": "Retumbado Reptacular",
+    "achievementReptacularRumbleModalText": "¡Coleccionaste todas las mascotas reptiles!"
 }

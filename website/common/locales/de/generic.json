@@ -128,7 +128,7 @@
     "birthdayCardAchievementText": "Viele fröhliche Wiedersehen! Hat <%= count %> Geburtstagsgrußkarten verschickt oder erhalten.",
     "congratsCard": "Glückwunschkarte",
     "congratsCardExplanation": "Ihr beide erhaltet den Gratulierender-Gefährte-Erfolg!",
-    "congratsCardNotes": "Sende eine Glückwunschkarte an ein Gruppenmitglied.",
+    "congratsCardNotes": "Sende eine Glückwunschkarte an ein Partymitglied.",
     "congrats0": "Glückwunsch zu Deinem Erfolg!",
     "congrats1": "Ich bin so stolz auf Dich!",
     "congrats2": "Gut gemacht!",
@@ -138,7 +138,7 @@
     "congratsCardAchievementText": "Es ist großartig, die Erfolge seiner Freunde zu feiern! Hat <%= count %> Glückwunschkarten verschickt oder erhalten.",
     "getwellCard": "\"Gute Besserung\"-Karte",
     "getwellCardExplanation": "Ihr beide erhaltet den Erfolg \"Mitfühlender Mitstreiter\"!",
-    "getwellCardNotes": "Sende einem Gruppenmitglied eine Gute-Besserung-Karte.",
+    "getwellCardNotes": "Sende einem Partymitglied eine Gute-Besserung-Karte.",
     "getwell0": "Hoffentlich geht's Dir bald besser!",
     "getwell1": "Achte auf Dich! <3",
     "getwell2": "Ich bin in Gedanken bei Dir!",
@@ -147,7 +147,7 @@
     "getwellCardAchievementText": "Besserungswünsche werden immer geschätzt. Hat <%= count %> Gute-Besserung-Karten verschickt oder erhalten.",
     "goodluckCard": "Viel-Glück-Karte",
     "goodluckCardExplanation": "Ihr erhaltet beide den Glücksbrief-Erfolg!",
-    "goodluckCardNotes": "Schicke eine Viel-Glück-Karte an ein Gruppenmitglied.",
+    "goodluckCardNotes": "Schicke eine Viel-Glück-Karte an ein Partymitglied.",
     "goodluck0": "Möge das Glück immer mit Dir sein!",
     "goodluck1": "Ich wünsche Dir ganz viel Glück!",
     "goodluck2": "Ich hoffe, dass das Glück heute und jeden anderen Tag auf Deiner Seite ist!!",
@@ -213,5 +213,5 @@
     "reportDescription": "Beschreibung",
     "reportDescriptionText": "Füge hilfreiche Screenshots oder Fehlermeldungen der Javascript-Konsole ein.",
     "reportDescriptionPlaceholder": "Beschreibe den Fehler hier im Detail",
-    "submitBugReport": "Sende eine Fehlermeldung"
+    "submitBugReport": "Sende die Fehlermeldung"
 }

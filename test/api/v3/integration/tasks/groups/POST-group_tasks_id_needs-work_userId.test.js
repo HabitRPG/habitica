@@ -19,6 +19,7 @@ describe('POST /tasks/:id/needs-work/:userId', () => {
         type: 'guild',
       },
       members: 2,
+      upgradeToGroupPlan: true,
     });
 
     guild = group;
@@ -72,7 +73,7 @@ describe('POST /tasks/:id/needs-work/:userId', () => {
     expect(syncedTask.group.approval.requestedDate).to.equal(undefined);
 
     // Check that the notification is correct
-    expect(member.notifications.length).to.equal(initialNotifications + 2);
+    expect(member.notifications.length).to.equal(initialNotifications + 3);
     const notification = member.notifications[member.notifications.length - 1];
     expect(notification.type).to.equal('GROUP_TASK_NEEDS_WORK');
 
@@ -121,7 +122,7 @@ describe('POST /tasks/:id/needs-work/:userId', () => {
     expect(syncedTask.group.approval.requested).to.equal(false);
     expect(syncedTask.group.approval.requestedDate).to.equal(undefined);
 
-    expect(member.notifications.length).to.equal(initialNotifications + 2);
+    expect(member.notifications.length).to.equal(initialNotifications + 3);
     const notification = member.notifications[member.notifications.length - 1];
     expect(notification.type).to.equal('GROUP_TASK_NEEDS_WORK');
 

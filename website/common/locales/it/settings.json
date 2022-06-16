@@ -42,7 +42,7 @@
     "sureChangeCustomDayStartTime": "Sei sicuro di voler cambiare l'ora di inizio della giornata? Le tue Attività Giornaliere si resetteranno la prossima volta che usi Habitica dopo <%= time %>. Vedi di completare prima tutte le tue Attività Giornaliere!",
     "customDayStartHasChanged": "La tua ora di inizio della giornata è stata cambiata.",
     "nextCron": "Le tue Attività Giornaliere verranno ripristinate la prima volta che usi Habitica dopo <%= time %>. Assicurati di aver completato le tue Attività Giornaliere prima di allora!",
-    "customDayStartInfo1": "Habitica è impostato per resettare le tue Attività Giornaliere a mezzanotte (nel tuo fuso orario) ogni giorno. Qui puoi modificare l'ora di \"reset\".",
+    "customDayStartInfo1": "Habitica controlla e resetta le tue Attività Giornaliere ogni giorno a mezzanotte del tuo fuso orario. Puoi regolare l'ora di \"reset\" qui.",
     "misc": "Altro",
     "showHeader": "Mostra header",
     "changePass": "Cambia password",
@@ -159,7 +159,7 @@
     "amazonPayments": "Pagamenti su Amazon",
     "amazonPaymentsRecurring": "Marcare la casella sottostante è necessario per creare il tuo abbonamento. Permette che il tuo account Amazon sia usato per il pagamento ricorrente di <strong>questo</strong> abbonamento. Non pernette che il tuo account Amazon sia usato automaticamente per futuri acquisti.",
     "timezone": "Fuso orario",
-    "timezoneUTC": "Habitica usa il fuso orario impostato sul tuo PC, ovvero: <strong><%= utc %></strong>",
+    "timezoneUTC": "Il tuo fuso orario viene impostato dal tuo computer, ovvero: <strong><%= utc %></strong>",
     "timezoneInfo": "Se il fuso orario è sbagliato, ricarica questa pagina tramite il pulsante di ricarica o aggiornamento della pagina del browser, per assicurarti che Habitica contenga le informazioni più aggiornate. Se è ancora sbagliato, imposta il fuso orario corretto sul tuo PC e poi ricarica di nuovo questa pagina.<br><br> <strong>Se usi Habitica su altri PC o su altri dispositivi mobili, il fuso orario deve essere identico su ognuno di essi.</strong> Se le tue Attività Giornaliere sono state reimpostate ad un'ora sbagliata, ripeti questo controllo su tutti gli altri PC e su un browser sui tuoi dispositivi mobili.",
     "push": "Push",
     "about": "Info",
@@ -213,5 +213,7 @@
     "nextHourglass": "Prossima clessidra",
     "nextHourglassDescription": "Gli abbonati ricevono le clessidre mistiche entro\ni primi tre giorni del mese.",
     "transaction_create_guild": "Gilda creata",
-    "transaction_subscription_perks": "Dai benefici dell'abbonamento"
+    "transaction_subscription_perks": "Dai benefici dell'abbonamento",
+    "adjustment": "Regolazione",
+    "dayStartAdjustment": "Regolazione Inizio Giornata"
 }
