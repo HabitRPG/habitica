@@ -2,6 +2,7 @@ import filter from 'lodash/filter';
 import find from 'lodash/find';
 import isArray from 'lodash/isArray';
 import { model as Group } from '../../website/server/models/group';
+import { model as User } from '../../website/server/models/user';
 import * as Tasks from '../../website/server/models/task';
 
 async function updateTeamTasks (team) {
@@ -20,21 +21,24 @@ async function updateTeamTasks (team) {
       boardTask.group.assigningUsername = undefined;
       boardTask.group.sharedCompletion = undefined;
 
-      for (const assignedUser of boardTask.group.assignedUsers) {
-        const userTask = find(teamUserTasks, task => task.userId === assignedUser
+      for (const assignedUserId of boardTask.group.assignedUsers) {
+        const assignedUser = await User.findById(assignedUserId, 'auth'); // eslint-disable-line no-await-in-loop
+        const userTask = find(teamUserTasks, task => task.userId === assignedUserId
            && task.group.taskId === boardTask._id);
         if (!boardTask.group.assignedUsersDetail) boardTask.group.assignedUsersDetail = {};
         if (userTask) {
-          boardTask.group.assignedUsersDetail[assignedUser] = {
+          boardTask.group.assignedUsersDetail[assignedUserId] = {
             assignedDate: userTask.group.assignedDate,
+            assignedUsername: assignedUser.auth.local.username,
             assigningUsername: userTask.group.assigningUsername,
             completed: userTask.completed || false,
             completedDate: userTask.dateCompleted,
           };
           toSave.push(Tasks.Task.findByIdAndDelete(userTask._id));
         } else {
-          boardTask.group.assignedUsersDetail[assignedUser] = {
+          boardTask.group.assignedUsersDetail[assignedUserId] = {
             assignedDate: new Date(),
+            assignedUsername: assignedUser.auth.local.username,
             assigningUsername: null,
             completed: false,
             completedDate: null,
