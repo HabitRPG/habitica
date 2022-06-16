@@ -429,7 +429,7 @@
   "weaponSpecialSummer2022RogueText": "Crab Claw",
   "weaponSpecialSummer2022RogueNotes": "If you're in a pinch, don't hesitate to show these fearsome claws! Increases Strength by <%= str %>. Limited Edition 2022 Summer Gear.",
   "weaponSpecialSummer2022WarriorText": "Cyclone Shield",
-  "weaponSpecialSummer2022WarriorNotes": "It spins! It redirects! And it brings the storm!",
+  "weaponSpecialSummer2022WarriorNotes": "It spins! It redirects! And it brings the storm! Increases Strength by <%= str %>. Limited Edition 2022 Summer Gear.",
   "weaponSpecialSummer2022MageText": "Manta Ray Staff",
   "weaponSpecialSummer2022MageNotes": "Magically clear the waters ahead of you with one swirl of this staff. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2022 Summer Gear.",
   "weaponSpecialSummer2022HealerText": "Beneficial Bubbles",
