@@ -11,7 +11,7 @@
     "questEvilSanta2CollectBranches": "Ramitas Rotas",
     "questEvilSanta2DropBearCubPolarPet": "Oso polar (Mascota)",
     "questGryphonText": "El Grifo Ardiente",
-    "questGryphonNotes": "El gran maestro de las bestias, <strong>baconsaurio</strong>, ha acudido a tu grupo en busca de ayuda. \n— ¡Por favor, aventureros, debéis ayudarme!¡Mi preciada grifo se ha liberado y está aterrorizando Villahábito! Si podéis detenerla, ¡podría recompensaros con algunos de sus huevos!",
+    "questGryphonNotes": "El gran maestro de las bestias, <strong>baconsaurio</strong>, ha acudido a tu grupo en busca de ayuda.\n— ¡Por favor, aventureros, debéis ayudarme!¡Mi preciada grifo se ha liberado y está aterrorizando Villahábito! Si podéis detenerla, ¡podría recompensaros con algunos de sus huevos!",
     "questGryphonCompletion": "Derrotada, la poderosa bestia escabulle avergonzada con su amo.\n—¡Mis respeto!¡Buen trabajo, aventureros! — exclamó <strong>Baconsaurio</strong>—. Por favor, aceptad estos huevos del Grifo. ¡Estoy seguro de cuidaréis bien de estos pequeños!",
     "questGryphonBoss": "Grifo Ardiente",
     "questGryphonDropGryphonEgg": "Grifo (huevo)",
@@ -24,7 +24,7 @@
     "questHedgehogUnlockText": "Desbloquea la compra de huevos de erizo en el Mercado",
     "questGhostStagText": "El Espíritu de Primavera",
     "questGhostStagNotes": "Ahh, la primavera. La época del año el la que el color, una vez más, empieza a llenar el paisaje. Atrás quedaron las colinas frías y nevadas del invierno. Donde alguna vez hubo escarcha, la vibrante vida vegetal ocupa su lugar. ¡Las sabrosas hojas verdes repletan los árboles, la hierba regresa a su vivo tono anterior, un arco iris de flores se eleva a lo largo de las llanuras, y una niebla mística blanca cubre la tierra!... Espera. ¿Niebla mística?\n\n—Oh, no —dijo aprensivamente el <strong>Inspector Caracal</strong>—, parece que algún tipo de espíritu es la causa de esta niebla. Oh, y está viniendo directamente hacia ti.",
-    "questGhostStagCompletion": "El espíritu, aparentemente ileso, baja su nariz hasta el suelo. Una calmante voz os rodea. \n—Pido perdón por mi conducta. Me acabo de despertar de mi letargo, y parece que mi sentido común aún no ha vuelto del todo. Por favor, tomad esto como prueba de mi arrepentimiento—. Un grupo de huevos se materializan en la hierba enfrente del espíritu. Sin mediar palabra, el espíritu corre hacia el bosque mientras las flores fallecen alrededor en su caminar.",
+    "questGhostStagCompletion": "El espíritu, aparentemente ileso, baja su nariz hasta el suelo. Una calmante voz os rodea.\n—Pido perdón por mi conducta. Me acabo de despertar de mi letargo, y parece que mi sentido común aún no ha vuelto del todo. Por favor, tomad esto como prueba de mi arrepentimiento—. Un grupo de huevos se materializan en la hierba enfrente del espíritu. Sin mediar palabra, el espíritu corre hacia el bosque mientras las flores fallecen alrededor en su caminar.",
     "questGhostStagBoss": "Ciervo Fantasma",
     "questGhostStagDropDeerEgg": "Ciervo (Huevo)",
     "questGhostStagUnlockText": "Desbloquea la compra de huevos de ciervo en el Mercado",
@@ -744,5 +744,11 @@
     "questOnyxCollectLeoRunes": "Runas de Leo",
     "questOnyxCollectOnyxStones": "Piedras de Ónice",
     "questOnyxDropOnyxPotion": "Poción de Eclosión de Ónice",
-    "questOnyxUnlockText": "Desbloquea la compra de Pociones de Eclosión de Ónice en el Mercado"
+    "questOnyxUnlockText": "Desbloquea la compra de Pociones de Eclosión de Ónice en el Mercado",
+    "questVirtualPetCompletion": "Al presionar cuidadosamente un botón, parece haber satisfecho las misteriosas necesidades de la mascota virtual, y finalmente se ha calmado y parece contento. llena de pociones emitiendo pitidos.<br><br>“El momento, April Fool”, dice @Beffymaroo con una sonrisa irónica. “Sospecho que este tipo grande que emite un pitido es un conocido tuyo.”<br><br>“Uh, sí,” dice el Loco, tímidamente. “¡Lo siento mucho y gracias a ambos por cuidar de Wotchimon! Toma estas pociones a modo de agradecimiento, pueden recuperar tus mascotas virtuales cuando quieras” asi que vale la pena intentarlo!",
+    "questVirtualPetNotes": "Es una tranquila y agradable mañana de primavera en Habitica, una semana después de un memorable Día de los Inocentes. Tú y @Beffymaroo están en los establos atendiendo a sus mascotas (aun que todavía están un poco confundidas por el tiempo que pasaron virtualmente!.<br><br>A lo lejos escuchas un estruendo y un pitido, suave al principio pero aumentando en volumen como si estuviera cada vez más cerca. Aparece una forma de huevo en el horizonte y, a medida que se acerca, con un pitido cada vez más fuerte, ¡ves que es una mascota virtual gigantesca!<br><br>“Oh, no”, exclama @Beffymaroo, “Creo que April Fool dejó asuntos pendientes con este tipo grande aquí, ¡parece querer atención!”<br><br>La mascota virtual emite un pitido enfadado, lanzando una rabieta virtual y gritando cada vez más cerca.",
+    "questVirtualPetBoss": "Wotchimon",
+    "questVirtualPetRageTitle": "El pitido",
+    "questVirtualPetRageEffect": "\"¡Wotchimon usa un pitido molesto!\" ¡Wotchimon emite un pitido molesto y su barra de felicidad desaparece repentinamente! Daño pendiente reducido.",
+    "questVirtualPetRageDescription": "Esta barra se llena cuando no completas tus Diarios. ¡Cuando esté lleno, Wotchimon eliminará algunos de los daños causados de tu grupo!"
 }

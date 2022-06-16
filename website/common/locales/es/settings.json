@@ -67,7 +67,7 @@
     "APITokenWarning": "Si necesitas un nuevo API Token (e.g. si accidentalmente has compartido el tuyo), envía un email a <%= hrefTechAssistanceEmail %> con tu Número de Usuario y API Token actual. Una vez sea restablecido tu nuevo API Token, tendrás que volver a autorizar cualquier dispositivo cerrando la sesión pasada en la web y la aplicación móvil e ingresando el nuevo Token en cualquier dispositivo en el que uses Habitica.",
     "thirdPartyApps": "Aplicaciones de terceros",
     "dataToolDesc": "Una página que te muestra determinada información de tu cuenta de Habitica, como estadísticas sobre tus tareas, tu equipo o tus habilidades.",
-    "beeminder": "Beeminder",
+    "beeminder": "Recordatorio",
     "beeminderDesc": "Deja que Beeminder haga un seguimiento de tus tareas pendientes. Tú puedes comprometerte a mantener un número de quehaceres completados por día o por semana, o puedes comprometerte a reducir gradualmente tu número de quehaceres sin completar. (Por \"comprometerte\" Beeminder quiere decir bajo amenaza de pagar dinero real, aunque puede que tan solo te gusten los gráficos sofisticados de Beeminder.)",
     "chromeChatExtension": "Extensión de chat para Chrome",
     "chromeChatExtensionDesc": "La Extensión de chat para Chrome de Habitica añade una caja de diálogo a todas las páginas de habitica.com. Permite a los usuarios chatear en la Taberna, su equipo y cualquier gremio al que pertenezcan.",
@@ -212,5 +212,8 @@
     "transaction_subscription_perks": "Beneficio de la suscripción",
     "addPasswordAuth": "Añadir contraseña",
     "gemCap": "Límite de Gemas",
-    "nextHourglass": "Siguiente Reloj de Arena"
+    "nextHourglass": "Siguiente Reloj de Arena",
+    "dayStartAdjustment": "Ajuste de inicio de día",
+    "adjustment": "Ajuste",
+    "nextHourglassDescription": "Los suscriptores reciben gafas \"Mystic Hour\" dentro de\nlos tres primeros días del mes."
 }

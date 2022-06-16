@@ -141,7 +141,7 @@
     "dateEndOctober": "31 de Outubro",
     "dateEndNovember": "30 de Novembro",
     "dateEndJanuary": "31 de Janeiro",
-    "dateEndFebruary": "29 de Fevereiro",
+    "dateEndFebruary": "28 de Fevereiro",
     "winterPromoGiftHeader": "DÊ UMA ASSINATURA DE PRESENTE E GANHE UMA GRÁTIS!",
     "winterPromoGiftDetails1": "Apenas até o dia 6 de Janeiro, quando você presentear alguém com uma assinatura, vai ganhar uma assinatura idêntica gratuitamente!",
     "winterPromoGiftDetails2": "Por favor, note que se você ou a outra pessoa presenteada já tiver uma assinatura ativa, a nova será iniciada somente depois que a assinatura atual tiver sido cancelada ou expirada. Agradecemos muito pelo seu apoio! <3",
@@ -215,5 +215,6 @@
     "winter2022FireworksRogueSet": "Fogos de artifício (Gatuno/a)",
     "winter2022PomegranateMageSet": "Romã (Mago/a)",
     "winter2022IceCrystalHealerSet": "Cristal de Gelo (Curandeiro/a)",
-    "januaryYYYY": "Janeiro <%= year %>"
+    "januaryYYYY": "Janeiro <%= year %>",
+    "aprilYYYY": "Abril <%= year %>"
 }
