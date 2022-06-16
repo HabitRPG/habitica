@@ -74,7 +74,7 @@
     "foundNewItems": "Je hebt nieuwe voorwerpen gevonden!",
     "achievementBugBonanzaModalText": "Je hebt de kever-, vlinder-, slak- en spin-huisdierzoektochten voltooid!",
     "achievementBugBonanzaText": "Heeft kever-, vlinder-, slak- en spin-huisdierzoektochten voltooid.",
-    "achievementBugBonanza": "Insectenbonanza",
+    "achievementBugBonanza": "Beesten Bloei",
     "onboardingCompleteDescSmall": "Als je nog meer wilt, bekijk dan Prestaties en begin met verzamelen!",
     "onboardingComplete": "Je hebt je onboarding-taken voltooid!",
     "yourProgress": "Jouw vooruitgang",
@@ -126,5 +126,8 @@
     "achievementShadeOfItAllModalText": "Je hebt alle schaduwrijdieren getemd!",
     "achievementZodiacZookeeperModalText": "Je hebt alle huisdieren van de dierenriem verzameld!",
     "achievementZodiacZookeeper": "Hart onder de dierenriem",
-    "achievementZodiacZookeeperText": "Heeft alle huisdieren van de dierenriem uit laten komen: Rat, Koe, Konijn, Slang, Paard, Schaap, Aap, Haan, Wolf, Tijger, Vliegend Varken en Draak!"
+    "achievementZodiacZookeeperText": "Heeft alle huisdieren van de dierenriem uitgebroed: Rat, Koe, Konijn, Slang, Paard, Schaap, Aap, Haan, Wolf, Tijger, Vliegend Varken en Draak!",
+    "achievementBirdsOfAFeatherText": "Heeft alle standaard kleuren van vliegende huisdieren uitgebroed: Vliegend Varken, Uil, Papegaai, Pterodactyl, Griffioen, Valk, Pauw, en Haan.",
+    "achievementBirdsOfAFeather": "Vogels van één Veer",
+    "achievementBirdsOfAFeatherModalText": "Je hebt alle vliegende huisdieren verzameld!"
 }

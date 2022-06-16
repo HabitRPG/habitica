@@ -12,7 +12,10 @@ import common from '../../../common';
 import logger from '../logger';
 import { decrypt } from '../encryption';
 import { model as Group } from '../../models/group';
-import { loginSocial } from './social';
+import {
+  loginSocial,
+  socialEmailToLocal,
+} from './social';
 import { loginRes } from './utils';
 import { verifyUsername } from '../user/validation';
 
@@ -227,4 +230,5 @@ export {
   hasLocalAuth,
   loginSocial,
   registerLocal,
+  socialEmailToLocal,
 };

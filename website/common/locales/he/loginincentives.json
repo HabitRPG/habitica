@@ -1,6 +1,6 @@
 {
     "unlockedReward": "קיבלת <%= reward %>",
-    "earnedRewardForDevotion": "",
+    "earnedRewardForDevotion": "זכית ב<%= reward %> עבור המחוייבות שלך לשפר את חייך.",
     "nextRewardUnlocksIn": "",
     "awesome": "אחלה!",
     "countLeft": "Check-ins until next reward: <%= count %>",

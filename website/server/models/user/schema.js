@@ -68,7 +68,7 @@ export default new Schema({
   },
   // We want to know *every* time an object updates.
   // Mongoose uses __v to designate when an object contains arrays which
-  // have been updated (http://goo.gl/gQLz41), but we want *every* update
+  // have been updated, but we want *every* update
   _v: { $type: Number, default: 0 },
   migration: String,
   achievements: {
@@ -156,6 +156,7 @@ export default new Schema({
     hatchedPet: Boolean,
     fedPet: Boolean,
     purchasedEquipment: Boolean,
+    groupsBeta2022: Boolean,
   },
 
   backer: {
@@ -440,7 +441,7 @@ export default new Schema({
     // Using an array without validation because otherwise mongoose
     // treat this as a subdocument and applies _id by default
     // Schema is (id, name, inviter, publicGuild)
-    // TODO one way to fix is http://mongoosejs.com/docs/guide.html#_id
+    // TODO one way to fix is https://mongoosejs.com/docs/guide.html#_id
     guilds: { $type: Array, default: () => [] },
     // Using a Mixed type because otherwise user.invitations.party = {}
     // to reset invitation, causes validation to fail TODO

@@ -138,5 +138,6 @@
     "tomorrow": "Morgen",
     "counter": "Teller",
     "adjustCounter": "Teller aanpassen",
-    "resetCounter": "Teller resetten"
+    "resetCounter": "Teller resetten",
+    "editTagsText": "Wijzig Labels"
 }

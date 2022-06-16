@@ -1,5 +1,5 @@
 {
-    "subscription": "정기 후원",
+    "subscription": "정기 구독",
     "subscriptions": "정기 후원",
     "sendGems": "Send Gems",
     "buyGemsGold": "골드로 보석을 구입하세요",
@@ -133,5 +133,6 @@
     "purchaseAll": "Purchase Set",
     "gemsRemaining": "gems remaining",
     "notEnoughGemsToBuy": "You are unable to buy that amount of gems",
-    "mysterySet202011": "잎 장식 마법사 세트"
+    "mysterySet202011": "잎 장식 마법사 세트",
+    "viewSubscriptions": "구독 관리"
 }
