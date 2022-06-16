@@ -132,5 +132,8 @@
     "achievementBirdsOfAFeatherModalText": "Vous avez collecté tous les familiers volants !",
     "achievementReptacularRumble": "Étreinte reptilienne",
     "achievementReptacularRumbleText": "A fait éclore toutes les couleurs standard de familiers reptiles : Alligator, Ptérodactyle, Serpent, Tricératops, Tortue, Tyrannosaure et Vélociraptor !",
-    "achievementReptacularRumbleModalText": "Vous avez collecté tous les familiers reptiles !"
+    "achievementReptacularRumbleModalText": "Vous avez collecté tous les familiers reptiles !",
+    "achievementGroupsBeta2022ModalText": "Vous et votre groupe avez aidé Habitica en testant et fournissant un retour de grande valeur !",
+    "achievementGroupsBeta2022": "Beta test interactif",
+    "achievementGroupsBeta2022Text": "Vous et votre groupe avez fourni un retour de grande valeur pour aider aux tests d'Habitica."
 }

@@ -2632,5 +2632,15 @@
     "headMystery202206Text": "Diadema degli Spiriti del Mare",
     "backMystery202206Text": "Ali degli Spiriti del Mare",
     "backMystery202206Notes": "Ali stravaganti fatte di acqua e onde! Non conferiscono alcun bonus. Oggetto abbonati giugno 2022.",
-    "headMystery202206Notes": "La perla azzurra di questo diadema conferisce poteri di dominio sull'acqua. Usali con saggezza! Non conferisce alcun bonus. Oggetto abbonati giugno 2022."
+    "headMystery202206Notes": "La perla azzurra di questo diadema conferisce poteri di dominio sull'acqua. Usali con saggezza! Non conferisce alcun bonus. Oggetto abbonati giugno 2022.",
+    "weaponArmoireBlueKiteText": "Aquilone Blu",
+    "weaponArmoireGreenKiteText": "Aquilone Verde",
+    "weaponArmoireOrangeKiteText": "Aquilone Arancione",
+    "weaponArmoireOrangeKiteNotes": "Con i colori dell'alba e del tramonto, vediamo quanto può arrivare in alto il tuo aquilone! Aumenta tutti gli Attributi di <%= attrs %> ciascuno. Scrigno Incantato: Set Aquiloni (Oggetto 3 di 5)",
+    "weaponArmoirePinkKiteText": "Aquilone Rosa",
+    "weaponArmoireBlueKiteNotes": "Navigando in alto nel blu, quali trucchi puoi far fare al tuo aquilone, lassù? Aumenta tutti gli Attributi di <%= attrs %> ciascuno. Scrigno Incantato: Set Aquiloni (Oggetto 1 di 5)",
+    "weaponArmoireGreenKiteNotes": "Non s'è mai visto un aquilone più stupefacente, con le sue sfumature gialle e verde. Aumenta tutti gli Attributi di <%= attrs %> ciascuno. Scrigno Incantato: Set Aquiloni (Oggetto 2 di 5)",
+    "weaponArmoireYellowKiteText": "Aquilone Giallo",
+    "weaponArmoireYellowKiteNotes": "Guarda il tuo allegro aquilone andare mentre piomba all'improvviso, zigzagando avanti e indietro. Aumenta tutti gli attributi di <%= attrs %> ciascuno. Scrigno Incantato: Set Aquiloni (Oggetto 5 di 5)",
+    "weaponArmoirePinkKiteNotes": "Scendendo in picchiata, piroettando, volando in alto, il tuo aquilone si staglia contro il cielo. Aumenta tutti gli attributi di <%= attrs %> ciascuno. Scrigno Incantato: Set Aquiloni (Oggetto 4 di 5)"
 }
