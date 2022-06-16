@@ -19,6 +19,7 @@ describe('POST /tasks/:id/score/:direction', () => {
         type: 'guild',
       },
       members: 2,
+      upgradeToGroupPlan: true,
     });
 
     guild = group;
@@ -53,15 +54,15 @@ describe('POST /tasks/:id/score/:direction', () => {
 
     await user.sync();
 
-    expect(user.notifications.length).to.equal(2);
-    expect(user.notifications[1].type).to.equal('GROUP_TASK_APPROVAL');
-    expect(user.notifications[1].data.message).to.equal(t('userHasRequestedTaskApproval', {
+    expect(user.notifications.length).to.equal(3);
+    expect(user.notifications[2].type).to.equal('GROUP_TASK_APPROVAL');
+    expect(user.notifications[2].data.message).to.equal(t('userHasRequestedTaskApproval', {
       user: member.auth.local.username,
       taskName: updatedTask.text,
       taskId: updatedTask._id,
       direction,
     }, 'cs')); // This test only works if we have the notification translated
-    expect(user.notifications[1].data.groupId).to.equal(guild._id);
+    expect(user.notifications[2].data.groupId).to.equal(guild._id);
 
     expect(updatedTask.group.approval.requested).to.equal(true);
     expect(updatedTask.group.approval.requestedDate).to.be.a('string'); // date gets converted to a string as json doesn't have a Date type
@@ -80,25 +81,25 @@ describe('POST /tasks/:id/score/:direction', () => {
     await user.sync();
     await member2.sync();
 
-    expect(user.notifications.length).to.equal(2);
-    expect(user.notifications[1].type).to.equal('GROUP_TASK_APPROVAL');
-    expect(user.notifications[1].data.message).to.equal(t('userHasRequestedTaskApproval', {
+    expect(user.notifications.length).to.equal(3);
+    expect(user.notifications[2].type).to.equal('GROUP_TASK_APPROVAL');
+    expect(user.notifications[2].data.message).to.equal(t('userHasRequestedTaskApproval', {
       user: member.auth.local.username,
       taskName: updatedTask.text,
       taskId: updatedTask._id,
       direction,
     }));
-    expect(user.notifications[1].data.groupId).to.equal(guild._id);
+    expect(user.notifications[2].data.groupId).to.equal(guild._id);
 
-    expect(member2.notifications.length).to.equal(1);
-    expect(member2.notifications[0].type).to.equal('GROUP_TASK_APPROVAL');
-    expect(member2.notifications[0].data.message).to.equal(t('userHasRequestedTaskApproval', {
+    expect(member2.notifications.length).to.equal(2);
+    expect(member2.notifications[1].type).to.equal('GROUP_TASK_APPROVAL');
+    expect(member2.notifications[1].data.message).to.equal(t('userHasRequestedTaskApproval', {
       user: member.auth.local.username,
       taskName: updatedTask.text,
       taskId: updatedTask._id,
       direction,
     }));
-    expect(member2.notifications[0].data.groupId).to.equal(guild._id);
+    expect(member2.notifications[1].data.groupId).to.equal(guild._id);
   });
 
   it('errors when approval has already been requested', async () => {

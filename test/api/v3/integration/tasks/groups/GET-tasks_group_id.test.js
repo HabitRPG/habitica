@@ -36,7 +36,7 @@ describe('GET /tasks/group/:groupId', () => {
 
   before(async () => {
     user = await generateUser();
-    group = await generateGroup(user);
+    group = await generateGroup(user, {}, { 'purchased.plan.customerId': 'group-unlimited' });
   });
 
   it('returns error when group is not found', async () => {

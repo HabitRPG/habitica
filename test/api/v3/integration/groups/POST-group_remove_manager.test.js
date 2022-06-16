@@ -7,7 +7,7 @@ import {
 describe('POST /group/:groupId/remove-manager', () => {
   let leader; let nonLeader; let
     groupToUpdate;
-  const groupName = 'Test Public Guild';
+  const groupName = 'Test Private Guild';
   const groupType = 'guild';
   let nonManager;
 
@@ -20,9 +20,10 @@ describe('POST /group/:groupId/remove-manager', () => {
       groupDetails: {
         name: groupName,
         type: groupType,
-        privacy: 'public',
+        privacy: 'private',
       },
       members: 2,
+      upgradeToGroupPlan: true,
     });
 
     groupToUpdate = group;
@@ -83,7 +84,7 @@ describe('POST /group/:groupId/remove-manager', () => {
 
     await nonLeader.sync();
 
-    expect(nonLeader.notifications.length).to.equal(0);
+    expect(nonLeader.notifications.length).to.equal(1); // user gets mystery items
     expect(updatedGroup.managers[nonLeader._id]).to.not.exist;
   });
 });

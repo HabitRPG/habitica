@@ -11,6 +11,7 @@ import {
   canNotEditTasks,
   createTasks,
   getTasks,
+  groupSubscriptionNotFound,
 } from '../../../libs/tasks';
 import {
   moveTask,
@@ -50,9 +51,9 @@ api.createGroupTasks = {
 
     const { user } = res.locals;
 
-    const fields = requiredGroupFields.concat(' managers');
+    const fields = requiredGroupFields.concat(' purchased managers');
     const group = await Group.getGroup({ user, groupId: req.params.groupId, fields });
-    if (!group) throw new NotFound(res.t('groupNotFound'));
+    if (groupSubscriptionNotFound(group)) throw new NotFound(res.t('groupNotFound'));
 
     if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
@@ -99,9 +100,9 @@ api.getGroupTasks = {
     const group = await Group.getGroup({
       user,
       groupId: req.params.groupId,
-      fields: requiredGroupFields,
+      fields: requiredGroupFields.concat(' purchased'),
     });
-    if (!group) throw new NotFound(res.t('groupNotFound'));
+    if (groupSubscriptionNotFound(group)) throw new NotFound(res.t('groupNotFound'));
 
     const tasks = await getTasks(req, res, { user, group });
     res.respond(200, tasks);
@@ -152,9 +153,9 @@ api.groupMoveTask = {
     const group = await Group.getGroup({
       user,
       groupId: task.group.id,
-      fields: requiredGroupFields,
+      fields: requiredGroupFields.concat(' purchased'),
     });
-    if (!group) throw new NotFound(res.t('groupNotFound'));
+    if (groupSubscriptionNotFound(group)) throw new NotFound(res.t('groupNotFound'));
 
     if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
@@ -219,9 +220,9 @@ api.assignTask = {
       throw new NotAuthorized(res.t('onlyGroupTasksCanBeAssigned'));
     }
 
-    const groupFields = `${requiredGroupFields} chat managers`;
+    const groupFields = `${requiredGroupFields} purchased chat managers`;
     const group = await Group.getGroup({ user, groupId: task.group.id, fields: groupFields });
-    if (!group) throw new NotFound(res.t('groupNotFound'));
+    if (groupSubscriptionNotFound(group)) throw new NotFound(res.t('groupNotFound'));
 
     if (canNotEditTasks(group, user, assignedUserId)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
@@ -294,9 +295,9 @@ api.unassignTask = {
       throw new NotAuthorized(res.t('onlyGroupTasksCanBeAssigned'));
     }
 
-    const fields = requiredGroupFields.concat(' managers');
+    const fields = requiredGroupFields.concat(' purchased managers');
     const group = await Group.getGroup({ user, groupId: task.group.id, fields });
-    if (!group) throw new NotFound(res.t('groupNotFound'));
+    if (groupSubscriptionNotFound(group)) throw new NotFound(res.t('groupNotFound'));
 
     if (canNotEditTasks(group, user, assignedUserId)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
@@ -350,9 +351,9 @@ api.approveTask = {
       throw new NotFound(res.t('messageTaskNotFound'));
     }
 
-    const fields = requiredGroupFields.concat(' managers');
+    const fields = requiredGroupFields.concat(' purchased managers');
     const group = await Group.getGroup({ user, groupId: task.group.id, fields });
-    if (!group) throw new NotFound(res.t('groupNotFound'));
+    if (groupSubscriptionNotFound(group)) throw new NotFound(res.t('groupNotFound'));
 
     if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
     if (task.group.approval.approved === true) throw new NotAuthorized(res.t('canOnlyApproveTaskOnce'));
@@ -458,9 +459,9 @@ api.taskNeedsWork = {
       throw new NotFound(res.t('messageTaskNotFound'));
     }
 
-    const fields = requiredGroupFields.concat(' managers');
+    const fields = requiredGroupFields.concat(' purchased managers');
     const group = await Group.getGroup({ user, groupId: task.group.id, fields });
-    if (!group) throw new NotFound(res.t('groupNotFound'));
+    if (groupSubscriptionNotFound(group)) throw new NotFound(res.t('groupNotFound'));
 
     if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
     if (task.group.approval.approved === true) throw new NotAuthorized(res.t('canOnlyApproveTaskOnce'));
@@ -538,9 +539,9 @@ api.getGroupApprovals = {
     const { user } = res.locals;
     const { groupId } = req.params;
 
-    const fields = requiredGroupFields.concat(' managers');
+    const fields = requiredGroupFields.concat(' purchased managers');
     const group = await Group.getGroup({ user, groupId, fields });
-    if (!group) throw new NotFound(res.t('groupNotFound'));
+    if (groupSubscriptionNotFound(group)) throw new NotFound(res.t('groupNotFound'));
 
     let approvals;
     if (canNotEditTasks(group, user)) {
