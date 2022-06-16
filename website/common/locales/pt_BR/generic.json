@@ -210,5 +210,6 @@
     "reportDescriptionPlaceholder": "Descreva detalhadamente o problema aqui",
     "submitBugReport": "Enviar relatório de erro",
     "reportSent": "Relatório de erro enviado!",
-    "reportSentDescription": "Responderemos assim que nossa equipe conseguir verificar. Obrigado por relatar o problema."
+    "reportSentDescription": "Responderemos assim que nossa equipe conseguir verificar. Obrigado por relatar o problema.",
+    "askQuestion": "Faça uma Pergunta"
 }

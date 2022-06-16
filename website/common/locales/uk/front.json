@@ -123,7 +123,7 @@
     "emailTaken": "Email-адреса уже використовується інших обліковим записом.",
     "newEmailRequired": "Missing new email address.",
     "usernameTime": "It's time to set your username!",
-    "usernameInfo": "Login names are now unique usernames that will be visible beside your display name and used for invitations, chat @mentions, and messaging.<br><br>If you'd like to learn more about this change, <a href='http://habitica.fandom.com/wiki/Player_Names' target='_blank'>visit our wiki</a>.",
+    "usernameInfo": "Login names are now unique usernames that will be visible beside your display name and used for invitations, chat @mentions, and messaging.<br><br>If you'd like to learn more about this change, <a href='https://habitica.fandom.com/wiki/Player_Names' target='_blank'>visit our wiki</a>.",
     "usernameTOSRequirements": "Usernames must conform to our <a href='/static/terms' target='_blank'>Terms of Service</a> and <a href='/static/community-guidelines' target='_blank'>Community Guidelines</a>. If you didn’t previously set a login name, your username was auto-generated.",
     "usernameTaken": "Логін вже зайнято.",
     "passwordConfirmationMatch": "Пароль та підтвердження паролю не співпадають.",

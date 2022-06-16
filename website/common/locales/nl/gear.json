@@ -2391,5 +2391,10 @@
     "weaponSpecialWinter2022HealerText": "Kristallijn Ijs Toverstok",
     "headSpecialNye2021Text": "Belachelijke Feesthoed",
     "headSpecialNye2021Notes": "Je hebt een Belachelijke Feesthoed ontvangen! Draag het met trots terwijl je het nieuwe jaar inluidt! Geeft geen voordelen.",
-    "weaponSpecialWinter2022HealerNotes": "Raak de nek van een vriend met dit uit vast water bestaande werktuig en zie ze van hun stoel springen! Verhoogt Intelligentie met <%= int %>. Beperkte oplage 2021-2022 winteruitrusting."
+    "weaponSpecialWinter2022HealerNotes": "Raak de nek van een vriend met dit uit vast water bestaande werktuig en zie ze van hun stoel springen! Verhoogt Intelligentie met <%= int %>. Beperkte oplage 2021-2022 winteruitrusting.",
+    "weaponSpecialSpring2022RogueText": "Gigantische Oorbel Knop",
+    "weaponSpecialSpring2022RogueNotes": "Een glanzende! Het is zo glimmend and glanzend en mooi en leuk en helemaal van jou! Verhoogt Kracht met <%= str %>. Beperkte oplage 2022 lenteuitrusting.",
+    "weaponSpecialSpring2022WarriorText": "Binnenstebuiten Paraplu",
+    "weaponSpecialSpring2022WarriorNotes": "Jakkes! Die wind was misschien iets sterker dan je dacht, he? Verhoogt Kracht met <%= str %>. Beperkte oplage 2022 lenteuitrusting.",
+    "weaponSpecialSpring2022MageText": "Forsythia Staf"
 }
