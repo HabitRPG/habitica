@@ -245,6 +245,11 @@ function canNotEditTasks (group, user, assignedUserId) {
   return isNotGroupLeader && !isManager && !userIsAssigningToSelf;
 }
 
+function groupSubscriptionNotFound (group) {
+  return !group || !group.purchased || !group.purchased.plan || !group.purchased.plan.customerId
+   || (group.purchased.plan.dateTerminated && group.purchased.plan.dateTerminated < new Date());
+}
+
 async function getGroupFromTaskAndUser (task, user) {
   if (task.group.id && !task.userId) {
     const fields = requiredGroupFields.concat(' managers');
@@ -550,5 +555,6 @@ export {
   canNotEditTasks,
   getGroupFromTaskAndUser,
   getChallengeFromTask,
+  groupSubscriptionNotFound,
   verifyTaskModification,
 };

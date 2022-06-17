@@ -128,8 +128,9 @@ const bundles = {
       'kraken',
       'octopus',
     ],
+    event: EVENTS.bundle202206,
     canBuy () {
-      return moment().isBetween('2020-07-14', '2020-08-02');
+      return moment().isBefore(EVENTS.bundle202206.end);
     },
     type: 'quests',
     value: 7,
