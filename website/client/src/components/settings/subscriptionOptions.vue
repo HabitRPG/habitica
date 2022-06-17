@@ -14,7 +14,7 @@
       >
         <!-- eslint-enable vue/no-use-v-if-with-v-for -->
         <div
-          v-if="gift.subscription"
+          v-if="gift"
           class="subscription-text ml-2 mb-1"
           v-html="$t('giftSubscriptionRateText', {price: block.price, months: block.months})"
         >
@@ -33,9 +33,9 @@
       </b-form-radio>
     </b-form-group>
     <!-- :disabled="!subscription.key" is the original code -->
-    <payment-buttons
-      v-if="gift.subscription.key"
-      :disabled="!subscription.key && gift.gems.amount < 1"
+    <payments-buttons
+      v-if="gift"
+      :disabled="!subscription.key"
       :stripe-fn="() => redirectToStripe({gift, uuid: userReceivingGift._id, receiverName})"
       :paypal-fn="() => openPaypalGift({
         gift: gift, giftedTo: userReceivingGift._id, receiverName,
@@ -119,6 +119,12 @@ export default {
   mixins: [
     paymentsMixin,
   ],
+  props: {
+    gift: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data () {
     return {
       subscription: {
@@ -128,11 +134,6 @@ export default {
         profile: '',
       },
       receiverName: '',
-      gift: {
-        subscription: { key: '' },
-        type: 'gems',
-        gems: { amount: 0 },
-      },
     };
   },
   computed: {
@@ -141,6 +142,7 @@ export default {
     },
     subscriptionBlocksOrdered () {
       const subscriptions = filter(subscriptionBlocks, o => o.discount !== true);
+      console.log(this.gift.subscription); // remove this
 
       return sortBy(subscriptions, [o => o.months]);
     },

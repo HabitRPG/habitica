@@ -74,6 +74,7 @@
       <subscription-options
         v-show="selectedPage === 'subscription'"
         class="subscribe-option"
+        :gift="true"
       />
 
       <!-- gem block -->
