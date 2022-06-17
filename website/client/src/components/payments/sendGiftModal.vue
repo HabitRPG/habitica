@@ -88,7 +88,9 @@
           <div class="d-flex flex-row align-items-center justify-content-center">
             <div
               class="gray-circle"
-              @click="gift.gems.amount <= 0 ? gift.gems.amount = 0 : gift.gems.amount--"
+              @click="gift.gems.amount <= 0
+                ? gift.gems.amount = 0
+                : gift.gems.amount--"
             >
               <div
                 class="icon-negative"
@@ -106,7 +108,6 @@
                 id="gemsForm"
                 v-model.number="gift.gems.amount"
                 class="form-control"
-                min="0"
                 max="9999"
               >
             </div>
@@ -136,8 +137,8 @@
           <!-- change to sending own gems page -->
           <div
             :class="{active: selectedPage === 'ownGems'}"
-            @click="selectPage('ownGems')"
             class="gem-state-change"
+            @click="selectPage('ownGems')"
           >
             {{ $t('wantToSendOwnGems') }}
           </div>
@@ -165,7 +166,9 @@
           <div class="d-flex align-items-center justify-content-center">
             <div
               class="gray-circle"
-              @click="gift.gems.amount <= 0 ? gift.gems.amount = 0 : gift.gems.amount--"
+              @click="gift.gems.amount <= 0
+                ? gift.gems.amount = 0
+                : gift.gems.amount--"
             >
               <div
                 class="icon-negative"
@@ -183,13 +186,14 @@
                 id="gemsForm"
                 v-model="gift.gems.amount"
                 class="form-control"
-                min="0"
                 :max="maxGems"
               >
             </div>
             <div
               class="gray-circle"
-              @click="gift.gems.amount < maxGems ? gift.gems.amount++ : gift.gems.amount = maxGems"
+              @click="gift.gems.amount < maxGems
+                ? gift.gems.amount++
+                : gift.gems.amount = maxGems"
             >
               <div
                 class="icon-positive"
@@ -610,8 +614,16 @@ export default {
       this.$root.$emit('bv::hide::modal', 'send-gift');
     },
     selectPage (page) {
+      if (page === this.selectedPage) return;
+      if (page === 'buyGems' && this.selectedPage === 'ownGems') return;
       this.selectedPage = page || 'subscription';
-      this.gift.gems.amount = 0;
+      if (this.selectedPage === 'buyGems') {
+        this.gift.gems.amount = 20;
+      } else if (this.selectedPage === 'ownGems') {
+        this.gift.gems.amount = 1;
+      } else {
+        this.gift.gems.amount = 0;
+      }
     },
     async sendGift () {
       this.sendingInProgress = true;
