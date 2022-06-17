@@ -1,17 +1,14 @@
-/* eslint-disable import/no-extraneous-dependencies */
-import { storiesOf } from '@storybook/vue';
 import { withKnobs, number } from '@storybook/addon-knobs';
 
 import MultiList from './multiList';
 import SelectMulti from './selectMulti';
 
-const stories = storiesOf('Multiple Select List', module);
+export default {
+  title: 'Multiple Select List',
+  decorators: [withKnobs],
+};
 
-stories.addDecorator(withKnobs);
-
-const exampleTagList = [
-  1, 2, 3,
-];
+const exampleTagList = [1, 2, 3];
 
 const allTags = [
   {
@@ -53,26 +50,30 @@ const allTags = [
   },
 ];
 
-stories
-  .add('tag-list', () => ({
-    components: { MultiList },
-    template: `
+export const TagList = () => ({
+  components: { MultiList },
+  template: `
       <div style="position: absolute; margin: 20px">
         <MultiList :max-items="maxTags" :items="tagList"></MultiList>
       </div>
     `,
-    props: {
-      tagList: {
-        default: allTags,
-      },
-      maxTags: {
-        default: number('Max-Tags', 3),
-      },
+  props: {
+    tagList: {
+      default: allTags,
     },
-  }))
-  .add('select-tag', () => ({
-    components: { SelectMulti },
-    template: `
+    maxTags: {
+      default: number('Max-Tags', 3),
+    },
+  },
+});
+
+TagList.story = {
+  name: 'tag-list',
+};
+
+export const SelectTag = () => ({
+  components: { SelectMulti },
+  template: `
         <div style="position: absolute; margin: 20px">
           <SelectMulti :selectedItems="tagList"
                        :add-new="true"
@@ -89,21 +90,26 @@ stories
           Added event: {{ added }}
         </div>
     `,
-    data () {
-      return {
-        tagList: exampleTagList,
-        added: '',
-      };
+  data () {
+    return {
+      tagList: exampleTagList,
+      added: '',
+    };
+  },
+  props: {
+    allTags: {
+      default: allTags,
     },
-    props: {
-      allTags: {
-        default: allTags,
-      },
-    },
-  }))
-  .add('longer select-tag', () => ({
-    components: { SelectMulti },
-    template: `
+  },
+});
+
+SelectTag.story = {
+  name: 'select-tag',
+};
+
+export const LongerSelectTag = () => ({
+  components: { SelectMulti },
+  template: `
         <div style="position: absolute; margin: 20px">
             <SelectMulti :selectedItems="tagList"
                          :all-items="allTags"
@@ -111,14 +117,18 @@ stories
                          @changed="tagList = $event"></SelectMulti>
         </div>
     `,
-    data () {
-      return {
-        tagList: [],
-      };
+  data () {
+    return {
+      tagList: [],
+    };
+  },
+  props: {
+    allTags: {
+      default: allTags,
     },
-    props: {
-      allTags: {
-        default: allTags,
-      },
-    },
-  }));
+  },
+});
+
+LongerSelectTag.story = {
+  name: 'longer select-tag',
+};

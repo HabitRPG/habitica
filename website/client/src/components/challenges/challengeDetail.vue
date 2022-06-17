@@ -359,6 +359,11 @@ export default {
     groupLink,
   },
   mixins: [challengeMemberSearchMixin, userStateMixin],
+  async beforeRouteUpdate (to, from, next) {
+    this.searchId = to.params.challengeId;
+    await this.loadChallenge();
+    next();
+  },
   props: ['challengeId'],
   data () {
     return {
@@ -414,11 +419,6 @@ export default {
   mounted () {
     if (!this.searchId) this.searchId = this.challengeId;
     if (!this.challenge._id) this.loadChallenge();
-  },
-  async beforeRouteUpdate (to, from, next) {
-    this.searchId = to.params.challengeId;
-    await this.loadChallenge();
-    next();
   },
   methods: {
     cleanUpTask (task) {

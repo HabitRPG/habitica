@@ -1,36 +1,39 @@
-/* eslint-disable import/no-extraneous-dependencies */
-import { storiesOf } from '@storybook/vue';
 import { withKnobs } from '@storybook/addon-knobs';
 
 import Checkbox from './checkbox';
 import ToggleCheckbox from './toggleCheckbox';
 
-const stories = storiesOf('Checkbox', module);
+export default {
+  title: 'Checkbox',
+  decorators: [withKnobs],
+};
 
-stories.addDecorator(withKnobs);
-
-stories
-  .add('checkbox', () => ({
-    components: {
-      Checkbox,
-    },
-    template: `
+export const _Checkbox = () => ({
+  components: {
+    Checkbox,
+  },
+  template: `
       <div style="position: absolute; margin: 20px">
         <Checkbox text="My Checkbox" id="someId"></Checkbox> <br/>
         <Checkbox text="My Checked Checkbox" id="someOtherId" :checked.sync="checked"></Checkbox>
       </div>
     `,
-    data () {
-      return {
-        checked: true,
-      };
-    },
-  }))
-  .add('Toggle Checkbox Group', () => ({
-    components: {
-      ToggleCheckbox,
-    },
-    template: `
+  data () {
+    return {
+      checked: true,
+    };
+  },
+});
+
+_Checkbox.story = {
+  name: 'checkbox',
+};
+
+export const ToggleCheckboxGroup = () => ({
+  components: {
+    ToggleCheckbox,
+  },
+  template: `
       <div style="position: absolute; margin: 20px">
         {{ checked }}
         <div class="toggle-group" style="width: 300px">
@@ -62,9 +65,9 @@ stories
         </div>
       </div>
     `,
-    data () {
-      return {
-        checked: true,
-      };
-    },
-  }));
+  data () {
+    return {
+      checked: true,
+    };
+  },
+});

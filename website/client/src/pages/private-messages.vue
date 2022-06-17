@@ -47,7 +47,7 @@
         <div class="disable-background">
           <toggle-switch
             :label="optTextSet.switchDescription"
-            :checked="this.user.inbox.optOut"
+            :checked="user.inbox.optOut"
             :hover-text="optTextSet.popoverText"
             @change="toggleOpt()"
           />
@@ -588,6 +588,23 @@ export default {
     },
   },
   mixins: [styleHelper],
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      const data = vm.$store.state.privateMessageOptions;
+
+      if ((!data || (data && !data.userIdToMessage)) && vm.$route.query && vm.$route.query.uuid) {
+        vm.$store.dispatch('user:userLookup', { uuid: vm.$route.query.uuid }).then(res => {
+          if (res && res.data && res.data.data) {
+            vm.$store.dispatch('user:newPrivateMessageTo', {
+              member: res.data.data,
+            });
+          }
+        });
+      } else {
+        vm.hasPrivateMessageOptionsOnPageLoad = true;
+      }
+    });
+  },
   data () {
     return {
       icons: Object.freeze({
@@ -611,23 +628,6 @@ export default {
       messagesLoading: false,
       MAX_MESSAGE_LENGTH: MAX_MESSAGE_LENGTH.toString(),
     };
-  },
-  beforeRouteEnter (to, from, next) {
-    next(vm => {
-      const data = vm.$store.state.privateMessageOptions;
-
-      if ((!data || (data && !data.userIdToMessage)) && vm.$route.query && vm.$route.query.uuid) {
-        vm.$store.dispatch('user:userLookup', { uuid: vm.$route.query.uuid }).then(res => {
-          if (res && res.data && res.data.data) {
-            vm.$store.dispatch('user:newPrivateMessageTo', {
-              member: res.data.data,
-            });
-          }
-        });
-      } else {
-        vm.hasPrivateMessageOptionsOnPageLoad = true;
-      }
-    });
   },
   computed: {
     ...mapState({ user: 'user.data' }),

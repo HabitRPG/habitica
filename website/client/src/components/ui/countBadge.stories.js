@@ -1,32 +1,39 @@
-/* eslint-disable import/no-extraneous-dependencies */
-import { storiesOf } from '@storybook/vue';
 import { withKnobs, number } from '@storybook/addon-knobs';
 
 import CountBadge from './countBadge.vue';
 
-const stories = storiesOf('Count Badge', module);
+export default {
+  title: 'Count Badge',
+  decorators: [withKnobs],
+};
 
-stories.addDecorator(withKnobs);
-
-stories
-  .add('simple', () => ({
-    components: { CountBadge },
-    template: `
+export const Simple = () => ({
+  components: { CountBadge },
+  template: `
       <div style="position: absolute; margin: 20px">
         <count-badge :count="2" :show="true"></count-badge>
       </div>
     `,
-  }))
-  .add('bind count', () => ({
-    components: { CountBadge },
-    template: `
+});
+
+Simple.story = {
+  name: 'simple',
+};
+
+export const BindCount = () => ({
+  components: { CountBadge },
+  template: `
       <div style="position: absolute; margin: 20px">
         <count-badge :count="count" :show="true"></count-badge>
       </div>
     `,
-    props: {
-      count: {
-        default: number('Count', 3),
-      },
+  props: {
+    count: {
+      default: number('Count', 3),
     },
-  }));
+  },
+});
+
+BindCount.story = {
+  name: 'bind count',
+};

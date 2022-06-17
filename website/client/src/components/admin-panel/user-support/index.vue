@@ -112,6 +112,10 @@ export default {
     Transactions,
   },
   mixins: [userStateMixin],
+  beforeRouteUpdate (to, from, next) {
+    this.userIdentifier = to.params.userIdentifier;
+    next();
+  },
   data () {
     return {
       userIdentifier: '',
@@ -176,10 +180,6 @@ export default {
 
       this.resetCounter += 1; // tell child components to reinstantiate from scratch
     },
-  },
-  beforeRouteUpdate (to, from, next) {
-    this.userIdentifier = to.params.userIdentifier;
-    next();
   },
 };
 </script>

@@ -1,17 +1,15 @@
-/* eslint-disable import/no-extraneous-dependencies */
-import { storiesOf } from '@storybook/vue';
 import { number, text, withKnobs } from '@storybook/addon-knobs';
 
 import positiveIcon from '@/assets/svg/positive.svg';
 
-const stories = storiesOf('Input-Group', module);
+export default {
+  title: 'Input-Group',
+  decorators: [withKnobs],
+};
 
-stories.addDecorator(withKnobs);
-
-stories
-  .add('states', () => ({
-    components: { },
-    template: `
+export const States = () => ({
+  components: {},
+  template: `
       <div style="position: absolute; margin: 20px">
         <div class="input-group">
           <div class="input-group-prepend positive-addon input-group-icon">
@@ -55,17 +53,21 @@ stories
 
       </div>
     `,
-    data () {
-      return {
-        icon: positiveIcon,
-      };
+  data () {
+    return {
+      icon: positiveIcon,
+    };
+  },
+  props: {
+    text: {
+      default: text('Input Text', 'example text'),
     },
-    props: {
-      text: {
-        default: text('Input Text', 'example text'),
-      },
-      number: {
-        default: number('Input Number', 0),
-      },
+    number: {
+      default: number('Input Number', 0),
     },
-  }));
+  },
+});
+
+States.story = {
+  name: 'states',
+};
