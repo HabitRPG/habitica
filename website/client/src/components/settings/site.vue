@@ -743,7 +743,7 @@ export default {
         this.passwordUpdates = {};
         this.$store.dispatch('snackbars:add', {
           title: 'Habitica',
-          text: "Your password has been changed",
+          text: 'Your password has been changed',
           type: 'success',
           timeout: true,
         });
