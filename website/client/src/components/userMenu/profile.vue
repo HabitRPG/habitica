@@ -710,6 +710,18 @@
       }
     }
   }
+
+  @media (max-width: 990px) {
+    #profile .profile-actions {
+      flex-direction: column;
+    }
+    #profile .profile-actions :not(:last-child) {
+      margin-bottom: 15px;
+    }
+    #profile .profile-actions {
+      margin-right: 0;
+    }
+  }
 </style>
 
 <script>
