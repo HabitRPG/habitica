@@ -470,6 +470,7 @@
   .gift-icon svg {
     height: 14px;
   }
+
 </style>
 
 <style lang="scss" scoped>
@@ -720,6 +721,15 @@
     }
     #profile .profile-actions {
       margin-right: 0;
+    }
+  }
+
+  @media (max-width: 475px) {
+    #profile .member-details {
+      flex-direction: column;
+    }
+    #profile .member-details .avatar {
+      margin-bottom: 15px;
     }
   }
 </style>
