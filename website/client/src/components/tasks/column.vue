@@ -1,7 +1,9 @@
 <template>
   <div
+    v-resize="500"
     class="tasks-column"
     :class="type"
+    @resized="setColumnBackgroundVisibility"
   >
     <b-modal ref="editTaskModal" />
     <buy-quest-modal
@@ -354,6 +356,7 @@ import { mapState, mapActions, mapGetters } from '@/libs/store';
 import shopItem from '../shops/shopItem';
 import BuyQuestModal from '@/components/shops/quests/buyQuestModal.vue';
 import PinBadge from '@/components/ui/pinBadge';
+import ResizeDirective from '@/directives/resize.directive';
 
 import notifications from '@/mixins/notifications';
 import { shouldDo } from '@/../../common/script/cron';
@@ -374,6 +377,9 @@ import rewardIcon from '@/assets/svg/reward.svg';
 import { EVENTS } from '@/libs/events';
 
 export default {
+  directives: {
+    resize: ResizeDirective,
+  },
   components: {
     Task,
     ClearCompletedTodos,
