@@ -162,7 +162,9 @@ describe('shared.ops.buyQuest', () => {
     }
   });
 
-  it('does not buy a quest without completing previous quests', async () => {
+  it('returns error if user has not completed all prerequisite quests', async () => {
+    user.stats.gp = 9999;
+    user.achievements.quests.dilatoryDistress1 = 1;
     try {
       await buyQuest(user, {
         params: {
@@ -174,5 +176,23 @@ describe('shared.ops.buyQuest', () => {
       expect(err.message).to.equal(i18n.t('mustComplete', { quest: 'dilatoryDistress2' }));
       expect(user.items.quests).to.eql({});
     }
+  });
+
+  it('successfully purchases quest if user has completed all prerequisite quests', async () => {
+    user.stats.gp = 500;
+    user.achievements.quests.dilatoryDistress1 = 1;
+    user.achievements.quests.dilatoryDistress2 = 1;
+
+    await buyQuest(user, {
+      params: {
+        key: 'dilatoryDistress3',
+      },
+    }, analytics);
+
+    expect(user.items.quests).to.eql({
+      dilatoryDistress3: 1,
+    });
+    expect(user.stats.gp).to.equal(100);
+    expect(analytics.track).to.be.calledOnce;
   });
 });
