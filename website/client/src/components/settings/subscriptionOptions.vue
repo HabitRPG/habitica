@@ -14,7 +14,7 @@
       >
         <!-- eslint-enable vue/no-use-v-if-with-v-for -->
         <div
-          v-if="gift"
+          v-if="userReceivingGift._id"
           class="subscription-text ml-2 mb-1"
           v-html="$t('giftSubscriptionRateText', {price: block.price, months: block.months})"
         >
@@ -34,7 +34,7 @@
     </b-form-group>
     <!-- :disabled="!subscription.key" is the original code -->
     <payments-buttons
-      v-if="gift"
+      v-if="userReceivingGift._id"
       :disabled="!subscription.key"
       :stripe-fn="() => redirectToStripe({gift, uuid: userReceivingGift._id, receiverName})"
       :paypal-fn="() => openPaypalGift({
@@ -120,9 +120,9 @@ export default {
     paymentsMixin,
   ],
   props: {
-    gift: {
-      type: Boolean,
-      default: false,
+    userReceivingGift: {
+      type: [String],
+      default: '',
     },
   },
   data () {
@@ -130,8 +130,9 @@ export default {
       subscription: {
         key: null,
       },
-      userReceivingGift: {
-        profile: '',
+      gift: {
+        type: 'subscription',
+        subscription: { key: '' },
       },
       receiverName: '',
     };
@@ -159,6 +160,10 @@ export default {
         default:
           return '<span class="subscription-bubble px-2 py-1">Gem cap at 25</span>';
       }
+    },
+    updateSubscriptionData (key) {
+      this.subscription.key = key;
+      if (this.userReceivingGift._id) this.gift.subscription.key = key;
     },
   },
 };

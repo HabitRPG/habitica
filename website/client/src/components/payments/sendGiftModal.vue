@@ -74,7 +74,7 @@
       <subscription-options
         v-show="selectedPage === 'subscription'"
         class="subscribe-option"
-        :gift="true"
+        :userReceivingGift="true"
       />
 
       <!-- gem block -->
@@ -342,7 +342,6 @@
     &.active {
     color: $purple-300;
     border-bottom: 2px solid $purple-400;
-    cursor: pointer
     }
 
     &:hover {
