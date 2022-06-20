@@ -10,7 +10,7 @@
         :value="block.key"
         class="subscribe-option pt-2 pl-5 pb-3 mb-0"
         :class="{selected: subscription.key === block.key}"
-        @click.native="subscription.key = block.key"
+        @click.native="updateSubscriptionData(block.key)"
       >
         <!-- eslint-enable vue/no-use-v-if-with-v-for -->
         <div
