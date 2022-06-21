@@ -74,7 +74,7 @@
       <subscription-options
         v-show="selectedPage === 'subscription'"
         class="subscribe-option"
-        :userReceivingGift="true"
+        :userReceivingGift="userReceivingGift"
       />
 
       <!-- gem block -->
