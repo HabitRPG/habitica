@@ -121,8 +121,9 @@ export default {
   ],
   props: {
     userReceivingGift: {
-      type: [String],
-      default: '',
+      type: Object,
+      default: {
+        _id: this.userReceivingGift._id,
     },
   },
   data () {
