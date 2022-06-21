@@ -686,15 +686,19 @@ const armor = {
   },
   summer2021Rogue: {
     set: 'summer2021ClownfishRogueSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'summer',
   },
   summer2021Warrior: {
     set: 'summer2021FlyingFishWarriorSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'summer',
   },
   summer2021Mage: {
     set: 'summer2021NautilusMageSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'summer',
   },
   summer2021Healer: {
     set: 'summer2021ParrotHealerSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'summer',
   },
   fall2021Rogue: {
     set: 'fall2021OozeRogueSet',
@@ -732,12 +736,23 @@ const armor = {
   spring2022Healer: {
     set: 'spring2022PeridotHealerSet',
   },
-
   birthday2022: {
     text: t('armorSpecialBirthday2022Text'),
     notes: t('armorSpecialBirthday2022Notes'),
     value: 0,
     canOwn: ownsItem('armor_special_birthday2022'),
+  },
+  summer2022Rogue: {
+    set: 'summer2022CrabRogueSet',
+  },
+  summer2022Warrior: {
+    set: 'summer2022WaterspoutWarriorSet',
+  },
+  summer2022Mage: {
+    set: 'summer2022MantaRayMageSet',
+  },
+  summer2022Healer: {
+    set: 'summer2022AngelfishHealerSet',
   },
 };
 
@@ -1761,15 +1776,19 @@ const head = {
   },
   summer2021Rogue: {
     set: 'summer2021ClownfishRogueSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'summer',
   },
   summer2021Warrior: {
     set: 'summer2021FlyingFishWarriorSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'summer',
   },
   summer2021Mage: {
     set: 'summer2021NautilusMageSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'summer',
   },
   summer2021Healer: {
     set: 'summer2021ParrotHealerSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'summer',
   },
   fall2021Rogue: {
     set: 'fall2021OozeRogueSet',
@@ -1812,6 +1831,18 @@ const head = {
   },
   spring2022Healer: {
     set: 'spring2022PeridotHealerSet',
+  },
+  summer2022Rogue: {
+    set: 'summer2022CrabRogueSet',
+  },
+  summer2022Warrior: {
+    set: 'summer2022WaterspoutWarriorSet',
+  },
+  summer2022Mage: {
+    set: 'summer2022MantaRayMageSet',
+  },
+  summer2022Healer: {
+    set: 'summer2022AngelfishHealerSet',
   },
 };
 
@@ -2549,12 +2580,15 @@ const shield = {
   },
   summer2021Rogue: {
     set: 'summer2021ClownfishRogueSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'summer',
   },
   summer2021Warrior: {
     set: 'summer2021FlyingFishWarriorSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'summer',
   },
   summer2021Healer: {
     set: 'summer2021ParrotHealerSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'summer',
   },
   fall2021Rogue: {
     set: 'fall2021OozeRogueSet',
@@ -2582,6 +2616,15 @@ const shield = {
   },
   spring2022Healer: {
     set: 'spring2022PeridotHealerSet',
+  },
+  summer2022Rogue: {
+    set: 'summer2022CrabRogueSet',
+  },
+  summer2022Warrior: {
+    set: 'summer2022WaterspoutWarriorSet',
+  },
+  summer2022Healer: {
+    set: 'summer2022AngelfishHealerSet',
   },
 };
 
@@ -3229,15 +3272,19 @@ const weapon = {
   },
   summer2021Rogue: {
     set: 'summer2021ClownfishRogueSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'summer',
   },
   summer2021Warrior: {
     set: 'summer2021FlyingFishWarriorSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'summer',
   },
   summer2021Mage: {
     set: 'summer2021NautilusMageSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'summer',
   },
   summer2021Healer: {
     set: 'summer2021ParrotHealerSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'summer',
   },
   fall2021Rogue: {
     set: 'fall2021OozeRogueSet',
@@ -3274,6 +3321,18 @@ const weapon = {
   },
   spring2022Healer: {
     set: 'spring2022PeridotHealerSet',
+  },
+  summer2022Rogue: {
+    set: 'summer2022CrabRogueSet',
+  },
+  summer2022Warrior: {
+    set: 'summer2022WaterspoutWarriorSet',
+  },
+  summer2022Mage: {
+    set: 'summer2022MantaRayMageSet',
+  },
+  summer2022Healer: {
+    set: 'summer2022AngelfishHealerSet',
   },
 };
 
