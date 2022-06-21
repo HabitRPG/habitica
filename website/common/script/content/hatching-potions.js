@@ -109,13 +109,13 @@ const premium = {
     value: 2,
     text: t('hatchingPotionAquatic'),
     limited: true,
-    event: EVENTS.summer2020,
+    event: EVENTS.summer2022,
     _addlNotes: t('eventAvailabilityReturning', {
       availableDate: t('dateEndJuly'),
-      previousDate: t('juneYYYY', { year: 2017 }),
+      previousDate: t('augustYYYY', { year: 2020 }),
     }),
     canBuy () {
-      return moment().isBefore('2020-08-02');
+      return moment().isBetween(EVENTS.summer2022.start, EVENTS.summer2022.end);
     },
   },
   Ember: {
@@ -317,13 +317,13 @@ const premium = {
     value: 2,
     text: t('hatchingPotionWatery'),
     limited: true,
-    event: EVENTS.summer2020,
+    event: EVENTS.summer2022,
     _addlNotes: t('eventAvailabilityReturning', {
       availableDate: t('dateEndJuly'),
-      previousDate: t('juneYYYY', { year: 2019 }),
+      previousDate: t('julyYYYY', { year: 2020 }),
     }),
     canBuy () {
-      return moment().isBefore('2020-08-02');
+      return moment().isBetween(EVENTS.summer2022.start, EVENTS.summer2022.end);
     },
   },
   Silver: {
@@ -490,12 +490,13 @@ const premium = {
     value: 2,
     text: t('hatchingPotionSunset'),
     limited: true,
-    event: EVENTS.summer2021,
+    event: EVENTS.summer2022,
     _addlNotes: t('premiumPotionAddlNotes', {
       date: t('dateEndJuly'),
+      previousDate: t('julyYYYY', { year: 2021 }),
     }),
     canBuy () {
-      return moment().isBetween(EVENTS.summer2021.start, EVENTS.summer2021.end);
+      return moment().isBetween(EVENTS.summer2022.start, EVENTS.summer2022.end);
     },
   },
   Moonglow: {
