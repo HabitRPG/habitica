@@ -124,7 +124,7 @@ describe('POST /user/class/cast/:spellId', () => {
   });
 
   it('returns an error if a group task was targeted', async () => {
-    const { group, groupLeader } = await createAndPopulateGroup();
+    const { group, groupLeader } = await createAndPopulateGroup({ upgradeToGroupPlan: true });
 
     const groupTask = await groupLeader.post(`/tasks/group/${group._id}`, {
       text: 'todo group',
@@ -234,7 +234,7 @@ describe('POST /user/class/cast/:spellId', () => {
   });
 
   it('searing brightness does not affect challenge or group tasks', async () => {
-    const guild = await generateGroup(user);
+    const guild = await generateGroup(user, {}, { 'purchased.plan.customerId': 'group-unlimited' });
     const challenge = await generateChallenge(user, guild);
     await user.post(`/challenges/${challenge._id}/join`);
     await user.post(`/tasks/challenge/${challenge._id}`, {

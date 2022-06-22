@@ -19,6 +19,7 @@ describe('POST /tasks/:id/approve/:userId', () => {
         type: 'guild',
       },
       members: 2,
+      upgradeToGroupPlan: true,
     });
 
     guild = group;
@@ -63,9 +64,9 @@ describe('POST /tasks/:id/approve/:userId', () => {
 
     await member.sync();
 
-    expect(member.notifications.length).to.equal(2);
-    expect(member.notifications[1].type).to.equal('GROUP_TASK_APPROVED');
-    expect(member.notifications[1].data.message).to.equal(t('yourTaskHasBeenApproved', { taskText: task.text }));
+    expect(member.notifications.length).to.equal(3);
+    expect(member.notifications[2].type).to.equal('GROUP_TASK_APPROVED');
+    expect(member.notifications[2].data.message).to.equal(t('yourTaskHasBeenApproved', { taskText: task.text }));
 
     memberTasks = await member.get('/tasks/user');
     syncedTask = find(memberTasks, findAssignedTask);
@@ -89,9 +90,9 @@ describe('POST /tasks/:id/approve/:userId', () => {
     await member2.post(`/tasks/${task._id}/approve/${member._id}`);
     await member.sync();
 
-    expect(member.notifications.length).to.equal(2);
-    expect(member.notifications[1].type).to.equal('GROUP_TASK_APPROVED');
-    expect(member.notifications[1].data.message).to.equal(t('yourTaskHasBeenApproved', { taskText: task.text }));
+    expect(member.notifications.length).to.equal(3);
+    expect(member.notifications[2].type).to.equal('GROUP_TASK_APPROVED');
+    expect(member.notifications[2].data.message).to.equal(t('yourTaskHasBeenApproved', { taskText: task.text }));
 
     memberTasks = await member.get('/tasks/user');
     syncedTask = find(memberTasks, findAssignedTask);
@@ -113,18 +114,18 @@ describe('POST /tasks/:id/approve/:userId', () => {
 
     await user.sync();
     await member2.sync();
-    expect(user.notifications.length).to.equal(2);
-    expect(user.notifications[1].type).to.equal('GROUP_TASK_APPROVAL');
-    expect(member2.notifications.length).to.equal(1);
-    expect(member2.notifications[0].type).to.equal('GROUP_TASK_APPROVAL');
+    expect(user.notifications.length).to.equal(3);
+    expect(user.notifications[2].type).to.equal('GROUP_TASK_APPROVAL');
+    expect(member2.notifications.length).to.equal(2);
+    expect(member2.notifications[1].type).to.equal('GROUP_TASK_APPROVAL');
 
     await member2.post(`/tasks/${task._id}/approve/${member._id}`);
 
     await user.sync();
     await member2.sync();
 
-    expect(user.notifications.length).to.equal(1);
-    expect(member2.notifications.length).to.equal(0);
+    expect(user.notifications.length).to.equal(2);
+    expect(member2.notifications.length).to.equal(1);
   });
 
   it('prevents double approval on a task', async () => {

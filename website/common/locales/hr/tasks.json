@@ -4,7 +4,7 @@
     "clearCompletedConfirm": "Jesi li siguran/na da želiš izbrisati svoje izvršene Zadatke?",
     "addMultipleTip": "<strong>Savjet:</strong> Za dodati više <%= taskType %>, odvoji svaki koristeći praznu crtu (Shift + Enter) i onda pritisni \"Enter.\"",
     "addATask": "Dodaj <%= type %>",
-    "editATask": "Izmijeni <%= type %>",
+    "editATask": "Uredi <%= type %>",
     "createTask": "Stvori <%= type %>",
     "addTaskToUser": "Dodaj Zadatak",
     "scheduled": "Planirano",
@@ -127,5 +127,17 @@
     "checkOffYesterDailies": "Prekriži sve Svakodnevne zadatke koje si obavio/la jučer:",
     "yesterDailiesCallToAction": "Započni novi dan!",
     "sessionOutdated": "Tvoja sesija je istekla. Molimo te da osvježiš ili sinkroniziraš.",
-    "errorTemporaryItem": "Ovaj artikal je privremen i ne može se zakačiti."
+    "errorTemporaryItem": "Ovaj artikal je privremen i ne može se zakačiti.",
+    "sureDeleteType": "Jesi li siguran/la da želiš izbrisati ovo <%= type%>?",
+    "addTags": "Dodaj oznake...",
+    "pressEnterToAddTag": "Pritisni Enter za dodavanje oznake: '<%= tagName %>'",
+    "addATitle": "Dodaj naslov",
+    "deleteTaskType": "Izbriši ovo <%= type %>",
+    "addNotes": "Dodaj bilješke",
+    "counter": "Brojilo",
+    "adjustCounter": "Prilagodi brojilo",
+    "resetCounter": "Resetiraj brojilo",
+    "tomorrow": "Sutra",
+    "editTagsText": "Uredi oznake",
+    "enterTag": "Unesi oznaku"
 }

@@ -132,5 +132,8 @@
     "achievementBirdsOfAFeather": "Повітряний легіон",
     "achievementReptacularRumbleText": "Вилупи(-в/ла) усі стандартні кольори рептилій: алігатора, птеродактиля, змії, трицератопса, черепахи, тиранозавра і велоцираптора!",
     "achievementReptacularRumble": "Гул рептилій",
-    "achievementReptacularRumbleModalText": "Ви зібрали всіх вихованців рептилій!"
+    "achievementReptacularRumbleModalText": "Ви зібрали всіх вихованців рептилій!",
+    "achievementGroupsBeta2022": "Інтерактивний бета-тестер",
+    "achievementGroupsBeta2022Text": "Ви та Ваша команда надали неоціненний відгук, щоб допомогти тестувати Habitica.",
+    "achievementGroupsBeta2022ModalText": "Ви та Ваші команди допомогли Habitica, тестуючи та надаючи відгуки!"
 }

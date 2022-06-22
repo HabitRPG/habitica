@@ -9,11 +9,28 @@ const gemsPromo = {
 };
 
 export const EVENTS = {
-  noCurrentEvent: {
-    start: '2022-05-31T20:00-04:00',
-    end: '2022-06-30T20:00-05:00',
+  noCurrentEventAfter: {
+    start: '2022-07-31T20:00-04:00',
+    end: '2022-12-21T08:00-04:00',
     season: 'normal',
     npcImageSuffix: '',
+  },
+  summer2022: {
+    start: '2022-06-21T08:00-04:00',
+    end: '2022-07-31T20:00-04:00',
+    season: 'summer',
+    npcImageSuffix: '_summer',
+    gear: true,
+  },
+  noCurrentEvent: {
+    start: '2022-04-30T20:00-04:00',
+    end: '2022-06-21T08:00-04:00',
+    season: 'normal',
+    npcImageSuffix: '',
+  },
+  bundle202206: {
+    start:'2022-06-14T08:00-04:00',
+    end:'2022-06-30T20:00-04:00',
   },
   potions202205: {
     start: '2022-05-17T08:00-04:00',

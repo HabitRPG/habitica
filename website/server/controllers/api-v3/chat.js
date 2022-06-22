@@ -126,7 +126,7 @@ api.postChat = {
     const group = await Group.getGroup({ user, groupId });
 
     // Check message for banned slurs
-    if (textContainsBannedSlur(req.body.message)) {
+    if (group && group.privacy !== 'private' && textContainsBannedSlur(req.body.message)) {
       const { message } = req.body;
       user.flags.chatRevoked = true;
       await user.save();
