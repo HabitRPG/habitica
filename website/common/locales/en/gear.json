@@ -2327,6 +2327,8 @@
   "shieldSpecialSummer2022WarriorNotes": "It snaps! It bites! And it never, ever stops! Increases Constitution by <%= con %>. Limited Edition 2022 Summer Gear.",
   "shieldSpecialSummer2022HealerText": "Remedial Ripples",
   "shieldSpecialSummer2022HealerNotes": "Send out restorative magic in gentle ripples through the reef. Increases Constitution by <%= con %>. Limited Edition 2022 Summer Gear.",
+  "shieldSpecialSummer2022RogueText": "Crab Claw",
+  "shieldSpecialSummer2022RogueNotes": "If you're in a pinch, don't hesitate to show these fearsome claws! Increases Strength by <%= str %>. Limited Edition 2022 Summer Gear.",
 
   "shieldMystery201601Text": "Resolution Slayer",
   "shieldMystery201601Notes": "This blade can be used to parry away all distractions. Confers no benefit. January 2016 Subscriber Item.",
