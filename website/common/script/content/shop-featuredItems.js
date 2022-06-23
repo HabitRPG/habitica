@@ -5,7 +5,7 @@ import { EVENTS } from './constants';
 // path: 'premiumHatchingPotions.Rainbow',
 const featuredItems = {
   market () {
-    if (moment().isBefore('2022-05-31T20:00-04:00')) {
+    if (moment().isBefore(EVENTS.summer2022.end)) {
       return [
         {
           type: 'armoire',
@@ -13,15 +13,15 @@ const featuredItems = {
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Sunshine',
+          path: 'premiumHatchingPotions.Sunset',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Floral',
+          path: 'premiumHatchingPotions.Watery',
         },
         {
-          type: 'hatchingPotions',
-          path: 'hatchingPotions.Golden',
+          type: 'premiumHatchingPotion',
+          path: 'premiumHatchingPotions.Aquatic',
         },
       ];
     }

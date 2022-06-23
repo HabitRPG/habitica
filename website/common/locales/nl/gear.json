@@ -1175,7 +1175,7 @@
     "headArmoireRedHairbowText": "Rode strik",
     "headArmoireRedHairbowNotes": "Word sterk, stoer en slim door het dragen van deze prachtige rode haarband! Verhoogt Kracht met <%= str %>, Weerbaarheid met <%= con %> en Intelligentie met <%= int %>. Betoverd kabinet: Rode haarbandset (voorwerp 1 van 2).",
     "headArmoireVioletFloppyHatText": "Slappe paarse hoed",
-    "headArmoireVioletFloppyHatNotes": "Deze simpele hoed is doorweven met vele toverspreuken, waardoor hij een aangename paarse kleur heeft gekregen. Verhoogt Perceptie met <%= per %>, Intelligentie met <%= int %> en Weerbaarheid met <%= con %>. Betoverd kabinet: onafhankelijk voorwerp.",
+    "headArmoireVioletFloppyHatNotes": "Deze simpele hoed is doorweven met vele toverspreuken, waardoor hij een aangename paarse kleur heeft gekregen. Verhoogt Perceptie met <%= per %>, Intelligentie met <%= int %> en Weerbaarheid met <%= con %>. Betoverd kabinet: Violette Loungewear (voorwerp 1 van 3).",
     "headArmoireGladiatorHelmText": "Gladiatorenhelm",
     "headArmoireGladiatorHelmNotes": "Om en gladiator te zijn moet je niet alleen sterk zijn... maar ook geslepen. Vergroot intelligentie met <%= int %> en perceptie met <%= per %>. Betoverd kabinet: gladiatorset (voorwerp 1 van 3).",
     "headArmoireRancherHatText": "Cowboyhoed",
@@ -1611,7 +1611,7 @@
     "bodyMystery201901Notes": "These shimmering pauldrons are strong, but will rest on your shoulders as weightlessly as a ray of dancing light. Confers no benefit. January 2019 Subscriber Item.",
     "bodyArmoireCozyScarfText": "Knusse Sjaal",
     "bodyArmoireCozyScarfNotes": "This fine scarf will keep you warm as you go about your wintry business. Increases Constitution and Perception by <%= attrs %> each. Enchanted Armoire: Lamplighter's Set (Item 4 of 4).",
-    "headAccessory": "hoofdaccessoire",
+    "headAccessory": "Hoofdaccessoire",
     "headAccessoryCapitalized": "Hoofdaccessoire",
     "accessories": "Accessoires",
     "animalEars": "Dierenoren",
@@ -2396,5 +2396,7 @@
     "weaponSpecialSpring2022RogueNotes": "Een glanzende! Het is zo glimmend and glanzend en mooi en leuk en helemaal van jou! Verhoogt Kracht met <%= str %>. Beperkte oplage 2022 lenteuitrusting.",
     "weaponSpecialSpring2022WarriorText": "Binnenstebuiten Paraplu",
     "weaponSpecialSpring2022WarriorNotes": "Jakkes! Die wind was misschien iets sterker dan je dacht, he? Verhoogt Kracht met <%= str %>. Beperkte oplage 2022 lenteuitrusting.",
-    "weaponSpecialSpring2022MageText": "Forsythia Staf"
+    "weaponSpecialSpring2022MageText": "Forsythia Staf",
+    "armorArmoireSoftVioletSuitNotes": "Paars is een luxe kleur. Ontspan in stijl na je al je dagelijke taken hebt volbracht. Verhoogt Weerbaarheid en Kracht met <%= attrs %> elk. Betoverde kast: Violette Loungewear (voorwerp 2 van 3).",
+    "shieldArmoireSoftVioletPillowNotes": "De slimme krijger pakt een kussen in voor elke expeditie. Bescherm jezelf van door uitstel veroorzaakte paniek... zelfs terwijl je een dutje doet. Verhoogt Intelligentie met <%= int %>. Betoverde kast: Violette Loungewear (voorwerp 3 van 3)."
 }
