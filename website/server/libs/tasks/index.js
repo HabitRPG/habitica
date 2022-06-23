@@ -1,7 +1,9 @@
 import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
 import compact from 'lodash/compact';
+import forEach from 'lodash/forEach';
 import keys from 'lodash/keys';
+import remove from 'lodash/remove';
 import validator from 'validator';
 import {
   setNextDue,
@@ -245,6 +247,19 @@ async function getTasks (req, res, options = {}) {
     });
   }
 
+  let ownerDirty = false;
+  // Prune nonexistent tasks from tasksOrder
+  forEach(owner.tasksOrder, (taskOrder, key) => {
+    if (type && key.slice(0, -1) !== type) return;
+    const preLength = taskOrder.length;
+    remove(taskOrder, taskId => tasks.findIndex(task => task._id === taskId) === -1);
+    if (preLength !== taskOrder.length) {
+      owner.tasksOrder[key] = taskOrder;
+      owner.markModified('tasksOrder');
+      ownerDirty = true;
+    }
+  });
+
   // Order tasks based on tasksOrder
   let order = [];
   if (type && type !== 'completedTodos' && type !== '_allCompletedTodos') {
@@ -265,10 +280,15 @@ async function getTasks (req, res, options = {}) {
     const i = order[index] === taskId ? index : order.indexOf(taskId);
     if (i === -1) {
       unorderedTasks.push(task);
+      const typeString = `${task.type}s`;
+      owner.tasksOrder[typeString].push(taskId);
+      ownerDirty = true;
     } else {
       orderedTasks[i] = task;
     }
   });
+
+  if (ownerDirty) await owner.save();
 
   // Remove empty values from the array and add any unordered task
   orderedTasks = compact(orderedTasks).concat(unorderedTasks);
