@@ -713,22 +713,22 @@
   }
 
   @media (max-width: 990px) {
-    #profile .profile-actions {
+    .profile-actions {
       flex-direction: column;
     }
-    #profile .profile-actions :not(:last-child) {
+    .profile-actions :not(:last-child) {
       margin-bottom: 15px;
     }
-    #profile .profile-actions {
+    .profile-actions {
       margin-right: 0;
     }
   }
 
-  @media (max-width: 475px) {
-    #profile .member-details {
+  @media (max-width: 550px) {
+    .member-details {
       flex-direction: column;
     }
-    #profile .member-details .avatar {
+    .member-details .avatar {
       margin-bottom: 15px;
     }
   }
