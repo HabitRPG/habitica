@@ -725,9 +725,21 @@ export default {
       word-break: break-word;
     }
 
-     @media (max-width: 550px) {
+  @media (max-width: 550px) {
     [class^="stats-section-"] {
       margin-bottom: 30px;
+    }
+  }
+  @media (max-width: 850px) {
+    #stats .col-md-6 {
+      flex: none;
+      max-width: 100%;
+    }
+  }
+  @media(max-width: 990px) {
+    .modal-body #stats .col-md-6 {
+      flex: none;
+      max-width: 100%;
     }
   }
 </style>
