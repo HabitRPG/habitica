@@ -819,7 +819,7 @@ api.moveTask = {
 
     if (task.type === 'todo' && task.completed) throw new BadRequest(res.t('cantMoveCompletedTodo'));
 
-    const owner = group || challenge || user;
+    const owner = challenge || user;
 
     // In memory updates
     const order = owner.tasksOrder[`${task.type}s`];
@@ -846,7 +846,7 @@ api.moveTask = {
     // it cannot be updated in the pre update hook
     // See https://github.com/HabitRPG/habitica/pull/9321#issuecomment-354187666 for more info
     // Only users have a version.
-    if (!group && !challenge) {
+    if (!challenge) {
       owner._v += 1;
     }
 
