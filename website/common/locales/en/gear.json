@@ -1073,7 +1073,7 @@
   "armorSpecialSummer2022WarriorText": "Waterspout Armor",
   "armorSpecialSummer2022WarriorNotes": "Get ready for a watery battle as you surround yourself with this twirling, whirling column of air and mist. Increases Constitution by <%= con %>. Limited Edition 2022 Summer Gear.",
   "armorSpecialSummer2022MageText": "Manta Ray Armor",
-  "armorSpecialSummer2022MageNotes": "Keep your head protected as you dive into your tasks or into the deepest waters. Increases Intelligence by <%= int %>. Limited Edition 2022 Summer Gear.",
+  "armorSpecialSummer2022MageNotes": "When wearing this armor, you will glide easily through your work like the manta ray glides through water. Increases Intelligence by <%= int %>. Limited Edition 2022 Summer Gear.",
   "armorSpecialSummer2022HealerText": "Angelfish Tail",
   "armorSpecialSummer2022HealerNotes": "Use your colorful fins to scoot about the reef and help those in need of rest and healing. Increases Constitution by <%= con %>. Limited Edition 2022 Summer Gear.",
 
