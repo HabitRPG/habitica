@@ -155,90 +155,89 @@
           :amazon-data="{type: 'single', gift, giftedTo: userReceivingGift._id, receiverName}"
         />
       </div>
-
-      <!-- send gems from balance -->
-      <div
-        v-show="selectedPage === 'ownGems'"
-      >
-        <div class="gem-group">
-          <label v-once>
-            {{ $t('howManyGemsSend') }}
-          </label>
-          <div class="d-flex align-items-center justify-content-center">
-            <div
-              class="gray-circle"
-              @click="gift.gems.amount <= 0
-                ? gift.gems.amount = 0
-                : gift.gems.amount--"
-            >
-              <div
-                class="icon-negative"
-                v-html="icons.negativeIcon"
-              ></div>
-            </div>
-            <div class="input-group">
-              <div class="input-group-prepend input-group-icon align-items-center">
-                <div
-                  class="icon-gem"
-                  v-html="icons.gemIcon"
-                ></div>
-              </div>
-              <input
-                id="gemsForm"
-                v-model="gift.gems.amount"
-                class="form-control"
-                :max="maxGems"
-              >
-            </div>
-            <div
-              class="gray-circle"
-              @click="gift.gems.amount < maxGems
-                ? gift.gems.amount++
-                : gift.gems.amount = maxGems"
-            >
-              <div
-                class="icon-positive"
-                v-html="icons.positiveIcon"
-              ></div>
-            </div>
-          </div>
-          <div class="align-items-middle">
-            <div class="d-flex justify-content-center align-items-middle">
-              <span class="balance-text">
-                {{ $t('yourBalance') }}
-              </span>
-              <span
-                class="icon-gem balance-gem-margin"
-                style="display: inline-block;"
-                v-html="icons.gemIcon"
-              ></span>
-              <span
-                class="balance-gems"
-              >
-                {{ maxGems }}
-              </span>
-            </div>
-          </div>
-          <div class="d-flex flex-column justify-content-center align-items-middle mt-3">
-            <button
-              v-if="fromBal"
-              class="btn btn-primary mx-auto mt-2"
-              type="submit"
-              :disabled="sendingInProgress"
-              @click="sendGift()"
-            >
-              {{ $t("send") }}
-            </button>
-          </div>
-
-          <!-- change to buying gems page -->
+    </div>
+    <!-- send gems from balance -->
+    <div
+      v-show="selectedPage === 'ownGems'"
+    >
+      <div class="gem-group">
+        <label v-once>
+          {{ $t('howManyGemsSend') }}
+        </label>
+        <div class="d-flex align-items-center justify-content-center">
           <div
-            :class="{active: selectedPage === 'buyGems'}"
-            class="gem-state-change"
-            @click="selectPage('buyGems')"
+            class="gray-circle"
+            @click="gift.gems.amount <= 0
+              ? gift.gems.amount = 0
+              : gift.gems.amount--"
           >
-            {{ $t('needToPurchaseGems') }}
+            <div
+              class="icon-negative"
+              v-html="icons.negativeIcon"
+            ></div>
           </div>
+          <div class="input-group">
+            <div class="input-group-prepend input-group-icon align-items-center">
+              <div
+                class="icon-gem"
+                v-html="icons.gemIcon"
+              ></div>
+            </div>
+            <input
+              id="gemsForm"
+              v-model="gift.gems.amount"
+              class="form-control"
+              :max="maxGems"
+            >
+          </div>
+          <div
+            class="gray-circle"
+            @click="gift.gems.amount < maxGems
+              ? gift.gems.amount++
+              : gift.gems.amount = maxGems"
+          >
+            <div
+              class="icon-positive"
+              v-html="icons.positiveIcon"
+            ></div>
+          </div>
+        </div>
+        <div class="align-items-middle">
+          <div class="d-flex justify-content-center align-items-middle">
+            <span class="balance-text">
+              {{ $t('yourBalance') }}
+            </span>
+            <span
+              class="icon-gem balance-gem-margin"
+              style="display: inline-block;"
+              v-html="icons.gemIcon"
+            ></span>
+            <span
+              class="balance-gems"
+            >
+              {{ maxGems }}
+            </span>
+          </div>
+        </div>
+        <div class="d-flex flex-column justify-content-center align-items-middle mt-3">
+          <button
+            v-if="fromBal"
+            class="btn btn-primary mx-auto mt-2"
+            type="submit"
+            :disabled="sendingInProgress"
+            @click="sendGift()"
+          >
+            {{ $t("send") }}
+          </button>
+        </div>
+
+        <!-- change to buying gems page -->
+        <div
+          :class="{active: selectedPage === 'buyGems'}"
+          class="gem-state-change"
+          @click="selectPage('buyGemsLink')"
+        >
+          {{ $t('needToPurchaseGems') }}
         </div>
       </div>
     </div>
@@ -263,19 +262,20 @@
 
     .modal-close {
       position: absolute;
-      width: 18px;
-      height: 18px;
-      padding: 4px;
       right: 16px;
       top: 16px;
       cursor: pointer;
 
       .icon-close {
-        width: 15px;
-        height: 15px;
+        width: 18px;
+        height: 18px;
+        vertical-align: middle;
 
         & ::v-deep svg path {
           fill: #878190;
+        }
+         & :hover {
+          fill: #686274;
         }
       }
     }
@@ -615,6 +615,7 @@ export default {
     },
     selectPage (page) {
       if (page === this.selectedPage) return;
+      if (page === 'buyGemsLink') this.selectedPage = 'buyGemsLink';
       if (page === 'buyGems' && this.selectedPage === 'ownGems') return;
       this.selectedPage = page || 'subscription';
       if (this.selectedPage === 'buyGems') {
