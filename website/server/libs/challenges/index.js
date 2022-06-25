@@ -75,16 +75,15 @@ export async function createChallenge (user, req, res) {
       // Group pays for all of prize
       group.balance -= prizeCost;
 
-      await user.updateBalance(0, 'create_challenge', challenge._id, `Challenge Name: ${challenge.name} (ID: ${challenge._id}) - 
-Balance removed from Group: ${group._id}`);
+      await user.updateBalance(0, 'create_bank_challenge', challenge._id, challenge.name);
     } else if (groupBalance > 0) {
       // User pays remainder of prize cost after group
       const remainder = prizeCost - group.balance;
       group.balance = 0;
-      await user.updateBalance(-remainder, 'create_challenge', challenge._id, challenge.text);
+      await user.updateBalance(-remainder, 'create_challenge', challenge._id, challenge.name);
     } else {
       // User pays for all of prize
-      await user.updateBalance(-prizeCost, 'create_challenge', challenge._id, challenge.text);
+      await user.updateBalance(-prizeCost, 'create_challenge', challenge._id, challenge.name);
     }
   }
 

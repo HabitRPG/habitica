@@ -81,11 +81,10 @@
                 </div>
               </b-popover>
             </td>
-            <td>
-              <span>{{ transactionTypeText(entry.transactionType) }}</span>
+            <td class="entry-action">
+              <span v-html="transactionTypeText(entry.transactionType)"></span>
             </td>
             <td>
-              {{entry.transactionType}}
               <span v-if="['gift_send', 'gift_receive'].includes(entry.transactionType)">
                 <router-link
                   class="user-link"
@@ -94,7 +93,10 @@
                   @{{ entry.referenceText }}
                 </router-link>
               </span>
-              <span v-else-if="['create_challenge'].includes(entry.transactionType)">
+              <span v-else-if="[
+                  'create_challenge',
+                  'create_bank_challenge'
+                  ].includes(entry.transactionType)">
                 <router-link
                     class="challenge-link"
                     :to="{ name: 'challenge', params: { challengeId: entry.reference } }">
@@ -105,8 +107,9 @@
               </span>
               <span v-else v-html="entryReferenceText(entry)"></span>
 
-
+              <span v-if="entry.reference">
                 ({{entry.reference}})
+              </span>
             </td>
           </tr>
         </table>
@@ -172,8 +175,8 @@
                 </div>
               </b-popover>
             </td>
-            <td>
-              <span>{{ transactionTypeText(entry.transactionType) }}</span>
+            <td class="entry-action">
+              <span v-html="transactionTypeText(entry.transactionType)"></span>
             </td>
             <td>
               <span v-html="entryReferenceText(entry)"></span>
@@ -259,6 +262,11 @@
     color: $white;
   }
 
+  table {
+    line-height: 1.71;
+    color: $gray-50;
+  }
+
   th {
     border-top: 0 !important;
     padding: 0.25rem 0.5rem !important;
@@ -289,6 +297,12 @@
 
   .challenge-link, .user-link {
     color: $blue-10 !important;
+  }
+
+  .entry-action {
+    b {
+      text-transform: uppercase;
+    }
   }
 </style>
 
