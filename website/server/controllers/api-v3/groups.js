@@ -200,7 +200,7 @@ api.createGroupPlan = {
     const group = new Group(Group.sanitize(req.body.groupToCreate));
 
     req.checkBody('paymentType', res.t('paymentTypeRequired')).notEmpty();
-
+    req.checkBody('summary', apiError('summaryLengthExceedsMax')).isLength({ max: MAX_SUMMARY_SIZE_FOR_GUILDS });
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
