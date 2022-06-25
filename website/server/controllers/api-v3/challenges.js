@@ -30,9 +30,10 @@ import {
 } from '../../libs/challenges';
 import apiError from '../../libs/apiError';
 
-import shared from '../../../common';
+import common from '../../../common';
 
-const { MAX_SUMMARY_SIZE_FOR_CHALLENGES } = shared.constants;
+const { MAX_SUMMARY_SIZE_FOR_CHALLENGES } = common.constants;
+
 const api = {};
 
 /**
