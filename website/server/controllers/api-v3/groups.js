@@ -21,17 +21,14 @@ import {
   inviteByEmail,
   inviteByUserName,
 } from '../../libs/invites';
-import {
-  common,
-  shared
-} from '../../../common';
+import common from '../../../common';
 import payments from '../../libs/payments/payments';
 import stripePayments from '../../libs/payments/stripe';
 import amzLib from '../../libs/payments/amazon';
 import apiError from '../../libs/apiError';
 import { model as UserNotification } from '../../models/userNotification';
 
-const { MAX_SUMMARY_SIZE_FOR_GUILDS } = shared.constants;
+const { MAX_SUMMARY_SIZE_FOR_GUILDS } = common.constants;
 const MAX_EMAIL_INVITES_BY_USER = 200;
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS_TECH_ASSISTANCE_EMAIL');
 
