@@ -4,6 +4,8 @@ import {
   createAndPopulateGroup,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
+import {MAX_SUMMARY_SIZE_FOR_CHALLENGES} from '../../../../../website/common/script/constants.js';
+
 
 describe('PUT /challenges/:challengeId', () => {
   let privateGuild; let user; let nonMember; let challenge; let
@@ -90,5 +92,16 @@ describe('PUT /challenges/:challengeId', () => {
     });
     expect(res.name).to.equal('New Challenge Name');
     expect(res.description).to.equal('New challenge description.');
+  });
+
+  it('return error when challenge summary is greater than MAX_SUMMARY_SIZE_FOR_CHALLENGES characters', async () => {
+    let summary = "A".repeat(MAX_SUMMARY_SIZE_FOR_CHALLENGES + 1);
+    await expect(user.put(`/challenges/${challenge._id}`, {
+      summary: summary
+    })).to.eventually.be.rejected.and.eql({
+      code: 400,
+      error: 'BadRequest',
+      message: t('invalidReqParams'),
+    });
   });
 });

@@ -3,6 +3,7 @@ import {
   generateUser,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
+import {MAX_SUMMARY_SIZE_FOR_GUILDS} from '../../../../../website/common/script/constants.js';
 
 describe('PUT /group', () => {
   let leader; let nonLeader; let groupToUpdate; let
@@ -129,5 +130,16 @@ describe('PUT /group', () => {
     const response = await groupLeader.put(`/groups/${group._id}`, updateGroupDetails);
 
     expect(response.bannedWordsAllowed).to.eql(undefined);
+  });
+
+  it('returns error when summary is longer than MAX_SUMMARY_SIZE_FOR_GUILDS characters', async () => {
+    const summary = 'A'.repeat(MAX_SUMMARY_SIZE_FOR_GUILDS + 1);
+    await expect(leader.put(`/groups/${groupToUpdate._id}`, {
+      summary,
+    })).to.eventually.be.rejected.and.eql({
+      code: 400,
+      error: 'BadRequest',
+      message: t('invalidReqParams'),
+    });
   });
 });
