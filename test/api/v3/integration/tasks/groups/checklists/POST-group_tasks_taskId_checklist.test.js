@@ -15,6 +15,7 @@ describe('POST group /tasks/:taskId/checklist/', () => {
         type: 'guild',
       },
       members: 2,
+      upgradeToGroupPlan: true,
     });
 
     guild = group;

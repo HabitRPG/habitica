@@ -127,7 +127,13 @@
     "achievementZodiacZookeeperModalText": "Ви зібрали всіх зодіакальних тварин!",
     "achievementZodiacZookeeper": "Зодіакальний звіролов",
     "achievementZodiacZookeeperText": "Вилупив усіх стандартних зодіакальних тварин: Щура, Корову, Кролика, Змію, Коня, Вівцю, Мавпу, Півня, Вовка, Тигра, Свиню, і Дракона!",
-    "achievementBirdsOfAFeatherText": "Зібрав(-ла) усіх літаючих тварин: летюче порося, сову, папугу, птеродактиля, ґрифона, сокола, павича та півня.",
+    "achievementBirdsOfAFeatherText": "Зібрав(-ла) усіх літаючих тварин: летюче порося, сову, папугу, птеродактиля, ґрифона, сокола, павича та півня!",
     "achievementBirdsOfAFeatherModalText": "Ви зібрали всіх тварин, що літають!",
-    "achievementBirdsOfAFeather": "Повітряний легіон"
+    "achievementBirdsOfAFeather": "Повітряний легіон",
+    "achievementReptacularRumbleText": "Вилупи(-в/ла) усі стандартні кольори рептилій: алігатора, птеродактиля, змії, трицератопса, черепахи, тиранозавра і велоцираптора!",
+    "achievementReptacularRumble": "Гул рептилій",
+    "achievementReptacularRumbleModalText": "Ви зібрали всіх вихованців рептилій!",
+    "achievementGroupsBeta2022": "Інтерактивний бета-тестер",
+    "achievementGroupsBeta2022Text": "Ви та Ваша команда надали неоціненний відгук, щоб допомогти тестувати Habitica.",
+    "achievementGroupsBeta2022ModalText": "Ви та Ваші команди допомогли Habitica, тестуючи та надаючи відгуки!"
 }

@@ -64,7 +64,7 @@
     "noChallengeTitle": "אין לך שום אתגרים.",
     "challengeDescription1": "אתגרים הם אירועים של הקהילה בהם שחקנים מתחרים וזוכים בפרסים על ידי השלמת קבוצה של מטלות הקשורות זו לזו.",
     "challengeDescription2": "מצא אתגרים מומלצים לך לפי תחומי העניין שלך, חפש אתגרים פומביים של הביטיקה, או תיצור אתגרים משלך.",
-    "noChallengeMatchFilters": "",
+    "noChallengeMatchFilters": "לא הצלחנו למצוא אתגרים מתאימים.",
     "createdBy": "נוצר על ידי",
     "joinChallenge": "הצטרף לאתגר",
     "leaveChallenge": "עזיבת האתגר",
@@ -102,7 +102,7 @@
     "confirmKeepChallengeTasks": "לשמור את מטלות האתגר?",
     "selectParticipant": "בחר משתתף",
     "yourReward": "הפרס שלך",
-    "filters": "סינון",
+    "filters": "מסננים",
     "wonChallengeDesc": "ניצחת באתגר \"<%= challengeName %>\"! הניצחון שלך נרשם בהישגים שלך.",
     "removeTasks": "הסרת המשימות"
 }

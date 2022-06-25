@@ -18,8 +18,10 @@ body {
 // Restore the default styling for a elements without an href attribute
 // that was changed in bootstrap 4.5.1
 a:not([href]), a:not([href]):hover {
-  color: inherit;
-  text-decoration: none;
+  &:not([role=button]) { 
+    color: inherit;
+    text-decoration: none;
+  }
 }
 
 a, a:not([href]):not([tabindex]) {

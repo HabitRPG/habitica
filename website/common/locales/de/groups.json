@@ -190,7 +190,7 @@
     "needsWork": "Benötigt Arbeit",
     "viewRequests": "Anfragen anzeigen",
     "groupSubscriptionPrice": "$9 monatlich + $3 pro Monat für jedes weitere Gruppenmitglied",
-    "groupBenefitsDescription": "Wir haben gerade die Betaversion der Gruppenpläne gestartet! Das Upgrade auf den Gruppenplan schaltet einige einzigartige Funktionen frei, welche die soziale Seite  von Habitica verbessern.",
+    "groupBenefitsDescription": "Wir haben gerade die Betaversion der Gruppenpläne gestartet! Das Upgrade auf den Gruppenplan schaltet einige einzigartige Funktionen frei, welche die soziale Seite von Habitica verbessern.",
     "teamBasedTasks": "Gruppenorientierte Aufgaben",
     "cannotDeleteActiveGroup": "Du kannst keine Gruppe mit einem laufenden Abonnement löschen",
     "groupTasksTitle": "Gruppen-Aufgabenliste",
@@ -365,7 +365,7 @@
     "bannedWordsAllowedDetail": "Durch Auswahl dieser Option, wird das Verwenden verbotener Wörter in dieser Gilde zugelassen.",
     "bannedWordsAllowed": "Verbotene Wörter zulassen",
     "languageSettings": "Spracheinstellungen",
-    "cannotRemoveQuestOwner": "Du kannst die Person, welche die aktive Quest besitzt nicht entfernen. Breche erst die Quest ab.",
+    "cannotRemoveQuestOwner": "Du kannst die Person, welche die aktive Quest besitzt, nicht entfernen. Breche erst die Quest ab.",
     "features": "Funktionen",
     "giftMessageTooLong": "Die maximale Länge für Geschenk-Nachrichten ist <%= maxGiftMessageLength %>.",
     "selectSubscription": "Wähle ein Abonnement",
@@ -378,5 +378,6 @@
     "editParty": "Party bearbeiten",
     "leaveGuild": "Gilde verlassen",
     "viewDetails": "Details ansehen",
-    "upgradeToGroup": "Auf Gruppenplan upgraden"
+    "upgradeToGroup": "Auf Gruppenplan upgraden",
+    "sendGiftTotal": "Insgesamt:"
 }

@@ -2622,5 +2622,22 @@
     "backMystery202205Text": "Ailes crépusculaires",
     "backMystery202205Notes": "Le puissant battement de ces vastes ailes résonne dans les dunes. Ne confère aucun bonus. Équipement d'abonnement de mai 2022.",
     "headAccessoryMystery202205Text": "Cornes de dragon aux ailes crépusculaires",
-    "headAccessoryMystery202205Notes": "Ces cornes éblouissantes sont aussi brillantes qu'un coucher de soleil dans le désert. Ne confère aucun bonus. Équipement d'abonnement de mai 2022."
+    "headAccessoryMystery202205Notes": "Ces cornes éblouissantes sont aussi brillantes qu'un coucher de soleil dans le désert. Ne confère aucun bonus. Équipement d'abonnement de mai 2022.",
+    "weaponArmoireHuntingHornText": "Corne de chasse",
+    "weaponArmoireHuntingHornNotes": "Taïaut ! Taïaut ! Rassemblez votre équipe pour une aventure ou une quête en soufflant dans cette corne. Augmente la force de <%= str %> et l'intelligence de <%= int %>. Armoire enchantée : ensemble d'instruments de musique 1 (objet 1 de 3)",
+    "shieldArmoireSpanishGuitarText": "Guitare espagnole",
+    "shieldArmoireSpanishGuitarNotes": "Dzing ! Dzing ! Rassemblez votre équipe pour un concert ou un fête en jouant de cette guitare. Augmente la perception de <%= per %> et l'intelligence de <%= int %>. Armoire enchantée : ensemble d'instruments de musique 1 ((objet 2 de 3)",
+    "shieldArmoireSnareDrumText": "Caisse-claire",
+    "shieldArmoireSnareDrumNotes": "Rat-a-tat-tat ! Rassemblez votre équipe pour une parade ou un défilé en jouant de ce tambour. Augmente la constitution de <%= con %> et l'intelligence de <%= int %>. Armoire enchantée : ensemble d'instruments de musique 1 (objet 3 de 3)",
+    "backMystery202206Text": "Ailes de lutine maritime",
+    "backMystery202206Notes": "Des ailes fabuleuses faites d'eau et de vagues ! Ne confère aucun bonus. Équipement d'abonnement de juin 2022.",
+    "headMystery202206Text": "Diadème de lutine maritime",
+    "headMystery202206Notes": "La perle bleue de ce diadème vous donne le pouvoir de contrôler l'eau. Utilisez-le avec sagesse ! Ne confère aucun bonus. Équipement d'abonnement de Juin 2022.",
+    "weaponArmoireOrangeKiteText": "Cerf-volant orange",
+    "weaponArmoireGreenKiteText": "Cerf-volant vert",
+    "weaponArmoirePinkKiteText": "Cerf-volant rose",
+    "weaponArmoireYellowKiteText": "Cerf-volant jaune",
+    "weaponArmoireBlueKiteText": "Cerf-volant bleu",
+    "weaponArmoireYellowKiteNotes": "Faisant des sauts et des embardées, regarde ton joyeux cerf-volant s'envoler. Augmente tous les attributs de <%= attrs %> chaque. Armoire enchantée : ensemble cerf-volant (objet 5 de 5)",
+    "weaponArmoirePinkKiteNotes": "Plonger, virevolter et s'envoler haut dans les airs, votre cerf-volant se démarque dans le ciel. Augmente tous les attributs de <%= attrs %> chaque. Armoire enchantée : Ensemble cerf-volant (objet 4 de 5)"
 }

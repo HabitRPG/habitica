@@ -88,7 +88,7 @@ describe('POST /user/reset', () => {
   });
 
   it('does not delete challenge or group tasks', async () => {
-    const guild = await generateGroup(user);
+    const guild = await generateGroup(user, {}, { 'purchased.plan.customerId': 'group-unlimited' });
     const challenge = await generateChallenge(user, guild);
     await user.post(`/challenges/${challenge._id}/join`);
     await user.post(`/tasks/challenge/${challenge._id}`, {

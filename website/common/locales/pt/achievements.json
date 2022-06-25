@@ -105,9 +105,14 @@
     "achievementSeeingRed": "Exército Vermelho",
     "achievementSkeletonCrew": "Equipe Esqueleto",
     "achievementBugBonanza": "Prosperidade de Inseto",
-    "achievementRosyOutlook": "Aspecto Rosado",
+    "achievementRosyOutlook": "Perspectiva Rosada",
     "achievementVioletsAreBlue": "Violetas são Azuis",
     "achievementSeasonalSpecialist": "Especialista Sazonal",
     "achievementWildBlueYonderModalText": "Tu domesticaste todas as Montarias de Algodão Doce Azul!",
-    "achievementSeasonalSpecialistText": "Completou todas as missões sazonais de Primavera e Inverno: Caçada aos Ovos, Noel Caçador, e Encontre o Filhote!"
+    "achievementSeasonalSpecialistText": "Completou todas as missões sazonais de Primavera e Inverno: Caça aos Ovos, Pai Natal Caçador, e Encontre o Filhote!",
+    "achievementDomesticatedText": "Eclodiu todas as cores padrão das mascotes domesticadas: Furão, Poquinho-da-Índia, Galo, Porco Voador, Rato, Coelhinho, Cavalo e Vaca!",
+    "achievementDomesticated": "I-A-I-A-OH",
+    "achievementVioletsAreBlueModalText": "Coletou todas as Mascotes Algodão-doce Rosa!",
+    "achievementDomesticatedModalText": "Coletou todas as mascotes domesticadas!",
+    "achievementWildBlueYonderText": "Domesticou todas as Montarias de Algodão Doce Azul."
 }

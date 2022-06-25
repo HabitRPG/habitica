@@ -9,7 +9,7 @@ describe('POST group-tasks/:taskId/move/to/:position', () => {
 
   beforeEach(async () => {
     user = await generateUser({ balance: 1 });
-    guild = await generateGroup(user, { type: 'guild' });
+    guild = await generateGroup(user, { type: 'guild' }, { 'purchased.plan.customerId': 'group-unlimited' });
   });
 
   it('can move task to new position', async () => {

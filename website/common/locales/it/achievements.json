@@ -126,8 +126,14 @@
     "achievementShadeOfItAllModalText": "Hai domato tutte le cavalcature oscure!",
     "achievementBirdsOfAFeather": "Pennuti che si somigliano",
     "achievementBirdsOfAFeatherModalText": "Hai collezionato tutti gli animali volanti!",
-    "achievementBirdsOfAFeatherText": "Ha schiuso i volatili: Maiale Volante, Gufo, Pappagallo, Pterodattilo, Grifone, Falcóne, Pavone e Gallo, in tutte le colorazioni standard.",
+    "achievementBirdsOfAFeatherText": "Ha schiuso i volatili: Maiale Volante, Gufo, Pappagallo, Pterodattilo, Grifone, Falcóne, Pavone e Gallo, in tutte le colorazioni standard!",
     "achievementZodiacZookeeper": "Custode dello Zoodiaco",
     "achievementZodiacZookeeperModalText": "Hai collezionato tutti gli animali dello zodiaco!",
-    "achievementZodiacZookeeperText": "Ha schiuso gli animali zodiacali: Ratto, Mucca, Coniglietto, Serpente, Cavallo, Pecora, Scimmia, Gallo, Lupo, Tigre, Maiale Volante e Drago, in tutte le colorazioni standard!"
+    "achievementZodiacZookeeperText": "Ha schiuso gli animali zodiacali: Ratto, Mucca, Coniglietto, Serpente, Cavallo, Pecora, Scimmia, Gallo, Lupo, Tigre, Maiale Volante e Drago, in tutte le colorazioni standard!",
+    "achievementReptacularRumbleModalText": "Hai collezionato tutti i rettili!",
+    "achievementReptacularRumble": "Baccano Rettiliano",
+    "achievementReptacularRumbleText": "Ha schiuso tutti i rettili: Alligatore, Pterodattilo, Serpente, Triceratopo, Tartaruga, Tyrannosaurus Rex e Velociraptor, in tutte le colorazioni standard!",
+    "achievementGroupsBeta2022": "Beta Tester Interattivo",
+    "achievementGroupsBeta2022Text": "Tu e il tuo gruppo avete fornito feedback inestimabili per aiutare Habitica a testare.",
+    "achievementGroupsBeta2022ModalText": "Tu e i tuoi gruppi avete aiutato Habitica testando e fornendo feedback!"
 }

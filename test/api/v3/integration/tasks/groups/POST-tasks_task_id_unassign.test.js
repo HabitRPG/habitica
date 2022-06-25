@@ -21,6 +21,7 @@ describe('POST /tasks/:taskId/unassign/:memberId', () => {
         type: 'guild',
       },
       members: 2,
+      upgradeToGroupPlan: true,
     });
 
     guild = group;
@@ -91,7 +92,7 @@ describe('POST /tasks/:taskId/unassign/:memberId', () => {
     await user.post(`/tasks/${task._id}/unassign/${member._id}`);
 
     await member.sync();
-    expect(member.notifications.length).to.equal(0);
+    expect(member.notifications.length).to.equal(1); // mystery items
   });
 
   it('unassigns a user and only that user from a task', async () => {

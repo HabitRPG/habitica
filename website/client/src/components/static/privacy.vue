@@ -137,15 +137,15 @@
       browser which allows you to refuse cookies. Further information about the procedure to follow in order to
       disable cookies can be found on your Internet browser provider’s website via your help screen. You may
       wish to refer to <a
-        href="http://www.allaboutcookies.org/manage-cookies/index.html"
+        href="https://www.allaboutcookies.org/manage-cookies/index.html"
         target="_blank"
       >
-        http://www.allaboutcookies.org/manage-cookies/index.html</a> for information on commonly used browsers.
+        https://www.allaboutcookies.org/manage-cookies/index.html</a> for information on commonly used browsers.
       For more information about targeting and advertising cookies and how you can opt out, you can also visit
       <a
-        href="http://optout.aboutads.info"
+        href="https://optout.aboutads.info"
         target="_blank"
-      >http://optout.aboutads.info</a>. Please be aware
+      >https://optout.aboutads.info</a>. Please be aware
       that if cookies are disabled, not all features of the Service may operate properly or as intended.
     </p>
     <h3>Third-Party Analytics Providers</h3>

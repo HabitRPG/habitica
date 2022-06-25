@@ -30,16 +30,16 @@ export default {
 
   pinnedSets: SHOP_OPEN
     ? {
-      healer: 'spring2022PeridotHealerSet',
-      rogue: 'spring2022MagpieRogueSet',
-      warrior: 'spring2022RainstormWarriorSet',
-      wizard: 'spring2022ForsythiaMageSet',
+      healer: 'summer2022AngelfishHealerSet',
+      rogue: 'summer2022CrabRogueSet',
+      warrior: 'summer2022WaterspoutWarriorSet',
+      wizard: 'summer2022MantaRayMageSet',
     }
     : {},
 
-  availableSpells: SHOP_OPEN && moment().isBetween('2022-04-14T08:00-05:00', CURRENT_EVENT.end)
+  availableSpells: SHOP_OPEN && moment().isBetween('2022-07-12T08:00-05:00', CURRENT_EVENT.end)
     ? [
-      'shinySeed',
+      'seafoam',
     ]
     : [],
 
@@ -49,5 +49,5 @@ export default {
     ]
     : [],
 
-  featuredSet: 'spring2021TwinFlowerRogueSet',
+  featuredSet: 'summer2021NautilusMageSet',
 };
