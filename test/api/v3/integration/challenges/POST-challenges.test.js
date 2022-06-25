@@ -4,6 +4,7 @@ import {
   createAndPopulateGroup,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
+import {MAX_SUMMARY_SIZE_FOR_CHALLENGES} from '../../../../../website/common/script/constants.js';
 
 describe('POST /challenges', () => {
   it('returns error when group is empty', async () => {
@@ -60,6 +61,22 @@ describe('POST /challenges', () => {
     });
   });
 
+  it('return error when creating a challenge with summary with greater than MAX_SUMMARY_SIZE_FOR_CHALLENGES characters', async () => {
+    const user = await generateUser();
+    let summary = "A".repeat(MAX_SUMMARY_SIZE_FOR_CHALLENGES + 1)
+    let group = createAndPopulateGroup({
+      members: 1
+    });
+    await expect(user.post('/challenges', {
+      group: group._id,
+      summary: summary
+    })).to.eventually.be.rejected.and.eql({
+      code: 400,
+      error: 'BadRequest',
+      message: t('invalidReqParams'),
+    });
+  });
+  
   context('Creating a challenge for a valid group', () => {
     let groupLeader;
     let group;
