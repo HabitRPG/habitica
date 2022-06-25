@@ -31,6 +31,7 @@ import {
 import apiError from '../../libs/apiError';
 
 import shared from '../../../common';
+
 const { MAX_SUMMARY_SIZE_FOR_CHALLENGES } = shared.constants;
 const api = {};
 
@@ -202,7 +203,7 @@ api.createChallenge = {
     const { user } = res.locals;
 
     req.checkBody('group', apiError('groupIdRequired')).notEmpty();
-    req.checkBody('summary', apiError('summaryLengthExceedsMax')).isLength({max: MAX_SUMMARY_SIZE_FOR_CHALLENGES });
+    req.checkBody('summary', apiError('summaryLengthExceedsMax')).isLength({ max: MAX_SUMMARY_SIZE_FOR_CHALLENGES });
 
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -710,8 +711,8 @@ api.updateChallenge = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
-    req.checkBody('summary', apiError('summaryLengthExceedsMax')).isLength({max: MAX_SUMMARY_SIZE_FOR_CHALLENGES });
-    
+    req.checkBody('summary', apiError('summaryLengthExceedsMax')).isLength({ max: MAX_SUMMARY_SIZE_FOR_CHALLENGES });
+
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
