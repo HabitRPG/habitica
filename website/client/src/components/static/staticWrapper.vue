@@ -4,7 +4,7 @@
       v-if="showContentWrap"
       :class="{
         'home-header': ['home', 'front'].indexOf($route.name) !== -1,
-        'white-header': this.$route.name === 'plans'
+        'white-header': $route.name === 'plans'
       }"
     />
     <div class="static-wrapper">

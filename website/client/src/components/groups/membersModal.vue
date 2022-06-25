@@ -49,7 +49,7 @@
               key-prop="value"
               @select="changeSortOption($event)"
             >
-              <template v-slot:item="{ item }">
+              <template #item="{ item }">
                 <span
                   v-if="item"
                   class="label"
@@ -64,7 +64,7 @@
               key-prop="value"
               @select="changeSortDirection($event)"
             >
-              <template v-slot:item="{ item }">
+              <template #item="{ item }">
                 <span
                   v-if="item"
                   class="label"

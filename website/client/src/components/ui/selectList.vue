@@ -9,7 +9,7 @@
       @show="isOpened = true"
       @hide="isOpened = false"
     >
-      <template v-slot:button-content>
+      <template #button-content>
         <slot
           name="item"
           :item="selected"

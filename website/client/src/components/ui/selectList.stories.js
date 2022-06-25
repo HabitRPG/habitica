@@ -1,19 +1,17 @@
-/* eslint-disable import/no-extraneous-dependencies */
-import { storiesOf } from '@storybook/vue';
 import { withKnobs } from '@storybook/addon-knobs';
 
 import SelectList from './selectList.vue';
 import SelectDifficulty from '../tasks/modal-controls/selectDifficulty';
 import SelectTranslatedArray from '../tasks/modal-controls/selectTranslatedArray';
 
-const stories = storiesOf('Select List', module);
+export default {
+  title: 'Select List',
+  decorators: [withKnobs],
+};
 
-stories.addDecorator(withKnobs);
-
-stories
-  .add('states', () => ({
-    components: { SelectList },
-    template: `
+export const States = () => ({
+  components: { SelectList },
+  template: `
       <div class="m-xl">
         Hover / Click on:
         <select-list class="mb-4"
@@ -47,29 +45,34 @@ stories
 
       </div>
     `,
-    data () {
-      return {
-        selected: null,
-        items: [
-          {
-            key: 1,
-            value: {
-              text: 'First',
-            },
+  data () {
+    return {
+      selected: null,
+      items: [
+        {
+          key: 1,
+          value: {
+            text: 'First',
           },
-          {
-            key: 2,
-            value: {
-              text: 'Second',
-            },
+        },
+        {
+          key: 2,
+          value: {
+            text: 'Second',
           },
-        ],
-      };
-    },
-  }))
-  .add('difficulty', () => ({
-    components: { SelectDifficulty },
-    template: `
+        },
+      ],
+    };
+  },
+});
+
+States.story = {
+  name: 'states',
+};
+
+export const Difficulty = () => ({
+  components: { SelectDifficulty },
+  template: `
       <div class="m-xl">
         <select-difficulty
           :value="selected"
@@ -81,15 +84,20 @@ stories
         Selected: {{ selected }}
       </div>
     `,
-    data () {
-      return {
-        selected: 2,
-      };
-    },
-  }))
-  .add('translated array', () => ({
-    components: { SelectTranslatedArray },
-    template: `
+  data () {
+    return {
+      selected: 2,
+    };
+  },
+});
+
+Difficulty.story = {
+  name: 'difficulty',
+};
+
+export const TranslatedArray = () => ({
+  components: { SelectTranslatedArray },
+  template: `
       <div class="m-xl">
         <select-translated-array
           :items="['daily', 'weekly', 'monthly']"
@@ -102,9 +110,13 @@ stories
         Selected: {{ selected }}
       </div>
     `,
-    data () {
-      return {
-        selected: 'weekly',
-      };
-    },
-  }));
+  data () {
+    return {
+      selected: 'weekly',
+    };
+  },
+});
+
+TranslatedArray.story = {
+  name: 'translated array',
+};

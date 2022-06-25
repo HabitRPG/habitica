@@ -1,16 +1,16 @@
-/* eslint-disable import/no-extraneous-dependencies */
-import { storiesOf } from '@storybook/vue';
-
 import PaymentsButtonsList from './list.vue';
 import getStore from '@/store';
 import { setup as setupPayments } from '@/libs/payments';
 
 setupPayments();
 
-storiesOf('Subscriptions/Payments Buttons', module)
-  .add('simple', () => ({
-    components: { PaymentsButtonsList },
-    template: `
+export default {
+  title: 'Subscriptions/Payments Buttons',
+};
+
+export const Simple = () => ({
+  components: { PaymentsButtonsList },
+  template: `
       <div style="position: absolute; margin: 20px">
         <payments-buttons-list
           :amazon-data="{type: 'single'}"
@@ -19,11 +19,16 @@ storiesOf('Subscriptions/Payments Buttons', module)
         ></payments-buttons-list>
       </div>
     `,
-    store: getStore(),
-  }))
-  .add('disabled', () => ({
-    components: { PaymentsButtonsList },
-    template: `
+  store: getStore(),
+});
+
+Simple.story = {
+  name: 'simple',
+};
+
+export const Disabled = () => ({
+  components: { PaymentsButtonsList },
+  template: `
       <div style="position: absolute; margin: 20px">
         <payments-buttons-list
           :disabled="true"
@@ -33,11 +38,16 @@ storiesOf('Subscriptions/Payments Buttons', module)
         ></payments-buttons-list>
       </div>
     `,
-    store: getStore(),
-  }))
-  .add('only stripe and amazon (example)', () => ({
-    components: { PaymentsButtonsList },
-    template: `
+  store: getStore(),
+});
+
+Disabled.story = {
+  name: 'disabled',
+};
+
+export const OnlyStripeAndAmazonExample = () => ({
+  components: { PaymentsButtonsList },
+  template: `
       <div style="position: absolute; margin: 20px">
         <payments-buttons-list
           :amazon-data="{type: 'single'}"
@@ -45,5 +55,9 @@ storiesOf('Subscriptions/Payments Buttons', module)
         ></payments-buttons-list>
       </div>
     `,
-    store: getStore(),
-  }));
+  store: getStore(),
+});
+
+OnlyStripeAndAmazonExample.story = {
+  name: 'only stripe and amazon (example)',
+};

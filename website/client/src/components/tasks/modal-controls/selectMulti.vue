@@ -27,7 +27,7 @@ multi<template>
           @remove-item="removeItem($event)"
         />
       </b-dropdown-header>
-      <template v-slot:button-content>
+      <template #button-content>
         <multi-list
           :items="selectedItemsAsObjects"
           :add-new="addNew"

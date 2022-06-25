@@ -6,7 +6,7 @@
         :to="!isUserLoggedIn ? '/static/home' : '/'"
       >
         <div
-          v-if="this.$route.name === 'plans'"
+          v-if="$route.name === 'plans'"
           class="logo svg-icon"
           v-html="icons.purpleLogo"
         ></div>

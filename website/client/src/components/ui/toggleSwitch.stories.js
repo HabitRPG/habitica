@@ -1,39 +1,46 @@
-/* eslint-disable import/no-extraneous-dependencies */
-import { storiesOf } from '@storybook/vue';
 import { text, withKnobs } from '@storybook/addon-knobs';
 import toggleSwitch from './toggleSwitch';
 
-const stories = storiesOf('Toggle Switch', module);
+export default {
+  title: 'Toggle Switch',
+  decorators: [withKnobs],
+};
 
-stories.addDecorator(withKnobs);
-
-stories
-  .add('label only', () => ({
-    components: { toggleSwitch },
-    template: `
+export const LabelOnly = () => ({
+  components: { toggleSwitch },
+  template: `
       <div style="position: absolute; margin: 20px">
         <toggle-switch :label="label"></toggle-switch>
       </div>
     `,
-    props: {
-      label: {
-        default: text('Label', 'example text'),
-      },
+  props: {
+    label: {
+      default: text('Label', 'example text'),
     },
-  }))
-  .add('with description', () => ({
-    components: { toggleSwitch },
-    template: `
+  },
+});
+
+LabelOnly.story = {
+  name: 'label only',
+};
+
+export const WithDescription = () => ({
+  components: { toggleSwitch },
+  template: `
       <div style="position: absolute; margin: 20px">
         <toggle-switch :label="label" :hover-text="description"></toggle-switch>
       </div>
     `,
-    props: {
-      label: {
-        default: text('Label', 'example text'),
-      },
-      description: {
-        default: text('Description', 'description text'),
-      },
+  props: {
+    label: {
+      default: text('Label', 'example text'),
     },
-  }));
+    description: {
+      default: text('Description', 'description text'),
+    },
+  },
+});
+
+WithDescription.story = {
+  name: 'with description',
+};

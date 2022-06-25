@@ -1,15 +1,13 @@
-/* eslint-disable import/no-extraneous-dependencies */
-import { storiesOf } from '@storybook/vue';
 import { text, withKnobs } from '@storybook/addon-knobs';
 
-const stories = storiesOf('Textarea', module);
+export default {
+  title: 'Textarea',
+  decorators: [withKnobs],
+};
 
-stories.addDecorator(withKnobs);
-
-stories
-  .add('states', () => ({
-    components: { },
-    template: `
+export const States = () => ({
+  components: {},
+  template: `
       <div style="position: absolute; margin: 20px">
         <textarea autofocus ref="area">Normal {{text}}</textarea>
         <br />
@@ -24,9 +22,13 @@ stories
 
       </div>
     `,
-    props: {
-      text: {
-        default: text('Area Message', 'example text'),
-      },
+  props: {
+    text: {
+      default: text('Area Message', 'example text'),
     },
-  }));
+  },
+});
+
+States.story = {
+  name: 'states',
+};

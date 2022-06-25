@@ -1,7 +1,6 @@
-/* eslint-disable import/no-extraneous-dependencies */
-import { storiesOf } from '@storybook/vue';
-
-const stories = storiesOf('Margins', module);
+export default {
+  title: 'Margins',
+};
 
 const margins = [
   'mr-1 ml-1 my-1',
@@ -12,10 +11,9 @@ const margins = [
   'ml-75 my-3 mr-2',
 ];
 
-stories
-  .add('overview', () => ({
-    components: { },
-    template: `
+export const Overview = () => ({
+  components: {},
+  template: `
       <div style="position: absolute; margin: 20px">
         <span class="background inline-block">
             <span class="content mx-1 my-1 inline-block">
@@ -37,9 +35,13 @@ stories
       </div>
     `,
 
-    data () {
-      return {
-        margins,
-      };
-    },
-  }));
+  data () {
+    return {
+      margins,
+    };
+  },
+});
+
+Overview.story = {
+  name: 'overview',
+};

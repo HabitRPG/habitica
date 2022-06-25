@@ -1,22 +1,20 @@
-/* eslint-disable import/no-extraneous-dependencies */
-import { storiesOf } from '@storybook/vue';
 import { withKnobs } from '@storybook/addon-knobs';
 
 import positiveIcon from '@/assets/svg/positive.svg';
 
-const stories = storiesOf('Buttons', module);
+export default {
+  title: 'Buttons',
+  decorators: [withKnobs],
+};
 
-stories.addDecorator(withKnobs);
-
-stories
-  .add('all', () => ({
-    components: { },
-    data () {
-      return {
-        icon: positiveIcon,
-      };
-    },
-    template: `      
+export const All = () => ({
+  components: {},
+  data () {
+    return {
+      icon: positiveIcon,
+    };
+  },
+  template: `      
       <div style="position: absolute; margin: 20px; display: flex; flex-direction: row;">
         <div class="mr-3">
           <h3>Button</h3>
@@ -78,15 +76,20 @@ stories
         </div>
       </div>
     `,
-  }))
-  .add('dropdowns', () => ({
-    components: { },
-    data () {
-      return {
-        items: ['one', 'two', 'three'],
-      };
-    },
-    template: `      
+});
+
+All.story = {
+  name: 'all',
+};
+
+export const Dropdowns = () => ({
+  components: {},
+  data () {
+    return {
+      items: ['one', 'two', 'three'],
+    };
+  },
+  template: `      
       <div style="position: absolute; margin: 20px; display: flex; flex-direction: row;">
         <div class="mr-3">
           <h3>Dropdowns</h3>
@@ -126,4 +129,8 @@ stories
         </div>
       </div>
     `,
-  }));
+});
+
+Dropdowns.story = {
+  name: 'dropdowns',
+};
