@@ -305,15 +305,13 @@
         v-if="showStatsSave"
         class="row save-row"
       >
-        <div class="col-12 col-md-6 offset-md-3 text-center">
-          <button
-            class="btn btn-primary"
-            :disabled="loading"
-            @click="saveAttributes()"
-          >
-            {{ loading ? $t('loading') : $t('save') }}
-          </button>
-        </div>
+        <button
+          class="btn btn-primary"
+          :disabled="loading"
+          @click="saveAttributes()"
+        >
+          {{ loading ? $t('loading') : $t('save') }}
+        </button>
       </div>
     </div>
   </div>
@@ -693,7 +691,8 @@ export default {
   }
 
   .save-row {
-    margin-top: 1em;
+    margin: 2em 0 1em 0;
+    justify-content: center;
   }
 
     .gear.box {
@@ -725,11 +724,6 @@ export default {
       word-break: break-word;
     }
 
-  @media (max-width: 550px) {
-    [class^="stats-section-"] {
-      margin-bottom: 30px;
-    }
-  }
   @media (max-width: 850px) {
     #stats .col-md-6 {
       flex: none;
@@ -740,6 +734,23 @@ export default {
     .modal-body #stats .col-md-6 {
       flex: none;
       max-width: 100%;
+    }
+
+    [class^="stats-section-"] {
+      margin-bottom: 30px;
+    }
+    #allocation {
+      .box {
+        width: 100%;
+        height: 100%;
+        .col-9 {
+          padding: 0;
+          margin: 0;
+        }
+        .col-9 div:first-child {
+          font-size: 13px;
+        }
+      }
     }
   }
 </style>

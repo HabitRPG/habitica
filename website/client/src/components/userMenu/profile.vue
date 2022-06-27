@@ -126,7 +126,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-12 text-center nav">
+      <div class="text-center nav">
         <div
           class="nav-item"
           :class="{active: selectedPage === 'profile'}"
@@ -539,6 +539,7 @@
   }
 
   .nav {
+    width: 100%;
     font-weight: bold;
     min-height: 40px;
     justify-content: center;
