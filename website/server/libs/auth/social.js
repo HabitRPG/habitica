@@ -35,7 +35,7 @@ export async function socialEmailToLocal (user) {
     ).exec();
     if (!conflictingUser) return socialEmail;
   }
-  return null;
+  return undefined;
 }
 
 export async function loginSocial (req, res) { // eslint-disable-line import/prefer-default-export
