@@ -1073,7 +1073,7 @@
   "armorSpecialSummer2022WarriorText": "Waterspout Armor",
   "armorSpecialSummer2022WarriorNotes": "Get ready for a watery battle as you surround yourself with this twirling, whirling column of air and mist. Increases Constitution by <%= con %>. Limited Edition 2022 Summer Gear.",
   "armorSpecialSummer2022MageText": "Manta Ray Armor",
-  "armorSpecialSummer2022MageNotes": "Keep your head protected as you dive into your tasks or into the deepest waters. Increases Intelligence by <%= int %>. Limited Edition 2022 Summer Gear.",
+  "armorSpecialSummer2022MageNotes": "When wearing this armor, you will glide easily through your work like the manta ray glides through water. Increases Intelligence by <%= int %>. Limited Edition 2022 Summer Gear.",
   "armorSpecialSummer2022HealerText": "Angelfish Tail",
   "armorSpecialSummer2022HealerNotes": "Use your colorful fins to scoot about the reef and help those in need of rest and healing. Increases Constitution by <%= con %>. Limited Edition 2022 Summer Gear.",
 
@@ -1750,7 +1750,7 @@
   "headSpecialSummer2022RogueText": "Crab Helm",
   "headSpecialSummer2022RogueNotes": "No time to be crabby, we're out here shellebrating the summer's hottest crustacean puns. Increases Perception by <%= per %>. Limited Edition 2022 Summer Gear.",
   "headSpecialSummer2022WarriorText": "Waterspout Helm",
-  "headSpecialSummer2022WarriorNotes": "Channel the power of water as you center yourself in this this intense vortex. Increases Strength by <%= str %>. Limited Edition 2022 Summer Gear.",
+  "headSpecialSummer2022WarriorNotes": "Channel the power of water as you center yourself in this intense vortex. Increases Strength by <%= str %>. Limited Edition 2022 Summer Gear.",
   "headSpecialSummer2022MageText": "Manta Ray Helm",
   "headSpecialSummer2022MageNotes": "Keep your head protected as you dive into your tasks or into the deepest waters. Increases Perception by <%= per %>. Limited Edition 2022 Summer Gear.",
   "headSpecialSummer2022HealerText": "Angelfish Ear Fins",
