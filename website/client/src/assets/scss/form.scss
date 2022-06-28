@@ -302,14 +302,49 @@ $bg-disabled-control: #34303a;
     background-color: inherit;
   }
 
+
   &:focus:not(:checked):not(:disabled)~.custom-control-label::before, &:active:not(:checked):not(:disabled)~.custom-control-label::before  {
-    box-shadow: 0 0 0 6px rgba($bg-focused-active-control, 0.1);
+    box-shadow: 0 0 0 1px $purple-400 inset;
+    border: 2px solid $gray-200;
+    border-radius: 100px;
+    padding: 4px;
   }
 
   &:focus:checked:not(:disabled)~.custom-control-label::before, &:active:checked:not(:disabled)~.custom-control-label::before  {
-    box-shadow: 0 0 0 6px rgba($bg-focused-active-control, 0.1);
-    border-color: $purple-400;
-    background-color: rgba($bg-focused-active-control, 0.1);
+    box-shadow: 0 0 0 1px $purple-400 inset;
+    border: 2px solid $gray-200;
+    border-radius: 100px;
+    padding: 4px;
+  }
+
+  &:hover:not(:checked):not(:disabled)~.custom-control-label::before, &:active:not(:checked):not(:disabled)~.custom-control-label::before  {
+    @include custom-radio-checked-icon($purple-400);
+    width: 18px;
+    height: 18px;
+    background-position-x: 50%;
+    background-position-y: center;
+    background-repeat: no-repeat;
+    background-origin: padding-box;
+    background-size: 12px 12px;
+    padding: 4px;
+    border-radius: 100px;
+    border: solid 2px $purple-400;
+    box-shadow: 0 $white inset;
+  }
+
+    &:hover:checked:not(:disabled)~.custom-control-label::before, &:active::checked:not(:disabled)~.custom-control-label::before  {
+    @include custom-radio-checked-icon($purple-400);
+    width: 18px;
+    height: 18px;
+    background-position-x: 50%;
+    background-position-y: center;
+    background-repeat: no-repeat;
+    background-origin: padding-box;
+    background-size: 12px 12px;
+    padding: 4px;
+    border-radius: 100px;
+    border: solid 2px $purple-400;
+    box-shadow: 0 $white inset;
   }
 
   &:disabled:checked~.custom-control-label::before {
