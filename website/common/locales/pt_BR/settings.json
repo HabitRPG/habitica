@@ -85,6 +85,7 @@
     "passwordChangeSuccess": "Sua senha foi atualizada com sucesso para aquela que você escolheu. Você agora pode usá-la para acessar sua conta.",
     "displayNameSuccess": "Nome de exibição alterado com sucesso",
     "emailSuccess": "Email alterado com sucesso",
+    "passwordSuccess": "Senha alterado com sucesso",
     "detachSocial": "Desconectar <%= network %>",
     "detachedSocial": "Removido <%= network %> com sucesso como modo de autenticação.",
     "addedLocalAuth": "Autenticação local adicionada com sucesso",

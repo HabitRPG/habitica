@@ -85,6 +85,7 @@
     "passwordChangeSuccess": "A jelszavadat sikeresen megváltoztattad. Most már használhatod hogy belépj a fiókodba.",
     "displayNameSuccess": "Nyilvános név sikeresen megváltoztatva",
     "emailSuccess": "E-mail cím sikeresen megváltoztatva",
+    "passwordSuccess": "Jelszó sikeresen megváltoztatva",
     "detachSocial": "<%= network %> eltávolítása",
     "detachedSocial": "Sikeresen eltávolítottad <%= network %> hitelesítést a fiókodból",
     "addedLocalAuth": "Helyi hitelesítés sikeresen hozzáadva",

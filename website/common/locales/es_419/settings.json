@@ -85,6 +85,7 @@
     "passwordChangeSuccess": "Tu contraseña ha sido cambiada exitosamente a la que acabas de elegir. Ahora puedes utilizarla para acceder a tu cuenta.",
     "displayNameSuccess": "Nombre Público cambiado con éxito",
     "emailSuccess": "Tu correo electrónico fue cambiado exitosamente",
+    "passwordSuccess": "Tu contraseña fue cambiado exitosamente",
     "detachSocial": "Darse de baja <%= network %>",
     "detachedSocial": "La autenticación de <%= network %> ha sido removida con éxito de tu cuenta",
     "addedLocalAuth": "Autenticación local añadida exitosamente",

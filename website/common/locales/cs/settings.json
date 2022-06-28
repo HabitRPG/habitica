@@ -85,6 +85,7 @@
     "passwordChangeSuccess": "Tvé heslo bylo úspěšně změněno. Můžeš ho použít pro přihlášení ke svému účtu.",
     "displayNameSuccess": "Zobrazované jméno bylo úspěšně změněno",
     "emailSuccess": "Email úspěšně změněn",
+    "passwordSuccess": "Heslo úspěšně změněno",
     "detachSocial": "Odregistruj <%= network %>",
     "detachedSocial": "<%= network %>ověření bylo úspěšně odebráno z tvého účtu",
     "addedLocalAuth": "Lokální ověření úspěšně přidáno",

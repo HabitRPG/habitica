@@ -85,6 +85,7 @@
     "passwordChangeSuccess": "Tavo slaptažodis sėkmingai pakeistas į tą, kurį ką tik pasirinkai. Dabar gali juo naudotis prisijungimui prie savo paskyros.",
     "displayNameSuccess": "Display name successfully changed",
     "emailSuccess": "El. pašto adresas pakeistas",
+    "passwordSuccess": "Slaptažodis sėkmingai pakeistas",
     "detachSocial": "Atjungti nuo <%= network %>",
     "detachedSocial": "Prisijungimas per <%= network %> sėkmingai pašalintas iš tavo paskyros",
     "addedLocalAuth": "Paprastas prisijungimas pridėtas",

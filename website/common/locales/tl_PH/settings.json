@@ -85,6 +85,7 @@
     "passwordChangeSuccess": "Your password was successfully changed to the one you just chose. You can now use it to access your account.",
     "displayNameSuccess": "Display name successfully changed",
     "emailSuccess": "Matagumpay na nabago ang Email.",
+    "passwordSuccess": "Matagumpay na nabago ang password",
     "detachSocial": "De-register <%= network %>",
     "detachedSocial": "Successfully removed <%= network %> authentication from your account",
     "addedLocalAuth": "Matagumpay na naidagdag ang lokal na pagpapatunay",

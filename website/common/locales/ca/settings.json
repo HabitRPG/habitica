@@ -85,6 +85,7 @@
     "passwordChangeSuccess": "Your password was successfully changed to the one you just chose. You can now use it to access your account.",
     "displayNameSuccess": "Display name successfully changed",
     "emailSuccess": "Correu electrònic canviat correctament",
+    "passwordSuccess": "La contrasenya s'ha canviat correctament",
     "detachSocial": "De-register <%= network %>",
     "detachedSocial": "Successfully removed <%= network %> authentication from your account",
     "addedLocalAuth": "Successfully added local authentication",

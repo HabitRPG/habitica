@@ -85,6 +85,7 @@
     "passwordChangeSuccess": "Mật khẩu của bạn đã được thay đổi thành công thành mật khẩu mà bạn vừa chọn. Bây giờ bạn có thể sử dụng nó để truy cập tài khoản của bạn.",
     "displayNameSuccess": "Display name successfully changed",
     "emailSuccess": "Chuyển đổi email thành công",
+    "passwordSuccess": "Mật khẩu đã được thay đổi thành công",
     "detachSocial": "De-register <%= network %>",
     "detachedSocial": "Successfully removed <%= network %> authentication from your account",
     "addedLocalAuth": "Successfully added local authentication",
