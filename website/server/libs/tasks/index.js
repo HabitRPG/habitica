@@ -157,7 +157,7 @@ async function getTasks (req, res, options = {}) {
   let query;
   let limit;
   let sort;
-  let upgradedGroups;
+  let upgradedGroups = [];
   const owner = group || challenge || user;
 
   if (challenge) {
@@ -165,18 +165,20 @@ async function getTasks (req, res, options = {}) {
   } else if (group) {
     query = { 'group.id': group._id };
   } else {
-    upgradedGroups = await Group.find(
-      {
-        _id: { $in: user.guilds.concat(user.party._id) },
-        'purchased.plan.customerId': { $exists: true },
-        $or: [
-          { 'purchased.plan.dateTerminated': { $exists: false } },
-          { 'purchased.plan.dateTerminated': null },
-          { 'purchased.plan.dateTerminated': { $gt: new Date() } },
-        ],
-      },
-      { _id: 1 },
-    ).exec();
+    if (user.preferences.tasks.mirrorGroupTasks) {
+      upgradedGroups = await Group.find(
+        {
+          _id: { $in: user.guilds.concat(user.party._id) },
+          'purchased.plan.customerId': { $exists: true },
+          $or: [
+            { 'purchased.plan.dateTerminated': { $exists: false } },
+            { 'purchased.plan.dateTerminated': null },
+            { 'purchased.plan.dateTerminated': { $gt: new Date() } },
+          ],
+        },
+        { _id: 1 },
+      ).exec();
+    }
     if (upgradedGroups.length > 0) {
       const upgradedGroupIds = [];
       for (const upgradedGroup of upgradedGroups) {
@@ -210,7 +212,7 @@ async function getTasks (req, res, options = {}) {
       query.type = 'todo';
       query.completed = true;
 
-      if (upgradedGroups && upgradedGroups.length > 0) {
+      if (upgradedGroups.length > 0) {
         query.$or = [
           { userId: user._id },
           { 'group.assignedUsers': user._id },

@@ -41,7 +41,7 @@
 
     &-modal {
       &-bg { background: $maroon-100 !important; }
-      &-headings { color: $white; }
+      &-headings { color: $white !important; }
       &-icon { color: $maroon-100 !important; }
       &-text { color: $red-1 !important; }
       &-content {

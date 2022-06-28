@@ -1164,8 +1164,9 @@ export default {
       if (
         this.isGroupTask && direction === 'down'
         && ['todo', 'daily'].indexOf(this.task.type) !== -1
-        && (!this.task.group.assignedUsersDetail
-          || !this.task.group.assignedUsersDetail[this.user._id])
+        && !((this.task.group.completedBy && this.task.group.completedBy.userId === this.user._id)
+          || (this.task.group.assignedUsersDetail
+            && this.task.group.assignedUsersDetail[this.user._id]))
       ) {
         this.$store.dispatch('tasks:needsWork', {
           taskId: this.task._id,

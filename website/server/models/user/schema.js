@@ -582,6 +582,7 @@ export default new Schema({
     tasks: {
       groupByChallenge: { $type: Boolean, default: false }, // @TODO remove? not used
       confirmScoreNotes: { $type: Boolean, default: false }, // @TODO remove? not used
+      mirrorGroupTasks: { $type: Boolean, default: false },
     },
     improvementCategories: {
       $type: Array,

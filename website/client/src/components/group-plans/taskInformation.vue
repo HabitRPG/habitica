@@ -28,8 +28,16 @@
         >
       </div>
       <div
-        class="create-task-area ml-auto d-flex align-items-top"
+        class="create-task-area ml-auto d-flex align-items-center"
       >
+        <toggle-switch
+          id="taskMirrorToggle"
+          class="mr-3 mb-1"
+          :label="'Copy tasks'"
+          :checked="user.preferences.tasks.mirrorGroupTasks"
+          :hover-text="'Add assigned and open tasks to your personal task board'"
+          @change="changeMirrorPreference"
+        />
         <div
           class="day-start mb-auto d-flex align-items-center"
           v-html="$t('dayStart', { startTime: groupStartTime } )"
@@ -94,6 +102,24 @@
   </div>
 </template>
 
+<style lang="scss">
+  #taskMirrorToggle {
+    font-weight: bold;
+
+    .svg-icon {
+      margin: 3px 6px 0px 4px;
+    }
+
+    .toggle-switch {
+      margin-left: 0px;
+    }
+
+    .toggle-switch-description {
+      margin-top: 3px;
+    }
+  }
+</style>
+
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
   @import '~@/assets/scss/create-task.scss';
@@ -133,6 +159,9 @@ import taskDefaults from '@/../../common/script/libs/taskDefaults';
 import TaskColumn from '../tasks/column';
 import TaskModal from '../tasks/taskModal';
 import GroupPlanOverviewModal from './groupPlanOverviewModal';
+import toggleSwitch from '@/components/ui/toggleSwitch';
+
+import sync from '../../mixins/sync';
 
 import positiveIcon from '@/assets/svg/positive.svg';
 import filterIcon from '@/assets/svg/filter.svg';
@@ -149,7 +178,9 @@ export default {
     TaskColumn,
     TaskModal,
     GroupPlanOverviewModal,
+    toggleSwitch,
   },
+  mixins: [sync],
   props: ['groupId'],
   data () {
     return {
@@ -237,6 +268,10 @@ export default {
   },
   beforeRouteUpdate (to, from, next) {
     this.$set(this, 'searchId', to.params.groupId);
+    next();
+  },
+  async beforeRouteLeave (to, from, next) {
+    await this.sync();
     next();
   },
   mounted () {
@@ -368,6 +403,11 @@ export default {
       const tagId = tag.id;
       if (this.temporarilySelectedTags.indexOf(tagId) !== -1) return true;
       return false;
+    },
+    changeMirrorPreference (newVal) {
+      this.$store.dispatch('user:set', {
+        'preferences.tasks.mirrorGroupTasks': newVal,
+      });
     },
   },
 };
