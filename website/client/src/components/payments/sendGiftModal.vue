@@ -235,7 +235,7 @@
         <div
           :class="{active: selectedPage === 'buyGems'}"
           class="gem-state-change"
-          @click="selectPage('buyGemsLink')"
+          @click="selectPage('buyGems')"
         >
           {{ $t('needToPurchaseGems') }}
         </div>
@@ -615,7 +615,7 @@ export default {
     },
     selectPage (page) {
       if (page === this.selectedPage) return;
-      if (page === 'buyGemsLink') this.selectedPage = 'buyGemsLink';
+      if (page === 'buyGems') this.selectedPage = 'buyGems';
       if (page === 'buyGems' && this.selectedPage === 'ownGems') return;
       this.selectedPage = page || 'subscription';
       if (this.selectedPage === 'buyGems') {
