@@ -815,7 +815,17 @@ api.moveTask = {
 
     const group = await getGroupFromTaskAndUser(task, user);
     const challenge = await getChallengeFromTask(task);
-    verifyTaskModification(task, user, group, challenge, res);
+    if (task.group.id && !task.userId) {
+      if (!group || user.guilds.concat(user.party._id).indexOf(group._id) === -1) {
+        throw new NotFound(res.t('groupNotFound'));
+      }
+      if (task.group.assignedUsers.length !== 0
+        && task.group.assignedUsers.indexOf(user._id) === -1) {
+        throw new BadRequest('Use /group/:groupId/tasks/:taskId/move/to/:position route');
+      }
+    } else {
+      verifyTaskModification(task, user, group, challenge, res);
+    }
 
     if (task.type === 'todo' && task.completed) throw new BadRequest(res.t('cantMoveCompletedTodo'));
 

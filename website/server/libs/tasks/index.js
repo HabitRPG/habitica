@@ -328,13 +328,8 @@ function verifyTaskModification (task, user, group, challenge, res) {
   if (!task) {
     throw new NotFound(res.t('messageTaskNotFound'));
   } else if (task.group.id && !task.userId) {
-    if (!group || user.guilds.concat(user.party._id).indexOf(group._id) === -1) {
-      throw new NotFound(res.t('groupNotFound'));
-    }
-    if (task.group.assignedUsers.length !== 0
-      && task.group.assignedUsers.indexOf(user._id) === -1) {
-      throw new BadRequest('Use /group/:groupId/tasks/:taskId/move/to/:position route');
-    }
+    if (!group) throw new NotFound(res.t('groupNotFound'));
+    if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
   // If the task belongs to a challenge make sure the user has rights
   } else if (task.challenge.id && !task.userId) {
