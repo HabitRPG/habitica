@@ -3,7 +3,7 @@ import {
   generateUser,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
-import {MAX_SUMMARY_SIZE_FOR_GUILDS} from '../../../../../website/common/script/constants.js';
+import { MAX_SUMMARY_SIZE_FOR_GUILDS } from '../../../../../website/common/script/constants';
 
 describe('PUT /group', () => {
   let leader; let nonLeader; let groupToUpdate; let

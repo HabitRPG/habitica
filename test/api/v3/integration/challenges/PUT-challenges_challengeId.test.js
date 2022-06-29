@@ -4,8 +4,7 @@ import {
   createAndPopulateGroup,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
-import {MAX_SUMMARY_SIZE_FOR_CHALLENGES} from '../../../../../website/common/script/constants.js';
-
+import { MAX_SUMMARY_SIZE_FOR_CHALLENGES } from '../../../../../website/common/script/constants';
 
 describe('PUT /challenges/:challengeId', () => {
   let privateGuild; let user; let nonMember; let challenge; let
@@ -95,9 +94,9 @@ describe('PUT /challenges/:challengeId', () => {
   });
 
   it('return error when challenge summary is greater than MAX_SUMMARY_SIZE_FOR_CHALLENGES characters', async () => {
-    let summary = "A".repeat(MAX_SUMMARY_SIZE_FOR_CHALLENGES + 1);
+    const summary = 'A'.repeat(MAX_SUMMARY_SIZE_FOR_CHALLENGES + 1);
     await expect(user.put(`/challenges/${challenge._id}`, {
-      summary: summary
+      summary,
     })).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
