@@ -176,8 +176,8 @@
   "onlyGroupTasksCanBeAssigned": "Only group tasks can be assigned",
   "assignedTo": "Assign To",
   "assignedToUser": "Assigned: <strong>@<%- userName %></strong>",
-  "assignedToMembers": "Assigned: <strong><%= userCount %> users</strong>",
-  "assignedToYouAndMembers": "Assigned: <strong>you + <%= userCount %> users</strong>",
+  "assignedToMembers": "<%= userCount %> users",
+  "assignedToYouAndMembers": "<strong>You</strong>, <%= userCount %> users",
   "youAreAssigned": "Assigned: <strong>you</strong>",
   "taskIsUnassigned": "This task is unassigned",
   "unassigned": "Unassigned",
@@ -366,5 +366,6 @@
   "claimRewards": "Claim Rewards",
   "dayStart": "<strong>Day start</strong>: <%= startTime %>",
   "viewStatus": "Status",
-  "lastCompleted": "Last completed"
+  "lastCompleted": "Last completed",
+  "you": "<strong>You</strong>"
 }

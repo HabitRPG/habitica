@@ -42,8 +42,14 @@
     <div
       class="claim-bottom-message d-flex align-items-center"
     >
+      <span
+        v-if="assignedUsersCount > 0"
+        class="users-icon ml-2 mt-n1"
+        :class="{'green-50': completionsCount === assignedUsersCount}"
+        v-html="icons.users"
+      ></span>
       <div
-        class="mr-auto ml-2"
+        class="mr-auto ml-1"
         :class="{'green-10': showGreen}"
         v-html="message"
       ></div>
@@ -110,6 +116,9 @@
     fill: #878190;
   }
 
+  .green-50 > svg > g > g {
+    fill: #20b780;
+  }
 
   .small-check {
     display: inline-flex;
@@ -211,6 +220,11 @@
     height: 14px;
     margin-bottom: 4px;
   }
+
+  .users-icon {
+    width: 16px;
+    height: 16px;
+  }
 </style>
 
 <script>
@@ -219,6 +233,7 @@ import reduce from 'lodash/reduce';
 import { mapState } from '@/libs/store';
 import checkIcon from '@/assets/svg/check.svg';
 import lockIcon from '@/assets/svg/lock.svg';
+import usersIcon from '@/assets/svg/icon-users.svg';
 import lastComplete from '@/assets/svg/last-complete.svg';
 
 export default {
@@ -230,6 +245,7 @@ export default {
         check: checkIcon,
         lastComplete,
         lock: lockIcon,
+        users: usersIcon,
       }),
     };
   },
@@ -262,7 +278,7 @@ export default {
           if (moment().diff(completedDate, 'days') > 0) {
             completedDateString = `Completed ${moment(completedDate).format('M/D/YY')}`;
           } else {
-            completedDateString = `Completed today at ${moment(completedDate).format('h:mm A')}`;
+            completedDateString = `Completed at ${moment(completedDate).format('h:mm A')}`;
           }
           completionsArray.push({
             userId,
@@ -292,17 +308,17 @@ export default {
             if (moment().diff(completedDate, 'days') > 0) {
               return `<strong>You</strong> completed ${moment(completedDate).format('M/D/YY')}`;
             }
-            return `<strong>You</strong> completed today at ${moment(completedDate).format('h:mm A')}`;
+            return `<strong>You</strong> completed at ${moment(completedDate).format('h:mm A')}`;
           }
           if (moment().diff(completedDate, 'days') > 0) {
-            return `<strong>@${userName}</strong> completed ${moment(completedDate).format('M/D/YY')}`;
+            return `@${userName} completed ${moment(completedDate).format('M/D/YY')}`;
           }
-          return `<strong>@${userName}</strong> completed today at ${moment(completedDate).format('h:mm A')}`;
+          return `@${userName} completed at ${moment(completedDate).format('h:mm A')}`;
         }
         if (this.userIsAssigned) {
-          return this.$t('youAreAssigned');
+          return this.$t('you');
         }
-        return this.$t('assignedToUser', { userName });
+        return `@${userName}`;
       }
       return this.$t('error'); // task is open, or the other conditions aren't hitting right
     },
