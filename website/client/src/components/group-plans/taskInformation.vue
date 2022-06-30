@@ -14,12 +14,12 @@
       @taskEdited="loadTasks"
       @taskDestroyed="taskDestroyed"
     />
-    <div class="row tasks-navigation">
-      <div class="col-12 col-md-4">
+    <div class="row tasks-navigation mb-4">
+      <div class="col-12 col-md-4 d-flex align-items-center">
         <h1>{{ group.name }}</h1>
       </div>
       <!-- @TODO: Abstract to component!-->
-      <div class="col-12 col-md-4">
+      <div class="col-12 col-md-4 d-flex justify-content-center align-items-center">
         <input
           v-model="searchText"
           class="form-control input-search"
@@ -28,18 +28,18 @@
         >
       </div>
       <div
-        class="create-task-area ml-auto d-flex align-items-center"
+        class="col-12 col-md-4 create-task-area d-flex align-items-center"
       >
         <toggle-switch
           id="taskMirrorToggle"
-          class="mr-3 mb-1"
+          class="mr-3 mb-1 ml-auto"
           :label="'Copy tasks'"
           :checked="user.preferences.tasks.mirrorGroupTasks"
           :hover-text="'Add assigned and open tasks to your personal task board'"
           @change="changeMirrorPreference"
         />
         <div
-          class="day-start mb-auto d-flex align-items-center"
+          class="day-start d-flex align-items-center"
           v-html="$t('dayStart', { startTime: groupStartTime } )"
         >
         </div>
@@ -126,11 +126,12 @@
 
   h1 {
     color: $purple-300;
+    margin-bottom: 0px;
   }
 
   .create-task-area {
     top: 1.5rem;
-    right: 2.25rem;
+    height: 40px;
 
     .day-start {
       height: 2rem;
@@ -139,6 +140,10 @@
       color: $gray-100;
       background-color: $gray-600;
     }
+  }
+
+  .input-search {
+    max-width: 458px;
   }
 
   .positive {

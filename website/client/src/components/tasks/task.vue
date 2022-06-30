@@ -19,7 +19,7 @@
           v-if="task.type === 'habit'"
           class="left-control d-flex justify-content-center pt-3"
           :class="[{
-            'control-bottom-box': task.group.id,
+            'control-bottom-box': task.group.id && !isOpenTask,
             'control-top-box': approvalsClass
           }, controlClass.up.bg]"
         >
@@ -52,7 +52,7 @@
           v-if="task.type === 'daily' || task.type === 'todo'"
           class="left-control d-flex justify-content-center"
           :class="[{
-            'control-bottom-box': task.group.id,
+            'control-bottom-box': task.group.id && !isOpenTask,
             'control-top-box': approvalsClass}, controlClass.bg]"
         >
           <div
@@ -347,7 +347,7 @@
           v-if="task.type === 'habit'"
           class="right-control d-flex justify-content-center pt-3"
           :class="[{
-            'control-bottom-box': task.group.id,
+            'control-bottom-box': task.group.id && !isOpenTask,
             'control-top-box': approvalsClass}, controlClass.down.bg]"
         >
           <div

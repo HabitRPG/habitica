@@ -22,7 +22,19 @@
         >
           {{ title }}
         </h2>
-        <div class="ml-auto d-flex align-items-center">
+        <span
+          v-if="groupAccessRequiredAndOnPersonalPage"
+          class="svg-icon icon-12 close-icon"
+          aria-hidden="true"
+          tabindex="0"
+          @click="cancel()"
+          @keypress.enter="cancel()"
+          v-html="icons.close"
+        ></span>
+        <div
+          v-else
+          class="ml-auto d-flex align-items-center"
+        >
           <button
             class="cancel-task-btn mr-3"
             :class="cssClass('headings')"
@@ -121,7 +133,7 @@
     <div
       v-if="task && groupAccessRequiredAndOnPersonalPage
         && (task.type === 'daily' || task.type === 'todo')"
-      class="summary-sentence py-3 px-4"
+      class="summary-sentence py-3 px-4 mb-n4"
       v-html="summarySentence"
     >
     </div>
@@ -995,6 +1007,7 @@
   .summary-sentence {
     background-color: $gray-700;
     line-height: 1.71;
+    border-radius: 0px 0px 8px 8px;
   }
 
   .input-group-text {
@@ -1040,6 +1053,7 @@ import goldIcon from '@/assets/svg/gold.svg';
 import chevronIcon from '@/assets/svg/chevron.svg';
 import calendarIcon from '@/assets/svg/calendar.svg';
 import gripIcon from '@/assets/svg/grip.svg';
+import closeIcon from '@/assets/svg/close.svg';
 
 export default {
   components: {
@@ -1070,6 +1084,7 @@ export default {
         streak: streakIcon,
         calendar: calendarIcon,
         grip: gripIcon,
+        close: closeIcon,
       }),
       members: [],
       membersNameAndId: [],
@@ -1156,6 +1171,7 @@ export default {
     },
     title () {
       const type = this.$t(this.task.type);
+      if (this.groupAccessRequiredAndOnPersonalPage) return this.$t('taskSummary', { type });
       return this.$t(this.purpose === 'edit' ? 'editATask' : 'createTask', { type });
     },
     isUserTask () {
