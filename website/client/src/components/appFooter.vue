@@ -5,7 +5,7 @@
     <footer>
       <div class="row">
         <!-- Product -->
-        <div class="col-6 col-sm">
+        <div class="col-sm">
           <h3>{{ $t('footerProduct') }}</h3>
           <ul>
             <li>
@@ -33,7 +33,7 @@
           </ul>
         </div>
         <!-- Company -->
-        <div class="col-6 col-sm">
+        <div class="col-sm">
           <h3>{{ $t('footerCompany') }}</h3>
           <ul>
             <li>
@@ -61,7 +61,7 @@
           </ul>
         </div>
         <!-- Community -->
-        <div class="col-6 col-sm">
+        <div class="col-sm">
           <h3>{{ $t('footerCommunity') }}</h3>
           <ul>
             <li>
@@ -84,7 +84,7 @@
           </ul>
         </div>
         <!-- Support -->
-        <div class="col-6 col-sm">
+        <div class="col-sm">
           <h3>{{ $t ('support') }}</h3>
           <ul>
             <li>
@@ -128,7 +128,7 @@
           </ul>
         </div>
         <!-- Developers -->
-        <div class="col-6 col-sm">
+        <div class="col-sm">
           <h3>{{ $t('footerDevs') }}</h3>
           <ul>
             <li>
@@ -167,7 +167,7 @@
             {{ $t('donateText3') }}
           </div>
         </div>
-        <div class="col col-md-3">
+        <div class="col col-md-2 offset-sm-0">
           <button
             v-if="user"
             class="btn btn-contribute justify-content-between"
@@ -193,7 +193,7 @@
         </div>
 
         <!-- Social -->
-        <div class="col col-md-2 social">
+        <div class="col offset-col-6 social">
           <h3>{{ $t('footerSocial') }}</h3>
           <div class="icons align-items-center">
             <a
@@ -391,7 +391,6 @@ hr {
 }
 
 .social {
-  padding-left: 36px;
 }
 
 .icons {
@@ -473,36 +472,14 @@ hr {
   padding: 0;
   margin: 32px 0 32px 24px;
   box-shadow: 0 1px 3px 0 rgba(26, 24, 29, 0.12), 0 1px 2px 0 rgba(26, 24, 29, 0.24);
+
   a {
     display: flex;
   }
+
   .text{
   display: inline-block;
   vertical-align: bottom;
-}
-}
-
-// Extra small devices (portrait phones, less than 576px)
-@media (max-width: 576px) {
-  footer {
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-  .support {
-    flex-direction: row-reverse;
-  }
-}
-
-// Small devices (landscape phones, less than 768px)
-@media (max-width: 768px) {}
-
-// Medium devices (tablets, less than 992px)
-@media (max-width: 992px) {}
-
-// Large devices (desktops, less than 1200px)
-@media (max-width: 1440px) {
-  .social {
-    margin-left: -60px;
   }
 }
 
@@ -512,7 +489,32 @@ hr {
 // bootstrap extra-large
 @media (min-width: 1440.02px) {
   .social {
-    padding-left: 20px;
+    right: -80px;
+  }
+}
+
+// Laptops
+@media (max-width: 1440px) {
+  .social {
+    right: -60px;
+  }
+}
+
+// Tablets
+@media (max-width: 810px) {
+  .social {
+    right: 0px;
+  }
+}
+
+// Phones
+@media (max-width: 428px) {
+  footer {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .support {
+    flex-direction: row-reverse;
   }
 }
 
