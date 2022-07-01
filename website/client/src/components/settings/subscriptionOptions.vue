@@ -61,10 +61,28 @@
 
 <style lang="scss">
   @import '~@/assets/scss/colors.scss';
+  $bg-color: $purple-400;
+
+  @mixin custom-radio-checked-icon ($bg-color) {
+  background-image: str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3E%3Ccircle r='3' fill='#{$bg-color}'/%3E%3C/svg%3E"), "#", "%23");
+  }
+
   #subscription-form {
     .custom-control .custom-control-label::before,
     .custom-radio .custom-control-input:checked ~ .custom-control-label::after {
       margin-top: 0.75rem;
+    }
+
+    .custom-control .custom-radio .custom-control-label::before,
+    .custom-control.label::after  .custom-control-input {
+      &:hover {
+        width: 18px;
+        height: 18px;
+        background: 50%/50% 50% no-repeat;
+        @include custom-radio-checked-icon($purple-400);
+        background-size: 12px 12px;
+        border: solid 2px $purple-400;
+      }
     }
 
     .selected {

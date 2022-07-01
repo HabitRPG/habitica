@@ -183,6 +183,7 @@ input, textarea, input.form-control, textarea.form-control {
 $bg-focused-active-control: #4f2993;
 $bg-disabled-control: #34303a;
 
+// custom control
 .custom-control {
   margin-bottom: .5rem;
 
@@ -205,6 +206,7 @@ $bg-disabled-control: #34303a;
   }
 }
 
+// checkboxes
 .custom-checkbox {
   .custom-control-label::before {
     border-radius: 2px;
@@ -280,22 +282,36 @@ $bg-disabled-control: #34303a;
   padding-left: 36px;
 }
 
+//radio buttons
+$bg-color: $purple-400;
+
 @mixin custom-radio-checked-icon ($bg-color) {
   background-image: str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3E%3Ccircle r='3' fill='#{$bg-color}'/%3E%3C/svg%3E"), "#", "%23");
 }
 
 .custom-radio .custom-control-input {
+  // outside circle
+  &:checked~.custom-control-label::before {
+    background-color: $gray-700;
+    background-size: 12px 12px;
+    border-color: $purple-400;
+
+    &:hover {
+      width: 18px;
+      height: 18px;
+      background: 50%/50% 50% no-repeat;
+      @include custom-radio-checked-icon($purple-400);
+      background-size: 12px 12px;
+      border: solid 2px $purple-400;
+    }
+  }
+
+  // checked indicator
   &:checked~.custom-control-label::after {
     @include custom-radio-checked-icon($purple-400);
     width: 18px;
     height: 18px;
     background-size: 12px 12px;
-  }
-
-  &:checked~.custom-control-label::before {
-    background-color: $gray-700;
-    background-size: 12px 12px;
-    border-color: $purple-400;
   }
 
   &:active~.custom-control-label::before {
