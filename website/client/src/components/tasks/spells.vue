@@ -68,7 +68,8 @@
               </b-popover>
               <div
                 class="spell-border"
-                :class="{ disabled: spellDisabled(key) || user.stats.lvl < skill.lvl }"
+                :class="{ disabled: spellDisabled(key) || user.stats.lvl < skill.lvl
+                || user.stats.mp < skill.mana }"
               >
                 <div
                   class="spell"
@@ -214,6 +215,11 @@
 
         .mana {
           background-color: rgba(26, 24, 29, 0.5);
+        }
+
+        .mana-text {
+          color: $white;
+          font-weight: normal;
         }
 
         .level {
