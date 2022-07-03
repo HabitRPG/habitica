@@ -69,7 +69,7 @@
               <div
                 class="spell-border"
                 :class="{ disabled: spellDisabled(key) || user.stats.lvl < skill.lvl
-                || user.stats.mp < skill.mana }"
+                  || user.stats.mp < skill.mana }"
               >
                 <div
                   class="spell"
@@ -89,23 +89,13 @@
                     </div>
                   </div>
                   <div
-                    v-else-if="spellDisabled(key) === true"
-                    class="mana"
-                  >
-                    <div class="mana-text">
-                      <div
-                        v-once
-                        class="svg-icon"
-                        v-html="icons.mana"
-                      ></div>
-                      <div>{{ skill.mana }}</div>
-                    </div>
-                  </div>
-                  <div
                     v-else
                     class="mana"
                   >
-                    <div class="mana-text">
+                    <div
+                    class="mana-text"
+                    :class="{ insufficient: user.stats.mp < skill.mana }"
+                    >
                       <div
                         v-once
                         class="svg-icon"
@@ -217,7 +207,7 @@
           background-color: rgba(26, 24, 29, 0.5);
         }
 
-        .mana-text {
+        .insufficient {
           color: $white;
           font-weight: normal;
         }
