@@ -93,8 +93,8 @@
                     class="mana"
                   >
                     <div
-                    class="mana-text"
-                    :class="{ insufficient: user.stats.mp < skill.mana }"
+                      class="mana-text"
+                      :class="{ insufficient: user.stats.mp < skill.mana }"
                     >
                       <div
                         v-once
