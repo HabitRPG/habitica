@@ -85,7 +85,7 @@
               <span v-html="transactionTypeText(entry.transactionType)"></span>
             </td>
             <td>
-              <span v-if="['gift_send', 'gift_receive'].includes(entry.transactionType)">
+              <span v-if="transactionTypes.gifted.includes(entry.transactionType)">
                 <router-link
                   class="user-link"
                   :to="{'name': 'userProfile', 'params': {'userId': entry.reference}}"
@@ -93,10 +93,7 @@
                   @{{ entry.referenceText }}
                 </router-link>
               </span>
-              <span v-else-if="[
-                  'create_challenge',
-                  'create_bank_challenge'
-                  ].includes(entry.transactionType)">
+              <span v-else-if="transactionTypes.challenges.includes(entry.transactionType)">
                 <router-link
                     class="challenge-link"
                     :to="{ name: 'challenge', params: { challengeId: entry.reference } }">
@@ -353,6 +350,10 @@ export default {
         hourglassRed: svgHourglassRed,
       }),
       selectedTab: 'gems',
+      transactionTypes: Object.freeze({
+        gifted: ['gift_send', 'gift_receive'],
+        challenges: ['create_challenge', 'create_bank_challenge'],
+      })
     };
   },
   methods: {
