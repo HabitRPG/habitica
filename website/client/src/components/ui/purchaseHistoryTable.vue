@@ -353,7 +353,7 @@ export default {
       transactionTypes: Object.freeze({
         gifted: ['gift_send', 'gift_receive'],
         challenges: ['create_challenge', 'create_bank_challenge'],
-      })
+      }),
     };
   },
   methods: {
