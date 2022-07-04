@@ -203,7 +203,7 @@
     "transaction_debug": "Debug Action",
     "transaction_buy_money": "<b>Bought</b> with money",
     "transaction_buy_gold": "<b>Bought</b> with gold",
-    "transaction_contribution": "Through contribution",
+    "transaction_contribution": "<b>Tier</b> change",
     "transaction_spend": "<b>Spent</b> on",
     "transaction_gift_send": "<b>Gifted</b> to",
     "transaction_gift_receive": "<b>Received</b> from",
@@ -215,6 +215,6 @@
     "transaction_release_pets": "Released pets",
     "transaction_release_mounts": "Released mounts",
     "transaction_reroll": "Used Fortify Potion",
-    "transaction_subscription_perks": "From subscription perk",
-    "transaction_admin_update_balance": "Admin updated users balance"
+    "transaction_subscription_perks": "<b>Subscription</b> perk",
+    "transaction_admin_update_balance": "<b>Admin</b> given"
 }
