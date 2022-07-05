@@ -176,6 +176,7 @@ import dailyIcon from '@/assets/svg/daily.svg';
 import todoIcon from '@/assets/svg/todo.svg';
 import rewardIcon from '@/assets/svg/reward.svg';
 
+import * as Analytics from '@/libs/analytics';
 import { mapState } from '@/libs/store';
 
 export default {
@@ -410,6 +411,16 @@ export default {
       return false;
     },
     changeMirrorPreference (newVal) {
+      Analytics.track({
+        eventName: 'mirror tasks',
+        eventAction: 'mirror tasks',
+        eventCategory: 'behavior',
+        hitType: 'event',
+        mirror: newVal,
+      }, { trackOnClient: true });
+      Analytics.updateUser({
+        mirrorTasks: newVal,
+      });
       this.$store.dispatch('user:set', {
         'preferences.tasks.mirrorGroupTasks': newVal,
       });
