@@ -1,4 +1,3 @@
-import moment from 'moment';
 import t from '../translation';
 import prefill from './prefill';
 import { EVENTS } from '../constants';
@@ -31,7 +30,7 @@ export default prefill({
     setPrice: 5, availableFrom: '2021-09-28T08:00-04:00', availableUntil: '2021-10-31T20:00-04:00', text: t('supernaturalSkins'),
   },
   splashySkins: {
-    setPrice: 5, availableFrom: moment().isBefore(EVENTS.summer2022.end), availableUntil: EVENTS.summer2022.end, text: t('splashySkins'),
+    setPrice: 5, availableFrom: '2022-07-05T08:00-05:00', availableUntil: EVENTS.summer2022.end, text: t('splashySkins'),
   },
   winterySkins: {
     setPrice: 5, availableFrom: '2021-12-23T08:00-05:00', availableUntil: '2022-01-31T20:00-05:00', text: t('winterySkins'),
