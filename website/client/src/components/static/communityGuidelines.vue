@@ -209,6 +209,7 @@
           <li>Fox_town</li>
           <li>MaybeSteveRogers</li>
           <li>shanaqui</li>
+          <li>deilann (not yet pictured)</li>
         </ul>
       </div>
     </div>
@@ -218,7 +219,7 @@
       {{ $t('commGuidePara014') }}<br>
       <em>
         Lemoness, lefnire, Slappybag, litenull, Shaner, Bobbyroberts99, wc8,
-        deilann, Breadstrings, Megan, Blade, and Daniel the Bard
+        Breadstrings, Megan, Blade, and Daniel the Bard
       </em>
     </p>
     <h2 id="final">
