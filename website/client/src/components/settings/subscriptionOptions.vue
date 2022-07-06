@@ -134,11 +134,11 @@ export default {
   data () {
     return {
       subscription: {
-        key: null,
+        key: 'basic_earned',
       },
       gift: {
         type: 'subscription',
-        subscription: { key: '' },
+        subscription: { key: 'basic_earned' },
       },
       receiverName: '',
     };
