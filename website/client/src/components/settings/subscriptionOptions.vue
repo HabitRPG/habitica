@@ -73,18 +73,6 @@
       margin-top: 0.75rem;
     }
 
-    .custom-control .custom-radio .custom-control-label::before,
-    .custom-control.label::after  .custom-control-input {
-      &:hover {
-        width: 18px;
-        height: 18px;
-        background: 50%/50% 50% no-repeat;
-        @include custom-radio-checked-icon($purple-400);
-        background-size: 12px 12px;
-        border: solid 2px $purple-400;
-      }
-    }
-
     .selected {
       background-color: rgba(213, 200, 255, 0.32);
 
