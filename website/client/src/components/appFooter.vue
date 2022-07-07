@@ -3,9 +3,9 @@
     <buy-gems-modal v-if="user" />
     <!--modify-inventory(v-if="isUserLoaded")-->
     <footer>
-      <div class="row">
+      <div class="row row-one">
         <!-- Product -->
-        <div class="col-sm">
+        <div class="col-xs-6 col-sm">
           <h3>{{ $t('footerProduct') }}</h3>
           <ul>
             <li>
@@ -33,7 +33,7 @@
           </ul>
         </div>
         <!-- Company -->
-        <div class="col-sm">
+        <div class="col-xs-6 col-sm">
           <h3>{{ $t('footerCompany') }}</h3>
           <ul>
             <li>
@@ -61,7 +61,7 @@
           </ul>
         </div>
         <!-- Community -->
-        <div class="col-sm">
+        <div class="col-xs-6 col-sm">
           <h3>{{ $t('footerCommunity') }}</h3>
           <ul>
             <li>
@@ -84,7 +84,7 @@
           </ul>
         </div>
         <!-- Support -->
-        <div class="col-sm">
+        <div class="col-xs-6 col-sm">
           <h3>{{ $t ('support') }}</h3>
           <ul>
             <li>
@@ -128,7 +128,7 @@
           </ul>
         </div>
         <!-- Developers -->
-        <div class="col-sm">
+        <div class="col-xs-6 col-sm">
           <h3>{{ $t('footerDevs') }}</h3>
           <ul>
             <li>
@@ -159,7 +159,7 @@
           </ul>
         </div>
       </div>
-      <div class="row justify-content d-flex">
+      <div class="row row-two">
         <!-- Help Support Habitica -->
         <div class="col-sm-7 support">
           <h3>{{ $t('helpSupportHabitica') }}</h3>
@@ -238,29 +238,29 @@
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row row-three">
         <div class="col-12">
           <hr>
         </div>
       </div>
-      <div class="row colophon align-items-center">
-        <div class="col">
+      <div class="row row-four colophon align-items-center">
+        <div class="col-lg-3 col-xs-12">
           © {{ currentYear }} Habitica. All rights reserved.
         </div>
-        <div class="col align-items-end">
+        <div class="col-lg-6 col-xs-12 align-items-end">
           <div
             class="logo svg-icon"
             v-html="icons.gryphon"
           ></div>
         </div>
-        <div class="d-flex col justify-content-end">
+        <div class="col-lg-3 col-xs-12 d-flex justify-content-end">
           <span class="privacy-policy">
             <a
               target="_blank"
               href="/static/privacy"
             >{{ $t('privacy') }}</a>
           </span>
-          <span class="">
+          <span class="terms">
             <a
               target="_blank"
               href="/static/terms"
@@ -268,13 +268,12 @@
           </span>
         </div>
       </div>
-      <div class="row">
+      <div class="row row-five">
         <div
           v-if="!IS_PRODUCTION && isUserLoaded"
-          class="debug float-left"
         >
           <button
-            class="btn btn-primary"
+            class="debug btn btn-primary"
             @click="debugMenuShown = !debugMenuShown"
           >
             Toggle Debug Menu
@@ -436,11 +435,18 @@ hr {
 }
 
 .privacy-policy {
-  padding-right: 16px;
+  display: flex;
+}
+
+.terms {
+  padding-left: 16px;
+  display:flex;
+  justify-content: end;
 }
 
 .debug {
   margin-top: 16px;
+  display: flex;
 }
 
 .debug-group {
@@ -510,12 +516,71 @@ hr {
 // Phones
 @media (max-width: 428px) {
   footer {
-    padding-left: 10px;
-    padding-right: 10px;
+    padding: 24px 16px;
   }
-  .support {
-    flex-direction: row-reverse;
+
+  .row-one {
+    display: inline-block;
+    width: 50%;
   }
+
+  .row-two {
+    display: flex;
+
+    .support {
+      display: block;
+      order: 0;
+      margin-top: 24px;
+      width: 100%;
+
+      h3 {
+        margin-bottom: 4px;
+      }
+    }
+
+    .btn-contribute {
+      order: 1;
+      margin: 16px 0 24px 0;
+      width: 288px;
+    }
+
+    .social {
+      order: -1;
+      width: 50%;
+    }
+  }
+
+  .row-three {
+    display: flex;
+  }
+
+  .row-four{
+    display: flex;
+    margin-top: 16px 0 24px 0;
+    justify-content: between;
+    flex-direction: row;
+  }
+
+  .row-five{
+    display:flex;
+    margin: 64px 0 16px 0;
+  }
+
+  .debug {
+    display: flex;
+    width: 288px;
+    text-align: center;
+    padding-left: 84px;
+  }
+
+  .debug-group {
+    background: $gray-600;
+    border-radius: 2px;
+    padding: 16px;
+    width: 100%;
+    box-shadow: 0 1px 3px 0 rgba(26, 24, 29, 0.12), 0 1px 2px 0 rgba(26, 24, 29, 0.24);
+    margin-top: 8px;
+}
 }
 
 </style>
