@@ -85,7 +85,6 @@
     "passwordChangeSuccess": "Dein Passwort wurde erfolgreich geändert. Du kannst das Passwort jetzt nutzen, um auf Deinen Account zuzugreifen.",
     "displayNameSuccess": "Anzeigename erfolgreich geändert",
     "emailSuccess": "Die E-Mail-Adresse wurde erfolgreich geändert",
-    "passwordSuccess": "Passwort wurde erfolgreich geändert",
     "detachSocial": "<%= network %> trennen",
     "detachedSocial": "Erfolgreich die Verbindung zu <%= network %> getrennt",
     "addedLocalAuth": "Lokale Authentifizierung erfolgreich hinzugefügt",

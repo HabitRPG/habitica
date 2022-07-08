@@ -85,7 +85,6 @@
     "passwordChangeSuccess": "Parola ți-a fost modificată cu succes la cea tocmai aleasă. Acum o poți utiliza pentru a-ți accesa contul.",
     "displayNameSuccess": "Numele afișat a fost schimbat cu succes",
     "emailSuccess": "Emailul a fost schimbat cu succes",
-    "passwordSuccess": "Parola a fost schimbat cu succes",
     "detachSocial": "De-înregistrează <%= network %>",
     "detachedSocial": "Ai eliminat cu succes autentificarea <%= network %> din cont",
     "addedLocalAuth": "Adăugarea cu succes a autentificării locale",

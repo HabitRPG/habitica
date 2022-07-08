@@ -85,7 +85,6 @@
     "passwordChangeSuccess": "Twoje hasło zostało z powodzeniem zmienione, na właśnie przez Ciebie wybrane. Teraz możesz go użyć, aby uzyskać dostęp do swojego konta.",
     "displayNameSuccess": "Nazwa gracza została pomyślnie zmieniona",
     "emailSuccess": "E-mail pomyślnie zmieniony",
-    "passwordSuccess": "Hasło pomyślnie zmienione",
     "detachSocial": "Wyrejestruj <%= network %>",
     "detachedSocial": "Pomyślnie odpięto uwierzytelnienie za pomocą <%= network %> od Twojego konta",
     "addedLocalAuth": "Pomyślnie dodano uwierzytelnianie lokalne",

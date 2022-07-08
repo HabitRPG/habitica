@@ -85,7 +85,6 @@
     "passwordChangeSuccess": "Je wachtwoord is succesvol veranderd naar degene die je net gekozen hebt. Je kunt deze nu gebruiken op toegang te krijgen tot je account.",
     "displayNameSuccess": "Weergavenaam is succesvol veranderd",
     "emailSuccess": "E-mailadres succesvol aangepast",
-    "passwordSuccess": "Wachtwoord is succesvol veranderd",
     "detachSocial": "De-registreer <%= network %>",
     "detachedSocial": "<%= network %> authenticatie succesvol verwijderd van je account",
     "addedLocalAuth": "Plaatselijke authenticatie succesvol toegevoegd",

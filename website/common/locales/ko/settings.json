@@ -85,7 +85,6 @@
     "passwordChangeSuccess": "당신의 비밀번호가 방금 선택한 것으로 성공적으로 바뀌었습니다. 이제 계정에 접속하기 위하여 그 비밀번호를 사용할 수 있습니다.",
     "displayNameSuccess": "Display name successfully changed",
     "emailSuccess": "이메일 병경 성공",
-    "passwordSuccess": "비밀번호 변화 성공",
     "detachSocial": "De-register <%= network %>",
     "detachedSocial": "당신의 계정에서 <%= network %> 인증을 성공적으로 삭제하였습니다.",
     "addedLocalAuth": "Successfully added local authentication",

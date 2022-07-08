@@ -85,7 +85,6 @@
     "passwordChangeSuccess": "Ditt lösenord blev framgångsrikt ändrat till det du just valde. Du kan nu använda det för att få tillgång till ditt konto.",
     "displayNameSuccess": "Visningsnamn har ändrats",
     "emailSuccess": "E-postadress framgångsrikt ändrad",
-    "passwordSuccess": "Lösenord framgångsrikt ändrad",
     "detachSocial": "Avregistrera <%= network %>",
     "detachedSocial": "Tog framgångsrikt bort <%= network %>autentisering  från ditt konto.",
     "addedLocalAuth": "Lokal autentisering har lagts till",

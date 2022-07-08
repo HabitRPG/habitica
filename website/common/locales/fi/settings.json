@@ -85,7 +85,6 @@
     "passwordChangeSuccess": "Salasanasi on onnistuneesti vaihdettu valitsemaasi. Voit nyt käyttää sitä päästäksesi tiliisi.",
     "displayNameSuccess": "Näyttönimi vaihdettu onnistuneesti",
     "emailSuccess": "Sähköposti vaihdettu onnistuneesti",
-    "passwordSuccess": "Salasana vaihdettu onnistuneesti",
     "detachSocial": "Irroita <%= network %>:sta",
     "detachedSocial": "<%= network %>-verkon poistettu tilistäsi todentaminen onnistuneesti.",
     "addedLocalAuth": "Lisäsit onnistuneesti paikallisen varmistuksen.",

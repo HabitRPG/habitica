@@ -85,7 +85,6 @@
     "passwordChangeSuccess": "Geslo je bilo uspešno spremenjeno v izbranega. Z njim se zdaj lahko prijavite v vaš račun.",
     "displayNameSuccess": "Display name successfully changed",
     "emailSuccess": "Sprememba e-poštnega naslova je uspela",
-    "passwordSuccess": "Sprememba gesla je uspela",
     "detachSocial": "Odjavi <%= network %>",
     "detachedSocial": "Odstranitev povezave vašega računa s <%= network %> je uspela",
     "addedLocalAuth": "Dodajanje lokalne avtentifikacije je uspelo",

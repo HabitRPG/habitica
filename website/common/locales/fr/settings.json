@@ -85,7 +85,6 @@
     "passwordChangeSuccess": "Votre mot de passe a été changé avec succès pour celui que vous venez de choisir. Vous pouvez maintenant l'utiliser pour accéder à votre compte.",
     "displayNameSuccess": "Pseudo modifié avec succès",
     "emailSuccess": "Adresse courriel modifiée avec succès",
-    "passwordSuccess": "Mot de passe modifiée avec succès",
     "detachSocial": "Supprimer la connexion à <%= network %>",
     "detachedSocial": "<%= network %> a été retiré de votre compte avec succès",
     "addedLocalAuth": "Authentification locale ajoutée avec succès",

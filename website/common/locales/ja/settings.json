@@ -85,7 +85,6 @@
     "passwordChangeSuccess": "パスワードが変更されました。今後、新しいパスワードでアカウントにアクセスできます。",
     "displayNameSuccess": "表示名を変更しました",
     "emailSuccess": "メールアドレスを変更しました",
-    "passwordSuccess": "パスワードを変更しました",
     "detachSocial": "<%= network %> との連携解除",
     "detachedSocial": "<%= network %>認証 との連携を解除しました",
     "addedLocalAuth": "ローカル認証を追加しました",

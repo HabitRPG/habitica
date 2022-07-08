@@ -85,7 +85,6 @@
     "passwordChangeSuccess": "Dit kodeord er nu ændret til det netop valgte. Du kan nu bruge det nye kodeord til at få adgang til din konto.",
     "displayNameSuccess": "Displaynavn ændret",
     "emailSuccess": "Din e-mail er blevet ændret",
-    "passwordSuccess": "Adgangskoden er blevet ændret",
     "detachSocial": "Afregistrer <%= network %>",
     "detachedSocial": "Vi har fjernet godkendelse til <%= network %> fra din konto",
     "addedLocalAuth": "Lokal godkendelse er nu aktiveret",

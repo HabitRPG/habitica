@@ -85,7 +85,6 @@
     "passwordChangeSuccess": "Yer password was successfully changed t' th' one ye jus' chose. Ye can now use it t' access yer account.",
     "displayNameSuccess": "Displayed Pirate name successfully chang'd",
     "emailSuccess": "Email successfully chang'd",
-    "passwordSuccess": "Password successfully chang'd",
     "detachSocial": "De-regist'r <%= network %>",
     "detachedSocial": "Successfully remov'd <%= network %> authentication from yer account",
     "addedLocalAuth": "Successfully add'd local authentication",

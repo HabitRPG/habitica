@@ -85,7 +85,6 @@
     "passwordChangeSuccess": "您的密碼已成功更改。您現在可以使用它來登入自己的帳號。",
     "displayNameSuccess": "成功更改暱稱",
     "emailSuccess": "成功更改電子郵件",
-    "passwordSuccess": "成功更改密碼",
     "detachSocial": "註銷<%= network %>註冊",
     "detachedSocial": "成功從您的帳號中移除<%= network %>的認證",
     "addedLocalAuth": "成功加入本地端認證",

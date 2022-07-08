@@ -85,7 +85,6 @@
     "passwordChangeSuccess": "您的密码已成功更改为您刚才选择的。您现在可以使用它来访问您的帐户。",
     "displayNameSuccess": "昵称更改成功",
     "emailSuccess": "邮箱修改成功",
-    "passwordSuccess": "密码修改成功",
     "detachSocial": "解除 <%= network %>登录",
     "detachedSocial": "成功的移除了来自你的账号 <%= network %> 的认证",
     "addedLocalAuth": "成功加入本地端认证",

@@ -85,7 +85,6 @@
     "passwordChangeSuccess": "Tvoja lozinka je uspješno promijenjena u onu koju si upravo izabrao/la. Sad je možeš koristiti za pristup svom računu.",
     "displayNameSuccess": "Ime za prikazivanje je uspješno promijenjeno",
     "emailSuccess": "E-mail je uspješno promijenjen",
-    "passwordSuccess": "Lozinka je uspješno promijenjen",
     "detachSocial": "Odregistriraj <%= network %>",
     "detachedSocial": "Uspješno je uklonjena <%= network %> provjera autentičnosti s tvog računa",
     "addedLocalAuth": "Uspješno je dodana lokalna provjera autentičnosti",

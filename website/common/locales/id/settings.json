@@ -85,7 +85,6 @@
     "passwordChangeSuccess": "Kata sandimu berhasil diubah dengan kata sandi yang telah kamu pilih. Kamu bisa menggunakannya untuk mengakses akunmu.",
     "displayNameSuccess": "Nama tampilan berhasil diubah",
     "emailSuccess": "Email telah diubah",
-    "passwordSuccess": "Kata Sandi telah diubah",
     "detachSocial": "Putuskan <%= network %>",
     "detachedSocial": "Berhasil menghapus autentikasi <%= network %> dari akunmu",
     "addedLocalAuth": "Autentikasi lokal berhasil ditambahkan",

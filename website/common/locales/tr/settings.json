@@ -85,7 +85,6 @@
     "passwordChangeSuccess": "Şifren yeni seçtiğinle başarıyla değiştirildi. Artık bu şifre ile hesabına giriş yapabilirsin.",
     "displayNameSuccess": "Görünen Ad başarıyla değiştirildi",
     "emailSuccess": "E-posta başarıyla değiştirildi",
-    "passwordSuccess": "Şifren başarıyla değiştirildi",
     "detachSocial": "<%= network %> bağlantısını kaldır",
     "detachedSocial": "Hesabının <%= network %> bağlantısı başarıyla kaldırıldı",
     "addedLocalAuth": "Başarıyla yerel yetkilendirme eklendi",
