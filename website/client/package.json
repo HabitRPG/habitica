@@ -55,11 +55,11 @@
     "svgo-loader": "^2.2.1",
     "uuid": "^8.3.2",
     "validator": "^13.7.0",
-    "vue": "^2.6.14",
+    "vue": "^2.7.4",
     "vue-cli-plugin-storybook": "2.1.0",
     "vue-mugen-scroll": "^0.2.6",
     "vue-router": "^3.5.4",
-    "vue-template-compiler": "^2.6.14",
+    "vue-template-compiler": "^2.7.4",
     "vuedraggable": "^2.24.3",
     "vuejs-datepicker": "git://github.com/habitrpg/vuejs-datepicker.git#153d339e4dbebb73733658aeda1d5b7fcc55b0a0",
     "webpack": "^4.46.0"
