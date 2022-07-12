@@ -396,6 +396,11 @@ const armor = {
     con: 9,
     set: 'strawRaincoat',
   },
+  fancyPirateSuit: {
+    con: 4,
+    int: 4,
+    set: 'fancyPirate',
+  },
 };
 
 const body = {
@@ -803,6 +808,10 @@ const head = {
     per: 9,
     set: 'strawRaincoat',
   },
+  fancyPirateHat: {
+    per: 8,
+    set: 'fancyPirate',
+  },
 };
 
 const shield = {
@@ -1085,6 +1094,11 @@ const shield = {
     con: 5,
     int: 6,
     set: 'musicalInstrumentOne',
+  },
+  treasureMap: {
+    int: 4,
+    str: 4,
+    set: 'fancyPirate',
   },
 };
 

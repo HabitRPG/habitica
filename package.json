@@ -1,7 +1,7 @@
 {
   "name": "habitica",
   "description": "A habit tracker app which treats your goals like a Role Playing Game.",
-  "version": "4.235.1",
+  "version": "4.236.1",
   "main": "./website/server/index.js",
   "dependencies": {
     "@google-cloud/trace-agent": "^5.1.6",
@@ -44,7 +44,7 @@
     "lodash": "^4.17.21",
     "merge-stream": "^2.0.0",
     "method-override": "^3.0.0",
-    "moment": "^2.29.3",
+    "moment": "^2.29.4",
     "moment-recur": "^1.0.7",
     "mongoose": "^5.13.7",
     "morgan": "^1.10.0",
