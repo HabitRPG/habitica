@@ -1,7 +1,7 @@
 {
   "name": "habitica",
   "description": "A habit tracker app which treats your goals like a Role Playing Game.",
-  "version": "4.236.0",
+  "version": "4.236.1",
   "main": "./website/server/index.js",
   "dependencies": {
     "@babel/core": "^7.18.6",
@@ -39,7 +39,7 @@
     "gulp.spritesmith": "^6.13.0",
     "habitica-markdown": "^3.0.0",
     "helmet": "^4.6.0",
-    "image-size": "^1.0.1",
+    "image-size": "^1.0.2",
     "in-app-purchase": "^1.11.3",
     "js2xmlparser": "^4.0.2",
     "jsonwebtoken": "^8.5.1",
