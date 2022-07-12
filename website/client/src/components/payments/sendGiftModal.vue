@@ -606,6 +606,13 @@ export default {
       } else {
         this.selectPage(this.startingPage);
       }
+      if (this.selectedPage === 'buyGems') {
+        this.gift.gems.amount = 20;
+      } else if (this.selectedPage === 'ownGems') {
+        this.gift.gems.amount = 1;
+      } else {
+        this.gift.gems.amount = 0;
+      }
       this.$root.$emit('bv::show::modal', 'send-gift');
     });
   },
