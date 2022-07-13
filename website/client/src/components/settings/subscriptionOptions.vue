@@ -144,8 +144,6 @@ export default {
     },
     subscriptionBlocksOrdered () {
       const subscriptions = filter(subscriptionBlocks, o => o.discount !== true);
-      console.log(this.gift.subscription); // remove this
-
       return sortBy(subscriptions, [o => o.months]);
     },
   },
