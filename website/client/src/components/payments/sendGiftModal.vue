@@ -606,13 +606,7 @@ export default {
       } else {
         this.selectPage(this.startingPage);
       }
-      if (this.selectedPage === 'buyGems') {
-        this.gift.gems.amount = 20;
-      } else if (this.selectedPage === 'ownGems') {
-        this.gift.gems.amount = 1;
-      } else {
-        this.gift.gems.amount = 0;
-      }
+      this.setGemDefaults();
       this.$root.$emit('bv::show::modal', 'send-gift');
     });
   },
@@ -620,11 +614,7 @@ export default {
     close () {
       this.$root.$emit('bv::hide::modal', 'send-gift');
     },
-    selectPage (page) {
-      if (page === this.selectedPage) return;
-      if (page === 'buyGems') this.selectedPage = 'buyGems';
-      if (page === 'buyGems' && this.selectedPage === 'ownGems') return;
-      this.selectedPage = page || 'subscription';
+    setGemDefaults () {
       if (this.selectedPage === 'buyGems') {
         this.gift.gems.amount = 20;
       } else if (this.selectedPage === 'ownGems') {
@@ -632,6 +622,13 @@ export default {
       } else {
         this.gift.gems.amount = 0;
       }
+    },
+    selectPage (page) {
+      if (page === this.selectedPage) return;
+      if (page === 'buyGems') this.selectedPage = 'buyGems';
+      if (page === 'buyGems' && this.selectedPage === 'ownGems') return;
+      this.selectedPage = page || 'subscription';
+      this.setGemDefaults();
     },
     async sendGift () {
       this.sendingInProgress = true;

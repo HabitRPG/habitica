@@ -82,7 +82,7 @@ input, textarea, input.form-control, textarea.form-control {
   }
 }
 
-/** Colored Input-Groups, ignoring checklist */
+//  Colored Input-Groups, ignoring checklist
 .input-group:not(.checklist-group) {
   border-radius: 2px;
   border: solid 1px $gray-400;
@@ -100,7 +100,7 @@ input, textarea, input.form-control, textarea.form-control {
   }
 }
 
-/** Generic Input Group Styles */
+// Generic Input Group Styles
 .input-group {
   height: 2rem;
 
@@ -282,9 +282,10 @@ $bg-disabled-control: #34303a;
   padding-left: 36px;
 }
 
-//radio buttons
+// radio buttons
 $bg-color: $purple-400;
 
+// svg for the purple dot
 @mixin custom-radio-checked-icon ($bg-color) {
   background-image: str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3E%3Ccircle r='3' fill='#{$bg-color}'/%3E%3C/svg%3E"), "#", "%23");
 }
@@ -319,14 +320,14 @@ $bg-color: $purple-400;
     box-shadow: 0 0 0 2px rgba(146, 92, 243, 0.5);
   }
 
-//   // focus / checked / not disabled
+// focus / checked / not disabled
   &:focus:checked:not(:disabled)~.custom-control-label::before, 
   &:active:checked:not(:disabled)~.custom-control-label::before  {
     border: 2px solid $purple-400;
     box-shadow: 0 0 0 2px rgba(146, 92, 243, 0.5);
   }
 
-//   // hover / not checked / not disabled
+// hover / not checked / not disabled
   &:hover:not(:checked):not(:disabled)~.custom-control-label::before, 
   &:active:not(:checked):not(:disabled)~.custom-control-label::before  {
     width: 18px;
@@ -337,7 +338,7 @@ $bg-color: $purple-400;
     border: solid 2px $purple-400;
   }
 
-//   // hover / checked / not disabled
+// hover / checked / not disabled
     &:hover:checked:not(:disabled)~.custom-control-label::before, 
     &:active::checked:not(:disabled)~.custom-control-label::before  {
     width: 18px;
@@ -348,7 +349,7 @@ $bg-color: $purple-400;
     border: solid 2px $purple-300;
   }
 
-//   // disabled / checked / before
+// disabled / checked / before
   &:disabled:checked~.custom-control-label::before {
     background: 50%/50% 50% no-repeat;
     @include custom-radio-checked-icon($gray-300);
@@ -357,7 +358,7 @@ $bg-color: $purple-400;
     opacity: 0.75;
   }
 
-//   // disabled / checked / after
+// disabled / checked / after
   &:disabled:checked~.custom-control-label::after {
     background: 50%/50% 50% no-repeat;
     @include custom-radio-checked-icon($gray-300);
@@ -366,13 +367,13 @@ $bg-color: $purple-400;
     background-size: 12px 12px;
   }
 
-//   // disabled / not checked / before
+// disabled / not checked / before
   &:disabled:not(:checked)~.custom-control-label::before {
     background-color: $gray-600;
     border: 2px solid $gray-200;
   }
 
-//   // focus and disabled / not checked / before
+// focus and disabled / not checked / before
   &:focus:disabled~.custom-control-label::before, 
   &:active:disabled~.custom-control-label::before  {
     background-color: rgba($bg-disabled-control, 0.1);
@@ -380,7 +381,7 @@ $bg-color: $purple-400;
     border: 2px solid $gray-200;
   }
 
-//   // focus and disabled / checked / before
+// focus and disabled / checked / before
   &:focus:disabled:checked~.custom-control-label::before, 
   &:active:disabled:checked~.custom-control-label::before  {
     background: 50%/50% 50% no-repeat;
