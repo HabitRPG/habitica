@@ -125,6 +125,7 @@
     "unsubscribeAllPush": "Check to Unsubscribe from all Push Notifications",
     "correctlyUnsubscribedEmailType": "Correctly unsubscribed from \"<%= emailType %>\" emails.",
     "subscriptionRateText": "Recurring <strong>$<%= price %> USD</strong> every <strong><%= months %> months</strong>",
+    "giftSubscriptionRateText": "<strong>$<%= price %> USD</strong> for <strong><%= months %> months</strong>",
     "benefits": "Benefits",
     "coupon": "Coupon",
     "couponText": "We sometimes have events and give out promo codes for special gear. (eg, those who stop by our Wondercon booth)",
