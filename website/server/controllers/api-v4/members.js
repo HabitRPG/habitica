@@ -64,9 +64,15 @@ api.purchaseHistory = {
     req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
-    const transactions = await Transaction
+    let transactions = await Transaction
       .find({ userId: req.params.memberId })
-      .sort({ createdAt: -1 });
+      .sort({ createdAt: -1 })
+      .exec();
+
+    if (!res.locals.user.hasPermission('userSupport')) {
+      transactions = transactions.filter(t => t.transactionType !== 'create_bank_challenge');
+    }
+
     res.respond(200, transactions);
   },
 };

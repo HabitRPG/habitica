@@ -559,5 +559,6 @@ schema.methods.updateBalance = async function updateBalance (amount,
     amount,
     reference,
     referenceText,
+    currentAmount: this.balance,
   });
 };
