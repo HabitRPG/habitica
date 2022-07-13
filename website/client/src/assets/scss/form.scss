@@ -82,7 +82,7 @@ input, textarea, input.form-control, textarea.form-control {
   }
 }
 
-//  Colored Input-Groups, ignoring checklist
+// Colored Input-Groups, ignoring checklist
 .input-group:not(.checklist-group) {
   border-radius: 2px;
   border: solid 1px $gray-400;
@@ -314,21 +314,21 @@ $bg-color: $purple-400;
   }
 
 // focus / not checked / not disabled
-  &:focus:not(:checked):not(:disabled)~.custom-control-label::before, 
+  &:focus:not(:checked):not(:disabled)~.custom-control-label::before,
   &:active:not(:checked):not(:disabled)~.custom-control-label::before  {
     border: 2px solid $gray-300;
     box-shadow: 0 0 0 2px rgba(146, 92, 243, 0.5);
   }
 
 // focus / checked / not disabled
-  &:focus:checked:not(:disabled)~.custom-control-label::before, 
+  &:focus:checked:not(:disabled)~.custom-control-label::before,
   &:active:checked:not(:disabled)~.custom-control-label::before  {
     border: 2px solid $purple-400;
     box-shadow: 0 0 0 2px rgba(146, 92, 243, 0.5);
   }
 
 // hover / not checked / not disabled
-  &:hover:not(:checked):not(:disabled)~.custom-control-label::before, 
+  &:hover:not(:checked):not(:disabled)~.custom-control-label::before,
   &:active:not(:checked):not(:disabled)~.custom-control-label::before  {
     width: 18px;
     height: 18px;
@@ -339,7 +339,7 @@ $bg-color: $purple-400;
   }
 
 // hover / checked / not disabled
-    &:hover:checked:not(:disabled)~.custom-control-label::before, 
+    &:hover:checked:not(:disabled)~.custom-control-label::before,
     &:active::checked:not(:disabled)~.custom-control-label::before  {
     width: 18px;
     height: 18px;
@@ -374,7 +374,7 @@ $bg-color: $purple-400;
   }
 
 // focus and disabled / not checked / before
-  &:focus:disabled~.custom-control-label::before, 
+  &:focus:disabled~.custom-control-label::before,
   &:active:disabled~.custom-control-label::before  {
     background-color: rgba($bg-disabled-control, 0.1);
     box-shadow: 0 0 0 6px rgba($bg-disabled-control, 0.1);
@@ -382,7 +382,7 @@ $bg-color: $purple-400;
   }
 
 // focus and disabled / checked / before
-  &:focus:disabled:checked~.custom-control-label::before, 
+  &:focus:disabled:checked~.custom-control-label::before,
   &:active:disabled:checked~.custom-control-label::before  {
     background: 50%/50% 50% no-repeat;
     @include custom-radio-checked-icon($gray-300);
