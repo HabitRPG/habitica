@@ -5,20 +5,22 @@
     <footer>
       <div class="row row-one">
         <!-- Product -->
-        <div class="col-xs-6 col-sm">
+        <div class="col-xs-6 col-sm product">
           <h3>{{ $t('footerProduct') }}</h3>
           <ul>
             <li>
               <a
                 href="https://itunes.apple.com/us/app/habitica/id994882113?ls=1&mt=8"
                 target="_blank"
-              >{{ $t('mobileIOS') }}</a>
+              >{{ $t('mobileIOS') }}
+              </a>
             </li>
             <li>
               <a
                 href="https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica"
                 target="_blank"
-              >{{ $t('mobileAndroid') }}</a>
+              >{{ $t('mobileAndroid') }}
+              </a>
             </li>
             <li>
               <router-link to="/group-plans">
@@ -33,7 +35,7 @@
           </ul>
         </div>
         <!-- Company -->
-        <div class="col-xs-6 col-sm">
+        <div class="col-xs-6 col-sm company">
           <h3>{{ $t('footerCompany') }}</h3>
           <ul>
             <li>
@@ -50,25 +52,28 @@
               <a
                 href="https://habitica.wordpress.com/"
                 target="_blank"
-              >{{ $t('companyBlog') }}</a>
+              >{{ $t('companyBlog') }}
+              </a>
             </li>
             <li>
               <a
                 href="https://habitica.fandom.com/wiki/Whats_New"
                 target="_blank"
-              >{{ $t('oldNews') }}</a>
+              >{{ $t('oldNews') }}
+              </a>
             </li>
           </ul>
         </div>
         <!-- Community -->
-        <div class="col-xs-6 col-sm">
+        <div class="col-xs-6 col-sm community">
           <h3>{{ $t('footerCommunity') }}</h3>
           <ul>
             <li>
               <a
                 target="_blank"
                 href="/static/community-guidelines"
-              >{{ $t('communityGuidelines') }}</a>
+              >{{ $t('communityGuidelines') }}
+              </a>
             </li>
             <li>
               <router-link to="/hall/contributors">
@@ -79,12 +84,13 @@
               <a
                 href="https://habitica.fandom.com/wiki/Contributing_to_Habitica"
                 target="_blank"
-              >{{ $t('companyContribute') }}</a>
+              >{{ $t('companyContribute') }}
+              </a>
             </li>
           </ul>
         </div>
         <!-- Support -->
-        <div class="col-xs-6 col-sm">
+        <div class="col-xs-6 col-sm support">
           <h3>{{ $t ('support') }}</h3>
           <ul>
             <li>
@@ -92,7 +98,6 @@
                 {{ $t('FAQ') }}
               </router-link>
             </li>
-            <!-- link isn't underlined on hover for some reason... -->
             <li
               v-if="user"
             >
@@ -117,44 +122,49 @@
               <a
                 href="https://docs.google.com/forms/d/e/1FAIpQLScPhrwq_7P1C6PTrI3lbvTsvqGyTNnGzp1ugi1Ml0PFee_p5g/viewform?usp=sf_link"
                 target="_blank"
-              >{{ $t('requestFeature') }}</a>
+              >{{ $t('requestFeature') }}
+              </a>
             </li>
             <li>
               <a
                 href="https://habitica.fandom.com/"
                 target="_blank"
-              >{{ $t('wiki') }}</a>
+              >{{ $t('wiki') }}
+              </a>
             </li>
           </ul>
         </div>
         <!-- Developers -->
-        <div class="col-xs-6 col-sm">
+        <div class="col-xs-6 col-sm developers">
           <h3>{{ $t('footerDevs') }}</h3>
           <ul>
             <li>
               <a
                 href="/apidoc"
                 target="_blank"
-              >{{ $t('APIv3') }}</a>
+              >{{ $t('APIv3') }}
+              </a>
             </li>
             <li>
               <a
                 :href="getDataDisplayToolUrl"
                 target="_blank"
-              >{{ $t('dataDisplayTool') }}</a>
+              >{{ $t('dataDisplayTool') }}
+              </a>
             </li>
             <li>
               <a
                 href="https://habitica.fandom.com/wiki/Guidance_for_Blacksmiths"
                 target="_blank"
-              >{{ $t('guidanceForBlacksmiths') }}</a>
+              >{{ $t('guidanceForBlacksmiths') }}
+              </a>
             </li>
             <li>
               <a
                 href="https://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations"
-                target="_blank">
-                {{ $t('communityExtensions') }}</a>
-              <!-- v-html="$t('communityExtensions')"> -->
+                target="_blank"
+              >{{ $t('communityExtensions') }}
+              </a>
             </li>
           </ul>
         </div>
@@ -193,7 +203,7 @@
         </div>
 
         <!-- Social -->
-        <div class="col offset-col-6 social">
+        <div class="col offset-col-6 col-xs-1 social">
           <h3>{{ $t('footerSocial') }}</h3>
           <div class="icons align-items-center">
             <a
@@ -244,23 +254,23 @@
         </div>
       </div>
       <div class="row row-four colophon align-items-center">
-        <div class="col-lg-3 col-xs-12">
+        <div class="col-lg-3 col-xs-12 copyright">
           © {{ currentYear }} Habitica. All rights reserved.
         </div>
-        <div class="col-lg-6 col-xs-12 align-items-end">
+        <div class="col-lg-6 col-xs-12 align-items-end melior">
           <div
             class="logo svg-icon"
             v-html="icons.gryphon"
           ></div>
         </div>
         <div class="col-lg-3 col-xs-12 d-flex justify-content-end">
-          <span class="privacy-policy">
+          <span class="privacy-policy privacy">
             <a
               target="_blank"
               href="/static/privacy"
             >{{ $t('privacy') }}</a>
           </span>
-          <span class="terms">
+          <span class="terms t-and-c">
             <a
               target="_blank"
               href="/static/terms"
@@ -369,6 +379,12 @@ footer {
     color: $purple-300;
     text-decoration: underline;
   }
+
+  // needed to make "report a bug"'s hover state correct
+  a:not([href]):not([class]):hover {
+  color: $purple-300;
+  text-decoration: underline;
+}
 }
 
 h3 {
@@ -484,15 +500,14 @@ hr {
   }
 
   .text{
-  display: inline-block;
-  vertical-align: bottom;
+    display: inline-block;
+    vertical-align: bottom;
   }
 }
 
-// Extra large devices (large desktops)
-// No media query since the extra-large breakpoint has no upper bound on its width
+// media breakpoints
 
-// bootstrap extra-large
+// extra-large
 @media (min-width: 1440.02px) {
   .social {
     right: -80px;
@@ -520,8 +535,31 @@ hr {
   }
 
   .row-one {
-    display: inline-block;
-    width: 50%;
+    display: grid;
+    grid-column-gap: 16px;
+    grid-row-gap: 24px;
+
+    .product {
+      grid-row: 1 / 1;
+      grid-column: 1 / 1;
+    }
+    .company {
+      grid-row: 1 / 1;
+      grid-column: 2 / 2;
+    }
+    .community {
+      grid-row: 2 / 2;
+      grid-column: 1 / 1;
+    }
+    .support {
+      grid-row: 2 / 2;
+      grid-column: 2 / 2;
+    }
+    .developers {
+      grid-row: 3 / 3;
+      grid-column: 1 / 1;
+    }
+
   }
 
   .row-two {
@@ -546,7 +584,6 @@ hr {
 
     .social {
       order: -1;
-      width: 50%;
     }
   }
 
@@ -559,6 +596,25 @@ hr {
     margin-top: 16px 0 24px 0;
     justify-content: between;
     flex-direction: row;
+
+    .copyright {
+      order: 0;
+      display: flex;
+      justify-content: center;
+    }
+    .privacy{
+      order: 1;
+      display: flex;
+      width: 100%;
+    }
+    .t-and-c {
+      order: 2;
+      display: flex;
+      width: 100%;
+    }
+    .melior {
+      order: 4;
+    }
   }
 
   .row-five{
