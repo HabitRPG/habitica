@@ -37,7 +37,7 @@
               v-for="(skill, key) in spells[user.stats.class]"
               :id="`spell_${skill.key}`"
               :key="key"
-              @click="!spellDisabled(key) ? castStart(skill) : null"
+              @click="!spellDisabled(skill) ? castStart(skill) : null"
               >
               <b-popover
                 :target="`spell_${skill.key}`"
