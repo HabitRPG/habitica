@@ -37,8 +37,8 @@
               v-for="(skill, key) in spells[user.stats.class]"
               :id="`spell_${skill.key}`"
               :key="key"
-              @click="!spellDisabled(key) ? castStart(skill) : null"
-            >
+              @click="!spellDisabled(skill) ? test(key, castStart) : null"
+              >
               <b-popover
                 :target="`spell_${skill.key}`"
                 triggers="hover"
@@ -68,7 +68,7 @@
               </b-popover>
               <div
                 class="spell-border"
-                :class="{ disabled: spellDisabled(key) || user.stats.lvl < skill.lvl }"
+                :class="{ disabled: spellDisabled(skill) || user.stats.lvl < skill.lvl }"
               >
                 <div
                   class="spell"
@@ -88,7 +88,7 @@
                     </div>
                   </div>
                   <div
-                    v-else-if="spellDisabled(key) === true"
+                    v-else-if="spellDisabled(skill) === true"
                     class="mana"
                   >
                     <div class="mana-text">
@@ -468,22 +468,22 @@ export default {
         .filter(daily => !daily.completed && daily.isDue)
         .length;
 
-      if (skill === 'frost' && this.user.stats.buffs.streaks) {
+      if (skill.key === 'frost' && this.user.stats.buffs.streaks) {
         return true;
       }
 
-      if (skill === 'stealth' && this.user.stats.buffs.stealth >= incompleteDailiesDue) {
+      if (skill.key === 'stealth' && this.user.stats.buffs.stealth >= incompleteDailiesDue) {
         return true;
       }
 
-      return false;
+      return (this.user.stats.mp < skill.mana);
     },
     skillNotes (skill) {
       let notes = skill.notes();
 
-      if (skill.key === 'frost' && this.spellDisabled(skill.key)) {
+      if (skill.key === 'frost' && this.spellDisabled(skill)) {
         notes = this.$t('spellAlreadyCast');
-      } else if (skill.key === 'stealth' && this.spellDisabled(skill.key)) {
+      } else if (skill.key === 'stealth' && this.spellDisabled(skill)) {
         notes = this.$t('spellAlreadyCast');
       } else if (skill.key === 'stealth') {
         notes = this.$t('spellRogueStealthDaliesAvoided', {
