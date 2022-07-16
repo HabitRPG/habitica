@@ -473,7 +473,9 @@ export default {
     skillNotes (skill) {
       let notes = skill.notes();
 
-      if (skill.key === 'frost' && this.spellDisabled(skill.key)) {
+      if (this.user.stats.lvl < skill.lvl) {
+        notes = this.$t('spellLevelTooHigh', { level: skill.lvl });
+      } else if (skill.key === 'frost' && this.spellDisabled(skill.key)) {
         notes = this.$t('spellAlreadyCast');
       } else if (skill.key === 'stealth' && this.spellDisabled(skill.key)) {
         notes = this.$t('spellAlreadyCast');
