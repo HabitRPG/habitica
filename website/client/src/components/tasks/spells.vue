@@ -68,8 +68,8 @@
               </b-popover>
               <div
                 class="spell-border"
-                :class="{ disabled: spellDisabled(key) || user.stats.lvl < skill.lvl
-                  || user.stats.mp < skill.mana }"
+                :class="{ disabled: spellDisabled(key) || user.stats.lvl < skill.lvl,
+                 'insufficient-mana': user.stats.mp < skill.mana }"
               >
                 <div
                   class="spell"
@@ -92,10 +92,7 @@
                     v-else
                     class="mana"
                   >
-                    <div
-                      class="mana-text"
-                      :class="{ insufficient: user.stats.mp < skill.mana }"
-                    >
+                    <div class="mana-text">
                       <div
                         v-once
                         class="svg-icon"
@@ -191,7 +188,7 @@
     border-radius: 4px;
     margin-bottom: 1rem;
 
-    &:hover:not(.disabled) {
+    &:hover:not(.disabled):not(.insufficient-mana) {
       background-color: $purple-400;
       cursor: pointer;
       box-shadow: 0 4px 4px 0 rgba(26, 24, 29, 0.16),
@@ -207,16 +204,15 @@
           background-color: rgba(26, 24, 29, 0.5);
         }
 
-        .insufficient {
-          color: $white;
-          font-weight: normal;
-        }
-
         .level {
           color: $white;
           font-weight: normal;
         }
       }
+    }
+
+    &.insufficient-mana:not(.disabled) {
+      opacity: 0.5;
     }
 
     .spell {
