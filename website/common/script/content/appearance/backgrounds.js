@@ -505,6 +505,11 @@ const backgrounds = {
     mountain_waterfall: { },
     sailboat_at_sunset: { },
   },
+  backgrounds072022: {
+    bioluminescent_waves: { },
+    underwater_cave: { },
+    underwater_statues: { },
+  },
   timeTravelBackgrounds: {
     airship: {
       price: 1,
