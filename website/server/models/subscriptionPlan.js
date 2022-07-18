@@ -58,6 +58,8 @@ schema.methods.updateHourglasses = async function updateHourglasses (userId,
     amount,
     reference,
     referenceText,
+
+    currentAmount: this.consecutive.trinkets,
   });
 };
 
