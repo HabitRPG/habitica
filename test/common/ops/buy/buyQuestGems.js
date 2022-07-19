@@ -33,7 +33,7 @@ describe('shared.ops.buyQuestGems', () => {
     pinnedGearUtils.removeItemByPath.restore();
   });
 
-  context('successful purchase', () => {
+  context('single purchase', () => {
     const userGemAmount = 10;
 
     before(() => {
@@ -44,7 +44,7 @@ describe('shared.ops.buyQuestGems', () => {
       user.pinnedItems.push({ type: 'quests', key: 'gryphon' });
     });
 
-    it('purchases quests', async () => {
+    it('successfully purchases quest', async () => {
       const key = 'gryphon';
 
       await buyQuest(user, { params: { key } });
@@ -55,6 +55,28 @@ describe('shared.ops.buyQuestGems', () => {
     it('if a user\'s count of a quest scroll is negative, it will be reset to 0 before incrementing when they buy a new one.', async () => {
       const key = 'dustbunnies';
       user.items.quests[key] = -1;
+
+      await buyQuest(user, { params: { key } });
+
+      expect(user.items.quests[key]).to.equal(1);
+      expect(pinnedGearUtils.removeItemByPath.notCalled).to.equal(true);
+    });
+    it('errors if the user has not completed prerequisite quests', async () => {
+      const key = 'atom3';
+      user.achievements.quests.atom1 = 1;
+
+      try {
+        await buyQuest(user, { params: { key } });
+      } catch (err) {
+        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err.message).to.equal(i18n.t('mustComplete', { quest: 'atom2' }));
+        expect(user.items.quests[key]).to.eql(undefined);
+      }
+    });
+    it('successfully purchases quest if user has completed all prerequisite quests', async () => {
+      const key = 'atom3';
+      user.achievements.quests.atom1 = 1;
+      user.achievements.quests.atom2 = 1;
 
       await buyQuest(user, { params: { key } });
 

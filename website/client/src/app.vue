@@ -414,7 +414,15 @@ export default {
         this.$store.state.isUserLoaded = true;
         Analytics.setUser();
         Analytics.updateUser();
-        return axios.get('/api/v4/i18n/browser-script', { language: this.user.preferences.language });
+        return axios.get('/api/v4/i18n/browser-script',
+          {
+            language: this.user.preferences.language,
+            headers: {
+              'Cache-Control': 'no-cache',
+              Pragma: 'no-cache',
+              Expires: '0',
+            },
+          });
       }).then(() => {
         const i18nData = window && window['habitica-i18n'];
         this.$loadLocale(i18nData);
