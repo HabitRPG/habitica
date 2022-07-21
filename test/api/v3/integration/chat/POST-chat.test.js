@@ -429,12 +429,9 @@ describe('POST /chat', () => {
           type: 'party',
           privacy: 'private',
         },
-        leaderDetails: {
-          'auth.timestamps.created': new Date('2022-01-01'),
-          balance: 10,
-        },
         members: 1,
       });
+      await members[0].update({ 'auth.timestamps.created': new Date('2022-01-01') });
 
       const message = await members[0].post(`/groups/${group._id}/chat`, { message: testSlurMessage });
 
