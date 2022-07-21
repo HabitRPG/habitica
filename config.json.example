@@ -1,5 +1,5 @@
 {
-  "ACCOUNT_MIN_CHAT_AGE": "2",
+  "ACCOUNT_MIN_CHAT_AGE": "0",
   "ADMIN_EMAIL": "you@example.com",
   "AMAZON_PAYMENTS_CLIENT_ID": "CLIENT_ID",
   "AMAZON_PAYMENTS_MODE": "sandbox",
