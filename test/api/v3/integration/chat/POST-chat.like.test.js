@@ -18,11 +18,16 @@ describe('POST /chat/:chatId/like', () => {
         privacy: 'public',
       },
       members: 1,
+      leaderDetails: {
+        'auth.timestamps.created': new Date('2022-01-01'),
+        balance: 10,
+      },
     });
 
     user = groupLeader;
     groupWithChat = group;
     anotherUser = members[0]; // eslint-disable-line prefer-destructuring
+    await anotherUser.update({ 'auth.timestamps.created': new Date('2022-01-01') });
   });
 
   it('Returns an error when chat message is not found', async () => {
