@@ -101,11 +101,7 @@ export function canEdit (store) {
         }
         break;
       case 'group':
-        if (!onUserDashboard) {
-          isUserCanEditTask = isUserGroupLeader || isUserGroupManager || isUserAdmin;
-        } else {
-          isUserCanEditTask = true;
-        }
+        isUserCanEditTask = isUserGroupLeader || isUserGroupManager || isUserAdmin;
         break;
       default:
         break;

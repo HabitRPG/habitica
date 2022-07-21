@@ -88,7 +88,7 @@
           :class="contentClass"
         >
           <div
-            class="task-clickable-area pt-1 px-75 pb-0"
+            class="task-clickable-area pt-1 pl-75 pb-0"
             :class="{ 'cursor-auto': !teamManagerAccess }"
             tabindex="0"
             @click="edit($event, task)"
@@ -105,7 +105,7 @@
                 ref="taskDropdown"
                 v-b-tooltip.hover.top="$t('options')"
                 tabindex="0"
-                class="task-dropdown"
+                class="task-dropdown mr-1"
                 :right="task.type === 'reward'"
               >
                 <div slot="dropdown-toggle">
@@ -564,7 +564,11 @@
   }
 
   .task-dropdown {
-    max-height: 18px;
+    height: 16px;
+    width: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .task-dropdown ::v-deep .dropdown-menu {
@@ -1120,7 +1124,7 @@ export default {
       return this.task.date && this.$t('dueIn', { dueIn });
     },
     edit (e, task) {
-      if (this.isRunningYesterdailies || !this.showEdit) return;
+      if (this.isRunningYesterdailies) return;
       const target = e.target || e.srcElement;
 
       /*
@@ -1138,8 +1142,11 @@ export default {
       const isEditAction = this.$refs.editTaskItem && this.$refs.editTaskItem.contains(target);
 
       if (isDropdown && !isEditAction) return;
+      if (this.$store.state.spellOptions.castingSpell) return;
 
-      if (!this.$store.state.spellOptions.castingSpell) {
+      if (!this.showEdit) {
+        this.$emit('taskSummary', task);
+      } else {
         this.$emit('editTask', task);
       }
     },

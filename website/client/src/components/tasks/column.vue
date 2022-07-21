@@ -102,6 +102,7 @@
           :group="group"
           :challenge="challenge"
           @editTask="editTask"
+          @taskSummary="taskSummary"
           @moveTo="moveTo"
           @taskDestroyed="taskDestroyed"
         />
@@ -651,6 +652,9 @@ export default {
     },
     editTask (task) {
       this.$emit('editTask', task);
+    },
+    taskSummary (task) {
+      this.$emit('taskSummary', task);
     },
     activateFilter (type, filter = '') {
       // Needs a separate API call as this data may not reside in store

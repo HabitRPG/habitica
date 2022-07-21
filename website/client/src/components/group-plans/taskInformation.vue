@@ -14,6 +14,11 @@
       @taskEdited="loadTasks"
       @taskDestroyed="taskDestroyed"
     />
+    <task-summary
+      ref="taskSummary"
+      :task="editingTask"
+      @cancel="cancelTaskModal()"
+    />
     <div class="row tasks-navigation mb-4">
       <div class="col-12 col-md-4 d-flex align-items-center">
         <h1>{{ group.name }}</h1>
@@ -95,6 +100,7 @@
         :search-text="searchText"
         :draggable-override="canCreateTasks"
         @editTask="editTask"
+        @taskSummary="taskSummary"
         @loadGroupCompletedTodos="loadGroupCompletedTodos"
         @taskDestroyed="taskDestroyed"
       />
@@ -163,6 +169,7 @@ import moment from 'moment';
 import taskDefaults from '@/../../common/script/libs/taskDefaults';
 import TaskColumn from '../tasks/column';
 import TaskModal from '../tasks/taskModal';
+import TaskSummary from '../tasks/taskSummary';
 import GroupPlanOverviewModal from './groupPlanOverviewModal';
 import toggleSwitch from '@/components/ui/toggleSwitch';
 
@@ -183,6 +190,7 @@ export default {
   components: {
     TaskColumn,
     TaskModal,
+    TaskSummary,
     GroupPlanOverviewModal,
     toggleSwitch,
   },
@@ -339,6 +347,12 @@ export default {
       // Necessary otherwise the first time the modal is not rendered
       Vue.nextTick(() => {
         this.$root.$emit('bv::show::modal', 'task-modal');
+      });
+    },
+    taskSummary (task) {
+      this.editingTask = cloneDeep(task);
+      Vue.nextTick(() => {
+        this.$root.$emit('bv::show::modal', 'task-summary');
       });
     },
     async loadGroupCompletedTodos () {

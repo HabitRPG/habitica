@@ -6,7 +6,7 @@
     size="sm"
     :hide-footer="true"
     @hidden="onClose()"
-    @show="handleOpen()"
+    @show="syncTask()"
     @shown="focusInput()"
   >
     <div
@@ -22,17 +22,7 @@
         >
           {{ title }}
         </h2>
-        <span
-          v-if="groupAccessRequiredAndOnPersonalPage"
-          class="svg-icon icon-12 close-icon"
-          aria-hidden="true"
-          tabindex="0"
-          @click="cancel()"
-          @keypress.enter="cancel()"
-          v-html="icons.close"
-        ></span>
         <div
-          v-else
           class="ml-auto d-flex align-items-center"
         >
           <button
@@ -67,7 +57,7 @@
       <div class="form-group">
         <lockable-label
           :class-override="cssClass('headings')"
-          :locked="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
+          :locked="challengeAccessRequired"
           :text="`${$t('text')}*`"
         />
         <input
@@ -78,7 +68,7 @@
           type="text"
           required="required"
           spellcheck="true"
-          :disabled="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
+          :disabled="challengeAccessRequired"
           :placeholder="$t('addATitle')"
         >
       </div>
@@ -89,7 +79,7 @@
           <lockable-label
             class="mr-auto"
             :class-override="cssClass('headings')"
-            :locked="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
+            :locked="challengeAccessRequired"
             :text="`${$t('notes')}`"
           />
           <small
@@ -106,7 +96,7 @@
           v-model="task.notes"
           class="form-control input-notes"
           :class="cssClass('input')"
-          :disabled="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
+          :disabled="challengeAccessRequired"
           :placeholder="$t('addNotes')"
         ></textarea>
       </div>
@@ -129,13 +119,6 @@
         })"
       >
       </div>
-    </div>
-    <div
-      v-if="task && groupAccessRequiredAndOnPersonalPage
-        && (task.type === 'daily' || task.type === 'todo')"
-      class="summary-sentence py-3 px-4 mb-n4"
-      v-html="summarySentence"
-    >
     </div>
     <div
       v-if="task"
@@ -179,8 +162,6 @@
         >
           <checklist
             :items.sync="task.checklist"
-            :disable-items="groupAccessRequiredAndOnPersonalPage"
-            :disable-drag="groupAccessRequiredAndOnPersonalPage"
           />
         </div>
         <div
@@ -192,7 +173,7 @@
             class="habit-option-container no-transition
               d-flex flex-column justify-content-center align-items-center"
             :class="!task.up ? cssClass('habit-control-disabled') : ''"
-            :disabled="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
+            :disabled="challengeAccessRequired"
             @click="toggleUpDirection()"
           >
             <div
@@ -218,7 +199,7 @@
             class="habit-option-container no-transition
               d-flex flex-column justify-content-center align-items-center"
             :class="!task.down ? cssClass('habit-control-disabled') : ''"
-            :disabled="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
+            :disabled="challengeAccessRequired"
             @click="toggleDownDirection()"
           >
             <div
@@ -241,11 +222,11 @@
           </button>
         </div>
         <template
-          v-if="task.type !== 'reward' && !groupAccessRequiredAndOnPersonalPage"
+          v-if="task.type !== 'reward'"
         >
           <div class="d-flex mt-3">
             <lockable-label
-              :locked="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
+              :locked="challengeAccessRequired"
               :text="$t('difficulty')"
             />
             <div
@@ -256,13 +237,12 @@
           </div>
           <select-difficulty
             :value="task.priority"
-            :disabled="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
+            :disabled="challengeAccessRequired"
             @select="setDifficulty($event)"
           />
         </template>
         <div
-          v-if="task.type === 'todo' && !groupAccessRequiredAndOnPersonalPage
-            && (!challengeAccessRequired || task.date)"
+          v-if="task.type === 'todo' && (!challengeAccessRequired || task.date)"
           class="option mt-3"
         >
           <div class="form-group">
@@ -279,7 +259,7 @@
           </div>
         </div>
         <div
-          v-if="task.type === 'daily' && !groupAccessRequiredAndOnPersonalPage"
+          v-if="task.type === 'daily'"
           class="option mt-3"
         >
           <div class="form-group">
@@ -295,7 +275,7 @@
           </div>
         </div>
         <div
-          v-if="task.type === 'daily' && !groupAccessRequiredAndOnPersonalPage"
+          v-if="task.type === 'daily'"
           class="option mt-3"
         >
           <div class="form-group">
@@ -312,7 +292,7 @@
           </div>
         </div>
         <div
-          v-if="task.type === 'daily' && !groupAccessRequiredAndOnPersonalPage"
+          v-if="task.type === 'daily'"
           class="option mt-3"
         >
           <div class="form-group">
@@ -342,8 +322,7 @@
           </div>
         </div>
         <div
-          v-if="task.type === 'daily' && task.frequency === 'weekly'
-            && !groupAccessRequiredAndOnPersonalPage"
+          v-if="task.type === 'daily' && task.frequency === 'weekly'"
           class="option mt-3"
         >
           <div class="form-group">
@@ -403,7 +382,7 @@
           </div>
         </div>
         <div
-          v-if="!challengeAccessRequired && !groupAccessRequiredAndOnPersonalPage"
+          v-if="!challengeAccessRequired"
           class="tags-select option mt-3"
         >
           <div class="tags-inline form-group row">
@@ -431,11 +410,11 @@
         >
           <div class="form-group">
             <lockable-label
-              :locked="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
+              :locked="challengeAccessRequired"
               :text="$t('resetCounter')"
             />
             <select-translated-array
-              :disabled="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
+              :disabled="challengeAccessRequired"
               :items="['daily', 'weekly', 'monthly']"
               :value="task.frequency"
               @select="task.frequency = $event"
@@ -585,9 +564,7 @@
           </b-collapse>
         </div>
         <div
-          v-if="purpose !== 'create'
-            && !challengeAccessRequired
-            && !groupAccessRequiredAndOnPersonalPage"
+          v-if="purpose !== 'create' && !challengeAccessRequired"
           class="d-flex justify-content-center mt-4 mb-4"
         >
           <button
@@ -1004,12 +981,6 @@
     }
   }
 
-  .summary-sentence {
-    background-color: $gray-700;
-    line-height: 1.71;
-    border-radius: 0px 0px 8px 8px;
-  }
-
   .input-group-text {
     font-size: 14px;
     font-weight: bold;
@@ -1030,9 +1001,6 @@
 
 <script>
 import axios from 'axios';
-import clone from 'lodash/clone';
-import keys from 'lodash/keys';
-import pickBy from 'lodash/pickBy';
 import moment from 'moment';
 import Datepicker from '@/components/ui/datepicker';
 import toggleCheckbox from '@/components/ui/toggleCheckbox';
@@ -1044,6 +1012,8 @@ import selectDifficulty from '@/components/tasks/modal-controls/selectDifficulty
 import selectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
 import lockableLabel from '@/components/tasks/modal-controls/lockableLabel';
 
+import syncTask from '../../mixins/syncTask';
+
 import informationIcon from '@/assets/svg/information.svg';
 import positiveIcon from '@/assets/svg/positive.svg';
 import negativeIcon from '@/assets/svg/negative.svg';
@@ -1053,7 +1023,7 @@ import goldIcon from '@/assets/svg/gold.svg';
 import chevronIcon from '@/assets/svg/chevron.svg';
 import calendarIcon from '@/assets/svg/calendar.svg';
 import gripIcon from '@/assets/svg/grip.svg';
-import closeIcon from '@/assets/svg/close.svg';
+
 
 export default {
   components: {
@@ -1068,6 +1038,7 @@ export default {
   directives: {
     markdown: markdownDirective,
   },
+  mixins: [syncTask],
   // purpose is either create or edit, task is the task created or edited
   props: ['task', 'purpose', 'challengeId', 'groupId'],
   data () {
@@ -1084,7 +1055,6 @@ export default {
         streak: streakIcon,
         calendar: calendarIcon,
         grip: gripIcon,
-        close: closeIcon,
       }),
       members: [],
       membersNameAndId: [],
@@ -1099,15 +1069,6 @@ export default {
         per: 'perception',
       },
       calendarHighlights: { dates: [new Date()] },
-      expandDayString: {
-        su: 'Sunday',
-        m: 'Monday',
-        t: 'Tuesday',
-        w: 'Wednesday',
-        th: 'Thursday',
-        f: 'Friday',
-        s: 'Saturday',
-      },
     };
   },
   computed: {
@@ -1126,7 +1087,6 @@ export default {
         || this.task.type === 'todo'
         || this.purpose === 'create'
         || !this.isUserTask
-        || this.groupAccessRequiredAndOnPersonalPage
       ) {
         return false;
       }
@@ -1140,14 +1100,8 @@ export default {
 
       return true;
     },
-    groupAccessRequiredAndOnPersonalPage () {
-      if (!this.groupId && this.task.group && this.task.group.id) return true;
-      return false;
-    },
     checklistEnabled () {
-      return ['daily', 'todo'].indexOf(this.task.type) > -1
-        && !this.isOriginalChallengeTask
-        && (!this.groupAccessRequiredAndOnPersonalPage || this.checklist.length > 0);
+      return ['daily', 'todo'].indexOf(this.task.type) > -1 && !this.isOriginalChallengeTask;
     },
     isChallengeTask () {
       return Boolean(this.task.challenge && this.task.challenge.id);
@@ -1171,7 +1125,6 @@ export default {
     },
     title () {
       const type = this.$t(this.task.type);
-      if (this.groupAccessRequiredAndOnPersonalPage) return this.$t('taskSummary', { type });
       return this.$t(this.purpose === 'edit' ? 'editATask' : 'createTask', { type });
     },
     isUserTask () {
@@ -1211,23 +1164,6 @@ export default {
     selectedTags () {
       return this.getTagsFor(this.task);
     },
-    summarySentence () {
-      if (this.task.type === 'daily' && moment().isBefore(this.task.startDate)) {
-        return `This is ${this.formattedDifficulty(this.task.priority)}
-        task that will repeat
-        ${this.formattedRepeatInterval(this.task.frequency, this.task.everyX)}${this.formattedDays(this.task.frequency, this.task.repeat, this.task.daysOfMonth, this.task.weeksOfMonth, this.task.startDate)}
-        starting on <strong>${moment(this.task.startDate).format('MM/DD/YYYY')}</strong>.`;
-      }
-      if (this.task.type === 'daily') {
-        return `This is ${this.formattedDifficulty(this.task.priority)}
-        task that repeats
-        ${this.formattedRepeatInterval(this.task.frequency, this.task.everyX)}${this.formattedDays(this.task.frequency, this.task.repeat, this.task.daysOfMonth, this.task.weeksOfMonth, this.task.startDate)}.`;
-      }
-      if (this.task.date) {
-        return `This is ${this.formattedDifficulty(this.task.priority)} task that is due <strong>${moment(this.task.date).format('MM/DD/YYYY')}.`;
-      }
-      return `This is ${this.formattedDifficulty(this.task.priority)} task.`;
-    },
   },
   watch: {
     task () {
@@ -1255,35 +1191,6 @@ export default {
       createTask: 'tasks:create',
       createTag: 'tags:createTag',
     }),
-    async syncTask () {
-      if (this.groupId) {
-        const members = await this.$store.dispatch('members:getGroupMembers', {
-          groupId: this.groupId,
-          includeAllPublicFields: true,
-        });
-        this.members = members;
-        this.membersNameAndId = [];
-        this.members.forEach(member => {
-          this.membersNameAndId.push({
-            id: member._id,
-            name: member.profile.name,
-            addlText: `@${member.auth.local.username}`,
-          });
-          this.memberNamesById[member._id] = member.profile.name;
-        });
-        this.assignedMembers = [];
-        if (this.task.group?.assignedUsers) {
-          this.assignedMembers = this.task.group.assignedUsers;
-        }
-      }
-
-      // @TODO: This whole component is mutating a prop
-      // and that causes issues. We need to not copy the prop similar to group modals
-      if (this.task) this.checklist = clone(this.task.checklist);
-    },
-    async handleOpen () {
-      this.syncTask();
-    },
     cssClass (suffix) {
       if (!this.task) {
         return '';
@@ -1308,104 +1215,6 @@ export default {
     },
     formattedDate (date) {
       return moment(date).format('MM/DD/YYYY');
-    },
-    formattedDays (frequency, repeat, daysOfMonth, weeksOfMonth, startDate) {
-      let activeDays;
-      const dayStringArray = [];
-      switch (frequency) {
-        case 'weekly':
-          activeDays = keys(pickBy(repeat, value => value === true));
-          if (activeDays.length === 0) return ' on <strong>no days</strong>';
-          if (activeDays.length === 7) return ' on <strong>every day of the week</strong>';
-          dayStringArray.push(' on <strong>');
-          activeDays.forEach((value, index) => {
-            if (activeDays.length > 1 && index === activeDays.length - 1) dayStringArray.push(' and');
-            dayStringArray.push(` ${this.expandDayString[value]}`);
-            if (activeDays.length > 2 && index !== activeDays.length - 1) dayStringArray.push(',');
-          });
-          dayStringArray.push('</strong>');
-          break;
-        case 'monthly':
-          dayStringArray.push(' on <strong>the ');
-          if (daysOfMonth.length > 0) {
-            daysOfMonth.forEach((value, index) => {
-              const stringDay = String(value);
-              const stringFinalDigit = stringDay.slice(-1);
-              let ordinalSuffix = 'th';
-              if (stringFinalDigit === '1' && stringDay !== '11') ordinalSuffix = 'st';
-              if (stringFinalDigit === '2' && stringDay !== '12') ordinalSuffix = 'nd';
-              if (stringFinalDigit === '3' && stringDay !== '13') ordinalSuffix = 'rd';
-              if (daysOfMonth.length > 1 && index === daysOfMonth.length - 1) dayStringArray.push(' and');
-              dayStringArray.push(`${stringDay}${ordinalSuffix}`);
-              if (daysOfMonth.length > 2 && index !== daysOfMonth.length - 1) dayStringArray.push(',');
-            });
-            dayStringArray.push('</strong>');
-          } else if (weeksOfMonth.length > 0) {
-            switch (weeksOfMonth[0]) {
-              case 0:
-                dayStringArray.push('first');
-                break;
-              case 1:
-                dayStringArray.push('second');
-                break;
-              case 2:
-                dayStringArray.push('third');
-                break;
-              case 3:
-                dayStringArray.push('fourth');
-                break;
-              case 4:
-                dayStringArray.push('fifth');
-                break;
-              default:
-                break;
-            }
-            activeDays = keys(pickBy(repeat, value => value === true));
-            dayStringArray.push(` ${this.expandDayString[activeDays[0]]} of the month</strong>`);
-          }
-          break;
-        case 'yearly':
-          return ` on <strong>${moment(startDate).format('MMMM Do')}</strong>`;
-        default:
-          return '';
-      }
-      return dayStringArray.join('');
-    },
-    formattedDifficulty (priority) {
-      switch (priority) {
-        case 0.1:
-          return 'a <strong>trivial</strong>';
-        case 1:
-          return 'an <strong>easy</strong>';
-        case 1.5:
-          return 'a <strong>medium</strong>';
-        case 2:
-          return 'a <strong>hard</strong>';
-        default:
-          return null;
-      }
-    },
-    formattedRepeatInterval (frequency, everyX) {
-      const numericX = Number(everyX);
-      switch (frequency) {
-        case 'daily':
-          if (numericX === 1) return '<strong>every day</strong>';
-          if (numericX === 2) return '<strong>every other day</strong>';
-          return `<strong>every ${numericX} days</strong>`;
-        case 'weekly':
-          if (numericX === 1) return '<strong>every week</strong>';
-          if (numericX === 2) return '<strong>every other week</strong>';
-          return `<strong>every ${numericX} weeks</strong>`;
-        case 'monthly':
-          if (numericX === 1) return '<strong>every month</strong>';
-          if (numericX === 2) return '<strong>every other month</strong>';
-          return `<strong>every ${numericX} months</strong>`;
-        case 'yearly':
-          if (numericX === 1) return '<strong>every year</strong>';
-          return `<strong>every ${everyX} years</strong>`;
-        default:
-          return null;
-      }
     },
     calculateMonthlyRepeatDays (newRepeatsOn) {
       if (!this.task) return;

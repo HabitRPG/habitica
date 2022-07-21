@@ -10,6 +10,11 @@
       :purpose="creatingTask !== null ? 'create' : 'edit'"
       @cancel="cancelTaskModal()"
     />
+    <task-summary
+      ref="taskSummary"
+      :task="editingTask"
+      @cancel="cancelTaskModal()"
+    />
     <div class="col-12">
       <div class="row tasks-navigation">
         <div class="col-12 col-md-4 offset-md-4">
@@ -212,6 +217,7 @@
           :search-text="searchTextThrottled"
           :selected-tags="selectedTags"
           @editTask="editTask"
+          @taskSummary="taskSummary"
           @openBuyDialog="openBuyDialog($event)"
         />
       </div>
@@ -382,6 +388,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import draggable from 'vuedraggable';
 import TaskColumn from './column';
 import TaskModal from './taskModal';
+import TaskSummary from './taskSummary';
 import spells from './spells';
 import markdown from '@/directives/markdown';
 
@@ -402,6 +409,7 @@ export default {
   components: {
     TaskColumn,
     TaskModal,
+    TaskSummary,
     spells,
     brokenTaskModal,
     draggable,
@@ -525,11 +533,17 @@ export default {
       };
       this.newTag = null;
     },
+    // Need Vue.nextTick() otherwise the first time the modal is not rendered
     editTask (task) {
       this.editingTask = cloneDeep(task);
-      // Necessary otherwise the first time the modal is not rendered
       Vue.nextTick(() => {
         this.$root.$emit('bv::show::modal', 'task-modal');
+      });
+    },
+    taskSummary (task) {
+      this.editingTask = cloneDeep(task);
+      Vue.nextTick(() => {
+        this.$root.$emit('bv::show::modal', 'task-summary');
       });
     },
     createTask (type) {
