@@ -40,6 +40,11 @@ export default [
     uuid: '28771972-ca6d-4c03-8261-e1734aa7d21d',
   },
   {
+    name: 'deilann',
+    type: 'Moderator',
+    uuid: 'e7b5d1e2-3b6e-4192-b867-8bafdb03eeec',
+  },
+  {
     name: 'Dewines',
     type: 'Moderator',
     uuid: '262a7afb-6b57-4d81-88e0-80d2e9f6cbdc',

@@ -198,7 +198,7 @@ export default {
           appState.newGroup = false;
           appState.group = pick(this.amazonPayments.group, ['_id', 'memberCount', 'name']);
         }
-      } else if (paymentType.indexOf('gift-') === 0) {
+      } else if (paymentType && paymentType.indexOf('gift-') === 0) {
         appState.gift = this.amazonPayments.gift;
         appState.giftReceiver = this.amazonPayments.giftReceiver;
       } else if (paymentType === 'gems') {

@@ -10,10 +10,17 @@
         :value="block.key"
         class="subscribe-option pt-2 pl-5 pb-3 mb-0"
         :class="{selected: subscription.key === block.key}"
-        @click.native="subscription.key = block.key"
+        @click.native="updateSubscriptionData(block.key)"
       >
         <!-- eslint-enable vue/no-use-v-if-with-v-for -->
         <div
+          v-if="userReceivingGift && userReceivingGift._id"
+          class="subscription-text ml-2 mb-1"
+          v-html="$t('giftSubscriptionRateText', {price: block.price, months: block.months})"
+        >
+        </div>
+        <div
+          v-else
           class="subscription-text ml-2 mb-1"
           v-html="$t('subscriptionRateText', {price: block.price, months: block.months})"
         >
@@ -25,7 +32,18 @@
         </div>
       </b-form-radio>
     </b-form-group>
+    <!-- payment buttons first is for gift subs and the second is for renewing subs -->
     <payments-buttons
+      v-if="userReceivingGift && userReceivingGift._id"
+      :disabled="!subscription.key"
+      :stripe-fn="() => redirectToStripe({gift, uuid: userReceivingGift._id, receiverName})"
+      :paypal-fn="() => openPaypalGift({
+        gift: gift, giftedTo: userReceivingGift._id, receiverName,
+      })"
+      :amazon-data="{type: 'single', gift, giftedTo: userReceivingGift._id, receiverName}"
+    />
+    <payments-buttons
+      v-else
       :disabled="!subscription.key"
       :stripe-fn="() => redirectToStripe({
         subscription: subscription.key,
@@ -43,6 +61,7 @@
 
 <style lang="scss">
   @import '~@/assets/scss/colors.scss';
+
   #subscription-form {
     .custom-control .custom-control-label::before,
     .custom-radio .custom-control-input:checked ~ .custom-control-label::after {
@@ -101,11 +120,22 @@ export default {
   mixins: [
     paymentsMixin,
   ],
+  props: {
+    userReceivingGift: {
+      type: Object,
+      default () {},
+    },
+  },
   data () {
     return {
       subscription: {
-        key: null,
+        key: 'basic_earned',
       },
+      gift: {
+        type: 'subscription',
+        subscription: { key: 'basic_earned' },
+      },
+      receiverName: '',
     };
   },
   computed: {
@@ -114,7 +144,6 @@ export default {
     },
     subscriptionBlocksOrdered () {
       const subscriptions = filter(subscriptionBlocks, o => o.discount !== true);
-
       return sortBy(subscriptions, [o => o.months]);
     },
   },
@@ -130,6 +159,10 @@ export default {
         default:
           return '<span class="subscription-bubble px-2 py-1">Gem cap at 25</span>';
       }
+    },
+    updateSubscriptionData (key) {
+      this.subscription.key = key;
+      if (this.userReceivingGift._id) this.gift.subscription.key = key;
     },
   },
 };

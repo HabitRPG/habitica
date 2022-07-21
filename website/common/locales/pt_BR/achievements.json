@@ -132,5 +132,7 @@
     "achievementBirdsOfAFeatherModalText": "Você coletou todos os mascotes voadores!",
     "achievementGroupsBeta2022Text": "Você e seu grupo deram um feedback inestimável para ajudar a testar o Habitica.",
     "achievementGroupsBeta2022ModalText": "Você e seu grupo ajudaram o Habitica, testando e dando o seu feedback!",
-    "achievementReptacularRumbleModalText": "Você coletou todos os mascotes do tipo réptil!"
+    "achievementReptacularRumbleModalText": "Você coletou todos os mascotes do tipo réptil!",
+    "achievementReptacularRumble": "Répteis Reptumbantes",
+    "achievementReptacularRumbleText": "Coletou todos os mascotes comuns do tipo réptil: Cobra, Jacaré, Pterodáctilo, Tartaruga, Tiranossauro, Tricerátops e Velociraptor!"
 }
