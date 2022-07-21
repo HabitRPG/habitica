@@ -9,7 +9,7 @@
     "mysteryItem": "绝无仅有的每月装备",
     "mysteryItemText": "每个月你将收到一件独特的时装物品！另外，每连续订阅三个月，神秘的时空旅行者将允许你有一次机会获得绝版（和未来的）时装物品。",
     "exclusiveJackalopePet": "高级宠物",
-    "giftSubscription": "想要赠送订阅的好处给别人吗？",
+    "giftSubscription": "想要把订阅的好处赠送给别人吗？",
     "giftSubscriptionText4": "感谢你对Habitica的支持！",
     "groupPlans": "团队套餐",
     "subscribe": "订阅",
@@ -133,7 +133,7 @@
     "subscriptionBenefit6": "获得神秘沙漏在时空旅行者的商店购买物品！",
     "purchaseAll": "购买套装",
     "gemsRemaining": "剩下的宝石",
-    "notEnoughGemsToBuy": "你无法购买那么多的宝石",
+    "notEnoughGemsToBuy": "你无法购买更多宝石",
     "mysterySet201902": "神秘碎片套装",
     "subCanceledTitle": "订阅已取消",
     "mysterySet201908": "自由牧神套装",
@@ -203,5 +203,6 @@
     "mysterySet202201": "午夜狂欢者套装",
     "mysterySet202202": "绿松石双马尾套装",
     "mysterySet202203": "无畏蜻蜓套装",
-    "mysterySet202204": "虚拟冒险者套装"
+    "mysterySet202204": "虚拟冒险者套装",
+    "mysterySet202205": "夕暮翼龙套装"
 }

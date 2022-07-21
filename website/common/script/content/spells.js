@@ -398,7 +398,7 @@ spells.special = {
     target: 'user',
     notes: t('spellSpecialSeafoamNotes'),
     canOwn () {
-      return moment().isBetween('2021-07-06T08:00-04:00', EVENTS.summer2021.end);
+      return moment().isBetween('2022-07-12T08:00-04:00', EVENTS.summer2022.end);
     },
     cast (user, target, req) {
       if (!user.items.special.seafoam) throw new NotAuthorized(t('spellNotOwned')(req.language));

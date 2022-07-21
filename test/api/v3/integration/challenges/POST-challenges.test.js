@@ -203,8 +203,8 @@ describe('POST /challenges', () => {
 
     it('sets challenge as official if created by admin and official flag is set', async () => {
       await groupLeader.update({
-        contributor: {
-          admin: true,
+        permissions: {
+          challengeAdmin: true,
         },
       });
 

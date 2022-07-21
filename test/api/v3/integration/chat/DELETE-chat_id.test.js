@@ -26,7 +26,7 @@ describe('DELETE /groups/:groupId/chat/:chatId', () => {
     message = await user.post(`/groups/${groupWithChat._id}/chat`, { message: 'Some message' });
     message = message.message;
     userThatDidNotCreateChat = await generateUser();
-    admin = await generateUser({ 'contributor.admin': true });
+    admin = await generateUser({ 'permissions.moderator': true });
   });
 
   context('Chat errors', () => {

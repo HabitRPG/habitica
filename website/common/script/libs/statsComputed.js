@@ -11,7 +11,7 @@ function equipmentStatBonusComputed (stat, user) {
 
   // toObject is required here due to lodash values not working well with mongoose doc objects.
   // if toObject doesn't exist, we can assume the object is already plain JSON
-  // see http://stackoverflow.com/questions/25767334/underscore-js-keys-and-omit-not-working-as-expected
+  // see https://stackoverflow.com/questions/25767334/underscore-js-keys-and-omit-not-working-as-expected
   const { equipped } = user.items.gear;
   const equippedKeys = values(!equipped.toObject ? equipped : equipped.toObject());
 

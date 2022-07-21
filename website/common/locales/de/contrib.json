@@ -1,5 +1,5 @@
 {
-    "playerTiersDesc": "Die farbigen Nutzernamen, die Du im Chat siehst, stehen für den Mitwirkenden-Rang der Person. Je höher der Rang, desto mehr hat die Person zu Habitica beigetragen, durch Kunst, Code, die Gemeinschaft oder anderes!",
+    "playerTiersDesc": "Die farbigen Benutzernamen, die Du im Chat siehst, stehen für den Mitwirkenden-Rang der Person. Je höher der Rang, desto mehr hat die Person zu Habitica beigetragen, durch Kunst, Code, die Gemeinschaft oder anderes!",
     "tier1": "Rang 1 (Freund)",
     "tier2": "Rang 2 (Freund)",
     "tier3": "Rang 3 (Elite)",
@@ -53,5 +53,6 @@
     "surveysSingle": "Half Habitica zu wachsen, entweder durch das Ausfüllen einer Umfrage oder durch große Hilfe beim Testen. Danke!",
     "surveysMultiple": "Hat Habitica an <%= count %> Gelegenheiten geholfen zu wachsen, entweder durch Ausfüllen eines Fragebogens oder durch große Hilfe beim Testen. Danke!",
     "blurbHallPatrons": "Dies ist die Halle der Schirmherren, in der wir die edlen Abenteurer ehren, die Habiticas ursprüngliche Kickstarter-Kampagne unterstützt haben. Wir danken ihnen für die Hilfe Habitica zum Leben zu erwecken!",
-    "blurbHallContributors": "Dies ist die Halle der Mitwirkenden, in der Open-Source-Unterstützer von Habitica geehrt werden. Durch Code, Kunst, Musik, Schreiben, oder auch nur Hilfsbereitschaft haben sie <a href='https://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'> Edelsteine, exklusive Ausrüstung</a> und <a href='https://habitica.fandom.com/wiki/Contributor_Titles' target='_blank'>angesehene Titel</a> verdient. Auch Du kannst Habitica unterstützen! <a href='https://habitica.fandom.com/wiki/Contributing_to_Habitica' target='_blank'> Hier erfährst Du mehr dazu.</a>"
+    "blurbHallContributors": "Dies ist die Halle der Mitwirkenden, in der Open-Source-Unterstützer von Habitica geehrt werden. Durch Code, Kunst, Musik, Schreiben, oder auch nur Hilfsbereitschaft haben sie <a href='https://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'> Edelsteine, exklusive Ausrüstung</a> und <a href='https://habitica.fandom.com/wiki/Contributor_Titles' target='_blank'>angesehene Titel</a> verdient. Auch Du kannst Habitica unterstützen! <a href='https://habitica.fandom.com/wiki/Contributing_to_Habitica' target='_blank'> Hier erfährst Du mehr dazu.</a>",
+    "noPrivAccess": "Du besitzt nicht die erforderlichen Berechtigungen."
 }

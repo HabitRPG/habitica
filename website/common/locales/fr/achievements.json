@@ -126,8 +126,14 @@
     "achievementShadeOfItAllText": "A dompté tous les familiers d'ombre.",
     "achievementZodiacZookeeper": "Le Zoo-diaque",
     "achievementZodiacZookeeperModalText": "Vous avez collecté tous les familiers du zodiaque !",
-    "achievementZodiacZookeeperText": "A collecté tous les familiers du zodiaque de couleur basique : Rat, Vache, Lapin, Serpent, Cheval, Mouton, Singe, Coq, Loup, Tigre, Cochon volant et Dragon !",
-    "achievementBirdsOfAFeatherText": "A collecté tous les familiers volants de couleur basique : Cochon volant, Hibou, Perroquet, Pterodactyle, Griffon, Faucon, Paon et Coq.",
-    "achievementBirdsOfAFeather": "Oiseaux à une Plume",
-    "achievementBirdsOfAFeatherModalText": "Vous avez collecté tous les familiers volants !"
+    "achievementZodiacZookeeperText": "A fait éclore tous les familiers du zodiaque de couleur basique : Rat, Vache, Lapin, Serpent, Cheval, Mouton, Singe, Coq, Loup, Tigre, Cochon volant et Dragon !",
+    "achievementBirdsOfAFeatherText": "A fait éclore tous les familiers volants de couleur basique : Cochon volant, Hibou, Perroquet, Pterodactyle, Griffon, Faucon, Paon et Coq !",
+    "achievementBirdsOfAFeather": "Oiseaux à plume",
+    "achievementBirdsOfAFeatherModalText": "Vous avez collecté tous les familiers volants !",
+    "achievementReptacularRumble": "Étreinte reptilienne",
+    "achievementReptacularRumbleText": "A fait éclore toutes les couleurs standard de familiers reptiles : Alligator, Ptérodactyle, Serpent, Tricératops, Tortue, Tyrannosaure et Vélociraptor !",
+    "achievementReptacularRumbleModalText": "Vous avez collecté tous les familiers reptiles !",
+    "achievementGroupsBeta2022ModalText": "Vous et votre groupe avez aidé Habitica en testant et fournissant un retour de grande valeur !",
+    "achievementGroupsBeta2022": "Beta test interactif",
+    "achievementGroupsBeta2022Text": "Vous et votre groupe avez fourni un retour de grande valeur pour aider aux tests d'Habitica."
 }

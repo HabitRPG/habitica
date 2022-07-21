@@ -59,7 +59,7 @@
           ></div>
         </button>
         <button
-          v-if="userLoggedIn.contributor.admin"
+          v-if="hasPermission(userLoggedIn, 'moderator')"
           v-b-tooltip.hover.right="'Admin - Toggle Tools'"
           class="btn btn-secondary positive-icon d-flex justify-content-center align-items-center"
           @click="toggleAdminTools()"
@@ -71,7 +71,7 @@
         </button>
       </div>
       <div
-        v-if="userLoggedIn.contributor.admin && adminToolsLoaded"
+        v-if="hasPermission(userLoggedIn, 'moderator') && adminToolsLoaded"
         class="row admin-profile-actions"
       >
         <div class="col-12 text-right">
@@ -111,6 +111,12 @@
             class="admin-action"
             @click="adminUnblockUser()"
           >un-ban</span>
+          <router-link
+            :to="{ name: 'adminPanelUser', params: { userIdentifier: userId } }"
+            replace
+          >
+            Admin Panel
+          </router-link>
         </div>
       </div>
       <div class="row">
@@ -120,7 +126,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-12 col-md-6 offset-md-3 text-center nav">
+      <div class="text-center nav">
         <div
           class="nav-item"
           :class="{active: selectedPage === 'profile'}"
@@ -464,6 +470,7 @@
   .gift-icon svg {
     height: 14px;
   }
+
 </style>
 
 <style lang="scss" scoped>
@@ -532,6 +539,7 @@
   }
 
   .nav {
+    width: 100%;
     font-weight: bold;
     min-height: 40px;
     justify-content: center;
@@ -704,6 +712,27 @@
       }
     }
   }
+
+  @media (max-width: 990px) {
+    .profile-actions {
+      flex-direction: column;
+    }
+    .profile-actions :not(:last-child) {
+      margin-bottom: 15px;
+    }
+    .profile-actions {
+      margin-right: 0;
+    }
+  }
+
+  @media (max-width: 550px) {
+    .member-details {
+      flex-direction: column;
+    }
+    .member-details .avatar {
+      margin-bottom: 15px;
+    }
+  }
 </style>
 
 <script>
@@ -730,6 +759,7 @@ import challenge from '@/assets/svg/challenge.svg';
 import member from '@/assets/svg/member-icon.svg';
 import staff from '@/assets/svg/tier-staff.svg';
 import error404 from '../404';
+import { userCustomStateMixin } from '../../mixins/userState';
 // @TODO: EMAILS.COMMUNITY_MANAGER_EMAIL
 const COMMUNITY_MANAGER_EMAIL = 'admin@habitica.com';
 
@@ -742,6 +772,7 @@ export default {
     profileStats,
     error404,
   },
+  mixins: [userCustomStateMixin('userLoggedIn')],
   props: ['userId', 'startingPage'],
   data () {
     return {
@@ -780,7 +811,6 @@ export default {
   },
   computed: {
     ...mapState({
-      userLoggedIn: 'user.data',
       flatGear: 'content.gear.flat',
     }),
     userJoinedDate () {

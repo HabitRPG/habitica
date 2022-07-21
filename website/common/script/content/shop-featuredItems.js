@@ -5,7 +5,7 @@ import { EVENTS } from './constants';
 // path: 'premiumHatchingPotions.Rainbow',
 const featuredItems = {
   market () {
-    if (moment().isBefore(EVENTS.spring2022.end)) {
+    if (moment().isBefore(EVENTS.summer2022.end)) {
       return [
         {
           type: 'armoire',
@@ -13,15 +13,15 @@ const featuredItems = {
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Shimmer',
+          path: 'premiumHatchingPotions.Sunset',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Celestial',
+          path: 'premiumHatchingPotions.Watery',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.PolkaDot',
+          path: 'premiumHatchingPotions.Aquatic',
         },
       ];
     }
@@ -45,34 +45,34 @@ const featuredItems = {
     ];
   },
   quests () {
-    if (moment().isBefore('2022-03-31T20:00-04:00')) {
+    if (moment().isBefore(EVENTS.bundle202206.end)) {
       return [
         {
           type: 'bundles',
-          path: 'bundles.cuddleBuddies',
+          path: 'bundles.aquaticAmigos',
         },
         {
           type: 'quests',
-          path: 'quests.egg',
+          path: 'quests.seaserpent',
         },
         {
           type: 'quests',
-          path: 'quests.ghost_stag',
+          path: 'quests.dolphin',
         },
       ];
     }
     return [
       {
         type: 'quests',
-        path: 'quests.ferret',
+        path: 'quests.badger',
       },
       {
         type: 'quests',
-        path: 'quests.silver',
+        path: 'quests.onyx',
       },
       {
         type: 'quests',
-        path: 'quests.basilist',
+        path: 'quests.rooster',
       },
     ];
   },

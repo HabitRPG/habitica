@@ -17,7 +17,7 @@ describe('POST /chat/:chatId/flag', () => {
 
   beforeEach(async () => {
     user = await generateUser({ balance: 1, 'auth.timestamps.created': moment().subtract(USER_AGE_FOR_FLAGGING + 1, 'days').toDate() });
-    admin = await generateUser({ balance: 1, 'contributor.admin': true });
+    admin = await generateUser({ balance: 1, 'permissions.moderator': true });
     anotherUser = await generateUser({ 'auth.timestamps.created': moment().subtract(USER_AGE_FOR_FLAGGING + 1, 'days').toDate() });
     newUser = await generateUser({ 'auth.timestamps.created': moment().subtract(1, 'days').toDate() });
     sandbox.stub(IncomingWebhook.prototype, 'send').returns(Promise.resolve());

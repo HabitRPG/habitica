@@ -26,7 +26,7 @@ export const model = mongoose.model('User', schema);
 export const mods = [];
 
 mongoose.model('User')
-  .find({ 'contributor.admin': true })
+  .find({ 'contributor.moderator': true })
   .sort('-contributor.level -backer.npc profile.name')
   .select('profile contributor backer')
   .exec()

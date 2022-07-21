@@ -378,5 +378,6 @@
     "joinParty": "Rejoindre l'équipe",
     "editGuild": "Modifier la guilde",
     "editParty": "Modifier l'équipe",
-    "leaveGuild": "Quitter la guilde"
+    "leaveGuild": "Quitter la guilde",
+    "sendGiftTotal": "Total :"
 }

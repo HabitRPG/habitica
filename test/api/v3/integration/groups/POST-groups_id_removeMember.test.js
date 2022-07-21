@@ -32,7 +32,7 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
     invitedUser = invitees[0]; // eslint-disable-line prefer-destructuring
     member = members[0]; // eslint-disable-line prefer-destructuring
     member2 = members[1]; // eslint-disable-line prefer-destructuring
-    adminUser = await generateUser({ 'contributor.admin': true });
+    adminUser = await generateUser({ 'permissions.moderator': true });
   });
 
   context('All Groups', () => {

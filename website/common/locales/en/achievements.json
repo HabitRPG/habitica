@@ -128,6 +128,12 @@
   "achievementZodiacZookeeperText": "Has hatched all standard colors of zodiac pets: Rat, Cow, Bunny, Snake, Horse, Sheep, Monkey, Rooster, Wolf, Tiger, Flying Pig, and Dragon!",
   "achievementZodiacZookeeperModalText": "You collected all the zodiac pets!",
   "achievementBirdsOfAFeather": "Birds of a Feather",
-  "achievementBirdsOfAFeatherText": "Has hatched all standard colors of flying pets: Flying Pig, Owl, Parrot, Pterodactyl, Gryphon, Falcon, Peacock, and Rooster.",
-  "achievementBirdsOfAFeatherModalText":"You collected all the flying pets!"
+  "achievementBirdsOfAFeatherText": "Has hatched all standard colors of flying pets: Flying Pig, Owl, Parrot, Pterodactyl, Gryphon, Falcon, Peacock, and Rooster!",
+  "achievementBirdsOfAFeatherModalText": "You collected all the flying pets!",
+  "achievementReptacularRumble": "Reptacular Rumble",
+  "achievementReptacularRumbleText": "Has hatched all the standard colors of reptile pets: Alligator, Pterodactyl, Snake, Triceratops, Turtle, Tyrannosaurus Rex, and Velociraptor!",
+  "achievementReptacularRumbleModalText": "You collected all the reptile pets!",
+  "achievementGroupsBeta2022":"Interactive Beta Tester",
+  "achievementGroupsBeta2022Text":"You and your group provided invaluable feedback to help Habitica test.",
+  "achievementGroupsBeta2022ModalText":"You and your groups helped Habitica by testing and providing feedback!"
 }

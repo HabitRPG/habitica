@@ -4,7 +4,7 @@
     :class="{ condensed, expanded, 'd-flex': isHeader, row: !isHeader, }"
     @click="showMemberModal(member)"
   >
-    <div :class="{ 'col-4': !isHeader }">
+    <div class="avatar-container" :class="{ 'col-4': !isHeader }">
       <avatar
         :member="member"
         :hide-class-badge="classBadgePosition !== 'under-avatar'"
@@ -92,6 +92,10 @@
   .member-details {
     white-space: nowrap;
     transition: all 0.15s ease-out;
+
+    .avatar-container {
+      margin-bottom: 20px;
+    }
   }
 
   .member-stats {

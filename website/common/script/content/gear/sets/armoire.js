@@ -396,6 +396,11 @@ const armor = {
     con: 9,
     set: 'strawRaincoat',
   },
+  fancyPirateSuit: {
+    con: 4,
+    int: 4,
+    set: 'fancyPirate',
+  },
 };
 
 const body = {
@@ -803,6 +808,10 @@ const head = {
     per: 9,
     set: 'strawRaincoat',
   },
+  fancyPirateHat: {
+    per: 8,
+    set: 'fancyPirate',
+  },
 };
 
 const shield = {
@@ -1075,6 +1084,21 @@ const shield = {
   gardenersSpade: {
     str: 8,
     set: 'gardenerSet',
+  },
+  spanishGuitar: {
+    per: 5, // this might need to go back to 6
+    int: 6,
+    set: 'musicalInstrumentOne',
+  },
+  snareDrum: {
+    con: 5,
+    int: 6,
+    set: 'musicalInstrumentOne',
+  },
+  treasureMap: {
+    int: 4,
+    str: 4,
+    set: 'fancyPirate',
   },
 };
 
@@ -1459,6 +1483,46 @@ const weapon = {
   gardenersWateringCan: {
     int: 8,
     set: 'gardenerSet',
+  },
+  huntingHorn: {
+    str: 5,
+    int: 6,
+    set: 'musicalInstrumentOne',
+  },
+  blueKite: {
+    str: 3,
+    con: 3,
+    int: 3,
+    per: 3,
+    set: 'kite',
+  },
+  greenKite: {
+    str: 3,
+    con: 3,
+    int: 3,
+    per: 3,
+    set: 'kite',
+  },
+  orangeKite: {
+    str: 3,
+    con: 3,
+    int: 3,
+    per: 3,
+    set: 'kite',
+  },
+  pinkKite: {
+    str: 3,
+    con: 3,
+    int: 3,
+    per: 3,
+    set: 'kite',
+  },
+  yellowKite: {
+    str: 3,
+    con: 3,
+    int: 3,
+    per: 3,
+    set: 'kite',
   },
 };
 

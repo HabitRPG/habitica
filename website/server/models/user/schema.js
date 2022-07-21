@@ -68,7 +68,7 @@ export default new Schema({
   },
   // We want to know *every* time an object updates.
   // Mongoose uses __v to designate when an object contains arrays which
-  // have been updated (http://goo.gl/gQLz41), but we want *every* update
+  // have been updated, but we want *every* update
   _v: { $type: Number, default: 0 },
   migration: String,
   achievements: {
@@ -149,12 +149,14 @@ export default new Schema({
     shadeOfItAll: Boolean,
     zodiacZookeeper: Boolean,
     birdsOfAFeather: Boolean,
+    reptacularRumble: Boolean,
     // Onboarding Guide
     createdTask: Boolean,
     completedTask: Boolean,
     hatchedPet: Boolean,
     fedPet: Boolean,
     purchasedEquipment: Boolean,
+    groupsBeta2022: Boolean,
   },
 
   backer: {
@@ -171,8 +173,6 @@ export default new Schema({
       max: 9,
     },
     admin: Boolean,
-    newsPoster: Boolean,
-    sudo: Boolean,
     // Artisan, Friend, Blacksmith, etc
     text: String,
     // a markdown textarea to list their contributions + links
@@ -180,7 +180,14 @@ export default new Schema({
     // user can own Critical Hammer of Bug-Crushing if this has a truthy value
     critical: String,
   },
-
+  permissions: {
+    fullAccess: Boolean, // esentially what was previously contributor.admin. Can do everything
+    news: Boolean,
+    userSupport: Boolean, // access User Support feature in Admin Panel
+    challengeAdmin: Boolean, // Can manage and administrate challenges
+    moderator: Boolean, // Can ban, flag users and manage social spaces
+    coupons: Boolean, // Can generate and request coupons
+  },
   balance: { $type: Number, default: 0 },
 
   purchased: {
@@ -434,7 +441,7 @@ export default new Schema({
     // Using an array without validation because otherwise mongoose
     // treat this as a subdocument and applies _id by default
     // Schema is (id, name, inviter, publicGuild)
-    // TODO one way to fix is http://mongoosejs.com/docs/guide.html#_id
+    // TODO one way to fix is https://mongoosejs.com/docs/guide.html#_id
     guilds: { $type: Array, default: () => [] },
     // Using a Mixed type because otherwise user.invitations.party = {}
     // to reset invitation, causes validation to fail TODO

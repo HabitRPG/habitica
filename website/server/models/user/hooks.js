@@ -246,7 +246,7 @@ schema.pre('save', true, function preSaveUser (next, done) {
   // use the default values defined in the user schema and not the real ones.
   //
   // To check if a field was selected Document.isDirectSelected('field') can be used.
-  // more info on its usage can be found at http://mongoosejs.com/docs/api.html#document_Document-isDirectSelected
+  // more info on its usage can be found at https://mongoosejs.com/docs/api.html#document_Document-isDirectSelected
 
   // do not calculate achievements if items or achievements are not selected
   if (this.isDirectSelected('items') && this.isDirectSelected('achievements')) {
@@ -258,7 +258,13 @@ schema.pre('save', true, function preSaveUser (next, done) {
       && this.achievements.beastMaster !== true
     ) {
       this.achievements.beastMaster = true;
-      this.addNotification('ACHIEVEMENT_BEAST_MASTER');
+      this.addNotification(
+        'ACHIEVEMENT_STABLE',
+        {
+          achievement: 'beastMaster',
+          achievementNotification: 'beastAchievement',
+        },
+      );
     }
 
     // Determines if Mount Master should be awarded
@@ -269,7 +275,13 @@ schema.pre('save', true, function preSaveUser (next, done) {
       && this.achievements.mountMaster !== true
     ) {
       this.achievements.mountMaster = true;
-      this.addNotification('ACHIEVEMENT_MOUNT_MASTER');
+      this.addNotification(
+        'ACHIEVEMENT_STABLE',
+        {
+          achievement: 'mountMaster',
+          achievementNotification: 'mountAchievement',
+        },
+      );
     }
 
     // Determines if Triad Bingo should be awarded
@@ -281,7 +293,13 @@ schema.pre('save', true, function preSaveUser (next, done) {
       && this.achievements.triadBingo !== true
     ) {
       this.achievements.triadBingo = true;
-      this.addNotification('ACHIEVEMENT_TRIAD_BINGO');
+      this.addNotification(
+        'ACHIEVEMENT_STABLE',
+        {
+          achievement: 'triadBingo',
+          achievementNotification: 'triadBingoAchievement',
+        },
+      );
     }
 
     // EXAMPLE CODE for allowing all existing and new players to be

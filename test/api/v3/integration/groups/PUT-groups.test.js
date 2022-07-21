@@ -20,7 +20,7 @@ describe('PUT /group', () => {
       },
       members: 1,
     });
-    adminUser = await generateUser({ 'contributor.admin': true });
+    adminUser = await generateUser({ 'permissions.moderator': true });
     groupToUpdate = group;
     leader = groupLeader;
     nonLeader = members[0]; // eslint-disable-line prefer-destructuring
@@ -104,11 +104,11 @@ describe('PUT /group', () => {
     // Update the bannedWordsAllowed property for the group
     const response = await groupLeader.put(`/groups/${group._id}`, updateGroupDetails);
 
-    expect(groupLeader.contributor.admin).to.eql(true);
+    expect(groupLeader.permissions.fullAccess).to.eql(true);
     expect(response.bannedWordsAllowed).to.eql(true);
   });
 
-  it('does not allow for a non-admin to update the bannedWordsAllow property for an existing guild', async () => {
+  it('does not allow for a non-moderator to update the bannedWordsAllow property for an existing guild', async () => {
     const { group, groupLeader } = await createAndPopulateGroup({
       groupDetails: {
         name: 'public guild',
@@ -128,7 +128,6 @@ describe('PUT /group', () => {
     // Update the bannedWordsAllowed property for the group
     const response = await groupLeader.put(`/groups/${group._id}`, updateGroupDetails);
 
-    expect(groupLeader.contributor.admin).to.eql(undefined);
     expect(response.bannedWordsAllowed).to.eql(undefined);
   });
 });

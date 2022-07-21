@@ -1280,11 +1280,16 @@ export default {
       createTag: 'tags:createTag',
     }),
     async syncTask () {
-      if (this.task && this.task.group && this.task.group.managerNotes) {
+      if (this.task?.group?.managerNotes) {
         this.managerNotes = this.task.group.managerNotes;
       }
-      if (this.groupId && this.task.group && this.task.group.approval) {
+      if (this.groupId && this.task.group?.approval) {
         this.requiresApproval = this.task.group.approval.required;
+      }
+      if (this.task?.group?.sharedCompletion) {
+        this.sharedCompletion = this.task.group.sharedCompletion;
+      } else if (this.task.group) {
+        this.sharedCompletion = 'singleCompletion';
       }
 
       if (this.groupId) {
@@ -1305,9 +1310,6 @@ export default {
         this.assignedMembers = [];
         if (this.task.group && this.task.group.assignedUsers) {
           this.assignedMembers = this.task.group.assignedUsers;
-        }
-        if (this.task.group) {
-          this.sharedCompletion = this.task.group.sharedCompletion || 'singleCompletion';
         }
       }
 

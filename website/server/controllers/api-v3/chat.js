@@ -131,7 +131,7 @@ api.postChat = {
     const group = await Group.getGroup({ user, groupId });
 
     // Check message for banned slurs
-    if (textContainsBannedSlur(req.body.message)) {
+    if (group && group.privacy !== 'private' && textContainsBannedSlur(req.body.message)) {
       const { message } = req.body;
       user.flags.chatRevoked = true;
       await user.save();
@@ -417,14 +417,14 @@ api.clearChatFlags = {
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    if (!user.contributor.admin) {
+    if (!user.hasPermission('moderator')) {
       throw new NotAuthorized(res.t('messageGroupChatAdminClearFlagCount'));
     }
 
     const group = await Group.getGroup({
       user,
       groupId,
-      optionalMembership: user.contributor.admin,
+      optionalMembership: user.hasPermission('moderator'),
     });
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
@@ -566,7 +566,7 @@ api.deleteChat = {
     const message = await Chat.findOne({ _id: chatId }).exec();
     if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
 
-    if (user._id !== message.uuid && !user.contributor.admin) {
+    if (user._id !== message.uuid && !user.hasPermission('moderator')) {
       throw new NotAuthorized(res.t('onlyCreatorOrAdminCanDeleteChat'));
     }
 

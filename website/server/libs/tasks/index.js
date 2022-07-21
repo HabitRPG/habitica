@@ -245,6 +245,11 @@ function canNotEditTasks (group, user, assignedUserId) {
   return isNotGroupLeader && !isManager && !userIsAssigningToSelf;
 }
 
+function groupSubscriptionNotFound (group) {
+  return !group || !group.purchased || !group.purchased.plan || !group.purchased.plan.customerId
+   || (group.purchased.plan.dateTerminated && group.purchased.plan.dateTerminated < new Date());
+}
+
 async function getGroupFromTaskAndUser (task, user) {
   if (task.group.id && !task.userId) {
     const fields = requiredGroupFields.concat(' managers');
@@ -404,7 +409,7 @@ async function scoreTask (user, task, direction, req, res) {
   const wasCompleted = task.completed;
 
   const firstTask = !user.achievements.completedTask;
-  const [delta] = shared.ops.scoreTask({ task, user, direction }, req, res.analytics);
+  const delta = shared.ops.scoreTask({ task, user, direction }, req, res.analytics);
   // Drop system (don't run on the client,
   // as it would only be discarded since ops are sent to the API, not the results)
   if (direction === 'up' && !firstTask) shared.fns.randomDrop(user, { task, delta }, req, res.analytics);
@@ -550,5 +555,6 @@ export {
   canNotEditTasks,
   getGroupFromTaskAndUser,
   getChallengeFromTask,
+  groupSubscriptionNotFound,
   verifyTaskModification,
 };

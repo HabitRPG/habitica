@@ -335,5 +335,4 @@ const QUEST_POTIONS = {
     },
   },
 };
-
 export default QUEST_POTIONS;

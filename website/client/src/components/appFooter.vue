@@ -34,7 +34,7 @@
             </li>
             <li>
               <a
-                href="http://blog.habitrpg.com/"
+                href="https://blog.habitrpg.com/"
                 target="_blank"
               >{{ $t('tumblr') }}</a>
             </li>
@@ -589,7 +589,7 @@ export default {
     async makeAdmin () {
       await axios.post('/api/v4/debug/make-admin');
       // @TODO: Notification.text('You are now an admin!
-      // Go to the Hall of Heroes to change your contributor level.');
+      // Reload the website then go to Help > Admin Panel to set contributor level, etc.');
       // @TODO: sync()
     },
     openModifyInventoryModal () {

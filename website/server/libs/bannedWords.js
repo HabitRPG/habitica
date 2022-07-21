@@ -85,19 +85,12 @@ const bannedWords = [
 
 
 
-  'hell',
-  'hellish',
   'damn',
   'goddamn',
   'damnit',
   'dammit',
   'damned',
-  'omg',
   'omfg',
-  'oh my god',
-  'oh god',
-  'oh, god',
-  'g\\*d',
 
   'bugger',
   'buggery',
@@ -110,6 +103,8 @@ const bannedWords = [
   'bullshitting',
   'shiz',
   'shit',
+  'shite',
+  'shits',
   'shitty',
   'shitting',
   'shithole',
@@ -194,8 +189,6 @@ const bannedWords = [
 
   'heroin',
   'cocaine',
-
-  'pewdiepie',
 ];
 
 export default bannedWords;

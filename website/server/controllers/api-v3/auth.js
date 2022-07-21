@@ -1,5 +1,6 @@
 import validator from 'validator';
 import moment from 'moment';
+import sortBy from 'lodash/sortBy';
 import nconf from 'nconf';
 import {
   authWithHeaders,
@@ -18,6 +19,7 @@ import {
   hasBackupAuth,
   loginSocial,
   registerLocal,
+  socialEmailToLocal,
 } from '../../libs/auth';
 import { verifyUsername } from '../../libs/user/validation';
 
@@ -341,15 +343,23 @@ api.resetPassword = {
     if (validationErrors) throw validationErrors;
 
     const email = req.body.email.toLowerCase();
-    const user = await User.findOne({
-      $or: [
-        { 'auth.local.username': email.replace(/^@/, '') },
-        { 'auth.local.email': email },
-        { 'auth.apple.emails.value': email },
-        { 'auth.google.emails.value': email },
-        { 'auth.facebook.emails.value': email },
-      ],
-    }).exec();
+    let user = await User.findOne(
+      { 'auth.local.email': email }, // Prefer to reset password for local auth
+      { auth: 1 },
+    ).exec();
+    if (!user) { // If no local auth with that email...
+      const potentialUsers = await User.find({
+        $or: [
+          { 'auth.local.username': email.replace(/^@/, '') },
+          { 'auth.apple.emails.value': email },
+          { 'auth.google.emails.value': email },
+          { 'auth.facebook.emails.value': email },
+        ],
+      },
+      { auth: 1 }).exec();
+      // ...prefer oldest social account or username with matching email
+      [user] = sortBy(potentialUsers, candidate => candidate.auth.timestamps.created);
+    }
 
     if (user) {
       // create an encrypted link to be used to reset the password
@@ -469,6 +479,7 @@ api.resetPasswordSetNewOne = {
     // set new password and make sure it's using bcrypt for hashing
     await passwordUtils.convertToBcrypt(user, String(newPassword));
     user.auth.local.passwordResetCode = undefined; // Reset saved password reset code
+    if (!user.auth.local.email) user.auth.local.email = await socialEmailToLocal(user);
     await user.save();
 
     return res.respond(200, {}, res.t('passwordChangeSuccess'));

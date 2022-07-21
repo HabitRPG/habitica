@@ -244,11 +244,15 @@ api.cancelSubscribe = async function cancelSubscribe (user, headers) {
 
     const purchases = iap.getPurchaseData(googleRes);
     if (purchases.length === 0) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
-    const subscriptionData = purchases[0];
-    // Check to make sure the sub isn't active anymore.
-    if (subscriptionData.autoRenewing !== false) return;
-
-    dateTerminated = new Date(Number(subscriptionData.expirationDate));
+    for (const i in purchases) {
+      if (Object.prototype.hasOwnProperty.call(purchases, i)) {
+        const purchase = purchases[i];
+        if (purchase.autoRenewing !== false) return;
+        if (!dateTerminated || Number(purchase.expirationDate) > Number(dateTerminated)) {
+          dateTerminated = new Date(Number(purchase.expirationDate));
+        }
+      }
+    }
   } catch (err) {
     // Status:410 means that the subsctiption isn't active anymore and we can safely delete it
     if (err && err.message === 'Status:410') {
@@ -257,13 +261,14 @@ api.cancelSubscribe = async function cancelSubscribe (user, headers) {
       throw err;
     }
   }
-
-  await payments.cancelSubscription({
-    user,
-    nextBill: dateTerminated,
-    paymentMethod: this.constants.PAYMENT_METHOD_GOOGLE,
-    headers,
-  });
+  if (dateTerminated) {
+    await payments.cancelSubscription({
+      user,
+      nextBill: dateTerminated,
+      paymentMethod: this.constants.PAYMENT_METHOD_GOOGLE,
+      headers,
+    });
+  }
 };
 
 export default api;

@@ -39,7 +39,7 @@ describe('canDelete getter', () => {
   });
 
   it('can Delete any challenge task as admin', () => {
-    store.state.user.data.contributor.admin = true;
+    store.state.user.data.permissions = { challengeAdmin: true };
 
     expect(store.getters['tasks:canDelete'](task, 'challenge', true, null, challenge)).to.equal(true);
   });

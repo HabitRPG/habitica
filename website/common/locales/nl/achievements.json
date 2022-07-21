@@ -74,7 +74,7 @@
     "foundNewItems": "Je hebt nieuwe voorwerpen gevonden!",
     "achievementBugBonanzaModalText": "Je hebt de kever-, vlinder-, slak- en spin-huisdierzoektochten voltooid!",
     "achievementBugBonanzaText": "Heeft kever-, vlinder-, slak- en spin-huisdierzoektochten voltooid.",
-    "achievementBugBonanza": "Insectenbonanza",
+    "achievementBugBonanza": "Beesten Bloei",
     "onboardingCompleteDescSmall": "Als je nog meer wilt, bekijk dan Prestaties en begin met verzamelen!",
     "onboardingComplete": "Je hebt je onboarding-taken voltooid!",
     "yourProgress": "Jouw vooruitgang",
@@ -126,5 +126,14 @@
     "achievementShadeOfItAllModalText": "Je hebt alle schaduwrijdieren getemd!",
     "achievementZodiacZookeeperModalText": "Je hebt alle huisdieren van de dierenriem verzameld!",
     "achievementZodiacZookeeper": "Hart onder de dierenriem",
-    "achievementZodiacZookeeperText": "Heeft alle huisdieren van de dierenriem uit laten komen: Rat, Koe, Konijn, Slang, Paard, Schaap, Aap, Haan, Wolf, Tijger, Vliegend Varken en Draak!"
+    "achievementZodiacZookeeperText": "Heeft alle standaard kleuren van huisdieren van de dierenriem uitgebroed: Rat, Koe, Konijn, Slang, Paard, Schaap, Aap, Haan, Wolf, Tijger, Vliegend Varken en Draak!",
+    "achievementBirdsOfAFeatherText": "Heeft alle standaard kleuren van vliegende huisdieren uitgebroed: Vliegend Varken, Uil, Papegaai, Pterodactyl, Griffioen, Valk, Pauw, en Haan!",
+    "achievementBirdsOfAFeather": "Vogels van één Veer",
+    "achievementBirdsOfAFeatherModalText": "Je hebt alle vliegende huisdieren verzameld!",
+    "achievementGroupsBeta2022": "Interactieve Beta Tester",
+    "achievementGroupsBeta2022Text": "Jij en jouw groep hebben waardevolle feedback gegeven om Habitica te helpen testen.",
+    "achievementGroupsBeta2022ModalText": "Jij en jouw groepen hebben Habitica geholpen bij het testen en geven van feedback!",
+    "achievementReptacularRumble": "Reptaculair Gerommel",
+    "achievementReptacularRumbleText": "Heeft alle standaard kleuren reptielen huisdieren uitgebroed: Krokodil, Pterodactyl, Slang, Triceratops, Schildpad, Tyrannosaurus Rex, en Velociraptor!",
+    "achievementReptacularRumbleModalText": "Je hebt alle reptielen huisdieren verzameld!"
 }

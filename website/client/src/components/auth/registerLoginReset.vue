@@ -19,27 +19,6 @@
           ></div>
         </div>
       </div>
-      <div
-        v-if="!registering"
-        class="form-group row text-center"
-      >
-        <div class="col-12 col-md-12">
-          <div
-            class="btn btn-secondary social-button"
-            @click="socialAuth('facebook')"
-          >
-            <div
-              class="svg-icon social-icon"
-              v-html="icons.facebookIcon"
-            ></div>
-            <div
-              class="text"
-            >
-              {{ $t('loginWithSocial', {social: 'Facebook'}) }}
-            </div>
-          </div>
-        </div>
-      </div>
       <div class="form-group row text-center">
         <div class="col-12 col-md-12">
           <div
@@ -635,6 +614,7 @@ import axios from 'axios';
 import hello from 'hellojs';
 import debounce from 'lodash/debounce';
 import isEmail from 'validator/lib/isEmail';
+import DOMPurify from 'dompurify';
 import { buildAppleAuthUrl } from '../../libs/auth';
 
 import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
@@ -775,6 +755,12 @@ export default {
         }
       });
     }, 500),
+    sanitizeRedirect (redirect) {
+      if (!redirect) return '/';
+      let sanitizedString = DOMPurify.sanitize(redirect).replace(/\\|\/\/|\./g, '');
+      sanitizedString = `/${sanitizedString}`;
+      return sanitizedString;
+    },
     async register () {
       // @TODO do not use alert
       if (!this.email) {
@@ -806,19 +792,14 @@ export default {
         passwordConfirm: this.passwordConfirm,
       });
 
-      let redirectTo;
-
-      if (this.$route.query.redirectTo) {
-        redirectTo = this.$route.query.redirectTo;
-      } else {
-        redirectTo = '/';
-      }
+      const redirectTo = this.sanitizeRedirect(this.$route.query.redirectTo);
 
       // @TODO do not reload entire page
       // problem is that app.vue created hook should be called again
       // after user is logged in / just signed up
       // ALSO it's the only way to make sure language data
       // is reloaded and correct for the logged in user
+      // Same situation in login and socialAuth functions
       window.location.href = redirectTo;
     },
     async login () {
@@ -828,19 +809,8 @@ export default {
         password: this.password,
       });
 
-      let redirectTo;
+      const redirectTo = this.sanitizeRedirect(this.$route.query.redirectTo);
 
-      if (this.$route.query.redirectTo) {
-        redirectTo = this.$route.query.redirectTo;
-      } else {
-        redirectTo = '/';
-      }
-
-      // @TODO do not reload entire page
-      // problem is that app.vue created hook should be called again
-      // after user is logged in / just signed up
-      // ALSO it's the only way to make sure language data
-      // is reloaded and correct for the logged in user
       window.location.href = redirectTo;
     },
     // @TODO: Abstract hello in to action or lib
@@ -863,19 +833,8 @@ export default {
           auth,
         });
 
-        let redirectTo;
+        const redirectTo = this.sanitizeRedirect(this.$route.query.redirectTo);
 
-        if (this.$route.query.redirectTo) {
-          redirectTo = this.$route.query.redirectTo;
-        } else {
-          redirectTo = '/';
-        }
-
-        // @TODO do not reload entire page
-        // problem is that app.vue created hook should be called again
-        // after user is logged in / just signed up
-        // ALSO it's the only way to make sure language data
-        // is reloaded and correct for the logged in user
         window.location.href = redirectTo;
       }
     },

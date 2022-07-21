@@ -201,5 +201,17 @@
     "congratulations": "Gefeliciteerd!",
     "onboardingAchievs": "Inwerkprestaties",
     "options": "Opties",
-    "finish": "Voltooien"
+    "finish": "Voltooien",
+    "reportBugHeaderDescribe": "Beschrijf a.u.b. de fout die je ondergaat en ons team zal contact met je opnemen.",
+    "reportEmailText": "Dit zal alleen gebruikt worden om contact met je op te nemen met betrekking tot de foutmelding.",
+    "reportEmailError": "Voorzie a.u.b. van een geldig e-mailadres",
+    "reportEmailPlaceholder": "Je e-mailadres",
+    "reportDescription": "Beschrijving",
+    "reportDescriptionText": "Voeg schermopnames of Javascript console errors toe indien nuttig.",
+    "reportDescriptionPlaceholder": "Beschrijf de fout hier in detail",
+    "submitBugReport": "Foutmelding Indienen",
+    "reportSent": "Foutmelding verzonden!",
+    "reportSentDescription": "We zullen contact met je opnemen zodra ons team de kans heeft het te onderzoeken. Dankje voor het melden van dit probleem.",
+    "askQuestion": "Stel een Vraag",
+    "emptyReportBugMessage": "Fout Melden Bericht ontbreekt"
 }

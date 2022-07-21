@@ -2,7 +2,7 @@
 
 // TODO it might be better we just find() and save() all user objects using mongoose, and rely on our defined pre('save')
 // and default values to "migrate" users. This way we can make sure those parts are working properly too
-// @see http://stackoverflow.com/questions/14867697/mongoose-full-collection-scan
+// @see https://stackoverflow.com/questions/14867697/mongoose-full-collection-scan
 // Also, what do we think of a Mongoose Migration module? something like https://github.com/madhums/mongoose-migrate
 
 // IMPORTANT NOTE: this migration was written when we were using version 3 of lodash.
