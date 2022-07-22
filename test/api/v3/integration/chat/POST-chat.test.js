@@ -38,10 +38,15 @@ describe('POST /chat', () => {
       members: 2,
     });
     user = groupLeader;
-    await user.update({ 'contributor.level': SPAM_MIN_EXEMPT_CONTRIB_LEVEL }); // prevent tests accidentally throwing messageGroupChatSpam
+    await user.update({
+      'contributor.level': SPAM_MIN_EXEMPT_CONTRIB_LEVEL,
+      'auth.timestamps.created': new Date('2022-01-01'),
+    }); // prevent tests accidentally throwing messageGroupChatSpam
     groupWithChat = group;
     member = members[0]; // eslint-disable-line prefer-destructuring
     additionalMember = members[1]; // eslint-disable-line prefer-destructuring
+    await member.update({ 'auth.timestamps.created': new Date('2022-01-01') });
+    await additionalMember.update({ 'auth.timestamps.created': new Date('2022-01-01') });
   });
 
   it('Returns an error when no message is provided', async () => {
@@ -104,7 +109,10 @@ describe('POST /chat', () => {
       });
 
       const privateGuildMemberWithChatsRevoked = members[0];
-      await privateGuildMemberWithChatsRevoked.update({ 'flags.chatRevoked': true });
+      await privateGuildMemberWithChatsRevoked.update({
+        'flags.chatRevoked': true,
+        'auth.timestamps.created': new Date('2022-01-01'),
+      });
 
       const message = await privateGuildMemberWithChatsRevoked.post(`/groups/${group._id}/chat`, { message: testMessage });
 
@@ -122,7 +130,10 @@ describe('POST /chat', () => {
       });
 
       const privatePartyMemberWithChatsRevoked = members[0];
-      await privatePartyMemberWithChatsRevoked.update({ 'flags.chatRevoked': true });
+      await privatePartyMemberWithChatsRevoked.update({
+        'flags.chatRevoked': true,
+        'auth.timestamps.created': new Date('2022-01-01'),
+      });
 
       const message = await privatePartyMemberWithChatsRevoked.post(`/groups/${group._id}/chat`, { message: testMessage });
 
@@ -183,7 +194,10 @@ describe('POST /chat', () => {
       });
 
       const userWithChatShadowMuted = members[0];
-      await userWithChatShadowMuted.update({ 'flags.chatShadowMuted': true });
+      await userWithChatShadowMuted.update({
+        'flags.chatShadowMuted': true,
+        'auth.timestamps.created': new Date('2022-01-01'),
+      });
 
       const message = await userWithChatShadowMuted.post(`/groups/${group._id}/chat`, { message: testMessage });
 
@@ -202,7 +216,10 @@ describe('POST /chat', () => {
       });
 
       const userWithChatShadowMuted = members[0];
-      await userWithChatShadowMuted.update({ 'flags.chatShadowMuted': true });
+      await userWithChatShadowMuted.update({
+        'flags.chatShadowMuted': true,
+        'auth.timestamps.created': new Date('2022-01-01'),
+      });
 
       const message = await userWithChatShadowMuted.post(`/groups/${group._id}/chat`, { message: testMessage });
 
@@ -312,6 +329,7 @@ describe('POST /chat', () => {
         },
         members: 1,
       });
+      await members[0].update({ 'auth.timestamps.created': new Date('2022-01-01') });
 
       const message = await members[0].post(`/groups/${group._id}/chat`, { message: testBannedWordMessage });
 
@@ -330,6 +348,7 @@ describe('POST /chat', () => {
 
       // Update the bannedWordsAllowed property for the group
       group.update({ bannedWordsAllowed: true });
+      await members[0].update({ 'auth.timestamps.created': new Date('2022-01-01') });
 
       const message = await members[0].post(`/groups/${group._id}/chat`, { message: testBannedWordMessage });
 
@@ -345,6 +364,7 @@ describe('POST /chat', () => {
         },
         members: 1,
       });
+      await members[0].update({ 'auth.timestamps.created': new Date('2022-01-01') });
 
       const message = await members[0].post(`/groups/${group._id}/chat`, { message: testBannedWordMessage });
 
@@ -411,6 +431,7 @@ describe('POST /chat', () => {
         },
         members: 1,
       });
+      await members[0].update({ 'auth.timestamps.created': new Date('2022-01-01') });
 
       const message = await members[0].post(`/groups/${group._id}/chat`, { message: testSlurMessage });
 
@@ -428,6 +449,16 @@ describe('POST /chat', () => {
           message: t('bannedSlurUsed'),
         });
     });
+  });
+
+  it('errors when user account is too young', async () => {
+    const brandNewUser = await generateUser();
+    await expect(brandNewUser.post('/groups/habitrpg/chat', { message: 'hi im new' }))
+      .to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('chatTemporarilyUnavailable'),
+      });
   });
 
   it('creates a chat', async () => {
@@ -492,6 +523,7 @@ describe('POST /chat', () => {
       'items.currentMount': mount,
       'items.currentPet': pet,
       'preferences.style': style,
+      'auth.timestamps.created': new Date('2022-01-01'),
     });
     await userWithStyle.sync();
 
@@ -517,6 +549,7 @@ describe('POST /chat', () => {
     };
     const backer = await generateUser({
       backer: backerInfo,
+      'auth.timestamps.created': new Date('2022-01-01'),
     });
 
     const message = await backer.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage });
@@ -587,6 +620,9 @@ describe('POST /chat', () => {
           privacy: 'private',
         },
         members: 1,
+        leaderDetails: {
+          'auth.timestamps.created': new Date('2022-01-01'),
+        },
       });
 
       const message = await groupLeader.post(`/groups/${group._id}/chat`, { message: testMessage });
