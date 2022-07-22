@@ -3,6 +3,7 @@ import {
   translate as t,
 } from '../../../../helpers/api-integration/v3';
 import { model as Group } from '../../../../../website/server/models/group';
+import { MAX_SUMMARY_SIZE_FOR_GUILDS } from '../../../../../website/common/script/constants';
 
 describe('POST /group', () => {
   let user;
@@ -70,6 +71,20 @@ describe('POST /group', () => {
       const updatedGroup = await user.get(`/groups/${group._id}`);
 
       expect(updatedGroup.summary).to.eql(summary);
+    });
+
+    it('returns error when summary is longer than MAX_SUMMARY_SIZE_FOR_GUILDS characters', async () => {
+      const name = 'Test Group';
+      const summary = 'A'.repeat(MAX_SUMMARY_SIZE_FOR_GUILDS + 1);
+      await expect(user.post('/groups', {
+        name,
+        type: 'guild',
+        summary,
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('invalidReqParams'),
+      });
     });
   });
 
