@@ -168,6 +168,51 @@
             </li>
           </ul>
         </div>
+        <!-- Social - Phone -->
+        <div class="col-xs-6 col-sm social display-invisible phone-visible">
+          <h3>{{ $t('footerSocial') }}</h3>
+          <div class="icons">
+            <a
+              class="social-circle"
+              href="https://www.instagram.com/habitica/"
+              target="_blank"
+            >
+              <div
+                class="social-icon svg-icon instagram"
+                v-html="icons.instagram"
+              ></div>
+            </a>
+            <a
+              class="social-circle"
+              href="https://twitter.com/habitica"
+              target="_blank"
+            >
+              <div
+                class="social-icon svg-icon twitter"
+                v-html="icons.twitter"
+              ></div>
+            </a>
+            <a
+              class="social-circle"
+              href="https://www.facebook.com/Habitica"
+              target="_blank"
+            >
+              <div
+                class="social-icon facebook svg-icon"
+                v-html="icons.facebook"
+              ></div>
+            </a><a
+              class="social-circle"
+              href="https://www.tumblr.com/Habitica"
+              target="_blank"
+            >
+              <div
+                class="social-icon tumblr svg-icon"
+                v-html="icons.tumblr"
+              ></div>
+            </a>
+          </div>
+        </div>
       </div>
       <div class="row row-two">
         <!-- Help Support Habitica -->
@@ -179,7 +224,6 @@
         </div>
         <div class="col col-md-2 offset-sm-0">
           <button
-            v-if="user"
             class="btn btn-contribute justify-content-between"
             @click="donate()"
           >
@@ -187,23 +231,10 @@
               💜 {{ $t('companyDonate') }}
             </div>
           </button>
-          <div
-            v-else
-            class="btn btn-contribute justify-content-between"
-          >
-            <a
-              href="https://habitica.fandom.com/wiki/Contributing_to_Habitica"
-              target="_blank"
-            >
-              <div class="text">
-                💜 {{ $t('companyContribute') }}
-              </div>
-            </a>
-          </div>
         </div>
 
-        <!-- Social -->
-        <div class="col offset-col-6 col-xs-1 social">
+        <!-- Social - Desktop/Tablet -->
+        <div class="col offset-col-6 col-xs-1 social display-visible phone-invisible">
           <h3>{{ $t('footerSocial') }}</h3>
           <div class="icons align-items-center">
             <a
@@ -253,7 +284,7 @@
           <hr>
         </div>
       </div>
-      <div class="row row-four colophon align-items-center">
+      <div class="row row-four colophon align-items-center display-visible phone-invisible">
         <div class="col-lg-3 col-xs-12 copyright">
           © {{ currentYear }} Habitica. All rights reserved.
         </div>
@@ -264,18 +295,41 @@
           ></div>
         </div>
         <div class="col-lg-3 col-xs-12 d-flex justify-content-end">
-          <span class="privacy-policy privacy">
+          <span class="privacy-policy">
             <a
               target="_blank"
               href="/static/privacy"
             >{{ $t('privacy') }}</a>
           </span>
-          <span class="terms t-and-c">
+          <span class="terms">
             <a
               target="_blank"
               href="/static/terms"
             >{{ $t('terms') }}</a>
           </span>
+        </div>
+      </div>
+      <div class="row row-four colophon align-items-center display-invisible phone-visible">
+        <div class="copyright">
+          © {{ currentYear }} Habitica. All rights reserved.
+        </div>
+        <div class="melior">
+          <div
+            class="logo svg-icon"
+            v-html="icons.gryphon"
+          ></div>
+        </div>
+        <div class="terms">
+          <a
+            target="_blank"
+            href="/static/terms"
+          >{{ $t('terms') }}</a>
+        </div>
+        <div class="privacy-policy">
+          <a
+            target="_blank"
+            href="/static/privacy"
+          >{{ $t('privacy') }}</a>
         </div>
       </div>
       <div class="row row-five">
@@ -405,7 +459,13 @@ hr {
   background-color: $gray-400;
 }
 
-.social {
+.display-invisible {
+  visibility: hidden !important;
+  display: none;
+}
+
+.display-visible {
+  visibility: visible !important;
 }
 
 .icons {
@@ -414,10 +474,7 @@ hr {
   height: 32px;
 }
 
-.heart {
-}
-
-.donate-text{
+.donate-text {
   font-size: 0.75rem;
   font-color: $gray-100;
   line-height: 1.33;
@@ -534,10 +591,26 @@ hr {
     padding: 24px 16px;
   }
 
+  .phone-invisible {
+    visibility: hidden !important;
+    display: none;
+    margin-top: -24px;
+  }
+
+  .phone-visible {
+    visibility: visible !important;
+    display: inherit;
+  }
+
   .row-one {
     display: grid;
-    grid-column-gap: 16px;
-    grid-row-gap: 24px;
+    grid-column-gap: 12px;
+    grid-row-gap: 12px;
+    grid-template-columns: 50%;
+
+    li {
+      margin-bottom: 4px;
+    }
 
     .product {
       grid-row: 1 / 1;
@@ -546,6 +619,8 @@ hr {
     .company {
       grid-row: 1 / 1;
       grid-column: 2 / 2;
+      padding-left: 0px;
+      margin-left: -8px;
     }
     .community {
       grid-row: 2 / 2;
@@ -554,12 +629,36 @@ hr {
     .support {
       grid-row: 2 / 2;
       grid-column: 2 / 2;
+      padding-left: 0px;
+      margin-left: -8px;
     }
     .developers {
       grid-row: 3 / 3;
-      grid-column: 1 / 1;
+      grid-column: 1 / 2;
     }
-
+    .social {
+      grid-row: 3 / 3;
+      grid-column: 2 / 2;
+      vertical-align: top;
+      padding-left: 0px;
+      margin-left: -8px;
+    }
+    .icons {
+      display: flex;
+      height: auto;
+      padding-left: 0px;
+      padding-top: 8px;
+      margin-top: -84px;
+    }
+    .social-circle {
+      margin: 0 6px 0 6px;
+      &:first-child {
+        margin-left: 0;
+        }
+      &:last-child {
+        margin-right: 0;
+        }
+    }
   }
 
   .row-two {
@@ -568,22 +667,17 @@ hr {
     .support {
       display: block;
       order: 0;
-      margin-top: 24px;
+      margin-top: 0px;
       width: 100%;
 
       h3 {
         margin-bottom: 4px;
       }
     }
-
     .btn-contribute {
       order: 1;
       margin: 16px 0 24px 0;
       width: 288px;
-    }
-
-    .social {
-      order: -1;
     }
   }
 
@@ -593,33 +687,42 @@ hr {
 
   .row-four{
     display: flex;
-    margin-top: 16px 0 24px 0;
-    justify-content: between;
+    justify-content: safe center;
     flex-direction: row;
 
     .copyright {
       order: 0;
       display: flex;
       justify-content: center;
+      height: 24px;
     }
-    .privacy{
+    .privacy-policy {
       order: 1;
       display: flex;
+      justify-content: center;
       width: 100%;
+      height: 20px;
+      margin-top: 10px;
     }
-    .t-and-c {
+    .terms {
       order: 2;
       display: flex;
+      justify-content: center;
       width: 100%;
+      padding-left: 0px;
+      margin-top: 8px;
     }
     .melior {
       order: 4;
+      justify-content: center;
+      height: 44px;
+      padding-top: 12px;
     }
   }
 
   .row-five{
     display:flex;
-    margin: 64px 0 16px 0;
+    margin: 108px 0 16px 0;
   }
 
   .debug {
@@ -636,18 +739,18 @@ hr {
     width: 100%;
     box-shadow: 0 1px 3px 0 rgba(26, 24, 29, 0.12), 0 1px 2px 0 rgba(26, 24, 29, 0.24);
     margin-top: 8px;
+  }
 }
-}
-
 </style>
-
 <style lang="scss">
-
 .instagram svg {
   background-color: #e1e0e3;
   fill: #878190;
   height: 24px;
   width: 24px;
+    &:hover {
+    fill: #6133B4;
+  }
 }
 
 .twitter svg {
@@ -655,6 +758,9 @@ hr {
   fill: #878190;
   height: 24px;
   width: 24px;
+    &:hover {
+    fill: #6133B4;
+  }
 }
 
 .facebook svg {
@@ -662,6 +768,9 @@ hr {
   fill: #878190;
   height: 24px;
   width: 24px;
+    &:hover {
+    fill: #6133B4;
+  }
 }
 
 .tumblr svg {
@@ -669,32 +778,11 @@ hr {
   fill: #878190;
   height: 24px;
   width: 24px;
+      &:hover {
+    fill: #6133B4;
+  }
 }
 
-svg:hover {
-  fill: #6133B4;
-}
-
-// footer {
-//   &.expanded {
-//     padding-left: 96px;
-//     padding-right: 96px;
-//     padding-top: 48px;
-//     background: #E1E0E3;
-//     color: #4E4A57;
-//     min-height: 356px;
-//     a {
-//       color: #878190;
-//     }
-//     .logo {
-//       color: #c3c0c7;
-//     }
-//     @media screen and (max-width: 770px) {
-//       padding-left: 16px;
-//       padding-right: 16px;
-//     }
-//   }
-// }
 </style>
 
 <script>
