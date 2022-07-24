@@ -204,6 +204,10 @@
           background-color: rgba(26, 24, 29, 0.5);
         }
 
+        .mana-text {
+          color: $blue-500;
+        }
+
         .level {
           color: $white;
           font-weight: normal;
