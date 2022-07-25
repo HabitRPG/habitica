@@ -11,6 +11,7 @@ if (process.env.LOAD_SERVER === '0') { // when the server is in a different proc
   setupNconf('./config.json.example');
   nconf.set('NODE_DB_URI', nconf.get('TEST_DB_URI'));
   nconf.set('NODE_ENV', 'test');
+  nconf.set('ACCOUNT_MIN_CHAT_AGE', '2');
   nconf.set('IS_TEST', true);
   // We require src/server and not src/index because
   // 1. nconf is already setup

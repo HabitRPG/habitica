@@ -129,6 +129,7 @@
   "sendGiftHeading": "Send Gift to <%= name %>",
   "sendGiftGemsBalance": "From <%= number %> Gems",
   "sendGiftCost": "Total: $<%= cost %> USD",
+  "sendGiftTotal": "Total:",
   "sendGiftFromBalance": "From Balance",
   "sendGiftPurchase": "Purchase",
   "sendGiftMessagePlaceholder": "Personal message (optional)",
@@ -367,5 +368,6 @@
   "dayStart": "<strong>Day start</strong>: <%= startTime %>",
   "viewStatus": "Status",
   "lastCompleted": "Last completed",
-  "you": "<strong>You</strong>"
+  "you": "<strong>You</strong>",
+  "chatTemporarilyUnavailable": "Chat is temporarily unavailable. Please try again later."
 }

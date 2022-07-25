@@ -267,7 +267,11 @@ api.updateHero = {
     const hero = await User.findById(heroId).exec();
     if (!hero) throw new NotFound(res.t('userWithIDNotFound', { userId: heroId }));
 
-    if (updateData.balance) hero.balance = updateData.balance;
+    if (updateData.balance) {
+      await hero.updateBalance(updateData.balance - hero.balance, 'admin_update_balance', '', 'Given by Habitica staff');
+
+      hero.balance = updateData.balance;
+    }
 
     // give them gems if they got an higher level
     // tier = level in this context
@@ -323,7 +327,9 @@ api.updateHero = {
       }
     }
 
-    if (updateData.changeApiToken) hero.apiToken = common.uuid();
+    if (updateData.changeApiToken) {
+      hero.apiToken = common.uuid();
+    }
 
     const savedHero = await hero.save();
     const heroJSON = savedHero.toJSON();

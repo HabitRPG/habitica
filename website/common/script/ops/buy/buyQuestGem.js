@@ -42,6 +42,18 @@ export class BuyQuestWithGemOperation extends AbstractGemItemOperation { // esli
     this.canUserPurchase(user, item);
   }
 
+  canUserPurchase (user, item) {
+    if (item && item.prereqQuests) {
+      for (const prereq of item.prereqQuests) {
+        if (!user.achievements.quests[prereq]) {
+          throw new NotAuthorized(this.i18n('mustComplete', { quest: prereq }));
+        }
+      }
+    }
+
+    super.canUserPurchase(user, item);
+  }
+
   async executeChanges (user, item, req) {
     if (
       !user.items.quests[item.key]

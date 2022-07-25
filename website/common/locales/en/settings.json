@@ -125,6 +125,7 @@
     "unsubscribeAllPush": "Check to Unsubscribe from all Push Notifications",
     "correctlyUnsubscribedEmailType": "Correctly unsubscribed from \"<%= emailType %>\" emails.",
     "subscriptionRateText": "Recurring <strong>$<%= price %> USD</strong> every <strong><%= months %> months</strong>",
+    "giftSubscriptionRateText": "<strong>$<%= price %> USD</strong> for <strong><%= months %> months</strong>",
     "benefits": "Benefits",
     "coupon": "Coupon",
     "couponText": "We sometimes have events and give out promo codes for special gear. (eg, those who stop by our Wondercon booth)",
@@ -204,11 +205,13 @@
     "transaction_gift_send": "Gifted to",
     "transaction_gift_receive": "Received from",
     "transaction_create_challenge": "Created challenge",
+    "transaction_create_bank_challenge": "Created bank challenge",
     "transaction_create_guild": "Created guild",
     "transaction_change_class": "Changed class",
     "transaction_rebirth": "Used Orb of Rebirth",
     "transaction_release_pets": "Released pets",
     "transaction_release_mounts": "Released mounts",
     "transaction_reroll": "Used Fortify Potion",
-    "transaction_subscription_perks": "From subscription perk"
+    "transaction_subscription_perks": "From subscription perk",
+    "transaction_admin_update_balance": "Admin given"
 }
