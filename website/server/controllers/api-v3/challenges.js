@@ -30,6 +30,10 @@ import {
 } from '../../libs/challenges';
 import apiError from '../../libs/apiError';
 
+import common from '../../../common';
+
+const { MAX_SUMMARY_SIZE_FOR_CHALLENGES } = common.constants;
+
 const api = {};
 
 /**
@@ -200,6 +204,7 @@ api.createChallenge = {
     const { user } = res.locals;
 
     req.checkBody('group', apiError('groupIdRequired')).notEmpty();
+    req.checkBody('summary', apiError('summaryLengthExceedsMax')).isLength({ max: MAX_SUMMARY_SIZE_FOR_CHALLENGES });
 
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -707,6 +712,7 @@ api.updateChallenge = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+    req.checkBody('summary', apiError('summaryLengthExceedsMax')).isLength({ max: MAX_SUMMARY_SIZE_FOR_CHALLENGES });
 
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
