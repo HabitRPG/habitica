@@ -100,25 +100,6 @@
           :placeholder="$t('addNotes')"
         ></textarea>
       </div>
-      <div
-        v-if="task.group && task.group.assignedDate && !task.group.assigningUsername"
-        class="mt-3 mb-n2"
-        :class="cssClass('headings')"
-        v-html="$t('assignedDateOnly', {
-          date: formattedDate(task.group.assignedDate),
-        })"
-      >
-      </div>
-      <div
-        v-if="task.group && task.group.assignedDate && task.group.assigningUsername"
-        class="mt-3 mb-n2"
-        :class="cssClass('headings')"
-        v-html="$t('assignedDateAndUser', {
-          username: task.group.assigningUsername,
-          date: formattedDate(task.group.assignedDate),
-        })"
-      >
-      </div>
     </div>
     <div
       v-if="task"
@@ -429,7 +410,7 @@
             <label
               v-once
               class="col-10 mb-1"
-            >{{ $t('assignedTo') }}</label>
+            >{{ $t('assignTo') }}</label>
             <a
               v-if="assignedMembers.length > 0"
               class="col-2 text-right mt-1"

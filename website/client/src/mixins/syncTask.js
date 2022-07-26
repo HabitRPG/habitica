@@ -3,9 +3,9 @@ import clone from 'lodash/clone';
 export default {
   methods: {
     async syncTask () {
-      if (this.groupId) {
+      if (this.groupId || this.task?.group.id) {
         const members = await this.$store.dispatch('members:getGroupMembers', {
-          groupId: this.groupId,
+          groupId: this.groupId || this.task?.group.id,
           includeAllPublicFields: true,
         });
         this.members = members;
@@ -19,7 +19,7 @@ export default {
           this.memberNamesById[member._id] = member.profile.name;
         });
         this.assignedMembers = [];
-        if (this.task.group?.assignedUsers) {
+        if (this.task?.group?.assignedUsers) {
           this.assignedMembers = this.task.group.assignedUsers;
         }
       }

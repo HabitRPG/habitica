@@ -18,7 +18,7 @@
         {{ title }}
       </h2>
       <div
-        class="svg-icon color-stroke icon-12 close-x ml-auto my-auto"
+        class="svg-icon color close-x ml-auto my-auto"
         :class="cssClass('headings')"
         aria-hidden="true"
         tabindex="0"
@@ -27,12 +27,70 @@
         v-html="icons.close"
       ></div>
     </div>
+    <div
+      v-if="task"
+      class="task-modal-content pt-3 px-4 pb-4"
+    >
+      <div class="summary-block">
+        <h3> {{ $t('title') }} </h3>
+        <p> {{ task.text }} </p>
+      </div>
+      <div
+        v-if="task.notes"
+        class="summary-block"
+      >
+        <h3> {{ $t('notes') }} </h3>
+        <p> {{ task.notes }} </p>
+      </div>
+      <div class="summary-block">
+        <h3> {{ $t('description') }} </h3>
+        <p v-html="summarySentence" ></p>
+      </div>
+      <div
+        v-if="task.checklist && task.checklist.length > 0"
+        class="summary-block"
+      >
+        <checklist
+          :items.sync="task.checklist"
+          :disableDrag="true"
+          :disableEdit="true"
+        />
+      </div>
+      <div
+        class="summary-block"
+        v-if="assignedMembers.length > 0"
+      >
+        <h3> {{ $t('assignedTo') }} </h3>
+        <div
+          class="d-flex flex-wrap"
+        >
+          <span
+            v-for="member in assignedMembers"
+            :key="member"
+            class="assigned-member py-1 px-75 mr-1"
+            v-html="memberNamesById[member]"
+          >
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      v-if="task && task.group.assignedUsersDetail && task.group.assignedUsersDetail[user._id]"
+      class="assignment-footer text-center py-2"
+      v-html="$t('assignedDateAndUser', {
+        username: task.group.assignedUsersDetail[user._id].assigningUsername,
+        date: formattedDate(task.group.assignedUsersDetail[user._id].assignedDate),
+      })"
+    >
+    </div>
   </b-modal>
 </template>
 
 <style lang="scss">
   @import '~@/assets/scss/colors.scss';
   #task-summary {
+    overflow-y: hidden;
+
     .modal-content {
       border-top-left-radius: 10px;
       border-top-right-radius: 10px;
@@ -60,14 +118,45 @@
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
 
+  .assigned-member {
+    border: 1px solid $gray-400;
+    border-radius: 100px;
+    color: $gray-100;
+    font-size: 12px;
+    line-height: 1.33;
+  }
+
+  .assignment-footer {
+    color: $gray-100;
+    background-color: $gray-700;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+
   .close-x {
-    height: 12px;
-    width: 12px;
+    height: 16px;
+    width: 16px;
     position: relative;
     opacity: 0.75;
 
     &:hover, &:focus {
       opacity: 1;
+    }
+  }
+
+  .summary-block:not(:last-of-type) {
+    margin-bottom: 1rem;
+  }
+
+  .task-modal-content {
+    h3 {
+      margin-bottom: 0.25rem;
+    }
+    p {
+      margin-bottom: 0px;
+    }
+    h3, p {
+      color: $gray-50;
     }
   }
 
@@ -89,12 +178,16 @@ import keys from 'lodash/keys';
 import moment from 'moment';
 import pickBy from 'lodash/pickBy';
 
+import checklist from './modal-controls/checklist';
 import syncTask from '../../mixins/syncTask';
-import { mapGetters } from '@/libs/store';
+import { mapGetters, mapState } from '@/libs/store';
 
 import closeIcon from '@/assets/svg/close.svg';
 
 export default {
+  components: {
+    checklist,
+  },
   mixins: [syncTask],
   props: ['task'],
   data () {
@@ -111,11 +204,18 @@ export default {
       icons: Object.freeze({
         close: closeIcon,
       }),
+      assignedMembers: [],
+      members: [],
+      membersNameAndId: [],
+      memberNamesById: {},
     };
   },
   computed: {
     ...mapGetters({
       getTaskClasses: 'tasks:getTaskClasses',
+    }),
+    ...mapState({
+      user: 'user.data',
     }),
     summarySentence () {
       if (this.task.type === 'daily' && moment().isBefore(this.task.startDate)) {
@@ -147,6 +247,9 @@ export default {
       }
 
       return this.getTaskClasses(this.task, `edit-modal-${suffix}`);
+    },
+    formattedDate (date) {
+      return moment(date).format('MM/DD/YYYY');
     },
     formattedDays (frequency, repeat, daysOfMonth, weeksOfMonth, startDate) {
       let activeDays;
