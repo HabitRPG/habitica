@@ -42,19 +42,19 @@
     <div
       class="claim-bottom-message d-flex align-items-center"
     >
-      <span
+      <div
         v-if="assignedUsersCount > 0"
-        class="users-icon ml-2 mt-n1"
+        class="svg-icon icon-16 ml-2 users-icon"
         :class="{'green-50': completionsCount === assignedUsersCount}"
         v-html="icons.users"
-      ></span>
+      ></div>
       <div
-        class="mr-auto ml-1"
+        class="mr-auto ml-1 my-auto"
         :class="{'green-10': showGreen}"
         v-html="message"
       ></div>
       <div
-        class="ml-auto mr-2 text-right"
+        class="ml-auto mr-1 my-auto"
         v-if="task.group.assignedUsers && ['daily','todo'].indexOf(task.type) !== -1"
       >
         <span
@@ -62,13 +62,13 @@
           class="mr-1 d-inline-flex align-items-center"
         >
           <span
-            class="small-check my-auto"
+            class="small-check"
             v-if="!showStatus && completionsCount"
             :class="{'green-50': completionsCount === assignedUsersCount}"
             v-html="icons.check"
           ></span>
           <span
-            class="my-auto ml-1 mr-2"
+            class="ml-1 mr-2"
             v-if="!showStatus && completionsCount"
           >
             {{ completionsCount }}/{{ assignedUsersCount }}
@@ -95,12 +95,11 @@
           <span
             v-html="icons.lastComplete"
             v-b-tooltip.hover.bottom="$t('lastCompleted')"
-            class="last-completed mr-1"
+            class="last-completed"
             :class="{'gray-200': !showGreen}"
           >
           </span>
           <span
-            class="my-auto"
             :class="{'green-10': showGreen}"
           >
             {{ formattedCompletionTime }}
@@ -126,6 +125,7 @@
     height: 16px;
     border-radius: 2px;
     padding-left: 2px;
+    padding-top: 1px;
     background-color: #e1e0e3;
 
     svg {
@@ -150,6 +150,7 @@
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
     font-size: 12px;
+    line-height: 1.334;
     padding-bottom: 0.25rem;
     padding-top: 0.25rem;
     z-index: 9;
@@ -222,8 +223,7 @@
   }
 
   .users-icon {
-    width: 16px;
-    height: 16px;
+    margin-top: -1px;
   }
 </style>
 
@@ -323,13 +323,14 @@ export default {
       return this.$t('error'); // task is open, or the other conditions aren't hitting right
     },
     singleAssignLastDone () {
-      const userId = this.task.group.assignedUsers[0];
-      const completion = this.task.group.assignedUsersDetail[userId];
-      return completion.completedDate;
+      const completion = this.task?.group?.assignedUsersDetail[this.user._id];
+      if (completion) return completion.completedDate;
+      return null;
     },
     showGreen () {
       if (this.assignedUsersCount !== 1) return false;
-      return this.singleAssignLastDone && moment().diff(this.singleAssignLastDone, 'days') < 1;
+      return this.singleAssignLastDone
+        && this.task?.group?.assignedUsersDetail[this.user._id].completed;
     },
     formattedCompletionTime () {
       if (!this.singleAssignLastDone) return '';

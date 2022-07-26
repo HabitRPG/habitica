@@ -171,17 +171,17 @@
         <div class="create-task-area">
           <div
             id="create-task-btn"
-            class="create-btn ml-auto btn-primary diamond-btn btn"
+            class="btn btn-primary create-btn d-flex align-items-center"
             :class="{open: openCreateBtn}"
             @click.stop.prevent="openCreateBtn = !openCreateBtn"
             @keypress.enter="openCreateBtn = !openCreateBtn"
             tabindex="0"
           >
             <div
-              class="svg-icon"
+              class="svg-icon icon-10 color"
               v-html="icons.positive"
             ></div>
-            <div class="ml-2"> {{ $t('addTask') }} </div>
+            <div class="ml-75 mr-1"> {{ $t('addTask') }} </div>
           </div>
           <div
             v-if="openCreateBtn"

@@ -1448,8 +1448,7 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, users, assig
     const assignmentData = {
       assignedDate: new Date(),
       assignedUsername: user.auth.local.username,
-      assigningUsername: assigningUser && assigningUser._id !== user._id
-        ? assigningUser.auth.local.username : null,
+      assigningUsername: assigningUser.auth.local.username,
       completed: false,
     };
 
@@ -1500,9 +1499,6 @@ schema.methods.unlinkTask = async function groupUnlinkTask (
   delete unlinkingTask.group.assignedUsersDetail[user._id];
   const assignedUserIndex = unlinkingTask.group.assignedUsers.indexOf(user._id);
   unlinkingTask.group.assignedUsers.splice(assignedUserIndex, 1);
-  if (unlinkingTask.group.assignedUsers.length === 0) {
-    unlinkingTask.group.assignedUsers = undefined;
-  }
   unlinkingTask.markModified('group');
 
   const promises = [unlinkingTask.save()];

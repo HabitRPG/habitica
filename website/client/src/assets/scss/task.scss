@@ -258,7 +258,7 @@
 
     &-modal {
       &-bg { background: $purple-300 !important; }
-      &-headings { color: $white; }
+      &-headings { color: $white !important; }
       &-icon { color: $purple-300 !important; }
       &-text { color: $black !important; }
       &-content {

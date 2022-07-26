@@ -75,7 +75,8 @@
       </div>
     </div>
     <div
-      v-if="task && task.group.assignedUsersDetail && task.group.assignedUsersDetail[user._id]"
+      v-if="task && task.group && task.group.assignedUsersDetail
+        && task.group.assignedUsersDetail[user._id]"
       class="assignment-footer text-center py-2"
       v-html="$t('assignedDateAndUser', {
         username: task.group.assignedUsersDetail[user._id].assigningUsername,

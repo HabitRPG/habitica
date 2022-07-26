@@ -44,26 +44,26 @@
           @change="changeMirrorPreference"
         />
         <div
-          class="day-start d-flex align-items-center"
+          class="day-start d-flex align-items-center mr-2"
           v-html="$t('dayStart', { startTime: groupStartTime } )"
         >
         </div>
         <div>
-          <div
+          <button
             id="create-task-btn"
             v-if="canCreateTasks"
-            class="create-btn ml-2 btn-primary diamond-btn btn"
+            class="btn btn-primary create-btn d-flex align-items-center"
             :class="{open: openCreateBtn}"
             @click.stop.prevent="openCreateBtn = !openCreateBtn"
             @keypress.enter="openCreateBtn = !openCreateBtn"
             tabindex="0"
           >
             <div
-              class="svg-icon"
+              class="svg-icon icon-10 color"
               v-html="icons.positive"
             ></div>
-            <div class="ml-2"> {{ $t('addTask') }} </div>
-          </div>
+            <div class="ml-75 mr-1"> {{ $t('addTask') }} </div>
+          </button>
           <div
             v-if="openCreateBtn"
             class="dropdown"
