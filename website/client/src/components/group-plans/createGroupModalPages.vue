@@ -122,6 +122,11 @@
     font-weight: bold;
   }
 
+  .custom-control-input {
+    z-index: -1;
+    opacity: 0;
+  }
+
   .box:hover {
     cursor: pointer;
     opacity: 0.7;

@@ -4,7 +4,7 @@
     class="standard-page"
   >
     <div class="row">
-      <div class="col-12 col-md-6">
+      <div class="stats-section-equipment col-12 col-md-6">
         <h2 class="text-center">
           {{ $t('equipment') }}
         </h2>
@@ -12,7 +12,7 @@
           <div
             v-for="(label, key) in equipTypes"
             :key="key"
-            class="col-12 col-md-4 item-wrapper"
+            class="item-wrapper"
           >
             <div
               v-if="label !== 'skip'"
@@ -48,7 +48,7 @@
           </div>
         </div>
       </div>
-      <div class="col-12 col-md-6">
+      <div class="stats-section-costume col-12 col-md-6">
         <h2 class="text-center">
           {{ $t('costume') }}
         </h2>
@@ -57,7 +57,7 @@
           <div
             v-for="(label, key) in equipTypes"
             :key="key"
-            class="col-12 col-md-4 item-wrapper"
+            class="item-wrapper"
           >
             <!-- Append a "C" to the key name since HTML IDs have to be unique.-->
             <div
@@ -111,7 +111,7 @@
       </div>
     </div>
     <div class="row pet-mount-row">
-      <div class="col-12 col-md-6">
+      <div class="stats-section-pets col-12 col-md-6">
         <h2
           v-once
           class="text-center"
@@ -119,8 +119,7 @@
           {{ $t('pets') }}
         </h2>
         <div class="well pet-mount-well">
-          <div class="row col-12">
-            <div class="col-12 col-md-4">
+          <div class="pet-mount-well-image">
               <div
                 class="box"
                 :class="{white: user.items.currentPet}"
@@ -131,7 +130,7 @@
                 ></div>
               </div>
             </div>
-            <div class="col-12 col-md-8">
+            <div class="pet-mount-well-text">
               <div>{{ formatAnimal(user.items.currentPet, 'pet') }}</div>
               <div>
                 <strong>{{ $t('petsFound') }}:</strong>
@@ -142,10 +141,9 @@
                 {{ beastMasterProgress(user.items.pets) }}
               </div>
             </div>
-          </div>
         </div>
       </div>
-      <div class="col-12 col-md-6">
+      <div class="stats-section-mounts col-12 col-md-6">
         <h2
           v-once
           class="text-center"
@@ -153,28 +151,26 @@
           {{ $t('mounts') }}
         </h2>
         <div class="well pet-mount-well">
-          <div class="row col-12">
-            <div class="col-12 col-md-4">
+          <div class="pet-mount-well-image">
+            <div
+              class="box"
+              :class="{white: user.items.currentMount}"
+            >
               <div
-                class="box"
-                :class="{white: user.items.currentMount}"
-              >
-                <div
-                  class="mount"
-                  :class="`Mount_Icon_${user.items.currentMount}`"
-                ></div>
-              </div>
+                class="mount"
+                :class="`Mount_Icon_${user.items.currentMount}`"
+              ></div>
             </div>
-            <div class="col-12 col-md-8">
-              <div>{{ formatAnimal(user.items.currentMount, 'mount') }}</div>
-              <div>
-                <strong>{{ $t('mountsTamed') }}:</strong>
-                <span>{{ totalCount(user.items.mounts) }}</span>
-              </div>
-              <div>
-                <strong>{{ $t('mountMasterProgress') }}:</strong>
-                <span>{{ mountMasterProgress(user.items.mounts) }}</span>
-              </div>
+          </div>
+          <div class="pet-mount-well-text">
+            <div>{{ formatAnimal(user.items.currentMount, 'mount') }}</div>
+            <div>
+              <strong>{{ $t('mountsTamed') }}:</strong>
+              <span>{{ totalCount(user.items.mounts) }}</span>
+            </div>
+            <div>
+              <strong>{{ $t('mountMasterProgress') }}:</strong>
+              <span>{{ mountMasterProgress(user.items.mounts) }}</span>
             </div>
           </div>
         </div>
@@ -309,15 +305,13 @@
         v-if="showStatsSave"
         class="row save-row"
       >
-        <div class="col-12 col-md-6 offset-md-3 text-center">
-          <button
-            class="btn btn-primary"
-            :disabled="loading"
-            @click="saveAttributes()"
-          >
-            {{ loading ? $t('loading') : $t('save') }}
-          </button>
-        </div>
+        <button
+          class="btn btn-primary"
+          :disabled="loading"
+          @click="saveAttributes()"
+        >
+          {{ loading ? $t('loading') : $t('save') }}
+        </button>
       </div>
     </div>
   </div>
@@ -650,10 +644,17 @@ export default {
     border-radius: 2px;
     padding: 0.4em;
     padding-top: 1em;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
   }
 
   .well.pet-mount-well {
+    padding-left: 15px;
     padding-bottom: 1em;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
 
     strong {
       margin-right: .2em;
@@ -690,12 +691,13 @@ export default {
   }
 
   .save-row {
-    margin-top: 1em;
+    margin: 2em 0 1em 0;
+    justify-content: center;
   }
 
     .gear.box {
       vertical-align: top;
-      margin: 0 auto;
+      // margin: 0 auto;
     }
 
     .gear-label {
@@ -721,4 +723,34 @@ export default {
       // breaks the long words without a space
       word-break: break-word;
     }
+
+  @media (max-width: 850px) {
+    #stats .col-md-6 {
+      flex: none;
+      max-width: 100%;
+    }
+  }
+  @media(max-width: 990px) {
+    .modal-body #stats .col-md-6 {
+      flex: none;
+      max-width: 100%;
+    }
+
+    [class^="stats-section-"] {
+      margin-bottom: 30px;
+    }
+    #allocation {
+      .box {
+        width: 100%;
+        height: 100%;
+        .col-9 {
+          padding: 0;
+          margin: 0;
+        }
+        .col-9 div:first-child {
+          font-size: 13px;
+        }
+      }
+    }
+  }
 </style>

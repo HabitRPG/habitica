@@ -153,6 +153,7 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
         },
         invites: 1,
         members: 2,
+        leaderDetails: { 'auth.timestamps.created': new Date('2022-01-01') },
       });
 
       party = group;

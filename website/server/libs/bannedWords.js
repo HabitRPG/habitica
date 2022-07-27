@@ -103,6 +103,8 @@ const bannedWords = [
   'bullshitting',
   'shiz',
   'shit',
+  'shite',
+  'shits',
   'shitty',
   'shitting',
   'shithole',

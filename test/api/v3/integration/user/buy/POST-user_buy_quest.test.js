@@ -39,25 +39,38 @@ describe('POST /user/buy-quest/:key', () => {
     }));
   });
 
-  it('returns an error if quest prerequisites are not met', async () => {
-    const key = 'dilatoryDistress2';
+  it('returns an error if not all quest prerequisites are met', async () => {
+    const prerequisites = ['dilatoryDistress1', 'dilatoryDistress2'];
+    const key = 'dilatoryDistress3';
+
+    const achievementName1 = `achievements.quests.${prerequisites[0]}`;
+
+    await user.update({
+      [achievementName1]: true,
+      'stats.gp': 9999,
+    });
 
     await expect(user.post(`/user/buy-quest/${key}`))
       .to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
-        message: t('mustComplete', { quest: 'dilatoryDistress1' }),
+        message: t('mustComplete', { quest: prerequisites[1] }),
       });
   });
 
   it('allows purchase of a quest if prerequisites are met', async () => {
-    const prerequisite = 'dilatoryDistress1';
-    const key = 'dilatoryDistress2';
+    const prerequisites = ['dilatoryDistress1', 'dilatoryDistress2'];
+    const key = 'dilatoryDistress3';
     const item = content.quests[key];
 
-    const achievementName = `achievements.quests.${prerequisite}`;
+    const achievementName1 = `achievements.quests.${prerequisites[0]}`;
+    const achievementName2 = `achievements.quests.${prerequisites[1]}`;
 
-    await user.update({ [achievementName]: true, 'stats.gp': 9999 });
+    await user.update({
+      [achievementName1]: true,
+      [achievementName2]: true,
+      'stats.gp': 9999,
+    });
     const res = await user.post(`/user/buy-quest/${key}`);
     await user.sync();
 
