@@ -266,8 +266,8 @@
       color: #bda8ff;
       border-top-right-radius: 0px;
       border-bottom-right-radius: 0px;
-      border-top-left-radius: 2px;
-      border-bottom-left-radius: 2px;
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
       box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
     }
 
@@ -282,6 +282,8 @@
 
     .payment-providers {
       width: 350px;
+      border-top-right-radius: 8px;
+      border-bottom-right-radius: 8px;
     }
   }
 
