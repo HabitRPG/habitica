@@ -126,7 +126,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-12 col-md-6 offset-md-3 text-center nav">
+      <div class="text-center nav">
         <div
           class="nav-item"
           :class="{active: selectedPage === 'profile'}"
@@ -470,6 +470,7 @@
   .gift-icon svg {
     height: 14px;
   }
+
 </style>
 
 <style lang="scss" scoped>
@@ -538,6 +539,7 @@
   }
 
   .nav {
+    width: 100%;
     font-weight: bold;
     min-height: 40px;
     justify-content: center;
@@ -708,6 +710,27 @@
         border-radius: 1px;
         background-color: $green-10 !important;
       }
+    }
+  }
+
+  @media (max-width: 990px) {
+    .profile-actions {
+      flex-direction: column;
+    }
+    .profile-actions :not(:last-child) {
+      margin-bottom: 15px;
+    }
+    .profile-actions {
+      margin-right: 0;
+    }
+  }
+
+  @media (max-width: 550px) {
+    .member-details {
+      flex-direction: column;
+    }
+    .member-details .avatar {
+      margin-bottom: 15px;
     }
   }
 </style>
@@ -969,7 +992,8 @@ export default {
       axios.post(`/api/v4/user/block/${this.user._id}`);
     },
     openSendGemsModal () {
-      this.$root.$emit('habitica::send-gems', this.user);
+      this.$store.state.giftModalOptions.startingPage = 'buyGems';
+      this.$root.$emit('habitica::send-gift', this.user);
     },
     adminTurnOnShadowMuting () {
       if (!this.hero.flags) {

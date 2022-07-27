@@ -5,7 +5,7 @@ import baseModel from '../libs/baseModel';
 const { Schema } = mongoose;
 
 export const currencies = ['gems', 'hourglasses'];
-export const transactionTypes = ['buy_money', 'buy_gold', 'contribution', 'spend', 'gift_send', 'gift_receive', 'debug', 'create_challenge', 'create_guild', 'change_class', 'rebirth', 'release_pets', 'release_mounts', 'reroll', 'contribution', 'subscription_perks'];
+export const transactionTypes = ['buy_money', 'buy_gold', 'spend', 'gift_send', 'gift_receive', 'debug', 'create_challenge', 'create_bank_challenge', 'create_guild', 'change_class', 'rebirth', 'release_pets', 'release_mounts', 'reroll', 'contribution', 'subscription_perks', 'admin_update_balance'];
 
 export const schema = new Schema({
   currency: { $type: String, enum: currencies, required: true },
@@ -13,6 +13,7 @@ export const schema = new Schema({
   reference: { $type: String },
   referenceText: { $type: String },
   amount: { $type: Number, required: true },
+  currentAmount: { $type: Number },
   userId: {
     $type: String, ref: 'User', required: true, validate: [v => validator.isUUID(v), 'Invalid uuid for Transaction.'],
   },
@@ -23,7 +24,17 @@ export const schema = new Schema({
 });
 
 schema.plugin(baseModel, {
-  noSet: ['id', '_id', 'userId', 'currency', 'transactionType', 'reference', 'referenceText', 'amount'], // Nothing can be set from the client
+  noSet: [
+    'id',
+    '_id',
+    'userId',
+    'currency',
+    'transactionType',
+    'reference',
+    'referenceText',
+    'amount',
+    'currentAmount',
+  ], // Nothing can be set from the client
   timestamps: true,
   _id: false, // using custom _id
 });

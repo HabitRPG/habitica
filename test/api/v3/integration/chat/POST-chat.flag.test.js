@@ -117,7 +117,9 @@ describe('POST /chat/:chatId/flag', () => {
   });
 
   it('Flags a chat when the author\'s account was deleted', async () => {
-    const deletedUser = await generateUser();
+    const deletedUser = await generateUser({
+      'auth.timestamps.created': new Date('2022-01-01'),
+    });
     const { message } = await deletedUser.post(`/groups/${group._id}/chat`, { message: TEST_MESSAGE });
     await deletedUser.del('/user', {
       password: 'password',

@@ -662,6 +662,11 @@
       margin-bottom: 0;
     }
 
+    .custom-control-input {
+      z-index: -1;
+      opacity: 0;
+    }
+
     .modal-header {
       .form-group {
         margin-bottom: 1rem;
