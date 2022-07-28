@@ -650,6 +650,10 @@
   "weaponArmoirePinkKiteNotes":"Diving, twirling, soaring high, your kite stands out against the sky. Increases all stats by <%= attrs %> each. Enchanted Armoire: Kite Set (Item 4 of 5)",
   "weaponArmoireYellowKiteText":"Yellow Kite",
   "weaponArmoireYellowKiteNotes":"Swooping and swerving to and fro, watch your cheerful kite go. Increases all stats by <%= attrs %> each. Enchanted Armoire: Kite Set (Item 5 of 5)",
+  "weaponArmoirePushBroomText":"Push Broom",
+  "weaponArmoirePushBroomNotes":"Take this tidying tool on your adventures and always be able to sweep a sooty stoop or clear cobwebs from corners. Increases Strength and Intelligence by <%= attrs %> each. Enchanted Armoire: Cleaning Supplies Set (Item 1 of 3)",
+  "weaponArmoireFeatherDusterText":"Feather Duster",
+  "weaponArmoireFeatherDusterNotes":"Let these fancy feathers fly over all your old objects to make them shine like new. Just beware of the disturbed dust so you don’t sneeze! Increases Constitution and Perception by <%= attrs %> each. Enchanted Armoire: Cleaning Supplies Set (Item 2 of 3)",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -2487,6 +2491,8 @@
   "shieldArmoireSnareDrumNotes": "Rat-a-tat-tat! Gather your party for a parade or march into battle by playing this drum. Increases Constitution by <%= con %> and Intelligence by <%= int %>. Enchanted Armoire: Musical Instrument Set 1 (Item 3 of 3)",
   "shieldArmoireTreasureMapText": "Treasure Map",
   "shieldArmoireTreasureMapNotes": "X marks the spot! You never know what you’ll find when you follow this handy map to fabled treasures: gold, jewels, relics, or perhaps a petrified orange? Increases Strength and Intelligence by <%= attrs %> each. Enchanted Armoire: Fancy Pirate Set (Item 3 of 3).",
+  "shieldArmoireDustpanText": "Dustpan",
+  "shieldArmoireDustpanNotes": "Have this handy handheld dustpan ready every time you clean. A vanishing spell cast on it means you never have to search for a trash can to empty it into. Increases Intelligence and Constitution by <%= attrs %> each. Enchanted Armoire: Cleaning Supplies Set (Item 3 of 3).",
 
   "back": "Back Accessory",
   "backBase0Text": "No Back Accessory",
