@@ -15,6 +15,10 @@ describe('POST /groups/:id/chat/seen', () => {
           privacy: 'public',
         },
         members: 1,
+        leaderDetails: {
+          'auth.timestamps.created': new Date('2022-01-01'),
+          balance: 10,
+        },
       });
 
       guild = group;
@@ -51,6 +55,9 @@ describe('POST /groups/:id/chat/seen', () => {
           privacy: 'private',
         },
         members: 1,
+        leaderDetails: {
+          'auth.timestamps.created': new Date('2022-01-01'),
+        },
       });
 
       party = group;
