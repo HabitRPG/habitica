@@ -44,31 +44,37 @@
     >
       <div
         v-if="assignedUsersCount > 0"
-        class="svg-icon icon-16 ml-2 users-icon"
-        :class="{'green-50': completionsCount === assignedUsersCount}"
+        class="svg-icon icon-16 ml-2 users-icon color"
+        :class="{'green-10': completionsCount === assignedUsersCount}"
         v-html="icons.users"
       ></div>
       <div
         class="mr-auto ml-1 my-auto"
-        :class="{'green-10': showGreen}"
+        :class="{'green-10': completionsCount === assignedUsersCount}"
         v-html="message"
       ></div>
       <div
-        class="ml-auto mr-1 my-auto"
+        class="d-flex ml-auto mr-1 my-auto"
         v-if="task.group.assignedUsers && ['daily','todo'].indexOf(task.type) !== -1"
       >
         <span
           v-if="assignedUsersCount > 1"
-          class="mr-1 d-inline-flex align-items-center"
+          class="d-flex mr-1 my-auto"
         >
           <span
             class="small-check"
             v-if="!showStatus && completionsCount"
-            :class="{'green-50': completionsCount === assignedUsersCount}"
-            v-html="icons.check"
-          ></span>
+          >
+            <div
+              class="svg-icon color"
+              :class="{'green-10': completionsCount === assignedUsersCount}"
+              v-html="icons.check"
+            >
+            </div>
+          </span>
           <span
-            class="ml-1 mr-2"
+            class="ml-1 mr-2 my-auto"
+            :class="{'green-10': completionsCount === assignedUsersCount}"
             v-if="!showStatus && completionsCount"
           >
             {{ completionsCount }}/{{ assignedUsersCount }}
@@ -95,12 +101,12 @@
           <span
             v-html="icons.lastComplete"
             v-b-tooltip.hover.bottom="$t('lastCompleted')"
-            class="last-completed"
-            :class="{'gray-200': !showGreen}"
+            class="svg-icon color last-completed mr-1 my-auto"
+            :class="{'gray-200': completionsCount !== assignedUsersCount}"
           >
           </span>
           <span
-            :class="{'green-10': showGreen}"
+            :class="{'green-10': completionsCount === assignedUsersCount}"
           >
             {{ formattedCompletionTime }}
           </span>
@@ -109,39 +115,6 @@
     </div>
   </div>
 </template>
-
-<style lang="scss">
-  .gray-200 > svg > g > path {
-    fill: #878190;
-  }
-
-  .green-50 > svg > g > g {
-    fill: #20b780;
-  }
-
-  .small-check {
-    display: inline-flex;
-    width: 16px;
-    height: 16px;
-    border-radius: 2px;
-    padding-left: 2px;
-    padding-top: 1px;
-    background-color: #e1e0e3;
-
-    svg {
-      margin: auto;
-      width: 8px;
-
-      path {
-        fill: #878190;
-      }
-    }
-
-    &.green-50 svg path {
-      fill: #20b780;
-    }
-  }
-</style>
 
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
@@ -220,6 +193,20 @@
     width: 16px;
     height: 14px;
     margin-bottom: 4px;
+  }
+
+  .small-check {
+    display: inline-flex;
+    width: 16px;
+    height: 16px;
+    border-radius: 2px;
+    background-color: $gray-500;
+
+    .svg-icon {
+      width: 8px;
+      height: 6px;
+      margin: auto;
+    }
   }
 
   .users-icon {
@@ -326,11 +313,6 @@ export default {
       const completion = this.task?.group?.assignedUsersDetail[this.user._id];
       if (completion) return completion.completedDate;
       return null;
-    },
-    showGreen () {
-      if (this.assignedUsersCount !== 1) return false;
-      return this.singleAssignLastDone
-        && this.task?.group?.assignedUsersDetail[this.user._id].completed;
     },
     formattedCompletionTime () {
       if (!this.singleAssignLastDone) return '';

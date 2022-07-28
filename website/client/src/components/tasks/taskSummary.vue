@@ -2,7 +2,6 @@
   <b-modal
     id="task-summary"
     :hide-footer="true"
-    @show="syncTask()"
     @hidden="$emit('cancel')"
   >
     <div
@@ -58,18 +57,18 @@
       </div>
       <div
         class="summary-block"
-        v-if="assignedMembers.length > 0"
+        v-if="assignedUsernames.length > 0"
       >
         <h3> {{ $t('assignedTo') }} </h3>
         <div
           class="d-flex flex-wrap"
         >
           <span
-            v-for="member in assignedMembers"
+            v-for="member in assignedUsernames"
             :key="member"
             class="assigned-member py-1 px-75 mr-1"
-            v-html="memberNamesById[member]"
           >
+            @{{ member }}
           </span>
         </div>
       </div>
@@ -139,6 +138,7 @@
     width: 16px;
     position: relative;
     opacity: 0.75;
+    cursor: pointer;
 
     &:hover, &:focus {
       opacity: 1;
@@ -180,7 +180,6 @@ import moment from 'moment';
 import pickBy from 'lodash/pickBy';
 
 import checklist from './modal-controls/checklist';
-import syncTask from '../../mixins/syncTask';
 import { mapGetters, mapState } from '@/libs/store';
 
 import closeIcon from '@/assets/svg/close.svg';
@@ -189,7 +188,6 @@ export default {
   components: {
     checklist,
   },
-  mixins: [syncTask],
   props: ['task'],
   data () {
     return {
@@ -205,10 +203,6 @@ export default {
       icons: Object.freeze({
         close: closeIcon,
       }),
-      assignedMembers: [],
-      members: [],
-      membersNameAndId: [],
-      memberNamesById: {},
     };
   },
   computed: {
@@ -218,6 +212,14 @@ export default {
     ...mapState({
       user: 'user.data',
     }),
+    assignedUsernames () {
+      if (!this.task.group || !this.task.group.assignedUsers) return [];
+      const usernames = [];
+      for (const user of this.task.group.assignedUsers) {
+        usernames.push(this.task.group.assignedUsersDetail[user].assignedUsername);
+      }
+      return usernames;
+    },
     summarySentence () {
       if (this.task.type === 'daily' && moment().isBefore(this.task.startDate)) {
         return `This is ${this.formattedDifficulty(this.task.priority)} task that will repeat

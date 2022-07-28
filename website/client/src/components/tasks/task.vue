@@ -1061,7 +1061,7 @@ export default {
     },
     isOpenTask () {
       if (!this.isGroupTask) return false;
-      if (this.task.group.assignedUsers.length > 0) return false;
+      if (this.task?.group?.assignedUsers?.length > 0) return false;
       return true;
     },
     showCheckIcon () {

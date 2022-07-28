@@ -8,15 +8,16 @@
         :text="$t('checklist')"
       />
       <div
-        class="svg-icon icon-16 my-auto ml-auto"
-        :class="{'chevron-flip': !hideChecklist}"
+        class="svg-icon icon-16 my-auto ml-auto pointer"
+        :class="{'chevron-flip': showChecklist}"
         v-html="icons.chevron"
-        @click="hideChecklist = !hideChecklist"
+        @click="showChecklist = !showChecklist"
       >
       </div>
     </div>
-    <div
-      v-if="!hideChecklist"
+    <b-collapse
+      id="checklistCollapse"
+      v-model="showChecklist"
     >
       <draggable
         v-model="checklist"
@@ -91,7 +92,7 @@
           @blur="addChecklistItem($event, false)"
         >
       </div>
-    </div>
+    </b-collapse>
   </div>
 </template>
 
@@ -131,7 +132,7 @@ export default {
   data () {
     return {
       checklist: this.items,
-      hideChecklist: false,
+      showChecklist: true,
       hasPossibilityOfIMEConversion: true,
       newChecklistItem: null,
       icons: Object.freeze({
@@ -193,12 +194,16 @@ export default {
       transform: translateY(-5px) rotate(180deg);
     }
 
-    .top-border {
-      border-top: 1px solid $gray-500;
-    }
-
     .lock-icon {
       color: $gray-200;
+    }
+
+    .pointer {
+      cursor: pointer;
+    }
+
+    .top-border {
+      border-top: 1px solid $gray-500;
     }
 
     .checklist-group {
