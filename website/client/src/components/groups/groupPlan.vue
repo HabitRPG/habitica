@@ -495,6 +495,13 @@ export default {
       this.changePage(this.PAGES.CREATE_GROUP);
       this.$root.$emit('bv::show::modal', 'group-plan-modal');
     },
+    // launchModal () {
+    //   this.$root.$on('group-plan-modal') {
+    //     console.log('hello i am a modal');
+    //     this.activePage = page;
+    //     this.$root.$emit('bv::show::modal', 'group-plan-modal');
+    //   };
+    // },
     changePage (page) {
       this.activePage = page;
       window.scrollTo(0, 0);
