@@ -714,8 +714,11 @@ api.transferGems = {
       throw new NotAuthorized(res.t('badAmountOfGemsToSend'));
     }
 
+    // Received from {sender}
     await receiver.updateBalance(amount, 'gift_receive', sender._id, sender.auth.local.username);
-    await sender.updateBalance(-amount, 'gift_send', sender._id, receiver.auth.local.username);
+
+    // Gifted to {receiver}
+    await sender.updateBalance(-amount, 'gift_send', receiver._id, receiver.auth.local.username);
     // @TODO necessary? Also saved when sending the inbox message
     const promises = [receiver.save(), sender.save()];
     await Promise.all(promises);
