@@ -4,6 +4,7 @@ import {
   createAndPopulateGroup,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
+import { MAX_SUMMARY_SIZE_FOR_CHALLENGES } from '../../../../../website/common/script/constants';
 
 describe('POST /challenges', () => {
   it('returns error when group is empty', async () => {
@@ -57,6 +58,22 @@ describe('POST /challenges', () => {
       code: 401,
       error: 'NotAuthorized',
       message: t('mustBeGroupMember'),
+    });
+  });
+
+  it('return error when creating a challenge with summary with greater than MAX_SUMMARY_SIZE_FOR_CHALLENGES characters', async () => {
+    const user = await generateUser();
+    const summary = 'A'.repeat(MAX_SUMMARY_SIZE_FOR_CHALLENGES + 1);
+    const group = createAndPopulateGroup({
+      members: 1,
+    });
+    await expect(user.post('/challenges', {
+      group: group._id,
+      summary,
+    })).to.eventually.be.rejected.and.eql({
+      code: 400,
+      error: 'BadRequest',
+      message: t('invalidReqParams'),
     });
   });
 
