@@ -1,8 +1,9 @@
 <template>
   <b-modal
-    id="group-plan-creation-modal"
+    id="create-group"
     :title="activePage === PAGES.CREATE_GROUP ? 'Create your Group' : 'Select Payment'"
     :hide-footer="true"
+    :hide-header="true"
     size="md"
     @hide="onHide()"
   >
@@ -10,6 +11,17 @@
       v-if="activePage === PAGES.CREATE_GROUP"
       class="col-12"
     >
+      <div
+        class="modal-close"
+        @click="close()"
+      >
+        <div
+          class="icon-close"
+          v-html="icons.closeIcon"
+        >
+        </div>
+      </div>
+      <h2>{{ $t('createGroup') }}</h2>
       <div class="form-group">
         <label
           class="control-label"
@@ -61,6 +73,24 @@
             class="custom-control-label"
             for="create-group-leaderOnlyChallenges-checkbox"
           >{{ $t('leaderOnlyChallenges') }}</label>
+        </div>
+        <div class="form-group">
+          <lockable-label
+            :text="$t('groupUse')"
+          />
+          <select-group-translated-array
+            :items="[
+              'groupUseDefault',
+              'groupParentChildren',
+              'groupCouple',
+              'groupFriends',
+              'groupCoworkers',
+              'groupManager',
+              'groupTeacher'
+            ]"
+            :value="groupUseDefault"
+            @select="groupUseDefault"
+          />
         </div>
       </div>
       <div
@@ -132,23 +162,62 @@
     }
   }
 </style>
+<style lang="scss">
+  @import '~@/assets/scss/mixins.scss';
+  #create-group {
+    .modal-dialog {
+      max-width: 448px;
+    }
+
+    .modal-content {
+      width: 448px;
+      border-radius: 8px;
+      box-shadow: 0 14px 28px 0 rgba(26, 24, 29, 0.24), 0 10px 10px 0 rgba(26, 24, 29, 0.28);
+    }
+    .modal-body{
+      padding: 0px;
+    }
+
+    .modal-close {
+      position: absolute;
+      right: 16px;
+      top: 16px;
+      cursor: pointer;
+
+      .icon-close {
+        width: 18px;
+        height: 18px;
+        vertical-align: middle;
+
+        & ::v-deep svg path {
+          fill: #878190;
+        }
+         & :hover {
+          fill: #686274;
+        }
+      }
+    }
+  }
+</style>
 
 <script>
 import paymentsMixin from '../../mixins/payments';
 import { mapState } from '@/libs/store';
 import paymentsButtons from '@/components/payments/buttons/list';
+import selectGroupTranslatedArray from '@/components/group-plans/selectGroupTranslatedArray';
+import lockableLabel from '@/components/tasks/modal-controls/lockableLabel';
+import closeIcon from '@/assets/svg/close.svg';
 
 export default {
   components: {
     paymentsButtons,
+    selectGroupTranslatedArray,
+    lockableLabel,
   },
   mixins: [paymentsMixin],
   data () {
     return {
       amazonPayments: {},
-      icons: Object.freeze({
-        // positiveIcon,
-      }),
       PAGES: {
         CREATE_GROUP: 'create-group',
         UPGRADE_GROUP: 'upgrade-group',
@@ -167,8 +236,11 @@ export default {
           challenges: false,
         },
       },
-      activePage: '',
+      activePage: 'create-group',
       type: 'guild', // Guild or Party @TODO enum this
+      icons: Object.freeze({
+        closeIcon,
+      }),
     };
   },
   computed: {
@@ -181,11 +253,14 @@ export default {
     console.log('i am mounted');
   },
   methods: {
+    close () {
+      this.$root.$emit('bv::hide::modal', 'create-group');
+    },
     changePage (page) {
       this.activePage = page;
-      window.scrollTo(0, 0);
     },
     createGroup () {
+      console.log('i am giving habitica money now');
       this.changePage(this.PAGES.PAY);
     },
     pay (paymentMethod) {
@@ -214,6 +289,9 @@ export default {
       }
 
       return null;
+    },
+    onHide () {
+      this.sendingInProgress = false;
     },
   },
 };
