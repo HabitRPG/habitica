@@ -1,101 +1,100 @@
 <template>
-  <div>
-    <b-modal
-      id="group-plan-modal"
-      :title="activePage === PAGES.CREATE_GROUP ? 'Create your Group' : 'Select Payment'"
-      size="md"
-      hide-footer="hide-footer"
+  <b-modal
+    id="group-plan-creation-modal"
+    :title="activePage === PAGES.CREATE_GROUP ? 'Create your Group' : 'Select Payment'"
+    :hide-footer="true"
+    size="md"
+    @hide="onHide()"
+  >
+    <div
+      v-if="activePage === PAGES.CREATE_GROUP"
+      class="col-12"
     >
+      <div class="form-group">
+        <label
+          class="control-label"
+          for="new-group-name"
+        >Name</label>
+        <input
+          id="new-group-name"
+          v-model="newGroup.name"
+          class="form-control input-medium option-content"
+          required="required"
+          type="text"
+          placeholder="Name"
+        >
+      </div>
+      <div class="form-group">
+        <label for="new-group-description">{{ $t('description') }}</label>
+        <textarea
+          id="new-group-description"
+          v-model="newGroup.description"
+          class="form-control option-content"
+          cols="3"
+          :placeholder="$t('description')"
+        ></textarea>
+      </div>
       <div
-        v-if="activePage === PAGES.CREATE_GROUP"
-        class="col-12"
+        v-if="type === 'guild'"
+        class="form-group"
       >
-        <div class="form-group">
-          <label
-            class="control-label"
-            for="new-group-name"
-          >Name</label>
+        <div class="custom-control custom-radio">
           <input
-            id="new-group-name"
-            v-model="newGroup.name"
-            class="form-control input-medium option-content"
-            required="required"
-            type="text"
-            placeholder="Name"
+            v-model="newGroup.privacy"
+            class="custom-control-input"
+            type="radio"
+            name="new-group-privacy"
+            value="private"
           >
+          <label class="custom-control-label">{{ $t('inviteOnly') }}</label>
         </div>
-        <div class="form-group">
-          <label for="new-group-description">{{ $t('description') }}</label>
-          <textarea
-            id="new-group-description"
-            v-model="newGroup.description"
-            class="form-control option-content"
-            cols="3"
-            :placeholder="$t('description')"
-          ></textarea>
-        </div>
-        <div
-          v-if="type === 'guild'"
-          class="form-group"
-        >
-          <div class="custom-control custom-radio">
-            <input
-              v-model="newGroup.privacy"
-              class="custom-control-input"
-              type="radio"
-              name="new-group-privacy"
-              value="private"
-            >
-            <label class="custom-control-label">{{ $t('inviteOnly') }}</label>
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="custom-control custom-checkbox">
-            <input
-              id="create-group-leaderOnlyChallenges-checkbox"
-              v-model="newGroup.leaderOnly.challenges"
-              class="custom-control-input"
-              type="checkbox"
-            >
-            <label
-              class="custom-control-label"
-              for="create-group-leaderOnlyChallenges-checkbox"
-            >{{ $t('leaderOnlyChallenges') }}</label>
-          </div>
-        </div>
-        <div
-          v-if="type === 'party'"
-          class="form-group"
-        >
-          <button
-            class="btn btn-secondary form-control"
-            :value="$t('create')"
-            @click="createGroup()"
-          ></button>
-        </div>
-        <div class="form-group">
-          <button
-            class="btn btn-primary btn-lg btn-block"
-            :disabled="!newGroupIsReady"
-            @click="createGroup()"
+      </div>
+      <div class="form-group">
+        <div class="custom-control custom-checkbox">
+          <input
+            id="create-group-leaderOnlyChallenges-checkbox"
+            v-model="newGroup.leaderOnly.challenges"
+            class="custom-control-input"
+            type="checkbox"
           >
-            {{ $t('create') }}
-          </button>
+          <label
+            class="custom-control-label"
+            for="create-group-leaderOnlyChallenges-checkbox"
+          >{{ $t('leaderOnlyChallenges') }}</label>
         </div>
       </div>
       <div
-        v-if="activePage === PAGES.PAY"
-        class="col-12"
+        v-if="type === 'party'"
+        class="form-group"
       >
-        <div class="text-center">
-          <payments-buttons
-            :stripe-fn="() => pay(PAYMENTS.STRIPE)"
-            :amazon-data="pay(PAYMENTS.AMAZON)"
-          />
-        </div>
+        <button
+          class="btn btn-secondary form-control"
+          :value="$t('create')"
+          @click="createGroup()"
+        ></button>
       </div>
-    </b-modal>
-  </div>
+      <div class="form-group">
+        <button
+          class="btn btn-primary btn-lg btn-block"
+          :disabled="!newGroupIsReady"
+          @click="createGroup()"
+        >
+          {{ $t('create') }}
+        </button>
+      </div>
+    </div>
+    <div
+      v-if="activePage === PAGES.PAY"
+      class="col-12"
+    >
+      <div class="text-center">
+        <payments-buttons
+          :stripe-fn="() => pay(PAYMENTS.STRIPE)"
+          :amazon-data="pay(PAYMENTS.AMAZON)"
+        />
+      </div>
+    </div>
+  </b-modal>
 </template>
 
 <style lang="scss" scoped>
@@ -122,11 +121,6 @@
         margin-left: .3em;
       }
 
-      .plus {
-        width: 100%;
-        text-align: center;
-      }
-
       div {
         display: inline-block;
       }
@@ -142,7 +136,6 @@
 <script>
 import paymentsMixin from '../../mixins/payments';
 import { mapState } from '@/libs/store';
-import positiveIcon from '@/assets/svg/positive.svg';
 import paymentsButtons from '@/components/payments/buttons/list';
 
 export default {
@@ -154,7 +147,7 @@ export default {
     return {
       amazonPayments: {},
       icons: Object.freeze({
-        positiveIcon,
+        // positiveIcon,
       }),
       PAGES: {
         CREATE_GROUP: 'create-group',
@@ -179,22 +172,19 @@ export default {
     };
   },
   computed: {
+    ...mapState({ user: 'user.data' }),
     newGroupIsReady () {
       return Boolean(this.newGroup.name);
     },
-    upgradingGroup () {
-      return this.$store.state.upgradingGroup;
-    },
-    // @TODO: can we move this to payment mixin?
-    ...mapState({ user: 'user.data' }),
   },
   mounted () {
-    this.activePage = this.PAGES.BENEFITS;
-    this.$store.dispatch('common:setTitle', {
-      section: this.$t('groupPlans'),
-    });
+    console.log('i am mounted');
   },
   methods: {
+    changePage (page) {
+      this.activePage = page;
+      window.scrollTo(0, 0);
+    },
     createGroup () {
       this.changePage(this.PAGES.PAY);
     },

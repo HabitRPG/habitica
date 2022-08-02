@@ -1,6 +1,7 @@
 <template>
   <!-- @TODO: Move to group plans folder-->
   <div>
+    <group-plan-creation=modal />
     <div>
       <div class="header">
         <h1 class="text-center">
@@ -114,7 +115,7 @@
           <div class="col-12 text-center">
             <button
               class="btn btn-primary create-group"
-              @click="launchModal('create')"
+              @click="launchModal('group-plan-creation-modal')"
             >
               Create Your New Group
             </button>
@@ -153,102 +154,6 @@
         </div>
       </div>
     </div>
-    <b-modal
-      id="group-plan-modal"
-      :title="activePage === PAGES.CREATE_GROUP ? 'Create your Group' : 'Select Payment'"
-      size="md"
-      hide-footer="hide-footer"
-    >
-      <div
-        v-if="activePage === PAGES.CREATE_GROUP"
-        class="col-12"
-      >
-        <div class="form-group">
-          <label
-            class="control-label"
-            for="new-group-name"
-          >Name</label>
-          <input
-            id="new-group-name"
-            v-model="newGroup.name"
-            class="form-control input-medium option-content"
-            required="required"
-            type="text"
-            placeholder="Name"
-          >
-        </div>
-        <div class="form-group">
-          <label for="new-group-description">{{ $t('description') }}</label>
-          <textarea
-            id="new-group-description"
-            v-model="newGroup.description"
-            class="form-control option-content"
-            cols="3"
-            :placeholder="$t('description')"
-          ></textarea>
-        </div>
-        <div
-          v-if="type === 'guild'"
-          class="form-group"
-        >
-          <div class="custom-control custom-radio">
-            <input
-              v-model="newGroup.privacy"
-              class="custom-control-input"
-              type="radio"
-              name="new-group-privacy"
-              value="private"
-            >
-            <label class="custom-control-label">{{ $t('inviteOnly') }}</label>
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="custom-control custom-checkbox">
-            <input
-              id="create-group-leaderOnlyChallenges-checkbox"
-              v-model="newGroup.leaderOnly.challenges"
-              class="custom-control-input"
-              type="checkbox"
-            >
-            <label
-              class="custom-control-label"
-              for="create-group-leaderOnlyChallenges-checkbox"
-            >{{ $t('leaderOnlyChallenges') }}</label>
-          </div>
-        </div>
-        <div
-          v-if="type === 'party'"
-          class="form-group"
-        >
-          <button
-            class="btn btn-secondary form-control"
-            :value="$t('create')"
-            @click="createGroup()"
-          ></button>
-        </div>
-        <div class="form-group">
-          <button
-            class="btn btn-primary btn-lg btn-block"
-            :disabled="!newGroupIsReady"
-            @click="createGroup()"
-          >
-            {{ $t('create') }}
-          </button>
-        </div>
-      </div>
-      <div
-        v-if="activePage === PAGES.PAY"
-        class="col-12"
-      >
-        <div class="text-center">
-          <h3>Choose your payment method</h3>
-          <payments-buttons
-            :stripe-fn="() => pay(PAYMENTS.STRIPE)"
-            :amazon-data="pay(PAYMENTS.AMAZON)"
-          />
-        </div>
-      </div>
-    </b-modal>
   </div>
 </template>
 
@@ -440,10 +345,12 @@ import paymentsMixin from '../../mixins/payments';
 import { mapState } from '@/libs/store';
 import positiveIcon from '@/assets/svg/positive.svg';
 import paymentsButtons from '@/components/payments/buttons/list';
+import groupPlanCreationModal from '../group-plans/groupPlanCreationModal';
 
 export default {
   components: {
     paymentsButtons,
+    groupPlanCreationModal,
   },
   mixins: [paymentsMixin],
   data () {
@@ -492,16 +399,10 @@ export default {
   },
   methods: {
     launchModal () {
+      console.log('hello world');
       this.changePage(this.PAGES.CREATE_GROUP);
-      this.$root.$emit('bv::show::modal', 'group-plan-modal');
+      this.$root.$emit('bv::show::modal', 'group-plan-creation-modal');
     },
-    // launchModal () {
-    //   this.$root.$on('group-plan-modal') {
-    //     console.log('hello i am a modal');
-    //     this.activePage = page;
-    //     this.$root.$emit('bv::show::modal', 'group-plan-modal');
-    //   };
-    // },
     changePage (page) {
       this.activePage = page;
       window.scrollTo(0, 0);
