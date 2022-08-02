@@ -165,10 +165,11 @@ async function getTasks (req, res, options = {}) {
   } else if (group) {
     query = { 'group.id': group._id };
   } else {
-    if (user.preferences.tasks.mirrorGroupTasks) {
+    const groupsToMirror = user.preferences.tasks.mirrorGroupTasks;
+    if (groupsToMirror && groupsToMirror.length > 0) {
       upgradedGroups = await Group.find(
         {
-          _id: { $in: user.guilds.concat(user.party._id) },
+          _id: { $in: groupsToMirror },
           'purchased.plan.customerId': { $exists: true },
           $or: [
             { 'purchased.plan.dateTerminated': { $exists: false } },

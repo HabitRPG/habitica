@@ -1386,10 +1386,13 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
   const promises = user.isModified() ? [user.save()] : [];
 
   // remove the group from the user's groups
+  const userUpdate = { $pull: { 'preferences.tasks.mirrorGroupTasks': group._id } };
   if (group.type === 'guild') {
-    promises.push(User.update({ _id: user._id }, { $pull: { guilds: group._id } }).exec());
+    userUpdate.$pull.guilds = group._id;
+    promises.push(User.update({ _id: user._id }, userUpdate).exec());
   } else {
-    promises.push(User.update({ _id: user._id }, { $set: { party: {} } }).exec());
+    userUpdate.$set = { party: {} };
+    promises.push(User.update({ _id: user._id }, userUpdate).exec());
 
     update.$unset = { [`quest.members.${user._id}`]: 1 };
   }

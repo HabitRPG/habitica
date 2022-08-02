@@ -39,7 +39,7 @@
           id="taskMirrorToggle"
           class="mr-3 mb-1 ml-auto"
           :label="'Copy tasks'"
-          :checked="user.preferences.tasks.mirrorGroupTasks"
+          :checked="user.preferences.tasks.mirrorGroupTasks.indexOf(group._id) !== -1"
           :hover-text="'Add assigned and open tasks to your personal task board'"
           @change="changeMirrorPreference"
         />
@@ -431,12 +431,16 @@ export default {
         eventCategory: 'behavior',
         hitType: 'event',
         mirror: newVal,
+        group: this.group._id,
       }, { trackOnClient: true });
-      Analytics.updateUser({
-        mirrorTasks: newVal,
-      });
+      const groupsToMirror = this.user.preferences.tasks.mirrorGroupTasks || [];
+      if (newVal) { // we're turning copy ON for this group
+        groupsToMirror.push(this.group._id);
+      } else { // we're turning copy OFF for this group
+        groupsToMirror.splice(groupsToMirror.indexOf(this.group._id), 1);
+      }
       this.$store.dispatch('user:set', {
-        'preferences.tasks.mirrorGroupTasks': newVal,
+        'preferences.tasks.mirrorGroupTasks': groupsToMirror,
       });
     },
   },

@@ -582,7 +582,9 @@ export default new Schema({
     tasks: {
       groupByChallenge: { $type: Boolean, default: false }, // @TODO remove? not used
       confirmScoreNotes: { $type: Boolean, default: false }, // @TODO remove? not used
-      mirrorGroupTasks: { $type: Boolean, default: false },
+      mirrorGroupTasks: [
+        { $type: String, validate: [v => validator.isUUID(v), 'Invalid group UUID.'], ref: 'Group' },
+      ],
     },
     improvementCategories: {
       $type: Array,
