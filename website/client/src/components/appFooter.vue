@@ -574,7 +574,7 @@ hr {
 // Laptops
 @media (max-width: 1440px) {
   .social {
-    right: -60px;
+    right: -55px;
   }
 }
 
@@ -642,13 +642,14 @@ hr {
       vertical-align: top;
       padding-left: 0px;
       margin-left: -8px;
+      height: 1.5rem;
     }
     .icons {
       display: flex;
       height: auto;
       padding-left: 0px;
-      padding-top: 8px;
-      margin-top: -84px;
+      padding-top: 0px;
+      align-self: top;
     }
     .social-circle {
       margin: 0 6px 0 6px;
@@ -677,7 +678,7 @@ hr {
     .btn-contribute {
       order: 1;
       margin: 16px 0 24px 0;
-      width: 288px;
+      width: 100%;
     }
   }
 
