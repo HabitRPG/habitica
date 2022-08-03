@@ -13,13 +13,20 @@
     >
       <div
         class="modal-close"
-        @click="close()"
       >
         <div
-          class="icon-close"
-          v-html="icons.closeIcon"
+          class="cancel-text"
+          @click="close()"
         >
+          {{ $t('cancel') }}
         </div>
+        <button
+          class="btn btn-primary"
+          :value="$t('next')"
+          @click="close()"
+        >
+          {{ $t('next') }}
+        </button>
       </div>
       <h2>{{ $t('createGroup') }}</h2>
       <div class="form-group">
@@ -78,7 +85,7 @@
           <lockable-label
             :text="$t('groupUse')"
           />
-          <select-group-translated-array
+          <select-translated-array
             :items="[
               'groupUseDefault',
               'groupParentChildren',
@@ -128,6 +135,8 @@
 </template>
 
 <style lang="scss" scoped>
+  @import '~@/assets/scss/colors.scss';
+
   .payment-options {
     margin-bottom: 4em;
 
@@ -168,7 +177,6 @@
     .modal-dialog {
       max-width: 448px;
     }
-
     .modal-content {
       width: 448px;
       border-radius: 8px;
@@ -177,24 +185,19 @@
     .modal-body{
       padding: 0px;
     }
-
     .modal-close {
       position: absolute;
       right: 16px;
       top: 16px;
       cursor: pointer;
 
-      .icon-close {
-        width: 18px;
-        height: 18px;
-        vertical-align: middle;
-
-        & ::v-deep svg path {
-          fill: #878190;
-        }
-         & :hover {
-          fill: #686274;
-        }
+      .cancel-text {
+        color: #2995cd;
+        font-size: 0.875rem;
+        min-height: 24px;
+        margin: 16px 0 0;
+        text-align: center;
+        cursor: pointer;
       }
     }
   }
@@ -204,17 +207,46 @@
 import paymentsMixin from '../../mixins/payments';
 import { mapState } from '@/libs/store';
 import paymentsButtons from '@/components/payments/buttons/list';
-import selectGroupTranslatedArray from '@/components/group-plans/selectGroupTranslatedArray';
+import selectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
 import lockableLabel from '@/components/tasks/modal-controls/lockableLabel';
-import closeIcon from '@/assets/svg/close.svg';
 
 export default {
   components: {
     paymentsButtons,
-    selectGroupTranslatedArray,
+    selectTranslatedArray,
     lockableLabel,
   },
   mixins: [paymentsMixin],
+  props: {
+    groupUseDefault: {
+      type: String,
+      default: 'groupUseDefault',
+    },
+    groupParentChildren: {
+      type: String,
+      default: 'groupParentChildren',
+    },
+    groupCouple: {
+      type: String,
+      default: 'groupCouple',
+    },
+    groupFriends: {
+      type: String,
+      default: 'groupFriends',
+    },
+    groupCoworkers: {
+      type: String,
+      default: 'groupCoworkers',
+    },
+    groupManager: {
+      type: String,
+      default: 'groupManager',
+    },
+    groupTeacher: {
+      type: String,
+      default: 'groupTeacher',
+    },
+  },
   data () {
     return {
       amazonPayments: {},
@@ -239,7 +271,6 @@ export default {
       activePage: 'create-group',
       type: 'guild', // Guild or Party @TODO enum this
       icons: Object.freeze({
-        closeIcon,
       }),
     };
   },
