@@ -40,24 +40,24 @@ const featuredItems = {
       },
       {
         type: 'eggs',
-        path: 'eggs.Cactus',
+        path: 'eggs.BearCub',
       },
     ];
   },
   quests () {
-    if (moment().isBefore(EVENTS.bundle202206.end)) {
+    if (moment().isBetween(EVENTS.bundle202208.start, EVENTS.bundle202208.end)) {
       return [
         {
           type: 'bundles',
-          path: 'bundles.aquaticAmigos',
+          path: 'bundles.forestFriends',
         },
         {
           type: 'quests',
-          path: 'quests.seaserpent',
+          path: 'quests.owl',
         },
         {
           type: 'quests',
-          path: 'quests.dolphin',
+          path: 'quests.snail',
         },
       ];
     }
