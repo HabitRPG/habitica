@@ -1747,5 +1747,6 @@
     "backMystery202012Text": "서리화염 날개",
     "headMystery202012Text": "서리화염 가면",
     "weaponSpecialKS2019Notes": "그리폰의 부리와 발톱처럼 구부러진 이 화려한 폴암은 다가올 목표가 벅차게 느껴질 때 힘을 발휘하도록 상기시켜줍니다. 근력을 <%= str %> 만큼 올려줍니다.",
-    "weaponSpecialKS2019Text": "신화적인 그리폰 글레이브"
+    "weaponSpecialKS2019Text": "신화적인 그리폰 글레이브",
+    "weaponSpecialSpring2019RogueNotes": "이 무기들은 하늘과 비의 힘을 가지고 있습니다. 이 무기를 사용할 땐 물 속에 있지 않도록 주의하세요! 힘이   <%= str %>만큼 증가합니다. 2019 Spring Gear 한정판."
 }

@@ -87,7 +87,7 @@
     "deleteTask": "删除这个任务",
     "sureDelete": "你确定要删除这个任务吗？",
     "streakCoins": "连击奖励！",
-    "taskToTop": "移到最上方",
+    "taskToTop": "移到顶部",
     "taskToBottom": "移到底部",
     "taskAliasAlreadyUsed": "任务别名已经被用于另一个任务。",
     "taskNotFound": "找不到任务。",

@@ -2639,5 +2639,6 @@
     "weaponArmoireYellowKiteText": "Cerf-volant jaune",
     "weaponArmoireBlueKiteText": "Cerf-volant bleu",
     "weaponArmoireYellowKiteNotes": "Faisant des sauts et des embardées, regarde ton joyeux cerf-volant s'envoler. Augmente tous les attributs de <%= attrs %> chaque. Armoire enchantée : ensemble cerf-volant (objet 5 de 5)",
-    "weaponArmoirePinkKiteNotes": "Plonger, virevolter et s'envoler haut dans les airs, votre cerf-volant se démarque dans le ciel. Augmente tous les attributs de <%= attrs %> chaque. Armoire enchantée : Ensemble cerf-volant (objet 4 de 5)"
+    "weaponArmoirePinkKiteNotes": "Plonger, virevolter et s'envoler haut dans les airs, votre cerf-volant se démarque dans le ciel. Augmente tous les attributs de <%= attrs %> chaque. Armoire enchantée : Ensemble cerf-volant (objet 4 de 5)",
+    "weaponSpecialSummer2022RogueText": "Pince de crabe"
 }

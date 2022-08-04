@@ -128,6 +128,12 @@
     "achievementZodiacZookeeperModalText": "十二支のペットをすべて集めました！",
     "achievementZodiacZookeeperText": "基本のネズミ、牛、トラ、ウサギ、ドラゴン、ヘビ、馬、羊、さる、雄鶏、狼、空飛ぶ豚のペットをすべて集めました！",
     "achievementBirdsOfAFeather": "同じ羽の鳥は群れを作る",
-    "achievementBirdsOfAFeatherText": "基本の空飛ぶペット（空飛ぶ豚、フクロウ、オウム、翼竜、フリフォン、たか、クジャク、おんどり）をすべて集めました。",
-    "achievementBirdsOfAFeatherModalText": "空飛ぶペットをすべて集めました！"
+    "achievementBirdsOfAFeatherText": "基本の空飛ぶペット（空飛ぶ豚、フクロウ、オウム、翼竜、グリフォン、たか、クジャク、おんどり）をすべて集めました！",
+    "achievementBirdsOfAFeatherModalText": "空飛ぶペットをすべて集めました！",
+    "achievementGroupsBeta2022": "インタラクティブベータテスター",
+    "achievementGroupsBeta2022Text": "あなたとグループはHabiticaのテストを助ける非常に貴重なフィードバックを行いました。",
+    "achievementGroupsBeta2022ModalText": "あなたとあなたのグループは実験に参加しフィードバックを行うことでHabiticaを手伝いました！",
+    "achievementReptacularRumble": "爬虫類の轟き",
+    "achievementReptacularRumbleText": "基本の色の爬虫類のペット（アリゲーター、翼竜、ヘビ、トリケラトプス、ウミガメ、ティラノサウルス、ヴェロキラプトル）を全てたまごからかえしました！",
+    "achievementReptacularRumbleModalText": "爬虫類のペットを全て集めました！"
 }

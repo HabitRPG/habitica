@@ -2,7 +2,7 @@
     "potionText": "체력 물약",
     "potionNotes": "체력 15 회복 (일회용)",
     "armoireText": "마법의 장롱",
-    "armoireNotesFull": "랜덤으로 특별한 장비, 경험치 혹은 펫 먹이를 받으려면 장롱문을 열어주세요! 아직 못찾은 특별장비:",
+    "armoireNotesFull": "랜덤으로 특별한 장비, 경험치 혹은 펫 먹이를 받으려면 장롱문을 열어주세요! 아직 못 찾은 특별장비:",
     "armoireLastItem": "마법의 장롱에서 마지막 남은 레어 장비를 찾았습니다!",
     "armoireNotesEmpty": "매달 첫주마다 새로운 장비가 준비될 것입니다. 그때까지는 경험치와 펫 먹이를 받으러 클릭하세요!",
     "dropEggWolfText": "늑대",
@@ -370,5 +370,6 @@
     "hatchingPotionStainedGlass": "스테인드글라스",
     "hatchingPotionSunset": "노을",
     "foodPieSkeletonA": "골수 파이 한 조각",
-    "hatchingPotionOnyx": "오닉스"
+    "hatchingPotionOnyx": "오닉스",
+    "hatchingPotionVirtualPet": "가상 펫"
 }

@@ -379,5 +379,6 @@
     "editGuild": "Modifica gilda",
     "editParty": "Modifica squadra",
     "leaveGuild": "Lascia la gilda",
-    "sendGiftTotal": "Totale:"
+    "sendGiftTotal": "Totale:",
+    "chatTemporarilyUnavailable": "La chat è temporaneamente non disponibile. Per favore riprova più tardi."
 }

@@ -257,7 +257,7 @@
     "guildSummaryPlaceholder": "Escreva uma breve descrição anunciando sua Guilda para outros Habiticanos. Qual o principal propósito de sua Guilda e por que as pessoas deveriam entrar nela? Tente incluir palavras chave no resumo de forma que Habiticanos possam encontrar sua Guilda facilmente quando a procurarem!",
     "groupDescription": "Descrição",
     "guildDescriptionPlaceholder": "Utilize essa parte para dar maiores detalhes sobre tudo que os membros de sua Guilda devem saber sobre ela. Boas dicas, links úteis e orientações de conduta entram aqui!",
-    "markdownFormattingHelp": "[Ajuda na formatação do texto](https://habitica.fandom.com/pt-br/wiki/Markdown_Cheat_Sheet)",
+    "markdownFormattingHelp": "[Ajuda na formatação do texto em Markdown](https://habitica.fandom.com/pt-br/wiki/Markdown_Cheat_Sheet)",
     "partyDescriptionPlaceholder": "Essa é a descrição do seu grupo. Aqui é descrito o que nós fazemos neste grupo. Se você quiser aprender mais sobre o que fazemos juntos, leia a descrição. Junte-se a nós.",
     "guildGemCostInfo": "O custo em Gemas promove Guildas de alta qualidade e é transferido para o banco da Guilda.",
     "noGuildsTitle": "Você não participa de nenhuma Guilda.",
@@ -378,5 +378,7 @@
     "leaveGuild": "Deixar a Guilda",
     "invitedToThisQuest": "Você recebeu um convite para esta Missão!",
     "upgradeToGroup": "Aprimorar para Plano de Time",
-    "blockYourself": "Você não pode se autobloquear"
+    "blockYourself": "Você não pode se autobloquear",
+    "sendGiftTotal": "Total:",
+    "chatTemporarilyUnavailable": "O bate papo está temporariamente indisponível. Por favor, tente de novo mais tarde."
 }

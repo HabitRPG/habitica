@@ -5,9 +5,9 @@
     "rebirthAchievement100": "התחלתם הרפתקה חדשה! זוהי הלידה ה<%= number %> שלכם מחדש, והדרגה הגבוהה ביותר אליה הגעתם היא 100 או יותר. כדי לקבל את הישג זה שוב, התחילו את ההרפתקה הבאה שלכם כאשר תגיעו לפחות לדרגה 100!",
     "rebirthBegan": "התחילו הרפתקה חדשה",
     "rebirthText": "התחילו <%= rebirths %> הרפתקאות חדשות",
-    "rebirthOrb": "Used an Orb of Rebirth to start over after attaining Level <%= level %>.",
-    "rebirthOrb100": "Used an Orb of Rebirth to start over after attaining Level 100 or higher.",
-    "rebirthOrbNoLevel": "Used an Orb of Rebirth to start over.",
+    "rebirthOrb": "",
+    "rebirthOrb100": "",
+    "rebirthOrbNoLevel": "",
     "rebirthPop": "",
     "rebirthName": "כדור הלידה מחדש",
     "rebirthComplete": "נולדת מחדש!"
