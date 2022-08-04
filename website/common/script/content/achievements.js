@@ -188,6 +188,11 @@ const animalSetAchievs = {
     titleKey: 'achievementReptacularRumble',
     textKey: 'achievementReptacularRumbleText',
   },
+  woodlandWizard: {
+    icon: 'achievement-woodlandWizard',
+    titleKey: 'achievementWoodlandWizard',
+    textKey: 'achievementWoodlandWizardText',
+  },
   zodiacZookeeper: {
     icon: 'achievement-zodiac',
     titleKey: 'achievementZodiacZookeeper',
