@@ -379,5 +379,6 @@
     "editGuild": "Modifier la guilde",
     "editParty": "Modifier l'équipe",
     "leaveGuild": "Quitter la guilde",
-    "sendGiftTotal": "Total :"
+    "sendGiftTotal": "Total :",
+    "chatTemporarilyUnavailable": "La discussion est temporairement indisponible. Veuillez réessayer plus tard."
 }

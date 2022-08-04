@@ -68,13 +68,13 @@
     "achievementFedPetModalText": "Existem muitos tipos diferentes de comida, mas as Mascotes podem ser exigentes",
     "achievementMonsterMagus": "Mago dos Monstros",
     "achievementAridAuthority": "Autoridade Árida",
-    "achievementDustDevil": "Demônio da Poeira",
+    "achievementDustDevil": "Demónio da Poeira",
     "achievementAllYourBase": "Tudo Básico",
     "achievementLostMasterclasserModalText": "Você completou todas as dezesseis missões da Série de Mestre de Classes e solucionou o mistério do Mestre de Classes Perdido!",
     "achievementPrimedForPainting": "Pronto a Pintar",
     "achievementKickstarter2019Text": "Apoiou o Projeto Pin do Kickstarter de 2019",
     "achievementKickstarter2019": "Apoiante do Pin Kickstarter",
-    "yourRewards": "Recompensas",
+    "yourRewards": "As suas recompensas",
     "achievementUndeadUndertaker": "Domador de Mortos-vivos",
     "achievementFreshwaterFriendsModalText": "Você completou as missões dos Mascotes Salamandra, Sapo e Hipopótamo!",
     "achievementFreshwaterFriendsText": "Completou as missões dos Mascotes Salamandra, Sapo e Hipopótamo.",
@@ -114,5 +114,6 @@
     "achievementDomesticated": "I-A-I-A-OH",
     "achievementVioletsAreBlueModalText": "Coletou todas as Mascotes Algodão-doce Rosa!",
     "achievementDomesticatedModalText": "Coletou todas as mascotes domesticadas!",
-    "achievementWildBlueYonderText": "Domesticou todas as Montarias de Algodão Doce Azul."
+    "achievementWildBlueYonderText": "Domesticou todas as Montarias de Algodão Doce Azul.",
+    "achievementSeasonalSpecialistModalText": "Completaste todas as jornadas sazonais!"
 }
