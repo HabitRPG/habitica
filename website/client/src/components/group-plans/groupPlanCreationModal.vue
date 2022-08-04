@@ -11,17 +11,18 @@
       v-if="activePage === PAGES.CREATE_GROUP"
       class="col-12"
     >
+      <!-- HEADER -->
       <div
         class="modal-close"
       >
-        <div
+        <span
           class="cancel-text"
           @click="close()"
         >
           {{ $t('cancel') }}
-        </div>
+        </span>
         <button
-          class="btn btn-primary"
+          class="btn btn-primary next-button"
           :value="$t('next')"
           @click="close()"
         >
@@ -29,31 +30,35 @@
         </button>
       </div>
       <h2>{{ $t('createGroup') }}</h2>
+
+      <!-- FORM -->
       <div class="form-group">
-        <label
-          class="control-label"
-          for="new-group-name"
-        >Name</label>
+        <lockable-label
+          :text="$t('nameStar')"
+        />
         <input
           id="new-group-name"
           v-model="newGroup.name"
           class="form-control input-medium option-content"
           required="required"
           type="text"
-          placeholder="Name"
+          :placeholder="$t('nameStarText')"
         >
       </div>
       <div class="form-group">
-        <label for="new-group-description">{{ $t('description') }}</label>
+        <lockable-label
+          for="new-group-description"
+          :text="$t('descriptionOptional')"
+        />
         <textarea
           id="new-group-description"
           v-model="newGroup.description"
           class="form-control option-content"
           cols="3"
-          :placeholder="$t('description')"
+          :placeholder="$t('descriptionOptionalText')"
         ></textarea>
       </div>
-      <div
+<!--       <div
         v-if="type === 'guild'"
         class="form-group"
       >
@@ -67,7 +72,7 @@
           >
           <label class="custom-control-label">{{ $t('inviteOnly') }}</label>
         </div>
-      </div>
+      </div> -->
       <div class="form-group">
         <div class="custom-control custom-checkbox">
           <input
@@ -137,6 +142,31 @@
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
 
+  h2 {
+    color: $purple-300;
+    font-size: 1.25rem;
+    height: 28px;
+    width: 120px;
+    margin-top: 24px;
+    align-self: center;
+  }
+
+  .cancel-text {
+    color: $blue-10;
+    font-size: 0.875rem;
+    margin-right: 16px;
+    text-align: center;
+    cursor: pointer;
+  }
+  .next-button {
+    align-self: center;
+  }
+
+  .form-control::placeholder {
+    color: $gray-50;
+    height: 32px;
+  }
+
   .payment-options {
     margin-bottom: 4em;
 
@@ -170,6 +200,7 @@
       vertical-align: bottom;
     }
   }
+
 </style>
 <style lang="scss">
   @import '~@/assets/scss/mixins.scss';
@@ -184,21 +215,14 @@
     }
     .modal-body{
       padding: 0px;
+      margin-left: 12px;
+      margin-right: 12px;
     }
     .modal-close {
       position: absolute;
       right: 16px;
-      top: 16px;
       cursor: pointer;
-
-      .cancel-text {
-        color: #2995cd;
-        font-size: 0.875rem;
-        min-height: 24px;
-        margin: 16px 0 0;
-        text-align: center;
-        cursor: pointer;
-      }
+      top: 0px;
     }
   }
 </style>
