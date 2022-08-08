@@ -103,5 +103,6 @@
     "selectParticipant": "اختر مشارك",
     "wonChallengeDesc": "<%= إسم التحدي %> إخترتك لتكون الفائز!تم تسجيل فوزك في \"إنجازاتك\".",
     "yourReward": "مكافئاتك",
-    "filters": "التصفيات"
+    "filters": "التصفيات",
+    "removeTasks": "إزالة المهام"
 }

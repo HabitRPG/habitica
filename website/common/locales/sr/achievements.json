@@ -36,5 +36,6 @@
     "letsGetStarted": "Hajde da počnemo!",
     "gettingStartedDesc": "Završi ove zadatke i zaradićeš <strong>5 dostignuća</strong> i <strong class=\"gold-amount\">100 zlata</strong> kada su gotovi!",
     "yourRewards": "Vaše nagrade",
-    "onboardingProgress": "<%= percentage %>% završeno"
+    "onboardingProgress": "<%= percentage %>% završeno",
+    "achievementReptacularRumbleModalText": "Prikupili ste sve ljubimce gmizavce!"
 }

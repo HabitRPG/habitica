@@ -379,5 +379,6 @@
     "editGuild": "Редактировать гильдию",
     "editParty": "Редактировать команду",
     "leaveGuild": "Покинуть гильдию",
-    "sendGiftTotal": "Всего:"
+    "sendGiftTotal": "Всего:",
+    "chatTemporarilyUnavailable": "Чат временно недоступен. Пожалуйста, повторите попытку позже."
 }

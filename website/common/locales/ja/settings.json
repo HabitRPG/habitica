@@ -215,5 +215,7 @@
     "nextHourglass": "次の神秘の砂時計",
     "adjustment": "調整",
     "dayStartAdjustment": "一日の始まりの時間の調整",
-    "nextHourglassDescription": "有料会員は神秘の砂時計を\n月初めの3日以内に受け取ります。"
+    "nextHourglassDescription": "有料会員は神秘の砂時計を\n月初めの3日以内に受け取ります。",
+    "passwordSuccess": "パスワードは正常に変更されました",
+    "giftSubscriptionRateText": "<strong><%= months %> か月</strong>ごとに<strong>$<%= price %> USD（米ドル）</strong>"
 }

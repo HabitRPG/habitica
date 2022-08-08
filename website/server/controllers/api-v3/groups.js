@@ -28,6 +28,7 @@ import amzLib from '../../libs/payments/amazon';
 import apiError from '../../libs/apiError';
 import { model as UserNotification } from '../../models/userNotification';
 
+const { MAX_SUMMARY_SIZE_FOR_GUILDS } = common.constants;
 const MAX_EMAIL_INVITES_BY_USER = 200;
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS_TECH_ASSISTANCE_EMAIL');
 
@@ -118,6 +119,11 @@ api.createGroup = {
     const group = new Group(Group.sanitize(req.body));
     group.leader = user._id;
 
+    req.checkBody('summary', apiError('summaryLengthExceedsMax')).isLength({ max: MAX_SUMMARY_SIZE_FOR_GUILDS });
+
+    const validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
     if (group.type === 'guild') {
       if (group.privacy === 'public' && user.flags.chatRevoked) throw new NotAuthorized(res.t('chatPrivilegesRevoked'));
       if (user.balance < 1) throw new NotAuthorized(res.t('messageInsufficientGems'));
@@ -191,7 +197,7 @@ api.createGroupPlan = {
     const group = new Group(Group.sanitize(req.body.groupToCreate));
 
     req.checkBody('paymentType', res.t('paymentTypeRequired')).notEmpty();
-
+    req.checkBody('summary', apiError('summaryLengthExceedsMax')).isLength({ max: MAX_SUMMARY_SIZE_FOR_GUILDS });
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
@@ -462,6 +468,7 @@ api.updateGroup = {
     const { user } = res.locals;
 
     req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
+    req.checkBody('summary', apiError('summaryLengthExceedsMax')).isLength({ max: MAX_SUMMARY_SIZE_FOR_GUILDS });
 
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;

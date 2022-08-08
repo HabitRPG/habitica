@@ -4,5 +4,7 @@
     "eggsItemType": "بيض",
     "hatchingPotionsItemType": "جرعات الفقس",
     "specialItemType": "حاجات خاصة",
-    "lockedItem": "حاجة مقفلة"
+    "lockedItem": "حاجة مقفلة",
+    "petAndMount": "حيوان أليف وحيوان للركوب",
+    "allItems": "كل العناصر"
 }

@@ -133,7 +133,10 @@
   "achievementReptacularRumble": "Reptacular Rumble",
   "achievementReptacularRumbleText": "Has hatched all the standard colors of reptile pets: Alligator, Pterodactyl, Snake, Triceratops, Turtle, Tyrannosaurus Rex, and Velociraptor!",
   "achievementReptacularRumbleModalText": "You collected all the reptile pets!",
-  "achievementGroupsBeta2022":"Interactive Beta Tester",
-  "achievementGroupsBeta2022Text":"You and your group provided invaluable feedback to help Habitica test.",
-  "achievementGroupsBeta2022ModalText":"You and your groups helped Habitica by testing and providing feedback!"
+  "achievementGroupsBeta2022": "Interactive Beta Tester",
+  "achievementGroupsBeta2022Text": "You and your group provided invaluable feedback to help Habitica test.",
+  "achievementGroupsBeta2022ModalText":"You and your groups helped Habitica by testing and providing feedback!",
+  "achievementWoodlandWizard": "Woodland Wizard",
+  "achievementWoodlandWizardText": "Has hatched all standard colors of forest creatures: Badger, Bear, Deer, Fox, Frog, Hedgehog, Owl, Snail, Squirrel, and Treeling!",
+  "achievementWoodlandWizardModalText": "You collected all the forest pets!"
 }
