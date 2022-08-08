@@ -9,14 +9,12 @@
       slot="content"
       class="content m-auto d-flex justify-content-center align-items-center"
     >
-      <img src="~@/assets/images/bug.png" class="mr-11px">
       <span class="mr-1">
-        <strong>You're using the Habitica Groups Beta.</strong>
+        <strong>You're previewing new Habitica Groups!</strong>
       </span>
-      <a href="mailto:testing@habitica.com" class="send-feedback">
-        Please submit bugs and feedback here.
+      <a href="mailto:admin@habitica.com" class="send-feedback">
+        Have a question?
       </a>
-      <img src="~@/assets/images/bug.png" class="ml-11px flip">
     </div>
   </base-banner>
 </template>
@@ -38,18 +36,6 @@
       font-size: 12px;
       line-height: 1.4;
     }
-  }
-
-  .flip {
-    transform: scaleX(-1);
-  }
-
-  .ml-11px {
-    margin-left: 11px;
-  }
-
-  .mr-11px {
-    margin-right: 11px;
   }
 
   .send-feedback {

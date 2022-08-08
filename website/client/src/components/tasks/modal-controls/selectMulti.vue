@@ -29,6 +29,7 @@
       </b-dropdown-header>
       <template v-slot:button-content>
         <multi-list
+          class="d-flex flex-wrap"
           :items="selectedItemsAsObjects"
           :add-new="addNew"
           :pill-invert="pillInvert"
@@ -84,6 +85,13 @@
 @import '~@/assets/scss/colors.scss';
 
 $itemHeight: 2rem;
+
+.inline-dropdown {
+  &.select-multi .dropdown-toggle {
+    height: auto;
+    padding-bottom: 0px;
+  }
+}
 
 .select-multi {
   .dropdown-toggle {

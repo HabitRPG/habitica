@@ -44,7 +44,7 @@
     >
       <div
         v-if="assignedUsersCount > 0"
-        class="svg-icon icon-16 ml-2 users-icon color"
+        class="svg-icon ml-2 users-icon color"
         :class="{'green-10': completionsCount === assignedUsersCount}"
         v-html="icons.users"
       ></div>
@@ -210,7 +210,7 @@
   }
 
   .users-icon {
-    margin-top: -1px;
+    width: 16px;
   }
 </style>
 
@@ -220,7 +220,7 @@ import reduce from 'lodash/reduce';
 import { mapState } from '@/libs/store';
 import checkIcon from '@/assets/svg/check.svg';
 import lockIcon from '@/assets/svg/lock.svg';
-import usersIcon from '@/assets/svg/icon-users.svg';
+import usersIcon from '@/assets/svg/users.svg';
 import lastComplete from '@/assets/svg/last-complete.svg';
 
 export default {
