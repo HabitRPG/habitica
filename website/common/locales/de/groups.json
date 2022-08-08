@@ -379,5 +379,6 @@
     "leaveGuild": "Gilde verlassen",
     "viewDetails": "Details ansehen",
     "upgradeToGroup": "Auf Gruppenplan upgraden",
-    "sendGiftTotal": "Insgesamt:"
+    "sendGiftTotal": "Insgesamt:",
+    "chatTemporarilyUnavailable": "Chat aktuell nicht verfügbar. Bitte versuche es später erneut."
 }

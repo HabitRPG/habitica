@@ -2,7 +2,7 @@
     "clearCompleted": "מחיקת המשימות שהושלמו",
     "clearCompletedDescription": "משימות לביצוע שהושלמו יימחקו לאחר 30 ימים למשתמשים שאינם מנויים ולאחר 90 ימים למשתמשים מנויים.",
     "clearCompletedConfirm": "למחוק את המשימות לביצוע שהושלמו?",
-    "addMultipleTip": "<strong>עצה:</strong> כדי להוסיף <%= taskType %> מרובות, הפרד אותן בשורות חדשות (Shift + Enter) ולסיום לחץ \"Enter.\"",
+    "addMultipleTip": "<strong>עצה:</strong> כדי להוסיף כמה <%= taskType %> בבת אחת, אפשר לפצל לשורות חדשות (Shift + Enter) ולסיום ללחוץ על \"Enter\".",
     "addATask": "הוספת <%= type %>",
     "editATask": "עריכת <%= type %>",
     "createTask": "יצירת <%= type %>",

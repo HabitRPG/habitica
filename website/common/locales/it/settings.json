@@ -215,5 +215,9 @@
     "transaction_create_guild": "Gilda creata",
     "transaction_subscription_perks": "Dai benefici dell'abbonamento",
     "adjustment": "Regolazione",
-    "dayStartAdjustment": "Regolazione Inizio Giornata"
+    "dayStartAdjustment": "Regolazione Inizio Giornata",
+    "passwordSuccess": "Password cambiata con successo",
+    "giftSubscriptionRateText": "<strong>$<%= price %> USD</strong> per <strong><%= months %> months</strong>",
+    "transaction_create_bank_challenge": "Sfida della banca creata",
+    "transaction_admin_update_balance": "Dato dall'amministratore"
 }

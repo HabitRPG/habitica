@@ -24,7 +24,7 @@
     "help": "Ajuda",
     "user": "Utilizador",
     "market": "Mercado",
-    "newSubscriberItem": "Você tem <span class=\"notification-bold-blue\">Items Mistério</span> novos",
+    "newSubscriberItem": "Tem <span class=\"notification-bold-blue\">Itens Mistério</span> novos",
     "subscriberItemText": "A cada mês, assinantes receberão um item misterioso. Ele normalmente é liberado cerca de uma semana antes do final do mês. Veja a página \"Item Misterioso\" da wiki para mais informações.",
     "all": "Todos",
     "none": "Nenhum",

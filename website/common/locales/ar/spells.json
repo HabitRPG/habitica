@@ -6,7 +6,7 @@
     "spellWizardEarthText": "زلزال",
     "spellWizardEarthNotes": "Your mental power shakes the earth and buffs your Party's Intelligence! (Based on: Unbuffed INT)",
     "spellWizardFrostText": "صقيع مقشعر",
-    "spellWizardFrostNotes": "With one cast, ice freezes all your streaks so they won't reset to zero tomorrow!",
+    "spellWizardFrostNotes": "عن طريق إطلاق تعويذة واحدة، يقوم الجليد بتجميد كل سلاسل تقدمك حتى لا يتم إعادة تعيينها إلى الصفر غدًا!",
     "spellWizardFrostAlreadyCast": "You have already cast this today. Your streaks are frozen, and there's no need to cast this again.",
     "spellWarriorSmashText": "سحقة متوحشة",
     "spellWarriorSmashNotes": "You make a task more blue/less red and deal extra damage to Bosses! (Based on: STR)",
@@ -24,7 +24,7 @@
     "spellRogueToolsOfTradeNotes": "Your tricky talents buff your whole Party's Perception! (Based on: Unbuffed PER)",
     "spellRogueStealthText": "تسلل",
     "spellRogueStealthNotes": "With each cast, a few of your undone Dailies won't cause damage tonight. Their streaks and colors won't change. (Based on: PER)",
-    "spellRogueStealthDaliesAvoided": "<%= originalText %> Number of dailies avoided: <%= number %>.",
+    "spellRogueStealthDaliesAvoided": "<%= originalText %> عدد المهام اليومية التي سيتم تجنبها: <%= number %>.",
     "spellRogueStealthMaxedOut": "You have already avoided all your dailies; there's no need to cast this again.",
     "spellHealerHealText": "الضوء المعالج",
     "spellHealerHealNotes": "Shining light restores your health! (Based on: CON and INT)",
@@ -55,5 +55,6 @@
     "challengeTasksNoCast": "Casting a skill on challenge tasks is not allowed.",
     "groupTasksNoCast": "Casting a skill on group tasks is not allowed.",
     "spellNotOwned": "You don't own this skill.",
-    "spellLevelTooHigh": "You must be level <%= level %> to use this skill."
+    "spellLevelTooHigh": "You must be level <%= level %> to use this skill.",
+    "spellAlreadyCast": "لن يكون لاستخدام هذه المهارة أي تأثير إضافي."
 }
