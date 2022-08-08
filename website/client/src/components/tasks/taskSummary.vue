@@ -66,7 +66,7 @@
           <span
             v-for="member in assignedUsernames"
             :key="member"
-            class="assigned-member py-1 px-75 mr-1"
+            class="assigned-member py-1 px-75 mb-1 mr-1"
           >
             @{{ member }}
           </span>

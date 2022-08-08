@@ -284,8 +284,8 @@
         &:hover:not(.task-not-scoreable) { background: rgba($yellow-100, 0.25) !important; }
       }
       &-bg-noninteractive {
-        background: rgba($yellow-100, 0.15) !important;
-        .small-text { color: $yellow-1 !important; }
+        background-color: $gray-500 !important;
+        .small-text { color: $gray-100 !important; }
       }
     }
   }

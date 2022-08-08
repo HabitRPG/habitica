@@ -387,7 +387,13 @@
           @keypress.enter="score('down')"
         >
           <div
-            class="svg-icon"
+            v-if="showTaskLockIcon"
+            class="svg-icon color lock"
+            v-html="icons.lock"
+          ></div>
+          <div
+            v-else
+            class="svg-icon mb-1"
             v-html="icons.gold"
           ></div>
           <div class="small-text">
@@ -846,8 +852,12 @@
       height: 24px;
     }
 
+    .lock {
+      color: $gray-200;
+      width: 15px;
+    }
+
     .small-text {
-      margin-top: 4px;
       font-style: initial;
       font-weight: bold;
     }

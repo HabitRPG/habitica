@@ -40,7 +40,7 @@
           class="mr-3 mb-1 ml-auto"
           :label="'Copy tasks'"
           :checked="user.preferences.tasks.mirrorGroupTasks.indexOf(group._id) !== -1"
-          :hover-text="'Add assigned and open tasks to your personal task board'"
+          :hover-text="'Show assigned and open tasks on your personal task board'"
           @change="changeMirrorPreference"
         />
         <div
