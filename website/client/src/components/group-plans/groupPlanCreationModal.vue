@@ -24,6 +24,7 @@
         <button
           class="btn btn-primary next-button"
           :value="$t('next')"
+          :disabled="!newGroupIsReady"
           @click="close()"
         >
           {{ $t('next') }}
@@ -39,7 +40,7 @@
         <input
           id="new-group-name"
           v-model="newGroup.name"
-          class="form-control input-medium option-content"
+          class="form-control input-medium option-content name-input"
           required="required"
           type="text"
           :placeholder="$t('nameStarText')"
@@ -53,7 +54,7 @@
         <textarea
           id="new-group-description"
           v-model="newGroup.description"
-          class="form-control option-content"
+          class="form-control option-content description-input"
           cols="3"
           :placeholder="$t('descriptionOptionalText')"
         ></textarea>
@@ -86,24 +87,28 @@
             for="create-group-leaderOnlyChallenges-checkbox"
           >{{ $t('leaderOnlyChallenges') }}</label>
         </div>
-        <div class="form-group">
-          <lockable-label
-            :text="$t('groupUse')"
-          />
-          <select-translated-array
-            :items="[
-              'groupUseDefault',
-              'groupParentChildren',
-              'groupCouple',
-              'groupFriends',
-              'groupCoworkers',
-              'groupManager',
-              'groupTeacher'
-            ]"
-            :value="groupUseDefault"
-            @select="groupUseDefault"
-          />
-        </div>
+      </div>
+      <div class="form-group">
+        <lockable-label
+          :text="$t('groupUse')"
+        />
+        <select-translated-array
+          v-model="newGroup.demographics"
+          :items="[
+            'groupUseDefault',
+            'groupParentChildren',
+            'groupCouple',
+            'groupFriends',
+            'groupCoworkers',
+            'groupManager',
+            'groupTeacher'
+          ]"
+          :value="groupUseDefault"
+          class="group-input"
+          @select="groupUseDefault"
+        />
+        <!-- need to figure out what goes in @select
+          there's an error being thrown in the component, perhaps I can't reuse it?   -->
       </div>
       <div
         v-if="type === 'party'"
@@ -117,11 +122,11 @@
       </div>
       <div class="form-group">
         <button
-          class="btn btn-primary btn-lg btn-block"
+          class="btn btn-primary btn-lg btn-block btn-payment"
           :disabled="!newGroupIsReady"
           @click="createGroup()"
         >
-          {{ $t('create') }}
+          {{ $t('nextPaymentMethod') }}
         </button>
       </div>
     </div>
@@ -165,6 +170,22 @@
   .form-control::placeholder {
     color: $gray-50;
     height: 32px;
+  }
+
+  .name-input, .description-input, .group-input {
+    margin-top: -4px;
+  }
+
+  .description-input {
+    height: 56px;
+  }
+
+  .spacer {
+    margin-bottom: 16px !important;
+  }
+
+  .btn-payment {
+    margin-top: 1.5rem;
   }
 
   .payment-options {
@@ -291,6 +312,7 @@ export default {
         leaderOnly: {
           challenges: false,
         },
+        demographics: '',
       },
       activePage: 'create-group',
       type: 'guild', // Guild or Party @TODO enum this
@@ -301,7 +323,7 @@ export default {
   computed: {
     ...mapState({ user: 'user.data' }),
     newGroupIsReady () {
-      return Boolean(this.newGroup.name);
+      return Boolean(this.newGroup.name) && Boolean(this.newGroup.demographics);
     },
   },
   mounted () {
