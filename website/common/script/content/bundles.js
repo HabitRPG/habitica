@@ -144,8 +144,9 @@ const bundles = {
       'hedgehog',
       'treeling',
     ],
+    event: EVENTS.bundle202208,
     canBuy () {
-      return moment().isBetween('2018-09-11', '2018-10-02');
+      return moment().isBetween(EVENTS.bundle202208.start, EVENTS.bundle202208.end);
     },
     type: 'quests',
     value: 7,
