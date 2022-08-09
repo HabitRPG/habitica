@@ -10,8 +10,14 @@ const gemsPromo = {
 
 export const EVENTS = {
   noCurrentEventAfter: {
-    start: '2022-07-31T20:00-04:00',
+    start: '2022-09-30T20:00-04:00',
     end: '2022-12-21T08:00-04:00',
+    season: 'normal',
+    npcImageSuffix: '',
+  },
+  bundle202208: {
+    start: '2022-08-09T08:00-04:00',
+    end: '2022-09-30T20:00-04:00',
     season: 'normal',
     npcImageSuffix: '',
   },
