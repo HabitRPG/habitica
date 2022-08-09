@@ -2581,5 +2581,18 @@
     "armorSpecialSpring2022RogueText": "Костюм сороки",
     "armorSpecialSpring2022WarriorText": "Дождевик",
     "armorSpecialSpring2022WarriorNotes": "Этот дождевик и сапоги так великолепны, что вы можете петь под дождём или прыгать в каждой луже, но все равно оставаться в тепле и сухости! Увеличивает телосложение на <%= con %>. Ограниченный выпуск весны 2022.",
-    "armorSpecialSpring2022HealerText": "Хризолитовый доспех"
+    "armorSpecialSpring2022HealerText": "Хризолитовый доспех",
+    "weaponSpecialSummer2022RogueNotes": "Если вы в затруднительном положении, не колеблясь, покажите эти устрашающие когти! Увеличивает силу на <%= str %>. Ограниченный выпуск лета 2022.",
+    "weaponSpecialSummer2022RogueText": "Крабовая клешня",
+    "weaponSpecialSummer2022WarriorText": "Вихревой циклон",
+    "weaponSpecialSummer2022HealerText": "Целительные пузырьки",
+    "weaponSpecialSummer2022MageText": "Посох ската манты",
+    "weaponSpecialSummer2022MageNotes": "Волшебным образом лишь взмахнув этим посохом вы очистите воду перед собой. Увеличивает интеллект на <%= int %> и восприятие на <%= per %>. Ограниченный выпуск лета 2022.",
+    "weaponArmoireBlueKiteNotes": "Паря высоко в небе, какие трюки вы можете заставить свой воздушный змей выполнять? Увеличивает все характеристики на <%= attrs %>. Зачарованный сундук: набор воздушного змея (предмет 1 из 5)",
+    "weaponArmoireGreenKiteText": "Зелёный воздушный змей",
+    "weaponArmoireOrangeKiteText": "Оранжевый воздушный змей",
+    "weaponArmoirePinkKiteText": "Розовый воздушный змей",
+    "weaponArmoireYellowKiteText": "Желтый воздушный змей",
+    "weaponArmoireBlueKiteText": "Синий воздушный змей",
+    "weaponSpecialSummer2022HealerNotes": "Эти пузырьки высвобождают целительную магию в воду с приятным хлопком! Увеличивает интеллект на <%= int %>. Ограниченный выпуск лета 2022."
 }

@@ -31,7 +31,7 @@
     "contribLevel": "Рівень внеску",
     "contribHallText": "1-7 для звичайних вкладників, 8 для модераторів, 9 для учасників. Цим визначається який предмет, тварина чи їздова тварина доступні. Також відрізняється кольором імені-теґу. Рівень 8 і 9 автоматично отримують статус адміністратора.",
     "hallContributors": "Зал контриб'юторів",
-    "hallPatrons": "Зала Благодійників",
+    "hallPatrons": "Зал благодійників",
     "rewardUser": "Нагородити гравця",
     "UUID": "User ID",
     "loadUser": "Завантажити користувача",
@@ -53,6 +53,6 @@
     "surveysSingle": "Допомагав Habitica розвиватися, заповнивши опитування або допомігши провести тестування. Дякуємо!",
     "surveysMultiple": "Допомагали Habitica розвиватися <%= count %> рази(-ів), заповнюючи опитування або допомагаючи в масштабному тестуванні. Дякую!",
     "blurbHallPatrons": "Це Зал покровителів, де ми вшановуємо благородних шукачів пригод, які підтримали Habitica на Kickstarter. Ми дякуємо їм за те, що вони допомогли нам зробити Habitica реальною!",
-    "blurbHallContributors": "Це Зал контриб'юторів, де вшановують учасників що внесли свій вклад в розвиток Habitica. Чи то за допомогою коду, мистецтва, музики, тексту чи навіть просто допомоги іншим учасникам, чим вони заробили <a href='https://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'> самоцвіти, ексклюзивне спорядження </a>, та <a href='https://habitica.fandom.com/wiki/Contributor_Titles' target='_blank'>prestigious titles</a>. Ви також можете допомогти Habitica! <a href='https://habitica.fandom.com/wiki/Contributing_to_Habitica' target='_blank'> Дізнайтесь більше тут. </a>",
+    "blurbHallContributors": "Це Зал контриб'юторів, де вшановують учасників, що зробили свій внесок в розвиток Habitica. Чи то за допомогою коду, мистецтва, музики, тексту чи навіть просто допомоги іншим, чим вони заробили <a href='https://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'> самоцвіти, ексклюзивне спорядження </a>, та <a href='https://habitica.fandom.com/wiki/Contributor_Titles' target='_blank'>престижні звання</a>. Ви також можете допомогти Habitica! <a href='https://habitica.fandom.com/wiki/Contributing_to_Habitica' target='_blank'> Дізнайтесь більше тут. </a>",
     "noPrivAccess": "Ви не маєте необхідних привілеїв."
 }

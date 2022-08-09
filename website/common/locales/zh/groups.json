@@ -1,7 +1,7 @@
 {
     "tavern": "在酒馆里闲谈",
     "tavernChat": "酒馆",
-    "innCheckOutBanner": "你已入住酒馆。未完成的每日任务不会对你造成伤害，但已完成的任务也不会帮你在副本中取得进展。",
+    "innCheckOutBanner": "你已入住客栈。未完成的每日任务不会对你造成伤害，但已完成的任务也不会帮你在副本中取得进展。",
     "innCheckOutBannerShort": "你现在入住了酒馆。",
     "resumeDamage": "继续伤害",
     "helpfulLinks": "有帮助的链接",
@@ -378,5 +378,7 @@
     "joinParty": "加入队伍",
     "editGuild": "编辑公会",
     "editParty": "编辑队伍",
-    "leaveGuild": "离开公会"
+    "leaveGuild": "离开公会",
+    "chatTemporarilyUnavailable": "现在聊天室是暂时不能用的。请稍后再试。",
+    "sendGiftTotal": "总计："
 }

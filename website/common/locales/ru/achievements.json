@@ -132,5 +132,8 @@
     "achievementBirdsOfAFeatherModalText": "Вы собрали всех летающих питомцев!",
     "achievementReptacularRumble": "Рокот рептилий",
     "achievementReptacularRumbleText": "Собраны все пресмыкающиеся питомцы: аллигатора, птеродактиля, змею, трицератопса, черепаху, тираннозавра и велоцираптора!",
-    "achievementReptacularRumbleModalText": "Вы собрали всех пресмыкающихся питомцев!"
+    "achievementReptacularRumbleModalText": "Вы собрали всех пресмыкающихся питомцев!",
+    "achievementGroupsBeta2022Text": "Вы и ваша команда оказали неоценимую помощь в тестировании Habitica.",
+    "achievementGroupsBeta2022ModalText": "Вы и ваша команда помогли Habitica, участвуя в тестировании и предоставляя обратную связь!",
+    "achievementGroupsBeta2022": "Интерактивный бета-тестер"
 }

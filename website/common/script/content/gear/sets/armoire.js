@@ -1100,6 +1100,11 @@ const shield = {
     str: 4,
     set: 'fancyPirate',
   },
+  dustpan: {
+    int: 4,
+    con: 4,
+    set: 'cleaningSupplies',
+  },
 };
 
 const headAccessory = {
@@ -1523,6 +1528,16 @@ const weapon = {
     int: 3,
     per: 3,
     set: 'kite',
+  },
+  pushBroom: {
+    str: 4,
+    int: 4,
+    set: 'cleaningSupplies',
+  },
+  featherDuster: {
+    con: 4,
+    per: 4,
+    set: 'cleaningSupplies',
   },
 };
 
