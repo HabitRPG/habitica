@@ -525,7 +525,7 @@ hr {
 .debug-group {
   top: -300px;
   background: $gray-600;
-  border-radius: 2px;
+  border-radius: 8px;
   padding: 16px;
   width: 60%;
   box-shadow: 0 1px 3px 0 rgba(26, 24, 29, 0.12), 0 1px 2px 0 rgba(26, 24, 29, 0.24);
@@ -561,6 +561,7 @@ hr {
     vertical-align: bottom;
   }
 }
+
 
 // media breakpoints
 
@@ -643,13 +644,7 @@ hr {
       padding-left: 0px;
       margin-left: -8px;
       height: 1.5rem;
-    }
-    .icons {
-      display: flex;
-      height: auto;
-      padding-left: 0px;
-      padding-top: 0px;
-      align-self: top;
+      display: block;
     }
     .social-circle {
       margin: 0 6px 0 6px;
@@ -742,6 +737,7 @@ hr {
     margin-top: 8px;
   }
 }
+
 </style>
 <style lang="scss">
 .instagram svg {
