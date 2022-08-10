@@ -93,7 +93,6 @@
           :text="$t('groupUse')"
         />
         <select-translated-array
-          v-model="newGroup.demographics"
           :items="[
             'groupParentChildren',
             'groupCouple',
@@ -102,8 +101,8 @@
             'groupManager',
             'groupTeacher'
           ]"
-          :placeholder="$t('groupUseDefault')"
           class="group-input"
+          :placeholder="'groupUseDefault'"
           :value="newGroup.demographics"
           @select="newGroup.demographics = $event"
         />
@@ -261,36 +260,6 @@ export default {
     lockableLabel,
   },
   mixins: [paymentsMixin],
-  props: {
-    // groupUseDefault: {
-    //   type: String,
-    //   default: 'groupUseDefault',
-    // },
-    groupParentChildren: {
-      type: String,
-      default: 'groupParentChildren',
-    },
-    groupCouple: {
-      type: String,
-      default: 'groupCouple',
-    },
-    groupFriends: {
-      type: String,
-      default: 'groupFriends',
-    },
-    groupCoworkers: {
-      type: String,
-      default: 'groupCoworkers',
-    },
-    groupManager: {
-      type: String,
-      default: 'groupManager',
-    },
-    groupTeacher: {
-      type: String,
-      default: 'groupTeacher',
-    },
-  },
   data () {
     return {
       amazonPayments: {},
