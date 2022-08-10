@@ -95,7 +95,6 @@
         <select-translated-array
           v-model="newGroup.demographics"
           :items="[
-            'groupUseDefault',
             'groupParentChildren',
             'groupCouple',
             'groupFriends',
@@ -103,12 +102,11 @@
             'groupManager',
             'groupTeacher'
           ]"
-          :value="groupUseDefault"
+          :placeholder="$t('groupUseDefault')"
           class="group-input"
-          @select="groupUseDefault"
+          :value="newGroup.demographics"
+          @select="newGroup.demographics = $event"
         />
-        <!-- need to figure out what goes in @select
-          there's an error being thrown in the component, perhaps I can't reuse it?   -->
       </div>
       <div
         v-if="type === 'party'"
@@ -185,7 +183,8 @@
   }
 
   .btn-payment {
-    margin-top: 1.5rem;
+    margin: 24px 112px 24px 112px;
+    width: 177px;
   }
 
   .payment-options {
@@ -263,10 +262,10 @@ export default {
   },
   mixins: [paymentsMixin],
   props: {
-    groupUseDefault: {
-      type: String,
-      default: 'groupUseDefault',
-    },
+    // groupUseDefault: {
+    //   type: String,
+    //   default: 'groupUseDefault',
+    // },
     groupParentChildren: {
       type: String,
       default: 'groupParentChildren',
@@ -312,7 +311,7 @@ export default {
         leaderOnly: {
           challenges: false,
         },
-        demographics: '',
+        demographics: null,
       },
       activePage: 'create-group',
       type: 'guild', // Guild or Party @TODO enum this
