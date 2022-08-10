@@ -25,7 +25,7 @@
           class="btn btn-primary next-button"
           :value="$t('next')"
           :disabled="!newGroupIsReady"
-          @click="close()"
+          @click="createGroup()"
         >
           {{ $t('next') }}
         </button>
@@ -59,21 +59,6 @@
           :placeholder="$t('descriptionOptionalText')"
         ></textarea>
       </div>
-<!--       <div
-        v-if="type === 'guild'"
-        class="form-group"
-      >
-        <div class="custom-control custom-radio">
-          <input
-            v-model="newGroup.privacy"
-            class="custom-control-input"
-            type="radio"
-            name="new-group-privacy"
-            value="private"
-          >
-          <label class="custom-control-label">{{ $t('inviteOnly') }}</label>
-        </div>
-      </div> -->
       <div class="form-group">
         <div class="custom-control custom-checkbox">
           <input
@@ -104,18 +89,7 @@
           class="group-input"
           :placeholder="'groupUseDefault'"
           :value="newGroup.demographics"
-          @select="newGroup.demographics = $event"
         />
-      </div>
-      <div
-        v-if="type === 'party'"
-        class="form-group"
-      >
-        <button
-          class="btn btn-secondary form-control"
-          :value="$t('create')"
-          @click="createGroup()"
-        ></button>
       </div>
       <div class="form-group">
         <button
@@ -127,9 +101,10 @@
         </button>
       </div>
     </div>
+    <!-- PAYMENT -->
     <div
       v-if="activePage === PAGES.PAY"
-      class="col-12"
+      class="col-12 payments"
     >
       <div class="text-center">
         <payments-buttons
@@ -184,6 +159,10 @@
   .btn-payment {
     margin: 24px 112px 24px 112px;
     width: 177px;
+  }
+
+  .payments {
+    padding: 24px;
   }
 
   .payment-options {
@@ -284,14 +263,12 @@ export default {
       },
       activePage: 'create-group',
       type: 'guild', // Guild or Party @TODO enum this
-      icons: Object.freeze({
-      }),
     };
   },
   computed: {
     ...mapState({ user: 'user.data' }),
     newGroupIsReady () {
-      return Boolean(this.newGroup.name) && Boolean(this.newGroup.demographics);
+      return Boolean(this.newGroup.name);
     },
   },
   mounted () {
@@ -307,6 +284,7 @@ export default {
     createGroup () {
       console.log('i am giving habitica money now');
       this.changePage(this.PAGES.PAY);
+      console.log(this.newGroup);
     },
     pay (paymentMethod) {
       const subscriptionKey = 'group_monthly'; // @TODO: Get from content API?
