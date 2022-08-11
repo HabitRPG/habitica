@@ -525,6 +525,18 @@ const premium = {
     canBuy: hasQuestAchievementFunction('onyx'),
     _addlNotes: t('premiumPotionUnlimitedNotes'),
   },
+  Porcelain: {
+    value: 2,
+    text: t('hatchingPotionPorcelain'),
+    limited: true,
+    event: EVENTS.potions202208,
+    _addlNotes: t('premiumPotionAddlNotes', {
+      date: t('dateEndAugust'),
+    }),
+    canBuy () {
+      return moment().isBetween(EVENTS.potions202208.start, EVENTS.potions202208.end);
+    },
+  },
 };
 
 const wacky = {
