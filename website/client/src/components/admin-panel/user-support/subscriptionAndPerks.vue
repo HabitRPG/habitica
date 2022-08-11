@@ -64,5 +64,10 @@ export default {
       required: true,
     },
   },
+  data () {
+    return {
+      expand: false,
+    };
+  },
 };
 </script>
