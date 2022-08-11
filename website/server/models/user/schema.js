@@ -150,6 +150,7 @@ export default new Schema({
     zodiacZookeeper: Boolean,
     birdsOfAFeather: Boolean,
     reptacularRumble: Boolean,
+    woodlandWizard: Boolean,
     // Onboarding Guide
     createdTask: Boolean,
     completedTask: Boolean,

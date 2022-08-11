@@ -21,7 +21,7 @@
     "messageTwoHandedUnequip": "אחיזה ב<%= twoHandedText %> דורשת שתי ידיים, ולכן הורדתם את הציוד הזה כשהתחמשתם ב<%= offHandedText %>.",
     "messageDropFood": "מצאת <%= dropText %>!",
     "messageDropEgg": "מצאת ביצת <%= dropText %>!",
-    "messageDropPotion": "You've found a <%= dropText %> Hatching Potion!",
+    "messageDropPotion": "מצאת שיקוי הבקעת <%= dropText %>!",
     "messageDropMysteryItem": "אתם פותחים קופסה ומוצאים <%= dropText %>!",
     "messageAlreadyOwnGear": "כבר יש לך את הפריט הזה. אפשר להצטייד בו מדף הציוד.",
     "previousGearNotOwned": "",

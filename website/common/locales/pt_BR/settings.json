@@ -215,5 +215,9 @@
     "transaction_subscription_perks": "Dos privilégios de assinante",
     "hourglassTransactions": "Transações de Ampulhetas",
     "noGemTransactions": "Você não possui nenhuma transação de gemas ainda.",
-    "noHourglassTransactions": "Você não possui nenhuma transação de ampulhetas ainda."
+    "noHourglassTransactions": "Você não possui nenhuma transação de ampulhetas ainda.",
+    "passwordSuccess": "Senha alterada com sucesso",
+    "giftSubscriptionRateText": "<strong>$<%= price %> BRL</strong> por <strong><%= months %> meses</strong>",
+    "transaction_create_bank_challenge": "Desafio bancário criado",
+    "transaction_admin_update_balance": "Administração concedida"
 }

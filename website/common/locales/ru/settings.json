@@ -215,5 +215,6 @@
     "hourglassTransactions": "Переводы песочных часов",
     "noGemTransactions": "У вас пока что нет переводов самоцветов.",
     "noHourglassTransactions": "У вас пока что нет переводов песочных часов.",
-    "transaction_debug": "Действие по отладке"
+    "transaction_debug": "Действие по отладке",
+    "passwordSuccess": "Пароль успешно изменен"
 }

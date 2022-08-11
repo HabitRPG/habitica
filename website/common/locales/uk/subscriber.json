@@ -131,7 +131,7 @@
     "subscriptionBenefit4": "Unique cosmetic item for you to decorate your avatar each month.",
     "subscriptionBenefit5": "Receive the Royal Purple Jackalope pet when you become a new subscriber.",
     "subscriptionBenefit6": "Earn Mystic Hourglasses for use in the Time Travelers' Shop!",
-    "purchaseAll": "Придбати набір",
+    "purchaseAll": "Придбати всі за",
     "gemsRemaining": "Gems remaining",
     "notEnoughGemsToBuy": "You are unable to buy that amount of gems",
     "organization": "Організація",
@@ -156,5 +156,7 @@
     "mysterySet201902": "Набір загадкових розчавлень",
     "cancelYourSubscription": "Скасувати Вашу підписку?",
     "subCanceledTitle": "Підписка скасована",
-    "subscriptionCanceled": "Ваша підписка скасована"
+    "subscriptionCanceled": "Ваша підписка скасована",
+    "lookingForMoreItems": "Хочете більше трофеїв?",
+    "dropCapSubs": "Підписники Habitica можуть щодня знаходити подвійну кількість випадкових предметів і щомісяця отримувати таємничі предмети!"
 }

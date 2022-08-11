@@ -463,6 +463,11 @@
   width: 48px;
   height: 52px;
 }
+.achievement-woodlandWizard2x {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/achievement-woodlandWizard2x.png');
+  width: 60px;
+  height: 64px;
+}
 .achievement-zodiac2x {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/achievement-zodiac2x.png');
   width: 60px;
