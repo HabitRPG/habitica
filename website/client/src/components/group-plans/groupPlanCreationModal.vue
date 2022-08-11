@@ -89,6 +89,7 @@
           class="group-input"
           :placeholder="'groupUseDefault'"
           :value="newGroup.demographics"
+          @select="newGroup.demographics = $event"
         />
       </div>
       <div class="form-group">
@@ -102,6 +103,7 @@
       </div>
     </div>
     <!-- PAYMENT -->
+    <!-- @TODO: Separate payment into a separate modal -->
     <div
       v-if="activePage === PAGES.PAY"
       class="col-12 payments"
@@ -112,6 +114,13 @@
           :amazon-data="pay(PAYMENTS.AMAZON)"
         />
       </div>
+      <!-- TEMPORARY BUTTON FOR TESTING -->
+      <button
+        class="btn btn-primary btn-payment"
+        @click="success()"
+      >
+        Clicky click click!
+      </button>
     </div>
   </b-modal>
 </template>
@@ -244,7 +253,7 @@ export default {
       amazonPayments: {},
       PAGES: {
         CREATE_GROUP: 'create-group',
-        UPGRADE_GROUP: 'upgrade-group',
+        // UPGRADE_GROUP: 'upgrade-group',
         PAY: 'pay',
       },
       PAYMENTS: {
@@ -262,17 +271,14 @@ export default {
         demographics: null,
       },
       activePage: 'create-group',
-      type: 'guild', // Guild or Party @TODO enum this
+      type: 'guild',
     };
   },
   computed: {
     ...mapState({ user: 'user.data' }),
     newGroupIsReady () {
-      return Boolean(this.newGroup.name);
+      return Boolean(this.newGroup.name) && Boolean(this.newGroup.demographics);
     },
-  },
-  mounted () {
-    console.log('i am mounted');
   },
   methods: {
     close () {
@@ -282,9 +288,8 @@ export default {
       this.activePage = page;
     },
     createGroup () {
-      console.log('i am giving habitica money now');
-      this.changePage(this.PAGES.PAY);
       console.log(this.newGroup);
+      this.changePage(this.PAGES.PAY);
     },
     pay (paymentMethod) {
       const subscriptionKey = 'group_monthly'; // @TODO: Get from content API?
@@ -313,8 +318,20 @@ export default {
 
       return null;
     },
+    // need to figure out where/how to create the event in amplitude
+    // right now being sent to console in success()
+    sendAnalytics () {
+      return this.newGroup.demographics;
+    },
     onHide () {
       this.sendingInProgress = false;
+    },
+    // temporary function to go with temporary button
+    success () {
+      console.log(this.sendAnalytics());
+      this.sendAnalytics();
+      this.$root.$emit('bv::hide::modal', 'create-group');
+      this.$root.$emit('bv::show::modal', 'payments-success-modal');
     },
   },
 };

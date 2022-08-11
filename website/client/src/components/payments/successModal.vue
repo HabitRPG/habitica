@@ -124,14 +124,14 @@
   border-bottom: none;
 
   h2 {
-    color: white;
+    color: $green-1;
   }
 
   .check-container {
     width: 64px;
     height: 64px;
     border-radius: 50%;
-    background: #1CA372;
+    background: $green-1;
     margin: 0 auto;
     margin-bottom: 16px;
   }
@@ -139,7 +139,7 @@
   .check {
     width: 35.1px;
     height: 28px;
-    color: white;
+    color: $white;
   }
 }
 
