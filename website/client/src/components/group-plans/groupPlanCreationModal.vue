@@ -50,13 +50,18 @@
         <lockable-label
           for="new-group-description"
           :text="$t('descriptionOptional')"
+          class="description-label"
         />
+        <div class="characters-remaining">
+          {{ $t('charactersRemaining', {characters: charactersRemaining}) }}
+        </div>
         <textarea
           id="new-group-description"
           v-model="newGroup.description"
           class="form-control option-content description-input"
           cols="3"
           :placeholder="$t('descriptionOptionalText')"
+          maxlength="250"
         ></textarea>
       </div>
       <div class="form-group">
@@ -153,9 +158,21 @@
     height: 32px;
   }
 
+  .description-label {
+    margin-bottom: -24px;
+  }
+
   .name-input, .description-input, .group-input {
     margin-top: -4px;
   }
+
+ .characters-remaining {
+  color: $gray-100;
+  font-size: 0.75rem;
+  line-height: 1.33;
+  text-align: right;
+  margin-bottom: 12px;
+ }
 
   .description-input {
     height: 56px;
@@ -217,6 +234,7 @@
     }
     .modal-content {
       width: 448px;
+      height: 436px;
       border-radius: 8px;
       box-shadow: 0 14px 28px 0 rgba(26, 24, 29, 0.24), 0 10px 10px 0 rgba(26, 24, 29, 0.28);
     }
@@ -265,6 +283,7 @@ export default {
         type: 'guild',
         privacy: 'private',
         name: '',
+        description: '',
         leaderOnly: {
           challenges: false,
         },
@@ -278,6 +297,10 @@ export default {
     ...mapState({ user: 'user.data' }),
     newGroupIsReady () {
       return Boolean(this.newGroup.name) && Boolean(this.newGroup.demographics);
+    },
+    charactersRemaining () {
+      const currentLength = this.newGroup.description ? this.newGroup.description.length : 0;
+      return 250 - currentLength;
     },
   },
   methods: {

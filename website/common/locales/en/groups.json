@@ -214,7 +214,7 @@
   "userIsClamingTask": "`<%= username %> has claimed:` <%= task %>",
   "approvalRequested": "Approval Requested",
   "cantDeleteAssignedGroupTasks": "Can't delete group tasks that are assigned to you.",
-  "groupPlanUpgraded": "<strong><%- groupName %></strong> was upgraded to a Group Plan!",
+  "groupPlanUpgraded": "<strong><%- groupName %></strong> was successfully upgraded to a Group Plan!",
   "groupPlanCreated": "<strong><%- groupName %></strong> was created!",
   "onlyGroupLeaderCanInviteToGroupPlan": "Only the group leader can invite users to a group with a subscription.",
   "paymentDetails": "Payment Details",

@@ -85,6 +85,38 @@
             v-once
             class="small-text auto-renew"
           >{{ $t('paymentAutoRenew') }}</span>
+          <div
+            v-if="paymentData.paymentType === 'groupPlan'
+              && paymentData.newGroup === 'groupPlanUpgraded'"
+            class="form-group"
+          >
+            <lockable-label
+              :text="$t('groupUse')"
+              class="justify-content-center"
+            />
+            <select-translated-array
+              :items="[
+                'groupParentChildren',
+                'groupCouple',
+                'groupFriends',
+                'groupCoworkers',
+                'groupManager',
+                'groupTeacher'
+              ]"
+              class="group-input"
+              :placeholder="'groupUseDefault'"
+              :value="newGroup.demographics"
+              @select="newGroup.demographics = $event"
+            />
+          </div>
+          <div class="form-group">
+            <button
+              class="btn btn-primary btn-lg btn-block btn-payment"
+              @click="closeGroup()"
+            >
+              {{ $t('submit') }}
+            </button>
+          </div>
         </template>
         <button
           v-once
@@ -200,6 +232,9 @@
   .small-text {
     font-style: normal;
   }
+  .group-input {
+    margin-top: -4px;
+  }
 }
 </style>
 
@@ -207,10 +242,16 @@
 import checkIcon from '@/assets/svg/check.svg';
 import gemIcon from '@/assets/svg/gem.svg';
 import subscriptionBlocks from '@/../../common/script/content/subscriptionBlocks';
+import selectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
+import lockableLabel from '@/components/tasks/modal-controls/lockableLabel';
 
 export default {
   data () {
     return {
+      components: {
+        selectTranslatedArray,
+        lockableLabel,
+      },
       icons: Object.freeze({
         check: checkIcon,
         gem: gemIcon,
@@ -245,6 +286,10 @@ export default {
     close () {
       this.paymentData = {};
       this.$root.$emit('bv::hide::modal', 'payments-success-modal');
+    },
+    closeGroup () {
+      this.close();
+      return this.groupName.analytics; // this needs to go to Amplitude somehow
     },
   },
 };
