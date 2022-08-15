@@ -79,8 +79,14 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
     return loginRes(user, req, res);
   }
 
-  if (!existingUser && email) {
-    existingUser = await User.findOne({ 'auth.local.email': email }).exec();
+
+  const email;
+  if (profile.emails && profile.emails[0] && profile.emails[0].value) {
+      email = profile.emails[0].value.toLowerCase()
+    }
+
+  if (!existingUser) {
+    existingUser = await User.findOne({ 'auth.local.email': email }, { 'auth.local': 1 }).exec();
   }
 
   if (existingUser) {
