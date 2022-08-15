@@ -8,7 +8,7 @@
     <p>
       HabitRPG, Inc. (“HabitRPG,” “we,” “us,” or “our”) welcomes you. This privacy notice (the “Privacy
       Notice”) describes how we process the information we collect about or from you through our Website
-      located at <a href="https://habitica.com/static/home">https://habitica.com/static/home</a> and/or our Apps
+      located at <a href='https://habitica.com/static/home'>https://habitica.com/static/home</a> and/or our Apps
       (our “Digital Platforms”), from our users, subscribers, visitors and other users of our technology and
       platforms (together with our Digital Platforms, the “Habitica Service” or the “Service”), and when you
       otherwise interact with us. This Privacy Notice may be updated by us from time to time without notice to
@@ -65,36 +65,11 @@
       policies linked to below:
     </p>
     <ul>
-      <li>
-        For Stripe, visit: <a
-          href="https://stripe.com/privacy"
-          target="_blank"
-        >https://stripe.com/privacy</a>
-      </li>
-      <li>
-        For Amazon Pay, visit: <a
-          href="https://pay.amazon.com/help/201751600"
-          target="_blank"
-        >https://pay.amazon.com/help/201751600</a>
-      </li>
-      <li>
-        For PayPal, visit: <a
-          href="https://www.paypal.com/us/webapps/mpp/ua/privacy-full"
-          target="_blank"
-        >https://www.paypal.com/us/webapps/mpp/ua/privacy-full</a>
-      </li>
-      <li>
-        For Apple Pay, visit: <a
-          href="https://www.apple.com/legal/privacy/data/en/apple-pay/"
-          target="_blank"
-        >https://www.apple.com/legal/privacy/data/en/apple-pay/</a>
-      </li>
-      <li>
-        For Google Pay, visit: <a
-          href="https://support.google.com/googlepay/answer/10223752?hl=en&co=GENIE.Platform%3DAndroid"
-          target="_blank"
-        >https://support.google.com/googlepay/answer/10223752?hl=en&co=GENIE.Platform%3DAndroid</a>
-      </li>
+      <li>For Stripe, visit: <a href='https://stripe.com/privacy' target='_blank'>https://stripe.com/privacy</a></li>
+      <li>For Amazon Pay, visit: <a href='https://pay.amazon.com/help/201751600' target='_blank'>https://pay.amazon.com/help/201751600</a></li>
+      <li>For PayPal, visit: <a href='https://www.paypal.com/us/webapps/mpp/ua/privacy-full' target='_blank'>https://www.paypal.com/us/webapps/mpp/ua/privacy-full</a></li>
+      <li>For Apple Pay, visit: <a href='https://www.apple.com/legal/privacy/data/en/apple-pay/' target='_blank'>https://www.apple.com/legal/privacy/data/en/apple-pay/</a></li>
+      <li>For Google Pay, visit: <a href='https://support.google.com/googlepay/answer/10223752?hl=en&co=GENIE.Platform%3DAndroid' target='_blank'>https://support.google.com/googlepay/answer/10223752?hl=en&co=GENIE.Platform%3DAndroid</a></li>
     </ul>
     <p>
       We reserve the right to change our payment vendors at any time, or to use additional payment vendors, at
@@ -120,16 +95,12 @@
       see the information regarding analytics providers discussed further below.
     </p>
     <ul>
-      <li>
-        <strong>Session Cookies</strong>: We use session cookies to make it easier for you to navigate our Service. A
-        session ID cookie expires when you close the Service.
-      </li>
-      <li>
-        <strong>Persistent Cookies</strong>: A persistent cookie remains on your device for an extended period of time or
+      <li><strong>Session Cookies</strong>: We use session cookies to make it easier for you to navigate our Service. A
+        session ID cookie expires when you close the Service.</li>
+      <li><strong>Persistent Cookies</strong>: A persistent cookie remains on your device for an extended period of time or
         until you delete it. Persistent cookies enable us to better understand how you interact with the Service and to
         provide visitors with a better and more personalized experience by retaining information about their identity and
-        preferences, including but not limited to keeping them logged in even if the browser is closed.
-      </li>
+        preferences, including but not limited to keeping them logged in even if the browser is closed.</li>
     </ul>
     <p>
       If you do not want us to place a cookie on your device, you may be able to turn that feature off on your
@@ -164,18 +135,8 @@
       advised that if you opt out of any service, you may not be able to use the full functionality of the Service.
     </p>
     <ul>
-      <li>
-        For Google Analytics, visit: <a
-          href="https://marketingplatform.google.com/about/analytics/"
-          target="_blank"
-        >https://marketingplatform.google.com/about/analytics/</a>
-      </li>
-      <li>
-        For Amplitude, visit: <a
-          href="https://amplitude.com/privacy"
-          target="_blank"
-        >https://amplitude.com/privacy</a>
-      </li>
+      <li>For Google Analytics, visit: <a href='https://marketingplatform.google.com/about/analytics/' target='_blank'>https://marketingplatform.google.com/about/analytics/</a></li>
+      <li>For Amplitude, visit: <a href='https://amplitude.com/privacy' target='_blank'>https://amplitude.com/privacy</a></li>
     </ul>
     <h3>Third-Party Advertisers/Remarketers</h3>
     <p>
@@ -195,9 +156,7 @@
     </p>
     <p>
       For more information on our advertising partner Google AdMob, please visit <a
-        href="https://policies.google.com/privacy?hl=en"
-        target="_blank"
-      >https://policies.google.com/privacy?hl=en</a>.
+      href='https://policies.google.com/privacy?hl=en' target='_blank'>https://policies.google.com/privacy?hl=en</a>.
     </p>
     <h3>Geolocation Information</h3>
     <p>
@@ -276,7 +235,7 @@
     </p>
     <p>
       You may opt out at any time from the use of your personal information for direct marketing purposes by
-      emailing the instructions to <a href="mailto:admin@habitica.com">admin@habitica.com</a> or by clicking
+      emailing the instructions to <a href='mailto:admin@habitica.com'>admin@habitica.com</a> or by clicking
       on the “Unsubscribe” link located on the bottom of any HabitRPG marketing email and following the
       instructions found on the page to which the link takes you. Please allow us a reasonable time to process
       your request. You cannot opt out of receiving transactional e-mails related to the Service.
@@ -321,7 +280,7 @@
       direct marketing purposes during the preceding calendar year, including the names and addresses of those
       third parties, and examples of the types of Service or products marketed by those third parties. If you wish
       to submit a request pursuant to Section 1798.83, please contact HabitRPG via email at
-      <a href="mailto:admin@habitica.com">admin@habitica.com</a>.
+      <a href='mailto:admin@habitica.com'>admin@habitica.com</a>.
     </p>
     <h2>NEVADA PRIVACY RIGHTS</h2>
     <p>
@@ -338,7 +297,7 @@
     <h2>LINKS TO EXTERNAL WEBSITES</h2>
     <p>
       The Service may contain links to third-party websites (“<span style="text-decoration: underline;">External
-        Sites</span>”). HabitRPG has no control over the privacy practices or the content of any such External Sites.
+      Sites</span>”). HabitRPG has no control over the privacy practices or the content of any such External Sites.
       As such, we are not responsible for the content or the privacy policies of such External Sites. You should
       check the applicable privacy notice or privacy policy and terms of use when visiting any such External Sites.
     </p>
@@ -353,8 +312,8 @@
     </p>
     <h2>HOW TO CONTACT US</h2>
     <p>
-      If you have questions about this Privacy Notice, please e-mail us at <a href="mailto:admin@habitica.com">
-        admin@habitica.com</a> with “Privacy Notice” in the subject line.
+      If you have questions about this Privacy Notice, please e-mail us at <a href='mailto:admin@habitica.com'>
+      admin@habitica.com</a> with “Privacy Notice” in the subject line.
     </p>
     <address>
       <strong>HabitRPG, Inc.</strong>

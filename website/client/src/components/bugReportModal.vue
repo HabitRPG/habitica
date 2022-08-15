@@ -12,18 +12,12 @@
         {{ $t('reportBug') }}
       </h2>
 
-      <div
-        v-once
-        class="report-bug-header-describe"
-      >
+      <div v-once class="report-bug-header-describe">
         {{ $t('reportBugHeaderDescribe') }}
       </div>
 
       <div class="dialog-close">
-        <close-icon
-          :purple="true"
-          @click="close()"
-        />
+        <close-icon @click="close()" :purple="true"/>
       </div>
     </div>
     <div>
@@ -40,10 +34,7 @@
           >
             {{ $t('email') }}
           </label>
-          <div
-            v-once
-            class="mb-2 description-label"
-          >
+          <div class="mb-2 description-label" v-once>
             {{ $t('reportEmailText') }}
           </div>
           <input
@@ -56,10 +47,7 @@
             :class="{'input-invalid': emailInvalid, 'input-valid': emailValid}"
           >
 
-          <div
-            v-if="emailInvalid"
-            class="error-label mt-2"
-          >
+          <div class="error-label mt-2" v-if="emailInvalid">
             {{ $t('reportEmailError') }}
           </div>
         </div>
@@ -67,10 +55,7 @@
         <label v-once>
           {{ $t('reportDescription') }}
         </label>
-        <div
-          v-once
-          class="mb-2 description-label"
-        >
+        <div class="mb-2 description-label" v-once>
           {{ $t('reportDescriptionText') }}
         </div>
         <textarea

@@ -361,8 +361,8 @@
             </li>
             <li>
               <a
-                target="_blank"
                 @click.prevent="openBugReportModal()"
+                target="_blank"
               >
                 {{ $t('reportBug') }}
               </a>
