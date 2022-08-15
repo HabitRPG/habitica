@@ -503,12 +503,13 @@ const premium = {
     value: 2,
     text: t('hatchingPotionMoonglow'),
     limited: true,
-    event: EVENTS.potions202108,
+    event: EVENTS.potions202208,
     _addlNotes: t('premiumPotionAddlNotes', {
       date: t('dateEndAugust'),
+      previousDate: t('augustYYYY', { year: 2021 }),
     }),
     canBuy () {
-      return moment().isBetween(EVENTS.potions202108.start, EVENTS.potions202108.end);
+      return moment().isBetween(EVENTS.potions202208.start, EVENTS.potions202208.end);
     },
   },
   SolarSystem: {
@@ -524,6 +525,18 @@ const premium = {
     limited: true,
     canBuy: hasQuestAchievementFunction('onyx'),
     _addlNotes: t('premiumPotionUnlimitedNotes'),
+  },
+  Porcelain: {
+    value: 2,
+    text: t('hatchingPotionPorcelain'),
+    limited: true,
+    event: EVENTS.potions202208,
+    _addlNotes: t('premiumPotionAddlNotes', {
+      date: t('dateEndAugust'),
+    }),
+    canBuy () {
+      return moment().isBetween(EVENTS.potions202208.start, EVENTS.potions202208.end);
+    },
   },
 };
 
