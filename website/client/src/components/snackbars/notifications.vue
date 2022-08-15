@@ -81,12 +81,12 @@ const DELAY_DELETE_AND_NEW = 60;
 const DELAY_FILLING_ENTRIES = 240;
 
 export default {
-  mixins: [
-    worldStateMixin,
-  ],
   components: {
     notification,
   },
+  mixins: [
+    worldStateMixin,
+  ],
   props: {
     preventQueue: {
       type: Boolean,

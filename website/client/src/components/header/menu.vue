@@ -319,8 +319,8 @@
               </router-link>
               <a
                 class="topbar-dropdown-item dropdown-item"
-                @click.prevent="openBugReportModal()"
                 target="_blank"
+                @click.prevent="openBugReportModal()"
               >
                 {{ $t('reportBug') }}
               </a>
