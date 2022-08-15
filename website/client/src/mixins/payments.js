@@ -140,6 +140,7 @@ export default {
       if (data.subscription) postData.sub = sub.key;
       if (data.coupon) postData.coupon = data.coupon;
       if (data.groupId) postData.groupId = data.groupId;
+      if (data.demographics) postData.demographics = data.demographics;
 
       const response = await axios.post(url, postData);
 
@@ -265,6 +266,10 @@ export default {
 
       if (data.groupToCreate) { // creating a group
         this.amazonPayments.groupToCreate = data.groupToCreate;
+      }
+
+      if (data.demographics) { // sending demographics
+        this.amazonPayments.demographics = data.demographics;
       }
 
       this.amazonPayments.gift = data.gift;

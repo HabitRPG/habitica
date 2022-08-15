@@ -120,12 +120,12 @@
         />
       </div>
       <!-- TEMPORARY BUTTON FOR TESTING -->
-      <button
+<!--       <button
         class="btn btn-primary btn-payment"
         @click="success()"
       >
         Clicky click click!
-      </button>
+      </button> -->
     </div>
   </b-modal>
 </template>
@@ -234,7 +234,7 @@
     }
     .modal-content {
       width: 448px;
-      height: 436px;
+      max-height: 436px;
       border-radius: 8px;
       box-shadow: 0 14px 28px 0 rgba(26, 24, 29, 0.24), 0 10px 10px 0 rgba(26, 24, 29, 0.28);
     }
@@ -277,6 +277,7 @@ export default {
       PAYMENTS: {
         AMAZON: 'amazon',
         STRIPE: 'stripe',
+        // OTHER: 'tempcode', // TEMP CODE
       },
       paymentMethod: '',
       newGroup: {
@@ -316,9 +317,11 @@ export default {
     },
     pay (paymentMethod) {
       const subscriptionKey = 'group_monthly'; // @TODO: Get from content API?
+      const demographicsKey = this.newGroup.demographics;
       const paymentData = {
         subscription: subscriptionKey,
         coupon: null,
+        demographics: demographicsKey,
       };
 
       if (this.upgradingGroup && this.upgradingGroup._id) {
@@ -339,6 +342,11 @@ export default {
         this.redirectToStripe(paymentData);
       }
 
+      // TEMP CODE
+      if (this.paymentMethod === this.PAYMENTS.OTHER) {
+        console.log(paymentData);
+      }
+
       return null;
     },
     // need to figure out where/how to create the event in amplitude
@@ -350,12 +358,13 @@ export default {
       this.sendingInProgress = false;
     },
     // temporary function to go with temporary button
-    success () {
-      console.log(this.sendAnalytics());
-      this.sendAnalytics();
-      this.$root.$emit('bv::hide::modal', 'create-group');
-      this.$root.$emit('bv::show::modal', 'payments-success-modal');
-    },
+    // success () {
+    //   this.pay(this.PAYMENTS.OTHER);
+    //   console.log(this.sendAnalytics());
+    //   this.sendAnalytics();
+    //   this.$root.$emit('bv::hide::modal', 'create-group');
+    //   this.$root.$emit('bv::show::modal', 'payments-success-modal');
+    // },
   },
 };
 </script>

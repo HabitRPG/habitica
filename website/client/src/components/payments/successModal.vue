@@ -105,8 +105,8 @@
               ]"
               class="group-input"
               :placeholder="'groupUseDefault'"
-              :value="newGroup.demographics"
-              @select="newGroup.demographics = $event"
+              :value="upgradedGroup.demographics"
+              @select="upgradedGroup.demographics = $event"
             />
           </div>
           <div class="form-group">
@@ -119,7 +119,7 @@
           </div>
         </template>
         <button
-          v-once
+          v-else
           class="btn btn-primary"
           @click="close()"
         >
@@ -257,6 +257,9 @@ export default {
         gem: gemIcon,
       }),
       paymentData: {},
+      upgradedGroup: {
+        demographics: null,
+      },
     };
   },
   computed: {
@@ -288,8 +291,8 @@ export default {
       this.$root.$emit('bv::hide::modal', 'payments-success-modal');
     },
     closeGroup () {
+      console.log(this.updatedGroup.demographics);
       this.close();
-      return this.groupName.analytics; // this needs to go to Amplitude somehow
     },
   },
 };
