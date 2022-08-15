@@ -170,7 +170,7 @@ async function registerLocal (req, res, { isV3 = false }) {
       }
       return false;
     });
-    if (!hasSocialAuth) throw new NotAuthorized(res.t('onlySocialAttachLocal'));
+    if (!hasSocialAuth && existingUser.auth.local.hashed_password) throw new NotAuthorized(res.t('onlySocialAttachLocal'));
     existingUser.auth.local = newUser.auth.local;
     newUser = existingUser;
   } else {
