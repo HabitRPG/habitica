@@ -250,15 +250,21 @@
           </ul>
           <hr>
           <div v-if="!user.auth.local.has_password">
-            <h5 v-if="!user.auth.local.email">{{ $t('addLocalAuth') }}</h5>
-            <h5 v-if="user.auth.local.email">{{ $t('addPasswordAuth') }}</h5>
+            <h5 v-if="!user.auth.local.email">
+              {{ $t('addLocalAuth') }}
+            </h5>
+            <h5 v-if="user.auth.local.email">
+              {{ $t('addPasswordAuth') }}
+            </h5>
             <div
               class="form"
               name="localAuth"
               novalidate="novalidate"
             >
-              <div class="form-group"
-               v-if="!user.auth.local.email">
+              <div
+                v-if="!user.auth.local.email"
+                class="form-group"
+              >
                 <input
                   v-model="localAuth.email"
                   class="form-control"
@@ -385,7 +391,7 @@
             {{ $t('changeEmail') }}
           </h5>
           <div
-            v-if="user.auth.local.has_password"
+            v-if="user.auth.local.email"
             class="form"
             name="changeEmail"
             novalidate="novalidate"
