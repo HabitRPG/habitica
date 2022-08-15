@@ -13,6 +13,12 @@ describe('GET /user/auth/apple', () => {
   let randomAppleId = '123456';
 
   beforeEach(async () => {
+    randomAppleId = generateUUID();
+    const expectedResult = { id: randomAppleId, name: 'an apple user' };
+    sandbox.stub(appleAuth, 'appleProfile').returns(Promise.resolve(expectedResult));
+  });
+
+  beforeEach(async () => {
     api = requester();
     user = await generateUser();
     randomAppleId = generateUUID();

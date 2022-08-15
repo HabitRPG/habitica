@@ -6,6 +6,7 @@ import {
   translate as t,
   getProperty,
 } from '../../../../../helpers/api-integration/v3';
+import { v4 as generateUUID } from 'uuid';
 
 describe('POST /user/auth/social', () => {
   let api;
@@ -87,13 +88,9 @@ describe('POST /user/auth/social', () => {
 
     it('logs an existing user in if they have local auth with matching email', async () => {
       passport._strategies.facebook.userProfile.restore();
-      const expectedResult = {
-        id: randomFacebookId,
-        displayName: 'a facebook user',
-        emails: [
-          { value: user.auth.local.email },
-        ],
-      };
+      const expectedResult = { id: randomFacebookId, displayName: 'a facebook user', emails: [
+        { value: user.auth.local.email},
+      ] };
       sandbox.stub(passport._strategies.facebook, 'userProfile').yields(null, expectedResult);
 
       const response = await api.post(endpoint, {
@@ -114,13 +111,9 @@ describe('POST /user/auth/social', () => {
       expect(registerResponse.newUser).to.be.true;
       // This is important for existing accounts before the new social handling
       passport._strategies.facebook.userProfile.restore();
-      const expectedResult = {
-        id: randomFacebookId,
-        displayName: 'a facebook user',
-        emails: [
-          { value: user.auth.local.email },
-        ],
-      };
+      const expectedResult = { id: randomFacebookId, displayName: 'a facebook user', emails: [
+        { value: user.auth.local.email},
+      ] };
       sandbox.stub(passport._strategies.facebook, 'userProfile').yields(null, expectedResult);
 
       const response = await api.post(endpoint, {
@@ -176,13 +169,9 @@ describe('POST /user/auth/social', () => {
   describe('google', () => {
     beforeEach(async () => {
       randomGoogleId = generateUUID();
-      const expectedResult = {
-        id: randomGoogleId,
-        displayName: 'a google user',
-        emails: [
-          { value: `${user.auth.local.username}+google@example.com` },
-        ],
-      };
+      const expectedResult = { id: randomGoogleId, displayName: 'a google user', emails: [
+        { value: `${user.auth.local.username}+google@example.com`}
+      ]  };
       sandbox.stub(passport._strategies.google, 'userProfile').yields(null, expectedResult);
       network = 'google';
     });
@@ -224,13 +213,9 @@ describe('POST /user/auth/social', () => {
 
     it('logs an existing user in if they have local auth with matching email', async () => {
       passport._strategies.google.userProfile.restore();
-      const expectedResult = {
-        id: randomGoogleId,
-        displayName: 'a google user',
-        emails: [
-          { value: user.auth.local.email },
-        ],
-      };
+      const expectedResult = { id: randomGoogleId, displayName: 'a google user', emails: [
+        { value: user.auth.local.email},
+      ] };
       sandbox.stub(passport._strategies.google, 'userProfile').yields(null, expectedResult);
 
       const response = await api.post(endpoint, {
@@ -251,13 +236,9 @@ describe('POST /user/auth/social', () => {
       expect(registerResponse.newUser).to.be.true;
       // This is important for existing accounts before the new social handling
       passport._strategies.google.userProfile.restore();
-      const expectedResult = {
-        id: randomGoogleId,
-        displayName: 'a google user',
-        emails: [
-          { value: user.auth.local.email },
-        ],
-      };
+      const expectedResult = { id: randomGoogleId, displayName: 'a google user', emails: [
+        { value: user.auth.local.email},
+      ] };
       sandbox.stub(passport._strategies.google, 'userProfile').yields(null, expectedResult);
 
       const response = await api.post(endpoint, {
