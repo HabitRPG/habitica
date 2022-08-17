@@ -168,7 +168,7 @@
         </ul>
       </div>
       <!-- Social - Phone -->
-      <div class="social display-invisible phone-visible">
+      <!--       <div class="social display-invisible phone-visible">
         <h3>{{ $t('footerSocial') }}</h3>
         <div class="icons">
           <a
@@ -211,17 +211,18 @@
             ></div>
           </a>
         </div>
-      </div>
-
+      </div> -->
 
       <!-- Help Support Habitica -->
-      <div class="support">
-        <h3>{{ $t('helpSupportHabitica') }}</h3>
-        <div class="donate-text">
-          {{ $t('donateText3') }}
+      <div class="donate">
+        <div>
+          <h3>{{ $t('helpSupportHabitica') }}</h3>
+          <p class="donate-text">
+            {{ $t('donateText3') }}
+          </p>
         </div>
       </div>
-      <div class="offset-sm-0">
+      <div class="donate-button">
         <button
           class="button btn-contribute"
           @click="donate()"
@@ -233,65 +234,71 @@
       </div>
 
       <!-- Social - Desktop/Tablet -->
-      <div class="social display-visible phone-invisible">
-        <h3>{{ $t('footerSocial') }}</h3>
-        <div class="icons align-items-center">
-          <a
-            class="social-circle"
-            href="https://www.instagram.com/habitica/"
-            target="_blank"
-          >
-            <div
-              class="social-icon svg-icon instagram"
-              v-html="icons.instagram"
-            ></div>
-          </a>
-          <a
-            class="social-circle"
-            href="https://twitter.com/habitica"
-            target="_blank"
-          >
-            <div
-              class="social-icon svg-icon twitter"
-              v-html="icons.twitter"
-            ></div>
-          </a>
-          <a
-            class="social-circle"
-            href="https://www.facebook.com/Habitica"
-            target="_blank"
-          >
-            <div
-              class="social-icon facebook svg-icon"
-              v-html="icons.facebook"
-            ></div>
-          </a><a
-            class="social-circle"
-            href="https://www.tumblr.com/Habitica"
-            target="_blank"
-          >
-            <div
-              class="social-icon tumblr svg-icon"
-              v-html="icons.tumblr"
-            ></div>
-          </a>
+      <div class="social">
+        <div>
+          <h3>{{ $t('footerSocial') }}</h3>
+          <div class="icons">
+            <a
+              class="social-circle"
+              href="https://www.instagram.com/habitica/"
+              target="_blank"
+            >
+              <div
+                class="social-icon svg-icon instagram"
+                v-html="icons.instagram"
+              ></div>
+            </a>
+            <a
+              class="social-circle"
+              href="https://twitter.com/habitica"
+              target="_blank"
+            >
+              <div
+                class="social-icon svg-icon twitter"
+                v-html="icons.twitter"
+              ></div>
+            </a>
+            <a
+              class="social-circle"
+              href="https://www.facebook.com/Habitica"
+              target="_blank"
+            >
+              <div
+                class="social-icon facebook svg-icon"
+                v-html="icons.facebook"
+              ></div>
+            </a><a
+              class="social-circle"
+              href="https://www.tumblr.com/Habitica"
+              target="_blank"
+            >
+              <div
+                class="social-icon tumblr svg-icon"
+                v-html="icons.tumblr"
+              ></div>
+            </a>
+          </div>
         </div>
       </div>
 
       <div class="hr">
-        <hr>
+        <div>
+          <hr>
+        </div>
       </div>
 
-      <div class=" copyright display-visible phone-invisible">
-        <div class="col-lg-3 col-xs-12 copyright">
+      <div class=" copyright">
+        <div>
           © {{ currentYear }} Habitica. All rights reserved.
         </div>
-        <div class="melior">
-          <div
-            class="logo svg-icon"
-            v-html="icons.gryphon"
-          ></div>
-        </div>
+      </div>
+      <div class="melior">
+        <div
+          class="logo svg-icon"
+          v-html="icons.gryphon"
+        ></div>
+      </div>
+      <div class="privacy-terms">
         <span class="privacy-policy">
           <a
             target="_blank"
@@ -305,7 +312,7 @@
           >{{ $t('terms') }}</a>
         </span>
       </div>
-      <div class=" copyright display-invisible phone-visible">
+      <!--       <div class=" copyright">
         <div class="copyright">
           © {{ currentYear }} Habitica. All rights reserved.
         </div>
@@ -327,82 +334,85 @@
             href="/static/privacy"
           >{{ $t('privacy') }}</a>
         </div>
-      </div>
+      </div> -->
 
       <div
         v-if="!IS_PRODUCTION && isUserLoaded"
+        class="debug-toggle"
       >
         <button
-          class="debug btn btn-primary"
+          class="debug debug-group btn-primary"
           @click="debugMenuShown = !debugMenuShown"
         >
           Toggle Debug Menu
         </button>
         <div
           v-if="debugMenuShown"
-          class="debug-group"
+          class="debug-toggle debug-group"
         >
-          <a
-            class="btn btn-secondary"
-            @click="setHealthLow()"
-          >Reduce Health to 1</a>
-          <a
-            class="btn btn-secondary"
-            @click="addMissedDay(1)"
-          >+1 Missed Day</a>
-          <a
-            class="btn btn-secondary"
-            @click="addMissedDay(2)"
-          >+2 Missed Days</a>
-          <a
-            class="btn btn-secondary"
-            @click="addMissedDay(8)"
-          >+8 Missed Days</a>
-          <a
-            class="btn btn-secondary"
-            @click="addMissedDay(32)"
-          >+32 Missed Days</a>
-          <a
-            class="btn btn-secondary"
-            @click="addTenGems()"
-          >+10 Gems</a>
-          <a
-            class="btn btn-secondary"
-            @click="addHourglass()"
-          >+1 Mystic Hourglass</a>
-          <a
-            class="btn btn-secondary"
-            @click="addGold()"
-          >+500GP</a>
-          <a
-            class="btn btn-secondary"
-            @click="plusTenHealth()"
-          >+ 10HP</a>
-          <a
-            class="btn btn-secondary"
-            @click="addMana()"
-          >+MP</a>
-          <a
-            class="btn btn-secondary"
-            @click="addLevelsAndGold()"
-          >+Exp +GP +MP</a>
-          <a
-            class="btn btn-secondary"
-            @click="addExp()"
-          >+Exp</a>
-          <a
-            class="btn btn-secondary"
-            @click="addOneLevel()"
-          >+1 Level</a>
-          <a
-            class="btn btn-secondary"
-            tooltip="+1000 to boss quests. 300 items to collection quests"
-            @click="addQuestProgress()"
-          >Quest Progress Up</a>
-          <a
-            class="btn btn-secondary"
-            @click="makeAdmin()"
-          >Make Admin</a>
+          <div class="debug-pop">
+            <a
+              class="btn btn-secondary"
+              @click="setHealthLow()"
+            >Reduce Health to 1</a>
+            <a
+              class="btn btn-secondary"
+              @click="addMissedDay(1)"
+            >+1 Missed Day</a>
+            <a
+              class="btn btn-secondary"
+              @click="addMissedDay(2)"
+            >+2 Missed Days</a>
+            <a
+              class="btn btn-secondary"
+              @click="addMissedDay(8)"
+            >+8 Missed Days</a>
+            <a
+              class="btn btn-secondary"
+              @click="addMissedDay(32)"
+            >+32 Missed Days</a>
+            <a
+              class="btn btn-secondary"
+              @click="addTenGems()"
+            >+10 Gems</a>
+            <a
+              class="btn btn-secondary"
+              @click="addHourglass()"
+            >+1 Mystic Hourglass</a>
+            <a
+              class="btn btn-secondary"
+              @click="addGold()"
+            >+500GP</a>
+            <a
+              class="btn btn-secondary"
+              @click="plusTenHealth()"
+            >+ 10HP</a>
+            <a
+              class="btn btn-secondary"
+              @click="addMana()"
+            >+MP</a>
+            <a
+              class="btn btn-secondary"
+              @click="addLevelsAndGold()"
+            >+Exp +GP +MP</a>
+            <a
+              class="btn btn-secondary"
+              @click="addExp()"
+            >+Exp</a>
+            <a
+              class="btn btn-secondary"
+              @click="addOneLevel()"
+            >+1 Level</a>
+            <a
+              class="btn btn-secondary"
+              tooltip="+1000 to boss quests. 300 items to collection quests"
+              @click="addQuestProgress()"
+            >Quest Progress Up</a>
+            <a
+              class="btn btn-secondary"
+              @click="makeAdmin()"
+            >Make Admin</a>
+          </div>
         </div>
       </div>
     </footer>
@@ -418,7 +428,6 @@
 }
 
 button {
-  background: #FFF;
   border: none;
   border-radius: 4px;
   text-align: center;
@@ -446,14 +455,60 @@ li {
 .community { grid-area: community; }
 .support { grid-area: support; }
 .developers { grid-area: developers; }
+
+// row 2
 .donate {
   align-items: flex-end;
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
   grid-area: donate;
+  padding-top: 12px;
 }
-.social { grid-area: social; }
-.copyright { grid-area: copyright; }
+.donate-text {
+  grid-area: donate-text;
+  font-size: 0.75rem;
+  font-color: $gray-100;
+  line-height: 1.33;
+  display: flex;
+  flex-shrink: 1;
+}
+.donate-button {
+  grid-area: donate-button;
+  padding-top: 44px;
+ }
+.social {
+  align-items: flex-start;
+  display: flex;
+  justify-content: start;
+  grid-area: social;
+  padding-top: 12px;
+}
+
+// row 3
+.hr {
+  color: $gray-400;
+  grid-area: hr;
+}
+
+// row 4
+.copyright {
+  grid-area: copyright;
+  line-height: 1.71;
+}
+.melior { grid-area: melior; }
+.privacy-terms {
+  grid-area: privacy-terms;
+  display: flex;
+  justify-content: end;
+  line-height: 1.71;
+}
+.terms {
+  padding-left: 16px;
+  }
+
+// row 5
+.debug-toggle { grid-area: debug-toggle;}
+.debog-pop { grid-area: debug-pop; }
 
 footer {
   background-color: $gray-500;
@@ -466,61 +521,42 @@ footer {
     color: $purple-300;
     text-decoration: underline;
   }
-
-  // needed to make "report a bug"'s hover state correct
-  a:not([href]):not([class]):hover {
-  color: $purple-300;
-  text-decoration: underline;
+  a:not([href]):not([class]):hover { // needed to make "report a bug"'s hover state correct
+    color: $purple-300;
+    text-decoration: underline;
   }
 
   column-gap: 1.5rem;
   display: grid;
   grid-template-areas:
     "product company community support developers"
-    "donate donate donate donate social"
-    "copyright copyright copyright copyright copyright";
+    "donate donate donate donate-button social"
+    "donate-text donate-text donate-text donate-button social"
+    "hr hr hr hr hr"
+    "copyright copyright melior privacy-terms privacy-terms"
+    "debug-toggle debug-toggle debug-toggle blank blank";
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: auto;
-  padding: 0 1.5rem;
+
 }
 
 h3 {
   font-weight: bold;
 }
 
-ul {
-  padding-left: 0;
-  list-style-type: none;
-}
+// .display-invisible {
+//   visibility: hidden !important;
+//   display: none;
+// }
 
-li {
-  margin-bottom: 8px;
-}
-
-hr {
-  margin: 0 0 13px;
-  background-color: $gray-400;
-}
-
-.display-invisible {
-  visibility: hidden !important;
-  display: none;
-}
-
-.display-visible {
-  visibility: visible !important;
-}
+// .display-visible {
+//   visibility: visible !important;
+// }
 
 .icons {
   display: flex;
-  flex-shrink: 1;
-  height: 32px;
-}
-
-.donate-text {
-  font-size: 0.75rem;
-  font-color: $gray-100;
-  line-height: 1.33;
+  height: 24px;
+  padding-top: 4px;
 }
 
 .social-circle {
@@ -538,20 +574,11 @@ hr {
   }
 }
 
-.copyright {
-  height: 24px;
-  line-height: 1.71;
-}
-
 .logo {
   width: 24px;
   height: 24px;
   margin: 0px auto 5px;
   color: $gray-200;
-}
-
-.privacy-policy {
-  display: flex;
 }
 
 .terms {
@@ -566,34 +593,26 @@ hr {
 }
 
 .debug-group {
-  top: -300px;
-  background: $gray-600;
-  border-radius: 8px;
+  border-radius: 4px;
   padding: 16px;
-  width: 60%;
   box-shadow: 0 1px 3px 0 rgba(26, 24, 29, 0.12), 0 1px 2px 0 rgba(26, 24, 29, 0.24);
-  margin-top: 8px;
-}
+  font-weight: 700;
 
- .debug-group .btn {
-  margin: 2px
+ .btn {
+  margin: 2px;
+  }
 }
 
 .btn-contribute {
   background: $white;
-  box-shadow: none;
   border-radius: 2px;
   width: 175px;
   height: 32px;
   color: $gray-50;
   text-align: center;
-  line-height: 1.71;
-  font-weight: bold;
-  font-size: 0.875rem;
   vertical-align: middle;
   padding: 0;
-  margin: 32px 0 32px 24px;
-  box-shadow: 0 1px 3px 0 rgba(26, 24, 29, 0.12), 0 1px 2px 0 rgba(26, 24, 29, 0.24);
+  margin: 0;
 
   a {
     display: flex;
@@ -605,29 +624,123 @@ hr {
   }
 }
 
-
 // media breakpoints
 
-// extra-large
-// @media (min-width: 1440.02px) {
-//   .social {
-//     right: -80px;
-//   }
-// }
+// Small devices (landscape phones, 576px and up)
+@media (max-width: 576px) {
 
-// Laptops
-// @media (max-width: 1440px) {
-//   .social {
-//     right: -55px;
-//   }
-// }
+  // row 1
+  .product {
+    grid-area: product;
+    padding-top: 12px;
+     }
+  .company {
+    grid-area: company;
+    padding-top: 12px;
+  }
 
-// Tablets
-// @media (max-width: 810px) {
-//   .social {
-//     right: 0px;
-//   }
-// }
+  //row 2
+  .community {
+    grid-area: community;
+    padding-top: 12px;
+  }
+  .support {
+    grid-area: support;
+    padding-top: 12px;
+  }
+
+  //row 3
+  .developers {
+    grid-area: developers;
+    padding-top: 12px;
+  }
+  .social {
+  grid-area: social;
+  padding-top: 12px;
+  }
+
+  // row 4
+  .donate {
+    grid-area: donate;
+  }
+  // row 5
+  .donate-text {
+    grid-area: donate-text;
+  }
+  //row 6
+  .donate-button {
+    grid-area: donate-button;
+    padding-top: 0px;
+   }
+
+  // row 7
+  .hr {
+    grid-area: hr;
+  }
+
+  // row 8
+  .copyright {
+    grid-area: copyright;
+    display: flex;
+    justify-content: center;
+  }
+  // row 9
+  .privacy-terms {
+    grid-area: privacy-terms;
+    display: flex;
+    justify-content: center;
+  }
+  //row 10
+  .melior { grid-area: melior; }
+
+  // row 11
+  .debug-toggle { grid-area: debug-toggle;}
+  .debog-pop { grid-area: debug-pop; }
+
+  footer {
+    padding: 24px 16px;
+    a:not([href]):not([class]):hover { // needed to make "report a bug"'s hover state correct
+      color: $purple-300;
+      text-decoration: underline;
+    }
+
+    column-gap: 1.5rem;
+    display: grid;
+    grid-template-areas:
+      "product company"
+      "community support"
+      "developers social"
+      "donate donate"
+      "donate-text donate-text"
+      "donate-button donate-button"
+      "hr hr"
+      "copyright copyright"
+      "privacy-terms privacy-terms"
+      "melior melior"
+      "debug-toggle debug-toggle";
+    grid-template-columns: repeat(2, 2fr);
+    grid-template-rows: auto;
+    }
+  .btn-contribute {
+    width: 100%;
+  }
+  .social-circle {
+    margin: 0 6px 0 6px;
+      &:first-child {
+    margin-left: 0;
+    }
+      &:last-child {
+    margin-right: 0;
+    }
+  }
+  .terms {
+    padding-left: 0px;
+    display:flex;
+    justify-content: inherit;
+  }
+}
+// Medium devices (tablets, 768px and up)
+// @media (min-width: 768px) { ... }
 
 // Phones
 // @media (max-width: 428px) {
@@ -779,7 +892,7 @@ hr {
 //     box-shadow: 0 1px 3px 0 rgba(26, 24, 29, 0.12), 0 1px 2px 0 rgba(26, 24, 29, 0.24);
 //     margin-top: 8px;
 //   }
-}
+// }
 
 </style>
 <style lang="scss">
