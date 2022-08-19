@@ -341,7 +341,7 @@
         class="debug-toggle"
       >
         <button
-          class="debug debug-group btn-primary"
+          class="debug btn-primary"
           @click="debugMenuShown = !debugMenuShown"
         >
           Toggle Debug Menu
@@ -508,7 +508,9 @@ li {
 
 // row 5
 .debug-toggle { grid-area: debug-toggle;}
-.debog-pop { grid-area: debug-pop; }
+.debog-pop {
+  grid-area: debug-pop;
+   }
 
 footer {
   background-color: $gray-500;
@@ -597,6 +599,7 @@ h3 {
   padding: 16px;
   box-shadow: 0 1px 3px 0 rgba(26, 24, 29, 0.12), 0 1px 2px 0 rgba(26, 24, 29, 0.24);
   font-weight: 700;
+  background-color: $gray-600;
 
  .btn {
   margin: 2px;
@@ -626,7 +629,7 @@ h3 {
 
 // media breakpoints
 
-// Small devices (landscape phones, 576px and up)
+// Small devices (landscape phones, 576px and under)
 @media (max-width: 576px) {
 
   // row 1
@@ -685,15 +688,28 @@ h3 {
     justify-content: center;
   }
   // row 9
-  .privacy-terms {
-    grid-area: privacy-terms;
+  .privacy-policy {
+    grid-area: privacy-policy;
     display: flex;
     justify-content: center;
+    padding-left :0px;
+  }
+  .privacy-terms {
+    grid-area: none;
+    display: grid;
+    justify-content: self;
+    line-height: 1.71;
   }
   //row 10
+  .terms {
+    padding-left: 0px;
+    display:flex;
+    justify-content: inherit;
+  }
+  // row 11
   .melior { grid-area: melior; }
 
-  // row 11
+  // row 12
   .debug-toggle { grid-area: debug-toggle;}
   .debog-pop { grid-area: debug-pop; }
 
@@ -715,7 +731,8 @@ h3 {
       "donate-button donate-button"
       "hr hr"
       "copyright copyright"
-      "privacy-terms privacy-terms"
+      "privacy-policy privacy-policy"
+      "terms terms"
       "melior melior"
       "debug-toggle debug-toggle";
     grid-template-columns: repeat(2, 2fr);
@@ -732,11 +749,6 @@ h3 {
       &:last-child {
     margin-right: 0;
     }
-  }
-  .terms {
-    padding-left: 0px;
-    display:flex;
-    justify-content: inherit;
   }
 }
 // Medium devices (tablets, 768px and up)
