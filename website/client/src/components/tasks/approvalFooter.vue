@@ -303,7 +303,7 @@ export default {
           return `@${userName} completed at ${moment(completedDate).format('h:mm A')}`;
         }
         if (this.userIsAssigned) {
-          return this.$t('you');
+          return this.$t('youEmphasized');
         }
         return `@${userName}`;
       }

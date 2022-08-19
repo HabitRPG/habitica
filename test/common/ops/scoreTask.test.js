@@ -249,18 +249,6 @@ describe('shared.ops.scoreTask', () => {
       expect(ref.afterUser._tmp.quest.progressDelta).to.eql(secondTaskDelta);
     });
 
-    it('does not modify stats when task need approval', () => {
-      todo.group.approval.required = true;
-      options = {
-        user: ref.afterUser, task: todo, direction: 'up', times: 5, cron: false,
-      };
-      scoreTask(options);
-
-      expect(ref.afterUser.stats.hp).to.eql(50);
-      expect(ref.afterUser.stats.exp).to.equal(ref.beforeUser.stats.exp);
-      expect(ref.afterUser.stats.gp).to.equal(ref.beforeUser.stats.gp);
-    });
-
     context('habits', () => {
       it('up', () => {
         options = {

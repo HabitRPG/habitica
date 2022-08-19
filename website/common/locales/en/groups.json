@@ -369,7 +369,7 @@
   "dayStart": "<strong>Day start</strong>: <%= startTime %>",
   "viewStatus": "Status",
   "lastCompleted": "Last completed",
-  "you": "<strong>You</strong>",
+  "youEmphasized": "<strong>You</strong>",
   "chatTemporarilyUnavailable": "Chat is temporarily unavailable. Please try again later.",
   "newGroupsWelcome": "Welcome to the New Shared Task Board!",
   "newGroupsWhatsNew": "Check Out What's New:",
