@@ -1447,7 +1447,13 @@ schema.methods.unlinkTags = function unlinkTags (user) {
 schema.methods.syncTask = async function groupSyncTask (taskToSync, users, assigningUser) {
   const group = this;
   const toSave = [];
-  for (const user of users) {
+  let usersArray;
+  if (!Array.isArray(users)) {
+    usersArray = [users];
+  } else {
+    usersArray = users;
+  }
+  for (const user of usersArray) {
     const assignmentData = {
       assignedDate: new Date(),
       assignedUsername: user.auth.local.username,
