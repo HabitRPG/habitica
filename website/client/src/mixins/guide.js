@@ -136,8 +136,8 @@ export default {
         case 'patrons': return this.goto('hall', 0);
         case 'items': return this.goto('market', 0);
         case 'stable': return this.goto('pets', 0);
-        // @TODO: same page now case 'stable':     return this.goto('mounts', 0);
         case 'equipment': return this.goto('equipment', 0);
+        case 'groupPlanDetailTaskInformation': return this.alternativeModal('groupPlans', 'group-plans-update');
       }
 
       return null;
@@ -171,6 +171,10 @@ export default {
         showingTour = false;
         this.markTourComplete(chapter);
       });
+    },
+    alternativeModal (chapter, modal) {
+      this.$root.$emit('bv::show::modal', modal);
+      this.markTourComplete(chapter);
     },
     markTourComplete (chapter) {
       const ups = {};

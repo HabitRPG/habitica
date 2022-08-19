@@ -236,6 +236,7 @@ export default new Schema({
       mounts: { $type: Number, default: -1 },
       hall: { $type: Number, default: -1 },
       equipment: { $type: Number, default: -1 },
+      groupPlans: { $type: Number, default: -1 },
     },
     tutorial: {
       common: {

@@ -370,5 +370,22 @@
   "viewStatus": "Status",
   "lastCompleted": "Last completed",
   "you": "<strong>You</strong>",
-  "chatTemporarilyUnavailable": "Chat is temporarily unavailable. Please try again later."
+  "chatTemporarilyUnavailable": "Chat is temporarily unavailable. Please try again later.",
+  "newGroupsWelcome": "Welcome to the New Shared Task Board!",
+  "newGroupsWhatsNew": "Check Out What's New:",
+  "newGroupsBullet01": "Interact with tasks directly from the shared task board",
+  "newGroupsBullet02": "Anyone can complete an unassigned task",
+  "newGroupsBullet03": "Shared tasks reset at the same time for everyone for easier collaboration",
+  "newGroupsBullet04": "Shared Dailies will not cause damage when missed or appear in the Record Yesterday’s Activity prompt",
+  "newGroupsBullet05": "Shared tasks will degrade in color if left incomplete to help track progress",
+  "newGroupsBullet06": "The task status view allows you to quickly see which assignee has completed a task",
+  "newGroupsBullet07": "Toggle the ability to display the shared tasks on your personal task board",
+  "newGroupsBullet08": "The group leader and managers can quickly add tasks from the top of the task columns",
+  "newGroupsBullet09": "A shared task can be unchecked to show it still needs work",
+  "newGroupsBullet10": "Assignment status determines completion condition:",
+  "newGroupsBullet10a": "<strong>Leave a task unassigned</strong> if any member can complete it",
+  "newGroupsBullet10b": "<strong>Assign a task to one member</strong> so only they can complete it",
+  "newGroupsBullet10c": "<strong>Assign a task to multiple members</strong> if they all need to complete it",
+  "newGroupsVisitFAQ": "Visit the <a href='/static/faq#group-plans'>FAQ</a> from the Help dropdown for more guidance.",
+  "newGroupsEnjoy": "We hope you enjoy the new Group Plans experience!"
 }
