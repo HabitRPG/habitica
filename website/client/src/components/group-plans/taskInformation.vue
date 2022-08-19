@@ -319,6 +319,9 @@ export default {
       this.group.members = members;
 
       this.loadTasks();
+      if (this.user.flags.tour.groupPlans !== -2) {
+        this.$root.$emit('bv::show::modal', 'group-plans-update');
+      }
     },
     async loadTasks () {
       this.tasksByType = {

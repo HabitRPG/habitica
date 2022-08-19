@@ -4,6 +4,8 @@
     title="New Shared Task Board"
     size="lg"
     hide-footer="hide-footer"
+    :no-close-on-backdrop="true"
+    :no-close-on-esc="true"
   >
     <div
       slot="modal-header"
@@ -196,6 +198,7 @@ export default {
   },
   methods: {
     close () {
+      this.$store.dispatch('user:set', { 'flags.tour.groupPlans': -2 });
       this.$root.$emit('bv::hide::modal', 'group-plans-update');
     },
   },

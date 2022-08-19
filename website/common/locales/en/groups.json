@@ -386,6 +386,6 @@
   "newGroupsBullet10a": "<strong>Leave a task unassigned</strong> if any member can complete it",
   "newGroupsBullet10b": "<strong>Assign a task to one member</strong> so only they can complete it",
   "newGroupsBullet10c": "<strong>Assign a task to multiple members</strong> if they all need to complete it",
-  "newGroupsVisitFAQ": "Visit the <a href='/static/faq#group-plans'>FAQ</a> from the Help dropdown for more guidance.",
+  "newGroupsVisitFAQ": "Visit the <a href='/static/faq#group-plans' target='_blank'>FAQ</a> from the Help dropdown for more guidance.",
   "newGroupsEnjoy": "We hope you enjoy the new Group Plans experience!"
 }
