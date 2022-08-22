@@ -246,14 +246,15 @@ export default function scoreTask (options = {}, req = {}, analytics) {
 
   if (oldLeveledUp) user._tmp.leveledUp = oldLeveledUp;
 
-  // If they're trying to purchase a too-expensive reward, don't allow them to do that.
-  if (task.value > user.stats.gp && task.type === 'reward') throw new NotAuthorized(i18n.t('messageNotEnoughGold', req.language));
   // Thanks to open group tasks, userId is not guaranteed. Don't allow scoring inaccessible tasks
   if (task.userId && task.userId !== user._id) {
     throw new BadRequest('Cannot score task belonging to another user.');
-  } else if (user.guilds.indexOf(task.group.id) === -1 && user.party._id !== task.group.id) {
+  } else if (task.group.id && user.guilds.indexOf(task.group.id) === -1
+    && user.party._id !== task.group.id) {
     throw new BadRequest('Cannot score task belonging to another user.');
   }
+  // If they're trying to purchase a too-expensive reward, don't allow them to do that.
+  if (task.value > user.stats.gp && task.type === 'reward') throw new NotAuthorized(i18n.t('messageNotEnoughGold', req.language));
 
   if (task.type === 'habit') {
     delta += _changeTaskValue(user, task, direction, times, cron);
