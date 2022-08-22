@@ -452,7 +452,7 @@ async function scoreTask (user, task, direction, req, res) {
       direction,
     }, req, res.analytics);
     rollbackUser.addNotification('GROUP_TASK_NEEDS_WORK', {
-      message: res.t('taskNeedsWork', { taskText: task.text, managerName: user.profile.name }, rollbackUser.preferences.language),
+      message: res.t('taskNeedsWork', { taskText: task.text, managerName: user.auth.local.username }, rollbackUser.preferences.language),
       task: {
         id: task._id,
         text: task.text,
@@ -463,7 +463,7 @@ async function scoreTask (user, task, direction, req, res) {
       },
       manager: {
         id: user._id,
-        name: user.profile.name,
+        name: user.auth.local.username,
       },
     });
     await rollbackUser.save();

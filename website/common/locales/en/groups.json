@@ -201,7 +201,7 @@
   "yourTaskHasBeenApproved": "Your task <span class=\"notification-green notification-bold\"><%- taskText %></span> has been approved.",
   "thisTaskApproved": "This task was approved",
   "taskClaimed": "<%- userName %> has claimed the task <span class=\"notification-bold\"><%- taskText %></span>.",
-  "taskNeedsWork": "<span class=\"notification-bold\"><%- taskText %></span> was unchecked by <span class=\"notification-bold\"><%- managerName %></span>. Your rewards for completing the task were reverted.",
+  "taskNeedsWork": "<span class=\"notification-bold\"><%- taskText %></span> was unchecked by <span class=\"notification-bold\">@<%- managerName %></span>. Your rewards for completing the task were reverted.",
   "userHasRequestedTaskApproval": "<span class=\"notification-bold\"><%- user %></span> requests approval for <span class=\"notification-bold\"><%- taskName %></span>",
   "approve": "Approve",
   "approveTask": "Approve Task",

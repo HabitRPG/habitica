@@ -371,7 +371,7 @@ api.taskNeedsWork = {
 
     await scoreTasks(assignedUser, [{ id: task._id, direction: 'down' }], req, res);
     assignedUser.addNotification('GROUP_TASK_NEEDS_WORK', {
-      message: res.t('taskNeedsWork', { taskText: task.text, managerName: user.profile.name }, assignedUser.preferences.language),
+      message: res.t('taskNeedsWork', { taskText: task.text, managerName: user.auth.local.username }, assignedUser.preferences.language),
       task: {
         id: task._id,
         text: task.text,
@@ -382,7 +382,7 @@ api.taskNeedsWork = {
       },
       manager: {
         id: user._id,
-        name: user.profile.name,
+        name: user.auth.local.username,
       },
     });
     await Promise.all([assignedUser.save(), task.save()]);
