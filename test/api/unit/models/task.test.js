@@ -246,13 +246,23 @@ describe('Task Model', () => {
         expect(foundTasks[0].text).to.eql(taskWithAlias.text);
       });
 
-      it('scopes alias lookup to user', async () => {
+      it('scopes alias lookup to user when querying aliases only', async () => {
         await Tasks.Task.findMultipleByIdOrAlias([taskWithAlias.alias], user._id);
 
         expect(Tasks.Task.find).to.be.calledOnce;
         expect(Tasks.Task.find).to.be.calledWithMatch({
+          alias: { $in: [taskWithAlias.alias] },
+          userId: user._id,
+        });
+      });
+
+      it('scopes alias lookup to user when querying aliases and IDs', async () => {
+        await Tasks.Task.findMultipleByIdOrAlias([taskWithAlias.alias, secondTask._id], user._id);
+
+        expect(Tasks.Task.find).to.be.calledOnce;
+        expect(Tasks.Task.find).to.be.calledWithMatch({
           $or: [
-            { _id: { $in: [] } },
+            { _id: { $in: [secondTask._id] } },
             { alias: { $in: [taskWithAlias.alias] } },
           ],
           userId: user._id,
@@ -270,10 +280,7 @@ describe('Task Model', () => {
 
         expect(Tasks.Task.find).to.be.calledOnce;
         expect(Tasks.Task.find).to.be.calledWithMatch({
-          $or: [
-            { _id: { $in: [] } },
-            { alias: { $in: [taskWithAlias.alias] } },
-          ],
+          alias: { $in: [taskWithAlias.alias] },
           userId: user._id,
           foo: 'bar',
         });

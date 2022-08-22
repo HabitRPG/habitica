@@ -816,7 +816,7 @@ api.moveTask = {
     const group = await getGroupFromTaskAndUser(task, user);
     const challenge = await getChallengeFromTask(task);
     if (task.group.id && !task.userId) {
-      if (!group || user.guilds.concat(user.party._id).indexOf(group._id) === -1) {
+      if (!group || (user.guilds.indexOf(group._id) === -1 && user.party._id !== group._id)) {
         throw new NotFound(res.t('groupNotFound'));
       }
       if (task.group.assignedUsers.length !== 0

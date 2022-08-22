@@ -67,9 +67,7 @@ async function createTasks (req, res, options = {}) {
       newTask.challenge.id = challenge.id;
     } else if (group) {
       newTask.group.id = group._id;
-      if (taskData.requiresApproval) {
-        newTask.group.approval.required = true;
-      }
+      newTask.tags = [group._id];
       newTask.group.managerNotes = taskData.managerNotes || '';
     } else {
       newTask.userId = user._id;

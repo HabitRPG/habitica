@@ -205,7 +205,7 @@ TaskSchema.statics.findByIdOrAlias = async function findByIdOrAlias (
   return task;
 };
 
-TaskSchema.statics.findMultipleByIdOrAlias = async function findByIdOrAlias (
+TaskSchema.statics.findMultipleByIdOrAlias = async function findMultipleByIdOrAlias (
   identifiers,
   userId,
   additionalQueries = {},
@@ -226,6 +226,7 @@ TaskSchema.statics.findMultipleByIdOrAlias = async function findByIdOrAlias (
   });
 
   if (ids.length > 0 && aliases.length > 0) {
+    query.userId = userId;
     query.$or = [
       { _id: { $in: ids } },
       { alias: { $in: aliases } },
@@ -233,6 +234,7 @@ TaskSchema.statics.findMultipleByIdOrAlias = async function findByIdOrAlias (
   } else if (ids.length > 0) {
     query._id = { $in: ids };
   } else if (aliases.length > 0) {
+    query.userId = userId;
     query.alias = { $in: aliases };
   } else {
     throw new Error('No identifiers found.'); // Should be covered by the !identifiers check, but..

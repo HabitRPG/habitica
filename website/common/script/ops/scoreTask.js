@@ -4,6 +4,7 @@ import reduce from 'lodash/reduce';
 import moment from 'moment';
 import max from 'lodash/max';
 import {
+  BadRequest,
   NotAuthorized,
 } from '../libs/errors';
 import i18n from '../i18n';
@@ -247,6 +248,12 @@ export default function scoreTask (options = {}, req = {}, analytics) {
 
   // If they're trying to purchase a too-expensive reward, don't allow them to do that.
   if (task.value > user.stats.gp && task.type === 'reward') throw new NotAuthorized(i18n.t('messageNotEnoughGold', req.language));
+  // Thanks to open group tasks, userId is not guaranteed. Don't allow scoring inaccessible tasks
+  if (task.userId && task.userId !== user._id) {
+    throw new BadRequest('Cannot score task belonging to another user.');
+  } else if (user.guilds.indexOf(task.group.id) === -1 && user.party._id !== task.group.id) {
+    throw new BadRequest('Cannot score task belonging to another user.');
+  }
 
   if (task.type === 'habit') {
     delta += _changeTaskValue(user, task, direction, times, cron);

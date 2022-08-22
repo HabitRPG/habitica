@@ -213,7 +213,8 @@ export default {
       user: 'user.data',
     }),
     assignedUsernames () {
-      if (!this.task.group || !this.task.group.assignedUsers) return [];
+      if (!this.task.group || !this.task.group.assignedUsers
+        || !this.task.group.assignedUsersDetail) return [];
       const usernames = [];
       for (const user of this.task.group.assignedUsers) {
         usernames.push(this.task.group.assignedUsersDetail[user].assignedUsername);
