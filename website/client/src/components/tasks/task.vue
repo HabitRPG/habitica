@@ -307,7 +307,7 @@
                 ></div>
               </div>
               <div
-                v-if="hasTags"
+                v-if="hasTags && !task.group.id"
                 :id="`tags-icon-${task._id}`"
                 class="d-flex align-items-center"
               >
@@ -317,7 +317,7 @@
                 ></div>
               </div>
               <b-popover
-                v-if="hasTags"
+                v-if="hasTags && !task.group.id"
                 :target="`tags-icon-${task._id}`"
                 triggers="hover"
                 placement="bottom"

@@ -363,7 +363,7 @@
           </div>
         </div>
         <div
-          v-if="!challengeAccessRequired"
+          v-if="!challengeAccessRequired && !groupId"
           class="tags-select option mt-3"
         >
           <div class="tags-inline form-group row">

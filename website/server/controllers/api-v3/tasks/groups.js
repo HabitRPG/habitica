@@ -370,6 +370,21 @@ api.taskNeedsWork = {
     if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
     await scoreTasks(assignedUser, [{ id: task._id, direction: 'down' }], req, res);
+    assignedUser.addNotification('GROUP_TASK_NEEDS_WORK', {
+      message: res.t('taskNeedsWork', { taskText: task.text, managerName: user.profile.name }, assignedUser.preferences.language),
+      task: {
+        id: task._id,
+        text: task.text,
+      },
+      group: {
+        id: group._id,
+        name: group.name,
+      },
+      manager: {
+        id: user._id,
+        name: user.profile.name,
+      },
+    });
     await Promise.all([assignedUser.save(), task.save()]);
 
     res.respond(200, task);
