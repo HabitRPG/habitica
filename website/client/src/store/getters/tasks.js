@@ -172,7 +172,8 @@ export function getTaskClasses (store) {
         if (type === 'todo' || type === 'daily') {
           if (task.completed
             || (!shouldDo(dueDate, task, userPreferences) && type === 'daily')
-            || (task.group.assignedUsersDetail && task.group.assignedUsersDetail[userId]
+            || (task.group && task.group.assignedUsersDetail
+              && task.group.assignedUsersDetail[userId]
               && task.group.assignedUsersDetail[userId].completed)
           ) {
             return {
