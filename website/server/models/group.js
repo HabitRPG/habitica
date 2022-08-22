@@ -1485,6 +1485,7 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, users, assig
         group: group._id,
       });
     }
+    toSave.push(user.save());
   }
   toSave.push(taskToSync.save());
   return Promise.all(toSave);
