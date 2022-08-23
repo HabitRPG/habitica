@@ -130,7 +130,7 @@ describe('POST /user/class/cast/:spellId', () => {
       text: 'todo group',
       type: 'todo',
     });
-    await groupLeader.post(`/tasks/${groupTask._id}/assign/${groupLeader._id}`);
+    await groupLeader.post(`/tasks/${groupTask._id}/assign`, [groupLeader._id]);
     const memberTasks = await groupLeader.get('/tasks/user');
     const syncedGroupTask = find(memberTasks, memberTask => memberTask.group.id === group._id);
 
@@ -247,7 +247,7 @@ describe('POST /user/class/cast/:spellId', () => {
       type: 'todo',
     });
     await user.update({ 'stats.class': 'healer', 'stats.mp': 200, 'stats.lvl': 15 });
-    await user.post(`/tasks/${groupTask._id}/assign/${user._id}`);
+    await user.post(`/tasks/${groupTask._id}/assign`, [user._id]);
 
     await user.post('/user/class/cast/brightness');
     await user.sync();
