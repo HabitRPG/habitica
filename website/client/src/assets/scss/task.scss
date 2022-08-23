@@ -30,7 +30,7 @@
       &-bg {
         background: $maroon-100 !important;
         .habit-control:not(.task-not-scoreable):hover { background: rgba($black, 0.5) !important; }
-        .daily-todo-control:hover { background: rgba($white, 0.75) !important; }
+        .daily-todo-control:not(.task-not-scoreable):hover { background: rgba($white, 0.75) !important; }
       }
       &-bg-noninteractive { background: $maroon-100 !important; }
       &-inner-habit { background: rgba($black, 0.25) !important; }
@@ -41,7 +41,7 @@
 
     &-modal {
       &-bg { background: $maroon-100 !important; }
-      &-headings { color: $white; }
+      &-headings { color: $white !important; }
       &-icon { color: $maroon-100 !important; }
       &-text { color: $red-1 !important; }
       &-content {
@@ -61,7 +61,7 @@
       &-bg {
         background: $red-100 !important;
         .habit-control:not(.task-not-scoreable):hover { background: rgba($black, 0.5) !important; }
-        .daily-todo-control:hover { background: rgba($white, 0.75) !important; }
+        .daily-todo-control:not(.task-not-scoreable):hover { background: rgba($white, 0.75) !important; }
       }
       &-bg-noninteractive { background: $red-100 !important; }
       &-inner-habit { background: rgba($black, 0.25) !important; }
@@ -92,7 +92,7 @@
       &-bg {
         background: $orange-100 !important;
         .habit-control:not(.task-not-scoreable):hover { background: rgba($orange-1, 0.5) !important; }
-        .daily-todo-control:hover { background: rgba($white, 0.75) !important; }
+        .daily-todo-control:not(.task-not-scoreable):hover { background: rgba($white, 0.75) !important; }
       }
       &-bg-noninteractive { background: $orange-100 !important; }
       &-inner-habit { background: rgba($orange-1, 0.25) !important; }
@@ -123,7 +123,7 @@
       &-bg {
         background: $yellow-100 !important;
         .habit-control:not(.task-not-scoreable):hover { background: rgba($yellow-1, 0.5) !important; }
-        .daily-todo-control:hover { background: rgba($white, 0.75) !important; }
+        .daily-todo-control:not(.task-not-scoreable):hover { background: rgba($white, 0.75) !important; }
       }
       &-bg-noninteractive { background: $yellow-100 !important; }
       &-inner-habit { background: rgba($yellow-1, 0.25) !important; }
@@ -154,7 +154,7 @@
       &-bg {
         background: $green-100 !important;
         .habit-control:not(.task-not-scoreable):hover { background: rgba($black, 0.5) !important; }
-        .daily-todo-control:hover { background: rgba($white, 0.75) !important; }
+        .daily-todo-control:not(.task-not-scoreable):hover { background: rgba($white, 0.75) !important; }
       }
       &-bg-noninteractive { background: $green-100 !important; }
       &-inner-habit { background: rgba($black, 0.25) !important; }
@@ -186,7 +186,7 @@
       &-bg {
         background: $teal-100 !important;
         .habit-control:not(.task-not-scoreable):hover { background: rgba($black, 0.5) !important; }
-        .daily-todo-control:hover { background: rgba($white, 0.75) !important; }
+        .daily-todo-control:not(.task-not-scoreable):hover { background: rgba($white, 0.75) !important; }
       }
       &-bg-noninteractive { background: $teal-100 !important; }
       &-inner-habit { background: rgba($black, 0.25) !important; }
@@ -217,7 +217,7 @@
       &-bg {
         background: $blue-100 !important;
         .habit-control:not(.task-not-scoreable):hover { background: rgba($black, 0.5) !important; }
-        .daily-todo-control:hover { background: rgba($white, 0.75) !important; }
+        .daily-todo-control:not(.task-not-scoreable):hover { background: rgba($white, 0.75) !important; }
       }
       &-bg-noninteractive { background: $blue-100 !important; }
       &-inner-habit { background: rgba($black, 0.25) !important; }
@@ -249,7 +249,7 @@
       &-bg {
         background: $purple-task !important;
         .habit-control:not(.task-not-scoreable):hover { background: rgba($black, 0.5) !important; }
-        .daily-todo-control:hover { background: rgba($white, 0.75) !important; }
+        .daily-todo-control:not(.task-not-scoreable):hover { background: rgba($white, 0.75) !important; }
       }
       &-inner-habit { background: rgba($black, 0.25) !important; }
       &-inner-daily-todo { background: rgba($white, 0.5) !important; }
@@ -258,7 +258,7 @@
 
     &-modal {
       &-bg { background: $purple-300 !important; }
-      &-headings { color: $white; }
+      &-headings { color: $white !important; }
       &-icon { color: $purple-300 !important; }
       &-text { color: $black !important; }
       &-content {
@@ -281,11 +281,11 @@
         background: rgba($yellow-100, 0.15) !important;
         .small-text { color: $yellow-1 !important; }
 
-        &:hover { background: rgba($yellow-100, 0.25) !important; }
+        &:hover:not(.task-not-scoreable) { background: rgba($yellow-100, 0.25) !important; }
       }
       &-bg-noninteractive {
-        background: rgba($yellow-100, 0.15) !important;
-        .small-text { color: $yellow-1 !important; }
+        background-color: $gray-500 !important;
+        .small-text { color: $gray-100 !important; }
       }
     }
   }
@@ -312,7 +312,7 @@
       &-control {
         &-bg {
           background: $gray-200 !important;
-          .daily-todo-control:hover { background: rgba($white, 0.75) !important; }
+          .daily-todo-control:not(.task-not-scoreable):hover { background: rgba($white, 0.75) !important; }
         }
         &-bg-noninteractive {
           background: $gray-200 !important;
@@ -323,7 +323,7 @@
           background: $gray-600;
 
           .task-title, .task-notes {
-            color: $gray-300 !important;
+            opacity: 0.75;
           }
         }
       }

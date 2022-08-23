@@ -1,5 +1,9 @@
 import moment from 'moment';
-import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
+import compact from 'lodash/compact';
+import forEach from 'lodash/forEach';
+import keys from 'lodash/keys';
+import remove from 'lodash/remove';
 import validator from 'validator';
 import {
   setNextDue,
@@ -17,7 +21,6 @@ import {
   NotAuthorized,
 } from '../errors';
 import {
-  SHARED_COMPLETION,
   handleSharedCompletion,
 } from '../groupTasks';
 import shared from '../../../common';
@@ -64,10 +67,7 @@ async function createTasks (req, res, options = {}) {
       newTask.challenge.id = challenge.id;
     } else if (group) {
       newTask.group.id = group._id;
-      if (taskData.requiresApproval) {
-        newTask.group.approval.required = true;
-      }
-      newTask.group.sharedCompletion = taskData.sharedCompletion || SHARED_COMPLETION.default;
+      newTask.tags = [group._id];
       newTask.group.managerNotes = taskData.managerNotes || '';
     } else {
       newTask.userId = user._id;
@@ -152,23 +152,55 @@ async function getTasks (req, res, options = {}) {
     dueDate,
   } = options;
 
-  let query = { userId: user._id };
+  let query;
   let limit;
   let sort;
+  let upgradedGroups = [];
   const owner = group || challenge || user;
 
   if (challenge) {
     query = { 'challenge.id': challenge.id, userId: { $exists: false } };
   } else if (group) {
-    query = { 'group.id': group._id, userId: { $exists: false } };
+    query = { 'group.id': group._id };
+  } else {
+    const groupsToMirror = user.preferences.tasks.mirrorGroupTasks;
+    if (groupsToMirror && groupsToMirror.length > 0) {
+      upgradedGroups = await Group.find(
+        {
+          _id: { $in: groupsToMirror },
+          'purchased.plan.customerId': { $exists: true },
+          $or: [
+            { 'purchased.plan.dateTerminated': { $exists: false } },
+            { 'purchased.plan.dateTerminated': null },
+            { 'purchased.plan.dateTerminated': { $gt: new Date() } },
+          ],
+        },
+        { _id: 1 },
+      ).exec();
+    }
+    if (upgradedGroups.length > 0) {
+      const upgradedGroupIds = [];
+      for (const upgradedGroup of upgradedGroups) {
+        upgradedGroupIds.push(upgradedGroup._id);
+      }
+      query = {
+        $or: [
+          { userId: user._id },
+          { 'group.assignedUsers': user._id },
+          { 'group.id': { $in: upgradedGroupIds }, 'group.assignedUsers.0': { $exists: false } },
+        ],
+      };
+    } else {
+      query = { userId: user._id };
+    }
   }
 
   const { type } = req.query;
 
   if (type) {
     if (type === 'todos') {
-      query.completed = false; // Exclude completed todos
       query.type = 'todo';
+      query.completed = false; // Exclude completed todos
     } else if (type === 'completedTodos' || type === '_allCompletedTodos') { // _allCompletedTodos is currently in BETA and is likely to be removed in future
       limit = 30;
 
@@ -179,7 +211,13 @@ async function getTasks (req, res, options = {}) {
       query.type = 'todo';
       query.completed = true;
 
-      if (owner._id === user._id) {
+      if (upgradedGroups.length > 0) {
+        query.$or = [
+          { userId: user._id },
+          { 'group.assignedUsers': user._id },
+          { 'group.completedBy.userId': user._id },
+        ];
+      } else if (owner._id === user._id) {
         query.userId = user._id;
       }
 
@@ -190,10 +228,12 @@ async function getTasks (req, res, options = {}) {
       query.type = type.slice(0, -1); // removing the final "s"
     }
   } else {
-    query.$or = [ // Exclude completed todos
-      { type: 'todo', completed: false },
-      { type: { $in: ['habit', 'daily', 'reward'] } },
-    ];
+    query.$and = [{
+      $or: [ // Exclude completed todos
+        { type: 'todo', completed: false },
+        { type: { $in: ['habit', 'daily', 'reward'] } },
+      ],
+    }];
   }
 
   const mQuery = Tasks.Task.find(query);
@@ -207,6 +247,19 @@ async function getTasks (req, res, options = {}) {
       setNextDue(task, user, dueDate);
     });
   }
+
+  let ownerDirty = false;
+  // Prune nonexistent tasks from tasksOrder
+  forEach(owner.tasksOrder, (taskOrder, key) => {
+    if (type && key.slice(0, -1) !== type) return;
+    const preLength = taskOrder.length;
+    remove(taskOrder, taskId => tasks.findIndex(task => task._id === taskId) === -1);
+    if (preLength !== taskOrder.length) {
+      owner.tasksOrder[key] = taskOrder;
+      owner.markModified('tasksOrder');
+      ownerDirty = true;
+    }
+  });
 
   // Order tasks based on tasksOrder
   let order = [];
@@ -228,13 +281,18 @@ async function getTasks (req, res, options = {}) {
     const i = order[index] === taskId ? index : order.indexOf(taskId);
     if (i === -1) {
       unorderedTasks.push(task);
+      const typeString = `${task.type}s`;
+      owner.tasksOrder[typeString].push(taskId);
+      ownerDirty = true;
     } else {
       orderedTasks[i] = task;
     }
   });
 
+  if (ownerDirty) await owner.save();
+
   // Remove empty values from the array and add any unordered task
-  orderedTasks = _.compact(orderedTasks).concat(unorderedTasks);
+  orderedTasks = compact(orderedTasks).concat(unorderedTasks);
   return orderedTasks;
 }
 
@@ -301,22 +359,23 @@ async function handleChallengeTask (task, delta, direction) {
   }
 }
 
-async function handleGroupTask (task, delta, direction) {
+async function handleTeamTask (task, delta, direction) {
   if (task.group && task.group.taskId) {
     // Wrapping everything in a try/catch block because if an error occurs
     // using `await` it MUST NOT bubble up because the request has already been handled
     try {
-      const groupTask = await Tasks.Task.findOne({
+      const teamTask = await Tasks.Task.findOne({
         _id: task.group.taskId,
       }).exec();
 
-      if (groupTask) {
-        await handleSharedCompletion(groupTask, task);
-
-        const groupDelta = groupTask.group.assignedUsers
-          ? delta / groupTask.group.assignedUsers.length
+      if (teamTask) {
+        const groupDelta = teamTask.group.assignedUsers
+          ? delta / keys(teamTask.group.assignedUsers).length
           : delta;
-        await groupTask.scoreChallengeTask(groupDelta, direction);
+        await teamTask.scoreChallengeTask(groupDelta, direction);
+        if (task.type === 'daily' || task.type === 'todo') {
+          await handleSharedCompletion(teamTask);
+        }
       }
     } catch (e) {
       logger.error(e, 'Error scoring group task');
@@ -334,104 +393,94 @@ async function handleGroupTask (task, delta, direction) {
 */
 async function scoreTask (user, task, direction, req, res) {
   if (task.type === 'daily' || task.type === 'todo') {
-    if (task.completed && direction === 'up') {
+    if (task.group.id && task.group.assignedUsersDetail
+      && task.group.assignedUsersDetail[user._id]
+    ) {
+      if (task.group.assignedUsersDetail[user._id].completed && direction === 'up') {
+        throw new NotAuthorized(res.t('sessionOutdated'));
+      } else if (!task.group.assignedUsersDetail[user._id].completed && direction === 'down') {
+        throw new NotAuthorized(res.t('sessionOutdated'));
+      }
+    } else if (task.completed && direction === 'up') {
       throw new NotAuthorized(res.t('sessionOutdated'));
     } else if (!task.completed && direction === 'down') {
       throw new NotAuthorized(res.t('sessionOutdated'));
     }
   }
 
-  if (task.group.approval.required && !task.group.approval.approved) {
-    const fields = requiredGroupFields.concat(' managers');
-    const group = await Group.getGroup({ user, groupId: task.group.id, fields });
+  let rollbackUser;
+  let group;
 
-    const managerIds = Object.keys(group.managers);
-    managerIds.push(group.leader);
-
-    if (managerIds.indexOf(user._id) !== -1) {
-      task.group.approval.approved = true;
-      task.group.approval.requested = true;
-      task.group.approval.requestedDate = new Date();
-    } else {
-      if (task.group.approval.requested) {
-        return {
-          task,
-          requiresApproval: true,
-          message: res.t('taskRequiresApproval'),
-        };
-      }
-
-      task.group.approval.requested = true;
-      task.group.approval.requestedDate = new Date();
-
-      const managers = await User.find({ _id: managerIds }, 'notifications preferences').exec(); // Use this method so we can get access to notifications
-
-      // @TODO: we can use the User.pushNotification function because
-      // we need to ensure notifications are translated
-      const managerPromises = [];
-      managers.forEach(manager => {
-        manager.addNotification('GROUP_TASK_APPROVAL', {
-          message: res.t('userHasRequestedTaskApproval', {
-            user: user.profile.name,
-            taskName: task.text,
-          }, manager.preferences.language),
-          groupId: group._id,
-          // user task id, used to match the notification when the task is approved
-          taskId: task._id,
-          userId: user._id,
-          groupTaskId: task.group.taskId, // the original task id
-          direction,
-        });
-        managerPromises.push(manager.save());
-      });
-
-      managerPromises.push(task.save());
-      await Promise.all(managerPromises);
-
-      return {
-        task,
-        requiresApproval: true,
-        message: res.t('taskApprovalHasBeenRequested'),
-      };
-    }
+  if (task.group.id) {
+    group = await Group.getGroup({
+      user,
+      groupId: task.group.id,
+      fields: 'leader managers',
+    });
   }
-
-  if (task.group.approval.required && task.group.approval.approved) {
-    const notificationIndex = user.notifications.findIndex(notification => notification
-       && notification.data && notification.data.task
-       && notification.data.task._id === task._id && notification.type === 'GROUP_TASK_APPROVED');
-
-    if (notificationIndex !== -1) {
-      user.notifications.splice(notificationIndex, 1);
+  if (
+    group && task.group.id && !task.userId // Task is on team board
+    && ['todo', 'daily'].includes(task.type) // Task is a To Do or Daily
+    && direction === 'down' // Task is being "unchecked"
+  ) {
+    const userIsManagement = group.leader === user._id || Boolean(group.managers[user._id]);
+    if (!userIsManagement
+      && !(task.group.completedBy && task.group.completedBy.userId === user._id)
+      && !(task.group.assignedUsersDetail && task.group.assignedUsersDetail[user._id])
+    ) {
+      throw new BadRequest('Cannot uncheck task you did not complete if not a manager.');
     }
+    if (task.group.assignedUsers && keys(task.group.assignedUsers).length === 1) {
+      const rollbackUserId = keys(task.group.assignedUsers)[0];
+      rollbackUser = await User.findOne({ _id: rollbackUserId });
+    } else {
+      rollbackUser = await User.findOne({ _id: task.group.completedBy.userId });
+    }
+    task.group.completedBy = {};
   }
 
   const wasCompleted = task.completed;
-
   const firstTask = !user.achievements.completedTask;
-  const delta = shared.ops.scoreTask({ task, user, direction }, req, res.analytics);
+  let delta;
+
+  if (rollbackUser) {
+    delta = shared.ops.scoreTask({
+      task,
+      user: rollbackUser,
+      direction,
+    }, req, res.analytics);
+    await rollbackUser.save();
+  } else {
+    delta = shared.ops.scoreTask({ task, user, direction }, req, res.analytics);
+  }
   // Drop system (don't run on the client,
   // as it would only be discarded since ops are sent to the API, not the results)
   if (direction === 'up' && !firstTask) shared.fns.randomDrop(user, { task, delta }, req, res.analytics);
 
   // If a todo was completed or uncompleted move it in or out of the user.tasksOrder.todos list
   // TODO move to common code?
-  let pullTask = false;
-  let pushTask = false;
+  let pullTask;
+  let pushTask;
   if (task.type === 'todo') {
     if (!wasCompleted && task.completed) {
       // @TODO: mongoose's push and pull should be atomic and help with
       // our concurrency issues. If not, we need to use this update $pull and $push
-      pullTask = true;
-      // user.tasksOrder.todos.pull(task._id);
+      pullTask = task._id;
     } else if (
       wasCompleted
       && !task.completed
       && user.tasksOrder.todos.indexOf(task._id) === -1
     ) {
-      pushTask = true;
-      // user.tasksOrder.todos.push(task._id);
+      pushTask = task._id;
     }
+  }
+
+  if (task.completed && task.group.id
+    && !task.userId && !task.group.assignedUsers) {
+    task.group.completedBy = {
+      userId: user._id,
+      date: new Date(),
+    };
   }
 
   setNextDue(task, user);
@@ -443,6 +492,27 @@ async function scoreTask (user, task, direction, req, res) {
     user,
   });
 
+  if (group) {
+    let role;
+    if (group.leader === user._id) {
+      role = 'leader';
+    } else if (group.managers[user._id]) {
+      role = 'manager';
+    } else {
+      role = 'member';
+    }
+    res.analytics.track('team task scored', {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      taskType: task.type,
+      direction,
+      headers: req.headers,
+      groupID: group._id,
+      role,
+    });
+  }
+
   return {
     task,
     delta,
@@ -451,7 +521,7 @@ async function scoreTask (user, task, direction, req, res) {
     pushTask,
     // clone user._tmp so that it's not overwritten by other score operations
     // when using the bulk scoring API
-    _tmp: _.cloneDeep(user._tmp),
+    _tmp: cloneDeep(user._tmp),
   };
 }
 
@@ -519,8 +589,8 @@ export async function scoreTasks (user, taskScorings, req, res) {
   const pushIDs = [];
 
   returnDatas.forEach(returnData => {
-    if (returnData.pushTask === true) pushIDs.push(returnData.task._id);
-    if (returnData.pullTask === true) pullIDs.push(returnData.task._id);
+    if (returnData.pushTask) pushIDs.push(returnData.pushTask);
+    if (returnData.pullTask) pullIDs.push(returnData.pullTask);
   });
 
   const moveUpdateObject = {};
@@ -535,14 +605,7 @@ export async function scoreTasks (user, taskScorings, req, res) {
   return returnDatas.map(data => {
     // Handle challenge and group tasks tasks here because the task must have been saved first
     handleChallengeTask(data.task, data.delta, data.direction);
-    handleGroupTask(data.task, data.delta, data.direction);
-
-    // Handle group tasks that require approval
-    if (data.requiresApproval === true) {
-      return {
-        id: data.task._id, message: data.message, requiresApproval: true,
-      };
-    }
+    handleTeamTask(data.task, data.delta, data.direction);
 
     return { id: data.task._id, delta: data.delta, _tmp: data._tmp };
   });

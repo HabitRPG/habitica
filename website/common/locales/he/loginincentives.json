@@ -1,12 +1,12 @@
 {
     "unlockedReward": "קיבלת <%= reward %>",
     "earnedRewardForDevotion": "זכית ב<%= reward %> עבור המחוייבות שלך לשפר את חייך.",
-    "nextRewardUnlocksIn": "",
+    "nextRewardUnlocksIn": "כניסות שנותרו עד הפרס הבא שלך: <%= numberOfCheckinsLeft %>",
     "awesome": "אחלה!",
     "countLeft": "Check-ins until next reward: <%= count %>",
-    "incentivesDescription": "",
-    "checkinEarned": "",
-    "unlockedCheckInReward": "",
+    "incentivesDescription": "כשזה מגיע לבניית הרגלים, עקביות היא המפתח. רצף של כניסה יומיומית יעניק לך פרס.",
+    "checkinEarned": "מספר הכניסות היומיומיות שלך עולה ועולה!",
+    "unlockedCheckInReward": "שחררת פרס של כניסה יומיומית!",
     "checkinProgressTitle": "",
     "incentiveBackgroundsUnlockedWithCheckins": "",
     "oneOfAllPetEggs": "",
@@ -19,7 +19,7 @@
     "threeSaddles": "שלושה אוכפים",
     "incentiveAchievement": "",
     "royallyLoyal": "",
-    "royallyLoyalText": "",
-    "checkInRewards": "",
-    "backloggedCheckInRewards": ""
+    "royallyLoyalText": "המשתמש הזה נכנס לאתר יותר מ־500 ברצף, וקיבל את כל פרסי הכניסה היומיומית!",
+    "checkInRewards": "פרסי הכניסה היומיומית",
+    "backloggedCheckInRewards": "קיבלת פרסים של כניסה יומיומית! אפשר לבדוק את המלאי ואת הציוד שלך כדי לראות מה חדש."
 }

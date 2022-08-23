@@ -55,6 +55,23 @@ const ANIMAL_SET_ACHIEVEMENTS = {
     achievementKey: 'reptacularRumble',
     notificationType: 'ACHIEVEMENT_ANIMAL_SET',
   },
+  woodlandWizard: {
+    type: 'pet',
+    species: [
+      'Badger',
+      'BearCub',
+      'Deer',
+      'Fox',
+      'Frog',
+      'Hedgehog',
+      'Owl',
+      'Snail',
+      'Squirrel',
+      'Treeling',
+    ],
+    achievementKey: 'woodlandWizard',
+    notificationType: 'ACHIEVEMENT_ANIMAL_SET',
+  },
   zodiacZookeeper: {
     type: 'pet',
     species: [

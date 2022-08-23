@@ -3,6 +3,7 @@ import _ from 'lodash';
 import moment from 'moment';
 
 import { model as User } from '../../models/user'; // eslint-disable-line import/no-cycle
+import * as Tasks from '../../models/task'; // eslint-disable-line import/no-cycle
 import { // eslint-disable-line import/no-cycle
   model as Group,
   basicFields as basicGroupFields,
@@ -219,6 +220,8 @@ async function cancelGroupSubscriptionForUser (user, group, userWasRemoved = fal
 
   const index = userGroups.indexOf(group._id);
   if (index >= 0) userGroups.splice(index, 1);
+
+  await Tasks.Task.remove({ userId: user._id, 'group.id': group._id }).exec();
 
   const groupPlansQuery = {
     // type: { $in: ['guild', 'party'] },
