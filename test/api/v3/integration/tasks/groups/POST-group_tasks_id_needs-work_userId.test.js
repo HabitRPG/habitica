@@ -32,9 +32,9 @@ describe('POST /tasks/:id/needs-work/:userId', () => {
   it('errors when user is not assigned', async () => {
     await expect(user.post(`/tasks/${task._id}/needs-work/${member._id}`))
       .to.eventually.be.rejected.and.to.eql({
-        code: 404,
-        error: 'NotFound',
-        message: t('messageTaskNotFound'),
+        code: 400,
+        error: 'BadRequest',
+        message: 'Task not completed by this user.',
       });
   });
 

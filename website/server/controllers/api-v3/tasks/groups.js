@@ -356,10 +356,11 @@ api.taskNeedsWork = {
     if (['daily', 'todo'].indexOf(task.type) === -1) {
       throw new BadRequest('Cannot roll back use of Habits or Rewards.');
     }
+    if (!task.group.assignedUsersDetail) task.group.assignedUsersDetail = {};
     if (
       (task.group.completedBy.userId && task.group.completedBy.userId !== assignedUserId)
-      || (task.group.assignedUsersDetail && !(task.group.assignedUsersDetail[assignedUserId]
-        && task.group.assignedUsersDetail[assignedUserId].completed))) {
+      || !(task.group.assignedUsersDetail[assignedUserId]
+        && task.group.assignedUsersDetail[assignedUserId].completed)) {
       throw new BadRequest('Task not completed by this user.');
     }
 
@@ -370,21 +371,23 @@ api.taskNeedsWork = {
     if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
     await scoreTasks(assignedUser, [{ id: task._id, direction: 'down' }], req, res);
-    assignedUser.addNotification('GROUP_TASK_NEEDS_WORK', {
-      message: res.t('taskNeedsWork', { taskText: task.text, managerName: user.auth.local.username }, assignedUser.preferences.language),
-      task: {
-        id: task._id,
-        text: task.text,
-      },
-      group: {
-        id: group._id,
-        name: group.name,
-      },
-      manager: {
-        id: user._id,
-        name: user.auth.local.username,
-      },
-    });
+    if (assignedUserId !== user._id) {
+      assignedUser.addNotification('GROUP_TASK_NEEDS_WORK', {
+        message: res.t('taskNeedsWork', { taskText: task.text, managerName: user.auth.local.username }, assignedUser.preferences.language),
+        task: {
+          id: task._id,
+          text: task.text,
+        },
+        group: {
+          id: group._id,
+          name: group.name,
+        },
+        manager: {
+          id: user._id,
+          name: user.auth.local.username,
+        },
+      });
+    }
     await Promise.all([assignedUser.save(), task.save()]);
 
     res.respond(200, task);
