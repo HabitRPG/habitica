@@ -347,7 +347,6 @@ api.taskNeedsWork = {
       User.findById(assignedUserId).exec(),
       await Tasks.Task.findOne({
         _id: taskId,
-        'group.assignedUsers': assignedUserId,
       }).exec(),
     ]);
 
