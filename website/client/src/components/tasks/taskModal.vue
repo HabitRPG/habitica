@@ -386,7 +386,7 @@
           </div>
         </div>
         <div
-          v-if="task.type === 'habit'"
+          v-if="task.type === 'habit' && !groupId"
           class="option mt-3"
         >
           <div class="form-group">
@@ -1092,11 +1092,11 @@ export default {
     isChallengeTask () {
       return Boolean(this.task.challenge && this.task.challenge.id);
     },
-    onUserPage () {
+    isUserTask () {
       return !this.challengeId && !this.groupId;
     },
     challengeAccessRequired () {
-      return this.onUserPage && this.isChallengeTask;
+      return this.isUserTask && this.isChallengeTask;
     },
     isOriginalChallengeTask () {
       const isUserChallenge = Boolean(this.task.userId);
@@ -1112,9 +1112,6 @@ export default {
     title () {
       const type = this.$t(this.task.type);
       return this.$t(this.purpose === 'edit' ? 'editATask' : 'createTask', { type });
-    },
-    isUserTask () {
-      return !this.challengeId && !this.groupId;
     },
     repeatSuffix () {
       const { task } = this;
