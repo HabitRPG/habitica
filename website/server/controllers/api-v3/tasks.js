@@ -956,9 +956,14 @@ api.scoreCheckListItem = {
     if (validationErrors) throw validationErrors;
 
     const { taskId } = req.params;
-    const task = await Tasks.Task.findById(taskId);
+    const task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
 
-    if (!task || (!task.id && !task.group.id)) throw new NotFound(res.t('taskNotFound'));
+    if (!task || (!task.userId && !task.group.id)) throw new NotFound(res.t('messageTaskNotFound'));
+    if (task.userId && task.userId !== user._id) {
+      throw new BadRequest('Cannot score task belonging to another user.');
+    } else if (user.guilds.indexOf(task.group.id) === -1 && user.party._id !== task.group.id) {
+      throw new BadRequest('Cannot score task belonging to another user.');
+    }
     if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
 
     const item = _.find(task.checklist, { id: req.params.itemId });
