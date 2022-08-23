@@ -449,21 +449,6 @@ async function scoreTask (user, task, direction, req, res) {
       user: rollbackUser,
       direction,
     }, req, res.analytics);
-    rollbackUser.addNotification('GROUP_TASK_NEEDS_WORK', {
-      message: res.t('taskNeedsWork', { taskText: task.text, managerName: user.auth.local.username }, rollbackUser.preferences.language),
-      task: {
-        id: task._id,
-        text: task.text,
-      },
-      group: {
-        id: group._id,
-        name: group.name,
-      },
-      manager: {
-        id: user._id,
-        name: user.auth.local.username,
-      },
-    });
     await rollbackUser.save();
   } else {
     delta = shared.ops.scoreTask({ task, user, direction }, req, res.analytics);
