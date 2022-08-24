@@ -167,51 +167,6 @@
           </li>
         </ul>
       </div>
-      <!-- Social - Phone -->
-      <!--       <div class="social display-invisible phone-visible">
-        <h3>{{ $t('footerSocial') }}</h3>
-        <div class="icons">
-          <a
-            class="social-circle"
-            href="https://www.instagram.com/habitica/"
-            target="_blank"
-          >
-            <div
-              class="social-icon svg-icon instagram"
-              v-html="icons.instagram"
-            ></div>
-          </a>
-          <a
-            class="social-circle"
-            href="https://twitter.com/habitica"
-            target="_blank"
-          >
-            <div
-              class="social-icon svg-icon twitter"
-              v-html="icons.twitter"
-            ></div>
-          </a>
-          <a
-            class="social-circle"
-            href="https://www.facebook.com/Habitica"
-            target="_blank"
-          >
-            <div
-              class="social-icon facebook svg-icon"
-              v-html="icons.facebook"
-            ></div>
-          </a><a
-            class="social-circle"
-            href="https://www.tumblr.com/Habitica"
-            target="_blank"
-          >
-            <div
-              class="social-icon tumblr svg-icon"
-              v-html="icons.tumblr"
-            ></div>
-          </a>
-        </div>
-      </div> -->
 
       <!-- Help Support Habitica -->
       <div class="donate">
@@ -286,7 +241,7 @@
           <hr>
         </div>
       </div>
-
+      <!-- Colophon -->
       <div class=" copyright">
         <div>
           © {{ currentYear }} Habitica. All rights reserved.
@@ -298,6 +253,7 @@
           v-html="icons.gryphon"
         ></div>
       </div>
+      <!-- DESKTOP PRIVACY & TERMS -->
       <div class="privacy-terms">
         <span class="privacy-policy">
           <a
@@ -312,29 +268,19 @@
           >{{ $t('terms') }}</a>
         </span>
       </div>
-      <!--       <div class=" copyright">
-        <div class="copyright">
-          © {{ currentYear }} Habitica. All rights reserved.
-        </div>
-        <div class="melior">
-          <div
-            class="logo svg-icon"
-            v-html="icons.gryphon"
-          ></div>
-        </div>
-        <div class="terms">
-          <a
-            target="_blank"
-            href="/static/terms"
-          >{{ $t('terms') }}</a>
-        </div>
-        <div class="privacy-policy">
-          <a
-            target="_blank"
-            href="/static/privacy"
-          >{{ $t('privacy') }}</a>
-        </div>
-      </div> -->
+      <!-- MOBILE PRIVACY & TERMS -->
+      <div class="privacy-policy mobile desktop">
+        <a
+          target="_blank"
+          href="/static/privacy"
+        >{{ $t('privacy') }}</a>
+      </div>
+      <div class="terms">
+        <a
+          target="_blank"
+          href="/static/terms"
+        >{{ $t('terms') }}</a>
+      </div>
 
       <div
         v-if="!IS_PRODUCTION && isUserLoaded"
@@ -505,6 +451,9 @@ li {
 .terms {
   padding-left: 16px;
   }
+  .mobile {
+    display: none;
+  }
 
 // row 5
 .debug-toggle { grid-area: debug-toggle;}
@@ -546,15 +495,6 @@ h3 {
   font-weight: bold;
 }
 
-// .display-invisible {
-//   visibility: hidden !important;
-//   display: none;
-// }
-
-// .display-visible {
-//   visibility: visible !important;
-// }
-
 .icons {
   display: flex;
   height: 24px;
@@ -592,6 +532,7 @@ h3 {
 .debug {
   margin-top: 16px;
   display: flex;
+  justify-content: center;
 }
 
 .debug-group {
@@ -658,8 +599,8 @@ h3 {
     padding-top: 12px;
   }
   .social {
-  grid-area: social;
-  padding-top: 12px;
+    grid-area: social;
+    padding-top: 12px;
   }
 
   // row 4
@@ -679,6 +620,7 @@ h3 {
   // row 7
   .hr {
     grid-area: hr;
+    padding-top: 8px;
   }
 
   // row 8
@@ -688,30 +630,34 @@ h3 {
     justify-content: center;
   }
   // row 9
+  .privacy-terms {
+    display: none;
+  }
+  .desktop {
+    display: none;
+  }
   .privacy-policy {
     grid-area: privacy-policy;
-    display: flex;
-    justify-content: center;
-    padding-left :0px;
-  }
-  .privacy-terms {
-    grid-area: none;
     display: grid;
-    justify-content: self;
+    justify-content: center;
     line-height: 1.71;
+    padding-top: 10px;
   }
   //row 10
   .terms {
-    padding-left: 0px;
-    display:flex;
-    justify-content: inherit;
+    grid-area: terms;
+    display:grid;
+    justify-content: center;
+    padding: 8px 0px 16px 0px;
   }
   // row 11
   .melior { grid-area: melior; }
 
   // row 12
-  .debug-toggle { grid-area: debug-toggle;}
-  .debog-pop { grid-area: debug-pop; }
+  .debug-toggle {
+    grid-area: debug-toggle;
+    width: 100%;
+  }
 
   footer {
     padding: 24px 16px;
@@ -741,6 +687,9 @@ h3 {
   .btn-contribute {
     width: 100%;
   }
+  .debug {
+    width: 100%;
+  }
   .social-circle {
     margin: 0 6px 0 6px;
       &:first-child {
@@ -751,162 +700,8 @@ h3 {
     }
   }
 }
-// Medium devices (tablets, 768px and up)
-// @media (min-width: 768px) { ... }
-
-// Phones
-// @media (max-width: 428px) {
-//   footer {
-//     padding: 24px 16px;
-//   }
-
-//   .phone-invisible {
-//     visibility: hidden !important;
-//     display: none;
-//     margin-top: -24px;
-//   }
-
-//   .phone-visible {
-//     visibility: visible !important;
-//     display: inherit;
-//   }
-
-//   .row-one {
-//     display: grid;
-//     grid-column-gap: 12px;
-//     grid-row-gap: 12px;
-//     grid-template-columns: 50%;
-
-//     li {
-//       margin-bottom: 4px;
-//     }
-
-//     .product {
-//       grid-row: 1 / 1;
-//       grid-column: 1 / 1;
-//     }
-//     .company {
-//       grid-row: 1 / 1;
-//       grid-column: 2 / 2;
-//       padding-left: 0px;
-//       margin-left: -8px;
-//     }
-//     .community {
-//       grid-row: 2 / 2;
-//       grid-column: 1 / 1;
-//     }
-//     .support {
-//       grid-row: 2 / 2;
-//       grid-column: 2 / 2;
-//       padding-left: 0px;
-//       margin-left: -8px;
-//     }
-//     .developers {
-//       grid-row: 3 / 3;
-//       grid-column: 1 / 2;
-//     }
-//     .social {
-//       grid-row: 3 / 3;
-//       grid-column: 2 / 2;
-//       vertical-align: top;
-//       padding-left: 0px;
-//       margin-left: -8px;
-//       height: 1.5rem;
-//       display: block;
-//     }
-//     .social-circle {
-//       margin: 0 6px 0 6px;
-//       &:first-child {
-//         margin-left: 0;
-//         }
-//       &:last-child {
-//         margin-right: 0;
-//         }
-//     }
-//   }
-
-//   .row-two {
-//     display: flex;
-
-//     .support {
-//       display: block;
-//       order: 0;
-//       margin-top: 0px;
-//       width: 100%;
-
-//       h3 {
-//         margin-bottom: 4px;
-//       }
-//     }
-//     .btn-contribute {
-//       order: 1;
-//       margin: 16px 0 24px 0;
-//       width: 100%;
-//     }
-//   }
-
-//   .row-three {
-//     display: flex;
-//   }
-
-//   .row-four{
-//     display: flex;
-//     justify-content: safe center;
-//     flex-direction: row;
-
-//     .copyright {
-//       order: 0;
-//       display: flex;
-//       justify-content: center;
-//       height: 24px;
-//     }
-//     .privacy-policy {
-//       order: 1;
-//       display: flex;
-//       justify-content: center;
-//       width: 100%;
-//       height: 20px;
-//       margin-top: 10px;
-//     }
-//     .terms {
-//       order: 2;
-//       display: flex;
-//       justify-content: center;
-//       width: 100%;
-//       padding-left: 0px;
-//       margin-top: 8px;
-//     }
-//     .melior {
-//       order: 4;
-//       justify-content: center;
-//       height: 44px;
-//       padding-top: 12px;
-//     }
-//   }
-
-//   .row-five{
-//     display:flex;
-//     margin: 108px 0 16px 0;
-//   }
-
-//   .debug {
-//     display: flex;
-//     width: 288px;
-//     text-align: center;
-//     padding-left: 84px;
-//   }
-
-//   .debug-group {
-//     background: $gray-600;
-//     border-radius: 2px;
-//     padding: 16px;
-//     width: 100%;
-//     box-shadow: 0 1px 3px 0 rgba(26, 24, 29, 0.12), 0 1px 2px 0 rgba(26, 24, 29, 0.24);
-//     margin-top: 8px;
-//   }
-// }
-
 </style>
+
 <style lang="scss">
 .instagram svg {
   background-color: #e1e0e3;
@@ -947,7 +742,6 @@ h3 {
     fill: #6133B4;
   }
 }
-
 </style>
 
 <script>
