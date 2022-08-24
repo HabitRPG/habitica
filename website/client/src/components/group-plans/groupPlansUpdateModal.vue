@@ -6,6 +6,7 @@
     hide-footer="hide-footer"
     :no-close-on-backdrop="true"
     :no-close-on-esc="true"
+    :centered="true"
   >
     <div
       slot="modal-header"
@@ -96,8 +97,6 @@
 <style lang="scss">
   @import '~@/assets/scss/colors.scss';
   #group-plans-update {
-    overflow-y: hidden;
-
     .modal-content {
       border-top-left-radius: 10px;
       border-top-right-radius: 10px;
@@ -107,8 +106,7 @@
 
     .modal-dialog {
       max-width: 566px;
-      margin-top: 50vh;
-      transform: translateY(-50%);
+      margin-top: 0px;
     }
 
     .modal-header {
