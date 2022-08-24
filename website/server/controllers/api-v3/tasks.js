@@ -961,7 +961,8 @@ api.scoreCheckListItem = {
     if (!task || (!task.userId && !task.group.id)) throw new NotFound(res.t('messageTaskNotFound'));
     if (task.userId && task.userId !== user._id) {
       throw new BadRequest('Cannot score task belonging to another user.');
-    } else if (user.guilds.indexOf(task.group.id) === -1 && user.party._id !== task.group.id) {
+    } else if (task.group.id && user.guilds.indexOf(task.group.id) === -1
+      && user.party._id !== task.group.id) {
       throw new BadRequest('Cannot score task belonging to another user.');
     }
     if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));

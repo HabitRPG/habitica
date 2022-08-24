@@ -26,7 +26,7 @@ async function updateTeamTasks (team) {
         const userTask = find(teamUserTasks, task => task.userId === assignedUserId
            && task.group.taskId === boardTask._id);
         if (!boardTask.group.assignedUsersDetail) boardTask.group.assignedUsersDetail = {};
-        if (userTask) {
+        if (userTask && assignedUser) {
           boardTask.group.assignedUsersDetail[assignedUserId] = {
             assignedDate: userTask.group.assignedDate,
             assignedUsername: assignedUser.auth.local.username,
@@ -34,8 +34,7 @@ async function updateTeamTasks (team) {
             completed: userTask.completed || false,
             completedDate: userTask.dateCompleted,
           };
-          toSave.push(Tasks.Task.findByIdAndDelete(userTask._id));
-        } else {
+        } else if (assignedUser) {
           boardTask.group.assignedUsersDetail[assignedUserId] = {
             assignedDate: new Date(),
             assignedUsername: assignedUser.auth.local.username,
@@ -43,7 +42,11 @@ async function updateTeamTasks (team) {
             completed: false,
             completedDate: null,
           };
+        } else {
+          const taskIndex = boardTask.group.assignedUsers.indexOf(assignedUserId);
+          boardTask.group.assignedUsers.splice(taskIndex, 1);
         }
+        if (userTask) toSave.push(Tasks.Task.findByIdAndDelete(userTask._id));
       }
       boardTask.markModified('group');
       toSave.push(boardTask.save());

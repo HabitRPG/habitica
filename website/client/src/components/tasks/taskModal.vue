@@ -79,7 +79,6 @@
           <lockable-label
             class="mr-auto"
             :class-override="cssClass('headings')"
-            :locked="challengeAccessRequired"
             :text="`${$t('notes')}`"
           />
           <small
@@ -96,7 +95,6 @@
           v-model="task.notes"
           class="form-control input-notes"
           :class="cssClass('input')"
-          :disabled="challengeAccessRequired"
           :placeholder="$t('addNotes')"
         ></textarea>
       </div>
@@ -363,7 +361,7 @@
           </div>
         </div>
         <div
-          v-if="!challengeAccessRequired && !groupId"
+          v-if="!groupId"
           class="tags-select option mt-3"
         >
           <div class="tags-inline form-group row">
