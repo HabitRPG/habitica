@@ -1,5 +1,8 @@
 <template>
-  <div class="standard-page">
+  <div
+    class="standard-page"
+    @click="openCreateBtn ? openCreateBtn = false : null"
+  >
     <group-plan-overview-modal />
     <task-modal
       ref="taskModal"
@@ -7,16 +10,21 @@
       :purpose="taskFormPurpose"
       :group-id="groupId"
       @cancel="cancelTaskModal()"
-      @taskCreated="taskCreated"
-      @taskEdited="taskEdited"
+      @taskCreated="loadTasks"
+      @taskEdited="loadTasks"
       @taskDestroyed="taskDestroyed"
     />
-    <div class="row tasks-navigation">
-      <div class="col-12 col-md-4">
-        <h1>{{ $t('groupTasksTitle') }}</h1>
+    <task-summary
+      ref="taskSummary"
+      :task="editingTask"
+      @cancel="cancelTaskModal()"
+    />
+    <div class="row tasks-navigation mb-4">
+      <div class="col-12 col-md-4 d-flex align-items-center">
+        <h1>{{ group.name }}</h1>
       </div>
       <!-- @TODO: Abstract to component!-->
-      <div class="col-12 col-md-4">
+      <div class="col-12 col-md-4 d-flex justify-content-center align-items-center">
         <input
           v-model="searchText"
           class="form-control input-search"
@@ -25,47 +33,60 @@
         >
       </div>
       <div
-        v-if="canCreateTasks"
-        class="create-task-area d-flex"
+        class="col-12 col-md-4 create-task-area d-flex align-items-center"
       >
-        <transition name="slide-tasks-btns">
+        <toggle-switch
+          id="taskMirrorToggle"
+          class="mr-3 mb-1 ml-auto"
+          :label="'Copy tasks'"
+          :checked="user.preferences.tasks.mirrorGroupTasks.indexOf(group._id) !== -1"
+          :hover-text="'Show assigned and open tasks on your personal task board'"
+          @change="changeMirrorPreference"
+        />
+        <div
+          class="day-start d-flex align-items-center mr-2"
+          v-html="$t('dayStart', { startTime: groupStartTime } )"
+        >
+        </div>
+        <div>
+          <button
+            id="create-task-btn"
+            v-if="canCreateTasks"
+            class="btn btn-primary create-btn d-flex align-items-center"
+            :class="{open: openCreateBtn}"
+            @click.stop.prevent="openCreateBtn = !openCreateBtn"
+            @keypress.enter="openCreateBtn = !openCreateBtn"
+            tabindex="0"
+          >
+            <div
+              class="svg-icon icon-10 color"
+              v-html="icons.positive"
+            ></div>
+            <div class="ml-75 mr-1"> {{ $t('addTask') }} </div>
+          </button>
           <div
             v-if="openCreateBtn"
-            class="d-flex"
+            class="dropdown"
           >
             <div
               v-for="type in columns"
               :key="type"
-              v-b-tooltip.hover.bottom="$t(type)"
-              class="create-task-btn diamond-btn"
               @click="createTask(type)"
+              class="dropdown-item d-flex px-2 py-1"
             >
-              <div
-                class="svg-icon"
-                :class="`icon-${type}`"
-                v-html="icons[type]"
-              ></div>
+              <div class="d-flex align-items-center justify-content-center task-icon">
+                <div
+                  class="svg-icon m-auto"
+                  :class="`icon-${type}`"
+                  v-html="icons[type]"
+                ></div>
+              </div>
+              <div class="task-label ml-2">
+                {{ $t(type) }}
+              </div>
             </div>
           </div>
-        </transition>
-        <div
-          id="create-task-btn"
-          class="create-btn diamond-btn btn btn-success"
-          :class="{open: openCreateBtn}"
-          @click="openCreateBtn = !openCreateBtn"
-        >
-          <div
-            class="svg-icon"
-            v-html="icons.positive"
-          ></div>
         </div>
-        <b-tooltip
-          v-if="!openCreateBtn"
-          target="create-task-btn"
-          placement="bottom"
-        >
-          {{ $t('create') }}
-        </b-tooltip>
       </div>
     </div>
     <div class="row">
@@ -79,6 +100,7 @@
         :search-text="searchText"
         :draggable-override="canCreateTasks"
         @editTask="editTask"
+        @taskSummary="taskSummary"
         @loadGroupCompletedTodos="loadGroupCompletedTodos"
         @taskDestroyed="taskDestroyed"
       />
@@ -86,12 +108,48 @@
   </div>
 </template>
 
+<style lang="scss">
+  #taskMirrorToggle {
+    font-weight: bold;
+
+    .svg-icon {
+      margin: 3px 6px 0px 4px;
+    }
+
+    .toggle-switch {
+      margin-left: 0px;
+    }
+
+    .toggle-switch-description {
+      margin-top: 3px;
+    }
+  }
+</style>
+
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
   @import '~@/assets/scss/create-task.scss';
 
-  .tasks-navigation {
-    margin-bottom: 40px;
+  h1 {
+    color: $purple-300;
+    margin-bottom: 0px;
+  }
+
+  .create-task-area {
+    top: 1.5rem;
+    height: 40px;
+
+    .day-start {
+      height: 2rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 2px;
+      color: $gray-100;
+      background-color: $gray-600;
+    }
+  }
+
+  .input-search {
+    max-width: 458px;
   }
 
   .positive {
@@ -107,11 +165,15 @@
 import Vue from 'vue';
 import cloneDeep from 'lodash/cloneDeep';
 import findIndex from 'lodash/findIndex';
-import groupBy from 'lodash/groupBy';
+import moment from 'moment';
 import taskDefaults from '@/../../common/script/libs/taskDefaults';
 import TaskColumn from '../tasks/column';
 import TaskModal from '../tasks/taskModal';
+import TaskSummary from '../tasks/taskSummary';
 import GroupPlanOverviewModal from './groupPlanOverviewModal';
+import toggleSwitch from '@/components/ui/toggleSwitch';
+
+import sync from '../../mixins/sync';
 
 import positiveIcon from '@/assets/svg/positive.svg';
 import filterIcon from '@/assets/svg/filter.svg';
@@ -121,14 +183,18 @@ import dailyIcon from '@/assets/svg/daily.svg';
 import todoIcon from '@/assets/svg/todo.svg';
 import rewardIcon from '@/assets/svg/reward.svg';
 
+import * as Analytics from '@/libs/analytics';
 import { mapState } from '@/libs/store';
 
 export default {
   components: {
     TaskColumn,
     TaskModal,
+    TaskSummary,
     GroupPlanOverviewModal,
+    toggleSwitch,
   },
+  mixins: [sync],
   props: ['groupId'],
   data () {
     return {
@@ -199,6 +265,16 @@ export default {
       return (this.group.leader && this.group.leader._id === this.user._id)
         || (this.group.managers && Boolean(this.group.managers[this.user._id]));
     },
+    groupStartTime () {
+      if (!this.group || !this.group.cron) return null;
+      const { dayStart, timezoneOffset } = this.group.cron;
+      const timezoneDiff = this.user.preferences.timezoneOffset - timezoneOffset;
+      return moment()
+        .hour(dayStart)
+        .minute(0)
+        .subtract(timezoneDiff, 'minutes')
+        .format('h:mm A');
+    },
   },
   watch: {
     // call again the method if the route changes (when this route is already active)
@@ -206,6 +282,10 @@ export default {
   },
   beforeRouteUpdate (to, from, next) {
     this.$set(this, 'searchId', to.params.groupId);
+    next();
+  },
+  async beforeRouteLeave (to, from, next) {
+    await this.sync();
     next();
   },
   mounted () {
@@ -218,6 +298,7 @@ export default {
 
     this.$root.$on('habitica:team-sync', () => {
       this.loadTasks();
+      this.loadGroupCompletedTodos();
     });
   },
   methods: {
@@ -238,6 +319,9 @@ export default {
       this.group.members = members;
 
       this.loadTasks();
+      if (this.user.flags.tour.groupPlans !== -2) {
+        this.$root.$emit('bv::show::modal', 'group-plans-update');
+      }
     },
     async loadTasks () {
       this.tasksByType = {
@@ -251,22 +335,13 @@ export default {
         groupId: this.searchId,
       });
 
-      const groupedApprovals = await this.loadApprovals();
-
       tasks.forEach(task => {
-        if (
-          groupedApprovals[task._id]
-          && groupedApprovals[task._id].length > 0
-        ) task.approvals = groupedApprovals[task._id];
         this.tasksByType[task.type].push(task);
       });
-    },
-    async loadApprovals () {
-      const approvalRequests = await this.$store.dispatch('tasks:getGroupApprovals', {
-        groupId: this.searchId,
-      });
 
-      return groupBy(approvalRequests, 'group.taskId');
+      if (this.editingTask && this.editingTask.completed) {
+        this.loadGroupCompletedTodos();
+      }
     },
     editTask (task) {
       this.taskFormPurpose = 'edit';
@@ -275,6 +350,12 @@ export default {
       // Necessary otherwise the first time the modal is not rendered
       Vue.nextTick(() => {
         this.$root.$emit('bv::show::modal', 'task-modal');
+      });
+    },
+    taskSummary (task) {
+      this.editingTask = cloneDeep(task);
+      Vue.nextTick(() => {
+        this.$root.$emit('bv::show::modal', 'task-summary');
       });
     },
     async loadGroupCompletedTodos () {
@@ -298,14 +379,6 @@ export default {
       Vue.nextTick(() => {
         this.$root.$emit('bv::show::modal', 'task-modal');
       });
-    },
-    taskCreated (task) {
-      task.group.id = this.group._id;
-      this.tasksByType[task.type].unshift(task);
-    },
-    taskEdited (task) {
-      const index = findIndex(this.tasksByType[task.type], taskItem => taskItem._id === task._id);
-      this.tasksByType[task.type].splice(index, 1, task);
     },
     taskDestroyed (task) {
       const index = findIndex(this.tasksByType[task.type], taskItem => taskItem._id === task._id);
@@ -353,6 +426,25 @@ export default {
       const tagId = tag.id;
       if (this.temporarilySelectedTags.indexOf(tagId) !== -1) return true;
       return false;
+    },
+    changeMirrorPreference (newVal) {
+      Analytics.track({
+        eventName: 'mirror tasks',
+        eventAction: 'mirror tasks',
+        eventCategory: 'behavior',
+        hitType: 'event',
+        mirror: newVal,
+        group: this.group._id,
+      }, { trackOnClient: true });
+      const groupsToMirror = this.user.preferences.tasks.mirrorGroupTasks || [];
+      if (newVal) { // we're turning copy ON for this group
+        groupsToMirror.push(this.group._id);
+      } else { // we're turning copy OFF for this group
+        groupsToMirror.splice(groupsToMirror.indexOf(this.group._id), 1);
+      }
+      this.$store.dispatch('user:set', {
+        'preferences.tasks.mirrorGroupTasks': groupsToMirror,
+      });
     },
   },
 };

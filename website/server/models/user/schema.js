@@ -236,6 +236,7 @@ export default new Schema({
       mounts: { $type: Number, default: -1 },
       hall: { $type: Number, default: -1 },
       equipment: { $type: Number, default: -1 },
+      groupPlans: { $type: Number, default: -1 },
     },
     tutorial: {
       common: {
@@ -583,6 +584,9 @@ export default new Schema({
     tasks: {
       groupByChallenge: { $type: Boolean, default: false }, // @TODO remove? not used
       confirmScoreNotes: { $type: Boolean, default: false }, // @TODO remove? not used
+      mirrorGroupTasks: [
+        { $type: String, validate: [v => validator.isUUID(v), 'Invalid group UUID.'], ref: 'Group' },
+      ],
     },
     improvementCategories: {
       $type: Array,

@@ -1,10 +1,18 @@
 <template>
-  <div class="row user-tasks-page">
+  <div
+    class="row user-tasks-page"
+    @click="openCreateBtn ? openCreateBtn = false : null"
+  >
     <broken-task-modal />
     <task-modal
       ref="taskModal"
       :task="editingTask || creatingTask"
       :purpose="creatingTask !== null ? 'create' : 'edit'"
+      @cancel="cancelTaskModal()"
+    />
+    <task-summary
+      ref="taskSummary"
+      :task="editingTask"
       @cancel="cancelTaskModal()"
     />
     <div class="col-12">
@@ -160,45 +168,43 @@
             </div>
           </div>
         </div>
-        <div class="create-task-area d-flex">
-          <transition name="slide-tasks-btns">
+        <div class="create-task-area">
+          <div
+            id="create-task-btn"
+            class="btn btn-primary create-btn d-flex align-items-center"
+            :class="{open: openCreateBtn}"
+            @click.stop.prevent="openCreateBtn = !openCreateBtn"
+            @keypress.enter="openCreateBtn = !openCreateBtn"
+            tabindex="0"
+          >
             <div
-              v-if="openCreateBtn"
-              class="d-flex"
+              class="svg-icon icon-10 color"
+              v-html="icons.positive"
+            ></div>
+            <div class="ml-75 mr-1"> {{ $t('addTask') }} </div>
+          </div>
+          <div
+            v-if="openCreateBtn"
+            class="dropdown"
+          >
+            <div
+              v-for="type in columns"
+              :key="type"
+              @click="createTask(type)"
+              class="dropdown-item d-flex px-2 py-1"
             >
-              <div
-                v-for="type in columns"
-                :key="type"
-                v-b-tooltip.hover.bottom="$t(type)"
-                class="create-task-btn diamond-btn"
-                @click="createTask(type)"
-              >
+              <div class="d-flex align-items-center justify-content-center task-icon">
                 <div
-                  class="svg-icon"
+                  class="svg-icon m-auto"
                   :class="`icon-${type}`"
                   v-html="icons[type]"
                 ></div>
               </div>
+              <div class="task-label ml-2">
+                {{ $t(type) }}
+              </div>
             </div>
-          </transition>
-          <div
-            id="create-task-btn"
-            class="create-btn diamond-btn btn btn-success"
-            :class="{open: openCreateBtn}"
-            @click="openCreateBtn = !openCreateBtn"
-          >
-            <div
-              class="svg-icon"
-              v-html="icons.positive"
-            ></div>
           </div>
-          <b-tooltip
-            v-if="!openCreateBtn"
-            target="create-task-btn"
-            placement="bottom"
-          >
-            {{ $t('addTask') }}
-          </b-tooltip>
         </div>
       </div>
       <div class="row tasks-columns">
@@ -211,6 +217,7 @@
           :search-text="searchTextThrottled"
           :selected-tags="selectedTags"
           @editTask="editTask"
+          @taskSummary="taskSummary"
           @openBuyDialog="openBuyDialog($event)"
         />
       </div>
@@ -345,7 +352,7 @@
   }
 
   .create-task-area {
-    top: -2.5rem;
+    top: 1px;
   }
 
   .drag {
@@ -381,6 +388,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import draggable from 'vuedraggable';
 import TaskColumn from './column';
 import TaskModal from './taskModal';
+import TaskSummary from './taskSummary';
 import spells from './spells';
 import markdown from '@/directives/markdown';
 
@@ -401,6 +409,7 @@ export default {
   components: {
     TaskColumn,
     TaskModal,
+    TaskSummary,
     spells,
     brokenTaskModal,
     draggable,
@@ -524,11 +533,17 @@ export default {
       };
       this.newTag = null;
     },
+    // Need Vue.nextTick() otherwise the first time the modal is not rendered
     editTask (task) {
       this.editingTask = cloneDeep(task);
-      // Necessary otherwise the first time the modal is not rendered
       Vue.nextTick(() => {
         this.$root.$emit('bv::show::modal', 'task-modal');
+      });
+    },
+    taskSummary (task) {
+      this.editingTask = cloneDeep(task);
+      Vue.nextTick(() => {
+        this.$root.$emit('bv::show::modal', 'task-summary');
       });
     },
     createTask (type) {

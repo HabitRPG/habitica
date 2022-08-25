@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import common from '../../../common';
 import * as Tasks from '../../models/task';
+import { model as Groups } from '../../models/group';
 import {
   BadRequest,
   NotAuthorized,
@@ -132,6 +133,34 @@ export async function update (req, res, { isV3 = false }) {
     await checkNewInputForProfanity(user, res, newBlurb);
   }
 
+  if (req.body['preferences.tasks.mirrorGroupTasks'] !== undefined) {
+    const groupsToMirror = req.body['preferences.tasks.mirrorGroupTasks'];
+    if (!Array.isArray(groupsToMirror)) {
+      throw new BadRequest('Groups to copy tasks from must be an array.');
+    }
+    const memberGroups = user.guilds;
+    if (user.party._id) memberGroups.push(user.party._id);
+    for (const targetGroup of groupsToMirror) {
+      if (memberGroups.indexOf(targetGroup) === -1) {
+        throw new BadRequest(`User not a member of group ${targetGroup}.`);
+      }
+    }
+
+    const matchingGroupsCount = await Groups.countDocuments({
+      _id: { $in: groupsToMirror },
+      'purchased.plan.customerId': { $exists: true },
+      $or: [
+        { 'purchased.plan.dateTerminated': { $exists: false } },
+        { 'purchased.plan.dateTerminated': null },
+        { 'purchased.plan.dateTerminated': { $gt: new Date() } },
+      ],
+    }).exec();
+
+    if (matchingGroupsCount !== groupsToMirror.length) {
+      throw new BadRequest('Groups to copy tasks from must have subscriptions.');
+    }
+  }
+
   _.each(req.body, (val, key) => {
     const purchasable = requiresPurchase[key];
 
@@ -140,7 +169,7 @@ export async function update (req, res, { isV3 = false }) {
     }
 
     if (key === 'tags') {
-      if (!Array.isArray(val)) throw new BadRequest('mustBeArray');
+      if (!Array.isArray(val)) throw new BadRequest('Tag list must be an array.');
 
       const removedTagsIds = [];
 

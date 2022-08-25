@@ -74,10 +74,19 @@ async function cronAsync (req, res) {
     }
 
     const tasks = await Tasks.Task.find({
-      userId: user._id,
-      $or: [ // Exclude completed todos
-        { type: 'todo', completed: false },
-        { type: { $in: ['habit', 'daily', 'reward'] } },
+      $and: [
+        {
+          $or: [
+            { userId: user._id },
+            { userId: { $exists: false }, 'group.assignedUsers': user._id },
+          ],
+        },
+        {
+          $or: [ // Exclude completed todos
+            { type: 'todo', completed: false },
+            { type: { $in: ['habit', 'daily', 'reward'] } },
+          ],
+        },
       ],
     }).exec();
 
@@ -117,19 +126,8 @@ async function cronAsync (req, res) {
 
     // Save user and tasks
     const toSave = [user.save()];
-    tasks.forEach(async task => {
+    tasks.forEach(task => {
       if (task.isModified()) toSave.push(task.save());
-      if (task.isModified() && task.group && task.group.taskId) {
-        const groupTask = await Tasks.Task.findOne({
-          _id: task.group.taskId,
-        }).exec();
-
-        if (groupTask) {
-          let delta = (0.9747 ** task.value) * -1;
-          if (groupTask.group.assignedUsers) delta /= groupTask.group.assignedUsers.length;
-          await groupTask.scoreChallengeTask(delta, 'down');
-        }
-      }
     });
     await Promise.all(toSave);
 

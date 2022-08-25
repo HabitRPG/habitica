@@ -32,11 +32,12 @@
     />
     <onboarding-complete />
     <first-drops />
+    <group-plans-update />
   </div>
 </template>
 
 <style lang='scss'>
-  .introjs-helperNumberLayer, .introjs-bullets {
+  .introjs-helperNumberLayer, .introjs-bullets, .introjs-skipbutton {
     display: none;
   }
 
@@ -62,9 +63,9 @@
     .npc_justin_textbox {
       position: absolute;
       right: 1em;
-      top: -3.6em;
+      top: -55px;
       width: 48px;
-      height: 52px;
+      height: 51px;
       background-image: url('~@/assets/images/justin_textbox.png');
     }
   }
@@ -95,7 +96,7 @@
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12) !important;
   }
 
-  .introjs-skipbutton.btn-primary, .introjs-donebutton.btn-primary {
+  .introjs-donebutton.btn-primary {
     color: #fff;
   }
 </style>
@@ -142,6 +143,7 @@ import loginIncentives from './achievements/login-incentives';
 import onboardingComplete from './achievements/onboardingComplete';
 import verifyUsername from './settings/verifyUsername';
 import firstDrops from './achievements/firstDrops';
+import groupPlansUpdate from './group-plans/groupPlansUpdateModal';
 
 const NOTIFICATIONS = {
   // general notifications
@@ -268,6 +270,7 @@ export default {
     genericAchievement,
     onboardingComplete,
     firstDrops,
+    groupPlansUpdate,
   },
   mixins: [notifications, guide],
   data () {
@@ -612,7 +615,7 @@ export default {
       const yesterUtcOffset = yesterDay.utcOffset();
 
       dailys.forEach(task => {
-        if (task && task.group.approval && task.group.approval.requested) return;
+        if (task.group && task.group.id) return;
         if (task.completed) return;
         const due = shouldDo(yesterDay, task, { timezoneUtcOffset: yesterUtcOffset });
         if (task.yesterDaily && due) this.yesterDailies.push(task);
