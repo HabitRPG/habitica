@@ -137,9 +137,9 @@ describe('POST /user/class/cast/:spellId', () => {
 
     await expect(groupLeader.post(`/user/class/cast/pickPocket?targetId=${groupTask._id}`))
       .to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: t('groupTasksNoCast'),
+        code: 404,
+        error: 'NotFound',
+        message: t('messageTaskNotFound'),
       });
   });
 
