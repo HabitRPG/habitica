@@ -21,6 +21,7 @@ async function castTaskSpell (res, req, targetId, user, spell, quantity = 1) {
   if (!targetId) throw new BadRequest(res.t('targetIdUUID'));
 
   const task = await Tasks.Task.findOne({
+    userId: user._id,
     _id: targetId,
   }).exec();
   if (!task) throw new NotFound(res.t('messageTaskNotFound'));
