@@ -65,10 +65,13 @@
             ></span>
           </div>
         </template>
-        <template v-if="paymentData.paymentType === 'groupPlan'">
+        <!-- not sure this is right -->
+        <template
+          v-if="paymentData.paymentType === 'groupPlan'
+            && paymentData.paymentType === 'newGroup'"
+        >
           <span
-            v-html="$t(paymentData.newGroup
-              ? 'groupPlanCreated' : 'groupPlanUpgraded', {groupName: paymentData.group.name})"
+            v-html="$t('groupPlanCreated', {groupName: paymentData.group.name})"
           ></span>
           <div class="details-block">
             <span
@@ -77,6 +80,7 @@
             ></span>
           </div>
         </template>
+
         <template
           v-if="paymentData.paymentType === 'groupPlan'
             || paymentData.paymentType === 'subscription'"
@@ -85,11 +89,26 @@
             v-once
             class="small-text auto-renew"
           >{{ $t('paymentAutoRenew') }}</span>
+        </template>
+        <!-- not sure this is right -->
+        <template
+          v-if="paymentData.newGroup === 'groupPlanUpgraded'
+            && paymentData.paymentType === 'upgradedGroup'"
+        >
+          <span
+            v-html="$t('groupPlanUpdated', {groupName: paymentData.group.name})"
+          ></span>
+          <div class="details-block">
+            <span
+              v-html="$t('paymentSubBilling', {
+                amount: groupPlanCost, months: paymentData.subscription.months})"
+            ></span>
+          </div>
           <div
-            v-if="paymentData.paymentType === 'groupPlan'
-              && paymentData.newGroup === 'groupPlanUpgraded'"
             class="form-group"
           >
+            <span>{{ $t('groupUse') }}</span>
+            <p>this is text</p>
             <lockable-label
               :text="$t('groupUse')"
               class="justify-content-center"
@@ -108,11 +127,9 @@
               :value="upgradedGroup.demographics"
               @select="upgradedGroup.demographics = $event"
             />
-          </div>
-          <div class="form-group">
             <button
               class="btn btn-primary btn-lg btn-block btn-payment"
-              @click="closeGroup()"
+              @click="close()"
             >
               {{ $t('submit') }}
             </button>
@@ -257,7 +274,11 @@ export default {
         gem: gemIcon,
       }),
       paymentData: {},
+      newGroup: {
+        name: '',
+      },
       upgradedGroup: {
+        name: '',
         demographics: null,
       },
     };
@@ -287,12 +308,9 @@ export default {
   },
   methods: {
     close () {
+      console.log(this.upgradedGroup.demographics);
       this.paymentData = {};
       this.$root.$emit('bv::hide::modal', 'payments-success-modal');
-    },
-    closeGroup () {
-      console.log(this.updatedGroup.demographics);
-      this.close();
     },
   },
 };
