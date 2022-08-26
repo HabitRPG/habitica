@@ -343,9 +343,9 @@ export default {
       }
 
       // TEMP CODE
-      if (this.paymentMethod === this.PAYMENTS.OTHER) {
-        console.log(paymentData);
-      }
+      // if (this.paymentMethod === this.PAYMENTS.OTHER) {
+      //   console.log(paymentData);
+      // }
 
       return null;
     },

@@ -39,6 +39,13 @@ export default {
       return moment(this.user.purchased.plan.dateTerminated)
         .format(this.user.preferences.dateFormat.toUpperCase());
     },
+    dateRenewal () {
+      if (!this.user.preferences || !this.user.preferences.dateFormat) {
+        return this.user.purchased.plan.dateRenewal;
+      }
+      return moment(this.user.purchased.plan.dateRenewal).add(1, 'months')
+        .format(this.user.preferences.dateFormat.toUpperCase());
+    },
   },
   methods: {
     encodeGift (uuid, gift) {

@@ -65,53 +65,28 @@
             ></span>
           </div>
         </template>
-        <!-- not sure this is right -->
-        <template
-          v-if="paymentData.paymentType === 'groupPlan'
-            && paymentData.paymentType === 'newGroup'"
-        >
+        <template v-if="paymentData.paymentType === 'groupPlan'">
           <span
-            v-html="$t('groupPlanCreated', {groupName: paymentData.group.name})"
+            v-html="$t(paymentData.newGroup
+              ? 'groupPlanCreated' : 'groupPlanUpgraded', {groupName: paymentData.group.name})"
           ></span>
-          <div class="details-block">
+<!--           <div class="details-block">
             <span
               v-html="$t('paymentSubBilling', {
                 amount: groupPlanCost, months: paymentData.subscription.months})"
             ></span>
-          </div>
-        </template>
-
-        <template
-          v-if="paymentData.paymentType === 'groupPlan'
-            || paymentData.paymentType === 'subscription'"
-        >
-          <span
-            v-once
-            class="small-text auto-renew"
-          >{{ $t('paymentAutoRenew') }}</span>
-        </template>
-        <!-- not sure this is right -->
-        <template
-          v-if="paymentData.newGroup === 'groupPlanUpgraded'
-            && paymentData.paymentType === 'upgradedGroup'"
-        >
-          <span
-            v-html="$t('groupPlanUpdated', {groupName: paymentData.group.name})"
-          ></span>
-          <div class="details-block">
-            <span
-              v-html="$t('paymentSubBilling', {
-                amount: groupPlanCost, months: paymentData.subscription.months})"
-            ></span>
-          </div>
+          </div> -->
           <div
+            v-if="!paymentData.newGroup"
             class="form-group"
           >
-            <span>{{ $t('groupUse') }}</span>
-            <p>this is text</p>
+            <div class="details-block">
+              <span>
+                Your next billing date is <strong>{{ dateRenewal }}</strong>.
+              </span>
+            </div>
             <lockable-label
               :text="$t('groupUse')"
-              class="justify-content-center"
             />
             <select-translated-array
               :items="[
@@ -124,24 +99,36 @@
               ]"
               class="group-input"
               :placeholder="'groupUseDefault'"
-              :value="upgradedGroup.demographics"
-              @select="upgradedGroup.demographics = $event"
+              :value="groupPlanUpgraded.demographics"
+              @select="groupPlanUpgraded.demographics = $event"
             />
-            <button
-              class="btn btn-primary btn-lg btn-block btn-payment"
-              @click="close()"
-            >
-              {{ $t('submit') }}
-            </button>
           </div>
         </template>
-        <button
-          v-else
-          class="btn btn-primary"
-          @click="close()"
+        <template
+          v-if="paymentData.paymentType === 'groupPlan'
+            || paymentData.paymentType === 'subscription'"
         >
-          {{ $t('onwards') }}
-        </button>
+          <span
+            v-once
+            class="small-text auto-renew"
+          >{{ $t('paymentAutoRenew') }}</span>
+        </template>
+        <div>
+          <button
+            v-if="!paymentData.newGroup"
+            class="btn btn-primary"
+            @click="close()"
+          >
+            {{ $t('submit') }}
+          </button>
+          <button
+            v-else
+            class="btn btn-primary"
+            @click="close()"
+          >
+            {{ $t('onwards') }}
+          </button>
+        </div>
       </div>
     </div>
   </b-modal>
@@ -151,7 +138,7 @@
 @import '~@/assets/scss/colors.scss';
 
 #payments-success-modal .modal-md {
-  max-width: 20.5rem;
+  max-width: 448px;
 }
 
 #payments-success-modal .modal-content {
@@ -193,9 +180,8 @@
 }
 
 #payments-success-modal .modal-body {
-  padding-top: 16px;
-  padding-bottom: 24px;
-  background: white;
+  padding: 16px 32px 24px 32px;
+  background: $white;
 
   .modal-body-col {
     display: flex;
@@ -249,9 +235,6 @@
   .small-text {
     font-style: normal;
   }
-  .group-input {
-    margin-top: -4px;
-  }
 }
 </style>
 
@@ -261,24 +244,22 @@ import gemIcon from '@/assets/svg/gem.svg';
 import subscriptionBlocks from '@/../../common/script/content/subscriptionBlocks';
 import selectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
 import lockableLabel from '@/components/tasks/modal-controls/lockableLabel';
+import paymentsMixin from '@/mixins/payments';
 
 export default {
+  components: {
+    selectTranslatedArray,
+    lockableLabel,
+  },
+  mixins: [paymentsMixin],
   data () {
     return {
-      components: {
-        selectTranslatedArray,
-        lockableLabel,
-      },
       icons: Object.freeze({
         check: checkIcon,
         gem: gemIcon,
       }),
       paymentData: {},
-      newGroup: {
-        name: '',
-      },
-      upgradedGroup: {
-        name: '',
+      groupPlanUpgraded: {
         demographics: null,
       },
     };
@@ -287,6 +268,7 @@ export default {
     groupPlanCost () {
       const sub = this.paymentData.subscription;
       const memberCount = this.paymentData.group.memberCount || 1;
+      console.log(this.paymentData);
       return sub.price + 3 * (memberCount - 1);
     },
     isFromBalance () {
@@ -308,7 +290,6 @@ export default {
   },
   methods: {
     close () {
-      console.log(this.upgradedGroup.demographics);
       this.paymentData = {};
       this.$root.$emit('bv::hide::modal', 'payments-success-modal');
     },
