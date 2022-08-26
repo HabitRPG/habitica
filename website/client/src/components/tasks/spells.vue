@@ -68,7 +68,8 @@
               </b-popover>
               <div
                 class="spell-border"
-                :class="{ disabled: spellDisabled(key) || user.stats.lvl < skill.lvl }"
+                :class="{ disabled: spellDisabled(key) || user.stats.lvl < skill.lvl,
+                 'insufficient-mana': user.stats.mp < skill.mana }"
               >
                 <div
                   class="spell"
@@ -85,19 +86,6 @@
                   >
                     <div class="mana-text level">
                       <div>Level {{ skill.lvl }}</div>
-                    </div>
-                  </div>
-                  <div
-                    v-else-if="spellDisabled(key) === true"
-                    class="mana"
-                  >
-                    <div class="mana-text">
-                      <div
-                        v-once
-                        class="svg-icon"
-                        v-html="icons.mana"
-                      ></div>
-                      <div>{{ skill.mana }}</div>
                     </div>
                   </div>
                   <div
@@ -200,7 +188,7 @@
     border-radius: 4px;
     margin-bottom: 1rem;
 
-    &:hover:not(.disabled) {
+    &:hover:not(.disabled):not(.insufficient-mana) {
       background-color: $purple-400;
       cursor: pointer;
       box-shadow: 0 4px 4px 0 rgba(26, 24, 29, 0.16),
@@ -216,11 +204,19 @@
           background-color: rgba(26, 24, 29, 0.5);
         }
 
+        .mana-text {
+          color: $blue-500;
+        }
+
         .level {
           color: $white;
           font-weight: normal;
         }
       }
+    }
+
+    &.insufficient-mana:not(.disabled) {
+      opacity: 0.5;
     }
 
     .spell {
@@ -481,7 +477,9 @@ export default {
     skillNotes (skill) {
       let notes = skill.notes();
 
-      if (skill.key === 'frost' && this.spellDisabled(skill.key)) {
+      if (this.user.stats.lvl < skill.lvl) {
+        notes = this.$t('spellLevelTooHigh', { level: skill.lvl });
+      } else if (skill.key === 'frost' && this.spellDisabled(skill.key)) {
         notes = this.$t('spellAlreadyCast');
       } else if (skill.key === 'stealth' && this.spellDisabled(skill.key)) {
         notes = this.$t('spellAlreadyCast');
