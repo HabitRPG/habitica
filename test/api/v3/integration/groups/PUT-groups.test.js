@@ -75,7 +75,26 @@ describe('PUT /group', () => {
       categories,
     });
 
-    expect(updatedGroup.categories.length).to.eql(0);
+    expect(updatedGroup.categories.length).to.equal(0);
+  });
+
+  it('removes duplicate group categories', async () => {
+    const categories = [
+      {
+        slug: 'newCat',
+        name: 'New Category',
+      },
+      {
+        slug: 'newCat',
+        name: 'New Category',
+      },
+    ];
+
+    const updatedGroup = await leader.put(`/groups/${groupToUpdate._id}`, {
+      categories,
+    });
+
+    expect(updatedGroup.categories.length).to.equal(1);
   });
 
   it('allows an admin to update a guild', async () => {
