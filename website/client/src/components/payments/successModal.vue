@@ -70,7 +70,7 @@
             v-html="$t(paymentData.newGroup
               ? 'groupPlanCreated' : 'groupPlanUpgraded', {groupName: paymentData.group.name})"
           ></span>
-<!--           <div class="details-block">
+          <!--<div class="details-block">
             <span
               v-html="$t('paymentSubBilling', {
                 amount: groupPlanCost, months: paymentData.subscription.months})"
@@ -80,33 +80,47 @@
             v-if="!paymentData.newGroup"
             class="form-group"
           >
-            <div class="details-block">
+            <div class="details-block group-billing-date">
               <span>
-                Your next billing date is <strong>{{ dateRenewal }}</strong>.
+                {{ $t('groupPaymentSubBilling') }}
               </span>
             </div>
-            <lockable-label
-              :text="$t('groupUse')"
-            />
-            <select-translated-array
-              :items="[
-                'groupParentChildren',
-                'groupCouple',
-                'groupFriends',
-                'groupCoworkers',
-                'groupManager',
-                'groupTeacher'
-              ]"
-              class="group-input"
-              :placeholder="'groupUseDefault'"
-              :value="groupPlanUpgraded.demographics"
-              @select="groupPlanUpgraded.demographics = $event"
-            />
+            <div class="small-text group-auto-renew">
+              <span
+                v-once
+              >{{ $t('groupsPaymentAutoRenew') }}
+              </span>
+            </div>
+            <div class="demographics">
+              <lockable-label
+                :text="$t('groupUse')"
+              />
+              <select-translated-array
+                :items="[
+                  'groupParentChildren',
+                  'groupCouple',
+                  'groupFriends',
+                  'groupCoworkers',
+                  'groupManager',
+                  'groupTeacher'
+                ]"
+                class="group-input"
+                :placeholder="'groupUseDefault'"
+                :value="groupPlanUpgraded.demographics"
+                @select="groupPlanUpgraded.demographics = $event"
+              />
+            </div>
           </div>
+          <button
+            v-oncee="!paymentData.newGroup"
+            class="btn btn-primary"
+            @click="close()"
+          >
+            {{ $t('submit') }}
+          </button>
         </template>
         <template
-          v-if="paymentData.paymentType === 'groupPlan'
-            || paymentData.paymentType === 'subscription'"
+          v-if="paymentData.paymentType === 'subscription'"
         >
           <span
             v-once
@@ -115,14 +129,7 @@
         </template>
         <div>
           <button
-            v-if="!paymentData.newGroup"
-            class="btn btn-primary"
-            @click="close()"
-          >
-            {{ $t('submit') }}
-          </button>
-          <button
-            v-else
+            v-if="paymentData.paymentType === 'subscription'"
             class="btn btn-primary"
             @click="close()"
           >
@@ -222,6 +229,26 @@
     margin-top: 16px;
     color: $orange-10;
     font-style: normal;
+  }
+  .group-auto-renew {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    color: $yellow-5;
+    font-style: normal;
+  }
+
+  .group-billing-date {
+    width: 269px;
+    text-align: center;
+    margin-left: 57px;
+  }
+  .form-group {
+    // padding-top: 32px;
+  }
+
+  .demographics {
+    background-color: $gray-700;
+    width: 100%;
   }
 }
 
