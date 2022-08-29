@@ -156,6 +156,7 @@ async function getTasks (req, res, options = {}) {
   let limit;
   let sort;
   let upgradedGroups = [];
+  const upgradedGroupIds = [];
   const owner = group || challenge || user;
 
   if (challenge) {
@@ -179,15 +180,19 @@ async function getTasks (req, res, options = {}) {
       ).exec();
     }
     if (upgradedGroups.length > 0) {
-      const upgradedGroupIds = [];
       for (const upgradedGroup of upgradedGroups) {
         upgradedGroupIds.push(upgradedGroup._id);
       }
       query = {
         $or: [
           { userId: user._id },
-          { 'group.assignedUsers': user._id },
-          { 'group.id': { $in: upgradedGroupIds }, 'group.assignedUsers.0': { $exists: false } },
+          {
+            'group.id': { $in: upgradedGroupIds },
+            $or: [
+              { 'group.assignedUsers': user._id },
+              { 'group.assignedUsers.0': { $exists: false } },
+            ],
+          },
         ],
       };
     } else {
@@ -214,8 +219,13 @@ async function getTasks (req, res, options = {}) {
       if (upgradedGroups.length > 0) {
         query.$or = [
           { userId: user._id },
-          { 'group.assignedUsers': user._id },
-          { 'group.completedBy.userId': user._id },
+          {
+            'group.id': { $in: upgradedGroupIds },
+            $or: [
+              { 'group.assignedUsers': user._id },
+              { 'group.completedBy.userId': user._id },
+            ],
+          },
         ];
       } else if (owner._id === user._id) {
         query.userId = user._id;
