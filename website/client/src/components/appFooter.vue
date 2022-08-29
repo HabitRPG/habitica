@@ -275,7 +275,7 @@
           href="/static/privacy"
         >{{ $t('privacy') }}</a>
       </div>
-      <div class="terms">
+      <div class="mobile-terms mobile desktop">
         <a
           target="_blank"
           href="/static/terms"
@@ -529,6 +529,10 @@ h3 {
   justify-content: end;
 }
 
+.desktop {
+  display: none;
+}
+
 .debug {
   margin-top: 16px;
   display: flex;
@@ -557,6 +561,15 @@ h3 {
   vertical-align: middle;
   padding: 0;
   margin: 0;
+    &:hover {
+      color:$purple-300;
+      box-shadow: 0 3px 6px 0 rgba(26, 24, 29, 0.16), 0 3px 6px 0 rgba(26, 24, 29, 0.24);
+    &:active:not(:disabled) {
+      color:$purple-300;
+      border: 1px solid $purple-400;
+      box-shadow: 0 3px 6px 0 rgba(26, 24, 29, 0.16), 0 3px 6px 0 rgba(26, 24, 29, 0.24);
+    }
+  }
 
   a {
     display: flex;
@@ -571,7 +584,7 @@ h3 {
 // media breakpoints
 
 // Small devices (landscape phones, 576px and under)
-@media (max-width: 576px) {
+@media (max-width: 767.99px) {
 
   // row 1
   .product {
@@ -644,8 +657,8 @@ h3 {
     padding-top: 10px;
   }
   //row 10
-  .terms {
-    grid-area: terms;
+  .mobile-terms {
+    grid-area: mobile-terms;
     display:grid;
     justify-content: center;
     padding: 8px 0px 16px 0px;
@@ -678,7 +691,7 @@ h3 {
       "hr hr"
       "copyright copyright"
       "privacy-policy privacy-policy"
-      "terms terms"
+      "mobile-terms mobile-terms"
       "melior melior"
       "debug-toggle debug-toggle";
     grid-template-columns: repeat(2, 2fr);
@@ -700,6 +713,21 @@ h3 {
     }
   }
 }
+
+// Medium devices (tablets, 768px and under)
+@media (max-width: 1024px) and (min-width: 768px) {
+  footer {
+    padding: 24px 24px;
+    a:not([href]):not([class]):hover { // needed to make "report a bug"'s hover state correct
+      color: $purple-300;
+      text-decoration: underline;
+    }
+  }
+
+  .desktop {
+   display: none;
+  }
+ }
 </style>
 
 <style lang="scss">
