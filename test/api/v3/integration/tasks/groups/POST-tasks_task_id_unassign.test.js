@@ -37,7 +37,7 @@ describe('POST /tasks/:taskId/unassign/:memberId', () => {
       notes: 1976,
     });
 
-    await user.post(`/tasks/${task._id}/assign/${member._id}`);
+    await user.post(`/tasks/${task._id}/assign`, [member._id]);
   });
 
   it('returns error when task is not found', async () => {
@@ -96,7 +96,7 @@ describe('POST /tasks/:taskId/unassign/:memberId', () => {
   });
 
   it('unassigns a user and only that user from a task', async () => {
-    await user.post(`/tasks/${task._id}/assign/${member2._id}`);
+    await user.post(`/tasks/${task._id}/assign`, [member2._id]);
 
     await user.post(`/tasks/${task._id}/unassign/${member._id}`);
 
@@ -105,6 +105,9 @@ describe('POST /tasks/:taskId/unassign/:memberId', () => {
     const memberTasks = await member.get('/tasks/user');
     const member1SyncedTask = find(memberTasks, findAssignedTask);
 
+    await member2.put('/user', {
+      'preferences.tasks.mirrorGroupTasks': [guild._id],
+    });
     const member2Tasks = await member2.get('/tasks/user');
     const member2SyncedTask = find(member2Tasks, findAssignedTask);
 
@@ -130,20 +133,7 @@ describe('POST /tasks/:taskId/unassign/:memberId', () => {
     expect(syncedTask).to.not.exist;
   });
 
-  it('allows a user to unassign themselves', async () => {
-    await member.post(`/tasks/${task._id}/unassign/${member._id}`);
-
-    const groupTask = await user.get(`/tasks/group/${guild._id}`);
-    const memberTasks = await member.get('/tasks/user');
-    const syncedTask = find(memberTasks, findAssignedTask);
-
-    expect(groupTask[0].group.assignedUsers).to.not.contain(member._id);
-    expect(syncedTask).to.not.exist;
-  });
-
-  // @TODO: Which do we want? The user to unassign themselves or not. This test was in
-  // here, but then we had a request to allow to unaissgn.
-  xit('returns error when non leader tries to unassign their a task', async () => {
+  it('returns error when non leader tries to unassign a task', async () => {
     await expect(member.post(`/tasks/${task._id}/unassign/${member._id}`))
       .to.eventually.be.rejected.and.eql({
         code: 401,

@@ -1,80 +1,98 @@
 <template>
   <div class="checklist-component">
-    <lockable-label
-      :locked="disabled || disableItems"
-      :text="$t('checklist')"
-    />
-    <draggable
-      v-model="checklist"
-      :options="{
-        handle: '.grippy',
-        filter: '.task-dropdown',
-        disabled: disabled,
-      }"
-      @update="updateChecklist"
+    <div
+      class="d-flex"
     >
+      <lockable-label
+        :locked="disabled"
+        :text="$t('checklist')"
+      />
       <div
-        v-for="(item, $index) in checklist"
-        :key="item.id"
-        class="inline-edit-input-group checklist-group input-group"
+        class="svg-icon icon-16 my-auto ml-auto pointer"
+        :class="{'chevron-flip': showChecklist}"
+        v-html="icons.chevron"
+        @click="showChecklist = !showChecklist"
+      >
+      </div>
+    </div>
+    <b-collapse
+      id="checklistCollapse"
+      v-model="showChecklist"
+    >
+      <draggable
+        v-model="checklist"
+        :options="{
+          handle: '.grippy',
+          filter: '.task-dropdown',
+          disabled: disabled,
+        }"
+        @update="updateChecklist"
+      >
+        <div
+          v-for="(item, $index) in checklist"
+          :key="item.id"
+          class="inline-edit-input-group checklist-group input-group"
+        >
+          <span
+            v-if="!disabled && !disableDrag"
+            class="grippy"
+            v-html="icons.grip"
+          >
+          </span>
+
+          <checkbox
+            v-if="!disableEdit"
+            :id="`checklist-${item.id}`"
+            :checked.sync="item.completed"
+            :disabled="disabled"
+            class="input-group-prepend"
+            :class="{'cursor-auto': disabled}"
+          />
+
+          <input
+            v-model="item.text"
+            class="inline-edit-input checklist-item form-control"
+            type="text"
+            :disabled="disabled || disableEdit"
+            :class="summaryClass(item)"
+          >
+          <span
+            v-if="!disabled && !disableEdit"
+            class="input-group-append"
+            @click="removeChecklistItem($index)"
+          >
+            <div
+              v-once
+              class="svg-icon destroy-icon"
+              v-html="icons.destroy"
+            >
+            </div>
+          </span>
+        </div>
+      </draggable>
+      <div
+        v-if="!disabled && !disableEdit"
+        class="inline-edit-input-group checklist-group input-group new-checklist"
+        :class="{'top-border': items.length === 0}"
       >
         <span
-          v-if="!disabled && !disableDrag"
-          class="grippy"
-          v-html="icons.grip"
+          v-once
+          class="input-group-prepend new-icon"
+          v-html="icons.positive"
         >
         </span>
-
-        <checkbox
-          :id="`checklist-${item.id}`"
-          :checked.sync="item.completed"
-          :disabled="disabled || disableItems"
-          class="input-group-prepend"
-          :class="{'cursor-auto': disabled || disableItems}"
-        />
 
         <input
-          v-model="item.text"
+          v-model="newChecklistItem"
           class="inline-edit-input checklist-item form-control"
           type="text"
-          :disabled="disabled || disableItems"
+          :placeholder="$t('newChecklistItem')"
+          @keypress.enter="setHasPossibilityOfIMEConversion(false)"
+          @keyup.enter="addChecklistItem($event, true)"
+          @blur="addChecklistItem($event, false)"
         >
-        <span
-          v-if="!disabled && !disableItems"
-          class="input-group-append"
-          @click="removeChecklistItem($index)"
-        >
-          <div
-            v-once
-            class="svg-icon destroy-icon"
-            v-html="icons.destroy"
-          >
-          </div>
-        </span>
       </div>
-    </draggable>
-    <div
-      v-if="!disabled && !disableItems"
-      class="inline-edit-input-group checklist-group input-group new-checklist"
-      :class="{'top-border': items.length === 0}"
-    >
-      <span
-        v-once
-        class="input-group-prepend new-icon"
-        v-html="icons.positive"
-      >
-      </span>
-
-      <input
-        v-model="newChecklistItem"
-        class="inline-edit-input checklist-item form-control"
-        type="text"
-        :placeholder="$t('newChecklistItem')"
-        @keypress.enter="setHasPossibilityOfIMEConversion(false)"
-        @keyup.enter="addChecklistItem($event, true)"
-        @blur="addChecklistItem($event, false)"
-      >
-    </div>
+    </b-collapse>
   </div>
 </template>
 
@@ -104,7 +122,7 @@ export default {
     disableDrag: {
       type: Boolean,
     },
-    disableItems: {
+    disableEdit: {
       type: Boolean,
     },
     items: {
@@ -114,6 +132,7 @@ export default {
   data () {
     return {
       checklist: this.items,
+      showChecklist: true,
       hasPossibilityOfIMEConversion: true,
       newChecklistItem: null,
       icons: Object.freeze({
@@ -125,6 +144,11 @@ export default {
     };
   },
   methods: {
+    summaryClass (item) {
+      if (!this.disableEdit) return '';
+      if (item.completed) return 'summary-completed';
+      return 'summary-incomplete';
+    },
     updateChecklist () {
       this.$emit('update:items', this.checklist);
     },
@@ -166,12 +190,20 @@ export default {
 
   .checklist-component {
 
-    .top-border {
-      border-top: 1px solid $gray-500;
+    .chevron-flip {
+      transform: translateY(-5px) rotate(180deg);
     }
 
     .lock-icon {
       color: $gray-200;
+    }
+
+    .pointer {
+      cursor: pointer;
+    }
+
+    .top-border {
+      border-top: 1px solid $gray-500;
     }
 
     .checklist-group {
@@ -251,6 +283,13 @@ export default {
       border-radius: 0px;
       border: none !important;
       padding-left: 36px;
+
+      &.summary-incomplete {
+        opacity: 1;
+      }
+      &.summary-completed {
+        text-decoration: line-through;
+      }
     }
 
     .checklist-group {

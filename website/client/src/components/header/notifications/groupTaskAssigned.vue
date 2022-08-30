@@ -23,7 +23,14 @@ export default {
   props: ['notification', 'canRemove'],
   methods: {
     action () {
-      this.$router.push({ name: 'tasks' });
+      if (this.notification.data.groupId) {
+        this.$router.push({
+          name: 'groupPlanDetailTaskInformation',
+          params: { groupId: this.notification.data.groupId },
+        });
+      } else {
+        this.$router.push({ name: 'tasks' });
+      }
     },
   },
 };

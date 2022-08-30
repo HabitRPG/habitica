@@ -112,10 +112,8 @@ export default {
     },
   },
   watch: {
-    'group._id': {
-      async groupId () {
-        this.loadChallenges();
-      },
+    'group._id': function groupId () {
+      this.loadChallenges();
     },
   },
   mounted () {
