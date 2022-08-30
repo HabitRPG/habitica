@@ -30,7 +30,7 @@
     "worldBossDescription": "World Boss Description",
     "welcomeMarketMobile": "Welcome to the Market! Buy hard-to-find eggs and potions! Come see what we have to offer.",
     "howManyToSell": "How many would you like to sell?",
-    "yourBalance": "Your balance",
+    "yourBalance": "잔고:",
     "sell": "Sell",
     "buyNow": "Buy Now",
     "sortByNumber": "Number",
@@ -118,5 +118,10 @@
     "welcome3": "삶과 게임에서 진행하세요!",
     "welcome3notes": "당신의 삶을 개선할수록, 당신의 아바타는 레벨업을 하고, 펫과 퀘스트, 장비, 그 이상을 잠금해제할 것입니다!",
     "imReady": "Habitica 들어가기",
-    "limitedOffer": "Available until <%= date %>"
+    "limitedOffer": "Available until <%= date %>",
+    "nGemsGift": "<%= nGems %> 젬 (선물)",
+    "amountExp": "<%= amount %> 경험치",
+    "nGems": "<%= nGems %> 젬",
+    "nMonthsSubscriptionGift": "<%= nMonths %>개월 구독권 (선물)",
+    "cannotUnpinItem": "이 아이템은 즐겨찾기 해제할 수 없습니다."
 }

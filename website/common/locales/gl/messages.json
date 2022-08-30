@@ -1,7 +1,7 @@
 {
     "messageLostItem": "O teu <%= itemText %> rompeu.",
-    "messageTaskNotFound": "Tarefa non atopada",
-    "messageTagNotFound": "Etiqueta non atopada",
+    "messageTaskNotFound": "Non se atopou a tarefa.",
+    "messageTagNotFound": "Non se atopou a etiqueta.",
     "messagePetNotFound": ":pet non atopad@ en user.items.pets",
     "messageFoodNotFound": ":food non atopad@ en user.items.food",
     "messageNotAvailable": "Este obxecto non está disponible actualmente para a compra.",

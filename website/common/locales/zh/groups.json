@@ -166,7 +166,7 @@
     "assignedToUser": "已被分配给<strong><%- userName %></strong>",
     "assignedToMembers": "已被分配给<strong><%= userCount %> members</strong>个会员",
     "assignedToYouAndMembers": "已被分配给你和<strong><%= userCount %></strong>个会员",
-    "youAreAssigned": "你被分配這個任务",
+    "youAreAssigned": "分配予<strong>你</strong>",
     "taskIsUnassigned": "這個任务還沒有被分配",
     "confirmUnClaim": "你肯定你要放棄這個任务？",
     "confirmNeedsWork": "您确定要将此任务标记为需要处理吗？",

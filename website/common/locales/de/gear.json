@@ -2684,5 +2684,11 @@
     "shieldArmoireDustpanText": "Mistschaufel",
     "eyewearMystery202208Text": "Funkelnde Augen",
     "weaponArmoirePushBroomText": "Kehrbesen",
-    "weaponArmoireFeatherDusterText": "Staubwedel"
+    "weaponArmoireFeatherDusterText": "Staubwedel",
+    "headMystery202208Text": "Frecher Pferdeschwanz",
+    "weaponArmoirePushBroomNotes": "Nimm dieses Reinigungswerkzeug auf deine Abenteuer mit, sodass du immer verrußte Böden säubern oder Spinnweben aus Ecken entfernen kannst. Erhöht Stärke und Intelligenz um jeweils <%= attrs %>. Verzauberter Schrank: Reinigungsset (Gegenstand 1 von 3)",
+    "shieldArmoireDustpanNotes": "Halte diese handliche Mistschaufel bei jeder Reinigung bereit. Ein Verschwinden-Zauberspruch liegt über ihr, damit du nie nach einem Mülleimer suchen musst, um sie zu entleeren. Erhöht Intelligenz und Stärke um jeweils <%= attrs %>. Verzauberter Schrank: Reinigungs-Set (Gegenstand 3 von 3).",
+    "headMystery202208Notes": "Genieße es, mit diesem umfangreichen Haar zu prahlen - im Notfall kann es auch als Peitsche verwendet werden! Gewährt keinen Attributbonus. August 2022 Abonnentengegenstand.",
+    "eyewearMystery202208Notes": "Wiege deine Feinde mit diesen schrecklich süßen Augen in Sicherheit. Gewährt keinen Attributbonus. August 2022 Abonnentengegenstand.",
+    "weaponArmoireFeatherDusterNotes": "Lass diese flotten Federn über alte Gegenstände fliegen, damit sie wie neu erstrahlen. Achte aber auf den aufgewirbelten Staub, damit du nicht niesen musst! Erhöht Ausdauer und Wahrnehmung um jeweils <%= attrs %> . Verzauberter Schrank: Reinigungs-Set (Gegenstand 2 von 3)"
 }

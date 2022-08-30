@@ -139,5 +139,6 @@
     "resetCounter": "Resetta il Contatore",
     "adjustCounter": "Aggiusta il Contatore",
     "counter": "Contatore",
-    "editTagsText": "Modifica etichette"
+    "editTagsText": "Modifica etichette",
+    "taskSummary": "<%= type %> Riepilogo"
 }
