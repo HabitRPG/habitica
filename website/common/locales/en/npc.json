@@ -93,7 +93,7 @@
   "paymentYouSentGems": "You sent <strong><%- name %></strong>:",
   "paymentYouSentSubscription": "You sent <strong><%- name %></strong> a <%= months %>-months Habitica subscription.",
   "paymentSubBilling": "Your subscription will be billed <strong>$<%= amount %></strong> every <strong><%= months %> months</strong>.",
-  "groupPaymentSubBilling": "Your subscription will auto-renew on <strong><%= dateRenewal %></strong>.",
+  "groupsPaymentSubBilling": "Your next billing date is <strong>11/11/1111</strong>.",
   "paymentSubBillingWithMethod": "Your subscription will be billed <strong>$<%= amount %></strong> every <strong><%= months %> months</strong> via <strong><%= paymentMethod %></strong>.",
   "paymentAutoRenew": "This subscription will auto-renew until it is canceled. If you need to cancel this subscription, you can do so from your settings.",
   "groupsPaymentAutoRenew": "This subscription will auto-renew until it is canceled. If you need to cancel, you can do so from the Group Billing tab.",

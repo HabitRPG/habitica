@@ -78,11 +78,11 @@
           </div> -->
           <div
             v-if="!paymentData.newGroup"
-            class="form-group"
+            class=""
           >
             <div class="details-block group-billing-date">
               <span>
-                {{ $t('groupPaymentSubBilling') }}
+                {{ $t('groupsPaymentSubBilling') }}
               </span>
             </div>
             <div class="small-text group-auto-renew">
@@ -109,15 +109,15 @@
                 :value="groupPlanUpgraded.demographics"
                 @select="groupPlanUpgraded.demographics = $event"
               />
+              <button
+                v-if="!paymentData.newGroup"
+                class="btn btn-primary"
+                @click="close()"
+              >
+                {{ $t('submit') }}
+              </button>
             </div>
           </div>
-          <button
-            v-oncee="!paymentData.newGroup"
-            class="btn btn-primary"
-            @click="close()"
-          >
-            {{ $t('submit') }}
-          </button>
         </template>
         <template
           v-if="paymentData.paymentType === 'subscription'"
@@ -156,6 +156,7 @@
   border-bottom-right-radius: 8px;
   border-bottom-left-radius: 8px;
 }
+
 
 #payments-success-modal .modal-header {
   justify-content: center;
@@ -206,7 +207,7 @@
     border-radius: 4px;
     padding: 8px 24px;
     margin-top: 16px;
-    display: flex;
+    display: inline-flex;
     flex-direction: row;
     text-align: center;
 
@@ -236,22 +237,17 @@
     color: $yellow-5;
     font-style: normal;
   }
-
-  .group-billing-date {
-    width: 269px;
-    text-align: center;
-    margin-left: 57px;
-  }
-  .form-group {
-    // padding-top: 32px;
-  }
-
   .demographics {
     background-color: $gray-700;
     width: 100%;
+    padding: 0 12px;
+    width: 100%;
+    padding: 16px 32px 32px 32px;
+  }
+  .group-billing-date {
+    width: 269px;
   }
 }
-
 #payments-success-modal .modal-footer {
   background: $gray-700;
   border-bottom-right-radius: 8px;
