@@ -36,6 +36,12 @@
           ("auth.timestamps.loggedin" and "lastCron" dates are different).
         </span>
       </div>
+      <button
+        class="btn btn-primary"
+        @click="resetCron()"
+      >
+        Reset Cron to Yesterday
+      </button>
       <div class="subsection-start">
         Time zone:
         <strong>{{ hero.preferences.timezoneOffset | formatTimeZone }}</strong>
@@ -217,6 +223,10 @@ export default {
       this.hero.changeApiToken = true;
       await this.saveHero({ hero: this.hero, msg: 'API Token' });
       this.tokenModified = true;
+    },
+    resetCron () {
+      this.hero.resetCron = true;
+      this.saveHero({ hero: this.hero, msg: 'Last Cron', clearData: true });
     },
   },
 };

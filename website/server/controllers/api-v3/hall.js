@@ -331,6 +331,13 @@ api.updateHero = {
       hero.apiToken = common.uuid();
     }
 
+    if (updateData.resetCron) {
+      // Set last cron to yesterday. Quick approach so we don't need moment() for one line
+      const yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
+      hero.lastCron = yesterday;
+      hero.auth.timestamps.loggedin = yesterday; // so admin panel doesn't gripe about mismatch
+    }
+
     const savedHero = await hero.save();
     const heroJSON = savedHero.toJSON();
     heroJSON.secret = savedHero.getSecretData();
