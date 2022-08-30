@@ -86,5 +86,12 @@
     "premiumPotionNoDropExplanation": "As Pocións Máxicas de eclosión non poder ser usadas nos ovos recibidos por Misións. A única maneira de conseguir Pocións Máxicas de eclosión é compralas máis abaixo, non aparecen no botín aleatorio.",
     "beastMasterName": "Mestre das Bestas",
     "beastAchievement": "¡Conseguiches o Logro \"Mestre das Bestas\" por conseguir tódalas mascotas!",
-    "dropsExplanationEggs": "Gasta Xemas para conseguir ovos máis rápidamente, senón queres esperar a obterlos como botín ou repetir Misións para obter Ovos de Misión. <a href=\"http://habitica.fandom.com/wiki/Drops\">Máis información sobre o sistema de botín.</a>"
+    "dropsExplanationEggs": "Gasta Xemas para conseguir ovos máis rápidamente, senón queres esperar a obterlos como botín ou repetir Misións para obter Ovos de Misión. <a href=\"http://habitica.fandom.com/wiki/Drops\">Máis información sobre o sistema de botín.</a>",
+    "hatch": "Abrir!",
+    "filterByWacky": "Tolaría",
+    "standard": "Estándar",
+    "filterByStandard": "Estándar",
+    "filterByQuest": "Misión",
+    "sortByColor": "Cor",
+    "sortByHatchable": "Eclosionábel"
 }
