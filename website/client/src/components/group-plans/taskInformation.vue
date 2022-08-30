@@ -19,21 +19,18 @@
       :task="editingTask"
       @cancel="cancelTaskModal()"
     />
-    <div class="row tasks-navigation mb-4">
-      <div class="col-12 col-md-4 d-flex align-items-center">
+    <div class="d-flex flex-wrap align-items-center mb-4">
+      <div class="mr-auto">
         <h1>{{ group.name }}</h1>
       </div>
-      <!-- @TODO: Abstract to component!-->
-      <div class="col-12 col-md-4 d-flex justify-content-center align-items-center">
-        <input
-          v-model="searchText"
-          class="form-control input-search"
-          type="text"
-          :placeholder="$t('search')"
-        >
-      </div>
+      <input
+        v-model="searchText"
+        class="form-control input-search"
+        type="text"
+        :placeholder="$t('search')"
+      >
       <div
-        class="col-12 col-md-4 create-task-area d-flex align-items-center"
+        class="d-flex flex-wrap align-items-center justify-content-end ml-auto"
       >
         <toggle-switch
           id="taskMirrorToggle"
@@ -44,11 +41,11 @@
           @change="changeMirrorPreference"
         />
         <div
-          class="day-start d-flex align-items-center mr-2"
+          class="day-start d-flex align-items-center"
           v-html="$t('dayStart', { startTime: groupStartTime } )"
         >
         </div>
-        <div>
+        <div class="ml-2">
           <button
             id="create-task-btn"
             v-if="canCreateTasks"
@@ -135,21 +132,31 @@
     margin-bottom: 0px;
   }
 
-  .create-task-area {
-    top: 1.5rem;
-    height: 40px;
+  .day-start {
+    height: 2rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 2px;
+    color: $gray-100;
+    background-color: $gray-600;
+  }
 
-    .day-start {
-      height: 2rem;
-      padding: 0.25rem 0.75rem;
-      border-radius: 2px;
-      color: $gray-100;
-      background-color: $gray-600;
+  @media screen and (min-width: 1200px) {
+    .input-search {
+      margin-left: 12.5rem;
+      width: 25%;
     }
   }
 
-  .input-search {
-    max-width: 458px;
+  @media screen and (max-width: 1200px) {
+    .input-search {
+      width: 50%;
+    }
+  }
+
+  @media screen and (max-width: 500px) {
+    #create-task-btn {
+      margin-top: 4px;
+    }
   }
 
   .positive {

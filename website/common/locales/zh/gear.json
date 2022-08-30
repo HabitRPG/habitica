@@ -2676,7 +2676,7 @@
     "shieldArmoireSoftVioletPillowNotes": "一个聪明的战士任何征战会装枕头。保护你自己免受迟滞诱发的恐慌…… 即使就在睡觉。增加<%= int %>点智力。魔法衣橱：紫家居服套装（3/3）。",
     "shieldArmoireGardenersSpadeText": "园丁铲",
     "shieldArmoireGardenersSpadeNotes": "如果你在园里开掘、找地下宝藏、还是修暗道，这个可信任的铲总在你的旁边。增加<%= str %>点力量。魔法衣橱：园丁套装（3/4）。",
-    "shieldArmoireSpanishGuitarNotes": "叮咚！叮咚！叮叮咚咚！将弹这把吉他集会你的队伍去一个音乐会还是典礼。增加<%= per %>点感知和<%= int <%>点智力。魔法衣橱：乐器套装1 （2/3）",
+    "shieldArmoireSpanishGuitarNotes": "叮咚！叮咚！叮叮咚咚！将弹这把吉他集会你的队伍去一个音乐会还是典礼。增加<%= per %>点感知和<%= int %>点智力。魔法衣橱：乐器套装1 （2/3）",
     "shieldArmoireSnareDrumText": "小鼓",
     "shieldArmoireSnareDrumNotes": "嗒嗒嗒！将打这面鼓集会你的队伍去游行还是行军打仗。增加<%= con %>点体质和<%= int %>点智力。魔法衣橱：乐器套装1 （3/3）",
     "shieldArmoireSpanishGuitarText": "西班牙吉他",

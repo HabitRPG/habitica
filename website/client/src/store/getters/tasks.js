@@ -84,7 +84,8 @@ export function canEdit (store) {
     const user = store.state.user.data;
     const userId = user.id || user._id;
 
-    const isUserAdmin = user.permissions && user.permissions.challengeAdmin;
+    const isUserAdmin = user.permissions
+      && (user.permissions.challengeAdmin || user.permissions.fullAccess);
     const isUserGroupLeader = group && (group.leader
       && group.leader._id === userId);
     const isUserGroupManager = group && (group.managers

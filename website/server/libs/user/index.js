@@ -138,7 +138,7 @@ export async function update (req, res, { isV3 = false }) {
     if (!Array.isArray(groupsToMirror)) {
       throw new BadRequest('Groups to copy tasks from must be an array.');
     }
-    const memberGroups = user.guilds;
+    const memberGroups = _.clone(user.guilds);
     if (user.party._id) memberGroups.push(user.party._id);
     for (const targetGroup of groupsToMirror) {
       if (memberGroups.indexOf(targetGroup) === -1) {

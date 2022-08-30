@@ -380,5 +380,6 @@
     "editParty": "パーティーを編集",
     "leaveGuild": "ギルドを脱退する",
     "sendGiftTotal": "トータル：",
-    "chatTemporarilyUnavailable": "チャットは一時的に利用できません。後でもう一度お試しください。"
+    "chatTemporarilyUnavailable": "チャットは一時的に利用できません。後でもう一度お試しください。",
+    "newGroupsBullet01": "共有タスク ボードから直接タスクを操作する"
 }

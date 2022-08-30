@@ -461,7 +461,7 @@ export default {
     spellDisabled (skill) {
       const incompleteDailiesDue = this
         .getUnfilteredTaskList('daily')
-        .filter(daily => !daily.completed && daily.isDue)
+        .filter(daily => !daily.completed && !daily.group.id && daily.isDue)
         .length;
 
       if (skill === 'frost' && this.user.stats.buffs.streaks) {

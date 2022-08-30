@@ -218,6 +218,6 @@
     "adjustment": "Ajustement",
     "passwordSuccess": "Mot de passe changé avec succès",
     "giftSubscriptionRateText": "<strong>$<%= price %> USD</strong> pour <strong><%= months %> mois</strong>",
-    "transaction_admin_update_balance": "donné l'admin",
+    "transaction_admin_update_balance": "Administration donnée",
     "transaction_create_bank_challenge": "Banque de défi créée"
 }
