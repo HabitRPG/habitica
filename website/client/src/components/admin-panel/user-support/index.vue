@@ -18,7 +18,7 @@
         />
 
         <subscription-and-perks
-          :subscription="hero.purchased.plan"
+          :hero="hero"
         />
 
         <cron-and-auth

@@ -273,6 +273,15 @@ api.updateHero = {
       hero.balance = updateData.balance;
     }
 
+    if (updateData.purchased && updateData.purchased.plan) {
+      if (updateData.purchased.plan.gemsBought) {
+        hero.purchased.plan.gemsBought = updateData.purchased.plan.gemsBought;
+      }
+      if (updateData.purchased.plan.consecutive && updateData.purchased.plan.consecutive.trinkets) {
+        hero.purchased.plan.consecutive.trinkets = updateData.purchased.plan.consecutive.trinkets;
+      }
+    }
+
     // give them gems if they got an higher level
     // tier = level in this context
     let newTier = updateData.contributor && updateData.contributor.level;
