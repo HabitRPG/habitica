@@ -280,6 +280,7 @@ import markdownDirective from '@/directives/markdown';
 import { userStateMixin } from '../../mixins/userState';
 
 import { TAVERN_ID, MIN_SHORTNAME_SIZE_FOR_CHALLENGES, MAX_SUMMARY_SIZE_FOR_CHALLENGES } from '@/../../common/script/constants';
+import CategoryOptions from '@/../../common/script/content/categoryOptions';
 
 export default {
   directives: {
@@ -288,64 +289,7 @@ export default {
   mixins: [userStateMixin],
   props: ['groupId'],
   data () {
-    const categoryOptions = [
-      {
-        label: 'habitica_official',
-        key: 'habitica_official',
-      },
-      {
-        label: 'academics',
-        key: 'academics',
-      },
-      {
-        label: 'advocacy_causes',
-        key: 'advocacy_causes',
-      },
-      {
-        label: 'creativity',
-        key: 'creativity',
-      },
-      {
-        label: 'entertainment',
-        key: 'entertainment',
-      },
-      {
-        label: 'finance',
-        key: 'finance',
-      },
-      {
-        label: 'health_fitness',
-        key: 'health_fitness',
-      },
-      {
-        label: 'hobbies_occupations',
-        key: 'hobbies_occupations',
-      },
-      {
-        label: 'location_based',
-        key: 'location_based',
-      },
-      {
-        label: 'mental_health',
-        key: 'mental_health',
-      },
-      {
-        label: 'getting_organized',
-        key: 'getting_organized',
-      },
-      {
-        label: 'self_improvement',
-        key: 'self_improvement',
-      },
-      {
-        label: 'spirituality',
-        key: 'spirituality',
-      },
-      {
-        label: 'time_management',
-        key: 'time_management',
-      },
-    ];
+    const categoryOptions = CategoryOptions;
     const hashedCategories = {};
     categoryOptions.forEach(category => {
       hashedCategories[category.key] = category.label;
