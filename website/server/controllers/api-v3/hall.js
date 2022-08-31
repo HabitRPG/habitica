@@ -277,8 +277,13 @@ api.updateHero = {
       if (updateData.purchased.plan.gemsBought) {
         hero.purchased.plan.gemsBought = updateData.purchased.plan.gemsBought;
       }
-      if (updateData.purchased.plan.consecutive && updateData.purchased.plan.consecutive.trinkets) {
-        hero.purchased.plan.consecutive.trinkets = updateData.purchased.plan.consecutive.trinkets;
+      if (updateData.purchased.plan.consecutive) {
+        if (updateData.purchased.plan.consecutive.trinkets) {
+          hero.purchased.plan.consecutive.trinkets = updateData.purchased.plan.consecutive.trinkets;
+        }
+        if (updateData.purchased.plan.consecutive.gemCapExtra) {
+          hero.purchased.plan.consecutive.gemCapExtra = updateData.purchased.plan.consecutive.gemCapExtra; // eslint-disable-line max-len
+        }
       }
     }
 

@@ -8,7 +8,7 @@
       Subscription, Monthly Perks
     </h3>
     <div v-if="expand">
-      <form @submit.prevent="saveHero({hero, msg: 'Subscription Perks'})">
+      <form @submit.prevent="saveSubscriptionData()">
         <div v-if="hero.purchased.plan.paymentMethod">
           Payment method:
           <strong>{{ hero.purchased.plan.paymentMethod }}</strong>
@@ -30,9 +30,20 @@
           </strong>
           <strong v-else> None </strong>
         </div>
-        <div>
-          Consecutive months:
-          <strong>{{ hero.purchased.plan.consecutive.count }}</strong>
+        <div class="form-inline">
+          <label>
+            Consecutive months:
+            <input
+              v-model="consecutiveMonths"
+              class="form-control"
+              type="number"
+              min="0"
+              step="1"
+            >
+          </label>
+          <span class="small">
+            Updates Hourglasses and Gem cap automatically. Next Mystic Hourglass updates on save.
+          </span>
         </div>
         <div>
           Months until renewal:
@@ -59,16 +70,16 @@
             <strong>{{ hero.purchased.plan.consecutive.gemCapExtra + 25 }}</strong>
           </div>
           <div class="form-inline">
-          <label>
-            Gems bought this month:
-            <input
-              v-model="hero.purchased.plan.gemsBought"
-              class="form-control"
-              type="number"
-              min="0"
-              :max="hero.purchased.plan.consecutive.gemCapExtra + 25"
-              step="1"
-            >
+            <label>
+              Gems bought this month:
+              <input
+                v-model="hero.purchased.plan.gemsBought"
+                class="form-control"
+                type="number"
+                min="0"
+                :max="hero.purchased.plan.consecutive.gemCapExtra + 25"
+                step="1"
+              >
             </label>
           </div>
         <div
@@ -107,6 +118,7 @@
 </template>
 
 <script>
+import clone from 'lodash/clone';
 import moment from 'moment';
 import saveHero from '../mixins/saveHero';
 import { getPlanContext } from '@/../../common/script/cron';
@@ -121,6 +133,8 @@ export default {
   },
   data () {
     return {
+      consecutiveMonths: 0,
+      startingHourglasses: 0,
       expand: false,
     };
   },
@@ -131,9 +145,36 @@ export default {
       return currentPlanContext.nextHourglassDate.format('MMMM');
     },
   },
+  watch: {
+    consecutiveMonths () {
+      const startingMonths = this.hero.purchased.plan.consecutive.count;
+      const monthsAdded = Math.max(0, this.consecutiveMonths - startingMonths);
+      this.hero.purchased.plan.consecutive.gemCapExtra = Math.min(
+        Math.floor(this.consecutiveMonths / 3) * 5, 25,
+      );
+      if (monthsAdded >= 0) {
+        this.hero.purchased.plan.consecutive.trinkets = this.startingHourglasses
+          + Math.floor(monthsAdded / 3);
+      }
+      if (this.hero.purchased.plan.gemsBought
+        > this.hero.purchased.plan.consecutive.gemCapExtra + 25) {
+        this.hero.purchased.plan.gemsBought = this.hero.purchased.plan.consecutive.gemCapExtra + 25;
+      }
+    },
+  },
+  mounted () {
+    this.consecutiveMonths = clone(this.hero.purchased.plan.consecutive.count);
+    this.startingHourglasses = clone(this.hero.purchased.plan.consecutive.trinkets);
+  },
   methods: {
     dateFormat (date) {
       return moment(date).format('YYYY/MM/DD');
+    },
+    saveSubscriptionData () {
+      if (this.consecutiveMonths !== this.hero.purchased.plan.consecutive.count) {
+        this.hero.purchased.plan.consecutive.count = this.consecutiveMonths;
+      }
+      this.saveHero({ hero: this.hero, msg: 'Subscription Perks' });
     },
   },
 };
