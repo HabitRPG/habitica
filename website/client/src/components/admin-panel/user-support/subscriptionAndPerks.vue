@@ -41,9 +41,6 @@
               step="1"
             >
           </label>
-          <span class="small">
-            Updates Hourglasses and Gem cap automatically. Next Mystic Hourglass updates on save.
-          </span>
         </div>
         <div>
           Months until renewal:
@@ -51,7 +48,7 @@
         </div>
           <div>
             Next Mystic Hourglass:
-            <strong>{{ nextHourGlassDate }}</strong>
+            <strong>{{ nextHourglassDate }}</strong>
           </div>
           <div class="form-inline">
             <label>
@@ -134,28 +131,23 @@ export default {
   data () {
     return {
       consecutiveMonths: 0,
-      startingHourglasses: 0,
       expand: false,
     };
   },
   computed: {
-    nextHourGlassDate () {
-      const currentPlanContext = getPlanContext(this.hero, new Date());
+    nextHourglassDate () {
+      const pendingHero = clone(this.hero);
+      pendingHero.purchased.plan.consecutive.count = this.consecutiveMonths;
+      const currentPlanContext = getPlanContext(pendingHero, new Date());
 
       return currentPlanContext.nextHourglassDate.format('MMMM');
     },
   },
   watch: {
     consecutiveMonths () {
-      const startingMonths = this.hero.purchased.plan.consecutive.count;
-      const monthsAdded = Math.max(0, this.consecutiveMonths - startingMonths);
       this.hero.purchased.plan.consecutive.gemCapExtra = Math.min(
         Math.floor(this.consecutiveMonths / 3) * 5, 25,
       );
-      if (monthsAdded >= 0) {
-        this.hero.purchased.plan.consecutive.trinkets = this.startingHourglasses
-          + Math.floor(monthsAdded / 3);
-      }
       if (this.hero.purchased.plan.gemsBought
         > this.hero.purchased.plan.consecutive.gemCapExtra + 25) {
         this.hero.purchased.plan.gemsBought = this.hero.purchased.plan.consecutive.gemCapExtra + 25;
@@ -164,7 +156,6 @@ export default {
   },
   mounted () {
     this.consecutiveMonths = clone(this.hero.purchased.plan.consecutive.count);
-    this.startingHourglasses = clone(this.hero.purchased.plan.consecutive.trinkets);
   },
   methods: {
     dateFormat (date) {
