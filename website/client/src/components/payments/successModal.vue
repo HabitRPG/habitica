@@ -17,10 +17,41 @@
     </div>
     <div slot="modal-footer">
       <div
-        v-once
+        v-if="!paymentData.paymentType === 'groupPlan' && !paymentData.newGroup"
         class="small-text"
       >
         {{ $t('giftSubscriptionText4') }}
+      </div>
+      <div
+        v-else
+        class="demographics"
+      >
+        <lockable-label
+          :text="$t('groupUse')"
+          class="demo-label"
+        />
+        <select-translated-array
+          :items="[
+            'groupParentChildren',
+            'groupCouple',
+            'groupFriends',
+            'groupCoworkers',
+            'groupManager',
+            'groupTeacher'
+          ]"
+          class="group-input"
+          :placeholder="'groupUseDefault'"
+          :value="groupPlanUpgraded.demographics"
+          @select="groupPlanUpgraded.demographics = $event"
+        />
+        <button
+          v-if="!paymentData.newGroup"
+          class="btn btn-primary"
+          :disabled="!'groupPlanUpgraded.demographics'"
+          @click="close()"
+        >
+          {{ $t('submit') }}
+        </button>
       </div>
     </div>
     <div class="row">
@@ -81,8 +112,9 @@
             class=""
           >
             <div class="details-block group-billing-date">
-              <span>
-                {{ $t('groupsPaymentSubBilling') }}
+              <span
+                v-html="$t('groupsPaymentSubBilling')"
+              >
               </span>
             </div>
             <div class="small-text group-auto-renew">
@@ -91,7 +123,7 @@
               >{{ $t('groupsPaymentAutoRenew') }}
               </span>
             </div>
-            <div class="demographics">
+<!--             <div class="demographics">
               <lockable-label
                 :text="$t('groupUse')"
               />
@@ -116,7 +148,7 @@
               >
                 {{ $t('submit') }}
               </button>
-            </div>
+            </div> -->
           </div>
         </template>
         <template
@@ -205,7 +237,7 @@
   .details-block {
     background: $gray-700;
     border-radius: 4px;
-    padding: 8px 24px;
+    padding: 8px 16px;
     margin-top: 16px;
     display: inline-flex;
     flex-direction: row;
@@ -232,22 +264,15 @@
     font-style: normal;
   }
   .group-auto-renew {
-    margin-top: 16px;
-    margin-bottom: 16px;
+    margin: 12px 20px -8px 20px;
     color: $yellow-5;
     font-style: normal;
-  }
-  .demographics {
-    background-color: $gray-700;
-    width: 100%;
-    padding: 0 12px;
-    width: 100%;
-    padding: 16px 32px 32px 32px;
   }
   .group-billing-date {
     width: 269px;
   }
 }
+
 #payments-success-modal .modal-footer {
   background: $gray-700;
   border-bottom-right-radius: 8px;
@@ -259,6 +284,28 @@
     font-style: normal;
   }
 }
+  .demographics {
+    background-color: $gray-700;
+    padding: 16px 0px;
+    margin-top: -16px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .btn.btn-primary {
+      margin-top: 24px;
+      width: 77px;
+      align-self: center;
+
+    }
+  #lockable-label .modal-footer label {
+    text-align: center !important;
+    width: 400px !important;
+  }
+
+  }
+
 </style>
 
 <script>
