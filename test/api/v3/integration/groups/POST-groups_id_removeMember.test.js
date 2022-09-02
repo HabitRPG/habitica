@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import {
   generateUser,
   createAndPopulateGroup,
@@ -5,6 +6,8 @@ import {
   sleep,
 } from '../../../../helpers/api-integration/v3';
 import * as email from '../../../../../website/server/libs/email';
+import { schema as groupSchema } from '../../../../../website/server/models/group';
+import { schema as userSchema } from '../../../../../website/server/models/user/index';
 
 describe('POST /groups/:groupId/removeMember/:memberId', () => {
   let leader;
@@ -84,7 +87,53 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
     it('updates memberCount', async () => {
       const oldMemberCount = guild.memberCount;
       await leader.post(`/groups/${guild._id}/removeMember/${member._id}`);
+
       await expect(leader.get(`/groups/${guild._id}`)).to.eventually.have.property('memberCount', oldMemberCount - 1);
+      const userUpdated = await member.get('/user');
+      expect(userUpdated.guilds.indexOf(guild._id)).to.eql(-1);
+    });
+
+    it('does not update group\'s memberCount when user update fails', async () => {
+      const user = mongoose.model('User', userSchema);
+      sandbox.stub(user.prototype, 'save').throws();
+      const oldMemberCount = guild.memberCount;
+
+      await expect(leader.post(`/groups/${guild._id}/removeMember/${member._id}`)).to.eventually.be.rejected.and.eql({
+        code: 404,
+        error: 'NotFound',
+        message: 'Not found.',
+      });
+
+      await expect(leader.get(`/groups/${guild._id}`)).to.eventually.have.property('memberCount', oldMemberCount);
+    });
+
+    it('does not update user\'s guilds when group update fails', async () => {
+      const group = mongoose.model('Group', groupSchema);
+      sandbox.stub(group.prototype, 'save').throws();
+
+      await expect(leader.post(`/groups/${guild._id}/removeMember/${member._id}`)).to.eventually.be.rejected.and.eql({
+        code: 404,
+        error: 'NotFound',
+        message: 'Not found.',
+      });
+
+      const userUpdated = await member.get('/user');
+      expect(userUpdated.guilds.indexOf(guild._id)).not.to.eql(-1);
+    });
+
+    it('does not update group\'s memberCount and user\'s guilds when group and user update fail', async () => {
+      sandbox.stub(mongoose.Model.prototype, 'save').throws();
+      const oldMemberCount = guild.memberCount;
+
+      await expect(leader.post(`/groups/${guild._id}/removeMember/${member._id}`)).to.eventually.be.rejected.and.eql({
+        code: 404,
+        error: 'NotFound',
+        message: 'Not found.',
+      });
+
+      await expect(leader.get(`/groups/${guild._id}`)).to.eventually.have.property('memberCount', oldMemberCount);
+      const userUpdated = await member.get('/user');
+      expect(userUpdated.guilds.indexOf(guild._id)).not.to.eql(-1);
     });
 
     it('can remove other invites', async () => {

@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import nconf from 'nconf';
+import mongoose from 'mongoose';
 import { authWithHeaders } from '../../middlewares/auth';
 import {
   model as Group,
@@ -977,14 +978,7 @@ api.removeGroupMember = {
     }
 
     if (isInGroup) {
-      // For parties we count the number of members from the database to get the correct value.
-      // See #12275 on why this is necessary and only done for parties.
-      if (group.type === 'party') {
-        const currentMembers = await group.getMemberCount();
-        group.memberCount = currentMembers - 1;
-      } else {
-        group.memberCount -= 1;
-      }
+      group.memberCount -= 1;
 
       if (group.quest && group.quest.leader === member._id) {
         throw new NotAuthorized(res.t('cannotRemoveQuestOwner'));
@@ -1025,10 +1019,17 @@ api.removeGroupMember = {
     const message = req.query.message || req.body.message;
     _sendMessageToRemoved(group, member, message, isInGroup);
 
-    await Promise.all([
-      member.save(),
-      group.save(),
-    ]);
+    const session = await mongoose.startSession();
+    try {
+      await session.withTransaction(async () => {
+        await member.save({ session });
+        await group.save({ session });
+      });
+    } catch (err) {
+      throw validationErrors;
+    } finally {
+      session.endSession();
+    }
 
     if (isInGroup && group.hasNotCancelled()) {
       await group.updateGroupPlan(true);
