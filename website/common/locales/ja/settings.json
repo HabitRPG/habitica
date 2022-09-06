@@ -114,11 +114,11 @@
     "remindersToLogin": "Habitica へのチェックインを通知する",
     "unsubscribedSuccessfully": "有料プランを正常に解約しました！",
     "unsubscribedTextUsers": "Habitica からのメールをすべて停止しました。<a href=\"/user/settings/notifications\">設定 > 通知</a>受け取りたいメールだけを有効にすることができます(要ログイン)。",
-    "unsubscribedTextOthers": "Habitica からの他のメールは発信されません。",
-    "unsubscribeAllEmails": "チェックすると、メールの購読解除",
-    "unsubscribeAllEmailsText": "私は、このボックスをチェックすることですべてのメールの購読を解除し、 サイトやアカウントの変更についての重要な内容であっても Habitica がメールを通じて私に告知することができなくなることを理解したことを証明します。",
-    "unsubscribeAllPush": "チェックすると、すべてのプッシュ通知停止",
-    "correctlyUnsubscribedEmailType": "「<%= emailType %>」からのメールを購読解除しました。",
+    "unsubscribedTextOthers": "Habitica から他のメールは届きません。",
+    "unsubscribeAllEmails": "チェックすると、メールを停止します",
+    "unsubscribeAllEmailsText": "私は、このボックスをチェックすることですべてのメールを停止し、 サイトやアカウントの変更についての重要な内容であっても Habitica がメールを通じて私に告知することができなくなることを理解したことを証明します。",
+    "unsubscribeAllPush": "チェックすると、すべてのプッシュ通知を停止します",
+    "correctlyUnsubscribedEmailType": "「<%= emailType %>」のメールを正常に停止しました。",
     "subscriptionRateText": "<strong><%= months %>カ月</strong> ごとに <strong><%= price %>米ドル</strong> ずつ",
     "benefits": "メリット",
     "coupon": "クーポン",
@@ -217,5 +217,7 @@
     "dayStartAdjustment": "一日の始まりの時間の調整",
     "nextHourglassDescription": "有料会員は神秘の砂時計を\n月初めの3日以内に受け取ります。",
     "passwordSuccess": "パスワードは正常に変更されました",
-    "giftSubscriptionRateText": "<strong><%= months %> か月</strong>ごとに<strong>$<%= price %> USD（米ドル）</strong>"
+    "giftSubscriptionRateText": "<strong><%= months %> か月</strong>ごとに<strong>$<%= price %> USD（米ドル）</strong>",
+    "transaction_create_bank_challenge": "作成された口座チャレンジ",
+    "transaction_admin_update_balance": "管理者より付与"
 }

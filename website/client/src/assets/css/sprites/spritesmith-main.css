@@ -570,6 +570,11 @@
   width: 141px;
   height: 147px;
 }
+.background_autumn_picnic {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_autumn_picnic.png');
+  width: 141px;
+  height: 147px;
+}
 .background_autumn_poplars {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_autumn_poplars.png');
   width: 141px;
@@ -1439,6 +1444,11 @@
   width: 141px;
   height: 147px;
 }
+.background_old_photo {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_old_photo.png');
+  width: 141px;
+  height: 147px;
+}
 .background_on_a_castle_wall {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_on_a_castle_wall.png');
   width: 141px;
@@ -1839,6 +1849,11 @@
   width: 141px;
   height: 147px;
 }
+.background_theatre_stage {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_theatre_stage.png');
+  width: 141px;
+  height: 147px;
+}
 .background_throne_room {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_throne_room.png');
   width: 141px;
@@ -2123,6 +2138,11 @@
 }
 .icon_background_autumn_lakeshore {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_autumn_lakeshore.png');
+  width: 68px;
+  height: 68px;
+}
+.icon_background_autumn_picnic {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_autumn_picnic.png');
   width: 68px;
   height: 68px;
 }
@@ -3000,6 +3020,11 @@
   width: 68px;
   height: 68px;
 }
+.icon_background_old_photo {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_old_photo.png');
+  width: 68px;
+  height: 68px;
+}
 .icon_background_on_a_castle_wall {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_on_a_castle_wall.png');
   width: 68px;
@@ -3402,6 +3427,11 @@
 }
 .icon_background_terraced_rice_field {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_terraced_rice_field.png');
+  width: 68px;
+  height: 68px;
+}
+.icon_background_theatre_stage {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_theatre_stage.png');
   width: 68px;
   height: 68px;
 }
@@ -18510,6 +18540,11 @@
   width: 114px;
   height: 87px;
 }
+.eyewear_armoire_comedyMask {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/eyewear_armoire_comedyMask.png');
+  width: 114px;
+  height: 90px;
+}
 .eyewear_armoire_goofyGlasses {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/eyewear_armoire_goofyGlasses.png');
   width: 90px;
@@ -18518,6 +18553,11 @@
 .eyewear_armoire_plagueDoctorMask {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/eyewear_armoire_plagueDoctorMask.png');
   width: 90px;
+  height: 90px;
+}
+.eyewear_armoire_tragedyMask {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/eyewear_armoire_tragedyMask.png');
+  width: 114px;
   height: 90px;
 }
 .headAccessory_armoire_comicalArrow {
@@ -19725,6 +19765,11 @@
   width: 68px;
   height: 68px;
 }
+.shop_eyewear_armoire_comedyMask {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_eyewear_armoire_comedyMask.png');
+  width: 68px;
+  height: 68px;
+}
 .shop_eyewear_armoire_goofyGlasses {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_eyewear_armoire_goofyGlasses.png');
   width: 68px;
@@ -19732,6 +19777,11 @@
 }
 .shop_eyewear_armoire_plagueDoctorMask {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_eyewear_armoire_plagueDoctorMask.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_eyewear_armoire_tragedyMask {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_eyewear_armoire_tragedyMask.png');
   width: 68px;
   height: 68px;
 }

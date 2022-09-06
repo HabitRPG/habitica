@@ -1,8 +1,8 @@
 {
     "achievement": "Logro",
     "onwards": "Adiante!",
-    "levelup": "By accomplishing your real life goals, you leveled up and are now fully healed!",
-    "reachedLevel": "You Reached Level <%= level %>",
+    "levelup": "",
+    "reachedLevel": "",
     "achievementLostMasterclasser": "Quest Completionist: Masterclasser Series",
     "achievementLostMasterclasserText": "Completed all sixteen quests in the Masterclasser Quest Series and solved the mystery of the Lost Masterclasser!",
     "showAllAchievements": "Mostrar Todo de <%= category %>",
@@ -16,5 +16,6 @@
     "yourProgress": "O teu Progreso",
     "onboardingProgress": "<%= percentage %> % progreso",
     "gettingStartedDesc": "¡Completa as tarefas de iniciación e conseguirás <strong>5 Logros</strong> e <strong class=\"gold-amount\">100 Pezas de Oro</strong> cando as termines!",
-    "yourRewards": "As túas Recompensas"
+    "yourRewards": "As túas Recompensas",
+    "achievementDomesticated": "Ía, ía, oh"
 }

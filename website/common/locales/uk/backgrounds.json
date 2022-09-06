@@ -521,7 +521,7 @@
     "backgroundHotAirBalloonText": "Повітряна куля",
     "backgroundJungleCanopyText": "Навіс джунглів",
     "backgroundCampingOutText": "Кемпінг",
-    "backgrounds082020": "Сет 75: Випущено в серпні 2020 року",
+    "backgrounds082020": "Набір 75: серпень 2020",
     "backgroundUnderwaterRuinsText": "Підводні руїни",
     "backgroundSwimmingAmongJellyfishText": "Плавання серед медуз",
     "backgroundBeachCabanaNotes": "Відпочиньте в тіні пляжу Кабана.",
@@ -710,5 +710,12 @@
     "backgroundMountainWaterfallText": "Гірський водоспад",
     "backgroundSailboatAtSunsetText": "Вітрильник на заході сонця",
     "backgroundSailboatAtSunsetNotes": "Насолодіться красою вітрильника на заході сонця.",
-    "backgroundMountainWaterfallNotes": "Помилуйтесь гірським водоспадом."
+    "backgroundMountainWaterfallNotes": "Помилуйтесь гірським водоспадом.",
+    "backgroundRainbowEucalyptusText": "Райдужний евкаліпт",
+    "backgroundRainbowEucalyptusNotes": "Помилуйтеся райдужним евкаліптовим гаєм.",
+    "backgroundMessyRoomText": "Безладна кімната",
+    "backgroundByACampfireNotes": "Грійтеся в сяйві поблизу багаття.",
+    "backgrounds082022": "Набір 99: серпень 2022",
+    "backgroundMessyRoomNotes": "Наведіть порядок у безладній кімнаті.",
+    "backgroundByACampfireText": "Біля багаття"
 }
