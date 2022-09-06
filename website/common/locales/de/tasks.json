@@ -139,5 +139,6 @@
     "counter": "Zähler",
     "adjustCounter": "Zähler anpassen",
     "resetCounter": "Zähler zurücksetzen",
-    "editTagsText": "Tags bearbeiten"
+    "editTagsText": "Tags bearbeiten",
+    "taskSummary": "<%= type %> Zusammenfassung"
 }

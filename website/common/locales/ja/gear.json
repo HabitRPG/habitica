@@ -2618,7 +2618,7 @@
     "backMystery202205Text": "黄昏の翼",
     "backMystery202205Notes": "雄大な翼の力強いはばたきが砂丘にこだまします。効果なし。2022年5月の有料会員アイテム。",
     "headAccessoryMystery202205Text": "黄昏の翼をもつドラゴンの角",
-    "headAccessoryMystery202205Notes": "砂漠の日の入りのようにまばゆい角です。効果なし。2021年5月の有料会員アイテム。",
+    "headAccessoryMystery202205Notes": "砂漠の日の入りのようにまばゆい角です。効果なし。2022年5月の有料会員アイテム。",
     "weaponArmoireHuntingHornText": "狩猟用ホルン",
     "weaponArmoireHuntingHornNotes": "プオーーー！プオー！プオー！この角笛を吹いて冒険やクエストにパーティーを集めましょう。力が<%= str %>、知能が<%= int %>上がります。ラッキー宝箱：楽器セット（3個中1つ目のアイテム）",
     "headArmoireStrawRainHatNotes": "この耐水の円錐形の帽子をかぶれば、あなたのゆく道の途上にある障害物を一目で見つけることができるようになるでしょう。知覚が<%= per %>上がります。ラッキー宝箱：蓑セット（2個中2個目のアイテム）。",
@@ -2690,5 +2690,9 @@
     "weaponArmoirePushBroomNotes": "この掃除用具を手に冒険に出かければ、すすけた玄関を一掃したり、すみっこのクモの巣を片付けたりできます。力と知能がそれぞれ<%= attrs %>上がります。ラッキー宝箱：掃除用品セット（3個中1つ目のアイテム）",
     "weaponArmoireFeatherDusterText": "羽ぼうき",
     "weaponArmoireFeatherDusterNotes": "この素敵な羽が古い物の上を飛び回れば、新品同然の輝きが戻ります。舞い上がったほこりでくしゃみをしないように注意して！体質と知覚がそれぞれ<%= attrs %>上がります。ラッキー宝箱：掃除用品セット（3個中2つ目のアイテム）",
-    "shieldArmoireDustpanText": "ちりとり"
+    "shieldArmoireDustpanText": "ちりとり",
+    "weaponMystery202209Text": "魔法マニュアル",
+    "weaponMystery202209Notes": "魔法使いへの道のりへと、あなたを導くのがこの本です。効果なし。2022年9月の有料会員アイテム。",
+    "shieldMystery202209Notes": "魔術の知識を身につけるには多くの本を読まなければいけませんが、その過程はきっと楽しいはず。効果なし。2022年9月有料会員アイテム。",
+    "shieldMystery202209Text": "山積みの魔法書"
 }
