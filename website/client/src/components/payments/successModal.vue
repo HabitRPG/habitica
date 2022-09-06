@@ -5,6 +5,9 @@
     :hide-footer="isFromBalance"
     :modal-class="isFromBalance ? ['modal-hidden-footer'] : []"
   >
+    <!-- there are basically 3 footer conditions: isFromBalance, groupPlanUpgraded, & everyone else
+     was trying to make that work with a separate footer for groupPlanUpgraded
+    but that's not working-->
     <div slot="modal-header">
       <div class="check-container d-flex align-items-center justify-content-center">
         <div
@@ -17,7 +20,8 @@
     </div>
     <div slot="modal-footer">
       <div
-        v-if="!paymentData.paymentType === 'groupPlan' && !paymentData.newGroup"
+        v-if="!paymentData.paymentType === 'groupPlan'
+          && !groupPlanUpgraded"
         class="small-text"
       >
         {{ $t('giftSubscriptionText4') }}
@@ -26,6 +30,7 @@
         v-else
         class="demographics"
       >
+      <!-- lockable label needs to be centered -->
         <lockable-label
           :text="$t('groupUse')"
           class="demo-label"
@@ -44,6 +49,7 @@
           :value="groupPlanUpgraded.demographics"
           @select="groupPlanUpgraded.demographics = $event"
         />
+        <!-- need to add correct :disabled value here 'cause this one ain't working -->
         <button
           v-if="!paymentData.newGroup"
           class="btn btn-primary"
@@ -123,7 +129,10 @@
               >{{ $t('groupsPaymentAutoRenew') }}
               </span>
             </div>
-<!--             <div class="demographics">
+          <!-- this is the demographics code if needed to move back down here from footer
+            this was working BUT I couldn't get the CSS working which is why I moved it to footer
+          <div class="demographics">
+              lockable label needs to be centered
               <lockable-label
                 :text="$t('groupUse')"
               />
@@ -141,6 +150,7 @@
                 :value="groupPlanUpgraded.demographics"
                 @select="groupPlanUpgraded.demographics = $event"
               />
+              need to add correct :disabled value here 'cause this one ain't working
               <button
                 v-if="!paymentData.newGroup"
                 class="btn btn-primary"
@@ -363,6 +373,7 @@ export default {
       this.paymentData = {};
       this.$root.$emit('bv::hide::modal', 'payments-success-modal');
     },
+    // how is amplitude formed?
   },
 };
 </script>
