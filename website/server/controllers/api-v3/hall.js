@@ -279,6 +279,11 @@ api.updateHero = {
       }
       if (updateData.purchased.plan.consecutive) {
         if (updateData.purchased.plan.consecutive.trinkets) {
+          await hero.updateHourglasses(
+            updateData.purchased.plan.consecutive.trinkets
+              - hero.purchased.plan.consecutive.trinkets,
+            'admin_update_hourglasses', '', 'Updated by Habitica staff',
+          );
           hero.purchased.plan.consecutive.trinkets = updateData.purchased.plan.consecutive.trinkets;
         }
         if (updateData.purchased.plan.consecutive.gemCapExtra) {
