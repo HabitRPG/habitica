@@ -60,11 +60,6 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
     [`auth.${network}.id`]: profile.id,
   }, { _id: 1, apiToken: 1, auth: 1 }).exec();
 
-  let email;
-  if (profile.emails && profile.emails[0] && profile.emails[0].value) {
-    email = profile.emails[0].value.toLowerCase();
-  }
-
   // User already signed up
   if (user) {
     if (existingUser) {
