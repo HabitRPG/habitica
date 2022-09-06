@@ -38,8 +38,8 @@
     "questEggHedgehogText": "Pindsvin",
     "questEggHedgehogMountText": "Pindsvin",
     "questEggHedgehogAdjective": "et stikkende",
-    "questEggDeerText": "Rådyr",
-    "questEggDeerMountText": "Rådyr",
+    "questEggDeerText": "Hjort",
+    "questEggDeerMountText": "Hjort",
     "questEggDeerAdjective": "et elegant",
     "questEggEggText": "Æg",
     "questEggEggMountText": "Æggekurv",
@@ -365,5 +365,12 @@
     "questEggDolphinAdjective": "en munter",
     "questEggDolphinMountText": "Delfin",
     "questEggDolphinText": "Delfin",
-    "hatchingPotionDessert": "Konfekt"
+    "hatchingPotionDessert": "Konfekt",
+    "hatchingPotionFluorite": "Fluorid",
+    "hatchingPotionSunset": "Solnedgangs",
+    "hatchingPotionMoonglow": "Månelys",
+    "hatchingPotionSolarSystem": "Solsystems",
+    "hatchingPotionOnyx": "Onyks",
+    "hatchingPotionPorcelain": "Porcelæns",
+    "hatchingPotionVirtualPet": "Virtuelt kæledyrs"
 }
