@@ -44,7 +44,7 @@
         </div>
         <div>
           Months until renewal:
-          <strong>{{ hero.purchased.plan.consecutive.offset || 1}}</strong>
+          <strong>{{ hero.purchased.plan.consecutive.offset }}</strong>
         </div>
           <div>
             Next Mystic Hourglass:
