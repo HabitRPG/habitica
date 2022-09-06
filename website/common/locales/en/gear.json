@@ -2864,9 +2864,9 @@
   "eyewearArmoireClownsNoseText": "Clown's Nose",
   "eyewearArmoireClownsNoseNotes": "This accessory will make sure everyone 'nose' you're a clown! Increases Intelligence by <%= int %>. Enchanted Armoire: Clown Set (Item 2 of 5).",
   "eyewearArmoireComedyMaskText": "Comedy Mask",
-  "eyewearArmoireComedyMaskNotes": "Cheerily! Here is a quaint mask for thine happy heart, playing, heralding joy, and expressing merriment and mirth upon the stage. Increases constitution by <%= con %>. Enchanted Armoire: Theatre Masks Set (Item 1 of 2).",
+  "eyewearArmoireComedyMaskNotes": "Cheerily! Here is a quaint mask for thine happy heart, playing, heralding joy, and expressing merriment and mirth upon the stage. Increases Constitution by <%= con %>. Enchanted Armoire: Theatre Masks Set (Item 1 of 2).",
   "eyewearArmoireTragedyMaskText": "Tragedy Mask",
-  "eyewearArmoireTragedyMaskNotes": "Alas! Here sits a heavy mask for thine poor player, strutting, fretting, and expressing woe and sorrow upon the stage. Increases intelligence by <%= int %>. Enchanted Armoire: Theatre Masks Set (Item 2 of 2).",
+  "eyewearArmoireTragedyMaskNotes": "Alas! Here sits a heavy mask for thine poor player, strutting, fretting, and expressing woe and sorrow upon the stage. Increases Intelligence by <%= int %>. Enchanted Armoire: Theatre Masks Set (Item 2 of 2).",
 
   "twoHandedItem": "Two-handed item."
 }
