@@ -16,7 +16,7 @@ export const EVENTS = {
     npcImageSuffix: '',
   },
   bundle202209: {
-    start: '2022-09-07T08:00-04:00',
+    start: '2022-09-13T08:00-04:00',
     end: '2022-09-30T20:00-04:00',
     season: 'normal',
     npcImageSuffix: '',
