@@ -39,12 +39,12 @@ export default {
       return moment(this.user.purchased.plan.dateTerminated)
         .format(this.user.preferences.dateFormat.toUpperCase());
     },
-    dateRenewal () {
+    renewalDate () {
+      const renewalDate = moment().add(1, 'months');
       if (!this.user.preferences || !this.user.preferences.dateFormat) {
-        return this.user.purchased.plan.dateRenewal;
+        return renewalDate;
       }
-      return moment(this.user.purchased.plan.dateRenewal).add(1, 'months')
-        .format(this.user.preferences.dateFormat.toUpperCase());
+      return renewalDate.format(this.user.preferences.dateFormat.toUpperCase());
     },
   },
   methods: {

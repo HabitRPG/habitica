@@ -5,9 +5,6 @@
     :hide-footer="isFromBalance"
     :modal-class="isFromBalance ? ['modal-hidden-footer'] : []"
   >
-    <!-- there are basically 3 footer conditions: isFromBalance, groupPlanUpgraded, & everyone else
-     was trying to make that work with a separate footer for groupPlanUpgraded
-    but that's not working-->
     <div slot="modal-header">
       <div class="check-container d-flex align-items-center justify-content-center">
         <div
@@ -19,21 +16,21 @@
       <h2>{{ $t(isFromBalance ? 'success' : 'paymentSuccessful') }}</h2>
     </div>
     <div slot="modal-footer">
+      <!-- everyone else -->
       <div
-        v-if="!paymentData.paymentType === 'groupPlan'
-          && !groupPlanUpgraded"
+        v-if="paymentData.paymentType !== 'groupPlan' || paymentData.newGroup"
         class="small-text"
       >
         {{ $t('giftSubscriptionText4') }}
       </div>
+      <!-- upgradedGroup -->
       <div
         v-else
-        class="demographics"
+        class="demographics d-flex flex-column justify-content-center"
       >
-      <!-- lockable label needs to be centered -->
         <lockable-label
           :text="$t('groupUse')"
-          class="demo-label"
+          class="mx-auto label-text"
         />
         <select-translated-array
           :items="[
@@ -49,12 +46,11 @@
           :value="groupPlanUpgraded.demographics"
           @select="groupPlanUpgraded.demographics = $event"
         />
-        <!-- need to add correct :disabled value here 'cause this one ain't working -->
         <button
           v-if="!paymentData.newGroup"
-          class="btn btn-primary"
-          :disabled="!'groupPlanUpgraded.demographics'"
-          @click="close()"
+          class="btn btn-primary mx-auto"
+          :disabled="!groupPlanUpgraded.demographics"
+          @click="submit()"
         >
           {{ $t('submit') }}
         </button>
@@ -62,6 +58,7 @@
     </div>
     <div class="row">
       <div class="col-12 modal-body-col">
+        <!-- buy gems for self -->
         <template v-if="paymentData.paymentType === 'gems'">
           <strong v-once>{{ $t('paymentYouReceived') }}</strong>
           <div class="details-block gems">
@@ -73,6 +70,7 @@
             <span>{{ paymentData.gemsBlock.gems }}</span>
           </div>
         </template>
+        <!-- buy or gift gems to someone else -->
         <template
           v-if="paymentData.paymentType === 'gift-gems'
             || paymentData.paymentType === 'gift-gems-balance'"
@@ -87,12 +85,16 @@
             <span>{{ paymentData.gift.gems.amount }}</span>
           </div>
         </template>
+        <!-- give gift subscription (non-recurring)-->
         <template v-if="paymentData.paymentType === 'gift-subscription'">
-          <span
-            v-html="$t('paymentYouSentSubscription', {
-              name: paymentData.giftReceiver, months: paymentData.subscription.months})"
-          ></span>
+          <div>
+            <span
+              v-html="$t('paymentYouSentSubscription', {
+                name: paymentData.giftReceiver, months: paymentData.subscription.months})"
+            ></span>
+          </div>
         </template>
+        <!-- buy self subscription (recurring) -->
         <template v-if="paymentData.paymentType === 'subscription'">
           <strong v-once>{{ $t('nowSubscribed') }}</strong>
           <div class="details-block">
@@ -101,25 +103,37 @@
                 amount: paymentData.subscription.price, months: paymentData.subscription.months})"
             ></span>
           </div>
+          <div
+            v-once
+            class="small-text auto-renew"
+          >
+            {{ $t('paymentAutoRenew') }}
+          </div>
         </template>
+        <!-- buttons for subscriptions -->
+        <div>
+          <button
+            v-if="paymentData.paymentType === 'subscription'
+              || paymentData.paymentType === 'gift-subscription'"
+            class="btn btn-primary"
+            @click="onwards()"
+          >
+            {{ $t('onwards') }}
+          </button>
+        </div>
+        <!-- group plan new or upgraded -->
         <template v-if="paymentData.paymentType === 'groupPlan'">
           <span
             v-html="$t(paymentData.newGroup
               ? 'groupPlanCreated' : 'groupPlanUpgraded', {groupName: paymentData.group.name})"
           ></span>
-          <!--<div class="details-block">
-            <span
-              v-html="$t('paymentSubBilling', {
-                amount: groupPlanCost, months: paymentData.subscription.months})"
-            ></span>
-          </div> -->
           <div
-            v-if="!paymentData.newGroup"
+            v-if="!paymentData.newGroup || paymentData.newGroup"
             class=""
           >
             <div class="details-block group-billing-date">
               <span
-                v-html="$t('groupsPaymentSubBilling')"
+                v-html="$t('groupsPaymentSubBilling', { renewalDate })"
               >
               </span>
             </div>
@@ -129,55 +143,17 @@
               >{{ $t('groupsPaymentAutoRenew') }}
               </span>
             </div>
-          <!-- this is the demographics code if needed to move back down here from footer
-            this was working BUT I couldn't get the CSS working which is why I moved it to footer
-          <div class="demographics">
-              lockable label needs to be centered
-              <lockable-label
-                :text="$t('groupUse')"
-              />
-              <select-translated-array
-                :items="[
-                  'groupParentChildren',
-                  'groupCouple',
-                  'groupFriends',
-                  'groupCoworkers',
-                  'groupManager',
-                  'groupTeacher'
-                ]"
-                class="group-input"
-                :placeholder="'groupUseDefault'"
-                :value="groupPlanUpgraded.demographics"
-                @select="groupPlanUpgraded.demographics = $event"
-              />
-              need to add correct :disabled value here 'cause this one ain't working
-              <button
-                v-if="!paymentData.newGroup"
-                class="btn btn-primary"
-                @click="close()"
-              >
-                {{ $t('submit') }}
-              </button>
-            </div> -->
           </div>
         </template>
-        <template
+        <!-- buy self subscription auto renew -->
+<!--         <template
           v-if="paymentData.paymentType === 'subscription'"
         >
           <span
             v-once
             class="small-text auto-renew"
           >{{ $t('paymentAutoRenew') }}</span>
-        </template>
-        <div>
-          <button
-            v-if="paymentData.paymentType === 'subscription'"
-            class="btn btn-primary"
-            @click="close()"
-          >
-            {{ $t('onwards') }}
-          </button>
-        </div>
+        </template> -->
       </div>
     </div>
   </b-modal>
@@ -294,29 +270,32 @@
     font-style: normal;
   }
 }
-  .demographics {
-    background-color: $gray-700;
-    padding: 16px 0px;
-    margin-top: -16px;
-    width: 400px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 
-    .btn.btn-primary {
-      margin-top: 24px;
-      width: 77px;
-      align-self: center;
+.demographics {
+  background-color: $gray-700;
 
-    }
-  #lockable-label .modal-footer label {
-    text-align: center !important;
+  .label-text {
+    margin-bottom: 20px;
+  }
+
+  .group-input {
     width: 400px !important;
+    margin-top: -24px !important;
   }
+  .btn {
+    margin-top: 0px;
+    width: 77px;
+    margin-bottom: 20px;
+  }
+}
+</style>
 
-  }
+<style lang="scss">
+  @import '~@/assets/scss/mixins.scss';
+
 
 </style>
+
 
 <script>
 import checkIcon from '@/assets/svg/check.svg';
@@ -325,6 +304,7 @@ import subscriptionBlocks from '@/../../common/script/content/subscriptionBlocks
 import selectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
 import lockableLabel from '@/components/tasks/modal-controls/lockableLabel';
 import paymentsMixin from '@/mixins/payments';
+import * as Analytics from '@/libs/analytics';
 
 export default {
   components: {
@@ -369,11 +349,16 @@ export default {
     this.$root.$off('habitica:payments-success');
   },
   methods: {
-    close () {
+    submit () {
+      this.paymentData = {};
+      this.$root.$emit('bv::hide::modal', 'payments-success-modal');
+      Analytics.track({ },
+        console.log(Analytics.track));
+    },
+    onwards () {
       this.paymentData = {};
       this.$root.$emit('bv::hide::modal', 'payments-success-modal');
     },
-    // how is amplitude formed?
   },
 };
 </script>
