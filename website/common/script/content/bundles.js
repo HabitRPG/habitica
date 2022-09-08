@@ -52,8 +52,9 @@ const bundles = {
       'horse',
       'sheep',
     ],
+    event: EVENTS.bundle202209,
     canBuy () {
-      moment().isBefore(EVENTS.bundle202209.start, EVENTS.bundle202209.end);
+      return moment().isBetween(EVENTS.bundle202209.start, EVENTS.bundle202209.end);
     },
     type: 'quests',
     value: 7,
