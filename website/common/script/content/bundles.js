@@ -53,7 +53,7 @@ const bundles = {
       'sheep',
     ],
     canBuy () {
-      return moment().isBetween('2019-08-08', '2019-09-02');
+      moment().isBefore(EVENTS.bundle202209.start, EVENTS.bundle202209.end);
     },
     type: 'quests',
     value: 7,

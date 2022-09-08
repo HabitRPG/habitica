@@ -15,6 +15,12 @@ export const EVENTS = {
     season: 'normal',
     npcImageSuffix: '',
   },
+  bundle202209: {
+    start: '2022-09-07T08:00-04:00',
+    end: '2022-09-30T20:00-04:00',
+    season: 'normal',
+    npcImageSuffix: '',
+  },
   potions202208: {
     start: '2022-08-16T08:00-04:00',
     end: '2022-08-31T20:00-04:00',
