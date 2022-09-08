@@ -2,8 +2,8 @@
   <b-modal
     id="payments-success-modal"
     :title="$t('accountSuspendedTitle')"
-    :hide-footer="isFromBalance"
-    :modal-class="isFromBalance ? ['modal-hidden-footer'] : []"
+    :hide-footer="isFromBalance || paymentData.newGroup"
+    :modal-class="isFromBalance || paymentData.newGroup ? ['modal-hidden-footer'] : []"
   >
     <div slot="modal-header">
       <div class="check-container d-flex align-items-center justify-content-center">
@@ -136,15 +136,14 @@
           >{{ $t('paymentAutoRenew') }}</span>
         </template>
         <!-- buttons for subscriptions -->
-        <div>
-          <button
-            v-if="paymentData.paymentType === 'subscription'"
-            class="btn btn-primary"
-            @click="onwards()"
-          >
-            {{ $t('onwards') }} to Mayhem!
-          </button>
-        </div>
+        <button
+          v-if="paymentData.paymentType !== 'groupPlan'"
+          v-once
+          class="btn btn-primary"
+          @click="onwards()"
+        >
+          {{ $t('onwards') }}
+        </button>
       </div>
     </div>
   </b-modal>
@@ -325,6 +324,14 @@ export default {
     isFromBalance () {
       return this.paymentData.paymentType === 'gift-gems-balance';
     },
+    upgradedGroup () {
+      const upgradedGroup = (this.paymentData.paymentType !== 'groupPlan' || this.paymentData.newGroup);
+      const demographicsKey = upgradedGroup.demographics;
+      const groupPlanUpgraded = {
+        demographics: demographicsKey,
+      };
+      return groupPlanUpgraded.demographics;
+    },
   },
   mounted () {
     this.$root.$on('habitica:payment-success', data => {
@@ -341,10 +348,12 @@ export default {
   },
   methods: {
     submit () {
+      Analytics.track({
+        name: this.groupPlanUpgraded.demographics,
+      },
+      console.log(Analytics.track));
       this.paymentData = {};
       this.$root.$emit('bv::hide::modal', 'payments-success-modal');
-      Analytics.track({ },
-        console.log(Analytics.track));
     },
     onwards () {
       this.paymentData = {};

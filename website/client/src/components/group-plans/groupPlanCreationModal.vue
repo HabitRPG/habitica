@@ -119,13 +119,6 @@
           :amazon-data="pay(PAYMENTS.AMAZON)"
         />
       </div>
-      <!-- TEMPORARY BUTTON FOR TESTING -->
-<!--       <button
-        class="btn btn-primary btn-payment"
-        @click="success()"
-      >
-        Clicky click click!
-      </button> -->
     </div>
   </b-modal>
 </template>
@@ -258,6 +251,7 @@ import { mapState } from '@/libs/store';
 import paymentsButtons from '@/components/payments/buttons/list';
 import selectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
 import lockableLabel from '@/components/tasks/modal-controls/lockableLabel';
+// import * as Analytics from '@/libs/analytics';
 
 export default {
   components: {
@@ -277,7 +271,6 @@ export default {
       PAYMENTS: {
         AMAZON: 'amazon',
         STRIPE: 'stripe',
-        // OTHER: 'tempcode', // TEMP CODE
       },
       paymentMethod: '',
       newGroup: {
@@ -312,7 +305,10 @@ export default {
       this.activePage = page;
     },
     createGroup () {
-      console.log(this.newGroup);
+      // Analytics.track({
+      //   name: this.paymentData.demographics,
+      // },
+      // console.log(this.paymentData.demographics));
       this.changePage(this.PAGES.PAY);
     },
     pay (paymentMethod) {
@@ -342,29 +338,13 @@ export default {
         this.redirectToStripe(paymentData);
       }
 
-      // TEMP CODE
-      // if (this.paymentMethod === this.PAYMENTS.OTHER) {
-      //   console.log(paymentData);
-      // }
-
       return null;
     },
-    // need to figure out where/how to create the event in amplitude
-    // right now being sent to console in success()
-    sendAnalytics () {
-      return this.newGroup.demographics;
-    },
+
     onHide () {
       this.sendingInProgress = false;
     },
-    // temporary function to go with temporary button
-    // success () {
-    //   this.pay(this.PAYMENTS.OTHER);
-    //   console.log(this.sendAnalytics());
-    //   this.sendAnalytics();
-    //   this.$root.$emit('bv::hide::modal', 'create-group');
-    //   this.$root.$emit('bv::show::modal', 'payments-success-modal');
-    // },
+
   },
 };
 </script>

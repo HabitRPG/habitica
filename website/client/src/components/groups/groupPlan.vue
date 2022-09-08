@@ -400,14 +400,8 @@ export default {
   },
   methods: {
     launchModal () {
-      console.log('i am creating a group');
-      // this.changePage(this.PAGES.CREATE_GROUP);
       this.$root.$emit('bv::show::modal', 'create-group');
     },
-    // changePage (page) {
-    //   this.activePage = 'page';
-    //   window.scrollTo(0, 0);
-    // },
     createGroup () {
       this.changePage(this.PAGES.PAY);
     },
