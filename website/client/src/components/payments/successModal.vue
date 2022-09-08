@@ -87,12 +87,10 @@
         </template>
         <!-- give gift subscription (non-recurring)-->
         <template v-if="paymentData.paymentType === 'gift-subscription'">
-          <div>
-            <span
-              v-html="$t('paymentYouSentSubscription', {
-                name: paymentData.giftReceiver, months: paymentData.subscription.months})"
-            ></span>
-          </div>
+          <span
+            v-html="$t('paymentYouSentSubscription', {
+              name: paymentData.giftReceiver, months: paymentData.subscription.months})"
+          ></span>
         </template>
         <!-- buy self subscription (recurring) -->
         <template v-if="paymentData.paymentType === 'subscription'">
@@ -103,24 +101,7 @@
                 amount: paymentData.subscription.price, months: paymentData.subscription.months})"
             ></span>
           </div>
-          <div
-            v-once
-            class="small-text auto-renew"
-          >
-            {{ $t('paymentAutoRenew') }}
-          </div>
         </template>
-        <!-- buttons for subscriptions -->
-        <div>
-          <button
-            v-if="paymentData.paymentType === 'subscription'
-              || paymentData.paymentType === 'gift-subscription'"
-            class="btn btn-primary"
-            @click="onwards()"
-          >
-            {{ $t('onwards') }}
-          </button>
-        </div>
         <!-- group plan new or upgraded -->
         <template v-if="paymentData.paymentType === 'groupPlan'">
           <span
@@ -146,14 +127,24 @@
           </div>
         </template>
         <!-- buy self subscription auto renew -->
-<!--         <template
+        <template
           v-if="paymentData.paymentType === 'subscription'"
         >
           <span
             v-once
             class="small-text auto-renew"
           >{{ $t('paymentAutoRenew') }}</span>
-        </template> -->
+        </template>
+        <!-- buttons for subscriptions -->
+        <div>
+          <button
+            v-if="paymentData.paymentType === 'subscription'"
+            class="btn btn-primary"
+            @click="onwards()"
+          >
+            {{ $t('onwards') }} to Mayhem!
+          </button>
+        </div>
       </div>
     </div>
   </b-modal>
