@@ -140,7 +140,7 @@
           v-if="paymentData.paymentType !== 'groupPlan'"
           v-once
           class="btn btn-primary"
-          @click="onwards()"
+          @click="submit()"
         >
           {{ $t('onwards') }}
         </button>
@@ -310,7 +310,8 @@ export default {
         gem: gemIcon,
       }),
       paymentData: {},
-      upgradedGroupInfo: {
+      upgradedGroup: {
+        name: '',
         demographics: null,
       },
     };
@@ -325,19 +326,21 @@ export default {
     isFromBalance () {
       return this.paymentData.paymentType === 'gift-gems-balance';
     },
-    upgradedGroup () {
-      const upgradedGroup = (this.paymentData.paymentType !== 'groupPlan' || this.paymentData.newGroup);
-      const demographicsKey = upgradedGroup.demographics;
-      const upgradedGroupName = upgradedGroup.name;
-      const upgradedGroupType = upgradedGroup.type;
-      const groupPlanUpgraded = {
-        demographics: demographicsKey,
-        name: upgradedGroupName,
-        type: upgradedGroupType,
-      };
-      console.log(groupPlanUpgraded.demographics, groupPlanUpgraded.name, groupPlanUpgraded.type);
-      return (groupPlanUpgraded.demographics, groupPlanUpgraded.name, groupPlanUpgraded.type);
-    },
+    // upgradedGroup () {
+    //   const upgradedGroup = (this.paymentData.paymentType === 'groupPlan'
+    // && !this.paymentData.newGroup);
+    //   const demographicsKey = upgradedGroup.demographics;
+    //   const upgradedGroupName = upgradedGroup.name;
+    //   const upgradedGroupType = upgradedGroup.type;
+    //   const groupPlanUpgraded = {
+    //     demographics: demographicsKey,
+    //     name: upgradedGroupName,
+    //     type: upgradedGroupType,
+    //   };
+    //   console.log(groupPlanUpgraded.demographics,
+    //     groupPlanUpgraded.name, groupPlanUpgraded.type);
+    //   return groupPlanUpgraded;
+    // },
   },
   mounted () {
     this.$root.$on('habitica:payment-success', data => {
@@ -354,19 +357,16 @@ export default {
   },
   methods: {
     submit () {
-      Analytics.track({
-        hitType: 'event',
-        eventName: 'group plan upgrade',
-        eventAction: 'group plan upgrade',
-        eventCategory: 'behavior',
-        upgradedGroupName: this.upgradedGroup.name,
-        demographicsUpgraded: this.upgradedGroup.demographics,
-        typeUpgraded: this.upgradedGroup.type,
-      });
-      this.paymentData = {};
-      this.$root.$emit('bv::hide::modal', 'payments-success-modal');
-    },
-    onwards () {
+      if (!this.paymentData.newGroup) {
+        Analytics.track({
+          hitType: 'event',
+          eventName: 'group plan upgrade',
+          eventAction: 'group plan upgrade',
+          eventCategory: 'behavior',
+          demographics: this.paymentData.group.demographics, // if that's where this lives?
+          typeUpgraded: this.paymentData.group.type,
+        });
+      }
       this.paymentData = {};
       this.$root.$emit('bv::hide::modal', 'payments-success-modal');
     },

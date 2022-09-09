@@ -86,9 +86,9 @@ function _gatherGroupStats (properties) {
   properties.createGroupName = group.newGroup.name;
   properties.demographicsCreated = group.newGroup.demographics;
   properties.typeCreated = group.newGroup.type;
-  properties.upgradedGroupName = group.upgradedGroup.name;
-  properties.demographicsUpgraded = group.upgradedGroup.demographics;
-  properties.typeUpgraded = group.upgradedGroup.type;
+  // properties.upgradedGroupName = group.upgradedGroup.name;
+  // properties.demographicsUpgraded = group.upgradedGroup.demographics;
+  // properties.typeUpgraded = group.upgradedGroup.type;
 }
 
 export function setUser () {
