@@ -43,13 +43,13 @@
           ]"
           class="group-input"
           :placeholder="'groupUseDefault'"
-          :value="groupPlanUpgraded.demographics"
-          @select="groupPlanUpgraded.demographics = $event"
+          :value="upgradedGroup.demographics"
+          @select="upgradedGroup.demographics = $event"
         />
         <button
           v-if="!paymentData.newGroup"
           class="btn btn-primary mx-auto"
-          :disabled="!groupPlanUpgraded.demographics"
+          :disabled="!upgradedGroup.demographics"
           @click="submit()"
         >
           {{ $t('submit') }}
@@ -363,8 +363,8 @@ export default {
           eventName: 'group plan upgrade',
           eventAction: 'group plan upgrade',
           eventCategory: 'behavior',
-          demographics: this.paymentData.group.demographics, // if that's where this lives?
-          typeUpgraded: this.paymentData.group.type,
+          demographics: this.upgradedGroup.demographics,
+          type: this.paymentData.group.type, // also tried this.upgradedGroup.type
         });
       }
       this.paymentData = {};

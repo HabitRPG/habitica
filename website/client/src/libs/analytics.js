@@ -83,12 +83,8 @@ function _gatherGroupStats (properties) {
 
   properties.UUID = user._id;
 
-  properties.createGroupName = group.newGroup.name;
-  properties.demographicsCreated = group.newGroup.demographics;
-  properties.typeCreated = group.newGroup.type;
-  // properties.upgradedGroupName = group.upgradedGroup.name;
-  // properties.demographicsUpgraded = group.upgradedGroup.demographics;
-  // properties.typeUpgraded = group.upgradedGroup.type;
+  properties.demographics = group.newGroup.demographics || group.upgradedGroup.demographics;
+  properties.type = group.newGroup.type || group.upgradedGroup.type;
 }
 
 export function setUser () {

@@ -322,9 +322,8 @@ export default {
         eventName: 'group plan create',
         eventAction: 'group plan create',
         eventCategory: 'behavior',
-        createGroupName: this.newGroup.name,
-        demographicsCreated: this.newGroup.demographics,
-        typeCreated: this.newGroup.type,
+        demographics: this.newGroup.demographics,
+        type: this.newGroup.type,
       });
 
       if (this.upgradingGroup && this.upgradingGroup._id) {
