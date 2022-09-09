@@ -251,7 +251,7 @@ import { mapState } from '@/libs/store';
 import paymentsButtons from '@/components/payments/buttons/list';
 import selectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
 import lockableLabel from '@/components/tasks/modal-controls/lockableLabel';
-// import * as Analytics from '@/libs/analytics';
+import * as Analytics from '@/libs/analytics';
 
 export default {
   components: {
@@ -282,6 +282,7 @@ export default {
           challenges: false,
         },
         demographics: null,
+        user: '',
       },
       activePage: 'create-group',
       type: 'guild',
@@ -305,10 +306,6 @@ export default {
       this.activePage = page;
     },
     createGroup () {
-      // Analytics.track({
-      //   name: this.paymentData.demographics,
-      // },
-      // console.log(this.paymentData.demographics));
       this.changePage(this.PAGES.PAY);
     },
     pay (paymentMethod) {
@@ -319,6 +316,16 @@ export default {
         coupon: null,
         demographics: demographicsKey,
       };
+
+      Analytics.track({
+        hitType: 'event',
+        eventName: 'group plan create',
+        eventAction: 'group plan create',
+        eventCategory: 'behavior',
+        createGroupName: this.newGroup.name,
+        demographicsCreated: this.newGroup.demographics,
+        typeCreated: this.newGroup.type,
+      });
 
       if (this.upgradingGroup && this.upgradingGroup._id) {
         paymentData.groupId = this.upgradingGroup._id;

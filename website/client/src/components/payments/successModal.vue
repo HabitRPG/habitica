@@ -290,6 +290,7 @@
 <script>
 import checkIcon from '@/assets/svg/check.svg';
 import gemIcon from '@/assets/svg/gem.svg';
+import { mapState } from '@/libs/store';
 import subscriptionBlocks from '@/../../common/script/content/subscriptionBlocks';
 import selectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
 import lockableLabel from '@/components/tasks/modal-controls/lockableLabel';
@@ -309,16 +310,16 @@ export default {
         gem: gemIcon,
       }),
       paymentData: {},
-      groupPlanUpgraded: {
+      upgradedGroupInfo: {
         demographics: null,
       },
     };
   },
   computed: {
+    ...mapState({ user: 'user.data', group: 'group.data' }),
     groupPlanCost () {
       const sub = this.paymentData.subscription;
       const memberCount = this.paymentData.group.memberCount || 1;
-      console.log(this.paymentData);
       return sub.price + 3 * (memberCount - 1);
     },
     isFromBalance () {
@@ -327,10 +328,15 @@ export default {
     upgradedGroup () {
       const upgradedGroup = (this.paymentData.paymentType !== 'groupPlan' || this.paymentData.newGroup);
       const demographicsKey = upgradedGroup.demographics;
+      const upgradedGroupName = upgradedGroup.name;
+      const upgradedGroupType = upgradedGroup.type;
       const groupPlanUpgraded = {
         demographics: demographicsKey,
+        name: upgradedGroupName,
+        type: upgradedGroupType,
       };
-      return groupPlanUpgraded.demographics;
+      console.log(groupPlanUpgraded.demographics, groupPlanUpgraded.name, groupPlanUpgraded.type);
+      return (groupPlanUpgraded.demographics, groupPlanUpgraded.name, groupPlanUpgraded.type);
     },
   },
   mounted () {
@@ -349,9 +355,14 @@ export default {
   methods: {
     submit () {
       Analytics.track({
-        name: this.groupPlanUpgraded.demographics,
-      },
-      console.log(Analytics.track));
+        hitType: 'event',
+        eventName: 'group plan upgrade',
+        eventAction: 'group plan upgrade',
+        eventCategory: 'behavior',
+        upgradedGroupName: this.upgradedGroup.name,
+        demographicsUpgraded: this.upgradedGroup.demographics,
+        typeUpgraded: this.upgradedGroup.type,
+      });
       this.paymentData = {};
       this.$root.$emit('bv::hide::modal', 'payments-success-modal');
     },

@@ -75,6 +75,22 @@ function _gatherUserStats (properties) {
   if (user.purchased.plan.planId) properties.subscription = user.purchased.plan.planId;
 }
 
+// added to gather group stats
+function _gatherGroupStats (properties) {
+  const store = getStore();
+  const user = store.state.user.data;
+  const group = store.state.groups.data;
+
+  properties.UUID = user._id;
+
+  properties.createGroupName = group.newGroup.name;
+  properties.demographicsCreated = group.newGroup.demographics;
+  properties.typeCreated = group.newGroup.type;
+  properties.upgradedGroupName = group.upgradedGroup.name;
+  properties.demographicsUpgraded = group.upgradedGroup.demographics;
+  properties.typeUpgraded = group.upgradedGroup.type;
+}
+
 export function setUser () {
   const store = getStore();
   const user = store.state.user.data;
@@ -89,6 +105,7 @@ export function track (properties, options = {}) {
     if (_doesNotHaveAllowedHitType(properties)) return;
 
     const trackOnClient = options && options.trackOnClient === true;
+    console.log(properties, options); // delete this!
     // Track events on the server by default
     if (trackOnClient === true) {
       amplitude.getInstance().logEvent(properties.eventAction, properties);
@@ -110,6 +127,19 @@ export function updateUser (properties = {}) {
       amplitude.getInstance().identify(identify);
     });
 
+    window.ga('set', properties);
+  });
+}
+
+// added to get group data
+export function updateGroup (properties = {}) {
+  Vue.nextTick(() => {
+    _gatherGroupStats(properties);
+
+    forEach(properties, (value, key) => {
+      const idGroup = new amplitude.Identify().set(key, value);
+      amplitude.getInstance().identify(idGroup);
+    });
     window.ga('set', properties);
   });
 }
