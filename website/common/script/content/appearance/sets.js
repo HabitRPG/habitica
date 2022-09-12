@@ -14,8 +14,8 @@ export default prefill({
   shimmerHairColors: {
     setPrice: 5, availableFrom: '2022-04-14T08:00-05:00', availableUntil: '2022-04-30T20:00-05:00', text: t('shimmerColors'),
   },
-  hauntedHairColors: {
-    setPrice: 5, availableFrom: '2021-09-28T08:00-04:00', availableUntil: '2021-10-31T20:00-04:00', text: t('hauntedColors'),
+  hauntedHairColors: { // for testing only -- start date is 2022-10-04
+    setPrice: 5, availableFrom: '2022-09-11T08:00-04:00', availableUntil: EVENTS.fall2022.end, text: t('hauntedColors'),
   },
   winteryHairColors: {
     setPrice: 5, availableFrom: '2021-12-23T08:00-05:00', availableUntil: '2022-01-31T20:00-05:00', text: t('winteryColors'),
@@ -26,8 +26,8 @@ export default prefill({
     setPrice: 5, availableFrom: '2022-04-14T08:00-05:00', availableUntil: '2022-04-30T20:00-05:00', text: t('pastelSkins'),
   },
   spookySkins: { setPrice: 5, availableUntil: '2016-01-01', text: t('spookySkins') },
-  supernaturalSkins: {
-    setPrice: 5, availableFrom: '2021-09-28T08:00-04:00', availableUntil: '2021-10-31T20:00-04:00', text: t('supernaturalSkins'),
+  supernaturalSkins: { // for testing only -- start date is 2022-10-04
+    setPrice: 5, availableFrom: '2022-09-11T08:00-04:00', availableUntil: EVENTS.fall2022.end, text: t('supernaturalSkins'),
   },
   splashySkins: {
     setPrice: 5, availableFrom: '2022-07-05T08:00-05:00', availableUntil: EVENTS.summer2022.end, text: t('splashySkins'),

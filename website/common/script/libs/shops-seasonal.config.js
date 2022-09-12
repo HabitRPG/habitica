@@ -30,16 +30,16 @@ export default {
 
   pinnedSets: SHOP_OPEN
     ? {
-      healer: 'summer2022AngelfishHealerSet',
-      rogue: 'summer2022CrabRogueSet',
-      warrior: 'summer2022WaterspoutWarriorSet',
-      wizard: 'summer2022MantaRayMageSet',
+      healer: 'fall2022WatcherHealerSet',
+      rogue: 'fall2022KappaRogueSet',
+      warrior: 'fall2022OrcWarriorSet',
+      wizard: 'fall2022HarpyMageSet',
     }
     : {},
-
-  availableSpells: SHOP_OPEN && moment().isBetween('2022-07-12T08:00-05:00', CURRENT_EVENT.end)
+  // for testing purposes only date is 2022-10-04
+  availableSpells: SHOP_OPEN && moment().isBetween('2022-09-11T08:00-05:00', CURRENT_EVENT.end)
     ? [
-      'seafoam',
+      'spookySparkles',
     ]
     : [],
 
@@ -49,5 +49,5 @@ export default {
     ]
     : [],
 
-  featuredSet: 'summer2021NautilusMageSet',
+  featuredSet: 'fall2021BrainEaterMageSet',
 };
