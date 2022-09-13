@@ -2694,5 +2694,9 @@
     "weaponMystery202209Text": "魔法マニュアル",
     "weaponMystery202209Notes": "魔法使いへの道のりへと、あなたを導くのがこの本です。効果なし。2022年9月の有料会員アイテム。",
     "shieldMystery202209Notes": "魔術の知識を身につけるには多くの本を読まなければいけませんが、その過程はきっと楽しいはず。効果なし。2022年9月有料会員アイテム。",
-    "shieldMystery202209Text": "山積みの魔法書"
+    "shieldMystery202209Text": "山積みの魔法書",
+    "eyewearArmoireComedyMaskText": "喜劇の仮面",
+    "eyewearArmoireComedyMaskNotes": "さあ陽気に！この古風な仮面は、汝の幸せな心のためにある。その陽気さと賑わいを演じ、歓待し、舞台の上で表現しよう。体質が<%= con %>上がります。ラッキー宝箱：演劇の仮面セット（2個中1個目のアイテム）。",
+    "eyewearArmoireTragedyMaskText": "悲劇の仮面",
+    "eyewearArmoireTragedyMaskNotes": "何たる悲しみ！ここにあるのは重厚な仮面。汝は哀れを演じる者。舞台上で気取って歩き、頭を抱え、苦悩と悲痛を表現しよう。知能が<%= int %>上がります。ラッキー宝箱：演劇の仮面セット（2個中2個目のアイテム）。"
 }

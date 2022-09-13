@@ -54,5 +54,6 @@
     "webFaqAnswer12": "世界Boss是出现在酒馆的特殊怪物。所有活跃的玩家都会自动参战，玩家们的完成的任务和技能都会对Boss造成伤害。你可以同时像平时那样开副本。你完成的任务和放的技能会同时被算入世界Boss以及你队伍副本的进度当中。世界Boss并不会对你或者你的号造成伤害。它会有一个怒气值，随着用户没完成的日常任务数量而增加。如果怒气槽满了，它会攻击一个本站的NPC并使这个NPC的形象发生变化。你可以前往维基了解更多关于[过去的世界Boss](https://habitica.fandom.com/zh/wiki/世界Boss)的信息。",
     "iosFaqStillNeedHelp": "如果[Wiki FAQ](https://habitica.fandom.com/zh/wiki/FAQ)不能解决你的问题，请在酒馆聊天中咨询。进入方式：菜单 > 酒馆！我们很乐意为你提供帮助。",
     "androidFaqStillNeedHelp": "如果[Wiki FAQ](https://habitica.fandom.com/zh/wiki/FAQ)不能解决你的问题，请在酒馆聊天中咨询。进入方式：菜单 > 酒馆！我们很乐意为你提供帮助。",
-    "webFaqStillNeedHelp": "如果问题列表和[Wiki FAQ](https://habitica.fandom.com/zh/wiki/FAQ)不能解决你的问题，请在[Habitica 帮助公会](https://habitica.com/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a)中咨询。我们很乐意为你提供帮助。"
+    "webFaqStillNeedHelp": "如果问题列表和[Wiki FAQ](https://habitica.fandom.com/zh/wiki/FAQ)不能解决你的问题，请在[Habitica 帮助公会](https://habitica.com/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a)中咨询。我们很乐意为你提供帮助。",
+    "faqQuestion13": "什么是团体计划？"
 }
