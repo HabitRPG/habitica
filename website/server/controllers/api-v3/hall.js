@@ -289,6 +289,9 @@ api.updateHero = {
         if (updateData.purchased.plan.consecutive.gemCapExtra) {
           hero.purchased.plan.consecutive.gemCapExtra = updateData.purchased.plan.consecutive.gemCapExtra; // eslint-disable-line max-len
         }
+        if (updateData.purchased.plan.consecutive.count) {
+          hero.purchased.plan.consecutive.count = updateData.purchased.plan.consecutive.count; // eslint-disable-line max-len
+        }
       }
     }
 

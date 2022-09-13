@@ -8,7 +8,7 @@
       Subscription, Monthly Perks
     </h3>
     <div v-if="expand">
-      <form @submit.prevent="saveSubscriptionData()">
+      <form @submit.prevent="saveHero({ hero, msg: 'Subscription Perks' })">
         <div v-if="hero.purchased.plan.paymentMethod">
           Payment method:
           <strong>{{ hero.purchased.plan.paymentMethod }}</strong>
@@ -34,7 +34,7 @@
           <label>
             Consecutive months:
             <input
-              v-model="consecutiveMonths"
+              v-model="hero.purchased.plan.consecutive.count"
               class="form-control"
               type="number"
               min="0"
@@ -115,7 +115,6 @@
 </template>
 
 <script>
-import clone from 'lodash/clone';
 import moment from 'moment';
 import saveHero from '../mixins/saveHero';
 import { getPlanContext } from '@/../../common/script/cron';
@@ -130,42 +129,26 @@ export default {
   },
   data () {
     return {
-      consecutiveMonths: 0,
       expand: false,
     };
   },
   computed: {
     nextHourglassDate () {
-      const pendingHero = clone(this.hero);
-      pendingHero.purchased.plan.consecutive.count = this.consecutiveMonths;
-      const currentPlanContext = getPlanContext(pendingHero, new Date());
+      const currentPlanContext = getPlanContext(this.hero, new Date());
 
       return currentPlanContext.nextHourglassDate.format('MMMM');
     },
   },
   watch: {
-    consecutiveMonths () {
+    'hero.purchased.plan.consecutive.count' () { // eslint-disable-line object-shorthand
       this.hero.purchased.plan.consecutive.gemCapExtra = Math.min(
-        Math.floor(this.consecutiveMonths / 3) * 5, 25,
+        Math.floor(this.hero.purchased.plan.consecutive.count / 3) * 5, 25,
       );
-      if (this.hero.purchased.plan.gemsBought
-        > this.hero.purchased.plan.consecutive.gemCapExtra + 25) {
-        this.hero.purchased.plan.gemsBought = this.hero.purchased.plan.consecutive.gemCapExtra + 25;
-      }
     },
-  },
-  mounted () {
-    this.consecutiveMonths = clone(this.hero.purchased.plan.consecutive.count);
   },
   methods: {
     dateFormat (date) {
       return moment(date).format('YYYY/MM/DD');
-    },
-    saveSubscriptionData () {
-      if (this.consecutiveMonths !== this.hero.purchased.plan.consecutive.count) {
-        this.hero.purchased.plan.consecutive.count = this.consecutiveMonths;
-      }
-      this.saveHero({ hero: this.hero, msg: 'Subscription Perks' });
     },
   },
 };
