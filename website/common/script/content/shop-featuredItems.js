@@ -20,7 +20,7 @@ const featuredItems = {
           path: 'premiumHatchingPotions.Ghost',
         },
         {
-          type: 'premiumHatchingPotions',
+          type: 'premiumHatchingPotion',
           path: 'premiumHatchingPotions.Shadow',
         },
       ];

@@ -23380,6 +23380,11 @@
   width: 68px;
   height: 68px;
 }
+.shop_armor_special_fall2022Healer {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_armor_special_fall2022Healer.png');
+  width: 68px;
+  height: 68px;
+}
 .shop_armor_special_fall2022Mage {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_armor_special_fall2022Mage.png');
   width: 68px;
@@ -23580,8 +23585,8 @@
   width: 68px;
   height: 68px;
 }
-.shop_head_special_fall2022Warrior. {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_head_special_fall2022Warrior..png');
+.shop_head_special_fall2022Warrior {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_head_special_fall2022Warrior.png');
   width: 68px;
   height: 68px;
 }
@@ -23710,6 +23715,11 @@
   width: 68px;
   height: 68px;
 }
+.shop_shield_special_fall2022Healer {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_shield_special_fall2022Healer.png');
+  width: 68px;
+  height: 68px;
+}
 .shop_shield_special_fall2022Rogue {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_shield_special_fall2022Rogue.png');
   width: 68px;
@@ -23732,11 +23742,6 @@
 }
 .shop_shield_special_fallWarrior {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_shield_special_fallWarrior.png');
-  width: 68px;
-  height: 68px;
-}
-.shop_shield_special_special_fall2022Healer {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_shield_special_special_fall2022Healer.png');
   width: 68px;
   height: 68px;
 }
@@ -24075,8 +24080,8 @@
   width: 114px;
   height: 90px;
 }
-.slim_armor_special_fall2022Warrior. {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_special_fall2022Warrior..png');
+.slim_armor_special_fall2022Warrior {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_special_fall2022Warrior.png');
   width: 114px;
   height: 90px;
 }
