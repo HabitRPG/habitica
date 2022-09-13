@@ -17,7 +17,7 @@
     "invitedToQuest": "<span class=\"notification-bold-blue\"><%= quest %></span> クエストに招待されました",
     "askLater": "あとで答える",
     "buyQuest": "クエストを買う",
-    "accepted": "承認しました",
+    "accepted": "承認済み",
     "declined": "辞退済み",
     "rejected": "拒否しました",
     "pending": "保留",
