@@ -87,7 +87,7 @@
     "deleteTask": "删除这个任务",
     "sureDelete": "你确定要删除这个任务吗？",
     "streakCoins": "连击奖励！",
-    "taskToTop": "移到最上方",
+    "taskToTop": "移到顶部",
     "taskToBottom": "移到底部",
     "taskAliasAlreadyUsed": "任务别名已经被用于另一个任务。",
     "taskNotFound": "找不到任务。",
@@ -139,5 +139,6 @@
     "resetCounter": "重置连击次数",
     "counter": "次数",
     "adjustCounter": "调整连击次数",
-    "editTagsText": "编辑标签"
+    "editTagsText": "编辑标签",
+    "taskSummary": "<%= type %> 摘要"
 }

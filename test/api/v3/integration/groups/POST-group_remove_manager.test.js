@@ -1,4 +1,3 @@
-import { find } from 'lodash';
 import {
   createAndPopulateGroup,
   translate as t,
@@ -10,10 +9,6 @@ describe('POST /group/:groupId/remove-manager', () => {
   const groupName = 'Test Private Guild';
   const groupType = 'guild';
   let nonManager;
-
-  function findAssignedTask (memberTask) {
-    return memberTask.group.id === groupToUpdate._id;
-  }
 
   beforeEach(async () => {
     const { group, groupLeader, members } = await createAndPopulateGroup({
@@ -61,30 +56,6 @@ describe('POST /group/:groupId/remove-manager', () => {
       managerId: nonLeader._id,
     });
 
-    expect(updatedGroup.managers[nonLeader._id]).to.not.exist;
-  });
-
-  it('removes group approval notifications from a manager that is removed', async () => {
-    await leader.post(`/groups/${groupToUpdate._id}/add-manager`, {
-      managerId: nonLeader._id,
-    });
-    const task = await leader.post(`/tasks/group/${groupToUpdate._id}`, {
-      text: 'test todo',
-      type: 'todo',
-      requiresApproval: true,
-    });
-    await nonLeader.post(`/tasks/${task._id}/assign/${nonManager._id}`);
-    const memberTasks = await nonManager.get('/tasks/user');
-    const syncedTask = find(memberTasks, findAssignedTask);
-    await nonManager.post(`/tasks/${syncedTask._id}/score/up`);
-
-    const updatedGroup = await leader.post(`/groups/${groupToUpdate._id}/remove-manager`, {
-      managerId: nonLeader._id,
-    });
-
-    await nonLeader.sync();
-
-    expect(nonLeader.notifications.length).to.equal(1); // user gets mystery items
     expect(updatedGroup.managers[nonLeader._id]).to.not.exist;
   });
 });

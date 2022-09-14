@@ -29,9 +29,6 @@ import {
 import baseModel from '../libs/baseModel';
 import { sendTxn as sendTxnEmail } from '../libs/email'; // eslint-disable-line import/no-cycle
 import { sendNotification as sendPushNotification } from '../libs/pushNotifications'; // eslint-disable-line import/no-cycle
-import { // eslint-disable-line import/no-cycle
-  syncableAttrs,
-} from '../libs/tasks/utils';
 import {
   schema as SubscriptionPlanSchema,
 } from './subscriptionPlan';
@@ -144,6 +141,9 @@ export const schema = new Schema({
     slug: { $type: String },
     name: { $type: String },
   }],
+  cron: {
+    lastProcessed: { $type: Date },
+  },
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
@@ -1386,10 +1386,13 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
   const promises = user.isModified() ? [user.save()] : [];
 
   // remove the group from the user's groups
+  const userUpdate = { $pull: { 'preferences.tasks.mirrorGroupTasks': group._id } };
   if (group.type === 'guild') {
-    promises.push(User.update({ _id: user._id }, { $pull: { guilds: group._id } }).exec());
+    userUpdate.$pull.guilds = group._id;
+    promises.push(User.update({ _id: user._id }, userUpdate).exec());
   } else {
-    promises.push(User.update({ _id: user._id }, { $set: { party: {} } }).exec());
+    userUpdate.$set = { party: {} };
+    promises.push(User.update({ _id: user._id }, userUpdate).exec());
 
     update.$unset = { [`quest.members.${user._id}`]: 1 };
   }
@@ -1441,132 +1444,50 @@ schema.methods.unlinkTags = function unlinkTags (user) {
   });
 };
 
-/**
- * Updates all linked tasks for a group task
- *
- * @param  taskToSync  The group task that will be synced
- * @param  options.newCheckListItem  The new checklist item
- *          that needs to be synced to all assigned users
- * @param  options.removedCheckListItem  The removed checklist item that
- *          needs to be removed from all assigned users
- *
- * @return The created tasks
- */
-schema.methods.updateTask = async function updateTask (taskToSync, options = {}) {
-  const group = this;
-
-  const updateCmd = { $set: {} };
-
-  const syncableAttributes = syncableAttrs(taskToSync);
-  for (const key of Object.keys(syncableAttributes)) {
-    updateCmd.$set[key] = syncableAttributes[key];
-  }
-
-  updateCmd.$set['group.approval.required'] = taskToSync.group.approval.required;
-  updateCmd.$set['group.assignedUsers'] = taskToSync.group.assignedUsers;
-  updateCmd.$set['group.sharedCompletion'] = taskToSync.group.sharedCompletion;
-  updateCmd.$set['group.managerNotes'] = taskToSync.group.managerNotes;
-
-  const taskSchema = Tasks[taskToSync.type];
-
-  const updateQuery = {
-    userId: { $exists: true },
-    'group.id': group.id,
-    'group.taskId': taskToSync._id,
-  };
-
-  if (options.newCheckListItem) {
-    const newCheckList = { completed: false };
-    newCheckList.linkId = options.newCheckListItem.id;
-    newCheckList.text = options.newCheckListItem.text;
-    updateCmd.$push = { checklist: newCheckList };
-  }
-
-  if (options.removedCheckListItemId) {
-    updateCmd.$pull = { checklist: { linkId: { $in: [options.removedCheckListItemId] } } };
-  }
-
-  if (options.updateCheckListItems) {
-    updateCmd.$set.checklist = taskToSync.checklist;
-  }
-
-  // Updating instead of loading and saving for performances,
-  // risks becoming a problem if we introduce more complexity in tasks
-  await taskSchema.update(updateQuery, updateCmd, { multi: true }).exec();
-};
-
-schema.methods.syncTask = async function groupSyncTask (taskToSync, user, assigningUser) {
+schema.methods.syncTask = async function groupSyncTask (taskToSync, users, assigningUser) {
   const group = this;
   const toSave = [];
+  for (const user of users) {
+    const assignmentData = {
+      assignedDate: new Date(),
+      assignedUsername: user.auth.local.username,
+      assigningUsername: assigningUser.auth.local.username,
+      completed: false,
+    };
 
-  if (taskToSync.group.assignedUsers.indexOf(user._id) === -1) {
-    taskToSync.group.assignedUsers.push(user._id);
-  }
-
-  // Sync tags
-  const userTags = user.tags;
-  const i = _.findIndex(userTags, { id: group._id });
-
-  if (i !== -1) {
-    if (userTags[i].name !== group.name) {
-      // update the name - it's been changed since
-      userTags[i].name = group.name;
-      userTags[i].group = group._id;
+    if (!taskToSync.group.assignedUsers) {
+      taskToSync.group.assignedUsers = [];
     }
-  } else {
-    userTags.push({
-      id: group._id,
-      name: group.name,
-      group: group._id,
-    });
+    taskToSync.group.assignedUsers.push(user._id);
+
+    if (!taskToSync.group.assignedUsersDetail) {
+      taskToSync.group.assignedUsersDetail = {};
+    }
+    if (!taskToSync.group.assignedUsersDetail[user._id]) {
+      taskToSync.group.assignedUsersDetail[user._id] = assignmentData;
+    }
+    taskToSync.markModified('group.assignedUsersDetail');
+
+    // Sync tags
+    const userTags = user.tags;
+    const i = _.findIndex(userTags, { id: group._id });
+
+    if (i !== -1) {
+      if (userTags[i].name !== group.name) {
+        // update the name - it's been changed since
+        userTags[i].name = group.name;
+        userTags[i].group = group._id;
+      }
+    } else {
+      userTags.push({
+        id: group._id,
+        name: group.name,
+        group: group._id,
+      });
+    }
+    toSave.push(user.save());
   }
-
-  const findQuery = {
-    'group.taskId': taskToSync._id,
-    userId: user._id,
-    'group.id': group._id,
-  };
-
-  let matchingTask = await Tasks.Task.findOne(findQuery).exec();
-
-  if (!matchingTask) { // If the task is new, create it
-    matchingTask = new Tasks[taskToSync.type](Tasks.Task.sanitize(syncableAttrs(taskToSync)));
-    matchingTask.group.id = taskToSync.group.id;
-    matchingTask.userId = user._id;
-    matchingTask.group.taskId = taskToSync._id;
-    matchingTask.group.assignedDate = new Date();
-    user.tasksOrder[`${taskToSync.type}s`].unshift(matchingTask._id);
-  } else {
-    _.merge(matchingTask, syncableAttrs(taskToSync));
-    // Make sure the task is in user.tasksOrder
-    const orderList = user.tasksOrder[`${taskToSync.type}s`];
-    if (orderList.indexOf(matchingTask._id) === -1 && (matchingTask.type !== 'todo' || !matchingTask.completed)) orderList.push(matchingTask._id);
-  }
-
-  matchingTask.group.approval.required = taskToSync.group.approval.required;
-  matchingTask.group.assignedUsers = taskToSync.group.assignedUsers;
-  matchingTask.group.sharedCompletion = taskToSync.group.sharedCompletion;
-  matchingTask.group.managerNotes = taskToSync.group.managerNotes;
-  if (assigningUser && user._id !== assigningUser._id) {
-    matchingTask.group.assigningUsername = assigningUser.auth.local.username;
-  }
-
-  //  sync checklist
-  if (taskToSync.checklist) {
-    taskToSync.checklist.forEach(element => {
-      const newCheckList = { completed: false };
-      newCheckList.linkId = element.id;
-      newCheckList.text = element.text;
-      matchingTask.checklist.push(newCheckList);
-    });
-  }
-
-  // don't override the notes, but provide it if not provided
-  if (!matchingTask.notes) matchingTask.notes = taskToSync.notes;
-  // add tag if missing
-  if (matchingTask.tags.indexOf(group._id) === -1) matchingTask.tags.push(group._id);
-
-  toSave.push(matchingTask.save(), taskToSync.save(), user.save());
+  toSave.push(taskToSync.save());
   return Promise.all(toSave);
 };
 
@@ -1576,11 +1497,15 @@ schema.methods.unlinkTask = async function groupUnlinkTask (
 ) {
   const findQuery = {
     'group.taskId': unlinkingTask._id,
-    userId: user._id,
+    'group.assignedUsers': user._id,
   };
 
+  delete unlinkingTask.group.assignedUsersDetail[user._id];
   const assignedUserIndex = unlinkingTask.group.assignedUsers.indexOf(user._id);
   unlinkingTask.group.assignedUsers.splice(assignedUserIndex, 1);
+  unlinkingTask.markModified('group');
+
+  const promises = [unlinkingTask.save()];
 
   if (keep === 'keep-all') {
     await Tasks.Task.update(findQuery, {
@@ -1598,16 +1523,14 @@ schema.methods.unlinkTask = async function groupUnlinkTask (
       user.markModified('tasksOrder');
     }
 
-    const promises = [unlinkingTask.save()];
     if (task) {
       promises.push(task.remove());
     }
     // When multiple tasks are being unlinked at the same time,
     // save the user once outside of this function
     if (saveUser) promises.push(user.save());
-
-    await Promise.all(promises);
   }
+  await Promise.all(promises);
 };
 
 schema.methods.removeTask = async function groupRemoveTask (task) {

@@ -510,6 +510,16 @@ const backgrounds = {
     underwater_cave: { },
     underwater_statues: { },
   },
+  backgrounds082022: {
+    rainbow_eucalyptus: { },
+    messy_room: { },
+    by_a_campfire: { },
+  },
+  backgrounds092022: {
+    theatre_stage: { },
+    autumn_picnic: { },
+    old_photo: { },
+  },
   timeTravelBackgrounds: {
     airship: {
       price: 1,

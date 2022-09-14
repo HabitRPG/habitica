@@ -35,9 +35,9 @@
     "mustComplete": "Du skal færdiggøre <%= quest %> først.",
     "mustLvlQuest": "Du skal være niveau <%= level %> for at købe denne quest!",
     "unlockByQuesting": "For at låse op for denne quest, skal du fuldføre <%= title %>.",
-    "questConfirm": "Er du sikker? Kun <%= questmembers %> af dine <%= totalmembers %> holdmedlemmer har valgt at deltage i denne quest! Quests begynder automatisk, når alle spillere enten har accepteret eller afvist invitationen.",
-    "sureCancel": "Er du sikker på at du vil afbryde denne quest? Alle invitation-accepter vil gå tabt. Quest-lederen vil beholde quest-skriftrullen.",
-    "sureAbort": "Er du sikker på at du vil afbryde missionen? Det vil afbryde den for alle i gruppen og al fremskridt vil gå tabt. Quest-skriftrullen vil blive returneret til quest-lederen.",
+    "questConfirm": "Er du sikker på at du vil starte denne quest? Ikke alle holdmedlemmer har accepteret invitationen. Quests begynder automatisk, når alle medlemmer har svaret.",
+    "sureCancel": "Er du sikker på at du vil afbryde denne quest? Hvis du afbryder, vil alle accepterede og åbne invitationer blive afvist. Quest-lederen vil få skriftrullen igen.",
+    "sureAbort": "Er du sikker på at du vil afbryde missionen? Al fremskridt vil gå tabt. Quest-lederen vil få skriftrullen igen.",
     "doubleSureAbort": "Er du helt sikker? Tjek lige at de ikke vil hade dig for evigt!",
     "bossRageTitle": "Vrede",
     "bossRageDescription": "Når denne bar bliver fyldt vil bossen udføre et specielt angreb!",
@@ -85,5 +85,9 @@
     "questAlreadyStarted": "Questen er allerede begyndt.",
     "bossDamage": "Du har skadet bossen!",
     "questInvitationNotificationInfo": "Du har fået en invitation til at deltage i en quest",
-    "hatchingPotionQuests": "Magisk Udrugningseliksirquest"
+    "hatchingPotionQuests": "Magisk Udrugningseliksirquest",
+    "questItemsPending": "<%= amount %> genstande fundet",
+    "sureLeaveInactive": "Er du sikker på, du vil forlade questen? Du vil ikke kunne deltage igen.",
+    "selectQuest": "Vælg quest",
+    "yourPartyIsNotOnQuest": "Dit hold er ikke på en quest"
 }

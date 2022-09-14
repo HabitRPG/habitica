@@ -129,8 +129,6 @@ import GUILD_INVITATION from './notifications/guildInvitation';
 import PARTY_INVITATION from './notifications/partyInvitation';
 import CHALLENGE_INVITATION from './notifications/challengeInvitation';
 import QUEST_INVITATION from './notifications/questInvitation';
-import GROUP_TASK_APPROVAL from './notifications/groupTaskApproval';
-import GROUP_TASK_APPROVED from './notifications/groupTaskApproved';
 import GROUP_TASK_ASSIGNED from './notifications/groupTaskAssigned';
 import GROUP_TASK_CLAIMED from './notifications/groupTaskClaimed';
 import UNALLOCATED_STATS_POINTS from './notifications/unallocatedStatsPoints';
@@ -155,8 +153,6 @@ export default {
     PARTY_INVITATION,
     CHALLENGE_INVITATION,
     QUEST_INVITATION,
-    GROUP_TASK_APPROVAL,
-    GROUP_TASK_APPROVED,
     GROUP_TASK_ASSIGNED,
     GROUP_TASK_CLAIMED,
     UNALLOCATED_STATS_POINTS,
@@ -182,7 +178,7 @@ export default {
       openStatus: undefined,
       actionableNotifications: [
         'GUILD_INVITATION', 'PARTY_INVITATION', 'CHALLENGE_INVITATION',
-        'QUEST_INVITATION', 'GROUP_TASK_APPROVED',
+        'QUEST_INVITATION',
       ],
       // A list of notifications handled by this component,
       // listed in the order they should appear in the notifications panel.
@@ -196,8 +192,6 @@ export default {
         'CHALLENGE_INVITATION',
         'QUEST_INVITATION',
         'GROUP_TASK_ASSIGNED',
-        'GROUP_TASK_APPROVAL',
-        'GROUP_TASK_APPROVED',
         'GROUP_TASK_CLAIMED',
         'NEW_MYSTERY_ITEMS',
         'CARD_RECEIVED',

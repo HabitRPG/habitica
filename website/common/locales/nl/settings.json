@@ -8,7 +8,7 @@
     "dailyDueDefaultView": "Standaard de 'Onvoltooid' tab laten zien in Dagelijkse Taken",
     "dailyDueDefaultViewPop": "Deze optie toont voor Dagelijkse Taken standaard de 'Onvoltooid' tab in plaats van 'Alle'",
     "reverseChatOrder": "Laat chatberichten zien in omgekeerde volgorde",
-    "startAdvCollapsed": "Geavanceerde Instellingen in taken zijn aanvakelijk ingeklapt",
+    "startAdvCollapsed": "Geavanceerde Instellingen in taken zijn aannvakelijk ingeklapt",
     "startAdvCollapsedPop": "Deze optie verbergt de geavanceerde instellingen wanneer je voor het eerst een taak opent om hem te bewerken.",
     "dontShowAgain": "Laat dit niet meer zien",
     "suppressLevelUpModal": "Geen pop-up tonen wanneer ik een hoger niveau bereik",
@@ -215,5 +215,7 @@
     "nextHourglass": "Volgende Zandloper",
     "nextHourglassDescription": "Abonnees krijgen Mystieke Zandlopers binnen\nde eerste drie dagen van de maand.",
     "adjustment": "Aanpassing",
-    "dayStartAdjustment": "Dag Begin Aanpassing"
+    "dayStartAdjustment": "Dag Begin Aanpassing",
+    "passwordSuccess": "Wachtwoord succesvol aangepast",
+    "transaction_admin_update_balance": "Door beheerder gegeven"
 }

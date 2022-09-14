@@ -247,9 +247,6 @@
             <li v-once>
               {{ $t('sleepBullet3') }}
             </li>
-            <li v-once>
-              {{ $t('sleepBullet4') }}
-            </li>
           </ul>
           <button
             v-if="!user.preferences.sleep"
@@ -342,6 +339,7 @@
             <li>
               <a
                 href
+                :style="glossary-link"
                 v-html="$t('glossary')"
               ></a>
             </li>
@@ -534,6 +532,21 @@
     width: 10px;
     display: inline-block;
     margin-left: .5em;
+  }
+
+// formats the report a bug link to match the others
+  a:not([href]) {
+  &:not([role=button]) {
+    color: #007bff;
+    text-decoration: none;
+    }
+  }
+
+  a:not([href]):hover {
+  &:not([role=button]) {
+    color: #0056b3;
+    text-decoration: underline;
+    }
   }
 
   .tier1-icon, .tier2-icon {

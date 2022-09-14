@@ -53,5 +53,6 @@
     "surveysSingle": "帮助过Habitica成长，通过填写一份问卷或在一次大型的测试提供帮助。谢谢你们！",
     "surveysMultiple": "曾<%= count %>次帮助过Habitica成长，比如填一份调查问卷或参与了某次重要的内测或公测。谢谢你们！",
     "blurbHallPatrons": "这里是赞助者的殿堂，我们纪念在Kickstarter众筹上支持Habitica的会员们。感谢他们帮助我们让Habitica诞生！",
-    "blurbHallContributors": "这里是贡献者的殿堂，纪念在开源项目中对Habitica做出贡献的人们。无论是代码、图画、音乐、剧本，甚至只是一些帮助，他们得到了<a href='https://habitica.fandom.com/zh/wiki/贡献者的福利' target='_blank'> 宝石、独有装备</a>以及 <a href='https://habitica.fandom.com/zh/wiki/贡献者头衔' target='_blank'>尊贵头衔</a>。你也可以为Habitica做出贡献！<a href='https://habitica.fandom.com/zh/wiki/对Habitica做出贡献' target='_blank'>查看更多。</a>"
+    "blurbHallContributors": "这里是贡献者的殿堂，纪念在开源项目中对Habitica做出贡献的人们。无论是代码、图画、音乐、剧本，甚至只是一些帮助，他们得到了<a href='https://habitica.fandom.com/zh/wiki/贡献者的福利' target='_blank'> 宝石、独有装备</a>以及 <a href='https://habitica.fandom.com/zh/wiki/贡献者头衔' target='_blank'>尊贵头衔</a>。你也可以为Habitica做出贡献！<a href='https://habitica.fandom.com/zh/wiki/对Habitica做出贡献' target='_blank'>查看更多。</a>",
+    "noPrivAccess": "你没有必要的权限。"
 }

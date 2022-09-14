@@ -215,5 +215,8 @@
     "gemCap": "Edelsteinobergrenze",
     "nextHourglass": "Nächste Sanduhr",
     "adjustment": "Änderung",
-    "dayStartAdjustment": "Änderung des Tageswechsel"
+    "dayStartAdjustment": "Änderung des Tageswechsel",
+    "passwordSuccess": "Passwort erfolgreich geändert",
+    "giftSubscriptionRateText": "<strong>$<%= price %> $(USD)</strong> für <strong><%= months %> Monate</strong>",
+    "transaction_admin_update_balance": "Admin gegeben"
 }

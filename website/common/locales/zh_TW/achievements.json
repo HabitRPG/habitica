@@ -123,5 +123,11 @@
     "achievementShadeOfItAll": "陰暗之始",
     "achievementShadeOfItAllText": "已馴服所有暗影坐騎。",
     "achievementShadeOfItAllModalText": "你馴服了所有暗影坐騎！",
-    "achievementShadyCustomerModalText": "你集齊了所有暗影寵物！"
+    "achievementShadyCustomerModalText": "你集齊了所有暗影寵物！",
+    "achievementBirdsOfAFeather": "展翅高飛",
+    "achievementBirdsOfAFeatherText": "已孵化所有基礎顏色的飞行宠物：飛豬、貓頭鷹、鸚鵡、翼龍、獅鷲和獵鷹！",
+    "achievementBirdsOfAFeatherModalText": "你集齊了所有飛行寵物！",
+    "achievementZodiacZookeeper": "十二生肖飼養員",
+    "achievementZodiacZookeeperText": "已孵化所有基礎顏色的十二生肖寵物。鼠、牛、兔、蛇、馬、羊、猴、雞、狼、虎、飛豬和龍！",
+    "achievementZodiacZookeeperModalText": "你集齊了所有十二生肖寵物！"
 }

@@ -1,4 +1,3 @@
-import { find } from 'lodash';
 import {
   createAndPopulateGroup,
   translate as t,
@@ -7,10 +6,6 @@ import {
 describe('POST /tasks/:id/needs-work/:userId', () => {
   let user; let guild; let member; let member2; let
     task;
-
-  function findAssignedTask (memberTask) {
-    return memberTask.group.id === guild._id;
-  }
 
   beforeEach(async () => {
     const { group, members, groupLeader } = await createAndPopulateGroup({
@@ -37,14 +32,15 @@ describe('POST /tasks/:id/needs-work/:userId', () => {
   it('errors when user is not assigned', async () => {
     await expect(user.post(`/tasks/${task._id}/needs-work/${member._id}`))
       .to.eventually.be.rejected.and.to.eql({
-        code: 404,
-        error: 'NotFound',
-        message: t('messageTaskNotFound'),
+        code: 400,
+        error: 'BadRequest',
+        message: 'Task not completed by this user.',
       });
   });
 
   it('errors when user is not the group leader', async () => {
-    await user.post(`/tasks/${task._id}/assign/${member._id}`);
+    await user.post(`/tasks/${task._id}/assign`, [member._id]);
+    await member.post(`/tasks/${task._id}/score/up`);
     await expect(member.post(`/tasks/${task._id}/needs-work/${member._id}`))
       .to.eventually.be.rejected.and.to.eql({
         code: 401,
@@ -54,132 +50,64 @@ describe('POST /tasks/:id/needs-work/:userId', () => {
   });
 
   it('marks a task as needing more work', async () => {
+    await member.sync();
     const initialNotifications = member.notifications.length;
-
-    await user.post(`/tasks/${task._id}/assign/${member._id}`);
-
-    let memberTasks = await member.get('/tasks/user');
-    let syncedTask = find(memberTasks, findAssignedTask);
+    await user.post(`/tasks/${task._id}/assign`, [member._id]);
 
     // score task to require approval
-    await member.post(`/tasks/${syncedTask._id}/score/up`);
+    await member.post(`/tasks/${task._id}/score/up`);
     await user.post(`/tasks/${task._id}/needs-work/${member._id}`);
 
-    [memberTasks] = await Promise.all([member.get('/tasks/user'), member.sync()]);
-    syncedTask = find(memberTasks, findAssignedTask);
-
-    // Check that the notification approval request has been removed
-    expect(syncedTask.group.approval.requested).to.equal(false);
-    expect(syncedTask.group.approval.requestedDate).to.equal(undefined);
-
     // Check that the notification is correct
+    await member.sync();
     expect(member.notifications.length).to.equal(initialNotifications + 3);
     const notification = member.notifications[member.notifications.length - 1];
     expect(notification.type).to.equal('GROUP_TASK_NEEDS_WORK');
 
-    const taskText = syncedTask.text;
-    const managerName = user.profile.name;
+    const taskText = task.text;
+    const managerName = user.auth.local.username;
 
     expect(notification.data.message).to.equal(t('taskNeedsWork', { taskText, managerName }));
 
-    expect(notification.data.task.id).to.equal(syncedTask._id);
+    expect(notification.data.task.id).to.equal(task._id);
     expect(notification.data.task.text).to.equal(taskText);
 
-    expect(notification.data.group.id).to.equal(syncedTask.group.id);
+    expect(notification.data.group.id).to.equal(task.group.id);
     expect(notification.data.group.name).to.equal(guild.name);
 
     expect(notification.data.manager.id).to.equal(user._id);
     expect(notification.data.manager.name).to.equal(managerName);
-
-    // Check that the managers' GROUP_TASK_APPROVAL notifications have been removed
-    await user.sync();
-
-    expect(user.notifications.find(n => { // eslint-disable-line arrow-body-style
-      return n.data.taskId === syncedTask._id && n.type === 'GROUP_TASK_APPROVAL';
-    })).to.equal(undefined);
   });
 
   it('allows a manager to mark a task as needing work', async () => {
+    await member.sync();
+    const initialNotifications = member.notifications.length;
     await user.post(`/groups/${guild._id}/add-manager`, {
       managerId: member2._id,
     });
-    await member2.post(`/tasks/${task._id}/assign/${member._id}`);
-
-    let memberTasks = await member.get('/tasks/user');
-    let syncedTask = find(memberTasks, findAssignedTask);
+    await member2.post(`/tasks/${task._id}/assign`, [member._id]);
 
     // score task to require approval
-    await member.post(`/tasks/${syncedTask._id}/score/up`);
-
-    const initialNotifications = member.notifications.length;
-
+    await member.post(`/tasks/${task._id}/score/up`);
     await member2.post(`/tasks/${task._id}/needs-work/${member._id}`);
 
-    [memberTasks] = await Promise.all([member.get('/tasks/user'), member.sync()]);
-    syncedTask = find(memberTasks, findAssignedTask);
-
-    // Check that the notification approval request has been removed
-    expect(syncedTask.group.approval.requested).to.equal(false);
-    expect(syncedTask.group.approval.requestedDate).to.equal(undefined);
-
+    await member.sync();
     expect(member.notifications.length).to.equal(initialNotifications + 3);
     const notification = member.notifications[member.notifications.length - 1];
     expect(notification.type).to.equal('GROUP_TASK_NEEDS_WORK');
 
-    const taskText = syncedTask.text;
-    const managerName = member2.profile.name;
+    const taskText = task.text;
+    const managerName = member2.auth.local.username;
 
     expect(notification.data.message).to.equal(t('taskNeedsWork', { taskText, managerName }));
 
-    expect(notification.data.task.id).to.equal(syncedTask._id);
+    expect(notification.data.task.id).to.equal(task._id);
     expect(notification.data.task.text).to.equal(taskText);
 
-    expect(notification.data.group.id).to.equal(syncedTask.group.id);
+    expect(notification.data.group.id).to.equal(task.group.id);
     expect(notification.data.group.name).to.equal(guild.name);
 
     expect(notification.data.manager.id).to.equal(member2._id);
     expect(notification.data.manager.name).to.equal(managerName);
-
-    // Check that the managers' GROUP_TASK_APPROVAL notifications have been removed
-    await Promise.all([user.sync(), member2.sync()]);
-
-    expect(user.notifications.find(n => { // eslint-disable-line arrow-body-style
-      return n.data.taskId === syncedTask._id && n.type === 'GROUP_TASK_APPROVAL';
-    })).to.equal(undefined);
-
-    expect(member2.notifications.find(n => { // eslint-disable-line arrow-body-style
-      return n.data.taskId === syncedTask._id && n.type === 'GROUP_TASK_APPROVAL';
-    })).to.equal(undefined);
-  });
-
-  it('prevents marking a task as needing work if it was already approved', async () => {
-    await user.post(`/groups/${guild._id}/add-manager`, {
-      managerId: member2._id,
-    });
-
-    await member2.post(`/tasks/${task._id}/assign/${member._id}`);
-
-    const memberTasks = await member.get('/tasks/user');
-    const syncedTask = find(memberTasks, findAssignedTask);
-
-    await member.post(`/tasks/${syncedTask._id}/score/up`);
-    await member2.post(`/tasks/${task._id}/approve/${member._id}`);
-    await expect(user.post(`/tasks/${task._id}/needs-work/${member._id}`))
-      .to.eventually.be.rejected.and.to.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('canOnlyApproveTaskOnce'),
-      });
-  });
-
-  it('prevents marking a task as needing work if it is not waiting for approval', async () => {
-    await user.post(`/tasks/${task._id}/assign/${member._id}`);
-
-    await expect(user.post(`/tasks/${task._id}/needs-work/${member._id}`))
-      .to.eventually.be.rejected.and.to.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('taskApprovalWasNotRequested'),
-      });
   });
 });

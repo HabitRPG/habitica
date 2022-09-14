@@ -2,12 +2,12 @@
     "defaultHabit1Text": "Traballo Productivo (Pulsa no lapis para editar)",
     "defaultHabit2Text": "Comer Comida Basura (Pulsa o lapis para editar)",
     "defaultHabit3Text": "Usar as escaleiras / o ascensor (Pulsa no lapis para editar)",
-    "defaultHabit4Text": "Add a task to Habitica",
+    "defaultHabit4Text": "Engadir unha tarefa a Habitica",
     "defaultHabit4Notes": "Unha Habitude, unha Tarefa Diaria ou unha Tarefa Pendente",
     "defaultTodo1Text": "Unirse a Habitica (Conta comigo!)",
     "defaultTodoNotes": "Podes completar esta Tarefa, editala ou sacala.",
     "defaultReward1Text": "descanso de 15 minutos",
-    "defaultReward2Text": "Reward yourself",
+    "defaultReward2Text": "Recompénsate",
     "defaultReward2Notes": "Watch TV, play a game, eat a treat, it's up to you!",
     "defaultTag1": "Traballo",
     "defaultTag2": "Exercicio",
@@ -34,5 +34,8 @@
     "workTodoProject": "Proxecto de traballo >> Completar proxecto de traballo",
     "workDailyImportantTaskNotes": "Toca para especificar a túa tarefa máis impotante",
     "workDailyImportantTask": "Tarefa máis importante>> Traballei na tarefa máis importante de hoxe",
-    "workHabitMail": "Leer emails"
+    "workHabitMail": "Leer emails",
+    "choresDailyText": "Lavar a louza",
+    "choresHabit": "Limpar 10 minutos",
+    "creativityTodoText": "Rematar un proxecto creativo"
 }
