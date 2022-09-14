@@ -2690,5 +2690,13 @@
     "headMystery202208Text": "Coda di Cavallo Pimpante",
     "headMystery202208Notes": "Divertiti a sfoggiare questi capelli voluminosi: possono raddoppiare tatticamente in un baleno! Non conferisce alcun bonus. Oggetto abbonati agosto 2022.",
     "eyewearMystery202208Text": "Occhi Luccicosi",
-    "eyewearMystery202208Notes": "Induci i tuoi nemici in un falso senso di sicurezza con questi occhioni tremendamente carini. Non conferisce alcun bonus. Oggetto abbonati agosto 2022."
+    "eyewearMystery202208Notes": "Induci i tuoi nemici in un falso senso di sicurezza con questi occhioni tremendamente carini. Non conferisce alcun bonus. Oggetto abbonati agosto 2022.",
+    "weaponMystery202209Text": "Manuale di Magia",
+    "weaponMystery202209Notes": "Questo libro ti guiderà lungo il viaggio di apprendimento nella creazione di magie. Non conferisce alcun bonus. Oggetto abbonati settembre 2022.",
+    "shieldMystery202209Notes": "Accrescere la tua conoscenza sulla magia richiede molto studio, ma puoi esser certo che apprezzerai la tua istruzione. Oggetto abbonati settembre 2022.",
+    "shieldMystery202209Text": "Pila di Libri Magici",
+    "eyewearArmoireComedyMaskText": "Maschera della Commedia",
+    "eyewearArmoireTragedyMaskText": "Maschera della Tragedia",
+    "eyewearArmoireComedyMaskNotes": "Urrà! Ecco una maschera pittoresca per il vostro cuor contento, ludico, che esprime gaiezza ed ilarità sul palco. Aumenta la Costituzione di <%= con %>. Scrigno Incantato: Set Maschere Teatrali (oggetto 1 di 2).",
+    "eyewearArmoireTragedyMaskNotes": "Ahimè! Ecco una maschera gravosa per il vostro povero attore, impettito, afflitto, che esprime affanno e rammarico sul palco. Aumenta l'Intelligenza di <%= int %>. Scrigno Incantato: Set Maschere Teatrali (oggetto 2 di 2)."
 }

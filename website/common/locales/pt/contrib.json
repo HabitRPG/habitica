@@ -49,9 +49,10 @@
     "balance": "Equilibrar",
     "playerTiers": "Níveis de Jogador",
     "tier": "Nível",
-    "conRewardsURL": "http://habitica.fandom.com/wiki/Contributor_Rewards",
+    "conRewardsURL": "https://habitica.fandom.com/pt-br/wiki/Recompensas_de_Contribuidor",
     "surveysSingle": "Ajudou o Habitica a crescer, preenchendo um questionário ou ajudando com um grande esforço em testes. Obrigado!",
     "surveysMultiple": "Ajudou Habitica a crescer em <%= count %> ocasiões, seja ao preencher um inquérito ou ao ajudar com grandes esforços de testes. Obrigado!",
     "blurbHallPatrons": "Este é o Salão dos Patrocinadores, onde honramos os nobres aventureiros que apoiaram Habitica no Kickstarter. Agradecemos a eles por nos ajudar a trazer Habitica à vida!",
-    "blurbHallContributors": "Isto é o Salão dos Colaboradores, onde os colaboradores de código aberto para o Habitica são homenageados. Quer seja através de programação, arte, música, escrita ou apenas prestabilidade, eles ganharam <a href='http://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'> gemas, equipamento exclusivo</a> e <a href='http://habitica.fandom.com/wiki/Contributor_Titles' target='_blank'>títulos de prestígio.</a> Você também pode colaborar para o Habitica! <a href='http://habitica.fandom.com/wiki/Contributing_to_Habitica' target='_blank'> Saiba mais aqui.</a>"
+    "blurbHallContributors": "Isto é o Salão dos Colaboradores, onde os colaboradores de código aberto para o Habitica são homenageados. Quer seja através de programação, arte, música, escrita ou apenas prestabilidade, eles ganharam <a href='http://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'> gemas, equipamento exclusivo</a> e <a href='http://habitica.fandom.com/wiki/Contributor_Titles' target='_blank'>títulos de prestígio.</a> Você também pode colaborar para o Habitica! <a href='http://habitica.fandom.com/wiki/Contributing_to_Habitica' target='_blank'> Saiba mais aqui.</a>",
+    "noPrivAccess": "Não tem os privilégios necessários."
 }

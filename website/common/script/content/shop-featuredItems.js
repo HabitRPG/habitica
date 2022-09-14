@@ -5,7 +5,7 @@ import { EVENTS } from './constants';
 // path: 'premiumHatchingPotions.Rainbow',
 const featuredItems = {
   market () {
-    if (moment().isBefore(EVENTS.summer2022.end)) {
+    if (moment().isBetween(EVENTS.potions202208.start, EVENTS.potions202208.end)) {
       return [
         {
           type: 'armoire',
@@ -13,15 +13,15 @@ const featuredItems = {
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Sunset',
+          path: 'premiumHatchingPotions.Moonglow',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Watery',
+          path: 'premiumHatchingPotions.Porcelain',
         },
         {
-          type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Aquatic',
+          type: 'food',
+          path: 'food.Milk',
         },
       ];
     }
@@ -32,39 +32,39 @@ const featuredItems = {
       },
       {
         type: 'food',
-        path: 'food.Honey',
+        path: 'food.Potatoe',
       },
       {
         type: 'hatchingPotions',
-        path: 'hatchingPotions.CottonCandyPink',
+        path: 'hatchingPotions.Desert',
       },
       {
         type: 'eggs',
-        path: 'eggs.BearCub',
+        path: 'eggs.Dragon',
       },
     ];
   },
   quests () {
-    if (moment().isBetween(EVENTS.bundle202208.start, EVENTS.bundle202208.end)) {
+    if (moment().isBetween(EVENTS.bundle202208.start, EVENTS.bundle202209.end)) {
       return [
         {
           type: 'bundles',
           path: 'bundles.forestFriends',
         },
         {
-          type: 'quests',
-          path: 'quests.owl',
+          type: 'bundles',
+          path: 'bundles.farmFriends',
         },
         {
           type: 'quests',
-          path: 'quests.snail',
+          path: 'quests.ferret',
         },
       ];
     }
     return [
       {
         type: 'quests',
-        path: 'quests.badger',
+        path: 'quests.guineapig',
       },
       {
         type: 'quests',

@@ -103,5 +103,6 @@
     "selectParticipant": "Vælg en deltager",
     "filters": "Filtre",
     "wonChallengeDesc": "<%= challengeName %> udvalgte dig som vinder! Din sejr er noteret i dine Præstationer.",
-    "yourReward": "Din Belønning"
+    "yourReward": "Din Belønning",
+    "removeTasks": "Fjern opgaver"
 }

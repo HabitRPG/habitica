@@ -1,3 +1,4 @@
+import isUUID from 'validator/lib/isUUID';
 import { authWithHeaders } from '../../../middlewares/auth';
 import * as Tasks from '../../../models/task';
 import { model as Group } from '../../../models/group';
@@ -12,13 +13,12 @@ import {
   createTasks,
   getTasks,
   groupSubscriptionNotFound,
+  scoreTasks,
 } from '../../../libs/tasks';
 import {
   moveTask,
 } from '../../../libs/tasks/utils';
-import { handleSharedCompletion } from '../../../libs/groupTasks';
 import apiError from '../../../libs/apiError';
-import logger from '../../../libs/logger';
 
 const requiredGroupFields = '_id leader tasksOrder name';
 // @TODO: abstract to task lib
@@ -150,14 +150,15 @@ api.groupMoveTask = {
 
     if (task.type === 'todo' && task.completed) throw new BadRequest(res.t('cantMoveCompletedTodo'));
 
+    const groupFields = requiredGroupFields.concat(' managers purchased');
     const group = await Group.getGroup({
       user,
       groupId: task.group.id,
-      fields: requiredGroupFields.concat(' purchased'),
+      fields: groupFields,
     });
     if (groupSubscriptionNotFound(group)) throw new NotFound(res.t('groupNotFound'));
 
-    if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+    if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
     const order = group.tasksOrder[`${task.type}s`];
 
@@ -184,30 +185,31 @@ api.groupMoveTask = {
 };
 
 /**
- * @api {post} /api/v3/tasks/:taskId/assign/:assignedUserId Assign a group task to a user
- * @apiDescription Assigns a user to a group task
+ * @api {post} /api/v3/tasks/:taskId/assign Assign a group task to a user or users
+ * @apiDescription Assign users to a group task
  * @apiName AssignTask
  * @apiGroup Task
  *
  * @apiParam (Path) {UUID} taskId The id of the task that will be assigned
- * @apiParam (Path) {UUID} assignedUserId The id of the user that will be assigned to the task
+ * @apiParam (Body) {UUID[]} [assignedUserIds] Array of user IDs to be assigned to the task
  *
  * @apiSuccess data The assigned task
  */
 api.assignTask = {
   method: 'POST',
-  url: '/tasks/:taskId/assign/:assignedUserId',
+  url: '/tasks/:taskId/assign',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('taskId', apiError('taskIdRequired')).notEmpty().isUUID();
-    req.checkParams('assignedUserId', res.t('userIdRequired')).notEmpty().isUUID();
 
     const reqValidationErrors = req.validationErrors();
     if (reqValidationErrors) throw reqValidationErrors;
 
     const { user } = res.locals;
-    const { assignedUserId } = req.params;
-    const assignedUser = await User.findById(assignedUserId).exec();
+    const assignedUserIds = req.body;
+    for (const userId of assignedUserIds) {
+      if (!isUUID(userId)) throw new BadRequest('Assigned users must be UUIDs');
+    }
 
     const { taskId } = req.params;
     const task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
@@ -224,37 +226,36 @@ api.assignTask = {
     const group = await Group.getGroup({ user, groupId: task.group.id, fields: groupFields });
     if (groupSubscriptionNotFound(group)) throw new NotFound(res.t('groupNotFound'));
 
-    if (canNotEditTasks(group, user, assignedUserId)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+    if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
+    const assignedUsers = await User.find({ _id: { $in: assignedUserIds } }).exec();
     const promises = [];
     const taskText = task.text;
     const userName = `@${user.auth.local.username}`;
 
-    if (user._id === assignedUserId) {
-      const managerIds = Object.keys(group.managers);
-      managerIds.push(group.leader);
-      const managers = await User.find({ _id: managerIds }, 'notifications preferences').exec();
-      managers.forEach(manager => {
-        if (manager._id === user._id) return;
-        manager.addNotification('GROUP_TASK_CLAIMED', {
-          message: res.t('taskClaimed', { userName, taskText }, manager.preferences.language),
+    for (const userToAssign of assignedUsers) {
+      if (user._id !== userToAssign._id) {
+        userToAssign.addNotification('GROUP_TASK_ASSIGNED', {
+          message: res.t('youHaveBeenAssignedTask', { managerName: userName, taskText }),
           groupId: group._id,
           taskId: task._id,
         });
-        promises.push(manager.save());
-      });
-    } else {
-      assignedUser.addNotification('GROUP_TASK_ASSIGNED', {
-        message: res.t('youHaveBeenAssignedTask', { managerName: userName, taskText }),
-        taskId: task._id,
-      });
+      }
     }
 
-    promises.push(group.syncTask(task, assignedUser, user));
+    promises.push(group.syncTask(task, assignedUsers, user));
     promises.push(group.save());
     await Promise.all(promises);
 
     res.respond(200, task);
+
+    res.analytics.track('task assign', {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      taskType: task.type,
+      groupID: group._id,
+    });
   },
 };
 
@@ -299,7 +300,7 @@ api.unassignTask = {
     const group = await Group.getGroup({ user, groupId: task.group.id, fields });
     if (groupSubscriptionNotFound(group)) throw new NotFound(res.t('groupNotFound'));
 
-    if (canNotEditTasks(group, user, assignedUserId)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+    if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
     await group.unlinkTask(task, assignedUser);
 
@@ -311,111 +312,6 @@ api.unassignTask = {
     }
 
     res.respond(200, task);
-  },
-};
-
-/**
- * @api {post} /api/v3/tasks/:taskId/approve/:userId Approve a user's task
- * @apiDescription Approves a user assigned to a group task
- * @apiVersion 3.0.0
- * @apiName ApproveTask
- * @apiGroup Task
- *
- * @apiParam (Path) {UUID} taskId The id of the task that is the original group task
- * @apiParam (Path) {UUID} userId The id of the user that will be approved
- *
- * @apiSuccess task The approved task
- */
-api.approveTask = {
-  method: 'POST',
-  url: '/tasks/:taskId/approve/:userId',
-  middlewares: [authWithHeaders()],
-  async handler (req, res) {
-    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty().isUUID();
-    req.checkParams('userId', res.t('userIdRequired')).notEmpty().isUUID();
-
-    const reqValidationErrors = req.validationErrors();
-    if (reqValidationErrors) throw reqValidationErrors;
-
-    const { user } = res.locals;
-    const assignedUserId = req.params.userId;
-    const assignedUser = await User.findById(assignedUserId).exec();
-
-    const { taskId } = req.params;
-    const task = await Tasks.Task.findOne({
-      'group.taskId': taskId,
-      userId: assignedUserId,
-    }).exec();
-
-    if (!task) {
-      throw new NotFound(res.t('messageTaskNotFound'));
-    }
-
-    const fields = requiredGroupFields.concat(' purchased managers');
-    const group = await Group.getGroup({ user, groupId: task.group.id, fields });
-    if (groupSubscriptionNotFound(group)) throw new NotFound(res.t('groupNotFound'));
-
-    if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
-    if (task.group.approval.approved === true) throw new NotAuthorized(res.t('canOnlyApproveTaskOnce'));
-    if (!task.group.approval.requested) {
-      throw new NotAuthorized(res.t('taskApprovalWasNotRequested'));
-    }
-
-    task.group.approval.dateApproved = new Date();
-    task.group.approval.approvingUser = user._id;
-    task.group.approval.approved = true;
-
-    // Get Managers
-    const managerIds = Object.keys(group.managers);
-    managerIds.push(group.leader);
-    const managers = await User.find({ _id: managerIds }, 'notifications').exec(); // Use this method so we can get access to notifications
-
-    // Get task direction
-    const firstManagerNotifications = managers[0].notifications;
-    const firstNotificationIndex = firstManagerNotifications.findIndex(notification => notification && notification.data && notification.data.taskId === task._id && notification.type === 'GROUP_TASK_APPROVAL');
-    let direction = 'up';
-    if (firstManagerNotifications[firstNotificationIndex]) {
-      direction = firstManagerNotifications[firstNotificationIndex].direction || direction;
-    }
-
-    // Remove old notifications
-    const approvalPromises = [];
-    managers.forEach(manager => {
-      const notificationIndex = manager.notifications.findIndex(notification => notification && notification.data && notification.data.taskId === task._id && notification.type === 'GROUP_TASK_APPROVAL');
-
-      if (notificationIndex !== -1) {
-        manager.notifications.splice(notificationIndex, 1);
-        approvalPromises.push(manager.save());
-      }
-    });
-
-    // Add new notifications to user
-    assignedUser.addNotification('GROUP_TASK_APPROVED', {
-      message: res.t('yourTaskHasBeenApproved', { taskText: task.text }),
-      groupId: group._id,
-      task,
-      direction,
-    });
-
-    approvalPromises.push(task.save());
-    approvalPromises.push(assignedUser.save());
-    await Promise.all(approvalPromises);
-
-    res.respond(200, task);
-
-    // Wrapping everything in a try/catch block because if an error occurs
-    // using `await` it MUST NOT bubble up because the request has already been handled
-    try {
-      const groupTask = await Tasks.Task.findOne({
-        _id: task.group.taskId,
-      }).exec();
-
-      if (groupTask) {
-        await handleSharedCompletion(groupTask, task);
-      }
-    } catch (e) {
-      logger.error('Error handling group task', e);
-    }
   },
 };
 
@@ -450,13 +346,24 @@ api.taskNeedsWork = {
     const [assignedUser, task] = await Promise.all([
       User.findById(assignedUserId).exec(),
       await Tasks.Task.findOne({
-        'group.taskId': taskId,
-        userId: assignedUserId,
+        _id: taskId,
       }).exec(),
     ]);
 
     if (!task) {
       throw new NotFound(res.t('messageTaskNotFound'));
+    }
+    if (['daily', 'todo'].indexOf(task.type) === -1) {
+      throw new BadRequest('Cannot roll back use of Habits or Rewards.');
+    }
+
+    if (task.group.completedBy.userId) {
+      if (task.group.completedBy.userId !== assignedUserId) {
+        throw new BadRequest('Task not completed by this user.');
+      }
+    } else if (!task.group.assignedUsersDetail || !task.group.assignedUsersDetail[assignedUserId]
+        || !task.group.assignedUsersDetail[assignedUserId].completed) {
+      throw new BadRequest('Task not completed by this user.');
     }
 
     const fields = requiredGroupFields.concat(' purchased managers');
@@ -464,107 +371,28 @@ api.taskNeedsWork = {
     if (groupSubscriptionNotFound(group)) throw new NotFound(res.t('groupNotFound'));
 
     if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
-    if (task.group.approval.approved === true) throw new NotAuthorized(res.t('canOnlyApproveTaskOnce'));
-    if (!task.group.approval.requested) {
-      throw new NotAuthorized(res.t('taskApprovalWasNotRequested'));
+
+    await scoreTasks(assignedUser, [{ id: task._id, direction: 'down' }], req, res);
+    if (assignedUserId !== user._id) {
+      assignedUser.addNotification('GROUP_TASK_NEEDS_WORK', {
+        message: res.t('taskNeedsWork', { taskText: task.text, managerName: user.auth.local.username }, assignedUser.preferences.language),
+        task: {
+          id: task._id,
+          text: task.text,
+        },
+        group: {
+          id: group._id,
+          name: group.name,
+        },
+        manager: {
+          id: user._id,
+          name: user.auth.local.username,
+        },
+      });
     }
-
-    // Get Managers
-    const managerIds = Object.keys(group.managers);
-    managerIds.push(group.leader);
-    const managers = await User.find({ _id: managerIds }, 'notifications').exec(); // Use this method so we can get access to notifications
-
-    const promises = [];
-
-    // Remove old notifications
-    managers.forEach(manager => {
-      const notificationIndex = manager.notifications.findIndex(notification => notification && notification.data && notification.data.taskId === task._id && notification.type === 'GROUP_TASK_APPROVAL');
-
-      if (notificationIndex !== -1) {
-        manager.notifications.splice(notificationIndex, 1);
-        promises.push(manager.save());
-      }
-    });
-
-    task.group.approval.requested = false;
-    task.group.approval.requestedDate = undefined;
-
-    const taskText = task.text;
-    const managerName = user.profile.name;
-
-    const message = res.t('taskNeedsWork', { taskText, managerName }, assignedUser.preferences.language);
-
-    assignedUser.addNotification('GROUP_TASK_NEEDS_WORK', {
-      message,
-      task: {
-        id: task._id,
-        text: taskText,
-      },
-      group: {
-        id: group._id,
-        name: group.name,
-      },
-      manager: {
-        id: user._id,
-        name: managerName,
-      },
-    });
-
-    await Promise.all([...promises, assignedUser.save(), task.save()]);
+    await Promise.all([assignedUser.save(), task.save()]);
 
     res.respond(200, task);
-  },
-};
-
-/**
- * @api {get} /api/v3/approvals/group/:groupId Get a group's approvals
- * @apiVersion 3.0.0
- * @apiName GetGroupApprovals
- * @apiGroup Task
- *
- * @apiParam (Path) {UUID} groupId The id of the group from which to retrieve the approvals
- *
- * @apiSuccess {Array} data An array of tasks
- */
-api.getGroupApprovals = {
-  method: 'GET',
-  url: '/approvals/group/:groupId',
-  middlewares: [authWithHeaders()],
-  async handler (req, res) {
-    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty().isUUID();
-
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
-
-    const { user } = res.locals;
-    const { groupId } = req.params;
-
-    const fields = requiredGroupFields.concat(' purchased managers');
-    const group = await Group.getGroup({ user, groupId, fields });
-    if (groupSubscriptionNotFound(group)) throw new NotFound(res.t('groupNotFound'));
-
-    let approvals;
-    if (canNotEditTasks(group, user)) {
-      approvals = await Tasks.Task.find({
-        'group.id': groupId,
-        'group.approval.approved': false,
-        'group.approval.requested': true,
-        'group.assignedUsers': user._id,
-        userId: user._id,
-      }, 'userId group text')
-        .populate('userId', 'profile')
-        .exec();
-    } else {
-      approvals = await Tasks.Task.find({
-        'group.id': groupId,
-        'group.approval.approved': false,
-        'group.approval.requested': true,
-      }, 'userId group text')
-        .populate('userId', 'profile')
-        .exec();
-    }
-
-    res.respond(200, approvals);
   },
 };
 

@@ -35,7 +35,10 @@ describe('canEdit getter', () => {
   });
   it('can Edit task in own dashboard', () => {
     expect(store.getters['tasks:canEdit'](task, 'challenge', true, null, challenge)).to.equal(true);
-    expect(store.getters['tasks:canEdit'](task, 'group', true, group, null)).to.equal(true);
+  });
+
+  it('cannot Edit group task in own dashboard', () => {
+    expect(store.getters['tasks:canEdit'](task, 'group', true, group, null)).to.equal(false);
   });
 
   it('can Edit any challenge task if admin', () => {

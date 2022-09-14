@@ -5,7 +5,6 @@ import _ from 'lodash';
 import shared from '../../common';
 import baseModel from '../libs/baseModel';
 import { preenHistory } from '../libs/preening';
-import { SHARED_COMPLETION } from '../libs/groupTasks'; // eslint-disable-line import/no-cycle
 
 const { Schema } = mongoose;
 
@@ -128,25 +127,24 @@ export const TaskSchema = new Schema({
 
   group: {
     id: { $type: String, ref: 'Group', validate: [v => validator.isUUID(v), 'Invalid uuid for group task.'] },
-    broken: { $type: String, enum: ['GROUP_DELETED', 'TASK_DELETED', 'UNSUBSCRIBED'] },
+    assignedDate: { $type: Date }, // To be removed
+    assigningUsername: { $type: String }, // To be removed
     assignedUsers: [{ $type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid for group assigned user.'] }],
-    assignedDate: { $type: Date },
-    assigningUsername: { $type: String },
+    assignedUsersDetail: {
+      $type: Schema.Types.Mixed,
+      // key is assigned UUID, with
+      // { assignedDate: Date,
+      // assignedUsername: '@username',
+      // assigningUsername: '@username',
+      // completed: Boolean,
+      // completedDate: Date }
+    },
     taskId: { $type: String, ref: 'Task', validate: [v => validator.isUUID(v), 'Invalid uuid for group task.'] },
-    approval: {
-      required: { $type: Boolean, default: false },
-      approved: { $type: Boolean, default: false },
-      dateApproved: { $type: Date },
-      approvingUser: { $type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid for group approving user.'] },
-      requested: { $type: Boolean, default: false },
-      requestedDate: { $type: Date },
-    },
-    sharedCompletion: {
-      $type: String,
-      enum: _.values(SHARED_COMPLETION),
-      default: SHARED_COMPLETION.single,
-    },
     managerNotes: { $type: String },
+    completedBy: {
+      userId: { $type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid for task completing user.'] },
+      date: { $type: Date },
+    },
   },
 
   reminders: [reminderSchema],
@@ -207,7 +205,7 @@ TaskSchema.statics.findByIdOrAlias = async function findByIdOrAlias (
   return task;
 };
 
-TaskSchema.statics.findMultipleByIdOrAlias = async function findByIdOrAlias (
+TaskSchema.statics.findMultipleByIdOrAlias = async function findMultipleByIdOrAlias (
   identifiers,
   userId,
   additionalQueries = {},
@@ -216,8 +214,6 @@ TaskSchema.statics.findMultipleByIdOrAlias = async function findByIdOrAlias (
   if (!userId) throw new Error('User identifier is a required argument');
 
   const query = _.cloneDeep(additionalQueries);
-  query.userId = userId;
-
   const ids = [];
   const aliases = [];
 
@@ -229,10 +225,20 @@ TaskSchema.statics.findMultipleByIdOrAlias = async function findByIdOrAlias (
     }
   });
 
-  query.$or = [
-    { _id: { $in: ids } },
-    { alias: { $in: aliases } },
-  ];
+  if (ids.length > 0 && aliases.length > 0) {
+    query.userId = userId;
+    query.$or = [
+      { _id: { $in: ids } },
+      { alias: { $in: aliases } },
+    ];
+  } else if (ids.length > 0) {
+    query._id = { $in: ids };
+  } else if (aliases.length > 0) {
+    query.userId = userId;
+    query.alias = { $in: aliases };
+  } else {
+    throw new Error('No identifiers found.'); // Should be covered by the !identifiers check, but..
+  }
 
   const tasks = await this.find(query).exec();
 

@@ -30,7 +30,7 @@ describe('POST /tasks/:taskId/checklist/:itemId/score', () => {
     expect(savedTask.checklist[0].completed).to.equal(true);
   });
 
-  it('can use a alias to score a checklist item', async () => {
+  it('can use an alias to score a checklist item', async () => {
     const task = await user.post('/tasks/user', {
       type: 'daily',
       text: 'Daily with checklist',

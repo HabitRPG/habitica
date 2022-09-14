@@ -753,8 +753,7 @@ export default {
     }, 500),
     sanitizeRedirect (redirect) {
       if (!redirect) return '/';
-      let sanitizedString = DOMPurify.sanitize(redirect).replace(/\\|\/\/|\./g, '');
-      sanitizedString = `/${sanitizedString}`;
+      const sanitizedString = DOMPurify.sanitize(redirect).replace(/\\|\/\/|\./g, '');
       return sanitizedString;
     },
     async register () {
