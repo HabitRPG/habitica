@@ -23,6 +23,19 @@
       >
         {{ $t('giftSubscriptionText4') }}
       </div>
+      <div
+        v-else-if="isFromBalance || paymentData.paymentType === 'gift-gems'
+          || paymentData.paymentType === 'gift-subscription'"
+      >
+        <textarea
+          v-model="gift.message"
+          class="form-control"
+          rows="3"
+          :placeholder="$t('sendGiftMessagePlaceholder')"
+          :maxlength="MAX_GIFT_MESSAGE_LENGTH"
+        ></textarea>
+        <span>{{ gift.message.length || 0 }} / {{ MAX_GIFT_MESSAGE_LENGTH }}</span>
+      </div>
       <!-- upgradedGroup -->
       <div
         v-else
@@ -290,10 +303,12 @@
 <script>
 import checkIcon from '@/assets/svg/check.svg';
 import gemIcon from '@/assets/svg/gem.svg';
+import { MAX_GIFT_MESSAGE_LENGTH } from '@/../../common/script/constants';
 import { mapState } from '@/libs/store';
 import subscriptionBlocks from '@/../../common/script/content/subscriptionBlocks';
 import selectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
 import lockableLabel from '@/components/tasks/modal-controls/lockableLabel';
+import notificationsMixin from '@/mixins/notifications';
 import paymentsMixin from '@/mixins/payments';
 import * as Analytics from '@/libs/analytics';
 
@@ -302,7 +317,7 @@ export default {
     selectTranslatedArray,
     lockableLabel,
   },
-  mixins: [paymentsMixin],
+  mixins: [paymentsMixin, notificationsMixin],
   data () {
     return {
       icons: Object.freeze({
@@ -313,6 +328,11 @@ export default {
       upgradedGroup: {
         name: '',
         demographics: null,
+      },
+
+      MAX_GIFT_MESSAGE_LENGTH: MAX_GIFT_MESSAGE_LENGTH.toString(),
+      gift: {
+        message: '',
       },
     };
   },
@@ -364,7 +384,7 @@ export default {
           eventAction: 'group plan upgrade',
           eventCategory: 'behavior',
           demographics: this.upgradedGroup.demographics,
-          type: this.paymentData.group.type, // also tried this.upgradedGroup.type
+          type: this.paymentData.group.type,
         });
       }
       this.paymentData = {};
