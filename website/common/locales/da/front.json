@@ -5,7 +5,7 @@
     "accept2Terms": "og",
     "chores": "Pligter",
     "clearBrowserData": "Ryd browserdata",
-    "communityExtensions": "<a href='http://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations' target='_blank'>Tilføjelser og udvidelser</a>",
+    "communityExtensions": "<a href='https://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations' target='_blank'>Tilføjelser og udvidelser</a>",
     "communityFacebook": "Facebook",
     "companyAbout": "Hvordan det virker",
     "companyBlog": "Blog",
@@ -13,7 +13,7 @@
     "companyDonate": "Donér",
     "forgotPassword": "Glemt kodeord?",
     "emailNewPass": "E-mail et nulstillings-link til kodeord",
-    "forgotPasswordSteps": "Skriv den e-mail adresse du benyttede til at registrere din Habitica-konto.",
+    "forgotPasswordSteps": "Skriv dit @brugernavn eller den e-mail adresse, du benyttede til at registrere din Habitica-konto.",
     "sendLink": "Send link",
     "featuredIn": "Omtalt i",
     "footerDevs": "Udviklere",
@@ -44,7 +44,7 @@
     "marketing3Header": "Apps og Udvidelser",
     "marketing3Lead1": "**iPhone & Android** apps lader dig klare dine ting på farten. Vi ved, at det nogen gange er for meget at skulle logge ind på websiden for at klikke på knapper.",
     "marketing3Lead2Title": "Integrationer",
-    "marketing3Lead2": "Andre **tredjepartsværktøjer** kan binde Habitica sammen med andre dele af dit liv. Vores API muliggør integrationer som [Chrome Extension](https://chrome.google.com/webstore/detail/habitica/pidkmpibnnnhneohdgjclfdjpijggmjj?hl=en-US), med hvilken du mister point ved at bruge unyttige hjemmesider, og optjener point når du browser de nyttige i stedet. [Se mere her](http://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations).",
+    "marketing3Lead2": "Andre **tredjepartsværktøjer** kan binde Habitica sammen med andre dele af dit liv. Vores API muliggør integrationer som [Chrome Extension](https://chrome.google.com/webstore/detail/habitica/pidkmpibnnnhneohdgjclfdjpijggmjj?hl=en-US), med hvilken du mister point ved at bruge unyttige hjemmesider, og optjener point når du browser de nyttige i stedet. [Se mere her](https://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations).",
     "marketing4Header": "Organisatorisk brug",
     "marketing4Lead1": "Uddannelse er en af de bedste områder at bruge spilelementer. Vi ved alle, hvordan studerende nærmest er limet til deres telefon disse dage, så brug dette! Sæt dine elever til at kæmpe mod hinanden som hyggelig konkurrence. Beløn god opførsel med sjældne præmier. Se deres karakterer og opførsel blive forbedret.",
     "marketing4Lead1Title": "Brug af Spilelementer i Undervisning",
@@ -184,5 +184,6 @@
     "mobileApps": "Mobile apps",
     "learnMore": "Lær mere",
     "communityInstagram": "Instagram",
-    "minPasswordLength": "Kodeord skal bestå af 8 eller flere tegn."
+    "minPasswordLength": "Kodeord skal bestå af 8 eller flere tegn.",
+    "enterHabitica": "Spil Habitica"
 }

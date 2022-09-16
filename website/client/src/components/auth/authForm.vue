@@ -4,22 +4,6 @@
       <div class="col-12">
         <div
           class="btn btn-secondary social-button"
-          @click="socialAuth('facebook')"
-        >
-          <div
-            class="svg-icon social-icon"
-            v-html="icons.facebookIcon"
-          ></div>
-          <span>{{ registering
-            ? $t('signUpWithSocial', {social: 'Facebook'})
-            : $t('loginWithSocial', {social: 'Facebook'}) }}</span>
-        </div>
-      </div>
-    </div>
-    <div class="form-group row text-center">
-      <div class="col-12">
-        <div
-          class="btn btn-secondary social-button"
           @click="socialAuth('google')"
         >
           <div
@@ -243,7 +227,6 @@ import debounce from 'lodash/debounce';
 import isEmail from 'validator/lib/isEmail';
 import { setUpAxios, buildAppleAuthUrl } from '@/libs/auth';
 import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
-import facebookSquareIcon from '@/assets/svg/facebook-square.svg';
 import googleIcon from '@/assets/svg/google.svg';
 import appleIcon from '@/assets/svg/apple_black.svg';
 
@@ -260,7 +243,6 @@ export default {
     };
 
     data.icons = Object.freeze({
-      facebookIcon: facebookSquareIcon,
       googleIcon,
       appleIcon,
     });
@@ -308,8 +290,6 @@ export default {
   },
   mounted () {
     hello.init({
-      facebook: process.env.FACEBOOK_KEY, // eslint-disable-line
-      // windows: WINDOWS_CLIENT_ID,
       google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line
     });
   },

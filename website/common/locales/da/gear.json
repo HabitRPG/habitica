@@ -19,7 +19,7 @@
     "sortByStr": "STY",
     "sortByInt": "INT",
     "weapon": "våben",
-    "weaponCapitalized": "Main-Hand Item",
+    "weaponCapitalized": "Primær hånd",
     "weaponBase0Text": "Intet våben",
     "weaponBase0Notes": "Intet våben.",
     "weaponWarrior0Text": "Træningssværd",
@@ -892,7 +892,7 @@
     "headSpecialDandyHatNotes": "Sikke en herlig hat! Den vil klæde dig så nydeligt på en gåtur. Forøger Konstitution med <%= con %>.",
     "headSpecialKabutoText": "Samuraihjelm",
     "headSpecialKabutoNotes": "Denne hjelm er funktionel og smuk! Dine fjender vil være helt distraherede af den. Forøger Intelligens med <%= int %>.",
-    "headSpecialNamingDay2017Text": "Royal lilla grifhjelm",
+    "headSpecialNamingDay2017Text": "Purpurfarvet grifhjelm",
     "headSpecialNamingDay2017Notes": "Glædelig Navngivningsdag! Ifør dig denne truende og fjerklædte hjelm for at fejre Habitica. Giver ingen bonusser.",
     "headSpecialTurkeyHelmBaseText": "Kalkunhjelm",
     "headSpecialTurkeyHelmBaseNotes": "Dit Thanksgiving-look vil være fuldendt med denne næbbede hjelm! Giver ingen bonusser.",
@@ -1599,7 +1599,7 @@
     "bodySpecialSummer2015MageNotes": "Dette spænde giver ingen krafter overhovedet, men det er pænt. Giver ingen bonusser. Specielt 2015 Sommerudstyr.",
     "bodySpecialSummer2015HealerText": "Matrostørklæde",
     "bodySpecialSummer2015HealerNotes": "Hiv Ohøj? Nej nej nej! Giver ingen bonusser. Specielt 2015 Sommerudstyr.",
-    "bodySpecialNamingDay2018Text": "Royal Purple Gryphon Cloak",
+    "bodySpecialNamingDay2018Text": "Purpurfarvet grif-kappe",
     "bodySpecialNamingDay2018Notes": "Happy Naming Day! Wear this fancy and feathery cloak as you celebrate Habitica. Confers no benefit.",
     "bodyMystery201705Text": "Folded Feathered Fighter Wings",
     "bodyMystery201705Notes": "These folded wings don't just look snazzy: they will give you the speed and agility of a gryphon! Confers no benefit. May 2017 Subscriber Item.",
@@ -1873,5 +1873,6 @@
     "headSpecialNye2020Notes": "Du har modtaget en Ekstravagant Festhat! Bær den med stolthed imens du byder det nye år velkommen! Giver ingen fordele.",
     "headSpecialNye2020Text": "Ekstravagant Festhat",
     "weaponSpecialWinter2021MageNotes": "Dette mægtige våben er bestemt mere end en fase. Kanalisér din energi, fokusér på en måneds flow, og studér tid og rum. Øger Intelligens med <%= int %> og Opfattelse med <%= per %>. Begrænset 2020-2021 Vinterudstyr.",
-    "weaponSpecialWinter2021MageText": "Magisk Måne-faser"
+    "weaponSpecialWinter2021MageText": "Magisk Måne-faser",
+    "backSpecialNamingDay2020Text": "Purpurfarvet grifhale"
 }
