@@ -153,14 +153,6 @@
             </span>
           </div>
         </div>
-        <div class="row text-center">
-          <h4
-            v-once
-            class="col-12 text-payment mb-3"
-          >
-            {{ $t('choosePaymentMethod') }}
-          </h4>
-        </div>
         <payments-buttons
           :disabled="!selectedGemsBlock"
           :stripe-fn="() => redirectToStripe({ gemsBlock: selectedGemsBlock })"

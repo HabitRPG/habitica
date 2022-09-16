@@ -2694,5 +2694,9 @@
     "weaponMystery202209Notes": "Este livro irá te guiar durante sua jornada de mágicas. Não confere benefícios. Item de Assinante de setembro de 2022",
     "shieldMystery202209Text": "Monte dos Livros Mágicos",
     "shieldMystery202209Notes": "Construir seu conhecimento sobre feitiçaria precisa de muita leitura, mas com certeza irá aproveitar sua educação. Não confere benefícios. Item de Assinante de setembro de 2022.",
-    "weaponMystery202209Text": "Manual Mágico"
+    "weaponMystery202209Text": "Manual Mágico",
+    "eyewearArmoireComedyMaskText": "Máscara da Comédia",
+    "eyewearArmoireComedyMaskNotes": "Com alegria! Aqui está uma máscara pitoresca para seu coração feliz, tocando, anunciando e expressando alegria no palco. Aumenta Constituição em <%= con %>. Armário Encantado: Conjunto Máscaras de Teatro (Item 1 de 2).",
+    "eyewearArmoireTragedyMaskText": "Máscara da Tragédia",
+    "eyewearArmoireTragedyMaskNotes": "Com lástima! Aqui está uma máscara pesada para seu pobre personagem, se escorando, se preocupando e expressando aflição e tristeza no palco. Aumenta Inteligência em <%= int %>. Armário Encantado: Conjunto Máscaras de Teatro (Item 2 de 2)."
 }

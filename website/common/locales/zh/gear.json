@@ -2690,5 +2690,13 @@
     "eyewearMystery202208Text": "闪亮眼睛",
     "headMystery202208Text": "活泼马尾",
     "headMystery202208Notes": "享受炫耀这丰盈蓬松的头发 — 迫不得已的时候也可以是一根鞭子！没有属性加成。2022年8月订阅者物品。",
-    "eyewearMystery202208Notes": "用这双可爱到令人发指的眼睛让你的敌人产生一种虚假的安全感。没有属性加成。2022年8月订阅者物品。"
+    "eyewearMystery202208Notes": "用这双可爱到令人发指的眼睛让你的敌人产生一种虚假的安全感。没有属性加成。2022年8月订阅者物品。",
+    "weaponMystery202209Text": "魔法手册",
+    "weaponMystery202209Notes": "这本书将会指导你完成魔术的制作。没有属性加成。2022年9月订阅者物品。",
+    "shieldMystery202209Notes": "你必须大量的阅读书籍才能完成魔法的学习，但这个你会享受这个过程。没有属性加成。2022年9月订阅者物品。",
+    "eyewearArmoireComedyMaskNotes": "哦呼！这是一个为快乐心灵制作的古朴面具，让我们在舞台上表演，玩乐，表现出快乐和欢笑吧！增加<%= con %>点体质。魔法衣橱：剧院面具套装（1/2）。",
+    "eyewearArmoireTragedyMaskText": "悲剧面具",
+    "eyewearArmoireTragedyMaskNotes": "呜啊！为可怜的表演者戴上沉重的面具，在舞台上昂首阔步，痛苦，悲伤，表达出所有的难过吧。增加<%= int %>点智力。魔法衣橱：剧院面具套装（2/2）。",
+    "shieldMystery202209Text": "山脉魔法书",
+    "eyewearArmoireComedyMaskText": "喜剧面具"
 }

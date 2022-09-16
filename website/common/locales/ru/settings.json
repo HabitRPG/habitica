@@ -216,5 +216,6 @@
     "noGemTransactions": "У вас пока что нет переводов самоцветов.",
     "noHourglassTransactions": "У вас пока что нет переводов песочных часов.",
     "transaction_debug": "Действие по отладке",
-    "passwordSuccess": "Пароль успешно изменен"
+    "passwordSuccess": "Пароль успешно изменен",
+    "giftSubscriptionRateText": "<strong>$<%= price %> долларов США</strong> за <strong><%= months %> месяц(-а/-ев)</strong>"
 }
