@@ -2,8 +2,8 @@
   <b-modal
     id="payments-success-modal"
     :title="$t('accountSuspendedTitle')"
-    :hide-footer="isFromBalance || paymentData.newGroup"
-    :modal-class="isFromBalance || paymentData.newGroup ? ['modal-hidden-footer'] : []"
+    :hide-footer="isGemsBalance || paymentData.newGroup"
+    :modal-class="isGemsBalance || paymentData.newGroup ? ['modal-hidden-footer'] : []"
   >
     <div slot="modal-header">
       <div class="check-container d-flex align-items-center justify-content-center">
@@ -13,19 +13,18 @@
           v-html="icons.check"
         ></div>
       </div>
-      <h2>{{ $t(isFromBalance ? 'success' : 'paymentSuccessful') }}</h2>
+      <h2>{{ $t(isGemsBalance ? 'success' : 'paymentSuccessful') }}</h2>
     </div>
     <div slot="modal-footer">
       <!-- everyone else -->
       <div
-        v-if="paymentData.paymentType !== 'groupPlan' || paymentData.newGroup"
+        v-if="!isGroupPlan"
         class="small-text"
       >
         {{ $t('giftSubscriptionText4') }}
       </div>
       <div
-        v-else-if="isFromBalance || paymentData.paymentType === 'gift-gems'
-          || paymentData.paymentType === 'gift-subscription'"
+        v-else-if="isGemsBalance || isGiftGems || isGiftSubscription"
       >
         <textarea
           v-model="gift.message"
@@ -38,7 +37,7 @@
       </div>
       <!-- upgradedGroup -->
       <div
-        v-else
+        v-else-if="isUpgradedGroup"
         class="demographics d-flex flex-column justify-content-center"
       >
         <lockable-label
@@ -72,7 +71,7 @@
     <div class="row">
       <div class="col-12 modal-body-col">
         <!-- buy gems for self -->
-        <template v-if="paymentData.paymentType === 'gems'">
+        <template v-if="isGems">
           <strong v-once>{{ $t('paymentYouReceived') }}</strong>
           <div class="details-block gems">
             <div
@@ -85,8 +84,7 @@
         </template>
         <!-- buy or gift gems to someone else -->
         <template
-          v-if="paymentData.paymentType === 'gift-gems'
-            || paymentData.paymentType === 'gift-gems-balance'"
+          v-if="isGiftGems || isGemsBalance"
         >
           <span v-html="$t('paymentYouSentGems', {name: paymentData.giftReceiver})"></span>
           <div class="details-block gems">
@@ -99,14 +97,14 @@
           </div>
         </template>
         <!-- give gift subscription (non-recurring)-->
-        <template v-if="paymentData.paymentType === 'gift-subscription'">
+        <template v-if="isGiftSubscription">
           <span
             v-html="$t('paymentYouSentSubscription', {
               name: paymentData.giftReceiver, months: paymentData.subscription.months})"
           ></span>
         </template>
         <!-- buy self subscription (recurring) -->
-        <template v-if="paymentData.paymentType === 'subscription'">
+        <template v-if="isSubscription">
           <strong v-once>{{ $t('nowSubscribed') }}</strong>
           <div class="details-block">
             <span
@@ -116,7 +114,7 @@
           </div>
         </template>
         <!-- group plan new or upgraded -->
-        <template v-if="paymentData.paymentType === 'groupPlan'">
+        <template v-if="isGroupPlan">
           <span
             v-html="$t(paymentData.newGroup
               ? 'groupPlanCreated' : 'groupPlanUpgraded', {groupName: paymentData.group.name})"
@@ -141,7 +139,7 @@
         </template>
         <!-- buy self subscription auto renew -->
         <template
-          v-if="paymentData.paymentType === 'subscription'"
+          v-if="isSubscription"
         >
           <span
             v-once
@@ -150,7 +148,7 @@
         </template>
         <!-- buttons for subscriptions -->
         <button
-          v-if="paymentData.paymentType !== 'groupPlan'"
+          v-if="isGroupPlan"
           v-once
           class="btn btn-primary"
           @click="submit()"
@@ -343,24 +341,30 @@ export default {
       const memberCount = this.paymentData.group.memberCount || 1;
       return sub.price + 3 * (memberCount - 1);
     },
-    isFromBalance () {
+    isGemsBalance () {
       return this.paymentData.paymentType === 'gift-gems-balance';
     },
-    // upgradedGroup () {
-    //   const upgradedGroup = (this.paymentData.paymentType === 'groupPlan'
-    // && !this.paymentData.newGroup);
-    //   const demographicsKey = upgradedGroup.demographics;
-    //   const upgradedGroupName = upgradedGroup.name;
-    //   const upgradedGroupType = upgradedGroup.type;
-    //   const groupPlanUpgraded = {
-    //     demographics: demographicsKey,
-    //     name: upgradedGroupName,
-    //     type: upgradedGroupType,
-    //   };
-    //   console.log(groupPlanUpgraded.demographics,
-    //     groupPlanUpgraded.name, groupPlanUpgraded.type);
-    //   return groupPlanUpgraded;
-    // },
+    isGems () {
+      return this.paymentData.paymentType === 'gems';
+    },
+    isGiftGems () {
+      return this.paymentData.paymentType === 'gift-gems';
+    },
+    isGiftSubscription () {
+      return this.paymentData.paymentType === 'gift-subscription';
+    },
+    isSubscription () {
+      return this.paymentData.paymentType === 'subscription';
+    },
+    isGroupPlan () { // might not need this function
+      return this.paymentData.paymentType === 'groupPlan';
+    },
+    isUpgradedGroup () {
+      return this.paymentData.paymentType === 'groupPlan' && !this.paymentData.newGroup;
+    },
+    isNewGroup () {
+      return this.paymentData.paymentType === 'groupPlan' && this.paymentData.newGroup;
+    },
   },
   mounted () {
     this.$root.$on('habitica:payment-success', data => {
@@ -377,7 +381,7 @@ export default {
   },
   methods: {
     submit () {
-      if (!this.paymentData.newGroup) {
+      if (this.isUpgradedGroup) {
         Analytics.track({
           hitType: 'event',
           eventName: 'group plan upgrade',
