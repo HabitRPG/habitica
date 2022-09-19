@@ -33,7 +33,7 @@
   @import '~@/assets/scss/colors.scss';
 
   .home-header {
-    background: #6133b4 !important;
+    background: $purple-300 !important;
     position: static;
     box-shadow: none !important;
     height: 100px !important;
@@ -46,13 +46,13 @@
 
     .nav-item a {
       font-size: 14px !important;
-      color: #d5c8ff !important;
+      color: $purple-600 !important;
       padding-top: 2.8em !important;
     }
 
     .nav-item a:hover {
       background: transparent !important;
-      color: #fff !important;
+      color: $white !important;
     }
 
     .nav-item .nav-link {
@@ -73,20 +73,20 @@
   }
 
   .white-header {
-    background: #fff !important;
-    background-color: #fff !important;
+    background: $white !important;
+    background-color: $white !important;
 
     a {
-      color: #271b3d !important;
+      color: $header-dark-background !important;
     }
 
     a:hover {
-      color: #fff !important;
+      color: $white !important;
     }
   }
 
   #purple-footer {
-    background-color: #271b3d;
+    background-color: $header-dark-background;
 
     .row {
       margin: 0;
@@ -94,19 +94,91 @@
 
     footer, footer a {
       background: transparent;
-      color: #d5c8ff;
+      color: $purple-500;
+      &:hover {
+        color: $white;
+      }
+    }
+
+    h3 {
+      color: $purple-400;
+    }
+
+    hr {
+      border-top-color: $purple-100;
+    }
+
+    .donate-text {
+      color: $purple-500;
     }
 
     .logo {
-      color: #bda8ff;
+      color: $purple-300;
     }
 
-    .social-circle, .btn-contribute {
-      background: #36205d;
-      color: #bda8ff;
+    .colophon {
+      color: $purple-500;
+    }
 
-      .svg-icon {
-        color: #bda8ff;
+    .social-circle {
+      background: $purple-50;
+      color: $purple-500;
+
+      .instagram svg {
+        background-color: $purple-50;
+        fill: $purple-500;
+        &:hover {
+          fill: $white;
+        }
+      }
+
+      .twitter svg {
+        background-color: $purple-50;
+        fill: $purple-500;
+        &:hover {
+          fill: $white;
+        }
+      }
+
+      .facebook svg {
+        background-color: $purple-50;
+        fill: $purple-500;
+        &:hover {
+          fill: $white;
+        }
+      }
+
+      .tumblr svg {
+        background-color: $purple-50;
+        fill: $purple-500;
+        &:hover {
+          fill: $white;
+        }
+      }
+    }
+    .btn-contribute {
+      background: $white;
+      box-shadow: none;
+      border-radius: 2px;
+      width: 175px;
+      height: 32px;
+      color: $gray-50;
+      text-align: center;
+      line-height: 1.71;
+      font-weight: bold;
+      font-size: 0.875rem;
+      vertical-align: middle;
+      padding: 0;
+      margin: 32px 0 32px 24px;
+      box-shadow: 0 1px 3px 0 rgba(26, 24, 29, 0.12), 0 1px 2px 0 rgba(26, 24, 29, 0.24);
+
+      a {
+        display: flex;
+      }
+
+      .text{
+        display: inline-block;
+        vertical-align: bottom;
       }
     }
   }
@@ -142,7 +214,7 @@
 
 <style lang="scss" scoped>
   #bottom-wrap.purple-4 {
-    background-color: #271b3d;
+    background-color: #271B3D;
   }
 
   #bottom-wrap {
