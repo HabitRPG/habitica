@@ -139,5 +139,6 @@
     "resetCounter": "Réinitialiser le compteur",
     "adjustCounter": "Ajuster le compteur",
     "counter": "Compteur",
-    "editTagsText": "Modifier les étiquettes"
+    "editTagsText": "Modifier les étiquettes",
+    "taskSummary": "Résumé pour les <%= type %>"
 }

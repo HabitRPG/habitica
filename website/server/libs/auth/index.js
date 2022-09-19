@@ -161,13 +161,16 @@ async function registerLocal (req, res, { isV3 = false }) {
   };
 
   if (existingUser) {
-    const hasSocialAuth = common.constants.SUPPORTED_SOCIAL_NETWORKS.find(network => {
+    const networks = common.constants.SUPPORTED_SOCIAL_NETWORKS;
+    // need to insert FB here to allow users who only have FB auth to connect local auth.
+    networks.push({ key: 'facebook', name: 'Facebook' });
+    const hasSocialAuth = networks.find(network => {
       if (existingUser.auth.hasOwnProperty(network.key)) { // eslint-disable-line no-prototype-builtins, max-len
         return existingUser.auth[network.key].id;
       }
       return false;
     });
-    if (!hasSocialAuth) throw new NotAuthorized(res.t('onlySocialAttachLocal'));
+    if (!hasSocialAuth && existingUser.auth.local.hashed_password) throw new NotAuthorized(res.t('onlySocialAttachLocal'));
     existingUser.auth.local = newUser.auth.local;
     newUser = existingUser;
   } else {

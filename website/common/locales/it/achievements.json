@@ -135,5 +135,8 @@
     "achievementReptacularRumbleText": "Ha schiuso tutti i rettili: Alligatore, Pterodattilo, Serpente, Triceratopo, Tartaruga, Tyrannosaurus Rex e Velociraptor, in tutte le colorazioni standard!",
     "achievementGroupsBeta2022": "Beta Tester Interattivo",
     "achievementGroupsBeta2022Text": "Tu e il tuo gruppo avete fornito feedback inestimabili per aiutare Habitica a testare.",
-    "achievementGroupsBeta2022ModalText": "Tu e i tuoi gruppi avete aiutato Habitica testando e fornendo feedback!"
+    "achievementGroupsBeta2022ModalText": "Tu e i tuoi gruppi avete aiutato Habitica testando e fornendo feedback!",
+    "achievementWoodlandWizardModalText": "Hai collezionato tutti gli animali della foresta!",
+    "achievementWoodlandWizard": "Mago dei Boschi",
+    "achievementWoodlandWizardText": "Ha schiuso le creature della foresta: Tasso, Orso, Cervo, Rana, Riccio, Gufo, Chiocciola, Scoiattolo e Arbusto, in tutte le colorazioni standard!"
 }

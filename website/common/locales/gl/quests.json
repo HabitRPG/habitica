@@ -3,7 +3,7 @@
     "quest": "misión",
     "petQuests": "Misións de Mascotas de Monturas",
     "unlockableQuests": "Misións Desbloqueables",
-    "goldQuests": "Masterclasser Quest Lines",
+    "goldQuests": "",
     "questDetails": "Detalles da Misión",
     "questDetailsTitle": "Quest Details",
     "questDescription": "Quests allow players to focus on long-term, in-game goals with the members of their party.",
@@ -18,7 +18,7 @@
     "askLater": "Preguntar Máis Tarde",
     "buyQuest": "Mercar Misión",
     "accepted": "Aceptada",
-    "declined": "Declined",
+    "declined": "Recusado",
     "rejected": "Rexeitada",
     "pending": "Pendente",
     "questCollection": "+ <%= val %> quest item(s) found",
@@ -71,5 +71,6 @@
     "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Health",
     "rageAttack": "Rage Attack:",
     "bossRage": "<%= currentRage %> / <%= maxRage %> Rage",
-    "rageStrikes": "Rage Strikes"
+    "rageStrikes": "Rage Strikes",
+    "hatchingPotionQuests": "Misións de pocións máxicas de eclosión"
 }

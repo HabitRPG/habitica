@@ -1,8 +1,10 @@
+import find from 'lodash/find';
 import timesLodash from 'lodash/times';
 import reduce from 'lodash/reduce';
 import moment from 'moment';
 import max from 'lodash/max';
 import {
+  BadRequest,
   NotAuthorized,
 } from '../libs/errors';
 import i18n from '../i18n';
@@ -104,6 +106,7 @@ function _gainMP (user, val) {
 // ===== CONSTITUTION =====
 // TODO Decreases HP loss from bad habits / missed dailies by 0.5% per point.
 function _subtractPoints (user, task, stats, delta) {
+  if (task.group.id && task.type === 'daily') return stats.hp;
   let conBonus = 1 - statsComputed(user).con / 250;
   if (conBonus < 0.1) conBonus = 0.1;
 
@@ -233,11 +236,6 @@ export default function scoreTask (options = {}, req = {}, analytics) {
     exp: user.stats.exp,
   };
 
-  if (
-    task.group && task.group.approval && task.group.approval.required
-    && !task.group.approval.approved && !(task.type === 'todo' && cron)
-  ) return 0;
-
   // This is for setting one-time temporary flags,
   // such as streakBonus or itemDropped. Useful for notifying
   // the API consumer, then cleared afterwards
@@ -248,6 +246,13 @@ export default function scoreTask (options = {}, req = {}, analytics) {
 
   if (oldLeveledUp) user._tmp.leveledUp = oldLeveledUp;
 
+  // Thanks to open group tasks, userId is not guaranteed. Don't allow scoring inaccessible tasks
+  if (task.userId && task.userId !== user._id) {
+    throw new BadRequest('Cannot score task belonging to another user.');
+  } else if (task.group.id && user.guilds.indexOf(task.group.id) === -1
+    && user.party._id !== task.group.id) {
+    throw new BadRequest('Cannot score task belonging to another user.');
+  }
   // If they're trying to purchase a too-expensive reward, don't allow them to do that.
   if (task.value > user.stats.gp && task.type === 'reward') throw new NotAuthorized(i18n.t('messageNotEnoughGold', req.language));
 
@@ -296,34 +301,69 @@ export default function scoreTask (options = {}, req = {}, analytics) {
       _gainMP(user, max([1, 0.01 * statsComputed(user).maxMP]) * (direction === 'down' ? -1 : 1));
 
       if (direction === 'up') {
-        task.streak += 1;
-        // Give a streak achievement when the streak is a multiple of 21
-        if (task.streak !== 0 && task.streak % 21 === 0) {
-          user.achievements.streak = user.achievements.streak ? user.achievements.streak + 1 : 1;
-          if (user.addNotification) user.addNotification('STREAK_ACHIEVEMENT');
-        }
-        task.completed = true;
+        if (task.group.id) {
+          if (!task.group.assignedUsers || task.group.assignedUsers.length === 0) {
+            task.group.completedBy = {
+              userId: user._id,
+              date: new Date(),
+            };
+            task.completed = true;
+            task.streak += 1;
+          } else {
+            task.group.assignedUsersDetail[user._id].completed = true;
+            task.group.assignedUsersDetail[user._id].completedDate = new Date();
+            if (!find(task.group.assignedUsersDetail, assignedUser => !assignedUser.completed)) {
+              task.dateCompleted = new Date();
+              task.completed = true;
+              task.streak += 1;
+            }
+          }
+          if (task.markModified) task.markModified('group');
+        } else {
+          task.streak += 1;
+          // Give a streak achievement when the streak is a multiple of 21
+          if (task.streak !== 0 && task.streak % 21 === 0) {
+            user.achievements.streak = user.achievements.streak ? user.achievements.streak + 1 : 1;
+            if (user.addNotification) user.addNotification('STREAK_ACHIEVEMENT');
+          }
+          task.completed = true;
 
-        // Save history entry for daily
-        task.history = task.history || [];
-        const historyEntry = {
-          date: Number(new Date()),
-          value: task.value,
-          isDue: task.isDue,
-          completed: true,
-        };
-        task.history.push(historyEntry);
+          // Save history entry for daily
+          task.history = task.history || [];
+          const historyEntry = {
+            date: Number(new Date()),
+            value: task.value,
+            isDue: task.isDue,
+            completed: true,
+          };
+          task.history.push(historyEntry);
+        }
       } else if (direction === 'down') {
-        // Remove a streak achievement if streak was a multiple of 21 and the daily was undone
-        if (task.streak !== 0 && task.streak % 21 === 0) {
-          user.achievements.streak = user.achievements.streak ? user.achievements.streak - 1 : 0;
-        }
-        task.streak -= 1;
-        task.completed = false;
+        if (task.group.id) {
+          if (!task.group.assignedUsersDetail
+            || !find(task.group.assignedUsersDetail, assignedUser => !assignedUser.completed)
+          ) {
+            task.streak -= 1;
+            task.completed = false;
+          }
+          if (task.group.completedBy) task.group.completedBy = {};
+          if (task.group.assignedUsersDetail && task.group.assignedUsersDetail[user._id]) {
+            task.group.assignedUsersDetail[user._id].completed = false;
+            task.group.assignedUsersDetail[user._id].completedDate = undefined;
+          }
+          if (task.markModified) task.markModified('group');
+        } else {
+          // Remove a streak achievement if streak was a multiple of 21 and the daily was undone
+          if (task.streak !== 0 && task.streak % 21 === 0) {
+            user.achievements.streak = user.achievements.streak ? user.achievements.streak - 1 : 0;
+          }
+          task.streak -= 1;
+          task.completed = false;
 
-        // Delete history entry when daily unchecked
-        if (task.history || task.history.length > 0) {
-          task.history.splice(-1, 1);
+          // Delete history entry when daily unchecked
+          if (task.history || task.history.length > 0) {
+            task.history.splice(-1, 1);
+          }
         }
       }
     }
@@ -332,11 +372,37 @@ export default function scoreTask (options = {}, req = {}, analytics) {
       delta += _changeTaskValue(user, task, direction, times, cron);
     } else {
       if (direction === 'up') {
-        task.dateCompleted = new Date();
-        task.completed = true;
+        if (task.group.id) {
+          if (!task.group.assignedUsers || task.group.assignedUsers.length === 0) {
+            task.group.completedBy = {
+              userId: user._id,
+              date: new Date(),
+            };
+            task.completed = true;
+          } else {
+            task.group.assignedUsersDetail[user._id].completed = true;
+            task.group.assignedUsersDetail[user._id].completedDate = new Date();
+            if (!find(task.group.assignedUsersDetail, assignedUser => !assignedUser.completed)) {
+              task.dateCompleted = new Date();
+              task.completed = true;
+            }
+          }
+          if (task.markModified) task.markModified('group');
+        } else {
+          task.dateCompleted = new Date();
+          task.completed = true;
+        }
       } else if (direction === 'down') {
         task.completed = false;
         task.dateCompleted = undefined;
+        if (task.group.id) {
+          if (task.group.completedBy) task.group.completedBy = {};
+          if (task.group.assignedUsersDetail && task.group.assignedUsersDetail[user._id]) {
+            task.group.assignedUsersDetail[user._id].completed = false;
+            task.group.assignedUsersDetail[user._id].completedDate = undefined;
+          }
+          if (task.markModified) task.markModified('group');
+        }
       }
 
       delta += _changeTaskValue(user, task, direction, times, cron);

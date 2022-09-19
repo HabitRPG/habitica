@@ -1,6 +1,6 @@
 import moment from 'moment';
 import {
-  defaults, map, flatten, flow, compact, uniq, partialRight,
+  defaults, map, flatten, flow, compact, uniq, partialRight, remove,
 } from 'lodash';
 import common from '../../../common';
 
@@ -500,6 +500,21 @@ schema.methods.isMemberOfGroupPlan = async function isMemberOfGroupPlan () {
   const groups = await getUserGroupData(this);
 
   return groups.some(g => g.hasActiveGroupPlan());
+};
+
+schema.methods.teamsLed = async function teamsLed () {
+  const user = this;
+  const groups = await getUserGroupData(user);
+
+  remove(groups, group => !group.hasActiveGroupPlan);
+  remove(groups, group => user._id !== group.leader);
+
+  const groupIds = [];
+  groups.forEach(group => {
+    groupIds.push(group._id);
+  });
+
+  return groupIds;
 };
 
 schema.methods.isAdmin = function isAdmin () {

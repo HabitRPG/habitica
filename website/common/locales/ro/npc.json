@@ -129,5 +129,6 @@
     "invalidUnlockSet": "Acest set de obiecte este nevalid și nu poate fi deblocat.",
     "nMonthsSubscriptionGift": "<%= nMonths %> Abonament(e) Lunar (Cadou)",
     "nGemsGift": "<%= nGems %> Nestemate (Cadou)",
-    "nGems": "<%= nGems %> Nestemate"
+    "nGems": "<%= nGems %> Nestemate",
+    "amountExp": "<%= amount %> Exp"
 }

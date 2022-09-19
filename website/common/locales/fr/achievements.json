@@ -135,5 +135,8 @@
     "achievementReptacularRumbleModalText": "Vous avez collecté tous les familiers reptiles !",
     "achievementGroupsBeta2022ModalText": "Vous et votre groupe avez aidé Habitica en testant et fournissant un retour de grande valeur !",
     "achievementGroupsBeta2022": "Beta test interactif",
-    "achievementGroupsBeta2022Text": "Vous et votre groupe avez fourni un retour de grande valeur pour aider aux tests d'Habitica."
+    "achievementGroupsBeta2022Text": "Vous et votre groupe avez fourni un retour de grande valeur pour aider aux tests d'Habitica.",
+    "achievementWoodlandWizardModalText": "Vous avez collecté tous les familiers de la forêt !",
+    "achievementWoodlandWizard": "Sorcellerie de sous-bois",
+    "achievementWoodlandWizardText": "A fait éclore toutes les créatures de la forêt de couleur basique : Blaireau, ours, cerf, renard, grenouille, hérisson, hiboux, escargot, écureuil et arbrisseau !"
 }

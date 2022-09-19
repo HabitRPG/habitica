@@ -28,7 +28,7 @@
         {{ $t('groupBilling') }}
       </router-link>
     </secondary-menu>
-    <div class="col-12">
+    <div class="col-12 px-0">
       <router-view />
     </div>
   </div>

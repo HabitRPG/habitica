@@ -32,11 +32,11 @@ const featuredItems = {
       },
       {
         type: 'food',
-        path: 'food.RottenMeat',
+        path: 'food.Potatoe',
       },
       {
         type: 'hatchingPotions',
-        path: 'hatchingPotions.Zombie',
+        path: 'hatchingPotions.Desert',
       },
       {
         type: 'eggs',
@@ -45,26 +45,26 @@ const featuredItems = {
     ];
   },
   quests () {
-    if (moment().isBetween(EVENTS.bundle202208.start, EVENTS.bundle202208.end)) {
+    if (moment().isBetween(EVENTS.bundle202208.start, EVENTS.bundle202209.end)) {
       return [
         {
           type: 'bundles',
           path: 'bundles.forestFriends',
         },
         {
-          type: 'quests',
-          path: 'quests.owl',
+          type: 'bundles',
+          path: 'bundles.farmFriends',
         },
         {
           type: 'quests',
-          path: 'quests.snail',
+          path: 'quests.ferret',
         },
       ];
     }
     return [
       {
         type: 'quests',
-        path: 'quests.badger',
+        path: 'quests.guineapig',
       },
       {
         type: 'quests',
