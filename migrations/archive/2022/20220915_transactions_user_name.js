@@ -5,8 +5,8 @@ import { TransactionModel } from '../../../website/server/models/transaction';
 const MIGRATION_NAME = '20220915_transactions_user_name';
 
 /* transaction config */
-const transactionPerRun = 3;
-const progressCount = 5;
+const transactionPerRun = 500;
+const progressCount = 1000;
 const transactionQuery = {
   migration: { $ne: MIGRATION_NAME }, // skip already migrated entries
   'transactionType': { $in: ['gift_send', 'gift_receive'] },
