@@ -16,7 +16,7 @@ export const EVENTS = {
     npcImageSuffix: '',
   },
   fall2022: {
-    start: '2022-09-11T08:00-04:00', // for testing purposes - start date is 2022-09-20
+    start: '2022-09-20T08:00-04:00', 
     end: '2022-10-31T20:00-04:00',
     npcImageSuffix: '_fall',
     season: 'fall',
