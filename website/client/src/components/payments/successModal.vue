@@ -18,13 +18,7 @@
     <div slot="modal-footer">
       <!-- everyone else -->
       <div
-        v-if="!isGroupPlan"
-        class="small-text"
-      >
-        {{ $t('giftSubscriptionText4') }}
-      </div>
-      <div
-        v-else-if="isGemsBalance || isGiftGems || isGiftSubscription"
+        v-if="isGemsBalance || isGiftGems || isGiftSubscription"
       >
         <textarea
           v-model="gift.message"
