@@ -36,8 +36,7 @@ export default {
       wizard: 'fall2022HarpyMageSet',
     }
     : {},
-  // for testing purposes only date is 2022-10-04
-  availableSpells: SHOP_OPEN && moment().isBetween('2022-09-11T08:00-05:00', CURRENT_EVENT.end)
+  availableSpells: SHOP_OPEN && moment().isBetween('2022-10-04T08:00-05:00', CURRENT_EVENT.end)
     ? [
       'spookySparkles',
     ]
