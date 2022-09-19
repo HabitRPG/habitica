@@ -621,7 +621,6 @@ import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
 import exclamation from '@/assets/svg/exclamation.svg';
 import gryphon from '@/assets/svg/gryphon.svg';
 import habiticaIcon from '@/assets/svg/habitica-logo.svg';
-import facebookSquareIcon from '@/assets/svg/facebook-square.svg';
 import googleIcon from '@/assets/svg/google.svg';
 import appleIcon from '@/assets/svg/apple_black.svg';
 
@@ -644,7 +643,6 @@ export default {
       exclamation,
       gryphon,
       habiticaIcon,
-      facebookIcon: facebookSquareIcon,
       googleIcon,
       appleIcon,
     });
@@ -734,8 +732,6 @@ export default {
   },
   mounted () {
     hello.init({
-      facebook: process.env.FACEBOOK_KEY, // eslint-disable-line
-      // windows: WINDOWS_CLIENT_ID,
       google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line
     });
   },
