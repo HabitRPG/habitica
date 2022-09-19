@@ -324,7 +324,7 @@ spells.special = {
     previousPurchase: true,
     target: 'user',
     notes: t('spellSpecialSpookySparklesNotes'),
-    canOwn () { 
+    canOwn () {
       return moment().isBetween('2021-10-11T08:00-04:00', EVENTS.fall2022.end);
     },
     cast (user, target, req) {
