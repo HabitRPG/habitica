@@ -2,8 +2,8 @@
   <b-modal
     id="payments-success-modal"
     :title="$t('accountSuspendedTitle')"
-    :hide-footer="isGemsBalance || paymentData.newGroup"
-    :modal-class="isGemsBalance || paymentData.newGroup ? ['modal-hidden-footer'] : []"
+    :hide-footer="isGemsBalance || isNewGroup"
+    :modal-class="isGemsBalance || isNewGroup ? ['modal-hidden-footer'] : []"
   >
     <div slot="modal-header">
       <div class="check-container d-flex align-items-center justify-content-center">
@@ -116,11 +116,11 @@
         <!-- group plan new or upgraded -->
         <template v-if="isGroupPlan">
           <span
-            v-html="$t(paymentData.newGroup
+            v-html="$t(isNewGroup
               ? 'groupPlanCreated' : 'groupPlanUpgraded', {groupName: paymentData.group.name})"
           ></span>
           <div
-            v-if="!paymentData.newGroup || paymentData.newGroup"
+            v-if="isGroupPlan"
             class=""
           >
             <div class="details-block group-billing-date">
@@ -148,7 +148,7 @@
         </template>
         <!-- buttons for subscriptions -->
         <button
-          v-if="isGroupPlan"
+          v-if="!isUpgradedGroup"
           v-once
           class="btn btn-primary"
           @click="submit()"

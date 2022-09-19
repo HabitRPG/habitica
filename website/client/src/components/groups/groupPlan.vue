@@ -157,15 +157,6 @@
             @click="createGroup()"
           ></button>
         </div>
-        <div class="form-group">
-          <button
-            class="btn btn-primary btn-lg btn-block"
-            :disabled="!newGroupIsReady"
-            @click="createGroup()"
-          >
-            {{ $t('create') }}
-          </button>
-        </div>
       </div>
       <div
         v-if="activePage === PAGES.PAY"
