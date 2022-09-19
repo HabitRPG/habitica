@@ -147,6 +147,36 @@
             <div>Member</div>
           </div>
         </div>
+        <div
+          v-if="type === 'party'"
+          class="form-group"
+        >
+          <button
+            class="btn btn-secondary form-control"
+            :value="$t('create')"
+            @click="createGroup()"
+          ></button>
+        </div>
+        <div class="form-group">
+          <button
+            class="btn btn-primary btn-lg btn-block"
+            :disabled="!newGroupIsReady"
+            @click="createGroup()"
+          >
+            {{ $t('create') }}
+          </button>
+        </div>
+      </div>
+      <div
+        v-if="activePage === PAGES.PAY"
+        class="col-12"
+      >
+        <div class="text-center">
+          <payments-buttons
+            :stripe-fn="() => pay(PAYMENTS.STRIPE)"
+            :amazon-data="pay(PAYMENTS.AMAZON)"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -166,11 +196,6 @@
 
     .purple-box {
       color: #bda8ff;
-      border-top-right-radius: 0px;
-      border-bottom-right-radius: 0px;
-      border-top-left-radius: 8px;
-      border-bottom-left-radius: 8px;
-      box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
     }
 
     .number {
@@ -184,8 +209,6 @@
 
     .payment-providers {
       width: 350px;
-      border-top-right-radius: 8px;
-      border-bottom-right-radius: 8px;
     }
   }
 
