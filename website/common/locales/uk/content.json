@@ -196,7 +196,7 @@
     "hatchingPotionSpooky": "Моторошний",
     "hatchingPotionPeppermint": "М’ятний",
     "hatchingPotionFloral": "Квітковий",
-    "hatchingPotionAquatic": "Водяний",
+    "hatchingPotionAquatic": "Аква",
     "hatchingPotionEmber": "Тліюче вугілля",
     "hatchingPotionThunderstorm": "Грозовий",
     "hatchingPotionGhost": "Примарний",
@@ -371,5 +371,6 @@
     "hatchingPotionSunset": "Загравний",
     "hatchingPotionMoonglow": "Місяцесяйний",
     "hatchingPotionOnyx": "Оніксовий",
-    "hatchingPotionVirtualPet": "Віртуальний"
+    "hatchingPotionVirtualPet": "Віртуальний",
+    "hatchingPotionPorcelain": "Порцеляновий"
 }

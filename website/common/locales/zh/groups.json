@@ -1,7 +1,7 @@
 {
     "tavern": "在酒馆里闲谈",
     "tavernChat": "酒馆",
-    "innCheckOutBanner": "你已入住酒馆。未完成的每日任务不会对你造成伤害，但已完成的任务也不会帮你在副本中取得进展。",
+    "innCheckOutBanner": "你已入住客栈。未完成的每日任务不会对你造成伤害，但已完成的任务也不会帮你在副本中取得进展。",
     "innCheckOutBannerShort": "你现在入住了酒馆。",
     "resumeDamage": "继续伤害",
     "helpfulLinks": "有帮助的链接",
@@ -12,7 +12,7 @@
     "askAQuestion": "问个问题",
     "askQuestionGuild": "请教问题（Habitica帮助公会）",
     "contributing": "作出贡献",
-    "faq": "常问问题",
+    "faq": "常见问题",
     "tutorial": "教学",
     "glossary": "<a target='_blank' href='https://habitica.fandom.com/wiki/Glossary'>词汇表</a>",
     "wiki": "维基",
@@ -166,7 +166,7 @@
     "assignedToUser": "已被分配给<strong><%- userName %></strong>",
     "assignedToMembers": "已被分配给<strong><%= userCount %> members</strong>个会员",
     "assignedToYouAndMembers": "已被分配给你和<strong><%= userCount %></strong>个会员",
-    "youAreAssigned": "你被分配這個任务",
+    "youAreAssigned": "分配予<strong>你</strong>",
     "taskIsUnassigned": "這個任务還沒有被分配",
     "confirmUnClaim": "你肯定你要放棄這個任务？",
     "confirmNeedsWork": "您确定要将此任务标记为需要处理吗？",
@@ -378,5 +378,7 @@
     "joinParty": "加入队伍",
     "editGuild": "编辑公会",
     "editParty": "编辑队伍",
-    "leaveGuild": "离开公会"
+    "leaveGuild": "离开公会",
+    "chatTemporarilyUnavailable": "现在聊天室是暂时不能用的。请稍后再试。",
+    "sendGiftTotal": "总计："
 }

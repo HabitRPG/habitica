@@ -133,7 +133,7 @@
     "optOutOfClasses": "Opt Out",
     "chooseClass": "Choose your Class",
     "chooseClassLearnMarkdown": "[Matuto pa sa class system ng Habitica](https://habitica.wikia.com/wiki/Class_System)",
-    "optOutOfClassesText": "Can't be bothered with classes? Want to choose later? Opt out - you'll be a warrior with no special abilities. You can read about the class system later on the wiki and enable classes at any time under User Icon > Settings.",
+    "optOutOfClassesText": "Can't be bothered with classes? Want to choose later? Opt out - you'll be a warrior with no special abilities. You can read about the class system later on the wiki and enable classes at any time under Sagisag ng Tagagamit > Kasaayusán.",
     "selectClass": "Select <%= heroClass %>",
     "select": "Select",
     "stealth": "Stealth",

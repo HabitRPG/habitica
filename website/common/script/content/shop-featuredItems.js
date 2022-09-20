@@ -5,7 +5,7 @@ import { EVENTS } from './constants';
 // path: 'premiumHatchingPotions.Rainbow',
 const featuredItems = {
   market () {
-    if (moment().isBefore(EVENTS.summer2022.end)) {
+    if (moment().isBetween(EVENTS.fall2022.start, EVENTS.fall2022.end)) {
       return [
         {
           type: 'armoire',
@@ -13,15 +13,15 @@ const featuredItems = {
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Sunset',
+          path: 'premiumHatchingPotions.Vampire',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Watery',
+          path: 'premiumHatchingPotions.Ghost',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Aquatic',
+          path: 'premiumHatchingPotions.Shadow',
         },
       ];
     }
@@ -32,39 +32,39 @@ const featuredItems = {
       },
       {
         type: 'food',
-        path: 'food.Honey',
+        path: 'food.Potatoe',
       },
       {
         type: 'hatchingPotions',
-        path: 'hatchingPotions.CottonCandyPink',
+        path: 'hatchingPotions.Desert',
       },
       {
         type: 'eggs',
-        path: 'eggs.Cactus',
+        path: 'eggs.Dragon',
       },
     ];
   },
   quests () {
-    if (moment().isBefore(EVENTS.bundle202206.end)) {
+    if (moment().isBetween(EVENTS.bundle202208.start, EVENTS.bundle202209.end)) {
       return [
         {
           type: 'bundles',
-          path: 'bundles.aquaticAmigos',
+          path: 'bundles.forestFriends',
+        },
+        {
+          type: 'bundles',
+          path: 'bundles.farmFriends',
         },
         {
           type: 'quests',
-          path: 'quests.seaserpent',
-        },
-        {
-          type: 'quests',
-          path: 'quests.dolphin',
+          path: 'quests.ferret',
         },
       ];
     }
     return [
       {
         type: 'quests',
-        path: 'quests.badger',
+        path: 'quests.guineapig',
       },
       {
         type: 'quests',

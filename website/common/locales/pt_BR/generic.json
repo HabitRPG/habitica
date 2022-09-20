@@ -211,5 +211,7 @@
     "submitBugReport": "Enviar relatório de erro",
     "reportSent": "Relatório de erro enviado!",
     "reportSentDescription": "Responderemos assim que nossa equipe conseguir verificar. Obrigado por relatar o problema.",
-    "askQuestion": "Faça uma Pergunta"
+    "askQuestion": "Faça uma Pergunta",
+    "reportDescriptionText": "Inclua fotos da tela ou erros do console Javascript se ajudar ou for necessário.",
+    "emptyReportBugMessage": "Mensagem de Reporte de Erros vazia"
 }

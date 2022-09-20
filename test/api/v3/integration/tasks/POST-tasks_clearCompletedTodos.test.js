@@ -13,6 +13,9 @@ describe('POST /tasks/clearCompletedTodos', () => {
       { 'purchased.plan.customerId': 'group-unlimited' },
     );
     const challenge = await generateChallenge(user, guild);
+    await user.put('/user', {
+      'preferences.tasks.mirrorGroupTasks': [guild._id],
+    });
     await user.post(`/challenges/${challenge._id}/join`);
 
     const initialTodoCount = user.tasksOrder.todos.length;
@@ -33,7 +36,7 @@ describe('POST /tasks/clearCompletedTodos', () => {
       text: 'todo 7',
       type: 'todo',
     });
-    await user.post(`/tasks/${groupTask._id}/assign/${user._id}`);
+    await user.post(`/tasks/${groupTask._id}/assign`, [user._id]);
 
     const tasks = await user.get('/tasks/user?type=todos');
     expect(tasks.length).to.equal(initialTodoCount + 7);

@@ -3,47 +3,39 @@
     <div
       class="task transition"
       :class="[{
-                 'groupTask': task.group.id,
-                 'task-not-editable': !teamManagerAccess},
-               `type_${task.type}`
+        'groupTask': task.group.id,
+        'task-not-editable': !teamManagerAccess,
+        'task-not-scoreable': showTaskLockIcon,
+      }, `type_${task.type}`
       ]"
       @click="castEnd($event, task)"
     >
-      <approval-header
-        v-if="task.group.id"
-        :task="task"
-        :group="group"
-      />
       <div
         class="d-flex"
-        :class="{'task-not-scoreable': isUser !== true || task.group.approval.requested
-          && !(task.group.approval.approved && task.type === 'habit')}"
+        :class="{'task-not-scoreable': showTaskLockIcon }"
       >
         <!-- Habits left side control-->
         <div
           v-if="task.type === 'habit'"
           class="left-control d-flex justify-content-center pt-3"
           :class="[{
-            'control-bottom-box': task.group.id,
+            'control-bottom-box': task.group.id && !isOpenTask,
             'control-top-box': approvalsClass
           }, controlClass.up.bg]"
         >
           <div
             class="task-control habit-control"
             :class="[{
-              'habit-control-positive-enabled': task.up && isUser,
-              'habit-control-positive-disabled': !task.up && isUser,
-              'task-not-scoreable': isUser !== true
-                || (task.group.approval.requested && !task.group.approval.approved),
+              'habit-control-positive-enabled': task.up && !showTaskLockIcon,
+              'habit-control-positive-disabled': !task.up && !showTaskLockIcon,
+              'task-not-scoreable': showTaskLockIcon,
             }, controlClass.up.inner]"
             tabindex="0"
-            @click="(isUser && task.up && (!task.group.approval.requested
-              || task.group.approval.approved)) ? score('up') : null"
-            @keypress.enter="(isUser && task.up && (!task.group.approval.requested
-              || task.group.approval.approved)) ? score('up') : null"
+            @click="score('up')"
+            @keypress.enter="score('up')"
           >
             <div
-              v-if="!isUser"
+              v-if="showTaskLockIcon"
               class="svg-icon lock"
               :class="task.up ? controlClass.up.icon : 'positive'"
               v-html="icons.lock"
@@ -60,20 +52,21 @@
           v-if="task.type === 'daily' || task.type === 'todo'"
           class="left-control d-flex justify-content-center"
           :class="[{
-            'control-bottom-box': task.group.id,
+            'control-bottom-box': task.group.id && !isOpenTask,
             'control-top-box': approvalsClass}, controlClass.bg]"
         >
           <div
             class="task-control daily-todo-control"
-            :class="controlClass.inner"
+            :class="[
+              { 'task-not-scoreable': showTaskLockIcon },
+              controlClass.inner,
+            ]"
             tabindex="0"
-            @click="isUser && !task.group.approval.requested
-              ? score(task.completed ? 'down' : 'up' ) : null"
-            @keypress.enter="isUser && !task.group.approval.requested
-              ? score(task.completed ? 'down' : 'up' ) : null"
+            @click="score(showCheckIcon ? 'down' : 'up' )"
+            @keypress.enter="score(showCheckIcon ? 'down' : 'up' )"
           >
             <div
-              v-if="!isUser"
+              v-if="showTaskLockIcon"
               class="svg-icon lock"
               :class="controlClass.icon"
               v-html="icons.lock"
@@ -82,7 +75,7 @@
               v-else
               class="svg-icon check"
               :class="{
-                'display-check-icon': task.completed || task.group.approval.requested,
+                'display-check-icon': showCheckIcon,
                 [controlClass.checkbox]: true,
               }"
               v-html="icons.check"
@@ -95,8 +88,8 @@
           :class="contentClass"
         >
           <div
-            class="task-clickable-area"
-            :class="{ 'cursor-auto': !isUser && !teamManagerAccess }"
+            class="task-clickable-area pt-1 pl-75 pb-0"
+            :class="{ 'cursor-auto': !teamManagerAccess }"
             tabindex="0"
             @click="edit($event, task)"
             @keypress.enter="edit($event, task)"
@@ -105,14 +98,14 @@
               <h3
                 v-markdown="task.text"
                 class="task-title markdown"
-                :class="{ 'has-notes': task.notes || (!isUser && task.group.managerNotes)}"
+                :class="{ 'has-notes': task.notes }"
               ></h3>
               <menu-dropdown
                 v-if="!isRunningYesterdailies && showOptions"
                 ref="taskDropdown"
                 v-b-tooltip.hover.top="$t('options')"
                 tabindex="0"
-                class="task-dropdown"
+                class="task-dropdown mr-1"
                 :right="task.type === 'reward'"
               >
                 <div slot="dropdown-toggle">
@@ -138,7 +131,6 @@
                     </span>
                   </div>
                   <div
-                    v-if="isUser"
                     class="dropdown-item"
                     tabindex="0"
                     @click="moveToTop"
@@ -153,7 +145,6 @@
                     </span>
                   </div>
                   <div
-                    v-if="isUser"
                     class="dropdown-item"
                     tabindex="0"
                     @click="moveToBottom"
@@ -186,7 +177,7 @@
               </menu-dropdown>
             </div>
             <div
-              v-markdown="displayNotes"
+              v-markdown="task.notes"
               class="task-notes small-text"
               :class="{'has-checklist': task.notes && hasChecklist}"
             ></div>
@@ -220,7 +211,7 @@
               v-if="!task.collapseChecklist"
               :key="item.id"
               class="custom-control custom-checkbox checklist-item"
-              :class="{'checklist-item-done': item.completed, 'cursor-auto': !isUser}"
+              :class="{'checklist-item-done': item.completed, 'cursor-auto': showTaskLockIcon}"
             >
               <!-- eslint-enable vue/no-use-v-if-with-v-for -->
               <input
@@ -229,14 +220,14 @@
                 tabindex="0"
                 type="checkbox"
                 :checked="item.completed"
-                :disabled="castingSpell || !isUser"
+                :disabled="castingSpell || showTaskLockIcon"
                 @change="toggleChecklistItem(item)"
                 @keypress.enter="toggleChecklistItem(item)"
               >
               <label
                 v-markdown="item.text"
                 class="custom-control-label"
-                :class="{ 'cursor-auto': !isUser }"
+                :class="{ 'cursor-auto': showTaskLockIcon }"
                 :for="`checklist-${item.id}-${random}`"
               ></label>
             </div>
@@ -316,7 +307,7 @@
                 ></div>
               </div>
               <div
-                v-if="hasTags"
+                v-if="hasTags && !task.group.id"
                 :id="`tags-icon-${task._id}`"
                 class="d-flex align-items-center"
               >
@@ -326,7 +317,7 @@
                 ></div>
               </div>
               <b-popover
-                v-if="hasTags"
+                v-if="hasTags && !task.group.id"
                 :target="`tags-icon-${task._id}`"
                 triggers="hover"
                 placement="bottom"
@@ -356,25 +347,22 @@
           v-if="task.type === 'habit'"
           class="right-control d-flex justify-content-center pt-3"
           :class="[{
-            'control-bottom-box': task.group.id,
+            'control-bottom-box': task.group.id && !isOpenTask,
             'control-top-box': approvalsClass}, controlClass.down.bg]"
         >
           <div
             class="task-control habit-control"
             :class="[{
-              'habit-control-negative-enabled': task.down && isUser,
-              'habit-control-negative-disabled': !task.down && isUser,
-              'task-not-scoreable': isUser !== true
-                || (task.group.approval.requested && !task.group.approval.approved),
+              'habit-control-negative-enabled': task.down && !showTaskLockIcon,
+              'habit-control-negative-disabled': !task.down && !showTaskLockIcon,
+              'task-not-scoreable': showTaskLockIcon,
             }, controlClass.down.inner]"
             tabindex="0"
-            @click="(isUser && task.down && (!task.group.approval.requested
-              || task.group.approval.approved)) ? score('down') : null"
-            @keypress.enter="(isUser && task.down && (!task.group.approval.requested
-              || task.group.approval.approved)) ? score('down') : null"
+            @click="score('down')"
+            @keypress.enter="score('down')"
           >
             <div
-              v-if="!isUser"
+              v-if="showTaskLockIcon"
               class="svg-icon lock"
               :class="task.down ? controlClass.down.icon : 'negative'"
               v-html="icons.lock"
@@ -390,13 +378,22 @@
         <div
           v-if="task.type === 'reward'"
           class="right-control d-flex align-items-center justify-content-center reward-control"
-          :class="controlClass.bg"
+          :class="[
+            { 'task-not-scoreable': showTaskLockIcon },
+            controlClass.bg,
+          ]"
           tabindex="0"
-          @click="isUser ? score('down') : null"
-          @keypress.enter="isUser ? score('down') : null"
+          @click="score('down')"
+          @keypress.enter="score('down')"
         >
           <div
-            class="svg-icon"
+            v-if="showTaskLockIcon"
+            class="svg-icon color lock"
+            v-html="icons.lock"
+          ></div>
+          <div
+            v-else
+            class="svg-icon mb-1"
             v-html="icons.gold"
           ></div>
           <div class="small-text">
@@ -405,10 +402,9 @@
         </div>
       </div>
       <approval-footer
-        v-if="task.group.id"
+        v-if="task.group.id && !isOpenTask"
         :task="task"
         :group="group"
-        @claimRewards="score('up')"
       />
     </div>
   </div>
@@ -427,7 +423,7 @@
     border: $purple-400 solid 1px;
 
     :not(task-best-control-inner-habit) { // round icon
-      border-radius: 2px;
+      border-radius: 4px;
     }
   }
 
@@ -449,11 +445,11 @@
     margin-bottom: 2px;
     box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
     background: white;
-    border-radius: 2px;
+    border-radius: 4px;
     position: relative;
 
-    &:hover:not(.task-not-editable),
-    &:focus-within:not(.task-not-editable) {
+    &:hover:not(.task-not-editable.task-not-scoreable),
+    &:focus-within:not(.task-not-editable.task-not-scoreable) {
       box-shadow: 0 1px 8px 0 rgba($black, 0.12), 0 4px 4px 0 rgba($black, 0.16);
       z-index: 11;
     }
@@ -469,10 +465,10 @@
   }
 
   .task.groupTask {
-    &:hover:not(.task-not-editable),
-    &:focus-within:not(.task-not-editable) {
+    &:hover:not(.task-not-editable.task-not-scoreable),
+    &:focus-within:not(.task-not-editable.task-not-scoreable) {
       border: $purple-400 solid 1px;
-      border-radius: 3px;
+      border-radius: 5px;
       margin: -1px; // to counter the border width
       margin-bottom: 1px;
       transition: none; // with transition, the border color switches from black to $purple-400
@@ -495,6 +491,7 @@
     }
 
     &.has-notes {
+      margin-bottom: 0px;
       padding-bottom: 4px;
     }
 
@@ -508,8 +505,6 @@
   }
 
   .task-clickable-area {
-    padding: 7px 8px;
-    padding-bottom: 0px;
     border: transparent solid 1px;
     cursor: pointer;
 
@@ -518,7 +513,7 @@
     }
 
     &:focus {
-      border-radius: 2px;
+      border-radius: 4px;
       border: $purple-400 solid 1px;
     }
   }
@@ -575,7 +570,11 @@
   }
 
   .task-dropdown {
-    max-height: 18px;
+    height: 16px;
+    width: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .task-dropdown ::v-deep .dropdown-menu {
@@ -632,8 +631,8 @@
     }
 
     &.reward-content {
-      border-top-left-radius: 2px;
-      border-bottom-left-radius: 2px;
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
     }
   }
 
@@ -796,8 +795,8 @@
     }
   }
   .left-control {
-    border-top-left-radius: 2px;
-    border-bottom-left-radius: 2px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
     min-height: 60px;
     border: 1px solid transparent;
     border-right: none;
@@ -809,15 +808,15 @@
   .task:not(.type_habit) {
     .left-control {
       & + .task-content {
-        border-top-right-radius: 2px;
-        border-bottom-right-radius: 2px;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
       }
     }
   }
 
   .right-control {
-    border-top-right-radius: 2px;
-    border-bottom-right-radius: 2px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
     min-height: 56px;
     border: 1px solid transparent;
     border-left: none;
@@ -853,8 +852,12 @@
       height: 24px;
     }
 
+    .lock {
+      color: $gray-200;
+      width: 15px;
+    }
+
     .small-text {
-      margin-top: 4px;
       font-style: initial;
       font-weight: bold;
     }
@@ -920,20 +923,19 @@ import lockIcon from '@/assets/svg/lock.svg';
 import menuIcon from '@/assets/svg/menu.svg';
 import markdownDirective from '@/directives/markdown';
 import scoreTask from '@/mixins/scoreTask';
-import approvalHeader from './approvalHeader';
+import sync from '@/mixins/sync';
 import approvalFooter from './approvalFooter';
 import MenuDropdown from '../ui/customMenuDropdown';
 
 export default {
   components: {
     approvalFooter,
-    approvalHeader,
     MenuDropdown,
   },
   directives: {
     markdown: markdownDirective,
   },
-  mixins: [scoreTask],
+  mixins: [scoreTask, sync],
   // @TODO: maybe we should store the group on state?
   props: {
     task: {},
@@ -1064,11 +1066,45 @@ export default {
     },
     teamManagerAccess () {
       if (!this.isGroupTask || !this.group) return true;
+      if (!this.group.leader && !this.group.managers) return false;
       return (this.group.leader._id === this.user._id || this.group.managers[this.user._id]);
     },
-    displayNotes () {
-      if (this.isGroupTask && !this.isUser) return this.task.group.managerNotes;
-      return this.task.notes;
+    isOpenTask () {
+      if (!this.isGroupTask) return false;
+      if (this.task?.group?.assignedUsers?.length > 0) return false;
+      return true;
+    },
+    showCheckIcon () {
+      if (this.isGroupTask && this.task.group.assignedUsersDetail
+        && this.task.group.assignedUsersDetail[this.user._id]) {
+        return this.task.group.assignedUsersDetail[this.user._id].completed;
+      }
+      return this.task.completed;
+    },
+    showTaskLockIcon () {
+      if (this.isUser) return false;
+      if (this.isGroupTask) {
+        if (this.task.completed) {
+          if (this.task.group.assignedUsersDetail
+            && this.task.group.assignedUsersDetail[this.user._id]
+          ) {
+            return false;
+          }
+          if (this.task.group.completedBy.userId === this.user._id) return false;
+          if (this.teamManagerAccess) {
+            if (!this.task.group.assignedUsers || this.task.group.assignedUsers.length === 0) {
+              return false;
+            }
+            if (this.task.group.assignedUsers.length === 1) return false;
+          }
+          return true;
+        }
+        if (this.isOpenTask) return false;
+        if (this.task.group.assignedUsersDetail[this.user._id]) {
+          return false;
+        }
+      }
+      return true;
     },
   },
   methods: {
@@ -1098,7 +1134,7 @@ export default {
       return this.task.date && this.$t('dueIn', { dueIn });
     },
     edit (e, task) {
-      if (this.isRunningYesterdailies || !this.showEdit) return;
+      if (this.isRunningYesterdailies) return;
       const target = e.target || e.srcElement;
 
       /*
@@ -1116,8 +1152,11 @@ export default {
       const isEditAction = this.$refs.editTaskItem && this.$refs.editTaskItem.contains(target);
 
       if (isDropdown && !isEditAction) return;
+      if (this.$store.state.spellOptions.castingSpell) return;
 
-      if (!this.$store.state.spellOptions.castingSpell) {
+      if (!this.showEdit) {
+        this.$emit('taskSummary', task);
+      } else {
         this.$emit('editTask', task);
       }
     },
@@ -1137,6 +1176,22 @@ export default {
       setTimeout(() => this.$root.$emit('castEnd', task, 'task', e), 0);
     },
     async score (direction) {
+      if (this.showTaskLockIcon) return;
+      if (this.task.type === 'habit' && !this.task[direction]) return;
+      if (
+        this.isGroupTask && direction === 'down'
+        && ['todo', 'daily'].indexOf(this.task.type) !== -1
+        && !((this.task.group.completedBy && this.task.group.completedBy.userId === this.user._id)
+          || (this.task.group.assignedUsersDetail
+            && this.task.group.assignedUsersDetail[this.user._id]))
+      ) {
+        this.$store.dispatch('tasks:needsWork', {
+          taskId: this.task._id,
+          userId: this.task.group.assignedUsers[0] || this.task.group.completedBy.userId,
+        });
+        this.task.completed = false;
+        return;
+      }
       if (this.isYesterdaily === true) {
         await this.beforeTaskScore(this.task);
         this.task.completed = !this.task.completed;

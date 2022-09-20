@@ -228,7 +228,7 @@
     "weaponSpecialSpring2017HealerNotes": "A verdadeira magia desta varinha é o segredo da nova vida no interior da casca colorida. Aumenta Inteligência em <%= int %>. Equipamento de Edição Limitada da Primavera de 2017.",
     "weaponSpecialSummer2017RogueText": "Barbatanas de Dragão Marinho",
     "weaponSpecialSummer2017RogueNotes": "As bordas destas barbatanas são afiadas como uma navalha. Aumenta Força em <%= str %>. Equipamento de Edição Limitada do Verão de 2017.",
-    "weaponSpecialSummer2017WarriorText": "O Guarda-Sol mais Poderoso",
+    "weaponSpecialSummer2017WarriorText": "Guarda-Sol mais Poderoso",
     "weaponSpecialSummer2017WarriorNotes": "Todos o temem. Aumenta Força em <%= str %>. Equipamento de Edição Limitada do Verão de 2017.",
     "weaponSpecialSummer2017MageText": "Chicotes de Remoinho",
     "weaponSpecialSummer2017MageNotes": "Invoque chicotes mágicos de água a ferver para ferir as suas tarefas! Aumenta Inteligência em <%= int %> e Percepção em <%= per %>. Equipamento de Edição Limitada do Verão de 2017.",
@@ -1784,5 +1784,9 @@
     "armorArmoireBathtubNotes": "Hora de fazer uma pausa e relaxar um pouco? Aqui esta a sua própria banheira pessoal – e a garantia de que a água estará sempre na temperatura que você gosta! Aumenta Constituição em <%= con %>. Armário Encantado: Conjunto Banho de Espuma (Item 2 de 4).",
     "weaponArmoireBuoyantBubblesNotes": "Estas bolhas continuam a flutuar eternamente, não se sabe como... Aumenta Percepção em <%= per %>. Armário Encantado: Conjunto Banho de Espuma (Item 3 de 4).",
     "armorArmoireBagpipersKiltText": "Kilt do Gaiteiro",
-    "weaponArmoirePinkLongbowText": "Arco Longo Cor de Rosa"
+    "weaponArmoirePinkLongbowText": "Arco Longo Cor de Rosa",
+    "weaponSpecialWinter2020HealerText": "Cetro de Cravinho",
+    "weaponSpecialSpring2020WarriorText": "Asa Aguçada",
+    "weaponSpecialSpring2020RogueText": "Lâmina de Lazurita",
+    "weaponSpecialWinter2020WarriorText": "Pinha Pontiaguda"
 }

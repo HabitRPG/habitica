@@ -116,8 +116,8 @@
     "achievementVioletsAreBlueText": "わたあめブルーのペットをすべて集めました。",
     "achievementVioletsAreBlue": "スミレは青い",
     "achievementDomesticated": "ゆかいな牧場",
-    "achievementDomesticatedModalText": "飼育できるのペットクエストを完了しました！",
-    "achievementDomesticatedText": "フェレット、モルモット、おんどり、空飛ぶ豚、ネズミ、ウサギ、馬、牛のペットクエストを完了しました！",
+    "achievementDomesticatedModalText": "飼いならされたペットをすべて集めました！",
+    "achievementDomesticatedText": "飼いならされたペット（フェレット、モルモット、おんどり、空飛ぶ豚、ネズミ、ウサギ、馬、牛）のすべての基本の色をたまごからかえしました！",
     "achievementShadyCustomerModalText": "影のペットをすべて集めました！",
     "achievementShadeOfItAll": "全てを影に染める",
     "achievementShadeOfItAllText": "影の乗騎をすべて手なずけました。",
@@ -128,6 +128,15 @@
     "achievementZodiacZookeeperModalText": "十二支のペットをすべて集めました！",
     "achievementZodiacZookeeperText": "基本のネズミ、牛、トラ、ウサギ、ドラゴン、ヘビ、馬、羊、さる、雄鶏、狼、空飛ぶ豚のペットをすべて集めました！",
     "achievementBirdsOfAFeather": "同じ羽の鳥は群れを作る",
-    "achievementBirdsOfAFeatherText": "基本の空飛ぶペット（空飛ぶ豚、フクロウ、オウム、翼竜、フリフォン、たか、クジャク、おんどり）をすべて集めました。",
-    "achievementBirdsOfAFeatherModalText": "空飛ぶペットをすべて集めました！"
+    "achievementBirdsOfAFeatherText": "基本の空飛ぶペット（空飛ぶ豚、フクロウ、オウム、翼竜、グリフォン、たか、クジャク、おんどり）をすべて集めました！",
+    "achievementBirdsOfAFeatherModalText": "空飛ぶペットをすべて集めました！",
+    "achievementGroupsBeta2022": "インタラクティブベータテスター",
+    "achievementGroupsBeta2022Text": "あなたとグループはHabiticaのテストを助ける非常に貴重なフィードバックを行いました。",
+    "achievementGroupsBeta2022ModalText": "あなたとあなたのグループは実験に参加しフィードバックを行うことでHabiticaを手伝いました！",
+    "achievementReptacularRumble": "爬虫類の轟き",
+    "achievementReptacularRumbleText": "基本の色の爬虫類のペット（アリゲーター、翼竜、ヘビ、トリケラトプス、ウミガメ、ティラノサウルス、ヴェロキラプトル）を全てたまごからかえしました！",
+    "achievementReptacularRumbleModalText": "爬虫類のペットを全て集めました！",
+    "achievementWoodlandWizard": "木の間の魔法使い",
+    "achievementWoodlandWizardModalText": "森のペットを全部集めました！",
+    "achievementWoodlandWizardText": "森の生き物――アナグマ、クマ、鹿、狐、カエル、ハリネズミ、フクロウ、カタツムリ、リス、木人を、すべての基本色で孵化させました！"
 }

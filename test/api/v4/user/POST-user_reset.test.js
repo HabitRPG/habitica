@@ -100,11 +100,14 @@ describe('POST /user/reset', () => {
       text: 'todo group',
       type: 'todo',
     });
-    await user.post(`/tasks/${groupTask._id}/assign/${user._id}`);
+    await user.post(`/tasks/${groupTask._id}/assign`, [user._id]);
 
     await user.post('/user/reset');
     await user.sync();
 
+    await user.put('/user', {
+      'preferences.tasks.mirrorGroupTasks': [guild._id],
+    });
     const memberTasks = await user.get('/tasks/user');
 
     const syncedGroupTask = find(memberTasks, memberTask => memberTask.group.id === guild._id);

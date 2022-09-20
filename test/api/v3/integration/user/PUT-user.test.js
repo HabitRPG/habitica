@@ -35,7 +35,7 @@ describe('PUT /user', () => {
       })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: 'mustBeArray',
+        message: 'Tag list must be an array.',
       });
     });
 

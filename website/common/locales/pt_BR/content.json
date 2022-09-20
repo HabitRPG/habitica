@@ -196,9 +196,9 @@
     "hatchingPotionSpooky": "Abóbora",
     "hatchingPotionPeppermint": "Hortelã",
     "hatchingPotionFloral": "Floral",
-    "hatchingPotionAquatic": "Aquática",
+    "hatchingPotionAquatic": "do Mar",
     "hatchingPotionEmber": "Flamejante",
-    "hatchingPotionThunderstorm": "Tempestade",
+    "hatchingPotionThunderstorm": "da Tempestade",
     "hatchingPotionGhost": "Espectral",
     "hatchingPotionRoyalPurple": "Roxo Real",
     "hatchingPotionHolly": "Arbusto",
@@ -209,7 +209,7 @@
     "hatchingPotionRainbow": "Arco-Íris",
     "hatchingPotionGlass": "de Vidro",
     "hatchingPotionGlow": "que Brilha-no-Escuro",
-    "hatchingPotionFrost": "Geada",
+    "hatchingPotionFrost": "da Geada",
     "hatchingPotionIcySnow": "de Gelo de Nevasca",
     "hatchingPotionNotes": "Use-a em um ovo e ele chocará como um mascote <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "Não utilizável em ovos de mascote de missões. Disponível para compra até <%= date(locale) %>.",
@@ -367,9 +367,10 @@
     "hatchingPotionStainedGlass": "de Vitral Colorido",
     "hatchingPotionPolkaDot": "com Bolinhas",
     "hatchingPotionMossyStone": "de Pedra com Musgo",
-    "hatchingPotionMoonglow": "de Brilho da Lua",
+    "hatchingPotionMoonglow": "do Brilho da Lua",
     "hatchingPotionSunset": "do Pôr do Sol",
     "hatchingPotionSolarSystem": "do Sistema Solar",
     "hatchingPotionOnyx": "Ônix",
-    "hatchingPotionVirtualPet": "Mascote Virtual"
+    "hatchingPotionVirtualPet": "Mascote Virtual",
+    "hatchingPotionPorcelain": "de Porcelana"
 }

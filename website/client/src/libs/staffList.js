@@ -30,6 +30,11 @@ export default [
     uuid: '61b2c855-0a30-444c-bcc6-1cac876460b0',
   },
   {
+    name: 'heyeilatan',
+    type: 'Staff',
+    uuid: 'f4e5c6da-0617-48bf-b3bd-9f97636774a8',
+  },
+  {
     name: 'Alys',
     type: 'Moderator',
     uuid: 'd904bd62-da08-416b-a816-ba797c9ee265',

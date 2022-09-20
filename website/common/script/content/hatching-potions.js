@@ -161,13 +161,13 @@ const premium = {
     value: 2,
     text: t('hatchingPotionGhost'),
     limited: true,
-    event: EVENTS.fall2020,
+    event: EVENTS.fall2022,
     canBuy () {
-      return moment().isBefore('2020-11-02');
+      return moment().isBetween(EVENTS.fall2022.start, EVENTS.fall2022.end);
     },
     _addlNotes: t('eventAvailabilityReturning', {
       availableDate: t('dateEndOctober'),
-      previousDate: t('septemberYYYY', { year: 2018 }),
+      previousDate: t('novemberYYYY', { year: 2020 }),
     }),
   },
   Holly: {
@@ -337,13 +337,13 @@ const premium = {
     value: 2,
     text: t('hatchingPotionShadow'),
     limited: true,
-    event: EVENTS.fall2020,
+    event: EVENTS.fall2022,
     canBuy () {
-      return moment().isBefore('2020-11-02');
+      return moment().isBetween(EVENTS.fall2022.start, EVENTS.fall2022.end);
     },
     _addlNotes: t('eventAvailabilityReturning', {
       availableDate: t('dateEndOctober'),
-      previousDate: t('septemberYYYY', { year: 2019 }),
+      previousDate: t('novemberYYYY', { year: 2020 }),
     }),
   },
   Amber: {
@@ -424,13 +424,13 @@ const premium = {
     value: 2,
     text: t('hatchingPotionVampire'),
     limited: true,
-    event: EVENTS.fall2021,
+    event: EVENTS.fall2022,
     _addlNotes: t('eventAvailabilityReturning', {
       availableDate: t('dateEndOctober'),
-      previousDate: t('septemberYYYY', { year: 2020 }),
+      previousDate: t('octoberYYYY', { year: 2021 }),
     }),
     canBuy () {
-      return moment().isBefore(EVENTS.fall2021.end);
+      return moment().isBetween(EVENTS.fall2022.start, EVENTS.fall2022.end);
     },
   },
   AutumnLeaf: {
@@ -503,12 +503,13 @@ const premium = {
     value: 2,
     text: t('hatchingPotionMoonglow'),
     limited: true,
-    event: EVENTS.potions202108,
+    event: EVENTS.potions202208,
     _addlNotes: t('premiumPotionAddlNotes', {
       date: t('dateEndAugust'),
+      previousDate: t('augustYYYY', { year: 2021 }),
     }),
     canBuy () {
-      return moment().isBetween(EVENTS.potions202108.start, EVENTS.potions202108.end);
+      return moment().isBetween(EVENTS.potions202208.start, EVENTS.potions202208.end);
     },
   },
   SolarSystem: {
@@ -524,6 +525,18 @@ const premium = {
     limited: true,
     canBuy: hasQuestAchievementFunction('onyx'),
     _addlNotes: t('premiumPotionUnlimitedNotes'),
+  },
+  Porcelain: {
+    value: 2,
+    text: t('hatchingPotionPorcelain'),
+    limited: true,
+    event: EVENTS.potions202208,
+    _addlNotes: t('premiumPotionAddlNotes', {
+      date: t('dateEndAugust'),
+    }),
+    canBuy () {
+      return moment().isBetween(EVENTS.potions202208.start, EVENTS.potions202208.end);
+    },
   },
 };
 

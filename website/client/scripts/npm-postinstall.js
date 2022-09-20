@@ -7,7 +7,7 @@ if (process.env.NODE_ENV === 'production') {
     stdio: 'inherit',
   });
 
-  execSync('npm run storybook:build', {
+  /* execSync('npm run storybook:build', {
     stdio: 'inherit',
-  });
+  }); */
 }

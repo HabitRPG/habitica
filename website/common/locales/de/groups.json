@@ -162,9 +162,9 @@
     "onlyCreatorOrAdminCanDeleteChat": "Keine Berechtigung diese Nachricht zu löschen!",
     "onlyGroupLeaderCanEditTasks": "Nicht berechtigt, Aufgaben zu bearbeiten!",
     "onlyGroupTasksCanBeAssigned": "Nur Team-Aufgaben können verteilt werden",
-    "assignedTo": "Zuweisen an",
-    "assignedToUser": "<strong><%- userName %></strong> zugewiesen",
-    "assignedToMembers": "<strong><%= userCount %></strong> Mitgliedern zugewiesen",
+    "assignedTo": "Zugewiesen an",
+    "assignedToUser": "Zugewiesen: <strong>@<%- userName %></strong>",
+    "assignedToMembers": "<%= userCount %> Mitgliedern",
     "assignedToYouAndMembers": "Dir und <strong><%= userCount %> Mitliedern</strong> zugewiesen",
     "youAreAssigned": "Dir zugewiesen",
     "taskIsUnassigned": "Diese Aufgabe ist niemandem zugewiesen",
@@ -379,5 +379,7 @@
     "leaveGuild": "Gilde verlassen",
     "viewDetails": "Details ansehen",
     "upgradeToGroup": "Auf Gruppenplan upgraden",
-    "sendGiftTotal": "Insgesamt:"
+    "sendGiftTotal": "Insgesamt:",
+    "chatTemporarilyUnavailable": "Chat aktuell nicht verfügbar. Bitte versuche es später erneut.",
+    "assignTo": "Zugewiesen an"
 }

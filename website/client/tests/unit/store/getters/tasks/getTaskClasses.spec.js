@@ -143,7 +143,14 @@ describe('getTaskClasses getter', () => {
   });
 
   it('returns noninteractive classes and padlock icons for group board tasks', () => {
-    const task = { type: 'todo', value: 2, group: { id: 'group-id' } };
+    const task = {
+      type: 'todo',
+      value: 2,
+      group: {
+        id: 'group-id',
+        assignedUsers: ['not-me'],
+      },
+    };
     expect(getTaskClasses(task, 'control')).to.deep.equal({
       bg: 'task-good-control-bg-noninteractive',
       checkbox: 'task-good-control-checkbox',

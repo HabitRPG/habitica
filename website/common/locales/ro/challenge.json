@@ -63,7 +63,7 @@
     "findChallenges": "Descoperă Provocări",
     "noChallengeTitle": "Nu ai nici o Provocare.",
     "challengeDescription1": "Provocările sunt evenimente comunitare în care jucătorii concurează și câștigă premii prin completarea unui grup de sarcini înrudite.",
-    "challengeDescription2": "Găsește Provocări recomandate în funcție de interesele tale, navighează Provocările publice din Habitica  sau crează propriile Provocări.",
+    "challengeDescription2": "Găsește Provocări recomandate în funcție de interesele tale, navighează Provocările publice din Habitica sau crează propriile Provocări.",
     "noChallengeMatchFilters": "Nu am putut găsi nicio Provocare.",
     "createdBy": "Creat de",
     "joinChallenge": "Alătură-te Provocării",
@@ -103,5 +103,6 @@
     "selectParticipant": "Alege un Participant",
     "wonChallengeDesc": "<%= challengeName %> te-a ales câștigător! Victoria ta a fost înregistrată în realizările tale.",
     "yourReward": "Recompensa ta",
-    "filters": "Filtre"
+    "filters": "Filtre",
+    "removeTasks": "Șterge Țelurile"
 }
