@@ -314,6 +314,10 @@
       color: #34313a;
     }
 
+    h4 {
+      color: #34313a;
+    }
+
     .purple-box {
       background-color: #4f2a93;
       color: #fff;

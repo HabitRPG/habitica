@@ -163,8 +163,8 @@
     "onlyGroupLeaderCanEditTasks": "Nicht berechtigt, Aufgaben zu bearbeiten!",
     "onlyGroupTasksCanBeAssigned": "Nur Team-Aufgaben können verteilt werden",
     "assignedTo": "Zugewiesen an",
-    "assignedToUser": "<strong><%- userName %></strong> zugewiesen",
-    "assignedToMembers": "<strong><%= userCount %></strong> Mitgliedern zugewiesen",
+    "assignedToUser": "Zugewiesen: <strong>@<%- userName %></strong>",
+    "assignedToMembers": "<%= userCount %> Mitgliedern",
     "assignedToYouAndMembers": "Dir und <strong><%= userCount %> Mitliedern</strong> zugewiesen",
     "youAreAssigned": "Dir zugewiesen",
     "taskIsUnassigned": "Diese Aufgabe ist niemandem zugewiesen",
@@ -380,5 +380,6 @@
     "viewDetails": "Details ansehen",
     "upgradeToGroup": "Auf Gruppenplan upgraden",
     "sendGiftTotal": "Insgesamt:",
-    "chatTemporarilyUnavailable": "Chat aktuell nicht verfügbar. Bitte versuche es später erneut."
+    "chatTemporarilyUnavailable": "Chat aktuell nicht verfügbar. Bitte versuche es später erneut.",
+    "assignTo": "Zugewiesen an"
 }
