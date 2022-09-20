@@ -2,7 +2,7 @@
     "annoyingFriends": "Amigos(as) Irritantes",
     "annoyingFriendsText": "Foi atingido(a) por bolas de neve <%= count %> vezes por membros do grupo.",
     "alarmingFriends": "Amigos Alarmantes",
-    "alarmingFriendsText": "Foi atingido(a) por bolas de neve <%= count %> vezes pelos membros do grupo.",
+    "alarmingFriendsText": "Foi transformado(a) em fantasma <%= count %> vezes pelos membros do grupo.",
     "agriculturalFriends": "Amigos do Campo",
     "agriculturalFriendsText": "Foi transformado(a) em flor <%= count %> vezes pelos membros do grupo.",
     "aquaticFriends": "Amigos Aquáticos",

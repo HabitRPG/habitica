@@ -23,7 +23,6 @@ const envVars = [
   'BASE_URL',
   'GA_ID',
   'STRIPE_PUB_KEY',
-  'FACEBOOK_KEY',
   'GOOGLE_CLIENT_ID',
   'APPLE_AUTH_CLIENT_ID',
   'AMPLITUDE_KEY',

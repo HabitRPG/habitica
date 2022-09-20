@@ -17,9 +17,9 @@
     "mattBochText1": "Velkommen til Stalden! Jeg er Staldmesteren Matt. Hver gang du færdiggør en opgave, vil du have en chance for at modtage et tilfældigt Æg eller Udklækningseliksir til at udklække Kæledyr. Når du udruger et Kæledyr, vil det dukke op her! Klik på billedet af Kæledyret for at føje det til din Avatar. Giv dem det Dyrefoder du finder, og de vil vokse sig til kraftfulde Ridedyr.",
     "welcomeToTavern": "Velkommen til Værtshuset!",
     "sleepDescription": "Har du brug for en pause? Check ind i Daniels Værtshus for at sætte nogle af Habiticas svære elementer på pause:",
-    "sleepBullet1": "Missede Daglige vil ikke skade dig",
-    "sleepBullet2": "Opgavers stribe-præstation vil ikke blive tabt",
-    "sleepBullet3": "Bosser vil ikke skade dig på grund af dine egne missede Daglige",
+    "sleepBullet1": "Dine missede Daglige vil ikke skade dig (bosser vil stadig kunne skade dig baseret på andre Holdmedlemmers missede Daglige)",
+    "sleepBullet2": "Dagliges stribe-præstation og Vanetæller vil ikke blive nulstillet",
+    "sleepBullet3": "Den skade, du vil påføre bossen, eller dine indsamlede questgenstande, vil først tælle med i questen, når du checker ud af Værtshuset",
     "sleepBullet4": "Du vil beholde din afventende skade til bosser eller indsamlede questgenstande indtil du checker ud",
     "pauseDailies": "Sæt skade på pause",
     "unpauseDailies": "Skade er ikke længere på pause",
@@ -129,5 +129,6 @@
     "cannotUnpinItem": "Denne genstand kan ikke frigøres.",
     "nMonthsSubscriptionGift": "<%= nMonths %> Måned(ers) Abonnement (Gave)",
     "nGemsGift": "<%= nGems %> Ædelsten (Gave)",
-    "nGems": "<%= nGems %> Ædelsten"
+    "nGems": "<%= nGems %> Ædelsten",
+    "amountExp": "<%= amount %> Exp"
 }
