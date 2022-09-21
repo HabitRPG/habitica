@@ -246,7 +246,7 @@ describe('Password Utilities', () => {
     it('returns false if the user has no local auth', async () => {
       const user = await generateUser({
         auth: {
-          facebook: {},
+          google: {},
         },
       });
       const res = await validatePasswordResetCodeAndFindUser(encrypt(JSON.stringify({
