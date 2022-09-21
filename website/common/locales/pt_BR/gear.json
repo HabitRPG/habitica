@@ -2698,5 +2698,22 @@
     "eyewearArmoireComedyMaskText": "Máscara da Comédia",
     "eyewearArmoireComedyMaskNotes": "Com alegria! Aqui está uma máscara pitoresca para seu coração feliz, tocando, anunciando e expressando alegria no palco. Aumenta Constituição em <%= con %>. Armário Encantado: Conjunto Máscaras de Teatro (Item 1 de 2).",
     "eyewearArmoireTragedyMaskText": "Máscara da Tragédia",
-    "eyewearArmoireTragedyMaskNotes": "Com lástima! Aqui está uma máscara pesada para seu pobre personagem, se escorando, se preocupando e expressando aflição e tristeza no palco. Aumenta Inteligência em <%= int %>. Armário Encantado: Conjunto Máscaras de Teatro (Item 2 de 2)."
+    "eyewearArmoireTragedyMaskNotes": "Com lástima! Aqui está uma máscara pesada para seu pobre personagem, se escorando, se preocupando e expressando aflição e tristeza no palco. Aumenta Inteligência em <%= int %>. Armário Encantado: Conjunto Máscaras de Teatro (Item 2 de 2).",
+    "weaponSpecialFall2022RogueText": "Lâmina Pepino",
+    "weaponSpecialFall2022WarriorText": "Espada Orc",
+    "weaponSpecialFall2022MageText": "Rajadas de Vento",
+    "weaponSpecialFall2022MageNotes": "Essas rajadas poderosas permanecem em seu rastro conforme decola pelos céus. Aumenta Inteligência em <%= int %> e Percepção em <%= per %>. Equipamento de Edição Limitada do Outono de 2022.",
+    "weaponSpecialFall2022RogueNotes": "Esse pepino não pode apenas te defender, mas também é uma refeição deliciosa. Aumenta Força em <%= str %>. Equipamento de Edição Limitada do Outono de 2022.",
+    "weaponSpecialFall2022HealerText": "Olho Direito Espreito",
+    "weaponSpecialFall2022HealerNotes": "Para reinvindicar vitória, segure e diga as palavras de comando: 'Olho Um!' Aumenta Inteligência em <%= int %>. Equipamento de Edição Limitada do Outono de 2022.",
+    "armorSpecialFall2022RogueText": "Armadura Kappa",
+    "armorSpecialFall2022WarriorText": "Armadura Orc",
+    "armorSpecialFall2022MageText": "Armadura Harpia",
+    "armorSpecialFall2022MageNotes": "Voe mais rápido que o vento com essas asas maravilhosas e segure firme o que você mais gosta com essas garras assustadoras. Aumenta Inteligência em <%= int %>. Equipamento de Edição Limitada do Outono de 2022.",
+    "headSpecialFall2022RogueText": "Máscara Kappa",
+    "headSpecialFall2022WarriorText": "Máscara Orc",
+    "weaponSpecialFall2022WarriorNotes": "Talvez mais apropriado para cortar troncos ou fatias de pães crocantes do que armaduras de inimigos, mas RAWR! Parece assustador com certeza! Aumenta Força em <%= str %>. Equipamento de Edição Limitada do Outono de 2022.",
+    "armorSpecialFall2022RogueNotes": "Se estiver nadando, fugindo ou lutando, você estará em segurança nesta armadura. Aumenta Percepção em <%= per %>. Equipamento de Edição Limitada do Outono de 2022.",
+    "armorSpecialFall2022WarriorNotes": "RAWR! GRANDES OMBROS significam que você tem MUITA FORÇA! Aumenta Constituição em <%= con %>. Equipamento de Edição Limitada do Outono de 2022.",
+    "headSpecialFall2022RogueNotes": "Com esta capa de metal em sua cabeça, você terá proteção extra quando aventurar-se na terra. Aumenta Percepção em <%= per %>. Equipamento de Edição Limitada do Outono de 2022."
 }
