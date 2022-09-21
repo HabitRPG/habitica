@@ -7,14 +7,14 @@
           :class="{'active': selectedTab === 'gems'}"
           @click="selectTab('gems')"
         >
-          {{ $t('gemTransactions') }}
+          {{ $t('gems') }}
         </button>
         <button
           class="page-header btn-flat tab-button textCondensed"
           :class="{'active': selectedTab === 'hourglass'}"
           @click="selectTab('hourglass')"
         >
-          {{ $t('hourglassTransactions') }}
+          {{ $t('mysticHourglass', { amount: ''}) }}
         </button>
       </div>
     </div>
@@ -227,24 +227,23 @@
     margin-left: 4px;
   }
 
-
   .added::before {
     content: "+";
   }
 
   .gems {
-    color: $gems-color;
+    color: $green-10;
 
     &.deducted {
-      color: $red-10;
+      color: $maroon-50;
     }
   }
 
   .hourglasses {
     font-weight: bold;
-    color: $hourglass-color;
+    color: $green-10;
     &.deducted {
-      color: $red-10;
+      color: $maroon-50;
     }
   }
 
@@ -278,6 +277,11 @@
 
     line-height: 1.71;
     color: $gray-50;
+  }
+
+  th, td {
+    padding-top: 0.35rem !important;
+    padding-bottom: 0.35rem !important;
   }
 
   .timestamp-column, .action-column  {

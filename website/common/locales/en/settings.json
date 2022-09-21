@@ -198,7 +198,6 @@
     "note": "Note",
     "remainingBalance": "Remaining Balance",
     "transactions": "Transactions",
-    "gemTransactions": "Gem Transactions",
     "hourglassTransactions": "Hourglass Transactions",
     "noGemTransactions": "You don't have any gem transactions yet.",
     "noHourglassTransactions": "You don't have any hourglass transactions yet.",
