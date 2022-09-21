@@ -2,8 +2,7 @@
   <b-modal
     id="payments-success-modal"
     :title="$t('accountSuspendedTitle')"
-    :hide-footer="isGemsBalance || isNewGroup"
-    :modal-class="isGemsBalance || isNewGroup ? ['modal-hidden-footer'] : []"
+    :modal-class="isNewGroup ? ['modal-hidden-footer'] : []"
   >
     <div slot="modal-header">
       <div class="check-container d-flex align-items-center justify-content-center">
@@ -16,18 +15,27 @@
       <h2>{{ $t(isGemsBalance ? 'success' : 'paymentSuccessful') }}</h2>
     </div>
     <div slot="modal-footer">
-      <!-- everyone else -->
+      <!-- gift gems balance & buy, gift subscription -->
       <div
         v-if="isGemsBalance || isGiftGems || isGiftSubscription"
+        class="message mx-auto"
       >
+        <lockable-label
+          :text="$t('sendGiftLabel')"
+          class="mx-auto label-text"
+        />
         <textarea
           v-model="gift.message"
-          class="form-control"
-          rows="3"
+          class="form-control mx-auto"
           :placeholder="$t('sendGiftMessagePlaceholder')"
-          :maxlength="MAX_GIFT_MESSAGE_LENGTH"
         ></textarea>
-        <span>{{ gift.message.length || 0 }} / {{ MAX_GIFT_MESSAGE_LENGTH }}</span>
+        <button
+          :disabled="!gift.message"
+          class="btn btn-primary mx-auto"
+          @click="submit()"
+        >
+          {{ $t('sendMessage') }}
+        </button>
       </div>
       <!-- upgradedGroup -->
       <div
@@ -140,9 +148,9 @@
             class="small-text auto-renew"
           >{{ $t('paymentAutoRenew') }}</span>
         </template>
-        <!-- buttons for subscriptions -->
+        <!-- buttons for subscriptions / new Group / buy Gems for self -->
         <button
-          v-if="!isUpgradedGroup"
+          v-if="isNewGroup || isGems || isSubscription"
           v-once
           class="btn btn-primary"
           @click="submit()"
@@ -159,6 +167,7 @@
 
 #payments-success-modal .modal-md {
   max-width: 448px;
+  min-width: 330px;
 }
 
 #payments-success-modal .modal-content {
@@ -283,6 +292,19 @@
     margin-bottom: 20px;
   }
 }
+.message {
+  margin-bottom: 8px;
+  width: 378px;
+  display: flex;
+  flex-direction: column;
+
+  textarea.form-control {
+    height: 56px;
+    margin: 0 24px 24px 24px;
+    font-size: 0.875rem;
+  }
+}
+
 </style>
 
 <style lang="scss">
@@ -295,6 +317,7 @@
 <script>
 import checkIcon from '@/assets/svg/check.svg';
 import gemIcon from '@/assets/svg/gem.svg';
+import closeIcon from '@/assets/svg/close.svg';
 import { MAX_GIFT_MESSAGE_LENGTH } from '@/../../common/script/constants';
 import { mapState } from '@/libs/store';
 import subscriptionBlocks from '@/../../common/script/content/subscriptionBlocks';
@@ -315,6 +338,7 @@ export default {
       icons: Object.freeze({
         check: checkIcon,
         gem: gemIcon,
+        close: closeIcon,
       }),
       paymentData: {},
       upgradedGroup: {
