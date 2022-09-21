@@ -147,27 +147,6 @@
             <div>Member</div>
           </div>
         </div>
-        <div
-          v-if="type === 'party'"
-          class="form-group"
-        >
-          <button
-            class="btn btn-secondary form-control"
-            :value="$t('create')"
-            @click="createGroup()"
-          ></button>
-        </div>
-      </div>
-      <div
-        v-if="activePage === PAGES.PAY"
-        class="col-12"
-      >
-        <div class="text-center">
-          <payments-buttons
-            :stripe-fn="() => pay(PAYMENTS.STRIPE)"
-            :amazon-data="pay(PAYMENTS.AMAZON)"
-          />
-        </div>
       </div>
     </div>
   </div>
@@ -330,10 +309,6 @@
 
   .payment-options {
     margin-bottom: 64px;
-
-    h4 {
-      color: #34313a;
-    }
 
     h4 {
       color: #34313a;
