@@ -81,7 +81,7 @@
     "newBaileyUpdate": "Neues Update von Bailey!",
     "tellMeLater": "Erzähl es mir später",
     "dismissAlert": "Als gelesen markieren",
-    "donateText3": "Als Open-Source-Projekt ist Habitica auf die Hilfe unserer Benutzer angewiesen. Das Geld, was Du für Edelsteine ausgibst, hilft uns dabei unsere Server am Laufen zu halten, ein paar Mitarbeiter zu bezahlen, neue Features zu entwickeln und unseren ehrenamtlichen Programmierern Anreize zu bieten. Vielen Dank für Deine Großzügigkeit!",
+    "donateText3": "Als Open-Source-Projekt ist Habitica auf die Hilfe unserer Benutzer angewiesen. Das Geld, was Du für Edelsteine ausgibst, hilft uns dabei unsere Server am Laufen zu halten, ein paar Mitarbeiter zu bezahlen, neue Features zu entwickeln und unseren ehrenamtlichen Helferlein Anreize zu bieten.",
     "card": "Kreditkarte",
     "paymentMethods": "Kauf mit",
     "paymentSuccessful": "Die Zahlung war erfolgreich!",
@@ -131,5 +131,6 @@
     "limitedAvailabilityHours": "Für <%= days %>t <%= hours %>std und <%= minutes %>min verfügbar",
     "limitedAvailabilityDays": "Für <%= days %>t <%= hours %>std und <%= minutes %>min verfügbar",
     "amountExp": "<%= amount %> Exp",
-    "newStuffPostedOn": "Veröffentlicht am <%= publishDate %> um <%= publishTime %>"
+    "newStuffPostedOn": "Veröffentlicht am <%= publishDate %> um <%= publishTime %>",
+    "helpSupportHabitica": "Hilf Habitica zu unterstützen"
 }

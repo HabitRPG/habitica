@@ -229,5 +229,9 @@
     "dateEndDecember": "31 декабря",
     "februaryYYYY": "Февраль <%= year %>",
     "julyYYYY": "Июль <%= year %>",
-    "octoberYYYY": "Октябрь <%= year %>"
+    "octoberYYYY": "Октябрь <%= year %>",
+    "fall2022OrcWarriorSet": "Орк (Воин)",
+    "fall2022HarpyMageSet": "Гарпия (Маг)",
+    "fall2022WatcherHealerSet": "Наблюдатель (Целитель)",
+    "fall2022KappaRogueSet": "Каппа (Разбойник)"
 }

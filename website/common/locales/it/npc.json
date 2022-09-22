@@ -81,7 +81,7 @@
     "newBaileyUpdate": "Nuovo aggiornamento da Bailey!",
     "tellMeLater": "Ricordamelo più tardi",
     "dismissAlert": "Nascondi questo annuncio",
-    "donateText3": "Habitica è un progetto open-source che dipende dal supporto degli utenti. I soldi che spendi in Gemme ci aiutano a tenere accesi i nostri server, mantenere un piccolo staff, sviluppare nuove funzionalità e dare degli incentivi ai volontari programmatori. Grazie per la tua generosità!",
+    "donateText3": "Habitica è un progetto open-source che dipende dal supporto degli utenti. I soldi che spendi in Gemme ci aiutano a tenere accesi i nostri server, mantenere un piccolo staff, sviluppare nuove funzionalità e dare degli incentivi ai nostri volontari",
     "card": "Carta di credito",
     "paymentMethods": "Paga utilizzando",
     "paymentSuccessful": "Il tuo pagamento ha avuto successo!",
@@ -130,5 +130,6 @@
     "limitedAvailabilityMinutes": "Disponibile per <%= minutes %> minuti e <%= seconds %> secondi",
     "limitedAvailabilityDays": "Disponibile per <%= days %> giorni, <%= hours %> ore e <%= minutes %> minuti",
     "limitedAvailabilityHours": "Disponibile per <%= hours %> ore e <%= minutes %> minuti",
-    "amountExp": "<%= amount %> Exp"
+    "amountExp": "<%= amount %> Exp",
+    "helpSupportHabitica": "Aiutare a Supportare Habitica"
 }

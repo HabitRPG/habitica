@@ -5,11 +5,11 @@
     "accept2Terms": "та",
     "chores": "Робота по дому",
     "clearBrowserData": "Очистити історію браузера",
-    "communityExtensions": "<a href='https://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations' target='_blank'>Доповнення та розширення</a>",
+    "communityExtensions": "Доповнення та розширення",
     "communityFacebook": "Facebook",
     "companyAbout": "Як це працює",
     "companyBlog": "Блоґ",
-    "companyContribute": "Зробити внесок",
+    "companyContribute": "Зробити внесок в Habitica",
     "companyDonate": "Пожертвувати",
     "forgotPassword": "Забули пароль?",
     "emailNewPass": "Email a Password Reset Link",
@@ -53,8 +53,8 @@
     "marketing4Lead3-1": "Хочеш перетворити своє життя у гру?",
     "marketing4Lead3-2": "Хочете вести групу з освіти, оздоровлення тощо?",
     "marketing4Lead3Title": "Перетвори у гру будь-що",
-    "mobileAndroid": "Android",
-    "mobileIOS": "iOS",
+    "mobileAndroid": "Android-застосунок",
+    "mobileIOS": "iOS-застосунок",
     "oldNews": "Новини",
     "newsArchive": "Архів новин на Вікі (багатомовний)",
     "setNewPass": "Встановити новий пароль",
@@ -187,5 +187,6 @@
     "communityInstagram": "Instagram",
     "enterHabitica": "Повернутись в Habitica",
     "emailUsernamePlaceholder": "наприклад, habitrabbit або gryphon@example.com",
-    "socialAlreadyExists": "Цей соціальний логін уже пов’язано з наявним обліковим записом Habitica."
+    "socialAlreadyExists": "Цей соціальний логін уже пов’язано з наявним обліковим записом Habitica.",
+    "footerProduct": "Продукт"
 }

@@ -3,7 +3,7 @@
   <div class="container-fluid">
     <h1>Privacy Notice</h1>
     <p class="strong pagemeta">
-      Last Updated: September 15, 2022
+      Last Updated September 19, 2022: Removed reference to Facebook login, which is no longer supported.
     </p>
     <p>
       HabitRPG, Inc. (“HabitRPG,” “we,” “us,” or “our”) welcomes you. This privacy notice (the “Privacy
@@ -41,7 +41,6 @@
       verify your identity. We also use this information to manage your account, including your transactions. If
       you choose to log into your account through Google or Apple, we capture and store the User ID and email
       address connected to the respective account, so we can verify your identity when you log in.
-      (We no longer offer the ability to log in using Facebook's authentication procedure.)
     </p>
     <h3>User Content</h3>
     <p>

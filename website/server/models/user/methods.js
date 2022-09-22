@@ -23,7 +23,7 @@ import amazonPayments from '../../libs/payments/amazon'; // eslint-disable-line 
 import stripePayments from '../../libs/payments/stripe'; // eslint-disable-line import/no-cycle
 import paypalPayments from '../../libs/payments/paypal'; // eslint-disable-line import/no-cycle
 import { model as NewsPost } from '../newsPost';
-import { model as Transaction } from '../transaction';
+import { TransactionModel as Transaction } from '../transaction';
 
 const { daysSince } = common;
 

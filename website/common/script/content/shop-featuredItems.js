@@ -5,7 +5,7 @@ import { EVENTS } from './constants';
 // path: 'premiumHatchingPotions.Rainbow',
 const featuredItems = {
   market () {
-    if (moment().isBetween(EVENTS.potions202208.start, EVENTS.potions202208.end)) {
+    if (moment().isBetween(EVENTS.fall2022.start, EVENTS.fall2022.end)) {
       return [
         {
           type: 'armoire',
@@ -13,15 +13,15 @@ const featuredItems = {
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Moonglow',
+          path: 'premiumHatchingPotions.Vampire',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Porcelain',
+          path: 'premiumHatchingPotions.Ghost',
         },
         {
-          type: 'food',
-          path: 'food.Milk',
+          type: 'premiumHatchingPotion',
+          path: 'premiumHatchingPotions.Shadow',
         },
       ];
     }
