@@ -2,8 +2,11 @@
   <b-modal
     id="payments-success-modal"
     :title="$t('accountSuspendedTitle')"
-    :modal-class="isNewGroup ? ['modal-hidden-footer'] : []"
+    :hide-footer="isNewGroup || isGems || isSubscription || isGiftSubscription"
+    :modal-class="isNewGroup || isGems || isSubscription || isGiftSubscription
+      ? ['modal-hidden-footer'] : []"
   >
+    <!-- HEADER -->
     <div slot="modal-header">
       <div class="check-container d-flex align-items-center justify-content-center">
         <div
@@ -14,6 +17,99 @@
       </div>
       <h2>{{ $t(isGemsBalance ? 'success' : 'paymentSuccessful') }}</h2>
     </div>
+    <!-- BODY -->
+    <div class="row">
+      <div class="col-12 modal-body-col">
+        <!-- buy gems for self -->
+        <template v-if="isGems">
+          <strong v-once>{{ $t('paymentYouReceived') }}</strong>
+          <div class="details-block gems">
+            <div
+              v-once
+              class="svg-icon"
+              v-html="icons.gem"
+            ></div>
+            <span>{{ paymentData.gemsBlock.gems }}</span>
+          </div>
+        </template>
+        <!-- buy gems to someone else OR send gems from balance-->
+        <template
+          v-if="isGiftGems || isGemsBalance"
+        >
+          <span v-html="$t('paymentYouSentGems', {name: paymentData.giftReceiver})"></span>
+          <div class="details-block gems">
+            <div
+              v-once
+              class="svg-icon"
+              v-html="icons.gem"
+            ></div>
+            <span>{{ paymentData.gift.gems.amount }}</span>
+          </div>
+        </template>
+        <!-- give gift subscription (non-recurring)-->
+        <template v-if="paymentData.paymentType === 'gift-subscription'">
+          <div>
+            <span
+              v-html="$t('paymentYouSentSubscription', {
+                name: paymentData.giftReceiver, months: paymentData.subscription.months})"
+            ></span>
+          </div>
+        </template>
+        <!-- buy self subscription (recurring) -->
+        <template v-if="isSubscription">
+          <strong v-once>{{ $t('nowSubscribed') }}</strong>
+          <div class="details-block">
+            <span
+              v-html="$t('paymentSubBilling', {
+                amount: paymentData.subscription.price, months: paymentData.subscription.months})"
+            ></span>
+          </div>
+        </template>
+        <!-- group plan new or upgraded -->
+        <template v-if="isGroupPlan">
+          <span
+            v-html="$t(isNewGroup
+              ? 'groupPlanCreated' : 'groupPlanUpgraded', {groupName: paymentData.group.name})"
+          ></span>
+          <div
+            v-if="isGroupPlan"
+            class=""
+          >
+            <div class="details-block group-billing-date">
+              <span
+                v-html="$t('groupsPaymentSubBilling', { renewalDate })"
+              >
+              </span>
+            </div>
+            <div class="small-text group-auto-renew">
+              <span
+                v-once
+              >{{ $t('groupsPaymentAutoRenew') }}
+              </span>
+            </div>
+          </div>
+        </template>
+        <!-- buy self subscription auto renew -->
+        <template
+          v-if="isSubscription"
+        >
+          <span
+            v-once
+            class="small-text auto-renew"
+          >{{ $t('paymentAutoRenew') }}</span>
+        </template>
+        <!-- buttons for subscriptions / new Group / buy Gems for self -->
+        <button
+          v-if="isNewGroup || isGems || isSubscription"
+          v-once
+          class="btn btn-primary"
+          @click="submit()"
+        >
+          {{ $t('onwards') }}
+        </button>
+      </div>
+    </div>
+    <!-- FOOTER -->
     <div slot="modal-footer">
       <!-- gift gems balance & buy, gift subscription -->
       <div
@@ -67,95 +163,6 @@
           @click="submit()"
         >
           {{ $t('submit') }}
-        </button>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12 modal-body-col">
-        <!-- buy gems for self -->
-        <template v-if="isGems">
-          <strong v-once>{{ $t('paymentYouReceived') }}</strong>
-          <div class="details-block gems">
-            <div
-              v-once
-              class="svg-icon"
-              v-html="icons.gem"
-            ></div>
-            <span>{{ paymentData.gemsBlock.gems }}</span>
-          </div>
-        </template>
-        <!-- buy or gift gems to someone else -->
-        <template
-          v-if="isGiftGems || isGemsBalance"
-        >
-          <span v-html="$t('paymentYouSentGems', {name: paymentData.giftReceiver})"></span>
-          <div class="details-block gems">
-            <div
-              v-once
-              class="svg-icon"
-              v-html="icons.gem"
-            ></div>
-            <span>{{ paymentData.gift.gems.amount }}</span>
-          </div>
-        </template>
-        <!-- give gift subscription (non-recurring)-->
-        <template v-if="isGiftSubscription">
-          <span
-            v-html="$t('paymentYouSentSubscription', {
-              name: paymentData.giftReceiver, months: paymentData.subscription.months})"
-          ></span>
-        </template>
-        <!-- buy self subscription (recurring) -->
-        <template v-if="isSubscription">
-          <strong v-once>{{ $t('nowSubscribed') }}</strong>
-          <div class="details-block">
-            <span
-              v-html="$t('paymentSubBilling', {
-                amount: paymentData.subscription.price, months: paymentData.subscription.months})"
-            ></span>
-          </div>
-        </template>
-        <!-- group plan new or upgraded -->
-        <template v-if="isGroupPlan">
-          <span
-            v-html="$t(isNewGroup
-              ? 'groupPlanCreated' : 'groupPlanUpgraded', {groupName: paymentData.group.name})"
-          ></span>
-          <div
-            v-if="isGroupPlan"
-            class=""
-          >
-            <div class="details-block group-billing-date">
-              <span
-                v-html="$t('groupsPaymentSubBilling', { renewalDate })"
-              >
-              </span>
-            </div>
-            <div class="small-text group-auto-renew">
-              <span
-                v-once
-              >{{ $t('groupsPaymentAutoRenew') }}
-              </span>
-            </div>
-          </div>
-        </template>
-        <!-- buy self subscription auto renew -->
-        <template
-          v-if="isSubscription"
-        >
-          <span
-            v-once
-            class="small-text auto-renew"
-          >{{ $t('paymentAutoRenew') }}</span>
-        </template>
-        <!-- buttons for subscriptions / new Group / buy Gems for self -->
-        <button
-          v-if="isNewGroup || isGems || isSubscription"
-          v-once
-          class="btn btn-primary"
-          @click="submit()"
-        >
-          {{ $t('onwards') }}
         </button>
       </div>
     </div>
@@ -369,7 +376,7 @@ export default {
       return this.paymentData.paymentType === 'gift-gems';
     },
     isGiftSubscription () {
-      return this.paymentData.paymentType === 'gift-subscription';
+      return this.paymentData.paymentType === 'subscription';
     },
     isSubscription () {
       return this.paymentData.paymentType === 'subscription';
@@ -390,6 +397,7 @@ export default {
         data.subscription = subscriptionBlocks[data.subscriptionKey || data.gift.subscription.key];
       }
       this.paymentData = data;
+      console.log('data.paymentType: ', data.paymentType);
       this.$root.$emit('bv::show::modal', 'payments-success-modal');
     });
   },
