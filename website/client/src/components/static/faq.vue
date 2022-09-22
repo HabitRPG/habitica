@@ -93,7 +93,6 @@ export default {
       'monsters-quests',
       'gems',
       'bugs-features',
-      'world-boss',
       'group-plans',
     ];
 
