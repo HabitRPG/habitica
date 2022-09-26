@@ -8,6 +8,16 @@
   >
     <!-- HEADER -->
     <div slot="modal-header">
+      <div
+        class="modal-close"
+        @click="close()"
+      >
+        <div
+          class="icon-close"
+          v-html="icons.close"
+        >
+        </div>
+      </div>
       <div class="check-container d-flex align-items-center justify-content-center">
         <div
           v-once
@@ -172,114 +182,134 @@
 <style lang="scss">
 @import '~@/assets/scss/colors.scss';
 
-#payments-success-modal .modal-md {
-  max-width: 448px;
-  min-width: 330px;
-}
+#payments-success-modal {
+  .modal-md {
+    max-width: 448px;
+    min-width: 330px;
 
-#payments-success-modal .modal-content {
-  background: transparent;
+  .modal-close {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    cursor: pointer;
+
+    .icon-close {
+      width: 18px;
+      height: 18px;
+      vertical-align: middle;
+
+      & svg path {
+        fill: $green-1;
+      }
+       & :hover {
+        fill: $green-1;
+      }
+    }
+  }
+
+  .modal-content {
+    background: transparent;
+  }
+  .modal-header {
+    justify-content: center;
+    padding-top: 24px;
+    padding-bottom: 0px;
+    background: $green-100;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+    border-bottom: none;
+
+    h2 {
+      color: $green-1;
+    }
+
+    .check-container {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: $green-1;
+      margin: 0 auto;
+      margin-bottom: 16px;
+    }
+
+    .check {
+      width: 35.1px;
+      height: 28px;
+      color: $white;
+    }
+  }
+  .modal-body {
+    padding: 16px 32px 24px 32px;
+    background: $white;
+
+    .modal-body-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+
+      .btn.btn-primary {
+        margin-top: 24px;
+      }
+    }
+
+    .details-block {
+      background: $gray-700;
+      border-radius: 4px;
+      padding: 8px 16px;
+      margin-top: 16px;
+      display: inline-flex;
+      flex-direction: row;
+      text-align: center;
+
+      &.gems {
+        padding: 12px 16px 12px 20px;
+        color: $green-10;
+        font-size: 24px;
+        font-weight: bold;
+        line-height: 1.33;
+
+        .svg-icon {
+          margin-right: 8px;
+          width: 32px;
+          height: 32px;
+        }
+      }
+    }
+
+    .auto-renew {
+      margin-top: 16px;
+      color: $orange-10;
+      font-style: normal;
+    }
+
+    .group-auto-renew {
+      margin: 12px 20px -8px 20px;
+      color: $yellow-5;
+      font-style: normal;
+    }
+
+    .group-billing-date {
+      width: 269px;
+    }
+  }
+    .modal-footer {
+      background: $gray-700;
+      border-bottom-right-radius: 8px;
+      border-bottom-left-radius: 8px;
+      justify-content: center;
+      border-top: none;
+
+      .small-text {
+        font-style: normal;
+      }
+    }
+  }
 }
 
 #payments-success-modal.modal-hidden-footer .modal-body {
   border-bottom-right-radius: 8px;
   border-bottom-left-radius: 8px;
-}
-
-
-#payments-success-modal .modal-header {
-  justify-content: center;
-  padding-top: 24px;
-  padding-bottom: 0px;
-  background: $green-100;
-  border-top-right-radius: 8px;
-  border-top-left-radius: 8px;
-  border-bottom: none;
-
-  h2 {
-    color: $green-1;
-  }
-
-  .check-container {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    background: $green-1;
-    margin: 0 auto;
-    margin-bottom: 16px;
-  }
-
-  .check {
-    width: 35.1px;
-    height: 28px;
-    color: $white;
-  }
-}
-
-#payments-success-modal .modal-body {
-  padding: 16px 32px 24px 32px;
-  background: $white;
-
-  .modal-body-col {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-
-    .btn.btn-primary {
-      margin-top: 24px;
-    }
-  }
-
-  .details-block {
-    background: $gray-700;
-    border-radius: 4px;
-    padding: 8px 16px;
-    margin-top: 16px;
-    display: inline-flex;
-    flex-direction: row;
-    text-align: center;
-
-    &.gems {
-      padding: 12px 16px 12px 20px;
-      color: $green-10;
-      font-size: 24px;
-      font-weight: bold;
-      line-height: 1.33;
-
-      .svg-icon {
-        margin-right: 8px;
-        width: 32px;
-        height: 32px;
-      }
-    }
-  }
-
-  .auto-renew {
-    margin-top: 16px;
-    color: $orange-10;
-    font-style: normal;
-  }
-  .group-auto-renew {
-    margin: 12px 20px -8px 20px;
-    color: $yellow-5;
-    font-style: normal;
-  }
-  .group-billing-date {
-    width: 269px;
-  }
-}
-
-#payments-success-modal .modal-footer {
-  background: $gray-700;
-  border-bottom-right-radius: 8px;
-  border-bottom-left-radius: 8px;
-  justify-content: center;
-  border-top: none;
-
-  .small-text {
-    font-style: normal;
-  }
 }
 
 .demographics {
@@ -406,6 +436,9 @@ export default {
     this.$root.$off('habitica:payments-success');
   },
   methods: {
+    close () {
+      this.$root.$emit('bv::hide::modal', 'payments-success-modal');
+    },
     submit () {
       if (this.isUpgradedGroup) {
         Analytics.track({
