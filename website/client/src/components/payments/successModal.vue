@@ -2,8 +2,8 @@
   <b-modal
     id="payments-success-modal"
     :title="$t('accountSuspendedTitle')"
-    :hide-footer="isNewGroup || isGems || isSubscription || isGiftSubscription"
-    :modal-class="isNewGroup || isGems || isSubscription || isGiftSubscription
+    :hide-footer="isNewGroup || isGems || isSubscription"
+    :modal-class="isNewGroup || isGems || isSubscription
       ? ['modal-hidden-footer'] : []"
   >
     <!-- HEADER -->
@@ -376,7 +376,8 @@ export default {
       return this.paymentData.paymentType === 'gift-gems';
     },
     isGiftSubscription () {
-      return this.paymentData.paymentType === 'subscription';
+      console.log('isGiftSubscription: ', this.paymentData.paymentType);
+      return this.paymentData.paymentType === 'gift-subscription';
     },
     isSubscription () {
       return this.paymentData.paymentType === 'subscription';
@@ -397,7 +398,6 @@ export default {
         data.subscription = subscriptionBlocks[data.subscriptionKey || data.gift.subscription.key];
       }
       this.paymentData = data;
-      console.log('data.paymentType: ', data.paymentType);
       this.$root.$emit('bv::show::modal', 'payments-success-modal');
     });
   },
