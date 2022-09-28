@@ -352,16 +352,22 @@
 
 
 <script>
+// icons
 import checkIcon from '@/assets/svg/check.svg';
 import gemIcon from '@/assets/svg/gem.svg';
 import closeIcon from '@/assets/svg/close.svg';
-import { MAX_GIFT_MESSAGE_LENGTH } from '@/../../common/script/constants';
+
+// components
 import { mapState } from '@/libs/store';
 import subscriptionBlocks from '@/../../common/script/content/subscriptionBlocks';
 import selectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
 import lockableLabel from '@/components/tasks/modal-controls/lockableLabel';
+
+// mixins
 import notificationsMixin from '@/mixins/notifications';
 import paymentsMixin from '@/mixins/payments';
+
+// analytics2
 import * as Analytics from '@/libs/analytics';
 
 export default {
@@ -372,13 +378,9 @@ export default {
   mixins: [paymentsMixin, notificationsMixin],
   props: {
     userReceivingGift: {
-      type: Object,
-      default () {},
-    },
-    receiverName: {
       type: String,
       default: '',
-    }
+    },
   },
   data () {
     return {
@@ -392,8 +394,7 @@ export default {
         name: '',
         demographics: null,
       },
-
-      MAX_GIFT_MESSAGE_LENGTH: MAX_GIFT_MESSAGE_LENGTH.toString(),
+      sendingInProgress: false,
       gift: {
         message: '',
       },
@@ -416,7 +417,6 @@ export default {
       return this.paymentData.paymentType === 'gift-gems';
     },
     isGiftSubscription () {
-      console.log('isGiftSubscription: ', this.paymentData.paymentType);
       return this.paymentData.paymentType === 'gift-subscription';
     },
     isSubscription () {
@@ -447,12 +447,16 @@ export default {
   },
   methods: {
     async sendMessage () {
-      await this.$store.dispatch(this.isGems || this.isGemsBalance || this.isGiftSubscription, {
-        message: this.gift.message,
-        toUserId: this.userReceivingGift._id,
-      });
-      console.log(this.message, this.toUserId);
-      this.close();
+      console.log(this.userReceivingGift._id);
+      this.sendingInProgress = true;
+      if ('isGems' || 'isGemsBalance' || 'isGiftSubscription') {
+        await this.$store.dispatch('members:sendPrivateMessage', {
+          message: this.gift.message,
+          toUserId: this.paymentData.userReceivingGift._id,
+        });
+        console.log(this.messageText, this.toUserId);
+        this.close();
+      }
     },
     onHide () {
       this.gift.message = '';
