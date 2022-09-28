@@ -137,8 +137,9 @@
         ></textarea>
         <button
           :disabled="!gift.message"
+          :userReceivingGift="userReceivingGift._id"
           class="btn btn-primary mx-auto"
-          @click="submit()"
+          @click="sendMessage()"
         >
           {{ $t('sendMessage') }}
         </button>
@@ -341,7 +342,6 @@
     font-size: 0.875rem;
   }
 }
-
 </style>
 
 <style lang="scss">
@@ -370,6 +370,16 @@ export default {
     lockableLabel,
   },
   mixins: [paymentsMixin, notificationsMixin],
+  props: {
+    userReceivingGift: {
+      type: Object,
+      default () {},
+    },
+    receiverName: {
+      type: String,
+      default: '',
+    }
+  },
   data () {
     return {
       icons: Object.freeze({
@@ -436,6 +446,17 @@ export default {
     this.$root.$off('habitica:payments-success');
   },
   methods: {
+    async sendMessage () {
+      await this.$store.dispatch(this.isGems || this.isGemsBalance || this.isGiftSubscription, {
+        message: this.gift.message,
+        toUserId: this.userReceivingGift._id,
+      });
+      console.log(this.message, this.toUserId);
+      this.close();
+    },
+    onHide () {
+      this.gift.message = '';
+    },
     close () {
       this.$root.$emit('bv::hide::modal', 'payments-success-modal');
     },
