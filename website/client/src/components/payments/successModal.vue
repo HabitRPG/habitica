@@ -365,7 +365,7 @@ export default {
           eventCategory: 'behavior',
           demographics: this.upgradedGroup.demographics,
           type: this.paymentData.group.type, // also tried this.upgradedGroup.type
-        });
+        }, { trackOnClient: true });
       }
       this.paymentData = {};
       this.$root.$emit('bv::hide::modal', 'payments-success-modal');
