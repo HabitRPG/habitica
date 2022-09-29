@@ -137,7 +137,6 @@
         ></textarea>
         <button
           :disabled="!gift.message"
-          :userReceivingGift="userReceivingGift._id"
           class="btn btn-primary mx-auto"
           @click="sendMessage()"
         >
@@ -375,13 +374,10 @@ export default {
     selectTranslatedArray,
     lockableLabel,
   },
-  mixins: [paymentsMixin, notificationsMixin],
-  props: {
-    userReceivingGift: {
-      type: String,
-      default: '',
-    },
-  },
+  mixins: [
+    paymentsMixin,
+    notificationsMixin,
+  ],
   data () {
     return {
       icons: Object.freeze({
@@ -397,6 +393,10 @@ export default {
       sendingInProgress: false,
       gift: {
         message: '',
+      },
+      receiverName: {
+        name: null,
+        uuid: null,
       },
     };
   },
@@ -447,21 +447,21 @@ export default {
   },
   methods: {
     async sendMessage () {
-      console.log(this.userReceivingGift._id);
       this.sendingInProgress = true;
       if ('isGems' || 'isGemsBalance' || 'isGiftSubscription') {
         await this.$store.dispatch('members:sendPrivateMessage', {
           message: this.gift.message,
-          toUserId: this.paymentData.userReceivingGift._id,
+          toUserId: this.receiverName.uuid,
         });
-        console.log(this.messageText, this.toUserId);
         this.close();
       }
+      console.log('to: ', this.messageText, this.toUserId, 'from: ', this.user._id);
     },
-    onHide () {
-      this.gift.message = '';
-    },
+    // onHide () {
+    //   this.gift.message = '';
+    // },
     close () {
+      this.gift.message = '';
       this.$root.$emit('bv::hide::modal', 'payments-success-modal');
     },
     submit () {
