@@ -213,7 +213,7 @@ describe('cron utility functions', () => {
       };
     }
 
-    it('offset 0, next date in 3 months', () => {
+    it('monthly plan, next date in 3 months', () => {
       const user = baseUserData(60, 0, 'group_plan_auto');
 
       const planContext = getPlanContext(user, now);
@@ -222,8 +222,8 @@ describe('cron utility functions', () => {
         .to.be.sameMoment('2022-08-10T02:00:00.144Z');
     });
 
-    it('offset 1, next date in 1 months', () => {
-      const user = baseUserData(60, 1, 'group_plan_auto');
+    it('monthly plan, next date in 1 month', () => {
+      const user = baseUserData(62, 0, 'group_plan_auto');
 
       const planContext = getPlanContext(user, now);
 
@@ -231,8 +231,17 @@ describe('cron utility functions', () => {
         .to.be.sameMoment('2022-06-10T02:00:00.144Z');
     });
 
-    it('offset 2, next date in 2 months - with any plan', () => {
-      const user = baseUserData(60, 2, 'basic_3mo');
+    it('multi-month plan, no offset', () => {
+      const user = baseUserData(60, 0, 'basic_3mo');
+
+      const planContext = getPlanContext(user, now);
+
+      expect(planContext.nextHourglassDate)
+        .to.be.sameMoment('2022-06-10T02:00:00.144Z');
+    });
+
+    it('multi-month plan with offset', () => {
+      const user = baseUserData(60, 1, 'basic_3mo');
 
       const planContext = getPlanContext(user, now);
 
