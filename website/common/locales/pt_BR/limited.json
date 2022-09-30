@@ -229,5 +229,9 @@
     "summer2022AngelfishHealerSet": "Peixe-anjo (Curandeiro)",
     "dateEndDecember": "31 de dezembro",
     "februaryYYYY": "Fevereiro de <%= year %>",
-    "julyYYYY": "Julho de <%= year %>"
+    "julyYYYY": "Julho de <%= year %>",
+    "fall2022OrcWarriorSet": "Orc (Guerreiro)",
+    "fall2022HarpyMageSet": "Harpia (Mago)",
+    "fall2022KappaRogueSet": "Kappa (Gatuno)",
+    "fall2022WatcherHealerSet": "Observador (Curandeiro)"
 }
