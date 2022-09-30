@@ -229,5 +229,9 @@
     "dateEndDecember": "12月31日",
     "februaryYYYY": "<%= year %>年2月",
     "julyYYYY": "<%= year %>年7月",
-    "octoberYYYY": "<%= year %>年10月"
+    "octoberYYYY": "<%= year %>年10月",
+    "fall2022HarpyMageSet": "ハーピー（魔道士）",
+    "fall2022WatcherHealerSet": "ウォッチャー（治療師）",
+    "fall2022KappaRogueSet": "カッパ（盗賊）",
+    "fall2022OrcWarriorSet": "オーク（戦士）"
 }

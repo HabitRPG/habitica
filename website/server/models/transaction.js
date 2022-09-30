@@ -17,6 +17,7 @@ export const schema = new Schema({
   userId: {
     $type: String, ref: 'User', required: true, validate: [v => validator.isUUID(v), 'Invalid uuid for Transaction.'],
   },
+  migration: String,
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
@@ -34,9 +35,10 @@ schema.plugin(baseModel, {
     'referenceText',
     'amount',
     'currentAmount',
+    'migration',
   ], // Nothing can be set from the client
   timestamps: true,
   _id: false, // using custom _id
 });
 
-export const model = mongoose.model('Transaction', schema);
+export const TransactionModel = mongoose.model('Transaction', schema);
