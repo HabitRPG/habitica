@@ -671,12 +671,13 @@ describe('payments/index', () => {
 
     context('No Active Promotion', () => {
       beforeEach(() => {
-        sinon.stub(worldState, 'getCurrentEventList').returns([]);
         sinon.stub(worldState, 'getCurrentEvent').returns(null);
+        sinon.stub(worldState, 'getCurrentEventList').returns([]);
       });
 
       afterEach(() => {
         worldState.getCurrentEvent.restore();
+        worldState.getCurrentEventList.restore();
       });
 
       it('does not apply a discount', async () => {
