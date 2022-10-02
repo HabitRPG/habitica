@@ -106,18 +106,18 @@
         <tr>
           <td></td>
           <th class="email_push_col email_col_padding">
-            <span>{{ $t('email') }}</span>
+            <span v-once>{{ $t('email') }}</span>
           </th>
           <th class="email_push_col">
-            <span>{{ $t('push') }}</span>
+            <span v-once>{{ $t('push') }}</span>
           </th>
         </tr>
         <tr
             v-for="notification in notificationsIds"
             :key="notification"
         >
-          <td>
-            <span>{{ $t(notification) }}</span>
+          <td class="bold" v-once>
+            {{ $t(notification) }}
           </td>
           <td class="email_push_col">
              <toggle-switch :checked="user.preferences.emailNotifications[notification]"
@@ -132,6 +132,11 @@
                             class="toggle-switch-width"
             />
           </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
         </tr>
       </table>
     </div>
@@ -217,8 +222,8 @@ export default {
         'invitedParty',
         'invitedGuild',
         'invitedQuest',
-        'wonChallenge',
         'questStarted',
+        'wonChallenge',
         // 'weeklyRecaps',
         'kickedGroup',
         'onboarding',

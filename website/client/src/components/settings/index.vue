@@ -38,7 +38,6 @@
         {{ $t('subscription') }}
       </router-link>
       <router-link
-        v-if="hasPermission(user, 'userSupport')"
         class="nav-link"
         :to="{name: 'transactions'}"
         :class="{'active': $route.name === 'transactions'}"
@@ -82,7 +81,7 @@
       </div>
     </div>
     <div class="col-12 d-flex justify-content-center">
-      <div :class="{'settings-content': $route.name !== 'subscription'}">
+      <div :class="{'settings-content': applyNarrowView}">
         <router-view />
       </div>
     </div>
@@ -154,6 +153,9 @@ export default {
     promo () {
       if (!this.currentEvent || !this.currentEvent.promo) return 'none';
       return this.currentEvent.promo;
+    },
+    applyNarrowView () {
+      return !['subscription', 'transactions'].includes(this.$route.name);
     },
   },
   methods: {
