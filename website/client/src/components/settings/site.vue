@@ -147,52 +147,7 @@
             >{{ $t('displayInviteToPartyWhenPartyIs1') }}</span>
           </label>
         </div>
-        <div class="checkbox">
-          <input
-            v-model="user.preferences.suppressModals.levelUp"
-            type="checkbox"
-            class="mr-2"
-            @change="set('suppressModals', 'levelUp')"
-          >
-          <label>{{ $t('suppressLevelUpModal') }}</label>
-        </div>
-        <div class="checkbox">
-          <input
-            v-model="user.preferences.suppressModals.hatchPet"
-            type="checkbox"
-            class="mr-2"
-            @change="set('suppressModals', 'hatchPet')"
-          >
-          <label>{{ $t('suppressHatchPetModal') }}</label>
-        </div>
-        <div class="checkbox">
-          <input
-            v-model="user.preferences.suppressModals.raisePet"
-            type="checkbox"
-            class="mr-2"
-            @change="set('suppressModals', 'raisePet')"
-          >
-          <label>{{ $t('suppressRaisePetModal') }}</label>
-        </div>
-        <div class="checkbox">
-          <input
-            v-model="user.preferences.suppressModals.streak"
-            type="checkbox"
-            class="mr-2"
-            @change="set('suppressModals', 'streak')"
-          >
-          <label>{{ $t('suppressStreakModal') }}</label>
-        </div>
-        <hr>
-        <button
-          class="btn btn-primary mr-2 mb-2"
-          popover-trigger="mouseenter"
-          popover-placement="right"
-          :popover="$t('showBaileyPop')"
-          @click="showBailey()"
-        >
-          {{ $t('showBailey') }}
-        </button>
+
         <button
           class="btn btn-primary mr-2 mb-2"
           popover-trigger="mouseenter"
@@ -705,9 +660,6 @@ export default {
       // @TODO: Do we still use this?
       // User.set({'flags.showTour':true});
       // Guide.goto('intro', 0, true);
-    },
-    showBailey () {
-      this.$root.$emit('bv::show::modal', 'new-stuff');
     },
     hasBackupAuthOption (networkKeyToCheck) {
       if (this.user.auth.local.username) {

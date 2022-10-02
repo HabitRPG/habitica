@@ -34,6 +34,72 @@
       </table>
     </div>
     <div class="col-12">
+      <h2>Website</h2>
+      <table class="table">
+        <tr>
+          <td class="bold" v-once>
+            {{ $t('showLevelUpModal') }}
+          </td>
+          <td class="email_push_col">
+             <toggle-switch :checked="!user.preferences.suppressModals.levelUp"
+                           @toggle="set('suppressModals', 'levelUp')"
+                            class="toggle-switch-width"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td class="bold" v-once>
+            {{ $t('showHatchPetModal') }}
+          </td>
+          <td class="email_push_col">
+             <toggle-switch :checked="!user.preferences.suppressModals.hatchPet"
+                           @toggle="set('suppressModals', 'hatchPet')"
+                            class="toggle-switch-width"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td class="bold" v-once>
+            {{ $t('showRaisePetModal') }}
+          </td>
+          <td class="email_push_col">
+             <toggle-switch :checked="!user.preferences.suppressModals.raisePet"
+                           @toggle="set('suppressModals', 'raisePet')"
+                            class="toggle-switch-width"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td class="bold" v-once>
+            {{ $t('showStreakModal') }}
+          </td>
+          <td class="email_push_col">
+             <toggle-switch :checked="!user.preferences.suppressModals.streak"
+                           @toggle="set('suppressModals', 'streak')"
+                            class="toggle-switch-width"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td class="bold" v-once>
+            {{ $t('baileyAnnouncement') }}
+          </td>
+          <td class="email_push_col show_bailey_col">
+            <a @click="showBailey()" class="show_bailey_link"
+            popover-trigger="mouseenter"
+              popover-placement="right"
+              :popover="$t('showBaileyPop')">
+                {{ $t('show') }}
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-12">
       <h2>Email & Push</h2>
 
       <table class="table">
@@ -72,7 +138,7 @@
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '~@/assets/scss/colors.scss';
 
 .toggle-switch-width {
@@ -112,6 +178,24 @@ small {
 
 .email_col_padding {
   padding-right: 70px !important;
+}
+
+toggle-switch {
+  padding-right: 8px;
+}
+
+.show_bailey_col {
+  text-align: right;
+}
+
+.show_bailey_link {
+  padding-right: 8px;
+  line-height: 1.71;
+  color: $blue-10 !important;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 </style>
 
@@ -185,6 +269,9 @@ export default {
       const settings = {};
       settings[`preferences.${preferenceType}.${notification}`] = this.user.preferences[preferenceType][notification];
       this.$store.dispatch('user:set', settings);
+    },
+    showBailey () {
+      this.$root.$emit('bv::show::modal', 'new-stuff');
     },
   },
 };
