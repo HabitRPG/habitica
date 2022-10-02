@@ -81,8 +81,10 @@
       >
       </div>
     </div>
-    <div class="col-12">
-      <router-view />
+    <div class="col-12 d-flex justify-content-center">
+      <div class="settings-content">
+        <router-view />
+      </div>
     </div>
   </div>
 </template>
@@ -115,6 +117,11 @@
 
   .svg-gifts {
     width: 3.5rem;
+  }
+
+  .settings-content {
+    flex: 0 0 684px;
+    max-width: unset;
   }
 </style>
 

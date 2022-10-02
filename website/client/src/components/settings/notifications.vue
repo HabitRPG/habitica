@@ -1,14 +1,14 @@
 <template>
-  <div class="row standard-page">
+  <div class="row standard-page px-0">
     <div class="col-12">
-      <h1 class="page-header">{{ $t('notifications') }}</h1>
+      <h1 class="page-header" v-once>{{ $t('notifications') }}</h1>
     </div>
     <div class="col-12">
       <h2>All Notifications</h2>
 
       <table class="table">
         <tr>
-          <td>{{ $t('unsubscribeAllPush') }}</td>
+          <td class="bold">{{ $t('unsubscribeAllPush') }}</td>
           <td>
             <toggle-switch :checked="user.preferences.pushNotifications.unsubscribeFromAll"
                            @toggle="set('pushNotifications', 'unsubscribeFromAll')"
@@ -18,7 +18,7 @@
         </tr>
         <tr>
           <td>
-            {{ $t('unsubscribeAllEmails') }} <br>
+            <span class="bold">{{ $t('unsubscribeAllEmails') }}</span> <br>
            <small>{{ $t('unsubscribeAllEmailsText') }}</small>
           </td>
           <td>
@@ -39,7 +39,7 @@
       <table class="table">
         <tr>
           <td></td>
-          <th class="email_push_col">
+          <th class="email_push_col email_col_padding">
             <span>{{ $t('email') }}</span>
           </th>
           <th class="email_push_col">
@@ -72,7 +72,9 @@
   </div>
 </template>
 
-<style type="text/scss">
+<style lang="scss">
+@import '~@/assets/scss/colors.scss';
+
 .toggle-switch-width {
   ::v-deep {
     .toggle-switch {
@@ -84,6 +86,32 @@
   width: 50px;
   padding-left: 0 !important;
   padding-right: 0 !important;
+}
+
+/** Table Styles, maybe can be copied / extracted once more Pages need it */
+
+.table {
+  margin-bottom: 0.5rem;
+}
+
+.table th, .table td {
+  padding: 0.5rem;
+}
+
+.bold {
+  font-weight: bold;
+  line-height: 1.71;
+  color: $gray-50;
+}
+
+small {
+  font-size: 12px;
+  line-height: 1.33;
+  color: $gray-100;
+}
+
+.email_col_padding {
+  padding-right: 70px !important;
 }
 </style>
 
