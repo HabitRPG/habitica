@@ -31,7 +31,7 @@
     "royalPurpleJackalope": "Королівський фіолетовий Кролень",
     "invisibleAether": "Невидимий Ефір",
     "potion": "<%= potionType %> еліксир",
-    "egg": "<%= eggType %> Яйце",
+    "egg": "<%= eggType %> в яйці",
     "eggs": "Яйця",
     "eggSingular": "яйце",
     "hatchingPotions": "Зілля дозрівання",

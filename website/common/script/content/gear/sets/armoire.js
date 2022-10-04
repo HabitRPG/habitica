@@ -434,6 +434,12 @@ const eyewear = {
   clownsNose: {
     int: 5,
   },
+  tragedyMask: {
+    int: 10,
+  },
+  comedyMask: {
+    con: 10,
+  },
 };
 
 const head = {

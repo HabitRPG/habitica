@@ -12,7 +12,7 @@
       <template v-slot:button-content>
         <slot
           name="item"
-          :item="selected"
+          :item="selected || placeholder"
           :button="true"
         >
           <!-- Fallback content -->
@@ -113,6 +113,9 @@ export default {
     inlineDropdown: {
       type: Boolean,
       default: true,
+    },
+    placeholder: {
+      type: String,
     },
   },
   data () {

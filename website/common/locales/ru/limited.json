@@ -224,10 +224,14 @@
     "aprilYYYY": "Апрель <%= year %>",
     "summer2022WaterspoutWarriorSet": "Водяной смерч (Воин)",
     "summer2022CrabRogueSet": "Краб (Разбойник)",
-    "summer2022MantaRayMageSet": "Скат манта (Маг)",
+    "summer2022MantaRayMageSet": "Скат Манта (Маг)",
     "summer2022AngelfishHealerSet": "Рыба-ангел (Целитель)",
     "dateEndDecember": "31 декабря",
     "februaryYYYY": "Февраль <%= year %>",
     "julyYYYY": "Июль <%= year %>",
-    "octoberYYYY": "Октябрь <%= year %>"
+    "octoberYYYY": "Октябрь <%= year %>",
+    "fall2022OrcWarriorSet": "Орк (Воин)",
+    "fall2022HarpyMageSet": "Гарпия (Маг)",
+    "fall2022WatcherHealerSet": "Наблюдатель (Целитель)",
+    "fall2022KappaRogueSet": "Каппа (Разбойник)"
 }

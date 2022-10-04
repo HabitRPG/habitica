@@ -135,5 +135,8 @@
     "achievementGroupsBeta2022": "Probador Beta interactivo",
     "achievementGroupsBeta2022Text": "Tu y tu grupo brindaron comentarios increibles para ayudar a Habitica a realizar la prueba.",
     "achievementGroupsBeta2022ModalText": "¡Usted y sus grupos ayudaron a Habitica probando y proporcionando comentarios!",
-    "achievementReptacularRumble": "Rumble reptacular"
+    "achievementReptacularRumble": "Rumble reptacular",
+    "achievementWoodlandWizard": "Mago del bosque",
+    "achievementWoodlandWizardModalText": "¡Has recogido todas las mascotas del bosque!",
+    "achievementWoodlandWizardText": "Ha incubado todos los colores estándar de las criaturas del bosque: Tejón, Oso, Ciervo, Zorro, Rana, Erizo, Búho, Caracol, Ardilla y Treeling!"
 }

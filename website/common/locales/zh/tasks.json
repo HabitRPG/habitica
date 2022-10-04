@@ -139,5 +139,6 @@
     "resetCounter": "重置连击次数",
     "counter": "次数",
     "adjustCounter": "调整连击次数",
-    "editTagsText": "编辑标签"
+    "editTagsText": "编辑标签",
+    "taskSummary": "<%= type %> 摘要"
 }

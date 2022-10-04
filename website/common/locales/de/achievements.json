@@ -104,7 +104,7 @@
     "achievementSeeingRed": "Rot Sehen",
     "achievementRedLetterDay": "Roter Faden",
     "achievementLegendaryBestiaryModalText": "Du hast alle mystischen Haustiere gesammelt!",
-    "achievementLegendaryBestiaryText": "Hat alle mystischen Haustiere ausgebrütet: Drachen-Jungtier, Fliegendes Ferkel, Greifen-Jungtier, Seeschlangen-Haustier und Einhorn-Fohlen!",
+    "achievementLegendaryBestiaryText": "Hat alle mystischen Haustiere in den Standardfarben ausgebrütet: Drache, Fliegendes Ferkel, Greif, Seeschlange und Einhorn!",
     "achievementLegendaryBestiary": "Legendäres Bestiarium",
     "achievementSeasonalSpecialistModalText": "Du hast alle saisonalen Quests abgeschlossen!",
     "achievementSeasonalSpecialistText": "Hat alle Quests der Frühlings- und Winter-Saison abgeschlossen: Eierjagd, Wildernder Weihnachtswichtel, und Finde das Jungtier!",
@@ -135,5 +135,8 @@
     "achievementReptacularRumble": "Reptilisches Rumpeln",
     "achievementGroupsBeta2022": "Interaktive Beta Testperson",
     "achievementGroupsBeta2022Text": "Deine Gruppe und Du habt unschätzbar wertvolles Feedback beigesteuert, um Habitica beim Testen zu unterstützen.",
-    "achievementGroupsBeta2022ModalText": "Du hast mit Deinen Gruppen Habitica geholfen, indem ihr getestet und Feedback geschrieben habt!"
+    "achievementGroupsBeta2022ModalText": "Du hast mit Deinen Gruppen Habitica geholfen, indem ihr getestet und Feedback geschrieben habt!",
+    "achievementWoodlandWizardModalText": "Du hast alle Wald-Tiere gesammelt!",
+    "achievementWoodlandWizard": "Wald-Magier",
+    "achievementWoodlandWizardText": "Du hast alle Standard-Farben der Waldkreaturen ausgebrütet: Dachs, Bär, Hirsch, Fuchs, Frosch, Igel, Eule, Schlange, Eichhörnchen und Bäumling!"
 }

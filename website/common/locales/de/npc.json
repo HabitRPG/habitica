@@ -17,9 +17,9 @@
     "mattBochText1": "Willkommen im Stall! Ich bin Matt, der Bestienmeister. Jedes Mal, wenn Du eine Aufgabe erledigst, besteht die Chance, zufällig ein Ei oder ein Schlüpfelixier zu erhalten, mit deren Hilfe Haustiere ausgebrütet werden können. Wenn Du ein Haustier schlüpfen lässt, wird es hier erscheinen! Klicke auf ein Haustier, um es Deinem Avatar hinzuzufügen. Füttere Deine Tiere mit dem Futter, das Du findest, damit sie zu mächtigen Reittieren heranwachsen.",
     "welcomeToTavern": "Willkommen in der Taverne!",
     "sleepDescription": "Brauchst Du eine Pause? Checke in Daniels Gasthaus ein, um ein paar der kniffligeren  Habitica-Spielmechanismen zu unterbrechen:",
-    "sleepBullet1": "Verpasste Tagesaufgaben werden Dir nicht schaden",
-    "sleepBullet2": "Aufgaben verlieren ihre Strähnen nicht",
-    "sleepBullet3": "Bosse fügen keinen Schaden für Deine eigenen verpassten Tagesaufgaben zu",
+    "sleepBullet1": "Deine verpassten Tagesaufgaben werden Dir nicht schaden (Bosse werden dennoch Deiner Party Schaden zufügen, wenn andere Partymitglieder ihre Täglichen Aufgaben verpassen)",
+    "sleepBullet2": "Deine Aufgaben-Strähnen und Gewohnheits-Zähler werden nicht zurückgesetzt",
+    "sleepBullet3": "Dein Schaden gegen Quest-Bosse oder Deine gefundenen Sammelgegenstände bleiben ausständig, bis Du aus dem Gasthaus auscheckst",
     "sleepBullet4": "Dein ausstehender Boss-Schaden oder gefundene Sammelquest-Gegenstände werden bis zum Check-Out zurückgehalten",
     "pauseDailies": "Schaden pausieren",
     "unpauseDailies": "Schaden wieder aktivieren",
@@ -81,7 +81,7 @@
     "newBaileyUpdate": "Neues Update von Bailey!",
     "tellMeLater": "Erzähl es mir später",
     "dismissAlert": "Als gelesen markieren",
-    "donateText3": "Als Open-Source-Projekt ist Habitica auf die Hilfe unserer Benutzer angewiesen. Das Geld, was Du für Edelsteine ausgibst, hilft uns dabei unsere Server am Laufen zu halten, ein paar Mitarbeiter zu bezahlen, neue Features zu entwickeln und unseren ehrenamtlichen Programmierern Anreize zu bieten. Vielen Dank für Deine Großzügigkeit!",
+    "donateText3": "Als Open-Source-Projekt ist Habitica auf die Hilfe unserer Benutzer angewiesen. Das Geld, was Du für Edelsteine ausgibst, hilft uns dabei unsere Server am Laufen zu halten, ein paar Mitarbeiter zu bezahlen, neue Features zu entwickeln und unseren ehrenamtlichen Helferlein Anreize zu bieten.",
     "card": "Kreditkarte",
     "paymentMethods": "Kauf mit",
     "paymentSuccessful": "Die Zahlung war erfolgreich!",
@@ -131,5 +131,6 @@
     "limitedAvailabilityHours": "Für <%= days %>t <%= hours %>std und <%= minutes %>min verfügbar",
     "limitedAvailabilityDays": "Für <%= days %>t <%= hours %>std und <%= minutes %>min verfügbar",
     "amountExp": "<%= amount %> Exp",
-    "newStuffPostedOn": "Veröffentlicht am <%= publishDate %> um <%= publishTime %>"
+    "newStuffPostedOn": "Veröffentlicht am <%= publishDate %> um <%= publishTime %>",
+    "helpSupportHabitica": "Hilf Habitica zu unterstützen"
 }

@@ -23,7 +23,7 @@
       <customize-options
         :items="set.options"
         :current-value="user.preferences.skin"
-        :full-set="!hideSet(set) && !userOwnsSet('skin', set.keys)"
+        :full-set="!hideSet(set.key) && !userOwnsSet('skin', set.keys)"
         @unlock="unlock(`skin.${set.keys.join(',skin.')}`)"
       />
     </div>

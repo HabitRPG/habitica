@@ -132,5 +132,11 @@
     "achievementZodiacZookeeperText": "¡Has eclosionado todas las mascotas del zodíaco de color básico: Rata, Vaca, Conejo, Serpiente, Caballo, Oveja, Mono, Gallo, Lobo, Tigre, Cerdo Volador y Dragón!",
     "achievementReptacularRumbleText": "¡Has eclosionado todos los colores estándar de las mascotas reptiles: Caimán, Pterodáctilo, Serpiente, Triceratops, Tortuga, Tiranosaurio, y Velociraptor!",
     "achievementReptacularRumble": "Retumbado Reptacular",
-    "achievementReptacularRumbleModalText": "¡Coleccionaste todas las mascotas reptiles!"
+    "achievementReptacularRumbleModalText": "¡Coleccionaste todas las mascotas reptiles!",
+    "achievementGroupsBeta2022Text": "Tu grupo y tú brindaron un valioso aporte para ayudar Habitica a realizar pruebas.",
+    "achievementGroupsBeta2022ModalText": "¡Tus grupos y tú han ayudado Habitica realizando pruebas y dando sugerencias!",
+    "achievementGroupsBeta2022": "Verificador interactivo de la versión beta",
+    "achievementWoodlandWizardText": "¡Ha eclosionado todos los colores estándar de las criaturas del bosque: tejón, oso, venado, zorro, rana, erizo, búho, caracol, ardilla y arbolito!",
+    "achievementWoodlandWizard": "Mago del bosque",
+    "achievementWoodlandWizardModalText": "¡Has coleccionado todas las mascotas del bosque!"
 }

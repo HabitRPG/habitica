@@ -39,6 +39,13 @@ export default {
       return moment(this.user.purchased.plan.dateTerminated)
         .format(this.user.preferences.dateFormat.toUpperCase());
     },
+    renewalDate () {
+      const renewalDate = moment().add(1, 'months');
+      if (!this.user.preferences || !this.user.preferences.dateFormat) {
+        return renewalDate;
+      }
+      return renewalDate.format(this.user.preferences.dateFormat.toUpperCase());
+    },
   },
   methods: {
     encodeGift (uuid, gift) {
@@ -140,6 +147,7 @@ export default {
       if (data.subscription) postData.sub = sub.key;
       if (data.coupon) postData.coupon = data.coupon;
       if (data.groupId) postData.groupId = data.groupId;
+      if (data.demographics) postData.demographics = data.demographics;
 
       const response = await axios.post(url, postData);
 
@@ -265,6 +273,10 @@ export default {
 
       if (data.groupToCreate) { // creating a group
         this.amazonPayments.groupToCreate = data.groupToCreate;
+      }
+
+      if (data.demographics) { // sending demographics
+        this.amazonPayments.demographics = data.demographics;
       }
 
       this.amazonPayments.gift = data.gift;
