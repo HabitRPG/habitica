@@ -363,7 +363,7 @@
 
   #front {
     .form-text a {
-      color: #fff !important;
+      color: $white !important;
     }
 
     .container-fluid {
@@ -382,23 +382,23 @@
     }
 
     .purple-1, .purple-2, .purple-3, .purple-4, h1, h2, h3, h4, h5 {
-      color: #fff;
+      color: $white;
     }
 
     .purple-1 {
-      background-color: #6133b4;
+      background-color: $purple-300;
     }
 
     .purple-2 {
-      background-color: #432874;
+      background-color: $purple-100;
     }
 
     .purple-3 {
-      background-color: #36205d;
+      background-color: $purple-50;
     }
 
     .purple-4 {
-      background-color: #271b3d;
+      background-color: $header-dark-background;
     }
 
     p.section-main {
@@ -419,15 +419,15 @@
     }
 
     .pixel-horizontal {
-      color: #6133b4;
+      color: $purple-300;
     }
 
     .pixel-horizontal-2 {
-      color: #432874;
+      color: $purple-100;
     }
 
     .pixel-horizontal-3 {
-      color: #271b3d;
+      color: $header-dark-background;
     }
 
     h1, h2, h3, h4, h5, h6, button, .strike > span, input {
@@ -455,13 +455,13 @@
 
     .social-button {
       border-radius: 2px;
-      border: solid 2px #bda8ff;
+      border: solid 2px $purple-500;
       width: 100%;
       min-height: 40px;
       padding: .5em;
       background: transparent;
       margin-bottom: .5em;
-      color: #bda8ff;
+      color: $purple-500;
       transition: .5s;
 
       span {
@@ -471,8 +471,8 @@
 
     .social-button:hover {
       cursor: pointer;
-      border-color: #fff;
-      color: #fff;
+      border-color: $white;
+      color: $white;
     }
 
     .social-icon {
@@ -531,8 +531,8 @@
     input {
       margin-bottom: 1em;
       border-radius: 2px;
-      background-color: #432874;
-      border-color: #432874;
+      background-color: $purple-100;
+      border-color: $purple-100;
       color: $purple-400;
       border: solid 2px transparent;
       transition-timing-function: ease;
@@ -544,17 +544,17 @@
     }
 
     .input-valid {
-      color: #fff;
+      color: $white;
     }
 
     input:focus {
-      border: solid 2px #9a62ff;
+      border: solid 2px $purple-400;
       color: #fff;
-      background-color: #36205d;
+      background-color: $purple-50;
     }
 
     input:hover {
-      background-color: #36205d;
+      background-color: $purple-50;
     }
 
     .sign-up {
@@ -657,7 +657,7 @@
       width: 411px;
       height: 48px;
       border-radius: 2px;
-      background-color: #9a62ff;
+      background-color: $purple-400;
       box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.24), 0 1px 4px 0 rgba(26, 24, 29, 0.16);
       margin-bottom: 5em;
     }
@@ -674,7 +674,7 @@
       cursor: pointer;
 
       &:hover {
-        background-color: #5d3b9c;
+        background-color: $purple-50;
         box-shadow: 0 4px 4px 0 rgba(26, 24, 29, 0.16), 0 1px 8px 0 rgba(26, 24, 29, 0.12);
       }
     }
@@ -693,7 +693,7 @@
 
       .svg-icon {
         vertical-align: bottom;
-        color: #d5c8ff;
+        color: $purple-600;
         display: inline-block;
         margin-right: 1em;
       }
@@ -760,6 +760,7 @@
       height: 500px;
       width: 100%;
       opacity: .5;
+      pointer-events: none;
     }
   }
 
@@ -776,7 +777,7 @@
   }
 
   .input-error {
-    color: #fff;
+    color: $white;
     font-size: 90%;
     width: 100%;
     margin-bottom: 1em;
