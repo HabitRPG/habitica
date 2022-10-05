@@ -375,12 +375,6 @@
       padding-bottom: 5em;
     }
 
-    .logo {
-      width: 128px;
-      height: 28px;
-      color: purple;
-    }
-
     .purple-1, .purple-2, .purple-3, .purple-4, h1, h2, h3, h4, h5 {
       color: $white;
     }
