@@ -11,7 +11,7 @@ import { // eslint-disable-line import/no-cycle
   model as Group,
   basicFields as basicGroupFields,
 } from '../../models/group';
-import { model as User } from '../../models/user';
+import { model as User } from '../../models/user'; // eslint-disable-line import/no-cycle
 import {
   NotAuthorized,
   NotFound,
@@ -83,7 +83,7 @@ async function createSubscription (data) {
   if (data.user) {
     const unlockedUser = await User.findOneAndUpdate(
       {
-        _id: data.user._id, 
+        _id: data.user._id,
         $or: [
           { _subSignature: 'NOT_RUNNING' },
           { _subSignature: { $exists: false } },
