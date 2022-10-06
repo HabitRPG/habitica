@@ -11,6 +11,7 @@ import { // eslint-disable-line import/no-cycle
   model as Group,
   basicFields as basicGroupFields,
 } from '../../models/group';
+import model as User from '../../models/user';
 import {
   NotAuthorized,
   NotFound,
@@ -78,6 +79,20 @@ async function createSubscription (data) {
   let purchaseType = 'subscribe';
   let emailType = 'subscription-begins';
   let recipientIsSubscribed = recipient.isSubscribed();
+
+  if (data.user) {
+    const unlockedUser = await User.findOneAndUpdate(
+      {
+        _id: data.user._id, 
+        $or: [
+          { _subSignature: 'NOT_RUNNING' },
+          { _subSignature: { $exists: false } },
+        ],
+      },
+      { $set: { _subSignature: 'SUB_IN_PROGRESS' } },
+    );
+    if (!unlockedUser) throw new NotFound('User not found or subscription already processing.');
+  }
 
   //  If we are buying a group subscription
   if (data.groupId) {
@@ -282,10 +297,6 @@ async function createSubscription (data) {
     }
   }
 
-  if (group) await group.save();
-  if (data.user && data.user.isModified()) await data.user.save();
-  if (data.gift) await data.gift.member.save();
-
   slack.sendSubscriptionNotification({
     buyer: {
       id: data.user._id,
@@ -302,6 +313,13 @@ async function createSubscription (data) {
     groupId,
     autoRenews,
   });
+
+  if (group) await group.save();
+  if (data.user) {
+    data.user._subSignature = 'NOT_RUNNING';
+    await data.user.save();
+  }
+  if (data.gift) await data.gift.member.save();
 }
 
 // Cancels a subscription or group plan, setting termination to happen later
