@@ -136,7 +136,7 @@
           :placeholder="$t('sendGiftMessagePlaceholder')"
         ></textarea>
         <button
-          :disabled="!gift.message"
+          :disabled="!gift.message || sendingInProgress"
           class="btn btn-primary mx-auto"
           @click="sendMessage()"
         >
@@ -346,9 +346,7 @@
 <style lang="scss">
   @import '~@/assets/scss/mixins.scss';
 
-
 </style>
-
 
 <script>
 // icons
@@ -366,7 +364,7 @@ import lockableLabel from '@/components/tasks/modal-controls/lockableLabel';
 import notificationsMixin from '@/mixins/notifications';
 import paymentsMixin from '@/mixins/payments';
 
-// analytics2
+// analytics
 import * as Analytics from '@/libs/analytics';
 
 export default {
@@ -448,20 +446,27 @@ export default {
   methods: {
     async sendMessage () {
       this.sendingInProgress = true;
-      if ('isGems' || 'isGemsBalance' || 'isGiftSubscription') {
+      // purchasing gems or a sub for someone
+      if (this.paymentData.paymentType !== 'gift-gems-balance') {
         await this.$store.dispatch('members:sendPrivateMessage', {
           message: this.gift.message,
-          toUserId: this.receiverName.uuid,
+          toUserId: this.paymentData.gift.uuid,
         });
-        this.close();
+      // giving gems from balance
+      } else if (this.paymentData.paymentType === 'gift-gems-balance') {
+        await this.$store.dispatch('members:sendPrivateMessage', {
+          message: this.gift.message,
+          toUserId: this.paymentData.userId,
+        });
       }
-      console.log('to: ', this.messageText, this.toUserId, 'from: ', this.user._id);
+      console.log(this.paymentData);
+      this.close();
     },
-    // onHide () {
-    //   this.gift.message = '';
-    // },
+
+
     close () {
       this.gift.message = '';
+      this.sendingInProgress = false;
       this.$root.$emit('bv::hide::modal', 'payments-success-modal');
     },
     submit () {

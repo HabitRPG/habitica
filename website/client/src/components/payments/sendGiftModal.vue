@@ -649,6 +649,7 @@ export default {
             },
           },
           giftReceiver: this.receiverName,
+          toUserId: this.userReceivingGift._id,
         });
       }, 500);
     },
