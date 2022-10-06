@@ -316,8 +316,8 @@ async function createSubscription (data) {
 
   if (group) await group.save();
   if (data.user) {
-    data.user._subSignature = 'NOT_RUNNING';
-    await data.user.save();
+    if (data.user.isModified()) await data.user.save();
+    if (!data.gift && !data.groupId) await data.user.set({ _subSignature: 'NOT_RUNNING' });
   }
   if (data.gift) await data.gift.member.save();
 }
