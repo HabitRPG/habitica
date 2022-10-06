@@ -577,3 +577,22 @@ schema.methods.updateBalance = async function updateBalance (amount,
     currentAmount: this.balance,
   });
 };
+
+schema.methods.updateHourglasses = async function updateHourglasses (
+  amount,
+  transactionType,
+  reference,
+  referenceText,
+) {
+  this.purchased.plan.consecutive.trinkets += amount;
+
+  await Transaction.create({
+    currency: 'hourglasses',
+    userId: this._id,
+    transactionType,
+    amount,
+    reference,
+    referenceText,
+    currentAmount: this.purchased.plan.consecutive.trinkets,
+  });
+};

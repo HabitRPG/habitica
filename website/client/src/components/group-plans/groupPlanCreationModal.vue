@@ -324,7 +324,7 @@ export default {
         eventCategory: 'behavior',
         demographics: this.newGroup.demographics,
         type: this.newGroup.type,
-      });
+      }, { trackOnClient: true });
 
       if (this.upgradingGroup && this.upgradingGroup._id) {
         paymentData.groupId = this.upgradingGroup._id;

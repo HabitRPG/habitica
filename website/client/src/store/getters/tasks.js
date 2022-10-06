@@ -102,7 +102,7 @@ export function canEdit (store) {
         }
         break;
       case 'group':
-        isUserCanEditTask = isUserGroupLeader || isUserGroupManager || isUserAdmin;
+        isUserCanEditTask = isUserGroupLeader || isUserGroupManager;
         break;
       default:
         break;
