@@ -80,7 +80,7 @@ async function createSubscription (data) {
   let emailType = 'subscription-begins';
   let recipientIsSubscribed = recipient.isSubscribed();
 
-  if (data.user) {
+  if (data.user && !data.gift && !data.groupId) {
     const unlockedUser = await User.findOneAndUpdate(
       {
         _id: data.user._id,
