@@ -32,6 +32,10 @@ export const EVENTS = {
     end: '2022-10-13T20:00-04:00',
     gemsPromo,
   },
+  bundle202210: {
+    start: '2022-10-05T08:00-04:00', // start date is 2022-10-13
+    end: '2022-10-31T20:00-04:00',
+  },
   beforeGala: {
     start: '2022-07-31T20:00-04:00',
     end: '2022-09-20T08:00-04:00',

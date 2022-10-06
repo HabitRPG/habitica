@@ -45,19 +45,19 @@ const featuredItems = {
     ];
   },
   quests () {
-    if (moment().isBetween(EVENTS.bundle202208.start, EVENTS.bundle202209.end)) {
+    if (moment().isBetween(EVENTS.bundle202210.start, EVENTS.bundle202210.end)) {
       return [
         {
           type: 'bundles',
-          path: 'bundles.forestFriends',
-        },
-        {
-          type: 'bundles',
-          path: 'bundles.farmFriends',
+          path: 'bundles.witchyFamiliars',
         },
         {
           type: 'quests',
-          path: 'quests.ferret',
+          path: 'quests.snake',
+        },
+        {
+          type: 'quests',
+          path: 'quests.owl',
         },
       ];
     }
