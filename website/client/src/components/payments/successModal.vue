@@ -451,7 +451,6 @@ export default {
         message: this.gift.message,
         toUserId: this.paymentData.gift.uuid || this.paymentData.toUserId,
       });
-      console.log(this.paymentData);
       this.close();
     },
 
