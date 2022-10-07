@@ -453,15 +453,13 @@ export default {
       });
       this.close();
     },
-
-
     close () {
       this.gift.message = '';
       this.sendingInProgress = false;
       this.$root.$emit('bv::hide::modal', 'payments-success-modal');
     },
     submit () {
-      if (this.isUpgradedGroup) {
+      if (this.paymentData.group && !this.paymentData.newGroup) {
         Analytics.track({
           hitType: 'event',
           eventName: 'group plan upgrade',
