@@ -1,7 +1,6 @@
 <template>
   <b-modal
     id="payments-success-modal"
-    :title="$t('accountSuspendedTitle')"
     :hide-footer="isNewGroup || isGems || isSubscription"
     :modal-class="isNewGroup || isGems || isSubscription
       ? ['modal-hidden-footer'] : []"
@@ -210,6 +209,7 @@
   .modal-content {
     background: transparent;
   }
+
   .modal-header {
     justify-content: center;
     padding-top: 24px;
@@ -238,6 +238,7 @@
       color: $white;
     }
   }
+
   .modal-body {
     padding: 16px 32px 24px 32px;
     background: $white;
@@ -420,7 +421,7 @@ export default {
     isSubscription () {
       return this.paymentData.paymentType === 'subscription';
     },
-    isGroupPlan () { // might not need this function
+    isGroupPlan () {
       return this.paymentData.paymentType === 'groupPlan';
     },
     isUpgradedGroup () {
@@ -446,19 +447,10 @@ export default {
   methods: {
     async sendMessage () {
       this.sendingInProgress = true;
-      // purchasing gems or a sub for someone
-      if (this.paymentData.paymentType !== 'gift-gems-balance') {
-        await this.$store.dispatch('members:sendPrivateMessage', {
-          message: this.gift.message,
-          toUserId: this.paymentData.gift.uuid,
-        });
-      // giving gems from balance
-      } else if (this.paymentData.paymentType === 'gift-gems-balance') {
-        await this.$store.dispatch('members:sendPrivateMessage', {
-          message: this.gift.message,
-          toUserId: this.paymentData.userId,
-        });
-      }
+      await this.$store.dispatch('members:sendPrivateMessage', {
+        message: this.gift.message,
+        toUserId: this.paymentData.gift.uuid || this.paymentData.toUserId,
+      });
       console.log(this.paymentData);
       this.close();
     },
@@ -477,7 +469,7 @@ export default {
           eventAction: 'group plan upgrade',
           eventCategory: 'behavior',
           demographics: this.upgradedGroup.demographics,
-          type: this.paymentData.group.type, // also tried this.upgradedGroup.type
+          type: this.paymentData.group.type,
         }, { trackOnClient: true });
       }
       this.paymentData = {};
