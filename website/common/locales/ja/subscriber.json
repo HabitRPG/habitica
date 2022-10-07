@@ -207,8 +207,10 @@
     "howManyGemsPurchase": "ジェムをいくつ購入しますか?",
     "sendAGift": "プレゼントを贈る",
     "needToPurchaseGems": "ジェムを贈り物として購入する必要がありますか?",
-    "mysterySet202206": "シースプライトセット",
-    "mysterySet202207": "ゼリークラゲセット",
+    "mysterySet202206": "海原の妖精セット",
+    "mysterySet202207": "ローヤルゼリーフィッシュセット",
     "wantToSendOwnGems": "持っているジェムを贈りたいですか？",
-    "mysterySet202208": "はつらつポニーテールセット"
+    "mysterySet202208": "はつらつポニーテールセット",
+    "mysterySet202209": "魔法学者セット",
+    "mysterySet202210": "不吉な蛇セット"
 }

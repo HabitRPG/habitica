@@ -2690,5 +2690,19 @@
     "headMystery202208Notes": "Amusez-vous à parader avec ces cheveux volumineux - ils servent aussi de fouet en cas de besoin ! Ne confère aucun bonus. Équipement d'abonnement d'août 2022.",
     "eyewearMystery202208Notes": "Donnez à vos ennemis un faux sentiment de sécurité avec ces mignons petits voyants terrifiants. Ne confère aucun bonus. Équipement d'abonnement d'août 2022.",
     "headMystery202207Notes": "Besoin d'un coup de main avec vos tâches ? Est ce que plusieurs douzaines de tentacules bioluminescentes feraient l'affaire ? Ne confère aucun bonus. Équipement d'abonnement de Juillet 2022.",
-    "headArmoireFancyPirateHatNotes": "Protégez-vous du soleil et des mouettes qui vous survolent pendant que vous buvez le thé sur le pont de votre bateau. Augmente la perception de <%= per %>. Armoire enchantée : ensemble de piraterie fantaisiste (objet 2 de 3)."
+    "headArmoireFancyPirateHatNotes": "Protégez-vous du soleil et des mouettes qui vous survolent pendant que vous buvez le thé sur le pont de votre bateau. Augmente la perception de <%= per %>. Armoire enchantée : ensemble de piraterie fantaisiste (objet 2 de 3).",
+    "weaponMystery202209Text": "Manuel de magie",
+    "weaponMystery202209Notes": "Ce livre vous guidera à travers votre parcours en apprentissage magique. Ne confère aucun bonus. Équipement d'abonnement de septembre 2022.",
+    "shieldMystery202209Text": "Pile de livre de magie",
+    "shieldMystery202209Notes": "Construire votre connaissance en magie nécessite beaucoup de lecture, mais vous avez la certitude d'apprécier votre apprentissage. Ne confère aucun bonus. Équipement d'abonnement de septembre 2022.",
+    "weaponSpecialFall2022WarriorText": "Déchireuse orc",
+    "weaponSpecialFall2022MageText": "Souffles de vent",
+    "weaponSpecialFall2022MageNotes": "Ces puissants souffles restent autour de vous alors que vous vous envolez vers les cieux. Augmente la intelligence de <%= int %> et la perception de <%= per %>. Équipement en édition limitée de l'automne 2022.",
+    "weaponSpecialFall2022HealerText": "Œil droit voyeur",
+    "armorSpecialFall2022RogueText": "Armure de kappa",
+    "weaponSpecialFall2022HealerNotes": "Pour invoquer la colère divine, tenez le bien et prononcez les mots de commande : \"Oh monde yeux !\" Augmente l'intelligence de <%= int %>. Équipement en édition limitée de l'automne 2022.",
+    "weaponSpecialFall2022RogueNotes": "Non seulement vous pouvez vous défendre avec ce concombre, mais il servira aussi de casse-croûte savoureux. Augmente la force de <%= str %>. Équipement en édition limitée de l'automne 2022.",
+    "weaponSpecialFall2022WarriorNotes": "Elle est peut-être plus prévue pour couper les bûches Ou les tranches de pain croustillant que les armures ennemies, mais GRRR ! Ça a l'air terrifiant ! Augmente la force de <%= str %>. Équipement en édition limitée de l'automne 2022.",
+    "armorSpecialFall2022RogueNotes": "Que vous nagiez, que vous vous faufiliez, ou que vous luttiez, vous serez tranquille dans cette armure. Augmente la perception de <%= per %>. Équipement en édition limitée de l'automne 2022.",
+    "weaponSpecialFall2022RogueText": "Lame concombre"
 }

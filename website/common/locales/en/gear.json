@@ -447,6 +447,15 @@
   "weaponSpecialSpring2022HealerText": "Peridot Wand",
   "weaponSpecialSpring2022HealerNotes": "Use this wand to tap into peridot’s healing properties, whether it be to bring calm, positivity, or kindheartedness. Increases Intelligence by <%= int %>. Limited Edition 2022 Spring Gear.",
 
+  "weaponSpecialFall2022RogueText": "Cucumber Blade",
+  "weaponSpecialFall2022RogueNotes": "Not only can you defend yourself with this cucumber, it also makes for a tasty meal. Increases Strength by <%= str %>. Limited Edition 2022 Fall Gear.",
+  "weaponSpecialFall2022WarriorText": "Orcish Ripsword",
+  "weaponSpecialFall2022WarriorNotes": "Maybe more suited for cutting logs or crusty loaves of bread than enemy armor, but RAWR! It sure looks fearsome! Increases Strength by <%= str %>. Limited Edition 2022 Fall Gear.",
+  "weaponSpecialFall2022MageText": "Wind Blasts",
+  "weaponSpecialFall2022MageNotes": "These mighty gusts remain in your wake as you take off toward the skies. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2022 Fall Gear.",
+  "weaponSpecialFall2022HealerText": "Right Peeker Eye",
+  "weaponSpecialFall2022HealerNotes": "To claim victory, hold it forth and utter the words of command: 'Eye One!' Increases Intelligence by <%= int %>. Limited Edition 2022 Fall Gear.",
+
   "weaponMystery201411Text": "Pitchfork of Feasting",
   "weaponMystery201411Notes": "Stab your enemies or dig in to your favorite foods - this versatile pitchfork does it all! Confers no benefit. November 2014 Subscriber Item.",
   "weaponMystery201502Text": "Shimmery Winged Staff of Love and Also Truth",
@@ -1083,6 +1092,15 @@
   "armorSpecialSummer2022HealerText": "Angelfish Tail",
   "armorSpecialSummer2022HealerNotes": "Use your colorful fins to scoot about the reef and help those in need of rest and healing. Increases Constitution by <%= con %>. Limited Edition 2022 Summer Gear.",
 
+  "armorSpecialFall2022RogueText": "Kappa Armor",
+  "armorSpecialFall2022RogueNotes": "Whether you’re swimming, sneaking, or wrestling, you will be safe in this armor. Increases Perception by <%= per %>. Limited Edition 2022 Fall Gear.",
+  "armorSpecialFall2022WarriorText": "Orcish Armor",
+  "armorSpecialFall2022WarriorNotes": "RAWR! BIG SHOULDERS mean you are BIG STRONG! Increases Constitution by <%= con %>. Limited Edition 2022 Fall Gear.",
+  "armorSpecialFall2022MageText": "Harpy Armor",
+  "armorSpecialFall2022MageNotes": "Fly as fast as the wind with these wonderful wings and hold what you care most about tight in these terrifying talons. Increases Intelligence by <%= int %>. Limited Edition 2022 Fall Gear.",
+  "armorSpecialFall2022HealerText": "Profusion of Peeker Pods",
+  "armorSpecialFall2022HealerNotes": "How many peeps could a Peeker peep, if a Peeker could peep peeps? Increases Constitution by <%= con %>. Limited Edition 2022 Fall Gear.",
+
   "armorMystery201402Text": "Messenger Robes",
   "armorMystery201402Notes": "Shimmering and strong, these robes have many pockets to carry letters. Confers no benefit. February 2014 Subscriber Item.",
   "armorMystery201403Text": "Forest Walker Armor",
@@ -1193,6 +1211,8 @@
   "armorMystery202204Notes": "Looks like doing your tasks now requires pushing these mysterious buttons! What could they do? Confers no benefit. April 2022 Subscriber Item.",
   "armorMystery202207Text": "Jammin' Jelly Armor",
   "armorMystery202207Notes": "This armor will have you looking glamorous and gelatinous. Confers no benefit. July 2022 Subscriber Item.",
+  "armorMystery202210Text": "Ominous Ophidian Armor",
+  "armorMystery202210Notes": "Try slithering for a change, you may find it's quite an efficient mode of transportation! Confers no benefit. October 2022 Subscriber Item.",
   "armorMystery301404Text": "Steampunk Suit",
   "armorMystery301404Notes": "Dapper and dashing, wot! Confers no benefit. February 3015 Subscriber Item.",
   "armorMystery301703Text": "Steampunk Peacock Gown",
@@ -1793,6 +1813,15 @@
   "headSpecialSpring2022HealerText": "Peridot Helmet",
   "headSpecialSpring2022HealerNotes": "This mysterious helmet preserves your privacy as you tackle your tasks. Increases Intelligence by <%= int %>. Limited Edition 2022 Spring Gear.",
 
+  "headSpecialFall2022RogueText": "Kappa Mask",
+  "headSpecialFall2022RogueNotes": "With this metal cap upon your head, you will have extra protection when you venture onto land. Increases Perception by <%= per %>. Limited Edition 2022 Fall Gear.",
+  "headSpecialFall2022WarriorText": "Orc Mask",
+  "headSpecialFall2022WarriorNotes": "Tusks tough and sharp enough to pierce pumpkins! RAWR! Increases Strength by <%= str %>. Limited Edition 2022 Fall Gear.",
+  "headSpecialFall2022MageText": "Harpy Mask",
+  "headSpecialFall2022MageNotes": "Entrance and lure others close with this magical maiden mask. Increases Perception by <%= per %>. Limited Edition 2022 Fall Gear.",
+  "headSpecialFall2022HealerText": "Peeker Mask",
+  "headSpecialFall2022HealerNotes": "Beauty is in there. Somewhere! Increases Intelligence by <%= int %>. Limited Edition 2022 Fall Gear.",
+
   "headSpecialGaymerxText": "Rainbow Warrior Helm",
   "headSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special helmet is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
 
@@ -1932,6 +1961,8 @@
   "headMystery202207Notes": "Need a hand with your tasks? Will several dozen bioluminescent tentacles do? Confers no benefit. July 2022 Subscriber Item.",
   "headMystery202208Text": "Perky Ponytail",
   "headMystery202208Notes": "Enjoy showing off this voluminous hair - it can double as a whip in a pinch! Confers no benefit. August 2022 Subscriber Item.",
+  "headMystery202210Text": "Ominous Ophidian Helm",
+  "headMystery202210Notes": "This scaly hood will surely terrify your To-Do list into submission! Confers no benefit. October 2022 Subscriber Item.",
 
   "headMystery301404Text": "Fancy Top Hat",
   "headMystery301404Notes": "A fancy top hat for the finest of gentlefolk! January 3015 Subscriber Item. Confers no benefit.",
@@ -2344,6 +2375,11 @@
   "shieldSpecialSummer2022WarriorNotes": "It snaps! It bites! And it never, ever stops! Increases Constitution by <%= con %>. Limited Edition 2022 Summer Gear.",
   "shieldSpecialSummer2022HealerText": "Remedial Ripples",
   "shieldSpecialSummer2022HealerNotes": "Send out restorative magic in gentle ripples through the reef. Increases Constitution by <%= con %>. Limited Edition 2022 Summer Gear.",
+
+  "shieldSpecialFall2022WarriorText": "Orc Shield",
+  "shieldSpecialFall2022WarriorNotes": "RAWR or TREAT! Increases Constitution by <%= con %>. Limited Edition 2022 Fall Gear.",
+  "shieldSpecialFall2022HealerText": "Left Peeker Eye",
+  "shieldSpecialFall2022HealerNotes": "Eye Two, look upon this costume and tremble. Increases Constitution by <%= con %>. Limited Edition 2022 Fall Gear.",
 
   "shieldMystery201601Text": "Resolution Slayer",
   "shieldMystery201601Notes": "This blade can be used to parry away all distractions. Confers no benefit. January 2016 Subscriber Item.",
@@ -2867,6 +2903,10 @@
   "eyewearArmoireGoofyGlassesNotes": "Perfect for going incognito or just making your partymates giggle. Increases Perception by <%= per %>. Enchanted Armoire: Independent Item.",
   "eyewearArmoireClownsNoseText": "Clown's Nose",
   "eyewearArmoireClownsNoseNotes": "This accessory will make sure everyone 'nose' you're a clown! Increases Intelligence by <%= int %>. Enchanted Armoire: Clown Set (Item 2 of 5).",
+  "eyewearArmoireComedyMaskText": "Comedy Mask",
+  "eyewearArmoireComedyMaskNotes": "Cheerily! Here is a quaint mask for thine happy heart, playing, heralding joy, and expressing merriment and mirth upon the stage. Increases Constitution by <%= con %>. Enchanted Armoire: Theatre Masks Set (Item 1 of 2).",
+  "eyewearArmoireTragedyMaskText": "Tragedy Mask",
+  "eyewearArmoireTragedyMaskNotes": "Alas! Here sits a heavy mask for thine poor player, strutting, fretting, and expressing woe and sorrow upon the stage. Increases Intelligence by <%= int %>. Enchanted Armoire: Theatre Masks Set (Item 2 of 2).",
 
   "twoHandedItem": "Two-handed item."
 }

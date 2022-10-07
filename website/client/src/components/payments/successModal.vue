@@ -2,8 +2,8 @@
   <b-modal
     id="payments-success-modal"
     :title="$t('accountSuspendedTitle')"
-    :hide-footer="isFromBalance"
-    :modal-class="isFromBalance ? ['modal-hidden-footer'] : []"
+    :hide-footer="isFromBalance || paymentData.newGroup"
+    :modal-class="isFromBalance || paymentData.newGroup ? ['modal-hidden-footer'] : []"
   >
     <div slot="modal-header">
       <div class="check-container d-flex align-items-center justify-content-center">
@@ -16,15 +16,49 @@
       <h2>{{ $t(isFromBalance ? 'success' : 'paymentSuccessful') }}</h2>
     </div>
     <div slot="modal-footer">
+      <!-- everyone else -->
       <div
-        v-once
+        v-if="paymentData.paymentType !== 'groupPlan' || paymentData.newGroup"
         class="small-text"
       >
         {{ $t('giftSubscriptionText4') }}
       </div>
+      <!-- upgradedGroup -->
+      <div
+        v-else
+        class="demographics d-flex flex-column justify-content-center"
+      >
+        <lockable-label
+          :text="$t('groupUse')"
+          class="mx-auto label-text"
+        />
+        <select-translated-array
+          :items="[
+            'groupParentChildren',
+            'groupCouple',
+            'groupFriends',
+            'groupCoworkers',
+            'groupManager',
+            'groupTeacher'
+          ]"
+          class="group-input"
+          :placeholder="'groupUseDefault'"
+          :value="upgradedGroup.demographics"
+          @select="upgradedGroup.demographics = $event"
+        />
+        <button
+          v-if="!paymentData.newGroup"
+          class="btn btn-primary mx-auto"
+          :disabled="!upgradedGroup.demographics"
+          @click="submit()"
+        >
+          {{ $t('submit') }}
+        </button>
+      </div>
     </div>
     <div class="row">
       <div class="col-12 modal-body-col">
+        <!-- buy gems for self -->
         <template v-if="paymentData.paymentType === 'gems'">
           <strong v-once>{{ $t('paymentYouReceived') }}</strong>
           <div class="details-block gems">
@@ -36,6 +70,7 @@
             <span>{{ paymentData.gemsBlock.gems }}</span>
           </div>
         </template>
+        <!-- buy or gift gems to someone else -->
         <template
           v-if="paymentData.paymentType === 'gift-gems'
             || paymentData.paymentType === 'gift-gems-balance'"
@@ -50,12 +85,14 @@
             <span>{{ paymentData.gift.gems.amount }}</span>
           </div>
         </template>
+        <!-- give gift subscription (non-recurring)-->
         <template v-if="paymentData.paymentType === 'gift-subscription'">
           <span
             v-html="$t('paymentYouSentSubscription', {
               name: paymentData.giftReceiver, months: paymentData.subscription.months})"
           ></span>
         </template>
+        <!-- buy self subscription (recurring) -->
         <template v-if="paymentData.paymentType === 'subscription'">
           <strong v-once>{{ $t('nowSubscribed') }}</strong>
           <div class="details-block">
@@ -65,31 +102,45 @@
             ></span>
           </div>
         </template>
+        <!-- group plan new or upgraded -->
         <template v-if="paymentData.paymentType === 'groupPlan'">
           <span
             v-html="$t(paymentData.newGroup
               ? 'groupPlanCreated' : 'groupPlanUpgraded', {groupName: paymentData.group.name})"
           ></span>
-          <div class="details-block">
-            <span
-              v-html="$t('paymentSubBilling', {
-                amount: groupPlanCost, months: paymentData.subscription.months})"
-            ></span>
+          <div
+            v-if="!paymentData.newGroup || paymentData.newGroup"
+            class=""
+          >
+            <div class="details-block group-billing-date">
+              <span
+                v-html="$t('groupsPaymentSubBilling', { renewalDate })"
+              >
+              </span>
+            </div>
+            <div class="small-text group-auto-renew">
+              <span
+                v-once
+              >{{ $t('groupsPaymentAutoRenew') }}
+              </span>
+            </div>
           </div>
         </template>
+        <!-- buy self subscription auto renew -->
         <template
-          v-if="paymentData.paymentType === 'groupPlan'
-            || paymentData.paymentType === 'subscription'"
+          v-if="paymentData.paymentType === 'subscription'"
         >
           <span
             v-once
             class="small-text auto-renew"
           >{{ $t('paymentAutoRenew') }}</span>
         </template>
+        <!-- buttons for subscriptions -->
         <button
+          v-if="paymentData.paymentType !== 'groupPlan'"
           v-once
           class="btn btn-primary"
-          @click="close()"
+          @click="submit()"
         >
           {{ $t('onwards') }}
         </button>
@@ -102,7 +153,7 @@
 @import '~@/assets/scss/colors.scss';
 
 #payments-success-modal .modal-md {
-  max-width: 20.5rem;
+  max-width: 448px;
 }
 
 #payments-success-modal .modal-content {
@@ -114,6 +165,7 @@
   border-bottom-left-radius: 8px;
 }
 
+
 #payments-success-modal .modal-header {
   justify-content: center;
   padding-top: 24px;
@@ -124,14 +176,14 @@
   border-bottom: none;
 
   h2 {
-    color: white;
+    color: $green-1;
   }
 
   .check-container {
     width: 64px;
     height: 64px;
     border-radius: 50%;
-    background: #1CA372;
+    background: $green-1;
     margin: 0 auto;
     margin-bottom: 16px;
   }
@@ -139,14 +191,13 @@
   .check {
     width: 35.1px;
     height: 28px;
-    color: white;
+    color: $white;
   }
 }
 
 #payments-success-modal .modal-body {
-  padding-top: 16px;
-  padding-bottom: 24px;
-  background: white;
+  padding: 16px 32px 24px 32px;
+  background: $white;
 
   .modal-body-col {
     display: flex;
@@ -162,9 +213,9 @@
   .details-block {
     background: $gray-700;
     border-radius: 4px;
-    padding: 8px 24px;
+    padding: 8px 16px;
     margin-top: 16px;
-    display: flex;
+    display: inline-flex;
     flex-direction: row;
     text-align: center;
 
@@ -188,6 +239,14 @@
     color: $orange-10;
     font-style: normal;
   }
+  .group-auto-renew {
+    margin: 12px 20px -8px 20px;
+    color: $yellow-5;
+    font-style: normal;
+  }
+  .group-billing-date {
+    width: 269px;
+  }
 }
 
 #payments-success-modal .modal-footer {
@@ -201,14 +260,49 @@
     font-style: normal;
   }
 }
+
+.demographics {
+  background-color: $gray-700;
+
+  .label-text {
+    margin-bottom: 20px;
+  }
+
+  .group-input {
+    width: 400px !important;
+    margin-top: -24px !important;
+  }
+  .btn {
+    margin-top: 0px;
+    width: 77px;
+    margin-bottom: 20px;
+  }
+}
 </style>
+
+<style lang="scss">
+  @import '~@/assets/scss/mixins.scss';
+
+
+</style>
+
 
 <script>
 import checkIcon from '@/assets/svg/check.svg';
 import gemIcon from '@/assets/svg/gem.svg';
+import { mapState } from '@/libs/store';
 import subscriptionBlocks from '@/../../common/script/content/subscriptionBlocks';
+import selectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
+import lockableLabel from '@/components/tasks/modal-controls/lockableLabel';
+import paymentsMixin from '@/mixins/payments';
+import * as Analytics from '@/libs/analytics';
 
 export default {
+  components: {
+    selectTranslatedArray,
+    lockableLabel,
+  },
+  mixins: [paymentsMixin],
   data () {
     return {
       icons: Object.freeze({
@@ -216,9 +310,14 @@ export default {
         gem: gemIcon,
       }),
       paymentData: {},
+      upgradedGroup: {
+        name: '',
+        demographics: null,
+      },
     };
   },
   computed: {
+    ...mapState({ user: 'user.data', group: 'group.data' }),
     groupPlanCost () {
       const sub = this.paymentData.subscription;
       const memberCount = this.paymentData.group.memberCount || 1;
@@ -242,7 +341,17 @@ export default {
     this.$root.$off('habitica:payments-success');
   },
   methods: {
-    close () {
+    submit () {
+      if (this.paymentData.group && !this.paymentData.newGroup) {
+        Analytics.track({
+          hitType: 'event',
+          eventName: 'group plan upgrade',
+          eventAction: 'group plan upgrade',
+          eventCategory: 'behavior',
+          demographics: this.upgradedGroup.demographics,
+          type: this.paymentData.group.type,
+        }, { trackOnClient: true });
+      }
       this.paymentData = {};
       this.$root.$emit('bv::hide::modal', 'payments-success-modal');
     },
