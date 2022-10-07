@@ -1391,7 +1391,7 @@
   "armorArmoireFancyPirateSuitText": "Fancy Pirate Jacket",
   "armorArmoireFancyPirateSuitNotes": "Wear this fine jacket well as you organize your ship’s library or talk it through as a crew. Increases Constitution and Intelligence by <%= attrs %> each. Enchanted Armoire: Fancy Pirate Set (Item 1 of 3).",
   "armorArmoireSheetGhostCostumeText": "Sheet Ghost Costume",
-  "armorArmoireSheetGhostCostumeNotes": "Boo! This is the scariest costume in all of Habitica, so wear it wisely...and watch your step so you don’t trip. Increases constitution by <%= con %>. Enchanted Armoire: Independent Item.",
+  "armorArmoireSheetGhostCostumeNotes": "Boo! This is the scariest costume in all of Habitica, so wear it wisely... and watch your step so you don’t trip. Increases Constitution by <%= con %>. Enchanted Armoire: Independent Item.",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
