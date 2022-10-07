@@ -1,7 +1,7 @@
 {
   "name": "habitica",
   "description": "A habit tracker app which treats your goals like a Role Playing Game.",
-  "version": "4.245.1",
+  "version": "4.245.2",
   "main": "./website/server/index.js",
   "dependencies": {
     "@babel/core": "^7.18.13",
@@ -114,7 +114,7 @@
     "chai": "^4.3.6",
     "chai-as-promised": "^7.1.1",
     "chai-moment": "^0.1.0",
-    "chalk": "^4.1.2",
+    "chalk": "^5.1.0",
     "cross-spawn": "^7.0.3",
     "expect.js": "^0.3.1",
     "istanbul": "^1.1.0-alpha.1",
