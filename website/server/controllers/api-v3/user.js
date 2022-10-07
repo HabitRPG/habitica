@@ -981,7 +981,7 @@ api.disableClasses = {
  * @apiParam (Body) {Integer} [quantity=1] Count of items to buy.
  *                                         Defaults to 1 and is ignored
  *                                         for items where quantity is irrelevant.
- *                                         
+ *
  * @apiSuccess {Object} data.items user.items
  * @apiSuccess {Number} data.balance user.balance
  * @apiSuccess {String} message Success message
