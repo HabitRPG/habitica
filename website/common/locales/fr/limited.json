@@ -229,5 +229,9 @@
     "februaryYYYY": "Février <%= year %>",
     "octoberYYYY": "Octobre <%= year %>",
     "summer2022WaterspoutWarriorSet": "Trombe marine (Guerrier)",
-    "julyYYYY": "Juillet <%= year %>"
+    "julyYYYY": "Juillet <%= year %>",
+    "fall2022OrcWarriorSet": "Orc (Guerrier)",
+    "fall2022HarpyMageSet": "Harpie (Mage)",
+    "fall2022WatcherHealerSet": "Gardien (Guérisseur)",
+    "fall2022KappaRogueSet": "Kappa (Voleur)"
 }

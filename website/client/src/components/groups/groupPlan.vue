@@ -1,6 +1,7 @@
 <template>
   <!-- @TODO: Move to group plans folder-->
   <div>
+    <group-plan-creation-modal />
     <div>
       <div class="header">
         <h1 class="text-center">
@@ -51,6 +52,7 @@
           </div>
         </div>
       </div>
+      <!-- Upgrading an existing group -->
       <div
         v-if="upgradingGroup._id"
         id="upgrading-group"
@@ -100,153 +102,53 @@
           </div>
         </div>
       </div>
+      <!-- Create a new group -->
       <div
         v-if="!upgradingGroup._id"
         class="container col-6 offset-3 create-option"
       >
         <div class="row">
           <h1 class="col-12 text-center purple-header">
-            Create your Group today!
+            Create Your Group Today!
           </h1>
         </div>
         <div class="row">
           <div class="col-12 text-center">
             <button
               class="btn btn-primary create-group"
-              @click="launchModal('create')"
+              @click="launchModal('create-page')"
             >
-              Create Your New Group
+              Create Your New Group!
             </button>
           </div>
         </div>
-        <div class="row pricing">
-          <div class="col-5">
-            <div class="dollar">
-              $
-            </div>
-            <div class="number">
-              9
-            </div>
-            <div class="name">
-              <div>Group Owner</div>
-              <div>Subscription</div>
-            </div>
+        <div class="row pricing justify-content-center align-items-center">
+          <div class="dollar">
+            $
           </div>
-          <div class="col-1">
-            <div class="plus">
-              +
-            </div>
+          <div class="number">
+            9
           </div>
-          <div class="col-6">
-            <div class="dollar">
-              $
-            </div>
-            <div class="number">
-              3
-            </div>
-            <div class="name">
-              <div>Each Additional</div>
-              <div>Member</div>
-            </div>
+          <div class="name">
+            <div>Group Owner</div>
+            <div>Subscription</div>
+          </div>
+          <div class="plus">
+            +
+          </div>
+          <div class="dollar">
+            $
+          </div>
+          <div class="number">
+            3
+          </div>
+          <div class="name">
+            <div>Each Additional</div>
+            <div>Member</div>
           </div>
         </div>
       </div>
     </div>
-    <b-modal
-      id="group-plan-modal"
-      :title="activePage === PAGES.CREATE_GROUP ? 'Create your Group' : 'Select Payment'"
-      size="md"
-      hide-footer="hide-footer"
-    >
-      <div
-        v-if="activePage === PAGES.CREATE_GROUP"
-        class="col-12"
-      >
-        <div class="form-group">
-          <label
-            class="control-label"
-            for="new-group-name"
-          >Name</label>
-          <input
-            id="new-group-name"
-            v-model="newGroup.name"
-            class="form-control input-medium option-content"
-            required="required"
-            type="text"
-            placeholder="Name"
-          >
-        </div>
-        <div class="form-group">
-          <label for="new-group-description">{{ $t('description') }}</label>
-          <textarea
-            id="new-group-description"
-            v-model="newGroup.description"
-            class="form-control option-content"
-            cols="3"
-            :placeholder="$t('description')"
-          ></textarea>
-        </div>
-        <div
-          v-if="type === 'guild'"
-          class="form-group"
-        >
-          <div class="custom-control custom-radio">
-            <input
-              v-model="newGroup.privacy"
-              class="custom-control-input"
-              type="radio"
-              name="new-group-privacy"
-              value="private"
-            >
-            <label class="custom-control-label">{{ $t('inviteOnly') }}</label>
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="custom-control custom-checkbox">
-            <input
-              id="create-group-leaderOnlyChallenges-checkbox"
-              v-model="newGroup.leaderOnly.challenges"
-              class="custom-control-input"
-              type="checkbox"
-            >
-            <label
-              class="custom-control-label"
-              for="create-group-leaderOnlyChallenges-checkbox"
-            >{{ $t('leaderOnlyChallenges') }}</label>
-          </div>
-        </div>
-        <div
-          v-if="type === 'party'"
-          class="form-group"
-        >
-          <button
-            class="btn btn-secondary form-control"
-            :value="$t('create')"
-            @click="createGroup()"
-          ></button>
-        </div>
-        <div class="form-group">
-          <button
-            class="btn btn-primary btn-lg btn-block"
-            :disabled="!newGroupIsReady"
-            @click="createGroup()"
-          >
-            {{ $t('create') }}
-          </button>
-        </div>
-      </div>
-      <div
-        v-if="activePage === PAGES.PAY"
-        class="col-12"
-      >
-        <div class="text-center">
-          <payments-buttons
-            :stripe-fn="() => pay(PAYMENTS.STRIPE)"
-            :amazon-data="pay(PAYMENTS.AMAZON)"
-          />
-        </div>
-      </div>
-    </b-modal>
   </div>
 </template>
 
@@ -258,8 +160,8 @@
 
     .dollar {
       position: absolute;
-      left: -1em;
-      top: 1em;
+      left: -16px;
+      top: 16px;
     }
 
     .purple-box {
@@ -291,9 +193,9 @@
     background: #432874;
     background: linear-gradient(180deg, #4F2A93 0%, #432874 100%);
     color: #fff;
-    padding: 2em;
+    padding: 32px;
     height: 340px;
-    margin-bottom: 2em;
+    margin-bottom: 32px;
     margin-left: -12px;
     margin-right: -12px;
 
@@ -317,6 +219,7 @@
 
     .box {
       height: 416px;
+      border-radius: 8px;
     }
 
     h2 {
@@ -359,17 +262,19 @@
   button.create-group {
     width: 330px;
     height: 96px;
+    border-radius: 8px;
+    font-size: 1.5rem;
   }
 
   .purple-header {
     color: #6133b4;
     font-size: 48px;
-    margin-top: 1em;
+    margin-top: 16px;
   }
 
   .pricing {
-    margin-top: 2em;
-    margin-bottom: 4em;
+    margin-top: 32px;
+    margin-bottom: 64px;
 
     .dollar, .number, .name {
       display: inline-block;
@@ -378,30 +283,32 @@
     }
 
     .plus {
-      font-size: 34px;
+      font-size: 2.125rem;
       color: #a5a1ac;
+      margin-left: 16px;
+      margin-right: 16px;
     }
 
     .dollar {
-      margin-bottom: 1.5em;
-      font-size: 32px;
+      margin-bottom: 24px;
+      font-size: 2rem;
       font-weight: bold;
     }
 
     .name {
-      font-size: 24px;
-      margin-bottom: .8em;
-      margin-left: .5em;
+      font-size: 1.5rem;
+      margin-left: 8px;
+      margin-right: 8px;
     }
 
     .number {
-      font-size: 72px;
+      font-size: 4.5rem;
       font-weight: bolder;
     }
   }
 
   .payment-options {
-    margin-bottom: 4em;
+    margin-bottom: 64px;
 
     h4 {
       color: #34313a;
@@ -410,7 +317,7 @@
     .purple-box {
       background-color: #4f2a93;
       color: #fff;
-      padding: .5em;
+      padding: 8px;
       border-radius: 8px;
       width: 200px;
       height: 215px;
@@ -424,7 +331,7 @@
 
       .name {
         width: 100px;
-        margin-left: .3em;
+        margin-left: 4.8px;
       }
 
       .plus {
@@ -449,10 +356,12 @@ import paymentsMixin from '../../mixins/payments';
 import { mapState } from '@/libs/store';
 import positiveIcon from '@/assets/svg/positive.svg';
 import paymentsButtons from '@/components/payments/buttons/list';
+import groupPlanCreationModal from '../group-plans/groupPlanCreationModal';
 
 export default {
   components: {
     paymentsButtons,
+    groupPlanCreationModal,
   },
   mixins: [paymentsMixin],
   data () {
@@ -501,12 +410,7 @@ export default {
   },
   methods: {
     launchModal () {
-      this.changePage(this.PAGES.CREATE_GROUP);
-      this.$root.$emit('bv::show::modal', 'group-plan-modal');
-    },
-    changePage (page) {
-      this.activePage = page;
-      window.scrollTo(0, 0);
+      this.$root.$emit('bv::show::modal', 'create-group');
     },
     createGroup () {
       this.changePage(this.PAGES.PAY);

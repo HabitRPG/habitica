@@ -229,5 +229,7 @@
     "summer2022WaterspoutWarriorSet": "Tromba marina (Guerrero)",
     "summer2022AngelfishHealerSet": "Pez ángel (Sanador)",
     "julyYYYY": "Julio de <%= year %>",
-    "octoberYYYY": "Octubre de <%= year %>"
+    "octoberYYYY": "Octubre de <%= year %>",
+    "fall2022HarpyMageSet": "Arpía (Mago)",
+    "fall2022OrcWarriorSet": "Orca (Guerrero)"
 }

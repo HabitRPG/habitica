@@ -42,7 +42,7 @@
     "sureChangeCustomDayStartTime": "¿Estás seguro de que quieres cambiar tu inicio de día personalizado? Tus tareas se reiniciarán la primera vez que uses Habitica después de las <%= time %>. ¡Asegúrate de completar tu Tareas Diarias antes de entonces!",
     "customDayStartHasChanged": "Ha cambiado tu inicio de día personalizado.",
     "nextCron": "Tus tareas diarias se restablecerán la próxima vez que uses Habitica a partir del <%= time %>. ¡No te olvides de completar las tareas diarias antes de esa hora!",
-    "customDayStartInfo1": "De forma predeterminada, Habitica comprueba si has realizado las tareas diarias y las restablece todos los días a medianoche, de acuerdo con tu zona horaria. Aquí puedes cambiar la hora a la que lo hace.",
+    "customDayStartInfo1": "Habitica comprueba y restablece tus tareas diarias a medianoche, de acuerdo con tu zona horaria. Puedes ajustar cuándo ocurre más allá del momento por defecto aquí.",
     "misc": "Varios",
     "showHeader": "Mostrar encabezamiento",
     "changePass": "Cambiar contraseña",
@@ -159,7 +159,7 @@
     "amazonPayments": "Pagos con Amazon",
     "amazonPaymentsRecurring": "Marcar la siguiente casilla es necesario para crear tu suscripción. Permite usar tu cuenta de Amazon para pagos continuados para <strong>esta</strong> suscripción. No provocará que se use tu cuenta de Amazon automáticamente para ninguna compra futura.",
     "timezone": "Zona horaria",
-    "timezoneUTC": "Habitica usa la zona horaria de tu PC, que es: <strong><%= utc %></strong>",
+    "timezoneUTC": "Tu zona horaria está establecida por tu PC, que es: <strong><%= utc %></strong>",
     "timezoneInfo": "Si esa zona horaria es incorrecta, antes que nada, vuelve a cargar esta página con el botón de actualizar del navegador para asegurarte de que Habitica disponga de la información más reciente. Si sigue siendo errónea, configura la zona horaria en tu PC y, luego, vuelve a cargar esta página una vez más.<br><br> <strong>Si usas Habitica en otros ordenadores o dispositivos móviles, la zona horaria debe ser la misma en todos ellos.</strong> Si tus tareas diarias se restablecen a una hora incorrecta, vuelve a comprobar esto en todos los demás ordenadores y en un navegador de tus dispositivos móviles.",
     "push": "Push",
     "about": "Sobre Habitica",
@@ -215,5 +215,7 @@
     "nextHourglass": "Siguiente Reloj de Arena",
     "dayStartAdjustment": "Ajuste de inicio de día",
     "adjustment": "Ajuste",
-    "nextHourglassDescription": "Los suscriptores reciben gafas \"Mystic Hour\" dentro de\nlos tres primeros días del mes."
+    "nextHourglassDescription": "Los suscriptores reciben gafas \"Mystic Hour\" dentro de\nlos tres primeros días del mes.",
+    "passwordSuccess": "Contraseña cambiada con éxito",
+    "giftSubscriptionRateText": "<strong>$<%= price %> USD</strong> por <strong><%= months %> meses</strong>"
 }

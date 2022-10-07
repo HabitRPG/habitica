@@ -5,7 +5,7 @@ import baseModel from '../libs/baseModel';
 const { Schema } = mongoose;
 
 export const currencies = ['gems', 'hourglasses'];
-export const transactionTypes = ['buy_money', 'buy_gold', 'spend', 'gift_send', 'gift_receive', 'debug', 'create_challenge', 'create_bank_challenge', 'create_guild', 'change_class', 'rebirth', 'release_pets', 'release_mounts', 'reroll', 'contribution', 'subscription_perks', 'admin_update_balance'];
+export const transactionTypes = ['buy_money', 'buy_gold', 'spend', 'gift_send', 'gift_receive', 'debug', 'create_challenge', 'create_bank_challenge', 'create_guild', 'change_class', 'rebirth', 'release_pets', 'release_mounts', 'reroll', 'contribution', 'subscription_perks', 'admin_update_balance', 'admin_update_hourglasses'];
 
 export const schema = new Schema({
   currency: { $type: String, enum: currencies, required: true },
@@ -17,6 +17,7 @@ export const schema = new Schema({
   userId: {
     $type: String, ref: 'User', required: true, validate: [v => validator.isUUID(v), 'Invalid uuid for Transaction.'],
   },
+  migration: String,
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
@@ -34,9 +35,10 @@ schema.plugin(baseModel, {
     'referenceText',
     'amount',
     'currentAmount',
+    'migration',
   ], // Nothing can be set from the client
   timestamps: true,
   _id: false, // using custom _id
 });
 
-export const model = mongoose.model('Transaction', schema);
+export const TransactionModel = mongoose.model('Transaction', schema);

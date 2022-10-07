@@ -9,6 +9,7 @@
       :right="right"
       :hide-icon="false"
       :inline-dropdown="inlineDropdown"
+      :placeholder="placeholder"
       @select="selectItem($event)"
     >
       <template v-slot:item="{ item }">
@@ -69,6 +70,9 @@ export default {
     inlineDropdown: {
       type: Boolean,
       default: true,
+    },
+    placeholder: {
+      type: String,
     },
   },
   data () {
