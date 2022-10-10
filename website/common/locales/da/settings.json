@@ -42,7 +42,7 @@
     "sureChangeCustomDayStartTime": "Er du sikker på, at du vil ændre dit brugerdefinerede starttidspunkt? Dine Daglige vil blive opdateret næste gang du bruger Habitica efter <%= time %>. Vær sikker på, at du har udført dine Daglige før da!",
     "customDayStartHasChanged": "Dit brugerdefinerede starttidspunkt er ændret.",
     "nextCron": "Dine Daglige vil blive nulstillet første gang du bruger Habitica efter <%= time %>. Vær sikker på, at du har færdiggjort dine Daglige før dette tidspunkt!",
-    "customDayStartInfo1": "Som udgangspunkt vil Habitica tjekke og nulstille dine Daglige ved midnat hver dag. Du kan ændre dette her.",
+    "customDayStartInfo1": "Habitica tjekke og nulstille dine Daglige ved midnat hver dag i din egen tidszone. Du kan ændre det til et andet tidspunkt efter midnat her.",
     "misc": "Diverse",
     "showHeader": "Vis sidehoved",
     "changePass": "Skift kodeord",
@@ -55,7 +55,7 @@
     "newUsername": "Nyt brugernavn",
     "dangerZone": "Farezone",
     "resetText1": "ADVARSEL! Dette nulstiller mange dele af din konto. Vi fraråder på det kraftigste dette, men nogen finder det brugbart i begyndelsen efter at have eksperimenteret med Habitica i et kort stykke tid.",
-    "resetText2": "Du vil miste alle niveauer, Guld, og Erfaringspoint. Alle dine Opgaver (bortset fra dem fra Udfordringer) vil blive slettet permanent, og du vil miste al deres historik. Du vil miste alt dit udstyr, men du vil være i stand til at købe det hele igen, inklusiv tidsbegrænset udstyr eller Mystiske abonnentsgenstande, som du allerede ejer (du vil være nødt til at være den rigtige klasse for at kunne købe klasse-udstyr igen). Du vil beholde din nuværende klasse og dine kæle- og ridedyr. Du ville måske foretrække at bruge en Genfødselskugle i stedet. Det er en meget sikrere mulighed, og du vil beholde dine opgaver og udstyr.",
+    "resetText2": "Du vil miste alle niveauer, Guld, og Erfaringspoint. Alle dine Opgaver (bortset fra dem fra Udfordringer) vil blive slettet permanent, og du vil miste al deres historik. Du vil miste alt dit udstyr, undtagen gratis gave-udstyr eller Mystiske abonnentsgenstande. Du vil være i stand til at købe alle de mistede genstand igen, inklusiv tidsbegrænset udstyr (du skal være den korrekte klasse for at købe klasse-begrænset udstyr). Du vil beholde din nuværende klasse, præstationer og dine kæle- og ridedyr. Du ville måske foretrække at bruge en Genfødselskugle i stedet. Det er en meget sikrere mulighed, og du vil beholde dine opgaver og udstyr.",
     "deleteLocalAccountText": "Er du sikker? Dette vil slette din konto for evigt, og den kan aldrig gendannes! Du skal registrere en ny konto for at kunne bruge Habitica igen. Ædelsten du har brugt eller har på lager vil ikke blive refunderet. Hvis du er fuldstændig sikker, så skriv dit kodeord i boksen herunder.",
     "deleteSocialAccountText": "Er du sikker? Dette vil slette din brugerkonto for evigt, og den kan aldrig gendannes! Du vil være nødt til at oprette en ny konto for at bruge Habitica igen. Ædelsten i en Klanbank eller som er blevet brugt vil ikke blive refunderet. Hvis du virkelig er helt sikker, så indtast \"<%= magicWord %>\" i tekstboksen nedenunder.",
     "API": "API",
@@ -189,5 +189,7 @@
     "suggestMyUsername": "Foreslå mit brugernavn",
     "mentioning": "Nævne",
     "displaynameIssueNewline": "Displaynavne må ikke indeholde backslashes efterfulgt af bogstavet N.",
-    "bannedWordUsedInProfile": "Dit Displaynavn eller Om-tekst indeholder upassende sprog."
+    "bannedWordUsedInProfile": "Dit Displaynavn eller Om-tekst indeholder upassende sprog.",
+    "adjustment": "Tilpasning",
+    "dayStartAdjustment": "Tilpasning af starttidspunkt"
 }

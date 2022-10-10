@@ -27,7 +27,7 @@
         <customize-options
           :items="set.options"
           :current-value="user.preferences.hair.color"
-          :full-set="!hideSet(set) && !userOwnsSet('hair', set.keys, 'color')"
+          :full-set="!hideSet(set.key) && !userOwnsSet('hair', set.keys, 'color')"
           @unlock="unlock(`hair.color.${set.keys.join(',hair.color.')}`)"
         />
       </div>

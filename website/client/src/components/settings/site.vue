@@ -342,9 +342,7 @@
               {{ $t('saveAndConfirm') }}
             </button>
           </div>
-          <h5
-            v-if="user.auth.local.email"
-          >
+          <h5 v-if="user.auth.local.has_password">
             {{ $t('changeEmail') }}
           </h5>
           <div

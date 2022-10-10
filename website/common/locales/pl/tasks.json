@@ -2,7 +2,7 @@
     "clearCompleted": "Usuń zakończone",
     "clearCompletedDescription": "Zakończone Do Zrobienia zostają usunięte po 30 dniach dla osób bez subskrypcji i po 90 dniach dla subskrybentów.",
     "clearCompletedConfirm": "Jesteś pewien, że chcesz usunąć zakończone Do Zrobienia?",
-    "addMultipleTip": "<strong>Porada:</strong> W celu dodania wielu <%= taskType %>, oddziel każde z nich wstawiając znak końca linii (Shift + Enter), a następnie wciśnij \"Enter.\"",
+    "addMultipleTip": "<strong>Wskazówka:</strong> W celu dodania wielu <%= taskType %>, oddziel każde z nich wstawiając znak końca linii (Shift + Enter), a następnie wciśnij \"Enter.\"",
     "addATask": "Dodaj <%= type %>",
     "editATask": "Edytuj <%= type %>",
     "createTask": "Stwórz <%= type %>",
@@ -139,5 +139,6 @@
     "adjustCounter": "Dostosuj Licznik",
     "editTagsText": "Edytuj Tagi",
     "counter": "Licznik",
-    "resetCounter": "Zresetuj Licznik"
+    "resetCounter": "Zresetuj Licznik",
+    "taskSummary": "Podsumowanie <%= type %>"
 }

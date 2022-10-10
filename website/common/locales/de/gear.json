@@ -2690,5 +2690,9 @@
     "shieldArmoireDustpanNotes": "Halte diese handliche Mistschaufel bei jeder Reinigung bereit. Ein Verschwinden-Zauberspruch liegt über ihr, damit du nie nach einem Mülleimer suchen musst, um sie zu entleeren. Erhöht Intelligenz und Stärke um jeweils <%= attrs %>. Verzauberter Schrank: Reinigungs-Set (Gegenstand 3 von 3).",
     "headMystery202208Notes": "Genieße es, mit diesem umfangreichen Haar zu prahlen - im Notfall kann es auch als Peitsche verwendet werden! Gewährt keinen Attributbonus. August 2022 Abonnentengegenstand.",
     "eyewearMystery202208Notes": "Wiege deine Feinde mit diesen schrecklich süßen Augen in Sicherheit. Gewährt keinen Attributbonus. August 2022 Abonnentengegenstand.",
-    "weaponArmoireFeatherDusterNotes": "Lass diese flotten Federn über alte Gegenstände fliegen, damit sie wie neu erstrahlen. Achte aber auf den aufgewirbelten Staub, damit du nicht niesen musst! Erhöht Ausdauer und Wahrnehmung um jeweils <%= attrs %> . Verzauberter Schrank: Reinigungs-Set (Gegenstand 2 von 3)"
+    "weaponArmoireFeatherDusterNotes": "Lass diese flotten Federn über alte Gegenstände fliegen, damit sie wie neu erstrahlen. Achte aber auf den aufgewirbelten Staub, damit du nicht niesen musst! Erhöht Ausdauer und Wahrnehmung um jeweils <%= attrs %> . Verzauberter Schrank: Reinigungs-Set (Gegenstand 2 von 3)",
+    "weaponMystery202209Text": "Magie-Anleitung",
+    "weaponMystery202209Notes": "Dieses Buch wird Dich auf Deiner Reise durch die Welt der Magie verzaubern. Gewährt keinen Attributbonus. September 2022 Abonnentengegenstand.",
+    "shieldMystery202209Text": "Berg magischer Bücher",
+    "shieldMystery202209Notes": "Bücherberge durchzulesen ist ein guter Weg um viel Zauberei-Wissen anzusammeln – diese Ausbildung wird einfach magisch! Gewährt keinen Attributbonus. September 2022 Abonnentengegenstand."
 }

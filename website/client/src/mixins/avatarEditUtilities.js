@@ -17,8 +17,14 @@ export const avatarEditorUtilies = { // eslint-disable-line import/prefer-defaul
     };
   },
   methods: {
-    hideSet (set) {
-      return moment(appearanceSets[set.key].availableUntil).isBefore(moment());
+    hideSet (setKey) {
+      if (appearanceSets[setKey].availableFrom) {
+        return !moment().isBetween(
+          appearanceSets[setKey].availableFrom,
+          appearanceSets[setKey].availableUntil,
+        );
+      }
+      return moment(appearanceSets[setKey].availableUntil).isBefore(moment());
     },
     mapKeysToFreeOption (key, type, subType) {
       const userPreference = subType
@@ -43,8 +49,8 @@ export const avatarEditorUtilies = { // eslint-disable-line import/prefer-defaul
       const locked = !userPurchased || !userPurchased[key];
       let hide = false;
 
-      if (set && appearanceSets[set]) {
-        if (locked) hide = moment(appearanceSets[set].availableUntil).isBefore(moment());
+      if (set && appearanceSets[set] && locked) {
+        hide = this.hideSet(set);
       }
 
       option.gemLocked = locked;
