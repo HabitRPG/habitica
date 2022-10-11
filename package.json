@@ -16,7 +16,7 @@
     "apidoc": "^0.53.0",
     "apple-auth": "^1.0.7",
     "bcrypt": "^5.1.0",
-    "body-parser": "^1.20.0",
+    "body-parser": "^1.20.1",
     "bootstrap": "^4.6.0",
     "compression": "^1.7.4",
     "cookie-session": "^2.0.0",
