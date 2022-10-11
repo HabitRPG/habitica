@@ -313,7 +313,7 @@
     "hatchingPotionBlackPearl": "اللؤلؤ الأسود",
     "hatchingPotionAutumnLeaf": "ورقة الخريف",
     "hatchingPotionVampire": "مصاص الدماء",
-    "hatchingPotionDessert": "الحلويات",
+    "hatchingPotionDessert": "حلويات",
     "hatchingPotionVeggie": "حديقة",
     "questEggRobotAdjective": "مستقبلي",
     "hatchingPotionFluorite": "الفلوريت",
@@ -330,7 +330,11 @@
     "hatchingPotionSunset": "غروب الشمس",
     "hatchingPotionShadow": "الظل",
     "hatchingPotionSilver": "الفضي",
-    "hatchingPotionTurquoise": "التريكواز",
+    "hatchingPotionTurquoise": "التيركواز",
     "hatchingPotionSunshine": "شعاع الشمس",
-    "hatchingPotionVirtualPet": "حيوان افتراضي أليف"
+    "hatchingPotionVirtualPet": "حيوان افتراضي أليف",
+    "hatchingPotionWindup": "الزنبرك",
+    "hatchingPotionPorcelain": "الخزف الملون",
+    "hatchingPotionBirchBark": "لحاء الشجر",
+    "hatchingPotionRuby": "الياقوت"
 }
