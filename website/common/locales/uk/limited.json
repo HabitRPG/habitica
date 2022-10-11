@@ -229,6 +229,8 @@
     "octoberYYYY": "Жовтень <%= year %>",
     "fall2022OrcWarriorSet": "Орк (воїн)",
     "fall2022HarpyMageSet": "Гарпія (маг)",
-    "fall2022WatcherHealerSet": "Споглядач (цілитель)",
-    "fall2022KappaRogueSet": "Каппа (розбійник)"
+    "fall2022WatcherHealerSet": "Підглядач (цілитель)",
+    "fall2022KappaRogueSet": "Каппа (розбійник)",
+    "gemSaleHow": "У період від <%= eventStartOrdinal %> <%= eventStartMonth %> до <%= eventEndOrdinal %> просто придбайте будь-який набір самоцвітів, як зазвичай, і на ваш рахунок буде також зараховано їх акційну кількість. Більше дорогоцінних каменів, які можна витратити, поділитися чи зберегти для будь-яких майбутніх покупок!",
+    "gemSaleLimitations": "Ця акція діє лише протягом обмеженого часу. Ця подія починається <%= eventStartOrdinal %> <%= eventStartMonth %> о 15:00 за Києвом (12:00 UTC) і закінчиться <%= eventEndOrdinal %> <%= eventStartMonth %> о 03:00 за Києвом ( 00:00 UTC). Промо-акція діє тільки при покупці самоцвітів для себе."
 }

@@ -230,7 +230,9 @@
     "summer2022WaterspoutWarriorSet": "Tromba d'Acqua (Guerriero)",
     "julyYYYY": "luglio <%= year %>",
     "fall2022HarpyMageSet": "Arpia (Mago)",
-    "fall2022WatcherHealerSet": "Osservatore (Guaritore)",
+    "fall2022WatcherHealerSet": "Sbircione (Guaritore)",
     "fall2022KappaRogueSet": "Kappa (Ladro)",
-    "fall2022OrcWarriorSet": "Orco (Guerriero)"
+    "fall2022OrcWarriorSet": "Orco (Guerriero)",
+    "gemSaleLimitations": "Questa promozione è applicabile solo durante l'evento a tempo limitato. Questo evento inizia il <%= eventStartMonth %> <%= eventStartOrdinal %> alle 8:00 EDT (12:00 UTC) e terminerà <%= eventStartMonth %> <%= eventEndOrdinal %> alle 20:00 EDT ( 00:00 UTC). L'offerta promozionale è disponibile solo quando acquisti Gemme per te stesso/a.",
+    "gemSaleHow": "Tra <%= eventStartMonth %> <%= eventStartOrdinal %> e <%= eventEndOrdinal %>, acquista semplicemente qualsiasi pacchetto di gemme come al solito e sul tuo account verrà accreditato l'importo promozionale di Gemme. Più Gemme da spendere, condividere o risparmiare per le prossime uscite!"
 }

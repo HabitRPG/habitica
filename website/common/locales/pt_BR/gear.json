@@ -1764,7 +1764,7 @@
     "shieldMystery201902Notes": "Este papel brilhante forma corações mágicos que vagueiam lentamente e dançam no ar. Não confere nenhum benefício. Item de Assinantes, Fevereiro de 2019.",
     "shieldArmoireMightyPizzaText": "Pizza Poderosa",
     "shieldArmoireMightyPizzaNotes": "Claro, é um escudo muito bom, mas nós sugerimos fortemente que você coma essa ótima, ótima pizza. Aumenta a Percepção em <%= per %>. Armário Encantado: Conjunto do Chef (Item 4 de 4).",
-    "eyewearMystery201902Text": "Macara enigmática do crush",
+    "eyewearMystery201902Text": "Máscara Crush Enigmático",
     "eyewearMystery201902Notes": "Esta máscara misteriosa esconde a sua identidade, mas não o seu sorriso vencedor. Não confere nenhum benefício. Fevereiro de 2019 Item de Assinante.",
     "weaponSpecialSpring2019RogueText": "Relâmpago",
     "weaponSpecialSpring2019RogueNotes": "Essas armas contém o poder do céu e da chuva. Nós recomendamos que você não use-as quando estiver imerso na água. Aumente a Força em <%= str %>. Equipamento de Edição Limitada Primavera de 2019.",
@@ -2726,5 +2726,9 @@
     "headSpecialFall2022MageNotes": "Encante e atraia outros para perto com esta máscara mágica de donzela. Aumenta Percepção em <%= per %>. Equipamento de Edição Limitada do Outono de 2022.",
     "shieldSpecialFall2022WarriorNotes": "RAWR ou TRAVESSURAS! Aumenta Constituição em <%= con %>. Equipamento de Edição Limitada do Outono de 2022.",
     "armorSpecialFall2022HealerText": "Extravagância da Casca do Observador",
-    "armorSpecialFall2022HealerNotes": "Quantas observações pode um Observador observar? Se um Observador pudesse observar o observável? Aumenta Constituição em <%= con %>. Equipamento de Edição Limitada do Outono de 2022."
+    "armorSpecialFall2022HealerNotes": "Quantas observações pode um Observador observar? Se um Observador pudesse observar o observável? Aumenta Constituição em <%= con %>. Equipamento de Edição Limitada do Outono de 2022.",
+    "armorMystery202210Text": "Armadura Serpente Sinistra",
+    "armorMystery202210Notes": "Tente deslizar pra variar, talvez você encontre um novo modo de transporte! Não confere benefícios. Item de Assinante de Outubro de 2022.",
+    "headMystery202210Text": "Capacete Serpente Sinistra",
+    "headMystery202210Notes": "Esse capuz escamoso certamente irá aterrorizar sua lista de afazeres! Não confere benefícios. Item de Assinante de Outubro de 2022."
 }

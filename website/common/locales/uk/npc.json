@@ -131,5 +131,6 @@
     "paymentSubBillingWithMethod": "За Вашу підписку стягуватиметься плата у розмірі <strong>$<%= amount %></strong> кожен(-ні) <strong><%= months %> місяць(ці) </strong> через <strong><%= paymentMethod %></strong>.",
     "paymentAutoRenew": "Ця підписка буде автоматично поновлюватися, доки її не буде скасовано. Якщо вам потрібно скасувати цю підписку, Ви можете зробити це у своїх налаштуваннях.",
     "paymentCanceledDisputes": "Ми надіслали підтвердження скасування на Вашу електронну пошту. Якщо Ви не бачите електронного листа, зв’яжіться з нами, щоб запобігти майбутнім суперечкам щодо розрахунків.",
-    "helpSupportHabitica": "Підтримайте Habitica"
+    "helpSupportHabitica": "Підтримайте Habitica",
+    "groupsPaymentSubBilling": "Дата вашого наступного платежу <strong><%= renewalDate %></strong>."
 }
