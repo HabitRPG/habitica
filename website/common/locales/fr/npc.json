@@ -131,5 +131,7 @@
     "limitedAvailabilityHours": "Disponible pendant <%= hours %>h <%= minutes %>m",
     "limitedAvailabilityDays": "Disponible pendant <%= days %>j <%= hours %>h <%= minutes %>m",
     "amountExp": "<%= amount %> expérience",
-    "helpSupportHabitica": "Contribuez à soutenir Habitica"
+    "helpSupportHabitica": "Contribuez à soutenir Habitica",
+    "groupsPaymentSubBilling": "Votre prochaine date de facturation est <strong><%= renewalDate %></strong>.",
+    "groupsPaymentAutoRenew": "Cet abonnement se renouvellera automatiquement jusqu'à son annulation. Si vous devez l'annuler, vous pouvez le faire depuis l'onglet de facturation de groupe."
 }

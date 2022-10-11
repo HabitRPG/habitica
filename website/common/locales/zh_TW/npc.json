@@ -130,5 +130,8 @@
     "amountExp": "<%= amount %> 經驗",
     "limitedAvailabilityHours": "購買時間剩餘<%= hours %>小時 <%= minutes %>分鐘",
     "limitedAvailabilityDays": "購買時間剩餘<%= days %>天 <%= hours %>小時 <%= minutes %>分鐘",
-    "limitedAvailabilityMinutes": "購買時間剩餘<%= minutes %>分鐘<%= seconds %>秒"
+    "limitedAvailabilityMinutes": "購買時間剩餘<%= minutes %>分鐘<%= seconds %>秒",
+    "groupsPaymentSubBilling": "您的下一個續簽日期是<strong><%= renewalDate %></strong>。",
+    "groupsPaymentAutoRenew": "該訂閱將自動續訂，直到您取消。如有需要，您可以在團隊計費選項卡中取消它。",
+    "helpSupportHabitica": "支持Habitica"
 }
