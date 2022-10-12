@@ -11,6 +11,12 @@ describe('PUT /group', () => {
   const groupName = 'Test Public Guild';
   const groupType = 'guild';
   const groupUpdatedName = 'Test Public Guild Updated';
+  const groupCategories = [
+    {
+      slug: 'initialCat',
+      name: 'Initial Category',
+    },
+  ];
 
   beforeEach(async () => {
     const { group, groupLeader, members } = await createAndPopulateGroup({
@@ -18,6 +24,7 @@ describe('PUT /group', () => {
         name: groupName,
         type: groupType,
         privacy: 'public',
+        categories: groupCategories,
       },
       members: 1,
     });
@@ -59,6 +66,35 @@ describe('PUT /group', () => {
 
     expect(updatedGroup.categories[0].slug).to.eql(categories[0].slug);
     expect(updatedGroup.categories[0].name).to.eql(categories[0].name);
+  });
+
+  it('removes the initial group category', async () => {
+    const categories = [];
+
+    const updatedGroup = await leader.put(`/groups/${groupToUpdate._id}`, {
+      categories,
+    });
+
+    expect(updatedGroup.categories.length).to.equal(0);
+  });
+
+  it('removes duplicate group categories', async () => {
+    const categories = [
+      {
+        slug: 'newCat',
+        name: 'New Category',
+      },
+      {
+        slug: 'newCat',
+        name: 'New Category',
+      },
+    ];
+
+    const updatedGroup = await leader.put(`/groups/${groupToUpdate._id}`, {
+      categories,
+    });
+
+    expect(updatedGroup.categories.length).to.equal(1);
   });
 
   it('allows an admin to update a guild', async () => {
