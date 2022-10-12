@@ -64,7 +64,7 @@ function _dateDiff (earlyDate, lateDate) {
   return moment(lateDate).diff(earlyDate, 'months', true);
 }
 
-async function createSubscription (data) {
+async function prepareSubscriptionValues (data) {
   let recipient = data.gift ? data.gift.member : data.user;
   const block = shared.content.subscriptionBlocks[data.gift
     ? data.gift.subscription.key
@@ -122,7 +122,10 @@ async function createSubscription (data) {
     if (plan.customerId && !plan.dateTerminated) { // User has active plan
       plan.extraMonths += months;
     } else {
-      if (!recipientIsSubscribed || !plan.dateUpdated) plan.dateUpdated = today;
+      if (!recipientIsSubscribed || !plan.dateUpdated) {
+        plan.dateUpdated = today;
+      }
+
       if (moment(plan.dateTerminated).isAfter()) {
         plan.dateTerminated = moment(plan.dateTerminated).add({ months }).toDate();
       } else {
@@ -131,9 +134,15 @@ async function createSubscription (data) {
       }
     }
 
-    if (!plan.customerId) plan.customerId = 'Gift'; // don't override existing customer, but all sub need a customerId
+    if (!plan.customerId) {
+      plan.customerId = 'Gift';
+    }
+
+    // don't override existing customer, but all sub need a customerId
   } else {
-    if (!plan.dateTerminated) plan.dateTerminated = today;
+    if (!plan.dateTerminated) {
+      plan.dateTerminated = today;
+    }
 
     Object.assign(plan, { // override plan with new values
       planId: block.key,
@@ -153,14 +162,52 @@ async function createSubscription (data) {
     });
 
     // allow non-override if a plan was previously used
-    if (!plan.gemsBought) plan.gemsBought = 0;
-    if (!plan.dateCreated) plan.dateCreated = today;
-    if (!plan.mysteryItems) plan.mysteryItems = [];
+    if (!plan.gemsBought) {
+      plan.gemsBought = 0;
+    }
+
+    if (!plan.dateCreated) {
+      plan.dateCreated = today;
+    }
+
+    if (!plan.mysteryItems) {
+      plan.mysteryItems = [];
+    }
 
     if (data.subscriptionId) {
       plan.subscriptionId = data.subscriptionId;
     }
   }
+
+  return {
+    block,
+    months,
+    plan,
+    recipient,
+    autoRenews,
+    group,
+    groupId,
+     itemPurchased,
+    purchaseType,
+    emailType,
+    recipientIsSubscribed,
+  }
+}
+
+async function createSubscription (data) {
+  const {
+    block,
+    months,
+    plan,
+    recipient,
+    autoRenews,
+    group,
+    groupId,
+    itemPurchased,
+    purchaseType,
+    emailType,
+    recipientIsSubscribed
+  } = await prepareSubscriptionValues(data);
 
   // Block sub perks
   const perks = Math.floor(months / 3);
@@ -168,7 +215,7 @@ async function createSubscription (data) {
     plan.consecutive.offset += months;
     plan.consecutive.gemCapExtra += perks * 5;
     if (plan.consecutive.gemCapExtra > 25) plan.consecutive.gemCapExtra = 25;
-    await plan.updateHourglasses(data.user._id, perks, 'subscription_perks'); // one Hourglass every 3 months
+    await plan.updateHourglasses(recipient._id, perks, 'subscription_perks'); // one Hourglass every 3 months
   }
 
   if (recipient !== group) {
