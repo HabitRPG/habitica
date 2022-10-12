@@ -187,11 +187,10 @@ async function prepareSubscriptionValues (data) {
     autoRenews,
     group,
     groupId,
-     itemPurchased,
+    itemPurchased,
     purchaseType,
     emailType,
-    recipientIsSubscribed,
-  }
+  };
 }
 
 async function createSubscription (data) {
@@ -206,7 +205,6 @@ async function createSubscription (data) {
     itemPurchased,
     purchaseType,
     emailType,
-    recipientIsSubscribed
   } = await prepareSubscriptionValues(data);
 
   // Block sub perks
@@ -408,7 +406,9 @@ async function cancelSubscription (data) {
     await data.user.save();
   }
 
-  if (sendEmail) txnEmail(data.user, emailType, emailMergeData);
+  if (sendEmail) {
+    txnEmail(data.user, emailType, emailMergeData);
+  }
 
   if (group) {
     cancelType = 'group-unsubscribe';

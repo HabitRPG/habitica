@@ -11,9 +11,7 @@ import {
   generateGroup,
 } from '../../../../helpers/api-unit.helper';
 import * as worldState from '../../../../../website/server/libs/worldState';
-import { model as Group } from '../../../../../website/server/models/group';
-import * as Tasks from '../../../../../website/server/models/task';
-import { TransactionModel as Transaction, TransactionModel } from '../../../../../website/server/models/transaction';
+import { TransactionModel } from '../../../../../website/server/models/transaction';
 
 describe('payments/index', () => {
   let user;
