@@ -18,7 +18,9 @@ import {
 import shared from '../../../common';
 import { sendNotification as sendPushNotification } from '../pushNotifications'; // eslint-disable-line import/no-cycle
 import calculateSubscriptionTerminationDate from './calculateSubscriptionTerminationDate';
-import { getCurrentEventList } from '../worldState'; // eslint-disable-line import/no-cycle
+import { getCurrentEventList } from '../worldState';
+import { paymentConstants } from './constants';
+import { addSubscriptionToGroupUsers, cancelGroupUsersSubscription } from './groupPayments'; // eslint-disable-line import/no-cycle
 
 // @TODO: Abstract to shared/constant
 const JOINED_GROUP_PLAN = 'joined group plan';
@@ -88,7 +90,7 @@ async function prepareSubscriptionValues (data) {
 
     if (group) {
       analytics.track(
-        this.groupID,
+        data.groupID,
         data.demographics,
       );
     }
@@ -113,7 +115,7 @@ async function prepareSubscriptionValues (data) {
     groupId = group._id;
     recipient.purchased.plan.quantity = data.sub.quantity;
 
-    await this.addSubscriptionToGroupUsers(group);
+    await addSubscriptionToGroupUsers(group);
   }
 
   const { plan } = recipient.purchased;
@@ -223,7 +225,7 @@ async function createSubscription (data) {
   }
 
   // @TODO: Create a factory pattern for use cases
-  if (!data.gift && data.customerId !== this.constants.GROUP_PLAN_CUSTOMER_ID) {
+  if (!data.gift && data.customerId !== paymentConstants.GROUP_PLAN_CUSTOMER_ID) {
     txnEmail(data.user, emailType);
   }
 
@@ -312,7 +314,7 @@ async function createSubscription (data) {
           promo: 'Winter',
           promoUsername: data.gift.member.auth.local.username,
         };
-        await this.createSubscription(promoData);
+        await createSubscription(promoData);
       }
 
       if (data.gift.member.preferences.pushNotifications.giftedSubscription !== false) {
@@ -379,7 +381,7 @@ async function cancelSubscription (data) {
     emailType = 'group-cancel-subscription';
     emailMergeData.push({ name: 'GROUP_NAME', content: group.name });
 
-    await this.cancelGroupUsersSubscription(group);
+    await cancelGroupUsersSubscription(group);
   } else {
     // cancelling a user subscription
     plan = data.user.purchased.plan;
@@ -389,12 +391,12 @@ async function cancelSubscription (data) {
     if (data.cancellationReason && data.cancellationReason === JOINED_GROUP_PLAN) sendEmail = false;
   }
 
-  if (plan.customerId === this.constants.GROUP_PLAN_CUSTOMER_ID) {
+  if (plan.customerId === paymentConstants.GROUP_PLAN_CUSTOMER_ID) {
     sendEmail = false; // because group-member-cancel email has already been sent
   }
 
   plan.dateTerminated = calculateSubscriptionTerminationDate(
-    data.nextBill, plan, this.constants.GROUP_PLAN_CUSTOMER_ID,
+    data.nextBill, plan, paymentConstants.GROUP_PLAN_CUSTOMER_ID,
   );
 
   // clear extra time. If they subscribe again, it'll be recalculated from p.dateTerminated
