@@ -1,3 +1,5 @@
+// TODO these files need to refactored.
+
 import _ from 'lodash';
 import moment from 'moment';
 
@@ -18,7 +20,7 @@ import {
 import shared from '../../../common';
 import { sendNotification as sendPushNotification } from '../pushNotifications'; // eslint-disable-line import/no-cycle
 import calculateSubscriptionTerminationDate from './calculateSubscriptionTerminationDate';
-import { getCurrentEventList } from '../worldState';
+import { getCurrentEventList } from '../worldState'; // eslint-disable-line import/no-cycle
 import { paymentConstants } from './constants';
 import { addSubscriptionToGroupUsers, cancelGroupUsersSubscription } from './groupPayments'; // eslint-disable-line import/no-cycle
 

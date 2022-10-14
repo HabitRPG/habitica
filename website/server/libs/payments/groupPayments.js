@@ -1,3 +1,5 @@
+// TODO these files need to refactored.
+
 import nconf from 'nconf';
 import _ from 'lodash';
 import moment from 'moment';
@@ -13,7 +15,8 @@ import { // eslint-disable-line import/no-cycle
   sendTxn as txnEmail,
 } from '../email';
 import { paymentConstants } from './constants';
-import { createSubscription } from './subscriptions';
+// eslint-disable-line import/no-cycle
+import { cancelSubscription, createSubscription } from './subscriptions'; // eslint-disable-line import/no-cycle
 
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS_TECH_ASSISTANCE_EMAIL');
 const JOINED_GROUP_PLAN = 'joined group plan';
@@ -39,6 +42,7 @@ async function addSubscriptionToGroupUsers (group) {
     members = await User.find({ 'party._id': group._id }).select('_id purchased items auth profile.name notifications').exec();
   }
 
+  // eslint-disable-next-line no-use-before-define
   const promises = members.map(member => addSubToGroupUser(member, group));
 
   await Promise.all(promises);
@@ -209,6 +213,7 @@ async function cancelGroupUsersSubscription (group) {
     members = await User.find({ 'party._id': group._id }).select('_id guilds purchased').exec();
   }
 
+  // eslint-disable-next-line no-use-before-define
   const promises = members.map(member => cancelGroupSubscriptionForUser(member, group));
 
   await Promise.all(promises);
