@@ -118,7 +118,7 @@ api.subscribe = async function subscribe (sku, user, receipt, headers, nextPayme
   }
 
   if (originalTransactionId) {
-    if (user && user.purchased.plan.customId !== originalTransactionId) {
+    if (user && user.isSubscribed() && user.purchased.plan.customId !== originalTransactionId) {
       throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
     }
     const existingUser = await User.findOne({
