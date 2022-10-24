@@ -151,6 +151,7 @@ export default new Schema({
     birdsOfAFeather: Boolean,
     reptacularRumble: Boolean,
     woodlandWizard: Boolean,
+    boneToPick: Boolean,
     // Onboarding Guide
     createdTask: Boolean,
     completedTask: Boolean,
