@@ -139,7 +139,7 @@
   "achievementWoodlandWizard": "Woodland Wizard",
   "achievementWoodlandWizardText": "Has hatched all standard colors of forest creatures: Badger, Bear, Deer, Fox, Frog, Hedgehog, Owl, Snail, Squirrel, and Treeling!",
   "achievementWoodlandWizardModalText": "You collected all the forest pets!",
-  "achievementBonetoPick": "Bone to Pick",
-  "achievementBonetoPickText": "Has hatched all the Classic and Quest Skeleton Pets!",
-  "achievementBonetoPickModal Text": "You collected all the Classic and Quest Skeleton Pets!"
+  "achievementBoneToPick": "Bone to Pick",
+  "achievementBoneToPickText": "Has hatched all the Classic and Quest Skeleton Pets!",
+  "achievementBoneToPickModalText": "You collected all the Classic and Quest Skeleton Pets!"
 }

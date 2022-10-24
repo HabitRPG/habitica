@@ -310,14 +310,14 @@ const mountColorAchievs = {
 };
 Object.assign(achievementsData, mountColorAchievs);
 
-const petCompleteSetAchievs = {
+const petSetCompleteAchievs = {
   boneToPick: {
     icon: 'achievement-boneToPick',
     titlekey: 'achievementBoneToPick',
     textKey: 'achievementBoneToPickText',
   },
 };
-Object.assign(achievementsData, petCompleteSetAchievs);
+Object.assign(achievementsData, petSetCompleteAchievs);
 
 const onboardingAchievs = {
   createdTask: {
