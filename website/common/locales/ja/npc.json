@@ -17,9 +17,9 @@
     "mattBochText1": "動物小屋にようこそ！ 私の名前はMatt、猛獣使いだ。タスクを達成するごとに、ペットをかえすための「たまご」と「たまごがえしの薬」を手に入れるランダムなチャンスがあるよ。ペットをかえしたときは、ここに現れるぞ！ ペットの画像をクリックしてアバターに追加しよう。見つけた「ペットのえさ」をやると、ペットはたくましい乗騎へと育っていくんだ。",
     "welcomeToTavern": "キャンプ場へようこそ！",
     "sleepDescription": "休息が必要ですか？　Danielのロッジにチェックインして、Habiticaにおける手ごわいゲーム要素を停止させましょう。",
-    "sleepBullet1": "やり逃した日課によるダメージを受けません",
-    "sleepBullet2": "タスクの連続実行回数は失われません",
-    "sleepBullet3": "ボスはあなた自身が逃した日課によるダメージを与えません",
+    "sleepBullet1": "やり逃した日課によるダメージを受けません（パーティーメンバーが日課を逃した際のボスからのダメージは引き続き受けます）",
+    "sleepBullet2": "タスクの連続実行回数と習慣カウンターはリセットされません",
+    "sleepBullet3": "クエストのボスへのダメージまたは見つけたコレクション アイテムは、ロッジをチェックアウトするまで保留のままになります",
     "sleepBullet4": "あなたがボスに与えたダメージと、アイテム集めのクエストアイテムは、チェックアウトするまで保留されます",
     "pauseDailies": "日課を休む",
     "unpauseDailies": "日課を休むのをやめる",
@@ -81,7 +81,7 @@
     "newBaileyUpdate": "Baileyから新しいお知らせがあります！",
     "tellMeLater": "後で教えて",
     "dismissAlert": "この通知を閉じる",
-    "donateText3": "Habiticaは、ユーザーの協力の元に成り立っているオープンソース プロジェクトです。ジェムの購入に使われたお金は、サーバーの維持、少数スタッフの維持、新しい機能の開発、そしてボランティアのプログラマーたちにインセンティブを与える手助けになっています。あなたのご厚情に感謝いたします！",
+    "donateText3": "Habiticaは、ユーザーの協力の元に成り立っているオープンソース プロジェクトです。ジェムの購入に使われたお金は、サーバーの維持、少数スタッフの維持、新しい機能の開発、そしてボランティアの皆さんにインセンティブを与える手助けになっています",
     "card": "クレジットカード",
     "paymentMethods": "お支払い方法",
     "paymentSuccessful": "支払いは成功しました！",
@@ -131,5 +131,7 @@
     "limitedAvailabilityHours": "購入できる期間は残り<%= hours %>時間<%= minutes %>分です",
     "limitedAvailabilityMinutes": "購入できる期間は残り<%= minutes %>分<%= seconds %>秒です",
     "amountExp": "<%= amount %>経験値",
-    "newStuffPostedOn": "<%= publishDate %> <%= publishTime %>に投稿"
+    "newStuffPostedOn": "<%= publishDate %> <%= publishTime %>に投稿",
+    "helpSupportHabitica": "Habiticaを支援する",
+    "groupsPaymentSubBilling": "次回の請求日は <strong><%= renewalDate %></strong> です。"
 }

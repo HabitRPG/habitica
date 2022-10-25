@@ -31,13 +31,13 @@
     "collected": "Gesammelt",
     "abort": "Abbrechen",
     "leaveQuest": "Quest verlassen",
-    "sureLeave": "Willst du die Quest wirklich abbrechen? Dein kompletter Questfortschritt wird verloren gehen.",
+    "sureLeave": "Willst Du die Quest wirklich abbrechen? Dein ganzer Fortschritt wird verloren gehen.",
     "mustComplete": "Du musst vorher die <%= quest %> Quest abschließen.",
     "mustLvlQuest": "Du musst Level <%= level %> sein um diese Quest zu erwerben!",
     "unlockByQuesting": "Um diese Quest freizuschalten, musst Du erst <%= title %> abschließen.",
-    "questConfirm": "Bist du sicher, dass du diese Quest starten willst? Nicht alle Mitspieler deiner Party haben die Einladung zu dieser Quest akzeptiert. Quests starten automatisch sobald alle Mitspieler die Einladung angenommen oder abgelehnt haben.",
-    "sureCancel": "Bist Du sicher, dass du diese Quest abbrechen willst? Wenn du die Quest abbrichst werden auch alle bereits akzeptierten Einladungen zurückgenommen. Der Quest-Besitzer wird die Questschriftrolle zurück bekommen.",
-    "sureAbort": "Bist Du sicher, dass Du diese Mission abbrechen willst? Aller Questfortschritt wird verloren gehen. Die Questschriftrolle wird dem Besitzer zurückgegeben.",
+    "questConfirm": "Bist Du sicher, dass Du diese Quest starten willst? Nicht alle Mitglieder Deiner Party haben die Einladung zu dieser Quest akzeptiert. Quests starten automatisch sobald alle Mitspieler die Einladung beantwortet haben.",
+    "sureCancel": "Bist Du sicher, dass Du diese Quest abbrechen willst? Wenn Du die Quest abbrichst werden alle bereits akzeptierten und noch unbeantworteten Einladungen zurückgenommen und die Questschriftrolle wird an ihren Besitzer zurückgegeben.",
+    "sureAbort": "Bist Du sicher, dass Du diese Quest abbrechen willst? Der ganze Fortschritt geht verloren und die Questschriftrolle wird dem Besitzer zurückgegeben.",
     "doubleSureAbort": "Bist Du wirklich, wirklich sicher? Sei ganz sicher, dass sie Dich nicht für immer hassen werden!",
     "bossRageTitle": "Raserei",
     "bossRageDescription": "Wenn sich dieser Balken füllt, wird der Boss eine Spezialattacke ausführen!",
@@ -90,7 +90,7 @@
     "selectQuest": "Wähle eine Quest aus",
     "noQuestToStartTitle": "Kannst Du keine Quest finden, die du beginnen möchtest?",
     "membersParticipating": "<%= accepted %> / <%= invited %> Mitglieder nehmen teil",
-    "yourPartyIsNotOnQuest": "Deine Gruppe befindet sich nicht auf einer Quest",
+    "yourPartyIsNotOnQuest": "Deine Party befindet sich nicht auf einer Quest",
     "questOwner": "Questbesitzer",
     "cancelQuest": "Quest abbrechen",
     "backToSelection": "Zurück zur Questauswahl",
@@ -98,5 +98,5 @@
     "newItem": "Neuer Gegenstand",
     "ownerOnly": "Nur der Besitzer",
     "questItemsPending": "<%= amount %> Gegenstände ausstehend",
-    "selectQuestModal": "Such dir eine Quest aus"
+    "selectQuestModal": "Such Dir eine Quest aus"
 }

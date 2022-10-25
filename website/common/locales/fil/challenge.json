@@ -28,7 +28,7 @@
     "prize": "Premyo",
     "prizePopTavern": "If someone can 'win' your challenge, you can award that winner a Gem prize. Max = number of gems you own. Note: This prize can't be changed later and Tavern challenges will not be refunded if the challenge is cancelled.",
     "publicChallengesTitle": "Mga Pampublikong Hamon",
-    "officialChallenge": "Opisyal na Hamon ng Habitica",
+    "officialChallenge": "Mapananaligang Hamon ng Habitica",
     "by": "ni",
     "participants": "<%= membercount %> Mga Kalahok",
     "join": "Sumali",

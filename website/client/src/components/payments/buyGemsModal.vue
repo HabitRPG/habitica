@@ -153,14 +153,6 @@
             </span>
           </div>
         </div>
-        <div class="row text-center">
-          <h4
-            v-once
-            class="col-12 text-payment mb-3"
-          >
-            {{ $t('choosePaymentMethod') }}
-          </h4>
-        </div>
         <payments-buttons
           :disabled="!selectedGemsBlock"
           :stripe-fn="() => redirectToStripe({ gemsBlock: selectedGemsBlock })"
@@ -169,6 +161,19 @@
           })"
           :amazon-data="{type: 'single', gemsBlock: selectedGemsBlock}"
         />
+        <div
+          v-if="eventName === 'fall_extra_gems' || eventName === 'spooky_extra_gems'"
+          class="d-flex flex-column justify-content-center"
+        >
+          <h4 class="mt-3 mx-auto"> {{ $t('howItWorks') }}</h4>
+          <small class="text-center">
+            {{ $t('gemSaleHow', { eventStartMonth, eventStartOrdinal, eventEndOrdinal }) }}
+          </small>
+          <h4 class="mt-3 mx-auto"> {{ $t('limitations') }}</h4>
+          <small class="text-center">
+            {{ $t('gemSaleLimitations', { eventStartMonth, eventStartOrdinal, eventEndOrdinal }) }}
+          </small>
+        </div>
       </div>
     </b-modal>
   </div>
@@ -178,6 +183,13 @@
   @import '~@/assets/scss/colors.scss';
 
   #buy-gems {
+    small {
+      color: $gray-100;
+      font-size: 12px;
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+
     .close-icon svg path {
       stroke: $purple-400;
     }
@@ -422,6 +434,15 @@ export default {
         return `event-${this.eventName}`;
       }
       return '';
+    },
+    eventStartMonth () {
+      return moment(this.currentEvent.start).format('MMMM');
+    },
+    eventStartOrdinal () {
+      return moment(this.currentEvent.start).format('Do');
+    },
+    eventEndOrdinal () {
+      return moment(this.currentEvent.end).format('Do');
     },
     isGemsPromoActive () {
       const currEvt = this.currentEvent;

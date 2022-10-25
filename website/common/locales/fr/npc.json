@@ -17,9 +17,9 @@
     "mattBochText1": "Bienvenue à l'écurie ! Je suis Matt, le Maître des bêtes. Chaque fois que vous complétez une tâche, vous avez une chance d'obtenir un œuf ou une potion d'éclosion pour faire éclore un familier. Lorsque vous faites éclore un œuf de familier, il apparaît ici ! Cliquez sur l'image d'un familier pour qu'il rejoigne votre avatar. Donnez à vos familiers la nourriture que vous trouvez, et ils deviendront de puissantes montures.",
     "welcomeToTavern": "Bienvenue dans la taverne !",
     "sleepDescription": "Besoin d'une pause ? Prenez une chambre à l'auberge de Daniel pour mettre en veille les aspects d'Habitica les plus complexes :",
-    "sleepBullet1": "Les tâches quotidiennes non validées ne feront plus de dommages",
-    "sleepBullet2": "Les combos ne seront pas interrompus",
-    "sleepBullet3": "Les boss ne vous infligeront pas de dégâts pour vos tâches quotidiennes manquées",
+    "sleepBullet1": "Vos tâches quotidiennes non validées ne feront plus de dommages (Les boss continueront de faire des dégâts causés par les quotidiennes ratées des autres membres)",
+    "sleepBullet2": "Les combos et les compteurs d'habitudes ne seront pas réinitialisés",
+    "sleepBullet3": "Vos dégâts aux boss de quêtes ou les objets collecté resteront en attente jusqu'à votre sortie de l'auberge",
     "sleepBullet4": "Les dommages aux boss et la collecte des objets de quête resteront en instance jusqu'à votre départ de l'auberge",
     "pauseDailies": "Désactiver les dégâts",
     "unpauseDailies": "Activer les dégâts",
@@ -81,7 +81,7 @@
     "newBaileyUpdate": "Nouvelles informations de Bailey !",
     "tellMeLater": "Rappelez-le-moi plus tard",
     "dismissAlert": "Renvoyer la messagère",
-    "donateText3": "En tant que projet à code source ouvert, Habitica est dépendant du soutien de ses utilisateurs. L'argent que vous dépensez en gemmes nous aide à continuer à faire fonctionner les serveurs, à maintenir un petit groupe d'employés, à développer de nouvelles fonctionnalités et à fournir des encouragements à nos programmeurs bénévoles. Merci de votre générosité !",
+    "donateText3": "En tant que projet à code source ouvert, Habitica est dépendant du soutien de ses utilisateurs. L'argent que vous dépensez en gemmes nous aide à continuer à faire fonctionner les serveurs, à maintenir un petit groupe d'employés, à développer de nouvelles fonctionnalités et à fournir des encouragements à nos bénévoles",
     "card": "Carte de crédit",
     "paymentMethods": "Moyens de paiement",
     "paymentSuccessful": "Le paiement a été réalisé !",
@@ -130,5 +130,8 @@
     "limitedAvailabilityMinutes": "Disponible pendant <%= minutes %>m <%= seconds %>s",
     "limitedAvailabilityHours": "Disponible pendant <%= hours %>h <%= minutes %>m",
     "limitedAvailabilityDays": "Disponible pendant <%= days %>j <%= hours %>h <%= minutes %>m",
-    "amountExp": "<%= amount %> expérience"
+    "amountExp": "<%= amount %> expérience",
+    "helpSupportHabitica": "Contribuez à soutenir Habitica",
+    "groupsPaymentSubBilling": "Votre prochaine date de facturation est <strong><%= renewalDate %></strong>.",
+    "groupsPaymentAutoRenew": "Cet abonnement se renouvellera automatiquement jusqu'à son annulation. Si vous devez l'annuler, vous pouvez le faire depuis l'onglet de facturation de groupe."
 }

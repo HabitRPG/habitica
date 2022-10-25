@@ -120,7 +120,7 @@
     "paypalCanceled": "Sua assinatura foi cancelada",
     "choosePaymentMethod": "Escolha seu método de pagamento",
     "buyGemsSupportsDevs": "A compra de Gemas dá o apoio necessário para os desenvolvedores continuarem movimentando o Habitica",
-    "support": "SUPORTE",
+    "support": "Suporte",
     "gemBenefitLeadin": "O que você pode comprar com Gemas?",
     "gemBenefit1": "Trajes únicos e elegantes para o seu avatar.",
     "gemBenefit2": "Cenários para a imersão do seu avatar no mundo do Habitica!",
@@ -212,5 +212,7 @@
     "wantToSendOwnGems": "Deseja enviar suas próprias Gemas?",
     "howManyGemsSend": "Quantas Gemas você gostaria de enviar?",
     "sendAGift": "Enviar presente",
-    "mysterySet202208": "Conjunto Rabo de Cavalo Radiante"
+    "mysterySet202208": "Conjunto Rabo de Cavalo Radiante",
+    "mysterySet202209": "Conjunto Mágico Escolar",
+    "mysterySet202210": "Conjunto Serpente Sinistra"
 }

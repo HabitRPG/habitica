@@ -23,7 +23,7 @@ import amazonPayments from '../../libs/payments/amazon'; // eslint-disable-line 
 import stripePayments from '../../libs/payments/stripe'; // eslint-disable-line import/no-cycle
 import paypalPayments from '../../libs/payments/paypal'; // eslint-disable-line import/no-cycle
 import { model as NewsPost } from '../newsPost';
-import { model as Transaction } from '../transaction';
+import { TransactionModel as Transaction } from '../transaction';
 
 const { daysSince } = common;
 
@@ -575,5 +575,24 @@ schema.methods.updateBalance = async function updateBalance (amount,
     reference,
     referenceText,
     currentAmount: this.balance,
+  });
+};
+
+schema.methods.updateHourglasses = async function updateHourglasses (
+  amount,
+  transactionType,
+  reference,
+  referenceText,
+) {
+  this.purchased.plan.consecutive.trinkets += amount;
+
+  await Transaction.create({
+    currency: 'hourglasses',
+    userId: this._id,
+    transactionType,
+    amount,
+    reference,
+    referenceText,
+    currentAmount: this.purchased.plan.consecutive.trinkets,
   });
 };

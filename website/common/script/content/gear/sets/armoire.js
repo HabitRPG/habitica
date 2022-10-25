@@ -401,6 +401,9 @@ const armor = {
     int: 4,
     set: 'fancyPirate',
   },
+  sheetGhostCostume: {
+    con: 10,
+  },
 };
 
 const body = {
@@ -433,6 +436,12 @@ const eyewear = {
   },
   clownsNose: {
     int: 5,
+  },
+  tragedyMask: {
+    int: 10,
+  },
+  comedyMask: {
+    con: 10,
   },
 };
 

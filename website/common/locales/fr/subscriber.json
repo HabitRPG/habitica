@@ -120,7 +120,7 @@
     "paypalCanceled": "Votre abonnement a été annulé",
     "choosePaymentMethod": "Choisissez votre moyen de paiement",
     "buyGemsSupportsDevs": "Acheter des gemmes soutient les développeurs et aide à maintenir Habitica en état de marche",
-    "support": "SUPPORT",
+    "support": "Support",
     "gemBenefitLeadin": "Que pouvez-vous acheter avec des gemmes ?",
     "gemBenefit1": "des costumes uniques et à la mode pour votre avatar.",
     "gemBenefit2": "des arrière-plans pour immerger votre avatar dans le monde d'Habitica !",
@@ -212,5 +212,7 @@
     "howManyGemsPurchase": "Combien de gemmes souhaitez-vous acheter ?",
     "mysterySet202206": "Ensemble de lutine maritime",
     "mysterySet202207": "Ensemble de méduse mélomane",
-    "mysterySet202208": "Ensemble de queue de cheval audacieuse"
+    "mysterySet202208": "Ensemble de queue de cheval audacieuse",
+    "mysterySet202209": "Ensemble d'étude de magie",
+    "mysterySet202210": "Ensemble ophidien inquiétant"
 }

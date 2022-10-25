@@ -9,11 +9,42 @@ const gemsPromo = {
 };
 
 export const EVENTS = {
-  noCurrentEvent: {
-    start: '2022-09-30T20:00-04:00',
+  afterGala: {
+    start: '2022-10-31T20:00-04:00',
     end: '2022-12-21T08:00-04:00',
     season: 'normal',
     npcImageSuffix: '',
+  },
+  fall2022: {
+    start: '2022-09-20T08:00-04:00',
+    end: '2022-10-31T20:00-04:00',
+    npcImageSuffix: '_fall',
+    season: 'fall',
+    gear: true,
+  },
+  spooky_extra_gems: {
+    start: '2022-10-27T08:00-04:00',
+    end: '2022-10-31T20:00-04:00',
+    gemsPromo,
+  },
+  fall_extra_gems: {
+    start: '2022-10-06T08:00-04:00',
+    end: '2022-10-13T20:00-04:00',
+    gemsPromo,
+  },
+  bundle202210: {
+    start: '2022-10-13T08:00-04:00',
+    end: '2022-10-31T20:00-04:00',
+  },
+  beforeGala: {
+    start: '2022-07-31T20:00-04:00',
+    end: '2022-09-20T08:00-04:00',
+    season: 'normal',
+    npcImageSuffix: '',
+  },
+  bundle202209: {
+    start: '2022-09-13T08:00-04:00',
+    end: '2022-09-30T20:00-04:00',
   },
   potions202208: {
     start: '2022-08-16T08:00-04:00',

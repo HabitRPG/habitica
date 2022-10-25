@@ -515,6 +515,16 @@ const backgrounds = {
     messy_room: { },
     by_a_campfire: { },
   },
+  backgrounds092022: {
+    theatre_stage: { },
+    autumn_picnic: { },
+    old_photo: { },
+  },
+  backgrounds102022: {
+    spooky_ruins: { },
+    mask_makers_workshop: { },
+    cemetery_gate: { },
+  },
   timeTravelBackgrounds: {
     airship: {
       price: 1,

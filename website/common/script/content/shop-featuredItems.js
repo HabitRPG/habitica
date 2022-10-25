@@ -5,7 +5,7 @@ import { EVENTS } from './constants';
 // path: 'premiumHatchingPotions.Rainbow',
 const featuredItems = {
   market () {
-    if (moment().isBetween(EVENTS.potions202208.start, EVENTS.potions202208.end)) {
+    if (moment().isBetween(EVENTS.fall2022.start, EVENTS.fall2022.end)) {
       return [
         {
           type: 'armoire',
@@ -13,15 +13,15 @@ const featuredItems = {
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Moonglow',
+          path: 'premiumHatchingPotions.Vampire',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Porcelain',
+          path: 'premiumHatchingPotions.Ghost',
         },
         {
-          type: 'food',
-          path: 'food.Milk',
+          type: 'premiumHatchingPotion',
+          path: 'premiumHatchingPotions.Shadow',
         },
       ];
     }
@@ -32,11 +32,11 @@ const featuredItems = {
       },
       {
         type: 'food',
-        path: 'food.RottenMeat',
+        path: 'food.Potatoe',
       },
       {
         type: 'hatchingPotions',
-        path: 'hatchingPotions.Zombie',
+        path: 'hatchingPotions.Desert',
       },
       {
         type: 'eggs',
@@ -45,26 +45,26 @@ const featuredItems = {
     ];
   },
   quests () {
-    if (moment().isBetween(EVENTS.bundle202208.start, EVENTS.bundle202208.end)) {
+    if (moment().isBetween(EVENTS.bundle202210.start, EVENTS.bundle202210.end)) {
       return [
         {
           type: 'bundles',
-          path: 'bundles.forestFriends',
+          path: 'bundles.witchyFamiliars',
+        },
+        {
+          type: 'quests',
+          path: 'quests.snake',
         },
         {
           type: 'quests',
           path: 'quests.owl',
-        },
-        {
-          type: 'quests',
-          path: 'quests.snail',
         },
       ];
     }
     return [
       {
         type: 'quests',
-        path: 'quests.badger',
+        path: 'quests.guineapig',
       },
       {
         type: 'quests',
