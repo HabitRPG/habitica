@@ -32,6 +32,11 @@
           v-html="icons.lock"
         ></span>
         <span
+          v-if="item.completed"
+          class="svg-icon inline check"
+          v-html="icons.check"
+        ></span>
+        <span
           v-if="item.isSuggested"
           class="suggestedDot"
         ></span>
@@ -200,6 +205,16 @@
     color: $gray-200;
   }
 
+  span.svg-icon.inline.check {
+    height: 12px;
+    width: 10px;
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    margin-top: 0;
+    color: $gray-200;
+  }
+
   span.badge.badge-round.badge-item.badge-clock {
     height: 24px;
     width: 24px;
@@ -246,6 +261,7 @@ import svgGem from '@/assets/svg/gem.svg';
 import svgGold from '@/assets/svg/gold.svg';
 import svgHourglasses from '@/assets/svg/hourglass.svg';
 import svgLock from '@/assets/svg/lock.svg';
+import svgCheck from '@/assets/svg/check.svg';
 import svgClock from '@/assets/svg/clock.svg';
 
 import EquipmentAttributesPopover from '@/components/inventory/equipment/attributesPopover';
@@ -297,6 +313,7 @@ export default {
         gems: svgGem,
         gold: svgGold,
         lock: svgLock,
+        check: svgCheck,
         hourglasses: svgHourglasses,
         clock: svgClock,
       }),
@@ -350,6 +367,7 @@ export default {
         'highlight-border': this.highlightBorder,
         suggested: this.item.isSuggested,
         locked: this.item.locked,
+        completed: this.item.completed,
       };
     },
     countdownString () {

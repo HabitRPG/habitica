@@ -326,21 +326,6 @@ export default {
     isFromBalance () {
       return this.paymentData.paymentType === 'gift-gems-balance';
     },
-    // upgradedGroup () {
-    //   const upgradedGroup = (this.paymentData.paymentType === 'groupPlan'
-    // && !this.paymentData.newGroup);
-    //   const demographicsKey = upgradedGroup.demographics;
-    //   const upgradedGroupName = upgradedGroup.name;
-    //   const upgradedGroupType = upgradedGroup.type;
-    //   const groupPlanUpgraded = {
-    //     demographics: demographicsKey,
-    //     name: upgradedGroupName,
-    //     type: upgradedGroupType,
-    //   };
-    //   console.log(groupPlanUpgraded.demographics,
-    //     groupPlanUpgraded.name, groupPlanUpgraded.type);
-    //   return groupPlanUpgraded;
-    // },
   },
   mounted () {
     this.$root.$on('habitica:payment-success', data => {
@@ -357,14 +342,14 @@ export default {
   },
   methods: {
     submit () {
-      if (!this.paymentData.newGroup) {
+      if (this.paymentData.group && !this.paymentData.newGroup) {
         Analytics.track({
           hitType: 'event',
           eventName: 'group plan upgrade',
           eventAction: 'group plan upgrade',
           eventCategory: 'behavior',
           demographics: this.upgradedGroup.demographics,
-          type: this.paymentData.group.type, // also tried this.upgradedGroup.type
+          type: this.paymentData.group.type,
         }, { trackOnClient: true });
       }
       this.paymentData = {};

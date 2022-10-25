@@ -131,5 +131,7 @@
     "limitedAvailabilityHours": "Disponível por <%= hours %>h <%= minutes %>m",
     "limitedAvailabilityMinutes": "Disponível por <%= minutes %>m <%= seconds %>s",
     "amountExp": "<%= amount %> de EXP",
-    "helpSupportHabitica": "Ajude Apoiando o Habitica"
+    "helpSupportHabitica": "Ajude Apoiando o Habitica",
+    "groupsPaymentSubBilling": "Sua próxima cobrança será em <strong><%= renewalDate %></strong>.",
+    "groupsPaymentAutoRenew": "Esta inscrição irá renovar automaticamente até ser cancelada. Se você precisar cancelar, você pode fazer isso na aba Fatura do Time."
 }

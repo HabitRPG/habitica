@@ -132,5 +132,6 @@
     "limitedAvailabilityMinutes": "購入できる期間は残り<%= minutes %>分<%= seconds %>秒です",
     "amountExp": "<%= amount %>経験値",
     "newStuffPostedOn": "<%= publishDate %> <%= publishTime %>に投稿",
-    "helpSupportHabitica": "Habiticaを支援する"
+    "helpSupportHabitica": "Habiticaを支援する",
+    "groupsPaymentSubBilling": "次回の請求日は <strong><%= renewalDate %></strong> です。"
 }
