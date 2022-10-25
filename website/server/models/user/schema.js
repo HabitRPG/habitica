@@ -430,6 +430,8 @@ export default new Schema({
 
   lastCron: { $type: Date, default: Date.now },
   _cronSignature: { $type: String, default: 'NOT_RUNNING' }, // Private property used to avoid double cron
+  // Lock property to avoid double subscription. Not strictly private because we query on it
+  _subSignature: { $type: String, default: 'NOT_RUNNING' },
 
   // {GROUP_ID: Boolean}, represents whether they have unseen chat messages
   newMessages: {
