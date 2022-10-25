@@ -91,7 +91,9 @@ async function createSubscription (data) {
       },
       { $set: { _subSignature: 'SUB_IN_PROGRESS' } },
     );
-    if (!unlockedUser) throw new NotFound('User not found or subscription already processing.');
+    if (!unlockedUser) {
+      throw new NotFound('User not found or subscription already processing.');
+    }
   }
 
   //  If we are buying a group subscription
@@ -314,9 +316,13 @@ async function createSubscription (data) {
     autoRenews,
   });
 
-  if (group) await group.save();
+  if (group) {
+    await group.save();
+  }
   if (data.user) {
-    if (data.user.isModified()) await data.user.save();
+    if (data.user.isModified()) {
+      await data.user.save();
+    }
     if (!data.gift && !data.groupId) {
       await User.findOneAndUpdate(
         { _id: data.user._id },
@@ -324,7 +330,9 @@ async function createSubscription (data) {
       );
     }
   }
-  if (data.gift) await data.gift.member.save();
+  if (data.gift) {
+    await data.gift.member.save();
+  }
 }
 
 // Cancels a subscription or group plan, setting termination to happen later
