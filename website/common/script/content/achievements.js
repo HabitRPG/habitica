@@ -313,7 +313,7 @@ Object.assign(achievementsData, mountColorAchievs);
 const petSetCompleteAchievs = {
   boneToPick: {
     icon: 'achievement-boneToPick',
-    titlekey: 'achievementBoneToPick',
+    titleKey: 'achievementBoneToPick',
     textKey: 'achievementBoneToPickText',
   },
 };
