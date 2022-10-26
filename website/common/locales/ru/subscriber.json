@@ -11,7 +11,7 @@
     "exclusiveJackalopePet": "Эксклюзивный питомец",
     "giftSubscription": "Хотите подарить преимущества подписки кому-то?",
     "giftSubscriptionText4": "Спасибо за поддержку Habitica!",
-    "groupPlans": "Групповые планы",
+    "groupPlans": "Групповые тарифы",
     "subscribe": "Подписка",
     "nowSubscribed": "Вы оформили подписку на Habitica!",
     "cancelSub": "Отмена подписки",
@@ -213,6 +213,5 @@
     "mysterySet202206": "Набор Морской Феи",
     "mysterySet202208": "Набор Задорный хвостик",
     "mysterySet202209": "Набор магического учёного",
-    "mysterySet202207": "Набор желейной медузы",
-    "mysterySet202210": "Набор Зловещей змеи"
+    "mysterySet202207": "Набор желейной медузы"
 }

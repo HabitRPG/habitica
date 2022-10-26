@@ -139,6 +139,5 @@
     "counter": "Contador",
     "resetCounter": "Resetear contador",
     "adjustCounter": "Ajustar contador",
-    "editTagsText": "Editar Etiquetas",
-    "taskSummary": "<%= type %> Resumen"
+    "editTagsText": "Editar Etiquetas"
 }

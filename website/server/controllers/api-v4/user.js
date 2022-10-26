@@ -2,7 +2,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 import * as userLib from '../../libs/user';
 import { verifyDisplayName } from '../../libs/user/validation';
 import common from '../../../common';
-import { TransactionModel as Transaction } from '../../models/transaction';
+import { model as Transaction } from '../../models/transaction';
 
 const api = {};
 

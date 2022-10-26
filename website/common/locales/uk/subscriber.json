@@ -120,7 +120,7 @@
     "paypalCanceled": "Your subscription has been canceled",
     "choosePaymentMethod": "Виберіть спосіб оплати",
     "buyGemsSupportsDevs": "Purchasing Gems supports the developers and helps keep Habitica running",
-    "support": "Підтримка",
+    "support": "SUPPORT",
     "gemBenefitLeadin": "Що можна купити за самоцвіти?",
     "gemBenefit1": "Унікальні та модні костюми для вашого аватара.",
     "gemBenefit2": "Фони, щоб занурити свій аватар у світ Habitica!",
@@ -211,6 +211,5 @@
     "readyToResubscribe": "Ви готові повторно підписатися?",
     "mysterySet202208": "Набір з веселим хвостиком",
     "backgroundAlreadyOwned": "У вас вже є цей фон.",
-    "mysterySet202204": "Набір віртуального мандрівника",
-    "mysterySet202210": "Набір зловісного змієносця"
+    "mysterySet202204": "Набір віртуального мандрівника"
 }

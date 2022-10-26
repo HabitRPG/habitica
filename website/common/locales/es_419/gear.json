@@ -2503,21 +2503,5 @@
     "armorSpecialWinter2022RogueText": "Explosión deslumbrante",
     "armorSpecialFall2021HealerText": "Manto del Invocador",
     "armorSpecialWinter2022MageNotes": "¡Los enemigos deben cuidarse del jugo de frutas cuando se acerquen a ti! Incrementa la Inteligencia en <%= int %>. Edición Limitada del Equipamiento de Invierno 2021-2022.",
-    "armorSpecialSpring2022WarriorText": "Impermeable",
-    "weaponSpecialSummer2022RogueText": "Pinza de cangrejo",
-    "weaponSpecialSummer2022WarriorText": "Ciclón remolinante",
-    "weaponSpecialSummer2022WarriorNotes": "¡Da vueltas, desvía y trae la tormenta! Incrementa la fuerza en <%= str %>. Equipamiento de edición limitada del verano del 2022.",
-    "weaponSpecialSummer2022MageText": "Vara de mantarraya",
-    "weaponSpecialSummer2022HealerText": "Burbujas beneficiosas",
-    "weaponSpecialSummer2022HealerNotes": "¡Estas burbujas liberan magia curativa en el agua con un agradable pop! Aumenta la inteligencia en <%= int %>. Equipamiento de edición limitada del verano de 2022.",
-    "weaponSpecialFall2022RogueText": "Espada de pepino",
-    "weaponSpecialFall2022RogueNotes": "Además de poder defenderte con este pepino, también es una sabrosa comida. Aumenta la fuerza en <%= str %>. Equipamiento de edición limitada del otoño de 2022.",
-    "weaponSpecialFall2022WarriorText": "Espada desgarradora orquil",
-    "weaponSpecialFall2022MageText": "Ráfagas de viento",
-    "weaponSpecialFall2022MageNotes": "Dejas estas poderosas ráfagas al despegar a los cielos. Aumenta la inteligencia en <%= int %> y la percepción en <%= per %>. Equipamiento de edición limitada del otoño de 2022.",
-    "weaponSpecialFall2022HealerNotes": "Al declarar victoria, álzalo y pronuncia: \"¡Ojo conmigo!\" Aumenta la inteligencia en <%= int %>. Equipamiento de edición limitada del otoño del 2022.",
-    "weaponSpecialFall2022HealerText": "Ojo observador derecho",
-    "weaponSpecialSummer2022RogueNotes": "Si estás en aprietos, ¡no dudes en mostrar estas aterradoras pinzas! Incrementa la fuerza en <%= str %>. Equipamiento de edición limitada del verano de 2022.",
-    "weaponSpecialSummer2022MageNotes": "Limpia mágicamente las aguas delante tuyo con un solo movimiento. Aumenta la inteligencia en <%= int %> y la percepción en <%= per %>. Equipamiento de edición limitada del verano del 2022.",
-    "weaponSpecialFall2022WarriorNotes": "Tal vez sea más adecuada para cortar troncos u hogazas que la armadura del enemigo... de cualquier forma: ¡GRR! ¡Se ve tan aterradora! Aumenta la fuerza en <%= str %>. Equipamiento de edición limitada del otoño de 2022."
+    "armorSpecialSpring2022WarriorText": "Impermeable"
 }

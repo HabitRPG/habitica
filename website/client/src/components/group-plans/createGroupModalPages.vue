@@ -1,4 +1,3 @@
- <!-- THIS IS A VERY OLD FILE DO NOT USE -->
 <template>
   <div class="create-group-modal-pages">
     <div

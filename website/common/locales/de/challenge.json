@@ -102,7 +102,7 @@
     "confirmKeepChallengeTasks": "Möchtest Du die Herausforderungsaufgaben behalten?",
     "selectParticipant": "Wähle einen Teilnehmer aus",
     "filters": "Filter",
-    "wonChallengeDesc": "<%= challengeName %> hat Dich als Gewinner ausgewählt! Dein Gewinn wurde in Deine Errungenschaften aufgenommen.",
+    "wonChallengeDesc": "Du hast die Herausforderung <%= challengeName %> gewonnen! Dein Erfolg wird unter den Errungenschaften in Deinem Profil aufgezeichnet.",
     "yourReward": "Deine Belohnung",
     "removeTasks": "Aufgaben entfernen"
 }

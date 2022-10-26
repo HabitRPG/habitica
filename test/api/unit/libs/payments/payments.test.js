@@ -672,12 +672,10 @@ describe('payments/index', () => {
     context('No Active Promotion', () => {
       beforeEach(() => {
         sinon.stub(worldState, 'getCurrentEvent').returns(null);
-        sinon.stub(worldState, 'getCurrentEventList').returns([]);
       });
 
       afterEach(() => {
         worldState.getCurrentEvent.restore();
-        worldState.getCurrentEventList.restore();
       });
 
       it('does not apply a discount', async () => {
@@ -694,14 +692,14 @@ describe('payments/index', () => {
 
     context('Active Promotion', () => {
       beforeEach(() => {
-        sinon.stub(worldState, 'getCurrentEventList').returns([{
+        sinon.stub(worldState, 'getCurrentEvent').returns({
           ...common.content.events.fall2020,
           event: 'fall2020',
-        }]);
+        });
       });
 
       afterEach(() => {
-        worldState.getCurrentEventList.restore();
+        worldState.getCurrentEvent.restore();
       });
 
       it('applies a discount', async () => {

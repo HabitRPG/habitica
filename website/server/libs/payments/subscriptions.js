@@ -86,13 +86,6 @@ async function createSubscription (data) {
       user: data.user, groupId: data.groupId, populateLeader: false, groupFields,
     });
 
-    if (group) {
-      analytics.track(
-        this.groupID,
-        data.demographics,
-      );
-    }
-
     if (!group) {
       throw new NotFound(shared.i18n.t('groupNotFound'));
     }

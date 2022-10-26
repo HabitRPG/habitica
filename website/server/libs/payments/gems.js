@@ -1,6 +1,5 @@
-import find from 'lodash/find';
 import { getAnalyticsServiceByEnvironment } from '../analyticsService';
-import { getCurrentEventList } from '../worldState'; // eslint-disable-line import/no-cycle
+import { getCurrentEvent } from '../worldState'; // eslint-disable-line import/no-cycle
 import { // eslint-disable-line import/no-cycle
   getUserInfo,
   sendTxn as txnEmail,
@@ -87,10 +86,9 @@ function getAmountForGems (data) {
 
   const { gemsBlock } = data;
 
-  const currentEventsList = getCurrentEventList();
-  const promoEvent = find(currentEventsList, event => Boolean(event.gemsPromo));
-  if (promoEvent && promoEvent.gemsPromo[gemsBlock.key]) {
-    return promoEvent.gemsPromo[gemsBlock.key] / 4;
+  const currentEvent = getCurrentEvent();
+  if (currentEvent && currentEvent.gemsPromo && currentEvent.gemsPromo[gemsBlock.key]) {
+    return currentEvent.gemsPromo[gemsBlock.key] / 4;
   }
 
   return gemsBlock.gems / 4;

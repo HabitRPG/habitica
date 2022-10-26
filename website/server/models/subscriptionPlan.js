@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import validator from 'validator';
 import baseModel from '../libs/baseModel';
-import { TransactionModel as Transaction } from './transaction';
+import { model as Transaction } from './transaction';
 
 export const schema = new mongoose.Schema({
   planId: String,

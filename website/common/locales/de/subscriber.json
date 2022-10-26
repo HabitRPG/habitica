@@ -120,7 +120,7 @@
     "paypalCanceled": "Dein Abonnement wurde gekündigt",
     "choosePaymentMethod": "Wähle Deine Zahlungsmethode",
     "buyGemsSupportsDevs": "Der Kauf von Edelsteinen unterstützt die Entwickler und hilft Habitica am Laufen zu halten",
-    "support": "Hilfe",
+    "support": "HILFE",
     "gemBenefitLeadin": "Was kann man mit Edelsteinen kaufen?",
     "gemBenefit1": "Einzigartige und modische Verkleidungen für Deinen Avatar.",
     "gemBenefit2": "Hintergründe, die Deinen Avatar in die Welt von Habitica eintauchen lassen!",
@@ -213,6 +213,5 @@
     "wantToSendOwnGems": "Willst Du von deinen eigenen Edelsteinen senden?",
     "needToPurchaseGems": "Willst Du Edelsteine als Geschenk kaufen?",
     "mysterySet202208": "Frecher Pferdeschwanz-Set",
-    "mysterySet202209": "Magisches Gelehrten-Set",
-    "mysterySet202210": "Bedrohliche Schlange Set"
+    "mysterySet202209": "Magisches Gelehrten-Set"
 }

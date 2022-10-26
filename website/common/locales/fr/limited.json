@@ -229,11 +229,5 @@
     "februaryYYYY": "Février <%= year %>",
     "octoberYYYY": "Octobre <%= year %>",
     "summer2022WaterspoutWarriorSet": "Trombe marine (Guerrier)",
-    "julyYYYY": "Juillet <%= year %>",
-    "fall2022OrcWarriorSet": "Orc (Guerrier)",
-    "fall2022HarpyMageSet": "Harpie (Mage)",
-    "fall2022WatcherHealerSet": "Voyeur (Guérisseur)",
-    "fall2022KappaRogueSet": "Kappa (Voleur)",
-    "gemSaleHow": "Entre le <%= eventStartOrdinal %> et le <%= eventEndOrdinal %> <%= eventStartMonth %>, achetez simplement n'importe quel ensemble de gemmes comme d'habitude et votre compte sera crédité avec le montant promotionnel de gemmes. Plus de gemmes à dépenser, à partager ou à conserver pour de nouveaux objets !",
-    "gemSaleLimitations": "Cette promotion s'applique uniquement pendant la durée de l'événement. L'événement démarre le <%= eventStartOrdinal %> <%= eventStartMonth %> à 8:00 EDT (12:00 UTC) et se terminera le <%= eventEndOrdinal %> <%= eventStartMonth %> à 20:00 EDT (00:00 UTC). Cette promotion n'est disponible que pour les gemmes que vous achetez pour vous."
+    "julyYYYY": "Juillet <%= year %>"
 }

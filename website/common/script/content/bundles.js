@@ -68,9 +68,8 @@ const bundles = {
       'spider',
       'frog',
     ],
-    event: EVENTS.bundle202210,
     canBuy () {
-      return moment().isBetween(EVENTS.bundle202210.start, EVENTS.bundle202210.end);
+      return moment().isBetween('2019-10-15', '2019-11-02');
     },
     type: 'quests',
     value: 7,

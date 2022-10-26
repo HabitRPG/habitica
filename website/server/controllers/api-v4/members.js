@@ -1,7 +1,7 @@
 import { authWithHeaders } from '../../middlewares/auth';
 import { chatReporterFactory } from '../../libs/chatReporting/chatReporterFactory';
 import { ensurePermission } from '../../middlewares/ensureAccessRight';
-import { TransactionModel as Transaction } from '../../models/transaction';
+import { model as Transaction } from '../../models/transaction';
 
 const api = {};
 

@@ -197,7 +197,7 @@
     "userIsClamingTask": "`<%= username %> a revendiqué : `<%= task %>",
     "approvalRequested": "Approbation demandée",
     "cantDeleteAssignedGroupTasks": "Vous ne pouvez pas supprimer les tâches de groupe qui vous ont été attribuées.",
-    "groupPlanUpgraded": "<strong><%- groupName %></strong> a été correctement amélioré en plan de groupe !",
+    "groupPlanUpgraded": "<strong><%- groupName %></strong> a été amélioré en plan de groupe !",
     "groupPlanCreated": "<strong><%- groupName %></strong> a été créé !",
     "onlyGroupLeaderCanInviteToGroupPlan": "Seul le chef de groupe peut inviter des utilisateurs dans un groupe avec abonnement.",
     "paymentDetails": "Détails du paiement",
@@ -402,8 +402,5 @@
     "newGroupsBullet09": "Une tâche partagée peut être décochée pour montrer qu'elle nécessite encore du travail",
     "newGroupsBullet10b": "<strong>Attribuez la tâche à un membre</strong> si seulement cette personne peut la réaliser",
     "newGroupsEnjoy": "Nous espérons que vous apprécierez la nouvelle expérience des plans de groupe !",
-    "newGroupsBullet01": "Interagissez avec les tâches directement depuis la console des tâches partagées",
-    "groupUse": "Qu'est ce qui décrit mieux l'usage de votre groupe ?*",
-    "groupUseDefault": "Choisissez une réponse",
-    "createGroup": "Créer un groupe"
+    "newGroupsBullet01": "Interagissez avec les tâches directement depuis la console des tâches partagées"
 }

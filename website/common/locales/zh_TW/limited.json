@@ -211,11 +211,5 @@
     "fall2021OozeRogueSet": "滴漏者（盜賊）",
     "fall2021HeadlessWarriorSet": "無頭（戰士）",
     "fall2021BrainEaterMageSet": "食腦者（法師）",
-    "fall2021FlameSummonerHealerSet": "火炎召喚師（補師）",
-    "gemSaleHow": "在<%= eventStartMonth %> <%= eventStartOrdinal %>和<%= eventEndOrdinal %>之間，像往常一樣購買任何寶石捆綁包，您的帳號將獲得促銷返利。這些多出來的寶石可用於購買、贈送或攢下來等之後的新品！",
-    "gemSaleLimitations": "此促銷活動爲限時活動。從<%= eventStartMonth %> <%= eventStartOrdinal %>美國東部時間上午8:00（12:00 UTC）開始至<%= eventStartMonth %> <%= eventStartOrdinal %>美國東部時間晚上8:00（00:00 UTC）結束。該優惠只能在爲自己購買寶石時使用。",
-    "fall2022KappaRogueSet": "河童（盜賊）",
-    "fall2022OrcWarriorSet": "獸人（戰士）",
-    "fall2022HarpyMageSet": "鷹身女妖（法師）",
-    "fall2022WatcherHealerSet": "眼魔（補師）"
+    "fall2021FlameSummonerHealerSet": "火炎召喚師（補師）"
 }

@@ -163,9 +163,9 @@
     "onlyGroupLeaderCanEditTasks": "Nicht berechtigt, Aufgaben zu bearbeiten!",
     "onlyGroupTasksCanBeAssigned": "Nur Team-Aufgaben können verteilt werden",
     "assignedTo": "Zugewiesen an",
-    "assignedToUser": "Zugewiesen: <strong>@<%- userName %></strong>",
-    "assignedToMembers": "<%= userCount %> Mitgliedern",
-    "assignedToYouAndMembers": "<strong>Dir</strong>, <%= userCount %> Mitgliedern",
+    "assignedToUser": "<strong><%- userName %></strong> zugewiesen",
+    "assignedToMembers": "<strong><%= userCount %></strong> Mitgliedern zugewiesen",
+    "assignedToYouAndMembers": "Dir und <strong><%= userCount %> Mitliedern</strong> zugewiesen",
     "youAreAssigned": "Dir zugewiesen",
     "taskIsUnassigned": "Diese Aufgabe ist niemandem zugewiesen",
     "confirmUnClaim": "Bist Du sicher, dass Du diese Aufgabe abgeben möchtest?",
@@ -190,7 +190,7 @@
     "needsWork": "Benötigt Arbeit",
     "viewRequests": "Anfragen anzeigen",
     "groupSubscriptionPrice": "$9 monatlich + $3 pro Monat für jedes weitere Gruppenmitglied",
-    "groupBenefitsDescription": "Wir haben gerade die Beta-Version unserer Gruppenpläne gestartet! Das Upgrade auf einen Gruppenplan schaltet einige einzigartige Funktionen frei, mit denen Du die sozialen Aspekte von Habitika optimal auszunutzen kannst.",
+    "groupBenefitsDescription": "Wir haben gerade die Betaversion der Gruppenpläne gestartet! Das Upgrade auf den Gruppenplan schaltet einige einzigartige Funktionen frei, welche die soziale Seite von Habitica verbessern.",
     "teamBasedTasks": "Gruppenorientierte Aufgaben",
     "cannotDeleteActiveGroup": "Du kannst keine Gruppe mit einem laufenden Abonnement löschen",
     "groupTasksTitle": "Gruppen-Aufgabenliste",
@@ -380,7 +380,5 @@
     "viewDetails": "Details ansehen",
     "upgradeToGroup": "Auf Gruppenplan upgraden",
     "sendGiftTotal": "Insgesamt:",
-    "chatTemporarilyUnavailable": "Chat aktuell nicht verfügbar. Bitte versuche es später erneut.",
-    "assignTo": "Zugewiesen an",
-    "newGroupsEnjoy": "Wir hoffen, Dir gefallen die neuen Gruppenpläne!"
+    "chatTemporarilyUnavailable": "Chat aktuell nicht verfügbar. Bitte versuche es später erneut."
 }

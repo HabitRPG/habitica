@@ -2345,15 +2345,5 @@
     "shieldArmoireSoftBlackPillowText": "柔黑色的枕頭",
     "headSpecialNye2020Notes": "你收到了一頂奢華派對帽！在迎接新年的時候，你可以驕傲地戴上它！沒有屬性加成。",
     "weaponSpecialWinter2021HealerNotes": "進行戰鬥，一鼓作氣，一氣呵成！增加<%= int %>點智力。2020-2021年冬季限定版裝備。",
-    "weaponSpecialWinter2021MageNotes": "這個強大的武器能幫你掌控各個階段。引導你的能量，感受每個月的流動，在學習的時空保持專注。增加<%= int %>點智力，<%= per %>點感知。2020-2021年冬季限定版裝備。",
-    "weaponSpecialSpring2021WarriorNotes": "利用太陽的力量來對付你的敵人，讓太陽石給你帶來好運！ 新增<%= str %>力量。 2021年春季限定版裝備。",
-    "weaponSpecialSpring2021HealerNotes": "鮮切的樹皮和葉子都有止痛的作用。 當然你也可以將它種下，看著它長大！ 新增<%= int %>點智力。 2021年春季限定版裝備。",
-    "weaponSpecialSpring2021RogueNotes": "你知道什麼比雙持花更好嗎？ 四重揮花！ 新增<%= str %>點力量。 2021年春季限定版裝備。",
-    "weaponSpecialSummer2021MageNotes": "無論是深達兩萬裏的雄心，還是淺嘗即止的試探，這個閃亮的工具都會竭誠為你提供良好的服務。 新增<%= int %>點智力和<%= per %>點感知。 2021年夏季限定版裝備。",
-    "weaponSpecialSummer2021HealerNotes": "玉米梗：熟玉米，屬於me。 新增<%= int %>點智力。 2021年夏季限量版裝備。",
-    "weaponSpecialSpring2021MageNotes": "扔，打，踩，停！ 揮動這根華麗的羽毛，來指揮你魔法的音樂。 新增<%= int %>點智力和<%= per %>點感知。 2021年春季限定版裝備。",
-    "weaponSpecialFall2021RogueNotes": "你到底遇到了什麼？ 人們總是說盜賊的手是黏糊糊的，但這不代表什麼！ 新增<%= str %>點力量。 2021年秋季限定版裝備。",
-    "weaponSpecialFall2021WarriorNotes": "這種經典的單刃斧頭非常適合用來砍…南瓜！ 新增<%= str %>點力量。 2021秋季限定版裝備。",
-    "weaponSpecialFall2021MageNotes": "知識渴求知識。 由記憶和欲望構成，這只可怕的手抓住了更多。 新增<%= int %>點智力，<%= per %>點感知。 2021年秋季限定版裝備。",
-    "weaponSpecialFall2021HealerNotes": "使用這根魔杖召喚治療火焰和一個幽靈來幫助你。 新增<%= int %>點智力。 2021年秋季限定版裝備。"
+    "weaponSpecialWinter2021MageNotes": "這個強大的武器能幫你掌控各個階段。引導你的能量，感受每個月的流動，在學習的時空保持專注。增加<%= int %>點智力，<%= per %>點感知。2020-2021年冬季限定版裝備。"
 }

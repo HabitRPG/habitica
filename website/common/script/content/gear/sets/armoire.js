@@ -401,9 +401,6 @@ const armor = {
     int: 4,
     set: 'fancyPirate',
   },
-  sheetGhostCostume: {
-    con: 10,
-  },
 };
 
 const body = {

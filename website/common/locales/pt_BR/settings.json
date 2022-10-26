@@ -219,6 +219,5 @@
     "passwordSuccess": "Senha alterada com sucesso",
     "giftSubscriptionRateText": "<strong>$<%= price %> BRL</strong> por <strong><%= months %> meses</strong>",
     "transaction_create_bank_challenge": "Desafio bancário criado",
-    "transaction_admin_update_balance": "Administração concedida",
-    "transaction_admin_update_hourglasses": "Administração atualizada"
+    "transaction_admin_update_balance": "Administração concedida"
 }

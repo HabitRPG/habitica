@@ -219,6 +219,5 @@
     "passwordSuccess": "Пароль успішно змінено",
     "giftSubscriptionRateText": "<strong>$<%= price %> доларів США</strong> за <strong><%= months %> місяць(-і/ів)</strong>",
     "transaction_create_bank_challenge": "Створено банк для випробування",
-    "transaction_admin_update_balance": "Адміна надано",
-    "transaction_admin_update_hourglasses": "Права адміна оновлено"
+    "transaction_admin_update_balance": "Адміна надано"
 }

@@ -218,6 +218,5 @@
     "dayStartAdjustment": "Änderung des Tageswechsel",
     "passwordSuccess": "Passwort erfolgreich geändert",
     "giftSubscriptionRateText": "<strong>$<%= price %> $(USD)</strong> für <strong><%= months %> Monate</strong>",
-    "transaction_admin_update_balance": "Admin gegeben",
-    "transaction_admin_update_hourglasses": "Admin aktualisiert"
+    "transaction_admin_update_balance": "Admin gegeben"
 }

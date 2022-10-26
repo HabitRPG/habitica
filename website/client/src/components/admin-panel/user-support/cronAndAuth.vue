@@ -22,6 +22,11 @@
         Account created:
         <strong>{{ hero.auth.timestamps.created | formatDate }}</strong>
       </div>
+      <div>
+        Most recent cron:
+        <strong>{{ hero.auth.timestamps.loggedin | formatDate }}</strong>
+        ("auth.timestamps.loggedin")
+      </div>
       <div v-if="cronError">
         "lastCron" value:
         <strong>{{ hero.lastCron | formatDate }}</strong>
@@ -30,19 +35,6 @@
           ERROR: cron probably crashed before finishing
           ("auth.timestamps.loggedin" and "lastCron" dates are different).
         </span>
-      </div>
-      <div class="form-inline">
-        <div>
-          Most recent cron:
-          <strong>{{ hero.auth.timestamps.loggedin | formatDate }}</strong>
-          ("auth.timestamps.loggedin")
-        </div>
-        <button
-          class="btn btn-primary ml-2"
-          @click="resetCron()"
-        >
-          Reset Cron to Yesterday
-        </button>
       </div>
       <div class="subsection-start">
         Time zone:
@@ -225,10 +217,6 @@ export default {
       this.hero.changeApiToken = true;
       await this.saveHero({ hero: this.hero, msg: 'API Token' });
       this.tokenModified = true;
-    },
-    resetCron () {
-      this.hero.resetCron = true;
-      this.saveHero({ hero: this.hero, msg: 'Last Cron', clearData: true });
     },
   },
 };

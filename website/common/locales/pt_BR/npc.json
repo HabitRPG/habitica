@@ -81,7 +81,7 @@
     "newBaileyUpdate": "Nova atualização da Bailey!",
     "tellMeLater": "Lembrar mais tarde",
     "dismissAlert": "Dispensar este alerta",
-    "donateText3": "Habitica é um projeto de código aberto que depende do suporte dos nossos usuários. O dinheiro que você gasta em gemas nos ajuda a manter os servidores funcionando, manter uma pequena equipe, desenvolver novas funcionalidades e oferecer incentivos para os nossos voluntários",
+    "donateText3": "Habitica é um projeto de código aberto que depende do suporte dos nossos usuários. O dinheiro que você gasta em gemas nos ajuda a manter os servidores funcionando, manter uma pequena equipe, desenvolver novas funcionalidades e oferecer incentivos para os nossos programadores voluntários. Obrigado pela sua generosidade!",
     "card": "Cartão de crédito",
     "paymentMethods": "Comprar usando",
     "paymentSuccessful": "Seu pagamento foi efetuado com sucesso!",
@@ -130,8 +130,5 @@
     "limitedAvailabilityDays": "Disponível por <%= days %>d <%= hours %>h <%= minutes %>m",
     "limitedAvailabilityHours": "Disponível por <%= hours %>h <%= minutes %>m",
     "limitedAvailabilityMinutes": "Disponível por <%= minutes %>m <%= seconds %>s",
-    "amountExp": "<%= amount %> de EXP",
-    "helpSupportHabitica": "Ajude Apoiando o Habitica",
-    "groupsPaymentSubBilling": "Sua próxima cobrança será em <strong><%= renewalDate %></strong>.",
-    "groupsPaymentAutoRenew": "Esta inscrição irá renovar automaticamente até ser cancelada. Se você precisar cancelar, você pode fazer isso na aba Fatura do Time."
+    "amountExp": "<%= amount %> de EXP"
 }

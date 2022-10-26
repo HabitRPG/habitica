@@ -81,7 +81,7 @@
     "newBaileyUpdate": "Nouvelles informations de Bailey !",
     "tellMeLater": "Rappelez-le-moi plus tard",
     "dismissAlert": "Renvoyer la messagère",
-    "donateText3": "En tant que projet à code source ouvert, Habitica est dépendant du soutien de ses utilisateurs. L'argent que vous dépensez en gemmes nous aide à continuer à faire fonctionner les serveurs, à maintenir un petit groupe d'employés, à développer de nouvelles fonctionnalités et à fournir des encouragements à nos bénévoles",
+    "donateText3": "En tant que projet à code source ouvert, Habitica est dépendant du soutien de ses utilisateurs. L'argent que vous dépensez en gemmes nous aide à continuer à faire fonctionner les serveurs, à maintenir un petit groupe d'employés, à développer de nouvelles fonctionnalités et à fournir des encouragements à nos programmeurs bénévoles. Merci de votre générosité !",
     "card": "Carte de crédit",
     "paymentMethods": "Moyens de paiement",
     "paymentSuccessful": "Le paiement a été réalisé !",
@@ -130,8 +130,5 @@
     "limitedAvailabilityMinutes": "Disponible pendant <%= minutes %>m <%= seconds %>s",
     "limitedAvailabilityHours": "Disponible pendant <%= hours %>h <%= minutes %>m",
     "limitedAvailabilityDays": "Disponible pendant <%= days %>j <%= hours %>h <%= minutes %>m",
-    "amountExp": "<%= amount %> expérience",
-    "helpSupportHabitica": "Contribuez à soutenir Habitica",
-    "groupsPaymentSubBilling": "Votre prochaine date de facturation est <strong><%= renewalDate %></strong>.",
-    "groupsPaymentAutoRenew": "Cet abonnement se renouvellera automatiquement jusqu'à son annulation. Si vous devez l'annuler, vous pouvez le faire depuis l'onglet de facturation de groupe."
+    "amountExp": "<%= amount %> expérience"
 }

@@ -120,7 +120,7 @@
     "paypalCanceled": "Tu suscripción ha sido cancelada",
     "choosePaymentMethod": "Elige tu método de pago",
     "buyGemsSupportsDevs": "Comprar Gemas ayuda a los desarrolladores y permite mantener Habitica en funcionamiento",
-    "support": "Apoyo",
+    "support": "APOYO",
     "gemBenefitLeadin": "¿Qué puedes comprar con Gemas?",
     "gemBenefit1": "Trajes únicos a la moda para tu avatar.",
     "gemBenefit2": "¡Fondos para sumergir a tu avatar en el mundo de Habitica!",
@@ -204,10 +204,5 @@
     "mysterySet202204": "Conjunto de Aventurero Virtual",
     "mysterySet202206": "Juego de duendecillos del mar",
     "mysterySet202205": "Juego del dragón de alas oscuras",
-    "mysterySet202207": "Juego de la gelatina de Jammin",
-    "howManyGemsSend": "¿Cuántas Gemas te gustaría enviar?",
-    "needToPurchaseGems": "¿Necesitas comprar Gemas como un regalo?",
-    "howManyGemsPurchase": "¿Cuántas Gemas te gustaría comprar?",
-    "wantToSendOwnGems": "¿Quieres enviar tus propias Gemas?",
-    "sendAGift": "Enviar Regalo"
+    "mysterySet202207": "Juego de la gelatina de Jammin"
 }

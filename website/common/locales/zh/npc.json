@@ -19,7 +19,7 @@
     "sleepDescription": "需要休息吗？来逛逛Daniel的客栈，当你遇到困难时，能暂停Habitica的游戏机制：",
     "sleepBullet1": "错过每日任务不会对你造成伤害",
     "sleepBullet2": "您的任务连胜和习惯计数器不会重置",
-    "sleepBullet3": "在离开客栈前，您对副本boss的伤害或找到的收集物将会一直保留",
+    "sleepBullet3": "在您退出客栈之前，您对副本boss的伤害和找到的手机项目将会一直保持等待状态",
     "sleepBullet4": "结算前这里会预测你对boss造成的伤害以及收集到的物品数量",
     "pauseDailies": "暂停伤害",
     "unpauseDailies": "解除暂停",
@@ -81,7 +81,7 @@
     "newBaileyUpdate": "新的Bailey更新！",
     "tellMeLater": "稍后通知我",
     "dismissAlert": "不再显示",
-    "donateText3": "Habitica是一个基于用户支持的开源项目。你使用在宝石上的金钱帮助我们维持服务、雇佣员工、开发新功能，以及奖励我们的志愿者程序员。感谢您的慷慨",
+    "donateText3": "Habitica是一个基于用户支持的开源项目。你使用在宝石上的金钱帮助我们维持服务、雇佣员工、开发新功能，以及奖励我们的志愿程序员。感谢您的慷慨！",
     "card": "信用卡",
     "paymentMethods": "支付通过",
     "paymentSuccessful": "支付成功！",
@@ -130,8 +130,5 @@
     "limitedAvailabilityMinutes": "购买时间剩余<%= minutes %>分钟<%= seconds %>秒",
     "limitedAvailabilityHours": "购买时间剩余<%= hours %>小时 <%= minutes %>分钟",
     "limitedAvailabilityDays": "购买时间剩余<%= days %>天 <%= hours %>小时 <%= minutes %>分钟",
-    "amountExp": "<%= amount %>经验值",
-    "helpSupportHabitica": "支持Habitica",
-    "groupsPaymentSubBilling": "您的下一个续签日期是<strong><%= renewalDate %></strong>。",
-    "groupsPaymentAutoRenew": "该订阅将自动续订，直到您取消。如有需要，您可以在团队计费选项卡中取消它。"
+    "amountExp": "<%= amount %>经验值"
 }

@@ -81,7 +81,7 @@
     "newBaileyUpdate": "Baileyから新しいお知らせがあります！",
     "tellMeLater": "後で教えて",
     "dismissAlert": "この通知を閉じる",
-    "donateText3": "Habiticaは、ユーザーの協力の元に成り立っているオープンソース プロジェクトです。ジェムの購入に使われたお金は、サーバーの維持、少数スタッフの維持、新しい機能の開発、そしてボランティアの皆さんにインセンティブを与える手助けになっています",
+    "donateText3": "Habiticaは、ユーザーの協力の元に成り立っているオープンソース プロジェクトです。ジェムの購入に使われたお金は、サーバーの維持、少数スタッフの維持、新しい機能の開発、そしてボランティアのプログラマーたちにインセンティブを与える手助けになっています。あなたのご厚情に感謝いたします！",
     "card": "クレジットカード",
     "paymentMethods": "お支払い方法",
     "paymentSuccessful": "支払いは成功しました！",
@@ -131,7 +131,5 @@
     "limitedAvailabilityHours": "購入できる期間は残り<%= hours %>時間<%= minutes %>分です",
     "limitedAvailabilityMinutes": "購入できる期間は残り<%= minutes %>分<%= seconds %>秒です",
     "amountExp": "<%= amount %>経験値",
-    "newStuffPostedOn": "<%= publishDate %> <%= publishTime %>に投稿",
-    "helpSupportHabitica": "Habiticaを支援する",
-    "groupsPaymentSubBilling": "次回の請求日は <strong><%= renewalDate %></strong> です。"
+    "newStuffPostedOn": "<%= publishDate %> <%= publishTime %>に投稿"
 }
