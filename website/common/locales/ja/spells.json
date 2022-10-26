@@ -29,7 +29,7 @@
     "spellHealerHealText": "ヒール",
     "spellHealerHealNotes": "まばゆい光が体力を回復します！ (基準 : 体質と知能)",
     "spellHealerBrightnessText": "焼けるような輝き",
-    "spellHealerBrightnessNotes": "炸裂する光が、あなたのタスクの色を青に近づけます。(基準 : 知能 )",
+    "spellHealerBrightnessNotes": "炸裂する光が、タスクの色の赤さを軽減して青に近づけます。(基準 : 知能 )",
     "spellHealerProtectAuraText": "守りのオーラ",
     "spellHealerProtectAuraNotes": "ダメージからパーティーを守ります。パーティーの全員の体質に勢いボーナスがつきます！（ 基準：勢いなしの体質値）",
     "spellHealerHealAllText": "おまじない",
