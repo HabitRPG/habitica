@@ -15,7 +15,6 @@ import { // eslint-disable-line import/no-cycle
   sendTxn as txnEmail,
 } from '../email';
 import { paymentConstants } from './constants';
-// eslint-disable-line import/no-cycle
 import { cancelSubscription, createSubscription } from './subscriptions'; // eslint-disable-line import/no-cycle
 
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS_TECH_ASSISTANCE_EMAIL');
