@@ -298,6 +298,7 @@ describe('Apple Payments', () => {
             expirationDate: moment.utc().add({ day: 1 }).toDate(),
             productId: option.sku,
             transactionId: token,
+            originalTransactionId: token,
           }]);
         sub = common.content.subscriptionBlocks[option.subKey];
 
