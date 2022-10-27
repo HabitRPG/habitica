@@ -1,3 +1,5 @@
+// TODO these files need to refactored.
+
 import _ from 'lodash';
 import moment from 'moment';
 
@@ -20,6 +22,8 @@ import shared from '../../../common';
 import { sendNotification as sendPushNotification } from '../pushNotifications'; // eslint-disable-line import/no-cycle
 import calculateSubscriptionTerminationDate from './calculateSubscriptionTerminationDate';
 import { getCurrentEventList } from '../worldState'; // eslint-disable-line import/no-cycle
+import { paymentConstants } from './constants';
+import { addSubscriptionToGroupUsers, cancelGroupUsersSubscription } from './groupPayments'; // eslint-disable-line import/no-cycle
 
 // @TODO: Abstract to shared/constant
 const JOINED_GROUP_PLAN = 'joined group plan';
@@ -65,7 +69,7 @@ function _dateDiff (earlyDate, lateDate) {
   return moment(lateDate).diff(earlyDate, 'months', true);
 }
 
-async function createSubscription (data) {
+async function prepareSubscriptionValues (data) {
   let recipient = data.gift ? data.gift.member : data.user;
   const block = shared.content.subscriptionBlocks[data.gift
     ? data.gift.subscription.key
@@ -105,7 +109,7 @@ async function createSubscription (data) {
 
     if (group) {
       analytics.track(
-        this.groupID,
+        data.groupID,
         data.demographics,
       );
     }
@@ -130,7 +134,7 @@ async function createSubscription (data) {
     groupId = group._id;
     recipient.purchased.plan.quantity = data.sub.quantity;
 
-    await this.addSubscriptionToGroupUsers(group);
+    await addSubscriptionToGroupUsers(group);
   }
 
   const { plan } = recipient.purchased;
@@ -139,7 +143,10 @@ async function createSubscription (data) {
     if (plan.customerId && !plan.dateTerminated) { // User has active plan
       plan.extraMonths += months;
     } else {
-      if (!recipientIsSubscribed || !plan.dateUpdated) plan.dateUpdated = today;
+      if (!recipientIsSubscribed || !plan.dateUpdated) {
+        plan.dateUpdated = today;
+      }
+
       if (moment(plan.dateTerminated).isAfter()) {
         plan.dateTerminated = moment(plan.dateTerminated).add({ months }).toDate();
       } else {
@@ -148,9 +155,15 @@ async function createSubscription (data) {
       }
     }
 
-    if (!plan.customerId) plan.customerId = 'Gift'; // don't override existing customer, but all sub need a customerId
+    if (!plan.customerId) {
+      plan.customerId = 'Gift';
+    }
+
+    // don't override existing customer, but all sub need a customerId
   } else {
-    if (!plan.dateTerminated) plan.dateTerminated = today;
+    if (!plan.dateTerminated) {
+      plan.dateTerminated = today;
+    }
 
     Object.assign(plan, { // override plan with new values
       planId: block.key,
@@ -170,14 +183,50 @@ async function createSubscription (data) {
     });
 
     // allow non-override if a plan was previously used
-    if (!plan.gemsBought) plan.gemsBought = 0;
-    if (!plan.dateCreated) plan.dateCreated = today;
-    if (!plan.mysteryItems) plan.mysteryItems = [];
+    if (!plan.gemsBought) {
+      plan.gemsBought = 0;
+    }
+
+    if (!plan.dateCreated) {
+      plan.dateCreated = today;
+    }
+
+    if (!plan.mysteryItems) {
+      plan.mysteryItems = [];
+    }
 
     if (data.subscriptionId) {
       plan.subscriptionId = data.subscriptionId;
     }
   }
+
+  return {
+    block,
+    months,
+    plan,
+    recipient,
+    autoRenews,
+    group,
+    groupId,
+    itemPurchased,
+    purchaseType,
+    emailType,
+  };
+}
+
+async function createSubscription (data) {
+  const {
+    block,
+    months,
+    plan,
+    recipient,
+    autoRenews,
+    group,
+    groupId,
+    itemPurchased,
+    purchaseType,
+    emailType,
+  } = await prepareSubscriptionValues(data);
 
   // Block sub perks
   const perks = Math.floor(months / 3);
@@ -185,7 +234,7 @@ async function createSubscription (data) {
     plan.consecutive.offset += months;
     plan.consecutive.gemCapExtra += perks * 5;
     if (plan.consecutive.gemCapExtra > 25) plan.consecutive.gemCapExtra = 25;
-    await plan.updateHourglasses(data.user._id, perks, 'subscription_perks'); // one Hourglass every 3 months
+    await plan.updateHourglasses(recipient._id, perks, 'subscription_perks'); // one Hourglass every 3 months
   }
 
   if (recipient !== group) {
@@ -195,7 +244,7 @@ async function createSubscription (data) {
   }
 
   // @TODO: Create a factory pattern for use cases
-  if (!data.gift && data.customerId !== this.constants.GROUP_PLAN_CUSTOMER_ID) {
+  if (!data.gift && data.customerId !== paymentConstants.GROUP_PLAN_CUSTOMER_ID) {
     txnEmail(data.user, emailType);
   }
 
@@ -284,7 +333,7 @@ async function createSubscription (data) {
           promo: 'Winter',
           promoUsername: data.gift.member.auth.local.username,
         };
-        await this.createSubscription(promoData);
+        await createSubscription(promoData);
       }
 
       if (data.gift.member.preferences.pushNotifications.giftedSubscription !== false) {
@@ -365,7 +414,7 @@ async function cancelSubscription (data) {
     emailType = 'group-cancel-subscription';
     emailMergeData.push({ name: 'GROUP_NAME', content: group.name });
 
-    await this.cancelGroupUsersSubscription(group);
+    await cancelGroupUsersSubscription(group);
   } else {
     // cancelling a user subscription
     plan = data.user.purchased.plan;
@@ -375,12 +424,12 @@ async function cancelSubscription (data) {
     if (data.cancellationReason && data.cancellationReason === JOINED_GROUP_PLAN) sendEmail = false;
   }
 
-  if (plan.customerId === this.constants.GROUP_PLAN_CUSTOMER_ID) {
+  if (plan.customerId === paymentConstants.GROUP_PLAN_CUSTOMER_ID) {
     sendEmail = false; // because group-member-cancel email has already been sent
   }
 
   plan.dateTerminated = calculateSubscriptionTerminationDate(
-    data.nextBill, plan, this.constants.GROUP_PLAN_CUSTOMER_ID,
+    data.nextBill, plan, paymentConstants.GROUP_PLAN_CUSTOMER_ID,
   );
 
   // clear extra time. If they subscribe again, it'll be recalculated from p.dateTerminated
@@ -392,7 +441,9 @@ async function cancelSubscription (data) {
     await data.user.save();
   }
 
-  if (sendEmail) txnEmail(data.user, emailType, emailMergeData);
+  if (sendEmail) {
+    txnEmail(data.user, emailType, emailMergeData);
+  }
 
   if (group) {
     cancelType = 'group-unsubscribe';
