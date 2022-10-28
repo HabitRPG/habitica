@@ -12,7 +12,7 @@ import {
 } from '../../../../helpers/api-unit.helper';
 import * as worldState from '../../../../../website/server/libs/worldState';
 
-describe.only('payments/index', () => {
+describe('payments/index', () => {
   let user; let group; let data; let
     plan;
 
