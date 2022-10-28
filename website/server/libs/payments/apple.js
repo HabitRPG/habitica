@@ -149,8 +149,12 @@ api.subscribe = async function subscribe (sku, user, receipt, headers, nextPayme
   }
 
   if (originalTransactionId) {
-    if (user && user.isSubscribed() && user.purchased.plan.customerId !== originalTransactionId) {
-      throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
+    let existingSub;
+    if (user && user.isSubscribed()) {
+      if (user.purchased.plan.customerId !== originalTransactionId) {
+        throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
+      }
+      existingSub = shared.content.subscriptionBlocks[user.purchased.plan.planId];
     }
     const existingUser = await User.findOne({
       'purchased.plan.customerId': originalTransactionId,
@@ -162,7 +166,7 @@ api.subscribe = async function subscribe (sku, user, receipt, headers, nextPayme
 
     nextPaymentProcessing = nextPaymentProcessing || moment.utc().add({ days: 2 }); // eslint-disable-line max-len, no-param-reassign
 
-    await payments.createSubscription({
+    const data = {
       user,
       customerId: originalTransactionId,
       paymentMethod: this.constants.PAYMENT_METHOD_APPLE,
@@ -170,7 +174,11 @@ api.subscribe = async function subscribe (sku, user, receipt, headers, nextPayme
       headers,
       nextPaymentProcessing,
       additionalData: receipt,
-    });
+    };
+    if (existingSub) {
+      data.updatedFrom = existingSub;
+    }
+    await payments.createSubscription(data);
   } else {
     throw new NotAuthorized(api.constants.RESPONSE_INVALID_RECEIPT);
   }
