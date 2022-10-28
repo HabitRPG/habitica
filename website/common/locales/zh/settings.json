@@ -1,5 +1,5 @@
 {
-    "settings": "设定",
+    "settings": "设置",
     "language": "语言",
     "americanEnglishGovern": "不同语言描述不符时，以英语（American English）为准。",
     "helpWithTranslation": "你愿意协助Habitica的翻译工作吗？太好了！来加入<a href=\"/groups/guild/7732f64c-33ee-4cce-873c-fc28f147a6f7\">the Aspiring Linguists Guild</a>一起翻译吧!",
@@ -219,5 +219,6 @@
     "passwordSuccess": "密码更改成功",
     "transaction_create_bank_challenge": "银行的挑战创建成功",
     "transaction_admin_update_balance": "给了管理员",
-    "giftSubscriptionRateText": "<strong>$<%=price %> 美元</strong> 是 <strong><%= months %> 月</strong>"
+    "giftSubscriptionRateText": "<strong>$<%=price %> 美元</strong> 是 <strong><%= months %> 月</strong>",
+    "transaction_admin_update_hourglasses": "管理员更新"
 }

@@ -219,5 +219,6 @@
     "passwordSuccess": "Password cambiata con successo",
     "giftSubscriptionRateText": "<strong>$<%= price %> USD</strong> per <strong><%= months %> months</strong>",
     "transaction_create_bank_challenge": "Sfida della banca creata",
-    "transaction_admin_update_balance": "Dato dall'amministratore"
+    "transaction_admin_update_balance": "Dato dall'amministratore",
+    "transaction_admin_update_hourglasses": "Aggiornato dall'amministratore"
 }
