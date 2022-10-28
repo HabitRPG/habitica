@@ -426,8 +426,6 @@ describe('Apple Payments', () => {
           originalTransactionId: token,
         }]);
 
-      expect(user.isSubscribed()).to.be.true;
-
       await applePayments.subscribe(sku, user, receipt, headers, nextPaymentProcessing);
 
       await expect(applePayments.subscribe(sku, user, receipt, headers, nextPaymentProcessing))
