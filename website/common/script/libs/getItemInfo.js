@@ -152,6 +152,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
           ? content.quests[item.previous].text(language)
           : null,
         unlockCondition: item.unlockCondition,
+        completed: user.achievements.quests[item.key] !== undefined,
         drop: item.drop,
         boss: item.boss,
         collect: item.collect ? _mapValues(item.collect, o => ({

@@ -492,7 +492,17 @@ api.updateGroup = {
 
     if (req.body.leader !== user._id && group.hasNotCancelled()) throw new NotAuthorized(res.t('cannotChangeLeaderWithActiveGroupPlan'));
 
-    _.assign(group, _.merge(group.toObject(), Group.sanitizeUpdate(req.body)));
+    const handleArrays = (currentValue, updatedValue) => {
+      if (!_.isArray(currentValue)) {
+        return undefined;
+      }
+
+      // Previously, categories could get duplicated. By making the updated category list unique,
+      // the duplication issue is fixed on every group edit
+      return _.uniqBy(updatedValue, 'slug');
+    };
+
+    _.assign(group, _.mergeWith(group.toObject(), Group.sanitizeUpdate(req.body), handleArrays));
 
     const savedGroup = await group.save();
     const response = await Group.toJSONCleanChat(savedGroup, user);

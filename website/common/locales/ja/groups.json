@@ -197,7 +197,7 @@
     "userIsClamingTask": "`<%= username %>が担当しています：`<%= task %>",
     "approvalRequested": "承認が申請されました",
     "cantDeleteAssignedGroupTasks": "あなたへと割り当てられたタスクを削除することはできません。",
-    "groupPlanUpgraded": "<strong><%- groupName %></strong> がグループプランにアップグレードされました！",
+    "groupPlanUpgraded": "<strong><%- groupName %></strong> は正常にグループプランへアップグレードされました！",
     "groupPlanCreated": "<strong><%- groupName %></strong> が作成されました！",
     "onlyGroupLeaderCanInviteToGroupPlan": "有料プランが有効化されているグループには、グループのリーダーだけがユーザーを招待できます。",
     "paymentDetails": "支払いについての詳細",

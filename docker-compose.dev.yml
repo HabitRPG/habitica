@@ -1,4 +1,3 @@
-version: "3"
 services:
   client:
     build:
@@ -9,7 +8,6 @@ services:
       - server
     environment:
       - BASE_URL=http://server:3000
-    image: habitica
     networks:
       - habitica
     ports:
@@ -27,7 +25,6 @@ services:
       - mongo
     environment:
       - NODE_DB_URI=mongodb://mongo/habitrpg
-    image: habitica
     networks:
       - habitica
     ports:

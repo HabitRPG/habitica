@@ -131,5 +131,7 @@
     "limitedAvailabilityDays": "Disponibile per <%= days %> giorni, <%= hours %> ore e <%= minutes %> minuti",
     "limitedAvailabilityHours": "Disponibile per <%= hours %> ore e <%= minutes %> minuti",
     "amountExp": "<%= amount %> Exp",
-    "helpSupportHabitica": "Aiutare a Supportare Habitica"
+    "helpSupportHabitica": "Aiutare a Supportare Habitica",
+    "groupsPaymentAutoRenew": "Questo abbonamento si rinnoverà automaticamente fino a quando non verrà annullato. Se hai bisogno di annullarlo, puoi farlo dal pannello Fatturazione di Gruppo.",
+    "groupsPaymentSubBilling": "La tua prossima data di fatturazione è <strong><%= renewalDate %></strong>."
 }
