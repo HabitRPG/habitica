@@ -213,5 +213,6 @@
     "transaction_release_mounts": "Released mounts",
     "transaction_reroll": "Used Fortify Potion",
     "transaction_subscription_perks": "From subscription perk",
-    "transaction_admin_update_balance": "Admin given"
+    "transaction_admin_update_balance": "Admin given",
+    "transaction_admin_update_hourglasses": "Admin updated"
 }

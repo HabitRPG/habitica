@@ -229,5 +229,11 @@
     "dateEndDecember": "12月31号",
     "februaryYYYY": "2月 <%= year %>",
     "octoberYYYY": "10月 <%= year %>",
-    "julyYYYY": "7月 <%= year %>"
+    "julyYYYY": "7月 <%= year %>",
+    "gemSaleHow": "在<%= eventStartMonth %> <%= eventStartOrdinal %>和<%= eventEndOrdinal %>之间，像往常一样购买任何宝石捆绑包，您的帐户将获得促销返利。这些多出来的宝石可用于购买、赠送或攒下来等之后的新品！",
+    "gemSaleLimitations": "此促销活动为限时活动。从<%= eventStartMonth %> <%= eventStartOrdinal %>美国东部时间上午8:00（12:00 UTC）开始至<%= eventStartMonth %> <%= eventStartOrdinal %>美国东部时间晚上8:00（00:00 UTC）结束。该优惠只能在为自己购买宝石时使用。",
+    "fall2022KappaRogueSet": "河童（盗贼）",
+    "fall2022OrcWarriorSet": "兽人（战士）",
+    "fall2022HarpyMageSet": "鹰身女妖（法师）",
+    "fall2022WatcherHealerSet": "眼魔（医者）"
 }

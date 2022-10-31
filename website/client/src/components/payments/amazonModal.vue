@@ -196,7 +196,7 @@ export default {
           appState.group = pick(this.amazonPayments.groupToCreate, ['_id', 'memberCount', 'name']);
         } else {
           appState.newGroup = false;
-          appState.group = pick(this.amazonPayments.group, ['_id', 'memberCount', 'name']);
+          appState.group = pick(this.amazonPayments.group, ['_id', 'memberCount', 'name', 'type']);
         }
       } else if (paymentType && paymentType.indexOf('gift-') === 0) {
         appState.gift = this.amazonPayments.gift;
