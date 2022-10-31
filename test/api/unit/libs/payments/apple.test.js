@@ -326,6 +326,7 @@ describe('Apple Payments', () => {
     it('errors when a user is already subscribed', async () => {
       payments.createSubscription.restore();
       user = new User();
+      await user.save();
 
       await applePayments.subscribe(sku, user, receipt, headers, nextPaymentProcessing);
 
