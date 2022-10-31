@@ -2730,5 +2730,11 @@
     "shieldSpecialFall2022WarriorText": "兽人之盾",
     "shieldSpecialFall2022WarriorNotes": "要么招待要么RAWR！增加<%= con %>点体质。2022年秋季限定版装备。",
     "shieldSpecialFall2022HealerText": "窥视左目",
-    "shieldSpecialFall2022HealerNotes": "二号眼，盯着这套服饰颤抖吧。增加<%= con %>点体质。2022年秋季限定版装备。"
+    "shieldSpecialFall2022HealerNotes": "二号眼，盯着这套服饰颤抖吧。增加<%= con %>点体质。2022年秋季限定版装备。",
+    "weaponMystery202211Text": "电磁法杖",
+    "weaponMystery202211Notes": "用这根法杖来驾驭闪电风暴的强大威力。没有属性加成。2022年11月订阅者物品。",
+    "armorArmoireSheetGhostCostumeText": "床单幽灵服装",
+    "armorArmoireSheetGhostCostumeNotes": "嘿！这是Habitica最恐怖的服装，所以请分场合穿它……注意脚下，以免绊倒。增加<%= con %>点体质。魔法衣橱：独立装备。",
+    "headMystery202211Text": "电磁帽",
+    "headMystery202211Notes": "小心这顶威力强大的帽子，它对崇拜者的影响可能相当惊人！没有属性加成。2022年11月订阅者物品。"
 }
