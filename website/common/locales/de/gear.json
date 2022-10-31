@@ -2730,5 +2730,11 @@
     "armorSpecialFall2022HealerNotes": "Wie viele Beobachter könnte ein Beobachter beobachten, wenn ein Beobachter Beobachter beobachten könnte? Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe 2022 Herbstausrüstung.",
     "headSpecialFall2022MageNotes": "Zieh andere in Deinen Bann und locke sie zu Dir hin mit dieser magischen Maidenmaske. Erhöht Wahrnehmung um <%= per %>. Limitierte Ausgabe 2022 Herbstausrüstung.",
     "eyewearArmoireComedyMaskNotes": "Heiter! Eine malerische Maske für Dein fröhlich' Herz, spielend, Freude verkündend, Heiterkeit und Frohsinn auf der Bühne ausstrahlend. Erhöht Ausdauer um <%= con %>. Verzauberter Schrank: Theatermaskenset (Gegenstand 1 von 2).",
-    "eyewearArmoireTragedyMaskNotes": "Ach! Eine schwere Maske für Deinen armen Darsteller, stolzierend, sich grämend, und auf der Bühne Leid und Kummer ausdrückend. Erhöht Intelligenz um <%= int %>. Verzauberter Schrank: Theatermaskenset (Gegenstand 2 von 2)."
+    "eyewearArmoireTragedyMaskNotes": "Ach! Eine schwere Maske für Deinen armen Darsteller, stolzierend, sich grämend, und auf der Bühne Leid und Kummer ausdrückend. Erhöht Intelligenz um <%= int %>. Verzauberter Schrank: Theatermaskenset (Gegenstand 2 von 2).",
+    "armorArmoireSheetGhostCostumeText": "Bettuch-Geist-Kostüm",
+    "weaponMystery202211Text": "Blitzbeschwörer Stab",
+    "weaponMystery202211Notes": "Bündle die massive Macht eines Blitzgewitters mit diesem Stab. Gewährt keinen Attributbonus. November 2022 Abonnentengegenstand.",
+    "armorArmoireSheetGhostCostumeNotes": "Boo! Das ist das gruseligste Kostüm in Habitica, also geh vernünftig damit um … und gib Acht, dass Du nicht stolperst. Erhöht Ausdauer um <%= con %>. Verzauberter Schrank: Unabhängiger Gegenstand.",
+    "headMystery202211Text": "Blitzbeschwörer Hut",
+    "headMystery202211Notes": "Sei vorsichtig mit diesem blitzenden Hut, er kann einen sehr schockierenden Eindruck bei Deinen Bewunderern hinteralssen! Gewährt keinen Attributbonus. November 2022 Abonnentengegenstand."
 }
