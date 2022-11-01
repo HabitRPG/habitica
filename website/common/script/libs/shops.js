@@ -421,7 +421,7 @@ shops.getSeasonalGearBySet = function getSeasonalGearBySet (
 
     // gear that has previously been owned should be repurchaseable with gold
     if (user.items.gear.owned[gear.key] !== undefined) {
-      itemInfo.currency = "gold";
+      itemInfo.currency = 'gold';
     }
 
     return itemInfo;
