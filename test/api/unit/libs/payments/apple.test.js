@@ -440,6 +440,8 @@ describe('Apple Payments', () => {
       });
 
       it('errors when a user is using a rebill of the same subscription', async () => {
+        user = new User();
+        await user.save();
         payments.createSubscription.restore();
         iap.getPurchaseData.restore();
         iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
@@ -461,6 +463,8 @@ describe('Apple Payments', () => {
       });
 
       it('errors when a different user is using the subscription', async () => {
+        user = new User();
+        await user.save();
         payments.createSubscription.restore();
         iap.getPurchaseData.restore();
         iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
