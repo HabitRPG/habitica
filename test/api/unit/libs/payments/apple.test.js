@@ -426,9 +426,9 @@ describe('Apple Payments', () => {
             transactionId: token,
             originalTransactionId: token,
           }]);
-  
+
         await applePayments.subscribe(sku, user, receipt, headers, nextPaymentProcessing);
-  
+
         await expect(applePayments.subscribe(sku, user, receipt, headers, nextPaymentProcessing))
           .to.eventually.be.rejected.and.to.eql({
             httpCode: 401,
@@ -444,7 +444,7 @@ describe('Apple Payments', () => {
           .returns([{
             expirationDate: moment.utc().add({ day: 1 }).toDate(),
             productId: sku,
-            transactionId: token + 'renew',
+            transactionId: `${token}renew`,
             originalTransactionId: token,
           }]);
 
@@ -472,7 +472,9 @@ describe('Apple Payments', () => {
         await applePayments.subscribe(sku, user, receipt, headers, nextPaymentProcessing);
 
         const secondUser = new User();
-        await expect(applePayments.subscribe(sku, secondUser, receipt, headers, nextPaymentProcessing))
+        await expect(applePayments.subscribe(
+          sku, secondUser, receipt, headers, nextPaymentProcessing,
+        ))
           .to.eventually.be.rejected.and.to.eql({
             httpCode: 401,
             name: 'NotAuthorized',
@@ -480,7 +482,6 @@ describe('Apple Payments', () => {
           });
       });
     });
-
   });
 
   describe('cancelSubscribe ', () => {
