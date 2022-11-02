@@ -113,6 +113,34 @@ export default function hatch (user, req = {}, analytics) {
     });
   }
 
+  if (content.dropEggs[egg] || content.questEggs[egg]) {
+    forEach(content.petSetCompleteAchievs, achievement => {
+      if (hatchingPotion !== achievement.color) return;
+      if (!user.achievements[achievement.petAchievement]) {
+        const dropPetIndex = findIndex(
+          keys(content.dropEggs),
+          animal => !user.items.pets[`${animal}-${achievement.color}`] || user.items.pets[`${animal}-${achievement.color}`] <= 0,
+        );
+        const questPetIndex = findIndex(
+          keys(content.questEggs),
+          animal => !user.items.pets[`${animal}-${achievement.color}`] || user.items.pets[`${animal}-${achievement.color}`] <= 0,
+        );
+        if (dropPetIndex === -1 && questPetIndex === -1) {
+          user.achievements[achievement.petAchievement] = true;
+          if (user.addNotification) {
+            const achievementString = `achievement${upperFirst(achievement.petAchievement)}`;
+            user.addNotification(achievement.petNotificationType, {
+              label: `${'achievement'}: ${achievementString}`,
+              achievement: achievement.petAchievement,
+              message: `${i18n.t('modalAchievement')} ${i18n.t(achievementString)}`,
+              modalText: i18n.t(`${achievementString}ModalText`),
+            });
+          }
+        }
+      }
+    });
+  }
+
   if (analytics && moment().diff(user.auth.timestamps.created, 'days') < 7) {
     analytics.track('pet hatch', {
       uuid: user._id,

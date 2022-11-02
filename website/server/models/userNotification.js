@@ -46,6 +46,7 @@ const NOTIFICATION_TYPES = [
   'ACHIEVEMENT_ANIMAL_SET',
   'ACHIEVEMENT_PET_COLOR',
   'ACHIEVEMENT_MOUNT_COLOR',
+  'ACHIEVEMENT_PET_SET_COMPLETE',
   // Deprecated notification types. Can be removed once old data is cleaned out
   'BOSS_DAMAGE', // deprecated
   'ACHIEVEMENT_ALL_YOUR_BASE', // deprecated
