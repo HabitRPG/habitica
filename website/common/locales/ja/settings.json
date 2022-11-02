@@ -219,5 +219,6 @@
     "passwordSuccess": "パスワードは正常に変更されました",
     "giftSubscriptionRateText": "<strong><%= months %> か月</strong>ごとに<strong>$<%= price %> USD（米ドル）</strong>",
     "transaction_create_bank_challenge": "作成された口座チャレンジ",
-    "transaction_admin_update_balance": "管理者より付与"
+    "transaction_admin_update_balance": "管理者より付与",
+    "transaction_admin_update_hourglasses": "管理者の更新"
 }

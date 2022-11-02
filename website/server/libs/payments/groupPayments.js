@@ -1,3 +1,5 @@
+// TODO these files need to refactored.
+
 import nconf from 'nconf';
 import _ from 'lodash';
 import moment from 'moment';
@@ -12,6 +14,8 @@ import { // eslint-disable-line import/no-cycle
   getUserInfo,
   sendTxn as txnEmail,
 } from '../email';
+import { paymentConstants } from './constants';
+import { cancelSubscription, createSubscription } from './subscriptions'; // eslint-disable-line import/no-cycle
 
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS_TECH_ASSISTANCE_EMAIL');
 const JOINED_GROUP_PLAN = 'joined group plan';
@@ -37,7 +41,8 @@ async function addSubscriptionToGroupUsers (group) {
     members = await User.find({ 'party._id': group._id }).select('_id purchased items auth profile.name notifications').exec();
   }
 
-  const promises = members.map(member => this.addSubToGroupUser(member, group));
+  // eslint-disable-next-line no-use-before-define
+  const promises = members.map(member => addSubToGroupUser(member, group));
 
   await Promise.all(promises);
 }
@@ -63,12 +68,12 @@ async function addSubToGroupUser (member, group) {
   // When changing customerIdsToIgnore or paymentMethodsToIgnore, the code blocks below for
   // the `group-member-join` email template will probably need to be changed.
   const customerIdsToIgnore = [
-    this.constants.GROUP_PLAN_CUSTOMER_ID,
-    this.constants.UNLIMITED_CUSTOMER_ID,
+    paymentConstants.GROUP_PLAN_CUSTOMER_ID,
+    paymentConstants.UNLIMITED_CUSTOMER_ID,
   ];
   const paymentMethodsToIgnore = [
-    this.constants.GOOGLE_PAYMENT_METHOD,
-    this.constants.IOS_PAYMENT_METHOD,
+    paymentConstants.GOOGLE_PAYMENT_METHOD,
+    paymentConstants.IOS_PAYMENT_METHOD,
   ];
   let previousSubscriptionType = EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_NONE;
   const leader = await User.findById(group.leader).exec();
@@ -104,7 +109,7 @@ async function addSubToGroupUser (member, group) {
   const memberPlan = member.purchased.plan;
   if (member.isSubscribed()) {
     const customerHasCancelledGroupPlan = (
-      memberPlan.customerId === this.constants.GROUP_PLAN_CUSTOMER_ID
+      memberPlan.customerId === paymentConstants.GROUP_PLAN_CUSTOMER_ID
       && !member.hasNotCancelled()
     );
     const ignorePaymentPlan = paymentMethodsToIgnore.indexOf(memberPlan.paymentMethod) !== -1;
@@ -127,13 +132,13 @@ async function addSubToGroupUser (member, group) {
     if ((ignorePaymentPlan || ignoreCustomerId) && !customerHasCancelledGroupPlan) {
       // member has been added to group plan but their subscription will not be changed
       // automatically so they need a special message in the email
-      if (memberPlan.paymentMethod === this.constants.GOOGLE_PAYMENT_METHOD) {
+      if (memberPlan.paymentMethod === paymentConstants.GOOGLE_PAYMENT_METHOD) {
         previousSubscriptionType = EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_GOOGLE;
-      } else if (memberPlan.paymentMethod === this.constants.IOS_PAYMENT_METHOD) {
+      } else if (memberPlan.paymentMethod === paymentConstants.IOS_PAYMENT_METHOD) {
         previousSubscriptionType = EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_IOS;
-      } else if (memberPlan.customerId === this.constants.UNLIMITED_CUSTOMER_ID) {
+      } else if (memberPlan.customerId === paymentConstants.UNLIMITED_CUSTOMER_ID) {
         previousSubscriptionType = EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_LIFETIME_FREE;
-      } else if (memberPlan.customerId === this.constants.GROUP_PLAN_CUSTOMER_ID) {
+      } else if (memberPlan.customerId === paymentConstants.GROUP_PLAN_CUSTOMER_ID) {
         previousSubscriptionType = EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_GROUP_PLAN;
       } else {
         // this triggers a generic message in the email template in case we forget
@@ -183,7 +188,7 @@ async function addSubToGroupUser (member, group) {
   member.markModified('items.mounts');
 
   data.user = member;
-  await this.createSubscription(data);
+  await createSubscription(data);
 
   txnEmail(data.user, 'group-member-join', [
     { name: 'LEADER', content: leader.profile.name },
@@ -207,13 +212,14 @@ async function cancelGroupUsersSubscription (group) {
     members = await User.find({ 'party._id': group._id }).select('_id guilds purchased').exec();
   }
 
-  const promises = members.map(member => this.cancelGroupSubscriptionForUser(member, group));
+  // eslint-disable-next-line no-use-before-define
+  const promises = members.map(member => cancelGroupSubscriptionForUser(member, group));
 
   await Promise.all(promises);
 }
 
 async function cancelGroupSubscriptionForUser (user, group, userWasRemoved = false) {
-  if (user.purchased.plan.customerId !== this.constants.GROUP_PLAN_CUSTOMER_ID) return;
+  if (user.purchased.plan.customerId !== paymentConstants.GROUP_PLAN_CUSTOMER_ID) return;
 
   const userGroups = user.guilds.toObject();
   if (user.party._id) userGroups.push(user.party._id);
@@ -241,7 +247,7 @@ async function cancelGroupSubscriptionForUser (user, group, userWasRemoved = fal
       { name: 'LEADER', content: leader.profile.name },
       { name: 'GROUP_NAME', content: group.name },
     ]);
-    await this.cancelSubscription({ user });
+    await cancelSubscription({ user });
   }
 }
 
