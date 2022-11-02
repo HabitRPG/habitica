@@ -71,15 +71,7 @@ async function createSubscription (data) {
     ? data.gift.subscription.key
     : data.sub.key];
   const autoRenews = data.autoRenews !== undefined ? data.autoRenews : true;
-  const updatedFrom = data.updatedFrom
-    ? shared.content.subscriptionBlocks[data.updatedFrom.key]
-    : undefined;
-  let months;
-  if (updatedFrom && Number(updatedFrom.months) !== 1) {
-    months = Math.max(0, Number(block.months) - Number(updatedFrom.months));
-  } else {
-    months = Number(block.months);
-  }
+  const months = Number(block.months);
   const today = new Date();
   let group;
   let groupId;
