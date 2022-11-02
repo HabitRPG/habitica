@@ -11,10 +11,13 @@ import {
   generateGroup,
 } from '../../../../helpers/api-unit.helper';
 import * as worldState from '../../../../../website/server/libs/worldState';
+import { TransactionModel } from '../../../../../website/server/models/transaction';
 
 describe('payments/index', () => {
-  let user; let group; let data; let
-    plan;
+  let user;
+  let group;
+  let data;
+  let plan;
 
   beforeEach(async () => {
     user = new User();
@@ -102,6 +105,23 @@ describe('payments/index', () => {
         await api.createSubscription(data);
 
         expect(recipient.purchased.plan.extraMonths).to.eql(3);
+      });
+
+      it('add a transaction entry to the recipient', async () => {
+        recipient.purchased.plan = plan;
+
+        expect(recipient.purchased.plan.extraMonths).to.eql(0);
+
+        await api.createSubscription(data);
+
+        expect(recipient.purchased.plan.extraMonths).to.eql(3);
+
+        const transactions = await TransactionModel
+          .find({ userId: recipient._id })
+          .sort({ createdAt: -1 })
+          .exec();
+
+        expect(transactions).to.have.lengthOf(1);
       });
 
       it('does not set negative extraMonths if plan has past dateTerminated date', async () => {

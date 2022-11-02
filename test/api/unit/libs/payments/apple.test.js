@@ -417,6 +417,8 @@ describe('Apple Payments', () => {
 
     describe('does not apply multiple times', async () => {
       it('errors when a user is using the same subscription', async () => {
+        user = new User();
+        await user.save();
         payments.createSubscription.restore();
         iap.getPurchaseData.restore();
         iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')

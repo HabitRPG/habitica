@@ -75,6 +75,7 @@
         v-show="selectedPage === 'subscription'"
         class="subscribe-option"
         :userReceivingGift="userReceivingGift"
+        :receiverName="receiverName"
       />
 
       <!-- gem block -->
@@ -648,6 +649,7 @@ export default {
             },
           },
           giftReceiver: this.receiverName,
+          toUserId: this.userReceivingGift._id,
         });
       }, 500);
     },

@@ -241,6 +241,14 @@ const NOTIFICATIONS = {
       achievement: 'mountColorAchievs',
     },
   },
+  ACHIEVEMENT_PET_SET_COMPLETE: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementPetSetComplete')}`,
+    modalId: 'generic-achievement',
+    data: {
+      achievement: 'petSetCompleteAchievs',
+    },
+  },
 };
 
 export default {
@@ -313,6 +321,7 @@ export default {
       'ACHIEVEMENT_ANIMAL_SET',
       'ACHIEVEMENT_PET_COLOR',
       'ACHIEVEMENT_MOUNT_COLOR',
+      'ACHIEVEMENT_PET_SET_COMPLETE',
     ].forEach(type => {
       handledNotifications[type] = true;
     });
@@ -768,6 +777,15 @@ export default {
             const upperCaseAchievement = achievement.charAt(0).toUpperCase() + achievement.slice(1);
             const achievementTitleKey = `achievement${upperCaseAchievement}`;
             NOTIFICATIONS.ACHIEVEMENT_MOUNT_COLOR.label = $t => `${$t('achievement')}: ${$t(achievementTitleKey)}`;
+            this.showNotificationWithModal(notification);
+            Vue.set(this.user.achievements, achievement, true);
+            break;
+          }
+          case 'ACHIEVEMENT_PET_SET_COMPLETE': {
+            const { achievement } = notification.data;
+            const upperCaseAchievement = achievement.charAt(0).toUpperCase() + achievement.slice(1);
+            const achievementTitleKey = `achievement${upperCaseAchievement}`;
+            NOTIFICATIONS.ACHIEVEMENT_PET_SET_COMPLETE.label = $t => `${$t('achievement')}: ${$t(achievementTitleKey)}`;
             this.showNotificationWithModal(notification);
             Vue.set(this.user.achievements, achievement, true);
             break;
