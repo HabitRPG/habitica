@@ -124,12 +124,16 @@ api.subscribe = async function subscribe (sku, user, receipt, headers, nextPayme
         throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
       }
       existingSub = shared.content.subscriptionBlocks[user.purchased.plan.planId];
+      if (existingSub === sub) {
+        throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
+      }
     }
     const existingUser = await User.findOne({
       'purchased.plan.customerId': originalTransactionId,
     }).exec();
     if (existingUser
-      && (originalTransactionId === newTransactionId || existingUser._id !== user._id)) {
+      && (originalTransactionId === newTransactionId
+        || existingUser._id !== user._id)) {
       throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
     }
 
