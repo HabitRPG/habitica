@@ -525,6 +525,12 @@ const backgrounds = {
     mask_makers_workshop: { },
     cemetery_gate: { },
   },
+
+  backgrounds112022: {
+    among_giant_mushrooms: { },
+    misty_autumn_forest: { },
+    autumn_bridge: { },
+  },
   timeTravelBackgrounds: {
     airship: {
       price: 1,
