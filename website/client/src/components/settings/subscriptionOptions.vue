@@ -125,6 +125,10 @@ export default {
       type: Object,
       default () {},
     },
+    receiverName: {
+      type: String,
+      default: '',
+    },
   },
   data () {
     return {
@@ -135,7 +139,6 @@ export default {
         type: 'subscription',
         subscription: { key: 'basic_earned' },
       },
-      receiverName: '',
     };
   },
   computed: {

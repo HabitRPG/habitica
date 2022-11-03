@@ -306,9 +306,9 @@
     "weaponArmoireMythmakerSwordNotes": "重剑无锋大巧不工，这把宝剑成就了许多神话中的英雄人物。增加感知、力量各<%= attrs %>点。魔法衣橱：黄金战袍套装（3/3）。",
     "weaponArmoireIronCrookText": "钢铁手杖",
     "weaponArmoireIronCrookNotes": "纯钢打造，力透杖柄。这柄曲柄杖用来放牧效果极好。增加感知、力量各<%= attrs %>点。魔法衣橱：铁角套装（3/3）。",
-    "weaponArmoireGoldWingStaffText": "金翅法仗",
+    "weaponArmoireGoldWingStaffText": "金翅法杖",
     "weaponArmoireGoldWingStaffNotes": "法杖上的翅膀持续颤动旋转。增加全属性<%= attrs %>点。魔法衣橱：独立装备。",
-    "weaponArmoireBatWandText": "蝙蝠法仗",
+    "weaponArmoireBatWandText": "蝙蝠法杖",
     "weaponArmoireBatWandNotes": "这根法杖可以把任何任务都变成一只蝙蝠！挥一挥，让它们飞的远远的。增加<%= int %>点智力和<%= per %>点感知。魔法衣橱：独立装备。",
     "weaponArmoireShepherdsCrookText": "牧羊人之杖",
     "weaponArmoireShepherdsCrookNotes": "对放牧狮鹫很有用。增加<%= con %>点体质。魔法衣橱：牧羊人套装（1/3）。",
@@ -2587,7 +2587,7 @@
     "weaponSpecialSummer2022RogueNotes": "如果你在处境窘迫，不要犹豫显示这些强悍的爪！增加<%= str %>点力量。2022年夏季限定版装备。",
     "weaponSpecialSummer2022WarriorNotes": "它旋转！它重定向！它带来风暴！增加<%= str %>点力量。2022年夏季限定版装备。",
     "weaponSpecialSummer2022MageText": "蝠鲼法杖",
-    "weaponSpecialSummer2022HealerText": "有益的泡",
+    "weaponSpecialSummer2022HealerText": "增益泡泡",
     "weaponSpecialSummer2022MageNotes": "用这个法杖旋一下就会神奇的清前面的水。增加<%= int %>点智力和<%= per %>点感知。2022年夏季限定版装备。",
     "weaponSpecialSummer2022HealerNotes": "这些泡以满意的啪释放/治愈术！增加<%= int %>点智力。2022年夏季限定版装备。",
     "weaponSpecialSpring2022WarriorText": "反转的伞",
@@ -2730,5 +2730,11 @@
     "shieldSpecialFall2022WarriorText": "兽人之盾",
     "shieldSpecialFall2022WarriorNotes": "要么招待要么RAWR！增加<%= con %>点体质。2022年秋季限定版装备。",
     "shieldSpecialFall2022HealerText": "窥视左目",
-    "shieldSpecialFall2022HealerNotes": "二号眼，盯着这套服饰颤抖吧。增加<%= con %>点体质。2022年秋季限定版装备。"
+    "shieldSpecialFall2022HealerNotes": "二号眼，盯着这套服饰颤抖吧。增加<%= con %>点体质。2022年秋季限定版装备。",
+    "weaponMystery202211Text": "电磁法杖",
+    "weaponMystery202211Notes": "用这根法杖来驾驭闪电风暴的强大威力。没有属性加成。2022年11月订阅者物品。",
+    "armorArmoireSheetGhostCostumeText": "床单幽灵服装",
+    "armorArmoireSheetGhostCostumeNotes": "嘿！这是Habitica最恐怖的服装，所以请分场合穿它……注意脚下，以免绊倒。增加<%= con %>点体质。魔法衣橱：独立装备。",
+    "headMystery202211Text": "电磁帽",
+    "headMystery202211Notes": "小心这顶威力强大的帽子，它对崇拜者的影响可能相当惊人！没有属性加成。2022年11月订阅者物品。"
 }

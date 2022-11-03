@@ -231,5 +231,9 @@
     "julyYYYY": "Julio de <%= year %>",
     "octoberYYYY": "Octubre de <%= year %>",
     "fall2022HarpyMageSet": "Arpía (Mago)",
-    "fall2022OrcWarriorSet": "Orca (Guerrero)"
+    "fall2022OrcWarriorSet": "Orca (Guerrero)",
+    "gemSaleLimitations": "Esta promoción solo aplica durante el tiempo limitado del evento. Este evento empieza el <%= eventStartOrdinal %> de <%= eventStartMonth %> a las 8:00 AM EDT (12:00 UTC) y acabará el <%= eventEndOrdinal %> de <%= eventStartMonth %> a las 8:00 PM EDT (00:00 UTC). Esta promoción solo está disponible cuando se compran Gemas para uno mismo.",
+    "gemSaleHow": "Entre el <%= eventStartOrdinal %> y <%= eventEndOrdinal %> de <%= eventStartMonth %>, simplemente compra cualquier paquete de Gemas como normalmente, y se abonará en tu cuenta el número promocional de Gemas. ¡Más Gemas para gastar, compartir o guardar para futuras entregas!",
+    "fall2022KappaRogueSet": "Kapa (Pícaro)",
+    "fall2022WatcherHealerSet": "Mirador (Sanador)"
 }
