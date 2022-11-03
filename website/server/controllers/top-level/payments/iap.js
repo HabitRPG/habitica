@@ -144,7 +144,7 @@ api.iapSubscriptioniOS = {
     if (!req.body.sku) throw new BadRequest(res.t('missingSubscriptionCode'));
     if (!req.body.receipt) throw new BadRequest(res.t('missingReceipt'));
 
-    await applePayments.subscribe(req.body.sku, res.locals.user, req.body.receipt, req.headers);
+    await applePayments.subscribe(res.locals.user, req.body.receipt, req.headers);
 
     res.respond(200);
   },

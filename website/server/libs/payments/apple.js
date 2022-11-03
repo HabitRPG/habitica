@@ -105,8 +105,33 @@ api.verifyGemPurchase = async function verifyGemPurchase (options) {
   return appleRes;
 };
 
-api.subscribe = async function subscribe (sku, user, receipt, headers, nextPaymentProcessing) {
-  if (!sku) throw new BadRequest(shared.i18n.t('missingSubscriptionCode'));
+api.subscribe = async function subscribe (user, receipt, headers, nextPaymentProcessing) {
+  await iap.setup();
+
+  const appleRes = await iap.validate(iap.APPLE, receipt);
+  const isValidated = iap.isValidated(appleRes);
+  if (!isValidated) throw new NotAuthorized(api.constants.RESPONSE_INVALID_RECEIPT);
+
+  const purchaseDataList = iap.getPurchaseData(appleRes);
+  if (purchaseDataList.length === 0) {
+    throw new NotAuthorized(api.constants.RESPONSE_NO_ITEM_PURCHASED);
+  }
+
+  let originalTransactionId;
+  let newTransactionId;
+  let newestDate;
+  let sku;
+
+  for (const purchaseData of purchaseDataList) {
+    const datePurchased = new Date(Number(purchaseData.purchaseDate));
+    const dateTerminated = new Date(Number(purchaseData.expirationDate));
+    if ((!newestDate || datePurchased > newestDate) && dateTerminated > new Date()) {
+      originalTransactionId = purchaseData.originalTransactionId;
+      newTransactionId = purchaseData.transactionId;
+      newestDate = datePurchased
+      sku = purchaseData.productId
+    }
+  }
 
   let subCode;
   switch (sku) { // eslint-disable-line default-case
@@ -124,29 +149,6 @@ api.subscribe = async function subscribe (sku, user, receipt, headers, nextPayme
       break;
   }
   const sub = subCode ? shared.content.subscriptionBlocks[subCode] : false;
-  if (!sub) throw new NotAuthorized(this.constants.RESPONSE_INVALID_ITEM);
-  await iap.setup();
-
-  const appleRes = await iap.validate(iap.APPLE, receipt);
-  const isValidated = iap.isValidated(appleRes);
-  if (!isValidated) throw new NotAuthorized(api.constants.RESPONSE_INVALID_RECEIPT);
-
-  const purchaseDataList = iap.getPurchaseData(appleRes);
-  if (purchaseDataList.length === 0) {
-    throw new NotAuthorized(api.constants.RESPONSE_NO_ITEM_PURCHASED);
-  }
-
-  let originalTransactionId;
-  let newTransactionId;
-
-  for (const purchaseData of purchaseDataList) {
-    const dateTerminated = new Date(Number(purchaseData.expirationDate));
-    if (purchaseData.productId === sku && dateTerminated > new Date()) {
-      originalTransactionId = purchaseData.originalTransactionId;
-      newTransactionId = purchaseData.transactionId;
-      break;
-    }
-  }
 
   if (originalTransactionId) {
     let existingSub;
