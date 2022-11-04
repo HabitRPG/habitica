@@ -412,41 +412,41 @@ describe('Apple Payments', () => {
 
     it('uses the most recent subscription data', async () => {
       iap.getPurchaseData.restore();
-        iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
-          .returns([{
-            expirationDate: moment.utc().add({ day: 4 }).toDate(),
-            purchaseDate: moment.utc().subtract({ day: 5 }).toDate(),
-            productId: 'com.habitrpg.ios.habitica.subscription.3month',
-            transactionId: token + 'oldest',
-            originalTransactionId: token + 'evenOlder',
-          }, {
-            expirationDate: moment.utc().add({ day: 2 }).toDate(),
-            purchaseDate: moment.utc().subtract({ day: 1 }).toDate(),
-            productId: 'com.habitrpg.ios.habitica.subscription.12month',
-            transactionId: token + 'newest',
-            originalTransactionId: token + 'newest',
-          }, {
-            expirationDate: moment.utc().add({ day: 1 }).toDate(),
-            purchaseDate: moment.utc().subtract({ day: 2 }).toDate(),
-            productId: 'com.habitrpg.ios.habitica.subscription.6month',
-            transactionId: token,
-            originalTransactionId: token,
-          }]);
-        sub = common.content.subscriptionBlocks['basic_12mo'];
+      iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
+        .returns([{
+          expirationDate: moment.utc().add({ day: 4 }).toDate(),
+          purchaseDate: moment.utc().subtract({ day: 5 }).toDate(),
+          productId: 'com.habitrpg.ios.habitica.subscription.3month',
+          transactionId: `${token}oldest`,
+          originalTransactionId: `${token}evenOlder`,
+        }, {
+          expirationDate: moment.utc().add({ day: 2 }).toDate(),
+          purchaseDate: moment.utc().subtract({ day: 1 }).toDate(),
+          productId: 'com.habitrpg.ios.habitica.subscription.12month',
+          transactionId: `${token}newest`,
+          originalTransactionId: `${token}newest`,
+        }, {
+          expirationDate: moment.utc().add({ day: 1 }).toDate(),
+          purchaseDate: moment.utc().subtract({ day: 2 }).toDate(),
+          productId: 'com.habitrpg.ios.habitica.subscription.6month',
+          transactionId: token,
+          originalTransactionId: token,
+        }]);
+      sub = common.content.subscriptionBlocks.basic_12mo;
 
-        await applePayments.subscribe(user, receipt, headers, nextPaymentProcessing);
+      await applePayments.subscribe(user, receipt, headers, nextPaymentProcessing);
 
-        expect(paymentsCreateSubscritionStub).to.be.calledOnce;
-        expect(paymentsCreateSubscritionStub).to.be.calledWith({
-          user,
-          customerId: token + 'newest',
-          paymentMethod: applePayments.constants.PAYMENT_METHOD_APPLE,
-          sub,
-          headers,
-          additionalData: receipt,
-          nextPaymentProcessing,
-        });
-    })
+      expect(paymentsCreateSubscritionStub).to.be.calledOnce;
+      expect(paymentsCreateSubscritionStub).to.be.calledWith({
+        user,
+        customerId: `${token}newest`,
+        paymentMethod: applePayments.constants.PAYMENT_METHOD_APPLE,
+        sub,
+        headers,
+        additionalData: receipt,
+        nextPaymentProcessing,
+      });
+    });
 
     describe('does not apply multiple times', async () => {
       it('errors when a user is using the same subscription', async () => {

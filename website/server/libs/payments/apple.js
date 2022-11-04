@@ -97,8 +97,8 @@ api.subscribe = async function subscribe (user, receipt, headers, nextPaymentPro
     if ((!newestDate || datePurchased > newestDate) && dateTerminated > new Date()) {
       originalTransactionId = purchaseData.originalTransactionId;
       newTransactionId = purchaseData.transactionId;
-      newestDate = datePurchased
-      sku = purchaseData.productId
+      newestDate = datePurchased;
+      sku = purchaseData.productId;
     }
   }
 
@@ -255,9 +255,16 @@ api.cancelSubscribe = async function cancelSubscribe (user, headers) {
 
     const purchases = iap.getPurchaseData(appleRes);
     if (purchases.length === 0) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
-    const subscriptionData = purchases[0];
+    let newestDate;
 
-    dateTerminated = new Date(Number(subscriptionData.expirationDate));
+    for (const purchaseData of purchases) {
+      const datePurchased = new Date(Number(purchaseData.purchaseDate));
+      if (!newestDate || datePurchased > newestDate) {
+        dateTerminated = new Date(Number(purchaseData.expirationDate));
+        newestDate = datePurchased;
+      }
+    }
+
     if (dateTerminated > new Date()) throw new NotAuthorized(this.constants.RESPONSE_STILL_VALID);
   } catch (err) {
     // If we have an invalid receipt, cancel anyway
