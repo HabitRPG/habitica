@@ -1,10 +1,10 @@
 {
-    "noItemsAvailableForType": "لا يوجد لديك <%= type %>",
+    "noItemsAvailableForType": "لا يوجد لديك <%= type %>.",
     "foodItemType": "طعام الحيوانات الأليفة",
     "eggsItemType": "بيض",
-    "hatchingPotionsItemType": "جرعات الفقس",
-    "specialItemType": "حاجات خاصة",
-    "lockedItem": "حاجة مقفلة",
+    "hatchingPotionsItemType": "جرعات التلقيح",
+    "specialItemType": "عناصر خاصة",
+    "lockedItem": "عنصر مقفل",
     "petAndMount": "حيوان أليف وحيوان للركوب",
     "allItems": "كل العناصر"
 }

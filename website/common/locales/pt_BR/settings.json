@@ -86,7 +86,7 @@
     "displayNameSuccess": "Nome de exibição alterado com sucesso",
     "emailSuccess": "Email alterado com sucesso",
     "detachSocial": "Desconectar <%= network %>",
-    "detachedSocial": "Removido <%= network %> com sucesso como modo de autenticação.",
+    "detachedSocial": "Removido <%= network %> com sucesso como modo de autenticação",
     "addedLocalAuth": "Autenticação local adicionada com sucesso",
     "data": "Dados",
     "email": "E-mail",
@@ -144,7 +144,7 @@
     "webhookIdAlreadyTaken": "Um webhook com o id <%= id %> já existe.",
     "noWebhookWithId": "Não existe webhook com o id <%= id %>.",
     "regIdRequired": "RegId é necessário",
-    "pushDeviceAdded": "Dispositivo Push adicionado com sucesso.",
+    "pushDeviceAdded": "Dispositivo Push adicionado com sucesso",
     "pushDeviceNotFound": "O usuário não tem dispositivo push nesse id.",
     "pushDeviceRemoved": "Dispositivo push removido com sucesso.",
     "buyGemsGoldCap": "Capacidade máxima de Gemas aumentada para <%= amount %>",
@@ -219,5 +219,6 @@
     "passwordSuccess": "Senha alterada com sucesso",
     "giftSubscriptionRateText": "<strong>$<%= price %> BRL</strong> por <strong><%= months %> meses</strong>",
     "transaction_create_bank_challenge": "Desafio bancário criado",
-    "transaction_admin_update_balance": "Administração concedida"
+    "transaction_admin_update_balance": "Administração concedida",
+    "transaction_admin_update_hourglasses": "Administração atualizada"
 }

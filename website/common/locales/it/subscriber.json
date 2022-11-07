@@ -120,7 +120,7 @@
     "paypalCanceled": "Il tuo abbonameno è stato disdetto",
     "choosePaymentMethod": "Scegli il metodo di pagamento",
     "buyGemsSupportsDevs": "Comprare Gemme supporta gli sviluppatori e aiuta Habitica a continuare a funzionare",
-    "support": "SUPPORTA",
+    "support": "Supporta",
     "gemBenefitLeadin": "Cosa puoi comprare con le Gemme?",
     "gemBenefit1": "Costumi unici e alla moda per il tuo avatar.",
     "gemBenefit2": "Sfondi per immergere il tuo avatar nel mondi di Habitica!",
@@ -211,5 +211,7 @@
     "mysterySet202206": "Set Spiriti del Mare",
     "mysterySet202207": "Set Medusa Improvvisante",
     "mysterySet202208": "Set Coda di Cavallo Pimpante",
-    "mysterySet202209": "Set dell'Erudito Magico"
+    "mysterySet202209": "Set dell'Erudito Magico",
+    "mysterySet202210": "Set dell'Inquietante Ofidiano",
+    "mysteryset202211": "Set dell'Elettromante"
 }

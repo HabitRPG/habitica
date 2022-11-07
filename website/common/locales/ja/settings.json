@@ -160,7 +160,7 @@
     "amazonPaymentsRecurring": "有料プランに加入するには、以下のチェックボックスをチェックする必要があります。これをチェックするとあなたのAmazonアカウントを<strong>有料プランのため</strong>の継続した支払いに利用することを承認します。あなたのAmazonアカウントが今後何らかの購入のために自動的に使われてしまうことはありません。",
     "timezone": "タイム ゾーン",
     "timezoneUTC": "コンピューターに設定されたあなたのタイムゾーン : <strong><%= utc %></strong>",
-    "timezoneInfo": "タイムゾーンの設定が間違っているなら、このページをブラウザのリロード ( 再読み込み ) またはリフレッシュ ( 更新 ) ボタンで、Habitica を最新の状態にしてください。それでもまだ間違っているなら、PC のタイムゾーンを調整し、再度このページをリロード ( 再読み込み ) してください<br><br><strong>もし、別のPCやモバイル機器でも Habitica を使っているなら、すべてを同じタイムゾーンに設定しなくてはなりません。</strong> もし日課がも違った時間にリセットされたら、これまでのチェックを別のすべてのPCとモバイル機器の Web ブラウザでくり返してください。",
+    "timezoneInfo": "タイムゾーンの設定が間違っている場合は、まずこのページをブラウザのリロード ( 再読み込み ) またはリフレッシュ ( 更新 ) ボタンを使って、Habitica を最新の状態にしてください。それでもまだ間違っているなら、PC のタイムゾーンを調整し、再度このページをリロード ( 再読み込み ) してください。<br><br><strong>もし別のPCやモバイル端末でも Habitica を使っている場合は、すべてを同じタイムゾーンに設定する必要があります。</strong> 日課が間違った時間にリセットされている場合は、これまでのチェックを別のすべてのPCとモバイル端末の Web ブラウザでくり返してください。",
     "push": "プッシュ",
     "about": "プロフィール",
     "setUsernameNotificationTitle": "あなたのユーザー名を承認してください！",
@@ -219,5 +219,6 @@
     "passwordSuccess": "パスワードは正常に変更されました",
     "giftSubscriptionRateText": "<strong><%= months %> か月</strong>ごとに<strong>$<%= price %> USD（米ドル）</strong>",
     "transaction_create_bank_challenge": "作成された口座チャレンジ",
-    "transaction_admin_update_balance": "管理者より付与"
+    "transaction_admin_update_balance": "管理者より付与",
+    "transaction_admin_update_hourglasses": "管理者の更新"
 }

@@ -217,5 +217,8 @@
     "noHourglassTransactions": "У вас пока что нет переводов песочных часов.",
     "transaction_debug": "Действие по отладке",
     "passwordSuccess": "Пароль успешно изменен",
-    "giftSubscriptionRateText": "<strong>$<%= price %> долларов США</strong> за <strong><%= months %> месяц(-а/-ев)</strong>"
+    "giftSubscriptionRateText": "<strong>$<%= price %> долларов США</strong> за <strong><%= months %> месяц(-а/-ев)</strong>",
+    "transaction_admin_update_hourglasses": "Права администратора обновлены",
+    "transaction_admin_update_balance": "Предоставлены права администратора",
+    "transaction_create_bank_challenge": "Создан банк испытания"
 }

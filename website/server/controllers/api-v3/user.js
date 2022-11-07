@@ -978,6 +978,10 @@ api.disableClasses = {
                     ,"food","quests","gear"} type Type of item to purchase.
  * @apiParam (Path) {String} key Item's key (use "gem" for purchasing gems)
  *
+ * @apiParam (Body) {Integer} [quantity=1] Count of items to buy.
+ *                                         Defaults to 1 and is ignored
+ *                                         for items where quantity is irrelevant.
+ *
  * @apiSuccess {Object} data.items user.items
  * @apiSuccess {Number} data.balance user.balance
  * @apiSuccess {String} message Success message

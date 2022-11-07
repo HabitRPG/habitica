@@ -188,6 +188,11 @@ const SEASONAL_SETS = {
     'fall2021HeadlessWarriorSet',
     'fall2021BrainEaterMageSet',
     'fall2021FlameSummonerHealerSet',
+
+    'fall2022KappaRogueSet',
+    'fall2022OrcWarriorSet',
+    'fall2022HarpyMageSet',
+    'fall2022WatcherHealerSet',
   ],
 };
 
