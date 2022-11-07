@@ -45,7 +45,7 @@ const categoryOptions = [
   },
   {
     label: 'recovery_support_groups',
-    key: 'recovery_support_groups'
+    key: 'recovery_support_groups',
   },
   {
     label: 'self_improvement',
