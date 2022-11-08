@@ -166,7 +166,7 @@
     "assignedToUser": "Asignado a <strong><%- userName %></strong>",
     "assignedToMembers": "Asignado a <strong><%= userCount %> miembros</strong>",
     "assignedToYouAndMembers": "Asignado a ti y a <strong><%= userCount %> miembros</strong>",
-    "youAreAssigned": "Asignado a ti",
+    "youAreAssigned": "Asignado: <strong>tú</strong>",
     "taskIsUnassigned": "Esta tarea está sin asignar",
     "confirmUnClaim": "¿Estás seguro que no quieres reclamar esta tarea?",
     "confirmNeedsWork": "¿Está seguro de que desea marcar esta tarea como necesaria?",

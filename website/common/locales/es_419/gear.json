@@ -157,7 +157,7 @@
     "weaponSpecialSpring2015RogueText": "Explosivo Chirriante",
     "weaponSpecialSpring2015RogueNotes": "No dejes que el sonido te engañe. Estos explosivos están que arden. Incrementa la Fuerza en <%= str %>. Equipamiento de Edición Limitada de Primavera 2015.",
     "weaponSpecialSpring2015WarriorText": "Garrote de Hueso",
-    "weaponSpecialSpring2015WarriorNotes": "Es un garrote de hueso real para perritos realmente feroces y definitivamente no es un juguete para morder que la Hechicera Estacional te dio porque ¿quién es un buen perrito? ¿Quiéeen es un buen perrito? ¡¡¡Tú!!! ¡¡¡Tú eres un buen perrito!!! Incrementa la Fuerza en <%= str %>. Equipamiento de Edición Limitada de Primavera 2015.",
+    "weaponSpecialSpring2015WarriorNotes": "Es un garrote de hueso real para perritos realmente feroces y definitivamente no es un juguete para morder que la Hechicera Estacional te dio porque ¿quién es un buen perrito? ¿Quiééén es un buen perrito? ¡¡¡Tú!!! ¡¡¡Eres un buen perrito!!! Incrementa la Fuerza en <%= str %>. Equipamiento de Edición Limitada de Primavera 2015.",
     "weaponSpecialSpring2015MageText": "Varita Mágica",
     "weaponSpecialSpring2015MageNotes": "Conjúrate una zanahoria con esta sofisticada varita. Incrementa la Inteligencia por <%= int %> y Percepción por <%= per %>. Equipamiento de Edición Limitada de Primavera 2015.",
     "weaponSpecialSpring2015HealerText": "Sonaja de Gato",
@@ -1045,7 +1045,7 @@
     "headSpecialWinter2018HealerText": "Capucha de Muérdago",
     "headSpecialWinter2018HealerNotes": "¡Esta elegante capucha te mantendrá caliente con los sentimientos de los días festivos! Aumenta la Inteligencia en <%= int %>. Equipamiento de Edición Limitada Invierno 2017-2018.",
     "headSpecialSpring2018RogueText": "Casco de Pico de Pato",
-    "headSpecialSpring2018RogueNotes": "¡Cuac, Cuac! Tu ternura esconde tu naturaleza astuta y escurridiza. Aumenta la Percepción en <%= per %>. Equipamiento de Edición Limitada Primavera 2018.",
+    "headSpecialSpring2018RogueNotes": "¡Cuac, cuac! Tu ternura esconde tu naturaleza astuta y escurridiza. Aumenta la Percepción en <%= per %>. Equipamiento de Edición Limitada Primavera 2018.",
     "headSpecialSpring2018WarriorText": "Casco de Rayos",
     "headSpecialSpring2018WarriorNotes": "¡El brillo de este casco deslumbrará a cualquier enemigo cercano! Aumenta la Fuerza en <%= str %>. Equipamiento de Edición Limitada Primavera 2018.",
     "headSpecialSpring2018MageText": "Casco de Tulipán",
@@ -2367,7 +2367,7 @@
     "shieldArmoireStrawberryFoodNotes": "¡Una deliciosa y fresca fresa para alimentar a tus mascotas! ¿Sabes a qué mascotas les gusta más las fresas? Aumenta la Fuerza en <%= str %>. Armario Encantado: Conjunto de Alimento de Mascota (Artículo 1 de 10).",
     "shieldArmoireStrawberryFoodText": "Fresa Decorativa",
     "armorMystery202106Text": "Cola del Atardecer",
-    "weaponArmoireMedievalWashboardNotes": "¡Friega, friega, friega! Es hora de aplicar algo de esfuerzo y dejar la ropa limpia. Aumenta la Fuerza en <%= str %>. Armario Encantado: Conjunto de Lavanderas Medievales (Artículo 5 de 6).",
+    "weaponArmoireMedievalWashboardNotes": "¡No pares de fregar! Es hora de aplicar algo de esfuerzo y dejar la ropa limpia. Aumenta la Fuerza en <%= str %>. Armario Encantado: Conjunto de Lavanderas Medievales (Artículo 5 de 6).",
     "weaponArmoireMedievalWashboardText": "Tabla de Lavar",
     "shieldArmoireMedievalLaundryNotes": "Va a ser dificil conseguir lavarla, pero tú ya sabes que puedes hacer cualquier cosa. Aumenta la Percepción en <%= per %>. Armario Encantado: Conjunto de Lavanderas Medievales (Artículo 6 de 6).",
     "shieldArmoireMedievalLaundryText": "Ropa Sucia",
@@ -2519,5 +2519,6 @@
     "weaponSpecialFall2022HealerText": "Ojo observador derecho",
     "weaponSpecialSummer2022RogueNotes": "Si estás en aprietos, ¡no dudes en mostrar estas aterradoras pinzas! Incrementa la fuerza en <%= str %>. Equipamiento de edición limitada del verano de 2022.",
     "weaponSpecialSummer2022MageNotes": "Limpia mágicamente las aguas delante tuyo con un solo movimiento. Aumenta la inteligencia en <%= int %> y la percepción en <%= per %>. Equipamiento de edición limitada del verano del 2022.",
-    "weaponSpecialFall2022WarriorNotes": "Tal vez sea más adecuada para cortar troncos u hogazas que la armadura del enemigo... de cualquier forma: ¡GRR! ¡Se ve tan aterradora! Aumenta la fuerza en <%= str %>. Equipamiento de edición limitada del otoño de 2022."
+    "weaponSpecialFall2022WarriorNotes": "Tal vez sea más adecuada para cortar troncos u hogazas que la armadura del enemigo... de cualquier forma: ¡GRR! ¡Se ve tan aterradora! Aumenta la fuerza en <%= str %>. Equipamiento de edición limitada del otoño de 2022.",
+    "weaponMystery202209Text": "Manual Mágico"
 }

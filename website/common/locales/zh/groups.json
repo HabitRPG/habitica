@@ -123,7 +123,7 @@
     "sendGiftCost": "总计： $<%= cost %>USD",
     "sendGiftFromBalance": "来自结余",
     "sendGiftPurchase": "支付",
-    "sendGiftMessagePlaceholder": "私信（可选）",
+    "sendGiftMessagePlaceholder": "添加礼物信息",
     "sendGiftSubscription": "<%= months %> 月（或多个月）： $<%= price %>美元",
     "gemGiftsAreOptional": "请注意，Habitica决不会要求你将宝石赠送给其他玩家。向别人讨要宝石是一种 <strong>违反社区指南</strong>的行为，所有这类情况应该报告给<%= hrefTechAssistanceEmail %>。",
     "battleWithFriends": "与朋友一起大战怪兽",
@@ -416,5 +416,6 @@
     "descriptionOptionalText": "添加描述",
     "createGroup": "创建团队",
     "groupUse": "哪一点最适合用来描述您的团队用途？*",
-    "nextPaymentMethod": "下一步：付款方式"
+    "nextPaymentMethod": "下一步：付款方式",
+    "sendGiftLabel": "您想通过私信发送礼物吗？"
 }
