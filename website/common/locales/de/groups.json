@@ -123,7 +123,7 @@
     "sendGiftCost": "Insgesamt: $<%= cost %> USD",
     "sendGiftFromBalance": "Vom Saldo",
     "sendGiftPurchase": "Kauf",
-    "sendGiftMessagePlaceholder": "Persönliche Nachricht (optional)",
+    "sendGiftMessagePlaceholder": "Füge eine Geschenknachricht hinzu",
     "sendGiftSubscription": "<%= months %> Monat(e): $<%= price %> USD",
     "gemGiftsAreOptional": "Bitte nimm zur Kenntnis, dass Habitica niemals von Dir verlangen wird, anderen Spielern Edelsteine zu schenken. Bei anderen Spielern um Edelsteine zu betteln ist ein <strong>Verstoss gegen die Community-Richtlinien</strong>, und jedes Vorkommnis sollte bei <%= hrefTechAssistanceEmail %> gemeldet werden.",
     "battleWithFriends": "Besiege mit Freunden Monster",
@@ -398,5 +398,12 @@
     "nameStarText": "Füge einen Titel hinzu",
     "nextPaymentMethod": "Weiter: Zahlungsmethode",
     "dayStart": "<strong>Tageswechsel</strong>: <%= startTime %>",
-    "viewStatus": "Status"
+    "viewStatus": "Status",
+    "newGroupsWhatsNew": "Schau nach, was neu ist:",
+    "newGroupsBullet01": "Interagiere mit Aufgaben direkt vom Geteilte-Aufgaben-Brett",
+    "newGroupsBullet02": "Jeder kann eine unzugewiesene Aufgabe fertigstellen",
+    "youEmphasized": "<strong>Du</strong>",
+    "newGroupsBullet06": "Die Aufgabenstatusanzeige ermöglicht Dir schnell zu sehen, wer eine Aufgabe als erledigt markiert hat",
+    "newGroupsBullet08": "Der Gruppenleiter und die Gruppenmanager können schnell Aufgaben vom oberen Ende der Aufgabenlisten hinzufügen",
+    "sendGiftLabel": "Möchtest Du eine Geschenknachricht senden?"
 }

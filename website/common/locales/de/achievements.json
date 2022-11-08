@@ -94,8 +94,8 @@
     "achievementSkeletonCrewModalText": "Du hast alle Skelett-Reittiere gezähmt!",
     "achievementSkeletonCrewText": "Hat alle Skelett-Reittiere gezähmt.",
     "achievementSkeletonCrew": "Skelettbande",
-    "achievementBoneCollectorModalText": "Du hast alle Skelett-Haustiere gesammelt!",
-    "achievementBoneCollectorText": "Hat alle Skelett-Haustiere gesammelt.",
+    "achievementBoneCollectorModalText": "Du hast alle Skeletthaustiere gesammelt!",
+    "achievementBoneCollectorText": "Hat alle Skeletthaustiere gesammelt.",
     "achievementBoneCollector": "Knochensammler",
     "achievementRedLetterDayModalText": "Du hast alle roten Reittiere gezähmt!",
     "achievementRedLetterDayText": "Hat alle roten Reittiere gezähmt.",
@@ -138,5 +138,8 @@
     "achievementGroupsBeta2022ModalText": "Du hast mit Deinen Gruppen Habitica geholfen, indem ihr getestet und Feedback geschrieben habt!",
     "achievementWoodlandWizardModalText": "Du hast alle Wald-Tiere gesammelt!",
     "achievementWoodlandWizard": "Wald-Magier",
-    "achievementWoodlandWizardText": "Du hast alle Standard-Farben der Waldkreaturen ausgebrütet: Dachs, Bär, Hirsch, Fuchs, Frosch, Igel, Eule, Schlange, Eichhörnchen und Bäumling!"
+    "achievementWoodlandWizardText": "Du hast alle Standard-Farben der Waldkreaturen ausgebrütet: Dachs, Bär, Hirsch, Fuchs, Frosch, Igel, Eule, Schlange, Eichhörnchen und Bäumling!",
+    "achievementBoneToPickModalText": "Du hast alle klassischen und Quest-Skeletthaustiere gesammelt!",
+    "achievementBoneToPick": "Ein harter Knochen",
+    "achievementBoneToPickText": "Hat alle klassischen und Quest-Skeletthaustiere ausgebrütet!"
 }

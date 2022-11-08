@@ -87,7 +87,7 @@
     "paymentSuccessful": "支付成功！",
     "paymentYouReceived": "你收到了：",
     "paymentYouSentGems": "您送给<strong><%- name %></strong>了：",
-    "paymentYouSentSubscription": "您已赠送<strong><%- name %></strong>为期<%= months %>个月的Habitica订阅。",
+    "paymentYouSentSubscription": "您已赠送<strong><%-name%></strong><br>为期<%=months%>个月的Habitica订阅。",
     "paymentSubBilling": "您的订阅费用为每<strong><%= months %>月</strong><strong><%= amount %>美元</strong> 。",
     "success": "成功！",
     "classGear": "职业装备",
