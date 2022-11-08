@@ -773,9 +773,9 @@
   }
 
   .check.svg-icon {
-    width: 12.3px;
-    height: 9.8px;
-    margin: 9px 8px;
+    width: 16px;
+    height: 16px;
+    margin: 5px;
   }
 
   .challenge.broken {
