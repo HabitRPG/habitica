@@ -138,5 +138,8 @@
     "achievementGroupsBeta2022": "Verificador interactivo de la versión beta",
     "achievementWoodlandWizardText": "¡Ha eclosionado todos los colores estándar de las criaturas del bosque: tejón, oso, venado, zorro, rana, erizo, búho, caracol, ardilla y arbolito!",
     "achievementWoodlandWizard": "Mago del bosque",
-    "achievementWoodlandWizardModalText": "¡Has coleccionado todas las mascotas del bosque!"
+    "achievementWoodlandWizardModalText": "¡Has coleccionado todas las mascotas del bosque!",
+    "achievementBoneToPickText": "¡Ha conseguido todas las mascotas clásicas y todas las mascotas de esqueleto de misiones!",
+    "achievementBoneToPickModalText": "¡Tú conseguiste todas las mascotas clásicas y las mascotas de esqueleto de misión!",
+    "achievementBoneToPick": "Hueso para elegir"
 }

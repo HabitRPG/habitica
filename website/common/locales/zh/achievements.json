@@ -138,5 +138,8 @@
     "achievementReptacularRumbleText": "已孵化所有基础颜色的爬虫宠物：鳄鱼、翼龙、蛇、三角龙、海龟、霸王龙、和迅猛龙！",
     "achievementWoodlandWizard": "林地巫师",
     "achievementWoodlandWizardModalText": "你集齐了所有森林宠物！",
-    "achievementWoodlandWizardText": "已孵化所有基础颜色的森林宠物：獾、熊、鹿、狐狸、青蛙、刺猬、猫头鹰、蜗牛、松鼠和树芽！"
+    "achievementWoodlandWizardText": "已孵化所有基础颜色的森林宠物：獾、熊、鹿、狐狸、青蛙、刺猬、猫头鹰、蜗牛、松鼠和树芽！",
+    "achievementBoneToPickModalText": "你已使用骷髅药水孵化所有基础宠物和副本宠物！",
+    "achievementBoneToPickText": "使用骷髅药水孵化所有基础宠物和副本宠物！",
+    "achievementBoneToPick": "拾骨魔咒"
 }

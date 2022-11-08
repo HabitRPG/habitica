@@ -212,5 +212,6 @@
     "reportDescriptionText": "請附上截圖或 Javascript 控制台錯誤碼，以便問題處理。",
     "submitBugReport": "提交問題回報",
     "reportSent": "問題回報已傳送！",
-    "reportSentDescription": "我們會盡早給予回覆一旦我們的團隊有機會去找尋問題來源。感謝您回報錯誤及問題。"
+    "reportSentDescription": "我們會盡早給予回覆一旦我們的團隊有機會去找尋問題來源。感謝您回報錯誤及問題。",
+    "emptyReportBugMessage": "錯誤報告已遺失"
 }

@@ -133,5 +133,6 @@
     "amountExp": "<%= amount %>経験値",
     "newStuffPostedOn": "<%= publishDate %> <%= publishTime %>に投稿",
     "helpSupportHabitica": "Habiticaを支援する",
-    "groupsPaymentSubBilling": "次回の請求日は <strong><%= renewalDate %></strong> です。"
+    "groupsPaymentSubBilling": "次回の請求日は <strong><%= renewalDate %></strong> です。",
+    "groupsPaymentAutoRenew": "この有料プランは解約するまで自動更新されます。解約する必要がある場合は、グループの請求タブから解約できます。"
 }

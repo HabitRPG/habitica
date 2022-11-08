@@ -229,5 +229,11 @@
     "summer2022MantaRayMageSet": "Mantarochen (Magier)",
     "julyYYYY": "Juli <%= year %>",
     "octoberYYYY": "Oktober <%= year %>",
-    "februaryYYYY": "Februar <%= year %>"
+    "februaryYYYY": "Februar <%= year %>",
+    "fall2022KappaRogueSet": "Kappa (Schurke)",
+    "fall2022OrcWarriorSet": "Ork (Krieger)",
+    "fall2022HarpyMageSet": "Harpyie (Magier)",
+    "fall2022WatcherHealerSet": "Beobachter (Heiler)",
+    "gemSaleHow": "Kauf einfach zwischen <%= eventStartMonth %> <%= eventStartOrdinal %>und <%= eventEndOrdinal %> eines der Edelstein-Pakete wie normal und Deinem Konto werden automatisch die zusätzlichen Edelsteine gutgeschrieben. Das heißt insgesamt mehr Edelsteine zum ausgeben, teilen oder ansparen für zukünftige Veröffentlichungen!",
+    "gemSaleLimitations": "Dieses Sonderangebot gilt nur während der zeitlich beschränkten Aktion. Die Aktion startet am <%= eventStartOrdinal %>. <%= eventStartMonth %> um 8:00 EDT (12:00 UTC) und endet am <%= eventEndOrdinal %>. <%= eventStartMonth %> um 20:00 PM EDT (00:00 UTC). Das Sonderangebot ist nur verfügbar, wenn Du Edelsteine für Dich selbst kaufst."
 }
