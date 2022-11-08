@@ -13,6 +13,7 @@ export const schema = new mongoose.Schema({
   dateCreated: Date,
   dateTerminated: Date,
   dateUpdated: Date,
+  dateCurrentTypeCreated: Date,
   extraMonths: { $type: Number, default: 0 },
   gemsBought: { $type: Number, default: 0 },
   mysteryItems: { $type: Array, default: () => [] },
