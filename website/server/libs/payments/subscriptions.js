@@ -161,6 +161,7 @@ async function prepareSubscriptionValues (data) {
         plan.dateTerminated = moment().add({ months }).toDate();
         plan.dateCreated = today;
       }
+      plan.dateCurrentTypeCreated = today;
     }
 
     if (!plan.customerId) {
@@ -177,6 +178,7 @@ async function prepareSubscriptionValues (data) {
       planId: block.key,
       customerId: data.customerId,
       dateUpdated: today,
+      dateCurrentTypeCreated: today,
       paymentMethod: data.paymentMethod,
       extraMonths: Number(plan.extraMonths) + _dateDiff(today, plan.dateTerminated),
       dateTerminated: null,

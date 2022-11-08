@@ -13,7 +13,7 @@ import {
 import * as worldState from '../../../../../website/server/libs/worldState';
 import { TransactionModel } from '../../../../../website/server/models/transaction';
 
-describe('payments/index', () => {
+describe.only('payments/index', () => {
   let user;
   let group;
   let data;
@@ -203,6 +203,28 @@ describe('payments/index', () => {
         expect(recipient.purchased.plan.dateCreated).to.exist;
       });
 
+      it('sets plan.dateCurrentTypeCreated if it did not previously exist', async () => {
+        expect(recipient.purchased.plan.dateCurrentTypeCreated).to.not.exist;
+
+        await api.createSubscription(data);
+
+        expect(recipient.purchased.plan.dateCurrentTypeCreated).to.exist;
+      });
+
+      it('keeps plan.dateCreated when changing subscription type', async () => {
+        await api.createSubscription(data);
+        const initialDate = recipient.purchased.plan.dateCreated
+        await api.createSubscription(data);
+        expect(recipient.purchased.plan.dateCreated).to.eql(initialDate);
+      });
+
+      it('sets plan.dateCurrentTypeCreated when changing subscription type', async () => {
+        await api.createSubscription(data);
+        const initialDate = recipient.purchased.plan.dateCurrentTypeCreated
+        await api.createSubscription(data);
+        expect(recipient.purchased.plan.dateCurrentTypeCreated).to.not.eql(initialDate);
+      });
+
       it('does not change plan.customerId if it already exists', async () => {
         recipient.purchased.plan = plan;
         data.customerId = 'purchaserCustomerId';
@@ -384,6 +406,36 @@ describe('payments/index', () => {
         expect(user.purchased.plan.dateTerminated).to.eql(null);
         expect(user.purchased.plan.lastBillingDate).to.not.exist;
         expect(user.purchased.plan.dateCreated).to.exist;
+      });
+
+      it('sets plan.dateCreated if it did not previously exist', async () => {
+        expect(user.purchased.plan.dateCreated).to.not.exist;
+
+        await api.createSubscription(data);
+
+        expect(user.purchased.plan.dateCreated).to.exist;
+      });
+
+      it('sets plan.dateCurrentTypeCreated if it did not previously exist', async () => {
+        expect(user.purchased.plan.dateCurrentTypeCreated).to.not.exist;
+
+        await api.createSubscription(data);
+
+        expect(user.purchased.plan.dateCurrentTypeCreated).to.exist;
+      });
+
+      it('keeps plan.dateCreated when changing subscription type', async () => {
+        await api.createSubscription(data);
+        const initialDate = user.purchased.plan.dateCreated
+        await api.createSubscription(data);
+        expect(user.purchased.plan.dateCreated).to.eql(initialDate);
+      });
+
+      it('sets plan.dateCurrentTypeCreated when changing subscription type', async () => {
+        await api.createSubscription(data);
+        const initialDate = user.purchased.plan.dateCurrentTypeCreated
+        await api.createSubscription(data);
+        expect(user.purchased.plan.dateCurrentTypeCreated).to.not.eql(initialDate);
       });
 
       it('awards the Royal Purple Jackalope pet', async () => {
