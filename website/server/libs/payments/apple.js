@@ -117,24 +117,20 @@ api.subscribe = async function subscribe (user, receipt, headers, nextPaymentPro
     throw new NotAuthorized(api.constants.RESPONSE_NO_ITEM_PURCHASED);
   }
 
-  let originalTransactionId;
-  let newTransactionId;
+  let purchase;
   let newestDate;
-  let sku;
 
   for (const purchaseData of purchaseDataList) {
     const datePurchased = new Date(Number(purchaseData.purchaseDate));
     const dateTerminated = new Date(Number(purchaseData.expirationDate));
     if ((!newestDate || datePurchased > newestDate) && dateTerminated > new Date()) {
-      originalTransactionId = purchaseData.originalTransactionId;
-      newTransactionId = purchaseData.transactionId;
+      purchase = purchaseData;
       newestDate = datePurchased;
-      sku = purchaseData.productId;
     }
   }
 
   let subCode;
-  switch (sku) { // eslint-disable-line default-case
+  switch (purchase.productId) { // eslint-disable-line default-case
     case 'subscription1month':
       subCode = 'basic_earned';
       break;
@@ -150,10 +146,10 @@ api.subscribe = async function subscribe (user, receipt, headers, nextPaymentPro
   }
   const sub = subCode ? shared.content.subscriptionBlocks[subCode] : false;
 
-  if (originalTransactionId) {
+  if (purchase.originalTransactionId) {
     let existingSub;
     if (user && user.isSubscribed()) {
-      if (user.purchased.plan.customerId !== originalTransactionId) {
+      if (user.purchased.plan.customerId !== purchase.originalTransactionId) {
         throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
       }
       existingSub = shared.content.subscriptionBlocks[user.purchased.plan.planId];
@@ -162,19 +158,24 @@ api.subscribe = async function subscribe (user, receipt, headers, nextPaymentPro
       }
     }
     const existingUser = await User.findOne({
-      'purchased.plan.customerId': originalTransactionId,
+      'purchased.plan.customerId': purchase.originalTransactionId,
     }).exec();
     if (existingUser
-      && (originalTransactionId === newTransactionId
+      && (purchase.originalTransactionId === purchase.transactionId
         || existingUser._id !== user._id)) {
       throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
     }
 
     nextPaymentProcessing = nextPaymentProcessing || moment.utc().add({ days: 2 }); // eslint-disable-line max-len, no-param-reassign
+    const terminationDate = moment(Number(purchase.expirationDate));
+    if (nextPaymentProcessing > terminationDate) {
+      // For test subscriptions that have a significantly shorter expiration period, this is better
+      nextPaymentProcessing = terminationDate; // eslint-disable-line no-param-reassign
+    }
 
     const data = {
       user,
-      customerId: originalTransactionId,
+      customerId: purchase.originalTransactionId,
       paymentMethod: this.constants.PAYMENT_METHOD_APPLE,
       sub,
       headers,
