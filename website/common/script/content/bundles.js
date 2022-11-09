@@ -208,8 +208,9 @@ const bundles = {
       'snake',
       'velociraptor',
     ],
+    event: EVENTS.bundle202211,
     canBuy () {
-      return moment().isBetween('2019-09-10', '2019-10-02');
+      return moment().isBefore(EVENTS.bundle202211.end);
     },
     type: 'quests',
     value: 7,

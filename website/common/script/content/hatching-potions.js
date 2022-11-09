@@ -122,26 +122,26 @@ const premium = {
     value: 2,
     text: t('hatchingPotionEmber'),
     limited: true,
-    event: EVENTS.potions202111,
+    event: EVENTS.bundle202211,
     _addlNotes: t('eventAvailabilityReturning', {
       availableDate: t('dateEndNovember'),
-      previousDate: t('novemberYYYY', { year: 2019 }),
+      previousDate: t('novemberYYYY', { year: 2021 }),
     }),
     canBuy () {
-      return moment().isBefore(EVENTS.potions202111.end);
+      return moment().isBefore(EVENTS.bundle202211.end);
     },
   },
   Thunderstorm: {
     value: 2,
     text: t('hatchingPotionThunderstorm'),
     limited: true,
-    event: EVENTS.potions202108,
+    event: EVENTS.bundle202211,
     _addlNotes: t('eventAvailabilityReturning', {
-      availableDate: t('dateEndAugust'),
-      previousDate: t('novemberYYYY', { year: 2019 }),
+      availableDate: t('dateEndNovember'),
+      previousDate: t('novemberYYYY', { year: 2021 }),
     }),
     canBuy () {
-      return moment().isBetween(EVENTS.potions202108.start, EVENTS.potions202108.end);
+      return moment().isBefore(EVENTS.bundle202211.end);
     },
   },
   Spooky: {
@@ -251,12 +251,13 @@ const premium = {
     value: 2,
     text: t('hatchingPotionFrost'),
     limited: true,
+    event: EVENTS.bundle202211,
     _addlNotes: t('eventAvailabilityReturning', {
       availableDate: t('dateEndNovember'),
-      previousDate: t('novemberYYYY', { year: 2018 }),
+      previousDate: t('novemberYYYY', { year: 2020 }),
     }),
     canBuy () {
-      return moment().isBefore('2020-12-02');
+      return moment().isBefore('EVENTS.bundle202211.end');
     },
   },
   IcySnow: {
