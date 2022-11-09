@@ -322,6 +322,7 @@ describe('Apple Payments', () => {
         const newOption = subOptions[3];
         it(`upgrades a subscription from ${option.sku} to ${newOption.sku}`, async () => {
           const oldSub = common.content.subscriptionBlocks[option.subKey];
+          oldSub.logic = 'refundAndRepay';
           user.profile.name = 'sender';
           user.purchased.plan.paymentMethod = applePayments.constants.PAYMENT_METHOD_APPLE;
           user.purchased.plan.customerId = token;

@@ -153,6 +153,7 @@ api.subscribe = async function subscribe (user, receipt, headers, nextPaymentPro
     };
     if (existingSub) {
       data.updatedFrom = existingSub;
+      data.updatedFrom.logic = 'refundAndRepay';
     }
     await payments.createSubscription(data);
   } else {

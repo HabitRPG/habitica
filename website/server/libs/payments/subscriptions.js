@@ -79,8 +79,32 @@ async function prepareSubscriptionValues (data) {
     : undefined;
   let months;
   if (updatedFrom && Number(updatedFrom.months) !== 1) {
-    months = Math.max(0, Number(block.months) - Number(updatedFrom.months));
-  } else {
+    if (Number(updatedFrom.months) > Number(block.months)) {
+      months = 0;
+    } else if (data.updatedFrom.logic === 'payDifference') {
+      months = Math.max(0, Number(block.months) - Number(updatedFrom.months));
+    } else if (data.updatedFrom.logic === 'payFull') {
+      months = Number(block.months);
+    } else if (data.updatedFrom.logic === 'refundAndRepay') {
+      const originalMonths = Number(updatedFrom.months);
+      let currentCycleBegin = moment(recipient.purchased.plan.dateCurrentTypeCreated);
+      const today = moment();
+      while (currentCycleBegin.isBefore()) {
+        currentCycleBegin = currentCycleBegin.add({ months: originalMonths });
+      }
+      // Subtract last iteration again, because we overshot
+      currentCycleBegin = currentCycleBegin.subtract({ months: originalMonths });
+      // For simplicity we round every month to 30 days since moment can not add half months
+      if (currentCycleBegin.add({ days: (originalMonths * 30) / 2.0 }).isBefore(today)) {
+        // user is in second half of their subscription cycle. Give them full benefits.
+        months = Number(block.months);
+      } else {
+        // user is in first half of their subscription cycle. Give them the difference.
+        months = Math.max(0, Number(block.months) - Number(updatedFrom.months));
+      }
+    }
+  }
+  if (months === undefined) {
     months = Number(block.months);
   }
   const today = new Date();
