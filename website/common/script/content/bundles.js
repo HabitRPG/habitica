@@ -210,7 +210,7 @@ const bundles = {
     ],
     event: EVENTS.bundle202211,
     canBuy () {
-      return moment().isBefore(EVENTS.bundle202211.end);
+      return moment().isBetween(EVENTS.bundle202211.start, EVENTS.bundle202211.end);
     },
     type: 'quests',
     value: 7,

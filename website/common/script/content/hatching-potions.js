@@ -128,7 +128,7 @@ const premium = {
       previousDate: t('novemberYYYY', { year: 2021 }),
     }),
     canBuy () {
-      return moment().isBefore(EVENTS.bundle202211.end);
+      return moment().isBetween(EVENTS.bundle202211.start, EVENTS.bundle202211.end);
     },
   },
   Thunderstorm: {
@@ -141,7 +141,7 @@ const premium = {
       previousDate: t('novemberYYYY', { year: 2021 }),
     }),
     canBuy () {
-      return moment().isBefore(EVENTS.bundle202211.end);
+      return moment().isBetween(EVENTS.bundle202211.start, EVENTS.bundle202211.end);
     },
   },
   Spooky: {
@@ -257,7 +257,7 @@ const premium = {
       previousDate: t('novemberYYYY', { year: 2020 }),
     }),
     canBuy () {
-      return moment().isBefore('EVENTS.bundle202211.end');
+      return moment().isBetween(EVENTS.bundle202211.start, EVENTS.bundle202211.end);
     },
   },
   IcySnow: {
