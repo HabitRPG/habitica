@@ -1,6 +1,11 @@
 name: Test
 
-on: [push, pull_request]
+on:
+  pull_request
+  push:
+    branches:
+      - 'main'
+      - 'releases/**'
 
 permissions:
   contents: read
