@@ -536,6 +536,7 @@ describe('payments/index', () => {
           now: mayMysteryItemTimeframe,
           toFake: ['Date'],
         });
+        data.user.purchased.plan.dateUpdated = moment().subtract(1, 'hours').toDate();
       });
 
       afterEach(() => {
