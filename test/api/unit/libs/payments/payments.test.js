@@ -350,6 +350,10 @@ describe('payments/index', () => {
     });
 
     context('Purchasing a subscription for self', () => {
+      beforeEach(() => {
+        data.user.purchased.plan.dateUpdated = moment().subtract(1, 'hours').toDate();
+      });
+
       it('creates a subscription', async () => {
         expect(user.purchased.plan.planId).to.not.exist;
 
@@ -451,6 +455,10 @@ describe('payments/index', () => {
     });
 
     context('Block subscription perks', () => {
+      beforeEach(() => {
+        data.user.purchased.plan.dateUpdated = moment().subtract(1, 'hours').toDate();
+      });
+
       it('adds block months to plan.consecutive.offset', async () => {
         await api.createSubscription(data);
 
