@@ -290,7 +290,7 @@ describe('Apple Payments', () => {
         iap.getPurchaseData.restore();
         iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
           .returns([{
-            expirationDate: moment.utc().add({ day: 1 }).toDate(),
+            expirationDate: moment.utc().add({ day: 2 }).toDate(),
             purchaseDate: new Date(),
             productId: option.sku,
             transactionId: token,
