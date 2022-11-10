@@ -81,7 +81,7 @@ async function createSubscription (data) {
   let recipientIsSubscribed = recipient.isSubscribed();
 
   if (data.user && !data.gift && !data.groupId && data.customerId !== 'group-plan') {
-    if (moment().diff(data.user.purchased.plan.dateUpdated, 'minutes' < 3)) {
+    if (moment().diff(data.user.purchased.plan.dateUpdated, 'minutes') < 3) {
       throw new TooManyRequests('Subscription already processed, likely duplicate request');
     }
   }

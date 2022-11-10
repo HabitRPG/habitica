@@ -376,6 +376,7 @@ describe('payments/index', () => {
         user.purchased.plan = plan;
         user.purchased.plan.dateTerminated = moment(new Date()).add(2, 'months');
         expect(user.purchased.plan.extraMonths).to.eql(0);
+        data.user.purchased.plan.dateUpdated = moment().subtract(1, 'hours').toDate();
 
         await api.createSubscription(data);
 
@@ -386,6 +387,7 @@ describe('payments/index', () => {
         user.purchased.plan = plan;
         user.purchased.plan.dateTerminated = moment(new Date()).subtract(2, 'months');
         expect(user.purchased.plan.extraMonths).to.eql(0);
+        data.user.purchased.plan.dateUpdated = moment().subtract(1, 'hours').toDate();
 
         await api.createSubscription(data);
 
@@ -395,6 +397,7 @@ describe('payments/index', () => {
       it('does not reset Gold-to-Gems cap on additional subscription', async () => {
         user.purchased.plan = plan;
         user.purchased.plan.gemsBought = 10;
+        data.user.purchased.plan.dateUpdated = moment().subtract(1, 'hours').toDate();
 
         await api.createSubscription(data);
 
@@ -486,6 +489,7 @@ describe('payments/index', () => {
         data.sub.key = 'basic_12mo';
 
         await api.createSubscription(data);
+        data.user.purchased.plan.dateUpdated = moment().subtract(1, 'hours').toDate();
         await api.createSubscription(data);
 
         expect(user.purchased.plan.consecutive.gemCapExtra).to.eql(25);
