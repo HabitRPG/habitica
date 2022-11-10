@@ -4,3 +4,5 @@ languages:
 exclude_paths:
 - "database_reports/*"
 - "migrations/*"
+- "test/*"
+- "gulp/*"

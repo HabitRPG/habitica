@@ -94,11 +94,11 @@
     "test:api-v3:integration:separate-server": "NODE_ENV=test gulp test:api-v3:integration:separate-server",
     "test:api-v4:integration": "gulp test:api-v4:integration",
     "test:api-v4:integration:separate-server": "NODE_ENV=test gulp test:api-v4:integration:separate-server",
-    "test:sanity": "istanbul cover --dir coverage/sanity --report lcovonly node_modules/mocha/bin/_mocha -- test/sanity --recursive",
-    "test:common": "istanbul cover --dir coverage/common --report lcovonly node_modules/mocha/bin/_mocha -- test/common --recursive",
-    "test:content": "istanbul cover --dir coverage/content --report lcovonly node_modules/mocha/bin/_mocha -- test/content --recursive",
+    "test:sanity": "nyc --no-clean --report-dir coverage/sanity --reporter lcovonly --reporter text-summary mocha test/sanity --recursive",
+    "test:common": "nyc --no-clean --report-dir coverage/common --reporter lcovonly --reporter text-summary mocha test/common --recursive",
+    "test:content": "nyc --no-clean --report-dir coverage/content --reporter lcovonly --reporter text-summary mocha test/content --recursive",
     "test:nodemon": "gulp test:nodemon",
-    "coverage": "COVERAGE=true mocha --require register-handlers.js --reporter html-cov > coverage.html; open coverage.html",
+    "coverage": "nyc report --reporter=html",
     "sprites": "gulp sprites:compile",
     "client:dev": "cd website/client && npm run serve",
     "client:build": "cd website/client && npm run build",
@@ -117,14 +117,13 @@
     "chalk": "^5.1.0",
     "cross-spawn": "^7.0.3",
     "expect.js": "^0.3.1",
-    "istanbul": "^1.1.0-alpha.1",
     "mocha": "^5.1.1",
     "monk": "^7.3.4",
+    "nyc": "^15.1.0",
     "require-again": "^2.0.0",
     "run-rs": "^0.7.7",
     "sinon": "^14.0.1",
     "sinon-chai": "^3.7.0",
     "sinon-stub-promise": "^4.0.0"
-  },
-  "optionalDependencies": {}
+  }
 }
