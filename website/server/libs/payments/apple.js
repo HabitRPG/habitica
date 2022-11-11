@@ -133,8 +133,7 @@ api.subscribe = async function subscribe (user, receipt, headers, nextPaymentPro
       if (purchase.originalTransactionId === purchase.transactionId) {
         throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
       }
-      for (const index in existingUsers) {
-        const existingUser = existingUsers[index];
+      for (const existingUser of existingUsers) {
         if (existingUser._id !== user._id && !existingUser.purchased.plan.dateTerminated) {
           throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
         }
@@ -262,7 +261,7 @@ api.cancelSubscribe = async function cancelSubscribe (user, headers) {
     const purchases = iap.getPurchaseData(appleRes);
     if (purchases.length === 0) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
     let newestDate;
-    let newestPurchase
+    let newestPurchase;
 
     for (const purchaseData of purchases) {
       const datePurchased = new Date(Number(purchaseData.purchaseDate));
@@ -272,7 +271,9 @@ api.cancelSubscribe = async function cancelSubscribe (user, headers) {
       }
     }
 
-    if (!iap.isCanceled(newestPurchase) && !iap.isExpired(newestPurchase)) throw new NotAuthorized(this.constants.RESPONSE_STILL_VALID);
+    if (!iap.isCanceled(newestPurchase) && !iap.isExpired(newestPurchase)) {
+      throw new NotAuthorized(this.constants.RESPONSE_STILL_VALID);
+    }
 
     await payments.cancelSubscription({
       user,
@@ -289,7 +290,6 @@ api.cancelSubscribe = async function cancelSubscribe (user, headers) {
       throw err;
     }
   }
-
 };
 
 export default api;
