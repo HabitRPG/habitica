@@ -157,13 +157,19 @@ api.subscribe = async function subscribe (user, receipt, headers, nextPaymentPro
         throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
       }
     }
-    const existingUser = await User.findOne({
+    const existingUsers = await User.find({
       'purchased.plan.customerId': purchase.originalTransactionId,
     }).exec();
-    if (existingUser
-      && (purchase.originalTransactionId === purchase.transactionId
-        || existingUser._id !== user._id)) {
-      throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
+    if (existingUsers.length > 0) {
+      if (purchase.originalTransactionId === purchase.transactionId) {
+        throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
+      }
+      for (const index in existingUsers) {
+        const existingUser = existingUsers[index];
+        if (existingUser._id !== user._id && !existingUser.purchased.plan.dateTerminated) {
+          throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
+        }
+      }
     }
 
     nextPaymentProcessing = nextPaymentProcessing || moment.utc().add({ days: 2 }); // eslint-disable-line max-len, no-param-reassign
@@ -278,8 +284,6 @@ api.cancelSubscribe = async function cancelSubscribe (user, headers) {
 
   await iap.setup();
 
-  let dateTerminated;
-
   try {
     const appleRes = await iap.validate(iap.APPLE, plan.additionalData);
 
@@ -289,16 +293,24 @@ api.cancelSubscribe = async function cancelSubscribe (user, headers) {
     const purchases = iap.getPurchaseData(appleRes);
     if (purchases.length === 0) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
     let newestDate;
+    let newestPurchase
 
     for (const purchaseData of purchases) {
       const datePurchased = new Date(Number(purchaseData.purchaseDate));
       if (!newestDate || datePurchased > newestDate) {
-        dateTerminated = new Date(Number(purchaseData.expirationDate));
         newestDate = datePurchased;
+        newestPurchase = purchaseData;
       }
     }
 
-    if (dateTerminated > new Date()) throw new NotAuthorized(this.constants.RESPONSE_STILL_VALID);
+    if (!iap.isCanceled(newestPurchase) && !iap.isExpired(newestPurchase)) throw new NotAuthorized(this.constants.RESPONSE_STILL_VALID);
+
+    await payments.cancelSubscription({
+      user,
+      nextBill: new Date(Number(newestPurchase.expirationDate)),
+      paymentMethod: this.constants.PAYMENT_METHOD_APPLE,
+      headers,
+    });
   } catch (err) {
     // If we have an invalid receipt, cancel anyway
     if (
@@ -309,12 +321,6 @@ api.cancelSubscribe = async function cancelSubscribe (user, headers) {
     }
   }
 
-  await payments.cancelSubscription({
-    user,
-    nextBill: dateTerminated,
-    paymentMethod: this.constants.PAYMENT_METHOD_APPLE,
-    headers,
-  });
 };
 
 export default api;
