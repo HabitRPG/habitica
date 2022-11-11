@@ -9,7 +9,7 @@ import * as gems from '../../../../../website/server/libs/payments/gems';
 
 const { i18n } = common;
 
-describe.only('Apple Payments', () => {
+describe('Apple Payments', () => {
   const subKey = 'basic_3mo';
 
   describe('verifyGemPurchase', () => {
@@ -459,7 +459,7 @@ describe.only('Apple Payments', () => {
       user.purchased.plan.planId = common.content.subscriptionBlocks.basic_3mo.key;
       user.purchased.plan.additionalData = receipt;
       user.purchased.plan.dateTerminated = moment.utc().subtract({ day: 1 }).toDate();
-      await user.save()
+      await user.save();
 
       iap.getPurchaseData.restore();
       iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
@@ -467,7 +467,7 @@ describe.only('Apple Payments', () => {
           expirationDate: moment.utc().add({ day: 3 }).toDate(),
           purchaseDate: moment.utc().toDate(),
           productId: sku,
-          transactionId: token + "new",
+          transactionId: `${token}new`,
           originalTransactionId: token,
         }]);
 
@@ -487,7 +487,6 @@ describe.only('Apple Payments', () => {
       });
     });
 
-
     it('allows second user to subscribe if multiple initial subscription are cancelled', async () => {
       user.profile.name = 'sender';
       user.purchased.plan.paymentMethod = applePayments.constants.PAYMENT_METHOD_APPLE;
@@ -499,7 +498,7 @@ describe.only('Apple Payments', () => {
 
       const secondUser = new User();
       secondUser.purchased.plan = user.purchased.plan;
-      await secondUser.save()
+      await secondUser.save();
 
       iap.getPurchaseData.restore();
       iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
@@ -507,7 +506,7 @@ describe.only('Apple Payments', () => {
           expirationDate: moment.utc().add({ day: 3 }).toDate(),
           purchaseDate: moment.utc().toDate(),
           productId: sku,
-          transactionId: token + "new",
+          transactionId: `${token}new`,
           originalTransactionId: token,
         }]);
 
@@ -604,7 +603,6 @@ describe.only('Apple Payments', () => {
           });
       });
 
-
       it('errors when a multiple users exist using the subscription', async () => {
         user = new User();
         await user.save();
@@ -623,7 +621,7 @@ describe.only('Apple Payments', () => {
         const secondUser = new User();
         secondUser.purchased.plan = user.purchased.plan;
         secondUser.purchased.plan.dateTerminate = new Date();
-        secondUser.save()
+        secondUser.save();
 
         iap.getPurchaseData.restore();
         iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
@@ -631,7 +629,7 @@ describe.only('Apple Payments', () => {
             expirationDate: moment.utc().add({ day: 1 }).toDate(),
             purchaseDate: moment.utc().toDate(),
             productId: sku,
-            transactionId: token + "new",
+            transactionId: `${token}new`,
             originalTransactionId: token,
           }]);
 
