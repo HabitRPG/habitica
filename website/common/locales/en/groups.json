@@ -16,7 +16,7 @@
   "wiki": "Wiki",
   "resources": "Resources",
   "communityGuidelines": "Community Guidelines",
-  "bannedWordUsed": "Oops! Looks like this post contains a swearword, religious oath, or reference to an addictive substance or adult topic (<%= swearWordsUsed %>). Habitica has users from all backgrounds, so we keep our chat very clean. Feel free to edit your message so you can post it!",
+  "bannedWordUsed": "Oops! Looks like this post contains a swearword or reference to an addictive substance or adult topic (<%= swearWordsUsed %>). Habitica keeps our chat very clean. Feel free to edit your message so you can post it! You must remove the word, not just censor it.",
   "bannedSlurUsed": "Your post contained inappropriate language, and your chat privileges have been revoked.",
   "party": "Party",
   "usernameCopied": "Username copied to clipboard.",
