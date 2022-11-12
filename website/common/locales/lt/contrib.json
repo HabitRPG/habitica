@@ -49,9 +49,9 @@
     "balance": "Balansas",
     "playerTiers": "Žaidėjų Lygmenys",
     "tier": "Lygmuo",
-    "conRewardsURL": "http://habitica.wikia.com/wiki/Contributor_Rewards",
+    "conRewardsURL": "https://habitica.wikia.com/wiki/Contributor_Rewards",
     "surveysSingle": "Prisidėjo prie Habitica - užpildant apklausą ar prisidedant prie vieno iš bandymų. Ačiū tau!",
     "surveysMultiple": "Prisidėjo prie Habitica <%= count %> kartus, užpildant apklausą ar prisidedant prie vieno iš bandymų. Ačiū!",
     "blurbHallPatrons": "Čia yra Globėjų Salėm kur mes pagerbiame kilnius nuotykių ieškotojus, kurie parėmė Habitica Kickstarter projekte. Dėkojame jiems už pagalbą suteikiant gyvenimą Habitica'i!",
-    "blurbHallContributors": "Tai yra Pagalbininkų salė, kur yra pagerbiami Habitica atviro kodo pagalbininkai. Jei visi prisidėjo prie projekto kodu, paveikslėliais, muzika, rašyba, ar tiesiog savo paslaugumu. Jie tai darydami užsidirbo <a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'> brangakmenius, išskirtinius drabužius</a>, ir <a href='http://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'>prestižinius titulus</a>. Gali prisidėti prie Habitica ir tu! <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'> Čia galima sužinoti daugiau. </a>"
+    "blurbHallContributors": "Tai yra Pagalbininkų salė, kur yra pagerbiami Habitica atviro kodo pagalbininkai. Jei visi prisidėjo prie projekto kodu, paveikslėliais, muzika, rašyba, ar tiesiog savo paslaugumu. Jie tai darydami užsidirbo <a href='https://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'> brangakmenius, išskirtinius drabužius</a>, ir <a href='https://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'>prestižinius titulus</a>. Gali prisidėti prie Habitica ir tu! <a href='https://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'> Čia galima sužinoti daugiau. </a>"
 }

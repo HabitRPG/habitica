@@ -8,7 +8,7 @@
     "rebirthOrb": "Panaudojo Atgimimo Rutulį ir pradėjo iš naujo pasiekus <%= level %> lygį.",
     "rebirthOrb100": "Panaudojo Atgimimo Rutulį naujai pradžiai pasiekus 100 ar aukštesnį lygį",
     "rebirthOrbNoLevel": "Panaudojo Atgimimo Rutulį naujai pradžiai.",
-    "rebirthPop": "Instantly restart your character as a Level 1 Warrior while retaining achievements, collectibles, and equipment. Your tasks and their history will remain but they will be reset to yellow. Your streaks will be removed except from challenge tasks. Your Gold, Experience, Mana, and the effects of all Skills will be removed. All of this will take effect immediately. For more information, see the wiki's <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a> page.",
+    "rebirthPop": "Instantly restart your character as a Level 1 Warrior while retaining achievements, collectibles, and equipment. Your tasks and their history will remain but they will be reset to yellow. Your streaks will be removed except from challenge tasks. Your Gold, Experience, Mana, and the effects of all Skills will be removed. All of this will take effect immediately. For more information, see the wiki's <a href='https://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a> page.",
     "rebirthName": "Atgimimo Rutulys",
     "rebirthComplete": "Tu atgimei!"
 }

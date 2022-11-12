@@ -8,7 +8,7 @@
     "rebirthOrb": "Used an Orb of Rebirth to start over after attaining Level <%= level %>.",
     "rebirthOrb100": "Used an Orb of Rebirth to start over after attaining Level 100 or higher.",
     "rebirthOrbNoLevel": "Used an Orb of Rebirth to start over.",
-    "rebirthPop": "Agad na i-restart ang iyong karakter bilang isang Level 1 na Mandirigma habang pinapanatili ang mga achievements, collectibles, at mga kagamitan. Ang iyong mga gawain at nakaraan nito ay mananatili ngunit ma-rereset itong kulay dilaw. Ang iyong mga streak ay matatanggal maliban sa mga aktibong Hamon at mga Plano ng Grupo. Ang iyong Ginto, kasanayan, Mana, at epekto ng mga Skills ay maaalis. Ang lahat ng ito ay agad na magkabisa. Para sa karagdagang impormasyon, tignan sa wiki ang <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orbe ng Pagkabuhay</a> page.",
+    "rebirthPop": "Agad na i-restart ang iyong karakter bilang isang Level 1 na Mandirigma habang pinapanatili ang mga achievements, collectibles, at mga kagamitan. Ang iyong mga gawain at nakaraan nito ay mananatili ngunit ma-rereset itong kulay dilaw. Ang iyong mga streak ay matatanggal maliban sa mga aktibong Hamon at mga Plano ng Grupo. Ang iyong Ginto, kasanayan, Mana, at epekto ng mga Skills ay maaalis. Ang lahat ng ito ay agad na magkabisa. Para sa karagdagang impormasyon, tignan sa wiki ang <a href='https://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orbe ng Pagkabuhay</a> page.",
     "rebirthName": "Orb of Rebirth",
     "rebirthComplete": "You have been reborn!",
     "nextFreeRebirth": "<strong><%= days %> mga araw</strong> hanggang <strong>LIBRE</strong> Orbe ng Pagkabuhay"

@@ -8,7 +8,7 @@
     "rebirthOrb": "Used an Orb of Rebirth to start over after attaining Level <%= level %>.",
     "rebirthOrb100": "Used an Orb of Rebirth to start over after attaining Level 100 or higher.",
     "rebirthOrbNoLevel": "Used an Orb of Rebirth to start over.",
-    "rebirthPop": "उपलब्धियों, संग्रहणीय और उपकरणों को बनाए रखते हुए अपने चरित्र को स्तर 1 योद्धा के रूप में फिर से शुरू करें। आपके कार्य और उनका इतिहास बना रहेगा, लेकिन वे पीले रंग में बदल जाएंगे। चुनौती कार्यों को छोड़कर आपकी लकीरों को हटा दिया जाएगा। आपका गोल्ड, अनुभव, मन और सभी कौशल के प्रभाव को हटा दिया जाएगा। यह सब तुरंत असर करेगा। अधिक जानकारी के लिए, विकी देखें <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a> पृष्ठ.",
+    "rebirthPop": "उपलब्धियों, संग्रहणीय और उपकरणों को बनाए रखते हुए अपने चरित्र को स्तर 1 योद्धा के रूप में फिर से शुरू करें। आपके कार्य और उनका इतिहास बना रहेगा, लेकिन वे पीले रंग में बदल जाएंगे। चुनौती कार्यों को छोड़कर आपकी लकीरों को हटा दिया जाएगा। आपका गोल्ड, अनुभव, मन और सभी कौशल के प्रभाव को हटा दिया जाएगा। यह सब तुरंत असर करेगा। अधिक जानकारी के लिए, विकी देखें <a href='https://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a> पृष्ठ.",
     "rebirthName": "Orb of Rebirth",
     "rebirthComplete": "You have been reborn!",
     "nextFreeRebirth": "<strong><%= days %> days</strong> जब तक <strong>नि: शुल्क</strong Orb of Rebirth"

@@ -8,7 +8,7 @@
     "rebirthOrb": "Je uporabil Kroglo preporoda za nov začetek po doseženi stopnji <%= level %>.",
     "rebirthOrb100": "Je uporabil Kroglo preporoda za nov začetek po doseženi stopnji 100 ali več.",
     "rebirthOrbNoLevel": "Je uporabil Kroglo preporoda za nov začetek.",
-    "rebirthPop": "V hipu ponastavite lik na prvo stopnjo vojščaka, pri tem pa ohranite dosežke, predmete in opremo. Naloge in njihova zgodovina bodo ostale, barva pa bo ponastavljena na rumeno. Isto velja za število zaporednih dni, razen za naloge, ki so del izzivov. Vsi učinki veščin, zlato, izkušnje in mana bodo takoj odstranjeni. Za več informacij si preberite stran o <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>krogli preporoda</a>.",
+    "rebirthPop": "V hipu ponastavite lik na prvo stopnjo vojščaka, pri tem pa ohranite dosežke, predmete in opremo. Naloge in njihova zgodovina bodo ostale, barva pa bo ponastavljena na rumeno. Isto velja za število zaporednih dni, razen za naloge, ki so del izzivov. Vsi učinki veščin, zlato, izkušnje in mana bodo takoj odstranjeni. Za več informacij si preberite stran o <a href='https://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>krogli preporoda</a>.",
     "rebirthName": "Krogla preporoda",
     "rebirthComplete": "Prerodili ste se!"
 }

@@ -8,7 +8,7 @@
     "rebirthOrb": "레벨 <%= level %>을 달성하고 환생의 구슬을 사용하여 다시 시작했습니다.",
     "rebirthOrb100": "100레벨이나 그 이상을 달성하고 환생의 구슬을 사용하여 다시 시작했습니다.",
     "rebirthOrbNoLevel": "다시 시작하기 위해 환생의 구슬을 사용했습니다.",
-    "rebirthPop": "캐릭터를 레벨1 전사로 즉시 다시 시작합니다. 업적달성, 수집품 및 장비는 사라지지 않습니다. 할 일 목록과 그 기록은 유지되지만, 노란색으로 재설정됩니다. 진행 중인 챌린지와 그룹 플랜에 속한 할 일 목록을 제외하고, 연속 기록은 0일로 지워집니다. 골드, 경험치, 마나 및 모든 스킬 효과도 제거됩니다. 이 모든 것들은 환생과 동시에 즉시 적용됩니다. 자세한 내용은 위키의 <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a> 페이지를 참조하세요.",
+    "rebirthPop": "캐릭터를 레벨1 전사로 즉시 다시 시작합니다. 업적달성, 수집품 및 장비는 사라지지 않습니다. 할 일 목록과 그 기록은 유지되지만, 노란색으로 재설정됩니다. 진행 중인 챌린지와 그룹 플랜에 속한 할 일 목록을 제외하고, 연속 기록은 0일로 지워집니다. 골드, 경험치, 마나 및 모든 스킬 효과도 제거됩니다. 이 모든 것들은 환생과 동시에 즉시 적용됩니다. 자세한 내용은 위키의 <a href='https://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a> 페이지를 참조하세요.",
     "rebirthName": "환생의 구슬",
     "rebirthComplete": "다시 태어났습니다!",
     "nextFreeRebirth": "<strong>무료로</strong> 환생의 구슬을 사용할 수 있을 때까지 <strong><%= days %> 일</strong>이 남았습니다."

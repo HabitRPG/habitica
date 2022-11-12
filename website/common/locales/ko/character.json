@@ -132,7 +132,7 @@
     "healerText": "치료사는 해로운 영향으로부터 자신은 물론 다른 사람도 보호할 수 있습니다. 빼먹은 일일과제와 나쁜 습관의 영향을 받지 않으며, 실패로 인한 체력도 회복할 수 있습니다. 파티원 돕기를 즐기시거나 노력을 통해 죽음을 거스르는 것이 동기 부여가 되신다면 치료사로 플레이하세요!",
     "optOutOfClasses": "나중에 선택하기",
     "chooseClass": "Choose your Class",
-    "chooseClassLearnMarkdown": "[Habitica의 직업 시스템에 대해 자세히 알아보세요](http://habitica.wikia.com/wiki/Class_System)",
+    "chooseClassLearnMarkdown": "[Habitica의 직업 시스템에 대해 자세히 알아보세요](https://habitica.wikia.com/wiki/Class_System)",
     "optOutOfClassesText": "Can't be bothered with classes? Want to choose later? Opt out - you'll be a warrior with no special abilities. You can read about the class system later on the wiki and enable classes at any time under User Icon > Settings.",
     "selectClass": "Select <%= heroClass %>",
     "select": "선택",

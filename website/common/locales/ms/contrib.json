@@ -49,9 +49,9 @@
     "balance": "Baki",
     "playerTiers": "Taraf Pemain",
     "tier": "Peringkat",
-    "conRewardsURL": "http://habitica.wikia.com/wiki/Contributor_Rewards",
+    "conRewardsURL": "https://habitica.wikia.com/wiki/Contributor_Rewards",
     "surveysSingle": "Telah membantu Habitica kembang, sama ada dengan mengisi tinjauan atau membantu dengan usaha percubaan utama. Terima kasih!",
     "surveysMultiple": "Menolong pertumbuhan Habitica pada <%= count %> situasi dengan mengisi sebuah borang kaji selidik atau membantu dalam usaha ujikaji. Terima kasih!",
     "blurbHallPatrons": "Ini ialah Dewan Penaung, manalah kami hormati pengembara-pengembara mulia yang menyokong pemulaan original asal Habitica. Kami hargai kehadiran mereka demi bantuan mereka yang telah membawa nyawa kepada Habitica!",
-    "blurbHallContributors": "Ini ialah Dewan Para Penyumbang, manalah penyumbang terbuka Habitica dihormati. Sama ada melalui kod, seni, muzik, tulisan, atau bantuan sikit sahaja, mereka telah mendapat <a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'> permata-permata, peralatan eksklusif</a>, dan <a href='http://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'>tajuk berprestij</a>. Anda juga boleh memberi sumbang kepada Habitica! <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'> Anda boleh mengetahui lebih lanjut di sini. </a>"
+    "blurbHallContributors": "Ini ialah Dewan Para Penyumbang, manalah penyumbang terbuka Habitica dihormati. Sama ada melalui kod, seni, muzik, tulisan, atau bantuan sikit sahaja, mereka telah mendapat <a href='https://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'> permata-permata, peralatan eksklusif</a>, dan <a href='https://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'>tajuk berprestij</a>. Anda juga boleh memberi sumbang kepada Habitica! <a href='https://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'> Anda boleh mengetahui lebih lanjut di sini. </a>"
 }

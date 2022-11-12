@@ -118,11 +118,11 @@ describe('highlightMentions', () => {
 
     // https://github.com/HabitRPG/habitica/issues/12223
     it('matches a link in between two the same links', async () => {
-      const text = '[here](http://habitica.wikia.com/wiki/The_Keep:Pirate_Cove/FAQ)\n@user\n[hier](http://habitica.wikia.com/wiki/The_Keep:Pirate_Cove/FAQ)';
+      const text = '[here](https://habitica.wikia.com/wiki/The_Keep:Pirate_Cove/FAQ)\n@user\n[hier](https://habitica.wikia.com/wiki/The_Keep:Pirate_Cove/FAQ)';
 
       const result = await highlightMentions(text);
 
-      expect(result[0]).to.equal('[here](http://habitica.wikia.com/wiki/The_Keep:Pirate_Cove/FAQ)\n[@user](/profile/111)\n[hier](http://habitica.wikia.com/wiki/The_Keep:Pirate_Cove/FAQ)');
+      expect(result[0]).to.equal('[here](https://habitica.wikia.com/wiki/The_Keep:Pirate_Cove/FAQ)\n[@user](/profile/111)\n[hier](https://habitica.wikia.com/wiki/The_Keep:Pirate_Cove/FAQ)');
     });
   });
 

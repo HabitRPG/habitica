@@ -49,9 +49,9 @@
     "balance": "Saldo",
     "playerTiers": "Rangovi Igrača",
     "tier": "Rang",
-    "conRewardsURL": "http://habitica.wikia.com/wiki/Contributor_Rewards",
+    "conRewardsURL": "https://habitica.wikia.com/wiki/Contributor_Rewards",
     "surveysSingle": "Pomogao/la si da Habitica naraste popunjavanjem ankete, ili pomaganjem u procesu testiranja. Hvala!",
     "surveysMultiple": "Je pomogao/la Habitici da narase u <%= count %> navrata, ili ispunjavanje upitnika ili pomaganjem u procesu testiranja. Hvala!",
     "blurbHallPatrons": "Ovo je Dvorana Pokrovitelja u kojoj se odaje počast plemenitim pustolovima koji su podržali Habitičinu originalnu Kickstarer kampanju. Zahvaljujemo im se što su pomogli oživjeti Habiticu!",
-    "blurbHallContributors": "Ovo je Dvorana Doprinositelja u kojoj se odaje počast Habitičinim doprinositeljima otvorenih izvora. Bilo putem kodova, likovne umjetnosti, glazbe, pisanja ili naprosto korisnosti, oni su zaslužili <a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'> dragulje, ekskluzivnu opremu</a> i <a href='http://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'>prestižne titule</a>. I ti možeš doprinijeti Habitici! <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'>Saznaj više ovdje. </a>"
+    "blurbHallContributors": "Ovo je Dvorana Doprinositelja u kojoj se odaje počast Habitičinim doprinositeljima otvorenih izvora. Bilo putem kodova, likovne umjetnosti, glazbe, pisanja ili naprosto korisnosti, oni su zaslužili <a href='https://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'> dragulje, ekskluzivnu opremu</a> i <a href='https://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'>prestižne titule</a>. I ti možeš doprinijeti Habitici! <a href='https://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'>Saznaj više ovdje. </a>"
 }

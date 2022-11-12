@@ -71,7 +71,7 @@
     "beeminderDesc": "ให้ Beeminder เตือนคุณเรื่องงานที่คุณต้องทำใน Habitica โดยอัตโนมัติ! คุณสามารถผูกมัดตัวเองโดยการตั้งเป้าหมายของจำนวนงานที่ต้องทำให้เสร็จต่อหนึ่งวันหรือต่ออาทิตย์ หรือคุณสามารถตั้งเป้าหมายที่จะลดจำนวนงานที่คุณต้องทำที่ยังทำไม่เสร็จก็ได้ (คำว่า \"ผูกมัด\" ที่พูดถึงเนี่ย หมายถึงว่าผูกมัดด้วยความเสี่ยงที่คุณอาจจะเสียเงินจริงๆให้ Beeminder ก็ได้! หรือบางทีคุณอาจจะชอบกราฟแฟนซีๆ ของ Beeminder เฉยๆ ก็ดี)",
     "chromeChatExtension": "ส่วนต่อขยายช่องสนทนากับ Chrome",
     "chromeChatExtensionDesc": "ส่วนต่อขยายช่องสนทนากับ Chrome สำหรับ Habitica จะเพิ่มช่องสนทนาพิเศษให้ติดต่อกับ habitica.com มันสามารถทำให้ผู้ใช้งานเข้าร่วมวงคุยกับเพื่อนๆ ในโรงแรม, ปาร์ตี้, หรือกิลด์ต่างๆ ที่พวกเขามีส่วนร่วม",
-    "otherExtensions": "<a target='blank' href='http://habitica.wikia.com/wiki/Extensions,_Add-Ons,_and_Customizations'>Other Extensions</a>",
+    "otherExtensions": "<a target='blank' href='https://habitica.wikia.com/wiki/Extensions,_Add-Ons,_and_Customizations'>Other Extensions</a>",
     "otherDesc": "Find other apps, extensions, and tools on the Habitica wiki.",
     "resetDo": "เอาเลย! รีเซ็ตบัญชีของฉันซะ!",
     "resetComplete": "รีเซ็ตเรียบร้อย!",

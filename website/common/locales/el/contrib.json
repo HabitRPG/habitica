@@ -49,9 +49,9 @@
     "balance": "Ισορροπία",
     "playerTiers": "Βαθμίδες Παικτών",
     "tier": "Βαθμίδα",
-    "conRewardsURL": "http://habitica.wikia.com/wiki/Contributor_Rewards",
+    "conRewardsURL": "https://habitica.wikia.com/wiki/Contributor_Rewards",
     "surveysSingle": "Βοήθησε το Habitica να μεγαλώσει, είτε συμπληρώνοντας μια έρευνα είτε βοηθώντας με έναν μείζων έλεγχο. Ευχαριστούμε!",
     "surveysMultiple": "Βοήθησε το Habitica να μεγαλώσει σε <%= count %> περιστάσεις, είτε συμπληρώνοντας μια έρευνα είτε βοηθώντας με έναν μείζων έλεγχο. Ευχαριστούμε!",
     "blurbHallPatrons": "Αυτό είναι το Πάνθεον των Υποστηρικτών, όπου τιμούμε του ευγενείς ταξιδιώτες που υποστήριξαν το αρχικό Kickstarter της Habitica. Τους ευχαριστούμε που μας βοήθησαν να κάνουμε τη Habitica πραγματικότητα!",
-    "blurbHallContributors": "Αυτό είναι το Πάνθεον των Συνεισφερόντων, όπου τιμούνται οι εθελοντές συνεισφέροντες. Είτε μέσω του προγραμματισμού, της τέχνης, της μουσικής, της συγγραφής ή ακόμα και μέσω της εξυπηρετικότητας έχουν κερδίσει <a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'>πετράδια, αποκλειστικό εξοπλισμό</a> και <a href='http://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'>τίτλους υψηλού κύρους</a>. Μπορείς και συ να συνεισφέρεις στη Habitica! <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'>Μάθετε περισσότερα εδώ.</a>"
+    "blurbHallContributors": "Αυτό είναι το Πάνθεον των Συνεισφερόντων, όπου τιμούνται οι εθελοντές συνεισφέροντες. Είτε μέσω του προγραμματισμού, της τέχνης, της μουσικής, της συγγραφής ή ακόμα και μέσω της εξυπηρετικότητας έχουν κερδίσει <a href='https://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'>πετράδια, αποκλειστικό εξοπλισμό</a> και <a href='https://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'>τίτλους υψηλού κύρους</a>. Μπορείς και συ να συνεισφέρεις στη Habitica! <a href='https://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'>Μάθετε περισσότερα εδώ.</a>"
 }

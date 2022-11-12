@@ -49,9 +49,9 @@
     "balance": "Stanje",
     "playerTiers": "Stopnje uporabnikov",
     "tier": "Stopnja",
-    "conRewardsURL": "http://habitica.wikia.com/wiki/Contributor_Rewards",
+    "conRewardsURL": "https://habitica.wikia.com/wiki/Contributor_Rewards",
     "surveysSingle": "Pripomogel k rasti projekta Habitica z izpolnjevanjem ankete ali testiranjem večjih sprememb. Hvala!",
     "surveysMultiple": "<%= count %>-krat pripomogel k rasti projekta Habitica z izpolnjevanjem anket ali testiranjem večjih sprememb. Hvala!",
     "blurbHallPatrons": "To je Hala mecenov, kjer častimo plemenite avanturiste, ki so podprli projekt Habitica na prvi kampanji na Kickstarter-ju. Zahvaljujemo se jim za pomoč pri oživitvi projekta Habitica!",
-    "blurbHallContributors": "To je Hala pomočnikov, kjer častimo odprtokodne pomočnike programa Habitica. Skozi kodo, umetnije, glasbo, pisanje ali pa celo samo ustrežljivost so si zaslužili <a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'>dragulje, eksluzivno opremo</a> in <a href='http://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'>prestižne nazive</a>. Tudi vi lahko prispevate k programu Habitica! <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'>Več si preberite tukaj.</a>"
+    "blurbHallContributors": "To je Hala pomočnikov, kjer častimo odprtokodne pomočnike programa Habitica. Skozi kodo, umetnije, glasbo, pisanje ali pa celo samo ustrežljivost so si zaslužili <a href='https://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'>dragulje, eksluzivno opremo</a> in <a href='https://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'>prestižne nazive</a>. Tudi vi lahko prispevate k programu Habitica! <a href='https://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'>Več si preberite tukaj.</a>"
 }

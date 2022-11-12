@@ -49,9 +49,9 @@
     "balance": "Tasapaino",
     "playerTiers": "Pelaajataso",
     "tier": "Taso",
-    "conRewardsURL": "http://habitica.wikia.com/wiki/Contributor_Rewards",
+    "conRewardsURL": "https://habitica.wikia.com/wiki/Contributor_Rewards",
     "surveysSingle": "Autoit Habiticaa kasvamaan joko täyttämällä kyselyn tai autamalla merkittävässä testaamisponnistuksessa. Kiitoksia!",
     "surveysMultiple": "Auttoi Habitica-palvelua kasvamaan <%= count %> kertaa joko täyttämällä kyselyn tai auttamalla merkittävässä testaamisponnistuksessa. Kiitos!",
     "blurbHallPatrons": "Tämä on Rahoittajien sali, jossa kunnioitamme niitä yleviä seikkailijoita, jotka rahoittivat Habitican alkuperäistä Kickstarteria. Tahdomme kiittää heitä heidän avustaan Habtican herättämiseksi eloon!",
-    "blurbHallContributors": "Tämä on Sankareiden sali, jossa kunnioitetaan avoimen lähdekoodin Habitica-avustajia. Oli kyse sitten koodauksesta, taiteesta, musiikista, kirjoittamisesta tai jopa vain avuliaisuudesta, he ovat ansainneet <a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'> jalokiviä, erityisvarusteita</a> ja <a href='http://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'>arvovaltaisia nimityksiä</a>. Sinäkin voit avustaa Habiticaa! <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'> Löydä lisää täältä. </a>"
+    "blurbHallContributors": "Tämä on Sankareiden sali, jossa kunnioitetaan avoimen lähdekoodin Habitica-avustajia. Oli kyse sitten koodauksesta, taiteesta, musiikista, kirjoittamisesta tai jopa vain avuliaisuudesta, he ovat ansainneet <a href='https://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'> jalokiviä, erityisvarusteita</a> ja <a href='https://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'>arvovaltaisia nimityksiä</a>. Sinäkin voit avustaa Habiticaa! <a href='https://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'> Löydä lisää täältä. </a>"
 }
