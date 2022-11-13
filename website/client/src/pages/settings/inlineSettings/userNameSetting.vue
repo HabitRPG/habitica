@@ -14,7 +14,7 @@
           class="edit-link"
           @click.prevent="show = true"
         >
-          {{ $t('edit') }}
+          {{ $t(user?.auth?.local?.username ? 'edit' : 'add') }}
         </a>
       </td>
     </tr>
@@ -71,24 +71,11 @@
             </div>
           </div>
 
-          <div class="buttons">
-            <button
-              class="btn btn-primary btn-save"
-              type="submit"
-              :disabled="usernameCannotSubmit"
-              @click="changeUser('username', cleanedInputValue)"
-            >
-              {{ $t('save') }}
-            </button>
-            <br>
-
-            <a
-              class="edit-link"
-              @click.prevent="resetAndClose()"
-            >
-              {{ $t('cancel') }}
-            </a>
-          </div>
+          <save-cancel-buttons
+            :disable-save="usernameCannotSubmit"
+            @saveClicked="changeUser('username', cleanedInputValue)"
+            @cancelClicked="resetAndClose()"
+          />
         </div>
       </td>
     </tr>
@@ -137,19 +124,10 @@ input {
   color: $green-50;
 }
 
-.buttons {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-}
-
 .form-group {
   margin-bottom: 1.5rem;
 }
 
-.btn-save {
-  margin-bottom: 1rem;
-}
 </style>
 
 <script>
@@ -158,11 +136,14 @@ import debounce from 'lodash/debounce';
 import { mapState } from '@/libs/store';
 
 import checkIcon from '@/assets/svg/check.svg';
+import { _InlineSettingMixin } from './_inlineSettingMixin';
+import SaveCancelButtons from '@/pages/settings/inlineSettings/_saveCancelButtons';
 
 export default {
+  components: { SaveCancelButtons },
+  mixins: [_InlineSettingMixin],
   data () {
     return {
-      show: false,
       inputValue: '',
       usernameIssues: [],
       icons: Object.freeze({
@@ -210,9 +191,6 @@ export default {
     this.restoreEmptyUsername();
   },
   methods: {
-    resetAndClose () {
-      this.show = false;
-    },
     restoreEmptyUsername () {
       if (this.inputValue.length < 1) {
         this.inputValue = `@${this.user.auth.local.username}`;
