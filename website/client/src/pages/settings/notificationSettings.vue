@@ -4,7 +4,7 @@
       <h1 class="page-header" v-once>{{ $t('notifications') }}</h1>
     </div>
     <div class="col-12">
-      <h2>All Notifications</h2>
+      <h2 v-once>{{ $t('allNotifications') }}</h2>
 
       <table class="table">
         <tr>

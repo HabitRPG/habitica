@@ -8,10 +8,13 @@ import ParentPage from '@/components/parentPage';
 export const ProfilePage = () => import(/* webpackChunkName: "user" */'@/components/userMenu/profilePage');
 
 // Settings
-const Settings = () => import(/* webpackChunkName: "settings" */'@/components/settings/index');
+const Settings = () => import(/* webpackChunkName: "settings" */'@/pages/settings-overview');
+const GeneralSettings = () => import(/* webpackChunkName: "settings" */'@/pages/settings/generalSettings');
+const Notifications = () => import(/* webpackChunkName: "settings" */'@/pages/settings/notificationSettings');
+
+// not converted yet
 const API = () => import(/* webpackChunkName: "settings" */'@/components/settings/api');
 const DataExport = () => import(/* webpackChunkName: "settings" */'@/components/settings/dataExport');
-const Notifications = () => import(/* webpackChunkName: "settings" */'@/components/settings/notifications');
 const PromoCode = () => import(/* webpackChunkName: "settings" */'@/components/settings/promoCode');
 const Site = () => import(/* webpackChunkName: "settings" */'@/components/settings/site');
 const Subscription = () => import(/* webpackChunkName: "settings" */'@/components/settings/subscription');
@@ -30,6 +33,11 @@ export const USER_ROUTES = {
       path: 'settings',
       component: Settings,
       children: [
+        {
+          name: 'general',
+          path: 'general',
+          component: GeneralSettings,
+        },
         {
           name: 'site',
           path: 'site',

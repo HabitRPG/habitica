@@ -1,5 +1,7 @@
 {
     "settings": "Settings",
+    "generalSettings": "General Settings",
+    "account": "Account",
     "language": "Language",
     "americanEnglishGovern": "In the event of a discrepancy in the translations, the American English version governs.",
     "helpWithTranslation": "Would you like to help with the translation of Habitica? Great! Then visit <a href=\"/groups/guild/7732f64c-33ee-4cce-873c-fc28f147a6f7\">the Aspiring Linguists Guild</a>!",

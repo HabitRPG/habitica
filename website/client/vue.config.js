@@ -125,6 +125,15 @@ module.exports = {
     if (process.env.NODE_ENV === 'development') {
       config.plugins.delete('preload');
     }
+
+    // enable optional chaining in templates
+    config.module
+      .rule('vue')
+      .use('vue-loader')
+      .tap(options => {
+        options.compiler = require('vue-template-babel-compiler')
+        return options
+      })
   },
 
   devServer: {
