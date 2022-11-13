@@ -123,7 +123,7 @@
 
       .input-area {
         width: 320px;
-        margin: 0 auto;
+        margin: 1rem auto 0;
       }
 
       .edit-link {

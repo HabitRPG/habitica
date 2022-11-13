@@ -51,7 +51,7 @@
                 class="form-control"
                 type="text"
                 :placeholder="$t('newUsername')"
-                :class="{ 'is-invalid input-invalid': usernameInvalid }"
+                :class="{ 'is-invalid input-invalid': !usernameValid }"
                 @blur="restoreEmptyUsername()"
               >
               <div class="input-floating-checkmark">
@@ -158,15 +158,6 @@ export default {
     cleanedInputValue () {
       // remove the @ from the value
       return this.inputValue.replace('@', '');
-    },
-    verifiedUsername () {
-      return this.user.flags.verifiedUsername;
-    },
-    usernameInvalid () {
-      if (this.cleanedInputValue.length <= 1) {
-        return false;
-      }
-      return !this.usernameValid;
     },
     usernameValid () {
       if (this.cleanedInputValue.length <= 1) {
