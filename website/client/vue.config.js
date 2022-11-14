@@ -2,6 +2,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const nconf = require('nconf');
+const vueTemplateCompiler = require('vue-template-babel-compiler');
 const { DuplicatesPlugin } = require('inspectpack/plugin');
 const setupNconf = require('../server/libs/setupNconf');
 const pkg = require('./package.json');
@@ -131,9 +132,9 @@ module.exports = {
       .rule('vue')
       .use('vue-loader')
       .tap(options => {
-        options.compiler = require('vue-template-babel-compiler')
-        return options
-      })
+        options.compiler = vueTemplateCompiler;
+        return options;
+      });
   },
 
   devServer: {

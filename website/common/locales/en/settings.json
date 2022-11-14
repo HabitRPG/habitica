@@ -191,6 +191,7 @@
     "usernameNotVerified": "Please confirm your username.",
     "changeUsernameDisclaimer": "Your username is used for invitations, @mentions in chat, and messaging. It must be 1 to 20 characters, containing only letters a to z, numbers 0 to 9, hyphens, or underscores, and cannot include any inappropriate terms.",
     "changeEmailDisclaimer": "This is the email address that you use to log in to Habitica, as well as receive notifications.",
+    "changeDisplayNameDisclaimer": "This is the name that will be displayed for your Avatar in Habitica.",
     "verifyUsernameVeteranPet": "One of these Veteran Pets will be waiting for you after you've finished confirming!",
     "mentioning": "Mentioning",
     "suggestMyUsername": "Suggest my username",
