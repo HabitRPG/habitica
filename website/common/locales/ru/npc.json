@@ -87,7 +87,7 @@
     "paymentSuccessful": "Платеж прошел успешно!",
     "paymentYouReceived": "Вы получили:",
     "paymentYouSentGems": "Вы отправили <strong><%- name %></strong>:",
-    "paymentYouSentSubscription": "Вы отправили <strong><%- name %></strong> <%= months %>-мес. подписку на Habitica.",
+    "paymentYouSentSubscription": "Вы отправили <strong><%- name %></strong><br><%= months %> мес. подписку на Habitica.",
     "paymentSubBilling": "Ваша подписка будет оплачиваться по <strong>$<%= amount %></strong> каждые <strong><%= months %> мес.</strong>.",
     "success": "Успех!",
     "classGear": "Экипировка класса",

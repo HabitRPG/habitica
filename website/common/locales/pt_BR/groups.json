@@ -123,7 +123,7 @@
     "sendGiftCost": "Total: $<%= cost %> (Dólar)",
     "sendGiftFromBalance": "Do saldo",
     "sendGiftPurchase": "Compra",
-    "sendGiftMessagePlaceholder": "Mensagem pessoal (opcional)",
+    "sendGiftMessagePlaceholder": "Adicione uma mensagem pessoal",
     "sendGiftSubscription": "<%= months %> Mês(es): $<%= price %> (Dólar)",
     "gemGiftsAreOptional": "Por favor, note que o Habitica nunca exigirá que você presenteie outros jogadores com gemas. Pedir gemas para outras pessoas é uma <strong> violação das Diretrizes de Comunidade</strong> e todos esses pedidos devem ser informados, mandando um e-mail para <%= hrefTechAssistanceEmail %>.",
     "battleWithFriends": "Enfrente monstros com seus amigos",
@@ -416,5 +416,6 @@
     "createGroup": "Crie um Time",
     "groupUseDefault": "Escolha uma resposta",
     "groupParentChildren": "Pais configurando tarefas para crianças",
-    "groupTeacher": "Professor configurando tarefas para estudantes"
+    "groupTeacher": "Professor configurando tarefas para estudantes",
+    "sendGiftLabel": "Gostaria de enviar uma mensagem pessoal?"
 }

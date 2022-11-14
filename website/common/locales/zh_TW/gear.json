@@ -2386,5 +2386,18 @@
     "weaponSpecialFall2022RogueNotes": "這根黃瓜不僅可以用來防身，餓了還能靠它飽餐一頓。 新增<%= str %>點力量。 2022年秋季限定版裝備。",
     "weaponSpecialFall2022WarriorNotes": "比起敵人的盔甲來說也許更適合用來劈木頭或切硬皮麵包，但是RAWR！ 它看起來確實很可怕！ 新增<%= str %>點力量。 2022年秋季限定版裝備。",
     "weaponSpecialFall2022WarriorText": "獸人利劍",
-    "weaponSpecialFall2022MageText": "爆裂之風"
+    "weaponSpecialFall2022MageText": "爆裂之風",
+    "weaponMystery202201Notes": "當午夜鐘聲敲響時，就會釋放出一朵由金、銀色的亮片組成的雲。 新年快樂！ 現在誰來打掃這個？ 沒有屬性加成。 2022年1月訂閱者物品。",
+    "weaponArmoireGuardiansCrookNotes": "下次你帶著寵物去郊外散步的時候，這個牧羊人的鉤子就可以派上用場了……新增<%= str %>點力量。 魔法衣櫥：牧羊人的守護者套裝（2/3）。",
+    "weaponMystery202209Text": "魔法手册",
+    "weaponMystery202209Notes": "這本書將會指導你完成魔術的製作。 沒有屬性加成。 2022年9月訂閱者物品。",
+    "weaponSpecialFall2022HealerText": "窺視右眼",
+    "weaponMystery202102Notes": "這根魔杖中發光的粉色寶石能將快樂和友誼傳播到遠方！ 沒有屬性加成。 2021年2月訂閱者物品。",
+    "weaponMystery202104Notes": "你的敵人最好小心點——你的防禦力很强，擁有利刺防禦！ 沒有屬性加成。 2021年4月訂閱者物品。",
+    "weaponMystery202201Text": "午夜彩紙炮",
+    "weaponMystery202111Notes": "用這根神秘而强大的法杖來塑造時間的流動。 沒有屬性加成。 2021年11月訂閱者物品。",
+    "weaponMystery202211Text": "電磁法杖",
+    "weaponSpecialFall2022MageNotes": "當你飛向高空時，這陣陣強風會一直伴隨你。 新增<%= int %>點智力和<%= per %>點感知。 2022年秋季限定版裝備。",
+    "weaponSpecialFall2022HealerNotes": "高舉它宣告勝利，同時喊出命令：“一號眼！” 新增<%= int %>點智力。 2022年秋季限定版裝備。",
+    "weaponMystery202211Notes": "用這根法杖來駕馭閃電風暴的强大威力。 沒有屬性加成。 2022年11月訂閱者物品。"
 }

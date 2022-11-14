@@ -44,6 +44,10 @@ const categoryOptions = [
     key: 'getting_organized',
   },
   {
+    label: 'recovery_support_groups',
+    key: 'recovery_support_groups',
+  },
+  {
     label: 'self_improvement',
     key: 'self_improvement',
   },

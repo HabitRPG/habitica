@@ -138,5 +138,8 @@
     "achievementReptacularRumbleModalText": "爬虫類のペットを全て集めました！",
     "achievementWoodlandWizard": "木の間の魔法使い",
     "achievementWoodlandWizardModalText": "森のペットを全部集めました！",
-    "achievementWoodlandWizardText": "森の生き物――アナグマ、クマ、鹿、狐、カエル、ハリネズミ、フクロウ、カタツムリ、リス、木人を、すべての基本色で孵化させました！"
+    "achievementWoodlandWizardText": "森の生き物――アナグマ、クマ、鹿、狐、カエル、ハリネズミ、フクロウ、カタツムリ、リス、木人を、すべての基本色で孵化させました！",
+    "achievementBoneToPick": "骨の髄まで",
+    "achievementBoneToPickText": "全ての基本のペットとクエストのペットを、骨の薬で孵化させました！",
+    "achievementBoneToPickModalText": "骨の薬で孵化した全ての基本のペットとクエストのペットを集めました！"
 }
