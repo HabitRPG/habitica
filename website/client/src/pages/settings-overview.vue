@@ -100,6 +100,10 @@
         width: 20%;
       }
 
+      .input-area .settings-label {
+        width: unset;
+      }
+
       .settings-value {
         color: $gray-50;
 
