@@ -66,7 +66,6 @@
     "webpack": "^4.46.0"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-optional-chaining": "^7.18.9",
-    "vue-template-babel-compiler": "^2.0.0"
+    "@babel/plugin-proposal-optional-chaining": "^7.18.9"
   }
 }
