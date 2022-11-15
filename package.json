@@ -125,8 +125,7 @@
     "run-rs": "^0.7.7",
     "sinon": "^14.0.1",
     "sinon-chai": "^3.7.0",
-    "sinon-stub-promise": "^4.0.0",
-    "vue-template-babel-compiler": "^2.0.0"
+    "sinon-stub-promise": "^4.0.0"
   },
   "optionalDependencies": {}
 }
