@@ -30,6 +30,10 @@ export default {
       type: Object,
       required: true,
     },
+    resetCounter: {
+      type: Number,
+      required: true,
+    },
   },
   data () {
     return {
@@ -37,6 +41,14 @@ export default {
       gemTransactions: [],
       hourglassTransactions: [],
     };
+  },
+  watch: {
+    resetCounter () {
+      if (this.expand) {
+        this.expand = !this.expand;
+        this.toggleTransactionsOpen();
+      }
+    },
   },
   methods: {
     async toggleTransactionsOpen () {

@@ -267,7 +267,7 @@ api.updateHero = {
     const hero = await User.findById(heroId).exec();
     if (!hero) throw new NotFound(res.t('userWithIDNotFound', { userId: heroId }));
 
-    if (updateData.balance) {
+    if (updateData.balance && updateData.balance !== hero.balance) {
       await hero.updateBalance(updateData.balance - hero.balance, 'admin_update_balance', '', 'Given by Habitica staff');
 
       hero.balance = updateData.balance;
