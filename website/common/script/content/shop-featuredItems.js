@@ -5,7 +5,7 @@ import { EVENTS } from './constants';
 // path: 'premiumHatchingPotions.Rainbow',
 const featuredItems = {
   market () {
-    if (moment().isBetween(EVENTS.fall2022.start, EVENTS.fall2022.end)) {
+    if (moment().isBetween(EVENTS.bundle202211.start, EVENTS.bundle202211.end)) {
       return [
         {
           type: 'armoire',
@@ -13,15 +13,15 @@ const featuredItems = {
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Vampire',
+          path: 'premiumHatchingPotions.Frost',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Ghost',
+          path: 'premiumHatchingPotions.Ember',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Shadow',
+          path: 'premiumHatchingPotions.Thunderstorm',
         },
       ];
     }
@@ -32,47 +32,47 @@ const featuredItems = {
       },
       {
         type: 'food',
-        path: 'food.Potatoe',
+        path: 'food.Milk',
       },
       {
         type: 'hatchingPotions',
-        path: 'hatchingPotions.Desert',
+        path: 'hatchingPotions.White',
       },
       {
         type: 'eggs',
-        path: 'eggs.Dragon',
+        path: 'eggs.Fox',
       },
     ];
   },
   quests () {
-    if (moment().isBetween(EVENTS.bundle202210.start, EVENTS.bundle202210.end)) {
+    if (moment().isBetween(EVENTS.bundle202211.start, EVENTS.bundle202211.end)) {
       return [
         {
           type: 'bundles',
-          path: 'bundles.witchyFamiliars',
+          path: 'bundles.rockingReptiles',
         },
         {
           type: 'quests',
-          path: 'quests.snake',
+          path: 'quests.peacock',
         },
         {
           type: 'quests',
-          path: 'quests.owl',
+          path: 'quests.harpy',
         },
       ];
     }
     return [
       {
         type: 'quests',
-        path: 'quests.guineapig',
+        path: 'quests.axolotl',
       },
       {
         type: 'quests',
-        path: 'quests.onyx',
+        path: 'quests.stone',
       },
       {
         type: 'quests',
-        path: 'quests.rooster',
+        path: 'quests.whale',
       },
     ];
   },
