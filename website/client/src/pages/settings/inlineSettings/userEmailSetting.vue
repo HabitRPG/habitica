@@ -64,7 +64,10 @@
           </div>
         </div>
 
-        <current-password-input @passwordValue="updates.password = $event" />
+        <current-password-input
+          :show-forget-password="true"
+          @passwordValue="updates.password = $event"
+        />
 
         <save-cancel-buttons
           :disable-save="allowedToSave"
@@ -131,15 +134,14 @@ import { mapState } from '@/libs/store';
 
 import checkIcon from '@/assets/svg/check.svg';
 import SaveCancelButtons from '@/pages/settings/inlineSettings/_saveCancelButtons';
-import { _InlineSettingMixin } from '@/pages/settings/inlineSettings/_inlineSettingMixin';
+import { InlineSettingMixin } from '@/pages/settings/inlineSettings/inlineSettingMixin';
 import CurrentPasswordInput from '@/pages/settings/inlineSettings/_currentPasswordInput';
 
 export default {
   components: { CurrentPasswordInput, SaveCancelButtons },
-  mixins: [_InlineSettingMixin],
+  mixins: [InlineSettingMixin],
   data () {
     return {
-      show: false,
       updates: {
         newEmail: '',
         password: '',
@@ -164,9 +166,6 @@ export default {
     this.restoreEmptyEmail();
   },
   methods: {
-    resetAndClose () {
-      this.show = false;
-    },
     restoreEmptyEmail () {
       if (this.updates.newEmail.length < 1) {
         this.updates.newEmail = this.user.auth.local.email;

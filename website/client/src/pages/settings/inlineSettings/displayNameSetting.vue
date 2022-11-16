@@ -136,11 +136,11 @@ import { mapState } from '@/libs/store';
 
 import checkIcon from '@/assets/svg/check.svg';
 import SaveCancelButtons from '@/pages/settings/inlineSettings/_saveCancelButtons';
-import { _InlineSettingMixin } from '@/pages/settings/inlineSettings/_inlineSettingMixin';
+import { InlineSettingMixin } from '@/pages/settings/inlineSettings/inlineSettingMixin';
 
 export default {
   components: { SaveCancelButtons },
-  mixins: [_InlineSettingMixin],
+  mixins: [InlineSettingMixin],
   data () {
     return {
       show: false,

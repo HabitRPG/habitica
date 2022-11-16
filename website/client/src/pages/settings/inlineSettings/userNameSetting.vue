@@ -136,12 +136,14 @@ import debounce from 'lodash/debounce';
 import { mapState } from '@/libs/store';
 
 import checkIcon from '@/assets/svg/check.svg';
-import { _InlineSettingMixin } from './_inlineSettingMixin';
+import { InlineSettingMixin } from './inlineSettingMixin';
 import SaveCancelButtons from '@/pages/settings/inlineSettings/_saveCancelButtons';
+
+// TODO extract usernameIssues/checks to a mixin to share between this and the authForm
 
 export default {
   components: { SaveCancelButtons },
-  mixins: [_InlineSettingMixin],
+  mixins: [InlineSettingMixin],
   data () {
     return {
       inputValue: '',

@@ -1,4 +1,4 @@
-export const _InlineSettingMixin = {
+export const InlineSettingMixin = {
   data () {
     return {
       show: false,

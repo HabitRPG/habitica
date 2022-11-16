@@ -17,6 +17,7 @@
         <user-name-setting />
         <user-email-setting />
         <display-name-setting />
+        <password-setting />
         <tr>
           <td colspan="3"></td>
         </tr>
@@ -54,9 +55,11 @@ import notificationsMixin from '../../mixins/notifications';
 import UserNameSetting from '@/pages/settings/inlineSettings/userNameSetting';
 import UserEmailSetting from '@/pages/settings/inlineSettings/userEmailSetting';
 import DisplayNameSetting from '@/pages/settings/inlineSettings/displayNameSetting';
+import PasswordSetting from '@/pages/settings/inlineSettings/passwordSetting';
 
 export default {
   components: {
+    PasswordSetting,
     DisplayNameSetting,
     UserEmailSetting,
     UserNameSetting,
