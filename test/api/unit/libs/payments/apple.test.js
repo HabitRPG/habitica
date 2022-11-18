@@ -417,7 +417,6 @@ describe('Apple Payments', () => {
 
     it('errors when a user is using the same subscription', async () => {
       user = new User();
-      user.purchased.plan.dateUpdated = moment().subtract(1, 'hours').toDate();
       await user.save();
       payments.createSubscription.restore();
 
@@ -431,8 +430,6 @@ describe('Apple Payments', () => {
         }]);
 
       await applePayments.subscribe(sku, user, receipt, headers, nextPaymentProcessing);
-      user.purchased.plan.dateUpdated = moment().subtract(1, 'hours').toDate();
-      await user.save();
 
       await expect(applePayments.subscribe(sku, user, receipt, headers, nextPaymentProcessing))
         .to.eventually.be.rejected.and.to.eql({
