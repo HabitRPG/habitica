@@ -178,6 +178,7 @@
     "usernameIssueForbidden": "Usernames may not contain restricted words.",
     "usernameIssueLength": "Usernames must be between 1 and 20 characters.",
     "usernameIssueInvalidCharacters": "Usernames can only contain letters a to z, numbers 0 to 9, hyphens, or underscores.",
+    "passwordIssueLength": "Passwords must be between 8 and 64 characters.",
     "currentUsername": "Current username:",
     "displaynameIssueLength": "Display Names must be between 1 and 30 characters.",
     "bannedWordUsedInProfile": "Your Display Name or About text contained inappropriate language.",
