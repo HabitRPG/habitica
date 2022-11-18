@@ -350,10 +350,6 @@ describe('payments/index', () => {
     });
 
     context('Purchasing a subscription for self', () => {
-      beforeEach(() => {
-        data.user.purchased.plan.dateUpdated = moment().subtract(1, 'hours').toDate();
-      });
-
       it('creates a subscription', async () => {
         expect(user.purchased.plan.planId).to.not.exist;
 
@@ -380,7 +376,6 @@ describe('payments/index', () => {
         user.purchased.plan = plan;
         user.purchased.plan.dateTerminated = moment(new Date()).add(2, 'months');
         expect(user.purchased.plan.extraMonths).to.eql(0);
-        data.user.purchased.plan.dateUpdated = moment().subtract(1, 'hours').toDate();
 
         await api.createSubscription(data);
 
@@ -391,7 +386,6 @@ describe('payments/index', () => {
         user.purchased.plan = plan;
         user.purchased.plan.dateTerminated = moment(new Date()).subtract(2, 'months');
         expect(user.purchased.plan.extraMonths).to.eql(0);
-        data.user.purchased.plan.dateUpdated = moment().subtract(1, 'hours').toDate();
 
         await api.createSubscription(data);
 
@@ -401,7 +395,6 @@ describe('payments/index', () => {
       it('does not reset Gold-to-Gems cap on additional subscription', async () => {
         user.purchased.plan = plan;
         user.purchased.plan.gemsBought = 10;
-        data.user.purchased.plan.dateUpdated = moment().subtract(1, 'hours').toDate();
 
         await api.createSubscription(data);
 
@@ -455,10 +448,6 @@ describe('payments/index', () => {
     });
 
     context('Block subscription perks', () => {
-      beforeEach(() => {
-        data.user.purchased.plan.dateUpdated = moment().subtract(1, 'hours').toDate();
-      });
-
       it('adds block months to plan.consecutive.offset', async () => {
         await api.createSubscription(data);
 
@@ -497,7 +486,6 @@ describe('payments/index', () => {
         data.sub.key = 'basic_12mo';
 
         await api.createSubscription(data);
-        data.user.purchased.plan.dateUpdated = moment().subtract(1, 'hours').toDate();
         await api.createSubscription(data);
 
         expect(user.purchased.plan.consecutive.gemCapExtra).to.eql(25);
@@ -536,7 +524,6 @@ describe('payments/index', () => {
           now: mayMysteryItemTimeframe,
           toFake: ['Date'],
         });
-        data.user.purchased.plan.dateUpdated = moment().subtract(1, 'hours').toDate();
       });
 
       afterEach(() => {
