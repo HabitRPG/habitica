@@ -29,7 +29,7 @@
     "axios": "^0.27.2",
     "axios-progress-bar": "^1.2.0",
     "babel-eslint": "^10.1.0",
-    "bootstrap": "^4.6.0",
+    "bootstrap": "^5.2.2",
     "bootstrap-vue": "^2.22.0",
     "chai": "^4.3.6",
     "core-js": "^3.26.0",
