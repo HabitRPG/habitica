@@ -13,25 +13,29 @@
           :key="index"
           class="faq-question"
         >
-          <h2
-            v-b-toggle="heading"
-            role="tab"
-            variant="info"
-            @click="handleClick($event)"
+          <div
+            v-if="heading !== 'world-boss'"
           >
-            {{ $t(`faqQuestion${index}`) }}
-          </h2>
-          <b-collapse
-            :id="heading"
-            :visible="isVisible(heading)"
-            accordion="faq"
-            role="tabpanel"
-          >
-            <div
-              v-markdown="$t(`webFaqAnswer${index}`, replacements)"
-              class="card-body"
-            ></div>
-          </b-collapse>
+            <h2
+              v-b-toggle="heading"
+              role="tab"
+              variant="info"
+              @click="handleClick($event)"
+            >
+              {{ $t(`faqQuestion${index}`) }}
+            </h2>
+            <b-collapse
+              :id="heading"
+              :visible="isVisible(heading)"
+              accordion="faq"
+              role="tabpanel"
+            >
+              <div
+                v-markdown="$t(`webFaqAnswer${index}`, replacements)"
+                class="card-body"
+              ></div>
+            </b-collapse>
+          </div>
         </div>
         <hr>
         <p v-markdown="$t('webFaqStillNeedHelp')"></p>
