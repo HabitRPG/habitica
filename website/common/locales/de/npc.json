@@ -87,7 +87,7 @@
     "paymentSuccessful": "Die Zahlung war erfolgreich!",
     "paymentYouReceived": "Du hast erhalten:",
     "paymentYouSentGems": "Du hast <strong><%- name %></strong> geschickt:",
-    "paymentYouSentSubscription": "Du hast <strong><%- name %></strong> ein <%= months %>-Monate-Abo für Habitica geschickt.",
+    "paymentYouSentSubscription": "Du hast <strong><%- name %></strong><br> ein <%= months %>-Monate-Abo für Habitica geschickt.",
     "paymentSubBilling": "Dein Abonnement wird mit <strong>$<%= amount %></strong> alle <strong><%= months %> Monate</strong> verrechnet.",
     "success": "Erfolg!",
     "classGear": "Klassenausrüstung",
@@ -128,9 +128,11 @@
     "nMonthsSubscriptionGift": "<%= nMonths %> Monat(e) Abonnement (Geschenk)",
     "nGemsGift": "<%= nGems %> Edelsteine (Geschenk)",
     "limitedAvailabilityMinutes": "Für <%= minutes %>min <%= seconds %>sek verfügbar",
-    "limitedAvailabilityHours": "Für <%= days %>t <%= hours %>std und <%= minutes %>min verfügbar",
+    "limitedAvailabilityHours": "Für t <%= hours %>std und <%= minutes %>min verfügbar",
     "limitedAvailabilityDays": "Für <%= days %>t <%= hours %>std und <%= minutes %>min verfügbar",
     "amountExp": "<%= amount %> Exp",
     "newStuffPostedOn": "Veröffentlicht am <%= publishDate %> um <%= publishTime %>",
-    "helpSupportHabitica": "Hilf Habitica zu unterstützen"
+    "helpSupportHabitica": "Hilf Habitica zu unterstützen",
+    "groupsPaymentSubBilling": "Dein nächstes Rechnungsdatum ist <strong><%= renewalDate %></strong>.",
+    "groupsPaymentAutoRenew": "Dieses Abonnement läuft automatisch weiter, bis es gekündigt wird. Du kannst es im Gruppen-Abrechnungs-Tab kündigen."
 }

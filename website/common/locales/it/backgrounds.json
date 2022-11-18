@@ -625,7 +625,7 @@
     "backgroundGhostShipNotes": "Dimostra che le storie e le leggende sono vere quando sali a bordo di una Nave Fantasma.",
     "backgroundGhostShipText": "Nave fantasma",
     "backgroundUnderwaterAmongKoiText": "Sott'acqua in Mezzo ai Koi",
-    "backgroundUnderwaterAmongKoiNotes": "abbaglia e si abbagliato dalla carpa scintillante, sott'acqua in mezzo ai Koi.",
+    "backgroundUnderwaterAmongKoiNotes": "abbaglia e sii abbagliato dalla carpa scintillante, sott'acqua in mezzo ai Koi.",
     "backgroundDaytimeMistyForestNotes": "Immergiti nella luce del giorno che passa attraverso una Foresta Nebbiosa.",
     "backgroundDaytimeMistyForestText": "Foresta Nebbiosa",
     "backgroundRopeBridgeNotes": "Dimostra ai dubbiosi che questo Ponte di Corda è perfettamente sicuro.",
@@ -728,5 +728,12 @@
     "backgroundAutumnPicnicText": "Picnic Autunnale",
     "backgroundAutumnPicnicNotes": "Goditi un Picnic Autunnale.",
     "backgroundOldPhotoText": "Vecchia Foto",
-    "backgroundOldPhotoNotes": "Mettiti in posa in una Vecchia Foto."
+    "backgroundOldPhotoNotes": "Mettiti in posa in una Vecchia Foto.",
+    "backgroundSpookyRuinsText": "Rovine Spettrali",
+    "backgroundSpookyRuinsNotes": "Esplora delle Rovine Spettrali.",
+    "backgroundMaskMakersWorkshopText": "Bottega del Mascheraio",
+    "backgroundMaskMakersWorkshopNotes": "Prova un nuovo volto nella Bottega del Mascheraio.",
+    "backgroundCemeteryGateText": "Cancello di un Cimitero",
+    "backgrounds102022": "SET 101: Rilasciato a ottobre 2022",
+    "backgroundCemeteryGateNotes": "Infesta il Cancello di un Cimitero."
 }

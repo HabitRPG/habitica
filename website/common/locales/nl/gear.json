@@ -2413,5 +2413,8 @@
     "weaponSpecialSummer2022RogueNotes": "Als je in het nauw gedreven bent, twijfel dan niet om deze angstaanjagende krabscharen te laten zien! Verhoogt Kracht met <%= str %>. Beperkte Oplage Zomeruitrusting 2022.",
     "weaponSpecialSummer2022MageNotes": "Laat op magische wijze de wateren voor je wijken met één zwaai van deze staf. Verhoogt Intelligentie met <%= str %> en Perceptie met <%= per %>. Beperkte Oplage Zomeruitrusting 2022.",
     "weaponSpecialSummer2022HealerNotes": "Deze bubbels laten helende magie los in het water met een bevredigende plop! Verhoogt Intelligentie met <%= int %>. Beperkte Oplage Zomeruitrusting 2022.",
-    "weaponSpecialSummer2022WarriorText": "Wervelende Cycloon"
+    "weaponSpecialSummer2022WarriorText": "Wervelende Cycloon",
+    "weaponSpecialFall2022RogueText": "Komkommer Mes",
+    "weaponSpecialFall2022RogueNotes": "Je kan je niet enkel beschermen met deze komkommer, het is ook een lekkere maaltijd. Verhoogd Kracht met <%= str %>. Beperkte Oplage Herst-uitrusting 2022.",
+    "weaponSpecialFall2022WarriorText": "Orks Ripzwaard"
 }

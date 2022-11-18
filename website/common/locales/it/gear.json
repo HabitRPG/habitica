@@ -2726,5 +2726,15 @@
     "weaponSpecialFall2022WarriorNotes": "Forse è più adatta a tagliare tronchi o pagnotte croccanti che armature nemiche, ma ROAR! Sembra davvero terrificante! Aumenta la Forza di <%= str %>. Equipaggiamento in edizione limitata, autunno 2022.",
     "armorSpecialFall2022WarriorNotes": "ROAR! GRANDI SPALLE significa tu essere GRANDE e FORTE! Aumenta la Costituzione di <%= con %>. Equipaggiamento in edizione limitata, autunno 2022.",
     "armorSpecialFall2022HealerNotes": "Quante persone riuscirebbe a sbirciare uno Sbircione, se uno Sbircione potesse sbirciare le persone? Aumenta la Costituzione di <%= con %>. Equipaggiamento in edizione limitata, autunno 2022.",
-    "weaponSpecialFall2022RogueNotes": "Non solo puoi difenderti con questo cetriolo, ma all'occorrenza può essere anche un ottimo spuntino. Aumenta la Forza di <%= str %>. Equipaggiamento in edizione limitata, autunno 2022."
+    "weaponSpecialFall2022RogueNotes": "Non solo puoi difenderti con questo cetriolo, ma all'occorrenza può essere anche un ottimo spuntino. Aumenta la Forza di <%= str %>. Equipaggiamento in edizione limitata, autunno 2022.",
+    "headMystery202210Text": "Inquietante Elmo Ofidiano",
+    "headMystery202210Notes": "Questo cappuccio squamoso sottometterà sicuramente la tua lista di Cose da Fare, terrorizzandola! Non conferisce alcun bonus. Oggetto abbonati ottobre 2022.",
+    "armorMystery202210Text": "Inquietante Armatura Ofidiana",
+    "armorMystery202210Notes": "Prova a strisciare, tanto per cambiare, e potresti scoprire che è un mezzo per spostarsi piuttosto efficiente! Non conferisce alcun bonus. Oggetto abbonati ottobre 2022.",
+    "weaponMystery202211Text": "Bastone dell'Elettromante",
+    "weaponMystery202211Notes": "Sfrutta l'incredibile potenza di un temporale con questo bastone. Non conferisce alcun bonus. Oggetto abbonati novembre 2022.",
+    "armorArmoireSheetGhostCostumeText": "Costume da Fantasma con le Lenzuola",
+    "armorArmoireSheetGhostCostumeNotes": "Bu! Questo è il costume più spaventoso in tutta Habitica, quindi indossalo con saggezza... e stai attento a non inciampare sui tuoi passi. Aumenta la Costituzione di <%= con %>. Scrigno incantato: Oggetto Indipendente.",
+    "headMystery202211Text": "Cappello dell'Elettromante",
+    "headMystery202211Notes": "Stai attento con questo potente cappello, l'effetto che ha sugli ammiratori può essere piuttosto scioccante! Non conferisce alcun bonus. Oggetto abbonati novembre 2022."
 }

@@ -229,5 +229,11 @@
     "summer2022AngelfishHealerSet": "Peixe-anjo (Curandeiro)",
     "dateEndDecember": "31 de dezembro",
     "februaryYYYY": "Fevereiro de <%= year %>",
-    "julyYYYY": "Julho de <%= year %>"
+    "julyYYYY": "Julho de <%= year %>",
+    "fall2022OrcWarriorSet": "Orc (Guerreiro)",
+    "fall2022HarpyMageSet": "Harpia (Mago)",
+    "fall2022KappaRogueSet": "Kappa (Gatuno)",
+    "fall2022WatcherHealerSet": "Observador (Curandeiro)",
+    "gemSaleHow": "Entre <%= eventStartMonth %> <%= eventStartOrdinal %> e <%= eventEndOrdinal %>, compre qualquer pacote de Gemas e sua conta irá receber a quantidade de Gemas promocional. Mais Gemas para gastar, compartilhar ou guardar para futuras novidades!",
+    "gemSaleLimitations": "Esta promoção apenas se aplica durante o tempo limitado do evento. Este evento começa em <%= eventStartMonth %> <%= eventStartOrdinal %> às 9:00 pelo horário de Brasília e irá terminar em <%= eventStartMonth %> <%= eventEndOrdinal %> às 21:00 pelo horário de Brasília. A promoção apenas está disponível ao comprar Gemas para você mesmo."
 }

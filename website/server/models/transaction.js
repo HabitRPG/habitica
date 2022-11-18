@@ -5,7 +5,7 @@ import baseModel from '../libs/baseModel';
 const { Schema } = mongoose;
 
 export const currencies = ['gems', 'hourglasses'];
-export const transactionTypes = ['buy_money', 'buy_gold', 'spend', 'gift_send', 'gift_receive', 'debug', 'create_challenge', 'create_bank_challenge', 'create_guild', 'change_class', 'rebirth', 'release_pets', 'release_mounts', 'reroll', 'contribution', 'subscription_perks', 'admin_update_balance'];
+export const transactionTypes = ['buy_money', 'buy_gold', 'spend', 'gift_send', 'gifted_with_money', 'gift_receive', 'debug', 'create_challenge', 'create_bank_challenge', 'create_guild', 'change_class', 'rebirth', 'release_pets', 'release_mounts', 'reroll', 'contribution', 'subscription_perks', 'admin_update_balance', 'admin_update_hourglasses'];
 
 export const schema = new Schema({
   currency: { $type: String, enum: currencies, required: true },

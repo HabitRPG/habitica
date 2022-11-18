@@ -520,6 +520,16 @@ const backgrounds = {
     autumn_picnic: { },
     old_photo: { },
   },
+  backgrounds102022: {
+    spooky_ruins: { },
+    mask_makers_workshop: { },
+    cemetery_gate: { },
+  },
+  backgrounds112022: {
+    among_giant_mushrooms: { },
+    misty_autumn_forest: { },
+    autumn_bridge: { },
+  },
   timeTravelBackgrounds: {
     airship: {
       price: 1,

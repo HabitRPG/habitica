@@ -87,7 +87,7 @@
     "paymentSuccessful": "Il tuo pagamento ha avuto successo!",
     "paymentYouReceived": "Hai ricevuto:",
     "paymentYouSentGems": "Hai inviato a <strong><%- name %></strong>:",
-    "paymentYouSentSubscription": "Hai inviato a <strong><%- name %></strong> un abbonamento ad Habitica di <%= months %> mesi.",
+    "paymentYouSentSubscription": "Hai inviato a <strong><%- name %></strong> uno o più abbonamenti ad Habitica di <%= months %> mesi.",
     "paymentSubBilling": "Pagherai per il tuo abbonamento <strong>$<%= amount %></strong> ogni <strong><%= months %> mesi</strong>.",
     "success": "Successo!",
     "classGear": "Equipaggiamento per Classi",
@@ -131,5 +131,7 @@
     "limitedAvailabilityDays": "Disponibile per <%= days %> giorni, <%= hours %> ore e <%= minutes %> minuti",
     "limitedAvailabilityHours": "Disponibile per <%= hours %> ore e <%= minutes %> minuti",
     "amountExp": "<%= amount %> Exp",
-    "helpSupportHabitica": "Aiutare a Supportare Habitica"
+    "helpSupportHabitica": "Aiutare a Supportare Habitica",
+    "groupsPaymentAutoRenew": "Questo abbonamento si rinnoverà automaticamente fino a quando non verrà annullato. Se hai bisogno di annullarlo, puoi farlo dal pannello Fatturazione di Gruppo.",
+    "groupsPaymentSubBilling": "La tua prossima data di fatturazione è <strong><%= renewalDate %></strong>."
 }

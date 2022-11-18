@@ -787,18 +787,15 @@ export default {
       if (sortBy === 'sortByColor') {
         groupKey = 'potionKey';
       } else if (sortBy === 'AZ') {
-        groupKey = '';
+        groupKey = i => i.eggName[0];
       } else if (sortBy === 'sortByHatchable') {
         groupKey = i => (i.isHatchable() ? 0 : 1);
       }
       const groupedPets = groupBy(pets, groupKey);
 
       // Pets are rendered as grouped "rows". Count helps decide if show more button is necessary.
-      if (sortBy === 'AZ') {
-        this.petRowCount[animalGroup.key] = 1;
-      } else {
-        this.petRowCount[animalGroup.key] = Object.keys(groupedPets).length;
-      }
+      this.petRowCount[animalGroup.key] = Object.keys(groupedPets).length;
+
       return groupedPets;
     },
     mounts (animalGroup, hideMissing, sortBy, searchText) {
@@ -814,14 +811,12 @@ export default {
       if (sortBy === 'sortByColor') {
         groupKey = 'potionKey';
       } else if (sortBy === 'AZ') {
-        groupKey = '';
+        groupKey = i => i.eggName[0];
       }
       const groupedMounts = groupBy(mounts, groupKey);
-      if (sortBy === 'AZ') {
-        this.mountRowCount[animalGroup.key] = 1;
-      } else {
-        this.mountRowCount[animalGroup.key] = Object.keys(groupedMounts).length;
-      }
+
+      this.mountRowCount[animalGroup.key] = Object.keys(groupedMounts).length;
+
       return groupedMounts;
     },
     // Actions

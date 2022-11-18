@@ -191,5 +191,9 @@
     "mysterySet202103": "Conjunto de Visualización de Flores",
     "mysterySet202104": "Cojunto de Guardián del Cardo",
     "mysterySet202105": "Conjunto Dragón Nebula",
-    "mysterySet202106": "Conjunto de Sirena del Atardecer"
+    "mysterySet202106": "Conjunto de Sirena del Atardecer",
+    "howManyGemsPurchase": "¿Cuántas Gemas deseas comprar?",
+    "howManyGemsSend": "¿Cuántas Gemas deseas enviar?",
+    "needToPurchaseGems": "¿Necesitas comprar Gemas como un regalo?",
+    "wantToSendOwnGems": "¿Deseas enviar tus propias Gemas?"
 }

@@ -401,6 +401,9 @@ const armor = {
     int: 4,
     set: 'fancyPirate',
   },
+  sheetGhostCostume: {
+    con: 10,
+  },
 };
 
 const body = {
@@ -1111,6 +1114,10 @@ const shield = {
     con: 4,
     set: 'cleaningSupplies',
   },
+  bubblingCauldron: {
+    con: 8,
+    set: 'cookingImplements',
+  },
 };
 
 const headAccessory = {
@@ -1544,6 +1551,10 @@ const weapon = {
     con: 4,
     per: 4,
     set: 'cleaningSupplies',
+  },
+  magicSpatula: {
+    per: 8,
+    set: 'cookingImplements',
   },
 };
 

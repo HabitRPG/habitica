@@ -53,5 +53,6 @@
     "surveysSingle": "可藉由填寫調查問卷或是進行大型測試來幫助Habitica變得更好。我們由衷地感謝您！",
     "surveysMultiple": "已在<%= count %>次場合下幫助Habitica成長。例如透過填寫調查問卷、或在一次大型測試中提供幫助。我們由衷地感謝您！",
     "blurbHallPatrons": "這裡是贊助名人堂。我們在這裡紀念從草創時期就開始在Kickstarter上贊助Habitica的偉大冒險家們。我們由衷地感謝他們幫助讓Habitica能正式推出！",
-    "blurbHallContributors": "這裡是貢獻者殿堂。我們在這裡推崇對開放原始碼項目有所貢獻的人們。無論程式、美術、音樂、寫作方面，或僅是熱衷於到處幫忙的人都列於其中。他們獲得了<a href='http://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'>寶石、特殊裝備</a>與<a href='https://habitica.fandom.com/wiki/Contributor_Titles' target='_blank'>尊貴頭銜</a>。您也可以為Habitica做出貢獻！<a href='https://habitica.fandom.com/wiki/Contributing_to_Habitica' target='_blank'>點此來查看詳細資訊</a>"
+    "blurbHallContributors": "這裡是貢獻者殿堂。我們在這裡推崇對開放原始碼項目有所貢獻的人們。無論程式、美術、音樂、寫作方面，或僅是熱衷於到處幫忙的人都列於其中。他們獲得了<a href='http://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'>寶石、特殊裝備</a>與<a href='https://habitica.fandom.com/wiki/Contributor_Titles' target='_blank'>尊貴頭銜</a>。您也可以為Habitica做出貢獻！<a href='https://habitica.fandom.com/wiki/Contributing_to_Habitica' target='_blank'>點此來查看詳細資訊</a>",
+    "noPrivAccess": "你沒有必要的權限。"
 }

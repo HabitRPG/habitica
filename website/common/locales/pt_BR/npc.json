@@ -81,13 +81,13 @@
     "newBaileyUpdate": "Nova atualização da Bailey!",
     "tellMeLater": "Lembrar mais tarde",
     "dismissAlert": "Dispensar este alerta",
-    "donateText3": "Habitica é um projeto de código aberto que depende do suporte dos nossos usuários. O dinheiro que você gasta em gemas nos ajuda a manter os servidores funcionando, manter uma pequena equipe, desenvolver novas funcionalidades e oferecer incentivos para os nossos voluntários.",
+    "donateText3": "Habitica é um projeto de código aberto que depende do suporte dos nossos usuários. O dinheiro que você gasta em gemas nos ajuda a manter os servidores funcionando, manter uma pequena equipe, desenvolver novas funcionalidades e oferecer incentivos para os nossos voluntários",
     "card": "Cartão de crédito",
     "paymentMethods": "Comprar usando",
     "paymentSuccessful": "Seu pagamento foi efetuado com sucesso!",
     "paymentYouReceived": "Você recebeu:",
     "paymentYouSentGems": "Você enviou para <strong><%- name %></strong>:",
-    "paymentYouSentSubscription": "Você enviou para <strong><%- name %></strong> <%= months %> mês/meses de assinatura do Habitica.",
+    "paymentYouSentSubscription": "Você enviou para <strong><%- name %></strong><br> <%= months %> mês/meses de assinatura do Habitica.",
     "paymentSubBilling": "Sua assinatura será cobrada no valor de <strong>$<%= amount %></strong> a cada <strong><%= months %> mês/meses</strong>.",
     "success": "Sucesso!",
     "classGear": "Equipamento de Classe",
@@ -131,5 +131,7 @@
     "limitedAvailabilityHours": "Disponível por <%= hours %>h <%= minutes %>m",
     "limitedAvailabilityMinutes": "Disponível por <%= minutes %>m <%= seconds %>s",
     "amountExp": "<%= amount %> de EXP",
-    "helpSupportHabitica": "Ajude Apoiando o Habitica"
+    "helpSupportHabitica": "Ajude Apoiando o Habitica",
+    "groupsPaymentSubBilling": "Sua próxima cobrança será em <strong><%= renewalDate %></strong>.",
+    "groupsPaymentAutoRenew": "Esta inscrição irá renovar automaticamente até ser cancelada. Se você precisar cancelar, você pode fazer isso na aba Fatura do Time."
 }

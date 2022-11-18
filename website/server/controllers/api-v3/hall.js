@@ -267,10 +267,37 @@ api.updateHero = {
     const hero = await User.findById(heroId).exec();
     if (!hero) throw new NotFound(res.t('userWithIDNotFound', { userId: heroId }));
 
-    if (updateData.balance) {
+    if (updateData.balance && updateData.balance !== hero.balance) {
       await hero.updateBalance(updateData.balance - hero.balance, 'admin_update_balance', '', 'Given by Habitica staff');
 
       hero.balance = updateData.balance;
+    }
+
+    if (updateData.purchased && updateData.purchased.plan) {
+      if (updateData.purchased.plan.gemsBought) {
+        hero.purchased.plan.gemsBought = updateData.purchased.plan.gemsBought;
+      }
+      if (updateData.purchased.plan.consecutive) {
+        if (updateData.purchased.plan.consecutive.trinkets) {
+          const changedHourglassTrinkets = updateData.purchased.plan.consecutive.trinkets
+              - hero.purchased.plan.consecutive.trinkets;
+
+          if (changedHourglassTrinkets !== 0) {
+            await hero.updateHourglasses(
+              changedHourglassTrinkets,
+              'admin_update_hourglasses', '', 'Updated by Habitica staff',
+            );
+          }
+
+          hero.purchased.plan.consecutive.trinkets = updateData.purchased.plan.consecutive.trinkets;
+        }
+        if (updateData.purchased.plan.consecutive.gemCapExtra) {
+          hero.purchased.plan.consecutive.gemCapExtra = updateData.purchased.plan.consecutive.gemCapExtra; // eslint-disable-line max-len
+        }
+        if (updateData.purchased.plan.consecutive.count) {
+          hero.purchased.plan.consecutive.count = updateData.purchased.plan.consecutive.count; // eslint-disable-line max-len
+        }
+      }
     }
 
     // give them gems if they got an higher level
@@ -329,6 +356,13 @@ api.updateHero = {
 
     if (updateData.changeApiToken) {
       hero.apiToken = common.uuid();
+    }
+
+    if (updateData.resetCron) {
+      // Set last cron to yesterday. Quick approach so we don't need moment() for one line
+      const yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
+      hero.lastCron = yesterday;
+      hero.auth.timestamps.loggedin = yesterday; // so admin panel doesn't gripe about mismatch
     }
 
     const savedHero = await hero.save();

@@ -11,10 +11,13 @@ import {
   generateGroup,
 } from '../../../../helpers/api-unit.helper';
 import * as worldState from '../../../../../website/server/libs/worldState';
+import { TransactionModel } from '../../../../../website/server/models/transaction';
 
 describe('payments/index', () => {
-  let user; let group; let data; let
-    plan;
+  let user;
+  let group;
+  let data;
+  let plan;
 
   beforeEach(async () => {
     user = new User();
@@ -102,6 +105,23 @@ describe('payments/index', () => {
         await api.createSubscription(data);
 
         expect(recipient.purchased.plan.extraMonths).to.eql(3);
+      });
+
+      it('add a transaction entry to the recipient', async () => {
+        recipient.purchased.plan = plan;
+
+        expect(recipient.purchased.plan.extraMonths).to.eql(0);
+
+        await api.createSubscription(data);
+
+        expect(recipient.purchased.plan.extraMonths).to.eql(3);
+
+        const transactions = await TransactionModel
+          .find({ userId: recipient._id })
+          .sort({ createdAt: -1 })
+          .exec();
+
+        expect(transactions).to.have.lengthOf(1);
       });
 
       it('does not set negative extraMonths if plan has past dateTerminated date', async () => {
@@ -445,6 +465,89 @@ describe('payments/index', () => {
           },
         });
       });
+
+      context('Upgrades subscription', () => {
+        it('from basic_earned to basic_6mo', async () => {
+          data.sub.key = 'basic_earned';
+          expect(user.purchased.plan.planId).to.not.exist;
+
+          await api.createSubscription(data);
+
+          expect(user.purchased.plan.planId).to.eql('basic_earned');
+          expect(user.purchased.plan.customerId).to.eql('customer-id');
+          const created = user.purchased.plan.dateCreated;
+          const updated = user.purchased.plan.dateUpdated;
+
+          data.sub.key = 'basic_6mo';
+          data.updatedFrom = { key: 'basic_earned' };
+          await api.createSubscription(data);
+          expect(user.purchased.plan.planId).to.eql('basic_6mo');
+          expect(user.purchased.plan.dateCreated).to.eql(created);
+          expect(user.purchased.plan.dateUpdated).to.not.eql(updated);
+          expect(user.purchased.plan.customerId).to.eql('customer-id');
+        });
+
+        it('from basic_3mo to basic_12mo', async () => {
+          expect(user.purchased.plan.planId).to.not.exist;
+
+          await api.createSubscription(data);
+
+          expect(user.purchased.plan.planId).to.eql('basic_3mo');
+          expect(user.purchased.plan.customerId).to.eql('customer-id');
+          const created = user.purchased.plan.dateCreated;
+          const updated = user.purchased.plan.dateUpdated;
+
+          data.sub.key = 'basic_12mo';
+          data.updatedFrom = { key: 'basic_3mo' };
+          await api.createSubscription(data);
+          expect(user.purchased.plan.planId).to.eql('basic_12mo');
+          expect(user.purchased.plan.dateCreated).to.eql(created);
+          expect(user.purchased.plan.dateUpdated).to.not.eql(updated);
+          expect(user.purchased.plan.customerId).to.eql('customer-id');
+        });
+      });
+
+      context('Downgrades subscription', () => {
+        it('from basic_6mo to basic_earned', async () => {
+          data.sub.key = 'basic_6mo';
+          expect(user.purchased.plan.planId).to.not.exist;
+
+          await api.createSubscription(data);
+
+          expect(user.purchased.plan.planId).to.eql('basic_6mo');
+          expect(user.purchased.plan.customerId).to.eql('customer-id');
+          const created = user.purchased.plan.dateCreated;
+          const updated = user.purchased.plan.dateUpdated;
+
+          data.sub.key = 'basic_earned';
+          data.updatedFrom = { key: 'basic_6mo' };
+          await api.createSubscription(data);
+          expect(user.purchased.plan.planId).to.eql('basic_earned');
+          expect(user.purchased.plan.dateCreated).to.eql(created);
+          expect(user.purchased.plan.dateUpdated).to.not.eql(updated);
+          expect(user.purchased.plan.customerId).to.eql('customer-id');
+        });
+
+        it('from basic_12mo to basic_3mo', async () => {
+          expect(user.purchased.plan.planId).to.not.exist;
+
+          data.sub.key = 'basic_12mo';
+          await api.createSubscription(data);
+
+          expect(user.purchased.plan.planId).to.eql('basic_12mo');
+          expect(user.purchased.plan.customerId).to.eql('customer-id');
+          const created = user.purchased.plan.dateCreated;
+          const updated = user.purchased.plan.dateUpdated;
+
+          data.sub.key = 'basic_3mo';
+          data.updatedFrom = { key: 'basic_12mo' };
+          await api.createSubscription(data);
+          expect(user.purchased.plan.planId).to.eql('basic_3mo');
+          expect(user.purchased.plan.dateCreated).to.eql(created);
+          expect(user.purchased.plan.dateUpdated).to.not.eql(updated);
+          expect(user.purchased.plan.customerId).to.eql('customer-id');
+        });
+      });
     });
 
     context('Block subscription perks', () => {
@@ -468,7 +571,6 @@ describe('payments/index', () => {
 
       it('adds 10 to plan.consecutive.gemCapExtra for 6 month block', async () => {
         data.sub.key = 'basic_6mo';
-
         await api.createSubscription(data);
 
         expect(user.purchased.plan.consecutive.gemCapExtra).to.eql(10);
@@ -476,7 +578,6 @@ describe('payments/index', () => {
 
       it('adds 20 to plan.consecutive.gemCapExtra for 12 month block', async () => {
         data.sub.key = 'basic_12mo';
-
         await api.createSubscription(data);
 
         expect(user.purchased.plan.consecutive.gemCapExtra).to.eql(20);
@@ -511,6 +612,134 @@ describe('payments/index', () => {
         await api.createSubscription(data);
 
         expect(user.purchased.plan.consecutive.trinkets).to.eql(4);
+      });
+
+      context('Upgrades subscription', () => {
+        it('Adds 10 to plan.consecutive.gemCapExtra from basic_earned to basic_6mo', async () => {
+          data.sub.key = 'basic_earned';
+          expect(user.purchased.plan.planId).to.not.exist;
+
+          await api.createSubscription(data);
+
+          expect(user.purchased.plan.planId).to.eql('basic_earned');
+          expect(user.purchased.plan.consecutive.gemCapExtra).to.eql(0);
+
+          data.sub.key = 'basic_6mo';
+          data.updatedFrom = { key: 'basic_earned' };
+          await api.createSubscription(data);
+          expect(user.purchased.plan.planId).to.eql('basic_6mo');
+          expect(user.purchased.plan.consecutive.gemCapExtra).to.eql(10);
+        });
+
+        it('Adds 15 to plan.consecutive.gemCapExtra when upgrading from basic_3mo to basic_12mo', async () => {
+          expect(user.purchased.plan.planId).to.not.exist;
+
+          await api.createSubscription(data);
+
+          expect(user.purchased.plan.planId).to.eql('basic_3mo');
+          expect(user.purchased.plan.consecutive.gemCapExtra).to.eql(5);
+
+          data.sub.key = 'basic_12mo';
+          data.updatedFrom = { key: 'basic_3mo' };
+          await api.createSubscription(data);
+          expect(user.purchased.plan.planId).to.eql('basic_12mo');
+          expect(user.purchased.plan.consecutive.gemCapExtra).to.eql(20);
+        });
+
+        it('Adds 2 to plan.consecutive.trinkets from basic_earned to basic_6mo', async () => {
+          data.sub.key = 'basic_earned';
+          expect(user.purchased.plan.planId).to.not.exist;
+
+          await api.createSubscription(data);
+
+          expect(user.purchased.plan.planId).to.eql('basic_earned');
+          expect(user.purchased.plan.consecutive.trinkets).to.eql(0);
+
+          data.sub.key = 'basic_6mo';
+          data.updatedFrom = { key: 'basic_earned' };
+          await api.createSubscription(data);
+          expect(user.purchased.plan.planId).to.eql('basic_6mo');
+          expect(user.purchased.plan.consecutive.trinkets).to.eql(2);
+        });
+
+        it('Adds 3 to plan.consecutive.trinkets when upgrading from basic_3mo to basic_12mo', async () => {
+          expect(user.purchased.plan.planId).to.not.exist;
+
+          await api.createSubscription(data);
+
+          expect(user.purchased.plan.planId).to.eql('basic_3mo');
+          expect(user.purchased.plan.consecutive.trinkets).to.eql(1);
+
+          data.sub.key = 'basic_12mo';
+          data.updatedFrom = { key: 'basic_3mo' };
+          await api.createSubscription(data);
+          expect(user.purchased.plan.planId).to.eql('basic_12mo');
+          expect(user.purchased.plan.consecutive.trinkets).to.eql(4);
+        });
+      });
+
+      context('Downgrades subscription', () => {
+        it('does not remove from plan.consecutive.gemCapExtra from basic_6mo to basic_earned', async () => {
+          data.sub.key = 'basic_6mo';
+          expect(user.purchased.plan.planId).to.not.exist;
+
+          await api.createSubscription(data);
+
+          expect(user.purchased.plan.planId).to.eql('basic_6mo');
+          expect(user.purchased.plan.consecutive.gemCapExtra).to.eql(10);
+
+          data.sub.key = 'basic_earned';
+          data.updatedFrom = { key: 'basic_6mo' };
+          await api.createSubscription(data);
+          expect(user.purchased.plan.planId).to.eql('basic_earned');
+          expect(user.purchased.plan.consecutive.gemCapExtra).to.eql(10);
+        });
+
+        it('does not remove from plan.consecutive.gemCapExtra from basic_12mo to basic_3mo', async () => {
+          expect(user.purchased.plan.planId).to.not.exist;
+
+          data.sub.key = 'basic_12mo';
+          await api.createSubscription(data);
+
+          expect(user.purchased.plan.planId).to.eql('basic_12mo');
+          expect(user.purchased.plan.consecutive.gemCapExtra).to.eql(20);
+
+          data.sub.key = 'basic_3mo';
+          data.updatedFrom = { key: 'basic_12mo' };
+          await api.createSubscription(data);
+          expect(user.purchased.plan.consecutive.gemCapExtra).to.eql(20);
+        });
+
+        it('does not remove from plan.consecutive.trinkets from basic_6mo to basic_earned', async () => {
+          data.sub.key = 'basic_6mo';
+          expect(user.purchased.plan.planId).to.not.exist;
+
+          await api.createSubscription(data);
+
+          expect(user.purchased.plan.planId).to.eql('basic_6mo');
+          expect(user.purchased.plan.consecutive.trinkets).to.eql(2);
+
+          data.sub.key = 'basic_earned';
+          data.updatedFrom = { key: 'basic_6mo' };
+          await api.createSubscription(data);
+          expect(user.purchased.plan.planId).to.eql('basic_earned');
+          expect(user.purchased.plan.consecutive.trinkets).to.eql(2);
+        });
+
+        it('does not remove from plan.consecutive.trinkets from basic_12mo to basic_3mo', async () => {
+          expect(user.purchased.plan.planId).to.not.exist;
+
+          data.sub.key = 'basic_12mo';
+          await api.createSubscription(data);
+
+          expect(user.purchased.plan.planId).to.eql('basic_12mo');
+          expect(user.purchased.plan.consecutive.trinkets).to.eql(4);
+
+          data.sub.key = 'basic_3mo';
+          data.updatedFrom = { key: 'basic_12mo' };
+          await api.createSubscription(data);
+          expect(user.purchased.plan.consecutive.trinkets).to.eql(4);
+        });
       });
     });
 
@@ -672,10 +901,12 @@ describe('payments/index', () => {
     context('No Active Promotion', () => {
       beforeEach(() => {
         sinon.stub(worldState, 'getCurrentEvent').returns(null);
+        sinon.stub(worldState, 'getCurrentEventList').returns([]);
       });
 
       afterEach(() => {
         worldState.getCurrentEvent.restore();
+        worldState.getCurrentEventList.restore();
       });
 
       it('does not apply a discount', async () => {
@@ -692,14 +923,14 @@ describe('payments/index', () => {
 
     context('Active Promotion', () => {
       beforeEach(() => {
-        sinon.stub(worldState, 'getCurrentEvent').returns({
+        sinon.stub(worldState, 'getCurrentEventList').returns([{
           ...common.content.events.fall2020,
           event: 'fall2020',
-        });
+        }]);
       });
 
       afterEach(() => {
-        worldState.getCurrentEvent.restore();
+        worldState.getCurrentEventList.restore();
       });
 
       it('applies a discount', async () => {

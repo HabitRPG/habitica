@@ -17,6 +17,10 @@
           :reset-counter="resetCounter"
         />
 
+        <subscription-and-perks
+          :hero="hero"
+        />
+
         <cron-and-auth
           :hero="hero"
           :reset-counter="resetCounter"
@@ -45,6 +49,7 @@
 
         <transactions
           :hero="hero"
+          :reset-counter="resetCounter"
         />
 
         <contributor-details
@@ -97,6 +102,7 @@ import AvatarAndDrops from './avatarAndDrops';
 import PrivilegesAndGems from './privilegesAndGems';
 import ContributorDetails from './contributorDetails';
 import Transactions from './transactions';
+import SubscriptionAndPerks from './subscriptionAndPerks';
 
 import { userStateMixin } from '../../../mixins/userState';
 
@@ -110,6 +116,7 @@ export default {
     PrivilegesAndGems,
     ContributorDetails,
     Transactions,
+    SubscriptionAndPerks,
   },
   mixins: [userStateMixin],
   data () {
