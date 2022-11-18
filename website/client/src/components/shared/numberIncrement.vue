@@ -2,9 +2,9 @@
   <div class="d-flex flex-row align-items-center justify-content-center">
     <div
       class="gray-circle"
-      @click="gift.gems.amount <= 0
-        ? gift.gems.amount = 0
-        : gift.gems.amount--"
+      @click="gems.amount <= 0
+        ? gems.amount = 0
+        : gems.amount--"
     >
       <div
         class="icon-negative"
@@ -20,14 +20,14 @@
       </div>
       <input
         id="gemsForm"
-        v-model.number="gift.gems.amount"
+        v-model.number="gems.amount"
         class="form-control"
-        max="9999"
+        :max="itemContextToSell.itemCount"
       >
     </div>
     <div
       class="gray-circle"
-      @click="gift.gems.amount++"
+      @click="gems.amount++"
     >
       <div
         class="icon-positive"
@@ -107,10 +107,10 @@ export default {
   data () {
     return {
       icons: Object.freeze({
-        goldIcon,
-        gemIcon,
-        positiveIcon,
-        negativeIcon,
+        gold: gemIcon,
+        gem: goldIcon,
+        plus: positiveIcon,
+        minus: negativeIcon,
       }),
     };
   },

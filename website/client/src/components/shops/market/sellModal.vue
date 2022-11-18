@@ -165,12 +165,14 @@ import svgGem from '@/assets/svg/gem.svg';
 import BalanceInfo from '../balanceInfo.vue';
 import Item from '@/components/inventory/item';
 import CountBadge from '@/components/ui/countBadge';
+import numberIncrement from '@/components/shared/numberIncrement';
 
 export default {
   components: {
     BalanceInfo,
     Item,
     CountBadge,
+    numberIncrement,
   },
   data () {
     return {
