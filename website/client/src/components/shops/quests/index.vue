@@ -402,6 +402,8 @@ import _sortBy from 'lodash/sortBy';
 import _throttle from 'lodash/throttle';
 import _groupBy from 'lodash/groupBy';
 import _map from 'lodash/map';
+import _each from 'lodash/each';
+import * as stopword from 'stopword/dist/stopword.esm.mjs';
 import { mapState } from '@/libs/store';
 
 import ShopItem from '../shopItem';
@@ -425,6 +427,51 @@ import FilterGroup from '@/components/ui/filterGroup';
 import SelectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
 import QuestPopover from './questPopover';
 import { worldStateMixin } from '@/mixins/worldState';
+
+function splitMultipleDelims (text, delims) {
+  const omniDelim = 'θνι';
+  let workingText = text;
+  for (const delim of delims) {
+    workingText = workingText.replace(new RegExp(delim, 'g'), omniDelim);
+  }
+  return workingText.split(omniDelim);
+}
+
+function removeStopwordsFromText (text, language) {
+  // list of supported languages https://www.npmjs.com/package/stopword
+  const langs = {
+    bg: stopword.bul,
+    cs: stopword.ces,
+    da: stopword.dan,
+    de: stopword.deu,
+    en: stopword.eng,
+    en_GB: stopword.eng,
+    'en@pirate': stopword.eng.concat(["th'"]),
+    es: stopword.spa,
+    es_419: stopword.spa,
+    fr: stopword.fra,
+    he: stopword.heb,
+    hu: stopword.hun,
+    id: stopword.ind,
+    it: stopword.ita,
+    ja: stopword.jpn,
+    nl: stopword.nld,
+    pl: stopword.pol,
+    pt: stopword.por,
+    pt_BR: stopword.porBr,
+    ro: stopword.ron,
+    ru: stopword.rus,
+    sk: stopword.slv,
+    // sr: stopword.,
+    sv: stopword.swe,
+    tr: stopword.tur,
+    uk: stopword.ukr,
+    zh: stopword.zho,
+    zh_TW: stopword.zho,
+  };
+  const splitText = splitMultipleDelims(text, [' ', "'"]);
+  return stopword.removeStopwords(splitText, langs[language] || stopword.eng).join(' ').toLowerCase();
+}
 
 export default {
   components: {
@@ -539,7 +586,14 @@ export default {
 
       switch (sortBy) { // eslint-disable-line default-case
         case 'AZ': {
-          result = _sortBy(result, ['text']);
+          if (category.identifier === 'pet' || category.identifier === 'hatchingPotion') {
+            _each(result, item => {
+              item.sortText = removeStopwordsFromText(item.text, this.user.preferences.language);
+            });
+            result = _sortBy(result, ['sortText']);
+          } else {
+            result = _sortBy(result, ['text']);
+          }
 
           break;
         }
