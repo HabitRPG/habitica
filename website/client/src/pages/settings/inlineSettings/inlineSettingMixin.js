@@ -1,12 +1,12 @@
 export const InlineSettingMixin = {
   data () {
     return {
-      show: false,
+      modalVisible: false,
     };
   },
   methods: {
-    resetAndClose () {
-      this.show = false;
+    closeModal () {
+      this.modalVisible = false;
     },
   },
 };

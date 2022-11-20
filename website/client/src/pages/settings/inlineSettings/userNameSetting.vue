@@ -1,7 +1,7 @@
 <template>
   <fragment>
     <tr
-      v-if="!show"
+      v-if="!modalVisible"
     >
       <td class="settings-label">
         {{ $t("username") }}
@@ -12,14 +12,14 @@
       <td class="settings-button">
         <a
           class="edit-link"
-          @click.prevent="show = true"
+          @click.prevent="modalVisible = true"
         >
           {{ $t(user?.auth?.local?.username ? 'edit' : 'add') }}
         </a>
       </td>
     </tr>
     <tr
-      v-if="show"
+      v-if="modalVisible"
       class="expanded"
     >
       <td colspan="3">
@@ -74,7 +74,7 @@
           <save-cancel-buttons
             :disable-save="usernameCannotSubmit"
             @saveClicked="changeUser('username', cleanedInputValue)"
-            @cancelClicked="resetAndClose()"
+            @cancelClicked="closeModal()"
           />
         </div>
       </td>

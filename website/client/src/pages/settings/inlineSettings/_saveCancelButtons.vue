@@ -1,12 +1,13 @@
 <template>
   <div class="buttons">
     <button
-      class="btn btn-primary btn-save"
+      class="btn btn-save"
+      :class="primaryButtonColor ?? 'btn-primary'"
       type="submit"
       :disabled="disableSave"
       @click="$emit('saveClicked')"
     >
-      {{ $t('save') }}
+      {{ $t(primaryButtonLabel ?? 'save') }}
     </button>
     <br>
 
@@ -22,7 +23,7 @@
 <script>
 export default {
   name: 'SaveCancelButtons',
-  props: ['disableSave'],
+  props: ['disableSave', 'primaryButtonLabel', 'primaryButtonColor'],
 };
 </script>
 

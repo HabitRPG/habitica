@@ -184,7 +184,7 @@ export default {
   },
   methods: {
     resetAndClose () {
-      this.show = false;
+      this.modalVisible = false;
     },
     restoreDisplayName () {
       if (this.temporaryDisplayName.length < 1) {

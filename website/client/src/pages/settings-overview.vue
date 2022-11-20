@@ -119,6 +119,10 @@
         font-size: 14px;
         font-weight: bold;
         color: $purple-300;
+
+        &.danger {
+          color: $maroon-50;
+        }
       }
 
       .dialog-disclaimer {

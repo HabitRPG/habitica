@@ -1,7 +1,7 @@
 <template>
   <fragment>
     <tr
-      v-if="!show"
+      v-if="!modalVisible"
     >
       <td class="settings-label">
         {{ $t("email") }}
@@ -12,14 +12,14 @@
       <td class="settings-button">
         <a
           class="edit-link"
-          @click.prevent="show = true"
+          @click.prevent="modalVisible = true"
         >
           {{ $t('edit') }}
         </a>
       </td>
     </tr>
     <tr
-      v-if="show"
+      v-if="modalVisible"
       class="expanded"
     >
       <td colspan="3">
@@ -72,7 +72,7 @@
         <save-cancel-buttons
           :disable-save="allowedToSave"
           @saveClicked="changeEmail()"
-          @cancelClicked="resetAndClose()"
+          @cancelClicked="closeModal()"
         />
       </td>
     </tr>

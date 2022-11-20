@@ -18,6 +18,7 @@
         <user-email-setting />
         <display-name-setting />
         <password-setting />
+        <reset-account />
         <tr>
           <td colspan="3"></td>
         </tr>
@@ -56,9 +57,11 @@ import UserNameSetting from '@/pages/settings/inlineSettings/userNameSetting';
 import UserEmailSetting from '@/pages/settings/inlineSettings/userEmailSetting';
 import DisplayNameSetting from '@/pages/settings/inlineSettings/displayNameSetting';
 import PasswordSetting from '@/pages/settings/inlineSettings/passwordSetting';
+import ResetAccount from '@/pages/settings/inlineSettings/resetAccount';
 
 export default {
   components: {
+    ResetAccount,
     PasswordSetting,
     DisplayNameSetting,
     UserEmailSetting,

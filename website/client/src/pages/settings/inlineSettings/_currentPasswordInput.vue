@@ -5,7 +5,7 @@
         {{ $t(customLabel ?? "password") }}
       </div>
       <div
-        v-if="forgotPassword"
+        v-if="showForgetPassword"
         class="forgot-password"
       >
         <a
