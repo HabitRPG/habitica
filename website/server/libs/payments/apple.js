@@ -106,6 +106,10 @@ api.verifyGemPurchase = async function verifyGemPurchase (options) {
 };
 
 api.subscribe = async function subscribe (sku, user, receipt, headers, nextPaymentProcessing) {
+  if (user && user.isSubscribed()) {
+    throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
+  }
+
   if (!sku) throw new BadRequest(shared.i18n.t('missingSubscriptionCode'));
 
   let subCode;
@@ -136,49 +140,33 @@ api.subscribe = async function subscribe (sku, user, receipt, headers, nextPayme
     throw new NotAuthorized(api.constants.RESPONSE_NO_ITEM_PURCHASED);
   }
 
-  let originalTransactionId;
-  let newTransactionId;
+  let transactionId;
 
   for (const purchaseData of purchaseDataList) {
     const dateTerminated = new Date(Number(purchaseData.expirationDate));
     if (purchaseData.productId === sku && dateTerminated > new Date()) {
-      originalTransactionId = purchaseData.originalTransactionId;
-      newTransactionId = purchaseData.transactionId;
+      transactionId = purchaseData.transactionId;
       break;
     }
   }
 
-  if (originalTransactionId) {
-    let existingSub;
-    if (user && user.isSubscribed()) {
-      if (user.purchased.plan.customerId !== originalTransactionId) {
-        throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
-      }
-      existingSub = shared.content.subscriptionBlocks[user.purchased.plan.planId];
-    }
+  if (transactionId) {
     const existingUser = await User.findOne({
-      'purchased.plan.customerId': originalTransactionId,
+      'purchased.plan.customerId': transactionId,
     }).exec();
-    if (existingUser
-      && (originalTransactionId === newTransactionId || existingUser._id !== user._id)) {
-      throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
-    }
+    if (existingUser) throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
 
     nextPaymentProcessing = nextPaymentProcessing || moment.utc().add({ days: 2 }); // eslint-disable-line max-len, no-param-reassign
 
-    const data = {
+    await payments.createSubscription({
       user,
-      customerId: originalTransactionId,
+      customerId: transactionId,
       paymentMethod: this.constants.PAYMENT_METHOD_APPLE,
       sub,
       headers,
       nextPaymentProcessing,
       additionalData: receipt,
-    };
-    if (existingSub) {
-      data.updatedFrom = existingSub;
-    }
-    await payments.createSubscription(data);
+    });
   } else {
     throw new NotAuthorized(api.constants.RESPONSE_INVALID_RECEIPT);
   }
