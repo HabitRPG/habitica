@@ -21,15 +21,15 @@ export const EVENTS = {
     season: 'thanksgiving',
     npcImageSuffix: '_thanksgiving',
   },
-  bundle202211: {
-    start: '2022-11-15T08:00-05:00',
-    end: '2022-11-30T20:00-05:00',
-  },
   afterGala: {
     start: '2022-10-31T20:00-04:00',
     end: '2022-11-22T08:00-05:00',
     season: 'normal',
     npcImageSuffix: '',
+  },
+  bundle202211: {
+    start: '2022-11-15T08:00-05:00',
+    end: '2022-11-30T20:00-05:00',
   },
   fall2022: {
     start: '2022-09-20T08:00-04:00',
