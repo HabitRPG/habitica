@@ -52,6 +52,7 @@
                 type="text"
                 :placeholder="$t('newUsername')"
                 :class="{ 'is-invalid input-invalid': !usernameValid }"
+                @keyup="inputChanged = true"
                 @blur="restoreEmptyUsername()"
               >
               <div class="input-floating-checkmark">
@@ -147,6 +148,7 @@ export default {
   data () {
     return {
       inputValue: '',
+      inputChanged: false,
       usernameIssues: [],
       icons: Object.freeze({
         checkIcon,
@@ -172,7 +174,7 @@ export default {
       if (this.cleanedInputValue.length <= 1) {
         return true;
       }
-      return !this.usernameValid;
+      return !this.usernameValid || !this.inputChanged;
     },
   },
   watch: {

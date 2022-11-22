@@ -58,6 +58,7 @@
 
         <div class="input-area">
           <save-cancel-buttons
+            :disable-save="!passwordValue"
             primary-button-color="btn-danger"
             primary-button-label="deleteAccount"
             @saveClicked="deleteAccount()"

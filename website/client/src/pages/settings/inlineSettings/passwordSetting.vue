@@ -53,6 +53,7 @@
         />
 
         <save-cancel-buttons
+          :disable-save="inputsInvalid"
           @saveClicked="changePassword( passwordUpdates)"
           @cancelClicked="closeModal()"
         />
@@ -121,8 +122,21 @@ export default {
   mixins: [InlineSettingMixin],
   data () {
     return {
-      passwordUpdates: {},
+      passwordUpdates: {
+        password: '',
+        newPassword: '',
+        confirmPassword: '',
+      },
     };
+  },
+  computed: {
+    inputsInvalid () {
+      if (!this.passwordUpdates.password) {
+        return true;
+      }
+
+      return this.passwordUpdates.newPassword !== this.passwordUpdates.confirmPassword;
+    },
   },
   methods: {
     async changePassword (updates) {

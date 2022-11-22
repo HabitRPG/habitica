@@ -53,6 +53,7 @@
                 type="text"
                 :placeholder="$t('newDisplayName')"
                 :class="{'is-invalid input-invalid': displayNameInvalid}"
+                @keyup="inputChanged = true"
               >
               <div
                 v-if="displayNameIssues.length > 0"
@@ -144,6 +145,7 @@ export default {
   data () {
     return {
       temporaryDisplayName: '',
+      inputChanged: false,
       displayNameIssues: [],
       updates: {
         newEmail: '',
@@ -165,16 +167,14 @@ export default {
       return !this.validEmail || this.updates.password.length === 0;
     },
     displayNameInvalid () {
-      if (this.temporaryDisplayName.length <= 1) return false;
-      return !this.displayNameValid;
-    },
-    displayNameValid () {
-      if (this.temporaryDisplayName.length <= 1) return false;
-      return this.displayNameIssues.length === 0;
+      if (this.temporaryDisplayName.length <= 1) {
+        return false;
+      }
+
+      return true;
     },
     displayNameCannotSubmit () {
-      if (this.temporaryDisplayName.length <= 1) return true;
-      return !this.displayNameValid;
+      return this.displayNameInvalid || !this.inputChanged;
     },
   },
   mounted () {
