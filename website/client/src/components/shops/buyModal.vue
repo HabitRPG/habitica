@@ -78,6 +78,9 @@
           >
             <strong>{{ $t('howManyToBuy') }}</strong>
           </div>
+          <div>
+            <number-increment />
+          </div>
           <div v-if="showAmountToBuy(item)">
             <div class="box">
               <input
@@ -377,6 +380,7 @@ import CountdownBanner from './countdownBanner';
 import currencyMixin from './_currencyMixin';
 import notifications from '@/mixins/notifications';
 import buyMixin from '@/mixins/buy';
+import numberIncrement from '@/components/shared/numberIncrement';
 
 import { mapState } from '@/libs/store';
 
@@ -408,6 +412,7 @@ export default {
     Avatar,
     PinBadge,
     CountdownBanner,
+    numberIncrement,
   },
   mixins: [buyMixin, currencyMixin, notifications, numberInvalid, spellsMixin],
   props: {

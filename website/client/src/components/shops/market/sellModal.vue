@@ -47,6 +47,9 @@
               <b class="how-many-to-sell">{{ $t('howManyToSell') }}</b>
             </div>
             <div>
+              <number-increment />
+            </div>
+            <div>
               <b-input
                 v-model="selectedAmountToSell"
                 class="itemsToSell"

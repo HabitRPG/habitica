@@ -1,37 +1,91 @@
 <template>
   <div class="d-flex flex-row align-items-center justify-content-center">
+    <!-- negative -->
     <div
+      v-if="buy-modal"
       class="gray-circle"
-      @click="gems.amount <= 0
-        ? gems.amount = 0
-        : gems.amount--"
+      @click="selectedAmountToBuy <= 0
+        ? selectedAmountToBuy = 0
+        : selectedAmountToBuy--"
     >
       <div
         class="icon-negative"
-        v-html="icons.negativeIcon"
+        v-html="icons.negative"
       ></div>
     </div>
+    <div
+      v-else-if="sell-modal"
+      class="gray-circle"
+      @click="selectedAmountToSell <= 0
+        ? selectedAmountToSell = 0
+        : selectedAmountToSell--"
+    >
+      <div
+        class="icon-negative"
+        v-html="icons.negative"
+      ></div>
+    </div>
+    <div
+      v-else
+      class="gray-circle"
+      @click="gift.gems.amount <= 0
+        ? gift.gems.amount = 0
+        : gift.gems.amount--"
+    >
+      <div
+        class="icon-negative"
+        v-html="icons.negative"
+      ></div>
+    </div>
+    <!-- quantity -->
     <div class="input-group">
       <div class="input-group-prepend input-group-icon align-items-center">
         <div
+          v-if="send-gift"
           class="icon-gem"
-          v-html="icons.gemIcon"
+          v-html="icons.gem"
         ></div>
+        <div
+          v-else
+        >
+        </div>
       </div>
       <input
         id="gemsForm"
-        v-model.number="gems.amount"
+        v-model.number="variable"
         class="form-control"
-        :max="itemContextToSell.itemCount"
+        min="1"
       >
     </div>
+    <!-- positive -->
     <div
+      v-if="buy-modal"
       class="gray-circle"
-      @click="gems.amount++"
+      @click="selectedAmountToBuy++"
     >
       <div
         class="icon-positive"
-        v-html="icons.positiveIcon"
+        v-html="icons.positive"
+      ></div>
+    </div>
+    <div
+      v-else-if="sell-modal"
+      class="gray-circle"
+      @click="selectedAmountToSell++"
+    >
+      <div
+        class="icon-positive"
+        v-html="icons.positive"
+      ></div>
+    </div>
+    <div
+      v-else
+      class="gray-circle"
+      @click="gift.gems.amount++"
+    >
+      <div
+        class="icon-positive"
+        v-html="icons.positive"
       ></div>
     </div>
   </div>
@@ -98,10 +152,16 @@
 </style>
 
 <script>
+// icons
 import gemIcon from '@/assets/svg/gem.svg';
 import goldIcon from '@/assets/svg/gold.svg';
 import positiveIcon from '@/assets/svg/positive.svg';
 import negativeIcon from '@/assets/svg/negative.svg';
+
+// modules
+// import keys from 'lodash/keys';
+
+import { mapState } from '@/libs/store';
 
 export default {
   data () {
@@ -112,7 +172,44 @@ export default {
         plus: positiveIcon,
         minus: negativeIcon,
       }),
+      selectedAmountToBuy: 1,
+      selectedAmountToSell: 1,
+      gift: {
+        type: 'gems',
+        gems: {
+          amount: 0,
+          fromBalance: true,
+        },
+      },
+      gemCost: 1,
     };
+  },
+  computed: {
+    ...mapState({ user: 'user.data' }), // might not need this?
+    notEnoughCurrency () {
+      const notEnoughCurrency = !this.enoughCurrency(this.getPriceClass(),
+        this.item.value * this.selectedAmountToBuy);
+      return notEnoughCurrency;
+    },
+    userGold () {
+      const userGold = this.user.currency;
+      return userGold;
+    },
+    maxItemsToBuy () {
+      const maxItemsToBuy = this.userGold
+        ? this.userGold / this.item.currency
+        : this.notEnoughCurrency;
+      return maxItemsToBuy;
+    },
+
+    getPriceClass () {
+      if (this.priceType && this.icons[this.priceType]) {
+        return this.priceType;
+      } if (this.item.currency && this.icons[this.item.currency]) {
+        return this.item.currency;
+      }
+      return 'gold';
+    },
   },
 };
 
