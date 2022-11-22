@@ -344,6 +344,24 @@ describe('POST /user/auth/local/register', () => {
       });
     });
 
+    it('enforces maximum length for the password', async () => {
+      const username = generateRandomUserName();
+      const email = `${username}@example.com`;
+      const password = '12345678910111213141516171819202122232425262728293031323334353637383940';
+      const confirmPassword = '12345678910111213141516171819202122232425262728293031323334353637383940';
+
+      await expect(api.post('/user/auth/local/register', {
+        username,
+        email,
+        password,
+        confirmPassword,
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('invalidReqParams'),
+      });
+    });
+
     it('requires a username', async () => {
       const email = `${generateRandomUserName()}@example.com`;
       const password = 'password';

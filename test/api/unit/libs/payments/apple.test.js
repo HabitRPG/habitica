@@ -218,7 +218,6 @@ describe('Apple Payments', () => {
       headers = {};
       receipt = `{"token": "${token}"}`;
       nextPaymentProcessing = moment.utc().add({ days: 2 });
-      user = new User();
 
       iapSetupStub = sinon.stub(iap, 'setup')
         .resolves();
@@ -299,7 +298,6 @@ describe('Apple Payments', () => {
             expirationDate: moment.utc().add({ day: 1 }).toDate(),
             productId: option.sku,
             transactionId: token,
-            originalTransactionId: token,
           }]);
         sub = common.content.subscriptionBlocks[option.subKey];
 
@@ -323,111 +321,12 @@ describe('Apple Payments', () => {
           nextPaymentProcessing,
         });
       });
-      if (option !== subOptions[3]) {
-        const newOption = subOptions[3];
-        it(`upgrades a subscription from ${option.sku} to ${newOption.sku}`, async () => {
-          const oldSub = common.content.subscriptionBlocks[option.subKey];
-          user.profile.name = 'sender';
-          user.purchased.plan.paymentMethod = applePayments.constants.PAYMENT_METHOD_APPLE;
-          user.purchased.plan.customerId = token;
-          user.purchased.plan.planId = option.subKey;
-          user.purchased.plan.additionalData = receipt;
-          iap.getPurchaseData.restore();
-          iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
-            .returns([{
-              expirationDate: moment.utc().add({ day: 2 }).toDate(),
-              productId: newOption.sku,
-              transactionId: `${token}new`,
-              originalTransactionId: token,
-            }]);
-          sub = common.content.subscriptionBlocks[newOption.subKey];
-
-          await applePayments.subscribe(newOption.sku,
-            user,
-            receipt,
-            headers,
-            nextPaymentProcessing);
-
-          expect(iapSetupStub).to.be.calledOnce;
-          expect(iapValidateStub).to.be.calledOnce;
-          expect(iapValidateStub).to.be.calledWith(iap.APPLE, receipt);
-          expect(iapIsValidatedStub).to.be.calledOnce;
-          expect(iapIsValidatedStub).to.be.calledWith({});
-          expect(iapGetPurchaseDataStub).to.be.calledOnce;
-
-          expect(paymentsCreateSubscritionStub).to.be.calledOnce;
-          expect(paymentsCreateSubscritionStub).to.be.calledWith({
-            user,
-            customerId: token,
-            paymentMethod: applePayments.constants.PAYMENT_METHOD_APPLE,
-            sub,
-            headers,
-            additionalData: receipt,
-            nextPaymentProcessing,
-            updatedFrom: oldSub,
-          });
-        });
-      }
-      if (option !== subOptions[0]) {
-        const newOption = subOptions[0];
-        it(`downgrades a subscription from ${option.sku} to ${newOption.sku}`, async () => {
-          const oldSub = common.content.subscriptionBlocks[option.subKey];
-          user.profile.name = 'sender';
-          user.purchased.plan.paymentMethod = applePayments.constants.PAYMENT_METHOD_APPLE;
-          user.purchased.plan.customerId = token;
-          user.purchased.plan.planId = option.subKey;
-          user.purchased.plan.additionalData = receipt;
-          iap.getPurchaseData.restore();
-          iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
-            .returns([{
-              expirationDate: moment.utc().add({ day: 2 }).toDate(),
-              productId: newOption.sku,
-              transactionId: `${token}new`,
-              originalTransactionId: token,
-            }]);
-          sub = common.content.subscriptionBlocks[newOption.subKey];
-
-          await applePayments.subscribe(newOption.sku,
-            user,
-            receipt,
-            headers,
-            nextPaymentProcessing);
-
-          expect(iapSetupStub).to.be.calledOnce;
-          expect(iapValidateStub).to.be.calledOnce;
-          expect(iapValidateStub).to.be.calledWith(iap.APPLE, receipt);
-          expect(iapIsValidatedStub).to.be.calledOnce;
-          expect(iapIsValidatedStub).to.be.calledWith({});
-          expect(iapGetPurchaseDataStub).to.be.calledOnce;
-
-          expect(paymentsCreateSubscritionStub).to.be.calledOnce;
-          expect(paymentsCreateSubscritionStub).to.be.calledWith({
-            user,
-            customerId: token,
-            paymentMethod: applePayments.constants.PAYMENT_METHOD_APPLE,
-            sub,
-            headers,
-            additionalData: receipt,
-            nextPaymentProcessing,
-            updatedFrom: oldSub,
-          });
-        });
-      }
     });
 
-    it('errors when a user is using the same subscription', async () => {
+    it('errors when a user is already subscribed', async () => {
+      payments.createSubscription.restore();
       user = new User();
       await user.save();
-      payments.createSubscription.restore();
-
-      iap.getPurchaseData.restore();
-      iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
-        .returns([{
-          expirationDate: moment.utc().add({ day: 1 }).toDate(),
-          productId: sku,
-          transactionId: token,
-          originalTransactionId: token,
-        }]);
 
       await applePayments.subscribe(sku, user, receipt, headers, nextPaymentProcessing);
 
