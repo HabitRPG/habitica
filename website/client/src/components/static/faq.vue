@@ -9,36 +9,32 @@
           {{ $t('frequentlyAskedQuestions') }}
         </h1>
         <div
-          v-for="(heading, index) in headings"
+          v-for="(entry, index) in faq.questions"
           :key="index"
           class="faq-question"
         >
-          <div
-            v-if="heading !== 'world-boss'"
+          <h2
+            v-b-toggle="entry.heading"
+            role="tab"
+            variant="info"
+            @click="handleClick($event)"
           >
-            <h2
-              v-b-toggle="heading"
-              role="tab"
-              variant="info"
-              @click="handleClick($event)"
-            >
-              {{ $t(`faqQuestion${index}`) }}
-            </h2>
-            <b-collapse
-              :id="heading"
-              :visible="isVisible(heading)"
-              accordion="faq"
-              role="tabpanel"
-            >
-              <div
-                v-markdown="$t(`webFaqAnswer${index}`, replacements)"
-                class="card-body"
-              ></div>
-            </b-collapse>
-          </div>
+            {{ entry.question }}
+          </h2>
+          <b-collapse
+            :id="entry.heading"
+            :visible="isVisible(entry.heading)"
+            accordion="faq"
+            role="tabpanel"
+          >
+            <div
+              v-markdown="entry.web"
+              class="card-body"
+            ></div>
+          </b-collapse>
         </div>
         <hr>
-        <p v-markdown="$t('webFaqStillNeedHelp')"></p>
+        <p v-markdown="stillNeedHelp"></p>
       </div>
     </div>
   </div>
@@ -46,7 +42,7 @@
 
 <style lang='scss' scoped>
   .card-body {
-      margin-bottom: 1em;
+    margin-bottom: 1em;
   }
 
   .faq-question h2 {
@@ -74,53 +70,34 @@
 </style>
 
 <script>
-// @TODO:  env.EMAILS.TECH_ASSISTANCE_EMAIL
 import markdownDirective from '@/directives/markdown';
-
-const TECH_ASSISTANCE_EMAIL = 'admin@habitica.com';
 
 export default {
   directives: {
     markdown: markdownDirective,
   },
   data () {
-    const headings = [
-      'overview',
-      'set-up-tasks',
-      'sample-tasks',
-      'task-color',
-      'health',
-      'party-with-friends',
-      'pets-mounts',
-      'character-classes',
-      'blue-mana-bar',
-      'monsters-quests',
-      'gems',
-      'bugs-features',
-      'world-boss',
-      'group-plans',
-    ];
-
-    const hash = window.location.hash.replace('#', '');
-
     return {
-      headings,
-      replacements: {
-        techAssistanceEmail: TECH_ASSISTANCE_EMAIL,
-        wikiTechAssistanceEmail: `mailto:${TECH_ASSISTANCE_EMAIL}`,
-      },
-      visible: hash && headings.includes(hash) ? hash : null,
+      faq: {},
+      headings: [],
+      stillNeedHelp: '',
     };
   },
-  mounted () {
+  async mounted () {
     this.$store.dispatch('common:setTitle', {
       section: this.$t('help'),
       subSection: this.$t('faq'),
     });
+    this.faq = await this.$store.dispatch('faq:getFAQ');
+    for (const entry of this.faq.questions) {
+      this.headings.push(entry.heading);
+    }
+    this.stillNeedHelp = this.faq.stillNeedHelp.web;
   },
   methods: {
     isVisible (heading) {
-      return this.visible && this.visible === heading;
+      const hash = window.location.hash.replace('#', '');
+      return hash && this.headings.includes(hash) && hash === heading;
     },
     handleClick (e) {
       if (!e) return;
