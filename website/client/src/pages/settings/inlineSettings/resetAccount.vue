@@ -12,7 +12,7 @@
         <a
           v-if="!!user?.auth?.local?.username"
           class="edit-link"
-          @click.prevent="modalVisible = true"
+          @click.prevent="openModal()"
         >
           {{ $t('learnMore') }}
         </a>

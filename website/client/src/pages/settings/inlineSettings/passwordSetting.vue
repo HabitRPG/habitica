@@ -11,7 +11,7 @@
       <td class="settings-button">
         <a
           class="edit-link"
-          @click.prevent="modalVisible = true"
+          @click.prevent="openModal()"
         >
           {{ $t('edit') }}
         </a>

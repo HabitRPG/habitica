@@ -58,6 +58,8 @@ import UserEmailSetting from '@/pages/settings/inlineSettings/userEmailSetting';
 import DisplayNameSetting from '@/pages/settings/inlineSettings/displayNameSetting';
 import PasswordSetting from '@/pages/settings/inlineSettings/passwordSetting';
 import ResetAccount from '@/pages/settings/inlineSettings/resetAccount';
+import DeleteAccount from '@/pages/settings/inlineSettings/deleteAccount';
+import { sharedInlineSettingStore } from '@/pages/settings/inlineSettings/inlineSettingMixin';
 
 export default {
   components: {
@@ -68,5 +70,9 @@ export default {
     UserNameSetting,
   },
   mixins: [notificationsMixin],
+  beforeRouteLeave (_, __, next) {
+    sharedInlineSettingStore.markAsClosed();
+    next();
+  },
 };
 </script>

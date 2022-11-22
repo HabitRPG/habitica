@@ -1,7 +1,7 @@
 <template>
   <fragment>
     <tr
-      v-if="!show"
+      v-if="!modalVisible"
     >
       <td class="settings-label">
         {{ $t("displayName") }}
@@ -12,14 +12,14 @@
       <td class="settings-button">
         <a
           class="edit-link"
-          @click.prevent="show = true"
+          @click.prevent="openModal()"
         >
           {{ $t('edit') }}
         </a>
       </td>
     </tr>
     <tr
-      v-if="show"
+      v-if="modalVisible"
       class="expanded"
     >
       <td colspan="3">
@@ -72,7 +72,7 @@
           <save-cancel-buttons
             :disable-save="displayNameCannotSubmit"
             @saveClicked="changeDisplayName(temporaryDisplayName)"
-            @cancelClicked="resetAndClose()"
+            @cancelClicked="closeModal()"
           />
         </div>
       </td>
@@ -143,8 +143,6 @@ export default {
   mixins: [InlineSettingMixin],
   data () {
     return {
-      show: false,
-
       temporaryDisplayName: '',
       displayNameIssues: [],
       updates: {
@@ -183,9 +181,6 @@ export default {
     this.restoreDisplayName();
   },
   methods: {
-    resetAndClose () {
-      this.modalVisible = false;
-    },
     restoreDisplayName () {
       if (this.temporaryDisplayName.length < 1) {
         this.temporaryDisplayName = this.user.profile.name;
