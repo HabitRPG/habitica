@@ -19,6 +19,7 @@
         <display-name-setting />
         <password-setting />
         <reset-account />
+        <delete-account />
         <tr>
           <td colspan="3"></td>
         </tr>
@@ -63,6 +64,7 @@ import { sharedInlineSettingStore } from '@/pages/settings/inlineSettings/inline
 
 export default {
   components: {
+    DeleteAccount,
     ResetAccount,
     PasswordSetting,
     DisplayNameSetting,

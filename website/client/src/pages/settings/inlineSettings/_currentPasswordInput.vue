@@ -24,7 +24,7 @@
           v-model="currentPassword"
           class="form-control"
           :placeholder="$t(customLabel ?? 'password')"
-          type="text"
+          type="password"
           @keyup="$emit('passwordValue', currentPassword)"
         >
       </div>

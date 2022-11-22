@@ -4,13 +4,12 @@
       v-if="!modalVisible"
     >
       <td class="settings-label">
-        {{ $t("resetAccount") }}
+        {{ $t("deleteAccount") }}
       </td>
       <td class="settings-value">
       </td>
       <td class="settings-button">
         <a
-          v-if="!!user?.auth?.local?.username"
           class="edit-link"
           @click.prevent="openModal()"
         >
@@ -27,47 +26,41 @@
           v-once
           class="dialog-title danger"
         >
-          {{ $t("resetAccount") }}
+          {{ $t("deleteAccount") }}
         </div>
         <div
           v-once
           class="dialog-disclaimer"
-          v-html="$t('resetText1')"
+          v-html="$t('deleteLocalAccountText')"
         >
         </div>
-        <ul class="row my-3">
-          <li
-            v-once
-            class="col-6"
-          >
-            {{ $t('resetDetail1') }}
-          </li>
-          <li class="col-6">
-            {{ $t('resetDetail2') }}
-          </li>
-          <li class="col-6">
-            {{ $t('resetDetail3') }}
-          </li>
-          <li class="col-6">
-            {{ $t('resetDetail4') }}
-          </li>
-        </ul>
+        <current-password-input
+          :show-forget-password="true"
+          @passwordValue="passwordValue = $event"
+        />
+
         <div
           v-once
-          v-html="$t('resetDetail5')"
+          v-html="$t('feedback')"
         >
         </div>
 
+        <div
+          class="input-area"
+        >
+          <textarea
+            id="feedbackTextArea"
+            v-model="feedback"
+            :placeholder="$t('feedbackPlaceholder')"
+            class="form-control"
+          ></textarea>
+        </div>
+
         <div class="input-area">
-          Todo Password Check for Reset (Missing in the API)
-          <current-password-input
-            :show-forget-password="true"
-            @passwordValue="passwordValue = $event"
-          />
           <save-cancel-buttons
             primary-button-color="btn-danger"
-            primary-button-label="resetAccount"
-            @saveClicked="reset()"
+            primary-button-label="deleteAccount"
+            @saveClicked="deleteAccount()"
             @cancelClicked="closeModal()"
           />
         </div>
@@ -96,6 +89,7 @@ export default {
   data () {
     return {
       passwordValue: '',
+      feedback: '',
     };
   },
   computed: {
@@ -104,10 +98,15 @@ export default {
     }),
   },
   methods: {
-    async reset () {
-      await axios.post('/api/v4/user/reset');
-      this.$router.push('/');
-      setTimeout(() => window.location.reload(true), 100);
+    async deleteAccount () {
+      await axios.delete('/api/v4/user', {
+        data: {
+          password: this.passwordValue,
+          feedback: this.feedback,
+        },
+      });
+      localStorage.clear();
+      window.location.href = '/static/home';
     },
   },
 };
