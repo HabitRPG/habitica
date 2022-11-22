@@ -1,3 +1,4 @@
+import forEach from 'lodash/forEach';
 import t from './translation';
 
 const headings = [
@@ -17,9 +18,11 @@ const headings = [
   'group-plans',
 ];
 
-const EXCLUDE_ANDROID = [12, 13];
-const EXCLUDE_IOS = [12, 13];
-const EXCLUDE_WEB = [12];
+const exclusions = {
+  android: [12, 13],
+  ios: [12, 13],
+  web: [12],
+};
 
 const faq = {
   questions: [],
@@ -31,16 +34,23 @@ const faq = {
 
 headings.forEach((heading, index) => {
   const question = {
+    exclusions: [],
     heading,
     question: t(`faqQuestion${index}`),
-    android: EXCLUDE_ANDROID.indexOf(index) === -1 ? t(`androidFaqAnswer${index}`) : null,
-    ios: EXCLUDE_IOS.indexOf(index) === -1 ? t(`iosFaqAnswer${index}`) : null,
-    web: EXCLUDE_WEB.indexOf(index) === -1 ? t(`webFaqAnswer${index}`, {
+    android: t(`androidFaqAnswer${index}`),
+    ios: t(`iosFaqAnswer${index}`),
+    web: t(`webFaqAnswer${index}`, {
       //  TODO: Need to pull these values from nconf
       techAssistanceEmail: 'admin@habitica.com',
       wikiTechAssistanceEmail: 'mailto:admin@habitica.com',
-    }) : null,
+    }),
   };
+
+  forEach(exclusions, (platform, key) => {
+    if (platform.indexOf(index) !== -1) {
+      question.exclusions.push(key);
+    }
+  });
 
   faq.questions.push(question);
 });

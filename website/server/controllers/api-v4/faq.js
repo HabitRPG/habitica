@@ -22,7 +22,7 @@ function _deleteProperties (obj, keysToDelete, platform) {
 
 function _deleteOtherPlatformsAnswers (faqObject, platform) {
   const faqCopy = _.cloneDeep(faqObject);
-  _.remove(faqCopy.questions, question => question[platform] === null);
+  _.remove(faqCopy.questions, question => question.exclusions.indexOf(platform) !== -1);
   const keysToDelete = _.without(['web', 'ios', 'android'], platform);
 
   _deleteProperties(faqCopy.stillNeedHelp, keysToDelete, platform);
@@ -65,9 +65,9 @@ api.faq = {
     const proposedLang = req.query.language && req.query.language.toString();
     const language = langCodes.includes(proposedLang) ? proposedLang : 'en';
 
-    const { platform } = req.query || 'web';
+    const { platform } = req.query;
 
-    const dataToLocalize = _deleteOtherPlatformsAnswers(faq, platform);
+    const dataToLocalize = platform ? _deleteOtherPlatformsAnswers(faq, platform) : faq;
     res.respond(200, localizeContentData(dataToLocalize, language));
   },
 };
