@@ -263,8 +263,8 @@
 </style>
 
 <script>
+import moment from 'moment';
 import { mapState } from '@/libs/store';
-import seasonalShopConfig from '@/../../common/script/libs/shops-seasonal.config';
 
 import svgClock from '@/assets/svg/clock.svg';
 import svgClose from '@/assets/svg/close.svg';
