@@ -136,6 +136,8 @@
 
   .dropdown-menu.show {
     min-width: 100% !important;
+    overflow: scroll;
+    max-height: 400px;
   }
 }
 

@@ -9,7 +9,7 @@
       @show="isOpened = true"
       @hide="isOpened = false"
     >
-      <template v-slot:button-content>
+      <template #button-content>
         <slot
           name="item"
           :item="selected || placeholder"
@@ -23,9 +23,9 @@
         v-for="item in items"
         :key="keyProp ? item[keyProp] : item"
         :disabled="typeof item[disabledProp] === 'undefined' ? false : item[disabledProp]"
-        :active="item === selected"
+        :active="activeKeyProp ? item[activeKeyProp] === selected : item === selected"
         :class="{
-          active: item === selected,
+          active: activeKeyProp ? item[activeKeyProp] === selected : item === selected,
           selectListItem: true,
           showIcon: !hideIcon && item === selected
         }"
@@ -99,6 +99,9 @@ export default {
     },
     value: [String, Number, Object],
     keyProp: {
+      type: String,
+    },
+    activeKeyProp: {
       type: String,
     },
     disabledProp: {

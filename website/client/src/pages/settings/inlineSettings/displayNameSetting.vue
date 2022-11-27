@@ -136,8 +136,8 @@ import debounce from 'lodash/debounce';
 import { mapState } from '@/libs/store';
 
 import checkIcon from '@/assets/svg/check.svg';
-import SaveCancelButtons from '@/pages/settings/inlineSettings/_saveCancelButtons';
-import { InlineSettingMixin } from '@/pages/settings/inlineSettings/inlineSettingMixin';
+import SaveCancelButtons from './_saveCancelButtons';
+import { InlineSettingMixin } from './inlineSettingMixin';
 
 export default {
   components: { SaveCancelButtons },

@@ -86,8 +86,8 @@ import axios from 'axios';
 import { mapState } from '@/libs/store';
 
 import { InlineSettingMixin } from './inlineSettingMixin';
-import SaveCancelButtons from '@/pages/settings/inlineSettings/_saveCancelButtons';
-import CurrentPasswordInput from '@/pages/settings/inlineSettings/_currentPasswordInput';
+import SaveCancelButtons from './_saveCancelButtons';
+import CurrentPasswordInput from './_currentPasswordInput';
 
 
 export default {

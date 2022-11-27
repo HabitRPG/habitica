@@ -24,6 +24,74 @@
           <td colspan="3"></td>
         </tr>
       </table>
+
+      <h2 v-once>
+        {{ $t('loginMethods') }}
+      </h2>
+
+      <table class="table">
+        <tr>
+          <td colspan="3">
+            TODO
+          </td>
+        </tr>
+      </table>
+
+      <h2 v-once>
+        {{ $t('site') }}
+      </h2>
+
+      <table class="table">
+        <language-setting />
+        <tr>
+          <td colspan="3">
+            Date Format TODO
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            Day Start TODO
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            Language TODO
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            Audio TODO
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            Show header TODO
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            Sticky Header TODO
+          </td>
+        </tr>
+      </table>
+
+
+      <h2 v-once>
+        {{ $t('character') }}
+      </h2>
+
+      <table class="table">
+        <tr>
+          <td colspan="3">
+            Fix Values TODO
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            Change Class TODO
+          </td>
+        </tr>
+      </table>
     </div>
   </div>
 </template>
@@ -54,16 +122,18 @@
 
 <script>
 import notificationsMixin from '../../mixins/notifications';
-import UserNameSetting from '@/pages/settings/inlineSettings/userNameSetting';
-import UserEmailSetting from '@/pages/settings/inlineSettings/userEmailSetting';
-import DisplayNameSetting from '@/pages/settings/inlineSettings/displayNameSetting';
-import PasswordSetting from '@/pages/settings/inlineSettings/passwordSetting';
-import ResetAccount from '@/pages/settings/inlineSettings/resetAccount';
-import DeleteAccount from '@/pages/settings/inlineSettings/deleteAccount';
-import { sharedInlineSettingStore } from '@/pages/settings/inlineSettings/inlineSettingMixin';
+import UserNameSetting from './inlineSettings/userNameSetting';
+import UserEmailSetting from './inlineSettings/userEmailSetting';
+import DisplayNameSetting from './inlineSettings/displayNameSetting';
+import PasswordSetting from './inlineSettings/passwordSetting';
+import ResetAccount from './inlineSettings/resetAccount';
+import DeleteAccount from './inlineSettings/deleteAccount';
+import { sharedInlineSettingStore } from './inlineSettings/inlineSettingMixin';
+import LanguageSetting from './inlineSettings/languageSetting';
 
 export default {
   components: {
+    LanguageSetting,
     DeleteAccount,
     ResetAccount,
     PasswordSetting,

@@ -138,7 +138,7 @@ import { mapState } from '@/libs/store';
 
 import checkIcon from '@/assets/svg/check.svg';
 import { InlineSettingMixin } from './inlineSettingMixin';
-import SaveCancelButtons from '@/pages/settings/inlineSettings/_saveCancelButtons';
+import SaveCancelButtons from './_saveCancelButtons';
 
 // TODO extract usernameIssues/checks to a mixin to share between this and the authForm
 
