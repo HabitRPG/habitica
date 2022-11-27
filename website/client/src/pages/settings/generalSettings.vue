@@ -128,7 +128,7 @@ import DisplayNameSetting from './inlineSettings/displayNameSetting';
 import PasswordSetting from './inlineSettings/passwordSetting';
 import ResetAccount from './inlineSettings/resetAccount';
 import DeleteAccount from './inlineSettings/deleteAccount';
-import { sharedInlineSettingStore } from './inlineSettings/inlineSettingMixin';
+import { sharedInlineSettingStore } from './components/inlineSettingMixin';
 import LanguageSetting from './inlineSettings/languageSetting';
 
 export default {

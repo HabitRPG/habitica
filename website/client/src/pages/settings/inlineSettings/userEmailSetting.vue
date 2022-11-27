@@ -133,9 +133,9 @@ import * as validator from 'validator';
 import { mapState } from '@/libs/store';
 
 import checkIcon from '@/assets/svg/check.svg';
-import SaveCancelButtons from './_saveCancelButtons';
-import { InlineSettingMixin } from './inlineSettingMixin';
-import CurrentPasswordInput from './_currentPasswordInput';
+import SaveCancelButtons from '../components/_saveCancelButtons';
+import { InlineSettingMixin } from '../components/inlineSettingMixin';
+import CurrentPasswordInput from '../components/_currentPasswordInput';
 
 export default {
   components: { CurrentPasswordInput, SaveCancelButtons },

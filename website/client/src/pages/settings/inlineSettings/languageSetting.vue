@@ -86,10 +86,10 @@ input {
 <script>
 import { mapState } from '@/libs/store';
 
-import SaveCancelButtons from './_saveCancelButtons';
-import { InlineSettingMixin } from './inlineSettingMixin';
+import SaveCancelButtons from '../components/_saveCancelButtons';
+import { InlineSettingMixin } from '../components/inlineSettingMixin';
 import SelectList from '@/components/ui/selectList';
-import { GenericSettingMixin } from './genericSettingMixin';
+import { GenericSettingMixin } from '../components/genericSettingMixin';
 
 export default {
   components: { SelectList, SaveCancelButtons },
