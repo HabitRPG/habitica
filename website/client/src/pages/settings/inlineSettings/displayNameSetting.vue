@@ -168,13 +168,21 @@ export default {
     },
     displayNameInvalid () {
       if (this.temporaryDisplayName.length <= 1) {
-        return false;
+        return true;
       }
 
-      return true;
+      return this.displayNameIssues.length !== 0;
     },
     displayNameCannotSubmit () {
       return this.displayNameInvalid || !this.inputChanged;
+    },
+  },
+  watch: {
+    temporaryDisplayName: {
+      handler () {
+        this.validateDisplayName(this.temporaryDisplayName);
+      },
+      deep: true,
     },
   },
   mounted () {
