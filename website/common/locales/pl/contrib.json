@@ -49,9 +49,10 @@
     "balance": "Suma",
     "playerTiers": "Rangi graczy",
     "tier": "Ranga",
-    "conRewardsURL": "http://habitica.fandom.com/wiki/Contributor_Rewards",
+    "conRewardsURL": "https://habitica.fandom.com/wiki/Contributor_Rewards",
     "surveysSingle": "Pomógł rozwinąć Habitica poprzez wypełnienie ankiet lub testowanie. Dziękujemy!",
     "surveysMultiple": "Pomagał w rozwoju Habitiki przy <%= count %> okazjach, czy to wypełniając ankiety, czy też wkładając dużo wysiłku w testowanie. Dziękujemy!",
     "blurbHallPatrons": "To jest Sala patronów, gdzie oddajemy cześć szlachetnym poszukiwaczom przygód, którzy wsparli Habitica w pierwszej zbiórce na Kickstarterze. Dziękujemy im za pomoc w powołaniu Habitiki do życia!",
-    "blurbHallContributors": "To jest Sala Współtwórców, gdzie uhonorowani zostali open-source'owi współtwórcy Habitiki. Czy to za pomocą kodu, sztuki, muzyki, pisania, czy jedynie uczynności, zdobyli oni <a href='http://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'> klejnoty, ekskluzywne wyposażenie</a> oraz <a href='http://habitica.fandom.com/wiki/Contributor_Titles' target='_blank'>prestiżowe tytuły</a>. Ty również możesz współtworzyć Habitikę! <a href='http://habitica.fandom.com/wiki/Contributing_to_Habitica' target='_blank'> Tutaj dowiesz się więcej. </a>"
+    "blurbHallContributors": "To jest Sala Współtwórców, gdzie uhonorowani zostali open-source'owi współtwórcy Habitica. Czy to za pomocą kodu, sztuki, muzyki, pisania, czy jedynie uczynności, zdobyli oni <a href='https://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'> klejnoty, ekskluzywne wyposażenie</a> oraz <a href='https://habitica.fandom.com/wiki/Contributor_Titles' target='_blank'>prestiżowe tytuły</a>. Ty również możesz współtworzyć Habitica! <a href='https://habitica.fandom.com/wiki/Contributing_to_Habitica' target='_blank'> Tutaj dowiesz się więcej. </a>",
+    "noPrivAccess": "Nie masz wymaganych przywilejów."
 }

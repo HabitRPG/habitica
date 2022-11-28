@@ -45,7 +45,7 @@
           v-html="$t('dayStart', { startTime: groupStartTime } )"
         >
         </div>
-        <div class="ml-2">
+        <div class="create-task-area ml-2">
           <button
             id="create-task-btn"
             v-if="canCreateTasks"
@@ -130,6 +130,14 @@
   h1 {
     color: $purple-300;
     margin-bottom: 0px;
+  }
+
+  .create-task-area {
+    position: inherit;
+
+    .dropdown {
+      right: 24px;
+    }
   }
 
   .day-start {

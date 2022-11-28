@@ -267,7 +267,7 @@ api.updateHero = {
     const hero = await User.findById(heroId).exec();
     if (!hero) throw new NotFound(res.t('userWithIDNotFound', { userId: heroId }));
 
-    if (updateData.balance) {
+    if (updateData.balance && updateData.balance !== hero.balance) {
       await hero.updateBalance(updateData.balance - hero.balance, 'admin_update_balance', '', 'Given by Habitica staff');
 
       hero.balance = updateData.balance;
@@ -279,11 +279,16 @@ api.updateHero = {
       }
       if (updateData.purchased.plan.consecutive) {
         if (updateData.purchased.plan.consecutive.trinkets) {
-          await hero.updateHourglasses(
-            updateData.purchased.plan.consecutive.trinkets
-              - hero.purchased.plan.consecutive.trinkets,
-            'admin_update_hourglasses', '', 'Updated by Habitica staff',
-          );
+          const changedHourglassTrinkets = updateData.purchased.plan.consecutive.trinkets
+              - hero.purchased.plan.consecutive.trinkets;
+
+          if (changedHourglassTrinkets !== 0) {
+            await hero.updateHourglasses(
+              changedHourglassTrinkets,
+              'admin_update_hourglasses', '', 'Updated by Habitica staff',
+            );
+          }
+
           hero.purchased.plan.consecutive.trinkets = updateData.purchased.plan.consecutive.trinkets;
         }
         if (updateData.purchased.plan.consecutive.gemCapExtra) {

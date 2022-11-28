@@ -9,11 +9,11 @@
     "communityFacebook": "Facebook",
     "companyAbout": "Cómo Funciona",
     "companyBlog": "Blog",
-    "companyContribute": "Contribuir",
-    "companyDonate": "Donar",
+    "companyContribute": "Contribuyendo a Habitica",
+    "companyDonate": "Donar a Habitica",
     "forgotPassword": "¿Olvidaste la contraseña?",
     "emailNewPass": "Enviar un link para restablecer la contraseña",
-    "forgotPasswordSteps": "Ingresa la dirección de correo electrónico que usaste para registrar tu cuenta en Habitica.",
+    "forgotPasswordSteps": "Ingresa tu nombre de usuario o dirección de correo que usaste para registrar tu cuenta de Habitica.",
     "sendLink": "Enviar Enlace",
     "featuredIn": "Como lo viste en",
     "footerDevs": "Desarrolladores",
@@ -184,5 +184,6 @@
     "mobileApps": "Aplicaciones Móviles",
     "learnMore": "Aprende Más",
     "minPasswordLength": "La contraseña debe contener 8 caracteres o más.",
-    "communityInstagram": "Instagram"
+    "communityInstagram": "Instagram",
+    "footerProduct": "Producto"
 }

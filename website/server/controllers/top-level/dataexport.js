@@ -276,7 +276,7 @@ api.exportUserAvatarPng = {
 /**
  * @api {get} /export/inbox.html Export user private messages as HTML document
  * @apiName ExportUserPrivateMessages
- * @apiDescription This HTML export feature is not currently working (https://github.com/HabitRPG/habitica/issues/9489).
+ *
  * @apiGroup DataExport
  *
  * @apiSuccess {HTML} File An html page of the user's private messages.

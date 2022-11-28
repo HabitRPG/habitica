@@ -123,7 +123,7 @@
     "sendGiftCost": "Totale: <%= cost %>$ USD",
     "sendGiftFromBalance": "Dal bilancio",
     "sendGiftPurchase": "Acquisto",
-    "sendGiftMessagePlaceholder": "Messaggio personale (facoltativo)",
+    "sendGiftMessagePlaceholder": "Aggiungi un messaggio al tuo regalo",
     "sendGiftSubscription": "<%= months %> Mese/i: <%= price %>$ USD",
     "gemGiftsAreOptional": "Per favore, ricorda che Habitica non ti chiederà mai di donare gemme ad altri giocatori. Chiedere ad altri giocatori donazioni di gemme è una <strong>violazione delle Linee guida della community</strong>, e tutti gli episodi di questo tipo devono essere segnalati a <%= hrefTechAssistanceEmail %>.",
     "battleWithFriends": "Combatti i mostri con gli amici",
@@ -416,5 +416,6 @@
     "nextPaymentMethod": "Prossimo: Metodo di Pagamento",
     "createGroup": "Crea un Gruppo",
     "groupUse": "Quale tra questi descrive meglio l'utilizzo del tuo Gruppo?*",
-    "groupTeacher": "Insegnante che imposta le attività per gli studenti"
+    "groupTeacher": "Insegnante che imposta le attività per gli studenti",
+    "sendGiftLabel": "Vuoi inviare un messaggio col tuo regalo?"
 }

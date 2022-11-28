@@ -253,6 +253,7 @@ const weapon = {
   202102: { },
   202104: { twoHanded: true },
   202111: { twoHanded: true },
+  202211: { twoHanded: true },
   202201: { },
   202212: { },
   202209: { },

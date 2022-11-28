@@ -263,8 +263,8 @@
 </style>
 
 <script>
+import moment from 'moment';
 import { mapState } from '@/libs/store';
-import seasonalShopConfig from '@/../../common/script/libs/shops-seasonal.config';
 
 import svgClock from '@/assets/svg/clock.svg';
 import svgClose from '@/assets/svg/close.svg';
@@ -319,7 +319,6 @@ export default {
 
       isPinned: false,
       selectedAmountToBuy: 1,
-      endDate: seasonalShopConfig.dateRange.end,
     };
   },
   computed: {
@@ -342,6 +341,9 @@ export default {
       if (this.priceType === 'gold') return this.icons.gold;
       if (this.priceType === 'hourglasses') return this.icons.hourglass;
       return this.icons.gem;
+    },
+    endDate () {
+      return moment(this.item.event.end);
     },
   },
   watch: {
