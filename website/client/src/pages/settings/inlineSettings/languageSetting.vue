@@ -116,7 +116,6 @@ export default {
   },
   methods: {
     changeLanguage (e) {
-      console.info(e);
       const newLang = e.code;
       this.selectedLanguage = newLang;
     },
