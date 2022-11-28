@@ -204,6 +204,7 @@
     "changeEmailDisclaimer": "This is the email address that you use to log in to Habitica, as well as receive notifications.",
     "changeDisplayNameDisclaimer": "This is the name that will be displayed for your Avatar in Habitica.",
     "changePasswordDisclaimer": "Password must be 8 characters or more. We recommend a strong password that you're not using elsewhere.",
+    "dateFormatDisclaimer": "Adjust the date formatting across Habitica.",
     "verifyUsernameVeteranPet": "One of these Veteran Pets will be waiting for you after you've finished confirming!",
     "mentioning": "Mentioning",
     "suggestMyUsername": "Suggest my username",

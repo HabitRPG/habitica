@@ -9,7 +9,6 @@
     >
       {{ $t(primaryButtonLabel ?? 'save') }}
     </button>
-    <br>
 
     <a
       class="edit-link"

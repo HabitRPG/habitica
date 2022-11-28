@@ -43,19 +43,10 @@
 
       <table class="table">
         <language-setting />
-        <tr>
-          <td colspan="3">
-            Date Format TODO
-          </td>
-        </tr>
+        <date-format-setting />
         <tr>
           <td colspan="3">
             Day Start TODO
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3">
-            Language TODO
           </td>
         </tr>
         <tr>
@@ -130,9 +121,11 @@ import ResetAccount from './inlineSettings/resetAccount';
 import DeleteAccount from './inlineSettings/deleteAccount';
 import { sharedInlineSettingStore } from './components/inlineSettingMixin';
 import LanguageSetting from './inlineSettings/languageSetting';
+import DateFormatSetting from '@/pages/settings/inlineSettings/dateFormatSetting';
 
 export default {
   components: {
+    DateFormatSetting,
     LanguageSetting,
     DeleteAccount,
     ResetAccount,
