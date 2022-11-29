@@ -78,20 +78,9 @@
           >
             <strong>{{ $t('howManyToBuy') }}</strong>
           </div>
-          <div>
-            <number-increment />
-          </div>
           <div v-if="showAmountToBuy(item)">
-            <div class="box">
-              <input
-                v-model.number="selectedAmountToBuy"
-                class="form-control"
-                type="number"
-                min="0"
-                step="1"
-              >
-            </div>
-            <span :class="{'notEnough': notEnoughCurrency}">
+            <number-increment />
+            <div :class="{'notEnough': notEnoughCurrency}">
               <span
                 class="svg-icon inline icon-32"
                 aria-hidden="true"
@@ -100,8 +89,8 @@
               <span
                 class="cost"
                 :class="getPriceClass()"
-              >{{ item.value }}</span>
-            </span>
+              >{{ item.value * showAmountToBuy(item) }}</span>
+            </div>
           </div>
           <div
             v-else
@@ -260,8 +249,8 @@
     }
 
     span.svg-icon.inline.icon-32 {
-      height: 32px;
-      width: 32px;
+      height: 24px;
+      width: 24px;
 
       margin-right: 8px;
 
@@ -269,8 +258,8 @@
     }
 
     .cost {
-      width: 28px;
-      height: 32px;
+      width: 24px;
+      height: 24px;
       font-size: 24px;
       font-weight: bold;
       line-height: 1.33;
@@ -373,6 +362,8 @@ import svgGem from '@/assets/svg/gem.svg';
 import svgHourglasses from '@/assets/svg/hourglass.svg';
 import svgClock from '@/assets/svg/clock.svg';
 import svgWhiteClock from '@/assets/svg/clock-white.svg';
+import svgPositive from '@/assets/svg/positive.svg';
+import svgNegative from '@/assets/svg/negative.svg';
 
 import BalanceInfo from './balanceInfo.vue';
 import PinBadge from '@/components/ui/pinBadge';
@@ -421,6 +412,7 @@ export default {
     },
     priceType: {
       type: String,
+      default: '',
     },
     withPin: {
       type: Boolean,
@@ -439,6 +431,8 @@ export default {
         hourglasses: svgHourglasses,
         clock: svgClock,
         whiteClock: svgWhiteClock,
+        positive: svgPositive,
+        negative: svgNegative,
       }),
 
       selectedAmountToBuy: 1,

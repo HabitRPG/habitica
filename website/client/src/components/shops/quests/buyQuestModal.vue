@@ -33,6 +33,7 @@
           v-if="!item.locked"
           class="purchase-amount"
         >
+          <numberIncrement />
           <div class="how-many-to-buy">
             <strong>{{ $t('howManyToBuy') }}</strong>
           </div>
@@ -272,6 +273,8 @@ import svgExperience from '@/assets/svg/experience.svg';
 import svgGem from '@/assets/svg/gem.svg';
 import svgGold from '@/assets/svg/gold.svg';
 import svgHourglasses from '@/assets/svg/hourglass.svg';
+import svgPositive from '@/assets/svg/positive.svg';
+import svgNegative from '@/assets/svg/negative.svg';
 
 import BalanceInfo from '../balanceInfo.vue';
 import currencyMixin from '../_currencyMixin';
@@ -301,6 +304,7 @@ export default {
     },
     priceType: {
       type: String,
+      default: '',
     },
     withPin: {
       type: Boolean,
@@ -315,6 +319,8 @@ export default {
         gem: svgGem,
         gold: svgGold,
         hourglass: svgHourglasses,
+        positive: svgPositive,
+        negative: svgNegative,
       }),
 
       isPinned: false,

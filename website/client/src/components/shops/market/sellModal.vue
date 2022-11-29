@@ -47,7 +47,15 @@
               <b class="how-many-to-sell">{{ $t('howManyToSell') }}</b>
             </div>
             <div>
-              <number-increment />
+              <number-increment
+                v-model="selectedAmountToSell"
+                class=""
+                type="number"
+                :max="itemContextToSell.itemCount"
+                min="1"
+                step="1"
+                @keyup.native="preventNegative($event)"
+              />
             </div>
             <div>
               <b-input
@@ -164,6 +172,8 @@
 import svgClose from '@/assets/svg/close.svg';
 import svgGold from '@/assets/svg/gold.svg';
 import svgGem from '@/assets/svg/gem.svg';
+import svgPositive from '@/assets/svg/positive.svg';
+import svgNegative from '@/assets/svg/negative.svg';
 
 import BalanceInfo from '../balanceInfo.vue';
 import Item from '@/components/inventory/item';
@@ -186,6 +196,8 @@ export default {
         close: svgClose,
         gold: svgGold,
         gem: svgGem,
+        svgPositive,
+        svgNegative,
       }),
     };
   },

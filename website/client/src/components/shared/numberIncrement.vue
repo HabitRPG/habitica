@@ -1,98 +1,160 @@
 <template>
-  <div class="d-flex flex-row align-items-center justify-content-center">
+  <div class="d-flex flex-row align-items-center justify-content-center number-increment">
     <!-- negative -->
+    <!-- buy modal -->
     <div
       v-if="buy-modal"
-      class="gray-circle"
-      @click="selectedAmountToBuy <= 0
-        ? selectedAmountToBuy = 0
-        : selectedAmountToBuy--"
     >
       <div
-        class="icon-negative"
-        v-html="icons.negative"
-      ></div>
-    </div>
-    <div
-      v-else-if="sell-modal"
-      class="gray-circle"
-      @click="selectedAmountToSell <= 0
-        ? selectedAmountToSell = 0
-        : selectedAmountToSell--"
-    >
-      <div
-        class="icon-negative"
-        v-html="icons.negative"
-      ></div>
-    </div>
-    <div
-      v-else
-      class="gray-circle"
-      @click="gift.gems.amount <= 0
-        ? gift.gems.amount = 0
-        : gift.gems.amount--"
-    >
-      <div
-        class="icon-negative"
-        v-html="icons.negative"
-      ></div>
-    </div>
-    <!-- quantity -->
-    <div class="input-group">
-      <div class="input-group-prepend input-group-icon align-items-center">
-        <div
-          v-if="send-gift"
-          class="icon-gem"
-          v-html="icons.gem"
-        ></div>
-        <div
-          v-else
-        >
-        </div>
-      </div>
-      <input
-        id="gemsForm"
-        v-model.number="variable"
-        class="form-control"
-        min="1"
+        class="gray-circle"
+        @click="selectedAmountToBuy--"
+        @keyup.native="preventNegative($event)"
       >
-    </div>
-    <!-- positive -->
-    <div
-      v-if="buy-modal"
-      class="gray-circle"
-      @click="selectedAmountToBuy++"
-    >
+        <div
+          class="icon-negative"
+          v-html="icons.svgNegative"
+        ></div>
+      </div>
+      <div class="input-group">
+        <div class="align-items-center">
+        </div>
+        <input
+          v-model="selectedAmountToBuy"
+          class="form-control alignment"
+          min="0"
+          step="1"
+          max="maxItemsToBuy"
+        >
+      </div>
       <div
-        class="icon-positive"
-        v-html="icons.positive"
-      ></div>
+        class="gray-circle"
+        @keyup="selectedAmountToBuy++"
+      >
+        <div
+          class="icon-positive"
+          v-html="icons.svgPositive"
+        ></div>
+      </div>
     </div>
+    <!-- sell modal -->
     <div
       v-else-if="sell-modal"
-      class="gray-circle"
-      @click="selectedAmountToSell++"
     >
       <div
-        class="icon-positive"
-        v-html="icons.positive"
-      ></div>
+        class="gray-circle"
+        @click="selectedAmountToSell--"
+        @keyup.native="preventNegative($event)"
+      >
+        <div
+          class="icon-negative"
+          v-html="icons.svgNegative"
+        ></div>
+      </div>
+      <div class="input-group">
+        <div class="align-items-center">
+        </div>
+        <input
+          v-model="selectedAmountToSell"
+          class="form-control alignment"
+          min="0"
+          step="1"
+          max="maxItemsToBuy"
+        >
+      </div>
+      <div
+        v-if="buy-modal"
+        class="gray-circle"
+        @click="selectedAmountToSell++"
+      >
+        <div
+          class="icon-positive"
+          v-html="icons.svgPositive"
+        ></div>
+      </div>
     </div>
+    <!-- buy quest modal -->
     <div
-      v-else
-      class="gray-circle"
-      @click="gift.gems.amount++"
+      v-else-if="buy-quest-modal"
     >
       <div
-        class="icon-positive"
-        v-html="icons.positive"
-      ></div>
+        class="gray-circle"
+        @click="selectedAmountToBuy--"
+        @keyup.native="preventNegative($event)"
+      >
+        <div
+          class="icon-negative"
+          v-html="icons.svgNegative"
+        ></div>
+      </div>
+      <div class="input-group">
+        <div class="align-items-center">
+        </div>
+        <input
+          v-model="selectedAmountToBuy"
+          class="form-control alignment"
+          min="0"
+          step="1"
+          max="maxItemsToBuy"
+        >
+      </div>
+      <div
+        class="gray-circle"
+        @keyup="selectedAmountToBuy++"
+      >
+        <div
+          class="icon-positive"
+          v-html="icons.svgPositive"
+        ></div>
+      </div>
+    </div>
+    <!-- gifting modal -->
+    <div
+      v-else-if="send-gift"
+    >
+      <div
+        class="gray-circle"
+        @click="gift.gems.amount--"
+        @keyup.native="preventNegative($event)"
+      >
+        <div
+          class="icon-negative"
+          v-html="icons.svgNegative"
+        ></div>
+      </div>
+      <div class="input-group">
+        <div class="align-items-center">
+        </div>
+        <input
+          v-model="selectedAmountToBuy"
+          class="form-control alignment"
+          min="0"
+          step="1"
+          max="maxGems"
+        >
+      </div>
+      <div
+        class="gray-circle"
+        @click="gift.gems.amount++"
+      >
+        <div
+          class="icon-positive"
+          v-html="icons.svgPositive"
+        ></div>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
   @import '~@/assets/scss/colors.scss';
+
+  .number-increment {
+    padding-bottom: 12px;
+    }
+
+  .alignment {
+    text-align: center;
+  }
 
   label {
     color: $gray-50;
@@ -149,28 +211,35 @@
       fill: $gray-300;
     }
   }
+
 </style>
 
 <script>
 // icons
-import gemIcon from '@/assets/svg/gem.svg';
-import goldIcon from '@/assets/svg/gold.svg';
-import positiveIcon from '@/assets/svg/positive.svg';
-import negativeIcon from '@/assets/svg/negative.svg';
+import svgGem from '@/assets/svg/gem.svg';
+import svgGold from '@/assets/svg/gold.svg';
+import svgPositive from '@/assets/svg/positive.svg';
+import svgNegative from '@/assets/svg/negative.svg';
 
 // modules
 // import keys from 'lodash/keys';
 
 import { mapState } from '@/libs/store';
 
+const hideAmountSelectionForPurchaseTypes = [
+  'gear', 'backgrounds', 'mystery_set', 'card',
+  'rebirth_orb', 'fortify', 'armoire', 'keys',
+  'debuffPotion', 'pets', 'mounts',
+];
+
 export default {
   data () {
     return {
       icons: Object.freeze({
-        gold: gemIcon,
-        gem: goldIcon,
-        plus: positiveIcon,
-        minus: negativeIcon,
+        svgGem,
+        svgGold,
+        svgPositive,
+        svgNegative,
       }),
       selectedAmountToBuy: 1,
       selectedAmountToSell: 1,
@@ -201,7 +270,13 @@ export default {
         : this.notEnoughCurrency;
       return maxItemsToBuy;
     },
-
+    fromBal () {
+      return this.gift.type === 'gems' && this.gift.gems.fromBalance;
+    },
+    maxGems () {
+      const maxGems = this.fromBal ? this.userLoggedIn.balance * 4 : 9999;
+      return maxGems;
+    },
     getPriceClass () {
       if (this.priceType && this.icons[this.priceType]) {
         return this.priceType;
@@ -209,6 +284,20 @@ export default {
         return this.item.currency;
       }
       return 'gold';
+    },
+    showAmountToBuy (item) {
+      if (hideAmountSelectionForPurchaseTypes.includes(item.purchaseType)) {
+        return false;
+      } return true;
+    },
+  },
+  methods: {
+    preventNegative ($event) {
+      const { value } = $event.target;
+
+      if (Number(value) < 0) {
+        this.selectedAmountToSell = 0;
+      }
     },
   },
 };
