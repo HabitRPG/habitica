@@ -63,9 +63,6 @@ const CLEAR_BUFFS = {
 };
 
 async function grantEndOfTheMonthPerks (user, now) {
-  // multi-month subscriptions are for multiples of 3 months
-  const SUBSCRIPTION_BASIC_BLOCK_LENGTH = 3;
-
   const { plan, elapsedMonths } = getPlanContext(user, now);
 
   if (elapsedMonths > 0) {
@@ -115,6 +112,7 @@ async function grantEndOfTheMonthPerks (user, now) {
           // (subtract 1 because we should have run this when the payment was taken last month)
           plan.consecutive.offset = planMonthsLength - 1;
         }
+        // eslint-disable-next-line no-await-in-loop
         await plan.incrementPerkCounterAndReward(user._id, planMonthsLength);
       }
     }
