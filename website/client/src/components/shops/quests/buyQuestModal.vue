@@ -33,7 +33,6 @@
           v-if="!item.locked"
           class="purchase-amount"
         >
-          <numberIncrement />
           <div class="how-many-to-buy">
             <strong>{{ $t('howManyToBuy') }}</strong>
           </div>
@@ -283,6 +282,7 @@ import buyMixin from '@/mixins/buy';
 import numberInvalid from '@/mixins/numberInvalid';
 import PinBadge from '@/components/ui/pinBadge';
 import CountdownBanner from '../countdownBanner';
+// import numberIncrement from '@/components/shared/numberIncrement';
 
 import questDialogContent from './questDialogContent';
 import QuestRewards from './questRewards';
@@ -296,6 +296,7 @@ export default {
     PinBadge,
     questDialogContent,
     CountdownBanner,
+    // numberIncrement,
   },
   mixins: [buyMixin, currencyMixin, notifications, numberInvalid],
   props: {

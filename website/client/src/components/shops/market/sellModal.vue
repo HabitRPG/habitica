@@ -47,26 +47,9 @@
               <b class="how-many-to-sell">{{ $t('howManyToSell') }}</b>
             </div>
             <div>
-              <number-increment
-                v-model="selectedAmountToSell"
-                class=""
-                type="number"
-                :max="itemContextToSell.itemCount"
-                min="1"
-                step="1"
-                @keyup.native="preventNegative($event)"
-              />
+              <number-increment />
             </div>
             <div>
-              <b-input
-                v-model="selectedAmountToSell"
-                class="itemsToSell"
-                type="number"
-                :max="itemContextToSell.itemCount"
-                min="1"
-                step="1"
-                @keyup.native="preventNegative($event)"
-              />
               <span
                 class="svg-icon inline icon-32"
                 aria-hidden="true"

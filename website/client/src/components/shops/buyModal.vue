@@ -89,7 +89,7 @@
               <span
                 class="cost"
                 :class="getPriceClass()"
-              >{{ item.value * showAmountToBuy(item) }}</span>
+              >{{ item.value }}</span>
             </div>
           </div>
           <div
@@ -435,6 +435,7 @@ export default {
       }),
 
       selectedAmountToBuy: 1,
+      selectedAmount: 1,
       isPinned: false,
     };
   },
