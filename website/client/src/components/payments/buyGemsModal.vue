@@ -359,8 +359,8 @@
 
   .svg-icon.check {
     color: $purple-400;
-    width: 0.77rem;
-    height: 0.615rem;
+    width: 16px;
+    height: 16px;
   }
 
   .text-leadin {

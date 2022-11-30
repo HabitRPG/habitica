@@ -380,7 +380,6 @@ import EquipmentAttributesGrid from '../inventory/equipment/attributesGrid.vue';
 import Item from '@/components/inventory/item';
 import Avatar from '@/components/avatar';
 
-import seasonalShopConfig from '@/../../common/script/libs/shops-seasonal.config';
 import { drops as dropEggs } from '@/../../common/script/content/eggs';
 import { drops as dropPotions } from '@/../../common/script/content/hatching-potions';
 
@@ -437,7 +436,6 @@ export default {
 
       selectedAmountToBuy: 1,
       isPinned: false,
-      endDate: seasonalShopConfig.dateRange.end,
     };
   },
   computed: {
@@ -487,6 +485,9 @@ export default {
     },
     nonSubscriberHourglasses () {
       return (!this.user.purchased.plan.customerId && !this.user.purchased.plan.consecutive.trinkets && this.getPriceClass() === 'hourglasses');
+    },
+    endDate () {
+      return moment(this.item.event.end);
     },
   },
   watch: {

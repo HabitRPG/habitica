@@ -16,7 +16,6 @@ import { // eslint-disable-line import/no-cycle
 import {
   NotAuthorized,
   NotFound,
-  TooManyRequests,
 } from '../errors';
 import shared from '../../../common';
 import { sendNotification as sendPushNotification } from '../pushNotifications'; // eslint-disable-line import/no-cycle
@@ -75,15 +74,7 @@ async function prepareSubscriptionValues (data) {
     ? data.gift.subscription.key
     : data.sub.key];
   const autoRenews = data.autoRenews !== undefined ? data.autoRenews : true;
-  const updatedFrom = data.updatedFrom
-    ? shared.content.subscriptionBlocks[data.updatedFrom.key]
-    : undefined;
-  let months;
-  if (updatedFrom && Number(updatedFrom.months) !== 1) {
-    months = Math.max(0, Number(block.months) - Number(updatedFrom.months));
-  } else {
-    months = Number(block.months);
-  }
+  const months = Number(block.months);
   const today = new Date();
   let group;
   let groupId;
@@ -91,12 +82,6 @@ async function prepareSubscriptionValues (data) {
   let purchaseType = 'subscribe';
   let emailType = 'subscription-begins';
   let recipientIsSubscribed = recipient.isSubscribed();
-
-  if (data.user && !data.gift && !data.groupId && data.customerId !== 'group-plan') {
-    if (moment().diff(data.user.purchased.plan.dateUpdated, 'minutes') < 3) {
-      throw new TooManyRequests('Subscription already processed, likely duplicate request');
-    }
-  }
 
   //  If we are buying a group subscription
   if (data.groupId) {
