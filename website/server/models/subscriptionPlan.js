@@ -15,6 +15,7 @@ export const schema = new mongoose.Schema({
   dateUpdated: Date,
   dateCurrentTypeCreated: Date,
   extraMonths: { $type: Number, default: 0 },
+  perkMonthCount: { $type: Number, default: 0 },
   gemsBought: { $type: Number, default: 0 },
   mysteryItems: { $type: Array, default: () => [] },
   lastReminderDate: Date, // indicates the last time a subscription reminder was sent
@@ -45,6 +46,20 @@ schema.plugin(baseModel, {
   timestamps: false,
   _id: false,
 });
+
+schema.methods.incrementPerkCounterAndReward = async function incrementPerkCounterAndReward (userID, adding) {
+  this.perkMonthCount += adding;
+
+  const perks = Math.floor(this.perkMonthCount / 3);
+  if (perks > 0) {
+    this.consecutive.gemCapExtra += 5 * perks; // 5 extra Gems every 3 months
+    // cap it at 50 (hard 25 limit + extra 25)
+    if (this.consecutive.gemCapExtra > 25) this.consecutive.gemCapExtra = 25;
+    this.perkMonthCount -= (perks * 3);
+    // one Hourglass every 3 months
+    await this.updateHourglasses(userID, perks, 'subscription_perks'); // eslint-disable-line no-await-in-loop
+  }
+};
 
 schema.methods.updateHourglasses = async function updateHourglasses (userId,
   amount,

@@ -263,12 +263,11 @@ async function createSubscription (data) {
   } = await prepareSubscriptionValues(data);
 
   // Block sub perks
-  const perks = Math.floor(months / 3);
-  if (perks) {
-    plan.consecutive.offset += months;
-    plan.consecutive.gemCapExtra += perks * 5;
-    if (plan.consecutive.gemCapExtra > 25) plan.consecutive.gemCapExtra = 25;
-    await plan.updateHourglasses(recipient._id, perks, 'subscription_perks'); // one Hourglass every 3 months
+  if (months > 0) {
+    if (!data.gift && !groupId) {
+      plan.consecutive.offset = months;
+    }
+    await plan.incrementPerkCounterAndReward(recipient._id, months);
   }
 
   if (recipient !== group) {
