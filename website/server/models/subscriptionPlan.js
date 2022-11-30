@@ -47,7 +47,8 @@ schema.plugin(baseModel, {
   _id: false,
 });
 
-schema.methods.incrementPerkCounterAndReward = async function incrementPerkCounterAndReward (userID, adding) {
+schema.methods.incrementPerkCounterAndReward = async function incrementPerkCounterAndReward
+(userID, adding) {
   this.perkMonthCount += adding;
 
   const perks = Math.floor(this.perkMonthCount / 3);
