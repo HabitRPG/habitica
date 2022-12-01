@@ -79,7 +79,9 @@
             <strong>{{ $t('howManyToBuy') }}</strong>
           </div>
           <div v-if="showAmountToBuy(item)">
-            <number-increment />
+            <number-increment
+              :quantity="1"
+            />
             <div :class="{'notEnough': notEnoughCurrency}">
               <span
                 class="svg-icon inline icon-32"

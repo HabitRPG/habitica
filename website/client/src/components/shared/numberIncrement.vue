@@ -3,9 +3,9 @@
     <!-- buy modal -->
     <div
       class="gray-circle"
-      @click="selectedAmountToBuy <= 0
-        ? selectedAmountToBuy = 0
-        : selectedAmountToBuy--"
+      @click="setQuantity <= 0
+        ? setQuantity = 0
+        : setQuantity--"
     >
       <div
         class="icon-negative"
@@ -16,15 +16,15 @@
       <div class="align-items-center">
       </div>
       <input
-        v-model="selectedAmountToBuy"
         class="form-control alignment"
+        :quantity="1"
         min="0"
         step="1"
       >
     </div>
     <div
       class="gray-circle"
-      @click="selectedAmountToBuy++"
+      @click="setQuantity++"
     >
       <div
         class="icon-positive"
@@ -44,16 +44,6 @@
   .alignment {
     text-align: center;
   }
-
-  // label {
-  //   color: $gray-50;
-  //   font-size: 0.875rem;
-  //   font-weight: bold;
-  //   line-height: 1.71;
-  //   margin: 12px 0 16px 0;
-  //   width: 100%;
-  //   text-align: center;
-  // }
 
   .input-group {
     width: 94px;
@@ -85,12 +75,6 @@
     }
   }
 
-  .icon-gem {
-    width: 16px;
-    height: 16px;
-    margin-bottom: 4px;
-  }
-
   .icon-positive, .icon-negative {
     width: 10px;
     height: 10px;
@@ -111,6 +95,15 @@ import svgPositive from '@/assets/svg/positive.svg';
 import svgNegative from '@/assets/svg/negative.svg';
 
 export default {
+  props: {
+    quantity: {
+      type: Number,
+      default: 1,
+    },
+    item: {
+      type: Object,
+    },
+  },
   data () {
     return {
       icons: Object.freeze({
@@ -119,19 +112,15 @@ export default {
         svgPositive,
         svgNegative,
       }),
-      selectedAmountToBuy: 1,
     };
   },
   computed: {
+    setQuantity () {
+      const setQuantity = this.item.value * this.quantity;
+      return setQuantity;
+    },
   },
   methods: {
-    preventNegative ($event) {
-      const { value } = $event.target;
-
-      if (Number(value) < 0) {
-        this.selectedAmount = 0;
-      }
-    },
   },
 };
 
