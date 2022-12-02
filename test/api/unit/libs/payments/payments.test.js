@@ -13,7 +13,7 @@ import {
 import * as worldState from '../../../../../website/server/libs/worldState';
 import { TransactionModel } from '../../../../../website/server/models/transaction';
 
-describe.only('payments/index', () => {
+describe('payments/index', () => {
   let user;
   let group;
   let data;
@@ -270,9 +270,26 @@ describe.only('payments/index', () => {
         data.gift.subscription.months = 1;
         
         expect(recipient.purchased.plan.perkMonthCount).to.eql(2);
+        expect(recipient.purchased.plan.consecutive.trinkets).to.eql(0);
+        expect(recipient.purchased.plan.consecutive.gemCapExtra).to.eql(0);
         await api.createSubscription(data);
 
         expect(recipient.purchased.plan.perkMonthCount).to.eql(0);
+        expect(recipient.purchased.plan.consecutive.trinkets).to.eql(1);
+        expect(recipient.purchased.plan.consecutive.gemCapExtra).to.eql(5);
+      });
+
+      it('awards perks if plan.perkMonthCount goes over 3', async () => {
+        recipient.purchased.plan = plan;
+        recipient.purchased.plan.perkMonthCount = 2;
+        data.sub.key = 'basic_earned';
+        
+        expect(recipient.purchased.plan.perkMonthCount).to.eql(2);
+        expect(recipient.purchased.plan.consecutive.trinkets).to.eql(0);
+        expect(recipient.purchased.plan.consecutive.gemCapExtra).to.eql(0);
+        await api.createSubscription(data);
+
+        expect(recipient.purchased.plan.perkMonthCount).to.eql(2);
         expect(recipient.purchased.plan.consecutive.trinkets).to.eql(1);
         expect(recipient.purchased.plan.consecutive.gemCapExtra).to.eql(5);
       });
@@ -443,6 +460,7 @@ describe.only('payments/index', () => {
         expect(user.purchased.plan.customerId).to.eql('customer-id');
         expect(user.purchased.plan.dateUpdated).to.exist;
         expect(user.purchased.plan.gemsBought).to.eql(0);
+        expect(user.purchased.plan.perkMonthCount).to.eql(0);
         expect(user.purchased.plan.paymentMethod).to.eql('Payment Method');
         expect(user.purchased.plan.extraMonths).to.eql(0);
         expect(user.purchased.plan.dateTerminated).to.eql(null);

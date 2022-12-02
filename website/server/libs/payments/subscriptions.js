@@ -275,7 +275,6 @@ async function createSubscription (data) {
     if (!data.gift && !groupId) {
       plan.consecutive.offset = months;
     }
-    console.log("giving benes");
     await plan.incrementPerkCounterAndReward(recipient._id, months);
   }
 
