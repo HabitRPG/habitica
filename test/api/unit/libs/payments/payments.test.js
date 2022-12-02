@@ -13,7 +13,7 @@ import {
 import * as worldState from '../../../../../website/server/libs/worldState';
 import { TransactionModel } from '../../../../../website/server/models/transaction';
 
-describe('payments/index', () => {
+describe.only('payments/index', () => {
   let user;
   let group;
   let data;
@@ -235,6 +235,48 @@ describe('payments/index', () => {
         expect(recipient.purchased.plan.customerId).to.eql('customer-id');
       });
 
+      it('sets plan.perkMonthCount to zero if user is not subscribed', async () => {
+        recipient.purchased.plan = plan;
+        recipient.purchased.plan.perkMonthCount = 1;
+        recipient.purchased.plan.customerId = undefined;
+        data.sub.key = 'basic_earned';
+        data.gift.subscription.key = 'basic_earned';
+        data.gift.subscription.months = 1;
+
+        expect(recipient.purchased.plan.perkMonthCount).to.eql(1);
+        await api.createSubscription(data);
+
+        expect(recipient.purchased.plan.perkMonthCount).to.eql(0);
+      });
+
+      it('adds to plan.perkMonthCount if user is already subscribed', async () => {
+        recipient.purchased.plan = plan;
+        recipient.purchased.plan.perkMonthCount = 1;
+        data.sub.key = 'basic_earned';
+        data.gift.subscription.key = 'basic_earned';
+        data.gift.subscription.months = 1;
+
+        expect(recipient.purchased.plan.perkMonthCount).to.eql(1);
+        await api.createSubscription(data);
+
+        expect(recipient.purchased.plan.perkMonthCount).to.eql(2);
+      });
+
+      it('awards perks if plan.perkMonthCount reaches 3', async () => {
+        recipient.purchased.plan = plan;
+        recipient.purchased.plan.perkMonthCount = 2;
+        data.sub.key = 'basic_earned';
+        data.gift.subscription.key = 'basic_earned';
+        data.gift.subscription.months = 1;
+        
+        expect(recipient.purchased.plan.perkMonthCount).to.eql(2);
+        await api.createSubscription(data);
+
+        expect(recipient.purchased.plan.perkMonthCount).to.eql(0);
+        expect(recipient.purchased.plan.consecutive.trinkets).to.eql(1);
+        expect(recipient.purchased.plan.consecutive.gemCapExtra).to.eql(5);
+      });
+
       it('sets plan.customerId to "Gift" if it does not already exist', async () => {
         expect(recipient.purchased.plan.customerId).to.not.exist;
 
@@ -436,6 +478,19 @@ describe('payments/index', () => {
         const initialDate = user.purchased.plan.dateCurrentTypeCreated;
         await api.createSubscription(data);
         expect(user.purchased.plan.dateCurrentTypeCreated).to.not.eql(initialDate);
+      });
+
+      it('keeps plan.perkMonthCount when changing subscription type', async () => {
+        await api.createSubscription(data);
+        user.purchased.plan.perkMonthCount = 2;
+        await api.createSubscription(data);
+        expect(user.purchased.plan.perkMonthCount).to.eql(2);
+      });
+
+      it('sets plan.perkMonthCount to zero when creating new subscription', async () => {
+        user.purchased.plan.perkMonthCount = 2;
+        await api.createSubscription(data);
+        expect(user.purchased.plan.perkMonthCount).to.eql(0);
       });
 
       it('awards the Royal Purple Jackalope pet', async () => {
