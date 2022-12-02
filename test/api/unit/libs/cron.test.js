@@ -231,13 +231,16 @@ describe('cron', async () => {
         },
       });
       // user1 has a 1-month recurring subscription starting today
-      user1.purchased.plan.customerId = 'subscribedId';
-      user1.purchased.plan.dateUpdated = moment().toDate();
-      user1.purchased.plan.planId = 'basic';
-      user1.purchased.plan.consecutive.count = 0;
-      user1.purchased.plan.consecutive.offset = 0;
-      user1.purchased.plan.consecutive.trinkets = 0;
-      user1.purchased.plan.consecutive.gemCapExtra = 0;
+      beforeEach(async () => {
+        user1.purchased.plan.customerId = 'subscribedId';
+        user1.purchased.plan.dateUpdated = moment().toDate();
+        user1.purchased.plan.planId = 'basic';
+        user1.purchased.plan.consecutive.count = 0;
+        user1.purchased.plan.perkMonthCount = 0;
+        user1.purchased.plan.consecutive.offset = 0;
+        user1.purchased.plan.consecutive.trinkets = 0;
+        user1.purchased.plan.consecutive.gemCapExtra = 0;
+      });
 
       it('does not increment consecutive benefits after the first month', async () => {
         clock = sinon.useFakeTimers(moment().utcOffset(0).startOf('month').add(1, 'months')
@@ -269,6 +272,24 @@ describe('cron', async () => {
         expect(user1.purchased.plan.consecutive.offset).to.equal(0);
         expect(user1.purchased.plan.consecutive.trinkets).to.equal(0);
         expect(user1.purchased.plan.consecutive.gemCapExtra).to.equal(0);
+      });
+
+      it('increments consecutive benefits after the second month if they also received a 1 month gift subscription', async () => {
+        user1.purchased.plan.perkMonthCount = 1;
+        clock = sinon.useFakeTimers(moment().utcOffset(0).startOf('month').add(2, 'months')
+          .add(2, 'days')
+          .toDate());
+        // Add 1 month to simulate what happens a month after the subscription was created.
+        // Add 2 days so that we're sure we're not affected by any start-of-month effects
+        // e.g., from time zone oddness.
+        await cron({
+          user: user1, tasksByType, daysMissed, analytics,
+        });
+        expect(user1.purchased.plan.perkMonthCount).to.equal(0);
+        expect(user1.purchased.plan.consecutive.count).to.equal(2);
+        expect(user1.purchased.plan.consecutive.offset).to.equal(0);
+        expect(user1.purchased.plan.consecutive.trinkets).to.equal(1);
+        expect(user1.purchased.plan.consecutive.gemCapExtra).to.equal(5);
       });
 
       it('increments consecutive benefits after the third month', async () => {
@@ -315,6 +336,26 @@ describe('cron', async () => {
         expect(user1.purchased.plan.consecutive.trinkets).to.equal(3);
         expect(user1.purchased.plan.consecutive.gemCapExtra).to.equal(15);
       });
+
+      it('initialized plan.perkMonthCount if necessary', async () => {
+        user.purchased.plan.perkMonthCount = undefined;
+        clock = sinon.useFakeTimers(moment().utcOffset(0).startOf('month').add(1, 'months')
+          .add(2, 'days')
+          .toDate());
+        await cron({
+          user, tasksByType, daysMissed, analytics,
+        });
+        expect(user.purchased.plan.perkMonthCount).to.equal(1);
+        user.purchased.plan.perkMonthCount = undefined;
+        clock.restore();
+        clock = sinon.useFakeTimers(moment().utcOffset(0).startOf('month').add(2, 'months')
+          .add(2, 'days')
+          .toDate());
+        await cron({
+          user, tasksByType, daysMissed, analytics,
+        });
+        expect(user.purchased.plan.perkMonthCount).to.equal(2);
+      });
     });
 
     describe('for a 3-month recurring subscription', async () => {
@@ -330,13 +371,16 @@ describe('cron', async () => {
         },
       });
       // user3 has a 3-month recurring subscription starting today
-      user3.purchased.plan.customerId = 'subscribedId';
-      user3.purchased.plan.dateUpdated = moment().toDate();
-      user3.purchased.plan.planId = 'basic_3mo';
-      user3.purchased.plan.consecutive.count = 0;
-      user3.purchased.plan.consecutive.offset = 3;
-      user3.purchased.plan.consecutive.trinkets = 1;
-      user3.purchased.plan.consecutive.gemCapExtra = 5;
+      beforeEach(async () => {
+        user3.purchased.plan.customerId = 'subscribedId';
+        user3.purchased.plan.dateUpdated = moment().toDate();
+        user3.purchased.plan.planId = 'basic_3mo';
+        user3.purchased.plan.perkMonthCount = 0;
+        user3.purchased.plan.consecutive.count = 0;
+        user3.purchased.plan.consecutive.offset = 3;
+        user3.purchased.plan.consecutive.trinkets = 1;
+        user3.purchased.plan.consecutive.gemCapExtra = 5;
+      });
 
       it('does not increment consecutive benefits in the first month of the first paid period that they already have benefits for', async () => {
         clock = sinon.useFakeTimers(moment().utcOffset(0).startOf('month').add(1, 'months')
@@ -390,6 +434,17 @@ describe('cron', async () => {
         expect(user3.purchased.plan.consecutive.gemCapExtra).to.equal(10);
       });
 
+      it('keeps existing plan.perkMonthCount intact when incrementing consecutive benefits', async () => {
+        user3.purchased.plan.perkMonthCount = 2
+        clock = sinon.useFakeTimers(moment().utcOffset(0).startOf('month').add(4, 'months')
+          .add(2, 'days')
+          .toDate());
+        await cron({
+          user: user3, tasksByType, daysMissed, analytics,
+        });
+        expect(user3.purchased.plan.perkMonthCount).to.equal(2);
+      });
+
       it('does not increment consecutive benefits in the second month of the second period that they already have benefits for', async () => {
         clock = sinon.useFakeTimers(moment().utcOffset(0).startOf('month').add(5, 'months')
           .add(2, 'days')
@@ -417,6 +472,7 @@ describe('cron', async () => {
       });
 
       it('increments consecutive benefits the month after the third paid period has started', async () => {
+        console.log(user3.purchased.plan);
         clock = sinon.useFakeTimers(moment().utcOffset(0).startOf('month').add(7, 'months')
           .add(2, 'days')
           .toDate());
@@ -456,13 +512,15 @@ describe('cron', async () => {
         },
       });
       // user6 has a 6-month recurring subscription starting today
-      user6.purchased.plan.customerId = 'subscribedId';
+      beforeEach(async () => {
+        user6.purchased.plan.customerId = 'subscribedId';
       user6.purchased.plan.dateUpdated = moment().toDate();
       user6.purchased.plan.planId = 'google_6mo';
       user6.purchased.plan.consecutive.count = 0;
       user6.purchased.plan.consecutive.offset = 6;
       user6.purchased.plan.consecutive.trinkets = 2;
       user6.purchased.plan.consecutive.gemCapExtra = 10;
+      });
 
       it('does not increment consecutive benefits in the first month of the first paid period that they already have benefits for', async () => {
         clock = sinon.useFakeTimers(moment().utcOffset(0).startOf('month').add(1, 'months')
