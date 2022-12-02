@@ -3,6 +3,9 @@ import validator from 'validator';
 import baseModel from '../libs/baseModel';
 import { TransactionModel as Transaction } from './transaction';
 
+// multi-month subscriptions are for multiples of 3 months
+const SUBSCRIPTION_BASIC_BLOCK_LENGTH = 3;
+
 export const schema = new mongoose.Schema({
   planId: String,
   subscriptionId: String,
@@ -49,6 +52,8 @@ schema.plugin(baseModel, {
 
 schema.methods.incrementPerkCounterAndReward = async function incrementPerkCounterAndReward
 (userID, adding) {
+  // if perkMonthCount wasn't used before, initialize it.
+  if (!this.perkMonthCount) this.perkMonthCount = this.consecutive.count % SUBSCRIPTION_BASIC_BLOCK_LENGTH;
   this.perkMonthCount += adding;
 
   const perks = Math.floor(this.perkMonthCount / 3);

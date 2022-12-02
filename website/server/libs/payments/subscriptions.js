@@ -115,6 +115,7 @@ async function prepareSubscriptionValues (data) {
   let purchaseType = 'subscribe';
   let emailType = 'subscription-begins';
   let recipientIsSubscribed = recipient.isSubscribed();
+  let isNewSubscription = !recipientIsSubscribed
 
   if (data.user && !data.gift && !data.groupId) {
     const unlockedUser = await User.findOneAndUpdate(
@@ -170,6 +171,10 @@ async function prepareSubscriptionValues (data) {
   }
 
   const { plan } = recipient.purchased;
+
+  if (isNewSubscription) {
+    plan.perkMonthCount = 0;
+  }
 
   if (data.gift || !autoRenews) {
     if (plan.customerId && !plan.dateTerminated) { // User has active plan
@@ -245,6 +250,7 @@ async function prepareSubscriptionValues (data) {
     itemPurchased,
     purchaseType,
     emailType,
+    isNewSubscription
   };
 }
 
@@ -260,13 +266,16 @@ async function createSubscription (data) {
     itemPurchased,
     purchaseType,
     emailType,
+    isNewSubscription
   } = await prepareSubscriptionValues(data);
 
+  console.log()
   // Block sub perks
-  if (months > 0) {
+  if (months > 0 && (!data.gift || !isNewSubscription)) {
     if (!data.gift && !groupId) {
       plan.consecutive.offset = months;
     }
+    console.log("giving benes");
     await plan.incrementPerkCounterAndReward(recipient._id, months);
   }
 
