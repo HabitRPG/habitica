@@ -55,15 +55,12 @@ schema.methods.incrementPerkCounterAndReward = async function incrementPerkCount
   // if perkMonthCount wasn't used before, initialize it.
   if (this.perkMonthCount == undefined && adding == 1) {
     this.perkMonthCount = (this.consecutive.count-1) % SUBSCRIPTION_BASIC_BLOCK_LENGTH;
-    console.log(`initializing perk count with ${this.perkMonthCount}`);
   } else {
     this.perkMonthCount += adding;
   }
-  console.log(this.perkMonthCount);
 
   const perks = Math.floor(this.perkMonthCount / 3);
   if (perks > 0) {
-    console.log(`giving benefits for ${perks} from ${this.perkMonthCount}, ${adding}`);
     this.consecutive.gemCapExtra += 5 * perks; // 5 extra Gems every 3 months
     // cap it at 50 (hard 25 limit + extra 25)
     if (this.consecutive.gemCapExtra > 25) this.consecutive.gemCapExtra = 25;
