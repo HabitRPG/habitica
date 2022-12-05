@@ -91,6 +91,7 @@ export const schema = new Schema({
   },
   memberCount: { $type: Number, default: 1 },
   challengeCount: { $type: Number, default: 0 },
+  chatLimitCount: { $type: Number },
   balance: { $type: Number, default: 0 },
   logo: String,
   leaderMessage: String,
