@@ -10,7 +10,12 @@ const questScrolls = shared.content.quests;
 
 // @TODO: Don't use this method when the group can be saved.
 export async function getGroupChat (group) {
-  const maxChatCount = (group.chatLimitCount && group.chatLimitCount >= MAX_CHAT_COUNT) ? group.chatLimitCount : (group.hasActiveGroupPlan() ? MAX_SUBBED_GROUP_CHAT_COUNT : MAX_CHAT_COUNT);
+  let maxChatCount = MAX_CHAT_COUNT;
+  if (group.chatLimitCount && group.chatLimitCount >= MAX_CHAT_COUNT) {
+    maxChatCount = group.chatLimitCount;
+  } else if (group.hasActiveGroupPlan()) {
+    maxChatCount = MAX_SUBBED_GROUP_CHAT_COUNT;
+  }
 
   const groupChat = await Chat.find({ groupId: group._id })
     .limit(maxChatCount)
