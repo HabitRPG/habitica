@@ -267,7 +267,7 @@
         </div>
       </div>
       <div class="px-4">
-        <sidebar-section :title="$t('staffAndModerators')">
+        <sidebar-section :title="$t('staff')">
           <div class="row">
             <div
               v-for="user in staff"
@@ -289,19 +289,6 @@
                   class="svg-icon staff-icon"
                   v-html="icons.tierStaff"
                 ></div>
-                <div
-                  v-if="user.type === 'Moderator' && user.name !== 'It\'s Bailey'"
-                  class="svg-icon mod-icon"
-                  v-html="icons.tierMod"
-                ></div>
-                <div
-                  v-if="user.name === 'It\'s Bailey'"
-                  class="svg-icon npc-icon"
-                  v-html="icons.tierNPC"
-                ></div>
-              </div>
-              <div class="type">
-                {{ user.type }}
               </div>
             </div>
           </div>
