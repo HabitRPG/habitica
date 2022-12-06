@@ -87,7 +87,7 @@
     "paymentSuccessful": "支払いは成功しました！",
     "paymentYouReceived": "受け取りました：",
     "paymentYouSentGems": "<strong><%- name %></strong> に送りました：",
-    "paymentYouSentSubscription": "<strong><%- name %></strong> に <%= months %>ヶ月分のHabitica有料プランを送りました。",
+    "paymentYouSentSubscription": "<strong><%- name %></strong><br> に <%= months %>ヶ月分のHabitica有料プランを送りました。",
     "paymentSubBilling": "あなたの有料プランは、<strong><%= months %>ヶ月</strong>ごとに <strong>$<%= amount %></strong> 請求されます。",
     "success": "成功！",
     "classGear": "クラス アイテム",

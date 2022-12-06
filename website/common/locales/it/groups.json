@@ -20,7 +20,7 @@
     "dataTool": "Visualizzazione dati utente (in inglese)",
     "resources": "Risorse",
     "communityGuidelines": "Linee guida della community",
-    "bannedWordUsed": "Ops! Sembra che questo messaggio contenga una parolaccia, una bestemmia, o un riferimento ad una sostanza che crea dipendenza o ad un argomento per adulti (<%= swearWordsUsed %>). Habitica ha utenti di età, provenienza e sensibilità molto diverse, quindi ci teniamo a tenere le nostre chat molto pulite. Sentiti libero/a di modificare il tuo messaggio in modo che tu lo possa pubblicare!",
+    "bannedWordUsed": "Ops! Sembra che questo messaggio contenga una parolaccia o un riferimento ad una sostanza che crea dipendenza o ad un argomento per adulti (<%= swearWordsUsed %>). Habitica mantiene le nostre chat molto pulite. Sentiti libero/a di modificare il tuo messaggio in modo che tu lo possa pubblicare! Devi rimuovere la parola, non solo censurarla.",
     "bannedSlurUsed": "Il tuo messaggio conteneva un linguaggio inappropriato e i tuoi privilegi legati alle chat sono stati revocati.",
     "party": "Squadra",
     "usernameCopied": "Nome utente copiato negli appunti.",

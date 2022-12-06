@@ -1,14 +1,13 @@
 {
-
     "tavernCommunityGuidelinesPlaceholder": "Friendly reminder: this is an all-ages chat, so please keep content and language appropriate! Consult the Community Guidelines in the sidebar if you have questions.",
     "lastUpdated": "Last updated:",
     "commGuideHeadingWelcome": "Welcome to Habitica!",
     "commGuidePara001": "Greetings, adventurer! Welcome to Habitica, the land of productivity, healthy living, and the occasional rampaging gryphon. We have a cheerful community full of helpful people supporting each other on their way to self-improvement. To fit in, all it takes is a positive attitude, a respectful manner, and the understanding that everyone has different skills and limitations -- including you! Habiticans are patient with one another and try to help whenever they can.",
     "commGuidePara002": "To help keep everyone safe, happy, and productive in the community, we do have some guidelines. We have carefully crafted them to make them as friendly and easy-to-read as possible. Please take the time to read them before you start chatting.",
-    "commGuidePara003": "These rules apply to all of the social spaces we use, including (but not necessarily limited to) Trello, GitHub, Weblate, and the Wikia (aka wiki). Sometimes, unforeseen situations will arise, like a new source of conflict or a vicious necromancer. When this happens, the mods may respond by editing these guidelines to keep the community safe from new threats. Fear not: you will be notified by an announcement from Bailey if the guidelines change.",
+    "commGuidePara003": "These rules apply to all of the social spaces we use, including (but not necessarily limited to) Trello, GitHub, Weblate, and the Habitica Wiki on Fandom. As communities grow and change, their rules may adapt from time to time. When there are substantive changes to these Guidelines, you'll hear about it in a Bailey announcement and/or our social media!",
     "commGuideHeadingInteractions": "Interactions in Habitica",
-    "commGuidePara015": "Habitica has two kinds of social spaces: public, and private. Public spaces include the Tavern, Public Guilds, GitHub, Trello, and the Wiki. Private spaces are Private Guilds, Party chat, and Private Messages. All Display Names must comply with the public space guidelines. To change your Display Name, go on the website to User > Profile and click on the \"Edit\" button.",
-    "commGuidePara016": "When navigating the public spaces in Habitica, there are some general rules to keep everyone safe and happy. These should be easy for adventurers like you!",
+    "commGuidePara015": "Habitica has two kinds of social spaces: public, and private. Public spaces include the Tavern, Public Guilds, GitHub, Trello, and the Wiki. Private spaces are Private Guilds, Party chat, and Private Messages. All Display Names and @usernames must comply with the public space guidelines. To change your Display Name and/or @username, on mobile go to Menu > Settings > Profile. On web, go to User > Settings.",
+    "commGuidePara016": "When navigating the public spaces in Habitica, there are some general rules to keep everyone safe and happy.",
     "commGuideList02A": "<strong>Respect each other</strong>. Be courteous, kind, friendly, and helpful. Remember: Habiticans come from all backgrounds and have had wildly divergent experiences. This is part of what makes Habitica so cool! Building a community means respecting and celebrating our differences as well as our similarities. Here are some easy ways to respect each other:",
     "commGuideList02B": "<strong>Obey all of the <a href='/static/terms' target='_blank'>Terms and Conditions</a></strong>.",
     "commGuideList02C": "<strong>Do not post images or text that are violent, threatening, or sexually explicit/suggestive, or that promote discrimination, bigotry, racism, sexism, hatred, harassment or harm against any individual or group</strong>. Not even as a joke. This includes slurs as well as statements. Not everyone has the same sense of humor, and so something that you consider a joke may be hurtful to another. Attack your Dailies, not each other.",
@@ -120,5 +119,6 @@
     "commGuideLink05": "<a href='https://trello.com/b/mXK3Eavg/' target='_blank'>The Mobile Trello</a>: for mobile feature requests.",
     "commGuideLink06": "<a href='https://trello.com/b/vwuE9fbO/' target='_blank'>The Art Trello</a>: for submitting pixel art.",
     "commGuideLink07": "<a href='https://trello.com/b/nnv4QIRX/' target='_blank'>The Quest Trello</a>: for submitting quest writing.",
-    "commGuidePara069": "The following talented artists contributed to these illustrations:"
+    "commGuidePara069": "The following talented artists contributed to these illustrations:",
+    "commGuidePara017": "Here's the quick version, but we encourage you to read in more detail below:"
 }

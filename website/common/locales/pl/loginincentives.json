@@ -1,6 +1,6 @@
 {
     "unlockedReward": "Otrzymałeś <%= reward %>",
-    "earnedRewardForDevotion": "Zdobyłeś <%= reward %>  za przyczynienie się do poprawy swojego życia.",
+    "earnedRewardForDevotion": "Zdobyłeś <%= reward %> za przyczynienie się do poprawy swojego życia.",
     "nextRewardUnlocksIn": "Ilość wizyt do odblokowania następnej nagrody: <%= numberOfCheckinsLeft %>",
     "awesome": "Rewelacyjnie!",
     "countLeft": "<%= count %> wizyt do następnej nagrody",
