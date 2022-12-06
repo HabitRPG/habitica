@@ -2930,7 +2930,7 @@
   "eyewearArmoireTragedyMaskText": "Tragedy Mask",
   "eyewearArmoireTragedyMaskNotes": "Alas! Here sits a heavy mask for thine poor player, strutting, fretting, and expressing woe and sorrow upon the stage. Increases Intelligence by <%= int %>. Enchanted Armoire: Theatre Masks Set (Item 2 of 2).",
   "eyewearArmoireJewelersEyeLoupeText": "Jeweler's Eye Loupe",
-  "eyewearArmoireJewelersEyeLoupeNotes": "This eye loupe magnifies what you’re working on so you can see absolutely every detail. Increases perception by <%= per %>. Enchanted Armoire: Jeweler Set (Item 2 of 4).",
+  "eyewearArmoireJewelersEyeLoupeNotes": "This eye loupe magnifies what you’re working on so you can see absolutely every detail. Increases Perception by <%= per %>. Enchanted Armoire: Jeweler Set (Item 2 of 4).",
 
   "twoHandedItem": "Two-handed item."
 }
