@@ -1403,7 +1403,7 @@
   "armorArmoireSheetGhostCostumeText": "Sheet Ghost Costume",
   "armorArmoireSheetGhostCostumeNotes": "Boo! This is the scariest costume in all of Habitica, so wear it wisely... and watch your step so you don’t trip. Increases Constitution by <%= con %>. Enchanted Armoire: Independent Item.",
   "armorArmoireJewelersApronText": "Jeweler's Apron",
-  "armorArmoireJewelersApronNotes": "This heavy-duty apron is just the thing to wear when you feel creative. Best of all, there are dozens of small pockets to hold everything you need. Increases Intelligence by <%= 10 %>. Enchanted Armoire: Jeweler Set (Item 1 of 4).", 
+  "armorArmoireJewelersApronNotes": "This heavy-duty apron is just the thing to wear when you feel creative. Best of all, there are dozens of small pockets to hold everything you need. Increases Intelligence by <%= int %>. Enchanted Armoire: Jeweler Set (Item 1 of 4).", 
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -2554,7 +2554,7 @@
   "shieldArmoireBubblingCauldronText": "Bubbling Cauldron",
   "shieldArmoireBubblingCauldronNotes": "The perfect cauldron for brewing up a productivity potion or cooking a savory soup. In fact, there is little difference between the two! Increases Constitution by <%= con %>. Enchanted Armoire: Cooking Implements Set (Item 2 of 2).",
   "shieldArmoireJewelersPliersText": "Jeweler's Pliers",
-  "shieldArmoireJewelersPliersNotes": "They cut, twist, pinch, and more. This tool can help you create whatever you can imagine. Increases strength by <%= str %>. Enchanted Armoire: Jeweler Set (Item 3 of 4).",
+  "shieldArmoireJewelersPliersNotes": "They cut, twist, pinch, and more. This tool can help you create whatever you can imagine. Increases Strength by <%= str %>. Enchanted Armoire: Jeweler Set (Item 3 of 4).",
 
 
   "back": "Back Accessory",
