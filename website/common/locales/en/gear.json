@@ -672,7 +672,7 @@
   "weaponArmoireMagicSpatulaText": "Magic Spatula",
   "weaponArmoireMagicSpatulaNotes": "Watch your food fly and flip in the air. You get good luck for the day if it magically flips over three times and then lands back on your spatula. Increases Perception by <%= per %>. Enchanted Armoire: Cooking Implements Set (Item 1 of 2).",
   "weaponArmoireFinelyCutGemText": "Finely Cut Gem",
-  "weaponArmoireFinelyCutGemNotes": "What a find! This stunning, precision-cut gem will be the prize of your collection. And it might contain some special magic, just waiting for you to tap into it. Increases constitution by <%= con %>. Enchanted Armoire: Jeweler Set (Item 4 of 4).",
+  "weaponArmoireFinelyCutGemNotes": "What a find! This stunning, precision-cut gem will be the prize of your collection. And it might contain some special magic, just waiting for you to tap into it. Increases Constitution by <%= con %>. Enchanted Armoire: Jeweler Set (Item 4 of 4).",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -1403,7 +1403,7 @@
   "armorArmoireSheetGhostCostumeText": "Sheet Ghost Costume",
   "armorArmoireSheetGhostCostumeNotes": "Boo! This is the scariest costume in all of Habitica, so wear it wisely... and watch your step so you don’t trip. Increases Constitution by <%= con %>. Enchanted Armoire: Independent Item.",
   "armorArmoireJewelersApronText": "Jeweler's Apron",
-  "armorArmoireJewelersApronNotes": "This heavy-duty apron is just the thing to wear when you feel creative. Best of all, there are dozens of small pockets to hold everything you need. Increases intelligence by <%= 10 %>. Enchanted Armoire: Jeweler Set (Item 1 of 4).", 
+  "armorArmoireJewelersApronNotes": "This heavy-duty apron is just the thing to wear when you feel creative. Best of all, there are dozens of small pockets to hold everything you need. Increases Intelligence by <%= 10 %>. Enchanted Armoire: Jeweler Set (Item 1 of 4).", 
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
