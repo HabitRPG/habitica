@@ -201,5 +201,7 @@
     "demo": "Demo",
     "finish": "Zakończ",
     "congratulations": "Gratulacje!",
-    "onboardingAchievs": "Osiągnięcia rozwojowe"
+    "onboardingAchievs": "Osiągnięcia rozwojowe",
+    "reportBugHeaderDescribe": "Proszę opisz problem, którego doświadczyłeś a my odezwiemy się do ciebie.",
+    "reportEmailText": "Ta informacja będzie używana jedynie w celu skontaktowania się z Tobą w sprawie zgłoszenia błędu."
 }
