@@ -74,7 +74,7 @@ input {
 <script>
 import { mapState } from '@/libs/store';
 
-import SaveCancelButtons from '../components/_saveCancelButtons';
+import SaveCancelButtons from '../components/saveCancelButtons.vue';
 import { InlineSettingMixin } from '../components/inlineSettingMixin';
 import SelectList from '@/components/ui/selectList';
 import { GenericSettingMixin } from '../components/genericSettingMixin';

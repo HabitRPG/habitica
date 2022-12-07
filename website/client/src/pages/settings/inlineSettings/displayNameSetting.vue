@@ -136,7 +136,7 @@ import debounce from 'lodash/debounce';
 import { mapState } from '@/libs/store';
 
 import checkIcon from '@/assets/svg/check.svg';
-import SaveCancelButtons from '../components/_saveCancelButtons';
+import SaveCancelButtons from '../components/saveCancelButtons.vue';
 import { InlineSettingMixin } from '../components/inlineSettingMixin';
 
 export default {

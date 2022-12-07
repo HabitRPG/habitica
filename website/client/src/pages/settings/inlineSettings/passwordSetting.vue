@@ -113,9 +113,9 @@ input {
 <script>
 import axios from 'axios';
 
-import SaveCancelButtons from '../components/_saveCancelButtons';
+import SaveCancelButtons from '../components/saveCancelButtons.vue';
 import { InlineSettingMixin } from '../components/inlineSettingMixin';
-import CurrentPasswordInput from '../components/_currentPasswordInput';
+import CurrentPasswordInput from '../components/currentPasswordInput.vue';
 
 export default {
   components: { CurrentPasswordInput, SaveCancelButtons },

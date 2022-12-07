@@ -86,8 +86,8 @@ import axios from 'axios';
 import { mapState } from '@/libs/store';
 
 import { InlineSettingMixin } from '../components/inlineSettingMixin';
-import SaveCancelButtons from '../components/_saveCancelButtons';
-import CurrentPasswordInput from '../components/_currentPasswordInput';
+import SaveCancelButtons from '../components/saveCancelButtons.vue';
+import CurrentPasswordInput from '../components/currentPasswordInput.vue';
 
 
 export default {

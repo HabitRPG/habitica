@@ -36,33 +36,12 @@
           {{ $t("changeEmailDisclaimer") }}
         </div>
 
-        <div class="input-area">
-          <div class="settings-label">
-            {{ $t("email") }}
-          </div>
-          <div class="form-group">
-            <div
-              class="input-group"
-              :class="{ 'is-valid': validEmail }"
-            >
-              <input
-                id="changeEmail"
-                v-model="updates.newEmail"
-                class="form-control"
-                type="text"
-                :class="{ 'is-invalid input-invalid': !validEmail }"
-                @blur="restoreEmptyEmail()"
-              >
-              <div class="input-floating-checkmark">
-                <div
-                  v-once
-                  class="svg-icon color check-icon"
-                  v-html="icons.checkIcon"
-                ></div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <validated-text-input
+          v-model="updates.newEmail"
+          settings-label="email"
+          :is-valid="validEmail"
+          @blur="restoreEmptyEmail()"
+        />
 
         <current-password-input
           :show-forget-password="true"
@@ -80,51 +59,6 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
-
-.input-group {
-  position: relative;
-  background: white;
-}
-
-input {
-  margin-right: 2rem;
-}
-
-.input-floating-checkmark {
-  position: absolute;
-  background: none !important;
-  right: 0.5rem;
-  top: 0.5rem;
-
-  width: 1rem;
-  height: 1rem;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.input-group.is-valid {
-  border-color: $green-10 !important;
-}
-
-.input-group:not(.is-valid) {
-  .check-icon {
-    display: none;
-  }
-}
-
-.check-icon {
-  width: 16px;
-  height: 16px;
-  color: $green-50;
-}
-
-.form-group {
-  margin-bottom: 1.5rem;
-}
-
 </style>
 
 <script>
@@ -132,13 +66,13 @@ import axios from 'axios';
 import * as validator from 'validator';
 import { mapState } from '@/libs/store';
 
-import checkIcon from '@/assets/svg/check.svg';
-import SaveCancelButtons from '../components/_saveCancelButtons';
+import SaveCancelButtons from '../components/saveCancelButtons.vue';
 import { InlineSettingMixin } from '../components/inlineSettingMixin';
-import CurrentPasswordInput from '../components/_currentPasswordInput';
+import CurrentPasswordInput from '../components/currentPasswordInput.vue';
+import ValidatedTextInput from '@/pages/settings/components/validatedTextInput.vue';
 
 export default {
-  components: { CurrentPasswordInput, SaveCancelButtons },
+  components: { ValidatedTextInput, CurrentPasswordInput, SaveCancelButtons },
   mixins: [InlineSettingMixin],
   data () {
     return {
@@ -146,9 +80,7 @@ export default {
         newEmail: '',
         password: '',
       },
-      icons: Object.freeze({
-        checkIcon,
-      }),
+      emailChanged: false,
     };
   },
   computed: {

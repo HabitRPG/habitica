@@ -163,7 +163,14 @@ input, textarea, input.form-control, textarea.form-control {
   input {
     height: 30px;
     border: 0;
-    background: $white !important;
+  }
+
+  &.is-valid {
+    border-color: $green-10 !important;
+  }
+
+  &.is-invalid {
+    border-color: $red-100 !important;
   }
 }
 
