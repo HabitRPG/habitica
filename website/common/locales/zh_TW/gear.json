@@ -2399,5 +2399,7 @@
     "weaponMystery202211Text": "電磁法杖",
     "weaponSpecialFall2022MageNotes": "當你飛向高空時，這陣陣強風會一直伴隨你。 新增<%= int %>點智力和<%= per %>點感知。 2022年秋季限定版裝備。",
     "weaponSpecialFall2022HealerNotes": "高舉它宣告勝利，同時喊出命令：“一號眼！” 新增<%= int %>點智力。 2022年秋季限定版裝備。",
-    "weaponMystery202211Notes": "用這根法杖來駕馭閃電風暴的强大威力。 沒有屬性加成。 2022年11月訂閱者物品。"
+    "weaponMystery202211Notes": "用這根法杖來駕馭閃電風暴的强大威力。 沒有屬性加成。 2022年11月訂閱者物品。",
+    "weaponArmoireEnchantersStaffNotes": "法杖上鑲嵌的綠色寶石，擁有改變秋風的力量。增加<%= per %>點感知。魔法衣櫥：秋日的魔法師套裝（3/4）。",
+    "weaponArmoireClubOfClubsNotes": "這款時髦的棒子可不會向那些鬼鬼祟祟的老任務揭示你的意圖。增加<%= str %>点力量。魔法衣櫥：梅花J套裝（2/3）。"
 }

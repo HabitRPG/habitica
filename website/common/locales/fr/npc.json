@@ -87,7 +87,7 @@
     "paymentSuccessful": "Le paiement a été réalisé !",
     "paymentYouReceived": "Vous avez reçu :",
     "paymentYouSentGems": "Vous avez envoyé à <strong><%- name %></strong> :",
-    "paymentYouSentSubscription": "Vous avez envoyé à <strong><%- name %></strong> un abonnement de <%= months %> mois sur Habitica.",
+    "paymentYouSentSubscription": "Vous avez envoyé à <strong><%- name %></strong><br> un abonnement de <%= months %> mois sur Habitica.",
     "paymentSubBilling": "Votre abonnement sera débité de <strong><%= amount %>$</strong> chaque <strong><%= months %> mois</strong>.",
     "success": "Victoire !",
     "classGear": "Équipement de classe",

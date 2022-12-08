@@ -20,7 +20,7 @@
     "dataTool": "データ表示ツール",
     "resources": "リソース",
     "communityGuidelines": "コミュニティ ガイドライン",
-    "bannedWordUsed": "おっと！　この投稿には乱暴な言葉、宗教的な誓約、または依存性のある物質や成人向けの事柄に関する記述が含まれているようです（<%= swearWordsUsed %>）。Habiticaにはあらゆる背景を持つユーザーがいますので、私たちはチャットをお行儀のいい状態に保つようにしています。あなたが投稿できるように、遠慮なくメッセージを編集してください！",
+    "bannedWordUsed": "おっと！　この投稿には乱暴な言葉、または依存性のある物質や成人向けの話題が含まれているようです（<%= swearWordsUsed %>）。Habiticaはチャットを非常にクリーンに保っています。あなたが投稿できるように、遠慮なくメッセージを編集してください！　目を通すだけでなく該当する言葉を削除する必要があります。",
     "bannedSlurUsed": "あなたの投稿には不適切な言葉が含まれていたため、チャットの特権が取り消されました。",
     "party": "パーティー",
     "usernameCopied": "ユーザー名をクリップボードにコピーしました。",
@@ -123,7 +123,7 @@
     "sendGiftCost": "会計： $<%= cost %> USD",
     "sendGiftFromBalance": "残高から",
     "sendGiftPurchase": "購入する",
-    "sendGiftMessagePlaceholder": "個人メッセージ(任意)",
+    "sendGiftMessagePlaceholder": "ギフトメッセージを追加",
     "sendGiftSubscription": "<%= months %> カ月 : <%= price %> 米ドル",
     "gemGiftsAreOptional": "Habitica は他のプレイヤーにジェムを贈るように要求することは一切ありません。ジェムを他人にねだることは <strong>コミュニティガイドライン違反</strong>となります。このような行いは全て<%= hrefTechAssistanceEmail %>へと通報されるべきです。",
     "battleWithFriends": "仲間たちと一緒にモンスターと戦いましょう",
@@ -416,5 +416,6 @@
     "descriptionOptionalText": "説明を追加",
     "nextPaymentMethod": "次のステップ：支払方法",
     "createGroup": "グループを作る",
-    "groupParentChildren": "保護者として子どものタスクを設定する"
+    "groupParentChildren": "保護者として子どものタスクを設定する",
+    "sendGiftLabel": "ギフトメッセージを送信しますか？"
 }

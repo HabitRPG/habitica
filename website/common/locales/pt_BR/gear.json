@@ -1859,7 +1859,7 @@
     "armorMystery201907Notes": "Mantenha-se calmo e tenha uma boa aparência, mesmo nos dias mais quentes do verão. Não confere benefícios. Item de Assinante em Julho de 2019.",
     "armorMystery201907Text": "Camisa Floral",
     "armorMystery201906Notes": "Vamos poupar-lhe um trocadilho sobre \"jogar koi\". Oh espera, oops. Não confere nenhum benefício. Item de Assinante em Junho de 2019.",
-    "armorMystery201906Text": "Cauda de Koi Gentil",
+    "armorMystery201906Text": "Cauda de Koi Adorável",
     "armorMystery201904Notes": "Esta peça brilhante tem opalas costuradas no painel frontal para garantir poderes arcanos e um visual fabuloso. Não confere nenhum benefício. Item de Assinante em Abril de 2019.",
     "armorSpecialFall2019HealerNotes": "Dizem que essas vestes são feitas de pura noite. Use o poder das trevas sabiamente! Aumenta a Constituição em <%= con %>. Equipamento de Edição Limitada do Outono de 2019.",
     "armorSpecialFall2019HealerText": "Vestes das Trevas",
@@ -2736,5 +2736,9 @@
     "armorArmoireSheetGhostCostumeText": "Fantasia Fantasma do Lençol",
     "armorArmoireSheetGhostCostumeNotes": "Buu! Esta é a fantasia mais assustadora de todo o Habitica, então use-a com sabedoria... e tome cuidado para não tropeçar. Aumenta Constituição em <%= con %>. Armário Encantado: Item Independente.",
     "headMystery202211Text": "Chapéu Eletromante",
-    "headMystery202211Notes": "Tome cuidado com este chapéu poderoso, seu efeito em quem o encara pode ser chocante! Não confere benefícios. Item de Assinante de novembro de 2022."
+    "headMystery202211Notes": "Tome cuidado com este chapéu poderoso, seu efeito em quem o encara pode ser chocante! Não confere benefícios. Item de Assinante de novembro de 2022.",
+    "shieldArmoireBubblingCauldronText": "Caldeirão Borbulhante",
+    "shieldArmoireBubblingCauldronNotes": "O caldeirão perfeito para preparar uma poção produtiva ou cozinhar uma sopa saborosa. De fato, há pouca diferença entre as duas! Aumenta Constituição em <%= con %>. Armário Encantado: Conjunto Utensílios de Cozinha (item 2 de 2).",
+    "weaponArmoireMagicSpatulaText": "Espátula Mágica",
+    "weaponArmoireMagicSpatulaNotes": "Observe sua comida voar e virar no ar. Você obtém sorte no dia se virar três vezes e então cair de volta em sua espátula. Aumenta Percepção em <%= per %>. Armário Encantado: Conjunto Utensílios de Cozinha (item 1 de 2)."
 }
