@@ -52,6 +52,9 @@ schema.plugin(baseModel, {
 
 schema.methods.incrementPerkCounterAndReward = async function incrementPerkCounterAndReward
 (userID, adding) {
+  if (typeof adding === 'string' || adding instanceof String) {
+    adding = parseInt(adding)
+  }
   // if perkMonthCount wasn't used before, initialize it.
   if (this.perkMonthCount == undefined && adding == 1) {
     this.perkMonthCount = (this.consecutive.count-1) % SUBSCRIPTION_BASIC_BLOCK_LENGTH;
