@@ -40,6 +40,11 @@
               v-model="hero.auth.blocked"
               type="checkbox"
             > Ban / Block
+            <p>
+              <small>
+                Banning a user also auto-hides all their guild posts.
+              </small>
+            </p>
           </label>
         </div>
         <div class="form-inline">

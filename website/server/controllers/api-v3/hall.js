@@ -9,6 +9,7 @@ import {
   NotFound,
 } from '../../libs/errors';
 import apiError from '../../libs/apiError';
+import { flagAllMessages } from '../../libs/chat/group-chat';
 import {
   validateItemPath,
   castItemVal,
@@ -336,6 +337,7 @@ api.updateHero = {
     if (updateData.auth && updateData.auth.blocked === true) {
       hero.auth.blocked = updateData.auth.blocked;
       hero.preferences.sleep = true; // when blocking, have them rest at an inn to prevent damage
+      await flagAllMessages(hero);
     }
     if (updateData.auth && updateData.auth.blocked === false) {
       hero.auth.blocked = false;

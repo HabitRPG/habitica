@@ -114,3 +114,9 @@ export function translateMessage (lang, info) {
   }
   return msg;
 }
+
+export async function flagAllMessages (user) {
+  const bulk = Chat.collection.initializeOrderedBulkOp();
+  bulk.find({ uuid: user._id }).update({ $set: { flagCount: 3 } });
+  await bulk.execute();
+}

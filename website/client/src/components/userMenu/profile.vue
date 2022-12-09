@@ -1028,9 +1028,10 @@ export default {
       this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
     },
     adminBlockUser () {
-      this.hero.auth.blocked = true;
-
-      this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
+      if (window.confirm('Ban user and auto-hide all posts?')) {
+        this.hero.auth.blocked = true;
+        this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
+      }
     },
     adminUnblockUser () {
       this.hero.auth.blocked = false;
