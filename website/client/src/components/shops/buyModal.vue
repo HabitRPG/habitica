@@ -72,6 +72,22 @@
           v-if="item.value > 0"
           class="purchase-amount"
         >
+          <div>
+            <span
+              class="cost"
+              :class="getPriceClass()"
+            >
+              <span
+                class="svg-icon inline icon-24"
+                aria-hidden="true"
+                v-html="icons[getPriceClass()]"
+              >
+              </span>
+              <span
+                :class="getPriceClass()"
+              >{{ item.value }}</span>
+            </span>
+          </div>
           <div
             v-if="showAmountToBuy(item)"
             class="how-many-to-buy"
@@ -85,12 +101,12 @@
             />
             <div :class="{'notEnough': notEnoughCurrency}">
               <span
-                class="svg-icon inline icon-32"
+                class="svg-icon inline icon-20 total"
                 aria-hidden="true"
                 v-html="icons[getPriceClass()]"
               ></span>
               <span
-                class="cost"
+                class="total"
                 :class="getPriceClass()"
               >{{ item.value }}</span>
             </div>
@@ -100,7 +116,7 @@
             class="d-flex align-items-middle"
           >
             <span
-              class="svg-icon inline icon-32 ml-auto my-auto"
+              class="svg-icon inline icon-24 ml-auto my-auto"
               aria-hidden="true"
               v-html="icons[getPriceClass()]"
             ></span>
@@ -251,7 +267,7 @@
       }
     }
 
-    span.svg-icon.inline.icon-32 {
+    span.svg-icon.inline.icon-24 {
       height: 24px;
       width: 24px;
 
@@ -260,14 +276,55 @@
       vertical-align: middle;
     }
 
-    .cost {
-      width: 24px;
-      height: 24px;
-      font-size: 24px;
-      font-weight: bold;
-      line-height: 1.33;
+    span.svg-icon.inline.icon-20 {
+      height: 20px;
+      width: 20px;
+
+      margin-right: 8px;
 
       vertical-align: middle;
+    }
+
+    .cost {
+      height: 40px;
+      font-size: 1.25rem;
+      font-weight: bold;
+      line-height: 1.4;
+
+      vertical-align: middle;
+
+      &.gems {
+        color: $gems-color;
+        border-radius: 20px;
+        padding: 8px 20px 8px 20px;
+        margin-top: 16px;
+        margin-bottom: 16px;
+        background-color: rgba(36, 204, 143, 0.15);
+      }
+
+      &.gold {
+        color: $gold-color;
+        border-radius: 20px;
+        padding: 8px 20px 8px 20px;
+        margin-top: 16px;
+        margin-bottom: 16px;
+        background-color: rgba(255, 190, 93, 0.15);
+      }
+
+      &.hourglasses {
+        color: $hourglass-color;
+        border-radius: 20px;
+        padding: 8px 20px 8px 20px;
+        margin-top: 16px;
+        margin-bottom: 16px;
+        background-color: rgba(41, 149, 205, 0.15);
+      }
+    }
+
+    .total {
+      font-size: 0.825rem;
+      line-height: 1.71;
+      font-weight: bold;
 
       &.gems {
         color: $gems-color;
