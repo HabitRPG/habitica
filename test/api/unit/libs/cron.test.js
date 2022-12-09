@@ -347,6 +347,7 @@ describe('cron', async () => {
         });
         expect(user.purchased.plan.perkMonthCount).to.equal(1);
         user.purchased.plan.perkMonthCount = undefined;
+        user.purchased.plan.consecutive.count = 8;
         clock.restore();
         clock = sinon.useFakeTimers(moment().utcOffset(0).startOf('month').add(2, 'months')
           .add(2, 'days')
@@ -436,6 +437,8 @@ describe('cron', async () => {
 
       it('keeps existing plan.perkMonthCount intact when incrementing consecutive benefits', async () => {
         user3.purchased.plan.perkMonthCount = 2
+        user3.purchased.plan.consecutive.trinkets = 1
+        user3.purchased.plan.consecutive.gemCapExtra = 5
         clock = sinon.useFakeTimers(moment().utcOffset(0).startOf('month').add(4, 'months')
           .add(2, 'days')
           .toDate());
@@ -443,6 +446,8 @@ describe('cron', async () => {
           user: user3, tasksByType, daysMissed, analytics,
         });
         expect(user3.purchased.plan.perkMonthCount).to.equal(2);
+        expect(user3.purchased.plan.consecutive.trinkets).to.equal(2);
+        expect(user3.purchased.plan.consecutive.gemCapExtra).to.equal(10);
       });
 
       it('does not increment consecutive benefits in the second month of the second period that they already have benefits for', async () => {
@@ -516,6 +521,7 @@ describe('cron', async () => {
         user6.purchased.plan.customerId = 'subscribedId';
       user6.purchased.plan.dateUpdated = moment().toDate();
       user6.purchased.plan.planId = 'google_6mo';
+      user6.purchased.plan.perkMonthCount = 0;
       user6.purchased.plan.consecutive.count = 0;
       user6.purchased.plan.consecutive.offset = 6;
       user6.purchased.plan.consecutive.trinkets = 2;
@@ -557,6 +563,19 @@ describe('cron', async () => {
         });
         expect(user6.purchased.plan.consecutive.count).to.equal(7);
         expect(user6.purchased.plan.consecutive.offset).to.equal(5);
+        expect(user6.purchased.plan.consecutive.trinkets).to.equal(4);
+        expect(user6.purchased.plan.consecutive.gemCapExtra).to.equal(20);
+      });
+
+      it('keeps existing plan.perkMonthCount intact when incrementing consecutive benefits', async () => {
+        user6.purchased.plan.perkMonthCount = 2
+        clock = sinon.useFakeTimers(moment().utcOffset(0).startOf('month').add(7, 'months')
+          .add(2, 'days')
+          .toDate());
+        await cron({
+          user: user6, tasksByType, daysMissed, analytics,
+        });
+        expect(user6.purchased.plan.perkMonthCount).to.equal(2);
         expect(user6.purchased.plan.consecutive.trinkets).to.equal(4);
         expect(user6.purchased.plan.consecutive.gemCapExtra).to.equal(20);
       });
