@@ -293,6 +293,11 @@
   width: 48px;
   height: 52px;
 }
+.achievement-polarPro2x {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/achievement-polarPro2x.png');
+  width: 68px;
+  height: 68px;
+}
 .achievement-primedForPainting2x {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/achievement-primedForPainting2x.png');
   width: 48px;
@@ -18655,8 +18660,8 @@
   width: 90px;
   height: 90px;
 }
-.eyewear_armoire_jewelersEyeLoupe {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/eyewear_armoire_jewelersEyeLoupe.png');
+.eyewear_armoire_jewelersEyeloupe {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/eyewear_armoire_jewelersEyeloupe.png');
   width: 114px;
   height: 90px;
 }
@@ -19905,8 +19910,8 @@
   width: 68px;
   height: 68px;
 }
-.shop_eyewear_armoire_jewelersEyeLoupe {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_eyewear_armoire_jewelersEyeLoupe.png');
+.shop_eyewear_armoire_jewelersEyeloupe {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_eyewear_armoire_jewelersEyeloupe.png');
   width: 68px;
   height: 68px;
 }
