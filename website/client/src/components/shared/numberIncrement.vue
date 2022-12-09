@@ -3,9 +3,9 @@
     <!-- buy modal -->
     <div
       class="gray-circle"
-      @click="setQuantity <= 0
-        ? setQuantity = 0
-        : setQuantity--"
+      @click="quantity <= 0
+        ? quantity = 0
+        : quantity--"
     >
       <div
         class="icon-negative"
@@ -16,15 +16,17 @@
       <div class="align-items-center">
       </div>
       <input
+        v-model="quantity"
         class="form-control alignment"
         :quantity="1"
-        min="0"
+        min="1"
         step="1"
+        @input="$emit('update:quantity', $event.target.value)"
       >
     </div>
     <div
       class="gray-circle"
-      @click="setQuantity++"
+      @click="quantity++"
     >
       <div
         class="icon-positive"
@@ -100,9 +102,6 @@ export default {
       type: Number,
       default: 1,
     },
-    item: {
-      type: Object,
-    },
   },
   data () {
     return {
@@ -112,13 +111,10 @@ export default {
         svgPositive,
         svgNegative,
       }),
+      item: { },
     };
   },
   computed: {
-    setQuantity () {
-      const setQuantity = this.item.value * this.quantity;
-      return setQuantity;
-    },
   },
   methods: {
   },

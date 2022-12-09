@@ -81,6 +81,7 @@
           <div v-if="showAmountToBuy(item)">
             <number-increment
               :quantity="1"
+              @click="$emit('update:quantity', selectedAmountToBuy)"
             />
             <div :class="{'notEnough': notEnoughCurrency}">
               <span
