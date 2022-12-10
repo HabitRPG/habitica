@@ -23,11 +23,11 @@
         v-for="item in items"
         :key="keyProp ? item[keyProp] : item"
         :disabled="typeof item[disabledProp] === 'undefined' ? false : item[disabledProp]"
-        :active="activeKeyProp ? item[activeKeyProp] === selected : item === selected"
+        :active="isSelected(item)"
         :class="{
-          active: activeKeyProp ? item[activeKeyProp] === selected : item === selected,
+          active: isSelected(item),
           selectListItem: true,
-          showIcon: !hideIcon && item === selected
+          showIcon: !hideIcon && isSelected(item)
         }"
         @click="selectItem(item)"
       >
@@ -134,6 +134,13 @@ export default {
     selectItem (item) {
       this.selected = item;
       this.$emit('select', item);
+    },
+    isSelected (item) {
+      if (this.activeKeyProp) {
+        return item[this.activeKeyProp] === this.selected;
+      }
+
+      return item === this.selected;
     },
   },
 };

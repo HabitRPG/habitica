@@ -44,11 +44,7 @@
       <table class="table">
         <language-setting />
         <date-format-setting />
-        <tr>
-          <td colspan="3">
-            Day Start TODO
-          </td>
-        </tr>
+        <day-start-adjustment-setting />
         <tr>
           <td colspan="3">
             Audio TODO
@@ -109,6 +105,11 @@
     width: 100%;
     margin-top: 5px;
   }
+
+  .standard-page {
+    padding-left: 0;
+    padding-right: 0;
+  }
 </style>
 
 <script>
@@ -122,9 +123,11 @@ import DeleteAccount from './inlineSettings/deleteAccount';
 import { sharedInlineSettingStore } from './components/inlineSettingMixin';
 import LanguageSetting from './inlineSettings/languageSetting';
 import DateFormatSetting from '@/pages/settings/inlineSettings/dateFormatSetting';
+import DayStartAdjustmentSetting from '@/pages/settings/inlineSettings/dayStartAdjustmentSetting.vue';
 
 export default {
   components: {
+    DayStartAdjustmentSetting,
     DateFormatSetting,
     LanguageSetting,
     DeleteAccount,

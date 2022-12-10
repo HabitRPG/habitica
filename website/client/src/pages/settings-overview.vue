@@ -97,7 +97,7 @@
         font-weight: bold;
         color: $gray-50;
 
-        width: 20%;
+        width: 23%;
       }
 
       .input-area .settings-label {
