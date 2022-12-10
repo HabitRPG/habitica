@@ -137,7 +137,7 @@ export default {
     },
     async changeLanguageAndClose () {
       this.user.preferences.language = this.selectedLanguage;
-      await this.set('language');
+      await this.setUserPreference('language');
       setTimeout(() => window.location.reload(true));
     },
   },

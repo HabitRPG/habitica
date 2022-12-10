@@ -106,7 +106,7 @@ export default {
     },
     async changeFormatAndClose () {
       this.user.preferences.dateFormat = this.selectedFormat;
-      await this.set('dateFormat');
+      await this.setUserPreference('dateFormat');
       this.closeModal();
     },
     /**

@@ -1,6 +1,6 @@
 export const GenericSettingMixin = {
   methods: {
-    set (preferenceType, subtype) {
+    setUserPreference (preferenceType, subtype) {
       const settings = {};
       if (!subtype) {
         settings[`preferences.${preferenceType}`] = this.user.preferences[preferenceType];

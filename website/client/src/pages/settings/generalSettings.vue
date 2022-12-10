@@ -50,16 +50,6 @@
             Audio TODO
           </td>
         </tr>
-        <tr>
-          <td colspan="3">
-            Show header TODO
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3">
-            Sticky Header TODO
-          </td>
-        </tr>
       </table>
 
 
@@ -122,8 +112,8 @@ import ResetAccount from './inlineSettings/resetAccount';
 import DeleteAccount from './inlineSettings/deleteAccount';
 import { sharedInlineSettingStore } from './components/inlineSettingMixin';
 import LanguageSetting from './inlineSettings/languageSetting';
-import DateFormatSetting from '@/pages/settings/inlineSettings/dateFormatSetting';
-import DayStartAdjustmentSetting from '@/pages/settings/inlineSettings/dayStartAdjustmentSetting.vue';
+import DateFormatSetting from './inlineSettings/dateFormatSetting';
+import DayStartAdjustmentSetting from './inlineSettings/dayStartAdjustmentSetting.vue';
 
 export default {
   components: {
