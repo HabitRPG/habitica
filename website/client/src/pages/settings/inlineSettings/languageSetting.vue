@@ -112,12 +112,21 @@ export default {
     },
   },
   mounted () {
-    this.selectedLanguage = this.currentActiveLanguage;
+    this.resetControls();
   },
   methods: {
+    /**
+     * is a callback from the {InlineSettingMixin}
+     * do not remove
+     */
+    resetControls () {
+      this.selectedLanguage = this.currentActiveLanguage;
+    },
     changeLanguage (e) {
       const newLang = e.code;
       this.selectedLanguage = newLang;
+
+      this.modalValuesChanged();
     },
     selectedLanguageLabel (languageKey) {
       if (!this.availableLanguages) {

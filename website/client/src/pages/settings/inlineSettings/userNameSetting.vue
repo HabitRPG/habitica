@@ -41,7 +41,7 @@
           settings-label="username"
           :is-valid="usernameValid"
           :invalid-issues="usernameIssues"
-          @update:value="inputChanged = true"
+          @update:value="valuesChanged()"
           @blur="restoreEmptyUsername()"
         />
 
@@ -109,12 +109,19 @@ export default {
     },
   },
   mounted () {
-    this.restoreEmptyUsername();
+    this.resetControls();
   },
   methods: {
+    /**
+     * is a callback from the {InlineSettingMixin}
+     * do not remove
+     */
+    resetControls () {
+      this.inputValue = `@${this.user.auth.local.username}`;
+    },
     restoreEmptyUsername () {
       if (this.inputValue.length < 1) {
-        this.inputValue = `@${this.user.auth.local.username}`;
+        this.resetControls();
       }
     },
     async changeUser (attribute, newUsername) {
@@ -125,6 +132,11 @@ export default {
       this.user.auth.local.username = newUsername;
       // this.localAuth.username = this.user.auth.local.username;
       this.user.flags.verifiedUsername = true;
+    },
+    valuesChanged () {
+      this.inputChanged = true;
+
+      this.modalValuesChanged();
     },
     validateUsername: debounce(async function checkName (username) {
       if (username.length <= 1 || username === this.user.auth.local.username) {

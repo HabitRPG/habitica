@@ -40,6 +40,7 @@
           v-model="updates.newEmail"
           settings-label="email"
           :is-valid="validEmail"
+          @update:value="modalValuesChanged"
           @blur="restoreEmptyEmail()"
         />
 
@@ -98,10 +99,16 @@ export default {
     this.restoreEmptyEmail();
   },
   methods: {
+    resetControls () {
+      this.restoreEmail();
+    },
     restoreEmptyEmail () {
       if (this.updates.newEmail.length < 1) {
-        this.updates.newEmail = this.user.auth.local.email;
+        this.restoreEmail();
       }
+    },
+    restoreEmail () {
+      this.updates.newEmail = this.user.auth.local.email;
     },
     async changeEmail () {
       await axios.put('/api/v4/user/auth/update-email', this.updates);

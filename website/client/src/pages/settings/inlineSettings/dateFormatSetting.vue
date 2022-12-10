@@ -97,16 +97,24 @@ export default {
     },
   },
   mounted () {
-    this.selectedFormat = this.currentActiveFormat;
+    this.resetControls();
   },
   methods: {
     changeFormat (e) {
       this.selectedFormat = e;
+      this.modalValuesChanged();
     },
     async changeFormatAndClose () {
       this.user.preferences.dateFormat = this.selectedFormat;
       await this.set('dateFormat');
       this.closeModal();
+    },
+    /**
+     * is a callback from the {InlineSettingMixin}
+     * do not remove
+     */
+    resetControls () {
+      this.selectedFormat = this.currentActiveFormat;
     },
   },
 };

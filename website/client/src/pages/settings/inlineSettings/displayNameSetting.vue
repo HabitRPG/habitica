@@ -53,7 +53,7 @@
                 type="text"
                 :placeholder="$t('newDisplayName')"
                 :class="{'is-invalid input-invalid': displayNameInvalid}"
-                @keyup="inputChanged = true"
+                @keyup="valuesChanged()"
               >
               <div
                 v-if="displayNameIssues.length > 0"
@@ -186,13 +186,15 @@ export default {
     },
   },
   mounted () {
-    this.restoreDisplayName();
+    this.resetControls();
   },
   methods: {
-    restoreDisplayName () {
-      if (this.temporaryDisplayName.length < 1) {
-        this.temporaryDisplayName = this.user.profile.name;
-      }
+    /**
+     * is a callback from the {InlineSettingMixin}
+     * do not remove
+     */
+    resetControls () {
+      this.temporaryDisplayName = this.user.profile.name;
     },
     async changeDisplayName (newName) {
       await axios.put('/api/v4/user/', { 'profile.name': newName });
@@ -200,21 +202,25 @@ export default {
       this.user.profile.name = newName;
       this.temporaryDisplayName = newName;
     },
-    validateDisplayName: debounce(function checkName (displayName) {
+    validateDisplayName: debounce(async function checkName (displayName) {
       if (displayName.length <= 1 || displayName === this.user.profile.name) {
         this.displayNameIssues = [];
         return;
       }
-      this.$store.dispatch('auth:verifyDisplayName', {
+      const res = await this.$store.dispatch('auth:verifyDisplayName', {
         displayName,
-      }).then(res => {
-        if (res.issues !== undefined) {
-          this.displayNameIssues = res.issues;
-        } else {
-          this.displayNameIssues = [];
-        }
       });
+
+      if (res.issues !== undefined) {
+        this.displayNameIssues = res.issues;
+      } else {
+        this.displayNameIssues = [];
+      }
     }, 500),
+    valuesChanged () {
+      this.inputChanged = true;
+      this.modalValuesChanged();
+    },
   },
 };
 </script>
