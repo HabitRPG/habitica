@@ -65,6 +65,7 @@
             @passwordValue="passwordValue = $event"
           />
           <save-cancel-buttons
+            :disable-save="passwordValue === ''"
             primary-button-color="btn-danger"
             primary-button-label="resetAccount"
             @saveClicked="reset()"
