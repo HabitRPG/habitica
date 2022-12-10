@@ -139,5 +139,6 @@
     "counter": "計數器",
     "adjustCounter": "修正計數器",
     "resetCounter": "重設計數器",
-    "editTagsText": "編輯標籤"
+    "editTagsText": "編輯標籤",
+    "taskSummary": "<%= type %> 摘要"
 }

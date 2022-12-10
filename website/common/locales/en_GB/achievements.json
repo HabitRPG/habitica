@@ -126,5 +126,20 @@
     "achievementShadyCustomerModalText": "You colleted all the Shade Pets!",
     "achievementShadeOfItAll": "The Shade of It All",
     "achievementShadeOfItAllText": "Has tamed all Shade Mounts.",
-    "achievementShadeOfItAllModalText": "You tamed all the Shade Mounts!"
+    "achievementShadeOfItAllModalText": "You tamed all the Shade Mounts!",
+    "achievementReptacularRumble": "Reptacular Rumble",
+    "achievementReptacularRumbleModalText": "You collected all the reptile pets!",
+    "achievementReptacularRumbleText": "Has hatched all the standard colours of reptile pets: Alligator, Pterodactyl, Snake, Triceratops, Turtle, Tyrannosaurus Rex, and Velociraptor!",
+    "achievementBirdsOfAFeather": "Birds of a Feather",
+    "achievementBirdsOfAFeatherModalText": "You collected all the flying pets!",
+    "achievementBirdsOfAFeatherText": "Has hatched all standard colours of flying pets: Flying Pig, Owl, Parrot, Pterodactyl, Gryphon, Falcon, Peacock and Rooster!",
+    "achievementGroupsBeta2022": "Interactive Beta Tester",
+    "achievementGroupsBeta2022Text": "You and your group provided invaluable feedback to help Habitica test.",
+    "achievementGroupsBeta2022ModalText": "You and your groups helped Habitica by testing and providing feedback!",
+    "achievementWoodlandWizard": "Woodland Wizard",
+    "achievementWoodlandWizardText": "Has hatched all standard colours of forest creatures: Badger, Bear, Deer, Fox, Frog, Hedgehog, Owl, Snail, Squirrel, and Treeling!",
+    "achievementWoodlandWizardModalText": "You collected all the forest pets!",
+    "achievementBoneToPick": "Bone to Pick",
+    "achievementBoneToPickText": "Has hatched all the Classic and Quest Skeleton Pets!",
+    "achievementBoneToPickModalText": "You collected all the Classic and Quest Skeleton Pets!"
 }

@@ -138,5 +138,8 @@
     "achievementBirdsOfAFeather": "Papużki Nierozłączki",
     "achievementBirdsOfAFeatherText": "Wykluł wszystkie standardowe kolory latających zwierząt: Latająca Świnia, Sowa, Papuga, Pterodaktyl, Gryf, Sokół, Paw i Kogut!",
     "achievementZodiacZookeeperText": "Wykluł wszystkie standardowe kolory zwierząt zodiaku: Szczur, Krowa, Królik, Wąż, Koń, Owca, Małpa, Kogut, Wilk, Tygrys, Latająca Świnia i Smok!",
-    "achievementZodiacZookeeperModalText": "Zebrałeś wszystkie zwierzęta zodiakalne!"
+    "achievementZodiacZookeeperModalText": "Zebrałeś wszystkie zwierzęta zodiakalne!",
+    "achievementBoneToPick": "Kość Niezgody",
+    "achievementBoneToPickText": "Wykluł wszystkie Szkieletowe Zwierzęta Klasyczne i z Misji!",
+    "achievementBoneToPickModalText": "Znalazłeś wszystkie Szkieletowe Zwierzaki Klasyczne i z Misji!"
 }
