@@ -121,13 +121,13 @@ import { mapState } from '@/libs/store';
 import SaveCancelButtons from '../components/saveCancelButtons.vue';
 import { InlineSettingMixin } from '../components/inlineSettingMixin';
 import SelectList from '@/components/ui/selectList';
-import { GenericSettingMixin } from '../components/genericSettingMixin';
+import { GenericUserPreferencesMixin } from '../components/genericUserPreferencesMixin';
 import sounds from '@/libs/sounds';
 import ToggleSwitch from '@/components/ui/toggleSwitch.vue';
 
 export default {
   components: { ToggleSwitch, SelectList, SaveCancelButtons },
-  mixins: [InlineSettingMixin, GenericSettingMixin],
+  mixins: [InlineSettingMixin, GenericUserPreferencesMixin],
   data () {
     return {
       soundIndex: 0,

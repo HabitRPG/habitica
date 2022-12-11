@@ -44,6 +44,10 @@ export const InlineSettingMixin = {
     _openIt () {
       this.sharedState.markAsOpened(this);
       this.modalVisible = true;
+
+      this.$el.scrollTo({
+        behavior: 'smooth',
+      });
     },
     _hidePrevious () {
       this.sharedState.instanceOfCurrentlyOpened.resetControls();

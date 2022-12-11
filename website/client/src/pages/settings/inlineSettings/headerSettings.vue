@@ -44,12 +44,12 @@ import { mapState } from '@/libs/store';
 
 import { InlineSettingMixin } from '../components/inlineSettingMixin';
 import ToggleSwitch from '@/components/ui/toggleSwitch.vue';
-import { GenericSettingMixin } from '../components/genericSettingMixin';
+import { GenericUserPreferencesMixin } from '../components/genericUserPreferencesMixin';
 
 
 export default {
   components: { ToggleSwitch },
-  mixins: [InlineSettingMixin, GenericSettingMixin],
+  mixins: [InlineSettingMixin, GenericUserPreferencesMixin],
   computed: {
     ...mapState({
       user: 'user.data',

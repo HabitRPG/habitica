@@ -1,4 +1,4 @@
-export const GenericSettingMixin = {
+export const GenericUserPreferencesMixin = {
   methods: {
     setUserPreference (preferenceType, subtype) {
       const settings = {};
