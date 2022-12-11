@@ -45,11 +45,7 @@
         <language-setting />
         <date-format-setting />
         <day-start-adjustment-setting />
-        <tr>
-          <td colspan="3">
-            Audio TODO
-          </td>
-        </tr>
+        <audio-theme-setting />
       </table>
 
 
@@ -114,9 +110,11 @@ import { sharedInlineSettingStore } from './components/inlineSettingMixin';
 import LanguageSetting from './inlineSettings/languageSetting';
 import DateFormatSetting from './inlineSettings/dateFormatSetting';
 import DayStartAdjustmentSetting from './inlineSettings/dayStartAdjustmentSetting.vue';
+import AudioThemeSetting from '@/pages/settings/inlineSettings/audioThemeSetting.vue';
 
 export default {
   components: {
+    AudioThemeSetting,
     DayStartAdjustmentSetting,
     DateFormatSetting,
     LanguageSetting,
