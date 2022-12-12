@@ -1,28 +1,60 @@
-import forEach from 'lodash/forEach';
 import t from './translation';
 
-const headings = [
-  'overview',
-  'set-up-tasks',
-  'sample-tasks',
-  'task-color',
-  'health',
-  'party-with-friends',
-  'pets-mounts',
-  'character-classes',
-  'blue-mana-bar',
-  'monsters-quests',
-  'gems',
-  'bugs-features',
-  'world-boss',
-  'group-plans',
+const questionList = [
+  {
+    heading: 'overview',
+    translationIndex: 0,
+  },
+  {
+    heading: 'set-up-tasks',
+    translationIndex: 1,
+  },
+  {
+    heading: 'sample-tasks',
+    translationIndex: 2,
+  },
+  {
+    heading: 'task-color',
+    translationIndex: 3,
+  },
+  {
+    heading: 'health',
+    translationIndex: 4,
+  },
+  {
+    heading: 'party-with-friends',
+    translationIndex: 5,
+  },
+  {
+    heading: 'pets-mounts',
+    translationIndex: 6,
+  },
+  {
+    heading: 'character-classes',
+    translationIndex: 7,
+  },
+  {
+    heading: 'blue-mana-bar',
+    translationIndex: 8,
+  },
+  {
+    heading: 'monsters-quests',
+    translationIndex: 9,
+  },
+  {
+    heading: 'gems',
+    translationIndex: 10,
+  },
+  {
+    heading: 'bugs-features',
+    translationIndex: 11,
+  },
+  {
+    heading: 'group-plans',
+    translationIndex: 13,
+    excludedPlatforms: ['android', 'ios'],
+  },
 ];
-
-const exclusions = {
-  android: [12, 13],
-  ios: [12, 13],
-  web: [12],
-};
 
 const faq = {
   questions: [],
@@ -32,25 +64,19 @@ const faq = {
   },
 };
 
-headings.forEach((heading, index) => {
+questionList.forEach(listEntry => {
   const question = {
-    exclusions: [],
-    heading,
-    question: t(`faqQuestion${index}`),
-    android: t(`androidFaqAnswer${index}`),
-    ios: t(`iosFaqAnswer${index}`),
-    web: t(`webFaqAnswer${index}`, {
+    exclusions: listEntry.excludedPlatforms || [],
+    heading: listEntry.heading,
+    question: t(`faqQuestion${listEntry.translationIndex}`),
+    android: t(`androidFaqAnswer${listEntry.translationIndex}`),
+    ios: t(`iosFaqAnswer${listEntry.translationIndex}`),
+    web: t(`webFaqAnswer${listEntry.translationIndex}`, {
       //  TODO: Need to pull these values from nconf
       techAssistanceEmail: 'admin@habitica.com',
       wikiTechAssistanceEmail: 'mailto:admin@habitica.com',
     }),
   };
-
-  forEach(exclusions, (platform, key) => {
-    if (platform.indexOf(index) !== -1) {
-      question.exclusions.push(key);
-    }
-  });
 
   faq.questions.push(question);
 });

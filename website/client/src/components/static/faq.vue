@@ -5,7 +5,10 @@
   >
     <div class="row">
       <div class="col-12 col-md-6 offset-md-3">
-        <h1 id="faq-heading">
+        <h1
+          v-once
+          id="faq-heading"
+        >
           {{ $t('frequentlyAskedQuestions') }}
         </h1>
         <div
@@ -14,6 +17,7 @@
           class="faq-question"
         >
           <h2
+            v-once
             v-b-toggle="entry.heading"
             role="tab"
             variant="info"
@@ -28,13 +32,17 @@
             role="tabpanel"
           >
             <div
+              v-once
               v-markdown="entry.web"
               class="card-body"
             ></div>
           </b-collapse>
         </div>
         <hr>
-        <p v-markdown="stillNeedHelp"></p>
+        <p
+          v-once
+          v-markdown="stillNeedHelp"
+        ></p>
       </div>
     </div>
   </div>
