@@ -213,5 +213,5 @@
     "submitBugReport": "提交错误报告",
     "reportSent": "错误报告已发送！",
     "reportSentDescription": "一旦我们的团队发现了问题的来源，我们会马上回复您。感谢您报告这个问题。",
-    "emptyReportBugMessage": "报告错误的那条消息丢失了"
+    "emptyReportBugMessage": "错误报告已丢失"
 }

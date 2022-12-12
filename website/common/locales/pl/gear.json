@@ -133,7 +133,7 @@
     "weaponSpecialSummerRogueText": "Szabla piracka",
     "weaponSpecialSummerRogueNotes": "A niech je dunder świśnie! Wyrzucisz te Codzienne za burtę! Zwiększa Siłę o <%= str %>. Edycja Limitowana Lato 2014.",
     "weaponSpecialSummerWarriorText": "Nóż Morski",
-    "weaponSpecialSummerWarriorNotes": "Nie ma takiego zadania ani listy Do-Zrobienia, które stawiłyby opór temu sękatemu nożowi! Zwiększa Siłę o <%= str %>. Edycja Limitowana Lato 2014.",
+    "weaponSpecialSummerWarriorNotes": "Nie ma takiego zadania ani listy Do Zrobienia, które stawiłyby opór temu sękatemu nożowi! Zwiększa Siłę o <%= str %>. Edycja Limitowana Lato 2014.",
     "weaponSpecialSummerMageText": "Chwytak wodorostów",
     "weaponSpecialSummerMageNotes": "Ten trójząb jest przydatny do nadziewania nań wodorostów i bardziej produktywnego zbierania alg! Zwiększa Inteligencję o  <%= int %> i Percepcję o <%= per %>. Edycja Limitowana Lato 2014.",
     "weaponSpecialSummerHealerText": "Różdżka mielizn",
@@ -237,7 +237,7 @@
     "weaponSpecialFall2017RogueText": "Maczuga Kandyzowane Jabłko",
     "weaponSpecialFall2017RogueNotes": "Pokonaj swoich przeciwników słodyczą! Zwiększa Siłę o <%= str %>. Edycja Limitowana Jesiennego Wyposażenia 2017.",
     "weaponSpecialFall2017WarriorText": "Lanca Kandyzowana Kukurydza",
-    "weaponSpecialFall2017WarriorNotes": "Wszyscy Twoi przeciwnicy będą się kryć przed tą smacznie wyglądającą lanca, niezależnie od tego czy są duchami, potworami czy czerwonymi Do-Zrobienia. Zwiększa Siłę o <%= str %>. Edycja Limitowana Jesiennego Wyposażenia 2017.",
+    "weaponSpecialFall2017WarriorNotes": "Wszyscy Twoi przeciwnicy będą się kryć przed tą smacznie wyglądającą lanca, niezależnie od tego czy są duchami, potworami czy czerwonymi Do Zrobienia. Zwiększa Siłę o <%= str %>. Edycja Limitowana Jesiennego Wyposażenia 2017.",
     "weaponSpecialFall2017MageText": "Upiorna laska",
     "weaponSpecialFall2017MageNotes": "Oczy żarzącej czaszki tej laski promieniują magią i tajemnica. Zwiększa Inteligencję o <%= int %> i Percepcję o <%= per %>. Edycja Limitowana Jesień 2017.",
     "weaponSpecialFall2017HealerText": "Przerażający świecznik",
@@ -1787,5 +1787,13 @@
     "weaponSpecialKS2019Notes": "Zakrzywiona jak dziób i pazury gryfa, ta paradna broń drzewcowa przypomina Ci by dzielnie działać nawet kiedy zadania wydają się trudne.",
     "weaponSpecialSpring2019RogueNotes": "Te bronie posiadają moc nieba i deszczu. Zalecamy by nie używać ich jeśli jest się częściowo zanurzonym w wodzie. Zwiększa Siłę o <%=str %>. Edycja Limitowana 2019 Wiosenne Wyposażenie.",
     "eyewearArmoireClownsNoseNotes": "Ten dodatek sprawi, że wszyscy wywęszą, że jesteś klaunem! Zwiększa inteligencję o <%= int %>. Zaczarowana Skrzynia: Zestaw Klauna (Przedmiot 2 z 5).",
-    "eyewearArmoireClownsNoseText": "Nos Klauna"
+    "eyewearArmoireClownsNoseText": "Nos Klauna",
+    "weaponSpecialSpring2019WarriorText": "Miecz Łodygi",
+    "weaponSpecialSpring2019WarriorNotes": "Złe nawyki kulą się w strachu przed tym zielonym ostrzem. Podnosi siłę o <%= str %>. Limitowana Edycja Wiosna 2019.",
+    "weaponSpecialSpring2019MageText": "Bursztynowa Laska",
+    "weaponSpecialSpring2019HealerText": "Wiosenna Pieśń",
+    "weaponSpecialSpring2019MageNotes": "W bursztynie na końcu tej laski zanurzony jest komar! Uwaga: może zawierać DNA dinozaura. Podnosi Inteligencję o <%= int %> i Percepcję o <%= per %>. Edycja Limitowana Wiosna 2019.",
+    "weaponSpecialSpring2019HealerNotes": "Twa pieśń kwiatów i deszczu ukoi dusze wszystkich słuchaczy. Zwiększa Inteligencję o <%= int %>. Limitowana Edycja Wiosennego Wyposażenia 2019.",
+    "weaponSpecialSummer2019RogueText": "Antyczna Kotwica",
+    "weaponSpecialSummer2019RogueNotes": "Ta pradawna i potężna broń pomoże ci wygrać każdą podwodną bitwę. Podnosi Siłę o <%= str %>. Edycja Limitowana Wiosna 2019."
 }

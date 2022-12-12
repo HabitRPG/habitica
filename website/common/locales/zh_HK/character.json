@@ -85,7 +85,7 @@
     "allocatePerPop": "Add a Point to Perception",
     "allocateInt": "分配給智慧的點數：",
     "allocateIntPop": "Add a Point to Intelligence",
-    "noMoreAllocate": "您已經到達等級100，你不會再獲得任何等級點了。你可以繼續升級，或者用<a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a>以等級一開啓一個新的旅程！",
+    "noMoreAllocate": "您已經到達等級100，你不會再獲得任何等級點了。你可以繼續升級，或者用<a href='https://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a>以等級一開啓一個新的旅程！",
     "stats": "能力統計",
     "achievs": "成就",
     "strength": "力量",
@@ -185,5 +185,6 @@
     "chatCastSpellUser": "<%= username %> 對<%= target %>施了<%= spell %> 。",
     "chatCastSpellParty": "<%= username %>對您的隊伍下了<%= spell %>。",
     "purchasePetItemConfirm": "此次交易將超過您能孵化的<%= itemText %>隻寵物總數。您確定要繼續此次交易嗎？",
-    "purchaseForGold": "以<%= cost %>金幣購買？"
+    "purchaseForGold": "以<%= cost %>金幣購買？",
+    "notEnoughGold": "唔夠金幣。"
 }
