@@ -30,15 +30,15 @@ export default {
 
   pinnedSets: SHOP_OPEN
     ? {
-      healer: 'fall2022WatcherHealerSet',
-      rogue: 'fall2022KappaRogueSet',
-      warrior: 'fall2022OrcWarriorSet',
-      wizard: 'fall2022HarpyMageSet',
+      rogue: 'winter2023RibbonRogueSet',
+      warrior: 'winter2023WalrusWarriorSet',
+      wizard: 'winter2023FairyLightsMageSet',
+      healer: 'winter2023CardinalHealerSet',
     }
     : {},
-  availableSpells: SHOP_OPEN && moment().isBetween('2022-10-04T08:00-05:00', CURRENT_EVENT.end)
+  availableSpells: SHOP_OPEN && moment().isBetween('2022-12-13T08:00-05:00', CURRENT_EVENT.end)
     ? [
-      'spookySparkles',
+      'snowballs',
     ]
     : [],
 
@@ -48,5 +48,5 @@ export default {
     ]
     : [],
 
-  featuredSet: 'fall2021BrainEaterMageSet',
+  featuredSet: 'winter2022PomegranateMageSet',
 };

@@ -33,6 +33,6 @@ export default prefill({
     setPrice: 5, availableFrom: '2022-07-05T08:00-05:00', availableUntil: EVENTS.summer2022.end, text: t('splashySkins'),
   },
   winterySkins: {
-    setPrice: 5, availableFrom: '2021-12-23T08:00-05:00', availableUntil: '2022-01-31T20:00-05:00', text: t('winterySkins'),
+    setPrice: 5, availableFrom: '2023-01-17T08:00-05:00', availableUntil: EVENTS.winter2023.end, text: t('winterySkins'),
   },
 });

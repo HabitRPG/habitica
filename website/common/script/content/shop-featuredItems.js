@@ -5,7 +5,7 @@ import { EVENTS } from './constants';
 // path: 'premiumHatchingPotions.Rainbow',
 const featuredItems = {
   market () {
-    if (moment().isBetween(EVENTS.bundle202211.start, EVENTS.bundle202211.end)) {
+    if (moment().isBetween(EVENTS.winter2023.start, EVENTS.winter2023.end)) {
       return [
         {
           type: 'armoire',
@@ -13,15 +13,15 @@ const featuredItems = {
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Frost',
+          path: 'premiumHatchingPotions.StarryNight',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Ember',
+          path: 'premiumHatchingPotions.Holly',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Thunderstorm',
+          path: 'premiumHatchingPotions.Aurora',
         },
       ];
     }
@@ -76,7 +76,7 @@ const featuredItems = {
       },
     ];
   },
-  seasonal: 'spring2021Healer',
+  seasonal: 'winter2022Healer',
   timeTravelers: [
     // TODO
   ],
