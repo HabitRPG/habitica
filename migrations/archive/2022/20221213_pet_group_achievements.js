@@ -54,16 +54,16 @@ async function updateUser (user) {
       && pets['Whale-Skeleton']
       && pets['Whale-White']
       && pets['Whale-Zombie']
-      && pets['WolfCub-Base']
-      && pets['WolfCub-CottonCandyBlue']
-      && pets['WolfCub-CottonCandyPink']
-      && pets['WolfCub-Desert']
-      && pets['WolfCub-Golden']
-      && pets['WolfCub-Red']
-      && pets['WolfCub-Shade']
-      && pets['WolfCub-Skeleton']
-      && pets['WolfCub-White']
-      && pets['WolfCub-Zombie'] {
+      && pets['Wolf-Base']
+      && pets['Wolf-CottonCandyBlue']
+      && pets['Wolf-CottonCandyPink']
+      && pets['Wolf-Desert']
+      && pets['Wolf-Golden']
+      && pets['Wolf-Red']
+      && pets['Wolf-Shade']
+      && pets['Wolf-Skeleton']
+      && pets['Wolf-White']
+      && pets['Wolf-Zombie'] {
         set['achievements.polarPro'] = true;
       }
   }
