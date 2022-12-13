@@ -72,7 +72,7 @@
           v-if="item.value > 0"
           class="purchase-amount"
         >
-          <div>
+          <div class="item-cost">
             <span
               class="cost"
               :class="getPriceClass()"
@@ -100,6 +100,7 @@
               @click="$emit('update:quantity', selectedAmountToBuy)"
             />
             <div :class="{'notEnough': notEnoughCurrency}">
+              <span class="total-text">Total:</span>
               <span
                 class="svg-icon inline icon-20 total"
                 aria-hidden="true"
@@ -212,10 +213,23 @@
 
     .modal-body {
       padding-bottom: 0px;
+      padding-left: 0px;
+    }
+
+    .modal-footer {
+      height: 48px;
+      background-color: $gray-700;
+      border-bottom-right-radius: 8px;
+      border-bottom-left-radius: 8px;
+      display: block;
+      margin: 24px 0 0;
+      padding: 16px 24px;
+      align-content: center;
     }
 
     .modal-dialog {
-      width: 330px;
+      width: 448px;;
+      box-sizing: border-box;
     }
 
     .avatar {
@@ -225,6 +239,8 @@
 
     .content {
       text-align: center;
+      width: 448px;
+      // box-sizing: border-box
     }
 
     .item-wrapper {
@@ -233,7 +249,10 @@
 
     .inner-content {
       margin: 33px auto auto;
-      width: 282px;
+    }
+
+    .btn-primary {
+      margin-top: 16px;
     }
 
     .purchase-amount {
@@ -270,19 +289,20 @@
     span.svg-icon.inline.icon-24 {
       height: 24px;
       width: 24px;
-
       margin-right: 8px;
-
       vertical-align: middle;
     }
 
     span.svg-icon.inline.icon-20 {
       height: 20px;
       width: 20px;
-
       margin-right: 8px;
-
       vertical-align: middle;
+    }
+
+    .item-cost {
+      padding-top: 16px;
+      padding-bottom: 16px;
     }
 
     .cost {
@@ -327,7 +347,7 @@
       font-weight: bold;
 
       &.gems {
-        color: $gems-color;
+        color: $green-10;
       }
 
       &.gold {
@@ -338,6 +358,14 @@
         color: $hourglass-color;
       }
     }
+
+    .total-text {
+      font-size: 0.825rem;
+      line-height: 1.71;
+      font-weight: bold;
+      height: 24px;
+      width: 37px;
+      padding-right: 8px;
 
     button.btn.btn-primary {
       margin-top: 24px;
@@ -358,13 +386,6 @@
       color: $gray-200;
     }
 
-    .modal-footer {
-      height: 48px;
-      background-color: $gray-700;
-      border-bottom-right-radius: 8px;
-      border-bottom-left-radius: 8px;
-      display: block;
-    }
 
     .notEnough {
       pointer-events: none;
@@ -395,6 +416,7 @@
       padding-top: 0.15rem;
     }
   }
+}
 </style>
 
 <style lang="scss" scoped>
