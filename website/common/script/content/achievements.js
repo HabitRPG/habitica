@@ -183,11 +183,6 @@ const animalSetAchievs = {
     titleKey: 'achievementDomesticated',
     textKey: 'achievementDomesticatedText',
   },
-  polarPro: {
-    icon: 'achievement-polarPro',
-    titleKey: 'achievementPolarPro',
-    textKey: 'achievementPolarProText',
-  },
   reptacularRumble: {
     icon: 'achievement-reptacularRumble',
     titleKey: 'achievementReptacularRumble',

@@ -141,8 +141,5 @@
   "achievementWoodlandWizardModalText": "You collected all the forest pets!",
   "achievementBoneToPick": "Bone to Pick",
   "achievementBoneToPickText": "Has hatched all the Classic and Quest Skeleton Pets!",
-  "achievementBoneToPickModalText": "You collected all the Classic and Quest Skeleton Pets!",
-  "achievementPolarPro": "Polar Pro",
-  "achievementPolarProText": "Has hatched all Polar pets: Bear, Fox, Penguin, Whale, and Wolf!",
-  "achievementPolarProModalText": "You collected all the Polar Pets!"
+  "achievementBoneToPickModalText": "You collected all the Classic and Quest Skeleton Pets!"
 }

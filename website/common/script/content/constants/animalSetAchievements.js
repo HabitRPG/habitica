@@ -41,18 +41,6 @@ const ANIMAL_SET_ACHIEVEMENTS = {
     achievementKey: 'domesticated',
     notificationType: 'ACHIEVEMENT_ANIMAL_SET',
   },
-  polarPro: {
-    type: 'pet',
-    species: [
-      'BearCub',
-      'Fox',
-      'Penguin',
-      'Whale',
-      'Wolf',
-    ],
-    achievementKey: 'polarPro',
-    notificationType: 'ACHIEVEMENT_ANIMAL_SET',
-  },
   reptacularRumble: {
     type: 'pet',
     species: [
