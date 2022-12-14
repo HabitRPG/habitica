@@ -541,6 +541,34 @@ describe('POST /chat', () => {
       .to.eql(userWithStyle.preferences.background);
   });
 
+  it('creates equipped to user styles', async () => {
+    const userWithStyle = await generateUser({
+      'preferences.costume': false,
+      'auth.timestamps.created': new Date('2022-01-01'),
+    });
+    await userWithStyle.sync();
+
+    const message = await userWithStyle.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage });
+
+    expect(message.message.id).to.exist;
+    expect(message.message.userStyles.items.gear.equipped).to.eql(userWithStyle.items.gear.equipped);
+    expect(message.message.userStyles.items.gear.costume).to.not.exist;
+  });
+
+  it('creates costume to user styles', async () => {
+    const userWithStyle = await generateUser({
+      'preferences.costume': true,
+      'auth.timestamps.created': new Date('2022-01-01'),
+    });
+    await userWithStyle.sync();
+
+    const message = await userWithStyle.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage });
+
+    expect(message.message.id).to.exist;
+    expect(message.message.userStyles.items.gear.costume).to.eql(userWithStyle.items.gear.costume);
+    expect(message.message.userStyles.items.gear.equipped).to.not.exist;
+  });
+
   it('adds backer info to chat', async () => {
     const backerInfo = {
       npc: 'Town Crier',
