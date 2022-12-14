@@ -38,7 +38,7 @@ export default {
     : {},
   availableSpells: SHOP_OPEN && moment().isBetween('2022-12-20T08:00-05:00', CURRENT_EVENT.end)
     ? [
-      'snowballs',
+      'snowball',
     ]
     : [],
 
