@@ -2341,7 +2341,6 @@ const shield = {
   },
   spring2015Rogue: {
     set: 'sneakySqueakerSet',
-    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2015Warrior: {
