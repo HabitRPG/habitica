@@ -551,7 +551,8 @@ describe('POST /chat', () => {
     const message = await userWithStyle.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage });
 
     expect(message.message.id).to.exist;
-    expect(message.message.userStyles.items.gear.equipped).to.eql(userWithStyle.items.gear.equipped);
+    expect(message.message.userStyles.items.gear.equipped)
+      .to.eql(userWithStyle.items.gear.equipped);
     expect(message.message.userStyles.items.gear.costume).to.not.exist;
   });
 
