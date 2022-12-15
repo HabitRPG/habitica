@@ -2736,5 +2736,9 @@
     "weaponMystery202211Notes": "Bündle die massive Macht eines Blitzgewitters mit diesem Stab. Gewährt keinen Attributbonus. November 2022 Abonnentengegenstand.",
     "armorArmoireSheetGhostCostumeNotes": "Boo! Das ist das gruseligste Kostüm in Habitica, also geh vernünftig damit um … und gib Acht, dass Du nicht stolperst. Erhöht Ausdauer um <%= con %>. Verzauberter Schrank: Unabhängiger Gegenstand.",
     "headMystery202211Text": "Blitzbeschwörer Hut",
-    "headMystery202211Notes": "Sei vorsichtig mit diesem blitzenden Hut, er kann einen sehr schockierenden Eindruck bei Deinen Bewunderern hinteralssen! Gewährt keinen Attributbonus. November 2022 Abonnentengegenstand."
+    "headMystery202211Notes": "Sei vorsichtig mit diesem blitzenden Hut, er kann einen sehr schockierenden Eindruck bei Deinen Bewunderern hinteralssen! Gewährt keinen Attributbonus. November 2022 Abonnentengegenstand.",
+    "weaponArmoireMagicSpatulaText": "Magischer Pfannenwender",
+    "weaponArmoireMagicSpatulaNotes": "Schau zu, wie Dein Essen durch die Luft fliegt und sich überschlägt. Du hast den Rest des Tages Glück wenn es dreimal magisch überschlägt, bevor es wieder am Pfannenwender landet. Erhöht Wahrnehmung um <%= per %>. Verzauberter Schrank: Küchenwerkzeugset (Gegenstand 1 von 2).",
+    "shieldArmoireBubblingCauldronText": "Übersprudelnder Kessel",
+    "shieldArmoireBubblingCauldronNotes": "Der perfekte Kessel, um einen Produktivitätstrank zu brühen oder eine würzige Suppe zu kochen. Um genau zu sein gibt es zwischen diesen beiden kaum einen Unterschied! Erhöht Ausdauer um <%= con %>. Verzauberter Schrank: Küchenwerkzeugset (Gegenstand 2 von 2)."
 }

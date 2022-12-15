@@ -42,7 +42,7 @@
     "sureChangeCustomDayStartTime": "您確定要更改每日開始時間？您的每日任務將在您<%= time %>之後的第一次登入後重置。請確認您在時間到達之前完成您的每日任務！",
     "customDayStartHasChanged": "您的每日開始時間已變更。",
     "nextCron": "您的每日任務將於<%= time %>重置。請確保在期限內完成您的每日任務！",
-    "customDayStartInfo1": "Habitica預設於玩家時區的每日午夜結算當日的每日任務。您可以在這裡更改每日任務的結算時間。",
+    "customDayStartInfo1": "Habitica預設於玩家時區的每日午夜結算當日的每日任務。您可以在這裡更改這一預設的每日任務的結算時間。",
     "misc": "其他",
     "showHeader": "顯示頁首",
     "changePass": "修改密碼",
@@ -189,5 +189,15 @@
     "everywhere": "所有地方",
     "suggestMyUsername": "使用者名稱建議",
     "mentioning": "提及",
-    "giftedSubscriptionWinterPromo": "嗨，<%= username %>您收到 <%= monthCount %> 個月的訂閱資格，作為假期促銷禮品！"
+    "giftedSubscriptionWinterPromo": "嗨，<%= username %>您收到 <%= monthCount %> 個月的訂閱資格，作為假期促銷禮品！",
+    "adjustment": "調整為",
+    "dayStartAdjustment": "調整每日起始時間",
+    "passwordSuccess": "成功更改密碼",
+    "nextHourglass": "下一個神秘沙漏",
+    "nextHourglassDescription": "訂閱者會在每個月的前三天內\n獲得神秘沙漏。",
+    "gemCap": "寶石上限",
+    "addPasswordAuth": "加密碼",
+    "transactions": "交易",
+    "gemTransactions": "寶石交易",
+    "hourglassTransactions": "神秘沙漏交易"
 }
