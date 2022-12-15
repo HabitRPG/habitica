@@ -32,7 +32,7 @@
     "bootstrap": "^4.6.0",
     "bootstrap-vue": "^2.22.0",
     "chai": "^4.3.6",
-    "core-js": "^3.26.0",
+    "core-js": "^3.26.1",
     "dompurify": "^2.4.1",
     "eslint": "^6.8.0",
     "eslint-config-habitrpg": "^6.2.0",
