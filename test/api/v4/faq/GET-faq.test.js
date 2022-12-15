@@ -37,6 +37,8 @@ describe('GET /faq', () => {
 
       expect(res).to.have.property('questions');
       expect(res.questions[0]).to.eql({
+        exclusions: [],
+        heading: 'overview',
         question: translate('faqQuestion0'),
         ios: translate('iosFaqAnswer0'),
       });
@@ -57,6 +59,8 @@ describe('GET /faq', () => {
 
       expect(res).to.have.property('questions');
       expect(res.questions[0]).to.eql({
+        exclusions: [],
+        heading: 'overview',
         question: translate('faqQuestion0'),
         android: translate('androidFaqAnswer0'),
       });
