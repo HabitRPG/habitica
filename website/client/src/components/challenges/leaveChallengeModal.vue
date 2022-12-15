@@ -60,8 +60,10 @@ export default {
         });
       });
       if (!tagInUse) {
-        await this.$store.dispatch('tags:deleteTag',
-          { tagId: `../../../../api/v4/tags/${this.challengeId}` });
+        await this.$store.dispatch(
+          'tags:deleteTag',
+          { tagId: this.challengeId },
+        );
       }
       this.close();
     },
