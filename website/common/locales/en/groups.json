@@ -129,7 +129,7 @@
   "sendGiftHeading": "Send Gift to <%= name %>",
   "sendGiftGemsBalance": "From <%= number %> Gems",
   "sendGiftCost": "Total: $<%= cost %> USD",
-  "sendGiftTotal": "Total:",
+  "sendTotal": "Total:",
   "sendGiftFromBalance": "From Balance",
   "sendGiftPurchase": "Purchase",
   "sendGiftLabel": "Would you like to send a gift message?",

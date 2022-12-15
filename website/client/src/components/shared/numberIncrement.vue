@@ -18,10 +18,8 @@
       <input
         v-model="quantity"
         class="form-control alignment"
-        :quantity="1"
-        min="1"
         step="1"
-        @input="$emit('update:quantity', $event.target.value)"
+        @input="$emit('update:quantity', $event.target.selectedAmountToBuy)"
       >
     </div>
     <div

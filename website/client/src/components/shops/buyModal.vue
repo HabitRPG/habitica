@@ -96,11 +96,10 @@
           </div>
           <div v-if="showAmountToBuy(item)">
             <number-increment
-              :quantity="1"
-              @click="$emit('update:quantity', selectedAmountToBuy)"
+              @input="$emit('update:quantity', target.value.selectedAmountToBuy)"
             />
             <div :class="{'notEnough': notEnoughCurrency}">
-              <span class="total-text">Total:</span>
+              <span class="total-text">{{ $t('sendTotal') }}</span>
               <span
                 class="svg-icon inline icon-20 total"
                 aria-hidden="true"
@@ -109,7 +108,7 @@
               <span
                 class="total"
                 :class="getPriceClass()"
-              >{{ item.value }}</span>
+              >{{ item.value * selectedAmount }}</span>
             </div>
           </div>
           <div
@@ -488,6 +487,7 @@ export default {
   },
   mixins: [buyMixin, currencyMixin, notifications, numberInvalid, spellsMixin],
   props: {
+    // eslint-disable-next-line vue/require-default-prop
     item: {
       type: Object,
     },
@@ -519,6 +519,7 @@ export default {
       selectedAmountToBuy: 1,
       selectedAmount: 1,
       isPinned: false,
+      quantity: 1,
     };
   },
   computed: {
