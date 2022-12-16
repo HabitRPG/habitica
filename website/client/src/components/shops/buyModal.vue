@@ -96,7 +96,7 @@
           </div>
           <div v-if="showAmountToBuy(item)">
             <number-increment
-              @input="$emit('update:quantity', target.value.selectedAmountToBuy)"
+              @updateQuantity="selectedAmountToBuy = $event"
             />
             <div :class="{'notEnough': notEnoughCurrency}">
               <span class="total-text">{{ $t('sendTotal') }}</span>
@@ -108,7 +108,7 @@
               <span
                 class="total"
                 :class="getPriceClass()"
-              >{{ item.value * selectedAmount }}</span>
+              >{{ item.value * selectedAmountToBuy }}</span>
             </div>
           </div>
           <div
@@ -584,6 +584,7 @@ export default {
     onChange ($event) {
       this.$emit('change', $event);
     },
+
     buyItem () {
       // @TODO: I  think we should buying to the items.
       // Turn the items into classes, and use polymorphism

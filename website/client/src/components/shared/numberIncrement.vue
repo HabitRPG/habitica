@@ -19,7 +19,6 @@
         v-model="quantity"
         class="form-control alignment"
         step="1"
-        @input="$emit('update:quantity', $event.target.selectedAmountToBuy)"
       >
     </div>
     <div
@@ -95,12 +94,6 @@ import svgPositive from '@/assets/svg/positive.svg';
 import svgNegative from '@/assets/svg/negative.svg';
 
 export default {
-  props: {
-    quantity: {
-      type: Number,
-      default: 1,
-    },
-  },
   data () {
     return {
       icons: Object.freeze({
@@ -110,9 +103,19 @@ export default {
         svgNegative,
       }),
       item: { },
+      quantity: 1,
     };
   },
   computed: {
+    // validateQuantity () {
+    //   const validateQuantity = Number ? Number : NaN;
+    //   return validateQuantity;
+    // },
+  },
+  watch: {
+    quantity () {
+      this.$emit('updateQuantity', this.quantity);
+    },
   },
   methods: {
   },
