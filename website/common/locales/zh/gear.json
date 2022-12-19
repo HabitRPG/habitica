@@ -2740,5 +2740,19 @@
     "shieldArmoireBubblingCauldronText": "咕嘟冒泡锅",
     "weaponArmoireMagicSpatulaText": "魔法锅铲",
     "shieldArmoireBubblingCauldronNotes": "这是一口完美大锅，可以酿造生产力药水或烹饪美味汤肴。事实上，两者几乎没有区别！增加点<%=con%>体质。魔法衣橱：厨具套装（2/2）。",
-    "weaponArmoireMagicSpatulaNotes": "看着你的食物在空中飞舞。如果它神奇地翻了三次，然后又落在你的锅铲上，你将会获得一天的好运。增加<%=per%>点感知。魔法衣橱：厨具套装（1/2）。"
+    "weaponArmoireMagicSpatulaNotes": "看着你的食物在空中飞舞。如果它神奇地翻了三次，然后又落在你的锅铲上，你将会获得一天的好运。增加<%=per%>点感知。魔法衣橱：厨具套装（1/2）。",
+    "weaponArmoireFinelyCutGemText": "完美宝石",
+    "weaponArmoireFinelyCutGemNotes": "看看我发现了什么！这颗惊人工艺切割的宝石将成为您收藏品。它好像包含一些特殊的魔力，一直等待你去挖掘它。增加<%= con %>点体质。魔法衣橱：宝石套装（4/4）。",
+    "armorMystery202212Notes": "宇宙可能很冷，但这件迷人的衣服会让你在飞行时保持舒适。没有属性加成。2022年12月订阅者物品。",
+    "armorArmoireJewelersApronNotes": "这条厚重的围裙适合在创意工作时穿上。最棒的一点是有几十个小口袋可以装下你需要的一切。增加<%=int%>点智力。魔法衣橱：宝石套装（1/4）。",
+    "armorMystery202212Text": "冰川连衣裙",
+    "armorArmoireJewelersApronText": "珠宝商的围裙",
+    "shieldArmoireJewelersPliersText": "珠宝钳",
+    "shieldArmoireJewelersPliersNotes": "他们剪、扭、捏等等。这个工具可以帮助您实现任何灵感。增加<%=str%>点力量。魔法衣橱：宝石套装（3/4）。",
+    "headAccessoryMystery202212Text": "寒冰之冠",
+    "headAccessoryMystery202212Notes": "用这顶华丽的金色头饰将你的热情和友谊提升到新的高度。没有属性加成。2022年12月订阅者物品。",
+    "eyewearArmoireJewelersEyeLoupeText": "珠宝商的放大镜",
+    "weaponMystery202212Text": "寒冰法杖",
+    "weaponMystery202212Notes": "即使在最寒冷的冬夜，这根魔杖里闪闪发光的雪花也能温暖人心！没有属性加成。2022年12月订阅者物品。",
+    "eyewearArmoireJewelersEyeLoupeNotes": "这个放大镜放大了你眼前的事物，方便你看到所有细节。增加<%=per%>点感知。魔法衣橱：宝石套装（2/4）。"
 }

@@ -10,7 +10,7 @@
     "viewAchievements": "Lihat Penghargaan",
     "letsGetStarted": "Mari kita mulai!",
     "onboardingProgress": "<%= percentage %>% kemajuan",
-    "gettingStartedDesc": "Ayo selesaikan tugas pengenalan ini dan kamu akan mendapat  <strong>5 Pencapaian</strong> dan <strong class=\"gold-amount\">100 Emas</strong> setelah kamu selesai!",
+    "gettingStartedDesc": "Ayo selesaikan tugas pengenalan ini dan kamu akan memperoleh  <strong>5 Pencapaian</strong> dan <strong class=\"gold-amount\">100 Emas</strong> setelah kamu selesai!",
     "yourProgress": "Perkembangan Anda",
     "yourRewards": "Hadiah Anda",
     "foundNewItems": "Anda menemukan barang baru!",
@@ -123,5 +123,6 @@
     "achievementShadyCustomerModalText": "Kamu mengumpulkan semua Peliharaan Bayangan!",
     "achievementShadeOfItAll": "Segala Bayang yang Ada",
     "achievementShadeOfItAllText": "Telah menjinakkan semua Tunggangan Bayangan.",
-    "achievementShadeOfItAllModalText": "Kamu menjinakkan semua Tunggangan Bayangan!"
+    "achievementShadeOfItAllModalText": "Kamu menjinakkan semua Tunggangan Bayangan!",
+    "achievementWoodlandWizardModalText": "Kamu telah mengumpulkan seluruh peliharaan hutan!"
 }
