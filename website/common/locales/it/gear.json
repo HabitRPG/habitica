@@ -2740,5 +2740,19 @@
     "weaponArmoireMagicSpatulaText": "Spatola Magica",
     "weaponArmoireMagicSpatulaNotes": "Guarda il tuo cibo volare e capovolgersi in aria. Avrai buona fortuna per l'intera giornata se si ribalterà magicamente per tre volte atterrando nuovamente sulla tua spatola. Aumenta la Percezione di <%= per %>. Scrigno Incantato: Set Utensili da Cucina (Oggetto 1 di 2).",
     "shieldArmoireBubblingCauldronText": "Calderone Ribollente",
-    "shieldArmoireBubblingCauldronNotes": "Il calderone perfetto per preparare una pozione di produttività o cucinare una zuppa saporita. In effetti, v'è poca differenza fra le due! Aumenta la Costituzione <%= con %>. Scrigno Incantato: Set Utensili da Cucina (Oggetto 2 di 2)."
+    "shieldArmoireBubblingCauldronNotes": "Il calderone perfetto per preparare una pozione di produttività o cucinare una zuppa saporita. In effetti, v'è poca differenza fra le due! Aumenta la Costituzione <%= con %>. Scrigno Incantato: Set Utensili da Cucina (Oggetto 2 di 2).",
+    "shieldArmoireJewelersPliersText": "Pinze del Gioielliere",
+    "shieldArmoireJewelersPliersNotes": "Tagliano, torcono, pizzicano e altro ancora. Questo strumento può aiutarti a creare tutto ciò che puoi immaginare. Aumenta la Forza di <%= str %>. Scrigno Incantato: Set del Gioielliere (Oggetto 3 di 4).",
+    "eyewearArmoireJewelersEyeLoupeText": "Lente d'Ingrandimento del Gioielliere",
+    "eyewearArmoireJewelersEyeLoupeNotes": "Questo monocolo ingrandisce ciò su cui stai lavorando di modo da poter vedere assolutamente ogni dettaglio. Aumenta la Percezione di <%= per %>. Scrigno Incantato: Set del gioielliere (Oggetto 2 di 4).",
+    "weaponArmoireFinelyCutGemText": "Gioiello Finemente Levigato",
+    "weaponArmoireFinelyCutGemNotes": "Che scoperta! Questa splendida gemma levigata con precisione sarà il gioiello della tua collezione. E potrebbe contenere una qualche magia speciale, che aspetta solo che tu vi ci attinga. Aumenta la Costituzione di <%= con %>. Scrigno Incantato: Set del Gioielliere (Oggetto 4 di 4).",
+    "armorArmoireJewelersApronText": "Grembiule del Gioielliere",
+    "armorArmoireJewelersApronNotes": "Questo resistente grembiule è l'ideale da indossare quando ti senti creativo. E la cosa migliore è che ci sono dozzine di tasche per contenere tutto ciò di cui hai bisogno. Aumenta l'Intelligenza di <%= int %>. Scrigno Incantato: Set del Gioielliere (Oggetto 1 di 4).",
+    "weaponMystery202212Text": "Bacchetta Glaciale",
+    "weaponMystery202212Notes": "Il cristallo di neve raggiante di questa bacchetta ha il potere di riscaldare i cuori anche nelle notti invernali più fredde! Non conferisce alcun bonus. Oggetto abbonati dicembre 2022.",
+    "headAccessoryMystery202212Text": "Tiara Glaciale",
+    "headAccessoryMystery202212Notes": "Porta il tuo calore e le tue amicizie a nuovi livelli con questa decorata tiara dorata. Non conferisce alcun bonus. Oggetto abbonati dicembre 2022.",
+    "armorMystery202212Text": "Abito Glaciale",
+    "armorMystery202212Notes": "L'universo potrà essere freddo, ma quest'incantevole abito ti terrà al caldo mentre voli. Non conferisce alcun bonus. Oggetto abbonati dicembre 2022."
 }

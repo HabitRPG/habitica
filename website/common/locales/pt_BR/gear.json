@@ -2740,5 +2740,19 @@
     "shieldArmoireBubblingCauldronText": "Caldeirão Borbulhante",
     "shieldArmoireBubblingCauldronNotes": "O caldeirão perfeito para preparar uma poção produtiva ou cozinhar uma sopa saborosa. De fato, há pouca diferença entre as duas! Aumenta Constituição em <%= con %>. Armário Encantado: Conjunto Utensílios de Cozinha (item 2 de 2).",
     "weaponArmoireMagicSpatulaText": "Espátula Mágica",
-    "weaponArmoireMagicSpatulaNotes": "Observe sua comida voar e virar no ar. Você obtém sorte no dia se virar três vezes e então cair de volta em sua espátula. Aumenta Percepção em <%= per %>. Armário Encantado: Conjunto Utensílios de Cozinha (item 1 de 2)."
+    "weaponArmoireMagicSpatulaNotes": "Observe sua comida voar e virar no ar. Você obtém sorte no dia se virar três vezes e então cair de volta em sua espátula. Aumenta Percepção em <%= per %>. Armário Encantado: Conjunto Utensílios de Cozinha (item 1 de 2).",
+    "armorMystery202212Notes": "O universo pode ser gelado, mas este vestido charmoso te manterá aconchegante enquanto voa. Não confere benefícios. Item de Assinante de dezembro de 2022.",
+    "armorArmoireJewelersApronNotes": "Este avental resistente é a roupa perfeita para vestir nos momentos criativos. O melhor de tudo é que há dezenas de pequenos bolsos para guardar tudo que precisa. Aumenta a Inteligência em <%=int%>. Armário Encantado: Conjunto Joalheiro (Item 1 de 4).",
+    "shieldArmoireJewelersPliersNotes": "Cortam, giram, apertam e muito mais. Esta ferramenta pode te ajudar a criar tudo que imaginar. Aumenta Força em <%= str %>. Armário Encantado: Conjunto Joalheiro (Item 3 de 4).",
+    "armorMystery202212Text": "Vestido Glacial",
+    "headAccessoryMystery202212Notes": "Fique mais quentinho e faça amizades de outro nível com esta tiara dourada ornamentada. Não confere benefícios. Item de Assinante de dezembro de 2022.",
+    "eyewearArmoireJewelersEyeLoupeText": "Lupa de Joalheiro",
+    "eyewearArmoireJewelersEyeLoupeNotes": "Esta lupa amplia seu trabalho para que possa ver absolutamente cada detalhe. Aumenta Percepção em <%= per %>. Armário Encantado: Conjunto Joalheiro (Item 2 de 4).",
+    "weaponArmoireFinelyCutGemNotes": "Você achou! Essa gema deslumbrante e com um corte preciso será o prêmio de sua coleção. E talvez contenha alguma mágica especial, apenas esperando seu toque. Aumenta Constituição em <%= con %>. Armário Encantado: Conjunto Joalheiro (Item 4 de 4).",
+    "weaponMystery202212Text": "Varinha Glacial",
+    "weaponMystery202212Notes": "O floco de neve brilhante desta varinha possui o poder de aquecer corações, mesmo na noite mais gelada do inverno! Não confere benefícios. Item de Assinante de dezembro de 2022.",
+    "weaponArmoireFinelyCutGemText": "Gema Finamente Cortada",
+    "armorArmoireJewelersApronText": "Avental de Joalheiro",
+    "shieldArmoireJewelersPliersText": "Alicate de Joalheiro",
+    "headAccessoryMystery202212Text": "Tiara Glacial"
 }
