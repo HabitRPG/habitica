@@ -36,15 +36,16 @@ export default {
       healer: 'winter2023CardinalHealerSet',
     }
     : {},
-  availableSpells: SHOP_OPEN && moment().isBetween('2022-12-20T08:00-05:00', CURRENT_EVENT.end)
+  availableSpells: SHOP_OPEN && moment().isBetween('2022-12-27T08:00-05:00', CURRENT_EVENT.end)
     ? [
       'snowball',
     ]
     : [],
 
-  availableQuests: SHOP_OPEN && CURRENT_EVENT.season === 'spring'
+  availableQuests: SHOP_OPEN && CURRENT_EVENT.season === 'winter'
     ? [
-      'egg',
+      'evilsanta',
+      'evilsanta2',
     ]
     : [],
 
