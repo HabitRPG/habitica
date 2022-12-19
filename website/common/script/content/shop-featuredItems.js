@@ -32,47 +32,47 @@ const featuredItems = {
       },
       {
         type: 'food',
-        path: 'food.Milk',
+        path: 'food.RottenMeat',
       },
       {
         type: 'hatchingPotions',
-        path: 'hatchingPotions.White',
+        path: 'hatchingPotions.CottonCandyBlue',
       },
       {
         type: 'eggs',
-        path: 'eggs.Fox',
+        path: 'eggs.FlyingPig',
       },
     ];
   },
   quests () {
-    if (moment().isBetween(EVENTS.bundle202211.start, EVENTS.bundle202211.end)) {
+    if (moment().isBetween(EVENTS.winter2023.start, EVENTS.winter2023.end)) {
       return [
         {
           type: 'bundles',
-          path: 'bundles.rockingReptiles',
+          path: 'bundles.winterQuests',
         },
         {
           type: 'quests',
-          path: 'quests.peacock',
+          path: 'quests.whale',
         },
         {
           type: 'quests',
-          path: 'quests.harpy',
+          path: 'quests.turtle',
         },
       ];
     }
     return [
       {
         type: 'quests',
-        path: 'quests.axolotl',
+        path: 'quests.slime',
       },
       {
         type: 'quests',
-        path: 'quests.stone',
+        path: 'quests.seaserpent',
       },
       {
         type: 'quests',
-        path: 'quests.whale',
+        path: 'quests.unicorn',
       },
     ];
   },
