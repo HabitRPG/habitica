@@ -456,6 +456,15 @@
   "weaponSpecialFall2022HealerText": "Right Peeker Eye",
   "weaponSpecialFall2022HealerNotes": "To claim victory, hold it forth and utter the words of command: 'Eye One!' Increases Intelligence by <%= int %>. Limited Edition 2022 Fall Gear.",
 
+  "weaponSpecialWinter2023RogueText": "Green Satin Sash",
+  "weaponSpecialWinter2023RogueNotes": "Legends tell of Rogues who snare their opponents' weapons, disarm them, then gift the item back just to be cute. Incrases Strength by <%= str %>. Limited Edition 2022-2023 Winter Gear.",
+  "weaponSpecialWinter2023WarriorText": "Tusk Spear",
+  "weaponSpecialWinter2023WarriorNotes": "The two prongs of this spear are shaped like walrus tusks but are twice as powerful. Jab at doubts and at silly poems until they back off! Increases Strength by <%= str %>. Limited Edition 2022-2023 Winter Gear.",
+  "weaponSpecialWinter2023MageText": "Foxfire",
+  "weaponSpecialWinter2023MageNotes": "Neither fox nor fire, but plenty festive! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2022-2023 Winter Gear.",
+  "weaponSpecialWinter2023HealerText": "Throwing Wreath",
+  "weaponSpecialWinter2023HealerNotes": "Watch this festive, prickly wreath spin through the air toward your enemy or obstacles and return to you like a boomerang for another throw. Increases Intelligence by <%= int %>. Limited Edition 2022-2023 Winter Gear.",
+
   "weaponMystery201411Text": "Pitchfork of Feasting",
   "weaponMystery201411Notes": "Stab your enemies or dig in to your favorite foods - this versatile pitchfork does it all! Confers no benefit. November 2014 Subscriber Item.",
   "weaponMystery201502Text": "Shimmery Winged Staff of Love and Also Truth",
@@ -1108,6 +1117,15 @@
   "armorSpecialFall2022MageNotes": "Fly as fast as the wind with these wonderful wings and hold what you care most about tight in these terrifying talons. Increases Intelligence by <%= int %>. Limited Edition 2022 Fall Gear.",
   "armorSpecialFall2022HealerText": "Profusion of Peeker Pods",
   "armorSpecialFall2022HealerNotes": "How many peeps could a Peeker peep, if a Peeker could peep peeps? Increases Constitution by <%= con %>. Limited Edition 2022 Fall Gear.",
+
+  "armorSpecialWinter2023RogueText": "Ribbon Wrap",
+  "armorSpecialWinter2023RogueNotes": "Obtain items. Bundle them up in pretty paper. And give them to your local Rogue! The season demands it. Increases Perception by <%= per %>. Limited Edition 2022-2023 Winter Gear.",
+  "armorSpecialWinter2023WarriorText": "Walrus Suit",
+  "armorSpecialWinter2023WarriorNotes": "This tough walrus suit is perfect for a walk along a beach in the middle of the night. Increases Constitution by <%= con %>. Limited Edition 2022-2023 Winter Gear.",
+  "armorSpecialWinter2023MageText": "Fairy Light Gown",
+  "armorSpecialWinter2023MageNotes": "Just because you have lights on, that doesn't make you a tree! ...maybe some other year. Increases Intelligence by <%= int %>. Limited Edition 2022-2023 Winter Gear.",
+  "armorSpecialWinter2023HealerText": "Cardinal Suit",
+  "armorSpecialWinter2023HealerNotes": "This bright cardinal suit is perfect for flying high above your problems. Increases Constitution by <%= con %>. Limited Edition 2022-2023 Winter Gear.",
 
   "armorMystery201402Text": "Messenger Robes",
   "armorMystery201402Notes": "Shimmering and strong, these robes have many pockets to carry letters. Confers no benefit. February 2014 Subscriber Item.",
@@ -1835,6 +1853,15 @@
   "headSpecialFall2022MageNotes": "Entrance and lure others close with this magical maiden mask. Increases Perception by <%= per %>. Limited Edition 2022 Fall Gear.",
   "headSpecialFall2022HealerText": "Peeker Mask",
   "headSpecialFall2022HealerNotes": "Beauty is in there. Somewhere! Increases Intelligence by <%= int %>. Limited Edition 2022 Fall Gear.",
+  
+  "headSpecialWinter2023RogueText": "Gift Bow",
+  "headSpecialWinter2023RogueNotes": "People's temptations to “unwrap” your hair will give you opportunities to practice your ducks and dodges. Increases Perception by <%= per %>. Limited Edition 2022-2023 Winter Gear.",
+  "headSpecialWinter2023WarriorText": "Walrus Helm",
+  "headSpecialWinter2023WarriorNotes": "This walrus helm is perfect for chatting with a friend or partaking in a clever meal. Increases Strength by <%= str %>. Limited Edition 2022-2023 Winter Gear.",
+  "headSpecialWinter2023MageText": "Fairy-Lit Tiara",
+  "headSpecialWinter2023MageNotes": "Were you hatched with a Starry Night potion? Because I've got stars in my eyes for you. Increases Perception by <%= per %>. Limited Edition 2022-2023 Winter Gear.",
+  "headSpecialWinter2023HealerText": "Cardinal Helm",
+  "headSpecialWinter2023HealerNotes": "This cardinal helm is perfect for whistling and singing to herald the winter season. Increases Intelligence by <%= int %>. Limited Edition 2022-2023 Winter Gear.",
 
   "headSpecialGaymerxText": "Rainbow Warrior Helm",
   "headSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special helmet is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
@@ -2395,6 +2422,11 @@
   "shieldSpecialFall2022WarriorNotes": "RAWR or TREAT! Increases Constitution by <%= con %>. Limited Edition 2022 Fall Gear.",
   "shieldSpecialFall2022HealerText": "Left Peeker Eye",
   "shieldSpecialFall2022HealerNotes": "Eye Two, look upon this costume and tremble. Increases Constitution by <%= con %>. Limited Edition 2022 Fall Gear.",
+
+  "shieldSpecialWinter2023WarriorText": "Oyster Shield",
+  "shieldSpecialWinter2023WarriorNotes": "The time has come, the Walrus said, to talk of many things: of oyster shells—and winter bells—of songs that someone sings—and where this shield’s pearl has gone—or what the new year brings! Increases Constitution by <%= con %>. Limited Edition 2022-2023 Winter Gear.",
+  "shieldSpecialWinter2023HealerText": "Cool Jams",
+  "shieldSpecialWinter2023HealerNotes": "Your song of frost and snow will soothe the spirits of all who hear. Increases Constitution by <%= con %>. Limited Edition 2022-2023 Winter Gear.",
 
   "shieldMystery201601Text": "Resolution Slayer",
   "shieldMystery201601Notes": "This blade can be used to parry away all distractions. Confers no benefit. January 2016 Subscriber Item.",
