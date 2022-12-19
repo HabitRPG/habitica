@@ -157,11 +157,19 @@
         >
           {{ $t('viewSubscriptions') }}
         </button>
+        <!-- this is where I'm trying to disable the button if the total is NaN -->
+<!--         <button
+          v-else-if="!Number.isNaN(item.value * selectedAmountToBuy)"
+          class="btn btn-primary"
+          :disabled="!Number.isNaN(item.value * selectedAmountToBuy)"
+        >
+          Please Enter A Number!
+        </button> -->
         <button
           v-else
           class="btn btn-primary"
           :disabled="item.key === 'gem' && gemsLeft === 0 ||
-            attemptingToPurchaseMoreGemsThanAreLeft || numberInvalid || item.locked ||
+            attemptingToPurchaseMoreGemsThanAreLeft || numberInvalid|| item.locked ||
             !preventHealthPotion ||
             !enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)"
           :class="{'notEnough': !preventHealthPotion ||
