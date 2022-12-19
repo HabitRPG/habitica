@@ -22,6 +22,11 @@ export const EVENTS = {
     season: 'winter',
     gear: true,
   },
+  g1g12022: {
+    start: '2022-12-15T08:00-05:00',
+    end: '2023-01-08T23:59-05:00',
+    promo: 'g1g1',
+  },
   harvestFeast2022: {
     start: '2022-11-22T08:00-05:00',
     end: '2022-11-27T20:00-05:00',
