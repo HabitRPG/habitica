@@ -27,6 +27,9 @@ export function getCurrentEvent () {
   });
 
   if (!currEvtKey) return null;
+  if (!common.content.events[currEvtKey].npcImageSuffix) {
+    common.content.events[currEvtKey].npcImageSuffix = '';
+  }
   return {
     event: currEvtKey,
     ...common.content.events[currEvtKey],
