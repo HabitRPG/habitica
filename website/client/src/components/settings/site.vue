@@ -257,128 +257,6 @@
           </div>
         </div>
         <div class="usersettings">
-          <h5>{{ $t('changeDisplayName') }}</h5>
-          <div
-            class="form"
-            name="changeDisplayName"
-            novalidate="novalidate"
-          >
-            <div class="form-group">
-              <input
-                id="changeDisplayname"
-                v-model="temporaryDisplayName"
-                class="form-control"
-                type="text"
-                :placeholder="$t('newDisplayName')"
-                :class="{'is-invalid input-invalid': displayNameInvalid}"
-              >
-              <div
-                v-if="displayNameIssues.length > 0"
-                class="mb-3"
-              >
-                <div
-                  v-for="issue in displayNameIssues"
-                  :key="issue"
-                  class="input-error"
-                >
-                  {{ issue }}
-                </div>
-              </div>
-            </div>
-            <button
-              class="btn btn-primary"
-              type="submit"
-              :disabled="displayNameCannotSubmit"
-              @click="changeDisplayName(temporaryDisplayName)"
-            >
-              {{ $t('submit') }}
-            </button>
-          </div>
-          <h5>{{ $t('changeUsername') }}</h5>
-          <div
-            class="form"
-            name="changeUsername"
-            novalidate="novalidate"
-          >
-            <div
-              v-if="verifiedUsername"
-              class="iconalert iconalert-success"
-            >
-              {{ $t('usernameVerifiedConfirmation', {'username': user.auth.local.username}) }}
-            </div>
-            <div
-              v-else
-              class="iconalert iconalert-warning"
-            >
-              <div class="align-middle">
-                <span>{{ $t('usernameNotVerified') }}</span>
-              </div>
-            </div>
-            <div class="form-group">
-              <input
-                id="changeUsername"
-                v-model="usernameUpdates.username"
-                class="form-control"
-                type="text"
-                :placeholder="$t('newUsername')"
-                :class="{'is-invalid input-invalid': usernameInvalid}"
-                @blur="restoreEmptyUsername()"
-              >
-              <div
-                v-for="issue in usernameIssues"
-                :key="issue"
-                class="input-error"
-              >
-                {{ issue }}
-              </div>
-              <small class="form-text text-muted">{{ $t('changeUsernameDisclaimer') }}</small>
-            </div>
-            <button
-              class="btn btn-primary"
-              type="submit"
-              :disabled="usernameCannotSubmit"
-              @click="changeUser('username', usernameUpdates)"
-            >
-              {{ $t('saveAndConfirm') }}
-            </button>
-          </div>
-          <h5 v-if="user.auth.local.has_password">
-            {{ $t('changeEmail') }}
-          </h5>
-          <div
-            v-if="user.auth.local.email"
-            class="form"
-            name="changeEmail"
-            novalidate="novalidate"
-          >
-            <div class="form-group">
-              <input
-                id="changeEmail"
-                v-model="emailUpdates.newEmail"
-                class="form-control"
-                type="text"
-                :placeholder="$t('newEmail')"
-              >
-            </div>
-            <div
-              v-if="user.auth.local.has_password"
-              class="form-group"
-            >
-              <input
-                v-model="emailUpdates.password"
-                class="form-control"
-                type="password"
-                :placeholder="$t('password')"
-              >
-            </div>
-            <button
-              class="btn btn-primary"
-              type="submit"
-              @click="changeUser('email', emailUpdates)"
-            >
-              {{ $t('submit') }}
-            </button>
-          </div>
           <h5 v-if="user.auth.local.has_password">
             {{ $t('changePass') }}
           </h5>
@@ -477,7 +355,6 @@
 <script>
 import hello from 'hellojs';
 import axios from 'axios';
-import debounce from 'lodash/debounce';
 import { mapState } from '@/libs/store';
 import restoreModal from './restoreModal';
 import resetModal from './resetModal';
@@ -506,18 +383,11 @@ export default {
       party: {},
       // Made available by the server as a script
       availableFormats: ['MM/dd/yyyy', 'dd/MM/yyyy', 'yyyy/MM/dd'],
-      temporaryDisplayName: '',
-      usernameUpdates: { username: '' },
-      emailUpdates: {},
       passwordUpdates: {},
       localAuth: {
-        username: '',
-        email: '',
         password: '',
         confirmPassword: '',
       },
-      displayNameIssues: [],
-      usernameIssues: [],
     };
   },
   computed: {
@@ -532,56 +402,11 @@ export default {
     hasClass () {
       return this.$store.getters['members:hasClass'](this.user);
     },
-    verifiedUsername () {
-      return this.user.flags.verifiedUsername;
-    },
-    displayNameInvalid () {
-      if (this.temporaryDisplayName.length <= 1) return false;
-      return !this.displayNameValid;
-    },
-    displayNameValid () {
-      if (this.temporaryDisplayName.length <= 1) return false;
-      return this.displayNameIssues.length === 0;
-    },
-    displayNameCannotSubmit () {
-      if (this.temporaryDisplayName.length <= 1) return true;
-      return !this.displayNameValid;
-    },
-    usernameValid () {
-      if (this.usernameUpdates.username.length <= 1) return false;
-      return this.usernameIssues.length === 0;
-    },
-    usernameInvalid () {
-      if (this.usernameUpdates.username.length <= 1) return false;
-      return !this.usernameValid;
-    },
-    usernameCannotSubmit () {
-      if (this.usernameUpdates.username.length <= 1) return true;
-      return !this.usernameValid;
-    },
-  },
-  watch: {
-    usernameUpdates: {
-      handler () {
-        this.validateUsername(this.usernameUpdates.username);
-      },
-      deep: true,
-    },
-    temporaryDisplayName: {
-      handler () {
-        this.validateDisplayName(this.temporaryDisplayName);
-      },
-      deep: true,
-    },
   },
   mounted () {
     this.SOCIAL_AUTH_NETWORKS = SUPPORTED_SOCIAL_NETWORKS;
     // @TODO: We may need to request the party here
     this.party = this.$store.state.party;
-    this.usernameUpdates.username = this.user.auth.local.username || null;
-    this.temporaryDisplayName = this.user.profile.name;
-    this.emailUpdates.newEmail = this.user.auth.local.email || null;
-    this.localAuth.username = this.user.auth.local.username || null;
     this.soundIndex = 0;
 
     this.$store.dispatch('common:setTitle', {
@@ -606,36 +431,6 @@ export default {
     }
   },
   methods: {
-    validateDisplayName: debounce(function checkName (displayName) {
-      if (displayName.length <= 1 || displayName === this.user.profile.name) {
-        this.displayNameIssues = [];
-        return;
-      }
-      this.$store.dispatch('auth:verifyDisplayName', {
-        displayName,
-      }).then(res => {
-        if (res.issues !== undefined) {
-          this.displayNameIssues = res.issues;
-        } else {
-          this.displayNameIssues = [];
-        }
-      });
-    }, 500),
-    validateUsername: debounce(function checkName (username) {
-      if (username.length <= 1 || username === this.user.auth.local.username) {
-        this.usernameIssues = [];
-        return;
-      }
-      this.$store.dispatch('auth:verifyUsername', {
-        username,
-      }).then(res => {
-        if (res.issues !== undefined) {
-          this.usernameIssues = res.issues;
-        } else {
-          this.usernameIssues = [];
-        }
-      });
-    }, 500),
     set (preferenceType, subtype) {
       const settings = {};
       if (!subtype) {
@@ -682,14 +477,7 @@ export default {
     },
     async changeUser (attribute, updates) {
       await axios.put(`/api/v4/user/auth/update-${attribute}`, updates);
-      if (attribute === 'username') {
-        this.user.auth.local.username = updates[attribute];
-        this.localAuth.username = this.user.auth.local.username;
-        this.user.flags.verifiedUsername = true;
-      } else if (attribute === 'email') {
-        this.user.auth.local.email = updates.newEmail;
-        window.alert(this.$t('emailSuccess')); // eslint-disable-line no-alert
-      } else if (attribute === 'password') {
+      if (attribute === 'password') {
         this.passwordUpdates = {};
         this.$store.dispatch('snackbars:add', {
           title: 'Habitica',
@@ -698,12 +486,6 @@ export default {
           timeout: true,
         });
       }
-    },
-    async changeDisplayName (newName) {
-      await axios.put('/api/v4/user/', { 'profile.name': newName });
-      window.alert(this.$t('displayNameSuccess')); // eslint-disable-line no-alert
-      this.user.profile.name = newName;
-      this.temporaryDisplayName = newName;
     },
     openRestoreModal () {
       this.$root.$emit('bv::show::modal', 'restore');
@@ -745,11 +527,6 @@ export default {
       }
       await axios.post('/api/v4/user/auth/local/register', this.localAuth);
       window.location.href = '/user/settings/site';
-    },
-    restoreEmptyUsername () {
-      if (this.usernameUpdates.username.length < 1) {
-        this.usernameUpdates.username = this.user.auth.local.username;
-      }
     },
     changeAudioTheme () {
       this.soundIndex = 0;
