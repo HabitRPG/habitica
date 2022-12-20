@@ -44,6 +44,7 @@
               :override-avatar-gear="getAvatarOverrides(item)"
               :sprites-margin="'0px auto 0px -24px'"
             />
+            <span class="owned">{{ $t('owned') }}: 250</span>
           </div>
           <item
             v-else-if="item.key != 'gem'"
@@ -157,19 +158,11 @@
         >
           {{ $t('viewSubscriptions') }}
         </button>
-        <!-- this is where I'm trying to disable the button if the total is NaN -->
-<!--         <button
-          v-else-if="!Number.isNaN(item.value * selectedAmountToBuy)"
-          class="btn btn-primary"
-          :disabled="!Number.isNaN(item.value * selectedAmountToBuy)"
-        >
-          Please Enter A Number!
-        </button> -->
         <button
           v-else
           class="btn btn-primary"
           :disabled="item.key === 'gem' && gemsLeft === 0 ||
-            attemptingToPurchaseMoreGemsThanAreLeft || numberInvalid|| item.locked ||
+            attemptingToPurchaseMoreGemsThanAreLeft || numberInvalid || item.locked ||
             !preventHealthPotion ||
             !enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)"
           :class="{'notEnough': !preventHealthPotion ||
@@ -243,6 +236,28 @@
       cursor: default;
       margin: 0 auto;
     }
+
+    .item {
+      width: 141px;
+      height: 147px;;
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 0px;
+      border-bottom-left-radius: 0px;
+    }
+
+     .item .owned {
+        font-size: 0.75rem;
+        font-weight: bold;
+        line-height: 1.33;
+        width: 141px;
+        margin: 30 0 0;
+        background-color: $gray-600;
+        padding: 8px 41px;
+        border-bottom-right-radius: 4px;
+        border-bottom-left-radius: 4px;
+        max-width: 141px;
+      }
 
     .content {
       text-align: center;
