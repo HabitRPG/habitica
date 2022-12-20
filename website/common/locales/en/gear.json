@@ -457,7 +457,7 @@
   "weaponSpecialFall2022HealerNotes": "To claim victory, hold it forth and utter the words of command: 'Eye One!' Increases Intelligence by <%= int %>. Limited Edition 2022 Fall Gear.",
 
   "weaponSpecialWinter2023RogueText": "Green Satin Sash",
-  "weaponSpecialWinter2023RogueNotes": "Legends tell of Rogues who snare their opponents' weapons, disarm them, then gift the item back just to be cute. Incrases Strength by <%= str %>. Limited Edition 2022-2023 Winter Gear.",
+  "weaponSpecialWinter2023RogueNotes": "Legends tell of Rogues who snare their opponents' weapons, disarm them, then gift the item back just to be cute. Increases Strength by <%= str %>. Limited Edition 2022-2023 Winter Gear.",
   "weaponSpecialWinter2023WarriorText": "Tusk Spear",
   "weaponSpecialWinter2023WarriorNotes": "The two prongs of this spear are shaped like walrus tusks but are twice as powerful. Jab at doubts and at silly poems until they back off! Increases Strength by <%= str %>. Limited Edition 2022-2023 Winter Gear.",
   "weaponSpecialWinter2023MageText": "Foxfire",
