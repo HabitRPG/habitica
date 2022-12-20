@@ -59,6 +59,7 @@
             Fix Values TODO
           </td>
         </tr>
+        <class-setting />
         <tr>
           <td colspan="3">
             Change Class TODO
@@ -111,9 +112,11 @@ import LanguageSetting from './inlineSettings/languageSetting';
 import DateFormatSetting from './inlineSettings/dateFormatSetting';
 import DayStartAdjustmentSetting from './inlineSettings/dayStartAdjustmentSetting.vue';
 import AudioThemeSetting from '@/pages/settings/inlineSettings/audioThemeSetting.vue';
+import ClassSetting from '@/pages/settings/inlineSettings/classSetting.vue';
 
 export default {
   components: {
+    ClassSetting,
     AudioThemeSetting,
     DayStartAdjustmentSetting,
     DateFormatSetting,

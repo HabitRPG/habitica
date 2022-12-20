@@ -218,6 +218,8 @@
     "amount": "Amount",
     "action": "Action",
     "note": "Note",
+    "changeClassSetting": "Change Class",
+    "changeClassDisclaimer": "Changing your class will refund all of your existing Stat Points. Once you have selected your new class, adjust your Stat Points from the Stats section of your profile.",
     "remainingBalance": "Remaining Balance",
     "transactions": "Transactions",
     "hourglassTransactions": "Hourglass Transactions",
