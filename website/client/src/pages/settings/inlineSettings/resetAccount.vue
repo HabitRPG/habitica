@@ -80,6 +80,9 @@
 <style lang="scss" scoped>
 @import '~@/assets/scss/colors.scss';
 
+ul.row  li {
+  color: $gray-50;
+}
 </style>
 
 <script>
