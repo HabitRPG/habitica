@@ -155,24 +155,14 @@ export default {
   mounted () {
     this.resetControls();
     this.previousValue = this.currentAudioTheme;
-    this.themeSelected = this.currentAudioTheme;
   },
   methods: {
-    changeFormat (e) {
-      this.selectedFormat = e;
-      this.modalValuesChanged();
-    },
-    async changeFormatAndClose () {
-      this.user.preferences.dateFormat = this.selectedFormat;
-      await this.setUserPreference('dateFormat');
-      this.closeModal();
-    },
     /**
      * is a callback from the {InlineSettingMixin}
      * do not remove
      */
     resetControls () {
-      this.selectedFormat = this.previousValue;
+      this.themeSelected = this.currentAudioTheme;
     },
     changeAudioThemeTemporary ($event) {
       this.user.preferences.sound = $event;

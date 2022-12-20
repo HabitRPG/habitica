@@ -7,7 +7,19 @@
         {{ $t("changeClassSetting") }}
       </td>
       <td class="settings-value">
-        TODO current class
+        <div
+          class="class-value"
+          :class="{[selectedClass]: true}"
+        >
+          <span
+            class="svg-icon icon-16 mr-2"
+            v-html="classIcons[selectedClass]"
+          ></span>
+
+          <span class="label">
+            {{ $t(selectedClass) }}
+          </span>
+        </div>
       </td>
       <td class="settings-button">
         <a
@@ -41,7 +53,8 @@
               v-for="classType in classList"
               :key="classType"
               class="class-card"
-              :class="{[classType]: true}"
+              :class="{[classType]: true, selected: classType === selectedClass}"
+              @click="selectedClass = classType"
             >
               <span
                 class="svg-icon icon-48 mb-1"
@@ -51,6 +64,16 @@
               <span class="label">
                 {{ $t(classType) }}
               </span>
+
+              <div
+                v-if="classType === selectedClass"
+                class="selected-badge"
+              >
+                <span
+                  class="svg-icon"
+                  v-html="icons.check"
+                ></span>
+              </div>
             </div>
           </div>
 
@@ -62,9 +85,9 @@
 
           <save-cancel-buttons
             primary-button-label="changeClassSetting"
-            :disable-save="previousValue === currentAudioTheme"
             class="mb-2"
-            @saveClicked="changeAudioThemeAndClose()"
+            :disable-save="previousValue === selectedClass"
+            @saveClicked="changeClassAndClose()"
             @cancelClicked="closeModal()"
           />
 
@@ -118,6 +141,8 @@ input {
 }
 
 .class-card {
+  position: relative;
+
   height: 96px;
   width: 96px;
   min-width: 96px;
@@ -130,6 +155,17 @@ input {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
+    border: solid 1px $purple-400;
+  }
+
+  &.selected {
+    border: solid 1px $green-100;
+  }
 }
 
 .healer {
@@ -155,6 +191,31 @@ input {
   text-align: center;
 }
 
+.selected-badge {
+  position: absolute;
+  bottom: -1rem;
+
+  width: 24px;
+  height: 24px;
+
+  padding: 4px;
+  box-shadow: 0 1px 3px 0 rgba($black, 0.12), 0 1px 2px 0 rgba($black, 0.24);
+  background-color: $green-50;
+  border-radius: 1rem;
+
+  color: $white;
+}
+
+.class-value {
+  display: flex;
+  align-items: center;
+
+  .label {
+    font-weight: bold;
+    line-height: 1.71;
+  }
+}
+
 </style>
 
 <script>
@@ -163,13 +224,13 @@ import { mapState } from '@/libs/store';
 import SaveCancelButtons from '../components/saveCancelButtons.vue';
 import { InlineSettingMixin } from '../components/inlineSettingMixin';
 import { GenericUserPreferencesMixin } from '../components/genericUserPreferencesMixin';
-import sounds from '@/libs/sounds';
 import YourBalance from '@/pages/settings/components/yourBalance.vue';
 import GemPrice from '@/components/shops/gemPrice.vue';
 import warriorIcon from '@/assets/svg/warrior.svg';
 import rogueIcon from '@/assets/svg/rogue.svg';
 import healerIcon from '@/assets/svg/healer.svg';
 import wizardIcon from '@/assets/svg/wizard.svg';
+import checkIcon from '@/assets/svg/check.svg';
 
 export default {
   components: {
@@ -180,15 +241,16 @@ export default {
   mixins: [InlineSettingMixin, GenericUserPreferencesMixin],
   data () {
     return {
-      soundIndex: 0,
       previousValue: '',
-      // using the user.preferences didn't update the select-list values from off state
-      themeSelected: '',
+      selectedClass: '',
       classIcons: Object.freeze({
         warrior: warriorIcon,
         rogue: rogueIcon,
         healer: healerIcon,
         wizard: wizardIcon,
+      }),
+      icons: Object.freeze({
+        check: checkIcon,
       }),
     };
   },
@@ -198,32 +260,22 @@ export default {
       availableLanguages: 'i18n.availableLanguages',
       content: 'content',
     }),
-    availableAudioThemes () {
-      return this.content.audioThemes;
-    },
-    currentAudioTheme () {
-      return this.user.preferences.sound;
-    },
-    isDisabled () {
-      return this.currentAudioTheme === 'off';
-    },
     classList () {
       return this.content.classes;
     },
   },
   mounted () {
+    this.previousValue = this.user.stats.class;
     this.resetControls();
-    this.previousValue = this.currentAudioTheme;
-    this.themeSelected = this.currentAudioTheme;
   },
   methods: {
-    changeFormat (e) {
-      this.selectedFormat = e;
-      this.modalValuesChanged();
-    },
-    async changeFormatAndClose () {
-      this.user.preferences.dateFormat = this.selectedFormat;
-      await this.setUserPreference('dateFormat');
+    async changeClassAndClose () {
+      if (this.user.flags.classSelected && !window.confirm(this.$t('changeClassConfirmCost'))) {
+        return;
+      }
+
+      this.$store.dispatch('user:changeClass', { query: { class: this.selectedClass } });
+
       this.closeModal();
     },
     /**
@@ -231,30 +283,7 @@ export default {
      * do not remove
      */
     resetControls () {
-      this.selectedFormat = this.previousValue;
-    },
-    changeAudioThemeTemporary ($event) {
-      this.user.preferences.sound = $event;
-      this.themeSelected = $event;
-      this.soundIndex = 0;
-    },
-    changeAudioThemeAndClose () {
-      this.setUserPreference('sound');
-      this.previousValue = this.user.preferences.sound;
-      this.closeModal();
-    },
-    playAudio () {
-      this.$root.$emit('playSound', sounds[this.soundIndex]);
-      this.soundIndex = (this.soundIndex + 1) % sounds.length;
-    },
-    toggleAudioThemeOff (enabled) {
-      if (enabled) {
-        const [audioTheme] = this.availableAudioThemes;
-
-        this.changeAudioThemeTemporary(audioTheme);
-      } else {
-        this.changeAudioThemeTemporary('off');
-      }
+      this.selectedClass = this.previousValue;
     },
   },
 };

@@ -35,6 +35,10 @@
             TODO
           </td>
         </tr>
+        <tr>
+          <td colspan="3">
+          </td>
+        </tr>
       </table>
 
       <h2 v-once>
@@ -46,6 +50,10 @@
         <date-format-setting />
         <day-start-adjustment-setting />
         <audio-theme-setting />
+        <tr>
+          <td colspan="3">
+          </td>
+        </tr>
       </table>
 
 
@@ -62,7 +70,6 @@
         <class-setting />
         <tr>
           <td colspan="3">
-            Change Class TODO
           </td>
         </tr>
       </table>
