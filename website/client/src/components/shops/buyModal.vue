@@ -44,7 +44,6 @@
               :override-avatar-gear="getAvatarOverrides(item)"
               :sprites-margin="'0px auto 0px -24px'"
             />
-            <span class="owned">{{ $t('owned') }}: 250</span>
           </div>
           <item
             v-else-if="item.key != 'gem'"
@@ -54,10 +53,20 @@
             :show-popover="false"
           />
         </slot>
+        <span
+          v-once
+          class="owned"
+          :class="totalOwned"
+        >
+          <!-- need to calculate totalOwned()  -->
+          {{ $t('owned') }}: 1
+        </span>
         <h4 class="title">
           {{ itemText }}
         </h4>
-        <div v-html="itemNotes"></div>
+        <div class="item-notes">
+          {{ itemNotes }}
+        </div>
         <slot
           name="additionalInfo"
           :item="item"
@@ -111,20 +120,6 @@
                 :class="getPriceClass()"
               >{{ item.value * selectedAmountToBuy }}</span>
             </div>
-          </div>
-          <div
-            v-else
-            class="d-flex align-items-middle"
-          >
-            <span
-              class="svg-icon inline icon-24 ml-auto my-auto"
-              aria-hidden="true"
-              v-html="icons[getPriceClass()]"
-            ></span>
-            <span
-              class="cost mr-auto my-auto"
-              :class="getPriceClass()"
-            >{{ item.value }}</span>
           </div>
         </div>
         <div
@@ -212,7 +207,7 @@
     @include centeredModal();
 
     .modal-body {
-      padding-bottom: 0px;
+      // padding-bottom: 0px;
       padding-left: 0px;
     }
 
@@ -237,27 +232,40 @@
       margin: 0 auto;
     }
 
+   .owned {
+      font-size: 0.75rem;
+      font-weight: bold;
+      line-height: 1.33;
+      background-color: $gray-600;
+      padding: 8px 41px;
+      border-bottom-right-radius: 4px;
+      border-bottom-left-radius: 4px;
+      display: block;
+      width: 141px;
+      margin-left: 154px;
+      margin-top: -36px;
+      position: relative;
+      z-index: 1;
+    }
+
     .item {
       width: 141px;
-      height: 147px;;
+      height: 147px;
       border-top-left-radius: 4px;
       border-top-right-radius: 4px;
       border-bottom-right-radius: 0px;
       border-bottom-left-radius: 0px;
     }
 
-     .item .owned {
-        font-size: 0.75rem;
-        font-weight: bold;
-        line-height: 1.33;
-        width: 141px;
-        margin: 30 0 0;
-        background-color: $gray-600;
-        padding: 8px 41px;
-        border-bottom-right-radius: 4px;
-        border-bottom-left-radius: 4px;
-        max-width: 141px;
-      }
+    .item-notes {
+       padding-left: 48.5px;
+       padding-right: 48.5px;
+    }
+
+    .attributes-group {
+      margin: 24px;
+      border-radius: 4px;;
+    }
 
     .content {
       text-align: center;
@@ -595,6 +603,9 @@ export default {
     },
     endDate () {
       return moment(this.item.event.end);
+    },
+    totalOwned () {
+      return this.user.items;
     },
   },
   watch: {
