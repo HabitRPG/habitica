@@ -19,6 +19,7 @@
         v-model="quantity"
         class="form-control alignment"
         step="1"
+        type="number"
       >
     </div>
     <div
@@ -84,6 +85,18 @@
     }
   }
 
+/* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+/* Firefox */
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+
 </style>
 
 <script>
@@ -107,10 +120,6 @@ export default {
     };
   },
   computed: {
-    // validateQuantity () {
-    //   const validateQuantity = Number ? Number : NaN;
-    //   return validateQuantity;
-    // },
   },
   watch: {
     quantity () {

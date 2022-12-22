@@ -46,6 +46,13 @@
             />
           </div>
           <item
+            v-else-if="item.key === 'gem'"
+            class="flat bordered-item"
+            :item="item"
+            :item-content-class="item.class"
+            :show-popover="false"
+          />
+          <item
             v-else-if="item.key != 'gem'"
             class="flat bordered-item"
             :item="item"
@@ -54,12 +61,12 @@
           />
         </slot>
         <span
-          v-once
+          v-if="!showAvatar && user.items[item.purchaseType]"
           class="owned"
           :class="totalOwned"
         >
           <!-- need to calculate totalOwned()  -->
-          {{ $t('owned') }}: 1
+          {{ $t('owned') }}: {{ totalOwned }}
         </span>
         <h4 class="title">
           {{ itemText }}
@@ -122,13 +129,6 @@
             </div>
           </div>
         </div>
-        <div
-          v-if="item.key === 'gem'"
-          class="gems-left"
-        >
-          <strong v-if="gemsLeft > 0">{{ gemsLeft }} {{ $t('gemsRemaining') }}</strong>
-          <strong v-if="gemsLeft === 0">{{ $t('maxBuyGems') }}</strong>
-        </div>
         <div v-if="attemptingToPurchaseMoreGemsThanAreLeft">
           {{ $t('notEnoughGemsToBuy') }}
         </div>
@@ -186,6 +186,18 @@
       </div>
     </div>
     <div
+      v-if="item.key === 'gem'"
+      class="gems-left d-flex justify-content-center align-items-center"
+    >
+      {{ $t('monthlyGems') }}
+      <span v-if="gemsLeft > 0">
+        {{ gemsLeft }} {{ $t('gemsRemaining') }}
+      </span>
+      <span v-if="gemsLeft === 0">
+        {{ $t('maxBuyGems') }}
+      </span>
+    </div>
+    <div
       slot="modal-footer"
       class="d-flex"
     >
@@ -209,6 +221,7 @@
     .modal-body {
       // padding-bottom: 0px;
       padding-left: 0px;
+      padding-right: 0px;
     }
 
     .modal-footer {
@@ -255,6 +268,11 @@
       border-top-right-radius: 4px;
       border-bottom-right-radius: 0px;
       border-bottom-left-radius: 0px;
+    }
+
+    .item-content {
+      transform: scale(1.45, 1.45);
+      top: -16px;
     }
 
     .item-notes {
@@ -446,6 +464,15 @@
       padding-top: 0.15rem;
     }
   }
+
+  .gems-left {
+    height: 32px;
+    background-color: $green-100;
+    font-size: 0.75rem;
+    margin-top: 24px;
+    margin-bottom: -40px;
+    color: $green-1;
+  }
 }
 </style>
 
@@ -605,7 +632,7 @@ export default {
       return moment(this.item.event.end);
     },
     totalOwned () {
-      return this.user.items;
+      return this.user.items[this.item.purchaseType][this.item.key] || 0;
     },
   },
   watch: {
