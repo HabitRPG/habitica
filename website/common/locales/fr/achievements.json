@@ -141,5 +141,8 @@
     "achievementWoodlandWizardText": "A fait éclore toutes les créatures de la forêt de couleur basique : Blaireau, ours, cerf, renard, grenouille, hérisson, hiboux, escargot, écureuil et arbrisseau !",
     "achievementBoneToPick": "Un os à ronger",
     "achievementBoneToPickText": "A fait éclore tous les familiers squelettes classiques et de quête !",
-    "achievementBoneToPickModalText": "Vous avez collecté tous les familiers squelette classiques et de quête !"
+    "achievementBoneToPickModalText": "Vous avez collecté tous les familiers squelette classiques et de quête !",
+    "achievementPolarPro": "Pro polaire",
+    "achievementPolarProText": "A fait éclore tous les familiers polaires : Ours, renard, pingouin, baleine et loup !",
+    "achievementPolarProModalText": "Vous avez collecté tous les familiers polaires !"
 }

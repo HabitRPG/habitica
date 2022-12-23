@@ -198,7 +198,7 @@
     "winter2021HollyIvyRogueSet": "Azevinho e Hera (Gatuno)",
     "g1g1HowItWorks": "Digite o nome de usuário que você gostaria de presentear. Depois disso, escolha a duração da assinatura e finalize a compra. Sua conta será automaticamente recompensada com a mesma assinatura que você acabou de presentear.",
     "howItWorks": "Como funciona",
-    "g1g1Limitations": "Este é um evento de tempo limitado que começa no dia 16 de Dezembro (13:00 UTC, Horário de Brasília: 10:00) e terminará no dia 6 de Janeiro (01:00 UTC, Horário de Brasília: 22:00 do dia anterior). Essa promoção só se aplica quando você presenteia outro(a) habiticano(a). Se você ou o destinatário do presente já for assinante, a assinatura presenteada adicionará meses de crédito que só serão usados após a assinatura atual ser cancelada ou expirar.",
+    "g1g1Limitations": "Este é um evento de tempo limitado que começa no dia 15 de dezembro às 10:00 pelo horário de Brasília e terminará no dia 9 de janeiro às 01:59 pelo horário de Brasília. Essa promoção só se aplica quando você presenteia outro habiticano. Se você ou o destinatário do presente já for assinante, a assinatura presenteada adicionará meses de crédito que só serão usados após a assinatura atual ser cancelada ou expirar.",
     "spring2021TwinFlowerRogueSet": "Flores Gêmeas (Gatuno)",
     "spring2021SwanMageSet": "Cisne (Mago)",
     "spring2021SunstoneWarriorSet": "Pedra Solar (Guerreiro)",
@@ -235,5 +235,9 @@
     "fall2022KappaRogueSet": "Kappa (Gatuno)",
     "fall2022WatcherHealerSet": "Observador (Curandeiro)",
     "gemSaleHow": "Entre <%= eventStartMonth %> <%= eventStartOrdinal %> e <%= eventEndOrdinal %>, compre qualquer pacote de Gemas e sua conta irá receber a quantidade de Gemas promocional. Mais Gemas para gastar, compartilhar ou guardar para futuras novidades!",
-    "gemSaleLimitations": "Esta promoção apenas se aplica durante o tempo limitado do evento. Este evento começa em <%= eventStartMonth %> <%= eventStartOrdinal %> às 9:00 pelo horário de Brasília e irá terminar em <%= eventStartMonth %> <%= eventEndOrdinal %> às 21:00 pelo horário de Brasília. A promoção apenas está disponível ao comprar Gemas para você mesmo."
+    "gemSaleLimitations": "Esta promoção apenas se aplica durante o tempo limitado do evento. Este evento começa em <%= eventStartMonth %> <%= eventStartOrdinal %> às 9:00 pelo horário de Brasília e irá terminar em <%= eventStartMonth %> <%= eventEndOrdinal %> às 21:00 pelo horário de Brasília. A promoção apenas está disponível ao comprar Gemas para você mesmo.",
+    "winter2023FairyLightsMageSet": "Luzes de Natal (Mago)",
+    "winter2023CardinalHealerSet": "Cardeal (Curandeiro)",
+    "spring2023RibbonRogueSet": "Fita (Gatuno)",
+    "winter2023WalrusWarriorSet": "Morsa (Guerreiro)"
 }
