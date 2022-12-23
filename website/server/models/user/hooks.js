@@ -150,10 +150,10 @@ function _setUpNewUser (user) {
   user.items.quests.dustbunnies = 1;
   user.purchased.background.violet = true;
   user.preferences.background = 'violet';
-  if (moment().isBetween('2022-11-22T08:00-05:00', '2022-11-27T20:00-05:00')) {
-    user.migration = '20221122_harvest_feast';
-    user.items.pets['Turkey-Base'] = 5;
-    user.items.currentPet = 'Turkey-Base';
+  if (moment().isBetween('2022-12-27T08:00-05:00', '2023-01-02T20:00-05:00')) {
+    user.migration = '20221227_nye';
+    user.items.gear.owned.head_special_nye = true;
+    user.items.gear.equipped.head = 'head_special_nye';
   }
 
   user.markModified('items achievements');

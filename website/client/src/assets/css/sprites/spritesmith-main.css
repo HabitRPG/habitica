@@ -31355,6 +31355,11 @@
   width: 114px;
   height: 90px;
 }
+.head_special_nye2022 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_special_nye2022.png');
+  width: 114px;
+  height: 90px;
+}
 .head_special_ski {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_special_ski.png');
   width: 90px;
@@ -31950,6 +31955,11 @@
   width: 68px;
   height: 68px;
 }
+.shop_head_special_nye2022 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_head_special_nye2022.png');
+  width: 68px;
+  height: 68px;
+}
 .shop_head_special_ski {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_head_special_ski.png');
   width: 68px;
@@ -32295,6 +32305,11 @@
   width: 68px;
   height: 68px;
 }
+.shop_weapon_special_Winter2023Rogue {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_special_Winter2023Rogue.png');
+  width: 68px;
+  height: 68px;
+}
 .shop_weapon_special_candycane {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_special_candycane.png');
   width: 68px;
@@ -32477,11 +32492,6 @@
 }
 .shop_weapon_special_winter2023Mage {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_special_winter2023Mage.png');
-  width: 68px;
-  height: 68px;
-}
-.shop_weapon_special_winter2023Rogue {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_special_winter2023Rogue.png');
   width: 68px;
   height: 68px;
 }

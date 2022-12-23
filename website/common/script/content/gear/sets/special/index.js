@@ -1932,6 +1932,12 @@ const head = {
   winter2023Healer: {
     set: 'winter2023CardinalHealerSet',
   },
+  nye2022: {
+    text: t('headSpecialNye2022Text'),
+    notes: t('headSpecialNye2022Notes'),
+    value: 0,
+    canOwn: ownsItem('head_special_nye2022'),
+  },
 };
 
 const headStats = {
