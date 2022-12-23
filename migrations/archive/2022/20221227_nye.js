@@ -21,7 +21,7 @@ async function updateUser (user) {
         _id: uuid(),
       },
     ];
-  else if (typeof user.items.gear.owned.head_special_nye2020 !== 'undefined') {
+  } else if (typeof user.items.gear.owned.head_special_nye2020 !== 'undefined') {
     set['items.gear.owned.head_special_nye2021'] = false;
     push = [
       {
