@@ -116,7 +116,7 @@
     "unsubscribedTextUsers": "Habitica からのメールをすべて停止しました。<a href=\"/user/settings/notifications\">設定 > 通知</a>受け取りたいメールだけを有効にすることができます(要ログイン)。",
     "unsubscribedTextOthers": "Habitica から他のメールは届きません。",
     "unsubscribeAllEmails": "チェックすると、メールを停止します",
-    "unsubscribeAllEmailsText": "私は、このボックスをチェックすることですべてのメールを停止し、 サイトやアカウントの変更についての重要な内容であっても Habitica がメールを通じて私に告知することができなくなることを理解したことを証明します。",
+    "unsubscribeAllEmailsText": "私はこのボックスをチェックすることで、すべてのメールを停止して、 Habiticaがサイトやアカウントの重要な変更についてメールで通知できなくなることを理解したことを証明します。",
     "unsubscribeAllPush": "チェックすると、すべてのプッシュ通知を停止します",
     "correctlyUnsubscribedEmailType": "「<%= emailType %>」のメールを正常に停止しました。",
     "subscriptionRateText": "<strong><%= months %>カ月</strong> ごとに <strong><%= price %>米ドル</strong> ずつ",
