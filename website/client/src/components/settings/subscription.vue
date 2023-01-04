@@ -130,7 +130,7 @@
             </div>
             <button
               class="btn btn-primary btn-update-card
-              d-flex justify-content-center align-items-center"
+              d-flex justify-content-center align-items-center mb-4"
               @click="redirectToStripeEdit()"
             >
               <div
@@ -143,14 +143,14 @@
           </div>
           <div
             v-else
-            class="svg-icon"
+            class="svg-icon mb-4"
             :class="paymentMethodLogo.class"
             v-html="paymentMethodLogo.icon"
           >
           </div>
           <div
             v-if="purchasedPlanExtraMonthsDetails.months > 0"
-            class="extra-months green-10 py-2 px-3 mt-4"
+            class="extra-months green-10 py-2 px-3 mb-4"
             v-html="$t('purchasedPlanExtraMonths',
                        {months: purchasedPlanExtraMonthsDetails.months})"
           >
