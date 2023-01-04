@@ -2632,7 +2632,7 @@
     "weaponSpecialSummer2022RogueText": "カニのハサミ",
     "weaponSpecialSummer2022RogueNotes": "ピンチの時は、迷わずこのハサミを見せつけてください！力が<%= str %>上がります。2022年夏の限定装備。",
     "weaponSpecialSummer2022WarriorText": "旋回サイクロン",
-    "weaponSpecialSummer2022WarriorNotes": "回転！向きを変えて！荒らしをもたらします！力が<%= str %>上がります。2022年夏の限定装備。",
+    "weaponSpecialSummer2022WarriorNotes": "回転！向きを変えて！嵐をもたらします！力が<%= str %>上がります。2022年夏の限定装備。",
     "weaponSpecialSummer2022MageText": "マンタの杖",
     "weaponSpecialSummer2022MageNotes": "この杖を一回くるっと回すとあなたの前方の水は魔法のように綺麗になります。知能が <%= int %> 、知覚が <%= per %>上がります。2022年夏の限定装備。",
     "weaponSpecialSummer2022HealerText": "便利な泡",
@@ -2736,5 +2736,9 @@
     "armorArmoireSheetGhostCostumeText": "シーツおばけの衣装",
     "headMystery202211Text": "エレクトロマンサーの帽子",
     "headMystery202211Notes": "この強力な帽子には注意が必要です。愛用者は文字通り、とてつもないショックを受けることでしょう！効果なし。2022年11月の有料会員アイテム。",
-    "armorArmoireSheetGhostCostumeNotes": "おばけが出たぞ！これはHabitica史上最も恐ろしいコスチュームなので、よく考えて使いましょう……それと、つまづかないよう足元に気をつけて。体質が<%= con %>上がります。ラッキー宝箱 : 個別のアイテム。"
+    "armorArmoireSheetGhostCostumeNotes": "おばけが出たぞ！これはHabitica史上最も恐ろしいコスチュームなので、よく考えて使いましょう……それと、つまづかないよう足元に気をつけて。体質が<%= con %>上がります。ラッキー宝箱 : 個別のアイテム。",
+    "weaponArmoireMagicSpatulaNotes": "食べ物が空中で飛んだりひっくり返ったりするのをご覧あれ。魔法で食べ物が3 回ひっくり返ってからあなたのへらに戻ってきたら、その日はラッキー。知覚が<%= per %>上がります。ラッキー宝箱：台所用品セット（2個中1つ目のアイテム）。",
+    "weaponArmoireMagicSpatulaText": "魔法のへら",
+    "shieldArmoireBubblingCauldronText": "ぶくぶくの大釜",
+    "shieldArmoireBubblingCauldronNotes": "生産性の秘薬を煮詰めたり、辛いスープを作ったりするのにピッタリの釜です。じつは両者にはあまり違いがなかったりして！体質が<%= con %>上がります。ラッキー宝箱：台所用品セット（2個中1つ目のアイテム）。"
 }

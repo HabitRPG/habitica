@@ -85,8 +85,9 @@ const bundles = {
       'evilsanta2',
       'penguin',
     ],
+    event: EVENTS.winter2023,
     canBuy () {
-      return moment().isBetween('2022-01-11T08:00-05:00', '2022-01-31T20:00-05:00');
+      return moment().isBetween(EVENTS.winter2023.start, EVENTS.winter2023.end);
     },
     type: 'quests',
     value: 7,
@@ -208,8 +209,9 @@ const bundles = {
       'snake',
       'velociraptor',
     ],
+    event: EVENTS.bundle202211,
     canBuy () {
-      return moment().isBetween('2019-09-10', '2019-10-02');
+      return moment().isBetween(EVENTS.bundle202211.start, EVENTS.bundle202211.end);
     },
     type: 'quests',
     value: 7,

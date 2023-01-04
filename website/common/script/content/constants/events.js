@@ -9,11 +9,39 @@ const gemsPromo = {
 };
 
 export const EVENTS = {
-  afterGala: {
-    start: '2022-10-31T20:00-04:00',
-    end: '2022-12-21T08:00-04:00',
+  noEvent: {
+    start: '2023-01-31T20:00-05:00',
+    end: '2023-02-14T08:00-05:00',
     season: 'normal',
     npcImageSuffix: '',
+  },
+  winter2023: {
+    start: '2022-12-20T08:00-05:00',
+    end: '2023-01-31T23:59-05:00',
+    npcImageSuffix: '_winter',
+    season: 'winter',
+    gear: true,
+  },
+  g1g12022: {
+    start: '2022-12-15T08:00-05:00',
+    end: '2023-01-08T23:59-05:00',
+    promo: 'g1g1',
+  },
+  harvestFeast2022: {
+    start: '2022-11-22T08:00-05:00',
+    end: '2022-11-27T20:00-05:00',
+    season: 'thanksgiving',
+    npcImageSuffix: '_thanksgiving',
+  },
+  afterGala: {
+    start: '2022-10-31T20:00-04:00',
+    end: '2022-11-22T08:00-05:00',
+    season: 'normal',
+    npcImageSuffix: '',
+  },
+  bundle202211: {
+    start: '2022-11-15T08:00-05:00',
+    end: '2022-11-30T20:00-05:00',
   },
   fall2022: {
     start: '2022-09-20T08:00-04:00',

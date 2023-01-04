@@ -122,26 +122,26 @@ const premium = {
     value: 2,
     text: t('hatchingPotionEmber'),
     limited: true,
-    event: EVENTS.potions202111,
+    event: EVENTS.bundle202211,
     _addlNotes: t('eventAvailabilityReturning', {
       availableDate: t('dateEndNovember'),
-      previousDate: t('novemberYYYY', { year: 2019 }),
+      previousDate: t('novemberYYYY', { year: 2021 }),
     }),
     canBuy () {
-      return moment().isBefore(EVENTS.potions202111.end);
+      return moment().isBetween(EVENTS.bundle202211.start, EVENTS.bundle202211.end);
     },
   },
   Thunderstorm: {
     value: 2,
     text: t('hatchingPotionThunderstorm'),
     limited: true,
-    event: EVENTS.potions202108,
+    event: EVENTS.bundle202211,
     _addlNotes: t('eventAvailabilityReturning', {
-      availableDate: t('dateEndAugust'),
-      previousDate: t('novemberYYYY', { year: 2019 }),
+      availableDate: t('dateEndNovember'),
+      previousDate: t('novemberYYYY', { year: 2021 }),
     }),
     canBuy () {
-      return moment().isBetween(EVENTS.potions202108.start, EVENTS.potions202108.end);
+      return moment().isBetween(EVENTS.bundle202211.start, EVENTS.bundle202211.end);
     },
   },
   Spooky: {
@@ -176,11 +176,11 @@ const premium = {
     limited: true,
     _addlNotes: t('eventAvailabilityReturning', {
       availableDate: t('dateEndJanuary'),
-      previousDate: t('januaryYYYY', { year: 2020 }),
+      previousDate: t('januaryYYYY', { year: 2022 }),
     }),
-    event: EVENTS.winter2022,
+    event: EVENTS.winter2023,
     canBuy () {
-      return moment().isBetween(EVENTS.winter2022.start, EVENTS.winter2022.end);
+      return moment().isBetween(EVENTS.winter2023.start, EVENTS.winter2023.end);
     },
   },
   Peppermint: {
@@ -200,12 +200,13 @@ const premium = {
     value: 2,
     text: t('hatchingPotionStarryNight'),
     limited: true,
+    event: EVENTS.winter2023,
     canBuy () {
-      return moment().isBetween('2019-12-19', '2020-02-02');
+      return moment().isBetween(EVENTS.winter2023.start, EVENTS.winter2023.end);
     },
     _addlNotes: t('eventAvailabilityReturning', {
       availableDate: t('dateEndJanuary'),
-      previousDate: t('decemberYYYY', { year: 2017 }),
+      previousDate: t('decemberYYYY', { year: 2019 }),
     }),
   },
   Rainbow: {
@@ -251,12 +252,13 @@ const premium = {
     value: 2,
     text: t('hatchingPotionFrost'),
     limited: true,
+    event: EVENTS.bundle202211,
     _addlNotes: t('eventAvailabilityReturning', {
       availableDate: t('dateEndNovember'),
-      previousDate: t('novemberYYYY', { year: 2018 }),
+      previousDate: t('novemberYYYY', { year: 2020 }),
     }),
     canBuy () {
-      return moment().isBefore('2020-12-02');
+      return moment().isBetween(EVENTS.bundle202211.start, EVENTS.bundle202211.end);
     },
   },
   IcySnow: {
@@ -359,11 +361,11 @@ const premium = {
     limited: true,
     _addlNotes: t('eventAvailabilityReturning', {
       availableDate: t('dateEndJanuary'),
-      previousDate: t('decemberYYYY', { year: 2019 }),
+      previousDate: t('decemberYYYY', { year: 2020 }),
     }),
-    event: EVENTS.winter2021,
+    event: EVENTS.winter2023,
     canBuy () {
-      return moment().isBetween('2020-12-22T08:00-04:00', '2021-01-31T20:00-04:00');
+      return moment().isBetween(EVENTS.winter2023.start, EVENTS.winter2023.end);
     },
   },
   Ruby: {

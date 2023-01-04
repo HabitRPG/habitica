@@ -103,5 +103,6 @@
     "selectParticipant": "Pilih Seorang Peserta",
     "wonChallengeDesc": "<%= challengeName %> memilihmu sebagai pemenang! Kemenanganmu telah dimasukkan ke Pencapaian.",
     "yourReward": "Hadiahmu",
-    "filters": "Filters"
+    "filters": "Filters",
+    "removeTasks": "Hapus Tugas"
 }

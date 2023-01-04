@@ -3,7 +3,7 @@
  */
 /* eslint-disable no-console */
 
-const MIGRATION_NAME = '20211028_habitoween_ladder'; // Update when running in future years
+const MIGRATION_NAME = '20221031_habitoween_ladder'; // Update when running in future years
 
 import { model as User } from '../../../website/server/models/user';
 

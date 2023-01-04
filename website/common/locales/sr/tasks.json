@@ -127,5 +127,16 @@
     "checkOffYesterDailies": "Check off any Dailies you did yesterday:",
     "yesterDailiesCallToAction": "Start My New Day!",
     "sessionOutdated": "Your session is outdated. Please refresh or sync.",
-    "errorTemporaryItem": "This item is temporary and cannot be pinned."
+    "errorTemporaryItem": "This item is temporary and cannot be pinned.",
+    "addNotes": "Dodaj beleške",
+    "editTagsText": "Podesi Oznake",
+    "addTags": "Dodaj oznake...",
+    "pressEnterToAddTag": "Pritisni enter za dodavanje oznake: '<%= tagName %>'",
+    "addATitle": "Dodaj naslov",
+    "counter": "Brojač",
+    "adjustCounter": "Podesi Brojač",
+    "resetCounter": "Resetuj Brojač",
+    "tomorrow": "Sutra",
+    "deleteTaskType": "Obriši ovo <%= type %>",
+    "enterTag": "Unesi oznaku"
 }

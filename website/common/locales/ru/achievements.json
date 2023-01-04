@@ -141,5 +141,8 @@
     "achievementWoodlandWizardText": "Собраны все лесные питомцы: Барсук, Медведь, Олень, Лиса, Лягушонок, Еж, Сова, Улитка, Белка и Куст!",
     "achievementBoneToPickText": "Собраны все классические и квестовые костяные питомцы!",
     "achievementBoneToPick": "Коллекционер(-ша) костей",
-    "achievementBoneToPickModalText": "Вы собрали всех классических и квестовых костяных питомцев!"
+    "achievementBoneToPickModalText": "Вы собрали всех классических и квестовых костяных питомцев!",
+    "achievementPolarPro": "Полярник",
+    "achievementPolarProModalText": "Вы собрали всех полярных питомцев!",
+    "achievementPolarProText": "Собраны все полярные питомцы: медведь, лиса, пингвин, кит и волк!"
 }

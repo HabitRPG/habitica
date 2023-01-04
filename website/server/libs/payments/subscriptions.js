@@ -13,7 +13,6 @@ import { // eslint-disable-line import/no-cycle
   model as Group,
   basicFields as basicGroupFields,
 } from '../../models/group';
-import { model as User } from '../../models/user'; // eslint-disable-line import/no-cycle
 import {
   NotAuthorized,
   NotFound,
@@ -75,15 +74,7 @@ async function prepareSubscriptionValues (data) {
     ? data.gift.subscription.key
     : data.sub.key];
   const autoRenews = data.autoRenews !== undefined ? data.autoRenews : true;
-  const updatedFrom = data.updatedFrom
-    ? shared.content.subscriptionBlocks[data.updatedFrom.key]
-    : undefined;
-  let months;
-  if (updatedFrom && Number(updatedFrom.months) !== 1) {
-    months = Math.max(0, Number(block.months) - Number(updatedFrom.months));
-  } else {
-    months = Number(block.months);
-  }
+  const months = Number(block.months);
   const today = new Date();
   let group;
   let groupId;
@@ -91,22 +82,6 @@ async function prepareSubscriptionValues (data) {
   let purchaseType = 'subscribe';
   let emailType = 'subscription-begins';
   let recipientIsSubscribed = recipient.isSubscribed();
-
-  if (data.user && !data.gift && !data.groupId) {
-    const unlockedUser = await User.findOneAndUpdate(
-      {
-        _id: data.user._id,
-        $or: [
-          { _subSignature: 'NOT_RUNNING' },
-          { _subSignature: { $exists: false } },
-        ],
-      },
-      { $set: { _subSignature: 'SUB_IN_PROGRESS' } },
-    );
-    if (!unlockedUser) {
-      throw new NotFound('User not found or subscription already processing.');
-    }
-  }
 
   //  If we are buying a group subscription
   if (data.groupId) {
@@ -356,6 +331,10 @@ async function createSubscription (data) {
     }
   }
 
+  if (group) await group.save();
+  if (data.user && data.user.isModified()) await data.user.save();
+  if (data.gift) await data.gift.member.save();
+
   slack.sendSubscriptionNotification({
     buyer: {
       id: data.user._id,
@@ -372,24 +351,6 @@ async function createSubscription (data) {
     groupId,
     autoRenews,
   });
-
-  if (group) {
-    await group.save();
-  }
-  if (data.user) {
-    if (data.user.isModified()) {
-      await data.user.save();
-    }
-    if (!data.gift && !data.groupId) {
-      await User.findOneAndUpdate(
-        { _id: data.user._id },
-        { $set: { _subSignature: 'NOT_RUNNING' } },
-      );
-    }
-  }
-  if (data.gift) {
-    await data.gift.member.save();
-  }
 }
 
 // Cancels a subscription or group plan, setting termination to happen later

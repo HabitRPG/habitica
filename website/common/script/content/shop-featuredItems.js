@@ -5,7 +5,7 @@ import { EVENTS } from './constants';
 // path: 'premiumHatchingPotions.Rainbow',
 const featuredItems = {
   market () {
-    if (moment().isBetween(EVENTS.fall2022.start, EVENTS.fall2022.end)) {
+    if (moment().isBetween(EVENTS.winter2023.start, EVENTS.winter2023.end)) {
       return [
         {
           type: 'armoire',
@@ -13,15 +13,15 @@ const featuredItems = {
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Vampire',
+          path: 'premiumHatchingPotions.StarryNight',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Ghost',
+          path: 'premiumHatchingPotions.Holly',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Shadow',
+          path: 'premiumHatchingPotions.Aurora',
         },
       ];
     }
@@ -32,51 +32,51 @@ const featuredItems = {
       },
       {
         type: 'food',
-        path: 'food.Potatoe',
+        path: 'food.RottenMeat',
       },
       {
         type: 'hatchingPotions',
-        path: 'hatchingPotions.Desert',
+        path: 'hatchingPotions.CottonCandyBlue',
       },
       {
         type: 'eggs',
-        path: 'eggs.Dragon',
+        path: 'eggs.FlyingPig',
       },
     ];
   },
   quests () {
-    if (moment().isBetween(EVENTS.bundle202210.start, EVENTS.bundle202210.end)) {
+    if (moment().isBetween(EVENTS.winter2023.start, EVENTS.winter2023.end)) {
       return [
         {
           type: 'bundles',
-          path: 'bundles.witchyFamiliars',
+          path: 'bundles.winterQuests',
         },
         {
           type: 'quests',
-          path: 'quests.snake',
+          path: 'quests.whale',
         },
         {
           type: 'quests',
-          path: 'quests.owl',
+          path: 'quests.turtle',
         },
       ];
     }
     return [
       {
         type: 'quests',
-        path: 'quests.guineapig',
+        path: 'quests.slime',
       },
       {
         type: 'quests',
-        path: 'quests.onyx',
+        path: 'quests.seaserpent',
       },
       {
         type: 'quests',
-        path: 'quests.rooster',
+        path: 'quests.unicorn',
       },
     ];
   },
-  seasonal: 'spring2021Healer',
+  seasonal: 'winter2022Healer',
   timeTravelers: [
     // TODO
   ],
