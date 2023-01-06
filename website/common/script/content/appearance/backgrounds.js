@@ -535,6 +535,11 @@ const backgrounds = {
     inside_a_crystal: { },
     snowy_village: { },
   },
+  backgrounds012023: {
+    rime_ice: { },
+    snowy_temple: { },
+    winter_lake_with_swans: { },
+  },
   timeTravelBackgrounds: {
     airship: {
       price: 1,

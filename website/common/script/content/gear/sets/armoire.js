@@ -408,6 +408,9 @@ const armor = {
     int: 10,
     set: 'jewelers',
   },
+  shawlCollarCoat: {
+    con: 8,
+  },
 };
 
 const body = {
