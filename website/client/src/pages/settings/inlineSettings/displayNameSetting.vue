@@ -73,7 +73,7 @@
           <save-cancel-buttons
             :disable-save="displayNameCannotSubmit"
             @saveClicked="changeDisplayName(temporaryDisplayName)"
-            @cancelClicked="closeModal()"
+            @cancelClicked="requestCloseModal()"
           />
         </div>
       </td>

@@ -51,7 +51,7 @@
         <save-cancel-buttons
           :disable-save="selectedFormat === currentActiveFormat"
           @saveClicked="changeFormatAndClose()"
-          @cancelClicked="closeModal()"
+          @cancelClicked="requestCloseModal()"
         />
       </td>
     </tr>

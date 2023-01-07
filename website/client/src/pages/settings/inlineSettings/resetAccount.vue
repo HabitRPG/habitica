@@ -69,7 +69,7 @@
             primary-button-color="btn-danger"
             primary-button-label="resetAccount"
             @saveClicked="reset()"
-            @cancelClicked="closeModal()"
+            @cancelClicked="requestCloseModal()"
           />
         </div>
       </td>

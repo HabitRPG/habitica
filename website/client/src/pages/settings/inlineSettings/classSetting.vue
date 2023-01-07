@@ -54,7 +54,7 @@
               :key="classType"
               class="class-card"
               :class="{[classType]: true, selected: classType === selectedClass}"
-              @click="selectedClass = classType"
+              @click="markSelectedClass(classType)"
             >
               <span
                 class="svg-icon icon-48 mb-1"
@@ -88,7 +88,7 @@
             class="mb-2"
             :disable-save="previousValue === selectedClass"
             @saveClicked="changeClassAndClose()"
-            @cancelClicked="closeModal()"
+            @cancelClicked="requestCloseModal()"
           />
 
           <your-balance />
@@ -269,6 +269,10 @@ export default {
     this.resetControls();
   },
   methods: {
+    markSelectedClass (newValue) {
+      this.selectedClass = newValue;
+      this.modalValuesChanged(this.previousValue !== newValue);
+    },
     async changeClassAndClose () {
       if (this.user.flags.classSelected && !window.confirm(this.$t('changeClassConfirmCost'))) {
         return;

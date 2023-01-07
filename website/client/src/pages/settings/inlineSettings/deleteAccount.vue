@@ -63,7 +63,7 @@
             primary-button-color="btn-danger"
             primary-button-label="deleteAccount"
             @saveClicked="deleteAccount()"
-            @cancelClicked="closeModal()"
+            @cancelClicked="requestCloseModal()"
           />
         </div>
       </td>

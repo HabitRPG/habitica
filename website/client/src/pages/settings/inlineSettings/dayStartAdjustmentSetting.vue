@@ -71,7 +71,7 @@
           <save-cancel-buttons
             :disable-save="newDayStart === user.preferences.dayStart"
             @saveClicked="saveDayStart()"
-            @cancelClicked="closeModal()"
+            @cancelClicked="requestCloseModal()"
           />
         </div>
       </td>

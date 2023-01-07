@@ -55,7 +55,7 @@
         <save-cancel-buttons
           :disable-save="inputsInvalid"
           @saveClicked="changePassword( passwordUpdates)"
-          @cancelClicked="closeModal()"
+          @cancelClicked="requestCloseModal()"
         />
       </td>
     </tr>

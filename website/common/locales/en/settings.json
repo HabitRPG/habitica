@@ -1,6 +1,7 @@
 {
     "settings": "Settings",
     "generalSettings": "General Settings",
+    "confirmCancelChanges": "Are you sure? You will lose your unsaved changes.",
     "account": "Account",
     "loginMethods": "Login Methods",
     "character": "Character",

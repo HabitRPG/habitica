@@ -28,7 +28,7 @@ export const InlineSettingMixin = {
     openModal () {
       if (this.sharedState.inlineSettingAlreadyOpen) {
         if (this.sharedState.inlineSettingUnsavedValues) {
-          if (window.confirm('Are you sure? You will lose your unsaved changes.')) {
+          if (window.confirm(this.$t('confirmCancelChanges'))) {
             this._hidePrevious();
             this._openIt();
           } else {
@@ -53,12 +53,26 @@ export const InlineSettingMixin = {
       this.sharedState.instanceOfCurrentlyOpened.resetControls();
       this.sharedState.instanceOfCurrentlyOpened.closeModal();
     },
+    /**
+     * This is just for the cancel buttons - so that they also ask if there are unchanged values
+     */
+    requestCloseModal () {
+      if (this.sharedState.inlineSettingUnsavedValues && !window.confirm(this.$t('confirmCancelChanges'))) {
+        return;
+      }
+
+      this.resetControls();
+      this.closeModal();
+    },
+    /**
+     * This is for the save methods to call it after they are done
+     */
     closeModal () {
       this.modalVisible = false;
       this.sharedState.markAsClosed();
     },
-    modalValuesChanged () {
-      this.sharedState.inlineSettingUnsavedValues = true;
+    modalValuesChanged (value = true) {
+      this.sharedState.inlineSettingUnsavedValues = value;
     },
     resetControls () {},
   },

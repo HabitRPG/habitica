@@ -52,7 +52,7 @@
         <save-cancel-buttons
           :disable-save="allowedToSave"
           @saveClicked="changeEmail()"
-          @cancelClicked="closeModal()"
+          @cancelClicked="requestCloseModal()"
         />
       </td>
     </tr>

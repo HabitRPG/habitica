@@ -83,7 +83,7 @@
         <save-cancel-buttons
           :disable-save="previousValue === currentAudioTheme"
           @saveClicked="changeAudioThemeAndClose()"
-          @cancelClicked="closeModal()"
+          @cancelClicked="requestCloseModal()"
         />
       </td>
     </tr>

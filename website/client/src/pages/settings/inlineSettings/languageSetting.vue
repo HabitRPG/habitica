@@ -63,7 +63,7 @@
         <save-cancel-buttons
           :disable-save="selectedLanguage === currentActiveLanguage"
           @saveClicked="changeLanguageAndClose()"
-          @cancelClicked="closeModal()"
+          @cancelClicked="requestCloseModal()"
         />
       </td>
     </tr>

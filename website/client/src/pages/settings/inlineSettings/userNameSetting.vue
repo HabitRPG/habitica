@@ -48,7 +48,7 @@
         <save-cancel-buttons
           :disable-save="usernameCannotSubmit"
           @saveClicked="changeUser('username', cleanedInputValue)"
-          @cancelClicked="closeModal()"
+          @cancelClicked="requestCloseModal()"
         />
       </td>
     </tr>
