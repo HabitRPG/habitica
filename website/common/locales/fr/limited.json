@@ -188,7 +188,7 @@
     "septemberYYYY": "Septembre <%= year %>",
     "royalPurpleJackolantern": "Citrouille d'Habitoween pourpre royal",
     "novemberYYYY": "Novembre <%= year %>",
-    "g1g1Limitations": "Il s'agit d'un événement limité dans le temps, qui démarre le 16 décembre à 08h00 ET (13h00 UTC) et qui finit le 6 Janvier à 20h00 ET (01h00 UTC). Cette promotion ne s'applique que lorsque vous offrez à quelqu'un d'autre. Si la personne désignée a déjà un abonnement, l'abonnement offert ajoutera des mois d'abonnement qui ne seront utilisés qu'après la fin de leur abonnement actuel.",
+    "g1g1Limitations": "Il s'agit d'un événement limité dans le temps, qui démarre le 15 décembre à 08h00 ET (13h00 UTC) et qui finit le 8 janvier à 23h59 ET (9 janvier04h59 UTC). Cette promotion ne s'applique que lorsque vous offrez à quelqu'un d'autre. Si la personne désignée a déjà un abonnement, l'abonnement offert ajoutera des mois d'abonnement qui ne seront utilisés qu'après la fin de leur abonnement actuel.",
     "limitations": "Limitations",
     "g1g1HowItWorks": "Entrez l'identifiant du compte auquel vous voulez faire un cadeau. Puis choisissez la durée d'abonnement que vous voulez offrir et validez. Vous recevrez automatiquement la même durée d'abonnement que celle que vous venez d'offrir.",
     "howItWorks": "Comment ça marche",
@@ -235,5 +235,9 @@
     "fall2022WatcherHealerSet": "Voyeur (Guérisseur)",
     "fall2022KappaRogueSet": "Kappa (Voleur)",
     "gemSaleHow": "Entre le <%= eventStartOrdinal %> et le <%= eventEndOrdinal %> <%= eventStartMonth %>, achetez simplement n'importe quel ensemble de gemmes comme d'habitude et votre compte sera crédité avec le montant promotionnel de gemmes. Plus de gemmes à dépenser, à partager ou à conserver pour de nouveaux objets !",
-    "gemSaleLimitations": "Cette promotion s'applique uniquement pendant la durée de l'événement. L'événement démarre le <%= eventStartOrdinal %> <%= eventStartMonth %> à 8:00 EDT (12:00 UTC) et se terminera le <%= eventEndOrdinal %> <%= eventStartMonth %> à 20:00 EDT (00:00 UTC). Cette promotion n'est disponible que pour les gemmes que vous achetez pour vous."
+    "gemSaleLimitations": "Cette promotion s'applique uniquement pendant la durée de l'événement. L'événement démarre le <%= eventStartOrdinal %> <%= eventStartMonth %> à 8:00 EDT (12:00 UTC) et se terminera le <%= eventEndOrdinal %> <%= eventStartMonth %> à 20:00 EDT (00:00 UTC). Cette promotion n'est disponible que pour les gemmes que vous achetez pour vous.",
+    "winter2023WalrusWarriorSet": "Morse (Guerrier)",
+    "winter2023FairyLightsMageSet": "Lumières féeriques (Mage)",
+    "winter2023CardinalHealerSet": "Cardinal (Guérisseur)",
+    "spring2023RibbonRogueSet": "Ruban (Voleur)"
 }

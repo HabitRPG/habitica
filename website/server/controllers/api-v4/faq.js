@@ -22,6 +22,7 @@ function _deleteProperties (obj, keysToDelete, platform) {
 
 function _deleteOtherPlatformsAnswers (faqObject, platform) {
   const faqCopy = _.cloneDeep(faqObject);
+  _.remove(faqCopy.questions, question => question.exclusions.indexOf(platform) !== -1);
   const keysToDelete = _.without(['web', 'ios', 'android'], platform);
 
   _deleteProperties(faqCopy.stillNeedHelp, keysToDelete, platform);

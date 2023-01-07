@@ -152,6 +152,7 @@ export const UserSchema = new Schema({
     reptacularRumble: Boolean,
     woodlandWizard: Boolean,
     boneToPick: Boolean,
+    polarPro: Boolean,
     // Onboarding Guide
     createdTask: Boolean,
     completedTask: Boolean,

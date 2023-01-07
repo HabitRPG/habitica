@@ -155,7 +155,7 @@
     "confirmPasswordPlaceholder": "确保你的密码相同！",
     "joinHabitica": "加入Habitica",
     "alreadyHaveAccountLogin": "已经是Habitica大陆的勇者了？<strong>从这里进入吧！</strong>",
-    "dontHaveAccountSignup": "还不是我们的一份子？<strong>在这里登记。</strong>",
+    "dontHaveAccountSignup": "还不是我们的一份子？<strong>请在这里注册。</strong>",
     "motivateYourself": "激励自己，实现目标。",
     "timeToGetThingsDone": "完成了所有的任务，该娱乐一下！快快成为Habitica的一份子吧！超过<%= userCountInMillions %>百万Habitica居民等着你！你完成的每一个任务都有助于改善生活。",
     "singUpForFree": "免费注册",

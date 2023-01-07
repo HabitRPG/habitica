@@ -93,7 +93,7 @@
     "toUserIDRequired": "ID користувача є необхідним",
     "gemAmountRequired": "Необхідно ввести кількість самоцівітів",
     "notAuthorizedToSendMessageToThisUser": "Ви не можете відправити повідомленя цьому гравцю тому що він заблокував повідомлення.",
-    "privateMessageGiftGemsMessage": "Привіт <%= receiverName %>, <%= senderName %> прислав вам <%= gemAmount %> самоцвітів!",
+    "privateMessageGiftGemsMessage": "Привіт, <%= receiverName %>, <%= senderName %> надсилає вам самоцвіти: <%= gemAmount %> (шт.)!",
     "cannotSendGemsToYourself": "Не можна відправити самоцвіти самому собі. Натомість, спробуйте підписку.",
     "badAmountOfGemsToSend": "Не може бути менше ніж 1 і більше всіх ваших самоцвітів.",
     "report": "Пожалітись",
