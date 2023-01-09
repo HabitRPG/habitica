@@ -121,7 +121,7 @@
             v-if="editing"
             class="menu-container col-2"
             :class="{active: activeTopPage === 'backgrounds'}"
-            @click="changeTopPage('backgrounds', '2022')"
+            @click="changeTopPage('backgrounds', '2023')"
           >
             <div class="menu-item">
               <div
