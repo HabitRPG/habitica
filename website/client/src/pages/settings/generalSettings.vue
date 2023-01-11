@@ -62,11 +62,7 @@
       </h2>
 
       <table class="table">
-        <tr>
-          <td colspan="3">
-            Fix Values TODO
-          </td>
-        </tr>
+        <fix-values-setting />
         <class-setting />
         <tr>
           <td colspan="3">
@@ -120,9 +116,11 @@ import DateFormatSetting from './inlineSettings/dateFormatSetting';
 import DayStartAdjustmentSetting from './inlineSettings/dayStartAdjustmentSetting.vue';
 import AudioThemeSetting from '@/pages/settings/inlineSettings/audioThemeSetting.vue';
 import ClassSetting from '@/pages/settings/inlineSettings/classSetting.vue';
+import FixValuesSetting from '@/pages/settings/inlineSettings/fixValuesSetting.vue';
 
 export default {
   components: {
+    FixValuesSetting,
     ClassSetting,
     AudioThemeSetting,
     DayStartAdjustmentSetting,
