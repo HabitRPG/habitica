@@ -1,5 +1,5 @@
 import { sanitizeText } from '../../../../website/server/models/message';
-import { MAX_MESSAGE_LENGTH } from '../../../../website/common/script/constants';
+import { MAX_MESSAGE_LENGTH, MAX_GIFT_MESSAGE_LENGTH } from '../../../../website/common/script/constants';
 
 describe('Message Model', () => {
   context('sanitizeText', () => {
@@ -14,5 +14,6 @@ describe('Message Model', () => {
       expect(sanitizedText).to.not.contain('MESSAGE');
       expect(sanitizedText.length).to.equal(MAX_MESSAGE_LENGTH);
     });
+
   });
 });
