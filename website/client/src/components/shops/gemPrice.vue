@@ -1,5 +1,8 @@
 <template>
-  <div class="gem-price-div">
+  <div
+    class="gem-price-div"
+    :class="{'background': withBackground}"
+  >
     <div
       :class="'mr-2 svg-icon gem icon-' +iconSize"
       v-html="icons.gem"
@@ -13,7 +16,7 @@ import gemIcon from '@/assets/svg/gem.svg';
 
 export default {
   name: 'GemPrice',
-  props: ['gemPrice', 'iconSize'],
+  props: ['gemPrice', 'iconSize', 'withBackground'],
   data () {
     return {
       icons: Object.freeze({
@@ -38,5 +41,13 @@ export default {
 .gem-price-div {
   display: inline-flex;
   align-items: center;
+}
+
+.background {
+  align-self: center;
+  border-radius: 20px;
+  padding: 6px 20px;
+
+  background-color: rgba($green-100, 0.15);
 }
 </style>

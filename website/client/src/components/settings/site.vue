@@ -7,94 +7,6 @@
       {{ $t('settings') }}
     </h1>
     <div class="col-sm-6">
-      <div class="form-horizontal">
-        <h5>{{ $t('language') }}</h5>
-        <select
-          class="form-control"
-          :value="user.preferences.language"
-          @change="changeLanguage($event)"
-        >
-          <option
-            v-for="lang in availableLanguages"
-            :key="lang.code"
-            :value="lang.code"
-          >
-            {{ lang.name }}
-          </option>
-        </select>
-        <small>
-          {{ $t('americanEnglishGovern') }}
-          <br>
-          <strong v-html="$t('helpWithTranslation')"></strong>
-        </small>
-      </div>
-      <hr>
-      <div class="form-horizontal">
-        <h5>{{ $t('dateFormat') }}</h5>
-        <select
-          v-model="user.preferences.dateFormat"
-          class="form-control"
-          @change="set('dateFormat')"
-        >
-          <option
-            v-for="dateFormat in availableFormats"
-            :key="dateFormat"
-            :value="dateFormat"
-          >
-            {{ dateFormat }}
-          </option>
-        </select>
-      </div>
-      <hr>
-      <div class="form-horizontal">
-        <div class="form-group">
-          <h5>{{ $t('audioTheme') }}</h5>
-          <select
-            v-model="user.preferences.sound"
-            class="form-control"
-            @change="changeAudioTheme"
-          >
-            <option
-              v-for="sound in availableAudioThemes"
-              :key="sound"
-              :value="sound"
-            >
-              {{ $t(`audioTheme_${sound}`) }}
-            </option>
-          </select>
-        </div>
-        <button
-          v-once
-          class="btn btn-primary btn-xs"
-          @click="playAudio"
-        >
-          {{ $t('demo') }}
-        </button>
-      </div>
-      <hr>
-      <div
-        v-if="hasClass"
-        class="form-horizontal"
-      >
-        <h5>{{ $t('characterBuild') }}</h5>
-        <h6 v-once>
-          {{ $t('class') + ': ' }}
-          <!-- @TODO: what is classText-->
-          <!-- span(v-if='classText') {{ classText }}&nbsp;-->
-          <button
-            v-once
-            class="btn btn-danger btn-xs"
-            @click="changeClassForUser(true)"
-          >
-            {{ $t('changeClass') }}
-          </button>
-          <small class="cost">
-            &nbsp; 3 {{ $t('gems') }}
-            <!-- @TODO add icon span.Pet_Currency_Gem1x.inline-gems-->
-          </small>
-        </h6>
-        <hr>
-      </div>
       <div>
         <div class="checkbox">
           <label>
@@ -157,18 +69,6 @@
         >
           {{ $t('fixVal') }}
         </button>
-        <button
-          v-if="user.preferences.disableClasses == true"
-          class="btn btn-primary mb-2"
-          popover-trigger="mouseenter"
-          popover-placement="right"
-          :popover="$t('enableClassPop')"
-          @click="changeClassForUser(false)"
-        >
-          {{ $t('enableClass') }}
-        </button>
-        <hr>
-        <day-start-adjustment />
       </div>
     </div>
     <div class="col-sm-6">
@@ -359,22 +259,16 @@ import { mapState } from '@/libs/store';
 import restoreModal from './restoreModal';
 import resetModal from './resetModal';
 import deleteModal from './deleteModal';
-import dayStartAdjustment from './dayStartAdjustment';
 import { SUPPORTED_SOCIAL_NETWORKS } from '@/../../common/script/constants';
-import changeClass from '@/../../common/script/ops/changeClass';
 import notificationsMixin from '../../mixins/notifications';
 import sounds from '../../libs/sounds';
 import { buildAppleAuthUrl } from '../../libs/auth';
-
-// @TODO: this needs our window.env fix
-// import { availableLanguages } from '../../../server/libs/i18n';
 
 export default {
   components: {
     restoreModal,
     resetModal,
     deleteModal,
-    dayStartAdjustment,
   },
   mixins: [notificationsMixin],
   data () {
@@ -469,12 +363,6 @@ export default {
         return false;
       });
     },
-    async changeLanguage (e) {
-      const newLang = e.target.value;
-      this.user.preferences.language = newLang;
-      await this.set('language');
-      setTimeout(() => window.location.reload(true));
-    },
     async changeUser (attribute, updates) {
       await axios.put(`/api/v4/user/auth/update-${attribute}`, updates);
       if (attribute === 'password') {
@@ -510,15 +398,6 @@ export default {
           auth,
         });
         window.location.href = '/';
-      }
-    },
-    async changeClassForUser (confirmationNeeded) {
-      if (confirmationNeeded && !window.confirm(this.$t('changeClassConfirmCost'))) return; // eslint-disable-line no-alert
-      try {
-        changeClass(this.user);
-        await axios.post('/api/v4/user/change-class');
-      } catch (e) {
-        window.alert(e.message); // eslint-disable-line no-alert
       }
     },
     async addLocalAuth () {

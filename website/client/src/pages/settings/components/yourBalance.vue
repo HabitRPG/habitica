@@ -7,7 +7,11 @@
       {{ $t('yourBalance') }}:
     </span>
 
-    <balance-info class="balance-info" />
+    <balance-info
+      class="balance-info"
+      :currency-needed="currencyNeeded"
+      :amount-needed="amountNeeded"
+    />
   </div>
 </template>
 
@@ -17,6 +21,14 @@ import BalanceInfo from '@/components/shops/balanceInfo.vue';
 export default {
   name: 'YourBalance',
   components: { BalanceInfo },
+  props: {
+    currencyNeeded: {
+      type: String,
+    },
+    amountNeeded: {
+      type: Number,
+    },
+  },
 };
 </script>
 

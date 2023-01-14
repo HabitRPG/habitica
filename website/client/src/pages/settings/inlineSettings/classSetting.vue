@@ -9,14 +9,24 @@
       <td class="settings-value">
         <div
           class="class-value"
-          :class="{[selectedClass]: true}"
+          :class="{[selectedClass]: !classDisabled, disabled: classDisabled}"
         >
           <span
+            v-if="!classDisabled"
             class="svg-icon icon-16 mr-2"
             v-html="classIcons[selectedClass]"
           ></span>
 
-          <span class="label">
+          <span
+            v-if="classDisabled"
+            class="label"
+          >
+            {{ $t('noClassSelected') }}
+          </span>
+          <span
+            v-else
+            class="label"
+          >
             {{ $t(selectedClass) }}
           </span>
         </div>
@@ -26,7 +36,7 @@
           class="edit-link"
           @click.prevent="openModal()"
         >
-          {{ $t('edit') }}
+          {{ $t(classDisabled ? 'chooseClassSetting' : 'edit') }}
         </a>
       </td>
     </tr>
@@ -48,50 +58,25 @@
           <span>{{ $t("changeClassDisclaimer") }}</span>
         </div>
         <div class="content-centered">
-          <div class="class-selection">
-            <div
-              v-for="classType in classList"
-              :key="classType"
-              class="class-card"
-              :class="{[classType]: true, selected: classType === selectedClass}"
-              @click="markSelectedClass(classType)"
-            >
-              <span
-                class="svg-icon icon-48 mb-1"
-                v-html="classIcons[classType]"
-              ></span>
-
-              <span class="label">
-                {{ $t(classType) }}
-              </span>
-
-              <div
-                v-if="classType === selectedClass"
-                class="selected-badge"
-              >
-                <span
-                  class="svg-icon"
-                  v-html="icons.check"
-                ></span>
-              </div>
-            </div>
-          </div>
-
           <gem-price
             gem-price="3"
             icon-size="24"
             class="gem-price-spacing"
+            :with-background="true"
           />
 
           <save-cancel-buttons
             primary-button-label="changeClassSetting"
             class="mb-2"
-            :disable-save="previousValue === selectedClass"
+            :disable-save="amountNeeded > userGems"
             @saveClicked="changeClassAndClose()"
             @cancelClicked="requestCloseModal()"
           />
 
-          <your-balance />
+          <your-balance
+            :amount-needed="amountNeeded"
+            currency-needed="gems"
+          />
         </div>
       </td>
     </tr>
@@ -127,6 +112,7 @@ input {
 }
 
 .gem-price-spacing {
+  margin-top: 1.5rem;
   margin-bottom: 1.125rem;
   justify-content: center;
 }
@@ -138,34 +124,6 @@ input {
 
   margin-bottom: 1.5rem;
   margin-top: 1.5rem;
-}
-
-.class-card {
-  position: relative;
-
-  height: 96px;
-  width: 96px;
-  min-width: 96px;
-  border-radius: 4px;
-  box-shadow: 0 1px 3px 0 rgba($black, 0.12), 0 1px 2px 0 rgba($black, 0.24);
-
-  background-color: $white;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  cursor: pointer;
-
-  &:hover {
-    box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
-    border: solid 1px $purple-400;
-  }
-
-  &.selected {
-    border: solid 1px $green-100;
-  }
 }
 
 .healer {
@@ -184,9 +142,12 @@ input {
   color: $wizard-color;
 }
 
+.disabled {
+  color: $maroon-50;
+}
+
 .label {
   font-size: 14px;
-  font-weight: bold;
   line-height: 1.71;
   text-align: center;
 }
@@ -210,16 +171,19 @@ input {
   display: flex;
   align-items: center;
 
-  .label {
-    font-weight: bold;
-    line-height: 1.71;
+  &:not(.disabled) {
+    .label {
+      font-weight: bold;
+      line-height: 1.71;
+    }
   }
 }
 
 </style>
 
 <script>
-import { mapState } from '@/libs/store';
+import axios from 'axios';
+import { mapGetters, mapState } from '@/libs/store';
 
 import SaveCancelButtons from '../components/saveCancelButtons.vue';
 import { InlineSettingMixin } from '../components/inlineSettingMixin';
@@ -231,6 +195,7 @@ import rogueIcon from '@/assets/svg/rogue.svg';
 import healerIcon from '@/assets/svg/healer.svg';
 import wizardIcon from '@/assets/svg/wizard.svg';
 import checkIcon from '@/assets/svg/check.svg';
+import changeClass from '@/../../common/script/ops/changeClass';
 
 export default {
   components: {
@@ -241,7 +206,7 @@ export default {
   mixins: [InlineSettingMixin, GenericUserPreferencesMixin],
   data () {
     return {
-      previousValue: '',
+      amountNeeded: 3 / 4,
       selectedClass: '',
       classIcons: Object.freeze({
         warrior: warriorIcon,
@@ -255,6 +220,9 @@ export default {
     };
   },
   computed: {
+    ...mapGetters({
+      userGems: 'user:gems',
+    }),
     ...mapState({
       user: 'user.data',
       availableLanguages: 'i18n.availableLanguages',
@@ -263,22 +231,35 @@ export default {
     classList () {
       return this.content.classes;
     },
+    classDisabled () {
+      return this.user.preferences.disableClasses;
+    },
   },
   mounted () {
-    this.previousValue = this.user.stats.class;
+    this.selectedClass = this.user.stats.class;
     this.resetControls();
   },
   methods: {
-    markSelectedClass (newValue) {
-      this.selectedClass = newValue;
-      this.modalValuesChanged(this.previousValue !== newValue);
-    },
     async changeClassAndClose () {
-      if (this.user.flags.classSelected && !window.confirm(this.$t('changeClassConfirmCost'))) {
+      if (!this.classDisabled && !window.confirm(this.$t('changeClassConfirmCost'))) {
         return;
       }
 
-      this.$store.dispatch('user:changeClass', { query: { class: this.selectedClass } });
+      this.$root.$once('bv::hide::modal', () => {
+        // update the label in the settings list
+        this.selectedClass = this.user.stats.class;
+      });
+
+      try {
+        await Promise.all([
+          // resets the class settings and triggers indirectly the modal of
+          // src/components/achievemnts/chooseClass - I don't know if we should keep this weird way
+          changeClass(this.user),
+          axios.post('/api/v4/user/change-class'),
+        ]);
+      } catch (e) {
+        window.alert(e.message); // eslint-disable-line no-alert
+      }
 
       this.closeModal();
     },
@@ -287,7 +268,7 @@ export default {
      * do not remove
      */
     resetControls () {
-      this.selectedClass = this.previousValue;
+      this.selectedClass = this.user.stats.class;
     },
   },
 };
