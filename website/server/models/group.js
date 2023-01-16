@@ -413,7 +413,7 @@ schema.statics.toJSONCleanChat = async function groupToJSONCleanChat (group, use
   return groupToJson;
 };
 
-function getInviteError (uuids, emails, usernames) {
+export function getInviteError (uuids, emails, usernames) {
   const uuidsIsArray = Array.isArray(uuids);
   const emailsIsArray = Array.isArray(emails);
   const usernamesIsArray = Array.isArray(usernames);
