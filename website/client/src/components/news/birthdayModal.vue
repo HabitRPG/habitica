@@ -57,7 +57,7 @@
           v-html="icons.cross"
         >
         </span>
-        {{ $t('jubilantGryphatrice') }}
+        {{ $t('jubilantGryphatricePromo') }}
         <span
           class="svg-cross"
           v-html="icons.cross"
