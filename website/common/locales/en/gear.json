@@ -1425,7 +1425,9 @@
   "armorArmoireSheetGhostCostumeNotes": "Boo! This is the scariest costume in all of Habitica, so wear it wisely... and watch your step so you don’t trip. Increases Constitution by <%= con %>. Enchanted Armoire: Independent Item.",
   "armorArmoireJewelersApronText": "Jeweler's Apron",
   "armorArmoireJewelersApronNotes": "This heavy-duty apron is just the thing to wear when you feel creative. Best of all, there are dozens of small pockets to hold everything you need. Increases Intelligence by <%= int %>. Enchanted Armoire: Jeweler Set (Item 1 of 4).", 
-
+  "armorArmoireShawlCollarCoatText": "Shawl-Collar Coat",
+  "armorArmoireShawlCollarCoatNotes": "A wise wizard once said there’s nothing better than being both cozy and productive! Wear this warm and stylish coat as you conquer the year’s challenges. Increases Constitution by <%= con %>. Enchanted Armoire: Independent Item.",
+  
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
 
