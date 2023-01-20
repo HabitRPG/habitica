@@ -32,6 +32,7 @@
   "royalPurpleJackalope": "Royal Purple Jackalope",
   "invisibleAether": "Invisible Aether",
   "gryphatrice": "Gryphatrice",
+  "jubilantGryphatrice": "Jubilant Gryphatrice",
   "potion": "<%= potionType %> Potion",
   "egg": "<%= eggType %> Egg",
   "eggs": "Eggs",

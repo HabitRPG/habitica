@@ -2,13 +2,14 @@ import moment from 'moment';
 import shared from '../../../common';
 import iap from '../inAppPurchases';
 import payments from './payments';
-import { getGemsBlock, validateGiftMessage } from './gems';
+import { validateGiftMessage } from './gems';
 import {
   NotAuthorized,
   BadRequest,
 } from '../errors';
 import { model as IapPurchaseReceipt } from '../../models/iapPurchaseReceipt';
 import { model as User } from '../../models/user';
+import { buySkuItem } from './skuItem';
 
 const api = {};
 
@@ -22,7 +23,7 @@ api.constants = {
   RESPONSE_NO_ITEM_PURCHASED: 'NO_ITEM_PURCHASED',
 };
 
-api.verifyGemPurchase = async function verifyGemPurchase (options) {
+api.verifyPurchase = async function verifyPurchase (options) {
   const {
     gift, user, receipt, headers,
   } = options;
@@ -44,7 +45,6 @@ api.verifyGemPurchase = async function verifyGemPurchase (options) {
   if (purchaseDataList.length === 0) {
     throw new NotAuthorized(api.constants.RESPONSE_NO_ITEM_PURCHASED);
   }
-  let correctReceipt = false;
 
   // Purchasing one item at a time (processing of await(s) below is sequential not parallel)
   for (const purchaseData of purchaseDataList) {
@@ -62,45 +62,15 @@ api.verifyGemPurchase = async function verifyGemPurchase (options) {
         userId: user._id,
       });
 
-      let gemsBlockKey;
-      switch (purchaseData.productId) { // eslint-disable-line default-case
-        case 'com.habitrpg.ios.Habitica.4gems':
-          gemsBlockKey = '4gems';
-          break;
-        case 'com.habitrpg.ios.Habitica.20gems':
-        case 'com.habitrpg.ios.Habitica.21gems':
-          gemsBlockKey = '21gems';
-          break;
-        case 'com.habitrpg.ios.Habitica.42gems':
-          gemsBlockKey = '42gems';
-          break;
-        case 'com.habitrpg.ios.Habitica.84gems':
-          gemsBlockKey = '84gems';
-          break;
-      }
-      if (!gemsBlockKey) throw new NotAuthorized(api.constants.RESPONSE_INVALID_ITEM);
-      const gemsBlock = getGemsBlock(gemsBlockKey);
-
-      if (gift) {
-        gift.type = 'gems';
-        if (!gift.gems) gift.gems = {};
-        gift.gems.amount = shared.content.gems[gemsBlock.key].gems;
-      }
-
-      if (gemsBlock) {
-        correctReceipt = true;
-        await payments.buyGems({ // eslint-disable-line no-await-in-loop
-          user,
-          gift,
-          paymentMethod: api.constants.PAYMENT_METHOD_APPLE,
-          gemsBlock,
-          headers,
-        });
-      }
+      await buySkuItem({ // eslint-disable-line no-await-in-loop
+        user,
+        gift,
+        paymentMethod: api.constants.PAYMENT_METHOD_APPLE,
+        sku: purchaseData.productId,
+        headers,
+      });
     }
   }
-
-  if (!correctReceipt) throw new NotAuthorized(api.constants.RESPONSE_INVALID_ITEM);
 
   return appleRes;
 };

@@ -13,6 +13,7 @@ import shared from '../../../../common';
 import { getOneTimePaymentInfo } from './oneTimePayments'; // eslint-disable-line import/no-cycle
 import { checkSubData } from './subscriptions'; // eslint-disable-line import/no-cycle
 import { validateGiftMessage } from '../gems'; // eslint-disable-line import/no-cycle
+import { buySkuItem } from '../skuItem'; // eslint-disable-line import/no-cycle
 
 const BASE_URL = nconf.get('BASE_URL');
 
@@ -24,6 +25,7 @@ export async function createCheckoutSession (options, stripeInc) {
     sub,
     groupId,
     coupon,
+    sku,
   } = options;
 
   // @TODO: We need to mock this, but curently we don't have correct
@@ -37,6 +39,8 @@ export async function createCheckoutSession (options, stripeInc) {
     validateGiftMessage(gift, user);
   } else if (sub) {
     type = 'subscription';
+  } else if (sku) {
+    type = 'sku';
   }
 
   const metadata = {
@@ -70,6 +74,12 @@ export async function createCheckoutSession (options, stripeInc) {
     lineItems = [{
       price: sub.key,
       quantity,
+    }];
+  } else if (type === 'sku') {
+    metadata.sku = sku;
+    lineItems = [{
+      price: sku,
+      quantity: 1,
     }];
   } else {
     const {

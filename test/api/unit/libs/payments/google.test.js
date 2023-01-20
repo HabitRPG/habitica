@@ -12,7 +12,7 @@ const { i18n } = common;
 describe('Google Payments', () => {
   const subKey = 'basic_3mo';
 
-  describe('verifyGemPurchase', () => {
+  describe('verifyPurchase', () => {
     let sku; let user; let token; let receipt; let signature; let
       headers; const gemsBlock = common.content.gems['21gems'];
     let iapSetupStub; let iapValidateStub; let iapIsValidatedStub; let
@@ -48,7 +48,7 @@ describe('Google Payments', () => {
       iapIsValidatedStub = sinon.stub(iap, 'isValidated')
         .returns(false);
 
-      await expect(googlePayments.verifyGemPurchase({
+      await expect(googlePayments.verifyPurchase({
         user, receipt, signature, headers,
       }))
         .to.eventually.be.rejected.and.to.eql({
@@ -61,7 +61,7 @@ describe('Google Payments', () => {
     it('should throw an error if productId is invalid', async () => {
       receipt = `{"token": "${token}", "productId": "invalid"}`;
 
-      await expect(googlePayments.verifyGemPurchase({
+      await expect(googlePayments.verifyPurchase({
         user, receipt, signature, headers,
       }))
         .to.eventually.be.rejected.and.to.eql({
@@ -74,7 +74,7 @@ describe('Google Payments', () => {
     it('should throw an error if user cannot purchase gems', async () => {
       sinon.stub(user, 'canGetGems').resolves(false);
 
-      await expect(googlePayments.verifyGemPurchase({
+      await expect(googlePayments.verifyPurchase({
         user, receipt, signature, headers,
       }))
         .to.eventually.be.rejected.and.to.eql({
@@ -88,7 +88,7 @@ describe('Google Payments', () => {
 
     it('purchases gems', async () => {
       sinon.stub(user, 'canGetGems').resolves(true);
-      await googlePayments.verifyGemPurchase({
+      await googlePayments.verifyPurchase({
         user, receipt, signature, headers,
       });
 
@@ -120,7 +120,7 @@ describe('Google Payments', () => {
       await receivingUser.save();
 
       const gift = { uuid: receivingUser._id };
-      await googlePayments.verifyGemPurchase({
+      await googlePayments.verifyPurchase({
         user, gift, receipt, signature, headers,
       });
 

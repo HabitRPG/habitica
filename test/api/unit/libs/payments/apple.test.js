@@ -12,7 +12,7 @@ const { i18n } = common;
 describe('Apple Payments', () => {
   const subKey = 'basic_3mo';
 
-  describe('verifyGemPurchase', () => {
+  describe('verifyPurchase', () => {
     let sku; let user; let token; let receipt; let
       headers;
     let iapSetupStub; let iapValidateStub; let iapIsValidatedStub; let paymentBuyGemsStub; let
@@ -54,7 +54,7 @@ describe('Apple Payments', () => {
       iapIsValidatedStub = sinon.stub(iap, 'isValidated')
         .returns(false);
 
-      await expect(applePayments.verifyGemPurchase({ user, receipt, headers }))
+      await expect(applePayments.verifyPurchase({ user, receipt, headers }))
         .to.eventually.be.rejected.and.to.eql({
           httpCode: 401,
           name: 'NotAuthorized',
@@ -66,7 +66,7 @@ describe('Apple Payments', () => {
       iapGetPurchaseDataStub.restore();
       iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData').returns([]);
 
-      await expect(applePayments.verifyGemPurchase({ user, receipt, headers }))
+      await expect(applePayments.verifyPurchase({ user, receipt, headers }))
         .to.eventually.be.rejected.and.to.eql({
           httpCode: 401,
           name: 'NotAuthorized',
@@ -76,7 +76,7 @@ describe('Apple Payments', () => {
 
     it('errors if the user cannot purchase gems', async () => {
       sinon.stub(user, 'canGetGems').resolves(false);
-      await expect(applePayments.verifyGemPurchase({ user, receipt, headers }))
+      await expect(applePayments.verifyPurchase({ user, receipt, headers }))
         .to.eventually.be.rejected.and.to.eql({
           httpCode: 401,
           name: 'NotAuthorized',
@@ -95,7 +95,7 @@ describe('Apple Payments', () => {
           transactionId: token,
         }]);
 
-      await expect(applePayments.verifyGemPurchase({ user, receipt, headers }))
+      await expect(applePayments.verifyPurchase({ user, receipt, headers }))
         .to.eventually.be.rejected.and.to.eql({
           httpCode: 401,
           name: 'NotAuthorized',
@@ -138,7 +138,7 @@ describe('Apple Payments', () => {
           }]);
 
         sinon.stub(user, 'canGetGems').resolves(true);
-        await applePayments.verifyGemPurchase({ user, receipt, headers });
+        await applePayments.verifyPurchase({ user, receipt, headers });
 
         expect(iapSetupStub).to.be.calledOnce;
         expect(iapValidateStub).to.be.calledOnce;
@@ -173,7 +173,7 @@ describe('Apple Payments', () => {
         }]);
 
       const gift = { uuid: receivingUser._id };
-      await applePayments.verifyGemPurchase({
+      await applePayments.verifyPurchase({
         user, gift, receipt, headers,
       });
 
