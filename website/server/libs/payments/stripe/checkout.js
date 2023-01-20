@@ -13,7 +13,6 @@ import shared from '../../../../common';
 import { getOneTimePaymentInfo } from './oneTimePayments'; // eslint-disable-line import/no-cycle
 import { checkSubData } from './subscriptions'; // eslint-disable-line import/no-cycle
 import { validateGiftMessage } from '../gems'; // eslint-disable-line import/no-cycle
-import { buySkuItem } from '../skuItem'; // eslint-disable-line import/no-cycle
 
 const BASE_URL = nconf.get('BASE_URL');
 
