@@ -14,9 +14,9 @@ describe('Google Payments', () => {
 
   describe('verifyPurchase', () => {
     let sku; let user; let token; let receipt; let signature; let
-      headers; const gemsBlock = common.content.gems['21gems'];
+      headers;
     let iapSetupStub; let iapValidateStub; let iapIsValidatedStub; let
-      paymentBuyGemsStub; let validateGiftMessageStub;
+      paymentBuySkuStub; let validateGiftMessageStub;
 
     beforeEach(() => {
       sku = 'com.habitrpg.android.habitica.iap.21gems';
@@ -27,11 +27,10 @@ describe('Google Payments', () => {
 
       iapSetupStub = sinon.stub(iap, 'setup')
         .resolves();
-      iapValidateStub = sinon.stub(iap, 'validate')
-        .resolves({});
+      iapValidateStub = sinon.stub(iap, 'validate').resolves({ productId: sku });
       iapIsValidatedStub = sinon.stub(iap, 'isValidated')
         .returns(true);
-      paymentBuyGemsStub = sinon.stub(payments, 'buySkuItem').resolves({});
+      paymentBuySkuStub = sinon.stub(payments, 'buySkuItem').resolves({});
       validateGiftMessageStub = sinon.stub(gems, 'validateGiftMessage');
     });
 
@@ -60,8 +59,10 @@ describe('Google Payments', () => {
 
     it('should throw an error if productId is invalid', async () => {
       receipt = `{"token": "${token}", "productId": "invalid"}`;
+      iapValidateStub.restore();
+      iapValidateStub = sinon.stub(iap, 'validate').resolves({});
 
-      paymentBuyGemsStub.restore();
+      paymentBuySkuStub.restore();
       await expect(googlePayments.verifyPurchase({
         user, receipt, signature, headers,
       }))
@@ -70,7 +71,7 @@ describe('Google Payments', () => {
           name: 'BadRequest',
           message: googlePayments.constants.RESPONSE_INVALID_ITEM,
         });
-      paymentBuyGemsStub = sinon.stub(payments, 'buySkuItem').resolves({});
+      paymentBuySkuStub = sinon.stub(payments, 'buySkuItem').resolves({});
     });
 
     it('should throw an error if user cannot purchase gems', async () => {
@@ -103,15 +104,17 @@ describe('Google Payments', () => {
         signature,
       });
       expect(iapIsValidatedStub).to.be.calledOnce;
-      expect(iapIsValidatedStub).to.be.calledWith({});
+      expect(iapIsValidatedStub).to.be.calledWith(
+        { productId: sku },
+      );
 
-      expect(paymentBuyGemsStub).to.be.calledOnce;
-      expect(paymentBuyGemsStub).to.be.calledWith({
+      expect(paymentBuySkuStub).to.be.calledOnce;
+      expect(paymentBuySkuStub).to.be.calledWith({
         user,
-        paymentMethod: googlePayments.constants.PAYMENT_METHOD_GOOGLE,
-        gemsBlock,
-        headers,
         gift: undefined,
+        paymentMethod: googlePayments.constants.PAYMENT_METHOD_GOOGLE,
+        sku,
+        headers,
       });
       expect(user.canGetGems).to.be.calledOnce;
       user.canGetGems.restore();
@@ -136,20 +139,20 @@ describe('Google Payments', () => {
         signature,
       });
       expect(iapIsValidatedStub).to.be.calledOnce;
-      expect(iapIsValidatedStub).to.be.calledWith({});
+      expect(iapIsValidatedStub).to.be.calledWith(
+        { productId: sku },
+      );
 
-      expect(paymentBuyGemsStub).to.be.calledOnce;
-      expect(paymentBuyGemsStub).to.be.calledWith({
+      expect(paymentBuySkuStub).to.be.calledOnce;
+      expect(paymentBuySkuStub).to.be.calledWith({
         user,
-        paymentMethod: googlePayments.constants.PAYMENT_METHOD_GOOGLE,
-        gemsBlock,
-        headers,
         gift: {
-          type: 'gems',
-          gems: { amount: 21 },
-          member: sinon.match({ _id: receivingUser._id }),
           uuid: receivingUser._id,
+          member: sinon.match({ _id: receivingUser._id }),
         },
+        paymentMethod: googlePayments.constants.PAYMENT_METHOD_GOOGLE,
+        sku,
+        headers,
       });
     });
   });
