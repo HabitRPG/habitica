@@ -94,6 +94,7 @@ describe('Apple Payments', () => {
           productId: 'badProduct',
           transactionId: token,
         }]);
+      paymentBuyGemsStub.restore();
 
       await expect(applePayments.verifyPurchase({ user, receipt, headers }))
         .to.eventually.be.rejected.and.to.eql({
@@ -102,6 +103,7 @@ describe('Apple Payments', () => {
           message: applePayments.constants.RESPONSE_INVALID_ITEM,
         });
 
+      paymentBuyGemsStub = sinon.stub(payments, 'buySkuItem').resolves({});
       user.canGetGems.restore();
     });
 
@@ -151,10 +153,10 @@ describe('Apple Payments', () => {
         expect(paymentBuyGemsStub).to.be.calledOnce;
         expect(paymentBuyGemsStub).to.be.calledWith({
           user,
-          paymentMethod: applePayments.constants.PAYMENT_METHOD_APPLE,
-          gemsBlock: common.content.gems[gemTest.gemsBlock],
-          headers,
           gift: undefined,
+          paymentMethod: applePayments.constants.PAYMENT_METHOD_APPLE,
+          sku: gemTest.productId,
+          headers,
         });
         expect(user.canGetGems).to.be.calledOnce;
         user.canGetGems.restore();

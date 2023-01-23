@@ -21,7 +21,7 @@ describe('payments/skuItems', () => {
     });
 
     describe('#gryphatrice', () => {
-      const sku = 'com.habitrpg.android.habitica.iap.pets.gryphatrice-jubilant';
+      const sku = 'Pet-Gryphatrice-Jubilant';
       it('returns true during birthday week', () => {
         clock = sinon.useFakeTimers(new Date('2023-01-29'));
         expect(canBuySkuItem(sku, user)).to.be.true;

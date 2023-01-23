@@ -61,6 +61,7 @@ describe('Google Payments', () => {
     it('should throw an error if productId is invalid', async () => {
       receipt = `{"token": "${token}", "productId": "invalid"}`;
 
+      paymentBuyGemsStub.restore();
       await expect(googlePayments.verifyPurchase({
         user, receipt, signature, headers,
       }))
@@ -69,6 +70,7 @@ describe('Google Payments', () => {
           name: 'BadRequest',
           message: googlePayments.constants.RESPONSE_INVALID_ITEM,
         });
+      paymentBuyGemsStub = sinon.stub(payments, 'buySkuItem').resolves({});
     });
 
     it('should throw an error if user cannot purchase gems', async () => {
