@@ -49,7 +49,9 @@ async function buyGryphatrice (data) {
 export function canBuySkuItem (sku, user) {
   switch (sku) {
     case 'com.habitrpg.android.habitica.iap.pets.gryphatrice_jubilant':
-    case 'com.habitrpg.ios.Habitica.pets.gryphatrice_jubilant':
+    case 'com.habitrpg.ios.Habitica.pets.Gryphatrice_Jubilant':
+    case 'Pet-Gryphatrice-Jubilant':
+    case 'price_0MPZ6iZCD0RifGXlLah2furv':
       return canBuyGryphatrice(user);
     default:
       return true;
