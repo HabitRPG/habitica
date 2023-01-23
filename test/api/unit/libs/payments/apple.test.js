@@ -36,7 +36,7 @@ describe('Apple Payments', () => {
           productId: 'com.habitrpg.ios.Habitica.21gems',
           transactionId: token,
         }]);
-      paymentBuyGemsStub = sinon.stub(payments, 'buyGems').resolves({});
+      paymentBuyGemsStub = sinon.stub(payments, 'buySkuItem').resolves({});
       validateGiftMessageStub = sinon.stub(gems, 'validateGiftMessage');
     });
 
@@ -45,7 +45,7 @@ describe('Apple Payments', () => {
       iap.validate.restore();
       iap.isValidated.restore();
       iap.getPurchaseData.restore();
-      payments.buyGems.restore();
+      payments.buySkuItem.restore();
       gems.validateGiftMessage.restore();
     });
 
@@ -97,8 +97,8 @@ describe('Apple Payments', () => {
 
       await expect(applePayments.verifyPurchase({ user, receipt, headers }))
         .to.eventually.be.rejected.and.to.eql({
-          httpCode: 401,
-          name: 'NotAuthorized',
+          httpCode: 400,
+          name: 'BadRequest',
           message: applePayments.constants.RESPONSE_INVALID_ITEM,
         });
 

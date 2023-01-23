@@ -31,7 +31,7 @@ describe('Google Payments', () => {
         .resolves({});
       iapIsValidatedStub = sinon.stub(iap, 'isValidated')
         .returns(true);
-      paymentBuyGemsStub = sinon.stub(payments, 'buyGems').resolves({});
+      paymentBuyGemsStub = sinon.stub(payments, 'buySkuItem').resolves({});
       validateGiftMessageStub = sinon.stub(gems, 'validateGiftMessage');
     });
 
@@ -39,7 +39,7 @@ describe('Google Payments', () => {
       iap.setup.restore();
       iap.validate.restore();
       iap.isValidated.restore();
-      payments.buyGems.restore();
+      payments.buySkuItem.restore();
       gems.validateGiftMessage.restore();
     });
 
@@ -65,8 +65,8 @@ describe('Google Payments', () => {
         user, receipt, signature, headers,
       }))
         .to.eventually.be.rejected.and.to.eql({
-          httpCode: 401,
-          name: 'NotAuthorized',
+          httpCode: 400,
+          name: 'BadRequest',
           message: googlePayments.constants.RESPONSE_INVALID_ITEM,
         });
     });

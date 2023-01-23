@@ -9,7 +9,6 @@ import {
 } from '../errors';
 import { model as IapPurchaseReceipt } from '../../models/iapPurchaseReceipt';
 import { model as User } from '../../models/user';
-import { buySkuItem } from './skuItem';
 
 const api = {};
 
@@ -62,7 +61,7 @@ api.verifyPurchase = async function verifyPurchase (options) {
         userId: user._id,
       });
 
-      await buySkuItem({ // eslint-disable-line no-await-in-loop
+      await payments.buySkuItem({ // eslint-disable-line no-await-in-loop
         user,
         gift,
         paymentMethod: api.constants.PAYMENT_METHOD_APPLE,
