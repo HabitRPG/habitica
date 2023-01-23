@@ -85,10 +85,10 @@
     "achievementFreshwaterFriendsModalText": "Ви виконали квести вихованців: Аксолотля, Жабеняти і Бегемота!",
     "achievementFreshwaterFriendsText": "Завершив(-ла) квести вихованців: Аксолотля, Жабеняти і Бегемота.",
     "achievementBareNecessitiesModalText": "Ви виконали квести вихованців: Мавпочки, Лінивця і Кущика!",
-    "achievementBareNecessitiesText": "Завершив(-ла) квести вихованців: Мавпочки, Лінивця і Кущика.",
+    "achievementBareNecessitiesText": "Завершили квести вихованців: Мавпочки, Лінивця і Кущика.",
     "achievementBareNecessities": "Голими руками",
     "achievementBugBonanzaModalText": "Ви виконали квести вихованців: Жука, Метелика, Равлика та Павука!",
-    "achievementBugBonanzaText": "Завершив(-ла) квести вихованців: Жука, Метелика, Равлика та Павука.",
+    "achievementBugBonanzaText": "Завершили квести вихованців: Жука, Метелика, Равлика та Павука.",
     "achievementBugBonanza": "Золотий жук",
     "achievementRosyOutlookModalText": "Ви зібрали всіх рожевих цукрових скакунів!",
     "achievementRosyOutlookText": "Зібрані всі рожеві цукрові скакуни.",
@@ -126,7 +126,7 @@
     "achievementShadyCustomer": "Тіньовий клієнт",
     "achievementZodiacZookeeperModalText": "Ви зібрали всіх зодіакальних тварин!",
     "achievementZodiacZookeeper": "Зодіакальний звіролов",
-    "achievementZodiacZookeeperText": "Вилупив усіх стандартних зодіакальних тварин: Щура, Корову, Кролика, Змію, Коня, Вівцю, Мавпу, Півня, Вовка, Тигра, Свиню, і Дракона!",
+    "achievementZodiacZookeeperText": "Вилупив усіх стандартних зодіакальних тварин: Щура, Корову, Кролика, Змію, Коня, Вівцю, Мавпу, Півня, Вовка, Тигра, Свиню та Дракона!",
     "achievementBirdsOfAFeatherText": "Зібрав(-ла) усіх літаючих тварин: летюче порося, сову, папугу, птеродактиля, ґрифона, сокола, павича та півня!",
     "achievementBirdsOfAFeatherModalText": "Ви зібрали всіх тварин, що літають!",
     "achievementBirdsOfAFeather": "Повітряний легіон",
@@ -138,5 +138,8 @@
     "achievementGroupsBeta2022ModalText": "Ви та Ваші команди допомогли Habitica, тестуючи та надаючи відгуки!",
     "achievementWoodlandWizardModalText": "Ви зібрали всіх лісових тваринок!",
     "achievementWoodlandWizard": "Лісовий чарівник",
-    "achievementWoodlandWizardText": "Зібрали усіх лісових істот стандартних кольорів: борсука, ведмедя, оленя, лисицю, жабу, їжака, сову, равлика, білку та деревце!"
+    "achievementWoodlandWizardText": "Зібрали усіх лісових істот стандартних кольорів: борсука, ведмедя, оленя, лисицю, жабу, їжака, сову, равлика, білку та деревце!",
+    "achievementBoneToPickModalText": "Ви зібрали всіх класичних та квестових кістяних улюбленців!",
+    "achievementBoneToPickText": "Зібрали всіх класичних та квестових кістяних улюбленців!",
+    "achievementBoneToPick": "Могильник"
 }

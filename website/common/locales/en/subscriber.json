@@ -145,6 +145,7 @@
     "mysterySet202210": "Ominous Ophidian Set",
     "mysterySet202211": "Electromancer Set",
     "mysterySet202212": "Glacial Guardian Set",
+    "mysterySet202301": "Valiant Vulpine Set",
     "mysterySet301404": "Steampunk Standard Set",
     "mysterySet301405": "Steampunk Accessories Set",
     "mysterySet301703": "Peacock Steampunk Set",
@@ -201,12 +202,16 @@
     "lookingForMoreItems": "Looking for More Items?",
     "dropCapSubs": "Habitica subscribers can find double the random items each day and receive monthly mystery items!",
     "subscriptionCanceled": "Your subscription is canceled",
-    "subscriptionInactiveDate": "Your subscription benefits will become inactive on <strong><%= date %></strong>",
+    "subscriptionInactiveDate": "Your subscription benefits will become inactive on <br><strong><%= date %></strong>",
     "subscriptionStats": "Subscription Stats",
     "subMonths": "Sub Months",
     "needToUpdateCard": "Need to update your card?",
     "readyToResubscribe": "Are you ready to resubscribe?",
     "cancelYourSubscription": "Cancel your subscription?",
     "cancelSubAlternatives": "If you're having technical problems or Habitica doesn't seem to be working out for you, please consider <a href='mailto:admin@habitica.com'>contacting us</a>. We want to help you get the most from Habitica.",
-    "sendAGift": "Send Gift"
+    "sendAGift": "Send Gift",
+    "haveNonRecurringSub": "You have a non-recurring gift subscription.",
+    "switchToRecurring": "Switch to a recurring subscription?",
+    "continueGiftSubBenefits": "Want to continue your benefits? You can start a new subscription before your gifted one runs out to keep your benefits active.",
+    "subscriptionCreditConversion": "Starting a new subscription will convert any remaining months to credit that will be used after the recurring subscription is canceled."
 }

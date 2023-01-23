@@ -404,6 +404,13 @@ const armor = {
   sheetGhostCostume: {
     con: 10,
   },
+  jewelersApron: {
+    int: 10,
+    set: 'jewelers',
+  },
+  shawlCollarCoat: {
+    con: 8,
+  },
 };
 
 const body = {
@@ -442,6 +449,10 @@ const eyewear = {
   },
   comedyMask: {
     con: 10,
+  },
+  jewelersEyeLoupe: {
+    per: 10,
+    set: 'jewelers',
   },
 };
 
@@ -1118,6 +1129,10 @@ const shield = {
     con: 8,
     set: 'cookingImplements',
   },
+  jewelersPliers: {
+    str: 10,
+    set: 'jewelers',
+  },
 };
 
 const headAccessory = {
@@ -1555,6 +1570,10 @@ const weapon = {
   magicSpatula: {
     per: 8,
     set: 'cookingImplements',
+  },
+  finelyCutGem: {
+    con: 10,
+    set: 'jewelers',
   },
 };
 

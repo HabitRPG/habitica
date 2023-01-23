@@ -96,6 +96,20 @@ describe('PUT /user/auth/update-password', async () => {
     });
   });
 
+  it('returns an error when newPassword is too long', async () => {
+    const body = {
+      password,
+      newPassword: '12345678910111213141516171819202122232425262728293031323334353637383940',
+      confirmPassword: '12345678910111213141516171819202122232425262728293031323334353637383940',
+    };
+
+    await expect(user.put(ENDPOINT, body)).to.eventually.be.rejected.and.eql({
+      code: 400,
+      error: 'BadRequest',
+      message: t('invalidReqParams'),
+    });
+  });
+
   it('returns an error when confirmPassword is missing', async () => {
     const body = {
       password,

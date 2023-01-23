@@ -530,6 +530,16 @@ const backgrounds = {
     misty_autumn_forest: { },
     autumn_bridge: { },
   },
+  backgrounds122022: {
+    branches_of_a_holiday_tree: { },
+    inside_a_crystal: { },
+    snowy_village: { },
+  },
+  backgrounds012023: {
+    rime_ice: { },
+    snowy_temple: { },
+    winter_lake_with_swans: { },
+  },
   timeTravelBackgrounds: {
     airship: {
       price: 1,

@@ -207,6 +207,13 @@ async function inviteByUserName (username, group, inviter, req, res) {
     throw new BadRequest(res.t('cannotInviteSelfToGroup'));
   }
 
+  const objections = inviter.getObjectionsToInteraction('group-invitation', userToInvite);
+  if (objections.length > 0) {
+    throw new NotAuthorized(res.t(
+      objections[0],
+      { userId: userToInvite._id, username: userToInvite.profile.name },
+    ));
+  }
   return addInvitationToUser(userToInvite, group, inviter, res);
 }
 
