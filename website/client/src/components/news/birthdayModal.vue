@@ -36,7 +36,7 @@
           {{ $t('limitedEvent') }}
         </div>
         <div class="dates">
-          {{ $t('limitedDates') }}
+          {{ $t('anniversaryLimitedDates') }}
         </div>
         <div
           class="svg-gifts-flip svg-icon"
