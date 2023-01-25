@@ -187,15 +187,22 @@
     </div>
     <div
       v-if="item.key === 'gem'"
-      class="gems-left d-flex justify-content-center align-items-center"
+      class="d-flex justify-content-center align-items-center"
     >
-      {{ $t('monthlyGems') }}
-      <span v-if="gemsLeft > 0">
-        {{ gemsLeft }} {{ $t('gemsRemaining') }}
-      </span>
-      <span v-if="gemsLeft === 0">
-        {{ $t('maxBuyGems') }}
-      </span>
+      <div
+        v-if="gemsLeft > 0"
+        class="gems-left d-flex justify-content-center align-items-center"
+      >
+        <strong>{{ $t('monthlyGems') }} &nbsp;</strong>
+        {{ gemsLeft }} / {{ totalGems }} {{ $t('gemsRemaining') }}
+      </div>
+      <div
+        v-if="gemsLeft === 0"
+        class="out-of-gems-banner d-flex justify-content-center align-items-center"
+      >
+        <strong>{{ $t('monthlyGems') }} &nbsp;</strong>
+        {{ gemsLeft }} / {{ totalGems }} {{ $t('gemsRemaining') }}
+      </div>
     </div>
     <div
       slot="modal-footer"
@@ -349,8 +356,7 @@
     }
 
     .item-cost {
-      padding-top: 16px;
-      padding-bottom: 16px;
+       padding-bottom: 16px;
     }
 
     .cost {
@@ -472,6 +478,15 @@
     margin-top: 24px;
     margin-bottom: -40px;
     color: $green-1;
+  }
+
+  .out-of-gems-banner {
+    height: 32px;
+    font-size: 0.75rem;
+    margin-top: 24px;
+    margin-bottom: -40px;
+    background-color: $yellow-100;
+    color: $yellow-1;
   }
 }
 </style>
@@ -614,6 +629,11 @@ export default {
       if (!this.user.purchased.plan) return 0;
       return planGemLimits.convCap
         + this.user.purchased.plan.consecutive.gemCapExtra - this.user.purchased.plan.gemsBought;
+    },
+    totalGems () {
+      if (!this.user.purchased.plan) return 0;
+      return planGemLimits.convCap
+        + this.user.purchased.plan.consecutive.gemCapExtra;
     },
     attemptingToPurchaseMoreGemsThanAreLeft () {
       if (this.item && this.item.key && this.item.key === 'gem' && this.selectedAmountToBuy > this.gemsLeft) return true;
