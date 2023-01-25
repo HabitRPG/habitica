@@ -209,7 +209,7 @@
   "dateEndOctober": "October 31",
   "dateEndNovember": "November 30",
   "dateEndDecember": "December 31",
-  "dateStartFebruary": "February 1",
+  "dateStartFebruary": "February 8",
   "januaryYYYY": "January <%= year %>",
   "februaryYYYY": "February <%= year %>",
   "marchYYYY": "March <%= year %>",
