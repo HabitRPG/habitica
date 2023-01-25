@@ -5,7 +5,6 @@
     :hide-footer="true"
     :hide-header="true"
     @hide="beforeHide"
-    @hidden="onHidden"
     @shown="onShown()"
   >
     <profile
@@ -55,14 +54,11 @@ export default {
     },
     beforeHide () {
       if (this.$route.path !== window.location.pathname) {
-        this.$root.$emit('habitica:restoreTitle');
-      }
-    },
-    onHidden () {
-      if (this.$route.path !== window.location.pathname) {
-        this.$router.go(-1);
+        this.$router.back();
       }
     },
   },
 };
+
+
 </script>

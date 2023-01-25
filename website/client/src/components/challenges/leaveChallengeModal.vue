@@ -50,7 +50,21 @@ export default {
         challengeId: this.challengeId,
         keep,
       });
-      await this.$store.dispatch('tasks:fetchUserTasks', { forceLoad: true });
+      const userTasksByType = (await this.$store.dispatch('tasks:fetchUserTasks', { forceLoad: true })).data;
+      let tagInUse = false;
+      Object.keys(userTasksByType).forEach(taskType => {
+        userTasksByType[taskType].forEach(task => {
+          if (task.tags.indexOf(this.challengeId) > -1) {
+            tagInUse = true;
+          }
+        });
+      });
+      if (!tagInUse) {
+        await this.$store.dispatch(
+          'tags:deleteTag',
+          { tagId: this.challengeId },
+        );
+      }
       this.close();
     },
     close () {

@@ -91,6 +91,7 @@ export const schema = new Schema({
   },
   memberCount: { $type: Number, default: 1 },
   challengeCount: { $type: Number, default: 0 },
+  chatLimitCount: { $type: Number },
   balance: { $type: Number, default: 0 },
   logo: String,
   leaderMessage: String,
@@ -871,6 +872,7 @@ function _getUserUpdateForQuestReward (itemToAward, allAwardedItems) {
   let updates = {
     $set: {},
     $inc: {},
+    $pull: {},
   };
   const dropK = itemToAward.key;
 
@@ -878,6 +880,7 @@ function _getUserUpdateForQuestReward (itemToAward, allAwardedItems) {
     case 'gear': {
       // TODO This means they can lose their new gear on death, is that what we want?
       updates.$set[`items.gear.owned.${dropK}`] = true;
+      updates.$pull.pinnedItems = { path: `gear.flat.${dropK}` };
       break;
     }
     case 'eggs':

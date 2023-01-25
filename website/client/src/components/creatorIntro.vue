@@ -121,7 +121,7 @@
             v-if="editing"
             class="menu-container col-2"
             :class="{active: activeTopPage === 'backgrounds'}"
-            @click="changeTopPage('backgrounds', '2022')"
+            @click="changeTopPage('backgrounds', '2023')"
           >
             <div class="menu-item">
               <div
@@ -1185,7 +1185,7 @@ export default {
         },
       ],
 
-      bgSubMenuItems: ['2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014'].map(y => ({
+      bgSubMenuItems: ['2023', '2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014'].map(y => ({
         id: y,
         label: y,
       })),
@@ -1214,6 +1214,7 @@ export default {
         2020: [],
         2021: [],
         2022: [],
+        2023: [],
       };
 
       // Hack to force update for now until we restructure the data

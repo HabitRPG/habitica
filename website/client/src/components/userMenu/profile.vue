@@ -863,16 +863,13 @@ export default {
     this.loadUser();
     this.oldTitle = this.$store.state.title;
     this.selectPage(this.startingPage);
-    this.$root.$on('habitica:restoreTitle', () => {
-      if (this.oldTitle) {
-        this.$store.dispatch('common:setTitle', {
-          fullTitle: this.oldTitle,
-        });
-      }
-    });
   },
   beforeDestroy () {
-    this.$root.$off('habitica:restoreTitle');
+    if (this.oldTitle) {
+      this.$store.dispatch('common:setTitle', {
+        fullTitle: this.oldTitle,
+      });
+    }
   },
   methods: {
     async loadUser () {

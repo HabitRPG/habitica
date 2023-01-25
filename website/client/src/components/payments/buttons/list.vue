@@ -83,6 +83,7 @@
   }
 
   h4 {
+    color: $gray-10;
     font-size: 0.875rem;
     font-weight: bold;
     text-align: center;
