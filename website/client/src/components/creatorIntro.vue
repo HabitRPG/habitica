@@ -198,52 +198,79 @@
           </div>
         </div>
         <div
-          v-if="!filterBackgrounds"
-          class="row text-center title-row"
-        >
-          <strong>{{ backgroundShopSets[1].text }}</strong>
-        </div>
-        <div
-          v-if="!filterBackgrounds"
-          class="row title-row"
+          v-if="!filterBackgrounds && user.purchased.background.birthday_bash"
         >
           <div
-            v-for="bg in backgroundShopSets[1].items"
-            :key="bg.key"
-            class="col-4 text-center customize-option background-button"
-            :popover-title="bg.text"
-            :popover="bg.notes"
-            popover-trigger="mouseenter"
-            @click="!user.purchased.background[bg.key]
-              ? backgroundSelected(bg) : unlock('background.' + bg.key)"
+            class="row text-center title-row"
+          >
+            <strong>{{ backgroundShopSets[2].text }}</strong>
+          </div>
+          <div
+            class="row title-row"
           >
             <div
-              class="background"
-              :class="[`background_${bg.key}`, backgroundLockedStatus(bg.key)]"
-            ></div>
-            <i
-              v-if="!user.purchased.background[bg.key]"
-              class="glyphicon glyphicon-lock"
-            ></i>
-            <div
-              v-if="!user.purchased.background[bg.key]"
-              class="purchase-background single d-flex align-items-center justify-content-center"
+              v-for="bg in backgroundShopSets[2].items"
+              :key="bg.key"
+              class="col-4 text-center customize-option background-button"
+              :popover-title="bg.text"
+              :popover="bg.notes"
+              popover-trigger="mouseenter"
+              @click="unlock('background.' + bg.key)"
             >
               <div
-                class="svg-icon hourglass"
-                v-html="icons.hourglass"
+                class="background"
+                :class="`background_${bg.key}`"
               ></div>
-              <span class="price">1</span>
             </div>
-            <span
-              v-if="!user.purchased.background[bg.key]"
-              class="badge-top"
-              @click.stop.prevent="togglePinned(bg)"
+          </div>
+        </div>
+        <div v-if="!filterBackgrounds">
+          <div
+            class="row text-center title-row"
+          >
+            <strong>{{ backgroundShopSets[1].text }}</strong>
+          </div>
+          <div
+            class="row title-row"
+          >
+            <div
+              v-for="bg in backgroundShopSets[1].items"
+              :key="bg.key"
+              class="col-4 text-center customize-option background-button"
+              :popover-title="bg.text"
+              :popover="bg.notes"
+              popover-trigger="mouseenter"
+              @click="!user.purchased.background[bg.key]
+                ? backgroundSelected(bg) : unlock('background.' + bg.key)"
             >
-              <pin-badge
-                :pinned="isBackgroundPinned(bg)"
-              />
-            </span>
+              <div
+                class="background"
+                :class="[`background_${bg.key}`, backgroundLockedStatus(bg.key)]"
+              ></div>
+              <i
+                v-if="!user.purchased.background[bg.key]"
+                class="glyphicon glyphicon-lock"
+              ></i>
+              <div
+                v-if="!user.purchased.background[bg.key]"
+                class="purchase-background single d-flex align-items-center justify-content-center"
+              >
+                <div
+                  class="svg-icon hourglass"
+                  v-html="icons.hourglass"
+                ></div>
+                <span class="price">1</span>
+              </div>
+              <span
+                v-if="!user.purchased.background[bg.key]"
+                class="badge-top"
+                @click.stop.prevent="togglePinned(bg)"
+              >
+                <pin-badge
+                  :pinned="isBackgroundPinned(bg)"
+                />
+              </span>
+            </div>
           </div>
         </div>
         <sub-menu

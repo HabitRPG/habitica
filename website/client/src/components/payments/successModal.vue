@@ -1,8 +1,8 @@
 <template>
   <b-modal
     id="payments-success-modal"
-    :hide-footer="isNewGroup || isGems || isSubscription"
-    :modal-class="isNewGroup || isGems || isSubscription
+    :hide-footer="isNewGroup || isGems || isSubscription || ownsJubilantGryphatrice"
+    :modal-class="isNewGroup || isGems || isSubscription || ownsJubilantGryphatrice
       ? ['modal-hidden-footer'] : []"
   >
     <!-- HEADER -->
@@ -20,7 +20,7 @@
       <div class="check-container d-flex align-items-center justify-content-center">
         <div
           v-once
-          class="svg-icon check"
+          class="svg-icon svg-check"
           v-html="icons.check"
         ></div>
       </div>
@@ -107,6 +107,35 @@
             class="small-text auto-renew"
           >{{ $t('paymentAutoRenew') }}</span>
         </template>
+        <!-- if you buy the Jubilant Gryphatrice during 10th birthday -->
+        <template
+          v-if="ownsJubilantGryphatrice"
+        >
+          <div class="words">
+            <p class="jub-success">
+              <span
+                v-once
+                v-html="$t('jubilantSuccess')"
+              >
+              </span>
+            </p>
+            <p class="jub-success">
+              <span
+                v-once
+                v-html="$t('stableVisit')"
+              >
+              </span>
+            </p>
+          </div>
+          <div class="gryph-bg">
+            <img
+              src="https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Gryphatrice-Jubilant-Large.gif"
+              alt="a pink, purple, and green gryphatrice pet winks at you adorably"
+              width="78px"
+              height="72px"
+            >
+          </div>
+        </template>
         <!-- buttons for subscriptions / new Group / buy Gems for self -->
         <button
           v-if="isNewGroup || isGems || isSubscription"
@@ -115,6 +144,14 @@
           @click="submit()"
         >
           {{ $t('onwards') }}
+        </button>
+        <!-- buttons for Jubilant Gryphatrice purchase during 10th birthday -->
+        <button
+          v-if="ownsJubilantGryphatrice"
+          class="btn btn-primary mx-auto btn-jub"
+          @click="closeAndRedirect()"
+        >
+          {{ $t('takeMeToStable') }}
         </button>
       </div>
     </div>
@@ -232,9 +269,8 @@
       margin-bottom: 16px;
     }
 
-    .check {
-      width: 35.1px;
-      height: 28px;
+    .svg-check {
+      width: 45px;
       color: $white;
     }
   }
@@ -293,6 +329,34 @@
     .group-billing-date {
       width: 269px;
     }
+
+    .words {
+      margin-bottom: 16px;
+      justify-content: center;
+      font-size: 0.875rem;
+      color: $gray-50;
+      line-height: 1.71;
+    }
+
+    .jub-success {
+      margin-top: 0px;
+      margin-bottom: 0px;
+    }
+
+    .gryph-bg {
+      width: 110px;
+      height: 104px;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      border-radius: 4px;
+      background-color: $gray-700;
+    }
+    .btn-jub {
+      margin-bottom: 8px;
+      margin-top: 24px;
+    }
+
   }
     .modal-footer {
       background: $gray-700;
@@ -430,6 +494,9 @@ export default {
     isNewGroup () {
       return this.paymentData.paymentType === 'groupPlan' && this.paymentData.newGroup;
     },
+    ownsJubilantGryphatrice () {
+      return this.paymentData.paymentType === 'sku'; // will need to be revised when there are other discrete skus in system
+    },
   },
   mounted () {
     this.$root.$on('habitica:payment-success', data => {
@@ -457,6 +524,12 @@ export default {
       this.gift.message = '';
       this.sendingInProgress = false;
       this.$root.$emit('bv::hide::modal', 'payments-success-modal');
+    },
+    closeAndRedirect () {
+      if (this.$router.history.current.name !== 'stable') {
+        this.$router.push('/inventory/stable');
+      }
+      this.close();
     },
     submit () {
       if (this.paymentData.group && !this.paymentData.newGroup) {

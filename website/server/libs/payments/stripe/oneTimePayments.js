@@ -22,6 +22,20 @@ function getGiftAmount (gift) {
   return `${(gift.gems.amount / 4) * 100}`;
 }
 
+export async function applySku (session) {
+  const { metadata } = session;
+  const { userId, sku } = metadata;
+  const user = await User.findById(metadata.userId).exec();
+  if (!user) throw new NotFound(shared.i18n.t('userWithIDNotFound', { userId }));
+  if (sku === 'price_0MPZ6iZCD0RifGXlLah2furv') {
+    await payments.buySkuItem({
+      sku, user, paymentMethod: stripeConstants.PAYMENT_METHOD,
+    });
+  } else {
+    throw new NotFound('SKU not found.');
+  }
+}
+
 export async function getOneTimePaymentInfo (gemsBlockKey, gift, user) {
   let receiver = user;
 
