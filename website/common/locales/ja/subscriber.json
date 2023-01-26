@@ -129,7 +129,7 @@
     "subscriptionBenefit1": "商人のAlexanderは、市場でジェムを1つにつき20ゴールドですぐ売ってくれます！",
     "subscriptionBenefit3": "毎日の落とし物上限を2倍にして、Habiticaでより多くのアイテムを見つけましょう。",
     "subscriptionBenefit4": "毎月、あなたのアバターを着飾るためのユニークでおしゃれなアイテムです。",
-    "subscriptionBenefit5": "初めて有料会員になったときは、ロイヤルパープルのツノウサギのペットを受け取れます。",
+    "subscriptionBenefit5": "初めて有料会員になったときは、ロイヤルパープルのジャッカロープのペットを受け取れます。",
     "subscriptionBenefit6": "タイムトラベラーの店でアイテムを買うために神秘の砂時計を手に入れましょう！",
     "purchaseAll": "セットを購入する",
     "gemsRemaining": "残りのジェム",
@@ -213,5 +213,6 @@
     "mysterySet202208": "はつらつポニーテールセット",
     "mysterySet202209": "魔法学者セット",
     "mysterySet202210": "くちなわセット",
-    "mysterySet202211": "エレクトロマンサーセット"
+    "mysterySet202211": "エレクトロマンサーセット",
+    "mysterySet202212": "氷のガーディアンセット"
 }

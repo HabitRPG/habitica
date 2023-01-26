@@ -125,7 +125,7 @@
     "birthdayCardNotes": "Envie um cartão de aniversário para um membro da equipa.",
     "birthday0": "Parabéns pra você!",
     "birthdayCardAchievementTitle": "Aniversário Próspero",
-    "birthdayCardAchievementText": "Muitas respostas felizes! Enviou ou recebeu <%= cards %> cartões de aniversário.",
+    "birthdayCardAchievementText": "Muitas respostas felizes! Enviou ou recebeu <%= count %> cartões de aniversário.",
     "congratsCard": "Cartão de Parabéns",
     "congratsCardExplanation": "Ambos recebem a conquista de Companheiro Congrulatório!",
     "congratsCardNotes": "Envia um cartão de Parabéns a um membro da equipa.",
