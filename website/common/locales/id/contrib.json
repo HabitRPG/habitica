@@ -49,9 +49,10 @@
     "balance": "Saldo",
     "playerTiers": "Tingkatan Pemain",
     "tier": "Tingkat",
-    "conRewardsURL": "http://habitica.fandom.com/wiki/Contributor_Rewards",
+    "conRewardsURL": "https://habitica.fandom.com/wiki/Contributor_Rewards",
     "surveysSingle": "Membantu Habitica berkembang, baik dengan mengisi survey atau membantu dalam pengujian utama. Terima kasih!",
     "surveysMultiple": "Membantu Habitica berkembang sebanyak <%= count %> kali, baik dengan mengisi survey atau membantu dalam pengujian utama. Terima kasih!",
     "blurbHallPatrons": "Ini adalah Aula Patron, di mana kami memberi penghormatan kepada para petualang pemberani yang telah membantu Kickstarter asli Habitica. Kami berterima kasih kepada mereka yang membantu kami mewujudkan Habitica menjadi kenyataan!",
-    "blurbHallContributors": "Ini adalah Aula para Kontributor, di mana kontributor open-source Habitica dicantumkan. Baik melalui kode, seni, musik, tulisan, atau bahkan hanya pertolongan kecil, mereka mendapatkan <a href='http://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'>permata, perlengkapan eksklusif </a>, dan <a href='http://habitica.fandom.com/wiki/Contributor_Titles' target='_blank'>titel kebanggaan </a>. Kamu juga bisa berkontribusi untuk Habitica! <a href='http://habitica.fandom.com/wiki/Contributing_to_Habitica' target='_blank'> Lihat Selengkapnya. </a>"
+    "blurbHallContributors": "Ini adalah Aula para Kontributor, di mana kontributor open-source Habitica dicantumkan. Baik melalui kode, seni, musik, tulisan, atau bahkan hanya pertolongan kecil, mereka mendapatkan <a href='https://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'>permata, perlengkapan eksklusif </a>, dan <a href='https://habitica.fandom.com/wiki/Contributor_Titles' target='_blank'>titel kebanggaan </a>. Kamu juga bisa berkontribusi untuk Habitica! <a href='https://habitica.fandom.com/wiki/Contributing_to_Habitica' target='_blank'> Lihat Selengkapnya. </a>",
+    "noPrivAccess": "Kamu tidak memiliki hak yang diperlukan."
 }
