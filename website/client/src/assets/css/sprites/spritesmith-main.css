@@ -665,6 +665,11 @@
   width: 141px;
   height: 147px;
 }
+.background_birthday_bash {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_birthday_bash.png');
+  width: 141px;
+  height: 147px;
+}
 .background_birthday_party {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_birthday_party.png');
   width: 141px;
@@ -2296,6 +2301,11 @@
   width: 68px;
   height: 68px;
 }
+.icon_background_birthday_bash {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_birthday_bash.png');
+  width: 68px;
+  height: 68px;
+}
 .icon_background_birthday_party {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_birthday_party.png');
   width: 68px;
@@ -2832,11 +2842,6 @@
 }
 .icon_background_habit_city_streets {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_habit_city_streets.png');
-  width: 68px;
-  height: 68px;
-}
-.icon_background_habitversary_bash {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_habitversary_bash.png');
   width: 68px;
   height: 68px;
 }
@@ -22830,6 +22835,16 @@
   width: 68px;
   height: 68px;
 }
+.back_special_anniversary {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/back_special_anniversary.png');
+  width: 114px;
+  height: 90px;
+}
+.body_special_anniversary {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/body_special_anniversary.png');
+  width: 114px;
+  height: 90px;
+}
 .broad_armor_special_birthday {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_special_birthday.png');
   width: 90px;
@@ -22873,6 +22888,16 @@
 .broad_armor_special_birthday2022 {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_special_birthday2022.png');
   width: 114px;
+  height: 90px;
+}
+.broad_armor_special_birthday2023 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_special_birthday2023.png');
+  width: 114px;
+  height: 90px;
+}
+.eyewear_special_anniversary {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/eyewear_special_anniversary.png');
+  width: 90px;
   height: 90px;
 }
 .shop_armor_special_birthday {
@@ -22920,6 +22945,26 @@
   width: 68px;
   height: 68px;
 }
+.shop_armor_special_birthday2023 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_armor_special_birthday2023.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_back_special_anniversary {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_back_special_anniversary.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_body_special_anniversary {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_body_special_anniversary.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_eyewear_special_anniversary {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_eyewear_special_anniversary.png');
+  width: 68px;
+  height: 68px;
+}
 .slim_armor_special_birthday {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_special_birthday.png');
   width: 90px;
@@ -22962,6 +23007,11 @@
 }
 .slim_armor_special_birthday2022 {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_special_birthday2022.png');
+  width: 114px;
+  height: 90px;
+}
+.slim_armor_special_birthday2023 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_special_birthday2023.png');
   width: 114px;
   height: 90px;
 }
@@ -27607,6 +27657,31 @@
 }
 .shop_set_mystery_202301 {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_set_mystery_202301.png');
+  width: 68px;
+  height: 68px;
+}
+.back_mystery_202302 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/back_mystery_202302.png');
+  width: 114px;
+  height: 90px;
+}
+.headAccessory_mystery_202302 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_mystery_202302.png');
+  width: 114px;
+  height: 90px;
+}
+.shop_back_mystery_202302 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_back_mystery_202302.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_headAccessory_mystery_202302 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_headAccessory_mystery_202302.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_set_mystery_202302 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_set_mystery_202302.png');
   width: 68px;
   height: 68px;
 }
@@ -32380,11 +32455,6 @@
   width: 68px;
   height: 68px;
 }
-.shop_weapon_special_Winter2023Rogue {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_special_Winter2023Rogue.png');
-  width: 68px;
-  height: 68px;
-}
 .shop_weapon_special_candycane {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_special_candycane.png');
   width: 68px;
@@ -32567,6 +32637,11 @@
 }
 .shop_weapon_special_winter2023Mage {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_special_winter2023Mage.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_weapon_special_winter2023Rogue {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_special_winter2023Rogue.png');
   width: 68px;
   height: 68px;
 }
@@ -34822,6 +34897,11 @@
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/zzz_light.png');
   width: 40px;
   height: 40px;
+}
+.notif_head_special_nye {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/notif_head_special_nye.png');
+  width: 28px;
+  height: 28px;
 }
 .notif_inventory_present_01 {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/notif_inventory_present_01.png');
