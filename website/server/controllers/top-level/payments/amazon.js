@@ -75,12 +75,14 @@ api.checkout = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
-    const { orderReferenceId, gift, gemsBlock } = req.body;
+    const {
+      orderReferenceId, gift, gemsBlock, sku,
+    } = req.body;
 
     if (!orderReferenceId) throw new BadRequest('Missing req.body.orderReferenceId');
 
     await amzLib.checkout({
-      gemsBlock, gift, user, orderReferenceId, headers: req.headers,
+      gemsBlock, gift, sku, user, orderReferenceId, headers: req.headers,
     });
 
     res.respond(200);

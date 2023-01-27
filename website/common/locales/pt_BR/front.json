@@ -1,6 +1,6 @@
 {
     "FAQ": "FAQ",
-    "termsAndAgreement": "Ao clicar no botão abaixo, você afirma que leu e aceitou os <a href='/static/terms'>Termos de Serviço</a> e <a href='/static/privacy'>Política de Privacidade</a>.",
+    "termsAndAgreement": "Ao clicar no botão abaixo, você afirma que leu e aceita os <a href='/static/terms'>Termos de Serviço</a> e <a href='/static/privacy'>Política de Privacidade</a>.",
     "accept1Terms": "Ao clicar no botão abaixo, eu concordo com os",
     "accept2Terms": "e com a",
     "chores": "Afazeres",

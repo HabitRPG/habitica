@@ -187,7 +187,7 @@
     "septemberYYYY": "Settembre <%= year %>",
     "royalPurpleJackolantern": "Zucca di Halloween Porpora",
     "novemberYYYY": "Novembre <%= year %>",
-    "g1g1Limitations": "Questo è un evento a tempo limitato che inizia il 16 dicembre alle 14:00 ora italiana (13:00 UTC) e terminerà il 6 gennaio alle 2:00 ora italiana (1:00 UTC). Questa promozione si applica solo quando fai un regalo a un altro Habitante. Se tu o il destinatario del regalo avete già un abbonamento, l'abbonamento in regalo aggiungerà mesi di credito che verranno utilizzati solo dopo l'annullamento o la scadenza dell'abbonamento corrente.",
+    "g1g1Limitations": "Questo è un evento a tempo limitato che inizia il 15 dicembre alle 14:00 ora italiana (13:00 UTC) e terminerà il 9 gennaio alle 5:59 ora italiana (4:59 UTC). Questa promozione si applica solo quando fai un regalo a un altro Habitante. Se tu o il destinatario del regalo avete già un abbonamento, l'abbonamento in regalo aggiungerà mesi di credito che verranno utilizzati solo dopo l'annullamento o la scadenza dell'abbonamento corrente.",
     "limitations": "Limitazioni",
     "g1g1HowItWorks": "Digita il nome utente dell'account a cui desideri regalare. Da lì, scegli la durata che desideri regalare. Il tuo account verrà automaticamente ricompensato con la stesso livello di abbonamento che hai appena regalato.",
     "howItWorks": "Come funziona",
@@ -234,5 +234,10 @@
     "fall2022KappaRogueSet": "Kappa (Ladro)",
     "fall2022OrcWarriorSet": "Orco (Guerriero)",
     "gemSaleLimitations": "Questa promozione è applicabile solo durante l'evento a tempo limitato. Questo evento inizia il <%= eventStartMonth %> <%= eventStartOrdinal %> alle 8:00 EDT (12:00 UTC) e terminerà <%= eventStartMonth %> <%= eventEndOrdinal %> alle 20:00 EDT ( 00:00 UTC). L'offerta promozionale è disponibile solo quando acquisti Gemme per te stesso/a.",
-    "gemSaleHow": "Tra <%= eventStartMonth %> <%= eventStartOrdinal %> e <%= eventEndOrdinal %>, acquista semplicemente qualsiasi pacchetto di gemme come al solito e sul tuo account verrà accreditato l'importo promozionale di Gemme. Più Gemme da spendere, condividere o risparmiare per le prossime uscite!"
+    "gemSaleHow": "Tra <%= eventStartMonth %> <%= eventStartOrdinal %> e <%= eventEndOrdinal %>, acquista semplicemente qualsiasi pacchetto di gemme come al solito e sul tuo account verrà accreditato l'importo promozionale di Gemme. Più Gemme da spendere, condividere o risparmiare per le prossime uscite!",
+    "winter2023WalrusWarriorSet": "Tricheco (Guerriero)",
+    "winter2023FairyLightsMageSet": "Luci Fatate (Mago)",
+    "winter2023CardinalHealerSet": "Cardinale Rosso (Guaritore)",
+    "spring2023RibbonRogueSet": "Fiocco (Ladro)",
+    "winter2023RibbonRogueSet": "Fiocco (Ladro)"
 }

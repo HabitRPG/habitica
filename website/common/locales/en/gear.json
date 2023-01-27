@@ -438,6 +438,9 @@
   "headSpecialNye2021Text": "Preposterous Party Hat",
   "headSpecialNye2021Notes": "You've received a Preposterous Party Hat! Wear it with pride while ringing in the New Year! Confers no benefit.",
 
+  "headSpecialNye2022Text": "Fantastic Party Hat",
+  "headSpecialNye2022Notes": "You've received a Fantastic Party Hat! Wear it with pride while ringing in the New Year! Confers no benefit.",
+
   "weaponSpecialSpring2022RogueText": "Giant Earring Stud",
   "weaponSpecialSpring2022RogueNotes": "A shiny! It’s so shiny and gleaming and pretty and nice and all yours! Increases Strength by <%= str %>. Limited Edition 2022 Spring Gear.",
   "weaponSpecialSpring2022WarriorText": "Inside-Out Umbrella",
@@ -455,6 +458,15 @@
   "weaponSpecialFall2022MageNotes": "These mighty gusts remain in your wake as you take off toward the skies. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2022 Fall Gear.",
   "weaponSpecialFall2022HealerText": "Right Peeker Eye",
   "weaponSpecialFall2022HealerNotes": "To claim victory, hold it forth and utter the words of command: 'Eye One!' Increases Intelligence by <%= int %>. Limited Edition 2022 Fall Gear.",
+
+  "weaponSpecialWinter2023RogueText": "Green Satin Sash",
+  "weaponSpecialWinter2023RogueNotes": "Legends tell of Rogues who snare their opponents' weapons, disarm them, then gift the item back just to be cute. Incrases Strength by <%= str %>. Limited Edition 2022-2023 Winter Gear.",
+  "weaponSpecialWinter2023WarriorText": "Tusk Spear",
+  "weaponSpecialWinter2023WarriorNotes": "The two prongs of this spear are shaped like walrus tusks but are twice as powerful. Jab at doubts and at silly poems until they back off! Increases Strength by <%= str %>. Limited Edition 2022-2023 Winter Gear.",
+  "weaponSpecialWinter2023MageText": "Foxfire",
+  "weaponSpecialWinter2023MageNotes": "Neither fox nor fire, but plenty festive! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2022-2023 Winter Gear.",
+  "weaponSpecialWinter2023HealerText": "Throwing Wreath",
+  "weaponSpecialWinter2023HealerNotes": "Watch this festive, prickly wreath spin through the air toward your enemy or obstacles and return to you like a boomerang for another throw. Increases Intelligence by <%= int %>. Limited Edition 2022-2023 Winter Gear.",
 
   "weaponMystery201411Text": "Pitchfork of Feasting",
   "weaponMystery201411Notes": "Stab your enemies or dig in to your favorite foods - this versatile pitchfork does it all! Confers no benefit. November 2014 Subscriber Item.",
@@ -789,7 +801,8 @@
   "armorSpecialBirthday2021Notes": "Happy Birthday, Habitica! Wear these Extravagant Party Robes to celebrate this wonderful day. Confers no benefit.",
   "armorSpecialBirthday2022Text": "Preposterous Party Robes",
   "armorSpecialBirthday2022Notes": "Happy Birthday, Habitica! Wear these Proposterous Party Robes to celebrate this wonderful day. Confers no benefit.",
-
+  "armorSpecialBirthday2023Text": "Fabulous Party Robes",
+  "armorSpecialBirthday2023Notes": "Happy Birthday, Habitica! Wear these Fabulous Party Robes to celebrate this wonderful day. Confers no benefit.",
 
   "armorSpecialGaymerxText": "Rainbow Warrior Armor",
   "armorSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special armor is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
@@ -1109,6 +1122,15 @@
   "armorSpecialFall2022HealerText": "Profusion of Peeker Pods",
   "armorSpecialFall2022HealerNotes": "How many peeps could a Peeker peep, if a Peeker could peep peeps? Increases Constitution by <%= con %>. Limited Edition 2022 Fall Gear.",
 
+  "armorSpecialWinter2023RogueText": "Ribbon Wrap",
+  "armorSpecialWinter2023RogueNotes": "Obtain items. Bundle them up in pretty paper. And give them to your local Rogue! The season demands it. Increases Perception by <%= per %>. Limited Edition 2022-2023 Winter Gear.",
+  "armorSpecialWinter2023WarriorText": "Walrus Suit",
+  "armorSpecialWinter2023WarriorNotes": "This tough walrus suit is perfect for a walk along a beach in the middle of the night. Increases Constitution by <%= con %>. Limited Edition 2022-2023 Winter Gear.",
+  "armorSpecialWinter2023MageText": "Fairy Light Gown",
+  "armorSpecialWinter2023MageNotes": "Just because you have lights on, that doesn't make you a tree! ...maybe some other year. Increases Intelligence by <%= int %>. Limited Edition 2022-2023 Winter Gear.",
+  "armorSpecialWinter2023HealerText": "Cardinal Suit",
+  "armorSpecialWinter2023HealerNotes": "This bright cardinal suit is perfect for flying high above your problems. Increases Constitution by <%= con %>. Limited Edition 2022-2023 Winter Gear.",
+
   "armorMystery201402Text": "Messenger Robes",
   "armorMystery201402Notes": "Shimmering and strong, these robes have many pockets to carry letters. Confers no benefit. February 2014 Subscriber Item.",
   "armorMystery201403Text": "Forest Walker Armor",
@@ -1404,7 +1426,9 @@
   "armorArmoireSheetGhostCostumeNotes": "Boo! This is the scariest costume in all of Habitica, so wear it wisely... and watch your step so you don’t trip. Increases Constitution by <%= con %>. Enchanted Armoire: Independent Item.",
   "armorArmoireJewelersApronText": "Jeweler's Apron",
   "armorArmoireJewelersApronNotes": "This heavy-duty apron is just the thing to wear when you feel creative. Best of all, there are dozens of small pockets to hold everything you need. Increases Intelligence by <%= int %>. Enchanted Armoire: Jeweler Set (Item 1 of 4).", 
-
+  "armorArmoireShawlCollarCoatText": "Shawl-Collar Coat",
+  "armorArmoireShawlCollarCoatNotes": "A wise wizard once said there’s nothing better than being both cozy and productive! Wear this warm and stylish coat as you conquer the year’s challenges. Increases Constitution by <%= con %>. Enchanted Armoire: Independent Item.",
+  
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
 
@@ -1835,6 +1859,15 @@
   "headSpecialFall2022MageNotes": "Entrance and lure others close with this magical maiden mask. Increases Perception by <%= per %>. Limited Edition 2022 Fall Gear.",
   "headSpecialFall2022HealerText": "Peeker Mask",
   "headSpecialFall2022HealerNotes": "Beauty is in there. Somewhere! Increases Intelligence by <%= int %>. Limited Edition 2022 Fall Gear.",
+  
+  "headSpecialWinter2023RogueText": "Gift Bow",
+  "headSpecialWinter2023RogueNotes": "People's temptations to “unwrap” your hair will give you opportunities to practice your ducks and dodges. Increases Perception by <%= per %>. Limited Edition 2022-2023 Winter Gear.",
+  "headSpecialWinter2023WarriorText": "Walrus Helm",
+  "headSpecialWinter2023WarriorNotes": "This walrus helm is perfect for chatting with a friend or partaking in a clever meal. Increases Strength by <%= str %>. Limited Edition 2022-2023 Winter Gear.",
+  "headSpecialWinter2023MageText": "Fairy-Lit Tiara",
+  "headSpecialWinter2023MageNotes": "Were you hatched with a Starry Night potion? Because I've got stars in my eyes for you. Increases Perception by <%= per %>. Limited Edition 2022-2023 Winter Gear.",
+  "headSpecialWinter2023HealerText": "Cardinal Helm",
+  "headSpecialWinter2023HealerNotes": "This cardinal helm is perfect for whistling and singing to herald the winter season. Increases Intelligence by <%= int %>. Limited Edition 2022-2023 Winter Gear.",
 
   "headSpecialGaymerxText": "Rainbow Warrior Helm",
   "headSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special helmet is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
@@ -1979,6 +2012,8 @@
   "headMystery202210Notes": "This scaly hood will surely terrify your To-Do list into submission! Confers no benefit. October 2022 Subscriber Item.",
   "headMystery202211Text": "Electromancer Hat",
   "headMystery202211Notes": "Be careful with this powerful hat, its effect on admirers can be quite shocking! Confers no benefit. November 2022 Subscriber Item.",
+  "headMystery202301Text": "Valiant Vulpine Ears",
+  "headMystery202301Notes": "Your hearing will be so sharp you'll hear the dawn breaking and the dew sparkling. Confers no benefit. January 2023 Subscriber Item.",  
   "headMystery301404Text": "Fancy Top Hat",
   "headMystery301404Notes": "A fancy top hat for the finest of gentlefolk! January 3015 Subscriber Item. Confers no benefit.",
   "headMystery301405Text": "Basic Top Hat",
@@ -2396,6 +2431,11 @@
   "shieldSpecialFall2022HealerText": "Left Peeker Eye",
   "shieldSpecialFall2022HealerNotes": "Eye Two, look upon this costume and tremble. Increases Constitution by <%= con %>. Limited Edition 2022 Fall Gear.",
 
+  "shieldSpecialWinter2023WarriorText": "Oyster Shield",
+  "shieldSpecialWinter2023WarriorNotes": "The time has come, the Walrus said, to talk of many things: of oyster shells—and winter bells—of songs that someone sings—and where this shield’s pearl has gone—or what the new year brings! Increases Constitution by <%= con %>. Limited Edition 2022-2023 Winter Gear.",
+  "shieldSpecialWinter2023HealerText": "Cool Jams",
+  "shieldSpecialWinter2023HealerNotes": "Your song of frost and snow will soothe the spirits of all who hear. Increases Constitution by <%= con %>. Limited Edition 2022-2023 Winter Gear.",
+
   "shieldMystery201601Text": "Resolution Slayer",
   "shieldMystery201601Notes": "This blade can be used to parry away all distractions. Confers no benefit. January 2016 Subscriber Item.",
   "shieldMystery201701Text": "Time-Freezer Shield",
@@ -2622,6 +2662,8 @@
   "backMystery202205Notes": "The mighty flap of these vast wings can be heard echoing among the dunes. Confers no benefit. May 2022 Subscriber Item.",
   "backMystery202206Text": "Sea Sprite Wings",
   "backMystery202206Notes": "Whimsical wings made of water and waves! Confers no benefit. June 2022 Subscriber Item.",
+  "backMystery202301Text": "Five Tails of Valor",
+  "backMystery202301Notes": "These fluffy tails contain ethereal power and also a high level of charm! Confers no benefit. January 2023 Subscriber Item.",  
 
   "backSpecialWonderconRedText": "Mighty Cape",
   "backSpecialWonderconRedNotes": "Swishes with strength and beauty. Confers no benefit. Special Edition Convention Item.",
@@ -2639,6 +2681,9 @@
   "backSpecialTurkeyTailGildedNotes": "Plumage fit for a parade! Confers no benefit.",
   "backSpecialNamingDay2020Text": "Royal Purple Gryphon Tail",
   "backSpecialNamingDay2020Notes": "Happy Naming Day! Swish this fiery, pixely tail about as you celebrate Habitica. Confers no benefit.",
+  "backSpecialAnniversaryText": "Habitica Hero Cape",
+  "backSpecialAnniversaryNotes": "Let this proud cape fly in the wind and tell everyone that you're a Habitica Hero. Confers no benefit. Special Edition 10th Birthday Bash Item.",
+
   "backBearTailText": "Bear Tail",
   "backBearTailNotes": "This tail makes you look like a brave bear! Confers no benefit.",
   "backCactusTailText": "Cactus Tail",
@@ -2670,6 +2715,8 @@
   "bodySpecialTakeThisNotes": "These pauldrons were earned by participating in a sponsored Challenge made by Take This. Congratulations! Increases all Stats by <%= attrs %>.",
   "bodySpecialAetherAmuletText": "Aether Amulet",
   "bodySpecialAetherAmuletNotes": "This amulet has a mysterious history. Increases Constitution and Strength by <%= attrs %> each.",
+  "bodySpecialAnniversaryText": "Habitica Hero Collar",
+  "bodySpecialAnniversaryNotes": "Perfectly complement your royal purple ensemble! Confers no benefit. Special Edition 10th Birthday Bash Item.",
 
   "bodySpecialSummerMageText": "Shining Capelet",
   "bodySpecialSummerMageNotes": "Neither salt water nor fresh water can tarnish this metallic capelet. Confers no benefit. Limited Edition 2014 Summer Gear.",
@@ -2872,6 +2919,8 @@
   "eyewearSpecialAetherMaskNotes": "This mask has a mysterious history. Increases Intelligence by <%= int %>.",
   "eyewearSpecialKS2019Text": "Mythic Gryphon Visor",
   "eyewearSpecialKS2019Notes": "Bold as a gryphon's... hmm, gryphons don't have visors. It reminds you to... oh, who are we kidding, it just looks cool! Confers no benefit.",
+  "eyewearSpecialAnniversaryText": "Habitica Hero Mask",
+  "eyewearSpecialAnniversaryNotes": "Look through the eyes of a Habitica Hero - you! Confers no benefit. Special Edition 10th Birthday Bash Item.",
 
   "eyewearSpecialSummerRogueText": "Roguish Eyepatch",
   "eyewearSpecialSummerRogueNotes": "It doesn't take a scallywag to see how stylish this is! Confers no benefit. Limited Edition 2014 Summer Gear.",

@@ -26,6 +26,7 @@ export default {
         'Fox-Veteran',
         'JackOLantern-Glow',
         'Gryphon-Gryphatrice',
+        'Gryphatrice-Jubilant',
         'JackOLantern-RoyalPurple',
       ];
       const BASE_PETS = [

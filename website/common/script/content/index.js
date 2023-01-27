@@ -127,7 +127,7 @@ api.cardTypes = {
   nye: {
     key: 'nye',
     messageOptions: 5,
-    yearRound: moment().isBefore('2022-01-02T20:00-04:00'),
+    yearRound: moment().isBefore('2023-01-02T20:00-05:00'),
   },
   thankyou: {
     key: 'thankyou',

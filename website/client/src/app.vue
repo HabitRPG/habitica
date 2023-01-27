@@ -35,6 +35,7 @@
       <sub-canceled-modal v-if="isUserLoaded" />
       <bug-report-modal v-if="isUserLoaded" />
       <bug-report-success-modal v-if="isUserLoaded" />
+      <birthday-modal />
       <snackbars />
       <router-view v-if="!isUserLoggedIn || isStaticPage" />
       <template v-else>
@@ -42,6 +43,7 @@
           <damage-paused-banner />
           <gems-promo-banner />
           <gift-promo-banner />
+          <birthday-banner />
           <notifications-display />
           <app-menu />
           <div
@@ -153,11 +155,13 @@
 import axios from 'axios';
 import { loadProgressBar } from 'axios-progress-bar';
 
+import birthdayModal from '@/components/news/birthdayModal';
 import AppMenu from './components/header/menu';
 import AppHeader from './components/header/index';
 import DamagePausedBanner from './components/header/banners/damagePaused';
 import GemsPromoBanner from './components/header/banners/gemsPromo';
 import GiftPromoBanner from './components/header/banners/giftPromo';
+import BirthdayBanner from './components/header/banners/birthdayBanner';
 import AppFooter from './components/appFooter';
 import notificationsDisplay from './components/notifications';
 import snackbars from './components/snackbars/notifications';
@@ -191,9 +195,11 @@ export default {
     AppMenu,
     AppHeader,
     AppFooter,
+    birthdayModal,
     DamagePausedBanner,
     GemsPromoBanner,
     GiftPromoBanner,
+    BirthdayBanner,
     notificationsDisplay,
     snackbars,
     BuyModal,
