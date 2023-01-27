@@ -4,7 +4,10 @@
     :class="{ condensed, expanded, 'd-flex': isHeader, row: !isHeader, }"
     @click="showMemberModal(member)"
   >
-    <div class="avatar-container" :class="{ 'col-4': !isHeader }">
+    <div
+      class="avatar-container"
+      :class="{ 'col-4': !isHeader }"
+    >
       <avatar
         :member="member"
         :hide-class-badge="classBadgePosition !== 'under-avatar'"

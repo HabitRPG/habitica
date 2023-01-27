@@ -22,18 +22,19 @@
       v-if="currentEvent && currentEvent.promo === 'g1g1'"
       class="g1g1-margin d-flex flex-column align-items-center"
     >
-    <div
-      class="svg-big-gift"
-      v-once
-      v-html="icons.bigGift"
-    ></div>
+      <div
+        v-once
+        class="svg-big-gift"
+        v-html="icons.bigGift"
+      ></div>
     </div>
     <div
-    v-else
-    class="d-flex flex-column align-items-center">
+      v-else
+      class="d-flex flex-column align-items-center"
+    >
       <div
-        class="svg-big-gift"
         v-once
+        class="svg-big-gift"
         v-html="icons.bigGift"
       ></div>
     </div>
@@ -49,9 +50,10 @@
         ></div>
       </div>
       <div
-      v-else
-      class="modal-close"
-      @click="close()">
+        v-else
+        class="modal-close"
+        @click="close()"
+      >
         <div
           class="svg-icon"
           v-html="icons.close"
@@ -68,10 +70,10 @@
         <div class="input-group">
           <input
             id="selectUser"
+            ref="textBox"
             v-model="userSearchTerm"
             class="form-control"
             type="text"
-            ref="textBox"
             :placeholder="$t('usernameOrUserId')"
             :class="{
               'input-valid': foundUser._id,
@@ -104,16 +106,17 @@
             </div>
           </button>
           <div
-          v-if="currentEvent && currentEvent.promo ==='g1g1'"
-          class="g1g1-cancel d-flex justify-content-center"
-          v-html="$t('cancel')"
-          @click="close()"
+            v-if="currentEvent && currentEvent.promo ==='g1g1'"
+            class="g1g1-cancel d-flex justify-content-center"
+            @click="close()"
+            v-html="$t('cancel')"
           >
-          {{ $t('cancel') }}
-        </div>
-        <div
-        v-else>
-        </div>
+            {{ $t('cancel') }}
+          </div>
+          <div
+            v-else
+          >
+          </div>
         </div>
       </div>
     </div>

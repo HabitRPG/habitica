@@ -47,19 +47,21 @@
         </div>
         <div class="create-task-area ml-2">
           <button
-            id="create-task-btn"
             v-if="canCreateTasks"
+            id="create-task-btn"
             class="btn btn-primary create-btn d-flex align-items-center"
             :class="{open: openCreateBtn}"
+            tabindex="0"
             @click.stop.prevent="openCreateBtn = !openCreateBtn"
             @keypress.enter="openCreateBtn = !openCreateBtn"
-            tabindex="0"
           >
             <div
               class="svg-icon icon-10 color"
               v-html="icons.positive"
             ></div>
-            <div class="ml-75 mr-1"> {{ $t('addTask') }} </div>
+            <div class="ml-75 mr-1">
+              {{ $t('addTask') }}
+            </div>
           </button>
           <div
             v-if="openCreateBtn"
@@ -68,8 +70,8 @@
             <div
               v-for="type in columns"
               :key="type"
-              @click="createTask(type)"
               class="dropdown-item d-flex px-2 py-1"
+              @click="createTask(type)"
             >
               <div class="d-flex align-items-center justify-content-center task-icon">
                 <div

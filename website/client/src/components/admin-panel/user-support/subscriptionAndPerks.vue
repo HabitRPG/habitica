@@ -46,39 +46,39 @@
           Months until renewal:
           <strong>{{ hero.purchased.plan.consecutive.offset }}</strong>
         </div>
-          <div>
-            Next Mystic Hourglass:
-            <strong>{{ nextHourglassDate }}</strong>
-          </div>
-          <div class="form-inline">
-            <label>
-              Mystic Hourglasses:
-              <input
-                v-model="hero.purchased.plan.consecutive.trinkets"
-                class="form-control"
-                type="number"
-                min="0"
-                step="1"
-              >
-            </label>
-          </div>
-          <div>
-            Gem cap:
-            <strong>{{ hero.purchased.plan.consecutive.gemCapExtra + 25 }}</strong>
-          </div>
-          <div class="form-inline">
-            <label>
-              Gems bought this month:
-              <input
-                v-model="hero.purchased.plan.gemsBought"
-                class="form-control"
-                type="number"
-                min="0"
-                :max="hero.purchased.plan.consecutive.gemCapExtra + 25"
-                step="1"
-              >
-            </label>
-          </div>
+        <div>
+          Next Mystic Hourglass:
+          <strong>{{ nextHourglassDate }}</strong>
+        </div>
+        <div class="form-inline">
+          <label>
+            Mystic Hourglasses:
+            <input
+              v-model="hero.purchased.plan.consecutive.trinkets"
+              class="form-control"
+              type="number"
+              min="0"
+              step="1"
+            >
+          </label>
+        </div>
+        <div>
+          Gem cap:
+          <strong>{{ hero.purchased.plan.consecutive.gemCapExtra + 25 }}</strong>
+        </div>
+        <div class="form-inline">
+          <label>
+            Gems bought this month:
+            <input
+              v-model="hero.purchased.plan.gemsBought"
+              class="form-control"
+              type="number"
+              min="0"
+              :max="hero.purchased.plan.consecutive.gemCapExtra + 25"
+              step="1"
+            >
+          </label>
+        </div>
         <div
           v-if="hero.purchased.plan.extraMonths > 0"
         >

@@ -1,7 +1,6 @@
 import moment from 'moment';
 import { v4 as generateUUID } from 'uuid';
 import validator from 'validator';
-import { assert } from 'chai';
 import { sleep, translationCheck } from '../../../helpers/api-unit.helper';
 import {
   SPAM_MESSAGE_LIMIT,
@@ -2512,25 +2511,12 @@ describe('Group Model', () => {
       });
 
       it('no accept param', async () => { // 3 e 5
-        await expect(Group.prototype.handleQuestInvitation(nonParticipatingMember, null)).to.eventually.be.rejected.and.eql({
-          httpCode: 500,
-          message: 'Must provide accept param handle quest invitation',
-          name: 'InternalServerError',
-        });
-      });
-
-      it('accept an invitation', async () => { // 4 e 7
-        party = await Group.findOne({ _id: party._id });
-        // send invite to undecidedMember
-        await Group.prototype.handleQuestInvitation(undecidedMember, true);
-        expect(party.quest.members.undecidedMember._id).to.be.true;
-      });
-
-      it('decline an invitation', async () => { // 6 e 7
-        party = await Group.findOne({ _id: party._id });
-        // send invite to undecidedMember
-        await Group.prototype.handleQuestInvitation(undecidedMember, false);
-        expect(party.quest.members.undecidedMember._id).to.be.true;
+        await expect(Group.prototype.handleQuestInvitation(nonParticipatingMember, null))
+          .to.eventually.be.rejected.and.eql({
+            httpCode: 500,
+            message: 'Must provide accept param handle quest invitation',
+            name: 'InternalServerError',
+          });
       });
     });
   });

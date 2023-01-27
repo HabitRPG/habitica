@@ -1,5 +1,8 @@
 <template>
-  <div class="task-wrapper" draggable>
+  <div
+    class="task-wrapper"
+    draggable
+  >
     <div
       class="task transition"
       :class="[{
