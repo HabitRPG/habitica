@@ -27,25 +27,38 @@ import { TransactionModel as Transaction } from '../transaction';
 
 const { daysSince } = common;
 
-schema.methods.isSubscribed = function isSubscribed () {
+schema.methods.recuperaVida = async function recuperaVida() {
+  const user = this;
+  let message = '';
+  if (user.stats.hp === common.maxHealth) {
+    message = 'Sua vida está no máximo!';
+  } else {
+    message = 'Bem vindo ao SPA!';
+    user.stats.hp += 1;
+  }
+
+  return message;
+}
+
+schema.methods.isSubscribed = function isSubscribed() {
   const now = new Date();
   const { plan } = this.purchased;
   return plan && plan.customerId
     && (!plan.dateTerminated || moment(plan.dateTerminated).isAfter(now));
 };
 
-schema.methods.hasNotCancelled = function hasNotCancelled () {
+schema.methods.hasNotCancelled = function hasNotCancelled() {
   const { plan } = this.purchased;
   return Boolean(this.isSubscribed() && !plan.dateTerminated);
 };
 
-schema.methods.hasCancelled = function hasCancelled () {
+schema.methods.hasCancelled = function hasCancelled() {
   const { plan } = this.purchased;
   return Boolean(this.isSubscribed() && plan.dateTerminated);
 };
 
 // Get an array of groups ids the user is member of
-schema.methods.getGroups = function getUserGroups () {
+schema.methods.getGroups = function getUserGroups() {
   const userGroups = this.guilds.slice(0); // clone this.guilds so we don't modify the original
   if (this.party._id) userGroups.push(this.party._id);
   userGroups.push(TAVERN_ID);
@@ -89,7 +102,7 @@ export const KNOWN_INTERACTIONS = Object.freeze(Object.keys(INTERACTION_CHECKS) 
   .filter(key => key !== 'always'));
 
 // Get an array of error message keys that would be thrown if the given interaction was attempted
-schema.methods.getObjectionsToInteraction = function getObjectionsToInteraction (interaction, receiver) { // eslint-disable-line max-len
+schema.methods.getObjectionsToInteraction = function getObjectionsToInteraction(interaction, receiver) { // eslint-disable-line max-len
   if (!KNOWN_INTERACTIONS.includes(interaction)) {
     throw new Error(`Unknown kind of interaction: "${interaction}", expected one of ${KNOWN_INTERACTIONS.join(', ')}`);
   }
@@ -119,7 +132,7 @@ schema.methods.getObjectionsToInteraction = function getObjectionsToInteraction 
  * @param  options.senderMsg     The message to archive instead of receiverMsg
  * @return N/A
  */
-schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, options) {
+schema.methods.sendMessage = async function sendMessage(userToReceiveMessage, options) {
   const sender = this;
   const senderMsg = options.senderMsg || options.receiverMsg;
   // whether to save users after sending the message, defaults to true
@@ -193,7 +206,7 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, o
  * @param  data  The data to add to the notification
  * @param  seen  If the notification should be marked as seen
  */
-schema.methods.addNotification = function addUserNotification (type, data = {}, seen = false) {
+schema.methods.addNotification = function addUserNotification(type, data = {}, seen = false) {
   this.notifications.push({
     type,
     data,
@@ -215,7 +228,7 @@ schema.methods.addNotification = function addUserNotification (type, data = {}, 
  * Possible values are defined in the UserNotificaiton Schema
  * @param  data  The data to add to the notification
  */
-schema.statics.pushNotification = async function pushNotification (
+schema.statics.pushNotification = async function pushNotification(
   query, type, data = {}, seen = false,
 ) {
   const newNotification = new UserNotification({ type, data, seen });
@@ -237,7 +250,7 @@ schema.statics.pushNotification = async function pushNotification (
  *
  * @param  achievement The key identifying the achievement to award.
  */
-schema.methods.addAchievement = function addAchievement (achievement) {
+schema.methods.addAchievement = function addAchievement(achievement) {
   const achievementData = common.content.achievements[achievement];
   if (!achievementData) throw new Error(`Achievement ${achievement} does not exist.`);
 
@@ -259,7 +272,7 @@ schema.methods.addAchievement = function addAchievement (achievement) {
  * @param  query A Mongoose query defining the users to add the notification to.
  * @param  achievement The key identifying the achievement to award.
  */
-schema.statics.addAchievementUpdate = async function addAchievementUpdate (query, achievement) {
+schema.statics.addAchievementUpdate = async function addAchievementUpdate(query, achievement) {
   const achievementData = common.content.achievements[achievement];
   if (!achievementData) throw new Error(`Achievement ${achievement} does not exist.`);
 
@@ -287,7 +300,7 @@ schema.statics.addAchievementUpdate = async function addAchievementUpdate (query
 // Static method to add/remove properties to a JSON User object,
 // For example for when the user is returned using `.lean()` and thus doesn't
 // have access to any mongoose helper
-schema.statics.transformJSONUser = function transformJSONUser (jsonUser, addComputedStats = false) {
+schema.statics.transformJSONUser = function transformJSONUser(jsonUser, addComputedStats = false) {
   // Add id property
   jsonUser.id = jsonUser._id;
 
@@ -298,14 +311,14 @@ schema.statics.transformJSONUser = function transformJSONUser (jsonUser, addComp
 };
 
 // Returns true if the user has read the last news post
-schema.methods.checkNewStuff = function checkNewStuff () {
+schema.methods.checkNewStuff = function checkNewStuff() {
   const lastNewsPost = NewsPost.lastNewsPost();
   return Boolean(lastNewsPost && this.flags && this.flags.lastNewStuffRead !== lastNewsPost._id);
 };
 
 // Add stats.toNextLevel, stats.maxMP and stats.maxHealth
 // to a JSONified User stats object
-schema.statics.addComputedStatsToJSONObj = function addComputedStatsToUserJSONObj (
+schema.statics.addComputedStatsToJSONObj = function addComputedStatsToUserJSONObj(
   userStatsJSON,
   user,
 ) {
@@ -339,7 +352,7 @@ schema.statics.addComputedStatsToJSONObj = function addComputedStatsToUserJSONOb
 // In summary, currently is is best practice to use this method to cancel a user subscription,
 // rather than calling the
 // payment helper.
-schema.methods.cancelSubscription = async function cancelSubscription (options = {}) {
+schema.methods.cancelSubscription = async function cancelSubscription(options = {}) {
   const { plan } = this.purchased;
 
   options.user = this;
@@ -355,11 +368,11 @@ schema.methods.cancelSubscription = async function cancelSubscription (options =
   return payments.cancelSubscription(options);
 };
 
-schema.methods.getUtcOffset = function getUtcOffset () {
+schema.methods.getUtcOffset = function getUtcOffset() {
   return common.fns.getUtcOffset(this);
 };
 
-schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
+schema.methods.daysUserHasMissed = function daysUserHasMissed(now, req = {}) {
   // If the user's timezone has changed (due to travel or daylight savings),
   // cron can be triggered twice in one day, so we check for that and use
   // both timezones to work out if cron should run.
@@ -466,7 +479,7 @@ schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
   return { daysMissed, timezoneUtcOffsetFromUserPrefs };
 };
 
-async function getUserGroupData (user) {
+async function getUserGroupData(user) {
   const userGroups = user.getGroups();
 
   const groups = await Group
@@ -482,7 +495,7 @@ async function getUserGroupData (user) {
 // Determine if the user can get gems: some groups restrict their members ability to obtain them.
 // User is allowed to buy gems if no group has `leaderOnly.getGems` === true or if
 // its the group leader
-schema.methods.canGetGems = async function canObtainGems () {
+schema.methods.canGetGems = async function canObtainGems() {
   const user = this;
   const { plan } = user.purchased;
 
@@ -496,13 +509,13 @@ schema.methods.canGetGems = async function canObtainGems () {
     .every(g => !g.hasActiveGroupPlan() || g.leader === user._id || g.leaderOnly.getGems !== true);
 };
 
-schema.methods.isMemberOfGroupPlan = async function isMemberOfGroupPlan () {
+schema.methods.isMemberOfGroupPlan = async function isMemberOfGroupPlan() {
   const groups = await getUserGroupData(this);
 
   return groups.some(g => g.hasActiveGroupPlan());
 };
 
-schema.methods.teamsLed = async function teamsLed () {
+schema.methods.teamsLed = async function teamsLed() {
   const user = this;
   const groups = await getUserGroupData(user);
 
@@ -517,21 +530,21 @@ schema.methods.teamsLed = async function teamsLed () {
   return groupIds;
 };
 
-schema.methods.isAdmin = function isAdmin () {
+schema.methods.isAdmin = function isAdmin() {
   return Boolean(this.contributor && this.contributor.admin);
 };
 
-schema.methods.isNewsPoster = function isNewsPoster () {
+schema.methods.isNewsPoster = function isNewsPoster() {
   return this.hasPermission('news');
 };
 
-schema.methods.hasPermission = function hasPermission (permission) {
+schema.methods.hasPermission = function hasPermission(permission) {
   return Boolean(this.permissions && (this.permissions[permission] || this.permissions.fullAccess));
 };
 
 // When converting to json add inbox messages from the Inbox collection
 // for backward compatibility in API v3.
-schema.methods.toJSONWithInbox = async function userToJSONWithInbox () {
+schema.methods.toJSONWithInbox = async function userToJSONWithInbox() {
   const user = this;
   const toJSON = user.toJSON();
 
@@ -544,13 +557,13 @@ schema.methods.toJSONWithInbox = async function userToJSONWithInbox () {
   return toJSON;
 };
 
-schema.methods.getSecretData = function getSecretData () {
+schema.methods.getSecretData = function getSecretData() {
   const user = this;
 
   return user.secret;
 };
 
-schema.methods.updateBalance = async function updateBalance (amount,
+schema.methods.updateBalance = async function updateBalance(amount,
   transactionType,
   reference,
   referenceText) {
@@ -578,7 +591,7 @@ schema.methods.updateBalance = async function updateBalance (amount,
   });
 };
 
-schema.methods.updateHourglasses = async function updateHourglasses (
+schema.methods.updateHourglasses = async function updateHourglasses(
   amount,
   transactionType,
   reference,

@@ -14,6 +14,5 @@ describe('Message Model', () => {
       expect(sanitizedText).to.not.contain('MESSAGE');
       expect(sanitizedText.length).to.equal(MAX_MESSAGE_LENGTH);
     });
-
   });
 });

@@ -1,6 +1,7 @@
 import moment from 'moment';
 import { v4 as generateUUID } from 'uuid';
 import validator from 'validator';
+import { assert } from 'chai';
 import { sleep, translationCheck } from '../../../helpers/api-unit.helper';
 import {
   SPAM_MESSAGE_LIMIT,
@@ -18,7 +19,6 @@ import {
 import * as email from '../../../../website/server/libs/email';
 import { TAVERN_ID } from '../../../../website/common/script/constants';
 import shared from '../../../../website/common';
-import { assert } from 'chai';
 
 describe('Group Model', () => {
   let party; let questLeader; let participatingMember;
@@ -1095,7 +1095,7 @@ describe('Group Model', () => {
         };
       });
 
-      function generateTestMessage(overrides = {}) {
+      function generateTestMessage (overrides = {}) {
         return {
           text: 'test message',
           uuid: testUserID,
@@ -1369,12 +1369,12 @@ describe('Group Model', () => {
             _id: 'user-id',
             profile: { name: 'user name' },
             contributor: {
-              toObject() {
+              toObject () {
                 return 'contributor object';
               },
             },
             backer: {
-              toObject() {
+              toObject () {
                 return 'backer object';
               },
             },
@@ -2488,8 +2488,7 @@ describe('Group Model', () => {
       });
     });
 
-    describe.only('Invitation request', () => {
-
+    describe('Invitation request', () => {
       beforeEach(async () => {
         undecidedMember.party._id = null;
 
@@ -2512,7 +2511,7 @@ describe('Group Model', () => {
         });
       });
 
-      it('no accept param', async () => { // 3 e 5 
+      it('no accept param', async () => { // 3 e 5
         await expect(Group.prototype.handleQuestInvitation(nonParticipatingMember, null)).to.eventually.be.rejected.and.eql({
           httpCode: 500,
           message: 'Must provide accept param handle quest invitation',
@@ -2533,7 +2532,6 @@ describe('Group Model', () => {
         await Group.prototype.handleQuestInvitation(undecidedMember, false);
         expect(party.quest.members.undecidedMember._id).to.be.true;
       });
-
     });
   });
 });
