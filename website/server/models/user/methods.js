@@ -37,6 +37,7 @@ schema.methods.recuperaVida = async function recuperaVida () {
     user.stats.hp += 1;
   }
 
+  await user.save();
   return message;
 };
 
