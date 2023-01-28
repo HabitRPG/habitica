@@ -256,6 +256,7 @@ api.assignTask = {
       category: 'behavior',
       taskType: task.type,
       groupID: group._id,
+      headers: req.headers,
     });
   },
 };
