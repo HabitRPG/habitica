@@ -31,6 +31,8 @@
               'task-not-scoreable': showTaskLockIcon,
             }, controlClass.up.inner]"
             tabindex="0"
+            role="button"
+            :aria-disabled="showTaskLockIcon || (!task.up && !showTaskLockIcon)"
             @click="score('up')"
             @keypress.enter="score('up')"
           >
@@ -358,6 +360,8 @@
               'task-not-scoreable': showTaskLockIcon,
             }, controlClass.down.inner]"
             tabindex="0"
+            role="button"
+            :aria-disabled="showTaskLockIcon || (!task.down && !showTaskLockIcon)"
             @click="score('down')"
             @keypress.enter="score('down')"
           >
