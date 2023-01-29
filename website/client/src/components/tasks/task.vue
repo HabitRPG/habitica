@@ -64,6 +64,7 @@
               controlClass.inner,
             ]"
             tabindex="0"
+            role="checkbox"
             @click="score(showCheckIcon ? 'down' : 'up' )"
             @keypress.enter="score(showCheckIcon ? 'down' : 'up' )"
           >
