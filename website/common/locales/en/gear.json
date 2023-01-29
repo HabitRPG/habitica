@@ -801,7 +801,8 @@
   "armorSpecialBirthday2021Notes": "Happy Birthday, Habitica! Wear these Extravagant Party Robes to celebrate this wonderful day. Confers no benefit.",
   "armorSpecialBirthday2022Text": "Preposterous Party Robes",
   "armorSpecialBirthday2022Notes": "Happy Birthday, Habitica! Wear these Proposterous Party Robes to celebrate this wonderful day. Confers no benefit.",
-
+  "armorSpecialBirthday2023Text": "Fabulous Party Robes",
+  "armorSpecialBirthday2023Notes": "Happy Birthday, Habitica! Wear these Fabulous Party Robes to celebrate this wonderful day. Confers no benefit.",
 
   "armorSpecialGaymerxText": "Rainbow Warrior Armor",
   "armorSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special armor is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
@@ -2680,6 +2681,9 @@
   "backSpecialTurkeyTailGildedNotes": "Plumage fit for a parade! Confers no benefit.",
   "backSpecialNamingDay2020Text": "Royal Purple Gryphon Tail",
   "backSpecialNamingDay2020Notes": "Happy Naming Day! Swish this fiery, pixely tail about as you celebrate Habitica. Confers no benefit.",
+  "backSpecialAnniversaryText": "Habitica Hero Cape",
+  "backSpecialAnniversaryNotes": "Let this proud cape fly in the wind and tell everyone that you're a Habitica Hero. Confers no benefit. Special Edition 10th Birthday Bash Item.",
+
   "backBearTailText": "Bear Tail",
   "backBearTailNotes": "This tail makes you look like a brave bear! Confers no benefit.",
   "backCactusTailText": "Cactus Tail",
@@ -2711,6 +2715,8 @@
   "bodySpecialTakeThisNotes": "These pauldrons were earned by participating in a sponsored Challenge made by Take This. Congratulations! Increases all Stats by <%= attrs %>.",
   "bodySpecialAetherAmuletText": "Aether Amulet",
   "bodySpecialAetherAmuletNotes": "This amulet has a mysterious history. Increases Constitution and Strength by <%= attrs %> each.",
+  "bodySpecialAnniversaryText": "Habitica Hero Collar",
+  "bodySpecialAnniversaryNotes": "Perfectly complement your royal purple ensemble! Confers no benefit. Special Edition 10th Birthday Bash Item.",
 
   "bodySpecialSummerMageText": "Shining Capelet",
   "bodySpecialSummerMageNotes": "Neither salt water nor fresh water can tarnish this metallic capelet. Confers no benefit. Limited Edition 2014 Summer Gear.",
@@ -2913,6 +2919,8 @@
   "eyewearSpecialAetherMaskNotes": "This mask has a mysterious history. Increases Intelligence by <%= int %>.",
   "eyewearSpecialKS2019Text": "Mythic Gryphon Visor",
   "eyewearSpecialKS2019Notes": "Bold as a gryphon's... hmm, gryphons don't have visors. It reminds you to... oh, who are we kidding, it just looks cool! Confers no benefit.",
+  "eyewearSpecialAnniversaryText": "Habitica Hero Mask",
+  "eyewearSpecialAnniversaryNotes": "Look through the eyes of a Habitica Hero - you! Confers no benefit. Special Edition 10th Birthday Bash Item.",
 
   "eyewearSpecialSummerRogueText": "Roguish Eyepatch",
   "eyewearSpecialSummerRogueNotes": "It doesn't take a scallywag to see how stylish this is! Confers no benefit. Limited Edition 2014 Summer Gear.",

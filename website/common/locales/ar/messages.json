@@ -11,7 +11,7 @@
     "messageLikesFood": "<%= egg %> يحب <%= foodText %> كثيراً!",
     "messageDontEnjoyFood": "<%= egg %> يأكل <%= foodText %> ولكنه لا يبدو مستمتعاً.",
     "messageBought": "لقد اشتريت <%= itemText %>",
-    "messageUnEquipped": "<%= itemText %> unequipped.",
+    "messageUnEquipped": "<%= itemText %> غير مجهز/ة.",
     "messageMissingEggPotion": "تفتقد أيًا من تلك البيضة أو جرعة الفقس.",
     "messageInvalidEggPotionCombo": "لا يمكنك فقس بيض حيوانات التنقيب مع جرع فقس سحرية! جرب بيضة أخرى.",
     "messageAlreadyPet": "لديك ذلك الحيوان الأليف. حاول فقس تركيبة مختلفة!",
@@ -50,5 +50,7 @@
     "unallocatedStatsPoints": "You have <span class=\"notification-bold-blue\"><%= points %> unallocated Stat Points</span>",
     "beginningOfConversation": "هذه هي بداية محادثتك مع <%= userName %>. تذكر أن تكون لطيفاً محترماً، واتبع إرشادات المنتدى!",
     "messageDeletedUser": "عذراً، لقد حذف هذا المستخدم حسابه.",
-    "messageMissingDisplayName": "Missing display name."
+    "messageMissingDisplayName": "Missing display name.",
+    "messageBattleGearUnEquipped": "المعدات القتالية غير مجهزة.",
+    "messageCostumeUnEquipped": "الزي غير مجهز."
 }
