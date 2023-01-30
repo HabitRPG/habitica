@@ -124,7 +124,7 @@ import starBadge from '@/assets/svg/star-badge.svg';
 
 // Notifications
 import CARD_RECEIVED from './notifications/cardReceived';
-import CHALLENGE_INVITATION from './notifications/challengeInvitation';
+import CHALLENGE_INVITATION from './notifications/challengeInvitation.functional.vue';
 import GIFT_ONE_GET_ONE from './notifications/g1g1';
 import GROUP_TASK_ASSIGNED from './notifications/groupTaskAssigned';
 import GROUP_TASK_CLAIMED from './notifications/groupTaskClaimed';
