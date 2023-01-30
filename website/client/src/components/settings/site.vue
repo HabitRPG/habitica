@@ -1,6 +1,5 @@
 <template>
   <div class="row standard-page">
-    <restore-modal />
     <reset-modal />
     <delete-modal />
     <h1 class="col-12">
@@ -59,16 +58,6 @@
             >{{ $t('displayInviteToPartyWhenPartyIs1') }}</span>
           </label>
         </div>
-
-        <button
-          class="btn btn-primary mr-2 mb-2"
-          popover-trigger="mouseenter"
-          popover-placement="right"
-          :popover="$t('fixValPop')"
-          @click="openRestoreModal()"
-        >
-          {{ $t('fixVal') }}
-        </button>
       </div>
     </div>
     <div class="col-sm-6">
@@ -256,17 +245,14 @@
 import hello from 'hellojs';
 import axios from 'axios';
 import { mapState } from '@/libs/store';
-import restoreModal from './restoreModal';
 import resetModal from './resetModal';
 import deleteModal from './deleteModal';
 import { SUPPORTED_SOCIAL_NETWORKS } from '@/../../common/script/constants';
 import notificationsMixin from '../../mixins/notifications';
-import sounds from '../../libs/sounds';
 import { buildAppleAuthUrl } from '../../libs/auth';
 
 export default {
   components: {
-    restoreModal,
     resetModal,
     deleteModal,
   },
@@ -375,9 +361,6 @@ export default {
         });
       }
     },
-    openRestoreModal () {
-      this.$root.$emit('bv::show::modal', 'restore');
-    },
     openResetModal () {
       this.$root.$emit('bv::show::modal', 'reset');
     },
@@ -406,14 +389,6 @@ export default {
       }
       await axios.post('/api/v4/user/auth/local/register', this.localAuth);
       window.location.href = '/user/settings/site';
-    },
-    changeAudioTheme () {
-      this.soundIndex = 0;
-      this.set('sound');
-    },
-    playAudio () {
-      this.$root.$emit('playSound', sounds[this.soundIndex]);
-      this.soundIndex = (this.soundIndex + 1) % sounds.length;
     },
   },
 };
