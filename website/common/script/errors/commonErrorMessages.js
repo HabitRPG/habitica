@@ -7,6 +7,7 @@ export default {
   missingTypeParam: '"req.params.type" is required.',
   missingKeyParam: '"req.params.key" is required.',
   itemNotFound: 'Item "<%= key %>" not found.',
+  petNotFound: 'Pet "<%= key %>" not found.',
   questNotFound: 'Quest "<%= key %>" not found.',
   spellNotFound: 'Skill "<%= spellId %>" not found.',
   invalidQuantity: 'Quantity to purchase must be a positive whole number.',

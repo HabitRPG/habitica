@@ -2782,5 +2782,7 @@
     "shieldSpecialWinter2023WarriorText": "Escudo de Ostra",
     "shieldSpecialWinter2023WarriorNotes": "A hora chegou, a Morsa diz, de dizer muitas coisas: sobre conchas de ostras—e sinos do inverno—sobre canções que alguém canta—e sobre onde está a pérola deste escudo—ou o que mais o novo ano trouxer! Aumenta Constituição em <%= con %>. Edição Limitada do Equipamento de Inverno de 2022-2023.",
     "shieldSpecialWinter2023HealerText": "Geléias Legais",
-    "shieldSpecialWinter2023HealerNotes": "Sua canção de geada e neve acalmará os espíritos de todos que ouvirem. Aumenta Constituição em <%= con %>. Edição Limitada do Equipamento de Inverno de 2022-2023."
+    "shieldSpecialWinter2023HealerNotes": "Sua canção de geada e neve acalmará os espíritos de todos que ouvirem. Aumenta Constituição em <%= con %>. Edição Limitada do Equipamento de Inverno de 2022-2023.",
+    "headSpecialNye2022Text": "Chapéu de Festa Fantástico",
+    "headSpecialNye2022Notes": "Você recebeu um Chapéu de Festa Fantástico! Use com orgulho enquanto curte o Ano Novo! Não confere benefícios."
 }
