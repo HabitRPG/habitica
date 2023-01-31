@@ -11,6 +11,9 @@ import { // eslint-disable-line import/no-cycle
 import { // eslint-disable-line import/no-cycle
   buyGems,
 } from './gems';
+import { // eslint-disable-line import/no-cycle
+  buySkuItem,
+} from './skuItem';
 import { paymentConstants } from './constants';
 
 const api = {};
@@ -30,5 +33,7 @@ api.createSubscription = createSubscription;
 api.cancelSubscription = cancelSubscription;
 
 api.buyGems = buyGems;
+
+api.buySkuItem = buySkuItem;
 
 export default api;

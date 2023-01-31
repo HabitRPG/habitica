@@ -16,7 +16,8 @@ import t from '../../../translation';
 import { getClassName } from '../../../../libs/getClassName';
 
 const CURRENT_EVENT = find(
-  EVENTS, event => moment().isBetween(event.start, event.end) && Boolean(event.season),
+  EVENTS, event => moment().isBetween(event.start, event.end)
+    && ['winter', 'spring', 'summer', 'fall'].includes(event.season),
 );
 
 const gearEvents = pickBy(EVENTS, event => event.gear);
@@ -798,6 +799,12 @@ const armor = {
   winter2023Healer: {
     set: 'winter2023CardinalHealerSet',
   },
+  birthday2023: {
+    text: t('armorSpecialBirthday2023Text'),
+    notes: t('armorSpecialBirthday2023Notes'),
+    value: 0,
+    canOwn: ownsItem('armor_special_birthday2023'),
+  },
 };
 
 const armorStats = {
@@ -923,6 +930,12 @@ const back = {
     value: 0,
     canOwn: ownsItem('back_special_namingDay2020'),
   },
+  anniversary: {
+    text: t('backSpecialAnniversaryText'),
+    notes: t('backSpecialAnniversaryNotes'),
+    value: 0,
+    canOwn: ownsItem('back_special_anniversary'),
+  },
 };
 
 const body = {
@@ -991,6 +1004,12 @@ const body = {
     notes: t('bodySpecialNamingDay2018Notes'),
     value: 0,
     canOwn: ownsItem('body_special_namingDay2018'),
+  },
+  anniversary: {
+    text: t('bodySpecialAnniversaryText'),
+    notes: t('bodySpecialAnniversaryNotes'),
+    value: 0,
+    canOwn: ownsItem('body_special_anniversary'),
   },
 };
 
@@ -1139,6 +1158,12 @@ const eyewear = {
     notes: t('eyewearSpecialKS2019Notes'),
     value: 0,
     canOwn: ownsItem('eyewear_special_ks2019'),
+  },
+  anniversary: {
+    text: t('eyewearSpecialAnniversaryText'),
+    notes: t('eyewearSpecialAnniversaryNotes'),
+    value: 0,
+    canOwn: ownsItem('eyewear_special_anniversary'),
   },
 };
 
