@@ -97,7 +97,9 @@ function checkPreferencePurchase (user, path, item) {
   const itemPath = `${path}.${item}`;
   const appearance = _.get(common.content.appearances, itemPath);
   if (!appearance) return false;
-  if (appearance.price === 0) return true;
+  if (appearance.price === 0 && path !== 'background') {
+    return true;
+  }
 
   return _.get(user.purchased, itemPath);
 }
