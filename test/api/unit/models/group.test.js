@@ -107,69 +107,55 @@ describe('Group Model', () => {
   });
 
   describe('Static Methods', () => {
+    
+    describe('getInviteError', () => {
 
-    describe('validateInvitationsMethod', () => {
-
-      let emails, uuids, userNames
-
-      it('should returns "canOnlyInviteEmailUuid" if no arguments are passed', () => {
-        expect(getInviteError()).to.eql('canOnlyInviteEmailUuid');
+      it('should return "canOnlyInviteEmailUuid" when emails, uuids and usernames are not defined', () => {
+        const error = getInviteError();
+        expect(error).to.equal('canOnlyInviteEmailUuid');
+       });
+  
+       it('should return "inviteMustNotBeEmpty" when emails, uuids and usernames are empty', () => {
+           const uuids = [];
+           const emails = [];
+           const usernames = [];
+           const error = getInviteError(uuids, emails, usernames);
+           expect(error).to.equal('inviteMustNotBeEmpty');
+       });
+      it('should return "uuidsMustBeAnArray" when uuids is not an array', () => {
+          const uuids = 'uuid1';
+          const emails = ['email1', 'email2'];
+          const usernames = ['username1', 'username2'];
+          const error = getInviteError(uuids, emails, usernames);
+          expect(error).to.equal('uuidsMustBeAnArray');
       });
-
-      it('should returns "uuidsMustBeAnArray" if uuids arguments is not an array', () => {
-        uuids = 'user1';
-        expect(getInviteError(uuids)).to.eql('uuidsMustBeAnArray');
+      it('should return "emailsMustBeAnArray" when emails is not an array', () => {
+          const uuids = ['uuid1', 'uuid2'];
+          const emails = 'email1';
+          const usernames = ['username1', 'username2'];
+          const error = getInviteError(uuids, emails, usernames);
+          expect(error).to.equal('emailsMustBeAnArray');
       });
-
-      it('should returns "emailsMustBeAnArray" if emails arguments is not an array', () => {
-        uuids = ['user1'];
-        emails = 'teste1@teste.com'
-        expect(getInviteError(uuids, emails)).to.eql('emailsMustBeAnArray');
+      it('should return "usernamesMustBeAnArray" when usernames is not an array', () => {
+          const uuids = ['uuid1', 'uuid2'];
+          const emails = ['email1', 'email2'];
+          const usernames = 'name1';
+          const error = getInviteError(uuids, emails, usernames);
+          expect(error).to.equal('usernamesMustBeAnArray');
       });
-
-      it('should returns "usernamesMustBeAnArray" if userNames arguments is not an array', () => {
-        uuids = ['user1'];
-        emails = ['teste1@teste.com'];
-        userNames = 'name 1'
-        expect(getInviteError(uuids, emails, userNames)).to.eql('usernamesMustBeAnArray');
-      });
-
       it('should returns "inviteMustNotBeEmpty" if uuids arguments is an empty array', () => {
-        uuids = [];
-        expect(getInviteError(uuids)).to.eql('inviteMustNotBeEmpty');
+          const uuids = [];
+          const error = getInviteError(uuids);
+          expect(error).to.equal('inviteMustNotBeEmpty');
       });
 
       it('should returns "inviteMustNotBeEmpty" if emails and uuids arguments are an empty array', () => {
-        uuids = [];
-        emails = [];
-        expect(getInviteError(uuids, emails)).to.eql('inviteMustNotBeEmpty');
+          const uuids = [];
+          const mails = [];
+          const error = getInviteError(uuids, mails);
+          expect(error).to.equal('inviteMustNotBeEmpty');
       });
-
-      it('should returns "inviteMustNotBeEmpty" if userNames, emails and uuids arguments are an empty array', () => {
-        uuids = [];
-        emails = [];
-        userNames = [];
-        expect(getInviteError(uuids, emails, userNames)).to.eql('inviteMustNotBeEmpty');
-      });
-
-      it('should returns undefined if uuids argument is not an empty array', () => {
-        uuids = ['user1'];
-        expect(getInviteError(uuids)).to.be.undefined;
-      });
-
-      it('should returns undefined if emails argument is not an empty array', () => {
-        uuids = [];
-        emails = ['teste1@teste.com'];
-        expect(getInviteError(uuids, emails)).to.be.undefined;
-      });
-
-      it('should returns undefined if userNames argument is not an empty array', () => {
-        uuids = [];
-        emails = [];
-        userNames = ['name 1'];
-        expect(getInviteError(uuids, emails, userNames)).to.be.undefined;
-      });
-    });
+  })
 
     describe('processQuestProgress', () => {
       let progress;

@@ -413,30 +413,25 @@ schema.statics.toJSONCleanChat = async function groupToJSONCleanChat (group, use
   return groupToJson;
 };
 
-export function getInviteError (uuids, emails, usernames) {
-  const uuidsIsArray = Array.isArray(uuids);
-  const emailsIsArray = Array.isArray(emails);
-  const usernamesIsArray = Array.isArray(usernames);
-  const emptyEmails = emailsIsArray && emails.length < 1;
-  const emptyUuids = uuidsIsArray && uuids.length < 1;
-  const emptyUsernames = usernamesIsArray && usernames.length < 1;
+export function getInviteError(uuids, emails, usernames) {
+  if (!uuids && !emails && !usernames) return 'canOnlyInviteEmailUuid';
 
-  let errorString;
+  if (!Array.isArray(uuids)) { return 'uuidsMustBeAnArray'; }
+  else if (!uuids.length && !Array.isArray(emails) && !Array.isArray(usernames)) {  return 'inviteMustNotBeEmpty' };
 
-  if (!uuids && !emails && !usernames) {
-    errorString = 'canOnlyInviteEmailUuid';
-  } else if (uuids && !uuidsIsArray) {
-    errorString = 'uuidsMustBeAnArray';
-  } else if (emails && !emailsIsArray) {
-    errorString = 'emailsMustBeAnArray';
-  } else if (usernames && !usernamesIsArray) {
-    errorString = 'usernamesMustBeAnArray';
-  } else if ((!emails || emptyEmails) && (!uuids || emptyUuids) && (!usernames || emptyUsernames)) {
-    errorString = 'inviteMustNotBeEmpty';
-  }
+  if (!Array.isArray(emails)) return 'emailsMustBeAnArray';
+  else if (!emails.length && !Array.isArray(usernames)) { return 'inviteMustNotBeEmpty' }
 
-  return errorString;
+  if (!Array.isArray(usernames)) return 'usernamesMustBeAnArray';
+  else if (!usernames.length) {  return 'inviteMustNotBeEmpty' }
+
+  if (!uuids.length && !emails.length && !usernames.length) return 'inviteMustNotBeEmpty';
+  return undefined;
 }
+
+
+
+
 
 function getInviteCount (uuids, emails) {
   let totalInvites = 0;
