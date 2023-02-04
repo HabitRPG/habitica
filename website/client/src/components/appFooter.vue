@@ -789,6 +789,7 @@ import heart from '@/assets/svg/heart.svg';
 import { mapState } from '@/libs/store';
 import buyGemsModal from './payments/buyGemsModal.vue';
 import reportBug from '@/mixins/reportBug.js';
+import makeAdmin from '@/mixins/makeAdmin.js';
 
 const IS_PRODUCTION = process.env.NODE_ENV === 'production'; // eslint-disable-line no-process-env
 export default {
@@ -893,7 +894,14 @@ export default {
       //  @TODO:  User.sync();
     },
     async makeAdmin () {
-      await axios.post('/api/v4/debug/make-admin');
+      await axios.post('/api/v4/debug/make-admin')
+        .then(response => {
+          if (response.data.success === true){
+            makeAdmin;
+          }
+          else
+            console.log('Fail to turn admin');
+        });
       // @TODO: Notification.text('You are now an admin!
       // Reload the website then go to Help > Admin Panel to set contributor level, etc.');
       // @TODO: sync()
