@@ -68,6 +68,7 @@ api.createGroupTasks = {
         category: 'behavior',
         taskType: task.type,
         groupID: group._id,
+        headers: req.headers,
       });
     });
   },
@@ -255,6 +256,7 @@ api.assignTask = {
       category: 'behavior',
       taskType: task.type,
       groupID: group._id,
+      headers: req.headers,
     });
   },
 };

@@ -224,7 +224,7 @@
               ></div>
             </a><a
               class="social-circle"
-              href="https://www.tumblr.com/Habitica"
+              href="http://blog.habitrpg.com/"
               target="_blank"
             >
               <div
@@ -578,6 +578,7 @@ h3 {
   .text{
     display: inline-block;
     vertical-align: bottom;
+    text-overflow: hidden;
   }
 }
 

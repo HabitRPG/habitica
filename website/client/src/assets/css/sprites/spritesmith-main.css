@@ -27660,6 +27660,31 @@
   width: 68px;
   height: 68px;
 }
+.back_mystery_202302 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/back_mystery_202302.png');
+  width: 114px;
+  height: 90px;
+}
+.headAccessory_mystery_202302 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_mystery_202302.png');
+  width: 114px;
+  height: 90px;
+}
+.shop_back_mystery_202302 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_back_mystery_202302.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_headAccessory_mystery_202302 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_headAccessory_mystery_202302.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_set_mystery_202302 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_set_mystery_202302.png');
+  width: 68px;
+  height: 68px;
+}
 .broad_armor_mystery_301404 {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_mystery_301404.png');
   width: 90px;
@@ -32430,11 +32455,6 @@
   width: 68px;
   height: 68px;
 }
-.shop_weapon_special_Winter2023Rogue {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_special_Winter2023Rogue.png');
-  width: 68px;
-  height: 68px;
-}
 .shop_weapon_special_candycane {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_special_candycane.png');
   width: 68px;
@@ -32617,6 +32637,11 @@
 }
 .shop_weapon_special_winter2023Mage {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_special_winter2023Mage.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_weapon_special_winter2023Rogue {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_special_winter2023Rogue.png');
   width: 68px;
   height: 68px;
 }
