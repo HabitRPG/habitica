@@ -6,20 +6,20 @@ import makeAdmin from '../../../../website/client/src/libs/makeAdmin';
 // };
 
 // eslint-disable-next-line mocha/no-exclusive-tests
-describe.only('Make Admin Notification', () => {
+describe('Make Admin Notification', () => {
   beforeEach(() => { console.clear(); });
   // eslint-disable-next-line mocha/no-exclusive-tests
-  it.only('function notify returns item', () => {
+  it('function notify returns item', () => {
     const item = 2;
     expect(makeAdmin.notify(item)).to.eql(item);
   });
   // eslint-disable-next-line mocha/no-exclusive-tests
-  it.only('function notify returns error', () => {
+  it('function notify returns error', () => {
     let item;
     expect(makeAdmin.notify(item)).to.eql('noData');
   });
   // eslint-disable-next-line mocha/no-exclusive-tests
-  it.only('function prints in console a text given', () => {
+  it('function prints in console a text given', () => {
     const consoleSpy = sandbox.spy(console, 'log');
     const item = {
       text: 'Hello World',
@@ -30,7 +30,7 @@ describe.only('Make Admin Notification', () => {
     expect(consoleSpy).to.be.calledWith('Hello World');
   });
   // eslint-disable-next-line mocha/no-exclusive-tests
-  it.only('function prints fail if success is false', () => {
+  it('function prints fail if success is false', () => {
     const consoleSpy = sandbox.spy(console, 'log');
     const item = {
       text: 'Hello World',
