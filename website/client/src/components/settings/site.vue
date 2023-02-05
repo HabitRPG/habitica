@@ -1,7 +1,5 @@
 <template>
   <div class="row standard-page">
-    <reset-modal />
-    <delete-modal />
     <h1 class="col-12">
       {{ $t('settings') }}
     </h1>
@@ -145,73 +143,6 @@
             </div>
           </div>
         </div>
-        <div class="usersettings">
-          <h5 v-if="user.auth.local.has_password">
-            {{ $t('changePass') }}
-          </h5>
-          <div
-            v-if="user.auth.local.has_password"
-            class="form"
-            name="changePassword"
-            novalidate="novalidate"
-          >
-            <div class="form-group">
-              <input
-                id="changePassword"
-                v-model="passwordUpdates.password"
-                class="form-control"
-                type="password"
-                :placeholder="$t('oldPass')"
-              >
-            </div>
-            <div class="form-group">
-              <input
-                v-model="passwordUpdates.newPassword"
-                class="form-control"
-                type="password"
-                :placeholder="$t('newPass')"
-              >
-            </div>
-            <div class="form-group">
-              <input
-                v-model="passwordUpdates.confirmPassword"
-                class="form-control"
-                type="password"
-                :placeholder="$t('confirmPass')"
-              >
-            </div>
-            <button
-              class="btn btn-primary"
-              type="submit"
-              @click="changeUser('password', passwordUpdates)"
-            >
-              {{ $t('submit') }}
-            </button>
-          </div>
-          <hr>
-        </div>
-        <div>
-          <h5>{{ $t('dangerZone') }}</h5>
-          <div>
-            <button
-              v-b-popover.hover.auto="$t('resetAccPop')"
-              class="btn btn-danger mr-2 mb-2"
-              popover-trigger="mouseenter"
-              popover-placement="right"
-              @click="openResetModal()"
-            >
-              {{ $t('resetAccount') }}
-            </button>
-            <button
-              v-b-popover.hover.auto="$t('deleteAccPop')"
-              class="btn btn-danger mb-2"
-              popover-trigger="mouseenter"
-              @click="openDeleteModal()"
-            >
-              {{ $t('deleteAccount') }}
-            </button>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -245,16 +176,12 @@
 import hello from 'hellojs';
 import axios from 'axios';
 import { mapState } from '@/libs/store';
-import resetModal from './resetModal';
-import deleteModal from './deleteModal';
 import { SUPPORTED_SOCIAL_NETWORKS } from '@/../../common/script/constants';
 import notificationsMixin from '../../mixins/notifications';
 import { buildAppleAuthUrl } from '../../libs/auth';
 
 export default {
   components: {
-    resetModal,
-    deleteModal,
   },
   mixins: [notificationsMixin],
   data () {
@@ -360,12 +287,6 @@ export default {
           timeout: true,
         });
       }
-    },
-    openResetModal () {
-      this.$root.$emit('bv::show::modal', 'reset');
-    },
-    openDeleteModal () {
-      this.$root.$emit('bv::show::modal', 'delete');
     },
     async deleteSocialAuth (network) {
       await axios.delete(`/api/v4/user/auth/social/${network.key}`);
