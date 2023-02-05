@@ -8,12 +8,9 @@
         v-if="showForgetPassword"
         class="forgot-password"
       >
-        <a
-          class="edit-link"
-          @click.prevent=""
-        >
-          {{ $t('forgotPassword') }} TODO
-        </a>
+        <router-link to="/forgot-password">
+          {{ $t('forgotPassword') }}
+        </router-link>
       </div>
     </div>
     <div class="form-group">

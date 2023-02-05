@@ -93,6 +93,8 @@ const router = new VueRouter({
     { name: 'logout', path: '/logout', component: Logout },
     {
       name: 'resetPassword', path: '/reset-password', component: RegisterLoginReset, meta: { requiresLogin: false },
+    }, {
+      name: 'forgotPassword', path: '/forgot-password', component: RegisterLoginReset, meta: { requiresLogin: false },
     },
     { name: 'tasks', path: '/', component: UserTasks },
     {
