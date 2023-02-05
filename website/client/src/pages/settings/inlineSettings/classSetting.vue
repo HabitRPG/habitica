@@ -1,5 +1,5 @@
 <template>
-  <fragment>
+  <fragment v-if="allowedToChangeClass">
     <tr
       v-if="!modalVisible"
     >
@@ -230,6 +230,9 @@ export default {
     }),
     classList () {
       return this.content.classes;
+    },
+    allowedToChangeClass () {
+      return this.user.stats.lvl >= 10;
     },
     classDisabled () {
       return this.user.preferences.disableClasses;
