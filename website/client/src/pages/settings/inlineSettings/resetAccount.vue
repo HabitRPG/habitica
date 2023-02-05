@@ -59,7 +59,6 @@
         </div>
 
         <div class="input-area">
-          Todo Password Check for Reset (Missing in the API)
           <current-password-input
             :show-forget-password="true"
             @passwordValue="passwordValue = $event"
@@ -109,7 +108,9 @@ export default {
   },
   methods: {
     async reset () {
-      await axios.post('/api/v4/user/reset');
+      await axios.post('/api/v4/user/reset', {
+        password: this.passwordValue,
+      });
       this.$router.push('/');
       setTimeout(() => window.location.reload(true), 100);
     },
