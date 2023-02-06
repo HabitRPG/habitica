@@ -116,6 +116,22 @@ async function prepareSubscriptionValues (data) {
   let recipientIsSubscribed = recipient.isSubscribed();
   let isNewSubscription = !recipientIsSubscribed
 
+  if (data.user && !data.gift && !data.groupId) {
+    const unlockedUser = await User.findOneAndUpdate(
+      {
+        _id: data.user._id,
+        $or: [
+          { _subSignature: 'NOT_RUNNING' },
+          { _subSignature: { $exists: false } },
+        ],
+      },
+      { $set: { _subSignature: 'SUB_IN_PROGRESS' } },
+    );
+    if (!unlockedUser) {
+      throw new NotFound('User not found or subscription already processing.');
+    }
+  }
+
   //  If we are buying a group subscription
   if (data.groupId) {
     const groupFields = basicGroupFields.concat(' purchased');
