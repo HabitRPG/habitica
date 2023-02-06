@@ -88,6 +88,7 @@
         <div
           v-if="item.value > 0"
           class="purchase-amount"
+          :hidden="attemptingToPurchaseMoreGemsThanAreLeft"
         >
           <div class="item-cost">
             <span
@@ -108,10 +109,14 @@
           <div
             v-if="showAmountToBuy(item)"
             class="how-many-to-buy"
+            :hidden="attemptingToPurchaseMoreGemsThanAreLeft"
           >
             <strong>{{ $t('howManyToBuy') }}</strong>
           </div>
-          <div v-if="showAmountToBuy(item)">
+          <div
+            v-if="showAmountToBuy(item)"
+            :hidden="attemptingToPurchaseMoreGemsThanAreLeft"
+          >
             <number-increment
               @updateQuantity="selectedAmountToBuy = $event"
             />
@@ -129,7 +134,10 @@
             </div>
           </div>
         </div>
-        <div v-if="attemptingToPurchaseMoreGemsThanAreLeft">
+        <div
+          v-if="attemptingToPurchaseMoreGemsThanAreLeft"
+          class="no-more-gems"
+        >
           {{ $t('notEnoughGemsToBuy') }}
         </div>
         <div
@@ -152,6 +160,11 @@
           @click="viewSubscriptions(item)"
         >
           {{ $t('viewSubscriptions') }}
+        </button>
+        <button
+          v-else-if="attemptingToPurchaseMoreGemsThanAreLeft"
+          :hidden="attemptingToPurchaseMoreGemsThanAreLeft"
+        >
         </button>
         <button
           v-else
@@ -208,9 +221,9 @@
       slot="modal-footer"
       class="d-flex"
     >
-      <span class="balance mr-auto">{{ $t('yourBalance') }}</span>
+      <span class="mr-auto balance">{{ $t('yourBalance') }}</span>
       <balanceInfo
-        class="ml-auto"
+        class="ml-auto balance"
         :currency-needed="getPriceClass()"
         :amount-needed="item.value"
       />
@@ -340,6 +353,12 @@
         }
       }
     }
+    .no-more-gems {
+      color: $yellow-5;
+      font-size: 0.875em;
+      line-height: 1.33;
+      margin: 16px 48px 0 48px;
+    }
 
     span.svg-icon.inline.icon-24 {
       height: 24px;
@@ -431,15 +450,16 @@
       }
     }
 
-    .balance {
+    span.balance {
       width: 74px;
       height: 16px;
-      font-size: 12px;
+      font-size: 0.75em;
       font-weight: bold;
       line-height: 1.33;
       color: $gray-200;
+      margin-bottom: 16px;
+      margin-top: 16px;
     }
-
 
     .notEnough {
       pointer-events: none;
@@ -478,6 +498,7 @@
     margin-top: 24px;
     margin-bottom: -40px;
     color: $green-1;
+    width: 100%;
   }
 
   .out-of-gems-banner {
@@ -487,6 +508,7 @@
     margin-bottom: -40px;
     background-color: $yellow-100;
     color: $yellow-1;
+    width: 100%;
   }
 }
 </style>

@@ -22,7 +22,7 @@
   @import '~@/assets/scss/colors.scss';
 
 span {
-  font-weight: normal;
+  font-weight: bold;
   font-size: 12px;
   line-height: 1.33;
   color: $gray-200;
