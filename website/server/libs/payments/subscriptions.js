@@ -13,9 +13,7 @@ import { // eslint-disable-line import/no-cycle
   model as Group,
   basicFields as basicGroupFields,
 } from '../../models/group';
-import {
-  model as User,
-} from '../../models/user';
+import { model as User } from '../../models/user'; // eslint-disable-line import/no-cycle
 import {
   NotAuthorized,
   NotFound,
@@ -271,7 +269,6 @@ async function createSubscription (data) {
     isNewSubscription,
   } = await prepareSubscriptionValues(data);
 
-  console.log();
   // Block sub perks
   if (months > 0 && (!data.gift || !isNewSubscription)) {
     if (!data.gift && !groupId) {
