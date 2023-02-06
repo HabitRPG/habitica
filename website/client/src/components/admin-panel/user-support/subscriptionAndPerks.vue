@@ -47,6 +47,10 @@
           <strong>{{ hero.purchased.plan.consecutive.offset }}</strong>
         </div>
         <div>
+          Perk month count:
+          <strong>{{ hero.purchased.plan.perkMonthCount }}</strong>
+        </div>
+        <div>
           Next Mystic Hourglass:
           <strong>{{ nextHourglassDate }}</strong>
         </div>

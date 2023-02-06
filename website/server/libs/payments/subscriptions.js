@@ -14,6 +14,9 @@ import { // eslint-disable-line import/no-cycle
   basicFields as basicGroupFields,
 } from '../../models/group';
 import {
+  model as User
+} from '../../models/user';
+import {
   NotAuthorized,
   NotFound,
 } from '../errors';
@@ -114,7 +117,7 @@ async function prepareSubscriptionValues (data) {
   let purchaseType = 'subscribe';
   let emailType = 'subscription-begins';
   let recipientIsSubscribed = recipient.isSubscribed();
-  let isNewSubscription = !recipientIsSubscribed
+  const isNewSubscription = !recipientIsSubscribed;
 
   if (data.user && !data.gift && !data.groupId) {
     const unlockedUser = await User.findOneAndUpdate(
@@ -249,7 +252,7 @@ async function prepareSubscriptionValues (data) {
     itemPurchased,
     purchaseType,
     emailType,
-    isNewSubscription
+    isNewSubscription,
   };
 }
 
@@ -265,10 +268,10 @@ async function createSubscription (data) {
     itemPurchased,
     purchaseType,
     emailType,
-    isNewSubscription
+    isNewSubscription,
   } = await prepareSubscriptionValues(data);
 
-  console.log()
+  console.log();
   // Block sub perks
   if (months > 0 && (!data.gift || !isNewSubscription)) {
     if (!data.gift && !groupId) {

@@ -268,7 +268,7 @@ describe('payments/index', () => {
         data.sub.key = 'basic_earned';
         data.gift.subscription.key = 'basic_earned';
         data.gift.subscription.months = 1;
-        
+
         expect(recipient.purchased.plan.perkMonthCount).to.eql(2);
         expect(recipient.purchased.plan.consecutive.trinkets).to.eql(0);
         expect(recipient.purchased.plan.consecutive.gemCapExtra).to.eql(0);
@@ -283,7 +283,7 @@ describe('payments/index', () => {
         recipient.purchased.plan = plan;
         recipient.purchased.plan.perkMonthCount = 2;
         data.sub.key = 'basic_earned';
-        
+
         expect(recipient.purchased.plan.perkMonthCount).to.eql(2);
         expect(recipient.purchased.plan.consecutive.trinkets).to.eql(0);
         expect(recipient.purchased.plan.consecutive.gemCapExtra).to.eql(0);

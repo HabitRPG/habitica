@@ -436,9 +436,9 @@ describe('cron', async () => {
       });
 
       it('keeps existing plan.perkMonthCount intact when incrementing consecutive benefits', async () => {
-        user3.purchased.plan.perkMonthCount = 2
-        user3.purchased.plan.consecutive.trinkets = 1
-        user3.purchased.plan.consecutive.gemCapExtra = 5
+        user3.purchased.plan.perkMonthCount = 2;
+        user3.purchased.plan.consecutive.trinkets = 1;
+        user3.purchased.plan.consecutive.gemCapExtra = 5;
         clock = sinon.useFakeTimers(moment().utcOffset(0).startOf('month').add(4, 'months')
           .add(2, 'days')
           .toDate());
@@ -519,13 +519,13 @@ describe('cron', async () => {
       // user6 has a 6-month recurring subscription starting today
       beforeEach(async () => {
         user6.purchased.plan.customerId = 'subscribedId';
-      user6.purchased.plan.dateUpdated = moment().toDate();
-      user6.purchased.plan.planId = 'google_6mo';
-      user6.purchased.plan.perkMonthCount = 0;
-      user6.purchased.plan.consecutive.count = 0;
-      user6.purchased.plan.consecutive.offset = 6;
-      user6.purchased.plan.consecutive.trinkets = 2;
-      user6.purchased.plan.consecutive.gemCapExtra = 10;
+        user6.purchased.plan.dateUpdated = moment().toDate();
+        user6.purchased.plan.planId = 'google_6mo';
+        user6.purchased.plan.perkMonthCount = 0;
+        user6.purchased.plan.consecutive.count = 0;
+        user6.purchased.plan.consecutive.offset = 6;
+        user6.purchased.plan.consecutive.trinkets = 2;
+        user6.purchased.plan.consecutive.gemCapExtra = 10;
       });
 
       it('does not increment consecutive benefits in the first month of the first paid period that they already have benefits for', async () => {
@@ -568,7 +568,7 @@ describe('cron', async () => {
       });
 
       it('keeps existing plan.perkMonthCount intact when incrementing consecutive benefits', async () => {
-        user6.purchased.plan.perkMonthCount = 2
+        user6.purchased.plan.perkMonthCount = 2;
         clock = sinon.useFakeTimers(moment().utcOffset(0).startOf('month').add(7, 'months')
           .add(2, 'days')
           .toDate());
