@@ -2782,5 +2782,7 @@
     "headSpecialWinter2023HealerText": "Elmo del Cardinale Rosso",
     "headSpecialWinter2023HealerNotes": "Questo elmo da cardinale rosso è perfetto per fischiettare e cantare annunciando la stagione invernale. Aumenta l'Intelligenza di <%= int %>. Equipaggiamento in Edizione Limitata, Inverno 2022-2023.",
     "shieldSpecialWinter2023HealerText": "Fresche Composizioni Musicali",
-    "shieldSpecialWinter2023HealerNotes": "Il tuo canto di gelo e neve calmerà gli animi di tutti coloro che lo ascolteranno. Aumenta la Costituzione di <%= con %>. Equipaggiamento in Edizione Limitata, Inverno 2022-2023."
+    "shieldSpecialWinter2023HealerNotes": "Il tuo canto di gelo e neve calmerà gli animi di tutti coloro che lo ascolteranno. Aumenta la Costituzione di <%= con %>. Equipaggiamento in Edizione Limitata, Inverno 2022-2023.",
+    "headSpecialNye2022Notes": "Hai ricevuto un Cappello da Festa Fantastico! Indossalo con orgoglio mentre inauguri il Nuovo Anno! Non conferisce alcun bonus.",
+    "headSpecialNye2022Text": "Cappello da Festa Fantastico"
 }

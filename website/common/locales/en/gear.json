@@ -438,8 +438,8 @@
   "headSpecialNye2021Text": "Preposterous Party Hat",
   "headSpecialNye2021Notes": "You've received a Preposterous Party Hat! Wear it with pride while ringing in the New Year! Confers no benefit.",
 
-  "headSpecialNye2022Text": "Fantastic Party Hat",
-  "headSpecialNye2022Notes": "You've received a Fantastic Party Hat! Wear it with pride while ringing in the New Year! Confers no benefit.",
+  "headSpecialNye2022Text": "Fabulous Party Hat",
+  "headSpecialNye2022Notes": "You've received a Fabulous Party Hat! Wear it with pride while ringing in the New Year! Confers no benefit.",
 
   "weaponSpecialSpring2022RogueText": "Giant Earring Stud",
   "weaponSpecialSpring2022RogueNotes": "A shiny! It’s so shiny and gleaming and pretty and nice and all yours! Increases Strength by <%= str %>. Limited Edition 2022 Spring Gear.",
@@ -801,7 +801,8 @@
   "armorSpecialBirthday2021Notes": "Happy Birthday, Habitica! Wear these Extravagant Party Robes to celebrate this wonderful day. Confers no benefit.",
   "armorSpecialBirthday2022Text": "Preposterous Party Robes",
   "armorSpecialBirthday2022Notes": "Happy Birthday, Habitica! Wear these Proposterous Party Robes to celebrate this wonderful day. Confers no benefit.",
-
+  "armorSpecialBirthday2023Text": "Fabulous Party Robes",
+  "armorSpecialBirthday2023Notes": "Happy Birthday, Habitica! Wear these Fabulous Party Robes to celebrate this wonderful day. Confers no benefit.",
 
   "armorSpecialGaymerxText": "Rainbow Warrior Armor",
   "armorSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special armor is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
@@ -2662,7 +2663,9 @@
   "backMystery202206Text": "Sea Sprite Wings",
   "backMystery202206Notes": "Whimsical wings made of water and waves! Confers no benefit. June 2022 Subscriber Item.",
   "backMystery202301Text": "Five Tails of Valor",
-  "backMystery202301Notes": "These fluffy tails contain ethereal power and also a high level of charm! Confers no benefit. January 2023 Subscriber Item.",  
+  "backMystery202301Notes": "These fluffy tails contain ethereal power and also a high level of charm! Confers no benefit. January 2023 Subscriber Item.",
+  "backMystery202302Text": "Trickster Tabby Tail",
+  "backMystery202302Notes": "Anytime you wear this tail it's sure to be a frabjous day! Callooh! Callay! Confers no benefit. February 2023 Subscriber Item.",
 
   "backSpecialWonderconRedText": "Mighty Cape",
   "backSpecialWonderconRedNotes": "Swishes with strength and beauty. Confers no benefit. Special Edition Convention Item.",
@@ -2680,6 +2683,9 @@
   "backSpecialTurkeyTailGildedNotes": "Plumage fit for a parade! Confers no benefit.",
   "backSpecialNamingDay2020Text": "Royal Purple Gryphon Tail",
   "backSpecialNamingDay2020Notes": "Happy Naming Day! Swish this fiery, pixely tail about as you celebrate Habitica. Confers no benefit.",
+  "backSpecialAnniversaryText": "Habitica Hero Cape",
+  "backSpecialAnniversaryNotes": "Let this proud cape fly in the wind and tell everyone that you're a Habitica Hero. Confers no benefit. Special Edition 10th Birthday Bash Item.",
+
   "backBearTailText": "Bear Tail",
   "backBearTailNotes": "This tail makes you look like a brave bear! Confers no benefit.",
   "backCactusTailText": "Cactus Tail",
@@ -2711,6 +2717,8 @@
   "bodySpecialTakeThisNotes": "These pauldrons were earned by participating in a sponsored Challenge made by Take This. Congratulations! Increases all Stats by <%= attrs %>.",
   "bodySpecialAetherAmuletText": "Aether Amulet",
   "bodySpecialAetherAmuletNotes": "This amulet has a mysterious history. Increases Constitution and Strength by <%= attrs %> each.",
+  "bodySpecialAnniversaryText": "Habitica Hero Collar",
+  "bodySpecialAnniversaryNotes": "Perfectly complement your royal purple ensemble! Confers no benefit. Special Edition 10th Birthday Bash Item.",
 
   "bodySpecialSummerMageText": "Shining Capelet",
   "bodySpecialSummerMageNotes": "Neither salt water nor fresh water can tarnish this metallic capelet. Confers no benefit. Limited Edition 2014 Summer Gear.",
@@ -2867,6 +2875,8 @@
   "headAccessoryMystery202205Notes": "These dazzling horns are as bright as a desert sunset. Confers no benefit. May 2022 Subscriber Item.",
   "headAccessoryMystery202212Text": "Glacial Tiara",
   "headAccessoryMystery202212Notes": "Magnify your warmth and friendship to new heights with this ornate golden tiara. Confers no benefit. December 2022 Subscriber Item.",
+  "headAccessoryMystery202302Text": "Trickster Tabby Ears",
+  "headAccessoryMystery202302Notes": "The purr-fect accessory to set off your enchanting grin. Confers no benefit. February 2023 Subscriber Item.",
   "headAccessoryMystery301405Text": "Headwear Goggles",
   "headAccessoryMystery301405Notes": "\"Goggles are for your eyes,\" they said. \"Nobody wants goggles that you can only wear on your head,\" they said. Hah! You sure showed them! Confers no benefit. August 3015 Subscriber Item.",
 
@@ -2913,6 +2923,8 @@
   "eyewearSpecialAetherMaskNotes": "This mask has a mysterious history. Increases Intelligence by <%= int %>.",
   "eyewearSpecialKS2019Text": "Mythic Gryphon Visor",
   "eyewearSpecialKS2019Notes": "Bold as a gryphon's... hmm, gryphons don't have visors. It reminds you to... oh, who are we kidding, it just looks cool! Confers no benefit.",
+  "eyewearSpecialAnniversaryText": "Habitica Hero Mask",
+  "eyewearSpecialAnniversaryNotes": "Look through the eyes of a Habitica Hero - you! Confers no benefit. Special Edition 10th Birthday Bash Item.",
 
   "eyewearSpecialSummerRogueText": "Roguish Eyepatch",
   "eyewearSpecialSummerRogueNotes": "It doesn't take a scallywag to see how stylish this is! Confers no benefit. Limited Edition 2014 Summer Gear.",

@@ -78,6 +78,7 @@ export default {
         orderReferenceId: null,
         subscription: null,
         coupon: null,
+        sku: null,
       },
       isAmazonSetup: false,
       amazonButtonEnabled: false,
@@ -174,7 +175,10 @@ export default {
     storePaymentStatusAndReload (url) {
       let paymentType;
 
-      if (this.amazonPayments.type === 'single' && !this.amazonPayments.gift) paymentType = 'gems';
+      if (this.amazonPayments.type === 'single') {
+        if (this.amazonPayments.sku) paymentType = 'sku';
+        else if (!this.amazonPayments.gift) paymentType = 'gems';
+      }
       if (this.amazonPayments.type === 'subscription') paymentType = 'subscription';
       if (this.amazonPayments.groupId || this.amazonPayments.groupToCreate) paymentType = 'groupPlan';
       if (this.amazonPayments.type === 'single' && this.amazonPayments.gift && this.amazonPayments.giftReceiver) {
@@ -223,6 +227,7 @@ export default {
         const data = {
           orderReferenceId: this.amazonPayments.orderReferenceId,
           gift: this.amazonPayments.gift,
+          sku: this.amazonPayments.sku,
         };
 
         if (this.amazonPayments.gemsBlock) {

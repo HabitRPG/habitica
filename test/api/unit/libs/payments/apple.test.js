@@ -12,10 +12,10 @@ const { i18n } = common;
 describe('Apple Payments', () => {
   const subKey = 'basic_3mo';
 
-  describe('verifyGemPurchase', () => {
+  describe('verifyPurchase', () => {
     let sku; let user; let token; let receipt; let
       headers;
-    let iapSetupStub; let iapValidateStub; let iapIsValidatedStub; let paymentBuyGemsStub; let
+    let iapSetupStub; let iapValidateStub; let iapIsValidatedStub; let paymentBuySkuStub; let
       iapGetPurchaseDataStub; let validateGiftMessageStub;
 
     beforeEach(() => {
@@ -36,7 +36,7 @@ describe('Apple Payments', () => {
           productId: 'com.habitrpg.ios.Habitica.21gems',
           transactionId: token,
         }]);
-      paymentBuyGemsStub = sinon.stub(payments, 'buyGems').resolves({});
+      paymentBuySkuStub = sinon.stub(payments, 'buySkuItem').resolves({});
       validateGiftMessageStub = sinon.stub(gems, 'validateGiftMessage');
     });
 
@@ -45,7 +45,7 @@ describe('Apple Payments', () => {
       iap.validate.restore();
       iap.isValidated.restore();
       iap.getPurchaseData.restore();
-      payments.buyGems.restore();
+      payments.buySkuItem.restore();
       gems.validateGiftMessage.restore();
     });
 
@@ -54,7 +54,7 @@ describe('Apple Payments', () => {
       iapIsValidatedStub = sinon.stub(iap, 'isValidated')
         .returns(false);
 
-      await expect(applePayments.verifyGemPurchase({ user, receipt, headers }))
+      await expect(applePayments.verifyPurchase({ user, receipt, headers }))
         .to.eventually.be.rejected.and.to.eql({
           httpCode: 401,
           name: 'NotAuthorized',
@@ -66,7 +66,7 @@ describe('Apple Payments', () => {
       iapGetPurchaseDataStub.restore();
       iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData').returns([]);
 
-      await expect(applePayments.verifyGemPurchase({ user, receipt, headers }))
+      await expect(applePayments.verifyPurchase({ user, receipt, headers }))
         .to.eventually.be.rejected.and.to.eql({
           httpCode: 401,
           name: 'NotAuthorized',
@@ -76,7 +76,7 @@ describe('Apple Payments', () => {
 
     it('errors if the user cannot purchase gems', async () => {
       sinon.stub(user, 'canGetGems').resolves(false);
-      await expect(applePayments.verifyGemPurchase({ user, receipt, headers }))
+      await expect(applePayments.verifyPurchase({ user, receipt, headers }))
         .to.eventually.be.rejected.and.to.eql({
           httpCode: 401,
           name: 'NotAuthorized',
@@ -94,14 +94,16 @@ describe('Apple Payments', () => {
           productId: 'badProduct',
           transactionId: token,
         }]);
+      paymentBuySkuStub.restore();
 
-      await expect(applePayments.verifyGemPurchase({ user, receipt, headers }))
+      await expect(applePayments.verifyPurchase({ user, receipt, headers }))
         .to.eventually.be.rejected.and.to.eql({
-          httpCode: 401,
-          name: 'NotAuthorized',
+          httpCode: 400,
+          name: 'BadRequest',
           message: applePayments.constants.RESPONSE_INVALID_ITEM,
         });
 
+      paymentBuySkuStub = sinon.stub(payments, 'buySkuItem').resolves({});
       user.canGetGems.restore();
     });
 
@@ -138,7 +140,7 @@ describe('Apple Payments', () => {
           }]);
 
         sinon.stub(user, 'canGetGems').resolves(true);
-        await applePayments.verifyGemPurchase({ user, receipt, headers });
+        await applePayments.verifyPurchase({ user, receipt, headers });
 
         expect(iapSetupStub).to.be.calledOnce;
         expect(iapValidateStub).to.be.calledOnce;
@@ -148,13 +150,13 @@ describe('Apple Payments', () => {
         expect(iapGetPurchaseDataStub).to.be.calledOnce;
         expect(validateGiftMessageStub).to.not.be.called;
 
-        expect(paymentBuyGemsStub).to.be.calledOnce;
-        expect(paymentBuyGemsStub).to.be.calledWith({
+        expect(paymentBuySkuStub).to.be.calledOnce;
+        expect(paymentBuySkuStub).to.be.calledWith({
           user,
-          paymentMethod: applePayments.constants.PAYMENT_METHOD_APPLE,
-          gemsBlock: common.content.gems[gemTest.gemsBlock],
-          headers,
           gift: undefined,
+          paymentMethod: applePayments.constants.PAYMENT_METHOD_APPLE,
+          sku: gemTest.productId,
+          headers,
         });
         expect(user.canGetGems).to.be.calledOnce;
         user.canGetGems.restore();
@@ -173,7 +175,7 @@ describe('Apple Payments', () => {
         }]);
 
       const gift = { uuid: receivingUser._id };
-      await applePayments.verifyGemPurchase({
+      await applePayments.verifyPurchase({
         user, gift, receipt, headers,
       });
 
@@ -187,18 +189,16 @@ describe('Apple Payments', () => {
       expect(validateGiftMessageStub).to.be.calledOnce;
       expect(validateGiftMessageStub).to.be.calledWith(gift, user);
 
-      expect(paymentBuyGemsStub).to.be.calledOnce;
-      expect(paymentBuyGemsStub).to.be.calledWith({
+      expect(paymentBuySkuStub).to.be.calledOnce;
+      expect(paymentBuySkuStub).to.be.calledWith({
         user,
-        paymentMethod: applePayments.constants.PAYMENT_METHOD_APPLE,
-        headers,
         gift: {
-          type: 'gems',
-          gems: { amount: 4 },
-          member: sinon.match({ _id: receivingUser._id }),
           uuid: receivingUser._id,
+          member: sinon.match({ _id: receivingUser._id }),
         },
-        gemsBlock: common.content.gems['4gems'],
+        paymentMethod: applePayments.constants.PAYMENT_METHOD_APPLE,
+        sku: 'com.habitrpg.ios.Habitica.4gems',
+        headers,
       });
     });
   });

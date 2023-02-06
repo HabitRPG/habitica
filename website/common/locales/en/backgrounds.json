@@ -857,5 +857,9 @@
   "backgroundSteamworksText": "Steamworks",
   "backgroundSteamworksNotes": "Build mighty contraptions of vapor and steel in a Steamworks.",
   "backgroundClocktowerText": "Clock Tower",
-  "backgroundClocktowerNotes": "Situate your secret lair behind the face of a Clock Tower."
+  "backgroundClocktowerNotes": "Situate your secret lair behind the face of a Clock Tower.",
+
+  "eventBackgrounds": "Event Backgrounds",
+  "backgroundBirthdayBashText": "Birthday Bash",
+  "backgroundBirthdayBashNotes": "Habitica's having a birthday party, and everyone's invited!"
 }

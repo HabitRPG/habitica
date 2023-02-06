@@ -43,42 +43,55 @@
           </label>
         </div>
         <div>
-          Months until renewal:
+          Perk offset months:
           <strong>{{ hero.purchased.plan.consecutive.offset }}</strong>
         </div>
-          <div>
-            Next Mystic Hourglass:
-            <strong>{{ nextHourglassDate }}</strong>
-          </div>
-          <div class="form-inline">
-            <label>
-              Mystic Hourglasses:
-              <input
-                v-model="hero.purchased.plan.consecutive.trinkets"
-                class="form-control"
-                type="number"
-                min="0"
-                step="1"
-              >
-            </label>
-          </div>
-          <div>
-            Gem cap:
-            <strong>{{ hero.purchased.plan.consecutive.gemCapExtra + 25 }}</strong>
-          </div>
-          <div class="form-inline">
-            <label>
-              Gems bought this month:
-              <input
-                v-model="hero.purchased.plan.gemsBought"
-                class="form-control"
-                type="number"
-                min="0"
-                :max="hero.purchased.plan.consecutive.gemCapExtra + 25"
-                step="1"
-              >
-            </label>
-          </div>
+        <div>
+          Next Mystic Hourglass:
+          <strong>{{ nextHourglassDate }}</strong>
+        </div>
+        <div class="form-inline">
+          <label>
+            Mystic Hourglasses:
+            <input
+              v-model="hero.purchased.plan.consecutive.trinkets"
+              class="form-control"
+              type="number"
+              min="0"
+              step="1"
+            >
+          </label>
+        </div>
+        <div class="form-inline">
+          <label>
+            Gem cap increase:
+            <input
+              v-model="hero.purchased.plan.consecutive.gemCapExtra"
+              class="form-control"
+              type="number"
+              min="0"
+              max="25"
+              step="5"
+            >
+          </label>
+        </div>
+        <div>
+          Total Gem cap:
+          <strong>{{ Number(hero.purchased.plan.consecutive.gemCapExtra) + 25 }}</strong>
+        </div>
+        <div class="form-inline">
+          <label>
+            Gems bought this month:
+            <input
+              v-model="hero.purchased.plan.gemsBought"
+              class="form-control"
+              type="number"
+              min="0"
+              :max="hero.purchased.plan.consecutive.gemCapExtra + 25"
+              step="1"
+            >
+          </label>
+        </div>
         <div
           v-if="hero.purchased.plan.extraMonths > 0"
         >
@@ -137,13 +150,6 @@ export default {
       const currentPlanContext = getPlanContext(this.hero, new Date());
 
       return currentPlanContext.nextHourglassDate.format('MMMM');
-    },
-  },
-  watch: {
-    'hero.purchased.plan.consecutive.count' () { // eslint-disable-line object-shorthand
-      this.hero.purchased.plan.consecutive.gemCapExtra = Math.min(
-        Math.floor(this.hero.purchased.plan.consecutive.count / 3) * 5, 25,
-      );
     },
   },
   methods: {
