@@ -14,7 +14,7 @@ import { // eslint-disable-line import/no-cycle
   basicFields as basicGroupFields,
 } from '../../models/group';
 import {
-  model as User
+  model as User,
 } from '../../models/user';
 import {
   NotAuthorized,
