@@ -185,6 +185,7 @@
     <countdown-banner
       v-if="item.event && item.owned == null"
       :end-date="endDate"
+      class="limitedTime available"
     />
     <div
       v-if="item.key === 'rebirth_orb' && item.value > 0 && user.stats.lvl >= 100"
@@ -221,7 +222,7 @@
       slot="modal-footer"
       class="d-flex"
     >
-      <span class="mr-auto balance">{{ $t('yourBalance') }}</span>
+      <span class="balance mr-auto">{{ $t('yourBalance') }}</span>
       <balanceInfo
         class="ml-auto balance"
         :currency-needed="getPriceClass()"
@@ -253,6 +254,17 @@
       margin: 24px 0 0;
       padding: 16px 24px;
       align-content: center;
+
+      .balance {
+        width: 150px;
+        height: 16px;
+        font-size: 0.75rem;
+        font-weight: bold;
+        line-height: 1.33;
+        color: $gray-100;
+        margin-bottom: 16px;
+        margin-top: -4px;
+      }
     }
 
     .modal-dialog {
@@ -450,17 +462,6 @@
       }
     }
 
-    span.balance {
-      width: 74px;
-      height: 16px;
-      font-size: 0.75em;
-      font-weight: bold;
-      line-height: 1.33;
-      color: $gray-200;
-      margin-bottom: 16px;
-      margin-top: 16px;
-    }
-
     .notEnough {
       pointer-events: none;
       opacity: 0.55;
@@ -509,6 +510,15 @@
     background-color: $yellow-100;
     color: $yellow-1;
     width: 100%;
+  }
+
+  .limitedTime {
+    height: 32px;
+    width: 446px;
+    font-size: 0.75rem;
+    margin: 24px 0 -40px 0;
+    background-color: $purple-300;
+    color: $white;
   }
 }
 </style>
