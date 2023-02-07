@@ -66,7 +66,7 @@ describe('POST /groups/:id/chat/:id/clearflags', () => {
           type: 'party',
           privacy: 'private',
         },
-        members: 1,
+        members: 2,
       });
 
       await members[0].update({ 'auth.timestamps.created': new Date('2022-01-01') });
@@ -76,12 +76,17 @@ describe('POST /groups/:id/chat/:id/clearflags', () => {
       await admin.post(`/groups/${group._id}/chat/${privateMessage.id}/flag`);
 
       // first test that the flag was actually successful
+      // author always sees own message; flag count is hidden from non-admins
       let messages = await members[0].get(`/groups/${group._id}/chat`);
-      expect(messages[0].flagCount).to.eql(5);
+      expect(messages[0].flagCount).to.eql(0);
+      messages = await members[1].get(`/groups/${group._id}/chat`);
+      expect(messages.length).to.eql(0);
 
+      // admin cannot directly request private group chat, but after unflag,
+      // message should be revealed again and still have flagCount of 0
       await admin.post(`/groups/${group._id}/chat/${privateMessage.id}/clearflags`);
-
-      messages = await members[0].get(`/groups/${group._id}/chat`);
+      messages = await members[1].get(`/groups/${group._id}/chat`);
+      expect(messages.length).to.eql(1);
       expect(messages[0].flagCount).to.eql(0);
     });
 
