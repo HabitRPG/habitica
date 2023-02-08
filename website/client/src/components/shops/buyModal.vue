@@ -794,6 +794,7 @@ export default {
       }
     },
     hideDialog () {
+      this.selectedAmountToBuy = 1;
       this.$root.$emit('bv::hide::modal', 'buy-modal');
     },
     getPriceClass () {

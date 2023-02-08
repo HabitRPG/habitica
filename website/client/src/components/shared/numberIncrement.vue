@@ -127,6 +127,9 @@ export default {
     },
   },
   methods: {
+    setDefaults () {
+      this.input = 1;
+    },
   },
 };
 
