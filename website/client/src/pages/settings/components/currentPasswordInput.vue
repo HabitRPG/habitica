@@ -8,7 +8,10 @@
         v-if="showForgetPassword"
         class="forgot-password"
       >
-        <router-link to="/forgot-password">
+        <router-link
+          to="/forgot-password"
+          target="_blank"
+        >
           {{ $t('forgotPassword') }}
         </router-link>
       </div>
@@ -30,9 +33,6 @@
 </template>
 
 <script>
-
-// TODO change the authForm.vue to accept a query param so that it switches automically to
-// "forgot password" mode
 
 export default {
   name: 'CurrentPasswordInput',
