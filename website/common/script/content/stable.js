@@ -1,4 +1,6 @@
 import each from 'lodash/each';
+import moment from 'moment';
+import { EVENTS } from './constants/events';
 import {
   drops as dropEggs,
   quests as questEggs,
@@ -118,6 +120,9 @@ const canFindSpecial = {
     'Jackalope-RoyalPurple': true, // subscription
     'Wolf-Cerberus': false, // Pet once granted to backers
     'Gryphon-Gryphatrice': false, // Pet once granted to kickstarter
+
+    // Birthday Pet
+    'Gryphatrice-Jubilant': false,
   },
   mounts: {
     // Thanksgiving pet ladder
@@ -174,6 +179,7 @@ const specialPets = {
   'Fox-Veteran': 'veteranFox',
   'JackOLantern-Glow': 'glowJackolantern',
   'Gryphon-Gryphatrice': 'gryphatrice',
+  'Gryphatrice-Jubilant': 'jubilantGryphatrice',
   'JackOLantern-RoyalPurple': 'royalPurpleJackolantern',
 };
 
@@ -205,6 +211,16 @@ each(specialPets, (translationString, key) => {
     text: t(translationString),
     canFind: canFindSpecial.pets[key],
   };
+});
+
+Object.assign(petInfo['Gryphatrice-Jubilant'], {
+  canBuy () {
+    return moment().isBetween(EVENTS.birthday10.start, EVENTS.birthday10.end);
+  },
+  currency: 'gems',
+  event: 'birthday10',
+  value: 60,
+  purchaseType: 'pets',
 });
 
 each(specialMounts, (translationString, key) => {

@@ -70,13 +70,13 @@ const premium = {
     value: 2,
     text: t('hatchingPotionShimmer'),
     limited: true,
-    event: EVENTS.spring2022,
+    event: EVENTS.birthday10,
     _addlNotes: t('eventAvailabilityReturning', {
-      availableDate: t('dateEndMarch'),
-      previousDate: t('marchYYYY', { year: 2020 }),
+      availableDate: t('dateStartFebruary'),
+      previousDate: t('marchYYYY', { year: 2022 }),
     }),
     canBuy () {
-      return moment().isBefore(EVENTS.spring2022.end);
+      return moment().isBetween(EVENTS.birthday10.start, EVENTS.birthday10.end);
     },
   },
   Fairy: {
@@ -109,13 +109,13 @@ const premium = {
     value: 2,
     text: t('hatchingPotionAquatic'),
     limited: true,
-    event: EVENTS.summer2022,
+    event: EVENTS.birthday10,
     _addlNotes: t('eventAvailabilityReturning', {
-      availableDate: t('dateEndJuly'),
-      previousDate: t('augustYYYY', { year: 2020 }),
+      availableDate: t('dateStartFebruary'),
+      previousDate: t('julyYYYY', { year: 2022 }),
     }),
     canBuy () {
-      return moment().isBetween(EVENTS.summer2022.start, EVENTS.summer2022.end);
+      return moment().isBetween(EVENTS.birthday10.start, EVENTS.birthday10.end);
     },
   },
   Ember: {
@@ -188,12 +188,12 @@ const premium = {
     text: t('hatchingPotionPeppermint'),
     limited: true,
     _addlNotes: t('eventAvailabilityReturning', {
-      availableDate: t('dateEndJanuary'),
-      previousDate: t('januaryYYYY', { year: 2018 }),
+      availableDate: t('dateStartFebruary'),
+      previousDate: t('januaryYYYY', { year: 2022 }),
     }),
-    event: EVENTS.winter2022,
+    event: EVENTS.birthday10,
     canBuy () {
-      return moment().isBetween(EVENTS.winter2022.start, EVENTS.winter2022.end);
+      return moment().isBetween(EVENTS.birthday10.start, EVENTS.birthday10.end);
     },
   },
   StarryNight: {
@@ -239,13 +239,13 @@ const premium = {
     value: 2,
     text: t('hatchingPotionGlow'),
     limited: true,
-    event: EVENTS.fall2021,
+    event: EVENTS.birthday10,
     _addlNotes: t('eventAvailabilityReturning', {
-      availableDate: t('dateEndOctober'),
-      previousDate: t('septemberYYYY', { year: 2019 }),
+      availableDate: t('dateStartFebruary'),
+      previousDate: t('octoberYYYY', { year: 2021 }),
     }),
     canBuy () {
-      return moment().isBefore(EVENTS.fall2021.end);
+      return moment().isBetween(EVENTS.birthday10.start, EVENTS.birthday10.end);
     },
   },
   Frost: {
@@ -286,13 +286,13 @@ const premium = {
     value: 2,
     text: t('hatchingPotionCelestial'),
     limited: true,
-    event: EVENTS.spring2022,
+    event: EVENTS.birthday10,
     _addlNotes: t('eventAvailabilityReturning', {
-      availableDate: t('dateEndMarch'),
-      previousDate: t('marchYYYY', { year: 2020 }),
+      availableDate: t('dateStartFebruary'),
+      previousDate: t('marchYYYY', { year: 2022 }),
     }),
     canBuy () {
-      return moment().isBefore(EVENTS.spring2022.end);
+      return moment().isBetween(EVENTS.birthday10.start, EVENTS.birthday10.end);
     },
   },
   Sunshine: {
@@ -399,13 +399,13 @@ const premium = {
     value: 2,
     text: t('hatchingPotionSandSculpture'),
     limited: true,
-    event: EVENTS.summer2021,
+    event: EVENTS.birthday10,
     _addlNotes: t('eventAvailabilityReturning', {
-      availableDate: t('dateEndJuly'),
-      previousDate: t('juneYYYY', { year: 2020 }),
+      availableDate: t('dateStartFebruary'),
+      previousDate: t('julyYYYY', { year: 2021 }),
     }),
     canBuy () {
-      return moment().isBetween(EVENTS.summer2021.start, EVENTS.summer2021.end);
+      return moment().isBetween(EVENTS.birthday10.start, EVENTS.birthday10.end);
     },
   },
   Windup: {
@@ -426,26 +426,26 @@ const premium = {
     value: 2,
     text: t('hatchingPotionVampire'),
     limited: true,
-    event: EVENTS.fall2022,
+    event: EVENTS.birthday10,
     _addlNotes: t('eventAvailabilityReturning', {
-      availableDate: t('dateEndOctober'),
-      previousDate: t('octoberYYYY', { year: 2021 }),
+      availableDate: t('dateStartFebruary'),
+      previousDate: t('octoberYYYY', { year: 2022 }),
     }),
     canBuy () {
-      return moment().isBetween(EVENTS.fall2022.start, EVENTS.fall2022.end);
+      return moment().isBetween(EVENTS.birthday10.start, EVENTS.birthday10.end);
     },
   },
   AutumnLeaf: {
     value: 2,
     text: t('hatchingPotionAutumnLeaf'),
     limited: true,
-    event: EVENTS.potions202111,
+    event: EVENTS.birthday10,
     _addlNotes: t('eventAvailabilityReturning', {
-      availableDate: t('dateEndNovember'),
-      previousDate: t('novemberYYYY', { year: 2020 }),
+      availableDate: t('dateStartFebruary'),
+      previousDate: t('novemberYYYY', { year: 2021 }),
     }),
     canBuy () {
-      return moment().isBefore(EVENTS.potions202111.end);
+      return moment().isBetween(EVENTS.birthday10.start, EVENTS.birthday10.end);
     },
   },
   BlackPearl: {
@@ -460,12 +460,12 @@ const premium = {
     text: t('hatchingPotionStainedGlass'),
     limited: true,
     _addlNotes: t('eventAvailabilityReturning', {
-      availableDate: t('dateEndJanuary'),
-      previousDate: t('januaryYYYY', { year: 2021 }),
+      availableDate: t('dateStartFebruary'),
+      previousDate: t('januaryYYYY', { year: 2022 }),
     }),
-    event: EVENTS.winter2022,
+    event: EVENTS.birthday10,
     canBuy () {
-      return moment().isBetween(EVENTS.winter2022.start, EVENTS.winter2022.end);
+      return moment().isBetween(EVENTS.birthday10.start, EVENTS.birthday10.end);
     },
   },
   PolkaDot: {
@@ -532,12 +532,13 @@ const premium = {
     value: 2,
     text: t('hatchingPotionPorcelain'),
     limited: true,
-    event: EVENTS.potions202208,
-    _addlNotes: t('premiumPotionAddlNotes', {
-      date: t('dateEndAugust'),
+    event: EVENTS.birthday10,
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateStartFebruary'),
+      previousDate: t('augustYYYY', { year: 2022 }),
     }),
     canBuy () {
-      return moment().isBetween(EVENTS.potions202208.start, EVENTS.potions202208.end);
+      return moment().isBetween(EVENTS.birthday10.start, EVENTS.birthday10.end);
     },
   },
 };

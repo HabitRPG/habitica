@@ -251,9 +251,10 @@ export default async function unlock (user, req = {}, analytics) {
       return invalidSet(req);
     }
 
-    cost = getIndividualItemPrice(setType, item, req);
-
     unlockedAlready = alreadyUnlocked(user, setType, firstPath);
+    if (!unlockedAlready) {
+      cost = getIndividualItemPrice(setType, item, req);
+    }
 
     // Since only an item is being unlocked here,
     // remove all the other items from the set

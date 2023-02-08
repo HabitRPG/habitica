@@ -188,7 +188,7 @@
     "fall2020WraithWarriorSet": "レイス（戦士）",
     "royalPurpleJackolantern": "ロイヤルパープルのジャック･オ･ランタン",
     "novemberYYYY": "<%= year %>年11月",
-    "g1g1Limitations": "このイベントは日本時間で12月16日の22:00時から1月6日10:00時までの期間限定です。プロモーションは他のプレイヤーにギフトを贈った際にのみ適用されます。もしギフトを受け取った人がすでに有料会員の場合、有料会員期間が延長されます。この延長は、現在の有料会員期間を満了もしくはキャンセルした後にのみ適用されます。",
+    "g1g1Limitations": "このイベントは日本時間で12月15日の22:00から1月9日13:59までの期間限定です。プロモーションは他のプレイヤーにギフトを贈った際にのみ適用されます。もしギフトを受け取った人がすでに有料会員の場合、有料会員期間が延長されます。この延長は、現在の有料会員期間を満了もしくはキャンセルした後にのみ適用されます。",
     "limitations": "制限事項",
     "g1g1HowItWorks": "「有料プランをプレゼントする」をタップして、贈る相手のユーザーネームを入力し、プレゼントする有料プランの期間を選択してください。自動的にあなたのアカウントにもプレゼントした分と同じ期間のプランが無料で適用されます。",
     "howItWorks": "機能説明",
@@ -235,5 +235,9 @@
     "fall2022KappaRogueSet": "カッパ（盗賊）",
     "fall2022OrcWarriorSet": "オーク（戦士）",
     "gemSaleHow": "<%= eventStartMonth %> <%= eventStartOrdinal %> から<%= eventEndOrdinal %>の間、通常どおりジェムを購入するだけで、あなたのアカウントはプロモーション分のジェムを受け取れます。買い物したり、分け合ったり、将来のため貯めておけるジェムが増えました！",
-    "gemSaleLimitations": "このプロモーションは期間限定のイベント中にのみ適用されます。イベントは米国東部標準時 <%= eventStartMonth %> <%= eventStartOrdinal %> の午前 8:00(12:00 UTC) に開始し、米国東部標準時 <%= eventStartMonth %> <%= eventEndOrdinal %> の午後 8:00 ( 00:00 UTC)に終了します。 割引はジェムを自分で購入する場合にのみ利用できます。"
+    "gemSaleLimitations": "このプロモーションは期間限定のイベント中にのみ適用されます。イベントは米国東部標準時 <%= eventStartMonth %> <%= eventStartOrdinal %> の午前 8:00(12:00 UTC) に開始し、米国東部標準時 <%= eventStartMonth %> <%= eventEndOrdinal %> の午後 8:00 ( 00:00 UTC)に終了します。 割引はジェムを自分で購入する場合にのみ利用できます。",
+    "winter2023WalrusWarriorSet": "セイウチ（戦士）",
+    "winter2023FairyLightsMageSet": "フェアリーライト（魔道士）",
+    "winter2023CardinalHealerSet": "ショウジョウコウカンチョウ（治療師）",
+    "winter2023RibbonRogueSet": "リボン（盗賊）"
 }
