@@ -87,11 +87,6 @@
     color: $gray-50;
   }
 
-  .input-error {
-    color: $red-50;
-    font-size: 90%;
-  }
-
   .input-group {
     border-radius: 2px;
     border: solid 1px $gray-400;

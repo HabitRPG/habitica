@@ -70,7 +70,7 @@ import { mapState } from '@/libs/store';
 import SaveCancelButtons from '../components/saveCancelButtons.vue';
 import { InlineSettingMixin } from '../components/inlineSettingMixin';
 import CurrentPasswordInput from '../components/currentPasswordInput.vue';
-import ValidatedTextInput from '@/pages/settings/components/validatedTextInput.vue';
+import ValidatedTextInput from '@/components/ui/validatedTextInput.vue';
 
 export default {
   components: { ValidatedTextInput, CurrentPasswordInput, SaveCancelButtons },

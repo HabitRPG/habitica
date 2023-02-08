@@ -74,29 +74,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
-  input {
-    color: $gray-50;
-  }
-  .usersettings h5 {
-    margin-top: 1em;
-  }
-  .iconalert > div > span {
-    line-height: 25px;
-  }
-  .iconalert > div:after {
-    clear: both;
-    content: '';
-    display: table;
-  }
-  .input-error {
-    color: $red-50;
-    font-size: 90%;
-    width: 100%;
-    margin-top: 5px;
-  }
-
-  .standard-page {
+ .standard-page {
     padding-left: 0;
     padding-right: 0;
   }

@@ -1,6 +1,9 @@
 <template>
   <div class="input-area">
-    <div class="settings-label">
+    <div
+      v-if="settingsLabel"
+      class="settings-label"
+    >
       {{ $t(settingsLabel) }}
     </div>
     <div class="form-group">
@@ -17,8 +20,10 @@
           type="text"
           :class="{
             'is-invalid input-invalid': wasChanged && !isValid,
-            'is-valid': wasChanged && isValid
+            'is-valid input-valid': wasChanged && isValid
           }"
+
+          :placeholder="placeholder"
           @keyup="handleChange"
           @blur="$emit('blur')"
         >
@@ -28,7 +33,7 @@
         :key="issue"
         class="input-error"
       >
-        {{ issue }}
+        {{ issue }} &nbsp;
       </div>
     </div>
   </div>
@@ -54,6 +59,9 @@ export default {
     settingsLabel: {
       type: String,
     },
+    placeholder: {
+      type: String,
+    },
     invalidIssues: {
       type: Array,
       default: () => [],
@@ -74,12 +82,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .label-line {
-    display: flex;
-  }
+.label-line {
+  display: flex;
+}
 
-  .settings-label {
-    flex: 1;
-  }
+.settings-label {
+  flex: 1;
+}
+
+.input-error {
+  margin-top: 0.5rem;
+}
 
 </style>

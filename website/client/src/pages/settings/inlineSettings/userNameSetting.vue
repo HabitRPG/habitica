@@ -67,7 +67,7 @@ import { mapState } from '@/libs/store';
 
 import { InlineSettingMixin } from '../components/inlineSettingMixin';
 import SaveCancelButtons from '../components/saveCancelButtons.vue';
-import ValidatedTextInput from '@/pages/settings/components/validatedTextInput.vue';
+import ValidatedTextInput from '@/components/ui/validatedTextInput.vue';
 
 // TODO extract usernameIssues/checks to a mixin to share between this and the authForm
 

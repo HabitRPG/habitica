@@ -165,8 +165,6 @@
     display: table;
   }
   .input-error {
-    color: $red-50;
-    font-size: 90%;
     width: 100%;
     margin-top: 5px;
   }
