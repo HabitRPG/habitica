@@ -186,32 +186,32 @@
           <li>
             {{ $t('commGuideAKA', {habitName: 'heyeilatan', realName: 'Natalie'}) }}
             ({{ $t('commGuideOnGitHub', {gitHubName: 'CuriousMagpie'}) }})
-            {{ $t('commGuideStaffRole', {role: 'Web Developer'}) }}
+            - Web Developer
           </li>
           <li>
             {{ $t('commGuideAKA', {habitName: 'Viirus', realName: 'Phillip'}) }}
-            {{ $t('commGuideStaffRole', {role: 'Mobile Developer'}) }}
+            - Mobile Developer
           </li>
           <li>
             {{ $t('commGuideAKA', {habitName: 'redphoenix', realName: 'Vicky'}) }}
             ({{ $t('commGuideOnGitHub', {gitHubName: 'veeeeeee'}) }})
-            {{ $t('commGuideStaffRole', {role: 'Co-Founder'}) }}
+            - Co-Founder
           </li>
           <li>
             {{ $t('commGuideAKA', {habitName: 'Beffymaroo', realName: 'Beth'}) }}
-            {{ $t('commGuideStaffRole', {role: 'Art, Community Management, Many Hats'}) }}
+            - Art, Community Management, Many Hats
           </li>
           <li>
             {{ $t('commGuideAKA', {habitName: 'SabreCat', realName: 'Sabe'}) }}
-            {{ $t('commGuideStaffRole', {role: 'Web Developer'}) }}
+            - Web Developer
           </li>
           <li>
             {{ $t('commGuideAKA', {habitName: 'Apollo', realName: 'Tressley'}) }}
-            {{ $t('commGuideStaffRole', {role: 'Designer'}) }}
+            - Designer
           </li>
           <li>
             {{ $t('commGuideAKA', {habitName: 'Piyo', realName: 'Sara'}) }}
-            {{ $t('commGuideStaffRole', {role: 'Mobile Designer'}) }}
+            - Mobile Designer
           </li>
         </ul>
       </div>
