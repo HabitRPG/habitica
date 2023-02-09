@@ -2782,5 +2782,7 @@
     "headSpecialWinter2023HealerNotes": "Ce heaume cardinal est parfait pour siffler et chanter pour annoncer la nouvelle saison. Augmente l'intelligence de <%= int %>. Équipement en édition limitée de l'hiver 2022-2023.",
     "shieldSpecialWinter2023WarriorText": "Bouclier huitre",
     "shieldSpecialWinter2023HealerText": "Chansonnette fraiche",
-    "shieldSpecialWinter2023HealerNotes": "Votre chanson de givre et de neige apaisera les esprits de ceux qui l'entendent. Augmente la constitution de <%= con %>. Équipement en édition limitée de l'hiver 2022-2023."
+    "shieldSpecialWinter2023HealerNotes": "Votre chanson de givre et de neige apaisera les esprits de ceux qui l'entendent. Augmente la constitution de <%= con %>. Équipement en édition limitée de l'hiver 2022-2023.",
+    "headSpecialNye2022Text": "Chapeau de fête fantastique",
+    "headSpecialNye2022Notes": "Vous avez reçu un chapeau de soirée fantastique ! Portez-le avec fierté en levant votre verre à cette nouvelle année ! Ne confère aucun bonus."
 }
