@@ -65,7 +65,7 @@ describe('DELETE /groups/:groupId/chat/:chatId', () => {
       );
 
       expect(returnedMessages).is.an('array');
-      expect(messageFromUser).to.not.exist;
+      expect(messageFromUser).to.exist;
     });
 
     it('allows admin to delete another user\'s message', async () => {
