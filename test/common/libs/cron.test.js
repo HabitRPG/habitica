@@ -224,6 +224,7 @@ describe('cron utility functions', () => {
 
     it('monthly plan, next date in 1 month', () => {
       const user = baseUserData(62, 0, 'group_plan_auto');
+      user.purchased.plan.perkMonthCount = 2;
 
       const planContext = getPlanContext(user, now);
 
@@ -242,6 +243,17 @@ describe('cron utility functions', () => {
 
     it('multi-month plan with offset', () => {
       const user = baseUserData(60, 1, 'basic_3mo');
+
+      const planContext = getPlanContext(user, now);
+
+      expect(planContext.nextHourglassDate)
+        .to.be.sameMoment('2022-07-10T02:00:00.144Z');
+    });
+
+
+    it('multi-month plan with perk count', () => {
+      const user = baseUserData(60, 1, 'basic_3mo');
+      user.purchased.plan.perkMonthCount = 2;
 
       const planContext = getPlanContext(user, now);
 
