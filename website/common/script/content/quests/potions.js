@@ -180,6 +180,13 @@ const QUEST_POTIONS = {
       name: t('questPinkMarbleBoss'),
       hp: 1200,
       str: 2,
+      rage: {
+        title: t('questPinkMarbleRageTitle'),
+        description: t('questPinkMarbleRageDescription'),
+        value: 50,
+        progressDrain: 0.5,
+        effect: t('questPinkMarbleRageEffect'),
+      },
     },
     drop: {
       items: [
