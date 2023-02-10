@@ -292,7 +292,7 @@ export function getPlanContext (user, now) {
   if (planMonths > 1) {
     monthsTillNextHourglass = plan.consecutive.offset + 1;
   } else {
-    monthsTillNextHourglass = 3 - plan.perkMonthsCount;
+    monthsTillNextHourglass = 3 - plan.perkMonthCount;
   }
 
   const possibleNextHourglassDate = moment(plan.dateUpdated)
