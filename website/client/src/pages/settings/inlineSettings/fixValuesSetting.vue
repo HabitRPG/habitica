@@ -57,6 +57,7 @@
                     <div
                       v-once
                       class="svg-icon icon-16"
+                      :class="{[input.translationKey]: true}"
                       v-html="input.icon"
                     ></div>
                   </div>
@@ -66,6 +67,7 @@
                     type="number"
                     min="0"
                     required="required"
+                    @change="markAsChanged()"
                   >
                 </div>
               </div>
@@ -74,6 +76,7 @@
         </div>
 
         <save-cancel-buttons
+          :disable-save="!sharedState.inlineSettingUnsavedValues"
           class="mt-4"
           @saveClicked="save()"
           @cancelClicked="requestCloseModal()"
@@ -92,7 +95,7 @@
 }
 
 .input-rows {
-  width: calc(370px + 1.5rem);
+  width: calc(402px + 1.5rem);
 }
 
 .content-centered {
@@ -112,6 +115,24 @@
   width: 16px !important;
   height: 16px !important;
   display: flex;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield !important;
+
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+.svg-icon.level {
+  color: $gray-200;
+
+  :global svg path {
+    fill: currentColor;
+  }
 }
 
 </style>
@@ -186,17 +207,23 @@ export default {
     ...mapState({ user: 'user.data' }),
   },
   mounted () {
-    const {
-      hp, mp, gp, exp, lvl,
-    } = this.user.stats;
-
-    this.restoreValues = {
-      hp, mp, gp, exp, lvl, streak: this.user.achievements.streak,
-    };
+    this.resetControls();
   },
   methods: {
+    resetControls () {
+      const {
+        hp, mp, gp, exp, lvl,
+      } = this.user.stats;
+
+      this.restoreValues = {
+        hp, mp, gp, exp, lvl, streak: this.user.achievements.streak,
+      };
+    },
     close () {
       this.validateInputs();
+    },
+    markAsChanged () {
+      this.modalValuesChanged();
     },
     save () {
       if (!this.validateInputs()) {
@@ -228,6 +255,7 @@ export default {
 
       this.$store.dispatch('user:set', settings);
 
+      this.wasChanged = false;
       this.closeModal();
     },
     validateInputs () {
