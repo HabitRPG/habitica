@@ -50,7 +50,7 @@
               @select="changeDayStart($event)"
             >
               <template #item="{ item }">
-                <span v-if="item === newDayStart">
+                <span v-if="item === newDayStart || (!item && newDayStart === 0)">
                   {{ selectedDayStartLabel(newDayStart) }}
                 </span>
                 <span v-else>
@@ -60,6 +60,7 @@
             </select-list>
           </div>
         </div>
+
         <small
           class="timezone-explain"
         >
@@ -100,7 +101,6 @@ import { InlineSettingMixin } from '../components/inlineSettingMixin';
 import SaveCancelButtons from '../components/saveCancelButtons.vue';
 import SelectList from '@/components/ui/selectList.vue';
 import getUtcOffset from '../../../../../common/script/fns/getUtcOffset';
-
 
 export default {
   components: { SelectList, SaveCancelButtons },
@@ -161,13 +161,6 @@ export default {
       }
 
       return this.dayStartOptions.find(l => l.value === dayStartValue)?.name ?? '';
-    },
-    openDayStartModal () {
-      const nextCron = this.calculateNextCron();
-      // @TODO: Add generic modal
-      if (!window.confirm(this.$t('sureChangeCustomDayStartTime', { time: nextCron }))) return; // eslint-disable-line no-alert
-      this.saveDayStart();
-      // $rootScope.openModal('change-day-start', { scope: $scope });
     },
     calculateNextCron () {
       let nextCron = moment()

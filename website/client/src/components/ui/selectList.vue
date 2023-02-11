@@ -132,7 +132,7 @@ export default {
   },
   methods: {
     selectItem (item) {
-      this.selected = item;
+      this.selected = this.keyProp ? item[this.keyProp] : item;
       this.$emit('select', item);
     },
     isSelected (item) {
