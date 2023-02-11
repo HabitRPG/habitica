@@ -3,7 +3,10 @@
     <tr
       v-if="!modalVisible"
     >
-      <td class="settings-label">
+      <td
+        v-once
+        class="settings-label"
+      >
         {{ $t("audioTheme") }}
       </td>
       <td class="settings-value">
@@ -153,8 +156,8 @@ export default {
     },
   },
   mounted () {
-    this.resetControls();
     this.previousValue = this.currentAudioTheme;
+    this.resetControls();
   },
   methods: {
     /**
@@ -162,7 +165,7 @@ export default {
      * do not remove
      */
     resetControls () {
-      this.themeSelected = this.currentAudioTheme;
+      this.changeAudioThemeTemporary(this.previousValue);
     },
     changeAudioThemeTemporary ($event) {
       this.user.preferences.sound = $event;
@@ -186,6 +189,8 @@ export default {
       } else {
         this.changeAudioThemeTemporary('off');
       }
+
+      this.modalValuesChanged();
     },
   },
 };
