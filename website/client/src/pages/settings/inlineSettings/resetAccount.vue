@@ -84,13 +84,10 @@
 <style lang="scss" scoped>
 @import '~@/assets/scss/colors.scss';
 
-ul.row  li {
-  color: $gray-50;
-}
-
 .split-lists {
   display: flex;
   flex-direction: row;
+  color: $gray-50;
 
   ul {
     flex: 0 0 50%;
