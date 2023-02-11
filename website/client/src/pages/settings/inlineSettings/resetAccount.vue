@@ -35,23 +35,28 @@
           v-html="$t('resetText1')"
         >
         </div>
-        <ul class="row my-3">
-          <li
-            v-once
-            class="col-6"
-          >
-            {{ $t('resetDetail1') }}
-          </li>
-          <li class="col-6">
-            {{ $t('resetDetail2') }}
-          </li>
-          <li class="col-6">
-            {{ $t('resetDetail3') }}
-          </li>
-          <li class="col-6">
-            {{ $t('resetDetail4') }}
-          </li>
-        </ul>
+        <div class="split-lists my-3 ">
+          <ul>
+            <li
+              v-once
+            >
+              {{ $t('resetDetail1') }}
+            </li>
+            <li v-once>
+              {{ $t('resetDetail3') }}
+            </li>
+          </ul>
+          <ul>
+            <li v-once>
+              {{ $t('resetDetail2') }}
+            </li>
+
+            <li v-once>
+              {{ $t('resetDetail4') }}
+            </li>
+          </ul>
+        </div>
+
         <div
           v-once
           v-html="$t('resetDetail5')"
@@ -81,6 +86,15 @@
 
 ul.row  li {
   color: $gray-50;
+}
+
+.split-lists {
+  display: flex;
+  flex-direction: row;
+
+  ul {
+    flex: 0 0 50%;
+  }
 }
 </style>
 
