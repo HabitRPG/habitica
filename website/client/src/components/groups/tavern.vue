@@ -759,6 +759,7 @@
 </style>
 
 <script>
+import find from 'lodash/find';
 import { mapState } from '@/libs/store';
 import { goToModForm } from '@/libs/modform';
 
@@ -835,22 +836,23 @@ export default {
   computed: {
     ...mapState({
       user: 'user.data',
-      currentEvent: 'worldState.data.currentEvent',
+      currentEventList: 'worldState.data.currentEventList',
     }),
     questData () {
       if (!this.group.quest) return {};
       return quests.quests[this.group.quest.key];
     },
     imageURLs () {
-      if (!this.currentEvent || !this.currentEvent.season) {
+      const currentEvent = find(this.currentEventList, event => Boolean(event.season));
+      if (!currentEvent) {
         return {
           background: 'url(/static/npc/normal/tavern_background.png)',
           npc: 'url(/static/npc/normal/tavern_npc.png)',
         };
       }
       return {
-        background: `url(/static/npc/${this.currentEvent.season}/tavern_background.png)`,
-        npc: `url(/static/npc/${this.currentEvent.season}/tavern_npc.png)`,
+        background: `url(/static/npc/${currentEvent.season}/tavern_background.png)`,
+        npc: `url(/static/npc/${currentEvent.season}/tavern_npc.png)`,
       };
     },
   },
