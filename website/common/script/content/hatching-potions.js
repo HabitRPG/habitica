@@ -551,6 +551,13 @@ const premium = {
       return moment().isBetween(EVENTS.birthday10.start, EVENTS.birthday10.end);
     },
   },
+  PinkMarble: {
+    value: 2,
+    text: t('hatchingPotionPinkMarble'),
+    limited: true,
+    canBuy: hasQuestAchievementFunction('pinkMarble'),
+    _addlNotes: t('premiumPotionUnlimitedNotes'),
+  },
 };
 
 const wacky = {

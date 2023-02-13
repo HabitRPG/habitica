@@ -877,5 +877,15 @@
   "questVirtualPetRageDescription": "This bar fills when you don't complete your Dailies. When it is full, the Wotchimon will take away some of your party's pending damage!",
   "questVirtualPetRageEffect": "`Wotchimon uses Bothersome Beep!` Wotchimon sounds a bothersome beep, and its happiness bar suddenly disappears! Pending damage reduced.",
   "questVirtualPetDropVirtualPetPotion": "Virtual Pet Hatching Potion",
-  "questVirtualPetUnlockText": "Unlocks Virtual Pet Hatching Potion for purchase in the Market"
+  "questVirtualPetUnlockText": "Unlocks Virtual Pet Hatching Potion for purchase in the Market",
+
+  "questPinkMarbleText": "Calm the Corrupted Cupid",
+  "questPinkMarbleNotes": "After hearing rumors about a cave in the Meandering Mountains that has pink rocks and dust shooting out of it, your party starts to investigate. As you approach the cave, there is indeed a huge pink dust cloud – and strangely, you hear a tiny voice's battle cry, followed by the sound of shattering rock.<br><br>@Empress42 accidentally inhales some of the dust and suddenly feels dreamy and less productive. “Same here!” says @QuartzFox, “I'm suddenly fantasizing about a person that I barely know!”<br><br>@a_diamond peeks into the cave and finds a little being zipping around and smashing pink marbled rock to dust. “Take cover! This Cupid has been corrupted and is using his magic to cause limerence and unrealistic infatuations! We have to subdue him!”",
+  "questPinkMarbleCompletion": "You manage to pin the little guy down at last – he was much tougher and faster than expected. Before he stirs again, you take away his quiver of glowing arrows. He blinks and suddenly looks around in surprise. “To escape my own sorrow and heartbreak for a while I pricked myself with one of my arrows… I don't remember anything after that!”<br><br>He is just about to flee the cave, notices that @Loremi has taken a sample of the marble dust and grins. “Try using some of this pink marble dust in a potion! Nurture the pets that hatch from it and you will find that real relationships are born from communication, mutual trust and care. I wish you luck, and I wish you love!”",
+  "questPinkMarbleBoss": "Cupido",
+  "questPinkMarbleRageTitle": "Pink Punch",
+  "questPinkMarbleRageDescription": "This bar fills when you don't complete your Dailies. When it is full, Cupido will take away some of your party's pending damage!",
+  "questPinkMarbleRageEffect": "`Cupido uses Pink Punch!` That wasn't affectionate at all! Your partymates are taken aback. Pending damage reduced.",
+  "questPinkMarbleDropPinkMarblePotion": "Pink Marble Hatching Potion",
+  "QuestPinkMarbleUnlockText": "Unlocks Pink Marble Hatching Potions for purchase in the Market."
 }
