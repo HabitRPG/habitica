@@ -340,7 +340,7 @@
             <li>
               <a
                 v-once
-                href="https://oldgods.net/habitrpg/habitrpg_user_data_display.html"
+                href="https://tools.habitica.com/"
                 target="_blank"
               >{{ $t('dataDisplayTool') }}</a>
             </li>
