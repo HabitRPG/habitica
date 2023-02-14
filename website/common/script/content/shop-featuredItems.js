@@ -5,7 +5,7 @@ import { EVENTS } from './constants';
 // path: 'premiumHatchingPotions.Rainbow',
 const featuredItems = {
   market () {
-    if (moment().isBetween(EVENTS.winter2023.start, EVENTS.winter2023.end)) {
+    if (moment().isBetween(EVENTS.potions202302.start, EVENTS.potions202302.end)) {
       return [
         {
           type: 'armoire',
@@ -13,15 +13,15 @@ const featuredItems = {
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.StarryNight',
+          path: 'premiumHatchingPotions.RoseQuartz',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Holly',
+          path: 'premiumHatchingPotions.Cupid',
         },
         {
-          type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Aurora',
+          type: 'hatchingPotions',
+          path: 'hatchingPotions.CottonCandyPink',
         },
       ];
     }
@@ -45,19 +45,19 @@ const featuredItems = {
     ];
   },
   quests () {
-    if (moment().isBetween(EVENTS.winter2023.start, EVENTS.winter2023.end)) {
+    if (moment().isBetween(EVENTS.bundle202302.start, EVENTS.bundle202302.end)) {
       return [
         {
           type: 'bundles',
-          path: 'bundles.winterQuests',
+          path: 'bundles.mythicalMarvels',
         },
         {
           type: 'quests',
-          path: 'quests.whale',
+          path: 'quests.treeling',
         },
         {
           type: 'quests',
-          path: 'quests.turtle',
+          path: 'quests.rock',
         },
       ];
     }

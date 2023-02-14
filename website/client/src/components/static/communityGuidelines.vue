@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <h1>{{ $t('communityGuidelines') }}</h1>
     <hr>
-    <p>{{ $t('lastUpdated') }} July 28, 2021</p>
+    <p>{{ $t('lastUpdated') }} February 8, 2023</p>
     <h2 id="welcome">
       {{ $t('commGuideHeadingWelcome') }}
     </h2>
@@ -21,6 +21,7 @@
     <p v-html="$t('commGuidePara016')"></p>
     <p v-html="$t('commGuidePara017')"></p>
     <ul>
+      <li v-html="$t('commGuideList01F')"></li>
       <li v-html="$t('commGuideList01A')"></li>
       <li v-html="$t('commGuideList01B')"></li>
       <li v-html="$t('commGuideList01C')"></li>
@@ -32,6 +33,7 @@
       <img src="~@/assets/images/community-guidelines/publicSpaces.png">
     </div>
     <ul>
+      <li v-html="$t('commGuideList02N')"></li>
       <li v-html="$t('commGuideList02A')"></li>
       <li v-html="$t('commGuideList02B')"></li>
       <li v-html="$t('commGuideList02G')"></li>
@@ -150,7 +152,6 @@
           <li>{{ $t('commGuideList10A1') }}</li>
         </ul>
       </li>
-      <li v-html="$t('commGuideList10C')"></li>
       <li v-html="$t('commGuideList10D')"></li>
       <li v-html="$t('commGuideList10F')"></li>
     </ul>
@@ -176,50 +177,53 @@
     <h2 id="meet-the-mods">
       {{ $t('commGuideHeadingMeet') }}
     </h2>
-    <p v-html="$t('commGuidePara006')"></p>
     <p v-html="$t('commGuidePara007')"></p>
-    <p v-html="$t('commGuidePara008')"></p>
     <p v-html="$t('commGuidePara009')"></p>
     <div class="media align-items-center">
       <img src="~@/assets/images/community-guidelines/staff.png">
       <div class="media-body">
         <ul>
-          <li>{{ $t('commGuideAKA', {habitName: 'Viirus', realName: 'Phillip'}) }}</li>
+          <li>
+            {{ $t('commGuideAKA', {habitName: 'heyeilatan', realName: 'Natalie'}) }}
+            ({{ $t('commGuideOnGitHub', {gitHubName: 'CuriousMagpie'}) }})
+            - Web Developer
+          </li>
+          <li>
+            {{ $t('commGuideAKA', {habitName: 'Viirus', realName: 'Phillip'}) }}
+            - Mobile Developer
+          </li>
           <li>
             {{ $t('commGuideAKA', {habitName: 'redphoenix', realName: 'Vicky'}) }}
             ({{ $t('commGuideOnGitHub', {gitHubName: 'veeeeeee'}) }})
+            - Co-Founder
           </li>
-          <li>{{ $t('commGuideAKA', {habitName: 'Beffymaroo', realName: 'Beth'}) }}</li>
-          <li>{{ $t('commGuideAKA', {habitName: 'SabreCat', realName: 'Sabe'}) }}</li>
-          <li>{{ $t('commGuideAKA', {habitName: 'Apollo', realName: 'Tressley'}) }}</li>
-          <li>{{ $t('commGuideAKA', {habitName: 'Piyo', realName: 'Sara'}) }}</li>
+          <li>
+            {{ $t('commGuideAKA', {habitName: 'Beffymaroo', realName: 'Beth'}) }}
+            - Art, Community Management, Many Hats
+          </li>
+          <li>
+            {{ $t('commGuideAKA', {habitName: 'SabreCat', realName: 'Sabe'}) }}
+            - Web Developer
+          </li>
+          <li>
+            {{ $t('commGuideAKA', {habitName: 'Apollo', realName: 'Tressley'}) }}
+            - Designer
+          </li>
+          <li>
+            {{ $t('commGuideAKA', {habitName: 'Piyo', realName: 'Sara'}) }}
+            - Mobile Designer
+          </li>
         </ul>
       </div>
     </div>
-    <p v-html="$t('commGuidePara010')"></p>
-    <div class="media align-items-center">
-      <img src="~@/assets/images/community-guidelines/moderators.png">
-      <div class="media-body">
-        <p v-html="$t('commGuidePara011')"></p>
-        <ul>
-          <li>Dewines</li>
-          <li>Nakonana</li>
-          <li>Cantras</li>
-          <li>Alys (LadyAlys {{ $t('commGuidePara011c') }})</li>
-          <li>Fox_town</li>
-          <li>MaybeSteveRogers</li>
-          <li>shanaqui</li>
-          <li>deilann (not yet pictured)</li>
-        </ul>
-      </div>
-    </div>
-    <p v-html="$t('commGuidePara012')"></p>
     <p v-html="$t('commGuidePara013')"></p>
     <p>
       {{ $t('commGuidePara014') }}<br>
       <em>
         Lemoness, lefnire, Slappybag, litenull, Shaner, Bobbyroberts99, wc8,
-        Breadstrings, Megan, Blade, and Daniel the Bard
+        Breadstrings, Megan, Blade, Daniel the Bard, deilann, shanaqui, Nakonana,
+        Dewines, Alys, Fox_town, MaybeSteveRogers, and Cantras.
+
       </em>
     </p>
     <h2 id="final">
@@ -240,6 +244,7 @@
     </ul>
     <p v-html="$t('commGuidePara069')"></p>
     <ul class="list-2col list-unstyled">
+      <li>Beffymaroo</li>
       <li>Breadstrings</li>
       <li>Draayder</li>
       <li>Kiwibot</li>
