@@ -17,7 +17,7 @@
     </span>
     <div>
       <span
-        class="svg-icon icon-12 close-icon"
+        class="svg-icon icon-16 close-icon"
         aria-hidden="true"
         tabindex="0"
         @click="hideDialog()"
@@ -320,7 +320,6 @@
     .content {
       text-align: center;
       width: 448px;
-      // box-sizing: border-box
     }
 
     .item-wrapper {
@@ -382,6 +381,13 @@
     span.svg-icon.inline.icon-20 {
       height: 20px;
       width: 20px;
+      margin-right: 4px;
+      vertical-align: middle;
+    }
+
+    span.svg-icon.inline.icon-16 {
+      height: 16px;
+      width: 16px;
       margin-right: 8px;
       vertical-align: middle;
     }
@@ -395,7 +401,6 @@
       font-size: 1.25rem;
       font-weight: bold;
       line-height: 1.4;
-
       vertical-align: middle;
 
       &.gems {
@@ -450,7 +455,7 @@
       font-weight: bold;
       height: 24px;
       width: 37px;
-      padding-right: 8px;
+      padding-right: 4px;
 
     button.btn.btn-primary {
       margin-top: 24px;
@@ -471,7 +476,6 @@
       margin-top: 8px;
       border-radius: 2px;
       background-color: $gray-500;
-
       margin: 10px 0 24px;
     }
 

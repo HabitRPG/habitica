@@ -6,7 +6,7 @@
   >
     <div class="close">
       <span
-        class="svg-icon inline icon-10"
+        class="svg-icon inline icon-16"
         aria-hidden="true"
         @click="hideDialog()"
         v-html="icons.close"
@@ -14,7 +14,7 @@
     </div>
     <div
       v-if="item"
-      class="content"
+      class="content bordered-item"
     >
       <div class="inner-content">
         <item
@@ -43,19 +43,36 @@
             <div class="text">
               {{ item.notes() }}
             </div>
+            <div class="item-cost">
+              <span class="cost gold">
+                <span
+                  class="svg-icon inline icon-24"
+                  aria-hidden="true"
+                  v-html="icons.gold"
+                ></span>
+                <span>{{ item.value }}</span>
+              </span>
+            </div>
             <div>
               <b class="how-many-to-sell">{{ $t('howManyToSell') }}</b>
             </div>
             <div>
-              <number-increment />
+              <number-increment
+                @updateQuantity="selectedAmountToSell = $event"
+              />
             </div>
             <div>
+              <span class="total-text">
+                {{ $t('sendTotal') }}
+              </span>
               <span
-                class="svg-icon inline icon-32"
+                class="svg-icon inline icon-20"
                 aria-hidden="true"
                 v-html="icons.gold"
               ></span>
-              <span class="value">{{ item.value }}</span>
+              <span class="total gold">
+                {{ item.value * selectedAmountToSell }}
+              </span>
             </div>
             <button
               class="btn btn-primary"
@@ -104,22 +121,70 @@
     span.svg-icon.inline.icon-32 {
       height: 32px;
       width: 32px;
-
       margin-left: 24px;
       margin-right: 8px;
-
       vertical-align: middle;
     }
 
-    .value {
-      width: 28px;
-      height: 32px;
-      font-size: 24px;
-      font-weight: bold;
-      line-height: 1.33;
-      color: #df911e;
-
+    span.svg-icon.inline.icon-24 {
+      height: 24px;
+      width: 24px;
+      margin-right: 8px;
       vertical-align: middle;
+    }
+
+    span.svg-icon.inline.icon-20 {
+      height: 20px;
+      width: 20px;
+      margin-right: 4px;
+      vertical-align: middle;
+    }
+
+    span.svg-icon.inline.icon-16 {
+      height: 16px;
+      width: 16px;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+
+  .item-cost {
+    padding-bottom: 16px;
+    }
+
+    .cost {
+      height: 40px;
+      font-size: 1.25rem;
+      font-weight: bold;
+      line-height: 1.4;
+      vertical-align: middle;
+
+      &.gold {
+        color: $gold-color;
+        border-radius: 20px;
+        padding: 8px 20px 8px 20px;
+        margin-top: 16px;
+        margin-bottom: 16px;
+        background-color: rgba(255, 190, 93, 0.15);
+      }
+    }
+
+    .total {
+      font-size: 0.825rem;
+      line-height: 1.71;
+      font-weight: bold;
+
+      &.gold {
+        color: $gold-color;
+      }
+    }
+
+    .total-text {
+      font-size: 0.825rem;
+      line-height: 1.71;
+      font-weight: bold;
+      height: 24px;
+      width: 37px;
+      padding-right: 4px;
     }
 
     button.btn.btn-primary {

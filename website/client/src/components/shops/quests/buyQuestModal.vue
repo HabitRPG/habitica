@@ -33,6 +33,22 @@
           v-if="!item.locked"
           class="purchase-amount"
         >
+          <div class="item-cost">
+            <span
+              class="cost"
+              :class="priceType"
+            >
+              <span
+                class="svg-icon inline icon-24"
+                aria-hidden="true"
+                v-html="icons[priceType]"
+              >
+              </span>
+              <span
+                :class="priceType"
+              >{{ item.value }}</span>
+            </span>
+          </div>
           <div class="how-many-to-buy">
             <strong>{{ $t('howManyToBuy') }}</strong>
           </div>
@@ -42,24 +58,25 @@
           >
             {{ item.addlNotes }}
           </div>
-          <div class="box">
-            <input
-              v-model.number="selectedAmountToBuy"
-              class="form-control"
-              type="number"
-              min="0"
-              step="1"
-            >
+          <div>
+            <number-increment
+              @updateQuantity="selectedAmountToBuy = $event"
+            />
           </div>
-          <span
-            class="svg-icon inline icon-32"
-            aria-hidden="true"
-            v-html="currencyIcon"
-          ></span>
-          <span
-            class="value"
-            :class="priceType"
-          >{{ item.value }}</span>
+          <div>
+            <span class="total-text">
+              {{ $t('sendTotal') }}
+            </span>
+            <span
+              class="svg-icon inline icon-20"
+              aria-hidden="true"
+              v-html="currencyIcon"
+            ></span>
+            <span
+              class="total"
+              :class="priceType"
+            >{{ item.value * selectedAmountToBuy }}</span>
+          </div>
         </div>
         <button
           v-if="priceType === 'gems'
@@ -152,13 +169,6 @@
       height: 100%;
     }
 
-    span.svg-icon.inline.icon-32 {
-      height: 32px;
-      width: 32px;
-      margin-right: 8px;
-      vertical-align: middle;
-    }
-
     button.btn.btn-primary {
       margin-top: 24px;
       margin-bottom: 24px;
@@ -198,28 +208,115 @@
         margin-bottom: 16px;
       }
 
-      .box {
-        display: inline-block;
-        width: 74px;
-        height: 40px;
-        border-radius: 2px;
-        background-color: #ffffff;
-        box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
-        margin-right: 24px;
-
-        input {
-          width: 100%;
-          border: none;
+      .item-cost {
+        padding-bottom: 16px;
         }
 
-        input::-webkit-contacts-auto-fill-button {
-          visibility: hidden;
-          display: none !important;
-          pointer-events: none;
-          position: absolute;
-          right: 0;
+        .cost {
+          height: 40px;
+          font-size: 1.25rem;
+          font-weight: bold;
+          line-height: 1.4;
+          vertical-align: middle;
+
+          &.gems {
+            color: $gems-color;
+            border-radius: 20px;
+            padding: 8px 20px 8px 20px;
+            margin-top: 16px;
+            margin-bottom: 16px;
+            background-color: rgba(36, 204, 143, 0.15);
+          }
+
+          &.gold {
+            color: $gold-color;
+            border-radius: 20px;
+            padding: 8px 20px 8px 20px;
+            margin-top: 16px;
+            margin-bottom: 16px;
+            background-color: rgba(255, 190, 93, 0.15);
+          }
+
+          &.hourglasses {
+            color: $hourglass-color;
+            border-radius: 20px;
+            padding: 8px 20px 8px 20px;
+            margin-top: 16px;
+            margin-bottom: 16px;
+            background-color: rgba(41, 149, 205, 0.15);
+      }
+        }
+
+      .total {
+        font-size: 0.825rem;
+        line-height: 1.71;
+        font-weight: bold;
+
+        &.gold {
+          color: $gold-color;
+        }
+
+        &.gems {
+          color: $gems-color;
+        }
+
+        & .hourglasses {
+          color: $hourglass-color;
         }
       }
+
+      .total-text {
+        font-size: 0.825rem;
+        line-height: 1.71;
+        font-weight: bold;
+        height: 24px;
+        width: 37px;
+        padding-right: 4px;
+      }
+
+  span.svg-icon.inline.icon-20 {
+      height: 20px;
+      width: 20px;
+      margin-right: 4px;
+      vertical-align: middle;
+    }
+
+  span.svg-icon.inline.icon-24 {
+    height: 24px;
+    width: 24px;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+
+  span.svg-icon.inline.icon-32 {
+    height: 32px;
+    width: 32px;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+
+      // .box {
+      //   display: inline-block;
+      //   width: 74px;
+      //   height: 40px;
+      //   border-radius: 2px;
+      //   background-color: #ffffff;
+      //   box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+      //   margin-right: 24px;
+
+      //   input {
+      //     width: 100%;
+      //     border: none;
+      //   }
+
+      //   input::-webkit-contacts-auto-fill-button {
+      //     visibility: hidden;
+      //     display: none !important;
+      //     pointer-events: none;
+      //     position: absolute;
+      //     right: 0;
+      //   }
+      // }
     }
 
     @media only screen and (max-width: 1000px) {
@@ -282,7 +379,7 @@ import buyMixin from '@/mixins/buy';
 import numberInvalid from '@/mixins/numberInvalid';
 import PinBadge from '@/components/ui/pinBadge';
 import CountdownBanner from '../countdownBanner';
-// import numberIncrement from '@/components/shared/numberIncrement';
+import numberIncrement from '@/components/shared/numberIncrement';
 
 import questDialogContent from './questDialogContent';
 import QuestRewards from './questRewards';
@@ -296,7 +393,7 @@ export default {
     PinBadge,
     questDialogContent,
     CountdownBanner,
-    // numberIncrement,
+    numberIncrement,
   },
   mixins: [buyMixin, currencyMixin, notifications, numberInvalid],
   props: {
