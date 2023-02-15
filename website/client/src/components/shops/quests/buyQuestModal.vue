@@ -273,6 +273,7 @@
         width: 37px;
         padding-right: 4px;
       }
+    }
 
   span.svg-icon.inline.icon-20 {
       height: 20px;
@@ -295,30 +296,6 @@
     vertical-align: middle;
   }
 
-      // .box {
-      //   display: inline-block;
-      //   width: 74px;
-      //   height: 40px;
-      //   border-radius: 2px;
-      //   background-color: #ffffff;
-      //   box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
-      //   margin-right: 24px;
-
-      //   input {
-      //     width: 100%;
-      //     border: none;
-      //   }
-
-      //   input::-webkit-contacts-auto-fill-button {
-      //     visibility: hidden;
-      //     display: none !important;
-      //     pointer-events: none;
-      //     position: absolute;
-      //     right: 0;
-      //   }
-      // }
-    }
-
     @media only screen and (max-width: 1000px) {
       .modal-dialog {
         max-width: 80%;
@@ -333,7 +310,7 @@
   }
 </style>
 
-<style lang="scss" scoped>
+<!-- <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
 
   .value {
@@ -357,7 +334,7 @@
       color: $hourglass-color;
     }
   }
-</style>
+</style> -->
 
 <script>
 import moment from 'moment';
@@ -414,9 +391,9 @@ export default {
         clock: svgClock,
         close: svgClose,
         experience: svgExperience,
-        gem: svgGem,
+        gems: svgGem,
         gold: svgGold,
-        hourglass: svgHourglasses,
+        hourglasses: svgHourglasses,
         positive: svgPositive,
         negative: svgNegative,
       }),
@@ -443,8 +420,8 @@ export default {
     },
     currencyIcon () {
       if (this.priceType === 'gold') return this.icons.gold;
-      if (this.priceType === 'hourglasses') return this.icons.hourglass;
-      return this.icons.gem;
+      if (this.priceType === 'hourglasses') return this.icons.hourglasses;
+      return this.icons.gems;
     },
     endDate () {
       return moment(this.item.event.end);
