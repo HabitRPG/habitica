@@ -593,7 +593,6 @@
     a:not(.dropdown-item) {
       font-size: 12px;
       line-height: 1.33;
-      color: $blue-10;
     }
 
     .modal-dialog.modal-sm {

@@ -127,10 +127,6 @@
     padding-top: 0.25rem;
     z-index: 9;
     height: 24px;
-
-    .blue-10 {
-      color: $blue-10;
-    }
   }
 
   .completion-row {

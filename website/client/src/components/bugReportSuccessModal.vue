@@ -107,7 +107,6 @@ label {
 }
 
 .cancel-link {
-  color: $blue-10;
   line-height: 1.71;
 }
 

@@ -377,11 +377,9 @@
 
       .members-invited {
         min-height: 1rem;
-        color: $blue-10;
         margin: 0;
 
         &:hover, &:focus {
-          color: $blue-10;
           text-decoration: underline;
         }
       }
