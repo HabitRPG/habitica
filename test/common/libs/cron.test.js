@@ -215,6 +215,7 @@ describe('cron utility functions', () => {
 
     it('monthly plan, next date in 3 months', () => {
       const user = baseUserData(60, 0, 'group_plan_auto');
+      user.purchased.plan.perkMonthCount = 0;
 
       const planContext = getPlanContext(user, now);
 
