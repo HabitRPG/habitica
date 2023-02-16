@@ -62,8 +62,13 @@ const premium = {
     value: 2,
     text: t('hatchingPotionCupid'),
     limited: true,
+    event: EVENTS.potions202302,
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndFebruary'),
+      previousDate: t('februaryYYYY', { year: 2022 }),
+    }),
     canBuy () {
-      return moment().isBefore('2022-02-28T20:00-05:00');
+      return moment().isBetween(EVENTS.potions202302.start, EVENTS.potions202302.end);
     },
   },
   Shimmer: {
@@ -278,8 +283,13 @@ const premium = {
     value: 2,
     text: t('hatchingPotionRoseQuartz'),
     limited: true,
+    event: EVENTS.potions202302,
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndFebruary'),
+      previousDate: t('februaryYYYY', { year: 2022 }),
+    }),
     canBuy () {
-      return moment().isBefore('2022-02-28T20:00-05:00');
+      return moment().isBetween(EVENTS.potions202302.start, EVENTS.potions202302.end);
     },
   },
   Celestial: {
@@ -540,6 +550,13 @@ const premium = {
     canBuy () {
       return moment().isBetween(EVENTS.birthday10.start, EVENTS.birthday10.end);
     },
+  },
+  PinkMarble: {
+    value: 2,
+    text: t('hatchingPotionPinkMarble'),
+    limited: true,
+    canBuy: hasQuestAchievementFunction('pinkMarble'),
+    _addlNotes: t('premiumPotionUnlimitedNotes'),
   },
 };
 
