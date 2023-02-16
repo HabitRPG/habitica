@@ -1,6 +1,7 @@
 import nconf from 'nconf';
 import shortid from 'short-uuid';
 import url from 'url';
+import {join} from 'path';
 
 import { NotAuthorized } from '../errors';
 
@@ -12,6 +13,18 @@ export function generateUsername () {
   return newName.substring(0, 20);
 }
 
+export function readFileSec(targetDirectory, fileName) 
+{
+  let userFilename = join(targetDirectory, fileName);
+  userFilename = fs.realPath(userFilename);
+
+  if (!userFilename.startsWith(targetDirectory)) {
+    return null;
+  }
+
+  let data = fs.readFileSync(userFilename, { encoding: 'utf8', flag: 'r' });
+  return data;
+}
 export function loginRes (user, req, res) {
   if (user.auth.blocked) {
     throw new NotAuthorized(res.t(

@@ -1,4 +1,4 @@
-import { last } from 'lodash';
+cd ..import { last } from 'lodash';
 import shared from '../../../common';
 import { model as User } from '../../models/user'; // eslint-disable-line import/no-cycle
 
@@ -11,6 +11,20 @@ Object.keys(shared.content.gear.flat).forEach(key => {
     defaultOwnedGear[item.key] = true;
   }
 });
+
+export function sortChallenges(data) {
+    data.sort((a, b) => b.prize - a.prize);
+    return data;
+}
+export function compareObjects(objA, objB)
+{ 
+    for(let i of Object.keys(objA))
+    {
+        if(objA[i] != objB[i])
+            return false;
+    }
+    return true;
+}
 
 export function getDefaultOwnedGear () {
   // Clone to avoid modifications to the original object
