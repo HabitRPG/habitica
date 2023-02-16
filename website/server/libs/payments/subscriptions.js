@@ -13,7 +13,6 @@ import { // eslint-disable-line import/no-cycle
   model as Group,
   basicFields as basicGroupFields,
 } from '../../models/group';
-import { model as User } from '../../models/user'; // eslint-disable-line import/no-cycle
 import {
   NotAuthorized,
   NotFound,

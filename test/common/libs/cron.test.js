@@ -251,7 +251,6 @@ describe('cron utility functions', () => {
         .to.be.sameMoment('2022-07-10T02:00:00.144Z');
     });
 
-
     it('multi-month plan with perk count', () => {
       const user = baseUserData(60, 1, 'basic_3mo');
       user.purchased.plan.perkMonthCount = 2;
