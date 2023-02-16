@@ -279,6 +279,8 @@ export async function cron (options = {}) {
 
   if (user.isSubscribed()) {
     await grantEndOfTheMonthPerks(user, now);
+  } if (!user.isSubscribed() && user.purchased.plan.perkMonthCount > 0) {
+    user.purchased.plan.perkMonthCount = 0;
   }
 
   const { plan } = user.purchased;
