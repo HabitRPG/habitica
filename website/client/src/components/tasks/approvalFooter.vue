@@ -81,7 +81,6 @@
           </span>
           <a
             v-if="assignedUsersCount > 1 && !showStatus"
-            class="blue-10"
             @click="showStatus = !showStatus"
           >
             {{ $t('viewStatus') }}
