@@ -59,91 +59,6 @@
       </div>
     </div>
     <div class="col-sm-6">
-      <h2>{{ $t('registration') }}</h2>
-      <div class="panel-body">
-        <div>
-          <ul class="list-inline">
-            <li
-              v-for="network in SOCIAL_AUTH_NETWORKS"
-              :key="network.key"
-            >
-              <button
-                v-if="!user.auth[network.key].id && network.key !== 'facebook'"
-                class="btn btn-primary mb-2"
-                @click="socialAuth(network.key, user)"
-              >
-                {{ $t('registerWithSocial', {network: network.name}) }}
-              </button>
-              <button
-                v-if="!hasBackupAuthOption(network.key) && user.auth[network.key].id"
-                class="btn btn-primary mb-2"
-                disabled="disabled"
-              >
-                {{ $t('registeredWithSocial', {network: network.name}) }}
-              </button>
-              <button
-                v-if="hasBackupAuthOption(network.key) && user.auth[network.key].id"
-                class="btn btn-danger"
-                @click="deleteSocialAuth(network)"
-              >
-                {{ $t('detachSocial', {network: network.name}) }}
-              </button>
-            </li>
-          </ul>
-          <hr>
-          <div v-if="!user.auth.local.has_password">
-            <h5 v-if="!user.auth.local.email">
-              {{ $t('addLocalAuth') }}
-            </h5>
-            <h5 v-if="user.auth.local.email">
-              {{ $t('addPasswordAuth') }}
-            </h5>
-            <div
-              class="form"
-              name="localAuth"
-              novalidate="novalidate"
-            >
-              <div
-                v-if="!user.auth.local.email"
-                class="form-group"
-              >
-                <input
-                  v-model="localAuth.email"
-                  class="form-control"
-                  type="text"
-                  :placeholder="$t('email')"
-                  required="required"
-                >
-              </div>
-              <div class="form-group">
-                <input
-                  v-model="localAuth.password"
-                  class="form-control"
-                  type="password"
-                  :placeholder="$t('password')"
-                  required="required"
-                >
-              </div>
-              <div class="form-group">
-                <input
-                  v-model="localAuth.confirmPassword"
-                  class="form-control"
-                  type="password"
-                  :placeholder="$t('confirmPass')"
-                  required="required"
-                >
-              </div>
-              <button
-                class="btn btn-primary"
-                type="submit"
-                @click="addLocalAuth()"
-              >
-                {{ $t('submit') }}
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </template>
@@ -176,7 +91,6 @@ import axios from 'axios';
 import { mapState } from '@/libs/store';
 import { SUPPORTED_SOCIAL_NETWORKS } from '@/../../common/script/constants';
 import notificationsMixin from '../../mixins/notifications';
-import { buildAppleAuthUrl } from '../../libs/auth';
 
 export default {
   components: {
@@ -187,8 +101,6 @@ export default {
       SOCIAL_AUTH_NETWORKS: [],
       party: {},
       // Made available by the server as a script
-      availableFormats: ['MM/dd/yyyy', 'dd/MM/yyyy', 'yyyy/MM/dd'],
-      passwordUpdates: {},
       localAuth: {
         password: '',
         confirmPassword: '',
@@ -198,15 +110,8 @@ export default {
   computed: {
     ...mapState({
       user: 'user.data',
-      availableLanguages: 'i18n.availableLanguages',
       content: 'content',
     }),
-    availableAudioThemes () {
-      return ['off', ...this.content.audioThemes];
-    },
-    hasClass () {
-      return this.$store.getters['members:hasClass'](this.user);
-    },
   },
   mounted () {
     this.SOCIAL_AUTH_NETWORKS = SUPPORTED_SOCIAL_NETWORKS;
@@ -225,7 +130,7 @@ export default {
       redirect_uri: '', // eslint-disable-line
     });
 
-    const focusID = this.$route.query.focus;
+    const focusID = this.$route.query.focus; // ... what is this needed for?
     if (focusID !== undefined && focusID !== null) {
       this.$nextTick(() => {
         const element = document.getElementById(focusID);
@@ -259,21 +164,7 @@ export default {
       // User.set({'flags.showTour':true});
       // Guide.goto('intro', 0, true);
     },
-    hasBackupAuthOption (networkKeyToCheck) {
-      if (this.user.auth.local.username) {
-        return true;
-      }
 
-      return this.SOCIAL_AUTH_NETWORKS.find(network => {
-        if (network.key !== networkKeyToCheck) {
-          if (this.user.auth[network.key]) {
-            return !!this.user.auth[network.key].id;
-          }
-        }
-
-        return false;
-      });
-    },
     async changeUser (attribute, updates) {
       await axios.put(`/api/v4/user/auth/update-${attribute}`, updates);
       if (attribute === 'password') {
@@ -286,29 +177,8 @@ export default {
         });
       }
     },
-    async deleteSocialAuth (network) {
-      await axios.delete(`/api/v4/user/auth/social/${network.key}`);
-      this.user.auth[network.key] = {};
-      this.text(this.$t('detachedSocial', { network: network.name }));
-    },
-    async socialAuth (network) {
-      if (network === 'apple') {
-        window.location.href = buildAppleAuthUrl();
-      } else {
-        const auth = await hello(network).login({ scope: 'email' });
-        await this.$store.dispatch('auth:socialAuth', {
-          auth,
-        });
-        window.location.href = '/';
-      }
-    },
-    async addLocalAuth () {
-      if (this.localAuth.email === '') {
-        this.localAuth.email = this.user.auth.local.email;
-      }
-      await axios.post('/api/v4/user/auth/local/register', this.localAuth);
-      window.location.href = '/user/settings/site';
-    },
+
+
   },
 };
 </script>

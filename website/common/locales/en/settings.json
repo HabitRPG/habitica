@@ -237,7 +237,6 @@
     "transaction_gift_receive": "<b>Received</b> from",
     "transaction_create_challenge": "<b>Created</b> challenge",
     "transaction_create_bank_challenge": "<b>Created</b> bank challenge",
-    "transaction_create_bank_challenge": "Created bank challenge",
     "transaction_create_guild": "<b>Created</b> guild",
     "transaction_change_class": "<b>Class</b> change",
     "transaction_rebirth": "Used Orb of Rebirth",
@@ -246,5 +245,8 @@
     "transaction_reroll": "Used Fortify Potion",
     "transaction_subscription_perks": "<b>Subscription</b> perk",
     "transaction_admin_update_balance": "<b>Admin</b> given",
-    "transaction_admin_update_hourglasses": "<b>Admin</b> updated"
+    "transaction_admin_update_hourglasses": "<b>Admin</b> updated",
+    "connected": "Connected",
+    "connect": "Connect",
+    "remove": "Remove"
 }

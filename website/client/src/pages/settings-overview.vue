@@ -141,6 +141,14 @@
           text-decoration: underline;
         }
       }
+
+      .remove-link {
+        color: $maroon-50 !important;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
     }
   }
 </style>

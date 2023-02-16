@@ -30,11 +30,7 @@
       </h2>
 
       <table class="table">
-        <tr>
-          <td colspan="3">
-            TODO
-          </td>
-        </tr>
+        <LoginMethods />
         <tr>
           <td colspan="3">
           </td>
@@ -74,10 +70,16 @@
 </template>
 
 <style lang="scss" scoped>
- .standard-page {
-    padding-left: 0;
-    padding-right: 0;
-  }
+@import '~@/assets/scss/colors.scss';
+
+.standard-page {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.table {
+  color: $gray-50;
+}
 </style>
 
 <script>
@@ -95,9 +97,11 @@ import DayStartAdjustmentSetting from './inlineSettings/dayStartAdjustmentSettin
 import AudioThemeSetting from '@/pages/settings/inlineSettings/audioThemeSetting.vue';
 import ClassSetting from '@/pages/settings/inlineSettings/classSetting.vue';
 import FixValuesSetting from '@/pages/settings/inlineSettings/fixValuesSetting.vue';
+import LoginMethods from '@/pages/settings/inlineSettings/loginMethods.vue';
 
 export default {
   components: {
+    LoginMethods,
     FixValuesSetting,
     ClassSetting,
     AudioThemeSetting,
