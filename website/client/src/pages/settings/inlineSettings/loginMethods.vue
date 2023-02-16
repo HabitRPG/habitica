@@ -174,8 +174,6 @@ export default {
   mounted () {
     this.SOCIAL_AUTH_NETWORKS = SUPPORTED_SOCIAL_NETWORKS;
 
-    console.info(this.SOCIAL_AUTH_NETWORKS);
-
     // @TODO: We may need to request the party here
     this.party = this.$store.state.party;
     this.soundIndex = 0;
