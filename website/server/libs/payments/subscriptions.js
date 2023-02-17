@@ -255,7 +255,7 @@ async function createSubscription (data) {
   // Block sub perks
   if (months > 0 && (!data.gift || !isNewSubscription)) {
     if (!data.gift && !groupId) {
-      plan.consecutive.offset = months;
+      plan.consecutive.offset = block.months;
     }
     await plan.incrementPerkCounterAndReward(recipient._id, months);
   }

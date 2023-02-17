@@ -505,11 +505,26 @@ describe('payments/index', () => {
         expect(user.purchased.plan.perkMonthCount).to.eql(2);
       });
 
-      it('sets plan.perkMonthCount to zero when creating new subscription', async () => {
+      it('sets plan.perkMonthCount to zero when creating new monthly subscription', async () => {
         user.purchased.plan.perkMonthCount = 2;
         await api.createSubscription(data);
         expect(user.purchased.plan.perkMonthCount).to.eql(0);
       });
+
+      it('sets plan.perkMonthCount to zero when creating new 3 month subscription', async () => {
+        user.purchased.plan.perkMonthCount = 2;
+        await api.createSubscription(data);
+        expect(user.purchased.plan.perkMonthCount).to.eql(0);
+      });
+
+      it('updates plan.consecutive.offset when changing subscription type', async () => {
+        await api.createSubscription(data);
+        expect(user.purchased.plan.consecutive.offset).to.eql(3);
+        data.sub.key = "basic_6mo";
+        await api.createSubscription(data);
+        expect(user.purchased.plan.consecutive.offset).to.eql(6);
+      });
+
 
       it('awards the Royal Purple Jackalope pet', async () => {
         await api.createSubscription(data);
