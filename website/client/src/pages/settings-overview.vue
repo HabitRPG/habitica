@@ -181,11 +181,11 @@ export default {
       }),
       tabs: [
         'general',
-        'site',
+        'subscription',
+        'siteData',
         'api',
         'dataExport',
         'promoCode',
-        'subscription',
         'transactions',
         'notifications',
       ],

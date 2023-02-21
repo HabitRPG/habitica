@@ -77,6 +77,28 @@
           </td>
         </tr>
       </table>
+
+      <br>
+      <br>
+      <div>
+        TODO: this was only visible when party.memberCount is 1
+        <div
+          class="checkbox"
+        >
+          <label>
+            <input
+              v-model="user.preferences.displayInviteToPartyWhenPartyIs1"
+              type="checkbox"
+              class="mr-2"
+              @change="setUserPreference('displayInviteToPartyWhenPartyIs1')"
+            >
+            <span
+              v-b-popover.hover.right="$t('displayInviteToPartyWhenPartyIs1')"
+              class="hint"
+            >{{ $t('displayInviteToPartyWhenPartyIs1') }}</span>
+          </label>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -111,6 +133,8 @@ import ClassSetting from '@/pages/settings/inlineSettings/classSetting.vue';
 import FixValuesSetting from '@/pages/settings/inlineSettings/fixValuesSetting.vue';
 import LoginMethods from '@/pages/settings/inlineSettings/loginMethods.vue';
 import TaskSettings from '@/pages/settings/inlineSettings/taskSettings.vue';
+import { GenericUserPreferencesMixin } from '@/pages/settings/components/genericUserPreferencesMixin';
+import { mapState } from '@/libs/store';
 
 export default {
   components: {
@@ -129,7 +153,12 @@ export default {
     UserEmailSetting,
     UserNameSetting,
   },
-  mixins: [notificationsMixin],
+  mixins: [notificationsMixin, GenericUserPreferencesMixin],
+  computed: {
+    ...mapState({
+      user: 'user.data',
+    }),
+  },
   beforeRouteLeave (_, __, next) {
     sharedInlineSettingStore.markAsClosed();
     next();

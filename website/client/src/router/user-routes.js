@@ -13,11 +13,12 @@ const GeneralSettings = () => import(/* webpackChunkName: "settings" */'@/pages/
 const Notifications = () => import(/* webpackChunkName: "settings" */'@/pages/settings/notificationSettings');
 const Transactions = () => import(/* webpackChunkName: "settings" */'@/pages/settings/purchaseHistory.vue');
 
+const SiteData = () => import(/* webpackChunkName: "settings" */'@/pages/settings/siteData.vue');
+
 // not converted yet
 const API = () => import(/* webpackChunkName: "settings" */'@/components/settings/api');
 const DataExport = () => import(/* webpackChunkName: "settings" */'@/components/settings/dataExport');
 const PromoCode = () => import(/* webpackChunkName: "settings" */'@/components/settings/promoCode');
-const Site = () => import(/* webpackChunkName: "settings" */'@/components/settings/site');
 const Subscription = () => import(/* webpackChunkName: "settings" */'@/components/settings/subscription');
 
 
@@ -39,9 +40,9 @@ export const USER_ROUTES = {
           component: GeneralSettings,
         },
         {
-          name: 'site',
-          path: 'site',
-          component: Site,
+          name: 'siteData',
+          path: 'siteData',
+          component: SiteData,
         },
         {
           name: 'api',
