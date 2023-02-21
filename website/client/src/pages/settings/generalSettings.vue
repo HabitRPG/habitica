@@ -65,6 +65,18 @@
           </td>
         </tr>
       </table>
+
+      <h2 v-once>
+        {{ $t('taskSettings') }}
+      </h2>
+
+      <table class="table">
+        <task-settings />
+        <tr>
+          <td colspan="3">
+          </td>
+        </tr>
+      </table>
     </div>
   </div>
 </template>
@@ -98,9 +110,11 @@ import AudioThemeSetting from '@/pages/settings/inlineSettings/audioThemeSetting
 import ClassSetting from '@/pages/settings/inlineSettings/classSetting.vue';
 import FixValuesSetting from '@/pages/settings/inlineSettings/fixValuesSetting.vue';
 import LoginMethods from '@/pages/settings/inlineSettings/loginMethods.vue';
+import TaskSettings from '@/pages/settings/inlineSettings/taskSettings.vue';
 
 export default {
   components: {
+    TaskSettings,
     LoginMethods,
     FixValuesSetting,
     ClassSetting,

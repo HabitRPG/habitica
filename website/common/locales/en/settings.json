@@ -1,6 +1,8 @@
 {
     "settings": "Settings",
     "generalSettings": "General Settings",
+    "siteData": "Site Data",
+    "taskSettings": "Task Settings",
     "confirmCancelChanges": "Are you sure? You will lose your unsaved changes.",
     "account": "Account",
     "loginMethods": "Login Methods",

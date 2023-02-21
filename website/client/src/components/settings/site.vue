@@ -1,42 +1,10 @@
 <template>
   <div class="row standard-page">
     <h1 class="col-12">
-      {{ $t('settings') }}
+      {{ $t('settings') }} - to be removed once all settings found a new place
     </h1>
     <div class="col-sm-6">
       <div>
-        <div class="checkbox">
-          <label>
-            <input
-              v-model="user.preferences.advancedCollapsed"
-              type="checkbox"
-              class="mr-2"
-              @change="set('advancedCollapsed')"
-            >
-            <span
-              class="hint"
-              popover-trigger="mouseenter"
-              popover-placement="right"
-              :popover="$t('startAdvCollapsedPop')"
-            >{{ $t('startAdvCollapsed') }}</span>
-          </label>
-        </div>
-        <div class="checkbox">
-          <label>
-            <input
-              v-model="user.preferences.dailyDueDefaultView"
-              type="checkbox"
-              class="mr-2"
-              @change="set('dailyDueDefaultView')"
-            >
-            <span
-              class="hint"
-              popover-trigger="mouseenter"
-              popover-placement="right"
-              :popover="$t('dailyDueDefaultViewPop')"
-            >{{ $t('dailyDueDefaultView') }}</span>
-          </label>
-        </div>
         <div
           v-if="party.memberCount === 1"
           class="checkbox"
@@ -86,10 +54,7 @@
 </style>
 
 <script>
-import hello from 'hellojs';
-import axios from 'axios';
 import { mapState } from '@/libs/store';
-import { SUPPORTED_SOCIAL_NETWORKS } from '@/../../common/script/constants';
 import notificationsMixin from '../../mixins/notifications';
 
 export default {
@@ -98,7 +63,6 @@ export default {
   mixins: [notificationsMixin],
   data () {
     return {
-      SOCIAL_AUTH_NETWORKS: [],
       party: {},
       // Made available by the server as a script
       localAuth: {
@@ -114,21 +78,13 @@ export default {
     }),
   },
   mounted () {
-    this.SOCIAL_AUTH_NETWORKS = SUPPORTED_SOCIAL_NETWORKS;
     // @TODO: We may need to request the party here
     this.party = this.$store.state.party;
-    this.soundIndex = 0;
 
     this.$store.dispatch('common:setTitle', {
       section: this.$t('settings'),
     });
 
-    hello.init({
-      facebook: process.env.FACEBOOK_KEY, // eslint-disable-line no-process-env
-      google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line no-process-env
-    }, {
-      redirect_uri: '', // eslint-disable-line
-    });
 
     const focusID = this.$route.query.focus; // ... what is this needed for?
     if (focusID !== undefined && focusID !== null) {
@@ -150,35 +106,6 @@ export default {
       }
       return this.$store.dispatch('user:set', settings);
     },
-    hideHeader () {
-      this.set('hideHeader');
-      if (!this.user.preferences.hideHeader || !this.user.preferences.stickyHeader) return;
-      this.user.preferences.hideHeader = false;
-      this.set('stickyHeader');
-    },
-    toggleStickyHeader () {
-      this.set('stickyHeader');
-    },
-    showTour  () {
-      // @TODO: Do we still use this?
-      // User.set({'flags.showTour':true});
-      // Guide.goto('intro', 0, true);
-    },
-
-    async changeUser (attribute, updates) {
-      await axios.put(`/api/v4/user/auth/update-${attribute}`, updates);
-      if (attribute === 'password') {
-        this.passwordUpdates = {};
-        this.$store.dispatch('snackbars:add', {
-          title: 'Habitica',
-          text: this.$t('passwordSuccess'),
-          type: 'success',
-          timeout: true,
-        });
-      }
-    },
-
-
   },
 };
 </script>
