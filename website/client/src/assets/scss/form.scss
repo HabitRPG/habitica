@@ -412,15 +412,6 @@ $bg-color: $purple-400;
   margin-top: 0 !important;
 }
 
-a {
-  color: $blue-10;
-
-  &:hover, &:active, &:focus {
-    color: $blue-10;
-    text-decoration: underline;
-  }
-}
-
 // Disable default style Firefox for invalid elements.
 // Selectors taken from view-source:resource://gre-resources/forms.css on Firefox
 :not(output):-moz-ui-invalid {
