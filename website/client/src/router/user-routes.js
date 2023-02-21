@@ -11,6 +11,7 @@ export const ProfilePage = () => import(/* webpackChunkName: "user" */'@/compone
 const Settings = () => import(/* webpackChunkName: "settings" */'@/pages/settings-overview');
 const GeneralSettings = () => import(/* webpackChunkName: "settings" */'@/pages/settings/generalSettings');
 const Notifications = () => import(/* webpackChunkName: "settings" */'@/pages/settings/notificationSettings');
+const Transactions = () => import(/* webpackChunkName: "settings" */'@/pages/settings/purchaseHistory.vue');
 
 // not converted yet
 const API = () => import(/* webpackChunkName: "settings" */'@/components/settings/api');
@@ -18,7 +19,6 @@ const DataExport = () => import(/* webpackChunkName: "settings" */'@/components/
 const PromoCode = () => import(/* webpackChunkName: "settings" */'@/components/settings/promoCode');
 const Site = () => import(/* webpackChunkName: "settings" */'@/components/settings/site');
 const Subscription = () => import(/* webpackChunkName: "settings" */'@/components/settings/subscription');
-const Transactions = () => import(/* webpackChunkName: "settings" */'@/components/settings/purchaseHistory');
 
 
 export const USER_ROUTES = {
