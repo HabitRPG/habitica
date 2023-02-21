@@ -40,8 +40,11 @@
       >
       </div>
     </div>
-    <div class="col-12 d-flex justify-content-center">
-      <div :class="{'settings-content': applyNarrowView}">
+    <div
+      class="col-12 d-flex "
+      :class="{'justify-content-center': applyNarrowView}"
+    >
+      <div :class="{'settings-content': applyNarrowView, 'full-width-content': !applyNarrowView}">
         <router-view />
       </div>
     </div>
@@ -76,6 +79,12 @@
 
   .svg-gifts {
     width: 3.5rem;
+  }
+
+  .full-width-content {
+    width: 100%;
+    margin-left: 10%;
+    margin-right: 10%;
   }
 
   .settings-content {
