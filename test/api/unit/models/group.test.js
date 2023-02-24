@@ -1359,6 +1359,7 @@ describe('Group Model', () => {
     describe('#sendChat', () => {
       beforeEach(() => {
         sandbox.spy(User, 'update');
+        sandbox.spy(User, 'updateMany');
       });
 
       it('formats message', () => {
