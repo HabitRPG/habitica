@@ -582,7 +582,10 @@ schema.methods.sendChat = function sendChat (options = {}) {
 
   // Kick off chat notifications in the background.
 
-  const query = {};
+  const query = {
+    _id: { $ne: user ? user._id : '' },
+    'notifications.data.group.id': { $ne: this._id },
+  };
 
   if (this.type === 'party') {
     query['party._id'] = this._id;
@@ -590,16 +593,7 @@ schema.methods.sendChat = function sendChat (options = {}) {
     query.guilds = this._id;
   }
 
-  query._id = { $ne: user ? user._id : '' };
-
-  // First remove the old notification (if it exists)
-  const lastSeenUpdateRemoveOld = {
-    $pull: {
-      notifications: { type: 'NEW_CHAT_MESSAGE', 'data.group.id': this._id },
-    },
-  };
-
-  // Then add the new notification
+  // Add the new notification
   const lastSeenUpdateAddNew = {
     $set: { // old notification, supported until mobile is updated and we release api v4
       [`newMessages.${this._id}`]: { name: this.name, value: true },
@@ -613,9 +607,7 @@ schema.methods.sendChat = function sendChat (options = {}) {
   };
 
   User
-    .updateMany(query, lastSeenUpdateRemoveOld)
-    .exec()
-    .then(() => User.updateMany(query, lastSeenUpdateAddNew).exec())
+    .updateMany(query, lastSeenUpdateAddNew).exec()
     .catch(err => logger.error(err));
 
   if (this.type === 'party' && user) {
