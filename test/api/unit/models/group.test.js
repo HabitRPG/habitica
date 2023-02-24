@@ -1413,8 +1413,8 @@ describe('Group Model', () => {
       it('updates users about new messages in party', () => {
         party.sendChat({ message: 'message' });
 
-        expect(User.update).to.be.calledOnce;
-        expect(User.update).to.be.calledWithMatch({
+        expect(User.updateMany).to.be.calledOnce;
+        expect(User.updateMany).to.be.calledWithMatch({
           'party._id': party._id,
           _id: { $ne: '' },
         });
@@ -1427,8 +1427,8 @@ describe('Group Model', () => {
 
         group.sendChat({ message: 'message' });
 
-        expect(User.update).to.be.calledOnce;
-        expect(User.update).to.be.calledWithMatch({
+        expect(User.updateMany).to.be.calledOnce;
+        expect(User.updateMany).to.be.calledWithMatch({
           guilds: group._id,
           _id: { $ne: '' },
         });
@@ -1437,8 +1437,8 @@ describe('Group Model', () => {
       it('does not send update to user that sent the message', () => {
         party.sendChat({ message: 'message', user: { _id: 'user-id', profile: { name: 'user' } } });
 
-        expect(User.update).to.be.calledOnce;
-        expect(User.update).to.be.calledWithMatch({
+        expect(User.updateMany).to.be.calledOnce;
+        expect(User.updateMany).to.be.calledWithMatch({
           'party._id': party._id,
           _id: { $ne: 'user-id' },
         });
