@@ -477,7 +477,6 @@ describe('cron', async () => {
       });
 
       it('increments consecutive benefits the month after the third paid period has started', async () => {
-        console.log(user3.purchased.plan);
         clock = sinon.useFakeTimers(moment().utcOffset(0).startOf('month').add(7, 'months')
           .add(2, 'days')
           .toDate());

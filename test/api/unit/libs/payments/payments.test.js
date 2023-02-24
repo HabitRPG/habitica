@@ -520,11 +520,10 @@ describe('payments/index', () => {
       it('updates plan.consecutive.offset when changing subscription type', async () => {
         await api.createSubscription(data);
         expect(user.purchased.plan.consecutive.offset).to.eql(3);
-        data.sub.key = "basic_6mo";
+        data.sub.key = 'basic_6mo';
         await api.createSubscription(data);
         expect(user.purchased.plan.consecutive.offset).to.eql(6);
       });
-
 
       it('awards the Royal Purple Jackalope pet', async () => {
         await api.createSubscription(data);
