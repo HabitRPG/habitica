@@ -127,14 +127,18 @@ api.subscribe = async function subscribe (user, receipt, headers, nextPaymentPro
       }
     }
     const existingUsers = await User.find({
-      'purchased.plan.customerId': purchase.originalTransactionId,
+      $or: [
+        { 'purchased.plan.customerId': purchase.originalTransactionId },
+        { 'purchased.plan.customerId': purchase.transactionId },
+      ]
+
     }).exec();
     if (existingUsers.length > 0) {
       if (purchase.originalTransactionId === purchase.transactionId) {
         throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
       }
       for (const existingUser of existingUsers) {
-        if (existingUser._id !== user._id && !existingUser.purchased.plan.dateTerminated) {
+        if (existingUser._id !== user._id) {
           throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
         }
       }
