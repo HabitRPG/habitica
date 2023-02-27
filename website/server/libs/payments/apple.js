@@ -130,8 +130,7 @@ api.subscribe = async function subscribe (user, receipt, headers, nextPaymentPro
       $or: [
         { 'purchased.plan.customerId': purchase.originalTransactionId },
         { 'purchased.plan.customerId': purchase.transactionId },
-      ]
-
+      ],
     }).exec();
     if (existingUsers.length > 0) {
       if (purchase.originalTransactionId === purchase.transactionId) {
