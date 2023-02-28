@@ -137,7 +137,7 @@ api.subscribe = async function subscribe (user, receipt, headers, nextPaymentPro
         throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
       }
       for (const existingUser of existingUsers) {
-        if (existingUser._id !== user._id) {
+        if (existingUser._id !== user._id && !existingUser.purchased.plan.dateTerminated) {
           throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
         }
       }
