@@ -149,7 +149,7 @@
       <li>
         {{ $t('commGuideList10A') }}
         <ul>
-          <li>{{ $t('commGuideList10A1') }}</li>
+          <li v-html="$t('commGuideList10A1')"></li>
         </ul>
       </li>
       <li v-html="$t('commGuideList10D')"></li>

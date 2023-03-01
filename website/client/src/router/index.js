@@ -272,6 +272,11 @@ const router = new VueRouter({
               name: 'transactions',
               path: 'transactions',
               component: Transactions,
+              meta: {
+                privilegeNeeded: [
+                  'userSupport',
+                ],
+              },
             },
             {
               name: 'notifications',
@@ -316,11 +321,6 @@ const router = new VueRouter({
         {
           name: 'front', path: 'front', component: HomePage, meta: { requiresLogin: false },
         },
-        // Commenting out merch page see
-        // https://github.com/HabitRPG/habitica/issues/12039
-        // {
-        //   name: 'merch', path: 'merch', component: MerchPage, meta: { requiresLogin: false },
-        // },
         {
           name: 'news', path: 'new-stuff', component: NewsPage, meta: { requiresLogin: false },
         },
