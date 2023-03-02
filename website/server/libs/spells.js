@@ -74,12 +74,13 @@ async function castSelfSpell (req, user, spell, quantity = 1) {
   await user.save();
 }
 
-async function castPartySpell (req, party, partyMembers, user, spell, quantity = 1) {
+async function getPartyMembers (user, party) {
+  let partyMembers;
   if (!party) {
     // Act as solo party
-    partyMembers = [user]; // eslint-disable-line no-param-reassign
+    partyMembers = [user];
   } else {
-    partyMembers = await User // eslint-disable-line no-param-reassign
+    partyMembers = await User
       .find({
         'party._id': party._id,
         _id: { $ne: user._id }, // add separately
@@ -89,22 +90,34 @@ async function castPartySpell (req, party, partyMembers, user, spell, quantity =
 
     partyMembers.unshift(user);
   }
-
-  for (let i = 0; i < quantity; i += 1) {
-    spell.cast(user, partyMembers, req);
-  }
-  await Promise.all(partyMembers.map(m => m.save()));
-
   return partyMembers;
 }
 
-async function castUserSpell (res, req, party, partyMembers, targetId, user, spell, quantity = 1) {
+async function castPartySpell (req, party, user, spell, quantity = 1) {
+  let partyMembers;
+  if (spell.bulk) {
+    const data = { query: { 'party._id': party._id } };
+    spell.cast(user, data);
+    await User.updateMany(data.query, data.update);
+    partyMembers = getPartyMembers(user, party);
+  } else {
+    partyMembers = getPartyMembers(user, party);
+    for (let i = 0; i < quantity; i += 1) {
+      spell.cast(user, partyMembers, req);
+    }
+    await Promise.all(partyMembers.map(m => m.save()));
+  }
+  return partyMembers;
+}
+
+async function castUserSpell (res, req, party, targetId, user, spell, quantity = 1) {
+  let partyMembers;
   if (!party && (!targetId || user._id === targetId)) {
-    partyMembers = user; // eslint-disable-line no-param-reassign
+    partyMembers = user;
   } else {
     if (!targetId) throw new BadRequest(res.t('targetIdUUID'));
     if (!party) throw new NotFound(res.t('partyNotFound'));
-    partyMembers = await User // eslint-disable-line no-param-reassign
+    partyMembers = await User
       .findOne({ _id: targetId, 'party._id': party._id })
       .select(partyMembersFields)
       .exec();
@@ -195,10 +208,10 @@ async function castSpell (req, res, { isV3 = false }) {
     let partyMembers;
 
     if (targetType === 'party') {
-      partyMembers = await castPartySpell(req, party, partyMembers, user, spell, quantity);
+      partyMembers = await castPartySpell(req, party, user, spell, quantity);
     } else {
       partyMembers = await castUserSpell(
-        res, req, party, partyMembers,
+        res, req, party,
         targetId, user, spell, quantity,
       );
     }
