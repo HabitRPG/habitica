@@ -106,6 +106,7 @@
               >{{ item.value }}</span>
             </span>
           </div>
+
           <div
             v-if="showAmountToBuy(item)"
             class="how-many-to-buy"
