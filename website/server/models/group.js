@@ -267,10 +267,13 @@ schema.statics.getGroup = async function getGroup (options = {}) {
     if (groupId === user.party._id) {
       // reset party object to default state
       user.party = {};
+      await user.save();
     } else {
-      removeFromArray(user.guilds, groupId);
+      const item = removeFromArray(user.guilds, groupId);
+      if (item) {
+        await user.save();
+      } 
     }
-    await user.save();
   }
 
   return group;
