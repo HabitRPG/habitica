@@ -1430,6 +1430,8 @@
   "armorArmoireShawlCollarCoatNotes": "A wise wizard once said there’s nothing better than being both cozy and productive! Wear this warm and stylish coat as you conquer the year’s challenges. Increases Constitution by <%= con %>. Enchanted Armoire: Independent Item.",
   "armorArmoireTeaGownText": "Tea Party Gown",
   "armorArmoireTeaGownNotes": "You’re resilient, creative, brilliant, and so fashionable! Increases Strength and Intelligence by <%= attrs %> each. Enchanted Armoire: Tea Party Set (Item 1 of 3).",  
+  "armorArmoireBasketballUniformText": "Basketball Uniform",
+  "armorArmoireBasketballUniformNotes": "Wondering what’s printed on the back of this uniform? It’s your lucky number, of course! Increases <% per %>. Enchanted Armoire: Old Timey Basketball Set (Item 1 of 2).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -2601,6 +2603,8 @@
   "shieldArmoireJewelersPliersNotes": "They cut, twist, pinch, and more. This tool can help you create whatever you can imagine. Increases Strength by <%= str %>. Enchanted Armoire: Jeweler Set (Item 3 of 4).",
   "shieldArmoireTeaKettleText": "Tea Kettle",
   "shieldArmoireTeaKettleNotes": "All your favorite, flavorful teas can be brewed in this kettle. Are you in the mood for black tea, green tea, oolong, or perhaps an herbal infusion? Increases Constitution by <%= con %>. Enchanted Armoire: Tea Party Set (Item 3 of 3).",
+  "shieldArmoireBasketballText": "Basketball",
+  "shieldArmoireBasketballNotes": "Swish! Whenever you shoot this magic basketball, there will be nothing but net. Increases Constitution by 5 and Strength by <%= attrs %>. Enchanted Armoire: Old Timey Basketball Set (Item 2 of 2).",  
 
   "back": "Back Accessory",
   "backBase0Text": "No Back Accessory",
