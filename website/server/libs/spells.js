@@ -11,9 +11,9 @@ import {
 } from '../models/group';
 import apiError from './apiError';
 
-const partyMembersFields = 'profile.name stats achievements items.special notifications flags pinnedItems';
+const partyMembersFields = 'profile.name stats notifications flags';
 // Excluding notifications and flags from the list of public fields to return.
-const partyMembersPublicFields = 'profile.name stats achievements items.special';
+const partyMembersPublicFields = 'profile.name stats';
 
 // @TODO: After refactoring individual spells, move quantity to the calculations
 
