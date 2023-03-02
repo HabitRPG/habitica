@@ -200,13 +200,13 @@ export async function update (req, res, { isV3 = false }) {
       // Remove from all the tasks
       // NOTE each tag to remove requires a query
 
-      promisesForTagsRemoval = removedTagsIds.map(tagId => Tasks.Task.update({
+      promisesForTagsRemoval = removedTagsIds.map(tagId => Tasks.Task.updateMany({
         userId: user._id,
       }, {
         $pull: {
           tags: tagId,
         },
-      }, { multi: true }).exec());
+      }).exec());
     } else if (key === 'flags.newStuff' && val === false) {
       // flags.newStuff was removed from the user schema and is only returned for compatibility
       // reasons but we're keeping the ability to set it in API v3

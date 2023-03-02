@@ -102,7 +102,7 @@ schema.methods.addToUser = async function addChallengeToUser (user) {
   // Add challenge to users challenges atomically (with a condition that checks that it
   // is not there already) to prevent multiple concurrent requests from passing through
   // see https://github.com/HabitRPG/habitica/issues/11295
-  const result = await User.update(
+  const result = await User.updateOne(
     {
       _id: user._id,
       challenges: { $nin: [this._id] },
@@ -249,7 +249,7 @@ async function _addTaskFn (challenge, tasks, memberId) {
     },
   };
   const updateUserParams = { ...updateTasksOrderQ, ...addToChallengeTagSet };
-  toSave.unshift(User.update({ _id: memberId }, updateUserParams).exec());
+  toSave.unshift(User.updateOne({ _id: memberId }, updateUserParams).exec());
 
   return Promise.all(toSave);
 }
@@ -278,11 +278,11 @@ schema.methods.updateTask = async function challengeUpdateTask (task) {
   const taskSchema = Tasks[task.type];
   // Updating instead of loading and saving for performances,
   // risks becoming a problem if we introduce more complexity in tasks
-  await taskSchema.update({
+  await taskSchema.updateMany({
     userId: { $exists: true },
     'challenge.id': challenge.id,
     'challenge.taskId': task._id,
-  }, updateCmd, { multi: true }).exec();
+  }, updateCmd).exec();
 };
 
 // Remove a task from challenge members
@@ -290,13 +290,13 @@ schema.methods.removeTask = async function challengeRemoveTask (task) {
   const challenge = this;
 
   // Set the task as broken
-  await Tasks.Task.update({
+  await Tasks.Task.updateMany({
     userId: { $exists: true },
     'challenge.id': challenge.id,
     'challenge.taskId': task._id,
   }, {
     $set: { 'challenge.broken': 'TASK_DELETED' },
-  }, { multi: true }).exec();
+  }).exec();
 };
 
 // Unlink challenges tasks (and the challenge itself) from user. TODO rename to 'leave'
@@ -311,9 +311,9 @@ schema.methods.unlinkTasks = async function challengeUnlinkTasks (user, keep, sa
   this.memberCount -= 1;
 
   if (keep === 'keep-all') {
-    await Tasks.Task.update(findQuery, {
+    await Tasks.Task.updateMany(findQuery, {
       $set: { challenge: {} },
-    }, { multi: true }).exec();
+    }).exec();
 
     const promises = [this.save()];
 
@@ -356,11 +356,11 @@ schema.methods.closeChal = async function closeChal (broken = {}) {
 
   // Refund the leader if the challenge is deleted (no winner chosen)
   if (brokenReason === 'CHALLENGE_DELETED') {
-    await User.update({ _id: challenge.leader }, { $inc: { balance: challenge.prize / 4 } }).exec();
+    await User.updateOne({ _id: challenge.leader }, { $inc: { balance: challenge.prize / 4 } }).exec();
   }
 
   // Update the challengeCount on the group
-  await Group.update({ _id: challenge.group }, { $inc: { challengeCount: -1 } }).exec();
+  await Group.updateOne({ _id: challenge.group }, { $inc: { challengeCount: -1 } }).exec();
 
   // Award prize to winner and notify
   if (winner) {
@@ -370,7 +370,7 @@ schema.methods.closeChal = async function closeChal (broken = {}) {
     // reimburse the leader
     const winnerCanGetGems = await winner.canGetGems();
     if (!winnerCanGetGems) {
-      await User.update(
+      await User.updateOne(
         { _id: challenge.leader },
         { $inc: { balance: challenge.prize / 4 } },
       ).exec();
@@ -408,22 +408,22 @@ schema.methods.closeChal = async function closeChal (broken = {}) {
     Tasks.Task.remove({ 'challenge.id': challenge._id, userId: { $exists: false } }).exec(),
     // Set the challenge tag to non-challenge status
     // and remove the challenge from the user's challenges
-    User.update({
+    User.updateMany({
       challenges: challenge._id,
       'tags.id': challenge._id,
     }, {
       $set: { 'tags.$.challenge': false },
       $pull: { challenges: challenge._id },
-    }, { multi: true }).exec(),
+    }).exec(),
     // Break users' tasks
-    Tasks.Task.update({
+    Tasks.Task.updateMany({
       'challenge.id': challenge._id,
     }, {
       $set: {
         'challenge.broken': brokenReason,
         'challenge.winner': winner && winner.profile.name,
       },
-    }, { multi: true }).exec(),
+    }).exec(),
   ];
 
   Promise.all(backgroundTasks);

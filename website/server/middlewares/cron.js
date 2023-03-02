@@ -16,7 +16,7 @@ async function checkForActiveCron (user, now) {
 
   // To avoid double cron we first set _cronSignature
   // and then check that it's not changed while processing
-  const userUpdateResult = await User.update({
+  const userUpdateResult = await User.updateOne({
     _id: user._id,
     $or: [ // Make sure last cron was successful or failed before cronRetryTime
       { _cronSignature: 'NOT_RUNNING' },
@@ -36,7 +36,7 @@ async function checkForActiveCron (user, now) {
 }
 
 async function updateLastCron (user, now) {
-  await User.update({
+  await User.updateOne({
     _id: user._id,
   }, {
     lastCron: now, // setting lastCron now so we don't risk re-running parts of cron if it fails
@@ -44,7 +44,7 @@ async function updateLastCron (user, now) {
 }
 
 async function unlockUser (user) {
-  await User.update({
+  await User.updateOne({
     _id: user._id,
   }, {
     _cronSignature: 'NOT_RUNNING',
@@ -125,7 +125,7 @@ async function cronAsync (req, res) {
     await Group.processQuestProgress(user, progress);
 
     // Set _cronSignature, lastCron and auth.timestamps.loggedin to signal end of cron
-    await User.update({
+    await User.updateOne({
       _id: user._id,
     }, {
       $set: {
@@ -153,7 +153,7 @@ async function cronAsync (req, res) {
       // For any other error make sure to reset _cronSignature
       // so that it doesn't prevent cron from running
       // at the next request
-      await User.update({
+      await User.updateOne({
         _id: user._id,
       }, {
         _cronSignature: 'NOT_RUNNING',
