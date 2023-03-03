@@ -46,6 +46,7 @@
     "csv": "(CSV)",
     "userData": "User Data",
     "exportUserData": "Export User Data:",
+    "useridCopied": "User ID copied to clipboard.",
     "export": "Export",
     "xml": "(XML)",
     "json": "(JSON)",
