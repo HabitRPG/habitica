@@ -540,6 +540,11 @@ const backgrounds = {
     snowy_temple: { },
     winter_lake_with_swans: { },
   },
+  backgrounds022023: {
+    in_front_of_fountain: { },
+    golden_birdcage: { },
+    fancy_bedroom: { },
+  },
   eventBackgrounds: {
     birthday_bash: {
       price: 0,

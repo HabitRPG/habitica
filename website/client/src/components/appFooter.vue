@@ -86,6 +86,13 @@
             >{{ $t('companyContribute') }}
             </a>
           </li>
+          <li>
+            <a
+              href="https://translate.habitica.com/"
+              target="_blank"
+            >{{ $t('translateHabitica') }}
+            </a>
+          </li>
         </ul>
       </div>
       <!-- Support -->
@@ -224,7 +231,7 @@
               ></div>
             </a><a
               class="social-circle"
-              href="https://www.tumblr.com/Habitica"
+              href="http://blog.habitrpg.com/"
               target="_blank"
             >
               <div
@@ -578,6 +585,7 @@ h3 {
   .text{
     display: inline-block;
     vertical-align: bottom;
+    text-overflow: hidden;
   }
 }
 
@@ -814,7 +822,7 @@ export default {
     ...mapState({ user: 'user.data' }),
     ...mapState(['isUserLoaded']),
     getDataDisplayToolUrl () {
-      const base = 'https://oldgods.net/habitrpg/habitrpg_user_data_display.html';
+      const base = 'https://tools.habitica.com/';
       if (!this.user) return null;
       return `${base}?uuid=${this.user._id}`;
     },

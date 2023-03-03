@@ -397,6 +397,7 @@
 </style>
 
 <script>
+import find from 'lodash/find';
 import _filter from 'lodash/filter';
 import _sortBy from 'lodash/sortBy';
 import _throttle from 'lodash/throttle';
@@ -512,7 +513,7 @@ export default {
       user: 'user.data',
       userStats: 'user.data.stats',
       userItems: 'user.data.items',
-      currentEvent: 'worldState.data.currentEvent',
+      currentEventList: 'worldState.data.currentEventList',
     }),
     shop () {
       return shops.getQuestShop(this.user);
@@ -536,15 +537,16 @@ export default {
       return Object.values(this.viewOptions).some(g => g.selected);
     },
     imageURLs () {
-      if (!this.currentEvent || !this.currentEvent.season) {
+      const currentEvent = find(this.currentEventList, event => Boolean(event.season));
+      if (!currentEvent) {
         return {
           background: 'url(/static/npc/normal/quest_shop_background.png)',
           npc: 'url(/static/npc/normal/quest_shop_npc.png)',
         };
       }
       return {
-        background: `url(/static/npc/${this.currentEvent.season}/quest_shop_background.png)`,
-        npc: `url(/static/npc/${this.currentEvent.season}/quest_shop_npc.png)`,
+        background: `url(/static/npc/${currentEvent.season}/quest_shop_background.png)`,
+        npc: `url(/static/npc/${currentEvent.season}/quest_shop_npc.png)`,
       };
     },
   },

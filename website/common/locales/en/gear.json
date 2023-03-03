@@ -438,8 +438,8 @@
   "headSpecialNye2021Text": "Preposterous Party Hat",
   "headSpecialNye2021Notes": "You've received a Preposterous Party Hat! Wear it with pride while ringing in the New Year! Confers no benefit.",
 
-  "headSpecialNye2022Text": "Fantastic Party Hat",
-  "headSpecialNye2022Notes": "You've received a Fantastic Party Hat! Wear it with pride while ringing in the New Year! Confers no benefit.",
+  "headSpecialNye2022Text": "Fabulous Party Hat",
+  "headSpecialNye2022Notes": "You've received a Fabulous Party Hat! Wear it with pride while ringing in the New Year! Confers no benefit.",
 
   "weaponSpecialSpring2022RogueText": "Giant Earring Stud",
   "weaponSpecialSpring2022RogueNotes": "A shiny! It’s so shiny and gleaming and pretty and nice and all yours! Increases Strength by <%= str %>. Limited Edition 2022 Spring Gear.",
@@ -460,7 +460,7 @@
   "weaponSpecialFall2022HealerNotes": "To claim victory, hold it forth and utter the words of command: 'Eye One!' Increases Intelligence by <%= int %>. Limited Edition 2022 Fall Gear.",
 
   "weaponSpecialWinter2023RogueText": "Green Satin Sash",
-  "weaponSpecialWinter2023RogueNotes": "Legends tell of Rogues who snare their opponents' weapons, disarm them, then gift the item back just to be cute. Incrases Strength by <%= str %>. Limited Edition 2022-2023 Winter Gear.",
+  "weaponSpecialWinter2023RogueNotes": "Legends tell of Rogues who snare their opponents' weapons, disarm them, then gift the item back just to be cute. Increases Strength by <%= str %>. Limited Edition 2022-2023 Winter Gear.",
   "weaponSpecialWinter2023WarriorText": "Tusk Spear",
   "weaponSpecialWinter2023WarriorNotes": "The two prongs of this spear are shaped like walrus tusks but are twice as powerful. Jab at doubts and at silly poems until they back off! Increases Strength by <%= str %>. Limited Edition 2022-2023 Winter Gear.",
   "weaponSpecialWinter2023MageText": "Foxfire",
@@ -1428,7 +1428,9 @@
   "armorArmoireJewelersApronNotes": "This heavy-duty apron is just the thing to wear when you feel creative. Best of all, there are dozens of small pockets to hold everything you need. Increases Intelligence by <%= int %>. Enchanted Armoire: Jeweler Set (Item 1 of 4).", 
   "armorArmoireShawlCollarCoatText": "Shawl-Collar Coat",
   "armorArmoireShawlCollarCoatNotes": "A wise wizard once said there’s nothing better than being both cozy and productive! Wear this warm and stylish coat as you conquer the year’s challenges. Increases Constitution by <%= con %>. Enchanted Armoire: Independent Item.",
-  
+  "armorArmoireTeaGownText": "Tea Party Gown",
+  "armorArmoireTeaGownNotes": "You’re resilient, creative, brilliant, and so fashionable! Increases Strength and Intelligence by <%= attrs %> each. Enchanted Armoire: Tea Party Set (Item 1 of 3).",  
+
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
 
@@ -2014,6 +2016,8 @@
   "headMystery202211Notes": "Be careful with this powerful hat, its effect on admirers can be quite shocking! Confers no benefit. November 2022 Subscriber Item.",
   "headMystery202301Text": "Valiant Vulpine Ears",
   "headMystery202301Notes": "Your hearing will be so sharp you'll hear the dawn breaking and the dew sparkling. Confers no benefit. January 2023 Subscriber Item.",  
+  "headMystery202303Text": "Mane Character Hair",
+  "headMystery202303Notes": "What better way to let everyone know you’re the star of this tale than to have blue and improbably spiky hair? Confers no benefit. March 2023 Subscriber Item.",  
   "headMystery301404Text": "Fancy Top Hat",
   "headMystery301404Notes": "A fancy top hat for the finest of gentlefolk! January 3015 Subscriber Item. Confers no benefit.",
   "headMystery301405Text": "Basic Top Hat",
@@ -2189,6 +2193,8 @@
   "headArmoireStrawRainHatNotes": "You’ll be able to spot every obstacle in your path when you wear this water-resistant, conical hat. Increases Perception by <%= per %>. Enchanted Armoire: Straw Raincoat Set (Item 2 of 2).",
   "headArmoireFancyPirateHatText": "Fancy Pirate Hat",
   "headArmoireFancyPirateHatNotes": "Be protected from the sun and any seagulls flying overhead as you drink tea on the deck of your ship. Increases Perception by <%= per %>. Enchanted Armoire: Fancy Pirate Set (Item 2 of 3).",
+  "headArmoireTeaHatText": "Tea Party Hat",
+  "headArmoireTeaHatNotes": "This elegant hat is both fancy and functional. Increases Perception by <%= per %>. Enchanted Armoire: Tea Party Set (Item 2 of 3).",
 
   "offhand": "off-hand item",
   "offHandCapitalized": "Off-Hand Item",
@@ -2595,7 +2601,8 @@
   "shieldArmoireBubblingCauldronNotes": "The perfect cauldron for brewing up a productivity potion or cooking a savory soup. In fact, there is little difference between the two! Increases Constitution by <%= con %>. Enchanted Armoire: Cooking Implements Set (Item 2 of 2).",
   "shieldArmoireJewelersPliersText": "Jeweler's Pliers",
   "shieldArmoireJewelersPliersNotes": "They cut, twist, pinch, and more. This tool can help you create whatever you can imagine. Increases Strength by <%= str %>. Enchanted Armoire: Jeweler Set (Item 3 of 4).",
-
+  "shieldArmoireTeaKettleText": "Tea Kettle",
+  "shieldArmoireTeaKettleNotes": "All your favorite, flavorful teas can be brewed in this kettle. Are you in the mood for black tea, green tea, oolong, or perhaps an herbal infusion? Increases Constitution by <%= con %>. Enchanted Armoire: Tea Party Set (Item 3 of 3).",
 
   "back": "Back Accessory",
   "backBase0Text": "No Back Accessory",
@@ -2663,7 +2670,9 @@
   "backMystery202206Text": "Sea Sprite Wings",
   "backMystery202206Notes": "Whimsical wings made of water and waves! Confers no benefit. June 2022 Subscriber Item.",
   "backMystery202301Text": "Five Tails of Valor",
-  "backMystery202301Notes": "These fluffy tails contain ethereal power and also a high level of charm! Confers no benefit. January 2023 Subscriber Item.",  
+  "backMystery202301Notes": "These fluffy tails contain ethereal power and also a high level of charm! Confers no benefit. January 2023 Subscriber Item.",
+  "backMystery202302Text": "Trickster Tabby Tail",
+  "backMystery202302Notes": "Anytime you wear this tail it's sure to be a frabjous day! Callooh! Callay! Confers no benefit. February 2023 Subscriber Item.",
 
   "backSpecialWonderconRedText": "Mighty Cape",
   "backSpecialWonderconRedNotes": "Swishes with strength and beauty. Confers no benefit. Special Edition Convention Item.",
@@ -2873,6 +2882,8 @@
   "headAccessoryMystery202205Notes": "These dazzling horns are as bright as a desert sunset. Confers no benefit. May 2022 Subscriber Item.",
   "headAccessoryMystery202212Text": "Glacial Tiara",
   "headAccessoryMystery202212Notes": "Magnify your warmth and friendship to new heights with this ornate golden tiara. Confers no benefit. December 2022 Subscriber Item.",
+  "headAccessoryMystery202302Text": "Trickster Tabby Ears",
+  "headAccessoryMystery202302Notes": "The purr-fect accessory to set off your enchanting grin. Confers no benefit. February 2023 Subscriber Item.",
   "headAccessoryMystery301405Text": "Headwear Goggles",
   "headAccessoryMystery301405Notes": "\"Goggles are for your eyes,\" they said. \"Nobody wants goggles that you can only wear on your head,\" they said. Hah! You sure showed them! Confers no benefit. August 3015 Subscriber Item.",
 
@@ -2961,6 +2972,8 @@
   "eyewearMystery202204BNotes": "What's your mood today? Express yourself with these fun screens. Confers no benefit. April 2022 Subscriber Item.",
   "eyewearMystery202208Text": "Sparkly Eyes",
   "eyewearMystery202208Notes": "Lull your enemies into a false sense of security with these terrifyingly cute peepers. Confers no benefit. August 2022 Subscriber Item.",
+  "eyewearMystery202303Text": "Dreamy Eyes",
+  "eyewearMystery202303Notes": "Let your nonchalant expression lure your enemies into a false sense of security. Confers no benefit. March 2023 Subscriber Item.",
   "eyewearMystery301404Text": "Eyewear Goggles",
   "eyewearMystery301404Notes": "No eyewear could be fancier than a pair of goggles - except, perhaps, for a monocle. Confers no benefit. April 3015 Subscriber Item.",
   "eyewearMystery301405Text": "Monocle",
