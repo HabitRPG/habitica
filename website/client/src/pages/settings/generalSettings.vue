@@ -118,21 +118,21 @@
 
 <script>
 import notificationsMixin from '../../mixins/notifications';
-import UserNameSetting from './inlineSettings/userNameSetting';
-import UserEmailSetting from './inlineSettings/userEmailSetting';
-import DisplayNameSetting from './inlineSettings/displayNameSetting';
-import PasswordSetting from './inlineSettings/passwordSetting';
-import ResetAccount from './inlineSettings/resetAccount';
-import DeleteAccount from './inlineSettings/deleteAccount';
+import UserNameSetting from './settingRows/userNameSetting';
+import UserEmailSetting from './settingRows/userEmailSetting';
+import DisplayNameSetting from './settingRows/displayNameSetting';
+import PasswordSetting from './settingRows/passwordSetting';
+import ResetAccount from './settingRows/resetAccount';
+import DeleteAccount from './settingRows/deleteAccount';
 import { sharedInlineSettingStore } from './components/inlineSettingMixin';
-import LanguageSetting from './inlineSettings/languageSetting';
-import DateFormatSetting from './inlineSettings/dateFormatSetting';
-import DayStartAdjustmentSetting from './inlineSettings/dayStartAdjustmentSetting.vue';
-import AudioThemeSetting from '@/pages/settings/inlineSettings/audioThemeSetting.vue';
-import ClassSetting from '@/pages/settings/inlineSettings/classSetting.vue';
-import FixValuesSetting from '@/pages/settings/inlineSettings/fixValuesSetting.vue';
-import LoginMethods from '@/pages/settings/inlineSettings/loginMethods.vue';
-import TaskSettings from '@/pages/settings/inlineSettings/taskSettings.vue';
+import LanguageSetting from './settingRows/languageSetting';
+import DateFormatSetting from './settingRows/dateFormatSetting';
+import DayStartAdjustmentSetting from './settingRows/dayStartAdjustmentSetting.vue';
+import AudioThemeSetting from '@/pages/settings/settingRows/audioThemeSetting.vue';
+import ClassSetting from '@/pages/settings/settingRows/classSetting.vue';
+import FixValuesSetting from '@/pages/settings/settingRows/fixValuesSetting.vue';
+import LoginMethods from '@/pages/settings/settingRows/loginMethods.vue';
+import TaskSettings from '@/pages/settings/settingRows/taskSettings.vue';
 import { GenericUserPreferencesMixin } from '@/pages/settings/components/genericUserPreferencesMixin';
 import { mapState } from '@/libs/store';
 

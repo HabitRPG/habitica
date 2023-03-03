@@ -56,7 +56,7 @@
       >{{ $t('achievements') }}</a>
       <router-link
         class="topbar-dropdown-item dropdown-item"
-        :to="{name: 'site'}"
+        :to="{name: 'general'}"
       >
         {{ $t('settings') }}
       </router-link>

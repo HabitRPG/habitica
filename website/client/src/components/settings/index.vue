@@ -3,11 +3,11 @@
     <secondary-menu class="col-12">
       <router-link
         class="nav-link"
-        :to="{name: 'site'}"
+        :to="{name: 'siteData'}"
         exact="exact"
-        :class="{'active': $route.name === 'site'}"
+        :class="{'active': $route.name === 'siteData'}"
       >
-        {{ $t('site') }}
+        {{ $t('siteData') }}
       </router-link>
       <router-link
         class="nav-link"
