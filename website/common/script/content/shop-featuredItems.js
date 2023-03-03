@@ -5,7 +5,7 @@ import { EVENTS } from './constants';
 // path: 'premiumHatchingPotions.Rainbow',
 const featuredItems = {
   market () {
-    if (moment().isBetween(EVENTS.potions202302.start, EVENTS.potions202302.end)) {
+    if (moment().isBetween(EVENTS.spring2023.start, EVENTS.spring2023.end)) {
       return [
         {
           type: 'armoire',
@@ -13,15 +13,15 @@ const featuredItems = {
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.RoseQuartz',
+          path: 'premiumHatchingPotions.PolkaDot',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Cupid',
+          path: 'premiumHatchingPotions.BirchBark',
         },
         {
-          type: 'hatchingPotions',
-          path: 'hatchingPotions.CottonCandyPink',
+          type: 'premiumHatchingPotion',
+          path: 'premiumHatchingPotions.Rainbow',
         },
       ];
     }
@@ -32,51 +32,51 @@ const featuredItems = {
       },
       {
         type: 'food',
-        path: 'food.RottenMeat',
+        path: 'food.Honey',
       },
       {
         type: 'hatchingPotions',
-        path: 'hatchingPotions.CottonCandyBlue',
+        path: 'hatchingPotions.Golden',
       },
       {
         type: 'eggs',
-        path: 'eggs.FlyingPig',
+        path: 'eggs.Dragon',
       },
     ];
   },
-  quests () {
-    if (moment().isBetween(EVENTS.bundle202302.start, EVENTS.bundle202302.end)) {
+  quests () { // start date is 3/28
+    if (moment().isBetween('2023-03-03T08:00-05:00', EVENTS.spring2023.end)) {
       return [
         {
-          type: 'bundles',
-          path: 'bundles.mythicalMarvels',
+          type: 'quests',
+          path: 'quests.egg',
         },
         {
           type: 'quests',
-          path: 'quests.treeling',
+          path: 'quests.yarn',
         },
         {
           type: 'quests',
-          path: 'quests.rock',
+          path: 'quests.ghost_stag',
         },
       ];
     }
     return [
       {
         type: 'quests',
-        path: 'quests.slime',
+        path: 'quests.rat',
       },
       {
         type: 'quests',
-        path: 'quests.seaserpent',
+        path: 'quests.cuttlefish',
       },
       {
         type: 'quests',
-        path: 'quests.unicorn',
+        path: 'quests.nudibranch',
       },
     ];
   },
-  seasonal: 'winter2022Healer',
+  seasonal: 'spring2022Healer',
   timeTravelers: [
     // TODO
   ],
