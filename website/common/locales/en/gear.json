@@ -2606,7 +2606,7 @@
   "shieldArmoireTeaKettleText": "Tea Kettle",
   "shieldArmoireTeaKettleNotes": "All your favorite, flavorful teas can be brewed in this kettle. Are you in the mood for black tea, green tea, oolong, or perhaps an herbal infusion? Increases Constitution by <%= con %>. Enchanted Armoire: Tea Party Set (Item 3 of 3).",
   "shieldArmoireBasketballText": "Basketball",
-  "shieldArmoireBasketballNotes": "Swish! Whenever you shoot this magic basketball, there will be nothing but net. Increases Constitution by 5 and Strength by <%= attrs %>. Enchanted Armoire: Old Timey Basketball Set (Item 2 of 2).",  
+  "shieldArmoireBasketballNotes": "Swish! Whenever you shoot this magic basketball, there will be nothing but net. Increases Constitution and Strength by <%= attrs %> each. Enchanted Armoire: Old Timey Basketball Set (Item 2 of 2).",  
 
   "back": "Back Accessory",
   "backBase0Text": "No Back Accessory",
