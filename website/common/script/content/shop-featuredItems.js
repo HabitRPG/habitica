@@ -45,7 +45,23 @@ const featuredItems = {
     ];
   },
   quests () { // start date is 3/28
-    if (moment().isBetween('2023-03-03T08:00-05:00', EVENTS.spring2023.end)) {
+    if (moment().isBetween(EVENTS.bundle202303.start, EVENTS.bundle202303.end)) {
+      return [
+        {
+          type: 'bundles',
+          path: 'bundles.jungleBuddies',
+        },
+        {
+          type: 'quests',
+          path: 'quests.cuttlefish',
+        },
+        {
+          type: 'quests',
+          path: 'quests.nudibranch',
+        },
+      ];
+    }
+    if (moment().isBetween(EVENTS.eggHunt2023.start, EVENTS.eggHunt2023.end)) {
       return [
         {
           type: 'quests',
@@ -61,6 +77,7 @@ const featuredItems = {
         },
       ];
     }
+
     return [
       {
         type: 'quests',

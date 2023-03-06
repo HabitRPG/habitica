@@ -235,14 +235,15 @@ const bundles = {
   jungleBuddies: {
     key: 'jungleBuddies',
     text: t('jungleBuddiesText'),
-    notes: t('jungleBuddiesNotes', { date: moment('2020-05-31').format('LL') }),
+    notes: t('jungleBuddiesNotes', { date: moment('2023-03-31').format('LL') }),
     bundleKeys: [
       'monkey',
       'sloth',
       'treeling',
     ],
+    event: EVENTS.bundles202303,
     canBuy () {
-      return moment().isBetween('2020-05-19', '2020-06-02');
+      return moment().isBetween(EVENTS.bundles202303.start, EVENTS.bundles202303.end);
     },
     type: 'quests',
     value: 7,

@@ -15,12 +15,20 @@ export const EVENTS = {
     season: 'normal',
     npcImageSuffix: '',
   },
-  spring2023: { // start data is 3/21
-    start: '2023-03-03T08:00-05:00',
+  spring2023: {
+    start: '2023-03-21T08:00-05:00',
     end: '2023-04-30T23:59-05:00',
     npcImageSuffix: '_spring',
     season: 'spring',
     gear: true,
+  },
+  eggHunt2023: {
+    start: '2023-03-28T08:00-05:00',
+    end: '2023-04-30T23:59-05:00',
+  },
+  bundle202303: {
+    start: '2023-03-16T08:00-05:00',
+    end: '2023-03-31T23:59-05:00',
   },
   bundle202302: {
     start: '2023-02-13T08:00-05:00',

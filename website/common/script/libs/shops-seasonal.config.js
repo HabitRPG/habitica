@@ -34,8 +34,8 @@ export default {
       wizard: 'spring2023MoonstoneMageSet',
       healer: 'spring2023LilyHealerSet',
     }
-    : {}, // start date is 4/18
-  availableSpells: CURRENT_EVENT && moment().isBetween('2023-03-03T08:00-05:00', CURRENT_EVENT.end)
+    : {},
+  availableSpells: CURRENT_EVENT && moment().isBetween('2023-04-183T08:00-05:00', CURRENT_EVENT.end)
     ? [
       'shinySeed',
     ]
