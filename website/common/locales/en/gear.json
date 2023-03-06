@@ -1431,7 +1431,7 @@
   "armorArmoireTeaGownText": "Tea Party Gown",
   "armorArmoireTeaGownNotes": "You’re resilient, creative, brilliant, and so fashionable! Increases Strength and Intelligence by <%= attrs %> each. Enchanted Armoire: Tea Party Set (Item 1 of 3).",  
   "armorArmoireBasketballUniformText": "Basketball Uniform",
-  "armorArmoireBasketballUniformNotes": "Wondering what’s printed on the back of this uniform? It’s your lucky number, of course! Increases <% per %>. Enchanted Armoire: Old Timey Basketball Set (Item 1 of 2).",
+  "armorArmoireBasketballUniformNotes": "Wondering what’s printed on the back of this uniform? It’s your lucky number, of course! Increases Perception by <% per %>. Enchanted Armoire: Old Timey Basketball Set (Item 1 of 2).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
