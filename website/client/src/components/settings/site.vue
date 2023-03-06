@@ -8,7 +8,7 @@
     </h1>
     <div class="col-sm-6">
       <div class="sleep">
-        <h5>{{ $t('sleepHeader') }}</h5>
+        <h5>{{ $t('pauseDailies') }}</h5>
         <h4>{{ $t('sleepDescription') }}</h4>
         <ul>
           <li v-once>
