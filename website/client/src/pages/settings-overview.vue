@@ -184,7 +184,6 @@ export default {
         'subscription',
         'siteData',
         'api',
-        'dataExport',
         'promoCode',
         'transactions',
         'notifications',

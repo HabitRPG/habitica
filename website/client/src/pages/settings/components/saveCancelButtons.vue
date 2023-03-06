@@ -1,6 +1,7 @@
 <template>
   <div class="buttons">
     <button
+      v-if="!hideSave"
       class="btn btn-save"
       :class="primaryButtonColor ?? 'btn-primary'"
       type="submit"
@@ -22,7 +23,7 @@
 <script>
 export default {
   name: 'SaveCancelButtons',
-  props: ['disableSave', 'primaryButtonLabel', 'primaryButtonColor'],
+  props: ['hideSave', 'disableSave', 'primaryButtonLabel', 'primaryButtonColor'],
 };
 </script>
 
@@ -33,7 +34,6 @@ export default {
   display: flex;
   flex-direction: column;
 }
-
 
 .btn-save {
   margin-bottom: 1rem;

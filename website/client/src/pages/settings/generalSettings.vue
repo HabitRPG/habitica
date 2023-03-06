@@ -163,5 +163,11 @@ export default {
     sharedInlineSettingStore.markAsClosed();
     next();
   },
+  mounted () {
+    this.$store.dispatch('common:setTitle', {
+      section: this.$t('settings'),
+      subSection: this.$t('generalSettings'),
+    });
+  },
 };
 </script>

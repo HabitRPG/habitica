@@ -17,7 +17,6 @@ const SiteData = () => import(/* webpackChunkName: "settings" */'@/pages/setting
 
 // not converted yet
 const API = () => import(/* webpackChunkName: "settings" */'@/components/settings/api');
-const DataExport = () => import(/* webpackChunkName: "settings" */'@/components/settings/dataExport');
 const PromoCode = () => import(/* webpackChunkName: "settings" */'@/components/settings/promoCode');
 const Subscription = () => import(/* webpackChunkName: "settings" */'@/components/settings/subscription');
 
@@ -48,11 +47,6 @@ export const USER_ROUTES = {
           name: 'api',
           path: 'api',
           component: API,
-        },
-        {
-          name: 'dataExport',
-          path: 'data-export',
-          component: DataExport,
         },
         {
           name: 'promoCode',

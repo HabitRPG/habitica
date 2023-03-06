@@ -15,6 +15,20 @@
 
       <table class="table">
         <user-id-row />
+        <user-data-row />
+        <tr>
+          <td colspan="3">
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="col-12">
+      <h2 v-once>
+        {{ $t('api') }}
+      </h2>
+
+      <table class="table">
         <tr>
           <td colspan="3">
           </td>
@@ -26,10 +40,16 @@
 
 <script>
 import UserIdRow from '@/pages/settings/siteDataRows/userIdRow.vue';
+import UserDataRow from '@/pages/settings/siteDataRows/userDataRow.vue';
 
 export default {
-  components: { UserIdRow },
-
+  components: { UserDataRow, UserIdRow },
+  mounted () {
+    this.$store.dispatch('common:setTitle', {
+      section: this.$t('settings'),
+      subSection: this.$t('siteData'),
+    });
+  },
 };
 </script>
 
