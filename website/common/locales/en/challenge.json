@@ -96,5 +96,12 @@
   "confirmKeepChallengeTasks": "Do you want to keep challenge tasks?",
   "selectParticipant": "Select a Participant",
   "yourReward": "Your Reward",
-  "wonChallengeDesc": "<%= challengeName %> selected you as the winner! Your win has been recorded in your Achievements."
+  "wonChallengeDesc": "<%= challengeName %> selected you as the winner! Your win has been recorded in your Achievements.",
+  "messageChallengeFlagAlreadyReported": "You have already flagged this challenge.",
+  "flaggedNotHidden": "Challenge flagged once, not hidden",
+  "flaggedAndHidden": "Challenge flagged and hidden",
+  "resetFlagCount": "Reset Flag Count",
+  "whyReportingChallenge": "Why are you reporting this challenge?",
+  "whyReportingChallengePlaceholder": "Please help our moderators by letting us know why you are reporting this challenge for a violation, e.g., spam, swearing, religious oaths, bigotry, slurs, adult topics, violence.",
+  "abuseFlagModalBodyChallenge": "Are you sure you want to report this challenge? You should <strong>only</strong> report a challenge that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction."
 }

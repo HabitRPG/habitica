@@ -20,7 +20,6 @@ import csvStringify from '../../libs/csvStringify';
 import {
   createTasks,
 } from '../../libs/tasks';
-
 import {
   addUserJoinChallengeNotification,
   getChallengeGroupResponse,
@@ -29,8 +28,13 @@ import {
   createChallengeQuery,
 } from '../../libs/challenges';
 import apiError from '../../libs/apiError';
-
 import common from '../../../common';
+import {
+  clearFlags,
+  flagChallenge,
+  notifyOfFlaggedChallenge,
+} from '../../libs/challenges/reporting';
+
 
 const { MAX_SUMMARY_SIZE_FOR_CHALLENGES } = common.constants;
 
@@ -412,6 +416,15 @@ api.getUserChallenges = {
       $and: [{ $or: orOptions }],
     };
 
+    if (!user.contributor.admin) {
+      query.$and.push({
+        $or: [
+          { flagCount: { $lt: 2 } },
+          { flagCount: { $exists: false } }, // TODO: Remove after flagCount migration
+        ],
+      });
+    }
+
     const { owned } = req.query;
     if (owned) {
       if (owned === 'not_owned') {
@@ -492,7 +505,7 @@ api.getGroupChallenges = {
   url: '/challenges/groups/:groupId',
   middlewares: [authWithHeaders({
     // Some fields (including _id) are always loaded (see middlewares/auth)
-    userFieldsToInclude: ['party', 'guilds'], // Some fields are always loaded (see middlewares/auth)
+    userFieldsToInclude: ['party', 'guilds', 'contributor'], // Some fields are always loaded (see middlewares/auth)
   })],
   async handler (req, res) {
     const { user } = res.locals;
@@ -894,6 +907,76 @@ api.cloneChallenge = {
     const clonedTasks = await createTasks(taskRequest, res, { user, challenge: savedChal });
 
     res.respond(200, { clonedTasks, clonedChallenge: savedChal });
+  },
+};
+
+/**
+ * @api {post} /api/v3/challenges/:challengeId/flag Flag a challenge
+ * @apiName FlagChallenge
+ * @apiGroup Challenge
+ *
+ * @apiParam (Path) {UUID} challengeId The _id for the challenge to clone
+ * @apiParam (Body) {String} [comment] Why the message was flagged
+ *
+ * @apiSuccess {Object} data The flagged challenge message
+ *
+ * @apiUse ChallengeNotFound
+ */
+api.flagChallenge = {
+  method: 'POST',
+  url: '/challenges/:challengeId/flag',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    const { user } = res.locals;
+
+    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+
+    const validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    const challenge = await Challenge.findOne({ _id: req.params.challengeId }).exec();
+    if (!challenge) throw new NotFound(res.t('challengeNotFound'));
+
+    await flagChallenge(challenge, user, res);
+    await notifyOfFlaggedChallenge(challenge, user, req.body.comment);
+
+    res.respond(200, { challenge });
+  },
+};
+
+/**
+ * @api {post} /api/v3/challenges/:challengeId/clearflags Clears flags on a challenge
+ * @apiName ClearFlagsChallenge
+ * @apiGroup Challenge
+ *
+ * @apiParam (Path) {UUID} challengeId The _id for the challenge to clone
+ *
+ * @apiSuccess {Object} data The flagged challenge message
+ *
+ * @apiUse ChallengeNotFound
+ */
+api.clearFlagsChallenge = {
+  method: 'POST',
+  url: '/challenges/:challengeId/clearflags',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    const { user } = res.locals;
+
+    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+
+    const validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    if (!user.contributor.admin) {
+      throw new NotAuthorized(res.t('messageGroupChatAdminClearFlagCount'));
+    }
+
+    const challenge = await Challenge.findOne({ _id: req.params.challengeId }).exec();
+    if (!challenge) throw new NotFound(res.t('challengeNotFound'));
+
+    await clearFlags(challenge, user);
+
+    res.respond(200, { challenge });
   },
 };
 

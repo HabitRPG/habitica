@@ -1,5 +1,6 @@
 <template>
   <div class="row">
+    <report-challenge-modal />
     <challenge-modal @updatedChallenge="updatedChallenge" />
     <leave-challenge-modal
       :challenge-id="challenge._id"
@@ -201,6 +202,17 @@
           {{ $t('endChallenge') }}
         </button>
       </div>
+      <div
+        class="button-container"
+      >
+        <button
+          v-once
+          class="btn btn-danger"
+          @click="reportChallenge()"
+        >
+          {{ $t('report') }}
+        </button>
+      </div>
       <div>
         <sidebar-section :title="$t('challengeSummary')">
           <p v-markdown="challenge.summary"></p>
@@ -331,6 +343,7 @@ import challengeModal from './challengeModal';
 import challengeMemberProgressModal from './challengeMemberProgressModal';
 import challengeMemberSearchMixin from '@/mixins/challengeMemberSearch';
 import leaveChallengeModal from './leaveChallengeModal';
+import reportChallengeModal from './reportChallengeModal';
 import sidebarSection from '../sidebarSection';
 import userLink from '../userLink';
 import groupLink from '../groupLink';
@@ -349,6 +362,7 @@ export default {
   components: {
     closeChallengeModal,
     leaveChallengeModal,
+    reportChallengeModal,
     challengeModal,
     challengeMemberProgressModal,
     memberSearchDropdown,
@@ -581,6 +595,11 @@ export default {
     },
     cloneChallenge () {
       this.$root.$emit('habitica:clone-challenge', {
+        challenge: this.challenge,
+      });
+    },
+    reportChallenge () {
+      this.$root.$emit('habitica::report-challenge', {
         challenge: this.challenge,
       });
     },

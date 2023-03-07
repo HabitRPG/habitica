@@ -176,6 +176,41 @@ function sendInboxFlagNotification ({
     .catch(err => logger.error(err, 'Error while sending flag data to Slack.'));
 }
 
+function sendChallengeFlagNotification ({
+  flagger,
+  challenge,
+  userComment,
+}) {
+  if (SKIP_FLAG_METHODS) {
+    return;
+  }
+  const titleLink = `${BASE_URL}/challenges/${challenge.id}`;
+  const title = `Flag in challenge "${challenge.name}"`;
+  let text = `${flagger.profile.name} (${flagger.id}; language: ${flagger.preferences.language}) flagged a challenge`;
+  const footer = '';
+
+  if (userComment) {
+    text += ` and commented: ${userComment}`;
+  }
+
+  const challengeText = challenge.summary;
+
+  flagSlack.send({
+    text,
+    attachments: [{
+      fallback: 'Flag Message',
+      color: 'danger',
+      title,
+      title_link: titleLink,
+      text: challengeText,
+      footer,
+      mrkdwn_in: [
+        'text',
+      ],
+    }],
+  });
+}
+
 function sendSubscriptionNotification ({
   buyer,
   recipient,
@@ -302,6 +337,7 @@ function sendSlurNotification ({
 export {
   sendFlagNotification,
   sendInboxFlagNotification,
+  sendChallengeFlagNotification,
   sendSubscriptionNotification,
   sendShadowMutedPostNotification,
   sendSlurNotification,
