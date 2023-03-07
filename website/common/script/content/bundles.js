@@ -241,9 +241,9 @@ const bundles = {
       'sloth',
       'treeling',
     ],
-    event: EVENTS.bundles202303,
+    event: EVENTS.bundle202303,
     canBuy () {
-      return moment().isBetween(EVENTS.bundles202303.start, EVENTS.bundles202303.end);
+      return moment().isBetween(EVENTS.bundle202303.start, EVENTS.bundle202303.end);
     },
     type: 'quests',
     value: 7,

@@ -61,7 +61,7 @@ const featuredItems = {
         },
       ];
     }
-    if (moment().isBetween(EVENTS.eggHunt2023.start, EVENTS.eggHunt2023.end)) {
+    if (moment().isBetween('2023-03-28T08:00-05:00', EVENTS.spring2023.end)) {
       return [
         {
           type: 'quests',
