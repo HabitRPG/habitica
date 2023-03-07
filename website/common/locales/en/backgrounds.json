@@ -845,11 +845,11 @@
 
   "backgrounds012023": "SET 104: Released January 2023",
   "backgroundRimeIceText": "Rime Ice",
-  "backgroundRimeIceNotes": "Admire Sparkly Rime Ice.",
+  "backgroundRimeIceNotes": "Admire sparkly Rime Ice.",
   "backgroundSnowyTempleText": "Snowy Temple",
-  "backgroundSnowyTempleNotes": "View a Serene Snowy Temple.",
+  "backgroundSnowyTempleNotes": "View a serene Snowy Temple.",
   "backgroundWinterLakeWithSwansText": "Winter Lake With Swans",
-  "backgroundWinterLakeWithSwansNotes": "Enjoy Nature at a Winter Lake With Swans.",
+  "backgroundWinterLakeWithSwansNotes": "Enjoy nature at a Winter Lake With Swans.",
 
   "backgrounds022023": "SET 105: Released February 2023",
   "backgroundInFrontOfFountainText": "In Front of a Fountain",
@@ -858,6 +858,14 @@
   "backgroundGoldenBirdcageNotes": "Hide out in a Golden Birdcage.",
   "backgroundFancyBedroomText": "Fancy Bedroom",
   "backgroundFancyBedroomNotes": "Luxuriate in a Fancy Bedroom.",
+
+  "backgrounds032023": "SET 106: Released March 2023",
+  "backgroundOldTimeyBasketballCourtText": "Old Timey Basketball Court",
+  "backgroundOldTimeyBasketballCourtNotes": "Shoot hoops on an Old Timey BasketBall Court.",
+  "backgroundJungleWateringHoleText": "Jungle Watering Hole",
+  "backgroundJungleWateringHoleNotes": "Stop for a sip at a Jungle Watering Hole.",
+  "backgroundMangroveForestText": "Mangrove Forest",
+  "backgroundMangroveForestNotes": "Explore the edge of the Mangrove Forest.",
 
   "timeTravelBackgrounds": "Steampunk Backgrounds",
   "backgroundAirshipText": "Airship",

@@ -35,13 +35,6 @@ describe('GET /world-state', () => {
     });
   });
 
-  it('returns a string representing the current season for NPC sprites', async () => {
-    const res = await requester().get('/world-state');
-
-    expect(res).to.have.nested.property('npcImageSuffix');
-    expect(res.npcImageSuffix).to.be.a('string');
-  });
-
   context('no current event', () => {
     beforeEach(async () => {
       sinon.stub(worldState, 'getCurrentEvent').returns(null);

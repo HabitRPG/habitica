@@ -31,18 +31,18 @@ export const EVENTS = {
     end: '2023-03-31T23:59-05:00',
   },
   bundle202302: {
-    start: '2023-02-13T08:00-05:00',
+    start: '2023-02-21T08:00-05:00',
     end: '2023-02-28T23:59-05:00',
   },
   potions202302:{
-    start: '2023-02-21T08:00-05:00',
+    start: '2023-02-13T08:00-05:00',
     end: '2023-02-28T23:59-05:00',
   },
   valentines2023: {
     start: '2023-02-13T08:00-05:00',
     end: '2023-02-17T23:59-05:00',
     season: 'valentines',
-    npcImageSuffix: 'valentines',
+    npcImageSuffix: '_valentines',
   },
   birthday10: {
     start: '2023-01-30T08:00-05:00',
