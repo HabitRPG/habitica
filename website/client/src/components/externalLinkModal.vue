@@ -22,21 +22,26 @@
           v-html="icons.exclamation"
         ></div>
       </div>
-      <h2>You are about to leave Habitica.com</h2>
+      <h2>
+        {{ $t('leaveHabitica') }}
+      </h2>
     </div>
-    <div class="row">
-      Habitica is not responsible for the content of any linked
-      website that is not owned or operated by HabitRPG.
-      Please note that these websites' practices may differ
-      from Habitica’s community guidelines.
+
+    <!-- BODY -->
+    <div
+      class="row leave-warning-text"
+      v-html="$t('leaveHabiticaText')"
+    >
     </div>
+
+    <!-- FOOTER -->
     <div slot="modal-footer">
       <button
         v-once
         class="btn btn-primary"
-        @click="submit()"
+        @click="close()"
       >
-        {{ $t('onwards') }}
+        {{ $t('continue') }}
       </button>
     </div>
   </b-modal>
@@ -44,7 +49,32 @@
 
 <style lang="scss">
 @import '~@/assets/scss/colors.scss';
+
 #external-link-modal {
+  .modal-md {
+    max-width: 448px;
+    min-width: 330px;
+
+  .modal-close {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    cursor: pointer;
+
+    .icon-close {
+      width: 18px;
+      height: 18px;
+      vertical-align: middle;
+
+      & svg {
+        fill: $yellow-1;
+      }
+       & :hover {
+        fill: $yellow-1;
+      }
+    }
+  }
+
   .modal-content {
     background: transparent;
   }
@@ -58,10 +88,6 @@
     border-top-left-radius: 8px;
     border-bottom: none;
 
-    h2 {
-      color: $green-1;
-    }
-
     .exclamation-container {
       width: 64px;
       height: 64px;
@@ -72,43 +98,42 @@
     }
 
     .svg-exclamation {
-      width: 45px;
+      width: 8px;
       color: $white;
+    }
+
+    h2 {
+      color: $yellow-1;
+      // font-size: 1.25rem;
     }
   }
 
   .modal-body {
-    padding: 16px 32px 24px 32px;
+    padding: 16px 44px 20px 44px;
     background: $white;
 
-    .modal-body-col {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    .leave-warning-text {
+      font-size: 0.875rem;
+      line-height: 1.71;
       text-align: center;
-
-      .btn.btn-primary {
-        margin-top: 24px;
-      }
     }
+  }
 
-    .details-block {
-      background: $gray-700;
-      border-radius: 4px;
-      padding: 8px 16px;
-      margin-top: 16px;
-      display: inline-flex;
-      flex-direction: row;
-      text-align: center;
-      }
+    .modal-footer {
+      background: $white;
+      border-bottom-right-radius: 8px;
+      border-bottom-left-radius: 8px;
+      justify-content: center;
+      border-top: none;
+      padding-top: 0;
     }
   }
 }
 </style>
 
 <script>
-import exclamationIcon from '@assets/svg/exclamation.svg';
-import closeIcon from '@/assets/svg/close.svg';
+import exclamationIcon from '@/assets/svg/exclamation.svg';
+import closeIcon from '@/assets/svg/new-close.svg';
 
 export default {
   data () {
@@ -123,7 +148,7 @@ export default {
     close () {
       this.$root.$emit('bv::hide::modal', 'external-link-modal');
       console.log('Bye!');
-    }
+    },
   },
 };
 </script>
