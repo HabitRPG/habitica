@@ -407,23 +407,20 @@ api.getUserChallenges = {
     orOptions.push({ leader: user._id });
 
     if (!req.query.member) {
-      orOptions.push({
-        group: { $in: user.getGroups() },
-      }); // Challenges in groups where I'm a member
+      const memberQuery = {
+        $and: [
+          { group: { $in: user.getGroups() } },
+        ],
+      };
+      if (!user.contributor.admin) {
+        memberQuery.$and.push({ flagCount: { $lt: 2 }});
+      }
+      orOptions.push(memberQuery); // Challenges in groups where I'm a member
     }
 
     const query = {
       $and: [{ $or: orOptions }],
     };
-
-    if (!user.contributor.admin) {
-      query.$and.push({
-        $or: [
-          { flagCount: { $lt: 2 } },
-          { flagCount: { $exists: false } }, // TODO: Remove after flagCount migration
-        ],
-      });
-    }
 
     const { owned } = req.query;
     if (owned) {
