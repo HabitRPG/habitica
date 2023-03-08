@@ -365,6 +365,11 @@
               class="btn btn-secondary"
               @click="makeAdmin()"
             >Make Admin</a>
+            <a
+              class="btn btn-danger"
+            >
+              External Link Modal
+            </a>
           </div>
         </div>
       </div>
