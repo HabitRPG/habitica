@@ -29,6 +29,7 @@
       </h2>
 
       <table class="table">
+        <api-row />
         <tr>
           <td colspan="3">
           </td>
@@ -41,9 +42,10 @@
 <script>
 import UserIdRow from '@/pages/settings/siteDataRows/userIdRow.vue';
 import UserDataRow from '@/pages/settings/siteDataRows/userDataRow.vue';
+import ApiRow from '@/pages/settings/siteDataRows/apiRow.vue';
 
 export default {
-  components: { UserDataRow, UserIdRow },
+  components: { ApiRow, UserDataRow, UserIdRow },
   mounted () {
     this.$store.dispatch('common:setTitle', {
       section: this.$t('settings'),

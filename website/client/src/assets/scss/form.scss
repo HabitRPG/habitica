@@ -26,17 +26,17 @@ input, textarea, input.form-control, textarea.form-control {
   color: $gray-50;
   border: 1px solid $gray-400;
 
-  &:hover:not(:disabled) {
+  &:hover:not(:disabled):not(:read-only) {
     border-color: $gray-300;
   }
 
-  &:active:not(:disabled), &:focus:not(:disabled) {
+  &:active:not(:disabled):not(:read-only), &:focus:not(:disabled):not(:read-only) {
     border-color: $purple-400;
     outline: 0;
     box-shadow: none;
   }
 
-  &:disabled {
+  &:disabled, &:read-only {
     opacity: 0.64;
     background: $gray-700;
   }
@@ -91,8 +91,10 @@ input, textarea, input.form-control, textarea.form-control {
     border-color: $gray-300;
   }
 
-  &:focus, &:active, &:focus-within {
-    border: solid 1px $purple-400;
+  &:not(:read-only) {
+    &:focus, &:active, &:focus-within {
+      border: solid 1px $purple-400;
+    }
   }
 
   .input-group-prepend , .input-group-append {
