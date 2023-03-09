@@ -48,6 +48,7 @@
   .input-group {
     width: 94px;
     height: 32px;
+    width: 48px;
     margin: 0px 16px 0px 16px;
     padding: 0;
     border-radius: 2px;
@@ -63,14 +64,14 @@
     cursor: pointer;
 
     &:hover {
-      border-color: $purple-400;
+      border-color: $purple-300;
     }
   }
 
   .gray-circle:hover{
     .icon-positive, .icon-negative {
       & ::v-deep svg path {
-        fill: $purple-400;
+        fill: $purple-300;
       }
     }
   }
@@ -78,7 +79,7 @@
   .icon-positive, .icon-negative {
     width: 10px;
     height: 10px;
-    margin: 4px auto;
+    margin: 3px auto;
 
     & ::v-deep svg path {
       fill: $gray-300;

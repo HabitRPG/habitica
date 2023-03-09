@@ -22,13 +22,11 @@
           :item="item"
           :item-content-class="itemContextToSell.itemClass"
           :show-popover="false"
-        >
-          <countBadge
-            slot="itemBadge"
-            :show="true"
-            :count="itemContextToSell.itemCount"
-          />
-        </item>
+        />
+        <span class="owned">
+          <!-- need to calculate totalOwned()  -->
+          {{ $t('owned') }}: {{ itemContextToSell.itemCount }}
+        </span>
         <h4 class="title">
           {{ itemContextToSell.itemName }}
         </h4>
@@ -106,7 +104,7 @@
     }
 
     .modal-dialog {
-      width: 330px;
+      width: 448px;;
     }
 
     .content {
@@ -116,6 +114,36 @@
     .inner-content {
       margin: 33px auto auto;
       width: 282px;
+    }
+
+    .owned {
+      font-size: 0.75rem;
+      font-weight: bold;
+      line-height: 1.33;
+      background-color: $gray-600;
+      padding: 8px 41px;
+      border-bottom-right-radius: 4px;
+      border-bottom-left-radius: 4px;
+      display: block;
+      width: 141px;
+      margin-left: 70px;
+      margin-top: -36px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .item {
+      width: 141px;
+      height: 147px;
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 0px;
+      border-bottom-left-radius: 0px;
+    }
+
+    .item-content {
+      transform: scale(1.45, 1.45);
+      top: -16px;
     }
 
     span.svg-icon.inline.icon-32 {
@@ -225,14 +253,12 @@ import svgNegative from '@/assets/svg/negative.svg';
 
 import BalanceInfo from '../balanceInfo.vue';
 import Item from '@/components/inventory/item';
-import CountBadge from '@/components/ui/countBadge';
 import numberIncrement from '@/components/shared/numberIncrement';
 
 export default {
   components: {
     BalanceInfo,
     Item,
-    CountBadge,
     numberIncrement,
   },
   data () {
