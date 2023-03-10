@@ -183,7 +183,6 @@ export default {
         'general',
         'subscription',
         'siteData',
-        'api',
         'promoCode',
         'transactions',
         'notifications',

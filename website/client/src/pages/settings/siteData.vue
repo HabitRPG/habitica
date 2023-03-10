@@ -35,6 +35,8 @@
           </td>
         </tr>
       </table>
+
+      <webhooks-row />
     </div>
   </div>
 </template>
@@ -43,9 +45,12 @@
 import UserIdRow from '@/pages/settings/siteDataRows/userIdRow.vue';
 import UserDataRow from '@/pages/settings/siteDataRows/userDataRow.vue';
 import ApiRow from '@/pages/settings/siteDataRows/apiRow.vue';
+import WebhooksRow from '@/pages/settings/siteDataRows/webhooksRow.vue';
 
 export default {
-  components: { ApiRow, UserDataRow, UserIdRow },
+  components: {
+    WebhooksRow, ApiRow, UserDataRow, UserIdRow,
+  },
   mounted () {
     this.$store.dispatch('common:setTitle', {
       section: this.$t('settings'),

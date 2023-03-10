@@ -1,5 +1,5 @@
 <template>
-  <div class="input-area">
+  <div>
     <div
       v-if="settingsLabel"
       class="settings-label"
@@ -92,6 +92,10 @@ export default {
 
 .input-error {
   margin-top: 0.5rem;
+}
+
+.form-group {
+  margin-bottom: 0;
 }
 
 </style>

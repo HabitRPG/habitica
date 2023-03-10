@@ -3,37 +3,6 @@
     <div class="col-6">
       <h2>{{ $t('API') }}</h2>
       <p>{{ $t('APIText') }}</p>
-      <div class="section">
-        <h3>{{ $t('thirdPartyApps') }}</h3>
-        <ul>
-          <li>
-            <a
-              target="_blank"
-              href="https://www.beeminder.com/habitica"
-            >{{ $t('beeminder') }}</a>
-            <br>
-            {{ $t('beeminderDesc') }}
-          </li>
-          <li>
-            <div v-html="$t('chatExtension')">
-            </div>
-            <span>{{ $t('chatExtensionDesc') }}</span>
-          </li>
-          <li>
-            <a
-              target="_blank"
-              :href="`https://oldgods.net/habitica/habitrpg_user_data_display.html?uuid=` + user._id"
-            >{{ $t('dataDisplayTool') }}</a>
-            <br>
-            {{ $t('dataToolDesc') }}
-          </li>
-          <li>
-            <div v-html="$t('otherExtensions')"></div>
-            <span>{{ $t('otherDesc') }}</span>
-          </li>
-        </ul>
-        <hr>
-      </div>
     </div>
     <div class="col-6">
       <h2>{{ $t('webhooks') }}</h2>
