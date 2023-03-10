@@ -16,7 +16,6 @@ const Transactions = () => import(/* webpackChunkName: "settings" */'@/pages/set
 const SiteData = () => import(/* webpackChunkName: "settings" */'@/pages/settings/siteData.vue');
 
 // not converted yet
-const API = () => import(/* webpackChunkName: "settings" */'@/components/settings/api');
 const PromoCode = () => import(/* webpackChunkName: "settings" */'@/components/settings/promoCode');
 const Subscription = () => import(/* webpackChunkName: "settings" */'@/components/settings/subscription');
 
@@ -43,11 +42,7 @@ export const USER_ROUTES = {
           path: 'siteData',
           component: SiteData,
         },
-        {
-          name: 'api',
-          path: 'api',
-          component: API,
-        },
+        { path: 'api', redirect: { name: 'siteData' } },
         {
           name: 'promoCode',
           path: 'promo-code',
