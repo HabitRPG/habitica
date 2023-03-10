@@ -33,9 +33,15 @@ setUpLogging();
 setupAnalytics(); // just create queues for analytics, no scripts loaded at this time
 const store = getStore();
 
-export default new Vue({
+const vueInstance = new Vue({
   el: '#app',
   router,
   store,
   render: h => h(AppComponent),
 });
+
+export default vueInstance;
+
+window.externalLink = url => {
+  vueInstance.$root.$emit('bv::show::modal', 'external-link-modal', url);
+};

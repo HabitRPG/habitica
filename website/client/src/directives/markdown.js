@@ -8,8 +8,22 @@ export default function markdown (el, { value, oldValue }) {
   } else {
     el.innerHTML = '';
   }
-  // This is a hack, but it's one idea for how we might do things
-  el.innerHTML = el.innerHTML.replace('href="h', 'href="/external?link=h');
+
+  const allLinks = el.getElementsByTagName('a');
+
+  for (let i = 0; i < allLinks.length; i++) {
+    const link = allLinks[i];
+
+    // todo middleclick or ctrl+click to open it in a new tab
+    // todo? should a normal click leave the current page or also open it in a new tab?
+    // ... hopefully this wont create memory leaks
+    link.addEventListener('click', e => {
+      e.stopPropagation();
+      e.preventDefault();
+
+      window.externalLink(link.href);
+    });
+  }
 
   el.classList.add('markdown');
 }
