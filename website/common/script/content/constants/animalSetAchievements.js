@@ -41,6 +41,15 @@ const ANIMAL_SET_ACHIEVEMENTS = {
     achievementKey: 'domesticated',
     notificationType: 'ACHIEVEMENT_ANIMAL_SET',
   },
+  plantParent: {
+    type: 'pet',
+    species: [
+      'Cactus',
+      'Treeling',
+    ],
+    achievementKey: 'plantParent',
+    notificationType: 'ACHIEVEMENT_ANIMAL_SET',
+  },
   polarPro: {
     type: 'pet',
     species: [
