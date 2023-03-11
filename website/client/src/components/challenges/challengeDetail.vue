@@ -15,6 +15,21 @@
     <div class="col-12 col-md-8 standard-page">
       <div class="row">
         <div class="col-12 col-md-6">
+          <span
+            class="flagged"
+            v-if="canViewFlags"
+          >
+            <span
+              v-if="flaggedNotHidden"
+            >
+              {{ $t("flaggedNotHidden") }}
+            </span>
+            <span
+              v-else-if="flaggedAndHidden"
+            >
+              {{ $t("flaggedAndHidden")}}
+            </span>
+          </span>
           <h1 v-markdown="challenge.name"></h1>
           <div>
             <span class="mr-1 ml-0 d-block">
@@ -324,6 +339,15 @@
       margin-right: .5em;
     }
   }
+
+  .flagged {
+    margin-left: 0em;
+    color: $red-10;
+
+    span {
+      margin-left: 0em;
+    }
+  }
 </style>
 
 <script>
@@ -413,6 +437,17 @@ export default {
     },
     canJoin () {
       return !this.isMember;
+    },
+    canViewFlags () {
+      const isAdmin = Boolean(this.user.contributor.admin);
+      if (isAdmin && this.challenge.flagCount > 0) return true;
+      return false;
+    },
+    flaggedNotHidden () {
+      return this.challenge.flagCount === 1;
+    },
+    flaggedAndHidden () {
+      return this.challenge.flagCount > 1;
     },
   },
   watch: {
