@@ -117,6 +117,21 @@
         </div>
       </div>
     </div>
+    <div class="d-flex">
+      <div
+        class="ml-auto d-flex"
+        @click="reportChallenge()"
+      >
+        <div
+          v-once
+          class="svg-icon"
+          v-html="icons.reportIcon"
+        ></div>
+        <div v-once>
+          {{ $t('report') }}
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -384,7 +399,22 @@
         }
       }
     }
+    .d-flex {
+      display: inline-block;
+      color: $gray-200;
+      margin-right: 1em;
+      font-size: 12px;
 
+      :hover {
+        cursor: pointer;
+      }
+
+      .svg-icon {
+        color: $gray-300;
+        margin-right: .2em;
+        width: 16px;
+      }
+    }
   }
 </style>
 
@@ -404,6 +434,7 @@ import todoIcon from '@/assets/svg/todo.svg';
 import dailyIcon from '@/assets/svg/daily.svg';
 import rewardIcon from '@/assets/svg/reward.svg';
 import officialIcon from '@/assets/svg/official.svg';
+import reportIcon from '@/assets/svg/report.svg';
 
 export default {
   components: {
@@ -429,6 +460,7 @@ export default {
         memberIcon,
         calendarIcon,
         officialIcon,
+        reportIcon,
       }),
     };
   },
@@ -483,6 +515,11 @@ export default {
   methods: {
     isTavern (group) {
       return group._id === TAVERN_ID;
+    },
+    reportChallenge () {
+      this.$root.$emit('habitica::report-challenge', {
+        challenge: this.challenge,
+      });
     },
   },
 };

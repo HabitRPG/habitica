@@ -1,5 +1,6 @@
 <template>
   <div class="row">
+    <report-challenge-modal />
     <secondary-menu class="col-12">
       <router-link
         class="nav-link"
@@ -24,10 +25,12 @@
 
 <script>
 import SecondaryMenu from '@/components/secondaryMenu';
+import reportChallengeModal from './reportChallengeModal';
 
 export default {
   components: {
     SecondaryMenu,
+    reportChallengeModal,
   },
 };
 </script>
