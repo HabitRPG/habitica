@@ -11,7 +11,7 @@ export default function markdown (el, { value, oldValue }) {
 
   const allLinks = el.getElementsByTagName('a');
 
-  for (let i = 0; i < allLinks.length; i++) {
+  for (let i = 0; i < allLinks.length; i += 1) {
     const link = allLinks[i];
 
     // todo middleclick or ctrl+click to open it in a new tab
