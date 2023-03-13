@@ -133,7 +133,7 @@
       font-size: 12px;
       font-weight: bold;
       text-align: center;
-      color: $gray-400;
+      color: $gray-400 !important;
       text-decoration: none !important;
       border-bottom: 2px solid transparent;
       padding: 0.5rem;
