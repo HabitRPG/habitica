@@ -53,7 +53,7 @@ const featuredItems = {
         },
         {
           type: 'quests',
-          path: 'quests.cuttlefish',
+          path: 'quests.kraken',
         },
         {
           type: 'quests',
@@ -85,7 +85,7 @@ const featuredItems = {
       },
       {
         type: 'quests',
-        path: 'quests.cuttlefish',
+        path: 'quests.kraken',
       },
       {
         type: 'quests',
