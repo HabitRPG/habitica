@@ -113,5 +113,6 @@
     "gryphatrice": "狮鹫蛇",
     "invalidAmount": "食物数量无效，必须为正整数",
     "tooMuchFood": "你正在喂宠物过多食物，行动已取消",
-    "notEnoughFood": "你没有足够的食物"
+    "notEnoughFood": "你没有足够的食物",
+    "jubilantGryphatrice": "霓光狮鹫蛇"
 }
