@@ -113,5 +113,6 @@
     "gryphatrice": "Griffatrice",
     "invalidAmount": "Quantité invalide de nourriture, doit être un entier positif",
     "tooMuchFood": "Vous essayez de donner trop de nourriture à votre familier, action annulée",
-    "notEnoughFood": "Vous n'avez pas assez de nourriture"
+    "notEnoughFood": "Vous n'avez pas assez de nourriture",
+    "jubilantGryphatrice": "Gryphatrice jubilante"
 }

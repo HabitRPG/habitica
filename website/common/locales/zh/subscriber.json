@@ -159,7 +159,7 @@
     "needToUpdateCard": "需要更新您的卡吗？",
     "subMonths": "订阅月",
     "subscriptionStats": "订阅统计",
-    "subscriptionInactiveDate": "您的订阅权益将在<strong><%= date %></strong>上失效",
+    "subscriptionInactiveDate": "您的订阅权益将在<br><strong><%= date %></strong>失效",
     "subscriptionCanceled": "您的订阅已取消",
     "youAreSubscribed": "您订阅了Habitica的服务",
     "doubleDropCap": "双倍掉落",
@@ -217,5 +217,11 @@
     "mysterySet202210": "不祥之蛇套装",
     "mysteryset202211": "电磁套装",
     "mysterySet202211": "电磁套装",
-    "mysterySet202212": "冰川守护者套装"
+    "mysterySet202212": "冰川守护者套装",
+    "mysterySet202301": "狐之勇者套装",
+    "haveNonRecurringSub": "您有一个临时的礼品订阅。",
+    "switchToRecurring": "是否切换到定期订阅？",
+    "subscriptionCreditConversion": "现在开始新的订阅，会结存当前剩余的订阅。结存的订阅将在定期订阅取消后生效。",
+    "continueGiftSubBenefits": "想继续享受福利吗？您可以在权益到期之前开始新的订阅，以维持您的福利。",
+    "mysterySet202302": "Trickster Tabby套装"
 }
