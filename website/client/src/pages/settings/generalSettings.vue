@@ -46,6 +46,7 @@
         <date-format-setting />
         <day-start-adjustment-setting />
         <audio-theme-setting />
+        <sleep-mode />
         <tr>
           <td colspan="3">
           </td>
@@ -135,9 +136,11 @@ import LoginMethods from '@/pages/settings/settingRows/loginMethods.vue';
 import TaskSettings from '@/pages/settings/settingRows/taskSettings.vue';
 import { GenericUserPreferencesMixin } from '@/pages/settings/components/genericUserPreferencesMixin';
 import { mapState } from '@/libs/store';
+import SleepMode from '@/pages/settings/settingRows/sleepMode.vue';
 
 export default {
   components: {
+    SleepMode,
     TaskSettings,
     LoginMethods,
     FixValuesSetting,
