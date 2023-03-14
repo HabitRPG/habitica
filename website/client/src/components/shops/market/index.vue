@@ -146,6 +146,7 @@
 </style>
 
 <script>
+import find from 'lodash/find';
 import _filter from 'lodash/filter';
 import _map from 'lodash/map';
 import _throttle from 'lodash/throttle';
@@ -225,7 +226,7 @@ export default {
       user: 'user.data',
       userStats: 'user.data.stats',
       userItems: 'user.data.items',
-      currentEvent: 'worldState.data.currentEvent',
+      currentEventList: 'worldState.data.currentEventList',
     }),
     market () {
       return shops.getMarketShop(this.user);
@@ -292,15 +293,16 @@ export default {
       return Object.values(this.viewOptions).some(g => g.selected);
     },
     imageURLs () {
-      if (!this.currentEvent || !this.currentEvent.season) {
+      const currentEvent = find(this.currentEventList, event => Boolean(event.season));
+      if (!currentEvent) {
         return {
           background: 'url(/static/npc/normal/market_background.png)',
           npc: 'url(/static/npc/normal/market_banner_npc.png)',
         };
       }
       return {
-        background: `url(/static/npc/${this.currentEvent.season}/market_background.png)`,
-        npc: `url(/static/npc/${this.currentEvent.season}/market_banner_npc.png)`,
+        background: `url(/static/npc/${currentEvent.season}/market_background.png)`,
+        npc: `url(/static/npc/${currentEvent.season}/market_banner_npc.png)`,
       };
     },
   },

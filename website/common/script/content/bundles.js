@@ -194,8 +194,9 @@ const bundles = {
       'seaserpent',
       'gryphon',
     ],
+    event: EVENTS.bundle202302,
     canBuy () {
-      return moment().isBefore('2022-02-28T20:00-05:00');
+      return moment().isBetween(EVENTS.bundle202302.start, EVENTS.bundle202302.end);
     },
     type: 'quests',
     value: 7,

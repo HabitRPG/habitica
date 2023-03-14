@@ -403,6 +403,7 @@ schema.statics.toJSONCleanChat = async function groupToJSONCleanChat (group, use
         if (user._id !== chatMsg.uuid && chatMsg.flagCount >= CHAT_FLAG_LIMIT_FOR_HIDING) {
           return undefined;
         }
+        chatMsg.flagCount = 0;
       }
 
       return chatMsg;
@@ -581,7 +582,10 @@ schema.methods.sendChat = function sendChat (options = {}) {
 
   // Kick off chat notifications in the background.
 
-  const query = {};
+  const query = {
+    _id: { $ne: user ? user._id : '' },
+    'notifications.data.group.id': { $ne: this._id },
+  };
 
   if (this.type === 'party') {
     query['party._id'] = this._id;
@@ -589,16 +593,7 @@ schema.methods.sendChat = function sendChat (options = {}) {
     query.guilds = this._id;
   }
 
-  query._id = { $ne: user ? user._id : '' };
-
-  // First remove the old notification (if it exists)
-  const lastSeenUpdateRemoveOld = {
-    $pull: {
-      notifications: { type: 'NEW_CHAT_MESSAGE', 'data.group.id': this._id },
-    },
-  };
-
-  // Then add the new notification
+  // Add the new notification
   const lastSeenUpdateAddNew = {
     $set: { // old notification, supported until mobile is updated and we release api v4
       [`newMessages.${this._id}`]: { name: this.name, value: true },
@@ -612,9 +607,7 @@ schema.methods.sendChat = function sendChat (options = {}) {
   };
 
   User
-    .update(query, lastSeenUpdateRemoveOld, { multi: true })
-    .exec()
-    .then(() => User.update(query, lastSeenUpdateAddNew, { multi: true }).exec())
+    .updateMany(query, lastSeenUpdateAddNew).exec()
     .catch(err => logger.error(err));
 
   if (this.type === 'party' && user) {

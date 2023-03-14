@@ -23,7 +23,7 @@ describe('payments/skuItems', () => {
     describe('#gryphatrice', () => {
       const sku = 'Pet-Gryphatrice-Jubilant';
       it('returns true during birthday week', () => {
-        clock = sinon.useFakeTimers(new Date('2023-01-29'));
+        clock = sinon.useFakeTimers(new Date('2023-01-31'));
         expect(canBuySkuItem(sku, user)).to.be.true;
       });
       it('returns false outside of birthday week', () => {

@@ -411,6 +411,15 @@ const armor = {
   shawlCollarCoat: {
     con: 8,
   },
+  teaGown: {
+    str: 5,
+    int: 5,
+    set: 'teaParty',
+  },
+  basketballUniform: {
+    per: 10,
+    set: 'oldTimeyBasketball',
+  },
 };
 
 const body = {
@@ -832,6 +841,10 @@ const head = {
     per: 8,
     set: 'fancyPirate',
   },
+  teaHat: {
+    per: 10,
+    set: 'teaParty',
+  },
 };
 
 const shield = {
@@ -1132,6 +1145,15 @@ const shield = {
   jewelersPliers: {
     str: 10,
     set: 'jewelers',
+  },
+  teaKettle: {
+    con: 10,
+    set: 'teaParty',
+  },
+  basketball: {
+    con: 5,
+    str: 5,
+    set: 'oldTimeyBasketball',
   },
 };
 

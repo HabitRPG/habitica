@@ -240,5 +240,22 @@
     "winter2023CardinalHealerSet": "Кардинал (Целитель)",
     "winter2023WalrusWarriorSet": "Морж (Воин)",
     "spring2023RibbonRogueSet": "Лента (Разбойник)",
-    "winter2023RibbonRogueSet": "Лента (Разбойник)"
+    "winter2023RibbonRogueSet": "Лента (Разбойник)",
+    "limitedEdition": "Ограниченный выпуск",
+    "buyNowMoneyButton": "Купить сейчас за $9.99",
+    "buyNowGemsButton": "Купить сейчас за 60 самоцветов",
+    "wantToPayWithGemsText": "Желаете оплатить самоцветами?",
+    "wantToPayWithMoneyText": "Желаете оплатить через Stripe, Paypal или Amazon?",
+    "visitTheMarketButton": "Посетить рынок",
+    "dayOne": "Первый день",
+    "dayFive": "Пятый день",
+    "dayTen": "Десятый день",
+    "celebrateAnniversary": "Отпразднуй десятый день рождения Habitica с подарками и эксклюзивными предметами ниже!",
+    "plentyOfPotionsText": "Мы возвращаем 10 любимых сообществом волшебных инкубационных эликсира. Загляните на рынок, чтобы пополнить коллекцию!",
+    "celebrateBirthday": "Отпразднуй десятый день рождения Habitica с подарками и эксклюзивными предметами!",
+    "twentyGems": "20 самоцветов",
+    "dateStartFebruary": "8 февраля",
+    "anniversaryLimitedDates": "с 30 января по 8 февраля",
+    "limitedEvent": "Ограниченное по времени событие",
+    "anniversaryGryphatricePrice": "Заполучите его сегодня за <strong>$9.99</strong> или <strong>60 самоцветов</strong>"
 }
