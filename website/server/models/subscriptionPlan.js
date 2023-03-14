@@ -18,7 +18,7 @@ export const schema = new mongoose.Schema({
   dateUpdated: Date,
   dateCurrentTypeCreated: Date,
   extraMonths: { $type: Number, default: 0 },
-  perkMonthCount: { $type: Number, default: 0 },
+  perkMonthCount: { $type: Number, default: -1 },
   gemsBought: { $type: Number, default: 0 },
   mysteryItems: { $type: Array, default: () => [] },
   lastReminderDate: Date, // indicates the last time a subscription reminder was sent
@@ -57,7 +57,7 @@ schema.methods.incrementPerkCounterAndReward = async function incrementPerkCount
     addingNumber = parseInt(adding, 10);
   }
   // if perkMonthCount wasn't used before, initialize it.
-  if (this.perkMonthCount === undefined && addingNumber === 1) {
+  if ((this.perkMonthCount === undefined || this.perkMonthCount === -1) && addingNumber === 1) {
     this.perkMonthCount = (this.consecutive.count - 1) % SUBSCRIPTION_BASIC_BLOCK_LENGTH;
   } else {
     this.perkMonthCount += addingNumber;
