@@ -337,9 +337,12 @@ describe('cron', async () => {
         expect(user1.purchased.plan.consecutive.gemCapExtra).to.equal(15);
       });
 
-      it('initialized plan.perkMonthCount if necessary', async () => {
+      it('initializes plan.perkMonthCount if necessary', async () => {
         user.purchased.plan.perkMonthCount = undefined;
-        clock = sinon.useFakeTimers(moment().utcOffset(0).startOf('month').add(1, 'months')
+        clock = sinon.useFakeTimers(moment(user.purchased.plan.dateUpdated)
+          .utcOffset(0)
+          .startOf('month')
+          .add(1, 'months')
           .add(2, 'days')
           .toDate());
         await cron({
