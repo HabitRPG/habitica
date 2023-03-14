@@ -57,11 +57,14 @@ schema.methods.incrementPerkCounterAndReward = async function incrementPerkCount
     addingNumber = parseInt(adding, 10);
   }
   // if perkMonthCount wasn't used before, initialize it.
-  if ((this.perkMonthCount === undefined || this.perkMonthCount === -1) && addingNumber === 1) {
-    this.perkMonthCount = (this.consecutive.count - 1) % SUBSCRIPTION_BASIC_BLOCK_LENGTH;
-  } else {
-    this.perkMonthCount += addingNumber;
+  if (this.perkMonthCount === undefined || this.perkMonthCount === -1) {
+    if (this.planId == 'basic_earned') {
+      this.perkMonthCount = (this.consecutive.count - 1) % SUBSCRIPTION_BASIC_BLOCK_LENGTH;
+    } else {
+      this.perkMonthCount = 0;
+    }
   }
+  this.perkMonthCount += addingNumber;
 
   const perks = Math.floor(this.perkMonthCount / 3);
   if (perks > 0) {
