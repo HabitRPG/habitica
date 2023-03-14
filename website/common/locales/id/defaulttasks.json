@@ -26,5 +26,11 @@
     "healthHabit": "Makan Makanan Sehat/Junk Food",
     "exerciseTodoNotes": "Klik untuk menambah checklist!",
     "exerciseTodoText": "Mengatur jadwal olahraga",
-    "exerciseDailyNotes": "Klik untuk memilih jadwalmu dan menentukan latihan!"
+    "exerciseDailyNotes": "Klik untuk memilih jadwalmu dan menentukan latihan!",
+    "schoolHabit": "Belajar/Menunda-nunda",
+    "healthDailyNotes": "Klik untuk mengubah!",
+    "healthTodoNotes": "Klik untuk menambahkan ceklis!",
+    "schoolDailyText": "Menyelesaikan pekerjaan rumah",
+    "healthTodoText": "Menjadwalkan cek-up >> Buat Brainstorm kesehatan",
+    "healthDailyText": "Mengaitkan benang gigi"
 }

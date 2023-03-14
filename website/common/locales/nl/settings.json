@@ -217,5 +217,6 @@
     "adjustment": "Aanpassing",
     "dayStartAdjustment": "Dag Begin Aanpassing",
     "passwordSuccess": "Wachtwoord succesvol aangepast",
-    "transaction_admin_update_balance": "Door beheerder gegeven"
+    "transaction_admin_update_balance": "Door beheerder gegeven",
+    "giftSubscriptionRateText": "<strong>$<%= price %> USD</strong> voor <strong><%= months %> maanden</strong>"
 }

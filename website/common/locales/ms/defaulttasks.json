@@ -3,9 +3,9 @@
     "defaultHabit2Text": "Makan Makanan Ringan (Tekan pensel until edit)",
     "defaultHabit3Text": "Gunakan Tangga/Lif (Tekan pensel untuk edit)",
     "defaultHabit4Text": "Tambah tugasan ke Habitica",
-    "defaultHabit4Notes": "Sama ada habit, tugasan harian atau To-Do",
+    "defaultHabit4Notes": "Sama ada habit, tugasan harian atau tugasan",
     "defaultTodo1Text": "Sertailah Habitica (Sila potongkan saya!)",
-    "defaultTodoNotes": "Anda boleh selesaikan, editkan, atau buangkan sesuatu kotak semak misi yang perlu anda buat.",
+    "defaultTodoNotes": "Anda boleh sama ada melengkapkan Tugasan ini, mengeditnya atau mengalih keluarnya.",
     "defaultReward1Text": "Rehat selama 15 minit",
     "defaultReward2Text": "Ganjarkan Diri Anda",
     "defaultReward2Notes": "Tengok TV, main permainan, makan snek, ia terpulang kepada anda!",
@@ -15,5 +15,15 @@
     "defaultTag4": "Sekolah",
     "defaultTag5": "Pasukan",
     "defaultTag6": "Pekerjaan Rumah",
-    "defaultTag7": "Kreativiti"
+    "defaultTag7": "Kreativiti",
+    "exerciseHabit": "10 minit kardio >> + 10 minit kardio",
+    "exerciseDailyText": "Regangan >> Rutin senaman harian",
+    "workHabitMail": "Memproses e-mel",
+    "exerciseTodoText": "Sediakan jadual senaman",
+    "workDailyImportantTask": "Tugas paling penting >> Bekerja pada tugas paling penting hari ini",
+    "workDailyImportantTaskNotes": "Ketik untuk menentukan tugasan anda yang paling penting",
+    "workTodoProject": "Projek kerja >> Projek kerja lengkap",
+    "workTodoProjectNotes": "Ketik untuk menentukan nama projek semasa anda + tetapkan tarikh akhir!",
+    "exerciseDailyNotes": "Ketik untuk memilih jadual anda dan nyatakan latihan!",
+    "exerciseTodoNotes": "Ketik untuk menambah senarai semak!"
 }
