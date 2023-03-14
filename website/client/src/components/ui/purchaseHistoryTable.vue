@@ -182,7 +182,6 @@
         </table>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -294,10 +293,6 @@
 
   .note-column {
     width: 50%;
-  }
-
-  .challenge-link, .user-link {
-    color: $blue-10 !important;
   }
 
   .entry-action {
