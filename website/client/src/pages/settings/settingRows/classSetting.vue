@@ -249,16 +249,9 @@ export default {
     showRealModalOrInline () {
       if (!this.classDisabled) {
         this.openModal();
-        return;
-      }
-
-      if (this.enoughGemsAvailable) {
+      } else {
         this.changeClassAndClose();
-        return;
       }
-
-      // if the user doesn't have enough gems we'll just show the inline modal
-      this.openModal();
     },
     async changeClassAndClose () {
       if (!this.classDisabled && !window.confirm(this.$t('changeClassConfirmCost'))) {
