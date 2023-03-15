@@ -265,6 +265,11 @@ export default {
 <style lang="scss" scoped>
 @import '~@/assets/scss/colors.scss';
 
+.icon-16 ::v-deep svg {
+  height: 16px;
+  width: 16px;
+}
+
 .network-icon-with-label {
   display: flex;
   align-items: center;
