@@ -190,7 +190,7 @@
     "dismissAll": "Dispensar Todos",
     "messages": "Mensagens",
     "emptyMessagesLine1": "Não tem quaisquer mensagens",
-    "emptyMessagesLine2": "Envie uma mensagem para começar a conversa!",
+    "emptyMessagesLine2": "Você pode mandar uma nova mensagem para um usuário visitando o perfil dele e clicando no botão \"Mensagem\".",
     "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> enviou-lhe uma mensagem",
     "letsgo": "Vamos a Isto!",
     "selected": "Seleccionado",

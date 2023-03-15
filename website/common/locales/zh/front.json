@@ -29,7 +29,7 @@
     "logout": "退出",
     "marketing1Header": "通过玩游戏来养成你的习惯",
     "marketing1Lead1Title": "你的生活游戏",
-    "marketing1Lead1": "Habitica是一个帮助你改变生活习惯的游戏。他通过把你的所有任务（习惯，日常任务和待办事项） 转变成你需要打败的敌人来“游戏化”你的生活。你做的越好，你在游戏进展得越顺利。如果你生活中除了差错，你的角色在游戏中也会退步。",
+    "marketing1Lead1": "Habitica是一个帮助你改变生活习惯的游戏。通过将您的所有任务（习惯，日常和待办） 转变成你需要打败的敌人来“游戏化”你的生活。你做的越好，在游戏进展得越顺利。如果在生活中出了差错，你的角色在游戏中也会退步。",
     "marketing1Lead2Title": "获取装备",
     "marketing1Lead2": "培养你的习惯来丰富你的人物形象。去炫耀你有趣的装备们吧！",
     "marketing1Lead3Title": "获得随机奖励",
@@ -188,5 +188,6 @@
     "enterHabitica": "进入Habitica",
     "socialAlreadyExists": "该社交账号已与现存的Habitica账户连接。",
     "emailUsernamePlaceholder": "例如 habitrabbit 或者 gryphon@example.com",
-    "footerProduct": "产品"
+    "footerProduct": "产品",
+    "translateHabitica": "翻译Habitica"
 }

@@ -135,7 +135,7 @@
     "generate": "生成",
     "getCodes": "获取代码",
     "webhooks": "Webhook",
-    "webhooksInfo": "Habitica提供webhook，以便在您的帐户中发生某些操作时，可以将信息发送到另一个网站上的脚本。您可以在此处指定这些脚本。请注意此功能，因为指定错误的URL可能会导致Habitica出错或缓慢。有关更多信息，请参阅wiki的<a target=\"_blank\" href=\"https://habitica.fandom.com/wiki/Webhooks\">Webhooks</a>页面。",
+    "webhooksInfo": "Habitica提供webhook，以便在您的帐户中发生某些操作时，可以将信息发送到另一个网站上的脚本。您可以在此处指定这些脚本。请注意此功能，因为指定错误的URL可能会导致Habitica出错或缓慢。有关更多信息，请参阅wiki的<a target=\"_blank\" href=\"https://habitica.fandom.com/zh/wiki/Webhook\">Webhooks</a>页面。",
     "enabled": "已启用",
     "webhookURL": "Webhook链接",
     "invalidUrl": "无效的url",

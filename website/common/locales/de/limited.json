@@ -235,5 +235,12 @@
     "fall2022HarpyMageSet": "Harpyie (Magier)",
     "fall2022WatcherHealerSet": "Beobachter (Heiler)",
     "gemSaleHow": "Kauf einfach zwischen <%= eventStartMonth %> <%= eventStartOrdinal %>und <%= eventEndOrdinal %> eines der Edelstein-Pakete wie normal und Deinem Konto werden automatisch die zusätzlichen Edelsteine gutgeschrieben. Das heißt insgesamt mehr Edelsteine zum ausgeben, teilen oder ansparen für zukünftige Veröffentlichungen!",
-    "gemSaleLimitations": "Dieses Sonderangebot gilt nur während der zeitlich beschränkten Aktion. Die Aktion startet am <%= eventStartOrdinal %>. <%= eventStartMonth %> um 8:00 EDT (12:00 UTC) und endet am <%= eventEndOrdinal %>. <%= eventStartMonth %> um 20:00 PM EDT (00:00 UTC). Das Sonderangebot ist nur verfügbar, wenn Du Edelsteine für Dich selbst kaufst."
+    "gemSaleLimitations": "Dieses Sonderangebot gilt nur während der zeitlich beschränkten Aktion. Die Aktion startet am <%= eventStartOrdinal %>. <%= eventStartMonth %> um 8:00 EDT (12:00 UTC) und endet am <%= eventEndOrdinal %>. <%= eventStartMonth %> um 20:00 PM EDT (00:00 UTC). Das Sonderangebot ist nur verfügbar, wenn Du Edelsteine für Dich selbst kaufst.",
+    "winter2023WalrusWarriorSet": "Walross (Krieger)",
+    "winter2023FairyLightsMageSet": "Feenlichter (Magier)",
+    "winter2023CardinalHealerSet": "Kardinal (Heiler)",
+    "dateStartFebruary": "8. Februar",
+    "anniversaryLimitedDates": "30. Januar bis 8. Februar",
+    "limitedEvent": "Limitiertes Event",
+    "winter2023RibbonRogueSet": "Schleife (Schurke)"
 }

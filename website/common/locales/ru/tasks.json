@@ -139,5 +139,6 @@
     "counter": "Счётчик",
     "adjustCounter": "Настроить счётчик",
     "resetCounter": "Сбросить счётчик",
-    "editTagsText": "Изменить теги"
+    "editTagsText": "Изменить теги",
+    "taskSummary": "Резюме"
 }
