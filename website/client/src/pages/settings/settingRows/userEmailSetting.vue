@@ -36,24 +36,26 @@
           {{ $t("changeEmailDisclaimer") }}
         </div>
 
-        <validated-text-input
-          v-model="updates.newEmail"
-          settings-label="email"
-          :is-valid="validEmail"
-          @update:value="modalValuesChanged"
-          @blur="restoreEmptyEmail()"
-        />
+        <div class="input-area">
+          <validated-text-input
+            v-model="updates.newEmail"
+            settings-label="email"
+            :is-valid="validEmail"
+            @update:value="modalValuesChanged"
+            @blur="restoreEmptyEmail()"
+          />
 
-        <current-password-input
-          :show-forget-password="true"
-          @passwordValue="updates.password = $event"
-        />
+          <current-password-input
+            :show-forget-password="true"
+            @passwordValue="updates.password = $event"
+          />
 
-        <save-cancel-buttons
-          :disable-save="allowedToSave"
-          @saveClicked="changeEmail()"
-          @cancelClicked="requestCloseModal()"
-        />
+          <save-cancel-buttons
+            :disable-save="allowedToSave"
+            @saveClicked="changeEmail()"
+            @cancelClicked="requestCloseModal()"
+          />
+        </div>
       </td>
     </tr>
   </fragment>

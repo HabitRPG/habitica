@@ -36,20 +36,22 @@
           {{ $t("changeUsernameDisclaimer") }}
         </div>
 
-        <validated-text-input
-          v-model="inputValue"
-          settings-label="username"
-          :is-valid="usernameValid"
-          :invalid-issues="usernameIssues"
-          @update:value="valuesChanged()"
-          @blur="restoreEmptyUsername()"
-        />
+        <div class="input-area">
+          <validated-text-input
+            v-model="inputValue"
+            settings-label="username"
+            :is-valid="usernameValid"
+            :invalid-issues="usernameIssues"
+            @update:value="valuesChanged()"
+            @blur="restoreEmptyUsername()"
+          />
 
-        <save-cancel-buttons
-          :disable-save="usernameCannotSubmit"
-          @saveClicked="changeUser('username', cleanedInputValue)"
-          @cancelClicked="requestCloseModal()"
-        />
+          <save-cancel-buttons
+            :disable-save="usernameCannotSubmit"
+            @saveClicked="changeUser('username', cleanedInputValue)"
+            @cancelClicked="requestCloseModal()"
+          />
+        </div>
       </td>
     </tr>
   </fragment>
