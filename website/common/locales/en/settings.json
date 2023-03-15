@@ -86,6 +86,7 @@
     "deleteLocalAccountText": "<b>Are you sure?</b> This will delete your account forever, and it can never be restored! You will need to register a new account to use Habitica again. Banked or spent Gems will not be refunded. If you're absolutely certain, type your password into the text box below.",
     "deleteSocialAccountText": "Are you sure? This will delete your account forever, and it can never be restored! You will need to register a new account to use Habitica again. Banked or spent Gems will not be refunded. If you're absolutely certain, type \"<%= magicWord %>\" into the text box below.",
     "API": "API",
+    "APICopied": "API token copied to clipboard.",
     "APITokenTitle": "API Token",
     "APITokenDisclaimer": "<b>Your API Token is like a password; Do not share it publicly.</b> You may occasionally be asked for your User ID, but never post your API Token where others can see it, including on Github.<br><br><b>Note:</b> If you need a new API Token (e.g., if you accidentally shared it), email <a href='mailto:admin@habitica.com' target='_blank'>admin@habitica.com</a> with your User ID and current Token. Once it is reset you will need to re-authorize everything by logging out of the website and mobile app and by providing the new Token to any other Habitica tools that you use.",
     "APIv3": "API v3",

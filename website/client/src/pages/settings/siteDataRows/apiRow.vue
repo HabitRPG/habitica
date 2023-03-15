@@ -39,6 +39,7 @@
           <locked-input
             :label="$t('APITokenTitle')"
             :value="apiToken"
+            :notification-text="$t('APICopied')"
           />
         </div>
         <save-cancel-buttons

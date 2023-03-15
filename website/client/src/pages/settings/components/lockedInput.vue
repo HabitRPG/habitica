@@ -6,7 +6,7 @@
       </div>
       <div
         class="link-style"
-        @click="mixinCopyToClipboard(value)"
+        @click="mixinCopyToClipboard(value, notificationText)"
       >
         {{ $t('copy') }}
       </div>
@@ -42,7 +42,7 @@ import svgLockSmall from '@/assets/svg/lock-small.svg';
 export default {
   name: 'LockedInput',
   mixins: [CopyToClipboard],
-  props: ['label', 'value'],
+  props: ['label', 'value', 'notificationText'],
   data () {
     return {
       icons: Object.freeze({
@@ -67,7 +67,7 @@ export default {
 .link-style {
   font-size: 12px;
   line-height: 1.33;
-  color: $blue-10;
+  color: $purple-300;
   cursor: pointer;
   display: flex;
   align-items: center;
