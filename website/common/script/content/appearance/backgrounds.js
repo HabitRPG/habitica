@@ -545,6 +545,11 @@ const backgrounds = {
     golden_birdcage: { },
     fancy_bedroom: { },
   },
+  backgrounds032023: {
+    jungle_watering_hole: { },
+    mangrove_forest: { },
+    old_timey_basketball_court: { },
+  },
   eventBackgrounds: {
     birthday_bash: {
       price: 0,

@@ -475,7 +475,7 @@ spells.special = {
     target: 'user',
     notes: t('valentineCardNotes'),
     canOwn () {
-      return false;
+      return moment().isBetween('2023-02-13T08:00-05:00', '2023-02-17T23:59-05:00');
     },
     cast (user, target) {
       if (user === target) {

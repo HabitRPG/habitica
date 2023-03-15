@@ -113,5 +113,6 @@
     "gryphatrice": "Grifotriz",
     "invalidAmount": "Quantidade de comida inválida, deve ser um número inteiro positivo",
     "tooMuchFood": "Você está tentando dar muita comida para seu Mascote, ação cancelada",
-    "notEnoughFood": "Você não tem comida suficiente"
+    "notEnoughFood": "Você não tem comida suficiente",
+    "jubilantGryphatrice": "Grifaria Jubilante"
 }

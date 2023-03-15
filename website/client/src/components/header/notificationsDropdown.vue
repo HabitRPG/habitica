@@ -39,7 +39,7 @@
           {{ $t('notifications') }}
         </h4>
         <a
-          class="small-link standard-link"
+          class="small-link"
           :disabled="notificationsCount === 0"
           @click="dismissAll"
         >{{ $t('dismissAll') }}</a>

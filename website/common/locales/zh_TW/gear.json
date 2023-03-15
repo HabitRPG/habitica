@@ -2401,5 +2401,20 @@
     "weaponSpecialFall2022HealerNotes": "高舉它宣告勝利，同時喊出命令：“一號眼！” 新增<%= int %>點智力。 2022年秋季限定版裝備。",
     "weaponMystery202211Notes": "用這根法杖來駕馭閃電風暴的强大威力。 沒有屬性加成。 2022年11月訂閱者物品。",
     "weaponArmoireEnchantersStaffNotes": "法杖上鑲嵌的綠色寶石，擁有改變秋風的力量。增加<%= per %>點感知。魔法衣櫥：秋日的魔法師套裝（3/4）。",
-    "weaponArmoireClubOfClubsNotes": "這款時髦的棒子可不會向那些鬼鬼祟祟的老任務揭示你的意圖。增加<%= str %>点力量。魔法衣櫥：梅花J套裝（2/3）。"
+    "weaponArmoireClubOfClubsNotes": "這款時髦的棒子可不會向那些鬼鬼祟祟的老任務揭示你的意圖。增加<%= str %>点力量。魔法衣櫥：梅花J套裝（2/3）。",
+    "weaponMystery202212Text": "冰川魔杖",
+    "weaponMystery202212Notes": "即使在最寒冷的冬夜，這根魔杖中閃耀的雪花也有著溫暖人心的力量！。沒有屬性加成。 2022年12月訂閱者物品。",
+    "weaponArmoireBlueMoonSaiNotes": "這支釵是一把傳統武器，充滿了月之暗面的力量。增加<%= str %>點力量。魔法衣櫥：藍月盜賊套裝（1/4）。",
+    "weaponArmoireJadeGlaiveNotes": "這把劍刃戟將使您和敵人保持遠距離！ 此外，您還可以用它把東西從高處拿下。增加<%= str %>點力量。魔法衣櫥：翠玉戰士套裝（3/3）。",
+    "weaponSpecialWinter2023RogueText": "綠色緞面肩帶",
+    "weaponSpecialWinter2023WarriorText": "獠牙長矛",
+    "weaponSpecialWinter2023RogueNotes": "傳說中的盜賊抓住了對手的武器，解除他們的武裝，然後又歸還這些武器，只是為了顯得可愛。增加<%= str %>點力量。2022-2023年冬季限定版裝備。",
+    "headSpecialNye2022Text": "絕佳的派對帽子",
+    "headSpecialNye2022Notes": "您收到了一頂絕佳的派對帽子！ 在慶祝新的一年開始時自豪地穿上它！沒有屬性加成。",
+    "weaponSpecialWinter2023MageText": "狐火",
+    "weaponSpecialWinter2023MageNotes": "既不是狐狸也不是火，而是高漲的節日氣氛！ 增加<%= int %>點智力，<%= per %>點感知。 2022-2023年冬季限定版裝備。",
+    "weaponSpecialWinter2023HealerText": "迴旋花環",
+    "weaponSpecialWinter2023WarriorNotes": "這把長矛的兩個尖端像海象象牙，但威力是它的兩倍。 直擊懷疑和愚蠢的詩歌吧，直到他們退縮！增加<%= str %>點力量。 2022-2023年冬季限定版裝備。",
+    "weaponSpecialWinter2023HealerNotes": "看著這個慶祝的、多刺的花環在空中旋轉，飛向你的敵人或障礙物，接著像迴旋鏢一樣回到你身邊，等待著下一次的投擲。增加<%= int %>點智力。2022-2023年冬季限定版裝備。",
+    "weaponArmoireEveningTeaNotes": "這瓶靈丹妙藥將幫助您放鬆，讓那些大型任務看起來沒那麼有威脅性。增加<%= int %>點智力。魔法衣櫥：晨衣套裝（3/3）。"
 }

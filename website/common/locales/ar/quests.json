@@ -1,14 +1,14 @@
 {
-    "quests": "التناقيب",
-    "quest": "تنقيب",
-    "petQuests": "Pet and Mount Quests",
-    "unlockableQuests": "Unlockable Quests",
-    "goldQuests": "Masterclasser Quest Lines",
+    "quests": "مغامرات",
+    "quest": "مغامرة",
+    "petQuests": "مغامرات للحصول على حيوانات الأليفة ومطايا",
+    "unlockableQuests": "مغامرات غير قابلة للفتح",
+    "goldQuests": "مغامرات ماستركلاسر",
     "questDetails": "تفاصيل المغامرة",
-    "questDetailsTitle": "Quest Details",
+    "questDetailsTitle": "تفاصيل المغامرة",
     "questDescription": "Quests allow players to focus on long-term, in-game goals with the members of their party.",
     "invitations": "الدعوات",
-    "completed": "\t\nمنتهى!",
+    "completed": "اكتملت المغامرة!",
     "rewardsAllParticipants": "Rewards for all Quest Participants",
     "rewardsQuestOwner": "Additional Rewards for Quest Owner",
     "inviteParty": "Invite Party to Quest",
@@ -71,5 +71,6 @@
     "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Health",
     "rageAttack": "Rage Attack:",
     "bossRage": "<%= currentRage %> / <%= maxRage %> Rage",
-    "rageStrikes": "Rage Strikes"
+    "rageStrikes": "Rage Strikes",
+    "hatchingPotionQuests": "مغامرات للحصول على جرعات سحرية"
 }

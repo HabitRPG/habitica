@@ -225,7 +225,7 @@
     "guildBank": "公会银行",
     "chatPlaceholder": "在这里输入您给公会会员发送的信息",
     "partyChatPlaceholder": "在这里输入您给队伍会员发送的信息",
-    "fetchRecentMessages": "查看最近的消息",
+    "fetchRecentMessages": "获取最新消息",
     "like": "点赞",
     "liked": "已赞",
     "inviteToGuild": "公会邀请",

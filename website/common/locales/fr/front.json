@@ -188,5 +188,6 @@
     "enterHabitica": "Entrez dans Habitica",
     "socialAlreadyExists": "Cet identifiant social est déjà lié à un compte Habitica existant.",
     "emailUsernamePlaceholder": "par exemple habitrabbit ou gryphon@example.com",
-    "footerProduct": "Produit"
+    "footerProduct": "Produit",
+    "translateHabitica": "Traduire Habitica"
 }
