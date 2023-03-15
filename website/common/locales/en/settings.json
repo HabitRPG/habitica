@@ -52,6 +52,7 @@
     "exportUserData": "Export User Data:",
     "useridCopied": "User ID copied to clipboard.",
     "developerMode": "Developer Mode",
+    "developerModeTooltip": "Habitica provides a developer mode to enable additional features that interact with Habitica's API.",
     "export": "Export",
     "xml": "XML",
     "json": "JSON",

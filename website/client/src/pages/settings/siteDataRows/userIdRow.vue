@@ -1,7 +1,12 @@
 <template>
   <tr>
     <td class="settings-label">
-      {{ $t("userId") }}
+      <div class="d-flex align-items-center">
+        {{ $t("userId") }} <information-icon
+          tooltip-id="userId"
+          tooltip="TODO"
+        />
+      </div>
     </td>
     <td class="settings-value">
       {{ user.id }}
@@ -25,8 +30,10 @@
 <script>
 import { mapState } from '@/libs/store';
 import copyToClipboard from '@/mixins/copyToClipboard';
+import InformationIcon from '@/components/ui/informationIcon.vue';
 
 export default {
+  components: { InformationIcon },
   mixins: [copyToClipboard],
   computed: {
     ...mapState({
