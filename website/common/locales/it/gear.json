@@ -2784,5 +2784,19 @@
     "shieldSpecialWinter2023HealerText": "Fresche Composizioni Musicali",
     "shieldSpecialWinter2023HealerNotes": "Il tuo canto di gelo e neve calmerà gli animi di tutti coloro che lo ascolteranno. Aumenta la Costituzione di <%= con %>. Equipaggiamento in Edizione Limitata, Inverno 2022-2023.",
     "headSpecialNye2022Notes": "Hai ricevuto un Cappello da Festa Fantastico! Indossalo con orgoglio mentre inauguri il Nuovo Anno! Non conferisce alcun bonus.",
-    "headSpecialNye2022Text": "Cappello da Festa Fantastico"
+    "headSpecialNye2022Text": "Cappello da Festa Fantastico",
+    "armorSpecialBirthday2023Notes": "Buon compleanno Habitica! Indossa questi Abiti da Festa Favolosi per celebrare questo giorno meraviglioso. Non conferisce alcun bonus.",
+    "headMystery202301Notes": "Il tuo udito diverrà talmente fine che sentirai spuntare l'alba e la rugiada scintillare. Non conferisce alcun bonus. Oggetto abbonati gennaio 2023.",
+    "backMystery202301Notes": "Queste soffici code racchiudono un potere etereo, nonché un alto livello di fascino! Non conferisce alcun bonus. Oggetto abbonati gennaio 2023.",
+    "backSpecialAnniversaryText": "Mantello dell'Eroe di Habitica",
+    "backSpecialAnniversaryNotes": "Lascia che questo fiero mantello svolazzi al vento e dica a tutti che sei un Eroe di Habitica. Non conferisce alcun bonus. Oggetto in Edizione Speciale per il 10° Compleanno di Habitica.",
+    "bodySpecialAnniversaryNotes": "Complementa perfettamente il tuo completo viola regale! Non conferisce alcun bonus. Oggetto in Edizione Speciale per il 10° Compleanno di Habitica.",
+    "armorSpecialBirthday2023Text": "Abiti da Festa Favolosi",
+    "armorArmoireShawlCollarCoatText": "Cappotto con Colletto Sciallato",
+    "armorArmoireShawlCollarCoatNotes": "Un mago saggio una volta disse che non c'è niente di meglio che stare comodi ed essere produttivi al contempo! Indossa questo cappotto caldo e stiloso mentre superi le sfide dell'anno. Aumenta la Costituzione di <%= con %>. Scrigno Incantato: Oggetto Indipendente.",
+    "headMystery202301Text": "Orecchie del Volpino Valoroso",
+    "backMystery202301Text": "Cinque Code al Valore",
+    "bodySpecialAnniversaryText": "Colletto dell'Eroe di Habitica",
+    "eyewearSpecialAnniversaryText": "Maschera dell'Eroe di Habitica",
+    "eyewearSpecialAnniversaryNotes": "Guarda attraverso gli occhi di un Eroe di Habitica: tu! Non conferisce alcun bonus. Oggetto in Edizione Speciale per il 10° Compleanno di Habitica."
 }

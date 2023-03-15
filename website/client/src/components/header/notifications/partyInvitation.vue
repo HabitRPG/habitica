@@ -5,7 +5,14 @@
     :notification="notification"
   >
     <div slot="content">
-      <div v-html="$t('invitedToParty', {party: notification.data.name})"></div>
+      <div
+        v-html="$t('invitedToPartyBy', {
+          userId: notification.data.inviter,
+          userName: invitingUser.auth ? invitingUser.auth.local.username : null,
+          party: notification.data.name,
+        })"
+      >
+      </div>
       <div class="notifications-buttons">
         <div
           class="btn btn-small btn-success"
@@ -32,9 +39,30 @@ export default {
   components: {
     BaseNotification,
   },
-  props: ['notification', 'canRemove'],
+  props: {
+    notification: {
+      type: Object,
+      default (data) {
+        return data;
+      },
+    },
+    canRemove: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  data () {
+    return {
+      invitingUser: {},
+    };
+  },
   computed: {
     ...mapState({ user: 'user.data' }),
+  },
+  async mounted () {
+    this.invitingUser = await this.$store.dispatch('members:fetchMember', {
+      memberId: this.notification.data.inviter,
+    });
   },
   methods: {
     async accept () {
