@@ -68,9 +68,11 @@
 
       & svg {
         fill: $yellow-1;
+        opacity: 0.75;
       }
        & :hover {
         fill: $yellow-1;
+        opacity: 1;
       }
     }
   }
