@@ -34,7 +34,7 @@
       <td class="settings-button">
         <a
           class="edit-link"
-          @click.prevent="openModal()"
+          @click.prevent="showRealModalOrInline()"
         >
           {{ $t(classDisabled ? 'chooseClassSetting' : 'edit') }}
         </a>
@@ -68,7 +68,7 @@
           <save-cancel-buttons
             primary-button-label="changeClassSetting"
             class="mb-2"
-            :disable-save="amountNeeded > userGems"
+            :disable-save="!enoughGemsAvailable"
             @saveClicked="changeClassAndClose()"
             @cancelClicked="requestCloseModal()"
           />
@@ -234,6 +234,9 @@ export default {
     allowedToChangeClass () {
       return this.user.stats.lvl >= 10;
     },
+    enoughGemsAvailable () {
+      return this.amountNeeded <= this.userGems;
+    },
     classDisabled () {
       return this.user.preferences.disableClasses;
     },
@@ -243,6 +246,20 @@ export default {
     this.resetControls();
   },
   methods: {
+    showRealModalOrInline () {
+      if (!this.classDisabled) {
+        this.openModal();
+        return;
+      }
+
+      if (this.enoughGemsAvailable) {
+        this.changeClassAndClose();
+        return;
+      }
+
+      // if the user doesn't have enough gems we'll just show the inline modal
+      this.openModal();
+    },
     async changeClassAndClose () {
       if (!this.classDisabled && !window.confirm(this.$t('changeClassConfirmCost'))) {
         return;
