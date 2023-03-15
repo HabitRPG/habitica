@@ -144,8 +144,6 @@
       }
 
       .edit-link {
-        color: $blue-10 !important;
-
         &:hover {
           text-decoration: underline;
         }
