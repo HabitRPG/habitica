@@ -15,6 +15,10 @@ export const EVENTS = {
     season: 'normal',
     npcImageSuffix: '',
   },
+  bundle202303: {
+    start: '2023-03-16T08:00-04:00',
+    end: '2023-03-31T23:59-04:00',
+  },
   bundle202302: {
     start: '2023-02-21T08:00-05:00',
     end: '2023-02-28T23:59-05:00',
