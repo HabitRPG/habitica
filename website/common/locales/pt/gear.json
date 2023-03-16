@@ -1811,15 +1811,16 @@
     "weaponSpecialSummer2020WarriorText": "Anzol",
     "weaponSpecialSpring2020HealerText": "Cajado de Lírio-Espada",
     "weaponSpecialSpring2020HealerNotes": "Uma íris é bela, mas as folhas são como espadas... não seja enganado pelas flores, este cajado é duro como aço! Aumenta Inteligencia por <%=int%>. Edição Limitada 2020 Equipamento de Primavera.",
-    "weaponSpecialSummer2020RogueNotes": "Seus inimigos não vêem você se aproximar, mas suas Presas são inescapáveis! Aumenta Força por <%=str%>. Edição Limitada 2020 Equipamento de Verão.",
+    "weaponSpecialSummer2020RogueNotes": "Seus inimigos não veem você se aproximar, mas suas Presas são inescapáveis! Aumenta Força em <%=str%>. Edição Limitada 2020 Equipamento de Verão.",
     "weaponSpecialSummer2020WarriorNotes": "Se os seus oponentes zombarem da sua escolha de arma, não morda a isca. Esse gancho maneiro fisga de verdade! Aumenta Força por <%=str%>. Edição Limitada 2020 Equipamento de Verão.",
     "weaponSpecialSummer2020MageNotes": "Navegue seu caminho pelos mares mais tortuosos e batalhas mais turbulentas. Aumenta Inteligência por <%=int%> e Percepção por <%=per%>. Edição Limitada 2020 Equipamento de Verão.",
     "weaponSpecialSummer2020HealerText": "Bastão de Vidro Fosco",
-    "weaponSpecialSummer2020HealerNotes": "Assim como as correntes desgastam as pontas afiadas, também a sua mágica atenuará a dor se seus aliados. Aumenta Inteligência por <%=int%>. Edição Limitada 2020 Equipamento de Verão.",
+    "weaponSpecialSummer2020HealerNotes": "Assim como as correntes desgastam as pontas afiadas, a sua mágica também atenuará a dor de seus aliados. Aumenta Inteligência em <%=int%>. Edição Limitada 2020 Equipamento de Verão.",
     "weaponSpecialFall2020RogueText": "Katar Afiada",
     "weaponSpecialFall2020WarriorText": "Espada do Espectro",
     "weaponSpecialFall2020RogueNotes": "Perfure seu oponente com um golpe afiado! Até a armadura mais grossa falhará contra a sua lâmina. Aumenta Força por <%=str%>. Edição Limitada 2020 Equipamento de Outono.",
     "weaponSpecialSummer2020RogueText": "Lâmina da Presa",
     "weaponSpecialFall2020WarriorNotes": "Essa espada foi para a vida após a morte com um poderoso Guerreiro, e agora retorna para você brandir! Aumenta Força por <%=str%>. Edição Limitada 2020 Equipamento de Outono",
-    "weaponSpecialFall2020MageText": "Três Visões"
+    "weaponSpecialFall2020MageText": "Três Visões",
+    "weaponSpecialFall2020MageNotes": "Se alguma coisa escapou da sua visão de mago, os brilhantes cristais no topo deste bastão devem iluminar o que deixou passar. Aumenta a Inteligência em <%= int %> e a Percepção em <%= por %>. Edição Limitada 2020 Engrenagem de Outono."
 }
