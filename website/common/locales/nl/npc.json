@@ -130,5 +130,8 @@
     "limitedAvailabilityMinutes": "Beschikbaar voor <%= minutes %>m <%= seconds %>s",
     "limitedAvailabilityHours": "Beschikbaar voor <%= hours %>h <%= minutes %>m",
     "limitedAvailabilityDays": "Beschikbaar voor <%= days %>d <%= hours %>h <%= minutes %>m",
-    "amountExp": "<%= amount %> Exp"
+    "amountExp": "<%= amount %> Exp",
+    "groupsPaymentSubBilling": "Je volgende aanrekeningsdatum is <strong><%= renewalDate %></strong>.",
+    "groupsPaymentAutoRenew": "Dit abonnement zal zich hernieuwen tot het geannuleerd is. Als je wil annuleren, kan je dat doen via het tabblad 'Groepsuitgaven'.",
+    "helpSupportHabitica": "Help mee Habitica Steunen"
 }

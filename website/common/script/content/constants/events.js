@@ -16,15 +16,15 @@ export const EVENTS = {
     npcImageSuffix: '',
   },
   spring2023: {
-    start: '2023-03-21T08:00-05:00',
-    end: '2023-04-30T23:59-05:00',
+    start: '2023-03-21T08:00-04:00',
+    end: '2023-04-30T23:59-04:00',
     npcImageSuffix: '_spring',
     season: 'spring',
     gear: true,
   },
   bundle202303: {
-    start: '2023-03-16T08:00-05:00',
-    end: '2023-03-31T23:59-05:00',
+    start: '2023-03-16T08:00-04:00',
+    end: '2023-03-31T23:59-04:00',
   },
   bundle202302: {
     start: '2023-02-21T08:00-05:00',

@@ -81,7 +81,6 @@
           </span>
           <a
             v-if="assignedUsersCount > 1 && !showStatus"
-            class="blue-10"
             @click="showStatus = !showStatus"
           >
             {{ $t('viewStatus') }}
@@ -128,10 +127,6 @@
     padding-top: 0.25rem;
     z-index: 9;
     height: 24px;
-
-    .blue-10 {
-      color: $blue-10;
-    }
   }
 
   .completion-row {

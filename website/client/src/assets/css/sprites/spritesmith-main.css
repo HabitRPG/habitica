@@ -293,6 +293,11 @@
   width: 48px;
   height: 52px;
 }
+.achievement-plantParent2x {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/achievement-plantParent2x.png');
+  width: 64px;
+  height: 68px;
+}
 .achievement-polarPro2x {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/achievement-polarPro2x.png');
   width: 68px;
@@ -53453,6 +53458,11 @@
   width: 81px;
   height: 99px;
 }
+.Pet-BearCub-TeaShop {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-BearCub-TeaShop.png');
+  width: 81px;
+  height: 99px;
+}
 .Pet-BearCub-Thunderstorm {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-BearCub-Thunderstorm.png');
   width: 81px;
@@ -53890,6 +53900,11 @@
 }
 .Pet-Cactus-Sunshine {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Cactus-Sunshine.png');
+  width: 81px;
+  height: 99px;
+}
+.Pet-Cactus-TeaShop {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Cactus-TeaShop.png');
   width: 81px;
   height: 99px;
 }
@@ -54438,6 +54453,11 @@
   width: 81px;
   height: 99px;
 }
+.Pet-Dragon-TeaShop {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Dragon-TeaShop.png');
+  width: 81px;
+  height: 99px;
+}
 .Pet-Dragon-Thunderstorm {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Dragon-Thunderstorm.png');
   width: 81px;
@@ -54878,6 +54898,11 @@
   width: 81px;
   height: 99px;
 }
+.Pet-FlyingPig-TeaShop {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-FlyingPig-TeaShop.png');
+  width: 81px;
+  height: 99px;
+}
 .Pet-FlyingPig-Thunderstorm {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-FlyingPig-Thunderstorm.png');
   width: 81px;
@@ -55165,6 +55190,11 @@
 }
 .Pet-Fox-Sunshine {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Fox-Sunshine.png');
+  width: 81px;
+  height: 99px;
+}
+.Pet-Fox-TeaShop {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Fox-TeaShop.png');
   width: 81px;
   height: 99px;
 }
@@ -55853,6 +55883,11 @@
   width: 81px;
   height: 99px;
 }
+.Pet-LionCub-TeaShop {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-LionCub-TeaShop.png');
+  width: 81px;
+  height: 99px;
+}
 .Pet-LionCub-Thunderstorm {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-LionCub-Thunderstorm.png');
   width: 81px;
@@ -56360,6 +56395,11 @@
 }
 .Pet-PandaCub-Sunshine {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-PandaCub-Sunshine.png');
+  width: 81px;
+  height: 99px;
+}
+.Pet-PandaCub-TeaShop {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-PandaCub-TeaShop.png');
   width: 81px;
   height: 99px;
 }
@@ -57618,6 +57658,11 @@
   width: 81px;
   height: 99px;
 }
+.Pet-TigerCub-TeaShop {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-TigerCub-TeaShop.png');
+  width: 81px;
+  height: 99px;
+}
 .Pet-TigerCub-Thunderstorm {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-TigerCub-Thunderstorm.png');
   width: 81px;
@@ -58223,6 +58268,11 @@
   width: 81px;
   height: 99px;
 }
+.Pet-Wolf-TeaShop {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Wolf-TeaShop.png');
+  width: 81px;
+  height: 99px;
+}
 .Pet-Wolf-Thunderstorm {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Wolf-Thunderstorm.png');
   width: 81px;
@@ -58322,6 +58372,11 @@
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Yarn-Zombie.png');
   width: 81px;
   height: 99px;
+}
+.Pet-HatchingPotion-TeaShop {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-HatchingPotion-TeaShop.png');
+  width: 68px;
+  height: 68px;
 }
 .Pet_HatchingPotion_Amber {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet_HatchingPotion_Amber.png');
