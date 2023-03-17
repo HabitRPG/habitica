@@ -219,12 +219,12 @@ const premium = {
     text: t('hatchingPotionRainbow'),
     limited: true,
     _addlNotes: t('eventAvailabilityReturning', {
-      availableDate: t('dateEndMarch'),
-      previousDate: t('marchYYYY', { year: 2019 }),
+      availableDate: t('dateEndApril'),
+      previousDate: t('marchYYYY', { year: 2021 }),
     }),
-    event: EVENTS.spring2021,
+    event: EVENTS.spring2023,
     canBuy () {
-      return moment().isBefore(EVENTS.spring2021.end);
+      return moment().isBefore(EVENTS.spring2023.end);
     },
   },
   Glass: {
@@ -389,13 +389,13 @@ const premium = {
     value: 2,
     text: t('hatchingPotionBirchBark'),
     limited: true,
-    event: EVENTS.spring2021,
+    event: EVENTS.spring2023,
     _addlNotes: t('eventAvailabilityReturning', {
-      availableDate: t('dateEndMarch'),
-      previousDate: t('marchYYYY', { year: 2020 }),
+      availableDate: t('dateEndApril'),
+      previousDate: t('marchYYYY', { year: 2021 }),
     }),
     canBuy () {
-      return moment().isBefore(EVENTS.spring2021.end);
+      return moment().isBefore(EVENTS.spring2023.end);
     },
   },
   Fluorite: {
@@ -482,13 +482,13 @@ const premium = {
     value: 2,
     text: t('hatchingPotionPolkaDot'),
     limited: true,
-    event: EVENTS.spring2022,
+    event: EVENTS.spring2023,
     _addlNotes: t('eventAvailabilityReturning', {
-      availableDate: t('dateEndMarch'),
-      previousDate: t('marchYYYY', { year: 2021 }),
+      availableDate: t('dateEndApril'),
+      previousDate: t('marchYYYY', { year: 2022 }),
     }),
     canBuy () {
-      return moment().isBefore(EVENTS.spring2022.end);
+      return moment().isBefore(EVENTS.spring2023.end);
     },
   },
   MossyStone: {
