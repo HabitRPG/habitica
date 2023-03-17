@@ -377,8 +377,6 @@ const router = new VueRouter({
       ],
     },
 
-    { name: 'externalLink', path: '/external' },
-
     // Only used to handle some redirects
     // See router.beforeEach
     { path: '/redirect/:redirect', name: 'redirect' },
@@ -394,11 +392,6 @@ router.beforeEach(async (to, from, next) => {
   const routePrivilegeNeeded = to.meta.privilegeNeeded;
 
   if (to.name === 'redirect') return handleRedirect(to, from, next);
-
-  if (to.name === 'externalLink') {
-    setTimeout(() => router.app.$emit('bv::show::modal', 'external-link-modal'), 500);
-    return null;
-  }
 
   if (!isUserLoggedIn && routeRequiresLogin) {
     // Redirect to the login page unless the user is trying to reach the

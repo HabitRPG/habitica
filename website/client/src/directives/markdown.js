@@ -14,10 +14,10 @@ export default function markdown (el, { value, oldValue }) {
   for (let i = 0; i < allLinks.length; i += 1) {
     const link = allLinks[i];
 
-    // todo middleclick or ctrl+click to open it in a new tab
-    // todo? should a normal click leave the current page or also open it in a new tab?
-    // ... hopefully this wont create memory leaks
     link.addEventListener('click', e => {
+      if (e.ctrlKey) {
+        return;
+      }
       e.stopPropagation();
       e.preventDefault();
 

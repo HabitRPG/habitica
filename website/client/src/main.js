@@ -43,5 +43,5 @@ const vueInstance = new Vue({
 export default vueInstance;
 
 window.externalLink = url => {
-  vueInstance.$root.$emit('bv::show::modal', 'external-link-modal', url);
+  vueInstance.$root.$emit('habitica:external-link', url);
 };

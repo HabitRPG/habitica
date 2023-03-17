@@ -366,12 +366,6 @@
               class="btn btn-secondary"
               @click="makeAdmin()"
             >Make Admin</a>
-            <a
-              class="btn btn-danger"
-              @click="externalLinkModal()"
-            >
-              External Link Modal
-            </a>
           </div>
         </div>
       </div>
@@ -902,10 +896,6 @@ export default {
     },
     donate () {
       this.$root.$emit('bv::show::modal', 'buy-gems', { alreadyTracked: true });
-    },
-    externalLinkModal () {
-      this.$root.$emit('bv::show::modal', 'external-link-modal');
-      console.log('Hi!');
     },
   },
 };

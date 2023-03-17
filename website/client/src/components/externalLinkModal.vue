@@ -39,7 +39,7 @@
       <button
         v-once
         class="btn btn-primary"
-        @click="close()"
+        @click="proceed()"
       >
         {{ $t('continue') }}
       </button>
@@ -51,9 +51,14 @@
 @import '~@/assets/scss/colors.scss';
 
 #external-link-modal {
+  &.modal {
+    display: flex !important;
+  }
+
   .modal-md {
     max-width: 448px;
     min-width: 330px;
+    margin: auto;
 
   .modal-close {
     position: absolute;
@@ -142,12 +147,25 @@ export default {
         close: closeIcon,
         exclamation: exclamationIcon,
       }),
+      url: '',
     };
+  },
+  mounted () {
+    this.$root.$on('habitica:external-link', url => {
+      this.url = url;
+      this.$root.$emit('bv::show::modal', 'external-link-modal');
+    });
+  },
+  beforeDestroy () {
+    this.$root.$off('habitica:external-link');
   },
   methods: {
     close () {
       this.$root.$emit('bv::hide::modal', 'external-link-modal');
-      console.log('Bye!');
+    },
+    proceed () {
+      window.open(this.url, '_blank').focus();
+      this.close();
     },
   },
 };
