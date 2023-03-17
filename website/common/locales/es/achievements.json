@@ -138,5 +138,11 @@
     "achievementReptacularRumble": "Rumble reptacular",
     "achievementWoodlandWizard": "Mago del bosque",
     "achievementWoodlandWizardModalText": "¡Has recogido todas las mascotas del bosque!",
-    "achievementWoodlandWizardText": "Ha incubado todos los colores estándar de las criaturas del bosque: Tejón, Oso, Ciervo, Zorro, Rana, Erizo, Búho, Caracol, Ardilla y Treeling!"
+    "achievementWoodlandWizardText": "Ha incubado todos los colores estándar de las criaturas del bosque: Tejón, Oso, Ciervo, Zorro, Rana, Erizo, Búho, Caracol, Ardilla y Treeling!",
+    "achievementBoneToPick": "Hueso para recoger",
+    "achievementBoneToPickText": "¡Ha eclosionado todas las mascotas Clásicas y de Misión Esqueléticas!",
+    "achievementPolarPro": "Experto Polar",
+    "achievementPolarProModalText": "¡Has coleccionado todas las mascotas Polares!",
+    "achievementBoneToPickModalText": "¡Has coleccionado todas las mascotas clásicas y de misiones esqueléticas!",
+    "achievementPolarProText": "¡Ha eclosionado todos los colores estándar para mascotas Polares: Osos, Zorros, Pinguinos, Ballenas y Lobos!"
 }

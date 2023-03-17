@@ -188,5 +188,6 @@
     "enterHabitica": "Habiticaをはじめる",
     "socialAlreadyExists": "このソーシャルログインは、すでに存在しているHabiticaアカウントにリンクされています。",
     "emailUsernamePlaceholder": "例：habitrabbitもしくはgryphon@example.com",
-    "footerProduct": "プロダクト"
+    "footerProduct": "プロダクト",
+    "translateHabitica": "Habiticaの翻訳"
 }

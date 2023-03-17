@@ -52,6 +52,7 @@ const SEASONAL_SETS = {
     'winter2023WalrusWarriorSet',
     'winter2023FairyLightsMageSet',
     'winter2023CardinalHealerSet',
+
   ],
   spring: [
     // spring 2014
@@ -101,6 +102,11 @@ const SEASONAL_SETS = {
     'spring2022PeridotHealerSet',
     'spring2022RainstormWarriorSet',
     'spring2022MagpieRogueSet',
+
+    'spring2023CaterpillarRogueSet',
+    'spring2023HummingbirdWarriorSet',
+    'spring2023MoonstoneMageSet',
+    'spring2023LilyHealerSet',
   ],
 
   summer: [

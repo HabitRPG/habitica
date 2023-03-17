@@ -32,7 +32,7 @@
         <button
           v-if="user.preferences.sleep"
           v-once
-          class="btn btn-secondary pause-button"
+          class="btn btn-secondary btn-block pause-button"
           @click="toggleSleep()"
         >
           {{ $t('unpauseDailies') }}

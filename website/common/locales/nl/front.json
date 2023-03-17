@@ -187,5 +187,6 @@
     "minPasswordLength": "Een wachtwoord moet minstens uit 8 karakters bestaan.",
     "enterHabitica": "Betreed Habitica",
     "emailUsernamePlaceholder": "bijv., gewoontekonijn of griffioen@voorbeeld.com",
-    "socialAlreadyExists": "Deze inloggegevens zijn verbonden aan een albestaande Habitica-account."
+    "socialAlreadyExists": "Deze inloggegevens zijn verbonden aan een albestaande Habitica-account.",
+    "footerProduct": "Product"
 }
