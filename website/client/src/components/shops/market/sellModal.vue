@@ -31,14 +31,14 @@
           {{ itemContextToSell.itemName }}
         </h4>
         <div v-if="item.key === 'Saddle'">
-          <div class="text">
+          <div class="item-notes">
             {{ item.sellWarningNote() }}
           </div>
           <br>
         </div>
         <div v-else>
           <div>
-            <div class="text">
+            <div class="item-notes">
               {{ item.notes() }}
             </div>
             <div class="item-cost">
@@ -52,7 +52,11 @@
               </span>
             </div>
             <div>
-              <b class="how-many-to-sell">{{ $t('howManyToSell') }}</b>
+              <span
+                class="how-many-to-sell"
+              >
+                {{ $t('howManyToSell') }}
+              </span>
             </div>
             <div>
               <number-increment
@@ -76,7 +80,7 @@
               class="btn btn-primary"
               @click="sellItems()"
             >
-              {{ $t('sell') }}
+              {{ $t('sellItems') }}
             </button>
           </div>
         </div>
@@ -104,13 +108,19 @@
     }
 
     .modal-dialog {
-      width: 448px;;
+      width: 448px;
     }
 
     .content {
       text-align: center;
 
     }
+
+    .title {
+      color: $gray-10;
+      font-size: 1.25rem;
+    }
+
     .inner-content {
       margin: 33px auto auto;
       width: 282px;
@@ -126,8 +136,8 @@
       border-bottom-left-radius: 4px;
       display: block;
       width: 141px;
-      margin-left: 70px;
-      margin-top: -36px;
+      margin-left: 71px;
+      margin-top: -48px;
       position: relative;
       z-index: 1;
     }
@@ -139,11 +149,18 @@
       border-top-right-radius: 4px;
       border-bottom-right-radius: 0px;
       border-bottom-left-radius: 0px;
+      cursor: default;
+      margin-top: 8px;
     }
 
     .item-content {
       transform: scale(1.45, 1.45);
-      top: -16px;
+      top: -16pp;
+    }
+
+    .item-notes {
+     line-height: 1.71;
+     margin-bottom: 16px;
     }
 
     span.svg-icon.inline.icon-32 {
@@ -168,11 +185,18 @@
       vertical-align: middle;
     }
 
-    span.svg-icon.inline.icon-16 {
+    span.svg-icon.icon-16 {
       height: 16px;
       width: 16px;
-      margin-right: 8px;
-      vertical-align: middle;
+    }
+
+    .close {
+      fill: $gray-200;
+      stroke-width: 0px;
+
+      &:hover {
+        fill: $gray-100;
+      }
     }
 
   .item-cost {
@@ -240,6 +264,8 @@
     .how-many-to-sell {
       margin-bottom: 16px;
       display: block;
+      font-size: 0.875rem;
+      font-weight: bold;
     }
   }
 </style>

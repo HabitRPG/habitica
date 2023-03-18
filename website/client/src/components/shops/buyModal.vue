@@ -269,7 +269,7 @@
     }
 
     .modal-dialog {
-      width: 448px;;
+      width: 448px;
       box-sizing: border-box;
     }
 
@@ -301,6 +301,12 @@
       border-top-right-radius: 4px;
       border-bottom-right-radius: 0px;
       border-bottom-left-radius: 0px;
+      cursor: default;
+    }
+
+    .title {
+      color: $gray-10;
+      font-size: 1.25rem;
     }
 
     .item-content {
@@ -386,11 +392,18 @@
       vertical-align: middle;
     }
 
-    span.svg-icon.inline.icon-16 {
+    span.svg-icon.icon-16 {
       height: 16px;
       width: 16px;
-      margin-right: 8px;
-      vertical-align: middle;
+    }
+
+    .close-icon {
+      fill: $gray-200;
+      stroke-width: 0px;
+
+      &:hover {
+        fill: $gray-100;
+      }
     }
 
     .item-cost {

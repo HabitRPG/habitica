@@ -79,7 +79,7 @@
   .icon-positive, .icon-negative {
     width: 10px;
     height: 10px;
-    margin: 3px auto;
+    margin: 4px auto;
 
     & ::v-deep svg path {
       fill: $gray-300;
