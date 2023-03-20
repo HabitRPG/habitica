@@ -1,14 +1,20 @@
 <template>
   <tr>
     <td class="settings-label">
-      <div class="d-flex align-items-center">
+      <div
+        v-once
+        class="d-flex align-items-center"
+      >
         {{ $t("userId") }} <information-icon
           tooltip-id="userId"
-          tooltip="TODO"
+          :tooltip="$t('userIdTooltip')"
         />
       </div>
     </td>
-    <td class="settings-value">
+    <td
+      v-once
+      class="settings-value"
+    >
       {{ user.id }}
     </td>
     <td class="settings-button">

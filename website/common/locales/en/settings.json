@@ -51,6 +51,7 @@
     "yourUserDataDisclaimer": "Here you can download a copy of your task history or your full user data.",
     "exportUserData": "Export User Data:",
     "useridCopied": "User ID copied to clipboard.",
+    "userIdTooltip": "The User ID is a unique number that Habitica automatically generates when a player joins, similar to a Username. However, unlike the Username, a User ID can not be changed.",
     "developerMode": "Developer Mode",
     "developerModeTooltip": "Habitica provides a developer mode to enable additional features that interact with Habitica's API.",
     "export": "Export",
