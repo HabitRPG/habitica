@@ -166,7 +166,7 @@
     "assignedToUser": "Zugewiesen: <strong>@<%- userName %></strong>",
     "assignedToMembers": "<%= userCount %> Mitgliedern",
     "assignedToYouAndMembers": "<strong>Dir</strong>, <%= userCount %> Mitgliedern",
-    "youAreAssigned": "Dir zugewiesen",
+    "youAreAssigned": "Zugewiesen: <strong>Dir<strong>",
     "taskIsUnassigned": "Diese Aufgabe ist niemandem zugewiesen",
     "confirmUnClaim": "Bist Du sicher, dass Du diese Aufgabe abgeben möchtest?",
     "confirmNeedsWork": "Bist Du sicher, dass Du diese Aufgabe auf \"Benötigt Arbeit\" setzen möchtest?",
