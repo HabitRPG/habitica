@@ -7,12 +7,15 @@
     </h2>
     <div
       v-once
-      class="webhooks-info"
+      class="webhooks-info mb-3"
       v-html="$t('webhooksInfo')"
     >
     </div>
 
-    <div class="d-flex justify-content-center webhooks-list">
+    <div
+      class="d-flex justify-content-center webhooks-list"
+      :class="{'webhooks-exists': Boolean(user.webhooks.length)}"
+    >
       <table class="table table-striped">
         <tr v-if="user.webhooks.length">
           <th>{{ $t('webhookURL') }}</th>
@@ -76,24 +79,28 @@
           </td>
         </tr>
         <tr>
-          <td colspan="3">
+          <td
+            colspan="3"
+            :class="{'webhooks-empty': !Boolean(user.webhooks.length)}"
+          >
+            <button
+              class="btn btn-secondary d-flex align-items-center new-webhook-btn"
+              :class="{'webhooks-exists': Boolean(user.webhooks.length)}"
+              tabindex="0"
+              @click="newUnsavedWebhook()"
+            >
+              <div
+                class="svg-icon icon-10 color"
+                v-html="icons.positive"
+              ></div>
+              <div class="ml-75 mr-1">
+                {{ $t('addWebhook') }}
+              </div>
+            </button>
           </td>
         </tr>
       </table>
     </div>
-    <button
-      class="btn btn-secondary d-flex align-items-center"
-      tabindex="0"
-      @click="newUnsavedWebhook()"
-    >
-      <div
-        class="svg-icon icon-10 color"
-        v-html="icons.positive"
-      ></div>
-      <div class="ml-75 mr-1">
-        {{ $t('addWebhook') }}
-      </div>
-    </button>
   </div>
 </template>
 
@@ -121,7 +128,6 @@
 }
 
 .webhooks-list {
-  margin-top: 20px;
   margin-bottom: 0.5rem;
 
   tr:first-of-type {
@@ -146,10 +152,22 @@
   }
 }
 
+td.webhooks-empty {
+  border-top-color: transparent;
+}
+
 td.menu-column {
   width: 2rem;
   padding-left: 0 !important;
   padding-right: 0 !important;
+}
+
+.new-webhook-btn:not(.webhooks-exists) {
+  margin: 0 auto;
+}
+
+table {
+  margin-bottom: 0 !important;
 }
 </style>
 
