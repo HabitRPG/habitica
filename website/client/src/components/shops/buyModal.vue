@@ -714,6 +714,7 @@ export default {
   methods: {
     onChange ($event) {
       this.$emit('change', $event);
+      this.selectedAmountToBuy = 1;
     },
 
     buyItem () {

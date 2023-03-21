@@ -18,13 +18,12 @@
     >
       <div class="inner-content">
         <item
-          class="flat"
+          class="flat bordered-item"
           :item="item"
           :item-content-class="itemContextToSell.itemClass"
           :show-popover="false"
         />
         <span class="owned">
-          <!-- need to calculate totalOwned()  -->
           {{ $t('owned') }}: {{ itemContextToSell.itemCount }}
         </span>
         <h4 class="title">
@@ -155,7 +154,7 @@
 
     .item-content {
       transform: scale(1.45, 1.45);
-      top: -16pp;
+      top: -16px;
     }
 
     .item-notes {
