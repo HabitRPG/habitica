@@ -43,6 +43,13 @@
       >
         {{ $t('continue') }}
       </button>
+      <div
+        v-once
+        class="close-link justify-content-center"
+        @click="close()"
+      >
+        {{ $t('cancel') }}
+      </div>
     </div>
   </b-modal>
 </template>
@@ -128,6 +135,15 @@
       justify-content: center;
       border-top: none;
       padding-top: 0;
+    }
+    .close-link {
+      color: $purple-300;
+      line-height: 1.71;
+      font-size: 0.875rem;
+      cursor: pointer;
+      padding-top:16px;
+      padding-bottom: 8px;
+      text-align: center;
     }
   }
 }
