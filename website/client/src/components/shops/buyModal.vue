@@ -17,7 +17,7 @@
     </span>
     <div>
       <span
-        class="svg-icon icon-16 close-icon"
+        class="svg-icon close-icon icon-16 color"
         aria-hidden="true"
         tabindex="0"
         @click="hideDialog()"
@@ -398,11 +398,11 @@
     }
 
     .close-icon {
-      fill: $gray-200;
+      color: $gray-200;
       stroke-width: 0px;
 
       &:hover {
-        fill: $gray-100;
+          color: $gray-100;
       }
     }
 

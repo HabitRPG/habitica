@@ -4,9 +4,9 @@
     :hide-header="true"
     @change="onChange($event)"
   >
-    <div class="close">
+    <div>
       <span
-        class="svg-icon inline icon-16"
+        class="svg-icon close-icon icon-16 color"
         aria-hidden="true"
         @click="hideDialog()"
         v-html="icons.close"
@@ -189,12 +189,13 @@
       width: 16px;
     }
 
-    .close {
-      fill: $gray-200;
+    .close-icon {
+      color: $gray-200;
       stroke-width: 0px;
+      cursor: pointer;
 
       &:hover {
-        fill: $gray-100;
+        color: $gray-100;
       }
     }
 
