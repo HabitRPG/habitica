@@ -159,6 +159,10 @@
       margin-top:16px;
       margin-bottom: 8px;
       text-align: center;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 }
