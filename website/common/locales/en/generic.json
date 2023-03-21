@@ -214,5 +214,6 @@
   "askQuestion": "Ask a Question",
   "emptyReportBugMessage": "Report Bug Message missing",
   "leaveHabitica": "You are about to leave Habitica.com",
-  "leaveHabiticaText": "Habitica is not responsible for the content of any linked website that is not owned or operated by HabitRPG.<br>Please note that these websites' practices may differ from Habitica’s community guidelines."
+  "leaveHabiticaText": "Habitica is not responsible for the content of any linked website that is not owned or operated by HabitRPG.<br>Please note that these websites' practices may differ from Habitica’s community guidelines.",
+  "skipExternalLinkModal": "Hold CTRL (Windows) or Command (Mac) when clicking a link to skip this modal."
 }

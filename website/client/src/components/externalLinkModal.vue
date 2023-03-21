@@ -33,6 +33,11 @@
       v-html="$t('leaveHabiticaText')"
     >
     </div>
+    <div
+      class="skip-modal"
+    >
+      {{ $t('skipExternalLinkModal') }}
+    </div>
 
     <!-- FOOTER -->
     <div slot="modal-footer">
@@ -43,6 +48,13 @@
       >
         {{ $t('continue') }}
       </button>
+      <div
+        v-once
+        class="close-link justify-content-center"
+        @click="close()"
+      >
+        {{ $t('cancel') }}
+      </div>
     </div>
   </b-modal>
 </template>
@@ -62,20 +74,22 @@
 
   .modal-close {
     position: absolute;
-    right: 16px;
-    top: 16px;
+    right: 12px;
+    top: 12px;
     cursor: pointer;
 
     .icon-close {
-      width: 18px;
-      height: 18px;
+      width: 16px;
+      height: 16px;
       vertical-align: middle;
 
       & svg {
         fill: $yellow-1;
+        opacity: 0.75;
       }
        & :hover {
         fill: $yellow-1;
+        opacity: 1;
       }
     }
   }
@@ -86,7 +100,7 @@
 
   .modal-header {
     justify-content: center;
-    padding-top: 24px;
+    padding-top: 32px;
     padding-bottom: 0px;
     background: $yellow-100;
     border-top-right-radius: 8px;
@@ -109,7 +123,7 @@
 
     h2 {
       color: $yellow-1;
-      // font-size: 1.25rem;
+      margin-bottom: 16px;
     }
   }
 
@@ -121,6 +135,16 @@
       font-size: 0.875rem;
       line-height: 1.71;
       text-align: center;
+      margin-top:24px;
+    }
+
+    .skip-modal {
+      color: $gray-100;
+      font-size: 0.75rem;
+      text-align: center;
+      line-height: 1.33;
+      margin-top: 16px;
+      // padding-bottom: 24px;
     }
   }
 
@@ -131,6 +155,15 @@
       justify-content: center;
       border-top: none;
       padding-top: 0;
+    }
+    .close-link {
+      color: $purple-300;
+      line-height: 1.71;
+      font-size: 0.875rem;
+      cursor: pointer;
+      margin-top:16px;
+      margin-bottom: 8px;
+      text-align: center;
     }
   }
 }
