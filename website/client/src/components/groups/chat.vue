@@ -87,6 +87,8 @@
 <script>
 import debounce from 'lodash/debounce';
 
+import externalLinks from '../../mixins/externalLinks';
+
 import autocomplete from '../chat/autoComplete';
 import communityGuidelines from './communityGuidelines';
 import chatMessage from '../chat/chatMessages';
@@ -103,6 +105,7 @@ export default {
     communityGuidelines,
     chatMessage,
   },
+  mixins: [externalLinks],
   props: ['label', 'group', 'placeholder'],
   data () {
     return {
@@ -132,6 +135,9 @@ export default {
   },
   mounted () {
     this.textbox = this.$refs['user-entry'];
+  },
+  updated () {
+    this.handleExternalLinks();
   },
   methods: {
     // https://medium.com/@_jh3y/how-to-where-s-the-caret-getting-the-xy-position-of-the-caret-a24ba372990a

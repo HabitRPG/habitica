@@ -322,6 +322,7 @@ import omit from 'lodash/omit';
 import { v4 as uuid } from 'uuid';
 
 import { userStateMixin } from '../../mixins/userState';
+import externalLinks from '../../mixins/externalLinks';
 import memberSearchDropdown from '@/components/members/memberSearchDropdown';
 import closeChallengeModal from './closeChallengeModal';
 import Column from '../tasks/column';
@@ -358,7 +359,7 @@ export default {
     userLink,
     groupLink,
   },
-  mixins: [challengeMemberSearchMixin, userStateMixin],
+  mixins: [challengeMemberSearchMixin, externalLinks, userStateMixin],
   props: ['challengeId'],
   data () {
     return {
@@ -414,6 +415,10 @@ export default {
   mounted () {
     if (!this.searchId) this.searchId = this.challengeId;
     if (!this.challenge._id) this.loadChallenge();
+    this.handleExternalLinks();
+  },
+  updated () {
+    this.handleExternalLinks();
   },
   async beforeRouteUpdate (to, from, next) {
     this.searchId = to.params.challengeId;
