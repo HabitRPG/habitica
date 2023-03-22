@@ -25,6 +25,7 @@
   "invite": "Invite",
   "leave": "Leave",
   "invitedToParty": "You were invited to join the Party <span class=\"notification-bold\"><%- party %></span>",
+  "invitedToPartyBy": "<a href=\"/profile/<%- userId %>\" target=\"_blank\">@<%- userName %></a> has invited you to join the Party <span class=\"notification-bold\"><%- party %></span>",
   "invitedToPrivateGuild": "You were invited to join the private Guild <span class=\"notification-bold\"><%- guild %></span>",
   "invitedToPublicGuild": "You were invited to join the Guild <span class=\"notification-bold-blue\"><%- guild %></span>",
   "invitationAcceptedHeader": "Your Invitation has been Accepted",

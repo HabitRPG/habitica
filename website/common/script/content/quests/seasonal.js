@@ -74,7 +74,7 @@ const QUEST_SEASONAL = {
   egg: {
     event: CURRENT_EVENT && CURRENT_EVENT.season === 'spring' ? CURRENT_EVENT : null,
     canBuy () {
-      return this.event && moment().isBetween(this.event.start, this.event.end);
+      return this.event && moment().isBetween('2023-03-28T08:00-05:00', this.event.end);
     },
     text: t('questEggHuntText'),
     notes: t('questEggHuntNotes'),
