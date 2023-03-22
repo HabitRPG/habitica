@@ -62,12 +62,12 @@
                 @updateQuantity="selectedAmountToSell = $event"
               />
             </div>
-            <div>
+            <div class="total-row">
               <span class="total-text">
                 {{ $t('sendTotal') }}
               </span>
               <span
-                class="svg-icon inline icon-20"
+                class="svg-icon inline icon-24"
                 aria-hidden="true"
                 v-html="icons.gold"
               ></span>
@@ -90,7 +90,9 @@
       class="clearfix"
     >
       <span class="balance float-left">{{ $t('yourBalance') }}</span>
-      <balanceInfo class="float-right" />
+      <balanceInfo
+        class="float-right"
+      />
     </div>
   </b-modal>
 </template>
@@ -112,12 +114,12 @@
 
     .content {
       text-align: center;
-
     }
 
     .title {
       color: $gray-10;
       font-size: 1.25rem;
+      margin-top: 28px;
     }
 
     .inner-content {
@@ -139,6 +141,10 @@
       margin-top: -48px;
       position: relative;
       z-index: 1;
+    }
+
+    .item-wrapper {
+      margin-top: -10px;
     }
 
     .item {
@@ -201,6 +207,7 @@
 
   .item-cost {
     padding-bottom: 16px;
+    padding-top: 8px;
     }
 
     .cost {
@@ -220,28 +227,36 @@
       }
     }
 
+    .total-row {
+      padding-top: 4px;
+      padding-bottom: 4px;
+    }
+
     .total {
-      font-size: 0.825rem;
+      font-size: 0.875rem;
       line-height: 1.71;
       font-weight: bold;
 
       &.gold {
-        color: $gold-color;
+        color: $yellow-5;
+        margin-left: -4px;
       }
     }
 
     .total-text {
+      color: $gray-50;
       font-size: 0.825rem;
-      line-height: 1.71;
       font-weight: bold;
+      line-height: 1.71;
       height: 24px;
       width: 37px;
       padding-right: 4px;
+      // margin-left: -4px;
     }
 
     button.btn.btn-primary {
-      margin-top: 24px;
-      margin-bottom: 24px;
+      margin-top: 16px;
+      margin-bottom: 0px;
     }
 
     .balance {
@@ -263,6 +278,7 @@
 
     .how-many-to-sell {
       margin-bottom: 16px;
+      margin-top: 8px;
       display: block;
       font-size: 0.875rem;
       font-weight: bold;

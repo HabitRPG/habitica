@@ -221,11 +221,11 @@
     </div>
     <div
       slot="modal-footer"
-      class="d-flex"
+      class="clearfix"
     >
-      <span class="balance mr-auto">{{ $t('yourBalance') }}</span>
+      <span class="balance float-left">{{ $t('yourBalance') }}</span>
       <balanceInfo
-        class="ml-auto balance"
+        class="float-right"
         :currency-needed="getPriceClass()"
         :amount-needed="item.value"
       />
@@ -455,7 +455,7 @@
       }
 
       &.gold {
-        color: $gold-color;
+        color: $yellow-5;
       }
 
       &.hourglasses {
