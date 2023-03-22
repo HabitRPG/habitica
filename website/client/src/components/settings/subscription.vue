@@ -804,7 +804,7 @@ export default {
       return currentPlanContext.nextHourglassDate;
     },
     nextHourGlass () {
-      const nextHourglassMonth = this.nextHourGlassDate.format('MMM');
+      const nextHourglassMonth = this.nextHourGlassDate.format('MMM YYYY');
 
       return nextHourglassMonth;
     },
