@@ -524,7 +524,15 @@ api.getGroupChallenges = {
       // .populate('leader', nameFields)
       .exec();
 
-    const resChals = challenges.map(challenge => (new Challenge(challenge)).toJSON());
+    const resChals = challenges.map(challenge => {
+      // filter out challenges that the non-admin user isn't participating in, nor created
+      const nonUserChallenge = (typeof user.challenges.find(challengeId => challengeId === challenge._id) === 'undefined') && challenge.leader !== user._id;
+      if (challenge.flagCount > 1 && !user.contributor.admin && nonUserChallenge) {
+        return null;
+      }
+
+      return (new Challenge(challenge)).toJSON();
+    }).filter(challenge => !!challenge);
 
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
     await Promise.all(resChals.map((chal, index) => User
