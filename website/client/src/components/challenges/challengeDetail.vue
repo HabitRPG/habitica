@@ -28,7 +28,7 @@
             <span
               v-else-if="flaggedAndHidden"
             >
-              {{ $t("flaggedAndHidden")}}
+              {{ $t("flaggedAndHidden") }}
             </span>
           </span>
           <h1 v-markdown="challenge.name"></h1>

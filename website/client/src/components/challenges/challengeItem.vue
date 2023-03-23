@@ -25,7 +25,7 @@
         <span
           v-else-if="flaggedAndHidden"
         >
-          {{ $t("flaggedAndHidden")}}
+          {{ $t("flaggedAndHidden") }}
         </span>
       </span>
       <router-link :to="{ name: 'challenge', params: { challengeId: challenge._id } }">
