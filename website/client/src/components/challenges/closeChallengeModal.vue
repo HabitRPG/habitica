@@ -2,7 +2,7 @@
   <div>
     <b-modal
       id="close-challenge-modal"
-      :title="$t('createGuild')"
+      :title="$t('endChallenge')"
       size="md"
     >
       <div
