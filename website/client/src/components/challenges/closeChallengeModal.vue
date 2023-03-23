@@ -17,31 +17,36 @@
         </h2>
       </div>
       <div class="row text-center">
-        <div class="col-12">
-          <div class="support-habitica">
-            <!-- @TODO: Add challenge achievement badge here-->
+        <span v-if="isFlagged">
+          <div class="col-12">{{ $t('cannotCloseChallenge') }}</div>
+        </span>
+        <span v-else>
+          <div class="col-12">
+            <div class="support-habitica">
+              <!-- @TODO: Add challenge achievement badge here-->
+            </div>
           </div>
-        </div>
-        <div class="col-12">
-          <strong v-once>{{ $t('selectChallengeWinnersDescription') }}</strong>
-        </div>
-        <div class="col-12">
-          <member-search-dropdown
-            :text="winnerText"
-            :members="members"
-            :challenge-id="challengeId"
-            @member-selected="selectMember"
-          />
-        </div>
-        <div class="col-12">
-          <button
-            v-once
-            class="btn btn-primary"
-            @click="closeChallenge"
-          >
-            {{ $t('awardWinners') }}
-          </button>
-        </div>
+          <div class="col-12">
+            <strong v-once>{{ $t('selectChallengeWinnersDescription') }}</strong>
+          </div>
+          <div class="col-12">
+            <member-search-dropdown
+              :text="winnerText"
+              :members="members"
+              :challenge-id="challengeId"
+              @member-selected="selectMember"
+            />
+          </div>
+          <div class="col-12">
+            <button
+              v-once
+              class="btn btn-primary"
+              @click="closeChallenge"
+            >
+              {{ $t('awardWinners') }}
+            </button>
+          </div>
+        </span>
         <div class="col-12">
           <hr>
           <div class="or">
@@ -123,7 +128,7 @@ export default {
   components: {
     memberSearchDropdown,
   },
-  props: ['challengeId', 'members', 'prize'],
+  props: ['challengeId', 'members', 'prize', 'flagCount'],
   data () {
     return {
       winner: {},
@@ -133,6 +138,9 @@ export default {
     winnerText () {
       if (!this.winner.profile) return this.$t('selectMember');
       return this.winner.profile.name;
+    },
+    isFlagged () {
+      return this.flagCount > 0;
     },
   },
   methods: {

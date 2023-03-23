@@ -103,5 +103,6 @@
   "resetFlagCount": "Reset Flag Count",
   "whyReportingChallenge": "Why are you reporting this challenge?",
   "whyReportingChallengePlaceholder": "Please help our moderators by letting us know why you are reporting this challenge for a violation, e.g., spam, swearing, religious oaths, bigotry, slurs, adult topics, violence.",
-  "abuseFlagModalBodyChallenge": "Are you sure you want to report this challenge? You should <strong>only</strong> report a challenge that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction."
+  "abuseFlagModalBodyChallenge": "Are you sure you want to report this challenge? You should <strong>only</strong> report a challenge that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction.",
+  "cannotCloseChallenge": "This challenge cannot be closed because one or more players have reported it as inappropriate. Staff members or moderators will contact you shortly with instructions. If over 48 hours have passed and you have not heard from them, please email admin@habitica.com for assistance."
 }

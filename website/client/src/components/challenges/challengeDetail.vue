@@ -10,6 +10,7 @@
       :members="members"
       :challenge-id="challenge._id"
       :prize="challenge.prize"
+      :flag-count="challenge.flagCount"
     />
     <challenge-member-progress-modal :challenge-id="challenge._id" />
     <div class="col-12 col-md-8 standard-page">
