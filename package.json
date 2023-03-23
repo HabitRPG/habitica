@@ -65,7 +65,7 @@
     "redis": "^3.1.2",
     "regenerator-runtime": "^0.13.11",
     "remove-markdown": "^0.5.0",
-    "rimraf": "^3.0.2",
+    "rimraf": "^4.4.1",
     "short-uuid": "^4.2.2",
     "stripe": "^11.10.0",
     "superagent": "^8.0.6",
