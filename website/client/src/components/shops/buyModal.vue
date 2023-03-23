@@ -66,7 +66,7 @@
           :class="totalOwned"
         >
           <!-- need to calculate totalOwned()  -->
-          {{ $t('owned') }}: {{ totalOwned }}
+          {{ $t('owned') }}: <span class="user-owned">{{ totalOwned }}</span>
         </span>
         <h4 class="title">
           {{ itemText }}
@@ -119,12 +119,13 @@
             :hidden="attemptingToPurchaseMoreGemsThanAreLeft"
           >
             <number-increment
+              class="number-increment"
               @updateQuantity="selectedAmountToBuy = $event"
             />
             <div :class="{'notEnough': notEnoughCurrency}">
               <span class="total-text">{{ $t('sendTotal') }}</span>
               <span
-                class="svg-icon inline icon-20 total"
+                class="svg-icon inline icon-24 total"
                 aria-hidden="true"
                 v-html="icons[getPriceClass()]"
               ></span>
@@ -281,17 +282,22 @@
    .owned {
       font-size: 0.75rem;
       font-weight: bold;
-      line-height: 1.33;
+      height: 32px;
+      line-height: 1.71;
       background-color: $gray-600;
       padding: 8px 41px;
       border-bottom-right-radius: 4px;
       border-bottom-left-radius: 4px;
       display: block;
       width: 141px;
-      margin-left: 154px;
+      margin-left: 153px;
       margin-top: -36px;
       position: relative;
       z-index: 1;
+
+      .user-amount {
+        font-weight: normal !important;
+      }
     }
 
     .item {
@@ -304,24 +310,27 @@
       cursor: default;
     }
 
-    .title {
-      color: $gray-10;
-      font-size: 1.25rem;
-    }
-
     .item-content {
       transform: scale(1.45, 1.45);
-      top: -16px;
+      top: -25.67px;
+      left: 1px;
+    }
+
+    .title {
+      height: 28px;
+      color: $gray-10;
+      font-size: 1.25rem;
+      margin-top: 25px;
+      margin-bottom: 0px;
     }
 
     .item-notes {
+       height: 48px;
+       margin-top: 8px;
        padding-left: 48.5px;
        padding-right: 48.5px;
-    }
-
-    .attributes-group {
-      margin: 24px;
-      border-radius: 4px;
+       line-height: 1.71;
+       font-size: 0.875;
     }
 
     .content {
@@ -334,7 +343,7 @@
     }
 
     .inner-content {
-      margin: 33px auto auto;
+      margin: 32px auto auto;
     }
 
     .btn-primary {
@@ -342,10 +351,15 @@
     }
 
     .purchase-amount {
-      margin-top: 24px;
+      margin-top: 0px;
 
       .how-many-to-buy {
-        margin-bottom: 16px;
+        margin-top: 24px;
+        height: 24px;
+      }
+
+      .number-increment {
+        margin-top: 16px;
       }
 
       .box {
@@ -407,48 +421,50 @@
     }
 
     .item-cost {
-       padding-bottom: 16px;
+       position: relative;
+       margin-top: 20px;
+       left: 2px;
     }
 
     .cost {
       height: 40px;
       font-size: 1.25rem;
       font-weight: bold;
-      line-height: 1.4;
       vertical-align: middle;
+      padding: 8px 20px 8px 20px;
 
       &.gems {
         color: $green-10;
-        border-radius: 20px;
-        padding: 8px 20px 8px 20px;
-        margin-top: 16px;
-        margin-bottom: 16px;
         background-color: rgba(36, 204, 143, 0.15);
+        line-height: 1.4;
+        margin: 0 0 0 4px;
+        border-radius: 20px;
       }
 
       &.gold {
         color: $yellow-5;
+        background-color: rgba(255, 190, 93, 0.15);
         border-radius: 20px;
         padding: 8px 20px 8px 20px;
         margin-top: 16px;
         margin-bottom: 16px;
-        background-color: rgba(255, 190, 93, 0.15);
       }
 
       &.hourglasses {
         color: $hourglass-color;
+        background-color: rgba(41, 149, 205, 0.15);
         border-radius: 20px;
         padding: 8px 20px 8px 20px;
         margin-top: 16px;
         margin-bottom: 16px;
-        background-color: rgba(41, 149, 205, 0.15);
       }
     }
 
     .total {
-      font-size: 0.825rem;
-      line-height: 1.71;
       font-weight: bold;
+      font-size: 0.875rem;
+      height: 24px;
+      line-height: 1.71;
 
       &.gems {
         color: $green-10;
@@ -464,10 +480,10 @@
     }
 
     .total-text {
-      font-size: 0.825rem;
-      line-height: 1.71;
       font-weight: bold;
+      font-size: 0.875rem;
       height: 24px;
+      line-height: 1.71;
       width: 37px;
       padding-right: 4px;
 
@@ -505,9 +521,9 @@
       margin: auto -1rem -1rem;
     }
 
-    .pt-015 {
-      padding-top: 0.15rem;
-    }
+    // .pt-015 {
+    //   padding-top: 0.15rem;
+    // }
   }
 
   .gems-left {
