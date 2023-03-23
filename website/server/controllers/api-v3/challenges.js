@@ -581,6 +581,9 @@ api.getChallenge = {
 
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
 
+    const nonUserChallenge = (typeof user.challenges.find(challengeId => challengeId === challenge._id) === 'undefined') && challenge.leader !== user._id;
+    if (challenge.flagCount > 1 && !user.contributor.admin && nonUserChallenge) throw new NotFound(res.t('challengeNotFound'));
+
     // Fetching basic group data
     const group = await Group.getGroup({
       user, groupId: challenge.group, fields: basicGroupFields, optionalMembership: true,
