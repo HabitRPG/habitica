@@ -75,7 +75,7 @@ describe('payments/index', () => {
     sandbox.restore();
   });
 
-  describe.only('#createSubscription', () => {
+  describe('#createSubscription', () => {
     context('Purchasing a subscription as a gift', () => {
       let recipient;
 
