@@ -13,6 +13,18 @@
       :flag-count="challenge.flagCount"
     />
     <challenge-member-progress-modal :challenge-id="challenge._id" />
+    <b-modal
+      id="cannot-clone-modal"
+      size="md"
+      :hide-header="true"
+      :hide-footer="true"
+    >
+      <div class="row text-center">
+        <div class="col-12">
+          {{ $t('cannotClone') }}
+        </div>
+      </div>
+    </b-modal>
     <div class="col-12 col-md-8 standard-page">
       <div class="row">
         <div class="col-12 col-md-6">
@@ -186,13 +198,24 @@
         v-if="isLeader || isAdmin"
         class="button-container"
       >
-        <button
-          v-once
-          class="btn btn-primary"
-          @click="cloneChallenge()"
-        >
-          {{ $t('clone') }}
-        </button>
+        <div v-if="isFlagged">
+          <button
+            v-once
+            class="btn btn-primary"
+            @click="showCannotCloneModal()"
+          >
+            {{ $t('clone') }}
+          </button>
+        </div>
+        <div v-else>
+          <button
+            v-once
+            class="btn btn-primary"
+            @click="cloneChallenge()"
+          >
+            {{ $t('clone') }}
+          </button>
+        </div>
       </div>
       <div
         v-if="isLeader || isAdmin"
@@ -450,6 +473,9 @@ export default {
     flaggedAndHidden () {
       return this.challenge.flagCount > 1;
     },
+    isFlagged () {
+      return this.challenge.flagCount > 0;
+    },
   },
   watch: {
     'challenge.name': {
@@ -638,6 +664,9 @@ export default {
       this.$root.$emit('habitica::report-challenge', {
         challenge: this.challenge,
       });
+    },
+    async showCannotCloneModal () {
+      this.$root.$emit('bv::show::modal', 'cannot-clone-modal');
     },
   },
 };
