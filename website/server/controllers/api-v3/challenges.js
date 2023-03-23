@@ -923,7 +923,7 @@ api.cloneChallenge = {
  * @apiName FlagChallenge
  * @apiGroup Challenge
  *
- * @apiParam (Path) {UUID} challengeId The _id for the challenge to clone
+ * @apiParam (Path) {UUID} challengeId The _id for the challenge to flag
  * @apiParam (Body) {String} [comment] Why the message was flagged
  *
  * @apiSuccess {Object} data The flagged challenge message
@@ -957,7 +957,7 @@ api.flagChallenge = {
  * @apiName ClearFlagsChallenge
  * @apiGroup Challenge
  *
- * @apiParam (Path) {UUID} challengeId The _id for the challenge to clone
+ * @apiParam (Path) {UUID} challengeId The _id for the challenge to clear flags from
  *
  * @apiSuccess {Object} data The flagged challenge message
  *
