@@ -35,7 +35,6 @@ import {
   notifyOfFlaggedChallenge,
 } from '../../libs/challenges/reporting';
 
-
 const { MAX_SUMMARY_SIZE_FOR_CHALLENGES } = common.constants;
 
 const api = {};
@@ -413,7 +412,7 @@ api.getUserChallenges = {
         ],
       };
       if (!user.contributor.admin) {
-        memberQuery.$and.push({ flagCount: { $lt: 2 }});
+        memberQuery.$and.push({ flagCount: { $lt: 2 } });
       }
       orOptions.push(memberQuery); // Challenges in groups where I'm a member
     }
@@ -581,7 +580,7 @@ api.getChallenge = {
 
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
 
-    const nonUserChallenge = (typeof user.challenges.find(challengeId => challengeId === challenge._id) === 'undefined') && challenge.leader !== user._id;
+    const nonUserChallenge = (typeof user.challenges.find(cId => cId === challenge._id) === 'undefined') && challenge.leader !== user._id;
     if (challenge.flagCount > 1 && !user.contributor.admin && nonUserChallenge) throw new NotFound(res.t('challengeNotFound'));
 
     // Fetching basic group data

@@ -17,10 +17,16 @@
         </h2>
       </div>
       <div class="row text-center">
-        <span class="col-12" v-if="isFlagged">
+        <span
+          v-if="isFlagged"
+          class="col-12"
+        >
           <div>{{ $t('cannotClose') }}</div>
         </span>
-        <span class="col-12" v-else>
+        <span
+          v-else
+          class="col-12"
+        >
           <div class="col-12">
             <div class="support-habitica">
               <!-- @TODO: Add challenge achievement badge here-->

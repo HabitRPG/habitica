@@ -14,8 +14,8 @@
     </div>
     <div class="challenge-header">
       <span
-        class="flagged"
         v-if="canViewFlags"
+        class="flagged"
       >
         <span
           v-if="flaggedNotHidden"
