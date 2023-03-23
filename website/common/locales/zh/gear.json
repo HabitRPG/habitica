@@ -2416,7 +2416,7 @@
     "weaponSpecialSummer2021RogueText": "海葵触角",
     "shieldArmoireBouncyBubblesNotes": "用这些精力旺盛的泡泡来帮你完成放松的沐浴！增加<%= str %>点力量。魔法衣橱：泡泡浴套装（4/4）。",
     "shieldArmoireBouncyBubblesText": "弹跳泡泡",
-    "headArmoireRubberDuckyNotes": "纵情享受水疗的完美伴侣! 也将帮助你对一系列的软件问题有惊人了解。（梗的解释：小黄鸭调试法起源于经典书籍《程序员修炼之道》，传说中程序员大师都会携带一只小黄鸭，在调试代码的时候，就会把小黄鸭放在桌上，然后详细地向小黄鸭解释每行代码。）增加<%= int %>点智力。魔法衣橱：泡泡浴套装（1/4）。",
+    "headArmoireRubberDuckyNotes": "纵情享受水疗的完美伴侣！也将帮助你对一系列的软件问题有惊人了解。（梗的解释：小黄鸭调试法起源于经典书籍《程序员修炼之道》，传说中程序员大师都会携带一只小黄鸭，在调试代码的时候，就会把小黄鸭放在桌上，然后详细地向小黄鸭解释每行代码。）增加<%= int %>点智力。魔法衣橱：泡泡浴套装（1/4）。",
     "headArmoireRubberDuckyText": "橡皮鸭子",
     "armorArmoireBathtubNotes": "是时候休息一下了？这是你自己的私人澡盆，它能保证水的温度始终是合适的！增加<%= con %>点体质。魔法衣橱：泡泡浴套装（2/4）。",
     "armorArmoireBathtubText": "澡盆",
