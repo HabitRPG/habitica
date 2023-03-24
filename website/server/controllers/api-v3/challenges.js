@@ -526,7 +526,8 @@ api.getGroupChallenges = {
     const resChals = challenges.map(challenge => {
       // filter out challenges that the non-admin user isn't participating in, nor created
       const nonParticipant = !user.challenges
-        || (user.challenges && user.challenges.findIndex(cId => cId === challenge._id) === -1);
+        || (user.challenges
+        && user.challenges.findIndex(cId => cId === challenge._id) === -1);
       const isFlaggedForNonAdminUser = challenge.flagCount > 1
         && !user.contributor.admin
         && nonParticipant
@@ -902,7 +903,8 @@ api.cloneChallenge = {
     if (!challengeToClone) throw new NotFound(res.t('challengeNotFound'));
 
     const nonParticipant = !user.challenges
-      || (user.challenges && user.challenges.findIndex(cId => cId === challengeToClone._id) === -1);
+      || (user.challenges
+      && user.challenges.findIndex(cId => cId === challengeToClone._id) === -1);
     const isFlaggedForNonAdminUser = challengeToClone.flagCount > 1
       && !user.contributor.admin
       && nonParticipant
