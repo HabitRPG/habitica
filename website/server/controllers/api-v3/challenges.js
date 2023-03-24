@@ -525,15 +525,14 @@ api.getGroupChallenges = {
 
     const resChals = challenges.map(challenge => {
       // filter out challenges that the non-admin user isn't participating in, nor created
-      const nonUserChallenge = !user.challenges
-        || (user.challenges
-        && user.challenges.findIndex(challengeId => challengeId === challenge._id) === -1
-        && challenge.leader !== user._id);
-      if (challenge.flagCount > 1 && !user.contributor.admin && nonUserChallenge) {
-        return null;
-      }
+      const nonParticipant = !user.challenges
+        || (user.challenges && user.challenges.findIndex(cId => cId === challenge._id) === -1);
+      const isFlaggedForNonAdminUser = challenge.flagCount > 1
+        && !user.contributor.admin
+        && nonParticipant
+        && challenge.leader !== user._id;
 
-      return (new Challenge(challenge)).toJSON();
+      return isFlaggedForNonAdminUser ? null : (new Challenge(challenge)).toJSON();
     }).filter(challenge => !!challenge);
 
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
@@ -583,11 +582,14 @@ api.getChallenge = {
 
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
 
-    const nonUserChallenge = !user.challenges
+    const nonParticipant = !user.challenges
       || (user.challenges
-      && user.challenges.findIndex(cId => cId === challenge._id) === -1
-      && challenge.leader !== user._id);
-    if (challenge.flagCount > 1 && !user.contributor.admin && nonUserChallenge) throw new NotFound(res.t('challengeNotFound'));
+      && user.challenges.findIndex(cId => cId === challenge._id) === -1);
+    const isFlaggedForNonAdminUser = challenge.flagCount > 1
+      && !user.contributor.admin
+      && nonParticipant
+      && challenge.leader !== user._id;
+    if (isFlaggedForNonAdminUser) throw new NotFound(res.t('challengeNotFound'));
 
     // Fetching basic group data
     const group = await Group.getGroup({
@@ -841,11 +843,14 @@ api.selectChallengeWinner = {
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
     if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyLeaderDeleteChal'));
 
-    const nonUserChallenge = !user.challenges
+    const nonParticipant = !user.challenges
       || (user.challenges
-      && user.challenges.find(cId => cId === challenge._id) === -1
-      && challenge.leader !== user._id);
-    if (challenge.flagCount > 1 && !user.contributor.admin && nonUserChallenge) throw new NotFound(res.t('challengeNotFound'));
+      && user.challenges.findIndex(cId => cId === challenge._id) === -1);
+    const isFlaggedForNonAdminUser = challenge.flagCount > 1
+      && !user.contributor.admin
+      && nonParticipant
+      && challenge.leader !== user._id;
+    if (isFlaggedForNonAdminUser) throw new NotFound(res.t('challengeNotFound'));
 
     const winner = await User.findOne({ _id: req.params.winnerId }).exec();
     if (!winner || winner.challenges.indexOf(challenge._id) === -1) throw new NotFound(res.t('winnerNotFound', { userId: req.params.winnerId }));
@@ -896,11 +901,13 @@ api.cloneChallenge = {
     const challengeToClone = await Challenge.findOne({ _id: req.params.challengeId }).exec();
     if (!challengeToClone) throw new NotFound(res.t('challengeNotFound'));
 
-    const nonUserChallenge = !user.challenges
-      || (user.challenges
-      && user.challenges.findIndex(cId => cId === challengeToClone._id) === -1
-      && challengeToClone.leader !== user._id);
-    if (challengeToClone.flagCount > 1 && !user.contributor.admin && nonUserChallenge) throw new NotFound(res.t('challengeNotFound'));
+    const nonParticipant = !user.challenges
+      || (user.challenges && user.challenges.findIndex(cId => cId === challengeToClone._id) === -1);
+    const isFlaggedForNonAdminUser = challengeToClone.flagCount > 1
+      && !user.contributor.admin
+      && nonParticipant
+      && challengeToClone.leader !== user._id;
+    if (isFlaggedForNonAdminUser) throw new NotFound(res.t('challengeNotFound'));
 
     const { savedChal } = await createChallenge(user, req, res);
 
