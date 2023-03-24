@@ -525,7 +525,10 @@ api.getGroupChallenges = {
 
     const resChals = challenges.map(challenge => {
       // filter out challenges that the non-admin user isn't participating in, nor created
-      const nonUserChallenge = (typeof user.challenges.find(challengeId => challengeId === challenge._id) === 'undefined') && challenge.leader !== user._id;
+      const nonUserChallenge = !user.challenges
+        || (user.challenges
+        && user.challenges.findIndex(challengeId => challengeId === challenge._id) === -1
+        && challenge.leader !== user._id);
       if (challenge.flagCount > 1 && !user.contributor.admin && nonUserChallenge) {
         return null;
       }
@@ -580,7 +583,10 @@ api.getChallenge = {
 
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
 
-    const nonUserChallenge = (typeof user.challenges.find(cId => cId === challenge._id) === 'undefined') && challenge.leader !== user._id;
+    const nonUserChallenge = !user.challenges
+      || (user.challenges
+      && user.challenges.findIndex(cId => cId === challenge._id) === -1
+      && challenge.leader !== user._id);
     if (challenge.flagCount > 1 && !user.contributor.admin && nonUserChallenge) throw new NotFound(res.t('challengeNotFound'));
 
     // Fetching basic group data
@@ -835,7 +841,10 @@ api.selectChallengeWinner = {
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
     if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyLeaderDeleteChal'));
 
-    const nonUserChallenge = (typeof user.challenges.find(cId => cId === challenge._id) === 'undefined') && challenge.leader !== user._id;
+    const nonUserChallenge = !user.challenges
+      || (user.challenges
+      && user.challenges.find(cId => cId === challenge._id) === -1
+      && challenge.leader !== user._id);
     if (challenge.flagCount > 1 && !user.contributor.admin && nonUserChallenge) throw new NotFound(res.t('challengeNotFound'));
 
     const winner = await User.findOne({ _id: req.params.winnerId }).exec();
@@ -887,7 +896,10 @@ api.cloneChallenge = {
     const challengeToClone = await Challenge.findOne({ _id: req.params.challengeId }).exec();
     if (!challengeToClone) throw new NotFound(res.t('challengeNotFound'));
 
-    const nonUserChallenge = (typeof user.challenges.find(cId => cId === challengeToClone._id) === 'undefined') && challengeToClone.leader !== user._id;
+    const nonUserChallenge = !user.challenges
+      || (user.challenges
+      && user.challenges.findIndex(cId => cId === challengeToClone._id) === -1
+      && challengeToClone.leader !== user._id);
     if (challengeToClone.flagCount > 1 && !user.contributor.admin && nonUserChallenge) throw new NotFound(res.t('challengeNotFound'));
 
     const { savedChal } = await createChallenge(user, req, res);
