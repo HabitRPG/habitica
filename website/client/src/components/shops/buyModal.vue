@@ -60,13 +60,14 @@
             :show-popover="false"
           />
         </slot>
-        <span
+        <div
           v-if="!showAvatar && user.items[item.purchaseType]"
           class="owned"
           :class="totalOwned"
         >
-          {{ $t('owned') }}: <span class="user-amount">{{ totalOwned }}</span>
-        </span>
+          <!-- eslint-disable-next-line max-len -->
+          <span class="owned-text">{{ $t('owned') }}: <span class="user-amount">{{ totalOwned }}</span></span>
+        </div>
         <h4 class="title">
           {{ itemText }}
         </h4>
@@ -293,22 +294,24 @@
     }
 
    .owned {
-      font-size: 0.75rem;
-      font-weight: bold;
       height: 32px;
       width: 141px;
+      margin-top: -36px;
       margin-left: 153px;
-      line-height: 1.71;
+      padding-top: 6px;
       background-color: $gray-600;
-      padding: 8px 41px;
       border-bottom-right-radius: 4px;
       border-bottom-left-radius: 4px;
       display: block;
-      justify-content: center;
       text-align: center;
-      margin-top: -36px;
       position: relative;
       z-index: 1;
+
+      .owned-text {
+        font-size: 0.75rem;
+        font-weight: bold;
+        line-height: 1.71;
+      }
 
       .user-amount {
         font-weight: normal !important;
