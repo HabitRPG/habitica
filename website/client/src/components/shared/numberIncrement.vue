@@ -38,7 +38,7 @@
   @import '~@/assets/scss/colors.scss';
 
   .number-increment {
-    padding-bottom: 12px;
+    padding-bottom: 0px;
     }
 
   .alignment {

@@ -65,8 +65,7 @@
           class="owned"
           :class="totalOwned"
         >
-          <!-- need to calculate totalOwned()  -->
-          {{ $t('owned') }}: <span class="user-owned">{{ totalOwned }}</span>
+          {{ $t('owned') }}: <span class="user-amount">{{ totalOwned }}</span>
         </span>
         <h4 class="title">
           {{ itemText }}
@@ -122,15 +121,18 @@
               class="number-increment"
               @updateQuantity="selectedAmountToBuy = $event"
             />
-            <div :class="{'notEnough': notEnoughCurrency}">
+            <div
+              :class="{'notEnough': notEnoughCurrency}"
+              class="total"
+            >
               <span class="total-text">{{ $t('sendTotal') }}</span>
               <span
-                class="svg-icon inline icon-24 total"
+                class="svg-icon inline icon-24"
                 aria-hidden="true"
                 v-html="icons[getPriceClass()]"
               ></span>
               <span
-                class="total"
+                class="total-text"
                 :class="getPriceClass()"
               >{{ item.value * selectedAmountToBuy }}</span>
             </div>
@@ -224,9 +226,9 @@
       slot="modal-footer"
       class="clearfix"
     >
-      <span class="balance float-left">{{ $t('yourBalance') }}</span>
+      <span class="user-balance float-left">{{ $t('yourBalance') }}</span>
       <balanceInfo
-        class="float-right"
+        class="currency-totals"
         :currency-needed="getPriceClass()"
         :amount-needed="item.value"
       />
@@ -242,9 +244,9 @@
     @include centeredModal();
 
     .modal-body {
-      // padding-bottom: 0px;
       padding-left: 0px;
       padding-right: 0px;
+      padding-bottom: 0px;
     }
 
     .modal-footer {
@@ -257,7 +259,7 @@
       padding: 16px 24px;
       align-content: center;
 
-      .balance {
+      .user-balance {
         width: 150px;
         height: 16px;
         font-size: 0.75rem;
@@ -266,12 +268,23 @@
         color: $gray-100;
         margin-bottom: 16px;
         margin-top: -4px;
+        margin-left: -4px;
+      }
+
+      .currency-totals {
+        margin-right: -8px;
+        float: right;
       }
     }
 
     .modal-dialog {
       width: 448px;
       box-sizing: border-box;
+    }
+
+    .badge-dialog {
+      left: -8px;
+      top: -8px;
     }
 
     .avatar {
@@ -283,14 +296,16 @@
       font-size: 0.75rem;
       font-weight: bold;
       height: 32px;
+      width: 141px;
+      margin-left: 153px;
       line-height: 1.71;
       background-color: $gray-600;
       padding: 8px 41px;
       border-bottom-right-radius: 4px;
       border-bottom-left-radius: 4px;
       display: block;
-      width: 141px;
-      margin-left: 153px;
+      justify-content: center;
+      text-align: center;
       margin-top: -36px;
       position: relative;
       z-index: 1;
@@ -321,7 +336,6 @@
       color: $gray-10;
       font-size: 1.25rem;
       margin-top: 25px;
-      margin-bottom: 0px;
     }
 
     .item-notes {
@@ -423,7 +437,13 @@
     .item-cost {
        position: relative;
        margin-top: 20px;
-       left: 2px;
+    }
+
+    .attributes-group {
+      margin: 24px;
+      border-radius: 4px;
+      line-height: 1.71;
+      font-size: 0.875;
     }
 
     .cost {
@@ -437,34 +457,31 @@
         color: $green-10;
         background-color: rgba(36, 204, 143, 0.15);
         line-height: 1.4;
-        margin: 0 0 0 4px;
+        margin: 0 0 0 -4px;
         border-radius: 20px;
       }
 
       &.gold {
         color: $yellow-5;
         background-color: rgba(255, 190, 93, 0.15);
+        line-height: 1.4;
+        margin: 0 0 0 -4px;
         border-radius: 20px;
-        padding: 8px 20px 8px 20px;
-        margin-top: 16px;
-        margin-bottom: 16px;
       }
 
       &.hourglasses {
         color: $hourglass-color;
         background-color: rgba(41, 149, 205, 0.15);
+        line-height: 1.4;
+        margin: 0 0 0 -4px;
         border-radius: 20px;
-        padding: 8px 20px 8px 20px;
-        margin-top: 16px;
-        margin-bottom: 16px;
       }
     }
 
     .total {
       font-weight: bold;
       font-size: 0.875rem;
-      height: 24px;
-      line-height: 1.71;
+      margin-top:16px;
 
       &.gems {
         color: $green-10;
@@ -479,23 +496,36 @@
       }
     }
 
-    .total-text {
+  .total-text {
+      color: $gray-50;
       font-weight: bold;
       font-size: 0.875rem;
       height: 24px;
       line-height: 1.71;
-      width: 37px;
       padding-right: 4px;
 
+      &.gems {
+        color: $green-10;
+      }
+
+      &.gold {
+        color: $yellow-5;
+      }
+
+      &.hourglasses {
+        color: $hourglass-color;
+      }
+  }
+
     button.btn.btn-primary {
-      margin-top: 24px;
-      margin-bottom: 24px;
-      min-width: 6rem;
+      margin-top: 14px;
+      padding: 4px 16px;
+      height: 32px;
 
       &:focus {
         border: 2px solid black;
       }
-    }
+
 
     .notEnough {
       pointer-events: none;
