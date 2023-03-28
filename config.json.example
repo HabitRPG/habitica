@@ -86,5 +86,6 @@
   "RATE_LIMITER_ENABLED": "false",
   "REDIS_HOST": "aaabbbcccdddeeefff",
   "REDIS_PORT": "1234",
-  "REDIS_PASSWORD": "12345678"
+  "REDIS_PASSWORD": "12345678",
+  "TRUSTED_DOMAINS": "https://localhost,https://habitica.com"
 }

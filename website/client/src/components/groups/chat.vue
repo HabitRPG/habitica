@@ -135,6 +135,7 @@ export default {
   },
   mounted () {
     this.textbox = this.$refs['user-entry'];
+    this.handleExternalLinks();
   },
   updated () {
     this.handleExternalLinks();
