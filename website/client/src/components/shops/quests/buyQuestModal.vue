@@ -63,7 +63,7 @@
               @updateQuantity="selectedAmountToBuy = $event"
             />
           </div>
-          <div>
+          <div class="total-row">
             <span class="total-text">
               {{ $t('sendTotal') }}
             </span>
@@ -129,6 +129,40 @@
       margin-top: 1rem;
     }
 
+    .modal-body {
+      padding-left: 0px;
+      padding-right: 0px;
+      padding-bottom: 0px;
+    }
+
+    .modal-footer {
+      height: 48px;
+      background-color: $gray-700;
+      border-bottom-right-radius: 8px;
+      border-bottom-left-radius: 8px;
+      display: block;
+      margin-top: 24px;
+      padding: 16px 24px;
+      align-content: center;
+
+      .user-balance {
+        width: 150px;
+        height: 16px;
+        font-size: 0.75rem;
+        font-weight: bold;
+        line-height: 1.33;
+        color: $gray-100;
+        margin-bottom: 16px;
+        margin-top: -4px;
+        margin-left: -4px;
+      }
+
+      .currency-totals {
+        margin-right: -8px;
+        float: right;
+      }
+    }
+
     .modal-dialog {
       margin-top: 8%;
       width: 448px !important;
@@ -146,8 +180,13 @@
       margin: 33px auto auto;
     }
 
-    .modal-body {
-      padding-bottom: 0px;
+    .item-notes {
+      height: 48px;
+      margin-top: 8px;
+      padding-left: 48.5px;
+      padding-right: 48.5px;
+      line-height: 1.71;
+      font-size: 0.875rem;
     }
 
     .questInfo {
@@ -170,8 +209,13 @@
     }
 
     button.btn.btn-primary {
-      margin-top: 24px;
-      margin-bottom: 24px;
+      margin-top: 14px;
+      padding: 4px 16px;
+      height: 32px;
+
+      &:focus {
+        border: 2px solid black;
+      }
     }
 
     .balance {
@@ -181,19 +225,6 @@
       font-weight: bold;
       line-height: 1.33;
       color: $gray-200;
-    }
-
-    .modal-footer {
-      height: 48px;
-      background-color: $gray-700;
-      border-bottom-right-radius: 8px;
-      border-bottom-left-radius: 8px;
-      display: block;
-      padding: 1rem 1.5rem;
-
-      &> * {
-        margin: 0;
-      }
     }
 
     .notEnough {
@@ -216,62 +247,76 @@
           height: 40px;
           font-size: 1.25rem;
           font-weight: bold;
-          line-height: 1.4;
           vertical-align: middle;
+          padding: 8px 20px 8px 20px;
 
           &.gems {
-            color: $gems-color;
-            border-radius: 20px;
-            padding: 8px 20px 8px 20px;
-            margin-top: 16px;
-            margin-bottom: 16px;
+            color: $green-10;
             background-color: rgba(36, 204, 143, 0.15);
+            line-height: 1.4;
+            margin: 0 0 0 -4px;
+            border-radius: 20px;
           }
 
           &.gold {
-            color: $gold-color;
-            border-radius: 20px;
-            padding: 8px 20px 8px 20px;
-            margin-top: 16px;
-            margin-bottom: 16px;
+            color: $yellow-5;
             background-color: rgba(255, 190, 93, 0.15);
+            line-height: 1.4;
+            margin: 0 0 0 -4px;
+            border-radius: 20px;
           }
 
           &.hourglasses {
             color: $hourglass-color;
-            border-radius: 20px;
-            padding: 8px 20px 8px 20px;
-            margin-top: 16px;
-            margin-bottom: 16px;
             background-color: rgba(41, 149, 205, 0.15);
+            line-height: 1.4;
+            margin: 0 0 0 -4px;
+            border-radius: 20px;
+            }
+          }
+
+    .total-row {
+      font-weight: bold;
+      font-size: 0.875rem;
+      margin-top: 16px;
+    }
+
+    .total {
+      font-weight: bold;
+      font-size: 0.875rem;
+      margin-top: 16px;
+
+      &.gems {
+        color: $green-10;
       }
-        }
 
-      .total {
-        font-size: 0.825rem;
-        line-height: 1.71;
-        font-weight: bold;
-
-        &.gold {
-          color: $gold-color;
-        }
-
-        &.gems {
-          color: $gems-color;
-        }
-
-        & .hourglasses {
-          color: $hourglass-color;
-        }
+      &.gold {
+        color: $yellow-5;
       }
 
-      .total-text {
-        font-size: 0.825rem;
-        line-height: 1.71;
-        font-weight: bold;
-        height: 24px;
-        width: 37px;
-        padding-right: 4px;
+      &.hourglasses {
+        color: $hourglass-color;
+      }
+    }
+
+    .total-text {
+      color: $gray-50;
+      font-weight: bold;
+      font-size: 0.875rem;
+      height: 24px;
+      line-height: 1.71;
+      padding-right: 4px;
+
+      &.gems {
+        color: $green-10;
+      }
+
+      &.gold {
+        color: $yellow-5;
+      }
+
+      &.hourglasses {
+        color: $hourglass-color;
       }
     }
 
@@ -308,6 +353,7 @@
       }
     }
   }
+}
 </style>
 
 <!-- <style lang="scss" scoped>

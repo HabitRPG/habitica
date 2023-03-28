@@ -71,7 +71,7 @@
                 aria-hidden="true"
                 v-html="icons.gold"
               ></span>
-              <span class="total gold">
+              <span class="total-text gold">
                 {{ item.value * selectedAmountToSell }}
               </span>
             </div>
@@ -89,9 +89,9 @@
       slot="modal-footer"
       class="clearfix"
     >
-      <span class="balance float-left">{{ $t('yourBalance') }}</span>
+      <span class="user-balance float-left">{{ $t('yourBalance') }}</span>
       <balanceInfo
-        class="float-right"
+        class="float-right currency-totals"
       />
     </div>
   </b-modal>
@@ -112,14 +112,42 @@
       width: 448px;
     }
 
-    .content {
-      text-align: center;
+    .modal-body {
+      padding-left: 0px;
+      padding-right: 0px;
+      padding-bottom: 0px;
     }
 
-    .title {
-      color: $gray-10;
-      font-size: 1.25rem;
-      margin-top: 28px;
+    .modal-footer {
+      height: 48px;
+      background-color: $gray-700;
+      border-bottom-right-radius: 8px;
+      border-bottom-left-radius: 8px;
+      display: block;
+      margin: 24px 0 0;
+      padding: 16px 24px;
+      align-content: center;
+
+      .user-balance {
+        width: 150px;
+        height: 16px;
+        font-size: 0.75rem;
+        font-weight: bold;
+        line-height: 1.33;
+        color: $gray-100;
+        margin-bottom: 16px;
+        margin-top: -4px;
+        margin-left: -4px;
+      }
+
+      .currency-totals {
+        margin-right: -8px;
+        float: right;
+      }
+    }
+
+    .content {
+      text-align: center;
     }
 
     .inner-content {
@@ -160,12 +188,22 @@
 
     .item-content {
       transform: scale(1.45, 1.45);
-      top: -16px;
+      top: -25px;
+      left: 1px;
+    }
+
+    .title {
+      color: $gray-10;
+      font-size: 1.25rem;
+      margin-top: 26px;
+      margin-bottom: 0px;
     }
 
     .item-notes {
-     line-height: 1.71;
-     margin-bottom: 16px;
+       height: 48px;
+       margin-top: 12px;
+       line-height: 1.71;
+       font-size: 0.875rem;
     }
 
     span.svg-icon.inline.icon-32 {
@@ -208,82 +246,80 @@
   .item-cost {
     padding-bottom: 16px;
     padding-top: 8px;
+    margin-top: 12px;
     }
 
     .cost {
       height: 40px;
       font-size: 1.25rem;
       font-weight: bold;
-      line-height: 1.4;
       vertical-align: middle;
-
-      &.gold {
-        color: $gold-color;
-        border-radius: 20px;
-        padding: 8px 20px 8px 20px;
-        margin-top: 16px;
-        margin-bottom: 16px;
-        background-color: rgba(255, 190, 93, 0.15);
-      }
-    }
-
-    .total-row {
-      padding-top: 4px;
-      padding-bottom: 4px;
-    }
-
-    .total {
-      font-size: 0.875rem;
-      line-height: 1.71;
-      font-weight: bold;
+      padding: 8px 20px 8px 20px;
 
       &.gold {
         color: $yellow-5;
-        margin-left: -4px;
+        background-color: rgba(255, 190, 93, 0.15);
+        line-height: 1.4;
+        margin: 0 0 0 -4px;
+        border-radius: 20px;
       }
     }
+  }
+
+  .how-many-to-sell {
+    margin-top: 12px;
+    display: block;
+    font-size: 0.875rem;
+    font-weight: bold !important;
+  }
+
+  .number-increment {
+     margin-top: 14px;
+  }
+
+  .total-row {
+    font-weight: bold;
+    font-size: 0.875rem;
+    margin-top: 16px;
+
+    &.gold {
+      color: $yellow-5;
+    }
+  }
 
     .total-text {
       color: $gray-50;
-      font-size: 0.825rem;
       font-weight: bold;
-      line-height: 1.71;
-      height: 24px;
-      width: 37px;
-      padding-right: 4px;
-      // margin-left: -4px;
-    }
-
-    button.btn.btn-primary {
-      margin-top: 16px;
-      margin-bottom: 0px;
-    }
-
-    .balance {
-      width: 74px;
-      height: 16px;
-      font-size: 12px;
-      font-weight: bold;
-      line-height: 1.33;
-      color: $gray-200;
-    }
-
-    .modal-footer {
-      height: 48px;
-      background-color: $gray-700;
-      border-bottom-right-radius: 8px;
-      border-bottom-left-radius: 8px;
-      display: block;
-    }
-
-    .how-many-to-sell {
-      margin-bottom: 16px;
-      margin-top: 8px;
-      display: block;
       font-size: 0.875rem;
-      font-weight: bold;
+      height: 24px;
+      line-height: 1.71;
+      padding-right: 4px;
+
+    &.gold {
+      color: $yellow-5;
     }
   }
+
+  button.btn.btn-primary {
+    margin-top: 14px;
+    padding: 4px 16px;
+    height: 32px;
+
+    &:focus {
+      border: 2px solid black;
+    }
+
+  .balance {
+    width: 74px;
+    height: 16px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1.33;
+    color: $gray-200;
+  }
+
+
+}
 </style>
 
 <script>

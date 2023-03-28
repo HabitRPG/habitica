@@ -256,7 +256,7 @@
       border-bottom-right-radius: 8px;
       border-bottom-left-radius: 8px;
       display: block;
-      margin: 24px 0 0;
+      margin: 0;
       padding: 16px 24px;
       align-content: center;
 
@@ -332,6 +332,12 @@
       transform: scale(1.45, 1.45);
       top: -25.67px;
       left: 1px;
+
+      &.shop_gem {
+        transform: scale(1.45, 1.45);
+        top: -2px;
+       left: 0px;
+      }
     }
 
     .title {
@@ -347,7 +353,7 @@
        padding-left: 48.5px;
        padding-right: 48.5px;
        line-height: 1.71;
-       font-size: 0.875;
+       font-size: 0.875rem;
     }
 
     .content {
@@ -443,10 +449,17 @@
     }
 
     .attributes-group {
-      margin: 24px;
+      margin: 32px;
       border-radius: 4px;
       line-height: 1.71;
       font-size: 0.875;
+    }
+
+    .attributesGrid {
+      margin-top: 28px;
+      border-radius: 2px;
+      background-color: $gray-500;
+      // margin: 10px 0 24px;
     }
 
     .cost {
@@ -484,7 +497,7 @@
     .total {
       font-weight: bold;
       font-size: 0.875rem;
-      margin-top:16px;
+      margin-top: 16px;
 
       &.gems {
         color: $green-10;
@@ -528,66 +541,59 @@
       &:focus {
         border: 2px solid black;
       }
-
-
-    .notEnough {
-      pointer-events: none;
-      opacity: 0.55;
     }
 
-    .attributesGrid {
-      margin-top: 8px;
-      border-radius: 2px;
-      background-color: $gray-500;
-      margin: 10px 0 24px;
-    }
+      .notEnough {
+        pointer-events: none;
+        opacity: 0.55;
+      }
+
+
+      .gems-left {
+        margin-top: .5em;
+      }
+
+      .free-rebirth {
+        background-color: $yellow-5;
+        color: $white;
+        height: 2rem;
+        line-height: 16px;
+        margin: auto -1rem -1rem;
+      }
+
+      // .pt-015 {
+      //   padding-top: 0.15rem;
+      // }
+
 
     .gems-left {
-      margin-top: .5em;
+      height: 32px;
+      background-color: $green-100;
+      font-size: 0.75rem;
+      margin-top: 24px;
+      color: $green-1;
+      width: 100%;
     }
 
-    .free-rebirth {
-      background-color: $yellow-5;
+    .out-of-gems-banner {
+      height: 32px;
+      font-size: 0.75rem;
+      margin-top: 24px;
+      background-color: $yellow-100;
+      color: $yellow-1;
+      width: 100%;
+    }
+
+    .limitedTime {
+      height: 32px;
+      width: 446px;
+      font-size: 0.75rem;
+      margin: 24px 0 0 0;
+      background-color: $purple-300;
       color: $white;
-      height: 2rem;
-      line-height: 16px;
-      margin: auto -1rem -1rem;
     }
-
-    // .pt-015 {
-    //   padding-top: 0.15rem;
-    // }
   }
 
-  .gems-left {
-    height: 32px;
-    background-color: $green-100;
-    font-size: 0.75rem;
-    margin-top: 24px;
-    margin-bottom: -40px;
-    color: $green-1;
-    width: 100%;
-  }
-
-  .out-of-gems-banner {
-    height: 32px;
-    font-size: 0.75rem;
-    margin-top: 24px;
-    margin-bottom: -40px;
-    background-color: $yellow-100;
-    color: $yellow-1;
-    width: 100%;
-  }
-
-  .limitedTime {
-    height: 32px;
-    width: 446px;
-    font-size: 0.75rem;
-    margin: 24px 0 -40px 0;
-    background-color: $purple-300;
-    color: $white;
-  }
-}
 </style>
 
 <style lang="scss" scoped>
