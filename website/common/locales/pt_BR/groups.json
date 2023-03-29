@@ -417,5 +417,6 @@
     "groupUseDefault": "Escolha uma resposta",
     "groupParentChildren": "Pais configurando tarefas para crianças",
     "groupTeacher": "Professor configurando tarefas para estudantes",
-    "sendGiftLabel": "Gostaria de enviar uma mensagem pessoal?"
+    "sendGiftLabel": "Gostaria de enviar uma mensagem pessoal?",
+    "invitedToPartyBy": "<a href=\"/profile/<%- userId %>\" target=\"_blank\">@<%- userName %></a> te convidou para entrar no Grupo <span class=\"notification-bold\"><%- party %></span>"
 }
