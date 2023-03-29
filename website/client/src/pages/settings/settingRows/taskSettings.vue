@@ -3,22 +3,6 @@
     <tr>
       <td class="settings-label">
         <span
-          v-b-popover.hover.right="$t('startAdvCollapsedPop')"
-          class="hint"
-        >{{ $t('startAdvCollapsed') }}</span>
-      </td>
-      <td class="settings-value">
-      </td>
-      <td class="settings-button">
-        <toggle-switch
-          v-model="user.preferences.advancedCollapsed"
-          @change="setUserPreference('advancedCollapsed')"
-        />
-      </td>
-    </tr>
-    <tr>
-      <td class="settings-label">
-        <span
           v-b-popover.hover.right="$t('dailyDueDefaultViewPop')"
           class="hint"
         >{{ $t('dailyDueDefaultView') }}</span>

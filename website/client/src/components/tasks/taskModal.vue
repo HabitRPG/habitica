@@ -1183,7 +1183,6 @@ export default {
     },
   },
   async mounted () {
-    this.showAdvancedOptions = !this.user.preferences.advancedCollapsed;
     if (this.groupId) {
       const groupResponse = await axios.get(`/api/v4/groups/${this.groupId}`);
       this.managers = Object.keys(groupResponse.data.data.managers);
