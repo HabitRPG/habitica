@@ -537,6 +537,7 @@ export const UserSchema = new Schema({
     reverseChatOrder: { $type: Boolean, default: false },
     developerMode: { $type: Boolean, default: false },
     background: String,
+    // deprecated, unused
     displayInviteToPartyWhenPartyIs1: { $type: Boolean, default: true },
     webhooks: {
       $type: Schema.Types.Mixed,

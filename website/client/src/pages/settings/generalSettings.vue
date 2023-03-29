@@ -78,28 +78,6 @@
           </td>
         </tr>
       </table>
-
-      <br>
-      <br>
-      <div>
-        TODO: this was only visible when party.memberCount is 1
-        <div
-          class="checkbox"
-        >
-          <label>
-            <input
-              v-model="user.preferences.displayInviteToPartyWhenPartyIs1"
-              type="checkbox"
-              class="mr-2"
-              @change="setUserPreference('displayInviteToPartyWhenPartyIs1')"
-            >
-            <span
-              v-b-popover.hover.right="$t('displayInviteToPartyWhenPartyIs1')"
-              class="hint"
-            >{{ $t('displayInviteToPartyWhenPartyIs1') }}</span>
-          </label>
-        </div>
-      </div>
     </div>
   </div>
 </template>
