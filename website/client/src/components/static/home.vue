@@ -354,6 +354,9 @@
 
 <style lang='scss'>
 @import '~@/assets/scss/static.scss';
+  #front .form-text a {
+    color: $white !important;
+  }
 </style>
 
 <style lang="scss" scoped>
@@ -362,10 +365,6 @@
 @import url('https://fonts.googleapis.com/css?family=Varela+Round');
 
   #front {
-    .form-text a {
-      color: $white !important;
-    }
-
     .container-fluid {
       margin: 0;
     }
