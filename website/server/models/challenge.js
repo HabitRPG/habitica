@@ -356,7 +356,8 @@ schema.methods.closeChal = async function closeChal (broken = {}) {
 
   // Refund the leader if the challenge is deleted (no winner chosen)
   if (brokenReason === 'CHALLENGE_DELETED') {
-    await User.updateOne({ _id: challenge.leader }, { $inc: { balance: challenge.prize / 4 } }).exec();
+    await User.updateOne({ _id: challenge.leader }, { $inc: { balance: challenge.prize / 4 } })
+      .exec();
   }
 
   // Update the challengeCount on the group

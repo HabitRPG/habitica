@@ -272,7 +272,7 @@ schema.statics.getGroup = async function getGroup (options = {}) {
       const item = removeFromArray(user.guilds, groupId);
       if (item) {
         await user.save();
-      } 
+      }
     }
   }
 

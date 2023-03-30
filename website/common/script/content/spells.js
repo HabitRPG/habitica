@@ -80,7 +80,7 @@ spells.wizard = {
     bulk: true,
     cast (user, data) {
       const bonus = statsComputed(user).int;
-      data.query['stats.classs'] = { $ne: 'wizard' };
+      data.query['stats.class'] = { $ne: 'wizard' };
       data.update = { $inc: { 'stats.mp': Math.ceil(diminishingReturns(bonus, 25, 125)) } };
     },
   },

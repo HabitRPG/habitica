@@ -242,7 +242,7 @@ describe('cron middleware', () => {
 
     sandbox.spy(cronLib, 'recoverCron');
 
-    sandbox.stub(User, 'update')
+    sandbox.stub(User, 'updateOne')
       .withArgs({
         _id: user._id,
         $or: [
