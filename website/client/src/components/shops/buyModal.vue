@@ -256,7 +256,7 @@
       border-bottom-right-radius: 8px;
       border-bottom-left-radius: 8px;
       display: block;
-      margin: 0;
+      margin: 24px 0 0 0;
       padding: 16px 24px;
       align-content: center;
 
@@ -348,7 +348,6 @@
     }
 
     .item-notes {
-       height: 48px;
        margin-top: 8px;
        padding-left: 48.5px;
        padding-right: 48.5px;

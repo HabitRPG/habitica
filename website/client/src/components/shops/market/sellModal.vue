@@ -24,7 +24,7 @@
           :show-popover="false"
         />
         <span class="owned">
-          {{ $t('owned') }}: {{ itemContextToSell.itemCount }}
+          {{ $t('owned') }}: <span class="user-amount">{{ itemContextToSell.itemCount }}</span>
         </span>
         <h4 class="title">
           {{ itemContextToSell.itemName }}
@@ -169,6 +169,10 @@
       margin-top: -48px;
       position: relative;
       z-index: 1;
+
+      .user-amount {
+        font-weight: normal !important;
+      }
     }
 
     .item-wrapper {
@@ -200,7 +204,6 @@
     }
 
     .item-notes {
-       height: 48px;
        margin-top: 12px;
        line-height: 1.71;
        font-size: 0.875rem;
