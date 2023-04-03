@@ -160,7 +160,7 @@
       font-weight: bold;
       line-height: 1.33;
       background-color: $gray-600;
-      padding: 8px 41px;
+      padding: 8px 8px;
       border-bottom-right-radius: 4px;
       border-bottom-left-radius: 4px;
       display: block;
@@ -296,7 +296,8 @@
       font-size: 0.875rem;
       height: 24px;
       line-height: 1.71;
-      padding-right: 4px;
+      margin-right: 4px;
+      margin-left: -4px;
 
     &.gold {
       color: $yellow-5;
@@ -304,7 +305,7 @@
   }
 
   button.btn.btn-primary {
-    margin-top: 14px;
+    margin-top: 16px;
     padding: 4px 16px;
     height: 32px;
 

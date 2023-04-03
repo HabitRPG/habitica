@@ -465,7 +465,7 @@
       height: 40px;
       font-size: 1.25rem;
       font-weight: bold;
-      vertical-align: middle;
+      align-items: center;
       padding: 8px 20px 8px 20px;
 
       &.gems {
@@ -517,7 +517,8 @@
       font-size: 0.875rem;
       height: 24px;
       line-height: 1.71;
-      padding-right: 4px;
+      margin-right: 4px;
+      margin-left: -4px;
 
       &.gems {
         color: $green-10;
@@ -533,7 +534,7 @@
   }
 
     button.btn.btn-primary {
-      margin-top: 14px;
+      margin-top: 16px;
       padding: 4px 16px;
       height: 32px;
 
@@ -545,11 +546,6 @@
       .notEnough {
         pointer-events: none;
         opacity: 0.55;
-      }
-
-
-      .gems-left {
-        margin-top: .5em;
       }
 
       .free-rebirth {
@@ -572,6 +568,7 @@
       margin-top: 24px;
       color: $green-1;
       width: 100%;
+      margin-bottom: -24px;
     }
 
     .out-of-gems-banner {
@@ -581,6 +578,7 @@
       background-color: $yellow-100;
       color: $yellow-1;
       width: 100%;
+      margin-bottom: -24px;
     }
 
     .limitedTime {
@@ -590,6 +588,7 @@
       margin: 24px 0 0 0;
       background-color: $purple-300;
       color: $white;
+      margin-bottom: -24px;
     }
   }
 
