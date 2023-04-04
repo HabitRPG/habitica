@@ -8,10 +8,11 @@ export default {
 
       for (let i = 0; i < allLinks.length; i += 1) {
         const link = allLinks[i];
+        const domainIndex = link.href.indexOf('//') + 2;
 
         if ((link.classList.value.indexOf('external-link') === -1)
-          && link.href.slice(0, 4) === 'http'
-          && !some(TRUSTED_DOMAINS.split(','), domain => link.href.indexOf(domain) === 0)) {
+          && domainIndex !== 1
+          && !some(TRUSTED_DOMAINS.split(','), domain => link.href.indexOf(domain) === domainIndex)) {
           link.classList.add('external-link');
           link.addEventListener('click', e => {
             if (e.ctrlKey) {
