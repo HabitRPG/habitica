@@ -14,27 +14,43 @@
 
     <div
       class="d-flex justify-content-center webhooks-list"
-      :class="{'webhooks-exists': Boolean(user.webhooks.length)}"
+      :class="{'webhooks-exists': Boolean(webhooks.length)}"
     >
       <table class="table table-striped">
-        <tr v-if="user.webhooks.length">
+        <tr v-if="webhooks.length">
           <th>{{ $t('webhookURL') }}</th>
           <th>{{ $t('enabled') }}</th>
           <th></th>
         </tr>
 
         <tr
-          v-for="(webhook, index) in user.webhooks"
+          v-for="(webhook, index) in webhooks"
           :key="webhook.id"
         >
-          <td style="width: 90%">
-            <div style="width: 440px">
-              <validated-text-input
-                v-model="webhook.url"
-                placeholder="https://habitica-integrations.com/habitica-changes/"
-                :is-valid="isValidUrl(webhook.url)"
-                @blur="saveWebhook(webhook, index)"
-              />
+          <td style="width: 588px">
+            <div class="d-flex align-items-center">
+              <div style="width: 440px">
+                <validated-text-input
+                  v-model="webhook.url"
+                  :placeholder="$t('webhookURL')"
+                  :is-valid="isValidUrl(webhook.url)"
+                  :readonly="!unsaved.includes(index)"
+                />
+              </div>
+              <template v-if="unsaved.includes(index)">
+                <button
+                  class="btn btn-primary ml-2"
+                  @click="saveWebhook(webhook, index)"
+                >
+                  Save
+                </button>
+                <a
+                  class="edit-link ml-3"
+                  @click.prevent="cancelWebhookChanges(webhook, index)"
+                >
+                  {{ $t('cancel') }}
+                </a>
+              </template>
             </div>
           </td>
           <td style="vertical-align: middle;">
@@ -61,6 +77,21 @@
                 </span>
               </template>
               <b-dropdown-item
+                class="selectListItem"
+                @click="editWebhook(webhook, index)"
+              >
+                <span class="with-icon">
+                  <span
+                    v-once
+                    class="svg-icon icon-16 color"
+                    v-html="icons.editIcon"
+                  ></span>
+                  <span v-once>
+                    {{ $t('edit') }}
+                  </span>
+                </span>
+              </b-dropdown-item>
+              <b-dropdown-item
                 class="selectListItem custom-hover--delete"
                 @click="deleteWebhook(webhook, index)"
               >
@@ -81,11 +112,11 @@
         <tr>
           <td
             colspan="3"
-            :class="{'webhooks-empty': !Boolean(user.webhooks.length)}"
+            :class="{'webhooks-empty': !Boolean(webhooks.length)}"
           >
             <button
               class="btn btn-secondary d-flex align-items-center new-webhook-btn"
-              :class="{'webhooks-exists': Boolean(user.webhooks.length)}"
+              :class="{'webhooks-exists': Boolean(webhooks.length)}"
               tabindex="0"
               @click="newUnsavedWebhook()"
             >
@@ -145,9 +176,13 @@
       vertical-align: middle;
       padding-right: 1rem !important;
 
-      font-weight: bold;
       line-height: 1.71;
       color: $gray-50;
+    }
+
+    &:not(:first-of-type) {
+      padding-right: 0 !important;
+      padding-left: 0 !important;
     }
   }
 }
@@ -182,6 +217,7 @@ import ToggleSwitch from '@/components/ui/toggleSwitch.vue';
 import menuIcon from '@/assets/svg/menu.svg';
 import deleteIcon from '@/assets/svg/delete.svg';
 import ValidatedTextInput from '@/components/ui/validatedTextInput.vue';
+import editIcon from '@/assets/svg/edit.svg';
 
 export default {
   components: { ValidatedTextInput, ToggleSwitch },
@@ -192,9 +228,14 @@ export default {
         positive: positiveIcon,
         menuIcon,
         deleteIcon,
+        editIcon,
       }),
+      webhooks: [], // view copy of state
       unsaved: [],
     };
+  },
+  mounted () {
+    this.setWebhooksViewCopy();
   },
   computed: {
     ...mapState({
@@ -203,7 +244,6 @@ export default {
     }),
 
   },
-
   methods: {
     isValidUrl (url) {
       return validator.isURL(url, {
@@ -227,23 +267,36 @@ export default {
       };
 
       this.unsaved.push(
-        this.user.webhooks.push(webhookInfo) - 1,
+        this.webhooks.push(webhookInfo) - 1,
       );
+    },
+    cancelWebhookChanges (webhook, index) {
+      if (this.unsaved.includes(index)) {
+        this.unsaved = this.unsaved.filter(i => i !== index);
+      }
+
+      if (this.user.webhooks[index]) {
+        this.webhooks[index] = this.user.webhooks[index];
+      } else {
+        this.webhooks.splice(index, 1);
+      }
     },
     async saveWebhook (webhook, index) {
       if (!this.isValidUrl(webhook.url)) {
         return;
       }
 
-      if (this.unsaved.includes(index)) {
+      const webhookId = webhook.id;
+
+      if (this.user.webhooks.every(w => w.id !== webhookId)) {
         const createdWebhook = await this.$store.dispatch('user:addWebhook', { webhook });
 
         this.user.webhooks[index] = createdWebhook;
-        this.unsaved = this.unsaved.filter(u => u !== index);
       } else {
         const updatedWebhook = await this.$store.dispatch('user:updateWebhook', { webhook });
         this.user.webhooks[index] = updatedWebhook;
       }
+      this.cancelWebhookChanges(webhook, index);
     },
     async updateWebhookEnabled (webhook, index) {
       if (this.unsaved.includes(index)) {
@@ -253,9 +306,16 @@ export default {
       const updatedWebhook = await this.$store.dispatch('user:updateWebhook', { webhook });
       this.user.webhooks[index] = updatedWebhook;
     },
+    async editWebhook (webhook, index) {
+      this.unsaved.push(index);
+    },
     async deleteWebhook (webhook, index) {
       await this.$store.dispatch('user:deleteWebhook', { webhook });
       this.user.webhooks.splice(index, 1);
+      this.setWebhooksViewCopy();
+    },
+    setWebhooksViewCopy () {
+      this.webhooks = [...this.user.webhooks];
     },
   },
 };

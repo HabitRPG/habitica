@@ -10,8 +10,8 @@
       <div
         class="input-group"
         :class="{
-          'is-valid': wasChanged && isValid,
-          'is-invalid': wasChanged && !isValid
+          'is-valid': canChangeClasses && isValid,
+          'is-invalid': canChangeClasses && !isValid
         }"
       >
         <input
@@ -19,9 +19,11 @@
           class="form-control"
           type="text"
           :class="{
-            'is-invalid input-invalid': wasChanged && !isValid,
-            'is-valid input-valid': wasChanged && isValid
+            'is-invalid input-invalid': canChangeClasses && !isValid,
+            'is-valid input-valid': canChangeClasses && isValid
           }"
+          :readonly="readonly"
+          :aria-readonly="readonly"
 
           :placeholder="placeholder"
           @keyup="handleChange"
@@ -56,6 +58,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    readonly: {
+      type: Boolean,
+      default: false,
+    },
     settingsLabel: {
       type: String,
     },
@@ -71,6 +77,11 @@ export default {
     return {
       wasChanged: false,
     };
+  },
+  computed: {
+    canChangeClasses () {
+      return !this.readonly && this.wasChanged;
+    },
   },
   methods: {
     handleChange ({ target: { value } }) {
