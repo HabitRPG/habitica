@@ -202,16 +202,56 @@ describe('POST /user/class/cast/:spellId', () => {
     await group.groupLeader.post('/user/class/cast/mpheal');
 
     promises = [];
+    promises.push(group.groupLeader.sync());
     promises.push(group.members[0].sync());
     promises.push(group.members[1].sync());
     promises.push(group.members[2].sync());
     promises.push(group.members[3].sync());
     await Promise.all(promises);
 
+    expect(group.groupLeader.stats.mp).to.be.equal(170); // spell caster
     expect(group.members[0].stats.mp).to.be.greaterThan(0); // warrior
     expect(group.members[1].stats.mp).to.equal(0); // wizard
     expect(group.members[2].stats.mp).to.be.greaterThan(0); // rogue
     expect(group.members[3].stats.mp).to.be.greaterThan(0); // healer
+  });
+
+  it('Deducts MP from spell caster', async () => {
+    let { groupLeader } = await createAndPopulateGroup({ // eslint-disable-line prefer-const
+      groupDetails: { type: 'party', privacy: 'private' },
+      members: 1,
+    });
+    await groupLeader.update({
+      'stats.mp': 200, 'stats.class': 'healer', 'stats.lvl': 20, 'stats.hp': 40,
+    });
+    await groupLeader.post('/user/class/cast/heal');
+    await groupLeader.sync();
+    expect(groupLeader.stats.mp).to.be.equal(185);
+
+    await groupLeader.update({ 'stats.mp': 200, 'stats.class': 'healer', 'stats.lvl': 20 });
+    await groupLeader.post('/user/class/cast/brightness');
+    await groupLeader.sync();
+    expect(groupLeader.stats.mp).to.be.equal(185);
+
+    await groupLeader.update({ 'stats.mp': 200, 'stats.class': 'healer', 'stats.lvl': 20 });
+    await groupLeader.post('/user/class/cast/protectAura');
+    await groupLeader.sync();
+    expect(groupLeader.stats.mp).to.be.equal(170);
+
+    await groupLeader.update({ 'stats.mp': 200, 'stats.class': 'wizard', 'stats.lvl': 20 });
+    await groupLeader.post('/user/class/cast/mpheal');
+    await groupLeader.sync();
+    expect(groupLeader.stats.mp).to.be.equal(170);
+
+    await groupLeader.update({ 'stats.mp': 200, 'stats.class': 'rogue', 'stats.lvl': 20 });
+    await groupLeader.post('/user/class/cast/toolsOfTrade');
+    await groupLeader.sync();
+    expect(groupLeader.stats.mp).to.be.equal(175);
+
+    await groupLeader.update({ 'stats.mp': 200, 'stats.class': 'warrior', 'stats.lvl': 20 });
+    await groupLeader.post('/user/class/cast/intimidate');
+    await groupLeader.sync();
+    expect(groupLeader.stats.mp).to.be.equal(185);
   });
 
   it('cast bulk', async () => {

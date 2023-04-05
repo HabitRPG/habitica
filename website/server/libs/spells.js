@@ -99,6 +99,7 @@ async function castPartySpell (req, party, user, spell, quantity = 1) {
     const data = { query: { 'party._id': party._id } };
     spell.cast(user, data);
     await User.updateMany(data.query, data.update);
+    await user.save();
     partyMembers = getPartyMembers(user, party);
   } else {
     partyMembers = getPartyMembers(user, party);
