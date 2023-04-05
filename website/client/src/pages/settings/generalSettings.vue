@@ -66,18 +66,6 @@
           </td>
         </tr>
       </table>
-
-      <h2 v-once>
-        {{ $t('taskSettings') }}
-      </h2>
-
-      <table class="table">
-        <task-settings />
-        <tr>
-          <td colspan="3">
-          </td>
-        </tr>
-      </table>
     </div>
   </div>
 </template>
@@ -111,7 +99,6 @@ import AudioThemeSetting from '@/pages/settings/settingRows/audioThemeSetting.vu
 import ClassSetting from '@/pages/settings/settingRows/classSetting.vue';
 import FixValuesSetting from '@/pages/settings/settingRows/fixValuesSetting.vue';
 import LoginMethods from '@/pages/settings/settingRows/loginMethods.vue';
-import TaskSettings from '@/pages/settings/settingRows/taskSettings.vue';
 import { GenericUserPreferencesMixin } from '@/pages/settings/components/genericUserPreferencesMixin';
 import { mapState } from '@/libs/store';
 import SleepMode from '@/pages/settings/settingRows/sleepMode.vue';
@@ -119,7 +106,6 @@ import SleepMode from '@/pages/settings/settingRows/sleepMode.vue';
 export default {
   components: {
     SleepMode,
-    TaskSettings,
     LoginMethods,
     FixValuesSetting,
     ClassSetting,

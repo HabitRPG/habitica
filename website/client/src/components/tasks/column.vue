@@ -674,7 +674,6 @@ export default {
       // loads and not on subsequent reloads.
       if (
         type === 'daily' && filter === '' && !this.challenge
-        && this.user.preferences.dailyDueDefaultView
       ) {
         filter = 'due'; // eslint-disable-line no-param-reassign
       }
