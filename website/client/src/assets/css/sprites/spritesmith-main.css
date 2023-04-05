@@ -58403,11 +58403,6 @@
   width: 81px;
   height: 99px;
 }
-.Pet-HatchingPotion-TeaShop {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-HatchingPotion-TeaShop.png');
-  width: 68px;
-  height: 68px;
-}
 .Pet_HatchingPotion_Amber {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet_HatchingPotion_Amber.png');
   width: 68px;
@@ -58650,6 +58645,11 @@
 }
 .Pet_HatchingPotion_Sunshine {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet_HatchingPotion_Sunshine.png');
+  width: 68px;
+  height: 68px;
+}
+.Pet_HatchingPotion_TeaShop {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet_HatchingPotion_TeaShop.png');
   width: 68px;
   height: 68px;
 }
