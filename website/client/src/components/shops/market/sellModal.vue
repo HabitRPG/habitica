@@ -247,9 +247,8 @@
     }
 
   .item-cost {
-    padding-bottom: 16px;
-    padding-top: 8px;
-    margin-top: 12px;
+     display: inner-flex;
+     margin-top: 20px;
     }
 
     .cost {
@@ -257,20 +256,22 @@
       font-size: 1.25rem;
       font-weight: bold;
       vertical-align: middle;
-      padding: 8px 20px 8px 20px;
+      padding: 6px 20px;
+      display: inline-flex;
 
       &.gold {
         color: $yellow-5;
         background-color: rgba(255, 190, 93, 0.15);
         line-height: 1.4;
-        margin: 0 0 0 -4px;
+        margin-left: -4px;
         border-radius: 20px;
+        display: inline-block;
       }
     }
   }
 
   .how-many-to-sell {
-    margin-top: 12px;
+    margin-top: 24px;
     display: block;
     font-size: 0.875rem;
     font-weight: bold !important;

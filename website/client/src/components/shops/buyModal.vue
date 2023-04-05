@@ -442,10 +442,6 @@
       }
     }
 
-    .item-cost {
-       position: relative;
-       margin-top: 20px;
-    }
 
     .attributes-group {
       margin: 32px;
@@ -461,35 +457,43 @@
       // margin: 10px 0 24px;
     }
 
+    .item-cost {
+       display: inner-flex;
+       margin-top: 20px;
+    }
+
     .cost {
       height: 40px;
       font-size: 1.25rem;
       font-weight: bold;
       align-items: center;
-      padding: 8px 20px 8px 20px;
+      padding: 6px 20px;
 
       &.gems {
         color: $green-10;
         background-color: rgba(36, 204, 143, 0.15);
         line-height: 1.4;
-        margin: 0 0 0 -4px;
+        margin-left: -4px;
         border-radius: 20px;
+        display: inline-block;
       }
 
       &.gold {
         color: $yellow-5;
         background-color: rgba(255, 190, 93, 0.15);
         line-height: 1.4;
-        margin: 0 0 0 -4px;
+        margin-left: -4px;
         border-radius: 20px;
+        display: inline-block;
       }
 
       &.hourglasses {
         color: $hourglass-color;
         background-color: rgba(41, 149, 205, 0.15);
         line-height: 1.4;
-        margin: 0 0 0 -4px;
+        margin-left: -4px;
         border-radius: 20px;
+        display: inline-block;
       }
     }
 
