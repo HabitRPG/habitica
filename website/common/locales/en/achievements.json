@@ -144,5 +144,8 @@
   "achievementBoneToPickModalText": "You collected all the Classic and Quest Skeleton Pets!",
   "achievementPolarPro": "Polar Pro",
   "achievementPolarProText": "Has hatched all standard colors of Polar pets: Bear, Fox, Penguin, Whale, and Wolf!",
-  "achievementPolarProModalText": "You collected all the Polar Pets!"
+  "achievementPolarProModalText": "You collected all the Polar Pets!",
+  "achievementPlantParent": "Plant Parent",
+  "achievementPlantParentText": "Has hatched all standard colors of Plant pets: Cactus and Treeling!",
+  "achievementPlantParentModalText": "You collected all the Plant Pets!"
 }

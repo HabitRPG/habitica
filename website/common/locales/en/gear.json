@@ -468,6 +468,15 @@
   "weaponSpecialWinter2023HealerText": "Throwing Wreath",
   "weaponSpecialWinter2023HealerNotes": "Watch this festive, prickly wreath spin through the air toward your enemy or obstacles and return to you like a boomerang for another throw. Increases Intelligence by <%= int %>. Limited Edition 2022-2023 Winter Gear.",
 
+  "weaponSpecialSpring2023RogueText": "Nibbled Leaf",
+  "weaponSpecialSpring2023RogueNotes": "Slash! Swat! Snack! Get strong and ready for your coming metamorphosis. Increases Strength by <%= str %>. Limited Edition 2023 Spring Gear.",
+  "weaponSpecialSpring2023WarriorText": "Hummingbird Foil",
+  "weaponSpecialSpring2023WarriorNotes": "En garde! Fend off foes from your flowers with this foil! Increases Strength by <%= str %>. Limited Edition 2023 Spring Gear.",
+  "weaponSpecialSpring2023MageText": "Moonstone Magic",
+  "weaponSpecialSpring2023MageNotes": "The greater their glow, the more potent is their power. Increases Intelligence by <%= int %>. Limited Edition 2023 Spring Gear.",
+  "weaponSpecialSpring2023HealerText": "Lilium Pollen",
+  "weaponSpecialSpring2023HealerNotes": "With a puff and a sparkle, you deploy new growth, joy, and color. Increases Intelligence by <%= int %>. Limited Edition 2023 Spring Gear.",
+
   "weaponMystery201411Text": "Pitchfork of Feasting",
   "weaponMystery201411Notes": "Stab your enemies or dig in to your favorite foods - this versatile pitchfork does it all! Confers no benefit. November 2014 Subscriber Item.",
   "weaponMystery201502Text": "Shimmery Winged Staff of Love and Also Truth",
@@ -1131,6 +1140,15 @@
   "armorSpecialWinter2023HealerText": "Cardinal Suit",
   "armorSpecialWinter2023HealerNotes": "This bright cardinal suit is perfect for flying high above your problems. Increases Constitution by <%= con %>. Limited Edition 2022-2023 Winter Gear.",
 
+  "armorSpecialSpring2023RogueText": "Caterpillar Cape",
+  "armorSpecialSpring2023RogueNotes": "You may only have four limbs to work with, but you can climb and crawl with the greatest of grubs. Increases Perception by <%= per %>. Limited Edition 2023 Spring Gear.",
+  "armorSpecialSpring2023WarriorText": "Hummingbird Armor",
+  "armorSpecialSpring2023WarriorNotes": "That humming sound you hear is your wings beating faster than you can imagine. Increases Constitution by <%= con %>. Limited Edition 2023 Spring Gear.",
+  "armorSpecialSpring2023MageText": "Moonstone Suit",
+  "armorSpecialSpring2023MageNotes": "This snazzy spring suit magnifies moonstone magic. Increases Intelligence by <%= int %>. Limited Edition 2023 Spring Gear.",
+  "armorSpecialSpring2023HealerText": "Lily Leaf Gown",
+  "armorSpecialSpring2023HealerNotes": "A sweep of verdant glory to make you the envy of the Party. Increases Constitution by <%= con %>. Limited Edition 2023 Spring Gear.",
+
   "armorMystery201402Text": "Messenger Robes",
   "armorMystery201402Notes": "Shimmering and strong, these robes have many pockets to carry letters. Confers no benefit. February 2014 Subscriber Item.",
   "armorMystery201403Text": "Forest Walker Armor",
@@ -1245,6 +1263,9 @@
   "armorMystery202210Notes": "Try slithering for a change, you may find it's quite an efficient mode of transportation! Confers no benefit. October 2022 Subscriber Item.",
   "armorMystery202212Text": "Glacial Dress",
   "armorMystery202212Notes": "The universe can be cold, but this charming dress will keep you cozy as you fly. Confers no benefit. December 2022 Subscriber Item.",
+  "armorMystery202304Text": "Tiptop Teapot Armor",
+  "armorMystery202304Notes": "Here is your handle and here is your spout! Confers no benefit. April 2023 Subscriber Item.",
+
   "armorMystery301404Text": "Steampunk Suit",
   "armorMystery301404Notes": "Dapper and dashing, wot! Confers no benefit. February 3015 Subscriber Item.",
   "armorMystery301703Text": "Steampunk Peacock Gown",
@@ -1873,6 +1894,15 @@
   "headSpecialWinter2023HealerText": "Cardinal Helm",
   "headSpecialWinter2023HealerNotes": "This cardinal helm is perfect for whistling and singing to herald the winter season. Increases Intelligence by <%= int %>. Limited Edition 2022-2023 Winter Gear.",
 
+  "headSpecialSpring2023RogueText": "Caterpillar Cowl",
+  "headSpecialSpring2023RogueNotes": "Be sure to tuck in those tempting antennae when birds are hunting overhead! Increases Perception by <%= per %>. Limited Edition 2023 Spring Gear.",
+  "headSpecialSpring2023WarriorText": "Hummingbird Helmet",
+  "headSpecialSpring2023WarriorNotes": "Cover your visage in iridescent feathers when you fly into battle. Increases Strength by <%= str %>. Limited Edition 2023 Spring Gear.",
+  "headSpecialSpring2023MageText": "Moonstone Visor",
+  "headSpecialSpring2023MageNotes": "You’ll want to wear these glasses at night so you can see clearly by the light of the moon. Increases Perception by <%= per %>. Limited Edition 2023 Spring Gear.",
+  "headSpecialSpring2023HealerText": "Lily Bloom",
+  "headSpecialSpring2023HealerNotes": "This brilliant and colorful display shares a color scheme with the Orb of Rebirth! How symbolic! Increases Intelligence by <%= int %>. Limited Edition 2023 Spring Gear.",
+
   "headSpecialGaymerxText": "Rainbow Warrior Helm",
   "headSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special helmet is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
 
@@ -2020,6 +2050,9 @@
   "headMystery202301Notes": "Your hearing will be so sharp you'll hear the dawn breaking and the dew sparkling. Confers no benefit. January 2023 Subscriber Item.",  
   "headMystery202303Text": "Mane Character Hair",
   "headMystery202303Notes": "What better way to let everyone know you’re the star of this tale than to have blue and improbably spiky hair? Confers no benefit. March 2023 Subscriber Item.",  
+  "headMystery202304Text": "Tiptop Teapot Lid",
+  "headMystery202304Notes": "Wear this helm for your own safe-tea. Confers no benefit. April 2023 Subscriber Item.",
+
   "headMystery301404Text": "Fancy Top Hat",
   "headMystery301404Notes": "A fancy top hat for the finest of gentlefolk! January 3015 Subscriber Item. Confers no benefit.",
   "headMystery301405Text": "Basic Top Hat",
@@ -2443,6 +2476,11 @@
   "shieldSpecialWinter2023WarriorNotes": "The time has come, the Walrus said, to talk of many things: of oyster shells—and winter bells—of songs that someone sings—and where this shield’s pearl has gone—or what the new year brings! Increases Constitution by <%= con %>. Limited Edition 2022-2023 Winter Gear.",
   "shieldSpecialWinter2023HealerText": "Cool Jams",
   "shieldSpecialWinter2023HealerNotes": "Your song of frost and snow will soothe the spirits of all who hear. Increases Constitution by <%= con %>. Limited Edition 2022-2023 Winter Gear.",
+
+  "shieldSpecialSpring2023WarriorText": "Flower Bunch",
+  "shieldSpecialSpring2023WarriorNotes": "Collect the spring’s best flowers into this brightly colored floral bunch. Increases Constitution by <%= con %>. Limited Edition 2023 Spring Gear.",
+  "shieldSpecialSpring2023HealerText": "Lily Corsage",
+  "shieldSpecialSpring2023HealerNotes": "An accent for a healing visit, or part of a ritual for attending a springtime dance! Increases Constitution by <%= con %>. Limited Edition 2023 Spring Gear.",
 
   "shieldMystery201601Text": "Resolution Slayer",
   "shieldMystery201601Notes": "This blade can be used to parry away all distractions. Confers no benefit. January 2016 Subscriber Item.",

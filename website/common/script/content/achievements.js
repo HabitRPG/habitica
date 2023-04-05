@@ -183,6 +183,11 @@ const animalSetAchievs = {
     titleKey: 'achievementDomesticated',
     textKey: 'achievementDomesticatedText',
   },
+  plantParent: {
+    icon: 'achievement-plantParent',
+    titleKey: 'achievementPlantParent',
+    textKey: 'achievementPlantParentText',
+  },
   polarPro: {
     icon: 'achievement-polarPro',
     titleKey: 'achievementPolarPro',

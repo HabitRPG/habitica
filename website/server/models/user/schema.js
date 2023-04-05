@@ -153,6 +153,7 @@ export const UserSchema = new Schema({
     woodlandWizard: Boolean,
     boneToPick: Boolean,
     polarPro: Boolean,
+    plantParent: Boolean,
     // Onboarding Guide
     createdTask: Boolean,
     completedTask: Boolean,
