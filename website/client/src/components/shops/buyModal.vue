@@ -90,6 +90,7 @@
           class="purchase-amount"
           :hidden="attemptingToPurchaseMoreGemsThanAreLeft"
         >
+          <!-- this is where the pretty item cost element lives -->
           <div class="item-cost">
             <span
               class="cost"
@@ -128,7 +129,7 @@
             >
               <span class="total-text">{{ $t('sendTotal') }}</span>
               <span
-                class="svg-icon inline icon-24"
+                class="svg-icon total icon-24"
                 aria-hidden="true"
                 v-html="icons[getPriceClass()]"
               ></span>
@@ -375,10 +376,10 @@
     .purchase-amount {
       margin-top: 0px;
 
-      .how-many-to-buy {
-        margin-top: 24px;
-        height: 24px;
-      }
+      // .how-many-to-buy {
+      //   margin-top: 24px;
+      //   height: 24px;
+      // }
 
       .number-increment {
         margin-top: 16px;
@@ -414,18 +415,22 @@
       margin: 16px 48px 0 48px;
     }
 
+// for cost icon of a single item
     span.svg-icon.inline.icon-24 {
+      display: inline-block;
       height: 24px;
       width: 24px;
-      margin-right: 8px;
-      vertical-align: middle;
-    }
-
-    span.svg-icon.inline.icon-20 {
-      height: 20px;
-      width: 20px;
       margin-right: 4px;
-      vertical-align: middle;
+      padding-top: 4px;
+    }
+// for the total user cost
+    span.svg-icon.total.icon-24 {
+      display: inline-block;
+      height: 24px;
+      width: 24px;
+      margin-left: 6px;
+      margin-right: 8px;
+      padding-top: 6px;
     }
 
     span.svg-icon.icon-16 {
@@ -442,7 +447,6 @@
       }
     }
 
-
     .attributes-group {
       margin: 32px;
       border-radius: 4px;
@@ -458,49 +462,45 @@
     }
 
     .item-cost {
-       display: inner-flex;
-       margin-top: 20px;
+      display: inline-flex;
+      margin: 16px 0;
+      align-items: center;
+      height: 40px;
     }
 
     .cost {
-      height: 40px;
+      display: inline-block;
+      font-family: sans-serif;
       font-size: 1.25rem;
       font-weight: bold;
-      align-items: center;
       padding: 6px 20px;
+      line-height: 1.4;
+      border-radius: 20px;
 
       &.gems {
         color: $green-10;
         background-color: rgba(36, 204, 143, 0.15);
-        line-height: 1.4;
-        margin-left: -4px;
-        border-radius: 20px;
-        display: inline-block;
+        align-items: center;
       }
 
       &.gold {
         color: $yellow-5;
         background-color: rgba(255, 190, 93, 0.15);
-        line-height: 1.4;
-        margin-left: -4px;
-        border-radius: 20px;
-        display: inline-block;
+        align-items: center;
       }
 
       &.hourglasses {
         color: $hourglass-color;
         background-color: rgba(41, 149, 205, 0.15);
-        line-height: 1.4;
-        margin-left: -4px;
-        border-radius: 20px;
-        display: inline-block;
+        align-items: center;
       }
     }
 
     .total {
       font-weight: bold;
       font-size: 0.875rem;
-      margin-top: 16px;
+      padding-top: 2px;
+      margin-top: 4px;
 
       &.gems {
         color: $green-10;
@@ -519,10 +519,7 @@
       color: $gray-50;
       font-weight: bold;
       font-size: 0.875rem;
-      height: 24px;
       line-height: 1.71;
-      margin-right: 4px;
-      margin-left: -4px;
 
       &.gems {
         color: $green-10;
