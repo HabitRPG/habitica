@@ -113,7 +113,7 @@
             class="how-many-to-buy"
             :hidden="attemptingToPurchaseMoreGemsThanAreLeft"
           >
-            <strong>{{ $t('howManyToBuy') }}</strong>
+            {{ $t('howManyToBuy') }}
           </div>
           <div
             v-if="showAmountToBuy(item)"
@@ -376,10 +376,9 @@
     .purchase-amount {
       margin-top: 0px;
 
-      // .how-many-to-buy {
-      //   margin-top: 24px;
-      //   height: 24px;
-      // }
+      .how-many-to-buy {
+        font-weight: bold !important;
+      }
 
       .number-increment {
         margin-top: 16px;
@@ -458,7 +457,6 @@
       margin-top: 28px;
       border-radius: 2px;
       background-color: $gray-500;
-      // margin: 10px 0 24px;
     }
 
     .item-cost {

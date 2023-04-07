@@ -67,7 +67,7 @@
                 {{ $t('sendTotal') }}
               </span>
               <span
-                class="svg-icon inline icon-24"
+                class="svg-icon total icon-24"
                 aria-hidden="true"
                 v-html="icons.gold"
               ></span>
@@ -209,26 +209,22 @@
        font-size: 0.875rem;
     }
 
-    span.svg-icon.inline.icon-32 {
-      height: 32px;
-      width: 32px;
-      margin-left: 24px;
-      margin-right: 8px;
-      vertical-align: middle;
-    }
-
+// for cost icon of a single item
     span.svg-icon.inline.icon-24 {
+      display: inline-block;
       height: 24px;
       width: 24px;
-      margin-right: 8px;
-      vertical-align: middle;
-    }
-
-    span.svg-icon.inline.icon-20 {
-      height: 20px;
-      width: 20px;
       margin-right: 4px;
-      vertical-align: middle;
+      padding-top: 4px;
+    }
+// for the total user cost
+    span.svg-icon.total.icon-24 {
+      display: inline-block;
+      height: 24px;
+      width: 24px;
+      margin-left: 6px;
+      margin-right: 8px;
+      padding-top: 6px;
     }
 
     span.svg-icon.icon-16 {
@@ -247,38 +243,35 @@
     }
 
   .item-cost {
-     display: inner-flex;
-     margin-top: 20px;
+      display: inline-flex;
+      margin: 16px 0;
+      align-items: center;
+      height: 40px;
     }
 
     .cost {
-      height: 40px;
+      display: inline-block;
+      font-family: sans-serif;
       font-size: 1.25rem;
       font-weight: bold;
-      vertical-align: middle;
       padding: 6px 20px;
-      display: inline-flex;
+      line-height: 1.4;
+      border-radius: 20px;
 
       &.gold {
         color: $yellow-5;
         background-color: rgba(255, 190, 93, 0.15);
-        line-height: 1.4;
-        margin-left: -4px;
-        border-radius: 20px;
-        display: inline-block;
+        align-items: center;
       }
     }
   }
 
   .how-many-to-sell {
-    margin-top: 24px;
-    display: block;
-    font-size: 0.875rem;
     font-weight: bold !important;
   }
 
   .number-increment {
-     margin-top: 14px;
+     margin-top: 16px;
   }
 
   .total-row {
@@ -295,10 +288,7 @@
       color: $gray-50;
       font-weight: bold;
       font-size: 0.875rem;
-      height: 24px;
       line-height: 1.71;
-      margin-right: 4px;
-      margin-left: -4px;
 
     &.gold {
       color: $yellow-5;
