@@ -14,7 +14,7 @@
     "amazon-payments": "^0.2.9",
     "amplitude": "^6.0.0",
     "apidoc": "^0.54.0",
-    "apple-auth": "^1.0.7",
+    "apple-auth": "^1.0.9",
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.1",
     "bootstrap": "^4.6.0",
