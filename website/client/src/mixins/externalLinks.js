@@ -8,7 +8,12 @@ export default {
 
       for (let i = 0; i < allLinks.length; i += 1) {
         const link = allLinks[i];
-        const domainIndex = link.href.indexOf('//') + 2;
+        let domainIndex = link.href.indexOf('www');
+        if (domainIndex !== -1 && domainIndex < 9) {
+          domainIndex += 4;
+        } else {
+          domainIndex = link.href.indexOf('//') + 2;
+        }
 
         if ((link.classList.value.indexOf('external-link') === -1)
           && domainIndex !== 1
