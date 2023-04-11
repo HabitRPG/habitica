@@ -6,14 +6,13 @@
       <td class="settings-label">
         {{ $t("password") }}
       </td>
-      <td class="settings-value">
-      </td>
+      <td class="settings-value"></td>
       <td class="settings-button">
         <a
           class="edit-link"
           @click.prevent="openModal()"
         >
-          {{ $t('edit') }}
+          {{ $t(hasPassword ? 'edit' : 'add') }}
         </a>
       </td>
     </tr>
@@ -39,6 +38,7 @@
         </div>
 
         <current-password-input
+          v-if="hasPassword"
           :show-forget-password="true"
           custom-label="currentPass"
           @passwordValue="passwordUpdates.password = $event"
@@ -54,7 +54,7 @@
 
         <save-cancel-buttons
           :disable-save="inputsInvalid"
-          @saveClicked="changePassword( passwordUpdates)"
+          @saveClicked="hasPassword ? changePassword() : addLocalAuth()"
           @cancelClicked="requestCloseModal()"
         />
       </td>
@@ -116,6 +116,7 @@ import axios from 'axios';
 import SaveCancelButtons from '../components/saveCancelButtons.vue';
 import { InlineSettingMixin } from '../components/inlineSettingMixin';
 import CurrentPasswordInput from '../components/currentPasswordInput.vue';
+import { mapState } from '@/libs/store';
 
 export default {
   components: { CurrentPasswordInput, SaveCancelButtons },
@@ -130,6 +131,12 @@ export default {
     };
   },
   computed: {
+    ...mapState({
+      user: 'user.data',
+    }),
+    hasPassword () {
+      return this.user.auth.local.has_password;
+    },
     inputsInvalid () {
       if (!this.passwordUpdates.password) {
         return true;
@@ -150,6 +157,19 @@ export default {
         timeout: true,
       });
     },
+
+    async addLocalAuth () {
+      const localAuthData = {
+        password: this.passwordUpdates.newPassword,
+        confirmPassword: this.passwordUpdates.confirmPassword,
+        email: this.user.auth.local.email,
+        username: this.user.auth.local.username,
+      };
+
+      await axios.post('/api/v4/user/auth/local/register', localAuthData);
+      window.location.reload();
+    },
+
   },
 };
 </script>

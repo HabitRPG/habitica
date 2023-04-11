@@ -7,11 +7,11 @@
       <td class="settings-label">
         <div class="network-icon-with-label">
           <span
-            class="svg-icon icon-16 social-icon"
+            :class="'svg-icon icon-16 social-icon ' + network.key"
             v-html="icons[network.key]"
           ></span>
 
-          <span class="ml-75">        {{ network.name }}</span>
+          <span class="ml-75"> {{ network.name }}</span>
         </div>
       </td>
       <td class="settings-value">
@@ -77,61 +77,6 @@
                 - Allowed to remove {{ allowedToRemove(network.key) }}
               </li>
             </ul>
-            <hr>
-            TODO Add Local Auth <br>
-            Hidden if the user has a password <br>
-            <!-- v-if="!user.auth.local.has_password"-->
-            <div>
-              <h5 v-if="!user.auth.local.email">
-                {{ $t('addLocalAuth') }}
-              </h5>
-              <h5 v-if="user.auth.local.email">
-                {{ $t('addPasswordAuth') }}
-              </h5>
-              <div
-                class="form"
-                name="localAuth"
-                novalidate="novalidate"
-              >
-                <div
-                  v-if="!user.auth.local.email"
-                  class="form-group"
-                >
-                  <input
-                    v-model="localAuth.email"
-                    class="form-control"
-                    type="text"
-                    :placeholder="$t('email')"
-                    required="required"
-                  >
-                </div>
-                <div class="form-group">
-                  <input
-                    v-model="localAuth.password"
-                    class="form-control"
-                    type="password"
-                    :placeholder="$t('password')"
-                    required="required"
-                  >
-                </div>
-                <div class="form-group">
-                  <input
-                    v-model="localAuth.confirmPassword"
-                    class="form-control"
-                    type="password"
-                    :placeholder="$t('confirmPass')"
-                    required="required"
-                  >
-                </div>
-                <button
-                  class="btn btn-primary"
-                  type="submit"
-                  @click="addLocalAuth()"
-                >
-                  {{ $t('submit') }}
-                </button>
-              </div>
-            </div>
           </div>
         </div>
       </td>
@@ -153,7 +98,6 @@ export default {
   data () {
     return {
       SOCIAL_AUTH_NETWORKS: [],
-      party: {},
       // Made available by the server as a script
       localAuth: {
         password: '',
@@ -173,10 +117,6 @@ export default {
   },
   mounted () {
     this.SOCIAL_AUTH_NETWORKS = SUPPORTED_SOCIAL_NETWORKS;
-
-    // @TODO: We may need to request the party here
-    this.party = this.$store.state.party;
-    this.soundIndex = 0;
 
     this.$store.dispatch('common:setTitle', {
       section: this.$t('settings'),
@@ -216,15 +156,8 @@ export default {
         window.location.href = '/';
       }
     },
-    async addLocalAuth () {
-      if (this.localAuth.email === '') {
-        this.localAuth.email = this.user.auth.local.email;
-      }
-      await axios.post('/api/v4/user/auth/local/register', this.localAuth);
-      window.location.href = '/user/settings/site';
-    },
     hasBackupAuthOption (networkKeyToCheck) {
-      if (this.user.auth.local.username) {
+      if (this.user.auth.local.username && this.user.auth.local.has_password) {
         return true;
       }
 
@@ -290,5 +223,9 @@ export default {
   font-size: 12px;
   line-height: 1.33;
   color: $white;
+}
+
+.social-icon.apple {
+  margin-bottom: -2px !important;
 }
 </style>
