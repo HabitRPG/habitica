@@ -67,7 +67,7 @@
                     type="number"
                     min="0"
                     required="required"
-                    @change="markAsChanged()"
+                    @keydown="markAsChanged(input, $event)"
                   >
                 </div>
               </div>
@@ -222,7 +222,8 @@ export default {
     close () {
       this.validateInputs();
     },
-    markAsChanged () {
+    markAsChanged (inputType, keyupEvent) {
+      this.restoreValues[inputType.property] = keyupEvent.target.value;
       this.modalValuesChanged();
     },
     save () {
