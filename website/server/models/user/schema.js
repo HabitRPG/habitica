@@ -592,6 +592,12 @@ export default new Schema({
       mirrorGroupTasks: [
         { $type: String, validate: [v => validator.isUUID(v), 'Invalid group UUID.'], ref: 'Group' },
       ],
+      activeFilter: {
+        habit: { $type: String, default: 'all' },
+        daily: { $type: String, default: 'all' },
+        todo: { $type: String, default: 'remaining' },
+        reward: { $type: String, default: 'all' },
+      },
     },
     improvementCategories: {
       $type: Array,
