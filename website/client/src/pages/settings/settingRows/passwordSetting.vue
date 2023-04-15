@@ -138,7 +138,7 @@ export default {
       return this.user.auth.local.has_password;
     },
     inputsInvalid () {
-      if (!this.passwordUpdates.password) {
+      if (this.hasPassword && !this.passwordUpdates.password) {
         return true;
       }
 
