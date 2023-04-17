@@ -2230,6 +2230,8 @@
   "headArmoireFancyPirateHatNotes": "Be protected from the sun and any seagulls flying overhead as you drink tea on the deck of your ship. Increases Perception by <%= per %>. Enchanted Armoire: Fancy Pirate Set (Item 2 of 3).",
   "headArmoireTeaHatText": "Tea Party Hat",
   "headArmoireTeaHatNotes": "This elegant hat is both fancy and functional. Increases Perception by <%= per %>. Enchanted Armoire: Tea Party Set (Item 2 of 3).",
+  "headArmoireBeaniePropellerHatText": "Beanie Propeller Hat",
+  "headArmoireBeaniePropellerHatNotes": "This isn’t the time to keep your feet on the ground! Spin this little propeller and rise as high as your ambitions will take you. Increases all stats by <%= attrs %>. Enchanted Armoire: Independent Item.",
 
   "offhand": "off-hand item",
   "offHandCapitalized": "Off-Hand Item",
