@@ -22,6 +22,7 @@ import {
 } from '../../libs/email';
 import * as inboxLib from '../../libs/inbox';
 import * as userLib from '../../libs/user';
+import { OFFICIAL_PLATFORMS } from '../../../common/script/constants';
 
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS_TECH_ASSISTANCE_EMAIL');
 const DELETE_CONFIRMATION = 'DELETE';
@@ -494,6 +495,9 @@ api.buy = {
     let quantity = 1;
     if (req.body.quantity) quantity = req.body.quantity;
     req.quantity = quantity;
+    if (OFFICIAL_PLATFORMS.indexOf(req.headers['x-client']) === -1) {
+      res.analytics = undefined;
+    }
     const buyRes = await common.ops.buy(user, req, res.analytics);
 
     await user.save();
@@ -584,6 +588,9 @@ api.buyArmoire = {
     const { user } = res.locals;
     req.type = 'armoire';
     req.params.key = 'armoire';
+    if (OFFICIAL_PLATFORMS.indexOf(req.headers['x-client']) === -1) {
+      res.analytics = undefined;
+    }
     const buyArmoireResponse = await common.ops.buy(user, req, res.analytics);
     await user.save();
     res.respond(200, ...buyArmoireResponse);

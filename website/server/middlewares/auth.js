@@ -55,6 +55,7 @@ export function authWithHeaders (options = {}) {
   return function authWithHeadersHandler (req, res, next) {
     const userId = req.header('x-api-user');
     const apiToken = req.header('x-api-key');
+    const client = req.header('x-client');
     const optional = options.optional || false;
 
     if (!userId || !apiToken) {
@@ -90,6 +91,9 @@ export function authWithHeaders (options = {}) {
         req.session.userId = user._id;
         stackdriverTraceUserId(user._id);
         user.auth.timestamps.updated = new Date();
+        if (common.constants.OFFICIAL_PLATFORMS.indexOf(client) === -1 && !user.flags.thirdPartyTools) {
+          User.updateOne(userQuery, { $set: { 'flags.thirdPartyTools': true }}).exec();
+        }
         return next();
       })
       .catch(next);

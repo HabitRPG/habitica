@@ -25,6 +25,8 @@ export const SUPPORTED_SOCIAL_NETWORKS = [
   { key: 'apple', name: 'Apple' },
 ];
 
+export const OFFICIAL_PLATFORMS = ['habitica-web', 'habitica-ios', 'habitica-android'];
+
 export const GUILDS_PER_PAGE = 30; // number of guilds to return per page when using pagination
 
 export const PARTY_LIMIT_MEMBERS = 29;
