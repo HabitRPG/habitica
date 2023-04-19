@@ -306,7 +306,7 @@ export default new Schema({
     cardReceived: { $type: Boolean, default: false },
     warnedLowHealth: { $type: Boolean, default: false },
     verifiedUsername: { $type: Boolean, default: false },
-    thirdPartyTools: { $type: Boolean, default: false },
+    thirdPartyTools: { $type: Date },
   },
 
   history: {

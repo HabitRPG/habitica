@@ -22,7 +22,6 @@ import {
   TAVERN_ID,
   MAX_MESSAGE_LENGTH,
   MAX_GIFT_MESSAGE_LENGTH,
-  OFFICIAL_PLATFORMS,
 } from './constants';
 import content from './content/index';
 import * as count from './count';
@@ -125,7 +124,6 @@ api.constants = {
   MAX_MESSAGE_LENGTH,
   MAX_GIFT_MESSAGE_LENGTH,
   MAX_LEVEL_HARD_CAP,
-  OFFICIAL_PLATFORMS,
 };
 // TODO Move these under api.constants
 api.maxLevel = MAX_LEVEL;
