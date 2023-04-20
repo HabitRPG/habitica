@@ -191,5 +191,9 @@
     "mysterySet202106": "Zestaw Zachodzącej Syreny",
     "mysterySet202105": "Zestaw Mgławicowego Smoka",
     "mysterySet202104": "Zestaw Strażnika Osetu",
-    "mysterySet202103": "Zestaw Kwitnącego Widoku"
+    "mysterySet202103": "Zestaw Kwitnącego Widoku",
+    "howManyGemsPurchase": "Ile Klejnotów chcesz kupić?",
+    "needToPurchaseGems": "Potrzebujesz kupić Klejnoty jako prezent?",
+    "wantToSendOwnGems": "Chcesz wysłać swoje własne Klejnoty?",
+    "howManyGemsSend": "Ile Klejnotów chcesz wysłać?"
 }

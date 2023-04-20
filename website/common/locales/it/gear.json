@@ -2678,7 +2678,7 @@
     "armorArmoireFancyPirateSuitText": "Giacca Pirata Elegante",
     "armorArmoireFancyPirateSuitNotes": "Vestiti bene con questa giacca raffinata mentre riordini la biblioteca della tua nave o discuti come equipaggio. Aumenta la Costituzione e l'Intelligenza di <%= attrs %> ciascuno. Scrigno Incantato: Set Pirata Elegante (Oggetto 1 di 3).",
     "headArmoireFancyPirateHatText": "Cappello Pirata Elegante",
-    "headArmoireFancyPirateHatNotes": "Proteggiti dal sole e da eventuali gabbiani che volano sopra la tua testa mentre bevi il tè sul ponte della tua nave. Aumenta la Percezione di <%= attrs %>. Scrigno Incantato: Set Pirata Elegante (Oggetto 2 di 3).",
+    "headArmoireFancyPirateHatNotes": "Proteggiti dal sole e da eventuali gabbiani che volano sopra la tua testa mentre bevi il tè sul ponte della tua nave. Aumenta la Percezione di <%= per %>. Scrigno Incantato: Set Pirata Elegante (Oggetto 2 di 3).",
     "shieldArmoireTreasureMapText": "Mappa del Tesoro",
     "shieldArmoireTreasureMapNotes": "X segna il luogo del tesoro! Non sai mai cosa troverai quando segui questa pratica mappa per tesori leggendari: ori, gioielli, reliquie, o forse un'arancia pietrificata? Aumenta la Forza e l'Intelligenza di <%= attrs %> ciascuno. Scrigno Incantato: Set Pirata Elegante (Oggetto 3 di 3).",
     "weaponArmoirePushBroomNotes": "Porta quest'utensile di pulizia nelle tue avventure e sarai sempre in grado di spazzare una scalinata esterna fuligginosa o eliminare le ragnatele dagli angoli. Aumenta la Forza e l'Intelligenza di <%= attrs %> ciascuno. Scrigno Incantato: Set Articoli per la Pulizia (Oggetto 1 di 3)",

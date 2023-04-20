@@ -338,5 +338,10 @@
     "sharedCompletion": "Shared Completion",
     "recurringCompletion": "None - Group task does not complete",
     "singleCompletion": "Single - Completes when any assigned user finishes",
-    "allAssignedCompletion": "All - Completes when all assigned users finish"
+    "allAssignedCompletion": "All - Completes when all assigned users finish",
+    "leaveGuild": "Tinggalkan Guild",
+    "editParty": "Ubah Party",
+    "invitedToPartyBy": "<a href=\"/profile/<%- userId %>\" target=\"_blank\">@<%- userName %></a> mengundang kamu untuk bergabung dengan Party <span class=\"notification-bold\"><%- party %></span>",
+    "editGuild": "Ubah Guild",
+    "features": "Fitur"
 }
