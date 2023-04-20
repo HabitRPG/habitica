@@ -1,7 +1,7 @@
 {
     "stable": "Kandang",
     "sortByColor": "Warna",
-    "food": "Makanan dan Pelana",
+    "food": "Makanan Haiwan Peliharaan dan Pelana",
     "foodText": "makanan",
     "eggSingular": "telur",
     "eggs": "Telur-telur",
@@ -43,5 +43,15 @@
     "veteranFox": "Musang Veteran",
     "mountsTamed": "Haiwan Besar Dijinakkan",
     "questMounts": "Lekapan Pencarian",
-    "mammoth": "Mammoth berbulu"
+    "mammoth": "Mammoth berbulu",
+    "invisibleAether": "Aether yang tidak kelihatan",
+    "hopefulHippogriffPet": "Hippogriff yang penuh harapan",
+    "hopefulHippogriffMount": "Hippogriff yang penuh harapan",
+    "royalPurpleJackalope": "Jackalope Ungu Diraja",
+    "gryphatrice": "Gryphatrice",
+    "royalPurpleGryphon": "Gryphon Ungu Diraja",
+    "jubilantGryphatrice": "Gryphatrice gembira",
+    "quickInventory": "Inventori Pantas",
+    "potion": "<%= potionType %> Ramuan",
+    "haveHatchablePet": "Anda memiliki <%= potion %> ramuan penetasan dan <%= egg %> telur untuk menetaskan hewan peliharaan ini! <b>Click</b> untuk menetas!"
 }

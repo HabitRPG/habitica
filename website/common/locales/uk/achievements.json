@@ -144,5 +144,8 @@
     "achievementBoneToPick": "Могильник",
     "achievementPolarPro": "Полярник",
     "achievementPolarProText": "Зібрали всіх полярних улюбленців стандартних кольорів: ведмедя, лиса, пінгвіна, кита та вовка!",
-    "achievementPolarProModalText": "Ви зібрали всіх полярних тваринок!"
+    "achievementPolarProModalText": "Ви зібрали всіх полярних тваринок!",
+    "achievementPlantParent": "Батько рослин",
+    "achievementPlantParentText": "Зібрали всі рослинних улюбленців стандартних кольорів: кактус та пагін!",
+    "achievementPlantParentModalText": "Ви зібрали всіх рослинних улюбленців!"
 }

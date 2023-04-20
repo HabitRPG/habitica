@@ -144,5 +144,8 @@
     "achievementPolarPro": "Experto Polar",
     "achievementPolarProModalText": "¡Has coleccionado todas las mascotas Polares!",
     "achievementBoneToPickModalText": "¡Has coleccionado todas las mascotas clásicas y de misiones esqueléticas!",
-    "achievementPolarProText": "¡Ha eclosionado todos los colores estándar para mascotas Polares: Osos, Zorros, Pinguinos, Ballenas y Lobos!"
+    "achievementPolarProText": "¡Ha eclosionado todos los colores estándar para mascotas Polares: Osos, Zorros, Pinguinos, Ballenas y Lobos!",
+    "achievementPlantParent": "Progenitor de las Plantas",
+    "achievementPlantParentText": "¡Ha eclosionado todos los colores estándar para las mascotas Planta: Cáctus y Esqueje de árbol!",
+    "achievementPlantParentModalText": "¡Has coleccionado todas las Mascotas Planta!"
 }
