@@ -1,3 +1,4 @@
+import moment from 'moment';
 import nconf from 'nconf';
 import url from 'url';
 import {
@@ -92,7 +93,9 @@ export function authWithHeaders (options = {}) {
         req.session.userId = user._id;
         stackdriverTraceUserId(user._id);
         user.auth.timestamps.updated = new Date();
-        if (OFFICIAL_PLATFORMS.indexOf(client) === -1 && !user.flags.thirdPartyTools) {
+        if (OFFICIAL_PLATFORMS.indexOf(client) === -1
+          && (!user.flags.thirdPartyTools || moment().diff(user.flags.thirdPartyTools, 'days') > 0)
+        ) {
           User.updateOne(userQuery, { $set: { 'flags.thirdPartyTools': new Date() } }).exec();
         }
         return next();
