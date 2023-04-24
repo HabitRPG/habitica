@@ -100,9 +100,9 @@ async function castPartySpell (req, party, user, spell, quantity = 1) {
     spell.cast(user, data);
     await User.updateMany(data.query, data.update);
     await user.save();
-    partyMembers = getPartyMembers(user, party);
+    partyMembers = await getPartyMembers(user, party);
   } else {
-    partyMembers = getPartyMembers(user, party);
+    partyMembers = await getPartyMembers(user, party);
     for (let i = 0; i < quantity; i += 1) {
       spell.cast(user, partyMembers, req);
     }
