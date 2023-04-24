@@ -238,7 +238,6 @@ describe('POST /user/class/cast/:spellId', () => {
     await groupLeader.sync();
     expect(groupLeader.stats.mp).to.be.equal(170);
 
-
     await groupLeader.update({ 'stats.mp': 200, 'stats.class': 'healer', 'stats.lvl': 20 });
     await groupLeader.post('/user/class/cast/healAll');
     await groupLeader.sync();
