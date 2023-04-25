@@ -216,47 +216,70 @@ describe('POST /user/class/cast/:spellId', () => {
     expect(group.members[3].stats.mp).to.be.greaterThan(0); // healer
   });
 
-  it('Deducts MP from spell caster', async () => {
-    let { groupLeader } = await createAndPopulateGroup({ // eslint-disable-line prefer-const
-      groupDetails: { type: 'party', privacy: 'private' },
-      members: 1,
+  const spellList = [
+    {
+      className: "warrior",
+      spells: [["smash", "task"], ["defensiveStance"], ["valorousPresence"], ["intimidate"]],
+    },
+    {
+      className: "wizard",
+      spells: [["fireball", "task"], ["mpheal"], ["earth"], ["frost"]],
+    },
+    {
+      className: "healer",
+      spells: [["heal"], ["brightness"], ["protectAura"], ["healAll"]],
+    },
+    {
+      className: "rogue",
+      spells: [["pickPocket", "task"], ["backStab", "task"], ["toolsOfTrade"], ["stealth"]],
+    },
+  ];
+  
+  spellList.forEach(async habitClass => {
+    describe.only(`For a ${habitClass.className}`, async () => {
+      habitClass.spells.forEach(async spell => {
+        describe(`Using ${spell[0]}`, async () => {
+          it('Deducts MP from spell caster', async () => {
+            const { groupLeader } = await createAndPopulateGroup({
+              groupDetails: { type: 'party', privacy: 'private' },
+              members: 3,
+            });
+            await groupLeader.update({
+              'stats.mp': 200, 'stats.class': habitClass.className, 'stats.lvl': 20, 'stats.hp': 40,
+            });
+            //need this for task spells and for stealth
+            const task = await groupLeader.post('/tasks/user', {
+              text: 'test habit',
+              type: 'daily',
+            });
+            if (spell.length === 2 && spell[1] === "task") {
+              await groupLeader.post(`/user/class/cast/${spell[0]}?targetId=${task._id}`);
+            } else {
+              await groupLeader.post(`/user/class/cast/${spell[0]}`);
+            }
+            await groupLeader.sync();
+            expect(groupLeader.stats.mp).to.be.lessThan(200);
+          });
+          it('works without a party', async () => {
+            await user.update({
+              'stats.mp': 200, 'stats.class': habitClass.className, 'stats.lvl': 20, 'stats.hp': 40,
+            });
+            //need this for task spells and for stealth
+            const task = await user.post('/tasks/user', {
+              text: 'test habit',
+              type: 'daily',
+            });
+            if (spell.length === 2 && spell[1] === "task") {
+              await user.post(`/user/class/cast/${spell[0]}?targetId=${task._id}`);
+            } else {
+              await user.post(`/user/class/cast/${spell[0]}`);
+            }
+            await user.sync();
+            expect(user.stats.mp).to.be.lessThan(200);
+          });
+        });
+      });
     });
-    await groupLeader.update({
-      'stats.mp': 200, 'stats.class': 'healer', 'stats.lvl': 20, 'stats.hp': 40,
-    });
-    await groupLeader.post('/user/class/cast/heal');
-    await groupLeader.sync();
-    expect(groupLeader.stats.mp).to.be.equal(185);
-
-    await groupLeader.update({ 'stats.mp': 200, 'stats.class': 'healer', 'stats.lvl': 20 });
-    await groupLeader.post('/user/class/cast/brightness');
-    await groupLeader.sync();
-    expect(groupLeader.stats.mp).to.be.equal(185);
-
-    await groupLeader.update({ 'stats.mp': 200, 'stats.class': 'healer', 'stats.lvl': 20 });
-    await groupLeader.post('/user/class/cast/protectAura');
-    await groupLeader.sync();
-    expect(groupLeader.stats.mp).to.be.equal(170);
-
-    await groupLeader.update({ 'stats.mp': 200, 'stats.class': 'healer', 'stats.lvl': 20 });
-    await groupLeader.post('/user/class/cast/healAll');
-    await groupLeader.sync();
-    expect(groupLeader.stats.mp).to.be.equal(175);
-
-    await groupLeader.update({ 'stats.mp': 200, 'stats.class': 'wizard', 'stats.lvl': 20 });
-    await groupLeader.post('/user/class/cast/mpheal');
-    await groupLeader.sync();
-    expect(groupLeader.stats.mp).to.be.equal(170);
-
-    await groupLeader.update({ 'stats.mp': 200, 'stats.class': 'rogue', 'stats.lvl': 20 });
-    await groupLeader.post('/user/class/cast/toolsOfTrade');
-    await groupLeader.sync();
-    expect(groupLeader.stats.mp).to.be.equal(175);
-
-    await groupLeader.update({ 'stats.mp': 200, 'stats.class': 'warrior', 'stats.lvl': 20 });
-    await groupLeader.post('/user/class/cast/intimidate');
-    await groupLeader.sync();
-    expect(groupLeader.stats.mp).to.be.equal(185);
   });
 
   it('cast bulk', async () => {

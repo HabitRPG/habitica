@@ -96,7 +96,12 @@ async function getPartyMembers (user, party) {
 async function castPartySpell (req, party, user, spell, quantity = 1) {
   let partyMembers;
   if (spell.bulk) {
-    const data = { query: { 'party._id': party._id } };
+    const data = { };
+    if (party) {
+      data.query = { 'party._id': party._id };
+    } else {
+      data.query = { '_id': user._id };
+    }
     spell.cast(user, data);
     await User.updateMany(data.query, data.update);
     await user.save();
