@@ -40,6 +40,7 @@
               <template v-if="unsaved.includes(index)">
                 <button
                   class="btn btn-primary ml-2"
+                  :disabled="!isValidUrl(webhook.url)"
                   @click="saveWebhook(webhook, index)"
                 >
                   Save

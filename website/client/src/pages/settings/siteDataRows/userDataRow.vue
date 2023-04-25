@@ -84,20 +84,27 @@
 
 .data-download-selection {
   margin-top: 20px;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0;
+
 
   td {
-    border: 0;
-    padding: 0 0 1rem !important;
+    border: 0 !important;
+    padding-bottom: 0 !important;
 
     &:first-of-type {
       text-align: end;
       vertical-align: middle;
-      padding-right: 1rem !important;
+      padding-right: 0.5rem !important;
 
       font-weight: bold;
       line-height: 1.71;
       color: $gray-50;
+    }
+  }
+
+  tr:first-of-type {
+    td {
+      padding-bottom: 0.5rem !important;
     }
   }
 

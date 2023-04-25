@@ -35,7 +35,7 @@
         >
         </div>
 
-        <div class="d-flex justify-content-center data-download-selection">
+        <div class="d-flex justify-content-center api-key-input">
           <locked-input
             :label="$t('APITokenTitle')"
             :value="apiToken"
@@ -54,13 +54,13 @@
 <style lang="scss" scoped>
 @import '~@/assets/scss/colors.scss';
 
-.data-download-selection {
+.api-key-input {
   margin-top: 20px;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0;
 
   td {
     border: 0;
-    padding: 0 0 1rem !important;
+    padding: 0 !important;
 
     &:first-of-type {
       text-align: end;
@@ -76,6 +76,10 @@
   ::v-deep {
     .dropdown-menu {
       min-width: 0;
+    }
+
+    .form-group {
+      margin-bottom: 0;
     }
   }
 }
