@@ -120,8 +120,8 @@
     "paypalCanceled": "Előfizetésed lemondásra került.",
     "choosePaymentMethod": "Válaszd ki a fizetési módot",
     "buyGemsSupportsDevs": "Drágakövek vásárlása támogatja a fejlesztőket és segít a Habitica fenntartásában",
-    "support": "TÁMOGATÁS",
-    "gemBenefitLeadin": "Drágakövek segítségével szórakoztató extrákat vásárolhatsz magadnak, beleértve:",
+    "support": "Támogatás",
+    "gemBenefitLeadin": "Miket tudsz drágakövekből venni?",
     "gemBenefit1": "Egyedi és divatos jelmezek az avatárodnak.",
     "gemBenefit2": "Hátterek, amikkel jobban elmélyülhedtsz a Habitica világában!",
     "gemBenefit3": "Izgalmas küldetések, amelyek háziállat tojásokat dobnak.",
@@ -133,5 +133,7 @@
     "subscriptionBenefit6": "Juss hozzá misztikus homokórákhoz amit az időutazók boltjában tudsz elkölteni!",
     "purchaseAll": "Szett megvásárlása",
     "gemsRemaining": "drágakő maradt",
-    "notEnoughGemsToBuy": "Ennyi drágakő vásárlására nincs lehetőséged"
+    "notEnoughGemsToBuy": "Ennyi drágakő vásárlására nincs lehetőséged",
+    "supportHabitica": "Támogasd a Habiticát",
+    "subCanceledTitle": "Lemondott előfizetés"
 }
