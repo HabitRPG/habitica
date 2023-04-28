@@ -1,5 +1,8 @@
 <template>
-  <div class="buttons">
+  <div
+    class="buttons"
+    :class="{'no-padding': noPadding}"
+  >
     <button
       v-if="!hideSave"
       class="btn btn-save"
@@ -23,17 +26,20 @@
 <script>
 export default {
   name: 'SaveCancelButtons',
-  props: ['hideSave', 'disableSave', 'primaryButtonLabel', 'primaryButtonColor'],
+  props: ['hideSave', 'disableSave', 'primaryButtonLabel', 'primaryButtonColor', 'noPadding'],
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 .buttons {
   align-items: center;
   display: flex;
   flex-direction: column;
-  margin-top: 1.5rem;
+
+  &:not(.no-padding) {
+    margin-top: 1.5rem;
+  }
 }
 
 .btn-save {

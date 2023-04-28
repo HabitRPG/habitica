@@ -95,7 +95,7 @@
 }
 
 .input-rows {
-  width: calc(402px + 1.5rem);
+  width: calc(600px + 1.5rem);
 }
 
 .content-centered {

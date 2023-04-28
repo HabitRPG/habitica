@@ -68,6 +68,7 @@
           <save-cancel-buttons
             primary-button-label="changeClassSetting"
             class="mb-2"
+            :no-padding="true"
             :disable-save="!enoughGemsAvailable"
             @saveClicked="changeClassAndClose()"
             @cancelClicked="requestCloseModal()"
@@ -113,7 +114,7 @@ input {
 
 .gem-price-spacing {
   margin-top: 1.5rem;
-  margin-bottom: 1.125rem;
+  margin-bottom: 1.25rem;
   justify-content: center;
 }
 

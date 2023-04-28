@@ -4,7 +4,7 @@
       v-once
       class="label"
     >
-      {{ $t('yourBalance') }}:
+      {{ $t('yourBalance') }}
     </span>
 
     <balance-info
