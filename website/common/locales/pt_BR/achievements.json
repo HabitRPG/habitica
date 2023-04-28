@@ -144,5 +144,8 @@
     "achievementBoneToPickModalText": "Você coletou todos os Mascotes Esqueleto Clássicos e de Missões!",
     "achievementPolarPro": "Profissional Polar",
     "achievementPolarProText": "Chocou todos os mascotes Polares de cores padrão: Urso, Raposa, Pinguim, Baleia e Lobo!",
-    "achievementPolarProModalText": "Você coletou todos os Mascotes Polares!"
+    "achievementPolarProModalText": "Você coletou todos os Mascotes Polares!",
+    "achievementPlantParentModalText": "Você coletou todos os Mascotes Planta!",
+    "achievementPlantParentText": "Chocou todos os mascotes Planta de cores padrão: Cacto e Árvorezinha!",
+    "achievementPlantParent": "Defendente das Plantas"
 }

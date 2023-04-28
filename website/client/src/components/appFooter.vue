@@ -213,7 +213,7 @@
             </a>
             <a
               class="social-circle"
-              href="https://twitter.com/habitica"
+              href="https://twitter.com/habitica/"
               target="_blank"
             >
               <div
@@ -223,7 +223,7 @@
             </a>
             <a
               class="social-circle"
-              href="https://www.facebook.com/Habitica"
+              href="https://www.facebook.com/Habitica/"
               target="_blank"
             >
               <div

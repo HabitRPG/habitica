@@ -225,5 +225,6 @@
     "transaction_release_pets": "Telah melepaskan peliharaan",
     "transaction_release_mounts": "Telah melepaskan tunggangan",
     "transaction_reroll": "Telah menggunakan Ramuan Penguat",
-    "transaction_subscription_perks": "Keuntungan <b>berlangganan</b>"
+    "transaction_subscription_perks": "Keuntungan <b>berlangganan</b>",
+    "thirdPartyTools": "Temukan aplikasi, ekstensi, dan semua jenis alat pihak ketiga lainnya yang dapat kamu gunakan dengan akunmu di <a href='https://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations' target='_blank'>Habitica wiki</a>."
 }

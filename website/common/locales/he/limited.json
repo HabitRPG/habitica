@@ -20,9 +20,9 @@
     "turkey": "תרנגול הודו",
     "gildedTurkey": "תרנגול הודו מוזהב",
     "polarBearPup": "דובון קוטב",
-    "jackolantern": "",
-    "ghostJackolantern": "",
-    "glowJackolantern": "",
+    "jackolantern": "ג'ק-או-לנטרן",
+    "ghostJackolantern": "ג'ק-או-לנטרן רוח",
+    "glowJackolantern": "ג'ק-או-לנטרן זוהר בחושך",
     "seasonalShop": "חנות עונתית",
     "seasonalShopClosedTitle": "<%= linkStart %>לֶסְלי<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>מכשפה עונתית<%= linkEnd %>",
@@ -147,5 +147,6 @@
     "winterPromoGiftDetails2": "",
     "discountBundle": "",
     "g1g1Announcement": "",
-    "g1g1Details": "Gift a sub to a friend from their profile and you’ll receive the same sub for free!"
+    "g1g1Details": "Gift a sub to a friend from their profile and you’ll receive the same sub for free!",
+    "royalPurpleJackolantern": "ג'ק-או-לנטרן מלכותי סגול"
 }

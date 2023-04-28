@@ -226,5 +226,6 @@
     "amount": "Montant",
     "action": "Action",
     "note": "Note",
-    "remainingBalance": "Crédit restant"
+    "remainingBalance": "Crédit restant",
+    "thirdPartyTools": "Trouvez des applications tierces, des extensions, et plein d'autres utilitaires que vous pourriez utiliser sur votre compte sur le <a href='https://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations' target='_blank'>Wiki d'Habitica</a>."
 }
