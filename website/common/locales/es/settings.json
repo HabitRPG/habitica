@@ -199,14 +199,14 @@
     "transaction_gift_send": "<b>Regalado</b> a",
     "transaction_create_challenge": "Desafío <b>creado</b>",
     "transaction_create_guild": "Gremio <b>creado</b>",
-    "transaction_change_class": "Clase cambiada",
+    "transaction_change_class": "Cambio de <b>Clase</b>",
     "transaction_rebirth": "Orbe de Renacimiento usado",
     "transaction_release_pets": "Mascotas soltadas",
     "transaction_reroll": "Poción de Fortalecimiento usada",
     "hourglassTransactions": "Transacciones de Relojes de Arena",
     "transaction_gift_receive": "<b>Recibido</b> de",
     "transaction_debug": "Depuración",
-    "transaction_contribution": "A través de contribuciones",
+    "transaction_contribution": "Cambio de <b>Rango</b>",
     "transaction_spend": "<b>Gastado</b> en",
     "transaction_release_mounts": "Monturas sueltas",
     "transaction_subscription_perks": "Beneficio de la <b>suscripción</b>",
@@ -223,5 +223,7 @@
     "passwordIssueLength": "Las contraseñas deben tener una longitud entre 8 y 64 caracteres.",
     "amount": "Cantidad",
     "action": "Acción",
-    "note": "Nota"
+    "note": "Nota",
+    "timestamp": "Registro de hora",
+    "remainingBalance": "Saldo Restante"
 }

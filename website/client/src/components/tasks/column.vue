@@ -355,6 +355,7 @@ import Task from './task';
 import ClearCompletedTodos from './clearCompletedTodos';
 import buyMixin from '@/mixins/buy';
 import sync from '@/mixins/sync';
+import externalLinks from '@/mixins/externalLinks';
 import { mapState, mapActions, mapGetters } from '@/libs/store';
 import shopItem from '../shops/shopItem';
 import BuyQuestModal from '@/components/shops/quests/buyQuestModal.vue';
@@ -384,7 +385,7 @@ export default {
     shopItem,
     draggable,
   },
-  mixins: [buyMixin, notifications, sync],
+  mixins: [buyMixin, notifications, sync, externalLinks],
   // @TODO Set default values for props
   // allows for better control of props values
   // allows for better control of where this component is called
@@ -534,6 +535,10 @@ export default {
       if (this.activeFilter.label !== 'complete2') return;
       this.loadCompletedTodos();
     });
+    this.handleExternalLinks();
+  },
+  updated () {
+    this.handleExternalLinks();
   },
   beforeDestroy () {
     this.$root.$off('buyModal::boughtItem');

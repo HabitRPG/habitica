@@ -35,6 +35,7 @@
       <sub-canceled-modal v-if="isUserLoaded" />
       <bug-report-modal v-if="isUserLoaded" />
       <bug-report-success-modal v-if="isUserLoaded" />
+      <external-link-modal />
       <birthday-modal />
       <snackbars />
       <router-view v-if="!isUserLoggedIn || isStaticPage" />
@@ -175,6 +176,7 @@ import amazonPaymentsModal from '@/components/payments/amazonModal';
 import paymentsSuccessModal from '@/components/payments/successModal';
 import subCancelModalConfirm from '@/components/payments/cancelModalConfirm';
 import subCanceledModal from '@/components/payments/canceledModal';
+import externalLinkModal from '@/components/externalLinkModal.vue';
 
 import spellsMixin from '@/mixins/spells';
 import {
@@ -210,6 +212,7 @@ export default {
     subCanceledModal,
     bugReportModal,
     bugReportSuccessModal,
+    externalLinkModal,
   },
   mixins: [notifications, spellsMixin],
   data () {

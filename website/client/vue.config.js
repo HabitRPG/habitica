@@ -28,6 +28,7 @@ const envVars = [
   'APPLE_AUTH_CLIENT_ID',
   'AMPLITUDE_KEY',
   'LOGGLY_CLIENT_TOKEN',
+  'TRUSTED_DOMAINS',
   // TODO necessary? if yes how not to mess up with vue cli? 'NODE_ENV'
 ];
 

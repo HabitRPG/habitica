@@ -10,10 +10,11 @@
     "defaultReward2Text": "Reward yourself",
     "defaultReward2Notes": "Watch TV, play a game, eat a treat, it's up to you!",
     "defaultTag1": "Work",
-    "defaultTag2": "Exercise",
+    "defaultTag2": "Aclaíocht",
     "defaultTag3": "Health + Wellness",
-    "defaultTag4": "School",
+    "defaultTag4": "Scoil",
     "defaultTag5": "Teams",
     "defaultTag6": "Chores",
-    "defaultTag7": "Creativity"
+    "defaultTag7": "Cruthaitheacht",
+    "workHabitMail": "Ríomhphost a phróiseáil"
 }
