@@ -13,7 +13,7 @@ import {
 import * as worldState from '../../../../../website/server/libs/worldState';
 import { TransactionModel } from '../../../../../website/server/models/transaction';
 
-describe('payments/index', () => {
+describe.only('payments/index', () => {
   let user;
   let group;
   let data;
@@ -748,9 +748,19 @@ describe('payments/index', () => {
       });
 
       it('does not add to plans.consecutive.offset if 1 month subscription', async () => {
+        data.sub.key = 'basic_earned';
         await api.createSubscription(data);
 
-        expect(user.purchased.plan.extraMonths).to.eql(0);
+        expect(user.purchased.plan.consecutive.offset).to.eql(0);
+      });
+
+      it('resets plans.consecutive.offset if 1 month subscription', async () => {
+        user.purchased.plan.consecutive.offset = 1;
+        await user.save();
+        data.sub.key = 'basic_earned';
+        await api.createSubscription(data);
+
+        expect(user.purchased.plan.consecutive.offset).to.eql(0);
       });
 
       it('adds 5 to plan.consecutive.gemCapExtra for 3 month block', async () => {
