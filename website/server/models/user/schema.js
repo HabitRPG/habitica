@@ -614,7 +614,7 @@ export default new Schema({
     },
   },
   stats: {
-    hp: { $type: Number, default: shared.maxHealth, min: 0 },
+    hp: { $type: Number, default: shared.maxHealth },
     mp: { $type: Number, default: 10, min: 0 },
     exp: { $type: Number, default: 0, min: 0 },
     gp: { $type: Number, default: 0, min: 0 },
