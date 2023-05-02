@@ -626,7 +626,8 @@ describe('Post /groups/:groupId/invite', () => {
   });
 
   describe('party size limits', () => {
-    let party, partyLeader;
+    let party;
+    let partyLeader;
 
     beforeEach(async () => {
       group = await createAndPopulateGroup({
