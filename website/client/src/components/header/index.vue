@@ -51,20 +51,20 @@
       </div>
       <div
         v-else
-        class="no-party d-none d-md-flex  justify-content-center text-center mr-4"
+        class="no-party d-none d-md-flex justify-content-center text-center mr-4"
       >
         <div class="align-self-center">
-          <h3>{{ $t('battleWithFriends') }}</h3>
+          <h3>{{ user.party._id ? $t('questWithOthers') : $t('battleWithFriends') }}</h3>
           <span
             class="small-text"
-            v-html="$t('inviteFriendsParty')"
+            v-html="user.party._id ? $t('inviteFriendsParty') : $t('startPartyDetail')"
           ></span>
           <br>
           <button
             class="btn btn-primary"
             @click="createOrInviteParty()"
           >
-            {{ user.party._id ? $t('inviteFriends') : $t('startAParty') }}
+            {{ user.party._id ? $t('findPartyMembers') : $t('getStarted') }}
           </button>
         </div>
       </div>
@@ -234,7 +234,7 @@ export default {
     },
     createOrInviteParty () {
       if (this.user.party._id) {
-        this.$root.$emit('inviteModal::inviteToGroup', this.user.party);
+        this.$router.push('/looking-for-party');
       } else {
         this.$root.$emit('bv::show::modal', 'create-party-modal');
       }

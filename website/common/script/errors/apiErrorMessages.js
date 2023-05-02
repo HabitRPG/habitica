@@ -18,6 +18,7 @@ export default {
   groupRemainOrLeaveChallenges: 'req.query.keep must be either "remain-in-challenges" or "leave-challenges"',
   managerIdRequired: 'req.body.managerId must contain a User ID.',
   noPrivAccess: 'You don\'t have the required privileges.',
+  notPartyLeader: 'You are not the leader of a Party.',
 
   eventRequired: '"req.params.event" is required.',
   countRequired: '"req.query.count" is required.',
