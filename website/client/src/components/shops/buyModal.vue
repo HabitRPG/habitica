@@ -86,9 +86,8 @@
           />
         </slot>
         <div
-          v-if="item.value > 0"
+          v-if="item.value > 0 && !(item.key === 'gem' && gemsLeft < 1)"
           class="purchase-amount"
-          :hidden="attemptingToPurchaseMoreGemsThanAreLeft"
         >
           <!-- this is where the pretty item cost element lives -->
           <div class="item-cost">
@@ -111,13 +110,11 @@
           <div
             v-if="showAmountToBuy(item)"
             class="how-many-to-buy"
-            :hidden="attemptingToPurchaseMoreGemsThanAreLeft"
           >
             {{ $t('howManyToBuy') }}
           </div>
           <div
             v-if="showAmountToBuy(item)"
-            :hidden="attemptingToPurchaseMoreGemsThanAreLeft"
           >
             <number-increment
               class="number-increment"
@@ -141,7 +138,7 @@
           </div>
         </div>
         <div
-          v-if="attemptingToPurchaseMoreGemsThanAreLeft"
+          v-if="item.key === 'gem' && gemsLeft < 1"
           class="no-more-gems"
         >
           {{ $t('notEnoughGemsToBuy') }}
@@ -168,12 +165,7 @@
           {{ $t('viewSubscriptions') }}
         </button>
         <button
-          v-else-if="attemptingToPurchaseMoreGemsThanAreLeft"
-          :hidden="attemptingToPurchaseMoreGemsThanAreLeft"
-        >
-        </button>
-        <button
-          v-else
+          v-else-if="!(item.key === 'gem' && gemsLeft < 1)"
           class="btn btn-primary"
           :disabled="item.key === 'gem' && gemsLeft === 0 ||
             attemptingToPurchaseMoreGemsThanAreLeft || numberInvalid || item.locked ||
