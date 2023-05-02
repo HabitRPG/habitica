@@ -4,12 +4,12 @@
     <group-plan-creation-modal />
     <div>
       <div class="header">
-        <h1 class="text-center">
-          Need more for your Group?
+        <h1 v-once class="text-center">
+          {{ $t('groupPlanTitle') }}
         </h1>
         <div class="row">
           <div class="col-8 offset-2 text-center">
-            <h2 class="sub-text">
+            <h2 v-once class="sub-text">
               {{ $t('groupBenefitsDescription') }}
             </h2>
           </div>
@@ -24,8 +24,8 @@
                 src="~@/assets/images/group-plans/group-14@3x.png"
               >
               <hr>
-              <h2>{{ $t('teamBasedTasks') }}</h2>
-              <p>Set up an easily-viewed shared task list for the group. Assign tasks to your fellow group members, or let them claim their own tasks to make it clear what everyone is working on!</p><!-- eslint-disable-line max-len -->
+              <h2 v-once> {{ $t('teamBasedTasks') }} </h2>
+              <p v-once> {{ $t('teamBasedTasksListDesc') }} </p>
             </div>
           </div>
           <div class="col-4">
@@ -35,8 +35,8 @@
                 src="~@/assets/images/group-plans/group-12@3x.png"
               >
               <hr>
-              <h2>Group Management Controls</h2>
-              <p>Use task approvals to verify that a task that was really completed, add Group Managers to share responsibilities, and enjoy a private group chat for all team members.</p><!-- eslint-disable-line max-len -->
+              <h2 v-once> {{ $t('groupManagementControls') }} </h2>
+              <p v-once> {{ $t('groupManagementControlsDesc') }} </p>
             </div>
           </div>
           <div class="col-4">
@@ -46,8 +46,8 @@
                 src="~@/assets/images/group-plans/group-13@3x.png"
               >
               <hr>
-              <h2>In-Game Benefits</h2>
-              <p>Group members get an exclusive Jackalope Mount, as well as full subscription benefits, including special monthly equipment sets and the ability to buy gems with gold.</p><!-- eslint-disable-line max-len -->
+              <h2 v-once> {{ $t('inGameBenefits') }} </h2>
+              <p v-once> {{ $t('inGameBenefitsDesc') }} </p>
             </div>
           </div>
         </div>

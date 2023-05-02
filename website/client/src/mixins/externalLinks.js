@@ -20,7 +20,7 @@ export default {
           && !some(TRUSTED_DOMAINS.split(','), domain => link.href.indexOf(domain) === domainIndex)) {
           link.classList.add('external-link');
           link.addEventListener('click', e => {
-            if (e.ctrlKey) {
+            if (e.ctrlKey || e.metaKey) {
               return;
             }
             e.stopPropagation();

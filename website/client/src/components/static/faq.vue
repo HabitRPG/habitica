@@ -18,13 +18,26 @@
         >
           <h2
             v-once
+            v-if="index === 0"
+          >
+            {{ $t('general') }}
+          </h2>
+          <h2
+            v-once
+            v-if="entry.heading === 'party-with-friends'"
+            id="parties"
+          >
+            {{ $t('parties') }}
+          </h2>
+          <h3
+            v-once
             v-b-toggle="entry.heading"
             role="tab"
             variant="info"
             @click="handleClick($event)"
           >
             {{ entry.question }}
-          </h2>
+          </h3>
           <b-collapse
             :id="entry.heading"
             :visible="isVisible(entry.heading)"
@@ -49,25 +62,36 @@
 </template>
 
 <style lang='scss' scoped>
-  .card-body {
-    margin-bottom: 1em;
+  h2 {
+    color: #34313a;
+    border-bottom: 1px solid #e1e0e3;
+    margin-top: 24px;
+    padding-bottom: 16px;
   }
 
-  .faq-question h2 {
-    cursor: pointer;
-  }
+  .faq-question {
+    a {
+      text-decoration: none;
+      color: #4F2A93;
+    }
 
-  .faq-question .card-body {
-    padding: 0;
-  }
+    h3 {
+      font-size: 16px;
+      font-weight: normal;
+      line-height: 1.75;
+      cursor: pointer;
 
-  .static-wrapper .faq-question h2 {
-    margin: 0 0 16px 0;
-  }
+      &:hover {
+        text-decoration: underline;
+      }
+    }
 
-  .faq-question a {
-    text-decoration: none;
-    color: #4F2A93;
+    .card-body {
+      padding: 0;
+      font-size: 14px;
+      line-height: 1.71;
+      margin-bottom: 1em;
+    }
   }
 
   @media only screen and (max-width: 768px) {
