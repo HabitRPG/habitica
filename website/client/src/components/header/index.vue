@@ -122,6 +122,7 @@
 
 <script>
 import orderBy from 'lodash/orderBy';
+import * as Analytics from '@/libs/analytics';
 import { mapGetters, mapActions } from '@/libs/store';
 import MemberDetails from '../memberDetails';
 import createPartyModal from '../groups/createPartyModal';
@@ -237,6 +238,12 @@ export default {
         this.$router.push('/looking-for-party');
       } else {
         this.$root.$emit('bv::show::modal', 'create-party-modal');
+        Analytics.track({
+          eventName: 'Start a Party button',
+          eventAction: 'Start a Party button',
+          eventCategory: 'behavior',
+          hitType: 'event',
+        }, { trackOnClient: true });
       }
     },
     loadMembers (payload = null) {
