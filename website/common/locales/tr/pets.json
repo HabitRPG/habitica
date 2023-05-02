@@ -41,10 +41,10 @@
     "quickInventory": "Pratik Envanter",
     "foodText": "yiyecek",
     "food": "Yiyecek ve Eyerler",
-    "noFoodAvailable": "Hiç Yiyeceğin yok.",
+    "noFoodAvailable": "Hiç Evcil Hayvan Mamanız yok.",
     "noSaddlesAvailable": "Hiç Eyerin yok.",
     "noFood": "Hiç yiyeceğin veya eyerin yok.",
-    "dropsExplanation": "Eğer görevlerini tamamlayarak kazanmayı beklemek istemiyorsan, bu eşyaları Elmas karşılığında daha hızlı edinebilirsin. <a href=\"http://tr.habitica.fandom.com/wiki/Düşen_Eşyalar\">Eşya bulma sistemi ile ilgili detaylı bilgi al.</a>",
+    "dropsExplanation": "Eğer görevlerini tamamlayarak kazanmayı beklemek istemiyorsan, bu eşyaları Elmas karşılığında daha hızlı edinebilirsin. <a href=\"https://habitica.fandom.com/wiki/Drops\"> Eşya bulma sistemi ile ilgili detaylı bilgi al.</a>",
     "dropsExplanationEggs": "Standart yumurtaları veya Görev bitirerek Görev yumurtalarını bulmayı beklemek istemiyorsan, yumurtaları daha hızlı almak için Elmas harca. <a href=\"http://habitica.fandom.com/wiki/Drops\">Eşya bulma sistemi hakkında daha fazla bilgi edin.</a>",
     "premiumPotionNoDropExplanation": "Sihirli Kuluçka İksirleri, Görevlerden kazanılan yumurtaların üzerinde kullanılamaz. Sihirli Kuluçka İksirlerini edinmenin tek yolu buradan satın almaktır, rastgele ödül olarak kazanılamaz.",
     "beastMasterProgress": "Hayvan Terbiyecisi Aşaması",
@@ -109,5 +109,10 @@
     "notEnoughMounts": "Yeteri kadar binek toplamadın",
     "notEnoughPetsMounts": "Yeteri kadar hayvan ve binek toplamadın",
     "wackyPets": "Tuhaf Evcil Hayvanlar",
-    "filterByWacky": "Tuhaf"
+    "filterByWacky": "Tuhaf",
+    "invalidAmount": "Geçersiz yiyecek miktarı, pozitif bir tam sayı olmalıdır",
+    "gryphatrice": "Grifatris",
+    "notEnoughFood": "Yeterli yiyeceğin yok",
+    "tooMuchFood": "Evcil hayvanınıza çok fazla yiyecek vermeye çalışıyorsunuz, işlem iptal edildi",
+    "jubilantGryphatrice": "Sevinçli Grifatris"
 }

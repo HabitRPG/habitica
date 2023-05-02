@@ -751,10 +751,10 @@
     "backgroundSnowyVillageNotes": "Полюбуйтесь заснеженной деревней.",
     "backgroundInsideACrystalNotes": "Наблюдайте за внешним миром из кристалла.",
     "backgroundWinterLakeWithSwansText": "Зимнее озеро с лебедями",
-    "backgroundWinterLakeWithSwansNotes": "Наслаждайся природой у зимнего озера с лебедями.",
+    "backgroundWinterLakeWithSwansNotes": "Насладитесь природой у зимнего озера с лебедями.",
     "backgrounds012023": "Набор 104: Выпущен в январе 2023",
     "backgroundRimeIceText": "Изморозь",
-    "backgroundSnowyTempleNotes": "Посмотрите на безмятежный заснеженный храм.",
+    "backgroundSnowyTempleNotes": "Взгляните на безмятежный снежный храм.",
     "eventBackgrounds": "Фоны мероприятий",
     "backgroundBirthdayBashText": "Вечеринка дня рождения",
     "backgroundRimeIceNotes": "Полюбуйтесь сверкающей изморозью.",
@@ -766,5 +766,12 @@
     "backgroundInFrontOfFountainText": "Перед фонтаном",
     "backgroundInFrontOfFountainNotes": "Прогуляйтесь перед фонтаном.",
     "backgrounds022023": "Набор 105: Выпущен в феврале 2023",
-    "backgroundFancyBedroomNotes": "Понежьтесь в шикарной спальне."
+    "backgroundFancyBedroomNotes": "Понежьтесь в шикарной спальне.",
+    "backgroundOldTimeyBasketballCourtText": "Олдскульная баскетбольная площадка",
+    "backgroundJungleWateringHoleText": "Водопой в джунглях",
+    "backgroundJungleWateringHoleNotes": "Остановитесь, чтобы выпить воды у водопоя в джунглях.",
+    "backgroundMangroveForestText": "Мангровый лес",
+    "backgroundMangroveForestNotes": "Исследуйте окраины мангрового леса.",
+    "backgrounds032023": "Набор 106: Выпущен в марте 2023",
+    "backgroundOldTimeyBasketballCourtNotes": "Бросайте мяч в кольцо на олдскульной баскетбольной площадке."
 }

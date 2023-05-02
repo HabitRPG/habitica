@@ -226,5 +226,6 @@
     "amount": "Quantidade",
     "action": "Ação",
     "note": "Nota",
-    "remainingBalance": "Saldo Remanescente"
+    "remainingBalance": "Saldo Remanescente",
+    "thirdPartyTools": "Encontre aplicativos de terceiros, extensões e todos os tipos de outras ferramentas que você pode usar em sua conta na <a href='https://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations' target='_blank'>wiki do Habitica</a>."
 }

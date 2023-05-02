@@ -5,11 +5,11 @@
     "buyGemsGold": "用金币购买宝石",
     "mustSubscribeToPurchaseGems": "只有订阅后才能用金币购买宝石",
     "reachedGoldToGemCap": "你已经达到了每月金币=>宝石的兑换上限<%= convCap %>。这是为了防止滥用情况的出现。该上限在每月的前三天内重置。",
-    "reachedGoldToGemCapQuantity": "你请求的兑换数量<%= quantity %>超过了这个月的上限（<%= convCap %>）。该上限在每月的前三天内重置。谢谢你的订阅！",
+    "reachedGoldToGemCapQuantity": "请求兑换的数量<%= quantity %>超过了本月的兑换上限（<%= convCap %>）。该上限在每月的前三天内重置。谢谢你的订阅！",
     "mysteryItem": "绝无仅有的每月装备",
     "mysteryItemText": "每个月你将收到一件独特的时装物品！另外，每连续订阅三个月，神秘的时空旅行者将允许你有一次机会获得绝版（和未来的）时装物品。",
     "exclusiveJackalopePet": "高级宠物",
-    "giftSubscription": "想要把订阅的好处赠送给别人吗？",
+    "giftSubscription": "想要向他人赠送订阅吗？",
     "giftSubscriptionText4": "感谢你对Habitica的支持！",
     "groupPlans": "团队套餐",
     "subscribe": "订阅",
@@ -164,7 +164,7 @@
     "youAreSubscribed": "您订阅了Habitica的服务",
     "doubleDropCap": "双倍掉落",
     "monthlyMysteryItems": "每月神秘物品",
-    "subscribersReceiveBenefits": "订阅者可以获得这些优越的好处！",
+    "subscribersReceiveBenefits": "订阅者可以获得这些福利！",
     "mysterySet202003": "倒刺斗士套装",
     "giftASubscription": "赠送订阅",
     "mysterySet202004": "强大的君主斑蝶套装",
@@ -222,6 +222,8 @@
     "haveNonRecurringSub": "您有一个临时的礼品订阅。",
     "switchToRecurring": "是否切换到定期订阅？",
     "subscriptionCreditConversion": "现在开始新的订阅，会结存当前剩余的订阅。结存的订阅将在定期订阅取消后生效。",
-    "continueGiftSubBenefits": "想继续享受福利吗？您可以在权益到期之前开始新的订阅，以维持您的福利。",
-    "mysterySet202302": "Trickster Tabby套装"
+    "continueGiftSubBenefits": "想要继续享受权益吗？您可以在获赠订阅到期之前开始新的订阅，便可保留您的权益。",
+    "mysterySet202302": "Trickster Tabby套装",
+    "mysterySet202303": "杀马特套装",
+    "mysterySet202304": "绝品茶壶套装"
 }

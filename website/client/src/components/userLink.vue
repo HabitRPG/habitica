@@ -2,13 +2,13 @@
   <router-link
     v-if="displayName"
     v-b-tooltip.hover.top="tierTitle"
-    class="leader user-link"
+    class="leader user-link d-flex"
     :to="{'name': 'userProfile', 'params': {'userId': id}}"
     :class="levelStyle()"
   >
     {{ displayName }}
     <div
-      class="svg-icon"
+      class="svg-icon icon-12"
       v-html="tierIcon()"
     ></div>
   </router-link>
@@ -37,10 +37,15 @@
       color: $gray-50;
     }
 
+    &[class*="tier"] .svg-icon {
+      margin-top: 5px;
+    }
+    &.npc .svg-icon {
+      margin-top: 4px;
+    }
+
     .svg-icon {
-      width: 10px;
-      display: inline-block;
-      margin-left: .5em;
+      margin-left: 6px;
 
       &:empty {
         display: none;

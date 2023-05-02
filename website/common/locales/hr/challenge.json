@@ -100,5 +100,9 @@
     "viewProgress": "Vidi napredak",
     "selectMember": "Odaberi člana",
     "confirmKeepChallengeTasks": "Želiš li zadržati zadatke izazova?",
-    "selectParticipant": "Odaberi sudionika"
+    "selectParticipant": "Odaberi sudionika",
+    "filters": "Filteri",
+    "yourReward": "Vaša Nagrada",
+    "removeTasks": "Ukloni Zadatke",
+    "wonChallengeDesc": "<%= challengeName %> odabrao vas je kao pobjednika! Vaša pobjeda je zabilježena u vašim postignućima."
 }
