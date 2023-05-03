@@ -694,6 +694,8 @@
   "weaponArmoireMagicSpatulaNotes": "Watch your food fly and flip in the air. You get good luck for the day if it magically flips over three times and then lands back on your spatula. Increases Perception by <%= per %>. Enchanted Armoire: Cooking Implements Set (Item 1 of 2).",
   "weaponArmoireFinelyCutGemText": "Finely Cut Gem",
   "weaponArmoireFinelyCutGemNotes": "What a find! This stunning, precision-cut gem will be the prize of your collection. And it might contain some special magic, just waiting for you to tap into it. Increases Constitution by <%= con %>. Enchanted Armoire: Jeweler Set (Item 4 of 4).",
+  "weaponArmoirePaintbrushText": "Paintbrush",
+  "weaponArmoirePaintbrushNotes": "A jolt of pure inspiration rushes through you when you pick up this brush, allowing you to paint anything you can imagine. Increases Intelligence by <%= int %>. Enchanted Armoire: Painter Set (Item 3 of 4).",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -1453,6 +1455,8 @@
   "armorArmoireTeaGownNotes": "You’re resilient, creative, brilliant, and so fashionable! Increases Strength and Intelligence by <%= attrs %> each. Enchanted Armoire: Tea Party Set (Item 1 of 3).",  
   "armorArmoireBasketballUniformText": "Basketball Uniform",
   "armorArmoireBasketballUniformNotes": "Wondering what’s printed on the back of this uniform? It’s your lucky number, of course! Increases Perception by <% per %>. Enchanted Armoire: Old Timey Basketball Set (Item 1 of 2).",
+  "armorArmoirePaintersApronText": "Painter's Apron",
+  "armorArmoirePaintersApronNotes": "This apron can protect your clothes from paint and your creative projects from harsh critiques. Increases Constitution by <%= con %>. Enchanted Armoire: Painter Set (Item 1 of 4).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -2232,6 +2236,8 @@
   "headArmoireTeaHatNotes": "This elegant hat is both fancy and functional. Increases Perception by <%= per %>. Enchanted Armoire: Tea Party Set (Item 2 of 3).",
   "headArmoireBeaniePropellerHatText": "Beanie Propeller Hat",
   "headArmoireBeaniePropellerHatNotes": "This isn’t the time to keep your feet on the ground! Spin this little propeller and rise as high as your ambitions will take you. Increases all stats by <%= attrs %>. Enchanted Armoire: Independent Item.",
+  "headArmoirePaintersBeretText": "Painter's Beret",
+  "headArmoirePaintersBeretNotes": "See the world with a more artistic eye when you wear this jaunty beret. Increases Perception by <%= per %>. Enchanted Armoire: Painter Set (Item 2 of 4).",  
 
   "offhand": "off-hand item",
   "offHandCapitalized": "Off-Hand Item",
@@ -2646,7 +2652,9 @@
   "shieldArmoireTeaKettleText": "Tea Kettle",
   "shieldArmoireTeaKettleNotes": "All your favorite, flavorful teas can be brewed in this kettle. Are you in the mood for black tea, green tea, oolong, or perhaps an herbal infusion? Increases Constitution by <%= con %>. Enchanted Armoire: Tea Party Set (Item 3 of 3).",
   "shieldArmoireBasketballText": "Basketball",
-  "shieldArmoireBasketballNotes": "Swish! Whenever you shoot this magic basketball, there will be nothing but net. Increases Constitution and Strength by <%= attrs %> each. Enchanted Armoire: Old Timey Basketball Set (Item 2 of 2).",  
+  "shieldArmoireBasketballNotes": "Swish! Whenever you shoot this magic basketball, there will be nothing but net. Increases Constitution and Strength by <%= attrs %> each. Enchanted Armoire: Old Timey Basketball Set (Item 2 of 2).",
+  "shieldArmoirePaintersPaletteText": "Painter's Palette",
+  "shieldArmoirePaintersPaletteNotes": "Paints in all colors of the rainbow are at your disposal. Is it magic that makes them so vivid when you use them, or is it your talent? Increases Strength by <%= str %>. Enchanted Armoire: Painter Set (Item 4 of 4).",
 
   "back": "Back Accessory",
   "backBase0Text": "No Back Accessory",
