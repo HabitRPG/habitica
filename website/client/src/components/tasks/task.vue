@@ -6,6 +6,7 @@
         'groupTask': task.group.id,
         'task-not-editable': !teamManagerAccess,
         'task-not-scoreable': showTaskLockIcon,
+        'link-exempt': !isChallengeTask && !isGroupTask,
       }, `type_${task.type}`
       ]"
       @click="castEnd($event, task)"
