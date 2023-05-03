@@ -235,15 +235,23 @@ export default {
     },
     createOrInviteParty () {
       if (this.user.party._id) {
-        this.$router.push('/looking-for-party');
-      } else {
-        this.$root.$emit('bv::show::modal', 'create-party-modal');
         Analytics.track({
-          eventName: 'Start a Party button',
-          eventAction: 'Start a Party button',
+          eventName: 'Header Party CTA',
+          eventAction: 'Header Party CTA',
           eventCategory: 'behavior',
           hitType: 'event',
+          state: 'Find Party Members',
         }, { trackOnClient: true });
+        this.$router.push('/looking-for-party');
+      } else {
+        Analytics.track({
+          eventName: 'Header Party CTA',
+          eventAction: 'Header Party CTA',
+          eventCategory: 'behavior',
+          hitType: 'event',
+          state: 'Get Started',
+        }, { trackOnClient: true });
+        this.$root.$emit('bv::show::modal', 'create-party-modal');
       }
     },
     loadMembers (payload = null) {
