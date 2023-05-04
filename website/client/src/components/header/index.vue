@@ -233,24 +233,24 @@ export default {
         this.expandedMember = memberId;
       }
     },
-    createOrInviteParty () {
+    async createOrInviteParty () {
       if (this.user.party._id) {
-        Analytics.track({
+        await Analytics.track({
           eventName: 'Header Party CTA',
           eventAction: 'Header Party CTA',
           eventCategory: 'behavior',
           hitType: 'event',
           state: 'Find Party Members',
-        }, { trackOnClient: true });
+        });
         this.$router.push('/looking-for-party');
       } else {
-        Analytics.track({
+        await Analytics.track({
           eventName: 'Header Party CTA',
           eventAction: 'Header Party CTA',
           eventCategory: 'behavior',
           hitType: 'event',
           state: 'Get Started',
-        }, { trackOnClient: true });
+        });
         this.$root.$emit('bv::show::modal', 'create-party-modal');
       }
     },
