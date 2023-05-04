@@ -1128,10 +1128,7 @@ export default {
       return this.calculateTimeTillDue().asDays() <= 0;
     },
     formatDueDate () {
-      const timeTillDue = this.calculateTimeTillDue();
-      const dueIn = timeTillDue.asDays() === 0 ? this.$t('today') : timeTillDue.humanize(true);
-
-      return this.task.date && this.$t('dueIn', { dueIn });
+      return moment(this.task.date).format(this.user.preferences.dateFormat.toUpperCase());
     },
     edit (e, task) {
       if (this.isRunningYesterdailies) return;
