@@ -231,6 +231,7 @@
     "action": "Action",
     "note": "Note",
     "noClassSelected": "No Class Selected",
+    "currentClass": "Current Class",
     "changeClassSetting": "Change Class",
     "chooseClassSetting": "Choose Class",
     "changeClassDisclaimer": "Changing your class will refund all of your existing Stat Points. Once you have selected your new class, adjust your Stat Points from the Stats section of your profile.",

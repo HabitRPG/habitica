@@ -7,29 +7,10 @@
         {{ $t("changeClassSetting") }}
       </td>
       <td class="settings-value">
-        <div
-          class="class-value"
-          :class="{[selectedClass]: !classDisabled, disabled: classDisabled}"
-        >
-          <span
-            v-if="!classDisabled"
-            class="svg-icon icon-16 mr-2"
-            v-html="classIcons[selectedClass]"
-          ></span>
-
-          <span
-            v-if="classDisabled"
-            class="label"
-          >
-            {{ $t('noClassSelected') }}
-          </span>
-          <span
-            v-else
-            class="label"
-          >
-            {{ $t(selectedClass) }}
-          </span>
-        </div>
+        <class-icon-label
+          :selected-class="selectedClass"
+          :class-disabled="classDisabled"
+        />
       </td>
       <td class="settings-button">
         <a
@@ -58,6 +39,15 @@
           <span>{{ $t("changeClassDisclaimer") }}</span>
         </div>
         <div class="content-centered">
+          <div class="current-class mt-3">
+            <span class="label">{{ $t('currentClass') }}:</span>
+            <class-icon-label
+              :selected-class="selectedClass"
+              :class-disabled="classDisabled"
+            />
+          </div>
+
+
           <gem-price
             gem-price="3"
             icon-size="24"
@@ -127,25 +117,6 @@ input {
   margin-top: 1.5rem;
 }
 
-.healer {
-  color: $healer-color;
-}
-
-.rogue {
-  color: $rogue-color;
-}
-
-.warrior {
-  color: $warrior-color;
-}
-
-.wizard {
-  color: $wizard-color;
-}
-
-.disabled {
-  color: $maroon-50;
-}
 
 .label {
   font-size: 14px;
@@ -168,15 +139,15 @@ input {
   color: $white;
 }
 
-.class-value {
+.current-class {
   display: flex;
-  align-items: center;
+  justify-content: center;
 
-  &:not(.disabled) {
-    .label {
-      font-weight: bold;
-      line-height: 1.71;
-    }
+  .label {
+    margin-right: 0.5rem;
+
+    font-weight: bold;
+    color: $gray-50;
   }
 }
 
@@ -191,15 +162,13 @@ import { InlineSettingMixin } from '../components/inlineSettingMixin';
 import { GenericUserPreferencesMixin } from '../components/genericUserPreferencesMixin';
 import YourBalance from '@/pages/settings/components/yourBalance.vue';
 import GemPrice from '@/components/shops/gemPrice.vue';
-import warriorIcon from '@/assets/svg/warrior.svg';
-import rogueIcon from '@/assets/svg/rogue.svg';
-import healerIcon from '@/assets/svg/healer.svg';
-import wizardIcon from '@/assets/svg/wizard.svg';
 import checkIcon from '@/assets/svg/check.svg';
 import changeClass from '@/../../common/script/ops/changeClass';
+import ClassIconLabel from '@/pages/settings/components/classIconLabel.vue';
 
 export default {
   components: {
+    ClassIconLabel,
     GemPrice,
     YourBalance,
     SaveCancelButtons,
@@ -209,12 +178,6 @@ export default {
     return {
       amountNeeded: 3 / 4,
       selectedClass: '',
-      classIcons: Object.freeze({
-        warrior: warriorIcon,
-        rogue: rogueIcon,
-        healer: healerIcon,
-        wizard: wizardIcon,
-      }),
       icons: Object.freeze({
         check: checkIcon,
       }),
