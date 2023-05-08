@@ -21,8 +21,8 @@
       </template>
       <b-dropdown-item
         v-for="item in items"
-        :key="keyProp ? item[keyProp] : item"
-        :disabled="typeof item[disabledProp] === 'undefined' ? false : item[disabledProp]"
+        :key="getKeyProp(item)"
+        :disabled="isDisabled(item)"
         :active="isSelected(item)"
         :class="{
           active: isSelected(item),
@@ -51,39 +51,39 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+@import '~@/assets/scss/colors.scss';
 
-  .select-list ::v-deep {
-    .dropdown-toggle {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      padding-right: 25px; /* To allow enough room for the down arrow to be displayed */
+.select-list ::v-deep {
+  .dropdown-toggle {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 25px; /* To allow enough room for the down arrow to be displayed */
+  }
+
+  .selectListItem {
+    position: relative;
+
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
-    .selectListItem {
-      position: relative;
-
-      .dropdown-item {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+    &:not(.showIcon) {
+      .svg-icon.check-icon {
+        display: none;
       }
+    }
 
-      &:not(.showIcon) {
-        .svg-icon.check-icon {
-          display: none;
-        }
-      }
-
-      .svg-icon.check-icon.color {
-        margin-left: 10px; /* So the flex item (checkmark) will have some spacing from the text */
-        width: 0.77rem;
-        height: 0.615rem;
-        color: $purple-300;
-      }
+    .svg-icon.check-icon.color {
+      margin-left: 10px; /* So the flex item (checkmark) will have some spacing from the text */
+      width: 0.77rem;
+      height: 0.615rem;
+      color: $purple-300;
     }
   }
+}
 </style>
 
 <script>
@@ -131,8 +131,14 @@ export default {
     };
   },
   methods: {
+    getKeyProp (item) {
+      return this.keyProp ? item[this.keyProp] : item;
+    },
+    isDisabled (item) {
+      return typeof item[this.disabledProp] === 'undefined' ? false : item[this.disabledProp];
+    },
     selectItem (item) {
-      this.selected = this.keyProp ? item[this.keyProp] : item;
+      this.selected = this.getKeyProp(item);
       this.$emit('select', item);
     },
     isSelected (item) {
