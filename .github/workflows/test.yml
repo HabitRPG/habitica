@@ -12,6 +12,9 @@ jobs:
       matrix:
         node-version: [14.x]
     steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
     - name: Setup
       uses: './.github/actions/shared-job-steps'
       with:
