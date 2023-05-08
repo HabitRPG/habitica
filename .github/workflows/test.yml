@@ -15,7 +15,8 @@ jobs:
     - uses: actions/checkout@v1
       with:
         fetch-depth: 1
-    - name: Setup
+
+    - name: Setup Job
       uses: './.github/actions/shared-job-steps'
       with:
         node-version: ${{ matrix.node-version }}
@@ -31,25 +32,13 @@ jobs:
     - uses: actions/checkout@v1
       with:
         fetch-depth: 1
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
+
+    - name: Setup Job
+      uses: './.github/actions/shared-job-steps'
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Cache multiple paths
-      id: cache-package
-      uses: actions/cache@v2
-      with:
-        path: |
-          **/node_modules
-        key: ${{ runner.os }}-${{ hashFiles('**/package.json') }}
-    - run: cp config.json.example config.json
-    - name: npm install
-      if: steps.cache-package.outputs.cache-hit != 'true'
-      run: |
-        npm ci
-      env:
-        CI: true
-        NODE_ENV: test
+        node-env: 'test'
+
     - run: npm run apidoc
   sanity:
     runs-on: ubuntu-latest

@@ -24,10 +24,13 @@ runs:
           **/node_modules
         key: ${{ runner.os }}-${{ inputs.node-version }}-${{ hashFiles('**/package.json') }}
 
-    - run: cp config.json.example config.json
+    - name: Create dummy config.json
+      shell: bash
+      run: cp config.json.example config.json
 
     - name: npm install
       if: steps.cache-package.outputs.cache-hit != 'true'
+      shell: bash
       run: |
         npm ci
       env:
