@@ -122,6 +122,7 @@
 
 <script>
 import orderBy from 'lodash/orderBy';
+import * as Analytics from '@/libs/analytics';
 import { mapGetters, mapActions } from '@/libs/store';
 import MemberDetails from '../memberDetails';
 import createPartyModal from '../groups/createPartyModal';
@@ -232,10 +233,24 @@ export default {
         this.expandedMember = memberId;
       }
     },
-    createOrInviteParty () {
+    async createOrInviteParty () {
       if (this.user.party._id) {
+        await Analytics.track({
+          eventName: 'Header Party CTA',
+          eventAction: 'Header Party CTA',
+          eventCategory: 'behavior',
+          hitType: 'event',
+          state: 'Find Party Members',
+        });
         this.$router.push('/looking-for-party');
       } else {
+        await Analytics.track({
+          eventName: 'Header Party CTA',
+          eventAction: 'Header Party CTA',
+          eventCategory: 'behavior',
+          hitType: 'event',
+          state: 'Get Started',
+        });
         this.$root.$emit('bv::show::modal', 'create-party-modal');
       }
     },
