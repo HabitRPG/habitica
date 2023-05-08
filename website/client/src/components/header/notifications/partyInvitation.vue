@@ -34,11 +34,13 @@
 <script>
 import BaseNotification from './base';
 import { mapState } from '@/libs/store';
+import sync from '@/mixins/sync';
 
 export default {
   components: {
     BaseNotification,
   },
+  mixins: [sync],
   props: {
     notification: {
       type: Object,
@@ -73,6 +75,7 @@ export default {
       }
 
       await this.$store.dispatch('guilds:join', { groupId: group.id, type: 'party' });
+      this.sync();
       this.$router.push('/party');
     },
     reject () {

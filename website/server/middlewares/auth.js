@@ -1,3 +1,4 @@
+import moment from 'moment';
 import nconf from 'nconf';
 import url from 'url';
 import {
@@ -10,6 +11,7 @@ import gcpStackdriverTracer from '../libs/gcpTraceAgent';
 import common from '../../common';
 import { getLanguageFromUser } from '../libs/language';
 
+const OFFICIAL_PLATFORMS = ['habitica-web', 'habitica-ios', 'habitica-android'];
 const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS_COMMUNITY_MANAGER_EMAIL');
 const USER_FIELDS_ALWAYS_LOADED = ['_id', 'notifications', 'preferences', 'auth', 'flags', 'permissions'];
 
@@ -55,6 +57,7 @@ export function authWithHeaders (options = {}) {
   return function authWithHeadersHandler (req, res, next) {
     const userId = req.header('x-api-user');
     const apiToken = req.header('x-api-key');
+    const client = req.header('x-client');
     const optional = options.optional || false;
 
     if (!userId || !apiToken) {
@@ -90,6 +93,11 @@ export function authWithHeaders (options = {}) {
         req.session.userId = user._id;
         stackdriverTraceUserId(user._id);
         user.auth.timestamps.updated = new Date();
+        if (OFFICIAL_PLATFORMS.indexOf(client) === -1
+          && (!user.flags.thirdPartyTools || moment().diff(user.flags.thirdPartyTools, 'days') > 0)
+        ) {
+          User.updateOne(userQuery, { $set: { 'flags.thirdPartyTools': new Date() } }).exec();
+        }
         return next();
       })
       .catch(next);
