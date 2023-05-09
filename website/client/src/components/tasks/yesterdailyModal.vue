@@ -110,7 +110,9 @@ export default {
     };
   },
   updated () {
-    this.handleExternalLinks();
+    window.setTimeout(() => {
+      this.handleExternalLinks();
+    }, 500);
   },
   computed: {
     ...mapState({ user: 'user.data' }),
