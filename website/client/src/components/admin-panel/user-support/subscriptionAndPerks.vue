@@ -48,7 +48,14 @@
         </div>
         <div>
           Perk month count:
-          <strong>{{ hero.purchased.plan.perkMonthCount }}</strong>
+          <input
+              v-model="hero.purchased.plan.perkMonthCount"
+              class="form-control"
+              type="number"
+              min="0"
+              max="2"
+              step="1"
+            >
         </div>
         <div>
           Next Mystic Hourglass:
