@@ -13,7 +13,7 @@ import {
 import * as worldState from '../../../../../website/server/libs/worldState';
 import { TransactionModel } from '../../../../../website/server/models/transaction';
 
-describe.only('payments/index', () => {
+describe('payments/index', () => {
   let user;
   let group;
   let data;

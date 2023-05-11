@@ -257,7 +257,7 @@ async function createSubscription (data) {
     if (!data.gift && !groupId) {
       plan.consecutive.offset = block.months;
     }
-  } else if (months == 1) {
+  } else if (months === 1) {
     plan.consecutive.offset = 0;
   }
   if (months > 1 || data.gift) {
