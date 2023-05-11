@@ -77,6 +77,7 @@
             </div>
             <button
               class="btn btn-primary"
+              :disabled="maxOwned > selectedAmountToSell"
               @click="sellItems()"
             >
               {{ $t('sellItems') }}
@@ -374,6 +375,17 @@ export default {
       if (Number(value) < 0) {
         this.selectedAmountToSell = 0;
       }
+    },
+    // preventSellingMoreThanOwned ($event) {
+    //   const { value } = $event.target;
+    //   if (Number(value) < this.selectedAmountToSell) {
+    //     this.selectedAmountToSell = this.itemCount;
+    //     console.log('yay');
+    //   }
+    // },
+    maxOwned () {
+      const maxOwned = this.itemContextToSell.itemCount;
+      return maxOwned;
     },
     sellItems () {
       if (!Number.isInteger(Number(this.selectedAmountToSell))) {
