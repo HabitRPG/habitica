@@ -1,1 +1,16 @@
-{}
+{
+    "pets": "Peataí",
+    "etherealLion": "Leon Ainglí",
+    "phoenix": "Fénics",
+    "eggs": "Ubheacha",
+    "eggSingular": "ubh",
+    "stable": "Stábla",
+    "veteranTiger": "Tíogar Seansaighdiúir",
+    "orca": "Cráin Dhubh",
+    "veteranFox": "Sionnach Seansaighdiúir",
+    "veteranLion": "Leon Seansaighdiúir",
+    "mantisShrimp": "Séacla Maintise",
+    "veteranBear": "Béar Seansaighdiúir",
+    "mammoth": "Mamat Lonrach",
+    "hydra": "Hiodra"
+}

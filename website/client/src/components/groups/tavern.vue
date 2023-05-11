@@ -340,12 +340,13 @@
             <li>
               <a
                 v-once
-                href="https://oldgods.net/habitrpg/habitrpg_user_data_display.html"
+                href="https://tools.habitica.com/"
                 target="_blank"
               >{{ $t('dataDisplayTool') }}</a>
             </li>
             <li>
               <a
+                href=""
                 target="_blank"
                 @click.prevent="openBugReportModal()"
               >
@@ -519,21 +520,6 @@
     width: 10px;
     display: inline-block;
     margin-left: .5em;
-  }
-
-// formats the report a bug link to match the others
-  a:not([href]) {
-  &:not([role=button]) {
-    color: #007bff;
-    text-decoration: none;
-    }
-  }
-
-  a:not([href]):hover {
-  &:not([role=button]) {
-    color: #0056b3;
-    text-decoration: underline;
-    }
   }
 
   .tier1-icon, .tier2-icon {
@@ -759,6 +745,7 @@
 </style>
 
 <script>
+import find from 'lodash/find';
 import { mapState } from '@/libs/store';
 import { goToModForm } from '@/libs/modform';
 
@@ -835,22 +822,23 @@ export default {
   computed: {
     ...mapState({
       user: 'user.data',
-      currentEvent: 'worldState.data.currentEvent',
+      currentEventList: 'worldState.data.currentEventList',
     }),
     questData () {
       if (!this.group.quest) return {};
       return quests.quests[this.group.quest.key];
     },
     imageURLs () {
-      if (!this.currentEvent || !this.currentEvent.season) {
+      const currentEvent = find(this.currentEventList, event => Boolean(event.season));
+      if (!currentEvent) {
         return {
           background: 'url(/static/npc/normal/tavern_background.png)',
           npc: 'url(/static/npc/normal/tavern_npc.png)',
         };
       }
       return {
-        background: `url(/static/npc/${this.currentEvent.season}/tavern_background.png)`,
-        npc: `url(/static/npc/${this.currentEvent.season}/tavern_npc.png)`,
+        background: `url(/static/npc/${currentEvent.season}/tavern_background.png)`,
+        npc: `url(/static/npc/${currentEvent.season}/tavern_npc.png)`,
       };
     },
   },

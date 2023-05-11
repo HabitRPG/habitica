@@ -143,6 +143,9 @@
     "achievementBoneToPickText": "A fait éclore tous les familiers squelettes classiques et de quête !",
     "achievementBoneToPickModalText": "Vous avez collecté tous les familiers squelette classiques et de quête !",
     "achievementPolarPro": "Pro polaire",
-    "achievementPolarProText": "A fait éclore tous les familiers polaires : Ours, renard, pingouin, baleine et loup !",
-    "achievementPolarProModalText": "Vous avez collecté tous les familiers polaires !"
+    "achievementPolarProText": "A fait éclore toutes les couleurs standard de familiers polaires : Ours, renard, pingouin, baleine et loup !",
+    "achievementPolarProModalText": "Vous avez collecté tous les familiers polaires !",
+    "achievementPlantParent": "Protecteur des plantes",
+    "achievementPlantParentText": "A fait éclore toutes les couleurs standards de familiers plantes : Cactus et arbustes !",
+    "achievementPlantParentModalText": "Vous avec collecté tous les familiers plantes !"
 }

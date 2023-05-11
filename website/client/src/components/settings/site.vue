@@ -7,6 +7,38 @@
       {{ $t('settings') }}
     </h1>
     <div class="col-sm-6">
+      <div class="sleep">
+        <h5>{{ $t('pauseDailies') }}</h5>
+        <h4>{{ $t('sleepDescription') }}</h4>
+        <ul>
+          <li v-once>
+            {{ $t('sleepBullet1') }}
+          </li>
+          <li v-once>
+            {{ $t('sleepBullet2') }}
+          </li>
+          <li v-once>
+            {{ $t('sleepBullet3') }}
+          </li>
+        </ul>
+        <button
+          v-if="!user.preferences.sleep"
+          v-once
+          class="sleep btn btn-primary btn-block pause-button"
+          @click="toggleSleep()"
+        >
+          {{ $t('pauseDailies') }}
+        </button>
+        <button
+          v-if="user.preferences.sleep"
+          v-once
+          class="btn btn-secondary btn-block pause-button"
+          @click="toggleSleep()"
+        >
+          {{ $t('unpauseDailies') }}
+        </button>
+      </div>
+      <hr>
       <div class="form-horizontal">
         <h5>{{ $t('language') }}</h5>
         <select
@@ -517,6 +549,10 @@
     width: 100%;
     margin-top: 5px;
   }
+
+  .sleep {
+    margin-bottom: 16px;
+  }
 </style>
 
 <script>
@@ -651,6 +687,9 @@ export default {
     }
   },
   methods: {
+    toggleSleep () {
+      this.$store.dispatch('user:sleep');
+    },
     validateDisplayName: debounce(function checkName (displayName) {
       if (displayName.length <= 1 || displayName === this.user.profile.name) {
         this.displayNameIssues = [];

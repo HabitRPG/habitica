@@ -44,6 +44,7 @@ const { questSeriesAchievements } = shared.content;
 const { Schema } = mongoose;
 
 export const INVITES_LIMIT = 100; // must not be greater than MAX_EMAIL_INVITES_BY_USER
+export const PARTY_PENDING_LIMIT = 10;
 export const { TAVERN_ID } = shared;
 
 const NO_CHAT_NOTIFICATIONS = [TAVERN_ID];
@@ -487,6 +488,9 @@ schema.statics.validateInvitations = async function getInvitationErr (invites, r
     query['invitations.party.id'] = group._id;
     // @TODO invitations are now stored like this: `'invitations.parties': []`
     const groupInvites = await User.countDocuments(query).exec();
+    if (groupInvites + totalInvites > PARTY_PENDING_LIMIT) {
+      throw new BadRequest(res.t('partyExceedsInvitesLimit', { maxInvites: PARTY_PENDING_LIMIT }));
+    }
     memberCount += groupInvites;
 
     // Counting the members that are going to be invited by email and uuids
@@ -582,7 +586,10 @@ schema.methods.sendChat = function sendChat (options = {}) {
 
   // Kick off chat notifications in the background.
 
-  const query = {};
+  const query = {
+    _id: { $ne: user ? user._id : '' },
+    'notifications.data.group.id': { $ne: this._id },
+  };
 
   if (this.type === 'party') {
     query['party._id'] = this._id;
@@ -590,16 +597,7 @@ schema.methods.sendChat = function sendChat (options = {}) {
     query.guilds = this._id;
   }
 
-  query._id = { $ne: user ? user._id : '' };
-
-  // First remove the old notification (if it exists)
-  const lastSeenUpdateRemoveOld = {
-    $pull: {
-      notifications: { type: 'NEW_CHAT_MESSAGE', 'data.group.id': this._id },
-    },
-  };
-
-  // Then add the new notification
+  // Add the new notification
   const lastSeenUpdateAddNew = {
     $set: { // old notification, supported until mobile is updated and we release api v4
       [`newMessages.${this._id}`]: { name: this.name, value: true },
@@ -613,9 +611,7 @@ schema.methods.sendChat = function sendChat (options = {}) {
   };
 
   User
-    .update(query, lastSeenUpdateRemoveOld, { multi: true })
-    .exec()
-    .then(() => User.update(query, lastSeenUpdateAddNew, { multi: true }).exec())
+    .updateMany(query, lastSeenUpdateAddNew).exec()
     .catch(err => logger.error(err));
 
   if (this.type === 'party' && user) {

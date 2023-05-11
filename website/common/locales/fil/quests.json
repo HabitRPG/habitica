@@ -85,5 +85,5 @@
     "chatItemQuestFinish": "Nahanap ang lahat ng gamit! Natanggap ng partido ang kanilang gantimpala.",
     "chatFindItems": "Nakahanap si <%= username %> ng <%= items %>.",
     "chatBossDefeated": "Natalo mo ang <%= bossName %>! Natanggap ng mga miyembro ng mga kapartidong kasama sa quest ang mga gantimpala ng tagumpay.",
-    "bossDamage": "Nabawasan mo ng buhay ang boss!"
+    "bossDamage": "Napinsalà mo ang pinunò!"
 }

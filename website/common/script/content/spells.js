@@ -360,9 +360,9 @@ spells.special = {
     previousPurchase: true,
     target: 'user',
     notes: t('spellSpecialShinySeedNotes'),
-    event: EVENTS.spring2022,
+    event: EVENTS.spring2023,
     canOwn () {
-      return moment().isBetween('2022-04-14T08:00-05:00', EVENTS.spring2022.end);
+      return moment().isBetween('2023-04-18T08:00-05:00', EVENTS.spring2023.end);
     },
     cast (user, target, req) {
       if (!user.items.special.shinySeed) throw new NotAuthorized(t('spellNotOwned')(req.language));
@@ -475,7 +475,7 @@ spells.special = {
     target: 'user',
     notes: t('valentineCardNotes'),
     canOwn () {
-      return false;
+      return moment().isBetween('2023-02-13T08:00-05:00', '2023-02-17T23:59-05:00');
     },
     cast (user, target) {
       if (user === target) {

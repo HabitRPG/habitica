@@ -74,7 +74,39 @@ async function prepareSubscriptionValues (data) {
     ? data.gift.subscription.key
     : data.sub.key];
   const autoRenews = data.autoRenews !== undefined ? data.autoRenews : true;
-  const months = Number(block.months);
+  const updatedFrom = data.updatedFrom
+    ? shared.content.subscriptionBlocks[data.updatedFrom.key]
+    : undefined;
+  let months;
+  if (updatedFrom && Number(updatedFrom.months) !== 1) {
+    if (Number(updatedFrom.months) > Number(block.months)) {
+      months = 0;
+    } else if (data.updatedFrom.logic === 'payDifference') {
+      months = Math.max(0, Number(block.months) - Number(updatedFrom.months));
+    } else if (data.updatedFrom.logic === 'payFull') {
+      months = Number(block.months);
+    } else if (data.updatedFrom.logic === 'refundAndRepay') {
+      const originalMonths = Number(updatedFrom.months);
+      let currentCycleBegin = moment(recipient.purchased.plan.dateCurrentTypeCreated);
+      const today = moment();
+      while (currentCycleBegin.isBefore()) {
+        currentCycleBegin = currentCycleBegin.add({ months: originalMonths });
+      }
+      // Subtract last iteration again, because we overshot
+      currentCycleBegin = currentCycleBegin.subtract({ months: originalMonths });
+      // For simplicity we round every month to 30 days since moment can not add half months
+      if (currentCycleBegin.add({ days: (originalMonths * 30) / 2.0 }).isBefore(today)) {
+        // user is in second half of their subscription cycle. Give them full benefits.
+        months = Number(block.months);
+      } else {
+        // user is in first half of their subscription cycle. Give them the difference.
+        months = Math.max(0, Number(block.months) - Number(updatedFrom.months));
+      }
+    }
+  }
+  if (months === undefined) {
+    months = Number(block.months);
+  }
   const today = new Date();
   let group;
   let groupId;
@@ -82,6 +114,7 @@ async function prepareSubscriptionValues (data) {
   let purchaseType = 'subscribe';
   let emailType = 'subscription-begins';
   let recipientIsSubscribed = recipient.isSubscribed();
+  const isNewSubscription = !recipientIsSubscribed;
 
   //  If we are buying a group subscription
   if (data.groupId) {
@@ -122,6 +155,10 @@ async function prepareSubscriptionValues (data) {
 
   const { plan } = recipient.purchased;
 
+  if (isNewSubscription) {
+    plan.perkMonthCount = 0;
+  }
+
   if (data.gift || !autoRenews) {
     if (plan.customerId && !plan.dateTerminated) { // User has active plan
       plan.extraMonths += months;
@@ -136,6 +173,7 @@ async function prepareSubscriptionValues (data) {
         plan.dateTerminated = moment().add({ months }).toDate();
         plan.dateCreated = today;
       }
+      plan.dateCurrentTypeCreated = today;
     }
 
     if (!plan.customerId) {
@@ -152,6 +190,7 @@ async function prepareSubscriptionValues (data) {
       planId: block.key,
       customerId: data.customerId,
       dateUpdated: today,
+      dateCurrentTypeCreated: today,
       paymentMethod: data.paymentMethod,
       extraMonths: Number(plan.extraMonths) + _dateDiff(today, plan.dateTerminated),
       dateTerminated: null,
@@ -194,6 +233,7 @@ async function prepareSubscriptionValues (data) {
     itemPurchased,
     purchaseType,
     emailType,
+    isNewSubscription,
   };
 }
 
@@ -209,15 +249,17 @@ async function createSubscription (data) {
     itemPurchased,
     purchaseType,
     emailType,
+    isNewSubscription,
   } = await prepareSubscriptionValues(data);
 
   // Block sub perks
-  const perks = Math.floor(months / 3);
-  if (perks) {
-    plan.consecutive.offset += months;
-    plan.consecutive.gemCapExtra += perks * 5;
-    if (plan.consecutive.gemCapExtra > 25) plan.consecutive.gemCapExtra = 25;
-    await plan.updateHourglasses(recipient._id, perks, 'subscription_perks'); // one Hourglass every 3 months
+  if (months > 0 && (!data.gift || !isNewSubscription)) {
+    if (!data.gift && !groupId) {
+      plan.consecutive.offset = block.months;
+    }
+  }
+  if (months > 1 || data.gift) {
+    await plan.incrementPerkCounterAndReward(recipient._id, months);
   }
 
   if (recipient !== group) {

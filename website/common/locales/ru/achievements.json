@@ -61,8 +61,8 @@
     "onboardingCompleteDesc": "Вы получили <strong>5 достижений</strong> и <strong class=\"gold-amount\">100 золота</strong> за выполнение списка.",
     "earnedAchievement": "Вы получили достижение!",
     "viewAchievements": "Посмотреть достижения",
-    "onboardingProgress": "<%= percentage %>% прогресс",
-    "gettingStartedDesc": "Выполните эти задания и в итоге получите <strong>5 достижений</strong> и <strong class=\"gold-amount\">100 золота</strong>!",
+    "onboardingProgress": "Выполнено на <%= percentage %>%",
+    "gettingStartedDesc": "Виконайте ці завдання й ви отримаєте <strong>5 досягнень</strong> і <strong class=\"gold-amount\">100 золота</strong> как только закончите!",
     "achievementRosyOutlookModalText": "Вы собрали всех розовых сахарных скакунов!",
     "achievementRosyOutlookText": "Собраны все розовые сахарные скакуны.",
     "achievementTickledPinkModalText": "Вы собрали всех розовых сахарных питомцев!",
@@ -125,8 +125,8 @@
     "achievementShadeOfItAll": "Тень всего этого",
     "achievementShadeOfItAllText": "Собраны все теневые скакуны.",
     "achievementZodiacZookeeperText": "Собраны все зодиакальные питомцы: крыса, корова, кролик, змея, лошадь, овца, обезьяна, петух, волк, тигр, летающая свинья и дракон!",
-    "achievementBirdsOfAFeather": "Масть к масти подбирается",
-    "achievementBirdsOfAFeatherText": "Собраны все летающие питомцы: летающая свинья, сова, попугай, птеродактиль, грифон, сокол, павлин и петух!",
+    "achievementBirdsOfAFeather": "Воздушный легион",
+    "achievementBirdsOfAFeatherText": "Собраны все стандартные цвета летающих питомцев: летающая свинья, сова, попугай, птеродактиль, грифон, сокол, павлин и петух!",
     "achievementZodiacZookeeper": "Смотритель зодиакального зоопарка",
     "achievementZodiacZookeeperModalText": "Вы собрали всех зодиакальных питомцев!",
     "achievementBirdsOfAFeatherModalText": "Вы собрали всех летающих питомцев!",
@@ -144,5 +144,8 @@
     "achievementBoneToPickModalText": "Вы собрали всех классических и квестовых костяных питомцев!",
     "achievementPolarPro": "Полярник",
     "achievementPolarProModalText": "Вы собрали всех полярных питомцев!",
-    "achievementPolarProText": "Собраны все полярные питомцы: медведь, лиса, пингвин, кит и волк!"
+    "achievementPolarProText": "Собраны все полярные питомцы: медведь, лиса, пингвин, кит и волк!",
+    "achievementPlantParent": "Прародитель растений",
+    "achievementPlantParentModalText": "Вы собрали всех питомцев растений!",
+    "achievementPlantParentText": "Вы собрали все стандартные цвета питомцев растений: Кактус и Древолаз"
 }

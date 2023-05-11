@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "表示名、プロフィル写真、自己紹介文は、<a href='https://habitica.com/static/community-guidelines' target='_blank'>コミュニティ ガイドライン</a>に従わなくてはならないことを、心に刻んでおいてください(例 : 冒涜・不敬の禁止、成人向けの話題の禁止、侮辱行為の禁止など)。適切かどうかについてのご質問は、お気軽に <%= hrefBlankCommunityManagerEmail %> へメールをお寄せください!",
+    "communityGuidelinesWarning": "表示名、プロフィール写真、自己紹介文は、<a href='https://habitica.com/static/community-guidelines' target='_blank'>コミュニティ ガイドライン</a>に従わなくてはならないことを、心に刻んでおいてください（例 : 冒涜・不敬の禁止、成人向けの話題の禁止、侮辱行為の禁止など）。適切かどうかについてのご質問は、お気軽に <%= hrefBlankCommunityManagerEmail %> へメールをお寄せください！",
     "profile": "プロフィール",
     "avatar": "アバターのカスタマイズ",
     "editAvatar": "アバターを編集する",

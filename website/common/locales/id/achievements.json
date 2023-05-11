@@ -126,7 +126,7 @@
     "achievementShadeOfItAllModalText": "Kamu menjinakkan semua Tunggangan Bayangan!",
     "achievementWoodlandWizardModalText": "Kamu telah mengumpulkan seluruh peliharaan hutan!",
     "achievementPolarProModalText": "Kamu mengumpulkan seluruh Peliharaan Kutub!",
-    "achievementPolarProText": "Telah menetaskan semua peliharaan Kutub: Beruang, Rubah, Pinguin, Paus, dan Serigala!",
+    "achievementPolarProText": "Telah menetaskan semua warna standar peliharaan Kutub: Beruang, Rubah, Pinguin, Paus, dan Serigala!",
     "achievementBirdsOfAFeatherModalText": "Kamu mengumpulkan seluruh peliharaan yang bisa terbang!",
     "achievementBoneToPickModalText": "Kamu telah mengumpulkan semua Peliharaan Tulang Klasik dan Misi!",
     "achievementBoneToPickText": "Telah menetaskan semua Peliharaan Tulang Klasik dan Misi!",
@@ -144,5 +144,8 @@
     "achievementBirdsOfAFeatherText": "Telah menetaskan semua warna standar peliharaan yang bisa terbang: Babi Terbang, Burung Hantu, Nuri, Pterodaktil, Grifin, Falcon, Merak, dan Ayam!",
     "achievementBoneToPick": "Ambil Tulang",
     "achievementZodiacZookeeper": "Penangkar Zodiak",
-    "achievementZodiacZookeeperModalText": "Kamu mengumpulkan seluruh peliharaan zodiak!"
+    "achievementZodiacZookeeperModalText": "Kamu mengumpulkan seluruh peliharaan zodiak!",
+    "achievementPlantParentModalText": "Kamu telah mengumpulkan seluruh peliharaan tanaman!",
+    "achievementPlantParent": "Induk Tanaman",
+    "achievementPlantParentText": "Telah menetaskan semua warna standar peliharaan tanaman: Kaktus dan Treeling!"
 }

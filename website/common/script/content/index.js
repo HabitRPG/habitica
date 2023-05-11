@@ -137,7 +137,7 @@ api.cardTypes = {
   valentine: {
     key: 'valentine',
     messageOptions: 4,
-    yearRound: moment().isBefore('2022-02-18T20:00-05:00'),
+    yearRound: moment().isBefore('2023-02-17T23:59-05:00'),
   },
   birthday: {
     key: 'birthday',
@@ -203,7 +203,7 @@ api.specialMounts = stable.specialMounts;
 api.mountInfo = stable.mountInfo;
 
 // For seasonal events, change this constant:
-const FOOD_SEASON = moment().isBefore('2022-02-02T20:00-05:00') ? 'Cake' : 'Normal';
+const FOOD_SEASON = moment().isBefore('2023-03-15T12:00-05:00') ? 'Pie' : 'Normal';
 
 api.food = {
   Meat: {

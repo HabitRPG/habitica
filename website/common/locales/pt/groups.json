@@ -1,6 +1,6 @@
 {
-    "tavern": "Conversa da Estalagem",
-    "tavernChat": "Conversa da Estalagem",
+    "tavern": "Bate-papo da Taverna",
+    "tavernChat": "Bate-papo da Taverna",
     "innCheckOutBanner": "Deste entrada na Pousada. As tuas Tarefas Diárias não te vão causar dano e não vais progredir nas Missões.",
     "innCheckOutBannerShort": "Você está a repousar na Estalagem.",
     "resumeDamage": "Retomar Dano",
@@ -206,7 +206,7 @@
     "leaderCannotLeaveGroupWithActiveGroup": "Um líder não pode sair do grupo enquanto este tem um plano ativo",
     "youHaveGroupPlan": "Você tem uma subscrição gratuita porque é membro de um grupo que tem um Plano de Grupo. Isto terminará quando não pertencer mais ao grupo que tem o Plano de Grupo. Qualquer crédito de subscrição extra que tenha será aplicado no final do Plano de Grupo.",
     "cancelGroupSub": "Cancelar Plano de Grupo",
-    "confirmCancelGroupPlan": "Tem a certeza que quer cancelar o plano de grupo e remover os benefícios associados a todos os membros, incluindo as suas subscrições gratuitas?",
+    "confirmCancelGroupPlan": "Tem certeza que quer cancelar seu Plano de Grupo? Todos os membros do Grupo vão perder as suas subscrições e seus benefícios.",
     "canceledGroupPlan": "Plano de Grupo Cancelado",
     "groupPlanCanceled": "Plano de Grupo ficará inativo em",
     "purchasedGroupPlanPlanExtraMonths": "Você tem <%= months %> meses de crédito extra de plano de grupo.",

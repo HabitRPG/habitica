@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { loadAsyncResource } from '@/libs/asyncResource';
 
 export function getMembers (store, forceLoad = false) {
@@ -22,4 +23,15 @@ export function getParty (store, forceLoad = false) {
     },
     forceLoad,
   });
+}
+
+export async function lookingForParty (store, payload) {
+  let response;
+  if (payload && payload.page) {
+    response = await axios.get(`api/v4/looking-for-party?page=${payload.page}`);
+  } else {
+    response = await axios.get('api/v4/looking-for-party');
+  }
+
+  return response.data.data;
 }

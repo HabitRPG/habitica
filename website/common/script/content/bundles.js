@@ -194,8 +194,9 @@ const bundles = {
       'seaserpent',
       'gryphon',
     ],
+    event: EVENTS.bundle202302,
     canBuy () {
-      return moment().isBefore('2022-02-28T20:00-05:00');
+      return moment().isBetween(EVENTS.bundle202302.start, EVENTS.bundle202302.end);
     },
     type: 'quests',
     value: 7,
@@ -234,14 +235,15 @@ const bundles = {
   jungleBuddies: {
     key: 'jungleBuddies',
     text: t('jungleBuddiesText'),
-    notes: t('jungleBuddiesNotes', { date: moment('2020-05-31').format('LL') }),
+    notes: t('jungleBuddiesNotes', { date: moment('2023-03-31').format('LL') }),
     bundleKeys: [
       'monkey',
       'sloth',
       'treeling',
     ],
+    event: EVENTS.bundle202303,
     canBuy () {
-      return moment().isBetween('2020-05-19', '2020-06-02');
+      return moment().isBetween(EVENTS.bundle202303.start, EVENTS.bundle202303.end);
     },
     type: 'quests',
     value: 7,

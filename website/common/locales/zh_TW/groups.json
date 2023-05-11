@@ -20,7 +20,7 @@
     "dataTool": "數據顯示工具",
     "resources": "資源",
     "communityGuidelines": "社群規範",
-    "bannedWordUsed": "糟糕！看來這則貼文包含髒話、宗教內容或是成癮物質和成人內容 (<%= swearWordsUsed %>)。Habitica有來自各種背景的人們，所以我們必須保持聊天內容是非常乾淨的。請編輯您的訊息後再次發布！",
+    "bannedWordUsed": "糟糕！看來這則貼文包含髒話或是成癮物質和成人內容 (<%= swearWordsUsed %>)。Habitica 有來自各種背景的人們，所以我們必須保持聊天內容是非常乾淨的。請編輯您的訊息後再次發布。",
     "bannedSlurUsed": "您的貼文包含不當的言語，所以您的聊天權限已被撤銷。",
     "party": "隊伍",
     "usernameCopied": "使用者名稱已複製到剪貼板。",

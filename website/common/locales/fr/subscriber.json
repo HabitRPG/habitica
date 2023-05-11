@@ -159,7 +159,7 @@
     "needToUpdateCard": "Besoin de mettre à jour votre carte ?",
     "subMonths": "Mois d'abonnement",
     "subscriptionStats": "Statistiques d'abonnement",
-    "subscriptionInactiveDate": "Les bénéfices de votre abonnement deviendront inactifs le <strong><%= date %></strong>",
+    "subscriptionInactiveDate": "Les bénéfices de votre abonnement deviendront inactifs le <br><strong><%= date %></strong>",
     "subscriptionCanceled": "Votre abonnement est annulé",
     "youAreSubscribed": "Vous bénéficiez d'un abonnement à Habitica",
     "doubleDropCap": "Double le butin",
@@ -216,5 +216,13 @@
     "mysterySet202209": "Ensemble d'étude de magie",
     "mysterySet202210": "Ensemble ophidien inquiétant",
     "mysterySet202211": "Ensemble d'électromancie",
-    "mysterySet202212": "Ensemble de Garde des glaces"
+    "mysterySet202212": "Ensemble de garde des glaces",
+    "mysterySet202301": "Ensemble de vulpin vaillant",
+    "haveNonRecurringSub": "Vous avez un abonnement non récurrent cadeau.",
+    "switchToRecurring": "Passer à un abonnement récurrent ?",
+    "continueGiftSubBenefits": "Vous voulez faire perdurer vos avantages ? Vous pouvez commencer un nouvel abonnement avant que votre abonnement cadeau se termine pour conserver vos avantages.",
+    "subscriptionCreditConversion": "Commencer un nouvel abonnement convertira vos mois restants en crédit qui seront utilisés à l'annulation de votre abonnement récurrent.",
+    "mysterySet202302": "Ensemble de chat-tigré rusé",
+    "mysterySet202303": "Ensemble du perso principal",
+    "mysterySet202304": "Ensemble de théière tip-top"
 }
