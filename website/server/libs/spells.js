@@ -100,7 +100,7 @@ async function castPartySpell (req, party, user, spell, quantity = 1) {
     if (party) {
       data.query = { 'party._id': party._id };
     } else {
-      data.query = { '_id': user._id };
+      data.query = { _id: user._id };
     }
     spell.cast(user, data);
     await User.updateMany(data.query, data.update);

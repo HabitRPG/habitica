@@ -218,25 +218,25 @@ describe('POST /user/class/cast/:spellId', () => {
 
   const spellList = [
     {
-      className: "warrior",
-      spells: [["smash", "task"], ["defensiveStance"], ["valorousPresence"], ["intimidate"]],
+      className: 'warrior',
+      spells: [['smash', 'task'], ['defensiveStance'], ['valorousPresence'], ['intimidate']],
     },
     {
-      className: "wizard",
-      spells: [["fireball", "task"], ["mpheal"], ["earth"], ["frost"]],
+      className: 'wizard',
+      spells: [['fireball', 'task'], ['mpheal'], ['earth'], ['frost']],
     },
     {
-      className: "healer",
-      spells: [["heal"], ["brightness"], ["protectAura"], ["healAll"]],
+      className: 'healer',
+      spells: [['heal'], ['brightness'], ['protectAura'], ['healAll']],
     },
     {
-      className: "rogue",
-      spells: [["pickPocket", "task"], ["backStab", "task"], ["toolsOfTrade"], ["stealth"]],
+      className: 'rogue',
+      spells: [['pickPocket', 'task'], ['backStab', 'task'], ['toolsOfTrade'], ['stealth']],
     },
   ];
-  
+
   spellList.forEach(async habitClass => {
-    describe.only(`For a ${habitClass.className}`, async () => {
+    describe(`For a ${habitClass.className}`, async () => {
       habitClass.spells.forEach(async spell => {
         describe(`Using ${spell[0]}`, async () => {
           it('Deducts MP from spell caster', async () => {
@@ -247,12 +247,12 @@ describe('POST /user/class/cast/:spellId', () => {
             await groupLeader.update({
               'stats.mp': 200, 'stats.class': habitClass.className, 'stats.lvl': 20, 'stats.hp': 40,
             });
-            //need this for task spells and for stealth
+            // need this for task spells and for stealth
             const task = await groupLeader.post('/tasks/user', {
               text: 'test habit',
               type: 'daily',
             });
-            if (spell.length === 2 && spell[1] === "task") {
+            if (spell.length === 2 && spell[1] === 'task') {
               await groupLeader.post(`/user/class/cast/${spell[0]}?targetId=${task._id}`);
             } else {
               await groupLeader.post(`/user/class/cast/${spell[0]}`);
@@ -264,12 +264,12 @@ describe('POST /user/class/cast/:spellId', () => {
             await user.update({
               'stats.mp': 200, 'stats.class': habitClass.className, 'stats.lvl': 20, 'stats.hp': 40,
             });
-            //need this for task spells and for stealth
+            // need this for task spells and for stealth
             const task = await user.post('/tasks/user', {
               text: 'test habit',
               type: 'daily',
             });
-            if (spell.length === 2 && spell[1] === "task") {
+            if (spell.length === 2 && spell[1] === 'task') {
               await user.post(`/user/class/cast/${spell[0]}?targetId=${task._id}`);
             } else {
               await user.post(`/user/class/cast/${spell[0]}`);
