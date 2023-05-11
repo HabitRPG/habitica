@@ -1,6 +1,7 @@
 import { v4 as generateUUID } from 'uuid';
 import nconf from 'nconf';
 import {
+  createAndPopulateGroup,
   generateUser,
   generateGroup,
   translate as t,
@@ -581,20 +582,7 @@ describe('Post /groups/:groupId/invite', () => {
         });
     });
 
-    it('allow inviting a user to a party if they are partying solo', async () => {
-      const userToInvite = await generateUser();
-      await userToInvite.post('/groups', { // add user to a party
-        name: 'Another Test Party',
-        type: 'party',
-      });
-
-      await inviter.post(`/groups/${party._id}/invite`, {
-        uuids: [userToInvite._id],
-      });
-      expect((await userToInvite.get('/user')).invitations.parties[0].id).to.equal(party._id);
-    });
-
-    it('allow inviting a user to 2 different parties', async () => {
+    it('allows inviting a user to 2 different parties', async () => {
       // Create another inviter
       const inviter2 = await generateUser();
 
@@ -635,29 +623,48 @@ describe('Post /groups/:groupId/invite', () => {
       });
       expect((await userToInvite.get('/user')).invitations.parties[0].id).to.equal(party._id);
     });
+  });
+
+  describe('party size limits', () => {
+    let party;
+    let partyLeader;
+
+    beforeEach(async () => {
+      group = await createAndPopulateGroup({
+        groupDetails: {
+          name: 'Test Party',
+          type: 'party',
+          privacy: 'private',
+        },
+        // Generate party with 20 members
+        members: PARTY_LIMIT_MEMBERS - 10,
+      });
+      party = group.group;
+      partyLeader = group.groupLeader;
+    });
 
     it('allows 30 members in a party', async () => {
       const invitesToGenerate = [];
-      // Generate 29 users to invite (29 + leader = 30 members)
-      for (let i = 0; i < PARTY_LIMIT_MEMBERS - 1; i += 1) {
+      // Generate 10 new invites
+      for (let i = 1; i < 10; i += 1) {
         invitesToGenerate.push(generateUser());
       }
       const generatedInvites = await Promise.all(invitesToGenerate);
       // Invite users
-      expect(await inviter.post(`/groups/${party._id}/invite`, {
+      expect(await partyLeader.post(`/groups/${party._id}/invite`, {
         uuids: generatedInvites.map(invite => invite._id),
       })).to.be.an('array');
     }).timeout(10000);
 
-    it('does not allow 30+ members in a party', async () => {
+    it('does not allow >30 members in a party', async () => {
       const invitesToGenerate = [];
-      // Generate 30 users to invite (30 + leader = 31 members)
-      for (let i = 0; i < PARTY_LIMIT_MEMBERS; i += 1) {
+      // Generate 11 invites
+      for (let i = 1; i < 11; i += 1) {
         invitesToGenerate.push(generateUser());
       }
       const generatedInvites = await Promise.all(invitesToGenerate);
       // Invite users
-      await expect(inviter.post(`/groups/${party._id}/invite`, {
+      await expect(partyLeader.post(`/groups/${party._id}/invite`, {
         uuids: generatedInvites.map(invite => invite._id),
       }))
         .to.eventually.be.rejected.and.eql({

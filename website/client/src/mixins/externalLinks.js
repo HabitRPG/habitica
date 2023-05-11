@@ -16,11 +16,12 @@ export default {
         }
 
         if ((link.classList.value.indexOf('external-link') === -1)
+          && (!link.offsetParent || link.offsetParent.classList.value.indexOf('link-exempt') === -1)
           && domainIndex !== 1
           && !some(TRUSTED_DOMAINS.split(','), domain => link.href.indexOf(domain) === domainIndex)) {
           link.classList.add('external-link');
           link.addEventListener('click', e => {
-            if (e.ctrlKey) {
+            if (e.ctrlKey || e.metaKey) {
               return;
             }
             e.stopPropagation();

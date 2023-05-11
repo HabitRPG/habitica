@@ -22,6 +22,10 @@
         Account created:
         <strong>{{ hero.auth.timestamps.created | formatDate }}</strong>
       </div>
+      <div v-if="hero.flags.thirdPartyTools">
+        User has employed <strong>third party tools</strong>. Last known usage:
+        <strong>{{ hero.flags.thirdPartyTools | formatDate }}</strong>
+      </div>
       <div v-if="cronError">
         "lastCron" value:
         <strong>{{ hero.lastCron | formatDate }}</strong>
