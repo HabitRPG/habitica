@@ -276,7 +276,6 @@
       a {
         font-size: 12px;
         line-height: 1.33;
-        color: $blue-10;
         margin-top: 4px;
 
         &:focus, &:hover, &:active {

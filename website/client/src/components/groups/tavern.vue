@@ -346,6 +346,7 @@
             </li>
             <li>
               <a
+                href=""
                 target="_blank"
                 @click.prevent="openBugReportModal()"
               >
@@ -519,21 +520,6 @@
     width: 10px;
     display: inline-block;
     margin-left: .5em;
-  }
-
-// formats the report a bug link to match the others
-  a:not([href]) {
-  &:not([role=button]) {
-    color: #007bff;
-    text-decoration: none;
-    }
-  }
-
-  a:not([href]):hover {
-  &:not([role=button]) {
-    color: #0056b3;
-    text-decoration: underline;
-    }
   }
 
   .tier1-icon, .tier2-icon {

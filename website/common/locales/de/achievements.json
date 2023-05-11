@@ -141,5 +141,8 @@
     "achievementWoodlandWizardText": "Du hast alle Standard-Farben der Waldkreaturen ausgebrütet: Dachs, Bär, Hirsch, Fuchs, Frosch, Igel, Eule, Schnecke, Eichhörnchen und Bäumling!",
     "achievementBoneToPickModalText": "Du hast alle klassischen und Quest-Skeletthaustiere gesammelt!",
     "achievementBoneToPick": "Ein harter Knochen",
-    "achievementBoneToPickText": "Hat alle klassischen und Quest-Skeletthaustiere ausgebrütet!"
+    "achievementBoneToPickText": "Hat alle klassischen und Quest-Skeletthaustiere ausgebrütet!",
+    "achievementPolarProText": "Hat alle Standardfarben der Polar-Haustiere ausgebrütet: Bär, Fuchs, Pinguin, Wal und Wolf!",
+    "achievementPolarPro": "Polar-Profi",
+    "achievementPolarProModalText": "Du hast alle Polar-Haustiere gesammelt!"
 }

@@ -148,7 +148,7 @@
             </div>
           </li>
           <b-nav-item
-            v-if="user.party._id"
+            v-if="user.party._id && user._id !== partyLeaderId"
             class="topbar-item"
             :class="{'active': $route.path.startsWith('/party')}"
             tag="li"
@@ -156,6 +156,36 @@
           >
             {{ $t('party') }}
           </b-nav-item>
+          <li
+            v-if="user.party._id && user._id === partyLeaderId"
+            class="topbar-item droppable"
+            :class="{'active': $route.path.startsWith('/party')}"
+          >
+            <div
+              class="chevron rotate"
+              @click="dropdownMobile($event)"
+            >
+              <div
+                v-once
+                class="chevron-icon-down"
+                v-html="icons.chevronDown"
+              ></div>
+            </div>
+            <router-link
+              class="nav-link"
+              :to="{name: 'party'}"
+            >
+              {{ $t('party') }}
+            </router-link>
+            <div class="topbar-dropdown">
+              <router-link
+                class="topbar-dropdown-item dropdown-item"
+                :to="{name: 'lookingForParty'}"
+              >
+                {{ $t('lookingForPartyTitle') }}
+              </router-link>
+            </div>
+          </li>
           <b-nav-item
             v-if="!user.party._id"
             class="topbar-item"
@@ -768,6 +798,7 @@ export default {
     return {
       isUserDropdownOpen: false,
       menuIsOpen: false,
+      partyLeaderId: null,
       icons: Object.freeze({
         gem: gemIcon,
         gold: goldIcon,
@@ -796,14 +827,18 @@ export default {
       };
     },
   },
-  mounted () {
-    this.getUserGroupPlans();
+  async mounted () {
+    await this.getUserGroupPlans();
+    await this.getUserParty();
     Array.from(document.getElementById('menu_collapse').getElementsByTagName('a')).forEach(link => {
       link.addEventListener('click', this.closeMenu);
     });
     Array.from(document.getElementsByClassName('topbar-item')).forEach(link => {
       link.addEventListener('mouseenter', this.dropdownDesktop);
       link.addEventListener('mouseleave', this.dropdownDesktop);
+    });
+    this.$root.$on('update-party', () => {
+      this.getUserParty();
     });
   },
   methods: {
@@ -815,6 +850,12 @@ export default {
     },
     async getUserGroupPlans () {
       await this.$store.dispatch('guilds:getGroupPlans');
+    },
+    async getUserParty () {
+      if (this.user.party._id) {
+        await this.$store.dispatch('party:getParty');
+        this.partyLeaderId = this.$store.state.party.data.leader._id;
+      }
     },
     openPartyModal () {
       this.$root.$emit('bv::show::modal', 'create-party-modal');

@@ -140,9 +140,12 @@
     "achievementWoodlandWizardText": "لقد فقس جميع الألوان القياسية لمخلوقات الغابة: الغرير، الدب، الغزال، الثعلب، الضفدع، القنفذ، البومة، الأفعى، السنجاب والشجيرة!",
     "achievementWoodlandWizardModalText": "لقد جمعت كل حيوانات الغابة الأليفة!",
     "achievementPolarPro": "المحترف القطبي",
-    "achievementPolarProText": "فقست جميع الحيوانات الأليفة القطبية: الدب ، الثعلب ، البطريق ، الحوت ، والذئب!",
+    "achievementPolarProText": "فقست جميع الحيوانات الأليفة القطبية في الألوان القياسية: الدب ، الثعلب ، البطريق ، الحوت ، والذئب!",
     "achievementPolarProModalText": "لقد جمعت كل الحيوانات الأليفة القطبية!",
     "achievementBoneToPick": "جامع العظام",
     "achievementBoneToPickText": "فقست جميع الحيوانات الأليفة الهيكلية المغامرة والكلاسيكية!",
-    "achievementBoneToPickModalText": "لقد جمعت كل الحيوانات الأليفة الهيكلية المغامرة والكلاسيكية!"
+    "achievementBoneToPickModalText": "لقد جمعت كل الحيوانات الأليفة الهيكلية المغامرة والكلاسيكية!",
+    "achievementPlantParent": "والد النبات",
+    "achievementPlantParentText": "فقست جميع الحيوانات الأليفة النباتية في الألوان القياسية: الصبار والتريلنج!",
+    "achievementPlantParentModalText": "لقد جمعت كل الحيوانات الأليفة النباتية!"
 }

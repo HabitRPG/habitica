@@ -77,7 +77,6 @@
    }
 
    a.cancel-link {
-     color: $blue-10;
      margin-right: .5em;
    }
 

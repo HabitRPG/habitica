@@ -1,8 +1,8 @@
 {
     "stable": "אורווה",
     "pets": "חיות מחמד",
-    "activePet": "",
-    "noActivePet": "",
+    "activePet": "חיית מחמד נוכחית",
+    "noActivePet": "אין חיית מחמד נוכחית",
     "petsFound": "חיות מחמד שנאספו",
     "magicPets": "חיות מחמד קסומות",
     "questPets": "חיות הרפתקה",
@@ -26,9 +26,9 @@
     "royalPurpleGryphon": "גריפון סגול מלכותי",
     "phoenix": "עוף חול",
     "magicalBee": "דבורה קסומה",
-    "hopefulHippogriffPet": "",
-    "hopefulHippogriffMount": "",
-    "royalPurpleJackalope": "",
+    "hopefulHippogriffPet": "היפוגריף מחמד בעל התקווה",
+    "hopefulHippogriffMount": "היפוגריף רכיבה בעל התקווה",
+    "royalPurpleJackalope": "ג'אקאפול מלכותי סגול",
     "invisibleAether": "אתר בלתי נראה",
     "potion": "שיקוי <%= potionType %>",
     "egg": "ביצת <%= eggType %>",
@@ -70,7 +70,7 @@
     "mountNotOwned": "",
     "feedPet": "",
     "raisedPet": "",
-    "petName": "",
+    "petName": "<%= potion(locale) %> מ<%= egg(locale) %>",
     "mountName": "",
     "keyToPets": "",
     "keyToPetsDesc": "",
@@ -109,5 +109,7 @@
     "notEnoughMounts": "",
     "notEnoughPetsMounts": "",
     "wackyPets": "חיות מטורפות",
-    "filterByWacky": "מטורפים"
+    "filterByWacky": "מטורפים",
+    "gryphatrice": "גריפטריצ'ה",
+    "jubilantGryphatrice": "גריפטריצ'ה צוהלת"
 }

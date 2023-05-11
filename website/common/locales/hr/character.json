@@ -85,7 +85,7 @@
     "allocatePerPop": "Dodaj bod Percepciji",
     "allocateInt": "Bodovi dodijeljeni Inteligenciji:",
     "allocateIntPop": "Dodaj bod Inteligenciji",
-    "noMoreAllocate": "Sad kad si doesgnuo/la level 100, nećeš više dobivati Statističke bodove. Možeš nastaviti podizati levele, ili započeti novu avanturu na levelu 1 koristeći <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Kuglu Ponovnog Rođenja</a> koja je sad besplatno dostupna na Tržnici.",
+    "noMoreAllocate": "Sada kada ste dosegli razinu 100, više nećete dobiti nikakve Stat bodove. Možete nastaviti napredovati ili započeti novu avanturu na razini 1 pomoću <a href='https://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Kugle ponovnog rođenja</a>!",
     "stats": "Statistika",
     "achievs": "Postignuća",
     "strength": "Snaga",
@@ -132,7 +132,7 @@
     "healerText": "Iscjelitelji su otporni na štetu i pružaju zaštitu sebi i drugima. Propušteni Svakodnevni zadaci i loše Navike ih ne uznemiravaju u tolikoj mjeri jer znaju kako nadoknaditi izgubljeno Zdravlje. Igraj Iscjelitelja ako ako uživaš u pomaganju drugim članovima svoje Družine, ili ako te inspirira pomisao na varanje Smrti pomoću marljivog rada.",
     "optOutOfClasses": "Izaberi kasnije",
     "chooseClass": "Odaberi svoju Klasu",
-    "chooseClassLearnMarkdown": "[Nauči više o Habitičinom sustavu klasa](http://habitica.wikia.com/wiki/Class_System)",
+    "chooseClassLearnMarkdown": "[Saznajte više o Habiticinom klasnom sustavu](https://habitica.fandom.com/wiki/Class_System)",
     "optOutOfClassesText": "Ne da ti se baviti klasama? Želiš odabrati kasnije? Onda odaberi kasnije - do tad ćeš biti Ratnik bez posebnih vještina. Možeš čitati o klasnom sustavu kasnije na wiki stranici Habitice i omogućiti klase bilo kada pod Ikona Korisnika > Postavke.",
     "selectClass": "Odaberi klasu <%= heroClass %>",
     "select": "Odaberi",
@@ -181,5 +181,10 @@
     "mainHand": "Dominantni",
     "offHand": "Pomoćni",
     "statPoints": "Statistički bodovi",
-    "pts": "bodova"
+    "pts": "bodova",
+    "purchasePetItemConfirm": "Ova bi kupnja premašila broj stavki koje su vam potrebne da biste izlegli sve moguće <%= itemText %> kućne ljubimce. Jeste li sigurni?",
+    "chatCastSpellParty": "<%= username %> baca <%= spell%> za družbinu.",
+    "notEnoughGold": "Nema dovoljno zlata.",
+    "chatCastSpellUser": "<%= username %> baca <%= spell%> na <%= target%>.",
+    "purchaseForGold": "Kupnja za <%= cost %> Zlata?"
 }

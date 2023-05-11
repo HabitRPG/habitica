@@ -147,7 +147,7 @@
     "pushDeviceAdded": "Dispositivo Push adicionado com sucesso",
     "pushDeviceNotFound": "O usuário não tem dispositivo push nesse id.",
     "pushDeviceRemoved": "Dispositivo push removido com sucesso.",
-    "buyGemsGoldCap": "Máximo aumentado para <%= amount %>",
+    "buyGemsGoldCap": "Máximo de gemas aumentado para <%= amount %>",
     "mysticHourglass": "<%= amount %> Ampulhetas Místicas",
     "purchasedPlanExtraMonths": "Você tem <%= months %> meses de créditos para inscrições extras.",
     "consecutiveSubscription": "Assinatura Consecutiva",
@@ -182,5 +182,11 @@
     "newPMNotificationTitle": "Nova Mensagem de <%= name %>",
     "mentioning": "Mencionando",
     "adjustment": "Ajuste",
-    "dayStartAdjustment": "Alterar Início de Dia"
+    "dayStartAdjustment": "Alterar Início de Dia",
+    "chatExtensionDesc": "A Extensão de Conversa para Habitica Adiciona um chat intuitivo para todo o habitica.com. Ele permite usuários conversarem na Taverna, seu Grupo, e quaisquer guildas em que participam.",
+    "passwordSuccess": "Senha editada com sucesso",
+    "giftedSubscriptionWinterPromo": "Olá <%= username %>, você recebeu <%= monthCount %> meses de subscrição como parte da nossa promoção de presentes de feriado!",
+    "subscriptionReminders": "Lembretes de Inscrição",
+    "giftSubscriptionRateText": "<strong>$<%= price %> Dólares</strong> por <strong><%= months %> meses</strong>",
+    "addPasswordAuth": "Adicionar Senha"
 }

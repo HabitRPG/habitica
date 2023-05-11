@@ -153,6 +153,7 @@ export default new Schema({
     woodlandWizard: Boolean,
     boneToPick: Boolean,
     polarPro: Boolean,
+    plantParent: Boolean,
     // Onboarding Guide
     createdTask: Boolean,
     completedTask: Boolean,
@@ -305,6 +306,7 @@ export default new Schema({
     cardReceived: { $type: Boolean, default: false },
     warnedLowHealth: { $type: Boolean, default: false },
     verifiedUsername: { $type: Boolean, default: false },
+    thirdPartyTools: { $type: Date },
   },
 
   history: {
@@ -500,6 +502,7 @@ export default new Schema({
       // invite is accepted or rejected, quest starts, or quest is cancelled
       RSVPNeeded: { $type: Boolean, default: false },
     },
+    seeking: Date,
   },
   preferences: {
     dayStart: {
@@ -613,9 +616,9 @@ export default new Schema({
   },
   stats: {
     hp: { $type: Number, default: shared.maxHealth },
-    mp: { $type: Number, default: 10 },
+    mp: { $type: Number, default: 10, min: 0 },
     exp: { $type: Number, default: 0 },
-    gp: { $type: Number, default: 0 },
+    gp: { $type: Number, default: 0, min: 0 },
     lvl: {
       $type: Number,
       default: 1,
@@ -627,17 +630,17 @@ export default new Schema({
     class: {
       $type: String, enum: ['warrior', 'rogue', 'wizard', 'healer'], default: 'warrior', required: true,
     },
-    points: { $type: Number, default: 0 },
-    str: { $type: Number, default: 0 },
-    con: { $type: Number, default: 0 },
-    int: { $type: Number, default: 0 },
-    per: { $type: Number, default: 0 },
+    points: { $type: Number, default: 0, min: 0 },
+    str: { $type: Number, default: 0, min: 0 },
+    con: { $type: Number, default: 0, min: 0 },
+    int: { $type: Number, default: 0, min: 0 },
+    per: { $type: Number, default: 0, min: 0 },
     buffs: {
-      str: { $type: Number, default: 0 },
-      int: { $type: Number, default: 0 },
-      per: { $type: Number, default: 0 },
-      con: { $type: Number, default: 0 },
-      stealth: { $type: Number, default: 0 },
+      str: { $type: Number, default: 0, min: 0 },
+      int: { $type: Number, default: 0, min: 0 },
+      per: { $type: Number, default: 0, min: 0 },
+      con: { $type: Number, default: 0, min: 0 },
+      stealth: { $type: Number, default: 0, min: 0 },
       streaks: { $type: Boolean, default: false },
       snowball: { $type: Boolean, default: false },
       spookySparkles: { $type: Boolean, default: false },

@@ -198,10 +198,6 @@
       color: $purple-200;
     }
 
-    li, p {
-      font-size: 16px;
-    }
-
     .media img {
       margin: 1em;
     }

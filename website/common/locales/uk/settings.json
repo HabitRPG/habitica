@@ -226,5 +226,6 @@
     "amount": "Кількість",
     "action": "Дія",
     "note": "Примітка",
-    "remainingBalance": "Залишковий баланс"
+    "remainingBalance": "Залишковий баланс",
+    "thirdPartyTools": "Знайдіть сторонні додатки, розширення та всілякі інші інструменти, які ви можете використовувати зі своїм обліковим записом, на сторінці <a href='https://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations' target='_blank'>Habitica Вікі</a>."
 }

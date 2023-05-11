@@ -139,6 +139,8 @@
 import axios from 'axios';
 import moment from 'moment';
 
+import externalLinks from '../../mixins/externalLinks';
+
 import renderWithMentions from '@/libs/renderWithMentions';
 import { mapState } from '@/libs/store';
 import userLink from '../userLink';
@@ -150,6 +152,7 @@ export default {
   components: {
     userLink,
   },
+  mixins: [externalLinks],
   filters: {
     timeAgo (value) {
       return moment(value).fromNow();
@@ -179,6 +182,10 @@ export default {
   },
   mounted () {
     this.$emit('message-card-mounted');
+    this.handleExternalLinks();
+  },
+  updated () {
+    this.handleExternalLinks();
   },
   methods: {
     report () {

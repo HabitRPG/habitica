@@ -44,6 +44,7 @@ const { questSeriesAchievements } = shared.content;
 const { Schema } = mongoose;
 
 export const INVITES_LIMIT = 100; // must not be greater than MAX_EMAIL_INVITES_BY_USER
+export const PARTY_PENDING_LIMIT = 10;
 export const { TAVERN_ID } = shared;
 
 const NO_CHAT_NOTIFICATIONS = [TAVERN_ID];
@@ -490,6 +491,9 @@ schema.statics.validateInvitations = async function getInvitationErr (invites, r
     query['invitations.party.id'] = group._id;
     // @TODO invitations are now stored like this: `'invitations.parties': []`
     const groupInvites = await User.countDocuments(query).exec();
+    if (groupInvites + totalInvites > PARTY_PENDING_LIMIT) {
+      throw new BadRequest(res.t('partyExceedsInvitesLimit', { maxInvites: PARTY_PENDING_LIMIT }));
+    }
     memberCount += groupInvites;
 
     // Counting the members that are going to be invited by email and uuids

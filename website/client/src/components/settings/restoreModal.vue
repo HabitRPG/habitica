@@ -179,7 +179,9 @@ export default {
       let valid = true;
 
       for (const stat of canRestore) {
-        if (this.restoreValues.stats[stat] === '') {
+        if (this.restoreValues.stats[stat] === ''
+          || this.restoreValues.stats[stat] < 0
+        ) {
           this.restoreValues.stats[stat] = this.user.stats[stat];
           valid = false;
         }

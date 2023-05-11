@@ -416,6 +416,14 @@ const armor = {
     int: 5,
     set: 'teaParty',
   },
+  basketballUniform: {
+    per: 10,
+    set: 'oldTimeyBasketball',
+  },
+  paintersApron: {
+    con: 10,
+    set: 'painters',
+  },
 };
 
 const body = {
@@ -841,6 +849,16 @@ const head = {
     per: 10,
     set: 'teaParty',
   },
+  beaniePropellerHat: {
+    con: 3,
+    per: 3,
+    str: 3,
+    int: 3,
+  },
+  paintersBeret: {
+    per: 9,
+    set: 'painters',
+  },
 };
 
 const shield = {
@@ -1145,6 +1163,15 @@ const shield = {
   teaKettle: {
     con: 10,
     set: 'teaParty',
+  },
+  basketball: {
+    con: 5,
+    str: 5,
+    set: 'oldTimeyBasketball',
+  },
+  paintersPalette: {
+    str: 7,
+    set: 'painters',
   },
 };
 
@@ -1587,6 +1614,10 @@ const weapon = {
   finelyCutGem: {
     con: 10,
     set: 'jewelers',
+  },
+  paintbrush: {
+    int: 8,
+    set: 'painters',
   },
 };
 

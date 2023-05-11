@@ -38,7 +38,7 @@
     "marketing2Lead1Title": "一起遊玩",
     "marketing2Lead1": "您可以獨自遊玩Habitica，但最後您會發現與其他人一起合作、競爭、共同分擔責任，才能真正體會到樂趣。自我成長最有效的方法就是擁有團體責任感。而又有什麼能比遊戲提供更好的責任感與競爭的環境呢？",
     "marketing2Lead2Title": "擊殺怪物",
-    "marketing2Lead2": "RPG怎麼能少了戰鬥元素呢？與您的隊伍一起打怪吧！怪物們已開啟「超級責任感模式」，只要您沒達成所有的每日任務，怪物將攻擊*所有的*隊員！",
+    "marketing2Lead2": "RPG 怎麼能少了戰鬥元素呢？與您的隊伍一起打怪吧！怪物們已開啟「超級責任感模式」，只要您沒達成所有的每日任務，怪物將攻擊*所有隊員！*",
     "marketing2Lead3Title": "互相挑戰",
     "marketing2Lead3": "挑戰機制讓您可以與朋友或是陌生人一同競爭。挑戰的獲勝者將可以贏得特別獎勵。",
     "marketing3Header": "應用程式與擴充套件",
@@ -188,5 +188,6 @@
     "enterHabitica": "登入Habitica",
     "footerProduct": "產品",
     "socialAlreadyExists": "此社交帳號已連結到現有的Habitica帳戶。",
-    "emailUsernamePlaceholder": "例如 habitrabbit 或者 gryphon@example.com"
+    "emailUsernamePlaceholder": "例如 habitrabbit 或者 gryphon@example.com",
+    "translateHabitica": "翻譯 Habitica"
 }

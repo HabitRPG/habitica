@@ -312,7 +312,7 @@
     "teamBasedTasksList": "Liste de tâches pour l'équipe",
     "teamBasedTasksListDesc": "Créez une liste des tâches partagées facile à voir pour le groupe. Assignez des tâches aux autres membres du groupe, ou laissez les définir leurs propres tâches pour rendre clair qui travaille sur quoi !",
     "groupManagementControls": "Contrôles de gestion de groupe",
-    "groupManagementControlsDesc": "Utilisez l'approbation des tâches pour vérifier qu'une tâche a été effectivement réalisée, ajoutez des gestionnaires de groupes pour partager les responsabilités, et profiter d'une discussion de groupe privée pour tous les membres de l'équipe.",
+    "groupManagementControlsDesc": "Regardez l'état d'une tâche pour vérifier si elle a été réalisée, ajoutez des gestionnaires de groupes pour partager les responsabilités, et profiter d'une discussion de groupe privée pour tous les membres de l'équipe.",
     "inGameBenefits": "Bénéfices dans le jeu",
     "inGameBenefitsDesc": "Les membres du groupe reçoivent une monture Jackalope exclusive, ainsi que tous les bénéfices d'un abonnement complet, incluant l'équipement mensuel spécial et la capacité d'acheter des gemmes pour de l'or.",
     "inspireYourParty": "Inspirez votre équipe, ludifiez votre vie tous ensemble.",
@@ -417,5 +417,6 @@
     "groupTeacher": "Enseignant qui définit des tâches pour les étudiants",
     "nameStar": "Nom*",
     "nameStarText": "Ajouter un titre",
-    "descriptionOptional": "Description"
+    "descriptionOptional": "Description",
+    "invitedToPartyBy": "<a href=\"/profile/<%- userId %>\" target=\"_blank\">@<%- userName %></a> vous a invité à rejoindre l'équipe <span class=\"notification-bold\"><%- party %></span>"
 }

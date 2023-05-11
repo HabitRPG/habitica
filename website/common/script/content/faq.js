@@ -22,10 +22,6 @@ const questionList = [
     translationIndex: 4,
   },
   {
-    heading: 'party-with-friends',
-    translationIndex: 5,
-  },
-  {
     heading: 'pets-mounts',
     translationIndex: 6,
   },
@@ -52,7 +48,54 @@ const questionList = [
   {
     heading: 'group-plans',
     translationIndex: 13,
-    excludedPlatforms: ['android', 'ios'],
+  },
+  {
+    heading: 'party-with-friends',
+    translationIndex: 5,
+  },
+  {
+    heading: 'party-detail-1',
+    translationIndex: 14,
+  },
+  {
+    heading: 'party-detail-2',
+    translationIndex: 15,
+  },
+  {
+    heading: 'party-detail-3',
+    translationIndex: 16,
+  },
+  {
+    heading: 'party-detail-4',
+    translationIndex: 17,
+  },
+  {
+    heading: 'party-detail-5',
+    translationIndex: 18,
+  },
+  {
+    heading: 'party-detail-6',
+    translationIndex: 19,
+  },
+  {
+    heading: 'party-detail-7',
+    translationIndex: 20,
+  },
+  {
+    heading: 'party-detail-8',
+    translationIndex: 21,
+  },
+  {
+    heading: 'party-detail-9',
+    translationIndex: 22,
+  },
+  {
+    heading: 'party-detail-10',
+    translationIndex: 23,
+  },
+  {
+    heading: 'party-detail-11',
+    translationIndex: 24,
   },
 ];
 

@@ -406,9 +406,10 @@
     "backgroundAvalancheText": "Runtuhan salji",
     "backgroundAvalancheNotes": "Flee the thundering might of an Avalanche.",
     "backgroundArchaeologicalDigText": "Penggalian Arkeologi",
-    "backgroundArchaeologicalDigNotes": "Unearth secrets of the ancient past at an Archaeological Dig.",
+    "backgroundArchaeologicalDigNotes": "Mencungkil rahsia silam purba di Penggalian Arkeologi.",
     "backgroundScribesWorkshopText": "Bengkel Jurutulis",
     "backgroundScribesWorkshopNotes": "Write your next great scroll in a Scribe's Workshop.",
     "backgroundMedievalKitchenText": "Dapur Zaman Pertengahan",
-    "backgrounds022019": "SET 57: Dikeluarkan pada Februari 2019"
+    "backgrounds022019": "SET 57: Dikeluarkan pada Februari 2019",
+    "hideLockedBackgrounds": "Sembunyikan latar belakang yang dikunci"
 }
