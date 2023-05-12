@@ -31,13 +31,37 @@
         <div
           v-once
           class="dialog-disclaimer"
-          v-html="$t('deleteLocalAccountText')"
+          v-html="hasPassword
+            ? $t('deleteLocalAccountText')
+            : $t('deleteSocialAccountText', {magicWord: 'DELETE'})"
         >
         </div>
+
         <current-password-input
+          v-if="hasPassword"
           :show-forget-password="true"
           @passwordValue="passwordValue = $event"
         />
+
+        <div
+          v-else
+          class="input-area"
+        >
+          <div
+            class="form"
+          >
+            <div class="settings-label">
+              {{ $t("confirm") }}
+            </div>
+            <div class="form-group">
+              <input
+                v-model="passwordValue"
+                class="form-control"
+                type="text"
+              >
+            </div>
+          </div>
+        </div>
 
         <div
           v-once
@@ -101,6 +125,9 @@ export default {
     ...mapState({
       user: 'user.data',
     }),
+    hasPassword () {
+      return this.user.auth.local.has_password;
+    },
   },
   methods: {
     async deleteAccount () {
