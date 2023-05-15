@@ -282,6 +282,8 @@ api.postChat = {
       analyticsObject.groupName = group.name;
     }
 
+    res.analytics.track('group chat', analyticsObject);
+
     if (chatUpdated) {
       res.respond(200, { chat: chatRes.chat });
     } else {
