@@ -22,7 +22,13 @@ describe('Task', () => {
         state: {
           user: {
             data: {
-              preferences: {},
+              preferences: {
+                tasks: {
+                  activeFilter: {
+
+                  },
+                },
+              },
               ...additionalUserData,
             },
           },
