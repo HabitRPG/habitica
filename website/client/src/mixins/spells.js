@@ -114,7 +114,7 @@ export default {
       this.castCancel();
 
       // the selected member doesn't have the flags property which sets `cardReceived`
-      if (spell.pinType !== 'card') {
+      if (spell.pinType !== 'card' && spell.bulk !== true) {
         try {
           spell.cast(this.user, target, {});
         } catch (e) {

@@ -144,22 +144,6 @@
             >{{ $t('startAdvCollapsed') }}</span>
           </label>
         </div>
-        <div class="checkbox">
-          <label>
-            <input
-              v-model="user.preferences.dailyDueDefaultView"
-              type="checkbox"
-              class="mr-2"
-              @change="set('dailyDueDefaultView')"
-            >
-            <span
-              class="hint"
-              popover-trigger="mouseenter"
-              popover-placement="right"
-              :popover="$t('dailyDueDefaultViewPop')"
-            >{{ $t('dailyDueDefaultView') }}</span>
-          </label>
-        </div>
         <div
           v-if="party.memberCount === 1"
           class="checkbox"

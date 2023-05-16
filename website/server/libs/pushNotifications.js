@@ -21,7 +21,7 @@ const apnProvider = APN_ENABLED ? new apn.Provider({
 }) : undefined;
 
 function removePushDevice (user, pushDevice) {
-  return User.update({ _id: user._id }, {
+  return User.updateOne({ _id: user._id }, {
     $pull: { pushDevices: { regId: pushDevice.regId } },
   }).exec().catch(err => {
     logger.error(err, `Error removing pushDevice ${pushDevice.regId} for user ${user._id}`);

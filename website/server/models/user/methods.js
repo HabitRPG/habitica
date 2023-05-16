@@ -225,10 +225,9 @@ schema.statics.pushNotification = async function pushNotification (
     throw validationResult;
   }
 
-  await this.update(
+  await this.updateMany(
     query,
     { $push: { notifications: newNotification.toObject() } },
-    { multi: true },
   ).exec();
 };
 
@@ -274,13 +273,12 @@ schema.statics.addAchievementUpdate = async function addAchievementUpdate (query
   const validationResult = newNotification.validateSync();
   if (validationResult) throw validationResult;
 
-  await this.update(
+  await this.updateMany(
     query,
     {
       $push: { notifications: newNotification.toObject() },
       $set: { [`achievements.${achievement}`]: true },
     },
-    { multi: true },
   ).exec();
 };
 
