@@ -24,6 +24,10 @@ describe('Task', () => {
             data: {
               preferences: {
                 dateFormat: 'MM/dd/yyyy',
+                tasks: {
+                  activeFilter: {
+                  },
+                },
               },
               ...additionalUserData,
             },
