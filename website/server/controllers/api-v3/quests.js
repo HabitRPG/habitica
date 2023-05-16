@@ -93,7 +93,7 @@ api.inviteToQuest = {
     user.party.quest.RSVPNeeded = false;
     user.party.quest.key = questKey;
 
-    await User.update({
+    await User.updateMany({
       'party._id': group._id,
       _id: { $ne: user._id },
     }, {
@@ -101,7 +101,7 @@ api.inviteToQuest = {
         'party.quest.RSVPNeeded': true,
         'party.quest.key': questKey,
       },
-    }, { multi: true }).exec();
+    }).exec();
 
     _.each(members, member => {
       group.quest.members[member._id] = null;
@@ -409,10 +409,9 @@ api.cancelQuest = {
     const [savedGroup] = await Promise.all([
       group.save(),
       newChatMessage.save(),
-      User.update(
+      User.updateMany(
         { 'party._id': groupId },
         Group.cleanQuestParty(),
-        { multi: true },
       ).exec(),
     ]);
 
@@ -467,12 +466,11 @@ api.abortQuest = {
     });
     await newChatMessage.save();
 
-    const memberUpdates = User.update({
+    const memberUpdates = User.updateMany({
       'party._id': groupId,
-    }, Group.cleanQuestParty(),
-    { multi: true }).exec();
+    }, Group.cleanQuestParty()).exec();
 
-    const questLeaderUpdate = User.update({
+    const questLeaderUpdate = User.updateOne({
       _id: group.quest.leader,
     }, {
       $inc: {
