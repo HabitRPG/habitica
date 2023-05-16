@@ -22,7 +22,9 @@ describe('Task', () => {
         state: {
           user: {
             data: {
-              preferences: {},
+              preferences: {
+                dateFormat: 'MM/dd/yyyy',
+              },
               ...additionalUserData,
             },
           },
