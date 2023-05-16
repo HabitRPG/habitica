@@ -121,7 +121,7 @@ async function checkNewInputForProfanity (user, res, newValue) {
 export async function update (req, res, { isV3 = false }) {
   const { user } = res.locals;
 
-  const promisesForTagsRemoval = [];
+  let promisesForTagsRemoval = [];
 
   if (req.body['party.seeking'] !== undefined && req.body['party.seeking'] !== null) {
     user.invitations.party = {};
