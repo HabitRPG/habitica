@@ -243,8 +243,6 @@ import rogueIcon from '@/assets/svg/rogue.svg';
 import healerIcon from '@/assets/svg/healer.svg';
 import wizardIcon from '@/assets/svg/wizard.svg';
 
-import * as Analytics from '@/libs/analytics';
-
 export default {
   components: {
     Avatar,
@@ -287,12 +285,6 @@ export default {
         section: this.$t('lookingForPartyTitle'),
       });
       this.seekers = await this.$store.dispatch('party:lookingForParty');
-      await Analytics.track({
-        hitType: 'event',
-        eventName: 'View Find Members',
-        eventAction: 'View Find Members',
-        eventCategory: 'behavior',
-      }, { trackOnClient: true });
       this.canLoadMore = this.seekers.length === 30;
       this.loading = false;
     }

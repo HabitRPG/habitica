@@ -840,7 +840,7 @@ api.moveTask = {
     // Cannot send $pull and $push on same field in one single op
     const pullQuery = { $pull: {} };
     pullQuery.$pull[`tasksOrder.${task.type}s`] = task.id;
-    await owner.update(pullQuery).exec();
+    await owner.updateOne(pullQuery).exec();
 
     let position = to;
     if (to === -1) position = order.length - 1; // push to bottom
@@ -850,7 +850,7 @@ api.moveTask = {
       $each: [task._id],
       $position: position,
     };
-    await owner.update(updateQuery).exec();
+    await owner.updateOne(updateQuery).exec();
 
     // Update the user version field manually,
     // it cannot be updated in the pre update hook
@@ -1434,7 +1434,7 @@ api.deleteTask = {
 
       const pullQuery = { $pull: {} };
       pullQuery.$pull[`tasksOrder.${task.type}s`] = task._id;
-      const taskOrderUpdate = (challenge || user).update(pullQuery).exec();
+      const taskOrderUpdate = (challenge || user).updateOne(pullQuery).exec();
 
       // Update the user version field manually,
       // it cannot be updated in the pre update hook
