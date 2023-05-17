@@ -251,7 +251,7 @@
   "fetchRecentMessages": "Fetch Recent Messages",
   "like": "Like",
   "liked": "Liked",
-  "inviteToGuild": "Invite to Guild",
+  "inviteToGuild": "Invite to Group",
   "inviteToParty": "Invite to Party",
   "inviteEmailUsername": "Invite via Email or Username",
   "inviteEmailUsernameInfo": "Invite users via a valid email or username. If an email isn't registered yet, we'll invite them to join.",

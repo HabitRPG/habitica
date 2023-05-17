@@ -130,6 +130,10 @@ api.postChat = {
 
     const group = await Group.getGroup({ user, groupId });
 
+    if (group.type !== 'party' && !(group.purchased && group.purchased.plan.customerId)) {
+      throw new BadRequest(res.t('featureRetired'));
+    }
+
     // Check message for banned slurs
     if (group && group.privacy !== 'private' && textContainsBannedSlur(req.body.message)) {
       const { message } = req.body;

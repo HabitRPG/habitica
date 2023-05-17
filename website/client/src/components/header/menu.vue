@@ -197,48 +197,6 @@
           <li
             class="topbar-item droppable"
             :class="{
-              'active': $route.path.startsWith('/groups')}"
-          >
-            <div
-              class="chevron rotate"
-              @click="dropdownMobile($event)"
-            >
-              <div
-                v-once
-                class="chevron-icon-down"
-                v-html="icons.chevronDown"
-              ></div>
-            </div>
-            <router-link
-              class="nav-link"
-              :to="{name: 'tavern'}"
-            >
-              {{ $t('guilds') }}
-            </router-link>
-            <div class="topbar-dropdown">
-              <router-link
-                class="topbar-dropdown-item dropdown-item"
-                :to="{name: 'tavern'}"
-              >
-                {{ $t('tavern') }}
-              </router-link>
-              <router-link
-                class="topbar-dropdown-item dropdown-item"
-                :to="{name: 'myGuilds'}"
-              >
-                {{ $t('myGuilds') }}
-              </router-link>
-              <router-link
-                class="topbar-dropdown-item dropdown-item"
-                :to="{name: 'guildsDiscovery'}"
-              >
-                {{ $t('guildsDiscovery') }}
-              </router-link>
-            </div>
-          </li>
-          <li
-            class="topbar-item droppable"
-            :class="{
               'active': $route.path.startsWith('/group-plans')}"
           >
             <div
@@ -365,11 +323,6 @@
                 href="https://docs.google.com/forms/d/e/1FAIpQLScPhrwq_7P1C6PTrI3lbvTsvqGyTNnGzp1ugi1Ml0PFee_p5g/viewform?usp=sf_link"
                 target="_blank"
               >{{ $t('requestFeature') }}</a>
-              <a
-                class="topbar-dropdown-item dropdown-item"
-                href="https://habitica.fandom.com/wiki/Contributing_to_Habitica"
-                target="_blank"
-              >{{ $t('contributing') }}</a>
               <a
                 class="topbar-dropdown-item dropdown-item"
                 href="https://habitica.fandom.com/wiki/Habitica_Wiki"
