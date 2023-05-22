@@ -188,7 +188,7 @@ export async function update (req, res, { isV3 = false }) {
         uuid: user._id,
         hitType: 'event',
         category: 'behavior',
-        headers: req.headers,u
+        headers: req.headers,
       });
     } else if (key === 'tags') {
       if (!Array.isArray(val)) throw new BadRequest('Tag list must be an array.');
