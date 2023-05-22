@@ -56,7 +56,7 @@
     "svgo-loader": "^2.2.1",
     "uuid": "^9.0.0",
     "validator": "^13.9.0",
-    "vue": "^2.7.10",
+    "vue": "^3.3.4",
     "vue-cli-plugin-storybook": "2.1.0",
     "vue-mugen-scroll": "^0.2.6",
     "vue-router": "^3.6.5",
