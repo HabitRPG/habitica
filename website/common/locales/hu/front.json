@@ -177,7 +177,7 @@
     "muchmuchMoreDesc": "A teljesen testreszabható feladatlista azt jelenti, hogy a Habiticát a saját céljaidhoz igazíthatod. Ez lehet kreatív projekt, a magadról való gondoskodás hangsúlyozása, vagy másmilyen álom elérése -- csak tőled függ.",
     "levelUpAnywhere": "Lépj szintet bárhol",
     "levelUpAnywhereDesc": "A mobil alkalmazásaink lehetővé teszik hogy könnyen számon tartsd a feladataidat. Érd el a céljaidat bárhol is vagy.",
-    "joinMany": "Csatlakozz a több mint 2.000.000 emberhez, akik a céljaikat szórakozva érik el!",
+    "joinMany": "Csatlakozz a több mint <%= userCountInMillions %> millió emberhez, akik a céljaikat szórakozva érik el!",
     "joinToday": "Csatlakozz a Habiticához ma",
     "signup": "Regisztráció",
     "getStarted": "Get Started!",

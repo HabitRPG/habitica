@@ -77,13 +77,11 @@ spells.wizard = {
     lvl: 12,
     target: 'party',
     notes: t('spellWizardMPHealNotes'),
-    cast (user, target) {
-      each(target, member => {
-        const bonus = statsComputed(user).int;
-        if (user._id !== member._id && member.stats.class !== 'wizard') {
-          member.stats.mp += Math.ceil(diminishingReturns(bonus, 25, 125));
-        }
-      });
+    bulk: true,
+    cast (user, data) {
+      const bonus = statsComputed(user).int;
+      data.query['stats.class'] = { $ne: 'wizard' };
+      data.update = { $inc: { 'stats.mp': Math.ceil(diminishingReturns(bonus, 25, 125)) } };
     },
   },
   earth: { // Earthquake
@@ -92,12 +90,10 @@ spells.wizard = {
     lvl: 13,
     target: 'party',
     notes: t('spellWizardEarthNotes'),
-    cast (user, target) {
-      each(target, member => {
-        const bonus = statsComputed(user).int - user.stats.buffs.int;
-        if (!member.stats.buffs.int) member.stats.buffs.int = 0;
-        member.stats.buffs.int += Math.ceil(diminishingReturns(bonus, 30, 200));
-      });
+    bulk: true,
+    cast (user, data) {
+      const bonus = statsComputed(user).int - user.stats.buffs.int;
+      data.update = { $inc: { 'stats.buffs.int': Math.ceil(diminishingReturns(bonus, 30, 200)) } };
     },
   },
   frost: { // Chilling Frost
@@ -147,12 +143,10 @@ spells.warrior = {
     lvl: 13,
     target: 'party',
     notes: t('spellWarriorValorousPresenceNotes'),
-    cast (user, target) {
-      each(target, member => {
-        const bonus = statsComputed(user).str - user.stats.buffs.str;
-        if (!member.stats.buffs.str) member.stats.buffs.str = 0;
-        member.stats.buffs.str += Math.ceil(diminishingReturns(bonus, 20, 200));
-      });
+    bulk: true,
+    cast (user, data) {
+      const bonus = statsComputed(user).str - user.stats.buffs.str;
+      data.update = { $inc: { 'stats.buffs.str': Math.ceil(diminishingReturns(bonus, 20, 200)) } };
     },
   },
   intimidate: { // Intimidating Gaze
@@ -161,12 +155,10 @@ spells.warrior = {
     lvl: 14,
     target: 'party',
     notes: t('spellWarriorIntimidateNotes'),
-    cast (user, target) {
-      each(target, member => {
-        const bonus = statsComputed(user).con - user.stats.buffs.con;
-        if (!member.stats.buffs.con) member.stats.buffs.con = 0;
-        member.stats.buffs.con += Math.ceil(diminishingReturns(bonus, 24, 200));
-      });
+    bulk: true,
+    cast (user, data) {
+      const bonus = statsComputed(user).con - user.stats.buffs.con;
+      data.update = { $inc: { 'stats.buffs.con': Math.ceil(diminishingReturns(bonus, 24, 200)) } };
     },
   },
 };
@@ -203,12 +195,10 @@ spells.rogue = {
     lvl: 13,
     target: 'party',
     notes: t('spellRogueToolsOfTradeNotes'),
-    cast (user, target) {
-      each(target, member => {
-        const bonus = statsComputed(user).per - user.stats.buffs.per;
-        if (!member.stats.buffs.per) member.stats.buffs.per = 0;
-        member.stats.buffs.per += Math.ceil(diminishingReturns(bonus, 100, 50));
-      });
+    bulk: true,
+    cast (user, data) {
+      const bonus = statsComputed(user).per - user.stats.buffs.per;
+      data.update = { $inc: { 'stats.buffs.per': Math.ceil(diminishingReturns(bonus, 100, 50)) } };
     },
   },
   stealth: { // Stealth
@@ -257,12 +247,10 @@ spells.healer = {
     lvl: 13,
     target: 'party',
     notes: t('spellHealerProtectAuraNotes'),
-    cast (user, target) {
-      each(target, member => {
-        const bonus = statsComputed(user).con - user.stats.buffs.con;
-        if (!member.stats.buffs.con) member.stats.buffs.con = 0;
-        member.stats.buffs.con += Math.ceil(diminishingReturns(bonus, 200, 200));
-      });
+    bulk: true,
+    cast (user, data) {
+      const bonus = statsComputed(user).con - user.stats.buffs.con;
+      data.update = { $inc: { 'stats.buffs.con': Math.ceil(diminishingReturns(bonus, 200, 200)) } };
     },
   },
   healAll: { // Blessing

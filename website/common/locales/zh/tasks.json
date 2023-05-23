@@ -1,6 +1,6 @@
 {
     "clearCompleted": "清除已完成的任务",
-    "clearCompletedDescription": "已完成的待办事项将为普通用户保留30天后删除，订阅用户将会延长至90天后删除。",
+    "clearCompletedDescription": "已完成的待办事项将为普通用户保留30天、为订阅用户保留90天后删除。",
     "clearCompletedConfirm": "你确定要删除已完成的待办事项吗？",
     "addMultipleTip": "<strong>提示：</strong>要添加多个<%= taskType %>，请使用 “Shift + Enter” 分隔每一项，然后按 “Enter” 键",
     "addATask": "新增一个<%= type %>",

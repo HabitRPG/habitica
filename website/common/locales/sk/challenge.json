@@ -103,5 +103,6 @@
     "selectParticipant": "Zvoľ účastníka",
     "wonChallengeDesc": "<%= challengeName %> ťa označil/a za víťaza! Tvoja výhra bude zaznamenaná v Úspechoch.",
     "yourReward": "Tvoja odmena",
-    "filters": "Filtre"
+    "filters": "Filtre",
+    "removeTasks": "Odstrániť úlohy"
 }

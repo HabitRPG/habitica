@@ -202,16 +202,84 @@ describe('POST /user/class/cast/:spellId', () => {
     await group.groupLeader.post('/user/class/cast/mpheal');
 
     promises = [];
+    promises.push(group.groupLeader.sync());
     promises.push(group.members[0].sync());
     promises.push(group.members[1].sync());
     promises.push(group.members[2].sync());
     promises.push(group.members[3].sync());
     await Promise.all(promises);
 
+    expect(group.groupLeader.stats.mp).to.be.equal(170); // spell caster
     expect(group.members[0].stats.mp).to.be.greaterThan(0); // warrior
     expect(group.members[1].stats.mp).to.equal(0); // wizard
     expect(group.members[2].stats.mp).to.be.greaterThan(0); // rogue
     expect(group.members[3].stats.mp).to.be.greaterThan(0); // healer
+  });
+
+  const spellList = [
+    {
+      className: 'warrior',
+      spells: [['smash', 'task'], ['defensiveStance'], ['valorousPresence'], ['intimidate']],
+    },
+    {
+      className: 'wizard',
+      spells: [['fireball', 'task'], ['mpheal'], ['earth'], ['frost']],
+    },
+    {
+      className: 'healer',
+      spells: [['heal'], ['brightness'], ['protectAura'], ['healAll']],
+    },
+    {
+      className: 'rogue',
+      spells: [['pickPocket', 'task'], ['backStab', 'task'], ['toolsOfTrade'], ['stealth']],
+    },
+  ];
+
+  spellList.forEach(async habitClass => {
+    describe(`For a ${habitClass.className}`, async () => {
+      habitClass.spells.forEach(async spell => {
+        describe(`Using ${spell[0]}`, async () => {
+          it('Deducts MP from spell caster', async () => {
+            const { groupLeader } = await createAndPopulateGroup({
+              groupDetails: { type: 'party', privacy: 'private' },
+              members: 3,
+            });
+            await groupLeader.update({
+              'stats.mp': 200, 'stats.class': habitClass.className, 'stats.lvl': 20, 'stats.hp': 40,
+            });
+            // need this for task spells and for stealth
+            const task = await groupLeader.post('/tasks/user', {
+              text: 'test habit',
+              type: 'daily',
+            });
+            if (spell.length === 2 && spell[1] === 'task') {
+              await groupLeader.post(`/user/class/cast/${spell[0]}?targetId=${task._id}`);
+            } else {
+              await groupLeader.post(`/user/class/cast/${spell[0]}`);
+            }
+            await groupLeader.sync();
+            expect(groupLeader.stats.mp).to.be.lessThan(200);
+          });
+          it('works without a party', async () => {
+            await user.update({
+              'stats.mp': 200, 'stats.class': habitClass.className, 'stats.lvl': 20, 'stats.hp': 40,
+            });
+            // need this for task spells and for stealth
+            const task = await user.post('/tasks/user', {
+              text: 'test habit',
+              type: 'daily',
+            });
+            if (spell.length === 2 && spell[1] === 'task') {
+              await user.post(`/user/class/cast/${spell[0]}?targetId=${task._id}`);
+            } else {
+              await user.post(`/user/class/cast/${spell[0]}`);
+            }
+            await user.sync();
+            expect(user.stats.mp).to.be.lessThan(200);
+          });
+        });
+      });
+    });
   });
 
   it('cast bulk', async () => {

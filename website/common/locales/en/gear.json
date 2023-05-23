@@ -694,6 +694,8 @@
   "weaponArmoireMagicSpatulaNotes": "Watch your food fly and flip in the air. You get good luck for the day if it magically flips over three times and then lands back on your spatula. Increases Perception by <%= per %>. Enchanted Armoire: Cooking Implements Set (Item 1 of 2).",
   "weaponArmoireFinelyCutGemText": "Finely Cut Gem",
   "weaponArmoireFinelyCutGemNotes": "What a find! This stunning, precision-cut gem will be the prize of your collection. And it might contain some special magic, just waiting for you to tap into it. Increases Constitution by <%= con %>. Enchanted Armoire: Jeweler Set (Item 4 of 4).",
+  "weaponArmoirePaintbrushText": "Paintbrush",
+  "weaponArmoirePaintbrushNotes": "A jolt of pure inspiration rushes through you when you pick up this brush, allowing you to paint anything you can imagine. Increases Intelligence by <%= int %>. Enchanted Armoire: Painter Set (Item 3 of 4).",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -1263,6 +1265,9 @@
   "armorMystery202210Notes": "Try slithering for a change, you may find it's quite an efficient mode of transportation! Confers no benefit. October 2022 Subscriber Item.",
   "armorMystery202212Text": "Glacial Dress",
   "armorMystery202212Notes": "The universe can be cold, but this charming dress will keep you cozy as you fly. Confers no benefit. December 2022 Subscriber Item.",
+  "armorMystery202304Text": "Tiptop Teapot Armor",
+  "armorMystery202304Notes": "Here is your handle and here is your spout! Confers no benefit. April 2023 Subscriber Item.",
+
   "armorMystery301404Text": "Steampunk Suit",
   "armorMystery301404Notes": "Dapper and dashing, wot! Confers no benefit. February 3015 Subscriber Item.",
   "armorMystery301703Text": "Steampunk Peacock Gown",
@@ -1450,6 +1455,8 @@
   "armorArmoireTeaGownNotes": "You’re resilient, creative, brilliant, and so fashionable! Increases Strength and Intelligence by <%= attrs %> each. Enchanted Armoire: Tea Party Set (Item 1 of 3).",  
   "armorArmoireBasketballUniformText": "Basketball Uniform",
   "armorArmoireBasketballUniformNotes": "Wondering what’s printed on the back of this uniform? It’s your lucky number, of course! Increases Perception by <% per %>. Enchanted Armoire: Old Timey Basketball Set (Item 1 of 2).",
+  "armorArmoirePaintersApronText": "Painter's Apron",
+  "armorArmoirePaintersApronNotes": "This apron can protect your clothes from paint and your creative projects from harsh critiques. Increases Constitution by <%= con %>. Enchanted Armoire: Painter Set (Item 1 of 4).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -2047,6 +2054,9 @@
   "headMystery202301Notes": "Your hearing will be so sharp you'll hear the dawn breaking and the dew sparkling. Confers no benefit. January 2023 Subscriber Item.",  
   "headMystery202303Text": "Mane Character Hair",
   "headMystery202303Notes": "What better way to let everyone know you’re the star of this tale than to have blue and improbably spiky hair? Confers no benefit. March 2023 Subscriber Item.",  
+  "headMystery202304Text": "Tiptop Teapot Lid",
+  "headMystery202304Notes": "Wear this helm for your own safe-tea. Confers no benefit. April 2023 Subscriber Item.",
+
   "headMystery301404Text": "Fancy Top Hat",
   "headMystery301404Notes": "A fancy top hat for the finest of gentlefolk! January 3015 Subscriber Item. Confers no benefit.",
   "headMystery301405Text": "Basic Top Hat",
@@ -2224,6 +2234,10 @@
   "headArmoireFancyPirateHatNotes": "Be protected from the sun and any seagulls flying overhead as you drink tea on the deck of your ship. Increases Perception by <%= per %>. Enchanted Armoire: Fancy Pirate Set (Item 2 of 3).",
   "headArmoireTeaHatText": "Tea Party Hat",
   "headArmoireTeaHatNotes": "This elegant hat is both fancy and functional. Increases Perception by <%= per %>. Enchanted Armoire: Tea Party Set (Item 2 of 3).",
+  "headArmoireBeaniePropellerHatText": "Beanie Propeller Hat",
+  "headArmoireBeaniePropellerHatNotes": "This isn’t the time to keep your feet on the ground! Spin this little propeller and rise as high as your ambitions will take you. Increases all stats by <%= attrs %>. Enchanted Armoire: Independent Item.",
+  "headArmoirePaintersBeretText": "Painter's Beret",
+  "headArmoirePaintersBeretNotes": "See the world with a more artistic eye when you wear this jaunty beret. Increases Perception by <%= per %>. Enchanted Armoire: Painter Set (Item 2 of 4).",  
 
   "offhand": "off-hand item",
   "offHandCapitalized": "Off-Hand Item",
@@ -2638,7 +2652,9 @@
   "shieldArmoireTeaKettleText": "Tea Kettle",
   "shieldArmoireTeaKettleNotes": "All your favorite, flavorful teas can be brewed in this kettle. Are you in the mood for black tea, green tea, oolong, or perhaps an herbal infusion? Increases Constitution by <%= con %>. Enchanted Armoire: Tea Party Set (Item 3 of 3).",
   "shieldArmoireBasketballText": "Basketball",
-  "shieldArmoireBasketballNotes": "Swish! Whenever you shoot this magic basketball, there will be nothing but net. Increases Constitution and Strength by <%= attrs %> each. Enchanted Armoire: Old Timey Basketball Set (Item 2 of 2).",  
+  "shieldArmoireBasketballNotes": "Swish! Whenever you shoot this magic basketball, there will be nothing but net. Increases Constitution and Strength by <%= attrs %> each. Enchanted Armoire: Old Timey Basketball Set (Item 2 of 2).",
+  "shieldArmoirePaintersPaletteText": "Painter's Palette",
+  "shieldArmoirePaintersPaletteNotes": "Paints in all colors of the rainbow are at your disposal. Is it magic that makes them so vivid when you use them, or is it your talent? Increases Strength by <%= str %>. Enchanted Armoire: Painter Set (Item 4 of 4).",
 
   "back": "Back Accessory",
   "backBase0Text": "No Back Accessory",
@@ -2709,6 +2725,8 @@
   "backMystery202301Notes": "These fluffy tails contain ethereal power and also a high level of charm! Confers no benefit. January 2023 Subscriber Item.",
   "backMystery202302Text": "Trickster Tabby Tail",
   "backMystery202302Notes": "Anytime you wear this tail it's sure to be a frabjous day! Callooh! Callay! Confers no benefit. February 2023 Subscriber Item.",
+  "backMystery202305Text": "Eventide Wings",
+  "backMystery202305Notes": "Catch the sparkle of the evening star and soar to strange realms on these wings. Confers no benefit. May 2023 Subscriber Item.",
 
   "backSpecialWonderconRedText": "Mighty Cape",
   "backSpecialWonderconRedNotes": "Swishes with strength and beauty. Confers no benefit. Special Edition Convention Item.",
@@ -2920,6 +2938,8 @@
   "headAccessoryMystery202212Notes": "Magnify your warmth and friendship to new heights with this ornate golden tiara. Confers no benefit. December 2022 Subscriber Item.",
   "headAccessoryMystery202302Text": "Trickster Tabby Ears",
   "headAccessoryMystery202302Notes": "The purr-fect accessory to set off your enchanting grin. Confers no benefit. February 2023 Subscriber Item.",
+  "headAccessoryMystery202305Text": "Eventide Horns",
+  "headAccessoryMystery202305Notes": "These horns glow with reflected moonlight. Confers no benefit. May 2023 Subscriber Item.",
   "headAccessoryMystery301405Text": "Headwear Goggles",
   "headAccessoryMystery301405Notes": "\"Goggles are for your eyes,\" they said. \"Nobody wants goggles that you can only wear on your head,\" they said. Hah! You sure showed them! Confers no benefit. August 3015 Subscriber Item.",
 

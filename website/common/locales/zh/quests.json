@@ -45,7 +45,7 @@
     "startQuest": "开始副本",
     "questInvitationDoesNotExist": "还没有发出任何副本邀请。",
     "questInviteNotFound": "找不到副本邀请。",
-    "guildQuestsNotSupported": "公会不能被邀请参加副本。",
+    "guildQuestsNotSupported": "无法邀请公会参与副本。",
     "questNotOwned": "你还没拥有那个副本卷轴。",
     "questNotGoldPurchasable": "副本“<%= key %>”不能用金币购买。",
     "questNotGemPurchasable": "副本“<%= key %>”不可用宝石进行购买。",

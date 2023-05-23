@@ -171,8 +171,9 @@ export default {
     getPetItemClass () {
       if (this.isOwned() && some(
         this.currentEventList,
-        event => moment().isBetween(event.start, event.end) && event.aprilFools && event.aprilFools === 'virtual',
+        event => moment().isBetween(event.start, event.end) && event.aprilFools && event.aprilFools === 'teaShop',
       )) {
+        if (this.isSpecial()) return `Pet ${this.foolPet(this.item.key)}`;
         const petString = `${this.item.eggKey}-${this.item.key}`;
         return `Pet ${this.foolPet(petString)}`;
       }
