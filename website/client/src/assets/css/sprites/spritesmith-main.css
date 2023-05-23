@@ -138,6 +138,11 @@
   width: 48px;
   height: 52px;
 }
+.achievement-dinosaurDynasty2x {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/achievement-dinosaurDynasty2x.png');
+  width: 68px;
+  height: 68px;
+}
 .achievement-domesticated2x {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/achievement-domesticated2x.png');
   width: 60px;
