@@ -241,7 +241,7 @@
             >
               <div
                 v-b-tooltip.hover.bottom="$t('dueDate')"
-                class="svg-icon calendar"
+                class="svg-icon calendar my-auto"
                 v-html="icons.calendar"
               ></div>
               <span>{{ $t('due') }} {{ formatDueDate() }}</span>
@@ -899,8 +899,7 @@
   }
 </style>
 <!-- eslint-enable max-len -->
-
-
+<!-- eslint-disable-next-line vue/component-tags-order -->
 <script>
 import moment from 'moment';
 import { v4 as uuid } from 'uuid';
@@ -1130,6 +1129,9 @@ export default {
       return this.calculateTimeTillDue().asDays() < 0;
     },
     formatDueDate () {
+      if (moment().isSame(this.task.date, 'day')) {
+        return this.$t('today');
+      }
       return moment(this.task.date).format(this.user.preferences.dateFormat.toUpperCase());
     },
     edit (e, task) {
