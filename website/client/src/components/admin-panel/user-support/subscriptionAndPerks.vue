@@ -17,10 +17,6 @@
           Payment schedule ("basic-earned" is monthly):
           <strong>{{ hero.purchased.plan.planId }}</strong>
         </div>
-        <div v-if="hero.purchased.plan.planId">
-          Payment schedule ("basic-earned" is monthly):
-          <strong>{{ hero.purchased.plan.planId }}</strong>
-        </div>
         <div v-if="hero.purchased.plan.planId == 'group_plan_auto'">
           Group plan ID:
           <strong>{{ hero.purchased.plan.owner }}</strong>
@@ -58,7 +54,7 @@
           Perk offset months:
           <strong>{{ hero.purchased.plan.consecutive.offset }}</strong>
         </div>
-        <div>
+        <div class="form-inline">
           Perk month count:
           <input
               v-model="hero.purchased.plan.perkMonthCount"

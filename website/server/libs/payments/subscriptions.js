@@ -262,6 +262,9 @@ async function createSubscription (data) {
   }
   if (months > 1 || data.gift) {
     await plan.incrementPerkCounterAndReward(recipient._id, months);
+  } else {
+    // Make sure the perkMonthCount field is initialized.
+    await plan.incrementPerkCounterAndReward(recipient._id, 0);
   }
 
   if (recipient !== group) {
