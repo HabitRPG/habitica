@@ -28,6 +28,7 @@ const NewsPage = () => import(/* webpackChunkName: "static" */'@/components/stat
 const OverviewPage = () => import(/* webpackChunkName: "static" */'@/components/static/overview');
 const PressKitPage = () => import(/* webpackChunkName: "static" */'@/components/static/pressKit');
 const PrivacyPage = () => import(/* webpackChunkName: "static" */'@/components/static/privacy');
+const ChatSunsetFaq = () => import(/* webpackChunkName: "static" */'@/components/static/chatSunsetFaq');
 const TermsPage = () => import(/* webpackChunkName: "static" */'@/components/static/terms');
 
 const RegisterLoginReset = () => import(/* webpackChunkName: "auth" */'@/components/auth/registerLoginReset');
@@ -311,6 +312,9 @@ const router = new VueRouter({
         },
         {
           name: 'faq', path: 'faq', component: FAQPage, meta: { requiresLogin: false },
+        },
+        {
+          name: 'chatSunsetFaq', path: 'chat-sunset-faq', component: ChatSunsetFaq, meta: { requiresLogin: false },
         },
         {
           name: 'features', path: 'features', component: FeaturesPage, meta: { requiresLogin: false },
