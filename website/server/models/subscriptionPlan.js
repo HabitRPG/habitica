@@ -59,7 +59,7 @@ schema.methods.incrementPerkCounterAndReward = async function incrementPerkCount
   const isSingleMonthPlan = this.planId === 'basic_earned' || this.planId === 'group_plan_auto' || this.planId === 'group_monthly';
   // if perkMonthCount wasn't used before, initialize it.
   if (this.perkMonthCount === undefined || this.perkMonthCount === -1) {
-    if (isSingleMonthPlan) {
+    if (isSingleMonthPlan && this.consecutive.count > 0) {
       this.perkMonthCount = (this.consecutive.count - 1) % SUBSCRIPTION_BASIC_BLOCK_LENGTH;
     } else {
       this.perkMonthCount = 0;
