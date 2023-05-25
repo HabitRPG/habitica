@@ -13,21 +13,6 @@
       </div>
     </div>
     <div class="challenge-header">
-      <span
-        v-if="canViewFlags"
-        class="flagged"
-      >
-        <span
-          v-if="flaggedNotHidden"
-        >
-          {{ $t("flaggedNotHidden") }}
-        </span>
-        <span
-          v-else-if="flaggedAndHidden"
-        >
-          {{ $t("flaggedAndHidden") }}
-        </span>
-      </span>
       <router-link :to="{ name: 'challenge', params: { challengeId: challenge._id } }">
         <h3
           v-markdown="challenge.name"
@@ -117,21 +102,6 @@
         </div>
       </div>
     </div>
-    <div class="d-flex">
-      <div
-        class="ml-auto d-flex"
-        @click="reportChallenge()"
-      >
-        <div
-          v-once
-          class="svg-icon"
-          v-html="icons.reportIcon"
-        ></div>
-        <div v-once>
-          {{ $t('report') }}
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -153,9 +123,6 @@
     line-height: 1.4;
     letter-spacing: normal;
     color: $gray-10;
-  }
-  .flagged {
-    color: $red-10;
   }
 </style>
 
@@ -399,22 +366,6 @@
         }
       }
     }
-    .d-flex {
-      display: inline-block;
-      color: $gray-200;
-      margin-right: 1em;
-      font-size: 12px;
-
-      :hover {
-        cursor: pointer;
-      }
-
-      .svg-icon {
-        color: $gray-300;
-        margin-right: .2em;
-        width: 16px;
-      }
-    }
   }
 </style>
 
@@ -434,7 +385,6 @@ import todoIcon from '@/assets/svg/todo.svg';
 import dailyIcon from '@/assets/svg/daily.svg';
 import rewardIcon from '@/assets/svg/reward.svg';
 import officialIcon from '@/assets/svg/official.svg';
-import reportIcon from '@/assets/svg/report.svg';
 
 export default {
   components: {
@@ -460,7 +410,6 @@ export default {
         memberIcon,
         calendarIcon,
         officialIcon,
-        reportIcon,
       }),
     };
   },
@@ -500,26 +449,10 @@ export default {
         },
       ];
     },
-    canViewFlags () {
-      const isAdmin = Boolean(this.user.contributor.admin);
-      if (isAdmin && this.challenge.flagCount > 0) return true;
-      return false;
-    },
-    flaggedNotHidden () {
-      return this.challenge.flagCount === 1;
-    },
-    flaggedAndHidden () {
-      return this.challenge.flagCount > 1;
-    },
   },
   methods: {
     isTavern (group) {
       return group._id === TAVERN_ID;
-    },
-    reportChallenge () {
-      this.$root.$emit('habitica::report-challenge', {
-        challenge: this.challenge,
-      });
     },
   },
 };
