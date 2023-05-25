@@ -194,8 +194,8 @@
     "subscriptionBenefit5": "Receive the Royal Purple Jackalope pet when you become a new subscriber.",
     "subscriptionBenefit6": "Earn Mystic Hourglasses to purchase items in the Time Traveler’s Shop!",
     "purchaseAll": "Purchase Set",
-    "gemsRemaining": "Gems remaining",
-    "notEnoughGemsToBuy": "You are unable to buy that amount of Gems",
+    "gemsRemaining": "remaining",
+    "notEnoughGemsToBuy": "No more Gems available for purchase this month. More will become available within the first 3 days of each month.",
     "subscribersReceiveBenefits": "Subscribers receive these useful benefits!",
     "monthlyMysteryItems": "Monthly Mystery Items",
     "doubleDropCap": "Double the Drops",
@@ -217,5 +217,6 @@
     "haveNonRecurringSub": "You have a non-recurring gift subscription.",
     "switchToRecurring": "Switch to a recurring subscription?",
     "continueGiftSubBenefits": "Want to continue your benefits? You can start a new subscription before your gifted one runs out to keep your benefits active.",
-    "subscriptionCreditConversion": "Starting a new subscription will convert any remaining months to credit that will be used after the recurring subscription is canceled."
+    "subscriptionCreditConversion": "Starting a new subscription will convert any remaining months to credit that will be used after the recurring subscription is canceled.",
+    "monthlyGems": "Monthly Gems:"
 }
