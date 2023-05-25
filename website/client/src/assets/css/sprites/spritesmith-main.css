@@ -138,6 +138,11 @@
   width: 48px;
   height: 52px;
 }
+.achievement-dinosaurDynasty2x {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/achievement-dinosaurDynasty2x.png');
+  width: 68px;
+  height: 68px;
+}
 .achievement-domesticated2x {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/achievement-domesticated2x.png');
   width: 60px;
@@ -28004,6 +28009,36 @@
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_set_mystery_202305.png');
   width: 68px;
   height: 68px;
+}
+.broad_armor_mystery_202306 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_mystery_202306.png');
+  width: 114px;
+  height: 90px;
+}
+.shop_armor_mystery_202306 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_armor_mystery_202306.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_set_mystery_202306 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_set_mystery_202306.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_weapon_mystery_202306 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_mystery_202306.png');
+  width: 68px;
+  height: 68px;
+}
+.slim_armor_mystery_202306 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_mystery_202306.png');
+  width: 114px;
+  height: 90px;
+}
+.weapon_mystery_202306 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_mystery_202306.png');
+  width: 114px;
+  height: 90px;
 }
 .broad_armor_mystery_301404 {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_mystery_301404.png');
