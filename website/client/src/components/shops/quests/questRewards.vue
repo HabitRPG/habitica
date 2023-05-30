@@ -177,9 +177,6 @@ export default {
   @import '~@/assets/scss/colors.scss';
 
   .quest-rewards {
-    margin-left: -1rem;
-    margin-right: -1rem;
-
     background-color: $gray-700;
   }
 
