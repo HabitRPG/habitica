@@ -133,7 +133,7 @@ export default {
       return `${base}${modifier} scroll-${this.scrollY}`;
     },
     notificationBannerHeight () {
-      let scrollPosToCheck = 56;
+      let scrollPosToCheck = 104;
 
       if (this.sleepingBannerHeight) {
         scrollPosToCheck += this.sleepingBannerHeight;
