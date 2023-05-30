@@ -21,6 +21,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         node-env: 'test'
+        package-install-cmd: 'ci --ignore-scripts'
+        install-website-package: 'true'
+        website-package-install-cmd: 'ci --ignore-scripts'
 
     - run: npm run lint-no-fix
   apidoc:

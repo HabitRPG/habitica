@@ -8,6 +8,18 @@ inputs:
   node-env:
     description: 'Node-Env for CI'
     required: true
+  package-install-cmd:
+    description: 'CI or install or custom to skip post install and unneeded builds'
+    required: false
+    default: 'ci'
+  install-website-package:
+    description: 'if package-install-cmd skipped post install, you can trigger an installation of website'
+    required: false
+    default: 'false'
+  website-package-install-cmd:
+    description: 'CI or install or custom to skip post install and unneeded builds'
+    required: false
+    default: 'ci'
 
 runs:
   using: composite
@@ -32,7 +44,17 @@ runs:
       if: steps.cache-package.outputs.cache-hit != 'true'
       shell: bash
       run: |
-        npm ci
+        npm ${{ inputs.package-install-cmd }}
+      env:
+        CI: true
+        NODE_ENV: ${{ inputs.node-env }}
+
+    - name: npm install website
+      if: ${{ steps.cache-package.outputs.cache-hit != 'true' && inputs.install-website-package != 'false' }}
+      shell: bash
+      working-directory: ./website/client
+      run: |
+        npm ${{ website-package-install-cmd }}
       env:
         CI: true
         NODE_ENV: ${{ inputs.node-env }}
