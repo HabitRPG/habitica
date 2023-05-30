@@ -88,13 +88,17 @@ export default {
       user: 'user.data',
     }),
     cleanedInputValue () {
-      // remove the @ from the value
-      return this.inputValue.replace('@', '');
+      return this.inputValue.startsWith('@')
+        // remove the @ from the value, only if its starting with
+        ? this.inputValue.replace('@', '')
+        // not removing it creates an error that is displayed
+        : this.inputValue;
     },
     usernameValid () {
       if (this.cleanedInputValue.length <= 1) {
         return false;
       }
+
       return this.usernameIssues.length === 0;
     },
 
@@ -134,6 +138,8 @@ export default {
       this.user.auth.local.username = newUsername;
       // this.localAuth.username = this.user.auth.local.username;
       this.user.flags.verifiedUsername = true;
+
+      this.closeModal();
     },
     valuesChanged () {
       this.inputChanged = true;
