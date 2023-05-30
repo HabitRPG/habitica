@@ -138,10 +138,11 @@ import { mapState } from '@/libs/store';
 import checkIcon from '@/assets/svg/check.svg';
 import SaveCancelButtons from '../components/saveCancelButtons.vue';
 import { InlineSettingMixin } from '../components/inlineSettingMixin';
+import NotificationMixins from '@/mixins/notifications';
 
 export default {
   components: { SaveCancelButtons },
-  mixins: [InlineSettingMixin],
+  mixins: [InlineSettingMixin, NotificationMixins],
   data () {
     return {
       temporaryDisplayName: '',
@@ -198,7 +199,7 @@ export default {
     },
     async changeDisplayName (newName) {
       await axios.put('/api/v4/user/', { 'profile.name': newName });
-      window.alert(this.$t('displayNameSuccess')); // eslint-disable-line no-alert
+      this.text(this.$t('displayNameSuccess'));
       this.user.profile.name = newName;
       this.temporaryDisplayName = newName;
 

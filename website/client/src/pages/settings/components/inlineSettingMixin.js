@@ -20,6 +20,7 @@ export const sharedInlineSettingStore = reactive({
 export const InlineSettingMixin = {
   data () {
     return {
+      // todo before merge use mixinData property
       modalVisible: false,
       sharedState: sharedInlineSettingStore,
     };
