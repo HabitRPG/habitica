@@ -54,7 +54,7 @@ runs:
       shell: bash
       working-directory: ./website/client
       run: |
-        npm ${{ website-package-install-cmd }}
+        npm ${{ inputs.website-package-install-cmd }}
       env:
         CI: true
         NODE_ENV: ${{ inputs.node-env }}
