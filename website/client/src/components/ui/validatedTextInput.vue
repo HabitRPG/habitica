@@ -1,26 +1,31 @@
 <template>
   <div>
-    <div
-      v-if="settingsLabel"
-      class="settings-label"
-    >
-      {{ $t(settingsLabel) }}
+    <div class="label-line">
+      <div
+        v-if="settingsLabel"
+        class="settings-label"
+      >
+        {{ $t(settingsLabel) }}
+      </div>
+
+      <slot name="top-right"></slot>
     </div>
+
     <div class="form-group">
       <div
         class="input-group"
         :class="{
-          'is-valid': canChangeClasses && isValid,
-          'is-invalid': canChangeClasses && !isValid
+          'is-valid': validStyle,
+          'is-invalid': invalidStyle
         }"
       >
         <input
           :value="value"
           class="form-control"
-          type="text"
+          :type="inputType"
           :class="{
-            'is-invalid input-invalid': canChangeClasses && !isValid,
-            'is-valid input-valid': canChangeClasses && isValid
+            'is-invalid input-invalid': invalidStyle,
+            'is-valid input-valid': validStyle
           }"
           :readonly="readonly"
           :aria-readonly="readonly"
@@ -58,6 +63,14 @@ export default {
       type: Boolean,
       default: false,
     },
+    onlyShowInvalidState: {
+      type: Boolean,
+      default: false,
+    },
+    inputType: {
+      type: String,
+      default: 'text',
+    },
     readonly: {
       type: Boolean,
       default: false,
@@ -81,6 +94,12 @@ export default {
   computed: {
     canChangeClasses () {
       return !this.readonly && this.wasChanged;
+    },
+    validStyle () {
+      return this.canChangeClasses && this.isValid && !this.onlyShowInvalidState;
+    },
+    invalidStyle () {
+      return this.canChangeClasses && !this.isValid;
     },
   },
   methods: {

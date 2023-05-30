@@ -1,11 +1,19 @@
 <template>
   <div class="input-area">
-    <div class="label-line">
-      <div class="settings-label">
-        {{ $t(customLabel ?? "password") }}
-      </div>
+    <validated-text-input
+      v-model="currentPassword"
+      :settings-label="customLabel ?? 'password'"
+
+      :placeholder="$t(customLabel ?? 'password')"
+      :is-valid="isValid"
+      :invalid-issues="invalidIssues"
+      :only-show-invalid-state="true"
+      input-type="password"
+      @update:value="$emit('passwordValue', currentPassword)"
+    >
       <div
         v-if="showForgetPassword"
+        slot="top-right"
         class="forgot-password"
       >
         <router-link
@@ -15,28 +23,18 @@
           {{ $t('forgotPassword') }}
         </router-link>
       </div>
-    </div>
-    <div class="form-group">
-      <div
-        class="input-group"
-      >
-        <input
-          v-model="currentPassword"
-          class="form-control"
-          :placeholder="$t(customLabel ?? 'password')"
-          type="password"
-          @keyup="$emit('passwordValue', currentPassword)"
-        >
-      </div>
-    </div>
+    </validated-text-input>
   </div>
 </template>
 
 <script>
 
+import ValidatedTextInput from '@/components/ui/validatedTextInput.vue';
+
 export default {
   name: 'CurrentPasswordInput',
-  props: ['customLabel', 'showForgetPassword'],
+  components: { ValidatedTextInput },
+  props: ['customLabel', 'showForgetPassword', 'isValid', 'invalidIssues'],
   data () {
     return {
       currentPassword: '',
@@ -46,14 +44,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .label-line {
-    display: flex;
-  }
-
-  .settings-label {
-    flex: 1;
-  }
-
   .forgot-password {
     a {
       font-size: 12px;
