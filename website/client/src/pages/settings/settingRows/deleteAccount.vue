@@ -40,6 +40,8 @@
         <current-password-input
           v-if="hasPassword"
           :show-forget-password="true"
+          :is-valid="mixinData.passwordIssues.length === 0"
+          :invalid-issues="mixinData.passwordIssues"
           @passwordValue="passwordValue = $event"
         />
 
@@ -83,7 +85,7 @@
 
         <div class="input-area">
           <save-cancel-buttons
-            :disable-save="!passwordValue"
+            :disable-save="!enableDelete"
             primary-button-color="btn-danger"
             primary-button-label="deleteAccount"
             @saveClicked="deleteAccount()"
@@ -110,11 +112,12 @@ import { mapState } from '@/libs/store';
 import { InlineSettingMixin } from '../components/inlineSettingMixin';
 import SaveCancelButtons from '../components/saveCancelButtons.vue';
 import CurrentPasswordInput from '../components/currentPasswordInput.vue';
+import { PasswordInputChecksMixin } from '@/mixins/passwordInputChecks';
 
 
 export default {
   components: { CurrentPasswordInput, SaveCancelButtons },
-  mixins: [InlineSettingMixin],
+  mixins: [InlineSettingMixin, PasswordInputChecksMixin],
   data () {
     return {
       passwordValue: '',
@@ -128,17 +131,22 @@ export default {
     hasPassword () {
       return this.user.auth.local.has_password;
     },
+    enableDelete () {
+      return this.hasPassword ? Boolean(this.passwordValue) : this.passwordValue === 'DELETE';
+    },
   },
   methods: {
     async deleteAccount () {
-      await axios.delete('/api/v4/user', {
-        data: {
-          password: this.passwordValue,
-          feedback: this.feedback,
-        },
+      await this.passwordInputCheckMixinTryCall(async () => {
+        await axios.delete('/api/v4/user', {
+          data: {
+            password: this.passwordValue,
+            feedback: this.feedback,
+          },
+        });
+        localStorage.clear();
+        window.location.href = '/static/home';
       });
-      localStorage.clear();
-      window.location.href = '/static/home';
     },
   },
 };

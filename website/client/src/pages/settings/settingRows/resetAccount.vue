@@ -66,6 +66,8 @@
         <div class="input-area">
           <current-password-input
             :show-forget-password="true"
+            :is-valid="mixinData.passwordIssues.length === 0"
+            :invalid-issues="mixinData.passwordIssues"
             @passwordValue="passwordValue = $event"
           />
           <save-cancel-buttons
@@ -102,11 +104,12 @@ import { mapState } from '@/libs/store';
 import { InlineSettingMixin } from '../components/inlineSettingMixin';
 import SaveCancelButtons from '../components/saveCancelButtons.vue';
 import CurrentPasswordInput from '../components/currentPasswordInput.vue';
+import { PasswordInputChecksMixin } from '@/mixins/passwordInputChecks';
 
 
 export default {
   components: { CurrentPasswordInput, SaveCancelButtons },
-  mixins: [InlineSettingMixin],
+  mixins: [InlineSettingMixin, PasswordInputChecksMixin],
   data () {
     return {
       passwordValue: '',
@@ -119,11 +122,13 @@ export default {
   },
   methods: {
     async reset () {
-      await axios.post('/api/v4/user/reset', {
-        password: this.passwordValue,
+      await this.passwordInputCheckMixinTryCall(async () => {
+        await axios.post('/api/v4/user/reset', {
+          password: this.passwordValue,
+        });
+        this.$router.push('/');
+        setTimeout(() => window.location.reload(true), 100);
       });
-      this.$router.push('/');
-      setTimeout(() => window.location.reload(true), 100);
     },
   },
 };

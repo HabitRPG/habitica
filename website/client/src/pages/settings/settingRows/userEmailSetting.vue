@@ -47,8 +47,8 @@
 
           <current-password-input
             :show-forget-password="true"
-            :is-valid="passwordIssues.length === 0"
-            :invalid-issues="passwordIssues"
+            :is-valid="mixinData.passwordIssues.length === 0"
+            :invalid-issues="mixinData.passwordIssues"
             @passwordValue="updates.password = $event"
           />
 
@@ -76,10 +76,11 @@ import { InlineSettingMixin } from '../components/inlineSettingMixin';
 import CurrentPasswordInput from '../components/currentPasswordInput.vue';
 import ValidatedTextInput from '@/components/ui/validatedTextInput.vue';
 import NotificationMixins from '@/mixins/notifications';
+import { PasswordInputChecksMixin } from '@/mixins/passwordInputChecks';
 
 export default {
   components: { ValidatedTextInput, CurrentPasswordInput, SaveCancelButtons },
-  mixins: [InlineSettingMixin, NotificationMixins],
+  mixins: [InlineSettingMixin, NotificationMixins, PasswordInputChecksMixin],
   data () {
     return {
       updates: {
@@ -87,7 +88,6 @@ export default {
         password: '',
       },
       emailChanged: false,
-      passwordIssues: [],
     };
   },
   computed: {
@@ -117,22 +117,12 @@ export default {
       this.updates.newEmail = this.user.auth.local.email;
     },
     async changeEmail () {
-      try {
-        this.passwordIssues.length = 0;
+      await this.passwordInputCheckMixinTryCall(async () => {
         await axios.put('/api/v4/user/auth/update-email', this.updates);
-
-        this.passwordIssues.length = 0;
-
         this.user.auth.local.email = this.updates.newEmail;
         this.text(this.$t('emailSuccess'));
         this.closeModal();
-      } catch (axiosError) {
-        const message = axiosError.response?.data?.message;
-
-        if (message === this.$t('wrongPassword')) {
-          this.passwordIssues.push(message);
-        }
-      }
+      });
     },
   },
 };
