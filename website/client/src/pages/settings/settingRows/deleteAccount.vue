@@ -40,8 +40,8 @@
         <current-password-input
           v-if="hasPassword"
           :show-forget-password="true"
-          :is-valid="mixinData.passwordIssues.length === 0"
-          :invalid-issues="mixinData.passwordIssues"
+          :is-valid="mixinData.currentPasswordIssues.length === 0"
+          :invalid-issues="mixinData.currentPasswordIssues"
           @passwordValue="passwordValue = $event"
         />
 

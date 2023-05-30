@@ -3,8 +3,8 @@
  *
  * <current-password-input
  *   :show-forget-password="true"
- *   :is-valid="mixinData.passwordIssues.length === 0"
- *   :invalid-issues="mixinData.passwordIssues"
+ *   :is-valid="mixinData.currentPasswordIssues.length === 0"
+ *   :invalid-issues="mixinData.currentPasswordIssues"
  *   @passwordValue="updates.password = $event"
  *   />
  */
@@ -13,13 +13,15 @@ export const PasswordInputChecksMixin = {
   data () {
     return {
       mixinData: {
-        passwordIssues: [],
+        currentPasswordIssues: [],
+        newPasswordIssues: [],
       },
     };
   },
   methods: {
     clearPasswordIssues () {
-      this.mixinData.passwordIssues.length = 0;
+      this.mixinData.currentPasswordIssues.length = 0;
+      this.mixinData.newPasswordIssues.length = 0;
     },
     /**
      * @param {() => Promise<void>} promiseCall
@@ -34,8 +36,10 @@ export const PasswordInputChecksMixin = {
       } catch (axiosError) {
         const message = axiosError.response?.data?.message;
 
-        if (message === this.$t('wrongPassword')) {
-          this.mixinData.passwordIssues.push(message);
+        if ([this.$t('wrongPassword'), this.$t('missingPassword')].includes(message)) {
+          this.mixinData.currentPasswordIssues.push(message);
+        } else if ([this.$t('missingNewPassword'), this.$t('passwordIssueLength'), this.$t('passwordConfirmationMatch')].includes(message)) {
+          this.mixinData.newPasswordIssues.push(message);
         }
       }
     },

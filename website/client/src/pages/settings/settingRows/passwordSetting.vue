@@ -41,14 +41,21 @@
           v-if="hasPassword"
           :show-forget-password="true"
           custom-label="currentPass"
+          :is-valid="mixinData.currentPasswordIssues.length === 0"
+          :invalid-issues="mixinData.currentPasswordIssues"
+
           @passwordValue="passwordUpdates.password = $event"
         />
         <current-password-input
           custom-label="newPass"
+          :is-valid="mixinData.newPasswordIssues.length === 0"
+          :invalid-issues="mixinData.newPasswordIssues"
           @passwordValue="passwordUpdates.newPassword = $event"
         />
         <current-password-input
           custom-label="confirmPass"
+          :is-valid="mixinData.newPasswordIssues.length === 0"
+          :invalid-issues="mixinData.newPasswordIssues"
           @passwordValue="passwordUpdates.confirmPassword = $event"
         />
 
@@ -117,10 +124,11 @@ import SaveCancelButtons from '../components/saveCancelButtons.vue';
 import { InlineSettingMixin } from '../components/inlineSettingMixin';
 import CurrentPasswordInput from '../components/currentPasswordInput.vue';
 import { mapState } from '@/libs/store';
+import { PasswordInputChecksMixin } from '@/mixins/passwordInputChecks';
 
 export default {
   components: { CurrentPasswordInput, SaveCancelButtons },
-  mixins: [InlineSettingMixin],
+  mixins: [InlineSettingMixin, PasswordInputChecksMixin],
   data () {
     return {
       passwordUpdates: {
@@ -147,27 +155,31 @@ export default {
   },
   methods: {
     async changePassword (updates) {
-      await axios.put('/api/v4/user/auth/update-password', updates);
+      await this.passwordInputCheckMixinTryCall(async () => {
+        await axios.put('/api/v4/user/auth/update-password', updates);
 
-      this.passwordUpdates = {};
-      this.$store.dispatch('snackbars:add', {
-        title: 'Habitica',
-        text: this.$t('passwordSuccess'),
-        type: 'success',
-        timeout: true,
+        this.passwordUpdates = {};
+        this.$store.dispatch('snackbars:add', {
+          title: 'Habitica',
+          text: this.$t('passwordSuccess'),
+          type: 'success',
+          timeout: true,
+        });
       });
     },
 
     async addLocalAuth () {
-      const localAuthData = {
-        password: this.passwordUpdates.newPassword,
-        confirmPassword: this.passwordUpdates.confirmPassword,
-        email: this.user.auth.local.email,
-        username: this.user.auth.local.username,
-      };
+      await this.passwordInputCheckMixinTryCall(async () => {
+        const localAuthData = {
+          password: this.passwordUpdates.newPassword,
+          confirmPassword: this.passwordUpdates.confirmPassword,
+          email: this.user.auth.local.email,
+          username: this.user.auth.local.username,
+        };
 
-      await axios.post('/api/v4/user/auth/local/register', localAuthData);
-      window.location.reload();
+        await axios.post('/api/v4/user/auth/local/register', localAuthData);
+        window.location.reload();
+      });
     },
 
   },
