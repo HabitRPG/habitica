@@ -154,6 +154,7 @@ export const UserSchema = new Schema({
     boneToPick: Boolean,
     polarPro: Boolean,
     plantParent: Boolean,
+    dinosaurDynasty: Boolean,
     // Onboarding Guide
     createdTask: Boolean,
     completedTask: Boolean,
@@ -534,7 +535,7 @@ export const UserSchema = new Schema({
     stickyHeader: { $type: Boolean, default: true },
     disableClasses: { $type: Boolean, default: false },
     newTaskEdit: { $type: Boolean, default: false },
-    // deprecated, unused
+    // not used anymore, now the current filter is saved in preferences.activeFilter
     dailyDueDefaultView: { $type: Boolean, default: false },
     // deprecated, unused
     advancedCollapsed: { $type: Boolean, default: false },
@@ -598,6 +599,12 @@ export const UserSchema = new Schema({
       mirrorGroupTasks: [
         { $type: String, validate: [v => validator.isUUID(v), 'Invalid group UUID.'], ref: 'Group' },
       ],
+      activeFilter: {
+        habit: { $type: String, default: 'all' },
+        daily: { $type: String, default: 'all' },
+        todo: { $type: String, default: 'remaining' },
+        reward: { $type: String, default: 'all' },
+      },
     },
     improvementCategories: {
       $type: Array,

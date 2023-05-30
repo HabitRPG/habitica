@@ -521,7 +521,12 @@ export default {
     // Get Category Filter Labels
     this.typeFilters = getFilterLabels(this.type, this.challenge);
     // Set default filter for task column
-    this.activateFilter(this.type);
+
+    if (this.challenge) {
+      this.activateFilter(this.type);
+    } else {
+      this.activateFilter(this.type, this.user.preferences.tasks.activeFilter[this.type], true);
+    }
   },
   mounted () {
     this.setColumnBackgroundVisibility();
@@ -661,7 +666,7 @@ export default {
     taskSummary (task) {
       this.$emit('taskSummary', task);
     },
-    activateFilter (type, filter = '') {
+    activateFilter (type, filter = '', skipSave = false) {
       // Needs a separate API call as this data may not reside in store
       if (type === 'todo' && filter === 'complete2') {
         if (this.group && this.group._id) {
@@ -684,6 +689,11 @@ export default {
       }
 
       this.activeFilter = getActiveFilter(type, filter, this.challenge);
+
+      if (!skipSave && !this.challenge) {
+        const propertyToUpdate = `preferences.tasks.activeFilter.${type}`;
+        this.$store.dispatch('user:set', { [propertyToUpdate]: filter });
+      }
     },
     setColumnBackgroundVisibility () {
       this.$nextTick(() => {
