@@ -126,7 +126,7 @@
 
           <!-- the word "total" -->
           <div class="buy-gem-total">
-            {{ $t('sendGiftTotal') }}
+            {{ $t('sendTotal') }}
           </div>
 
           <!-- the actual dollar amount -->

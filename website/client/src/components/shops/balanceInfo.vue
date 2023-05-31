@@ -22,10 +22,11 @@
   @import '~@/assets/scss/colors.scss';
 
 span {
-  font-weight: normal;
-  font-size: 12px;
+  font-size: 0.75rem;
   line-height: 1.33;
-  color: $gray-200;
+  color: $gray-100;
+  margin-bottom: 16px;
+  margin-top: -4px;
 
   display: inline-block;
 }
