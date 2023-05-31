@@ -1,153 +1,155 @@
 <template>
-  <div class="col-12 col-sm-8 clearfix standard-page mx-auto">
-    <div class="col-12 col-sm-8 clearfix standard-page">
-      <div>
-        <h1 v-once>
-          {{ $t('sunsetFaqTitle') }}
-        </h1>
-      </div>
-      <div class="section">
-        <div class>
-          <p v-html="$t('sunsetFaqPara1')"></p>  <!-- there's html in here -->
-          <p>{{ $t('sunsetFaqPara2') }}</p>
-          <p>{{ $t('sunsetFaqPara3') }}</p>
-          <p>{{ $t('sunsetFaqPara4') }}</p>
-          <p>{{ $t('sunsetFaqPara5') }}</p>
+  <div class="col-12 col-sm-8 container-fluid d-flex">
+    <div class="col-12 col-sm-8">
+      <div class="row">
+        <div class="title-details">
+          <h1 v-once>
+            {{ $t('sunsetFaqTitle') }}
+          </h1>
         </div>
+        <div class="section">
+          <div class>
+            <p v-html="$t('sunsetFaqPara1')"></p>  <!-- there's html in here -->
+            <p>{{ $t('sunsetFaqPara2') }}</p>
+            <p>{{ $t('sunsetFaqPara3') }}</p>
+            <p>{{ $t('sunsetFaqPara4') }}</p>
+            <p>{{ $t('sunsetFaqPara5') }}</p>
+          </div>
 
-        <!-- Which services are ending -->
-        <div>
-          <h3 class="headings">
-            {{ $t('sunsetFaqHeader1') }}
-          </h3>
-        </div>
-        <div>
-          <p v-html="$t('sunsetFaqPara6')"></p>
-        </div>
+          <!-- Which services are ending -->
+          <div>
+            <h3 class="headings">
+              {{ $t('sunsetFaqHeader1') }}
+            </h3>
+          </div>
+          <div>
+            <p v-html="$t('sunsetFaqPara6')"></p>
+          </div>
 
-        <!-- Why are tavern and guild ending? -->
-        <div>
-          <h3 class="headings">
-            {{ $t('sunsetFaqHeader2') }}
-          </h3>
-        </div>
-        <div>
-          <ul>
-            <li>{{ $t('sunsetFaqList1') }}</li>
-            <li>{{ $t('sunsetFaqList2') }}</li>
-            <li>{{ $t('sunsetFaqList3') }}</li>
-          </ul>
-        </div>
+          <!-- Why are tavern and guild ending? -->
+          <div>
+            <h3 class="headings">
+              {{ $t('sunsetFaqHeader2') }}
+            </h3>
+          </div>
+          <div>
+            <ul>
+              <li>{{ $t('sunsetFaqList1') }}</li>
+              <li>{{ $t('sunsetFaqList2') }}</li>
+              <li>{{ $t('sunsetFaqList3') }}</li>
+            </ul>
+          </div>
 
-        <!-- Can I still talk to my party/group members? -->
-        <div>
-          <h3 class="headings">
-            {{ $t('sunsetFaqHeader3') }}
-          </h3>
-        </div>
-        <div>
-          <p>{{ $t('sunsetFaqPara7') }}</p>
-        </div>
+          <!-- Can I still talk to my party/group members? -->
+          <div>
+            <h3 class="headings">
+              {{ $t('sunsetFaqHeader3') }}
+            </h3>
+          </div>
+          <div>
+            <p>{{ $t('sunsetFaqPara7') }}</p>
+          </div>
 
-        <!-- Pausing dailies -->
-        <div>
-          <h3 class="headings">
-            {{ $t('sunsetFaqHeader4') }}
-          </h3>
-        </div>
-        <div>
-          <p>{{ $t('sunsetFaqPara8') }}</p>
-        </div>
+          <!-- Pausing dailies -->
+          <div>
+            <h3 class="headings">
+              {{ $t('sunsetFaqHeader4') }}
+            </h3>
+          </div>
+          <div>
+            <p>{{ $t('sunsetFaqPara8') }}</p>
+          </div>
 
-        <!-- Accessing group plans -->
-        <div>
-          <h3 class="headings">
-            {{ $t('sunsetFaqHeader5') }}
-          </h3>
-        </div>
-        <div>
-          <p v-html="$t('sunsetFaqPara9')"></p> <!-- there's html in here -->
-        </div>
+          <!-- Accessing group plans -->
+          <div>
+            <h3 class="headings">
+              {{ $t('sunsetFaqHeader5') }}
+            </h3>
+          </div>
+          <div>
+            <p v-html="$t('sunsetFaqPara9')"></p> <!-- there's html in here -->
+          </div>
 
-        <!-- Can I access guild chats? -->
-        <div>
-          <h3 class="headings">
-            {{ $t('sunsetFaqHeader6') }}
-          </h3>
-        </div>
-        <div>
-          <p>{{ $t('sunsetFaqPara10') }}</p>
-        </div>
+          <!-- Can I access guild chats? -->
+          <div>
+            <h3 class="headings">
+              {{ $t('sunsetFaqHeader6') }}
+            </h3>
+          </div>
+          <div>
+            <p>{{ $t('sunsetFaqPara10') }}</p>
+          </div>
 
-        <!-- How can players find groups? -->
-        <div>
-          <h3 class="headings">
-            {{ $t('sunsetFaqHeader7') }}
-          </h3>
-        </div>
-        <div>
-          <p>{{ $t('sunsetFaqPara11') }}</p>
-        </div>
+          <!-- How can players find groups? -->
+          <div>
+            <h3 class="headings">
+              {{ $t('sunsetFaqHeader7') }}
+            </h3>
+          </div>
+          <div>
+            <p>{{ $t('sunsetFaqPara11') }}</p>
+          </div>
 
-        <!-- What about contributors? -->
-        <div>
-          <h3 class="headings">
-            {{ $t('sunsetFaqHeader8') }}
-          </h3>
-        </div>
-        <div>
-          <p v-html="$t('sunsetFaqPara12')"></p> <!-- there's html in here -->
-          <p v-html="$t('sunsetFaqPara13')"></p> <!-- there's html in here -->
-          <p v-html="$t('sunsetFaqPara14')"></p> <!-- there's html in here -->
-          <p v-html="$t('sunsetFaqPara15')"></p> <!-- there's html in here -->
-          <p v-html="$t('sunsetFaqPara16')"></p> <!-- there's html in here -->
-          <p v-html="$t('sunsetFaqPara17')"></p> <!-- there's html in here -->
-          <p v-html="$t('sunsetFaqPara18')"></p> <!-- there's html in here -->
-          <p v-html="$t('sunsetFaqPara19')"></p> <!-- there's html in here -->
-        </div>
+          <!-- What about contributors? -->
+          <div>
+            <h3 class="headings">
+              {{ $t('sunsetFaqHeader8') }}
+            </h3>
+          </div>
+          <div>
+            <p v-html="$t('sunsetFaqPara12')"></p> <!-- there's html in here -->
+            <p v-html="$t('sunsetFaqPara13')"></p> <!-- there's html in here -->
+            <p v-html="$t('sunsetFaqPara14')"></p> <!-- there's html in here -->
+            <p v-html="$t('sunsetFaqPara15')"></p> <!-- there's html in here -->
+            <p v-html="$t('sunsetFaqPara16')"></p> <!-- there's html in here -->
+            <p v-html="$t('sunsetFaqPara17')"></p> <!-- there's html in here -->
+            <p v-html="$t('sunsetFaqPara18')"></p> <!-- there's html in here -->
+            <p v-html="$t('sunsetFaqPara19')"></p> <!-- there's html in here -->
+          </div>
 
-        <!-- Challenges -->
-        <div>
-          <h3 class="headings">
-            {{ $t('sunsetFaqHeader9') }}
-          </h3>
-        </div>
-        <div>
-          <ul>
-            <li>{{ $t('sunsetFaqList4') }}</li>
-            <li>{{ $t('sunsetFaqList5') }}</li>
-            <li>{{ $t('sunsetFaqList6') }}</li>
-            <li>{{ $t('sunsetFaqList7') }}</li>
-          </ul>
-        </div>
+          <!-- Challenges -->
+          <div>
+            <h3 class="headings">
+              {{ $t('sunsetFaqHeader9') }}
+            </h3>
+          </div>
+          <div>
+            <ul>
+              <li>{{ $t('sunsetFaqList4') }}</li>
+              <li>{{ $t('sunsetFaqList5') }}</li>
+              <li>{{ $t('sunsetFaqList6') }}</li>
+              <li>{{ $t('sunsetFaqList7') }}</li>
+            </ul>
+          </div>
 
-        <!-- Questions about how to use Habitica -->
-        <div>
-          <h3 class="headings">
-            {{ $t('sunsetFaqHeader10') }}
-          </h3>
-        </div>
-        <div>
-          <li v-html="$t('sunsetFaqList8')"></li> <!-- there's html in here -->
-          <li v-html="$t('sunsetFaqList9')"></li> <!-- there's html in here -->
-          <li v-html="$t('sunsetFaqList10')"></li> <!-- there's html in here -->
-        </div>
+          <!-- Questions about how to use Habitica -->
+          <div>
+            <h3 class="headings">
+              {{ $t('sunsetFaqHeader10') }}
+            </h3>
+          </div>
+          <div>
+            <li v-html="$t('sunsetFaqList8')"></li> <!-- there's html in here -->
+            <li v-html="$t('sunsetFaqList9')"></li> <!-- there's html in here -->
+            <li v-html="$t('sunsetFaqList10')"></li> <!-- there's html in here -->
+          </div>
 
-        <!-- Community Guidelines and TOS -->
-        <div>
-          <h3 class="headings">
-            {{ $t('sunsetFaqHeader11') }}
-          </h3>
-        </div>
-        <div>
-          <p v-html="$t('sunsetFaqPara20')"></p>
+          <!-- Community Guidelines and TOS -->
+          <div>
+            <h3 class="headings">
+              {{ $t('sunsetFaqHeader11') }}
+            </h3>
+          </div>
+          <div>
+            <p v-html="$t('sunsetFaqPara20')"></p>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- sidebar -->
     <!-- staff -->
-    <div class="col-12 col-sm-4 sidebar float-right">
+    <div class="col-12 col-sm-4 sidebar">
       <div class="section">
         <div class="px-4">
           <sidebar-section :title="$t('staff')">
@@ -286,7 +288,6 @@
         </div>
       </div>
     </div>
-
 
     <!-- final div! -->
   </div>
