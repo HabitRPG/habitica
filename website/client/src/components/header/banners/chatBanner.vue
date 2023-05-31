@@ -1,9 +1,12 @@
 <template>
   <base-banner
-    banner-id="chat-banner"
+    banner-id="chat-warning"
+    banner-class="chat-banner"
     class="chat-banner"
     height="3rem"
+    :show="showChatWarning"
     :can-close="false"
+    :class="{faq: faqPage}"
   >
     <div
       slot="content"
@@ -29,6 +32,11 @@
       color: $orange-1;
       text-decoration: underline;
     }
+
+    &.faq {
+      position: fixed;
+      top: 3.5rem;
+    }
   }
 
 </style>
@@ -39,6 +47,16 @@ import BaseBanner from './base';
 export default {
   components: {
     BaseBanner,
+  },
+  computed: {
+    faqPage () {
+      return (this.$route.fullPath.indexOf('/faq')) !== -1;
+    },
+    showChatWarning () {
+      if (this.$route.fullPath.indexOf('/tavern') !== -1) return true;
+      if (this.$route.fullPath.indexOf('/groups') !== -1) return true;
+      return this.faqPage;
+    },
   },
 };
 

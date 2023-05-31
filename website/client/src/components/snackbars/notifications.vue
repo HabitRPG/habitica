@@ -106,6 +106,7 @@ export default {
       preventMultipleWatchExecution: false,
       eventPromoBannerHeight: null,
       sleepingBannerHeight: null,
+      warningBannerHeight: null,
     };
   },
   computed: {
@@ -133,7 +134,11 @@ export default {
       return `${base}${modifier} scroll-${this.scrollY}`;
     },
     notificationBannerHeight () {
-      let scrollPosToCheck = 104;
+      let scrollPosToCheck = 56;
+
+      if (this.warningBannerHeight) {
+        scrollPosToCheck += this.warningBannerHeight;
+      }
 
       if (this.sleepingBannerHeight) {
         scrollPosToCheck += this.sleepingBannerHeight;
@@ -361,6 +366,7 @@ export default {
 
     updateBannerHeightAndScrollY () {
       this.updateEventBannerHeight();
+      this.warningBannerHeight = getBannerHeight('chat-warning');
       this.sleepingBannerHeight = getBannerHeight('damage-paused');
       this.updateScrollY();
     },
