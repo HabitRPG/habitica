@@ -5,7 +5,6 @@
     class="chat-banner"
     height="3rem"
     :show="showChatWarning"
-    :can-close="false"
     :class="{faq: faqPage}"
   >
     <div
