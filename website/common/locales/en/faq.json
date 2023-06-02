@@ -156,7 +156,7 @@
   "sunsetFaqPara8": "This feature has been relocated to Settings. The functions of Pause Damage will not be affected by the end of the Tavern and Guild services.",
 
   "sunsetFaqHeader5": "How will I access my Group Plan if it’s an upgraded Guild?",
-  "sunsetFaqPara9": "<strong>Browser</strong>: Click on the Group Plan navigation in the top bar.<br /><strong>Android:</strong> Tap your name at the top of the screen when viewing a task list to switch to your shared tasks. To access your chat, tap the chat icon in the header on that screen.<br /><strong>iOS</strong>: Tap the name of your Group Plan in the menu.",
+  "sunsetFaqPara9": "<p><strong>Browser</strong>: Click on the Group Plan navigation in the top bar.</p><p><strong>Android:</strong> Tap your name at the top of the screen when viewing a task list to switch to your shared tasks. To access your chat, tap the chat icon in the header on that screen.</p><p><strong>iOS</strong>: Tap the name of your Group Plan in the menu.</p>",
 
   "sunsetFaqHeader6": "Will players be able to retrieve their Guild chats after the services end?",
   "sunsetFaqPara10": "Players will not be able to retrieve chat data from the Tavern and Guilds after the services end.",

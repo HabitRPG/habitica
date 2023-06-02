@@ -8,7 +8,7 @@
           </h1>
         </div>
         <div class="section">
-          <div class>
+          <div class="body-text">
             <p v-html="$t('sunsetFaqPara1')"></p>  <!-- there's html in here -->
             <p>{{ $t('sunsetFaqPara2') }}</p>
             <p>{{ $t('sunsetFaqPara3') }}</p>
@@ -22,7 +22,7 @@
               {{ $t('sunsetFaqHeader1') }}
             </h3>
           </div>
-          <div>
+          <div class="body-text">
             <p v-html="$t('sunsetFaqPara6')"></p>
           </div>
 
@@ -32,7 +32,7 @@
               {{ $t('sunsetFaqHeader2') }}
             </h3>
           </div>
-          <div>
+          <div class="body-text">
             <ul>
               <li>{{ $t('sunsetFaqList1') }}</li>
               <li>{{ $t('sunsetFaqList2') }}</li>
@@ -46,7 +46,7 @@
               {{ $t('sunsetFaqHeader3') }}
             </h3>
           </div>
-          <div>
+          <div class="body-text">
             <p>{{ $t('sunsetFaqPara7') }}</p>
           </div>
 
@@ -56,7 +56,7 @@
               {{ $t('sunsetFaqHeader4') }}
             </h3>
           </div>
-          <div>
+          <div class="body-text">
             <p>{{ $t('sunsetFaqPara8') }}</p>
           </div>
 
@@ -66,7 +66,7 @@
               {{ $t('sunsetFaqHeader5') }}
             </h3>
           </div>
-          <div>
+          <div class="body-text">
             <p v-html="$t('sunsetFaqPara9')"></p> <!-- there's html in here -->
           </div>
 
@@ -76,7 +76,7 @@
               {{ $t('sunsetFaqHeader6') }}
             </h3>
           </div>
-          <div>
+          <div class="body-text">
             <p>{{ $t('sunsetFaqPara10') }}</p>
           </div>
 
@@ -86,7 +86,7 @@
               {{ $t('sunsetFaqHeader7') }}
             </h3>
           </div>
-          <div>
+          <div class="body-text">
             <p>{{ $t('sunsetFaqPara11') }}</p>
           </div>
 
@@ -96,7 +96,7 @@
               {{ $t('sunsetFaqHeader8') }}
             </h3>
           </div>
-          <div>
+          <div class="body-text">
             <p v-html="$t('sunsetFaqPara12')"></p> <!-- there's html in here -->
             <p v-html="$t('sunsetFaqPara13')"></p> <!-- there's html in here -->
             <p v-html="$t('sunsetFaqPara14')"></p> <!-- there's html in here -->
@@ -113,7 +113,7 @@
               {{ $t('sunsetFaqHeader9') }}
             </h3>
           </div>
-          <div>
+          <div class="body-text">
             <ul>
               <li>{{ $t('sunsetFaqList4') }}</li>
               <li>{{ $t('sunsetFaqList5') }}</li>
@@ -128,10 +128,12 @@
               {{ $t('sunsetFaqHeader10') }}
             </h3>
           </div>
-          <div>
-            <li v-html="$t('sunsetFaqList8')"></li> <!-- there's html in here -->
-            <li v-html="$t('sunsetFaqList9')"></li> <!-- there's html in here -->
-            <li v-html="$t('sunsetFaqList10')"></li> <!-- there's html in here -->
+          <div class="body-text">
+            <ul>
+              <li v-html="$t('sunsetFaqList8')"></li> <!-- there's html in here -->
+              <li v-html="$t('sunsetFaqList9')"></li> <!-- there's html in here -->
+              <li v-html="$t('sunsetFaqList10')"></li> <!-- there's html in here -->
+            </ul>
           </div>
 
           <!-- Community Guidelines and TOS -->
@@ -140,7 +142,7 @@
               {{ $t('sunsetFaqHeader11') }}
             </h3>
           </div>
-          <div>
+          <div class="body-text">
             <p v-html="$t('sunsetFaqPara20')"></p>
           </div>
         </div>
@@ -299,21 +301,40 @@
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
 
-  body {
-    background-color: $white !important;
+  .main-bg {
+    font-size: 16px !important;
   }
 
   .headings {
-    font-size: 16px; // for some reason, em doesn't give the desired result
+    font-size: 1em; // for some reason, em doesn't give the desired result
     font-weight: 400;
     line-height: 1.75;
     color: $purple-200;
   }
 
+  .body-text {
+    font-size: 0.875em;
+    color: $gray-10;
+    line-height: 1.71;
+  }
+
+  p {
+    margin-bottom: 1.5em;
+  }
+
+  ul {
+    padding-left: 20px;
+  }
+
+  li::marker {
+    size: 0.5em;
+  }
+
   .sidebar {
-    background-color: #f9f9f9;
-    padding: 0 0 0 0;
-    margin-left: 24px;
+    background-color: $gray-700;
+    padding: 24px 0;
+    margin: 0 0 22px 24px;
+    border-radius: 16px;
   }
 .svg-icon {
     width: 10px;
@@ -342,19 +363,25 @@
   }
 
   .staff-header {
-    font-size: 1em;
+    font-size: 0.875em;
     font-weight: bold;
-    padding: 24px 0px 16px 24px;
-    color: $gray-10;
+    line-height: 1.71;
+  }
 
-    .staff-icon  {
+  .staff {
+    font-size: 0.875em;
+
+    .staff-icon {
       width: 10px;
+      margin-left: 4px;
     }
 
     .title {
-      color: #6133b4;
+      color: $purple-300;
       font-weight: bold;
+      line-height: 1.71;
       display: inline-block;
+      margin-top: 8px;
     }
   }
     .tier-list {
