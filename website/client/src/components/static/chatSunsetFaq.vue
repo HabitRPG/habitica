@@ -1,5 +1,5 @@
 <template>
-  <div class="col-12 col-sm-8 container-fluid d-flex">
+  <div class="col-12 col-sm-8 container-fluid d-flex mx-auto main-bg">
     <div class="col-12 col-sm-8">
       <div class="row">
         <div class="title-details">
@@ -153,6 +153,9 @@
       <div class="section">
         <div class="px-4">
           <sidebar-section :title="$t('staff')">
+            <div class="staff-header">
+              {{ $t('staff') }}
+            </div>
             <div class="row">
               <div
                 v-for="user in staff"
@@ -295,7 +298,10 @@
 
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/mixins.scss';
+
+  body {
+    background-color: $white !important;
+  }
 
   .headings {
     font-size: 16px; // for some reason, em doesn't give the desired result
@@ -305,8 +311,9 @@
   }
 
   .sidebar {
-    background-color: $gray-600;
-    padding: 0 0 0 0
+    background-color: #f9f9f9;
+    padding: 0 0 0 0;
+    margin-left: 24px;
   }
 .svg-icon {
     width: 10px;
@@ -334,11 +341,14 @@
     width: 8px;
   }
 
-  .staff {
-    margin-bottom: 1em;
+  .staff-header {
+    font-size: 1em;
+    font-weight: bold;
+    padding: 24px 0px 16px 24px;
+    color: $gray-10;
 
     .staff-icon  {
-      width: 11px;
+      width: 10px;
     }
 
     .title {
