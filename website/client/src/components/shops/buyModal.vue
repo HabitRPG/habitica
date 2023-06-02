@@ -17,7 +17,7 @@
     </span>
     <div>
       <span
-        class="svg-icon icon-12 close-icon"
+        class="svg-icon close-icon icon-16 color"
         aria-hidden="true"
         tabindex="0"
         @click="hideDialog()"
@@ -46,6 +46,13 @@
             />
           </div>
           <item
+            v-else-if="item.key === 'gem'"
+            class="flat bordered-item"
+            :item="item"
+            :item-content-class="item.class"
+            :show-popover="false"
+          />
+          <item
             v-else-if="item.key != 'gem'"
             class="flat bordered-item"
             :item="item"
@@ -53,10 +60,20 @@
             :show-popover="false"
           />
         </slot>
+        <div
+          v-if="!showAvatar && user.items[item.purchaseType]"
+          class="owned"
+          :class="totalOwned"
+        >
+          <!-- eslint-disable-next-line max-len -->
+          <span class="owned-text">{{ $t('owned') }}: <span class="user-amount">{{ totalOwned }}</span></span>
+        </div>
         <h4 class="title">
           {{ itemText }}
         </h4>
-        <div v-html="itemNotes"></div>
+        <div class="item-notes">
+          {{ itemNotes }}
+        </div>
         <slot
           name="additionalInfo"
           :item="item"
@@ -69,60 +86,61 @@
           />
         </slot>
         <div
-          v-if="item.value > 0"
+          v-if="item.value > 0 && !(item.key === 'gem' && gemsLeft < 1)"
           class="purchase-amount"
         >
-          <div
-            v-if="showAmountToBuy(item)"
-            class="how-many-to-buy"
-          >
-            <strong>{{ $t('howManyToBuy') }}</strong>
-          </div>
-          <div v-if="showAmountToBuy(item)">
-            <div class="box">
-              <input
-                v-model.number="selectedAmountToBuy"
-                class="form-control"
-                type="number"
-                min="0"
-                step="1"
-              >
-            </div>
-            <span :class="{'notEnough': notEnoughCurrency}">
+          <!-- this is where the pretty item cost element lives -->
+          <div class="item-cost">
+            <span
+              class="cost"
+              :class="getPriceClass()"
+            >
               <span
-                class="svg-icon inline icon-32"
+                class="svg-icon inline icon-24"
                 aria-hidden="true"
                 v-html="icons[getPriceClass()]"
-              ></span>
+              >
+              </span>
               <span
-                class="cost"
                 :class="getPriceClass()"
               >{{ item.value }}</span>
             </span>
           </div>
+
           <div
-            v-else
-            class="d-flex align-items-middle"
+            v-if="showAmountToBuy(item)"
+            class="how-many-to-buy"
           >
-            <span
-              class="svg-icon inline icon-32 ml-auto my-auto"
-              aria-hidden="true"
-              v-html="icons[getPriceClass()]"
-            ></span>
-            <span
-              class="cost mr-auto my-auto"
-              :class="getPriceClass()"
-            >{{ item.value }}</span>
+            {{ $t('howManyToBuy') }}
+          </div>
+          <div
+            v-if="showAmountToBuy(item)"
+          >
+            <number-increment
+              class="number-increment"
+              @updateQuantity="selectedAmountToBuy = $event"
+            />
+            <div
+              :class="{'notEnough': notEnoughCurrency}"
+              class="total"
+            >
+              <span class="total-text">{{ $t('sendTotal') }}</span>
+              <span
+                class="svg-icon total icon-24"
+                aria-hidden="true"
+                v-html="icons[getPriceClass()]"
+              ></span>
+              <span
+                class="total-text"
+                :class="getPriceClass()"
+              >{{ item.value * selectedAmountToBuy }}</span>
+            </div>
           </div>
         </div>
         <div
-          v-if="item.key === 'gem'"
-          class="gems-left"
+          v-if="item.key === 'gem' && gemsLeft < 1"
+          class="no-more-gems"
         >
-          <strong v-if="gemsLeft > 0">{{ gemsLeft }} {{ $t('gemsRemaining') }}</strong>
-          <strong v-if="gemsLeft === 0">{{ $t('maxBuyGems') }}</strong>
-        </div>
-        <div v-if="attemptingToPurchaseMoreGemsThanAreLeft">
           {{ $t('notEnoughGemsToBuy') }}
         </div>
         <div
@@ -147,7 +165,7 @@
           {{ $t('viewSubscriptions') }}
         </button>
         <button
-          v-else
+          v-else-if="!(item.key === 'gem' && gemsLeft < 1)"
           class="btn btn-primary"
           :disabled="item.key === 'gem' && gemsLeft === 0 ||
             attemptingToPurchaseMoreGemsThanAreLeft || numberInvalid || item.locked ||
@@ -165,6 +183,7 @@
     <countdown-banner
       v-if="item.event && item.owned == null"
       :end-date="endDate"
+      class="limitedTime available"
     />
     <div
       v-if="item.key === 'rebirth_orb' && item.value > 0 && user.stats.lvl >= 100"
@@ -179,12 +198,31 @@
       </div>
     </div>
     <div
-      slot="modal-footer"
-      class="d-flex"
+      v-if="item.key === 'gem'"
+      class="d-flex justify-content-center align-items-center"
     >
-      <span class="balance mr-auto">{{ $t('yourBalance') }}</span>
+      <div
+        v-if="gemsLeft > 0"
+        class="gems-left d-flex justify-content-center align-items-center"
+      >
+        <strong>{{ $t('monthlyGems') }} &nbsp;</strong>
+        {{ gemsLeft }} / {{ totalGems }} {{ $t('gemsRemaining') }}
+      </div>
+      <div
+        v-if="gemsLeft === 0"
+        class="out-of-gems-banner d-flex justify-content-center align-items-center"
+      >
+        <strong>{{ $t('monthlyGems') }} &nbsp;</strong>
+        {{ gemsLeft }} / {{ totalGems }} {{ $t('gemsRemaining') }}
+      </div>
+    </div>
+    <div
+      slot="modal-footer"
+      class="clearfix"
+    >
+      <span class="user-balance float-left">{{ $t('yourBalance') }}</span>
       <balanceInfo
-        class="ml-auto"
+        class="currency-totals"
         :currency-needed="getPriceClass()"
         :amount-needed="item.value"
       />
@@ -200,11 +238,47 @@
     @include centeredModal();
 
     .modal-body {
+      padding-left: 0px;
+      padding-right: 0px;
       padding-bottom: 0px;
     }
 
+    .modal-footer {
+      height: 48px;
+      background-color: $gray-700;
+      border-bottom-right-radius: 8px;
+      border-bottom-left-radius: 8px;
+      display: block;
+      margin: 24px 0 0 0;
+      padding: 16px 24px;
+      align-content: center;
+
+      .user-balance {
+        width: 150px;
+        height: 16px;
+        font-size: 0.75rem;
+        font-weight: bold;
+        line-height: 1.33;
+        color: $gray-100;
+        margin-bottom: 16px;
+        margin-top: -4px;
+        margin-left: -4px;
+      }
+
+      .currency-totals {
+        margin-right: -8px;
+        float: right;
+      }
+    }
+
     .modal-dialog {
-      width: 330px;
+      width: 448px;
+      box-sizing: border-box;
+    }
+
+    .badge-dialog {
+      left: -8px;
+      top: -8px;
     }
 
     .avatar {
@@ -212,8 +286,71 @@
       margin: 0 auto;
     }
 
+   .owned {
+      height: 32px;
+      width: 141px;
+      margin-top: -36px;
+      margin-left: 153px;
+      padding-top: 6px;
+      background-color: $gray-600;
+      border-bottom-right-radius: 4px;
+      border-bottom-left-radius: 4px;
+      display: block;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+
+      .owned-text {
+        font-size: 0.75rem;
+        font-weight: bold;
+        line-height: 1.71;
+      }
+
+      .user-amount {
+        font-weight: normal !important;
+      }
+    }
+
+    .item {
+      width: 141px;
+      height: 147px;
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 0px;
+      border-bottom-left-radius: 0px;
+      cursor: default;
+    }
+
+    .item-content {
+      transform: scale(1.45, 1.45);
+      top: -25.67px;
+      left: 1px;
+
+      &.shop_gem {
+        transform: scale(1.45, 1.45);
+        top: -2px;
+       left: 0px;
+      }
+    }
+
+    .title {
+      height: 28px;
+      color: $gray-10;
+      font-size: 1.25rem;
+      margin-top: 25px;
+    }
+
+    .item-notes {
+       margin-top: 8px;
+       padding-left: 48.5px;
+       padding-right: 48.5px;
+       line-height: 1.71;
+       font-size: 0.875rem;
+    }
+
     .content {
       text-align: center;
+      width: 448px;
     }
 
     .item-wrapper {
@@ -221,15 +358,22 @@
     }
 
     .inner-content {
-      margin: 33px auto auto;
-      width: 282px;
+      margin: 32px auto auto;
+    }
+
+    .btn-primary {
+      margin-top: 16px;
     }
 
     .purchase-amount {
-      margin-top: 24px;
+      margin-top: 0px;
 
       .how-many-to-buy {
-        margin-bottom: 16px;
+        font-weight: bold !important;
+      }
+
+      .number-increment {
+        margin-top: 16px;
       }
 
       .box {
@@ -255,31 +399,105 @@
         }
       }
     }
+    .no-more-gems {
+      color: $yellow-5;
+      font-size: 0.875em;
+      line-height: 1.33;
+      margin: 16px 48px 0 48px;
+    }
 
-    span.svg-icon.inline.icon-32 {
-      height: 32px;
-      width: 32px;
-
+// for cost icon of a single item
+    span.svg-icon.inline.icon-24 {
+      display: inline-block;
+      height: 24px;
+      width: 24px;
+      margin-right: 4px;
+      padding-top: 4px;
+    }
+// for the total user cost
+    span.svg-icon.total.icon-24 {
+      display: inline-block;
+      height: 24px;
+      width: 24px;
+      margin-left: 6px;
       margin-right: 8px;
+      padding-top: 6px;
+    }
 
-      vertical-align: middle;
+    span.svg-icon.icon-16 {
+      height: 16px;
+      width: 16px;
+    }
+
+    .close-icon {
+      color: $gray-200;
+      stroke-width: 0px;
+
+      &:hover {
+          color: $gray-100;
+      }
+    }
+
+    .attributes-group {
+      margin: 32px;
+      border-radius: 4px;
+      line-height: 1.71;
+      font-size: 0.875;
+    }
+
+    .attributesGrid {
+      margin-top: 28px;
+      border-radius: 2px;
+      background-color: $gray-500;
+    }
+
+    .item-cost {
+      display: inline-flex;
+      margin: 16px 0;
+      align-items: center;
+      height: 40px;
     }
 
     .cost {
-      width: 28px;
-      height: 32px;
-      font-size: 24px;
+      display: inline-block;
+      font-family: sans-serif;
+      font-size: 1.25rem;
       font-weight: bold;
-      line-height: 1.33;
-
-      vertical-align: middle;
+      padding: 6px 20px;
+      line-height: 1.4;
+      border-radius: 20px;
 
       &.gems {
-        color: $gems-color;
+        color: $green-10;
+        background-color: rgba(36, 204, 143, 0.15);
+        align-items: center;
       }
 
       &.gold {
-        color: $gold-color;
+        color: $yellow-5;
+        background-color: rgba(255, 190, 93, 0.15);
+        align-items: center;
+      }
+
+      &.hourglasses {
+        color: $hourglass-color;
+        background-color: rgba(41, 149, 205, 0.15);
+        align-items: center;
+      }
+    }
+
+    .total {
+      font-weight: bold;
+      font-size: 0.875rem;
+      padding-top: 2px;
+      margin-top: 4px;
+
+      &.gems {
+        color: $green-10;
+      }
+
+      &.gold {
+        color: $yellow-5;
       }
 
       &.hourglasses {
@@ -287,62 +505,84 @@
       }
     }
 
+  .total-text {
+      color: $gray-50;
+      font-weight: bold;
+      font-size: 0.875rem;
+      line-height: 1.71;
+
+      &.gems {
+        color: $green-10;
+      }
+
+      &.gold {
+        color: $yellow-5;
+      }
+
+      &.hourglasses {
+        color: $hourglass-color;
+      }
+  }
+
     button.btn.btn-primary {
-      margin-top: 24px;
-      margin-bottom: 24px;
-      min-width: 6rem;
+      margin-top: 16px;
+      padding: 4px 16px;
+      height: 32px;
 
       &:focus {
         border: 2px solid black;
       }
     }
 
-    .balance {
-      width: 74px;
-      height: 16px;
-      font-size: 12px;
-      font-weight: bold;
-      line-height: 1.33;
-      color: $gray-200;
-    }
+      .notEnough {
+        pointer-events: none;
+        opacity: 0.55;
+      }
 
-    .modal-footer {
-      height: 48px;
-      background-color: $gray-700;
-      border-bottom-right-radius: 8px;
-      border-bottom-left-radius: 8px;
-      display: block;
-    }
+      .free-rebirth {
+        background-color: $yellow-5;
+        color: $white;
+        height: 2rem;
+        line-height: 16px;
+        margin: auto -1rem -1rem;
+      }
 
-    .notEnough {
-      pointer-events: none;
-      opacity: 0.55;
-    }
+      // .pt-015 {
+      //   padding-top: 0.15rem;
+      // }
 
-    .attributesGrid {
-      margin-top: 8px;
-      border-radius: 2px;
-      background-color: $gray-500;
-
-      margin: 10px 0 24px;
-    }
 
     .gems-left {
-      margin-top: .5em;
+      height: 32px;
+      background-color: $green-100;
+      font-size: 0.75rem;
+      margin-top: 24px;
+      color: $green-1;
+      width: 100%;
+      margin-bottom: -24px;
     }
 
-    .free-rebirth {
-      background-color: $yellow-5;
+    .out-of-gems-banner {
+      height: 32px;
+      font-size: 0.75rem;
+      margin-top: 24px;
+      background-color: $yellow-100;
+      color: $yellow-1;
+      width: 100%;
+      margin-bottom: -24px;
+    }
+
+    .limitedTime {
+      height: 32px;
+      width: 446px;
+      font-size: 0.75rem;
+      margin: 24px 0 0 0;
+      background-color: $purple-300;
       color: $white;
-      height: 2rem;
-      line-height: 16px;
-      margin: auto -1rem -1rem;
-    }
-
-    .pt-015 {
-      padding-top: 0.15rem;
+      margin-bottom: -24px;
     }
   }
+
 </style>
 
 <style lang="scss" scoped>
@@ -370,6 +610,8 @@ import svgGem from '@/assets/svg/gem.svg';
 import svgHourglasses from '@/assets/svg/hourglass.svg';
 import svgClock from '@/assets/svg/clock.svg';
 import svgWhiteClock from '@/assets/svg/clock-white.svg';
+import svgPositive from '@/assets/svg/positive.svg';
+import svgNegative from '@/assets/svg/negative.svg';
 
 import BalanceInfo from './balanceInfo.vue';
 import PinBadge from '@/components/ui/pinBadge';
@@ -377,6 +619,7 @@ import CountdownBanner from './countdownBanner';
 import currencyMixin from './_currencyMixin';
 import notifications from '@/mixins/notifications';
 import buyMixin from '@/mixins/buy';
+import numberIncrement from '@/components/shared/numberIncrement';
 
 import { mapState } from '@/libs/store';
 
@@ -407,14 +650,17 @@ export default {
     Avatar,
     PinBadge,
     CountdownBanner,
+    numberIncrement,
   },
   mixins: [buyMixin, currencyMixin, notifications, numberInvalid, spellsMixin],
   props: {
+    // eslint-disable-next-line vue/require-default-prop
     item: {
       type: Object,
     },
     priceType: {
       type: String,
+      default: '',
     },
     withPin: {
       type: Boolean,
@@ -433,10 +679,14 @@ export default {
         hourglasses: svgHourglasses,
         clock: svgClock,
         whiteClock: svgWhiteClock,
+        positive: svgPositive,
+        negative: svgNegative,
       }),
 
       selectedAmountToBuy: 1,
+      selectedAmount: 1,
       isPinned: false,
+      quantity: 1,
     };
   },
   computed: {
@@ -474,6 +724,11 @@ export default {
       return planGemLimits.convCap
         + this.user.purchased.plan.consecutive.gemCapExtra - this.user.purchased.plan.gemsBought;
     },
+    totalGems () {
+      if (!this.user.purchased.plan) return 0;
+      return planGemLimits.convCap
+        + this.user.purchased.plan.consecutive.gemCapExtra;
+    },
     attemptingToPurchaseMoreGemsThanAreLeft () {
       if (this.item && this.item.key && this.item.key === 'gem' && this.selectedAmountToBuy > this.gemsLeft) return true;
       return false;
@@ -490,6 +745,9 @@ export default {
     endDate () {
       return moment(this.item.event.end);
     },
+    totalOwned () {
+      return this.user.items[this.item.purchaseType][this.item.key] || 0;
+    },
   },
   watch: {
     item: function itemChanged () {
@@ -500,7 +758,9 @@ export default {
   methods: {
     onChange ($event) {
       this.$emit('change', $event);
+      this.selectedAmountToBuy = 1;
     },
+
     buyItem () {
       // @TODO: I  think we should buying to the items.
       // Turn the items into classes, and use polymorphism
@@ -597,6 +857,7 @@ export default {
       }
     },
     hideDialog () {
+      this.selectedAmountToBuy = 1;
       this.$root.$emit('bv::hide::modal', 'buy-modal');
     },
     getPriceClass () {

@@ -130,6 +130,7 @@ export async function update (req, res, { isV3 = false }) {
       uuid: user._id,
       hitType: 'event',
       category: 'behavior',
+      headers: req.headers,
     });
   }
 
@@ -187,6 +188,7 @@ export async function update (req, res, { isV3 = false }) {
         uuid: user._id,
         hitType: 'event',
         category: 'behavior',
+        headers: req.headers,
       });
     } else if (key === 'tags') {
       if (!Array.isArray(val)) throw new BadRequest('Tag list must be an array.');
@@ -274,6 +276,7 @@ export async function reset (req, res, { isV3 = false }) {
     uuid: user._id,
     hitType: 'event',
     category: 'behavior',
+    headers: req.headers,
   });
 
   res.respond(200, ...resetRes);
