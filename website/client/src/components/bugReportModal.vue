@@ -8,23 +8,15 @@
       slot="modal-header"
       class="bug-report-modal-header"
     >
-      <h2 v-once>
-        {{ $t('reportBug') }}
+      <h2>
+        {{ question ? $t('askQuestion') : $t('reportBug') }}
       </h2>
-
-      <div
-        v-once
-        class="report-bug-header-describe"
-      >
-        {{ $t('reportBugHeaderDescribe') }}
+      <div class="report-bug-header-describe">
+        {{ question ? $t('askQuestionHeaderDescribe') : $t('reportBugHeaderDescribe') }}
       </div>
-
-      <div class="dialog-close">
-        <close-icon
-          :purple="true"
-          @click="close()"
-        />
-      </div>
+      <close-x
+        @click="close()"
+      />
     </div>
     <div>
       <form
@@ -40,11 +32,8 @@
           >
             {{ $t('email') }}
           </label>
-          <div
-            v-once
-            class="mb-2 description-label"
-          >
-            {{ $t('reportEmailText') }}
+          <div class="mb-2 description-label">
+            {{ question ? $t('questionEmailText') : $t('reportEmailText') }}
           </div>
           <input
             id="emailInput"
@@ -64,21 +53,18 @@
           </div>
         </div>
 
-        <label v-once>
-          {{ $t('reportDescription') }}
+        <label>
+          {{ question ? $t('question') : $t('reportDescription') }}
         </label>
-        <div
-          v-once
-          class="mb-2 description-label"
-        >
-          {{ $t('reportDescriptionText') }}
+        <div class="mb-2 description-label">
+          {{ question ? $t('questionDescriptionText') : $t('reportDescriptionText') }}
         </div>
         <textarea
           v-model="message"
           class="form-control"
           rows="5"
           :required="true"
-          :placeholder="$t('reportDescriptionPlaceholder')"
+          :placeholder="question ? $t('questionPlaceholder') : $t('reportDescriptionPlaceholder')"
           :class="{'input-invalid': messageInvalid && this.message.length === 0}"
         >
 
@@ -89,7 +75,7 @@
           type="submit"
           :disabled="!message || !emailValid"
         >
-          {{ $t('submitBugReport') }}
+          {{ question ? $t('submitQuestion') : $t('submitBugReport') }}
         </button>
       </form>
     </div>
@@ -141,7 +127,7 @@ h2 {
 .bug-report-modal-header {
   color: $white;
   width: 100%;
-  padding: 2rem 3rem 1.5rem 1.5rem;
+  padding: 1.5rem 3rem 1.5rem 1.5rem;
 
   background-image: linear-gradient(288deg, #{$purple-200}, #{$purple-300});
 }
@@ -182,13 +168,13 @@ label {
 <script>
 import axios from 'axios';
 import isEmail from 'validator/lib/isEmail';
-import closeIcon from '@/components/shared/closeIcon';
+import closeX from '@/components/ui/closeX';
 import { mapState } from '@/libs/store';
 import { MODALS } from '@/libs/consts';
 
 export default {
   components: {
-    closeIcon,
+    closeX,
   },
   data () {
     return {
@@ -211,6 +197,7 @@ export default {
       await axios.post('/api/v4/bug-report', {
         message: this.message,
         email: this.email,
+        question: this.question,
       });
 
       this.message = '';
@@ -232,6 +219,9 @@ export default {
     emailInvalid () {
       if (this.email.length <= 3) return false;
       return !this.emailValid;
+    },
+    question () {
+      return this.$store.state.bugReportOptions.question;
     },
   },
   mounted () {
