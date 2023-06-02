@@ -513,4 +513,10 @@ router.beforeEach(async (to, from, next) => {
   return next();
 });
 
+router.afterEach((to, from) => {
+  if (from.name === 'chatSunsetFaq') {
+    document.body.style.background = '#f9f9f9';
+  }
+});
+
 export default router;

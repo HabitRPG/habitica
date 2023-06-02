@@ -469,6 +469,7 @@ export default {
     this.$store.dispatch('common:setTitle', {
       subSection: this.$t('chat-sunset-faq'),
     });
+    document.body.style.background = '#ffffff';
   },
 };
 </script>
