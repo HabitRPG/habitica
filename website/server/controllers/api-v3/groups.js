@@ -126,17 +126,7 @@ api.createGroup = {
     if (validationErrors) throw validationErrors;
 
     if (group.type === 'guild') {
-      if (group.privacy === 'public' && user.flags.chatRevoked) throw new NotAuthorized(res.t('chatPrivilegesRevoked'));
-      if (user.balance < 1) throw new NotAuthorized(res.t('messageInsufficientGems'));
-
-      group.balance = 1;
-
-      await user.updateBalance(-1, 'create_guild', group._id, group.name);
-      user.guilds.push(group._id);
-      if (!user.achievements.joinedGuild) {
-        user.achievements.joinedGuild = true;
-        user.addNotification('GUILD_JOINED_ACHIEVEMENT');
-      }
+      throw new BadRequest(res.t('featureRetired'));
     } else {
       if (group.privacy !== 'private') throw new NotAuthorized(res.t('partyMustbePrivate'));
       if (user.party._id) throw new NotAuthorized(res.t('messageGroupAlreadyInParty'));
