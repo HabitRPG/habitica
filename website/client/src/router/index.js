@@ -314,7 +314,7 @@ const router = new VueRouter({
           name: 'faq', path: 'faq', component: FAQPage, meta: { requiresLogin: false },
         },
         {
-          name: 'chatSunsetFaq', path: 'chat-sunset-faq', component: ChatSunsetFaq, meta: { requiresLogin: false },
+          name: 'chatSunsetFaq', path: 'faq/tavern-and-guilds', component: ChatSunsetFaq, meta: { requiresLogin: false },
         },
         {
           name: 'features', path: 'features', component: FeaturesPage, meta: { requiresLogin: false },
