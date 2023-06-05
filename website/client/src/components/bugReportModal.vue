@@ -15,7 +15,7 @@
         {{ question ? $t('askQuestionHeaderDescribe') : $t('reportBugHeaderDescribe') }}
       </div>
       <close-x
-        @click="close()"
+        @close="close()"
       />
     </div>
     <div>
