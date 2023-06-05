@@ -494,7 +494,7 @@ export default {
 
   async mounted () {
     this.$store.dispatch('common:setTitle', {
-      subSection: this.$t('chat-sunset-faq'),
+      subSection: this.$t('faq/taverns-and-guilds'),
     });
     document.body.style.background = '#ffffff';
   },
