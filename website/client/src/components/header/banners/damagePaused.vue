@@ -2,6 +2,7 @@
   <base-banner
     banner-id="damage-paused"
     banner-class="resting-banner"
+    :can-close="false"
     :show="showRestingBanner"
     height="40px"
   >

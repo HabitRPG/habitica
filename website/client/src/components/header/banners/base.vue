@@ -8,7 +8,7 @@
     <slot name="content"></slot>
     <close-x
       v-if="canClose"
-      @click="close()"
+      @close="close()"
     />
   </div>
 </template>
@@ -27,10 +27,6 @@ body.modal-open .habitica-top-banner {
   padding-left: 1.5rem;
   padding-right: 1.625rem;
   z-index: 1300;
-
-  .modal-close {
-    position: inherit;
-  }
 }
 </style>
 
@@ -105,8 +101,6 @@ export default {
     close () {
       hideBanner(this.bannerId);
       this.hidden = true;
-
-      this.$root.$emit(EVENTS.BANNER_HIDDEN, this.bannerId);
     },
   },
 };

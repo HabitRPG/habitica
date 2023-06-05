@@ -30,6 +30,10 @@
     a {
       color: $orange-1;
       text-decoration: underline;
+
+      &:hover {
+        color: $orange-1;
+      }
     }
 
     &.faq {
@@ -52,8 +56,9 @@ export default {
       return (this.$route.fullPath.indexOf('/faq')) !== -1;
     },
     showChatWarning () {
-      if (this.$route.fullPath.indexOf('/tavern') !== -1) return true;
       if (this.$route.fullPath.indexOf('/groups') !== -1) return true;
+      if (this.$route.fullPath.indexOf('/tavern-and-guilds') !== -1) return false;
+      if (this.$route.fullPath.indexOf('/tavern') !== -1) return true;
       return this.faqPage;
     },
   },

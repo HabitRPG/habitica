@@ -151,8 +151,8 @@
 
     <!-- sidebar -->
     <!-- staff -->
-    <div class="sidebar">
-      <div class="section sidebar-content">
+    <div class="col-12 col-sm-4 sidebar">
+      <div class="section">
         <div class="px-4">
           <sidebar-section :title="$t('staff')">
             <div class="staff-header">
@@ -185,9 +185,6 @@
           <sidebar-section :title="$t('playerTiers')">
             <div class="row">
               <div class="col-12">
-                <div class="player-header">
-                  {{ $t('playerTiers') }}
-                </div>
                 <ul class="tier-list">
                   <li
                     v-once
@@ -284,6 +281,10 @@
                     class="npc"
                   >
                     {{ $t('tierNPC') }}
+                    <div
+                      class="svg-icon npc-icon"
+                      v-html="icons.tierNPC"
+                    ></div>
                   </li>
                 </ul>
               </div>
@@ -300,9 +301,21 @@
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
 
-  h1 {
-    margin-top: 0px;
-    line-height: 1.33;
+  .main-bg {
+    font-size: 16px !important;
+  }
+
+  .headings {
+    font-size: 1em; // for some reason, em doesn't give the desired result
+    font-weight: 400;
+    line-height: 1.75;
+    color: $purple-200;
+  }
+
+  .body-text {
+    font-size: 0.875em;
+    color: $gray-10;
+    line-height: 1.71;
   }
 
   p {
@@ -317,44 +330,20 @@
     size: 0.5em;
   }
 
-  #app {
-    background-color: $white !important;
-  }
-
-  .main-bg {
-    font-size: 16px !important;
-  }
-
-  .headings {
-    font-size: 1em;
-    font-weight: 400;
-    line-height: 1.75;
-    color: $purple-200;
-  }
-
-  .body-text {
-    font-size: 0.875em;
-    color: $gray-10;
-    line-height: 1.71;
-  }
-
-  .sidebar-content {
-    width: 330px !important;
+  .sidebar {
     background-color: $gray-700;
-    max-height: fit-content;
     padding: 24px 0;
     margin: 0 0 22px 24px;
     border-radius: 16px;
   }
-
 .svg-icon {
     width: 10px;
     display: inline-block;
-    margin-left: -1px;
+    margin-left: .5em;
   }
 
   .tier1-icon, .tier2-icon {
-    width: 10px;
+    width: 11px;
   }
 
   .tier5-icon, .tier6-icon {
@@ -362,18 +351,21 @@
   }
 
   .tier7-icon {
-    width: 10px;
+    width: 12px;
   }
 
   .mod-icon {
-    width: 12px;
+    width: 13px;
+  }
+
+  .npc-icon {
+    width: 8px;
   }
 
   .staff-header {
     font-size: 0.875em;
     font-weight: bold;
     line-height: 1.71;
-    margin-bottom: 8px;
   }
 
   .staff {
@@ -389,38 +381,26 @@
       font-weight: bold;
       line-height: 1.71;
       display: inline-block;
-      margin-bottom: 4px;
+      margin-top: 8px;
     }
-  }
-
-  .player-header {
-    font-size: 0.875em;
-    font-weight: bold;
-    line-height: 1.71;
-    margin-top: 24px;
-    margin-bottom: 8px;
   }
     .tier-list {
     list-style-type: none;
     padding: 0;
-    width: 282px;
+    width: 98%;
 
     li {
-      border-radius: 4px;
-      border: solid 1px $gray-500;
+      border-radius: 2px;
+      background-color: #edecee;
+      border: solid 1px #c3c0c7;
       text-align: center;
-      padding-top: 8px;
-      padding-bottom: 8px;
-      margin-bottom: 8px;
-      margin-right: 4px;
+      padding: 1em;
+      margin-bottom: 1em;
       font-weight: bold;
-      font-size: 0.875em;
-      line-height: 1.71;
     }
 
     .tier1 {
       color: #c42870;
-
     }
 
     .tier2 {
@@ -452,7 +432,7 @@
     }
 
     .tier9, .staff {
-      color: $purple-300;
+      color: #6133b4;
     }
 
     .npc {
@@ -461,7 +441,7 @@
   }
 
   .staff .title {
-    color: $purple-300;
+    color: #6133b4;
   }
 
   .moderator .title {
