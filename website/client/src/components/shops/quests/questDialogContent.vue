@@ -33,17 +33,17 @@
 
   h3 {
     color: $gray-10;
-    margin-bottom: 0.25rem;
+    margin-bottom: 4pxrem;
   }
 
   .quest-image {
     margin: 0 auto;
-    margin-bottom: 1em;
-    margin-top: 1.5em;
+    margin-bottom: 16px;
+    margin-top: 24px;
   }
 
   .text {
-    margin-bottom: 1rem;
+    margin: 16px 16px;
     overflow-y: auto;
     text-overflow: ellipsis;
   }
@@ -54,10 +54,10 @@
     line-height: 1.71;
     color: $gray-50;
     text-align: center;
-    margin-bottom: 0.5rem;
+    margin-bottom: 8px;
 
     ::v-deep .user-label {
-      font-size: 14px;
+      font-size: 0.875rem;
     }
   }
 
