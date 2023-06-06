@@ -18,7 +18,7 @@
     "welcomeToTavern": "Dámoste a benvida á taberna!",
     "sleepDescription": "Necesitas un descanso? Entra na pousada de Daniel para pausar algunhas das mecánicas de xogo máis difíciles de Habitica:",
     "sleepBullet1": "As tarefas diarias que non completes non te farán dano (as criaturas rivais continuarán facendo dano a causa das tarefas diarias sen facer do resto do equipo)",
-    "sleepBullet2": "As túas rachas de tarefas e contadores de hábitos non se restabelecerán",
+    "sleepBullet2": "As túas series de tarefas e contadores de hábitos non se restabelecerán",
     "sleepBullet3": "O teu dano á criatura rival de misión ou obxectos de colección atopados seguirán pendentes ata que saias da pousada",
     "sleepBullet4": "Your boss damage or collection Quest items will stay pending until check-out",
     "pauseDailies": "Pausar o dano",
@@ -114,7 +114,7 @@
     "welcome1": "Crea un avatar básico.",
     "welcome1notes": "Este avatar representarate a medida que progreses.",
     "welcome2": "Prepara as túas tarefas.",
-    "welcome2notes": "O cumprimento das túas tarefas na vida real controlará o teu progreso no xogo!",
+    "welcome2notes": "O cumprimento das túas tarefas na realidade controlará o teu progreso no xogo!",
     "welcome3": "Progresa na vida e no xogo!",
     "welcome3notes": "A medida que mellores na túa vida, o teu avatar subirá de nivel e desbloqueará mascotas, misións, equipamento e máis!",
     "imReady": "Entra en Habitica",
@@ -133,5 +133,6 @@
     "amountExp": "<%= amount %> de experiencia",
     "nGems": "<%= nGems %> xemas",
     "limitedAvailabilityDays": "Dispoñíbel durante <%= days %>d <%= hours %>h <%= minutes %>m",
-    "limitedAvailabilityHours": "Dispoñíbel durante <%= hours %>h <%= minutes %>m"
+    "limitedAvailabilityHours": "Dispoñíbel durante <%= hours %>h <%= minutes %>m",
+    "sellItems": "Vender obxectos"
 }

@@ -131,8 +131,8 @@
     "subscriptionBenefit5": "Recibe un coélope púrpura real de mascota ao subscribirte.",
     "subscriptionBenefit6": "Gaña reloxos de area místicos para usar na tenda das viaxantes do tempo!",
     "purchaseAll": "Mercar o lote",
-    "gemsRemaining": "Xemas restantes",
-    "notEnoughGemsToBuy": "Non podes mercar esa cantidade de xemas",
+    "gemsRemaining": "restantes",
+    "notEnoughGemsToBuy": "Non hai máis xemas dispoñíbeis para comprar este mes. Haberá máis nos 3 primeiros días de cada mes.",
     "howManyGemsPurchase": "Cantas xemas queres comprar?",
     "howManyGemsSend": "Cantas xemas queres enviar?",
     "needToPurchaseGems": "Necesitas comprar xemas de regalo?",
@@ -221,5 +221,9 @@
     "mysterySet202205": "Lote de dragón nocturno",
     "mysterySet202210": "Lote de oficio ominoso",
     "mysterySet202211": "Lote de electromancia",
-    "usuallyGems": "Normalmente <%= originalGems %>"
+    "usuallyGems": "Normalmente <%= originalGems %>",
+    "mysterySet202306": "Lote de arco da vella",
+    "monthlyGems": "Xemas mensuais",
+    "mysterySet202304": "Lote de xogo de te xeitoso",
+    "mysterySet202305": "Lote de dragón acontecido"
 }

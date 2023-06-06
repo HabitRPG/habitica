@@ -147,5 +147,8 @@
     "achievementPolarProText": "已孵化出所有基础颜色的极地宠物：熊、狐狸、企鹅、鲸鱼和狼！",
     "achievementPlantParentText": "已孵化所有基础颜色的植物宠物：仙人掌和树芽！",
     "achievementPlantParentModalText": "你集齐了所有植物宠物！",
-    "achievementPlantParent": "育苗高手"
+    "achievementPlantParent": "育苗高手",
+    "achievementDinosaurDynastyModalText": "你集齐了所有鸟类和恐龙宠物！",
+    "achievementDinosaurDynasty": "恐龙王朝",
+    "achievementDinosaurDynastyText": "已孵化所有基础颜色的鸟类和恐龙宠物：猎鹰、猫头鹰、鹦鹉、孔雀、企鹅、公鸡、翼龙、霸王龙、三角龙和迅猛龙！"
 }
