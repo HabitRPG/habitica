@@ -4,7 +4,7 @@
     "messageTagNotFound": "Non se atopou a etiqueta.",
     "messagePetNotFound": ":pet non se atopou en user.items.pets",
     "messageFoodNotFound": ":food non se atopou en user.items.food",
-    "messageNotAvailable": "Actualmente este obxecto non está dispoñíbel para mercar.",
+    "messageNotAvailable": "Este obxecto non está dispoñíbel para mercar.",
     "messageCannotFeedPet": "Non podes dar de comer a esta mascota.",
     "messageAlreadyMount": "Xa tes esa montura. Intenta dar de comer a outra mascota.",
     "messageEvolve": "Domesticaches a <%= egg %>, vaiamos dar unha volta!",

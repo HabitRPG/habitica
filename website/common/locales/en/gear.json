@@ -1461,6 +1461,10 @@
   "armorArmoireBasketballUniformNotes": "Wondering what’s printed on the back of this uniform? It’s your lucky number, of course! Increases Perception by <% per %>. Enchanted Armoire: Old Timey Basketball Set (Item 1 of 2).",
   "armorArmoirePaintersApronText": "Painter's Apron",
   "armorArmoirePaintersApronNotes": "This apron can protect your clothes from paint and your creative projects from harsh critiques. Increases Constitution by <%= con %>. Enchanted Armoire: Painter Set (Item 1 of 4).",
+  "armorArmoireStripedRainbowShirtText": "Striped Rainbow Shirt",
+  "armorArmoireStripedRainbowShirtNotes": "The colors of the rainbow have never looked so good before. Be bold! Increases Strength and Intelligence by <%= attrs %> each. Enchanted Armoire: Rainbow Set (Item 1 of 2).",
+  "armorArmoireDiagonalRainbowShirtText": "Diagonal Rainbow Shirt",
+  "armorArmoireDiagonalRainbowShirtNotes": "A splash of color with a dash of style. Be joyful! Increases Constitution and Perception by <%= attrs %> each. Enchanted Armoire: Rainbow Set (Item 2 of 2).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",

@@ -14,7 +14,7 @@
     "suppressLevelUpModal": "Non mostrar unha mensaxe emerxente ao subir de nivel",
     "suppressHatchPetModal": "Non mostrar unha mensaxe emerxente ao facer nacer unha mascota",
     "suppressRaisePetModal": "Non mostrar unha mensaxe emerxente ao facer medrar unha mascota ata converterse nunha montura",
-    "suppressStreakModal": "Non mostrar unha mensaxe emerxente ao conseguir un logro de racha",
+    "suppressStreakModal": "Non mostrar unha mensaxe emerxente ao conseguir un logro de serie",
     "showTour": "Mostrar a visita",
     "showBailey": "Mostrar a Baia",
     "showBaileyPop": "Mostra o último anuncio de Baia, a pregoeira.",
@@ -77,8 +77,8 @@
     "resetComplete": "Completouse o restabelecemento!",
     "fixValues": "Aquelar os valores",
     "fixValuesText1": "Se te afectou un fallo ou cometiches unha equivocación que afectou á túa personaxe dunha maneira inxusta (dano que non debiches recibir, ouro que non merecías, etc.), podes corrixir os teus números manualmente aquí. Si, isto permite facer trampas: usa esta funcionalidade con cabeza, ou estarás sabotando os teus propios intentos de cambiar de hábitos!",
-    "fixValuesText2": "Ten en conta que aquí non podes restaurar rachas de tarefas individuais. Para facer iso, edita a tarefa diaria e, na configuración avanzada, atoparás un campo para restaurar a racha.",
-    "fix21Streaks": "Rachas de 21 días",
+    "fixValuesText2": "Ten en conta que aquí non podes restaurar series de tarefas individuais. Para facer iso, edita a tarefa diaria e, na configuración avanzada, atoparás un campo para restaurar a serie.",
+    "fix21Streaks": "Series de 21 días",
     "discardChanges": "Descartar os cambios",
     "deleteDo": "Adiante, elimina a miña conta!",
     "invalidPasswordResetCode": "O código de restabelecemento de contrasinal que forneciches non é válido ou caducou.",
@@ -105,7 +105,7 @@
     "invitedParty": "Invitáronte a un equipo",
     "invitedGuild": "Invitáronte a un gremio",
     "importantAnnouncements": "Lembranzas para acceder para completar tarefas e recibir premios",
-    "weeklyRecaps": "Resumos da actividade da túa conta na semana pasada (nota: isto está actualmente desactivado debido a problemas de rendemento, pero esperamos restabelecer de seguida este servizo e poder volver a enviar mensaxes por correo electrónico!)",
+    "weeklyRecaps": "Resumos da actividade da túa conta na semana pasada (nota: isto está desactivado debido a problemas de rendemento, pero esperamos restabelecer deseguida este servizo e poder volver a enviar mensaxes por correo electrónico!)",
     "onboarding": "Axuda para preparar a túa conta de Habitica",
     "majorUpdates": "Anuncios importantes",
     "questStarted": "A túa misión comezou",
@@ -226,5 +226,6 @@
     "transaction_contribution": "<b>Rango</b> cambiado",
     "transaction_reroll": "Uso dunha poción de fortificación",
     "transaction_subscription_perks": "Vantaxe de <b>subscrición</b>",
-    "transaction_admin_update_balance": "<b>Administración</b> concedida"
+    "transaction_admin_update_balance": "<b>Administración</b> concedida",
+    "thirdPartyTools": "Atopa aplicacións de terceiras partes, extensións, e todo tipo de ferramentas que podes usar coa túa conta, no <a href='https://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations' target='_blank'>wiki de Habitica</a> (en inglés)."
 }
