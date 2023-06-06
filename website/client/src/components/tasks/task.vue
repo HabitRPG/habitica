@@ -244,7 +244,7 @@
                 class="svg-icon calendar my-auto"
                 v-html="icons.calendar"
               ></div>
-              <span>{{ $t('due') }} {{ formatDueDate() }}</span>
+              <span>{{ formatDueDate() }}</span>
             </div>
             <div class="icons-right d-flex justify-content-end">
               <div
