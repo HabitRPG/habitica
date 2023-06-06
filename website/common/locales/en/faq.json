@@ -186,6 +186,9 @@
   "sunsetFaqList10": "Players are also encouraged to email <a href='mailto:admin@habitica.com'>admin@habitica.com</a> with any questions for which they cannot find answers in the above links.",
 
   "sunsetFaqHeader11": "How does this affect Habitica’s Community Guidelines and Terms of Service?",
-  "sunsetFaqPara20": "Habitica’s Community Guidelines will be updated at the time Tavern and Guild service is discontinued. They will reflect that community rules for conduct are now in relation to player profiles, Challenges, and messages in private spaces. Our Terms of Service have always applied to both public and private spaces and do not require an immediate update in regard to this change."
+  "sunsetFaqPara20": "Habitica’s Community Guidelines will be updated at the time Tavern and Guild service is discontinued. They will reflect that community rules for conduct are now in relation to player profiles, Challenges, and messages in private spaces. Our Terms of Service have always applied to both public and private spaces and do not require an immediate update in regard to this change.",
+
+  "anotherQuestion": "Have another question?",
+  "contactAdmin": "Contact <a href='mailto:admin@habitica.com'>admin@habitica.com</a>"
 
 } 
