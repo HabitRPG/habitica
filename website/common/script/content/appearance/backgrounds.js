@@ -560,6 +560,11 @@ const backgrounds = {
     flying_over_hedge_maze: { },
     cretaceous_forest: { },
   },
+  backgrounds062023: {
+    in_an_aquarium: { },
+    inside_adventurers_hideout: { },
+    crater_lake: { },
+  },
   eventBackgrounds: {
     birthday_bash: {
       price: 0,

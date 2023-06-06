@@ -226,5 +226,6 @@
     "amount": "合計",
     "action": "アクション",
     "note": "ノート",
-    "remainingBalance": "残高"
+    "remainingBalance": "残高",
+    "thirdPartyTools": "サードパーティーのアプリや拡張機能など、アカウントで使えるあらゆるツールを<a href='https://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations' target='_blank'>Habitica wiki</a>で探すことができます。"
 }
