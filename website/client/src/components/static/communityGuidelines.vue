@@ -2,80 +2,42 @@
   <div class="container-fluid">
     <h1>{{ $t('communityGuidelines') }}</h1>
     <hr>
-    <p>{{ $t('lastUpdated') }} February 8, 2023</p>
+    <p>{{ $t('lastUpdated') }} June 7, 2023</p>
     <h2 id="welcome">
       {{ $t('commGuideHeadingWelcome') }}
     </h2>
-    <div class="media align-items-center">
-      <img src="~@/assets/images/community-guidelines/intro.png">
-      <div class="media-body">
-        <p v-html="$t('commGuidePara001')"></p>
-        <p v-html="$t('commGuidePara002')"></p>
-      </div>
-    </div>
+    <img
+      src="~@/assets/images/community-guidelines/intro.png"
+      class="mb-3"
+    >
+    <p v-html="$t('commGuidePara001')"></p>
+    <p v-html="$t('commGuidePara002')"></p>
     <p v-html="$t('commGuidePara003')"></p>
     <h2 id="interactions">
       {{ $t('commGuideHeadingInteractions') }}
     </h2>
     <p v-html="$t('commGuidePara015')"></p>
     <p v-html="$t('commGuidePara016')"></p>
-    <p v-html="$t('commGuidePara017')"></p>
-    <ul>
-      <li v-html="$t('commGuideList01F')"></li>
-      <li v-html="$t('commGuideList01A')"></li>
-      <li v-html="$t('commGuideList01B')"></li>
-      <li v-html="$t('commGuideList01C')"></li>
-      <li v-html="$t('commGuideList01D')"></li>
-      <li v-html="$t('commGuideList01E')"></li>
-      <li v-html="$t('commGuideList01F')"></li>
-    </ul>
     <div class="media align-items-center">
       <img src="~@/assets/images/community-guidelines/publicSpaces.png">
     </div>
     <ul>
-      <li v-html="$t('commGuideList02N')"></li>
-      <li v-html="$t('commGuideList02A')"></li>
-      <li v-html="$t('commGuideList02B')"></li>
-      <li v-html="$t('commGuideList02G')"></li>
+      <li><strong>{{ $t('commGuideList01A') }}</strong></li>
       <li v-html="$t('commGuideList02C')"></li>
+      <li v-html="$t('commGuideList02N')"></li>
+      <li v-html="$t('commGuideList02H')"></li>
+      <li v-html="$t('commGuideList02A')"></li>
+      <li v-html="$t('commGuideList02I')"></li>
+      <li v-html="$t('commGuideList02G')"></li>
       <li v-html="$t('commGuideList02D')"></li>
       <li v-html="$t('commGuideList02E')"></li>
-      <li v-html="$t('commGuideList02F')"></li>
+      <li v-html="$t('commGuideList02O')"></li>
+      <li v-html="$t('commGuidePara037')"></li>
       <li v-html="$t('commGuideList02M')"></li>
+      <li v-html="$t('commGuideList02L')"></li>
       <li v-html="$t('commGuideList02J')"></li>
       <li v-html="$t('commGuideList02K')"></li>
-      <li v-html="$t('commGuideList02L')"></li>
     </ul>
-    <p v-html="$t('commGuidePara019')"></p>
-    <p v-html="$t('commGuidePara020')"></p>
-    <p v-html="$t('commGuidePara020A')"></p>
-    <p v-html="$t('commGuidePara021')"></p>
-    <h3 id="tavern">
-      {{ $t('commGuideHeadingTavern') }}
-    </h3>
-    <div class="media align-items-center">
-      <img src="~@/assets/images/community-guidelines/tavern.png">
-      <div class="media-body">
-        <p v-html="$t('commGuidePara022')"></p>
-        <p v-html="$t('commGuidePara023')"></p>
-        <p v-html="$t('commGuidePara024')"></p>
-      </div>
-    </div>
-    <h3 id="guilds">
-      {{ $t('commGuideHeadingPublicGuilds') }}
-    </h3>
-    <div class="media align-items-center">
-      <div class="media-body">
-        <p v-html="$t('commGuidePara029')"></p>
-        <p v-html="$t('commGuidePara031')"></p>
-      </div>
-      <img src="~@/assets/images/community-guidelines/publicGuilds.png">
-    </div>
-    <p v-html="$t('commGuidePara033')"></p>
-    <p v-html="$t('commGuidePara035')"></p>
-    <p v-html="$t('commGuidePara036')"></p>
-    <p v-html="$t('commGuidePara037')"></p>
-    <p v-html="$t('commGuidePara038')"></p>
     <h2 id="infractions-consequences-restoration">
       {{ $t('commGuideHeadingInfractionsEtc') }}
     </h2>
@@ -125,19 +87,10 @@
     </h3>
     <div class="media align-items-center">
       <div class="media-body">
-        <p v-html="$t('commGuidePara058')"></p>
         <p v-html="$t('commGuidePara059')"></p>
       </div>
       <img src="~@/assets/images/community-guidelines/consequences.png">
     </div>
-    <p v-html="$t('commGuidePara060')"></p>
-    <ul>
-      <li v-html="$t('commGuideList08A')"></li>
-      <li v-html="$t('commGuideList08B')"></li>
-      <li v-html="$t('commGuideList08C')"></li>
-    </ul>
-    <p v-html="$t('commGuidePara060A')"></p>
-    <p v-html="$t('commGuidePara060B')"></p>
     <h4>{{ $t('commGuideHeadingSevereConsequences') }}</h4>
     <ul>
       <li v-html="$t('commGuideList09A')"></li>
@@ -146,14 +99,8 @@
     </ul>
     <h4>{{ $t('commGuideHeadingModerateConsequences') }}</h4>
     <ul>
-      <li>
-        {{ $t('commGuideList10A') }}
-        <ul>
-          <li v-html="$t('commGuideList10A1')"></li>
-        </ul>
-      </li>
       <li v-html="$t('commGuideList10D')"></li>
-      <li v-html="$t('commGuideList10F')"></li>
+      <li v-html="$t('commGuideList10G')"></li>
     </ul>
     <h4>{{ $t('commGuideHeadingMinorConsequences') }}</h4>
     <ul>
@@ -170,7 +117,6 @@
       <img src="~@/assets/images/community-guidelines/restoration.png">
       <div class="media-body">
         <p v-html="$t('commGuidePara061')"></p>
-        <p v-html="$t('commGuidePara062')"></p>
       </div>
     </div>
     <p v-html="$t('commGuidePara063')"></p>
