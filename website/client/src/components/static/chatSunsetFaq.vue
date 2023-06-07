@@ -2,6 +2,7 @@
   <div class="col-12 col-sm-8 container-fluid d-flex mx-auto main-bg">
     <div class="col-12 col-sm-8">
       <div class="row">
+        <!-- title goes here -->
         <div class="title-details">
           <h1 v-once>
             {{ $t('sunsetFaqTitle') }}
@@ -180,6 +181,8 @@
               </div>
             </div>
           </div>
+
+          <!-- player tiers -->
           <div class="row">
             <div class="col-12">
               <div class="player-header">
@@ -284,6 +287,8 @@
                 </li>
               </ul>
             </div>
+
+            <!-- Daniel in sweet, sweet retirement with Jorts -->
             <div class="row">
               <div class="gradient">
               </div>
@@ -295,8 +300,14 @@
                   class="daniel_front"
                   :style="{'background-image': imageURLs.npc}"
                 ></div>
+                <div
+                  class="pixel-border"
+                  :style="{'background-image': imageURLs.pixel_border}"
+                ></div>
               </div>
             </div>
+
+            <!-- email admin -->
             <div class="row d-flex mx-auto">
               <div class="question d-flex mx-auto">
                 {{ $t('anotherQuestion') }}
@@ -304,7 +315,7 @@
               <div
                 class="contact d-flex mx-auto"
               >
-                <p v-html="$t('contactAdmin')"></p>
+                <p v-html="$t('contactAdmin')"></p> <!-- there's html in here -->
               </div>
             </div>
           </div>
@@ -500,6 +511,15 @@
     margin: 0 auto;
   }
 
+  .pixel-border {
+    width: 330px;
+    height: 30px;
+    background-repeat: no-repeat;
+    position: absolute;
+    z-index: 0;
+    margin-top: -30px;
+  }
+
   .question {
     font-size: 0.875em;
     font-weight: bold;
@@ -565,11 +585,13 @@ export default {
         return {
           background: 'url(/static/npc/normal/tavern_background.png)',
           npc: 'url(/static/npc/normal/tavern_npc.png)',
+          pixel_border: 'url(/static/npc/normal/pixel_border.png)',
         };
       }
       return {
         background: `url(/static/npc/${currentEvent.season}/tavern_background.png)`,
         npc: `url(/static/npc/${currentEvent.season}/tavern_npc.png)`,
+        pixel_border: 'url(/static/npc/normal/pixel_border.png)',
       };
     },
   },
