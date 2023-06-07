@@ -4,7 +4,7 @@
     banner-class="chat-banner"
     class="chat-banner"
     height="3rem"
-    :show="showChatWarning"
+    v-if="showChatWarning"
     :class="{faq: faqPage}"
   >
     <div

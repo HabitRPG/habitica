@@ -27,6 +27,10 @@ body.modal-open .habitica-top-banner {
   padding-left: 1.5rem;
   padding-right: 1.625rem;
   z-index: 1300;
+
+  .modal-close {
+    position: unset;
+  }
 }
 </style>
 
