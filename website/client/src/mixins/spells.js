@@ -1,10 +1,8 @@
 import isArray from 'lodash/isArray';
 import * as quests from '@/../../common/script/content/quests';
-import notifications from './notifications';
 
 // @TODO: Let's separate some of the business logic out of Vue if possible
 export default {
-  mixins: [notifications],
   methods: {
     handleCastCancelKeyUp (keyEvent) {
       if (keyEvent.keyCode !== 27) return;
@@ -118,10 +116,7 @@ export default {
       // the selected member doesn't have the flags property which sets `cardReceived`
       if (spell.pinType !== 'card' && spell.bulk !== true) {
         try {
-          const critBonus = spell.cast(this.user, target, {});
-          if (critBonus && critBonus > 1) {
-            this.crit(critBonus);
-          }
+          spell.cast(this.user, target, {});
         } catch (e) {
           if (!e.request) {
             this.$store.dispatch('snackbars:add', {
