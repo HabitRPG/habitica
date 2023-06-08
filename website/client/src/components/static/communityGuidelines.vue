@@ -1,8 +1,8 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid w-75 mx-auto">
     <h1>{{ $t('communityGuidelines') }}</h1>
     <hr>
-    <p>{{ $t('lastUpdated') }} June 7, 2023</p>
+    <p>{{ $t('lastUpdated') }} June 8, 2023</p>
     <h2 id="welcome">
       {{ $t('commGuideHeadingWelcome') }}
     </h2>
@@ -44,18 +44,16 @@
     <h3 id="infractions">
       {{ $t('commGuideHeadingInfractions') }}
     </h3>
-    <div class="media align-items-center">
-      <img src="~@/assets/images/community-guidelines/infractions.png">
-      <div class="media-body">
-        <p v-html="$t('commGuidePara050')"></p>
-        <p v-html="$t('commGuidePara051')"></p>
-      </div>
-    </div>
+    <img
+      src="~@/assets/images/community-guidelines/infractions.png"
+      class="mb-3"
+    >
+    <p v-html="$t('commGuidePara050')"></p>
+    <p v-html="$t('commGuidePara051')"></p>
     <h4>{{ $t('commGuideHeadingSevereInfractions') }}</h4>
     <p v-html="$t('commGuidePara052')"></p>
     <p v-html="$t('commGuidePara053')"></p>
     <ul>
-      <li v-html="$t('commGuideList05A')"></li>
       <li v-html="$t('commGuideList05B')"></li>
       <li v-html="$t('commGuideList05C')"></li>
       <li v-html="$t('commGuideList05D')"></li>
@@ -63,39 +61,29 @@
       <li v-html="$t('commGuideList05F')"></li>
       <li v-html="$t('commGuideList05G')"></li>
       <li v-html="$t('commGuideList05H')"></li>
+      <li v-html="$t('commGuideList05A')"></li>
     </ul>
     <h4>{{ $t('commGuideHeadingModerateInfractions') }}</h4>
     <p v-html="$t('commGuidePara054')"></p>
     <p v-html="$t('commGuidePara055')"></p>
     <ul>
       <li v-html="$t('commGuideList06A')"></li>
-      <li v-html="$t('commGuideList06B')"></li>
       <li v-html="$t('commGuideList06C')"></li>
-      <li v-html="$t('commGuideList06D')"></li>
       <li v-html="$t('commGuideList06E')"></li>
     </ul>
     <h4>{{ $t('commGuideHeadingMinorInfractions') }}</h4>
     <p v-html="$t('commGuidePara056')"></p>
-    <p v-html="$t('commGuidePara057')"></p>
-    <ul>
-      <li v-html="$t('commGuideList07A')"></li>
-      <li v-html="$t('commGuideList07B')"></li>
-    </ul>
-    <p v-html="$t('commGuidePara057A')"></p>
     <h3 id="consequences">
       {{ $t('commGuideHeadingConsequences') }}
     </h3>
-    <div class="media align-items-center">
-      <div class="media-body">
-        <p v-html="$t('commGuidePara059')"></p>
-      </div>
-      <img src="~@/assets/images/community-guidelines/consequences.png">
-    </div>
+    <p v-html="$t('commGuidePara059')"></p>
+    <img src="~@/assets/images/community-guidelines/consequences.png">
     <h4>{{ $t('commGuideHeadingSevereConsequences') }}</h4>
     <ul>
       <li v-html="$t('commGuideList09A')"></li>
       <li v-html="$t('commGuideList09C')"></li>
       <li v-html="$t('commGuideList09D')"></li>
+      <li v-html="$t('commGuideList09E')"></li>
     </ul>
     <h4>{{ $t('commGuideHeadingModerateConsequences') }}</h4>
     <ul>
@@ -113,55 +101,53 @@
     <h3 id="restoration">
       {{ $t('commGuideHeadingRestoration') }}
     </h3>
-    <div class="media align-items-center">
-      <img src="~@/assets/images/community-guidelines/restoration.png">
-      <div class="media-body">
-        <p v-html="$t('commGuidePara061')"></p>
-      </div>
-    </div>
+    <img
+      src="~@/assets/images/community-guidelines/restoration.png"
+      class="mb-3"
+    >
+    <p v-html="$t('commGuidePara061')"></p>
     <p v-html="$t('commGuidePara063')"></p>
     <h2 id="meet-the-mods">
       {{ $t('commGuideHeadingMeet') }}
     </h2>
     <p v-html="$t('commGuidePara007')"></p>
     <p v-html="$t('commGuidePara009')"></p>
-    <div class="media align-items-center">
-      <img src="~@/assets/images/community-guidelines/staff.png">
-      <div class="media-body">
-        <ul>
-          <li>
-            {{ $t('commGuideAKA', {habitName: 'heyeilatan', realName: 'Natalie'}) }}
-            ({{ $t('commGuideOnGitHub', {gitHubName: 'CuriousMagpie'}) }})
-            - Web Developer
-          </li>
-          <li>
-            {{ $t('commGuideAKA', {habitName: 'Viirus', realName: 'Phillip'}) }}
-            - Mobile Developer
-          </li>
-          <li>
-            {{ $t('commGuideAKA', {habitName: 'redphoenix', realName: 'Vicky'}) }}
-            ({{ $t('commGuideOnGitHub', {gitHubName: 'veeeeeee'}) }})
-            - Co-Founder
-          </li>
-          <li>
-            {{ $t('commGuideAKA', {habitName: 'Beffymaroo', realName: 'Beth'}) }}
-            - Art, Community Management, Many Hats
-          </li>
-          <li>
-            {{ $t('commGuideAKA', {habitName: 'SabreCat', realName: 'Sabe'}) }}
-            - Web Developer
-          </li>
-          <li>
-            {{ $t('commGuideAKA', {habitName: 'Apollo', realName: 'Tressley'}) }}
-            - Designer
-          </li>
-          <li>
-            {{ $t('commGuideAKA', {habitName: 'Piyo', realName: 'Sara'}) }}
-            - Mobile Designer
-          </li>
-        </ul>
-      </div>
-    </div>
+    <img
+      src="~@/assets/images/community-guidelines/staff.png"
+      class="mb-3"
+    >
+    <ul>
+      <li>
+        {{ $t('commGuideAKA', {habitName: 'heyeilatan', realName: 'Natalie'}) }}
+        ({{ $t('commGuideOnGitHub', {gitHubName: 'CuriousMagpie'}) }})
+        - Web Developer
+      </li>
+      <li>
+        {{ $t('commGuideAKA', {habitName: 'redphoenix', realName: 'Vicky'}) }}
+        ({{ $t('commGuideOnGitHub', {gitHubName: 'veeeeeee'}) }})
+        - Co-Founder
+      </li>
+      <li>
+        {{ $t('commGuideAKA', {habitName: 'Beffymaroo', realName: 'Beth'}) }}
+        - Art, Community Management, Many Hats
+      </li>
+      <li>
+        {{ $t('commGuideAKA', {habitName: 'SabreCat', realName: 'Sabe'}) }}
+        - Web Developer
+      </li>
+      <li>
+        {{ $t('commGuideAKA', {habitName: 'Apollo', realName: 'Tressley'}) }}
+        - Designer
+      </li>
+      <li>
+        {{ $t('commGuideAKA', {habitName: 'Piyo', realName: 'Sara'}) }}
+        - Mobile Designer
+      </li>
+      <li>
+        {{ $t('commGuideAKA', {habitName: 'Viirus', realName: 'Phillip'}) }}
+        - Mobile Developer
+      </li>
+    </ul>
     <p v-html="$t('commGuidePara013')"></p>
     <p>
       {{ $t('commGuidePara014') }}<br>
@@ -169,7 +155,6 @@
         Lemoness, lefnire, Slappybag, litenull, Shaner, Bobbyroberts99, wc8,
         Breadstrings, Megan, Blade, Daniel the Bard, deilann, shanaqui, Nakonana,
         Dewines, Alys, Fox_town, MaybeSteveRogers, and Cantras.
-
       </em>
     </p>
     <h2 id="final">
@@ -181,16 +166,13 @@
       {{ $t('commGuideHeadingLinks') }}
     </h2>
     <ul>
-      <li v-html="$t('commGuideLink01')"></li>
+      <li><a href="/static/faq">{{ $t('faq') }}</a></li>
       <li v-html="$t('commGuideLink02')"></li>
       <li v-html="$t('commGuideLink03')"></li>
       <li v-html="$t('commGuideLink04')"></li>
-      <li v-html="$t('commGuideLink06')"></li>
-      <li v-html="$t('commGuideLink07')"></li>
     </ul>
     <p v-html="$t('commGuidePara069')"></p>
-    <ul class="list-2col list-unstyled">
-      <li>Beffymaroo</li>
+    <ul>
       <li>Breadstrings</li>
       <li>Draayder</li>
       <li>Kiwibot</li>
@@ -204,12 +186,3 @@
     </ul>
   </div>
 </template>
-
-<style lang='scss' scoped>
-  .list-2col {
-    width: 50%;
-    columns: 2;
-    -moz-columns: 2;
-    -webkit-columns: 2;
-  }
-</style>
