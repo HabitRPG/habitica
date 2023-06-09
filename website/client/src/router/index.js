@@ -74,10 +74,6 @@ const EquipmentPage = () => import(/* webpackChunkName: "inventory" */'@/compone
 const StablePage = () => import(/* webpackChunkName: "inventory" */'@/components/inventory/stable/index');
 
 // Guilds & Parties
-const GuildIndex = () => import(/* webpackChunkName: "guilds" */ '@/components/groups/index');
-const TavernPage = () => import(/* webpackChunkName: "guilds" */ '@/components/groups/tavern');
-const MyGuilds = () => import(/* webpackChunkName: "guilds" */ '@/components/groups/myGuilds');
-const GuildsDiscoveryPage = () => import(/* webpackChunkName: "guilds" */ '@/components/groups/discovery');
 const GroupPage = () => import(/* webpackChunkName: "guilds" */ '@/components/groups/group');
 const GroupPlansAppPage = () => import(/* webpackChunkName: "guilds" */ '@/components/groups/groupPlan');
 const LookingForParty = () => import(/* webpackChunkName: "guilds" */ '@/components/groups/lookingForParty');
@@ -189,23 +185,20 @@ const router = new VueRouter({
     },
     {
       path: '/groups',
-      component: GuildIndex,
+      component: NotFoundPage,
       children: [
-        { name: 'tavern', path: 'tavern', component: TavernPage },
+        { name: 'tavern', path: 'tavern' },
         {
           name: 'myGuilds',
           path: 'myGuilds',
-          component: MyGuilds,
         },
         {
           name: 'guildsDiscovery',
           path: 'discovery',
-          component: GuildsDiscoveryPage,
         },
         {
           name: 'guild',
           path: 'guild/:groupId',
-          component: GroupPage,
           props: true,
         },
       ],

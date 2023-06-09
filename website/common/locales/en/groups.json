@@ -417,5 +417,8 @@
   "lookingForPartyTitle": "Find Members",
   "findMorePartyMembers": "Find More Members",
   "findPartyMembers": "Find Party Members",
-  "noOneLooking": "There’s no one looking for a Party right now.<br>You can check back later!"
+  "noOneLooking": "There’s no one looking for a Party right now.<br>You can check back later!",
+  "tavernDiscontinued": "The Tavern and Guilds have been discontinued",
+  "tavernDiscontinuedDetail": "Due to a number of factors, including changes in how our player base interacts with Habitica, the resources necessary to maintain these spaces became disproportionate to the number of people participating in them and unsustainable over the long term.",
+  "tavernDiscontinuedLinks": "Read more about the <a href='/static/faq/tavern-and-guilds'>Tavern and Guild Service Discontinuation</a> or head back to the <a href='/'>homepage</a>."
 }
