@@ -218,7 +218,7 @@
     margin-top: -10em;
 
     .box {
-      height: 450px;
+      height: 416px;
       border-radius: 8px;
     }
 

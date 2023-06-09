@@ -194,6 +194,7 @@ spells.rogue = {
       return critBonus;
     },
   },
+  // test
   toolsOfTrade: { // Tools of the Trade
     text: t('spellRogueToolsOfTradeText'),
     mana: 25,
