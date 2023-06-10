@@ -51,15 +51,17 @@ api.readNotification = {
 };
 
 /**
- * @api {post} /api/v3/notifications/read Mark multiple notifications as read
+ * @api {post} /api/v3/notifications/:notificationIds/read Mark multiple notifications as read
  * @apiName ReadNotifications
  * @apiGroup Notification
+ *
+ * @apiParam (Path) {UUID} notificationIds
  *
  * @apiSuccess {Object} data user.notifications
  */
 api.readNotifications = {
   method: 'POST',
-  url: '/notifications/read',
+  url: '/notifications/:notificationIds/read',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
