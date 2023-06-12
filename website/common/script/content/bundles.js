@@ -37,7 +37,7 @@ const bundles = {
     ],
     event: EVENTS.bundle202306,
     canBuy () {
-      return moment().isBefore(EVENTS.bundle202306.end);
+      return moment().isBetween(EVENTS.bundle202306.start, EVENTS.bundle202306.end);
     },
     type: 'quests',
     class: 'quest_bundle_splashyPals',
