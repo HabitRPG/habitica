@@ -10,10 +10,14 @@ const gemsPromo = {
 
 export const EVENTS = {
   noEvent: {
-    start: '2023-05-31T23:59-04:00',
-    end: '2023-06-22T08:00-04:00',
+    start: '2023-06-13T23:59-04:00',
+    end: '2023-06-30T08:00-04:00',
     season: 'normal',
     npcImageSuffix: '',
+  },
+  bundle202306: {
+    start:'2023-06-13T08:00-04:00',
+    end:'2023-06-30T23:59-04:00',
   },
   bundle202305: {
     start:'2023-05-23T08:00-04:00',

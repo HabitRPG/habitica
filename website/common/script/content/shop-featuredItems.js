@@ -44,12 +44,12 @@ const featuredItems = {
       },
     ];
   },
-  quests () { // start date is 3/28
-    if (moment().isBetween(EVENTS.bundle202305.start, EVENTS.bundle202305.end)) {
+  quests () {
+    if (moment().isBetween(EVENTS.bundle202306.start, EVENTS.bundle202306.end)) {
       return [
         {
           type: 'bundles',
-          path: 'bundles.birdBuddies',
+          path: 'bundles.splashyPals',
         },
         {
           type: 'quests',
