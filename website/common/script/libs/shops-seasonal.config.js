@@ -29,23 +29,24 @@ export default {
 
   pinnedSets: CURRENT_EVENT
     ? {
-      rogue: 'spring2023CaterpillarRogueSet',
-      warrior: 'spring2023HummingbirdWarriorSet',
-      wizard: 'spring2023MoonstoneMageSet',
-      healer: 'spring2023LilyHealerSet',
+      rogue: 'summer2023GuppyRogue',
+      warrior: 'summer2023GoldfishWarriorSet',
+      wizard: 'summer2023CoralMageSet',
+      healer: 'summer2023KelpHealer',
     }
     : {},
-  availableSpells: CURRENT_EVENT && moment().isBetween('2023-04-18T08:00-05:00', CURRENT_EVENT.end)
+
+  availableSpells: CURRENT_EVENT && moment().isBetween('2023-07-11T08:00-04:00', CURRENT_EVENT.end)
     ? [
-      'shinySeed',
+      'seafoam',
     ]
     : [],
 
-  availableQuests: CURRENT_EVENT && moment().isBetween('2023-03-28T08:00-05:00', CURRENT_EVENT.end)
+  availableQuests: CURRENT_EVENT && moment().isBetween('2023-07-11T08:00-04:00', CURRENT_EVENT.end)
     ? [
       'egg',
     ]
     : [],
 
-  featuredSet: 'spring2022MagpieRogueSet',
+  featuredSet: 'summer2022MantaRayMageSet',
 };

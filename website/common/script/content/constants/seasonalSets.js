@@ -156,6 +156,11 @@ const SEASONAL_SETS = {
     'summer2022WaterspoutWarriorSet',
     'summer2022MantaRayMageSet',
     'summer2022AngelfishHealerSet',
+
+    'summer2023GoldfishWarriorSet',
+    'summer2023CoralMageSet',
+    'summer2023GuppyRogueSet',
+    'summer2023KelpHealer',
   ],
   fall: [
     // fall 2014
