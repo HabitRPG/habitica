@@ -24,7 +24,7 @@
     "@vue/cli-plugin-router": "^5.0.8",
     "@vue/cli-plugin-unit-mocha": "^5.0.8",
     "@vue/cli-service": "^4.5.15",
-    "@vue/test-utils": "1.0.0-beta.29",
+    "@vue/test-utils": "1.3.6",
     "amplitude-js": "^8.21.3",
     "axios": "^0.27.2",
     "axios-progress-bar": "^1.2.0",
