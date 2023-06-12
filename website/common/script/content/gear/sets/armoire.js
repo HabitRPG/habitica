@@ -424,6 +424,16 @@ const armor = {
     con: 10,
     set: 'painters',
   },
+  stripedRainbowShirt: {
+    str: 7,
+    int: 7,
+    set: 'rainbow',
+  },
+  diagonalRainbowShirt: {
+    con: 7,
+    per: 7,
+    set: 'rainbow',
+  },
 };
 
 const body = {

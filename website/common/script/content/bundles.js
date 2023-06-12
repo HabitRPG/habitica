@@ -178,9 +178,9 @@ const bundles = {
       'penguin',
       'rooster',
     ],
-    event: EVENTS.bundle202109,
+    event: EVENTS.bundle202305,
     canBuy () {
-      return moment().isBefore(EVENTS.bundle202109.end);
+      return moment().isBefore(EVENTS.bundle202305.end);
     },
     type: 'quests',
     value: 7,

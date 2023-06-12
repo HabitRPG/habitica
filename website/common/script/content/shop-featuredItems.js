@@ -53,11 +53,11 @@ const featuredItems = {
         },
         {
           type: 'quests',
-          path: 'quests.kraken',
+          path: 'quests.harpy',
         },
         {
           type: 'quests',
-          path: 'quests.nudibranch',
+          path: 'quests.owl',
         },
       ];
     }
