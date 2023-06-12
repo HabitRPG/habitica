@@ -128,7 +128,10 @@
         <hr>
       </div>
       <div>
-        <div class="checkbox">
+        <div
+          class="checkbox"
+          id="preferenceAdvancedCollapsed"
+        >
           <label>
             <input
               v-model="user.preferences.advancedCollapsed"
@@ -136,17 +139,22 @@
               class="mr-2"
               @change="set('advancedCollapsed')"
             >
-            <span
-              class="hint"
-              popover-trigger="mouseenter"
-              popover-placement="right"
-              :popover="$t('startAdvCollapsedPop')"
-            >{{ $t('startAdvCollapsed') }}</span>
+            <span class="hint">
+              {{ $t('startAdvCollapsed') }}
+            </span>
+            <b-popover
+              target="preferenceAdvancedCollapsed"
+              triggers="hover focus"
+              placement="right"
+              :prevent-overflow="false"
+              :content="$t('startAdvCollapsedPop')"
+            />
           </label>
         </div>
         <div
           v-if="party.memberCount === 1"
           class="checkbox"
+          id="preferenceDisplayInviteAtOneMember"
         >
           <label>
             <input
@@ -155,12 +163,9 @@
               class="mr-2"
               @change="set('displayInviteToPartyWhenPartyIs1')"
             >
-            <span
-              class="hint"
-              popover-trigger="mouseenter"
-              popover-placement="right"
-              :popover="$t('displayInviteToPartyWhenPartyIs1')"
-            >{{ $t('displayInviteToPartyWhenPartyIs1') }}</span>
+            <span class="hint">
+              {{ $t('displayInviteToPartyWhenPartyIs1') }}
+            </span>
           </label>
         </div>
         <div class="checkbox">
@@ -201,32 +206,47 @@
         </div>
         <hr>
         <button
+          id="buttonShowBailey"
           class="btn btn-primary mr-2 mb-2"
-          popover-trigger="mouseenter"
-          popover-placement="right"
-          :popover="$t('showBaileyPop')"
           @click="showBailey()"
         >
           {{ $t('showBailey') }}
+          <b-popover
+            target="buttonShowBailey"
+            triggers="hover focus"
+            placement="right"
+            :prevent-overflow="false"
+            :content="$t('showBaileyPop')"
+          />
         </button>
         <button
+          id="buttonFCV"
           class="btn btn-primary mr-2 mb-2"
-          popover-trigger="mouseenter"
-          popover-placement="right"
-          :popover="$t('fixValPop')"
           @click="openRestoreModal()"
         >
           {{ $t('fixVal') }}
+          <b-popover
+            target="buttonFCV"
+            triggers="hover focus"
+            placement="right"
+            :prevent-overflow="false"
+            :content="$t('fixValPop')"
+          />
         </button>
         <button
           v-if="user.preferences.disableClasses == true"
+          id="buttonEnableClasses"
           class="btn btn-primary mb-2"
-          popover-trigger="mouseenter"
-          popover-placement="right"
-          :popover="$t('enableClassPop')"
           @click="changeClassForUser(false)"
         >
           {{ $t('enableClass') }}
+          <b-popover
+            target="buttonEnableClasses"
+            triggers="hover focus"
+            placement="right"
+            :prevent-overflow="false"
+            :content="$t('enableClassPop')"
+          />
         </button>
         <hr>
         <day-start-adjustment />
@@ -515,6 +535,10 @@
   @import '~@/assets/scss/colors.scss';
   input {
     color: $gray-50;
+  }
+
+  .checkbox {
+    width: fit-content;
   }
   .usersettings h5 {
     margin-top: 1em;
