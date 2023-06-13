@@ -160,7 +160,7 @@ const SEASONAL_SETS = {
     'summer2023GoldfishWarriorSet',
     'summer2023CoralMageSet',
     'summer2023GuppyRogueSet',
-    'summer2023KelpHealer',
+    'summer2023KelpHealerSet',
   ],
   fall: [
     // fall 2014

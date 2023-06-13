@@ -828,14 +828,14 @@ const armor = {
   summer2023Rogue: {
     set: 'summer2023GuppyRogueSet',
   },
-  summer2023warrior: {
+  summer2023Warrior: {
     set: 'summer2023GoldfishWarriorSet',
   },
   summer2023Mage: {
     set: 'summer2023CoralMageSet',
   },
   summer2023Healer: {
-    set: 'summer2023KelpHealer',
+    set: 'summer2023KelpHealerSet',
   },
 };
 
@@ -2018,14 +2018,14 @@ const head = {
   summer2023Rogue: {
     set: 'summer2023GuppyRogueSet',
   },
-  summer2023warrior: {
+  summer2023Warrior: {
     set: 'summer2023GoldfishWarriorSet',
   },
   summer2023Mage: {
     set: 'summer2023CoralMageSet',
   },
   summer2023Healer: {
-    set: 'summer2023KelpHealer',
+    set: 'summer2023KelpHealerSet',
   },
 };
 
@@ -2859,11 +2859,11 @@ const shield = {
   summer2023Rogue: {
     set: 'summer2023GuppyRogueSet',
   },
-  summer2023warrior: {
+  summer2023Warrior: {
     set: 'summer2023GoldfishWarriorSet',
   },
-  summer2023Mage: {
-    set: 'summer2023CoralMageSet',
+  summer2023Healer: {
+    set: 'summer2023KelpHealerSet',
   },
 };
 
@@ -3640,14 +3640,14 @@ const weapon = {
   summer2023Rogue: {
     set: 'summer2023GuppyRogueSet',
   },
-  summer2023warrior: {
+  summer2023Warrior: {
     set: 'summer2023GoldfishWarriorSet',
   },
   summer2023Mage: {
     set: 'summer2023CoralMageSet',
   },
   summer2023Healer: {
-    set: 'summer2023KelpHealer',
+    set: 'summer2023KelpHealerSet',
   },
 };
 

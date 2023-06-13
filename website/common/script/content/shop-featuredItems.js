@@ -20,8 +20,8 @@ const featuredItems = {
           path: 'premiumHatchingPotions.Glass',
         },
         {
-          type: 'premiumHatchingPotions',
-          path: 'premiumhatchingPotions.Sand',
+          type: 'premiumHatchingPotion',
+          path: 'premiumHatchingPotions.SandSculpture',
         },
       ];
     }

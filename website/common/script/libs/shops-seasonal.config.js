@@ -29,10 +29,10 @@ export default {
 
   pinnedSets: CURRENT_EVENT
     ? {
-      rogue: 'summer2023GuppyRogue',
+      rogue: 'summer2023GuppyRogueSet',
       warrior: 'summer2023GoldfishWarriorSet',
       wizard: 'summer2023CoralMageSet',
-      healer: 'summer2023KelpHealer',
+      healer: 'summer2023KelpHealerSet',
     }
     : {},
 

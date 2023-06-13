@@ -2527,8 +2527,8 @@
 
   "shieldSpecialSummer2020WarriorText": "Goldfish Spirit",
   "shieldSpecialSummer2020WarriorNotes": "Summon this goldfish spirit for an extra burst of reassurance and companionship during a fight. Increases Constitution by <%= con %>. Limited Edition 2023 Summer Gear.",
-  "shieldSpecialSummer2020HealerText": "Healer Shield",
-  "shieldSpecialSummer2020HealerNotes": "Increases Constitution by <%= con %>. Limited Edition 2023 Summer Gear.",
+  "shieldSpecialSummer2023HealerText": "Healer Shield",
+  "shieldSpecialSummer2023HealerNotes": "Increases Constitution by <%= con %>. Limited Edition 2023 Summer Gear.",
 
   "shieldMystery201601Text": "Resolution Slayer",
   "shieldMystery201601Notes": "This blade can be used to parry away all distractions. Confers no benefit. January 2016 Subscriber Item.",
