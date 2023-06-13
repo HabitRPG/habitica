@@ -183,10 +183,8 @@
           <div
             v-for="bg in backgroundShopSets[0].items"
             :key="bg.key"
+            :id="bg.key"
             class="col-2"
-            :popover-title="bg.text"
-            :popover="bg.notes"
-            popover-trigger="mouseenter"
             @click="unlock('background.' + bg.key)"
           >
             <div
@@ -195,6 +193,13 @@
             >
               <div class="small-rectangle"></div>
             </div>
+            <b-popover
+              :target="bg.key"
+              triggers="hover focus"
+              placement="bottom"
+              :prevent-overflow="false"
+              :content="bg.notes"
+            />
           </div>
         </div>
         <div
@@ -211,16 +216,21 @@
             <div
               v-for="bg in backgroundShopSets[2].items"
               :key="bg.key"
+              :id="bg.key"
               class="col-4 text-center customize-option background-button"
-              :popover-title="bg.text"
-              :popover="bg.notes"
-              popover-trigger="mouseenter"
               @click="unlock('background.' + bg.key)"
             >
               <div
                 class="background"
                 :class="`background_${bg.key}`"
               ></div>
+              <b-popover
+                :target="bg.key"
+                triggers="hover focus"
+                placement="bottom"
+                :prevent-overflow="false"
+                :content="bg.notes"
+              />
             </div>
           </div>
         </div>
@@ -236,10 +246,8 @@
             <div
               v-for="bg in backgroundShopSets[1].items"
               :key="bg.key"
+              :id="bg.key"
               class="col-4 text-center customize-option background-button"
-              :popover-title="bg.text"
-              :popover="bg.notes"
-              popover-trigger="mouseenter"
               @click="!user.purchased.background[bg.key]
                 ? backgroundSelected(bg) : unlock('background.' + bg.key)"
             >
@@ -270,6 +278,13 @@
                   :pinned="isBackgroundPinned(bg)"
                 />
               </span>
+              <b-popover
+                :target="bg.key"
+                triggers="hover focus"
+                placement="bottom"
+                :prevent-overflow="false"
+                :content="bg.notes"
+              />
             </div>
           </div>
         </div>
@@ -302,10 +317,8 @@
             <div
               v-for="bg in set.items"
               :key="bg.key"
+              :id="bg.key"
               class="col-4 text-center customize-option background-button"
-              :popover-title="bg.text"
-              :popover="bg.notes"
-              popover-trigger="mouseenter"
               @click="!user.purchased.background[bg.key]
                 ? backgroundSelected(bg) : unlock('background.' + bg.key)"
             >
@@ -336,6 +349,13 @@
                   :pinned="isBackgroundPinned(bg)"
                 />
               </span>
+              <b-popover
+                :target="bg.key"
+                triggers="hover focus"
+                placement="bottom"
+                :prevent-overflow="false"
+                :content="bg.notes"
+              />
             </div>
             <div
               v-if="!ownsSet('background', set.items) && set.identifier !== 'incentiveBackgrounds'"
@@ -358,16 +378,21 @@
           <div
             v-for="(bg) in ownedBackgrounds"
             :key="bg.key"
+            :id="bg.key"
             class="col-4 text-center customize-option background-button"
-            :popover-title="bg.text"
-            :popover="bg.notes"
-            popover-trigger="mouseenter"
             @click="unlock('background.' + bg.key)"
           >
             <div
               class="background"
               :class="[`background_${bg.key}`, backgroundLockedStatus(bg.key)]"
             ></div>
+            <b-popover
+              :target="bg.key"
+              triggers="hover focus"
+              placement="bottom"
+              :prevent-overflow="false"
+              :content="bg.notes"
+            />
           </div>
         </div>
       </div>
