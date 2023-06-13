@@ -257,5 +257,9 @@
     "dateStartFebruary": "8 февраля",
     "anniversaryLimitedDates": "с 30 января по 8 февраля",
     "limitedEvent": "Ограниченное по времени событие",
-    "anniversaryGryphatricePrice": "Заполучите его сегодня за <strong>$9.99</strong> или <strong>60 самоцветов</strong>"
+    "anniversaryGryphatricePrice": "Заполучите его сегодня за <strong>$9.99</strong> или <strong>60 самоцветов</strong>",
+    "spring2023HummingbirdWarriorSet": "Колибри (Воин)",
+    "spring2023MoonstoneMageSet": "Лунный камень (Маг)",
+    "spring2023CaterpillarRogueSet": "Гусеница (Разбойник)",
+    "spring2023LilyHealerSet": "Лилия (Целитель)"
 }
