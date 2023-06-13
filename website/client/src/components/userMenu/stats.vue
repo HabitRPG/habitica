@@ -146,7 +146,7 @@
           :key="stat"
           class="row"
         >
-          <div 
+          <div
             class="col-4"
             :id="statInfo.title"
           >
@@ -185,7 +185,7 @@
             </ul>
           </div>
         </div>
-        <div 
+        <div
           v-if="user.stats.buffs.stealth"
           id="stealthBuff"
         >
@@ -250,7 +250,7 @@
             >
               {{ $t('noMoreAllocate') }}
             </p>
-            <p 
+            <p
               v-if="user.stats.points || userLevel100Plus"
               id="pointAllocation"
             >
@@ -267,7 +267,7 @@
           </div>
           <div>
             <fieldset class="auto-allocate">
-              <div 
+              <div
                 id="preferenceAutomaticAllocation"
                 class="checkbox"
               >
@@ -294,7 +294,7 @@
                 v-if="user.preferences.automaticAllocation"
                 style="margin-left:1em"
               >
-                <div 
+                <div
                   id="optionFlatAllocation"
                   class="radio"
                 >
@@ -318,7 +318,7 @@
                     />
                   </label>
                 </div>
-                <div 
+                <div
                   id="optionClassAllocation"
                   class="radio"
                 >
@@ -342,7 +342,7 @@
                     />
                   </label>
                 </div>
-                <div 
+                <div
                   id="optionTaskAllocation"
                   class="radio"
                 >
