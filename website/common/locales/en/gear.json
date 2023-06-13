@@ -477,6 +477,15 @@
   "weaponSpecialSpring2023HealerText": "Lilium Pollen",
   "weaponSpecialSpring2023HealerNotes": "With a puff and a sparkle, you deploy new growth, joy, and color. Increases Intelligence by <%= int %>. Limited Edition 2023 Spring Gear.",
 
+  "weaponSpecialSummer2023RogueText": "Guppy Weapon",
+  "weaponSpecialSummer2023RogueNotes": "Increases Strength by <%= str %>. Limited Edition 2023 Summer Gear.",
+  "weaponSpecialSummer2023WarriorText": "Water Elemental Sword",
+  "weaponSpecialSummer2023WarriorNotes": "Summon powerful sprays of water to clear your path of obstacles. Increases Strength by <%= str %>. Limited Edition 2023 Summer Gear.",
+  "weaponSpecialSummer2023MageText": "Fish",
+  "weaponSpecialSummer2023MageNotes": "These friendly fish will stay by your side as the best accountability buddies in the ocean. Increases Intelligence by <%= int %>. Limited Edition 2023 Summer Gear.",
+  "weaponSpecialSummer2023HealerText": "Healer Weapon",
+  "weaponSpecialSummer2023HealerNotes": "Increases Intelligence by <%= int %>. Limited Edition 2023 Summer Gear.",
+
   "weaponMystery201411Text": "Pitchfork of Feasting",
   "weaponMystery201411Notes": "Stab your enemies or dig in to your favorite foods - this versatile pitchfork does it all! Confers no benefit. November 2014 Subscriber Item.",
   "weaponMystery201502Text": "Shimmery Winged Staff of Love and Also Truth",
@@ -1152,6 +1161,15 @@
   "armorSpecialSpring2023MageNotes": "This snazzy spring suit magnifies moonstone magic. Increases Intelligence by <%= int %>. Limited Edition 2023 Spring Gear.",
   "armorSpecialSpring2023HealerText": "Lily Leaf Gown",
   "armorSpecialSpring2023HealerNotes": "A sweep of verdant glory to make you the envy of the Party. Increases Constitution by <%= con %>. Limited Edition 2023 Spring Gear.",
+
+  "armorSpecialSummer2023RogueText": "Rogue Armor",
+  "armorSpecialSummer2023RogueNotes": "Increases Perception by <%= per %>. Limited Edition 2023 Summer Gear.",
+  "armorSpecialSummer2023WarriorText": "Goldfish Armor",
+  "armorSpecialSummer2023WarriorNotes": "Goldfish warriors actually have excellent memories because they always keep their tasks and to dos organized in lists. Increases Constitution by <%= con %>. Limited Edition 2023 Summer Gear.",
+  "armorSpecialSummer2023MageText": "Coral Robes",
+  "armorSpecialSummer2023MageNotes": "Feel protected and comfortable in these flowing robes, perfectly colored for underwater adventures.Increases Intelligence by <%= int %>. Limited Edition 2023 Summer Gear.",
+  "armorSpecialSummer2023HealerText": "Healer Armor",
+  "armorSpecialSummer2023HealerNotes": "Increases Constitution by <%= con %>. Limited Edition 2023 Summer Gear.",
 
   "armorMystery201402Text": "Messenger Robes",
   "armorMystery201402Notes": "Shimmering and strong, these robes have many pockets to carry letters. Confers no benefit. February 2014 Subscriber Item.",
@@ -1915,6 +1933,15 @@
   "headSpecialSpring2023HealerText": "Lily Bloom",
   "headSpecialSpring2023HealerNotes": "This brilliant and colorful display shares a color scheme with the Orb of Rebirth! How symbolic! Increases Intelligence by <%= int %>. Limited Edition 2023 Spring Gear.",
 
+  "headSpecialSummer2023RogueText": "Rogue Headgear",
+  "headSpecialSummer2023RogueNotes": "Increases Perception by <%= per %>. Limited Edition 2023 Summer Gear.",
+  "headSpecialSummer2023WarriorText": "Goldfish Fin",
+  "headSpecialSummer2023WarriorNotes": "This fabulous fin provides stability as you swim toward troublesome tasks ahead of you.Increases Strength by <%= str %>. Limited Edition 2023 Summer Gear.",
+  "headSpecialSummer2023MageText": "Coral Antlers",
+  "headSpecialSummer2023MageNotes": "The wisdom of an entire ecosystem is with you when you work your marine magic. Increases Perception by <%= per %>. Limited Edition 2023 Summer Gear.",
+  "headSpecialSummer2023HealerText": "Healer Headgear",
+  "headSpecialSummer2023HealerNotes": "Increases Intelligence by <%= int %>. Limited Edition 2023 Summer Gear.",
+
   "headSpecialGaymerxText": "Rainbow Warrior Helm",
   "headSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special helmet is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
 
@@ -2497,6 +2524,11 @@
   "shieldSpecialSpring2023WarriorNotes": "Collect the spring’s best flowers into this brightly colored floral bunch. Increases Constitution by <%= con %>. Limited Edition 2023 Spring Gear.",
   "shieldSpecialSpring2023HealerText": "Lily Corsage",
   "shieldSpecialSpring2023HealerNotes": "An accent for a healing visit, or part of a ritual for attending a springtime dance! Increases Constitution by <%= con %>. Limited Edition 2023 Spring Gear.",
+
+  "shieldSpecialSummer2020WarriorText": "Goldfish Spirit",
+  "shieldSpecialSummer2020WarriorNotes": "Summon this goldfish spirit for an extra burst of reassurance and companionship during a fight. Increases Constitution by <%= con %>. Limited Edition 2023 Summer Gear.",
+  "shieldSpecialSummer2020HealerText": "Healer Shield",
+  "shieldSpecialSummer2020HealerNotes": "Increases Constitution by <%= con %>. Limited Edition 2023 Summer Gear.",
 
   "shieldMystery201601Text": "Resolution Slayer",
   "shieldMystery201601Notes": "This blade can be used to parry away all distractions. Confers no benefit. January 2016 Subscriber Item.",
