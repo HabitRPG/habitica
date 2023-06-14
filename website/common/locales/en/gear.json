@@ -2525,8 +2525,8 @@
   "shieldSpecialSpring2023HealerText": "Lily Corsage",
   "shieldSpecialSpring2023HealerNotes": "An accent for a healing visit, or part of a ritual for attending a springtime dance! Increases Constitution by <%= con %>. Limited Edition 2023 Spring Gear.",
 
-  "shieldSpecialSummer2020WarriorText": "Goldfish Spirit",
-  "shieldSpecialSummer2020WarriorNotes": "Summon this goldfish spirit for an extra burst of reassurance and companionship during a fight. Increases Constitution by <%= con %>. Limited Edition 2023 Summer Gear.",
+  "shieldSpecialSummer2023WarriorText": "Goldfish Spirit",
+  "shieldSpecialSummer2023WarriorNotes": "Summon this goldfish spirit for an extra burst of reassurance and companionship during a fight. Increases Constitution by <%= con %>. Limited Edition 2023 Summer Gear.",
   "shieldSpecialSummer2023HealerText": "Healer Shield",
   "shieldSpecialSummer2023HealerNotes": "Increases Constitution by <%= con %>. Limited Edition 2023 Summer Gear.",
 
