@@ -28,6 +28,7 @@ const NewsPage = () => import(/* webpackChunkName: "static" */'@/components/stat
 const OverviewPage = () => import(/* webpackChunkName: "static" */'@/components/static/overview');
 const PressKitPage = () => import(/* webpackChunkName: "static" */'@/components/static/pressKit');
 const PrivacyPage = () => import(/* webpackChunkName: "static" */'@/components/static/privacy');
+const ChatSunsetFaq = () => import(/* webpackChunkName: "static" */'@/components/static/chatSunsetFaq');
 const TermsPage = () => import(/* webpackChunkName: "static" */'@/components/static/terms');
 
 const RegisterLoginReset = () => import(/* webpackChunkName: "auth" */'@/components/auth/registerLoginReset');
@@ -306,6 +307,9 @@ const router = new VueRouter({
           name: 'faq', path: 'faq', component: FAQPage, meta: { requiresLogin: false },
         },
         {
+          name: 'chatSunsetFaq', path: 'faq/tavern-and-guilds', component: ChatSunsetFaq, meta: { requiresLogin: false },
+        },
+        {
           name: 'features', path: 'features', component: FeaturesPage, meta: { requiresLogin: false },
         },
         {
@@ -500,6 +504,12 @@ router.beforeEach(async (to, from, next) => {
   }
 
   return next();
+});
+
+router.afterEach((to, from) => {
+  if (from.name === 'chatSunsetFaq') {
+    document.body.style.background = '#f9f9f9';
+  }
 });
 
 export default router;
