@@ -235,7 +235,7 @@ const premium = {
       availableDate: t('dateEndJuly'),
       previousDate: t('juneYYYY', { year: 2021 }),
     }),
-    event: EVENTS.summer2021,
+    event: EVENTS.summer2023,
     canBuy () {
       return moment().isBetween(EVENTS.summer2023.start, EVENTS.summer2023.end);
     },
@@ -411,7 +411,7 @@ const premium = {
     limited: true,
     event: EVENTS.summer2023,
     _addlNotes: t('eventAvailabilityReturning', {
-      availableDate: t('dateStartJune'),
+      availableDate: t('dateEndJuly'),
       previousDate: t('januaryYYYY', { year: 2023 }),
     }),
     canBuy () {
