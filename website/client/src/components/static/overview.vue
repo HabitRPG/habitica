@@ -15,7 +15,6 @@
         <p
           v-markdown="$t('overviewQuestions', {
             faqUrl: '/static/faq/',
-            helpGuildUrl: '/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a'
           })"
         ></p>
       </div>
