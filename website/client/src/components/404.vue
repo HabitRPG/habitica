@@ -1,26 +1,35 @@
 <template>
   <div class="row">
-    <div class="col-12 text-center">
+    <div class="col-6 text-center mx-auto mb-5">
       <!-- @TODO i18n. How to setup the strings with the router-link inside?-->
       <img
-        class="not-found-img"
+        class="my-5"
         src="~@/assets/images/404.png"
       >
-      <h1 class="not-found">
-        Sometimes even the bravest adventurer gets lost.
-      </h1>
-      <h2 class="not-found">
-        Looks like this link is broken or the page may have moved, sorry!
-      </h2>
-      <h2 class="not-found">
-        Head back to the
-        <router-link to="/">
-          Homepage
-        </router-link>or
-        <router-link :to="contactUsLink">
-          Contact Us
-        </router-link>about the issue.
-      </h2>
+      <div v-if="retiredChatPage">
+        <h1>
+          {{ $t('tavernDiscontinued') }}
+        </h1>
+        <p>{{ $t('tavernDiscontinuedDetail') }}</p>
+        <p v-html="$t('tavernDiscontinuedLinks')"></p>
+      </div>
+      <div v-else>
+        <h1>
+          Sometimes even the bravest adventurer gets lost.
+        </h1>
+        <p>
+          Looks like this link is broken or the page may have moved, sorry!
+        </p>
+        <p>
+          Head back to the
+          <router-link to="/">
+            Homepage
+          </router-link>or
+          <router-link :to="contactUsLink">
+            Contact Us
+          </router-link>about the issue.
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -37,6 +46,9 @@ export default {
       }
       return { name: 'contact' };
     },
+    retiredChatPage () {
+      return this.$route.fullPath.indexOf('/groups') !== -1;
+    },
   },
 };
 </script>
@@ -44,28 +56,14 @@ export default {
 <style lang="scss" scoped>
 @import '~@/assets/scss/colors.scss';
 
-.col-12 {
-  margin-bottom: 120px;
-}
-
-.not-found-img {
-  margin-top: 152px;
-  margin-bottom: 42px;
-}
-
-h1.not-found {
-  line-height: 1.33;
+h1 {
   color: $purple-200;
-  margin-bottom: 8px;
-  font-weight: normal;
-  margin-top: 0px;
+  margin-bottom: 1rem;
 }
 
-h2.not-found {
-  line-height: 1.4;
-  font-weight: normal;
-  color: $gray-200;
-  margin-bottom: 0px;
-  margin-top: 0px;
+p {
+  font-size: 18px;
+  line-height: 1.77;
 }
+
 </style>
