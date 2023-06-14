@@ -289,7 +289,7 @@
             </div>
 
             <!-- Daniel in sweet, sweet retirement with Jorts -->
-            <div class="row">
+            <div class="row daniel-width">
               <div class="gradient">
               </div>
               <div
@@ -336,7 +336,7 @@
   }
 
   p {
-    margin-bottom: 1.5em;
+    margin-bottom: 21px;
   }
 
   ul {
@@ -347,23 +347,19 @@
     size: 0.5em;
   }
 
-  #app {
-    background-color: $white !important;
-  }
-
-  .main-bg {
-    font-size: 16px !important;
+  li {
+    padding-bottom: 16px;
   }
 
   .headings {
-    font-size: 1em;
+    font-size: 1.15em;
     font-weight: 400;
     line-height: 1.75;
     color: $purple-200;
   }
 
   .body-text {
-    font-size: 0.875em;
+    font-size: 1em;
     color: $gray-10;
     line-height: 1.71;
   }
@@ -400,7 +396,7 @@
   }
 
   .staff-header {
-    font-size: 0.875em;
+    font-size: 1em;
     font-weight: bold;
     line-height: 1.71;
     margin-bottom: 8px;
@@ -408,7 +404,7 @@
   }
 
   .staff {
-    font-size: 0.875em;
+    font-size: 1em;
 
     .staff-icon {
       width: 10px;
@@ -426,7 +422,7 @@
 
   .player-header {
     height: 24px;
-    font-size: 0.875em;
+    font-size: 1em;
     font-weight: bold;
     margin-top: 20px;
     margin-bottom: 4px;
@@ -436,6 +432,7 @@
     list-style-type: none;
     padding: 0;
     width: 282px;
+    font-size: 1em !important;
 
     li {
       height: 40px;
@@ -446,7 +443,6 @@
       margin-bottom: 8px;
       margin-right: 4px;
       font-weight: bold;
-      font-size: 0.875em;
       line-height: 1.71;
     }
 
@@ -492,11 +488,16 @@
     }
   }
 
+  .daniel-width {
+    max-width: 100%;
+    margin-top: 24px;
+  }
+
   .gradient {
     position: absolute;
     width: 330px;
     height: 100px;
-    margin: 0 0 116px;
+    margin: -1px 0 116px;
     background-image: linear-gradient(to bottom, $gray-700 0%, rgba(249, 249, 249, 0) 100%);
   }
 
@@ -518,12 +519,11 @@
     height: 30px;
     background-repeat: no-repeat;
     position: absolute;
-    z-index: 0;
     margin-top: -30px;
   }
 
   .question {
-    font-size: 0.875em;
+    font-size: 1em;
     font-weight: bold;
     line-height: 1.71;
     color: $gray-10;
@@ -531,7 +531,7 @@
   }
 
   .contact p {
-    font-size: 0.875em;
+    font-size: 1em;
     margin-bottom: 0px;
   }
 </style>
