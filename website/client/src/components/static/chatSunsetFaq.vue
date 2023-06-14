@@ -404,6 +404,7 @@
     font-weight: bold;
     line-height: 1.71;
     margin-bottom: 8px;
+    color: $gray-10;
   }
 
   .staff {
@@ -415,20 +416,21 @@
     }
 
     .title {
+      height: 24px;
       color: $purple-300;
       font-weight: bold;
-      line-height: 1.71;
-      display: inline-block;
+       display: inline-block;
       margin-bottom: 4px;
     }
   }
 
   .player-header {
+    height: 24px;
     font-size: 0.875em;
     font-weight: bold;
-    line-height: 1.71;
-    margin-top: 24px;
-    margin-bottom: 8px;
+    margin-top: 20px;
+    margin-bottom: 4px;
+    color: $gray-10;
   }
     .tier-list {
     list-style-type: none;
@@ -436,11 +438,11 @@
     width: 282px;
 
     li {
+      height: 40px;
       border-radius: 4px;
       border: solid 1px $gray-500;
       text-align: center;
-      padding-top: 8px;
-      padding-bottom: 8px;
+      padding: 8px 0;
       margin-bottom: 8px;
       margin-right: 4px;
       font-weight: bold;
