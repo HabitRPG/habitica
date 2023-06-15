@@ -1,6 +1,6 @@
 <template>
-  <div class="col-12 col-sm-8 container-fluid d-flex mx-auto main-bg">
-    <div class="col-12 col-sm-8">
+  <div class="col-sm-8 container-fluid d-flex mx-auto">
+    <div class="col-sm-8">
       <div class="row">
         <!-- title goes here -->
         <div class="title-details">
