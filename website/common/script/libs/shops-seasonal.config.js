@@ -43,9 +43,7 @@ export default {
     : [],
 
   availableQuests: CURRENT_EVENT && moment().isBetween('2023-07-11T08:00-04:00', CURRENT_EVENT.end)
-    ? [
-      'egg',
-    ]
+    ? []
     : [],
 
   featuredSet: 'summer2022MantaRayMageSet',
