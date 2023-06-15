@@ -784,9 +784,11 @@ export default {
   async mounted () {
     await this.getUserGroupPlans();
     await this.getUserParty();
-    Array.from(document.getElementById('menu_collapse').getElementsByTagName('a')).forEach(link => {
-      link.addEventListener('click', this.closeMenu);
-    });
+    if (document.getElementById('menu_collapse')) {
+      Array.from(document.getElementById('menu_collapse').getElementsByTagName('a')).forEach(link => {
+        link.addEventListener('click', this.closeMenu);
+      });
+    }
     Array.from(document.getElementsByClassName('topbar-item')).forEach(link => {
       link.addEventListener('mouseenter', this.dropdownDesktop);
       link.addEventListener('mouseleave', this.dropdownDesktop);

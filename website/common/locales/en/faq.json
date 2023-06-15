@@ -129,7 +129,66 @@
   "androidFaqAnswer24": "We added the ability to look for a Party and find Party members in Android version 4.2! Be sure you’re updated to the latest version to check it out. Solo players can look for a Party from the Party screen when they aren’t in one. Party leaders can browse the list of players looking for an invite by tapping “Find Members” above their Party’s member list.\n\nSupport for the feature is coming to iOS in version 3.8, so keep an eye out soon!",
   "webFaqAnswer24": "We added the ability to look for a Party and find Party members in Android version 4.2! Be sure you’re updated to the latest version to check it out. Solo players can look for a Party from the Party screen when they aren’t in one. Party leaders can browse the list of players looking for an invite by tapping “Find Members” above their Party’s member list.\n\nSupport for the feature is coming to iOS in version 3.8, so keep an eye out soon!",
 
-  "iosFaqStillNeedHelp": "If you have a question that isn't on this list or on the [Wiki FAQ](https://habitica.fandom.com/wiki/FAQ), send us an email at <a href='mailto:admin@habitica.com'>admin@habitica.com</a>. We're happy to help.",
-  "androidFaqStillNeedHelp": "If you have a question that isn't on this list or on the [Wiki FAQ](https://habitica.fandom.com/wiki/FAQ), send us an email at <a href='mailto:admin@habitica.com'>admin@habitica.com</a>. We're happy to help.",
-  "webFaqStillNeedHelp": "If you have a question that isn't on this list or on the [Wiki FAQ](https://habitica.fandom.com/wiki/FAQ), send us an email at <a href='mailto:admin@habitica.com'>admin@habitica.com</a>. We're happy to help."
-}
+  "iosFaqStillNeedHelp": "If you have a question that isn't on this list or on the [Wiki FAQ](https://habitica.fandom.com/wiki/FAQ), come ask in the Tavern chat under Menu > Tavern! We're happy to help.",
+  "androidFaqStillNeedHelp": "If you have a question that isn't on this list or on the [Wiki FAQ](https://habitica.fandom.com/wiki/FAQ), come ask in the Tavern chat under Menu > Tavern! We're happy to help.",
+  "webFaqStillNeedHelp": "If you have a question that isn't on this list or on the [Wiki FAQ](https://habitica.fandom.com/wiki/FAQ), come ask in the [Habitica Help guild](https://habitica.com/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a)! We're happy to help.",
+
+  "sunsetFaqTitle": "Habitica Tavern and Guild Service Discontinuation FAQ",
+
+  "sunsetFaqPara1": "Due to a number of factors, including changes in how our player base interacts with Habitica and new content regulations, we are making the difficult decision to discontinue Tavern and Guild services on <strong>[date]</strong>.",
+  "sunsetFaqPara2": "Habitica’s primary purpose is and has always been to provide a gamified task management experience. Tavern and Guilds helped motivate players by helping them find others with similar goals. Some truly wonderful spaces were created and we had a chance to see the community thrive with helpful discussion. As the years passed, we noticed changes in how players use and rely on Habitica. Parties flourished, while Guilds and public spaces were used by less and less of our player base. In an ever changing internet landscape, the resources necessary to maintain these spaces became too disproportionate to the number of people actually participating in them.",
+  "sunsetFaqPara3": "We’re making this decision so we can better focus our resources on the parts of Habitica players rely on most without disrupting anyone’s access.",
+  "sunsetFaqPara4": "To celebrate the times we’ve had, we will be gifting everyone a Veteran Pet as we move forward into this new era. For our amazing contributors, we’ll also be sending out a special gear set to commemorate all their hard work in Habitica’s communities.",
+  "sunsetFaqPara5": "If you’d like to know more about what's changing, you can read the details below.",
+
+  "sunsetFaqHeader1": "Which services are ending?",
+  "sunsetFaqPara6": "Service for Tavern as well as public and private Guilds is ending and these spaces will be removed from Habitica on <strong>[date]</strong>.",
+
+  "sunsetFaqHeader2": "Why are the Tavern and Guild services ending?",
+  "sunsetFaqList1": "Habitica’s primary purpose is to provide motivation through a gamified task management experience. Guilds and Tavern are utilized by a disproportionately small percentage of our player base. The majority of players use outside services that are primarily intended for social interaction and are intentionally designed and maintained with those use cases in mind.",
+  "sunsetFaqList2": "New online safety laws require a level of active content oversight for public spaces that Habitica has historically not provided. Investing in the features that these new regulations would require would result in our limited resources being redirected towards parts of Habitica that the vast majority of players never touch.",
+  "sunsetFaqList3": "It’s important to us to continue offering worldwide access to Habitica’s ever-growing international player base. Removing these services allows us to continue that goal without having to consider restricting access in regions where more active content oversight than we can provide is required.",
+
+  "sunsetFaqHeader3": "Will I still be able to talk with my Party or Group Plan members?",
+  "sunsetFaqPara7": "Parties and Group Plans will remain and retain their chat spaces. You’ll also still be able to send private messages.",
+
+  "sunsetFaqHeader4": "Where do I go to pause my Dailies?",
+  "sunsetFaqPara8": "This feature has been relocated to Settings. The functions of Pause Damage will not be affected by the end of the Tavern and Guild services.",
+
+  "sunsetFaqHeader5": "How will I access my Group Plan if it’s an upgraded Guild?",
+  "sunsetFaqPara9": "<p><strong>Browser</strong>: Click on the Group Plan navigation in the top bar.</p><p><strong>Android:</strong> Tap your name at the top of the screen when viewing a task list to switch to your shared tasks. To access your chat, tap the chat icon in the header on that screen.</p><p><strong>iOS</strong>: Tap the name of your Group Plan in the menu.</p>",
+
+  "sunsetFaqHeader6": "Will players be able to retrieve their Guild chats after the services end?",
+  "sunsetFaqPara10": "Players will not be able to retrieve chat data from the Tavern and Guilds after the services end.",
+
+  "sunsetFaqHeader7": "How will players find Party members?",
+  "sunsetFaqPara11": "Our new Looking for Party feature is now available. Most players who look for a Party receive an invite within minutes! The team is working hard to add more platform support and improvements to this feature in the near future. You can learn more about how to search for Parties and Party members from our FAQ.",
+
+  "sunsetFaqHeader8": "How does this affect Habitica contributors?",
+  "sunsetFaqPara12": "As an open-source project, we welcome and encourage many types of contributions. To show our appreciation we will be sending the Heroic gear set to everyone that has a contributor tier as of <strong>[date]</strong>. When Tavern and Guild services end, there will be some changes to contributions as well. You can read more about the plan for each type below.",
+  "sunsetFaqPara13": "<strong>Blacksmiths</strong><br />We still welcome open-source help through our GitHub and will continue awarding tiers for qualifying contributions. Blacksmith collaboration and discussion has largely taken place over GitHub and that will continue.",
+  "sunsetFaqPara14": "<strong>Linguists</strong><br />We continue to welcome help with translating the apps and website and will still be awarding contributor tiers for qualifying contributions. Learn more about our updated procedures for translation here.",
+  "sunsetFaqPara15": "<strong>Challengers</strong><br />The team encourages you to continue creating high quality Challenges. We would like to explore new ways of promoting Challenge discoverability in and outside of the app.",
+  "sunsetFaqPara16": "<strong>Socialites</strong><br />This type of contribution will be ending with the Tavern and Guild discontinuation. We are extremely grateful for the work that our friendly and helpful players have done answering questions in our chat spaces.",
+  "sunsetFaqPara17": "<strong>Comrades</strong><br />Scripts and add-ons are helpful to a shrinking section of our user base as the mobile apps increasingly become the only way that most users access Habitica. Contributors wishing to create 3rd party tools to customize their Habitica experience can continue doing so, but we will no longer be awarding Comrade tiers as we focus on contributions that enhance Habitica in a way that is accessible to our player base as a whole.",
+  "sunsetFaqPara18": "<strong>Artisans</strong><br />We are discontinuing artisan contributions. Most art production has already been moved in-house to keep up with our content releases. We are deeply grateful for the fantastic art made over the years by our contributor community.",
+  "sunsetFaqPara19": "<strong>Wiki Wizards</strong><br />The Habitica Wiki is a wonderful tool created by players for players that has helped so many. We continue to support this effort, but will no longer be tracking or offering tiers for Wiki editing as we shift our focus towards Linguist, Blacksmith, and Challenger contributions within Habitica.",
+
+  "sunsetFaqHeader9": "How will Challenges be affected?",
+  "sunsetFaqList4": "Public Challenges will continue as a feature in Habitica and will be accessible via the Challenges section.",
+  "sunsetFaqList5": "Challenges based in Parties and Group Plans will remain and be unaffected by the end of Tavern and Guild services.",
+  "sunsetFaqList6": "Challenges that are currently hosted in Guilds will remain accessible to current participants from their Challenges list, but will not be discoverable in the public list due to privacy concerns. It will not be possible to create new Guild-based Challenges.",
+  "sunsetFaqList7": "Currently many Challenges have tasks that require posts in Habitica’s public chat spaces. Creators of those Challenges can adapt their tasks or move the chat requirement to posting on an outside service.",
+
+  "sunsetFaqHeader10": "Where will players go when they have questions about how to use Habitica?",
+  "sunsetFaqList8": "Our existing <a href='https://habitica.com/static/faq'>FAQ</a> is a great resource and can be found from the Help menu, or Support on mobile. We are in the process of creating a more comprehensive and improved FAQ to help guide players moving forward.",    
+  "sunsetFaqList9": "This blog post [NEED ACTUAL URL] also provides a handy guide for new players.",
+  "sunsetFaqList10": "Players are also encouraged to email <a href='mailto:admin@habitica.com'>admin@habitica.com</a> with any questions for which they cannot find answers in the above links.",
+
+  "sunsetFaqHeader11": "How does this affect Habitica’s Community Guidelines and Terms of Service?",
+  "sunsetFaqPara20": "Habitica’s Community Guidelines will be updated at the time Tavern and Guild service is discontinued. They will reflect that community rules for conduct are now in relation to player profiles, Challenges, and messages in private spaces. Our Terms of Service have always applied to both public and private spaces and do not require an immediate update in regard to this change.",
+
+  "anotherQuestion": "Have another question?",
+  "contactAdmin": "Contact <a href='mailto:admin@habitica.com'>admin@habitica.com</a>"
+
+} 
