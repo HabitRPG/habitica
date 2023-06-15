@@ -1,8 +1,8 @@
 {
   "tavern": "Tavern Chat",
   "tavernChat": "Tavern Chat",
-  "innCheckOutBanner": "You are currently checked into the Inn. Your Dailies won't damage you and you won't make progress towards Quests.",
-  "innCheckOutBannerShort": "You are checked into the Inn.",
+  "innCheckOutBanner": "You have currently paused damage. Your Dailies won't damage you and you won't make progress towards Quests.",
+  "innCheckOutBannerShort": "You have paused damage.",
   "resumeDamage": "Resume Damage",
   "helpfulLinks": "Helpful Links",
   "lookingForGroup": "Looking for Group (Party Wanted) Posts",
