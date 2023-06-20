@@ -46,7 +46,6 @@
   "startQuest": "Start Quest",
   "questInvitationDoesNotExist": "No quest invitation has been sent out yet.",
   "questInviteNotFound": "No quest invitation found.",
-  "guildQuestsNotSupported": "Guilds cannot be invited on quests.",
   "questNotOwned": "You don't own that quest scroll.",
   "questNotGoldPurchasable": "Quest \"<%= key %>\" is not a Gold-purchasable quest.",
   "questNotGemPurchasable": "Quest \"<%= key %>\" is not a Gem-purchasable quest.",
