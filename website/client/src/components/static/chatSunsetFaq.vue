@@ -287,36 +287,36 @@
                 </li>
               </ul>
             </div>
+          </div>
 
-            <!-- Daniel in sweet, sweet retirement with Jorts -->
-            <div class="row daniel-width">
-              <div class="gradient">
-              </div>
-              <div
-                class="grassy-meadow-backdrop"
-                :style="{'background-image': imageURLs.background}"
-              >
-                <div
-                  class="daniel_front"
-                  :style="{'background-image': imageURLs.npc}"
-                ></div>
-                <div
-                  class="pixel-border"
-                  :style="{'background-image': imageURLs.pixel_border}"
-                ></div>
-              </div>
+          <!-- Daniel in sweet, sweet retirement with Jorts -->
+          <div class="row daniel-width">
+            <div class="gradient">
             </div>
-
-            <!-- email admin -->
-            <div class="row d-flex mx-auto">
-              <div class="question d-flex mx-auto">
-                {{ $t('anotherQuestion') }}
-              </div>
+            <div
+              class="grassy-meadow-backdrop"
+              :style="{'background-image': imageURLs.background}"
+            >
               <div
-                class="contact d-flex mx-auto"
-              >
-                <p v-html="$t('contactAdmin')"></p> <!-- there's html in here -->
-              </div>
+                class="daniel_front"
+                :style="{'background-image': imageURLs.npc}"
+              ></div>
+              <div
+                class="pixel-border"
+                :style="{'background-image': imageURLs.pixel_border}"
+              ></div>
+            </div>
+          </div>
+
+          <!-- email admin -->
+          <div class="row d-flex">
+            <div class="question mx-auto">
+              <p>{{ $t('anotherQuestion') }}</p>
+            </div>
+            <div
+              class="contact mx-auto"
+            >
+              <p v-html="$t('contactAdmin')"></p> <!-- there's html in here -->
             </div>
           </div>
         </div>
@@ -364,28 +364,18 @@
     line-height: 1.71;
   }
 
-  p {
-    margin-bottom: 1.5em;
-  }
-
-  ul {
-    padding-left: 20px;
-  }
-
-  li::marker {
-    size: 0.5em;
-  }
-
   .sidebar {
     background-color: $gray-700;
     padding: 24px 0;
     margin: 0 0 22px 24px;
     border-radius: 16px;
+    width: 330px;
+    max-height: fit-content;;
   }
+
 .svg-icon {
     width: 10px;
     display: inline-block;
-    margin-left: .5em;
   }
 
   .tier1-icon, .tier2-icon {
@@ -444,7 +434,7 @@
     .tier-list {
     list-style-type: none;
     padding: 0;
-    width: 282px;
+    width: 100%;
     font-size: 1em !important;
 
     li {
@@ -503,6 +493,7 @@
   .daniel-width {
     max-width: 100%;
     margin-top: 24px;
+    margin-left: -24px;
   }
 
   .gradient {
@@ -534,18 +525,20 @@
     margin-top: -30px;
   }
 
-  .question {
+  .question p {
     font-size: 1em;
     font-weight: bold;
     line-height: 1.71;
     color: $gray-10;
     margin-top: 24px;
+    margin-bottom: 0px;
   }
 
   .contact p {
     font-size: 1em;
     margin-bottom: 0px;
   }
+
 </style>
 
 <script>
