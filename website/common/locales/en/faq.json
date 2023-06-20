@@ -135,14 +135,14 @@
 
   "sunsetFaqTitle": "Habitica Tavern and Guild Service Discontinuation FAQ",
 
-  "sunsetFaqPara1": "Due to a number of factors, including changes in how our player base interacts with Habitica and new content regulations, we are making the difficult decision to discontinue Tavern and Guild services on <strong>[date]</strong>.",
+  "sunsetFaqPara1": "Due to a number of factors, including changes in how our player base interacts with Habitica and new content regulations, we are making the difficult decision to discontinue Tavern and Guild services on <strong>August 8, 2023 (Eastern Daylight Time)</strong>.",
   "sunsetFaqPara2": "Habitica’s primary purpose is and has always been to provide a gamified task management experience. Tavern and Guilds helped motivate players by helping them find others with similar goals. Some truly wonderful spaces were created and we had a chance to see the community thrive with helpful discussion. As the years passed, we noticed changes in how players use and rely on Habitica. Parties flourished, while Guilds and public spaces were used by less and less of our player base. In an ever changing internet landscape, the resources necessary to maintain these spaces became too disproportionate to the number of people actually participating in them.",
   "sunsetFaqPara3": "We’re making this decision so we can better focus our resources on the parts of Habitica players rely on most without disrupting anyone’s access.",
   "sunsetFaqPara4": "To celebrate the times we’ve had, we will be gifting everyone a Veteran Pet as we move forward into this new era. For our amazing contributors, we’ll also be sending out a special gear set to commemorate all their hard work in Habitica’s communities.",
   "sunsetFaqPara5": "If you’d like to know more about what's changing, you can read the details below.",
 
   "sunsetFaqHeader1": "Which services are ending?",
-  "sunsetFaqPara6": "Service for Tavern as well as public and private Guilds is ending and these spaces will be removed from Habitica on <strong>[date]</strong>.",
+  "sunsetFaqPara6": "Service for Tavern as well as public and private Guilds is ending and these spaces will be removed from Habitica on <strong>August 8, 2023 (Eastern Daylight Time)</strong>.",
 
   "sunsetFaqHeader2": "Why are the Tavern and Guild services ending?",
   "sunsetFaqList1": "Habitica’s primary purpose is to provide motivation through a gamified task management experience. Guilds and Tavern are utilized by a disproportionately small percentage of our player base. The majority of players use outside services that are primarily intended for social interaction and are intentionally designed and maintained with those use cases in mind.",
@@ -165,7 +165,7 @@
   "sunsetFaqPara11": "Our new Looking for Party feature is now available. Most players who look for a Party receive an invite within minutes! The team is working hard to add more platform support and improvements to this feature in the near future. You can learn more about how to search for Parties and Party members from our FAQ.",
 
   "sunsetFaqHeader8": "How does this affect Habitica contributors?",
-  "sunsetFaqPara12": "As an open-source project, we welcome and encourage many types of contributions. To show our appreciation we will be sending the Heroic gear set to everyone that has a contributor tier as of <strong>[date]</strong>. When Tavern and Guild services end, there will be some changes to contributions as well. You can read more about the plan for each type below.",
+  "sunsetFaqPara12": "As an open-source project, we welcome and encourage many types of contributions. To show our appreciation we will be sending the Heroic gear set to everyone that has a contributor tier as of <strong>August 8, 2023 (Eastern Daylight Time)</strong>. When Tavern and Guild services end, there will be some changes to contributions as well. You can read more about the plan for each type below.",
   "sunsetFaqPara13": "<strong>Blacksmiths</strong><br />We still welcome open-source help through our GitHub and will continue awarding tiers for qualifying contributions. Blacksmith collaboration and discussion has largely taken place over GitHub and that will continue.",
   "sunsetFaqPara14": "<strong>Linguists</strong><br />We continue to welcome help with translating the apps and website and will still be awarding contributor tiers for qualifying contributions. Learn more about our updated procedures for translation here.",
   "sunsetFaqPara15": "<strong>Challengers</strong><br />The team encourages you to continue creating high quality Challenges. We would like to explore new ways of promoting Challenge discoverability in and outside of the app.",
