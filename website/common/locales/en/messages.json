@@ -59,5 +59,6 @@
   "messageMissingDisplayName": "Missing display name.",
   "reportedMessage": "You have reported this message to moderators.",
   "canDeleteNow": "You can now delete the message if you wish.",
-  "newsPostNotFound": "News Post not found or you don't have access."
+  "newsPostNotFound": "News Post not found or you don't have access.",
+  "featureRetired": "This feature is no longer supported."
 }

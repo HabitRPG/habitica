@@ -197,48 +197,6 @@
           <li
             class="topbar-item droppable"
             :class="{
-              'active': $route.path.startsWith('/groups')}"
-          >
-            <div
-              class="chevron rotate"
-              @click="dropdownMobile($event)"
-            >
-              <div
-                v-once
-                class="chevron-icon-down"
-                v-html="icons.chevronDown"
-              ></div>
-            </div>
-            <router-link
-              class="nav-link"
-              :to="{name: 'tavern'}"
-            >
-              {{ $t('guilds') }}
-            </router-link>
-            <div class="topbar-dropdown">
-              <router-link
-                class="topbar-dropdown-item dropdown-item"
-                :to="{name: 'tavern'}"
-              >
-                {{ $t('tavern') }}
-              </router-link>
-              <router-link
-                class="topbar-dropdown-item dropdown-item"
-                :to="{name: 'myGuilds'}"
-              >
-                {{ $t('myGuilds') }}
-              </router-link>
-              <router-link
-                class="topbar-dropdown-item dropdown-item"
-                :to="{name: 'guildsDiscovery'}"
-              >
-                {{ $t('guildsDiscovery') }}
-              </router-link>
-            </div>
-          </li>
-          <li
-            class="topbar-item droppable"
-            :class="{
               'active': $route.path.startsWith('/group-plans')}"
           >
             <div
@@ -354,22 +312,18 @@
               >
                 {{ $t('reportBug') }}
               </a>
-              <router-link
+              <a
                 class="topbar-dropdown-item dropdown-item"
-                to="/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a"
+                target="_blank"
+                @click.prevent="openBugReportModal(true)"
               >
                 {{ $t('askQuestion') }}
-              </router-link>
+              </a>
               <a
                 class="topbar-dropdown-item dropdown-item"
                 href="https://docs.google.com/forms/d/e/1FAIpQLScPhrwq_7P1C6PTrI3lbvTsvqGyTNnGzp1ugi1Ml0PFee_p5g/viewform?usp=sf_link"
                 target="_blank"
               >{{ $t('requestFeature') }}</a>
-              <a
-                class="topbar-dropdown-item dropdown-item"
-                href="https://habitica.fandom.com/wiki/Contributing_to_Habitica"
-                target="_blank"
-              >{{ $t('contributing') }}</a>
               <a
                 class="topbar-dropdown-item dropdown-item"
                 href="https://habitica.fandom.com/wiki/Habitica_Wiki"
@@ -830,9 +784,11 @@ export default {
   async mounted () {
     await this.getUserGroupPlans();
     await this.getUserParty();
-    Array.from(document.getElementById('menu_collapse').getElementsByTagName('a')).forEach(link => {
-      link.addEventListener('click', this.closeMenu);
-    });
+    if (document.getElementById('menu_collapse')) {
+      Array.from(document.getElementById('menu_collapse').getElementsByTagName('a')).forEach(link => {
+        link.addEventListener('click', this.closeMenu);
+      });
+    }
     Array.from(document.getElementsByClassName('topbar-item')).forEach(link => {
       link.addEventListener('mouseenter', this.dropdownDesktop);
       link.addEventListener('mouseleave', this.dropdownDesktop);

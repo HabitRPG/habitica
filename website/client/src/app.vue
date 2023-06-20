@@ -41,6 +41,7 @@
       <router-view v-if="!isUserLoggedIn || isStaticPage" />
       <template v-else>
         <template v-if="isUserLoaded">
+          <chat-banner />
           <damage-paused-banner />
           <gems-promo-banner />
           <gift-promo-banner />
@@ -159,6 +160,7 @@ import { loadProgressBar } from 'axios-progress-bar';
 import birthdayModal from '@/components/news/birthdayModal';
 import AppMenu from './components/header/menu';
 import AppHeader from './components/header/index';
+import ChatBanner from './components/header/banners/chatBanner';
 import DamagePausedBanner from './components/header/banners/damagePaused';
 import GemsPromoBanner from './components/header/banners/gemsPromo';
 import GiftPromoBanner from './components/header/banners/giftPromo';
@@ -198,6 +200,7 @@ export default {
     AppHeader,
     AppFooter,
     birthdayModal,
+    ChatBanner,
     DamagePausedBanner,
     GemsPromoBanner,
     GiftPromoBanner,

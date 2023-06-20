@@ -811,15 +811,31 @@ const armor = {
   },
   spring2023Rogue: {
     set: 'spring2023CaterpillarRogueSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2023Warrior: {
     set: 'spring2023HummingbirdWarriorSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2023Mage: {
     set: 'spring2023MoonstoneMageSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2023Healer: {
     set: 'spring2023LilyHealerSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
+  },
+  summer2023Rogue: {
+    set: 'summer2023GuppyRogueSet',
+  },
+  summer2023Warrior: {
+    set: 'summer2023GoldfishWarriorSet',
+  },
+  summer2023Mage: {
+    set: 'summer2023CoralMageSet',
+  },
+  summer2023Healer: {
+    set: 'summer2023KelpHealerSet',
   },
 };
 
@@ -1985,15 +2001,31 @@ const head = {
   },
   spring2023Rogue: {
     set: 'spring2023CaterpillarRogueSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2023Warrior: {
     set: 'spring2023HummingbirdWarriorSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2023Mage: {
     set: 'spring2023MoonstoneMageSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2023Healer: {
     set: 'spring2023LilyHealerSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
+  },
+  summer2023Rogue: {
+    set: 'summer2023GuppyRogueSet',
+  },
+  summer2023Warrior: {
+    set: 'summer2023GoldfishWarriorSet',
+  },
+  summer2023Mage: {
+    set: 'summer2023CoralMageSet',
+  },
+  summer2023Healer: {
+    set: 'summer2023KelpHealerSet',
   },
 };
 
@@ -2814,12 +2846,24 @@ const shield = {
   },
   spring2023Rogue: {
     set: 'spring2023CaterpillarRogueSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2023Warrior: {
     set: 'spring2023HummingbirdWarriorSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2023Healer: {
     set: 'spring2023LilyHealerSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
+  },
+  summer2023Rogue: {
+    set: 'summer2023GuppyRogueSet',
+  },
+  summer2023Warrior: {
+    set: 'summer2023GoldfishWarriorSet',
+  },
+  summer2023Healer: {
+    set: 'summer2023KelpHealerSet',
   },
 };
 
@@ -3579,15 +3623,31 @@ const weapon = {
   },
   spring2023Rogue: {
     set: 'spring2023CaterpillarRogueSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2023Warrior: {
     set: 'spring2023HummingbirdWarriorSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2023Mage: {
     set: 'spring2023MoonstoneMageSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2023Healer: {
     set: 'spring2023LilyHealerSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
+  },
+  summer2023Rogue: {
+    set: 'summer2023GuppyRogueSet',
+  },
+  summer2023Warrior: {
+    set: 'summer2023GoldfishWarriorSet',
+  },
+  summer2023Mage: {
+    set: 'summer2023CoralMageSet',
+  },
+  summer2023Healer: {
+    set: 'summer2023KelpHealerSet',
   },
 };
 

@@ -277,6 +277,9 @@ api.updateHero = {
       if (updateData.purchased.plan.gemsBought) {
         hero.purchased.plan.gemsBought = updateData.purchased.plan.gemsBought;
       }
+      if (updateData.purchased.plan.perkMonthCount) {
+        hero.purchased.plan.perkMonthCount = updateData.purchased.plan.perkMonthCount;
+      }
       if (updateData.purchased.plan.consecutive) {
         if (updateData.purchased.plan.consecutive.trinkets) {
           const changedHourglassTrinkets = updateData.purchased.plan.consecutive.trinkets

@@ -152,8 +152,8 @@
 
     <!-- sidebar -->
     <!-- staff -->
-    <div class="sidebar">
-      <div class="section sidebar-content">
+    <div class="col-12 col-sm-4 sidebar">
+      <div class="section">
         <div class="px-4">
           <div class="staff-header">
             {{ $t('staff') }}
@@ -364,23 +364,32 @@
     line-height: 1.71;
   }
 
-  .sidebar-content {
-    width: 330px !important;
+  p {
+    margin-bottom: 1.5em;
+  }
+
+  ul {
+    padding-left: 20px;
+  }
+
+  li::marker {
+    size: 0.5em;
+  }
+
+  .sidebar {
     background-color: $gray-700;
-    max-height: fit-content;
     padding: 24px 0;
     margin: 0 0 22px 24px;
     border-radius: 16px;
   }
-
 .svg-icon {
     width: 10px;
     display: inline-block;
-    margin-left: -1px;
+    margin-left: .5em;
   }
 
   .tier1-icon, .tier2-icon {
-    width: 10px;
+    width: 11px;
   }
 
   .tier5-icon, .tier6-icon {
@@ -388,11 +397,15 @@
   }
 
   .tier7-icon {
-    width: 10px;
+    width: 12px;
   }
 
   .mod-icon {
-    width: 12px;
+    width: 13px;
+  }
+
+  .npc-icon {
+    width: 8px;
   }
 
   .staff-header {
@@ -415,7 +428,7 @@
       height: 24px;
       color: $purple-300;
       font-weight: bold;
-       display: inline-block;
+      display: inline-block;
       margin-bottom: 4px;
     }
   }
@@ -448,7 +461,6 @@
 
     .tier1 {
       color: #c42870;
-
     }
 
     .tier2 {
@@ -480,7 +492,7 @@
     }
 
     .tier9, .staff {
-      color: $purple-300;
+      color: #6133b4;
     }
 
     .npc {

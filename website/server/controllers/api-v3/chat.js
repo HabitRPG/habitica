@@ -129,6 +129,13 @@ api.postChat = {
     if (validationErrors) throw validationErrors;
 
     const group = await Group.getGroup({ user, groupId });
+    const { purchased } = group;
+    const isUpgraded = purchased && purchased.plan && purchased.plan.customerId
+      && (!purchased.plan.dateTerminated || moment().isBefore(purchased.plan.dateTerminated));
+
+    if (group.type !== 'party' && !isUpgraded) {
+      throw new BadRequest(res.t('featureRetired'));
+    }
 
     // Check message for banned slurs
     if (group && group.privacy !== 'private' && textContainsBannedSlur(req.body.message)) {
