@@ -152,7 +152,7 @@
 
     <!-- sidebar -->
     <!-- staff -->
-    <div class="col-12 col-sm-4 sidebar">
+    <div class="sidebar">
       <div class="section">
         <div class="px-4">
           <div class="staff-header">
