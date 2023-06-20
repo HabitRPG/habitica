@@ -1,6 +1,6 @@
 <template>
-  <div class="col-12 col-sm-8 container-fluid d-flex mx-auto main-bg">
-    <div class="col-12 col-sm-8">
+  <div class="col-sm-8 container-fluid d-flex mx-auto">
+    <div class="col-sm-8">
       <div class="row">
         <!-- title goes here -->
         <div class="title-details">
@@ -289,7 +289,7 @@
             </div>
 
             <!-- Daniel in sweet, sweet retirement with Jorts -->
-            <div class="row">
+            <div class="row daniel-width">
               <div class="gradient">
               </div>
               <div
@@ -330,19 +330,36 @@
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
 
-  .main-bg {
-    font-size: 16px !important;
+  h1 {
+    margin-top: 0px;
+    line-height: 1.33;
+  }
+
+  p {
+    margin-bottom: 21px;
+  }
+
+  ul {
+    padding-left: 20px;
+  }
+
+  li::marker {
+    size: 0.5em;
+  }
+
+  li {
+    padding-bottom: 16px;
   }
 
   .headings {
-    font-size: 1em; // for some reason, em doesn't give the desired result
+    font-size: 1.15em;
     font-weight: 400;
     line-height: 1.75;
     color: $purple-200;
   }
 
   .body-text {
-    font-size: 0.875em;
+    font-size: 1em;
     color: $gray-10;
     line-height: 1.71;
   }
@@ -392,13 +409,15 @@
   }
 
   .staff-header {
-    font-size: 0.875em;
+    font-size: 1em;
     font-weight: bold;
     line-height: 1.71;
+    margin-bottom: 8px;
+    color: $gray-10;
   }
 
   .staff {
-    font-size: 0.875em;
+    font-size: 1em;
 
     .staff-icon {
       width: 10px;
@@ -406,26 +425,38 @@
     }
 
     .title {
+      height: 24px;
       color: $purple-300;
       font-weight: bold;
-      line-height: 1.71;
       display: inline-block;
-      margin-top: 8px;
+      margin-bottom: 4px;
     }
+  }
+
+  .player-header {
+    height: 24px;
+    font-size: 1em;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 4px;
+    color: $gray-10;
   }
     .tier-list {
     list-style-type: none;
     padding: 0;
-    width: 98%;
+    width: 282px;
+    font-size: 1em !important;
 
     li {
-      border-radius: 2px;
-      background-color: #edecee;
-      border: solid 1px #c3c0c7;
+      height: 40px;
+      border-radius: 4px;
+      border: solid 1px $gray-500;
       text-align: center;
-      padding: 1em;
-      margin-bottom: 1em;
+      padding: 8px 0;
+      margin-bottom: 8px;
+      margin-right: 4px;
       font-weight: bold;
+      line-height: 1.71;
     }
 
     .tier1 {
@@ -469,11 +500,16 @@
     }
   }
 
+  .daniel-width {
+    max-width: 100%;
+    margin-top: 24px;
+  }
+
   .gradient {
     position: absolute;
     width: 330px;
     height: 100px;
-    margin: 0 0 116px;
+    margin: -1px 0 116px;
     background-image: linear-gradient(to bottom, $gray-700 0%, rgba(249, 249, 249, 0) 100%);
   }
 
@@ -495,12 +531,11 @@
     height: 30px;
     background-repeat: no-repeat;
     position: absolute;
-    z-index: 0;
     margin-top: -30px;
   }
 
   .question {
-    font-size: 0.875em;
+    font-size: 1em;
     font-weight: bold;
     line-height: 1.71;
     color: $gray-10;
@@ -508,7 +543,7 @@
   }
 
   .contact p {
-    font-size: 0.875em;
+    font-size: 1em;
     margin-bottom: 0px;
   }
 </style>
