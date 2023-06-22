@@ -147,5 +147,8 @@
     "achievementPolarProText": "¡Ha eclosionado todos los colores estándar para mascotas Polares: Osos, Zorros, Pinguinos, Ballenas y Lobos!",
     "achievementPlantParent": "Progenitor de las Plantas",
     "achievementPlantParentText": "¡Ha eclosionado todos los colores estándar para las mascotas Planta: Cáctus y Esqueje de árbol!",
-    "achievementPlantParentModalText": "¡Has coleccionado todas las Mascotas Planta!"
+    "achievementPlantParentModalText": "¡Has coleccionado todas las Mascotas Planta!",
+    "achievementDinosaurDynasty": "Dinastía de Dinosaurios",
+    "achievementDinosaurDynastyModalText": "¡Has recogido todas las mascotas de pájaros y dinosaurios!",
+    "achievementDinosaurDynastyText": "Ha incubado todos los colores estándar de mascotas, de aves y dinosaurios: halcón, búho, loro, pavo real, pingüino, gallo, pterodáctilo, tiranosaurio rex, triceratops y velociraptor!"
 }
