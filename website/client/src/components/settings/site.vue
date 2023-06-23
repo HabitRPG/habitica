@@ -7,6 +7,38 @@
       {{ $t('settings') }}
     </h1>
     <div class="col-sm-6">
+      <div class="sleep">
+        <h5>{{ $t('pauseDailies') }}</h5>
+        <h4>{{ $t('sleepDescription') }}</h4>
+        <ul>
+          <li v-once>
+            {{ $t('sleepBullet1') }}
+          </li>
+          <li v-once>
+            {{ $t('sleepBullet2') }}
+          </li>
+          <li v-once>
+            {{ $t('sleepBullet3') }}
+          </li>
+        </ul>
+        <button
+          v-if="!user.preferences.sleep"
+          v-once
+          class="sleep btn btn-primary btn-block pause-button"
+          @click="toggleSleep()"
+        >
+          {{ $t('pauseDailies') }}
+        </button>
+        <button
+          v-if="user.preferences.sleep"
+          v-once
+          class="btn btn-secondary btn-block pause-button"
+          @click="toggleSleep()"
+        >
+          {{ $t('unpauseDailies') }}
+        </button>
+      </div>
+      <hr>
       <div class="form-horizontal">
         <h5>{{ $t('language') }}</h5>
         <select
@@ -96,7 +128,10 @@
         <hr>
       </div>
       <div>
-        <div class="checkbox">
+        <div
+          class="checkbox"
+          id="preferenceAdvancedCollapsed"
+        >
           <label>
             <input
               v-model="user.preferences.advancedCollapsed"
@@ -104,33 +139,22 @@
               class="mr-2"
               @change="set('advancedCollapsed')"
             >
-            <span
-              class="hint"
-              popover-trigger="mouseenter"
-              popover-placement="right"
-              :popover="$t('startAdvCollapsedPop')"
-            >{{ $t('startAdvCollapsed') }}</span>
-          </label>
-        </div>
-        <div class="checkbox">
-          <label>
-            <input
-              v-model="user.preferences.dailyDueDefaultView"
-              type="checkbox"
-              class="mr-2"
-              @change="set('dailyDueDefaultView')"
-            >
-            <span
-              class="hint"
-              popover-trigger="mouseenter"
-              popover-placement="right"
-              :popover="$t('dailyDueDefaultViewPop')"
-            >{{ $t('dailyDueDefaultView') }}</span>
+            <span class="hint">
+              {{ $t('startAdvCollapsed') }}
+            </span>
+            <b-popover
+              target="preferenceAdvancedCollapsed"
+              triggers="hover focus"
+              placement="right"
+              :prevent-overflow="false"
+              :content="$t('startAdvCollapsedPop')"
+            />
           </label>
         </div>
         <div
           v-if="party.memberCount === 1"
           class="checkbox"
+          id="preferenceDisplayInviteAtOneMember"
         >
           <label>
             <input
@@ -139,12 +163,9 @@
               class="mr-2"
               @change="set('displayInviteToPartyWhenPartyIs1')"
             >
-            <span
-              class="hint"
-              popover-trigger="mouseenter"
-              popover-placement="right"
-              :popover="$t('displayInviteToPartyWhenPartyIs1')"
-            >{{ $t('displayInviteToPartyWhenPartyIs1') }}</span>
+            <span class="hint">
+              {{ $t('displayInviteToPartyWhenPartyIs1') }}
+            </span>
           </label>
         </div>
         <div class="checkbox">
@@ -185,32 +206,47 @@
         </div>
         <hr>
         <button
+          id="buttonShowBailey"
           class="btn btn-primary mr-2 mb-2"
-          popover-trigger="mouseenter"
-          popover-placement="right"
-          :popover="$t('showBaileyPop')"
           @click="showBailey()"
         >
           {{ $t('showBailey') }}
+          <b-popover
+            target="buttonShowBailey"
+            triggers="hover focus"
+            placement="right"
+            :prevent-overflow="false"
+            :content="$t('showBaileyPop')"
+          />
         </button>
         <button
+          id="buttonFCV"
           class="btn btn-primary mr-2 mb-2"
-          popover-trigger="mouseenter"
-          popover-placement="right"
-          :popover="$t('fixValPop')"
           @click="openRestoreModal()"
         >
           {{ $t('fixVal') }}
+          <b-popover
+            target="buttonFCV"
+            triggers="hover focus"
+            placement="right"
+            :prevent-overflow="false"
+            :content="$t('fixValPop')"
+          />
         </button>
         <button
           v-if="user.preferences.disableClasses == true"
+          id="buttonEnableClasses"
           class="btn btn-primary mb-2"
-          popover-trigger="mouseenter"
-          popover-placement="right"
-          :popover="$t('enableClassPop')"
           @click="changeClassForUser(false)"
         >
           {{ $t('enableClass') }}
+          <b-popover
+            target="buttonEnableClasses"
+            triggers="hover focus"
+            placement="right"
+            :prevent-overflow="false"
+            :content="$t('enableClassPop')"
+          />
         </button>
         <hr>
         <day-start-adjustment />
@@ -500,6 +536,10 @@
   input {
     color: $gray-50;
   }
+
+  .checkbox {
+    width: fit-content;
+  }
   .usersettings h5 {
     margin-top: 1em;
   }
@@ -516,6 +556,10 @@
     font-size: 90%;
     width: 100%;
     margin-top: 5px;
+  }
+
+  .sleep {
+    margin-bottom: 16px;
   }
 </style>
 
@@ -651,6 +695,9 @@ export default {
     }
   },
   methods: {
+    toggleSleep () {
+      this.$store.dispatch('user:sleep');
+    },
     validateDisplayName: debounce(function checkName (displayName) {
       if (displayName.length <= 1 || displayName === this.user.profile.name) {
         this.displayNameIssues = [];

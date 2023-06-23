@@ -24,7 +24,7 @@
     "subGemName": "訂閱者寶石",
     "maxBuyGems": "你已掃光這個月能得到的所有寶石。寶石將在每個月開始的三天內進貨。感謝訂閱！",
     "timeTravelers": "時空旅行者",
-    "timeTravelersPopoverNoSubMobile": "看來你需要一個神秘沙漏來開啟時空傳送門，召喚這些神秘的時空旅行者。",
+    "timeTravelersPopoverNoSubMobile": "看來你需要一個神秘沙漏來開啟時空傳送門，並召喚這些神秘的時空旅行者。",
     "timeTravelersPopover": "你的神秘沙漏開啟了我們的時空傳送門！選擇你希望我們從過去或未來帶來之物吧。",
     "mysterySetNotFound": "找不到神秘裝備，或是已經擁有。",
     "mysteryItemIsEmpty": "神秘裝備是空的",
@@ -158,7 +158,7 @@
     "doubleDropCap": "雙倍掉落",
     "youAreSubscribed": "您訂閱了Habitica的服務",
     "subscriptionCanceled": "您的訂閱已取消",
-    "subscriptionInactiveDate": "您的訂閱權益將在<strong><%= date %></strong>上失效",
+    "subscriptionInactiveDate": "您的訂閱權益將在<br><strong><%= date %></strong>失效",
     "subscriptionStats": "訂閱統計",
     "subMonths": "訂閱月",
     "needToUpdateCard": "需要更新您的卡嗎？",
@@ -213,5 +213,13 @@
     "mysterySet202208": "活潑馬尾套裝",
     "mysterySet202202": "綠松石雙馬尾套裝",
     "mysterySet202205": "黃昏翼龍套裝",
-    "sendAGift": "贈送禮物"
+    "sendAGift": "贈送禮物",
+    "mysterySet202303": "長毛角色套裝",
+    "mysterySet202301": "狐之勇者套裝",
+    "continueGiftSubBenefits": "想繼續享受您的福利嗎？您可以在贈送的訂閱用完之前開始新的訂閱，以保持您的權益有效。",
+    "haveNonRecurringSub": "您有一個臨時的贈品訂閱。",
+    "switchToRecurring": "是否切換至定期訂閱？",
+    "subscriptionCreditConversion": "開始新的訂閱會將剩餘的所有月份轉換為積分，在取消定期訂閱後將使用這些積分。",
+    "mysterySet202212": "冰川守護者套裝",
+    "mysterySet202302": "狡詐虎斑貓套裝"
 }

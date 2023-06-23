@@ -1359,6 +1359,7 @@ describe('Group Model', () => {
     describe('#sendChat', () => {
       beforeEach(() => {
         sandbox.spy(User, 'update');
+        sandbox.spy(User, 'updateMany');
       });
 
       it('formats message', () => {
@@ -1413,8 +1414,8 @@ describe('Group Model', () => {
       it('updates users about new messages in party', () => {
         party.sendChat({ message: 'message' });
 
-        expect(User.update).to.be.calledOnce;
-        expect(User.update).to.be.calledWithMatch({
+        expect(User.updateMany).to.be.calledOnce;
+        expect(User.updateMany).to.be.calledWithMatch({
           'party._id': party._id,
           _id: { $ne: '' },
         });
@@ -1427,8 +1428,8 @@ describe('Group Model', () => {
 
         group.sendChat({ message: 'message' });
 
-        expect(User.update).to.be.calledOnce;
-        expect(User.update).to.be.calledWithMatch({
+        expect(User.updateMany).to.be.calledOnce;
+        expect(User.updateMany).to.be.calledWithMatch({
           guilds: group._id,
           _id: { $ne: '' },
         });
@@ -1437,8 +1438,8 @@ describe('Group Model', () => {
       it('does not send update to user that sent the message', () => {
         party.sendChat({ message: 'message', user: { _id: 'user-id', profile: { name: 'user' } } });
 
-        expect(User.update).to.be.calledOnce;
-        expect(User.update).to.be.calledWithMatch({
+        expect(User.updateMany).to.be.calledOnce;
+        expect(User.updateMany).to.be.calledWithMatch({
           'party._id': party._id,
           _id: { $ne: 'user-id' },
         });
@@ -1731,7 +1732,7 @@ describe('Group Model', () => {
         });
 
         it('updates participting members (not including user)', async () => {
-          sandbox.spy(User, 'update');
+          sandbox.spy(User, 'updateMany');
 
           await party.startQuest(nonParticipatingMember);
 
@@ -1739,7 +1740,7 @@ describe('Group Model', () => {
             questLeader._id, participatingMember._id, sleepingParticipatingMember._id,
           ];
 
-          expect(User.update).to.be.calledWith(
+          expect(User.updateMany).to.be.calledWith(
             { _id: { $in: members } },
             {
               $set: {
@@ -1752,11 +1753,11 @@ describe('Group Model', () => {
         });
 
         it('updates non-user quest leader and decrements quest scroll', async () => {
-          sandbox.spy(User, 'update');
+          sandbox.spy(User, 'updateOne');
 
           await party.startQuest(participatingMember);
 
-          expect(User.update).to.be.calledWith(
+          expect(User.updateOne).to.be.calledWith(
             { _id: questLeader._id },
             {
               $inc: {
@@ -1818,29 +1819,29 @@ describe('Group Model', () => {
         };
 
         it('doesn\'t retry successful operations', async () => {
-          sandbox.stub(User, 'update').returns(successfulMock);
+          sandbox.stub(User, 'updateOne').returns(successfulMock);
 
           await party.finishQuest(quest);
 
-          expect(User.update).to.be.calledThrice;
+          expect(User.updateOne).to.be.calledThrice;
         });
 
         it('stops retrying when a successful update has occurred', async () => {
-          const updateStub = sandbox.stub(User, 'update');
+          const updateStub = sandbox.stub(User, 'updateOne');
           updateStub.onCall(0).returns(failedMock);
           updateStub.returns(successfulMock);
 
           await party.finishQuest(quest);
 
-          expect(User.update.callCount).to.equal(4);
+          expect(User.updateOne.callCount).to.equal(4);
         });
 
         it('retries failed updates at most five times per user', async () => {
-          sandbox.stub(User, 'update').returns(failedMock);
+          sandbox.stub(User, 'updateOne').returns(failedMock);
 
           await expect(party.finishQuest(quest)).to.eventually.be.rejected;
 
-          expect(User.update.callCount).to.eql(15); // for 3 users
+          expect(User.updateOne.callCount).to.eql(15); // for 3 users
         });
       });
 
@@ -2087,17 +2088,17 @@ describe('Group Model', () => {
 
       context('Party quests', () => {
         it('updates participating members with rewards', async () => {
-          sandbox.spy(User, 'update');
+          sandbox.spy(User, 'updateOne');
           await party.finishQuest(quest);
 
-          expect(User.update).to.be.calledThrice;
-          expect(User.update).to.be.calledWithMatch({
+          expect(User.updateOne).to.be.calledThrice;
+          expect(User.updateOne).to.be.calledWithMatch({
             _id: questLeader._id,
           });
-          expect(User.update).to.be.calledWithMatch({
+          expect(User.updateOne).to.be.calledWithMatch({
             _id: participatingMember._id,
           });
-          expect(User.update).to.be.calledWithMatch({
+          expect(User.updateOne).to.be.calledWithMatch({
             _id: sleepingParticipatingMember._id,
           });
         });
@@ -2172,11 +2173,11 @@ describe('Group Model', () => {
         });
 
         it('updates all users with rewards', async () => {
-          sandbox.spy(User, 'update');
+          sandbox.spy(User, 'updateMany');
           await party.finishQuest(tavernQuest);
 
-          expect(User.update).to.be.calledOnce;
-          expect(User.update).to.be.calledWithMatch({});
+          expect(User.updateMany).to.be.calledOnce;
+          expect(User.updateMany).to.be.calledWithMatch({});
         });
 
         it('sets quest completed to the world quest key', async () => {

@@ -114,7 +114,7 @@ async function createTasks (req, res, options = {}) {
     };
   }
 
-  await owner.update(taskOrderUpdateQuery).exec();
+  await owner.updateOne(taskOrderUpdateQuery).exec();
 
   // tasks with aliases need to be validated asynchronously
   await validateTaskAlias(toSave, res);

@@ -83,6 +83,7 @@
 <script>
 import moment from 'moment';
 import { mapState } from '@/libs/store';
+import externalLinks from '@/mixins/externalLinks';
 import scoreTask from '@/mixins/scoreTask';
 import sync from '@/mixins/sync';
 import Task from './task';
@@ -93,7 +94,7 @@ export default {
     Task,
     LoadingSpinner,
   },
-  mixins: [scoreTask, sync],
+  mixins: [externalLinks, scoreTask, sync],
   props: {
     yesterDailies: {
       type: Array,
@@ -107,6 +108,11 @@ export default {
       isLoading: false,
       dueDate: moment().subtract(1, 'days'),
     };
+  },
+  updated () {
+    window.setTimeout(() => {
+      this.handleExternalLinks();
+    }, 500);
   },
   computed: {
     ...mapState({ user: 'user.data' }),

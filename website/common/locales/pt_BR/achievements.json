@@ -31,7 +31,7 @@
     "achievementUndeadUndertaker": "Agente Morto-Vivo",
     "achievementMonsterMagusModalText": "Você coletou todos os Mascotes Zumbis!",
     "achievementMonsterMagusText": "Coletou todos os Mascotes Zumbis.",
-    "achievementMonsterMagus": "Mago(a) Monstruoso(a)",
+    "achievementMonsterMagus": "Mago Monstruoso",
     "achievementPartyOn": "Seu grupo cresceu para 4 membros!",
     "achievementPartyUp": "Você se juntou a um membro do grupo!",
     "achievementPearlyProModalText": "Você domou todas as Montarias brancas!",
@@ -143,6 +143,9 @@
     "achievementBoneToPickText": "Chocou todos os Mascotes Esqueleto Clássicos e de Missões!",
     "achievementBoneToPickModalText": "Você coletou todos os Mascotes Esqueleto Clássicos e de Missões!",
     "achievementPolarPro": "Profissional Polar",
-    "achievementPolarProText": "Chocou todos os mascotes Polares: Urso, Raposa, Pinguim, Baleia e Lobo!",
-    "achievementPolarProModalText": "Você coletou todos os Mascotes Polares!"
+    "achievementPolarProText": "Chocou todos os mascotes Polares de cores padrão: Urso, Raposa, Pinguim, Baleia e Lobo!",
+    "achievementPolarProModalText": "Você coletou todos os Mascotes Polares!",
+    "achievementPlantParentModalText": "Você coletou todos os Mascotes Planta!",
+    "achievementPlantParentText": "Chocou todos os mascotes Planta de cores padrão: Cacto e Árvorezinha!",
+    "achievementPlantParent": "Defendente das Plantas"
 }

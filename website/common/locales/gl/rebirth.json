@@ -1,14 +1,15 @@
 {
-    "rebirthNew": "Renacemento: Nova Aventura Disponible!",
-    "rebirthUnlock": "Acabas de desbloquear o Renacemento! Este obxecto especial do Mercado permíteche comezar un novo xogo ao nivel 1 conservando as túas tarefas, logros, mascotas e máis. Úsao para transmitir nova vida a Habitica se pensas que o lograches todo, ou para experimentar novas características cos ollos frescos dun personaxe principiante!",
-    "rebirthAchievement": "Acabas de comezar unha nova aventura! Este é o teu Renacemento <%= number %>, e o Nivel máis alto que acadaches é <%= level %>. Para gañar este Logro, comeza a túa nova aventura cando acades un Nivel aínda maior!",
-    "rebirthAchievement100": "Acabas de comezar unha nova aventura! Este é o teu Renacemento <%= number %>, e o Nivel máis alto que acadaches é 100 ou máis. Para gañar este Logro, comeza a túa nova aventura cando acades polo menos o nivel 100!",
-    "rebirthBegan": "Comezar unha Nova Aventura",
-    "rebirthText": "Comezou <%= rebirths %> Novas Aventuras",
-    "rebirthOrb": "Used an Orb of Rebirth to start over after attaining Level <%= level %>.",
-    "rebirthOrb100": "Used an Orb of Rebirth to start over after attaining Level 100 or higher.",
-    "rebirthOrbNoLevel": "Used an Orb of Rebirth to start over.",
-    "rebirthPop": "Instantly restart your character as a Level 1 Warrior while retaining achievements, collectibles, and equipment. Your tasks and their history will remain but they will be reset to yellow. Your streaks will be removed except from challenge tasks. Your Gold, Experience, Mana, and the effects of all Skills will be removed. All of this will take effect immediately. For more information, see the wiki's <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a> page.",
-    "rebirthName": "Órbita do Renacemento",
-    "rebirthComplete": "Acabas de renacer!"
+    "rebirthNew": "Renacemento: nova aventura dispoñíbel!",
+    "rebirthUnlock": "Acabas de desbloquear o renacemento! Este obxecto especial do mercado permíteche comezar unha nova partida desde o nivel 1 conservando as túas tarefas, logros, mascotas e máis. Úsao para dar nova vida a Habitica se sentes que o lograches todo, ou para experimentar novas funcionalidades cos ollos frescos dun personaxe nova!",
+    "rebirthAchievement": "Comezaches unha nova aventura! Este é o teu renacemento número <%= number %>, e o nivel máis alto que acadaches foi <%= level %>. Para acumular este logro, comeza a túa seguinte aventura cando acades un nivel aínda maior!",
+    "rebirthAchievement100": "Comezaches unha nova aventura! Este é o teu renacemento número <%= number %>, e o nivel máis alto que acadaches foi 100 ou máis. Para acumular este logro, comeza a túa seguinte aventura cando acades polo menos 100!",
+    "rebirthBegan": "Comezaches unha nova aventura",
+    "rebirthText": "Comezaches <%= rebirths %> novas aventuras",
+    "rebirthOrb": "Usaches unha orbe de renacemento para comezar desde o principio tras chegar ao nivel <%= level %>.",
+    "rebirthOrb100": "Usaches unha orbe de renacemento para comezar desde o principio tras chegar ao nivel 100 ou máis.",
+    "rebirthOrbNoLevel": "Usaches unha orbe de renacemento para comezar desde o principio.",
+    "rebirthPop": "Reinicia instantaneamente a túa personaxe como guerreira de nivel 1 pero mantendo os teus logros, obxectos de colección, e equipamento. As túas tarefas e o seu historial manteranse, pero volverán estar en amarelo. As túas series retiraranse, salvo no caso de tarefas de retos. O teu ouro, experiencia e maná, así como os efectos de todas as habilidades, retiraranse. O efecto será inmediato. Para máis información, consulta a páxina do wiki sobre as <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>orbes de renacemento</a> (en inglés).",
+    "rebirthName": "Orbe de renacemento",
+    "rebirthComplete": "Acabas de renacer!",
+    "nextFreeRebirth": "<strong><%= days %> días</strong> ata conseguir <strong>de balde</strong> unha orbe de renacemento"
 }

@@ -1,8 +1,8 @@
 {
-    "clearCompleted": "Obriši izvršene zadatke",
+    "clearCompleted": "Brisanje dovršeno",
     "clearCompletedDescription": "Izvršeni Zadaci se brišu nakon 30 dana za nepretplaćene korisnike, odnosno nakon 90 dana za pretplatnike.",
     "clearCompletedConfirm": "Jesi li siguran/na da želiš izbrisati svoje izvršene Zadatke?",
-    "addMultipleTip": "<strong>Savjet:</strong> Za dodati više <%= taskType %>, odvoji svaki koristeći praznu crtu (Shift + Enter) i onda pritisni \"Enter.\"",
+    "addMultipleTip": "<strong>Savjet:</strong> Da biste dodali više <%= taskType %>, odvojite svaki prijelomom retka (Shift + Enter), a zatim pritisnite \"Enter\".",
     "addATask": "Dodaj <%= type %>",
     "editATask": "Uredi <%= type %>",
     "createTask": "Stvori <%= type %>",
@@ -139,5 +139,6 @@
     "resetCounter": "Resetiraj brojilo",
     "tomorrow": "Sutra",
     "editTagsText": "Uredi oznake",
-    "enterTag": "Unesi oznaku"
+    "enterTag": "Unesi oznaku",
+    "taskSummary": "<%= type %> Sažetak"
 }

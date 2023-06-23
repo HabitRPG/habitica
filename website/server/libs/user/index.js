@@ -51,6 +51,7 @@ const updatablePaths = [
   'party.orderAscending',
   'party.quest.completed',
   'party.quest.RSVPNeeded',
+  'party.seeking',
 
   'preferences',
   'profile',
@@ -97,7 +98,9 @@ function checkPreferencePurchase (user, path, item) {
   const itemPath = `${path}.${item}`;
   const appearance = _.get(common.content.appearances, itemPath);
   if (!appearance) return false;
-  if (appearance.price === 0) return true;
+  if (appearance.price === 0 && path !== 'background') {
+    return true;
+  }
 
   return _.get(user.purchased, itemPath);
 }
@@ -119,6 +122,17 @@ export async function update (req, res, { isV3 = false }) {
   const { user } = res.locals;
 
   let promisesForTagsRemoval = [];
+
+  if (req.body['party.seeking'] !== undefined && req.body['party.seeking'] !== null) {
+    user.invitations.party = {};
+    user.invitations.parties = [];
+    res.analytics.track('Starts Looking for Party', {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      headers: req.headers,
+    });
+  }
 
   if (req.body['profile.name'] !== undefined) {
     const newName = req.body['profile.name'];
@@ -168,7 +182,15 @@ export async function update (req, res, { isV3 = false }) {
       throw new NotAuthorized(res.t('mustPurchaseToSet', { val, key }));
     }
 
-    if (key === 'tags') {
+    if (key === 'party.seeking' && val === null) {
+      user.party.seeking = undefined;
+      res.analytics.track('Leaves Looking for Party', {
+        uuid: user._id,
+        hitType: 'event',
+        category: 'behavior',
+        headers: req.headers,
+      });
+    } else if (key === 'tags') {
       if (!Array.isArray(val)) throw new BadRequest('Tag list must be an array.');
 
       const removedTagsIds = [];
@@ -198,13 +220,13 @@ export async function update (req, res, { isV3 = false }) {
       // Remove from all the tasks
       // NOTE each tag to remove requires a query
 
-      promisesForTagsRemoval = removedTagsIds.map(tagId => Tasks.Task.update({
+      promisesForTagsRemoval = removedTagsIds.map(tagId => Tasks.Task.updateMany({
         userId: user._id,
       }, {
         $pull: {
           tags: tagId,
         },
-      }, { multi: true }).exec());
+      }).exec());
     } else if (key === 'flags.newStuff' && val === false) {
       // flags.newStuff was removed from the user schema and is only returned for compatibility
       // reasons but we're keeping the ability to set it in API v3
@@ -254,6 +276,7 @@ export async function reset (req, res, { isV3 = false }) {
     uuid: user._id,
     hitType: 'event',
     category: 'behavior',
+    headers: req.headers,
   });
 
   res.respond(200, ...resetRes);

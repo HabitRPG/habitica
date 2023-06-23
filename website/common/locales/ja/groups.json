@@ -269,7 +269,7 @@
     "removeMember": "メンバーを削除する",
     "sendMessage": "メッセージを送る",
     "promoteToLeader": "オーナーの権限を移す",
-    "inviteFriendsParty": "パーティーに友達を招待すると、ボスモンスター「バシ・リスト」と戦える<br/>限定クエストの巻物が贈られます！",
+    "inviteFriendsParty": "パーティーにほかのプレイヤーを招待して、<br/>限定「バシ・リスト」クエストの巻物の受け取りましょう。",
     "createParty": "パーティーを作成する",
     "inviteMembersNow": "すぐにメンバーを招待したいですか？",
     "playInPartyTitle": "パーティーに参加してHabiticaをプレイしましょう！",
@@ -417,5 +417,6 @@
     "nextPaymentMethod": "次のステップ：支払方法",
     "createGroup": "グループを作る",
     "groupParentChildren": "保護者として子どものタスクを設定する",
-    "sendGiftLabel": "ギフトメッセージを送信しますか？"
+    "sendGiftLabel": "ギフトメッセージを送信しますか？",
+    "invitedToPartyBy": "<a href=\"/profile/<%- userId %>\" target=\"_blank\">@<%- userName %></a> があなたをパーティー「<span class=\"notification-bold\"><%- party %></span>」に招待しました"
 }

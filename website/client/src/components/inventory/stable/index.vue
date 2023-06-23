@@ -879,7 +879,7 @@ export default {
           return;
         }
 
-        if (this.user.preferences.suppressModals.raisePet) {
+        if (this.user.preferences.suppressModals.hatchPet) {
           this.hatchPet(pet);
           return;
         }

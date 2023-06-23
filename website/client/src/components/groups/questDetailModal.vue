@@ -245,10 +245,6 @@
     text-align: center;
 
     color: $gray-100;
-
-    a {
-      color: $blue-10;
-    }
   }
 
   #quest-detail-modal {

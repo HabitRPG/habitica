@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import nconf from 'nconf';
+import moment from 'moment';
 import { authWithHeaders } from '../../middlewares/auth';
 import {
   model as Group,
@@ -165,6 +166,7 @@ api.createGroup = {
       hitType: 'event',
       category: 'behavior',
       owner: true,
+      groupId: savedGroup._id,
       groupType: savedGroup.type,
       privacy: savedGroup.privacy,
       headers: req.headers,
@@ -214,6 +216,7 @@ api.createGroupPlan = {
       hitType: 'event',
       category: 'behavior',
       owner: true,
+      groupId: savedGroup._id,
       groupType: savedGroup.type,
       privacy: savedGroup.privacy,
       headers: req.headers,
@@ -717,6 +720,25 @@ api.joinGroup = {
       }
     }
 
+    const analyticsObject = {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      owner: false,
+      groupId: group._id,
+      groupType: group.type,
+      privacy: group.privacy,
+      headers: req.headers,
+      invited: isUserInvited,
+    };
+    if (group.type === 'party') {
+      analyticsObject.seekingParty = Boolean(user.party.seeking);
+    }
+    if (group.privacy === 'public') {
+      analyticsObject.groupName = group.name;
+    }
+    user.party.seeking = undefined;
+
     if (inviter) promises.push(inviter.save());
     promises = await Promise.all(promises);
 
@@ -729,21 +751,6 @@ api.joinGroup = {
     const leader = await User.findById(response.leader).select(nameFields).exec();
     if (leader) {
       response.leader = leader.toJSON({ minimize: true });
-    }
-
-    const analyticsObject = {
-      uuid: user._id,
-      hitType: 'event',
-      category: 'behavior',
-      owner: false,
-      groupType: group.type,
-      privacy: group.privacy,
-      headers: req.headers,
-      invited: isUserInvited,
-    };
-
-    if (group.privacy === 'public') {
-      analyticsObject.groupName = group.name;
     }
 
     res.analytics.track('join group', analyticsObject);
@@ -1201,16 +1208,6 @@ api.inviteToGroup = {
       results.push(...usernameResults);
     }
 
-    const analyticsObject = {
-      uuid: user._id,
-      hitType: 'event',
-      category: 'behavior',
-      groupType: group.type,
-      headers: req.headers,
-    };
-
-    res.analytics.track('group invite', analyticsObject);
-
     res.respond(200, results);
   },
 };
@@ -1355,6 +1352,90 @@ api.getGroupPlans = {
     const groupPlans = groups.filter(group => group.hasActiveGroupPlan());
 
     res.respond(200, groupPlans);
+  },
+};
+
+/**
+ * @api {get} /api/v3/looking-for-party Get users in search of parties
+ * @apiName GetLookingForParty
+ * @apiGroup Group
+ *
+ * @apiParam (Query) {Number} [page] Page number, defaults to 0
+ *
+ * @apiSuccess {Object[]} data An array of users looking for a party
+ *
+ * @apiError (400) {BadRequest} notPartyLeader You are not the leader of a Party.
+ */
+api.getLookingForParty = {
+  method: 'GET',
+  url: '/looking-for-party',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    const USERS_PER_PAGE = 30;
+    const { user } = res.locals;
+
+    req.checkQuery('page').optional().isInt({ min: 0 }, apiError('queryPageInteger'));
+    const PAGE = req.query.page || 0;
+    const PAGE_START = USERS_PER_PAGE * PAGE;
+
+    const partyLed = await Group
+      .findOne({
+        type: 'party',
+        leader: user._id,
+      })
+      .select('_id')
+      .exec();
+
+    if (!partyLed) {
+      throw new BadRequest(apiError('notPartyLeader'));
+    }
+
+    const seekers = await User
+      .find({
+        'party.seeking': { $exists: true },
+        'auth.timestamps.loggedin': {
+          $gt: moment().subtract(7, 'days').toDate(),
+        },
+      })
+      // eslint-disable-next-line no-multi-str
+      .select('_id auth.blocked auth.local.username auth.timestamps backer contributor.level \
+        flags.chatRevoked flags.classSelected inbox.blocks invitations.party items.gear.costume \
+        items.gear.equipped loginIncentives party._id preferences.background preferences.chair \
+        preferences.costume preferences.hair preferences.shirt preferences.size preferences.skin \
+        preferences.language profile.name stats.buffs stats.class stats.lvl')
+      .sort('-auth.timestamps.loggedin')
+      .exec();
+
+    const filteredSeekers = seekers.filter(seeker => {
+      if (seeker.party._id) return false;
+      if (seeker.invitations.party.id) return false;
+      if (seeker.flags.chatRevoked) return false;
+      if (seeker.auth.blocked) return false;
+      if (seeker.inbox.blocks.indexOf(user._id) !== -1) return false;
+      if (user.inbox.blocks.indexOf(seeker._id) !== -1) return false;
+      return true;
+    }).slice(PAGE_START, PAGE_START + USERS_PER_PAGE);
+
+    const cleanedSeekers = filteredSeekers.map(seeker => ({
+      _id: seeker._id,
+      auth: {
+        local: {
+          username: seeker.auth.local.username,
+        },
+        timestamps: seeker.auth.timestamps,
+      },
+      backer: seeker.backer,
+      contributor: seeker.contributor,
+      flags: seeker.flags,
+      invited: false,
+      items: seeker.items,
+      loginIncentives: seeker.loginIncentives,
+      preferences: seeker.preferences,
+      profile: seeker.profile,
+      stats: seeker.stats,
+    }));
+
+    res.respond(200, cleanedSeekers);
   },
 };
 

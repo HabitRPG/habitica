@@ -120,6 +120,7 @@ import { mapState } from '@/libs/store';
 import Sidebar from './sidebar';
 import ChallengeItem from './challengeItem';
 import challengeModal from './challengeModal';
+import externalLinks from '@/mixins/externalLinks';
 import challengeUtilities from '@/mixins/challengeUtilities';
 
 import positiveIcon from '@/assets/svg/positive.svg';
@@ -131,7 +132,7 @@ export default {
     challengeModal,
     MugenScroll,
   },
-  mixins: [challengeUtilities],
+  mixins: [challengeUtilities, externalLinks],
   data () {
     return {
       loading: true,
@@ -177,6 +178,10 @@ export default {
       section: this.$t('challenges'),
     });
     this.loadChallenges();
+    this.handleExternalLinks();
+  },
+  updated () {
+    this.handleExternalLinks();
   },
   methods: {
     updateSearch (eventData) {
