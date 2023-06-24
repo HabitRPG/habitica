@@ -89,7 +89,7 @@
         </button>
         <button
           v-else
-          class="btn btn-primary"
+          class="btn btn-primary mb-4"
           :class="{'notEnough': !enoughCurrency(priceType, item.value * selectedAmountToBuy)}"
           :disabled="numberInvalid"
           @click="buyItem()"
@@ -141,7 +141,6 @@
       border-bottom-right-radius: 8px;
       border-bottom-left-radius: 8px;
       display: block;
-      margin-top: 24px;
       padding: 16px 24px;
       align-content: center;
 
