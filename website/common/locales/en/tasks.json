@@ -136,5 +136,7 @@
   "addTags": "Add tags...",
   "enterTag": "Enter a tag",
   "pressEnterToAddTag": "Press Enter to add tag: '<%= tagName %>'",
-  "taskSummary": "<%= type %> Summary"
+  "taskSummary": "<%= type %> Summary",
+  "scoreUp": "Score up",
+  "scoreDown": "Score down"
 }

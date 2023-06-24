@@ -210,7 +210,7 @@
   "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> sent you a message",
   "letsgo": "Let's Go!",
   "selected": "Selected",
-  "howManyToBuy": "How many would you like to buy?",
+  "howManyToBuy": "How many would you like to purchase?",
   "contactForm": "Contact the Moderation Team",
   "loadEarlierMessages": "Load Earlier Messages",
   "askQuestion": "Ask a Question",

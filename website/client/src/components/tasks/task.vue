@@ -32,6 +32,9 @@
               'task-not-scoreable': showTaskLockIcon,
             }, controlClass.up.inner]"
             tabindex="0"
+            role="button"
+            :aria-label="$t('scoreUp')"
+            :aria-disabled="showTaskLockIcon || (!task.up && !showTaskLockIcon)"
             @click="score('up')"
             @keypress.enter="score('up')"
           >
@@ -63,6 +66,7 @@
               controlClass.inner,
             ]"
             tabindex="0"
+            role="checkbox"
             @click="score(showCheckIcon ? 'down' : 'up' )"
             @keypress.enter="score(showCheckIcon ? 'down' : 'up' )"
           >
@@ -241,7 +245,7 @@
             >
               <div
                 v-b-tooltip.hover.bottom="$t('dueDate')"
-                class="svg-icon calendar"
+                class="svg-icon calendar my-auto"
                 v-html="icons.calendar"
               ></div>
               <span>{{ formatDueDate() }}</span>
@@ -359,6 +363,9 @@
               'task-not-scoreable': showTaskLockIcon,
             }, controlClass.down.inner]"
             tabindex="0"
+            role="button"
+            :aria-label="$t('scoreDown')"
+            :aria-disabled="showTaskLockIcon || (!task.down && !showTaskLockIcon)"
             @click="score('down')"
             @keypress.enter="score('down')"
           >
@@ -701,7 +708,7 @@
 
   .icons {
     margin-top: 4px;
-    color: $gray-300;
+    color: $gray-100;
     font-style: normal;
 
     &-right {
@@ -760,7 +767,7 @@
   }
 
   .due-overdue {
-    color: $red-50;
+    color: $maroon-10;
   }
 
   .calendar.svg-icon {
@@ -899,7 +906,7 @@
   }
 </style>
 <!-- eslint-enable max-len -->
-
+<!-- eslint-disable-next-line vue/component-tags-order -->
 <script>
 import moment from 'moment';
 import { v4 as uuid } from 'uuid';
@@ -1126,13 +1133,13 @@ export default {
       return moment.duration(endOfDueDate.diff(endOfToday));
     },
     checkIfOverdue () {
-      return this.calculateTimeTillDue().asDays() <= 0;
+      return this.calculateTimeTillDue().asDays() < 0;
     },
     formatDueDate () {
-      const timeTillDue = this.calculateTimeTillDue();
-      const dueIn = timeTillDue.asDays() === 0 ? this.$t('today') : timeTillDue.humanize(true);
-
-      return this.task.date && this.$t('dueIn', { dueIn });
+      if (moment().isSame(this.task.date, 'day')) {
+        return this.$t('today');
+      }
+      return moment(this.task.date).format(this.user.preferences.dateFormat.toUpperCase());
     },
     edit (e, task) {
       if (this.isRunningYesterdailies) return;

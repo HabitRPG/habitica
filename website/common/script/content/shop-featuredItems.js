@@ -5,7 +5,7 @@ import { EVENTS } from './constants';
 // path: 'premiumHatchingPotions.Rainbow',
 const featuredItems = {
   market () {
-    if (moment().isBetween(EVENTS.potions202305.start, EVENTS.potions202305.end)) {
+    if (moment().isBetween(EVENTS.summer2023.start, EVENTS.summer2023.end)) {
       return [
         {
           type: 'armoire',
@@ -13,15 +13,15 @@ const featuredItems = {
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Fairy',
+          path: 'premiumHatchingPotions.Sunset',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Floral',
+          path: 'premiumHatchingPotions.Glass',
         },
         {
-          type: 'hatchingPotions',
-          path: 'hatchingPotions.Golden',
+          type: 'premiumHatchingPotion',
+          path: 'premiumHatchingPotions.SandSculpture',
         },
       ];
     }
@@ -44,12 +44,12 @@ const featuredItems = {
       },
     ];
   },
-  quests () { // start date is 3/28
-    if (moment().isBetween(EVENTS.bundle202305.start, EVENTS.bundle202305.end)) {
+  quests () {
+    if (moment().isBetween(EVENTS.bundle202306.start, EVENTS.bundle202306.end)) {
       return [
         {
           type: 'bundles',
-          path: 'bundles.birdBuddies',
+          path: 'bundles.splashyPals',
         },
         {
           type: 'quests',
@@ -93,7 +93,7 @@ const featuredItems = {
       },
     ];
   },
-  seasonal: 'spring2022Healer',
+  seasonal: 'summer2022MantaRayMageSet',
   timeTravelers: [
     // TODO
   ],
