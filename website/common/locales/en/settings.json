@@ -111,6 +111,7 @@
     "deleteDo": "Do it, delete my account!",
     "invalidPasswordResetCode": "The supplied password reset code is invalid or has expired.",
     "passwordChangeSuccess": "Your password was successfully changed to the one you just chose. You can now use it to access your account.",
+    "userNameSuccess": "Username successfully changed",
     "displayNameSuccess": "Display name successfully changed",
     "emailSuccess": "Email successfully changed",
     "passwordSuccess": "Password successfully changed",

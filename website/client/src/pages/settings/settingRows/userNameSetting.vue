@@ -70,12 +70,13 @@ import { mapState } from '@/libs/store';
 import { InlineSettingMixin } from '../components/inlineSettingMixin';
 import SaveCancelButtons from '../components/saveCancelButtons.vue';
 import ValidatedTextInput from '@/components/ui/validatedTextInput.vue';
+import { NotificationMixins } from '@/mixins/notifications';
 
 // TODO extract usernameIssues/checks to a mixin to share between this and the authForm
 
 export default {
   components: { ValidatedTextInput, SaveCancelButtons },
-  mixins: [InlineSettingMixin],
+  mixins: [InlineSettingMixin, NotificationMixins],
   data () {
     return {
       inputValue: '',
@@ -138,6 +139,8 @@ export default {
       this.user.auth.local.username = newUsername;
       // this.localAuth.username = this.user.auth.local.username;
       this.user.flags.verifiedUsername = true;
+
+      this.text(this.$t('userNameSuccess'));
 
       this.closeModal();
     },
