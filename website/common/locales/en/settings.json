@@ -155,7 +155,7 @@
     "giftSubscriptionRateText": "<strong>$<%= price %> USD</strong> for <strong><%= months %> months</strong>",
     "benefits": "Benefits",
     "coupon": "Coupon",
-    "couponText": "We sometimes have events and give out promo codes for special gear. (eg, those who stop by our Wondercon booth)",
+    "couponText": "We sometimes have events and give out promo codes for special gear.",
     "apply": "Apply",
     "promoCode": "Promo Code",
     "promoCodeApplied": "Promo Code Applied! Check your inventory",

@@ -1,68 +1,84 @@
 <template>
   <div class="row standard-page">
-    <div class="col-md-6">
-      <h2>{{ $t('promoCode') }}</h2>
-      <div
-        class="form-inline"
-        role="form"
+    <div class="col-12">
+      <h1
+        v-once
+        class="page-header"
       >
-        <input
-          v-model="couponCode"
-          class="form-control"
-          type="text"
-          :placeholder="$t('promoPlaceholder')"
-        >
-        <button
-          class="btn btn-primary"
-          @click="enterCoupon()"
-        >
-          {{ $t('submit') }}
-        </button>
-      </div>
-      <div>
-        <small>{{ $t('couponText') }}</small>
-      </div>
-      <div v-if="user.permissions.coupons">
-        <hr>
-        <h4>{{ $t('generateCodes') }}</h4>
+        {{ $t('promoCode') }}
+      </h1>
+
+      <div class="input-area">
         <div
-          class="form"
+          class="form-inline"
           role="form"
         >
-          <div class="form-group">
-            <input
-              v-model="codes.event"
-              class="form-control"
-              type="text"
-              placeholder="Event code (eg, 'wondercon')"
-            >
-          </div>
-          <div class="form-group">
-            <input
-              v-model="codes.count"
-              class="form-control"
-              type="number"
-              placeholder="Number of codes to generate (eg, 250)"
-            >
-          </div>
-          <div class="form-group">
-            <button
-              class="btn btn-primary"
-              type="submit"
-              @click="generateCodes(codes)"
-            >
-              {{ $t('generate') }}
-            </button>
-            <a
-              class="btn btn-secondary"
-              :href="getCodesUrl"
-            >{{ $t('getCodes') }}</a>
+          <input
+            v-model="couponCode"
+            class="form-control"
+            type="text"
+            :placeholder="$t('promoPlaceholder')"
+          >
+        </div>
+        <div
+          v-once
+          class="small mt-2"
+        >
+          {{ $t('couponText') }}
+        </div>
+        <save-cancel-buttons
+          :hide-cancel="true"
+          primary-button-label="submit"
+          @saveClicked="enterCoupon()"
+        />
+        <div v-if="canCreateCoupons">
+          <hr>
+          <h4>{{ $t('generateCodes') }}</h4>
+          <div
+            class="form"
+            role="form"
+          >
+            <div class="form-group">
+              <input
+                v-model="codes.event"
+                class="form-control"
+                type="text"
+                placeholder="Event code (eg, 'wondercon')"
+              >
+            </div>
+            <div class="form-group">
+              <input
+                v-model="codes.count"
+                class="form-control"
+                type="number"
+                placeholder="Number of codes to generate (eg, 250)"
+              >
+            </div>
+            <div class="form-group">
+              <button
+                class="btn btn-primary"
+                type="submit"
+                @click="generateCodes(codes)"
+              >
+                {{ $t('generate') }}
+              </button>
+              <a
+                class="btn btn-secondary"
+                :href="getCodesUrl"
+              >{{ $t('getCodes') }}</a>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </template>
+
+<style scoped>
+  .form-control {
+    width: 100%;
+  }
+</style>
 
 <script>
 import axios from 'axios';
@@ -85,7 +101,7 @@ export default {
   computed: {
     ...mapState({ user: 'user.data', credentials: 'credentials' }),
     canCreateCoupons () {
-      return this.user.permissions.coupons || true;
+      return this.user.permissions.coupons;
     },
     getCodesUrl () {
       if (!this.user) return '';

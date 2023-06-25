@@ -99,6 +99,10 @@
     ::v-deep {
       line-height: 1.71;
 
+      .small {
+        line-height: 1.33;
+      }
+
       table td {
         padding: 0.5rem;
       }
