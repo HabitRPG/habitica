@@ -1,16 +1,21 @@
 <template>
   <div class="row">
     <secondary-menu class="col-12">
-      <router-link
+      <template
         v-for="routePath in tabs"
-        :key="routePath"
-        class="nav-link"
-        :to="{name: routePath}"
-        exact="exact"
-        :class="{'active': $route.name === routePath}"
       >
-        {{ $t(pathTranslateKey(routePath)) }}
-      </router-link>
+        <router-link
+          v-if="allowedToShowTab(routePath)"
+          :key="routePath"
+
+          class="nav-link"
+          :to="{name: routePath}"
+          exact="exact"
+          :class="{'active': $route.name === routePath}"
+        >
+          {{ $t(pathTranslateKey(routePath)) }}
+        </router-link>
+      </template>
     </secondary-menu>
     <div
       v-if="$route.name === 'subscription' && promo === 'g1g1'"
@@ -203,6 +208,18 @@ export default {
     },
   },
   methods: {
+    /**
+     * @param {String} tabName
+     * @returns {Boolean}
+     */
+    allowedToShowTab (tabName) {
+      const transactionsTab = tabName === 'transactions';
+
+      return transactionsTab
+        ? this.hasPermission(this.user, 'userSupport')
+        : true;
+    },
+
     showSelectUser () {
       this.$root.$emit('bv::show::modal', 'select-user-modal');
     },
