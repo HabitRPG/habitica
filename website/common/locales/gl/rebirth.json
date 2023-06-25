@@ -8,7 +8,7 @@
     "rebirthOrb": "Usaches unha orbe de renacemento para comezar desde o principio tras chegar ao nivel <%= level %>.",
     "rebirthOrb100": "Usaches unha orbe de renacemento para comezar desde o principio tras chegar ao nivel 100 ou máis.",
     "rebirthOrbNoLevel": "Usaches unha orbe de renacemento para comezar desde o principio.",
-    "rebirthPop": "Reinicia instantaneamente a túa personaxe como guerreira de nivel 1 pero mantendo os teus logros, obxectos de colección, e equipamento. As túas tarefas e o seu historial manteranse, pero volverán estar en amarelo. As túas rachas retiraranse, salvo no caso de tarefas de retos. O teu ouro, experiencia e maná, así como os efectos de todas as habilidades, retiraranse. O efecto será inmediato. Para máis información, consulta a páxina do wiki sobre as <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>orbes de renacemento</a> (en inglés).",
+    "rebirthPop": "Reinicia instantaneamente a túa personaxe como guerreira de nivel 1 pero mantendo os teus logros, obxectos de colección, e equipamento. As túas tarefas e o seu historial manteranse, pero volverán estar en amarelo. As túas series retiraranse, salvo no caso de tarefas de retos. O teu ouro, experiencia e maná, así como os efectos de todas as habilidades, retiraranse. O efecto será inmediato. Para máis información, consulta a páxina do wiki sobre as <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>orbes de renacemento</a> (en inglés).",
     "rebirthName": "Orbe de renacemento",
     "rebirthComplete": "Acabas de renacer!",
     "nextFreeRebirth": "<strong><%= days %> días</strong> ata conseguir <strong>de balde</strong> unha orbe de renacemento"
