@@ -68,8 +68,10 @@
 import axios from 'axios';
 import { mapState } from '@/libs/store';
 import notifications from '@/mixins/notifications';
+import SaveCancelButtons from '@/pages/settings/components/saveCancelButtons.vue';
 
 export default {
+  components: { SaveCancelButtons },
   mixins: [notifications],
   data () {
     return {
@@ -82,6 +84,9 @@ export default {
   },
   computed: {
     ...mapState({ user: 'user.data', credentials: 'credentials' }),
+    canCreateCoupons () {
+      return this.user.permissions.coupons || true;
+    },
     getCodesUrl () {
       if (!this.user) return '';
       return '/api/v4/coupons';

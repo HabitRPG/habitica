@@ -16,7 +16,7 @@ const Transactions = () => import(/* webpackChunkName: "settings" */'@/pages/set
 const SiteData = () => import(/* webpackChunkName: "settings" */'@/pages/settings/siteData.vue');
 
 // not converted yet
-const PromoCode = () => import(/* webpackChunkName: "settings" */'@/components/settings/promoCode');
+const PromoCode = () => import(/* webpackChunkName: "settings" */'@/pages/settings/promoCode.vue');
 const Subscription = () => import(/* webpackChunkName: "settings" */'@/components/settings/subscription');
 
 
