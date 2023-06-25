@@ -15,6 +15,7 @@
     </button>
 
     <a
+      v-if="!hideCancel"
       class="edit-link"
       @click.prevent="$emit('cancelClicked')"
     >
@@ -26,7 +27,7 @@
 <script>
 export default {
   name: 'SaveCancelButtons',
-  props: ['hideSave', 'disableSave', 'primaryButtonLabel', 'primaryButtonColor', 'noPadding'],
+  props: ['hideSave', 'hideCancel', 'disableSave', 'primaryButtonLabel', 'primaryButtonColor', 'noPadding'],
 };
 </script>
 
