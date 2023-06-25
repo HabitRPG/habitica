@@ -15,6 +15,7 @@ export const PasswordInputChecksMixin = {
       mixinData: {
         currentPasswordIssues: [],
         newPasswordIssues: [],
+        confirmPasswordIssues: [],
       },
     };
   },
@@ -22,6 +23,7 @@ export const PasswordInputChecksMixin = {
     clearPasswordIssues () {
       this.mixinData.currentPasswordIssues.length = 0;
       this.mixinData.newPasswordIssues.length = 0;
+      this.mixinData.confirmPasswordIssues.length = 0;
     },
     /**
      * @param {() => Promise<void>} promiseCall
@@ -40,6 +42,19 @@ export const PasswordInputChecksMixin = {
           this.mixinData.currentPasswordIssues.push(message);
         } else if ([this.$t('missingNewPassword'), this.$t('passwordIssueLength'), this.$t('passwordConfirmationMatch')].includes(message)) {
           this.mixinData.newPasswordIssues.push(message);
+          this.mixinData.confirmPasswordIssues.push(message);
+        } else if (this.$t('invalidReqParams') === message) {
+          const errors = axiosError.response?.data?.errors ?? [];
+
+          for (const error of errors) {
+            if (error.param === 'password') {
+              this.mixinData.currentPasswordIssues.push(error.message);
+            } else if (error.param === 'newPassword') {
+              this.mixinData.newPasswordIssues.push(error.message);
+            } else {
+              this.mixinData.confirmPasswordIssues.push(error.message);
+            }
+          }
         }
       }
     },

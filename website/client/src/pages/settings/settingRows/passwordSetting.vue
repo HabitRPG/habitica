@@ -54,8 +54,8 @@
         />
         <current-password-input
           custom-label="confirmPass"
-          :is-valid="mixinData.newPasswordIssues.length === 0"
-          :invalid-issues="mixinData.newPasswordIssues"
+          :is-valid="mixinData.confirmPasswordIssues.length === 0"
+          :invalid-issues="mixinData.confirmPasswordIssues"
           @passwordValue="passwordUpdates.confirmPassword = $event"
         />
 
