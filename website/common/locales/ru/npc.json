@@ -134,5 +134,6 @@
     "newStuffPostedOn": "Опубликовано <%= publishDate %>, <%= publishTime %>",
     "helpSupportHabitica": "Поддержите Habitica",
     "groupsPaymentAutoRenew": "Эта подписка будет автоматически продлеваться до тех пор, пока она не будет отменена. Если вам нужно отменить подписку, вы можете сделать это на вкладке \"групповой счет\".",
-    "groupsPaymentSubBilling": "Ваша следующая дата выставления счета <strong><%= renewalDate %></strong>."
+    "groupsPaymentSubBilling": "Ваша следующая дата выставления счета <strong><%= renewalDate %></strong>.",
+    "sellItems": "Продать предметы"
 }
