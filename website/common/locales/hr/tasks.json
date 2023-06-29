@@ -140,5 +140,7 @@
     "tomorrow": "Sutra",
     "editTagsText": "Uredi oznake",
     "enterTag": "Unesi oznaku",
-    "taskSummary": "<%= type %> Sažetak"
+    "taskSummary": "<%= type %> Sažetak",
+    "scoreUp": "Rezultat gore",
+    "scoreDown": "Rezultat dolje"
 }
