@@ -418,5 +418,15 @@
     "groupManager": "Менеджер назначає завдання працівникам",
     "groupParentChildren": "Батьки розподіляють завдання між дітьми",
     "sendGiftLabel": "Бажаєте надіслати повідомлення разом з подарунком?",
-    "invitedToPartyBy": "<a href=\"/profile/<%- userId %>\" target=\"_blank\">@<%- userName %></a> запроси(-в/ла) вас доєднатись до команди <span class=\"notification-bold\"><%- party %></span>"
+    "invitedToPartyBy": "<a href=\"/profile/<%- userId %>\" target=\"_blank\">@<%- userName %></a> запроси(-в/ла) вас доєднатись до команди <span class=\"notification-bold\"><%- party %></span>",
+    "startPartyDetail": "Створіть власну команду або приєднайтеся до вже існуючої, <br/>щоб виконувати квести та підвищити свою мотивацію!",
+    "partyExceedsInvitesLimit": "Команда може мати не більше ніж <%= maxInvites %> запрошень у стані очікування.",
+    "lookForParty": "Шукати команду",
+    "currentlyLookingForParty": "Ви шукаєте команду!",
+    "sendTotal": "Загалом:",
+    "questWithOthers": "Проходьте квести з іншими гравцями",
+    "partyFinderDescription": "Хочете приєднатися до команди з іншими гравцями, але нікого не знаєте? Дайте лідеру знати, що ви шукаєте команду!",
+    "languageLabel": "Мова:",
+    "lookingForPartyTitle": "",
+    "noOneLooking": "На даний момент ніхто не шукає команду. Можете спробувати пізніше!"
 }

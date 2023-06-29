@@ -7,13 +7,19 @@
         <br>
         <p class="text-center">
           <button
+            id="buttonClearBrowserData"
             class="btn btn-lg btn-danger"
-            popover-trigger="mouseover"
-            :popover="$t('localStorageClearExplanation')"
             @click="clearLocalStorage()"
           >
             {{ $t('localStorageClear') }}
           </button>
+          <b-popover
+            target="buttonClearBrowserData"
+            triggers="hover focus"
+            placement="right"
+            :prevent-overflow="false"
+            :content="$t('localStorageClearExplanation')"
+          />
         </p>
         <br>
         <p v-html="$t('localStorageTryNext', localStorageTryNext) "></p>

@@ -258,13 +258,22 @@
                 :key="hero._id"
               >
                 <td>
-                  <user-link
+                  <div
                     v-if="hasPermission(hero, 'userSupport')"
-                    :user="hero"
-                    :popover="$t('gamemaster')"
-                    popover-trigger="mouseenter"
-                    popover-placement="right"
-                  />
+                    class="width-content"
+                  >
+                    <user-link
+                      :id="hero._id"
+                      :user="hero"
+                    />
+                    <b-popover
+                      :target="hero._id"
+                      triggers="hover focus"
+                      placement="right"
+                      :prevent-overflow="false"
+                      :content="$t('gamemaster')"
+                    />
+                  </div>
                   <user-link
                     v-else
                     :user="hero"
@@ -301,6 +310,10 @@
 <style lang="scss" scoped>
   h4.expand-toggle::after {
     margin-left: 5px;
+  }
+
+  .width-content {
+    width: fit-content;
   }
 </style>
 
