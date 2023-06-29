@@ -343,5 +343,14 @@
     "groupActivityNotificationTitle": "<%= user %> postade i <%= group %>",
     "suggestedGroup": "Föreslagits eftersom du är ny på Habitica.",
     "taskClaimed": "<%- userName %> har gjort anspråk på uppgiften <span class=\"notification-bold\"><%- taskText %></span>.",
-    "youHaveBeenAssignedTask": "<%- managerName %> har tilldelat dig upgiften <span class=\"notification-bold\"><%- taskText %></span>."
+    "youHaveBeenAssignedTask": "<%- managerName %> har tilldelat dig upgiften <span class=\"notification-bold\"><%- taskText %></span>.",
+    "editGuild": "Redigera Gille",
+    "invitedToPartyBy": "<a href=\"/profile/<%- userId %>\" target=\"_blank\">@<%- userName %></a> har bjudit in dig till sällskapet <span class=\"notification-bold\"><%- party %></span>",
+    "leaveGuild": "Lämna Gille",
+    "joinParty": "Gå med i Grupp",
+    "PMUserDoesNotReceiveMessages": "Den här användaren får inte privata medelanden längre",
+    "editParty": "Redigera Grupp",
+    "joinGuild": "Gå med i Gille",
+    "features": "Funktioner",
+    "PMCanNotReply": "Du kan inte besvara denna konversation"
 }

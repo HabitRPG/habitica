@@ -2844,5 +2844,13 @@
     "headSpecialSpring2023RogueText": "毛毛虫兜帽",
     "headSpecialSpring2023RogueNotes": "觅食的鸟儿在头顶上盘旋时，可别忘了收起这抢眼的触角喔！增加<%= per %>点感知。2023年春季限定版装备。",
     "weaponSpecialSpring2023RogueNotes": "一劈！一砍！咬一口尝尝！强健体魄，同时为不久之后的蜕变做足准备。增加<%= str %>点力量。2023年春季限定版装备。",
-    "armorSpecialSpring2023RogueText": "毛毛虫披风"
+    "armorSpecialSpring2023RogueText": "毛毛虫披风",
+    "weaponMystery202306Text": "彩虹伞",
+    "weaponSpecialSummer2023RogueText": "古皮扇",
+    "weaponSpecialSummer2023WarriorText": "水元素剑",
+    "weaponSpecialSummer2023MageText": "鱼",
+    "weaponSpecialSummer2023HealerText": "摇摆的海带",
+    "weaponArmoirePaintbrushText": "画笔",
+    "armorSpecialSummer2023RogueText": "古皮包装",
+    "armorSpecialSummer2023WarriorText": "金鱼战甲"
 }
