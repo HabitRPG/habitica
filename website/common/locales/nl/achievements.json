@@ -74,7 +74,7 @@
     "foundNewItems": "Je hebt nieuwe voorwerpen gevonden!",
     "achievementBugBonanzaModalText": "Je hebt de kever-, vlinder-, slak- en spin-huisdierzoektochten voltooid!",
     "achievementBugBonanzaText": "Heeft kever-, vlinder-, slak- en spin-huisdierzoektochten voltooid.",
-    "achievementBugBonanza": "Beesten Bloei",
+    "achievementBugBonanza": "Beestjes Bonanza",
     "onboardingCompleteDescSmall": "Als je nog meer wilt, bekijk dan Prestaties en begin met verzamelen!",
     "onboardingComplete": "Je hebt je onboarding-taken voltooid!",
     "yourProgress": "Jouw vooruitgang",
@@ -142,5 +142,9 @@
     "achievementBoneToPickText": "Heeft alle Klassieke en Queeste Skelet huisdieren uitgebroed!",
     "achievementBoneToPickModalText": "Je hebt alle klassieke en Queeste Skelet Huisdieren verzameld!",
     "achievementPolarProText": "Heeft alle Pool Huisdieren gebroed: Beer, Vos, Pinguïn, Walvis en Wolf!",
-    "achievementPolarProModalText": "Je hebt alle Poolhuisdieren verzameld!"
+    "achievementPolarProModalText": "Je hebt alle Poolhuisdieren verzameld!",
+    "achievementPolarPro": "Polaire Prof",
+    "achievementPlantParentModalText": "Je hebt alle Plant Huisdieren verzamelt!",
+    "achievementDinosaurDynasty": "Dinosaurus Dinastie",
+    "achievementPlantParentText": "Heeft alle standaard kleuren van de Plant huisdieren uitgebroed: Cactus en Boomling!"
 }
