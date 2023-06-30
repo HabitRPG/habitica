@@ -163,7 +163,7 @@
     "orderBy": "Упорядочить по <%= item %>",
     "you": "(вы)",
     "loading": "Загрузка...",
-    "userIdRequired": "Tребуется ID пользователя",
+    "userIdRequired": "Требуется ID пользователя",
     "resetFilters": "Очистить все фильтры",
     "applyFilters": "Применить фильтры",
     "wantToWorkOn": "Я хочу поработать над:",

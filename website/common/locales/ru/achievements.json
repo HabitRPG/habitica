@@ -62,7 +62,7 @@
     "earnedAchievement": "Вы получили достижение!",
     "viewAchievements": "Посмотреть достижения",
     "onboardingProgress": "Выполнено на <%= percentage %>%",
-    "gettingStartedDesc": "Виконайте ці завдання й ви отримаєте <strong>5 досягнень</strong> і <strong class=\"gold-amount\">100 золота</strong> как только закончите!",
+    "gettingStartedDesc": "Выполните эти задачи и вы получите <strong>5 достижений</strong> і <strong class=\"gold-amount\">100 золота</strong> как только закончите!",
     "achievementRosyOutlookModalText": "Вы собрали всех розовых сахарных скакунов!",
     "achievementRosyOutlookText": "Собраны все розовые сахарные скакуны.",
     "achievementTickledPinkModalText": "Вы собрали всех розовых сахарных питомцев!",
@@ -150,5 +150,5 @@
     "achievementPlantParentText": "Вы собрали все стандартные цвета питомцев растений: Кактус и Древолаз",
     "achievementDinosaurDynasty": "Династия динозавров",
     "achievementDinosaurDynastyModalText": "Вы собрали всех питомцев птиц и динозавров!",
-    "achievementDinosaurDynastyText": "Вы вылупили всех питомцев, птиц и динозавров, стандартново цвета: Сокол, Сова, Попугай, Павлин, Пингвин, Петух, Птеродактиль, Тираннозавр, Трицератопс и Велоцираптор!"
+    "achievementDinosaurDynastyText": "Вы вылупили всех питомцев, птиц и динозавров, стандартного цвета: Сокол, Сова, Попугай, Павлин, Пингвин, Петух, Птеродактиль, Тираннозавр, Трицератопс и Велоцираптор!"
 }
