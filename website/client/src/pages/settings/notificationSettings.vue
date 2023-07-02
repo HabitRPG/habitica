@@ -21,7 +21,7 @@
           <td>
             <toggle-switch
               :checked="user.preferences.pushNotifications.unsubscribeFromAll"
-              @toggle="set('pushNotifications', 'unsubscribeFromAll')"
+              @change="set('pushNotifications', 'unsubscribeFromAll', $event)"
             />
           </td>
         </tr>
@@ -33,7 +33,7 @@
           <td>
             <toggle-switch
               :checked="user.preferences.emailNotifications.unsubscribeFromAll"
-              @toggle="set('emailNotifications', 'unsubscribeFromAll')"
+              @change="set('emailNotifications', 'unsubscribeFromAll', $event)"
             />
           </td>
         </tr>
@@ -57,7 +57,7 @@
             <toggle-switch
               :checked="!user.preferences.suppressModals.levelUp"
               class="toggle-switch-width"
-              @toggle="set('suppressModals', 'levelUp')"
+              @change="set('suppressModals', 'levelUp', !$event)"
             />
           </td>
         </tr>
@@ -72,7 +72,7 @@
             <toggle-switch
               :checked="!user.preferences.suppressModals.hatchPet"
               class="toggle-switch-width"
-              @toggle="set('suppressModals', 'hatchPet')"
+              @change="set('suppressModals', 'hatchPet', !$event)"
             />
           </td>
         </tr>
@@ -87,7 +87,7 @@
             <toggle-switch
               :checked="!user.preferences.suppressModals.raisePet"
               class="toggle-switch-width"
-              @toggle="set('suppressModals', 'raisePet')"
+              @change="set('suppressModals', 'raisePet', !$event)"
             />
           </td>
         </tr>
@@ -102,7 +102,7 @@
             <toggle-switch
               :checked="!user.preferences.suppressModals.streak"
               class="toggle-switch-width"
-              @toggle="set('suppressModals', 'streak')"
+              @change="set('suppressModals', 'streak', !$event)"
             />
           </td>
         </tr>
@@ -158,7 +158,7 @@
             <toggle-switch
               :checked="user.preferences.emailNotifications[notification]"
               class="toggle-switch-width"
-              @toggle="set('emailNotifications', notification)"
+              @change="set('emailNotifications', notification, $event)"
             />
           </td>
           <td class="email_push_col">
@@ -166,7 +166,7 @@
               v-if="!onlyEmailsIds.includes(notification)"
               :checked="user.preferences.pushNotifications[notification]"
               class="toggle-switch-width"
-              @toggle="set('pushNotifications', notification)"
+              @change="set('pushNotifications', notification, $event)"
             />
           </td>
         </tr>
@@ -308,9 +308,9 @@ export default {
     }
   },
   methods: {
-    set (preferenceType, notification) {
+    set (preferenceType, notification, $event) {
       const settings = {};
-      settings[`preferences.${preferenceType}.${notification}`] = this.user.preferences[preferenceType][notification];
+      settings[`preferences.${preferenceType}.${notification}`] = $event ?? this.user.preferences[preferenceType][notification];
       this.$store.dispatch('user:set', settings);
     },
     showBailey () {
