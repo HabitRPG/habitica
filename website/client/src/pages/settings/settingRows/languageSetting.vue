@@ -33,7 +33,7 @@
           v-once
           class="dialog-disclaimer"
         >
-          <span>{{ $t("americanEnglishGovern") }}</span>
+          <span>{{ $t("americanEnglishGovern") }} </span>
           <span v-html="$t('helpWithTranslation')"></span>
         </div>
         <div class="input-area">

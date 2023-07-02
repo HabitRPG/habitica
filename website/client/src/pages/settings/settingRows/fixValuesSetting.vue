@@ -228,6 +228,7 @@ export default {
     },
     save () {
       if (!this.validateInputs()) {
+        console.info('invalid1!!');
         return;
       }
 
@@ -264,10 +265,10 @@ export default {
       let valid = true;
 
       for (const stat of canRestore) {
-        if (this.restoreValues.stats[stat] === ''
-          || this.restoreValues.stats[stat] < 0
+        if (this.restoreValues[stat] === ''
+          || this.restoreValues[stat] < 0
         ) {
-          this.restoreValues.stats[stat] = this.user.stats[stat];
+          this.restoreValues[stat] = this.user.stats[stat];
           valid = false;
         }
       }

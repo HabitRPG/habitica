@@ -54,12 +54,16 @@
             <li v-once>
               {{ $t('resetDetail4') }}
             </li>
+
+            <li v-once>
+              {{ $t('resetDetail5') }}
+            </li>
           </ul>
         </div>
 
         <div
           v-once
-          v-html="$t('resetDetail5')"
+          v-html="$t('resetDetail6')"
         >
         </div>
 
