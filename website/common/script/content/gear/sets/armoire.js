@@ -434,6 +434,11 @@ const armor = {
     per: 7,
     set: 'rainbow',
   },
+  admiralsUniform: {
+    con: 7,
+    str: 7,
+    set: 'admiralsSet',
+  },
 };
 
 const body = {
@@ -868,6 +873,11 @@ const head = {
   paintersBeret: {
     per: 9,
     set: 'painters',
+  },
+  admiralsBicorne: {
+    int: 7,
+    per: 7,
+    set: 'admiralsSet',
   },
 };
 
