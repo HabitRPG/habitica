@@ -98,7 +98,7 @@
     "toDo": "À faire",
     "tourStatsPage": "Ceci est votre page de statistiques ! Remportez des succès en complétant vos tâches.",
     "tourTavernPage": "Voici la taverne, un lieu de discussions pour tout âge ! Vous pouvez empêcher vos quotidiennes de vous faire du mal en cas de maladie ou de voyage en cliquant sur \"Désactiver les dégâts\". Venez dire bonjour !",
-    "tourPartyPage": "Votre équipe vous aidera à rester responsable. Invitez des amis pour déverrouiller un parchemin de quête !",
+    "tourPartyPage": "Bienvenue dans votre nouvelle équipe ! Vous pouvez inviter d'autres personnes à votre équipe en utilisant leur pseudo, leur email, ou en utilisant la liste des personnes cherchant une équipe, pour gagner le parchemin de quête exclusif de la Basi-liste.<br/><br/>Accédez à la <a href='/static/faq#parties'>FAQ</a> dans le menu d'aide pour apprendre le fonctionnement des équipes.",
     "tourGuildsPage": "Les guildes sont des groupes de discussion autour de centres d'intérêts communs, créés par les joueurs et pour les joueurs. Naviguez dans la liste des guildes et rejoignez celles qui vous intéressent. Jetez un œil à la guilde la plus populaire, la guilde d'aide de Habitica (\"Habitica Help\"), où tout le monde peut poser des questions concernant Habitica !",
     "tourChallengesPage": "Les défis sont des listes de tâches à thème créées par des membres ! Rejoindre un défi ajoutera ses tâches à votre compte. Rivalisez avec d'autres membres pour gagner des gemmes !",
     "tourMarketPage": "Chaque fois que vous réalisez vos tâches, vous avez une chance d'obtenir un œuf, une potion d'éclosion ou de la nourriture de familier. Vous pouvez aussi acheter ces objets ici.",
@@ -133,5 +133,6 @@
     "amountExp": "<%= amount %> expérience",
     "helpSupportHabitica": "Contribuez à soutenir Habitica",
     "groupsPaymentSubBilling": "Votre prochaine date de facturation est <strong><%= renewalDate %></strong>.",
-    "groupsPaymentAutoRenew": "Cet abonnement se renouvellera automatiquement jusqu'à son annulation. Si vous devez l'annuler, vous pouvez le faire depuis l'onglet de facturation de groupe."
+    "groupsPaymentAutoRenew": "Cet abonnement se renouvellera automatiquement jusqu'à son annulation. Si vous devez l'annuler, vous pouvez le faire depuis l'onglet de facturation de groupe.",
+    "sellItems": "Vendre des objets"
 }

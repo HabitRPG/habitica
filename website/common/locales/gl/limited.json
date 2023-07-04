@@ -32,7 +32,7 @@
     "seasonalShopWinterText": "Feliz inverno das marabillas! Queres mercar obxectos singulares? Pois non esquezas facelo antes de que remate a gala!",
     "seasonalShopSpringText": "Feliz aventura de primavera! Queres mercar obxectos singulares? Pois non esquezas facelo antes de que remate a gala!",
     "seasonalShopFallTextBroken": "Oh… Doute a benvida á tenda estacional… Estamos xuntando obxectos de tempada outonal ou algo así… Todo o que temos aquí estará dispoñíbel para mercar durante a festa do magosto cada ano, pero só abrimos ata o 31 de outubro… Así que máis vale que aproveites agora, ou terás que agardar… e agardar… <strong>*suspira*</strong>.",
-    "seasonalShopBrokenText": "O meu pavillón! As miñas decoracións! Oh, o desanimador destruíuno todo :( Por favor, axúdame a derrotalo na taberna para que poda reconstruír!",
+    "seasonalShopBrokenText": "O meu pavillón! As miñas decoracións! Oh, o desanimador destruíuno todo :( Axúdame a derrotalo na taberna para que poda reconstruír!",
     "seasonalShopRebirth": "Se mercaches pezas deste equipamento no pasado pero xa non as tes, podes volver mercalas na columna «Recompensas». Ao principio só poderás adquirir os obxectos da túa clase actual («pugnaz» é a predeterminada), pero non temas, os outros obxectos de clases específicas pasarán a estar dispoñíbeis se cambias á súa clase.",
     "candycaneSet": "Bastón de caramelo (maga)",
     "skiSet": "Esquíasasino (renarte)",
@@ -269,5 +269,9 @@
     "visitTheMarketButton": "Ir o mercado",
     "fourForFree": "Catro de balde",
     "fourForFreeText": "Para que non pare a festa, regalamos vestidos de festa, 20 xemas, e un lote de fondos e obxectos de aniversario de edición limitada que inclúen unha capa, ombreiras, e unha máscara.",
-    "dayOne": "Día 1"
+    "dayOne": "Día 1",
+    "summer2023GoldfishWarriorSet": "Carpa vermella (pugnaz)",
+    "summer2023GuppyRogueSet": "Guppy (renarte)",
+    "summer2023KelpHealerSet": "Kelp (albeite)",
+    "summer2023CoralMageSet": "Coral (maga)"
 }
