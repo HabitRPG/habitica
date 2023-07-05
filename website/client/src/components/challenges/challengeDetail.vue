@@ -13,18 +13,6 @@
       :flag-count="challenge.flagCount"
     />
     <challenge-member-progress-modal :challenge-id="challenge._id" />
-    <b-modal
-      id="cannot-clone-modal"
-      size="md"
-      :hide-header="true"
-      :hide-footer="true"
-    >
-      <div class="row text-center">
-        <div class="col-12">
-          {{ $t('cannotClone') }}
-        </div>
-      </div>
-    </b-modal>
     <div class="col-12 col-md-8 standard-page">
       <div class="row">
         <div class="col-12 col-md-6">
@@ -70,7 +58,7 @@
              createdBy string (helps with RTL languages)-->
             <!-- @TODO: Implement in V2 strong.margin-left
             (v-once).svg-icon.calendar-icon(v-html="icons.calendarIcon")
-| {{$t('endDate')}}
+            {{$t('endDate')}}
             // "endDate": "End Date: <% endDate %>",-->
             <!-- span {{challenge.endDate}}-->
           </div>
@@ -201,8 +189,7 @@
         <div v-if="isFlagged">
           <button
             v-once
-            class="btn btn-primary"
-            @click="showCannotCloneModal()"
+            class="btn btn-disabled"
           >
             {{ $t('clone') }}
           </button>
@@ -297,6 +284,17 @@
 
     button {
       width: 100%;
+    }
+  }
+
+  .btn-disabled {
+    background-color: $gray-700;
+    color: $gray-50;
+    box-shadow: none;
+    cursor: pointer;
+
+    &:hover {
+      box-shadow: none;
     }
   }
 
@@ -463,17 +461,21 @@ export default {
     canJoin () {
       return !this.isMember;
     },
+    // canViewFlags should allow everyone to see flags
     canViewFlags () {
       const isAdmin = Boolean(this.user.contributor.admin);
       if (isAdmin && this.challenge.flagCount > 0) return true;
       return false;
     },
+    // flaggedNotHidden should allow everyone to see flags
     flaggedNotHidden () {
       return this.challenge.flagCount === 1;
     },
+    // flaggedAndHidden should only allow admin to see flags
     flaggedAndHidden () {
       return this.challenge.flagCount > 1;
     },
+    // isFlagged disables the clone button
     isFlagged () {
       return this.challenge.flagCount > 0;
     },
