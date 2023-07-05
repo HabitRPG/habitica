@@ -37,7 +37,7 @@
     "loadUser": "사용자 로드",
     "noAdminAccess": "당신은 관리자 접근 권한이 없습니다.",
     "userNotFound": "사용자를 찾을 수 없습니다",
-    "invalidUUID": "UUID가 유효해야 합니다.",
+    "invalidUUID": "UUID가 유효해야 합니다",
     "title": "제목",
     "moreDetails": "더 보기 (1-7)",
     "moreDetails2": "더 보기 (8-9)",
