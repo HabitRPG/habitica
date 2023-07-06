@@ -49,7 +49,10 @@ export async function flagChallenge (challenge, user, res) {
 
 export async function clearFlags (challenge, user) {
   challenge.flagCount = 0;
-  if (challenge.flags[user._id]) {
+  if (user.contributor.admin) { // let's get this to a proper "permissions" check later
+    challenge.flags = {};
+    challenge.markModified('flags');
+  } else if (challenge.flags[user._id]) {
     challenge.flags[user._id] = false;
     challenge.markModified('flags');
   }

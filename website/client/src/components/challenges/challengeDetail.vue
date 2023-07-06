@@ -461,17 +461,17 @@ export default {
     canJoin () {
       return !this.isMember;
     },
-    // canViewFlags should allow everyone to see flags
+    // canViewFlags should allow only moderators/aadmins to see flags
     canViewFlags () {
       const isAdmin = Boolean(this.user.contributor.admin);
       if (isAdmin && this.challenge.flagCount > 0) return true;
       return false;
     },
-    // flaggedNotHidden should allow everyone to see flags
+    // flaggedNotHidden should allow moder/admins & challenge owner to see flags
     flaggedNotHidden () {
       return this.challenge.flagCount === 1;
     },
-    // flaggedAndHidden should only allow admin to see flags
+    // flaggedAndHidden should only allow admin to see challenge & flags
     flaggedAndHidden () {
       return this.challenge.flagCount > 1;
     },
