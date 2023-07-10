@@ -42,7 +42,7 @@
     "image-size": "^1.0.2",
     "in-app-purchase": "^1.11.3",
     "js2xmlparser": "^5.0.0",
-    "jsonwebtoken": "^9.0.0",
+    "jsonwebtoken": "^9.0.1",
     "jwks-rsa": "^2.1.5",
     "lodash": "^4.17.21",
     "merge-stream": "^2.0.0",
