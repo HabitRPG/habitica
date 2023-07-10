@@ -27,6 +27,7 @@ import {
 } from '../../models/message';
 import highlightMentions from '../../libs/highlightMentions';
 import { handleGetMembersForChallenge } from '../../libs/challenges/handleGetMembersForChallenge';
+import { chatReporterFactory } from '../../libs/chatReporting/chatReporterFactory';
 
 const { achievements } = common;
 
@@ -774,6 +775,41 @@ api.transferGems = {
         quantity: gemAmount,
       });
     }
+  },
+};
+
+/**
+ * @api {post} /api/v3/members/:memberId/flag Flag (report) a user
+ * @apiDescription Sends an email to staff about another user or their profile
+ * @apiName FlagUser
+ * @apiGroup Members
+ *
+ * @apiParam (Path) {UUID} memberId The unique ID of the user being flagged
+ * @apiParam (Body) {String} [comment] explain why the user was flagged
+ *
+ * @apiSuccess {Object} data The flagged user
+ * @apiSuccess {UUID} data.id The id of the flagged user
+ * @apiSuccess {String} data.username The username of the flagged user
+ * @apiSuccess {Object} data.profile The flagged user's profile information
+ * @apiSuccess {String} data.profile.blurb Text of the flagged user's profile bio
+ * @apiSuccess {String} data.profile.imageUrl URL of the flagged user's profile image
+ * @apiSuccess {String} data.profile.name The flagged user's display name
+ *
+ * @apiError (400) {BadRequest} AlreadyFlagged A profile cannot be flagged
+ *                                             more than once by the same user.
+ * @apiError (400) {BadRequest} MemberIdRequired The `memberId` param is required
+ *                                               and must be a valid `UUID`.
+ * @apiError (404) {NotFound} UserWithIdNotFound The `memberId` param did not
+ *                                               belong to an existing user.
+ */
+api.flagUser = {
+  method: 'POST',
+  url: '/members/:memberId/flag',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    const chatReporter = chatReporterFactory('User', req, res);
+    const flaggedUser = await chatReporter.flag();
+    res.respond(200, flaggedUser);
   },
 };
 

@@ -34,7 +34,8 @@ export default class ProfileReporter extends ChatReporter {
       throw new NotFound(this.res.t('userWithIDNotFound'));
     }
 
-    if (flaggedUser.profile.flags.indexOf(this.user._id) !== -1 && !this.user.hasPermission('moderator')) {
+    if (flaggedUser.profile.flags && flaggedUser.profile.flags.indexOf(this.user._id) !== -1
+      && !this.user.hasPermission('moderator')) {
       throw new BadRequest('A profile can not be flagged more than once by the same user.');
     }
 
@@ -64,6 +65,17 @@ export default class ProfileReporter extends ChatReporter {
     ];
   }
 
+  flagProfile (flaggedUser) {
+    // Log user ids that have flagged the account
+    if (!flaggedUser.profile.flags) {
+      flaggedUser.profile.flags = [];
+    }
+
+    flaggedUser.profile.flags.push(this.user._id);
+
+    return flaggedUser.save();
+  }
+
   async notify (flaggedUser, userComment) {
     let emailVariables = await this.getEmailVariables(flaggedUser);
     emailVariables = emailVariables.concat([
@@ -77,5 +89,15 @@ export default class ProfileReporter extends ChatReporter {
       flaggedUser,
       userComment,
     });
+  }
+
+  async flag () {
+    const { flaggedUser, userComment } = await this.validate();
+    await this.flagProfile(flaggedUser);
+    await this.notify(flaggedUser, userComment);
+    if (!this.user.hasPermission('moderator')) {
+      flaggedUser.profile.flags = [this.user._id];
+    }
+    return flaggedUser;
   }
 }
