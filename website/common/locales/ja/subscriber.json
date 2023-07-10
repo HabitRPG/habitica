@@ -129,11 +129,11 @@
     "subscriptionBenefit1": "商人のAlexanderは、市場でジェムを1つにつき20ゴールドですぐ売ってくれます！",
     "subscriptionBenefit3": "毎日の落とし物上限を2倍にして、Habiticaでより多くのアイテムを見つけましょう。",
     "subscriptionBenefit4": "毎月、あなたのアバターを着飾るためのユニークでおしゃれなアイテムです。",
-    "subscriptionBenefit5": "初めて有料会員になったときは、ロイヤルパープルのツノウサギのペットを受け取れます。",
+    "subscriptionBenefit5": "初めて有料会員になったときは、ロイヤルパープルのジャッカロープのペットを受け取れます。",
     "subscriptionBenefit6": "タイムトラベラーの店でアイテムを買うために神秘の砂時計を手に入れましょう！",
     "purchaseAll": "セットを購入する",
-    "gemsRemaining": "残りのジェム",
-    "notEnoughGemsToBuy": "その量のジェムを買うことはできません",
+    "gemsRemaining": "残り",
+    "notEnoughGemsToBuy": "今月はこれ以上購入できるジェムはありません。毎月最初の 3 日以内にさらに多く購入可能になります。",
     "mysterySet201902": "謎めいた想い人セット",
     "mysterySet201903": "めっちゃイケてるたまごセット",
     "confirmCancelSub": "本当に有料会員をやめますか？ すべての会員権限が失われてしまいます。",
@@ -213,5 +213,10 @@
     "mysterySet202208": "はつらつポニーテールセット",
     "mysterySet202209": "魔法学者セット",
     "mysterySet202210": "くちなわセット",
-    "mysterySet202211": "エレクトロマンサーセット"
+    "mysterySet202211": "エレクトロマンサーセット",
+    "mysterySet202212": "氷のガーディアンセット",
+    "mysterySet202305": "夕刻のドラゴンセット",
+    "mysterySet202301": "勇敢な妖狐セット",
+    "mysterySet202302": "嘘つきトラネコセット",
+    "mysterySet202304": "極上ティーポットセット"
 }

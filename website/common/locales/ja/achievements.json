@@ -140,6 +140,15 @@
     "achievementWoodlandWizardModalText": "森のペットを全部集めました！",
     "achievementWoodlandWizardText": "森の生き物――アナグマ、クマ、鹿、狐、カエル、ハリネズミ、フクロウ、カタツムリ、リス、木人を、すべての基本色で孵化させました！",
     "achievementBoneToPick": "骨の髄まで",
-    "achievementBoneToPickText": "全ての基本のペットとクエストのペットを、骨の薬で孵化させました！",
-    "achievementBoneToPickModalText": "骨の薬で孵化した全ての基本のペットとクエストのペットを集めました！"
+    "achievementBoneToPickText": "全ての骨の基本のペットとクエストのペットを孵化させました！",
+    "achievementBoneToPickModalText": "全ての骨の基本のペットとクエストのペットを集めました！",
+    "achievementPolarPro": "極地のプロ",
+    "achievementPolarProText": "全ての極地のペットを孵化させました：くま・狐・ペンギン・クジラ・狼！",
+    "achievementPolarProModalText": "極地のペットをすべて集めました！",
+    "achievementPlantParent": "植物愛好家",
+    "achievementPlantParentText": "植物のペットをすべての基本色でたまごからかえしました：サボテン・木人！",
+    "achievementPlantParentModalText": "植物のペットをすべて集めました！",
+    "achievementDinosaurDynastyModalText": "鳥と恐竜のペットをすべて集めました！",
+    "achievementDinosaurDynastyText": "鳥と恐竜のペットをすべての基本色でたまごからかえしました：タカ、フクロウ、オウム、クジャク、ペンギン、おんどり、翼竜、ティラノサウルス 、トリケラトプス、ヴェロキラプトル！",
+    "achievementDinosaurDynasty": "恐竜王国"
 }

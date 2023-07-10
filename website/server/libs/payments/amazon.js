@@ -46,6 +46,7 @@ api.constants = {
   GIFT_TYPE_SUBSCRIPTION: 'subscription',
 
   METHOD_BUY_GEMS: 'buyGems',
+  METHOD_BUY_SKU_ITEM: 'buySkuItem',
   METHOD_CREATE_SUBSCRIPTION: 'createSubscription',
   PAYMENT_METHOD: 'Amazon Payments',
   PAYMENT_METHOD_GIFT: 'Amazon Payments (Gift)',
@@ -110,7 +111,7 @@ api.authorize = function authorize (inputSet) {
  */
 api.checkout = async function checkout (options = {}) {
   const {
-    gift, user, orderReferenceId, headers, gemsBlock: gemsBlockKey,
+    gift, user, orderReferenceId, headers, gemsBlock: gemsBlockKey, sku,
   } = options;
   let amount;
   let gemsBlock;
@@ -126,6 +127,12 @@ api.checkout = async function checkout (options = {}) {
       amount = gift.gems.amount / 4;
     } else if (gift.type === this.constants.GIFT_TYPE_SUBSCRIPTION) {
       amount = common.content.subscriptionBlocks[gift.subscription.key].price;
+    }
+  } else if (sku) {
+    if (sku === 'Pet-Gryphatrice-Jubilant') {
+      amount = 9.99;
+    } else {
+      throw new NotFound('SKU not found.');
     }
   } else {
     gemsBlock = getGemsBlock(gemsBlockKey);
@@ -171,12 +178,16 @@ api.checkout = async function checkout (options = {}) {
 
   // execute payment
   let method = this.constants.METHOD_BUY_GEMS;
+  if (sku) {
+    method = this.constants.METHOD_BUY_SKU_ITEM;
+  }
 
   const data = {
     user,
     paymentMethod: this.constants.PAYMENT_METHOD,
     headers,
     gemsBlock,
+    sku,
   };
 
   if (gift) {

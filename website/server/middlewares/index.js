@@ -72,6 +72,7 @@ export default function attachMiddlewares (app, server) {
 
   app.use(bodyParser.urlencoded({
     extended: true, // Uses 'qs' library as old connect middleware
+    limit: '10mb',
   }));
   app.use(function bodyMiddleware (req, res, next) { // eslint-disable-line prefer-arrow-callback
     if (req.path === '/stripe/webhooks') {
@@ -79,7 +80,7 @@ export default function attachMiddlewares (app, server) {
       // See https://stripe.com/docs/webhooks/signatures#verify-official-libraries
       bodyParser.raw({ type: 'application/json' })(req, res, next);
     } else {
-      bodyParser.json()(req, res, next);
+      bodyParser.json({ limit: '10mb' })(req, res, next);
     }
   });
 

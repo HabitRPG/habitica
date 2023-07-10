@@ -108,5 +108,9 @@
     "onboardingComplete": "Chuir tú do thascanna ar bord i gcrích!",
     "earnedAchievement": "Ghnóthaigh tú éacht!",
     "viewAchievements": "Féach ar Éachtaí",
-    "letsGetStarted": "Ar aghaidh linn!"
+    "letsGetStarted": "Ar aghaidh linn!",
+    "achievementMindOverMatter": "Aigne Thar Ábhar",
+    "achievementZodiacZookeeperText": "Tagtha amach gach dathanna caighdeánach de na peataí stoidiaca: Francach, Bó, Coinín, Nathair, Capall, Caoirigh, Moncaí, Coileach, Mac tíre, Tíogar, Muc ag Eitilt, agus Dragan!",
+    "achievementBirdsOfAFeather": "Éin Cleite",
+    "achievementBirdsOfAFeatherModalText": "Bhailigh tú na peataí eitilte go léir!"
 }

@@ -2,7 +2,7 @@ import moment from 'moment';
 import shared from '../../../common';
 import iap from '../inAppPurchases';
 import payments from './payments';
-import { getGemsBlock, validateGiftMessage } from './gems';
+import { validateGiftMessage } from './gems';
 import {
   NotAuthorized,
   BadRequest,
@@ -22,7 +22,7 @@ api.constants = {
   RESPONSE_NO_ITEM_PURCHASED: 'NO_ITEM_PURCHASED',
 };
 
-api.verifyGemPurchase = async function verifyGemPurchase (options) {
+api.verifyPurchase = async function verifyPurchase (options) {
   const {
     gift, user, receipt, headers,
   } = options;
@@ -44,7 +44,6 @@ api.verifyGemPurchase = async function verifyGemPurchase (options) {
   if (purchaseDataList.length === 0) {
     throw new NotAuthorized(api.constants.RESPONSE_NO_ITEM_PURCHASED);
   }
-  let correctReceipt = false;
 
   // Purchasing one item at a time (processing of await(s) below is sequential not parallel)
   for (const purchaseData of purchaseDataList) {
@@ -62,58 +61,45 @@ api.verifyGemPurchase = async function verifyGemPurchase (options) {
         userId: user._id,
       });
 
-      let gemsBlockKey;
-      switch (purchaseData.productId) { // eslint-disable-line default-case
-        case 'com.habitrpg.ios.Habitica.4gems':
-          gemsBlockKey = '4gems';
-          break;
-        case 'com.habitrpg.ios.Habitica.20gems':
-        case 'com.habitrpg.ios.Habitica.21gems':
-          gemsBlockKey = '21gems';
-          break;
-        case 'com.habitrpg.ios.Habitica.42gems':
-          gemsBlockKey = '42gems';
-          break;
-        case 'com.habitrpg.ios.Habitica.84gems':
-          gemsBlockKey = '84gems';
-          break;
-      }
-      if (!gemsBlockKey) throw new NotAuthorized(api.constants.RESPONSE_INVALID_ITEM);
-      const gemsBlock = getGemsBlock(gemsBlockKey);
-
-      if (gift) {
-        gift.type = 'gems';
-        if (!gift.gems) gift.gems = {};
-        gift.gems.amount = shared.content.gems[gemsBlock.key].gems;
-      }
-
-      if (gemsBlock) {
-        correctReceipt = true;
-        await payments.buyGems({ // eslint-disable-line no-await-in-loop
-          user,
-          gift,
-          paymentMethod: api.constants.PAYMENT_METHOD_APPLE,
-          gemsBlock,
-          headers,
-        });
-      }
+      await payments.buySkuItem({ // eslint-disable-line no-await-in-loop
+        user,
+        gift,
+        paymentMethod: api.constants.PAYMENT_METHOD_APPLE,
+        sku: purchaseData.productId,
+        headers,
+      });
     }
   }
-
-  if (!correctReceipt) throw new NotAuthorized(api.constants.RESPONSE_INVALID_ITEM);
 
   return appleRes;
 };
 
-api.subscribe = async function subscribe (sku, user, receipt, headers, nextPaymentProcessing) {
-  if (user && user.isSubscribed()) {
-    throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
+api.subscribe = async function subscribe (user, receipt, headers, nextPaymentProcessing) {
+  await iap.setup();
+
+  const appleRes = await iap.validate(iap.APPLE, receipt);
+  const isValidated = iap.isValidated(appleRes);
+  if (!isValidated) throw new NotAuthorized(api.constants.RESPONSE_INVALID_RECEIPT);
+
+  const purchaseDataList = iap.getPurchaseData(appleRes);
+  if (purchaseDataList.length === 0) {
+    throw new NotAuthorized(api.constants.RESPONSE_NO_ITEM_PURCHASED);
   }
 
-  if (!sku) throw new BadRequest(shared.i18n.t('missingSubscriptionCode'));
+  let purchase;
+  let newestDate;
+
+  for (const purchaseData of purchaseDataList) {
+    const datePurchased = new Date(Number(purchaseData.purchaseDate));
+    const dateTerminated = new Date(Number(purchaseData.expirationDate));
+    if ((!newestDate || datePurchased > newestDate) && dateTerminated > new Date()) {
+      purchase = purchaseData;
+      newestDate = datePurchased;
+    }
+  }
 
   let subCode;
-  switch (sku) { // eslint-disable-line default-case
+  switch (purchase.productId) { // eslint-disable-line default-case
     case 'subscription1month':
       subCode = 'basic_earned';
       break;
@@ -128,45 +114,56 @@ api.subscribe = async function subscribe (sku, user, receipt, headers, nextPayme
       break;
   }
   const sub = subCode ? shared.content.subscriptionBlocks[subCode] : false;
-  if (!sub) throw new NotAuthorized(this.constants.RESPONSE_INVALID_ITEM);
-  await iap.setup();
 
-  const appleRes = await iap.validate(iap.APPLE, receipt);
-  const isValidated = iap.isValidated(appleRes);
-  if (!isValidated) throw new NotAuthorized(api.constants.RESPONSE_INVALID_RECEIPT);
-
-  const purchaseDataList = iap.getPurchaseData(appleRes);
-  if (purchaseDataList.length === 0) {
-    throw new NotAuthorized(api.constants.RESPONSE_NO_ITEM_PURCHASED);
-  }
-
-  let transactionId;
-
-  for (const purchaseData of purchaseDataList) {
-    const dateTerminated = new Date(Number(purchaseData.expirationDate));
-    if (purchaseData.productId === sku && dateTerminated > new Date()) {
-      transactionId = purchaseData.transactionId;
-      break;
+  if (purchase.originalTransactionId) {
+    let existingSub;
+    if (user && user.isSubscribed()) {
+      if (user.purchased.plan.customerId !== purchase.originalTransactionId) {
+        throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
+      }
+      existingSub = shared.content.subscriptionBlocks[user.purchased.plan.planId];
+      if (existingSub === sub) {
+        throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
+      }
     }
-  }
-
-  if (transactionId) {
-    const existingUser = await User.findOne({
-      'purchased.plan.customerId': transactionId,
+    const existingUsers = await User.find({
+      $or: [
+        { 'purchased.plan.customerId': purchase.originalTransactionId },
+        { 'purchased.plan.customerId': purchase.transactionId },
+      ],
     }).exec();
-    if (existingUser) throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
+    if (existingUsers.length > 0) {
+      if (purchase.originalTransactionId === purchase.transactionId) {
+        throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
+      }
+      for (const existingUser of existingUsers) {
+        if (existingUser._id !== user._id && !existingUser.purchased.plan.dateTerminated) {
+          throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
+        }
+      }
+    }
 
     nextPaymentProcessing = nextPaymentProcessing || moment.utc().add({ days: 2 }); // eslint-disable-line max-len, no-param-reassign
+    const terminationDate = moment(Number(purchase.expirationDate));
+    if (nextPaymentProcessing > terminationDate) {
+      // For test subscriptions that have a significantly shorter expiration period, this is better
+      nextPaymentProcessing = terminationDate; // eslint-disable-line no-param-reassign
+    }
 
-    await payments.createSubscription({
+    const data = {
       user,
-      customerId: transactionId,
+      customerId: purchase.originalTransactionId,
       paymentMethod: this.constants.PAYMENT_METHOD_APPLE,
       sub,
       headers,
       nextPaymentProcessing,
       additionalData: receipt,
-    });
+    };
+    if (existingSub) {
+      data.updatedFrom = existingSub;
+      data.updatedFrom.logic = 'refundAndRepay';
+    }
+    await payments.createSubscription(data);
   } else {
     throw new NotAuthorized(api.constants.RESPONSE_INVALID_RECEIPT);
   }
@@ -258,8 +255,6 @@ api.cancelSubscribe = async function cancelSubscribe (user, headers) {
 
   await iap.setup();
 
-  let dateTerminated;
-
   try {
     const appleRes = await iap.validate(iap.APPLE, plan.additionalData);
 
@@ -268,10 +263,27 @@ api.cancelSubscribe = async function cancelSubscribe (user, headers) {
 
     const purchases = iap.getPurchaseData(appleRes);
     if (purchases.length === 0) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
-    const subscriptionData = purchases[0];
+    let newestDate;
+    let newestPurchase;
 
-    dateTerminated = new Date(Number(subscriptionData.expirationDate));
-    if (dateTerminated > new Date()) throw new NotAuthorized(this.constants.RESPONSE_STILL_VALID);
+    for (const purchaseData of purchases) {
+      const datePurchased = new Date(Number(purchaseData.purchaseDate));
+      if (!newestDate || datePurchased > newestDate) {
+        newestDate = datePurchased;
+        newestPurchase = purchaseData;
+      }
+    }
+
+    if (!iap.isCanceled(newestPurchase) && !iap.isExpired(newestPurchase)) {
+      throw new NotAuthorized(this.constants.RESPONSE_STILL_VALID);
+    }
+
+    await payments.cancelSubscription({
+      user,
+      nextBill: new Date(Number(newestPurchase.expirationDate)),
+      paymentMethod: this.constants.PAYMENT_METHOD_APPLE,
+      headers,
+    });
   } catch (err) {
     // If we have an invalid receipt, cancel anyway
     if (
@@ -281,13 +293,6 @@ api.cancelSubscribe = async function cancelSubscribe (user, headers) {
       throw err;
     }
   }
-
-  await payments.cancelSubscription({
-    user,
-    nextBill: dateTerminated,
-    paymentMethod: this.constants.PAYMENT_METHOD_APPLE,
-    headers,
-  });
 };
 
 export default api;

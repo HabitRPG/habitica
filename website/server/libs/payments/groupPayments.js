@@ -180,6 +180,7 @@ async function addSubToGroupUser (member, group) {
   }
 
   // save unused hourglass and mystery items
+  plan.perkMonthCount = memberPlan.perkMonthCount;
   plan.consecutive.trinkets = memberPlan.consecutive.trinkets;
   plan.mysteryItems = memberPlan.mysteryItems;
 

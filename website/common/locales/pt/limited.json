@@ -52,7 +52,7 @@
     "nyeCardNotes": "Envie um cartão de Ano Novo para um membro da equipa.",
     "seasonalItems": "Itens Sazonais",
     "nyeCardAchievementTitle": "Velhos Conhecidos",
-    "nyeCardAchievementText": "Feliz Ano Novo! Mandou ou recebeu <%= cards %> cartões de Ano Novo.",
+    "nyeCardAchievementText": "Feliz Ano Novo! Mandou ou recebeu <%= count %> cartões de Ano Novo.",
     "nye0": "Feliz Ano Novo! Que você derrote muitos maus Hábitos.",
     "nye1": "Feliz Ano Novo! Que você colha muitas Recompensas.",
     "nye2": "Feliz Ano Novo! Que você conquiste vários Dias Perfeitos.",

@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import * as Analytics from '@/libs/analytics';
 import getStore from '@/store';
 import handleRedirect from './handleRedirect';
 
@@ -72,13 +73,14 @@ const ItemsPage = () => import(/* webpackChunkName: "inventory" */'@/components/
 const EquipmentPage = () => import(/* webpackChunkName: "inventory" */'@/components/inventory/equipment/index');
 const StablePage = () => import(/* webpackChunkName: "inventory" */'@/components/inventory/stable/index');
 
-// Guilds
+// Guilds & Parties
 const GuildIndex = () => import(/* webpackChunkName: "guilds" */ '@/components/groups/index');
 const TavernPage = () => import(/* webpackChunkName: "guilds" */ '@/components/groups/tavern');
 const MyGuilds = () => import(/* webpackChunkName: "guilds" */ '@/components/groups/myGuilds');
 const GuildsDiscoveryPage = () => import(/* webpackChunkName: "guilds" */ '@/components/groups/discovery');
 const GroupPage = () => import(/* webpackChunkName: "guilds" */ '@/components/groups/group');
 const GroupPlansAppPage = () => import(/* webpackChunkName: "guilds" */ '@/components/groups/groupPlan');
+const LookingForParty = () => import(/* webpackChunkName: "guilds" */ '@/components/groups/lookingForParty');
 
 // Group Plans
 const GroupPlanIndex = () => import(/* webpackChunkName: "group-plans" */ '@/components/group-plans/index');
@@ -157,6 +159,7 @@ const router = new VueRouter({
       ],
     },
     { name: 'party', path: '/party', component: GroupPage },
+    { name: 'lookingForParty', path: '/looking-for-party', component: LookingForParty },
     { name: 'groupPlan', path: '/group-plans', component: GroupPlansAppPage },
     {
       name: 'groupPlanDetail',
@@ -272,6 +275,11 @@ const router = new VueRouter({
               name: 'transactions',
               path: 'transactions',
               component: Transactions,
+              meta: {
+                privilegeNeeded: [
+                  'userSupport',
+                ],
+              },
             },
             {
               name: 'notifications',
@@ -316,11 +324,6 @@ const router = new VueRouter({
         {
           name: 'front', path: 'front', component: HomePage, meta: { requiresLogin: false },
         },
-        // Commenting out merch page see
-        // https://github.com/HabitRPG/habitica/issues/12039
-        // {
-        //   name: 'merch', path: 'merch', component: MerchPage, meta: { requiresLogin: false },
-        // },
         {
           name: 'news', path: 'new-stuff', component: NewsPage, meta: { requiresLogin: false },
         },
@@ -431,6 +434,19 @@ router.beforeEach(async (to, from, next) => {
       );
       if (!userHasPriv) return next({ name: 'tasks' });
     }
+  }
+
+  if (to.name === 'party') {
+    router.app.$root.$emit('update-party');
+  }
+
+  if (to.name === 'lookingForParty') {
+    Analytics.track({
+      hitType: 'event',
+      eventName: 'View Find Members',
+      eventAction: 'View Find Members',
+      eventCategory: 'behavior',
+    }, { trackOnClient: true });
   }
 
   // Redirect old guild urls

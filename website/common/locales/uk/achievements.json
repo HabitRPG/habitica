@@ -141,5 +141,14 @@
     "achievementWoodlandWizardText": "Зібрали усіх лісових істот стандартних кольорів: борсука, ведмедя, оленя, лисицю, жабу, їжака, сову, равлика, білку та деревце!",
     "achievementBoneToPickModalText": "Ви зібрали всіх класичних та квестових кістяних улюбленців!",
     "achievementBoneToPickText": "Зібрали всіх класичних та квестових кістяних улюбленців!",
-    "achievementBoneToPick": "Могильник"
+    "achievementBoneToPick": "Могильник",
+    "achievementPolarPro": "Полярник",
+    "achievementPolarProText": "Зібрали всіх полярних улюбленців стандартних кольорів: ведмедя, лиса, пінгвіна, кита та вовка!",
+    "achievementPolarProModalText": "Ви зібрали всіх полярних тваринок!",
+    "achievementPlantParent": "Батько рослин",
+    "achievementPlantParentText": "Зібрали всі рослинних улюбленців стандартних кольорів: кактус та пагін!",
+    "achievementPlantParentModalText": "Ви зібрали всіх рослинних улюбленців!",
+    "achievementDinosaurDynasty": "Династія Динозаврів",
+    "achievementDinosaurDynastyModalText": "Ви зібрали усіх улюбленців пташок та динозаврів!",
+    "achievementDinosaurDynastyText": "Виведено всі стандартні кольори птахів і динозаврів: Сокіл, Сова, Папуга, Павич, Пінгвін, Півень, Птеродактель, Т-Рекс, Трицератопс і Велоцираптор!"
 }

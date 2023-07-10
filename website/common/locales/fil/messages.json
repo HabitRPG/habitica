@@ -20,7 +20,7 @@
     "messageTwoHandedEquip": "Wielding <%= twoHandedText %> takes two hands, so <%= offHandedText %> has been unequipped.",
     "messageTwoHandedUnequip": "Wielding <%= twoHandedText %> takes two hands, so it was unequipped when you armed yourself with <%= offHandedText %>.",
     "messageDropFood": "You've found <%= dropText %>!",
-    "messageDropEgg": "You've found a <%= dropText %> Egg!",
+    "messageDropEgg": "Nakahanap ka ng Itlóg ng <%= dropText %>!",
     "messageDropPotion": "You've found a <%= dropText %> Hatching Potion!",
     "messageDropMysteryItem": "You open the box and find <%= dropText %>!",
     "messageAlreadyOwnGear": "You already own this item. Equip it by going to the equipment page.",

@@ -5,7 +5,7 @@ import { EVENTS } from './constants';
 // path: 'premiumHatchingPotions.Rainbow',
 const featuredItems = {
   market () {
-    if (moment().isBetween(EVENTS.winter2023.start, EVENTS.winter2023.end)) {
+    if (moment().isBetween(EVENTS.summer2023.start, EVENTS.summer2023.end)) {
       return [
         {
           type: 'armoire',
@@ -13,15 +13,15 @@ const featuredItems = {
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.StarryNight',
+          path: 'premiumHatchingPotions.Sunset',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Holly',
+          path: 'premiumHatchingPotions.Glass',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Aurora',
+          path: 'premiumHatchingPotions.SandSculpture',
         },
       ];
     }
@@ -32,51 +32,68 @@ const featuredItems = {
       },
       {
         type: 'food',
-        path: 'food.RottenMeat',
+        path: 'food.Honey',
       },
       {
         type: 'hatchingPotions',
-        path: 'hatchingPotions.CottonCandyBlue',
+        path: 'hatchingPotions.Golden',
       },
       {
         type: 'eggs',
-        path: 'eggs.FlyingPig',
+        path: 'eggs.Dragon',
       },
     ];
   },
   quests () {
-    if (moment().isBetween(EVENTS.winter2023.start, EVENTS.winter2023.end)) {
+    if (moment().isBetween(EVENTS.bundle202306.start, EVENTS.bundle202306.end)) {
       return [
         {
           type: 'bundles',
-          path: 'bundles.winterQuests',
+          path: 'bundles.splashyPals',
         },
         {
           type: 'quests',
-          path: 'quests.whale',
+          path: 'quests.harpy',
         },
         {
           type: 'quests',
-          path: 'quests.turtle',
+          path: 'quests.owl',
         },
       ];
     }
+    if (moment().isBetween('2023-03-28T08:00-05:00', EVENTS.spring2023.end)) {
+      return [
+        {
+          type: 'quests',
+          path: 'quests.egg',
+        },
+        {
+          type: 'quests',
+          path: 'quests.yarn',
+        },
+        {
+          type: 'quests',
+          path: 'quests.ghost_stag',
+        },
+      ];
+    }
+
     return [
       {
         type: 'quests',
-        path: 'quests.slime',
+        path: 'quests.rat',
       },
       {
         type: 'quests',
-        path: 'quests.seaserpent',
+        path: 'quests.kraken',
       },
       {
         type: 'quests',
-        path: 'quests.unicorn',
+        path: 'quests.nudibranch',
       },
     ];
   },
-  seasonal: 'winter2022Healer',
+  seasonal: 'summer2022MantaRayMageSet',
   timeTravelers: [
     // TODO
   ],

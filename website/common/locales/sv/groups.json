@@ -312,7 +312,7 @@
     "teamBasedTasksList": "Team-Based Task List",
     "teamBasedTasksListDesc": "Set up an easily-viewed shared task list for the group. Assign tasks to your fellow group members, or let them claim their own tasks to make it clear what everyone is working on!",
     "groupManagementControls": "Group Management Controls",
-    "groupManagementControlsDesc": "Use task approvals to verify that a task that was really completed, add Group Managers to share responsibilities, and enjoy a private group chat for all team members.",
+    "groupManagementControlsDesc": "View task status to verify that a task that was completed, add Group Managers to share responsibilities, and enjoy a private group chat for all team members.",
     "inGameBenefits": "In-Game Benefits",
     "inGameBenefitsDesc": "Group members get an exclusive Jackalope Mount, as well as full subscription benefits, including special monthly equipment sets and the ability to buy gems with gold.",
     "inspireYourParty": "Inspire your party, gamify life together.",
@@ -343,5 +343,14 @@
     "groupActivityNotificationTitle": "<%= user %> postade i <%= group %>",
     "suggestedGroup": "Föreslagits eftersom du är ny på Habitica.",
     "taskClaimed": "<%- userName %> har gjort anspråk på uppgiften <span class=\"notification-bold\"><%- taskText %></span>.",
-    "youHaveBeenAssignedTask": "<%- managerName %> har tilldelat dig upgiften <span class=\"notification-bold\"><%- taskText %></span>."
+    "youHaveBeenAssignedTask": "<%- managerName %> har tilldelat dig upgiften <span class=\"notification-bold\"><%- taskText %></span>.",
+    "editGuild": "Redigera Gille",
+    "invitedToPartyBy": "<a href=\"/profile/<%- userId %>\" target=\"_blank\">@<%- userName %></a> har bjudit in dig till sällskapet <span class=\"notification-bold\"><%- party %></span>",
+    "leaveGuild": "Lämna Gille",
+    "joinParty": "Gå med i Grupp",
+    "PMUserDoesNotReceiveMessages": "Den här användaren får inte privata medelanden längre",
+    "editParty": "Redigera Grupp",
+    "joinGuild": "Gå med i Gille",
+    "features": "Funktioner",
+    "PMCanNotReply": "Du kan inte besvara denna konversation"
 }

@@ -119,7 +119,7 @@
     "unsubscribeAllEmailsText": "以此确认，我明白在我取消邮箱订阅后，Habitica不会再通过邮件通知我关于我的账号或关于网站的重要更改。",
     "unsubscribeAllPush": "确认 退订所有推送通知",
     "correctlyUnsubscribedEmailType": "成功退订“<%= emailType %>”的邮件。",
-    "subscriptionRateText": "每<strong><<%= months %>月</strong>充值<strong><%= price %>美元</strong>",
+    "subscriptionRateText": "每<strong><%= months %>月</strong>支付<strong><%= price %>美元</strong>",
     "benefits": "好处",
     "coupon": "优惠券",
     "couponText": "有时我们会举办送推广码或特殊装备的活动（例如那些来我们的Wondercon摊位的朋友）",
@@ -135,7 +135,7 @@
     "generate": "生成",
     "getCodes": "获取代码",
     "webhooks": "Webhook",
-    "webhooksInfo": "Habitica提供webhook，以便在您的帐户中发生某些操作时，可以将信息发送到另一个网站上的脚本。您可以在此处指定这些脚本。请注意此功能，因为指定错误的URL可能会导致Habitica出错或缓慢。有关更多信息，请参阅wiki的<a target=\"_blank\" href=\"https://habitica.fandom.com/wiki/Webhooks\">Webhooks</a>页面。",
+    "webhooksInfo": "Habitica提供webhook，以便在您的帐户中发生某些操作时，可以将信息发送到另一个网站上的脚本。您可以在此处指定这些脚本。请注意此功能，因为指定错误的URL可能会导致Habitica出错或缓慢。有关更多信息，请参阅wiki的<a target=\"_blank\" href=\"https://habitica.fandom.com/zh/wiki/Webhook\">Webhooks</a>页面。",
     "enabled": "已启用",
     "webhookURL": "Webhook链接",
     "invalidUrl": "无效的url",
@@ -149,7 +149,7 @@
     "pushDeviceRemoved": "成功移除推送设备。",
     "buyGemsGoldCap": "宝石上限提升至 <%= amount %>",
     "mysticHourglass": "<%= amount %> 个神秘沙漏",
-    "purchasedPlanExtraMonths": "你有<strong><%= months %>个月</strong>的额外订阅期。",
+    "purchasedPlanExtraMonths": "你有<strong><%= months %>个月</strong>的结存订阅。",
     "consecutiveSubscription": "连续订阅",
     "consecutiveMonths": "持续的月份：",
     "gemCapExtra": "宝石上限红利",
@@ -226,5 +226,6 @@
     "action": "动作",
     "note": "笔记",
     "remainingBalance": "余额",
-    "passwordIssueLength": "密码长度必须介于8到64个字符之间。"
+    "passwordIssueLength": "密码长度必须介于8到64个字符之间。",
+    "thirdPartyTools": "可以在<a href='https://habitica.fandom.com/zh/wiki/%E6%89%A9%E5%B1%95%E5%92%8C%E6%8F%92%E4%BB%B6' target='_blank'>Habitica维基</a>上找到各种可用的第三方应用、扩展和工具。"
 }

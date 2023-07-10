@@ -141,5 +141,8 @@
     "achievementReptacularRumbleModalText": "你集齊了所有爬行寵物！",
     "achievementBoneToPick": "尋骨者",
     "achievementBoneToPickText": "已使用骷髏藥水孵化所有基礎寵物和副本寵物！",
-    "achievementBoneToPickModalText": "您已集齊了所有基礎和副本的骷髏寵物！"
+    "achievementBoneToPickModalText": "您已集齊了所有基礎和副本的骷髏寵物！",
+    "achievementPolarPro": "極地專家",
+    "achievementPolarProModalText": "你集齊了所有的極地寵物！",
+    "achievementPolarProText": "已孵化所有標準顏色的極地寵物：熊、狐狸、企鵝、鯨魚和狼！"
 }

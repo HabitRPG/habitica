@@ -61,7 +61,7 @@ function sendWebhook (webhook, body, user) {
       };
     }
 
-    return User.update({
+    return User.updateOne({
       _id: user._id,
       'webhooks.id': webhook.id,
     }, update).exec();

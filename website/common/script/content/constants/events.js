@@ -10,10 +10,65 @@ const gemsPromo = {
 
 export const EVENTS = {
   noEvent: {
-    start: '2023-01-31T20:00-05:00',
-    end: '2023-02-14T08:00-05:00',
+    start: '2023-08-01T23:59-04:00',
+    end: '2023-08-31T08:00-04:00',
     season: 'normal',
     npcImageSuffix: '',
+  },
+  summer2023: {
+    start: '2023-06-20T08:00-04:00',
+    end: '2023-07-31T23:59-04:00',
+    npcImageSuffix: '_summer',
+    season: 'summer',
+    gear: true,
+  },
+  bundle202306: {
+    start:'2023-06-13T08:00-04:00',
+    end:'2023-06-30T23:59-04:00',
+  },
+  bundle202305: {
+    start:'2023-05-23T08:00-04:00',
+    end:'2023-05-31T23:59-04:00',
+  },
+  potions202305: {
+    start:'2023-05-16T08:00-04:00',
+    end:'2023-05-31T23:59-04:00',
+  },
+  aprilFools2023: {
+    start: '2023-04-01T08:00-04:00',
+    end: '2023-04-02T08:00-04:00',
+    aprilFools: 'teaShop',
+  },
+  spring2023: {
+    start: '2023-03-21T08:00-04:00',
+    end: '2023-04-30T23:59-04:00',
+    npcImageSuffix: '_spring',
+    season: 'spring',
+    gear: true,
+  },
+  bundle202303: {
+    start: '2023-03-16T08:00-04:00',
+    end: '2023-03-31T23:59-04:00',
+  },
+  bundle202302: {
+    start: '2023-02-21T08:00-05:00',
+    end: '2023-02-28T23:59-05:00',
+  },
+  potions202302:{
+    start: '2023-02-13T08:00-05:00',
+    end: '2023-02-28T23:59-05:00',
+  },
+  valentines2023: {
+    start: '2023-02-13T08:00-05:00',
+    end: '2023-02-17T23:59-05:00',
+    season: 'valentines',
+    npcImageSuffix: '_valentines',
+  },
+  birthday10: {
+    start: '2023-01-30T08:00-05:00',
+    end: '2023-02-08T23:59-05:00',
+    season: 'birthday',
+    npcImageSuffix: '_birthday',
   },
   winter2023: {
     start: '2022-12-20T08:00-05:00',

@@ -1,6 +1,6 @@
 <template>
   <div id="subscription-form">
-    <b-form-group class="mb-4 w-100 h-100">
+    <b-form-group class="mb-3 w-100 h-100">
       <!-- eslint-disable vue/no-use-v-if-with-v-for -->
       <b-form-radio
         v-for="block in subscriptionBlocksOrdered"
@@ -32,6 +32,15 @@
         </div>
       </b-form-radio>
     </b-form-group>
+    <div class="mx-4 mb-4 text-center">
+      <small
+        v-if="note"
+        v-once
+        class="font-italic"
+      >
+        {{ $t(note) }}
+      </small>
+    </div>
     <!-- payment buttons first is for gift subs and the second is for renewing subs -->
     <payments-buttons
       v-if="userReceivingGift && userReceivingGift._id"
@@ -82,7 +91,10 @@
 
     .subscription-bubble, .discount-bubble {
       border-radius: 100px;
+      padding-left: 12px;
+      padding-right: 12px;
       font-size: 12px;
+      line-height: 1.33;
     }
 
     .subscription-bubble {
@@ -100,8 +112,20 @@
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
 
+  small {
+    color: $gray-100;
+    display: inline-block;
+    font-size: 12px ;
+    font-weight: normal;
+    line-height: 1.33;
+  }
+
   .subscribe-option {
-    border-bottom: 1px solid $gray-600;
+    background-color: $gray-700;
+
+    &:not(:last-of-type) {
+      border-bottom: 1px solid $gray-600;
+    }
   }
 </style>
 
@@ -121,6 +145,10 @@ export default {
     paymentsMixin,
   ],
   props: {
+    note: {
+      type: String,
+      default: null,
+    },
     userReceivingGift: {
       type: Object,
       default () {},
@@ -154,13 +182,13 @@ export default {
     subscriptionBubbles (subscription) {
       switch (subscription) {
         case 'basic_3mo':
-          return '<span class="subscription-bubble px-2 py-1 mr-1">Gem cap raised to 30</span><span class="subscription-bubble px-2 py-1">+1 Mystic Hourglass</span>';
+          return '<span class="subscription-bubble py-1 mr-1">Gem cap raised to 30</span><span class="subscription-bubble py-1">+1 Mystic Hourglass</span>';
         case 'basic_6mo':
-          return '<span class="subscription-bubble px-2 py-1 mr-1">Gem cap raised to 35</span><span class="subscription-bubble px-2 py-1">+2 Mystic Hourglass</span>';
+          return '<span class="subscription-bubble py-1 mr-1">Gem cap raised to 35</span><span class="subscription-bubble py-1">+2 Mystic Hourglass</span>';
         case 'basic_12mo':
-          return '<span class="discount-bubble px-2 py-1 mr-1">Save 20%</span><span class="subscription-bubble px-2 py-1 mr-1">Gem cap raised to 45</span><span class="subscription-bubble px-2 py-1">+4 Mystic Hourglass</span>';
+          return '<span class="discount-bubble py-1 mr-1">Save 20%</span><span class="subscription-bubble py-1 mr-1">Gem cap raised to 45</span><span class="subscription-bubble py-1">+4 Mystic Hourglass</span>';
         default:
-          return '<span class="subscription-bubble px-2 py-1">Gem cap at 25</span>';
+          return '<span class="subscription-bubble py-1">Gem cap at 25</span>';
       }
     },
     updateSubscriptionData (key) {

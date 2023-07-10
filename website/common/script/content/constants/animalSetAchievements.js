@@ -26,6 +26,23 @@ const ANIMAL_SET_ACHIEVEMENTS = {
     achievementKey: 'birdsOfAFeather',
     notificationType: 'ACHIEVEMENT_ANIMAL_SET',
   },
+  dinosaurDynasty: {
+    type: 'pet',
+    species: [
+      'Falcon',
+      'Owl',
+      'Parrot',
+      'Peacock',
+      'Penguin',
+      'Rooster',
+      'Pterodactyl',
+      'TRex',
+      'Triceratops',
+      'Velociraptor',
+    ],
+    achievementKey: 'dinosaurDynasty',
+    notificationType: 'ACHIEVEMENT_ANIMAL_SET',
+  },
   domesticated: {
     type: 'pet',
     species: [
@@ -39,6 +56,15 @@ const ANIMAL_SET_ACHIEVEMENTS = {
       'Cow',
     ],
     achievementKey: 'domesticated',
+    notificationType: 'ACHIEVEMENT_ANIMAL_SET',
+  },
+  plantParent: {
+    type: 'pet',
+    species: [
+      'Cactus',
+      'Treeling',
+    ],
+    achievementKey: 'plantParent',
     notificationType: 'ACHIEVEMENT_ANIMAL_SET',
   },
   polarPro: {

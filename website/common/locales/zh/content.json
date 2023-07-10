@@ -199,7 +199,7 @@
     "hatchingPotionAquatic": "水族",
     "hatchingPotionEmber": "灰烬",
     "hatchingPotionThunderstorm": "雷暴",
-    "hatchingPotionGhost": "鬼魂",
+    "hatchingPotionGhost": "幽灵",
     "hatchingPotionRoyalPurple": "皇家紫",
     "hatchingPotionHolly": "冬青树",
     "hatchingPotionCupid": "丘比特",
@@ -304,9 +304,9 @@
     "foodCandyRedThe": "肉桂糖",
     "foodCandyRedA": "肉桂糖",
     "foodSaddleText": "鞍",
-    "foodSaddleNotes": "即时把你的一只宠物变成坐骑。",
+    "foodSaddleNotes": "立即将一只宠物养成坐骑。",
     "foodSaddleSellWarningNote": "嘿！这是个很有用的东西啊！你知道怎么把鞍用在你的宠物上吗？",
-    "foodNotes": "喂给宠物吃就会慢慢地长成健壮的坐骑。",
+    "foodNotes": "宠物吃了，就会成长为健壮的坐骑。",
     "hatchingPotionRoseQuartz": "玫瑰水晶",
     "hatchingPotionCelestial": "天空",
     "hatchingPotionVeggie": "花园",
@@ -356,7 +356,7 @@
     "hatchingPotionAurora": "极光",
     "hatchingPotionRuby": "红宝石",
     "hatchingPotionBirchBark": "桦树皮",
-    "hatchingPotionDessert": "糕点",
+    "hatchingPotionDessert": "甜品",
     "hatchingPotionFluorite": "萤石",
     "hatchingPotionSandSculpture": "沙雕",
     "hatchingPotionWindup": "发条",
@@ -372,5 +372,7 @@
     "hatchingPotionSolarSystem": "太阳系",
     "hatchingPotionOnyx": "玛瑙",
     "hatchingPotionVirtualPet": "电子宠物",
-    "hatchingPotionPorcelain": "瓷器"
+    "hatchingPotionPorcelain": "瓷器",
+    "hatchingPotionPinkMarble": "粉色大理石",
+    "hatchingPotionTeaShop": "茶馆"
 }

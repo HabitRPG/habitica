@@ -28,7 +28,7 @@
     "magicalBee": "不思議なハチ",
     "hopefulHippogriffPet": "希望に満ちたヒッポグリフ",
     "hopefulHippogriffMount": "希望に満ちたヒッポグリフ",
-    "royalPurpleJackalope": "ロイヤルパープルのツノウサギ",
+    "royalPurpleJackalope": "ロイヤルパープルのジャッカロープ",
     "invisibleAether": "不可視のエーテル獣",
     "potion": "<%= potionType %> 薬",
     "egg": "<%= eggType %>のたまご",
@@ -113,5 +113,6 @@
     "gryphatrice": "グリファトリス",
     "invalidAmount": "えさの量が正しくありません。整数を入力してください",
     "tooMuchFood": "ペットにえさを与えられる量を超えました。この操作はキャンセルされます",
-    "notEnoughFood": "えさが足りません"
+    "notEnoughFood": "えさが足りません",
+    "jubilantGryphatrice": "喜びに満ちたグリファトリス"
 }

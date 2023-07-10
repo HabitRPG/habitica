@@ -12,10 +12,10 @@ const { i18n } = common;
 describe('Apple Payments', () => {
   const subKey = 'basic_3mo';
 
-  describe('verifyGemPurchase', () => {
+  describe('verifyPurchase', () => {
     let sku; let user; let token; let receipt; let
       headers;
-    let iapSetupStub; let iapValidateStub; let iapIsValidatedStub; let paymentBuyGemsStub; let
+    let iapSetupStub; let iapValidateStub; let iapIsValidatedStub; let paymentBuySkuStub; let
       iapGetPurchaseDataStub; let validateGiftMessageStub;
 
     beforeEach(() => {
@@ -29,14 +29,15 @@ describe('Apple Payments', () => {
         .resolves();
       iapValidateStub = sinon.stub(iap, 'validate')
         .resolves({});
-      iapIsValidatedStub = sinon.stub(iap, 'isValidated')
-        .returns(true);
+      iapIsValidatedStub = sinon.stub(iap, 'isValidated').returns(true);
+      sinon.stub(iap, 'isExpired').returns(false);
+      sinon.stub(iap, 'isCanceled').returns(false);
       iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
         .returns([{
           productId: 'com.habitrpg.ios.Habitica.21gems',
           transactionId: token,
         }]);
-      paymentBuyGemsStub = sinon.stub(payments, 'buyGems').resolves({});
+      paymentBuySkuStub = sinon.stub(payments, 'buySkuItem').resolves({});
       validateGiftMessageStub = sinon.stub(gems, 'validateGiftMessage');
     });
 
@@ -44,8 +45,10 @@ describe('Apple Payments', () => {
       iap.setup.restore();
       iap.validate.restore();
       iap.isValidated.restore();
+      iap.isExpired.restore();
+      iap.isCanceled.restore();
       iap.getPurchaseData.restore();
-      payments.buyGems.restore();
+      payments.buySkuItem.restore();
       gems.validateGiftMessage.restore();
     });
 
@@ -54,7 +57,7 @@ describe('Apple Payments', () => {
       iapIsValidatedStub = sinon.stub(iap, 'isValidated')
         .returns(false);
 
-      await expect(applePayments.verifyGemPurchase({ user, receipt, headers }))
+      await expect(applePayments.verifyPurchase({ user, receipt, headers }))
         .to.eventually.be.rejected.and.to.eql({
           httpCode: 401,
           name: 'NotAuthorized',
@@ -66,7 +69,7 @@ describe('Apple Payments', () => {
       iapGetPurchaseDataStub.restore();
       iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData').returns([]);
 
-      await expect(applePayments.verifyGemPurchase({ user, receipt, headers }))
+      await expect(applePayments.verifyPurchase({ user, receipt, headers }))
         .to.eventually.be.rejected.and.to.eql({
           httpCode: 401,
           name: 'NotAuthorized',
@@ -76,7 +79,7 @@ describe('Apple Payments', () => {
 
     it('errors if the user cannot purchase gems', async () => {
       sinon.stub(user, 'canGetGems').resolves(false);
-      await expect(applePayments.verifyGemPurchase({ user, receipt, headers }))
+      await expect(applePayments.verifyPurchase({ user, receipt, headers }))
         .to.eventually.be.rejected.and.to.eql({
           httpCode: 401,
           name: 'NotAuthorized',
@@ -94,14 +97,16 @@ describe('Apple Payments', () => {
           productId: 'badProduct',
           transactionId: token,
         }]);
+      paymentBuySkuStub.restore();
 
-      await expect(applePayments.verifyGemPurchase({ user, receipt, headers }))
+      await expect(applePayments.verifyPurchase({ user, receipt, headers }))
         .to.eventually.be.rejected.and.to.eql({
-          httpCode: 401,
-          name: 'NotAuthorized',
+          httpCode: 400,
+          name: 'BadRequest',
           message: applePayments.constants.RESPONSE_INVALID_ITEM,
         });
 
+      paymentBuySkuStub = sinon.stub(payments, 'buySkuItem').resolves({});
       user.canGetGems.restore();
     });
 
@@ -138,7 +143,7 @@ describe('Apple Payments', () => {
           }]);
 
         sinon.stub(user, 'canGetGems').resolves(true);
-        await applePayments.verifyGemPurchase({ user, receipt, headers });
+        await applePayments.verifyPurchase({ user, receipt, headers });
 
         expect(iapSetupStub).to.be.calledOnce;
         expect(iapValidateStub).to.be.calledOnce;
@@ -148,13 +153,13 @@ describe('Apple Payments', () => {
         expect(iapGetPurchaseDataStub).to.be.calledOnce;
         expect(validateGiftMessageStub).to.not.be.called;
 
-        expect(paymentBuyGemsStub).to.be.calledOnce;
-        expect(paymentBuyGemsStub).to.be.calledWith({
+        expect(paymentBuySkuStub).to.be.calledOnce;
+        expect(paymentBuySkuStub).to.be.calledWith({
           user,
-          paymentMethod: applePayments.constants.PAYMENT_METHOD_APPLE,
-          gemsBlock: common.content.gems[gemTest.gemsBlock],
-          headers,
           gift: undefined,
+          paymentMethod: applePayments.constants.PAYMENT_METHOD_APPLE,
+          sku: gemTest.productId,
+          headers,
         });
         expect(user.canGetGems).to.be.calledOnce;
         user.canGetGems.restore();
@@ -173,7 +178,7 @@ describe('Apple Payments', () => {
         }]);
 
       const gift = { uuid: receivingUser._id };
-      await applePayments.verifyGemPurchase({
+      await applePayments.verifyPurchase({
         user, gift, receipt, headers,
       });
 
@@ -187,18 +192,16 @@ describe('Apple Payments', () => {
       expect(validateGiftMessageStub).to.be.calledOnce;
       expect(validateGiftMessageStub).to.be.calledWith(gift, user);
 
-      expect(paymentBuyGemsStub).to.be.calledOnce;
-      expect(paymentBuyGemsStub).to.be.calledWith({
+      expect(paymentBuySkuStub).to.be.calledOnce;
+      expect(paymentBuySkuStub).to.be.calledWith({
         user,
-        paymentMethod: applePayments.constants.PAYMENT_METHOD_APPLE,
-        headers,
         gift: {
-          type: 'gems',
-          gems: { amount: 4 },
-          member: sinon.match({ _id: receivingUser._id }),
           uuid: receivingUser._id,
+          member: sinon.match({ _id: receivingUser._id }),
         },
-        gemsBlock: common.content.gems['4gems'],
+        paymentMethod: applePayments.constants.PAYMENT_METHOD_APPLE,
+        sku: 'com.habitrpg.ios.Habitica.4gems',
+        headers,
       });
     });
   });
@@ -218,6 +221,7 @@ describe('Apple Payments', () => {
       headers = {};
       receipt = `{"token": "${token}"}`;
       nextPaymentProcessing = moment.utc().add({ days: 2 });
+      user = new User();
 
       iapSetupStub = sinon.stub(iap, 'setup')
         .resolves();
@@ -228,14 +232,17 @@ describe('Apple Payments', () => {
       iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
         .returns([{
           expirationDate: moment.utc().subtract({ day: 1 }).toDate(),
+          purchaseDate: moment.utc().valueOf(),
           productId: sku,
           transactionId: token,
         }, {
           expirationDate: moment.utc().add({ day: 1 }).toDate(),
+          purchaseDate: moment.utc().valueOf(),
           productId: 'wrongsku',
           transactionId: token,
         }, {
           expirationDate: moment.utc().add({ day: 1 }).toDate(),
+          purchaseDate: moment.utc().valueOf(),
           productId: sku,
           transactionId: token,
         }]);
@@ -250,21 +257,12 @@ describe('Apple Payments', () => {
       if (payments.createSubscription.restore) payments.createSubscription.restore();
     });
 
-    it('should throw an error if sku is empty', async () => {
-      await expect(applePayments.subscribe('', user, receipt, headers, nextPaymentProcessing))
-        .to.eventually.be.rejected.and.to.eql({
-          httpCode: 400,
-          name: 'BadRequest',
-          message: i18n.t('missingSubscriptionCode'),
-        });
-    });
-
     it('should throw an error if receipt is invalid', async () => {
       iap.isValidated.restore();
       iapIsValidatedStub = sinon.stub(iap, 'isValidated')
         .returns(false);
 
-      await expect(applePayments.subscribe(sku, user, receipt, headers, nextPaymentProcessing))
+      await expect(applePayments.subscribe(user, receipt, headers, nextPaymentProcessing))
         .to.eventually.be.rejected.and.to.eql({
           httpCode: 401,
           name: 'NotAuthorized',
@@ -295,13 +293,15 @@ describe('Apple Payments', () => {
         iap.getPurchaseData.restore();
         iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
           .returns([{
-            expirationDate: moment.utc().add({ day: 1 }).toDate(),
+            expirationDate: moment.utc().add({ day: 2 }).toDate(),
+            purchaseDate: new Date(),
             productId: option.sku,
             transactionId: token,
+            originalTransactionId: token,
           }]);
         sub = common.content.subscriptionBlocks[option.subKey];
 
-        await applePayments.subscribe(option.sku, user, receipt, headers, nextPaymentProcessing);
+        await applePayments.subscribe(user, receipt, headers, nextPaymentProcessing);
 
         expect(iapSetupStub).to.be.calledOnce;
         expect(iapValidateStub).to.be.calledOnce;
@@ -321,21 +321,253 @@ describe('Apple Payments', () => {
           nextPaymentProcessing,
         });
       });
+      if (option !== subOptions[3]) {
+        const newOption = subOptions[3];
+        it(`upgrades a subscription from ${option.sku} to ${newOption.sku}`, async () => {
+          const oldSub = common.content.subscriptionBlocks[option.subKey];
+          oldSub.logic = 'refundAndRepay';
+          user.profile.name = 'sender';
+          user.purchased.plan.paymentMethod = applePayments.constants.PAYMENT_METHOD_APPLE;
+          user.purchased.plan.customerId = token;
+          user.purchased.plan.planId = option.subKey;
+          user.purchased.plan.additionalData = receipt;
+          iap.getPurchaseData.restore();
+          iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
+            .returns([{
+              expirationDate: moment.utc().add({ day: 2 }).toDate(),
+              purchaseDate: moment.utc().valueOf(),
+              productId: newOption.sku,
+              transactionId: `${token}new`,
+              originalTransactionId: token,
+            }]);
+          sub = common.content.subscriptionBlocks[newOption.subKey];
+
+          await applePayments.subscribe(user,
+            receipt,
+            headers,
+            nextPaymentProcessing);
+
+          expect(iapSetupStub).to.be.calledOnce;
+          expect(iapValidateStub).to.be.calledOnce;
+          expect(iapValidateStub).to.be.calledWith(iap.APPLE, receipt);
+          expect(iapIsValidatedStub).to.be.calledOnce;
+          expect(iapIsValidatedStub).to.be.calledWith({});
+          expect(iapGetPurchaseDataStub).to.be.calledOnce;
+
+          expect(paymentsCreateSubscritionStub).to.be.calledOnce;
+          expect(paymentsCreateSubscritionStub).to.be.calledWith({
+            user,
+            customerId: token,
+            paymentMethod: applePayments.constants.PAYMENT_METHOD_APPLE,
+            sub,
+            headers,
+            additionalData: receipt,
+            nextPaymentProcessing,
+            updatedFrom: oldSub,
+          });
+        });
+      }
+      if (option !== subOptions[0]) {
+        const newOption = subOptions[0];
+        it(`downgrades a subscription from ${option.sku} to ${newOption.sku}`, async () => {
+          const oldSub = common.content.subscriptionBlocks[option.subKey];
+          user.profile.name = 'sender';
+          user.purchased.plan.paymentMethod = applePayments.constants.PAYMENT_METHOD_APPLE;
+          user.purchased.plan.customerId = token;
+          user.purchased.plan.planId = option.subKey;
+          user.purchased.plan.additionalData = receipt;
+          iap.getPurchaseData.restore();
+          iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
+            .returns([{
+              expirationDate: moment.utc().add({ day: 2 }).toDate(),
+              purchaseDate: moment.utc().valueOf(),
+              productId: newOption.sku,
+              transactionId: `${token}new`,
+              originalTransactionId: token,
+            }]);
+          sub = common.content.subscriptionBlocks[newOption.subKey];
+
+          await applePayments.subscribe(user,
+            receipt,
+            headers,
+            nextPaymentProcessing);
+
+          expect(iapSetupStub).to.be.calledOnce;
+          expect(iapValidateStub).to.be.calledOnce;
+          expect(iapValidateStub).to.be.calledWith(iap.APPLE, receipt);
+          expect(iapIsValidatedStub).to.be.calledOnce;
+          expect(iapIsValidatedStub).to.be.calledWith({});
+          expect(iapGetPurchaseDataStub).to.be.calledOnce;
+
+          expect(paymentsCreateSubscritionStub).to.be.calledOnce;
+          expect(paymentsCreateSubscritionStub).to.be.calledWith({
+            user,
+            customerId: token,
+            paymentMethod: applePayments.constants.PAYMENT_METHOD_APPLE,
+            sub,
+            headers,
+            additionalData: receipt,
+            nextPaymentProcessing,
+            updatedFrom: oldSub,
+          });
+        });
+      }
     });
 
-    it('errors when a user is already subscribed', async () => {
-      payments.createSubscription.restore();
-      user = new User();
-      await user.save();
+    it('uses the most recent subscription data', async () => {
+      iap.getPurchaseData.restore();
+      iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
+        .returns([{
+          expirationDate: moment.utc().add({ day: 4 }).toDate(),
+          purchaseDate: moment.utc().subtract({ day: 5 }).toDate(),
+          productId: 'com.habitrpg.ios.habitica.subscription.3month',
+          transactionId: `${token}oldest`,
+          originalTransactionId: `${token}evenOlder`,
+        }, {
+          expirationDate: moment.utc().add({ day: 2 }).toDate(),
+          purchaseDate: moment.utc().subtract({ day: 1 }).toDate(),
+          productId: 'com.habitrpg.ios.habitica.subscription.12month',
+          transactionId: `${token}newest`,
+          originalTransactionId: `${token}newest`,
+        }, {
+          expirationDate: moment.utc().add({ day: 1 }).toDate(),
+          purchaseDate: moment.utc().subtract({ day: 2 }).toDate(),
+          productId: 'com.habitrpg.ios.habitica.subscription.6month',
+          transactionId: token,
+          originalTransactionId: token,
+        }]);
+      sub = common.content.subscriptionBlocks.basic_12mo;
 
-      await applePayments.subscribe(sku, user, receipt, headers, nextPaymentProcessing);
+      await applePayments.subscribe(user, receipt, headers, nextPaymentProcessing);
 
-      await expect(applePayments.subscribe(sku, user, receipt, headers, nextPaymentProcessing))
-        .to.eventually.be.rejected.and.to.eql({
-          httpCode: 401,
-          name: 'NotAuthorized',
-          message: applePayments.constants.RESPONSE_ALREADY_USED,
-        });
+      expect(paymentsCreateSubscritionStub).to.be.calledOnce;
+      expect(paymentsCreateSubscritionStub).to.be.calledWith({
+        user,
+        customerId: `${token}newest`,
+        paymentMethod: applePayments.constants.PAYMENT_METHOD_APPLE,
+        sub,
+        headers,
+        additionalData: receipt,
+        nextPaymentProcessing,
+      });
+    });
+
+    describe('does not apply multiple times', async () => {
+      it('errors when a user is using the same subscription', async () => {
+        payments.createSubscription.restore();
+        iap.getPurchaseData.restore();
+        iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
+          .returns([{
+            expirationDate: moment.utc().add({ day: 1 }).toDate(),
+            purchaseDate: moment.utc().toDate(),
+            productId: sku,
+            transactionId: token,
+            originalTransactionId: token,
+          }]);
+
+        await applePayments.subscribe(user, receipt, headers, nextPaymentProcessing);
+
+        await expect(applePayments.subscribe(user, receipt, headers, nextPaymentProcessing))
+          .to.eventually.be.rejected.and.to.eql({
+            httpCode: 401,
+            name: 'NotAuthorized',
+            message: applePayments.constants.RESPONSE_ALREADY_USED,
+          });
+      });
+
+      it('errors when a user is using a rebill of the same subscription', async () => {
+        user = new User();
+        await user.save();
+        payments.createSubscription.restore();
+        iap.getPurchaseData.restore();
+        iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
+          .returns([{
+            expirationDate: moment.utc().add({ day: 1 }).toDate(),
+            purchaseDate: moment.utc().toDate(),
+            productId: sku,
+            transactionId: `${token}renew`,
+            originalTransactionId: token,
+          }]);
+
+        await applePayments.subscribe(user, receipt, headers, nextPaymentProcessing);
+
+        await expect(applePayments.subscribe(user, receipt, headers, nextPaymentProcessing))
+          .to.eventually.be.rejected.and.to.eql({
+            httpCode: 401,
+            name: 'NotAuthorized',
+            message: applePayments.constants.RESPONSE_ALREADY_USED,
+          });
+      });
+
+      it('errors when a different user is using the subscription', async () => {
+        user = new User();
+        await user.save();
+        payments.createSubscription.restore();
+        iap.getPurchaseData.restore();
+        iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
+          .returns([{
+            expirationDate: moment.utc().add({ day: 1 }).toDate(),
+            purchaseDate: moment.utc().toDate(),
+            productId: sku,
+            transactionId: token,
+            originalTransactionId: token,
+          }]);
+
+        await applePayments.subscribe(user, receipt, headers, nextPaymentProcessing);
+
+        const secondUser = new User();
+        await secondUser.save();
+        await expect(applePayments.subscribe(
+          secondUser, receipt, headers, nextPaymentProcessing,
+        ))
+          .to.eventually.be.rejected.and.to.eql({
+            httpCode: 401,
+            name: 'NotAuthorized',
+            message: applePayments.constants.RESPONSE_ALREADY_USED,
+          });
+      });
+
+      it('errors when a multiple users exist using the subscription', async () => {
+        user = new User();
+        await user.save();
+        payments.createSubscription.restore();
+        iap.getPurchaseData.restore();
+        iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
+          .returns([{
+            expirationDate: moment.utc().add({ day: 1 }).toDate(),
+            purchaseDate: moment.utc().toDate(),
+            productId: sku,
+            transactionId: token,
+            originalTransactionId: token,
+          }]);
+
+        await applePayments.subscribe(user, receipt, headers, nextPaymentProcessing);
+        const secondUser = new User();
+        secondUser.purchased.plan = user.purchased.plan;
+        secondUser.purchased.plan.dateTerminate = new Date();
+        secondUser.save();
+
+        iap.getPurchaseData.restore();
+        iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
+          .returns([{
+            expirationDate: moment.utc().add({ day: 1 }).toDate(),
+            purchaseDate: moment.utc().toDate(),
+            productId: sku,
+            transactionId: `${token}new`,
+            originalTransactionId: token,
+          }]);
+
+        const thirdUser = new User();
+        await thirdUser.save();
+        await expect(applePayments.subscribe(
+          thirdUser, receipt, headers, nextPaymentProcessing,
+        ))
+          .to.eventually.be.rejected.and.to.eql({
+            httpCode: 401,
+            name: 'NotAuthorized',
+            message: applePayments.constants.RESPONSE_ALREADY_USED,
+          });
+      });
     });
   });
 
@@ -360,9 +592,9 @@ describe('Apple Payments', () => {
         });
       iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
         .returns([{ expirationDate: expirationDate.toDate() }]);
-      iapIsValidatedStub = sinon.stub(iap, 'isValidated')
-        .returns(true);
-
+      iapIsValidatedStub = sinon.stub(iap, 'isValidated').returns(true);
+      sinon.stub(iap, 'isCanceled').returns(false);
+      sinon.stub(iap, 'isExpired').returns(true);
       user = new User();
       user.profile.name = 'sender';
       user.purchased.plan.paymentMethod = applePayments.constants.PAYMENT_METHOD_APPLE;
@@ -377,6 +609,8 @@ describe('Apple Payments', () => {
       iap.setup.restore();
       iap.validate.restore();
       iap.isValidated.restore();
+      iap.isExpired.restore();
+      iap.isCanceled.restore();
       iap.getPurchaseData.restore();
       payments.cancelSubscription.restore();
     });
@@ -396,6 +630,8 @@ describe('Apple Payments', () => {
       iap.getPurchaseData.restore();
       iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
         .returns([{ expirationDate: expirationDate.add({ day: 1 }).toDate() }]);
+      iap.isExpired.restore();
+      sinon.stub(iap, 'isExpired').returns(false);
 
       await expect(applePayments.cancelSubscribe(user, headers))
         .to.eventually.be.rejected.and.to.eql({
@@ -418,7 +654,38 @@ describe('Apple Payments', () => {
         });
     });
 
-    it('should cancel a user subscription', async () => {
+    it('should cancel a cancelled subscription with termination date in the future', async () => {
+      const futureDate = expirationDate.add({ day: 1 });
+      iap.getPurchaseData.restore();
+      iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
+        .returns([{ expirationDate: futureDate }]);
+      iap.isExpired.restore();
+      sinon.stub(iap, 'isExpired').returns(false);
+
+      iap.isCanceled.restore();
+      sinon.stub(iap, 'isCanceled').returns(true);
+
+      await applePayments.cancelSubscribe(user, headers);
+
+      expect(iapSetupStub).to.be.calledOnce;
+      expect(iapValidateStub).to.be.calledOnce;
+      expect(iapValidateStub).to.be.calledWith(iap.APPLE, receipt);
+      expect(iapIsValidatedStub).to.be.calledOnce;
+      expect(iapIsValidatedStub).to.be.calledWith({
+        expirationDate: futureDate,
+      });
+      expect(iapGetPurchaseDataStub).to.be.calledOnce;
+
+      expect(paymentCancelSubscriptionSpy).to.be.calledOnce;
+      expect(paymentCancelSubscriptionSpy).to.be.calledWith({
+        user,
+        paymentMethod: applePayments.constants.PAYMENT_METHOD_APPLE,
+        nextBill: futureDate.toDate(),
+        headers,
+      });
+    });
+
+    it('should cancel an expired subscription', async () => {
       await applePayments.cancelSubscribe(user, headers);
 
       expect(iapSetupStub).to.be.calledOnce;

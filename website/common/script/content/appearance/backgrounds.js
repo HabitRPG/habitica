@@ -535,6 +535,41 @@ const backgrounds = {
     inside_a_crystal: { },
     snowy_village: { },
   },
+  backgrounds012023: {
+    rime_ice: { },
+    snowy_temple: { },
+    winter_lake_with_swans: { },
+  },
+  backgrounds022023: {
+    in_front_of_fountain: { },
+    golden_birdcage: { },
+    fancy_bedroom: { },
+  },
+  backgrounds032023: {
+    jungle_watering_hole: { },
+    mangrove_forest: { },
+    old_timey_basketball_court: { },
+  },
+  backgrounds042023: {
+    leafy_tree_tunnel: { },
+    springtime_shower: { },
+    under_wisteria: { },
+  },
+  backgrounds052023: {
+    in_a_painting: { },
+    flying_over_hedge_maze: { },
+    cretaceous_forest: { },
+  },
+  backgrounds062023: {
+    in_an_aquarium: { },
+    inside_adventurers_hideout: { },
+    crater_lake: { },
+  },
+  eventBackgrounds: {
+    birthday_bash: {
+      price: 0,
+    },
+  },
   timeTravelBackgrounds: {
     airship: {
       price: 1,
@@ -578,7 +613,9 @@ forOwn(backgrounds, (backgroundsInSet, set) => {
   forOwn(backgroundsInSet, (background, bgKey) => {
     background.key = bgKey;
     background.set = set;
-    background.price = background.price || 7;
+    if (background.price !== 0) {
+      background.price = background.price || 7;
+    }
     background.text = background.text || t(`background${upperFirst(camelCase(bgKey))}Text`);
     background.notes = background.notes || t(`background${upperFirst(camelCase(bgKey))}Notes`);
 

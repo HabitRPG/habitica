@@ -244,7 +244,7 @@ export default {
     petClass () {
       if (some(
         this.currentEventList,
-        event => moment().isBetween(event.start, event.end) && event.aprilFools && event.aprilFools === 'virtual',
+        event => moment().isBetween(event.start, event.end) && event.aprilFools && event.aprilFools === 'teaShop',
       )) {
         return this.foolPet(this.member.items.currentPet);
       }
