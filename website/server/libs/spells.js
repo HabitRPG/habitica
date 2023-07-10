@@ -1,4 +1,5 @@
 import { model as User } from '../models/user';
+import { chatModel as Chat } from '../models/message';
 import * as Tasks from '../models/task';
 import {
   NotFound,
@@ -222,13 +223,13 @@ async function castSpell (req, res, { isV3 = false }) {
     });
 
     if (party && !spell.silent) {
-      const lastMessages = await Chat.find({ groupId: group._id })
+      const lastMessages = await Chat.find({ groupId: party._id })
         .limit(1)
         .sort('-timestamp')
         .exec();
-      if (lastMessages.size == 1) {
+      if (lastMessages.size === 1) {
         const lastMessage = lastMessages[0];
-        if (lastMessage.info.spell == spellId && lastMessage.info.user == user.profile.name) {
+        if (lastMessage.info.spell === spellId && lastMessage.info.user === user.profile.name) {
           lastMessage.info.times += 1;
           await lastMessage.save();
           return;
@@ -243,7 +244,7 @@ async function castSpell (req, res, { isV3 = false }) {
             class: klass,
             spell: spellId,
             target: partyMembers.profile.name,
-            times: 1
+            times: 1,
           },
         });
         await newChatMessage.save();
@@ -255,7 +256,7 @@ async function castSpell (req, res, { isV3 = false }) {
             user: user.profile.name,
             class: klass,
             spell: spellId,
-            times: 1
+            times: 1,
           },
         });
         await newChatMessage.save();
