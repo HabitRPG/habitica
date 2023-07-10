@@ -246,7 +246,7 @@ async function castSpell (req, res, { isV3 = false }) {
         .limit(1)
         .sort('-timestamp')
         .exec();
-      if (lastMessages.size === 1) {
+      if (lastMessages.length === 1) {
         const lastMessage = lastMessages[0];
         if (lastMessage.info.spell === spellId && lastMessage.info.user === user.profile.name) {
           lastMessage.info.times += 1;
