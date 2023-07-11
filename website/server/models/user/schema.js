@@ -637,13 +637,13 @@ export default new Schema({
     exp: {
       $type: Number,
       default: 0,
-      max: shared.constants.MAX_EXPERIENCE_HARD_CAP,
+      max: shared.constants.MAX_FIELD_HARD_CAP,
     },
     gp: {
       $type: Number,
       default: 0,
       min: 0,
-      max: shared.constants.MAX_GOLD_HARD_CAP,
+      max: shared.constants.MAX_FIELD_HARD_CAP,
     },
     lvl: {
       $type: Number,
