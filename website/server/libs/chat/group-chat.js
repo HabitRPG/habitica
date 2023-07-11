@@ -120,6 +120,9 @@ export function translateMessage (lang, info) {
     case 'claim_task':
       msg = shared.i18n.t('userIsClamingTask', { username: info.user, task: info.task }, lang);
       break;
+
+    default:
+      msg = "Error translating party chat. Unknown message type.";
   }
 
   if (!msg.includes('`')) {
