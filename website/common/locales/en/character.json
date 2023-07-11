@@ -150,6 +150,8 @@
   "youCastParty": "You cast <%= spell %> for the party.",
   "chatCastSpellParty": "<%= username %> casts <%= spell %> for the party.",
   "chatCastSpellUser": "<%= username %> casts <%= spell %> on <%= target %>.",
+  "chatCastSpellPartyTimes": "<%= username %> casts <%= spell %> for the party <%= times =%> times.",
+  "chatCastSpellUserTimes": "<%= username %> casts <%= spell %> on <%= target %> <%= times =%> times.",
   "critBonus": "Critical Hit! Bonus: ",
   "gainedGold": "You gained some Gold",
   "gainedMana": "You gained some Mana",

@@ -250,6 +250,19 @@ async function castSpell (req, res, { isV3 = false }) {
         const lastMessage = lastMessages[0];
         if (lastMessage.info.spell === spellId && lastMessage.info.user === user.profile.name) {
           lastMessage.info.times += 1;
+          lastMessage.timestamp = Number(new Date());
+          if (targetType === 'user') {
+            lastMessage.message = `\`${common.i18n.t('chatCastSpellUserTimes', {
+              username: user.profile.name,
+              spell: spell.text(),
+              target: partyMembers.profile.name,
+              times: lastMessage.info.times,
+            }, 'en')}\``;
+          } else {
+            lastMessage.message = `\`${common.i18n.t('chatCastSpellPartyTimes', {
+              username: user.profile.name, spell: spell.text(), times: lastMessage.info.times,
+            }, 'en')}\``;
+          }
           await lastMessage.save();
           return;
         }
