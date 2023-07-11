@@ -623,10 +623,10 @@ export default new Schema({
     },
   },
   stats: {
-    hp: { $type: Number, default: shared.maxHealth },
-    mp: { $type: Number, default: 10, min: 0 },
-    exp: { $type: Number, default: 0 },
-    gp: { $type: Number, default: 0, min: 0 },
+    hp: { $type: Number, default: shared.maxHealth, max: shared.constants.MAX_FIELD_HARD_CAP },
+    mp: { $type: Number, default: 10, min: 0, max: shared.constants.MAX_FIELD_HARD_CAP },
+    exp: { $type: Number, default: 0, max: shared.constants.MAX_FIELD_HARD_CAP },
+    gp: { $type: Number, default: 0, min: 0, max: shared.constants.MAX_FIELD_HARD_CAP },
     lvl: {
       $type: Number,
       default: 1,
