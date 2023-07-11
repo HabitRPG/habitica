@@ -85,6 +85,14 @@ export function translateMessage (lang, info) {
       msg = shared.i18n.t('chatCastSpellUser', { username: info.user, spell: spells[info.class][info.spell].text(lang), target: info.target }, lang);
       break;
 
+    case 'spell_cast_party_multi':
+      msg = shared.i18n.t('chatCastSpellPartyTimes', { username: info.user, spell: spells[info.class][info.spell].text(lang), times: info.times }, lang);
+      break;
+
+    case 'spell_cast_user_multi':
+      msg = shared.i18n.t('chatCastSpellUserTimes', { username: info.user, spell: spells[info.class][info.spell].text(lang), target: info.target, times: info.times }, lang);
+      break;
+
     case 'quest_cancel':
       msg = shared.i18n.t('chatQuestCancelled', { username: info.user, questName: questScrolls[info.quest].text(lang) }, lang);
       break;

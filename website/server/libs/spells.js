@@ -242,32 +242,50 @@ async function castSpell (req, res, { isV3 = false }) {
     });
 
     if (party && !spell.silent) {
-      const lastMessages = await Chat.find({ groupId: party._id })
-        .limit(1)
+      const lastMessage = await Chat.findOne({ groupId: party._id })
         .sort('-timestamp')
         .exec();
-      if (lastMessages.length === 1) {
-        const lastMessage = lastMessages[0];
-        if (lastMessage.info.spell === spellId && lastMessage.info.user === user.profile.name) {
-          lastMessage.info.times += 1;
-          lastMessage.timestamp = Number(new Date());
-          if (targetType === 'user') {
-            lastMessage.message = `\`${common.i18n.t('chatCastSpellUserTimes', {
+      if (lastMessage && lastMessage.info.spell === spellId
+        && lastMessage.info.user === user.profile.name) {
+        if (targetType === 'user') {
+          const newChatMessage = party.sendChat({
+            message: `\`${common.i18n.t('chatCastSpellUserTimes', {
               username: user.profile.name,
               spell: spell.text(),
               target: partyMembers.profile.name,
-              times: lastMessage.info.times,
-            }, 'en')}\``;
-          } else {
-            lastMessage.message = `\`${common.i18n.t('chatCastSpellPartyTimes', {
-              username: user.profile.name, spell: spell.text(), times: lastMessage.info.times,
-            }, 'en')}\``;
-          }
-          await lastMessage.save();
-          return;
+              times: lastMessage.info.times + 1,
+            }, 'en')}\``,
+            info: {
+              type: 'spell_cast_user_multi',
+              user: user.profile.name,
+              class: klass,
+              spell: spellId,
+              target: partyMembers.profile.name,
+              times: lastMessage.info.times + 1,
+            },
+          });
+          await newChatMessage.save();
+          await lastMessage.remove();
+        } else {
+          const newChatMessage = party.sendChat({
+            message: `\`${common.i18n.t('chatCastSpellPartyTimes', {
+              username: user.profile.name,
+              spell: spell.text(),
+              times: lastMessage.info.times + 1,
+            }, 'en')}\``,
+            info: {
+              type: 'spell_cast_party_multi',
+              user: user.profile.name,
+              class: klass,
+              spell: spellId,
+              times: lastMessage.info.times + 1,
+            },
+          });
+          console.log(newChatMessage);
+          await newChatMessage.save();
+          await lastMessage.remove();
         }
-      }
-      if (targetType === 'user') {
+      } else if (targetType === 'user') {
         const newChatMessage = party.sendChat({
           message: `\`${common.i18n.t('chatCastSpellUser', { username: user.profile.name, spell: spell.text(), target: partyMembers.profile.name }, 'en')}\``,
           info: {
