@@ -786,12 +786,18 @@ api.transferGems = {
  *
  * @apiParam (Path) {UUID} memberId The unique ID of the user being flagged
  * @apiParam (Body) {String} [comment] explain why the user was flagged
+ * @apiParam (Body) {String} [source] URL or view from which the user was flagged
  *
  * @apiSuccess {Object} data The flagged user
  * @apiSuccess {UUID} data.id The id of the flagged user
  * @apiSuccess {String} data.username The username of the flagged user
  * @apiSuccess {Object} data.profile The flagged user's profile information
  * @apiSuccess {String} data.profile.blurb Text of the flagged user's profile bio
+ * @apiSuccess {Object} data.profile.flags Data about flags the profile has received.
+ *                                         Restricted to the reporting user's own flag
+ *                                         unless the reporting user is a moderator.
+ *                                         Each key is a UUID, and fields are comment,
+ *                                         source, and timestamp.
  * @apiSuccess {String} data.profile.imageUrl URL of the flagged user's profile image
  * @apiSuccess {String} data.profile.name The flagged user's display name
  *
