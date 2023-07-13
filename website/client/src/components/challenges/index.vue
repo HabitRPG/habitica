@@ -25,12 +25,10 @@
 
 <script>
 import SecondaryMenu from '@/components/secondaryMenu';
-import reportChallengeModal from './reportChallengeModal';
 
 export default {
   components: {
     SecondaryMenu,
-    reportChallengeModal,
   },
 };
 </script>

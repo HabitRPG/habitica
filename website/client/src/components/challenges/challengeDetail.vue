@@ -16,21 +16,21 @@
     <div class="col-12 col-md-8 standard-page">
       <div class="row">
         <div class="col-12 col-md-6">
-          <span
-            class="flagged"
+          <div
             v-if="canViewFlags"
+            class="flagged"
           >
-            <span
+            <div
               v-if="flaggedNotHidden"
             >
               {{ $t("flaggedNotHidden") }}
-            </span>
-            <span
+            </div>
+            <div
               v-else-if="flaggedAndHidden"
             >
               {{ $t("flaggedAndHidden") }}
-            </span>
-          </span>
+            </div>
+          </div>
           <h1 v-markdown="challenge.name"></h1>
           <div>
             <span class="mr-1 ml-0 d-block">
