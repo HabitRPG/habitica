@@ -710,6 +710,11 @@
   width: 141px;
   height: 147px;
 }
+.background_boardwalk_into_sunset {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_boardwalk_into_sunset.png');
+  width: 141px;
+  height: 147px;
+}
 .background_branches_of_a_holiday_tree {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_branches_of_a_holiday_tree.png');
   width: 141px;
@@ -782,6 +787,11 @@
 }
 .background_clouds {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_clouds.png');
+  width: 141px;
+  height: 147px;
+}
+.background_colorful_coral {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_colorful_coral.png');
   width: 141px;
   height: 147px;
 }
@@ -1576,6 +1586,11 @@
 }
 .background_on_a_castle_wall {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_on_a_castle_wall.png');
+  width: 141px;
+  height: 147px;
+}
+.background_on_a_paddlewheel_boat {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_on_a_paddlewheel_boat.png');
   width: 141px;
   height: 147px;
 }
@@ -2421,6 +2436,11 @@
   width: 68px;
   height: 68px;
 }
+.icon_background_boardwalk_into_sunset {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_boardwalk_into_sunset.png');
+  width: 68px;
+  height: 68px;
+}
 .icon_background_branches_of_a_holiday_tree {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_branches_of_a_holiday_tree.png');
   width: 68px;
@@ -2498,6 +2518,11 @@
 }
 .icon_background_clouds {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_clouds.png');
+  width: 68px;
+  height: 68px;
+}
+.icon_background_colorful_coral {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_colorful_coral.png');
   width: 68px;
   height: 68px;
 }
@@ -3292,6 +3317,11 @@
 }
 .icon_background_on_a_castle_wall {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_on_a_castle_wall.png');
+  width: 68px;
+  height: 68px;
+}
+.icon_background_on_a_paddlewheel_boat {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_on_a_paddlewheel_boat.png');
   width: 68px;
   height: 68px;
 }
@@ -18415,6 +18445,11 @@
   width: 114px;
   height: 90px;
 }
+.broad_armor_armoire_admiralsUniform {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_armoire_admiralsUniform.png');
+  width: 114px;
+  height: 90px;
+}
 .broad_armor_armoire_alchemistsRobe {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_armoire_alchemistsRobe.png');
   width: 114px;
@@ -18917,6 +18952,11 @@
 }
 .headAccessory_armoire_gogglesOfBookbinding {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_armoire_gogglesOfBookbinding.png');
+  width: 114px;
+  height: 90px;
+}
+.head_armoire_admiralsBicorne {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_armoire_admiralsBicorne.png');
   width: 114px;
   height: 90px;
 }
@@ -19710,6 +19750,11 @@
   width: 114px;
   height: 90px;
 }
+.shop_armor_armoire_admiralsUniform {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_armor_armoire_admiralsUniform.png');
+  width: 68px;
+  height: 68px;
+}
 .shop_armor_armoire_alchemistsRobe {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_armor_armoire_alchemistsRobe.png');
   width: 68px;
@@ -20227,6 +20272,11 @@
 }
 .shop_headAccessory_armoire_gogglesOfBookbinding {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_headAccessory_armoire_gogglesOfBookbinding.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_head_armoire_admiralsBicorne {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_head_armoire_admiralsBicorne.png');
   width: 68px;
   height: 68px;
 }
@@ -21484,6 +21534,11 @@
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_armoire_yellowKite.png');
   width: 68px;
   height: 68px;
+}
+.slim_armor_armoire_admiralsUniform {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_armoire_admiralsUniform.png');
+  width: 114px;
+  height: 90px;
 }
 .slim_armor_armoire_alchemistsRobe {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_armoire_alchemistsRobe.png');

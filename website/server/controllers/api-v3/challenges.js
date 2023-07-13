@@ -406,15 +406,9 @@ api.getUserChallenges = {
     orOptions.push({ leader: user._id });
 
     if (!req.query.member) {
-      const memberQuery = {
-        $and: [
-          { group: { $in: user.getGroups() } },
-        ],
-      };
-      if (!user.contributor.admin) {
-        memberQuery.$and.push({ flagCount: { $lt: 2 } });
-      }
-      orOptions.push(memberQuery); // Challenges in groups where I'm a member
+      orOptions.push({
+        group: { $in: user.getGroups() },
+      }); // Challenges in groups where I'm a member
     }
 
     const query = {
@@ -425,11 +419,16 @@ api.getUserChallenges = {
     if (owned) {
       if (owned === 'not_owned') {
         query.$and.push({ leader: { $ne: user._id } });
+        if (!user.hasPermission('moderator')) {
+          query.$and.push({ $not: { flagCount: { gt: 1 } } });
+        }
       }
 
       if (owned === 'owned') {
         query.$and.push({ leader: user._id });
       }
+    } else if (!user.hasPermission('moderator')) {
+      query.$and.push({ $not: { flagCount: { gt: 1 } } });
     }
 
     if (req.query.search) {
@@ -529,7 +528,7 @@ api.getGroupChallenges = {
         || (user.challenges
         && user.challenges.findIndex(cId => cId === challenge._id) === -1);
       const isFlaggedForNonAdminUser = challenge.flagCount > 1
-        && !user.contributor.admin
+        && !user.hasPermission('moderator')
         && nonParticipant
         && challenge.leader !== user._id;
 
@@ -587,7 +586,7 @@ api.getChallenge = {
       || (user.challenges
       && user.challenges.findIndex(cId => cId === challenge._id) === -1);
     const isFlaggedForNonAdminUser = challenge.flagCount > 1
-      && !user.contributor.admin
+      && !user.hasPermission('moderator')
       && nonParticipant
       && challenge.leader !== user._id;
     if (isFlaggedForNonAdminUser) throw new NotFound(res.t('challengeNotFound'));
@@ -848,7 +847,7 @@ api.selectChallengeWinner = {
       || (user.challenges
       && user.challenges.findIndex(cId => cId === challenge._id) === -1);
     const isFlaggedForNonAdminUser = challenge.flagCount > 1
-      && !user.contributor.admin
+      && !user.hasPermission('moderator')
       && nonParticipant
       && challenge.leader !== user._id;
     if (isFlaggedForNonAdminUser) throw new NotFound(res.t('challengeNotFound'));
@@ -906,7 +905,7 @@ api.cloneChallenge = {
       || (user.challenges
       && user.challenges.findIndex(cId => cId === challengeToClone._id) === -1);
     const isFlaggedForNonAdminUser = challengeToClone.flagCount > 1
-      && !user.contributor.admin
+      && !user.hasPermission('moderator')
       && nonParticipant
       && challengeToClone.leader !== user._id;
     if (isFlaggedForNonAdminUser) throw new NotFound(res.t('challengeNotFound'));
@@ -1001,7 +1000,7 @@ api.clearFlagsChallenge = {
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    if (!user.contributor.admin) {
+    if (!user.hasPermission('moderator')) {
       throw new NotAuthorized(res.t('messageGroupChatAdminClearFlagCount'));
     }
 
