@@ -396,52 +396,49 @@ api.getUserChallenges = {
     if (validationErrors) throw validationErrors;
 
     const CHALLENGES_PER_PAGE = 10;
-    const { page } = req.query;
+    const { categories, member, owned, page, search } = req.query;
 
     const { user } = res.locals;
+    const query = {
+      $and: [],
+    };
+    if (!user.hasPermission('moderator')) {
+      query.$and.push({ $or: [
+        { flagCount: { $not: { $gt: 1 } } },
+        { leader: user._id },
+      ]});
+    }
     const orOptions = [
       { _id: { $in: user.challenges } }, // Challenges where the user is participating
     ];
-
-    orOptions.push({ leader: user._id });
-
-    if (!req.query.member) {
-      orOptions.push({
-        group: { $in: user.getGroups() },
-      }); // Challenges in groups where I'm a member
-    }
-
-    const query = {
-      $and: [{ $or: orOptions }],
-    };
-
-    const { owned } = req.query;
-    if (owned) {
+    if (!member) {
+      orOptions.push(
+        { group: { $in: user.getGroups() } }, // Public Challenges + Challenges in user's groups
+      );
       if (owned === 'not_owned') {
-        query.$and.push({ leader: { $ne: user._id } });
-        if (!user.hasPermission('moderator')) {
-          query.$and.push({ $not: { flagCount: { gt: 1 } } });
-        }
+        query.leader = { $ne: user._id }; // Challenges user does not own
+      } else if (owned === 'owned') {
+        query.leader = user._id; // Challenges user owns
+      } else { // ownership param not set, include owned challenges but don't restrict to them
+        orOptions.push(
+          { leader: user._id },
+        );
       }
-
-      if (owned === 'owned') {
-        query.$and.push({ leader: user._id });
-      }
-    } else if (!user.hasPermission('moderator')) {
-      query.$and.push({ $not: { flagCount: { gt: 1 } } });
     }
 
-    if (req.query.search) {
+    query.$and.push({ $or: orOptions });
+
+    if (search) {
       const searchOr = { $or: [] };
-      const searchWords = _.escapeRegExp(req.query.search).split(' ').join('|');
+      const searchWords = _.escapeRegExp(search).split(' ').join('|');
       const searchQuery = { $regex: new RegExp(`${searchWords}`, 'i') };
       searchOr.$or.push({ name: searchQuery });
       searchOr.$or.push({ description: searchQuery });
       query.$and.push(searchOr);
     }
 
-    if (req.query.categories) {
-      const categorySlugs = req.query.categories.split(',');
+    if (categories) {
+      const categorySlugs = categories.split(',');
       query.categories = { $elemMatch: { slug: { $in: categorySlugs } } };
     }
 
