@@ -302,7 +302,6 @@ export default {
         summary: '',
         description: '',
         categories: [],
-        flags: [],
         group: '',
         dailys: [],
         habits: [],

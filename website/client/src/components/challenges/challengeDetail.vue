@@ -461,13 +461,13 @@ export default {
     canJoin () {
       return !this.isMember;
     },
-    // canViewFlags should allow only moderators/aadmins to see flags
+    // canViewFlags should allow only moderators/admins to see flags
     canViewFlags () {
       const isAdmin = Boolean(this.user.contributor.admin);
       if (isAdmin && this.challenge.flagCount > 0) return true;
       return false;
     },
-    // flaggedNotHidden should allow moder/admins & challenge owner to see flags
+    // flaggedNotHidden should allow mods/admins & challenge owner to see flags
     flaggedNotHidden () {
       return this.challenge.flagCount === 1;
     },
@@ -664,6 +664,7 @@ export default {
     },
     cloneChallenge () {
       this.$root.$emit('habitica:clone-challenge', {
+        flags: this.challenge.flags = [],
         challenge: this.challenge,
       });
     },
