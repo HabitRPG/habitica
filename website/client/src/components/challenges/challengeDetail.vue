@@ -186,7 +186,7 @@
         v-if="isLeader || isAdmin"
         class="button-container"
       >
-        <div v-if="isFlagged && canViewFlags || isLeader">
+        <div v-if="isFlagged">
           <button
             v-once
             class="btn btn-disabled"
@@ -291,7 +291,7 @@
     background-color: $gray-700;
     color: $gray-50;
     box-shadow: none;
-    cursor: pointer;
+    cursor: arrow;
 
     &:hover {
       box-shadow: none;
@@ -463,8 +463,8 @@ export default {
     },
     // canViewFlags should allow only moderators/admins to see flags
     canViewFlags () {
-      const isAdmin = Boolean(this.user.contributor.admin);
-      if (isAdmin && this.challenge.flagCount > 0) return true;
+      const isModerator = this.hasPermission(this.user, 'moderator');
+      if (isModerator && this.challenge.flagCount > 0) return true;
       return false;
     },
     // flaggedNotHidden should allow mods/admins & challenge owner to see flags
@@ -477,7 +477,7 @@ export default {
     },
     // isFlagged disables the clone button
     isFlagged () {
-      return this.challenge.flagCount > 0;
+      return this.challenge.flagCount > 1;
     },
   },
   watch: {
@@ -664,7 +664,6 @@ export default {
     },
     cloneChallenge () {
       this.$root.$emit('habitica:clone-challenge', {
-        flags: this.challenge.flags = [],
         challenge: this.challenge,
       });
     },
