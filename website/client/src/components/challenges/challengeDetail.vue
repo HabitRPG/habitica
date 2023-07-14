@@ -186,7 +186,7 @@
         v-if="isLeader || isAdmin"
         class="button-container"
       >
-        <div v-if="isFlagged && canViewFlags">
+        <div v-if="isFlagged && canViewFlags || isLeader">
           <button
             v-once
             class="btn btn-disabled"
