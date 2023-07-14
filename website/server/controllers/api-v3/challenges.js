@@ -368,7 +368,7 @@ api.leaveChallenge = {
  * @apiParam (Query) {Number} page This parameter can be used to specify the page number
                                    for the user challenges result (the initial page is number 0).
  * @apiParam (Query) {String} [member] If set to `true` it limits results to challenges where the
-                                       user is a member.
+                                       user is a member, or the user owns the challenge.
  * @apiParam (Query) {String} [owned] If set to `owned` it limits results to challenges owned
                                       by the user. If set to `not_owned` it limits results
                                       to challenges not owned by the user.
@@ -415,15 +415,15 @@ api.getUserChallenges = {
       orOptions.push(
         { group: { $in: user.getGroups() } }, // Public Challenges + Challenges in user's groups
       );
-      if (owned === 'not_owned') {
-        query.leader = { $ne: user._id }; // Challenges user does not own
-      } else if (owned === 'owned') {
-        query.leader = user._id; // Challenges user owns
-      } else { // ownership param not set, include owned challenges but don't restrict to them
-        orOptions.push(
-          { leader: user._id },
-        );
-      }
+    }
+    if (owned === 'not_owned') {
+      query.leader = { $ne: user._id }; // Show only Challenges user does not own
+    } else if (owned === 'owned') {
+      query.leader = user._id; // Show only Challenges user owns
+    } else {
+      orOptions.push(
+        { leader: user._id }, // Additionally show Challenges user owns
+      );
     }
 
     query.$and.push({ $or: orOptions });
