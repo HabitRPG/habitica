@@ -33,7 +33,7 @@
     "bootstrap-vue": "^2.23.1",
     "chai": "^4.3.7",
     "core-js": "^3.31.0",
-    "dompurify": "^3.0.3",
+    "dompurify": "^3.0.5",
     "eslint": "^6.8.0",
     "eslint-config-habitrpg": "^6.2.0",
     "eslint-plugin-mocha": "^5.3.0",
