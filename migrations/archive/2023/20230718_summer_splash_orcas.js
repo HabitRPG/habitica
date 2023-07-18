@@ -21,7 +21,7 @@ async function updateUser (user) {
       data: {
         icon: 'notif_orca_pet',
         title: 'Orcas for Summer Splash!',
-        text: 'To celebrate Summer splash, we\'ve given you an Orca Pet!',
+        text: 'To celebrate Summer Splash, we\'ve given you an Orca Pet!',
         destination: 'stable',
       },
       seen: false,
@@ -33,7 +33,7 @@ async function updateUser (user) {
       data: {
         icon: 'notif_orca_mount',
         title: 'Orcas for Summer Splash!',
-        text: 'To celebrate Summer splash, we\'ve given you an Orca Mount!',
+        text: 'To celebrate Summer Splash, we\'ve given you an Orca Mount!',
         destination: 'stable',
       },
       seen: false,
@@ -42,7 +42,7 @@ async function updateUser (user) {
 
   if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
 
-  return await User.updateOne({ $set: set, $push: push }).exec();
+  return await user.updateOne({ $set: set, $push: push }).exec();
 }
 
 export default async function processUsers () {
@@ -62,7 +62,6 @@ export default async function processUsers () {
       .limit(250)
       .sort({_id: 1})
       .select(fields)
-      .lean()
       .exec();
 
     if (users.length === 0) {
