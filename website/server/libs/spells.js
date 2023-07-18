@@ -281,7 +281,6 @@ async function castSpell (req, res, { isV3 = false }) {
               times: lastMessage.info.times + 1,
             },
           });
-          console.log(newChatMessage);
           await newChatMessage.save();
           await lastMessage.remove();
         }

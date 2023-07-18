@@ -90,7 +90,12 @@ export function translateMessage (lang, info) {
       break;
 
     case 'spell_cast_user_multi':
-      msg = shared.i18n.t('chatCastSpellUserTimes', { username: info.user, spell: spells[info.class][info.spell].text(lang), target: info.target, times: info.times }, lang);
+      msg = shared.i18n.t('chatCastSpellUserTimes', {
+        username: info.user,
+        spell: spells[info.class][info.spell].text(lang),
+        target: info.target,
+        times: info.times,
+      }, lang);
       break;
 
     case 'quest_cancel':
@@ -122,7 +127,7 @@ export function translateMessage (lang, info) {
       break;
 
     default:
-      msg = "Error translating party chat. Unknown message type.";
+      msg = 'Error translating party chat. Unknown message type.';
   }
 
   if (!msg.includes('`')) {
