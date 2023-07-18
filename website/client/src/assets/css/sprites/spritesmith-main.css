@@ -35848,6 +35848,16 @@
   width: 20px;
   height: 24px;
 }
+.notif_orca_mount {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/notif_orca_mount.png');
+  width: 28px;
+  height: 28px;
+}
+.notif_orca_pet {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/notif_orca_pet.png');
+  width: 28px;
+  height: 28px;
+}
 .npc_bailey {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/npc_bailey.png');
   width: 60px;
