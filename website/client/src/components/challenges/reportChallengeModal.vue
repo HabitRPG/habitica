@@ -1,34 +1,34 @@
 <template>
   <b-modal
     id="report-challenge"
-    :title="$t('abuseFlagModalHeading')"
     size="md"
     :hide-footer="true"
+    :hide-header="true"
   >
     <div class="modal-body">
-      <strong v-html="$t('abuseFlagModalHeading')"></strong>
+      <div class="heading">
+        <h5
+          v-html="$t('abuseFlagModalHeading')"
+        >
+        </h5>
+      </div>
       <blockquote>
-        <div v-html="abuseObject.name"></div>
+        <div
+          v-html="abuseObject.name"
+        >
+        </div>
       </blockquote>
       <div>
-        <strong>{{ $t('whyReportingChallenge') }}</strong>
-        <span class="optional">{{ $t('optional') }}</span>
+        <span class="why-report">{{ $t('whyReportingChallenge') }}</span>
         <textarea
           v-model="reportComment"
           class="form-control"
           :placeholder="$t('whyReportingChallengePlaceholder')"
         ></textarea>
       </div>
-      <small v-html="$t('abuseFlagModalBodyChallenge', abuseFlagModalBody)"></small>
+      <p v-html="$t('abuseFlagModalBodyChallenge', abuseFlagModalBody)"></p>
     </div>
     <div class="footer text-center">
-      <button
-        v-if="user.contributor.admin"
-        class="reset-flag-count pull-left btn btn-danger"
-        @click="clearFlagCount()"
-      >
-        Reset Flag Count
-      </button>
       <a
         class="cancel-link"
         @click.prevent="close()"
@@ -39,36 +39,66 @@
       >
         {{ $t('report') }}
       </button>
+      <button
+        v-if="user.contributor.admin"
+        class="reset-flag-count pull-left btn btn-danger"
+        @click="clearFlagCount()"
+      >
+        Reset Flag Count
+      </button>
     </div>
   </b-modal>
 </template>
 
 <style>
   #report-challenge h5 {
-    color: #f23035;
+    color: #F23035;
   }
+
+  .modal-header {
+    border: none;
+  }
+
 </style>
 
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
 
    .modal-body {
-     margin-top: 1em;
+     margin-top: 0px;
+     padding-top: 0px;
    }
+  .heading h5 {
+    margin-top: 16px;
+    margin-bottom: 24px;
+    color: $red-10;
+    line-height: 1.4;
+  }
+
+  .why-report {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.71;
+    color: $gray-50;
+  }
 
    blockquote {
-     border-radius: 2px;
-     background-color: #f4f4f4;
-     padding: 1em;
-     margin-top: 1em;
+     border-radius: 4px;
+     background-color: $gray-700;
+     padding: 8px 0px 8px 16px;
+     margin-top: 24px;
+     font-weight: bold;
+     color: $gray-10;
+     height: 40px;
    }
 
    textarea {
-     margin-top: 1em;
-     margin-bottom: 1em;
-     border-radius: 2px;
+     margin-top: 8px;
+     margin-bottom: 16px;
+     border-radius: 4px;
      border: solid 1px $gray-400;
-     min-height: 106px;
+     height: 64px;
+     font-size: 14px;
    }
 
    .footer {
@@ -79,11 +109,6 @@
    a.cancel-link {
      color: $blue-10;
      margin-right: .5em;
-   }
-
-   .optional {
-     color: $gray-200;
-     float: right;
    }
 
    .reset-flag-count {
