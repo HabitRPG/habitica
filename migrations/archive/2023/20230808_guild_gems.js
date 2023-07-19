@@ -2,42 +2,35 @@
 import { model as User } from '../../../website/server/models/user';
 import { model as Group } from '../../../website/server/models/group';
 
-const MIGRATION_NAME = '20230808_guild_gems';
-
 const guildsPerRun = 500;
 const progressCount = 1000;
 const guildsQuery = {
-  migration: { $ne: MIGRATION_NAME }, // skip already migrated entries
   'type': 'guild',
 };
 
 let count = 0;
 async function updateGroup (guild) {
   count++;
-
-  const set = {
-    migration: MIGRATION_NAME,
-  };
-
-  if (guild.balance > 0 && !guild.hasActiveGroupPlan()) {
-    const leader = await User
-      .findOne({ _id: guild.leader })
-      .select({ _id: true })
-      .exec();
-
-    if (!leader) {
-      return console.warn(`Leader not found for Guild ${guild._id}`);
-    }
-
-    await leader.updateOne({ $inc: { balance: guild.balance }}).exec();
-    set.balance = 0;
-  }
-
   if (count % progressCount === 0) {
     console.warn(`${count} ${guild._id}`);
   }
 
-  return guild.updateOne({ $set: set }).exec();
+  if (guild.hasActiveGroupPlan()) {
+    return console.warn(`Guild ${guild._id} is active Group Plan`);
+  }
+
+  const leader = await User
+    .findOne({ _id: guild.leader })
+    .select({ _id: true })
+    .exec();
+
+  if (!leader) {
+    return console.warn(`Leader not found for Guild ${guild._id}`);
+  }
+
+  await leader.updateOne({ $inc: { balance: guild.balance }}).exec();
+
+  return guild.updateOne({ $set: { balance: 0 } }).exec();
 }
 
 export default async function processGroups () {
@@ -59,6 +52,10 @@ export default async function processGroups () {
       console.warn('All appropriate Guilds found and modified.');
       console.warn(`\n${count} Guilds processed\n`);
       break;
+    } else {
+      guildsQuery._id = {
+        $gt: foundGroups[foundGroups.length - 1],
+      };
     }
 
     await Promise.all(foundGroups.map(guild => updateGroup(guild))); // eslint-disable-line no-await-in-loop
