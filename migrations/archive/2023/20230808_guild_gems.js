@@ -38,6 +38,7 @@ export default async function processGroups () {
     _id: 1,
     balance: 1,
     leader: 1,
+    purchased: 1,
   };
 
   while (true) { // eslint-disable-line no-constant-condition
