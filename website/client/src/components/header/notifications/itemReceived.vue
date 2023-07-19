@@ -44,13 +44,13 @@ export default {
       if (!this.notification || !this.notification.data) {
         return;
       }
-      if (this.notification.data.destination === 'backgrounds') {
+      if (this.notification.data.destination.indexOf('backgrounds') !== -1) {
         this.$store.state.avatarEditorOptions.editingUser = true;
         this.$store.state.avatarEditorOptions.startingPage = 'backgrounds';
         this.$store.state.avatarEditorOptions.subpage = '2023';
         this.$root.$emit('bv::show::modal', 'avatar-modal');
       } else {
-        this.$router.push({ name: this.notification.data.destination || 'items' });
+        this.$router.push(this.notification.data.destination || '/inventory/items' );
       }
     },
   },
