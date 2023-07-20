@@ -50,7 +50,7 @@ export default {
         this.$store.state.avatarEditorOptions.subpage = '2023';
         this.$root.$emit('bv::show::modal', 'avatar-modal');
       } else {
-        this.$router.push(this.notification.data.destination || '/inventory/items' );
+        this.$router.push(this.notification.data.destination || '/inventory/items');
       }
     },
   },
