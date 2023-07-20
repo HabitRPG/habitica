@@ -590,9 +590,10 @@ api.joinGroup = {
             if (userPreviousParty) await userPreviousParty.leave(user);
           }
         }
-        // Clear all invitations of new user
+        // Clear all invitations of new user and reset looking for party state
         user.invitations.parties = [];
         user.invitations.party = {};
+        user.party.seeking = null;
 
         // invite new user to pending quest
         if (group.quest.key && !group.quest.active) {
