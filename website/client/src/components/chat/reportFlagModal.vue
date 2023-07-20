@@ -170,7 +170,7 @@
       margin-bottom: 16px;
    }
 
-   .disabled {
+   .btn-danger.disabled {
       background-color: $white;
       color: $gray-50;
       line-height: 1.71;
@@ -237,6 +237,7 @@ export default {
       this.$root.$emit('bv::hide::modal', 'report-flag');
     },
     async reportAbuse () {
+      if (!this.reportComment) return;
       this.text(this.$t(this.groupId === 'privateMessage' ? 'pmReported' : 'abuseReported'));
 
       const result = await this.$store.dispatch('chat:flag', {
