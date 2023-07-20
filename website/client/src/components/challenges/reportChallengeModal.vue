@@ -99,7 +99,7 @@
   @import '~@/assets/scss/colors.scss';
 
    .modal-body {
-     padding: 0px 16px 0px 16px;
+     padding: 0px 8px 0px 8px;
    }
 
   span.svg-icon.icon-16 {
