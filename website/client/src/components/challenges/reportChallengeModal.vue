@@ -3,7 +3,7 @@
     id="report-challenge"
     size="md"
     :hide-footer="true"
-    :hide-header="true"
+    :hide-header="false"
   >
     <div class="modal-body">
       <div class="heading">
@@ -26,26 +26,39 @@
           :placeholder="$t('whyReportingChallengePlaceholder')"
         ></textarea>
       </div>
-      <p v-html="$t('abuseFlagModalBodyChallenge', abuseFlagModalBody)"></p>
-    </div>
-    <div class="footer text-center">
-      <a
-        class="cancel-link"
-        @click.prevent="close()"
-      >{{ $t('cancel') }}</a>
-      <button
-        class="btn btn-danger"
-        @click="reportAbuse()"
+      <p
+        class="report-guidelines"
+        v-html="$t('abuseFlagModalBodyChallenge', abuseFlagModalBody)"
       >
-        {{ $t('report') }}
-      </button>
-      <button
+      </p>
+    </div>
+    <div class="buttons text-center">
+      <div class="button-spacing">
+        <button
+          class="btn btn-danger"
+          :class="{disabled: !reportComment}"
+          @click="reportAbuse()"
+        >
+          {{ $t('report') }}
+        </button>
+      </div>
+      <div class="button-spacing">
+        <a
+          class="cancel-link"
+          @click.prevent="close()"
+        >
+          {{ $t('cancel') }}
+        </a>
+      </div>
+    </div>
+    <div class="reset-flag-count d-flex">
+      <span
         v-if="user.contributor.admin"
-        class="reset-flag-count pull-left btn btn-danger"
+        class="my-auto"
         @click="clearFlagCount()"
       >
-        Reset Flag Count
-      </button>
+        {{ $t('resetFlags') }}
+      </span>
     </div>
   </b-modal>
 </template>
@@ -57,6 +70,14 @@
 
   .modal-header {
     border: none;
+    padding-bottom: 0px;
+    padding-top: 12px;
+    height: 16px;
+    align-content: center;
+  }
+
+  .modal-content {
+    padding: 0px;
   }
 
 </style>
@@ -65,21 +86,25 @@
   @import '~@/assets/scss/colors.scss';
 
    .modal-body {
-     margin-top: 0px;
-     padding-top: 0px;
+     padding: 0px 16px 0px 16px;
    }
+
   .heading h5 {
-    margin-top: 16px;
     margin-bottom: 24px;
     color: $red-10;
     line-height: 1.4;
   }
 
   .why-report {
-    font-size: 14px;
+    font-size: 1em;
     font-weight: bold;
     line-height: 1.71;
     color: $gray-50;
+  }
+
+  .report-guidelines {
+    line-height: 1.71;
+    padding-bottom: 8px;
   }
 
    blockquote {
@@ -98,22 +123,40 @@
      border-radius: 4px;
      border: solid 1px $gray-400;
      height: 64px;
-     font-size: 14px;
+     font-size: 1em;
    }
 
-   .footer {
-     padding: 1em;
-     padding-bottom: 2em;
+   .buttons {
+     padding: 0 16px 0 16px;
+     margin-bottom: 16px;
+   }
+
+   .button-spacing {
+      margin-bottom: 16px;
+   }
+
+   .disabled {
+      background-color: $white;
+      color: $gray-50;
+      line-height: 1.71;
+      font-size: 1em;
    }
 
    a.cancel-link {
-     color: $blue-10;
-     margin-right: .5em;
+     color: $purple-300;
    }
 
    .reset-flag-count {
-     margin-right: .5em;
+     margin: 16px -16px -16px -16px;
+     height: 48px;
+     color: $maroon-50;
+     background-color: rgba(255, 182, 184, 0.25);
+     border-bottom-left-radius: 8px;
+     border-bottom-right-radius: 8px;
+     justify-content: center;
+     cursor: pointer;
    }
+
 </style>
 
 <script>
