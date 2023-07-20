@@ -67,7 +67,6 @@
       @click="clearFlagCount()"
     >
       <span
-        v-if="user.contributor.admin"
         class="my-auto"
         @click="clearFlagCount()"
       >
