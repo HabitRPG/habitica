@@ -3,7 +3,7 @@
     id="report-challenge"
     size="md"
     :hide-footer="true"
-    :hide-header="false"
+    :hide-header="true"
   >
     <div class="modal-body">
       <div class="heading">
@@ -11,6 +11,16 @@
           v-html="$t('abuseFlagModalHeading')"
         >
         </h5>
+      </div>
+      <div>
+        <span
+          class="svg-icon close-icon icon-16 color"
+          aria-hidden="true"
+          tabindex="0"
+          @click="close()"
+          @keypress.enter="close()"
+          v-html="icons.close"
+        ></span>
       </div>
       <blockquote>
         <div
@@ -51,7 +61,10 @@
         </a>
       </div>
     </div>
-    <div class="reset-flag-count d-flex">
+    <div
+      class="reset-flag-count d-flex"
+      @click="clearFlagCount()"
+    >
       <span
         v-if="user.contributor.admin"
         class="my-auto"
@@ -89,8 +102,25 @@
      padding: 0px 16px 0px 16px;
    }
 
+  span.svg-icon.icon-16 {
+    height: 16px;
+    width: 16px;
+    margin-top: -32px;
+    margin-right: -16px;
+  }
+
+    .close-icon {
+      color: $gray-300;
+      stroke-width: 0px;
+
+      &:hover {
+          color: $gray-200;
+      }
+    }
+
   .heading h5 {
     margin-bottom: 24px;
+    margin-top: 16px;
     color: $red-10;
     line-height: 1.4;
   }
@@ -126,6 +156,10 @@
      font-size: 1em;
    }
 
+   .btn {
+    width: 75px
+   }
+
    .buttons {
      padding: 0 16px 0 16px;
      margin-bottom: 16px;
@@ -155,6 +189,10 @@
      border-bottom-right-radius: 8px;
      justify-content: center;
      cursor: pointer;
+
+     &:hover {
+      text-decoration: underline;
+     }
    }
 
 </style>
@@ -163,6 +201,7 @@
 import { mapState } from '@/libs/store';
 import notifications from '@/mixins/notifications';
 import markdownDirective from '@/directives/markdown';
+import svgClose from '@/assets/svg/close.svg';
 
 export default {
   directives: {
@@ -181,6 +220,9 @@ export default {
       abuseObject: '',
       groupId: '',
       reportComment: '',
+      icons: Object.freeze({
+        close: svgClose,
+      }),
     };
   },
   computed: {
