@@ -62,6 +62,7 @@
       </div>
     </div>
     <div
+      v-if="user.contributor.admin"
       class="reset-flag-count d-flex"
       @click="clearFlagCount()"
     >
