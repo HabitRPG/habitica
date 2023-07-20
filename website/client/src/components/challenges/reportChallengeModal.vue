@@ -67,7 +67,6 @@
       @click="clearFlagCount()"
     >
       <span
-        v-if="user.contributor.admin"
         class="my-auto"
         @click="clearFlagCount()"
       >
@@ -170,7 +169,7 @@
       margin-bottom: 16px;
    }
 
-   .disabled {
+   .btn-danger.disabled {
       background-color: $white;
       color: $gray-50;
       line-height: 1.71;
@@ -240,6 +239,7 @@ export default {
       this.$root.$emit('bv::hide::modal', 'report-challenge');
     },
     async reportAbuse () {
+      if (!this.reportComment) return;
       this.$store.dispatch('challenges:flag', {
         challengeId: this.abuseObject.id,
         comment: this.reportComment,
