@@ -1409,6 +1409,7 @@ api.getLookingForParty = {
       .exec();
 
     const filteredSeekers = seekers.filter(seeker => {
+      if (seeker.party._id) return false;
       if (seeker.flags.chatRevoked) return false;
       if (seeker.auth.blocked) return false;
       if (seeker.inbox.blocks.indexOf(user._id) !== -1) return false;
