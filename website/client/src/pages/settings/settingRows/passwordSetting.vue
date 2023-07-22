@@ -154,9 +154,15 @@ export default {
     },
   },
   methods: {
-    async changePassword (updates) {
+    async changePassword () {
       await this.passwordInputCheckMixinTryCall(async () => {
-        await axios.put('/api/v4/user/auth/update-password', updates);
+        const localAuthData = {
+          password: this.passwordUpdates.password,
+          newPassword: this.passwordUpdates.newPassword,
+          confirmPassword: this.passwordUpdates.confirmPassword,
+        };
+
+        await axios.put('/api/v4/user/auth/update-password', localAuthData);
 
         this.passwordUpdates = {};
         this.$store.dispatch('snackbars:add', {
