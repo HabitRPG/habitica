@@ -140,5 +140,7 @@
     "deleteTaskType": "Hapus <%= type %> ini",
     "editTagsText": "Ubah Tanda",
     "pressEnterToAddTag": "Tekan Enter untuk menambahkan penanda: '<%= tagName %>'",
-    "taskSummary": "Ringkasan <%= type %>"
+    "taskSummary": "Ringkasan <%= type %>",
+    "scoreDown": "Kalah",
+    "scoreUp": "Menang"
 }

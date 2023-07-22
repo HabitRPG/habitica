@@ -1289,6 +1289,8 @@
   "armorMystery202304Notes": "Here is your handle and here is your spout! Confers no benefit. April 2023 Subscriber Item.",
   "armorMystery202306Text": "Rainbow Parka",
   "armorMystery202306Notes": "No one’s going to rain on your parade! And if they try, you’ll stay colorful and dry! Confers no benefit. June 2023 Subscriber Item.",
+  "armorMystery202307Text": "Kraken's Tentacles",
+  "armorMystery202307Notes": "Suction cups have the best traction on the sea floor and on the sides of wayward ships. Confers no benefit. July 2023 Subscriber Item.",
 
   "armorMystery301404Text": "Steampunk Suit",
   "armorMystery301404Notes": "Dapper and dashing, wot! Confers no benefit. February 3015 Subscriber Item.",
@@ -1483,6 +1485,8 @@
   "armorArmoireStripedRainbowShirtNotes": "The colors of the rainbow have never looked so good before. Be bold! Increases Strength and Intelligence by <%= attrs %> each. Enchanted Armoire: Rainbow Set (Item 1 of 2).",
   "armorArmoireDiagonalRainbowShirtText": "Diagonal Rainbow Shirt",
   "armorArmoireDiagonalRainbowShirtNotes": "A splash of color with a dash of style. Be joyful! Increases Constitution and Perception by <%= attrs %> each. Enchanted Armoire: Rainbow Set (Item 2 of 2).",
+  "armorArmoireAdmiralsUniformText": "Admiral's Uniform",
+  "armorArmoireAdmiralsUniformNotes": "We salute you! This naval uniform signals that you’re ready to take command of your tasks as well as a ship. Increases Constitution and Strength by <%= attrs %> each. Enchanted Armoire: Admiral’s Set (Item 2 of 2).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -2272,7 +2276,9 @@
   "headArmoireBeaniePropellerHatText": "Beanie Propeller Hat",
   "headArmoireBeaniePropellerHatNotes": "This isn’t the time to keep your feet on the ground! Spin this little propeller and rise as high as your ambitions will take you. Increases all stats by <%= attrs %>. Enchanted Armoire: Independent Item.",
   "headArmoirePaintersBeretText": "Painter's Beret",
-  "headArmoirePaintersBeretNotes": "See the world with a more artistic eye when you wear this jaunty beret. Increases Perception by <%= per %>. Enchanted Armoire: Painter Set (Item 2 of 4).",  
+  "headArmoirePaintersBeretNotes": "See the world with a more artistic eye when you wear this jaunty beret. Increases Perception by <%= per %>. Enchanted Armoire: Painter Set (Item 2 of 4).",
+  "headArmoireAdmiralsBicorneText": "Admiral's Bicorne Hat",
+  "headArmoireAdmiralsBicorneNotes": "Hats off to you! Wearing this two-cornered hat will make you wiser, brighter, braver...and taller. Increases Intelligence and Perception by <%= attrs %> each. Enchanted Armoire: Admiral’s Set (Item 1 of 2).",
 
   "offhand": "off-hand item",
   "offHandCapitalized": "Off-Hand Item",
@@ -2980,6 +2986,9 @@
   "headAccessoryMystery202302Notes": "The purr-fect accessory to set off your enchanting grin. Confers no benefit. February 2023 Subscriber Item.",
   "headAccessoryMystery202305Text": "Eventide Horns",
   "headAccessoryMystery202305Notes": "These horns glow with reflected moonlight. Confers no benefit. May 2023 Subscriber Item.",
+  "headAccessoryMystery202307Text": "Kraken's Crown",
+  "headAccessoryMystery202307Notes": "This mighty circlet summons cyclones and stormy weather! Confers no benefit. July 2023 Subscriber Item.",
+
   "headAccessoryMystery301405Text": "Headwear Goggles",
   "headAccessoryMystery301405Notes": "\"Goggles are for your eyes,\" they said. \"Nobody wants goggles that you can only wear on your head,\" they said. Hah! You sure showed them! Confers no benefit. August 3015 Subscriber Item.",
 

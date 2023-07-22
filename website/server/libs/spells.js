@@ -1,4 +1,5 @@
 import { model as User } from '../models/user';
+import { chatModel as Chat } from '../models/message';
 import * as Tasks from '../models/task';
 import {
   NotFound,
@@ -241,7 +242,49 @@ async function castSpell (req, res, { isV3 = false }) {
     });
 
     if (party && !spell.silent) {
-      if (targetType === 'user') {
+      const lastMessage = await Chat.findOne({ groupId: party._id })
+        .sort('-timestamp')
+        .exec();
+      if (lastMessage && lastMessage.info.spell === spellId
+        && lastMessage.info.user === user.profile.name) {
+        if (targetType === 'user') {
+          const newChatMessage = party.sendChat({
+            message: `\`${common.i18n.t('chatCastSpellUserTimes', {
+              username: user.profile.name,
+              spell: spell.text(),
+              target: partyMembers.profile.name,
+              times: lastMessage.info.times + 1,
+            }, 'en')}\``,
+            info: {
+              type: 'spell_cast_user_multi',
+              user: user.profile.name,
+              class: klass,
+              spell: spellId,
+              target: partyMembers.profile.name,
+              times: lastMessage.info.times + 1,
+            },
+          });
+          await newChatMessage.save();
+          await lastMessage.remove();
+        } else {
+          const newChatMessage = party.sendChat({
+            message: `\`${common.i18n.t('chatCastSpellPartyTimes', {
+              username: user.profile.name,
+              spell: spell.text(),
+              times: lastMessage.info.times + 1,
+            }, 'en')}\``,
+            info: {
+              type: 'spell_cast_party_multi',
+              user: user.profile.name,
+              class: klass,
+              spell: spellId,
+              times: lastMessage.info.times + 1,
+            },
+          });
+          await newChatMessage.save();
+          await lastMessage.remove();
+        }
+      } else if (targetType === 'user') {
         const newChatMessage = party.sendChat({
           message: `\`${common.i18n.t('chatCastSpellUser', { username: user.profile.name, spell: spell.text(), target: partyMembers.profile.name }, 'en')}\``,
           info: {
@@ -250,6 +293,7 @@ async function castSpell (req, res, { isV3 = false }) {
             class: klass,
             spell: spellId,
             target: partyMembers.profile.name,
+            times: 1,
           },
         });
         await newChatMessage.save();
@@ -261,6 +305,7 @@ async function castSpell (req, res, { isV3 = false }) {
             user: user.profile.name,
             class: klass,
             spell: spellId,
+            times: 1,
           },
         });
         await newChatMessage.save();

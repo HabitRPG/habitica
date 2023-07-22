@@ -147,5 +147,8 @@
     "achievementPolarProText": "Собраны все полярные питомцы: медведь, лиса, пингвин, кит и волк!",
     "achievementPlantParent": "Прародитель растений",
     "achievementPlantParentModalText": "Вы собрали всех питомцев растений!",
-    "achievementPlantParentText": "Вы собрали все стандартные цвета питомцев растений: Кактус и Древолаз"
+    "achievementPlantParentText": "Вы собрали все стандартные цвета питомцев растений: Кактус и Древолаз",
+    "achievementDinosaurDynasty": "Династия динозавров",
+    "achievementDinosaurDynastyModalText": "Вы собрали всех питомцев птиц и динозавров!",
+    "achievementDinosaurDynastyText": "Вы вылупили всех питомцев, птиц и динозавров, стандартново цвета: Сокол, Сова, Попугай, Павлин, Пингвин, Петух, Птеродактиль, Тираннозавр, Трицератопс и Велоцираптор!"
 }

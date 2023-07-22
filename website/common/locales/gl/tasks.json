@@ -22,7 +22,7 @@
     "checklist": "Lista",
     "newChecklistItem": "Novo elemento de lista",
     "expandChecklist": "Expandir a lista",
-    "collapseChecklist": "Contraer a lista",
+    "collapseChecklist": "Recoller a lista",
     "text": "Título",
     "notes": "Notes",
     "advancedSettings": "Configuración avanzada",
@@ -58,7 +58,7 @@
     "due": "Hoxe",
     "notDue": "Hoxe non",
     "grey": "Gris",
-    "score": "Marcador",
+    "score": "Puntuación",
     "reward": "Recompensa",
     "rewards": "Recompensas",
     "rewardsDesc": "As recompensas son unha forma xenial de usar Habitica para completar as túas tarefas. Proba a engadir un par delas hoxe!",
@@ -99,7 +99,7 @@
     "checklistItemNotFound": "Non se atopou ningún elemento da lista co id dado.",
     "itemIdRequired": "\"itemId\" debe ser un UUID válido.",
     "tagNotFound": "Non se atopou ningún elemento da etiqueta co id dado.",
-    "tagIdRequired": "\"tagId\" debe ser un UUID válido correspondente e unha etiqueta pertencente ao usuario.",
+    "tagIdRequired": "«tagId» debe ser un UUID válido correspondente e unha etiqueta pertencente á persoa usuaria.",
     "positionRequired": "\"position\" é obrigatoria e debe ser un número.",
     "cantMoveCompletedTodo": "Non se pode mover unha tarefa completada.",
     "directionUpDown": "\"position\" é requerida e debe ser 'up' ou 'down'",
@@ -140,5 +140,7 @@
     "sureDeleteType": "Seguro que queres eliminar esta <%= type %>?",
     "addTags": "Engadir etiquetas…",
     "enterTag": "Escriba unha etiqueta",
-    "taskSummary": "Resumo de <%= type %>"
+    "taskSummary": "Resumo de <%= type %>",
+    "scoreUp": "Subir a puntuación",
+    "scoreDown": "Baixar a puntuación"
 }
