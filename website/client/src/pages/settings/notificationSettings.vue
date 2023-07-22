@@ -114,14 +114,18 @@
             {{ $t('baileyAnnouncement') }}
           </td>
           <td class="email_push_col show_bailey_col">
+            <b-popover
+              target="viewBaileyLink"
+              triggers="hover"
+              placement="right"
+              :content="$t('showBaileyPop')"
+            />
             <a
+              id="viewBaileyLink"
               class="show_bailey_link"
-              popover-trigger="mouseenter"
-              popover-placement="right"
-              :popover="$t('showBaileyPop')"
               @click="showBailey()"
             >
-              {{ $t('show') }}
+              {{ $t('view') }}
             </a>
           </td>
         </tr>
