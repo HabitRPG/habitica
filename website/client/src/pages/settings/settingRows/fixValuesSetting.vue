@@ -228,7 +228,6 @@ export default {
     },
     save () {
       if (!this.validateInputs()) {
-        console.info('invalid1!!');
         return;
       }
 
