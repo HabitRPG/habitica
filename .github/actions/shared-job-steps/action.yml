@@ -16,6 +16,7 @@ inputs:
     description: 'if package-install-cmd skipped post install, you can trigger an installation of website'
     required: false
     default: 'false'
+
   website-package-install-cmd:
     description: 'CI or install or custom to skip post install and unneeded builds'
     required: false
@@ -34,7 +35,7 @@ runs:
       with:
         path: |
           **/node_modules
-        key: ${{ runner.os }}-${{ inputs.node-version }}-${{ hashFiles('**/package.json') }}
+        key: ${{ runner.os }}-${{ inputs.node-version }}-${{ inputs.node-env }}-${{ inputs.install-website-package }}-${{ hashFiles('**/package.json') }}
 
     - name: Create dummy config.json
       shell: bash
