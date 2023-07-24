@@ -420,6 +420,25 @@ const armor = {
     per: 10,
     set: 'oldTimeyBasketball',
   },
+  paintersApron: {
+    con: 10,
+    set: 'painters',
+  },
+  stripedRainbowShirt: {
+    str: 7,
+    int: 7,
+    set: 'rainbow',
+  },
+  diagonalRainbowShirt: {
+    con: 7,
+    per: 7,
+    set: 'rainbow',
+  },
+  admiralsUniform: {
+    con: 7,
+    str: 7,
+    set: 'admiralsSet',
+  },
 };
 
 const body = {
@@ -851,6 +870,15 @@ const head = {
     str: 3,
     int: 3,
   },
+  paintersBeret: {
+    per: 9,
+    set: 'painters',
+  },
+  admiralsBicorne: {
+    int: 7,
+    per: 7,
+    set: 'admiralsSet',
+  },
 };
 
 const shield = {
@@ -1160,6 +1188,10 @@ const shield = {
     con: 5,
     str: 5,
     set: 'oldTimeyBasketball',
+  },
+  paintersPalette: {
+    str: 7,
+    set: 'painters',
   },
 };
 
@@ -1602,6 +1634,10 @@ const weapon = {
   finelyCutGem: {
     con: 10,
     set: 'jewelers',
+  },
+  paintbrush: {
+    int: 8,
+    set: 'painters',
   },
 };
 

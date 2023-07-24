@@ -121,7 +121,7 @@ async function checkNewInputForProfanity (user, res, newValue) {
 export async function update (req, res, { isV3 = false }) {
   const { user } = res.locals;
 
-  const promisesForTagsRemoval = [];
+  let promisesForTagsRemoval = [];
 
   if (req.body['party.seeking'] !== undefined && req.body['party.seeking'] !== null) {
     user.invitations.party = {};
@@ -130,6 +130,7 @@ export async function update (req, res, { isV3 = false }) {
       uuid: user._id,
       hitType: 'event',
       category: 'behavior',
+      headers: req.headers,
     });
   }
 
@@ -187,6 +188,7 @@ export async function update (req, res, { isV3 = false }) {
         uuid: user._id,
         hitType: 'event',
         category: 'behavior',
+        headers: req.headers,
       });
     } else if (key === 'tags') {
       if (!Array.isArray(val)) throw new BadRequest('Tag list must be an array.');
@@ -218,13 +220,13 @@ export async function update (req, res, { isV3 = false }) {
       // Remove from all the tasks
       // NOTE each tag to remove requires a query
 
-      promisesForTagsRemoval.push(removedTagsIds.map(tagId => Tasks.Task.update({
+      promisesForTagsRemoval = removedTagsIds.map(tagId => Tasks.Task.updateMany({
         userId: user._id,
       }, {
         $pull: {
           tags: tagId,
         },
-      }, { multi: true }).exec()));
+      }).exec());
     } else if (key === 'flags.newStuff' && val === false) {
       // flags.newStuff was removed from the user schema and is only returned for compatibility
       // reasons but we're keeping the ability to set it in API v3
@@ -274,6 +276,7 @@ export async function reset (req, res, { isV3 = false }) {
     uuid: user._id,
     hitType: 'event',
     category: 'behavior',
+    headers: req.headers,
   });
 
   res.respond(200, ...resetRes);

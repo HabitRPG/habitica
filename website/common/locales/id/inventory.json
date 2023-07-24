@@ -1,8 +1,10 @@
 {
-  "noItemsAvailableForType": "Kamu tidak punya <%= type %>.",
-  "foodItemType": "Makanan",
-  "eggsItemType": "Telur",
-  "hatchingPotionsItemType": "Ramuan Penetas",
-  "specialItemType": "Item Spesial",
-  "lockedItem": "Item Terkunci"
+    "noItemsAvailableForType": "Kamu tidak punya <%= type %>.",
+    "foodItemType": "Makanan",
+    "eggsItemType": "Telur",
+    "hatchingPotionsItemType": "Ramuan Penetas",
+    "specialItemType": "Item Spesial",
+    "lockedItem": "Item Terkunci",
+    "petAndMount": "Peliharaan dan Tunggangan",
+    "allItems": "Semua Item"
 }

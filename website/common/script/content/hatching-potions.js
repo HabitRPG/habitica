@@ -88,26 +88,26 @@ const premium = {
     value: 2,
     text: t('hatchingPotionFairy'),
     limited: true,
-    event: EVENTS.potions202105,
+    event: EVENTS.potions202305,
     _addlNotes: t('eventAvailabilityReturning', {
       availableDate: t('dateEndMay'),
-      previousDate: t('mayYYYY', { year: 2020 }),
+      previousDate: t('mayYYYY', { year: 2021 }),
     }),
     canBuy () {
-      return moment().isBefore(EVENTS.potions202105.end);
+      return moment().isBefore(EVENTS.potions202305.end);
     },
   },
   Floral: {
     value: 2,
     text: t('hatchingPotionFloral'),
     limited: true,
-    event: EVENTS.potions202205,
+    event: EVENTS.potions202305,
     _addlNotes: t('eventAvailabilityReturning', {
       availableDate: t('dateEndMay'),
-      previousDate: t('mayYYYY', { year: 2021 }),
+      previousDate: t('mayYYYY', { year: 2022 }),
     }),
     canBuy () {
-      return moment().isBefore(EVENTS.potions202205.end);
+      return moment().isBefore(EVENTS.potions202305.end);
     },
   },
   Aquatic: {
@@ -233,11 +233,11 @@ const premium = {
     limited: true,
     _addlNotes: t('eventAvailabilityReturning', {
       availableDate: t('dateEndJuly'),
-      previousDate: t('juneYYYY', { year: 2019 }),
+      previousDate: t('juneYYYY', { year: 2021 }),
     }),
-    event: EVENTS.summer2021,
+    event: EVENTS.summer2023,
     canBuy () {
-      return moment().isBetween(EVENTS.summer2021.start, EVENTS.summer2021.end);
+      return moment().isBetween(EVENTS.summer2023.start, EVENTS.summer2023.end);
     },
   },
   Glow: {
@@ -409,13 +409,13 @@ const premium = {
     value: 2,
     text: t('hatchingPotionSandSculpture'),
     limited: true,
-    event: EVENTS.birthday10,
+    event: EVENTS.summer2023,
     _addlNotes: t('eventAvailabilityReturning', {
-      availableDate: t('dateStartFebruary'),
-      previousDate: t('julyYYYY', { year: 2021 }),
+      availableDate: t('dateEndJuly'),
+      previousDate: t('januaryYYYY', { year: 2023 }),
     }),
     canBuy () {
-      return moment().isBetween(EVENTS.birthday10.start, EVENTS.birthday10.end);
+      return moment().isBetween(EVENTS.summer2023.start, EVENTS.summer2023.end);
     },
   },
   Windup: {
@@ -502,13 +502,13 @@ const premium = {
     value: 2,
     text: t('hatchingPotionSunset'),
     limited: true,
-    event: EVENTS.summer2022,
+    event: EVENTS.summer2023,
     _addlNotes: t('premiumPotionAddlNotes', {
       date: t('dateEndJuly'),
-      previousDate: t('julyYYYY', { year: 2021 }),
+      previousDate: t('julyYYYY', { year: 2022 }),
     }),
     canBuy () {
-      return moment().isBetween(EVENTS.summer2022.start, EVENTS.summer2022.end);
+      return moment().isBetween(EVENTS.summer2023.start, EVENTS.summer2023.end);
     },
   },
   Moonglow: {

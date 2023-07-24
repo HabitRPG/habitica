@@ -392,6 +392,13 @@ schema.pre('update', function preUpdateUser () {
   this.update({}, { $inc: { _v: 1 } });
 });
 
+schema.pre('updateOne', function preUpdateUser () {
+  this.updateOne({}, { $inc: { _v: 1 } });
+});
+schema.pre('updateMany', function preUpdateUser () {
+  this.updateMany({}, { $inc: { _v: 1 } });
+});
+
 schema.post('save', function postSaveUser () {
   // Send a webhook notification when the user has leveled up
   if (this._tmp && this._tmp.leveledUp && this._tmp.leveledUp.length > 0) {

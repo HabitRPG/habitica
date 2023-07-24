@@ -213,5 +213,9 @@
     "loadEarlierMessages": "Muat Pesan Sebelumnya",
     "reportSentDescription": "Kami akan mengabarimu ketika tim kami selesai menginvestigasi. Terima kasih sudah melaporkan masalah ini.",
     "askQuestion": "Tanyakan Pertanyaan",
-    "emptyReportBugMessage": "Pesan Laporan Bug tidak ditemukan"
+    "emptyReportBugMessage": "Pesan Laporan Bug tidak ditemukan",
+    "leaveHabitica": "Kamu akan meninggalkan Habitica.com",
+    "skipExternalLinkModal": "Tahan CTRL (Windows) atau Command (Mac) saat mengklik tautan untuk melewati modal ini.",
+    "refreshList": "Segarkan Daftar",
+    "leaveHabiticaText": "Habitica tidak bertanggung jawab atas konten situs web tertaut yang tidak dimiliki atau dioperasikan oleh HabitRPG.<br>Harap dicatat bahwa aturan di situs web ini mungkin berbeda dari pedoman komunitas Habitica."
 }

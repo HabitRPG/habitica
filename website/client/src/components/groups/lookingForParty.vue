@@ -188,6 +188,7 @@
       padding: 8px;
       border-radius: 4px;
       box-shadow: 0 1px 3px 0 rgba(26, 24, 29, 0.12), 0 1px 2px 0 rgba(26, 24, 29, 0.24);
+      background-color: $white;
 
       &:first-of-type {
         margin-top: 24px;
@@ -243,8 +244,6 @@ import rogueIcon from '@/assets/svg/rogue.svg';
 import healerIcon from '@/assets/svg/healer.svg';
 import wizardIcon from '@/assets/svg/wizard.svg';
 
-import * as Analytics from '@/libs/analytics';
-
 export default {
   components: {
     Avatar,
@@ -287,12 +286,6 @@ export default {
         section: this.$t('lookingForPartyTitle'),
       });
       this.seekers = await this.$store.dispatch('party:lookingForParty');
-      await Analytics.track({
-        hitType: 'event',
-        eventName: 'View Find Members',
-        eventAction: 'View Find Members',
-        eventCategory: 'behavior',
-      }, { trackOnClient: true });
       this.canLoadMore = this.seekers.length === 30;
       this.loading = false;
     }

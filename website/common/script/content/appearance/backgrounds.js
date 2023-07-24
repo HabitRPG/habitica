@@ -555,6 +555,21 @@ const backgrounds = {
     springtime_shower: { },
     under_wisteria: { },
   },
+  backgrounds052023: {
+    in_a_painting: { },
+    flying_over_hedge_maze: { },
+    cretaceous_forest: { },
+  },
+  backgrounds062023: {
+    in_an_aquarium: { },
+    inside_adventurers_hideout: { },
+    crater_lake: { },
+  },
+  backgrounds072023: {
+    on_a_paddlewheel_boat: { },
+    colorful_coral: { },
+    boardwalk_into_sunset: { },
+  },
   eventBackgrounds: {
     birthday_bash: {
       price: 0,

@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Pemadaman Siap",
-    "clearCompletedDescription": "Completed To-Dos are deleted after 30 days for non-subscribers and 90 days for subscribers.",
+    "clearCompletedDescription": "Tugasan Selesai dipadamkan selepas 30 hari untuk bukan pelanggan dan 90 hari untuk pelanggan.",
     "clearCompletedConfirm": "Are you sure you want to delete your completed To-Dos?",
     "addMultipleTip": "<strong>Tip:</strong> To add multiple <%= taskType %>, separate each one using a line break (Shift + Enter) and then press \"Enter.\"",
     "addATask": "Add a <%= type %>",

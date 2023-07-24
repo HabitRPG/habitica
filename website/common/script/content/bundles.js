@@ -35,9 +35,9 @@ const bundles = {
       'turtle',
       'whale',
     ],
-    event: EVENTS.bundle202106,
+    event: EVENTS.bundle202306,
     canBuy () {
-      return moment().isBefore(EVENTS.bundle202106.end);
+      return moment().isBetween(EVENTS.bundle202306.start, EVENTS.bundle202306.end);
     },
     type: 'quests',
     class: 'quest_bundle_splashyPals',
@@ -178,9 +178,9 @@ const bundles = {
       'penguin',
       'rooster',
     ],
-    event: EVENTS.bundle202109,
+    event: EVENTS.bundle202305,
     canBuy () {
-      return moment().isBefore(EVENTS.bundle202109.end);
+      return moment().isBefore(EVENTS.bundle202305.end);
     },
     type: 'quests',
     value: 7,
