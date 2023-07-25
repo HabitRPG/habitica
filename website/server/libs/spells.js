@@ -245,9 +245,10 @@ async function castSpell (req, res, { isV3 = false }) {
       const lastMessage = await Chat.findOne({ groupId: party._id })
         .sort('-timestamp')
         .exec();
-      if (lastMessage && lastMessage.info.spell === spellId
-        && lastMessage.info.user === user.profile.name) {
-        if (targetType === 'user') {
+      if (targetType === 'user') { // Single target spell, check for repeat
+        if (lastMessage && lastMessage.info.spell === spellId
+          && lastMessage.info.user === user.profile.name
+          && lastMessage.info.target === partyMembers.profile.name) {
           const newChatMessage = party.sendChat({
             message: `\`${common.i18n.t('chatCastSpellUserTimes', {
               username: user.profile.name,
@@ -266,39 +267,40 @@ async function castSpell (req, res, { isV3 = false }) {
           });
           await newChatMessage.save();
           await lastMessage.remove();
-        } else {
+        } else { // Single target spell, not repeated
           const newChatMessage = party.sendChat({
-            message: `\`${common.i18n.t('chatCastSpellPartyTimes', {
-              username: user.profile.name,
-              spell: spell.text(),
-              times: lastMessage.info.times + 1,
-            }, 'en')}\``,
+            message: `\`${common.i18n.t('chatCastSpellUser', { username: user.profile.name, spell: spell.text(), target: partyMembers.profile.name }, 'en')}\``,
             info: {
-              type: 'spell_cast_party_multi',
+              type: 'spell_cast_user',
               user: user.profile.name,
               class: klass,
               spell: spellId,
-              times: lastMessage.info.times + 1,
+              target: partyMembers.profile.name,
+              times: 1,
             },
           });
           await newChatMessage.save();
-          await lastMessage.remove();
         }
-      } else if (targetType === 'user') {
+      } else if (lastMessage && lastMessage.info.spell === spellId // Party spell, check for repeat
+        && lastMessage.info.user === user.profile.name) {
         const newChatMessage = party.sendChat({
-          message: `\`${common.i18n.t('chatCastSpellUser', { username: user.profile.name, spell: spell.text(), target: partyMembers.profile.name }, 'en')}\``,
+          message: `\`${common.i18n.t('chatCastSpellPartyTimes', {
+            username: user.profile.name,
+            spell: spell.text(),
+            times: lastMessage.info.times + 1,
+          }, 'en')}\``,
           info: {
-            type: 'spell_cast_user',
+            type: 'spell_cast_party_multi',
             user: user.profile.name,
             class: klass,
             spell: spellId,
-            target: partyMembers.profile.name,
-            times: 1,
+            times: lastMessage.info.times + 1,
           },
         });
         await newChatMessage.save();
+        await lastMessage.remove();
       } else {
-        const newChatMessage = party.sendChat({
+        const newChatMessage = party.sendChat({ // Non-repetitive partywide spell
           message: `\`${common.i18n.t('chatCastSpellParty', { username: user.profile.name, spell: spell.text() }, 'en')}\``,
           info: {
             type: 'spell_cast_party',
