@@ -28190,6 +28190,31 @@
   width: 117px;
   height: 120px;
 }
+.eyewear_mystery_202308 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/eyewear_mystery_202308.png');
+  width: 114px;
+  height: 90px;
+}
+.head_mystery_202308 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_mystery_202308.png');
+  width: 114px;
+  height: 90px;
+}
+.shop_eyewear_mystery_202308 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_eyewear_mystery_202308.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_head_mystery_202308 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_head_mystery_202308.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_set_mystery_202308 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_set_mystery_202308.png');
+  width: 68px;
+  height: 68px;
+}
 .broad_armor_mystery_301404 {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_mystery_301404.png');
   width: 90px;
@@ -35847,6 +35872,16 @@
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/notif_inventory_special_valentine.png');
   width: 20px;
   height: 24px;
+}
+.notif_orca_mount {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/notif_orca_mount.png');
+  width: 28px;
+  height: 28px;
+}
+.notif_orca_pet {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/notif_orca_pet.png');
+  width: 28px;
+  height: 28px;
 }
 .npc_bailey {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/npc_bailey.png');
