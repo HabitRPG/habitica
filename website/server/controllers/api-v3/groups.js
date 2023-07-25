@@ -126,7 +126,11 @@ api.createGroup = {
     if (validationErrors) throw validationErrors;
 
     if (group.type === 'guild') {
-      throw new BadRequest(res.t('featureRetired'));
+      if (!user.hasPermission('fullAccess')) {
+        throw new BadRequest(res.t('featureRetired'));
+      }
+      group.balance = 1;
+      user.guilds.push(group._id);
     } else {
       if (group.privacy !== 'private') throw new NotAuthorized(res.t('partyMustbePrivate'));
       if (user.party._id) throw new NotAuthorized(res.t('messageGroupAlreadyInParty'));

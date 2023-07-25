@@ -267,12 +267,12 @@ describe('GET challenges/groups/:groupId', () => {
 
     context('official challenge is present', () => {
       let officialChallenge; let unofficialChallenges;
-  
+
       before(async () => {
         await user.update({
           'permissions.challengeAdmin': true,
         });
-  
+
         officialChallenge = await generateChallenge(user, tavern, {
           categories: [{
             name: 'habitica_official',
@@ -281,7 +281,7 @@ describe('GET challenges/groups/:groupId', () => {
           prize: 1,
         });
         await user.post(`/challenges/${officialChallenge._id}/join`);
-  
+
         // We add 10 extra challenges to test whether the official challenge
         // (the oldest) makes it to the front page.
         unofficialChallenges = [];
@@ -291,27 +291,27 @@ describe('GET challenges/groups/:groupId', () => {
           unofficialChallenges.push(challenge);
         }
       });
-  
+
       it('should return official challenges first', async () => {
-        const challenges = await user.get(`/challenges/groups/habitrpg`);
-  
+        const challenges = await user.get('/challenges/groups/habitrpg');
+
         const foundChallengeIndex = _.findIndex(challenges, { _id: officialChallenge._id });
         expect(foundChallengeIndex).to.eql(0);
       });
-  
+
       it('should return newest challenges first, after official ones', async () => {
-        let challenges = await user.get(`/challenges/groups/habitrpg`);
-  
+        let challenges = await user.get('/challenges/groups/habitrpg');
+
         unofficialChallenges.forEach((chal, index) => {
           const foundChallengeIndex = _.findIndex(challenges, { _id: chal._id });
           expect(foundChallengeIndex).to.eql(10 - index);
         });
-  
+
         const newChallenge = await generateChallenge(user, tavern, { prize: 1 });
         await user.post(`/challenges/${newChallenge._id}/join`);
-  
-        challenges = await user.get(`/challenges/groups/${publicGuild._id}`);
-  
+
+        challenges = await user.get('/challenges/groups/habitrpg');
+
         const foundChallengeIndex = _.findIndex(challenges, { _id: newChallenge._id });
         expect(foundChallengeIndex).to.eql(1);
       });
