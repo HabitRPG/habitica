@@ -2898,5 +2898,9 @@
     "shieldSpecialSummer2023WarriorText": "Espírito de peixe-dourado",
     "shieldSpecialSummer2023WarriorNotes": "Invoque este espírito de peixe-dourado para obter uma explosão extra de segurança e companheirismo durante uma luta. Aumenta Constituição em <%= con %>. Edição Limitada do Equipamento de Verão de 2023.",
     "shieldSpecialSummer2023HealerText": "Ouriço-do-mar",
-    "shieldSpecialSummer2023HealerNotes": "Você o esconde e o protege. Ele evita que monstros intrometidos de se aproximarem demais. Simbiose perfeita! Aumenta Constituição em <%= con %>. Edição Limitada do Equipamento de Verão de 2023."
+    "shieldSpecialSummer2023HealerNotes": "Você o esconde e o protege. Ele evita que monstros intrometidos de se aproximarem demais. Simbiose perfeita! Aumenta Constituição em <%= con %>. Edição Limitada do Equipamento de Verão de 2023.",
+    "armorMystery202307Text": "Tentáculos de Kraken",
+    "armorMystery202307Notes": "Copos de sucção têm a melhor tração no fundo do mar e nas laterais de navios rebeldes. Não confere benefícios. Item de Assinante de julho de 2023.",
+    "headAccessoryMystery202307Text": "Coroa de Kraken",
+    "headAccessoryMystery202307Notes": "Esta poderosa coroa invoca ciclones e tempestades! Não confere benefícios. Item de Assinante de julho de 2023."
 }

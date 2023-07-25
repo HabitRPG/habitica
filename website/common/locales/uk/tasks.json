@@ -140,5 +140,7 @@
     "counter": "Лічильник",
     "resetCounter": "Скинути лічильник",
     "editTagsText": "Редагувати ярлики",
-    "taskSummary": "Про <%= type %> загалом"
+    "taskSummary": "Про <%= type %> загалом",
+    "scoreUp": "Підняти",
+    "scoreDown": "Знизити"
 }
