@@ -136,7 +136,7 @@
     "achievementGroupsBeta2022Text": "Du och din grupp gav ovärderlig feedback för att hjälpa Habitica att testa.",
     "achievementGroupsBeta2022ModalText": "Du och dina grupper hjälpte Habitica genom att testa och ge feedback!",
     "achievementGroupsBeta2022": "Interaktiv betatestare",
-    "achievementPolarPro": "Polar Pro",
+    "achievementPolarPro": "Polar pro",
     "achievementPolarProText": "Har kläckt alla standardfärger av Polardjur: Björn, Räv, Pingvin, Val och Varg!",
     "achievementPolarProModalText": "Du har samlat alla Polardjuren!",
     "achievementWoodlandWizardModalText": "Du har samlat alla skogsdjur!",
@@ -148,5 +148,7 @@
     "achievementDinosaurDynasty": "Dinosaurie dynasti",
     "achievementDinosaurDynastyText": "Du har kläckt alla standard färger av fåglar och dinosauriedjur: Falk, Uggla, Påfågel, Pingvin, Tupp, Pterodaktyl, T-rex, Triceratops och Velociraptor!",
     "achievementDinosaurDynastyModalText": "Du har samlat alla fåglar och dinosaurier!",
-    "achievementBoneToPickText": "Har kläckt alla klassiska och Uppdragsdjur!"
+    "achievementBoneToPickText": "Har kläckt alla klassiska och Uppdragsdjur!",
+    "achievementBoneToPick": "Ett ben att plocka",
+    "achievementBoneToPickModalText": "Du har samlat alla klassiska och uppdrags skeletthusdjur!"
 }

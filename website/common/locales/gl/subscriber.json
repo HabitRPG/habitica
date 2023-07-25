@@ -29,7 +29,7 @@
     "mysterySetNotFound": "Non se atopou o lote misterioso, ou xa o tes.",
     "mysteryItemIsEmpty": "Os obxectos misteriosos están baleiros",
     "mysteryItemOpened": "Abriuse un obxecto misterioso.",
-    "mysterySet201402": "Lote de mensaxería alada",
+    "mysterySet201402": "Lote de mensaxaría alada",
     "mysterySet201403": "Lote de sendeirismo",
     "mysterySet201404": "Lote de bolboreta crepuscular",
     "mysterySet201405": "Lote de dominación do lume",
@@ -225,5 +225,6 @@
     "mysterySet202306": "Lote de arco da vella",
     "monthlyGems": "Xemas mensuais",
     "mysterySet202304": "Lote de xogo de te xeitoso",
-    "mysterySet202305": "Lote de dragón acontecido"
+    "mysterySet202305": "Lote de dragón acontecido",
+    "mysterySet202307": "Lote de kraken perigoso"
 }
