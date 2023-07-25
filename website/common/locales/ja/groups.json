@@ -418,5 +418,10 @@
     "createGroup": "グループを作る",
     "groupParentChildren": "保護者として子どものタスクを設定する",
     "sendGiftLabel": "ギフトメッセージを送信しますか？",
-    "invitedToPartyBy": "<a href=\"/profile/<%- userId %>\" target=\"_blank\">@<%- userName %></a> があなたをパーティー「<span class=\"notification-bold\"><%- party %></span>」に招待しました"
+    "invitedToPartyBy": "<a href=\"/profile/<%- userId %>\" target=\"_blank\">@<%- userName %></a> があなたをパーティー「<span class=\"notification-bold\"><%- party %></span>」に招待しました",
+    "questWithOthers": "仲間たちとクエストの挑戦しましょう",
+    "currentlyLookingForParty": "パーティーを探している最中です！",
+    "checkinsLabel": "最新チェックイン：",
+    "languageLabel": "言語：",
+    "lookingForPartyTitle": "メンバーを探す"
 }
