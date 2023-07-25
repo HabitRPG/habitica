@@ -140,5 +140,7 @@
     "adjustCounter": "Ajuster le compteur",
     "counter": "Compteur",
     "editTagsText": "Modifier les étiquettes",
-    "taskSummary": "Résumé pour les <%= type %>"
+    "taskSummary": "Résumé pour les <%= type %>",
+    "scoreUp": "Augmenter le score",
+    "scoreDown": "Diminuer le score"
 }

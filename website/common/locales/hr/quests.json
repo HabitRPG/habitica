@@ -71,5 +71,6 @@
     "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Zdravlja",
     "rageAttack": "Napad Bijesa:",
     "bossRage": "<%= currentRage %> / <%= maxRage %> Bijesa",
-    "rageStrikes": "Udari Bijesa"
+    "rageStrikes": "Udari Bijesa",
+    "hatchingPotionQuests": "Pustolovine za čarobne Napitke za Izlijeganje"
 }
