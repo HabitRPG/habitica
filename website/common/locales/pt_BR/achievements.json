@@ -147,5 +147,8 @@
     "achievementPolarProModalText": "Você coletou todos os Mascotes Polares!",
     "achievementPlantParentModalText": "Você coletou todos os Mascotes Planta!",
     "achievementPlantParentText": "Chocou todos os mascotes Planta de cores padrão: Cacto e Árvorezinha!",
-    "achievementPlantParent": "Defendente das Plantas"
+    "achievementPlantParent": "Defendente das Plantas",
+    "achievementDinosaurDynastyText": "Chocou todos os mascotes dinossauro e pássaro de cores padrão: Falcão, Coruja, Papagaio, Pavão, Pinguim, Galo, Pterodáctilo, T-Rex, Triceratops e Velociraptor!",
+    "achievementDinosaurDynasty": "Dinastia dos Dinossauros",
+    "achievementDinosaurDynastyModalText": "Você coletou todos os mascotes pássaro e dinossauro!"
 }
