@@ -28,6 +28,18 @@ async function updateUser (user) {
 
   if (user && user.items && user.items.gear && user.items.gear.owned && typeof user.items.gear.owned.back_special_namingDay2020 !== 'undefined') {
     set = { migration: MIGRATION_NAME };
+    push = {
+      notifications: {
+        type: 'ITEM_RECEIVED',
+        data: {
+          icon: 'notif_namingDay_cake',
+          title: 'Happy Naming Day!',
+          text: 'To celebrate the day we became Habitica, we’ve awarded you some cake!',
+          destination: '/inventory/items',
+        },
+        seen: false,
+      },
+    };
   } else if (user && user.items && user.items.gear && user.items.gear.owned && typeof user.items.gear.owned.body_special_namingDay2018 !== 'undefined') {
     set = { migration: MIGRATION_NAME, 'items.gear.owned.back_special_namingDay2020': true };
     push = {
@@ -36,7 +48,7 @@ async function updateUser (user) {
         data: {
           icon: 'notif_namingDay_back',
           title: 'Happy Naming Day!',
-          text: 'To celebrate the day we became Habitica, we’ve awarded you a Royal Purple Gryphon Tail!',
+          text: 'To celebrate the day we became Habitica, we’ve awarded you a Royal Purple Gryphon Tail and cake!',
           destination: '/inventory/equipment',
         },
         seen: false,
@@ -50,7 +62,7 @@ async function updateUser (user) {
         data: {
           icon: 'notif_namingDay_body',
           title: 'Happy Naming Day!',
-          text: 'To celebrate the day we became Habitica, we’ve awarded you a Royal Purple Gryphon Cloak!',
+          text: 'To celebrate the day we became Habitica, we’ve awarded you a Royal Purple Gryphon Cloak and cake!',
           destination: '/inventory/equipment',
         },
         seen: false,
@@ -64,7 +76,7 @@ async function updateUser (user) {
         data: {
           icon: 'notif_namingDay_head',
           title: 'Happy Naming Day!',
-          text: 'To celebrate the day we became Habitica, we’ve awarded you a Royal Purple Gryphon Helm!',
+          text: 'To celebrate the day we became Habitica, we’ve awarded you a Royal Purple Gryphon Helm and cake!',
           destination: '/inventory/equipment',
         },
         seen: false,
@@ -78,7 +90,7 @@ async function updateUser (user) {
         data: {
           icon: 'notif_namingDay_pet',
           title: 'Happy Naming Day!',
-          text: 'To celebrate the day we became Habitica, we’ve awarded you a Royal Purple Gryphon Pet!',
+          text: 'To celebrate the day we became Habitica, we’ve awarded you a Royal Purple Gryphon Pet and cake!',
           destination: '/inventory/stable',
         },
         seen: false,
@@ -92,7 +104,7 @@ async function updateUser (user) {
         data: {
           icon: 'notif_namingDay_mount',
           title: 'Happy Naming Day!',
-          text: 'To celebrate the day we became Habitica, we’ve awarded you a Royal Purple Gryphon Mount!',
+          text: 'To celebrate the day we became Habitica, we’ve awarded you a Royal Purple Gryphon Mount and cake!',
           destination: '/inventory/stable',
         },
         seen: false,
