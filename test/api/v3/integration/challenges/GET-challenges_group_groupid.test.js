@@ -271,7 +271,7 @@ describe('GET challenges/groups/:groupId', () => {
       before(async () => {
         await user.update({
           'permissions.challengeAdmin': true,
-          'balance': 3,
+          balance: 3,
         });
 
         officialChallenge = await generateChallenge(user, tavern, {
