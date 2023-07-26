@@ -79,6 +79,7 @@ describe('POST /challenges', () => {
       });
 
       groupLeader = await populatedGroup.groupLeader.sync();
+      await groupLeader.update({ permissions: {} });
       group = populatedGroup.group;
       groupMember = populatedGroup.members[0]; // eslint-disable-line prefer-destructuring
     });

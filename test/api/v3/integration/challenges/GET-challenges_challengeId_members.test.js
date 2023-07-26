@@ -72,18 +72,17 @@ describe('GET /challenges/:challengeId/members', () => {
   });
 
   it('populates only some fields', async () => {
-    const anotherUser = await generateUser({ balance: 3 });
-    const group = await generateGroup(anotherUser, { type: 'party', privacy: 'private', name: generateUUID() });
-    const challenge = await generateChallenge(anotherUser, group);
-    await anotherUser.post(`/challenges/${challenge._id}/join`);
+    const group = await generateGroup(user, { type: 'party', privacy: 'private', name: generateUUID() });
+    const challenge = await generateChallenge(user, group);
+    await user.post(`/challenges/${challenge._id}/join`);
     const res = await user.get(`/challenges/${challenge._id}/members`);
     expect(res[0]).to.eql({
-      _id: anotherUser._id,
-      id: anotherUser._id,
-      profile: { name: anotherUser.profile.name },
+      _id: user._id,
+      id: user._id,
+      profile: { name: user.profile.name },
       auth: {
         local: {
-          username: anotherUser.auth.local.username,
+          username: user.auth.local.username,
         },
       },
       flags: {
