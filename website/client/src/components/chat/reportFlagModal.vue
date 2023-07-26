@@ -76,23 +76,22 @@
   </b-modal>
 </template>
 
-<style>
-  #report-challenge h5 {
-    color: #F23035;
+<style lang="scss">
+  #report-flag {
+    h5 {
+      color: #F23035;
+    }
+    .modal-header {
+      border: none;
+      padding-bottom: 0px;
+      padding-top: 12px;
+      height: 16px;
+      align-content: center;
+    }
+    .modal-content {
+      padding: 0px;
+    }
   }
-
-  .modal-header {
-    border: none;
-    padding-bottom: 0px;
-    padding-top: 12px;
-    height: 16px;
-    align-content: center;
-  }
-
-  .modal-content {
-    padding: 0px;
-  }
-
 </style>
 
 <style lang="scss" scoped>
