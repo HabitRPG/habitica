@@ -442,7 +442,7 @@
 
   .header {
     h1 {
-      color: $purple-200;
+      color: $gray-50;;
       margin-bottom: 0.2rem;
     }
 
