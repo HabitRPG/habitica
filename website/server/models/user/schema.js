@@ -476,6 +476,9 @@ export default new Schema({
         required: true,
         validate: [v => validator.isUUID(v), 'Invalid uuid for user invitation inviter id.'],
       },
+      cancelledPlan: {
+        $type: Boolean,
+      }
     }],
   },
 

@@ -119,10 +119,9 @@ describe('PUT /group', () => {
   });
 
   it('allows a leader of a party to change leaders', async () => {
-    let party; let partyLeader; let members;
-    ({ group: party, groupLeader: partyLeader, members } = await createAndPopulateGroup({
+    const { group: party, groupLeader: partyLeader, members } = await createAndPopulateGroup({
       members: 1,
-    }));
+    });
     const updatedGroup = await partyLeader.put(`/groups/${party._id}`, {
       name: groupUpdatedName,
       leader: members[0]._id,
@@ -171,7 +170,7 @@ describe('PUT /group', () => {
       },
       upgradeToGroupPlan: true,
     });
-    await groupLeader.update({ permissions: {} } );
+    await groupLeader.update({ permissions: {} });
 
     const updateGroupDetails = {
       id: group._id,

@@ -3,7 +3,6 @@ import nconf from 'nconf';
 import {
   createAndPopulateGroup,
   generateUser,
-  generateGroup,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
 
@@ -14,13 +13,13 @@ const MAX_EMAIL_INVITES_BY_USER = 200;
 describe('Post /groups/:groupId/invite', () => {
   let inviter;
   let group;
-  const groupName = 'Test Public Guild';
+  const groupName = 'Test Party';
 
   beforeEach(async () => {
     inviter = await generateUser({ balance: 4 });
     group = await inviter.post('/groups', {
       name: groupName,
-      type: 'guild',
+      type: 'party',
     });
   });
 
@@ -65,45 +64,44 @@ describe('Post /groups/:groupId/invite', () => {
     it('invites a user to a group by username', async () => {
       const userToInvite = await generateUser();
 
-      await expect(inviter.post(`/groups/${group._id}/invite`, {
+      const response = await inviter.post(`/groups/${group._id}/invite`, {
         usernames: [userToInvite.auth.local.lowerCaseUsername],
-      })).to.eventually.deep.equal([{
-        id: group._id,
-        name: groupName,
-        inviter: inviter._id,
-        publicGuild: false,
-      }]);
-
+      });
+      expect(response).to.be.an('Array');
+      expect(response[0]).to.have.all.keys(['_id','id','name','inviter']);
+      expect(response[0]._id).to.be.a('String');
+      expect(response[0].id).to.eql(group._id);
+      expect(response[0].name).to.eql(groupName);
+      expect(response[0].inviter).to.eql(inviter._id);
+      
       await expect(userToInvite.get('/user'))
-        .to.eventually.have.nested.property('invitations.guilds[0].id', group._id);
+        .to.eventually.have.nested.property('invitations.parties[0].id', group._id);
     });
 
     it('invites multiple users to a group by uuid', async () => {
       const userToInvite = await generateUser();
       const userToInvite2 = await generateUser();
 
-      await expect(inviter.post(`/groups/${group._id}/invite`, {
+      const response = await (inviter.post(`/groups/${group._id}/invite`, {
         usernames: [
           userToInvite.auth.local.lowerCaseUsername,
           userToInvite2.auth.local.lowerCaseUsername,
         ],
-      })).to.eventually.deep.equal([
-        {
-          id: group._id,
-          name: groupName,
-          inviter: inviter._id,
-          publicGuild: false,
-        },
-        {
-          id: group._id,
-          name: groupName,
-          inviter: inviter._id,
-          publicGuild: false,
-        },
-      ]);
+      }));
+      expect(response).to.be.an('Array');
+      expect(response[0]).to.have.all.keys(['_id','id','name','inviter']);
+      expect(response[0]._id).to.be.a('String');
+      expect(response[0].id).to.eql(group._id);
+      expect(response[0].name).to.eql(groupName);
+      expect(response[0].inviter).to.eql(inviter._id);
+      expect(response[1]).to.have.all.keys(['_id','id','name','inviter']);
+      expect(response[1]._id).to.be.a('String');
+      expect(response[1].id).to.eql(group._id);
+      expect(response[1].name).to.eql(groupName);
+      expect(response[1].inviter).to.eql(inviter._id);
 
-      await expect(userToInvite.get('/user')).to.eventually.have.nested.property('invitations.guilds[0].id', group._id);
-      await expect(userToInvite2.get('/user')).to.eventually.have.nested.property('invitations.guilds[0].id', group._id);
+      await expect(userToInvite.get('/user')).to.eventually.have.nested.property('invitations.parties[0].id', group._id);
+      await expect(userToInvite2.get('/user')).to.eventually.have.nested.property('invitations.parties[0].id', group._id);
     });
   });
 
@@ -214,42 +212,42 @@ describe('Post /groups/:groupId/invite', () => {
     it('invites a user to a group by uuid', async () => {
       const userToInvite = await generateUser();
 
-      await expect(inviter.post(`/groups/${group._id}/invite`, {
+      const response = await inviter.post(`/groups/${group._id}/invite`, {
         uuids: [userToInvite._id],
-      })).to.eventually.deep.equal([{
-        id: group._id,
-        name: groupName,
-        inviter: inviter._id,
-        publicGuild: false,
-      }]);
+      });
+      expect(response).to.be.an('Array');
+      expect(response[0]).to.have.all.keys(['_id','id','name','inviter']);
+      expect(response[0]._id).to.be.a('String');
+      expect(response[0].id).to.eql(group._id);
+      expect(response[0].name).to.eql(groupName);
+      expect(response[0].inviter).to.eql(inviter._id);
 
       await expect(userToInvite.get('/user'))
-        .to.eventually.have.nested.property('invitations.guilds[0].id', group._id);
+        .to.eventually.have.nested.property('invitations.parties[0].id', group._id);
     });
 
     it('invites multiple users to a group by uuid', async () => {
       const userToInvite = await generateUser();
       const userToInvite2 = await generateUser();
 
-      await expect(inviter.post(`/groups/${group._id}/invite`, {
+      const response = await inviter.post(`/groups/${group._id}/invite`, {
         uuids: [userToInvite._id, userToInvite2._id],
-      })).to.eventually.deep.equal([
-        {
-          id: group._id,
-          name: groupName,
-          inviter: inviter._id,
-          publicGuild: false,
-        },
-        {
-          id: group._id,
-          name: groupName,
-          inviter: inviter._id,
-          publicGuild: false,
-        },
-      ]);
+      });
 
-      await expect(userToInvite.get('/user')).to.eventually.have.nested.property('invitations.guilds[0].id', group._id);
-      await expect(userToInvite2.get('/user')).to.eventually.have.nested.property('invitations.guilds[0].id', group._id);
+      expect(response).to.be.an('Array');
+      expect(response[0]).to.have.all.keys(['_id','id','name','inviter']);
+      expect(response[0]._id).to.be.a('String');
+      expect(response[0].id).to.eql(group._id);
+      expect(response[0].name).to.eql(groupName);
+      expect(response[0].inviter).to.eql(inviter._id);
+      expect(response[1]).to.have.all.keys(['_id','id','name','inviter']);
+      expect(response[1]._id).to.be.a('String');
+      expect(response[1].id).to.eql(group._id);
+      expect(response[1].name).to.eql(groupName);
+      expect(response[1].inviter).to.eql(inviter._id);
+
+      await expect(userToInvite.get('/user')).to.eventually.have.nested.property('invitations.parties[0].id', group._id);
+      await expect(userToInvite2.get('/user')).to.eventually.have.nested.property('invitations.parties[0].id', group._id);
     });
 
     it('returns an error when inviting multiple users and a user is not found', async () => {
@@ -338,12 +336,8 @@ describe('Post /groups/:groupId/invite', () => {
         invitesSent: MAX_EMAIL_INVITES_BY_USER,
         balance: 4,
       });
-      const tmpGroup = await inviterWithMax.post('/groups', {
-        name: groupName,
-        type: 'guild',
-      });
 
-      await expect(inviterWithMax.post(`/groups/${tmpGroup._id}/invite`, {
+      await expect(inviterWithMax.post(`/groups/${group._id}/invite`, {
         emails: [testInvite],
         inviter: 'inviter name',
       }))
@@ -419,15 +413,15 @@ describe('Post /groups/:groupId/invite', () => {
       });
       const invitedUser = await newUser.get('/user');
 
-      expect(invitedUser.invitations.guilds[0].id).to.equal(group._id);
+      expect(invitedUser.invitations.parties[0].id).to.equal(group._id);
       expect(invite).to.exist;
     });
 
-    it('invites marks invite with cancelled plan', async () => {
-      const cancelledPlanGroup = await generateGroup(inviter, {
-        type: 'guild',
-        name: generateUUID(),
-      });
+    it('invites user to group with cancelled plan', async () => {
+      let cancelledPlanGroup;
+      ({ group: cancelledPlanGroup, groupLeader: inviter } = await createAndPopulateGroup({
+        upgradeToGroupPlan: true,
+      }));
       await cancelledPlanGroup.createCancelledSubscription();
 
       const newUser = await generateUser();
@@ -437,13 +431,13 @@ describe('Post /groups/:groupId/invite', () => {
       });
       const invitedUser = await newUser.get('/user');
 
-      expect(invitedUser.invitations.guilds[0].id).to.equal(cancelledPlanGroup._id);
-      expect(invitedUser.invitations.guilds[0].cancelledPlan).to.be.true;
+      expect(invitedUser.invitations.parties[0].id).to.equal(cancelledPlanGroup._id);
+      expect(invitedUser.invitations.parties[0].cancelledPlan).to.be.true;
       expect(invite).to.exist;
     });
   });
 
-  describe('guild invites', () => {
+  describe('party invites', () => {
     it('returns an error when inviter has no chat privileges', async () => {
       const inviterMuted = await inviter.update({ 'flags.chatRevoked': true });
       const userToInvite = await generateUser();
@@ -457,103 +451,13 @@ describe('Post /groups/:groupId/invite', () => {
         });
     });
 
-    it('returns an error when invited user is already invited to the group', async () => {
-      const userToInvite = await generateUser();
-      await inviter.post(`/groups/${group._id}/invite`, {
-        uuids: [userToInvite._id],
-      });
-
-      await expect(inviter.post(`/groups/${group._id}/invite`, {
-        uuids: [userToInvite._id],
-      }))
-        .to.eventually.be.rejected.and.eql({
-          code: 401,
-          error: 'NotAuthorized',
-          message: t('userAlreadyInvitedToGroup', { userId: userToInvite._id, username: userToInvite.profile.name }),
-        });
-    });
-
-    it('returns an error when invited user is already in the group', async () => {
-      const userToInvite = await generateUser();
-      await inviter.post(`/groups/${group._id}/invite`, {
-        uuids: [userToInvite._id],
-      });
-      await userToInvite.post(`/groups/${group._id}/join`);
-
-      await expect(inviter.post(`/groups/${group._id}/invite`, {
-        uuids: [userToInvite._id],
-      }))
-        .to.eventually.be.rejected.and.eql({
-          code: 401,
-          error: 'NotAuthorized',
-          message: t('userAlreadyInGroup', { userId: userToInvite._id, username: userToInvite.profile.name }),
-        });
-    });
-
-    it('allows 30+ members in a guild', async () => {
-      const invitesToGenerate = [];
-      // Generate 30 users to invite (30 + leader = 31 members)
-      for (let i = 0; i < PARTY_LIMIT_MEMBERS; i += 1) {
-        invitesToGenerate.push(generateUser());
-      }
-      const generatedInvites = await Promise.all(invitesToGenerate);
-      // Invite users
-      expect(await inviter.post(`/groups/${group._id}/invite`, {
-        uuids: generatedInvites.map(invite => invite._id),
-      })).to.be.an('array');
-    }).timeout(10000);
-
-    // @TODO: Add this after we are able to mock the group plan route
-    xit('returns an error when a non-leader invites to a group plan', async () => {
-      const userToInvite = await generateUser();
-
-      const nonGroupLeader = await generateUser();
-      await inviter.post(`/groups/${group._id}/invite`, {
-        uuids: [nonGroupLeader._id],
-      });
-      await nonGroupLeader.post(`/groups/${group._id}/join`);
-
-      await expect(nonGroupLeader.post(`/groups/${group._id}/invite`, {
-        uuids: [userToInvite._id],
-      }))
-        .to.eventually.be.rejected.and.eql({
-          code: 401,
-          error: 'NotAuthorized',
-          message: t('onlyGroupLeaderCanInviteToGroupPlan'),
-        });
-    });
-  });
-
-  describe('party invites', () => {
-    let party;
-
-    beforeEach(async () => {
-      party = await inviter.post('/groups', {
-        name: 'Test Party',
-        type: 'party',
-      });
-    });
-
-    it('returns an error when inviter has no chat privileges', async () => {
-      const inviterMuted = await inviter.update({ 'flags.chatRevoked': true });
-      const userToInvite = await generateUser();
-      await expect(inviterMuted.post(`/groups/${party._id}/invite`, {
-        uuids: [userToInvite._id],
-      }))
-        .to.eventually.be.rejected.and.eql({
-          code: 401,
-          error: 'NotAuthorized',
-          message: t('chatPrivilegesRevoked'),
-        });
-    });
-
     it('returns an error when invited user has a pending invitation to the party', async () => {
       const userToInvite = await generateUser();
-      await inviter.post(`/groups/${party._id}/invite`, {
+      await inviter.post(`/groups/${group._id}/invite`, {
         uuids: [userToInvite._id],
       });
 
-      await expect(inviter.post(`/groups/${party._id}/invite`, {
+      await expect(inviter.post(`/groups/${group._id}/invite`, {
         uuids: [userToInvite._id],
       }))
         .to.eventually.be.rejected.and.eql({
@@ -566,13 +470,13 @@ describe('Post /groups/:groupId/invite', () => {
     it('returns an error when invited user is already in a party of more than 1 member', async () => {
       const userToInvite = await generateUser();
       const userToInvite2 = await generateUser();
-      await inviter.post(`/groups/${party._id}/invite`, {
+      await inviter.post(`/groups/${group._id}/invite`, {
         uuids: [userToInvite._id, userToInvite2._id],
       });
-      await userToInvite.post(`/groups/${party._id}/join`);
-      await userToInvite2.post(`/groups/${party._id}/join`);
+      await userToInvite.post(`/groups/${group._id}/join`);
+      await userToInvite2.post(`/groups/${group._id}/join`);
 
-      await expect(inviter.post(`/groups/${party._id}/invite`, {
+      await expect(inviter.post(`/groups/${group._id}/invite`, {
         uuids: [userToInvite._id],
       }))
         .to.eventually.be.rejected.and.eql({
@@ -596,7 +500,7 @@ describe('Post /groups/:groupId/invite', () => {
       });
 
       // Invite to first party
-      await inviter.post(`/groups/${party._id}/invite`, {
+      await inviter.post(`/groups/${group._id}/invite`, {
         uuids: [userToInvite._id],
       });
 
@@ -609,19 +513,19 @@ describe('Post /groups/:groupId/invite', () => {
       const invitedUser = await userToInvite.get('/user');
 
       expect(invitedUser.invitations.parties.length).to.equal(2);
-      expect(invitedUser.invitations.parties[0].id).to.equal(party._id);
+      expect(invitedUser.invitations.parties[0].id).to.equal(group._id);
       expect(invitedUser.invitations.parties[1].id).to.equal(party2._id);
     });
 
-    it('allow inviting a user if party id is not associated with a real party', async () => {
+    it('allows inviting a user if party id is not associated with a real party', async () => {
       const userToInvite = await generateUser({
         party: { _id: generateUUID() },
       });
 
-      await inviter.post(`/groups/${party._id}/invite`, {
+      await inviter.post(`/groups/${group._id}/invite`, {
         uuids: [userToInvite._id],
       });
-      expect((await userToInvite.get('/user')).invitations.parties[0].id).to.equal(party._id);
+      expect((await userToInvite.get('/user')).invitations.parties[0].id).to.equal(group._id);
     });
   });
 
@@ -651,7 +555,7 @@ describe('Post /groups/:groupId/invite', () => {
       }
       const generatedInvites = await Promise.all(invitesToGenerate);
       // Invite users
-      expect(await partyLeader.post(`/groups/${party._id}/invite`, {
+      expect(await partyLeader.post(`/groups/${group._id}/invite`, {
         uuids: generatedInvites.map(invite => invite._id),
       })).to.be.an('array');
     }).timeout(10000);
@@ -664,7 +568,7 @@ describe('Post /groups/:groupId/invite', () => {
       }
       const generatedInvites = await Promise.all(invitesToGenerate);
       // Invite users
-      await expect(partyLeader.post(`/groups/${party._id}/invite`, {
+      await expect(partyLeader.post(`/groups/${group._id}/invite`, {
         uuids: generatedInvites.map(invite => invite._id),
       }))
         .to.eventually.be.rejected.and.eql({
