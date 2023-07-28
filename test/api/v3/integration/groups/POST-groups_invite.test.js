@@ -68,12 +68,12 @@ describe('Post /groups/:groupId/invite', () => {
         usernames: [userToInvite.auth.local.lowerCaseUsername],
       });
       expect(response).to.be.an('Array');
-      expect(response[0]).to.have.all.keys(['_id','id','name','inviter']);
+      expect(response[0]).to.have.all.keys(['_id', 'id', 'name', 'inviter']);
       expect(response[0]._id).to.be.a('String');
       expect(response[0].id).to.eql(group._id);
       expect(response[0].name).to.eql(groupName);
       expect(response[0].inviter).to.eql(inviter._id);
-      
+
       await expect(userToInvite.get('/user'))
         .to.eventually.have.nested.property('invitations.parties[0].id', group._id);
     });
@@ -89,12 +89,12 @@ describe('Post /groups/:groupId/invite', () => {
         ],
       }));
       expect(response).to.be.an('Array');
-      expect(response[0]).to.have.all.keys(['_id','id','name','inviter']);
+      expect(response[0]).to.have.all.keys(['_id', 'id', 'name', 'inviter']);
       expect(response[0]._id).to.be.a('String');
       expect(response[0].id).to.eql(group._id);
       expect(response[0].name).to.eql(groupName);
       expect(response[0].inviter).to.eql(inviter._id);
-      expect(response[1]).to.have.all.keys(['_id','id','name','inviter']);
+      expect(response[1]).to.have.all.keys(['_id', 'id', 'name', 'inviter']);
       expect(response[1]._id).to.be.a('String');
       expect(response[1].id).to.eql(group._id);
       expect(response[1].name).to.eql(groupName);
@@ -216,7 +216,7 @@ describe('Post /groups/:groupId/invite', () => {
         uuids: [userToInvite._id],
       });
       expect(response).to.be.an('Array');
-      expect(response[0]).to.have.all.keys(['_id','id','name','inviter']);
+      expect(response[0]).to.have.all.keys(['_id', 'id', 'name', 'inviter']);
       expect(response[0]._id).to.be.a('String');
       expect(response[0].id).to.eql(group._id);
       expect(response[0].name).to.eql(groupName);
@@ -235,12 +235,12 @@ describe('Post /groups/:groupId/invite', () => {
       });
 
       expect(response).to.be.an('Array');
-      expect(response[0]).to.have.all.keys(['_id','id','name','inviter']);
+      expect(response[0]).to.have.all.keys(['_id', 'id', 'name', 'inviter']);
       expect(response[0]._id).to.be.a('String');
       expect(response[0].id).to.eql(group._id);
       expect(response[0].name).to.eql(groupName);
       expect(response[0].inviter).to.eql(inviter._id);
-      expect(response[1]).to.have.all.keys(['_id','id','name','inviter']);
+      expect(response[1]).to.have.all.keys(['_id', 'id', 'name', 'inviter']);
       expect(response[1]._id).to.be.a('String');
       expect(response[1].id).to.eql(group._id);
       expect(response[1].name).to.eql(groupName);
@@ -530,7 +530,6 @@ describe('Post /groups/:groupId/invite', () => {
   });
 
   describe('party size limits', () => {
-    let party;
     let partyLeader;
 
     beforeEach(async () => {
@@ -543,7 +542,6 @@ describe('Post /groups/:groupId/invite', () => {
         // Generate party with 20 members
         members: PARTY_LIMIT_MEMBERS - 10,
       });
-      party = group.group;
       partyLeader = group.groupLeader;
     });
 
