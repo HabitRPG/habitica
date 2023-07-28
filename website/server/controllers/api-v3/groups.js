@@ -487,7 +487,9 @@ api.updateGroup = {
     if (group.leader !== user._id && group.type === 'party') throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
     else if (group.leader !== user._id && !user.hasPermission('moderator')) throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
 
-    if (req.body.leader !== user._id && group.hasNotCancelled()) throw new NotAuthorized(res.t('cannotChangeLeaderWithActiveGroupPlan'));
+    if (req.body.leader && req.body.leader !== user._id && group.hasNotCancelled()) {
+      throw new NotAuthorized(res.t('cannotChangeLeaderWithActiveGroupPlan'));
+    }
 
     const handleArrays = (currentValue, updatedValue) => {
       if (!_.isArray(currentValue)) {
