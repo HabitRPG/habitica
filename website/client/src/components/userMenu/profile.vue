@@ -57,13 +57,11 @@
       class="standard-page "
     >
       <div class="row">
-        <div class="">
-          <div class="header mb-3">
-            <h1>{{ $t('about') }}</h1>
-          </div>
-        </div>
+<!--         <div class="about profile-header">
+          <h2>{{ $t('about') }}</h2>
+        </div> -->
         <!-- EDIT BUTTON REPURPOSE FOR SEND MESSAGE/OTHER ACTIONS-->
-        <div class="col-12 col-md-4">
+<!--         <div class="d-flex flex-column">
           <button
             v-if="user._id === userLoggedIn._id"
             class="btn btn-secondary"
@@ -72,22 +70,37 @@
           >
             {{ $t('edit') }}
           </button>
-        </div>
+        </div> -->
       </div>
       <!-- PROFILE STUFF -->
       <div
         v-if="!editing"
-        class="row"
+        class="row justify-content-around"
       >
-        <div class="">
-          <div class="about profile-section">
-            <p
-              v-if="user.profile.blurb"
-              v-markdown="user.profile.blurb"
-            ></p>
-            <p v-else>
-              {{ $t('noDescription') }}
-            </p>
+        <div class="d-flex flex-column">
+          <div class="about profile-header">
+            <h2>{{ $t('about') }}</h2>
+          </div>
+          <div class="">
+            <button
+              v-if="user._id === userLoggedIn._id"
+              class="btn btn-primary"
+              @click="editing = !editing"
+            >
+              {{ $t('editProfile') }}
+            </button>
+          </div>
+          <div class="about">
+            <div class="profile-section">
+              <p
+                v-if="user.profile.blurb"
+                v-markdown="user.profile.blurb"
+                class="markdown"
+              ></p>
+              <p v-else>
+                {{ $t('noDescription') }}
+              </p>
+            </div>
           </div>
           <div class="photo profile-section">
             <h2>{{ $t('photo') }}</h2>
@@ -101,45 +114,43 @@
             </p>
           </div>
         </div>
-        <div class="">
-          <div class="info profile-section">
-            <div class="info-item">
-              <div class="info-item-label">
-                {{ $t('joined') }}:
-              </div>
-              <div class="info-item-value">
-                {{ userJoinedDate }}
-              </div>
+        <div class="info profile-section">
+          <div class="info-item">
+            <div class="info-item-label">
+              {{ $t('joined') }}:
             </div>
-            <div class="info-item">
-              <div class="info-item-label">
-                {{ $t('totalLogins') }}:
-              </div>
-              <div class="info-item-value">
-                {{ user.loginIncentives }}
-              </div>
+            <div class="info-item-value">
+              {{ userJoinedDate }}
             </div>
-            <div class="info-item">
-              <div class="info-item-label">
-                {{ $t('latestCheckin') }}:
-              </div>
-              <div class="info-item-value">
-                {{ userLastLoggedIn }}
-              </div>
+          </div>
+          <div class="info-item">
+            <div class="info-item-label">
+              {{ $t('totalLogins') }}:
             </div>
-            <div class="info-item">
-              {{ getProgressDisplay() }}
-              <div class="progress">
-                <div
-                  class="progress-bar"
-                  role="progressbar"
-                  :aria-valuenow="incentivesProgress"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                  :style="{width: incentivesProgress + '%'}"
-                >
-                  <span class="sr-only">{{ incentivesProgress }}% {{ $t('complete') }}</span>
-                </div>
+            <div class="info-item-value">
+              {{ user.loginIncentives }}
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-item-label">
+              {{ $t('latestCheckin') }}:
+            </div>
+            <div class="info-item-value">
+              {{ userLastLoggedIn }}
+            </div>
+          </div>
+          <div class="info-item">
+            {{ getProgressDisplay() }}
+            <div class="progress">
+              <div
+                class="progress-bar"
+                role="progressbar"
+                :aria-valuenow="incentivesProgress"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                :style="{width: incentivesProgress + '%'}"
+              >
+                <span class="sr-only">{{ incentivesProgress }}% {{ $t('complete') }}</span>
               </div>
             </div>
           </div>
@@ -331,48 +342,59 @@
 <style lang="scss" >
   @import '~@/assets/scss/colors.scss';
 
-  #profile {
-    .modal-header{
-
-    }
-
-    .modal-body {
-      padding: 0;
-      border-radius: 12px;
-    }
-    .modal-content {
-      background: $gray-700;
-      padding: 0;
-
-    }
-  }
-
   .profile {
     .member-details {
       margin-left: 24px;
       background-color: $white;
 
-      &.character-name, small, .small-text {
-        color: $gray-50;
-      }
-    }
-    .standard-page {
-      padding: 0px;
-    }
-
     .progress-container > .progress {
-      background-color: $gray-500 !important;
+      background-color: $gray-700 !important;
       height: 16px !important;
       vertical-align: middle !important;
+      border-radius: 1px;
+      background-color: $gray-500;
 
       .progress-bar {
         height: 16px !important;
       }
     }
 
+    .profile-first-row,
+    .progress-container {
+      margin-left: -8px;
+    }
+
+    // .svg-icon {
+    //   display: block;
+    //   width: 24px;
+    //   height: 24px;
+    //   margin: 0 auto;
+    // }
+
+    .small-text {
+      color: $gray-50;
+    }
+
+    .character-name {
+      color: $gray-50;
+      font-size: 0.875em;
+      font-weight: bold;
+      line-height: 1.71;
+      height: 24px;
+      margin-bottom: 0px;
+    }
+
+    small {
+      color: $gray-50;
+      font-size: 0.75em;
+      line-height: 1.33;
+    }
+  }
+
     .profile-name-character {
       margin-left: 4px !important;
     }
+
   }
 
   .message-icon svg {
@@ -391,6 +413,17 @@
 
   .header {
     width: 100%;
+  }
+
+
+  .markdown p {
+      padding-bottom: 24px;
+    }
+
+  .standard-page {
+    padding-left: 12px;
+    padding-top: 0px;
+    background-color: $gray-700;
   }
 
   .admin-profile-actions {
@@ -436,8 +469,11 @@
     color: $gray-100;
   }
 
-  .photo img {
+  .photo {
+    margin-left: 24px;
+    img {
     max-width: 100%;
+    }
   }
 
   .header {
@@ -453,11 +489,13 @@
 
   .state-pages {
     background-color: $gray-700;
-
+    width: 100%;
+    margin-left: 0px;
+    margin-right: 0px;
   }
 
   .nav {
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     width: 100%;
     font-weight: bold;
     min-height: 40px;
@@ -576,30 +614,45 @@
     }
   }
 
-    .member-details {
-      small, .small-text {
-        color: $gray-10;
-      }
-
-      .progress-container > .progress {
-        border-radius: 1px;
-        background-color: $gray-500;
-      }
-    }
-
   .profile-section {
+
     h2 {
       overflow: hidden;
-      size: 16px;
+      size: 1.125em;
       color: $gray-50;
     }
   }
 
+  .profile-header {
+      margin-bottom: 0px;
+  }
+
+  .about {
+    display: flex;
+    margin-left: 24px;
+    width: 424px;
+    line-height: 1.71;
+
+    .about > * {
+      flex-grow: 0;
+      flex-shrink: 0;
+      flex-basis: auto;
+    }
+  }
+
+  button {
+    width: 148px;
+  }
+
   .info {
+    margin-top: 40px;
+    size: 0.875em;
+    width: 212px;
+
     .info-item {
       color: $gray-50;
-      size: 14px;
       margin-bottom: 8px;
+      margin-left: 24px;
 
       .info-item-label {
         font-weight: bold;

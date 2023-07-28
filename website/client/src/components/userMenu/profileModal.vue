@@ -1,12 +1,12 @@
 <template>
   <b-modal
     id="profile"
-    size="lg"
     :hide-footer="true"
     :hide-header="true"
     @hide="beforeHide"
     @shown="onShown()"
   >
+    <close-icon />
     <profile
       :user-id="userId"
       :starting-page="startingPage"
@@ -14,6 +14,25 @@
     />
   </b-modal>
 </template>
+
+<style lang="scss">
+  @import '~@/assets/scss/colors.scss';
+
+  #profile {
+    .modal-dialog {
+      max-width: 684px;
+    }
+    .modal-body {
+      padding: 0;
+      border-radius: 12px;
+      background-color: $white;
+    }
+    .modal-content {
+      background: $gray-700;
+      padding: 0;
+    }
+  }
+</style>
 
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
@@ -25,10 +44,12 @@
 
 <script>
 import profile from './profile';
+import closeIcon from '../shared/closeIcon.vue';
 
 export default {
   components: {
     profile,
+    closeIcon,
   },
   data () {
     return {
@@ -57,6 +78,9 @@ export default {
         this.$router.back();
       }
     },
+  },
+  close () {
+    this.$root.$emit('bv::hide::modal', 'profile');
   },
 };
 
