@@ -54,6 +54,7 @@ describe('POST /groups/:groupId/quests/invite/:questKey', () => {
       const { group } = await createAndPopulateGroup({
         groupDetails: { type: 'guild', privacy: 'public' },
         members: 1,
+        upgradeToGroupPlan: true,
       });
 
       const alternateGroup = group;
