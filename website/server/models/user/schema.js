@@ -478,7 +478,7 @@ export default new Schema({
       },
       cancelledPlan: {
         $type: Boolean,
-      }
+      },
     }],
   },
 

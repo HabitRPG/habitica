@@ -52,7 +52,7 @@ describe('POST /groups/:groupId/quests/invite/:questKey', () => {
 
     it('does not issue invites for Guilds', async () => {
       const { group } = await createAndPopulateGroup({
-        groupDetails: { type: 'guild', privacy: 'public' },
+        groupDetails: { type: 'guild', privacy: 'private' },
         members: 1,
         upgradeToGroupPlan: true,
       });

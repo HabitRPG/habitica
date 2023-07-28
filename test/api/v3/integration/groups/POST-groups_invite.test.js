@@ -533,7 +533,7 @@ describe('Post /groups/:groupId/invite', () => {
     let partyLeader;
 
     beforeEach(async () => {
-      group = await createAndPopulateGroup({
+      ({ group, groupLeader: partyLeader } = await createAndPopulateGroup({
         groupDetails: {
           name: 'Test Party',
           type: 'party',
@@ -541,8 +541,7 @@ describe('Post /groups/:groupId/invite', () => {
         },
         // Generate party with 20 members
         members: PARTY_LIMIT_MEMBERS - 10,
-      });
-      partyLeader = group.groupLeader;
+      }));
     });
 
     it('allows 30 members in a party', async () => {
