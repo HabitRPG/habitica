@@ -88,15 +88,15 @@ const backSpecialHeroicAureole = {
   canOwn: ownsItem('armor_special_heroicAureole'),
 };
 
-const headSpecialHeroicCirclet = {
-  text: t('headSpecialHeroicCircletText'),
-  notes: t('headSpecialHeroicCircletNotes', { attrs: 7 }),
+const headAccessorySpecialHeroicCirclet = {
+  text: t('headAccessorySpecialHeroicCircletText'),
+  notes: t('headAccessorySpecialHeroicCircletNotes', { attrs: 7 }),
   con: 7,
   str: 7,
   per: 7,
   int: 7,
   value: 175,
-  canOwn: ownsItem('head_special_heroicCirclet'),
+  canOwn: ownsItem('headAccessory_special_heroicCirclet'),
 };
 
 export {
@@ -107,5 +107,5 @@ export {
   weaponSpecialCritical,
   armorSpecialHeroicTunic,
   backSpecialHeroicAureole,
-  headSpecialHeroicCirclet,
+  headAccessorySpecialHeroicCirclet,
 };

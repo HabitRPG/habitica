@@ -1206,7 +1206,6 @@ const head = {
   1: contributorGear.headSpecial1,
   2: backerGear.headSpecial2,
   takeThis: takeThisGear.headSpecialTakeThis,
-  heroicCirclet: contributorGear.headSpecialHeroicCirclet,
   fireCoralCirclet: {
     text: t('headSpecialFireCoralCircletText'),
     notes: t('headSpecialFireCoralCircletNotes', { per: 15 }),
@@ -2058,6 +2057,7 @@ Object.keys(gearEvents).forEach(event => {
 });
 
 const headAccessory = {
+  heroicCirclet: contributorGear.headAccessorySpecialHeroicCirclet,
   springRogue: {
     specialClass: 'rogue',
     set: 'stealthyKittySet',

@@ -19,7 +19,7 @@ async function updateUser (user) {
       data: {
         icon: 'icon_pet_veteran_dragon',
         title: 'You’ve received a Veteran Pet!',
-        text: 'To commemorate being here for a new era of Habitca, we’ve awarded you a Veteran Dragon.',
+        text: 'To commemorate being here for a new era of Habitica, we’ve awarded you a Veteran Dragon.',
         destination: '/inventory/stable',
       },
       seen: false,
@@ -31,7 +31,7 @@ async function updateUser (user) {
       data: {
         icon: 'icon_pet_veteran_fox',
         title: 'You’ve received a Veteran Pet!',
-        text: 'To commemorate being here for a new era of Habitca, we’ve awarded you a Veteran Fox.',
+        text: 'To commemorate being here for a new era of Habitica, we’ve awarded you a Veteran Fox.',
         destination: '/inventory/stable',
       },
       seen: false,
@@ -43,7 +43,7 @@ async function updateUser (user) {
       data: {
         icon: 'icon_pet_veteran_bear',
         title: 'You’ve received a Veteran Pet!',
-        text: 'To commemorate being here for a new era of Habitca, we’ve awarded you a Veteran Bear.',
+        text: 'To commemorate being here for a new era of Habitica, we’ve awarded you a Veteran Bear.',
         destination: '/inventory/stable',
       },
       seen: false,
@@ -55,7 +55,7 @@ async function updateUser (user) {
       data: {
         icon: 'icon_pet_veteran_lion',
         title: 'You’ve received a Veteran Pet!',
-        text: 'To commemorate being here for a new era of Habitca, we’ve awarded you a Veteran Lion.',
+        text: 'To commemorate being here for a new era of Habitica, we’ve awarded you a Veteran Lion.',
         destination: '/inventory/stable',
       },
       seen: false,
@@ -67,7 +67,7 @@ async function updateUser (user) {
       data: {
         icon: 'icon_pet_veteran_tiger',
         title: 'You’ve received a Veteran Pet!',
-        text: 'To commemorate being here for a new era of Habitca, we’ve awarded you a Veteran Tiger.',
+        text: 'To commemorate being here for a new era of Habitica, we’ve awarded you a Veteran Tiger.',
         destination: '/inventory/stable',
       },
       seen: false,
@@ -79,7 +79,7 @@ async function updateUser (user) {
       data: {
         icon: 'icon_pet_veteran_wolf',
         title: 'You’ve received a Veteran Pet!',
-        text: 'To commemorate being here for a new era of Habitca, we’ve awarded you a Veteran Wolf.',
+        text: 'To commemorate being here for a new era of Habitica, we’ve awarded you a Veteran Wolf.',
         destination: '/inventory/stable',
       },
       seen: false,
@@ -89,7 +89,7 @@ async function updateUser (user) {
   if (user.contributor.level > 0) {
     set['items.gear.owned.armor_special_heroicTunic'] = true;
     set['items.gear.owned.back_special_heroicAureole'] = true;
-    set['items.gear.owned.head_special_heroicCirclet'] = true;
+    set['items.gear.owned.headAccessory_special_heroicCirclet'] = true;
     push.notifications.$each.push({
       type: 'ITEM_RECEIVED',
       data: {
