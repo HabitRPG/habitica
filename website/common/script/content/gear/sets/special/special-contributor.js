@@ -66,10 +66,46 @@ const weaponSpecialCritical = {
   },
 };
 
+const armorSpecialHeroicTunic = {
+  text: t('armorSpecialHeroicTunicText'),
+  notes: t('armorSpecialHeroicTunicNotes', { attrs: 7 }),
+  con: 7,
+  str: 7,
+  per: 7,
+  int: 7,
+  value: 175,
+  canOwn: ownsItem('armor_special_heroicTunic'),
+};
+
+const backSpecialHeroicAureole = {
+  text: t('backSpecialHeroicAureoleText'),
+  notes: t('backSpecialHeroicAureoleNotes', { attrs: 7 }),
+  con: 7,
+  str: 7,
+  per: 7,
+  int: 7,
+  value: 175,
+  canOwn: ownsItem('armor_special_heroicAureole'),
+};
+
+const headSpecialHeroicCirclet = {
+  text: t('headSpecialHeroicCircletText'),
+  notes: t('headSpecialHeroicCircletNotes', { attrs: 7 }),
+  con: 7,
+  str: 7,
+  per: 7,
+  int: 7,
+  value: 175,
+  canOwn: ownsItem('head_special_heroicCirclet'),
+};
+
 export {
   armorSpecial1,
   headSpecial1,
   shieldSpecial1,
   weaponSpecial1,
   weaponSpecialCritical,
+  armorSpecialHeroicTunic,
+  backSpecialHeroicAureole,
+  headSpecialHeroicCirclet,
 };
