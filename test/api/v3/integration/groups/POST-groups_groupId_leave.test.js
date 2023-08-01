@@ -267,14 +267,12 @@ describe('POST /groups/:groupId/leave', () => {
       let groupWithPlan;
 
       beforeEach(async () => {
-        const { group, groupLeader, members } = await createAndPopulateGroup({
+        ({ group: groupWithPlan, groupLeader: leader, members } = await createAndPopulateGroup({
           groupDetails,
           members: 1,
           upgradeToGroupPlan: true,
-        });
-        leader = groupLeader;
+        }));
         [member] = members;
-        groupWithPlan = group;
         const userWithFreePlan = await User.findById(leader._id).exec();
 
         // Create subscription
@@ -309,18 +307,16 @@ describe('POST /groups/:groupId/leave', () => {
 
   each(typesOfGroups, (groupDetails, groupType) => {
     context(`Leaving a group with extraMonths left plan when the group is a ${groupType}`, () => {
-      if (groupDetails.privacy === 'public') return; // public guilds cannot be group plans
       const extraMonths = 12;
       let groupWithPlan;
 
       beforeEach(async () => {
-        const { group, members } = await createAndPopulateGroup({
+        ({ group: groupWithPlan, members } = await createAndPopulateGroup({
           groupDetails,
           members: 1,
           upgradeToGroupPlan: true,
-        });
+        }));
         [member] = members;
-        groupWithPlan = group;
         await member.update({
           'purchased.plan.extraMonths': extraMonths,
         });
