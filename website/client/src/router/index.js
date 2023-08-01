@@ -314,7 +314,7 @@ const router = new VueRouter({
           name: 'faq', path: 'faq', component: FAQPage, meta: { requiresLogin: false },
         },
         {
-          name: 'chatSunsetFaq', path: 'faq/tavern-and-guilds', component: ChatSunsetFaq, meta: { requiresLogin: false },
+          name: 'chatSunsetFaq', path: 'tavern-and-guilds', component: ChatSunsetFaq, meta: { requiresLogin: false },
         },
         {
           name: 'features', path: 'features', component: FeaturesPage, meta: { requiresLogin: false },
@@ -386,6 +386,7 @@ const router = new VueRouter({
 
     // Only used to handle some redirects
     // See router.beforeEach
+    { path: '/static/faq/tavern-and-guilds', redirect: '/static/tavern-and-guilds' },
     { path: '/redirect/:redirect', name: 'redirect' },
     { path: '*', redirect: { name: 'notFound' } },
   ],
