@@ -120,27 +120,27 @@
         </h2>
         <div class="well pet-mount-well">
           <div class="pet-mount-well-image">
-            <div
-              class="box"
-              :class="{white: user.items.currentPet}"
-            >
               <div
-                class="Pet"
-                :class="`Pet-${user.items.currentPet}`"
-              ></div>
+                class="box"
+                :class="{white: user.items.currentPet}"
+              >
+                <div
+                  class="Pet"
+                  :class="`Pet-${user.items.currentPet}`"
+                ></div>
+              </div>
             </div>
-          </div>
-          <div class="pet-mount-well-text">
-            <div>{{ formatAnimal(user.items.currentPet, 'pet') }}</div>
-            <div>
-              <strong>{{ $t('petsFound') }}:</strong>
-              {{ totalCount(user.items.pets) }}
+            <div class="pet-mount-well-text">
+              <div>{{ formatAnimal(user.items.currentPet, 'pet') }}</div>
+              <div>
+                <strong>{{ $t('petsFound') }}:</strong>
+                {{ totalCount(user.items.pets) }}
+              </div>
+              <div>
+                <strong>{{ $t('beastMasterProgress') }}:</strong>
+                {{ beastMasterProgress(user.items.pets) }}
+              </div>
             </div>
-            <div>
-              <strong>{{ $t('beastMasterProgress') }}:</strong>
-              {{ beastMasterProgress(user.items.pets) }}
-            </div>
-          </div>
         </div>
       </div>
       <div class="stats-section-mounts col-12 col-md-6">
@@ -190,10 +190,14 @@
         class="col-12 col-md-6"
       >
         <div class="row col-12 stats-column">
-          <div
-            :id="`${stat}-information`"
-            class="col-12 col-md-4 attribute-label"
-          >
+          <div class="col-12 col-md-4 attribute-label">
+            <span
+              class="hint"
+              :popover-title="$t(statInfo.title)"
+              popover-placement="right"
+              :popover="$t(statInfo.popover)"
+              popover-trigger="mouseenter"
+            ></span>
             <div
               class="stat-title"
               :class="stat"
@@ -202,13 +206,6 @@
             </div>
             <strong class="number">{{ totalStatPoints(stat) | floorWholeNumber }}</strong>
           </div>
-          <b-popover
-            :target="`${stat}-information`"
-            triggers="hover focus"
-            placement="right"
-            :prevent-overflow="false"
-            :content="$t(statInfo.popover)"
-          />
           <div class="col-12 col-md-6">
             <ul class="bonus-stats">
               <li>
@@ -358,7 +355,7 @@ export default {
       },
 
       allocateStatsList: {
-        str: { title: 'allocateStr', popover: 'strText', allocatepop: 'allocateStrPop' },
+        str: { title: 'allocateStr', popover: 'strengthText', allocatepop: 'allocateStrPop' },
         int: { title: 'allocateInt', popover: 'intText', allocatepop: 'allocateIntPop' },
         con: { title: 'allocateCon', popover: 'conText', allocatepop: 'allocateConPop' },
         per: { title: 'allocatePer', popover: 'perText', allocatepop: 'allocatePerPop' },
@@ -367,7 +364,7 @@ export default {
       stats: {
         str: {
           title: 'strength',
-          popover: 'strText',
+          popover: 'strengthText',
         },
         int: {
           title: 'intelligence',
