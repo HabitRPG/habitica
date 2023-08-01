@@ -417,5 +417,6 @@
   "lookingForPartyTitle": "Find Members",
   "findMorePartyMembers": "Find More Members",
   "findPartyMembers": "Find Party Members",
-  "noOneLooking": "There’s no one looking for a Party right now.<br>You can check back later!"
+  "noOneLooking": "There’s no one looking for a Party right now.<br>You can check back later!",
+  "chatSunsetWarning": "⚠️ <strong>Habitica Guilds and Tavern chat will be discontinued on 8/8/2023.</strong> <a href='/static/faq/tavern-and-guilds'>Click here</a> to read more about this change."
 }
