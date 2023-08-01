@@ -28,7 +28,7 @@ describe('POST /groups/:groupId/leave', () => {
         upgradeToGroupPlan: true,
       }));
 
-      member = members[0]; // eslint-disable-line prefer-destructuring
+      [member] = members;
       memberCount = groupToLeave.memberCount;
       await leader.update({ 'auth.timestamps.created': new Date('2022-01-01') });
     });
@@ -120,15 +120,20 @@ describe('POST /groups/:groupId/leave', () => {
     let invitedUser;
 
     beforeEach(async () => {
-      ({ group: groupToLeave, groupLeader: leader, members, invitees } = await createAndPopulateGroup({
+      ({
+        group: groupToLeave,
+        groupLeader: leader,
+        members,
+        invitees,
+      } = await createAndPopulateGroup({
         type: 'party',
         privacy: 'private',
         members: 1,
         invites: 1,
       }));
 
-      member = members[0]; // eslint-disable-line prefer-destructuring
-      invitedUser = invitees[0];
+      [member] = members;
+      [invitedUser] = invitees;
       memberCount = groupToLeave.memberCount;
       await leader.update({ 'auth.timestamps.created': new Date('2022-01-01') });
     });
@@ -260,8 +265,6 @@ describe('POST /groups/:groupId/leave', () => {
   each(typesOfGroups, (groupDetails, groupType) => {
     context(`Leaving a group plan when the group is a ${groupType}`, () => {
       let groupWithPlan;
-      let leader;
-      let member;
 
       beforeEach(async () => {
         const { group, groupLeader, members } = await createAndPopulateGroup({
@@ -270,7 +273,7 @@ describe('POST /groups/:groupId/leave', () => {
           upgradeToGroupPlan: true,
         });
         leader = groupLeader;
-        member = members[0]; // eslint-disable-line prefer-destructuring
+        [member] = members;
         groupWithPlan = group;
         const userWithFreePlan = await User.findById(leader._id).exec();
 
@@ -309,7 +312,6 @@ describe('POST /groups/:groupId/leave', () => {
       if (groupDetails.privacy === 'public') return; // public guilds cannot be group plans
       const extraMonths = 12;
       let groupWithPlan;
-      let member;
 
       beforeEach(async () => {
         const { group, members } = await createAndPopulateGroup({
