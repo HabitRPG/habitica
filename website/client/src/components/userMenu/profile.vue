@@ -1,68 +1,173 @@
 <template>
-  <div>
-    <div
-      v-if="!user && userLoaded"
-    >
-      <error404 />
-    </div>
-    <div
-      v-else-if="userLoaded"
-      class="profile"
-    >
-      <!-- HEADER -->
-      <div class="header">
-        <div class="profile-actions d-flex">
-        </div>
-        <div class="row">
-          <div class="">
-            <member-details
-              :member="user"
-              :class-badge-position="'hidden'"
-            />
-          </div>
+  <div
+    v-if="!user && userLoaded"
+  >
+    <error404 />
+  </div>
+  <div
+    v-else-if="userLoaded"
+    class="profile"
+  >
+    <div class="header">
+      <div class="profile-actions d-flex">
+        <router-link
+          :to="{ path: '/private-messages', query: { uuid: user._id } }"
+          replace
+        >
+          <button
+            v-b-tooltip.hover.left="$t('sendMessage')"
+            class="btn btn-secondary message-icon"
+          >
+            <div
+              v-once
+              class="svg-icon message-icon"
+              v-html="icons.message"
+            ></div>
+          </button>
+        </router-link>
+        <button
+          v-b-tooltip.hover.bottom="$t('sendGems')"
+          class="btn btn-secondary gift-icon"
+          @click="openSendGemsModal()"
+        >
+          <div
+            class="svg-icon gift-icon"
+            v-html="icons.gift"
+          ></div>
+        </button>
+        <button
+          v-if="user._id !== userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) === -1"
+          v-b-tooltip.hover.right="$t('blockWarning')"
+          class="btn btn-secondary block-icon d-flex justify-content-center align-items-center"
+          @click="blockUser()"
+        >
+          <div
+            v-once
+            class="svg-icon block-icon"
+            v-html="icons.block"
+          ></div>
+        </button>
+        <button
+          v-if="user._id !== userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) !== -1"
+          v-b-tooltip.hover.right="$t('unblock')"
+          class="btn btn-secondary positive-icon"
+          @click="unblockUser()"
+        >
+          <div
+            class="svg-icon positive-icon"
+            v-html="icons.positive"
+          ></div>
+        </button>
+        <button
+          v-if="hasPermission(userLoggedIn, 'moderator')"
+          v-b-tooltip.hover.right="'Admin - Toggle Tools'"
+          class="btn btn-secondary positive-icon d-flex justify-content-center align-items-center"
+          @click="toggleAdminTools()"
+        >
+          <div
+            class="svg-icon positive-icon"
+            v-html="icons.staff"
+          ></div>
+        </button>
+      </div>
+      <div
+        v-if="hasPermission(userLoggedIn, 'moderator') && adminToolsLoaded"
+        class="row admin-profile-actions"
+      >
+        <div class="col-12 text-right">
+          <span
+            v-if="!hero.flags || (hero.flags && !hero.flags.chatShadowMuted)"
+            v-b-tooltip.hover.bottom="'Turn on Shadow Muting'"
+            class="admin-action"
+            @click="adminTurnOnShadowMuting()"
+          >shadow-mute</span>
+          <span
+            v-if="hero.flags && hero.flags.chatShadowMuted"
+            v-b-tooltip.hover.bottom="'Turn off Shadow Muting'"
+            class="admin-action"
+            @click="adminTurnOffShadowMuting()"
+          >un-shadow-mute</span>
+          <span
+            v-if="!hero.flags || (hero.flags && !hero.flags.chatRevoked)"
+            v-b-tooltip.hover.bottom="'Revoke Chat Privileges'"
+            class="admin-action"
+            @click="adminRevokeChat()"
+          >mute</span>
+          <span
+            v-if="hero.flags && hero.flags.chatRevoked"
+            v-b-tooltip.hover.bottom="'Reinstate Chat Privileges'"
+            class="admin-action"
+            @click="adminReinstateChat()"
+          >un-mute</span>
+          <span
+            v-if="!hero.auth.blocked"
+            v-b-tooltip.hover.bottom="'Ban User'"
+            class="admin-action"
+            @click="adminBlockUser()"
+          >ban</span>
+          <span
+            v-if="hero.auth.blocked"
+            v-b-tooltip.hover.bottom="'Un-Ban User'"
+            class="admin-action"
+            @click="adminUnblockUser()"
+          >un-ban</span>
+          <router-link
+            :to="{ name: 'adminPanelUser', params: { userIdentifier: userId } }"
+            replace
+          >
+            Admin Panel
+          </router-link>
         </div>
       </div>
-      <!-- STATE CHANGES -->
-      <div class="row state-pages">
-        <div class="text-center nav">
-          <div
-            class="nav-item"
-            :class="{active: selectedPage === 'profile'}"
-            @click="selectPage('profile')"
-          >
-            {{ $t('profile') }}
-          </div>
-          <div
-            class="nav-item"
-            :class="{active: selectedPage === 'stats'}"
-            @click="selectPage('stats')"
-          >
-            {{ $t('stats') }}
-          </div>
-          <div
-            class="nav-item"
-            :class="{active: selectedPage === 'achievements'}"
-            @click="selectPage('achievements')"
-          >
-            {{ $t('achievements') }}
-          </div>
+      <div class="row">
+        <div class="col-12">
+          <member-details :member="user" />
         </div>
       </div>
     </div>
-    <!-- SHOW PROFILE -->
+    <div class="row">
+      <div class="text-center nav">
+        <div
+          class="nav-item"
+          :class="{active: selectedPage === 'profile'}"
+          @click="selectPage('profile')"
+        >
+          {{ $t('profile') }}
+        </div>
+        <div
+          class="nav-item"
+          :class="{active: selectedPage === 'stats'}"
+          @click="selectPage('stats')"
+        >
+          {{ $t('stats') }}
+        </div>
+        <div
+          class="nav-item"
+          :class="{active: selectedPage === 'achievements'}"
+          @click="selectPage('achievements')"
+        >
+          {{ $t('achievements') }}
+        </div>
+      </div>
+    </div>
     <div
       v-show="selectedPage === 'profile'"
       v-if="user.profile"
       id="userProfile"
-      class="standard-page "
+      class="standard-page"
     >
       <div class="row">
-        <div class="">
+        <div class="col-12 col-md-8">
           <div class="header mb-3">
-            <h1>{{ $t('about') }}</h1>
+            <h1>{{ user.profile.name }}</h1>
+            <div
+              v-if="user.auth && user.auth.local && user.auth.local.username"
+              class="name"
+            >
+              @{{ user.auth.local.username }}
+            </div>
           </div>
         </div>
-        <!-- EDIT BUTTON REPURPOSE FOR SEND MESSAGE/OTHER ACTIONS-->
         <div class="col-12 col-md-4">
           <button
             v-if="user._id === userLoggedIn._id"
@@ -74,13 +179,13 @@
           </button>
         </div>
       </div>
-      <!-- PROFILE STUFF -->
       <div
         v-if="!editing"
         class="row"
       >
-        <div class="">
+        <div class="col-12 col-md-8">
           <div class="about profile-section">
+            <h2>{{ $t('about') }}</h2>
             <p
               v-if="user.profile.blurb"
               v-markdown="user.profile.blurb"
@@ -101,8 +206,9 @@
             </p>
           </div>
         </div>
-        <div class="">
+        <div class="col-12 col-md-4">
           <div class="info profile-section">
+            <h2>{{ $t('info') }}</h2>
             <div class="info-item">
               <div class="info-item-label">
                 {{ $t('joined') }}:
@@ -146,13 +252,12 @@
           <!-- @TODO: Implement in V2 .social-->
         </div>
       </div>
-      <!-- EDITING PROFILE -->
       <div
         v-if="editing"
         class="row"
       >
         <h1>{{ $t('editProfile') }}</h1>
-        <div class="">
+        <div class="col-12">
           <div
             class="alert alert-info alert-sm"
             v-html="$t('communityGuidelinesWarning', managerEmail)"
@@ -187,9 +292,9 @@
             <!-- include ../../shared/formatting-help-->
           </div>
         </div>
-        <div class=" text-center">
+        <div class="col-12 text-center">
           <button
-            class="btn btn-primary"
+            class="btn btn-primary mr-2"
             @click="save()"
           >
             {{ $t("save") }}
@@ -203,22 +308,21 @@
         </div>
       </div>
     </div>
-    <!-- ACHIEVEMENTS -->
     <div
       v-show="selectedPage === 'achievements'"
       v-if="user.achievements"
       id="achievements"
-      class="standard-page container "
+      class="standard-page container"
     >
       <div
         v-for="(category, key) in achievements"
         :key="key"
         class="row category-row"
       >
-        <h3 class="text-center">
+        <h3 class="col-12 text-center mb-3">
           {{ $t(`${key}Achievs`) }}
         </h3>
-        <div class="">
+        <div class="col-12">
           <div class="row achievements-row justify-content-center">
             <div
               v-for="(achievement, achievKey) in achievementsCategory(key, category)"
@@ -274,14 +378,14 @@
           </div>
         </div>
       </div>
-      <hr class="">
+      <hr class="col-12">
       <div class="row">
         <div
           v-if="user.achievements.challenges"
-          class=""
+          class="col-12 col-md-6"
         >
           <div class="achievement-icon achievement-karaoke-2x"></div>
-          <h3 class="text-center">
+          <h3 class="text-center mt-2 mb-4">
             {{ $t('challengesWon') }}
           </h3>
           <div
@@ -294,10 +398,10 @@
         </div>
         <div
           v-if="user.achievements.quests"
-          class=""
+          class="col-12 col-md-6"
         >
           <div class="achievement-icon achievement-alien2x"></div>
-          <h3 class="text-center">
+          <h3 class="text-center mt-2 mb-4">
             {{ $t('questsCompleted') }}
           </h3>
           <div
@@ -316,48 +420,31 @@
         </div>
       </div>
     </div>
-    <!-- STATS -->
-    <div>
-      <profileStats
-        v-show="selectedPage === 'stats'"
-        v-if="user.preferences"
-        :user="user"
-        :show-allocation="showAllocation()"
-      />
-    </div>
+    <profileStats
+      v-show="selectedPage === 'stats'"
+      v-if="user.preferences"
+      :user="user"
+      :show-allocation="showAllocation()"
+    />
   </div>
 </template>
 
 <style lang="scss" >
   @import '~@/assets/scss/colors.scss';
 
-  #profile {
-    .modal-header{
-
-    }
-
-    .modal-body {
-      padding: 0;
-      border-radius: 12px;
-    }
-    .modal-content {
-      background: $gray-700;
-      padding: 0;
-
-    }
-  }
-
   .profile {
     .member-details {
-      margin-left: 24px;
-      background-color: $white;
-
-      &.character-name, small, .small-text {
-        color: $gray-50;
+      .character-name, small, .small-text {
+        color: #878190;
       }
     }
+
     .standard-page {
-      padding: 0px;
+      padding-bottom: 0rem;
+    }
+
+    .modal-content {
+      background: #f9f9f9;
     }
 
     .progress-container > .progress {
@@ -451,29 +538,22 @@
     }
   }
 
-  .state-pages {
-    background-color: $gray-700;
-
-  }
-
   .nav {
-    font-size: 0.875rem;
     width: 100%;
     font-weight: bold;
     min-height: 40px;
     justify-content: center;
-    padding-top: 16px;
   }
 
   .nav-item {
     display: inline-block;
-    margin: 0 8px 8px 6px;
-    color: $gray-50;
+    margin: 0 1.2em;
+    padding: 1em;
   }
 
   .nav-item:hover, .nav-item.active {
-    color: $purple-300;
-    border-bottom: 2px solid $purple-300;
+    color: #4f2a93;
+    border-bottom: 2px solid #4f2a93;
     cursor: pointer;
   }
 
@@ -577,8 +657,8 @@
   }
 
     .member-details {
-      small, .small-text {
-        color: $gray-10;
+      .character-name, small, .small-text {
+        color: #878190;
       }
 
       .progress-container > .progress {
@@ -593,11 +673,21 @@
       size: 16px;
       color: $gray-50;
     }
+    h2:after {
+      background-color: $gray-500;
+      content: "";
+      display: inline-block;
+      height: 1px;
+      position: relative;
+      vertical-align: middle;
+      width: 100%;
+    }
   }
 
   .info {
+
     .info-item {
-      color: $gray-50;
+      color: $gray-200;
       size: 14px;
       margin-bottom: 8px;
 
