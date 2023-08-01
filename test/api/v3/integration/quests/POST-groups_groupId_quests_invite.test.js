@@ -51,15 +51,13 @@ describe('POST /groups/:groupId/quests/invite/:questKey', () => {
     });
 
     it('does not issue invites for Guilds', async () => {
-      const { group } = await createAndPopulateGroup({
+      const { group, groupLeader } = await createAndPopulateGroup({
         groupDetails: { type: 'guild', privacy: 'private' },
         members: 1,
         upgradeToGroupPlan: true,
       });
 
-      const alternateGroup = group;
-
-      await expect(leader.post(`/groups/${alternateGroup._id}/quests/invite/${PET_QUEST}`)).to.eventually.be.rejected.and.eql({
+      await expect(groupLeader.post(`/groups/${group._id}/quests/invite/${PET_QUEST}`)).to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
         message: t('guildQuestsNotSupported'),
