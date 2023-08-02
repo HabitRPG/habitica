@@ -24,7 +24,7 @@ describe('POST /groups/:id/chat/:id/clearflags', () => {
       upgradeToGroupPlan: true,
       members: 2,
     });
-    
+
     groupWithChat = group;
     author = groupLeader;
     [nonAdmin, admin] = members;

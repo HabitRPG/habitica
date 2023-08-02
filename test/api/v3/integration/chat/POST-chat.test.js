@@ -7,13 +7,12 @@ import {
   server,
 } from '../../../../helpers/api-integration/v3';
 import {
-  SPAM_MESSAGE_LIMIT,
   SPAM_MIN_EXEMPT_CONTRIB_LEVEL,
 } from '../../../../../website/server/models/group';
 import { MAX_MESSAGE_LENGTH } from '../../../../../website/common/script/constants';
 import * as email from '../../../../../website/server/libs/email';
 
-describe.only('POST /chat', () => {
+describe('POST /chat', () => {
   let user; let groupWithChat; let member; let
     additionalMember;
   const testMessage = 'Test Message';
@@ -257,7 +256,7 @@ describe.only('POST /chat', () => {
     expect(groupMessages[0].text.length).to.eql(MAX_MESSAGE_LENGTH);
   });
 
-  /* it('chat message with mentions - mention link should not count towards 3000 chars limit', async () => {
+  it('chat message with mentions - mention link should not count towards 3000 chars limit', async () => {
     const memberUsername = 'memberUsername';
     await member.update({ 'auth.local.username': memberUsername });
 
@@ -273,7 +272,7 @@ describe.only('POST /chat', () => {
     expect(newMessage.message.text.length)
       .to.eql(messageWithMentions.length - (`@${memberUsername}`).length + mentionLink.length);
     expect(groupMessages[0].text.length).to.eql(newMessage.message.text.length);
-  }); */
+  });
 
   it('creates a chat with user styles', async () => {
     const mount = 'test-mount';
