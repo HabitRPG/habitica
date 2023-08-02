@@ -2,7 +2,6 @@ import {
   generateUser,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
-import { model as Group } from '../../../../../website/server/models/group';
 import { MAX_SUMMARY_SIZE_FOR_GUILDS } from '../../../../../website/common/script/constants';
 
 describe('POST /group', () => {
