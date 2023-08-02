@@ -176,8 +176,9 @@ describe('GET /groups/:groupId/invites', () => {
   }).timeout(30000);
 
   it('supports using req.query.lastId to get more invites', async function test () {
+    let group; let invitees;
     this.timeout(30000); // @TODO: times out after 8 seconds
-    const { group, groupLeader: user, invitees } = await createAndPopulateGroup({
+    ({ group, groupLeader: user, invitees } = await createAndPopulateGroup({
       groupDetails: {
         type: 'guild',
         privacy: 'private',
@@ -186,7 +187,7 @@ describe('GET /groups/:groupId/invites', () => {
       leaderDetails: { balance: 4 },
       invites: 32,
       upgradeToGroupPlan: true,
-    });
+    }));
 
     const expectedIds = invitees.map(generatedInvite => generatedInvite._id);
 

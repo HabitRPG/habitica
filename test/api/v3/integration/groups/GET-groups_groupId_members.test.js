@@ -76,14 +76,15 @@ describe('GET /groups/:groupId/members', () => {
   });
 
   it('req.query.includeAllPublicFields === true works with guilds', async () => {
-    const { group, groupLeader: user } = await createAndPopulateGroup({
+    let group;
+    ({ group, groupLeader: user } = await createAndPopulateGroup({
       type: 'guild',
       privacy: 'private',
       name: generateUUID(),
       upgradeToGroupPlan: true,
       members: 1,
-    });
-        
+    }));
+
     const [memberRes] = await user.get(`/groups/${group._id}/members?includeAllPublicFields=true`);
 
     expect(memberRes).to.have.all.keys([ // works as: object has all and only these keys
