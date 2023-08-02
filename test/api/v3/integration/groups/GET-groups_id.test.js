@@ -290,7 +290,7 @@ describe('GET /groups/:id', () => {
 
       beforeEach(async () => {
         [admin] = members;
-        await admin.update({ permissions: { moderator: true }});
+        await admin.update({ permissions: { moderator: true } });
       });
 
       it('includes all messages', async () => {
