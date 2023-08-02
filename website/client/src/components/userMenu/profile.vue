@@ -59,87 +59,89 @@
       <!-- PROFILE STUFF -->
       <div
         v-if="!editing"
-        class="justify-content-around"
+        class="flex-container"
       >
-        <div class="d-flex">
+        <div class="flex-left">
           <div class="about profile-header">
             <h2>{{ $t('about') }}</h2>
           </div>
-          <div class="d-flex grid>">
-            <div class="grid-one">
-              <button
-                v-if="user._id === userLoggedIn._id"
-                class="btn btn-primary"
-                @click="editing = !editing"
-              >
-                {{ $t('editProfile') }}
-              </button>
-            </div>
-            <div class="about grid-two">
-              <div class="profile-section">
-                <p
-                  v-if="user.profile.blurb"
-                  v-markdown="user.profile.blurb"
-                  class="markdown"
-                ></p>
-                <p v-else>
-                  {{ $t('noDescription') }}
-                </p>
-              </div>
-            </div>
-            <div class="grid-three">
-              <div class="photo profile-section">
-                <h2>{{ $t('photo') }}</h2>
-                <img
-                  v-if="user.profile.imageUrl"
-                  class="img-rendering-auto"
-                  :src="user.profile.imageUrl"
-                >
-                <p v-else>
-                  {{ $t('noPhoto') }}
-                </p>
-              </div>
+          <div class="flex-left>">
+            <div class="about profile-section">
+              <p
+                v-if="user.profile.blurb"
+                v-markdown="user.profile.blurb"
+                class="markdown"
+              ></p>
+              <p v-else>
+                {{ $t('noDescription') }}
+              </p>
             </div>
           </div>
-          <div class="grid-four">
-            <div class="info profile-section">
-              <div class="info-item">
-                <div class="info-item-label">
-                  {{ $t('joined') }}:
-                </div>
-                <div class="info-item-value">
-                  {{ userJoinedDate }}
-                </div>
+          <div class="photo profile-section">
+            <h2>{{ $t('photo') }}</h2>
+            <img
+              v-if="user.profile.imageUrl"
+              class="img-rendering-auto"
+              :src="user.profile.imageUrl"
+            >
+            <p v-else>
+              {{ $t('noPhoto') }}
+            </p>
+          </div>
+        </div>
+        <div class="flex-right">
+          <button
+            v-if="user._id === userLoggedIn._id"
+            class="btn btn-primary flex-right"
+            @click="editing = !editing"
+          >
+            {{ $t('editProfile') }}
+          </button>
+          <div class="info profile-section">
+            <div class="info-item">
+              <div class="info-item-label">
+                {{ $t('joined') }}:
               </div>
-              <div class="info-item">
-                <div class="info-item-label">
-                  {{ $t('totalLogins') }}:
-                </div>
-                <div class="info-item-value">
-                  {{ user.loginIncentives }}
-                </div>
+              <div class="info-item-value">
+                {{ userJoinedDate }}
               </div>
-              <div class="info-item">
-                <div class="info-item-label">
-                  {{ $t('latestCheckin') }}:
-                </div>
-                <div class="info-item-value">
-                  {{ userLastLoggedIn }}
-                </div>
+            </div>
+            <div class="info-item">
+              <div class="info-item-label">
+                {{ $t('totalLogins') }}:
               </div>
-              <div class="info-item">
-                {{ getProgressDisplay() }}
-                <div class="progress">
-                  <div
-                    class="progress-bar"
-                    role="progressbar"
-                    :aria-valuenow="incentivesProgress"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                    :style="{width: incentivesProgress + '%'}"
-                  >
-                    <span class="sr-only">{{ incentivesProgress }}% {{ $t('complete') }}</span>
-                  </div>
+              <div class="info-item-value">
+                {{ user.loginIncentives }}
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="info-item-label">
+                {{ $t('latestCheckin') }}:
+              </div>
+              <div class="info-item-value">
+                {{ userLastLoggedIn }}
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="info-item-label">
+                {{ $t('nextReward') }}:
+              </div>
+              <div class="info-item-value">
+                {{ nextIncentive() }}
+              </div>
+            </div>
+            <div class="info-item">
+              {{ getProgressDisplay() }}
+              <div class="progress">
+                <div
+                  class="progress-bar"
+                  role="progressbar"
+                  :aria-valuenow="incentivesProgress"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  :style="{width: incentivesProgress + '%'}"
+                >
+                  <span class="sr-only">{{ incentivesProgress }}% {{ $t('complete') }}</span>
                 </div>
               </div>
             </div>
@@ -278,7 +280,7 @@
       <div class="row">
         <div
           v-if="user.achievements.challenges"
-          class=""
+          class="col-12 col-md-6"
         >
           <div class="achievement-icon achievement-karaoke-2x"></div>
           <h3 class="text-center">
@@ -294,7 +296,7 @@
         </div>
         <div
           v-if="user.achievements.quests"
-          class=""
+          class="col-12 col-md-6"
         >
           <div class="achievement-icon achievement-alien2x"></div>
           <h3 class="text-center">
@@ -365,7 +367,6 @@
 
     .character-name {
       color: $gray-50;
-      font-size: 0.875em;
       font-weight: bold;
       height: 24px;
       line-height: 1.71;
@@ -382,7 +383,6 @@
     .profile-name-character {
       margin-left: 4px !important;
     }
-
   }
 
   .message-icon svg {
@@ -409,8 +409,22 @@
 
   .standard-page {
     background-color: $gray-700;
-    padding-left: 12px;
+    // padding-left: 12px;
     padding-top: 0px;
+  }
+
+  .flex-container {
+    display: flex;
+    flex-direction: row;
+    padding-top: 18px;
+  }
+
+  .flex-left {
+    width: 424px;
+  }
+
+  .flex-right {
+    width: 188px;
   }
 
   .admin-profile-actions {
@@ -457,7 +471,6 @@
   }
 
   .photo {
-    margin-left: 24px;
 
     img {
     max-width: 100%;
@@ -508,17 +521,6 @@
     font-size: 16px;
   }
 
-  .achievement {
-    margin: 0 auto;
-  }
-
-  .box {
-    border: dotted 1px #c3c0c7;
-    border-radius: 2px;
-    height: 92px;
-    width: 94px;
-  }
-
   .white {
     background: #FFFFFF;
     border: 1px solid transparent;
@@ -536,6 +538,7 @@
 
     h2 {
       color: $gray-50;
+      margin-bottom: 20px !important;
       overflow: hidden;
       size: 1.125em;
     }
@@ -546,30 +549,22 @@
   }
 
   .about {
-    display: flex;
     line-height: 1.71;
-    margin-left: 24px;
-    width: 424px;
-
-    .about > * {
-      flex-basis: auto;
-      flex-grow: 0;
-      flex-shrink: 0;
-    }
   }
 
   button {
-    width: 148px;
+    margin-left: 24px;
   }
 
   .info {
-    margin-top: 40px;
+    margin-top: 16px;
+    line-height: 1.71;
     size: 0.875em;
     width: 212px;
 
     .info-item {
       color: $gray-50;
-      margin-bottom: 8px;
+      margin-bottom: 4px;
       margin-left: 24px;
 
       .info-item-label {
@@ -593,9 +588,21 @@
       }
     }
   }
-    #achievements {
+
+  .achievement {
+    margin: 0 auto;
+  }
+
+  .box {
+    border: dotted 1px #c3c0c7;
+    border-radius: 2px;
+    height: 92px;
+    width: 94px;
+  }
+  #achievements {
     .category-row {
       margin-bottom: 34px;
+      justify-content: center;
 
       &:last-child {
         margin-bottom: 0px;
@@ -914,6 +921,13 @@ export default {
       const { nextRewardAt } = currentLoginDay;
       return ((this.user.loginIncentives - previousRewardDay)
         / (nextRewardAt - previousRewardDay)) * 100;
+    },
+    nextIncentive () {
+      const currentLoginDay = Content.loginIncentives[this.user.loginIncentives];
+      if (!currentLoginDay) return 0;
+      const previousRewardDay = currentLoginDay.prevRewardKey;
+      const { nextRewardAt } = currentLoginDay;
+      return ((nextRewardAt - previousRewardDay));
     },
     save () {
       const values = {};
