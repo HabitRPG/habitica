@@ -54,107 +54,96 @@
       v-show="selectedPage === 'profile'"
       v-if="user.profile"
       id="userProfile"
-      class="standard-page "
+      class="standard-page"
     >
-      <div class="row">
-<!--         <div class="about profile-header">
-          <h2>{{ $t('about') }}</h2>
-        </div> -->
-        <!-- EDIT BUTTON REPURPOSE FOR SEND MESSAGE/OTHER ACTIONS-->
-<!--         <div class="d-flex flex-column">
-          <button
-            v-if="user._id === userLoggedIn._id"
-            class="btn btn-secondary"
-            style="float:right;"
-            @click="editing = !editing"
-          >
-            {{ $t('edit') }}
-          </button>
-        </div> -->
-      </div>
       <!-- PROFILE STUFF -->
       <div
         v-if="!editing"
-        class="row justify-content-around"
+        class="justify-content-around"
       >
-        <div class="d-flex flex-column">
+        <div class="d-flex">
           <div class="about profile-header">
             <h2>{{ $t('about') }}</h2>
           </div>
-          <div class="">
-            <button
-              v-if="user._id === userLoggedIn._id"
-              class="btn btn-primary"
-              @click="editing = !editing"
-            >
-              {{ $t('editProfile') }}
-            </button>
-          </div>
-          <div class="about">
-            <div class="profile-section">
-              <p
-                v-if="user.profile.blurb"
-                v-markdown="user.profile.blurb"
-                class="markdown"
-              ></p>
-              <p v-else>
-                {{ $t('noDescription') }}
-              </p>
-            </div>
-          </div>
-          <div class="photo profile-section">
-            <h2>{{ $t('photo') }}</h2>
-            <img
-              v-if="user.profile.imageUrl"
-              class="img-rendering-auto"
-              :src="user.profile.imageUrl"
-            >
-            <p v-else>
-              {{ $t('noPhoto') }}
-            </p>
-          </div>
-        </div>
-        <div class="info profile-section">
-          <div class="info-item">
-            <div class="info-item-label">
-              {{ $t('joined') }}:
-            </div>
-            <div class="info-item-value">
-              {{ userJoinedDate }}
-            </div>
-          </div>
-          <div class="info-item">
-            <div class="info-item-label">
-              {{ $t('totalLogins') }}:
-            </div>
-            <div class="info-item-value">
-              {{ user.loginIncentives }}
-            </div>
-          </div>
-          <div class="info-item">
-            <div class="info-item-label">
-              {{ $t('latestCheckin') }}:
-            </div>
-            <div class="info-item-value">
-              {{ userLastLoggedIn }}
-            </div>
-          </div>
-          <div class="info-item">
-            {{ getProgressDisplay() }}
-            <div class="progress">
-              <div
-                class="progress-bar"
-                role="progressbar"
-                :aria-valuenow="incentivesProgress"
-                aria-valuemin="0"
-                aria-valuemax="100"
-                :style="{width: incentivesProgress + '%'}"
+          <div class="d-flex grid>">
+            <div class="grid-one">
+              <button
+                v-if="user._id === userLoggedIn._id"
+                class="btn btn-primary"
+                @click="editing = !editing"
               >
-                <span class="sr-only">{{ incentivesProgress }}% {{ $t('complete') }}</span>
+                {{ $t('editProfile') }}
+              </button>
+            </div>
+            <div class="about grid-two">
+              <div class="profile-section">
+                <p
+                  v-if="user.profile.blurb"
+                  v-markdown="user.profile.blurb"
+                  class="markdown"
+                ></p>
+                <p v-else>
+                  {{ $t('noDescription') }}
+                </p>
+              </div>
+            </div>
+            <div class="grid-three">
+              <div class="photo profile-section">
+                <h2>{{ $t('photo') }}</h2>
+                <img
+                  v-if="user.profile.imageUrl"
+                  class="img-rendering-auto"
+                  :src="user.profile.imageUrl"
+                >
+                <p v-else>
+                  {{ $t('noPhoto') }}
+                </p>
               </div>
             </div>
           </div>
-          <!-- @TODO: Implement in V2 .social-->
+          <div class="grid-four">
+            <div class="info profile-section">
+              <div class="info-item">
+                <div class="info-item-label">
+                  {{ $t('joined') }}:
+                </div>
+                <div class="info-item-value">
+                  {{ userJoinedDate }}
+                </div>
+              </div>
+              <div class="info-item">
+                <div class="info-item-label">
+                  {{ $t('totalLogins') }}:
+                </div>
+                <div class="info-item-value">
+                  {{ user.loginIncentives }}
+                </div>
+              </div>
+              <div class="info-item">
+                <div class="info-item-label">
+                  {{ $t('latestCheckin') }}:
+                </div>
+                <div class="info-item-value">
+                  {{ userLastLoggedIn }}
+                </div>
+              </div>
+              <div class="info-item">
+                {{ getProgressDisplay() }}
+                <div class="progress">
+                  <div
+                    class="progress-bar"
+                    role="progressbar"
+                    :aria-valuenow="incentivesProgress"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    :style="{width: incentivesProgress + '%'}"
+                  >
+                    <span class="sr-only">{{ incentivesProgress }}% {{ $t('complete') }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <!-- EDITING PROFILE -->
@@ -344,15 +333,14 @@
 
   .profile {
     .member-details {
-      margin-left: 24px;
       background-color: $white;
+      margin-left: 24px;
 
     .progress-container > .progress {
       background-color: $gray-700 !important;
+      border-radius: 1px;
       height: 16px !important;
       vertical-align: middle !important;
-      border-radius: 1px;
-      background-color: $gray-500;
 
       .progress-bar {
         height: 16px !important;
@@ -379,8 +367,8 @@
       color: $gray-50;
       font-size: 0.875em;
       font-weight: bold;
-      line-height: 1.71;
       height: 24px;
+      line-height: 1.71;
       margin-bottom: 0px;
     }
 
@@ -415,15 +403,14 @@
     width: 100%;
   }
 
-
   .markdown p {
       padding-bottom: 24px;
     }
 
   .standard-page {
+    background-color: $gray-700;
     padding-left: 12px;
     padding-top: 0px;
-    background-color: $gray-700;
   }
 
   .admin-profile-actions {
@@ -441,18 +428,18 @@
     margin-right: 1em;
 
     button {
-      width: 32px;
       height: 32px;
-      padding: 0.5em;
       margin-right: 0.5em;
+      padding: 0.5em;
+      width: 32px;
     }
   }
 
   .message-icon,
   .gift-icon {
-    width: 14px;
-    margin: auto;
     color: $gray-100;
+    margin: auto;
+    width: 14px;
   }
 
   .gift-icon {
@@ -460,17 +447,18 @@
   }
 
   .block-icon {
-    width: 16px;
     color: $gray-100;
+    width: 16px;
   }
 
   .positive-icon {
-    width: 14px;
     color: $gray-100;
+    width: 14px;
   }
 
   .photo {
     margin-left: 24px;
+
     img {
     max-width: 100%;
     }
@@ -489,29 +477,29 @@
 
   .state-pages {
     background-color: $gray-700;
-    width: 100%;
     margin-left: 0px;
     margin-right: 0px;
+    width: 100%;
   }
 
   .nav {
     font-size: 0.75rem;
-    width: 100%;
     font-weight: bold;
-    min-height: 40px;
     justify-content: center;
+    min-height: 40px;
     padding-top: 16px;
+    width: 100%;
   }
 
   .nav-item {
+    color: $gray-50;
     display: inline-block;
     margin: 0 8px 8px 6px;
-    color: $gray-50;
   }
 
   .nav-item:hover, .nav-item.active {
-    color: $purple-300;
     border-bottom: 2px solid $purple-300;
+    color: $purple-300;
     cursor: pointer;
   }
 
@@ -520,92 +508,22 @@
     font-size: 16px;
   }
 
-  #achievements {
-    .category-row {
-      margin-bottom: 34px;
-
-      &:last-child {
-        margin-bottom: 0px;
-      }
-    }
-
-    .achievements-row {
-      max-width: 590px;
-      margin: 0 auto;
-    }
-
-    .achievement-wrapper {
-      width: 94px;
-      max-width: 94px;
-      min-width: 94px;
-      margin-right: 12px;
-      margin-left: 12px;
-      padding: 0px;
-    }
-
-    .box {
-      margin: 0 auto;
-      margin-bottom: 1em;
-      padding-top: 1.2em;
-      background: $white;
-    }
-
-    hr {
-      margin-bottom: 48px;
-      margin-top: 48px;
-    }
-
-    .box.achievement-unearned {
-      background-color: $gray-600;
-    }
-
-    .counter.badge {
-      position: absolute;
-      top: -0.8em;
-      right: -0.5em;
-      color: $white;
-      background-color: $orange-100;
-      max-height: 24px;
-    }
-
-    .achievement-icon {
-      margin: 0 auto;
-    }
-
-    .achievement-list-item {
-      padding-top: 11px;
-      padding-bottom: 12px;
-      border-top: 1px solid $gray-500;
-
-      &:last-child {
-        border-bottom: 1px solid $gray-500;
-      }
-
-      .badge {
-        margin-right: 8px;
-        background: $gray-600;
-        color: $gray-300;
-        height: fit-content;
-      }
-    }
-  }
-
   .achievement {
     margin: 0 auto;
   }
 
   .box {
-    width: 94px;
-    height: 92px;
-    border-radius: 2px;
     border: dotted 1px #c3c0c7;
+    border-radius: 2px;
+    height: 92px;
+    width: 94px;
   }
 
   .white {
-    border-radius: 2px;
     background: #FFFFFF;
-    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.15), 0 1px 4px 0 rgba(26, 24, 29, 0.1);
     border: 1px solid transparent;
+    border-radius: 2px;
+    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.15), 0 1px 4px 0 rgba(26, 24, 29, 0.1);
   }
 
   .item-wrapper {
@@ -617,9 +535,9 @@
   .profile-section {
 
     h2 {
+      color: $gray-50;
       overflow: hidden;
       size: 1.125em;
-      color: $gray-50;
     }
   }
 
@@ -629,14 +547,14 @@
 
   .about {
     display: flex;
+    line-height: 1.71;
     margin-left: 24px;
     width: 424px;
-    line-height: 1.71;
 
     .about > * {
+      flex-basis: auto;
       flex-grow: 0;
       flex-shrink: 0;
-      flex-basis: auto;
     }
   }
 
@@ -655,8 +573,8 @@
       margin-left: 24px;
 
       .info-item-label {
-        font-weight: bold;
         display: inline-block;
+        font-weight: bold;
       }
 
       .info-item-value {
@@ -666,12 +584,81 @@
     }
 
     .progress {
-      height: 8px;
       border-radius: 1px;
+      height: 8px;
 
       .progress-bar {
-        border-radius: 1px;
         background-color: $green-10 !important;
+        border-radius: 1px;
+      }
+    }
+  }
+    #achievements {
+    .category-row {
+      margin-bottom: 34px;
+
+      &:last-child {
+        margin-bottom: 0px;
+      }
+    }
+
+    .achievements-row {
+      margin: 0 auto;
+      max-width: 590px;
+    }
+
+    .achievement-wrapper {
+      margin-left: 12px;
+      margin-right: 12px;
+      max-width: 94px;
+      min-width: 94px;
+      padding: 0px;
+      width: 94px;
+    }
+
+    .box {
+      background: $white;
+      margin: 0 auto;
+      margin-bottom: 16px;
+      padding-top: 20px;
+    }
+
+    hr {
+      margin-bottom: 48px;
+      margin-top: 48px;
+    }
+
+    .box.achievement-unearned {
+      background-color: $gray-600;
+    }
+
+    .counter.badge {
+      background-color: $orange-100;
+      color: $white;
+      max-height: 24px;
+      position: absolute;
+      right: -8px;
+      top: -12.8px;
+    }
+
+    .achievement-icon {
+      margin: 0 auto;
+    }
+
+    .achievement-list-item {
+      border-top: 1px solid $gray-500;
+      padding-bottom: 12px;
+      padding-top: 11px;
+
+      &:last-child {
+        border-bottom: 1px solid $gray-500;
+      }
+
+      .badge {
+        background: $gray-600;
+        color: $gray-300;
+        height: fit-content;
+        margin-right: 8px;
       }
     }
   }
