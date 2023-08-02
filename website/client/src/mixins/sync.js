@@ -11,6 +11,9 @@ export default {
         this.$store.dispatch('user:fetch', { forceLoad: true }),
         this.$store.dispatch('tasks:fetchUserTasks', { forceLoad: true }),
       ]);
+      if (this.$store.state.user.data.party._id) {
+        await this.$store.dispatch('party:getMembers', { forceLoad: true });
+      }
       this.$root.$emit(EVENTS.RESYNC_COMPLETED);
     },
   },
