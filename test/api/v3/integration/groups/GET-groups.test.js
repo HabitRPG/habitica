@@ -19,7 +19,8 @@ describe('GET /groups', () => {
   before(async () => {
     await resetHabiticaDB();
 
-    ({ group: privateGuildUserIsMemberOf,
+    ({
+      group: privateGuildUserIsMemberOf,
       groupLeader: leader,
       members,
     } = await createAndPopulateGroup({

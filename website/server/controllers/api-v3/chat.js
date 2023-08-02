@@ -129,6 +129,8 @@ api.postChat = {
     if (validationErrors) throw validationErrors;
 
     const group = await Group.getGroup({ user, groupId });
+    if (!group) throw new NotFound(res.t('groupNotFound'));
+
     const { purchased } = group;
     const isUpgraded = purchased && purchased.plan && purchased.plan.customerId
       && (!purchased.plan.dateTerminated || moment().isBefore(purchased.plan.dateTerminated));
@@ -174,8 +176,6 @@ api.postChat = {
 
       throw new BadRequest(res.t('bannedSlurUsed'));
     }
-
-    if (!group) throw new NotFound(res.t('groupNotFound'));
 
     if (group.privacy === 'public' && user.flags.chatRevoked) {
       throw new NotAuthorized(res.t('chatPrivilegesRevoked'));

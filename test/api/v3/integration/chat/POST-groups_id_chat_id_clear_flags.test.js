@@ -2,7 +2,6 @@ import moment from 'moment';
 import { v4 as generateUUID } from 'uuid';
 import {
   createAndPopulateGroup,
-  generateUser,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
 import config from '../../../../../config.json';
@@ -13,21 +12,24 @@ describe('POST /groups/:id/chat/:id/clearflags', () => {
     admin;
 
   before(async () => {
-    const { group, groupLeader } = await createAndPopulateGroup({
+    const { group, groupLeader, members } = await createAndPopulateGroup({
       groupDetails: {
         type: 'guild',
-        privacy: 'public',
+        privacy: 'private',
       },
       leaderDetails: {
         'auth.timestamps.created': new Date('2022-01-01'),
         balance: 10,
       },
+      upgradeToGroupPlan: true,
+      members: 2,
     });
-
+    
     groupWithChat = group;
     author = groupLeader;
-    nonAdmin = await generateUser({ 'auth.timestamps.created': moment().subtract(USER_AGE_FOR_FLAGGING + 1, 'days').toDate() });
-    admin = await generateUser({ 'permissions.moderator': true });
+    [nonAdmin, admin] = members;
+    await nonAdmin.update({ 'auth.timestamps.created': moment().subtract(USER_AGE_FOR_FLAGGING + 1, 'days').toDate() });
+    await admin.update({ 'permissions.moderator': true });
 
     message = await author.post(`/groups/${groupWithChat._id}/chat`, { message: 'Some message' });
     message = message.message;
