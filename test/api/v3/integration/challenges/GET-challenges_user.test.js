@@ -218,10 +218,10 @@ describe('GET challenges/user', () => {
 
   context('official challenge is present', () => {
     let user; let officialChallenge; let unofficialChallenges; let
-      groupPlan;
+      group;
 
     before(async () => {
-      const { group, groupLeader } = await createAndPopulateGroup({
+      ({ group, groupLeader: user } = await createAndPopulateGroup({
         groupDetails: {
           name: 'TestGuild',
           summary: 'summary for TestGuild',
@@ -229,10 +229,7 @@ describe('GET challenges/user', () => {
           privacy: 'private',
         },
         upgradeToGroupPlan: true,
-      });
-
-      user = groupLeader;
-      groupPlan = group;
+      }));
 
       await user.update({
         'permissions.challengeAdmin': true,
@@ -275,7 +272,7 @@ describe('GET challenges/user', () => {
         }
       });
 
-      const newChallenge = await generateChallenge(user, groupPlan);
+      const newChallenge = await generateChallenge(user, group);
       await user.post(`/challenges/${newChallenge._id}/join`);
 
       challenges = await user.get('/challenges/user?page=0');
