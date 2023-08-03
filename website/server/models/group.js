@@ -303,51 +303,23 @@ schema.statics.getGroups = async function getGroups (options = {}) {
         }));
         break;
       }
-      case 'guilds': {
-        const query = {
-          type: 'guild',
-          _id: { $in: user.guilds, $ne: TAVERN_ID },
-        };
-        _.assign(query, filters);
-        const userGuildsQuery = this.find(query).select(groupFields);
-        if (populateLeader === true) userGuildsQuery.populate('leader', nameFields);
-        userGuildsQuery.sort(sort).exec();
-        queries.push(userGuildsQuery);
-        break;
-      }
       case 'privateGuilds': {
         const query = {
           type: 'guild',
           privacy: 'private',
           _id: { $in: user.guilds },
+          'purchased.plan.customerId': { $exists: true },
+          $or: [
+            { 'purchased.plan.dateTerminated': null },
+            { 'purchased.plan.dateTerminated': { $exists: false } },
+            { 'purchased.plan.dateTerminated': { $gt: new Date() }},
+          ],
         };
         _.assign(query, filters);
         const privateGuildsQuery = this.find(query).select(groupFields);
         if (populateLeader === true) privateGuildsQuery.populate('leader', nameFields);
         privateGuildsQuery.sort(sort).exec();
         queries.push(privateGuildsQuery);
-        break;
-      }
-      // NOTE: when returning publicGuilds we use `.lean()` so all
-      // mongoose methods won't be available.
-      // Docs are going to be plain javascript objects
-      case 'publicGuilds': {
-        const query = {
-          type: 'guild',
-          privacy: 'public',
-          _id: { $ne: TAVERN_ID },
-        };
-        _.assign(query, filters);
-
-        const publicGuildsQuery = this.find(query).select(groupFields);
-
-        if (populateLeader === true) publicGuildsQuery.populate('leader', nameFields);
-        if (paginate === true) {
-          publicGuildsQuery.limit(GUILDS_PER_PAGE).skip(page * GUILDS_PER_PAGE);
-        }
-        publicGuildsQuery.sort(sort).lean().exec();
-        queries.push(publicGuildsQuery);
-
         break;
       }
       case 'tavern': {

@@ -28,7 +28,12 @@ async function updateGroup (guild) {
     return console.warn(`Leader not found for Guild ${guild._id}`);
   }
 
-  await leader.updateOne({ $inc: { balance: guild.balance }}).exec();
+  await leader.updateBalance(
+    guild.balance,
+    'create_guild',
+    '',
+    'Guild Bank refund',
+  );
 
   return guild.updateOne({ $set: { balance: 0 } }).exec();
 }
