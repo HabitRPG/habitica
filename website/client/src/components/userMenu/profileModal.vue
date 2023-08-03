@@ -6,7 +6,10 @@
     @hide="beforeHide"
     @shown="onShown()"
   >
-    <close-icon />
+    <close-icon
+      class="close-icon"
+      @click="close()"
+    />
     <profile
       :user-id="userId"
       :starting-page="startingPage"
@@ -40,6 +43,7 @@
   .header {
     width: 100%;
   }
+
 </style>
 
 <script>

@@ -92,11 +92,35 @@
         <div class="flex-right">
           <button
             v-if="user._id === userLoggedIn._id"
-            class="btn btn-primary flex-right"
+            class="btn btn-primary flex-right edit-profile"
             @click="editing = !editing"
           >
             {{ $t('editProfile') }}
           </button>
+          <span
+            v-else-if="user._id !== userLoggedIn._id"
+            class="flex-right d-flex justify-content-between"
+          >
+            <router-link
+              :to="{ path: '/private-messages', query: { uuid: user._id } }"
+              replace
+            >
+              <button
+                class="btn btn-primary send-message"
+              >
+                {{ $t('sendMessage') }}
+              </button>
+            </router-link>
+            <button
+              class="btn btn-secondary dot-menu"
+            >
+              <div
+                class="svg-icon dots-icon"
+                v-html="icons.dots"
+              >
+              </div>
+            </button>
+          </span>
           <div class="info profile-section">
             <div class="info-item">
               <div class="info-item-label">
@@ -127,7 +151,7 @@
                 {{ $t('nextReward') }}:
               </div>
               <div class="info-item-value">
-                {{ nextIncentive() }}
+                {{ nextIncentive }}
               </div>
             </div>
             <div class="info-item">
@@ -354,12 +378,6 @@
       margin-left: -8px;
     }
 
-    // .svg-icon {
-    //   display: block;
-    //   width: 24px;
-    //   height: 24px;
-    //   margin: 0 auto;
-    // }
 
     .small-text {
       color: $gray-50;
@@ -383,6 +401,27 @@
     .profile-name-character {
       margin-left: 4px !important;
     }
+  }
+
+  .svg-icon {
+    display: block;
+    width: 24px;
+    height: 24px;
+    margin: 0 auto;
+    }
+
+  .close-icon svg {
+    color: $gray-50;
+    height: 14px;
+    width: 14px;
+  }
+
+  .dots-icon svg {
+    color: $gray-50;
+    height: 16px;
+    margin-left: 1px;
+    margin-top: 3px;
+    width: 4px;
   }
 
   .message-icon svg {
@@ -552,8 +591,25 @@
     line-height: 1.71;
   }
 
-  button {
+ .edit-profile {
+    font-size: 1em;
     margin-left: 24px;
+    padding: 4px 16px;
+    width: 188px;
+  }
+
+  .send-message {
+    font-size: 1em;
+    line-height: 1.71;
+    margin-left: 24px;
+    margin-right: -24px;
+    width: 148px;
+  }
+
+  .dot-menu {
+    height: 32px;
+    margin-right: -24px;
+    width: 32px;
   }
 
   .info {
@@ -788,6 +844,9 @@ export default {
     incentivesProgress () {
       return this.getIncentivesProgress();
     },
+    nextIncentive () {
+      return this.getNextIncentive();
+    },
 
     classText () {
       const classTexts = {
@@ -922,7 +981,7 @@ export default {
       return ((this.user.loginIncentives - previousRewardDay)
         / (nextRewardAt - previousRewardDay)) * 100;
     },
-    nextIncentive () {
+    getNextIncentive () {
       const currentLoginDay = Content.loginIncentives[this.user.loginIncentives];
       if (!currentLoginDay) return 0;
       const previousRewardDay = currentLoginDay.prevRewardKey;
@@ -1034,6 +1093,9 @@ export default {
     toggleAchievementsCategory (categoryKey) {
       const status = this.achievementsCategories[categoryKey].open;
       this.achievementsCategories[categoryKey].open = !status;
+    },
+    close () {
+      this.$root.$emit('bv::hide::modal', 'profile');
     },
   },
 };
