@@ -2,6 +2,7 @@ import {
   generateUser,
   generateChallenge,
   createAndPopulateGroup,
+  resetHabiticaDB,
 } from '../../../../helpers/api-integration/v3';
 import { TAVERN_ID } from '../../../../../website/common/script/constants';
 
@@ -11,6 +12,8 @@ describe('GET challenges/user', () => {
     let groupPlan; let userData; let groupData; let tavern; let tavernData;
 
     before(async () => {
+      await resetHabiticaDB();
+
       const { group, groupLeader, members } = await createAndPopulateGroup({
         groupDetails: {
           name: 'TestGuild',
