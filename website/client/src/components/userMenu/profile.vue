@@ -116,6 +116,7 @@
             >
               <div
                 class="svg-icon dots-icon"
+                :tooltip="$t('moreInfo')"
                 v-html="icons.dots"
               >
               </div>
@@ -362,11 +363,22 @@
       background-color: $white;
       margin-left: 24px;
 
+    .avatar-container {
+      margin-right: -60px;
+    }
+
     .progress-container > .progress {
       background-color: $gray-700 !important;
-      border-radius: 1px;
+      border-radius: 2px;
       height: 16px !important;
+      min-width: 375px !important;
       vertical-align: middle !important;
+
+      > .svg-icon {
+        height: 28px !important;
+        margin-top: -2px !important;
+        width: 28px !important;
+      }
 
       .progress-bar {
         height: 16px !important;
@@ -375,9 +387,9 @@
 
     .profile-first-row,
     .progress-container {
-      margin-left: -8px;
+      margin-left: 4px;
+      margin-top: 4px;
     }
-
 
     .small-text {
       color: $gray-50;
@@ -398,30 +410,22 @@
     }
   }
 
-    .profile-name-character {
+  .profile-name-character {
       margin-left: 4px !important;
     }
   }
 
   .svg-icon {
     display: block;
-    width: 24px;
     height: 24px;
     margin: 0 auto;
+    width: 24px;
     }
 
   .close-icon svg {
     color: $gray-50;
     height: 14px;
     width: 14px;
-  }
-
-  .dots-icon svg {
-    color: $gray-50;
-    height: 16px;
-    margin-left: 1px;
-    margin-top: 3px;
-    width: 4px;
   }
 
   .message-icon svg {
@@ -443,12 +447,13 @@
   }
 
   .markdown p {
-      padding-bottom: 24px;
-    }
+    padding-bottom: 24px;
+  }
 
   .standard-page {
     background-color: $gray-700;
-    // padding-left: 12px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
     padding-top: 0px;
   }
 
@@ -486,6 +491,19 @@
       padding: 0.5em;
       width: 32px;
     }
+  }
+
+  .svg-icon {
+     display: block;
+    height: 24px;
+    margin: 0 auto;
+    width: 24px;
+  }
+
+  .dots-icon {
+    color: $gray-50;
+    height: 16px;
+    width: 4px;
   }
 
   .message-icon,
