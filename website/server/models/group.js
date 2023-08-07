@@ -50,7 +50,6 @@ export const { TAVERN_ID } = shared;
 const NO_CHAT_NOTIFICATIONS = [TAVERN_ID];
 const { LARGE_GROUP_COUNT_MESSAGE_CUTOFF } = shared.constants;
 const { MAX_SUMMARY_SIZE_FOR_GUILDS } = shared.constants;
-const { GUILDS_PER_PAGE } = shared.constants;
 
 const { CHAT_FLAG_LIMIT_FOR_HIDING } = shared.constants;
 
@@ -280,13 +279,12 @@ schema.statics.getGroup = async function getGroup (options = {}) {
   return group;
 };
 
-export const VALID_QUERY_TYPES = ['party', 'guilds', 'privateGuilds', 'publicGuilds', 'tavern'];
+export const VALID_QUERY_TYPES = ['party', 'guilds', 'privateGuilds', 'tavern'];
 
 schema.statics.getGroups = async function getGroups (options = {}) {
   const {
     user, types, groupFields = basicFields,
     sort = '-memberCount', populateLeader = false,
-    paginate = false, page = 0, // optional pagination for public guilds
     filters = {},
   } = options;
   const queries = [];
@@ -303,6 +301,7 @@ schema.statics.getGroups = async function getGroups (options = {}) {
         }));
         break;
       }
+      case 'guilds':
       case 'privateGuilds': {
         const query = {
           type: 'guild',
@@ -312,7 +311,7 @@ schema.statics.getGroups = async function getGroups (options = {}) {
           $or: [
             { 'purchased.plan.dateTerminated': null },
             { 'purchased.plan.dateTerminated': { $exists: false } },
-            { 'purchased.plan.dateTerminated': { $gt: new Date() }},
+            { 'purchased.plan.dateTerminated': { $gt: new Date() } },
           ],
         };
         _.assign(query, filters);
