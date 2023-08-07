@@ -183,11 +183,11 @@ function sendProfileFlagNotification ({
 }) {
   const title = 'User Profile Report';
   const titleLink = `${BASE_URL}/static/front/#?memberId=${flaggedUser._id}`;
-  const text = `@${reporter.auth.local.username} (${reporter._id}; language: ${reporter.preferences.language}) flagged @${flaggedUser.auth.local.username}'s profile`;
+  let text = `@${reporter.auth.local.username} (${reporter._id}; language: ${reporter.preferences.language}) flagged @${flaggedUser.auth.local.username}'s profile`;
   if (userComment) {
     text += ` and commented: ${userComment}`;
   }
-  const profileData = `Bio: ${flaggedUser.profile.blurb}`;
+  let profileData = `Bio: ${flaggedUser.profile.blurb}`;
   if (flaggedUser.profile.imageUrl) {
     profileData += `\n\nImage URL: ${flaggedUser.profile.imageUrl}`;
   }
