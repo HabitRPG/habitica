@@ -31,6 +31,7 @@
   "invitationAcceptedHeader": "Your Invitation has been Accepted",
   "invitationAcceptedBody": "<%= username %> accepted your invitation to <%= groupName %>!",
   "systemMessage": "System Message",
+  "newMsgGuild": "<span class=\"notification-bold-blue\"><%- name %></span> has new posts",
   "newMsgParty": "Your Party, <span class=\"notification-bold-blue\"><%- name %></span>, has new posts",
   "chat": "Chat",
   "sendChat": "Send Chat",

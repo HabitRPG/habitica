@@ -565,6 +565,7 @@ api.joinGroup = {
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     let isUserInvited = false;
+    const seekingParty = Boolean(user.party.seeking);
 
     if (group.type === 'party') {
       // Check if was invited to party
@@ -730,7 +731,7 @@ api.joinGroup = {
       invited: isUserInvited,
     };
     if (group.type === 'party') {
-      analyticsObject.seekingParty = Boolean(user.party.seeking);
+      analyticsObject.seekingParty = seekingParty;
     }
     if (group.privacy === 'public') {
       analyticsObject.groupName = group.name;

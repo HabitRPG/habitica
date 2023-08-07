@@ -615,6 +615,7 @@ body.modal-open #habitica-menu {
 
           &:hover {
             background: $purple-300;
+            text-decoration: none;
 
             &:last-child {
               border-bottom-right-radius: 5px;
