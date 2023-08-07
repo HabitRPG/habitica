@@ -169,7 +169,6 @@
     </h2>
     <ul>
       <li><a href="/static/faq">{{ $t('faq') }}</a></li>
-      <li v-html="$t('commGuideLink02')"></li>
       <li v-html="$t('commGuideLink03')"></li>
       <li v-html="$t('commGuideLink04')"></li>
     </ul>

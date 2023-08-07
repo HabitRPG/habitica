@@ -14,6 +14,7 @@ import {
 import {
   NotFound,
   NotAuthorized,
+  BadRequest,
 } from '../../libs/errors';
 import * as Tasks from '../../models/task';
 import csvStringify from '../../libs/csvStringify';
@@ -266,7 +267,12 @@ api.joinChallenge = {
     const group = await Group.getGroup({
       user, groupId: challenge.group, fields: basicGroupFields, optionalMembership: true,
     });
-    if (!group || !challenge.canJoin(user, group)) throw new NotFound(res.t('challengeNotFound'));
+    if (!group || group.type === 'party' && group._id !== user.party._id) {
+      throw new NotFound(res.t('challengeNotFound'));
+    }
+    if (group.type === 'guild' && group._id !== TAVERN_ID && !group.hasActiveGroupPlan()) {
+      throw new BadRequest(res.t('featureRetired'));
+    }
 
     const addedSuccessfully = await challenge.addToUser(user);
     if (!addedSuccessfully) {
@@ -403,8 +409,9 @@ api.getUserChallenges = {
     orOptions.push({ leader: user._id });
 
     if (!req.query.member) {
+      const userGroups = await user.getGroups();
       orOptions.push({
-        group: { $in: user.getGroups() },
+        group: { $in: userGroups },
       }); // Challenges in groups where I'm a member
     }
 

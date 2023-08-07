@@ -5,6 +5,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 import {
   model as Group,
   basicFields as basicGroupFields,
+  TAVERN_ID,
 } from '../../models/group';
 import {
   model as User,
@@ -411,7 +412,7 @@ api.getGroup = {
 
     const { groupId } = req.params;
     const group = await Group.getGroup({ user, groupId, populateLeader: false });
-    if (!group) {
+    if (!group || group.type === 'guild' && group._id !== TAVERN_ID && !group.hasActiveGroupPlan()) {
       throw new NotFound(res.t('groupNotFound'));
     }
 
@@ -1337,7 +1338,7 @@ api.getGroupPlans = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    const userGroups = user.getGroups();
+    const userGroups = await user.getGroups();
 
     const groups = await Group
       .find({
