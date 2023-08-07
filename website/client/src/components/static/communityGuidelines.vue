@@ -33,6 +33,8 @@
       <li v-html="$t('commGuideList02E')"></li>
       <li v-html="$t('commGuideList02O')"></li>
       <li v-html="$t('commGuidePara037')"></li>
+      <li v-html="$t('commGuideList02P')"></li>
+      <li v-html="$t('commGuideList02Q')"></li>
       <li v-html="$t('commGuideList02M')"></li>
       <li v-html="$t('commGuideList02L')"></li>
       <li v-html="$t('commGuideList02J')"></li>

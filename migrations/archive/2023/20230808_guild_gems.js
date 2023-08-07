@@ -5,7 +5,7 @@ import { model as Group } from '../../../website/server/models/group';
 const guildsPerRun = 500;
 const progressCount = 1000;
 const guildsQuery = {
-  'type': 'guild',
+  type: 'guild',
 };
 
 let count = 0;
@@ -28,12 +28,14 @@ async function updateGroup (guild) {
     return console.warn(`Leader not found for Guild ${guild._id}`);
   }
 
-  await leader.updateBalance(
-    guild.balance,
-    'create_guild',
-    '',
-    'Guild Bank refund',
-  );
+  if (guild.balance > 0) {
+    await leader.updateBalance(
+      guild.balance,
+      'create_guild',
+      '',
+      `Guild Bank refund for ${guild.name} (${guild._id})`,
+    );
+  }
 
   return guild.updateOne({ $set: { balance: 0 } }).exec();
 }
@@ -43,6 +45,7 @@ export default async function processGroups () {
     _id: 1,
     balance: 1,
     leader: 1,
+    name: 1,
     purchased: 1,
   };
 
