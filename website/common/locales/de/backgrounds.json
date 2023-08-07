@@ -570,7 +570,7 @@
     "backgroundMysticalObservatoryNotes": "Deine Bestimmung steht in den Sternen; vom Mystischen Observatorium aus kannst Du sie lesen.",
     "backgroundMysticalObservatoryText": "Mystisches Observatorium",
     "backgrounds112020": "Set 78: Veröffentlicht im November 2020",
-    "backgroundHolidayHearthNotes": "Entspanne, wärme und trockne deine Körperteile an einem Feierlichen Feuer.",
+    "backgroundHolidayHearthNotes": "Entspanne, wärme und trockne deine Körperteile an einem feierlichen Feuer.",
     "backgroundHolidayHearthText": "Feierliches Feuer",
     "backgroundInsideAnOrnamentNotes": "Lasse Deine Festtagsstimmung aus dem Inneren dieses Baumschmuckes erstrahlen.",
     "backgroundInsideAnOrnamentText": "Im Baumschmuck",
@@ -794,5 +794,12 @@
     "backgroundBirthdayBashNotes": "Habitica feiert eine Geburtstagsparty und alle sind eingeladen!",
     "eventBackgrounds": "Ereignis-Hintergründe",
     "backgroundBirthdayBashText": "Geburtstagsparty",
-    "backgroundInsideACrystalNotes": "Schaue aus einem Kristall hinaus."
+    "backgroundInsideACrystalNotes": "Schaue aus einem Kristall hinaus.",
+    "backgrounds072023": "SET 110: Veröffentlicht im Juli 2023",
+    "backgroundOnAPaddlewheelBoatText": "Auf einem Schaufelradboot",
+    "backgroundOnAPaddlewheelBoatNotes": "Fahre mit einem Schaufelradboot.",
+    "backgroundColorfulCoralText": "Kunterbunte Koralle",
+    "backgroundColorfulCoralNotes": "Tauche zwischen kunterbunten Korallen.",
+    "backgroundBoardwalkIntoSunsetText": "Promenade im Sonnenuntergang",
+    "backgroundBoardwalkIntoSunsetNotes": "Schlendere über die Promenade in den Sonnenuntergang."
 }

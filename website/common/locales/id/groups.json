@@ -265,7 +265,7 @@
     "noGuildsParagraph2": "Tekan tab Temukan untuk melihat rekomendasi Guild berdasarkan minatmu, lihat-lihat Guild publik Habitica, atau buat Guild-mu sendiri.",
     "noGuildsMatchFilters": "Kami tidak dapat menemukan Guild yang cocok.",
     "privateDescription": "Guild pribadi tidak akan ditampilkan di daftar Guild Habitica. Anggota baru hanya dapat ditambahkan melalui undangan saja.",
-    "removeInvite": "Hapus Undangan",
+    "removeInvite": "Batalkan Undangan",
     "removeMember": "Keluarkan Anggota",
     "sendMessage": "Kirim Pesan",
     "promoteToLeader": "Pindahkan Kepemilikan",
@@ -432,5 +432,6 @@
     "invitedToYourParty": "<strong>Diundang Ke Party-mu!</strong>&nbsp;&nbsp;Klik untuk Batalkan",
     "lookingForPartyTitle": "Temukan Anggota",
     "findMorePartyMembers": "Temukan Lebih Banyak Anggota",
-    "noOneLooking": "Tidak ada yang mencari Party sekarang. <br>Kamu bisa kembali lagi nanti!"
+    "noOneLooking": "Tidak ada yang mencari Party sekarang. <br>Kamu bisa kembali lagi nanti!",
+    "chatSunsetWarning": "⚠️ <strong>Obrolan Guild Habitica dan Kedai Minuman akan dihentikan pada 8/8/2023.</strong> <a href='/static/faq/tavern-and-guilds'>Klik disini</a> untuk membaca selengkapnya tentang perubahan ini."
 }
