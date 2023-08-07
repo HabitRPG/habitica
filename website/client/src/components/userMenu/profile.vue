@@ -111,17 +111,67 @@
                 {{ $t('sendMessage') }}
               </button>
             </router-link>
-            <button
-              class="btn btn-secondary dot-menu"
+            <b-dropdown
+              right="right"
+              toggle-class="with-icon"
+              class="ml-2"
+              :no-caret="true"
             >
-              <div
-                class="svg-icon dots-icon"
-                :tooltip="$t('moreInfo')"
-                v-html="icons.dots"
+              <template v-slot:button-content>
+                <span
+                  v-once
+                  class="svg-icon dots-icon inline menuIcon"
+                  v-html="icons.dots"
+                >
+                </span>
+              </template>
+              <b-dropdown-item
+                class="selectListItem custom-hover--upgrade"
+                @click="openSendGemsModal()"
               >
-              </div>
-            </button>
+                <span class="with-icon">
+                  <span
+                    v-once
+                    class="svg-icon icon-16 color"
+                    v-html="icons.gift"
+                  ></span>
+                  <span v-once>
+                    {{ $t('sendGift') }}
+                  </span>
+                </span>
+              </b-dropdown-item>
+
+              <b-dropdown-item
+                class="selectListItem custom-hover--upgrade"
+                @click="reportPlayer()"
+              >
+                <span class="with-icon">
+                  <span
+                    v-once
+                    class="svg-icon icon-16 color"
+                    v-html="icons.report"
+                  ></span>
+                  <span v-once>
+                    {{ $t('reportPlayer') }}
+                  </span>
+                </span>
+              </b-dropdown-item>
+
+
+            </b-dropdown>
+            <div class="menu-item">
+              <ul>
+                <li>Block Player</li>
+                <li>Admin Tools</li>
+                <li>View Admin Panel</li>
+                <li>Ban Player</li>
+                <li>Shadow Mute</li>
+                <li>Mute</li>
+              </ul>
+            </div>
           </span>
+
+          <!-- ACCOUNT DATES, LOG IN COUNTER -->
           <div class="info profile-section">
             <div class="info-item">
               <div class="info-item-label">
@@ -374,7 +424,7 @@
       min-width: 375px !important;
       vertical-align: middle !important;
 
-      > .svg-icon {
+      .svg-icon {
         height: 28px !important;
         margin-top: -2px !important;
         width: 28px !important;
@@ -494,7 +544,7 @@
   }
 
   .svg-icon {
-     display: block;
+    display: block;
     height: 24px;
     margin: 0 auto;
     width: 24px;
@@ -508,7 +558,7 @@
 
   .message-icon,
   .gift-icon {
-    color: $gray-100;
+    color: $gray-10;
     margin: auto;
     width: 14px;
   }
@@ -518,13 +568,18 @@
   }
 
   .block-icon {
-    color: $gray-100;
+    color: $gray-10;
     width: 16px;
   }
 
   .positive-icon {
-    color: $gray-100;
+    color: $gray-10;
     width: 14px;
+  }
+
+  .report-icon {
+    color: $gray-10;
+    width: 16px;
   }
 
   .photo {
@@ -789,6 +844,7 @@ import lock from '@/assets/svg/lock.svg';
 import challenge from '@/assets/svg/challenge.svg';
 import member from '@/assets/svg/member-icon.svg';
 import staff from '@/assets/svg/tier-staff.svg';
+import report from '@/assets/svg/report.svg,';
 import error404 from '../404';
 import externalLinks from '../../mixins/externalLinks';
 import { userCustomStateMixin } from '../../mixins/userState';
@@ -819,6 +875,7 @@ export default {
         lock,
         member,
         staff,
+        report,
       }),
       adminToolsLoaded: false,
       userIdToMessage: '',
