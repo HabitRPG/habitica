@@ -137,13 +137,12 @@
   }
 
    blockquote {
-     border-radius: 4px;
-     background-color: $gray-700;
-     padding: 8px 16px 8px 16px;
-     margin-top: 24px;
-     font-weight: bold;
      color: $gray-10;
+     background-color: $gray-700;
+     border-radius: 4px;
      height: max-content;
+     margin-top: 24px;
+     padding: 8px 16px 8px 16px;
    }
 
    textarea {
