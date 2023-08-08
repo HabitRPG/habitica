@@ -22,7 +22,7 @@
   "contribModal": "<%= name %>, you awesome person! You're now a tier <%= level %> contributor for helping Habitica.",
   "contribLink": "See what prizes you've earned for your contribution!",
   "contribName": "Contributor",
-  "contribText": "Has contributed to Habitica, whether via code, art, music, writing, or other methods. To learn more, join the Aspiring Legends Guild!",
+  "contribText": "Has contributed to Habitica, whether via code, art, music, writing, or other methods.",
   "kickstartName": "Kickstarter Backer - $<%= key %> Tier",
   "kickstartText": "Backed the Kickstarter Project",
   "helped": "Helped Habitica Grow",

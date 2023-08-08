@@ -796,6 +796,8 @@
   "armorSpecialTurkeyArmorGildedNotes": "Strut your stuff in this seasonally shiny armor! Confers no benefit.",
   "armorSpecialKS2019Text": "Mythic Gryphon Armor",
   "armorSpecialKS2019Notes": "Glowing from within like a gryphon's noble heart, this resplendent armor encourages you to take pride in your accomplishments. Increases Constitution by <%= con %>.",
+  "armorSpecialHeroicTunicText": "Heroic Tunic",
+  "armorSpecialHeroicTunicNotes": "They say heroes shouldn't rest on their laurels but you can rest in this comfortable and fashionable raiment. Increases all stats by <%= attrs %>.",
 
   "armorSpecialYetiText": "Yeti-Tamer Robe",
   "armorSpecialYetiNotes": "Fuzzy and fierce. Increases Constitution by <%= con %>. Limited Edition 2013-2014 Winter Gear.",
@@ -2794,6 +2796,8 @@
   "backSpecialNamingDay2020Notes": "Happy Naming Day! Swish this fiery, pixely tail about as you celebrate Habitica. Confers no benefit.",
   "backSpecialAnniversaryText": "Habitica Hero Cape",
   "backSpecialAnniversaryNotes": "Let this proud cape fly in the wind and tell everyone that you're a Habitica Hero. Confers no benefit. Special Edition 10th Birthday Bash Item.",
+  "backSpecialHeroicAureoleText": "Heroic Aureole",
+  "backSpecialHeroicAureoleNotes": "The gems on this aureole glimmer when you tell your tales of glory. Increases all stats by <%= attrs %>.",
 
   "backBearTailText": "Bear Tail",
   "backBearTailNotes": "This tail makes you look like a brave bear! Confers no benefit.",
@@ -2876,6 +2880,8 @@
 
   "headAccessoryBase0Text": "No Head Accessory",
   "headAccessoryBase0Notes": "No Head Accessory.",
+  "headAccessorySpecialHeroicCircletText": "Heroic Circlet",
+  "headAccessorySpecialHeroicCircletNotes": "Heavy is the head that wears the crown, but this circlet is as light as your generous spirit. Increases all stats by <%= attrs %>.",
 
   "headAccessorySpecialSpringRogueText": "Purple Cat Ears",
   "headAccessorySpecialSpringRogueNotes": "These feline ears twitch to detect incoming threats. Confers no benefit. Limited Edition 2014 Spring Gear.",

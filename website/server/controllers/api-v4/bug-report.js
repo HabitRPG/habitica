@@ -32,14 +32,14 @@ api.bugReport = {
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    const { message, email } = req.body;
+    const { message, email, question } = req.body;
     const { user } = res.locals;
     const BROWSER_UA = req.get('User-Agent');
 
     const {
       emailData, sendMailResult,
     } = bugReportLogic(
-      user, email, message, BROWSER_UA,
+      user, email, message, BROWSER_UA, question,
     );
 
     res.status(200).send({

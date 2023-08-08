@@ -22685,6 +22685,11 @@
   width: 90px;
   height: 90px;
 }
+.broad_armor_special_heroicTunic {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_special_heroicTunic.png');
+  width: 114px;
+  height: 90px;
+}
 .broad_armor_special_lunarWarriorArmor {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_special_lunarWarriorArmor.png');
   width: 90px;
@@ -22870,6 +22875,11 @@
   width: 68px;
   height: 68px;
 }
+.shop_armor_special_heroicTunic {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_armor_special_heroicTunic.png');
+  width: 68px;
+  height: 68px;
+}
 .shop_armor_special_lunarWarriorArmor {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_armor_special_lunarWarriorArmor.png');
   width: 68px;
@@ -23043,6 +23053,11 @@
 .slim_armor_special_finnedOceanicArmor {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_special_finnedOceanicArmor.png');
   width: 90px;
+  height: 90px;
+}
+.slim_armor_special_heroicTunic {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_special_heroicTunic.png');
+  width: 114px;
   height: 90px;
 }
 .slim_armor_special_lunarWarriorArmor {
@@ -23272,6 +23287,11 @@
 }
 .shop_back_special_foxTail {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_back_special_foxTail.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_back_special_heroicAureole {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_back_special_heroicAureole.png');
   width: 68px;
   height: 68px;
 }
@@ -34417,6 +34437,11 @@
   width: 114px;
   height: 90px;
 }
+.headAccessory_special_heroicCirclet {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_heroicCirclet.png');
+  width: 114px;
+  height: 90px;
+}
 .headAccessory_special_lionEars {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_lionEars.png');
   width: 90px;
@@ -34519,6 +34544,11 @@
 }
 .shop_headAccessory_special_greenHeadband {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_headAccessory_special_greenHeadband.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_headAccessory_special_heroicCirclet {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_headAccessory_special_heroicCirclet.png');
   width: 68px;
   height: 68px;
 }
@@ -35907,6 +35937,41 @@
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/zzz_light.png');
   width: 40px;
   height: 40px;
+}
+.heroic_set_icon {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/heroic_set_icon.png');
+  width: 28px;
+  height: 28px;
+}
+.icon_pet_veteran_bear {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_pet_veteran_bear.png');
+  width: 28px;
+  height: 28px;
+}
+.icon_pet_veteran_dragon {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_pet_veteran_dragon.png');
+  width: 28px;
+  height: 28px;
+}
+.icon_pet_veteran_fox {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_pet_veteran_fox.png');
+  width: 28px;
+  height: 28px;
+}
+.icon_pet_veteran_lion {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_pet_veteran_lion.png');
+  width: 28px;
+  height: 28px;
+}
+.icon_pet_veteran_tiger {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_pet_veteran_tiger.png');
+  width: 28px;
+  height: 28px;
+}
+.icon_pet_veteran_wolf {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_pet_veteran_wolf.png');
+  width: 28px;
+  height: 28px;
 }
 .notif_head_special_nye {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/notif_head_special_nye.png');
@@ -55205,6 +55270,11 @@
 }
 .Pet-Dragon-Veggie {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Dragon-Veggie.png');
+  width: 81px;
+  height: 99px;
+}
+.Pet-Dragon-Veteran {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Dragon-Veteran.png');
   width: 81px;
   height: 99px;
 }
