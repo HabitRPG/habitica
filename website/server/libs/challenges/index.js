@@ -8,6 +8,7 @@ import {
   TAVERN_ID,
 } from '../../models/group';
 import {
+  BadRequest,
   NotFound,
   NotAuthorized,
 } from '../errors';

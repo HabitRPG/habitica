@@ -267,7 +267,7 @@ api.joinChallenge = {
     const group = await Group.getGroup({
       user, groupId: challenge.group, fields: basicGroupFields, optionalMembership: true,
     });
-    if (!group || group.type === 'party' && group._id !== user.party._id) {
+    if (!group || (group.type === 'party' && group._id !== user.party._id)) {
       throw new NotFound(res.t('challengeNotFound'));
     }
     if (group.type === 'guild' && group._id !== TAVERN_ID && !group.hasActiveGroupPlan()) {

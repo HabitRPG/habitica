@@ -412,7 +412,7 @@ api.getGroup = {
 
     const { groupId } = req.params;
     const group = await Group.getGroup({ user, groupId, populateLeader: false });
-    if (!group || group.type === 'guild' && group._id !== TAVERN_ID && !group.hasActiveGroupPlan()) {
+    if (!group || (group.type === 'guild' && group._id !== TAVERN_ID && !group.hasActiveGroupPlan())) {
       throw new NotFound(res.t('groupNotFound'));
     }
 
