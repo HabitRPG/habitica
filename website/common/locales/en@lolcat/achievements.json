@@ -39,5 +39,8 @@
     "yourProgress": "Ur Progrusses",
     "onboardingProgress": "<%=percentage%>% progresses",
     "gettingStartedDesc": "Cumplete dese onboarding tasks and you does earnz <strong>5 achievemnts</strong> and <strong class=\"gold-amount\">100gold</strong> once done!!!",
-    "yourRewards": "Ur rewardzz"
+    "yourRewards": "Ur rewardzz",
+    "foundNewItemsCTA": "Go to ur Inventry an try to be combining ur new haching potion and egg!",
+    "achievementMonsterMagus": "Magus da Monstar",
+    "achievementPartyOn": "Ur party grow to b 4 membrs!"
 }

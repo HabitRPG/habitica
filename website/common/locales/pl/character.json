@@ -186,5 +186,7 @@
     "chatCastSpellParty": "<%= username %> rzuca zaklęcie <%= spell %> dla drużyny.",
     "purchasePetItemConfirm": "Ten zakup przekroczyłby liczbę przedmiotów potrzebnych do wyklucia wszystkich możliwych <%= itemText %> chowańców. Czy nadal chcesz kupić?",
     "purchaseForGold": "Kupić za <%= cost %> szt. złota?",
-    "notEnoughGold": "Masz za mało złota."
+    "notEnoughGold": "Masz za mało złota.",
+    "chatCastSpellPartyTimes": "<%= username %> rzuca zaklęcie <%= spell %> dla drużyny <%= times %> raz.",
+    "chatCastSpellUserTimes": "<%= username %> rzuca zaklęcie <%= spell %> na <%= target %> <%= times %> raz."
 }

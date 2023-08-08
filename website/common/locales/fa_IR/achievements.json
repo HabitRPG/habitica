@@ -1,15 +1,19 @@
 {
-    "achievement": "Achievement",
-    "onwards": "Onwards!",
-    "levelup": "By accomplishing your real life goals, you leveled up and are now fully healed!",
-    "reachedLevel": "You Reached Level <%= level %>",
+    "achievement": "دستاورد",
+    "onwards": "به پیش!",
+    "levelup": "با رسیدن به هدف‌های زندگی واقعی‌ات، تو به سطح جدیدی رسیدی و حالا کاملاً بهبود یافتی!",
+    "reachedLevel": "تو به سطح <%= level %> رسیدی",
     "achievementLostMasterclasser": "Quest Completionist: Masterclasser Series",
     "achievementLostMasterclasserText": "Completed all sixteen quests in the Masterclasser Quest Series and solved the mystery of the Lost Masterclasser!",
-    "foundNewItems": "شما آیتم های جدیدی پیدا کردید!",
-    "onboardingCompleteDescSmall": "اگر بیشتر میخواهید! به بخش دستاورد ها نگاهی بیاندازید و شروع به جمع آوری کنید",
+    "foundNewItems": "آیتم‌های جدیدی پیدا کردی!",
+    "onboardingCompleteDescSmall": "اگر بیشتر می‌خواهی، به بخش دستاوردها نگاهی بیانداز و شروع به جمع‌آوری کن!",
     "onboardingComplete": "شما کار های اولیه تان را انجام دادید!",
-    "earnedAchievement": "شما یک دستاورد داشتید!",
+    "earnedAchievement": "یک دستاورد به دست آوردی!",
     "viewAchievements": "دیدن دستاوردها",
-    "letsGetStarted": "شروع کنیم!",
-    "yourRewards": "پاداش های شما"
+    "letsGetStarted": "بیا شروع کنیم!",
+    "yourRewards": "پاداش‌هایت",
+    "onboardingProgress": "<%= percentage %>٪ پیشرفت",
+    "yourProgress": "پیشرفتت",
+    "showAllAchievements": "نمایش همه <%= category %>",
+    "hideAchievements": "پنهان کردن <%= category %>"
 }

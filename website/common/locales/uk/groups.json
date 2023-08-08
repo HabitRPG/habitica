@@ -433,5 +433,6 @@
     "classLabel": "Клас:",
     "findMorePartyMembers": "Знайти більше учасників",
     "findPartyMembers": "Пошук членів команди",
-    "invitedToYourParty": "<strong>Запрошено до команди!</strong>&nbsp;&nbsp;Натисніть, щоб відмінити"
+    "invitedToYourParty": "<strong>Запрошено до команди!</strong>&nbsp;&nbsp;Натисніть, щоб відмінити",
+    "chatSunsetWarning": "⚠️ <strong>Чат Гільдій і Таверни Habitica буде зупинено 8/8/2023.</strong> <a href='/static/faq/tavern-and-guilds'>Натисніть тут</a>, щоб дізнатися більше про ці зміни."
 }
