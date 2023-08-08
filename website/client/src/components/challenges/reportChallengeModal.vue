@@ -140,11 +140,11 @@
    blockquote {
      border-radius: 4px;
      background-color: $gray-700;
-     padding: 8px 0px 8px 16px;
+     padding: 8px 16px 8px 16px;
      margin-top: 24px;
      font-weight: bold;
      color: $gray-10;
-     height: 40px;
+     height: max-conent;;
    }
 
    textarea {
