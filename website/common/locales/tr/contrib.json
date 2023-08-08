@@ -1,5 +1,5 @@
 {
-    "playerTiersDesc": "Sohbette gördüğün renkli kullanıcı adları o kişinin katkı rütbesini gösterir. Katkı rütbesi olan kullanıcılar Habitica'ya sanat, kod veya iletişim ve başka konularda katkıda bulunmuşlardır.",
+    "playerTiersDesc": "Sohbette gördüğün renkli kullanıcı adları o kişinin katkı rütbesini gösterir. Katkı rütbesi daha yüksek olan kullanıcılar Habitica'ya sanat, kod veya iletişim ve başka konularda daha fazla katkıda bulunmuşlardır!",
     "tier1": "1. Rütbe (Arkadaş)",
     "tier2": "2. Rütbe (Arkadaş)",
     "tier3": "3. Rütbe (Elit)",
@@ -49,9 +49,10 @@
     "balance": "Bakiye",
     "playerTiers": "Oyuncu Kademeleri",
     "tier": "Kademe",
-    "conRewardsURL": "http://tr.habitica.fandom.com/wiki/Katılımcı_Ödülleri",
+    "conRewardsURL": "https://tr.habitica.fandom.com/wiki/Katılımcı_Ödülleri",
     "surveysSingle": "Bir anket doldurarak veya test çözmeye vakit ayırarak Habitica'nın büyümesine yardımcı oldun. Teşekkürler!",
     "surveysMultiple": "Bir anket doldurarak veya büyük bir geliştirme uygulamasına katkı göstererek <%= count %> adet etkinlikte Habitica'nın büyümesine yardımcı oldu. Teşekkürler!",
     "blurbHallPatrons": "Burası Müdavimler Salonu. Burada, Habitica'nın orijinal Kickstarter kampanyasını desteklemiş olan soylu maceracıları anıyoruz. Habitica'yı hayata geçirmemizde yardımları için müteşekkiriz!",
-    "blurbHallContributors": "Burası Habitica'nın açık kaynak kodu katılımcılarını onurlandırdığı Katılımcılar Salonu. Katılımcılarımız kod, görsel, müzik, hikaye yazımı konularındaki katkılarıyla ya da yalnızca yardımseverlik sebebiyle <a href='http://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'>elmaslar, özel ekipmanlar</a> ve <a href='http://habitica.fandom.com/wiki/Contributor_Titles' target='_blank'>prestijli unvanlar</a> kazandılar. Sen de Habitica'ya katkıda bulunabilirsin!  <a href='http://habitica.fandom.com/wiki/Contributing_to_Habitica' target='_blank'>Buradan daha fazlasını öğren. </a>"
+    "blurbHallContributors": "Burası Habitica'nın açık kaynak kodu katılımcılarını onurlandırdığı Katılımcılar Salonu. Katılımcılarımız kod, görsel, müzik, hikaye yazımı konularındaki katkılarıyla ya da yalnızca yardımseverlik sebebiyle <a href='https://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'>elmaslar, özel ekipmanlar</a> ve <a href='http://habitica.fandom.com/wiki/Contributor_Titles' target='_blank'>prestijli unvanlar</a> kazandılar. Sen de Habitica'ya katkıda bulunabilirsin! <a href='https://habitica.fandom.com/wiki/Contributing_to_Habitica' target='_blank'>Buradan daha fazlasını öğren. </a>",
+    "noPrivAccess": "Gerekli izinlere sahip değilsiniz."
 }
