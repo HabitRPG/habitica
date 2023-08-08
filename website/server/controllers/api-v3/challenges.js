@@ -403,8 +403,12 @@ api.getUserChallenges = {
     orOptions.push({ leader: user._id });
 
     if (!req.query.member) {
+      const userGroups = await Group.getGroups({
+        user,
+        types: ['party', 'guilds', 'tavern'],
+      });
       orOptions.push({
-        group: { $in: user.getGroups() },
+        group: { $in: userGroups },
       }); // Challenges in groups where I'm a member
     }
 
