@@ -397,20 +397,27 @@ api.getUserChallenges = {
     const { page } = req.query;
 
     const { user } = res.locals;
-    const orOptions = [
-      { _id: { $in: user.challenges } }, // Challenges where the user is participating
-    ];
 
-    orOptions.push({ leader: user._id });
+    // Challenges the user owns
+    const orOptions = [{ leader: user._id }];
 
+    // Challenges where the user is participating
+    if (user.challenges.length > 0) {
+      orOptions.push({ _id: { $in: user.challenges } });
+    }
+
+    // Challenges in groups user is a member of, plus public challenges
     if (!req.query.member) {
       const userGroups = await Group.getGroups({
         user,
         types: ['party', 'guilds', 'tavern'],
       });
+      const userGroupIds = userGroups.map((userGroup) => {
+        return userGroup._id;
+      });
       orOptions.push({
-        group: { $in: userGroups },
-      }); // Challenges in groups where I'm a member
+        group: { $in: userGroupIds },
+      });
     }
 
     const query = {
