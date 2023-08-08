@@ -412,9 +412,7 @@ api.getUserChallenges = {
         user,
         types: ['party', 'guilds', 'tavern'],
       });
-      const userGroupIds = userGroups.map((userGroup) => {
-        return userGroup._id;
-      });
+      const userGroupIds = userGroups.map(userGroup => userGroup._id);      
       orOptions.push({
         group: { $in: userGroupIds },
       });
