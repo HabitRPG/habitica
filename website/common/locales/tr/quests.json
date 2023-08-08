@@ -94,5 +94,6 @@
     "chatFindItems": "<%= username %>, <%= items %> buldu.",
     "cancelQuest": "Görevi İptal Et",
     "chatItemQuestFinish": "Tüm öğeler bulundu! Takım ödüllerini aldı.",
-    "backToSelection": "Görev seçimine geri dön"
+    "backToSelection": "Görev seçimine geri dön",
+    "chatQuestCancelled": "<%= username %> ,<%= questName %> parti görevini iptal etti."
 }

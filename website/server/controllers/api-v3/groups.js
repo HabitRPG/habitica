@@ -590,9 +590,10 @@ api.joinGroup = {
             if (userPreviousParty) await userPreviousParty.leave(user);
           }
         }
-        // Clear all invitations of new user
+        // Clear all invitations of new user and reset looking for party state
         user.invitations.parties = [];
         user.invitations.party = {};
+        user.party.seeking = null;
 
         // invite new user to pending quest
         if (group.quest.key && !group.quest.active) {
@@ -1393,6 +1394,7 @@ api.getLookingForParty = {
     const seekers = await User
       .find({
         'party.seeking': { $exists: true },
+        'invitations.party.id': { $exists: false },
         'auth.timestamps.loggedin': {
           $gt: moment().subtract(7, 'days').toDate(),
         },
@@ -1408,7 +1410,6 @@ api.getLookingForParty = {
 
     const filteredSeekers = seekers.filter(seeker => {
       if (seeker.party._id) return false;
-      if (seeker.invitations.party.id) return false;
       if (seeker.flags.chatRevoked) return false;
       if (seeker.auth.blocked) return false;
       if (seeker.inbox.blocks.indexOf(user._id) !== -1) return false;

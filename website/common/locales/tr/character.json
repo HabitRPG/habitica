@@ -185,5 +185,6 @@
     "purchaseForGold": "Satın almanın tutarı <%= cost %> altındır, onaylıyor musunuz?",
     "chatCastSpellParty": "<%= username %> takım için <%= spell %> büyüsü atar.",
     "chatCastSpellUser": "<%= username %>, <%= target %>'a doğru <%= spell %> büyüsü atar.",
-    "purchasePetItemConfirm": "Bu satın alma, tüm olası <%= itemText %> evcil hayvanlarını yumurtadan çıkarmak için ihtiyacınız olan eşya sayısını aşacaktır. Emin misiniz?"
+    "purchasePetItemConfirm": "Bu satın alma, tüm olası <%= itemText %> evcil hayvanlarını yumurtadan çıkarmak için ihtiyacınız olan eşya sayısını aşacaktır. Emin misiniz?",
+    "notEnoughGold": "Yeterince altın yok."
 }

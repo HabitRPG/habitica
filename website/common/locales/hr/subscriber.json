@@ -132,5 +132,9 @@
     "subscriptionBenefit6": "Zaradi Mistične pješčane satove za korištenje u Dućanu Vremenskih putnika!",
     "purchaseAll": "Kupi komplet",
     "gemsRemaining": "dragulja preostalo",
-    "notEnoughGemsToBuy": "Nisi u mogućnosti kupiti tu količinu dragulja"
+    "notEnoughGemsToBuy": "Nisi u mogućnosti kupiti tu količinu dragulja",
+    "viewSubscriptions": "Pregledaj pretplate",
+    "howManyGemsPurchase": "Koliko Dragulja bi želio/la kupiti?",
+    "howManyGemsSend": "Koliko dragulja želiš poslati?",
+    "needToPurchaseGems": "Trebaš kupiti Dragulje kao dar?"
 }
