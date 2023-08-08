@@ -8,7 +8,6 @@ import {
   TAVERN_ID,
 } from '../../models/group';
 import {
-  BadRequest,
   NotFound,
   NotAuthorized,
 } from '../errors';
@@ -42,9 +41,6 @@ export async function createChallenge (user, req, res) {
   });
   if (!group) throw new NotFound(res.t('groupNotFound'));
   if (!group.isMember(user)) throw new NotAuthorized(res.t('mustBeGroupMember'));
-  if (group.type === 'guild' && group._id !== TAVERN_ID && !group.hasActiveGroupPlan()) {
-    throw new BadRequest(res.t('featureRetired'));
-  }
 
   if (group.leaderOnly && group.leaderOnly.challenges && group.leader !== user._id) {
     throw new NotAuthorized(res.t('onlyGroupLeaderChal'));

@@ -5,7 +5,6 @@ import { authWithHeaders } from '../../middlewares/auth';
 import {
   model as Group,
   basicFields as basicGroupFields,
-  TAVERN_ID,
 } from '../../models/group';
 import {
   model as User,
@@ -412,7 +411,7 @@ api.getGroup = {
 
     const { groupId } = req.params;
     const group = await Group.getGroup({ user, groupId, populateLeader: false });
-    if (!group || (group.type === 'guild' && group._id !== TAVERN_ID && !group.hasActiveGroupPlan())) {
+    if (!group) {
       throw new NotFound(res.t('groupNotFound'));
     }
 
@@ -565,7 +564,6 @@ api.joinGroup = {
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     let isUserInvited = false;
-    const seekingParty = Boolean(user.party.seeking);
 
     if (group.type === 'party') {
       // Check if was invited to party
@@ -731,7 +729,7 @@ api.joinGroup = {
       invited: isUserInvited,
     };
     if (group.type === 'party') {
-      analyticsObject.seekingParty = seekingParty;
+      analyticsObject.seekingParty = Boolean(user.party.seeking);
     }
     if (group.privacy === 'public') {
       analyticsObject.groupName = group.name;
@@ -1339,7 +1337,7 @@ api.getGroupPlans = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    const userGroups = await user.getGroups();
+    const userGroups = user.getGroups();
 
     const groups = await Group
       .find({

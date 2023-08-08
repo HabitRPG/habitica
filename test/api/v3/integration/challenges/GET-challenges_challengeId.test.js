@@ -38,8 +38,7 @@ describe('GET /challenges/:challengeId', () => {
       group = populatedGroup.group;
       members = populatedGroup.members;
 
-      challengeLeader = members[0]; // eslint-disable-line prefer-destructuring
-      otherMember = members[1]; // eslint-disable-line prefer-destructuring
+      [challengeLeader, otherMember] = members;
 
       challenge = await generateChallenge(challengeLeader, group);
     });

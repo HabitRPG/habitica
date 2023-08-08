@@ -45,11 +45,8 @@ schema.methods.hasCancelled = function hasCancelled () {
 };
 
 // Get an array of groups ids the user is member of
-schema.methods.getGroups = async function getUserGroups () {
-  const userGroups = await Group.getGroups({
-    user: this,
-    types: ['party', 'guilds', 'tavern'],
-  });
+schema.methods.getGroups = function getUserGroups () {
+  const userGroups = this.guilds.slice(0); // clone this.guilds so we don't modify the original
   if (this.party._id) userGroups.push(this.party._id);
   userGroups.push(TAVERN_ID);
   return userGroups;
@@ -468,7 +465,7 @@ schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
 };
 
 async function getUserGroupData (user) {
-  const userGroups = await user.getGroups();
+  const userGroups = user.getGroups();
 
   const groups = await Group
     .find({
