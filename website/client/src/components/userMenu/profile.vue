@@ -114,19 +114,19 @@
             <b-dropdown
               right="right"
               toggle-class="with-icon"
-              class="ml-2"
+              class="mx-auto"
               :no-caret="true"
             >
               <template v-slot:button-content>
                 <span
                   v-once
-                  class="svg-icon dots-icon inline menuIcon"
+                  class="svg-icon dots-icon with-icon"
                   v-html="icons.dots"
                 >
                 </span>
               </template>
               <b-dropdown-item
-                class="selectListItem custom-hover--upgrade"
+                class="selectListItem "
                 @click="openSendGemsModal()"
               >
                 <span class="with-icon">
@@ -142,7 +142,7 @@
               </b-dropdown-item>
 
               <b-dropdown-item
-                class="selectListItem custom-hover--upgrade"
+                class="selectListItem"
                 @click="reportPlayer()"
               >
                 <span class="with-icon">
@@ -157,18 +157,95 @@
                 </span>
               </b-dropdown-item>
 
+              <b-dropdown-item
+                class="selectListItem"
+                @click="block()"
+              >
+                <span class="with-icon">
+                  <span
+                    v-once
+                    class="svg-icon icon-16 color"
+                    v-html="icons.block"
+                  ></span>
+                  <span v-once>
+                    {{ $t('blockPlayer') }}
+                  </span>
+                </span>
+              </b-dropdown-item>
+
+              <b-dropdown-item
+                class="selectListItem"
+              >
+                <span v-once>
+                  {{ $t('adminTools') }}
+                </span>
+              </b-dropdown-item>
+
+              <b-dropdown-item
+                class="selectListItem"
+                @click="viewAdminPanel()"
+              >
+                <span class="with-icon">
+                  <span
+                    v-once
+                    class="svg-icon icon-16 color"
+                    v-html="icons.crown"
+                  ></span>
+                  <span v-once>
+                    {{ $t('viewAdminPanel') }}
+                  </span>
+                </span>
+              </b-dropdown-item>
+
+              <b-dropdown-item
+                class="selectListItem"
+                @click="adminBlockUser()"
+              >
+                <span class="with-icon">
+                  <span
+                    v-once
+                    class="svg-icon icon-16 color"
+                    v-html="icons.block"
+                  ></span>
+                  <span v-once>
+                    {{ $t('banPlayer') }}
+                  </span>
+                </span>
+              </b-dropdown-item>
+
+              <b-dropdown-item
+                class="selectListItem"
+                @click="adminRevoke()"
+              >
+                <span class="with-icon">
+                  <span
+                    v-once
+                    class="svg-icon icon-16 color"
+                    v-html="icons.shadowMute"
+                  ></span>
+                  <span v-once>
+                    {{ $t('shadowMute') }}
+                  </span>
+                </span>
+              </b-dropdown-item>
+
+              <b-dropdown-item
+                class="selectListItem"
+                @click="adminRevokeChat()"
+              >
+                <span class="with-icon">
+                  <span
+                    v-once
+                    class="svg-icon icon-16 color"
+                    v-html="icons.mute"
+                  ></span>
+                  <span v-once>
+                    {{ $t('mutePlayer') }}
+                  </span>
+                </span>
+              </b-dropdown-item>
 
             </b-dropdown>
-            <div class="menu-item">
-              <ul>
-                <li>Block Player</li>
-                <li>Admin Tools</li>
-                <li>View Admin Panel</li>
-                <li>Ban Player</li>
-                <li>Shadow Mute</li>
-                <li>Mute</li>
-              </ul>
-            </div>
           </span>
 
           <!-- ACCOUNT DATES, LOG IN COUNTER -->
@@ -484,7 +561,7 @@
   }
 
   .gift-icon svg {
-    height: 14px;
+    height: 15.8px;
   }
 
 </style>
@@ -544,10 +621,9 @@
   }
 
   .svg-icon {
+    color: $gray-50;
     display: block;
-    height: 24px;
     margin: 0 auto;
-    width: 24px;
   }
 
   .dots-icon {
@@ -558,7 +634,6 @@
 
   .message-icon,
   .gift-icon {
-    color: $gray-10;
     margin: auto;
     width: 14px;
   }
@@ -568,17 +643,14 @@
   }
 
   .block-icon {
-    color: $gray-10;
     width: 16px;
   }
 
   .positive-icon {
-    color: $gray-10;
     width: 14px;
   }
 
   .report-icon {
-    color: $gray-10;
     width: 16px;
   }
 
@@ -677,6 +749,10 @@
     margin-left: 24px;
     margin-right: -24px;
     width: 148px;
+  }
+
+  .dropdown-toggle {
+    margin-left: 12px;
   }
 
   .dot-menu {
@@ -844,7 +920,10 @@ import lock from '@/assets/svg/lock.svg';
 import challenge from '@/assets/svg/challenge.svg';
 import member from '@/assets/svg/member-icon.svg';
 import staff from '@/assets/svg/tier-staff.svg';
-import report from '@/assets/svg/report.svg,';
+import report from '@/assets/svg/report.svg';
+import crown from '@/assets/svg/crown.svg';
+import mute from '@/assets/svg/mute.svg';
+import shadowMute from '@/assets/svg/shadow-mute.svg';
 import error404 from '../404';
 import externalLinks from '../../mixins/externalLinks';
 import { userCustomStateMixin } from '../../mixins/userState';
@@ -876,6 +955,9 @@ export default {
         member,
         staff,
         report,
+        crown,
+        mute,
+        shadowMute,
       }),
       adminToolsLoaded: false,
       userIdToMessage: '',
