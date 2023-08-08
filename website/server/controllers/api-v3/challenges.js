@@ -264,9 +264,10 @@ api.joinChallenge = {
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
 
     const group = await Group.getGroup({
-      user, groupId: challenge.group, fields: basicGroupFields, optionalMembership: true,
+      user, groupId: challenge.group, fields: `${basicGroupFields} purchased`, optionalMembership: true,
     });
     if (!group || !challenge.canJoin(user, group)) throw new NotFound(res.t('challengeNotFound'));
+    group.purchased = undefined;
 
     const addedSuccessfully = await challenge.addToUser(user);
     if (!addedSuccessfully) {
@@ -569,9 +570,10 @@ api.getChallenge = {
 
     // Fetching basic group data
     const group = await Group.getGroup({
-      user, groupId: challenge.group, fields: basicGroupFields, optionalMembership: true,
+      user, groupId: challenge.group, fields: `${basicGroupFields} purchased`, optionalMembership: true,
     });
     if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
+    group.purchased = undefined;
 
     const chalRes = challenge.toJSON();
     chalRes.group = group.toJSON({ minimize: true });
@@ -728,11 +730,11 @@ api.updateChallenge = {
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
 
     const group = await Group.getGroup({
-      user, groupId: challenge.group, fields: basicGroupFields, optionalMembership: true,
+      user, groupId: challenge.group, fields: `${basicGroupFields} purchased`, optionalMembership: true,
     });
     if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
     if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyLeaderUpdateChal'));
-
+    group.purchased = undefined;
     _.merge(challenge, Challenge.sanitizeUpdate(req.body));
 
     const savedChal = await challenge.save();
