@@ -126,7 +126,7 @@
                 </span>
               </template>
               <b-dropdown-item
-                class="selectListItem "
+                class="selectListItem"
                 @click="openSendGemsModal()"
               >
                 <span class="with-icon">
@@ -135,7 +135,10 @@
                     class="svg-icon icon-16 color"
                     v-html="icons.gift"
                   ></span>
-                  <span v-once>
+                  <span
+                    v-once
+                    class="send-gift"
+                  >
                     {{ $t('sendGift') }}
                   </span>
                 </span>
@@ -174,10 +177,10 @@
               </b-dropdown-item>
 
               <b-dropdown-item
-                class="selectListItem"
+                class="selectListItem admin-tools"
               >
                 <span v-once>
-                  {{ $t('adminTools') }}
+                  <strong>{{ $t('adminTools') }}</strong>
                 </span>
               </b-dropdown-item>
 
@@ -495,21 +498,22 @@
     }
 
     .progress-container > .progress {
-      background-color: $gray-700 !important;
+      background-color: $gray-500 !important;
       border-radius: 2px;
       height: 16px !important;
       min-width: 375px !important;
       vertical-align: middle !important;
 
-      .svg-icon {
-        height: 28px !important;
-        margin-top: -2px !important;
-        width: 28px !important;
-      }
-
       .progress-bar {
         height: 16px !important;
       }
+    }
+
+    .progress-container > .svg-icon {
+      width: 28px;
+      margin-top: -2px !important;
+      height: 28px;
+      margin-right: 8px;
     }
 
     .profile-first-row,
@@ -561,7 +565,7 @@
   }
 
   .gift-icon svg {
-    height: 15.8px;
+    height: 16px;
   }
 
 </style>
@@ -599,29 +603,27 @@
   }
 
   .admin-profile-actions {
-    margin-bottom: 3em;
+    margin-bottom: 48px;
 
     .admin-action {
       color: blue;
       cursor: pointer;
-      padding: 0 1em;
+      padding: 0 16px;
     }
   }
 
   .profile-actions {
     float: right;
-    margin-right: 1em;
+    margin-right: 16px;
 
     button {
-      height: 32px;
-      margin-right: 0.5em;
-      padding: 0.5em;
-      width: 32px;
+      margin-right: 8px;
+      padding: 8px;
     }
   }
 
   .svg-icon {
-    color: $gray-50;
+    color: $gray-50 !important;
     display: block;
     margin: 0 auto;
   }
@@ -747,12 +749,19 @@
     font-size: 1em;
     line-height: 1.71;
     margin-left: 24px;
-    margin-right: -24px;
+    margin-right: 8px;
     width: 148px;
   }
 
-  .dropdown-toggle {
-    margin-left: 12px;
+  .dropdown-menu {
+    margin-left: -48px;
+    width: 210px;
+  }
+
+  .dropdown-menu.show {
+    display: block;
+    width: 210px;
+    margin-left: -48px;
   }
 
   .dot-menu {
@@ -760,6 +769,15 @@
     margin-right: -24px;
     width: 32px;
   }
+
+  .send-gift {
+    margin-top: 3px;
+  }
+
+  .admin-tools {
+    background-color: $gray-700;
+  }
+
 
   .info {
     margin-top: 16px;
