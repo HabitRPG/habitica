@@ -4,51 +4,16 @@ import * as Analytics from '@/libs/analytics';
 import getStore from '@/store';
 import handleRedirect from './handleRedirect';
 
-import ParentPage from '@/components/parentPage';
 import { PAGES } from '@/libs/consts';
+import { STATIC_ROUTES } from './static-routes';
+import { USER_ROUTES } from './user-routes';
+import { DEPRECATED_ROUTES } from '@/router/deprecated-routes';
+import { ProfilePage } from './shared-route-imports';
 
 // NOTE: when adding a page make sure to implement the `common:setTitle` action
 
-// Static Pages
-const StaticWrapper = () => import(/* webpackChunkName: "entry" */'@/components/static/staticWrapper');
-const HomePage = () => import(/* webpackChunkName: "entry" */'@/components/static/home');
-
-const AppPage = () => import(/* webpackChunkName: "static" */'@/components/static/app');
-const AppleRedirectPage = () => import(/* webpackChunkName: "static" */'@/components/static/appleRedirect');
-const ClearBrowserDataPage = () => import(/* webpackChunkName: "static" */'@/components/static/clearBrowserData');
-const CommunityGuidelinesPage = () => import(/* webpackChunkName: "static" */'@/components/static/communityGuidelines');
-const ContactPage = () => import(/* webpackChunkName: "static" */'@/components/static/contact');
-const FAQPage = () => import(/* webpackChunkName: "static" */'@/components/static/faq');
-const FeaturesPage = () => import(/* webpackChunkName: "static" */'@/components/static/features');
-const GroupPlansPage = () => import(/* webpackChunkName: "static" */'@/components/static/groupPlans');
-// Commenting out merch page see
-// https://github.com/HabitRPG/habitica/issues/12039
-// const MerchPage = () => import(/* webpackChunkName: "static" */'@/components/static/merch');
-const NewsPage = () => import(/* webpackChunkName: "static" */'@/components/static/newStuff');
-const OverviewPage = () => import(/* webpackChunkName: "static" */'@/components/static/overview');
-const PressKitPage = () => import(/* webpackChunkName: "static" */'@/components/static/pressKit');
-const PrivacyPage = () => import(/* webpackChunkName: "static" */'@/components/static/privacy');
-const ChatSunsetFaq = () => import(/* webpackChunkName: "static" */'@/components/static/chatSunsetFaq');
-const TermsPage = () => import(/* webpackChunkName: "static" */'@/components/static/terms');
-
 const RegisterLoginReset = () => import(/* webpackChunkName: "auth" */'@/components/auth/registerLoginReset');
 const Logout = () => import(/* webpackChunkName: "auth" */'@/components/auth/logout');
-
-// User Pages
-// const StatsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/stats');
-// const AchievementsPage =
-// () => import(/* webpackChunkName: "user" */'./components/userMenu/achievements');
-const ProfilePage = () => import(/* webpackChunkName: "user" */'@/components/userMenu/profilePage');
-
-// Settings
-const Settings = () => import(/* webpackChunkName: "settings" */'@/components/settings/index');
-const API = () => import(/* webpackChunkName: "settings" */'@/components/settings/api');
-const DataExport = () => import(/* webpackChunkName: "settings" */'@/components/settings/dataExport');
-const Notifications = () => import(/* webpackChunkName: "settings" */'@/components/settings/notifications');
-const PromoCode = () => import(/* webpackChunkName: "settings" */'@/components/settings/promoCode');
-const Site = () => import(/* webpackChunkName: "settings" */'@/components/settings/site');
-const Subscription = () => import(/* webpackChunkName: "settings" */'@/components/settings/subscription');
-const Transactions = () => import(/* webpackChunkName: "settings" */'@/components/settings/purchaseHistory');
 
 // Hall
 const HallPage = () => import(/* webpackChunkName: "hall" */'@/components/hall/index');
@@ -99,7 +64,6 @@ const QuestsPage = () => import(/* webpackChunkName: "shops-quest" */'@/componen
 const SeasonalPage = () => import(/* webpackChunkName: "shops-seasonal" */'@/components/shops/seasonal/index');
 const TimeTravelersPage = () => import(/* webpackChunkName: "shops-timetravelers" */'@/components/shops/timeTravelers/index');
 
-const NotFoundPage = () => import(/* webpackChunkName: "not-found" */'@/components/404');
 
 Vue.use(VueRouter);
 
@@ -184,26 +148,7 @@ const router = new VueRouter({
         },
       ],
     },
-    {
-      path: '/groups',
-      component: NotFoundPage,
-      children: [
-        { name: 'tavern', path: 'tavern' },
-        {
-          name: 'myGuilds',
-          path: 'myGuilds',
-        },
-        {
-          name: 'guildsDiscovery',
-          path: 'discovery',
-        },
-        {
-          name: 'guild',
-          path: 'guild/:groupId',
-          props: true,
-        },
-      ],
-    },
+    DEPRECATED_ROUTES,
     { path: PAGES.PRIVATE_MESSAGES, name: 'privateMessages', component: MessagesIndex },
     {
       name: 'challenges',
@@ -228,122 +173,8 @@ const router = new VueRouter({
         },
       ],
     },
-    {
-      path: '/user',
-      component: ParentPage,
-      children: [
-        { name: 'stats', path: 'stats', component: ProfilePage },
-        { name: 'achievements', path: 'achievements', component: ProfilePage },
-        { name: 'profile', path: 'profile', component: ProfilePage },
-        {
-          name: 'settings',
-          path: 'settings',
-          component: Settings,
-          children: [
-            {
-              name: 'site',
-              path: 'site',
-              component: Site,
-            },
-            {
-              name: 'api',
-              path: 'api',
-              component: API,
-            },
-            {
-              name: 'dataExport',
-              path: 'data-export',
-              component: DataExport,
-            },
-            {
-              name: 'promoCode',
-              path: 'promo-code',
-              component: PromoCode,
-            },
-            {
-              name: 'subscription',
-              path: 'subscription',
-              component: Subscription,
-            },
-            {
-              name: 'transactions',
-              path: 'transactions',
-              component: Transactions,
-              meta: {
-                privilegeNeeded: [
-                  'userSupport',
-                ],
-              },
-            },
-            {
-              name: 'notifications',
-              path: 'notifications',
-              component: Notifications,
-            },
-          ],
-        },
-      ],
-    },
-    {
-      path: '/static',
-      component: StaticWrapper,
-      children: [
-        {
-          name: 'app', path: 'app', component: AppPage, meta: { requiresLogin: false },
-        },
-        {
-          name: 'appleRedirect', path: 'apple-redirect', component: AppleRedirectPage, meta: { requiresLogin: false },
-        },
-        {
-          name: 'clearBrowserData', path: 'clear-browser-data', component: ClearBrowserDataPage, meta: { requiresLogin: false },
-        },
-        {
-          name: 'communityGuidelines', path: 'community-guidelines', component: CommunityGuidelinesPage, meta: { requiresLogin: false },
-        },
-        {
-          name: 'contact', path: 'contact', component: ContactPage, meta: { requiresLogin: false },
-        },
-        {
-          name: 'faq', path: 'faq', component: FAQPage, meta: { requiresLogin: false },
-        },
-        {
-          name: 'chatSunsetFaq', path: 'tavern-and-guilds', component: ChatSunsetFaq, meta: { requiresLogin: false },
-        },
-        {
-          name: 'features', path: 'features', component: FeaturesPage, meta: { requiresLogin: false },
-        },
-        {
-          name: 'groupPlans', path: 'group-plans', component: GroupPlansPage, meta: { requiresLogin: false },
-        },
-        {
-          name: 'home', path: 'home', component: HomePage, meta: { requiresLogin: false },
-        },
-        {
-          name: 'front', path: 'front', component: HomePage, meta: { requiresLogin: false },
-        },
-        {
-          name: 'news', path: 'new-stuff', component: NewsPage, meta: { requiresLogin: false },
-        },
-        {
-          name: 'overview', path: 'overview', component: OverviewPage, meta: { requiresLogin: false },
-        },
-        {
-          name: 'plans', path: 'plans', component: GroupPlansPage, meta: { requiresLogin: false },
-        },
-        {
-          name: 'pressKit', path: 'press-kit', component: PressKitPage, meta: { requiresLogin: false },
-        },
-        {
-          name: 'privacy', path: 'privacy', component: PrivacyPage, meta: { requiresLogin: false },
-        },
-        {
-          name: 'terms', path: 'terms', component: TermsPage, meta: { requiresLogin: false },
-        },
-        {
-          name: 'notFound', path: 'not-found', component: NotFoundPage, meta: { requiresLogin: false },
-        },
-      ],
-    },
+    USER_ROUTES,
+    STATIC_ROUTES,
     {
       path: '/hall',
       component: HallPage,
