@@ -27,6 +27,7 @@ const armor = {
   1: contributorGear.armorSpecial1,
   2: backerGear.armorSpecial2,
   takeThis: takeThisGear.armorSpecialTakeThis,
+  heroicTunic: contributorGear.armorSpecialHeroicTunic,
   finnedOceanicArmor: {
     text: t('armorSpecialFinnedOceanicArmorText'),
     notes: t('armorSpecialFinnedOceanicArmorNotes', { str: 15 }),
@@ -868,6 +869,7 @@ const back = {
   wondercon_red: wonderconGear.backSpecialWonderconRed, // eslint-disable-line camelcase
   wondercon_black: wonderconGear.backSpecialWonderconBlack, // eslint-disable-line camelcase
   takeThis: takeThisGear.backSpecialTakeThis,
+  heroicAureole: contributorGear.backSpecialHeroicAureole,
   snowdriftVeil: {
     text: t('backSpecialSnowdriftVeilText'),
     notes: t('backSpecialSnowdriftVeilNotes'),
@@ -2055,6 +2057,7 @@ Object.keys(gearEvents).forEach(event => {
 });
 
 const headAccessory = {
+  heroicCirclet: contributorGear.headAccessorySpecialHeroicCirclet,
   springRogue: {
     specialClass: 'rogue',
     set: 'stealthyKittySet',

@@ -1,4 +1,7 @@
-// Static Pages
+// NOTE: when adding a page make sure to implement the `common:setTitle` action
+
+import { NotFoundPage } from './shared-route-imports';
+
 const StaticWrapper = () => import(/* webpackChunkName: "entry" */'@/components/static/staticWrapper');
 const HomePage = () => import(/* webpackChunkName: "entry" */'@/components/static/home');
 
@@ -10,13 +13,16 @@ const ContactPage = () => import(/* webpackChunkName: "static" */'@/components/s
 const FAQPage = () => import(/* webpackChunkName: "static" */'@/components/static/faq');
 const FeaturesPage = () => import(/* webpackChunkName: "static" */'@/components/static/features');
 const GroupPlansPage = () => import(/* webpackChunkName: "static" */'@/components/static/groupPlans');
-
+// Commenting out merch page see
+// https://github.com/HabitRPG/habitica/issues/12039
+// const MerchPage = () => import(/* webpackChunkName: "static" */'@/components/static/merch');
 const NewsPage = () => import(/* webpackChunkName: "static" */'@/components/static/newStuff');
 const OverviewPage = () => import(/* webpackChunkName: "static" */'@/components/static/overview');
 const PressKitPage = () => import(/* webpackChunkName: "static" */'@/components/static/pressKit');
 const PrivacyPage = () => import(/* webpackChunkName: "static" */'@/components/static/privacy');
+const ChatSunsetFaq = () => import(/* webpackChunkName: "static" */'@/components/static/chatSunsetFaq');
 const TermsPage = () => import(/* webpackChunkName: "static" */'@/components/static/terms');
-const NotFoundPage = () => import(/* webpackChunkName: "not-found" */'@/components/404');
+
 
 export const STATIC_ROUTES = {
   path: '/static',
@@ -41,6 +47,9 @@ export const STATIC_ROUTES = {
       name: 'faq', path: 'faq', component: FAQPage, meta: { requiresLogin: false },
     },
     {
+      name: 'chatSunsetFaq', path: 'tavern-and-guilds', component: ChatSunsetFaq, meta: { requiresLogin: false },
+    },
+    {
       name: 'features', path: 'features', component: FeaturesPage, meta: { requiresLogin: false },
     },
     {
@@ -52,11 +61,6 @@ export const STATIC_ROUTES = {
     {
       name: 'front', path: 'front', component: HomePage, meta: { requiresLogin: false },
     },
-    // Commenting out merch page see
-    // https://github.com/HabitRPG/habitica/issues/12039
-    // {
-    //   name: 'merch', path: 'merch', component: MerchPage, meta: { requiresLogin: false },
-    // },
     {
       name: 'news', path: 'new-stuff', component: NewsPage, meta: { requiresLogin: false },
     },

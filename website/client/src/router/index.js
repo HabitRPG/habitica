@@ -5,15 +5,12 @@ import getStore from '@/store';
 import handleRedirect from './handleRedirect';
 
 import { PAGES } from '@/libs/consts';
-import { STATIC_ROUTES } from '@/router/static-routes';
-import { USER_ROUTES, ProfilePage } from '@/router/user-routes';
+import { STATIC_ROUTES } from './static-routes';
+import { USER_ROUTES } from './user-routes';
+import { DEPRECATED_ROUTES } from '@/router/deprecated-routes';
+import { ProfilePage } from './shared-route-imports';
 
 // NOTE: when adding a page make sure to implement the `common:setTitle` action
-
-
-// Commenting out merch page see
-// https://github.com/HabitRPG/habitica/issues/12039
-// const MerchPage = () => import(/* webpackChunkName: "static" */'@/components/static/merch');
 
 const RegisterLoginReset = () => import(/* webpackChunkName: "auth" */'@/components/auth/registerLoginReset');
 const Logout = () => import(/* webpackChunkName: "auth" */'@/components/auth/logout');
@@ -43,10 +40,6 @@ const EquipmentPage = () => import(/* webpackChunkName: "inventory" */'@/compone
 const StablePage = () => import(/* webpackChunkName: "inventory" */'@/components/inventory/stable/index');
 
 // Guilds & Parties
-const GuildIndex = () => import(/* webpackChunkName: "guilds" */ '@/components/groups/index');
-const TavernPage = () => import(/* webpackChunkName: "guilds" */ '@/components/groups/tavern');
-const MyGuilds = () => import(/* webpackChunkName: "guilds" */ '@/components/groups/myGuilds');
-const GuildsDiscoveryPage = () => import(/* webpackChunkName: "guilds" */ '@/components/groups/discovery');
 const GroupPage = () => import(/* webpackChunkName: "guilds" */ '@/components/groups/group');
 const GroupPlansAppPage = () => import(/* webpackChunkName: "guilds" */ '@/components/groups/groupPlan');
 const LookingForParty = () => import(/* webpackChunkName: "guilds" */ '@/components/groups/lookingForParty');
@@ -70,6 +63,7 @@ const MarketPage = () => import(/* webpackChunkName: "shops-market" */'@/compone
 const QuestsPage = () => import(/* webpackChunkName: "shops-quest" */'@/components/shops/quests/index');
 const SeasonalPage = () => import(/* webpackChunkName: "shops-seasonal" */'@/components/shops/seasonal/index');
 const TimeTravelersPage = () => import(/* webpackChunkName: "shops-timetravelers" */'@/components/shops/timeTravelers/index');
+
 
 Vue.use(VueRouter);
 
@@ -156,29 +150,7 @@ const router = new VueRouter({
         },
       ],
     },
-    {
-      path: '/groups',
-      component: GuildIndex,
-      children: [
-        { name: 'tavern', path: 'tavern', component: TavernPage },
-        {
-          name: 'myGuilds',
-          path: 'myGuilds',
-          component: MyGuilds,
-        },
-        {
-          name: 'guildsDiscovery',
-          path: 'discovery',
-          component: GuildsDiscoveryPage,
-        },
-        {
-          name: 'guild',
-          path: 'guild/:groupId',
-          component: GroupPage,
-          props: true,
-        },
-      ],
-    },
+    DEPRECATED_ROUTES,
     { path: PAGES.PRIVATE_MESSAGES, name: 'privateMessages', component: MessagesIndex },
     {
       name: 'challenges',
@@ -240,6 +212,7 @@ const router = new VueRouter({
 
     // Only used to handle some redirects
     // See router.beforeEach
+    { path: '/static/faq/tavern-and-guilds', redirect: '/static/tavern-and-guilds' },
     { path: '/redirect/:redirect', name: 'redirect' },
     { path: '*', redirect: { name: 'notFound' } },
   ],
@@ -365,6 +338,12 @@ router.beforeEach(async (to, from, next) => {
   }
 
   return next();
+});
+
+router.afterEach((to, from) => {
+  if (from.name === 'chatSunsetFaq') {
+    document.body.style.background = '#f9f9f9';
+  }
 });
 
 export default router;

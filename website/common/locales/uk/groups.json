@@ -226,7 +226,7 @@
     "chatPlaceholder": "Введіть тут повідомлення для учасників ґільдії",
     "partyChatPlaceholder": "Введіть тут повідомлення для учасників команди",
     "fetchRecentMessages": "Оновити",
-    "like": "Вподобайка",
+    "like": "Вподобати",
     "liked": "Сподобалось",
     "inviteToGuild": "Запросити в ґільдію",
     "inviteToParty": "Запросити в команду",
@@ -269,7 +269,7 @@
     "removeMember": "Видалити учасника",
     "sendMessage": "Надіслати повідомлення",
     "promoteToLeader": "Передати управління",
-    "inviteFriendsParty": "Запросивши друга в команду, Ви отримаєте ексклюзивний <br/> квестовий сувій, щоб поборотися зі Спискозмієм!",
+    "inviteFriendsParty": "Запросіть іншого гравця в команду<br/> і отримайте ексклюзивний квестовий сувій Спискозмія.",
     "createParty": "Створити команду",
     "inviteMembersNow": "Хочете запросити учасників зараз?",
     "playInPartyTitle": "Грайте в Habitica разом!",
@@ -427,6 +427,12 @@
     "questWithOthers": "Проходьте квести з іншими гравцями",
     "partyFinderDescription": "Хочете приєднатися до команди з іншими гравцями, але нікого не знаєте? Дайте лідеру знати, що ви шукаєте команду!",
     "languageLabel": "Мова:",
-    "lookingForPartyTitle": "",
-    "noOneLooking": "На даний момент ніхто не шукає команду. Можете спробувати пізніше!"
+    "lookingForPartyTitle": "Знайти учасників",
+    "noOneLooking": "На даний момент ніхто не шукає команду. Можете спробувати пізніше!",
+    "checkinsLabel": "Відзначення:",
+    "classLabel": "Клас:",
+    "findMorePartyMembers": "Знайти більше учасників",
+    "findPartyMembers": "Пошук членів команди",
+    "invitedToYourParty": "<strong>Запрошено до команди!</strong>&nbsp;&nbsp;Натисніть, щоб відмінити",
+    "chatSunsetWarning": "⚠️ <strong>Чат Гільдій і Таверни Habitica буде зупинено 8/8/2023.</strong> <a href='/static/faq/tavern-and-guilds'>Натисніть тут</a>, щоб дізнатися більше про ці зміни."
 }

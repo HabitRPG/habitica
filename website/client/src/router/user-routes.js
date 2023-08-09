@@ -57,6 +57,11 @@ export const USER_ROUTES = {
           name: 'transactions',
           path: 'transactions',
           component: Transactions,
+          meta: {
+            privilegeNeeded: [
+              'userSupport',
+            ],
+          },
         },
         {
           name: 'notifications',

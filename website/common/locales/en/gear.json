@@ -796,6 +796,8 @@
   "armorSpecialTurkeyArmorGildedNotes": "Strut your stuff in this seasonally shiny armor! Confers no benefit.",
   "armorSpecialKS2019Text": "Mythic Gryphon Armor",
   "armorSpecialKS2019Notes": "Glowing from within like a gryphon's noble heart, this resplendent armor encourages you to take pride in your accomplishments. Increases Constitution by <%= con %>.",
+  "armorSpecialHeroicTunicText": "Heroic Tunic",
+  "armorSpecialHeroicTunicNotes": "They say heroes shouldn't rest on their laurels but you can rest in this comfortable and fashionable raiment. Increases all stats by <%= attrs %>.",
 
   "armorSpecialYetiText": "Yeti-Tamer Robe",
   "armorSpecialYetiNotes": "Fuzzy and fierce. Increases Constitution by <%= con %>. Limited Edition 2013-2014 Winter Gear.",
@@ -2095,6 +2097,8 @@
   "headMystery202303Notes": "What better way to let everyone know you’re the star of this tale than to have blue and improbably spiky hair? Confers no benefit. March 2023 Subscriber Item.",  
   "headMystery202304Text": "Tiptop Teapot Lid",
   "headMystery202304Notes": "Wear this helm for your own safe-tea. Confers no benefit. April 2023 Subscriber Item.",
+  "headMystery202308Text": "Purple Protagonist Hair",
+  "headMystery202308Notes": "Does the unruly cowlick sticking up from the middle of your head represent your persistence or your penchant for mischief? Confers no benefit. August 2023 Subscriber Item.",
 
   "headMystery301404Text": "Fancy Top Hat",
   "headMystery301404Notes": "A fancy top hat for the finest of gentlefolk! January 3015 Subscriber Item. Confers no benefit.",
@@ -2792,6 +2796,8 @@
   "backSpecialNamingDay2020Notes": "Happy Naming Day! Swish this fiery, pixely tail about as you celebrate Habitica. Confers no benefit.",
   "backSpecialAnniversaryText": "Habitica Hero Cape",
   "backSpecialAnniversaryNotes": "Let this proud cape fly in the wind and tell everyone that you're a Habitica Hero. Confers no benefit. Special Edition 10th Birthday Bash Item.",
+  "backSpecialHeroicAureoleText": "Heroic Aureole",
+  "backSpecialHeroicAureoleNotes": "The gems on this aureole glimmer when you tell your tales of glory. Increases all stats by <%= attrs %>.",
 
   "backBearTailText": "Bear Tail",
   "backBearTailNotes": "This tail makes you look like a brave bear! Confers no benefit.",
@@ -2874,6 +2880,8 @@
 
   "headAccessoryBase0Text": "No Head Accessory",
   "headAccessoryBase0Notes": "No Head Accessory.",
+  "headAccessorySpecialHeroicCircletText": "Heroic Circlet",
+  "headAccessorySpecialHeroicCircletNotes": "Heavy is the head that wears the crown, but this circlet is as light as your generous spirit. Increases all stats by <%= attrs %>.",
 
   "headAccessorySpecialSpringRogueText": "Purple Cat Ears",
   "headAccessorySpecialSpringRogueNotes": "These feline ears twitch to detect incoming threats. Confers no benefit. Limited Edition 2014 Spring Gear.",
@@ -3079,6 +3087,8 @@
   "eyewearMystery202208Notes": "Lull your enemies into a false sense of security with these terrifyingly cute peepers. Confers no benefit. August 2022 Subscriber Item.",
   "eyewearMystery202303Text": "Dreamy Eyes",
   "eyewearMystery202303Notes": "Let your nonchalant expression lure your enemies into a false sense of security. Confers no benefit. March 2023 Subscriber Item.",
+  "eyewearMystery202308Text": "Sleepy Eyes",
+  "eyewearMystery202308Notes": "Are you sleepy, or just resting your eyes in anticipation of your next amazing battle? Confers no benefit. August 2023 Subscriber Item.",  
   "eyewearMystery301404Text": "Eyewear Goggles",
   "eyewearMystery301404Notes": "No eyewear could be fancier than a pair of goggles - except, perhaps, for a monocle. Confers no benefit. April 3015 Subscriber Item.",
   "eyewearMystery301405Text": "Monocle",

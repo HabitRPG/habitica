@@ -476,6 +476,9 @@ export const UserSchema = new Schema({
         required: true,
         validate: [v => validator.isUUID(v), 'Invalid uuid for user invitation inviter id.'],
       },
+      cancelledPlan: {
+        $type: Boolean,
+      },
     }],
   },
 
@@ -529,7 +532,7 @@ export const UserSchema = new Schema({
     automaticAllocation: Boolean,
     allocationMode: { $type: String, enum: ['flat', 'classbased', 'taskbased'], default: 'flat' },
     autoEquip: { $type: Boolean, default: true },
-    costume: Boolean,
+    costume: { $type: Boolean, default: false },
     dateFormat: { $type: String, enum: ['MM/dd/yyyy', 'dd/MM/yyyy', 'yyyy/MM/dd'], default: 'MM/dd/yyyy' },
     sleep: { $type: Boolean, default: false },
     stickyHeader: { $type: Boolean, default: true },

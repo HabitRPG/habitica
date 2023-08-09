@@ -7,6 +7,7 @@ import * as Tasks from './task';
 import { model as User } from './user'; // eslint-disable-line import/no-cycle
 import { // eslint-disable-line import/no-cycle
   model as Group,
+  TAVERN_ID,
 } from './group';
 import { removeFromArray } from '../libs/collectionManipulators';
 import shared from '../../common';
@@ -90,9 +91,14 @@ schema.methods.canModify = function canModifyChallenge (user) {
 
 // Returns true if user can join the challenge
 schema.methods.canJoin = function canJoinChallenge (user, group) {
-  if (group.type === 'guild' && group.privacy === 'public') return true;
   // for when leader has left private group that contains the challenge
   if (this.isLeader(user)) return true;
+  if (group.type === 'guild' && group.privacy === 'public') {
+    return group._id === TAVERN_ID;
+  }
+  if (group.type === 'guild' && group.privacy === 'private') {
+    if (!group.hasActiveGroupPlan()) return false;
+  }
   return user.getGroups().indexOf(this.group) !== -1;
 };
 
