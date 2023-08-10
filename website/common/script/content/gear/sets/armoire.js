@@ -467,7 +467,7 @@ const body = {
     set: 'karateSet',
   },
   karateWhiteBelt: {
-    con: 3,
+    int: 3,
     set: 'karateSet',
   },
   karateRedBelt: {
@@ -495,7 +495,7 @@ const body = {
     set: 'karateSet',
   },
   karateBlackBelt: {
-    con: 3,
+    int: 3,
     set: 'karateSet',
   },
 };
