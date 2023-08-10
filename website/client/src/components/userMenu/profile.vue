@@ -9,6 +9,7 @@
       v-else-if="userLoaded"
       class="profile"
     >
+      <closeX />
       <!-- HEADER -->
       <div class="header">
         <div class="profile-actions d-flex">
@@ -229,6 +230,11 @@
                   <span v-once>
                     {{ $t('shadowMute') }}
                   </span>
+                  <div
+                    class="toggle-switch"
+                    :class="{ closed: !isOpen }"
+                  >
+                  </div>
                 </span>
               </b-dropdown-item>
 
@@ -488,6 +494,25 @@
 <style lang="scss" >
   @import '~@/assets/scss/colors.scss';
 
+  #userProfile {
+    .dropdown-menu {
+      margin-left: -48px;
+      width: 210px;
+    }
+    .dropdown-item:hover svg {
+      color: $purple-300;
+    }
+    .drawer-toggle-icon {
+      position: absolute;
+      right: 16px;
+      bottom: 0;
+
+    &.closed {
+      top: 10px;
+    }
+  }
+  }
+
   .profile {
     .member-details {
       background-color: $white;
@@ -546,27 +571,6 @@
     }
   }
 
-  .svg-icon {
-    display: block;
-    height: 24px;
-    margin: 0 auto;
-    width: 24px;
-    }
-
-  .close-icon svg {
-    color: $gray-50;
-    height: 14px;
-    width: 14px;
-  }
-
-  .message-icon svg {
-    height: 11px;
-    margin-top: 1px;
-  }
-
-  .gift-icon svg {
-    height: 16px;
-  }
 
 </style>
 
@@ -626,34 +630,34 @@
     color: $gray-50 !important;
     display: block;
     margin: 0 auto;
+    }
+
+    .message-icon svg {
+      height: 11px;
+      margin-top: 1px;
   }
 
-  .dots-icon {
-    color: $gray-50;
-    height: 16px;
-    width: 4px;
+    .gift-icon svg {
+      height: 16px;
+      margin: auto;
+      width: 14px;
   }
 
-  .message-icon,
-  .gift-icon {
-    margin: auto;
-    width: 14px;
+   .dots-icon {
+      height: 16px;
+      width: 4px;
   }
 
-  .gift-icon {
-    width: 12px;
+   .block-icon {
+      width: 16px;
   }
 
-  .block-icon {
-    width: 16px;
+    .positive-icon {
+      width: 14px;
   }
 
-  .positive-icon {
-    width: 14px;
-  }
-
-  .report-icon {
-    width: 16px;
+   .report-icon {
+      width: 16px;
   }
 
   .photo {
@@ -665,7 +669,7 @@
 
   .header {
     h1 {
-      color: $gray-50;;
+      color: $gray-50;
       margin-bottom: 0.2rem;
     }
 
@@ -751,17 +755,6 @@
     margin-left: 24px;
     margin-right: 8px;
     width: 148px;
-  }
-
-  .dropdown-menu {
-    margin-left: -48px;
-    width: 210px;
-  }
-
-  .dropdown-menu.show {
-    display: block;
-    width: 210px;
-    margin-left: -48px;
   }
 
   .dot-menu {
@@ -920,6 +913,7 @@ import moment from 'moment';
 import axios from 'axios';
 import each from 'lodash/each';
 import cloneDeep from 'lodash/cloneDeep';
+import closeX from '../ui/closeX';
 import { mapState } from '@/libs/store';
 
 import MemberDetails from '../memberDetails';
@@ -956,6 +950,7 @@ export default {
     MemberDetails,
     profileStats,
     error404,
+    closeX,
   },
   mixins: [externalLinks, userCustomStateMixin('userLoggedIn')],
   props: ['userId', 'startingPage'],
@@ -996,6 +991,7 @@ export default {
       user: null,
       userLoaded: false,
       oldTitle: null,
+      isOpened: true,
     };
   },
   computed: {
@@ -1038,6 +1034,11 @@ export default {
     },
     hasClass () {
       return this.$store.getters['members:hasClass'](this.userLoggedIn);
+    },
+    isOpen () {
+      // Open status is a number so we can tell if the value was passed
+      if (this.openStatus !== undefined) return this.openStatus === 1;
+      return this.isOpened;
     },
   },
   watch: {
@@ -1271,6 +1272,14 @@ export default {
     },
     close () {
       this.$root.$emit('bv::hide::modal', 'profile');
+    },
+    toggle () {
+      this.isOpened = !this.isOpen;
+      this.$emit('toggled', this.isOpened);
+    },
+    open () {
+      this.isOpened = true;
+      this.$emit('toggled', this.isOpened);
     },
   },
 };
