@@ -112,6 +112,8 @@
                 {{ $t('sendMessage') }}
               </button>
             </router-link>
+
+            <!-- Kebab menu dropdown -->
             <b-dropdown
               right="right"
               toggle-class="with-icon"
@@ -126,6 +128,8 @@
                 >
                 </span>
               </template>
+
+              <!-- send gems -->
               <b-dropdown-item
                 class="selectListItem"
                 @click="openSendGemsModal()"
@@ -145,6 +149,7 @@
                 </span>
               </b-dropdown-item>
 
+              <!-- report player -->
               <b-dropdown-item
                 class="selectListItem"
                 @click="reportPlayer()"
@@ -161,8 +166,9 @@
                 </span>
               </b-dropdown-item>
 
+              <!-- report player -->
               <b-dropdown-item
-                class="selectListItem"
+                class="selectListItem block-ban"
                 @click="block()"
               >
                 <span class="with-icon">
@@ -177,6 +183,7 @@
                 </span>
               </b-dropdown-item>
 
+              <!-- Admin Tools header -->
               <b-dropdown-item
                 class="selectListItem admin-tools"
               >
@@ -185,6 +192,7 @@
                 </span>
               </b-dropdown-item>
 
+              <!-- Admin Panel -->
               <b-dropdown-item
                 class="selectListItem"
                 @click="viewAdminPanel()"
@@ -201,8 +209,9 @@
                 </span>
               </b-dropdown-item>
 
+              <!-- Ban user -->
               <b-dropdown-item
-                class="selectListItem"
+                class="selectListItem block-ban"
                 @click="adminBlockUser()"
               >
                 <span class="with-icon">
@@ -217,9 +226,9 @@
                 </span>
               </b-dropdown-item>
 
+              <!-- shadowmute player with toggle -->
               <b-dropdown-item
                 class="selectListItem"
-                @click="adminRevoke()"
               >
                 <span class="with-icon">
                   <span
@@ -227,17 +236,21 @@
                     class="svg-icon icon-16 color"
                     v-html="icons.shadowMute"
                   ></span>
-                  <span v-once>
+                  <span
+                    v-once
+                    v-b-tooltip.hover.bottom="'Turn on Shadow Muting'"
+                    class="admin-action"
+                  >
                     {{ $t('shadowMute') }}
                   </span>
-                  <div
-                    class="toggle-switch"
-                    :class="{ closed: !isOpen }"
-                  >
-                  </div>
+                  <toggle
+                    class="toggle-switch-outer ml-auto"
+                    @click="adminTurnOnShadowMuting()"
+                  />
                 </span>
               </b-dropdown-item>
 
+              <!-- mute player with toggle -->
               <b-dropdown-item
                 class="selectListItem"
                 @click="adminRevokeChat()"
@@ -251,6 +264,9 @@
                   <span v-once>
                     {{ $t('mutePlayer') }}
                   </span>
+                  <toggle
+                    class="toggle-switch-outer ml-auto"
+                  />
                 </span>
               </b-dropdown-item>
 
@@ -507,11 +523,28 @@
       right: 16px;
       bottom: 0;
 
-    &.closed {
-      top: 10px;
+      &.closed {
+        top: 10px;
+      }
     }
-  }
-  }
+    .toggle-switch-outer {
+      margin-bottom: 2px;
+    }
+
+    .selectListItem .block-ban {
+      &:hover &:active {
+        background-color: rgba(201, 43, 43, 0.25);
+        color: $red-500 !important;
+      }
+      .dropdown-item:hover svg {
+          color: $red-500;
+        }
+      .with-icon {
+        color:$red-500;
+      }
+      }
+    }
+
 
   .profile {
     .member-details {
@@ -610,9 +643,9 @@
     margin-bottom: 48px;
 
     .admin-action {
-      color: blue;
+      color: $red-500;
       cursor: pointer;
-      padding: 0 16px;
+      // padding: 0 16px;
     }
   }
 
@@ -660,8 +693,21 @@
       width: 16px;
   }
 
-  .photo {
+  .toggle-switch-outer {
+    margin-bottom: 2px;
+  }
 
+  .block-ban {
+    background-color: $white;
+    color: $gray-50;
+
+    &:hover {
+      background-color: rgba(255, 182, 184, 0.25) !important;
+      color: $red-500 !important;
+    }
+  }
+
+  .photo {
     img {
     max-width: 100%;
     }
@@ -914,6 +960,7 @@ import axios from 'axios';
 import each from 'lodash/each';
 import cloneDeep from 'lodash/cloneDeep';
 import closeX from '../ui/closeX';
+import toggle from '../ui/toggleSwitch';
 import { mapState } from '@/libs/store';
 
 import MemberDetails from '../memberDetails';
@@ -951,6 +998,7 @@ export default {
     profileStats,
     error404,
     closeX,
+    toggle,
   },
   mixins: [externalLinks, userCustomStateMixin('userLoggedIn')],
   props: ['userId', 'startingPage'],
