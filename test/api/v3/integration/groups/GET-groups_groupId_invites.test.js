@@ -3,6 +3,7 @@ import {
   generateUser,
   generateGroup,
   translate as t,
+  createAndPopulateGroup,
 } from '../../../../helpers/api-integration/v3';
 
 describe('GET /groups/:groupId/invites', () => {
@@ -71,15 +72,16 @@ describe('GET /groups/:groupId/invites', () => {
   });
 
   it('returns only first 30 invites by default (req.query.limit not specified)', async () => {
-    const leader = await generateUser({ balance: 4 });
-    const group = await generateGroup(leader, { type: 'guild', privacy: 'public', name: generateUUID() });
-
-    const invitesToGenerate = [];
-    for (let i = 0; i < 31; i += 1) {
-      invitesToGenerate.push(generateUser());
-    }
-    const generatedInvites = await Promise.all(invitesToGenerate);
-    await leader.post(`/groups/${group._id}/invite`, { uuids: generatedInvites.map(invite => invite._id) });
+    const { group, groupLeader: leader } = await createAndPopulateGroup({
+      groupDetails: {
+        type: 'guild',
+        privacy: 'private',
+        name: generateUUID(),
+      },
+      leaderDetails: { balance: 4 },
+      invites: 31,
+      upgradeToGroupPlan: true,
+    });
 
     const res = await leader.get(`/groups/${group._id}/invites`);
     expect(res.length).to.equal(30);
@@ -90,8 +92,16 @@ describe('GET /groups/:groupId/invites', () => {
   }).timeout(10000);
 
   it('returns an error if req.query.limit is over 60', async () => {
-    const leader = await generateUser({ balance: 4 });
-    const group = await generateGroup(leader, { type: 'guild', privacy: 'public', name: generateUUID() });
+    const { group, groupLeader: leader } = await createAndPopulateGroup({
+      groupDetails: {
+        type: 'guild',
+        privacy: 'private',
+        name: generateUUID(),
+      },
+      leaderDetails: { balance: 4 },
+      invites: 1,
+      upgradeToGroupPlan: true,
+    });
 
     await expect(leader.get(`/groups/${group._id}/invites?limit=61`)).to.eventually.be.rejected.and.eql({
       code: 400,
@@ -101,8 +111,16 @@ describe('GET /groups/:groupId/invites', () => {
   });
 
   it('returns an error if req.query.limit is under 1', async () => {
-    const leader = await generateUser({ balance: 4 });
-    const group = await generateGroup(leader, { type: 'guild', privacy: 'public', name: generateUUID() });
+    const { group, groupLeader: leader } = await createAndPopulateGroup({
+      groupDetails: {
+        type: 'guild',
+        privacy: 'private',
+        name: generateUUID(),
+      },
+      leaderDetails: { balance: 4 },
+      invites: 1,
+      upgradeToGroupPlan: true,
+    });
 
     await expect(leader.get(`/groups/${group._id}/invites?limit=-1`)).to.eventually.be.rejected.and.eql({
       code: 400,
@@ -112,8 +130,16 @@ describe('GET /groups/:groupId/invites', () => {
   });
 
   it('returns an error if req.query.limit is not an integer', async () => {
-    const leader = await generateUser({ balance: 4 });
-    const group = await generateGroup(leader, { type: 'guild', privacy: 'public', name: generateUUID() });
+    const { group, groupLeader: leader } = await createAndPopulateGroup({
+      groupDetails: {
+        type: 'guild',
+        privacy: 'private',
+        name: generateUUID(),
+      },
+      leaderDetails: { balance: 4 },
+      invites: 1,
+      upgradeToGroupPlan: true,
+    });
 
     await expect(leader.get(`/groups/${group._id}/invites?limit=1.3`)).to.eventually.be.rejected.and.eql({
       code: 400,
@@ -123,15 +149,16 @@ describe('GET /groups/:groupId/invites', () => {
   });
 
   it('returns up to 60 invites when req.query.limit is specified', async () => {
-    const leader = await generateUser({ balance: 4 });
-    const group = await generateGroup(leader, { type: 'guild', privacy: 'public', name: generateUUID() });
-
-    const invitesToGenerate = [];
-    for (let i = 0; i < 31; i += 1) {
-      invitesToGenerate.push(generateUser());
-    }
-    const generatedInvites = await Promise.all(invitesToGenerate);
-    await leader.post(`/groups/${group._id}/invite`, { uuids: generatedInvites.map(invite => invite._id) });
+    const { group, groupLeader: leader } = await createAndPopulateGroup({
+      groupDetails: {
+        type: 'guild',
+        privacy: 'private',
+        name: generateUUID(),
+      },
+      leaderDetails: { balance: 4 },
+      invites: 31,
+      upgradeToGroupPlan: true,
+    });
 
     let res = await leader.get(`/groups/${group._id}/invites?limit=14`);
     expect(res.length).to.equal(14);
@@ -149,17 +176,20 @@ describe('GET /groups/:groupId/invites', () => {
   }).timeout(30000);
 
   it('supports using req.query.lastId to get more invites', async function test () {
+    let group; let invitees;
     this.timeout(30000); // @TODO: times out after 8 seconds
-    const leader = await generateUser({ balance: 4 });
-    const group = await generateGroup(leader, { type: 'guild', privacy: 'public', name: generateUUID() });
+    ({ group, groupLeader: user, invitees } = await createAndPopulateGroup({
+      groupDetails: {
+        type: 'guild',
+        privacy: 'private',
+        name: generateUUID(),
+      },
+      leaderDetails: { balance: 4 },
+      invites: 32,
+      upgradeToGroupPlan: true,
+    }));
 
-    const invitesToGenerate = [];
-    for (let i = 0; i < 32; i += 1) {
-      invitesToGenerate.push(generateUser());
-    }
-    const generatedInvites = await Promise.all(invitesToGenerate); // Group has 32 invites
-    const expectedIds = generatedInvites.map(generatedInvite => generatedInvite._id);
-    await user.post(`/groups/${group._id}/invite`, { uuids: expectedIds });
+    const expectedIds = invitees.map(generatedInvite => generatedInvite._id);
 
     const res = await user.get(`/groups/${group._id}/invites`);
     expect(res.length).to.equal(30);

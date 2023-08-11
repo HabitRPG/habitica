@@ -53,6 +53,7 @@ describe('POST /groups/:groupId/quests/reject', () => {
     it('returns an error when group is a guild', async () => {
       const { group: guild, groupLeader: guildLeader } = await createAndPopulateGroup({
         groupDetails: { type: 'guild', privacy: 'private' },
+        upgradeToGroupPlan: true,
       });
 
       await expect(guildLeader.post(`/groups/${guild._id}/quests/reject`))

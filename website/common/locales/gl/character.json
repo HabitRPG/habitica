@@ -186,5 +186,7 @@
     "purchasePetItemConfirm": "Esta compra superaría o número de obxectos que necesitas para facer nacer todas as mascotas de <%= itemText %> posíbeis. Seguro?",
     "chatCastSpellParty": "<%= username %> invoca <%= spell %> para o equipo.",
     "notEnoughGold": "Non tes ouro dabondo.",
-    "chatCastSpellUser": "<%= username %> invoca <%= spell %> sobre <%= target %>."
+    "chatCastSpellUser": "<%= username %> invoca <%= spell %> sobre <%= target %>.",
+    "chatCastSpellUserTimes": "<%= username %> invoca <%= spell %> sobre <%= target %> <%= times %> veces.",
+    "chatCastSpellPartyTimes": "<%= username %> invoca <%= spell %> para o equipo <%= times %> veces."
 }

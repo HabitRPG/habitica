@@ -570,6 +570,11 @@ const backgrounds = {
     colorful_coral: { },
     boardwalk_into_sunset: { },
   },
+  backgrounds082023: {
+    bonsai_collection: { },
+    dreamy_island: { },
+    rock_garden: { },
+  },
   eventBackgrounds: {
     birthday_bash: {
       price: 0,

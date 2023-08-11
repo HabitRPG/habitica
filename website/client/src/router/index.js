@@ -28,6 +28,7 @@ const NewsPage = () => import(/* webpackChunkName: "static" */'@/components/stat
 const OverviewPage = () => import(/* webpackChunkName: "static" */'@/components/static/overview');
 const PressKitPage = () => import(/* webpackChunkName: "static" */'@/components/static/pressKit');
 const PrivacyPage = () => import(/* webpackChunkName: "static" */'@/components/static/privacy');
+const ChatSunsetFaq = () => import(/* webpackChunkName: "static" */'@/components/static/chatSunsetFaq');
 const TermsPage = () => import(/* webpackChunkName: "static" */'@/components/static/terms');
 
 const RegisterLoginReset = () => import(/* webpackChunkName: "auth" */'@/components/auth/registerLoginReset');
@@ -74,10 +75,6 @@ const EquipmentPage = () => import(/* webpackChunkName: "inventory" */'@/compone
 const StablePage = () => import(/* webpackChunkName: "inventory" */'@/components/inventory/stable/index');
 
 // Guilds & Parties
-const GuildIndex = () => import(/* webpackChunkName: "guilds" */ '@/components/groups/index');
-const TavernPage = () => import(/* webpackChunkName: "guilds" */ '@/components/groups/tavern');
-const MyGuilds = () => import(/* webpackChunkName: "guilds" */ '@/components/groups/myGuilds');
-const GuildsDiscoveryPage = () => import(/* webpackChunkName: "guilds" */ '@/components/groups/discovery');
 const GroupPage = () => import(/* webpackChunkName: "guilds" */ '@/components/groups/group');
 const GroupPlansAppPage = () => import(/* webpackChunkName: "guilds" */ '@/components/groups/groupPlan');
 const LookingForParty = () => import(/* webpackChunkName: "guilds" */ '@/components/groups/lookingForParty');
@@ -189,23 +186,20 @@ const router = new VueRouter({
     },
     {
       path: '/groups',
-      component: GuildIndex,
+      component: NotFoundPage,
       children: [
-        { name: 'tavern', path: 'tavern', component: TavernPage },
+        { name: 'tavern', path: 'tavern' },
         {
           name: 'myGuilds',
           path: 'myGuilds',
-          component: MyGuilds,
         },
         {
           name: 'guildsDiscovery',
           path: 'discovery',
-          component: GuildsDiscoveryPage,
         },
         {
           name: 'guild',
           path: 'guild/:groupId',
-          component: GroupPage,
           props: true,
         },
       ],
@@ -313,6 +307,9 @@ const router = new VueRouter({
           name: 'faq', path: 'faq', component: FAQPage, meta: { requiresLogin: false },
         },
         {
+          name: 'chatSunsetFaq', path: 'tavern-and-guilds', component: ChatSunsetFaq, meta: { requiresLogin: false },
+        },
+        {
           name: 'features', path: 'features', component: FeaturesPage, meta: { requiresLogin: false },
         },
         {
@@ -382,6 +379,7 @@ const router = new VueRouter({
 
     // Only used to handle some redirects
     // See router.beforeEach
+    { path: '/static/faq/tavern-and-guilds', redirect: '/static/tavern-and-guilds' },
     { path: '/redirect/:redirect', name: 'redirect' },
     { path: '*', redirect: { name: 'notFound' } },
   ],
@@ -462,6 +460,21 @@ router.beforeEach(async (to, from, next) => {
     });
   }
 
+  // Redirect from Guild link to Group Plan where possible
+  if (to.name === 'guild') {
+    await store.dispatch('guilds:getGroupPlans');
+    const { groupPlans } = store.state;
+    const groupPlanIds = groupPlans.data.map(groupPlan => groupPlan._id);
+    if (groupPlanIds.indexOf(to.params.groupId) !== -1) {
+      return next({
+        name: 'groupPlanDetailInformation',
+        params: {
+          groupId: to.params.groupId,
+        },
+      });
+    }
+  }
+
   // Redirect old challenge urls
   if (to.hash.indexOf('#/options/groups/challenges/') !== -1) {
     const splits = to.hash.split('/');
@@ -507,6 +520,12 @@ router.beforeEach(async (to, from, next) => {
   }
 
   return next();
+});
+
+router.afterEach((to, from) => {
+  if (from.name === 'chatSunsetFaq') {
+    document.body.style.background = '#f9f9f9';
+  }
 });
 
 export default router;
