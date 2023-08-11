@@ -67,7 +67,7 @@ export const SPAM_MESSAGE_LIMIT = 2;
 export const SPAM_WINDOW_LENGTH = 60000; // 1 minute
 export const SPAM_MIN_EXEMPT_CONTRIB_LEVEL = 4;
 
-export const MAX_CHAT_COUNT = 200;
+export const MAX_CHAT_COUNT = 400;
 export const MAX_SUBBED_GROUP_CHAT_COUNT = 400;
 
 export const schema = new Schema({
