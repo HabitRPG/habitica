@@ -293,6 +293,21 @@ router.beforeEach(async (to, from, next) => {
     });
   }
 
+  // Redirect from Guild link to Group Plan where possible
+  if (to.name === 'guild') {
+    await store.dispatch('guilds:getGroupPlans');
+    const { groupPlans } = store.state;
+    const groupPlanIds = groupPlans.data.map(groupPlan => groupPlan._id);
+    if (groupPlanIds.indexOf(to.params.groupId) !== -1) {
+      return next({
+        name: 'groupPlanDetailInformation',
+        params: {
+          groupId: to.params.groupId,
+        },
+      });
+    }
+  }
+
   // Redirect old challenge urls
   if (to.hash.indexOf('#/options/groups/challenges/') !== -1) {
     const splits = to.hash.split('/');
