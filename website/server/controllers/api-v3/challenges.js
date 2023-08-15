@@ -575,13 +575,15 @@ api.getChallenge = {
 
     // Fetching basic group data
     const group = await Group.getGroup({
-      user, groupId: challenge.group, fields: `${basicGroupFields} purchased`, optionalMembership: true,
+      user, groupId: challenge.group, fields: `${basicGroupFields} purchased`,
     });
-    if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
-    group.purchased = undefined;
-
+    if (!group && !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
     const chalRes = challenge.toJSON();
-    chalRes.group = group.toJSON({ minimize: true });
+    if (group) {
+      group.purchased = undefined;
+      chalRes.group = group.toJSON({ minimize: true });
+    }
+
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
     const chalLeader = await User.findById(chalRes.leader).select(nameFields).exec();
     chalRes.leader = chalLeader ? chalLeader.toJSON({ minimize: true }) : null;

@@ -93,6 +93,7 @@ schema.methods.canModify = function canModifyChallenge (user) {
 schema.methods.canJoin = function canJoinChallenge (user, group) {
   // for when leader has left private group that contains the challenge
   if (this.isLeader(user)) return true;
+  if (!group) return false;
   if (group.type === 'guild' && group.privacy === 'public') {
     return group._id === TAVERN_ID;
   }
