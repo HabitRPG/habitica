@@ -575,7 +575,7 @@ api.getChallenge = {
 
     // Fetching basic group data
     const group = await Group.getGroup({
-      user, groupId: challenge.group, fields: `${basicGroupFields} purchased`, optionalMembership: true,
+      user, groupId: challenge.group, fields: `${basicGroupFields} purchased`,
     });
     if (!group && !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
     const chalRes = challenge.toJSON();
