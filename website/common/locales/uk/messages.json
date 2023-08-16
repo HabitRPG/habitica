@@ -59,5 +59,6 @@
     "messageBackgroundUnEquipped": "Фон скинуто.",
     "messagePetMountUnEquipped": "Улюбленець та скакун повернулися в стійло.",
     "messageCostumeUnEquipped": "Знято костюм.",
-    "messageBattleGearUnEquipped": "Знято бойове спорядження."
+    "messageBattleGearUnEquipped": "Знято бойове спорядження.",
+    "featureRetired": "Ця функція більше не підтримується."
 }

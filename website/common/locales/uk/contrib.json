@@ -22,7 +22,7 @@
     "contribModal": "<%= name %>, Ви - чудові! Ви отримуєте ранг <%= level %> за допомогу Habitica.",
     "contribLink": "Подивіться, які призи ви отримали за свій внесок!",
     "contribName": "Співавтор",
-    "contribText": "Вніс свій внесок у Habitica за допомогою коду, мистецтва, музики, тексту чи інших засобів. Щоб дізнатися більше, приєднайтеся до ґільдії Aspiring Legends Guild!",
+    "contribText": "Вніс свій внесок у Habitica за допомогою коду, мистецтва, музики, тексту чи інших засобів.",
     "kickstartName": "Спонсор Kickstarter - $<%= key %> ранг",
     "kickstartText": "Підтримав проєкт на Kickstarter",
     "helped": "Допоміг Habitica стати кращою",

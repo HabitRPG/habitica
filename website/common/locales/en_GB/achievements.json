@@ -141,5 +141,14 @@
     "achievementWoodlandWizardModalText": "You collected all the forest pets!",
     "achievementBoneToPick": "Bone to Pick",
     "achievementBoneToPickText": "Has hatched all the Classic and Quest Skeleton Pets!",
-    "achievementBoneToPickModalText": "You collected all the Classic and Quest Skeleton Pets!"
+    "achievementBoneToPickModalText": "You collected all the Classic and Quest Skeleton Pets!",
+    "achievementPolarPro": "Polar Pro",
+    "achievementPolarProModalText": "You collected all the Polar Pets!",
+    "achievementPlantParent": "Plant Parent",
+    "achievementPlantParentModalText": "You collected all the Plant Pets!",
+    "achievementDinosaurDynasty": "Dinosaur Dynasty",
+    "achievementDinosaurDynastyModalText": "You collected all the bird and dinosaur pets!",
+    "achievementPolarProText": "Has hatched all standard colours of Polar pets: Bear, Fox, Penguin, Whale, and Wolf!",
+    "achievementPlantParentText": "Has hatched all standard colours of Plant pets: Cactus and Treeling!",
+    "achievementDinosaurDynastyText": "Has hatched all standard colours of bird and dinosaur pets: Falcon, Owl, Parrot, Peacock, Penguin, Rooster, Pterodactyl, T-Rex, Triceratops, and Velociraptor!"
 }
