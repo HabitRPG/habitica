@@ -1,7 +1,7 @@
 <template>
   <div>
     <challenge-modal
-      :group-id="groupId"
+      :group-id="group._id"
       @createChallenge="challengeCreated"
     />
     <div
