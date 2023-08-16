@@ -471,7 +471,7 @@ schema.statics.validateInvitations = async function getInvitationErr (invites, r
     memberCount += totalInvites;
 
     if (memberCount > shared.constants.PARTY_LIMIT_MEMBERS) {
-      throw new BadRequest(res.t('partyExceedsMembersLimit', { maxMembersParty: shared.constants.PARTY_LIMIT_MEMBERS }));
+      throw new BadRequest(res.t('partyExceedsMembersLimit', { maxMembersParty: shared.constants.PARTY_LIMIT_MEMBERS + 1 }));
     }
   }
 };
