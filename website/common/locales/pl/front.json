@@ -56,7 +56,7 @@
     "mobileAndroid": "Aplikacja na Androida",
     "mobileIOS": "Aplikacja na iOS",
     "oldNews": "Aktualności",
-    "newsArchive": "Archiwum wiadomości na Wikia (wielojęzyczne)",
+    "newsArchive": "Archiwum wiadomości na Fandomie (wielojęzyczne)",
     "setNewPass": "Ustaw nowe hasło",
     "password": "Hasło",
     "playButton": "Zagraj",
@@ -66,7 +66,7 @@
     "pkQuestion1": "Co zainspirowało Habitikę? Jak to się zaczęło?",
     "pkAnswer1": "Jeśli kiedykolwiek zainwestowałeś czas w zdobywanie poziomów w grze to nietrudno zacząć się zastanawiać jak wspaniałe byłoby życie gdybyś ten cały wysiłek przeznaczył na polepszenie Swojego prawdziwego życia, a nie awatara. Zaczęliśmy tworzyć Habitike by odpowiedzieć na to pytanie. <br /> Habitika oficjalnie wystartowała na Kickstarterze w 2013 i pomysł nabrał rozpędu. Od tego momentu rozrosła się w ogromny projekt, wspierany przez naszych wspaniałych wolontariuszy z otwartym dostępem i naszych wielkodusznych użytkowników.",
     "pkQuestion2": "Jak działa Habitica?",
-    "pkAnswer2": "Wytworzenie nowego nawyku jest trudne ponieważ ludzie potrzebują tej oczywistej, natychmiastowej nagrody. Na przykład jest ciężko zacząć nitkować zęby, bo nawet jak nasz dentysta nam mówi, że w dłuższej perspektywie jest to zdrowsze to na początku rani to nasze dziąsła. <br />Grywalizacja Habitiki dodaje to odczucie natychmiastowej satysfakcji do codziennych czynności poprzez wynagrodzenie ciężkich zadań doświadczeniem, złotem... i może nawet losową nagroda jak smocze jajo! To pomaga ludziom utrzymać motywację nawet jeśli zadanie samo w sobie nie ma nieodłącznej nagrody i dzięki temu widzieliśmy jak ich życie się zmienia na lepsze. Możesz sprawdzić historie sukcesu tutaj: https://habitversary.tumblr.com",
+    "pkAnswer2": "Wytworzenie nowego nawyku jest trudne ponieważ ludzie potrzebują tej oczywistej, natychmiastowej nagrody. Na przykład jest ciężko zacząć nitkować zęby, bo nawet jak nasz dentysta nam mówi, że w dłuższej perspektywie jest to zdrowsze to na początku rani to nasze dziąsła. <br />Grywalizacja Habitiki dodaje to odczucie natychmiastowej satysfakcji do codziennych czynności poprzez wynagrodzenie ciężkich zadań doświadczeniem, złotem... i może nawet losową nagroda jak smocze jajo! To pomaga ludziom utrzymać motywację nawet jeśli zadanie samo w sobie nie ma nieodłącznej nagrody i dzięki temu widzieliśmy jak ich życie się zmienia na lepsze.",
     "pkQuestion3": "Czemu dodaliście funkcje społeczne?",
     "pkAnswer3": "Społeczna presja jest ogromnym czynnikiem motywacyjnym dla dużej liczby osób, więc wiedzieliśmy, że chcemy mieć silną społeczność, która będzie pilnowała odpowiedzialności innych za swoje cele, a także zachęcała do osiągania sukcesów. Szczęśliwie jedną z rzeczy, której gry wieloosobowe dobrze sprzyjają jest budowanie poczucia społeczności wśród ich uczestników! Habitica zapożyczyła strukturę społeczeństwa z tych typów gier. Możesz stworzyć mała Drużynę bliskich przyjaciół, ale możesz też dołączyć do większych, dzielących wspólne interesy grup znanych jako Gildie. Chociaż niektórzy wolą grać solo to większość decyduje się by uformować sieć wsparcia, która zachęca do społecznej odpowiedzialności poprzez takie funkcje jak na przykład Misje, gdzie członkowie Drużyny wspólnie dzielą się swoją produktywnością by razem zwalczać potwory.",
     "pkQuestion4": "Czemu omijanie zadań zmniejsza zdrowie Twojego awatara?",
@@ -180,7 +180,7 @@
     "joinMany": "Dołącz do <%= userCountInMillions %> millionów osób, które bawią się osiągając swoje cele!",
     "joinToday": "Dołącz do Habitica już dziś",
     "signup": "Zarejestruj się",
-    "getStarted": "Zaczynamy!",
+    "getStarted": "Jak zacząć",
     "mobileApps": "Aplikacje mobilne",
     "learnMore": "Dowiedz się więcej",
     "communityInstagram": "Instagram",
@@ -188,5 +188,6 @@
     "enterHabitica": "Wstąp w Habitikę",
     "footerProduct": "Produkt",
     "socialAlreadyExists": "Ten login społeczny jest już powiązany z innym kontem.",
-    "emailUsernamePlaceholder": "np. zajączekzwyczajów lub gryf @example.com"
+    "emailUsernamePlaceholder": "np. zajączekzwyczajów lub gryf @example.com",
+    "translateHabitica": "Przetłumacz Habitica"
 }

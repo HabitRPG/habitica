@@ -14,10 +14,10 @@
     "magicMounts": "Скакуни з магічного зілля",
     "etherealLion": "Етерний лев",
     "veteranWolf": "Лютий вовк",
-    "veteranTiger": "Ветеранський Тигр",
-    "veteranLion": "Ветеранський Лев",
-    "veteranBear": "Ветеранський Ведмідь",
-    "veteranFox": "Лис-ветеран",
+    "veteranTiger": "Лютий Тигр",
+    "veteranLion": "Лютий Лев",
+    "veteranBear": "Лютий Ведмідь",
+    "veteranFox": "Лютий Лис",
     "cerberusPup": "Церберятко",
     "hydra": "Гідра",
     "mantisShrimp": "Рак-богомол",
@@ -114,5 +114,6 @@
     "notEnoughFood": "У Вас немає достатньо їжі",
     "gryphatrice": "Грифолиск",
     "filterByWacky": "Дивакуваті",
-    "jubilantGryphatrice": "Радісний грифолиск"
+    "jubilantGryphatrice": "Радісний грифолиск",
+    "veteranDragon": "Лютий Дракон"
 }

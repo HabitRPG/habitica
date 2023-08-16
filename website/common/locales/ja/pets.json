@@ -114,5 +114,6 @@
     "invalidAmount": "えさの量が正しくありません。整数を入力してください",
     "tooMuchFood": "ペットにえさを与えられる量を超えました。この操作はキャンセルされます",
     "notEnoughFood": "えさが足りません",
-    "jubilantGryphatrice": "喜びに満ちたグリファトリス"
+    "jubilantGryphatrice": "喜びに満ちたグリファトリス",
+    "veteranDragon": "百戦錬磨のドラゴン"
 }

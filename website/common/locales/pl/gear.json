@@ -1795,5 +1795,6 @@
     "weaponSpecialSpring2019MageNotes": "W bursztynie na końcu tej laski zanurzony jest komar! Uwaga: może zawierać DNA dinozaura. Podnosi Inteligencję o <%= int %> i Percepcję o <%= per %>. Edycja Limitowana Wiosna 2019.",
     "weaponSpecialSpring2019HealerNotes": "Twa pieśń kwiatów i deszczu ukoi dusze wszystkich słuchaczy. Zwiększa Inteligencję o <%= int %>. Limitowana Edycja Wiosennego Wyposażenia 2019.",
     "weaponSpecialSummer2019RogueText": "Antyczna Kotwica",
-    "weaponSpecialSummer2019RogueNotes": "Ta pradawna i potężna broń pomoże ci wygrać każdą podwodną bitwę. Podnosi Siłę o <%= str %>. Edycja Limitowana Wiosna 2019."
+    "weaponSpecialSummer2019RogueNotes": "Ta pradawna i potężna broń pomoże ci wygrać każdą podwodną bitwę. Podnosi Siłę o <%= str %>. Edycja Limitowana Wiosna 2019.",
+    "weaponSpecialFall2019RogueText": "Pulpit Do Nut"
 }

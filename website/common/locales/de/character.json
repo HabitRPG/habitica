@@ -186,5 +186,6 @@
     "chatCastSpellParty": "<%= username %> wendet <%= spell %> auf Deine Party an.",
     "chatCastSpellUser": "<%= username %> wendet <%= spell %> auf <%= target %> an.",
     "purchasePetItemConfirm": "Dieser Einkauf würde die Anzahl der Gegenstände überschreiten, die Du zum Schlüpfen aller möglichen <%= itemText %>-Tiere benötigst. Bist du sicher?",
-    "notEnoughGold": "Nicht genügend Gold."
+    "notEnoughGold": "Nicht genügend Gold.",
+    "chatCastSpellPartyTimes": "<%= username %> verwendet <%= spell %> <%= times %> Male für Deine Party <%= times %>."
 }

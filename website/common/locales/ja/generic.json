@@ -206,12 +206,21 @@
     "submitBugReport": "バグレポートを送信",
     "reportDescription": "説明",
     "reportBugHeaderDescribe": "遭遇したバグの詳細を教えてください。折り返し連絡します。",
-    "reportSent": "バグの報告を送信しました！",
+    "reportSent": "報告ありがとうございます！",
     "reportDescriptionPlaceholder": "以下にバグの詳細を記入してください",
     "reportEmailError": "有効なメールアドレスをご入力ください",
     "reportEmailPlaceholder": "あなたのメールアドレス",
     "reportEmailText": "バグの報告に関してのみ使用してください。",
     "reportDescriptionText": "役に立つ場合は、スクリーンショットやコンソールによるJavascriptのエラー表示も添付してください。",
     "emptyReportBugMessage": "バグ報告のメッセージがありません",
-    "reportSentDescription": "問題を報告していただきありがとうございます。いったん運営で問題を調査して、あなたに再度連絡をします。"
+    "reportSentDescription": "いったん運営で調査をして、折り返しご連絡いたします。",
+    "leaveHabitica": "Habitica.comから移動しようとしています",
+    "leaveHabiticaText": "Habicitaは、HabitRPGが所有または運営していないリンク先のウェブサイトの内容について責任を負いません。<br>これらのウェブサイトの内容は、ハビティカのコミュニティガイドラインと異なる場合がありますのでご注意ください。",
+    "askQuestionHeaderDescribe": "Habiticaを始めたばかりで、どうすればいいかわからない？経験者だけど、機能の使い方がわからない？こちらのフォームにご記入ください。折り返しご連絡いたします。",
+    "questionEmailText": "これは、ご質問に関するご連絡のみに使用されます。",
+    "question": "質問",
+    "questionDescriptionText": "英語で話すことに苦手な場合は、母国語で質問しても構いません。",
+    "questionPlaceholder": "ご質問はこちらから",
+    "submitQuestion": "質問を投稿する",
+    "refreshList": "リストの更新"
 }

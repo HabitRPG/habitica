@@ -70,7 +70,7 @@
     "level": "Seviye",
     "levelUp": "Seviye Atladın!",
     "gainedLevel": "Bir seviye atladın!",
-    "leveledUp": "Gerçek hayattaki hedeflerini tamamlayarak <strong><%= level %>. Seviyeye</strong> ulaştın!",
+    "leveledUp": "Gerçek hayattaki hedeflerini tamamlayarak <strong><%= level %>. Seviyeye</strong> ulaştın",
     "huzzah": "Yaşasın!",
     "mana": "Mana",
     "hp": "HP",
@@ -186,5 +186,7 @@
     "chatCastSpellParty": "<%= username %> takım için <%= spell %> büyüsü atar.",
     "chatCastSpellUser": "<%= username %>, <%= target %>'a doğru <%= spell %> büyüsü atar.",
     "purchasePetItemConfirm": "Bu satın alma, tüm olası <%= itemText %> evcil hayvanlarını yumurtadan çıkarmak için ihtiyacınız olan eşya sayısını aşacaktır. Emin misiniz?",
-    "notEnoughGold": "Yeterince altın yok."
+    "notEnoughGold": "Yeterince altın yok.",
+    "chatCastSpellPartyTimes": "<%= username %> <%= times %> defa takıma <%= spell %> büyüsü yaptı.",
+    "chatCastSpellUserTimes": "<%= username %> <%= times %> defa <%= spell %> adlı büyüyü <%= target %>'a yaptı."
 }
