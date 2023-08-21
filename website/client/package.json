@@ -15,7 +15,7 @@
   "dependencies": {
     "@storybook/addon-actions": "6.5.8",
     "@storybook/addon-knobs": "6.2.9",
-    "@storybook/addon-links": "6.5.8",
+    "@storybook/addon-links": "7.3.2",
     "@storybook/addon-notes": "5.3.21",
     "@storybook/addons": "6.5.9",
     "@storybook/vue": "6.5.14",
