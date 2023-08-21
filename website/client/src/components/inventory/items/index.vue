@@ -231,7 +231,7 @@
       <div v-if="currentDraggingEgg != null">
         <div
           class="potion-icon"
-          :class="'Pet_Egg_'+currentDraggingEgg.key"
+          :class="`Pet_Egg_${currentDraggingEgg.key}`"
         ></div>
         <div class="popover">
           <div class="popover-content">
@@ -248,7 +248,7 @@
       <div v-if="currentDraggingEgg != null">
         <div
           class="potion-icon"
-          :class="'Pet_Egg_'+currentDraggingEgg.key"
+          :class="`Pet_Egg_${currentDraggingEgg.key}`"
         ></div>
         <div class="popover">
           <div
@@ -266,7 +266,7 @@
       <div v-if="currentDraggingPotion != null">
         <div
           class="potion-icon"
-          :class="'Pet_HatchingPotion_'+currentDraggingPotion.key"
+          :class="`Pet_HatchingPotion_${currentDraggingPotion.key}`"
         ></div>
         <div class="popover">
           <div
@@ -285,7 +285,7 @@
       <div v-if="currentDraggingPotion != null">
         <div
           class="potion-icon"
-          :class="'Pet_HatchingPotion_'+currentDraggingPotion.key"
+          :class="`Pet_HatchingPotion_${currentDraggingPotion.key}`"
         ></div>
         <div class="popover">
           <div

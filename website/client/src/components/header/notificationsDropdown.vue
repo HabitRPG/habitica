@@ -117,14 +117,14 @@ import * as quests from '@/../../common/script/content/quests';
 import { hasCompletedOnboarding } from '@/../../common/script/libs/onboarding';
 import notificationsIcon from '@/assets/svg/notifications.svg';
 import MenuDropdown from '../ui/customMenuDropdown';
-import MessageCount from './messageCount.functional';
+import MessageCount from './messageCount.vue';
 import { CONSTANTS, getLocalSetting, setLocalSetting } from '@/libs/userlocalManager';
 import successImage from '@/assets/svg/success.svg';
 import starBadge from '@/assets/svg/star-badge.svg';
 
 // Notifications
 import CARD_RECEIVED from './notifications/cardReceived';
-import CHALLENGE_INVITATION from './notifications/challengeInvitation.functional.vue';
+import CHALLENGE_INVITATION from './notifications/challengeInvitation.vue';
 import GIFT_ONE_GET_ONE from './notifications/g1g1';
 import GROUP_TASK_ASSIGNED from './notifications/groupTaskAssigned';
 import GROUP_TASK_CLAIMED from './notifications/groupTaskClaimed';

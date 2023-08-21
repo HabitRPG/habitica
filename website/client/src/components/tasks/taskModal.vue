@@ -1095,10 +1095,12 @@ export default {
     // region advanced settings
     advancedSettingsShowAdjustCounter () {
       return this.task.type === 'habit'
-                  && this.isUserTask && this.purpose === 'edit' && (this.task.up || this.task.down);
+        && this.isUserTask && this.purpose === 'edit'
+        && (this.task.up || this.task.down);
     },
     advancedSettingsShowRestoreStreak () {
-      return this.task.type === 'daily' && this.isUserTask && this.purpose === 'edit';
+      return this.task.type === 'daily' && this.isUserTask
+        && this.purpose === 'edit';
     },
     advancedSettingsShowTaskAlias () {
       return this.isUserTask && this.user.preferences.developerMode;

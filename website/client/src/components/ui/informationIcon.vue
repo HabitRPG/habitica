@@ -1,14 +1,14 @@
 <template>
   <span class="ml-1">
     <div
-      :id="'tooltip_'+tooltipId"
+      :id="`tooltip_${tooltipId}`"
       class="svg-icon icon-16"
       :title="tooltip"
       v-html="icons.information"
     ></div>
     <b-tooltip
       :title="tooltip"
-      :target="'tooltip_'+tooltipId"
+      :target="`tooltip_${tooltipId}`"
     />
   </span>
 </template>

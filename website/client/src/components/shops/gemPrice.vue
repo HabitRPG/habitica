@@ -1,10 +1,11 @@
 <template>
   <div
+    v-once
     class="gem-price-div"
     :class="{'background': withBackground}"
   >
     <div
-      :class="'mr-2 svg-icon gem icon-' +iconSize"
+      :class="`mr-2 svg-icon gem icon-${iconSize}`"
       v-html="icons.gem"
     ></div>
     <span class="gem-price">{{ gemPrice }}</span>

@@ -73,9 +73,7 @@
           :is-valid="foundUser._id"
 
           :placeholder="$t('usernameOrUserId')"
-          :invalid-issues="userSearchTerm.length > 0 && userNotFound
-            ? [ $t('userWithUsernameOrUserIdNotFound') ]
-            : [ '']"
+          :invalid-issues="userInputInvalidIssues"
         />
 
         <div class="d-flex flex-column justify-content-center align-items-middle mt-3">
@@ -102,11 +100,6 @@
             @click="close()"
             v-html="$t('cancel')"
           >
-            {{ $t('cancel') }}
-          </div>
-          <div
-            v-else
-          >
           </div>
         </div>
       </div>
@@ -115,18 +108,20 @@
       slot="modal-footer"
       class="g1g1-fine-print text-center pt-3"
     >
-      <strong>
+      <strong v-once>
         {{ $t('howItWorks') }}
       </strong>
       <p
+        v-once
         class="mx-5 mt-1"
       >
         {{ $t('g1g1HowItWorks') }}
       </p>
-      <strong>
+      <strong v-once>
         {{ $t('limitations') }}
       </strong>
       <p
+        v-once
         class="mx-5 mt-1"
       >
         {{ $t('g1g1Limitations') }}
@@ -322,6 +317,12 @@ export default {
     searchCannotSubmit () {
       if (this.userSearchTerm.length < 1) return true;
       return typeof this.foundUser._id === 'undefined';
+    },
+
+    userInputInvalidIssues () {
+      return this.userSearchTerm.length > 0 && this.userNotFound
+        ? [this.$t('userWithUsernameOrUserIdNotFound')]
+        : [''];
     },
   },
   watch: {
