@@ -40,7 +40,7 @@ export default {
   border-radius: 4px;
   background-color: $gray-600;
   display: inline-block;
-align-self: center;
+  align-self: center;
 }
 
 .label {
