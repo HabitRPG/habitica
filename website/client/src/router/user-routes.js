@@ -1,11 +1,5 @@
 import ParentPage from '@/components/parentPage';
-
-
-// User Pages
-// const StatsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/stats');
-// const AchievementsPage =
-// () => import(/* webpackChunkName: "user" */'./components/userMenu/achievements');
-export const ProfilePage = () => import(/* webpackChunkName: "user" */'@/components/userMenu/profilePage');
+import { ProfilePage } from './shared-route-imports';
 
 // Settings
 const Settings = () => import(/* webpackChunkName: "settings" */'@/pages/settings-overview');

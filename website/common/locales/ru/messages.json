@@ -59,5 +59,6 @@
     "messagePetMountUnEquipped": "Питомец и скакун вернулись в стойла.",
     "newsPostNotFound": "Новости не найдены, либо вы не имеете доступа.",
     "messageAllUnEquipped": "Все снято.",
-    "messageBackgroundUnEquipped": "Выбор фона сброшен."
+    "messageBackgroundUnEquipped": "Выбор фона сброшен.",
+    "featureRetired": "Данная функция не поддерживается."
 }

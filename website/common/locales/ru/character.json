@@ -187,5 +187,6 @@
     "chatCastSpellUser": "<%= username %> накладывает заклинание «<%= spell %>» на <%= target %>.",
     "purchasePetItemConfirm": "Эта покупка превышает необходимое количество предметов для выведения всех возможных <%= itemText %> питомцев. Вы уверены?",
     "notEnoughGold": "Недостаточно золота.",
-    "chatCastSpellPartyTimes": "<%= имя пользователя %> бросает <%= заклинание %> для команды <%= времени %> времени."
+    "chatCastSpellPartyTimes": "<%= имя пользователя %> бросает <%= заклинание %> для команды <%= времени %> времени.",
+    "chatCastSpellUserTimes": "<%= username %> применяет <%= spell %> на <%= target %> <%= times %> раз."
 }
