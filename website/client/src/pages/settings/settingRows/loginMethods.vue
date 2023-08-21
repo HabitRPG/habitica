@@ -39,48 +39,6 @@
         </a>
       </td>
     </tr>
-
-    <tr>
-      <td colspan="3">
-        <h2>Keeping the old UI to debug</h2>
-        <div class="panel-body">
-          <div>
-            <ul class="list-inline">
-              <li
-                v-for="network in SOCIAL_AUTH_NETWORKS"
-                :key="network.key"
-              >
-                <button
-                  v-if="!user.auth[network.key].id && network.key !== 'facebook'"
-                  class="btn btn-primary mb-2"
-                  @click="socialAuth(network.key, user)"
-                >
-                  {{ $t('registerWithSocial', { network: network.name }) }}
-                </button>
-                <button
-                  v-if="!hasBackupAuthOption(network.key) && user.auth[network.key].id"
-                  class="btn btn-primary mb-2"
-                  disabled="disabled"
-                >
-                  {{ $t('registeredWithSocial', { network: network.name }) }}
-                </button>
-                <button
-                  v-if="hasBackupAuthOption(network.key) && user.auth[network.key].id"
-                  class="btn btn-danger"
-                  @click="deleteSocialAuth(network)"
-                >
-                  {{ $t('detachSocial', { network: network.name }) }}
-                </button>
-
-                IsConnected: {{ isConnected(network.key) }}
-                - Allowed to Connect: {{ allowedToConnect(network.key) }}
-                - Allowed to remove {{ allowedToRemove(network.key) }}
-              </li>
-            </ul>
-          </div>
-        </div>
-      </td>
-    </tr>
   </fragment>
 </template>
 
@@ -181,10 +139,7 @@ export default {
 
       const isConnected = this.isConnected(networkKeyToCheck);
 
-      if (isConnected) {
-        return false;
-      }
-      return true;
+      return !isConnected;
     },
     allowedToRemove (networkKeyToCheck) {
       const isConnected = this.isConnected(networkKeyToCheck);

@@ -247,20 +247,20 @@ $bg-disabled-control: $gray-10;
       background-color: inherit;
     }
 
-    &:focus:not(:checked):not(:disabled)~.custom-control-label::before, 
+    &:focus:not(:checked):not(:disabled)~.custom-control-label::before,
     &:active:not(:checked):not(:disabled)~.custom-control-label::before  {
       border: 2px solid $gray-300;
       box-shadow: 0 0 0 2px rgba(146, 92, 243, 0.5);
     }
 
-    &:focus:checked:not(:disabled)~.custom-control-label::before, 
+    &:focus:checked:not(:disabled)~.custom-control-label::before,
     &:active:checked:not(:disabled)~.custom-control-label::before  {
       box-shadow: 0 0 0 2px rgba(146, 92, 243, 0.5);
       border-color: 2 px solid $purple-400;
       background-color: $purple-400;
     }
 
-    &:focus:disabled~.custom-control-label::before, 
+    &:focus:disabled~.custom-control-label::before,
     &:active:disabled~.custom-control-label::before  {
       box-shadow: 0 0 0 6px rgba($bg-disabled-control, 0.1);
     }
