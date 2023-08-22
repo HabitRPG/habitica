@@ -414,7 +414,7 @@ function getInviteError (uuids, emails, usernames) {
   return errorString;
 }
 
-function getInviteCount (uuids, emails) {
+function getInviteCount (uuids, emails, usernames) {
   let totalInvites = 0;
 
   if (uuids) {
@@ -423,6 +423,10 @@ function getInviteCount (uuids, emails) {
 
   if (emails) {
     totalInvites += emails.length;
+  }
+
+  if (usernames) {
+    totalInvites += usernames.length;
   }
 
   return totalInvites;
@@ -445,7 +449,7 @@ schema.statics.validateInvitations = async function getInvitationErr (invites, r
   const errorString = getInviteError(uuids, emails, usernames);
   if (errorString) throw new BadRequest(res.t(errorString));
 
-  const totalInvites = getInviteCount(uuids, emails);
+  const totalInvites = getInviteCount(uuids, emails, usernames);
   if (totalInvites > INVITES_LIMIT) {
     throw new BadRequest(res.t('canOnlyInviteMaxInvites', { maxInvites: INVITES_LIMIT }));
   }
@@ -471,7 +475,7 @@ schema.statics.validateInvitations = async function getInvitationErr (invites, r
     memberCount += totalInvites;
 
     if (memberCount > shared.constants.PARTY_LIMIT_MEMBERS) {
-      throw new BadRequest(res.t('partyExceedsMembersLimit', { maxMembersParty: shared.constants.PARTY_LIMIT_MEMBERS + 1 }));
+      throw new BadRequest(res.t('partyExceedsMembersLimit', { maxMembersParty: shared.constants.PARTY_LIMIT_MEMBERS }));
     }
   }
 };
