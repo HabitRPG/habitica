@@ -31,7 +31,6 @@
     </div>
     <div class="row">
       <div class="col-md-6">
-        <img src="~@/assets/images/marketing/guild.png">
         <h2>{{ $t('marketing2Lead1Title') }}</h2>
         <p>{{ $t('marketing2Lead1') }}</p>
         <img src="~@/assets/images/marketing/vice3.png">

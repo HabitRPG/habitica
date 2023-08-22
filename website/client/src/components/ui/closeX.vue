@@ -12,7 +12,10 @@
 </template>
 
 <style lang="scss" scoped>
+@import '~@/assets/scss/colors.scss';
+
   .modal-close {
+    color: $black;
     position: absolute;
     right: 16px;
     top: 16px;
@@ -22,10 +25,10 @@
       width: 18px;
       height: 18px;
       vertical-align: middle;
-      opacity: 0.75;
+      opacity: 0.5;
 
       &:hover {
-        opacity: 1;
+        opacity: 0.75;
       }
     }
   }

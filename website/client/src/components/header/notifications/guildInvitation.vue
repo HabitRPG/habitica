@@ -65,7 +65,7 @@ export default {
       }
 
       await this.$store.dispatch('guilds:join', { groupId: group.id, type: 'guild' });
-      this.$router.push({ name: 'guild', params: { groupId: group.id } });
+      this.$router.push({ name: 'groupPlanDetailTaskInformation', params: { groupId: group.id } });
     },
     reject () {
       this.$store.dispatch('guilds:rejectInvite', { groupId: this.notification.data.id, type: 'guild' });

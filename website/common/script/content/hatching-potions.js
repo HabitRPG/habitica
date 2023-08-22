@@ -140,13 +140,13 @@ const premium = {
     value: 2,
     text: t('hatchingPotionThunderstorm'),
     limited: true,
-    event: EVENTS.bundle202211,
+    event: EVENTS.potions202308,
     _addlNotes: t('eventAvailabilityReturning', {
-      availableDate: t('dateEndNovember'),
-      previousDate: t('novemberYYYY', { year: 2021 }),
+      availableDate: t('dateEndAugust'),
+      previousDate: t('novemberYYYY', { year: 2022 }),
     }),
     canBuy () {
-      return moment().isBetween(EVENTS.bundle202211.start, EVENTS.bundle202211.end);
+      return moment().isBetween(EVENTS.potions202308.start, EVENTS.potions202308.end);
     },
   },
   Spooky: {
@@ -542,13 +542,13 @@ const premium = {
     value: 2,
     text: t('hatchingPotionPorcelain'),
     limited: true,
-    event: EVENTS.birthday10,
+    event: EVENTS.potions202308,
     _addlNotes: t('eventAvailabilityReturning', {
-      availableDate: t('dateStartFebruary'),
-      previousDate: t('augustYYYY', { year: 2022 }),
+      availableDate: t('dateEndAugust'),
+      previousDate: t('februaryYYYY', { year: 2022 }),
     }),
     canBuy () {
-      return moment().isBetween(EVENTS.birthday10.start, EVENTS.birthday10.end);
+      return moment().isBetween(EVENTS.potions202308.start, EVENTS.potions202308.end);
     },
   },
   PinkMarble: {

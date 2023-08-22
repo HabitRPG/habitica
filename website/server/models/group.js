@@ -50,7 +50,6 @@ export const { TAVERN_ID } = shared;
 const NO_CHAT_NOTIFICATIONS = [TAVERN_ID];
 const { LARGE_GROUP_COUNT_MESSAGE_CUTOFF } = shared.constants;
 const { MAX_SUMMARY_SIZE_FOR_GUILDS } = shared.constants;
-const { GUILDS_PER_PAGE } = shared.constants;
 
 const { CHAT_FLAG_LIMIT_FOR_HIDING } = shared.constants;
 
@@ -68,7 +67,7 @@ export const SPAM_MESSAGE_LIMIT = 2;
 export const SPAM_WINDOW_LENGTH = 60000; // 1 minute
 export const SPAM_MIN_EXEMPT_CONTRIB_LEVEL = 4;
 
-export const MAX_CHAT_COUNT = 200;
+export const MAX_CHAT_COUNT = 400;
 export const MAX_SUBBED_GROUP_CHAT_COUNT = 400;
 
 export const schema = new Schema({
@@ -280,13 +279,12 @@ schema.statics.getGroup = async function getGroup (options = {}) {
   return group;
 };
 
-export const VALID_QUERY_TYPES = ['party', 'guilds', 'privateGuilds', 'publicGuilds', 'tavern'];
+export const VALID_QUERY_TYPES = ['party', 'guilds', 'privateGuilds', 'tavern'];
 
 schema.statics.getGroups = async function getGroups (options = {}) {
   const {
     user, types, groupFields = basicFields,
     sort = '-memberCount', populateLeader = false,
-    paginate = false, page = 0, // optional pagination for public guilds
     filters = {},
   } = options;
   const queries = [];
@@ -303,51 +301,24 @@ schema.statics.getGroups = async function getGroups (options = {}) {
         }));
         break;
       }
-      case 'guilds': {
-        const query = {
-          type: 'guild',
-          _id: { $in: user.guilds, $ne: TAVERN_ID },
-        };
-        _.assign(query, filters);
-        const userGuildsQuery = this.find(query).select(groupFields);
-        if (populateLeader === true) userGuildsQuery.populate('leader', nameFields);
-        userGuildsQuery.sort(sort).exec();
-        queries.push(userGuildsQuery);
-        break;
-      }
+      case 'guilds':
       case 'privateGuilds': {
         const query = {
           type: 'guild',
           privacy: 'private',
           _id: { $in: user.guilds },
+          'purchased.plan.customerId': { $exists: true },
+          $or: [
+            { 'purchased.plan.dateTerminated': null },
+            { 'purchased.plan.dateTerminated': { $exists: false } },
+            { 'purchased.plan.dateTerminated': { $gt: new Date() } },
+          ],
         };
         _.assign(query, filters);
         const privateGuildsQuery = this.find(query).select(groupFields);
         if (populateLeader === true) privateGuildsQuery.populate('leader', nameFields);
         privateGuildsQuery.sort(sort).exec();
         queries.push(privateGuildsQuery);
-        break;
-      }
-      // NOTE: when returning publicGuilds we use `.lean()` so all
-      // mongoose methods won't be available.
-      // Docs are going to be plain javascript objects
-      case 'publicGuilds': {
-        const query = {
-          type: 'guild',
-          privacy: 'public',
-          _id: { $ne: TAVERN_ID },
-        };
-        _.assign(query, filters);
-
-        const publicGuildsQuery = this.find(query).select(groupFields);
-
-        if (populateLeader === true) publicGuildsQuery.populate('leader', nameFields);
-        if (paginate === true) {
-          publicGuildsQuery.limit(GUILDS_PER_PAGE).skip(page * GUILDS_PER_PAGE);
-        }
-        publicGuildsQuery.sort(sort).lean().exec();
-        queries.push(publicGuildsQuery);
-
         break;
       }
       case 'tavern': {

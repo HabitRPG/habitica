@@ -270,6 +270,9 @@ export default {
   methods: {
     percent,
     showMemberModal (member) {
+      if (this.$route.name === 'userProfile' && this.$route.params?.userId === member._id) {
+        return;
+      }
       this.$router.push({ name: 'userProfile', params: { userId: member._id } });
     },
   },
