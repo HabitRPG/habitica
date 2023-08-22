@@ -27,7 +27,7 @@ export const SUPPORTED_SOCIAL_NETWORKS = [
 
 export const GUILDS_PER_PAGE = 30; // number of guilds to return per page when using pagination
 
-export const PARTY_LIMIT_MEMBERS = 29;
+export const PARTY_LIMIT_MEMBERS = 30;
 
 export const MINIMUM_PASSWORD_LENGTH = 8;
 export const MAXIMUM_PASSWORD_LENGTH = 64;

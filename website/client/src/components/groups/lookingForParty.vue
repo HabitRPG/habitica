@@ -188,6 +188,7 @@
       padding: 8px;
       border-radius: 4px;
       box-shadow: 0 1px 3px 0 rgba(26, 24, 29, 0.12), 0 1px 2px 0 rgba(26, 24, 29, 0.24);
+      background-color: $white;
 
       &:first-of-type {
         margin-top: 24px;

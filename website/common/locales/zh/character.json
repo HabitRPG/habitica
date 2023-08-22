@@ -186,5 +186,7 @@
     "chatCastSpellParty": "<%= username %>对队伍使用了<%= spell %>。",
     "purchasePetItemConfirm": "这次消费会超出你需要用来孵化所有可能<%= itemText %>宠物的物品数。你确定要这样做吗？",
     "purchaseForGold": "花费<%= cost %> 个金币购买？",
-    "notEnoughGold": "没有足够金币。"
+    "notEnoughGold": "没有足够金币。",
+    "chatCastSpellPartyTimes": "<%= username %> 对队伍使用了 <%= times %> 次 <%= spell %>。",
+    "chatCastSpellUserTimes": "<%= username %> 对 <%= target %> 使用了 <%= times %> 次 <%= spell %>。"
 }
