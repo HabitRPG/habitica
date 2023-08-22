@@ -65,18 +65,22 @@ export function authWithHeaders (options = {}) {
       return next(new NotAuthorized(res.t('missingAuthHeaders')));
     }
 
-    const userQuery = {
-      _id: userId,
-      apiToken,
-    };
+    const userQuery = { _id: userId };
 
-    const fields = getUserFields(options, req);
+    let fields = getUserFields(options, req);
+    // If the request didn't include the API Token, retrieve it for validation
+    if (fields && fields.indexOf('apiToken') === -1 && fields.indexOf('-') === -1) {
+      fields = `${fields} apiToken`;
+    }
+
     const findPromise = fields ? User.findOne(userQuery).select(fields) : User.findOne(userQuery);
 
     return findPromise
       .exec()
       .then(user => {
-        if (!user) throw new NotAuthorized(res.t('invalidCredentials'));
+        if (!user || apiToken !== user.apiToken) {
+          throw new NotAuthorized(res.t('invalidCredentials'));
+        }
 
         if (user.auth.blocked) {
           // We want the accountSuspended message to be translated but the language

@@ -1,8 +1,8 @@
 {
     "tavern": "Bate-Papo na Taverna",
     "tavernChat": "Bate-Papo na Taverna",
-    "innCheckOutBanner": "Atualmente, você está na Pousada. Enquanto isso, suas Diárias não realizadas não te causarão dano e também não poderá progredir em Missões.",
-    "innCheckOutBannerShort": "Você está descansando na Pousada.",
+    "innCheckOutBanner": "Atualmente você esta com o dano pausado. Suas Diárias não realizadas não te causarão dano e também não poderá progredir em Missões.",
+    "innCheckOutBannerShort": "Você parou de receber danos.",
     "resumeDamage": "Reativar dano",
     "helpfulLinks": "Links úteis",
     "communityGuidelinesLink": "Diretrizes da Comunidade",

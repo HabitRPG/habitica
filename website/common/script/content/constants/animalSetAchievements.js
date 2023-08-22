@@ -26,6 +26,20 @@ const ANIMAL_SET_ACHIEVEMENTS = {
     achievementKey: 'birdsOfAFeather',
     notificationType: 'ACHIEVEMENT_ANIMAL_SET',
   },
+  bonelessBoss: {
+    type: 'pet',
+    species: [
+      'Beetle',
+      'Butterfly',
+      'Cuttlefish',
+      'Nudibranch',
+      'Octopus',
+      'Snail',
+      'Spider',
+    ],
+    achievementKey: 'bonelessBoss',
+    notificationType: 'ACHIEVEMENT_ANIMAL_SET',
+  },
   dinosaurDynasty: {
     type: 'pet',
     species: [
