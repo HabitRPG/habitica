@@ -178,6 +178,11 @@ const animalSetAchievs = {
     titleKey: 'achievementBirdsOfAFeather',
     textKey: 'achievementBirdsOfAFeatherText',
   },
+  bonelessBoss: {
+    icon: 'achievement-bonelessBoss',
+    titleKey: 'achievementBonelessBoss',
+    textKey: 'achievementBonelessBossText',
+  },
   dinosaurDynasty: {
     icon: 'achievement-dinosaurDynasty',
     titleKey: 'achievementDinosaurDynasty',

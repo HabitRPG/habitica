@@ -155,6 +155,7 @@ export default new Schema({
     polarPro: Boolean,
     plantParent: Boolean,
     dinosaurDynasty: Boolean,
+    bonelessBoss: Boolean,
     // Onboarding Guide
     createdTask: Boolean,
     completedTask: Boolean,

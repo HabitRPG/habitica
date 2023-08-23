@@ -102,7 +102,7 @@ const bundles = {
       'butterfly',
     ],
     canBuy () {
-      return moment().isBetween('2020-03-09', '2020-04-02');
+      return moment().isBetween(EVENTS.bundle202308.start, EVENTS.bundle202308.end);
     },
     type: 'quests',
     value: 7,

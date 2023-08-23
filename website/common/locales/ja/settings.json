@@ -2,7 +2,7 @@
     "settings": "設定",
     "language": "言語",
     "americanEnglishGovern": "翻訳の不一致が発生した場合、アメリカ英語版に統一します。",
-    "helpWithTranslation": "Habiticaの翻訳にご協力いただけますか？ すばらしい！ それなら<a href=\"/groups/guild/7732f64c-33ee-4cce-873c-fc28f147a6f7\">Aspiring Linguists</a>ギルドにアクセスしてください！ 日本語の翻訳については<a href=\"/groups/guild/79db718e-69fd-4e6c-a075-43ef0b26de67\">Habitica 日本語訳</a>ギルドへどうぞ！",
+    "helpWithTranslation": "Habiticaの翻訳にご協力いただけますか？ すばらしい！ それなら<a href=\"https://translate.habitica.com\">Habitica's Weblate site</a>にアクセスしてください！ 日本語の翻訳については<a href=\"https://habitica.fandom.com/ja/wiki/Habitica%E6%97%A5%E6%9C%AC%E8%AA%9E%E8%A8%B3%E3%82%AE%E3%83%AB%E3%83%89\">Habitica日本語訳ギルド</a>へどうぞ！",
     "stickyHeader": "スティッキーヘッダー",
     "newTaskEdit": "新しいタスクを編集モードで開く",
     "dailyDueDefaultView": "日課を標準で「期限」タブに入れる",

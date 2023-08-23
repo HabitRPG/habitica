@@ -421,5 +421,12 @@
     "invitedToPartyBy": "<a href=\"/profile/<%- userId %>\" target=\"_blank\">@<%- userName %></a>邀请你加入队伍<span class=\"notification-bold\"><%- party %></span>",
     "lookForParty": "寻找队伍",
     "languageLabel": "语言：",
-    "sendTotal": "总计："
+    "sendTotal": "总计：",
+    "findPartyMembers": "寻找队友",
+    "noOneLooking": "目前没有玩家想要加入新队伍。<br>稍后再来吧！",
+    "lookingForPartyTitle": "寻找队友",
+    "findMorePartyMembers": "寻找更多队友",
+    "classLabel": "职业：",
+    "checkinsLabel": "总签到次数：",
+    "invitedToYourParty": "<strong>已邀请！</strong>&nbsp;&nbsp;点击可取消邀请"
 }
