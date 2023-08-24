@@ -8,7 +8,7 @@
       >
         <input
           v-model="couponCode"
-          class="form-control"
+          class="form-control mr-2"
           type="text"
           :placeholder="$t('promoPlaceholder')"
         >
