@@ -277,7 +277,7 @@
               </button>
               <button
                 v-if="hasBackupAuthOption(network.key) && user.auth[network.key].id"
-                class="btn btn-danger"
+                class="btn btn-danger mb-2"
                 @click="deleteSocialAuth(network)"
               >
                 {{ $t('detachSocial', {network: network.name}) }}
@@ -377,7 +377,7 @@
           </div>
           <h5>{{ $t('changeUsername') }}</h5>
           <div
-            class="form"
+            class="form mb-4"
             name="changeUsername"
             novalidate="novalidate"
           >
