@@ -383,7 +383,14 @@
       </div>
     </div>
     <!-- ACHIEVEMENTS -->
-    <div
+    <div>
+      <profileAchievs
+        v-show="selectedPage === 'achievements'"
+        :user="user"
+      />
+
+    </div>
+<!--     <div
       v-show="selectedPage === 'achievements'"
       v-if="user.achievements"
       id="achievements"
@@ -494,7 +501,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- STATS -->
     <div>
       <profileStats
@@ -968,6 +975,7 @@ import markdown from '@/directives/markdown';
 import achievementsLib from '@/../../common/script/libs/achievements';
 import Content from '@/../../common/script/content';
 import profileStats from './profileStats';
+import profileAchievs from './profileAchievs';
 
 import message from '@/assets/svg/message.svg';
 import gift from '@/assets/svg/gift.svg';
@@ -996,6 +1004,7 @@ export default {
   components: {
     MemberDetails,
     profileStats,
+    profileAchievs,
     error404,
     closeX,
     toggle,

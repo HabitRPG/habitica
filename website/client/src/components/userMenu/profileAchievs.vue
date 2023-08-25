@@ -1,9 +1,7 @@
 <template>
   <div
-    v-show="selectedPage === 'achievements'"
-    v-if="user.achievements"
     id="achievements"
-    class="standard-page container "
+    class="standard-page"
   >
     <div
       v-for="(category, key) in achievements"
@@ -187,3 +185,80 @@
     }
   }
 </style>
+
+<script>
+// import moment from 'moment';
+// import axios from 'axios';
+// import each from 'lodash/each';
+// import cloneDeep from 'lodash/cloneDeep';
+// import closeX from '../ui/closeX';
+
+import achievementsLib from '@/../../common/script/libs/achievements';
+import Content from '@/../../common/script/content';
+import error404 from '../404';
+// import { userCustomStateMixin } from '../../mixins/userState';
+
+export default {
+  components:
+    error404,
+  // closeX,
+  props: ['userId', 'startingPage'],
+  data () {
+    return {
+      selectedPage: 'achievements',
+      achievements: {},
+      achievementsCategories: {}, // number, open
+      content: Content,
+    };
+  },
+  methods: {
+    async loadUser () {
+      let user = null;
+
+      const profileUserId = this.userId;
+
+      if (profileUserId && profileUserId !== this.userLoggedIn._id) {
+        const response = await this.$store.dispatch('members:fetchMember', {
+          memberId: profileUserId,
+          unpack: false,
+        });
+        if (response.response && response.response.status === 404) {
+          user = null;
+          this.$store.dispatch('snackbars:add', {
+            title: 'Habitica',
+            text: this.$t('messageDeletedUser'),
+            type: 'error',
+            timeout: false,
+          });
+        } else if (response.status && response.status === 200) {
+          user = response.data.data;
+        }
+      } else {
+        user = this.userLoggedIn;
+      }
+
+      if (user) {
+        if (!user.achievements.quests) user.achievements.quests = {};
+        if (!user.achievements.challenges) user.achievements.challenges = {};
+        // @TODO: this common code should handle the above
+        this.achievements = achievementsLib.getAchievementsForProfile(user);
+
+        const achievementsCategories = {};
+        Object.keys(this.achievements).forEach(category => {
+          achievementsCategories[category] = {
+            open: false,
+            number: Object.keys(this.achievements[category].achievements).length,
+          };
+        });
+
+        this.achievementsCategories = achievementsCategories;
+
+        this.user = user;
+      }
+
+      this.userLoaded = true;
+    },
+  },
+};
+
+</script>
