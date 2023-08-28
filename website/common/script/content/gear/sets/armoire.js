@@ -1689,7 +1689,7 @@ const weapon = {
     per: 4,
     set: 'cleaningSuppliesTwo',
   },
-  cleaning_cloth: {
+  cleaningCloth: {
     str: 4,
     con: 4,
     set: 'cleaningSuppliesTwo',
