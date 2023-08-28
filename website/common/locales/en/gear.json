@@ -707,6 +707,10 @@
   "weaponArmoireFinelyCutGemNotes": "What a find! This stunning, precision-cut gem will be the prize of your collection. And it might contain some special magic, just waiting for you to tap into it. Increases Constitution by <%= con %>. Enchanted Armoire: Jeweler Set (Item 4 of 4).",
   "weaponArmoirePaintbrushText": "Paintbrush",
   "weaponArmoirePaintbrushNotes": "A jolt of pure inspiration rushes through you when you pick up this brush, allowing you to paint anything you can imagine. Increases Intelligence by <%= int %>. Enchanted Armoire: Painter Set (Item 3 of 4).",
+  "weaponMopText": "Mop",
+  "weaponMopNotes": "Step 1: Dunk the mop in a bucket of water and suds. Step 2: Drag the mop along the floor. Step 3: Pretend the end of the mop handle is a microphone and sing your heart out. Step 4: Repeat Steps 1-3 until floor is clean. Increases constitution and perception by <%= attrs %> each. Enchanted Armoire: Cleaning Supplies Set Two (Item 2 of 3)",
+  "weaponCleaningClothText": "Cleaning Cloth",
+  "weaponCleaningClothNotes": "Take this tidying tool on your adventures and always be able to polish a pretty plaque or wipe a wooden windowsill. Increases strength  constitution by <%= attrs %> each. Enchanted Armoire: Cleaning Supplies Set Two (Item 3 of 3)",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -2707,7 +2711,8 @@
   "shieldArmoireBasketballNotes": "Swish! Whenever you shoot this magic basketball, there will be nothing but net. Increases Constitution and Strength by <%= attrs %> each. Enchanted Armoire: Old Timey Basketball Set (Item 2 of 2).",
   "shieldArmoirePaintersPaletteText": "Painter's Palette",
   "shieldArmoirePaintersPaletteNotes": "Paints in all colors of the rainbow are at your disposal. Is it magic that makes them so vivid when you use them, or is it your talent? Increases Strength by <%= str %>. Enchanted Armoire: Painter Set (Item 4 of 4).",
-
+  "shieldArmoireBucketText": "Bucket",
+  "shieldArmoireBucketNotes": "Though this bucket is helpful in holding a mixture of water and cleaning solution, you could also use it to collect, carry, and cart around just about anything that fits inside! Increases strength intelligence by <%= attrs %> each. Enchanted Armoire: Cleaning Supplies Set 2 (Item 1 of 3)",
   "back": "Back Accessory",
   "backBase0Text": "No Back Accessory",
   "backBase0Notes": "No Back Accessory.",

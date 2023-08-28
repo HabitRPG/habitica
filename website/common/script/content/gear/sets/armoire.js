@@ -1233,6 +1233,11 @@ const shield = {
     str: 7,
     set: 'painters',
   },
+  bucket: {
+    str: 4,
+    int: 4,
+    set: 'cleaningSuppliesTwo',
+  },
 };
 
 const headAccessory = {
@@ -1678,6 +1683,16 @@ const weapon = {
   paintbrush: {
     int: 8,
     set: 'painters',
+  },
+  mop: {
+    con: 4,
+    per: 4,
+    set: 'cleaningSuppliesTwo',
+  },
+  cleaning_cloth: {
+    str: 4,
+    con: 4,
+    set: 'cleaningSuppliesTwo',
   },
 };
 
