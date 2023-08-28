@@ -120,6 +120,9 @@ export async function createAndPopulateGroup (settings = {}) {
   const upgradeToGroupPlan = settings.upgradeToGroupPlan || false;
   const { groupDetails } = settings;
   const leaderDetails = settings.leaderDetails || { balance: 10 };
+  if (upgradeToGroupPlan) {
+    leaderDetails.permissions = { fullAccess: true };
+  }
 
   const groupLeader = await generateUser(leaderDetails);
   const group = await generateGroup(groupLeader, groupDetails);

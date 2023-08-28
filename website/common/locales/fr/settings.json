@@ -2,7 +2,7 @@
     "settings": "Paramètres",
     "language": "Langage",
     "americanEnglishGovern": "Dans l'éventualité d'une contradiction entre les traductions, la version américaine prévaut.",
-    "helpWithTranslation": "Vous voulez participer à la traduction d'Habitica ? Fantastique ! Visitez donc <a href=\"/groups/guild/7732f64c-33ee-4cce-873c-fc28f147a6f7\">la guilde Aspiring Linguists</a> !",
+    "helpWithTranslation": "Vous voulez participer à la traduction d'Habitica ? Fantastique ! Visitez donc <a href=\"https://translate.habitica.com\">le site Weblate d'Habitica </a> !",
     "stickyHeader": "Bandeau fixe",
     "newTaskEdit": "Ouvrir une nouvelle tâche dans le mode modification",
     "dailyDueDefaultView": "Afficher par défaut les quotidiennes de l'onglet \"Restantes\"",

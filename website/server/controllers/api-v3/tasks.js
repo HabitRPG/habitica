@@ -461,10 +461,9 @@ api.getChallengeTasks = {
     const group = await Group.getGroup({
       user,
       groupId: challenge.group,
-      fields: '_id type privacy',
-      optionalMembership: true,
+      fields: '_id type privacy purchased',
     });
-    if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
+    if (!group && !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
 
     const tasks = await getTasks(req, res, { user, challenge });
     return res.respond(200, tasks);

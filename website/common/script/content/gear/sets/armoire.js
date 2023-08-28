@@ -439,6 +439,10 @@ const armor = {
     str: 7,
     set: 'admiralsSet',
   },
+  karateGi: {
+    str: 10,
+    set: 'karateSet',
+  },
 };
 
 const body = {
@@ -457,6 +461,42 @@ const body = {
     con: 2,
     per: 2,
     set: 'clown',
+  },
+  karateYellowBelt: {
+    per: 3,
+    set: 'karateSet',
+  },
+  karateWhiteBelt: {
+    int: 3,
+    set: 'karateSet',
+  },
+  karateRedBelt: {
+    per: 3,
+    set: 'karateSet',
+  },
+  karatePurpleBelt: {
+    con: 3,
+    set: 'karateSet',
+  },
+  karateOrangeBelt: {
+    con: 3,
+    set: 'karateSet',
+  },
+  karateGreenBelt: {
+    str: 3,
+    set: 'karateSet',
+  },
+  karateBrownBelt: {
+    str: 3,
+    set: 'karateSet',
+  },
+  karateBlueBelt: {
+    con: 3,
+    set: 'karateSet',
+  },
+  karateBlackBelt: {
+    int: 3,
+    set: 'karateSet',
   },
 };
 

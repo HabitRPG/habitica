@@ -140,5 +140,7 @@
     "counter": "回数",
     "adjustCounter": "回数を修正",
     "editTagsText": "タグを編集",
-    "taskSummary": "<%= type %>の概要"
+    "taskSummary": "<%= type %>の概要",
+    "scoreDown": "スコアダウン",
+    "scoreUp": "スコアアップ"
 }

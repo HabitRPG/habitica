@@ -186,5 +186,7 @@
     "chatCastSpellParty": "<%= username %> baca <%= spell%> za družbinu.",
     "notEnoughGold": "Nema dovoljno zlata.",
     "chatCastSpellUser": "<%= username %> baca <%= spell%> na <%= target%>.",
-    "purchaseForGold": "Kupnja za <%= cost %> Zlata?"
+    "purchaseForGold": "Kupnja za <%= cost %> Zlata?",
+    "chatCastSpellPartyTimes": "<%= username %> koristi <%= spell %> za družinu <%= times %> puta.",
+    "chatCastSpellUserTimes": "<%= username %> koristi <%= spell %> za <%= target %> <%= times %> puta."
 }

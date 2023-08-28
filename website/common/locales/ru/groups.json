@@ -432,5 +432,6 @@
     "lookForParty": "Найти команду",
     "questWithOthers": "Участвуйте в квестах вместе с другими",
     "findMorePartyMembers": "Найти больше участников",
-    "invitedToYourParty": "<strong>Приглашен в вашу команду!</strong>&nbsp;&nbsp;Нажмите, чтобы отменить"
+    "invitedToYourParty": "<strong>Приглашен в вашу команду!</strong>&nbsp;&nbsp;Нажмите, чтобы отменить",
+    "classLabel": "Класс:"
 }

@@ -5,7 +5,7 @@ import { EVENTS } from './constants';
 // path: 'premiumHatchingPotions.Rainbow',
 const featuredItems = {
   market () {
-    if (moment().isBetween(EVENTS.summer2023.start, EVENTS.summer2023.end)) {
+    if (moment().isBetween(EVENTS.potions202308.start, EVENTS.potions202308.end)) {
       return [
         {
           type: 'armoire',
@@ -13,15 +13,15 @@ const featuredItems = {
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Sunset',
+          path: 'premiumHatchingPotions.Thunderstorm',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Glass',
+          path: 'premiumHatchingPotions.Porcelain',
         },
         {
-          type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.SandSculpture',
+          type: 'hatchingPotions',
+          path: 'hatchingPotions.Zombie',
         },
       ];
     }
@@ -32,32 +32,32 @@ const featuredItems = {
       },
       {
         type: 'food',
-        path: 'food.Honey',
+        path: 'food.Meat',
       },
       {
         type: 'hatchingPotions',
-        path: 'hatchingPotions.Golden',
+        path: 'hatchingPotions.Zombie',
       },
       {
         type: 'eggs',
-        path: 'eggs.Dragon',
+        path: 'eggs.Fox',
       },
     ];
   },
   quests () {
-    if (moment().isBetween(EVENTS.bundle202306.start, EVENTS.bundle202306.end)) {
+    if (moment().isBetween(EVENTS.bundle202308.start, EVENTS.bundle202308.end)) {
       return [
         {
           type: 'bundles',
-          path: 'bundles.splashyPals',
+          path: 'bundles.hugabug',
         },
         {
           type: 'quests',
-          path: 'quests.harpy',
+          path: 'quests.octopus',
         },
         {
           type: 'quests',
-          path: 'quests.owl',
+          path: 'quests.rock',
         },
       ];
     }
@@ -89,7 +89,7 @@ const featuredItems = {
       },
       {
         type: 'quests',
-        path: 'quests.nudibranch',
+        path: 'quests.axolotl',
       },
     ];
   },

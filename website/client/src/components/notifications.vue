@@ -11,8 +11,6 @@
     <low-health />
     <level-up />
     <choose-class />
-    <testing />
-    <testingletiant />
     <rebirth-enabled />
     <contributor />
     <won-challenge />
@@ -127,8 +125,6 @@ import chooseClass from './achievements/chooseClass';
 import armoireEmpty from './achievements/armoireEmpty';
 import questCompleted from './achievements/questCompleted';
 import questInvitation from './achievements/questInvitation';
-import testing from './achievements/testing';
-import testingletiant from './achievements/testingletiant';
 import rebirthEnabled from './achievements/rebirthEnabled';
 import contributor from './achievements/contributor';
 import invitedFriend from './achievements/invitedFriend';
@@ -269,8 +265,6 @@ export default {
     armoireEmpty,
     questCompleted,
     questInvitation,
-    testing,
-    testingletiant,
     rebirthEnabled,
     contributor,
     loginIncentives,
@@ -300,7 +294,6 @@ export default {
       // general notifications
       'CRON',
       'FIRST_DROPS',
-      'GUILD_PROMPT',
       'LOGIN_INCENTIVE',
       'NEW_CONTRIBUTOR_LEVEL',
       'ONBOARDING_COMPLETE',
@@ -703,14 +696,6 @@ export default {
               this.$store.state.firstDropsOptions.egg = notification.data.egg;
               this.$store.state.firstDropsOptions.hatchingPotion = notification.data.hatchingPotion;
               this.$root.$emit('bv::show::modal', 'first-drops');
-            }
-            break;
-          case 'GUILD_PROMPT':
-            // @TODO: I'm pretty sure we can find better names for these
-            if (notification.data.textletiant === -1) {
-              this.$root.$emit('bv::show::modal', 'testing');
-            } else {
-              this.$root.$emit('bv::show::modal', 'testingletiant');
             }
             break;
           case 'REBIRTH_ENABLED':

@@ -186,5 +186,7 @@
     "chatCastSpellParty": "<%= username %> накладає закляття <%= spell %> на команду.",
     "notEnoughGold": "Не вистачає золота.",
     "purchasePetItemConfirm": "Ця покупка перевищує кількість речей, необхідних для виведення всіх <%= itemText %> улюбленців. Ви впевнені?",
-    "purchaseForGold": "Придбати за <%= cost %> золота?"
+    "purchaseForGold": "Придбати за <%= cost %> золота?",
+    "chatCastSpellPartyTimes": "<%= username %> накладає на команду <%= times %> закляття <%= spell %>.",
+    "chatCastSpellUserTimes": "<%= username %> накладає на <%= target %> <%= times %> закляття <%= spell %>."
 }

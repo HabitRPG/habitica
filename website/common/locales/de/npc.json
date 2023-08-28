@@ -134,5 +134,6 @@
     "newStuffPostedOn": "Veröffentlicht am <%= publishDate %> um <%= publishTime %>",
     "helpSupportHabitica": "Hilf Habitica zu unterstützen",
     "groupsPaymentSubBilling": "Dein nächstes Rechnungsdatum ist <strong><%= renewalDate %></strong>.",
-    "groupsPaymentAutoRenew": "Dieses Abonnement läuft automatisch weiter, bis es gekündigt wird. Du kannst es im Gruppen-Abrechnungs-Tab kündigen."
+    "groupsPaymentAutoRenew": "Dieses Abonnement läuft automatisch weiter, bis es gekündigt wird. Du kannst es im Gruppen-Abrechnungs-Tab kündigen.",
+    "sellItems": "Items verkaufen"
 }

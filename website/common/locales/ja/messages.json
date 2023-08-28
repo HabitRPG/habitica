@@ -59,5 +59,6 @@
     "messageBattleGearUnEquipped": "装備をつけていません。",
     "messageAllUnEquipped": "所持品を何も身につけていません。",
     "messageBackgroundUnEquipped": "背景を設定していません。",
-    "messagePetMountUnEquipped": "ペットと乗騎を連れていません。"
+    "messagePetMountUnEquipped": "ペットと乗騎を連れていません。",
+    "featureRetired": "この機能はサポートされなくなりました。"
 }

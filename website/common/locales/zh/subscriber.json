@@ -132,8 +132,8 @@
     "subscriptionBenefit5": "当您成为新订阅者时，获得紫御鹿角兔宠物。",
     "subscriptionBenefit6": "获得神秘沙漏在时空旅行者的商店购买物品！",
     "purchaseAll": "购买套装",
-    "gemsRemaining": "剩下的宝石",
-    "notEnoughGemsToBuy": "你无法购买更多宝石",
+    "gemsRemaining": "剩余",
+    "notEnoughGemsToBuy": "本月可购买宝石已达上限。每月前3天会刷新库存。",
     "mysterySet201902": "神秘碎片套装",
     "subCanceledTitle": "订阅已取消",
     "mysterySet201908": "自由牧神套装",
@@ -225,5 +225,9 @@
     "continueGiftSubBenefits": "想要继续享受权益吗？您可以在获赠订阅到期之前开始新的订阅，便可保留您的权益。",
     "mysterySet202302": "Trickster Tabby套装",
     "mysterySet202303": "杀马特套装",
-    "mysterySet202304": "绝品茶壶套装"
+    "mysterySet202304": "绝品茶壶套装",
+    "mysterySet202306": "炫彩虹光套装",
+    "monthlyGems": "每月宝石：",
+    "mysterySet202307": "危险海怪套装",
+    "mysterySet202305": "黄昏之龙套装"
 }

@@ -148,6 +148,9 @@ export default function () {
         egg: '',
         hatchingPotion: '',
       },
+      bugReportOptions: {
+        question: false,
+      },
     },
   });
 

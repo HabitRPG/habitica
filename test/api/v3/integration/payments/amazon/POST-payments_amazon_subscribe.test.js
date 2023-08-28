@@ -70,8 +70,8 @@ describe('payments - amazon - #subscribe', () => {
 
       group = await generateGroup(user, {
         name: 'test group',
-        type: 'guild',
-        privacy: 'public',
+        type: 'party',
+        privacy: 'private',
         'purchased.plan.customerId': 'customer-id',
         'purchased.plan.planId': 'basic_3mo',
         'purchased.plan.lastBillingDate': new Date(),

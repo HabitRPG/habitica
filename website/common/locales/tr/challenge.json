@@ -103,5 +103,6 @@
     "selectParticipant": "Katılımcı Seç",
     "yourReward": "Ödülün",
     "filters": "Filtreler",
-    "wonChallengeDesc": "<%= challengeName %> seni kazanan olarak belirledi! Kazanımın, Başarılarına kaydedildi."
+    "wonChallengeDesc": "<%= challengeName %> seni kazanan olarak belirledi! Kazanışın, Başarılarına kaydedildi.",
+    "removeTasks": "Görevleri Kaldır"
 }
