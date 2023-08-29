@@ -15,7 +15,7 @@
         >
           <input
             v-model="couponCode"
-            class="form-control"
+            class="form-control w-100"
             type="text"
             :placeholder="$t('promoPlaceholder')"
           >
@@ -41,7 +41,7 @@
             <div class="form-group">
               <input
                 v-model="codes.event"
-                class="form-control"
+                class="form-control w-100"
                 type="text"
                 placeholder="Event code (eg, 'wondercon')"
               >
@@ -49,7 +49,7 @@
             <div class="form-group">
               <input
                 v-model="codes.count"
-                class="form-control"
+                class="form-control w-100"
                 type="number"
                 placeholder="Number of codes to generate (eg, 250)"
               >
@@ -73,12 +73,6 @@
     </div>
   </div>
 </template>
-
-<style scoped>
-  .form-control {
-    width: 100%;
-  }
-</style>
 
 <script>
 import axios from 'axios';

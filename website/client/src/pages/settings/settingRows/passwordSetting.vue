@@ -111,10 +111,6 @@ input {
   color: $green-50;
 }
 
-.form-group {
-  margin-bottom: 1.5rem;
-}
-
 </style>
 
 <script>

@@ -1,7 +1,3 @@
-import moment from 'moment';
-
-export const CURRENT_SEASON = moment().isBefore('2020-08-02') ? 'summer' : '_NONE_';
-
 // sorting this also changes the class selection
 export const CLASSES = [
   'healer',

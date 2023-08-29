@@ -137,7 +137,6 @@ export default {
       });
 
       this.user.auth.local.username = newUsername;
-      // this.localAuth.username = this.user.auth.local.username;
       this.user.flags.verifiedUsername = true;
 
       this.text(this.$t('userNameSuccess'));

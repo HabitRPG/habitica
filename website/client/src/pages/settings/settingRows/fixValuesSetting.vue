@@ -76,7 +76,7 @@
         </div>
 
         <save-cancel-buttons
-          :disable-save="!sharedState.inlineSettingUnsavedValues"
+          :disable-save="!mixinData.inlineSettingMixin.sharedState.inlineSettingUnsavedValues"
           class="mt-4"
           @saveClicked="save()"
           @cancelClicked="requestCloseModal()"
@@ -240,10 +240,6 @@ export default {
       if (userChangedLevel && userDidNotChangeExp) {
         this.restoreValues.exp = 0;
       }
-
-      // todo
-      // this.user.stats = clone(this.restoreValues.stats);
-      // this.user.achievements.streak = clone(this.restoreValues.achievements.streak);
 
       const settings = {
         'stats.hp': Number(this.restoreValues.hp),
