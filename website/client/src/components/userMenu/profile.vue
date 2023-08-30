@@ -388,9 +388,8 @@
         v-show="selectedPage === 'achievements'"
         :user="user"
       />
-
     </div>
-<!--     <div
+    <div
       v-show="selectedPage === 'achievements'"
       v-if="user.achievements"
       id="achievements"
@@ -501,7 +500,7 @@
           </div>
         </div>
       </div>
-    </div> -->
+    </div>
     <!-- STATS -->
     <div>
       <profileStats
@@ -522,23 +521,7 @@
       margin-left: -48px;
       width: 210px;
     }
-    .dropdown-item:hover svg {
-      color: $purple-300;
-    }
-    .drawer-toggle-icon {
-      position: absolute;
-      right: 16px;
-      bottom: 0;
-
-      &.closed {
-        top: 10px;
-      }
-    }
-    .toggle-switch-outer {
-      margin-bottom: 2px;
-    }
-
-    .selectListItem .block-ban {
+  .selectListItem .block-ban {
       &:hover &:active {
         background-color: rgba(201, 43, 43, 0.25);
         color: $red-500 !important;
@@ -549,9 +532,8 @@
       .with-icon {
         color:$red-500;
       }
-      }
     }
-
+  }
 
   .profile {
     .member-details {
@@ -610,8 +592,6 @@
       margin-left: 4px !important;
     }
   }
-
-
 </style>
 
 <style lang="scss" scoped>
@@ -702,16 +682,6 @@
 
   .toggle-switch-outer {
     margin-bottom: 2px;
-  }
-
-  .block-ban {
-    background-color: $white;
-    color: $gray-50;
-
-    &:hover {
-      background-color: rgba(255, 182, 184, 0.25) !important;
-      color: $red-500 !important;
-    }
   }
 
   .photo {
