@@ -140,5 +140,7 @@
     "adjustCounter": "Ajustar Contador",
     "counter": "Contador",
     "editTagsText": "Editar Etiquetas",
-    "taskSummary": "<%= type %> Resumo"
+    "taskSummary": "<%= type %> Resumo",
+    "scoreDown": "Pontuação negativa",
+    "scoreUp": "Pontuação positiva"
 }

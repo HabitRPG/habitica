@@ -186,5 +186,7 @@
     "chatCastSpellParty": "<%= username %> menggunakan <%= spell %> untuk party.",
     "notEnoughGold": "Emas tidak mencukupi.",
     "purchasePetItemConfirm": "Pembelian ini akan melebihi sejumlah item yang kamu butuhkan untuk menetaskan <%= itemText %> peliharaan. Apa kamu yakin?",
-    "purchaseForGold": "Membeli dengan sejumlah <%= cost %> Gold?"
+    "purchaseForGold": "Membeli dengan sejumlah <%= cost %> Gold?",
+    "chatCastSpellPartyTimes": "<%= username %> menggunakan <%= spell %> untuk party sebanyak <%= times %> kali.",
+    "chatCastSpellUserTimes": "<%= username %> menggunakan <%= spell %> pada <%= target %> sebanyak <%= times %> kali."
 }

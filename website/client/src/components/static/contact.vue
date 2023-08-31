@@ -35,8 +35,8 @@
           &colon;&nbsp;
           <a
             target="_blank"
-            href="/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a"
-          >Habitica Help guild</a>
+            @click.prevent="openBugReportModal(true)"
+          > {{ $t('askQuestion') }}</a>
           <br>
           {{ $t('businessInquiries') }}
           &colon;&nbsp;

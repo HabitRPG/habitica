@@ -213,5 +213,9 @@
     "reportSentDescription": "Responderemos assim que nossa equipe conseguir verificar. Obrigado por relatar o problema.",
     "askQuestion": "Faça uma Pergunta",
     "reportDescriptionText": "Inclua fotos da tela ou erros do console Javascript se ajudar ou for necessário.",
-    "emptyReportBugMessage": "Mensagem de Reporte de Erros vazia"
+    "emptyReportBugMessage": "Mensagem de Reporte de Erros vazia",
+    "leaveHabiticaText": "O Habitica não é responsável pelo conteúdo de qualquer site referenciado que não seja de propriedade ou operado pelo HabitRPG.<br>Por favor, observe que as práticas desses sites podem diferir das diretrizes da comunidade do Habitica.",
+    "skipExternalLinkModal": "Mantenha pressionada a tecla CTRL (Windows) ou Command (Mac) ao clicar em um link para ignorar esse modal.",
+    "leaveHabitica": "Você está prestes a sair do Habitica.com",
+    "refreshList": "Recarregar lista"
 }

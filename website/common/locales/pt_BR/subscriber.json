@@ -58,7 +58,7 @@
     "mysterySet201604": "Conjunto Guerreiro de Folha",
     "mysterySet201605": "Conjunto Bardo Marcial",
     "mysterySet201606": "Conjunto Túnica de Selkie",
-    "mysterySet201607": "Conjunto Gatuno das Profundezas",
+    "mysterySet201607": "Conjunto Ladino das Profundezas",
     "mysterySet201608": "Conjunto Tempestade",
     "mysterySet201609": "Conjunto Fantasia de Vaca",
     "mysterySet201610": "Conjunto Fogo Espectral",
@@ -132,8 +132,8 @@
     "subscriptionBenefit5": "Receba o mascote exclusivo Lebrílope Roxo Real quando você se tornar um(a) novo(a) assinante.",
     "subscriptionBenefit6": "Ganhe Ampulhetas Místicas para comprar itens na Loja dos Viajantes do Tempo!",
     "purchaseAll": "Comprar Conjunto",
-    "gemsRemaining": "Gemas restantes",
-    "notEnoughGemsToBuy": "Você não pode comprar essa quantidade de Gemas",
+    "gemsRemaining": "restantes",
+    "notEnoughGemsToBuy": "Não há mais Gemas disponíveis para compra este mês. Mais ficarão disponíveis nos 3 primeiros dias de cada mês.",
     "mysterySet201902": "Conjunto Crush Enigmático",
     "mysterySet201903": "Conjunto Primor-Ovo",
     "confirmCancelSub": "Tem certeza que quer cancelar sua assinatura? Você irá perder todos os seus benefícios de assinante.",
@@ -225,5 +225,9 @@
     "continueGiftSubBenefits": "Quer continuar com seus benefícios? Você pode obter uma nova inscrição antes que a sua, que te foi presenteada, acabe para não terminar com seus benefícios ativos.",
     "mysterySet202302": "Conjunto Gato Malhado",
     "mysterySet202303": "Conjunto Tipos de Juba",
-    "mysterySet202304": "Conjunto Bule Tiptop"
+    "mysterySet202304": "Conjunto Bule Tiptop",
+    "mysterySet202306": "Conjunto Arco-íris Chamativo",
+    "mysterySet202305": "Conjunto Dragão da Noite",
+    "monthlyGems": "Gemas Mensais:",
+    "mysterySet202307": "Conjunto Kraken Perigoso"
 }

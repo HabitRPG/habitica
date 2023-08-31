@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="member.preferences"
     class="avatar"
     :style="{width, height, paddingTop}"
     :class="backgroundClass"
@@ -184,9 +185,11 @@ export default {
       currentEventList: 'worldState.data.currentEventList',
     }),
     hasClass () {
+      if (!this.member) return false;
       return this.$store.getters['members:hasClass'](this.member);
     },
     isBuffed () {
+      if (!this.member) return false;
       return this.$store.getters['members:isBuffed'](this.member);
     },
     paddingTop () {
@@ -197,28 +200,30 @@ export default {
       let val = '24px';
 
       if (!this.avatarOnly) {
-        if (this.member.items.currentPet) val = '24px';
-        if (this.member.items.currentMount) val = '0px';
+        if (this.member?.items.currentPet) val = '24px';
+        if (this.member?.items.currentMount) val = '0px';
       }
 
       return val;
     },
     backgroundClass () {
-      const { background } = this.member.preferences;
+      if (this.member) {
+        const { background } = this.member.preferences;
 
-      const allowToShowBackground = !this.avatarOnly || this.withBackground;
+        const allowToShowBackground = !this.avatarOnly || this.withBackground;
 
-      if (this.overrideAvatarGear && this.overrideAvatarGear.background) {
-        return `background_${this.overrideAvatarGear.background}`;
+        if (this.overrideAvatarGear && this.overrideAvatarGear.background) {
+          return `background_${this.overrideAvatarGear.background}`;
+        }
+
+        if (background && allowToShowBackground) {
+          return `background_${this.member.preferences.background}`;
+        }
       }
-
-      if (background && allowToShowBackground) {
-        return `background_${this.member.preferences.background}`;
-      }
-
       return '';
     },
     visualBuffs () {
+      if (!this.member) return {};
       return {
         snowball: `avatar_snowball_${this.member.stats.class}`,
         spookySparkles: 'ghost',
@@ -227,15 +232,16 @@ export default {
       };
     },
     skinClass () {
+      if (!this.member) return '';
       const baseClass = `skin_${this.member.preferences.skin}`;
 
       return `${baseClass}${this.member.preferences.sleep ? '_sleep' : ''}`;
     },
     costumeClass () {
-      return this.member.preferences.costume ? 'costume' : 'equipped';
+      return this.member?.preferences.costume ? 'costume' : 'equipped';
     },
     specialMountClass () {
-      if (!this.avatarOnly && this.member.items.currentMount && this.member.items.currentMount.includes('Kangaroo')) {
+      if (!this.avatarOnly && this.member?.items.currentMount && this.member?.items.currentMount.includes('Kangaroo')) {
         return 'offset-kangaroo';
       }
 
@@ -248,12 +254,13 @@ export default {
       )) {
         return this.foolPet(this.member.items.currentPet);
       }
-      if (this.member.items.currentPet) return `Pet-${this.member.items.currentPet}`;
+      if (this.member?.items.currentPet) return `Pet-${this.member.items.currentPet}`;
       return '';
     },
   },
   methods: {
     getGearClass (gearType) {
+      if (!this.member) return '';
       let result = this.member.items.gear[this.costumeClass][gearType];
 
       if (this.overrideAvatarGear && this.overrideAvatarGear[gearType]) {
@@ -263,6 +270,7 @@ export default {
       return result;
     },
     hideGear (gearType) {
+      if (!this.member) return true;
       if (gearType === 'weapon') {
         const equippedWeapon = this.member.items.gear[this.costumeClass][gearType];
 
@@ -288,6 +296,7 @@ export default {
       this.$root.$emit('castEnd', this.member, 'user', e);
     },
     showAvatar () {
+      if (!this.member) return false;
       if (!this.showVisualBuffs) return true;
 
       const { buffs } = this.member.stats;

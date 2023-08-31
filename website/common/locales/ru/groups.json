@@ -1,8 +1,8 @@
 {
     "tavern": "Чат Таверны",
     "tavernChat": "Чат таверны",
-    "innCheckOutBanner": "В настоящее время вы остановились в гостинице. Пропуск ежедневных дел не повредит вам, но и вы не получите прогресса в квестах.",
-    "innCheckOutBannerShort": "Вы отдыхаете в гостинице.",
+    "innCheckOutBanner": "В настоящее время вы поставили на паузу получение урона. Пропуск ежедневных дел не повредит вам, но и вы не получите прогресса в квестах.",
+    "innCheckOutBannerShort": "Вы поставили на паузу получение урона.",
     "resumeDamage": "Вернуться в игру",
     "helpfulLinks": "Полезные ссылки",
     "communityGuidelinesLink": "Правила сообщества",
@@ -30,8 +30,8 @@
     "invite": "Пригласить",
     "leave": "Выйти",
     "invitedToParty": "Вас пригласили в команду <span class=\"notification-bold\"><%- party %></span>",
-    "invitedToPrivateGuild": "Вас пригласили присоединиться к частной гильдии <span class=\"notification-bold\"><%- guild %></span>",
-    "invitedToPublicGuild": "Вас пригласили в гильдию <span class=\"notification-bold-blue\"><%- guild %></span>",
+    "invitedToPrivateGuild": "Вас пригласили присоединиться к группе <span class=\"notification-bold\"><%- guild %></span>",
+    "invitedToPublicGuild": "Вас пригласили в Группу <span class=\"notification-bold-blue\"><%- guild %></span>",
     "invitationAcceptedHeader": "Ваше приглашение принято",
     "invitationAcceptedBody": "<%= username %> принял приглашение в <%= groupName %>!",
     "systemMessage": "Системное сообщение",
@@ -57,7 +57,7 @@
     "createGuild2": "Создать",
     "guild": "Гильдия",
     "guilds": "Гильдии",
-    "sureKick": "Вы действительно хотите удалить этого участника из команды/гильдии?",
+    "sureKick": "Вы действительно хотите удалить этого участника из Команды или Группы?",
     "optionalMessage": "Необязательное сообщение",
     "yesRemove": "Да, удалить",
     "sortBackground": "Сортировать по фону",
@@ -432,5 +432,6 @@
     "lookForParty": "Найти команду",
     "questWithOthers": "Участвуйте в квестах вместе с другими",
     "findMorePartyMembers": "Найти больше участников",
-    "invitedToYourParty": "<strong>Приглашен в вашу команду!</strong>&nbsp;&nbsp;Нажмите, чтобы отменить"
+    "invitedToYourParty": "<strong>Приглашен в вашу команду!</strong>&nbsp;&nbsp;Нажмите, чтобы отменить",
+    "classLabel": "Класс:"
 }

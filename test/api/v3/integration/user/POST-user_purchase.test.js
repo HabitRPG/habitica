@@ -51,6 +51,7 @@ describe('POST /user/purchase/:type/:key', () => {
         type: 'guild',
         privacy: 'private',
       },
+      upgradeToGroupPlan: true,
     });
     await group.update({
       'leaderOnly.getGems': true,
@@ -77,6 +78,7 @@ describe('POST /user/purchase/:type/:key', () => {
         privacy: 'private',
       },
       members: 1,
+      upgradeToGroupPlan: true,
     });
     await group.update({
       'leaderOnly.getGems': true,

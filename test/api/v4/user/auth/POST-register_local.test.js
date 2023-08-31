@@ -665,6 +665,7 @@ describe('POST /user/auth/local/register', () => {
     it('adds a user to a guild on an invite of type other than party', async () => {
       const { group, groupLeader } = await createAndPopulateGroup({
         groupDetails: { type: 'guild', privacy: 'private' },
+        upgradeToGroupPlan: true,
       });
 
       const invite = encrypt(JSON.stringify({

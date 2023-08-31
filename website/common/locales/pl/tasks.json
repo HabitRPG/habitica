@@ -140,5 +140,6 @@
     "editTagsText": "Edytuj Tagi",
     "counter": "Licznik",
     "resetCounter": "Zresetuj Licznik",
-    "taskSummary": "Podsumowanie <%= type %>"
+    "taskSummary": "Podsumowanie <%= type %>",
+    "scoreUp": "Zwiększ statystykę"
 }

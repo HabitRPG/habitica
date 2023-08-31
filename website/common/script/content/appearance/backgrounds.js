@@ -565,6 +565,16 @@ const backgrounds = {
     inside_adventurers_hideout: { },
     crater_lake: { },
   },
+  backgrounds072023: {
+    on_a_paddlewheel_boat: { },
+    colorful_coral: { },
+    boardwalk_into_sunset: { },
+  },
+  backgrounds082023: {
+    bonsai_collection: { },
+    dreamy_island: { },
+    rock_garden: { },
+  },
   eventBackgrounds: {
     birthday_bash: {
       price: 0,

@@ -32,6 +32,9 @@
               'task-not-scoreable': showTaskLockIcon,
             }, controlClass.up.inner]"
             tabindex="0"
+            role="button"
+            :aria-label="$t('scoreUp')"
+            :aria-disabled="showTaskLockIcon || (!task.up && !showTaskLockIcon)"
             @click="score('up')"
             @keypress.enter="score('up')"
           >
@@ -63,6 +66,7 @@
               controlClass.inner,
             ]"
             tabindex="0"
+            role="checkbox"
             @click="score(showCheckIcon ? 'down' : 'up' )"
             @keypress.enter="score(showCheckIcon ? 'down' : 'up' )"
           >
@@ -359,6 +363,9 @@
               'task-not-scoreable': showTaskLockIcon,
             }, controlClass.down.inner]"
             tabindex="0"
+            role="button"
+            :aria-label="$t('scoreDown')"
+            :aria-disabled="showTaskLockIcon || (!task.down && !showTaskLockIcon)"
             @click="score('down')"
             @keypress.enter="score('down')"
           >

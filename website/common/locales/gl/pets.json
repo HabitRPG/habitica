@@ -10,7 +10,7 @@
     "hatchedPet": "Fixeches nacer un novo <%= egg %> de <%= potion %>!",
     "triadBingoAchievement": "Conseguiches o logro «Bingo triplo» por atopar tódalas mascotas, domar tódalas monturas e volver atopar tódalas mascotas!",
     "triadBingoText2": " e liberou unha corte completa <%= count %> veces",
-    "triadBingoText": "Encontrou as 90 mascotas, as 90 monturas e volveu encontrar as 90 mascotas outra vez (COMO FIXECHES?!)",
+    "triadBingoText": "Atopou as 90 mascotas, as 90 monturas e volveu encontrar as 90 mascotas outra vez (COMO FIXECHES?!)",
     "triadBingoName": "Bingo triplo",
     "mountMasterText2": " e liberou as 90 monturas <%= count %> veces",
     "mountMasterText": "Domou as 90 monturas (aínda máis difícil, dálle os teus parabéns!)",
@@ -110,5 +110,6 @@
     "foodTitle": "Penso",
     "petLikeToEat": "Que lle gusta comer á miña mascota?",
     "jubilantGryphatrice": "Grifotriz entusiasmada",
-    "petLikeToEatText": "As mascotas medran sen importar o que lles deas de comer, pero medrarán máis rápido se lles das un dos pensos que máis lles gustan. Proba e descubre o padrón, ou consulta as respostas aquí: <br/> <a href=\"https://habitica.fandom.com/wiki/Food_Preferences\" target=\"_blank\">https://habitica.fandom.com/wiki/Food_Preferences</a>"
+    "petLikeToEatText": "As mascotas medran sen importar o que lles deas de comer, pero medrarán máis rápido se lles das un dos pensos que máis lles gustan. Proba e descubre o padrón, ou consulta as respostas aquí: <br/> <a href=\"https://habitica.fandom.com/wiki/Food_Preferences\" target=\"_blank\">https://habitica.fandom.com/wiki/Food_Preferences</a>",
+    "veteranDragon": "Dragón veterano"
 }

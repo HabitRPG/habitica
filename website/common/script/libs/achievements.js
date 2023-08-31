@@ -182,7 +182,6 @@ function _getBasicAchievements (user, language) {
 
   _addSimple(result, user, { path: 'partyUp', language });
   _addSimple(result, user, { path: 'partyOn', language });
-  _addSimple(result, user, { path: 'joinedGuild', language });
   _addSimple(result, user, { path: 'royallyLoyal', language });
   _addSimple(result, user, { path: 'joinedChallenge', language });
   _addSimple(result, user, { path: 'invitedFriend', language });
@@ -223,6 +222,7 @@ function _getBasicAchievements (user, language) {
   _addSimple(result, user, { path: 'polarPro', language });
   _addSimple(result, user, { path: 'plantParent', language });
   _addSimple(result, user, { path: 'dinosaurDynasty', language });
+  _addSimple(result, user, { path: 'bonelessBoss', language });
 
   _addSimpleWithMasterCount(result, user, { path: 'beastMaster', language });
   _addSimpleWithMasterCount(result, user, { path: 'mountMaster', language });
@@ -351,6 +351,10 @@ function _getSpecialAchievements (user, language) {
 
   if (user.achievements.groupsBeta2022) {
     _addSimple(result, user, { path: 'groupsBeta2022', language });
+  }
+
+  if (user.achievements.joinedGuild) {
+    _addSimple(result, user, { path: 'joinedGuild', language });
   }
 
   return result;
