@@ -222,5 +222,9 @@
   "question": "Question",
   "questionDescriptionText": "It's okay to ask your questions in your primary language if you aren't comfortable speaking in English.",
   "questionPlaceholder": "Ask your question here",
-  "submitQuestion": "Submit Question"
+  "submitQuestion": "Submit Question",
+  "reportPlayer": "Report Player",
+  "whyReportingPlayer": "Why are you reporting this player?",
+  "whyReportingPlayerPlaceholder": "Reason for report",
+  "playerReportModalBody": "You should only report a player who violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Submitting a false report is a violation of Habitica’s Community Guidelines."
 }

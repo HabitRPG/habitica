@@ -3,6 +3,7 @@
     <creator-intro />
     <profileModal />
     <report-flag-modal />
+    <report-member-modal />
     <send-gift-modal />
     <select-user-modal />
     <b-navbar
@@ -732,6 +733,7 @@ import creatorIntro from '../creatorIntro';
 import notificationMenu from './notificationsDropdown';
 import profileModal from '../userMenu/profileModal';
 import reportFlagModal from '../chat/reportFlagModal';
+import reportMemberModal from '../members/reportMemberModal';
 import sendGiftModal from '@/components/payments/sendGiftModal';
 import selectUserModal from '@/components/payments/selectUserModal';
 import sync from '@/mixins/sync';
@@ -744,6 +746,7 @@ export default {
     notificationMenu,
     profileModal,
     reportFlagModal,
+    reportMemberModal,
     sendGiftModal,
     selectUserModal,
     userDropdown,

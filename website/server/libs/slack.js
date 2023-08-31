@@ -180,10 +180,11 @@ function sendProfileFlagNotification ({
   reporter,
   flaggedUser,
   userComment,
+  source,
 }) {
   const title = 'User Profile Report';
-  const titleLink = `${BASE_URL}/static/front/#?memberId=${flaggedUser._id}`;
-  let text = `@${reporter.auth.local.username} (${reporter._id}; language: ${reporter.preferences.language}) flagged @${flaggedUser.auth.local.username}'s profile`;
+  const titleLink = `${BASE_URL}/profile/${flaggedUser._id}`;
+  let text = `@${reporter.auth.local.username} (${reporter._id}; language: ${reporter.preferences.language}) flagged @${flaggedUser.auth.local.username}'s profile from ${source}`;
   if (userComment) {
     text += ` and commented: ${userComment}`;
   }

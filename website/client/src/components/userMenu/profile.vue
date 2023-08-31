@@ -59,6 +59,18 @@
           ></div>
         </button>
         <button
+          v-if="user._id !== userLoggedIn._id"
+          v-b-tooltip.hover.right="$t('reportPlayer')"
+          class="btn d-flex justify-content-center align-items-center"
+          @click="reportUser()"
+        >
+          <div
+            v-once
+            class="svg-icon block-icon color"
+            v-html="icons.report"
+          ></div>
+        </button>
+        <button
           v-if="hasPermission(userLoggedIn, 'moderator')"
           v-b-tooltip.hover.right="'Admin - Toggle Tools'"
           class="btn btn-secondary positive-icon d-flex justify-content-center align-items-center"
@@ -523,6 +535,11 @@
     color: $gray-100;
   }
 
+  .report-icon {
+    width: 16px;
+    color: $gray-100;
+  }
+
   .photo img {
     max-width: 100%;
   }
@@ -697,7 +714,6 @@
       }
 
       .info-item-value {
-        display: inline-block;
         float: right;
       }
     }
@@ -758,6 +774,7 @@ import lock from '@/assets/svg/lock.svg';
 import challenge from '@/assets/svg/challenge.svg';
 import member from '@/assets/svg/member-icon.svg';
 import staff from '@/assets/svg/tier-staff.svg';
+import report from '@/assets/svg/report.svg';
 import error404 from '../404';
 import externalLinks from '../../mixins/externalLinks';
 import { userCustomStateMixin } from '../../mixins/userState';
@@ -788,6 +805,7 @@ export default {
         lock,
         member,
         staff,
+        report,
       }),
       adminToolsLoaded: false,
       userIdToMessage: '',
@@ -1070,6 +1088,13 @@ export default {
     toggleAchievementsCategory (categoryKey) {
       const status = this.achievementsCategories[categoryKey].open;
       this.achievementsCategories[categoryKey].open = !status;
+    },
+    reportUser () {
+      this.$root.$emit('habitica::report-profile', {
+        memberId: this.user._id,
+        displayName: this.user.profile.name,
+        username: this.user.auth.local.username,
+      });
     },
   },
 };

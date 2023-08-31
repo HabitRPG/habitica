@@ -82,7 +82,7 @@ export default class ProfileReporter extends ChatReporter {
     return timestamp;
   }
 
-  notify (flaggedUser, comment) {
+  notify (flaggedUser, comment, source) {
     let emailVariables = this.getEmailVariables(flaggedUser);
     emailVariables = emailVariables.concat([
       { name: 'REPORTER_COMMENT', content: comment || '' },
@@ -93,7 +93,8 @@ export default class ProfileReporter extends ChatReporter {
     slack.sendProfileFlagNotification({
       reporter: this.user,
       flaggedUser,
-      comment,
+      userComment: comment,
+      source,
     });
   }
 
