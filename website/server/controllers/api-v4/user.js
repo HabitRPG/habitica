@@ -47,7 +47,7 @@ const api = {};
  *                                         Notifications are always returned.
  *
  * @apiExample {curl} Example use:
- * curl -i https://habitica.com/api/v3/user?userFields=achievements,items.mounts
+ * curl -i "https://habitica.com/api/v3/user?userFields=achievements,items.mounts"
  *
  * @apiSuccess {Object} data The user object
  *
