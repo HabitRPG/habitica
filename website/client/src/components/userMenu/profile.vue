@@ -9,7 +9,6 @@
       v-else-if="userLoaded"
       class="profile"
     >
-      <closeX />
       <!-- HEADER -->
       <div class="header">
         <div class="profile-actions d-flex">
@@ -169,7 +168,7 @@
               <!-- report player -->
               <b-dropdown-item
                 class="selectListItem block-ban"
-                @click="block()"
+                @click="blockUser()"
               >
                 <span class="with-icon">
                   <span
@@ -182,94 +181,94 @@
                   </span>
                 </span>
               </b-dropdown-item>
-
-              <!-- Admin Tools header -->
-              <b-dropdown-item
-                class="selectListItem admin-tools"
+              <!-- Rest is visible only if user is Admin -->
+              <div
+                v-if="hasPermission(userLoggedIn, 'moderator')"
               >
-                <span v-once>
-                  <strong>{{ $t('adminTools') }}</strong>
-                </span>
-              </b-dropdown-item>
-
-              <!-- Admin Panel -->
-              <b-dropdown-item
-                class="selectListItem"
-                @click="viewAdminPanel()"
-              >
-                <span class="with-icon">
-                  <span
-                    v-once
-                    class="svg-icon icon-16 color"
-                    v-html="icons.crown"
-                  ></span>
+                <!-- Admin Tools header -->
+                <b-dropdown-item
+                  class="selectListItem admin-tools"
+                >
                   <span v-once>
-                    {{ $t('viewAdminPanel') }}
+                    <strong>{{ $t('adminTools') }}</strong>
                   </span>
-                </span>
-              </b-dropdown-item>
+                </b-dropdown-item>
 
-              <!-- Ban user -->
-              <b-dropdown-item
-                class="selectListItem block-ban"
-                @click="adminBlockUser()"
-              >
-                <span class="with-icon">
-                  <span
-                    v-once
-                    class="svg-icon icon-16 color"
-                    v-html="icons.block"
-                  ></span>
-                  <span v-once>
-                    {{ $t('banPlayer') }}
+                <!-- Admin Panel -->
+                <b-dropdown-item
+                  class="selectListItem"
+                  @click="openAdminPanel()"
+                >
+                  <span class="with-icon">
+                    <span
+                      v-once
+                      class="svg-icon icon-16 color"
+                      v-html="icons.crown"
+                    ></span>
+                    <span v-once>
+                      {{ $t('viewAdminPanel') }}
+                    </span>
                   </span>
-                </span>
-              </b-dropdown-item>
+                </b-dropdown-item>
 
-              <!-- shadowmute player with toggle -->
-              <b-dropdown-item
-                class="selectListItem"
-              >
-                <span class="with-icon">
-                  <span
-                    v-once
-                    class="svg-icon icon-16 color"
-                    v-html="icons.shadowMute"
-                  ></span>
-                  <span
-                    v-once
-                    v-b-tooltip.hover.bottom="'Turn on Shadow Muting'"
-                    class="admin-action"
-                  >
-                    {{ $t('shadowMute') }}
+                <!-- Ban user -->
+                <b-dropdown-item
+                  class="selectListItem block-ban"
+                >
+                  <span class="with-icon">
+                    <span
+                      v-once
+                      class="svg-icon icon-16 color"
+                      v-html="icons.block"
+                    ></span>
+                    <span v-once>
+                      {{ $t('banPlayer') }}
+                    </span>
                   </span>
-                  <toggle
-                    class="toggle-switch-outer ml-auto"
-                    @click="adminTurnOnShadowMuting()"
-                  />
-                </span>
-              </b-dropdown-item>
+                </b-dropdown-item>
 
-              <!-- mute player with toggle -->
-              <b-dropdown-item
-                class="selectListItem"
-                @click="adminRevokeChat()"
-              >
-                <span class="with-icon">
-                  <span
-                    v-once
-                    class="svg-icon icon-16 color"
-                    v-html="icons.mute"
-                  ></span>
-                  <span v-once>
-                    {{ $t('mutePlayer') }}
+                <!-- shadowmute player with toggle -->
+                <b-dropdown-item
+                  class="selectListItem"
+                >
+                  <span class="with-icon">
+                    <span
+                      v-once
+                      class="svg-icon icon-16 color"
+                      v-html="icons.shadowMute"
+                    ></span>
+                    <span
+                      v-once
+                      v-b-tooltip.hover.bottom="'Turn on Shadow Muting'"
+                      class="admin-action"
+                    >
+                      {{ $t('shadowMute') }}
+                    </span>
+                    <toggle
+                      class="toggle-switch-outer ml-auto"
+                    />
                   </span>
-                  <toggle
-                    class="toggle-switch-outer ml-auto"
-                  />
-                </span>
-              </b-dropdown-item>
+                </b-dropdown-item>
 
+                <!-- mute player with toggle -->
+                <b-dropdown-item
+                  class="selectListItem"
+                >
+                  <span class="with-icon">
+                    <span
+                      v-once
+                      class="svg-icon icon-16 color"
+                      v-html="icons.mute"
+                    ></span>
+                    <span v-once>
+                      {{ $t('mutePlayer') }}
+                    </span>
+                    <toggle
+                      class="toggle-switch-outer ml-auto"
+                    />
+                  </span>
+                </b-dropdown-item>
+              </div>
             </b-dropdown>
           </span>
 
@@ -383,12 +382,6 @@
       </div>
     </div>
     <!-- ACHIEVEMENTS -->
-    <div>
-      <profileAchievs
-        v-show="selectedPage === 'achievements'"
-        :user="user"
-      />
-    </div>
     <div
       v-show="selectedPage === 'achievements'"
       v-if="user.achievements"
@@ -954,7 +947,6 @@ import moment from 'moment';
 import axios from 'axios';
 import each from 'lodash/each';
 import cloneDeep from 'lodash/cloneDeep';
-import closeX from '../ui/closeX';
 import toggle from '../ui/toggleSwitch';
 import { mapState } from '@/libs/store';
 
@@ -963,7 +955,6 @@ import markdown from '@/directives/markdown';
 import achievementsLib from '@/../../common/script/libs/achievements';
 import Content from '@/../../common/script/content';
 import profileStats from './profileStats';
-import profileAchievs from './profileAchievs';
 
 import message from '@/assets/svg/message.svg';
 import gift from '@/assets/svg/gift.svg';
@@ -992,9 +983,7 @@ export default {
   components: {
     MemberDetails,
     profileStats,
-    profileAchievs,
     error404,
-    closeX,
     toggle,
   },
   mixins: [externalLinks, userCustomStateMixin('userLoggedIn')],
@@ -1283,6 +1272,10 @@ export default {
 
       this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
     },
+    adminOpenAdminPanel () {
+      this.hero = this.user.permissions.fullAccess || this.user.permissions.userSupport;
+      this.$store.dispatch('adminPanel', { uuid: this.user_id });
+    },
     async toggleAdminTools () {
       if (this.adminToolsLoaded) {
         this.adminToolsLoaded = false;
@@ -1314,9 +1307,6 @@ export default {
     toggleAchievementsCategory (categoryKey) {
       const status = this.achievementsCategories[categoryKey].open;
       this.achievementsCategories[categoryKey].open = !status;
-    },
-    close () {
-      this.$root.$emit('bv::hide::modal', 'profile');
     },
     toggle () {
       this.isOpened = !this.isOpen;

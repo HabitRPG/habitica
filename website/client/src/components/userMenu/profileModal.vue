@@ -6,8 +6,7 @@
     @hide="beforeHide"
     @shown="onShown()"
   >
-    <close-icon
-      class="close-icon"
+    <close-x
       @click="close()"
     />
     <profile
@@ -48,12 +47,12 @@
 
 <script>
 import profile from './profile';
-import closeIcon from '../shared/closeIcon.vue';
+import closeX from '../ui/closeX';
 
 export default {
   components: {
     profile,
-    closeIcon,
+    closeX,
   },
   data () {
     return {
