@@ -521,19 +521,36 @@
       margin-left: -48px;
       width: 210px;
     }
-  .selectListItem .block-ban {
-      &:hover &:active {
-        background-color: rgba(201, 43, 43, 0.25);
-        color: $red-500 !important;
-      }
-      .dropdown-item:hover svg {
-          color: $red-500;
-        }
-      .with-icon {
-        color:$red-500;
+    .dropdown-item:hover svg {
+      color: $purple-300;
+    }
+    .drawer-toggle-icon {
+      position: absolute;
+      right: 16px;
+      bottom: 0;
+
+      &.closed {
+        top: 10px;
       }
     }
-  }
+    .toggle-switch-outer {
+      margin-bottom: 2px;
+    }
+    .selectListItem {
+      &:hover svg {
+        color: $purple-300;
+      }
+      &.block-ban {
+        &:hover, .dropdown-item:hover {
+          background-color: rgba($red-500, 0.25) !important;
+          color: $maroon-50 !important;
+          svg {
+            color: $maroon-50;
+          }
+        }
+      }
+     }
+   }
 
   .profile {
     .member-details {
@@ -592,6 +609,7 @@
       margin-left: 4px !important;
     }
   }
+
 </style>
 
 <style lang="scss" scoped>
