@@ -2,10 +2,15 @@
   <b-modal
     id="profile"
     :hide-footer="true"
-    :hide-header="true"
     @hide="beforeHide"
     @shown="onShown()"
   >
+    <div slot="modal-header">
+      <close-x
+        @close="close()"
+      />
+    </div>
+
     <profile
       :user-id="userId"
       :starting-page="startingPage"
@@ -44,10 +49,12 @@
 
 <script>
 import profile from './profile';
+import closeX from '../ui/closeX';
 
 export default {
   components: {
     profile,
+    closeX,
   },
   data () {
     return {
@@ -75,6 +82,9 @@ export default {
       if (this.$route.path !== window.location.pathname) {
         this.$router.back();
       }
+    },
+    close () {
+      this.$root.$emit('bv::hide::modal', 'profile');
     },
   },
 };
