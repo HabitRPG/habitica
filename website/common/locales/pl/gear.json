@@ -1791,10 +1791,18 @@
     "weaponSpecialSpring2019WarriorText": "Miecz Łodygi",
     "weaponSpecialSpring2019WarriorNotes": "Złe nawyki kulą się w strachu przed tym zielonym ostrzem. Podnosi siłę o <%= str %>. Limitowana Edycja Wiosna 2019.",
     "weaponSpecialSpring2019MageText": "Bursztynowa Laska",
-    "weaponSpecialSpring2019HealerText": "Wiosenna Pieśń",
-    "weaponSpecialSpring2019MageNotes": "W bursztynie na końcu tej laski zanurzony jest komar! Uwaga: może zawierać DNA dinozaura. Podnosi Inteligencję o <%= int %> i Percepcję o <%= per %>. Edycja Limitowana Wiosna 2019.",
+    "weaponSpecialSpring2019HealerText": "Pieśń Wiosny",
+    "weaponSpecialSpring2019MageNotes": "W bursztynie na końcu tej laski jest komar! Może, ale nie musi zawierać DNA dinozaura. Podnosi Inteligencję o <%= int %> oraz Percepcję o <%= per %>. Edycja Limitowana Wiosennego Wyposażenia 2019.",
     "weaponSpecialSpring2019HealerNotes": "Twa pieśń kwiatów i deszczu ukoi dusze wszystkich słuchaczy. Zwiększa Inteligencję o <%= int %>. Limitowana Edycja Wiosennego Wyposażenia 2019.",
-    "weaponSpecialSummer2019RogueText": "Antyczna Kotwica",
-    "weaponSpecialSummer2019RogueNotes": "Ta pradawna i potężna broń pomoże ci wygrać każdą podwodną bitwę. Podnosi Siłę o <%= str %>. Edycja Limitowana Wiosna 2019.",
-    "weaponSpecialFall2019RogueText": "Pulpit Do Nut"
+    "weaponSpecialSummer2019RogueText": "Przestarzała Kotwica",
+    "weaponSpecialSummer2019RogueNotes": "Ta pradawna i potężna broń pomoże ci wygrać każdą podwodną bitwę. Podnosi Siłę o <%= str %>.. Limitowana Edycja Wiosennego Wyposażenia 2019.",
+    "weaponSpecialFall2019RogueText": "Pulpit Do Nut",
+    "weaponSpecialFall2019WarriorText": "Szponiasty Trójząb",
+    "weaponSpecialSummer2019WarriorNotes": "Teraz walczysz fraktalami! Podnosi Siłę o <%=str%>. Edycja Limitowana 2019 Letnie Wyposażenie.",
+    "weaponSpecialSummer2019MageText": "Świetny Rozkwit",
+    "weaponSpecialSummer2019HealerNotes": "Bąbelki z tej różdżki wychwytują uzdrawiającą energię i starożytną magię oceanu. Podnosi Inteligencję o <%= int %>.Edycja Limitowana 2019 Letnie Wyposażenie.",
+    "weaponSpecialSummer2019MageNotes": "Ten mały skarb, będący owocem twojej pracy, po raz pierwszy wyłowiony z basenu, wzmacnia i inspiruje. Podnosi Inteligencję o <%= int %>.Edycja Limitowana 2019 Letnie Wyposażenie.",
+    "weaponSpecialFall2019WarriorNotes": "Przygotuj się na rozerwanie wrogów kruczymi szponami! Podnosi Siłę o <%= str %>.Edycja Limitowana 2019 Jesienne Wyposażenie.",
+    "weaponSpecialFall2019RogueNotes": "Niezależnie od tego, czy dyrygujesz orkiestrą, czy śpiewasz arię, to pomocne urządzenie zapewnia wolne ręce do wykonywania dramatycznych gestów! Podnosi Siłę o <%= str %>.Edycja Limitowana 2019 Jesienne Wyposażenie.",
+    "eyewearSpecialFall2019HealerText": "Mroczne Oblicze"
 }
