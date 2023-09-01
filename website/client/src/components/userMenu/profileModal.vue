@@ -6,9 +6,6 @@
     @hide="beforeHide"
     @shown="onShown()"
   >
-    <close-x
-      @click="close()"
-    />
     <profile
       :user-id="userId"
       :starting-page="startingPage"
@@ -47,12 +44,10 @@
 
 <script>
 import profile from './profile';
-import closeX from '../ui/closeX';
 
 export default {
   components: {
     profile,
-    closeX,
   },
   data () {
     return {
@@ -81,9 +76,6 @@ export default {
         this.$router.back();
       }
     },
-  },
-  close () {
-    this.$root.$emit('bv::hide::modal', 'profile');
   },
 };
 

@@ -1,5 +1,8 @@
 <template>
   <div>
+    <close-x
+      @click="close()"
+    />
     <div
       v-if="!user && userLoaded"
     >
@@ -956,6 +959,7 @@ import markdown from '@/directives/markdown';
 import achievementsLib from '@/../../common/script/libs/achievements';
 import Content from '@/../../common/script/content';
 import profileStats from './profileStats';
+import closeX from '../ui/closeX';
 
 import message from '@/assets/svg/message.svg';
 import gift from '@/assets/svg/gift.svg';
@@ -986,6 +990,7 @@ export default {
     profileStats,
     error404,
     toggle,
+    closeX,
   },
   mixins: [externalLinks, userCustomStateMixin('userLoggedIn')],
   props: ['userId', 'startingPage'],
@@ -1316,6 +1321,9 @@ export default {
     open () {
       this.isOpened = true;
       this.$emit('toggled', this.isOpened);
+    },
+    close () {
+      this.$root.$emit('bv::hide::modal', 'profile');
     },
   },
 };
