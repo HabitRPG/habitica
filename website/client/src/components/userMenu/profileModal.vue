@@ -1,12 +1,14 @@
 <template>
   <b-modal
     id="profile"
-    size="lg"
     :hide-footer="true"
     :hide-header="true"
     @hide="beforeHide"
     @shown="onShown()"
   >
+    <close-x
+      @click="close()"
+    />
     <profile
       :user-id="userId"
       :starting-page="startingPage"
@@ -15,20 +17,42 @@
   </b-modal>
 </template>
 
+<style lang="scss">
+  @import '~@/assets/scss/colors.scss';
+
+  #profile {
+    .modal-dialog {
+      max-width: 684px;
+    }
+    .modal-body {
+      padding: 0;
+      border-radius: 12px;
+      background-color: $white;
+    }
+    .modal-content {
+      background: $gray-700;
+      padding: 0;
+    }
+  }
+</style>
+
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
 
   .header {
     width: 100%;
   }
+
 </style>
 
 <script>
 import profile from './profile';
+import closeX from '../ui/closeX';
 
 export default {
   components: {
     profile,
+    closeX,
   },
   data () {
     return {
@@ -57,6 +81,9 @@ export default {
         this.$router.back();
       }
     },
+  },
+  close () {
+    this.$root.$emit('bv::hide::modal', 'profile');
   },
 };
 
