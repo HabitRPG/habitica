@@ -48,172 +48,126 @@
           </div>
         </div>
       </div>
-    </div>
-    <!-- SHOW PROFILE -->
-    <div
-      v-show="selectedPage === 'profile'"
-      v-if="user.profile"
-      id="userProfile"
-      class="standard-page"
-    >
-      <!-- PROFILE STUFF -->
+      <!-- SHOW PROFILE -->
       <div
-        v-if="!editing"
-        class="flex-container"
+        v-show="selectedPage === 'profile'"
+        v-if="user.profile"
+        id="userProfile"
+        class="standard-page"
       >
-        <div class="flex-left">
-          <div class="about profile-header">
-            <h2>{{ $t('about') }}</h2>
-          </div>
-          <div class="flex-left>">
-            <div class="about profile-section">
-              <p
-                v-if="user.profile.blurb"
-                v-markdown="user.profile.blurb"
-                class="markdown"
-              ></p>
+        <!-- PROFILE STUFF -->
+        <div
+          v-if="!editing"
+          class="flex-container"
+        >
+          <div class="flex-left">
+            <div class="about profile-header">
+              <h2>{{ $t('about') }}</h2>
+            </div>
+            <div class="flex-left>">
+              <div class="about profile-section">
+                <p
+                  v-if="user.profile.blurb"
+                  v-markdown="user.profile.blurb"
+                  class="markdown"
+                ></p>
+                <p v-else>
+                  {{ $t('noDescription') }}
+                </p>
+              </div>
+            </div>
+            <div class="photo profile-section">
+              <h2>{{ $t('photo') }}</h2>
+              <img
+                v-if="user.profile.imageUrl"
+                class="img-rendering-auto"
+                :src="user.profile.imageUrl"
+              >
               <p v-else>
-                {{ $t('noDescription') }}
+                {{ $t('noPhoto') }}
               </p>
             </div>
           </div>
-          <div class="photo profile-section">
-            <h2>{{ $t('photo') }}</h2>
-            <img
-              v-if="user.profile.imageUrl"
-              class="img-rendering-auto"
-              :src="user.profile.imageUrl"
+          <div class="flex-right">
+            <button
+              v-if="user._id === userLoggedIn._id"
+              class="btn btn-primary flex-right edit-profile"
+              @click="editing = !editing"
             >
-            <p v-else>
-              {{ $t('noPhoto') }}
-            </p>
-          </div>
-        </div>
-        <div class="flex-right">
-          <button
-            v-if="user._id === userLoggedIn._id"
-            class="btn btn-primary flex-right edit-profile"
-            @click="editing = !editing"
-          >
-            {{ $t('editProfile') }}
-          </button>
-          <span
-            v-else-if="user._id !== userLoggedIn._id"
-            class="flex-right d-flex justify-content-between"
-          >
-            <router-link
-              :to="{ path: '/private-messages', query: { uuid: user._id } }"
-              replace
+              {{ $t('editProfile') }}
+            </button>
+            <span
+              v-else-if="user._id !== userLoggedIn._id"
+              class="flex-right d-flex justify-content-between"
             >
-              <button
-                class="btn btn-primary send-message"
+              <router-link
+                :to="{ path: '/private-messages', query: { uuid: user._id } }"
+                replace
               >
-                {{ $t('sendMessage') }}
-              </button>
-            </router-link>
-
-            <!-- Kebab menu dropdown -->
-            <b-dropdown
-              right="right"
-              toggle-class="with-icon"
-              class="mx-auto"
-              :no-caret="true"
-            >
-              <template v-slot:button-content>
-                <span
-                  v-once
-                  class="svg-icon dots-icon with-icon"
-                  v-html="icons.dots"
+                <button
+                  class="btn btn-primary send-message"
                 >
-                </span>
-              </template>
+                  {{ $t('sendMessage') }}
+                </button>
+              </router-link>
 
-              <!-- send gems -->
-              <b-dropdown-item
-                class="selectListItem"
-                @click="openSendGemsModal()"
+              <!-- Kebab menu dropdown -->
+              <b-dropdown
+                right="right"
+                toggle-class="with-icon"
+                class="mx-auto"
+                :no-caret="true"
               >
-                <span class="with-icon">
+                <template v-slot:button-content>
                   <span
                     v-once
-                    class="svg-icon icon-16 color"
-                    v-html="icons.gift"
-                  ></span>
-                  <span
-                    v-once
-                    class="send-gift"
+                    class="svg-icon dots-icon with-icon"
+                    v-html="icons.dots"
                   >
-                    {{ $t('sendGift') }}
                   </span>
-                </span>
-              </b-dropdown-item>
+                </template>
 
-              <!-- report player -->
-              <b-dropdown-item
-                class="selectListItem"
-                @click="reportPlayer()"
-              >
-                <span class="with-icon">
-                  <span
-                    v-once
-                    class="svg-icon icon-16 color"
-                    v-html="icons.report"
-                  ></span>
-                  <span v-once>
-                    {{ $t('reportPlayer') }}
-                  </span>
-                </span>
-              </b-dropdown-item>
-
-              <!-- report player -->
-              <b-dropdown-item
-                class="selectListItem block-ban"
-                @click="blockUser()"
-              >
-                <span class="with-icon">
-                  <span
-                    v-once
-                    class="svg-icon icon-16 color"
-                    v-html="icons.block"
-                  ></span>
-                  <span v-once>
-                    {{ $t('blockPlayer') }}
-                  </span>
-                </span>
-              </b-dropdown-item>
-              <!-- Rest is visible only if user is Admin -->
-              <div
-                v-if="hasPermission(userLoggedIn, 'moderator')"
-              >
-                <!-- Admin Tools header -->
-                <b-dropdown-item
-                  class="selectListItem admin-tools"
-                >
-                  <span v-once>
-                    <strong>{{ $t('adminTools') }}</strong>
-                  </span>
-                </b-dropdown-item>
-
-                <!-- Admin Panel -->
+                <!-- send gems -->
                 <b-dropdown-item
                   class="selectListItem"
-                  @click="openAdminPanel()"
+                  @click="openSendGemsModal()"
                 >
                   <span class="with-icon">
                     <span
                       v-once
                       class="svg-icon icon-16 color"
-                      v-html="icons.crown"
+                      v-html="icons.gift"
                     ></span>
-                    <span v-once>
-                      {{ $t('viewAdminPanel') }}
+                    <span
+                      v-once
+                      class="send-gift"
+                    >
+                      {{ $t('sendGift') }}
                     </span>
                   </span>
                 </b-dropdown-item>
 
-                <!-- Ban user -->
+                <!-- report player -->
+                <b-dropdown-item
+                  class="selectListItem"
+                  @click="reportPlayer()"
+                >
+                  <span class="with-icon">
+                    <span
+                      v-once
+                      class="svg-icon icon-16 color"
+                      v-html="icons.report"
+                    ></span>
+                    <span v-once>
+                      {{ $t('reportPlayer') }}
+                    </span>
+                  </span>
+                </b-dropdown-item>
+
+                <!-- report player -->
                 <b-dropdown-item
                   class="selectListItem block-ban"
+                  @click="blockUser()"
                 >
                   <span class="with-icon">
                     <span
@@ -222,286 +176,332 @@
                       v-html="icons.block"
                     ></span>
                     <span v-once>
-                      {{ $t('banPlayer') }}
+                      {{ $t('blockPlayer') }}
                     </span>
                   </span>
                 </b-dropdown-item>
-
-                <!-- shadowmute player with toggle -->
-                <b-dropdown-item
-                  class="selectListItem"
-                >
-                  <span class="with-icon">
-                    <span
-                      v-once
-                      class="svg-icon icon-16 color"
-                      v-html="icons.shadowMute"
-                    ></span>
-                    <span
-                      v-once
-                      v-b-tooltip.hover.bottom="'Turn on Shadow Muting'"
-                      class="admin-action"
-                    >
-                      {{ $t('shadowMute') }}
-                    </span>
-                    <toggle
-                      class="toggle-switch-outer ml-auto"
-                    />
-                  </span>
-                </b-dropdown-item>
-
-                <!-- mute player with toggle -->
-                <b-dropdown-item
-                  class="selectListItem"
-                >
-                  <span class="with-icon">
-                    <span
-                      v-once
-                      class="svg-icon icon-16 color"
-                      v-html="icons.mute"
-                    ></span>
-                    <span v-once>
-                      {{ $t('mutePlayer') }}
-                    </span>
-                    <toggle
-                      class="toggle-switch-outer ml-auto"
-                    />
-                  </span>
-                </b-dropdown-item>
-              </div>
-            </b-dropdown>
-          </span>
-
-          <!-- ACCOUNT DATES, LOG IN COUNTER -->
-          <div class="info profile-section">
-            <div class="info-item">
-              <div class="info-item-label">
-                {{ $t('joined') }}:
-              </div>
-              <div class="info-item-value">
-                {{ userJoinedDate }}
-              </div>
-            </div>
-            <div class="info-item">
-              <div class="info-item-label">
-                {{ $t('totalLogins') }}:
-              </div>
-              <div class="info-item-value">
-                {{ user.loginIncentives }}
-              </div>
-            </div>
-            <div class="info-item">
-              <div class="info-item-label">
-                {{ $t('latestCheckin') }}:
-              </div>
-              <div class="info-item-value">
-                {{ userLastLoggedIn }}
-              </div>
-            </div>
-            <div class="info-item">
-              <div class="info-item-label">
-                {{ $t('nextReward') }}:
-              </div>
-              <div class="info-item-value">
-                {{ nextIncentive }}
-              </div>
-            </div>
-            <div class="info-item">
-              {{ getProgressDisplay() }}
-              <div class="progress">
+                <!-- Rest is visible only if user is Admin -->
                 <div
-                  class="progress-bar"
-                  role="progressbar"
-                  :aria-valuenow="incentivesProgress"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                  :style="{width: incentivesProgress + '%'}"
+                  v-if="hasPermission(userLoggedIn, 'moderator')"
                 >
-                  <span class="sr-only">{{ incentivesProgress }}% {{ $t('complete') }}</span>
+                  <!-- Admin Tools header -->
+                  <b-dropdown-item
+                    class="selectListItem admin-tools"
+                  >
+                    <span v-once>
+                      <strong>{{ $t('adminTools') }}</strong>
+                    </span>
+                  </b-dropdown-item>
+
+                  <!-- Admin Panel -->
+                  <b-dropdown-item
+                    class="selectListItem"
+                    @click="openAdminPanel()"
+                  >
+                    <span class="with-icon">
+                      <span
+                        v-once
+                        class="svg-icon icon-16 color"
+                        v-html="icons.crown"
+                      ></span>
+                      <span v-once>
+                        {{ $t('viewAdminPanel') }}
+                      </span>
+                    </span>
+                  </b-dropdown-item>
+
+                  <!-- Ban user -->
+                  <b-dropdown-item
+                    class="selectListItem block-ban"
+                  >
+                    <span class="with-icon">
+                      <span
+                        v-once
+                        class="svg-icon icon-16 color"
+                        v-html="icons.block"
+                      ></span>
+                      <span v-once>
+                        {{ $t('banPlayer') }}
+                      </span>
+                    </span>
+                  </b-dropdown-item>
+
+                  <!-- shadowmute player with toggle -->
+                  <b-dropdown-item
+                    class="selectListItem"
+                  >
+                    <span class="with-icon">
+                      <span
+                        v-once
+                        class="svg-icon icon-16 color"
+                        v-html="icons.shadowMute"
+                      ></span>
+                      <span
+                        v-once
+                        v-b-tooltip.hover.bottom="'Turn on Shadow Muting'"
+                        class="admin-action"
+                      >
+                        {{ $t('shadowMute') }}
+                      </span>
+                      <toggle
+                        class="toggle-switch-outer ml-auto"
+                      />
+                    </span>
+                  </b-dropdown-item>
+
+                  <!-- mute player with toggle -->
+                  <b-dropdown-item
+                    class="selectListItem"
+                  >
+                    <span class="with-icon">
+                      <span
+                        v-once
+                        class="svg-icon icon-16 color"
+                        v-html="icons.mute"
+                      ></span>
+                      <span v-once>
+                        {{ $t('mutePlayer') }}
+                      </span>
+                      <toggle
+                        class="toggle-switch-outer ml-auto"
+                      />
+                    </span>
+                  </b-dropdown-item>
+                </div>
+              </b-dropdown>
+            </span>
+
+            <!-- ACCOUNT DATES, LOG IN COUNTER -->
+            <div class="info profile-section">
+              <div class="info-item">
+                <div class="info-item-label">
+                  {{ $t('joined') }}:
+                </div>
+                <div class="info-item-value">
+                  {{ userJoinedDate }}
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- EDITING PROFILE -->
-      <div
-        v-if="editing"
-        class="row"
-      >
-        <h1>{{ $t('editProfile') }}</h1>
-        <div class="">
-          <div
-            class="alert alert-info alert-sm"
-            v-html="$t('communityGuidelinesWarning', managerEmail)"
-          ></div>
-          <!-- TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak-->
-          <div class="form-group">
-            <label>{{ $t('displayName') }}</label>
-            <input
-              v-model="editingProfile.name"
-              class="form-control"
-              type="text"
-              :placeholder="$t('fullName')"
-            >
-          </div>
-          <div class="form-group">
-            <label>{{ $t('photoUrl') }}</label>
-            <input
-              v-model="editingProfile.imageUrl"
-              class="form-control"
-              type="url"
-              :placeholder="$t('imageUrl')"
-            >
-          </div>
-          <div class="form-group">
-            <label>{{ $t('about') }}</label>
-            <textarea
-              v-model="editingProfile.blurb"
-              class="form-control"
-              rows="5"
-              :placeholder="$t('displayBlurbPlaceholder')"
-            ></textarea>
-            <!-- include ../../shared/formatting-help-->
-          </div>
-        </div>
-        <div class=" text-center">
-          <button
-            class="btn btn-primary"
-            @click="save()"
-          >
-            {{ $t("save") }}
-          </button>
-          <button
-            class="btn btn-secondary"
-            @click="editing = false"
-          >
-            {{ $t("cancel") }}
-          </button>
-        </div>
-      </div>
-    </div>
-    <!-- ACHIEVEMENTS -->
-    <div
-      v-show="selectedPage === 'achievements'"
-      v-if="user.achievements"
-      id="achievements"
-      class="standard-page container "
-    >
-      <div
-        v-for="(category, key) in achievements"
-        :key="key"
-        class="row category-row"
-      >
-        <h3 class="text-center">
-          {{ $t(`${key}Achievs`) }}
-        </h3>
-        <div class="">
-          <div class="row achievements-row justify-content-center">
-            <div
-              v-for="(achievement, achievKey) in achievementsCategory(key, category)"
-              :key="achievKey"
-              class="achievement-wrapper col text-center"
-            >
-              <div
-                :id="achievKey + '-achievement'"
-                class="box achievement-container"
-                :class="{'achievement-unearned': !achievement.earned}"
-              >
-                <b-popover
-                  :target="'#' + achievKey + '-achievement'"
-                  triggers="hover"
-                  placement="top"
-                >
-                  <h4 class="popover-content-title">
-                    {{ achievement.title }}
-                  </h4>
+              <div class="info-item">
+                <div class="info-item-label">
+                  {{ $t('totalLogins') }}:
+                </div>
+                <div class="info-item-value">
+                  {{ user.loginIncentives }}
+                </div>
+              </div>
+              <div class="info-item">
+                <div class="info-item-label">
+                  {{ $t('latestCheckin') }}:
+                </div>
+                <div class="info-item-value">
+                  {{ userLastLoggedIn }}
+                </div>
+              </div>
+              <div class="info-item">
+                <div class="info-item-label">
+                  {{ $t('nextReward') }}:
+                </div>
+                <div class="info-item-value">
+                  {{ nextIncentive }}
+                </div>
+              </div>
+              <div class="info-item">
+                {{ getProgressDisplay() }}
+                <div class="progress">
                   <div
-                    class="popover-content-text"
-                    v-html="achievement.text"
-                  ></div>
-                </b-popover>
-                <div
-                  v-if="achievement.earned"
-                  class="achievement"
-                  :class="achievement.icon + '2x'"
-                >
-                  <div
-                    v-if="achievement.optionalCount"
-                    class="counter badge badge-pill stack-count"
+                    class="progress-bar"
+                    role="progressbar"
+                    :aria-valuenow="incentivesProgress"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    :style="{width: incentivesProgress + '%'}"
                   >
-                    {{ achievement.optionalCount }}
+                    <span class="sr-only">{{ incentivesProgress }}% {{ $t('complete') }}</span>
                   </div>
                 </div>
-                <div
-                  v-if="!achievement.earned"
-                  class="achievement achievement-unearned achievement-unearned2x"
-                ></div>
               </div>
             </div>
           </div>
-          <div
-            v-if="achievementsCategories[key].number > 5"
-            class="btn btn-flat btn-show-more"
-            @click="toggleAchievementsCategory(key)"
-          >
-            {{ achievementsCategories[key].open ?
-              $t('hideAchievements', {category: $t(`${key}Achievs`)}) :
-              $t('showAllAchievements', {category: $t(`${key}Achievs`)})
-            }}
-          </div>
         </div>
-      </div>
-      <hr class="">
-      <div class="row">
+        <!-- EDITING PROFILE -->
         <div
-          v-if="user.achievements.challenges"
-          class="col-12 col-md-6"
+          v-if="editing"
+          class="row"
         >
-          <div class="achievement-icon achievement-karaoke-2x"></div>
-          <h3 class="text-center">
-            {{ $t('challengesWon') }}
-          </h3>
-          <div
-            v-for="chal in user.achievements.challenges"
-            :key="chal"
-            class="achievement-list-item"
-          >
-            <span v-markdown="chal"></span>
+          <h1>{{ $t('editProfile') }}</h1>
+          <div class="">
+            <div
+              class="alert alert-info alert-sm"
+              v-html="$t('communityGuidelinesWarning', managerEmail)"
+            ></div>
+            <!-- TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak-->
+            <div class="form-group">
+              <label>{{ $t('displayName') }}</label>
+              <input
+                v-model="editingProfile.name"
+                class="form-control"
+                type="text"
+                :placeholder="$t('fullName')"
+              >
+            </div>
+            <div class="form-group">
+              <label>{{ $t('photoUrl') }}</label>
+              <input
+                v-model="editingProfile.imageUrl"
+                class="form-control"
+                type="url"
+                :placeholder="$t('imageUrl')"
+              >
+            </div>
+            <div class="form-group">
+              <label>{{ $t('about') }}</label>
+              <textarea
+                v-model="editingProfile.blurb"
+                class="form-control"
+                rows="5"
+                :placeholder="$t('displayBlurbPlaceholder')"
+              ></textarea>
+              <!-- include ../../shared/formatting-help-->
+            </div>
           </div>
-        </div>
-        <div
-          v-if="user.achievements.quests"
-          class="col-12 col-md-6"
-        >
-          <div class="achievement-icon achievement-alien2x"></div>
-          <h3 class="text-center">
-            {{ $t('questsCompleted') }}
-          </h3>
-          <div
-            v-for="(value, key) in user.achievements.quests"
-            :key="key"
-            class="achievement-list-item d-flex justify-content-between"
-          >
-            <span>{{ content.quests[key].text() }}</span>
-            <span
-              v-if="value > 1"
-              class="badge badge-pill stack-count"
+          <div class=" text-center">
+            <button
+              class="btn btn-primary"
+              @click="save()"
             >
-              {{ value }}
-            </span>
+              {{ $t("save") }}
+            </button>
+            <button
+              class="btn btn-secondary"
+              @click="editing = false"
+            >
+              {{ $t("cancel") }}
+            </button>
           </div>
         </div>
       </div>
-    </div>
-    <!-- STATS -->
-    <div>
-      <profileStats
-        v-show="selectedPage === 'stats'"
-        v-if="user.preferences"
-        :user="user"
-        :show-allocation="showAllocation()"
-      />
+      <!-- ACHIEVEMENTS -->
+      <div
+        v-show="selectedPage === 'achievements'"
+        v-if="user.achievements"
+        id="achievements"
+        class="standard-page container "
+      >
+        <div
+          v-for="(category, key) in achievements"
+          :key="key"
+          class="row category-row"
+        >
+          <h3 class="text-center">
+            {{ $t(`${key}Achievs`) }}
+          </h3>
+          <div class="">
+            <div class="row achievements-row justify-content-center">
+              <div
+                v-for="(achievement, achievKey) in achievementsCategory(key, category)"
+                :key="achievKey"
+                class="achievement-wrapper col text-center"
+              >
+                <div
+                  :id="achievKey + '-achievement'"
+                  class="box achievement-container"
+                  :class="{'achievement-unearned': !achievement.earned}"
+                >
+                  <b-popover
+                    :target="'#' + achievKey + '-achievement'"
+                    triggers="hover"
+                    placement="top"
+                  >
+                    <h4 class="popover-content-title">
+                      {{ achievement.title }}
+                    </h4>
+                    <div
+                      class="popover-content-text"
+                      v-html="achievement.text"
+                    ></div>
+                  </b-popover>
+                  <div
+                    v-if="achievement.earned"
+                    class="achievement"
+                    :class="achievement.icon + '2x'"
+                  >
+                    <div
+                      v-if="achievement.optionalCount"
+                      class="counter badge badge-pill stack-count"
+                    >
+                      {{ achievement.optionalCount }}
+                    </div>
+                  </div>
+                  <div
+                    v-if="!achievement.earned"
+                    class="achievement achievement-unearned achievement-unearned2x"
+                  ></div>
+                </div>
+              </div>
+            </div>
+            <div
+              v-if="achievementsCategories[key].number > 5"
+              class="btn btn-flat btn-show-more"
+              @click="toggleAchievementsCategory(key)"
+            >
+              {{ achievementsCategories[key].open ?
+                $t('hideAchievements', {category: $t(`${key}Achievs`)}) :
+                $t('showAllAchievements', {category: $t(`${key}Achievs`)})
+              }}
+            </div>
+          </div>
+        </div>
+        <hr class="">
+        <div class="row">
+          <div
+            v-if="user.achievements.challenges"
+            class="col-12 col-md-6"
+          >
+            <div class="achievement-icon achievement-karaoke-2x"></div>
+            <h3 class="text-center">
+              {{ $t('challengesWon') }}
+            </h3>
+            <div
+              v-for="chal in user.achievements.challenges"
+              :key="chal"
+              class="achievement-list-item"
+            >
+              <span v-markdown="chal"></span>
+            </div>
+          </div>
+          <div
+            v-if="user.achievements.quests"
+            class="col-12 col-md-6"
+          >
+            <div class="achievement-icon achievement-alien2x"></div>
+            <h3 class="text-center">
+              {{ $t('questsCompleted') }}
+            </h3>
+            <div
+              v-for="(value, key) in user.achievements.quests"
+              :key="key"
+              class="achievement-list-item d-flex justify-content-between"
+            >
+              <span>{{ content.quests[key].text() }}</span>
+              <span
+                v-if="value > 1"
+                class="badge badge-pill stack-count"
+              >
+                {{ value }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- STATS -->
+      <div>
+        <profileStats
+          v-show="selectedPage === 'stats'"
+          v-if="user.preferences"
+          :user="user"
+          :show-allocation="showAllocation()"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -942,6 +942,7 @@
   }
 </style>
 
+// eslint-disable-next-line vue/component-tags-order
 <script>
 import moment from 'moment';
 import axios from 'axios';
