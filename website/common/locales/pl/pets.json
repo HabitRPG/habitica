@@ -114,5 +114,6 @@
     "invalidAmount": "Błędna ilość jedzenia, musi być dodatnią liczbą całkowitą",
     "tooMuchFood": "Próbujesz nakarmić chowańca zbyt dużą ilością jedzenia, akcja została anulowana",
     "notEnoughFood": "Nie masz wystarczającej ilości jedzenia",
-    "jubilantGryphatrice": "Radosny Gryphatrice"
+    "jubilantGryphatrice": "Radosny Gryphatrice",
+    "veteranDragon": "Smok Weteran"
 }
