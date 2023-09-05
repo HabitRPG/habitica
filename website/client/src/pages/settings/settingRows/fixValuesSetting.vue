@@ -1,7 +1,7 @@
 <template>
   <fragment>
     <tr
-      v-if="!modalVisible"
+      v-if="!mixinData.inlineSettingMixin.modalVisible"
     >
       <td class="settings-label">
         {{ $t("fixValues") }}
@@ -18,7 +18,7 @@
       </td>
     </tr>
     <tr
-      v-if="modalVisible"
+      v-if="mixinData.inlineSettingMixin.modalVisible"
       class="expanded"
     >
       <td
@@ -76,7 +76,7 @@
         </div>
 
         <save-cancel-buttons
-          :disable-save="!sharedState.inlineSettingUnsavedValues"
+          :disable-save="!mixinData.inlineSettingMixin.sharedState.inlineSettingUnsavedValues"
           class="mt-4"
           @saveClicked="save()"
           @cancelClicked="requestCloseModal()"
@@ -240,10 +240,6 @@ export default {
       if (userChangedLevel && userDidNotChangeExp) {
         this.restoreValues.exp = 0;
       }
-
-      // todo
-      // this.user.stats = clone(this.restoreValues.stats);
-      // this.user.achievements.streak = clone(this.restoreValues.achievements.streak);
 
       const settings = {
         'stats.hp': Number(this.restoreValues.hp),

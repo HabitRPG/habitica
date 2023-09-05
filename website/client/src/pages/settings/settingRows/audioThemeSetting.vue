@@ -1,7 +1,7 @@
 <template>
   <fragment>
     <tr
-      v-if="!modalVisible"
+      v-if="!mixinData.inlineSettingMixin.modalVisible"
     >
       <td
         v-once
@@ -22,7 +22,7 @@
       </td>
     </tr>
     <tr
-      v-if="modalVisible"
+      v-if="mixinData.inlineSettingMixin.modalVisible"
       class="expanded"
     >
       <td colspan="3">

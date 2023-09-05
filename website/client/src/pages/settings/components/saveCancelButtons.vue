@@ -27,7 +27,26 @@
 <script>
 export default {
   name: 'SaveCancelButtons',
-  props: ['hideSave', 'hideCancel', 'disableSave', 'primaryButtonLabel', 'primaryButtonColor', 'noPadding'],
+  props: {
+    hideSave: {
+      type: Boolean,
+    },
+    hideCancel: {
+      type: Boolean,
+    },
+    disableSave: {
+      type: Boolean,
+    },
+    noPadding: {
+      type: Boolean,
+    },
+    primaryButtonLabel: {
+      type: String,
+    },
+    primaryButtonColor: {
+      type: String,
+    },
+  },
 };
 </script>
 

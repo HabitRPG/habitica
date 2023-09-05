@@ -20,15 +20,18 @@ export const sharedInlineSettingStore = reactive({
 export const InlineSettingMixin = {
   data () {
     return {
-      // todo before merge use mixinData property
-      modalVisible: false,
-      sharedState: sharedInlineSettingStore,
+      mixinData: {
+        inlineSettingMixin: {
+          modalVisible: false,
+          sharedState: sharedInlineSettingStore,
+        },
+      },
     };
   },
   methods: {
     openModal () {
-      if (this.sharedState.inlineSettingAlreadyOpen) {
-        if (this.sharedState.inlineSettingUnsavedValues) {
+      if (this.mixinData.inlineSettingMixin.sharedState.inlineSettingAlreadyOpen) {
+        if (this.mixinData.inlineSettingMixin.sharedState.inlineSettingUnsavedValues) {
           if (window.confirm(this.$t('confirmCancelChanges'))) {
             this._hidePrevious();
             this._openIt();
@@ -43,22 +46,22 @@ export const InlineSettingMixin = {
       this._openIt();
     },
     _openIt () {
-      this.sharedState.markAsOpened(this);
-      this.modalVisible = true;
+      this.mixinData.inlineSettingMixin.sharedState.markAsOpened(this);
+      this.mixinData.inlineSettingMixin.modalVisible = true;
 
       this.$el.scrollTo({
         behavior: 'smooth',
       });
     },
     _hidePrevious () {
-      this.sharedState.instanceOfCurrentlyOpened.resetControls();
-      this.sharedState.instanceOfCurrentlyOpened.closeModal();
+      this.mixinData.inlineSettingMixin.sharedState.instanceOfCurrentlyOpened.resetControls();
+      this.mixinData.inlineSettingMixin.sharedState.instanceOfCurrentlyOpened.closeModal();
     },
     /**
      * This is just for the cancel buttons - so that they also ask if there are unchanged values
      */
     requestCloseModal () {
-      if (this.sharedState.inlineSettingUnsavedValues && !window.confirm(this.$t('confirmCancelChanges'))) {
+      if (this.mixinData.inlineSettingMixin.sharedState.inlineSettingUnsavedValues && !window.confirm(this.$t('confirmCancelChanges'))) {
         return;
       }
 
@@ -69,11 +72,11 @@ export const InlineSettingMixin = {
      * This is for the save methods to call it after they are done
      */
     closeModal () {
-      this.modalVisible = false;
-      this.sharedState.markAsClosed();
+      this.mixinData.inlineSettingMixin.modalVisible = false;
+      this.mixinData.inlineSettingMixin.sharedState.markAsClosed();
     },
     modalValuesChanged (value = true) {
-      this.sharedState.inlineSettingUnsavedValues = value;
+      this.mixinData.inlineSettingMixin.sharedState.inlineSettingUnsavedValues = value;
     },
     resetControls () {},
   },

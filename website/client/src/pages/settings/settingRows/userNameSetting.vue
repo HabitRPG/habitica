@@ -1,7 +1,7 @@
 <template>
   <fragment>
     <tr
-      v-if="!modalVisible"
+      v-if="!mixinData.inlineSettingMixin.modalVisible"
     >
       <td class="settings-label">
         {{ $t("username") }}
@@ -19,7 +19,7 @@
       </td>
     </tr>
     <tr
-      v-if="modalVisible"
+      v-if="mixinData.inlineSettingMixin.modalVisible"
       class="expanded"
     >
       <td colspan="3">
@@ -137,7 +137,6 @@ export default {
       });
 
       this.user.auth.local.username = newUsername;
-      // this.localAuth.username = this.user.auth.local.username;
       this.user.flags.verifiedUsername = true;
 
       this.text(this.$t('userNameSuccess'));

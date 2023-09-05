@@ -1,7 +1,7 @@
 <template>
   <fragment>
     <tr
-      v-if="!modalVisible"
+      v-if="!mixinData.inlineSettingMixin.modalVisible"
     >
       <td class="settings-label">
         {{ $t("deleteAccount") }}
@@ -18,7 +18,7 @@
       </td>
     </tr>
     <tr
-      v-if="modalVisible"
+      v-if="mixinData.inlineSettingMixin.modalVisible"
       class="expanded"
     >
       <td colspan="3">

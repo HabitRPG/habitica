@@ -1,7 +1,7 @@
 <template>
   <fragment>
     <tr
-      v-if="!modalVisible"
+      v-if="!mixinData.inlineSettingMixin.modalVisible"
     >
       <td class="settings-label">
         {{ $t("yourUserData") }}
@@ -18,7 +18,7 @@
       </td>
     </tr>
     <tr
-      v-if="modalVisible"
+      v-if="mixinData.inlineSettingMixin.modalVisible"
       class="expanded"
     >
       <td colspan="3">
@@ -36,20 +36,20 @@
         </div>
 
         <div class="d-flex justify-content-center data-download-selection">
-          <table>
+          <table v-once>
             <tr>
-              <td>Task History</td>
+              <td>{{ $t('taskHistory') }}</td>
               <td>
                 <a
                   href="/export/history.csv"
                   class="btn btn-secondary"
                 >
-                  Download CSV
+                  {{ $t('downloadCSV') }}
                 </a>
               </td>
             </tr>
             <tr>
-              <td>User Data</td>
+              <td>{{ $t('userData') }}</td>
               <td>
                 <b-dropdown
                   :text="$t('downloadAs')"

@@ -1,7 +1,7 @@
 <template>
   <fragment>
     <tr
-      v-if="!modalVisible"
+      v-if="!mixinData.inlineSettingMixin.modalVisible"
     >
       <td class="settings-label">
         {{ $t("password") }}
@@ -17,7 +17,7 @@
       </td>
     </tr>
     <tr
-      v-if="modalVisible"
+      v-if="mixinData.inlineSettingMixin.modalVisible"
       class="expanded"
     >
       <td
@@ -109,10 +109,6 @@ input {
   width: 12px;
   height: 10px;
   color: $green-50;
-}
-
-.form-group {
-  margin-bottom: 1.5rem;
 }
 
 </style>
