@@ -28285,11 +28285,6 @@
   width: 114px;
   height: 90px;
 }
-.set_mystery_202304 {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/set_mystery_202304.png');
-  width: 68px;
-  height: 68px;
-}
 .shop_armor_mystery_202304 {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_armor_mystery_202304.png');
   width: 68px;
@@ -28297,6 +28292,11 @@
 }
 .shop_head_mystery_202304 {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_head_mystery_202304.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_set_mystery_202304 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_set_mystery_202304.png');
   width: 68px;
   height: 68px;
 }
@@ -28412,6 +28412,31 @@
 }
 .shop_set_mystery_202308 {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_set_mystery_202308.png');
+  width: 68px;
+  height: 68px;
+}
+.back_mystery_202309 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/back_mystery_202309.png');
+  width: 117px;
+  height: 120px;
+}
+.headAccessory_mystery_202309 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_mystery_202309.png');
+  width: 117px;
+  height: 120px;
+}
+.shop_back_mystery_202309 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_back_mystery_202309.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_headAccessory_mystery_202309 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_headAccessory_mystery_202309.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_set_mystery_202309 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_set_mystery_202309.png');
   width: 68px;
   height: 68px;
 }
