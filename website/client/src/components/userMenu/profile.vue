@@ -828,7 +828,6 @@
       }
 
       .info-item-value {
-        display: inline-block;
         float: right;
       }
     }
@@ -1321,6 +1320,13 @@ export default {
     open () {
       this.isOpened = true;
       this.$emit('toggled', this.isOpened);
+    },
+    reportPlayer () {
+      this.$root.$emit('habitica::report-profile', {
+        memberId: this.user._id,
+        displayName: this.user.profile.name,
+        username: this.user.auth.local.username,
+      });
     },
   },
 };
