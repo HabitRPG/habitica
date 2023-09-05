@@ -22,7 +22,7 @@
           </div>
         </div>
       </div>
-      <!-- STATE CHANGES -->
+      <!-- PAGE STATE CHANGES -->
       <div class="row state-pages">
         <div class="text-center nav">
           <div
@@ -111,7 +111,7 @@
                 </button>
               </router-link>
 
-              <!-- Kebab menu dropdown -->
+              <!-- KEBAB MENU DROPDOWN -->
               <b-dropdown
                 right="right"
                 toggle-class="with-icon"
@@ -186,7 +186,7 @@
                 >
                   <!-- Admin Tools header -->
                   <b-dropdown-item
-                    class="selectListItem admin-tools"
+                    class="admin-tools"
                   >
                     <span v-once>
                       <strong>{{ $t('adminTools') }}</strong>
@@ -238,7 +238,6 @@
                       ></span>
                       <span
                         v-once
-                        v-b-tooltip.hover.bottom="'Turn on Shadow Muting'"
                         class="admin-action"
                       >
                         {{ $t('shadowMute') }}
@@ -809,7 +808,6 @@
   .admin-tools {
     background-color: $gray-700;
   }
-
 
   .info {
     margin-top: 16px;
