@@ -36,7 +36,7 @@ input, textarea, input.form-control, textarea.form-control {
     box-shadow: none;
   }
 
-  &:disabled {
+  &:disabled, &:read-only {
     opacity: 0.64;
     background: $gray-700;
   }
