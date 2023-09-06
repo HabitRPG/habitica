@@ -127,7 +127,7 @@
                   </span>
                 </template>
 
-                <!-- send gems -->
+                <!-- SEND GEMS -->
                 <b-dropdown-item
                   class="selectListItem"
                   @click="openSendGemsModal()"
@@ -147,7 +147,7 @@
                   </span>
                 </b-dropdown-item>
 
-                <!-- report player -->
+                <!-- REPORT PLAYER -->
                 <b-dropdown-item
                   class="selectListItem"
                   @click="reportPlayer()"
@@ -164,7 +164,7 @@
                   </span>
                 </b-dropdown-item>
 
-                <!-- report player -->
+                <!-- BLOCK PLAYER -->
                 <b-dropdown-item
                   class="selectListItem block-ban"
                   @click="blockUser()"
@@ -180,11 +180,11 @@
                     </span>
                   </span>
                 </b-dropdown-item>
-                <!-- Rest is visible only if user is Admin -->
+                <!-- REST OF DROPDOWN ONLY VISIBLE IF ADMIN -->
                 <div
                   v-if="hasPermission(userLoggedIn, 'moderator')"
                 >
-                  <!-- Admin Tools header -->
+                  <!-- ADMIN TOOLS HEADER -->
                   <b-dropdown-item
                     class="admin-tools"
                   >
@@ -193,10 +193,10 @@
                     </span>
                   </b-dropdown-item>
 
-                  <!-- Admin Panel -->
+                  <!-- ADMIN PANEL -->
                   <b-dropdown-item
                     class="selectListItem"
-                    @click="openAdminPanel()"
+                    @click="adminOpenAdminPanel()"
                   >
                     <span class="with-icon">
                       <span
@@ -210,9 +210,10 @@
                     </span>
                   </b-dropdown-item>
 
-                  <!-- Ban user -->
+                  <!-- BAN USER -->
                   <b-dropdown-item
                     class="selectListItem block-ban"
+                    @click="adminBlockUser()"
                   >
                     <span class="with-icon">
                       <span
@@ -226,7 +227,7 @@
                     </span>
                   </b-dropdown-item>
 
-                  <!-- shadowmute player with toggle -->
+                  <!-- SHADOW MUTE PLAYER WITH TOGGLE -->
                   <b-dropdown-item
                     class="selectListItem"
                   >
@@ -248,7 +249,7 @@
                     </span>
                   </b-dropdown-item>
 
-                  <!-- mute player with toggle -->
+                  <!-- MUTE PLAYER WITH TOGGLE -->
                   <b-dropdown-item
                     class="selectListItem"
                   >
@@ -792,6 +793,7 @@
     line-height: 1.71;
     margin-left: 24px;
     margin-right: 8px;
+    margin-top: 0px;
     width: 148px;
   }
 
