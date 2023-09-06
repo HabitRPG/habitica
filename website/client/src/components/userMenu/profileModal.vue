@@ -23,6 +23,11 @@
   @import '~@/assets/scss/colors.scss';
 
   #profile {
+    .modal-header {
+      background-color: $white;
+      border-bottom: none;
+      padding: 0px;
+    }
     .modal-dialog {
       max-width: 684px;
     }
@@ -41,8 +46,8 @@
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
 
-  .header {
-    width: 100%;
+  .modal-close {
+    z-index: 1;
   }
 
 </style>

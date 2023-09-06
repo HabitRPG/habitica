@@ -67,7 +67,7 @@
           class="flex-container"
         >
           <div class="flex-left">
-            <div class="about profile-header">
+            <div class="about mb-0">
               <h2>{{ $t('about') }}</h2>
             </div>
             <div class="flex-left>">
@@ -156,6 +156,8 @@
                 <!-- REPORT PLAYER -->
                 <b-dropdown-item
                   class="selectListItem"
+                  :class="{ disabled: !canReport }"
+                  :disabled="!canReport"
                   @click="reportPlayer()"
                 >
                   <span class="with-icon">
@@ -243,7 +245,7 @@
                   <b-dropdown-item
                     v-if="!hero.auth.blocked"
                     class="selectListItem block-ban"
-                    @click="adminBlockUser()"
+                    @click.native.capture.stop="adminBlockUser()"
                   >
                     <span class="with-icon">
                       <span
@@ -259,7 +261,7 @@
                   <b-dropdown-item
                     v-else
                     class="selectListItem block-ban"
-                    @click="adminUnblockUser()"
+                    @click.native.capture.stop="adminUnblockUser()"
                   >
                     <span class="with-icon">
                       <span
@@ -276,7 +278,7 @@
                   <!-- SHADOW MUTE PLAYER WITH TOGGLE -->
                   <b-dropdown-item
                     class="selectListItem"
-                    @click="!hero.flags.chatShadowMuted
+                    @click.native.capture.stop="!hero.flags.chatShadowMuted
                       ? adminTurnOnShadowMuting()
                       : adminTurnOffShadowMuting()"
                   >
@@ -302,7 +304,7 @@
                   <!-- MUTE PLAYER WITH TOGGLE -->
                   <b-dropdown-item
                     class="selectListItem"
-                    @click="!hero.flags.chatRevoked
+                    @click.native.capture.stop="!hero.flags.chatRevoked
                       ? adminRevokeChat()
                       : adminReinstateChat()"
                   >
@@ -563,19 +565,25 @@
 <style lang="scss" >
   @import '~@/assets/scss/colors.scss';
 
-  .modal-header {
-    padding: 24px;
-    border-bottom: 0px solid $white;
-    background-color: $white;
-  }
   #userProfile {
     .dropdown-menu {
       margin-left: -48px;
       width: 210px;
     }
-    .dropdown-item:hover svg {
+
+    .dropdown-item.disabled {
+      color: $gray-50 !important;
+      opacity: 0.75;
+      svg {
+        color: $gray-50;
+        opacity: 0.75;
+      }
+    }
+
+    .dropdown-item:not(.disabled):hover svg {
       color: $purple-300;
     }
+
     .drawer-toggle-icon {
       position: absolute;
       right: 16px;
@@ -585,11 +593,13 @@
         top: 10px;
       }
     }
+
     .toggle-switch-outer {
       margin-bottom: 2px;
     }
+
     .selectListItem {
-      &:hover svg {
+      &:not(.disabled):hover svg {
         color: $purple-300;
       }
       &.block-ban {
@@ -601,8 +611,8 @@
           }
         }
       }
-     }
-   }
+    }
+  }
 
   .profile {
     .member-details {
@@ -701,7 +711,6 @@
     .admin-action {
       color: $red-500;
       cursor: pointer;
-      // padding: 0 16px;
     }
   }
 
@@ -714,12 +723,6 @@
       color:$purple-300;
     }
   }
-
-    // &hover {
-    //   color: $purple-300 !important;
-    //   text-decoration: none;
-    // }
-
 
   .profile-actions {
     float: right;
@@ -735,34 +738,30 @@
     color: $gray-50 !important;
     display: block;
     margin: 0 auto;
-    }
-
-    .message-icon svg {
-      height: 11px;
-      margin-top: 1px;
   }
 
-    .gift-icon svg {
-      height: 16px;
-      margin: auto;
-      width: 14px;
+  .message-icon svg {
+    height: 11px;
+    margin-top: 1px;
   }
 
-   .dots-icon {
-      height: 16px;
-      width: 4px;
+  .gift-icon svg {
+    height: 16px;
+    margin: auto;
+    width: 14px;
   }
 
-   .block-icon {
-      width: 16px;
+  .dots-icon {
+    height: 16px;
+    width: 4px;
   }
 
-    .positive-icon {
-      width: 14px;
+  .block-icon, .report-icon {
+    width: 16px;
   }
 
-   .report-icon {
-      width: 16px;
+  .positive-icon {
+    width: 14px;
   }
 
   .toggle-switch-outer {
@@ -771,7 +770,7 @@
 
   .photo {
     img {
-    max-width: 100%;
+      max-width: 100%;
     }
   }
 
@@ -842,17 +841,12 @@
   }
 
   .profile-section {
-
     h2 {
       color: $gray-50;
       margin-bottom: 20px !important;
       overflow: hidden;
       size: 1.125em;
     }
-  }
-
-  .profile-header {
-      margin-bottom: 0px;
   }
 
   .about {
@@ -931,6 +925,7 @@
     height: 92px;
     width: 94px;
   }
+
   #achievements {
     .category-row {
       margin-bottom: 34px;
@@ -1161,6 +1156,13 @@ export default {
     // userBanned () {
     //   return valueOf(this.user._id.auth.blocked);
     // },
+    canReport () {
+      if (!this.user || !this.user.profile || !this.user.profile.flags) {
+        return true;
+      }
+      return Boolean(this.hasPermission(this.userLoggedIn, 'moderator')
+        || !this.user.profile.flags[this.userLoggedIn._id]);
+    },
   },
   watch: {
     startingPage () {
@@ -1178,6 +1180,9 @@ export default {
     this.oldTitle = this.$store.state.title;
     this.handleExternalLinks();
     this.selectPage(this.startingPage);
+    this.$root.$on('habitica:report-profile-result', () => {
+      this.loadUser();
+    });
   },
   updated () {
     this.handleExternalLinks();
@@ -1188,6 +1193,7 @@ export default {
         fullTitle: this.oldTitle,
       });
     }
+    this.$root.$off('habitica:report-profile-result');
   },
   methods: {
     async loadUser () {

@@ -2,8 +2,8 @@
   <b-modal
     id="report-profile"
     :title="$t('reportPlayer')"
+    :hide-footer="!hasPermission(user, 'moderator')"
     size="md"
-    :hide-footer="true"
   >
     <div slot="modal-header">
       <h2 class="mt-2 mb-0"> {{ $t('reportPlayer') }} </h2>
@@ -41,10 +41,16 @@
         @click.prevent="close()"
       >{{ $t('cancel') }}</a>
     </div>
+    <div
+      slot="modal-footer"
+    >
+      <a class="mx-auto">Reset Flags</a>
+    </div>
   </b-modal>
 </template>
 
 <style lang="scss">
+  @import '~@/assets/scss/colors.scss';
   #report-profile {
     .modal-header {
       padding: 24px;
@@ -52,6 +58,17 @@
     }
     .modal-body {
       padding: 0px 24px 24px 24px;
+    }
+    .modal-footer {
+      display: flex;
+      justify-content: center;
+      border-top: none;
+      height: 48px;
+      background-color: rgba($red-500, 0.25);
+      margin-top: -8px;
+      a {
+        color: $maroon-50;
+      }
     }
   }
 </style>

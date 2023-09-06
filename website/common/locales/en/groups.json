@@ -88,7 +88,7 @@
   "PMUserDoesNotReceiveMessages": "This user is no longer receiving private messages",
   "PMUnblockUserToSendMessages": "Unblock this user to continue sending and receiving messages.",
   "block": "Block Player",
-  "blockedUser": "<strong>You blocked this player.</strong> They cannot send you Private Messages but you will still see their posts.",
+  "blockedUser": "<strong>You blocked this player.</strong>&nbsp;They cannot send you Private Messages but you will still see their posts.",
   "unblock": "Unblock Player",
   "blockYourself": "You cannot block yourself",
   "blockWarning": "This will have no effect if the player is an admin.",
