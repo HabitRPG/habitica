@@ -24,6 +24,12 @@
       </div>
       <!-- PAGE STATE CHANGES -->
       <div class="row state-pages">
+        <div
+          v-if="userBlocked"
+        >
+          You blocked this player. They cannot send you Private
+          Messages but you will still see their posts.
+        </div>
         <div class="text-center nav">
           <div
             class="nav-item"
@@ -166,6 +172,7 @@
 
                 <!-- BLOCK PLAYER -->
                 <b-dropdown-item
+                  v-if="!userBlocked"
                   class="selectListItem block-ban"
                   @click="blockUser()"
                 >
@@ -177,6 +184,22 @@
                     ></span>
                     <span v-once>
                       {{ $t('blockPlayer') }}
+                    </span>
+                  </span>
+                </b-dropdown-item>
+                <b-dropdown-item
+                  v-else
+                  class="selectListItem block-ban"
+                  @click="unblockUser()"
+                >
+                  <span class="with-icon">
+                    <span
+                      v-once
+                      class="svg-icon icon-16 color"
+                      v-html="icons.block"
+                    ></span>
+                    <span v-once>
+                      {{ $t('unblock') }}
                     </span>
                   </span>
                 </b-dropdown-item>
@@ -195,23 +218,29 @@
 
                   <!-- ADMIN PANEL -->
                   <b-dropdown-item
+                    v-if="hasPermission(userLoggedIn, 'userSupport')"
                     class="selectListItem"
-                    @click="adminOpenAdminPanel()"
                   >
-                    <span class="with-icon">
-                      <span
-                        v-once
-                        class="svg-icon icon-16 color"
-                        v-html="icons.crown"
-                      ></span>
-                      <span v-once>
-                        {{ $t('viewAdminPanel') }}
+                    <router-link
+                      :to="{ name: 'adminPanelUser',
+                             params: { userIdentifier: user._id } }"
+                    >
+                      <span class="with-icon">
+                        <span
+                          v-once
+                          class="svg-icon icon-16 color"
+                          v-html="icons.crown"
+                        ></span>
+                        <span v-once>
+                          {{ $t('viewAdminPanel') }}
+                        </span>
                       </span>
-                    </span>
+                    </router-link>
                   </b-dropdown-item>
 
                   <!-- BAN USER -->
                   <b-dropdown-item
+                    v-if="!hero.auth.blocked"
                     class="selectListItem block-ban"
                     @click="adminBlockUser()"
                   >
@@ -226,10 +255,29 @@
                       </span>
                     </span>
                   </b-dropdown-item>
+                  <b-dropdown-item
+                    v-else
+                    class="selectListItem block-ban"
+                    @click="adminUnblockUser()"
+                  >
+                    <span class="with-icon">
+                      <span
+                        v-once
+                        class="svg-icon icon-16 color"
+                        v-html="icons.block"
+                      ></span>
+                      <span v-once>
+                        {{ $t('unbanPlayer') }}
+                      </span>
+                    </span>
+                  </b-dropdown-item>
 
                   <!-- SHADOW MUTE PLAYER WITH TOGGLE -->
                   <b-dropdown-item
                     class="selectListItem"
+                    @click="!hero.flags.chatShadowMuted
+                      ? adminTurnOnShadowMuting()
+                      : adminTurnOffShadowMuting()"
                   >
                     <span class="with-icon">
                       <span
@@ -243,7 +291,8 @@
                       >
                         {{ $t('shadowMute') }}
                       </span>
-                      <toggle
+                      <toggle-switch
+                        v-model="hero.flags.chatShadowMuted"
                         class="toggle-switch-outer ml-auto"
                       />
                     </span>
@@ -252,6 +301,9 @@
                   <!-- MUTE PLAYER WITH TOGGLE -->
                   <b-dropdown-item
                     class="selectListItem"
+                    @click="!hero.flags.chatRevoked
+                      ? adminRevokeChat()
+                      : adminReinstateChat()"
                   >
                     <span class="with-icon">
                       <span
@@ -262,7 +314,8 @@
                       <span v-once>
                         {{ $t('mutePlayer') }}
                       </span>
-                      <toggle
+                      <toggle-switch
+                        v-model="hero.flags.chatRevoked"
                         class="toggle-switch-outer ml-auto"
                       />
                     </span>
@@ -952,7 +1005,7 @@ import moment from 'moment';
 import axios from 'axios';
 import each from 'lodash/each';
 import cloneDeep from 'lodash/cloneDeep';
-import toggle from '../ui/toggleSwitch';
+import toggleSwitch from '../ui/toggleSwitch';
 import { mapState } from '@/libs/store';
 
 import MemberDetails from '../memberDetails';
@@ -989,7 +1042,7 @@ export default {
     MemberDetails,
     profileStats,
     error404,
-    toggle,
+    toggleSwitch,
   },
   mixins: [externalLinks, userCustomStateMixin('userLoggedIn')],
   props: ['userId', 'startingPage'],
@@ -1011,7 +1064,6 @@ export default {
         mute,
         shadowMute,
       }),
-      adminToolsLoaded: false,
       userIdToMessage: '',
       editing: false,
       editingProfile: {
@@ -1057,7 +1109,6 @@ export default {
     nextIncentive () {
       return this.getNextIncentive();
     },
-
     classText () {
       const classTexts = {
         warrior: this.$t('warrior'),
@@ -1078,6 +1129,9 @@ export default {
       // Open status is a number so we can tell if the value was passed
       if (this.openStatus !== undefined) return this.openStatus === 1;
       return this.isOpened;
+    },
+    userBlocked () {
+      return this.userLoggedIn.inbox.blocks.indexOf(this.user._id) !== -1;
     },
   },
   watch: {
@@ -1115,7 +1169,6 @@ export default {
       this.editing = false;
       this.hero = {};
       this.userLoaded = false;
-      this.adminToolsLoaded = false;
 
       const profileUserId = this.userId;
 
@@ -1163,6 +1216,10 @@ export default {
         user.profile.blurb = user.profile.blurb ? `${user.profile.blurb}` : '';
 
         this.user = user;
+      }
+
+      if (this.hasPermission(this.userLoggedIn, 'moderator')) {
+        this.hero = await this.$store.dispatch('hall:getHero', { uuid: this.user._id });
       }
 
       this.userLoaded = true;
@@ -1276,18 +1333,6 @@ export default {
       this.hero.auth.blocked = false;
 
       this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
-    },
-    adminOpenAdminPanel () {
-      this.hero = this.user.permissions.fullAccess || this.user.permissions.userSupport;
-      this.$store.dispatch('adminPanel', { uuid: this.user_id });
-    },
-    async toggleAdminTools () {
-      if (this.adminToolsLoaded) {
-        this.adminToolsLoaded = false;
-      } else {
-        this.hero = await this.$store.dispatch('hall:getHero', { uuid: this.user._id });
-        this.adminToolsLoaded = true;
-      }
     },
     showAllocation () {
       return this.user._id === this.userLoggedIn._id && this.hasClass;
