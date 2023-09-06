@@ -26,9 +26,9 @@
       <div class="row state-pages">
         <div
           v-if="userBlocked"
+          class="blocked-user d-flex mx-auto"
+          v-html="$t('blockedUser')"
         >
-          You blocked this player. They cannot send you Private
-          Messages but you will still see their posts.
         </div>
         <div class="text-center nav">
           <div
@@ -203,6 +203,7 @@
                     </span>
                   </span>
                 </b-dropdown-item>
+
                 <!-- REST OF DROPDOWN ONLY VISIBLE IF ADMIN -->
                 <div
                   v-if="hasPermission(userLoggedIn, 'moderator')"
@@ -219,7 +220,7 @@
                   <!-- ADMIN PANEL -->
                   <b-dropdown-item
                     v-if="hasPermission(userLoggedIn, 'userSupport')"
-                    class="selectListItem"
+                    class="selectListItem view-admin-panel"
                   >
                     <router-link
                       :to="{ name: 'adminPanelUser',
@@ -660,7 +661,6 @@
       margin-left: 4px !important;
     }
   }
-
 </style>
 
 <style lang="scss" scoped>
@@ -704,6 +704,22 @@
       // padding: 0 16px;
     }
   }
+
+  .view-admin-panel
+   a, a:not([href]):not([tabindex]) {
+    cursor: pointer;
+    color: $gray-50;
+    text-decoration: none;
+    &:hover {
+      color:$purple-300;
+    }
+  }
+
+    // &hover {
+    //   color: $purple-300 !important;
+    //   text-decoration: none;
+    // }
+
 
   .profile-actions {
     float: right;
@@ -768,6 +784,15 @@
     h4 {
       color: $gray-100;
     }
+  }
+
+  .blocked-user {
+    background-color: $maroon-100;
+    border-radius: 4px;
+    color: $white;
+    height: 40px;
+    margin-top: 16px;
+    padding: 8px 16px;
   }
 
   .state-pages {
@@ -1133,6 +1158,9 @@ export default {
     userBlocked () {
       return this.userLoggedIn.inbox.blocks.indexOf(this.user._id) !== -1;
     },
+    // userBanned () {
+    //   return valueOf(this.user._id.auth.blocked);
+    // },
   },
   watch: {
     startingPage () {
@@ -1232,6 +1260,7 @@ export default {
         subSection: this.$t(this.startingPage),
       });
     },
+
     getProgressDisplay () {
       // let currentLoginDay = Content.loginIncentives[this.user.loginIncentives];
       // if (!currentLoginDay) return this.$t('checkinReceivedAllRewardsMessage');
@@ -1245,6 +1274,7 @@ export default {
       // let end = nextRewardAt - currentLoginDay.prevRewardKey;
       // return `${this.$t('checkinProgressTitle')} ${start}/${end}`;
     },
+
     getIncentivesProgress () {
       const currentLoginDay = Content.loginIncentives[this.user.loginIncentives];
       if (!currentLoginDay) return 0;
@@ -1262,13 +1292,11 @@ export default {
     },
     save () {
       const values = {};
-
       const edits = cloneDeep(this.editingProfile);
 
       each(edits, (value, key) => {
         // Using toString because we need to compare two arrays (websites)
         const curVal = this.user.profile[key];
-
         if (!curVal || value.toString() !== curVal.toString()) {
           values[`profile.${key}`] = value;
           this.$set(this.user.profile, key, value);
@@ -1276,96 +1304,99 @@ export default {
       });
 
       this.$store.dispatch('user:set', values);
-
       this.editing = false;
     },
+
     blockUser () {
       this.userLoggedIn.inbox.blocks.push(this.user._id);
       axios.post(`/api/v4/user/block/${this.user._id}`);
     },
+
     unblockUser () {
       const index = this.userLoggedIn.inbox.blocks.indexOf(this.user._id);
       this.userLoggedIn.inbox.blocks.splice(index, 1);
       axios.post(`/api/v4/user/block/${this.user._id}`);
     },
+
     openSendGemsModal () {
       this.$store.state.giftModalOptions.startingPage = 'buyGems';
       this.$root.$emit('habitica::send-gift', this.user);
     },
+
     adminTurnOnShadowMuting () {
       if (!this.hero.flags) {
         this.hero.flags = {};
       }
       this.hero.flags.chatShadowMuted = true;
-
       this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
     },
+
     adminTurnOffShadowMuting () {
       if (!this.hero.flags) {
         this.hero.flags = {};
       }
       this.hero.flags.chatShadowMuted = false;
-
       this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
     },
+
     adminRevokeChat () {
       if (!this.hero.flags) {
         this.hero.flags = {};
       }
       this.hero.flags.chatRevoked = true;
-
       this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
     },
+
     adminReinstateChat () {
       if (!this.hero.flags) {
         this.hero.flags = {};
       }
       this.hero.flags.chatRevoked = false;
-
       this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
     },
+
     adminBlockUser () {
       this.hero.auth.blocked = true;
-
       this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
     },
+
     adminUnblockUser () {
       this.hero.auth.blocked = false;
-
       this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
     },
+
     showAllocation () {
       return this.user._id === this.userLoggedIn._id && this.hasClass;
     },
+
     achievementsCategory (categoryKey, category) {
       const achievementsKeys = Object.keys(category.achievements);
-
       if (this.achievementsCategories[categoryKey].open === true) {
         return category.achievements;
       }
-
       const fiveAchievements = achievementsKeys.slice(0, 5);
-
       const categoryAchievements = {};
-
       fiveAchievements.forEach(key => {
         categoryAchievements[key] = category.achievements[key];
       });
-
       return categoryAchievements;
     },
+
     toggleAchievementsCategory (categoryKey) {
       const status = this.achievementsCategories[categoryKey].open;
       this.achievementsCategories[categoryKey].open = !status;
     },
+
     toggle () {
       this.isOpened = !this.isOpen;
       this.$emit('toggled', this.isOpened);
     },
+
     open () {
       this.isOpened = true;
       this.$emit('toggled', this.isOpened);
     },
+
     reportPlayer () {
       this.$root.$emit('habitica::report-profile', {
         memberId: this.user._id,

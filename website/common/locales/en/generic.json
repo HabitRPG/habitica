@@ -221,6 +221,8 @@
   "shadowMute": "Shadow Mute",
   "mutePlayer": "Mute",
   "banPlayer": "Ban Player",
+  "unbanPlayer": "Unban Player",
+  "bannedPlayer": "This player is banned.",
   "refreshList": "Refresh List",
   "leaveHabitica": "You are about to leave Habitica.com",
   "leaveHabiticaText": "Habitica is not responsible for the content of any linked website that is not owned or operated by HabitRPG.<br>Please note that these websites' practices may differ from Habitica’s community guidelines.",
