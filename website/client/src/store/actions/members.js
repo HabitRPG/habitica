@@ -122,5 +122,11 @@ export async function reportMember (store, payload) {
     source: payload.source,
   };
   const response = await axios.post(url, data);
-  return response.data.data;
+  return response;
+}
+
+export async function clearMemberFlags (store, payload) {
+  const url = `${apiv4Prefix}/members/${payload.memberId}/clear-flags`;
+  const response = await axios.post(url);
+  return response;
 }

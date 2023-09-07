@@ -20,7 +20,7 @@
         <strong>{{ $t('whyReportingPlayer') }}</strong>
         <textarea
           v-model="reportComment"
-          class="form-control"
+          class="mt-2 form-control"
           :placeholder="$t('whyReportingPlayerPlaceholder')"
         ></textarea>
       </div>
@@ -31,7 +31,9 @@
     </div>
     <div class="footer text-center d-flex flex-column">
       <button
-        class="btn btn-danger mx-auto px-3 mb-4"
+        class="btn btn-danger mx-auto mb-3"
+        :disabled="!reportComment"
+        :class="{ disabled: !reportComment }"
         @click="reportAbuse()"
       >
         {{ $t('report') }}
@@ -44,7 +46,17 @@
     <div
       slot="modal-footer"
     >
-      <a class="mx-auto">Reset Flags</a>
+      <div
+        class="d-flex"
+        @click="resetFlags()"
+      >
+        <div
+          v-once
+          class="svg-icon icon-16 color my-auto mr-2"
+          v-html="icons.report"
+        ></div>
+        <a>Reset Flags</a>
+      </div>
     </div>
   </b-modal>
 </template>
@@ -60,13 +72,16 @@
       padding: 0px 24px 24px 24px;
     }
     .modal-footer {
+      color: $maroon-50;
       display: flex;
       justify-content: center;
       border-top: none;
       height: 48px;
       background-color: rgba($red-500, 0.25);
       margin-top: -8px;
+      padding: 0px;
       a {
+        margin-top: 2px;
         color: $maroon-50;
       }
     }
@@ -84,7 +99,7 @@
   }
 
   blockquote {
-    border-radius: 2px;
+    border-radius: 4px;
     background-color: $gray-700;
     padding: .5rem 1rem;
   }
@@ -107,6 +122,7 @@ import closeX from '@/components/ui/closeX';
 import notifications from '@/mixins/notifications';
 import markdownDirective from '@/directives/markdown';
 import { userStateMixin } from '../../mixins/userState';
+import report from '@/assets/svg/report.svg';
 
 export default {
   components: {
@@ -128,6 +144,9 @@ export default {
       displayName: '',
       username: '',
       reportComment: '',
+      icons: Object.freeze({
+        report,
+      }),
     };
   },
   mounted () {
@@ -141,15 +160,18 @@ export default {
       this.$root.$emit('bv::hide::modal', 'report-profile');
     },
     async reportAbuse () {
-      this.text(this.$t('abuseReported'));
-
       const result = await this.$store.dispatch('members:reportMember', {
         memberId: this.memberId,
         source: this.$route.fullPath,
         comment: this.reportComment,
       });
+      if (result.status === 200) {
+        this.text(this.$t('abuseReported'));
 
-      this.$root.$emit('habitica:report-profile-result', result);
+        this.$root.$emit('habitica:report-profile-result', result.data.data);
+      } else {
+        this.error(result.statusText);
+      }
 
       this.close();
     },
@@ -160,6 +182,17 @@ export default {
       this.memberId = data.memberId;
       this.reportComment = '';
       this.$root.$emit('bv::show::modal', 'report-profile');
+    },
+    async resetFlags () {
+      const result = await this.$store.dispatch('members:clearMemberFlags', {
+        memberId: this.memberId,
+      });
+      if (result.status === 200) {
+        this.text('Flags cleared.');
+      } else {
+        this.err(result.statusText);
+      }
+      this.close();
     },
   },
 };

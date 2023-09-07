@@ -819,4 +819,48 @@ api.flagUser = {
   },
 };
 
+/**
+ * @api {post} /api/v3/members/:memberId/clear-flags Delete flags from a user
+ * @apiDescription Removes any abuse reports flagged on a user profile.
+ * @apiPermission Admin
+ * @apiName ClearUserFlags
+ * @apiGroup Members
+ *
+ * @apiParam (Path) {UUID} memberId The unique ID of the flagged user to reset
+ *
+ * @apiSuccess {Object} data An empty object
+ *
+ * @apiError (400) {BadRequest} MemberIdRequired The `memberId` param is required
+ *                                               and must be a valid `UUID`.
+ * @apiError (400) {BadRequest} MustBeAdmin Must be a moderator to use this route
+ * @apiError (404) {NotFound} UserWithIdNotFound The `memberId` param did not
+ *                                               belong to an existing user.
+ */
+
+api.clearUserFlags = {
+  method: 'POST',
+  url: '/members/:memberId/clear-flags',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    const { user } = res.locals;
+    const { memberId } = req.params;
+
+    req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
+    if (!user.hasPermission('moderator')) {
+      throw new BadRequest('Only a moderator may clear reports from a profile.');
+    }
+    const flaggedUser = await User.findOne(
+      { _id: memberId },
+      { profile: 1 },
+    ).exec();
+    if (!flaggedUser) {
+      throw new NotFound(res.t('userWithIDNotFound', { userId: memberId }));
+    }
+    flaggedUser.profile.flags = {};
+    await flaggedUser.save();
+
+    res.respond(200, {});
+  },
+};
+
 export default api;
