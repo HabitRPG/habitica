@@ -14,7 +14,7 @@
         <div class="profile-actions d-flex">
         </div>
         <div class="row">
-          <div class="">
+          <div class="avatar">
             <member-details
               :member="user"
               :class-badge-position="'hidden'"
@@ -211,13 +211,13 @@
                   v-if="hasPermission(userLoggedIn, 'moderator')"
                 >
                   <!-- ADMIN TOOLS HEADER -->
-                  <b-dropdown-item
-                    class="admin-tools"
+                  <div
+                    class="admin-tools-divider"
                   >
                     <span v-once>
                       <strong>{{ $t('adminTools') }}</strong>
                     </span>
-                  </b-dropdown-item>
+                  </div>
 
                   <!-- ADMIN PANEL -->
                   <b-dropdown-item
@@ -566,6 +566,7 @@
   @import '~@/assets/scss/colors.scss';
 
   #userProfile {
+
     .dropdown-menu {
       margin-left: -48px;
       width: 210px;
@@ -602,13 +603,16 @@
       &:not(.disabled):hover svg {
         color: $purple-300;
       }
-      &.block-ban {
+      &.block-ban, {
         &:hover, .dropdown-item:hover {
           background-color: rgba($red-500, 0.25) !important;
           color: $maroon-50 !important;
           svg {
             color: $maroon-50;
           }
+        &:active, .dropdown-item:active {
+          color: $gray-50 !important;
+        }
         }
       }
     }
@@ -618,8 +622,11 @@
     .member-details {
       background-color: $white;
       margin-left: 24px;
+    //       display: flex;
+    // justify-content: center;
 
     .avatar-container {
+      padding-top: 16px;
       margin-right: -60px;
     }
 
@@ -790,6 +797,7 @@
     border-radius: 4px;
     color: $white;
     height: 40px;
+    line-height: 1.71;
     margin-top: 16px;
     padding: 8px 16px;
   }
@@ -828,7 +836,7 @@
   }
 
   .white {
-    background: #FFFFFF;
+    background: $white;
     border: 1px solid transparent;
     border-radius: 2px;
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.15), 0 1px 4px 0 rgba(26, 24, 29, 0.1);
@@ -879,8 +887,14 @@
     margin-top: 3px;
   }
 
-  .admin-tools {
+  .admin-tools-divider {
+    color: $gray-50;
+    cursor: default;
     background-color: $gray-700;
+    font-size: 0.875em;
+    line-height: 1.71;
+    padding: 4px 12px;
+    height: 32px;
   }
 
   .info {
