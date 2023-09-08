@@ -222,23 +222,19 @@
                   <!-- ADMIN PANEL -->
                   <b-dropdown-item
                     v-if="hasPermission(userLoggedIn, 'userSupport')"
-                    class="selectListItem view-admin-panel"
+                    class="selectListItem"
+                    @click="openAdminPanel()"
                   >
-                    <router-link
-                      :to="{ name: 'adminPanelUser',
-                             params: { userIdentifier: user._id } }"
-                    >
-                      <span class="with-icon">
-                        <span
-                          v-once
-                          class="svg-icon icon-16 color"
-                          v-html="icons.crown"
-                        ></span>
-                        <span v-once>
-                          {{ $t('viewAdminPanel') }}
-                        </span>
+                    <span class="with-icon">
+                      <span
+                        v-once
+                        class="svg-icon icon-16 color"
+                        v-html="icons.crown"
+                      ></span>
+                      <span v-once>
+                        {{ $t('viewAdminPanel') }}
                       </span>
-                    </router-link>
+                    </span>
                   </b-dropdown-item>
 
                   <!-- BAN USER -->
@@ -581,8 +577,11 @@
       }
     }
 
-    .dropdown-item:not(.disabled):hover svg {
-      color: $purple-300;
+    .dropdown-item:not(.disabled):hover,
+    .dropdown-item:not(.disabled):focus {
+      a, svg {
+        color: $purple-300;
+      }
     }
 
     .drawer-toggle-icon {
@@ -605,7 +604,13 @@
       }
       &.block-ban, {
         &:hover, .dropdown-item:hover {
+          color: $maroon-50 !important;
           background-color: rgba($red-500, 0.25) !important;
+          svg {
+            color: $maroon-50;
+          }
+        }
+        &:focus, .dropdown-item:focus {
           color: $maroon-50 !important;
           svg {
             color: $maroon-50;
@@ -718,16 +723,6 @@
     .admin-action {
       color: $red-500;
       cursor: pointer;
-    }
-  }
-
-  .view-admin-panel
-   a, a:not([href]):not([tabindex]) {
-    cursor: pointer;
-    color: $gray-50;
-    text-decoration: none;
-    &:hover {
-      color:$purple-300;
     }
   }
 
@@ -1423,6 +1418,10 @@ export default {
         displayName: this.user.profile.name,
         username: this.user.auth.local.username,
       });
+    },
+
+    openAdminPanel () {
+      this.$router.push(`/admin-panel/${this.hero._id}`);
     },
   },
 };
