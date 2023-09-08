@@ -133,7 +133,7 @@
                   </span>
                 </template>
 
-                <!-- SEND GEMS -->
+                <!-- SEND GIFT -->
                 <b-dropdown-item
                   class="selectListItem"
                   @click="openSendGemsModal()"
