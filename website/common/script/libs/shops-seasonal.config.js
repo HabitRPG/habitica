@@ -29,16 +29,16 @@ export default {
 
   pinnedSets: CURRENT_EVENT
     ? {
-      rogue: 'summer2023GuppyRogueSet',
-      warrior: 'summer2023GoldfishWarriorSet',
-      wizard: 'summer2023CoralMageSet',
-      healer: 'summer2023KelpHealerSet',
+      rogue: 'fall2023WitchsBrewRogueSet',
+      warrior: 'fall2023ScaryMovieWarriorSet',
+      wizard: 'fall2023ScarletWarlockMageSet',
+      healer: 'fall2023BogCreatureHealerSet',
     }
     : {},
 
-  availableSpells: CURRENT_EVENT && moment().isBetween('2023-07-11T08:00-04:00', CURRENT_EVENT.end)
+  availableSpells: CURRENT_EVENT && moment().isBetween('2023-10-12T08:00-04:00', CURRENT_EVENT.end)
     ? [
-      'seafoam',
+      'spookySparkles',
     ]
     : [],
 
@@ -46,5 +46,5 @@ export default {
     ? []
     : [],
 
-  featuredSet: 'summer2022MantaRayMageSet',
+  featuredSet: 'fall2022HarpyMageSet',
 };

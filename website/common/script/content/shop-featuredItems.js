@@ -5,7 +5,7 @@ import { EVENTS } from './constants';
 // path: 'premiumHatchingPotions.Rainbow',
 const featuredItems = {
   market () {
-    if (moment().isBetween(EVENTS.potions202308.start, EVENTS.potions202308.end)) {
+    if (moment().isBetween(EVENTS.fall2023.start, EVENTS.fall2023.end)) {
       return [
         {
           type: 'armoire',
@@ -13,15 +13,15 @@ const featuredItems = {
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Thunderstorm',
+          path: 'premiumHatchingPotions.Glow',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Porcelain',
+          path: 'premiumHatchingPotions.Spooky',
         },
         {
           type: 'hatchingPotions',
-          path: 'hatchingPotions.Zombie',
+          path: 'premiumHatchingPotions.Vampire',
         },
       ];
     }
@@ -32,7 +32,7 @@ const featuredItems = {
       },
       {
         type: 'food',
-        path: 'food.Meat',
+        path: 'food.RottenMeat',
       },
       {
         type: 'hatchingPotions',
@@ -40,24 +40,24 @@ const featuredItems = {
       },
       {
         type: 'eggs',
-        path: 'eggs.Fox',
+        path: 'eggs.Cactus',
       },
     ];
   },
   quests () {
-    if (moment().isBetween(EVENTS.bundle202308.start, EVENTS.bundle202308.end)) {
+    if (moment().isBetween(EVENTS.fall.start, EVENTS.fall2023.end)) {
       return [
         {
           type: 'bundles',
-          path: 'bundles.hugabug',
+          path: 'bundles.witchyFamiliars',
         },
         {
           type: 'quests',
-          path: 'quests.octopus',
+          path: 'quests.beetle',
         },
         {
           type: 'quests',
-          path: 'quests.rock',
+          path: 'quests.treeling',
         },
       ];
     }

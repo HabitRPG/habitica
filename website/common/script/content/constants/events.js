@@ -10,10 +10,25 @@ const gemsPromo = {
 
 export const EVENTS = {
   noEvent: {
-    start: '2023-08-01T23:59-04:00',
-    end: '2023-08-10T08:00-04:00',
+    start: '2023-11-01T23:59-04:00',
+    end: '2023-12-21T08:00-04:00',
     season: 'normal',
     npcImageSuffix: '',
+  },
+  bundle202310: {
+    start: '2023-10-12T08:00-04:00',
+    end: '2023-10-31T23:59-04:00',
+  },
+  potions202310: {
+    start: '2023-10-05T08:00-04:00',
+    end: '2023-10-31T23:59-04:00',
+  },
+  fall2023: {
+    start: '2023-09-21T08:00-04:00',
+    end: '2023-10-31T23:59-04:00',
+    npcImageSuffix: '_fall',
+    season: 'fall',
+    gear: true,
   },
   bundle202308: {
     start: '2023-08-15T08:00-04:00',
