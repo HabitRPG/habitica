@@ -49,7 +49,7 @@ const featuredItems = {
       return [
         {
           type: 'bundles',
-          path: 'bundles.witchyFamiliars',
+          path: 'bundles.sandySidekicks',
         },
         {
           type: 'quests',
@@ -57,7 +57,7 @@ const featuredItems = {
         },
         {
           type: 'quests',
-          path: 'quests.treeling',
+          path: 'quests.frog',
         },
       ];
     }

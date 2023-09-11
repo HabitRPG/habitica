@@ -313,7 +313,7 @@ spells.special = {
     target: 'user',
     notes: t('spellSpecialSpookySparklesNotes'),
     canOwn () {
-      return moment().isBetween('2021-10-12T08:00-04:00', EVENTS.fall2022.end);
+      return moment().isBetween('2023-10-12T08:00-04:00', EVENTS.fall2023.end);
     },
     cast (user, target, req) {
       if (!user.items.special.spookySparkles) throw new NotAuthorized(t('spellNotOwned')(req.language));

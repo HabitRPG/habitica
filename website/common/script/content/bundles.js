@@ -70,7 +70,7 @@ const bundles = {
     ],
     event: EVENTS.bundle202210,
     canBuy () {
-      return moment().isBetween(EVENTS.bundle202310.start, EVENTS.fall2023.end);
+      return moment().isBetween(EVENTS.bundle202210.start, EVENTS.bundle202210.end);
     },
     type: 'quests',
     value: 7,
@@ -251,14 +251,15 @@ const bundles = {
   sandySidekicks: {
     key: 'sandySidekicks',
     text: t('sandySidekicksText'),
-    notes: t('sandySidekicksNotes', { date: moment('2020-10-31').format('LL') }),
+    notes: t('sandySidekicksNotes', { date: moment('2023-10-31').format('LL') }),
     bundleKeys: [
       'armadillo',
       'snake',
       'spider',
     ],
+    event: EVENTS.bundle202310,
     canBuy () {
-      return moment().isBetween('2020-10-13', '2020-11-02');
+      return moment().isBetween(EVENTS.bundle202210.start, EVENTS.bundle202210.end);
     },
     type: 'quests',
     value: 7,

@@ -843,15 +843,15 @@ const armor = {
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'summer',
   },
   fall2023Warrior: {
-    set: 'fallScaryMovieWarriorSet',
+    set: 'fall2023ScaryMovieWarriorSet',
   },
   fall2023Healer: {
-    set: 'fallBogCreatureHealerSet',
+    set: 'fall2023BogCreatureHealerSet',
   },
   fall2023Mage: {
-    set: 'fallScarletWarlockMageSet',
+    set: 'fall2023ScarletWarlockMageSet',
   },
-  fall2024Rogue: {
+  fall2023Rogue: {
     set: 'fall2023WitchsBrewRogueSet',
   },
 };
