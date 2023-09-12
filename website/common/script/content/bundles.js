@@ -18,9 +18,9 @@ const bundles = {
       'harpy',
       'owl',
     ],
-    event: EVENTS.potions202105,
+    event: EVENTS.bundle202309,
     canBuy () {
-      return moment().isBefore(EVENTS.potions202105.end);
+      return moment().isBetween(EVENTS.bundle202309.start, EVENTS.bundle202309.end);
     },
     type: 'quests',
     class: 'quest_bundle_featheredFriends',
