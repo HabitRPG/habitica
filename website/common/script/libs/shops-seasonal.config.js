@@ -36,7 +36,7 @@ export default {
     }
     : {},
 
-  availableSpells: CURRENT_EVENT && moment().isBetween('2023-10-12T08:00-04:00', CURRENT_EVENT.end)
+  availableSpells: CURRENT_EVENT && moment().isBetween('2023-10-03T08:00-04:00', CURRENT_EVENT.end)
     ? [
       'spookySparkles',
     ]

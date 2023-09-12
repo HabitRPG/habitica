@@ -259,7 +259,7 @@ const bundles = {
     ],
     event: EVENTS.bundle202310,
     canBuy () {
-      return moment().isBetween(EVENTS.bundle202210.start, EVENTS.bundle202210.end);
+      return moment().isBetween(EVENTS.bundle202310.start, EVENTS.bundle202310.end);
     },
     type: 'quests',
     value: 7,

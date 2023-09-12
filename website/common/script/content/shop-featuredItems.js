@@ -20,7 +20,7 @@ const featuredItems = {
           path: 'premiumHatchingPotions.Spooky',
         },
         {
-          type: 'hatchingPotions',
+          type: 'premiumHatchingPotion',
           path: 'premiumHatchingPotions.Vampire',
         },
       ];
@@ -45,7 +45,7 @@ const featuredItems = {
     ];
   },
   quests () {
-    if (moment().isBetween(EVENTS.fall.start, EVENTS.fall2023.end)) {
+    if (moment().isBetween(EVENTS.fall2023.start, EVENTS.fall2023.end)) {
       return [
         {
           type: 'bundles',
@@ -93,7 +93,7 @@ const featuredItems = {
       },
     ];
   },
-  seasonal: 'summer2022MantaRayMageSet',
+  seasonal: 'fall2017TrickOrTreatSet',
   timeTravelers: [
     // TODO
   ],
