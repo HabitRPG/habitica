@@ -319,10 +319,18 @@ router.beforeEach(async (to, from, next) => {
     });
   }
 
-  if ((to.name === 'userProfile' || to.name === 'userProfilePage') && from.name !== null) {
+  if ((to.name === 'userProfile' || to.name === 'userProfilePage')) {
     let startingPage = 'profile';
     if (to.params.startingPage !== undefined) {
       startingPage = to.params.startingPage;
+    }
+    if (from.name === null) {
+      setTimeout(() => router.app.$emit('habitica:show-profile', {
+        userId: to.params.userId,
+        startingPage,
+        path: to.path,
+      }), 500);
+      return next({ name: 'tasks' });
     }
     router.app.$emit('habitica:show-profile', {
       userId: to.params.userId,
