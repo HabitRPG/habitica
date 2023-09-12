@@ -707,6 +707,10 @@
   "weaponArmoireFinelyCutGemNotes": "What a find! This stunning, precision-cut gem will be the prize of your collection. And it might contain some special magic, just waiting for you to tap into it. Increases Constitution by <%= con %>. Enchanted Armoire: Jeweler Set (Item 4 of 4).",
   "weaponArmoirePaintbrushText": "Paintbrush",
   "weaponArmoirePaintbrushNotes": "A jolt of pure inspiration rushes through you when you pick up this brush, allowing you to paint anything you can imagine. Increases Intelligence by <%= int %>. Enchanted Armoire: Painter Set (Item 3 of 4).",
+  "weaponArmoireMopText": "Mop",
+  "weaponArmoireMopNotes": "Step 1: Dunk the mop in a bucket of water and suds. Step 2: Drag the mop along the floor. Step 3: Pretend the end of the mop handle is a microphone and sing your heart out. Step 4: Repeat Steps 1-3 until floor is clean. Increases Constitution and Perception by <%= attrs %> each. Enchanted Armoire: Cleaning Supplies Set Two (Item 2 of 3)",
+  "weaponArmoireCleaningClothText": "Cleaning Cloth",
+  "weaponArmoireCleaningClothNotes": "Take this tidying tool on your adventures and always be able to polish a pretty plaque or wipe a wooden windowsill. Increases Strength and Constitution by <%= attrs %> each. Enchanted Armoire: Cleaning Supplies Set Two (Item 3 of 3)",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -2707,6 +2711,8 @@
   "shieldArmoireBasketballNotes": "Swish! Whenever you shoot this magic basketball, there will be nothing but net. Increases Constitution and Strength by <%= attrs %> each. Enchanted Armoire: Old Timey Basketball Set (Item 2 of 2).",
   "shieldArmoirePaintersPaletteText": "Painter's Palette",
   "shieldArmoirePaintersPaletteNotes": "Paints in all colors of the rainbow are at your disposal. Is it magic that makes them so vivid when you use them, or is it your talent? Increases Strength by <%= str %>. Enchanted Armoire: Painter Set (Item 4 of 4).",
+  "shieldArmoireBucketText": "Bucket",
+  "shieldArmoireBucketNotes": "Though this bucket is helpful in holding a mixture of water and cleaning solution, you could also use it to collect, carry, and cart around just about anything that fits inside! Increases Strength and Intelligence by <%= attrs %> each. Enchanted Armoire: Cleaning Supplies Set 2 (Item 1 of 3)",
 
   "back": "Back Accessory",
   "backBase0Text": "No Back Accessory",
@@ -2779,6 +2785,8 @@
   "backMystery202302Notes": "Anytime you wear this tail it's sure to be a frabjous day! Callooh! Callay! Confers no benefit. February 2023 Subscriber Item.",
   "backMystery202305Text": "Eventide Wings",
   "backMystery202305Notes": "Catch the sparkle of the evening star and soar to strange realms on these wings. Confers no benefit. May 2023 Subscriber Item.",
+  "backMystery202309Text": "Colossal Comet Moth Wings",
+  "backMystery202309Notes": "Flutter across forests, glide over mountains, and soar over oceans on these bright and beautiful wings. Confers no benefit. September 2023 Subscriber Item.",
 
   "backSpecialWonderconRedText": "Mighty Cape",
   "backSpecialWonderconRedNotes": "Swishes with strength and beauty. Confers no benefit. Special Edition Convention Item.",
@@ -3016,6 +3024,8 @@
   "headAccessoryMystery202305Notes": "These horns glow with reflected moonlight. Confers no benefit. May 2023 Subscriber Item.",
   "headAccessoryMystery202307Text": "Kraken's Crown",
   "headAccessoryMystery202307Notes": "This mighty circlet summons cyclones and stormy weather! Confers no benefit. July 2023 Subscriber Item.",
+  "headAccessoryMystery202309Text": "Colossal Comet Moth Antennae",
+  "headAccessoryMystery202309Notes": "These antennae are fashionable and feathery, but also help you navigate! Confers no benefit. September 2023 Subscriber Item.",
 
   "headAccessoryMystery301405Text": "Headwear Goggles",
   "headAccessoryMystery301405Notes": "\"Goggles are for your eyes,\" they said. \"Nobody wants goggles that you can only wear on your head,\" they said. Hah! You sure showed them! Confers no benefit. August 3015 Subscriber Item.",
