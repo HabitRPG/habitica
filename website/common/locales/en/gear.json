@@ -489,7 +489,7 @@
   "weaponSpecialFall2023RogueText": "Rogue Hat",
   "weaponSpecialFall2023RogueNotes": "Increases Strength by <%= str %>. Limited Edition 2023 Fall Gear.",
   "weaponSpecialFall2023WarriorText": "Warrior Hat",
-  "weaponSpecialFall2023WarriorNotes:": "Increases Strength by <%= str %>. Limited Edition 2023 Fall Gear.",
+  "weaponSpecialFall2023WarriorNotes": "Increases Strength by <%= str %>. Limited Edition 2023 Fall Gear.",
   "weaponSpecialFall2023MageText": "Shining Staff",
   "weaponSpecialFall2023MageNotes": "With a crystal at its core, this shining staff makes magic emerge from the mundane. Increases Intelligence by <%= int %>. Limited Edition 2023 Fall Gear.",
   "weaponSpecialFall2023HealerText": "Log Great Hammer",
