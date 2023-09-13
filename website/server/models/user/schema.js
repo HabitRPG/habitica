@@ -585,8 +585,8 @@ export default new Schema({
       majorUpdates: { $type: Boolean, default: true },
       mentionParty: { $type: Boolean, default: true },
       mentionJoinedGuild: { $type: Boolean, default: true },
-      mentionUnjoinedGuild: { $type: Boolean, default: true },
       partyActivity: { $type: Boolean, default: true },
+      eventAndContentUpdates: { $type: Boolean, default: true },
     },
     suppressModals: {
       levelUp: { $type: Boolean, default: false },
