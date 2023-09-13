@@ -31,44 +31,6 @@
           primary-button-label="submit"
           @saveClicked="enterCoupon()"
         />
-        <div v-if="canCreateCoupons">
-          <hr>
-          <h4>{{ $t('generateCodes') }}</h4>
-          <div
-            class="form"
-            role="form"
-          >
-            <div class="form-group">
-              <input
-                v-model="codes.event"
-                class="form-control w-100"
-                type="text"
-                placeholder="Event code (eg, 'wondercon')"
-              >
-            </div>
-            <div class="form-group">
-              <input
-                v-model="codes.count"
-                class="form-control w-100"
-                type="number"
-                placeholder="Number of codes to generate (eg, 250)"
-              >
-            </div>
-            <div class="form-group">
-              <button
-                class="btn btn-primary"
-                type="submit"
-                @click="generateCodes(codes)"
-              >
-                {{ $t('generate') }}
-              </button>
-              <a
-                class="btn btn-secondary"
-                :href="getCodesUrl"
-              >{{ $t('getCodes') }}</a>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -94,13 +56,6 @@ export default {
   },
   computed: {
     ...mapState({ user: 'user.data', credentials: 'credentials' }),
-    canCreateCoupons () {
-      return this.user.permissions.coupons;
-    },
-    getCodesUrl () {
-      if (!this.user) return '';
-      return '/api/v4/coupons';
-    },
   },
   mounted () {
     this.$store.dispatch('common:setTitle', {
@@ -109,16 +64,6 @@ export default {
     });
   },
   methods: {
-    generateCodes () {
-      // $http.post(ApiUrl.get() + '/api/v2/coupons/generate/
-      // '+codes.event+'?count='+(codes.count || 1))
-      //   .success(function(res,code){
-      //     $scope._codes = {};
-      //     if (code!==200) return;
-      //     window.location.href = '/api/v2/coupons?limit='+codes.count+'&_id='+User.user._id+
-      // '&apiToken='+User.settings.auth.apiToken;
-      //   })
-    },
     async enterCoupon () {
       const code = await axios.post(`/api/v4/coupons/enter/${this.couponCode}`);
       if (!code) return;
