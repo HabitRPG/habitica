@@ -118,7 +118,7 @@
     "achievementDomesticated": "Hia-hia-ho",
     "achievementDomesticatedText": "Heeft alle basiskleuren van de gedomesticeerde huisdieren uit laten komen: fret, cavia, haan, vliegend varken, rat, konijn, paard en koe!",
     "achievementDomesticatedModalText": "Je hebt alle gedomesticeerde huisdieren verzameld!",
-    "achievementShadyCustomer": "Zijn ze schaduwlijk?",
+    "achievementShadyCustomer": "Schaduwrijke Bezoeker",
     "achievementShadyCustomerText": "Heeft alle schaduwhuisdieren verzameld.",
     "achievementShadyCustomerModalText": "Je hebt alle schaduwhuisdieren verzameld!",
     "achievementShadeOfItAll": "Uit de schaduw getreden",
@@ -146,5 +146,9 @@
     "achievementPolarPro": "Polaire Prof",
     "achievementPlantParentModalText": "Je hebt alle Plant Huisdieren verzamelt!",
     "achievementDinosaurDynasty": "Dinosaurus Dinastie",
-    "achievementPlantParentText": "Heeft alle standaard kleuren van de Plant huisdieren uitgebroed: Cactus en Boomling!"
+    "achievementPlantParentText": "Heeft alle standaard kleuren van de Plant huisdieren uitgebroed: Cactus en Boomling!",
+    "achievementPlantParent": "Plantenouder",
+    "achievementBoneToPick": "Bot te Pakken",
+    "achievementDinosaurDynastyText": "Heeft alle standaard kleuren uitgebroed van de vogel en dinosaurus huisdieren: Valk, Uil, Papegaai, Pauw, Pinguin, Haan, Pterodactyl, T-Rex, Triceratops en Velociraptor!",
+    "achievementDinosaurDynastyModalText": "Je hebt alle vogel en dinosaurus huisdieren gevonden!"
 }

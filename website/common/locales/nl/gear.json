@@ -2509,5 +2509,15 @@
     "armorSpecialFall2021HealerNotes": "Gemaakt van duurzame, vlammenresistente stof, zijn deze klederen perfect om te dragen bij het oproepen van helende vlammen. Verhoogt de Weerstand met <%= con%>. Beperkte Editie 2021 Herfstuitrusting .",
     "headSpecialFall2021RogueText": "Je bent verzwolgen",
     "headArmoireHeraldsCapText": "Herautenhoed",
-    "shieldArmoireHeraldsMessageScrollText": "Berichtenrol voor Herauten"
+    "shieldArmoireHeraldsMessageScrollText": "Berichtenrol voor Herauten",
+    "weaponSpecialSummer2023RogueText": "Guppen Vin",
+    "weaponSpecialSummer2023RogueNotes": "Geen gup, deze dingen zijn moeilijk te leren. Maar indrukwekkend als je het doet Verhoogt Kracht met <%= str %>.Beperkte Oplage 2023 Zomeruitrusting.",
+    "weaponSpecialSummer2023WarriorText": "Water Elementair Zwaard",
+    "weaponSpecialSummer2023WarriorNotes": "Roep krachtige waterstralen op om je pad vrij te maken van obstakels. Verhoogt Kracht met <%= str %>. Beperkte Oplage 2023 Zomeruitrusting.",
+    "weaponSpecialSummer2023MageText": "Vis",
+    "weaponSpecialSummer2023MageNotes": "Deze vriendelijke vissen blijven bij jouw zijde als de beste verantwoordingsmaatjes in de oceaan. Verhoogt Intelligentie met <%= int %>. Beperkte Oplage 2023 Zomeruitrusting.",
+    "weaponArmoireHuntingHornText": "Jachthoorn",
+    "weaponMystery202306Text": "Regenboog Paraplu",
+    "weaponSpecialSummer2023HealerText": "Wuifende Kelp",
+    "weaponArmoireBlueKiteText": "Blauwe Vlieger"
 }

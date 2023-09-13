@@ -6,27 +6,27 @@ import {
 
 describe('POST /chat/:chatId/like', () => {
   let user;
-  let groupWithChat;
-  const testMessage = 'Test Message';
   let anotherUser;
+  let groupWithChat;
+  let members;
+  const testMessage = 'Test Message';
 
   before(async () => {
-    const { group, groupLeader, members } = await createAndPopulateGroup({
+    ({ group: groupWithChat, groupLeader: user, members } = await createAndPopulateGroup({
       groupDetails: {
         name: 'Test Guild',
         type: 'guild',
-        privacy: 'public',
+        privacy: 'private',
       },
       members: 1,
       leaderDetails: {
         'auth.timestamps.created': new Date('2022-01-01'),
         balance: 10,
       },
-    });
+      upgradeToGroupPlan: true,
+    }));
 
-    user = groupLeader;
-    groupWithChat = group;
-    anotherUser = members[0]; // eslint-disable-line prefer-destructuring
+    [anotherUser] = members;
     await anotherUser.update({ 'auth.timestamps.created': new Date('2022-01-01') });
   });
 

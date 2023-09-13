@@ -168,7 +168,7 @@
     "backgrounds052016": "KOMPLET 24: Izdan u svibnju 2016.",
     "backgroundBeehiveText": "Košnica",
     "backgroundBeehiveNotes": "Zuji i pleši u Košnici.",
-    "backgroundGazeboText": "Gazebo",
+    "backgroundGazeboText": "Sjenica",
     "backgroundGazeboNotes": "Bori se protiv Gazeba.",
     "backgroundTreeRootsText": "Korijenje drveća",
     "backgroundTreeRootsNotes": "Istraži korijenje drveća.",
@@ -683,7 +683,7 @@
     "backgroundByACampfireNotes": "Uživaj u sjaju uz logorsku vatru.",
     "backgroundMeteorShowerNotes": "Promatrajte blistav noćni prikaz kiše meteora.",
     "backgroundPalmTreeWithFairyLightsText": "Palma s bajkovitim svjetlima",
-    "backgroundOnACastleWallNotes": "Pogledvajte sa zida dvorca.",
+    "backgroundOnACastleWallNotes": "Pogledajte sa zida dvorca.",
     "backgroundSailboatAtSunsetNotes": "Uživajte u ljepoti jedrilice u zalasku sunca.",
     "backgrounds082022": "SET 99: Objavljen u Kolovozu 2022",
     "backgrounds112022": "SET 102: Objavljeno u Studenom 2022",
@@ -790,5 +790,12 @@
     "backgroundInsideAdventurersHideoutNotes": "Isplaniraj putovanje u skrovištu pustolova.",
     "backgroundCraterLakeText": "Jezero kratera",
     "backgroundCraterLakeNotes": "Divi se dražesnom jezeru kratera.",
-    "backgroundSpringtimeShowerNotes": "Pogledaj proljetni tuš."
+    "backgroundSpringtimeShowerNotes": "Pogledaj proljetni tuš.",
+    "backgroundOnAPaddlewheelBoatText": "Na trajektu",
+    "backgroundOnAPaddlewheelBoatNotes": "Vozite se na trajektu.",
+    "backgroundColorfulCoralText": "Raznobojni koralj",
+    "backgroundColorfulCoralNotes": "Zaronite među raznobojne koralje.",
+    "backgroundBoardwalkIntoSunsetText": "Prošetajte molom u zalazak sunca",
+    "backgrounds072023": "SET 110: Objavljen u srpnju 2023",
+    "backgroundBoardwalkIntoSunsetNotes": "Prošećite molom u zalazak sunca."
 }

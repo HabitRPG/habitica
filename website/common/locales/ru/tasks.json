@@ -140,5 +140,7 @@
     "adjustCounter": "Настроить счётчик",
     "resetCounter": "Сбросить счётчик",
     "editTagsText": "Изменить теги",
-    "taskSummary": "Резюме"
+    "taskSummary": "Резюме",
+    "scoreDown": "Понизить баллы",
+    "scoreUp": "Повысить баллы"
 }

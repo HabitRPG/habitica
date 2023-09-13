@@ -98,7 +98,7 @@
     "toDo": "待办事项",
     "tourStatsPage": "这是你的属性点界面！完成列表任务来获得成就。",
     "tourTavernPage": "欢迎来到酒馆，一个全年龄段聊天室！如果你生病了或外出旅行，通过点击“进入酒馆”可以暂时免受每日任务的伤害。来问声好吧！",
-    "tourPartyPage": "你的队伍会使你保持责任心。邀请朋友来解锁副本卷轴！",
+    "tourPartyPage": "欢迎来到新队伍！输入好友的用户名或电子邮件，或者从正寻找队伍的玩家列表中选择玩家，即可邀请玩家加入队伍，还可额外获得一个普通的清单魔蛇副本卷轴。<br/><br/>点击顶部“帮助”下拉栏中的<a href='/static/faq#parties'>FAQ</a>一项，了解关于队伍的更多信息。",
     "tourGuildsPage": "公会是勇士们创造来讨论共同兴趣的聊天组。浏览公会目录并选择你感兴趣的加入吧~！务必查看受欢迎的The Newbies公会，在那里所有人都可以询问关于Habitica的一切！",
     "tourChallengesPage": "挑战是一些玩家创建的“任务列表”，接受挑战就意味着把这些任务列表复制到你自己的清单上。和其他用户竞争比赛，赢得挑战就可以获得宝石！",
     "tourMarketPage": "当你完成任务后，会随机掉落蛋、孵化药水或宠物食物。你也可以在市场购买这些物品。",
@@ -133,5 +133,6 @@
     "amountExp": "<%= amount %>经验值",
     "helpSupportHabitica": "支持Habitica",
     "groupsPaymentSubBilling": "您的下一个续签日期是<strong><%= renewalDate %></strong>。",
-    "groupsPaymentAutoRenew": "该订阅将自动续订，直到您取消。如有需要，您可以在团队计费选项卡中取消它。"
+    "groupsPaymentAutoRenew": "该订阅将自动续订，直到您取消。如有需要，您可以在团队计费选项卡中取消它。",
+    "sellItems": "出售物品"
 }

@@ -33,7 +33,7 @@
     "messageInsufficientGems": "宝石不足！",
     "messageGroupAlreadyInParty": "你已加入了一个队伍，请刷新页面。",
     "messageGroupOnlyLeaderCanUpdate": "只有小组长才可以更新小组信息！",
-    "messageGroupRequiresInvite": "你无法加入没有邀请你的小组。",
+    "messageGroupRequiresInvite": "无法加入未受邀请的小组。",
     "messageGroupCannotRemoveSelf": "你不能将自己移除！",
     "messageGroupChatBlankMessage": "你不能发送空白消息",
     "messageGroupChatLikeOwnMessage": "不能赞自己的消息，不要做这种人。",

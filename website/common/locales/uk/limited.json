@@ -15,7 +15,7 @@
     "valentine2": "\"Як умру, то прочитайте\n\nЦей вірш дуже милий\n\nТільки ж коштував мені він\n\nЦілих десять гривень.\"",
     "valentine3": "Я не вмру, бо пам'ятаю\n\nПостать милу твою\n\nНайцінніший скарб для мене\n\nМиті із тобою",
     "valentineCardAchievementTitle": "Любі друзі",
-    "valentineCardAchievementText": "Ой, Ви і Ваш друг, мабуть, справді дбаєте один про одного! Надіслано або отримано <%= count %> листівки до Дня Святого Валентина.",
+    "valentineCardAchievementText": "Ой, ви та ваш (по)друг(а), мабуть, справді дбаєте один про одного! Надіслано або отримано <%= count %> листівки до Дня Святого Валентина.",
     "polarBear": "Білий ведмідь",
     "turkey": "Індичка",
     "gildedTurkey": "Позолочений індик",
@@ -123,7 +123,7 @@
     "summer2018MerfolkMonarchSet": "Підводний монарх (цілитель)",
     "summer2018FisherRogueSet": "Рибак (розбійник)",
     "fall2018MinotaurWarriorSet": "Мінотавр (воїн)",
-    "fall2018CandymancerMageSet": "Цукерівник (маг)",
+    "fall2018CandymancerMageSet": "Цукеркомант (маг)",
     "fall2018CarnivorousPlantSet": "Хижа рослина (цілитель)",
     "fall2018AlterEgoSet": "Альтер его (розбійник)",
     "winter2019BlizzardSet": "Завірюха (воїн)",
@@ -269,5 +269,9 @@
     "spring2023CaterpillarRogueSet": "Гусениця (розбійник)",
     "spring2023HummingbirdWarriorSet": "Колібрі (воїн)",
     "spring2023MoonstoneMageSet": "Місячний камінь (маг)",
-    "spring2023LilyHealerSet": "Лілія (цілитель)"
+    "spring2023LilyHealerSet": "Лілія (цілитель)",
+    "summer2023GoldfishWarriorSet": "Золота рибка (воїн)",
+    "summer2023KelpHealerSet": "Ламінарія (цілитель)",
+    "summer2023GuppyRogueSet": "Гупі (розбійник)",
+    "summer2023CoralMageSet": "Корал (маг)"
 }

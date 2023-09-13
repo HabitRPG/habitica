@@ -418,6 +418,9 @@ export default {
   methods: {
     async shown () {
       this.groups = await this.$store.dispatch('guilds:getMyGuilds');
+      this.groups = this.groups.filter(group => !(
+        group.leaderOnly.challenges && group.leader !== this.user._id
+      ));
 
       if (this.user.party && this.user.party._id) {
         await this.$store.dispatch('party:getParty');

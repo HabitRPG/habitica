@@ -23,10 +23,11 @@ describe('PUT /group', () => {
       groupDetails: {
         name: groupName,
         type: groupType,
-        privacy: 'public',
+        privacy: 'private',
         categories: groupCategories,
       },
       members: 1,
+      upgradeToGroupPlan: true,
     });
     adminUser = await generateUser({ 'permissions.moderator': true });
     groupToUpdate = group;
@@ -106,14 +107,28 @@ describe('PUT /group', () => {
     expect(updatedGroup.name).to.equal(groupUpdatedName);
   });
 
-  it('allows a leader to change leaders', async () => {
-    const updatedGroup = await leader.put(`/groups/${groupToUpdate._id}`, {
+  it('does not allow a leader to change leader of active group plan', async () => {
+    await expect(leader.put(`/groups/${groupToUpdate._id}`, {
       name: groupUpdatedName,
       leader: nonLeader._id,
+    })).to.eventually.be.rejected.and.eql({
+      code: 401,
+      error: 'NotAuthorized',
+      message: t('cannotChangeLeaderWithActiveGroupPlan'),
+    });
+  });
+
+  it('allows a leader of a party to change leaders', async () => {
+    const { group: party, groupLeader: partyLeader, members } = await createAndPopulateGroup({
+      members: 1,
+    });
+    const updatedGroup = await partyLeader.put(`/groups/${party._id}`, {
+      name: groupUpdatedName,
+      leader: members[0]._id,
     });
 
-    expect(updatedGroup.leader._id).to.eql(nonLeader._id);
-    expect(updatedGroup.leader.profile.name).to.eql(nonLeader.profile.name);
+    expect(updatedGroup.leader._id).to.eql(members[0]._id);
+    expect(updatedGroup.leader.profile.name).to.eql(members[0].profile.name);
     expect(updatedGroup.name).to.equal(groupUpdatedName);
   });
 
@@ -122,15 +137,16 @@ describe('PUT /group', () => {
       groupDetails: {
         name: 'public guild',
         type: 'guild',
-        privacy: 'public',
+        privacy: 'private',
       },
+      upgradeToGroupPlan: true,
     });
 
     const updateGroupDetails = {
       id: group._id,
       name: 'public guild',
       type: 'guild',
-      privacy: 'public',
+      privacy: 'private',
       bannedWordsAllowed: true,
     };
 
@@ -150,9 +166,11 @@ describe('PUT /group', () => {
       groupDetails: {
         name: 'public guild',
         type: 'guild',
-        privacy: 'public',
+        privacy: 'private',
       },
+      upgradeToGroupPlan: true,
     });
+    await groupLeader.update({ permissions: {} });
 
     const updateGroupDetails = {
       id: group._id,

@@ -714,31 +714,6 @@ describe('POST /user/auth/local/register', () => {
 
       expect(user.invitations.party).to.eql({});
     });
-
-    it('adds a user to a guild on an invite of type other than party', async () => {
-      const { group, groupLeader } = await createAndPopulateGroup({
-        groupDetails: { type: 'guild', privacy: 'private' },
-      });
-
-      const invite = encrypt(JSON.stringify({
-        id: group._id,
-        inviter: groupLeader._id,
-        sentAt: Date.now(),
-      }));
-
-      const user = await api.post(`/user/auth/local/register?groupInvite=${invite}`, {
-        username,
-        email,
-        password,
-        confirmPassword: password,
-      });
-
-      expect(user.invitations.guilds[0]).to.eql({
-        id: group._id,
-        name: group.name,
-        inviter: groupLeader._id,
-      });
-    });
   });
 
   context('successful login via api', () => {

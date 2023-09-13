@@ -39,9 +39,9 @@
     "messageGroupChatLikeOwnMessage": "Non pode gustarche a túa mensaxe. Non sexas así.",
     "messageGroupChatFlagAlreadyReported": "Xa informaches desta mensaxe",
     "messageGroupChatNotFound": "Non se atopou a mensaxe!",
-    "messageGroupChatAdminClearFlagCount": "Só unha persoa administradora pode borrar o contador de marcas!",
+    "messageGroupChatAdminClearFlagCount": "Só unha persoa administradora pode baleirar o contador de marcas!",
     "messageCannotFlagSystemMessages": "Non podes marcar unha mensaxe do sistema. Se tes que informar dun incumprimento das directrices da comunidade relacionada con esta mensaxe, envía por correo electrónico unha captura de pantalla e unha explicación ao noso equipo de xestión da comunidade en <%= communityManagerEmail %>.",
-    "messageGroupChatSpam": "Vaia, parece que estás publicando demasiadas mensaxes! Agarda un minuto e inténtao de novo. A conversa da taberna só garda 200 mensaxes de cada vez, así que Habitica promove publicar mensaxes máis longas e mellor pensadas, e respostas condensadas. Estamos desexando saber o que tes que dicir. :)",
+    "messageGroupChatSpam": "Vaia, parece que estás publicando demasiadas mensaxes! Agarda un minuto e inténtao de novo. A charla da taberna só garda 200 mensaxes de cada vez, así que Habitica promove publicar mensaxes máis longas e mellor pensadas, e respostas condensadas. Estamos desexando saber o que tes que dicir. :)",
     "messageCannotLeaveWhileQuesting": "Non podes aceptar esta invitación a un equipo mentres estás nunha misión. Se queres unirte a este equipo, primeiro debes interromper a misión, o cal podes facer desde a pantalla de equipo. Recuperarás o pergameo de misión.",
     "messageUserOperationProtected": "a ruta «<%= operation %>» non se gardou porque está protexida.",
     "messageNotificationNotFound": "Non se atopou a notificación.",
@@ -59,5 +59,6 @@
     "canDeleteNow": "Agora podes eliminar a mensaxe se queres.",
     "messagePetMountUnEquipped": "Desequipáronse a mascota e a montura.",
     "messageBattleGearUnEquipped": "Desequipouse o equipamento de batalla.",
-    "messageCostumeUnEquipped": "Desequipouse a disfrace."
+    "messageCostumeUnEquipped": "Desequipouse a disfrace.",
+    "featureRetired": "Esta funcionalidade xa non está dispoñíbel."
 }

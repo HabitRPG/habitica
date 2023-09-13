@@ -59,5 +59,6 @@
     "messageBackgroundUnEquipped": "Arrière-plan retiré.",
     "messagePetMountUnEquipped": "Familier et monture retirés.",
     "messageCostumeUnEquipped": "Costume retiré.",
-    "messageBattleGearUnEquipped": "Équipement de combat retiré."
+    "messageBattleGearUnEquipped": "Équipement de combat retiré.",
+    "featureRetired": "Cette"
 }

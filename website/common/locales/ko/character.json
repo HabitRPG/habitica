@@ -186,5 +186,7 @@
     "chatCastSpellParty": "<%= username %> 이 파티를 위해 <%= spell %> 를 시전했습니다.",
     "purchaseForGold": "<%= cost %> 골드로 구매합니까?",
     "purchasePetItemConfirm": "이 구매는 당신이 모든 반려동물을 부화시키기 위한 아이템들의 수를 능가할 것입니다. <%= itemText %> 정말 괜찮겠습니까?",
-    "notEnoughGold": "골드가 부족합니다."
+    "notEnoughGold": "골드가 부족합니다.",
+    "chatCastSpellPartyTimes": "<%=username %>가 이 파티를 위해 <%=spell %>을 <%=times %>번 시전했습니다.",
+    "chatCastSpellUserTimes": "<%= username %>가 <%= target %>에게 <%= spell %>을 <%= times %> 번 시전했습니다."
 }

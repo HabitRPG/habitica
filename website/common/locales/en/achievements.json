@@ -150,5 +150,8 @@
   "achievementPlantParentModalText": "You collected all the Plant Pets!",
   "achievementDinosaurDynasty": "Dinosaur Dynasty",
   "achievementDinosaurDynastyText": "Has hatched all standard colors of bird and dinosaur pets: Falcon, Owl, Parrot, Peacock, Penguin, Rooster, Pterodactyl, T-Rex, Triceratops, and Velociraptor!",
-  "achievementDinosaurDynastyModalText": "You collected all the bird and dinosaur pets!"
+  "achievementDinosaurDynastyModalText": "You collected all the bird and dinosaur pets!",
+  "achievementBonelessBoss": "Boneless Boss",
+  "achievementBonelessBossText": "Has hatched all standard colors of invertebrate pets: Beetle, Butterfly, Cuttlefish, Nudibranch, Octopus, Snail, and Spider!",
+  "achievementBonelessBossModalText": "You collected all the invertebrate pets!"
 }
