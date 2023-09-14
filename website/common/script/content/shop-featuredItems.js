@@ -45,7 +45,7 @@ const featuredItems = {
     ];
   },
   quests () {
-    if (moment().isBetween(EVENTS.fall2023.start, EVENTS.fall2023.end)) {
+    if (moment().isBetween(EVENTS.bundle202310.start, EVENTS.bundle202310.end)) {
       return [
         {
           type: 'bundles',
@@ -58,22 +58,6 @@ const featuredItems = {
         {
           type: 'quests',
           path: 'quests.frog',
-        },
-      ];
-    }
-    if (moment().isBetween('2023-03-28T08:00-05:00', EVENTS.spring2023.end)) {
-      return [
-        {
-          type: 'quests',
-          path: 'quests.egg',
-        },
-        {
-          type: 'quests',
-          path: 'quests.yarn',
-        },
-        {
-          type: 'quests',
-          path: 'quests.ghost_stag',
         },
       ];
     }

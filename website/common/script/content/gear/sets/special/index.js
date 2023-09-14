@@ -2905,6 +2905,8 @@ const shield = {
   },
   fall2023Rogue: {
     set: 'fall2023WitchsBrewRogueSet',
+    text: t('shieldSpecialFall2023RogueText'),
+    notes: t('shieldSpecialFall2023RogueNotes', { str: 8 }),
   },
   fall2023Warrior: {
     set: 'fall2023ScaryMovieWarriorSet',
