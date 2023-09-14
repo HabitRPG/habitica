@@ -273,6 +273,7 @@ import _sortBy from 'lodash/sortBy';
 import _throttle from 'lodash/throttle';
 import _groupBy from 'lodash/groupBy';
 import _map from 'lodash/map';
+import _find from 'lodash/find';
 import { mapState } from '@/libs/store';
 
 import ShopItem from '../shopItem';
@@ -330,6 +331,8 @@ export default {
       hidePinned: false,
 
       backgroundUpdate: new Date(),
+
+      currentEvent: null,
     };
   },
   computed: {
@@ -339,7 +342,7 @@ export default {
       user: 'user.data',
       userStats: 'user.data.stats',
       userItems: 'user.data.items',
-      currentEvent: 'worldState.data.currentEvent',
+      currentEventList: 'worldState.data.currentEventList',
     }),
 
     closed () {
@@ -422,6 +425,7 @@ export default {
         this.$root.$emit('buyModal::hidden', this.selectedItemToBuy.key);
       }
     });
+    this.currentEvent = _find(this.currentEventList, event => Boolean(['winter', 'spring', 'summer', 'fall'].includes(event.season)));
   },
   beforeDestroy () {
     this.$root.$off('buyModal::boughtItem');

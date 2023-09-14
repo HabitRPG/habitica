@@ -171,7 +171,12 @@
           </small>
           <h4 class="mt-3 mx-auto"> {{ $t('limitations') }}</h4>
           <small class="text-center">
-            {{ $t('gemSaleLimitations', { eventStartMonth, eventStartOrdinal, eventEndOrdinal }) }}
+            {{ $t('gemSaleLimitations', {
+              eventStartMonth,
+              eventStartOrdinal,
+              eventEndMonth,
+              eventEndOrdinal,
+            }) }}
           </small>
         </div>
       </div>
@@ -440,6 +445,9 @@ export default {
     },
     eventStartOrdinal () {
       return moment(this.currentEvent.start).format('Do');
+    },
+    eventEndMonth () {
+      return moment(this.currentEvent.end).format('MMMM');
     },
     eventEndOrdinal () {
       return moment(this.currentEvent.end).format('Do');
