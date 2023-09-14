@@ -55,5 +55,13 @@
     "iosFaqStillNeedHelp": "[Wiki FAQ](http://habitica.wikia.com/wiki/FAQ)에 없는 질문을 하고 싶으시다면, 메뉴 > 선술집에 오셔서 선술집 채팅에서 물어보세요! 도움을 드릴게요.",
     "androidFaqStillNeedHelp": "이 목록이나 [위키 FAQ](http://habitica.wikia.com/wiki/FAQ)에 없는 질문을 하고 싶다면, 메뉴 > 주막에 와서 물어보세요! 기꺼이 도와드립니다.",
     "webFaqStillNeedHelp": "If you have a question that isn't on this list or on the [Wiki FAQ](http://habitica.wikia.com/wiki/FAQ), come ask in the [Habitica Help guild](https://habitica.com/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a)! We're happy to help.",
-    "faqQuestion13": "그룹 플랜(Group Plan)이 무엇입니까?"
+    "faqQuestion13": "그룹 플랜(Group Plan)이 무엇입니까?",
+    "general": "일반",
+    "faqQuestion14": "파티에 참여하고 있지 않을 때 어떻게 파티를 찾을 수 있나요?",
+    "faqQuestion15": "파티 검색은 어떻게 작동하나요?",
+    "parties": "파티들",
+    "iosFaqAnswer14": "다른 플레이어들과 함께 Habitica를 경험하고 싶지만 다른 플레이어들을 모른다면 파티를 검색하는것을 추천합니다! 만약 당신이 이미 파티에 참여해 있는 다른 플레이어를 알고 있다면 당신의 @username을 공유하여 초대받을 수 있습니다. 또는 새 파티를 만들어 @username이나 이메일 주소를 이용하여 초대할 수 있습니다.\n\n파티를 만들거나 찾으려면 메뉴의 파티버튼을 클릭하여 원하는 항목을 선택하세요.",
+    "androidFaqAnswer14": "다른 플레이어들과 함께 Habitica를 경험하고 싶지만 다른 플레이어들을 모른다면 파티를 검색하는것을 추천합니다! 만약 당신이 이미 파티에 참여해 있는 다른 플레이어를 알고 있다면 당신의 @username을 공유하여 초대받을 수 있습니다. 또는 새 파티를 만들어 @username이나 이메일 주소를 이용하여 초대할 수 있습니다.\n\n파티를 만들거나 찾으려면 메뉴의 파티버튼을 클릭하여 원하는 항목을 선택하세요.",
+    "webFaqAnswer14": "다른 플레이어들과 함께 Habitica를 경험하고 싶지만 다른 플레이어들을 모른다면 파티를 검색하는것을 추천합니다! 만약 당신이 이미 파티에 참여해 있는 다른 플레이어를 알고 있다면 당신의 @username을 공유하여 초대받을 수 있습니다. 또는 새 파티를 만들어 @username이나 이메일 주소를 이용하여 초대할 수 있습니다.\n\n파티를 만들거나 찾으려면 메뉴의 파티버튼을 클릭하여 원하는 항목을 선택하세요.",
+    "iosFaqAnswer16": "파티 초대를"
 }

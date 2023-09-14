@@ -544,7 +544,7 @@ const premium = {
     limited: true,
     event: EVENTS.potions202308,
     _addlNotes: t('eventAvailabilityReturning', {
-      availableDate: t('dateStartAugust'),
+      availableDate: t('dateEndAugust'),
       previousDate: t('februaryYYYY', { year: 2022 }),
     }),
     canBuy () {

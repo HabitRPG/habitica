@@ -150,5 +150,8 @@
     "achievementPlantParentModalText": "Zebrałeś(-aś) wszystkie Zwierzaki Rośliny!",
     "achievementDinosaurDynasty": "Dynastia Dinozaurów",
     "achievementDinosaurDynastyModalText": "Oswoiłeś wszystkich ptaków i dinozaurów chowańców!",
-    "achievementDinosaurDynastyText": "Wykluł(a) wszystkie podstawowe kolory chowańców ptaków i dinozaurów: Sokół, Sowa, Papuga, Paw, Pingwin, Kogut, Pterodaktyl, Tyranozaur, Triceratops i Welociraptor!"
+    "achievementDinosaurDynastyText": "Wykluł(a) wszystkie podstawowe kolory chowańców ptaków i dinozaurów: Sokół, Sowa, Papuga, Paw, Pingwin, Kogut, Pterodaktyl, Tyranozaur, Triceratops i Welociraptor!",
+    "achievementBonelessBoss": "Bezkostny Boss",
+    "achievementBonelessBossText": "Wykluł wszystkie standardowe kolory bezkręgowców: Chrząszcza, Motyla, Mątwę, Ślimaka nagoskrzelnego, Ośmiornice, Ślimaka i Pająka!",
+    "achievementBonelessBossModalText": "Zebrałeś wszystkie bezkręgowce!"
 }

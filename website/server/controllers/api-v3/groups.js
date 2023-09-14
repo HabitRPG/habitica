@@ -321,7 +321,7 @@ api.getGroups = {
       throw new BadRequest(apiError('guildsOnlyPaginate'));
     }
 
-    const groupFields = basicGroupFields.concat(' description memberCount balance');
+    const groupFields = basicGroupFields.concat(' description memberCount balance leaderOnly');
     const sort = '-memberCount';
 
     const filters = {};

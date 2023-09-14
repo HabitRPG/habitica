@@ -32,7 +32,7 @@
     "bootstrap": "^4.6.0",
     "bootstrap-vue": "^2.23.1",
     "chai": "^4.3.7",
-    "core-js": "^3.31.0",
+    "core-js": "^3.32.2",
     "dompurify": "^3.0.3",
     "eslint": "^6.8.0",
     "eslint-config-habitrpg": "^6.2.0",
@@ -41,14 +41,14 @@
     "habitica-markdown": "^3.0.0",
     "hellojs": "^1.20.0",
     "inspectpack": "^4.7.1",
-    "intro.js": "^7.0.1",
+    "intro.js": "^7.2.0",
     "jquery": "^3.7.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "nconf": "^0.12.0",
     "sass": "^1.63.4",
     "sass-loader": "^8.0.2",
-    "smartbanner.js": "^1.19.2",
+    "smartbanner.js": "^1.19.3",
     "stopword": "^2.0.8",
     "svg-inline-loader": "^0.8.2",
     "svg-url-loader": "^7.1.1",
@@ -65,7 +65,7 @@
     "vue-template-babel-compiler": "^2.0.0",
     "vuedraggable": "^2.24.3",
     "vuejs-datepicker": "git://github.com/habitrpg/vuejs-datepicker.git#153d339e4dbebb73733658aeda1d5b7fcc55b0a0",
-    "webpack": "^4.46.0"
+    "webpack": "^4.47.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-optional-chaining": "^7.21.0"
