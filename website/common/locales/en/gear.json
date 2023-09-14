@@ -1187,7 +1187,7 @@
   "armorSpecialSummer2023HealerNotes": "Hold fast to your goals and convictions in this elegant green gown. Increases Constitution by <%= con %>. Limited Edition 2023 Summer Gear.",
 
   "armorSpecialFall2023RogueText": "Cursed Cauldron",
-  "armorSpecialFall2023RogueNotes": "You were lured with the promise of a nice hot soak... Joke's on you! Increases Strength by <%= str %>. Limited Edition 2023 Fall Gear.",
+  "armorSpecialFall2023RogueNotes": "You were lured with the promise of a nice hot soak... Joke's on you! Increases Perception by <%= per %>. Limited Edition 2023 Fall Gear.",
   "armorSpecialFall2023WarriorText": "Video Player Armor",
   "armorSpecialFall2023WarriorNotes": "Does it play DVDs? VHS?? What kind of cables does this need to plug into the TV?! Turns out this is the scariest part of the whole thing! Increases Constitution by <%= con %>. Limited Edition 2023 Summer Gear.",
   "armorSpecialFall2023MageText": "Scarlet Warlock Robe",
@@ -1973,7 +1973,7 @@
   "headSpecialSummer2023HealerNotes": "They're not snakes! You can open your eyes, it's safe! Increases Intelligence by <%= int %>. Limited Edition 2023 Summer Gear.",
 
   "headSpecialFall2023RogueText": "Enchanted Visage",
-  "headSpecialFall2023RogueNotes": "This jinxed stew has given you the fuzzy face and long ears of a donkey! How very Shakespearean. Increases Strength by <%= str %>. Limited Edition 2023 Fall Gear.",
+  "headSpecialFall2023RogueNotes": "This jinxed stew has given you the fuzzy face and long ears of a donkey! How very Shakespearean. Increases Perception by <%= per %>. Limited Edition 2023 Fall Gear.",
   "headSpecialFall2023WarriorText": "Haunted Screen",
   "headSpecialFall2023WarriorNotes": "What horror lurks in this realm of distortion and static? You'll have to stay tuned to find out! Increases Strength by <%= str %>. Limited Edition 2023 Fall Gear.",
   "headSpecialFall2023MageText": "Scarlet Warlock Mask",
