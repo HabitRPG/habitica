@@ -1,6 +1,4 @@
 import ParentPage from '@/components/parentPage.vue';
-import { ProfilePage } from './shared-route-imports';
-
 
 // Settings
 const Settings = () => import(/* webpackChunkName: "settings" */'@/components/settings/index');
@@ -12,14 +10,10 @@ const Site = () => import(/* webpackChunkName: "settings" */'@/components/settin
 const Subscription = () => import(/* webpackChunkName: "settings" */'@/components/settings/subscription');
 const Transactions = () => import(/* webpackChunkName: "settings" */'@/components/settings/purchaseHistory');
 
-
 export const USER_ROUTES = {
   path: '/user',
   component: ParentPage,
   children: [
-    { name: 'stats', path: 'stats', component: ProfilePage },
-    { name: 'achievements', path: 'achievements', component: ProfilePage },
-    { name: 'profile', path: 'profile', component: ProfilePage },
     {
       name: 'settings',
       path: 'settings',
