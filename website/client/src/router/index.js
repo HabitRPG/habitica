@@ -8,7 +8,6 @@ import { PAGES } from '@/libs/consts';
 import { STATIC_ROUTES } from './static-routes';
 import { USER_ROUTES } from './user-routes';
 import { DEPRECATED_ROUTES } from '@/router/deprecated-routes';
-import { ProfilePage } from './shared-route-imports';
 
 // NOTE: when adding a page make sure to implement the `common:setTitle` action
 
@@ -94,11 +93,7 @@ const router = new VueRouter({
     {
       name: 'userProfile',
       path: '/profile/:userId',
-      component: ProfilePage,
       props: true,
-      children: [
-        { name: 'userProfilePage', path: ':startingPage', component: ProfilePage },
-      ],
     },
     {
       path: '/inventory',
@@ -319,7 +314,7 @@ router.beforeEach(async (to, from, next) => {
     });
   }
 
-  if ((to.name === 'userProfile' || to.name === 'userProfilePage')) {
+  if ((to.name === 'userProfile')) {
     let startingPage = 'profile';
     if (to.params.startingPage !== undefined) {
       startingPage = to.params.startingPage;
@@ -354,7 +349,7 @@ router.beforeEach(async (to, from, next) => {
     return null;
   }
 
-  if (from.name === 'userProfile' || from.name === 'userProfilePage' || from.name === 'stats' || from.name === 'achievements' || from.name === 'profile') {
+  if (from.name === 'userProfile' || from.name === 'stats' || from.name === 'achievements' || from.name === 'profile') {
     router.app.$root.$emit('bv::hide::modal', 'profile');
   }
 

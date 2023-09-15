@@ -602,7 +602,7 @@
       &:not(.disabled):hover svg {
         color: $purple-300;
       }
-      &.block-ban, {
+      &.block-ban {
         &:hover, .dropdown-item:hover {
           color: $maroon-50 !important;
           background-color: rgba($red-500, 0.25) !important;
