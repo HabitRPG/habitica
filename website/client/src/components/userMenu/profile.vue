@@ -7,19 +7,18 @@
     </div>
     <div
       v-else-if="userLoaded"
-      class="profile"
+      class="profile mt-n3"
     >
       <!-- HEADER -->
       <div class="header">
-        <div class="profile-actions d-flex">
-        </div>
-        <div class="row">
-          <div class="avatar">
-            <member-details
-              :member="user"
-              :class-badge-position="'hidden'"
-            />
-          </div>
+        <div
+          class="avatar mx-auto"
+        >
+          <member-details
+            :member="user"
+            :class-badge-position="'hidden'"
+            class="mx-4"
+          />
         </div>
       </div>
       <!-- PAGE STATE CHANGES -->
@@ -70,7 +69,7 @@
             <div class="about mb-0">
               <h2>{{ $t('about') }}</h2>
             </div>
-            <div class="flex-left>">
+            <div class="flex-left">
               <div class="about profile-section">
                 <p
                   v-if="user.profile.blurb"
@@ -94,7 +93,7 @@
               </p>
             </div>
           </div>
-          <div class="flex-right">
+          <div class="ml-auto">
             <button
               v-if="user._id === userLoggedIn._id"
               class="btn btn-primary flex-right edit-profile"
@@ -357,21 +356,6 @@
                   {{ nextIncentive }}
                 </div>
               </div>
-              <div class="info-item">
-                {{ getProgressDisplay() }}
-                <div class="progress">
-                  <div
-                    class="progress-bar"
-                    role="progressbar"
-                    :aria-valuenow="incentivesProgress"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                    :style="{width: incentivesProgress + '%'}"
-                  >
-                    <span class="sr-only">{{ incentivesProgress }}% {{ $t('complete') }}</span>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -442,7 +426,7 @@
         <div
           v-for="(category, key) in achievements"
           :key="key"
-          class="row category-row"
+          class="row category-row d-flex flex-column"
         >
           <h3 class="text-center">
             {{ $t(`${key}Achievs`) }}
@@ -626,13 +610,10 @@
   .profile {
     .member-details {
       background-color: $white;
-      margin-left: 24px;
-    //       display: flex;
-    // justify-content: center;
+    }
 
     .avatar-container {
       padding-top: 16px;
-      margin-right: -60px;
     }
 
     .progress-container > .progress {
@@ -658,11 +639,12 @@
     .progress-container {
       margin-left: 4px;
       margin-top: 4px;
+
+      .small-text {
+        color: $gray-50;
+      }
     }
 
-    .small-text {
-      color: $gray-50;
-    }
 
     .character-name {
       color: $gray-50;
@@ -679,14 +661,14 @@
     }
   }
 
-  .profile-name-character {
-      margin-left: 4px !important;
-    }
-  }
 </style>
 
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
+
+  .avatar {
+    width: fit-content;
+  }
 
   .header {
     width: 100%;
@@ -723,16 +705,6 @@
     .admin-action {
       color: $red-500;
       cursor: pointer;
-    }
-  }
-
-  .profile-actions {
-    float: right;
-    margin-right: 16px;
-
-    button {
-      margin-right: 8px;
-      padding: 8px;
     }
   }
 
@@ -912,16 +884,6 @@
         float: right;
       }
     }
-
-    .progress {
-      border-radius: 1px;
-      height: 8px;
-
-      .progress-bar {
-        background-color: $green-10 !important;
-        border-radius: 1px;
-      }
-    }
   }
 
   .achievement {
@@ -1003,18 +965,6 @@
         height: fit-content;
         margin-right: 8px;
       }
-    }
-  }
-
-  @media (max-width: 990px) {
-    .profile-actions {
-      flex-direction: column;
-    }
-    .profile-actions :not(:last-child) {
-      margin-bottom: 15px;
-    }
-    .profile-actions {
-      margin-right: 0;
     }
   }
 
@@ -1131,9 +1081,6 @@ export default {
     },
     costumeItems () {
       return this.user.items.gear.costume;
-    },
-    incentivesProgress () {
-      return this.getIncentivesProgress();
     },
     nextIncentive () {
       return this.getNextIncentive();
@@ -1275,33 +1222,10 @@ export default {
         subSection: this.$t(this.startingPage),
       });
     },
-
-    getProgressDisplay () {
-      // let currentLoginDay = Content.loginIncentives[this.user.loginIncentives];
-      // if (!currentLoginDay) return this.$t('checkinReceivedAllRewardsMessage');
-      // let nextRewardAt = currentLoginDay.nextRewardAt;
-      // if (!nextRewardAt) return this.$t('moreIncentivesComingSoon');
-      // // if we are on a reward day, let's show progress relative to this
-      // if (currentLoginDay.reward) currentLoginDay.prevRewardKey = this.user.loginIncentives;
-      // if (!currentLoginDay.prevRewardKey) currentLoginDay.prevRewardKey = 0;
-      //
-      // let start = this.user.loginIncentives - currentLoginDay.prevRewardKey;
-      // let end = nextRewardAt - currentLoginDay.prevRewardKey;
-      // return `${this.$t('checkinProgressTitle')} ${start}/${end}`;
-    },
-
-    getIncentivesProgress () {
-      const currentLoginDay = Content.loginIncentives[this.user.loginIncentives];
-      if (!currentLoginDay) return 0;
-      const previousRewardDay = currentLoginDay.prevRewardKey;
-      const { nextRewardAt } = currentLoginDay;
-      return ((this.user.loginIncentives - previousRewardDay)
-        / (nextRewardAt - previousRewardDay)) * 100;
-    },
     getNextIncentive () {
       const currentLoginDay = Content.loginIncentives[this.user.loginIncentives];
       if (!currentLoginDay) return 0;
-      const previousRewardDay = currentLoginDay.prevRewardKey;
+      const previousRewardDay = currentLoginDay.prevRewardKey || 0;
       const { nextRewardAt } = currentLoginDay;
       return ((nextRewardAt - previousRewardDay));
     },

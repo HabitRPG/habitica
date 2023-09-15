@@ -1,6 +1,4 @@
-import nconf from 'nconf';
 import { model as User } from '../../models/user';
-import { getUserInfo, sendTxn } from '../email';
 import * as slack from '../slack';
 
 import ChatReporter from './chatReporter';
@@ -8,10 +6,6 @@ import {
   BadRequest,
   NotFound,
 } from '../errors';
-
-const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL')
-  .split(',')
-  .map(email => ({ email, canSend: true }));
 
 export default class ProfileReporter extends ChatReporter {
   constructor (req, res) {
@@ -44,27 +38,6 @@ export default class ProfileReporter extends ChatReporter {
     return { flaggedUser, comment, source };
   }
 
-  getEmailVariables (flaggedUser) {
-    const reportingUserData = {
-      user: this.user.profile.name,
-      username: this.user.auth.local.username,
-      uuid: this.user._id,
-      email: getUserInfo(this.user, ['email']).email,
-    };
-
-    const flaggedUserData = {
-      user: flaggedUser.profile.name,
-      username: flaggedUser.auth.local.username,
-      uuid: flaggedUser._id,
-      email: getUserInfo(flaggedUser, ['email']).email,
-    };
-
-    return [
-      ...this.createGenericAuthorVariables('REPORTER', reportingUserData),
-      ...this.createGenericAuthorVariables('FLAGGED', flaggedUserData),
-    ];
-  }
-
   async flagProfile (flaggedUser, comment, source) {
     const timestamp = new Date();
     // Log user ids that have flagged the account
@@ -83,13 +56,6 @@ export default class ProfileReporter extends ChatReporter {
   }
 
   notify (flaggedUser, comment, source) {
-    let emailVariables = this.getEmailVariables(flaggedUser);
-    emailVariables = emailVariables.concat([
-      { name: 'REPORTER_COMMENT', content: comment || '' },
-    ]);
-
-    sendTxn(FLAG_REPORT_EMAILS, 'profile-report-to-mods-with-comments', emailVariables);
-
     slack.sendProfileFlagNotification({
       reporter: this.user,
       flaggedUser,
