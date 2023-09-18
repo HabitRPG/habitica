@@ -89,6 +89,7 @@
   "PMUnblockUserToSendMessages": "Unblock this user to continue sending and receiving messages.",
   "block": "Block Player",
   "blockedUser": "<strong>You blocked this player.</strong>&nbsp;They cannot send you Private Messages but you will still see their posts.",
+  "bannedUser": "<strong>This player has been banned.</strong>",
   "unblock": "Unblock Player",
   "blockYourself": "You cannot block yourself",
   "blockWarning": "This will have no effect if the player is an admin.",

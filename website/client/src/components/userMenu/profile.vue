@@ -29,6 +29,24 @@
           v-html="$t('blockedUser')"
         >
         </div>
+        <div
+          v-if="hasPermission(userLoggedIn, 'moderator')"
+          class="banned-user d-flex mx-auto"
+        >
+          <span
+            v-if="hero.auth.blocked = true"
+          >
+            <span
+              v-once
+              class="svg-icon icon-16 color"
+              v-html="icons.block"
+            ></span>
+            <span
+              v-html="$t('bannedUser')"
+            >
+            </span>
+          </span>
+        </div>
         <div class="text-center nav">
           <div
             class="nav-item"
@@ -292,6 +310,9 @@
                       <toggle-switch
                         v-model="hero.flags.chatShadowMuted"
                         class="toggle-switch-outer ml-auto"
+                        @change.native.capture.stop="!hero.flags.chatShadowMuted
+                          ? adminTurnOnShadowMuting()
+                          : adminTurnOffShadowMuting()"
                       />
                     </span>
                   </b-dropdown-item>
@@ -315,6 +336,9 @@
                       <toggle-switch
                         v-model="hero.flags.chatRevoked"
                         class="toggle-switch-outer ml-auto"
+                        @change.native.capture.stop="!hero.flags.chatRevoked
+                          ? adminRevokeChat()
+                          : adminReinstateChat()"
                       />
                     </span>
                   </b-dropdown-item>
@@ -353,7 +377,7 @@
                   {{ $t('nextReward') }}:
                 </div>
                 <div class="info-item-value">
-                  {{ nextIncentive }}
+                  {{ nextIncentive }} {{ $t('days') }}
                 </div>
               </div>
             </div>
@@ -645,7 +669,6 @@
       }
     }
 
-
     .character-name {
       color: $gray-50;
       font-weight: bold;
@@ -767,6 +790,24 @@
     line-height: 1.71;
     margin-top: 16px;
     padding: 8px 16px;
+  }
+
+  .banned-user {
+    background-color: $maroon-100;
+    border-radius: 4px;
+    color: $white;
+    height: 40px;
+    line-height: 1.71;
+    margin-top: 16px;
+    padding: 8px 16px;
+
+    .color {
+      color: $white !important;
+    }
+
+    svg {
+      display: inline;
+    }
   }
 
   .state-pages {
@@ -1110,7 +1151,7 @@ export default {
       return this.userLoggedIn.inbox.blocks.indexOf(this.user._id) !== -1;
     },
     // userBanned () {
-    //   return valueOf(this.user._id.auth.blocked);
+    //   return this.userLoggedIn.auth.blocked.valueOf(this.user._id.auth.blocked);
     // },
     canReport () {
       if (!this.user || !this.user.profile || !this.user.profile.flags) {
