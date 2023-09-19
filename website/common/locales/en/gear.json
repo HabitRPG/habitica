@@ -711,6 +711,8 @@
   "weaponArmoireMopNotes": "Step 1: Dunk the mop in a bucket of water and suds. Step 2: Drag the mop along the floor. Step 3: Pretend the end of the mop handle is a microphone and sing your heart out. Step 4: Repeat Steps 1-3 until floor is clean. Increases Constitution and Perception by <%= attrs %> each. Enchanted Armoire: Cleaning Supplies Set Two (Item 2 of 3)",
   "weaponArmoireCleaningClothText": "Cleaning Cloth",
   "weaponArmoireCleaningClothNotes": "Take this tidying tool on your adventures and always be able to polish a pretty plaque or wipe a wooden windowsill. Increases Strength and Constitution by <%= attrs %> each. Enchanted Armoire: Cleaning Supplies Set Two (Item 3 of 3)",
+  "weaponArmoireRidingBroomText": "Riding Broom",
+  "weaponArmoireRidingBroomNotes": "Run all your most magical errands on this fine broom - or, just take it for a joyride around the neighborhood. Whee! Increases strength by <%= str %> and intelligence by <%= int %>. Enchanted Armoire: Spooky Sorcery Set (Item 1 of 3)",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -2293,6 +2295,10 @@
   "headArmoirePaintersBeretNotes": "See the world with a more artistic eye when you wear this jaunty beret. Increases Perception by <%= per %>. Enchanted Armoire: Painter Set (Item 2 of 4).",
   "headArmoireAdmiralsBicorneText": "Admiral's Bicorne Hat",
   "headArmoireAdmiralsBicorneNotes": "Hats off to you! Wearing this two-cornered hat will make you wiser, brighter, braver...and taller. Increases Intelligence and Perception by <%= attrs %> each. Enchanted Armoire: Admiral’s Set (Item 1 of 2).",
+  "headArmoirePurpleSpookySorceryHatText": "Purple Spooky Sorcery Hat",
+  "headArmoirePurpleSpookySorceryHatNotes": "Purple as dusk and full of mysteries, this hat is suited to all your sorcerous needs. Increases Perception by <%= per %> and constitution by <%= con %>. Enchanted Armoire: Spooky Sorcery Set (Item 2 of 3).",
+  "headArmoireBlackSpookySorceryHatText": "Black Spooky Sorcery Hat",
+  "headArmoireBlackSpookySorceryHatNotes": "Black as night and full of secrets, this hat is suited to all your sorcerous needs. Increases Intelligence by <%= int %> and constitution by <%= con %>. Enchanted Armoire: Spooky Sorcery Set (Item 3 of 3).",
 
   "offhand": "off-hand item",
   "offHandCapitalized": "Off-Hand Item",

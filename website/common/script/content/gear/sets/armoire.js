@@ -919,6 +919,16 @@ const head = {
     per: 7,
     set: 'admiralsSet',
   },
+  blackSpookySorceryHat: {
+    int: 5,
+    con: 3,
+    set: 'somethingSpooky',
+  },
+  purpleSpookySorceryHat: {
+    per: 5,
+    con: 3,
+    set: 'somethingSpooky',
+  },
 };
 
 const shield = {
@@ -1693,6 +1703,11 @@ const weapon = {
     str: 4,
     con: 4,
     set: 'cleaningSuppliesTwo',
+  },
+  ridingBroom: {
+    str: 5,
+    int: 3,
+    set: 'somethingSpooky',
   },
 };
 
