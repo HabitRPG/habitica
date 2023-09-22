@@ -247,7 +247,7 @@
     color: $gray-10;
     border-bottom: 1px solid $gray-500;
     margin-top: 24px;
-    padding-bottom: 16px;
+    // padding-bottom: 16px;
   }
   li {
     padding-bottom: 16px;
