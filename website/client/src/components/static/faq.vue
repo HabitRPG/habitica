@@ -1,7 +1,7 @@
 // eslint-disable-next-line vue/no-mutating-props
 <template>
   <div class="top-container mx-auto">
-    <div class="main-text mr-4">
+    <div class="main-text mr-4 col-8">
       <!-- title goes here -->
       <div
         class="title-details"
@@ -39,6 +39,7 @@
               v-b-toggle="entry.heading"
               role="tab"
               variant="info"
+              class="headings"
               @click="handleClick($event)"
             >
               {{ entry.question }}
@@ -57,11 +58,6 @@
               ></div>
             </b-collapse>
           </div>
-          <hr>
-          <p
-            v-once
-            v-markdown="stillNeedHelp"
-          ></p>
         </div>
       </div>
     </div>
@@ -245,9 +241,8 @@
 
   h2 {
     color: $gray-10;
-    border-bottom: 1px solid $gray-500;
     margin-top: 24px;
-    // padding-bottom: 16px;
+
   }
   li {
     padding-bottom: 16px;
@@ -278,13 +273,13 @@
   .main-text {
     .body-text {
       color: $gray-10;
-      font-size: 1em;
+      font-size: 14px;
       line-height: 1.71;
     }
 
     .headings {
       color: $purple-200;
-      font-size: 1.15em;
+      font-size: 16px;
       font-weight: 400;
       line-height: 1.75;
     }
@@ -310,7 +305,7 @@
     .card-body {
       font-size: 14px;
       line-height: 1.71;
-      margin-bottom: 1em;
+      margin-bottom: 16px;
       padding: 0;
     }
   }
