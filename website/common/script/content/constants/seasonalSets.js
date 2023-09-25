@@ -209,6 +209,11 @@ const SEASONAL_SETS = {
     'fall2022OrcWarriorSet',
     'fall2022HarpyMageSet',
     'fall2022WatcherHealerSet',
+
+    'fall2023WitchsBrewRogueSet',
+    'fall2023BogCreatureHealerSet',
+    'fall2023ScaryMovieWarriorSet',
+    'fall2023ScarletWarlockMageSet',
   ],
 };
 
