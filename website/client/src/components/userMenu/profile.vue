@@ -22,30 +22,28 @@
         </div>
       </div>
       <!-- PAGE STATE CHANGES -->
-      <div class="row state-pages">
+      <div class="state-pages pt-3">
         <div
           v-if="userBlocked"
-          class="blocked-user d-flex mx-auto"
+          class="blocked-banned text-center mb-3 mx-4 py-2 px-3"
           v-html="$t('blockedUser')"
         >
         </div>
         <div
-          v-if="hasPermission(userLoggedIn, 'moderator')"
-          class="banned-user d-flex mx-auto"
+          v-if="hasPermission(userLoggedIn, 'moderator') && hero.auth.blocked"
+          class="blocked-banned mb-3 mx-4 py-2 px-3
+            d-flex align-items-middle justify-content-center"
         >
-          <span
-            v-if="hero.auth.blocked = true"
+          <div
+            v-once
+            class="svg-icon icon-16 color my-auto ml-auto mr-2"
+            v-html="icons.block"
+          ></div>
+          <div
+            class="my-auto mr-auto"
+            v-html="$t('bannedUser')"
           >
-            <span
-              v-once
-              class="svg-icon icon-16 color"
-              v-html="icons.block"
-            ></span>
-            <span
-              v-html="$t('bannedUser')"
-            >
-            </span>
-          </span>
+          </div>
         </div>
         <div class="text-center nav">
           <div
@@ -193,7 +191,7 @@
                 <b-dropdown-item
                   v-if="!userBlocked"
                   class="selectListItem block-ban"
-                  @click="blockUser()"
+                  @click.native.capture.stop="blockUser()"
                 >
                   <span class="with-icon">
                     <span
@@ -209,7 +207,7 @@
                 <b-dropdown-item
                   v-else
                   class="selectListItem block-ban"
-                  @click="unblockUser()"
+                  @click.native.capture.stop="unblockUser()"
                 >
                   <span class="with-icon">
                     <span
@@ -258,7 +256,7 @@
                   <b-dropdown-item
                     v-if="!hero.auth.blocked"
                     class="selectListItem block-ban"
-                    @click.native.capture.stop="adminBlockUser()"
+                    @click.native.capture.stop="adminToggleBan()"
                   >
                     <span class="with-icon">
                       <span
@@ -274,7 +272,7 @@
                   <b-dropdown-item
                     v-else
                     class="selectListItem block-ban"
-                    @click.native.capture.stop="adminUnblockUser()"
+                    @click.native.capture.stop="adminToggleBan()"
                   >
                     <span class="with-icon">
                       <span
@@ -291,9 +289,7 @@
                   <!-- SHADOW MUTE PLAYER WITH TOGGLE -->
                   <b-dropdown-item
                     class="selectListItem"
-                    @click.native.capture.stop="!hero.flags.chatShadowMuted
-                      ? adminTurnOnShadowMuting()
-                      : adminTurnOffShadowMuting()"
+                    @click.native.capture.stop="adminToggleShadowMute()"
                   >
                     <span class="with-icon">
                       <span
@@ -310,9 +306,7 @@
                       <toggle-switch
                         v-model="hero.flags.chatShadowMuted"
                         class="toggle-switch-outer ml-auto"
-                        @change.native.capture.stop="!hero.flags.chatShadowMuted
-                          ? adminTurnOnShadowMuting()
-                          : adminTurnOffShadowMuting()"
+                        @change.native.capture.stop="adminToggleShadowMute()"
                       />
                     </span>
                   </b-dropdown-item>
@@ -320,9 +314,7 @@
                   <!-- MUTE PLAYER WITH TOGGLE -->
                   <b-dropdown-item
                     class="selectListItem"
-                    @click.native.capture.stop="!hero.flags.chatRevoked
-                      ? adminRevokeChat()
-                      : adminReinstateChat()"
+                    @click.native.capture.stop="adminToggleChatRevoke()"
                   >
                     <span class="with-icon">
                       <span
@@ -336,9 +328,7 @@
                       <toggle-switch
                         v-model="hero.flags.chatRevoked"
                         class="toggle-switch-outer ml-auto"
-                        @change.native.capture.stop="!hero.flags.chatRevoked
-                          ? adminRevokeChat()
-                          : adminReinstateChat()"
+                        @change.native.capture.stop="adminToggleChatRevoke()"
                       />
                     </span>
                   </b-dropdown-item>
@@ -377,7 +367,7 @@
                   {{ $t('nextReward') }}:
                 </div>
                 <div class="info-item-value">
-                  {{ nextIncentive }} {{ $t('days') }}
+                  {{ getNextIncentive() }} {{ getNextIncentive() === 1 ? $t('day') : $t('days') }}
                 </div>
               </div>
             </div>
@@ -576,19 +566,22 @@
       width: 210px;
     }
 
-    .dropdown-item.disabled {
-      color: $gray-50 !important;
-      opacity: 0.75;
+    .dropdown-item {
       svg {
         color: $gray-50;
-        opacity: 0.75;
       }
-    }
-
-    .dropdown-item:not(.disabled):hover,
-    .dropdown-item:not(.disabled):focus {
-      a, svg {
-        color: $purple-300;
+      &.disabled {
+        color: $gray-50 !important;
+        opacity: 0.75;
+        svg {
+          color: $gray-50;
+          opacity: 0.75;
+        }
+      }
+      &:not(.disabled):hover, &:not(.disabled):focus {
+        a, svg {
+          color: $purple-300;
+        }
       }
     }
 
@@ -731,34 +724,14 @@
     }
   }
 
-  .svg-icon {
-    color: $gray-50 !important;
-    display: block;
-    margin: 0 auto;
-  }
-
   .message-icon svg {
     height: 11px;
     margin-top: 1px;
   }
 
-  .gift-icon svg {
-    height: 16px;
-    margin: auto;
-    width: 14px;
-  }
-
   .dots-icon {
     height: 16px;
     width: 4px;
-  }
-
-  .block-icon, .report-icon {
-    width: 16px;
-  }
-
-  .positive-icon {
-    width: 14px;
   }
 
   .toggle-switch-outer {
@@ -782,31 +755,14 @@
     }
   }
 
-  .blocked-user {
+  .blocked-banned {
     background-color: $maroon-100;
     border-radius: 4px;
     color: $white;
-    height: 40px;
     line-height: 1.71;
-    margin-top: 16px;
-    padding: 8px 16px;
-  }
-
-  .banned-user {
-    background-color: $maroon-100;
-    border-radius: 4px;
-    color: $white;
-    height: 40px;
-    line-height: 1.71;
-    margin-top: 16px;
-    padding: 8px 16px;
-
-    .color {
-      color: $white !important;
-    }
 
     svg {
-      display: inline;
+      color: $white;
     }
   }
 
@@ -1123,9 +1079,6 @@ export default {
     costumeItems () {
       return this.user.items.gear.costume;
     },
-    nextIncentive () {
-      return this.getNextIncentive();
-    },
     classText () {
       const classTexts = {
         warrior: this.$t('warrior'),
@@ -1303,45 +1256,28 @@ export default {
       this.$root.$emit('habitica::send-gift', this.user);
     },
 
-    adminTurnOnShadowMuting () {
+    adminToggleShadowMute () {
       if (!this.hero.flags) {
         this.hero.flags = {};
+        this.hero.flags.chatShadowMuted = true;
+      } else {
+        this.hero.flags.chatShadowMuted = !this.hero.flags.chatShadowMuted;
       }
-      this.hero.flags.chatShadowMuted = true;
       this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
     },
 
-    adminTurnOffShadowMuting () {
+    adminToggleChatRevoke () {
       if (!this.hero.flags) {
         this.hero.flags = {};
+        this.hero.flags.chatRevoked = true;
+      } else {
+        this.hero.flags.chatRevoked = !this.hero.flags.chatRevoked;
       }
-      this.hero.flags.chatShadowMuted = false;
       this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
     },
 
-    adminRevokeChat () {
-      if (!this.hero.flags) {
-        this.hero.flags = {};
-      }
-      this.hero.flags.chatRevoked = true;
-      this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
-    },
-
-    adminReinstateChat () {
-      if (!this.hero.flags) {
-        this.hero.flags = {};
-      }
-      this.hero.flags.chatRevoked = false;
-      this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
-    },
-
-    adminBlockUser () {
-      this.hero.auth.blocked = true;
-      this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
-    },
-
-    adminUnblockUser () {
-      this.hero.auth.blocked = false;
+    adminToggleBan () {
+      this.hero.auth.blocked = !this.hero.auth.blocked;
       this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
     },
 

@@ -65,14 +65,16 @@ export default {
     return {
       userId: undefined,
       startingPage: undefined,
-      path: undefined,
+      fromPath: undefined,
+      toPath: undefined,
     };
   },
   mounted () {
     this.$root.$on('habitica:show-profile', data => {
       this.userId = data.userId;
       this.startingPage = data.startingPage || 'profile';
-      this.path = data.path;
+      this.fromPath = data.fromPath;
+      this.toPath = data.toPath;
       this.$root.$emit('bv::show::modal', 'profile');
     });
   },
@@ -81,11 +83,11 @@ export default {
   },
   methods: {
     onShown () {
-      window.history.pushState('', null, this.path);
+      window.history.pushState('', null, this.toPath);
     },
     beforeHide () {
       if (this.$route.path !== window.location.pathname) {
-        this.$router.back();
+        window.history.pushState('', null, this.fromPath);
       }
     },
     close () {
