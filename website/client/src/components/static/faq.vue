@@ -322,6 +322,7 @@
       font-size: 14px;
       font-weight: bold;
       line-height: 1.71;
+      margin-top: 0px;
     }
 
     .staff {
