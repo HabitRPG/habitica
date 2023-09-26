@@ -315,6 +315,7 @@
     background-color: $gray-700;
     border-radius: 16px;
     width: 330px;
+    margin-bottom: 24px;
 
     h2 {
       color: $gray-10;
