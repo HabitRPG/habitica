@@ -111,7 +111,6 @@
 
   .member-stats {
     padding-left: 12px;
-    padding-right: 24px;
     opacity: 1;
     transition: width 0.15s ease-out;
   }
