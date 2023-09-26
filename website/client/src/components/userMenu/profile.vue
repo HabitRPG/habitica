@@ -12,7 +12,7 @@
       <!-- HEADER -->
       <div class="header">
         <div
-          class="avatar mx-auto"
+          class="avatar mr-auto"
         >
           <member-details
             :member="user"
