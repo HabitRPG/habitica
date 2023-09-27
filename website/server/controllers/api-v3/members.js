@@ -11,6 +11,7 @@ import {
 import { model as Group } from '../../models/group';
 import { model as Challenge } from '../../models/challenge';
 import {
+  BadRequest,
   NotFound,
   NotAuthorized,
 } from '../../libs/errors';
@@ -846,6 +847,9 @@ api.clearUserFlags = {
     const { memberId } = req.params;
 
     req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
+    const validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
     if (!user.hasPermission('moderator')) {
       throw new BadRequest('Only a moderator may clear reports from a profile.');
     }

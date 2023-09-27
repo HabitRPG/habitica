@@ -188,9 +188,12 @@ function sendProfileFlagNotification ({
   if (userComment) {
     text += ` and commented: ${userComment}`;
   }
-  let profileData = `Bio: ${flaggedUser.profile.blurb}`;
+  let profileData = `Display Name: ${flaggedUser.profile.name}`;
   if (flaggedUser.profile.imageUrl) {
     profileData += `\n\nImage URL: ${flaggedUser.profile.imageUrl}`;
+  }
+  if (flaggedUser.profile.blurb) {
+    profileData += `\n\nAbout: ${flaggedUser.profile.blurb}`;
   }
 
   flagSlack
