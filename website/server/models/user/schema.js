@@ -13,7 +13,7 @@ import { schema as WebhookSchema } from '../webhook';
 const RESTRICTED_EMAIL_DOMAINS = Object.freeze(['habitica.com', 'habitrpg.com']);
 
 // User schema definition
-export default new Schema({
+export const UserSchema = new Schema({
   apiToken: {
     $type: String,
     default: shared.uuid,
@@ -541,10 +541,13 @@ export default new Schema({
     newTaskEdit: { $type: Boolean, default: false },
     // not used anymore, now the current filter is saved in preferences.activeFilter
     dailyDueDefaultView: { $type: Boolean, default: false },
+    // deprecated, unused
     advancedCollapsed: { $type: Boolean, default: false },
     toolbarCollapsed: { $type: Boolean, default: false },
     reverseChatOrder: { $type: Boolean, default: false },
+    developerMode: { $type: Boolean, default: false },
     background: String,
+    // deprecated, unused
     displayInviteToPartyWhenPartyIs1: { $type: Boolean, default: true },
     webhooks: {
       $type: Schema.Types.Mixed,
@@ -641,7 +644,7 @@ export default new Schema({
 
     // Class System
     class: {
-      $type: String, enum: ['warrior', 'rogue', 'wizard', 'healer'], default: 'warrior', required: true,
+      $type: String, enum: shared.content.classes, default: 'warrior', required: true,
     },
     points: { $type: Number, default: 0, min: 0 },
     str: { $type: Number, default: 0, min: 0 },
@@ -722,3 +725,5 @@ export default new Schema({
   minimize: false, // So empty objects are returned
   typeKey: '$type', // So that we can use fields named `type`
 });
+
+export default UserSchema; // fallback export until all imports using the Named one

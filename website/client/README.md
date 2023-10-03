@@ -55,3 +55,13 @@ in a separate `.add('function of component', ...`
 ### Storybook Build
 
 After each client build, storybook build is also triggered and will be available in `dist/storybook`
+
+### Vue Structure
+
+Currently pages and components are mixed in `/src/components` this is not a good way to find the files easy.
+
+Thats why each changed / upcoming page / component should be put in either `/src/components` or in the `/src/pages` directory.
+
+Inside Pages, each page can have a subfolder which contains sub-components only needed for that page - otherwise it has to be added to the normal components folder.
+
+At the end of all the changes - the components should only contain components needed between all pages

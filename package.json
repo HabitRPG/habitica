@@ -36,6 +36,7 @@
     "gulp-babel": "^8.0.0",
     "gulp-imagemin": "^7.1.0",
     "gulp-nodemon": "^2.5.0",
+    "nodemon": "^2.0.20",
     "gulp.spritesmith": "^6.13.0",
     "habitica-markdown": "^3.0.0",
     "helmet": "^4.6.0",
