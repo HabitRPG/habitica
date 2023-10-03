@@ -47,7 +47,7 @@ export default class GroupChatReporter extends ChatReporter {
 
   async notify (group, message, userComment, automatedComment = '') {
     slack.sendFlagNotification({
-      authorEmail: this.authorEmail,
+      authorEmail: this.user.auth.local.email,
       flagger: this.user,
       group,
       message,

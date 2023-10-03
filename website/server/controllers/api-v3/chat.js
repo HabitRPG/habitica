@@ -148,21 +148,6 @@ api.postChat = {
       const authorEmail = getUserInfo(user, ['email']).email;
       const groupUrl = getGroupUrl(group);
 
-      const report = [
-        { name: 'MESSAGE_TIME', content: (new Date()).toString() },
-        { name: 'MESSAGE_TEXT', content: message },
-
-        { name: 'AUTHOR_USERNAME', content: user.profile.name },
-        { name: 'AUTHOR_UUID', content: user._id },
-        { name: 'AUTHOR_EMAIL', content: authorEmail },
-        { name: 'AUTHOR_MODAL_URL', content: `/profile/${user._id}` },
-
-        { name: 'GROUP_NAME', content: group.name },
-        { name: 'GROUP_TYPE', content: group.type },
-        { name: 'GROUP_ID', content: group._id },
-        { name: 'GROUP_URL', content: groupUrl },
-      ];
-
       // Slack the mods
       slack.sendSlurNotification({
         authorEmail,
@@ -222,21 +207,6 @@ api.postChat = {
       // Email the mods
       const authorEmail = getUserInfo(user, ['email']).email;
       const groupUrl = getGroupUrl(group);
-
-      const report = [
-        { name: 'MESSAGE_TIME', content: (new Date()).toString() },
-        { name: 'MESSAGE_TEXT', content: message },
-
-        { name: 'AUTHOR_USERNAME', content: user.profile.name },
-        { name: 'AUTHOR_UUID', content: user._id },
-        { name: 'AUTHOR_EMAIL', content: authorEmail },
-        { name: 'AUTHOR_MODAL_URL', content: `/profile/${user._id}` },
-
-        { name: 'GROUP_NAME', content: group.name },
-        { name: 'GROUP_TYPE', content: group.type },
-        { name: 'GROUP_ID', content: group._id },
-        { name: 'GROUP_URL', content: groupUrl },
-      ];
 
       // Slack the mods
       slack.sendShadowMutedPostNotification({
@@ -437,10 +407,6 @@ api.clearChatFlags = {
 
     message.flagCount = 0;
     await message.save();
-
-    const adminEmailContent = getUserInfo(user, ['email']).email;
-    const authorEmail = getAuthorEmailFromMessage(message);
-    const groupUrl = getGroupUrl(group);
 
     res.respond(200, {});
   },

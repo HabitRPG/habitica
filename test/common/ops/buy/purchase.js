@@ -197,14 +197,14 @@ describe('shared.ops.purchase', () => {
 
     it('purchases quest bundles', async () => {
       const startingBalance = user.balance;
-      // const clock = sandbox.useFakeTimers(moment('2019-05-20').valueOf());
+      const clock = sandbox.useFakeTimers(moment('2022-03-16').valueOf());
       const type = 'bundles';
-      const key = 'featheredFriends';
+      const key = 'cuddleBuddies';
       const price = 1.75;
       const questList = [
-        'falcon',
-        'harpy',
-        'owl',
+        'bunny',
+        'ferret',
+        'guineapig',
       ];
 
       await purchase(user, { params: { type, key } });
@@ -216,7 +216,7 @@ describe('shared.ops.purchase', () => {
       expect(user.balance).to.equal(startingBalance - price);
 
       expect(pinnedGearUtils.removeItemByPath.notCalled).to.equal(true);
-      // clock.restore();
+      clock.restore();
     });
   });
 

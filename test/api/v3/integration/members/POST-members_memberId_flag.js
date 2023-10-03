@@ -1,11 +1,11 @@
 import { v4 as generateUUID } from 'uuid';
 import moment from 'moment';
 import nconf from 'nconf';
+import { IncomingWebhook } from '@slack/webhook';
 import {
   generateUser,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
-import { IncomingWebhook } from '@slack/webhook';
 
 describe('POST /members/:memberId/flag', () => {
   let reporter;
@@ -28,10 +28,10 @@ describe('POST /members/:memberId/flag', () => {
           message: t('invalidReqParams'),
         });
     });
-  
+
     it('returns error when member with UUID is not found', async () => {
       const randomId = generateUUID();
-  
+
       await expect(reporter.post(`/members/${randomId}/flag`))
         .to.eventually.be.rejected.and.eql({
           code: 404,
@@ -42,7 +42,7 @@ describe('POST /members/:memberId/flag', () => {
 
     it('returns error when non-admin flags same profile twice', async () => {
       await reporter.post(`/members/${target._id}/flag`);
-      await expect (reporter.post(`/members/${target._id}/flag`))
+      await expect(reporter.post(`/members/${target._id}/flag`))
         .to.eventually.be.rejected.and.eql({
           code: 400,
           error: 'BadRequest',

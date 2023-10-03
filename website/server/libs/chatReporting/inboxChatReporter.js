@@ -38,12 +38,6 @@ export default class InboxChatReporter extends ChatReporter {
   }
 
   async notify (message, userComment) {
-    const group = {
-      type: 'private messages',
-      name: 'N/A',
-      _id: 'N/A',
-    };
-
     slack.sendInboxFlagNotification({
       messageUserEmail: this.messageUserEmail,
       flagger: this.user,

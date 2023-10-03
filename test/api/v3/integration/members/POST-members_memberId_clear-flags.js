@@ -25,10 +25,10 @@ describe('POST /members/:memberId/clear-flags', () => {
           message: t('invalidReqParams'),
         });
     });
-  
+
     it('returns error when member with UUID is not found', async () => {
       const randomId = generateUUID();
-  
+
       await expect(moderator.post(`/members/${randomId}/clear-flags`))
         .to.eventually.be.rejected.and.eql({
           code: 404,
@@ -39,14 +39,14 @@ describe('POST /members/:memberId/clear-flags', () => {
 
     it('returns error when requesting user is not a moderator', async () => {
       await expect(reporter.post(`/members/${admin._id}/clear-flags`))
-      .to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: 'Only a moderator may clear reports from a profile.',
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 400,
+          error: 'BadRequest',
+          message: 'Only a moderator may clear reports from a profile.',
+        });
     });
   });
-  
+
   context('valid request', () => {
     it('removes a single flag from user', async () => {
       await expect(moderator.post(`/members/${admin._id}/clear-flags`)).to.eventually.be.ok;
