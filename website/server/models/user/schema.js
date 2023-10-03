@@ -625,6 +625,7 @@ export default new Schema({
       required: true,
       trim: true,
     },
+    flags: { $type: Schema.Types.Mixed },
   },
   stats: {
     hp: { $type: Number, default: shared.maxHealth },

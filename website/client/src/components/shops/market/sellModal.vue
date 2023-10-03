@@ -265,25 +265,24 @@
         align-items: center;
       }
     }
-  }
 
-  .how-many-to-sell {
-    font-weight: bold !important;
-  }
-
-  .number-increment {
-     margin-top: 16px;
-  }
-
-  .total-row {
-    font-weight: bold;
-    font-size: 0.875rem;
-    margin-top: 16px;
-
-    &.gold {
-      color: $yellow-5;
+    .how-many-to-sell {
+      font-weight: bold !important;
     }
-  }
+
+    .number-increment {
+      margin-top: 16px;
+    }
+
+    .total-row {
+      font-weight: bold;
+      font-size: 0.875rem;
+      margin-top: 16px;
+
+      &.gold {
+        color: $yellow-5;
+      }
+    }
 
     .total-text {
       color: $gray-50;
@@ -291,32 +290,31 @@
       font-size: 0.875rem;
       line-height: 1.71;
 
-    &.gold {
-      color: $yellow-5;
-    }
-  }
-
-  button.btn.btn-primary {
-    margin-top: 16px;
-    padding: 4px 16px;
-    height: 32px;
-
-    &:focus {
-      border: 2px solid black;
+      &.gold {
+        color: $yellow-5;
+      }
     }
 
-  .balance {
-    width: 74px;
-    height: 16px;
-    font-size: 12px;
-    font-weight: bold;
-    line-height: 1.33;
-    color: $gray-200;
+    button.btn.btn-primary {
+      margin-top: 16px;
+      padding: 4px 16px;
+      height: 32px;
+
+      &:focus {
+        border: 2px solid black;
+      }
+
+      .balance {
+        width: 74px;
+        height: 16px;
+        font-size: 12px;
+        font-weight: bold;
+        line-height: 1.33;
+        color: $gray-200;
+      }
+    }
   }
-
-
-}
-</style>
+  </style>
 
 <script>
 import svgClose from '@/assets/svg/close.svg';
