@@ -17,7 +17,6 @@ import { removeFromArray } from '../../libs/collectionManipulators';
 import { getUserInfo, getGroupUrl } from '../../libs/email';
 import * as slack from '../../libs/slack';
 import { chatReporterFactory } from '../../libs/chatReporting/chatReporterFactory';
-import { getAuthorEmailFromMessage } from '../../libs/chat';
 import bannedWords from '../../libs/bannedWords';
 import { getMatchesByWordArray } from '../../libs/stringUtils';
 import bannedSlurs from '../../libs/bannedSlurs';
@@ -146,7 +145,6 @@ api.postChat = {
 
       // Email the mods
       const authorEmail = getUserInfo(user, ['email']).email;
-      const groupUrl = getGroupUrl(group);
 
       // Slack the mods
       slack.sendSlurNotification({
@@ -206,7 +204,6 @@ api.postChat = {
 
       // Email the mods
       const authorEmail = getUserInfo(user, ['email']).email;
-      const groupUrl = getGroupUrl(group);
 
       // Slack the mods
       slack.sendShadowMutedPostNotification({

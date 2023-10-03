@@ -1,6 +1,6 @@
 import nconf from 'nconf';
 import moment from 'moment';
-
+import { getAuthorEmailFromMessage } from '../chat';
 import ChatReporter from './chatReporter';
 import {
   BadRequest,
@@ -46,8 +46,9 @@ export default class GroupChatReporter extends ChatReporter {
   }
 
   async notify (group, message, userComment, automatedComment = '') {
+    const authorEmail = await getAuthorEmailFromMessage(message);
     slack.sendFlagNotification({
-      authorEmail: this.user.auth.local.email,
+      authorEmail,
       flagger: this.user,
       group,
       message,
