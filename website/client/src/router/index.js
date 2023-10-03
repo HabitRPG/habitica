@@ -320,12 +320,7 @@ router.beforeEach(async (to, from, next) => {
       startingPage = to.params.startingPage;
     }
     if (from.name === null) {
-      setTimeout(() => router.app.$emit('habitica:show-profile', {
-        userId: to.params.userId,
-        startingPage,
-        fromPath: '/',
-        toPath: to.path,
-      }), 500);
+      store.state.postLoadModal = `profile/${to.params.userId}`;
       return next({ name: 'tasks' });
     }
     router.app.$emit('habitica:show-profile', {
@@ -339,7 +334,7 @@ router.beforeEach(async (to, from, next) => {
   }
 
   if (to.name === 'tasks' && to.query.openGemsModal === 'true') {
-    setTimeout(() => router.app.$emit('bv::show::modal', 'buy-gems'), 500);
+    store.state.postLoadModal = 'buy-gems';
     return next({ name: 'tasks' });
   }
 
