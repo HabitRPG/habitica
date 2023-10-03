@@ -14,7 +14,7 @@ import {
   NotAuthorized,
 } from '../../libs/errors';
 import { removeFromArray } from '../../libs/collectionManipulators';
-import { getUserInfo, getGroupUrl } from '../../libs/email';
+import { getUserInfo } from '../../libs/email';
 import * as slack from '../../libs/slack';
 import { chatReporterFactory } from '../../libs/chatReporting/chatReporterFactory';
 import bannedWords from '../../libs/bannedWords';
