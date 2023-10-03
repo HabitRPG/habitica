@@ -152,7 +152,7 @@
         <button
           v-if="getPriceClass() === 'gems'
             && !enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)"
-          class="btn btn-primary"
+          class="btn btn-primary mb-3"
           @click="purchaseGems()"
         >
           {{ $t('purchaseGems') }}

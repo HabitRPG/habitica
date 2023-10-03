@@ -153,13 +153,13 @@ const premium = {
     value: 2,
     text: t('hatchingPotionSpooky'),
     limited: true,
-    event: EVENTS.fall2021,
+    event: EVENTS.fall2023,
     _addlNotes: t('eventAvailabilityReturning', {
       availableDate: t('dateEndOctober'),
-      previousDate: t('septemberYYYY', { year: 2019 }),
+      previousDate: t('octoberYYYY', { year: 2021 }),
     }),
     canBuy () {
-      return moment().isBefore(EVENTS.fall2021.end);
+      return moment().isBetween(EVENTS.fall2023.start, EVENTS.fall2023.end);
     },
   },
   Ghost: {
@@ -244,13 +244,13 @@ const premium = {
     value: 2,
     text: t('hatchingPotionGlow'),
     limited: true,
-    event: EVENTS.birthday10,
+    event: EVENTS.fall2023,
     _addlNotes: t('eventAvailabilityReturning', {
-      availableDate: t('dateStartFebruary'),
-      previousDate: t('octoberYYYY', { year: 2021 }),
+      availableDate: t('dateEndOctober'),
+      previousDate: t('januaryYYYY', { year: 2023 }),
     }),
     canBuy () {
-      return moment().isBetween(EVENTS.birthday10.start, EVENTS.birthday10.end);
+      return moment().isBetween(EVENTS.fall2023.start, EVENTS.fall2023.end);
     },
   },
   Frost: {
@@ -436,13 +436,13 @@ const premium = {
     value: 2,
     text: t('hatchingPotionVampire'),
     limited: true,
-    event: EVENTS.birthday10,
+    event: EVENTS.fall2023,
     _addlNotes: t('eventAvailabilityReturning', {
-      availableDate: t('dateStartFebruary'),
-      previousDate: t('octoberYYYY', { year: 2022 }),
+      availableDate: t('dateEndOctober'),
+      previousDate: t('januaryYYYY', { year: 2023 }),
     }),
     canBuy () {
-      return moment().isBetween(EVENTS.birthday10.start, EVENTS.birthday10.end);
+      return moment().isBetween(EVENTS.fall2023.start, EVENTS.fall2023.end);
     },
   },
   AutumnLeaf: {

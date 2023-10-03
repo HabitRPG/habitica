@@ -216,7 +216,7 @@ describe('shared.ops.purchase', () => {
       expect(user.balance).to.equal(startingBalance - price);
 
       expect(pinnedGearUtils.removeItemByPath.notCalled).to.equal(true);
-      clock.restore();
+      // clock.restore();
     });
   });
 
