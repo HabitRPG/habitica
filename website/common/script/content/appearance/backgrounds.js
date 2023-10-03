@@ -1,10 +1,12 @@
-import forOwn from 'lodash/forOwn';
 import camelCase from 'lodash/camelCase';
+import forOwn from 'lodash/forOwn';
+import moment from 'moment';
+import omitBy from 'lodash/omitBy';
 import upperFirst from 'lodash/upperFirst';
 import t from '../translation';
 
 /* eslint-disable camelcase */
-const backgrounds = {
+const plannedBackgrounds = {
   backgrounds062014: {
     beach: { },
     fairy_ring: { },
@@ -627,7 +629,14 @@ const backgrounds = {
 };
 /* eslint-enable quote-props */
 
+const releaseDates = {
+  backgrounds102023: '2023-10-10T08:00-04:00',
+};
+
 const flat = {};
+
+const backgrounds = omitBy(plannedBackgrounds, (bgSet, key) => releaseDates[key]
+  && moment().isBefore(releaseDates[key]));
 
 forOwn(backgrounds, (backgroundsInSet, set) => {
   forOwn(backgroundsInSet, (background, bgKey) => {
