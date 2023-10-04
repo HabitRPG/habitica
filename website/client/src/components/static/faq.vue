@@ -54,7 +54,7 @@
               <div
                 v-once
                 v-markdown="entry.web"
-                class="card-body"
+                class="card-body p-0 pb-3"
               ></div>
             </b-collapse>
           </div>
