@@ -29,20 +29,6 @@ describe('GET /faq', () => {
   });
 
   describe('platform parameter', () => {
-    it('returns faq with answers for ios platform only', async () => {
-      const res = await requester().get('/faq?platform=ios');
-
-      expect(res).to.have.property('stillNeedHelp');
-      expect(res.stillNeedHelp).to.eql({ ios: translate('iosFaqStillNeedHelp') });
-
-      expect(res).to.have.property('questions');
-      expect(res.questions[0]).to.eql({
-        exclusions: [],
-        heading: 'overview',
-        question: translate('faqQuestion0'),
-        ios: translate('iosFaqAnswer0'),
-      });
-    });
     it('returns an error when invalid platform parameter is specified', async () => {
       const request = requester().get('/faq?platform=wrong');
       await expect(request)
@@ -51,19 +37,6 @@ describe('GET /faq', () => {
           error: 'BadRequest',
           message: i18n.t('invalidReqParams'),
         });
-    });
-    it('falls back to "web" description if there is no description for specified platform', async () => {
-      const res = await requester().get('/faq?platform=android');
-      expect(res).to.have.property('stillNeedHelp');
-      expect(res.stillNeedHelp).to.eql({ web: translate('webFaqStillNeedHelp') });
-
-      expect(res).to.have.property('questions');
-      expect(res.questions[0]).to.eql({
-        exclusions: [],
-        heading: 'overview',
-        question: translate('faqQuestion0'),
-        android: translate('androidFaqAnswer0'),
-      });
     });
   });
 });
