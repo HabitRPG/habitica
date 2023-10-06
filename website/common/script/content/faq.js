@@ -2,100 +2,168 @@ import t from './translation';
 
 const questionList = [
   {
-    heading: 'overview',
+    heading: 'task-types',
     translationIndex: 0,
   },
   {
-    heading: 'set-up-tasks',
+    heading: 'sample-tasks',
     translationIndex: 1,
   },
   {
-    heading: 'sample-tasks',
+    heading: 'task-color',
     translationIndex: 2,
   },
   {
-    heading: 'task-color',
+    heading: 'pause-dailies',
     translationIndex: 3,
   },
   {
-    heading: 'health',
+    heading: 'recover-hp',
     translationIndex: 4,
   },
   {
-    heading: 'pets-mounts',
-    translationIndex: 6,
-  },
-  {
-    heading: 'character-classes',
-    translationIndex: 7,
-  },
-  {
-    heading: 'blue-mana-bar',
-    translationIndex: 8,
-  },
-  {
-    heading: 'monsters-quests',
-    translationIndex: 9,
-  },
-  {
-    heading: 'gems',
-    translationIndex: 10,
-  },
-  {
-    heading: 'bugs-features',
-    translationIndex: 11,
-  },
-  {
-    heading: 'group-plans',
-    translationIndex: 13,
-  },
-  {
-    heading: 'party-with-friends',
+    heading: 'no-hp',
     translationIndex: 5,
   },
   {
-    heading: 'party-detail-1',
+    heading: 'lose-hp',
+    translationIndex: 6,
+  },
+  {
+    heading: 'choose-class',
+    translationIndex: 7,
+  },
+  {
+    heading: 'blue-bar',
+    translationIndex: 8,
+  },
+  {
+    heading: 'pet-foods',
+    translationIndex: 9,
+  },
+  {
+    heading: 'pets-mounts',
+    translationIndex: 10,
+  },
+  {
+    heading: 'avatar-appearance',
+    translationIndex: 11,
+  },
+  {
+    heading: 'equipment-display',
+    translationIndex: 12,
+  },
+  {
+    heading: 'cant-purchase',
+    translationIndex: 13,
+  },
+  {
+    heading: 'more-eqipment',
     translationIndex: 14,
   },
   {
-    heading: 'party-detail-2',
+    heading: 'gems',
     translationIndex: 15,
   },
   {
-    heading: 'party-detail-3',
+    heading: 'hourglasses',
     translationIndex: 16,
   },
   {
-    heading: 'party-detail-4',
+    heading: 'increase-accountability',
     translationIndex: 17,
   },
   {
-    heading: 'party-detail-5',
+    heading: 'quests',
     translationIndex: 18,
   },
   {
-    heading: 'party-detail-6',
+    heading: 'delete-challenge-tasks',
     translationIndex: 19,
   },
   {
-    heading: 'party-detail-7',
+    heading: 'avatar-transform',
     translationIndex: 20,
   },
   {
-    heading: 'party-detail-8',
+    heading: 'report-a-bug',
     translationIndex: 21,
   },
   {
-    heading: 'party-detail-9',
+    heading: 'data',
     translationIndex: 22,
   },
   {
-    heading: 'party-detail-10',
+    heading: 'play-with-others',
     translationIndex: 23,
   },
   {
-    heading: 'party-detail-11',
+    heading: 'find-a-party',
     translationIndex: 24,
+  },
+  {
+    heading: 'search-party',
+    translationIndex: 25,
+  },
+  {
+    heading: 'search-length',
+    translationIndex: 26,
+  },
+  {
+    heading: 'stop-search',
+    translationIndex: 27,
+  },
+  {
+    heading: 'find-members',
+    translationIndex: 28,
+  },
+  {
+    heading: 'how-many-members',
+    translationIndex: 29,
+  },
+  {
+    heading: 'invite-someone',
+    translationIndex: 30,
+  },
+  {
+    heading: 'cancel-invitation',
+    translationIndex: 31,
+  },
+  {
+    heading: 'unwanted-invitations',
+    translationIndex: 32,
+  },
+  {
+    heading: 'filter-list',
+    translationIndex: 33,
+  },
+  {
+    heading: 'what-is-group-plan',
+    translationIndex: 34,
+  },
+  {
+    heading: 'group-create-tasks',
+    translationIndex: 35,
+  },
+  {
+    heading: 'group-assigned-tasks',
+    translationIndex: 36,
+  },
+  {
+    heading: 'group-unassigned-tasks',
+    translationIndex: 37,
+  },
+  {
+    heading: 'group-day-reset',
+    translationIndex: 38,
+  },
+  {
+    heading: 'group-plan-mobile',
+    translationIndex: 39,
+  },
+  {
+    heading: 'group-shared-vs-challenge',
+    translationIndex: 40,
   },
 ];
 

@@ -27,11 +27,18 @@
               {{ $t('general') }}
             </h2>
             <h2
-              v-if="entry.heading === 'party-with-friends'"
+              v-if="entry.heading === 'play-with-others'"
               v-once
               id="parties"
             >
               {{ $t('parties') }}
+            </h2>
+            <h2
+              v-if="entry.heading === 'what-is-group-plan'"
+              v-once
+              id="group-plans"
+            >
+              {{ $t('groupPlans') }}
             </h2>
             <!-- entry header goes here -->
             <h3
