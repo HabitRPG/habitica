@@ -38,7 +38,7 @@
               v-once
               id="group-plans"
             >
-              {{ $t('groupPlans') }}
+              {{ $t('groupPlan') }}
             </h2>
             <!-- entry header goes here -->
             <h3
