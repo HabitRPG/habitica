@@ -1,4 +1,5 @@
 import isArray from 'lodash/isArray';
+import { merge, each } from 'lodash';
 import * as quests from '@/../../common/script/content/quests';
 
 // @TODO: Let's separate some of the business logic out of Vue if possible
@@ -142,6 +143,16 @@ export default {
 
       if (apiResult.data.data.user) {
         Object.assign(this.$store.state.user.data, apiResult.data.data.user);
+      }
+
+      if (apiResult.data.data.partyMembers) {
+        each(this.$store.state.partyMembers.data, partyMember => {
+          const updatedPartyMember = apiResult.data.data.partyMembers
+            .find(
+              member => member.profile.name === partyMember.profile.name,
+            );
+          merge(partyMember, updatedPartyMember);
+        });
       }
 
       let msg = '';
