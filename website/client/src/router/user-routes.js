@@ -1,45 +1,37 @@
 import ParentPage from '@/components/parentPage.vue';
-import { ProfilePage } from './shared-route-imports';
-
 
 // Settings
-const Settings = () => import(/* webpackChunkName: "settings" */'@/components/settings/index');
-const API = () => import(/* webpackChunkName: "settings" */'@/components/settings/api');
-const DataExport = () => import(/* webpackChunkName: "settings" */'@/components/settings/dataExport');
-const Notifications = () => import(/* webpackChunkName: "settings" */'@/components/settings/notifications');
-const PromoCode = () => import(/* webpackChunkName: "settings" */'@/components/settings/promoCode');
-const Site = () => import(/* webpackChunkName: "settings" */'@/components/settings/site');
-const Subscription = () => import(/* webpackChunkName: "settings" */'@/components/settings/subscription');
-const Transactions = () => import(/* webpackChunkName: "settings" */'@/components/settings/purchaseHistory');
+const Settings = () => import(/* webpackChunkName: "settings" */'@/pages/settings-overview');
+const GeneralSettings = () => import(/* webpackChunkName: "settings" */'@/pages/settings/generalSettings');
+const Notifications = () => import(/* webpackChunkName: "settings" */'@/pages/settings/notificationSettings');
+const Transactions = () => import(/* webpackChunkName: "settings" */'@/pages/settings/purchaseHistory.vue');
 
+const SiteData = () => import(/* webpackChunkName: "settings" */'@/pages/settings/siteData.vue');
+
+// not converted yet
+const PromoCode = () => import(/* webpackChunkName: "settings" */'@/pages/settings/promoCode.vue');
+const Subscription = () => import(/* webpackChunkName: "settings" */'@/components/settings/subscription');
 
 export const USER_ROUTES = {
   path: '/user',
   component: ParentPage,
   children: [
-    { name: 'stats', path: 'stats', component: ProfilePage },
-    { name: 'achievements', path: 'achievements', component: ProfilePage },
-    { name: 'profile', path: 'profile', component: ProfilePage },
     {
       name: 'settings',
       path: 'settings',
       component: Settings,
       children: [
         {
-          name: 'site',
-          path: 'site',
-          component: Site,
+          name: 'general',
+          path: 'general',
+          component: GeneralSettings,
         },
         {
-          name: 'api',
-          path: 'api',
-          component: API,
+          name: 'siteData',
+          path: 'siteData',
+          component: SiteData,
         },
-        {
-          name: 'dataExport',
-          path: 'data-export',
-          component: DataExport,
-        },
+        { path: 'api', redirect: { name: 'siteData' } },
         {
           name: 'promoCode',
           path: 'promo-code',

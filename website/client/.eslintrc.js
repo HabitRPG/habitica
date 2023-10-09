@@ -15,6 +15,7 @@ module.exports = {
     'import/no-unresolved': 'off',
     'import/extensions': 'off',
     'vue/no-v-html': 'off',
+    'vue/no-mutating-props': 'warn',
     'vue/html-self-closing': ['error', {
       html: {
         void: 'never',

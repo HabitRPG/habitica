@@ -8,7 +8,6 @@ import { PAGES } from '@/libs/consts';
 import { STATIC_ROUTES } from './static-routes';
 import { USER_ROUTES } from './user-routes';
 import { DEPRECATED_ROUTES } from '@/router/deprecated-routes';
-import { ProfilePage } from './shared-route-imports';
 
 // NOTE: when adding a page make sure to implement the `common:setTitle` action
 
@@ -89,16 +88,14 @@ const router = new VueRouter({
     { name: 'logout', path: '/logout', component: Logout },
     {
       name: 'resetPassword', path: '/reset-password', component: RegisterLoginReset, meta: { requiresLogin: false },
+    }, {
+      name: 'forgotPassword', path: '/forgot-password', component: RegisterLoginReset, meta: { requiresLogin: false },
     },
     { name: 'tasks', path: '/', component: UserTasks },
     {
       name: 'userProfile',
       path: '/profile/:userId',
-      component: ProfilePage,
       props: true,
-      children: [
-        { name: 'userProfilePage', path: ':startingPage', component: ProfilePage },
-      ],
     },
     {
       path: '/inventory',
@@ -319,34 +316,40 @@ router.beforeEach(async (to, from, next) => {
     });
   }
 
-  if ((to.name === 'userProfile' || to.name === 'userProfilePage') && from.name !== null) {
+  if ((to.name === 'userProfile')) {
     let startingPage = 'profile';
     if (to.params.startingPage !== undefined) {
       startingPage = to.params.startingPage;
     }
+    if (from.name === null) {
+      store.state.postLoadModal = `profile/${to.params.userId}`;
+      return next({ name: 'tasks' });
+    }
     router.app.$emit('habitica:show-profile', {
       userId: to.params.userId,
       startingPage,
-      path: to.path,
+      fromPath: from.path,
+      toPath: to.path,
     });
 
     return null;
   }
 
   if (to.name === 'tasks' && to.query.openGemsModal === 'true') {
-    setTimeout(() => router.app.$emit('bv::show::modal', 'buy-gems'), 500);
+    store.state.postLoadModal = 'buy-gems';
     return next({ name: 'tasks' });
   }
 
   if ((to.name === 'stats' || to.name === 'achievements' || to.name === 'profile') && from.name !== null) {
     router.app.$emit('habitica:show-profile', {
       startingPage: to.name,
-      path: to.path,
+      fromPath: from.path,
+      toPath: to.path,
     });
     return null;
   }
 
-  if (from.name === 'userProfile' || from.name === 'userProfilePage' || from.name === 'stats' || from.name === 'achievements' || from.name === 'profile') {
+  if (from.name === 'userProfile' || from.name === 'stats' || from.name === 'achievements' || from.name === 'profile') {
     router.app.$root.$emit('bv::hide::modal', 'profile');
   }
 

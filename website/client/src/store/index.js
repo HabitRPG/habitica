@@ -151,6 +151,7 @@ export default function () {
       bugReportOptions: {
         question: false,
       },
+      postLoadModal: '',
     },
   });
 

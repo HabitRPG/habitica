@@ -120,27 +120,27 @@
         </h2>
         <div class="well pet-mount-well">
           <div class="pet-mount-well-image">
+            <div
+              class="box"
+              :class="{white: user.items.currentPet}"
+            >
               <div
-                class="box"
-                :class="{white: user.items.currentPet}"
-              >
-                <div
-                  class="Pet"
-                  :class="`Pet-${user.items.currentPet}`"
-                ></div>
-              </div>
+                class="Pet"
+                :class="`Pet-${user.items.currentPet}`"
+              ></div>
             </div>
-            <div class="pet-mount-well-text">
-              <div>{{ formatAnimal(user.items.currentPet, 'pet') }}</div>
-              <div>
-                <strong>{{ $t('petsFound') }}:</strong>
-                {{ totalCount(user.items.pets) }}
-              </div>
-              <div>
-                <strong>{{ $t('beastMasterProgress') }}:</strong>
-                {{ beastMasterProgress(user.items.pets) }}
-              </div>
+          </div>
+          <div class="pet-mount-well-text">
+            <div>{{ formatAnimal(user.items.currentPet, 'pet') }}</div>
+            <div>
+              <strong>{{ $t('petsFound') }}:</strong>
+              {{ totalCount(user.items.pets) }}
             </div>
+            <div>
+              <strong>{{ $t('beastMasterProgress') }}:</strong>
+              {{ beastMasterProgress(user.items.pets) }}
+            </div>
+          </div>
         </div>
       </div>
       <div class="stats-section-mounts col-12 col-md-6">
