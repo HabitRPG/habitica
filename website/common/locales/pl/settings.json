@@ -2,7 +2,7 @@
     "settings": "Ustawienia",
     "language": "Język",
     "americanEnglishGovern": "W przypadku niezgodności tłumaczeń, za prawidłową należy uznać wersję angielską (USA).",
-    "helpWithTranslation": "Chciałbyś pomóc w tłumaczeniu Habitica? Świetnie! Odwiedź Gildię Początkujących Lingwistów: <a href=\"/groups/guild/7732f64c-33ee-4cce-873c-fc28f147a6f7\">Aspiring Linguists Guild</a>!",
+    "helpWithTranslation": "Chciałbyś pomóc w tłumaczeniu Habitica? Świetnie! Odwiedź <a href=\"https://translate.habitica.com\">stronę Habitica w serwisie Weblate</a>!",
     "stickyHeader": "Przyklejony nagłówek",
     "newTaskEdit": "Otwieraj nowe zadania w trybie edycji",
     "dailyDueDefaultView": "Ustaw Codzienne domyślnie na zakładkę 'dzisiejsze'",
@@ -222,5 +222,8 @@
     "transaction_gift_send": "<b>Podarowano</b>",
     "gemCap": "Limit Klejnotów",
     "nextHourglass": "Następna Klepsydra",
-    "nextHourglassDescription": "Abonenci otrzymują Mistyczne Klepsydry\nw pierwszych trzech dniach miesiąca."
+    "nextHourglassDescription": "Abonenci otrzymują Mistyczne Klepsydry\nw pierwszych trzech dniach miesiąca.",
+    "transaction_admin_update_hourglasses": "Ustawienia <b>administratora</b> zaktualizowane",
+    "timestamp": "Znacznik czasu",
+    "note": "Uwaga"
 }

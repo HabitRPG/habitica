@@ -6,7 +6,7 @@
     "spellWizardEarthText": "Earthquake",
     "spellWizardEarthNotes": "Your mental power shakes the earth and buffs your Party's Intelligence! (Based on: Unbuffed INT)",
     "spellWizardFrostText": "Chilling Frost",
-    "spellWizardFrostNotes": "With one cast, ice freezes all your streaks so they won't reset to zero tomorrow! ",
+    "spellWizardFrostNotes": "With one cast, ice freezes all your streaks so they won't reset to zero tomorrow!",
     "spellWizardFrostAlreadyCast": "You have already cast this today. Your streaks are frozen, and there's no need to cast this again.",
     "spellWarriorSmashText": "Brutal Smash",
     "spellWarriorSmashNotes": "You make a task more blue/less red and deal extra damage to Bosses! (Based on: STR)",

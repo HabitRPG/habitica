@@ -45,7 +45,7 @@
     "messageCannotLeaveWhileQuesting": "Non podes aceptar esta invitación a un equipo mentres estás nunha misión. Se queres unirte a este equipo, primeiro debes interromper a misión, o cal podes facer desde a pantalla de equipo. Recuperarás o pergameo de misión.",
     "messageUserOperationProtected": "a ruta «<%= operation %>» non se gardou porque está protexida.",
     "messageNotificationNotFound": "Non se atopou a notificación.",
-    "messageNotAbleToBuyInBulk": "Non se poden mercar varias unidades deste obxecto.",
+    "messageNotAbleToBuyInBulk": "Non é posíbel mercar varias unidades deste obxecto.",
     "notificationsRequired": "Os identificadores de notificación son obrigatorios.",
     "unallocatedStatsPoints": "Tes <span class=\"notification-bold-blue\"><%= points %> puntos de condición sen asignar</span>",
     "beginningOfConversation": "Este é o comezo da túa conversa con <%= userName %>.",

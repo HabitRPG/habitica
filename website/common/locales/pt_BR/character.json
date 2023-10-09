@@ -186,5 +186,7 @@
     "chatCastSpellParty": "<%= username %> lançou <%= spell %> no grupo.",
     "chatCastSpellUser": "<%= username %> lançou <%= spell %> em <%= target %>.",
     "purchasePetItemConfirm": "Esta compra ultrapassa o número de itens que você precisa para chocar todos os Mascotes de <%= itemText %> possíveis. Você deseja continuar?",
-    "notEnoughGold": "Sem ouro suficiente."
+    "notEnoughGold": "Sem ouro suficiente.",
+    "chatCastSpellUserTimes": "<%= username %> lançou <%= spell %> em <%= target %> <%= times %> vezes.",
+    "chatCastSpellPartyTimes": "<%= username %> lançou <%= spell %> no grupo <%= times %> vezes."
 }

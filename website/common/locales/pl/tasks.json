@@ -141,5 +141,6 @@
     "counter": "Licznik",
     "resetCounter": "Zresetuj Licznik",
     "taskSummary": "Podsumowanie <%= type %>",
-    "scoreUp": "Zwiększ statystykę"
+    "scoreUp": "Zwiększ statystykę",
+    "scoreDown": "Zmniejsz statystykę"
 }
