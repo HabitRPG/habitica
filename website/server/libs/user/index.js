@@ -237,7 +237,7 @@ export async function update (req, res, { isV3 = false }) {
         user.flags.lastNewStuffRead = lastNewsPost._id;
       }
     } else if (key === 'preferences.tasks.mirrorGroupTasks') {
-      user.preferences.mirrorGroupTasks = _.intersection(groupsToMirror, matchingGroupsArray);
+      user.preferences.tasks.mirrorGroupTasks = _.intersection(groupsToMirror, matchingGroupsArray);
     } else if (acceptablePUTPaths[key]) {
       let adjustedVal = val;
       if (key === 'stats.lvl' && val > common.constants.MAX_LEVEL_HARD_CAP) {

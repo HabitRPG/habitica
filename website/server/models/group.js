@@ -1475,8 +1475,7 @@ schema.methods.unlinkTask = async function groupUnlinkTask (
   };
 
   delete unlinkingTask.group.assignedUsersDetail[user._id];
-  const assignedUserIndex = unlinkingTask.group.assignedUsers.indexOf(user._id);
-  unlinkingTask.group.assignedUsers.splice(assignedUserIndex, 1);
+  unlinkingTask.group.assignedUsers = _.keys(unlinkingTask.group.assignedUsersDetail);
   unlinkingTask.markModified('group');
 
   const promises = [unlinkingTask.save()];
