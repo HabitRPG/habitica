@@ -439,6 +439,10 @@ const armor = {
     str: 7,
     set: 'admiralsSet',
   },
+  karateGi: {
+    str: 10,
+    set: 'karateSet',
+  },
 };
 
 const body = {
@@ -457,6 +461,42 @@ const body = {
     con: 2,
     per: 2,
     set: 'clown',
+  },
+  karateYellowBelt: {
+    per: 3,
+    set: 'karateSet',
+  },
+  karateWhiteBelt: {
+    int: 3,
+    set: 'karateSet',
+  },
+  karateRedBelt: {
+    per: 3,
+    set: 'karateSet',
+  },
+  karatePurpleBelt: {
+    con: 3,
+    set: 'karateSet',
+  },
+  karateOrangeBelt: {
+    con: 3,
+    set: 'karateSet',
+  },
+  karateGreenBelt: {
+    str: 3,
+    set: 'karateSet',
+  },
+  karateBrownBelt: {
+    str: 3,
+    set: 'karateSet',
+  },
+  karateBlueBelt: {
+    con: 3,
+    set: 'karateSet',
+  },
+  karateBlackBelt: {
+    int: 3,
+    set: 'karateSet',
   },
 };
 
@@ -879,6 +919,16 @@ const head = {
     per: 7,
     set: 'admiralsSet',
   },
+  blackSpookySorceryHat: {
+    int: 5,
+    con: 3,
+    set: 'somethingSpooky',
+  },
+  purpleSpookySorceryHat: {
+    per: 5,
+    con: 3,
+    set: 'somethingSpooky',
+  },
 };
 
 const shield = {
@@ -1192,6 +1242,11 @@ const shield = {
   paintersPalette: {
     str: 7,
     set: 'painters',
+  },
+  bucket: {
+    str: 4,
+    int: 4,
+    set: 'cleaningSuppliesTwo',
   },
 };
 
@@ -1638,6 +1693,21 @@ const weapon = {
   paintbrush: {
     int: 8,
     set: 'painters',
+  },
+  mop: {
+    con: 4,
+    per: 4,
+    set: 'cleaningSuppliesTwo',
+  },
+  cleaningCloth: {
+    str: 4,
+    con: 4,
+    set: 'cleaningSuppliesTwo',
+  },
+  ridingBroom: {
+    str: 5,
+    int: 3,
+    set: 'somethingSpooky',
   },
 };
 

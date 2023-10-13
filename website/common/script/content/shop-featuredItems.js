@@ -5,7 +5,7 @@ import { EVENTS } from './constants';
 // path: 'premiumHatchingPotions.Rainbow',
 const featuredItems = {
   market () {
-    if (moment().isBetween(EVENTS.summer2023.start, EVENTS.summer2023.end)) {
+    if (moment().isBetween(EVENTS.fall2023.start, EVENTS.fall2023.end)) {
       return [
         {
           type: 'armoire',
@@ -13,15 +13,15 @@ const featuredItems = {
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Sunset',
+          path: 'premiumHatchingPotions.Glow',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Glass',
+          path: 'premiumHatchingPotions.Spooky',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.SandSculpture',
+          path: 'premiumHatchingPotions.Vampire',
         },
       ];
     }
@@ -32,48 +32,32 @@ const featuredItems = {
       },
       {
         type: 'food',
-        path: 'food.Honey',
+        path: 'food.RottenMeat',
       },
       {
         type: 'hatchingPotions',
-        path: 'hatchingPotions.Golden',
+        path: 'hatchingPotions.Zombie',
       },
       {
         type: 'eggs',
-        path: 'eggs.Dragon',
+        path: 'eggs.Cactus',
       },
     ];
   },
   quests () {
-    if (moment().isBetween(EVENTS.bundle202306.start, EVENTS.bundle202306.end)) {
+    if (moment().isBetween(EVENTS.bundle202310.start, EVENTS.bundle202310.end)) {
       return [
         {
           type: 'bundles',
-          path: 'bundles.splashyPals',
+          path: 'bundles.sandySidekicks',
         },
         {
           type: 'quests',
-          path: 'quests.harpy',
+          path: 'quests.beetle',
         },
         {
           type: 'quests',
-          path: 'quests.owl',
-        },
-      ];
-    }
-    if (moment().isBetween('2023-03-28T08:00-05:00', EVENTS.spring2023.end)) {
-      return [
-        {
-          type: 'quests',
-          path: 'quests.egg',
-        },
-        {
-          type: 'quests',
-          path: 'quests.yarn',
-        },
-        {
-          type: 'quests',
-          path: 'quests.ghost_stag',
+          path: 'quests.frog',
         },
       ];
     }
@@ -89,11 +73,11 @@ const featuredItems = {
       },
       {
         type: 'quests',
-        path: 'quests.nudibranch',
+        path: 'quests.axolotl',
       },
     ];
   },
-  seasonal: 'summer2022MantaRayMageSet',
+  seasonal: 'fall2017TrickOrTreatSet',
   timeTravelers: [
     // TODO
   ],

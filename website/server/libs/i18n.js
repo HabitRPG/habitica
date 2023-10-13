@@ -50,7 +50,8 @@ approvedLanguages.forEach(file => {
   if (file === 'en' || fs.statSync(path.join(localePath, file)).isDirectory() === false) return;
   _loadTranslations(file);
 
-  // Merge missing strings from english
+  // Strip empty strings, then merge missing strings from english
+  translations[file] = _.pickBy(translations[file], string => string !== '');
   _.defaults(translations[file], translations.en);
 });
 

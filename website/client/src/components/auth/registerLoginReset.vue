@@ -731,6 +731,8 @@ export default {
     },
   },
   mounted () {
+    this.forgotPassword = this.$route.path.startsWith('/forgot-password');
+
     hello.init({
       google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line
     });

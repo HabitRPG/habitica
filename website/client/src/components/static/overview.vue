@@ -12,12 +12,15 @@
           <p v-markdown="$t(`webStep${step}Text`, stepVars[step])"></p>
           <hr>
         </div>
-        <p
-          v-markdown="$t('overviewQuestions', {
-            faqUrl: '/static/faq/',
-            helpGuildUrl: '/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a'
-          })"
-        ></p>
+        <p>
+          <span v-html="$t('overviewQuestionsRevised')"></span>
+          <a
+            target="_blank"
+            @click.prevent="openBugReportModal(true)"
+          >
+            {{ $t('askQuestion') }}
+          </a>
+        </p>
       </div>
     </div>
   </div>
@@ -35,11 +38,13 @@
 
 <script>
 import markdownDirective from '@/directives/markdown';
+import reportBug from '@/mixins/reportBug.js';
 
 export default {
   directives: {
     markdown: markdownDirective,
   },
+  mixins: [reportBug],
   data () {
     return {
       stepsNum: ['1', '2', '3'],

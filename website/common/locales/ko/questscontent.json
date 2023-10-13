@@ -636,5 +636,13 @@
     "questVelociraptorDropVelociraptorEgg": "Velociraptor (Egg)",
     "questVelociraptorUnlockText": "Unlocks purchasable Velociraptor eggs in the Market",
     "evilSantaAddlNotes": "주의: '사냥꾼 산타'와 '아기곰 찾기' 퀘스트는 누적 가능한 퀘스트 업적이지만, 해당 펫과 탑승펫은 마구간에 하나만 추가됩니다.",
-    "questVirtualPetDropVirtualPetPotion": "다마고치 펫 부화 물약"
+    "questVirtualPetDropVirtualPetPotion": "다마고치 펫 부화 물약",
+    "questBronzeDropBronzePotion": "황동 부화 물약",
+    "questBronzeText": "황동 딱정벌레 전투",
+    "questBronzeUnlockText": "마켓에서 구매하여 황동 부화 물약을 해금하세요",
+    "questBronzeBoss": "황동 딱정벌레",
+    "mythicalMarvelsText": "신화 속 불가사의 퀘스트 꾸러미",
+    "mythicalMarvelsNotes": "'유니콘 여왕 설득하기'와 '맹렬한 그리폰', '심연의 위험: 바다용 공격!' 포함. 2월 28일까지.",
+    "questBronzeNotes": "과제 도중 휴식을 취하는 동안, 친구들과 함께 과제의 숲을 걸어보세요. 커다란 속 빈 통나무를 발견한 당신은 안쪽의 반짝임을 눈치챕니다.<br><br>세상에, 마법의 부화 물약 저장소네요! 일렁이는 황동빛 액체가 병 안에서 부드럽게 소용돌이치고, @Hachiseiko가 살펴보기 위해 하나를 집으려 합니다.<br><br>“멈춰라!” 누군가 당신의 뒤에서 외칩니다. 황동으로 번쩍이는 거대한 껍질을 가진 딱정벌레가 발톱 달린 발을 들며 전투 태세를 취합니다. “그건 내 물약이다, 갖고 싶다면 결투에서 네 가치를 증명해야 한다!”",
+    "questBronzeCompletion": "“잘 만났다, 전사여!” 딱정벌레가 바닥에 자리를 잡으며 말합니다. 딱정벌레가 웃고 있나요? 턱 때문에 구분하기가 쉽지 않네요. “진정으로 이 물약을 얻어냈구나!”<br<br>“우와, 전투에서 승리해도 이런 보상을 받은 적은 없는데!” @UncommonCriminal이 일렁이는 병을 손에 들고 돌리며 말합니다. “어서 우리의 새로운 펫을 부화시키자!”"
 }

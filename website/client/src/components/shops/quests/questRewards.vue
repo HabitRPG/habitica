@@ -82,7 +82,7 @@
 
       <item-with-label
         v-for="drop in getDropsList(quest.drop.items, false)"
-        :key="drop.type+'_'+drop.key"
+        :key="`${drop.type}_${drop.key}`"
         :item="{}"
         class="item-with-label"
       >

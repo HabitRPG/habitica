@@ -94,6 +94,12 @@
   height: 90px;
 }
 
+.back_special_heroicAureole {
+  width: 114px;
+  height: 90px;
+  background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/back_special_heroicAureole.gif") no-repeat;
+}
+
 .head_special_0 {
   background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/BackerOnly-Equip-ShadeHelmet.gif") no-repeat;
 }
@@ -191,14 +197,6 @@
 .background_steamworks {
   background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_steamworks.gif") no-repeat;
 }
-
-/* FIXME figure out how to handle customize menu!!
-.customize-menu .f_head_0 {
-  width: 60px;
-  height: 60px;
-  background-position: -1917px -9px;
-}
-*/
 
 [class*="Mount_Head_"],
 [class*="Mount_Body_"] {

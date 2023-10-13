@@ -10,7 +10,7 @@ function toFixedWithoutRounding (num, fixed) {
   return num.toString().match(re)[0];
 }
 
-export default {
+export const NotificationMixins = {
   computed: {
     ...mapState({ notifications: 'notificationStore' }),
   },
@@ -90,3 +90,5 @@ export default {
     },
   },
 };
+
+export default NotificationMixins;

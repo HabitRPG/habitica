@@ -65,7 +65,7 @@ export async function sleep (store) {
 }
 
 export async function addWebhook (store, payload) {
-  const response = await axios.post('/api/v4/user/webhook', payload.webhookInfo);
+  const response = await axios.post('/api/v4/user/webhook', payload.webhook);
   return response.data.data;
 }
 

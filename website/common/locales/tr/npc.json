@@ -118,5 +118,12 @@
     "welcome3": "Hayatta ve oyunda ilerleme kaydet!",
     "welcome3notes": "Yaşamını geliştirdikçe avatarın seviye atlayıp hayvanlar, görevler, ekipmanlar ve daha pek çok şeyin kilidini açacak!",
     "imReady": "Habitica'ya Giriş",
-    "limitedOffer": "<%= date %> tarihine kadar satın alınabilir"
+    "limitedOffer": "<%= date %> tarihine kadar satın alınabilir",
+    "helpSupportHabitica": "",
+    "paymentCanceledDisputes": "E-mail'ine iptal işlemi için bir onay gönderdik. Mail'i görmüyorsan gelecekteki ücretlendirme işlemlerini engellemek için lütfen bizimle iletişime geç.",
+    "groupsPaymentSubBilling": "Sonraki ödeme tarihi <strong><%= renewalDate %></strong>.",
+    "limitedAvailabilityHours": "<%= hours %>sa <%= minutes %>dk boyunca geçerli",
+    "sellItems": "Eşyaları Sat",
+    "limitedAvailabilityMinutes": "<%= minutes %>m <%= seconds %>s boyunca geçerli",
+    "limitedAvailabilityDays": "<%= days %>g <%= hours %>sa <%= minutes %>dk boyunca geçerli"
 }

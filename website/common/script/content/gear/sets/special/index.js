@@ -27,6 +27,7 @@ const armor = {
   1: contributorGear.armorSpecial1,
   2: backerGear.armorSpecial2,
   takeThis: takeThisGear.armorSpecialTakeThis,
+  heroicTunic: contributorGear.armorSpecialHeroicTunic,
   finnedOceanicArmor: {
     text: t('armorSpecialFinnedOceanicArmorText'),
     notes: t('armorSpecialFinnedOceanicArmorNotes', { str: 15 }),
@@ -827,15 +828,31 @@ const armor = {
   },
   summer2023Rogue: {
     set: 'summer2023GuppyRogueSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'summer',
   },
   summer2023Warrior: {
     set: 'summer2023GoldfishWarriorSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'summer',
   },
   summer2023Mage: {
     set: 'summer2023CoralMageSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'summer',
   },
   summer2023Healer: {
     set: 'summer2023KelpHealerSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'summer',
+  },
+  fall2023Warrior: {
+    set: 'fall2023ScaryMovieWarriorSet',
+  },
+  fall2023Healer: {
+    set: 'fall2023BogCreatureHealerSet',
+  },
+  fall2023Mage: {
+    set: 'fall2023ScarletWarlockMageSet',
+  },
+  fall2023Rogue: {
+    set: 'fall2023WitchsBrewRogueSet',
   },
 };
 
@@ -868,6 +885,7 @@ const back = {
   wondercon_red: wonderconGear.backSpecialWonderconRed, // eslint-disable-line camelcase
   wondercon_black: wonderconGear.backSpecialWonderconBlack, // eslint-disable-line camelcase
   takeThis: takeThisGear.backSpecialTakeThis,
+  heroicAureole: contributorGear.backSpecialHeroicAureole,
   snowdriftVeil: {
     text: t('backSpecialSnowdriftVeilText'),
     notes: t('backSpecialSnowdriftVeilNotes'),
@@ -2017,15 +2035,31 @@ const head = {
   },
   summer2023Rogue: {
     set: 'summer2023GuppyRogueSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'summer',
   },
   summer2023Warrior: {
     set: 'summer2023GoldfishWarriorSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'summer',
   },
   summer2023Mage: {
     set: 'summer2023CoralMageSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'summer',
   },
   summer2023Healer: {
     set: 'summer2023KelpHealerSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'summer',
+  },
+  fall2023Healer: {
+    set: 'fall2023BogCreatureHealerSet',
+  },
+  fall2023Mage: {
+    set: 'fall2023ScarletWarlockMageSet',
+  },
+  fall2023Rogue: {
+    set: 'fall2023WitchsBrewRogueSet',
+  },
+  fall2023Warrior: {
+    set: 'fall2023ScaryMovieWarriorSet',
   },
 };
 
@@ -2055,6 +2089,7 @@ Object.keys(gearEvents).forEach(event => {
 });
 
 const headAccessory = {
+  heroicCirclet: contributorGear.headAccessorySpecialHeroicCirclet,
   springRogue: {
     specialClass: 'rogue',
     set: 'stealthyKittySet',
@@ -2858,12 +2893,26 @@ const shield = {
   },
   summer2023Rogue: {
     set: 'summer2023GuppyRogueSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   summer2023Warrior: {
     set: 'summer2023GoldfishWarriorSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   summer2023Healer: {
     set: 'summer2023KelpHealerSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
+  },
+  fall2023Rogue: {
+    set: 'fall2023WitchsBrewRogueSet',
+    text: t('shieldSpecialFall2023RogueText'),
+    notes: t('shieldSpecialFall2023RogueNotes', { str: 8 }),
+  },
+  fall2023Warrior: {
+    set: 'fall2023ScaryMovieWarriorSet',
+  },
+  fall2023Healer: {
+    set: 'fall2023BogCreatureHealerSet',
   },
 };
 
@@ -3639,15 +3688,31 @@ const weapon = {
   },
   summer2023Rogue: {
     set: 'summer2023GuppyRogueSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   summer2023Warrior: {
     set: 'summer2023GoldfishWarriorSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   summer2023Mage: {
     set: 'summer2023CoralMageSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   summer2023Healer: {
     set: 'summer2023KelpHealerSet',
+    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
+  },
+  fall2023Rogue: {
+    set: 'fall2023WitchsBrewRogueSet',
+  },
+  fall2023Healer: {
+    set: 'fall2023BogCreatureHealerSet',
+  },
+  fall2023Warrior: {
+    set: 'fall2023ScaryMovieWarriorSet',
+  },
+  fall2023Mage: {
+    set: 'fall2023ScarletWarlockMageSet',
   },
 };
 

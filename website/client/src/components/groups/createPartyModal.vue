@@ -245,12 +245,13 @@ import notifications from '@/mixins/notifications';
 import closeX from '../ui/closeX';
 
 import copyIcon from '@/assets/svg/copy.svg';
+import copyToClipboard from '@/mixins/copyToClipboard';
 
 export default {
   components: {
     closeX,
   },
-  mixins: [notifications],
+  mixins: [notifications, copyToClipboard],
   data () {
     return {
       icons: Object.freeze({
@@ -287,17 +288,10 @@ export default {
       this.$root.$emit('bv::hide::modal', 'create-party-modal');
     },
     copyUsername () {
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(this.user.auth.local.username);
-      } else {
-        const copyText = document.createElement('textarea');
-        copyText.value = this.user.auth.local.username;
-        document.body.appendChild(copyText);
-        copyText.select();
-        document.execCommand('copy');
-        document.body.removeChild(copyText);
-      }
-      this.text(this.$t('usernameCopied'));
+      this.mixinCopyToClipboard(
+        this.user.auth.local.username,
+        this.$t('usernameCopied'),
+      );
     },
     seekParty () {
       this.$store.dispatch('user:set', {

@@ -635,6 +635,11 @@
   width: 141px;
   height: 147px;
 }
+.background_baobab_forest {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_baobab_forest.png');
+  width: 141px;
+  height: 147px;
+}
 .background_bayou {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_bayou.png');
   width: 141px;
@@ -817,6 +822,11 @@
 }
 .background_cottage_construction {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_cottage_construction.png');
+  width: 141px;
+  height: 147px;
+}
+.background_covered_bridge_in_autumn {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_covered_bridge_in_autumn.png');
   width: 141px;
   height: 147px;
 }
@@ -1429,6 +1439,11 @@
   width: 141px;
   height: 147px;
 }
+.background_jack_o_lantern_stacks {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_jack_o_lantern_stacks.png');
+  width: 141px;
+  height: 147px;
+}
 .background_jungle_canopy {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_jungle_canopy.png');
   width: 141px;
@@ -1554,6 +1569,11 @@
   width: 141px;
   height: 147px;
 }
+.background_monstrous_cave {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_monstrous_cave.png');
+  width: 141px;
+  height: 147px;
+}
 .background_mountain_lake {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_mountain_lake.png');
   width: 141px;
@@ -1566,6 +1586,11 @@
 }
 .background_mountain_waterfall {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_mountain_waterfall.png');
+  width: 141px;
+  height: 147px;
+}
+.background_moving_day {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_moving_day.png');
   width: 141px;
   height: 147px;
 }
@@ -1866,6 +1891,11 @@
 }
 .background_sparkling_snowflake {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_sparkling_snowflake.png');
+  width: 141px;
+  height: 147px;
+}
+.background_spectral_candle_room {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_spectral_candle_room.png');
   width: 141px;
   height: 147px;
 }
@@ -2376,6 +2406,11 @@
   width: 68px;
   height: 68px;
 }
+.icon_background_baobab_forest {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_baobab_forest.png');
+  width: 68px;
+  height: 68px;
+}
 .icon_background_bayou {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_bayou.png');
   width: 68px;
@@ -2565,6 +2600,11 @@
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_cottage_construction.png');
   width: 68px;
   height: 68px;
+}
+.icon_background_covered_bridge_in_autumn {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_covered_bridge_in_autumn.png');
+  width: 60px;
+  height: 60px;
 }
 .icon_background_cozy_barn {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_cozy_barn.png');
@@ -3175,6 +3215,11 @@
   width: 68px;
   height: 68px;
 }
+.icon_background_jack_o_lantern_stacks {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_jack_o_lantern_stacks.png');
+  width: 68px;
+  height: 68px;
+}
 .icon_background_jungle_canopy {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_jungle_canopy.png');
   width: 68px;
@@ -3300,6 +3345,11 @@
   width: 68px;
   height: 68px;
 }
+.icon_background_monstrous_cave {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_monstrous_cave.png');
+  width: 68px;
+  height: 68px;
+}
 .icon_background_mountain_lake {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_mountain_lake.png');
   width: 68px;
@@ -3312,6 +3362,11 @@
 }
 .icon_background_mountain_waterfall {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_mountain_waterfall.png');
+  width: 68px;
+  height: 68px;
+}
+.icon_background_moving_day {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_moving_day.png');
   width: 68px;
   height: 68px;
 }
@@ -3612,6 +3667,11 @@
 }
 .icon_background_sparkling_snowflake {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_sparkling_snowflake.png');
+  width: 68px;
+  height: 68px;
+}
+.icon_background_spectral_candle_room {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_spectral_candle_room.png');
   width: 68px;
   height: 68px;
 }
@@ -19100,6 +19160,11 @@
   width: 114px;
   height: 90px;
 }
+.head_armoire_blackSpookySorceryHat {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_armoire_blackSpookySorceryHat.png');
+  width: 114px;
+  height: 90px;
+}
 .head_armoire_blueFloppyHat {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_armoire_blueFloppyHat.png');
   width: 90px;
@@ -19365,6 +19430,11 @@
   width: 90px;
   height: 90px;
 }
+.head_armoire_purpleSpookySorceryHat {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_armoire_purpleSpookySorceryHat.png');
+  width: 114px;
+  height: 90px;
+}
 .head_armoire_ramHeaddress {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_armoire_ramHeaddress.png');
   width: 90px;
@@ -19522,6 +19592,11 @@
 }
 .shield_armoire_bubblingCauldron {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shield_armoire_bubblingCauldron.png');
+  width: 114px;
+  height: 90px;
+}
+.shield_armoire_bucket {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shield_armoire_bucket.png');
   width: 114px;
   height: 90px;
 }
@@ -20470,6 +20545,11 @@
   width: 68px;
   height: 68px;
 }
+.shop_head_armoire_blackSpookySorceryHat {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_head_armoire_blackSpookySorceryHat.png');
+  width: 68px;
+  height: 68px;
+}
 .shop_head_armoire_blueFloppyHat {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_head_armoire_blueFloppyHat.png');
   width: 68px;
@@ -20735,6 +20815,11 @@
   width: 68px;
   height: 68px;
 }
+.shop_head_armoire_purpleSpookySorceryHat {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_head_armoire_purpleSpookySorceryHat.png');
+  width: 68px;
+  height: 68px;
+}
 .shop_head_armoire_ramHeaddress {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_head_armoire_ramHeaddress.png');
   width: 68px;
@@ -20892,6 +20977,11 @@
 }
 .shop_shield_armoire_bubblingCauldron {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_shield_armoire_bubblingCauldron.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_shield_armoire_bucket {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_shield_armoire_bucket.png');
   width: 68px;
   height: 68px;
 }
@@ -21290,6 +21380,11 @@
   width: 68px;
   height: 68px;
 }
+.shop_weapon_armoire_cleaningCloth {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_armoire_cleaningCloth.png');
+  width: 68px;
+  height: 68px;
+}
 .shop_weapon_armoire_clubOfClubs {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_armoire_clubOfClubs.png');
   width: 68px;
@@ -21480,6 +21575,11 @@
   width: 68px;
   height: 68px;
 }
+.shop_weapon_armoire_mop {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_armoire_mop.png');
+  width: 68px;
+  height: 68px;
+}
 .shop_weapon_armoire_mythmakerSword {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_armoire_mythmakerSword.png');
   width: 68px;
@@ -21597,6 +21697,11 @@
 }
 .shop_weapon_armoire_resplendentRapier {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_armoire_resplendentRapier.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_weapon_armoire_ridingBroom {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_armoire_ridingBroom.png');
   width: 68px;
   height: 68px;
 }
@@ -22230,6 +22335,11 @@
   width: 114px;
   height: 90px;
 }
+.weapon_armoire_cleaningCloth {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_armoire_cleaningCloth.png');
+  width: 114px;
+  height: 90px;
+}
 .weapon_armoire_clubOfClubs {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_armoire_clubOfClubs.png');
   width: 114px;
@@ -22420,6 +22530,11 @@
   width: 90px;
   height: 90px;
 }
+.weapon_armoire_mop {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_armoire_mop.png');
+  width: 114px;
+  height: 90px;
+}
 .weapon_armoire_mythmakerSword {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_armoire_mythmakerSword.png');
   width: 90px;
@@ -22537,6 +22652,11 @@
 }
 .weapon_armoire_resplendentRapier {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_armoire_resplendentRapier.png');
+  width: 114px;
+  height: 90px;
+}
+.weapon_armoire_ridingBroom {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_armoire_ridingBroom.png');
   width: 114px;
   height: 90px;
 }
@@ -22683,6 +22803,11 @@
 .broad_armor_special_finnedOceanicArmor {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_special_finnedOceanicArmor.png');
   width: 90px;
+  height: 90px;
+}
+.broad_armor_special_heroicTunic {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_special_heroicTunic.png');
+  width: 114px;
   height: 90px;
 }
 .broad_armor_special_lunarWarriorArmor {
@@ -22870,6 +22995,11 @@
   width: 68px;
   height: 68px;
 }
+.shop_armor_special_heroicTunic {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_armor_special_heroicTunic.png');
+  width: 68px;
+  height: 68px;
+}
 .shop_armor_special_lunarWarriorArmor {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_armor_special_lunarWarriorArmor.png');
   width: 68px;
@@ -23043,6 +23173,11 @@
 .slim_armor_special_finnedOceanicArmor {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_special_finnedOceanicArmor.png');
   width: 90px;
+  height: 90px;
+}
+.slim_armor_special_heroicTunic {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_special_heroicTunic.png');
+  width: 114px;
   height: 90px;
 }
 .slim_armor_special_lunarWarriorArmor {
@@ -23272,6 +23407,11 @@
 }
 .shop_back_special_foxTail {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_back_special_foxTail.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_back_special_heroicAureole {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_back_special_heroicAureole.png');
   width: 68px;
   height: 68px;
 }
@@ -23680,6 +23820,26 @@
   width: 114px;
   height: 90px;
 }
+.broad_armor_special_fall2023Healer {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_special_fall2023Healer.png');
+  width: 114px;
+  height: 90px;
+}
+.broad_armor_special_fall2023Mage {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_special_fall2023Mage.png');
+  width: 114px;
+  height: 90px;
+}
+.broad_armor_special_fall2023Rogue {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_special_fall2023Rogue.png');
+  width: 114px;
+  height: 90px;
+}
+.broad_armor_special_fall2023Warrior {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_special_fall2023Warrior.png');
+  width: 114px;
+  height: 90px;
+}
 .broad_armor_special_fallHealer {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_special_fallHealer.png');
   width: 90px;
@@ -23870,6 +24030,26 @@
   width: 114px;
   height: 90px;
 }
+.head_special_fall2023Healer {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_special_fall2023Healer.png');
+  width: 114px;
+  height: 90px;
+}
+.head_special_fall2023Mage {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_special_fall2023Mage.png');
+  width: 114px;
+  height: 90px;
+}
+.head_special_fall2023Rogue {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_special_fall2023Rogue.png');
+  width: 114px;
+  height: 90px;
+}
+.head_special_fall2023Warrior {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_special_fall2023Warrior.png');
+  width: 114px;
+  height: 90px;
+}
 .head_special_fallHealer {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_special_fallHealer.png');
   width: 90px;
@@ -24007,6 +24187,21 @@
 }
 .shield_special_fall2022Warrior {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shield_special_fall2022Warrior.png');
+  width: 114px;
+  height: 90px;
+}
+.shield_special_fall2023Healer {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shield_special_fall2023Healer.png');
+  width: 114px;
+  height: 90px;
+}
+.shield_special_fall2023Rogue {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shield_special_fall2023Rogue.png');
+  width: 114px;
+  height: 90px;
+}
+.shield_special_fall2023Warrior {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shield_special_fall2023Warrior.png');
   width: 114px;
   height: 90px;
 }
@@ -24182,6 +24377,26 @@
 }
 .shop_armor_special_fall2022Warrior {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_armor_special_fall2022Warrior.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_armor_special_fall2023Healer {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_armor_special_fall2023Healer.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_armor_special_fall2023Mage {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_armor_special_fall2023Mage.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_armor_special_fall2023Rogue {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_armor_special_fall2023Rogue.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_armor_special_fall2023Warrior {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_armor_special_fall2023Warrior.png');
   width: 68px;
   height: 68px;
 }
@@ -24375,6 +24590,21 @@
   width: 68px;
   height: 68px;
 }
+.shop_head_special_fall2023Healer {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_head_special_fall2023Healer.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_head_special_fall2023Mage {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_head_special_fall2023Mage.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_head_special_fall2023Warrior {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_head_special_fall2023Warrior.png');
+  width: 68px;
+  height: 68px;
+}
 .shop_head_special_fallHealer {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_head_special_fallHealer.png');
   width: 68px;
@@ -24512,6 +24742,21 @@
 }
 .shop_shield_special_fall2022Warrior {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_shield_special_fall2022Warrior.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_shield_special_fall2023Healer {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_shield_special_fall2023Healer.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_shield_special_fall2023Rogue {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_shield_special_fall2023Rogue.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_shield_special_fall2023Warrior {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_shield_special_fall2023Warrior.png');
   width: 68px;
   height: 68px;
 }
@@ -24690,6 +24935,16 @@
   width: 68px;
   height: 68px;
 }
+.shop_weapon_special_fall2023Healer {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_special_fall2023Healer.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_weapon_special_fall2023Rogue {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_special_fall2023Rogue.png');
+  width: 68px;
+  height: 68px;
+}
 .shop_weapon_special_fallHealer {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_special_fallHealer.png');
   width: 68px;
@@ -24707,6 +24962,21 @@
 }
 .shop_weapon_special_fallWarrior {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_special_fallWarrior.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_head_special_fall2023Rogue {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_head_special_fall2023Rogue.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_weapon_special_fall2023Mage {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_special_fall2023Mage.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_weapon_special_fall2023Warrior {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_special_fall2023Warrior.png');
   width: 68px;
   height: 68px;
 }
@@ -24867,6 +25137,26 @@
 }
 .slim_armor_special_fall2022Warrior {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_special_fall2022Warrior.png');
+  width: 114px;
+  height: 90px;
+}
+.slim_armor_special_fall2023Healer {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_special_fall2023Healer.png');
+  width: 114px;
+  height: 90px;
+}
+.slim_armor_special_fall2023Mage {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_special_fall2023Mage.png');
+  width: 114px;
+  height: 90px;
+}
+.slim_armor_special_fall2023Rogue {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_special_fall2023Rogue.png');
+  width: 114px;
+  height: 90px;
+}
+.slim_armor_special_fall2023Warrior {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_special_fall2023Warrior.png');
   width: 114px;
   height: 90px;
 }
@@ -25047,6 +25337,26 @@
 }
 .weapon_special_fall2022Warrior {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_special_fall2022Warrior.png');
+  width: 114px;
+  height: 90px;
+}
+.weapon_special_fall2023Healer {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_special_fall2023Healer.png');
+  width: 114px;
+  height: 90px;
+}
+.weapon_special_fall2023Mage {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_special_fall2023Mage.png');
+  width: 114px;
+  height: 90px;
+}
+.weapon_special_fall2023Rogue {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_special_fall2023Rogue.png');
+  width: 114px;
+  height: 90px;
+}
+.weapon_special_fall2023Warrior {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_special_fall2023Warrior.png');
   width: 114px;
   height: 90px;
 }
@@ -28225,11 +28535,6 @@
   width: 114px;
   height: 90px;
 }
-.set_mystery_202304 {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/set_mystery_202304.png');
-  width: 68px;
-  height: 68px;
-}
 .shop_armor_mystery_202304 {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_armor_mystery_202304.png');
   width: 68px;
@@ -28237,6 +28542,11 @@
 }
 .shop_head_mystery_202304 {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_head_mystery_202304.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_set_mystery_202304 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_set_mystery_202304.png');
   width: 68px;
   height: 68px;
 }
@@ -28354,6 +28664,71 @@
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_set_mystery_202308.png');
   width: 68px;
   height: 68px;
+}
+.back_mystery_202309 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/back_mystery_202309.png');
+  width: 117px;
+  height: 120px;
+}
+.headAccessory_mystery_202309 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_mystery_202309.png');
+  width: 117px;
+  height: 120px;
+}
+.shop_back_mystery_202309 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_back_mystery_202309.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_headAccessory_mystery_202309 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_headAccessory_mystery_202309.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_set_mystery_202309 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_set_mystery_202309.png');
+  width: 68px;
+  height: 68px;
+}
+.broad_armor_mystery_202310 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_mystery_202310.png');
+  width: 117px;
+  height: 120px;
+}
+.headAccessory_mystery_202310 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_mystery_202310.png');
+  width: 117px;
+  height: 120px;
+}
+.head_mystery_202310 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_mystery_202310.png');
+  width: 117px;
+  height: 120px;
+}
+.shop_armor_mystery_202310 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_armor_mystery_202310.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_headAccessory_mystery_202310 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_headAccessory_mystery_202310.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_head_mystery_202310 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_head_mystery_202310.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_set_mystery_202310 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_set_mystery_202310.png');
+  width: 68px;
+  height: 68px;
+}
+.slim_armor_mystery_202310 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_mystery_202310.png');
+  width: 117px;
+  height: 120px;
 }
 .broad_armor_mystery_301404 {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_mystery_301404.png');
@@ -34369,204 +34744,6 @@
   width: 68px;
   height: 68px;
 }
-.headAccessory_special_bearEars {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_bearEars.png');
-  width: 90px;
-  height: 90px;
-}
-.customize-option.headAccessory_special_bearEars {
-  background-position: -25px -15px;
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_bearEars.png');
-  width: 60px;
-  height: 60px;
-}
-.headAccessory_special_blackHeadband {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_blackHeadband.png');
-  width: 114px;
-  height: 90px;
-}
-.headAccessory_special_blueHeadband {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_blueHeadband.png');
-  width: 114px;
-  height: 90px;
-}
-.headAccessory_special_cactusEars {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_cactusEars.png');
-  width: 90px;
-  height: 90px;
-}
-.customize-option.headAccessory_special_cactusEars {
-  background-position: -25px -15px;
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_cactusEars.png');
-  width: 60px;
-  height: 60px;
-}
-.headAccessory_special_foxEars {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_foxEars.png');
-  width: 90px;
-  height: 90px;
-}
-.customize-option.headAccessory_special_foxEars {
-  background-position: -25px -15px;
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_foxEars.png');
-  width: 60px;
-  height: 60px;
-}
-.headAccessory_special_greenHeadband {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_greenHeadband.png');
-  width: 114px;
-  height: 90px;
-}
-.headAccessory_special_lionEars {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_lionEars.png');
-  width: 90px;
-  height: 90px;
-}
-.customize-option.headAccessory_special_lionEars {
-  background-position: -25px -15px;
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_lionEars.png');
-  width: 60px;
-  height: 60px;
-}
-.headAccessory_special_pandaEars {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_pandaEars.png');
-  width: 90px;
-  height: 90px;
-}
-.customize-option.headAccessory_special_pandaEars {
-  background-position: -25px -15px;
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_pandaEars.png');
-  width: 60px;
-  height: 60px;
-}
-.headAccessory_special_pigEars {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_pigEars.png');
-  width: 90px;
-  height: 90px;
-}
-.customize-option.headAccessory_special_pigEars {
-  background-position: -25px -15px;
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_pigEars.png');
-  width: 60px;
-  height: 60px;
-}
-.headAccessory_special_pinkHeadband {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_pinkHeadband.png');
-  width: 114px;
-  height: 90px;
-}
-.headAccessory_special_redHeadband {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_redHeadband.png');
-  width: 114px;
-  height: 90px;
-}
-.headAccessory_special_tigerEars {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_tigerEars.png');
-  width: 90px;
-  height: 90px;
-}
-.customize-option.headAccessory_special_tigerEars {
-  background-position: -25px -15px;
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_tigerEars.png');
-  width: 60px;
-  height: 60px;
-}
-.headAccessory_special_whiteHeadband {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_whiteHeadband.png');
-  width: 114px;
-  height: 90px;
-}
-.headAccessory_special_wolfEars {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_wolfEars.png');
-  width: 90px;
-  height: 90px;
-}
-.customize-option.headAccessory_special_wolfEars {
-  background-position: -25px -15px;
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_wolfEars.png');
-  width: 60px;
-  height: 60px;
-}
-.headAccessory_special_yellowHeadband {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_yellowHeadband.png');
-  width: 114px;
-  height: 90px;
-}
-.shop_headAccessory_special_bearEars {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_headAccessory_special_bearEars.png');
-  width: 68px;
-  height: 68px;
-}
-.shop_headAccessory_special_blackHeadband {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_headAccessory_special_blackHeadband.png');
-  width: 68px;
-  height: 68px;
-}
-.shop_headAccessory_special_blueHeadband {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_headAccessory_special_blueHeadband.png');
-  width: 68px;
-  height: 68px;
-}
-.shop_headAccessory_special_cactusEars {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_headAccessory_special_cactusEars.png');
-  width: 68px;
-  height: 68px;
-}
-.shop_headAccessory_special_foxEars {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_headAccessory_special_foxEars.png');
-  width: 68px;
-  height: 68px;
-}
-.shop_headAccessory_special_greenHeadband {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_headAccessory_special_greenHeadband.png');
-  width: 68px;
-  height: 68px;
-}
-.shop_headAccessory_special_lionEars {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_headAccessory_special_lionEars.png');
-  width: 68px;
-  height: 68px;
-}
-.shop_headAccessory_special_pandaEars {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_headAccessory_special_pandaEars.png');
-  width: 68px;
-  height: 68px;
-}
-.shop_headAccessory_special_pigEars {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_headAccessory_special_pigEars.png');
-  width: 68px;
-  height: 68px;
-}
-.shop_headAccessory_special_pinkHeadband {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_headAccessory_special_pinkHeadband.png');
-  width: 68px;
-  height: 68px;
-}
-.shop_headAccessory_special_redHeadband {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_headAccessory_special_redHeadband.png');
-  width: 68px;
-  height: 68px;
-}
-.shop_headAccessory_special_tigerEars {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_headAccessory_special_tigerEars.png');
-  width: 68px;
-  height: 68px;
-}
-.shop_headAccessory_special_whiteHeadband {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_headAccessory_special_whiteHeadband.png');
-  width: 68px;
-  height: 68px;
-}
-.shop_headAccessory_special_wolfEars {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_headAccessory_special_wolfEars.png');
-  width: 68px;
-  height: 68px;
-}
-.shop_headAccessory_special_yellowHeadband {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_headAccessory_special_yellowHeadband.png');
-  width: 68px;
-  height: 68px;
-}
 .head_0 {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_0.png');
   width: 90px;
@@ -34945,6 +35122,214 @@
 }
 .shop_head_wizard_5 {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_head_wizard_5.png');
+  width: 68px;
+  height: 68px;
+}
+.headAccessory_special_bearEars {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_bearEars.png');
+  width: 90px;
+  height: 90px;
+}
+.customize-option.headAccessory_special_bearEars {
+  background-position: -25px -15px;
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_bearEars.png');
+  width: 60px;
+  height: 60px;
+}
+.headAccessory_special_blackHeadband {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_blackHeadband.png');
+  width: 114px;
+  height: 90px;
+}
+.headAccessory_special_blueHeadband {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_blueHeadband.png');
+  width: 114px;
+  height: 90px;
+}
+.headAccessory_special_cactusEars {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_cactusEars.png');
+  width: 90px;
+  height: 90px;
+}
+.customize-option.headAccessory_special_cactusEars {
+  background-position: -25px -15px;
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_cactusEars.png');
+  width: 60px;
+  height: 60px;
+}
+.headAccessory_special_foxEars {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_foxEars.png');
+  width: 90px;
+  height: 90px;
+}
+.customize-option.headAccessory_special_foxEars {
+  background-position: -25px -15px;
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_foxEars.png');
+  width: 60px;
+  height: 60px;
+}
+.headAccessory_special_greenHeadband {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_greenHeadband.png');
+  width: 114px;
+  height: 90px;
+}
+.headAccessory_special_heroicCirclet {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_heroicCirclet.png');
+  width: 114px;
+  height: 90px;
+}
+.headAccessory_special_lionEars {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_lionEars.png');
+  width: 90px;
+  height: 90px;
+}
+.customize-option.headAccessory_special_lionEars {
+  background-position: -25px -15px;
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_lionEars.png');
+  width: 60px;
+  height: 60px;
+}
+.headAccessory_special_pandaEars {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_pandaEars.png');
+  width: 90px;
+  height: 90px;
+}
+.customize-option.headAccessory_special_pandaEars {
+  background-position: -25px -15px;
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_pandaEars.png');
+  width: 60px;
+  height: 60px;
+}
+.headAccessory_special_pigEars {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_pigEars.png');
+  width: 90px;
+  height: 90px;
+}
+.customize-option.headAccessory_special_pigEars {
+  background-position: -25px -15px;
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_pigEars.png');
+  width: 60px;
+  height: 60px;
+}
+.headAccessory_special_pinkHeadband {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_pinkHeadband.png');
+  width: 114px;
+  height: 90px;
+}
+.headAccessory_special_redHeadband {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_redHeadband.png');
+  width: 114px;
+  height: 90px;
+}
+.headAccessory_special_tigerEars {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_tigerEars.png');
+  width: 90px;
+  height: 90px;
+}
+.customize-option.headAccessory_special_tigerEars {
+  background-position: -25px -15px;
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_tigerEars.png');
+  width: 60px;
+  height: 60px;
+}
+.headAccessory_special_whiteHeadband {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_whiteHeadband.png');
+  width: 114px;
+  height: 90px;
+}
+.headAccessory_special_wolfEars {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_wolfEars.png');
+  width: 90px;
+  height: 90px;
+}
+.customize-option.headAccessory_special_wolfEars {
+  background-position: -25px -15px;
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_wolfEars.png');
+  width: 60px;
+  height: 60px;
+}
+.headAccessory_special_yellowHeadband {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_special_yellowHeadband.png');
+  width: 114px;
+  height: 90px;
+}
+.shop_headAccessory_special_bearEars {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_headAccessory_special_bearEars.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_headAccessory_special_blackHeadband {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_headAccessory_special_blackHeadband.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_headAccessory_special_blueHeadband {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_headAccessory_special_blueHeadband.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_headAccessory_special_cactusEars {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_headAccessory_special_cactusEars.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_headAccessory_special_foxEars {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_headAccessory_special_foxEars.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_headAccessory_special_greenHeadband {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_headAccessory_special_greenHeadband.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_headAccessory_special_heroicCirclet {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_headAccessory_special_heroicCirclet.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_headAccessory_special_lionEars {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_headAccessory_special_lionEars.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_headAccessory_special_pandaEars {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_headAccessory_special_pandaEars.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_headAccessory_special_pigEars {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_headAccessory_special_pigEars.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_headAccessory_special_pinkHeadband {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_headAccessory_special_pinkHeadband.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_headAccessory_special_redHeadband {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_headAccessory_special_redHeadband.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_headAccessory_special_tigerEars {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_headAccessory_special_tigerEars.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_headAccessory_special_whiteHeadband {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_headAccessory_special_whiteHeadband.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_headAccessory_special_wolfEars {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_headAccessory_special_wolfEars.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_headAccessory_special_yellowHeadband {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_headAccessory_special_yellowHeadband.png');
   width: 68px;
   height: 68px;
 }
@@ -35907,6 +36292,41 @@
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/zzz_light.png');
   width: 40px;
   height: 40px;
+}
+.heroic_set_icon {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/heroic_set_icon.png');
+  width: 28px;
+  height: 28px;
+}
+.icon_pet_veteran_bear {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_pet_veteran_bear.png');
+  width: 28px;
+  height: 28px;
+}
+.icon_pet_veteran_dragon {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_pet_veteran_dragon.png');
+  width: 28px;
+  height: 28px;
+}
+.icon_pet_veteran_fox {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_pet_veteran_fox.png');
+  width: 28px;
+  height: 28px;
+}
+.icon_pet_veteran_lion {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_pet_veteran_lion.png');
+  width: 28px;
+  height: 28px;
+}
+.icon_pet_veteran_tiger {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_pet_veteran_tiger.png');
+  width: 28px;
+  height: 28px;
+}
+.icon_pet_veteran_wolf {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_pet_veteran_wolf.png');
+  width: 28px;
+  height: 28px;
 }
 .notif_head_special_nye {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/notif_head_special_nye.png');
@@ -55205,6 +55625,11 @@
 }
 .Pet-Dragon-Veggie {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Dragon-Veggie.png');
+  width: 81px;
+  height: 99px;
+}
+.Pet-Dragon-Veteran {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Dragon-Veteran.png');
   width: 81px;
   height: 99px;
 }

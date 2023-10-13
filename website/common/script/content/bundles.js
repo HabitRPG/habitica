@@ -18,9 +18,9 @@ const bundles = {
       'harpy',
       'owl',
     ],
-    event: EVENTS.potions202105,
+    event: EVENTS.bundle202309,
     canBuy () {
-      return moment().isBefore(EVENTS.potions202105.end);
+      return moment().isBetween(EVENTS.bundle202309.start, EVENTS.bundle202309.end);
     },
     type: 'quests',
     class: 'quest_bundle_featheredFriends',
@@ -102,7 +102,7 @@ const bundles = {
       'butterfly',
     ],
     canBuy () {
-      return moment().isBetween('2020-03-09', '2020-04-02');
+      return moment().isBetween(EVENTS.bundle202308.start, EVENTS.bundle202308.end);
     },
     type: 'quests',
     value: 7,
@@ -251,14 +251,15 @@ const bundles = {
   sandySidekicks: {
     key: 'sandySidekicks',
     text: t('sandySidekicksText'),
-    notes: t('sandySidekicksNotes', { date: moment('2020-10-31').format('LL') }),
+    notes: t('sandySidekicksNotes', { date: moment('2023-10-31').format('LL') }),
     bundleKeys: [
       'armadillo',
       'snake',
       'spider',
     ],
+    event: EVENTS.bundle202310,
     canBuy () {
-      return moment().isBetween('2020-10-13', '2020-11-02');
+      return moment().isBetween(EVENTS.bundle202310.start, EVENTS.bundle202310.end);
     },
     type: 'quests',
     value: 7,

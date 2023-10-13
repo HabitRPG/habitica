@@ -2,7 +2,7 @@
     "settings": "设置",
     "language": "语言",
     "americanEnglishGovern": "不同语言描述不符时，以英语（American English）为准。",
-    "helpWithTranslation": "你愿意协助Habitica的翻译工作吗？太好了！来加入<a href=\"/groups/guild/7732f64c-33ee-4cce-873c-fc28f147a6f7\">the Aspiring Linguists Guild</a>一起翻译吧!",
+    "helpWithTranslation": "你愿意协助Habitica的翻译工作吗？太好了！来加入<a href=\"https://translate.habitica.com\">Habitica's Weblate site</a>一起翻译吧!",
     "stickyHeader": "顶部保持不动",
     "newTaskEdit": "以编辑模式开启新任务",
     "dailyDueDefaultView": "每日任务默认选中“待办”项",

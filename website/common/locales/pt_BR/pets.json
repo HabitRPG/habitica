@@ -20,7 +20,7 @@
     "veteranFox": "Raposa Veterana",
     "cerberusPup": "Cérbero Filhote",
     "hydra": "Hidra",
-    "mantisShrimp": "Tamarutaca",
+    "mantisShrimp": "Lagosta-Boxeadora",
     "mammoth": "Mamute Felpudo",
     "orca": "Orca",
     "royalPurpleGryphon": "Grifo Roxo Real",
@@ -29,7 +29,7 @@
     "hopefulHippogriffPet": "Hipogrifo Otimista",
     "hopefulHippogriffMount": "Hipogrifo Otimista",
     "royalPurpleJackalope": "Lebrílope Roxo Real",
-    "invisibleAether": "Éter invisível",
+    "invisibleAether": "Éter Invisível",
     "potion": "Poção <%= potionType %>",
     "egg": "Ovo de <%= eggType %>",
     "eggs": "Ovos",
@@ -110,9 +110,10 @@
     "notEnoughPetsMounts": "Você ainda não coletou Mascotes e Montarias suficientes",
     "wackyPets": "Mascotes Malucos",
     "filterByWacky": "Maluco",
-    "gryphatrice": "Grifotriz",
+    "gryphatrice": "Grifatriz",
     "invalidAmount": "Quantidade de comida inválida, deve ser um número inteiro positivo",
     "tooMuchFood": "Você está tentando dar muita comida para seu Mascote, ação cancelada",
     "notEnoughFood": "Você não tem comida suficiente",
-    "jubilantGryphatrice": "Grifaria Jubilante"
+    "jubilantGryphatrice": "Grifatriz Jubilante",
+    "veteranDragon": "Dragão Veterano"
 }

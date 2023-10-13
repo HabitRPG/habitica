@@ -1,7 +1,7 @@
 {
     "challenge": "Hamon",
     "challengeDetails": "Ang mga hamon ay mga okasyong pangkomunidad kung saan ang mga manlalaro ay nagpapaligsahan at nakakukuha ng mga premyo sa pamamagitan ng pagkumpleto ng isang lipon ng mga gawain.",
-    "brokenChaLink": "Sirang Link ng Hamon",
+    "brokenChaLink": "Sirang ang Link ng Hamon",
     "brokenTask": "Sirang Link ng Hamon: ang gawaing ito ay naging parte ng isang hamon, ngunit inalis na doon. Ano ang nais mong gawin?",
     "keepIt": "Panatilihin Ito",
     "removeIt": "Alisin Ito",
@@ -28,7 +28,7 @@
     "prize": "Premyo",
     "prizePopTavern": "If someone can 'win' your challenge, you can award that winner a Gem prize. Max = number of gems you own. Note: This prize can't be changed later and Tavern challenges will not be refunded if the challenge is cancelled.",
     "publicChallengesTitle": "Mga Pampublikong Hamon",
-    "officialChallenge": "Mapananaligang Hamon ng Habitica",
+    "officialChallenge": "Opisyal na Hamon ng Habitica",
     "by": "ni",
     "participants": "<%= membercount %> Mga Kalahok",
     "join": "Sumali",
@@ -103,5 +103,6 @@
     "selectParticipant": "Pumili ng Kalahok",
     "wonChallengeDesc": "Pinili kang panalo ni <%= challengeName %>! Ang iyong panalo ay naitala sa iyong Achievements.",
     "yourReward": "Iyong Gantimpala",
-    "filters": "Mga Pansala"
+    "filters": "Mga Pansala",
+    "removeTasks": "Ibura ang Gawain"
 }

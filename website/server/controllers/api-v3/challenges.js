@@ -267,9 +267,10 @@ api.joinChallenge = {
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
 
     const group = await Group.getGroup({
-      user, groupId: challenge.group, fields: basicGroupFields, optionalMembership: true,
+      user, groupId: challenge.group, fields: `${basicGroupFields} purchased`, optionalMembership: true,
     });
     if (!group || !challenge.canJoin(user, group)) throw new NotFound(res.t('challengeNotFound'));
+    group.purchased = undefined;
 
     const addedSuccessfully = await challenge.addToUser(user);
     if (!addedSuccessfully) {
@@ -397,24 +398,37 @@ api.getUserChallenges = {
 
     const CHALLENGES_PER_PAGE = 10;
     const { categories, member, owned, page, search } = req.query;
-
     const { user } = res.locals;
+
     const query = {
       $and: [],
     };
+
     if (!user.hasPermission('moderator')) {
       query.$and.push({ $or: [
         { flagCount: { $not: { $gt: 1 } } },
         { leader: user._id },
       ]});
     }
-    const orOptions = [
-      { _id: { $in: user.challenges } }, // Challenges where the user is participating
-    ];
+
+    // Challenges the user owns
+    const orOptions = [{ leader: user._id }];
+
+    // Challenges where the user is participating
+    if (user.challenges.length > 0) {
+      orOptions.push({ _id: { $in: user.challenges } });
+    }
+
+    // Challenges in groups user is a member of, plus public challenges
     if (!member) {
-      orOptions.push(
-        { group: { $in: user.getGroups() } }, // Public Challenges + Challenges in user's groups
-      );
+      const userGroups = await Group.getGroups({
+        user,
+        types: ['party', 'guilds', 'tavern'],
+      });
+      const userGroupIds = userGroups.map(userGroup => userGroup._id);
+      orOptions.push({
+        group: { $in: userGroupIds },
+      });
     }
     if (owned === 'not_owned') {
       query.leader = { $ne: user._id }; // Show only Challenges user does not own
@@ -590,12 +604,15 @@ api.getChallenge = {
 
     // Fetching basic group data
     const group = await Group.getGroup({
-      user, groupId: challenge.group, fields: basicGroupFields, optionalMembership: true,
+      user, groupId: challenge.group, fields: `${basicGroupFields} purchased`,
     });
-    if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
-
+    if (!group && !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
     const chalRes = challenge.toJSON();
-    chalRes.group = group.toJSON({ minimize: true });
+    if (group) {
+      group.purchased = undefined;
+      chalRes.group = group.toJSON({ minimize: true });
+    }
+
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
     const chalLeader = await User.findById(chalRes.leader).select(nameFields).exec();
     chalRes.leader = chalLeader ? chalLeader.toJSON({ minimize: true }) : null;
@@ -749,11 +766,11 @@ api.updateChallenge = {
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
 
     const group = await Group.getGroup({
-      user, groupId: challenge.group, fields: basicGroupFields, optionalMembership: true,
+      user, groupId: challenge.group, fields: `${basicGroupFields} purchased`, optionalMembership: true,
     });
     if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
     if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyLeaderUpdateChal'));
-
+    group.purchased = undefined;
     _.merge(challenge, Challenge.sanitizeUpdate(req.body));
 
     const savedChal = await challenge.save();

@@ -10,10 +10,42 @@ const gemsPromo = {
 
 export const EVENTS = {
   noEvent: {
-    start: '2023-08-01T23:59-04:00',
-    end: '2023-08-31T08:00-04:00',
+    start: '2023-11-01T00:00-04:00',
+    end: '2023-12-21T08:00-04:00',
     season: 'normal',
     npcImageSuffix: '',
+  },
+  spooky_extra_gems: {
+    start: '2022-10-24T08:00-04:00',
+    end: '2022-10-31T23:59-04:00',
+    gemsPromo,
+  },
+  bundle202310: {
+    start: '2023-10-17T08:00-04:00',
+    end: '2023-10-31T23:59-04:00',
+  },
+  potions202310: {
+    start: '2023-09-21T08:00-04:00',
+    end: '2023-10-31T23:59-04:00',
+  },
+  fall2023: {
+    start: '2023-09-21T08:00-04:00',
+    end: '2023-10-31T23:59-04:00',
+    npcImageSuffix: '_fall',
+    season: 'fall',
+    gear: true,
+  },
+  bundle202309: {
+    start: '2023-09-12T08:00-04:00',
+    end: '2023-09-30T23:59-04:00',
+  },
+  bundle202308: {
+    start: '2023-08-15T08:00-04:00',
+    end: '2023-08-31T23:59-04:00',
+  },
+  potions202308: {
+    start: '2023-08-15T08:00-04:00',
+    end: '2023-08-31T23:59-04:00',
   },
   summer2023: {
     start: '2023-06-20T08:00-04:00',
@@ -104,11 +136,6 @@ export const EVENTS = {
     npcImageSuffix: '_fall',
     season: 'fall',
     gear: true,
-  },
-  spooky_extra_gems: {
-    start: '2022-10-27T08:00-04:00',
-    end: '2022-10-31T20:00-04:00',
-    gemsPromo,
   },
   fall_extra_gems: {
     start: '2022-10-06T08:00-04:00',

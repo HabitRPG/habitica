@@ -146,7 +146,7 @@ api.getHeroes = {
 // Note, while the following routes are called getHero / updateHero
 // they can be used by admins to get/update any user
 
-const heroAdminFields = 'auth balance contributor flags items lastCron party preferences profile.name purchased secret permissions';
+const heroAdminFields = 'auth balance contributor flags items lastCron party preferences profile purchased secret permissions';
 const heroAdminFieldsToFetch = heroAdminFields; // these variables will make more sense when...
 const heroAdminFieldsToShow = heroAdminFields; // ... apiTokenObscured is added
 
@@ -200,6 +200,7 @@ api.getHero = {
     if (!heroRes.contributor) heroRes.contributor = {};
 
     heroRes.secret = hero.getSecretData();
+    heroRes.profile.flags = hero.getFlagData();
 
     res.respond(200, heroRes);
   },

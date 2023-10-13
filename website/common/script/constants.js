@@ -21,13 +21,13 @@ export const CHAT_FLAG_FROM_SHADOW_MUTE = 10;
 // @TODO use those constants to replace hard-coded numbers
 
 export const SUPPORTED_SOCIAL_NETWORKS = [
-  { key: 'google', name: 'Google' },
   { key: 'apple', name: 'Apple' },
+  { key: 'google', name: 'Google' },
 ];
 
 export const GUILDS_PER_PAGE = 30; // number of guilds to return per page when using pagination
 
-export const PARTY_LIMIT_MEMBERS = 29;
+export const PARTY_LIMIT_MEMBERS = 30;
 
 export const MINIMUM_PASSWORD_LENGTH = 8;
 export const MAXIMUM_PASSWORD_LENGTH = 64;

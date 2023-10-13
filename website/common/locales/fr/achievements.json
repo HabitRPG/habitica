@@ -150,5 +150,8 @@
     "achievementPlantParentModalText": "Vous avec collecté tous les familiers plantes !",
     "achievementDinosaurDynasty": "Dynastie des dinosaures",
     "achievementDinosaurDynastyText": "A fait éclore toutes les couleurs standard d'oiseaux et de dinosaures : faucon, hibou, perroquet, paon, pingouin, coq, ptérodactyle, T-Rex, tricératops et vélociraptor !",
-    "achievementDinosaurDynastyModalText": "Vous avez collecté tous les animaux de compagnie d'oiseau et de dinosaure!"
+    "achievementDinosaurDynastyModalText": "Vous avez collecté tous les animaux de compagnie d'oiseau et de dinosaure !",
+    "achievementBonelessBossText": "A fait éclore toutes les couleurs standard de familiers invertébrés : coccinelle, papillon, seiche, nudibranche, pieuvre, escargot et araignée !",
+    "achievementBonelessBoss": "Boss désossé",
+    "achievementBonelessBossModalText": "Vous avez collecté tous les familiers invertébrés !"
 }
