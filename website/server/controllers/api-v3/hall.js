@@ -275,24 +275,25 @@ api.updateHero = {
     }
 
     if (updateData.purchased && updateData.purchased.plan) {
-      if (updateData.purchased.plan.gemsBought) {
-        hero.purchased.plan.gemsBought = updateData.purchased.plan.gemsBought;
+      const plan = updateData.purchased.plab;
+      if (plan.gemsBought) {
+        hero.purchased.plan.gemsBought = plan.gemsBought;
       }
-      if (updateData.purchased.plan.dateCreated) {
-        hero.purchased.plan.dateCreated = updateData.purchased.plan.dateCreated;
+      if (plan.dateCreated) {
+        hero.purchased.plan.dateCreated = plan.dateCreated;
       }
-      if (updateData.purchased.plan.dateCurrentTypeCreated) {
-        hero.purchased.plan.dateCurrentTypeCreated = updateData.purchased.plan.dateCurrentTypeCreated;
+      if (plan.dateCurrentTypeCreated) {
+        hero.purchased.plan.dateCurrentTypeCreated = plan.dateCurrentTypeCreated;
       }
-      if (updateData.purchased.plan.dateTerminated) {
-        hero.purchased.plan.dateTerminated = updateData.purchased.plan.dateTerminated;
+      if (plan.dateTerminated) {
+        hero.purchased.plan.dateTerminated = plan.dateTerminated;
       }
-      if (updateData.purchased.plan.perkMonthCount) {
-        hero.purchased.plan.perkMonthCount = updateData.purchased.plan.perkMonthCount;
+      if (plan.perkMonthCount) {
+        hero.purchased.plan.perkMonthCount = plan.perkMonthCount;
       }
-      if (updateData.purchased.plan.consecutive) {
-        if (updateData.purchased.plan.consecutive.trinkets) {
-          const changedHourglassTrinkets = updateData.purchased.plan.consecutive.trinkets
+      if (plan.consecutive) {
+        if (plan.consecutive.trinkets) {
+          const changedHourglassTrinkets = plan.consecutive.trinkets
               - hero.purchased.plan.consecutive.trinkets;
 
           if (changedHourglassTrinkets !== 0) {
@@ -302,13 +303,13 @@ api.updateHero = {
             );
           }
 
-          hero.purchased.plan.consecutive.trinkets = updateData.purchased.plan.consecutive.trinkets;
+          hero.purchased.plan.consecutive.trinkets = plan.consecutive.trinkets;
         }
-        if (updateData.purchased.plan.consecutive.gemCapExtra) {
-          hero.purchased.plan.consecutive.gemCapExtra = updateData.purchased.plan.consecutive.gemCapExtra; // eslint-disable-line max-len
+        if (plan.consecutive.gemCapExtra) {
+          hero.purchased.plan.consecutive.gemCapExtra = plan.consecutive.gemCapExtra; // eslint-disable-line max-len
         }
-        if (updateData.purchased.plan.consecutive.count) {
-          hero.purchased.plan.consecutive.count = updateData.purchased.plan.consecutive.count; // eslint-disable-line max-len
+        if (plan.consecutive.count) {
+          hero.purchased.plan.consecutive.count = plan.consecutive.count; // eslint-disable-line max-len
         }
       }
     }
