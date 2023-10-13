@@ -12,8 +12,8 @@ describe('POST /challenges/:challengeId/flag', () => {
   beforeEach(async () => {
     const { group, groupLeader } = await createAndPopulateGroup({
       groupDetails: {
-        name: 'TestPrivateGuild',
-        type: 'guild',
+        name: 'TestParty',
+        type: 'party',
         privacy: 'private',
       },
       members: 1,

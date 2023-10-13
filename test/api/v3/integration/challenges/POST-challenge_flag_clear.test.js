@@ -13,8 +13,8 @@ describe('POST /challenges/:challengeId/clearflags', () => {
   beforeEach(async () => {
     const { group, groupLeader, members } = await createAndPopulateGroup({
       groupDetails: {
-        name: 'TestPrivateGuild',
-        type: 'guild',
+        name: 'TestParty',
+        type: 'party',
         privacy: 'private',
       },
       members: 1,
