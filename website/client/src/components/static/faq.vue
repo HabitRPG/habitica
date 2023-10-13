@@ -17,14 +17,14 @@
           class="faq-question"
         >
           <h2
-            v-once
             v-if="index === 0"
+            v-once
           >
             {{ $t('general') }}
           </h2>
           <h2
-            v-once
             v-if="entry.heading === 'party-with-friends'"
+            v-once
             id="parties"
           >
             {{ $t('parties') }}

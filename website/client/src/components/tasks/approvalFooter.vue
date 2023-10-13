@@ -31,7 +31,7 @@
             <strong> @{{ completion.userName }} </strong>
           </div>
           <div
-            v-if='completion.completedDate'
+            v-if="completion.completedDate"
             :class="{'green-10': completion.completed}"
           >
             {{ completion.completedDateString }}
@@ -54,16 +54,16 @@
         v-html="message"
       ></div>
       <div
-        class="d-flex ml-auto mr-1 my-auto"
         v-if="task.group.assignedUsers && ['daily','todo'].indexOf(task.type) !== -1"
+        class="d-flex ml-auto mr-1 my-auto"
       >
         <span
           v-if="assignedUsersCount > 1"
           class="d-flex mr-1 my-auto"
         >
           <span
-            class="small-check"
             v-if="!showStatus && completionsCount"
+            class="small-check"
           >
             <div
               class="svg-icon color"
@@ -73,9 +73,9 @@
             </div>
           </span>
           <span
+            v-if="!showStatus && completionsCount"
             class="ml-1 mr-2 my-auto"
             :class="{'green-10': completionsCount === assignedUsersCount}"
-            v-if="!showStatus && completionsCount"
           >
             {{ completionsCount }}/{{ assignedUsersCount }}
           </span>
@@ -98,10 +98,10 @@
           class="mr-1 d-inline-flex"
         >
           <span
-            v-html="icons.lastComplete"
             v-b-tooltip.hover.bottom="$t('lastCompleted')"
             class="svg-icon color last-completed mr-1 my-auto"
             :class="{'gray-200': completionsCount !== assignedUsersCount}"
+            v-html="icons.lastComplete"
           >
           </span>
           <span

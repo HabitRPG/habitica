@@ -139,7 +139,7 @@
                 class="mx-auto"
                 :no-caret="true"
               >
-                <template v-slot:button-content>
+                <template #button-content>
                   <span
                     v-once
                     class="svg-icon dots-icon with-icon"
