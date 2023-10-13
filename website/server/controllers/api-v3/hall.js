@@ -278,6 +278,15 @@ api.updateHero = {
       if (updateData.purchased.plan.gemsBought) {
         hero.purchased.plan.gemsBought = updateData.purchased.plan.gemsBought;
       }
+      if (updateData.purchased.plan.dateCreated) {
+        hero.purchased.plan.dateCreated = updateData.purchased.plan.dateCreated;
+      }
+      if (updateData.purchased.plan.dateCurrentTypeCreated) {
+        hero.purchased.plan.dateCurrentTypeCreated = updateData.purchased.plan.dateCurrentTypeCreated;
+      }
+      if (updateData.purchased.plan.dateTerminated) {
+        hero.purchased.plan.dateTerminated = updateData.purchased.plan.dateTerminated;
+      }
       if (updateData.purchased.plan.perkMonthCount) {
         hero.purchased.plan.perkMonthCount = updateData.purchased.plan.perkMonthCount;
       }
