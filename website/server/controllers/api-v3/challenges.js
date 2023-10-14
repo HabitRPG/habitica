@@ -397,7 +397,13 @@ api.getUserChallenges = {
     if (validationErrors) throw validationErrors;
 
     const CHALLENGES_PER_PAGE = 10;
-    const { categories, member, owned, page, search } = req.query;
+    const {
+      categories,
+      member,
+      owned,
+      page,
+      search,
+    } = req.query;
     const { user } = res.locals;
 
     const query = {
@@ -405,10 +411,12 @@ api.getUserChallenges = {
     };
 
     if (!user.hasPermission('moderator')) {
-      query.$and.push({ $or: [
-        { flagCount: { $not: { $gt: 1 } } },
-        { leader: user._id },
-      ]});
+      query.$and.push(
+        { $or: [
+          { flagCount: { $not: { $gt: 1 } } },
+          { leader: user._id },
+        ],
+      });
     }
 
     // Challenges the user owns
