@@ -412,12 +412,12 @@ api.getUserChallenges = {
 
     if (!user.hasPermission('moderator')) {
       query.$and.push(
-	{
-  	  $or: [
+        {
+          $or: [
             { flagCount: { $not: { $gt: 1 } } },
             { leader: user._id },
           ],
-        }
+        },
       );
     }
 
