@@ -153,6 +153,11 @@
   width: 60px;
   height: 64px;
 }
+.achievement-duneBuddy2x {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/achievement-duneBuddy2x.png');
+  width: 68px;
+  height: 68px;
+}
 .achievement-dustDevil2x {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/achievement-dustDevil2x.png');
   width: 48px;
