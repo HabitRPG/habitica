@@ -193,6 +193,11 @@ const animalSetAchievs = {
     titleKey: 'achievementDomesticated',
     textKey: 'achievementDomesticatedText',
   },
+  duneBuddy: {
+    icon: 'achievement-duneBuddy',
+    titleKey: 'achievementDuneBuddy',
+    textKey: 'achievementDuneBuddyText',
+  },
   plantParent: {
     icon: 'achievement-plantParent',
     titleKey: 'achievementPlantParent',
