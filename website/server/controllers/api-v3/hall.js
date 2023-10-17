@@ -311,6 +311,9 @@ api.updateHero = {
         if (plan.consecutive.count) {
           hero.purchased.plan.consecutive.count = plan.consecutive.count; // eslint-disable-line max-len
         }
+        if (plan.consecutive.offset) {
+          hero.purchased.plan.consecutive.offset = plan.consecutive.offset; // eslint-disable-line max-len
+        }
       }
     }
 
