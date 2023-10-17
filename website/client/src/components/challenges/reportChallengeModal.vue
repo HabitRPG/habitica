@@ -62,61 +62,67 @@
       </div>
     </div>
     <div
-      v-if="user.contributor.admin"
-      class="reset-flag-count d-flex"
+      v-if="hasPermission(user, 'moderator')"
+      class="reset-flag-count d-flex justify-content-center align-items-middle"
       @click="clearFlagCount()"
     >
-      <span
-        class="my-auto"
+      <div
+        v-once
+        class="svg-icon icon-16 color ml-auto mr-2 my-auto"
+        v-html="icons.report"
+      ></div>
+      <div
+        class="mr-auto my-auto"
         @click="clearFlagCount()"
       >
         {{ $t('resetFlags') }}
-      </span>
+      </div>
     </div>
   </b-modal>
 </template>
 
 <style>
-  #report-challenge h5 {
-    color: #F23035;
-  }
+  #report-challenge {
+    h5 {
+      color: #F23035;
+    }
 
-  .modal-header {
-    border: none;
-    padding-bottom: 0px;
-    padding-top: 12px;
-    height: 16px;
-    align-content: center;
-  }
+    .modal-header {
+      border: none;
+      padding-bottom: 0px;
+      padding-top: 12px;
+      height: 16px;
+      align-content: center;
+    }
 
-  .modal-content {
-    padding: 0px;
+    .modal-content {
+      padding: 0px;
+    }
   }
-
 </style>
 
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
 
-   .modal-body {
-     padding: 0px 8px 0px 8px;
-   }
+  .modal-body {
+    padding: 0px 8px 0px 8px;
+  }
 
-  span.svg-icon.icon-16 {
+  span.svg-icon.close-icon.icon-16 {
     height: 16px;
     width: 16px;
     margin-top: -32px;
     margin-right: -16px;
   }
 
-    .close-icon {
-      color: $gray-300;
-      stroke-width: 0px;
+  .close-icon {
+    color: $gray-300;
+    stroke-width: 0px;
 
-      &:hover {
-          color: $gray-200;
-      }
+    &:hover {
+      color: $gray-200;
     }
+  }
 
   .heading h5 {
     margin-bottom: 24px;
@@ -157,7 +163,7 @@
    }
 
    .btn {
-    width: 75px
+     width: 75px;
    }
 
    .buttons {
@@ -166,14 +172,14 @@
    }
 
    .button-spacing {
-      margin-bottom: 16px;
+     margin-bottom: 16px;
    }
 
    .btn-danger.disabled {
-      background-color: $white;
-      color: $gray-50;
-      line-height: 1.71;
-      font-size: 1em;
+     background-color: $white;
+     color: $gray-50;
+     line-height: 1.71;
+     font-size: 1em;
    }
 
    a.cancel-link {
@@ -194,20 +200,21 @@
       text-decoration: underline;
      }
    }
-
 </style>
 
 <script>
 import { mapState } from '@/libs/store';
 import notifications from '@/mixins/notifications';
+import { userStateMixin } from '../../mixins/userState';
 import markdownDirective from '@/directives/markdown';
 import svgClose from '@/assets/svg/close.svg';
+import svgReport from '@/assets/svg/report.svg';
 
 export default {
   directives: {
     markdown: markdownDirective,
   },
-  mixins: [notifications],
+  mixins: [notifications, userStateMixin],
   data () {
     const abuseFlagModalBody = {
       firstLinkStart: '<a href="/static/community-guidelines" target="_blank">',
@@ -222,6 +229,7 @@ export default {
       reportComment: '',
       icons: Object.freeze({
         close: svgClose,
+        report: svgReport,
       }),
     };
   },

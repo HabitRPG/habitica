@@ -1,6 +1,5 @@
 <template>
   <div class="row">
-    <report-challenge-modal />
     <secondary-menu class="col-12">
       <router-link
         class="nav-link"
