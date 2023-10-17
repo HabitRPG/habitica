@@ -148,7 +148,7 @@ import svgGold from '@/assets/svg/gold.svg';
 import level from '@/assets/svg/level.svg';
 import streakIcon from '@/assets/svg/streak.svg';
 import { mapState } from '@/libs/store';
-import { MAX_LEVEL_HARD_CAP } from '../../../../../common/script/constants';
+import { MAX_LEVEL_HARD_CAP, MAX_FIELD_HARD_CAP } from '../../../../../common/script/constants';
 
 export default {
   components: { SaveCancelButtons },
@@ -231,10 +231,6 @@ export default {
         return;
       }
 
-      if (this.restoreValues.lvl > MAX_LEVEL_HARD_CAP) {
-        this.restoreValues.lvl = MAX_LEVEL_HARD_CAP;
-      }
-
       const userChangedLevel = this.restoreValues.lvl !== this.user.stats.lvl;
       const userDidNotChangeExp = this.restoreValues.exp === this.user.stats.exp;
       if (userChangedLevel && userDidNotChangeExp) {
@@ -265,6 +261,9 @@ export default {
         ) {
           this.restoreValues[stat] = this.user.stats[stat];
           valid = false;
+        } else if (this.restoreValues[stat] > MAX_FIELD_HARD_CAP) {
+          this.restoreValues[stat] = MAX_FIELD_HARD_CAP;
+          valid = false;
         }
       }
 
@@ -273,6 +272,9 @@ export default {
           || !Number.isInteger(inputLevel)
           || inputLevel < 1) {
         this.restoreValues.lvl = this.user.stats.lvl;
+        valid = false;
+      } else if (inputLevel > MAX_LEVEL_HARD_CAP) {
+        this.restoreValues.lvl = MAX_LEVEL_HARD_CAP;
         valid = false;
       }
 
