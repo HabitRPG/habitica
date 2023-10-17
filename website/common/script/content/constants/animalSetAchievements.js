@@ -72,6 +72,19 @@ const ANIMAL_SET_ACHIEVEMENTS = {
     achievementKey: 'domesticated',
     notificationType: 'ACHIEVEMENT_ANIMAL_SET',
   },
+  duneBuddy: {
+    type: 'pet',
+    species: [
+      'Armadillo',
+      'Cactus',
+      'Fox',
+      'Frog',
+      'Snake',
+      'Spider',
+    ],
+    achievementKey: 'duneBuddy',
+    notificationType: 'ACHIEVEMENT_ANIMAL_SET',
+  },
   plantParent: {
     type: 'pet',
     species: [

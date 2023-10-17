@@ -454,7 +454,7 @@
               >
                 <div
                   :id="achievKey + '-achievement'"
-                  class="box achievement-container"
+                  class="box achievement-container d-flex justify-content-center align-items-middle"
                   :class="{'achievement-unearned': !achievement.earned}"
                 >
                   <b-popover
@@ -472,7 +472,7 @@
                   </b-popover>
                   <div
                     v-if="achievement.earned"
-                    class="achievement"
+                    class="achievement m-auto"
                     :class="achievement.icon + '2x'"
                   >
                     <div
@@ -484,7 +484,7 @@
                   </div>
                   <div
                     v-if="!achievement.earned"
-                    class="achievement achievement-unearned achievement-unearned2x"
+                    class="achievement achievement-unearned achievement-unearned2x m-auto"
                   ></div>
                 </div>
               </div>
@@ -922,7 +922,6 @@
       background: $white;
       margin: 0 auto;
       margin-bottom: 16px;
-      padding-top: 20px;
     }
 
     hr {
