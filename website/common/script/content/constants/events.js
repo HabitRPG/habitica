@@ -15,6 +15,10 @@ export const EVENTS = {
     season: 'normal',
     npcImageSuffix: '',
   },
+  potions202311: {
+    start: '2023-11-14T08:00-04:00',
+    end: '2023-11-30T23:59-04:00',
+  },
   bundle202311: {
     start: '2023-11-09T08:00-04:00',
     end: '2023-11-30T23:59-04:00',
