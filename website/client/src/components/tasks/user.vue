@@ -486,6 +486,15 @@ export default {
     this.$store.dispatch('common:setTitle', {
       section: this.$t('tasks'),
     });
+    if (this.$store.state.postLoadModal) {
+      const modalToLoad = this.$store.state.postLoadModal;
+      if (modalToLoad.includes('profile')) {
+        this.$router.push(modalToLoad);
+      } else {
+        this.$root.$emit('bv::show::modal', modalToLoad);
+      }
+      this.$store.state.postLoadModal = '';
+    }
   },
   methods: {
     ...mapActions({ setUser: 'user:set' }),

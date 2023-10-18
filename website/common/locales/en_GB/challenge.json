@@ -103,5 +103,6 @@
     "selectParticipant": "Select a Participant",
     "filters": "Filters",
     "wonChallengeDesc": "<%= challengeName %> selected you as the winner! Your win has been recorded in your Achievements.",
-    "yourReward": "Your Reward"
+    "yourReward": "Your Reward",
+    "removeTasks": "Remove Tasks"
 }

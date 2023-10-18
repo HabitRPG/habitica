@@ -268,7 +268,7 @@
       <div v-if="currentDraggingFood != null">
         <div
           class="food-icon"
-          :class="'Pet_Food_'+currentDraggingFood.key"
+          :class="`Pet_Food_${currentDraggingFood.key}`"
         ></div>
         <div class="popover">
           <div
@@ -287,7 +287,7 @@
       <div v-if="currentDraggingFood != null">
         <div
           class="food-icon"
-          :class="'Pet_Food_'+currentDraggingFood.key"
+          :class="`Pet_Food_${currentDraggingFood.key}`"
         ></div>
         <div class="popover">
           <div

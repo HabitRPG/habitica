@@ -24,7 +24,7 @@ schema.plugin(baseModel, {
   // noSet is not used as updating uses a whitelist and creating only accepts
   // specific params (password, email, username, ...)
   noSet: [],
-  private: ['auth.local.hashed_password', 'auth.local.passwordHashMethod', 'auth.local.salt', '_cronSignature', '_ABtests', 'secret'],
+  private: ['auth.local.hashed_password', 'auth.local.passwordHashMethod', 'auth.local.salt', '_cronSignature', '_ABtests', 'secret', 'profile.flags'],
   toJSONTransform: function userToJSON (plainObj, originalDoc) {
     plainObj._tmp = originalDoc._tmp; // be sure to send down drop notifs
 
@@ -362,6 +362,8 @@ schema.pre('save', true, function preSaveUser (next, done) {
     }
   }
 
+  // Enforce min/max values without displaying schema errors to end user
+
   if (this.isDirectSelected('preferences')) {
     if (
       _.isNaN(this.preferences.dayStart)
@@ -369,6 +371,20 @@ schema.pre('save', true, function preSaveUser (next, done) {
       || this.preferences.dayStart > 23
     ) {
       this.preferences.dayStart = 0;
+    }
+  }
+
+  if (this.isSelected('stats')) {
+    const statMaximum = common.constants.MAX_FIELD_HARD_CAP;
+    const levelMaximum = common.constants.MAX_LEVEL_HARD_CAP;
+
+    _.each(['hp', 'mp', 'exp', 'gp'], stat => {
+      if (this.stats[stat] > statMaximum) {
+        this.stats[stat] = statMaximum;
+      }
+    });
+    if (this.stats.lvl > levelMaximum) {
+      this.stats.lvl = levelMaximum;
     }
   }
 

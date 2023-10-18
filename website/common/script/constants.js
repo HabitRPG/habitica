@@ -2,6 +2,7 @@ export const MAX_HEALTH = 50;
 export const MAX_LEVEL = 100;
 export const MAX_STAT_POINTS = MAX_LEVEL;
 export const MAX_LEVEL_HARD_CAP = 9999;
+export const MAX_FIELD_HARD_CAP = 99999999;
 export const ATTRIBUTES = ['str', 'int', 'con', 'per'];
 export const MAX_INCENTIVES = 500;
 
@@ -21,8 +22,8 @@ export const CHAT_FLAG_FROM_SHADOW_MUTE = 10;
 // @TODO use those constants to replace hard-coded numbers
 
 export const SUPPORTED_SOCIAL_NETWORKS = [
-  { key: 'google', name: 'Google' },
   { key: 'apple', name: 'Apple' },
+  { key: 'google', name: 'Google' },
 ];
 
 export const GUILDS_PER_PAGE = 30; // number of guilds to return per page when using pagination

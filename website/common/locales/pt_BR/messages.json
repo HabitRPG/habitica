@@ -59,5 +59,6 @@
     "messageBackgroundUnEquipped": "Cenário desequipado.",
     "messagePetMountUnEquipped": "Mascote e Montaria desequipados.",
     "messageBattleGearUnEquipped": "Equipamento de Batalha desequipado.",
-    "messageCostumeUnEquipped": "Aparência desequipada."
+    "messageCostumeUnEquipped": "Aparência desequipada.",
+    "featureRetired": "Essa funcionalidade não é mais suportada."
 }

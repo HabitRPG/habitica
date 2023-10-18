@@ -9,11 +9,11 @@
     "communityFacebook": "Facebook",
     "companyAbout": "How It Works",
     "companyBlog": "Blog",
-    "companyContribute": "Contribute",
-    "companyDonate": "Donate",
+    "companyContribute": "Contributing to Habitica",
+    "companyDonate": "Donate to Habitica",
     "forgotPassword": "Forgot Password?",
     "emailNewPass": "Email a Password Reset Link",
-    "forgotPasswordSteps": "Enter the email address you used to register your Habitica account.",
+    "forgotPasswordSteps": "Enter your username or the email address you used to register your Habitica account.",
     "sendLink": "Send Link",
     "featuredIn": "Featured in",
     "footerDevs": "Developers",
@@ -184,5 +184,6 @@
     "mobileApps": "Mobile Apps",
     "learnMore": "Learn More",
     "communityInstagram": "Instagram",
-    "minPasswordLength": "Password must be 8 characters or more."
+    "minPasswordLength": "Password must be 8 characters or more.",
+    "footerProduct": "Product"
 }

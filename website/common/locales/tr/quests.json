@@ -95,5 +95,6 @@
     "cancelQuest": "Görevi İptal Et",
     "chatItemQuestFinish": "Tüm öğeler bulundu! Takım ödüllerini aldı.",
     "backToSelection": "Görev seçimine geri dön",
-    "chatQuestCancelled": "<%= username %> ,<%= questName %> parti görevini iptal etti."
+    "chatQuestCancelled": "<%= username %> ,<%= questName %> parti görevini iptal etti.",
+    "chatBossDamage": "<%= username %> <%= bossName %> 'a <%= userDamage %> hasar vurdu. <%= bossName %> takıma <%= bossDamage %> hasar vurdu."
 }

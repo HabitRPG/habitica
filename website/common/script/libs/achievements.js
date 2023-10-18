@@ -223,6 +223,7 @@ function _getBasicAchievements (user, language) {
   _addSimple(result, user, { path: 'plantParent', language });
   _addSimple(result, user, { path: 'dinosaurDynasty', language });
   _addSimple(result, user, { path: 'bonelessBoss', language });
+  _addSimple(result, user, { path: 'duneBuddy', language });
 
   _addSimpleWithMasterCount(result, user, { path: 'beastMaster', language });
   _addSimpleWithMasterCount(result, user, { path: 'mountMaster', language });

@@ -187,5 +187,9 @@
     "mysterySet202011": "Foliated Magus Set",
     "mysterySet202012": "Frostfire Phoenix Set",
     "mysterySet202101": "Snazzy Snow Leopard Set",
-    "mysterySet202102": "Charming Champion Set"
+    "mysterySet202102": "Charming Champion Set",
+    "howManyGemsPurchase": "How many Gems would you like to purchase?",
+    "howManyGemsSend": "How many Gems would you like to send?",
+    "needToPurchaseGems": "Need to purchase Gems as a gift?",
+    "wantToSendOwnGems": "Want to send your own Gems?"
 }

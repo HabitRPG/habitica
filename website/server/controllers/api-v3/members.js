@@ -11,6 +11,7 @@ import {
 import { model as Group } from '../../models/group';
 import { model as Challenge } from '../../models/challenge';
 import {
+  BadRequest,
   NotFound,
   NotAuthorized,
 } from '../../libs/errors';
@@ -27,6 +28,7 @@ import {
 } from '../../models/message';
 import highlightMentions from '../../libs/highlightMentions';
 import { handleGetMembersForChallenge } from '../../libs/challenges/handleGetMembersForChallenge';
+import { chatReporterFactory } from '../../libs/chatReporting/chatReporterFactory';
 
 const { achievements } = common;
 
@@ -774,6 +776,94 @@ api.transferGems = {
         quantity: gemAmount,
       });
     }
+  },
+};
+
+/**
+ * @api {post} /api/v3/members/:memberId/flag Flag (report) a user
+ * @apiDescription Sends an email to staff about another user or their profile
+ * @apiName FlagUser
+ * @apiGroup Members
+ *
+ * @apiParam (Path) {UUID} memberId The unique ID of the user being flagged
+ * @apiParam (Body) {String} [comment] explain why the user was flagged
+ * @apiParam (Body) {String} [source] URL or view from which the user was flagged
+ *
+ * @apiSuccess {Object} data The flagged user
+ * @apiSuccess {UUID} data.id The id of the flagged user
+ * @apiSuccess {String} data.username The username of the flagged user
+ * @apiSuccess {Object} data.profile The flagged user's profile information
+ * @apiSuccess {String} data.profile.blurb Text of the flagged user's profile bio
+ * @apiSuccess {Object} data.profile.flags Data about flags the profile has received.
+ *                                         Restricted to the reporting user's own flag
+ *                                         unless the reporting user is a moderator.
+ *                                         Each key is a UUID, and fields are comment,
+ *                                         source, and timestamp.
+ * @apiSuccess {String} data.profile.imageUrl URL of the flagged user's profile image
+ * @apiSuccess {String} data.profile.name The flagged user's display name
+ *
+ * @apiError (400) {BadRequest} AlreadyFlagged A profile cannot be flagged
+ *                                             more than once by the same user.
+ * @apiError (400) {BadRequest} MemberIdRequired The `memberId` param is required
+ *                                               and must be a valid `UUID`.
+ * @apiError (404) {NotFound} UserWithIdNotFound The `memberId` param did not
+ *                                               belong to an existing user.
+ */
+api.flagUser = {
+  method: 'POST',
+  url: '/members/:memberId/flag',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    const chatReporter = chatReporterFactory('User', req, res);
+    const flaggedUser = await chatReporter.flag();
+    res.respond(200, flaggedUser);
+  },
+};
+
+/**
+ * @api {post} /api/v3/members/:memberId/clear-flags Delete flags from a user
+ * @apiDescription Removes any abuse reports flagged on a user profile.
+ * @apiPermission Admin
+ * @apiName ClearUserFlags
+ * @apiGroup Members
+ *
+ * @apiParam (Path) {UUID} memberId The unique ID of the flagged user to reset
+ *
+ * @apiSuccess {Object} data An empty object
+ *
+ * @apiError (400) {BadRequest} MemberIdRequired The `memberId` param is required
+ *                                               and must be a valid `UUID`.
+ * @apiError (400) {BadRequest} MustBeAdmin Must be a moderator to use this route
+ * @apiError (404) {NotFound} UserWithIdNotFound The `memberId` param did not
+ *                                               belong to an existing user.
+ */
+
+api.clearUserFlags = {
+  method: 'POST',
+  url: '/members/:memberId/clear-flags',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    const { user } = res.locals;
+    const { memberId } = req.params;
+
+    req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
+    const validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    if (!user.hasPermission('moderator')) {
+      throw new BadRequest('Only a moderator may clear reports from a profile.');
+    }
+    const flaggedUser = await User.findOne(
+      { _id: memberId },
+      { profile: 1 },
+    ).exec();
+    if (!flaggedUser) {
+      throw new NotFound(res.t('userWithIDNotFound', { userId: memberId }));
+    }
+    flaggedUser.profile.flags = {};
+    await flaggedUser.save();
+
+    res.respond(200, {});
   },
 };
 
