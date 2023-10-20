@@ -1248,6 +1248,10 @@ const shield = {
     int: 4,
     set: 'cleaningSuppliesTwo',
   },
+  saucepan: {
+    per: 10,
+    set: 'CookingImplementsTwo',
+  },
 };
 
 const headAccessory = {
@@ -1708,6 +1712,10 @@ const weapon = {
     str: 5,
     int: 3,
     set: 'somethingSpooky',
+  },
+  rollingPin: {
+    str: 10,
+    set: 'CookingImplementsTwo',
   },
 };
 

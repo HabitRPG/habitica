@@ -585,6 +585,11 @@ const backgrounds = {
     monstrous_cave: { },
     jack_o_lantern_stacks: { },
   },
+  backgrounds112023: {
+    giant_cat: { },
+    barrel_cellar: { },
+    autumn_tree_tunnel: { },
+  },
   eventBackgrounds: {
     birthday_bash: {
       price: 0,
