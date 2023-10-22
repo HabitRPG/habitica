@@ -43,16 +43,6 @@
         class="d-flex"
       >
         <div
-          class="action d-flex align-items-center"
-          @click="copyAsTodo(msg)"
-        >
-          <div
-            class="svg-icon"
-            v-html="icons.copy"
-          ></div>
-          <div>{{ $t('copyAsTodo') }}</div>
-        </div>
-        <div
           v-if="(user.flags.communityGuidelinesAccepted && msg.uuid !== 'system')
             && (!isMessageReported || hasPermission(user, 'moderator'))"
           class="action d-flex align-items-center"
@@ -301,9 +291,6 @@ export default {
     likeTooltip (likedStatus) {
       if (!likedStatus) return this.$t('like');
       return null;
-    },
-    copyAsTodo (message) {
-      this.$root.$emit('habitica::copy-as-todo', message);
     },
     report () {
       this.$root.$on('habitica:report-result', data => {

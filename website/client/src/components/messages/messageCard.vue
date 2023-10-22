@@ -45,6 +45,22 @@
           </span>
         </template>
         <b-dropdown-item
+          v-if="allowCopyAsTodo"
+          class="selectListItem"
+          @click="copyAsTodo(msg)"
+        >
+          <span class="with-icon">
+            <span
+              v-once
+              class="svg-icon icon-16 color"
+              v-html="icons.copy"
+            ></span>
+            <span v-once>
+              {{ $t('copyAsTodo') }}
+            </span>
+          </span>
+        </b-dropdown-item>
+        <b-dropdown-item
           v-if="!isMessageReported"
           class="selectListItem custom-hover--red"
           @click="report(msg)"
@@ -239,6 +255,7 @@ import deleteIcon from '@/assets/svg/delete.svg';
 import reportIcon from '@/assets/svg/report.svg';
 import menuIcon from '@/assets/svg/menu.svg';
 import { userStateMixin } from '@/mixins/userState';
+import copyIcon from '@/assets/svg/copy.svg';
 
 export default {
   components: {
@@ -260,12 +277,17 @@ export default {
     userSentMessage: {
       type: Boolean,
     },
+    allowCopyAsTodo: {
+      type: Boolean,
+      default: false,
+    },
   },
   data () {
     return {
       icons: Object.freeze({
         delete: deleteIcon,
         report: reportIcon,
+        copy: copyIcon,
         menuIcon,
       }),
       reported: false,
@@ -320,6 +342,9 @@ export default {
           chatId: message.id,
         });
       }
+    },
+    copyAsTodo (message) {
+      this.$root.$emit('habitica::copy-as-todo', message);
     },
     parseMarkdown (text) {
       return renderWithMentions(text, this.user);
