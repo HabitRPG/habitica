@@ -54,6 +54,10 @@
             @show-member-modal="showMemberModal"
             @chat-card-mounted="itemWasMounted"
           />
+          <message-card
+            :msg="msg"
+            :group-id="groupId"
+          />
         </div>
         <avatar
           v-if="user._id === msg.uuid"
@@ -154,9 +158,11 @@ import { userStateMixin } from '../../mixins/userState';
 import Avatar from '../avatar';
 import copyAsTodoModal from './copyAsTodoModal';
 import chatCard from './chatCard';
+import MessageCard from '@/components/messages/messageCard.vue';
 
 export default {
   components: {
+    MessageCard,
     copyAsTodoModal,
     chatCard,
     Avatar,

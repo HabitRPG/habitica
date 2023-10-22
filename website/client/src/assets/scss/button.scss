@@ -96,8 +96,7 @@
 
 .btn-secondary,
 .dropdown > .btn-secondary.dropdown-toggle:not(.btn-success),
-.show > .btn-secondary.dropdown-toggle:not(.btn-success)
-{
+.show > .btn-secondary.dropdown-toggle:not(.btn-success) {
   background: $white;
   border: 1px solid transparent;
   color: $gray-50;
@@ -262,6 +261,16 @@
 .btn-flat {
   border: 0;
   box-shadow: none;
+}
+
+.btn-flat,
+.dropdown > .btn-flat.dropdown-toggle:not(.btn-success),
+.show > .btn-flat.dropdown-toggle:not(.btn-success) {
+  &.with-icon {
+    .svg-icon.color {
+      color: var(--icon-color);
+    }
+  }
 }
 
 .btn-cancel {
