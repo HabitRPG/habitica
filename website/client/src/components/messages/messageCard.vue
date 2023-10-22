@@ -256,6 +256,8 @@ import reportIcon from '@/assets/svg/report.svg';
 import menuIcon from '@/assets/svg/menu.svg';
 import { userStateMixin } from '@/mixins/userState';
 import copyIcon from '@/assets/svg/copy.svg';
+import likeIcon from '@/assets/svg/like.svg';
+import likedIcon from '@/assets/svg/liked.svg';
 
 export default {
   components: {
@@ -288,6 +290,8 @@ export default {
         delete: deleteIcon,
         report: reportIcon,
         copy: copyIcon,
+        like: likeIcon,
+        liked: likedIcon,
         menuIcon,
       }),
       reported: false,
@@ -309,11 +313,30 @@ export default {
   mounted () {
     this.$emit('message-card-mounted');
     this.handleExternalLinks();
+    this.mapProfileLinksToModal();
   },
   updated () {
     this.handleExternalLinks();
+    this.mapProfileLinksToModal();
   },
   methods: {
+    mapProfileLinksToModal () {
+      const links = this.$refs.markdownContainer.getElementsByTagName('a');
+      for (let i = 0; i < links.length; i += 1) {
+        let link = links[i].pathname;
+
+        // Internet Explorer does not provide the leading slash character in the pathname
+        link = link.charAt(0) === '/' ? link : `/${link}`;
+
+        if (link.startsWith('/profile/')) {
+          links[i].onclick = ev => {
+            ev.preventDefault();
+            this.$router.push({ path: link });
+          };
+        }
+      }
+    },
+
     report () {
       this.$root.$on('habitica:report-result', data => {
         if (data.ok) {

@@ -208,10 +208,10 @@ export default {
     return {
       icons: Object.freeze({
         like: likeIcon,
+        liked: likedIcon,
         copy: copyIcon,
         report: reportIcon,
         delete: deleteIcon,
-        liked: likedIcon,
       }),
       reported: false,
     };
@@ -256,25 +256,28 @@ export default {
     },
   },
   mounted () {
-    const links = this.$refs.markdownContainer.getElementsByTagName('a');
-    for (let i = 0; i < links.length; i += 1) {
-      let link = links[i].pathname;
+    this.mapProfileLinksToModal();
 
-      // Internet Explorer does not provide the leading slash character in the pathname
-      link = link.charAt(0) === '/' ? link : `/${link}`;
-
-      if (link.startsWith('/profile/')) {
-        links[i].onclick = ev => {
-          ev.preventDefault();
-          this.$router.push({ path: link });
-        };
-      }
-    }
-    this.CHAT_FLAG_LIMIT_FOR_HIDING = CHAT_FLAG_LIMIT_FOR_HIDING;
-    this.CHAT_FLAG_FROM_SHADOW_MUTE = CHAT_FLAG_FROM_SHADOW_MUTE;
     this.$emit('chat-card-mounted', this.msg.id);
   },
   methods: {
+    mapProfileLinksToModal () {
+      const links = this.$refs.markdownContainer.getElementsByTagName('a');
+      for (let i = 0; i < links.length; i += 1) {
+        let link = links[i].pathname;
+
+        // Internet Explorer does not provide the leading slash character in the pathname
+        link = link.charAt(0) === '/' ? link : `/${link}`;
+
+        if (link.startsWith('/profile/')) {
+          links[i].onclick = ev => {
+            ev.preventDefault();
+            this.$router.push({ path: link });
+          };
+        }
+      }
+    },
+
     async like () {
       const message = cloneDeep(this.msg);
 
