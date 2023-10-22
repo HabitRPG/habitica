@@ -57,6 +57,11 @@
           <message-card
             :msg="msg"
             :group-id="groupId"
+            :user-sent-message="user._id === msg.uuid"
+            @message-liked="messageLiked"
+            @message-removed="messageRemoved"
+            @show-member-modal="showMemberModal"
+            @chat-card-mounted="itemWasMounted"
           />
         </div>
         <avatar
