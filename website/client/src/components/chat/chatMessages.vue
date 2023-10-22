@@ -58,6 +58,7 @@
             :msg="msg"
             :group-id="groupId"
             :user-sent-message="user._id === msg.uuid"
+            :allow-copy-as-todo="true"
             @message-liked="messageLiked"
             @message-removed="messageRemoved"
             @show-member-modal="showMemberModal"
