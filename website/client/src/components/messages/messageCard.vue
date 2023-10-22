@@ -61,7 +61,7 @@
           </span>
         </b-dropdown-item>
         <b-dropdown-item
-          v-if="privateMessageMode"
+          v-if="privateMessageMode || msg.uuid === user._id || hasPermission(user, 'moderator')"
           class="selectListItem custom-hover--red"
           @click="remove()"
         >
@@ -238,6 +238,7 @@ import userLink from '../userLink';
 import deleteIcon from '@/assets/svg/delete.svg';
 import reportIcon from '@/assets/svg/report.svg';
 import menuIcon from '@/assets/svg/menu.svg';
+import { userStateMixin } from '@/mixins/userState';
 
 export default {
   components: {
@@ -248,7 +249,7 @@ export default {
       return moment(value).fromNow();
     },
   },
-  mixins: [externalLinks],
+  mixins: [externalLinks, userStateMixin],
   props: {
     msg: {
       type: Object,
@@ -311,7 +312,14 @@ export default {
       const message = this.msg;
       this.$emit('message-removed', message);
 
-      await axios.delete(`/api/v4/inbox/messages/${message.id}`);
+      if (this.privateMessageMode) {
+        await axios.delete(`/api/v4/inbox/messages/${message.id}`);
+      } else {
+        await this.$store.dispatch('chat:deleteChat', {
+          groupId: this.groupId,
+          chatId: message.id,
+        });
+      }
     },
     parseMarkdown (text) {
       return renderWithMentions(text, this.user);

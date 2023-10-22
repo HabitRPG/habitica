@@ -68,20 +68,6 @@
           </div>
         </div>
         <div
-          v-if="msg.uuid === user._id || hasPermission(user, 'moderator')"
-          class="action d-flex align-items-center"
-          @click="remove()"
-        >
-          <div
-            v-once
-            class="svg-icon"
-            v-html="icons.delete"
-          ></div>
-          <div v-once>
-            {{ $t('delete') }}
-          </div>
-        </div>
-        <div
           v-b-tooltip="{title: likeTooltip(msg.likes[user._id])}"
           class="ml-auto d-flex"
         >
@@ -333,17 +319,7 @@ export default {
         groupId: this.groupId || 'privateMessage',
       });
     },
-    async remove () {
-      if (!window.confirm(this.$t('areYouSureDeleteMessage'))) return; // eslint-disable-line no-alert
 
-      const message = this.msg;
-      this.$emit('message-removed', message);
-
-      await this.$store.dispatch('chat:deleteChat', {
-        groupId: this.groupId,
-        chatId: message.id,
-      });
-    },
     parseMarkdown (text) {
       return renderWithMentions(text, this.user);
     },
