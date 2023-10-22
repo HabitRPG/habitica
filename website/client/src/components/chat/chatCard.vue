@@ -43,21 +43,6 @@
         class="d-flex"
       >
         <div
-          v-if="(user.flags.communityGuidelinesAccepted && msg.uuid !== 'system')
-            && (!isMessageReported || hasPermission(user, 'moderator'))"
-          class="action d-flex align-items-center"
-          @click="report(msg)"
-        >
-          <div
-            v-once
-            class="svg-icon"
-            v-html="icons.report"
-          ></div>
-          <div v-once>
-            {{ $t('report') }}
-          </div>
-        </div>
-        <div
           v-b-tooltip="{title: likeTooltip(msg.likes[user._id])}"
           class="ml-auto d-flex"
         >
@@ -295,20 +280,7 @@ export default {
       if (!likedStatus) return this.$t('like');
       return null;
     },
-    report () {
-      this.$root.$on('habitica:report-result', data => {
-        if (data.ok) {
-          this.reported = true;
-        }
 
-        this.$root.$off('habitica:report-result');
-      });
-
-      this.$root.$emit('habitica::report-chat', {
-        message: this.msg,
-        groupId: this.groupId || 'privateMessage',
-      });
-    },
 
     parseMarkdown (text) {
       return renderWithMentions(text, this.user);

@@ -61,7 +61,7 @@
           </span>
         </b-dropdown-item>
         <b-dropdown-item
-          v-if="!isMessageReported"
+          v-if="canReportMessage"
           class="selectListItem custom-hover--red"
           @click="report(msg)"
         >
@@ -77,7 +77,7 @@
           </span>
         </b-dropdown-item>
         <b-dropdown-item
-          v-if="privateMessageMode || msg.uuid === user._id || hasPermission(user, 'moderator')"
+          v-if="canDeleteMessage"
           class="selectListItem custom-hover--red"
           @click="remove()"
         >
@@ -267,6 +267,10 @@ export default {
     timeAgo (value) {
       return moment(value).fromNow();
     },
+    date (value) {
+      // @TODO: Vue doesn't support this so we cant user preference
+      return moment(value).toDate().toString();
+    },
   },
   mixins: [externalLinks, userStateMixin],
   props: {
@@ -309,6 +313,21 @@ export default {
     privateMessageMode () {
       return this.groupId === 'privateMessage';
     },
+    isModerator () {
+      return this.hasPermission(this.user, 'moderator');
+    },
+    canDeleteMessage () {
+      return this.privateMessageMode
+        || this.msg.uuid === this.user._id
+        || this.isModerator;
+    },
+    canReportMessage () {
+      if (this.privateMessageMode) {
+        return !this.isMessageReported;
+      }
+      return (this.user.flags.communityGuidelinesAccepted && this.msg.uuid !== 'system')
+            && (!this.isMessageReported || this.isModerator);
+    },
   },
   mounted () {
     this.$emit('message-card-mounted');
@@ -348,7 +367,7 @@ export default {
 
       this.$root.$emit('habitica::report-chat', {
         message: this.msg,
-        groupId: 'privateMessage',
+        groupId: this.groupId,
       });
     },
     async remove () {
