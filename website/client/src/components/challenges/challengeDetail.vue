@@ -186,18 +186,11 @@
         v-if="isLeader || isAdmin"
         class="button-container"
       >
-        <div v-if="isFlagged">
+        <div>
           <button
-            v-once
-            class="btn btn-disabled"
-          >
-            {{ $t('clone') }}
-          </button>
-        </div>
-        <div v-else>
-          <button
-            v-once
-            class="btn btn-primary"
+            class="btn"
+            :disabled="flaggedAndHidden"
+            :class="flaggedAndHidden ? 'disabled btn-disabled' : 'btn-primary'"
             @click="cloneChallenge()"
           >
             {{ $t('clone') }}
@@ -473,10 +466,6 @@ export default {
     },
     // flaggedAndHidden should only allow admin to see challenge & flags
     flaggedAndHidden () {
-      return this.challenge.flagCount > 1;
-    },
-    // isFlagged disables the clone button
-    isFlagged () {
       return this.challenge.flagCount > 1;
     },
   },
