@@ -121,10 +121,7 @@ const ANIMAL_SET_ACHIEVEMENTS = {
     notificationType: 'ACHIEVEMENT_ANIMAL_SET',
   },
   roughRider: {
-    type: [
-      'pet',
-      'mount',
-    ],
+    type: 'petMount',
     species: [
       'Cactus',
       'Hedgehog',

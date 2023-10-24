@@ -214,7 +214,7 @@ const animalSetAchievs = {
     textKey: 'achievementReptacularRumbleText',
   },
   roughRider: {
-    icon: 'achievement-RoughRider',
+    icon: 'achievement-roughRider',
     titleKey: 'achievementRoughRider',
     textKey: 'achievementRoughRiderText',
   },

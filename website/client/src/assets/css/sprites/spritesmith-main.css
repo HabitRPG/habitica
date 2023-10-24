@@ -348,6 +348,11 @@
   width: 64px;
   height: 56px;
 }
+.achievement-roughRider2x {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/achievement-roughRider2x.png');
+  width: 68px;
+  height: 68px;
+}
 .achievement-royally-loyal2x {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/achievement-royally-loyal2x.png');
   width: 48px;
@@ -502,11 +507,6 @@
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/achievement-zodiac2x.png');
   width: 60px;
   height: 64px;
-}
-.achievement_roughRider2x {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/achievement_roughRider2x.png');
-  width: 68px;
-  height: 68px;
 }
 .background_afternoon_picnic {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_afternoon_picnic.png');
