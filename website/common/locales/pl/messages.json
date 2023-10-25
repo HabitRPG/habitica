@@ -59,5 +59,6 @@
     "messageBackgroundUnEquipped": "Tło zdjęte.",
     "messagePetMountUnEquipped": "Chować i Wierzchowiec zdjęty.",
     "messageCostumeUnEquipped": "Kostium zdjęty.",
-    "messageBattleGearUnEquipped": "Wyposażenie Bojowe zdjęte."
+    "messageBattleGearUnEquipped": "Wyposażenie Bojowe zdjęte.",
+    "featureRetired": "Ta funkcja nie jest już obsługiwana."
 }

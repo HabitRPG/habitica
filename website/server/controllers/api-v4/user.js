@@ -3,6 +3,8 @@ import * as userLib from '../../libs/user';
 import { verifyDisplayName } from '../../libs/user/validation';
 import common from '../../../common';
 import { TransactionModel as Transaction } from '../../models/transaction';
+import { BadRequest, NotAuthorized } from '../../libs/errors';
+import * as passwordUtils from '../../libs/password';
 
 const api = {};
 
@@ -60,7 +62,7 @@ const api = {};
  *   }
  * }
  *
-*/
+ */
 api.getUser = {
   method: 'GET',
   middlewares: [authWithHeaders()],
@@ -193,6 +195,8 @@ api.userReroll = {
  * @apiName UserReset
  * @apiGroup User
  *
+ * @apiParam (Body) {String} password The user's password
+ *
  * @apiSuccess {Object} data.user
  * @apiSuccess {Array} data.tasksToRemove IDs of removed tasks
  * @apiSuccess {String} message Success message
@@ -214,6 +218,17 @@ api.userReset = {
   middlewares: [authWithHeaders()],
   url: '/user/reset',
   async handler (req, res) {
+    const { user } = res.locals;
+    const { password } = req.body;
+    if (!password) {
+      throw new BadRequest(res.t('missingPassword'));
+    }
+
+    const isValidPassword = await passwordUtils.compare(user, password);
+    if (!isValidPassword) {
+      throw new NotAuthorized(res.t('wrongPassword'));
+    }
+
     await userLib.reset(req, res, { isV3: false });
   },
 };

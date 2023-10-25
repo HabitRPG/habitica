@@ -1775,4 +1775,26 @@ api.movePinnedItem = {
   },
 };
 
+/**
+ * @api {post} /api/v3/user/stat-sync
+ * Request a refresh of user stats, including processing of pending level-ups
+ * @apiName StatSync
+ * @apiGroup User
+ *
+ * @apiSuccess {Object} data The user object
+ */
+
+api.statSync = {
+  method: 'POST',
+  middlewares: [authWithHeaders()],
+  url: '/user/stat-sync',
+  async handler (req, res) {
+    const { user } = res.locals;
+    common.fns.updateStats(user, user.stats);
+    await user.save();
+
+    res.respond(200, user);
+  },
+};
+
 export default api;

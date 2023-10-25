@@ -548,6 +548,12 @@ schema.methods.getSecretData = function getSecretData () {
   return user.secret;
 };
 
+schema.methods.getFlagData = function getFlagData () {
+  const user = this;
+
+  return user.profile.flags;
+};
+
 schema.methods.updateBalance = async function updateBalance (amount,
   transactionType,
   reference,

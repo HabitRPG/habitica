@@ -176,6 +176,43 @@ function sendInboxFlagNotification ({
     .catch(err => logger.error(err, 'Error while sending flag data to Slack.'));
 }
 
+function sendProfileFlagNotification ({
+  reporter,
+  flaggedUser,
+  userComment,
+  source,
+}) {
+  const title = 'User Profile Report';
+  const titleLink = `${BASE_URL}/profile/${flaggedUser._id}`;
+  let text = `@${reporter.auth.local.username} (${reporter._id}; language: ${reporter.preferences.language}) flagged @${flaggedUser.auth.local.username}'s profile from ${source}`;
+  if (userComment) {
+    text += ` and commented: ${userComment}`;
+  }
+  let profileData = `Display Name: ${flaggedUser.profile.name}`;
+  if (flaggedUser.profile.imageUrl) {
+    profileData += `\n\nImage URL: ${flaggedUser.profile.imageUrl}`;
+  }
+  if (flaggedUser.profile.blurb) {
+    profileData += `\n\nAbout: ${flaggedUser.profile.blurb}`;
+  }
+
+  flagSlack
+    .send({
+      text,
+      attachments: [{
+        fallback: 'Flag Profile',
+        color: 'danger',
+        title,
+        title_link: titleLink,
+        text: profileData,
+        mrkdwn_in: [
+          'text',
+        ],
+      }],
+    })
+    .catch(err => logger.error(err, 'Error while sending flag data to Slack.'));
+}
+
 function sendSubscriptionNotification ({
   buyer,
   recipient,
@@ -302,6 +339,7 @@ function sendSlurNotification ({
 export {
   sendFlagNotification,
   sendInboxFlagNotification,
+  sendProfileFlagNotification,
   sendSubscriptionNotification,
   sendShadowMutedPostNotification,
   sendSlurNotification,

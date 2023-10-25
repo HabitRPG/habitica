@@ -91,6 +91,7 @@ export default {
       this.close();
     },
     hide () {
+      this.$store.dispatch('user:statSync');
       this.$store.dispatch('user:set', { 'party.quest.completed': '' });
     },
   },

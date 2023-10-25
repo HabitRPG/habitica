@@ -16,7 +16,7 @@
         <span
           v-drag.food="item.key"
           class="item-content"
-          :class="'Pet_Food_'+item.key"
+          :class="`Pet_Food_${item.key}`"
           @itemDragEnd="dragend($event)"
           @itemDragStart="dragstart($event)"
         ></span>

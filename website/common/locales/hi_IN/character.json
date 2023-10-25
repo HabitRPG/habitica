@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "कृपया ध्यान दें कि आपका प्रदर्शन नाम, प्रोफ़ाइल फ़ोटो, और चरित्र को <a href='https://habitica.com/static/community-guidelines 'target='_blank'> समुदाय दिशानिर्देशों </a> का पालन करना होगा (जैसे नहीं अपवित्रता, कोई वयस्क विषय, कोई अपमान नहीं, आदि)। यदि आपके पास कोई प्रश्न है या नहीं, तो उचित है, कृपया ईमेल करें <%= hrefBlankCommunityManagerEmail %>!",
+    "communityGuidelinesWarning": "कृपया ध्यान में रखें कि आपका प्रदर्शन नाम, प्रोफ़ाइल फ़ोटो, और चरित्र को <a href='https://habitica.com/static/community-guidelines 'target='_blank'> समुदाय दिशानिर्देशों </a> का पालन करना होगा (जैसे नहीं अपवित्रता, कोई वयस्क विषय, कोई अपमान नहीं, आदि)। यदि आपके पास कोई प्रश्न है या नहीं, तो उचित है, कृपया ईमेल करें <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "प्रोफ़ाइल",
     "avatar": "चरित्र को अनुकूलित करें",
     "editAvatar": "चरित्र संपादित करें",

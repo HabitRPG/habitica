@@ -22,7 +22,7 @@
     "contribModal": "Serás xenial, <%= name %>! Pasaches a ser unha persoa colaboradora de rango <%= level %> por axudar a Habitica.",
     "contribLink": "Mira os premios que levaches pola túa achega!",
     "contribName": "Contribución",
-    "contribText": "Contribuíu a Habitica con código, imaxes, música, texto, ou doutro xeito. Para máis información, únete ao gremio «Aspiring Legends»!",
+    "contribText": "Contribuíu a Habitica con código, imaxes, música, texto, ou doutro xeito.",
     "kickstartName": "Patrocinio en Kickstarter, rango de <%= key %> $",
     "kickstartText": "Patrocinou o proxecto en Kickstarter",
     "helped": "Axudou a Habitica a medrar",

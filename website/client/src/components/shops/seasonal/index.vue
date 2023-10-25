@@ -346,6 +346,7 @@ import _sortBy from 'lodash/sortBy';
 import _throttle from 'lodash/throttle';
 import _groupBy from 'lodash/groupBy';
 import _reverse from 'lodash/reverse';
+import _find from 'lodash/find';
 import { mapState } from '@/libs/store';
 
 import Checkbox from '@/components/ui/checkbox';
@@ -413,7 +414,7 @@ export default {
 
       hidePinned: false,
       featuredGearBought: false,
-
+      currentEvent: null,
       backgroundUpdate: new Date(),
     };
   },
@@ -422,7 +423,7 @@ export default {
       content: 'content',
       user: 'user.data',
       userStats: 'user.data.stats',
-      currentEvent: 'worldState.data.currentEvent',
+      currentEventList: 'worldState.data.currentEventList',
     }),
 
     usersOfficalPinnedItems () {
@@ -518,6 +519,7 @@ export default {
     });
 
     this.triggerGetWorldState();
+    this.currentEvent = _find(this.currentEventList, event => Boolean(['winter', 'spring', 'summer', 'fall'].includes(event.season)));
   },
   beforeDestroy () {
     this.$root.$off('buyModal::boughtItem');

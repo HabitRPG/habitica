@@ -16,6 +16,7 @@
         :class-badge-position="'next-to-name'"
         :is-header="true"
         :disable-name-styling="true"
+        class="mr-3"
       />
       <div
         v-if="hasParty"
