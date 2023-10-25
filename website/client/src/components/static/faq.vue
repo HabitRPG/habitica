@@ -24,7 +24,7 @@
               v-if="index === 0"
               v-once
             >
-              {{ $t('general') }}
+              {{ $t('commonQuestions') }}
             </h2>
             <h2
               v-if="entry.heading === 'play-with-others'"

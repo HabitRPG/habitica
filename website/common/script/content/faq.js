@@ -102,7 +102,7 @@ const questionList = [
     translationIndex: 49,
   },
   {
-    heading: 'search-party',
+    heading: 'search-for-party',
     translationIndex: 50,
   },
   {
