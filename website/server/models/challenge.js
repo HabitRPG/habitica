@@ -413,7 +413,7 @@ schema.methods.closeChal = async function closeChal (broken = {}) {
   // Run some operations in the background without blocking the thread
   const backgroundTasks = [
     // And it's tasks
-    Tasks.Task.deleteOne({ 'challenge.id': challenge._id, userId: { $exists: false } }).exec(),
+    Tasks.Task.deleteMany({ 'challenge.id': challenge._id, userId: { $exists: false } }).exec(),
     // Set the challenge tag to non-challenge status
     // and remove the challenge from the user's challenges
     User.updateMany({

@@ -6,31 +6,15 @@ import { TAVERN_ID } from '../../website/server/models/group';
 // but you no longer have access to,
 // like private parties or users
 export async function checkExistence (collectionName, id) {
-  return new Promise((resolve, reject) => {
-    const collection = mongoose.connection.db.collection(collectionName);
-
-    collection.find({ _id: id }, { _id: 1 }).limit(1).toArray((findError, docs) => {
-      if (findError) return reject(findError);
-
-      const exists = docs.length > 0;
-
-      return resolve(exists);
-    });
-  });
+  const count = await mongoose.connection.db.collection(collectionName).countDocuments({ _id: id });
+  return count > 0;
 }
 
 // Obtain a property from the database. Useful if the property is private
 // and thus unavailable to the client
 export async function getProperty (collectionName, id, path) {
-  return new Promise((resolve, reject) => {
-    const collection = mongoose.connection.db.collection(collectionName);
-
-    collection.find({ _id: id }, { [path]: 1 }).limit(1).toArray((findError, docs) => {
-      if (findError) return reject(findError);
-
-      return resolve(get(docs[0], path));
-    });
-  });
+  const doc = await mongoose.connection.db.collection(collectionName).find({ _id: id }, { [path]: 1 }, {limit: 1}).next();
+  return get(doc, path);
 }
 
 // Specifically helpful for the GET /groups tests,

@@ -181,7 +181,7 @@ schema.statics.sanitizeUpdate = function sanitizeUpdate (updateObj) {
 // Basic fields to fetch for populating a group info
 export const basicFields = 'name type privacy leader summary categories';
 
-schema.pre('remove', true, async function preRemoveGroup (next, done) {
+schema.pre('deleteOne', { document: true }, async function preRemoveGroup (next, done) {
   next();
   try {
     await this.removeGroupInvitations();
@@ -317,7 +317,6 @@ schema.statics.getGroups = async function getGroups (options = {}) {
         _.assign(query, filters);
         const privateGuildsQuery = this.find(query).select(groupFields);
         if (populateLeader === true) privateGuildsQuery.populate('leader', nameFields);
-        console.log("fetching");
         privateGuildsQuery.sort(sort);
         queries.push(privateGuildsQuery);
         break;
@@ -1392,6 +1391,7 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
     _.remove(members, { _id: user._id });
 
     if (members.length === 0) {
+      console.log("deleting group")
       promises.push(group.deleteOne());
       return Promise.all(promises);
     }

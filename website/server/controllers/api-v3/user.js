@@ -223,7 +223,7 @@ api.updateUser = {
   middlewares: [authWithHeaders()],
   url: '/user',
   async handler (req, res) {
-    await userLib.updateOne(req, res, { isV3: true });
+    await userLib.update(req, res, { isV3: true });
   },
 };
 
@@ -304,7 +304,7 @@ api.deleteUser = {
 
     await Promise.all(groupLeavePromises);
 
-    await Tasks.Task.deleteOne({
+    await Tasks.Task.deleteMany({
       userId: user._id,
     }).exec();
 

@@ -69,8 +69,6 @@ describe('POST /members/:memberId/flag', () => {
       await reporter.post(`/members/${target._id}/flag`);
       const updatedTarget = await admin.get(`/hall/heroes/${target._id}`);
       expect(updatedTarget.profile.flags[reporter._id]).to.have.all.keys([
-        'comment',
-        'source',
         'timestamp',
       ]);
       expect(moment(updatedTarget.profile.flags[reporter._id].timestamp).toDate()).to.be.a('date');

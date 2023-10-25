@@ -96,6 +96,6 @@ export async function clearPMs (user) {
 
   await Promise.all([
     user.save(),
-    Inbox.deleteOne({ ownerId: user._id }).exec(),
+    Inbox.deleteMany({ ownerId: user._id }).exec(),
   ]);
 }

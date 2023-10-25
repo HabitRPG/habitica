@@ -237,7 +237,7 @@ schema.pre('validate', function preValidateUser (next) {
   next();
 });
 
-schema.pre('save', true, function preSaveUser (next, done) {
+schema.pre('save', { document: true }, function preSaveUser (next, done) {
   next();
 
   // VERY IMPORTANT NOTE: when only some fields from an user document are selected

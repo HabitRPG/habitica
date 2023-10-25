@@ -1356,7 +1356,7 @@ api.clearCompletedTodos = {
 
     // Clear completed todos
     // Do not delete completed todos from challenges or groups, unless the task is broken
-    await Tasks.Task.deleteOne({
+    await Tasks.Task.deleteMany({
       userId: user._id,
       type: 'todo',
       completed: true,
