@@ -580,6 +580,11 @@ const backgrounds = {
     covered_bridge_in_autumn: { },
     baobab_forest: { },
   },
+  backgrounds102023: {
+    spectral_candle_room: { },
+    monstrous_cave: { },
+    jack_o_lantern_stacks: { },
+  },
   eventBackgrounds: {
     birthday_bash: {
       price: 0,

@@ -92,7 +92,7 @@
                 :item="item"
                 :price="item.goldValue ? item.goldValue : item.value"
                 :price-type="item.goldValue ? 'gold' : 'gem'"
-                :item-content-class="'inventory_quest_scroll_'+item.key"
+                :item-content-class="`inventory_quest_scroll_${item.key}`"
                 :empty-item="false"
                 :popover-position="'top'"
                 @click="selectItem(item)"

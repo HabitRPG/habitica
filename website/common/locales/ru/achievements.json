@@ -62,7 +62,7 @@
     "earnedAchievement": "Вы получили достижение!",
     "viewAchievements": "Посмотреть достижения",
     "onboardingProgress": "Выполнено на <%= percentage %>%",
-    "gettingStartedDesc": "Выполнив эти задания, вы получите <strong> 5 достижений</strong> и <strong class=\"gold-amount\">100 золотых!</strong>",
+    "gettingStartedDesc": "Выполнив эти задания, вы получите <strong> 5 достижений</strong> и <strong class=\"gold-amount\">100 золотых</strong>!",
     "achievementRosyOutlookModalText": "Вы собрали всех розовых сахарных скакунов!",
     "achievementRosyOutlookText": "Собраны все розовые сахарные скакуны.",
     "achievementTickledPinkModalText": "Вы собрали всех розовых сахарных питомцев!",
@@ -147,8 +147,11 @@
     "achievementPolarProText": "Собраны все полярные питомцы: медведь, лиса, пингвин, кит и волк!",
     "achievementPlantParent": "Прародитель растений",
     "achievementPlantParentModalText": "Вы собрали всех питомцев растений!",
-    "achievementPlantParentText": "Вы собрали все стандартные цвета питомцев растений: Кактус и Древолаз",
+    "achievementPlantParentText": "Вы собрали все стандартные цвета питомцев растений: Кактус и Дрожащего дерева!",
     "achievementDinosaurDynasty": "Династия динозавров",
     "achievementDinosaurDynastyModalText": "Вы собрали всех питомцев птиц и динозавров!",
-    "achievementDinosaurDynastyText": "Вы вылупили всех питомцев, птиц и динозавров, стандартново цвета: Сокол, Сова, Попугай, Павлин, Пингвин, Петух, Птеродактиль, Тираннозавр, Трицератопс и Велоцираптор!"
+    "achievementDinosaurDynastyText": "Вы вылупили всех питомцев, птиц и динозавров, стандартново цвета: Сокол, Сова, Попугай, Павлин, Пингвин, Петух, Птеродактиль, Тираннозавр, Трицератопс и Велоцираптор!",
+    "achievementBonelessBoss": "Беспозвоночные Боссы",
+    "achievementBonelessBossText": "Вы вывели беспозвоночных питомцев всех стандартных цветов: Жука, Бабочки, Каракатицы, Морского слизня, Осьминога, Улитки и Паука!",
+    "achievementBonelessBossModalText": "Вы собрали всех беспозвоночных питомцев!"
 }

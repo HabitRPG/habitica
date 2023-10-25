@@ -45,7 +45,7 @@
     "startQuest": "Comezar a misión",
     "questInvitationDoesNotExist": "Aínda non se enviaron invitacións á misión.",
     "questInviteNotFound": "Non se atoparon invitacións a misións.",
-    "guildQuestsNotSupported": "Non se pode invitar a gremios a misións.",
+    "guildQuestsNotSupported": "Non é posíbel invitar a gremios a misións.",
     "questNotOwned": "Ese pergameo de misión non é teu.",
     "questNotGoldPurchasable": "A misión «<%= key %>» non se pode mercar con ouro.",
     "questNotGemPurchasable": "A misión «<%= key %>» non se pode mercar con xemas.",
