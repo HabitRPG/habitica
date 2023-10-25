@@ -33,6 +33,7 @@ export const NotificationMixins = {
       this.notify(`${this.sign(val)}${val}`, 'damage');
     },
     exp (val) {
+      if (val === 0) return;
       const message = getXPMessage(val);
       this.notify(message, 'xp', 'glyphicon glyphicon-star', this.sign(val));
     },
