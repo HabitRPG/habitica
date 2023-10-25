@@ -153,7 +153,7 @@ describe('GET /groups/:id', () => {
     it('removes non-existent guild from user\'s guild list', async () => {
       const guildId = generateUUID();
 
-      await user.update({
+      await user.updateOne({
         guilds: [guildId, generateUUID()],
       });
 
@@ -173,7 +173,7 @@ describe('GET /groups/:id', () => {
     it('removes non-existent party from user\'s party object', async () => {
       const partyId = generateUUID();
 
-      await user.update({
+      await user.updateOne({
         party: { _id: partyId },
       });
 
@@ -290,7 +290,7 @@ describe('GET /groups/:id', () => {
 
       beforeEach(async () => {
         [admin] = members;
-        await admin.update({ permissions: { moderator: true } });
+        await admin.updateOne({ permissions: { moderator: true } });
       });
 
       it('includes all messages', async () => {

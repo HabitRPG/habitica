@@ -110,7 +110,7 @@ describe('POST /group', () => {
     });
 
     it('creates a party when the user has no chat privileges', async () => {
-      await user.update({ 'flags.chatRevoked': true });
+      await user.updateOne({ 'flags.chatRevoked': true });
       const party = await user.post('/groups', {
         name: partyName,
         type: partyType,
@@ -120,7 +120,7 @@ describe('POST /group', () => {
     });
 
     it('does not require gems to create a party', async () => {
-      await user.update({ balance: 0 });
+      await user.updateOne({ balance: 0 });
 
       const party = await user.post('/groups', {
         name: partyName,

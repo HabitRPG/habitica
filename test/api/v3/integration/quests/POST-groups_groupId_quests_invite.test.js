@@ -87,8 +87,8 @@ describe('POST /groups/:groupId/quests/invite/:questKey', () => {
       const leaderUpdate = {};
       leaderUpdate[`items.quests.${PET_QUEST}`] = 1;
 
-      await leader.update(leaderUpdate);
-      await questingGroup.update({ 'quest.key': QUEST_IN_PROGRESS });
+      await leader.updateOne(leaderUpdate);
+      await questingGroup.updateOne({ 'quest.key': QUEST_IN_PROGRESS });
 
       await expect(leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`)).to.eventually.be.rejected.and.eql({
         code: 401,
@@ -104,8 +104,8 @@ describe('POST /groups/:groupId/quests/invite/:questKey', () => {
       memberUpdate[`items.quests.${PET_QUEST}`] = 1;
 
       await Promise.all([
-        leader.update(memberUpdate),
-        member.update(memberUpdate),
+        leader.updateOne(memberUpdate),
+        member.updateOne(memberUpdate),
       ]);
     });
 
@@ -202,7 +202,7 @@ describe('POST /groups/:groupId/quests/invite/:questKey', () => {
       leaderUpdate[`items.quests.${LEVELED_QUEST}`] = 1;
       leaderUpdate['stats.lvl'] = LEVELED_QUEST_REQ - 1;
 
-      await leader.update(leaderUpdate);
+      await leader.updateOne(leaderUpdate);
 
       await leader.post(`/groups/${questingGroup._id}/quests/invite/${LEVELED_QUEST}`);
     });

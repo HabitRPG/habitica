@@ -223,7 +223,7 @@ api.updateUser = {
   middlewares: [authWithHeaders()],
   url: '/user',
   async handler (req, res) {
-    await userLib.update(req, res, { isV3: true });
+    await userLib.updateOne(req, res, { isV3: true });
   },
 };
 
@@ -304,11 +304,11 @@ api.deleteUser = {
 
     await Promise.all(groupLeavePromises);
 
-    await Tasks.Task.remove({
+    await Tasks.Task.deleteOne({
       userId: user._id,
     }).exec();
 
-    await user.remove();
+    await user.deleteOne();
 
     if (feedback) {
       sendTxn({ email: TECH_ASSISTANCE_EMAIL }, 'admin-feedback', [

@@ -103,7 +103,7 @@ describe('NewsPost Model', () => {
 
     beforeEach(async () => {
       // Delete all existing posts from the database
-      await NewsPost.remove();
+      await NewsPost.deleteOne();
     });
 
     afterEach(() => {

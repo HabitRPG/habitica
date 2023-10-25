@@ -24,7 +24,7 @@ describe('GET /coupons/', () => {
   });
 
   it('should return the coupons in CSV format ordered by creation date', async () => {
-    await user.update({
+    await user.updateOne({
       'permissions.coupons': true,
     });
 

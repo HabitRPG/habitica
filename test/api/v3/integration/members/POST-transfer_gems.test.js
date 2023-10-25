@@ -233,10 +233,10 @@ describe('POST /members/transfer-gems', () => {
   });
 
   it('sends transfer gems message in each participant\'s language', async () => {
-    await receiver.update({
+    await receiver.updateOne({
       'preferences.language': 'es',
     });
-    await userToSendMessage.update({
+    await userToSendMessage.updateOne({
       'preferences.language': 'cs',
     });
     await userToSendMessage.post('/members/transfer-gems', {

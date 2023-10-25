@@ -39,7 +39,7 @@ describe('GET /shops/time-travelers', () => {
   });
 
   it('returns active shop notes and imageName if user has trinkets', async () => {
-    await user.update({
+    await user.updateOne({
       'purchased.plan.consecutive.trinkets': 1,
     });
 
@@ -57,7 +57,7 @@ describe('GET /shops/time-travelers', () => {
   });
 
   it('does not return mystery sets that are already owned', async () => {
-    await user.update({
+    await user.updateOne({
       'items.gear.owned': {
         head_mystery_201606: true, // eslint-disable-line camelcase
         armor_mystery_201606: true, // eslint-disable-line camelcase
@@ -72,7 +72,7 @@ describe('GET /shops/time-travelers', () => {
   });
 
   it('does not return pets and mounts that user already owns', async () => {
-    await user.update({
+    await user.updateOne({
       'items.mounts': {
         'MantisShrimp-Base': true,
       },

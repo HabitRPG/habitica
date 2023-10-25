@@ -53,7 +53,7 @@ describe('PUT /news/:newsID', () => {
 
   context('calls updateLastNewsPost', () => {
     beforeEach(async () => {
-      await NewsPost.remove({ });
+      await NewsPost.deleteOne({ });
     });
 
     it('updates post data', async () => {

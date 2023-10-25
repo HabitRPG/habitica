@@ -7,6 +7,7 @@ if (process.env.LOAD_SERVER === '0') { // when the server is in a different proc
   setupNconf('./config.json');
   // Use Q promises instead of mpromise in mongoose
   mongoose.connect(nconf.get('TEST_DB_URI'));
+  console.log("connecting");
 } else { // When running tests and the server in the same process
   setupNconf('./config.json.example');
   nconf.set('NODE_DB_URI', nconf.get('TEST_DB_URI'));

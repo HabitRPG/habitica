@@ -59,12 +59,15 @@ gulp.task('test:prepare:mongo', cb => {
   const mongooseOptions = getDefaultConnectionOptions();
   const connectionUrl = getDevelopmentConnectionUrl(TEST_DB_URI);
 
-  mongoose.connect(connectionUrl, mongooseOptions, err => {
+  mongoose.connect(connectionUrl, mongooseOptions).then(() => {
+    return mongoose.connection.dropDatabase();
+  }).then(() => {
+    return mongoose.connection.close();
+  }).then(() => {
+    cb();
+  }).catch(err => {
     if (err) return cb(`Unable to connect to mongo database. Are you sure it's running? \n\n${err}`);
-    return mongoose.connection.dropDatabase(err2 => {
-      if (err2) return cb(err2);
-      return mongoose.connection.close(cb);
-    });
+    throw err
   });
 });
 

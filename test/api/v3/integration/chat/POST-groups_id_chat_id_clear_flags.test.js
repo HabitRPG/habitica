@@ -28,8 +28,8 @@ describe('POST /groups/:id/chat/:id/clearflags', () => {
     groupWithChat = group;
     author = groupLeader;
     [nonAdmin, admin] = members;
-    await nonAdmin.update({ 'auth.timestamps.created': moment().subtract(USER_AGE_FOR_FLAGGING + 1, 'days').toDate() });
-    await admin.update({ 'permissions.moderator': true });
+    await nonAdmin.updateOne({ 'auth.timestamps.created': moment().subtract(USER_AGE_FOR_FLAGGING + 1, 'days').toDate() });
+    await admin.updateOne({ 'permissions.moderator': true });
 
     message = await author.post(`/groups/${groupWithChat._id}/chat`, { message: 'Some message' });
     message = message.message;
@@ -71,7 +71,7 @@ describe('POST /groups/:id/chat/:id/clearflags', () => {
         members: 2,
       });
 
-      await members[0].update({ 'auth.timestamps.created': new Date('2022-01-01') });
+      await members[0].updateOne({ 'auth.timestamps.created': new Date('2022-01-01') });
       let privateMessage = await members[0].post(`/groups/${group._id}/chat`, { message: 'Some message' });
       privateMessage = privateMessage.message;
 
@@ -104,7 +104,7 @@ describe('POST /groups/:id/chat/:id/clearflags', () => {
       const member = members[0];
 
       // make member that can use skills
-      await member.update({
+      await member.updateOne({
         'stats.lvl': 100,
         'stats.mp': 400,
         'stats.class': 'wizard',

@@ -35,7 +35,7 @@ describe('POST /user/purchase/:type/:key', () => {
 
   it('can convert gold to gems if subscribed', async () => {
     const oldBalance = user.balance;
-    await user.update({
+    await user.updateOne({
       'purchased.plan.customerId': 'group-plan',
       'stats.gp': 1000,
     });
@@ -53,14 +53,14 @@ describe('POST /user/purchase/:type/:key', () => {
       },
       upgradeToGroupPlan: true,
     });
-    await group.update({
+    await group.updateOne({
       'leaderOnly.getGems': true,
       'purchased.plan.customerId': 123,
     });
     await groupLeader.sync();
     const oldBalance = groupLeader.balance;
 
-    await groupLeader.update({
+    await groupLeader.updateOne({
       'purchased.plan.customerId': 'group-plan',
       'stats.gp': 1000,
     });
@@ -80,13 +80,13 @@ describe('POST /user/purchase/:type/:key', () => {
       members: 1,
       upgradeToGroupPlan: true,
     });
-    await group.update({
+    await group.updateOne({
       'leaderOnly.getGems': true,
       'purchased.plan.customerId': 123,
     });
     const oldBalance = members[0].balance;
 
-    await members[0].update({
+    await members[0].updateOne({
       'purchased.plan.customerId': 'group-plan',
       'stats.gp': 1000,
     });
@@ -111,7 +111,7 @@ describe('POST /user/purchase/:type/:key', () => {
 
     it('can convert gold to gems if subscribed', async () => {
       const oldBalance = user.balance;
-      await user.update({
+      await user.updateOne({
         'purchased.plan.customerId': 'group-plan',
         'stats.gp': 1000,
       });

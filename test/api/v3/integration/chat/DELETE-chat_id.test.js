@@ -28,7 +28,7 @@ describe('DELETE /groups/:groupId/chat/:chatId', () => {
     message = message.message;
     userThatDidNotCreateChat = members[0]; // eslint-disable-line prefer-destructuring
     admin = members[1]; // eslint-disable-line prefer-destructuring
-    await admin.update({ permissions: { moderator: true } });
+    await admin.updateOne({ permissions: { moderator: true } });
   });
 
   context('Chat errors', () => {

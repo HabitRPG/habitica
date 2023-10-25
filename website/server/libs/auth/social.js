@@ -129,7 +129,7 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
   // Clean previous email preferences
   if (email) {
     EmailUnsubscription
-      .remove({ email })
+      .deleteOne({ email })
       .exec()
       .then(() => {
         if (!existingUser) {

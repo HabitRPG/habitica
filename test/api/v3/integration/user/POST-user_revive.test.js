@@ -24,7 +24,7 @@ describe('POST /user/revive', () => {
   // More tests in common code unit tests
 
   it('decreases a stat', async () => {
-    await user.update({
+    await user.updateOne({
       'stats.str': 2,
       'stats.hp': 0,
     });

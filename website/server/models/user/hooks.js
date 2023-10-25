@@ -404,10 +404,6 @@ schema.pre('save', true, function preSaveUser (next, done) {
   }
 });
 
-schema.pre('update', function preUpdateUser () {
-  this.update({}, { $inc: { _v: 1 } });
-});
-
 schema.pre('updateOne', function preUpdateUser () {
   this.updateOne({}, { $inc: { _v: 1 } });
 });

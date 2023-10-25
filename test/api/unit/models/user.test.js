@@ -188,7 +188,7 @@ describe('User Model', () => {
     it('removes invalid tags when loading the user', async () => {
       let user = new User();
       await user.save();
-      await user.update({
+      await user.updateOne({
         $set: {
           tags: [
             null, // invalid, not an object
@@ -212,7 +212,7 @@ describe('User Model', () => {
     it('removes invalid push devices when loading the user', async () => {
       let user = new User();
       await user.save();
-      await user.update({
+      await user.updateOne({
         $set: {
           pushDevices: [
             null, // invalid, not an object
@@ -236,7 +236,7 @@ describe('User Model', () => {
     it('removes duplicate push devices when loading the user', async () => {
       let user = new User();
       await user.save();
-      await user.update({
+      await user.updateOne({
         $set: {
           pushDevices: [
             { type: 'android', regId: '1234' },
@@ -258,7 +258,7 @@ describe('User Model', () => {
     it('removes invalid notifications when loading the user', async () => {
       let user = new User();
       await user.save();
-      await user.update({
+      await user.updateOne({
         $set: {
           notifications: [
             null, // invalid, not an object
@@ -284,7 +284,7 @@ describe('User Model', () => {
     it('removes multiple NEW_CHAT_MESSAGE for the same group', async () => {
       let user = new User();
       await user.save();
-      await user.update({
+      await user.updateOne({
         $set: {
           notifications: [
             {

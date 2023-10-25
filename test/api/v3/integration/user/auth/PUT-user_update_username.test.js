@@ -67,7 +67,7 @@ describe('PUT /user/auth/update-username', async () => {
     const salt = sha1MakeSalt();
     const sha1HashedPassword = sha1EncryptPassword(textPassword, salt);
 
-    await user.update({
+    await user.updateOne({
       'auth.local.hashed_password': sha1HashedPassword,
       'auth.local.passwordHashMethod': 'sha1',
       'auth.local.salt': salt,

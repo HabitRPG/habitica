@@ -512,7 +512,7 @@ api.deleteSocial = {
     const unset = {
       [`auth.${network}`]: 1,
     };
-    await User.update({ _id: user._id }, { $unset: unset }).exec();
+    await User.updateOne({ _id: user._id }, { $unset: unset }).exec();
 
     res.respond(200, {});
   },

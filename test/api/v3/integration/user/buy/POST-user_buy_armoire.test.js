@@ -15,7 +15,7 @@ describe('POST /user/buy-armoire', () => {
   // More tests in common code unit tests
 
   it('returns an error if user does not have enough gold', async () => {
-    await user.update({
+    await user.updateOne({
       'stats.gp': 5,
     });
 

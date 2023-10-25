@@ -117,7 +117,7 @@ schema.methods.addToUser = async function addChallengeToUser (user) {
     { $push: { challenges: this._id } },
   ).exec();
 
-  return !!result.nModified;
+  return !!result.modifiedCount;
 };
 
 // Returns true if user can view the challenge
@@ -337,7 +337,7 @@ schema.methods.unlinkTasks = async function challengeUnlinkTasks (user, keep, sa
       removeFromArray(user.tasksOrder[`${task.type}s`], task._id);
     }
 
-    return task.remove();
+    return task.deleteOne();
   });
   user.markModified('tasksOrder');
   taskPromises.push(this.save());
@@ -359,7 +359,7 @@ schema.methods.closeChal = async function closeChal (broken = {}) {
   const brokenReason = broken.broken;
 
   // Delete the challenge
-  await this.model('Challenge').remove({ _id: challenge._id }).exec();
+  await this.model('Challenge').deleteOne({ _id: challenge._id }).exec();
 
   // Refund the leader if the challenge is deleted (no winner chosen)
   if (brokenReason === 'CHALLENGE_DELETED') {
@@ -413,7 +413,7 @@ schema.methods.closeChal = async function closeChal (broken = {}) {
   // Run some operations in the background without blocking the thread
   const backgroundTasks = [
     // And it's tasks
-    Tasks.Task.remove({ 'challenge.id': challenge._id, userId: { $exists: false } }).exec(),
+    Tasks.Task.deleteOne({ 'challenge.id': challenge._id, userId: { $exists: false } }).exec(),
     // Set the challenge tag to non-challenge status
     // and remove the challenge from the user's challenges
     User.updateMany({

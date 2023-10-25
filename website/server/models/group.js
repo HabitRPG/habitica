@@ -317,7 +317,8 @@ schema.statics.getGroups = async function getGroups (options = {}) {
         _.assign(query, filters);
         const privateGuildsQuery = this.find(query).select(groupFields);
         if (populateLeader === true) privateGuildsQuery.populate('leader', nameFields);
-        privateGuildsQuery.sort(sort).exec();
+        console.log("fetching");
+        privateGuildsQuery.sort(sort);
         queries.push(privateGuildsQuery);
         break;
       }
@@ -645,12 +646,12 @@ schema.methods.handleQuestInvitation = async function handleQuestInvitation (use
     { $set: { [`quest.members.${user._id}`]: accept } },
   ).exec();
 
-  if (result.nModified) {
+  if (result.modifiedCount) {
     // update also current instance so future operations will work correctly
     this.quest.members[user._id] = accept;
   }
 
-  return Boolean(result.nModified);
+  return Boolean(result.modifiedCount);
 };
 
 schema.methods.startQuest = async function startQuest (user) {
@@ -1195,7 +1196,7 @@ schema.statics.processQuestProgress = async function processQuestProgress (user,
 };
 
 // to set a boss:
-// `db.groups.update({_id:TAVERN_ID},
+// `db.groups.updateOne({_id:TAVERN_ID},
 // {$set:{quest:{key:'dilatory',active:true,progress:{hp:1000,rage:1500}}}}).exec()`
 // we export an empty object that is then populated with the query-returned data
 export const tavernQuest = {};
@@ -1391,7 +1392,7 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
     _.remove(members, { _id: user._id });
 
     if (members.length === 0) {
-      promises.push(group.remove());
+      promises.push(group.deleteOne());
       return Promise.all(promises);
     }
   }
@@ -1407,7 +1408,7 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
     // with 1 member who is leaving
     if (seniorMember) update.$set = { leader: seniorMember._id };
   }
-  promises.push(group.update(update).exec());
+  promises.push(group.updateOne(update).exec());
 
   return Promise.all(promises);
 };
@@ -1501,7 +1502,7 @@ schema.methods.unlinkTask = async function groupUnlinkTask (
     }
 
     if (task) {
-      promises.push(task.remove());
+      promises.push(task.deleteOne());
     }
     // When multiple tasks are being unlinked at the same time,
     // save the user once outside of this function
@@ -1550,7 +1551,7 @@ schema.methods.removeTask = async function groupRemoveTask (task) {
       assignedUser.notifications.splice(notificationIndex, 1);
     }
 
-    await Tasks.Task.remove({ _id: userTask._id });
+    await Tasks.Task.deleteOne({ _id: userTask._id });
     removeFromArray(assignedUser.tasksOrder[`${task.type}s`], userTask._id);
     removalPromises.push(assignedUser.save());
   });

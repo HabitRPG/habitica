@@ -38,12 +38,7 @@ const improveRepl = context => {
 
   mongoose.connect(
     connectionUrl,
-    mongooseOptions,
-    err => {
-      if (err) throw err;
-      logger.info('Connected with Mongoose');
-    },
-  );
+    mongooseOptions);
 };
 
 gulp.task('console', done => {

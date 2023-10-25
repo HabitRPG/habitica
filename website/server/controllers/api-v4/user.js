@@ -109,7 +109,7 @@ api.updateUser = {
   middlewares: [authWithHeaders()],
   url: '/user',
   async handler (req, res) {
-    await userLib.update(req, res, { isV3: false });
+    await userLib.updateOne(req, res, { isV3: false });
   },
 };
 

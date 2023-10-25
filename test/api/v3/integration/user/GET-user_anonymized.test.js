@@ -17,7 +17,7 @@ describe('GET /user/anonymized', () => {
         text: 'Clark Kent',
       },
     });
-    await user.update({
+    await user.updateOne({
       newMessages: ['some', 'new', 'messages'],
       'profile.name': 'profile',
       'purchased.plan': 'purchased plan',
