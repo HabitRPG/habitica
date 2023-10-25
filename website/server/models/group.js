@@ -1391,7 +1391,6 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
     _.remove(members, { _id: user._id });
 
     if (members.length === 0) {
-      console.log("deleting group")
       promises.push(group.deleteOne());
       return Promise.all(promises);
     }
@@ -1641,8 +1640,8 @@ export const model = mongoose.model('Group', schema);
 // initialize tavern if !exists (fresh installs)
 // do not run when testing as it's handled by the tests and can easily cause a race condition
 if (!nconf.get('IS_TEST')) {
-  model.countDocuments({ _id: TAVERN_ID }).then( (count) => {
-    if (count == 0) {
+  model.countDocuments({ _id: TAVERN_ID }).then(count => {
+    if (count === 0) {
       new model({ // eslint-disable-line new-cap
         _id: TAVERN_ID,
         leader: '7bde7864-ebc5-4ee2-a4b7-1070d464cdb0', // Siena Leslie

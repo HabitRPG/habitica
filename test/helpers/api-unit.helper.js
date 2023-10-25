@@ -13,7 +13,7 @@ export { translationCheck } from './translate';
 
 afterEach(() => {
   sandbox.restore();
-  return mongoose.connection.dropDatabase()
+  return mongoose.connection.dropDatabase();
 });
 
 export { sleep } from './sleep';

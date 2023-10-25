@@ -53,8 +53,8 @@ describe('cron middleware', () => {
       cronMiddleware(req, res, err => {
         if (err) return reject(err);
 
-        Tasks.Task.findOne({ _id: task }).then(task => {
-          expect(task).to.not.exist;
+        Tasks.Task.findOne({ _id: task }).then(foundTask => {
+          expect(foundTask).to.not.exist;
           resolve();
         });
 
@@ -76,8 +76,8 @@ describe('cron middleware', () => {
     await new Promise((resolve, reject) => {
       cronMiddleware(req, res, err => {
         if (err) return reject(err);
-        Tasks.Task.findOne({ _id: task }).then(task => {
-          expect(task).to.exist;
+        Tasks.Task.findOne({ _id: task }).then(foundTask => {
+          expect(foundTask).to.exist;
           return resolve();
         });
         return null;
@@ -99,8 +99,8 @@ describe('cron middleware', () => {
     await new Promise((resolve, reject) => {
       cronMiddleware(req, res, err => {
         if (err) return reject(err);
-        Tasks.Task.findOne({ _id: task }).then(task => {
-          expect(task).to.not.exist;
+        Tasks.Task.findOne({ _id: task }).then(foundTask => {
+          expect(foundTask).to.not.exist;
           return resolve();
         });
         return null;

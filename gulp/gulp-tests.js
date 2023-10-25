@@ -59,16 +59,15 @@ gulp.task('test:prepare:mongo', cb => {
   const mongooseOptions = getDefaultConnectionOptions();
   const connectionUrl = getDevelopmentConnectionUrl(TEST_DB_URI);
 
-  mongoose.connect(connectionUrl, mongooseOptions).then(() => {
-    return mongoose.connection.dropDatabase();
-  }).then(() => {
-    return mongoose.connection.close();
-  }).then(() => {
-    cb();
-  }).catch(err => {
-    if (err) return cb(`Unable to connect to mongo database. Are you sure it's running? \n\n${err}`);
-    throw err
-  });
+  mongoose.connect(connectionUrl, mongooseOptions)
+    .then(() => mongoose.connection.dropDatabase())
+    .then(() => mongoose.connection.close()).then(() => {
+      cb();
+    })
+    .catch(err => {
+      if (err) return cb(`Unable to connect to mongo database. Are you sure it's running? \n\n${err}`);
+      throw err;
+    });
 });
 
 gulp.task('test:prepare:server', gulp.series('test:prepare:mongo', done => {

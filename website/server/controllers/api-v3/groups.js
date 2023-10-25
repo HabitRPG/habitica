@@ -681,7 +681,7 @@ api.joinGroup = {
           {
             $set: { 'achievements.partyUp': true },
             $push: { notifications: notification.toObject() },
-          }
+          },
         ).exec());
 
         if (inviter) {
@@ -704,7 +704,7 @@ api.joinGroup = {
           {
             $set: { 'achievements.partyOn': true },
             $push: { notifications: notification.toObject() },
-          }
+          },
         ).exec());
 
         if (inviter) {
