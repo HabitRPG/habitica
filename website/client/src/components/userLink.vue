@@ -9,8 +9,19 @@
     {{ displayName }}
     <div
       class="svg-icon icon-12"
+      :class="{ 'margin-bump': context === 'profile' }"
       v-html="tierIcon()"
     ></div>
+    <div
+      v-if="showBuffed"
+      v-b-tooltip.hover.bottom="$t('buffed')"
+      class="is-buffed ml-2 d-flex align-items-center"
+    >
+      <div
+        class="svg-icon m-auto"
+        v-html="icons.buff"
+      ></div>
+    </div>
   </router-link>
 </template>
 
@@ -39,7 +50,12 @@
 
     &[class*="tier"] .svg-icon {
       margin-top: 5px;
+
+      &.margin-bump {
+        margin-top: 7px;
+      }
     }
+
     &.npc .svg-icon {
       margin-top: 4px;
     }
@@ -50,6 +66,21 @@
       &:empty {
         display: none;
       }
+    }
+  }
+
+  .is-buffed {
+    width: 20px;
+    height: 20px;
+    background: $header-dark-background;
+    display: inline-block;
+    margin-top: 2px;
+
+    .svg-icon {
+      display: block;
+      width: 10px;
+      height: 12px;
+      margin: 0 auto;
     }
   }
 </style>
@@ -70,6 +101,7 @@ import tier7 from '@/assets/svg/tier-7.svg';
 import tier8 from '@/assets/svg/tier-mod.svg';
 import tier9 from '@/assets/svg/tier-staff.svg';
 import tierNPC from '@/assets/svg/tier-npc.svg';
+import buffIcon from '@/assets/svg/buff.svg';
 
 export default {
   mixins: [styleHelper],
@@ -81,6 +113,8 @@ export default {
     'contributor',
     'hideTooltip',
     'smallerStyle',
+    'showBuffed',
+    'context',
   ],
   data () {
     return {
@@ -95,6 +129,7 @@ export default {
         tier8,
         tier9,
         tierNPC,
+        buff: buffIcon,
       }),
     };
   },

@@ -9,7 +9,7 @@
 
 <script>
 import { mapState } from '@/libs/store';
-import PurchaseHistoryTable from '../ui/purchaseHistoryTable.vue';
+import PurchaseHistoryTable from '../../components/ui/purchaseHistoryTable.vue';
 
 export default {
   components: {

@@ -575,6 +575,16 @@ const backgrounds = {
     dreamy_island: { },
     rock_garden: { },
   },
+  backgrounds092023: {
+    moving_day: { },
+    covered_bridge_in_autumn: { },
+    baobab_forest: { },
+  },
+  backgrounds102023: {
+    spectral_candle_room: { },
+    monstrous_cave: { },
+    jack_o_lantern_stacks: { },
+  },
   eventBackgrounds: {
     birthday_bash: {
       price: 0,

@@ -213,9 +213,14 @@
     "reportDescription": "Opis",
     "reportDescriptionPlaceholder": "Poniżej opisz dokładnie napotkany błąd",
     "submitBugReport": "Wyślij zgłoszenie",
-    "reportSent": "Pomyślnie wysłano zgłoszenie błędu!",
-    "reportSentDescription": "Skontaktujemy się z Tobą po przeanalizowaniu błędu. Dziękujemy za zgłoszenie.",
+    "reportSent": "Dziękujemy za zgłoszenie błędu!",
+    "reportSentDescription": "Skontaktujemy się z Tobą po przeanalizowaniu błędu.",
     "askQuestion": "Zadaj pytanie",
     "emptyReportBugMessage": "Nie załączono informacji o błędzie",
-    "refreshList": "Odśwież listę"
+    "refreshList": "Odśwież listę",
+    "questionEmailText": "Będzie to wykorzystane jedynie w celu kontaktu odnośnie Twojego pytania.",
+    "question": "Pytanie",
+    "questionPlaceholder": "Zadaj swoje pytanie tutaj",
+    "submitQuestion": "Zadaj pytanie",
+    "questionDescriptionText": "Możesz zadać pytanie w swoim ojczystym języku, jeżeli nie czujesz się pewnie, mówiąc po angliesku."
 }

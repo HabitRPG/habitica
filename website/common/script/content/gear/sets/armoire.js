@@ -919,6 +919,16 @@ const head = {
     per: 7,
     set: 'admiralsSet',
   },
+  blackSpookySorceryHat: {
+    int: 5,
+    con: 3,
+    set: 'somethingSpooky',
+  },
+  purpleSpookySorceryHat: {
+    per: 5,
+    con: 3,
+    set: 'somethingSpooky',
+  },
 };
 
 const shield = {
@@ -1232,6 +1242,11 @@ const shield = {
   paintersPalette: {
     str: 7,
     set: 'painters',
+  },
+  bucket: {
+    str: 4,
+    int: 4,
+    set: 'cleaningSuppliesTwo',
   },
 };
 
@@ -1678,6 +1693,21 @@ const weapon = {
   paintbrush: {
     int: 8,
     set: 'painters',
+  },
+  mop: {
+    con: 4,
+    per: 4,
+    set: 'cleaningSuppliesTwo',
+  },
+  cleaningCloth: {
+    str: 4,
+    con: 4,
+    set: 'cleaningSuppliesTwo',
+  },
+  ridingBroom: {
+    str: 5,
+    int: 3,
+    set: 'somethingSpooky',
   },
 };
 

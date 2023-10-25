@@ -6,10 +6,10 @@
     >
       <div class="potionEggGroup">
         <div class="potionEggBackground">
-          <div :class="'Pet_HatchingPotion_'+hatchablePet.potionKey"></div>
+          <div :class="`Pet_HatchingPotion_${hatchablePet.potionKey}`"></div>
         </div>
         <div class="potionEggBackground">
-          <div :class="'Pet_Egg_'+hatchablePet.eggKey"></div>
+          <div :class="`Pet_Egg_${hatchablePet.eggKey}`"></div>
         </div>
       </div>
       <h4 class="title">

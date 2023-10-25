@@ -85,5 +85,6 @@
     "hatchingPotionQuests": "Magic Hatching Potion Quests",
     "questAlreadyStartedFriendly": "The quest has already started, but you can always catch the next one!",
     "questAlreadyStarted": "The quest has already started.",
-    "bossDamage": "You damaged the boss!"
+    "bossDamage": "You damaged the boss!",
+    "questItemsPending": "<%= amount %> Items pending"
 }

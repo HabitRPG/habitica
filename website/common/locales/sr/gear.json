@@ -10,7 +10,7 @@
     "gearNotOwned": "You do not own this item.",
     "noGearItemsOfType": "You don't own any of these.",
     "noGearItemsOfClass": "You already have all your class equipment! More will be released during the Grand Galas, near the solstices and equinoxes.",
-    "classLockedItem": "Ovaj predmet je dostupan samo određenoj klasi. Change your class under the User icon > Settings > Character Build!",
+    "classLockedItem": "Ovaj predmet je dostupan samo određenoj klasi. U nivou 10 ili više, možeš da promeniš svoju klasu tako što klikneš Korisničku ikonu > Podešavanja > Građa Lika!",
     "tierLockedItem": "This item is only available once you've purchased the previous items in sequence. Keep working your way up!",
     "sortByType": "Type",
     "sortByPrice": "Price",
@@ -1753,5 +1753,16 @@
     "armorSpecialBirthday2020Text": "Razuzdana odora za žurke",
     "weaponArmoireEveningTeaText": "Šolja čaja",
     "weaponArmoirePaperCutterText": "Sekač papira",
-    "weaponSpecialSpring2019HealerText": "Prolećna pesma"
+    "weaponSpecialSpring2019HealerText": "Prolećna pesma",
+    "weaponSpecialSummer2019WarriorText": "Crveni Koral",
+    "weaponSpecialSummer2019MageText": "Brilijantan Procvet",
+    "weaponSpecialSpring2019RogueText": "Munja",
+    "weaponSpecialKS2019Text": "Mitsko Grifonovo Koplje",
+    "weaponSpecialWinter2020MageText": "Zvučni Talasi",
+    "weaponSpecialFall2019RogueText": "Muzički Štand",
+    "weaponSpecialSummer2019HealerText": "Štap Balončić",
+    "weaponSpecialFall2019MageText": "Buljavi Štap",
+    "weaponSpecialWinter2020RogueText": "Svetilja",
+    "weaponSpecialSpring2019WarriorText": "Parni Mač",
+    "weaponSpecialSpring2019MageText": "Štap od Smole"
 }

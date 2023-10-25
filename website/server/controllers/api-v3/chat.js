@@ -14,10 +14,9 @@ import {
   NotAuthorized,
 } from '../../libs/errors';
 import { removeFromArray } from '../../libs/collectionManipulators';
-import { getUserInfo, getGroupUrl, sendTxn } from '../../libs/email';
+import { getUserInfo } from '../../libs/email';
 import * as slack from '../../libs/slack';
 import { chatReporterFactory } from '../../libs/chatReporting/chatReporterFactory';
-import { getAuthorEmailFromMessage } from '../../libs/chat';
 import bannedWords from '../../libs/bannedWords';
 import { getMatchesByWordArray } from '../../libs/stringUtils';
 import bannedSlurs from '../../libs/bannedSlurs';
@@ -28,7 +27,6 @@ import { getAnalyticsServiceByEnvironment } from '../../libs/analyticsService';
 const analytics = getAnalyticsServiceByEnvironment();
 
 const ACCOUNT_MIN_CHAT_AGE = Number(nconf.get('ACCOUNT_MIN_CHAT_AGE'));
-const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map(email => ({ email, canSend: true }));
 
 /**
  * @apiDefine MessageNotFound
@@ -147,24 +145,6 @@ api.postChat = {
 
       // Email the mods
       const authorEmail = getUserInfo(user, ['email']).email;
-      const groupUrl = getGroupUrl(group);
-
-      const report = [
-        { name: 'MESSAGE_TIME', content: (new Date()).toString() },
-        { name: 'MESSAGE_TEXT', content: message },
-
-        { name: 'AUTHOR_USERNAME', content: user.profile.name },
-        { name: 'AUTHOR_UUID', content: user._id },
-        { name: 'AUTHOR_EMAIL', content: authorEmail },
-        { name: 'AUTHOR_MODAL_URL', content: `/profile/${user._id}` },
-
-        { name: 'GROUP_NAME', content: group.name },
-        { name: 'GROUP_TYPE', content: group.type },
-        { name: 'GROUP_ID', content: group._id },
-        { name: 'GROUP_URL', content: groupUrl },
-      ];
-
-      sendTxn(FLAG_REPORT_EMAILS, 'slur-report-to-mods', report);
 
       // Slack the mods
       slack.sendSlurNotification({
@@ -224,24 +204,6 @@ api.postChat = {
 
       // Email the mods
       const authorEmail = getUserInfo(user, ['email']).email;
-      const groupUrl = getGroupUrl(group);
-
-      const report = [
-        { name: 'MESSAGE_TIME', content: (new Date()).toString() },
-        { name: 'MESSAGE_TEXT', content: message },
-
-        { name: 'AUTHOR_USERNAME', content: user.profile.name },
-        { name: 'AUTHOR_UUID', content: user._id },
-        { name: 'AUTHOR_EMAIL', content: authorEmail },
-        { name: 'AUTHOR_MODAL_URL', content: `/profile/${user._id}` },
-
-        { name: 'GROUP_NAME', content: group.name },
-        { name: 'GROUP_TYPE', content: group.type },
-        { name: 'GROUP_ID', content: group._id },
-        { name: 'GROUP_URL', content: groupUrl },
-      ];
-
-      sendTxn(FLAG_REPORT_EMAILS, 'shadow-muted-post-report-to-mods', report);
 
       // Slack the mods
       slack.sendShadowMutedPostNotification({
@@ -442,30 +404,6 @@ api.clearChatFlags = {
 
     message.flagCount = 0;
     await message.save();
-
-    const adminEmailContent = getUserInfo(user, ['email']).email;
-    const authorEmail = getAuthorEmailFromMessage(message);
-    const groupUrl = getGroupUrl(group);
-
-    sendTxn(FLAG_REPORT_EMAILS, 'unflag-report-to-mods', [
-      { name: 'MESSAGE_TIME', content: (new Date(message.timestamp)).toString() },
-      { name: 'MESSAGE_TEXT', content: message.text },
-
-      { name: 'ADMIN_USERNAME', content: user.profile.name },
-      { name: 'ADMIN_UUID', content: user._id },
-      { name: 'ADMIN_EMAIL', content: adminEmailContent },
-      { name: 'ADMIN_MODAL_URL', content: `/profile/${user._id}` },
-
-      { name: 'AUTHOR_USERNAME', content: message.user },
-      { name: 'AUTHOR_UUID', content: message.uuid },
-      { name: 'AUTHOR_EMAIL', content: authorEmail },
-      { name: 'AUTHOR_MODAL_URL', content: `/profile/${message.uuid}` },
-
-      { name: 'GROUP_NAME', content: group.name },
-      { name: 'GROUP_TYPE', content: group.type },
-      { name: 'GROUP_ID', content: group._id },
-      { name: 'GROUP_URL', content: groupUrl },
-    ]);
 
     res.respond(200, {});
   },

@@ -2902,5 +2902,16 @@
     "armorMystery202307Text": "Tentáculos de Kraken",
     "armorMystery202307Notes": "Copos de sucção têm a melhor tração no fundo do mar e nas laterais de navios rebeldes. Não confere benefícios. Item de Assinante de julho de 2023.",
     "headAccessoryMystery202307Text": "Coroa de Kraken",
-    "headAccessoryMystery202307Notes": "Esta poderosa coroa invoca ciclones e tempestades! Não confere benefícios. Item de Assinante de julho de 2023."
+    "headAccessoryMystery202307Notes": "Esta poderosa coroa invoca ciclones e tempestades! Não confere benefícios. Item de Assinante de julho de 2023.",
+    "armorArmoireKarateGiText": "Karategi",
+    "armorArmoireAdmiralsUniformText": "Uniforme de Almirante",
+    "armorSpecialHeroicTunicText": "Túnica Heroica",
+    "headMystery202308Text": "Cabelo Roxo Protagonista",
+    "weaponArmoireMopText": "Esfregão",
+    "weaponArmoireCleaningClothText": "Pano de Limpeza",
+    "armorSpecialHeroicTunicNotes": "Dizem que os heróis não devem descansar sobre seus louros, mas você pode descansar com esta roupa confortável e moderna. Aumenta todos os atributos em <%= attrs %>.",
+    "armorArmoireKarateGiNotes": "Este uniforme leve de karatê é perfeito para treino ou competição. Aumenta Força em <%= str %>. Armário Encantado: Conjunto de Karatê (Item 1 de 10).",
+    "armorArmoireAdmiralsUniformNotes": "Nós saudamos você! Este uniforme naval sinaliza que você está pronto para assumir o comando de suas tarefas e também de um navio. Aumenta Constituição e Força em <%= attrs %> cada. Armário Encantado: Conjunto do Almirante (Item 2 de 2).",
+    "weaponArmoireMopNotes": "Passo 1: Mergulhe o esfregão em um balde com água e espuma. Passo 2: Arraste o esfregão pelo chão. Etapa 3: finja que a ponta do cabo do esfregão é um microfone e cante com todo o coração. Etapa 4: Repita as etapas 1 a 3 até que o piso esteja limpo. Aumenta Constituição e Percepção em <%= attrs %> cada. Armário Encantado: Conjunto Dois de Materiais de Limpeza (Item 2 de 3)",
+    "weaponArmoireCleaningClothNotes": "Leve esta ferramenta de arrumação em suas aventuras e sempre poderá polir uma linda placa ou limpar um parapeito de madeira. Aumenta Força e Constituição em <%= attrs %> cada. Armário Encantado: Conjunto Dois de Materiais de Limpeza (Item 3 de 3)"
 }
