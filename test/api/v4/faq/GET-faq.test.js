@@ -12,7 +12,7 @@ describe('GET /faq', () => {
       expect(res).to.have.property('stillNeedHelp');
       expect(res.stillNeedHelp.ios).to.equal(translate('iosFaqStillNeedHelp'));
       expect(res).to.have.property('questions');
-      expect(res.questions[24].question).to.equal(translate('faqQuestion25'));
+      expect(res.questions[0].question).to.equal(translate('faqQuestion25'));
     });
 
     it('returns faq not in English', async () => {
