@@ -1,10 +1,26 @@
-import toArray from 'lodash/toArray';
 import content from '../content/index';
 import SeasonalShopConfig from './shops-seasonal.config';
 
 const { officialPinnedItems } = content;
 
-const flatGearArray = toArray(content.gear.flat);
+function groupBySet (items) {
+  const grouped = {};
+
+  Object.keys(items).forEach(key => {
+    const item = items[key];
+    const { set } = item;
+
+    if (!grouped[set]) {
+      grouped[set] = [];
+    }
+
+    grouped[set].push(item);
+  });
+
+  return grouped;
+}
+
+const flatGearArray = groupBySet(content.gear.flat);
 
 export default function getOfficialPinnedItems (user) {
   const officialItemsArray = [...officialPinnedItems];
@@ -14,14 +30,16 @@ export default function getOfficialPinnedItems (user) {
 
     // pinnedSets == current seasonal class set are always gold purchaseable
 
-    flatGearArray
-      .filter(gear => user.items.gear.owned[gear.key] === undefined && gear.set === setToAdd)
-      .forEach(gear => {
-        officialItemsArray.push({
+    const gearsBySet = flatGearArray[setToAdd];
+    const gears = gearsBySet.map(gear => {
+      if (!user.items.gear.owned[gear.key]) {
+        return {
           type: 'marketGear',
           path: `gear.flat.${gear.key}`,
-        });
-      });
+        };
+      }
+    });
+    officialItemsArray.push(...gears);
   }
 
   return officialItemsArray;
