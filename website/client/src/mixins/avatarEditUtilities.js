@@ -24,7 +24,10 @@ export const avatarEditorUtilies = { // eslint-disable-line import/prefer-defaul
           appearanceSets[setKey].availableUntil,
         );
       }
-      return moment(appearanceSets[setKey].availableUntil).isBefore(moment());
+      if (appearanceSets[setKey].availableUntil) {
+        return moment(appearanceSets[setKey].availableUntil).isBefore(moment());
+      }
+      return false;
     },
     mapKeysToFreeOption (key, type, subType) {
       const userPreference = subType
