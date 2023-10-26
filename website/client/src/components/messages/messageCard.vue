@@ -106,6 +106,14 @@
         <span v-once>{{ $t('reportedMessage') }}</span><br>
         <span v-once>{{ $t('canDeleteNow') }}</span>
       </div>
+
+      <like-button
+        v-if="msg.id"
+        class="mt-75"
+        :liked-by-current-user="msg.likes[user._id]"
+
+        :like-count="likeCount"
+      />
     </div>
   </div>
 </template>
@@ -136,23 +144,6 @@
 <style lang="scss" scoped>
 @import '~@/assets/scss/colors.scss';
 @import '~@/assets/scss/tiers.scss';
-
-.action {
-  display: inline-block;
-  color: $gray-200;
-  margin-right: 1em;
-  font-size: 12px;
-
-  :hover {
-    cursor: pointer;
-  }
-
-  .svg-icon {
-    color: $gray-300;
-    margin-right: .2em;
-    width: 16px;
-  }
-}
 
 .active {
   color: $purple-300;
@@ -245,6 +236,7 @@ hr {
 import axios from 'axios';
 import moment from 'moment';
 
+import cloneDeep from 'lodash/cloneDeep';
 import externalLinks from '../../mixins/externalLinks';
 
 import renderWithMentions from '@/libs/renderWithMentions';
@@ -258,9 +250,43 @@ import { userStateMixin } from '@/mixins/userState';
 import copyIcon from '@/assets/svg/copy.svg';
 import likeIcon from '@/assets/svg/like.svg';
 import likedIcon from '@/assets/svg/liked.svg';
+import LikeButton from '@/components/messages/likeButton.vue';
+
+const LikeLogicMixin = {
+  computed: {
+    likeCount () {
+      const message = this.msg;
+      if (!message.likes) return 0;
+
+      let likeCount = 0;
+      for (const key of Object.keys(message.likes)) {
+        const like = message.likes[key];
+        if (like) likeCount += 1;
+      }
+      return likeCount;
+    },
+  },
+  methods: {
+
+    async like () {
+      const message = cloneDeep(this.msg);
+
+      await this.$store.dispatch('chat:like', {
+        groupId: this.groupId,
+        chatId: message.id,
+      });
+
+      message.likes[this.user._id] = !message.likes[this.user._id];
+
+      this.$emit('message-liked', message);
+      this.$root.$emit('bv::hide::tooltip');
+    },
+  },
+};
 
 export default {
   components: {
+    LikeButton,
     userLink,
   },
   filters: {
@@ -272,7 +298,7 @@ export default {
       return moment(value).toDate().toString();
     },
   },
-  mixins: [externalLinks, userStateMixin],
+  mixins: [externalLinks, userStateMixin, LikeLogicMixin],
   props: {
     msg: {
       type: Object,

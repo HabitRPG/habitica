@@ -172,6 +172,7 @@ import copyIcon from '@/assets/svg/copy.svg';
 import likeIcon from '@/assets/svg/like.svg';
 import likedIcon from '@/assets/svg/liked.svg';
 import reportIcon from '@/assets/svg/report.svg';
+import { CHAT_FLAG_LIMIT_FOR_HIDING, CHAT_FLAG_FROM_SHADOW_MUTE } from '@/../../common/script/constants';
 
 export default {
   components: { userLink },
@@ -195,10 +196,8 @@ export default {
         like: likeIcon,
         liked: likedIcon,
         copy: copyIcon,
-        report: reportIcon,
         delete: deleteIcon,
       }),
-      reported: false,
     };
   },
   computed: {
@@ -225,9 +224,6 @@ export default {
         if (like) likeCount += 1;
       }
       return likeCount;
-    },
-    isMessageReported () {
-      return (this.msg.flags && this.msg.flags[this.user.id]) || this.reported;
     },
     flagCountDescription () {
       if (!this.msg.flagCount) return '';
