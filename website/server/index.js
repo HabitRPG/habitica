@@ -22,9 +22,10 @@ const logger = require('./libs/logger').default;
 const IS_PROD = nconf.get('IS_PROD');
 const IS_DEV = nconf.get('IS_DEV');
 const CORES = Number(nconf.get('WEB_CONCURRENCY')) || 0;
+const NO_CLUSTER = Number(nconf.get('NO_CLUSTER')) || 0;
 
 // Setup the cluster module
-if (CORES !== 0 && cluster.isMaster && (IS_DEV || IS_PROD)) {
+if (!NO_CLUSTER && CORES !== 0 && cluster.isMaster && (IS_DEV || IS_PROD)) {
   // Fork workers. If config.json has WEB_CONCURRENCY=x,
   // use that - otherwise, use all cpus-1 (production)
   for (let i = 0; i < CORES; i += 1) {
