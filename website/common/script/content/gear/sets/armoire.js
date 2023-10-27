@@ -1722,7 +1722,7 @@ const weapon = {
 
 const releaseDates = {
   somethingSpooky: '2023-10-10T08:00-04:00',
-  cookingImplementsTwo: '2023-10-07T08:00-05:00',
+  cookingImplementsTwo: '2023-11-07T08:00-05:00',
 };
 
 forEach({
