@@ -91,6 +91,11 @@ export async function createChallenge (user, req, res) {
     }
   }
 
+  if (challenge.flagCount > 0) {
+    challenge.flagCount = 0;
+    challenge.flags = {};
+  }
+
   const results = await Promise.all([challenge.save({
     validateBeforeSave: false, // already validated
   }), group.save(), user.save()]);
