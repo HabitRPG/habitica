@@ -184,8 +184,6 @@ questionList.forEach(listEntry => {
     exclusions: listEntry.excludedPlatforms || [],
     heading: listEntry.heading,
     question: t(`faqQuestion${listEntry.translationIndex}`),
-    android: t(`androidFaqAnswer${listEntry.translationIndex}`),
-    ios: t(`iosFaqAnswer${listEntry.translationIndex}`),
     web: t(`webFaqAnswer${listEntry.translationIndex}`, {
       //  TODO: Need to pull these values from nconf
       techAssistanceEmail: 'admin@habitica.com',
