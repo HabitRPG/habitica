@@ -45,26 +45,15 @@
           :override-top-padding="'14px'"
           @click.native="showMemberModal(msg.uuid)"
         />
-        <div class="card">
-          <chat-card
-            :msg="msg"
-            :group-id="groupId"
-            @message-liked="messageLiked"
-            @message-removed="messageRemoved"
-            @show-member-modal="showMemberModal"
-            @chat-card-mounted="itemWasMounted"
-          />
-          <message-card
-            :msg="msg"
-            :group-id="groupId"
-            :user-sent-message="user._id === msg.uuid"
-            :allow-copy-as-todo="true"
-            @message-liked="messageLiked"
-            @message-removed="messageRemoved"
-            @show-member-modal="showMemberModal"
-            @chat-card-mounted="itemWasMounted"
-          />
-        </div>
+        <message-card
+          :msg="msg"
+          :group-id="groupId"
+          :user-sent-message="user._id === msg.uuid"
+          :allow-copy-as-todo="true"
+          @message-liked="messageLiked"
+          @message-removed="messageRemoved"
+          @message-card-mounted="itemWasMounted"
+        />
         <avatar
           v-if="user._id === msg.uuid"
           :class="{ invisible: avatarUnavailable(msg) }"
@@ -163,14 +152,12 @@ import { userStateMixin } from '../../mixins/userState';
 
 import Avatar from '../avatar';
 import copyAsTodoModal from './copyAsTodoModal';
-import chatCard from './chatCard';
 import MessageCard from '@/components/messages/messageCard.vue';
 
 export default {
   components: {
     MessageCard,
     copyAsTodoModal,
-    chatCard,
     Avatar,
   },
   mixins: [userStateMixin],

@@ -1,149 +1,189 @@
 <template>
-  <div
-    class="message-card"
-    :class="{
-      'user-sent-message': userSentMessage,
-      'user-received-message': !userSentMessage
-    }"
-  >
+  <div class="card">
     <div
-      class="card-body"
+      class="message-card"
+      :class="{
+        'user-sent-message': userSentMessage,
+        'user-received-message': !userSentMessage
+      }"
     >
-      <user-link
-        :user-id="msg.uuid"
-        :name="msg.user"
-        :backer="msg.backer"
-        :contributor="msg.contributor"
-      />
-      <p class="time">
-        <span
-          v-if="msg.username"
-          class="mr-1"
-        >@{{ msg.username }}</span><span
-          v-if="msg.username"
-          class="mr-1"
-        >•</span>
-        <span v-b-tooltip.hover="messageDate">{{ msg.timestamp | timeAgo }}&nbsp;</span>
-        <span v-if="msg.client && user.contributor.level >= 4">
-          ({{ msg.client }})
-        </span>
-      </p>
-
-      <b-dropdown
-        right="right"
-        variant="flat"
-        toggle-class="with-icon"
-        class="card-menu"
-        :no-caret="true"
-      >
-        <template #button-content>
-          <span
-            v-once
-            class="svg-icon inline menuIcon color"
-            v-html="icons.menuIcon"
-          >
-          </span>
-        </template>
-        <b-dropdown-item
-          v-if="allowCopyAsTodo"
-          class="selectListItem"
-          @click="copyAsTodo(msg)"
-        >
-          <span class="with-icon">
-            <span
-              v-once
-              class="svg-icon icon-16 color"
-              v-html="icons.copy"
-            ></span>
-            <span v-once>
-              {{ $t('copyAsTodo') }}
-            </span>
-          </span>
-        </b-dropdown-item>
-        <b-dropdown-item
-          v-if="canReportMessage"
-          class="selectListItem custom-hover--red"
-          @click="report(msg)"
-        >
-          <span class="with-icon">
-            <span
-              v-once
-              class="svg-icon icon-16 color"
-              v-html="icons.report"
-            ></span>
-            <span v-once>
-              {{ $t('report') }}
-            </span>
-          </span>
-        </b-dropdown-item>
-        <b-dropdown-item
-          v-if="canDeleteMessage"
-          class="selectListItem custom-hover--red"
-          @click="remove()"
-        >
-          <span class="with-icon">
-            <span
-              v-once
-              class="svg-icon icon-16 color"
-              v-html="icons.delete"
-            ></span>
-            <span v-once>
-              {{ $t('delete') }}
-            </span>
-          </span>
-        </b-dropdown-item>
-      </b-dropdown>
-
       <div
-        class="text markdown"
-        dir="auto"
-        v-html="parseMarkdown(msg.text)"
+        v-if="isUserMentioned"
+        class="mentioned-icon"
       ></div>
       <div
-        v-if="isMessageReported"
-        class="reported"
+        v-if="isModerator && msg.flagCount"
+        class="message-hidden"
       >
-        <span v-once>{{ $t('reportedMessage') }}</span><br>
-        <span v-once>{{ $t('canDeleteNow') }}</span>
+        {{ flagCountDescription }}
       </div>
+      <div
+        class="card-body"
+      >
+        <user-link
+          :user-id="msg.uuid"
+          :name="msg.user"
+          :backer="msg.backer"
+          :contributor="msg.contributor"
+        />
+        <p class="time">
+          <span
+            v-if="msg.username"
+            class="mr-1"
+          >@{{ msg.username }}</span><span
+            v-if="msg.username"
+            class="mr-1"
+          >•</span>
+          <span v-b-tooltip.hover="messageDate">{{ msg.timestamp | timeAgo }}&nbsp;</span>
+          <span v-if="msg.client && user.contributor.level >= 4">
+            ({{ msg.client }})
+          </span>
+        </p>
 
-      <like-button
-        v-if="msg.id"
-        class="mt-75"
-        :liked-by-current-user="msg.likes[user._id]"
+        <b-dropdown
+          right="right"
+          variant="flat"
+          toggle-class="with-icon"
+          class="card-menu"
+          :no-caret="true"
+        >
+          <template #button-content>
+            <span
+              v-once
+              class="svg-icon inline menuIcon color"
+              v-html="icons.menuIcon"
+            >
+            </span>
+          </template>
+          <b-dropdown-item
+            v-if="allowCopyAsTodo"
+            class="selectListItem"
+            @click="copyAsTodo(msg)"
+          >
+            <span class="with-icon">
+              <span
+                v-once
+                class="svg-icon icon-16 color"
+                v-html="icons.copy"
+              ></span>
+              <span v-once>
+                {{ $t('copyAsTodo') }}
+              </span>
+            </span>
+          </b-dropdown-item>
+          <b-dropdown-item
+            v-if="canReportMessage"
+            class="selectListItem custom-hover--red"
+            @click="report(msg)"
+          >
+            <span class="with-icon">
+              <span
+                v-once
+                class="svg-icon icon-16 color"
+                v-html="icons.report"
+              ></span>
+              <span v-once>
+                {{ $t('report') }}
+              </span>
+            </span>
+          </b-dropdown-item>
+          <b-dropdown-item
+            v-if="canDeleteMessage"
+            class="selectListItem custom-hover--red"
+            @click="remove()"
+          >
+            <span class="with-icon">
+              <span
+                v-once
+                class="svg-icon icon-16 color"
+                v-html="icons.delete"
+              ></span>
+              <span v-once>
+                {{ $t('delete') }}
+              </span>
+            </span>
+          </b-dropdown-item>
+        </b-dropdown>
 
-        :like-count="likeCount"
-      />
+        <div
+          class="text markdown"
+          dir="auto"
+          v-html="parseMarkdown(msg.text)"
+        ></div>
+        <div
+          v-if="isMessageReported"
+          class="reported"
+        >
+          <span v-once>{{ $t('reportedMessage') }}</span><br>
+          <span v-once>{{ $t('canDeleteNow') }}</span>
+        </div>
+
+        <like-button
+          v-if="msg.id"
+          class="mt-75"
+          :liked-by-current-user="msg.likes[user._id]"
+          :like-count="likeCount"
+          @toggle-like="like()"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <style lang="scss">
-.at-highlight {
-  background-color: rgba(213, 200, 255, 0.32);
-  padding: 0.1rem;
+.message-card {
+  .at-highlight {
+    background-color: rgba(213, 200, 255, 0.32);
+    padding: 0.1rem;
+  }
+
+  .at-text {
+    color: #6133b4;
+  }
+
+  .card-menu button {
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    height: 1rem;
+    width: 1rem;
+  }
+
+  .markdown p:last-of-type {
+    margin-bottom: 0;
+  }
 }
 
-.at-text {
-  color: #6133b4;
-}
-
-.message-card .card-menu button {
-  justify-content: center;
-  margin: 0;
-  padding: 0;
-  height: 1rem;
-  width: 1rem;
-}
-
-.message-card .markdown p:last-of-type {
-  margin-bottom: 0;
-}
 </style>
 
 <style lang="scss" scoped>
 @import '~@/assets/scss/colors.scss';
 @import '~@/assets/scss/tiers.scss';
+
+.card {
+  background: transparent !important;
+}
+
+.message-card {
+  background: white;
+}
+
+.mentioned-icon {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: $purple-500;
+  box-shadow: 0 1px 1px 0 rgba(26, 24, 29, 0.12);
+  position: absolute;
+  right: -.5em;
+  top: -.5em;
+}
+
+.message-hidden {
+  margin-left: 1.5em;
+  margin-top: 1em;
+  color: red;
+}
 
 .active {
   color: $purple-300;
@@ -237,6 +277,7 @@ import axios from 'axios';
 import moment from 'moment';
 
 import cloneDeep from 'lodash/cloneDeep';
+import escapeRegExp from 'lodash/escapeRegExp';
 import externalLinks from '../../mixins/externalLinks';
 
 import renderWithMentions from '@/libs/renderWithMentions';
@@ -251,6 +292,7 @@ import copyIcon from '@/assets/svg/copy.svg';
 import likeIcon from '@/assets/svg/like.svg';
 import likedIcon from '@/assets/svg/liked.svg';
 import LikeButton from '@/components/messages/likeButton.vue';
+import { CHAT_FLAG_FROM_SHADOW_MUTE, CHAT_FLAG_LIMIT_FOR_HIDING } from '../../../../common/script/constants';
 
 const LikeLogicMixin = {
   computed: {
@@ -306,6 +348,9 @@ export default {
     groupId: {
       type: String,
     },
+    privateMessageMode: {
+      type: Boolean,
+    },
     userSentMessage: {
       type: Boolean,
     },
@@ -336,9 +381,6 @@ export default {
       const date = moment(this.msg.timestamp).toDate();
       return date.toString();
     },
-    privateMessageMode () {
-      return this.groupId === 'privateMessage';
-    },
     isModerator () {
       return this.hasPermission(this.user, 'moderator');
     },
@@ -352,7 +394,37 @@ export default {
         return !this.isMessageReported;
       }
       return (this.user.flags.communityGuidelinesAccepted && this.msg.uuid !== 'system')
-            && (!this.isMessageReported || this.isModerator);
+        && (!this.isMessageReported || this.isModerator);
+    },
+    isUserMentioned () {
+      const message = this.msg;
+
+      if (message.highlight) {
+        return true;
+      }
+
+      const { user } = this;
+      const displayName = user.profile.name;
+      const { username } = user.auth.local;
+      const pattern = `@(${escapeRegExp(displayName)}|${escapeRegExp(username)})(\\b)`;
+      message.highlight = new RegExp(pattern, 'i').test(message.text);
+
+      return message.highlight;
+    },
+    flagCountDescription () {
+      if (!this.msg.flagCount) {
+        return '';
+      }
+
+      if (this.msg.flagCount < CHAT_FLAG_LIMIT_FOR_HIDING) {
+        return 'Message flagged once, not hidden';
+      }
+
+      if (this.msg.flagCount < CHAT_FLAG_FROM_SHADOW_MUTE) {
+        return 'Message hidden';
+      }
+
+      return 'Message hidden (shadow-muted)';
     },
   },
   mounted () {
