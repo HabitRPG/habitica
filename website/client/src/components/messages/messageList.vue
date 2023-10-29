@@ -43,18 +43,14 @@
           :hide-class-badge="true"
           @click.native="showMemberModal(msg.uuid)"
         />
-        <div
-          class="card"
-        >
-          <message-card
-            :msg="msg"
-            :user-sent-message="user._id === msg.uuid"
-            :group-id="'privateMessage'"
-            @message-removed="messageRemoved"
-            @show-member-modal="showMemberModal"
-            @message-card-mounted="itemWasMounted"
-          />
-        </div>
+        <message-card
+          :msg="msg"
+          :user-sent-message="user._id === msg.uuid"
+          :group-id="'privateMessage'"
+          @message-removed="messageRemoved"
+          @show-member-modal="showMemberModal"
+          @message-card-mounted="itemWasMounted"
+        />
         <avatar
           v-if="user && user._id === msg.uuid"
           class="avatar-right"

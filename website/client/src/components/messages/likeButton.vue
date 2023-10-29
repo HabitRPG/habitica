@@ -1,6 +1,7 @@
 <template>
   <div
-    class="d-flex"
+    class="d-flex like-button"
+    @click="like()"
   >
     <div
       v-b-tooltip="{title: likeTooltip(likeCount)}"
@@ -10,7 +11,6 @@
         v-if="likeCount > 0"
         class="action d-flex align-items-center mr-2"
         :class="{isLiked: true, currentUserLiked: likedByCurrentUser}"
-        @click="like()"
       >
         <div
           class="svg-icon"
@@ -22,7 +22,6 @@
       <div
         v-if="likeCount === 0"
         class="action d-flex align-items-center mr-1"
-        @click="like()"
       >
         <div
           class="svg-icon"
@@ -41,26 +40,35 @@
 
 .action {
   display: inline-block;
-  color: $gray-200;
   margin-right: 1em;
   font-size: 12px;
 
-  :hover {
-    cursor: pointer;
-  }
-
   .svg-icon {
-    color: $gray-300;
+    color: $gray-100;
     margin-right: .2em;
     width: 16px;
   }
+
+  &.isLiked {
+    color: $purple-200;
+    font-weight: bold;
+
+    .svg-icon {
+      color: $purple-300;
+    }
+  }
 }
 
-.activeLike {
-  color: $purple-300;
+.like-button {
+  color: $gray-100;
 
-  .svg-icon {
-    color: $purple-400;
+  &:hover {
+    cursor: pointer;
+    color: $purple-200;
+
+    .svg-icon {
+      color: $purple-300;
+    }
   }
 }
 
