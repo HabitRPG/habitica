@@ -47,6 +47,7 @@
           :msg="msg"
           :user-sent-message="user._id === msg.uuid"
           :group-id="'privateMessage'"
+          :private-message-mode="true"
           @message-removed="messageRemoved"
           @show-member-modal="showMemberModal"
           @message-card-mounted="itemWasMounted"

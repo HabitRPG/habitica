@@ -119,7 +119,7 @@
         </div>
 
         <like-button
-          v-if="msg.id"
+          v-if="msg.id && !privateMessageMode"
           class="mt-75"
           :liked-by-current-user="msg.likes[user._id]"
           :like-count="likeCount"
