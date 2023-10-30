@@ -1,0 +1,61 @@
+name: job setup
+description: 'Sets the shared steps for each job'
+
+inputs:
+  node-version:
+    description: 'The Node version to be setup'
+    required: true
+  node-env:
+    description: 'Node-Env for CI'
+    required: true
+  package-install-cmd:
+    description: 'CI or install or custom to skip post install and unneeded builds'
+    required: false
+    default: 'ci'
+  install-website-package:
+    description: 'if package-install-cmd skipped post install, you can trigger an installation of website'
+    required: false
+    default: 'false'
+
+  website-package-install-cmd:
+    description: 'CI or install or custom to skip post install and unneeded builds'
+    required: false
+    default: 'ci'
+
+runs:
+  using: composite
+  steps:
+    - name: Use Node.js ${{ inputs.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ inputs.node-version }}
+    - name: Cache multiple paths
+      id: cache-package
+      uses: actions/cache@v2
+      with:
+        path: |
+          **/node_modules
+        key: ${{ runner.os }}-${{ inputs.node-version }}-${{ inputs.node-env }}-${{ inputs.install-website-package }}-${{ hashFiles('**/package.json') }}
+
+    - name: Create dummy config.json
+      shell: bash
+      run: cp config.json.example config.json
+
+    - name: npm install
+      if: steps.cache-package.outputs.cache-hit != 'true'
+      shell: bash
+      run: |
+        npm ${{ inputs.package-install-cmd }}
+      env:
+        CI: true
+        NODE_ENV: ${{ inputs.node-env }}
+
+    - name: npm install website
+      if: ${{ steps.cache-package.outputs.cache-hit != 'true' && inputs.install-website-package != 'false' }}
+      shell: bash
+      working-directory: ./website/client
+      run: |
+        npm ${{ inputs.website-package-install-cmd }}
+      env:
+        CI: true
+        NODE_ENV: ${{ inputs.node-env }}
