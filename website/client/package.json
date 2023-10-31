@@ -15,7 +15,7 @@
     "@vue/cli-plugin-eslint": "^4.5.19",
     "@vue/cli-plugin-router": "^5.0.8",
     "@vue/cli-plugin-unit-mocha": "^5.0.8",
-    "@vue/cli-service": "^4.5.15",
+    "@vue/cli-service": "^5.0.8",
     "@vue/test-utils": "1.0.0-beta.29",
     "amplitude-js": "^8.21.3",
     "axios": "^0.27.2",
@@ -23,7 +23,6 @@
     "babel-eslint": "^10.1.0",
     "bootstrap": "^4.6.0",
     "bootstrap-vue": "^2.23.1",
-    "cache-loader": "^4.1.0",
     "chai": "^4.3.7",
     "core-js": "^3.32.2",
     "dompurify": "^3.0.3",
@@ -57,7 +56,7 @@
     "vue-template-compiler": "^2.7.10",
     "vuedraggable": "^2.24.3",
     "vuejs-datepicker": "git://github.com/habitrpg/vuejs-datepicker.git#153d339e4dbebb73733658aeda1d5b7fcc55b0a0",
-    "webpack": "^4.47.0"
+    "webpack": "^5.89.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-optional-chaining": "^7.21.0"
