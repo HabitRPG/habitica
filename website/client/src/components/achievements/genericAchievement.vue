@@ -96,8 +96,8 @@
 </style>
 
 <script>
-import { mapState } from '@/libs/store';
 import achievements from '@/../../common/script/content/achievements';
+import { mapState } from '@/libs/store';
 import svgClose from '@/assets/svg/close.svg';
 
 export default {

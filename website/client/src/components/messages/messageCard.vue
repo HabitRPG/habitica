@@ -152,12 +152,12 @@ export default {
   components: {
     userLink,
   },
-  mixins: [externalLinks],
   filters: {
     timeAgo (value) {
       return moment(value).fromNow();
     },
   },
+  mixins: [externalLinks],
   props: {
     msg: {},
   },

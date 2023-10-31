@@ -69,7 +69,7 @@
               <div
                 class="spell-border"
                 :class="{ disabled: spellDisabled(key) || user.stats.lvl < skill.lvl,
-                 'insufficient-mana': user.stats.mp < skill.mana }"
+                          'insufficient-mana': user.stats.mp < skill.mana }"
               >
                 <div
                   class="spell"

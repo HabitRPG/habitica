@@ -33,7 +33,7 @@
                 :name="member.profile.name"
                 :backer="member.backer"
                 :contributor="member.contributor"
-                :showBuffed="isBuffed"
+                :show-buffed="isBuffed"
                 :context="'profile'"
               />
             </span>
@@ -184,15 +184,14 @@
 </style>
 
 <script>
+import { toNextLevel } from '@/../../common/script/statHelpers';
+import statsComputed from '@/../../common/script/libs/statsComputed';
+import percent from '@/../../common/script/libs/percent';
 import Avatar from './avatar';
 import ClassBadge from './members/classBadge';
 import { mapState } from '@/libs/store';
 import StatsBar from './ui/statsbar';
 import userLink from './userLink';
-
-import { toNextLevel } from '@/../../common/script/statHelpers';
-import statsComputed from '@/../../common/script/libs/statsComputed';
-import percent from '@/../../common/script/libs/percent';
 
 import buffIcon from '@/assets/svg/buff.svg';
 import healthIcon from '@/assets/svg/health.svg';

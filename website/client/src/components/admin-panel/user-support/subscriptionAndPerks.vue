@@ -57,13 +57,13 @@
         <div class="form-inline">
           Perk month count:
           <input
-              v-model="hero.purchased.plan.perkMonthCount"
-              class="form-control"
-              type="number"
-              min="0"
-              max="2"
-              step="1"
-            >
+            v-model="hero.purchased.plan.perkMonthCount"
+            class="form-control"
+            type="number"
+            min="0"
+            max="2"
+            step="1"
+          >
         </div>
         <div>
           Next Mystic Hourglass:
@@ -148,8 +148,8 @@
 
 <script>
 import moment from 'moment';
-import saveHero from '../mixins/saveHero';
 import { getPlanContext } from '@/../../common/script/cron';
+import saveHero from '../mixins/saveHero';
 
 export default {
   mixins: [saveHero],

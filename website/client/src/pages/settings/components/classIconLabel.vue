@@ -61,7 +61,6 @@ export default {
   }
 }
 
-
 .healer {
   color: $healer-color;
 }
@@ -81,7 +80,6 @@ export default {
 .disabled {
   color: $maroon-50;
 }
-
 
 .label {
   font-size: 14px;

@@ -68,7 +68,7 @@
             :inline-dropdown="false"
             @select="groupBy = $event"
           >
-            <template v-slot:item="{ item }">
+            <template #item="{ item }">
               <span class="label">{{ groupByLabel(item) }}</span>
             </template>
           </select-list>
@@ -297,6 +297,7 @@ import map from 'lodash/map';
 import throttle from 'lodash/throttle';
 import _sortBy from 'lodash/sortBy';
 import _reverse from 'lodash/reverse';
+import i18n from '@/../../common/script/i18n';
 import { CONSTANTS, setLocalSetting, getLocalSetting } from '@/libs/userlocalManager';
 import { mapState } from '@/libs/store';
 
@@ -305,8 +306,6 @@ import Item from '@/components/inventory/item';
 import ItemRows from '@/components/ui/itemRows';
 import EquipmentAttributesPopover from '@/components/inventory/equipment/attributesPopover';
 import Drawer from '@/components/ui/drawer';
-
-import i18n from '@/../../common/script/i18n';
 
 import EquipGearModal from './equipGearModal';
 

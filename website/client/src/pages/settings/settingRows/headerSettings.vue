@@ -46,7 +46,6 @@ import { InlineSettingMixin } from '../components/inlineSettingMixin';
 import ToggleSwitch from '@/components/ui/toggleSwitch.vue';
 import { GenericUserPreferencesMixin } from '../components/genericUserPreferencesMixin';
 
-
 export default {
   components: { ToggleSwitch },
   mixins: [InlineSettingMixin, GenericUserPreferencesMixin],

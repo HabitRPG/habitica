@@ -9,4 +9,7 @@ module.exports = {
     sinon: true,
     sandbox: true
   },
+  rules: {
+    'import/no-extraneous-dependencies': 'warn',
+  },
 }
