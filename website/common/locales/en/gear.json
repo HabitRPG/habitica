@@ -527,6 +527,9 @@
   "weaponMystery202212Notes": "The glowing snowflake in this wand holds the power to warm hearts on even the coldest winter night! Confers no benefit. December 2022 Subscriber Item.",
   "weaponMystery202306Text": "Rainbow Umbrella",
   "weaponMystery202306Notes": "Shine proud and bring a shimmering prism of color wherever you go! Confers no benefit. June 2023 Subscriber Item.",  
+  "weaponMystery202311Text": "All-Seeing Staff",
+  "weaponMystery202311Notes": "See beyond the bounds of space and time! Confers no benefit. November 2023 Subscriber Item.",
+
   "weaponMystery301404Text": "Steampunk Cane",
   "weaponMystery301404Notes": "Excellent for taking a turn about town. March 3015 Subscriber Item. Confers no benefit.",
 
@@ -722,6 +725,8 @@
   "weaponArmoireCleaningClothNotes": "Take this tidying tool on your adventures and always be able to polish a pretty plaque or wipe a wooden windowsill. Increases Strength and Constitution by <%= attrs %> each. Enchanted Armoire: Cleaning Supplies Set Two (Item 3 of 3)",
   "weaponArmoireRidingBroomText": "Riding Broom",
   "weaponArmoireRidingBroomNotes": "Run all your most magical errands on this fine broom--or, just take it for a joyride around the neighborhood. Whee! Increases Strength by <%= str %> and Intelligence by <%= int %>. Enchanted Armoire: Spooky Sorcery Set (Item 1 of 3)",
+  "weaponArmoireRollingPinText": "Rolling Pin",
+  "weaponArmoireRollingPinNotes": "Roll your dough as thin as you like in-between bonking bad habits when they pop up around you like a certain rodent-bopping game. Increases Strength by <%= str %>. Enchanted Armoire: Cooking Implements Set 2 (Item 2 of 2).",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -2137,7 +2142,9 @@
   "headMystery202308Text": "Purple Protagonist Hair",
   "headMystery202308Notes": "Does the unruly cowlick sticking up from the middle of your head represent your persistence or your penchant for mischief? Confers no benefit. August 2023 Subscriber Item.",
   "headMystery202310Text": "Wraith's Hood",
-  "headMystery202310Notes": "It hides your face, and yet lends your eyes an unsettling and spectral glow. Confers no benefit. October 2023 Subscriber Item.",  
+  "headMystery202310Notes": "It hides your face, and yet lends your eyes an unsettling and spectral glow. Confers no benefit. October 2023 Subscriber Item.",
+  "headMystery202311Text": "Spellbinder’s Hat",
+  "headMystery202311Notes": "Bind even space and time to your will. Confers no benefit. November 2023 Subscriber Item.",
 
   "headMystery301404Text": "Fancy Top Hat",
   "headMystery301404Notes": "A fancy top hat for the finest of gentlefolk! January 3015 Subscriber Item. Confers no benefit.",
@@ -2757,6 +2764,8 @@
   "shieldArmoirePaintersPaletteNotes": "Paints in all colors of the rainbow are at your disposal. Is it magic that makes them so vivid when you use them, or is it your talent? Increases Strength by <%= str %>. Enchanted Armoire: Painter Set (Item 4 of 4).",
   "shieldArmoireBucketText": "Bucket",
   "shieldArmoireBucketNotes": "Though this bucket is helpful in holding a mixture of water and cleaning solution, you could also use it to collect, carry, and cart around just about anything that fits inside! Increases Strength and Intelligence by <%= attrs %> each. Enchanted Armoire: Cleaning Supplies Set 2 (Item 1 of 3)",
+  "shieldArmoireSaucepanText": "Sauce Pan",
+  "shieldArmoireSaucepanNotes": "Look inside this steaming saucepan for the answer to the most closely guarded secret in life! (Soup. The answer is always soup.) Increases Perception by <%= per %> . Enchanted Armoire: Cooking Implements Set 2 (Item 1 of 2).",
 
   "back": "Back Accessory",
   "backBase0Text": "No Back Accessory",
