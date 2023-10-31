@@ -22,7 +22,7 @@ jobs:
     - run: cp config.json.example config.json
     - name: npm install
       run: |
-        npm ci
+        npm i
       env:
         CI: true
         NODE_ENV: test
@@ -43,7 +43,7 @@ jobs:
     - run: cp config.json.example config.json
     - name: npm install
       run: |
-        npm ci
+        npm i
       env:
         CI: true
         NODE_ENV: test
@@ -64,7 +64,7 @@ jobs:
     - run: cp config.json.example config.json
     - name: npm install
       run: |
-        npm ci
+        npm i
       env:
         CI: true
         NODE_ENV: test
@@ -86,7 +86,7 @@ jobs:
     - run: cp config.json.example config.json
     - name: npm install
       run: |
-        npm ci
+        npm i
       env:
         CI: true
         NODE_ENV: test
@@ -107,7 +107,7 @@ jobs:
     - run: cp config.json.example config.json
     - name: npm install
       run: |
-        npm ci
+        npm i
       env:
         CI: true
         NODE_ENV: test
@@ -135,7 +135,7 @@ jobs:
     - run: cp config.json.example config.json
     - name: npm install
       run: |
-        npm ci
+        npm i
       env:
         CI: true
         NODE_ENV: test
@@ -164,7 +164,7 @@ jobs:
     - run: cp config.json.example config.json
     - name: npm install
       run: |
-        npm ci
+        npm i
       env:
         CI: true
         NODE_ENV: test
@@ -193,7 +193,7 @@ jobs:
     - run: cp config.json.example config.json
     - name: npm install
       run: |
-        npm ci
+        npm i
       env:
         CI: true
         NODE_ENV: test
@@ -217,7 +217,7 @@ jobs:
     - run: cp config.json.example config.json
     - name: npm install
       run: |
-        npm ci
+        npm i
       env:
         CI: true
         NODE_ENV: test
