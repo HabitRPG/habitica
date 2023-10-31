@@ -19,6 +19,7 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
+    - run: apt-get -y install libkrb5-dev
     - run: cp config.json.example config.json
     - name: npm install
       run: |
