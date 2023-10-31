@@ -129,10 +129,6 @@ input[type="number"] {
 
 .svg-icon.level {
   color: $gray-200;
-
-  :global svg path {
-    fill: currentColor;
-  }
 }
 
 </style>

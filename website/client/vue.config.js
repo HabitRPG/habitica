@@ -3,7 +3,6 @@ const path = require('path');
 const webpack = require('webpack');
 const nconf = require('nconf');
 const vueTemplateCompiler = require('vue-template-babel-compiler');
-const { DuplicatesPlugin } = require('inspectpack/plugin');
 const setupNconf = require('../server/libs/setupNconf');
 const pkg = require('./package.json');
 
@@ -39,18 +38,10 @@ envVars
     envObject[key] = nconf.get(key);
   });
 
-const enableDuplicatesPlugin = process.env.npm_lifecycle_event !== 'storybook:serve';
-
 const webpackPlugins = [
   new webpack.EnvironmentPlugin(envObject),
   new webpack.ContextReplacementPlugin(/moment[\\/]locale$/, /^\.\/(NOT_EXISTING)$/),
 ];
-
-if (enableDuplicatesPlugin) {
-  webpackPlugins.splice(0, 0, new DuplicatesPlugin({
-    verbose: true,
-  }));
-}
 
 module.exports = {
   assetsDir: 'static',
@@ -113,16 +104,6 @@ module.exports = {
         ],
       });
 
-    // Disable eslint warnings when running the server
-    config.module
-      .rule('eslint')
-      .use('eslint-loader')
-      .loader('eslint-loader')
-      .tap(options => {
-        options.quiet = true;
-        return options;
-      });
-
     // Fix issue with Safari cache, see https://github.com/vuejs/vue-cli/issues/2509
     if (process.env.NODE_ENV === 'development') {
       config.plugins.delete('preload');
@@ -140,7 +121,6 @@ module.exports = {
 
   devServer: {
     headers: { 'Cache-Control': 'no-store' },
-    disableHostCheck: true,
     proxy: {
       // proxy all requests to the server at IP:PORT as specified in the top-level config
       '^/api/v3': {

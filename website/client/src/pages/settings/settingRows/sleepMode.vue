@@ -35,7 +35,6 @@
         >
         </div>
 
-
         <ul>
           <li v-once>
             {{ $t('sleepBullet1') }}
@@ -73,7 +72,6 @@ import { mapState } from '@/libs/store';
 
 import { InlineSettingMixin } from '../components/inlineSettingMixin';
 import SaveCancelButtons from '../components/saveCancelButtons.vue';
-
 
 export default {
   components: { SaveCancelButtons },

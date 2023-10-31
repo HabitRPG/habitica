@@ -47,7 +47,6 @@
             />
           </div>
 
-
           <gem-price
             gem-price="3"
             icon-size="24"
@@ -117,7 +116,6 @@ input {
   margin-top: 1.5rem;
 }
 
-
 .label {
   font-size: 14px;
   line-height: 1.71;
@@ -155,6 +153,7 @@ input {
 
 <script>
 import axios from 'axios';
+import changeClass from '@/../../common/script/ops/changeClass';
 import { mapGetters, mapState } from '@/libs/store';
 
 import SaveCancelButtons from '../components/saveCancelButtons.vue';
@@ -163,7 +162,6 @@ import { GenericUserPreferencesMixin } from '../components/genericUserPreference
 import YourBalance from '@/pages/settings/components/yourBalance.vue';
 import GemPrice from '@/components/shops/gemPrice.vue';
 import checkIcon from '@/assets/svg/check.svg';
-import changeClass from '@/../../common/script/ops/changeClass';
 import ClassIconLabel from '@/pages/settings/components/classIconLabel.vue';
 
 export default {
