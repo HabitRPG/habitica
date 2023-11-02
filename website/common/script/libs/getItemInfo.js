@@ -292,7 +292,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
       itemInfo = {
         key: item.key,
         text: item.text(language),
-        notes: item.notes(user, count.remainingGearInSet(user.items.gear.owned, 'armoire')), // TODO count
+        notes: item.notes(count.remainingGearInSet(user.items.gear.owned, 'armoire')),
         value: item.value,
         currency: 'gold',
         purchaseType: 'armoire',

@@ -2,7 +2,6 @@ import filter from 'lodash/filter';
 import isEmpty from 'lodash/isEmpty';
 import pick from 'lodash/pick';
 import content from '../../content/index';
-import * as count from '../../count';
 import splitWhitespace from '../../libs/splitWhitespace';
 import {
   NotAuthorized,
@@ -83,6 +82,7 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation { // eslint-d
   }
 
   _gearResult (user, eligibleEquipment) {
+    const emptied = eligibleEquipment.length === 1;
     eligibleEquipment.sort();
     const drop = randomVal(eligibleEquipment);
 
@@ -102,10 +102,6 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation { // eslint-d
       dropText: drop.text(this.req.language),
     });
 
-    if (count.remainingGearInSet(user.items.gear.owned, 'armoire') === 0) {
-      user.flags.armoireEmpty = true;
-    }
-
     removeItemByPath(user, `gear.flat.${drop.key}`);
 
     if (this.analytics) {
@@ -116,6 +112,7 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation { // eslint-d
       type: 'gear',
       dropKey: drop.key,
       dropText: drop.text(this.req.language),
+      emptied,
     };
 
     return {
