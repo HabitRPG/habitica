@@ -106,6 +106,7 @@
         </b-dropdown>
 
         <div
+          ref="markdownContainer"
           class="text markdown"
           dir="auto"
           v-html="parseMarkdown(msg.text)"

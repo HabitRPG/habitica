@@ -1,14 +1,16 @@
 import Vue from 'vue';
 import { shallowMount, createLocalVue } from '@vue/test-utils';
 
-import ChatCard from '@/components/chat/chatCard.vue';
+import BootstrapVue from 'bootstrap-vue';
+import MessageCard from '@/components/messages/messageCard.vue';
 import Store from '@/libs/store';
 
 const localVue = createLocalVue();
 localVue.use(Store);
 localVue.use(Vue.directive('b-tooltip', {}));
+localVue.use(BootstrapVue);
 
-describe('ChatCard', () => {
+describe('MessageCard', () => {
   function createMessage (text) {
     return { text, likes: {} };
   }
@@ -26,7 +28,7 @@ describe('ChatCard', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = shallowMount(ChatCard, {
+    wrapper = shallowMount(MessageCard, {
       propsData: { msg: message },
       store: new Store({
         state: {
