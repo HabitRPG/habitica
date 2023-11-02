@@ -1,8 +1,0 @@
-{
-    "noItemsAvailableForType": "Du har ingen <%= type %>.",
-    "foodItemType": "Kjæledyrmat",
-    "eggsItemType": "Egg",
-    "hatchingPotionsItemType": "Klekke-eliksir",
-    "specialItemType": "Spesielle ting",
-    "lockedItem": "Låst gjenstand"
-}
