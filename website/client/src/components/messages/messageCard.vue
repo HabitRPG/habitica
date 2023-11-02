@@ -56,9 +56,8 @@
             </span>
           </template>
           <b-dropdown-item
-            v-if="allowCopyAsTodo"
             class="selectListItem"
-            @click="copyAsTodo(msg)"
+            @click="copy(msg)"
           >
             <span class="with-icon">
               <span
@@ -67,7 +66,7 @@
                 v-html="icons.copy"
               ></span>
               <span v-once>
-                {{ $t('copyAsTodo') }}
+                {{ $t('copy') }}
               </span>
             </span>
           </b-dropdown-item>
@@ -281,6 +280,8 @@ import cloneDeep from 'lodash/cloneDeep';
 import escapeRegExp from 'lodash/escapeRegExp';
 import externalLinks from '../../mixins/externalLinks';
 
+import { CopyToClipboardMixin } from '@/mixins/copyToClipboard';
+
 import renderWithMentions from '@/libs/renderWithMentions';
 import { mapState } from '@/libs/store';
 import userLink from '../userLink';
@@ -341,7 +342,10 @@ export default {
       return moment(value).toDate().toString();
     },
   },
-  mixins: [externalLinks, userStateMixin, LikeLogicMixin],
+  mixins: [
+    externalLinks, userStateMixin, LikeLogicMixin,
+    CopyToClipboardMixin,
+  ],
   props: {
     msg: {
       type: Object,
@@ -354,10 +358,6 @@ export default {
     },
     userSentMessage: {
       type: Boolean,
-    },
-    allowCopyAsTodo: {
-      type: Boolean,
-      default: false,
     },
   },
   data () {
@@ -470,7 +470,10 @@ export default {
       });
     },
     async remove () {
-      if (!window.confirm(this.$t('areYouSureDeleteMessage'))) return; // eslint-disable-line no-alert
+      // eslint-disable-next-line no-alert
+      if (!window.confirm(this.$t('areYouSureDeleteMessage'))) {
+        return;
+      }
 
       const message = this.msg;
       this.$emit('message-removed', message);
@@ -484,8 +487,8 @@ export default {
         });
       }
     },
-    copyAsTodo (message) {
-      this.$root.$emit('habitica::copy-as-todo', message);
+    copy (message) {
+      this.mixinCopyToClipboard(message.text, this.$t('messageCopiedToClipboard'));
     },
     parseMarkdown (text) {
       return renderWithMentions(text, this.user);
