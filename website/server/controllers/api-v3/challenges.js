@@ -2,6 +2,11 @@ import _ from 'lodash';
 import cloneDeep from 'lodash/cloneDeep';
 import { authWithHeaders, authWithSession } from '../../middlewares/auth';
 import { model as Challenge } from '../../models/challenge';
+import bannedWords from '../../libs/bannedWords';
+import bannedSlurs from '../../libs/bannedSlurs';
+import { getUserInfo } from '../../libs/email';
+import { getMatchesByWordArray } from '../../libs/stringUtils';
+import * as slack from '../../libs/slack';
 import {
   model as Group,
   basicFields as basicGroupFields,
@@ -12,6 +17,7 @@ import {
   nameFields,
 } from '../../models/user';
 import {
+  BadRequest,
   NotFound,
   NotAuthorized,
 } from '../../libs/errors';
@@ -35,6 +41,16 @@ import common from '../../../common';
 const { MAX_SUMMARY_SIZE_FOR_CHALLENGES } = common.constants;
 
 const api = {};
+
+function textContainsBannedWord (message) {
+  const bannedWordsMatched = getMatchesByWordArray(message, bannedWords);
+  return bannedWordsMatched.length > 0;
+}
+
+function textContainsBannedSlur (message) {
+  const bannedSlursMatched = getMatchesByWordArray(message, bannedSlurs);
+  return bannedSlursMatched.length > 0;
+}
 
 /**
  * @apiDefine ChallengeLeader Challenge Leader
@@ -229,6 +245,53 @@ api.createChallenge = {
       prize: response.prize,
       headers: req.headers,
     });
+
+    // check challenge for slurs
+    if (group.privacy === 'public'
+      && textContainsBannedSlur(req.workingChallenge.name
+        || req.workingChallenge.shortName
+        || req.workingChallenge.summary
+        || req.workingChallenge.description)) {
+      const { message } = req.body;
+      user.flags.chatRevoked = true;
+      await user.save();
+
+      // email mods
+      const authorEmail = getUserInfo(user, ['email']).email;
+
+      // send Slack message
+      slack.sendSlurNotification({
+        authorEmail,
+        author: user,
+        group,
+        message,
+      });
+
+      throw new BadRequest(res.t('bannedSlurUsed'));
+    }
+
+    // prevent banned words being posted, except in private challenges
+    if (group.privacy === 'public'
+      && textContainsBannedWord(req.workingChallenge.name
+        || req.workingChallenge.shortName
+        || req.workingChallenge.summary
+        || req.workingChallenge.description)) {
+      const { message } = req.body;
+      await user.save();
+
+      // email mods
+      const authorEmail = getUserInfo(user, ['email']).email;
+
+      // send Slack message
+      slack.sendSlurNotification({
+        authorEmail,
+        author: user,
+        group,
+        message,
+      });
+
+      throw new BadRequest(res.t('bannedWordUsed'));
+    }
 
     res.respond(201, response);
   },
