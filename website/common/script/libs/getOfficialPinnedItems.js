@@ -31,15 +31,16 @@ export default function getOfficialPinnedItems (user) {
     // pinnedSets == current seasonal class set are always gold purchaseable
 
     const gearsBySet = flatGearArray[setToAdd];
-    const gears = gearsBySet.map(gear => {
+
+    for (let i = 0; i < gearsBySet.length; i += 1) {
+      const gear = gearsBySet[i];
       if (!user.items.gear.owned[gear.key]) {
-        return {
+        officialItemsArray.push({
           type: 'marketGear',
           path: `gear.flat.${gear.key}`,
-        };
+        });
       }
-    });
-    officialItemsArray.push(...gears);
+    }
   }
 
   return officialItemsArray;
