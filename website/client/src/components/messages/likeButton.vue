@@ -1,6 +1,6 @@
 <template>
   <div
-    class="d-flex like-button"
+    class="d-inline-flex like-button"
     @click="like()"
   >
     <div
