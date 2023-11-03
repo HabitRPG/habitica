@@ -1,26 +1,10 @@
+import _ from 'lodash';
 import content from '../content/index';
 import SeasonalShopConfig from './shops-seasonal.config';
 
 const { officialPinnedItems } = content;
 
-function groupBySet (items) {
-  const grouped = {};
-
-  Object.keys(items).forEach(key => {
-    const item = items[key];
-    const { set } = item;
-
-    if (!grouped[set]) {
-      grouped[set] = [];
-    }
-
-    grouped[set].push(item);
-  });
-
-  return grouped;
-}
-
-const flatGearArray = groupBySet(content.gear.flat);
+const flatGearArray = _.groupBy(content.gear.flat, 'set');
 
 export default function getOfficialPinnedItems (user) {
   const officialItemsArray = [...officialPinnedItems];
