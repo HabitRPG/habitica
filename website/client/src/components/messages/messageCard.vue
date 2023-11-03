@@ -195,7 +195,7 @@
 
 .message-card {
   border-radius: 7px;
-  padding: 1rem 0.75rem 1rem 1rem;
+  padding: 1rem 0.75rem 0.5rem 1rem;
   margin: 0;
 
   .card-body {
@@ -245,7 +245,7 @@ hr {
 
 .custom-hover--red {
   --hover-color: #{$maroon-50};
-  --hover-background: #{$red-500};
+  --hover-background: #{rgba($red-500, 0.25)};
 }
 
 .user-sent-message {

@@ -41,7 +41,6 @@
 .action {
   display: inline-block;
   margin-right: 1em;
-  font-size: 12px;
 
   .svg-icon {
     color: $gray-100;
@@ -61,6 +60,7 @@
 
 .like-button {
   color: $gray-100;
+  font-size: 12px;
 
   &:hover {
     cursor: pointer;
