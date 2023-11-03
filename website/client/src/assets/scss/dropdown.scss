@@ -53,6 +53,8 @@
   color: $gray-50 !important;
   cursor: pointer;
 
+  --dropdown-item-hover-icon-color: #{$gray-200};
+
   &:focus {
     outline: none;
     background-color: inherit;
@@ -87,7 +89,7 @@
 
   &:not(:hover) {
     .with-icon .svg-icon {
-      color: $gray-200;
+      color: var(dropdown-item-hover-icon-color);
     }
   }
 }
