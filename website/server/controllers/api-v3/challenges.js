@@ -247,14 +247,13 @@ api.createChallenge = {
     });
 
     // check challenge for slurs
-    if (group.privacy === 'public'
-      && textContainsBannedSlur(req.workingChallenge.name
-        || req.workingChallenge.shortName
-        || req.workingChallenge.summary
-        || req.workingChallenge.description)) {
+    if (group.privacy === 'public' && textContainsBannedSlur(req.body.name)) {
       const { message } = req.body;
       user.flags.chatRevoked = true;
       await user.save();
+      // note to Natalie:
+      // needs to also check all fields and actually prevent challenge from being saved
+      // and actually block the user
 
       // email mods
       const authorEmail = getUserInfo(user, ['email']).email;
@@ -271,11 +270,7 @@ api.createChallenge = {
     }
 
     // prevent banned words being posted, except in private challenges
-    if (group.privacy === 'public'
-      && textContainsBannedWord(req.workingChallenge.name
-        || req.workingChallenge.shortName
-        || req.workingChallenge.summary
-        || req.workingChallenge.description)) {
+    if (group.privacy === 'public' && textContainsBannedWord(req.body.name)) {
       const { message } = req.body;
       await user.save();
 
