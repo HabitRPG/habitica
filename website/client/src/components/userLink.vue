@@ -29,20 +29,12 @@
   @import '~@/assets/scss/colors.scss';
 
   .user-link { // this is the user name
-    font-family: 'Roboto Condensed', sans-serif;
     font-weight: bold;
     margin-bottom: 0;
     cursor: pointer;
-    display: inline-block;
-    font-size: 16px;
-
-    // currently used in the member-details-new.vue
-    &.smaller {
-      font-family: Roboto;
-      font-size: 14px;
-      font-weight: bold;
-      line-height: 1.71;
-    }
+    font-size: 14px;
+    line-height: 1.71;
+    display: inline-flex !important;
 
     &.no-tier {
       color: $gray-50;
@@ -112,7 +104,6 @@ export default {
     'backer',
     'contributor',
     'hideTooltip',
-    'smallerStyle',
     'showBuffed',
     'context',
   ],
@@ -174,7 +165,7 @@ export default {
       return this.hideTooltip ? '' : achievementsLib.getContribText(this.contributor, this.isNPC) || '';
     },
     levelStyle () {
-      return `${this.userLevelStyleFromLevel(this.level, this.isNPC)} ${this.smallerStyle ? 'smaller' : ''}`;
+      return `${this.userLevelStyleFromLevel(this.level, this.isNPC)}`;
     },
   },
 };

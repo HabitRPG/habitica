@@ -204,7 +204,7 @@
 
     .time {
       font-size: 12px;
-      color: $gray-200;
+      color: $gray-100;
       margin-bottom: 0.5rem;
     }
 
@@ -257,7 +257,10 @@ hr {
 }
 
 .card-menu {
+  // icon-color is the menu icon itsem
   --icon-color: #{$gray-100};
+
+  --dropdown-item-hover-icon-color: #{$gray-100};
 
   &:hover {
     --icon-color: #{$purple-300};
