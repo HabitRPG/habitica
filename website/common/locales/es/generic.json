@@ -212,7 +212,7 @@
     "reportEmailText": "Esto solo se utilizará para contactar contigo en relación con el informe de error.",
     "reportEmailPlaceholder": "Tu correo electrónico",
     "reportDescriptionText": "Si lo crees conveniente, incluye capturas de pantalla o errores de la consola de Javascript.",
-    "reportSentDescription": "Nos pondremos en contacto contigo en cuanto nuestro equipo haya podido investigar. Gracias por informarnos del problema.",
+    "reportSentDescription": "Nos pondremos en contacto contigo en cuanto nuestro equipo haya podido estudiar el asunto. Gracias por informarnos del problema.",
     "askQuestion": "Haz una pregunta",
     "skipExternalLinkModal": "Mantenga presionada la tecla CTRL (Windows) o Comando (Mac) al hacer clic en un enlace para omitir este modal.",
     "refreshList": "Actualizar lista",

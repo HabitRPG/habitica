@@ -15,7 +15,7 @@
     "messageMissingEggPotion": "Fáltanche o ese ovo ou esa poción",
     "messageInvalidEggPotionCombo": "Non podes facer nacer mascotas de misión con pocións de eclosión máxicas! Proba cun ovo diferente.",
     "messageAlreadyPet": "Xa tes esa mascota. Proba outra combinación!",
-    "messageHatched": "A túa nova mascota naceu! Podes equipala desde a corte.",
+    "messageHatched": "A túa nova mascota naceu! Podes equipala desde «Mascotas e monturas».",
     "messageNotEnoughGold": "Non tes ouro dabondo",
     "messageTwoHandedEquip": "<%= twoHandedText %> require dúas mans, desequipouse <%= offHandedText %>.",
     "messageTwoHandedUnequip": "<%= twoHandedText %> require dúas mans, desequipouse ao equipar <%= offHandedText %>.",

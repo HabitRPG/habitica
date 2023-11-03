@@ -52,7 +52,7 @@
     "beastMasterName": "Mestre das Bestas",
     "beastMasterText": "Encontrou todos os 90 mascotes (incrivelmente difícil, alguém parabenize essa pessoa!)",
     "beastMasterText2": " e libertou os seus mascotes um total de <%= count %> vez(es)",
-    "mountMasterProgress": "Progresso como Mestre das Montarias",
+    "mountMasterProgress": "Progresso para Mestre das Montarias",
     "mountAchievement": "Você ganhou a conquista \"Mestre das Montarias\" por domar todas as montarias!",
     "mountMasterName": "Mestre das Montarias",
     "mountMasterText": "Domou todas as 90 montarias (ainda mais difícil, alguém parabenize essa pessoa!)",

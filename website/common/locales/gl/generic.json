@@ -223,5 +223,20 @@
     "questionPlaceholder": "Pregunta aquí.",
     "submitQuestion": "Entregar a pregunta",
     "askQuestionHeaderDescribe": "Acabas de empezar a usar Habitica e non sabes o que fas? Levas un tempo pero non te aclaras cunha das funcionalidades? Completa este formulario e o noso equipo responderate.",
-    "questionEmailText": "Isto só se usará para contactar contigo sobre a túa pregunta."
+    "questionEmailText": "Isto só se usará para contactar contigo sobre a túa pregunta.",
+    "general": "Xeral",
+    "allNotifications": "Todas as notificacións",
+    "reportPlayer": "Denunciar",
+    "blockPlayer": "Bloquear",
+    "unblockPlayer": "Desbloquear",
+    "adminTools": "Ferramentas de administración",
+    "viewAdminPanel": "Ver o panel de administración",
+    "shadowMute": "Silenciar en segredo",
+    "mutePlayer": "Silenciar",
+    "banPlayer": "Expulsar",
+    "unbanPlayer": "Readmitir",
+    "bannedPlayer": "Expulsouse a esta persoa.",
+    "whyReportingPlayer": "Por que denuncias a esta persoa?",
+    "whyReportingPlayerPlaceholder": "Motivo da denuncia",
+    "playerReportModalBody": "Só debería denunciar a quen incumpra as <%= firstLinkStart %>directrices da comunidade<%= linkEnd %> ou as <%= secondLinkStart %>condicións do servizo<%= linkEnd %>. Entregar unha denuncia falsa é un incumprimento das directrices da comunidade de Habitica."
 }
