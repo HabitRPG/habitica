@@ -107,6 +107,7 @@
     "start": "gulp nodemon",
     "debug": "gulp nodemon --inspect",
     "mongo:dev": "run-rs -v 4.2.8 -l ubuntu1804 --keep --dbpath mongodb-data --number 1 --quiet",
+    "mongo:test": "run-rs -v 4.2.8 -l ubuntu1804 --keep --dbpath mongodb-data-testing --number 1 --quiet",
     "postinstall": "git config --global url.\"https://\".insteadOf git:// && gulp build && cd website/client && npm install",
     "apidoc": "gulp apidoc"
   },

@@ -83,6 +83,18 @@ export async function getUserInboxMessage (user, messageId) {
   return Inbox.findOne({ ownerId: user._id, _id: messageId }).exec();
 }
 
+export async function getInboxMessageOfOppositeTarget (user, messageId) {
+  const usersMessage = await getUserInboxMessage(user, messageId);
+
+  return Inbox.findOne({
+    ownerId: usersMessage.uuid,
+    uuid: user._id,
+    text: usersMessage.text,
+    // timestamp not possible (ms difference..)
+    // id not possible (different ID per same message across both owners)
+  }).exec();
+}
+
 export async function deleteMessage (user, messageId) {
   const message = await Inbox.findOne({ _id: messageId, ownerId: user._id }).exec();
   if (!message) return false;
