@@ -88,5 +88,4 @@
   "REDIS_PORT": "1234",
   "REDIS_PASSWORD": "12345678",
   "TRUSTED_DOMAINS": "localhost,habitica.com"
-  "NO_CLUSTER": "false"
 }
