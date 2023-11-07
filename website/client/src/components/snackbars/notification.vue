@@ -246,6 +246,11 @@ export default {
       }),
     };
   },
+  mounted () {
+    if (this.notification.type === 'drop' && this.notification.emptied) {
+      this.$root.$emit('bv::show::modal', 'armoire-empty');
+    }
+  },
   computed: {
     message () {
       if (this.notification.flavorMessage) {

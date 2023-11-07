@@ -163,8 +163,9 @@ const bundles = {
       'rock',
       'yarn',
     ],
+    event: EVENTS.bundle202311,
     canBuy () {
-      return moment().isBetween('2021-03-16T08:00-05:00', '2021-03-31T20:00-05:00');
+      return moment().isBetween(EVENTS.bundle202311.start, EVENTS.bundle202311.end);
     },
     type: 'quests',
     value: 7,
