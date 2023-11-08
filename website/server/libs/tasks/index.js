@@ -29,16 +29,21 @@ import { taskScoredWebhook } from '../webhook';
 import logger from '../logger';
 
 /**
- * Creates tasks for a user, challenge or group.
+ * Asynchronously creates tasks for a user, challenge, or group based on the provided request and options.
+ * Validates the task type and data, sets the start date for 'daily' tasks, and updates the task order.
+ * If no tasks are passed, it returns an empty array to avoid errors with mongo $push being empty.
  *
- * @param  req  The Express req variable
- * @param  res  The Express res variable
- * @param  options
- * @param  options.user  The user that these tasks belong to
- * @param  options.challenge  The challenge that these tasks belong to
- * @param  options.group  The group that these tasks belong to
- * @param  options.requiresApproval  A boolean stating if the task will require approval
- * @return The created tasks
+ * @async
+ * @function createTasks
+ * @param {Object} req - The request object, containing the tasks to be created in the body.
+ * @param {Object} res - The response object.
+ * @param {Object} [options={}] - Optional parameters.
+ * @param {Object} options.user - The user for whom the tasks are being created.
+ * @param {Object} options.challenge - The challenge for which the tasks are being created.
+ * @param {Object} options.group - The group for which the tasks are being created.
+ * @param {Boolean} options.requiresApproval - A boolean stating if the task will require approval.
+ * @returns {Promise<Array>} A promise that resolves to an array of the created tasks.
+ * @throws {BadRequest} If the task type is invalid.
  */
 async function createTasks (req, res, options = {}) {
   const {
@@ -133,16 +138,28 @@ async function createTasks (req, res, options = {}) {
 }
 
 /**
- * Gets tasks for a user, challenge or group.
+ * Asynchronously retrieves tasks based on the provided request and options.
  *
- * @param  req  The Express req variable
- * @param  res  The Express res variable
- * @param  options
- * @param  options.user  The user that these tasks belong to
- * @param  options.challenge  The challenge that these tasks belong to
- * @param  options.group  The group that these tasks belong to
- * @param  options.dueDate The date to use for computing the nextDue field for each returned task
- * @return The tasks found
+ * @async
+ * @function getTasks
+ * @param {Object} req - The Express request variable, containing query parameters.
+ * @param {Object} res - The Express response variable.
+ * @param {Object} [options={}] - Optional parameters for task retrieval.
+ * @param {Object} options.user - The user that these tasks belong to.
+ * @param {Object} options.challenge - The challenge that these tasks belong to.
+ * @param {Object} options.group - The group that these tasks belong to.
+ * @param {Date} options.dueDate - The date to use for computing the nextDue field for each returned task.
+ * @returns {Array} An array of tasks, ordered based on the user's task order preference.
+ *
+ * The function constructs a query based on the provided options and request query parameters.
+ * It supports retrieving tasks for a specific challenge, group, or user. It also supports
+ * retrieving tasks of a specific type (e.g., 'todos', 'completedTodos', '_allCompletedTodos').
+ * The tasks are then ordered based on the user's task order preference.
+ *
+ * If a due date is provided, the function sets the next due date for each task.
+ *
+ * If any tasks in the user's task order do not exist, they are pruned from the task order.
+ * Any unordered tasks are added to the end of the task order.
  */
 async function getTasks (req, res, options = {}) {
   const {
@@ -306,6 +323,14 @@ async function getTasks (req, res, options = {}) {
   return orderedTasks;
 }
 
+/**
+ * Determines if a user cannot edit tasks within a group.
+ *
+ * @param {Object} group - The group object.
+ * @param {Object} user - The user object.
+ * @param {string} assignedUserId - The ID of the user to whom the task is assigned.
+ * @returns {boolean} Returns true if the user is not the group leader, not a manager, and not assigning the task to themselves.
+ */
 function canNotEditTasks (group, user, assignedUserId) {
   const isNotGroupLeader = group.leader !== user._id;
   const isManager = Boolean(group.managers[user._id]);
@@ -313,11 +338,32 @@ function canNotEditTasks (group, user, assignedUserId) {
   return isNotGroupLeader && !isManager && !userIsAssigningToSelf;
 }
 
+/**
+ * Checks if a group's subscription is not found or has been terminated.
+ *
+ * @param {Object} group - The group object to check.
+ * @property {Object} group.purchased - The purchased object of the group.
+ * @property {Object} group.purchased.plan - The plan object of the purchased group.
+ * @property {string} group.purchased.plan.customerId - The customer ID of the plan.
+ * @property {Date} group.purchased.plan.dateTerminated - The termination date of the plan.
+ * @returns {boolean} Returns true if the group, purchased object, plan, customerId are not found or if the plan has been terminated.
+ */
 function groupSubscriptionNotFound (group) {
   return !group || !group.purchased || !group.purchased.plan || !group.purchased.plan.customerId
    || (group.purchased.plan.dateTerminated && group.purchased.plan.dateTerminated < new Date());
 }
 
+/**
+ * Retrieves a group based on a given task and user.
+ * If the task belongs to a group and is not assigned to a user,
+ * it fetches the group with its required fields and managers.
+ *
+ * @async
+ * @function getGroupFromTaskAndUser
+ * @param {Object} task - The task object.
+ * @param {Object} user - The user object.
+ * @returns {Promise<Object|null>} The group object or null if the task is assigned to a user or doesn't belong to a group.
+ */
 async function getGroupFromTaskAndUser (task, user) {
   if (task.group.id && !task.userId) {
     const fields = requiredGroupFields.concat(' managers');
@@ -326,6 +372,17 @@ async function getGroupFromTaskAndUser (task, user) {
   return null;
 }
 
+/**
+ * Retrieves the challenge associated with a given task.
+ *
+ * @async
+ * @function getChallengeFromTask
+ * @param {Object} task - The task object.
+ * @param {Object} task.challenge - The challenge object associated with the task.
+ * @param {string} task.challenge.id - The ID of the challenge.
+ * @param {string} task.userId - The ID of the user associated with the task.
+ * @returns {Promise<Object|null>} The challenge object if it exists and the task is not associated with a user, otherwise null.
+ */
 async function getChallengeFromTask (task) {
   if (task.challenge.id && !task.userId) {
     return Challenge.findOne({ _id: task.challenge.id }).exec();
@@ -333,6 +390,19 @@ async function getChallengeFromTask (task) {
   return null;
 }
 
+/**
+ * Verifies if a task modification is valid based on the task, user, group, and challenge.
+ * Throws an error if the task is not found, if the group is not found and the user is not authorized to edit tasks,
+ * if the challenge is not found and the user is not authorized to modify it, or if the task is owned by a different user.
+ *
+ * @param {Object} task - The task to be modified.
+ * @param {Object} user - The user attempting to modify the task.
+ * @param {Object} group - The group that the task belongs to.
+ * @param {Object} challenge - The challenge that the task is part of.
+ * @param {Object} res - The response object.
+ * @throws {NotFound} If the task, group, or challenge is not found.
+ * @throws {NotAuthorized} If the user is not authorized to edit the task or modify the challenge.
+ */
 function verifyTaskModification (task, user, group, challenge, res) {
   if (!task) {
     throw new NotFound(res.t('messageTaskNotFound'));
@@ -351,6 +421,17 @@ function verifyTaskModification (task, user, group, challenge, res) {
   }
 }
 
+/**
+ * Handles a challenge task. If the task is part of a challenge and is not broken or a reward,
+ * it finds the corresponding challenge task and scores it. Any errors during this process are logged and do not interrupt the flow.
+ *
+ * @async
+ * @function
+ * @param {Object} task - The task to handle.
+ * @param {Number} delta - The change in task value.
+ * @param {String} direction - The direction of task scoring.
+ * @throws {Error} If there is an error in scoring the challenge task.
+ */
 async function handleChallengeTask (task, delta, direction) {
   if (task.challenge && task.challenge.id && task.challenge.taskId && !task.challenge.broken && task.type !== 'reward') {
     // Wrapping everything in a try/catch block because if an error occurs
@@ -369,6 +450,20 @@ async function handleChallengeTask (task, delta, direction) {
   }
 }
 
+/**
+ * Handles the scoring of a team task. If the task is part of a group and has a taskId,
+ * it retrieves the team task and calculates the groupDelta based on the number of assigned users.
+ * It then scores the challenge task based on the groupDelta and direction.
+ * If the task type is 'daily' or 'todo', it handles shared completion.
+ * Any errors during this process are caught and logged.
+ *
+ * @async
+ * @function
+ * @param {Object} task - The task to be handled.
+ * @param {Number} delta - The change in score.
+ * @param {String} direction - The direction of scoring ('up' or 'down').
+ * @throws Will log the error and continue if an error occurs during the process.
+ */
 async function handleTeamTask (task, delta, direction) {
   if (task.group && task.group.taskId) {
     // Wrapping everything in a try/catch block because if an error occurs
@@ -394,13 +489,24 @@ async function handleTeamTask (task, delta, direction) {
 }
 
 /**
- * Scores a task.
- * @param user the user that is making the operation
- * @param task The task to score
- * @param direction "up" or "down" depending on how the task should be scored
+ * Asynchronously scores a task for a user. The function checks if the task is a 'daily' or 'todo' type and if it's completed or not.
+ * It also checks if the user is authorized to score the task based on their role and the task's status.
+ * If the task is part of a group, it retrieves the group details and checks if the user is a manager or leader.
+ * The function then calculates the score delta and updates the task and user details accordingly.
+ * If the task is a 'todo' type, it also updates the user's task order.
+ * Finally, it sends a webhook notification and tracks the task scoring event for analytics.
  *
- * @return Response Data
-*/
+ * @async
+ * @function scoreTask
+ * @param {Object} user - The user who is scoring the task.
+ * @param {Object} task - The task to be scored.
+ * @param {string} direction - The direction of scoring ('up' or 'down').
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @throws {NotAuthorized} If the user is not authorized to score the task.
+ * @throws {BadRequest} If the user is not a manager and tries to uncheck a task they did not complete.
+ * @returns {Object} An object containing the updated task, score delta, scoring direction, task ids to pull and push, and temporary user data.
+ */
 async function scoreTask (user, task, direction, req, res) {
   if (task.type === 'daily' || task.type === 'todo') {
     if (task.group.id && task.group.assignedUsersDetail
@@ -535,6 +641,20 @@ async function scoreTask (user, task, direction, req, res) {
   };
 }
 
+/**
+ * Scores a list of tasks for a user. Validates the task scorings, retrieves the tasks, scores each task,
+ * and saves the updated user and tasks. Handles todos removal or addition to the tasksOrder array.
+ *
+ * @async
+ * @export
+ * @param {Object} user - The user who is scoring the tasks.
+ * @param {Array} taskScorings - An array of objects, each containing a task id and scoring direction ('up' or 'down').
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @throws {BadRequest} If taskScorings is not an array with at least one value, or if a taskScoring direction is not 'up' or 'down', or if a taskScoring id is not a string.
+ * @throws {NotFound} If no tasks are found.
+ * @returns {Array} An array of objects, each containing the id, delta, and _tmp of a scored task.
+ */
 export async function scoreTasks (user, taskScorings, req, res) {
   // Validate the parameters
 
