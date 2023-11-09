@@ -4,7 +4,8 @@
       class="message-card"
       :class="{
         'user-sent-message': userSentMessage,
-        'user-received-message': !userSentMessage
+        'user-received-message': !userSentMessage && !isSystemMessage,
+        'system-message': isSystemMessage
       }"
     >
       <div
@@ -12,7 +13,7 @@
         class="mentioned-icon"
       ></div>
       <div
-        v-if="isModerator && msg.flagCount"
+        v-if="userIsModerator && msg.flagCount"
         class="message-hidden"
       >
         {{ flagCountDescription }}
@@ -21,12 +22,16 @@
         class="card-body"
       >
         <user-link
+          v-if="!isSystemMessage"
           :user-id="msg.uuid"
           :name="msg.user"
           :backer="msg.backer"
           :contributor="msg.contributor"
         />
-        <p class="time">
+        <p
+          v-if="!isSystemMessage"
+          class="time"
+        >
           <span
             v-if="msg.username"
             class="mr-1"
@@ -41,6 +46,7 @@
         </p>
 
         <b-dropdown
+          v-if="!isSystemMessage"
           right="right"
           variant="flat"
           toggle-class="with-icon"
@@ -105,6 +111,13 @@
         </b-dropdown>
 
         <div
+          v-if="isSystemMessage"
+          class="system-message-body"
+        >
+          {{ msg.unformattedText }}
+        </div>
+        <div
+          v-else
           ref="markdownContainer"
           class="text markdown"
           dir="auto"
@@ -119,7 +132,7 @@
         </div>
 
         <like-button
-          v-if="msg.id && !privateMessageMode"
+          v-if="msg.id && !privateMessageMode && !isSystemMessage"
           class="mt-75"
           :liked-by-current-user="msg.likes[user._id]"
           :like-count="likeCount"
@@ -195,8 +208,12 @@
 
 .message-card {
   border-radius: 7px;
-  padding: 1rem 0.75rem 0.5rem 1rem;
   margin: 0;
+  padding: 1rem 0.75rem 0.5rem 1rem;
+
+  &.system-message {
+    padding-top: 0.5rem;
+  }
 
   .card-body {
     position: relative;
@@ -252,6 +269,10 @@ hr {
   border: 1px solid $purple-400;
 }
 
+.system-message {
+  border: 1px solid $purple-400;
+}
+
 .user-received-message {
   border: 1px solid $gray-500;
 }
@@ -271,8 +292,14 @@ hr {
   width: 4px;
   height: 1rem;
   object-fit: contain;
-
 }
+
+.system-message-body {
+  line-height: 1.71;
+  text-align: center;
+  color: $purple-300;
+}
+
 </style>
 
 <script>
@@ -381,20 +408,23 @@ export default {
       const date = moment(this.msg.timestamp).toDate();
       return date.toString();
     },
-    isModerator () {
+    userIsModerator () {
       return this.hasPermission(this.user, 'moderator');
+    },
+    isSystemMessage () {
+      return this.msg.uuid === 'system';
     },
     canDeleteMessage () {
       return this.privateMessageMode
         || this.msg.uuid === this.user._id
-        || this.isModerator;
+        || this.userIsModerator;
     },
     canReportMessage () {
       if (this.privateMessageMode) {
         return !this.isMessageReported;
       }
       return (this.user.flags.communityGuidelinesAccepted && this.msg.uuid !== 'system')
-        && (!this.isMessageReported || this.isModerator);
+        && (!this.isMessageReported || this.userIsModerator);
     },
     isUserMentioned () {
       const message = this.msg;
