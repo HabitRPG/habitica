@@ -1219,7 +1219,7 @@ api.removeTagFromTask = {
  *                                                         removed(remove-all) after the unlink.
  *
  * @apiExample {curl} Example call:
- * curl -X "POST" https://habitica.com/api/v3/tasks/unlink-all/f23c12f2-5830-4f15-9c36-e17fd729a812?keep=remove-all
+ * curl -X "POST" "https://habitica.com/api/v3/tasks/unlink-all/f23c12f2-5830-4f15-9c36-e17fd729a812?keep=remove-all"
  *
  * @apiSuccess {Object} data An empty object
  *
@@ -1288,7 +1288,7 @@ api.unlinkAllTasks = {
  *                                                  be kept(keep) or removed(remove).
  *
  * @apiExample {curl} Example call:
- * curl -X "POST" https://habitica.com/api/v3/tasks/unlink-one/ee882e1d-ebd1-4716-88f2-4f9e47d947a8?keep=keep
+ * curl -X "POST" "https://habitica.com/api/v3/tasks/unlink-one/ee882e1d-ebd1-4716-88f2-4f9e47d947a8?keep=keep"
  *
  * @apiSuccess {Object} data An empty object
  *

@@ -68,7 +68,7 @@ const api = {};
  *                                         Notifications are always returned.
  *
  * @apiExample {curl} Example use:
- * curl -i https://habitica.com/api/v3/user?userFields=achievements,items.mounts
+ * curl -i "https://habitica.com/api/v3/user?userFields=achievements,items.mounts"
  *
  * @apiSuccess {Object} data The user object
  *
@@ -1329,8 +1329,8 @@ api.userSell = {
  * @apiParam (Query) {String} path Full path to unlock. See "content" API call for list of items.
  *
  * @apiParamExample {curl} Example call:
- * curl -X POST https://habitica.com/api/v3/user/unlock?path=background.midnight_clouds
- * curl -X POST https://habitica.com/api/v3/user/unlock?path=hair.color.midnight
+ * curl -X POST "https://habitica.com/api/v3/user/unlock?path=background.midnight_clouds"
+ * curl -X POST "https://habitica.com/api/v3/user/unlock?path=hair.color.midnight"
  *
  * @apiSuccess {Object} data.purchased
  * @apiSuccess {Object} data.items
