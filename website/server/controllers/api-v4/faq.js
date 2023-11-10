@@ -41,7 +41,7 @@ function _deleteOtherPlatformsAnswers (faqObject, platform) {
  * @apiGroup Content
  *
  * @apiParam (Query) {String="bg","cs","da","de",
- *                   "en","en@pirate","en_GB",
+ *                   "en","en_GB",
  *                    "es","es_419","fr","he","hu",
  *                    "id","it","ja","nl","pl","pt","pt_BR",
  *                    "ro","ru","sk","sr","sv",
