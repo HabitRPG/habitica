@@ -1,8 +1,0 @@
-{
-    "noItemsAvailableForType": "No tens <%= type %>.",
-    "foodItemType": "Menjar d'animals",
-    "eggsItemType": "Ous",
-    "hatchingPotionsItemType": "Pocions de covació",
-    "specialItemType": "Objectes especials",
-    "lockedItem": "Objecte bloquejat"
-}
