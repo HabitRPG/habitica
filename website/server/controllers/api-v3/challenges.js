@@ -247,13 +247,20 @@ api.createChallenge = {
     });
 
     // check challenge for slurs
-    if (group.privacy === 'public' && textContainsBannedSlur(req.body.name)) {
-      const { message } = req.body;
+    if (group.privacy === 'public'
+      && ((textContainsBannedSlur(req.body.name))
+            || (textContainsBannedSlur(req.body.shortName))
+            || (textContainsBannedSlur(req.body.summary))
+            || (textContainsBannedSlur(req.body.description)))) {
+      const { message } = req.body.name
+        && req.body.shortName
+        && req.body.summary
+        && req.body.description;
       user.flags.chatRevoked = true;
       await user.save();
       // note to Natalie:
-      // needs to also check all fields and actually prevent challenge from being saved
-      // and actually block the user
+      // does this need to shadow-mute the user? And what about hiding the challenge 
+      // until the language can be corrected?
 
       // email mods
       const authorEmail = getUserInfo(user, ['email']).email;
