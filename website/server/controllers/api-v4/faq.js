@@ -57,7 +57,7 @@ api.faq = {
   method: 'GET',
   url: '/faq',
   async handler (req, res) {
-    req.checkQuery('platform').optional().isIn(['web', 'android', 'ios'], apiError('guildsPaginateBooleanString'));
+    req.checkQuery('platform').optional().isIn(['web', 'android', 'ios'], apiError('invalidPlatform'));
 
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
