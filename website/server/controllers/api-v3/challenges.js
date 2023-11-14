@@ -225,7 +225,7 @@ api.createChallenge = {
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    const { group } = (user, req, req);
+    const { savedChal, group } = await createChallenge(user, req, res);
 
     // checks challenge for slurs and banned words
     if (group.privacy === 'public'
@@ -236,7 +236,7 @@ api.createChallenge = {
       throw new BadRequest(res.t('challengeBannedWordsAndSlurs'));
     }
 
-    const { savedChal } = await createChallenge(user, req, res);
+    await user.save();
 
     const response = savedChal.toJSON();
     response.leader = { // the leader is the authenticated user
