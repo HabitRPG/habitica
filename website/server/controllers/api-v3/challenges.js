@@ -225,7 +225,18 @@ api.createChallenge = {
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    const { savedChal, group } = await createChallenge(user, req, res);
+    const { group } = (user, req, req);
+
+    // checks challenge for slurs and banned words
+    if (group.privacy === 'public'
+      && ((textContainsBannedSlur(req.body.name))
+            || (textContainsBannedSlur(req.body.shortName))
+            || (textContainsBannedSlur(req.body.summary))
+            || (textContainsBannedSlur(req.body.description)))) {
+      throw new BadRequest(res.t('challengeBannedWordsAndSlurs'));
+    }
+
+    const { savedChal } = await createChallenge(user, req, res);
 
     const response = savedChal.toJSON();
     response.leader = { // the leader is the authenticated user
@@ -245,55 +256,6 @@ api.createChallenge = {
       prize: response.prize,
       headers: req.headers,
     });
-
-    // check challenge for slurs
-    if (group.privacy === 'public'
-      && ((textContainsBannedSlur(req.body.name))
-            || (textContainsBannedSlur(req.body.shortName))
-            || (textContainsBannedSlur(req.body.summary))
-            || (textContainsBannedSlur(req.body.description)))) {
-      const { message } = req.body.name
-        && req.body.shortName
-        && req.body.summary
-        && req.body.description;
-      user.flags.chatRevoked = true;
-      await user.save();
-      // note to Natalie:
-      // does this need to shadow-mute the user? And what about hiding the challenge 
-      // until the language can be corrected?
-
-      // email mods
-      const authorEmail = getUserInfo(user, ['email']).email;
-
-      // send Slack message
-      slack.sendSlurNotification({
-        authorEmail,
-        author: user,
-        group,
-        message,
-      });
-
-      throw new BadRequest(res.t('bannedSlurUsed'));
-    }
-
-    // prevent banned words being posted, except in private challenges
-    if (group.privacy === 'public' && textContainsBannedWord(req.body.name)) {
-      const { message } = req.body;
-      await user.save();
-
-      // email mods
-      const authorEmail = getUserInfo(user, ['email']).email;
-
-      // send Slack message
-      slack.sendSlurNotification({
-        authorEmail,
-        author: user,
-        group,
-        message,
-      });
-
-      throw new BadRequest(res.t('bannedWordUsed'));
-    }
 
     res.respond(201, response);
   },
