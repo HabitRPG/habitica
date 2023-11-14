@@ -4,9 +4,7 @@ import { authWithHeaders, authWithSession } from '../../middlewares/auth';
 import { model as Challenge } from '../../models/challenge';
 import bannedWords from '../../libs/bannedWords';
 import bannedSlurs from '../../libs/bannedSlurs';
-import { getUserInfo } from '../../libs/email';
 import { getMatchesByWordArray } from '../../libs/stringUtils';
-import * as slack from '../../libs/slack';
 import {
   model as Group,
   basicFields as basicGroupFields,
@@ -225,16 +223,24 @@ api.createChallenge = {
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    const { savedChal, group } = await createChallenge(user, req, res);
+    const group = await Group.getGroup({
+      user, groupId: req.body.group, fields: basicGroupFields, optionalMembership: true,
+    });
 
     // checks challenge for slurs and banned words
     if (group.privacy === 'public'
       && ((textContainsBannedSlur(req.body.name))
             || (textContainsBannedSlur(req.body.shortName))
             || (textContainsBannedSlur(req.body.summary))
-            || (textContainsBannedSlur(req.body.description)))) {
+            || (textContainsBannedSlur(req.body.description))
+            || (textContainsBannedWord(req.body.name))
+            || (textContainsBannedWord(req.body.shortName))
+            || (textContainsBannedWord(req.body.summary))
+            || (textContainsBannedWord(req.body.description)))) {
       throw new BadRequest(res.t('challengeBannedWordsAndSlurs'));
     }
+
+    const { savedChal } = await createChallenge(user, req, res);
 
     await user.save();
 
