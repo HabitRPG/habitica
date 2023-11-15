@@ -99,7 +99,7 @@
     "localStorageTryNext": "Se os problemas persistirem, por favor <%= linkStart %>Relate um Bug<%= linkEnd %> se ainda não o fez.",
     "localStorageClear": "Limpar Dados",
     "localStorageClearExplanation": "Este botão irá limpar o armazenamento local e a maioria dos cookies, e irá desconecta-lo.",
-    "username": "Nome de usuário",
+    "username": "Nome de Usuário",
     "emailOrUsername": "E-mail ou nome de usuário (diferencia minúsculas de maiúsculas)",
     "work": "Trabalho",
     "reportAccountProblems": "Reportar Problemas na Conta",

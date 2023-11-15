@@ -380,7 +380,7 @@
     "backgroundGiantBookText": "Гігантська книга",
     "backgroundGiantBookNotes": "Читайте, прогулюючись сторінками гігантської книги.",
     "backgroundCozyBarnText": "Затишний сарай",
-    "backgroundCozyBarnNotes": "Відпочиньте зі своїми домашніми тваринами та верховими тваринами в їхньому затишному сараї.",
+    "backgroundCozyBarnNotes": "Відпочиньте зі своїми улюбленцями та скакунами в їхньому затишному хліву.",
     "backgrounds102018": "Набір 53: жовтень 2018",
     "backgroundBayouText": "Болото",
     "backgroundBayouNotes": "Насолоджуйтесь сяйвом світлячків на туманному болоті.",
@@ -811,5 +811,12 @@
     "backgroundMovingDayNotes": "Пакуйте речі до Дня переїзду.",
     "backgroundCoveredBridgeInAutumnText": "Осінній критий міст",
     "backgroundBaobabForestText": "Баобабовий ліс",
-    "backgroundBaobabForestNotes": "Порозглядайте з подивом ліс баобабів."
+    "backgroundBaobabForestNotes": "Порозглядайте з подивом ліс баобабів.",
+    "backgroundSpectralCandleRoomText": "Кімната спектральних свічок",
+    "backgroundMonstrousCaveText": "Жахлива печера",
+    "backgroundMonstrousCaveNotes": "Зазирніть у пащу Жахливої печери.",
+    "backgroundJackOLanternStacksText": "Стоси Джеків-ліхтарів",
+    "backgroundJackOLanternStacksNotes": "Помилуйтесь полем зі стосами Джеків-ліхтарів.",
+    "backgrounds102023": "Набір 113: жовтень 2023",
+    "backgroundSpectralCandleRoomNotes": "Поспілкуйтеся з духами в кімнаті спектральних свічок."
 }

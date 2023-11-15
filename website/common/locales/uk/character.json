@@ -85,7 +85,7 @@
     "allocatePerPop": "Додати бал до спритності",
     "allocateInt": "Призначено очок інтелекту:",
     "allocateIntPop": "Додати очко до Інтелекту",
-    "noMoreAllocate": "Тепер, досягнувши 100 рівня, Ви більше не будете отримувати очки атрибутів. Ви можете продовжувати отримувати нові рівні або почати нову пригоду з першого рівня, використавши <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'> Сферу Переродження </a>!",
+    "noMoreAllocate": "Тепер, досягнувши 100 рівня, ви більше не будете отримувати очки атрибутів. Ви можете продовжувати отримувати нові рівні або почати нову пригоду з першого рівня, використавши <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'> Кулю Переродження </a>!",
     "stats": "Статистика",
     "achievs": "Досягнення",
     "strength": "Сила",
@@ -180,7 +180,7 @@
     "bodyAccess": "Акс. для тіла",
     "mainHand": "Права рука",
     "offHand": "Ліва рука",
-    "statPoints": "Очки",
+    "statPoints": "Очки статистики",
     "pts": "очк",
     "chatCastSpellUser": "<%= username %> накладає закляття <%= spell %> на <%= target %>.",
     "chatCastSpellParty": "<%= username %> накладає закляття <%= spell %> на команду.",
@@ -188,5 +188,6 @@
     "purchasePetItemConfirm": "Ця покупка перевищує кількість речей, необхідних для виведення всіх <%= itemText %> улюбленців. Ви впевнені?",
     "purchaseForGold": "Придбати за <%= cost %> золота?",
     "chatCastSpellPartyTimes": "<%= username %> накладає на команду <%= times %> закляття <%= spell %>.",
-    "chatCastSpellUserTimes": "<%= username %> накладає на <%= target %> <%= times %> закляття <%= spell %>."
+    "chatCastSpellUserTimes": "<%= username %> накладає на <%= target %> <%= times %> закляття <%= spell %>.",
+    "nextReward": "Нагорода за наступний вхід"
 }

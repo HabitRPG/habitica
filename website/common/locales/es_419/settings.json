@@ -2,7 +2,7 @@
     "settings": "Ajustes",
     "language": "Idioma",
     "americanEnglishGovern": "En caso de una discrepancia en las traducciones, la versión en inglés americano es la que regula.",
-    "helpWithTranslation": "¿Te gustaría ayudar con la traducción de Habitica? ¡Genial! ¡Visita <a href=\"/groups/guild/7732f64c-33ee-4cce-873c-fc28f147a6f7\">the Aspiring Linguists Guild</a>!",
+    "helpWithTranslation": "¿Estas interesada en ayudar con la traducción de Habitica? ¡Genial! ¡Visita <a href=\"https://translate.habitica.com\">sitio Weblate de Habitica</a>!",
     "stickyHeader": "Cabecera fija",
     "newTaskEdit": "Abrir nuevas tareas en el modo de revisión",
     "dailyDueDefaultView": "Establecer el valor predeterminado de las Diarias a la pestaña 'Por hacer'",
@@ -209,5 +209,7 @@
     "nextHourglass": "Siguiente Reloj de Arena",
     "nextHourglassDescription": "Los Suscriptores reciben un Reloj de Arena Místico dentro de\nlos tres primeros días del mes.",
     "dayStartAdjustment": "Elegir Día de Inicio",
-    "adjustment": "Ajuste"
+    "adjustment": "Ajuste",
+    "generalSettings": "Ajustes general",
+    "siteLanguage": "Idioma de el sitio"
 }
