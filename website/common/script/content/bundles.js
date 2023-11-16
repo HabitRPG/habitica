@@ -125,7 +125,7 @@ const bundles = {
   aquaticAmigos: {
     key: 'aquaticAmigos',
     text: t('aquaticAmigosText'),
-    notes: t('aquaticAmigosNotes' { date: moment('2023-06-30').format('LL') }),
+    notes: t('aquaticAmigosNotes', { date: moment('2023-06-30').format('LL') }),
     bundleKeys: [
       'axolotl',
       'kraken',
