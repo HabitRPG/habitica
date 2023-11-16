@@ -157,7 +157,7 @@ const bundles = {
   oddballs: {
     key: 'oddballs',
     text: t('oddballsText'),
-    notes: t('oddballsNotes', { date: moment('2023-11-31').format('LL') }),
+    notes: t('oddballsNotes', { date: moment('2023-11-30').format('LL') }),
     bundleKeys: [
       'slime',
       'rock',
