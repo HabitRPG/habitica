@@ -193,6 +193,12 @@ const animalSetAchievs = {
     titleKey: 'achievementDomesticated',
     textKey: 'achievementDomesticatedText',
   },
+  duneBuddy: {
+    icon: 'achievement-duneBuddy',
+    titleKey: 'achievementDuneBuddy',
+    textKey: 'achievementDuneBuddyText',
+    release: '2023-10-17T08:00-04:00',
+  },
   plantParent: {
     icon: 'achievement-plantParent',
     titleKey: 'achievementPlantParent',
@@ -207,6 +213,12 @@ const animalSetAchievs = {
     icon: 'achievement-reptacularRumble',
     titleKey: 'achievementReptacularRumble',
     textKey: 'achievementReptacularRumbleText',
+  },
+  roughRider: {
+    icon: 'achievement-roughRider',
+    titleKey: 'achievementRoughRider',
+    textKey: 'achievementRoughRiderText',
+    release: '2023-11-14T08:00-05:00',
   },
   woodlandWizard: {
     icon: 'achievement-woodlandWizard',
