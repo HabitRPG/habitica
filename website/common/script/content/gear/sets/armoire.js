@@ -444,6 +444,11 @@ const armor = {
     str: 10,
     set: 'karateSet',
   },
+  greenFluffTrimmedCoat: {
+    str: 8,
+    int: 8,
+    set: 'greenTrapper',
+  },
 };
 
 const body = {
@@ -498,11 +503,6 @@ const body = {
   karateBlackBelt: {
     int: 3,
     set: 'karateSet',
-  },
-  greenFluffTrimmedCoat: {
-    str: 8,
-    int: 8,
-    set: 'greenTrapper',
   },
 };
 
@@ -1733,7 +1733,7 @@ const weapon = {
 const releaseDates = {
   somethingSpooky: '2023-10-10T08:00-04:00',
   cookingImplementsTwo: '2023-11-07T08:00-05:00',
-  greenTrapper: '2023-12-05T08:00-05:00',
+  greenTrapper: '2023-11-05T08:00-05:00', // 12-05
 };
 
 forEach({
