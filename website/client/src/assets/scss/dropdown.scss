@@ -35,9 +35,15 @@
 .dropdown-menu {
   padding: 0px;
   border: none;
-  border-radius: 2px;
+  border-radius: 4px;
   box-shadow: 0 3px 6px 0 rgba(26, 24, 29, 0.16), 0 3px 6px 0 rgba(26, 24, 29, 0.24);
   overflow: auto;
+}
+
+.no-min-width {
+  .dropdown-menu {
+    min-width: 0 !important;
+  }
 }
 
 // shared dropdown-item styles
@@ -149,7 +155,7 @@
 
 // selectList.vue items sizing
 .selectListItem .dropdown-item {
-  padding: 0.25rem 0.75rem;
+  padding: 0.25rem 1rem 0.25rem 0.75rem;
   height: 32px;
 
   &:active, &:hover, &:focus, &.active {

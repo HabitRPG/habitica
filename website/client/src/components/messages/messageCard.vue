@@ -50,7 +50,7 @@
           right="right"
           variant="flat"
           toggle-class="with-icon"
-          class="card-menu"
+          class="card-menu no-min-width"
           :no-caret="true"
         >
           <template #button-content>
