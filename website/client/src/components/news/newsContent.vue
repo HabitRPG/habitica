@@ -13,6 +13,7 @@
       v-for="(post, index) in posts"
       :key="post._id"
       class="static-view bailey"
+      id="bailey"
       :class="{'bailey-last': index == (posts.length - 1)}"
     >
       <small
@@ -33,6 +34,17 @@
 
 <style lang='scss'>
 @import '~@/assets/scss/static.scss';
+#bailey {
+  .markdown-img-link {
+    display: flex;
+    align-items: center;
+
+    img {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}
 </style>
 
 <style lang='scss' scoped>
