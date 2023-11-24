@@ -126,6 +126,10 @@
     margin-bottom: .5em;
     padding: 0rem;
     width: 90%;
+
+    &.system-message {
+      width: 100%;
+    }
   }
 
   .message-scroll .d-flex {
