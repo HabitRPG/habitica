@@ -1,5 +1,10 @@
 <template>
-  <div class="card">
+  <div
+    class="card"
+    :class="{
+      'system-message': isSystemMessage
+    }"
+  >
     <div
       class="message-card"
       :class="{
@@ -175,6 +180,7 @@
 
 .card {
   background: transparent !important;
+  margin-bottom: 1.2rem !important;
 }
 
 .message-card {
