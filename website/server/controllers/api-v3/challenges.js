@@ -5,6 +5,8 @@ import { model as Challenge } from '../../models/challenge';
 import bannedWords from '../../libs/bannedWords';
 import bannedSlurs from '../../libs/bannedSlurs';
 import { getMatchesByWordArray } from '../../libs/stringUtils';
+import * as slack from '../../libs/slack';
+import { getUserInfo } from '../../libs/email';
 import {
   model as Group,
   basicFields as basicGroupFields,
@@ -227,17 +229,60 @@ api.createChallenge = {
       user, groupId: req.body.group, fields: basicGroupFields, optionalMembership: true,
     });
 
-    // checks challenge for slurs and banned words
+    // checks public challenge for slurs
     if (group.privacy === 'public'
       && ((textContainsBannedSlur(req.body.name))
             || (textContainsBannedSlur(req.body.shortName))
             || (textContainsBannedSlur(req.body.summary))
-            || (textContainsBannedSlur(req.body.description))
-            || (textContainsBannedWord(req.body.name))
+            || (textContainsBannedSlur(req.body.description)))) {
+      // slack flagged-posts
+      const authorEmail = getUserInfo(user, ['email']).email;
+      slack.sendSlurNotification({
+        authorEmail,
+        author: user,
+        group,
+        body: [req.body.name,
+          req.body.shortName,
+          req.body.summary,
+          req.body.description],
+      });
+
+      // user flags
+      user.flags.chatRevoked = true;
+      user.flags.chatShadowMuted = true;
+      await user.save();
+
+      // toast notification
+      throw new BadRequest(res.t('challengeBannedSlurs'));
+    }
+
+    // checks public challenges for banned words
+    if (group.privacy === 'public'
+      && ((textContainsBannedWord(req.body.name))
             || (textContainsBannedWord(req.body.shortName))
             || (textContainsBannedWord(req.body.summary))
             || (textContainsBannedWord(req.body.description)))) {
-      throw new BadRequest(res.t('challengeBannedWordsAndSlurs'));
+      // toast error
+      throw new BadRequest(res.t('challengeBannedWords'));
+    }
+
+    // checks private challenge for slurs
+    if (group.privacy === 'private'
+      && ((textContainsBannedSlur(req.body.name))
+            || (textContainsBannedSlur(req.body.shortName))
+            || (textContainsBannedSlur(req.body.summary))
+            || (textContainsBannedSlur(req.body.description)))) {
+      // toast notification
+      throw new BadRequest(res.t('challengeBannedSlursPrivate'));
+    }
+
+    // checks private challenge for swears -- allowed unless user flags
+    if (group.privacy === 'private'
+      && ((textContainsBannedWord(req.body.name))
+            || (textContainsBannedWord(req.body.shortName))
+            || (textContainsBannedWord(req.body.summary))
+            || (textContainsBannedWord(req.body.description)))) {
+      await user.save();
     }
 
     const { savedChal } = await createChallenge(user, req, res);
