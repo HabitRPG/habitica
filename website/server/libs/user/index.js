@@ -119,6 +119,8 @@ async function checkNewInputForProfanity (user, res, newValue) {
     slack.sendSlurNotification({
       authorEmail,
       author: user,
+      uuid: user.profile.uuid,
+      context: user.profile,
       body: [user.profile.name,
         user.profile.blurb],
     });

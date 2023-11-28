@@ -324,6 +324,7 @@ function sendShadowMutedPostNotification ({
     .catch(err => logger.error(err, 'Error while sending flag data to Slack.'));
 }
 
+// slack slur notification for groups/parties
 function sendSlurNotification ({
   authorEmail,
   author,
@@ -336,14 +337,14 @@ function sendSlurNotification ({
   const text = `${author.profile.name} (${author._id}) tried to post a slur`;
 
   let titleLink;
-  let title = `Slur in ${group.name}`;
+  let title;
 
-  if (group.id === TAVERN_ID) {
-    titleLink = `${BASE_URL}/groups/tavern`;
-  } else if (group.privacy === 'public') {
-    titleLink = `${BASE_URL}/groups/guild/${group.id}`;
+  if (group.type === 'party') {
+    titleLink = `${BASE_URL}/party/${group._id}`;
+  } else if (group.type === 'group-plans') {
+    titleLink = `${BASE_URL}/group-plans/${group._id}`;
   } else {
-    title += ` - (${group.privacy} ${group.type})`;
+    title += ` - (${group.type})`;
   }
 
   const authorName = formatUser({
