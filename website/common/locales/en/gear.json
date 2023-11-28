@@ -1522,6 +1522,8 @@
   "armorArmoireAdmiralsUniformNotes": "We salute you! This naval uniform signals that you’re ready to take command of your tasks as well as a ship. Increases Constitution and Strength by <%= attrs %> each. Enchanted Armoire: Admiral’s Set (Item 2 of 2).",
   "armorArmoireKarateGiText": "Karate Gi",
   "armorArmoireKarateGiNotes": "This lightweight karate uniform is perfect for practice or competition. Increases Strength by <%= str %>. Enchanted Armoire: Karate Set (Item 1 of 10).",
+  "armorArmoireGreenFluffTrimmedCoatText": "Green Fluff Trimmed Coat",
+  "armorArmoireGreenFluffTrimmedCoatNotes": "Tales tell that once in a generation, a coat comes along that is the warmest and coziest. Its fluff is extraordinary and its buttons are manageable even by mitten-clad hands. This is that coat. Increases Strength and Intelligence by <%= attrs %> each. Enchanted Armoire: Trapper Hat Set (Item 2 of 2).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -2136,7 +2138,7 @@
   "headMystery202301Text": "Valiant Vulpine Ears",
   "headMystery202301Notes": "Your hearing will be so sharp you'll hear the dawn breaking and the dew sparkling. Confers no benefit. January 2023 Subscriber Item.",  
   "headMystery202303Text": "Mane Character Hair",
-  "headMystery202303Notes": "What better way to let everyone know you’re the star of this tale than to have blue and improbably spiky hair? Confers no benefit. March 2023 Subscriber Item.",  
+  "headMystery202303Notes": "What better way to let everyone know you’re the star of this tale than to have blue and improbably spiky hair? Confers no benefit. March 2023 Subscriber Item.",
   "headMystery202304Text": "Tiptop Teapot Lid",
   "headMystery202304Notes": "Wear this helm for your own safe-tea. Confers no benefit. April 2023 Subscriber Item.",
   "headMystery202308Text": "Purple Protagonist Hair",
@@ -2145,6 +2147,8 @@
   "headMystery202310Notes": "It hides your face, and yet lends your eyes an unsettling and spectral glow. Confers no benefit. October 2023 Subscriber Item.",
   "headMystery202311Text": "Spellbinder’s Hat",
   "headMystery202311Notes": "Bind even space and time to your will. Confers no benefit. November 2023 Subscriber Item.",
+  "headMystery202312Text": "Wintry Blue Hair",
+  "headMystery202312Notes": "This fancy hairdo evokes the snowy colors of the season. Confers no benefit. December 2023 Subscriber Item.",
 
   "headMystery301404Text": "Fancy Top Hat",
   "headMystery301404Notes": "A fancy top hat for the finest of gentlefolk! January 3015 Subscriber Item. Confers no benefit.",
@@ -2333,6 +2337,8 @@
   "headArmoirePurpleSpookySorceryHatNotes": "Purple as dusk and full of mysteries, this hat is suited to all your sorcerous needs. Increases Perception by <%= per %> and Constitution by <%= con %>. Enchanted Armoire: Spooky Sorcery Set (Item 2 of 3).",
   "headArmoireBlackSpookySorceryHatText": "Black Spooky Sorcery Hat",
   "headArmoireBlackSpookySorceryHatNotes": "Black as night and full of secrets, this hat is suited to all your sorcerous needs. Increases Intelligence by <%= int %> and Constitution by <%= con %>. Enchanted Armoire: Spooky Sorcery Set (Item 3 of 3).",
+  "headArmoireGreenTrapperHatText": "Green Trapper Hat",
+  "headArmoireGreenTrapperHatNotes": "Everyone says your hat looks so warm! And it really is. Just be sure to lift the flaps off your ears when they’re talking to you, or everyone will sound more like “yrrr hah ooks ss wrrm!” Increases Constitution and Perception by <%= attrs %> each. Enchanted Armoire: Trapper Hat Set (Item 1 of 2).",
 
   "offhand": "off-hand item",
   "offHandCapitalized": "Off-Hand Item",
@@ -3173,7 +3179,10 @@
   "eyewearMystery202303Text": "Dreamy Eyes",
   "eyewearMystery202303Notes": "Let your nonchalant expression lure your enemies into a false sense of security. Confers no benefit. March 2023 Subscriber Item.",
   "eyewearMystery202308Text": "Sleepy Eyes",
-  "eyewearMystery202308Notes": "Are you sleepy, or just resting your eyes in anticipation of your next amazing battle? Confers no benefit. August 2023 Subscriber Item.",  
+  "eyewearMystery202308Notes": "Are you sleepy, or just resting your eyes in anticipation of your next amazing battle? Confers no benefit. August 2023 Subscriber Item.",
+  "eyewearMystery202312Text": "Wintry Blue Eyes",
+  "eyewearMystery202312Notes": "No need to worry, these icy blues will help you see through the cold and dark season to the warmth of months ahead. Confers no benefit. December 2023 Subscriber Item.",
+
   "eyewearMystery301404Text": "Eyewear Goggles",
   "eyewearMystery301404Notes": "No eyewear could be fancier than a pair of goggles - except, perhaps, for a monocle. Confers no benefit. April 3015 Subscriber Item.",
   "eyewearMystery301405Text": "Monocle",
