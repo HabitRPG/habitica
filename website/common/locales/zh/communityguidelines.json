@@ -2,7 +2,7 @@
     "tavernCommunityGuidelinesPlaceholder": "友情提示：这里的讨论适合所有年龄层，所以请保持适当的内容和言语！如果你有问题，请查阅以下社区指南。",
     "lastUpdated": "最新更新：",
     "commGuideHeadingWelcome": "欢迎来到Habitica！",
-    "commGuidePara001": "你好，冒险家！欢迎来到Habitica，这个大陆上有创造力，健康生活，以及偶尔出现的狂暴的狮鹫。我们有一个快乐的社区，由乐于助人的玩家组成，在自我提升的过程中互相支持。要融入这里，只需要态度积极向上，尊重他人，理解每个人都有不同的特长和局限——包括你自己！Habitica的居民待人耐心，只要可以就会尽力帮助。",
+    "commGuidePara001": "你好，冒险家！欢迎来到Habitica——一个融合了高效工作、健康生活的世界，当然也偶有狂暴的狮鹫出没。",
     "commGuidePara002": "为了保证每个人在社区中都安全，快乐，高产，我们确实有一些准则。我们谨慎地制定规则，使其尽可能友好和易读。请在开始聊天之前花一点时间阅读它们。",
     "commGuidePara003": "这些规则适用于我们使用的所有社交空间，包括（但不限于）Trello、GitHub、Weblate和Fandom上的Habitica Wiki。随着社区的发展和变化，他们的规则可能会不时调整。当这里列出的社区规则发生实质性变化时，您将在Bailey公告或我们的社交媒体中听到这一消息！",
     "commGuideHeadingInteractions": "Habitica中的互动",
@@ -130,5 +130,7 @@
     "commGuideList09D": "去除或降低参与者阶级",
     "commGuideList05H": "严重或重复地尝试诈骗或威胁别的玩家给付费物品",
     "commGuideList02M": "不要在小组计划里索要或祈求宝石，订阅或会员。这在酒馆，公共或私人的聊天空间和在私人信息里都不被允许。如果你收到索要付费物品的信息，请举报该消息。重复的或严重的宝石或订阅乞求，尤其在警告之后，可能会导致账户封禁。",
-    "commGuideList02N": "<strong>标记并报告违反这些指南或服务条款的帖子</strong>我们将尽快处理这些问题。您也可以通过<a href='mailto:admin@habitica.com' target='_blank'>admin@habitica.com</a>反馈，这是获得帮助的最快方式。"
+    "commGuideList02N": "<strong>标记并报告违反这些指南或服务条款的帖子</strong>我们将尽快处理这些问题。您也可以通过<a href='mailto:admin@habitica.com' target='_blank'>admin@habitica.com</a>反馈，这是获得帮助的最快方式。",
+    "commGuideList02H": "<strong>所有昵称和用户名必须遵守服务条款</strong>。如需修改昵称和（或）用户名，可前往手机端“菜单”>“设置”>“用户”，或点击网页版顶部菜单栏的用户头像前往“设置”。",
+    "commGuideList02I": "<strong>挑战将展示在优胜者的公开个人资料中，因此挑战名称应当足够得体</strong>。 请在创建挑战时记住这一点，如有举报，我们可能修改个人资料中的记录。"
 }

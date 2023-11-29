@@ -175,16 +175,18 @@
     "editProfile": "Editar Perfil",
     "challengesWon": "Desafios Vencidos",
     "questsCompleted": "Missões Concluídas",
-    "headAccess": "Acessórios de Cabeça.",
-    "backAccess": "Acessórios de Costas.",
+    "headAccess": "Acessório de Cabeça",
+    "backAccess": "Acessórios de Costas",
     "bodyAccess": "Acessórios de Corpo.",
     "mainHand": "Mão Principal",
     "offHand": "Mão Secundária",
     "statPoints": "Pontos de Atributo",
-    "pts": "pts",
+    "pts": "pontos",
     "purchasePetItemConfirm": "Essa compra excederá o número que você precisa para capturar todos os <%= itemText %> pets disponíveis. Você tem certeza?",
     "purchaseForGold": "Comprar por <%= cost %> de Ouro?",
     "chatCastSpellUser": "<%= username %> usou o feitiço <%= spell %> em <%= target %>.",
     "chatCastSpellParty": "<%= username %> usou o feitiço <%= spell %> para ajudar a equipa.",
-    "notEnoughGold": "Ouro insuficiente."
+    "notEnoughGold": "Ouro insuficiente.",
+    "chatCastSpellPartyTimes": "<%= username %> conjura <%= spell %> no grupo <%= times %> vezes.",
+    "chatCastSpellUserTimes": "<%= username %> conjura <%= spell %> em <%= target %> <%= times %> vezes."
 }

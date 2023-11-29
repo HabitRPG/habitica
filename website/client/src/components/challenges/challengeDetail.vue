@@ -1,5 +1,6 @@
 <template>
   <div class="row">
+    <report-challenge-modal />
     <challenge-modal @updatedChallenge="updatedChallenge" />
     <leave-challenge-modal
       :challenge-id="challenge._id"
@@ -9,11 +10,27 @@
       :members="members"
       :challenge-id="challenge._id"
       :prize="challenge.prize"
+      :flag-count="challenge.flagCount"
     />
     <challenge-member-progress-modal :challenge-id="challenge._id" />
     <div class="col-12 col-md-8 standard-page">
       <div class="row">
         <div class="col-12 col-md-6">
+          <div
+            v-if="canViewFlags"
+            class="flagged"
+          >
+            <div
+              v-if="flaggedNotHidden"
+            >
+              {{ $t("flaggedNotHidden") }}
+            </div>
+            <div
+              v-else-if="flaggedAndHidden"
+            >
+              {{ $t("flaggedAndHidden") }}
+            </div>
+          </div>
           <h1 v-markdown="challenge.name"></h1>
           <div>
             <span class="mr-1 ml-0 d-block">
@@ -41,7 +58,7 @@
              createdBy string (helps with RTL languages)-->
             <!-- @TODO: Implement in V2 strong.margin-left
             (v-once).svg-icon.calendar-icon(v-html="icons.calendarIcon")
-| {{$t('endDate')}}
+            {{$t('endDate')}}
             // "endDate": "End Date: <% endDate %>",-->
             <!-- span {{challenge.endDate}}-->
           </div>
@@ -169,13 +186,16 @@
         v-if="isLeader || isAdmin"
         class="button-container"
       >
-        <button
-          v-once
-          class="btn btn-primary"
-          @click="cloneChallenge()"
-        >
-          {{ $t('clone') }}
-        </button>
+        <div>
+          <button
+            class="btn"
+            :disabled="flaggedAndHidden"
+            :class="flaggedAndHidden ? 'disabled btn-disabled' : 'btn-primary'"
+            @click="cloneChallenge()"
+          >
+            {{ $t('clone') }}
+          </button>
+        </div>
       </div>
       <div
         v-if="isLeader || isAdmin"
@@ -199,6 +219,17 @@
           @click="closeChallenge()"
         >
           {{ $t('endChallenge') }}
+        </button>
+      </div>
+      <div
+        class="button-container"
+      >
+        <button
+          v-once
+          class="btn btn-danger"
+          @click="reportChallenge()"
+        >
+          {{ $t('report') }}
         </button>
       </div>
       <div>
@@ -246,6 +277,17 @@
 
     button {
       width: 100%;
+    }
+  }
+
+  .btn-disabled {
+    background-color: $gray-700;
+    color: $gray-50;
+    box-shadow: none;
+    cursor: arrow;
+
+    &:hover {
+      box-shadow: none;
     }
   }
 
@@ -312,6 +354,15 @@
       margin-right: .5em;
     }
   }
+
+  .flagged {
+    margin-left: 0em;
+    color: $red-10;
+
+    span {
+      margin-left: 0em;
+    }
+  }
 </style>
 
 <script>
@@ -332,6 +383,7 @@ import challengeModal from './challengeModal';
 import challengeMemberProgressModal from './challengeMemberProgressModal';
 import challengeMemberSearchMixin from '@/mixins/challengeMemberSearch';
 import leaveChallengeModal from './leaveChallengeModal';
+import reportChallengeModal from './reportChallengeModal';
 import sidebarSection from '../sidebarSection';
 import userLink from '../userLink';
 import groupLink from '../groupLink';
@@ -350,6 +402,7 @@ export default {
   components: {
     closeChallengeModal,
     leaveChallengeModal,
+    reportChallengeModal,
     challengeModal,
     challengeMemberProgressModal,
     memberSearchDropdown,
@@ -400,6 +453,20 @@ export default {
     },
     canJoin () {
       return !this.isMember;
+    },
+    // canViewFlags should allow only moderators/admins to see flags
+    canViewFlags () {
+      const isModerator = this.hasPermission(this.user, 'moderator');
+      if (isModerator && this.challenge.flagCount > 0) return true;
+      return false;
+    },
+    // flaggedNotHidden should allow mods/admins & challenge owner to see flags
+    flaggedNotHidden () {
+      return this.challenge.flagCount === 1;
+    },
+    // flaggedAndHidden should only allow admin to see challenge & flags
+    flaggedAndHidden () {
+      return this.challenge.flagCount > 1;
     },
   },
   watch: {
@@ -588,6 +655,14 @@ export default {
       this.$root.$emit('habitica:clone-challenge', {
         challenge: this.challenge,
       });
+    },
+    reportChallenge () {
+      this.$root.$emit('habitica::report-challenge', {
+        challenge: this.challenge,
+      });
+    },
+    async showCannotCloneModal () {
+      this.$root.$emit('bv::show::modal', 'cannot-clone-modal');
     },
   },
 };

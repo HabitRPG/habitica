@@ -15,7 +15,7 @@
     "messageMissingEggPotion": "У Вас немає потрібного яйця або зілля",
     "messageInvalidEggPotionCombo": "Ви не можете вивести квестового улюбленця за допомогою магічного інкубаційного зілля. Спробуйте інше яйце.",
     "messageAlreadyPet": "У вас уже є така тваринка. Спробуйте вивести інше поєднання!",
-    "messageHatched": "Яйце дозріло! Зайдіть до стайні та оберіть улюбленця.",
+    "messageHatched": "Яйце дозріло! Завітайте в \"Улюбленці та скакуни\", щоб обрати улюбленця.",
     "messageNotEnoughGold": "Замало золота",
     "messageTwoHandedEquip": "<%= twoHandedText %> — дворучна зброя, тому <%= offHandedText %> повертається в інвентар.",
     "messageTwoHandedUnequip": "<%= twoHandedText %> — дворучна зброя, тому <%= offHandedText %> заміняє її.",

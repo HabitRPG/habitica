@@ -120,6 +120,16 @@ const ANIMAL_SET_ACHIEVEMENTS = {
     achievementKey: 'reptacularRumble',
     notificationType: 'ACHIEVEMENT_ANIMAL_SET',
   },
+  roughRider: {
+    type: 'petMount',
+    species: [
+      'Cactus',
+      'Hedgehog',
+      'Rock',
+    ],
+    achievementKey: 'roughRider',
+    notificationType: 'ACHIEVEMENT_ANIMAL_SET',
+  },
   woodlandWizard: {
     type: 'pet',
     species: [
