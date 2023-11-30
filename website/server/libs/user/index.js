@@ -116,13 +116,12 @@ async function checkNewInputForProfanity (user, res, newValue) {
     await user.save();
     // slack flagged-posts
     const authorEmail = getUserInfo(user, ['email']).email;
-    slack.sendSlurNotification({
+    slack.sendProfileSlurNotification({
       authorEmail,
       author: user,
-      uuid: user.profile.uuid,
-      context: user.profile,
-      body: [user.profile.name,
+      message: [user.profile.name,
         user.profile.blurb],
+      image: user.profile.imageUrl,
     });
     // hard stop error & message
     throw new BadRequest(res.t('bannedSlurUsedInProfile'));

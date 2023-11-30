@@ -5,6 +5,13 @@ import moment from 'moment';
 import logger from './logger';
 import { getCurrentEvent } from './worldState'; // eslint-disable-line import/no-cycle
 import { TAVERN_ID } from '../models/group'; // eslint-disable-line import/no-cycle
+// import bannedSlurs from './bannedSlurs';
+// import { getMatchesByWordArray } from '../../libs/stringUtils';
+
+// function textContainsBannedSlur (message) {
+//   const bannedSlursMatched = getMatchesByWordArray(message, bannedSlurs);
+//   return bannedSlursMatched.length > 0;
+// }
 
 const SLACK_FLAGGING_URL = nconf.get('SLACK_FLAGGING_URL');
 const SLACK_FLAGGING_FOOTER_LINK = nconf.get('SLACK_FLAGGING_FOOTER_LINK');
@@ -324,8 +331,8 @@ function sendShadowMutedPostNotification ({
     .catch(err => logger.error(err, 'Error while sending flag data to Slack.'));
 }
 
-// slack slur notification for groups/parties
-function sendSlurNotification ({
+// slack slur notification for Parties/Groups
+function sendGroupSlurNotification ({
   authorEmail,
   author,
   group,
@@ -334,7 +341,7 @@ function sendSlurNotification ({
   if (SKIP_FLAG_METHODS) {
     return;
   }
-  const text = `${author.profile.name} (${author._id}) tried to post a slur`;
+  const text = `${author.profile.name} (${author._id}) tried to post a slur,`;
 
   let titleLink;
   let title;
@@ -372,6 +379,101 @@ function sendSlurNotification ({
     .catch(err => logger.error(err, 'Error while sending flag data to Slack.'));
 }
 
+// slack slur notification for Profiles
+function sendProfileSlurNotification ({
+  authorEmail,
+  author,
+  message,
+}) {
+  if (SKIP_FLAG_METHODS) {
+    return;
+  }
+  const text = `${author.auth.local.username} (${author._id}) tried to post a slur (${message}.`;
+
+  const titleLink = `${BASE_URL}/profile/${author._id}`;
+
+  const authorName = formatUser({
+    name: author.auth.local.username,
+    displayName: author.profile.name,
+    email: authorEmail,
+    uuid: author.id,
+  });
+
+  flagSlack
+    .send({
+      text,
+      attachments: [{
+        fallback: 'Slur Message',
+        color: 'danger',
+        author_name: authorName,
+        title_link: titleLink,
+        text: message,
+        mrkdwn_in: [
+          'text',
+        ],
+      }],
+    })
+    .catch(err => logger.error(err, 'Error while sending flag data to Slack.'));
+}
+
+function sendPersonalMessageSlurNotification ({
+  authorEmail,
+  author,
+  message,
+  flagger,
+}) {
+  if (SKIP_FLAG_METHODS) {
+    return;
+  }
+  let titleLink;
+
+  let text = `${author.profile.name} (${author.id}; language: ${author.preferences.language}) tried to post a slur.`;
+  const footer = '';
+
+  // if (userComment) {
+  //   text += ` and commented: ${userComment}`;
+  // }
+
+  // const messageText = message.text;
+  // let sender;
+  // let recipient;
+
+  // const messageUserFormat = formatUser({
+  //   displayName: message.user,
+  //   name: message.username,
+  //   email: messageUserEmail,
+  //   uuid: message.uuid,
+  // });
+
+  // if (message.sent) {
+  //   sender = flaggerFormat;
+  //   recipient = messageUserFormat;
+  // } else {
+  //   sender = messageUserFormat;
+  //   recipient = flaggerFormat;
+  // }
+
+  const authorName = `${sender} wrote this message to ${recipient}.`;
+
+  flagSlack
+    .send({
+      text,
+      attachments: [{
+        fallback: 'Flag Message',
+        color: 'danger',
+        author_name: authorName,
+        title,
+        title_link: titleLink,
+        text: messageText,
+        footer,
+        mrkdwn_in: [
+          'text',
+        ],
+      }],
+    })
+    .catch(err => logger.error(err, 'Error while sending flag data to Slack.'));
+}
+
 export {
   sendFlagNotification,
   sendInboxFlagNotification,
@@ -379,6 +481,8 @@ export {
   sendProfileFlagNotification,
   sendSubscriptionNotification,
   sendShadowMutedPostNotification,
-  sendSlurNotification,
+  sendGroupSlurNotification,
+  sendProfileSlurNotification,
+  sendPersonalMessageSlurNotification,
   formatUser,
 };
