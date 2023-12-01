@@ -1,4 +1,6 @@
 import _ from 'lodash';
+import * as slack from '../slack';
+import { getUserInfo } from '../email';
 import common from '../../../common';
 import * as Tasks from '../../models/task';
 import { model as Groups } from '../../models/group';
@@ -105,16 +107,24 @@ function checkPreferencePurchase (user, path, item) {
   return _.get(user.purchased, itemPath);
 }
 
+// checks for banned slurs - swears are allowed & dependent on user flagging
 async function checkNewInputForProfanity (user, res, newValue) {
   const containsSlur = stringContainsProfanity(newValue, 'slur');
-  const containsBannedWord = stringContainsProfanity(newValue);
-  if (containsSlur || containsBannedWord) {
-    if (containsSlur) {
-      user.flags.chatRevoked = true;
-      await user.save();
-      throw new BadRequest(res.t('bannedSlurUsedInProfile'));
-    }
-    throw new BadRequest(res.t('bannedWordUsedInProfile'));
+  if (containsSlur) {
+    user.flags.chatRevoked = true;
+    user.flags.chatShadowMuted = true;
+    await user.save();
+    // slack flagged-posts
+    const authorEmail = getUserInfo(user, ['email']).email;
+    slack.sendProfileSlurNotification({
+      authorEmail,
+      author: user,
+      message: [user.profile.name,
+        user.profile.blurb],
+      image: user.profile.imageUrl,
+    });
+    // hard stop error & message
+    throw new BadRequest(res.t('bannedSlurUsedInProfile'));
   }
 }
 

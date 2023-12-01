@@ -141,5 +141,7 @@
     "achievementWoodlandWizardModalText": "¡Has coleccionado todas las mascotas del bosque!",
     "achievementBoneToPickText": "¡Ha conseguido todas las mascotas clásicas y todas las mascotas de esqueleto de misiones!",
     "achievementBoneToPickModalText": "¡Tú conseguiste todas las mascotas clásicas y las mascotas de esqueleto de misión!",
-    "achievementBoneToPick": "Hueso para elegir"
+    "achievementBoneToPick": "Hueso para elegir",
+    "achievementPolarPro": "Profesional polar",
+    "achievementPolarProText": "¡Ha conseguido todas los colores estandár de mascotas polar: Oso, Zorro, Pingüino, Ballena y Lobo!"
 }

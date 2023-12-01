@@ -235,7 +235,7 @@
     "fall2022WatcherHealerSet": "Voyeur (Guérisseur)",
     "fall2022KappaRogueSet": "Kappa (Voleur)",
     "gemSaleHow": "Entre le <%= eventStartOrdinal %> et le <%= eventEndOrdinal %> <%= eventStartMonth %>, achetez, comme d'habitude, n'importe quel ensemble de Gemmes et votre compte sera crédité avec le montant promotionnel. Plus de gemmes à dépenser, à partager ou à conserver pour de futures nouveautés !",
-    "gemSaleLimitations": "Cette promotion s'applique uniquement pendant la durée de l'événement. L'événement démarre le <%= eventStartOrdinal %> <%= eventStartMonth %> à 8:00 EDT (12:00 UTC) et se terminera le <%= eventEndOrdinal %> <%= eventStartMonth %> à 20:00 EDT (00:00 UTC). Cette promotion n'est disponible que pour les Gemmes que vous achetez pour vous.",
+    "gemSaleLimitations": "Cette promotion ne s'applique que pendant un évènement limité dans le temps. Cet évènement comment le <%= eventStartMonth %> <%= eventStartOrdinal %> à 08:00 EDT (12:00 UTC) et se termine <%= eventEndMonth %> <%= eventEndOrdinal %> à 20:00 EDT (00:00 UTC). Cette promo ne s'applique pour les Gemmes que vous achetez pour vous-même.",
     "winter2023WalrusWarriorSet": "Morse (Guerrier)",
     "winter2023FairyLightsMageSet": "Guirlandes lumineuses (Mage)",
     "winter2023CardinalHealerSet": "Cardinal (Guérisseur)",
@@ -256,10 +256,10 @@
     "buyNowGemsButton": "Acheter pour 60 Gemmes",
     "wantToPayWithGemsText": "Voulez-vous payer avec des Gemmes ?",
     "wantToPayWithMoneyText": "Voulez-vous payer avec Stripe, Paypal ou Amazon ?",
-    "ownJubilantGryphatrice": "<strong>Vous avez acheté le Gryphatrice Joyeux !</strong> Allez dans l'Écurie pour l'équiper !",
+    "ownJubilantGryphatrice": "<strong>Vous avez acheté le Gryphatrice Joyeux !</strong> Allez dans le menu Familiers et Montures pour l'équiper !",
     "jubilantSuccess": "Vous avez acheté le <strong>Gryphatrice Joyeux !</strong>",
-    "stableVisit": "Allez dans l'Écurie pour l'équipper !",
-    "takeMeToStable": "Emmenez-moi à l'Écurie",
+    "stableVisit": "Allez dans le menu Familiers et Montures pour l'équiper !",
+    "takeMeToStable": "Emmenez-moi au menu Familiers et Montures",
     "plentyOfPotions": "Beaucoup de Potions",
     "plentyOfPotionsText": "Nous faisons revenir 10 des Potions Magiques préférées de la communauté. Rendez-vous au marché pour compléter votre collection !",
     "visitTheMarketButton": "Aller au marché",
@@ -277,5 +277,9 @@
     "summer2023GoldfishWarriorSet": "Poisson rouge (Guerrier)",
     "summer2023GuppyRogueSet": "Guppy (Voleur)",
     "summer2023KelpHealerSet": "Varech (Guérisseur)",
-    "summer2023CoralMageSet": "Corail (Mage)"
+    "summer2023CoralMageSet": "Corail (Mage)",
+    "fall2023ScaryMovieWarriorSet": "Film d'Horreur (Guerri·er·ère)",
+    "fall2023ScarletWarlockMageSet": "Démoniste Pourpre (Mage)",
+    "fall2023WitchsBrewRogueSet": "Potion de Sorcière (Voleu·r·se)",
+    "fall2023BogCreatureHealerSet": "Créature de la Tourbe (Guérisseu·r·se)"
 }

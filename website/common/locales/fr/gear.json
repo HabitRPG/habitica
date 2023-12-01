@@ -2931,5 +2931,20 @@
     "bodyArmoireKarateBlueBeltText": "Ceinture bleue",
     "bodyArmoireKaratePurpleBeltText": "Ceinture violette",
     "bodyArmoireKarateBrownBeltText": "Ceinture marron",
-    "bodyArmoireKarateBlackBeltText": "Ceinture noire"
+    "bodyArmoireKarateBlackBeltText": "Ceinture noire",
+    "armorArmoireKarateGiNotes": "Cet uniforme de karaté léger est parfait pour l'entraînement ou la compétition. Augmente la Force de <%= str %>. Armoire enchantée : Ensemble Karaté (Objet 1 sur 10).",
+    "backMystery202309Text": "Ailes Colossales de Papillon de Nuit Comète",
+    "backMystery202309Notes": "Papillonez à travers les forêts, glisser avec grâce au-dessus des montagnes, et élancez-vous au-dessus des océans avec ces éclatantes et magnifiques ailes. Ne confère aucun bonus. Équipement d'Abonnement Septembre 2023.",
+    "shieldArmoireBucketNotes": "Bien que ce seau soit utile pour contenir un mélange d'eau et de produit nettoyant, vous pourriez aussi l'utiliser pour collecter, porter et balader à peu près n'importe quoi qui passe dedans ! Augmente la Force et l'Intelligence de <%= attrs %> chacune. Armoire Enchantée : Produits Nettoyants Ensemble 2 (Objet 1 sur 3)",
+    "bodyArmoireKarateWhiteBeltNotes": "Cette ceinture de bas-niveau est prévue pour ce·ux·lles qui sont au début de leur voyage. Augmente l'Intelligence de <%= int %>. Armoire Enchantée : Ensemble Karaté (Objet 2 sur 10)",
+    "headAccessoryMystery202309Text": "Antennes du Papillon de Nuit Comète Colossal",
+    "headAccessoryMystery202309Notes": "Ces antennes sont à la mode et plumées, mais vous aident aussi à naviguer ! Ne confère aucun bonus. Équipement d'Abonnement Septembre 2023.",
+    "bodyArmoireKarateYellowBeltNotes": "Cette ceinture est pour les débutant·e·s ayant appris les bases. Augmente la Perception de <%= per %>. Armoire Enchantée : Ensemble Karaté (Objets 3 sur 10).",
+    "bodyArmoireKarateOrangeBeltNotes": "Cette ceinture est pour ce·ux·lles qui ont grandi et acquis le niveau débutant. Augmente la Constitution de <%= con %>. Armoire Enchantée : Ensemble Karaté (Objet 4 sur 10).",
+    "bodyArmoireKarateGreenBeltNotes": "Cette ceinture est pour ce·ux·lles au niveau intermédiaire pour apprendre à améliorer leurs aptitudes. Augmente la Force de <%= for %>. Armoire Enchantée : Ensemble Karaté (Objet 5 sur 10).",
+    "bodyArmoireKaratePurpleBeltNotes": "Cette ceinture est pour ce·ux·lles prêt·e·s à s'embarquer sur une étude avancée. Augmente la Constitution de <%= con %>. Armoire Enchantée : Ensemble Karaté (Objet 7 sur 10).",
+    "bodyArmoireKarateRedBeltNotes": "Cette ceinture est pour ce·ux·lles qui appris à être précautionneu·x·ses dans leur pratique. Augmente la Perception de <%= per %>. Armoire Enchantée : Ensemble Karaté (Objet 8 sur 10).",
+    "bodyArmoireKarateBlackBeltNotes": "Cette ceinture de haut niveau est pour ce·ux·lles qui cherchent une compréhension approfondie et transmettre leur savoir aux autres. Augmente l'Intelligence de <%= int %>. Armoire Enchantée : Ensemble Karaté (Objet 10 sur 10).",
+    "bodyArmoireKarateBlueBeltNotes": "Cette ceinture est pour ce·ux·lles qui apprennent plus et développent leur esprit et leur corps. Augmente la Constitution de <%= con %>. Armoire Enchantée : Ensemble Karaté (Objet 6 sur 10).",
+    "bodyArmoireKarateBrownBeltNotes": "Cette ceinture est pour ce·ux·lles dont la technique et les capacités ont mûris. Augmente la Force de <%= for %>. Armoire Enchantée : Ensemble Karaté (Objet 9 sur 10)."
 }

@@ -10,10 +10,18 @@ const gemsPromo = {
 
 export const EVENTS = {
   noEvent: {
-    start: '2023-11-01T00:00-05:00',
+    start: '2023-12-01T00:00-05:00',
     end: '2023-12-21T08:00-05:00',
     season: 'normal',
     npcImageSuffix: '',
+  },
+  potions202311: {
+    start: '2023-11-14T08:00-04:00',
+    end: '2023-11-30T23:59-04:00',
+  },
+  bundle202311: {
+    start: '2023-11-09T08:00-04:00',
+    end: '2023-11-30T23:59-04:00',
   },
   spooky_extra_gems: {
     start: '2023-10-24T08:00-04:00',

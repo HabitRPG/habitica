@@ -1,4 +1,5 @@
 import get from 'lodash/get';
+import moment from 'moment';
 import content from '../content/index';
 import i18n from '../i18n';
 
@@ -35,15 +36,18 @@ function contribText (contrib, backer, language) {
 }
 
 function _add (result, data) {
-  result[data.key] = {
-    title: data.title,
-    text: data.text,
-    icon: data.icon,
-    earned: data.earned,
-    value: data.value,
-    index: index += 1,
-    optionalCount: data.optionalCount,
-  };
+  const thisContent = achievsContent[data.key];
+  if (!thisContent || !thisContent.release || moment().isAfter(thisContent.release)) {
+    result[data.key] = {
+      title: data.title,
+      text: data.text,
+      icon: data.icon,
+      earned: data.earned,
+      value: data.value,
+      index: index += 1,
+      optionalCount: data.optionalCount,
+    };
+  }
 }
 
 function _addSimpleWithCustomPath (result, user, data) {
@@ -224,6 +228,7 @@ function _getBasicAchievements (user, language) {
   _addSimple(result, user, { path: 'dinosaurDynasty', language });
   _addSimple(result, user, { path: 'bonelessBoss', language });
   _addSimple(result, user, { path: 'duneBuddy', language });
+  _addSimple(result, user, { path: 'roughRider', language });
 
   _addSimpleWithMasterCount(result, user, { path: 'beastMaster', language });
   _addSimpleWithMasterCount(result, user, { path: 'mountMaster', language });

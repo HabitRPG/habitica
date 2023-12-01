@@ -1,6 +1,7 @@
 import defaults from 'lodash/defaults';
 import find from 'lodash/find';
 import forEach from 'lodash/forEach';
+import moment from 'moment';
 import upperFirst from 'lodash/upperFirst';
 import { ownsItem } from '../gear-helper';
 import { ATTRIBUTES } from '../../../constants';
@@ -1248,6 +1249,10 @@ const shield = {
     int: 4,
     set: 'cleaningSuppliesTwo',
   },
+  saucepan: {
+    per: 10,
+    set: 'cookingImplementsTwo',
+  },
 };
 
 const headAccessory = {
@@ -1709,6 +1714,15 @@ const weapon = {
     int: 3,
     set: 'somethingSpooky',
   },
+  rollingPin: {
+    str: 10,
+    set: 'cookingImplementsTwo',
+  },
+};
+
+const releaseDates = {
+  somethingSpooky: '2023-10-10T08:00-04:00',
+  cookingImplementsTwo: '2023-11-07T08:00-05:00',
 };
 
 forEach({
@@ -1744,6 +1758,7 @@ forEach({
       notes = t(`${setKey}Armoire${upperFirst(gearKey)}Notes`);
     }
     defaults(gearItem, {
+      released: releaseDates[gearItem.set] ? moment().isAfter(releaseDates[gearItem.set]) : true,
       canOwn: ownsItem(`${setKey}_armoire_${gearKey}`),
       notes,
       text: t(`${setKey}Armoire${upperFirst(gearKey)}Text`),
