@@ -416,58 +416,39 @@ function sendProfileSlurNotification ({
     .catch(err => logger.error(err, 'Error while sending flag data to Slack.'));
 }
 
-function sendPersonalMessageSlurNotification ({
+function sendChallengeSlurNotification ({
   authorEmail,
   author,
-  message,
-  flagger,
+  group,
+  body,
+  title,
 }) {
   if (SKIP_FLAG_METHODS) {
     return;
   }
+  const text = `${author.profile.name} (${author._id}) tried to post a slur in ${group},`;
+
   let titleLink;
 
-  let text = `${author.profile.name} (${author.id}; language: ${author.preferences.language}) tried to post a slur.`;
-  const footer = '';
-
-  // if (userComment) {
-  //   text += ` and commented: ${userComment}`;
-  // }
-
-  // const messageText = message.text;
-  // let sender;
-  // let recipient;
-
-  // const messageUserFormat = formatUser({
-  //   displayName: message.user,
-  //   name: message.username,
-  //   email: messageUserEmail,
-  //   uuid: message.uuid,
-  // });
-
-  // if (message.sent) {
-  //   sender = flaggerFormat;
-  //   recipient = messageUserFormat;
-  // } else {
-  //   sender = messageUserFormat;
-  //   recipient = flaggerFormat;
-  // }
-
-  const authorName = `${sender} wrote this message to ${recipient}.`;
+  const authorName = formatUser({
+    name: author.auth.local.username,
+    displayName: author.profile.name,
+    email: authorEmail,
+    uuid: author.id,
+  });
 
   flagSlack
     .send({
       text,
       attachments: [{
-        fallback: 'Flag Message',
+        fallback: 'Slur Message',
         color: 'danger',
         author_name: authorName,
-        title,
+        titleName: title,
         title_link: titleLink,
-        text: messageText,
-        footer,
+        text: body,
         mrkdwn_in: [
-          'text',
+          'body',
         ],
       }],
     })
@@ -483,6 +464,6 @@ export {
   sendShadowMutedPostNotification,
   sendGroupSlurNotification,
   sendProfileSlurNotification,
-  sendPersonalMessageSlurNotification,
+  sendChallengeSlurNotification,
   formatUser,
 };

@@ -240,7 +240,7 @@ api.createChallenge = {
             || (textContainsBannedSlur(req.body.description)))) {
       // slack flagged-posts
       const authorEmail = getUserInfo(user, ['email']).email;
-      slack.sendSlurNotification({
+      slack.sendChallengeSlurNotification({
         authorEmail,
         author: user,
         group,
