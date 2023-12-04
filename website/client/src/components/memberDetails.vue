@@ -33,7 +33,7 @@
                 :name="member.profile.name"
                 :backer="member.backer"
                 :contributor="member.contributor"
-                :showBuffed="isBuffed"
+                :show-buffed="isBuffed"
                 :context="'profile'"
               />
             </span>

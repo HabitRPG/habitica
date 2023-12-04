@@ -165,11 +165,15 @@
           v-if="eventName === 'fall_extra_gems' || eventName === 'spooky_extra_gems'"
           class="d-flex flex-column justify-content-center"
         >
-          <h4 class="mt-3 mx-auto"> {{ $t('howItWorks') }}</h4>
+          <h4 class="mt-3 mx-auto">
+            {{ $t('howItWorks') }}
+          </h4>
           <small class="text-center">
             {{ $t('gemSaleHow', { eventStartMonth, eventStartOrdinal, eventEndOrdinal }) }}
           </small>
-          <h4 class="mt-3 mx-auto"> {{ $t('limitations') }}</h4>
+          <h4 class="mt-3 mx-auto">
+            {{ $t('limitations') }}
+          </h4>
           <small class="text-center">
             {{ $t('gemSaleLimitations', {
               eventStartMonth,

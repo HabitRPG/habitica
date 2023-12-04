@@ -147,10 +147,10 @@
           class="row"
         >
           <div
-            class="col-4"
             :id="statInfo.title"
+            class="col-4"
           >
-            <strong> {{ $t(statInfo.title)}} </strong>
+            <strong> {{ $t(statInfo.title) }} </strong>
             <strong>: {{ statsComputed[stat] }}</strong>
             <b-popover
               :target="statInfo.title"
