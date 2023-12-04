@@ -697,13 +697,13 @@ export default {
     },
     setColumnBackgroundVisibility () {
       this.$nextTick(() => {
-        if (!this.$refs.columnBackground || !this.$refs.tasksList) return;
+        if (!this.$refs.columnBackground) return;
 
         const tasksWrapperEl = this.$refs.tasksWrapper;
 
         const tasksWrapperHeight = tasksWrapperEl.offsetHeight;
         const quickAddHeight = this.$refs.quickAdd ? this.$refs.quickAdd.offsetHeight : 0;
-        const tasksListHeight = this.$refs.tasksList.$el.offsetHeight;
+        const tasksListHeight = this.$refs.tasksList ? this.$refs.tasksList.$el.offsetHeight : 0;
 
         let combinedTasksHeights = tasksListHeight + quickAddHeight;
 

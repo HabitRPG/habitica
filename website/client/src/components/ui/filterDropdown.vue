@@ -6,7 +6,6 @@
       :value="selectedItem"
       class="array-select inline"
       :right="true"
-      key-prop="id"
       :hide-icon="false"
       :inline-dropdown="false"
       @select="selectItem($event)"

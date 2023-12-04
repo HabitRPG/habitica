@@ -23,7 +23,7 @@ const momentLangsMapping = {
 };
 
 export const approvedLanguages = [
-  'bg', 'cs', 'da', 'de', 'en', 'en_GB', 'en@pirate',
+  'bg', 'cs', 'da', 'de', 'en', 'en_GB',
   'es', 'es_419', 'fr', 'he', 'hu', 'id', 'it',
   'ja', 'nl', 'pl', 'pt', 'pt_BR', 'ro', 'ru', 'sk',
   'sr', 'sv', 'tr', 'uk', 'zh', 'zh_TW',

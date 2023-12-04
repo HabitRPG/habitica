@@ -2,100 +2,172 @@ import t from './translation';
 
 const questionList = [
   {
-    heading: 'overview',
-    translationIndex: 0,
-  },
-  {
-    heading: 'set-up-tasks',
-    translationIndex: 1,
+    heading: 'task-types',
+    translationIndex: 25,
   },
   {
     heading: 'sample-tasks',
-    translationIndex: 2,
+    translationIndex: 26,
   },
   {
     heading: 'task-color',
-    translationIndex: 3,
+    translationIndex: 27,
   },
   {
-    heading: 'health',
-    translationIndex: 4,
+    heading: 'pause-dailies',
+    translationIndex: 28,
+  },
+  {
+    heading: 'recover-hp',
+    translationIndex: 29,
+  },
+  {
+    heading: 'no-hp',
+    translationIndex: 30,
+  },
+  {
+    heading: 'lose-hp',
+    translationIndex: 31,
+  },
+  {
+    heading: 'choose-class',
+    translationIndex: 31,
+  },
+  {
+    heading: 'blue-bar',
+    translationIndex: 33,
+  },
+  {
+    heading: 'pet-foods',
+    translationIndex: 34,
   },
   {
     heading: 'pets-mounts',
-    translationIndex: 6,
+    translationIndex: 35,
   },
   {
-    heading: 'character-classes',
-    translationIndex: 7,
+    heading: 'avatar-appearance',
+    translationIndex: 36,
   },
   {
-    heading: 'blue-mana-bar',
-    translationIndex: 8,
+    heading: 'equipment-display',
+    translationIndex: 37,
   },
   {
-    heading: 'monsters-quests',
-    translationIndex: 9,
+    heading: 'cant-purchase',
+    translationIndex: 38,
+  },
+  {
+    heading: 'more-eqipment',
+    translationIndex: 39,
   },
   {
     heading: 'gems',
-    translationIndex: 10,
+    translationIndex: 40,
   },
   {
-    heading: 'bugs-features',
-    translationIndex: 11,
+    heading: 'hourglasses',
+    translationIndex: 41,
   },
   {
-    heading: 'group-plans',
-    translationIndex: 13,
+    heading: 'increase-accountability',
+    translationIndex: 42,
   },
   {
-    heading: 'party-with-friends',
-    translationIndex: 5,
+    heading: 'quests',
+    translationIndex: 43,
   },
   {
-    heading: 'party-detail-1',
-    translationIndex: 14,
+    heading: 'delete-challenge-tasks',
+    translationIndex: 44,
   },
   {
-    heading: 'party-detail-2',
-    translationIndex: 15,
+    heading: 'avatar-transform',
+    translationIndex: 45,
   },
   {
-    heading: 'party-detail-3',
-    translationIndex: 16,
+    heading: 'report-a-bug',
+    translationIndex: 46,
   },
   {
-    heading: 'party-detail-4',
-    translationIndex: 17,
+    heading: 'data',
+    translationIndex: 47,
   },
   {
-    heading: 'party-detail-5',
-    translationIndex: 18,
+    heading: 'play-with-others',
+    translationIndex: 48,
   },
   {
-    heading: 'party-detail-6',
-    translationIndex: 19,
+    heading: 'find-a-party',
+    translationIndex: 49,
   },
   {
-    heading: 'party-detail-7',
-    translationIndex: 20,
+    heading: 'search-for-party',
+    translationIndex: 50,
   },
   {
-    heading: 'party-detail-8',
-    translationIndex: 21,
+    heading: 'search-length',
+    translationIndex: 51,
   },
   {
-    heading: 'party-detail-9',
-    translationIndex: 22,
+    heading: 'stop-search',
+    translationIndex: 52,
   },
   {
-    heading: 'party-detail-10',
-    translationIndex: 23,
+    heading: 'find-members',
+    translationIndex: 53,
   },
   {
-    heading: 'party-detail-11',
-    translationIndex: 24,
+    heading: 'how-many-members',
+    translationIndex: 54,
+  },
+  {
+    heading: 'invite-someone',
+    translationIndex: 55,
+  },
+  {
+    heading: 'cancel-invitation',
+    translationIndex: 56,
+  },
+  {
+    heading: 'unwanted-invitations',
+    translationIndex: 57,
+  },
+  {
+    heading: 'filter-list',
+    translationIndex: 58,
+  },
+  {
+    heading: 'what-is-group-plan',
+    translationIndex: 59,
+  },
+  {
+    heading: 'group-plan-get-started',
+    translationIndex: 60,
+  },
+  {
+    heading: 'group-create-tasks',
+    translationIndex: 61,
+  },
+  {
+    heading: 'group-assigned-tasks',
+    translationIndex: 62,
+  },
+  {
+    heading: 'group-unassigned-tasks',
+    translationIndex: 63,
+  },
+  {
+    heading: 'group-day-reset',
+    translationIndex: 64,
+  },
+  {
+    heading: 'group-plan-mobile',
+    translationIndex: 65,
+  },
+  {
+    heading: 'group-shared-vs-challenge',
+    translationIndex: 66,
   },
 ];
 
@@ -112,8 +184,6 @@ questionList.forEach(listEntry => {
     exclusions: listEntry.excludedPlatforms || [],
     heading: listEntry.heading,
     question: t(`faqQuestion${listEntry.translationIndex}`),
-    android: t(`androidFaqAnswer${listEntry.translationIndex}`),
-    ios: t(`iosFaqAnswer${listEntry.translationIndex}`),
     web: t(`webFaqAnswer${listEntry.translationIndex}`, {
       //  TODO: Need to pull these values from nconf
       techAssistanceEmail: 'admin@habitica.com',
