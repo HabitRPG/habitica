@@ -50,7 +50,7 @@ module.exports = {
       rules: [
         {
           test: /\.svg/,
-          type: 'asset/source'
+          type: 'asset/source',
         },
       ],
     },
@@ -81,7 +81,7 @@ module.exports = {
   },
 
   devServer: {
-    headers: {'Cache-Control': 'no-store'},
+    headers: { 'Cache-Control': 'no-store' },
     proxy: {
       // proxy all requests to the server at IP:PORT as specified in the top-level config
       '^/api/v3': {
