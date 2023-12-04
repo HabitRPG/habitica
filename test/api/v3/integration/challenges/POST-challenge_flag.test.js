@@ -2,7 +2,7 @@ import { v4 as generateUUID } from 'uuid';
 import {
   generateChallenge,
   createAndPopulateGroup,
-  translate as t,
+  translate as t, generateUser,
 } from '../../../../helpers/api-integration/v3';
 
 describe('POST /challenges/:challengeId/flag', () => {
@@ -41,11 +41,11 @@ describe('POST /challenges/:challengeId/flag', () => {
   });
 
   it('flags a challenge with a higher count when from an admin', async () => {
-    await user.update({ 'contributor.admin': true });
+    const admin = await generateUser({ 'contributor.admin': true });
 
-    const flagResult = await user.post(`/challenges/${challenge._id}/flag`);
+    const flagResult = await admin.post(`/challenges/${challenge._id}/flag`);
 
-    expect(flagResult.challenge.flags[user._id]).to.equal(true);
+    expect(flagResult.challenge.flags[admin._id]).to.equal(true);
     expect(flagResult.challenge.flagCount).to.equal(5);
   });
 

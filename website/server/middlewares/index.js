@@ -42,7 +42,8 @@ const TEN_YEARS = 1000 * 60 * 60 * 24 * 365 * 10;
 export default function attachMiddlewares (app, server) {
   setupExpress(app);
 
-  app.use(domainMiddleware(server, mongoose));
+  // TODO check before merge - do we still need this?!
+  //app.use(domainMiddleware(server, mongoose));
 
   if (!IS_PROD && !DISABLE_LOGGING) app.use(morgan('dev'));
 

@@ -1,7 +1,9 @@
 /* eslint-disable no-process-env */
-import nconf from 'nconf';
-import mongoose from 'mongoose';
-import setupNconf from '../../website/server/libs/setupNconf';
+const nconf = require('nconf');
+const mongoose = require('mongoose');
+const setupNconf = require('../../website/server/libs/setupNconf');
+
+  require('@babel/register');
 
 if (process.env.LOAD_SERVER === '0') { // when the server is in a different process we simply connect to mongoose
   setupNconf('./config.json');
