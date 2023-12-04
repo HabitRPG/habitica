@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import nconf from 'nconf';
 import morgan from 'morgan';
 import cookieSession from 'cookie-session';
-import mongoose from 'mongoose';
+// import mongoose from 'mongoose';
 import compression from 'compression';
 import methodOverride from 'method-override';
 import passport from 'passport';
@@ -14,7 +14,7 @@ import errorHandler from './errorHandler';
 import notFoundHandler from './notFound';
 import cors from './cors';
 import staticMiddleware from './static';
-import domainMiddleware from './domain';
+// import domainMiddleware from './domain';
 // import favicon from 'serve-favicon';
 // import path from 'path';
 import maintenanceMode from './maintenanceMode';
@@ -39,11 +39,11 @@ const ENABLE_HTTP_AUTH = nconf.get('SITE_HTTP_AUTH_ENABLED') === 'true';
 const SESSION_SECRET = nconf.get('SESSION_SECRET');
 const TEN_YEARS = 1000 * 60 * 60 * 24 * 365 * 10;
 
-export default function attachMiddlewares (app, server) {
+export default function attachMiddlewares (app /* , server */) {
   setupExpress(app);
 
   // TODO check before merge - do we still need this?!
-  //app.use(domainMiddleware(server, mongoose));
+  // app.use(domainMiddleware(server, mongoose));
 
   if (!IS_PROD && !DISABLE_LOGGING) app.use(morgan('dev'));
 
