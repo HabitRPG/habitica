@@ -107,21 +107,23 @@ function checkPreferencePurchase (user, path, item) {
   return _.get(user.purchased, itemPath);
 }
 
-// checks for banned slurs - swears are allowed & dependent on user flagging
+// checks for profile banned slurs - swears are allowed & dependent on user flagging
 async function checkNewInputForProfanity (user, res, newValue) {
   const containsSlur = stringContainsProfanity(newValue, 'slur');
   if (containsSlur) {
     user.flags.chatRevoked = true;
     user.flags.chatShadowMuted = true;
     await user.save();
-    // slack flagged-posts
+    // slack info for flagged-posts
     const authorEmail = getUserInfo(user, ['email']).email;
     slack.sendProfileSlurNotification({
       authorEmail,
-      author: user,
-      message: [user.profile.name,
-        user.profile.blurb],
-      image: user.profile.imageUrl,
+      author: user.username,
+      uuid: user.id,
+      language: user.preferences.language,
+      displayName: user.profile.name,
+      userBlurb: user.profile.blurb,
+      imageUrl: user.profile.imageUrl,
     });
     // hard stop error & message
     throw new BadRequest(res.t('bannedSlurUsedInProfile'));

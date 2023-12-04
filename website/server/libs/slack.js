@@ -383,21 +383,32 @@ function sendGroupSlurNotification ({
 function sendProfileSlurNotification ({
   authorEmail,
   author,
-  message,
+  uuid,
+  language,
+  displayName,
+  userBlurb,
+  imageUrl,
 }) {
   if (SKIP_FLAG_METHODS) {
     return;
   }
-  const text = `${author.auth.local.username} (${author._id}) tried to post a slur (${message}.`;
+  const title = 'User Profile Report: Slur';
+  const titleLink = `${BASE_URL}/profile/${uuid}`;
 
-  const titleLink = `${BASE_URL}/profile/${author._id}`;
-
+  const text = `@${author} (${uuid}, ${language}) tried to post a slur in their Profile.`;
   const authorName = formatUser({
-    name: author.auth.local.username,
-    displayName: author.profile.name,
+    name: author,
+    displayName,
     email: authorEmail,
-    uuid: author.id,
+    uuid,
   });
+  let profileData = `Display Name: ${displayName}`;
+  if (userBlurb) {
+    profileData += `\n\n${userBlurb}`;
+  }
+  if (imageUrl) {
+    profileData += `\n\n${imageUrl}`;
+  }
 
   flagSlack
     .send({
@@ -406,8 +417,9 @@ function sendProfileSlurNotification ({
         fallback: 'Slur Message',
         color: 'danger',
         author_name: authorName,
+        title,
         title_link: titleLink,
-        text: message,
+        text: profileData,
         mrkdwn_in: [
           'text',
         ],
