@@ -11,9 +11,20 @@ const gemsPromo = {
 export const EVENTS = {
   noEvent: {
     start: '2023-12-01T00:00-05:00',
-    end: '2023-12-21T08:00-05:00',
+    end: '2023-12-04T08:00-05:00',
     season: 'normal',
     npcImageSuffix: '',
+  },
+  potions202312: {
+    start: '2023-12-05T08:00-05:00', // 12/19 start
+    end: '2024-01-31T23:59-05:00',
+  },
+  winter2024: {
+    start: '2023-12-05T08:00-05:00', // 12/19 start
+    end: '2024-01-31T23:59-05:00',
+    npcImageSuffix: '_winter',
+    season: 'winter',
+    gear: true,
   },
   potions202311: {
     start: '2023-11-14T08:00-04:00',

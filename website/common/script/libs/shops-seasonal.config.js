@@ -29,22 +29,22 @@ export default {
 
   pinnedSets: CURRENT_EVENT
     ? {
-      rogue: 'fall2023WitchsBrewRogueSet',
-      warrior: 'fall2023ScaryMovieWarriorSet',
-      wizard: 'fall2023ScarletWarlockMageSet',
-      healer: 'fall2023BogCreatureHealerSet',
+      rogue: 'winter2024SnowyOwlRogueSet',
+      warrior: 'winter2024PlaceholderWarriorSet',
+      wizard: 'winter2024PlaceholderMageSet',
+      healer: 'winter2044NarwhalWizardHealerSet',
     }
     : {},
 
-  availableSpells: CURRENT_EVENT && moment().isBetween('2023-10-03T08:00-04:00', CURRENT_EVENT.end)
+  availableSpells: CURRENT_EVENT && moment().isBetween('2023-12-05T08:00-04:00', CURRENT_EVENT.end) // 2024-01-09
     ? [
-      'spookySparkles',
+      'snowball',
     ]
     : [],
 
-  availableQuests: CURRENT_EVENT && moment().isBetween('2023-07-11T08:00-04:00', CURRENT_EVENT.end)
+  availableQuests: CURRENT_EVENT && moment().isBetween('2023-12-05T08:00-04:00', CURRENT_EVENT.end) // 2024-01-09
     ? []
     : [],
 
-  featuredSet: 'fall2022HarpyMageSet',
+  featuredSet: 'winter2019PoinsettiaSet',
 };

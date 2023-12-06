@@ -277,7 +277,7 @@ spells.special = {
     target: 'user',
     notes: t('spellSpecialSnowballAuraNotes'),
     canOwn () {
-      return moment().isBetween('2022-12-27T08:00-05:00', EVENTS.winter2023.end);
+      return moment().isBetween('2023-12-05T08:00-05:00', EVENTS.winter2024.end); // 2024-01-09
     },
     cast (user, target, req) {
       if (!user.items.special.snowball) throw new NotAuthorized(t('spellNotOwned')(req.language));
