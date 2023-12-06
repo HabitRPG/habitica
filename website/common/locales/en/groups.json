@@ -18,7 +18,7 @@
   "communityGuidelines": "Community Guidelines",
   "bannedWordUsed": "Oops! Looks like this post contains a swear word or reference to an addictive substance or adult topic (<%= swearWordsUsed %>). Habitica keeps our chat very clean. Feel free to edit your message so you can post it! You must remove the word, not just censor it.",
   "bannedSlurUsed": "Your post contained inappropriate language, and your chat privileges have been revoked.",
-  "challengeBannedSlurs": "Your Challenge contains a slur which violate Habitica’s community guidelines and your chat and Challenge creation privileges have been revoked. Contact admin@habitica.com for more information.",
+  "challengeBannedSlurs": "Your Challenge contains a slur which violates Habitica’s community guidelines and your chat and Challenge creation privileges have been revoked. Contact admin@habitica.com for more information.",
   "challengeBannedWords": "Your Challenge contains one or more swear words or references to an adult topic. Please edit your Challenge so you can save it. You must remove the word, not just censor it.",
   "challengeBannedSlursPrivate": "Your Challenge contains a slur which violates Habitica's community guidelines. Please remove it in order to save your Challenge.",
   "party": "Party",

@@ -269,24 +269,25 @@ api.createChallenge = {
       throw new BadRequest(res.t('challengeBannedWords'));
     }
 
-    // checks private challenge for slurs
-    if (group.privacy === 'private'
-      && ((textContainsBannedSlur(req.body.name))
-            || (textContainsBannedSlur(req.body.shortName))
-            || (textContainsBannedSlur(req.body.summary))
-            || (textContainsBannedSlur(req.body.description)))) {
-      // toast notification
-      throw new BadRequest(res.t('challengeBannedSlursPrivate'));
-    }
+    // Not checking challenges in private spaces for slurs or swears
+    // // checks private challenge for slurs
+    // if (group.privacy === 'private'
+    //   && ((textContainsBannedSlur(req.body.name))
+    //         || (textContainsBannedSlur(req.body.shortName))
+    //         || (textContainsBannedSlur(req.body.summary))
+    //         || (textContainsBannedSlur(req.body.description)))) {
+    //   // toast notification
+    //   throw new BadRequest(res.t('challengeBannedSlursPrivate'));
+    // }
 
-    // checks private challenge for swears -- allowed unless user flags
-    if (group.privacy === 'private'
-      && ((textContainsBannedWord(req.body.name))
-            || (textContainsBannedWord(req.body.shortName))
-            || (textContainsBannedWord(req.body.summary))
-            || (textContainsBannedWord(req.body.description)))) {
-      await user.save();
-    }
+    // // checks private challenge for swears -- allowed unless user flags
+    // if (group.privacy === 'private'
+    //   && ((textContainsBannedWord(req.body.name))
+    //         || (textContainsBannedWord(req.body.shortName))
+    //         || (textContainsBannedWord(req.body.summary))
+    //         || (textContainsBannedWord(req.body.description)))) {
+    //   await user.save();
+    // }
 
     const { savedChal } = await createChallenge(user, req, res);
 

@@ -112,18 +112,17 @@ async function checkNewInputForProfanity (user, res, newValue) {
   const containsSlur = stringContainsProfanity(newValue, 'slur');
   if (containsSlur) {
     user.flags.chatRevoked = true;
-    user.flags.chatShadowMuted = true;
     await user.save();
     // slack info for flagged-posts
     const authorEmail = getUserInfo(user, ['email']).email;
     slack.sendProfileSlurNotification({
       authorEmail,
-      author: user.username,
+      author: user.auth.local.username,
       uuid: user.id,
       language: user.preferences.language,
       displayName: user.profile.name,
-      userBlurb: user.profile.blurb,
-      imageUrl: user.profile.imageUrl,
+      userBlurb: res.body,
+      // imageUrl: res.profile.imageUrl,
     });
     // hard stop error & message
     throw new BadRequest(res.t('bannedSlurUsedInProfile'));

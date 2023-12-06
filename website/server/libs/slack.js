@@ -386,8 +386,9 @@ function sendProfileSlurNotification ({
   uuid,
   language,
   displayName,
-  userBlurb,
-  imageUrl,
+  // userBlurb,
+  // imageUrl,
+  body,
 }) {
   if (SKIP_FLAG_METHODS) {
     return;
@@ -403,11 +404,11 @@ function sendProfileSlurNotification ({
     uuid,
   });
   let profileData = `Display Name: ${displayName}`;
-  if (userBlurb) {
-    profileData += `\n\n${userBlurb}`;
+  if (body) {
+    profileData += `\n\n${body.userBlurb}`;
   }
-  if (imageUrl) {
-    profileData += `\n\n${imageUrl}`;
+  if (body) {
+    profileData += `\n\n${body.imageUrl}`;
   }
 
   flagSlack
