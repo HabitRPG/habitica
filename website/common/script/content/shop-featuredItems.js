@@ -5,7 +5,7 @@ import { EVENTS } from './constants';
 // path: 'premiumHatchingPotions.Rainbow',
 const featuredItems = {
   market () {
-    if (moment().isBetween(EVENTS.potions202312.start, EVENTS.potions202312.end)) {
+    if (moment().isBetween(EVENTS.winter2024.start, EVENTS.winter2024.end)) {
       return [
         {
           type: 'armoire',
@@ -45,7 +45,7 @@ const featuredItems = {
     ];
   },
   quests () {
-    if (moment().isBetween(EVENTS.winter2023.start, EVENTS.winter2024.end)) {
+    if (moment().isBetween(EVENTS.winter2024.start, EVENTS.winter2024.end)) {
       return [
         {
           type: 'bundles',
@@ -53,11 +53,11 @@ const featuredItems = {
         },
         {
           type: 'quests',
-          path: 'quests.Deer',
+          path: 'quests.ghost_stag',
         },
         {
           type: 'quests',
-          path: 'quests.Penguin',
+          path: 'quests.penguin',
         },
       ];
     }

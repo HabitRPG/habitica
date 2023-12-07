@@ -30,9 +30,9 @@ export default {
   pinnedSets: CURRENT_EVENT
     ? {
       rogue: 'winter2024SnowyOwlRogueSet',
-      warrior: 'winter2024PlaceholderWarriorSet',
-      wizard: 'winter2024PlaceholderMageSet',
-      healer: 'winter2044NarwhalWizardHealerSet',
+      warrior: 'winter2024PeppermintBarkWarriorSet',
+      wizard: 'winter2024NarwhalWizardMageSet',
+      healer: 'winter2024FrozenHealerSet',
     }
     : {},
 

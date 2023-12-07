@@ -859,20 +859,16 @@ const armor = {
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   winter2024Warrior: {
-    set: 'winter2024PlaceholderWarrior',
-    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'winter',
+    set: 'winter2024PeppermintBarkWarriorSet',
   },
   winter2024Mage: {
-    set: 'winter2024PlaceholderMage',
-    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'winter',
+    set: 'winter2024NarwhalWizardMageSet',
   },
   winter2024Healer: {
-    set: 'winter2024NarwhalWizardHealer',
-    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'winter',
+    set: 'winter2024FrozenHealerSet',
   },
   winter2024Rogue: {
-    set: 'winter2024SnowyOwlRogue',
-    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'winter',
+    set: 'winter2024SnowyOwlRogueSet',
   },
 };
 
@@ -2086,20 +2082,16 @@ const head = {
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   winter2024Healer: {
-    set: 'winter2024NarwhalWizardHealer',
-    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'winter',
+    set: 'winter2024FrozenHealerSet',
   },
   winter2024Rogue: {
-    set: 'winter2024SnowyOwlRogue',
-    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'winter',
+    set: 'winter2024SnowyOwlRogueSet',
   },
   winter2024Warrior: {
-    set: 'winter2024PlaceholderWarrior',
-    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'winter',
+    set: 'winter2024PeppermintBarkWarriorSet',
   },
   winter2024Mage: {
-    set: 'winter2024PlaceholderMage',
-    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'winter',
+    set: 'winter2024NarwhalWizardMageSet',
   },
 };
 
@@ -2957,13 +2949,14 @@ const shield = {
     set: 'fall2023BogCreatureHealerSet',
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
-  winter2024warrior: {
-    set: 'winter2024PlaceholderWarrior',
-    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'winter',
+  winter2024Warrior: {
+    set: 'winter2024PeppermintBarkWarriorSet',
   },
   winter2024Rogue: {
-    set: 'winter2024SnowyOwlRogue',
-    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'winter',
+    set: 'winter2024SnowyOwlRogueSet',
+  },
+  winter2024Healer: {
+    set: 'winter2024FrozenHealerSet',
   },
 };
 
@@ -3770,21 +3763,17 @@ const weapon = {
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'fall',
   },
   winter2024Rogue: {
-    set: 'winter2024SnowyOwlRogue',
-    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'winter',
+    set: 'winter2024SnowyOwlRogueSet',
   },
   winter2024Healer: {
-    set: 'winter2024NarwhalWizardHealer',
-    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'winter',
+    set: 'winter2024FrozenHealerSet',
   },
   winter2024Warrior: {
-    set: 'winter2024PlaceholderWarrior',
-    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'winter',
+    set: 'winter2024PeppermintBarkWarriorSet',
   },
   winter2024Mage: {
-    set: 'winter2024PlaceholderMage',
-    canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'winter',
-  }
+    set: 'winter2024NarwhalWizardMageSet',
+  },
 };
 
 const weaponStats = {

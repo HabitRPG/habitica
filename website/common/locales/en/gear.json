@@ -495,6 +495,15 @@
   "weaponSpecialFall2023HealerText": "Log Great Hammer",
   "weaponSpecialFall2023HealerNotes": "With slow, heavy attacks, this gnarled hammer deals out healing blows instead of damage. Increases Intelligence by <%= int %>. Limited Edition 2023 Fall Gear.",
 
+  "weaponSpecialWinter2024RogueText": "Snowy Owl Bracer",
+  "weaponSpecialWinter2024RogueNotes": "You are equipped with a flurry of feathers and talons! Hoot! Increases Strength by <%= str %>. Limited Edition Winter 2023-2024 Gear.",
+  "weaponSpecialWinter2024WarriorText": "Candy Club",
+  "weaponSpecialWinter2024WarriorNotes": "A fine weapon, so long as you can stop yourself from eating it.. Increases Strength by <%= str %>. Limited Edition Winter 2023-2024 Gear.",
+  "weaponSpecialWinter2024MageText": "Narwhal Wand",
+  "weaponSpecialWinter2024MageNotes": "Thanks to a generous, magical narwhal that sensed your great abilities, you have been gifted a tusk that lets you sense changes happening around you. Increases Intelligence by <%= int %>. Limited Edition Winter 2023-2024 Gear.",
+  "weaponSpecialWinter2024HealerText": "Salt Shaker",
+  "weaponSpecialWinter2024HealerNotes": "How convenient that you had ice-melting materials handy when you froze! Increases Intelligence by <%= int %> Limited Edition Winter 2023-2024 Gear.",
+
   "weaponMystery201411Text": "Pitchfork of Feasting",
   "weaponMystery201411Notes": "Stab your enemies or dig in to your favorite foods - this versatile pitchfork does it all! Confers no benefit. November 2014 Subscriber Item.",
   "weaponMystery201502Text": "Shimmery Winged Staff of Love and Also Truth",
@@ -1201,6 +1210,15 @@
   "armorSpecialFall2023MageNotes": "With scarlet threads and gold accents, this outfit is a wonder for the senses. Increases Intelligence by <%= int %>. Limited Edition 2023 Fall Gear.",
   "armorSpecialFall2023HealerText": "Bog Creature Body",
   "armorSpecialFall2023HealerNotes": "With moss, rock, wood, and bog water merged into one, this outfit is sometimes tough and sometimes spongey (but always intimidating). Increases Constitution by <%= con %>. Limited Edition 2023 Fall Gear.",
+
+  "armorSpecialWinter2024RogueText": "Snowy Owl Robes",
+  "armorSpecialWinter2024RogueNotes": "Whooooo will you be when wearing this robe? Covered in feathers and fluff, you will be both warm and stealthy!. Increases Perception by <%= per %>. Limited Edition 2023-2024 Winter Gear.",
+  "armorSpecialWinter2024WarriorText": "Peppermint Bark Armor",
+  "armorSpecialWinter2024WarriorNotes": "Turns out chocolate, mint, and frosting are stronger materials than you’d think. Increases Constitution by <%= con %>. Limited Edition 2023-2024 Winter Gear.",
+  "armorSpecialWinter2024MageText": "Narwhal Wizard Robes",
+  "armorSpecialWinter2024MageNotes": "Both practical and pretty, these robes will keep you toasty as you perform your magical abilities out in the cold. Increases Intelligence by <%= int %>. Limited Edition 2023-2024 Winter Gear.",
+  "armorSpecialWinter2024HealerText": "Frozen Armor",
+  "armorSpecialWinter2024HealerNotes": "This sparkling block of magic ice is at least protective while you figure out your escape. Increases Constitution by <%= con %>. Limited Edition 2023-2024 Winter Gear.",
 
   "armorMystery201402Text": "Messenger Robes",
   "armorMystery201402Notes": "Shimmering and strong, these robes have many pockets to carry letters. Confers no benefit. February 2014 Subscriber Item.",
@@ -1992,6 +2010,15 @@
   "headSpecialFall2023HealerText": "Bog Creature Mask",
   "headSpecialFall2023HealerNotes": "With eyes as dark as the bog it emerged from, it fixes its gaze upon enemies. Increases Intelligence by <%= int %>. Limited Edition 2023 Fall Gear.",
 
+  "headSpecialWinter2024RogueText": "Snowy Owl Hood",
+  "headSpecialWinter2024RogueNotes": "Whooooo will you see when wearing this hood? Well, who WON’T you see? You will capture every movement, every gesture, every detail around you. Increases Perception by <%= per %>. Limited Edition Winter 2023-2024 Gear.",
+  "headSpecialWinter2024WarriorText": "Peppermint Bark Helm",
+  "headSpecialWinter2024WarriorNotes": "Never has protecting your noggin been so festively delicious! Increases Strength by <%= str>. Limited Edition Winter 2023-2024 Gear",
+  "headSpecialWinter2024MageText": "Narwhal Wizard Hood",
+  "headSpecialWinter2024MageNotes": "This fleece-lined hood will protect you from the cold as well as from negative thoughts and vibes. Increases Perception by <%= per %>. Limited Edition Winter 2023-2024 Gear",
+  "headSpecialWinter2024HealerText": "Frozen Helm",
+  "headSpecialWinter2024HealerNotes": "Uh oh, a spell gone wrong has trapped you in ice! Increases Intelligence by <%= int %>. Limited Edition Winter 2023-2024 Gear",
+
   "headSpecialGaymerxText": "Rainbow Warrior Helm",
   "headSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special helmet is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
 
@@ -2602,6 +2629,11 @@
   "shieldSpecialFall2023WarriorNotes": "Perfect for making yourself comfortable while enjoying a scary movie... But we won't tell anyone if you need to hug it during the really spooky scenes! Increases Constitution by <%= con %>. Limited Edition 2023 Fall Gear.",
   "shieldSpecialFall2023HealerText": "Mossy Rock",
   "shieldSpecialFall2023HealerNotes": "With a firm base and a soft top, this is perfect to hurl at enemies or to sit upon when you need a rest from your adventures. Increases Constitution by <%= con %>. Limited Edition 2023 Fall Gear.",
+
+  "shieldSpecialWinter2024WarriorText": "Cookie Shield",
+  "shieldSpecialWinter2024WarriorNotes": "You’re a tough cookie who will never crumble! Increases Strength by <%= str =>. Limited Edition Winter 2023-2024 Gear.",
+  "shieldSpecialWinter2024HealerText": "Torch",
+  "shieldSpecialWinter2024HealerNotes": "Melt yourself out of this jam in no time! Increases Constitution by <%= con %>. Limited Edition Winter 2023-2024 Gear.",
 
   "shieldMystery201601Text": "Resolution Slayer",
   "shieldMystery201601Notes": "This blade can be used to parry away all distractions. Confers no benefit. January 2016 Subscriber Item.",
