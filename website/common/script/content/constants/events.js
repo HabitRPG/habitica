@@ -26,6 +26,8 @@ export const EVENTS = {
     start: '2023-11-28T08:00-05:00',
     end: '2023-11-30T23:59-05:00',
     promo: 'g1g1',
+    npcImageSuffix: '_winter',
+    season: 'winter',
   },
   potions202311: {
     start: '2023-11-14T08:00-04:00',
