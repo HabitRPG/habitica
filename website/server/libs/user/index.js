@@ -113,19 +113,7 @@ async function checkNewInputForProfanity (user, res, newValue) {
   if (containsSlur) {
     user.flags.chatRevoked = true;
     await user.save();
-    // slack info for flagged-posts
-    const authorEmail = getUserInfo(user, ['email']).email;
-    slack.sendProfileSlurNotification({
-      authorEmail,
-      author: user.auth.local.username,
-      uuid: user.id,
-      language: user.preferences.language,
-      displayName: user.profile.name,
-      userBlurb: res.body,
-      // imageUrl: res.profile.imageUrl,
-    });
-    // hard stop error & message
-    throw new BadRequest(res.t('bannedSlurUsedInProfile'));
+    // return true; // this makes the function sad and claim it's not returning a value
   }
 }
 
@@ -151,11 +139,37 @@ export async function update (req, res, { isV3 = false }) {
     if (newName.length > 30) throw new BadRequest(res.t('displaynameIssueLength'));
     if (nameContainsNewline(newName)) throw new BadRequest(res.t('displaynameIssueNewline'));
     await checkNewInputForProfanity(user, res, newName);
+    // slack info for flagged-posts
+    const authorEmail = getUserInfo(user, ['email']).email;
+    slack.sendProfileSlurNotification({
+      authorEmail,
+      author: user.auth.local.username,
+      uuid: user.id,
+      language: user.preferences.language,
+      displayName: newName,
+      // userBlurb: res.body,
+      // imageUrl: res.profile.imageUrl,
+    });
+    // hard stop error & message
+    throw new BadRequest(res.t('bannedSlurUsedInProfile'));
   }
 
   if (req.body['profile.blurb'] !== undefined) {
     const newBlurb = req.body['profile.blurb'];
     await checkNewInputForProfanity(user, res, newBlurb);
+    // slack info for flagged-posts
+    const authorEmail = getUserInfo(user, ['email']).email;
+    slack.sendProfileSlurNotification({
+      authorEmail,
+      author: user.auth.local.username,
+      uuid: user.id,
+      language: user.preferences.language,
+      displayName: user.profile.name,
+      userBlurb: newBlurb,
+      // imageUrl: res.profile.imageUrl,
+    });
+    // hard stop error & message
+    throw new BadRequest(res.t('bannedSlurUsedInProfile'));
   }
 
   if (req.body['preferences.tasks.mirrorGroupTasks'] !== undefined) {
