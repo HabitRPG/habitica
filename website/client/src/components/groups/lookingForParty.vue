@@ -6,13 +6,23 @@
         class="fit-content mx-auto mt-4"
       >
         <div class="d-flex align-items-center">
-          <h1 v-once class="my-auto mr-auto"> {{ $t('findPartyMembers') }}</h1>
+          <h1
+            v-once
+            class="my-auto mr-auto"
+          >
+            {{ $t('findPartyMembers') }}
+          </h1>
           <div
             class="btn btn-secondary btn-sync ml-auto my-auto pl-2 pr-3 d-flex"
             @click="refreshList()"
           >
-            <div class="svg-icon icon-16 color my-auto mr-2" v-html="icons.sync"></div>
-            <div class="ml-auto"> {{ $t('refreshList') }} </div>
+            <div
+              class="svg-icon icon-16 color my-auto mr-2"
+              v-html="icons.sync"
+            ></div>
+            <div class="ml-auto">
+              {{ $t('refreshList') }}
+            </div>
           </div>
         </div>
         <div class="d-flex flex-wrap seeker-list">
@@ -24,9 +34,9 @@
             <div class="d-flex">
               <avatar
                 :member="seeker"
-                :hideClassBadge="true"
-                @click.native="showMemberModal(seeker._id)"
+                :hide-class-badge="true"
                 class="mr-3 mb-2"
+                @click.native="showMemberModal(seeker._id)"
               />
               <div class="card-data">
                 <user-link
@@ -54,26 +64,32 @@
                   </strong>
                 </div>
                 <div>
-                  <strong v-once class="mr-2"> {{ $t('checkinsLabel') }} </strong>
+                  <strong
+                    v-once
+                    class="mr-2"
+                  > {{ $t('checkinsLabel') }} </strong>
                   {{ seeker.loginIncentives }}
                 </div>
                 <div>
-                  <strong v-once class="mr-2"> {{ $t('languageLabel') }} </strong>
+                  <strong
+                    v-once
+                    class="mr-2"
+                  > {{ $t('languageLabel') }} </strong>
                   {{ displayLanguage(seeker.preferences.language) }}
                 </div>
               </div>
             </div>
             <strong
               v-if="!seeker.invited"
-              @click="inviteUser(seeker._id, index)"
               class="btn btn-primary w-100"
+              @click="inviteUser(seeker._id, index)"
             >
               {{ $t('inviteToParty') }}
             </strong>
             <div
               v-else
-              @click="rescindInvite(seeker._id, index)"
               class="btn btn-success w-100"
+              @click="rescindInvite(seeker._id, index)"
               v-html="$t('invitedToYourParty')"
             >
             </div>
@@ -95,7 +111,6 @@
             class="svg-icon icon-32 color m-auto"
             v-html="icons.users"
           >
-
           </div>
         </div>
         <strong class="mb-1"> {{ $t('findMorePartyMembers') }} </strong>

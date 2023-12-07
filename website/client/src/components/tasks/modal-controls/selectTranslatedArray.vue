@@ -12,7 +12,7 @@
       :placeholder="placeholder"
       @select="selectItem($event)"
     >
-      <template v-slot:item="{ item }">
+      <template #item="{ item }">
         <span class="label">{{ $t(item) }}</span>
       </template>
     </select-list>

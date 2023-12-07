@@ -31,7 +31,7 @@ const questionList = [
   },
   {
     heading: 'choose-class',
-    translationIndex: 31,
+    translationIndex: 32,
   },
   {
     heading: 'blue-bar',

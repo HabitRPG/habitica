@@ -32,7 +32,7 @@
       <div class="row">
         <div
           v-if="!loading &&
-            this.filteredChallenges.length === 0"
+            filteredChallenges.length === 0"
           class="no-challenges text-center col-md-6 offset-3"
         >
           <h2 v-once>
@@ -42,7 +42,7 @@
       </div>
       <div class="row">
         <div
-          v-for="challenge in this.filteredChallenges"
+          v-for="challenge in filteredChallenges"
           :key="challenge._id"
           class="col-12 col-md-6"
         >
