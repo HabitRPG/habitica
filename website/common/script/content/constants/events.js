@@ -22,6 +22,11 @@ export const EVENTS = {
     season: 'winter',
     gear: true,
   },
+  g1g12023: {
+    start: '2023-11-28T08:00-05:00',
+    end: '2023-11-30T23:59-05:00',
+    promo: 'g1g1',
+  },
   potions202311: {
     start: '2023-11-14T08:00-04:00',
     end: '2023-11-30T23:59-04:00',
