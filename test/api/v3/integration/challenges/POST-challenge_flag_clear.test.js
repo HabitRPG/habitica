@@ -23,7 +23,7 @@ describe('POST /challenges/:challengeId/clearflags', () => {
     admin = groupLeader;
     [nonAdmin] = members;
 
-    await admin.update({ 'permissions.moderator': true });
+    await admin.updateOne({ 'permissions.moderator': true });
 
     challenge = await generateChallenge(admin, group);
     await admin.post(`/challenges/${challenge._id}/flag`);
