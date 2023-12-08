@@ -216,7 +216,10 @@ schema.methods.addNotification = function addUserNotification (type, data = {}, 
  * @param  data  The data to add to the notification
  */
 schema.statics.pushNotification = async function pushNotification (
-  query, type, data = {}, seen = false,
+  query,
+  type,
+  data = {},
+  seen = false,
 ) {
   const newNotification = new UserNotification({ type, data, seen });
 
@@ -554,17 +557,21 @@ schema.methods.getFlagData = function getFlagData () {
   return user.profile.flags;
 };
 
-schema.methods.updateBalance = async function updateBalance (amount,
+schema.methods.updateBalance = async function updateBalance (
+  amount,
   transactionType,
   reference,
-  referenceText) {
+  referenceText,
+) {
   this.balance += amount;
 
   if (transactionType === 'buy_gold') {
     // Bulk these together in case the user is not using the bulk-buy feature
-    const lastTransaction = await Transaction.findOne({ userId: this._id },
+    const lastTransaction = await Transaction.findOne(
+      { userId: this._id },
       null,
-      { sort: { createdAt: -1 } });
+      { sort: { createdAt: -1 } },
+    );
     if (lastTransaction.transactionType === transactionType) {
       lastTransaction.amount += amount;
       await lastTransaction.save();

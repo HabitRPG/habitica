@@ -181,7 +181,8 @@ describe('POST /members/transfer-gems', () => {
     const updatedSender = await userToSendMessage.get('/user');
 
     const sendersMessageInReceiversInbox = findMessage(
-      updatedReceiver.inbox.messages, userToSendMessage._id,
+      updatedReceiver.inbox.messages,
+      userToSendMessage._id,
     );
     const sendersMessageInSendersInbox = findMessage(updatedSender.inbox.messages, receiver._id);
 
@@ -212,7 +213,8 @@ describe('POST /members/transfer-gems', () => {
     const updatedSender = await userToSendMessage.get('/user');
 
     const sendersMessageInReceiversInbox = findMessage(
-      updatedReceiver.inbox.messages, userToSendMessage._id,
+      updatedReceiver.inbox.messages,
+      userToSendMessage._id,
     );
     const sendersMessageInSendersInbox = findMessage(updatedSender.inbox.messages, receiver._id);
 
@@ -248,7 +250,8 @@ describe('POST /members/transfer-gems', () => {
     const updatedSender = await userToSendMessage.get('/user');
 
     const sendersMessageInReceiversInbox = findMessage(
-      updatedReceiver.inbox.messages, userToSendMessage._id,
+      updatedReceiver.inbox.messages,
+      userToSendMessage._id,
     );
     const sendersMessageInSendersInbox = findMessage(updatedSender.inbox.messages, receiver._id);
 

@@ -712,7 +712,8 @@ api.exportChallengeCsv = {
     // repeated n times for the n challenge tasks
     const challengeTasks = _.reduce(
       challenge.tasksOrder.toObject(),
-      (result, array) => result.concat(array), [],
+      (result, array) => result.concat(array),
+      [],
     ).sort();
     resArray.unshift(['UUID', 'Display Name', 'Username']);
 

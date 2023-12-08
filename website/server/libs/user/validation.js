@@ -34,7 +34,7 @@ function usernameIsForbidden (username) {
   return forbidddenWordsMatched.length > 0;
 }
 
-const invalidCharsRegex = new RegExp('[^a-z0-9_-]', 'i');
+const invalidCharsRegex = /[^a-z0-9_-]/i;
 function usernameContainsInvalidCharacters (username) {
   const match = username.match(invalidCharsRegex);
   return match !== null && match[0] !== null;

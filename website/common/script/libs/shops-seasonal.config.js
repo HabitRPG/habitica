@@ -6,10 +6,8 @@ import {
   SEASONAL_SETS,
 } from '../content/constants';
 
-const CURRENT_EVENT = find(
-  EVENTS, event => moment().isBetween(event.start, event.end)
-    && ['winter', 'spring', 'summer', 'fall'].includes(event.season),
-);
+const CURRENT_EVENT = find(EVENTS, event => moment().isBetween(event.start, event.end)
+    && ['winter', 'spring', 'summer', 'fall'].includes(event.season));
 
 export default {
   opened: CURRENT_EVENT,

@@ -118,8 +118,10 @@ gulp.task('test:common:safe', gulp.series('test:prepare:build', cb => {
   pipe(runner);
 }));
 
-gulp.task('test:content', gulp.series('test:prepare:build',
-  runInChildProcess(CONTENT_TEST_COMMAND, LIMIT_MAX_BUFFER_OPTIONS)));
+gulp.task('test:content', gulp.series(
+  'test:prepare:build',
+  runInChildProcess(CONTENT_TEST_COMMAND, LIMIT_MAX_BUFFER_OPTIONS),
+));
 
 gulp.task('test:content:clean', cb => {
   pipe(exec(testBin(CONTENT_TEST_COMMAND), LIMIT_MAX_BUFFER_OPTIONS, () => cb()));
@@ -144,16 +146,20 @@ gulp.task('test:content:safe', gulp.series('test:prepare:build', cb => {
   pipe(runner);
 }));
 
-gulp.task('test:api:unit:run',
-  runInChildProcess(integrationTestCommand('test/api/unit', 'coverage/api-unit')));
+gulp.task(
+  'test:api:unit:run',
+  runInChildProcess(integrationTestCommand('test/api/unit', 'coverage/api-unit')),
+);
 
 gulp.task('test:api:unit:watch', () => gulp.watch(['website/server/libs/*', 'test/api/unit/**/*', 'website/server/controllers/**/*'], gulp.series('test:api:unit:run', done => done())));
 
-gulp.task('test:api-v3:integration', gulp.series('test:prepare:mongo',
+gulp.task('test:api-v3:integration', gulp.series(
+  'test:prepare:mongo',
   runInChildProcess(
     integrationTestCommand('test/api/v3/integration', 'coverage/api-v3-integration'),
     LIMIT_MAX_BUFFER_OPTIONS,
-  )));
+  ),
+));
 
 gulp.task('test:api-v3:integration:watch', () => gulp.watch([
   'website/server/controllers/api-v3/**/*', 'common/script/ops/*', 'website/server/libs/*.js',
@@ -166,11 +172,13 @@ gulp.task('test:api-v3:integration:separate-server', runInChildProcess(
   'LOAD_SERVER=0',
 ));
 
-gulp.task('test:api-v4:integration', gulp.series('test:prepare:mongo',
+gulp.task('test:api-v4:integration', gulp.series(
+  'test:prepare:mongo',
   runInChildProcess(
     integrationTestCommand('test/api/v4', 'api-v4-integration'),
     LIMIT_MAX_BUFFER_OPTIONS,
-  )));
+  ),
+));
 
 gulp.task('test:api-v4:integration:separate-server', runInChildProcess(
   'mocha test/api/v4 --recursive --require ./test/helpers/start-server',

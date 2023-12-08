@@ -51,7 +51,8 @@ function getAchievementUpdate (newUser, oldUser) {
   // Rebirth level
   if (achievementsUpdate.rebirthLevel) {
     achievementsUpdate.rebirthLevel = Math.max(
-      achievementsUpdate.rebirthLevel, oldAchievements.rebirthLevel,
+      achievementsUpdate.rebirthLevel,
+      oldAchievements.rebirthLevel,
     );
   } else if (oldAchievements.rebirthLevel) {
     achievementsUpdate.rebirthLevel = oldAchievements.rebirthLevel;

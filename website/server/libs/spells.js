@@ -218,8 +218,13 @@ async function castSpell (req, res, { isV3 = false }) {
       partyMembers = await castPartySpell(req, party, user, spell, quantity);
     } else {
       partyMembers = await castUserSpell(
-        res, req, party,
-        targetId, user, spell, quantity,
+        res,
+        req,
+        party,
+        targetId,
+        user,
+        spell,
+        quantity,
       );
     }
 

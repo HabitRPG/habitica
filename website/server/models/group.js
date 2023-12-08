@@ -988,7 +988,10 @@ schema.methods.finishQuest = async function finishQuest (quest) {
       };
 
       promises.push(participants.map(userId => _updateUserWithRetries(
-        userId, questAchievementUpdate, null, questAchievementQuery,
+        userId,
+        questAchievementUpdate,
+        null,
+        questAchievementQuery,
       )));
     }
   });
@@ -1469,8 +1472,10 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, users, assig
 };
 
 schema.methods.unlinkTask = async function groupUnlinkTask (
-  unlinkingTask, user,
-  keep, saveUser = true,
+  unlinkingTask,
+  user,
+  keep,
+  saveUser = true,
 ) {
   const findQuery = {
     'group.taskId': unlinkingTask._id,
