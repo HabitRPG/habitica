@@ -84,7 +84,6 @@ stories
         text: '12',
       });
 
-
       notifications.push({
         type: 'damage',
         sign: '+',

@@ -87,6 +87,7 @@
 <script>
 import debounce from 'lodash/debounce';
 
+import { MAX_MESSAGE_LENGTH } from '@/../../common/script/constants';
 import externalLinks from '../../mixins/externalLinks';
 
 import autocomplete from '../chat/autoComplete';
@@ -94,7 +95,6 @@ import communityGuidelines from './communityGuidelines';
 import chatMessage from '../chat/chatMessages';
 import { mapState } from '@/libs/store';
 import markdownDirective from '@/directives/markdown';
-import { MAX_MESSAGE_LENGTH } from '@/../../common/script/constants';
 
 export default {
   directives: {

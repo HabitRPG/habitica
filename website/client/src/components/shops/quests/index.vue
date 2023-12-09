@@ -405,6 +405,8 @@ import _groupBy from 'lodash/groupBy';
 import _map from 'lodash/map';
 import _each from 'lodash/each';
 import * as stopword from 'stopword/dist/stopword.esm.mjs';
+import shops from '@/../../common/script/libs/shops';
+import isPinned from '@/../../common/script/libs/isPinned';
 import { mapState } from '@/libs/store';
 
 import ShopItem from '../shopItem';
@@ -420,9 +422,6 @@ import BuyModal from './buyQuestModal.vue';
 import PinBadge from '@/components/ui/pinBadge';
 import QuestInfo from './questInfo.vue';
 
-import shops from '@/../../common/script/libs/shops';
-
-import isPinned from '@/../../common/script/libs/isPinned';
 import FilterSidebar from '@/components/ui/filterSidebar';
 import FilterGroup from '@/components/ui/filterGroup';
 import SelectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';

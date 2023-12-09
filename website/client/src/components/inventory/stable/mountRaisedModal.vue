@@ -80,8 +80,8 @@
 </style>
 
 <script>
-import markdownDirective from '@/directives/markdown';
 import { mountInfo } from '@/../../common/script/content/stable';
+import markdownDirective from '@/directives/markdown';
 
 export default {
   directives: {

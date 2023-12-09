@@ -319,12 +319,12 @@
 
 <script>
 import each from 'lodash/each';
-import markdownDirective from '@/directives/markdown';
-import styleHelper from '@/mixins/styleHelper';
 import * as quests from '@/../../common/script/content/quests';
 import { mountInfo, petInfo } from '@/../../common/script/content/stable';
 import content from '@/../../common/script/content';
 import gear from '@/../../common/script/content/gear';
+import styleHelper from '@/mixins/styleHelper';
+import markdownDirective from '@/directives/markdown';
 import notifications from '@/mixins/notifications';
 import userLink from '../userLink';
 import PurchaseHistoryTable from '../ui/purchaseHistoryTable.vue';

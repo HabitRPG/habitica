@@ -2,7 +2,6 @@
 import { storiesOf } from '@storybook/vue';
 import { withKnobs } from '@storybook/addon-knobs';
 
-
 import bugReportModal from '@/components/bugReportModal';
 import bugReportSuccessModal from '@/components/bugReportSuccessModal';
 

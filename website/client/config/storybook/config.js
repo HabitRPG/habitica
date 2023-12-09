@@ -2,16 +2,14 @@
 import { configure } from '@storybook/vue';
 import './margin.css';
 import '../../src/assets/scss/index.scss';
-
 import '../../src/assets/scss/sprites.scss';
 
 import Vue from 'vue';
 import BootstrapVue from 'bootstrap-vue';
+import i18n from 'habitica/website/common/script/i18n';
 import StoreModule from '@/libs/store';
 import getStore from '@/store';
 import '../../src/filters/registerGlobals';
-
-import i18n from '../../../common/script/i18n';
 
 // couldn't inject the languages easily,
 // so just a "$t()" string to show that this will be translated

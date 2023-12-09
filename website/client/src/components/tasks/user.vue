@@ -387,6 +387,7 @@ import Vue from 'vue';
 import throttle from 'lodash/throttle';
 import cloneDeep from 'lodash/cloneDeep';
 import draggable from 'vuedraggable';
+import taskDefaults from '@/../../common/script/libs/taskDefaults';
 import TaskColumn from './column';
 import TaskModal from './taskModal';
 import TaskSummary from './taskSummary';
@@ -403,7 +404,6 @@ import rewardIcon from '@/assets/svg/reward.svg';
 import dragIcon from '@/assets/svg/drag_indicator.svg';
 
 import { mapState, mapActions } from '@/libs/store';
-import taskDefaults from '@/../../common/script/libs/taskDefaults';
 import brokenTaskModal from './brokenTaskModal';
 
 export default {

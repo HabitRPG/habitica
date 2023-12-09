@@ -53,7 +53,6 @@
         </tr>
       </table>
 
-
       <h2 v-once>
         {{ $t('character') }}
       </h2>
