@@ -5,7 +5,7 @@ import {
   translate as t, generateUser,
 } from '../../../../helpers/api-integration/v3';
 
-describe.only('POST /challenges/:challengeId/flag', () => {
+describe('POST /challenges/:challengeId/flag', () => {
   let user;
   let challenge;
 
