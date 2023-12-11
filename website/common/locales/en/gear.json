@@ -501,8 +501,8 @@
   "weaponSpecialWinter2024WarriorNotes": "A fine weapon, so long as you can stop yourself from eating it.. Increases Strength by <%= str %>. Limited Edition Winter 2023-2024 Gear.",
   "weaponSpecialWinter2024MageText": "Narwhal Wand",
   "weaponSpecialWinter2024MageNotes": "Thanks to a generous, magical narwhal that sensed your great abilities, you have been gifted a tusk that lets you sense changes happening around you. Increases Intelligence by <%= int %>. Limited Edition Winter 2023-2024 Gear.",
-  "weaponSpecialWinter2024HealerText": "Salt Shaker",
-  "weaponSpecialWinter2024HealerNotes": "How convenient that you had ice-melting materials handy when you froze! Increases Intelligence by <%= int %> Limited Edition Winter 2023-2024 Gear.",
+  "weaponSpecialWinter2024HealerText": "Torch",
+  "weaponSpecialWinter2024HealerNotes": "Melt yourself out of this jam in no time! Increases Intelligence by <%= int %> Limited Edition Winter 2023-2024 Gear.",
 
   "weaponMystery201411Text": "Pitchfork of Feasting",
   "weaponMystery201411Notes": "Stab your enemies or dig in to your favorite foods - this versatile pitchfork does it all! Confers no benefit. November 2014 Subscriber Item.",
@@ -2632,8 +2632,8 @@
 
   "shieldSpecialWinter2024WarriorText": "Cookie Shield",
   "shieldSpecialWinter2024WarriorNotes": "You’re a tough cookie who will never crumble! Increases Strength by <%= str %>. Limited Edition Winter 2023-2024 Gear.",
-  "shieldSpecialWinter2024HealerText": "Torch",
-  "shieldSpecialWinter2024HealerNotes": "Melt yourself out of this jam in no time! Increases Constitution by <%= con %>. Limited Edition Winter 2023-2024 Gear.",
+  "shieldSpecialWinter2024HealerText": "Salt Shaker",
+  "shieldSpecialWinter2024HealerNotes": "How convenient that you had ice-melting materials handy when you froze! Increases Constitution by <%= con %>. Limited Edition Winter 2023-2024 Gear.",
 
   "shieldMystery201601Text": "Resolution Slayer",
   "shieldMystery201601Notes": "This blade can be used to parry away all distractions. Confers no benefit. January 2016 Subscriber Item.",
