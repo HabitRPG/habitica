@@ -502,7 +502,7 @@
   "weaponSpecialWinter2024MageText": "Narwhal Wand",
   "weaponSpecialWinter2024MageNotes": "Thanks to a generous, magical narwhal that sensed your great abilities, you have been gifted a tusk that lets you sense changes happening around you. Increases Intelligence by <%= int %>. Limited Edition Winter 2023-2024 Gear.",
   "weaponSpecialWinter2024HealerText": "Torch",
-  "weaponSpecialWinter2024HealerNotes": "Melt yourself out of this jam in no time! Increases Intelligence by <%= int %> Limited Edition Winter 2023-2024 Gear.",
+  "weaponSpecialWinter2024HealerNotes": "Melt yourself out of this jam in no time! Increases Intelligence by <%= int %>. Limited Edition Winter 2023-2024 Gear.",
 
   "weaponMystery201411Text": "Pitchfork of Feasting",
   "weaponMystery201411Notes": "Stab your enemies or dig in to your favorite foods - this versatile pitchfork does it all! Confers no benefit. November 2014 Subscriber Item.",
