@@ -1212,7 +1212,7 @@
   "armorSpecialFall2023HealerNotes": "With moss, rock, wood, and bog water merged into one, this outfit is sometimes tough and sometimes spongey (but always intimidating). Increases Constitution by <%= con %>. Limited Edition 2023 Fall Gear.",
 
   "armorSpecialWinter2024RogueText": "Snowy Owl Robes",
-  "armorSpecialWinter2024RogueNotes": "Whooooo will you be when wearing this robe? Covered in feathers and fluff, you will be both warm and stealthy!. Increases Perception by <%= per %>. Limited Edition 2023-2024 Winter Gear.",
+  "armorSpecialWinter2024RogueNotes": "Whooooo will you be when wearing this robe? Covered in feathers and fluff, you will be both warm and stealthy! Increases Perception by <%= per %>. Limited Edition 2023-2024 Winter Gear.",
   "armorSpecialWinter2024WarriorText": "Peppermint Bark Armor",
   "armorSpecialWinter2024WarriorNotes": "Turns out chocolate, mint, and frosting are stronger materials than you’d think. Increases Constitution by <%= con %>. Limited Edition 2023-2024 Winter Gear.",
   "armorSpecialWinter2024MageText": "Narwhal Wizard Robes",
