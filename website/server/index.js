@@ -2,6 +2,8 @@
 
 // Register babel hook so we can write the real entry file (server.js) in ES6
 // In production, the es6 code is pre-transpiled so it doesn't need it
+import { ENABLE_CLUSTER } from './libs/config';
+
 if (process.env.NODE_ENV !== 'production') {
   require('@babel/register'); // eslint-disable-line import/no-extraneous-dependencies
 }
@@ -19,12 +21,8 @@ require('./libs/gcpTraceAgent');
 
 const logger = require('./libs/logger').default;
 
-const IS_PROD = nconf.get('IS_PROD');
-const IS_DEV = nconf.get('IS_DEV');
-const CORES = Number(nconf.get('WEB_CONCURRENCY')) || 0;
-
 // Setup the cluster module
-if (CORES !== 0 && cluster.isMaster && (IS_DEV || IS_PROD)) {
+if (ENABLE_CLUSTER) {
   // Fork workers. If config.json has WEB_CONCURRENCY=x,
   // use that - otherwise, use all cpus-1 (production)
   for (let i = 0; i < CORES; i += 1) {
