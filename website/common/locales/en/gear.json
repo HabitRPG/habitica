@@ -2013,11 +2013,11 @@
   "headSpecialWinter2024RogueText": "Snowy Owl Hood",
   "headSpecialWinter2024RogueNotes": "Whooooo will you see when wearing this hood? Well, who WON’T you see? You will capture every movement, every gesture, every detail around you. Increases Perception by <%= per %>. Limited Edition Winter 2023-2024 Gear.",
   "headSpecialWinter2024WarriorText": "Peppermint Bark Helm",
-  "headSpecialWinter2024WarriorNotes": "Never has protecting your noggin been so festively delicious! Increases Strength by <%= str>. Limited Edition Winter 2023-2024 Gear",
+  "headSpecialWinter2024WarriorNotes": "Never has protecting your noggin been so festively delicious! Increases Strength by <%= str %>. Limited Edition Winter 2023-2024 Gear.",
   "headSpecialWinter2024MageText": "Narwhal Wizard Hood",
-  "headSpecialWinter2024MageNotes": "This fleece-lined hood will protect you from the cold as well as from negative thoughts and vibes. Increases Perception by <%= per %>. Limited Edition Winter 2023-2024 Gear",
+  "headSpecialWinter2024MageNotes": "This fleece-lined hood will protect you from the cold as well as from negative thoughts and vibes. Increases Perception by <%= per %>. Limited Edition Winter 2023-2024 Gear.",
   "headSpecialWinter2024HealerText": "Frozen Helm",
-  "headSpecialWinter2024HealerNotes": "Uh oh, a spell gone wrong has trapped you in ice! Increases Intelligence by <%= int %>. Limited Edition Winter 2023-2024 Gear",
+  "headSpecialWinter2024HealerNotes": "Uh oh, a spell gone wrong has trapped you in ice! Increases Intelligence by <%= int %>. Limited Edition Winter 2023-2024 Gear.",
 
   "headSpecialGaymerxText": "Rainbow Warrior Helm",
   "headSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special helmet is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
@@ -2631,7 +2631,7 @@
   "shieldSpecialFall2023HealerNotes": "With a firm base and a soft top, this is perfect to hurl at enemies or to sit upon when you need a rest from your adventures. Increases Constitution by <%= con %>. Limited Edition 2023 Fall Gear.",
 
   "shieldSpecialWinter2024WarriorText": "Cookie Shield",
-  "shieldSpecialWinter2024WarriorNotes": "You’re a tough cookie who will never crumble! Increases Strength by <%= str =>. Limited Edition Winter 2023-2024 Gear.",
+  "shieldSpecialWinter2024WarriorNotes": "You’re a tough cookie who will never crumble! Increases Strength by <%= str %>. Limited Edition Winter 2023-2024 Gear.",
   "shieldSpecialWinter2024HealerText": "Torch",
   "shieldSpecialWinter2024HealerNotes": "Melt yourself out of this jam in no time! Increases Constitution by <%= con %>. Limited Edition Winter 2023-2024 Gear.",
 
