@@ -279,7 +279,10 @@
             </div>
           </div>
 
-          <div class="mt-4 nextHourglassDescription" v-once>
+          <div
+            v-once
+            class="mt-4 nextHourglassDescription"
+          >
             *{{ $t('nextHourglassDescription') }}
           </div>
         </div>

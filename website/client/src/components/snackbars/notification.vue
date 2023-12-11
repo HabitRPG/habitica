@@ -246,11 +246,6 @@ export default {
       }),
     };
   },
-  mounted () {
-    if (this.notification.type === 'drop' && this.notification.emptied) {
-      this.$root.$emit('bv::show::modal', 'armoire-empty');
-    }
-  },
   computed: {
     message () {
       if (this.notification.flavorMessage) {
@@ -274,6 +269,11 @@ export default {
     classes () {
       return `${this.notification.type} ${this.negative}`;
     },
+  },
+  mounted () {
+    if (this.notification.type === 'drop' && this.notification.emptied) {
+      this.$root.$emit('bv::show::modal', 'armoire-empty');
+    }
   },
   methods: {
     handleOnClick () {

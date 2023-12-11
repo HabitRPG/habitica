@@ -10,7 +10,7 @@
       :inline-dropdown="false"
       @select="selectItem($event)"
     >
-      <template v-slot:item="{ item }">
+      <template #item="{ item }">
         <span :class="{'dropdown-icon-item': withIcon}">
           <slot
             name="item"

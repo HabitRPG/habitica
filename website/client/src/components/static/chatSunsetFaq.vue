@@ -153,7 +153,6 @@
       <div class="body-text">
         <p v-html="$t('sunsetFaqPara20')"></p>
       </div>
-
     </div>
 
     <!-- sidebar -->
