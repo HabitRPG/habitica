@@ -40,7 +40,7 @@ const ENABLE_HTTP_AUTH = nconf.get('SITE_HTTP_AUTH_ENABLED') === 'true';
 const SESSION_SECRET = nconf.get('SESSION_SECRET');
 const TEN_YEARS = 1000 * 60 * 60 * 24 * 365 * 10;
 
-export default function attachMiddlewares (app /* , server */) {
+export default function attachMiddlewares (app, server) {
   setupExpress(app);
 
   if (ENABLE_CLUSTER) {

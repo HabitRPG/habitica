@@ -2,7 +2,6 @@
 
 // Register babel hook so we can write the real entry file (server.js) in ES6
 // In production, the es6 code is pre-transpiled so it doesn't need it
-import { ENABLE_CLUSTER } from './libs/config';
 
 if (process.env.NODE_ENV !== 'production') {
   require('@babel/register'); // eslint-disable-line import/no-extraneous-dependencies
@@ -20,6 +19,8 @@ setupNconf();
 require('./libs/gcpTraceAgent');
 
 const logger = require('./libs/logger').default;
+
+const { ENABLE_CLUSTER, CORES } = require('./libs/config');
 
 // Setup the cluster module
 if (ENABLE_CLUSTER) {

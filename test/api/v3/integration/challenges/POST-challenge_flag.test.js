@@ -2,7 +2,7 @@ import { v4 as generateUUID } from 'uuid';
 import {
   generateChallenge,
   createAndPopulateGroup,
-  translate as t, generateUser,
+  translate as t,
 } from '../../../../helpers/api-integration/v3';
 
 describe('POST /challenges/:challengeId/flag', () => {
