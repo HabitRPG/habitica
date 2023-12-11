@@ -498,7 +498,7 @@
   "weaponSpecialWinter2024RogueText": "Snowy Owl Bracer",
   "weaponSpecialWinter2024RogueNotes": "You are equipped with a flurry of feathers and talons! Hoot! Increases Strength by <%= str %>. Limited Edition Winter 2023-2024 Gear.",
   "weaponSpecialWinter2024WarriorText": "Candy Club",
-  "weaponSpecialWinter2024WarriorNotes": "A fine weapon, so long as you can stop yourself from eating it.. Increases Strength by <%= str %>. Limited Edition Winter 2023-2024 Gear.",
+  "weaponSpecialWinter2024WarriorNotes": "A fine weapon, so long as you can stop yourself from eating it. Increases Strength by <%= str %>. Limited Edition Winter 2023-2024 Gear.",
   "weaponSpecialWinter2024MageText": "Narwhal Wand",
   "weaponSpecialWinter2024MageNotes": "Thanks to a generous, magical narwhal that sensed your great abilities, you have been gifted a tusk that lets you sense changes happening around you. Increases Intelligence by <%= int %>. Limited Edition Winter 2023-2024 Gear.",
   "weaponSpecialWinter2024HealerText": "Torch",
