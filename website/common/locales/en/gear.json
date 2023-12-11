@@ -2631,7 +2631,7 @@
   "shieldSpecialFall2023HealerNotes": "With a firm base and a soft top, this is perfect to hurl at enemies or to sit upon when you need a rest from your adventures. Increases Constitution by <%= con %>. Limited Edition 2023 Fall Gear.",
 
   "shieldSpecialWinter2024WarriorText": "Cookie Shield",
-  "shieldSpecialWinter2024WarriorNotes": "You’re a tough cookie who will never crumble! Increases Strength by <%= str %>. Limited Edition Winter 2023-2024 Gear.",
+  "shieldSpecialWinter2024WarriorNotes": "You’re a tough cookie who will never crumble! Increases Constitution by <%= con %>. Limited Edition Winter 2023-2024 Gear.",
   "shieldSpecialWinter2024HealerText": "Salt Shaker",
   "shieldSpecialWinter2024HealerNotes": "How convenient that you had ice-melting materials handy when you froze! Increases Constitution by <%= con %>. Limited Edition Winter 2023-2024 Gear.",
 
