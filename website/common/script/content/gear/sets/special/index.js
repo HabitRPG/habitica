@@ -2093,6 +2093,12 @@ const head = {
   winter2024Mage: {
     set: 'winter2024NarwhalWizardMageSet',
   },
+  nye2023: {
+    text: t('headSpecialNye2023Text'),
+    notes: t('headSpecialNye2023Notes'),
+    value: 0,
+    canOwn: ownsItem('head_special_nye2023'),
+  },
 };
 
 const headStats = {
