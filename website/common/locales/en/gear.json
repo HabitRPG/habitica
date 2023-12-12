@@ -2010,6 +2010,8 @@
   "headSpecialFall2023HealerText": "Bog Creature Mask",
   "headSpecialFall2023HealerNotes": "With eyes as dark as the bog it emerged from, it fixes its gaze upon enemies. Increases Intelligence by <%= int %>. Limited Edition 2023 Fall Gear.",
 
+  "headSpecialNye2024Text": "Ludicrous Party Hat",
+  "headSpecialNye2024Notes": "You've received an Ludicrous Party Hat! Wear it with pride while ringing in the New Year! Confers no benefit.",
   "headSpecialWinter2024RogueText": "Snowy Owl Hood",
   "headSpecialWinter2024RogueNotes": "Whooooo will you see when wearing this hood? Well, who WON’T you see? You will capture every movement, every gesture, every detail around you. Increases Perception by <%= per %>. Limited Edition Winter 2023-2024 Gear.",
   "headSpecialWinter2024WarriorText": "Peppermint Bark Helm",

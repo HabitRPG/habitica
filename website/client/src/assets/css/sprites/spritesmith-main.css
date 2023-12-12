@@ -33080,6 +33080,11 @@
   width: 114px;
   height: 90px;
 }
+.head_special_nye2023 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_special_nye2023.png');
+  width: 114px;
+  height: 90px;
+}
 .head_special_ski {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_special_ski.png');
   width: 90px;
@@ -33732,6 +33737,11 @@
 }
 .shop_head_special_nye2022 {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_head_special_nye2022.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_head_special_nye2023 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_head_special_nye2023.png');
   width: 68px;
   height: 68px;
 }
