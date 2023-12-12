@@ -68,7 +68,7 @@
 import debounce from 'lodash/debounce';
 import find from 'lodash/find';
 
-import { sleepAsync } from 'habitica/website/common/script/libs/sleepAsync';
+import { sleepAsync } from '@/../../common/script/libs/sleepAsync';
 import { mapState } from '@/libs/store';
 import notification from './notification';
 import { getBannerHeight } from '@/libs/banner.func';

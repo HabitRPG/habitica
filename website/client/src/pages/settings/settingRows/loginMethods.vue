@@ -45,7 +45,7 @@
 <script>
 import axios from 'axios';
 import hello from 'hellojs';
-import { SUPPORTED_SOCIAL_NETWORKS } from 'habitica/website/common/script/constants';
+import { SUPPORTED_SOCIAL_NETWORKS } from '@/../../common/script/constants';
 import { buildAppleAuthUrl } from '@/libs/auth';
 import { mapState } from '@/libs/store';
 import googleIcon from '@/assets/svg/google.svg';

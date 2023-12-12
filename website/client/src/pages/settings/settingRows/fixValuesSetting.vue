@@ -139,7 +139,7 @@ input[type="number"] {
 
 <script>
 // import clone from 'lodash/clone';
-import { MAX_LEVEL_HARD_CAP, MAX_FIELD_HARD_CAP } from 'habitica/website/common/script/constants';
+import { MAX_LEVEL_HARD_CAP, MAX_FIELD_HARD_CAP } from '@/../../common/script/constants';
 import SaveCancelButtons from '../components/saveCancelButtons.vue';
 import { InlineSettingMixin } from '../components/inlineSettingMixin';
 import healthIcon from '@/assets/svg/health.svg';

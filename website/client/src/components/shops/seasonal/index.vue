@@ -351,7 +351,7 @@ import isPinned from '@/../../common/script/libs/isPinned';
 import getOfficialPinnedItems from '@/../../common/script/libs/getOfficialPinnedItems';
 import i18n from '@/../../common/script/i18n';
 import shops from '@/../../common/script/libs/shops';
-import { getClassName } from 'habitica/website/common/script/libs/getClassName';
+import { getClassName } from '@/../../common/script/libs/getClassName';
 import { mapState } from '@/libs/store';
 
 import Checkbox from '@/components/ui/checkbox';

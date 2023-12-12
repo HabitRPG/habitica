@@ -95,7 +95,7 @@
 <script>
 import axios from 'axios';
 import moment from 'moment/moment';
-import getUtcOffset from 'habitica/website/common/script/fns/getUtcOffset';
+import getUtcOffset from '@/../../common/script/fns/getUtcOffset';
 import { mapState } from '@/libs/store';
 
 import { InlineSettingMixin } from '../components/inlineSettingMixin';

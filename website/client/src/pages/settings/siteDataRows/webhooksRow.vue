@@ -209,7 +209,7 @@ table {
 
 <script>
 import * as validator from 'validator';
-import uuid from 'habitica/website/common/script/libs/uuid';
+import uuid from '@/../../common/script/libs/uuid';
 import { mapState } from '@/libs/store';
 
 import { InlineSettingMixin } from '../components/inlineSettingMixin';

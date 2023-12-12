@@ -5,9 +5,9 @@ import { togglePinnedItem as togglePinnedItemOp } from '@/../../common/script/op
 import changeClassOp from '@/../../common/script/ops/changeClass';
 import disableClassesOp from '@/../../common/script/ops/disableClasses';
 import openMysteryItemOp from '@/../../common/script/ops/openMysteryItem';
-import { unEquipByType } from 'habitica/website/common/script/ops/unequip';
-import markPMSRead from 'habitica/website/common/script/ops/markPMSRead';
-import updateStats from 'habitica/website/common/script/fns/updateStats';
+import { unEquipByType } from '@/../../common/script/ops/unequip';
+import markPMSRead from '@/../../common/script/ops/markPMSRead';
+import updateStats from '@/../../common/script/fns/updateStats';
 import { loadAsyncResource } from '@/libs/asyncResource';
 
 export function fetch (store, options = {}) { // eslint-disable-line no-shadow

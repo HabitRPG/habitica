@@ -304,7 +304,7 @@
 <script>
 import orderBy from 'lodash/orderBy';
 import * as quests from '@/../../common/script/content/quests';
-import getItemInfo from 'habitica/website/common/script/libs/getItemInfo';
+import getItemInfo from '@/../../common/script/libs/getItemInfo';
 import { mapState } from '@/libs/store';
 import * as Analytics from '@/libs/analytics';
 

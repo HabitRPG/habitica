@@ -75,7 +75,7 @@
 import _filter from 'lodash/filter';
 import _orderBy from 'lodash/orderBy';
 import shops from '@/../../common/script/libs/shops';
-import { getClassName } from 'habitica/website/common/script/libs/getClassName';
+import { getClassName } from '@/../../common/script/libs/getClassName';
 import { mapState } from '@/libs/store';
 import LayoutSection from '@/components/ui/layoutSection';
 import FilterDropdown from '@/components/ui/filterDropdown';

@@ -229,7 +229,7 @@
 import { toNextLevel } from '@/../../common/script/statHelpers';
 import statsComputed from '@/../../common/script/libs/statsComputed';
 import percent from '@/../../common/script/libs/percent';
-import { getClassName } from 'habitica/website/common/script/libs/getClassName';
+import { getClassName } from '@/../../common/script/libs/getClassName';
 import Avatar from './avatar';
 import ClassBadge from './members/classBadge';
 import { mapState } from '@/libs/store';

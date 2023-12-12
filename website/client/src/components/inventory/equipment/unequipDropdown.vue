@@ -55,7 +55,7 @@ import {
   UNEQUIP_EQUIPPED,
   UNEQUIP_BACKGROUND,
   UNEQUIP_PET_MOUNT,
-} from 'habitica/website/common/script/ops/unequip';
+} from '@/../../common/script/ops/unequip';
 
 import unequipIcon from '@/assets/svg/unequip.svg';
 

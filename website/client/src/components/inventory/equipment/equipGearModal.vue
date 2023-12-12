@@ -179,7 +179,7 @@
 </style>
 
 <script>
-import { getClassName } from 'habitica/website/common/script/libs/getClassName';
+import { getClassName } from '@/../../common/script/libs/getClassName';
 import { mapState } from '@/libs/store';
 
 import svgClose from '@/assets/svg/close.svg';
