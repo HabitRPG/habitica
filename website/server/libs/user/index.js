@@ -138,39 +138,43 @@ export async function update (req, res, { isV3 = false }) {
     if (newName === null) throw new BadRequest(res.t('invalidReqParams'));
     if (newName.length > 30) throw new BadRequest(res.t('displaynameIssueLength'));
     if (nameContainsNewline(newName)) throw new BadRequest(res.t('displaynameIssueNewline'));
-    await checkNewInputForProfanity(user, res, newName);
-    // slack info for flagged-posts
-    const authorEmail = getUserInfo(user, ['email']).email;
-    slack.sendProfileSlurNotification({
-      authorEmail,
-      author: user.auth.local.username,
-      uuid: user.id,
-      language: user.preferences.language,
-      displayName: newName,
-      // userBlurb: res.body,
-      // imageUrl: res.profile.imageUrl,
-    });
+    if (req.body['profile.blurb'] !== undefined) {
+      const newBlurb = req.body['profile.blurb'];
+      await checkNewInputForProfanity(user, res, newName);
+      await checkNewInputForProfanity(user, res, newBlurb);
+      // slack info for flagged-posts
+      const authorEmail = getUserInfo(user, ['email']).email;
+      slack.sendProfileSlurNotification({
+        authorEmail,
+        author: user.auth.local.username,
+        uuid: user.id,
+        language: user.preferences.language,
+        displayName: newName,
+        userBlurb: newBlurb,
+        // imageUrl: res.profile.imageUrl,
+      });
+    }
     // hard stop error & message
     throw new BadRequest(res.t('bannedSlurUsedInProfile'));
   }
 
-  if (req.body['profile.blurb'] !== undefined) {
-    const newBlurb = req.body['profile.blurb'];
-    await checkNewInputForProfanity(user, res, newBlurb);
-    // slack info for flagged-posts
-    const authorEmail = getUserInfo(user, ['email']).email;
-    slack.sendProfileSlurNotification({
-      authorEmail,
-      author: user.auth.local.username,
-      uuid: user.id,
-      language: user.preferences.language,
-      displayName: user.profile.name,
-      userBlurb: newBlurb,
-      // imageUrl: res.profile.imageUrl,
-    });
-    // hard stop error & message
-    throw new BadRequest(res.t('bannedSlurUsedInProfile'));
-  }
+  // if (req.body['profile.blurb'] !== undefined) {
+  //   const newBlurb = req.body['profile.blurb'];
+  //   await checkNewInputForProfanity(user, res, newBlurb);
+  //   // slack info for flagged-posts
+  //   const authorEmail = getUserInfo(user, ['email']).email;
+  //   slack.sendProfileSlurNotification({
+  //     authorEmail,
+  //     author: user.auth.local.username,
+  //     uuid: user.id,
+  //     language: user.preferences.language,
+  //     displayName: user.profile.name,
+  //     userBlurb: newBlurb,
+  //     // imageUrl: res.profile.imageUrl,
+  //   });
+  //   // hard stop error & message
+  //   throw new BadRequest(res.t('bannedSlurUsedInProfile'));
+  // }
 
   if (req.body['preferences.tasks.mirrorGroupTasks'] !== undefined) {
     const groupsToMirror = req.body['preferences.tasks.mirrorGroupTasks'];

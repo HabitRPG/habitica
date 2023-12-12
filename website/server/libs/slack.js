@@ -230,10 +230,10 @@ function sendProfileFlagNotification ({
   if (userComment) {
     text += ` and commented: ${userComment}`;
   }
-  let profileData = `Display Name: ${flaggedUser.profile.name}`;
-  if (flaggedUser.profile.imageUrl) {
-    profileData += `\n\nImage URL: ${flaggedUser.profile.imageUrl}`;
-  }
+  let profileData = `Display Name: ${flaggedUser.profile.displayName}`;
+  // if (flaggedUser.profile.imageUrl) {
+  //   profileData += `\n\nImage URL: ${flaggedUser.profile.imageUrl}`;
+  // }
   if (flaggedUser.profile.blurb) {
     profileData += `\n\nAbout: ${flaggedUser.profile.blurb}`;
   }
@@ -246,7 +246,7 @@ function sendProfileFlagNotification ({
         color: 'danger',
         title,
         title_link: titleLink,
-        text: profileData,
+        body: profileData,
         mrkdwn_in: [
           'text',
         ],
