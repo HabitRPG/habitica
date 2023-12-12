@@ -231,11 +231,8 @@ function sendProfileFlagNotification ({
     text += ` and commented: ${userComment}`;
   }
   let profileData = `Display Name: ${flaggedUser.profile.displayName}`;
-  // if (flaggedUser.profile.imageUrl) {
-  //   profileData += `\n\nImage URL: ${flaggedUser.profile.imageUrl}`;
-  // }
   if (flaggedUser.profile.blurb) {
-    profileData += `\n\nAbout: ${flaggedUser.profile.blurb}`;
+    profileData += `\n\nAbout: ${flaggedUser.profile.newBlurb}`;
   }
 
   flagSlack
@@ -385,10 +382,7 @@ function sendProfileSlurNotification ({
   author,
   uuid,
   language,
-  displayName,
-  // userBlurb,
-  // imageUrl,
-  body,
+  problemContent,
 }) {
   if (SKIP_FLAG_METHODS) {
     return;
@@ -399,17 +393,9 @@ function sendProfileSlurNotification ({
   const text = `@${author} (${uuid}, ${language}) tried to post a slur in their Profile.`;
   const authorName = formatUser({
     name: author,
-    displayName,
     email: authorEmail,
     uuid,
   });
-  let profileData = `Display Name: ${displayName}`;
-  if (body) {
-    profileData += `\n\n${body.userBlurb}`;
-  }
-  if (body) {
-    profileData += `\n\n${body.imageUrl}`;
-  }
 
   flagSlack
     .send({
@@ -420,7 +406,7 @@ function sendProfileSlurNotification ({
         author_name: authorName,
         title,
         title_link: titleLink,
-        text: profileData,
+        text: problemContent,
         mrkdwn_in: [
           'text',
         ],
