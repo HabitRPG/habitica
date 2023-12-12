@@ -16,18 +16,16 @@ export const EVENTS = {
     npcImageSuffix: '',
   },
   winter2024: {
-    start: '2023-12-05T08:00-05:00', // 12/19 start
+    start: '2023-12-19T08:00-05:00',
     end: '2024-01-31T23:59-05:00',
     npcImageSuffix: '_winter',
     season: 'winter',
     gear: true,
   },
   g1g12023: {
-    start: '2023-11-28T08:00-05:00',
-    end: '2023-11-30T23:59-05:00',
+    start: '2023-12-18T08:00-05:00',
+    end: '2024-01-08T23:59-05:00',
     promo: 'g1g1',
-    npcImageSuffix: '_winter',
-    season: 'winter',
   },
   potions202311: {
     start: '2023-11-14T08:00-04:00',
