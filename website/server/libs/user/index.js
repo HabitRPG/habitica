@@ -107,17 +107,6 @@ function checkPreferencePurchase (user, path, item) {
   return _.get(user.purchased, itemPath);
 }
 
-// checks for profile banned slurs - swears are allowed & dependent on user flagging
-async function checkNewInputForProfanity (user, res, newValue) {
-  const containsSlur = stringContainsProfanity(newValue, 'slur');
-  if (containsSlur) {
-    user.flags.chatRevoked = true;
-    await user.save();
-    return true;
-  }
-  return false;
-}
-
 export async function update (req, res, { isV3 = false }) {
   const { user } = res.locals;
 
@@ -142,20 +131,25 @@ export async function update (req, res, { isV3 = false }) {
     if (newName === null) throw new BadRequest(res.t('invalidReqParams'));
     if (newName.length > 30) throw new BadRequest(res.t('displaynameIssueLength'));
     if (nameContainsNewline(newName)) throw new BadRequest(res.t('displaynameIssueNewline'));
-    if (checkNewInputForProfanity(user, res, newName)) {
+    if (stringContainsProfanity(newName, 'slur')) {
       slurWasUsed = true;
-      problemContent += `\n\nProfile Name: ${newName}\n\n` 
+      problemContent += `Profile Name: ${newName}\n\n`;
     }
   }
 
   if (req.body['profile.blurb'] !== undefined) {
     const newBlurb = req.body['profile.blurb'];
-    if (checkNewInputForProfanity(user, res, newBlurb)) {
+    if (stringContainsProfanity(newBlurb, 'slur')) {
       slurWasUsed = true;
-      problemContent += `Profile Name: ${newBlurb}`
-    }
+      problemContent += `Profile Blurb: ${newBlurb}`;
+    };
+  }
+
+  if (slurWasUsed) {
     const authorEmail = getUserInfo(user, ['email']).email;
-    await slack.sendProfileSlurNotification({
+    user.flags.chatRevoked = true;
+    await user.save();
+    slack.sendProfileSlurNotification({
       authorEmail,
       author: user.auth.local.username,
       uuid: user.id,
@@ -164,7 +158,6 @@ export async function update (req, res, { isV3 = false }) {
     });
     throw new BadRequest(res.t('bannedSlurUsedInProfile'));
   }
-
 
   if (req.body['preferences.tasks.mirrorGroupTasks'] !== undefined) {
     const groupsToMirror = req.body['preferences.tasks.mirrorGroupTasks'];
