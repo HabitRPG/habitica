@@ -1179,6 +1179,11 @@
   width: 141px;
   height: 147px;
 }
+.background_frozen_blue_pond {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_frozen_blue_pond.png');
+  width: 141px;
+  height: 147px;
+}
 .background_frozen_lake {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_frozen_lake.png');
   width: 141px;
@@ -1381,6 +1386,11 @@
 }
 .background_hot_spring {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_hot_spring.png');
+  width: 141px;
+  height: 147px;
+}
+.background_ice_bubble_lake {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_ice_bubble_lake.png');
   width: 141px;
   height: 147px;
 }
@@ -2269,6 +2279,11 @@
   width: 141px;
   height: 147px;
 }
+.background_winter_mountain_range {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_winter_mountain_range.png');
+  width: 141px;
+  height: 147px;
+}
 .background_winter_night {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_winter_night.png');
   width: 141px;
@@ -2985,6 +3000,11 @@
   width: 68px;
   height: 68px;
 }
+.icon_background_frozen_blue_pond {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_frozen_blue_pond.png');
+  width: 68px;
+  height: 68px;
+}
 .icon_background_frozen_lake {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_frozen_lake.png');
   width: 68px;
@@ -3187,6 +3207,11 @@
 }
 .icon_background_hot_spring {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_hot_spring.png');
+  width: 68px;
+  height: 68px;
+}
+.icon_background_ice_bubble_lake {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_ice_bubble_lake.png');
   width: 68px;
   height: 68px;
 }
@@ -4077,6 +4102,11 @@
 }
 .icon_background_winter_lake_with_swans {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_winter_lake_with_swans.png');
+  width: 68px;
+  height: 68px;
+}
+.icon_background_winter_mountain_range {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_winter_mountain_range.png');
   width: 68px;
   height: 68px;
 }
@@ -19020,6 +19050,16 @@
   width: 90px;
   height: 90px;
 }
+.broad_armor_armoire_schoolUniformPants {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_armoire_schoolUniformPants.png');
+  width: 114px;
+  height: 90px;
+}
+.broad_armor_armoire_schoolUniformSkirt {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_armoire_schoolUniformSkirt.png');
+  width: 114px;
+  height: 90px;
+}
 .broad_armor_armoire_scribesRobe {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_armoire_scribesRobe.png');
   width: 114px;
@@ -19975,6 +20015,11 @@
   width: 114px;
   height: 90px;
 }
+.shield_armoire_trustyPencil {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shield_armoire_trustyPencil.png');
+  width: 114px;
+  height: 90px;
+}
 .shield_armoire_trustyUmbrella {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shield_armoire_trustyUmbrella.png');
   width: 114px;
@@ -20357,6 +20402,16 @@
 }
 .shop_armor_armoire_royalRobes {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_armor_armoire_royalRobes.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_armor_armoire_schoolUniformPants {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_armor_armoire_schoolUniformPants.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_armor_armoire_schoolUniformSkirt {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_armor_armoire_schoolUniformSkirt.png');
   width: 68px;
   height: 68px;
 }
@@ -21375,6 +21430,11 @@
   width: 68px;
   height: 68px;
 }
+.shop_shield_armoire_trustyPencil {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_shield_armoire_trustyPencil.png');
+  width: 68px;
+  height: 68px;
+}
 .shop_shield_armoire_trustyUmbrella {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_shield_armoire_trustyUmbrella.png');
   width: 68px;
@@ -21820,6 +21880,11 @@
   width: 68px;
   height: 68px;
 }
+.shop_weapon_armoire_scholarlyTextbooks {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_armoire_scholarlyTextbooks.png');
+  width: 68px;
+  height: 68px;
+}
 .shop_weapon_armoire_shadowMastersMace {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_armoire_shadowMastersMace.png');
   width: 68px;
@@ -22243,6 +22308,16 @@
 .slim_armor_armoire_royalRobes {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_armoire_royalRobes.png');
   width: 90px;
+  height: 90px;
+}
+.slim_armor_armoire_schoolUniformPants {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_armoire_schoolUniformPants.png');
+  width: 114px;
+  height: 90px;
+}
+.slim_armor_armoire_schoolUniformSkirt {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_armoire_schoolUniformSkirt.png');
+  width: 114px;
   height: 90px;
 }
 .slim_armor_armoire_scribesRobe {
@@ -22782,6 +22857,11 @@
 }
 .weapon_armoire_scepterOfDiamonds {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_armoire_scepterOfDiamonds.png');
+  width: 114px;
+  height: 90px;
+}
+.weapon_armoire_scholarlyTextbooks {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_armoire_scholarlyTextbooks.png');
   width: 114px;
   height: 90px;
 }
@@ -28895,6 +28975,41 @@
   width: 68px;
   height: 68px;
 }
+.back_mystery_202401 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/back_mystery_202401.png');
+  width: 117px;
+  height: 120px;
+}
+.broad_armor_mystery_202401 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_mystery_202401.png');
+  width: 117px;
+  height: 120px;
+}
+.shop_armor_mystery_202401 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_armor_mystery_202401.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_back_mystery_202401 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_back_mystery_202401.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_set_mystery_202401 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_set_mystery_202401.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_weapon_armoire_scholarlyTextbooks {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_armoire_scholarlyTextbooks.png');
+  width: 68px;
+  height: 68px;
+}
+.slim_armor_mystery_202401 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_mystery_202401.png');
+  width: 117px;
+  height: 120px;
+}
 .broad_armor_mystery_301404 {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_mystery_301404.png');
   width: 90px;
@@ -33000,6 +33115,26 @@
   width: 114px;
   height: 117px;
 }
+.broad_armor_special_winter2024Healer {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_special_winter2024Healer.png');
+  width: 114px;
+  height: 90px;
+}
+.broad_armor_special_winter2024Mage {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_special_winter2024Mage.png');
+  width: 114px;
+  height: 90px;
+}
+.broad_armor_special_winter2024Rogue {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_special_winter2024Rogue.png');
+  width: 114px;
+  height: 90px;
+}
+.broad_armor_special_winter2024Warrior {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_special_winter2024Warrior.png');
+  width: 114px;
+  height: 90px;
+}
 .broad_armor_special_yeti {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_special_yeti.png');
   width: 90px;
@@ -33057,6 +33192,11 @@
 }
 .head_special_nye2022 {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_special_nye2022.png');
+  width: 114px;
+  height: 90px;
+}
+.head_special_nye2023 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_special_nye2023.png');
   width: 114px;
   height: 90px;
 }
@@ -33250,6 +33390,26 @@
   width: 114px;
   height: 117px;
 }
+.head_special_winter2024Healer {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_special_winter2024Healer.png');
+  width: 114px;
+  height: 90px;
+}
+.head_special_winter2024Mage {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_special_winter2024Mage.png');
+  width: 114px;
+  height: 90px;
+}
+.head_special_winter2024Rogue {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_special_winter2024Rogue.png');
+  width: 114px;
+  height: 90px;
+}
+.head_special_winter2024Warrior {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_special_winter2024Warrior.png');
+  width: 114px;
+  height: 90px;
+}
 .head_special_yeti {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_special_yeti.png');
   width: 90px;
@@ -33399,6 +33559,21 @@
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shield_special_winter2023Warrior.png');
   width: 114px;
   height: 117px;
+}
+.shield_special_winter2024Healer {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shield_special_winter2024Healer.png');
+  width: 114px;
+  height: 90px;
+}
+.shield_special_winter2024Rogue {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shield_special_winter2024Rogue.png');
+  width: 114px;
+  height: 90px;
+}
+.shield_special_winter2024Warrior {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shield_special_winter2024Warrior.png');
+  width: 114px;
+  height: 90px;
 }
 .shield_special_yeti {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shield_special_yeti.png');
@@ -33600,6 +33775,26 @@
   width: 68px;
   height: 68px;
 }
+.shop_armor_special_winter2024Healer {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_armor_special_winter2024Healer.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_armor_special_winter2024Mage {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_armor_special_winter2024Mage.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_armor_special_winter2024Rogue {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_armor_special_winter2024Rogue.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_armor_special_winter2024Warrior {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_armor_special_winter2024Warrior.png');
+  width: 68px;
+  height: 68px;
+}
 .shop_armor_special_yeti {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_armor_special_yeti.png');
   width: 68px;
@@ -33657,6 +33852,11 @@
 }
 .shop_head_special_nye2022 {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_head_special_nye2022.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_head_special_nye2023 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_head_special_nye2023.png');
   width: 68px;
   height: 68px;
 }
@@ -33850,6 +34050,26 @@
   width: 68px;
   height: 68px;
 }
+.shop_head_special_winter2024Healer {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_head_special_winter2024Healer.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_head_special_winter2024Mage {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_head_special_winter2024Mage.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_head_special_winter2024Rogue {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_head_special_winter2024Rogue.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_head_special_winter2024Warrior {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_head_special_winter2024Warrior.png');
+  width: 68px;
+  height: 68px;
+}
 .shop_head_special_yeti {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_head_special_yeti.png');
   width: 68px;
@@ -33997,6 +34217,21 @@
 }
 .shop_shield_special_winter2023Warrior {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_shield_special_winter2023Warrior.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_shield_special_winter2024Healer {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_shield_special_winter2024Healer.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_shield_special_winter2024Rogue {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_shield_special_winter2024Rogue.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_shield_special_winter2024Warrior {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_shield_special_winter2024Warrior.png');
   width: 68px;
   height: 68px;
 }
@@ -34200,6 +34435,26 @@
   width: 68px;
   height: 68px;
 }
+.shop_weapon_special_winter2024Healer {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_special_winter2024Healer.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_weapon_special_winter2024Mage {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_special_winter2024Mage.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_weapon_special_winter2024Rogue {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_special_winter2024Rogue.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_weapon_special_winter2024Warrior {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_special_winter2024Warrior.png');
+  width: 68px;
+  height: 68px;
+}
 .shop_weapon_special_yeti {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_special_yeti.png');
   width: 68px;
@@ -34400,6 +34655,26 @@
   width: 114px;
   height: 117px;
 }
+.slim_armor_special_winter2024Healer {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_special_winter2024Healer.png');
+  width: 114px;
+  height: 90px;
+}
+.slim_armor_special_winter2024Mage {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_special_winter2024Mage.png');
+  width: 114px;
+  height: 90px;
+}
+.slim_armor_special_winter2024Rogue {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_special_winter2024Rogue.png');
+  width: 114px;
+  height: 90px;
+}
+.slim_armor_special_winter2024Warrior {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_special_winter2024Warrior.png');
+  width: 114px;
+  height: 90px;
+}
 .slim_armor_special_yeti {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_special_yeti.png');
   width: 90px;
@@ -34599,6 +34874,26 @@
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_special_winter2023Warrior.png');
   width: 114px;
   height: 117px;
+}
+.weapon_special_winter2024Healer {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_special_winter2024Healer.png');
+  width: 114px;
+  height: 90px;
+}
+.weapon_special_winter2024Mage {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_special_winter2024Mage.png');
+  width: 114px;
+  height: 90px;
+}
+.weapon_special_winter2024Rogue {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_special_winter2024Rogue.png');
+  width: 114px;
+  height: 90px;
+}
+.weapon_special_winter2024Warrior {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_special_winter2024Warrior.png');
+  width: 114px;
+  height: 90px;
 }
 .weapon_special_yeti {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_special_yeti.png');

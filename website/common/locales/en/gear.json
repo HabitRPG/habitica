@@ -727,6 +727,8 @@
   "weaponArmoireRidingBroomNotes": "Run all your most magical errands on this fine broom--or, just take it for a joyride around the neighborhood. Whee! Increases Strength by <%= str %> and Intelligence by <%= int %>. Enchanted Armoire: Spooky Sorcery Set (Item 1 of 3)",
   "weaponArmoireRollingPinText": "Rolling Pin",
   "weaponArmoireRollingPinNotes": "Roll your dough as thin as you like in-between bonking bad habits when they pop up around you like a certain rodent-bopping game. Increases Strength by <%= str %>. Enchanted Armoire: Cooking Implements Set 2 (Item 2 of 2).",
+  "weaponArmoireTrustyPencilText": "Scholarly Textbooks",
+  "weaponArmoireTrustyPencilNotes": "Here’s your chance to dive deep and learn about any topic that interests you. What’s your current hyperfixation? Increases Intelligence by <%= int %>. Enchanted Armoire: School Uniform Set (Item 3 of 4).",  
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -1324,6 +1326,8 @@
   "armorMystery202307Notes": "Suction cups have the best traction on the sea floor and on the sides of wayward ships. Confers no benefit. July 2023 Subscriber Item.",
   "armorMystery202310Text": "Wraith's Robe",  
   "armorMystery202310Notes": "A ghostly garment that will curl and drift gracefully as you float amidst the haunted bogs and wastes. Confers no benefit. October 2023 Subscriber Item.",
+  "armorMystery202401Text": "Snowy Spellbinder Robes",
+  "armorMystery202401Notes": "These robes appear as delicate as crystal snowflakes, but will keep you plenty warm as you work your wintry magic. Confers no benefit. January 2024 Subscriber Item.",
 
   "armorMystery301404Text": "Steampunk Suit",
   "armorMystery301404Notes": "Dapper and dashing, wot! Confers no benefit. February 3015 Subscriber Item.",
@@ -1524,6 +1528,10 @@
   "armorArmoireKarateGiNotes": "This lightweight karate uniform is perfect for practice or competition. Increases Strength by <%= str %>. Enchanted Armoire: Karate Set (Item 1 of 10).",
   "armorArmoireGreenFluffTrimmedCoatText": "Green Fluff Trimmed Coat",
   "armorArmoireGreenFluffTrimmedCoatNotes": "Tales tell that once in a generation, a coat comes along that is the warmest and coziest. Its fluff is extraordinary and its buttons are manageable even by mitten-clad hands. This is that coat. Increases Strength and Intelligence by <%= attrs %> each. Enchanted Armoire: Trapper Hat Set (Item 2 of 2).",
+  "armorArmoireSchoolUniformWithSkirtText": "School Uniform with Skirt",
+  "armorArmoireSchoolUniformWithSkirtNotes": "Whether you’re attending a school for magical wizards, dragon riders, sportsball players, creative artisans, or members of a profession too secret to list here, you’ll fit right in with this uniform. Increases Intelligence by <%= int %>. Enchanted Armoire: School Uniform Set (Item 1 of 4).",
+  "armorArmoireSchoolUniformWithPantsText": "School Uniform with Pants",
+  "armorArmoireSchoolUniformWithPantsNotes": "Whether you’re attending a school for magical wizards, dragon riders, sportsball players, creative artisans, or members of a profession too secret to list here, you’ll fit right in with this uniform. Increases Intelligence by <%= int %>. Enchanted Armoire: School Uniform Set (Item 2 of 4).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -2772,6 +2780,8 @@
   "shieldArmoireBucketNotes": "Though this bucket is helpful in holding a mixture of water and cleaning solution, you could also use it to collect, carry, and cart around just about anything that fits inside! Increases Strength and Intelligence by <%= attrs %> each. Enchanted Armoire: Cleaning Supplies Set 2 (Item 1 of 3)",
   "shieldArmoireSaucepanText": "Sauce Pan",
   "shieldArmoireSaucepanNotes": "Look inside this steaming saucepan for the answer to the most closely guarded secret in life! (Soup. The answer is always soup.) Increases Perception by <%= per %> . Enchanted Armoire: Cooking Implements Set 2 (Item 1 of 2).",
+  "shieldArmoireTrustyPencilText": "Pencil",
+  "shieldArmoireTrustyPencilNotes": "You know what they say: the pencil is mightier than the sword-cil. Wait… that doesn’t sound quite right... Increases Intelligence by <%= int %>. Enchanted Armoire: School Uniform Set (Item 4 of 4).",  
 
   "back": "Back Accessory",
   "backBase0Text": "No Back Accessory",
@@ -2846,6 +2856,8 @@
   "backMystery202305Notes": "Catch the sparkle of the evening star and soar to strange realms on these wings. Confers no benefit. May 2023 Subscriber Item.",
   "backMystery202309Text": "Colossal Comet Moth Wings",
   "backMystery202309Notes": "Flutter across forests, glide over mountains, and soar over oceans on these bright and beautiful wings. Confers no benefit. September 2023 Subscriber Item.",
+  "backMystery202401Text": "Snowy Spell",
+  "backMystery202401Notes": "Conjure softly falling flurries or call a mighty blizzard. The choice is yours! Confers no benefit. January 2024 Subscriber Item.",  
 
   "backSpecialWonderconRedText": "Mighty Cape",
   "backSpecialWonderconRedNotes": "Swishes with strength and beauty. Confers no benefit. Special Edition Convention Item.",
