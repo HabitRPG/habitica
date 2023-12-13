@@ -390,12 +390,7 @@ function sendProfileSlurNotification ({
   const title = 'User Profile Report: Slur';
   const titleLink = `${BASE_URL}/profile/${uuid}`;
 
-  const text = `@${author} (${uuid}, ${language}) tried to post a slur in their Profile.`;
-  const authorName = formatUser({
-    name: author,
-    email: authorEmail,
-    uuid,
-  });
+  const text = `@${author} ${authorEmail} (${uuid}, ${language}) tried to post a slur in their Profile.`;
 
   flagSlack
     .send({
@@ -403,7 +398,7 @@ function sendProfileSlurNotification ({
       attachments: [{
         fallback: 'Slur Message',
         color: 'danger',
-        author_name: authorName,
+        author_email: authorEmail,
         title,
         title_link: titleLink,
         text: problemContent,

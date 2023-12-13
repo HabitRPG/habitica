@@ -142,7 +142,7 @@ export async function update (req, res, { isV3 = false }) {
     if (stringContainsProfanity(newBlurb, 'slur')) {
       slurWasUsed = true;
       problemContent += `Profile Blurb: ${newBlurb}`;
-    };
+    }
   }
 
   if (slurWasUsed) {
