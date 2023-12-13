@@ -32,9 +32,6 @@ export default function staticMiddleware (expressApp) {
   /* The remaining files are not cached yet. */
   expressApp.use('/static', express.static(`${BASE_DIR}/website/client/dist/static`));
 
-  /* Storybook files, not cached yet. */
-  expressApp.use('/storybook', express.static(`${BASE_DIR}/website/client/dist/storybook`));
-
   /* APIdoc files, not cached yet. */
   expressApp.use('/apidoc', express.static(`${BASE_DIR}/apidoc/html`));
 }
