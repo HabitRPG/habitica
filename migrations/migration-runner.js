@@ -18,7 +18,7 @@ function setUpServer () {
 setUpServer();
 
 // Replace this with your migration
-const processUsers = require().default;
+const processUsers = require('./archive/2024/20240131_habit_birthday.js').default;
 
 processUsers()
   .then(() => {

@@ -23735,6 +23735,11 @@
   width: 114px;
   height: 90px;
 }
+.broad_armor_special_birthday2024 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_special_birthday2024.png');
+  width: 114px;
+  height: 90px;
+}
 .eyewear_special_anniversary {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/eyewear_special_anniversary.png');
   width: 90px;
@@ -23787,6 +23792,11 @@
 }
 .shop_armor_special_birthday2023 {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_armor_special_birthday2023.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_armor_special_birthday2024 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_armor_special_birthday2024.png');
   width: 68px;
   height: 68px;
 }
@@ -23852,6 +23862,11 @@
 }
 .slim_armor_special_birthday2023 {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_special_birthday2023.png');
+  width: 114px;
+  height: 90px;
+}
+.slim_armor_special_birthday2024 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_special_birthday2024.png');
   width: 114px;
   height: 90px;
 }
