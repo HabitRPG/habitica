@@ -1750,7 +1750,7 @@ const releaseDates = {
   somethingSpooky: '2023-10-10T08:00-04:00',
   cookingImplementsTwo: '2023-11-07T08:00-05:00',
   greenTrapper: '2023-12-05T08:00-05:00',
-  // schoolUniform: '2024-01-04T08:00-05:00',
+  schoolUniform: '2024-01-04T08:00-05:00',
 };
 
 forEach({
