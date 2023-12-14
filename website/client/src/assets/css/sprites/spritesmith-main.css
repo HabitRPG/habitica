@@ -19950,11 +19950,6 @@
   width: 114px;
   height: 90px;
 }
-.shield_armoire_scholarlyTextbooks {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shield_armoire_scholarlyTextbooks.png');
-  width: 114px;
-  height: 90px;
-}
 .shield_armoire_shieldOfDiamonds {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shield_armoire_shieldOfDiamonds.png');
   width: 114px;
@@ -20017,6 +20012,11 @@
 }
 .shield_armoire_treasureMap {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shield_armoire_treasureMap.png');
+  width: 114px;
+  height: 90px;
+}
+.shield_armoire_trustyPencil {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shield_armoire_trustyPencil.png');
   width: 114px;
   height: 90px;
 }
@@ -21365,11 +21365,6 @@
   width: 68px;
   height: 68px;
 }
-.shop_shield_armoire_scholarlyTextbooks {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_shield_armoire_scholarlyTextbooks.png');
-  width: 68px;
-  height: 68px;
-}
 .shop_shield_armoire_shieldOfDiamonds {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_shield_armoire_shieldOfDiamonds.png');
   width: 68px;
@@ -21432,6 +21427,11 @@
 }
 .shop_shield_armoire_treasureMap {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_shield_armoire_treasureMap.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_shield_armoire_trustyPencil {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_shield_armoire_trustyPencil.png');
   width: 68px;
   height: 68px;
 }
@@ -21880,6 +21880,11 @@
   width: 68px;
   height: 68px;
 }
+.shop_weapon_armoire_scholarlyTextbooks {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_armoire_scholarlyTextbooks.png');
+  width: 68px;
+  height: 68px;
+}
 .shop_weapon_armoire_shadowMastersMace {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_armoire_shadowMastersMace.png');
   width: 68px;
@@ -21907,11 +21912,6 @@
 }
 .shop_weapon_armoire_spearOfSpades {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_armoire_spearOfSpades.png');
-  width: 68px;
-  height: 68px;
-}
-.shop_weapon_armoire_trustyPencil {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_armoire_trustyPencil.png');
   width: 68px;
   height: 68px;
 }
@@ -22860,6 +22860,11 @@
   width: 114px;
   height: 90px;
 }
+.weapon_armoire_scholarlyTextbooks {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_armoire_scholarlyTextbooks.png');
+  width: 114px;
+  height: 90px;
+}
 .weapon_armoire_shadowMastersMace {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_armoire_shadowMastersMace.png');
   width: 114px;
@@ -22887,11 +22892,6 @@
 }
 .weapon_armoire_spearOfSpades {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_armoire_spearOfSpades.png');
-  width: 114px;
-  height: 90px;
-}
-.weapon_armoire_trustyPencil {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_armoire_trustyPencil.png');
   width: 114px;
   height: 90px;
 }
