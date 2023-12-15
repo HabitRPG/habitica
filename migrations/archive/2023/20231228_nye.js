@@ -13,109 +13,43 @@ async function updateUser (user) {
   let push;
 
   if (typeof user.items.gear.owned.head_special_nye2022 !== 'undefined') {
-    set['items.gear.owned.head_special_nye2023'] = false;
-    push = [
-      {
-        type: 'marketGear',
-        path: 'gear.flat.head_special_nye2023',
-        _id: uuid(),
-      },
-    ];
+    set['items.gear.owned.head_special_nye2023'] = true;
   } else if (typeof user.items.gear.owned.head_special_nye2021 !== 'undefined') {
-    set['items.gear.owned.head_special_nye2022'] = false;
-    push = [
-      {
-        type: 'marketGear',
-        path: 'gear.flat.head_special_nye2022',
-        _id: uuid(),
-      },
-    ];
+    set['items.gear.owned.head_special_nye2022'] = true;
   } else if (typeof user.items.gear.owned.head_special_nye2020 !== 'undefined') {
-    set['items.gear.owned.head_special_nye2021'] = false;
-    push = [
-      {
-        type: 'marketGear',
-        path: 'gear.flat.head_special_nye2021',
-        _id: uuid(),
-      },
-    ];
+    set['items.gear.owned.head_special_nye2021'] = true;
   } else if (typeof user.items.gear.owned.head_special_nye2019 !== 'undefined') {
-    set['items.gear.owned.head_special_nye2020'] = false;
-    push = [
-      {
-        type: 'marketGear',
-        path: 'gear.flat.head_special_nye2020',
-        _id: uuid(),
-      },
-    ];
+    set['items.gear.owned.head_special_nye2020'] = true;
   } else if (typeof user.items.gear.owned.head_special_nye2018 !== 'undefined') {
-    set['items.gear.owned.head_special_nye2019'] = false;
-    push = [
-      {
-        type: 'marketGear',
-        path: 'gear.flat.head_special_nye2019',
-        _id: uuid(),
-      },
-    ];
+    set['items.gear.owned.head_special_nye2019'] = true;
   } else if (typeof user.items.gear.owned.head_special_nye2017 !== 'undefined') {
-    set['items.gear.owned.head_special_nye2018'] = false;
-    push = [
-      {
-        type: 'marketGear',
-        path: 'gear.flat.head_special_nye2018',
-        _id: uuid(),
-      },
-    ];
+    set['items.gear.owned.head_special_nye2018'] = true;
   } else if (typeof user.items.gear.owned.head_special_nye2016 !== 'undefined') {
-    set['items.gear.owned.head_special_nye2017'] = false;
-    push = [
-      {
-        type: 'marketGear',
-        path: 'gear.flat.head_special_nye2017',
-        _id: uuid(),
-      },
-    ];
+    set['items.gear.owned.head_special_nye2017'] = true;
   } else if (typeof user.items.gear.owned.head_special_nye2015 !== 'undefined') {
-    set['items.gear.owned.head_special_nye2016'] = false;
-    push = [
-      {
-        type: 'marketGear',
-        path: 'gear.flat.head_special_nye2016',
-        _id: uuid(),
-      },
-    ];
+    set['items.gear.owned.head_special_nye2016'] = true;
   } else if (typeof user.items.gear.owned.head_special_nye2014 !== 'undefined') {
-    set['items.gear.owned.head_special_nye2015'] = false;
-    push = [
-      {
-        type: 'marketGear',
-        path: 'gear.flat.head_special_nye2015',
-        _id: uuid(),
-      },
-    ];
+    set['items.gear.owned.head_special_nye2015'] = true;
   } else if (typeof user.items.gear.owned.head_special_nye !== 'undefined') {
-    set['items.gear.owned.head_special_nye2014'] = false;
-    push = [
-      {
-        type: 'marketGear',
-        path: 'gear.flat.head_special_nye2014',
-        _id: uuid(),
-      },
-    ];
+    set['items.gear.owned.head_special_nye2014'] = true;
   } else {
-    set['items.gear.owned.head_special_nye'] = false;
-    push = [
-      {
-        type: 'marketGear',
-        path: 'gear.flat.head_special_nye',
-        _id: uuid(),
-      },
-    ];
+    set['items.gear.owned.head_special_nye'] = true;
   }
+
+  push.notifications = {
+    type: 'ITEM_RECEIVED',
+    data: {
+      icon: 'notif_head_special_nye',
+      title: 'Happy New Year!',
+      text: 'Check your Equipment for this year\'s party hat!',
+      destination: 'equipment',
+    },
+    seen: false,
+  };
 
   if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
 
-  return await User.update({_id: user._id}, {$set: set, $push: {pinnedItems: {$each: push}}}).exec();
+  return await User.updateOne({_id: user._id}, {$set: set, $push: {pinnedItems: {$each: push}}}).exec();
 }
 
 export default async function processUsers () {
