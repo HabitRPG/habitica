@@ -4,7 +4,7 @@
     right="right"
     toggle-class="with-icon"
   >
-    <template v-slot:button-content>
+    <template #button-content>
       <span
         class="svg-icon inline color"
         v-html="icons.unequipIcon"
