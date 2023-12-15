@@ -30,7 +30,7 @@ async function updateUser (user) {
         icon: 'notif_namingDay_cake',
         title: 'Happy Habit Birthday!',
         text: 'Habitica turns 11 today! Enjoy free party robes and cake!',
-        destination: 'equipment',
+        destination: 'inventory/equipment',
       },
       seen: false,
     },
