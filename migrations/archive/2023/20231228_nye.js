@@ -42,7 +42,7 @@ async function updateUser (user) {
       icon: 'notif_head_special_nye',
       title: 'Happy New Year!',
       text: 'Check your Equipment for this year\'s party hat!',
-      destination: 'equipment',
+      destination: 'inventory/equipment',
     },
     seen: false,
   };
