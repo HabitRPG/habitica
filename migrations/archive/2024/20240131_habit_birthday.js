@@ -53,14 +53,13 @@ async function updateUser (user) {
 
   if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
 
-  return await User.update({_id: user._id}, {$inc: inc, $set: set, $push: push}).exec();
+  return await User.updateOne({_id: user._id}, {$inc: inc, $set: set, $push: push}).exec();
 }
 
 export default async function processUsers () {
   let query = {
     migration: {$ne: MIGRATION_NAME},
-    'auth.timestamps.loggedin': {$gt: new Date('2023-12-01')},
-    'auth.local.lowerCaseUsername': 'nataliemage',
+    'auth.timestamps.loggedin': {$gt: new Date('2023-12-23')},
   };
 
   const fields = {
