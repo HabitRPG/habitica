@@ -23,7 +23,18 @@ async function updateUser (user) {
     'achievements.habitBirthdays': 1,
   };
   const set = {};
-  const push = {};
+  const push = {
+    notifications: {
+      type: 'ITEM_RECEIVED',
+      data: {
+        icon: 'notif_namingDay_cake',
+        title: 'Happy Habit Birthday!',
+        text: 'Habitica turns 11 today! Enjoy free party robes and cake!',
+        destination: 'equipment',
+      },
+      seen: false,
+    },
+  };
 
   set.migration = MIGRATION_NAME;
 
