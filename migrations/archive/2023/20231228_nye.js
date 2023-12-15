@@ -10,7 +10,7 @@ async function updateUser (user) {
   count++;
 
   const set = { migration: MIGRATION_NAME };
-  let push;
+  let push = {};
 
   if (typeof user.items.gear.owned.head_special_nye2022 !== 'undefined') {
     set['items.gear.owned.head_special_nye2023'] = true;
@@ -49,7 +49,7 @@ async function updateUser (user) {
 
   if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
 
-  return await User.updateOne({_id: user._id}, {$set: set, $push: {pinnedItems: {$each: push}}}).exec();
+  return await User.updateOne({_id: user._id}, {$set: set, $push: push}).exec();
 }
 
 export default async function processUsers () {
