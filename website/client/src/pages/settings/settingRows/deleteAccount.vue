@@ -114,7 +114,6 @@ import SaveCancelButtons from '../components/saveCancelButtons.vue';
 import CurrentPasswordInput from '../components/currentPasswordInput.vue';
 import { PasswordInputChecksMixin } from '@/mixins/passwordInputChecks';
 
-
 export default {
   components: { CurrentPasswordInput, SaveCancelButtons },
   mixins: [InlineSettingMixin, PasswordInputChecksMixin],

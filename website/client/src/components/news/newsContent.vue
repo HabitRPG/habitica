@@ -11,9 +11,9 @@
     </div>
     <div
       v-for="(post, index) in posts"
+      id="bailey"
       :key="post._id"
       class="static-view bailey"
-      id="bailey"
       :class="{'bailey-last': index == (posts.length - 1)}"
     >
       <small

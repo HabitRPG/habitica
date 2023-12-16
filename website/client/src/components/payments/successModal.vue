@@ -415,13 +415,13 @@
 
 <script>
 // icons
+import subscriptionBlocks from '@/../../common/script/content/subscriptionBlocks';
 import checkIcon from '@/assets/svg/check.svg';
 import gemIcon from '@/assets/svg/gem.svg';
 import closeIcon from '@/assets/svg/close.svg';
 
 // components
 import { mapState } from '@/libs/store';
-import subscriptionBlocks from '@/../../common/script/content/subscriptionBlocks';
 import selectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
 import lockableLabel from '@/components/tasks/modal-controls/lockableLabel';
 

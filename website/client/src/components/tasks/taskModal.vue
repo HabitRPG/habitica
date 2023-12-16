@@ -1035,7 +1035,6 @@ import calendarIcon from '@/assets/svg/calendar.svg';
 import gripIcon from '@/assets/svg/grip.svg';
 import InformationIcon from '@/components/ui/informationIcon.vue';
 
-
 export default {
   components: {
     InformationIcon,
