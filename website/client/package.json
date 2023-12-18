@@ -48,7 +48,7 @@
     "svgo-loader": "^2.2.1",
     "uuid": "^9.0.1",
     "validator": "^13.9.0",
-    "vue": "^2.7.10",
+    "vue": "^3.3.12",
     "vue-fragment": "^1.6.0",
     "vue-mugen-scroll": "^0.2.6",
     "vue-router": "^3.6.5",
