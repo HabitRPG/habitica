@@ -5,6 +5,7 @@ import { model as Challenge } from '../../models/challenge';
 import bannedWords from '../../libs/bannedWords';
 import bannedSlurs from '../../libs/bannedSlurs';
 import { getMatchesByWordArray } from '../../libs/stringUtils';
+import { stringContainsProfanity } from '../../libs/user/validation';
 import * as slack from '../../libs/slack';
 import { getUserInfo } from '../../libs/email';
 import {
@@ -243,16 +244,16 @@ api.createChallenge = {
       slack.sendChallengeSlurNotification({
         authorEmail,
         author: user,
-        group,
-        body: [req.body.name,
+        problemContent: [
+          req.body.name,
           req.body.shortName,
           req.body.summary,
-          req.body.description],
+          req.body.description,
+        ],
       });
 
       // user flags
       user.flags.chatRevoked = true;
-      user.flags.chatShadowMuted = true;
       await user.save();
 
       // toast notification

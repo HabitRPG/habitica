@@ -413,16 +413,14 @@ function sendProfileSlurNotification ({
 function sendChallengeSlurNotification ({
   authorEmail,
   author,
-  group,
-  body,
-  title,
+  language,
+  problemContent,
+  uuid,
 }) {
   if (SKIP_FLAG_METHODS) {
     return;
   }
-  const text = `${author.profile.name} (${author._id}) tried to post a slur in ${group},`;
-
-  let titleLink;
+  const text = `${author.profile.name} ${authorEmail} (${uuid}, ${language}) tried to post a slur while creating a Challenge.`;
 
   const authorName = formatUser({
     name: author.auth.local.username,
@@ -438,11 +436,9 @@ function sendChallengeSlurNotification ({
         fallback: 'Slur Message',
         color: 'danger',
         author_name: authorName,
-        titleName: title,
-        title_link: titleLink,
-        text: body,
+        text: problemContent,
         mrkdwn_in: [
-          'body',
+          'text',
         ],
       }],
     })
