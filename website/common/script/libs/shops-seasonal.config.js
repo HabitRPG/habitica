@@ -36,14 +36,17 @@ export default {
     }
     : {},
 
-  availableSpells: CURRENT_EVENT && moment().isBetween('2023-01-09T08:00-04:00', CURRENT_EVENT.end)
+  availableSpells: CURRENT_EVENT && moment().isBetween('2024-01-09T08:00-04:00', CURRENT_EVENT.end)
     ? [
       'snowball',
     ]
     : [],
 
-  availableQuests: CURRENT_EVENT && moment().isBetween('2023-01-09T08:00-04:00', CURRENT_EVENT.end) // 2024-01-09
-    ? []
+  availableQuests: CURRENT_EVENT && moment().isBetween(CURRENT_EVENT.start, CURRENT_EVENT.end)
+    ? [
+      'evilsanta',
+      'evilsanta2',
+    ]
     : [],
 
   featuredSet: 'winter2019PoinsettiaSet',
