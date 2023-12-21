@@ -234,6 +234,7 @@ api.createChallenge = {
     });
 
     // checks public challenge for slurs
+
     if (group.privacy === 'public'
       && ((textContainsBannedSlur(req.body.name))
             || (textContainsBannedSlur(req.body.shortName))
@@ -244,6 +245,8 @@ api.createChallenge = {
       slack.sendChallengeSlurNotification({
         authorEmail,
         author: user,
+        uuid: user.id,
+        language: user.preferences.language,
         problemContent: [
           req.body.name,
           req.body.shortName,

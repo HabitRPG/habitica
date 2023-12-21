@@ -420,13 +420,15 @@ function sendChallengeSlurNotification ({
   if (SKIP_FLAG_METHODS) {
     return;
   }
-  const text = `${author.profile.name} ${authorEmail} (${uuid}, ${language}) tried to post a slur while creating a Challenge.`;
+  const text = `${author.profile.name} ${authorEmail} (${uuid}, ${language}) tried to create a Challenge with a slur or banned word.`;
+  const title = 'Challenge Report: Slur/Banned Word';
 
   const authorName = formatUser({
     name: author.auth.local.username,
     displayName: author.profile.name,
     email: authorEmail,
-    uuid: author.id,
+    language,
+    uuid,
   });
 
   flagSlack
@@ -435,6 +437,7 @@ function sendChallengeSlurNotification ({
       attachments: [{
         fallback: 'Slur Message',
         color: 'danger',
+        title,
         author_name: authorName,
         text: problemContent,
         mrkdwn_in: [
