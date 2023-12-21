@@ -234,11 +234,18 @@ api.createChallenge = {
     });
 
     // checks public challenge for slurs
+    let slurWasUsed = false;
+    let problemContent = '';
+
     if (group.privacy === 'public'
       && ((textContainsBannedSlur(req.body.name))
             || (textContainsBannedSlur(req.body.shortName))
             || (textContainsBannedSlur(req.body.summary))
             || (textContainsBannedSlur(req.body.description)))) {
+      if (stringContainsProfanity(req.body.name || req.body.shortName || req.body.summary || req.body.description, 'slur')) {
+        slurWasUsed = true;
+        problemContent += `Challenge: ${req.user} tried to create a Challenge with a slur.`;
+      }
       // slack flagged-posts
       const authorEmail = getUserInfo(user, ['email']).email;
       slack.sendChallengeSlurNotification({
