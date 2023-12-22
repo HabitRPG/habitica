@@ -177,6 +177,7 @@
 
     .inner-content {
       margin: 33px auto auto;
+      padding: 0px 24px;
     }
 
     .item-notes {
