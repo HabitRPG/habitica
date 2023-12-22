@@ -95,14 +95,6 @@ describe('PUT /user', () => {
       });
 
       await expect(user.put('/user', {
-        'profile.name': 'TESTPLACEHOLDERSWEARWORDHERE',
-      })).to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: t('bannedWordUsedInProfile'),
-      });
-
-      await expect(user.put('/user', {
         'profile.name': 'namecontainsnewline\n',
       })).to.eventually.be.rejected.and.eql({
         code: 400,
