@@ -242,8 +242,10 @@ api.createChallenge = {
             || (textContainsBannedSlur(req.body.description)))) {
       // slack flagged-posts
       const authorEmail = getUserInfo(user, ['email']).email;
-      const problemContent = `Challenge Name: ${req.body.name} \n + Challenge Tag: ${req.body.shortName} \n
-        + Challenge Summary: ${req.body.summary} \n + Challenge Description: ${req.body.description}`;
+      const problemContent = `Challenge Name: ${req.body.name}\n
+        Challenge Tag: ${req.body.shortName}\n
+        Challenge Summary: ${req.body.summary}\n
+        Challenge Description: ${req.body.description}`;
 
       slack.sendChallengeSlurNotification({
         authorEmail,
@@ -271,6 +273,11 @@ api.createChallenge = {
             || (textContainsBannedWord(req.body.description)))) {
       // toast error
       throw new BadRequest(res.t('challengeBannedWords'));
+    }
+
+    // possible code for blocking chat revoked users from invoking the API
+    if (user.flags.chatRevoked) {
+      throw new BadRequest(res.t('cannotMakeChallenge'));
     }
 
     const { savedChal } = await createChallenge(user, req, res);

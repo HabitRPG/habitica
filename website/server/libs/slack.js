@@ -420,7 +420,7 @@ function sendChallengeSlurNotification ({
   if (SKIP_FLAG_METHODS) {
     return;
   }
-  const text = `${author.profile.name} ${authorEmail} (${username}, ${uuid}, ${language}) tried to create a Challenge with a slur or banned word.`;
+  const text = `${author.profile.name} ${authorEmail} (${uuid}, ${language}) tried to create a Challenge with a slur or banned word.`;
 
   const authorName = formatUser({
     name: author.auth.local.username,
@@ -428,7 +428,6 @@ function sendChallengeSlurNotification ({
     email: authorEmail,
     uuid: author.id,
     language,
-    uuid,
   });
 
   flagSlack
