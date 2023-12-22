@@ -5,13 +5,6 @@ import moment from 'moment';
 import logger from './logger';
 import { getCurrentEvent } from './worldState'; // eslint-disable-line import/no-cycle
 import { TAVERN_ID } from '../models/group'; // eslint-disable-line import/no-cycle
-// import bannedSlurs from './bannedSlurs';
-// import { getMatchesByWordArray } from '../../libs/stringUtils';
-
-// function textContainsBannedSlur (message) {
-//   const bannedSlursMatched = getMatchesByWordArray(message, bannedSlurs);
-//   return bannedSlursMatched.length > 0;
-// }
 
 const SLACK_FLAGGING_URL = nconf.get('SLACK_FLAGGING_URL');
 const SLACK_FLAGGING_FOOTER_LINK = nconf.get('SLACK_FLAGGING_FOOTER_LINK');
@@ -230,9 +223,12 @@ function sendProfileFlagNotification ({
   if (userComment) {
     text += ` and commented: ${userComment}`;
   }
-  let profileData = `Display Name: ${flaggedUser.profile.displayName}`;
+  let profileData = `Display Name: ${flaggedUser.profile.name}`;
+  if (flaggedUser.profile.imageUrl) {
+    profileData += `\n\nImage URL: ${flaggedUser.profile.imageUrl}`;
+  }
   if (flaggedUser.profile.blurb) {
-    profileData += `\n\nAbout: ${flaggedUser.profile.newBlurb}`;
+    profileData += `\n\nAbout: ${flaggedUser.profile.blurb}`;
   }
 
   flagSlack
@@ -243,7 +239,7 @@ function sendProfileFlagNotification ({
         color: 'danger',
         title,
         title_link: titleLink,
-        body: profileData,
+        text: profileData,
         mrkdwn_in: [
           'text',
         ],
@@ -328,54 +324,6 @@ function sendShadowMutedPostNotification ({
     .catch(err => logger.error(err, 'Error while sending flag data to Slack.'));
 }
 
-// slack slur notification for Parties/Groups
-function sendGroupSlurNotification ({
-  authorEmail,
-  author,
-  group,
-  message,
-}) {
-  if (SKIP_FLAG_METHODS) {
-    return;
-  }
-  const text = `${author.profile.name} (${author._id}) tried to post a slur,`;
-
-  let titleLink;
-  let title;
-
-  if (group.type === 'party') {
-    titleLink = `${BASE_URL}/party/${group._id}`;
-  } else if (group.type === 'group-plans') {
-    titleLink = `${BASE_URL}/group-plans/${group._id}`;
-  } else {
-    title += ` - (${group.type})`;
-  }
-
-  const authorName = formatUser({
-    name: author.auth.local.username,
-    displayName: author.profile.name,
-    email: authorEmail,
-    uuid: author.id,
-  });
-
-  flagSlack
-    .send({
-      text,
-      attachments: [{
-        fallback: 'Slur Message',
-        color: 'danger',
-        author_name: authorName,
-        title,
-        title_link: titleLink,
-        text: message,
-        mrkdwn_in: [
-          'text',
-        ],
-      }],
-    })
-    .catch(err => logger.error(err, 'Error while sending flag data to Slack.'));
-}
-
 // slack slur notification for Profiles
 function sendProfileSlurNotification ({
   authorEmail,
@@ -410,44 +358,6 @@ function sendProfileSlurNotification ({
     .catch(err => logger.error(err, 'Error while sending flag data to Slack.'));
 }
 
-function sendChallengeSlurNotification ({
-  authorEmail,
-  author,
-  language,
-  problemContent,
-  uuid,
-}) {
-  if (SKIP_FLAG_METHODS) {
-    return;
-  }
-  const text = `${author.profile.name} ${authorEmail} (${uuid}, ${language}) tried to create a Challenge with a slur or banned word.`;
-  const title = 'Challenge Report: Slur/Banned Word';
-
-  const authorName = formatUser({
-    name: author.auth.local.username,
-    displayName: author.profile.name,
-    email: authorEmail,
-    language,
-    uuid,
-  });
-
-  flagSlack
-    .send({
-      text,
-      attachments: [{
-        fallback: 'Slur Message',
-        color: 'danger',
-        title,
-        author_name: authorName,
-        text: problemContent,
-        mrkdwn_in: [
-          'text',
-        ],
-      }],
-    })
-    .catch(err => logger.error(err, 'Error while sending flag data to Slack.'));
-}
-
 export {
   sendFlagNotification,
   sendInboxFlagNotification,
@@ -455,8 +365,6 @@ export {
   sendProfileFlagNotification,
   sendSubscriptionNotification,
   sendShadowMutedPostNotification,
-  sendGroupSlurNotification,
   sendProfileSlurNotification,
-  sendChallengeSlurNotification,
   formatUser,
 };

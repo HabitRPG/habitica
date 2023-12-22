@@ -2,12 +2,6 @@ import _ from 'lodash';
 import cloneDeep from 'lodash/cloneDeep';
 import { authWithHeaders, authWithSession } from '../../middlewares/auth';
 import { model as Challenge } from '../../models/challenge';
-import bannedWords from '../../libs/bannedWords';
-import bannedSlurs from '../../libs/bannedSlurs';
-import { getMatchesByWordArray } from '../../libs/stringUtils';
-import { stringContainsProfanity } from '../../libs/user/validation';
-import * as slack from '../../libs/slack';
-import { getUserInfo } from '../../libs/email';
 import {
   model as Group,
   basicFields as basicGroupFields,
@@ -18,7 +12,6 @@ import {
   nameFields,
 } from '../../models/user';
 import {
-  BadRequest,
   NotFound,
   NotAuthorized,
 } from '../../libs/errors';
@@ -45,16 +38,6 @@ import {
 const { MAX_SUMMARY_SIZE_FOR_CHALLENGES } = common.constants;
 
 const api = {};
-
-function textContainsBannedWord (message) {
-  const bannedWordsMatched = getMatchesByWordArray(message, bannedWords);
-  return bannedWordsMatched.length > 0;
-}
-
-function textContainsBannedSlur (message) {
-  const bannedSlursMatched = getMatchesByWordArray(message, bannedSlurs);
-  return bannedSlursMatched.length > 0;
-}
 
 /**
  * @apiDefine ChallengeLeader Challenge Leader
@@ -229,53 +212,7 @@ api.createChallenge = {
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    const group = await Group.getGroup({
-      user, groupId: req.body.group, fields: basicGroupFields, optionalMembership: true,
-    });
-
-    // checks public challenge for slurs
-
-    if (group.privacy === 'public'
-      && ((textContainsBannedSlur(req.body.name))
-            || (textContainsBannedSlur(req.body.shortName))
-            || (textContainsBannedSlur(req.body.summary))
-            || (textContainsBannedSlur(req.body.description)))) {
-      // slack flagged-posts
-      const authorEmail = getUserInfo(user, ['email']).email;
-      slack.sendChallengeSlurNotification({
-        authorEmail,
-        author: user,
-        uuid: user.id,
-        language: user.preferences.language,
-        problemContent: [
-          req.body.name,
-          req.body.shortName,
-          req.body.summary,
-          req.body.description,
-        ],
-      });
-
-      // user flags
-      user.flags.chatRevoked = true;
-      await user.save();
-
-      // toast notification
-      throw new BadRequest(res.t('challengeBannedSlurs'));
-    }
-
-    // checks public challenges for banned words
-    if (group.privacy === 'public'
-      && ((textContainsBannedWord(req.body.name))
-            || (textContainsBannedWord(req.body.shortName))
-            || (textContainsBannedWord(req.body.summary))
-            || (textContainsBannedWord(req.body.description)))) {
-      // toast error
-      throw new BadRequest(res.t('challengeBannedWords'));
-    }
-
-    const { savedChal } = await createChallenge(user, req, res);
-
-    await user.save();
+    const { savedChal, group } = await createChallenge(user, req, res);
 
     const response = savedChal.toJSON();
     response.leader = { // the leader is the authenticated user

@@ -137,39 +137,6 @@ api.postChat = {
       throw new BadRequest(res.t('featureRetired'));
     }
 
-    // Check message for banned slurs
-    if (group && group.privacy !== 'private' && textContainsBannedSlur(req.body.message)) {
-      const { message } = req.body;
-      user.flags.chatRevoked = true;
-      await user.save();
-
-      // Email the mods
-      const authorEmail = getUserInfo(user, ['email']).email;
-
-      // Slack the mods
-      slack.sendSlurNotification({
-        authorEmail,
-        author: user,
-        group,
-        message,
-      });
-
-      throw new BadRequest(res.t('bannedSlurUsed'));
-    }
-
-    if (group.privacy === 'public' && user.flags.chatRevoked) {
-      throw new NotAuthorized(res.t('chatPrivilegesRevoked'));
-    }
-
-    // prevent banned words being posted, except in private guilds/parties
-    // and in certain public guilds with specific topics
-    if (group.privacy === 'public' && !group.bannedWordsAllowed) {
-      const matchedBadWords = getBannedWordsFromText(req.body.message);
-      if (matchedBadWords.length > 0) {
-        throw new BadRequest(res.t('bannedWordUsed', { swearWordsUsed: matchedBadWords.join(', ') }));
-      }
-    }
-
     const chatRes = await Group.toJSONCleanChat(group, user);
     const lastClientMsg = req.query.previousMsg;
     const chatUpdated = !!(
