@@ -17,9 +17,6 @@ import { removeFromArray } from '../../libs/collectionManipulators';
 import { getUserInfo } from '../../libs/email';
 import * as slack from '../../libs/slack';
 import { chatReporterFactory } from '../../libs/chatReporting/chatReporterFactory';
-import bannedWords from '../../libs/bannedWords';
-import { getMatchesByWordArray } from '../../libs/stringUtils';
-import bannedSlurs from '../../libs/bannedSlurs';
 import apiError from '../../libs/apiError';
 import highlightMentions from '../../libs/highlightMentions';
 import { getAnalyticsServiceByEnvironment } from '../../libs/analyticsService';
@@ -49,11 +46,6 @@ const ACCOUNT_MIN_CHAT_AGE = Number(nconf.get('ACCOUNT_MIN_CHAT_AGE'));
  */
 
 const api = {};
-
-function textContainsBannedSlur (message) {
-  const bannedSlursMatched = getMatchesByWordArray(message, bannedSlurs);
-  return bannedSlursMatched.length > 0;
-}
 
 /**
  * @api {get} /api/v3/groups/:groupId/chat Get chat messages from a group
@@ -89,10 +81,6 @@ api.getChat = {
     res.respond(200, groupChat.chat);
   },
 };
-
-function getBannedWordsFromText (message) {
-  return getMatchesByWordArray(message, bannedWords);
-}
 
 /**
  * @api {post} /api/v3/groups/:groupId/chat Post chat message to a group
