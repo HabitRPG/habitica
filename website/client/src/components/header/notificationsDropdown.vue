@@ -112,9 +112,9 @@
 </style>
 
 <script>
-import { mapState, mapActions } from '@/libs/store';
 import * as quests from '@/../../common/script/content/quests';
 import { hasCompletedOnboarding } from '@/../../common/script/libs/onboarding';
+import { mapState, mapActions } from '@/libs/store';
 import notificationsIcon from '@/assets/svg/notifications.svg';
 import MenuDropdown from '../ui/customMenuDropdown';
 import MessageCount from './messageCount.functional.vue';

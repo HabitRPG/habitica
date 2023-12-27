@@ -321,15 +321,15 @@
 import axios from 'axios';
 import size from 'lodash/size';
 import keys from 'lodash/keys';
-import toggleSwitch from '@/components/ui/toggleSwitch';
-import attributesGrid from '@/components/inventory/equipment/attributesGrid';
 
-import { mapState } from '@/libs/store';
 import Content from '@/../../common/script/content';
 import { beastMasterProgress, mountMasterProgress } from '@/../../common/script/count';
 import autoAllocate from '@/../../common/script/fns/autoAllocate';
 import allocateBulk from '@/../../common/script/ops/stats/allocateBulk';
 import statsComputed from '@/../../common/script/libs/statsComputed';
+import { mapState } from '@/libs/store';
+import attributesGrid from '@/components/inventory/equipment/attributesGrid';
+import toggleSwitch from '@/components/ui/toggleSwitch';
 
 const DROP_ANIMALS = keys(Content.pets);
 const TOTAL_NUMBER_OF_DROP_ANIMALS = DROP_ANIMALS.length;

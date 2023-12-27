@@ -276,11 +276,10 @@
 import clone from 'lodash/clone';
 import throttle from 'lodash/throttle';
 
-import markdownDirective from '@/directives/markdown';
-import { userStateMixin } from '../../mixins/userState';
-
 import { TAVERN_ID, MIN_SHORTNAME_SIZE_FOR_CHALLENGES, MAX_SUMMARY_SIZE_FOR_CHALLENGES } from '@/../../common/script/constants';
 import CategoryOptions from '@/../../common/script/content/categoryOptions';
+import markdownDirective from '@/directives/markdown';
+import { userStateMixin } from '../../mixins/userState';
 
 export default {
   directives: {
