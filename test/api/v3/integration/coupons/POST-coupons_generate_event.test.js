@@ -4,7 +4,7 @@ import {
   translate as t,
   resetHabiticaDB,
 } from '../../../../helpers/api-integration/v3';
-import apiError from '../../../../../website/server/libs/apiError';
+import { apiError } from '../../../../../website/server/libs/apiError';
 
 describe('POST /coupons/generate/:event', () => {
   let user;

@@ -9,7 +9,7 @@ import {
   TooManyRequests,
 } from '../libs/errors';
 import logger from '../libs/logger';
-import apiError from '../libs/apiError';
+import { apiError } from '../libs/apiError';
 
 // Middleware to rate limit requests to the API
 

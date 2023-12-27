@@ -8,7 +8,7 @@ import content from '../../../../website/common/script/content/index';
 import {
   generateUser,
 } from '../../../helpers/common.helper';
-import errorMessage from '../../../../website/common/script/libs/errorMessage';
+import { errorMessage } from '../../../../website/common/script/libs/errorMessage';
 import { BuyHourglassMountOperation } from '../../../../website/common/script/ops/buy/buyMount';
 
 describe('common.ops.hourglassPurchase', () => {

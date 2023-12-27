@@ -20,7 +20,7 @@ import { chatReporterFactory } from '../../libs/chatReporting/chatReporterFactor
 import bannedWords from '../../libs/bannedWords';
 import { getMatchesByWordArray } from '../../libs/stringUtils';
 import bannedSlurs from '../../libs/bannedSlurs';
-import apiError from '../../libs/apiError';
+import { apiError } from '../../libs/apiError';
 import highlightMentions from '../../libs/highlightMentions';
 import { getAnalyticsServiceByEnvironment } from '../../libs/analyticsService';
 

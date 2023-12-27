@@ -14,5 +14,3 @@ export function errorMessage (msgKey, vars = {}) {
   // TODO cache the result of template() ? More memory usage, faster output
   return _template(message)(clonedVars);
 }
-
-export default errorMessage;
