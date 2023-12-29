@@ -192,9 +192,8 @@ const premium = {
     value: 2,
     text: t('hatchingPotionPeppermint'),
     limited: true,
-    _addlNotes: t('eventAvailabilityReturning', {
-      availableDate: t('dateEndJanuary'),
-      previousDate: t('januaryYYYY', { year: 2022 }),
+    _addlNotes: t('eventAvailability', {
+      date: t('dateEndJanuary'),
     }),
     event: EVENTS.winter2024,
     canBuy () {
@@ -271,9 +270,8 @@ const premium = {
     text: t('hatchingPotionIcySnow'),
     limited: true,
     event: EVENTS.winter2024,
-    _addlNotes: t('eventAvailabilityReturning', {
-      availableDate: t('dateEndJanuary'),
-      previousDate: t('novemberYYYY', { year: 2022 }),
+    _addlNotes: t('eventAvailability', {
+      date: t('dateEndJanuary'),
     }),
     canBuy () {
       return moment().isBetween(EVENTS.winter2024.start, EVENTS.winter2024.end);
@@ -469,8 +467,8 @@ const premium = {
     value: 2,
     text: t('hatchingPotionStainedGlass'),
     limited: true,
-    _addlNotes: t('eventAvailabilityReturning', {
-      availableDate: t('dateEndJanuary'),
+    _addlNotes: t('eventAvailability', {
+      date: t('dateEndJanuary'),
     }),
     event: EVENTS.winter2024,
     canBuy () {
