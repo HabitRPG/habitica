@@ -870,6 +870,12 @@ const armor = {
   winter2024Rogue: {
     set: 'winter2024SnowyOwlRogueSet',
   },
+  birthday2024: {
+    text: t('armorSpecialBirthday2024Text'),
+    notes: t('armorSpecialBirthday2024Notes'),
+    value: 0,
+    canOwn: ownsItem('armor_special_birthday2023'),
+  },
 };
 
 const armorStats = {

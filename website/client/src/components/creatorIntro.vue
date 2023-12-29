@@ -121,7 +121,7 @@
             v-if="editing"
             class="menu-container col-2"
             :class="{active: activeTopPage === 'backgrounds'}"
-            @click="changeTopPage('backgrounds', '2023')"
+            @click="changeTopPage('backgrounds', '2024')"
           >
             <div class="menu-item">
               <div
@@ -208,13 +208,13 @@
           <div
             class="row text-center title-row"
           >
-            <strong>{{ backgroundShopSets[2].text }}</strong>
+            <strong>{{ backgroundShopSets[1].text }}</strong>
           </div>
           <div
             class="row title-row"
           >
             <div
-              v-for="bg in backgroundShopSets[2].items"
+              v-for="bg in backgroundShopSets[1].items"
               :id="bg.key"
               :key="bg.key"
               class="col-4 text-center customize-option background-button"
@@ -1237,7 +1237,7 @@ export default {
         },
       ],
 
-      bgSubMenuItems: ['2023', '2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014'].map(y => ({
+      bgSubMenuItems: ['2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014'].map(y => ({
         id: y,
         label: y,
       })),
@@ -1267,6 +1267,7 @@ export default {
         2021: [],
         2022: [],
         2023: [],
+        2024: [],
       };
 
       // Hack to force update for now until we restructure the data

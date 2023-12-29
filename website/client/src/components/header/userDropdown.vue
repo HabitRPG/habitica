@@ -40,7 +40,7 @@
       >{{ $t('editAvatar') }}</a>
       <a
         class="topbar-dropdown-item dropdown-item dropdown-separated"
-        @click="showAvatar('backgrounds', '2023')"
+        @click="showAvatar('backgrounds', '2024')"
       >{{ $t('backgrounds') }}</a>
       <a
         class="topbar-dropdown-item dropdown-item"
