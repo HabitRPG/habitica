@@ -156,6 +156,8 @@ export const UserSchema = new Schema({
     plantParent: Boolean,
     dinosaurDynasty: Boolean,
     bonelessBoss: Boolean,
+    duneBuddy: Boolean,
+    roughRider: Boolean,
     // Onboarding Guide
     createdTask: Boolean,
     completedTask: Boolean,

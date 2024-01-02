@@ -65,7 +65,7 @@
           rows="5"
           :required="true"
           :placeholder="question ? $t('questionPlaceholder') : $t('reportDescriptionPlaceholder')"
-          :class="{'input-invalid': messageInvalid && this.message.length === 0}"
+          :class="{'input-invalid': messageInvalid && message.length === 0}"
         >
 
         </textarea>

@@ -186,5 +186,7 @@
     "chatCastSpellUser": "<%= username %> lanza <%= spell %> sobre <%= target %>.",
     "chatCastSpellParty": "<%= username %> lanza <%= spell %> para el grupo.",
     "purchasePetItemConfirm": "Este pago va a exceder el numero de artículos que necesitas para incubar todas las <%= itemText %> mascotas. ¿Estas seguro?",
-    "notEnoughGold": "Oro insuficiente."
+    "notEnoughGold": "Oro insuficiente.",
+    "chatCastSpellPartyTimes": "<%= username %> lanza <%= spell %> para el grupo <%= times %> veces.",
+    "chatCastSpellUserTimes": "<%= username %> lanza <%= spell %> sobre <%= target %> <%= times %> veces."
 }

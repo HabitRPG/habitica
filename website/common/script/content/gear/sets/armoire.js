@@ -1,6 +1,7 @@
 import defaults from 'lodash/defaults';
 import find from 'lodash/find';
 import forEach from 'lodash/forEach';
+import moment from 'moment';
 import upperFirst from 'lodash/upperFirst';
 import { ownsItem } from '../gear-helper';
 import { ATTRIBUTES } from '../../../constants';
@@ -442,6 +443,19 @@ const armor = {
   karateGi: {
     str: 10,
     set: 'karateSet',
+  },
+  greenFluffTrimmedCoat: {
+    str: 8,
+    int: 8,
+    set: 'greenTrapper',
+  },
+  schoolUniformSkirt: {
+    int: 5,
+    set: 'schoolUniform',
+  },
+  schoolUniformPants: {
+    int: 5,
+    set: 'schoolUniform',
   },
 };
 
@@ -929,6 +943,11 @@ const head = {
     con: 3,
     set: 'somethingSpooky',
   },
+  greenTrapperHat: {
+    con: 6,
+    per: 6,
+    set: 'greenTrapper',
+  },
 };
 
 const shield = {
@@ -1247,6 +1266,14 @@ const shield = {
     str: 4,
     int: 4,
     set: 'cleaningSuppliesTwo',
+  },
+  saucepan: {
+    per: 10,
+    set: 'cookingImplementsTwo',
+  },
+  trustyPencil: {
+    int: 10,
+    set: 'schoolUniform',
   },
 };
 
@@ -1709,6 +1736,21 @@ const weapon = {
     int: 3,
     set: 'somethingSpooky',
   },
+  rollingPin: {
+    str: 10,
+    set: 'cookingImplementsTwo',
+  },
+  scholarlyTextbooks: {
+    int: 10,
+    set: 'schoolUniform',
+  },
+};
+
+const releaseDates = {
+  somethingSpooky: '2023-10-10T08:00-04:00',
+  cookingImplementsTwo: '2023-11-07T08:00-05:00',
+  greenTrapper: '2023-12-05T08:00-05:00',
+  schoolUniform: '2024-01-04T08:00-05:00',
 };
 
 forEach({
@@ -1744,6 +1786,7 @@ forEach({
       notes = t(`${setKey}Armoire${upperFirst(gearKey)}Notes`);
     }
     defaults(gearItem, {
+      released: releaseDates[gearItem.set] ? moment().isAfter(releaseDates[gearItem.set]) : true,
       canOwn: ownsItem(`${setKey}_armoire_${gearKey}`),
       notes,
       text: t(`${setKey}Armoire${upperFirst(gearKey)}Text`),

@@ -12,7 +12,7 @@ const bundles = {
   featheredFriends: {
     key: 'featheredFriends',
     text: t('featheredFriendsText'),
-    notes: t('featheredFriendsNotes'),
+    notes: t('featheredFriendsNotes', { date: moment(EVENTS.bundle202309.end).format('LL') }),
     bundleKeys: [
       'falcon',
       'harpy',
@@ -29,7 +29,7 @@ const bundles = {
   splashyPals: {
     key: 'splashyPals',
     text: t('splashyPalsText'),
-    notes: t('splashyPalsNotes'),
+    notes: t('splashyPalsNotes', { date: moment(EVENTS.bundle202306.end).format('LL') }),
     bundleKeys: [
       'dilatory_derby',
       'turtle',
@@ -46,7 +46,7 @@ const bundles = {
   farmFriends: {
     key: 'farmFriends',
     text: t('farmFriendsText'),
-    notes: t('farmFriendsNotes'),
+    notes: t('farmFriendsNotes', { date: moment(EVENTS.bundle202209.end).format('LL') }),
     bundleKeys: [
       'cow',
       'horse',
@@ -62,7 +62,7 @@ const bundles = {
   witchyFamiliars: {
     key: 'witchyFamiliars',
     text: t('witchyFamiliarsText'),
-    notes: t('witchyFamiliarsNotes'),
+    notes: t('witchyFamiliarsNotes', { date: moment(EVENTS.bundle202210.end).format('LL') }),
     bundleKeys: [
       'rat',
       'spider',
@@ -78,16 +78,16 @@ const bundles = {
   winterQuests: {
     key: 'winterQuests',
     text: t('winterQuestsText'),
-    notes: t('winterQuestsNotes'),
+    notes: t('winterQuestsNotes', { date: moment(EVENTS.winter2024.end).format('LL') }),
     addlNotes: t('evilSantaAddlNotes'),
     bundleKeys: [
       'evilsanta',
       'evilsanta2',
       'penguin',
     ],
-    event: EVENTS.winter2023,
+    event: EVENTS.winter2024,
     canBuy () {
-      return moment().isBetween(EVENTS.winter2023.start, EVENTS.winter2023.end);
+      return moment().isBetween(EVENTS.winter2024.start, EVENTS.winter2024.end);
     },
     type: 'quests',
     value: 7,
@@ -95,7 +95,7 @@ const bundles = {
   hugabug: {
     key: 'hugabug',
     text: t('hugabugText'),
-    notes: t('hugabugNotes'),
+    notes: t('hugabugNotes', { date: moment(EVENTS.bundle202308.end).format('LL') }),
     bundleKeys: [
       'snail',
       'beetle',
@@ -110,7 +110,7 @@ const bundles = {
   cuddleBuddies: {
     key: 'cuddleBuddies',
     text: t('cuddleBuddiesText'),
-    notes: t('cuddleBuddiesNotes'),
+    notes: t('cuddleBuddiesNotes', { date: moment('2022-03-31').format('LL') }), // needs update next time we run this
     bundleKeys: [
       'bunny',
       'ferret',
@@ -125,7 +125,7 @@ const bundles = {
   aquaticAmigos: {
     key: 'aquaticAmigos',
     text: t('aquaticAmigosText'),
-    notes: t('aquaticAmigosNotes'),
+    notes: t('aquaticAmigosNotes', { date: moment(EVENTS.bundle202206.end).format('LL') }),
     bundleKeys: [
       'axolotl',
       'kraken',
@@ -133,7 +133,7 @@ const bundles = {
     ],
     event: EVENTS.bundle202206,
     canBuy () {
-      return moment().isBefore(EVENTS.bundle202206.end);
+      return moment().isBetween(EVENTS.bundle202206.start, EVENTS.bundle202206.end);
     },
     type: 'quests',
     value: 7,
@@ -141,7 +141,7 @@ const bundles = {
   forestFriends: {
     key: 'forestFriends',
     text: t('forestFriendsText'),
-    notes: t('forestFriendsNotes'),
+    notes: t('forestFriendsNotes', { date: moment(EVENTS.bundle202208.end).format('LL') }),
     bundleKeys: [
       'ghost_stag',
       'hedgehog',
@@ -157,14 +157,15 @@ const bundles = {
   oddballs: {
     key: 'oddballs',
     text: t('oddballsText'),
-    notes: t('oddballsNotes'),
+    notes: t('oddballsNotes', { date: moment(EVENTS.bundle202311.end).format('LL') }),
     bundleKeys: [
       'slime',
       'rock',
       'yarn',
     ],
+    event: EVENTS.bundle202311,
     canBuy () {
-      return moment().isBetween('2021-03-16T08:00-05:00', '2021-03-31T20:00-05:00');
+      return moment().isBetween(EVENTS.bundle202311.start, EVENTS.bundle202311.end);
     },
     type: 'quests',
     value: 7,
@@ -172,7 +173,7 @@ const bundles = {
   birdBuddies: {
     key: 'birdBuddies',
     text: t('birdBuddiesText'),
-    notes: t('birdBuddiesNotes'),
+    notes: t('birdBuddiesNotes', { date: moment(EVENTS.bundle202305.end).format('LL') }),
     bundleKeys: [
       'peacock',
       'penguin',
@@ -180,7 +181,7 @@ const bundles = {
     ],
     event: EVENTS.bundle202305,
     canBuy () {
-      return moment().isBefore(EVENTS.bundle202305.end);
+      return moment().isBetween(EVENTS.bundle202305.start, EVENTS.bundle202305.end);
     },
     type: 'quests',
     value: 7,
@@ -188,7 +189,7 @@ const bundles = {
   mythicalMarvels: {
     key: 'mythicalMarvels',
     text: t('mythicalMarvelsText'),
-    notes: t('mythicalMarvelsNotes'),
+    notes: t('mythicalMarvelsNotes', { date: moment(EVENTS.bundle202302.end).format('LL') }),
     bundleKeys: [
       'unicorn',
       'seaserpent',
@@ -204,7 +205,7 @@ const bundles = {
   rockingReptiles: {
     key: 'rockingReptiles',
     text: t('rockingReptilesText'),
-    notes: t('rockingReptilesNotes'),
+    notes: t('rockingReptilesNotes', { date: moment(EVENTS.bundle202211.end).format('LL') }),
     bundleKeys: [
       'alligator',
       'snake',
@@ -220,7 +221,7 @@ const bundles = {
   delightfulDinos: {
     key: 'delightfulDinos',
     text: t('delightfulDinosText'),
-    notes: t('delightfulDinosNotes'),
+    notes: t('delightfulDinosNotes', { date: moment('2022-05-31').format('LL') }), // needs update next time its run
     bundleKeys: [
       'pterodactyl',
       'triceratops',
@@ -235,7 +236,7 @@ const bundles = {
   jungleBuddies: {
     key: 'jungleBuddies',
     text: t('jungleBuddiesText'),
-    notes: t('jungleBuddiesNotes', { date: moment('2023-03-31').format('LL') }),
+    notes: t('jungleBuddiesNotes', { date: moment(EVENTS.bundle202303.end).format('LL') }),
     bundleKeys: [
       'monkey',
       'sloth',
@@ -251,7 +252,7 @@ const bundles = {
   sandySidekicks: {
     key: 'sandySidekicks',
     text: t('sandySidekicksText'),
-    notes: t('sandySidekicksNotes', { date: moment('2023-10-31').format('LL') }),
+    notes: t('sandySidekicksNotes', { date: moment(EVENTS.bundle202310.end).format('LL') }),
     bundleKeys: [
       'armadillo',
       'snake',

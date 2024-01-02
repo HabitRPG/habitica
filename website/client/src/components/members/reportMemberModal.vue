@@ -6,7 +6,9 @@
     size="md"
   >
     <div slot="modal-header">
-      <h2 class="mt-2 mb-0"> {{ $t('reportPlayer') }} </h2>
+      <h2 class="mt-2 mb-0">
+        {{ $t('reportPlayer') }}
+      </h2>
       <close-x
         @close="close()"
       />
@@ -14,7 +16,9 @@
     <div>
       <blockquote>
         <strong> {{ displayName }} </strong>
-        <p class="mb-0"> {{ username }} </p>
+        <p class="mb-0">
+          {{ username }}
+        </p>
       </blockquote>
       <div>
         <strong>{{ $t('whyReportingPlayer') }}</strong>
@@ -26,7 +30,8 @@
       </div>
       <p
         class="mb-2"
-        v-html="$t('playerReportModalBody', abuseFlagModalBody)">
+        v-html="$t('playerReportModalBody', abuseFlagModalBody)"
+      >
       </p>
     </div>
     <div class="footer text-center d-flex flex-column">

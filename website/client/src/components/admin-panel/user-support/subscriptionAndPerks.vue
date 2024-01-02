@@ -83,13 +83,13 @@
         <div class="form-inline">
           Perk month count:
           <input
-              v-model="hero.purchased.plan.perkMonthCount"
-              class="form-control"
-              type="number"
-              min="0"
-              max="2"
-              step="1"
-            >
+            v-model="hero.purchased.plan.perkMonthCount"
+            class="form-control"
+            type="number"
+            min="0"
+            max="2"
+            step="1"
+          >
         </div>
         <div>
           Next Mystic Hourglass:

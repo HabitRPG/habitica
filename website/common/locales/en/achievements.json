@@ -153,5 +153,11 @@
   "achievementDinosaurDynastyModalText": "You collected all the bird and dinosaur pets!",
   "achievementBonelessBoss": "Boneless Boss",
   "achievementBonelessBossText": "Has hatched all standard colors of invertebrate pets: Beetle, Butterfly, Cuttlefish, Nudibranch, Octopus, Snail, and Spider!",
-  "achievementBonelessBossModalText": "You collected all the invertebrate pets!"
+  "achievementBonelessBossModalText": "You collected all the invertebrate pets!",
+  "achievementDuneBuddy": "Dune Buddy",
+  "achievementDuneBuddyText": "Has hatched all standard colors of desert dwelling pets: Armadillo, Cactus, Fox, Frog, Snake, and Spider!",
+  "achievementDuneBuddyNotes": "You collected all the desert dwelling pets!",
+  "achievementRoughRider": "Rough Rider",
+  "achievementRoughRiderText": "Has hatched all basic colors of the uncomfortable pets and mounts: Cactus, Hedgehog, and Rock!",
+  "achievementRoughRiderNotes": "You collected all the basic colors of the uncomfortable pets and mounts!"
 }

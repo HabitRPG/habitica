@@ -1,5 +1,6 @@
 import each from 'lodash/each';
 import filter from 'lodash/filter';
+import has from 'lodash/has';
 import keys from 'lodash/keys';
 import size from 'lodash/size';
 import content from './content/index';
@@ -50,7 +51,9 @@ export function remainingGearInSet (userGear = {}, set) {
   const gear = filter(content.gear.flat, item => {
     const setMatches = item.klass === set;
     const hasItem = userGear[item.key];
-
+    if (has(item, 'released')) {
+      return item.released && setMatches && !hasItem;
+    }
     return setMatches && !hasItem;
   });
 

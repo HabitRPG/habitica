@@ -5,7 +5,7 @@ import { EVENTS } from './constants';
 // path: 'premiumHatchingPotions.Rainbow',
 const featuredItems = {
   market () {
-    if (moment().isBetween(EVENTS.fall2023.start, EVENTS.fall2023.end)) {
+    if (moment().isBetween(EVENTS.winter2024.start, EVENTS.winter2024.end)) {
       return [
         {
           type: 'armoire',
@@ -13,15 +13,15 @@ const featuredItems = {
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Glow',
+          path: 'premiumHatchingPotions.StainedGlass',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Spooky',
+          path: 'premiumHatchingPotions.Peppermint',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Vampire',
+          path: 'premiumHatchingPotions.IcySnow',
         },
       ];
     }
@@ -32,32 +32,32 @@ const featuredItems = {
       },
       {
         type: 'food',
-        path: 'food.RottenMeat',
+        path: 'food.Honey',
       },
       {
         type: 'hatchingPotions',
-        path: 'hatchingPotions.Zombie',
+        path: 'hatchingPotions.Golden',
       },
       {
         type: 'eggs',
-        path: 'eggs.Cactus',
+        path: 'eggs.BearCub',
       },
     ];
   },
   quests () {
-    if (moment().isBetween(EVENTS.bundle202310.start, EVENTS.bundle202310.end)) {
+    if (moment().isBetween(EVENTS.winter2024.start, EVENTS.winter2024.end)) {
       return [
         {
           type: 'bundles',
-          path: 'bundles.sandySidekicks',
+          path: 'bundles.winterQuests',
         },
         {
           type: 'quests',
-          path: 'quests.beetle',
+          path: 'quests.ghost_stag',
         },
         {
           type: 'quests',
-          path: 'quests.frog',
+          path: 'quests.penguin',
         },
       ];
     }
@@ -77,7 +77,7 @@ const featuredItems = {
       },
     ];
   },
-  seasonal: 'fall2017TrickOrTreatSet',
+  seasonal: 'winter2021WinterMoonMageSet',
   timeTravelers: [
     // TODO
   ],

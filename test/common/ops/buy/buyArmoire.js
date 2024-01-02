@@ -17,9 +17,9 @@ function getFullArmoire () {
 
   _.each(content.gearTypes, type => {
     _.each(content.gear.tree[type].armoire, gearObject => {
-      const armoireKey = gearObject.key;
-
-      fullArmoire[armoireKey] = true;
+      if (gearObject.released) {
+        fullArmoire[gearObject.key] = true;
+      }
     });
   });
 
