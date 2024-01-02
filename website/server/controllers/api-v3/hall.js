@@ -275,7 +275,7 @@ api.updateHero = {
     }
 
     if (updateData.purchased && updateData.purchased.plan) {
-      const plan = updateData.purchased.plan;
+      const { plan } = updateData.purchased;
       if (plan.gemsBought) {
         hero.purchased.plan.gemsBought = plan.gemsBought;
       }
