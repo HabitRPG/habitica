@@ -44,12 +44,11 @@
 </template>
 
 <script>
+import taskDefaults from '@/../../common/script/libs/taskDefaults';
 import { mapActions } from '@/libs/store';
 import markdownDirective from '@/directives/markdown';
 import notificationsMixin from '@/mixins/notifications';
 import Task from '@/components/tasks/task';
-
-import taskDefaults from '@/../../common/script/libs/taskDefaults';
 
 const baseUrl = 'https://habitica.com';
 

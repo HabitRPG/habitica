@@ -22,7 +22,6 @@ const PrivacyPage = () => import(/* webpackChunkName: "static" */'@/components/s
 const ChatSunsetFaq = () => import(/* webpackChunkName: "static" */'@/components/static/chatSunsetFaq');
 const TermsPage = () => import(/* webpackChunkName: "static" */'@/components/static/terms');
 
-
 export const STATIC_ROUTES = {
   path: '/static',
   component: StaticWrapper,

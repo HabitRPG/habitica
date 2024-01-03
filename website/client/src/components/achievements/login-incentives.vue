@@ -124,9 +124,9 @@
 </style>
 
 <script>
+import content from '@/../../common/script/content/index';
 import { mapState } from '@/libs/store';
 import Avatar from '../avatar';
-import content from '@/../../common/script/content/index';
 
 export default {
   components: {

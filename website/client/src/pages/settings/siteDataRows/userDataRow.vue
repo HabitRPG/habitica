@@ -86,7 +86,6 @@
   margin-top: 20px;
   margin-bottom: 0;
 
-
   td {
     border: 0 !important;
     padding-bottom: 0 !important;
