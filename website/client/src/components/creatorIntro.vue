@@ -208,13 +208,13 @@
           <div
             class="row text-center title-row"
           >
-            <strong>{{ backgroundShopSets[1].text }}</strong>
+            <strong>{{ backgroundShopSets[2].text }}</strong>
           </div>
           <div
             class="row title-row"
           >
             <div
-              v-for="bg in backgroundShopSets[1].items"
+              v-for="bg in backgroundShopSets[2].items"
               :id="bg.key"
               :key="bg.key"
               class="col-4 text-center customize-option background-button"
