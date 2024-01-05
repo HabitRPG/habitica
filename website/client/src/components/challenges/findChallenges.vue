@@ -19,6 +19,7 @@
            :key="sortOption.value", @click='sort(sortOption.value)') {{sortOption.text}}-->
           <button
             class="btn btn-secondary create-challenge-button float-right"
+            :disabled="chatRevoked"
             @click="createChallenge()"
           >
             <div
@@ -110,6 +111,11 @@
     text-align: center;
     color: $purple-300;
   }
+
+  .disabled, .disabled:hover, .positive-icon {
+    box-shadow: none;
+    color: $gray-400;
+  }
 </style>
 
 <script>
@@ -122,6 +128,7 @@ import ChallengeItem from './challengeItem';
 import challengeModal from './challengeModal';
 import externalLinks from '@/mixins/externalLinks';
 import challengeUtilities from '@/mixins/challengeUtilities';
+// import { BadRequest } from '../../../../server/libs/errors';
 
 import positiveIcon from '@/assets/svg/positive.svg';
 
@@ -194,9 +201,23 @@ export default {
       this.page = 0;
       this.loadChallenges();
     },
+
+    // SAD CODE SOUFFLE 1
+    // chatRevoked () {
+    //   if (this.user.flags.chatRevoked) {
+    //     return document.getElementsByClassName('create-challenge-button').add('disabled');
+    //   }
+    // },
+
+    // SAD CIDE SOUFFLE 2
+    // chatRevoked () {
+    //   document.getElementsByClassName('create-challenge-button').add('disabled');
+    // },
+
     createChallenge () {
       this.$root.$emit('habitica:create-challenge');
     },
+
     async loadChallenges () {
       this.loading = true;
 
