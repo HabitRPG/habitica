@@ -77,7 +77,6 @@
 import likeIcon from '@/assets/svg/like.svg';
 import likedIcon from '@/assets/svg/liked.svg';
 
-
 export default {
   props: {
     likeCount: {
