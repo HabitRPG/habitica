@@ -99,8 +99,8 @@ api.potion = {
 api.armoire = {
   type: 'armoire',
   text: t('armoireText'),
-  notes (user, count) {
-    if (user.flags.armoireEmpty) {
+  notes (count) {
+    if (count === 0) {
       return t('armoireNotesEmpty')();
     }
     return `${t('armoireNotesFull')()} ${count}`;

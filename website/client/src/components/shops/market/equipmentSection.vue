@@ -74,14 +74,13 @@
 <script>
 import _filter from 'lodash/filter';
 import _orderBy from 'lodash/orderBy';
+import shops from '@/../../common/script/libs/shops';
 import { mapState } from '@/libs/store';
 import LayoutSection from '@/components/ui/layoutSection';
 import FilterDropdown from '@/components/ui/filterDropdown';
 import ItemRows from '@/components/ui/itemRows';
 import PinBadge from '@/components/ui/pinBadge';
 import ShopItem from '../shopItem';
-
-import shops from '@/../../common/script/libs/shops';
 
 import svgWarrior from '@/assets/svg/warrior.svg';
 import svgWizard from '@/assets/svg/wizard.svg';

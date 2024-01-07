@@ -1,10 +1,10 @@
 <template>
   <base-banner
+    v-if="showChatWarning"
     banner-id="chat-warning"
     banner-class="chat-banner"
     class="chat-banner"
     height="3rem"
-    v-if="showChatWarning"
     :class="{faq: faqPage}"
   >
     <div

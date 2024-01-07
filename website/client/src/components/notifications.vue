@@ -109,8 +109,8 @@ import Vue from 'vue';
 import { toNextLevel } from '@/../../common/script/statHelpers';
 import { shouldDo } from '@/../../common/script/cron';
 import { onOnboardingComplete } from '@/../../common/script/libs/onboarding';
-import { mapState } from '@/libs/store';
 import { MAX_LEVEL_HARD_CAP } from '@/../../common/script/constants';
+import { mapState } from '@/libs/store';
 import notifications from '@/mixins/notifications';
 import guide from '@/mixins/guide';
 import { CONSTANTS, setLocalSetting } from '@/libs/userlocalManager';
@@ -339,7 +339,6 @@ export default {
       userMp: 'user.data.stats.mp',
       userNotifications: 'user.data.notifications',
       userAchievements: 'user.data.achievements', // @TODO: does this watch deeply?
-      armoireEmpty: 'user.data.flags.armoireEmpty',
       questCompleted: 'user.data.party.quest.completed',
     }),
     userClassSelect () {
@@ -409,10 +408,6 @@ export default {
     userNotifications (after) {
       if (this.user.needsCron) return;
       this.handleUserNotifications(after);
-    },
-    armoireEmpty (after, before) {
-      if (after === before || after === false) return;
-      this.$root.$emit('bv::show::modal', 'armoire-empty');
     },
     questCompleted () {
       if (!this.questCompleted) return;

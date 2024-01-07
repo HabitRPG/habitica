@@ -142,5 +142,8 @@
     "editTagsText": "Modifier les étiquettes",
     "taskSummary": "Résumé pour les <%= type %>",
     "scoreUp": "Augmenter le score",
-    "scoreDown": "Diminuer le score"
+    "scoreDown": "Diminuer le score",
+    "taskAliasPlaceholder": "votre-alias-de-tâche-ici",
+    "taskAlias": "Alias de Tâche",
+    "taskAliasPopover": "Cet alias de tâche peut être utilisé en joignant une intégration d'équipe-tierce. Seuls les tiret, les tirets du bas, et les caractères alphanumériques sont utilisables. L'alias de tâche doit être unique parmi toutes vos tâches."
 }

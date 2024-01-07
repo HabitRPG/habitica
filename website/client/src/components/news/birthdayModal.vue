@@ -359,7 +359,6 @@
 }
 </style>
 
-
 <style scoped lang="scss">
   @import '~@/assets/scss/colors.scss';
   @import '~@/assets/scss/mixins.scss';
@@ -788,16 +787,15 @@
 
 </style>
 
-
 <script>
 // to check if user owns JG or not
+import content from '@/../../common/script/content/index';
 import { mapState } from '@/libs/store';
 
 // Purchase functionality
 import buy from '@/mixins/buy';
 import notifications from '@/mixins/notifications';
 import payments from '@/mixins/payments';
-import content from '@/../../common/script/content/index';
 import amazonButton from '@/components/payments/buttons/amazon';
 
 // import images

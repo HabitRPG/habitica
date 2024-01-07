@@ -11,6 +11,7 @@
     </div>
     <div
       v-for="(post, index) in posts"
+      id="bailey"
       :key="post._id"
       class="static-view bailey"
       :class="{'bailey-last': index == (posts.length - 1)}"
@@ -33,6 +34,17 @@
 
 <style lang='scss'>
 @import '~@/assets/scss/static.scss';
+#bailey {
+  .markdown-img-link {
+    display: flex;
+    align-items: center;
+
+    img {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}
 </style>
 
 <style lang='scss' scoped>

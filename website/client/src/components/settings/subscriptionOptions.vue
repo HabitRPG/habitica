@@ -133,9 +133,9 @@
 import filter from 'lodash/filter';
 import sortBy from 'lodash/sortBy';
 
+import subscriptionBlocks from '@/../../common/script/content/subscriptionBlocks';
 import paymentsButtons from '@/components/payments/buttons/list';
 import paymentsMixin from '../../mixins/payments';
-import subscriptionBlocks from '@/../../common/script/content/subscriptionBlocks';
 
 export default {
   components: {

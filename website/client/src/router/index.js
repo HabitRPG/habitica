@@ -63,7 +63,6 @@ const QuestsPage = () => import(/* webpackChunkName: "shops-quest" */'@/componen
 const SeasonalPage = () => import(/* webpackChunkName: "shops-seasonal" */'@/components/shops/seasonal/index');
 const TimeTravelersPage = () => import(/* webpackChunkName: "shops-timetravelers" */'@/components/shops/timeTravelers/index');
 
-
 Vue.use(VueRouter);
 
 const router = new VueRouter({

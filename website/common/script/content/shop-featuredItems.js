@@ -5,7 +5,7 @@ import { EVENTS } from './constants';
 // path: 'premiumHatchingPotions.Rainbow',
 const featuredItems = {
   market () {
-    if (moment().isBetween(EVENTS.fall2023.start, EVENTS.fall2023.end)) {
+    if (moment().isBetween(EVENTS.potions202311.start, EVENTS.potions202311.end)) {
       return [
         {
           type: 'armoire',
@@ -13,15 +13,15 @@ const featuredItems = {
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Glow',
+          path: 'premiumHatchingPotions.AutumnLeaf',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Spooky',
+          path: 'premiumHatchingPotions.Ember',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Vampire',
+          path: 'premiumHatchingPotions.Frost',
         },
       ];
     }
@@ -45,19 +45,19 @@ const featuredItems = {
     ];
   },
   quests () {
-    if (moment().isBetween(EVENTS.bundle202310.start, EVENTS.bundle202310.end)) {
+    if (moment().isBetween(EVENTS.bundle202311.start, EVENTS.bundle202311.end)) {
       return [
         {
           type: 'bundles',
-          path: 'bundles.sandySidekicks',
+          path: 'bundles.oddballs',
         },
         {
           type: 'quests',
-          path: 'quests.beetle',
+          path: 'quests.gryphon',
         },
         {
           type: 'quests',
-          path: 'quests.frog',
+          path: 'quests.armadillo',
         },
       ];
     }

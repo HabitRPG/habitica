@@ -372,6 +372,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import omit from 'lodash/omit';
 import { v4 as uuid } from 'uuid';
 
+import taskDefaults from '@/../../common/script/libs/taskDefaults';
 import { userStateMixin } from '../../mixins/userState';
 import externalLinks from '../../mixins/externalLinks';
 import memberSearchDropdown from '@/components/members/memberSearchDropdown';
@@ -387,7 +388,6 @@ import reportChallengeModal from './reportChallengeModal';
 import sidebarSection from '../sidebarSection';
 import userLink from '../userLink';
 import groupLink from '../groupLink';
-import taskDefaults from '@/../../common/script/libs/taskDefaults';
 
 import gemIcon from '@/assets/svg/gem.svg';
 import memberIcon from '@/assets/svg/member-icon.svg';
@@ -413,6 +413,11 @@ export default {
     groupLink,
   },
   mixins: [challengeMemberSearchMixin, externalLinks, userStateMixin],
+  async beforeRouteUpdate (to, from, next) {
+    this.searchId = to.params.challengeId;
+    await this.loadChallenge();
+    next();
+  },
   props: ['challengeId'],
   data () {
     return {
@@ -486,11 +491,6 @@ export default {
   },
   updated () {
     this.handleExternalLinks();
-  },
-  async beforeRouteUpdate (to, from, next) {
-    this.searchId = to.params.challengeId;
-    await this.loadChallenge();
-    next();
   },
   methods: {
     cleanUpTask (task) {

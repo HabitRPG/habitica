@@ -4,12 +4,18 @@
     <group-plan-creation-modal />
     <div>
       <div class="header">
-        <h1 v-once class="text-center">
+        <h1
+          v-once
+          class="text-center"
+        >
           {{ $t('groupPlanTitle') }}
         </h1>
         <div class="row">
           <div class="col-8 offset-2 text-center">
-            <h2 v-once class="sub-text">
+            <h2
+              v-once
+              class="sub-text"
+            >
               {{ $t('groupBenefitsDescription') }}
             </h2>
           </div>
@@ -24,8 +30,12 @@
                 src="~@/assets/images/group-plans/group-14@3x.png"
               >
               <hr>
-              <h2 v-once> {{ $t('teamBasedTasks') }} </h2>
-              <p v-once> {{ $t('teamBasedTasksListDesc') }} </p>
+              <h2 v-once>
+                {{ $t('teamBasedTasks') }}
+              </h2>
+              <p v-once>
+                {{ $t('teamBasedTasksListDesc') }}
+              </p>
             </div>
           </div>
           <div class="col-4">
@@ -35,8 +45,12 @@
                 src="~@/assets/images/group-plans/group-12@3x.png"
               >
               <hr>
-              <h2 v-once> {{ $t('groupManagementControls') }} </h2>
-              <p v-once> {{ $t('groupManagementControlsDesc') }} </p>
+              <h2 v-once>
+                {{ $t('groupManagementControls') }}
+              </h2>
+              <p v-once>
+                {{ $t('groupManagementControlsDesc') }}
+              </p>
             </div>
           </div>
           <div class="col-4">
@@ -46,8 +60,12 @@
                 src="~@/assets/images/group-plans/group-13@3x.png"
               >
               <hr>
-              <h2 v-once> {{ $t('inGameBenefits') }} </h2>
-              <p v-once> {{ $t('inGameBenefitsDesc') }} </p>
+              <h2 v-once>
+                {{ $t('inGameBenefits') }}
+              </h2>
+              <p v-once>
+                {{ $t('inGameBenefitsDesc') }}
+              </p>
             </div>
           </div>
         </div>
