@@ -17,9 +17,10 @@
            {{ $t('sortBy') }}b-dropdown(:text="$t('sort')", right=true)
           b-dropdown-item(v-for='sortOption in sortOptions',
            :key="sortOption.value", @click='sort(sortOption.value)') {{sortOption.text}}-->
+          <!-- tried to disable button here, still bringe up the challenge creation button -->
           <button
             class="btn btn-secondary create-challenge-button float-right"
-            :disabled="chatRevoked"
+            :disabled="user.flags.chatRevoked === true"
             @click="createChallenge()"
           >
             <div
@@ -209,7 +210,7 @@ export default {
     //   }
     // },
 
-    // SAD CIDE SOUFFLE 2
+    // SAD CODE SOUFFLE 2
     // chatRevoked () {
     //   document.getElementsByClassName('create-challenge-button').add('disabled');
     // },
