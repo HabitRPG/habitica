@@ -19,6 +19,7 @@
            :key="sortOption.value", @click='sort(sortOption.value)') {{sortOption.text}}-->
           <button
             class="btn btn-secondary create-challenge-button float-right"
+            :class="{ disabled: user.flags.chatRevoked }"
             @click="createChallenge()"
           >
             <div
@@ -209,6 +210,7 @@ export default {
   updated () {
     this.handleExternalLinks();
   },
+
   methods: {
     updateSearch (eventData) {
       this.search = eventData.searchTerm;
@@ -221,6 +223,9 @@ export default {
       this.loadChallenges();
     },
     createChallenge () {
+      if (this.user.flags.chatRevoked) {
+        return;
+      }
       this.$root.$emit('habitica:create-challenge');
     },
     async loadChallenges () {

@@ -20,7 +20,7 @@
           <!-- tried to disable button here, still bringe up the challenge creation button -->
           <button
             class="btn btn-secondary create-challenge-button float-right"
-            :disabled="user.flags.chatRevoked === true"
+            :class="{ disabled: user.flags.chatRevoked }"
             @click="createChallenge()"
           >
             <div
@@ -113,10 +113,6 @@
     color: $purple-300;
   }
 
-  .disabled, .disabled:hover, .positive-icon {
-    box-shadow: none;
-    color: $gray-400;
-  }
 </style>
 
 <script>
@@ -129,7 +125,6 @@ import ChallengeItem from './challengeItem';
 import challengeModal from './challengeModal';
 import externalLinks from '@/mixins/externalLinks';
 import challengeUtilities from '@/mixins/challengeUtilities';
-// import { BadRequest } from '../../../../server/libs/errors';
 
 import positiveIcon from '@/assets/svg/positive.svg';
 
@@ -203,19 +198,10 @@ export default {
       this.loadChallenges();
     },
 
-    // SAD CODE SOUFFLE 1
-    // chatRevoked () {
-    //   if (this.user.flags.chatRevoked) {
-    //     return document.getElementsByClassName('create-challenge-button').add('disabled');
-    //   }
-    // },
-
-    // SAD CODE SOUFFLE 2
-    // chatRevoked () {
-    //   document.getElementsByClassName('create-challenge-button').add('disabled');
-    // },
-
     createChallenge () {
+      if (this.user.flags.chatRevoked) {
+        return;
+      }
       this.$root.$emit('habitica:create-challenge');
     },
 
