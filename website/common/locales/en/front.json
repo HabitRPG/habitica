@@ -116,6 +116,7 @@
   "invalidEmailDomain": "You cannot register with emails with the following domains: <%= domains %>",
   "wrongPassword": "Password is incorrect. If you forgot your password, click \"Forgot Password.\"",
   "incorrectDeletePhrase": "Please type <%= magicWord %> in all capital letters to delete your account.",
+  "incorrectResetPhrase": "Please type <%= magicWord %> in all capital letters to reset your account.",
   "notAnEmail": "Invalid email address.",
   "emailTaken": "Email address is already used in an account.",
   "newEmailRequired": "Missing new email address.",
