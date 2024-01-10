@@ -124,7 +124,14 @@
         v-once
         class="mx-5 mt-1"
       >
-        {{ $t('g1g1Limitations') }}
+        {{ $t('g1g1Limitations', {
+          promoStartMonth,
+          promoStartOrdinal,
+          promoStartTime,
+          promoEndMonth,
+          promoEndOrdinal,
+          promoEndTime,
+        }) }}
       </p>
     </div>
   </b-modal>
@@ -289,6 +296,7 @@ h2 {
 import debounce from 'lodash/debounce';
 import find from 'lodash/find';
 import isUUID from 'validator/lib/isUUID';
+import moment from 'moment';
 import { mapState } from '@/libs/store';
 import closeIcon from '@/assets/svg/close.svg';
 import bigGiftIcon from '@/assets/svg/big-gift.svg';
@@ -318,11 +326,34 @@ export default {
       if (this.userSearchTerm.length < 1) return true;
       return typeof this.foundUser._id === 'undefined';
     },
-
     userInputInvalidIssues () {
       return this.userSearchTerm.length > 0 && this.userNotFound
         ? [this.$t('userWithUsernameOrUserIdNotFound')]
         : [''];
+    },
+    promoStartMonth () {
+      if (!this.currentEvent) return null;
+      return moment(this.currentEvent.start).format('MMMM');
+    },
+    promoStartOrdinal () {
+      if (!this.currentEvent) return null;
+      return moment(this.currentEvent.start).format('Do');
+    },
+    promoStartTime () {
+      if (!this.currentEvent) return null;
+      return moment(this.currentEvent.start).format('hh:mm A');
+    },
+    promoEndMonth () {
+      if (!this.currentEvent) return null;
+      return moment(this.currentEvent.end).format('MMMM');
+    },
+    promoEndOrdinal () {
+      if (!this.currentEvent) return null;
+      return moment(this.currentEvent.end).format('Do');
+    },
+    promoEndTime () {
+      if (!this.currentEvent) return null;
+      return moment(this.currentEvent.end).format('hh:mm A');
     },
   },
   watch: {

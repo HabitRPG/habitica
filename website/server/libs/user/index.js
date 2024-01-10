@@ -159,8 +159,10 @@ export async function update (req, res, { isV3 = false }) {
     throw new BadRequest(res.t('bannedSlurUsedInProfile'));
   }
 
+  let groupsToMirror;
+  let matchingGroupsArray;
   if (req.body['preferences.tasks.mirrorGroupTasks'] !== undefined) {
-    const groupsToMirror = req.body['preferences.tasks.mirrorGroupTasks'];
+    groupsToMirror = req.body['preferences.tasks.mirrorGroupTasks'];
     if (!Array.isArray(groupsToMirror)) {
       throw new BadRequest('Groups to copy tasks from must be an array.');
     }
@@ -172,7 +174,7 @@ export async function update (req, res, { isV3 = false }) {
       }
     }
 
-    const matchingGroupsCount = await Groups.countDocuments({
+    const matchingGroups = await Groups.find({
       _id: { $in: groupsToMirror },
       'purchased.plan.customerId': { $exists: true },
       $or: [
@@ -180,11 +182,11 @@ export async function update (req, res, { isV3 = false }) {
         { 'purchased.plan.dateTerminated': null },
         { 'purchased.plan.dateTerminated': { $gt: new Date() } },
       ],
+    }, {
+      _id: 1,
     }).exec();
 
-    if (matchingGroupsCount !== groupsToMirror.length) {
-      throw new BadRequest('Groups to copy tasks from must have subscriptions.');
-    }
+    matchingGroupsArray = _.map(matchingGroups, groupRecord => groupRecord._id);
   }
 
   _.each(req.body, (val, key) => {
@@ -246,6 +248,8 @@ export async function update (req, res, { isV3 = false }) {
       if (lastNewsPost) {
         user.flags.lastNewStuffRead = lastNewsPost._id;
       }
+    } else if (key === 'preferences.tasks.mirrorGroupTasks') {
+      user.preferences.tasks.mirrorGroupTasks = _.intersection(groupsToMirror, matchingGroupsArray);
     } else if (acceptablePUTPaths[key]) {
       let adjustedVal = val;
       if (key === 'stats.lvl' && val > common.constants.MAX_LEVEL_HARD_CAP) {

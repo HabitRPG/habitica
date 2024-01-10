@@ -41,7 +41,6 @@ function usernameContainsInvalidCharacters (username) {
 export function verifyDisplayName (displayName, res) {
   const issues = [];
   if (displayName.length < 1 || displayName.length > 30) issues.push(res.t('displaynameIssueLength'));
-  if (stringContainsProfanity(displayName)) issues.push(res.t('bannedWordUsedInProfile'));
   if (stringContainsProfanity(displayName, 'slur')) issues.push(res.t('bannedSlurUsedInProfile'));
   if (nameContainsNewline(displayName)) issues.push(res.t('displaynameIssueNewline'));
 
