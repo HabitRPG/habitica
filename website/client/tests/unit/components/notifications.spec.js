@@ -1,8 +1,8 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils';
+import { toNextLevel } from '@/../../common/script/statHelpers';
 import NotificationsComponent from '@/components/notifications.vue';
 import Store from '@/libs/store';
 import { hasClass } from '@/store/getters/members';
-import { toNextLevel } from '@/../../common/script/statHelpers';
 
 const localVue = createLocalVue();
 localVue.use(Store);

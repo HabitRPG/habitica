@@ -1,11 +1,11 @@
 import setProps from 'lodash/set';
 import axios from 'axios';
-import { loadAsyncResource } from '@/libs/asyncResource';
 
 import { togglePinnedItem as togglePinnedItemOp } from '@/../../common/script/ops/pinnedGearUtils';
 import changeClassOp from '@/../../common/script/ops/changeClass';
 import disableClassesOp from '@/../../common/script/ops/disableClasses';
 import openMysteryItemOp from '@/../../common/script/ops/openMysteryItem';
+import { loadAsyncResource } from '@/libs/asyncResource';
 import { unEquipByType } from '../../../../common/script/ops/unequip';
 import markPMSRead from '../../../../common/script/ops/markPMSRead';
 import updateStats from '../../../../common/script/fns/updateStats';

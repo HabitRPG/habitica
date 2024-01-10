@@ -1159,10 +1159,12 @@
 <script>
 import axios from 'axios';
 import map from 'lodash/map';
+import shops from '@/../../common/script/libs/shops';
+import isPinned from '@/../../common/script/libs/isPinned';
+import content from '@/../../common/script/content/index';
 import { mapState } from '@/libs/store';
 import avatar from './avatar';
 import usernameForm from './settings/usernameForm';
-import shops from '@/../../common/script/libs/shops';
 import guide from '@/mixins/guide';
 import notifications from '@/mixins/notifications';
 import PinBadge from '@/components/ui/pinBadge';
@@ -1185,10 +1187,7 @@ import gold from '@/assets/svg/gold.svg';
 import arrowRight from '@/assets/svg/arrow_right.svg';
 import arrowLeft from '@/assets/svg/arrow_left.svg';
 import svgClose from '@/assets/svg/close.svg';
-import isPinned from '@/../../common/script/libs/isPinned';
 import { avatarEditorUtilies } from '../mixins/avatarEditUtilities';
-
-import content from '@/../../common/script/content/index';
 
 export default {
   components: {
