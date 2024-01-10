@@ -838,7 +838,7 @@
   "backgrounds122022": "SET 103: Released December 2022",
   "backgroundBranchesOfAHolidayTreeText": "Branches of a Holiday Tree",
   "backgroundBranchesOfAHolidayTreeNotes": "Frolic on the Branches of a Holiday Tree.",
-  "backgroundInsideACrystalText": "Inside A Crystal", 
+  "backgroundInsideACrystalText": "Inside A Crystal",
   "backgroundInsideACrystalNotes": "Peer out from Inside A Crystal.",
   "backgroundSnowyVillageText": "Snowy Village",
   "backgroundSnowyVillageNotes": "Admire a Snowy Village.",
@@ -939,6 +939,13 @@
   "backgroundWinterFullMoonText": "WinterFullMoon",
   "backgroundWinterFullMoonNotes": "Gaze at the Winter Full Moon.",
 
+  "backgrounds012024": "SET 116: Released January 2024",
+  "backgroundWinterMountainRangeText": "Winter Mountain Range",
+  "backgroundWinterMountainRangeNotes": "Climb a Winter Mountain Range.",
+  "backgroundFrozenBluePondText": "Frozen Blue Pond",
+  "backgroundFrozenBluePondNotes": "Chill out by the Frozen Blue Pond.",
+  "backgroundIceBubbleLakeText": "Ice Bubble Lake",
+  "backgroundIceBubbleLakeNotes": "Stand carefully on the Ice Bubble Lake.",
 
   "timeTravelBackgrounds": "Steampunk Backgrounds",
   "backgroundAirshipText": "Airship",

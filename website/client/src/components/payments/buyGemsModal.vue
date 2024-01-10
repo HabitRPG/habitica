@@ -193,7 +193,6 @@
 
   #buy-gems {
     small {
-      color: $gray-100;
       font-size: 12px;
       margin-left: 20px;
       margin-right: 20px;

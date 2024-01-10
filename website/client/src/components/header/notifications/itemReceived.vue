@@ -47,7 +47,7 @@ export default {
       if (this.notification.data.destination.indexOf('backgrounds') !== -1) {
         this.$store.state.avatarEditorOptions.editingUser = true;
         this.$store.state.avatarEditorOptions.startingPage = 'backgrounds';
-        this.$store.state.avatarEditorOptions.subpage = '2023';
+        this.$store.state.avatarEditorOptions.subpage = '2024';
         this.$root.$emit('bv::show::modal', 'avatar-modal');
       } else {
         this.$router.push(this.notification.data.destination || '/inventory/items');
