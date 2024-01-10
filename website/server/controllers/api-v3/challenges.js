@@ -5,7 +5,6 @@ import { model as Challenge } from '../../models/challenge';
 import bannedWords from '../../libs/bannedWords';
 import bannedSlurs from '../../libs/bannedSlurs';
 import { getMatchesByWordArray } from '../../libs/stringUtils';
-import { stringContainsProfanity } from '../../libs/user/validation';
 import * as slack from '../../libs/slack';
 import { getUserInfo } from '../../libs/email';
 import {
