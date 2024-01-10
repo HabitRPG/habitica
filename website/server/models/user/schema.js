@@ -381,7 +381,7 @@ export const UserSchema = new Schema({
       $type: Schema.Types.Mixed,
       default: () => ({}),
     },
-    currentPet: String, // Cactus-Desert
+    currentPet: { $type: String, default: '' }, // Cactus-Desert
 
     // eggs: {
     //  'PandaCub': 0, // 0 indicates "doesn't own"
@@ -419,7 +419,7 @@ export const UserSchema = new Schema({
       $type: Schema.Types.Mixed,
       default: () => ({}),
     },
-    currentMount: String,
+    currentMount: { $type: String, default: '' }, // Cactus-Desert
 
     // Quests: {
     //  'boss_0': 0, // 0 indicates "doesn't own"
