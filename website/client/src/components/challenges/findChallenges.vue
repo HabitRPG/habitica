@@ -24,7 +24,7 @@
             @click="createChallenge()"
           >
             <div
-              class="svg-icon positive-icon color"
+              class="svg svg-icon positive-icon color"
               v-html="icons.positiveIcon"
             ></div>
             <span v-once>{{ $t('createChallenge') }}</span>
@@ -89,14 +89,18 @@
 
     .create-challenge-button {
       margin-left: 1em;
+
+      &:not(.disabled) .svg {
+        color: $green-10;
+      }
+
+      .positive-icon {
+        width: 10px;
+        display: inline-block;
+        margin-right: .5em;
+      }
     }
 
-    .positive-icon {
-      color: $green-10;
-      width: 10px;
-      display: inline-block;
-      margin-right: .5em;
-    }
   }
 
   .no-challenges {
@@ -111,17 +115,6 @@
   .loading {
     text-align: center;
     color: $purple-300;
-  }
-
-    .disabled {
-    color: $gray-50;
-    padding: 4px 16px 4px 12px;
-    border-radius: 2px;
-    box-shadow: 0 1px 3px 0 rgba(26, 24, 29, 0.12), 0 1px 2px 0 rgba(26, 24, 29, 0.24);
-
-    .positive-icon {
-      color: $gray-200;
-    }
   }
 </style>
 

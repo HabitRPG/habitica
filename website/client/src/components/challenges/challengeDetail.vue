@@ -189,8 +189,9 @@
         <div>
           <button
             class="btn"
-            :disabled="flaggedAndHidden"
-            :class="flaggedAndHidden ? 'disabled btn-disabled' : 'btn-primary'"
+            :disabled="flaggedAndHidden || user.flags.chatRevoked"
+            :class="flaggedAndHidden || user.flags.chatRevoked
+              ? 'disabled btn-disabled' : 'btn-primary'"
             @click="cloneChallenge()"
           >
             {{ $t('clone') }}

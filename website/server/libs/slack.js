@@ -362,40 +362,6 @@ function sendProfileSlurNotification ({
     .catch(err => logger.error(err, 'Error while sending flag data to Slack.'));
 }
 
-// slack slur notification for Profiles
-function sendProfileSlurNotification ({
-  authorEmail,
-  author,
-  uuid,
-  language,
-  problemContent,
-}) {
-  if (SKIP_FLAG_METHODS) {
-    return;
-  }
-  const title = 'User Profile Report: Slur';
-  const titleLink = `${BASE_URL}/profile/${uuid}`;
-
-  const text = `@${author} ${authorEmail} (${uuid}, ${language}) tried to post a slur in their Profile.`;
-
-  flagSlack
-    .send({
-      text,
-      attachments: [{
-        fallback: 'Slur Message',
-        color: 'danger',
-        author_email: authorEmail,
-        title,
-        title_link: titleLink,
-        text: problemContent,
-        mrkdwn_in: [
-          'text',
-        ],
-      }],
-    })
-    .catch(err => logger.error(err, 'Error while sending flag data to Slack.'));
-}
-
 function sendChallengeSlurNotification ({
   authorEmail,
   author,
