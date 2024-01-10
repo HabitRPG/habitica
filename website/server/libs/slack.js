@@ -324,34 +324,21 @@ function sendShadowMutedPostNotification ({
     .catch(err => logger.error(err, 'Error while sending flag data to Slack.'));
 }
 
-function sendSlurNotification ({
+// slack slur notification for Profiles
+function sendProfileSlurNotification ({
   authorEmail,
   author,
-  group,
-  message,
+  uuid,
+  language,
+  problemContent,
 }) {
   if (SKIP_FLAG_METHODS) {
     return;
   }
-  const text = `${author.profile.name} (${author._id}) tried to post a slur`;
+  const title = 'User Profile Report: Slur';
+  const titleLink = `${BASE_URL}/profile/${uuid}`;
 
-  let titleLink;
-  let title = `Slur in ${group.name}`;
-
-  if (group.id === TAVERN_ID) {
-    titleLink = `${BASE_URL}/groups/tavern`;
-  } else if (group.privacy === 'public') {
-    titleLink = `${BASE_URL}/groups/guild/${group.id}`;
-  } else {
-    title += ` - (${group.privacy} ${group.type})`;
-  }
-
-  const authorName = formatUser({
-    name: author.auth.local.username,
-    displayName: author.profile.name,
-    email: authorEmail,
-    uuid: author.id,
-  });
+  const text = `@${author} ${authorEmail} (${uuid}, ${language}) tried to post a slur in their Profile.`;
 
   flagSlack
     .send({
@@ -359,10 +346,10 @@ function sendSlurNotification ({
       attachments: [{
         fallback: 'Slur Message',
         color: 'danger',
-        author_name: authorName,
+        author_email: authorEmail,
         title,
         title_link: titleLink,
-        text: message,
+        text: problemContent,
         mrkdwn_in: [
           'text',
         ],
@@ -378,6 +365,6 @@ export {
   sendProfileFlagNotification,
   sendSubscriptionNotification,
   sendShadowMutedPostNotification,
-  sendSlurNotification,
+  sendProfileSlurNotification,
   formatUser,
 };

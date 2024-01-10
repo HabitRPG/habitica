@@ -1,4 +1,6 @@
 import _ from 'lodash';
+import * as slack from '../slack';
+import { getUserInfo } from '../email';
 import common from '../../../common';
 import * as Tasks from '../../models/task';
 import { model as Groups } from '../../models/group';
@@ -105,19 +107,6 @@ function checkPreferencePurchase (user, path, item) {
   return _.get(user.purchased, itemPath);
 }
 
-async function checkNewInputForProfanity (user, res, newValue) {
-  const containsSlur = stringContainsProfanity(newValue, 'slur');
-  const containsBannedWord = stringContainsProfanity(newValue);
-  if (containsSlur || containsBannedWord) {
-    if (containsSlur) {
-      user.flags.chatRevoked = true;
-      await user.save();
-      throw new BadRequest(res.t('bannedSlurUsedInProfile'));
-    }
-    throw new BadRequest(res.t('bannedWordUsedInProfile'));
-  }
-}
-
 export async function update (req, res, { isV3 = false }) {
   const { user } = res.locals;
 
@@ -134,17 +123,40 @@ export async function update (req, res, { isV3 = false }) {
     });
   }
 
+  let slurWasUsed = false;
+  let problemContent = '';
+
   if (req.body['profile.name'] !== undefined) {
     const newName = req.body['profile.name'];
     if (newName === null) throw new BadRequest(res.t('invalidReqParams'));
     if (newName.length > 30) throw new BadRequest(res.t('displaynameIssueLength'));
     if (nameContainsNewline(newName)) throw new BadRequest(res.t('displaynameIssueNewline'));
-    await checkNewInputForProfanity(user, res, newName);
+    if (stringContainsProfanity(newName, 'slur')) {
+      slurWasUsed = true;
+      problemContent += `Profile Name: ${newName}\n\n`;
+    }
   }
 
   if (req.body['profile.blurb'] !== undefined) {
     const newBlurb = req.body['profile.blurb'];
-    await checkNewInputForProfanity(user, res, newBlurb);
+    if (stringContainsProfanity(newBlurb, 'slur')) {
+      slurWasUsed = true;
+      problemContent += `Profile Blurb: ${newBlurb}`;
+    }
+  }
+
+  if (slurWasUsed) {
+    const authorEmail = getUserInfo(user, ['email']).email;
+    user.flags.chatRevoked = true;
+    await user.save();
+    slack.sendProfileSlurNotification({
+      authorEmail,
+      author: user.auth.local.username,
+      uuid: user.id,
+      language: user.preferences.language,
+      problemContent,
+    });
+    throw new BadRequest(res.t('bannedSlurUsedInProfile'));
   }
 
   let groupsToMirror;
