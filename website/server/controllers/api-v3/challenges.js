@@ -238,6 +238,10 @@ api.createChallenge = {
       user, groupId: req.body.group, fields: basicGroupFields, optionalMembership: true,
     });
 
+    if (!group) {
+      throw new NotFound(res.t('groupNotFound'));
+    }
+
     // checks public challenge for slurs
 
     if (group.privacy === 'public'
