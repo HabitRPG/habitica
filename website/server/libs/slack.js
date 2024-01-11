@@ -5,13 +5,6 @@ import moment from 'moment';
 import logger from './logger';
 import { getCurrentEvent } from './worldState'; // eslint-disable-line import/no-cycle
 import { TAVERN_ID } from '../models/group'; // eslint-disable-line import/no-cycle
-// import bannedSlurs from './bannedSlurs';
-// import { getMatchesByWordArray } from '../../libs/stringUtils';
-
-// function textContainsBannedSlur (message) {
-//   const bannedSlursMatched = getMatchesByWordArray(message, bannedSlurs);
-//   return bannedSlursMatched.length > 0;
-// }
 
 const SLACK_FLAGGING_URL = nconf.get('SLACK_FLAGGING_URL');
 const SLACK_FLAGGING_FOOTER_LINK = nconf.get('SLACK_FLAGGING_FOOTER_LINK');
@@ -230,9 +223,12 @@ function sendProfileFlagNotification ({
   if (userComment) {
     text += ` and commented: ${userComment}`;
   }
-  let profileData = `Display Name: ${flaggedUser.profile.displayName}`;
+  let profileData = `Display Name: ${flaggedUser.profile.name}`;
+  if (flaggedUser.profile.imageUrl) {
+    profileData += `\n\nImage URL: ${flaggedUser.profile.imageUrl}`;
+  }
   if (flaggedUser.profile.blurb) {
-    profileData += `\n\nAbout: ${flaggedUser.profile.newBlurb}`;
+    profileData += `\n\nAbout: ${flaggedUser.profile.blurb}`;
   }
 
   flagSlack
@@ -243,7 +239,7 @@ function sendProfileFlagNotification ({
         color: 'danger',
         title,
         title_link: titleLink,
-        body: profileData,
+        text: profileData,
         mrkdwn_in: [
           'text',
         ],
