@@ -46,11 +46,17 @@ const { MAX_SUMMARY_SIZE_FOR_CHALLENGES } = common.constants;
 const api = {};
 
 function textContainsBannedWord (message) {
+  if (!message) {
+    return false;
+  }
   const bannedWordsMatched = getMatchesByWordArray(message, bannedWords);
   return bannedWordsMatched.length > 0;
 }
 
 function textContainsBannedSlur (message) {
+  if (!message) {
+    return false;
+  }
   const bannedSlursMatched = getMatchesByWordArray(message, bannedSlurs);
   return bannedSlursMatched.length > 0;
 }
