@@ -551,7 +551,6 @@
       //   padding-top: 0.15rem;
       // }
 
-
     .gems-left {
       height: 32px;
       background-color: $green-100;
@@ -600,8 +599,10 @@ import size from 'lodash/size';
 import reduce from 'lodash/reduce';
 import moment from 'moment';
 
-import spellsMixin from '@/mixins/spells';
 import planGemLimits from '@/../../common/script/libs/planGemLimits';
+import { drops as dropEggs } from '@/../../common/script/content/eggs';
+import { drops as dropPotions } from '@/../../common/script/content/hatching-potions';
+import spellsMixin from '@/mixins/spells';
 import numberInvalid from '@/mixins/numberInvalid';
 
 import svgClose from '@/assets/svg/close.svg';
@@ -627,9 +628,6 @@ import EquipmentAttributesGrid from '../inventory/equipment/attributesGrid.vue';
 
 import Item from '@/components/inventory/item';
 import Avatar from '@/components/avatar';
-
-import { drops as dropEggs } from '@/../../common/script/content/eggs';
-import { drops as dropPotions } from '@/../../common/script/content/hatching-potions';
 
 const dropEggKeys = keys(dropEggs);
 

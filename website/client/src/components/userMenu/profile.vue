@@ -980,13 +980,13 @@ import moment from 'moment';
 import axios from 'axios';
 import each from 'lodash/each';
 import cloneDeep from 'lodash/cloneDeep';
+import achievementsLib from '@/../../common/script/libs/achievements';
+import Content from '@/../../common/script/content';
 import toggleSwitch from '../ui/toggleSwitch';
 import { mapState } from '@/libs/store';
 
 import MemberDetails from '../memberDetails';
 import markdown from '@/directives/markdown';
-import achievementsLib from '@/../../common/script/libs/achievements';
-import Content from '@/../../common/script/content';
 import profileStats from './profileStats';
 
 import message from '@/assets/svg/message.svg';
@@ -1222,9 +1222,10 @@ export default {
       const { nextRewardAt } = currentLoginDay;
       return ((nextRewardAt - previousRewardDay));
     },
-    save () {
+    async save () {
       const values = {};
       const edits = cloneDeep(this.editingProfile);
+      const oldProfile = cloneDeep(this.user.profile);
 
       each(edits, (value, key) => {
         // Using toString because we need to compare two arrays (websites)
@@ -1235,7 +1236,12 @@ export default {
         }
       });
 
-      this.$store.dispatch('user:set', values);
+      await this.$store.dispatch('user:set', values).catch(() => {
+        this.user.profile = oldProfile;
+        this.editingProfile.name = this.user.profile.name;
+        this.editingProfile.imageUrl = this.user.profile.imageUrl;
+        this.editingProfile.blurb = this.user.profile.blurb;
+      });
       this.editing = false;
     },
 

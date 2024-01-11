@@ -1792,6 +1792,9 @@ forEach({
       text: t(`${setKey}Armoire${upperFirst(gearKey)}Text`),
       value: 100,
     });
+    if (gearItem.released === false) {
+      delete set[gearKey];
+    }
   });
 });
 

@@ -303,10 +303,9 @@
 
 <script>
 import orderBy from 'lodash/orderBy';
+import * as quests from '@/../../common/script/content/quests';
 import { mapState } from '@/libs/store';
 import * as Analytics from '@/libs/analytics';
-
-import * as quests from '@/../../common/script/content/quests';
 
 import navigationBack from '@/assets/svg/navigation_back.svg';
 import questDialogContent from '../shops/quests/questDialogContent';

@@ -174,8 +174,8 @@
 
 <script>
 import moment from 'moment';
-import saveHero from '../mixins/saveHero';
 import { getPlanContext } from '@/../../common/script/cron';
+import saveHero from '../mixins/saveHero';
 
 export default {
   mixins: [saveHero],

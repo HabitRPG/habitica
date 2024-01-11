@@ -638,10 +638,10 @@
 </style>
 
 <script>
-import { mapState } from '@/libs/store';
 
 import * as quests from '@/../../common/script/content/quests';
 import percent from '@/../../common/script/libs/percent';
+import { mapState } from '@/libs/store';
 import sidebarSection from '../sidebarSection';
 
 import questIcon from '@/assets/svg/quest.svg';

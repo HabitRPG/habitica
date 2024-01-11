@@ -746,10 +746,11 @@
 
 <script>
 import find from 'lodash/find';
+import { TAVERN_ID } from '@/../../common/script/constants';
+import * as quests from '@/../../common/script/content/quests';
 import { mapState } from '@/libs/store';
 import { goToModForm } from '@/libs/modform';
 
-import { TAVERN_ID } from '@/../../common/script/constants';
 import worldBossInfoModal from '../world-boss/worldBossInfoModal';
 import worldBossRageModal from '../world-boss/worldBossRageModal';
 import sidebarSection from '../sidebarSection';
@@ -775,7 +776,6 @@ import tierMod from '@/assets/svg/tier-mod.svg';
 import tierNPC from '@/assets/svg/tier-npc.svg';
 import tierStaff from '@/assets/svg/tier-staff.svg';
 
-import * as quests from '@/../../common/script/content/quests';
 import staffList from '../../libs/staffList';
 import reportBug from '@/mixins/reportBug.js';
 
