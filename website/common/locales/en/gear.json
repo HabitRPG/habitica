@@ -1347,7 +1347,7 @@
   "armorMystery202310Text": "Wraith's Robe",  
   "armorMystery202310Notes": "A ghostly garment that will curl and drift gracefully as you float amidst the haunted bogs and wastes. Confers no benefit. October 2023 Subscriber Item.",
   "armorMystery202401Text": "Snowy Spellbinder Robes",
-  "armorMystery202401Notes": "These robes appear as delicate as crystal snowflakes, but will keep you plenty warm as you work your wintry magic. Confers no benefit. January 2024 Subscriber Item.",
+  "armorMystery202401Notes": "These robes appear as delicate as crystal snowflakes, but will keep you plenty warm as you work your wintry magic. Confers no benefit. January 2024 Subscriber Item.", 
 
   "armorMystery301404Text": "Steampunk Suit",
   "armorMystery301404Notes": "Dapper and dashing, wot! Confers no benefit. February 3015 Subscriber Item.",
@@ -1552,6 +1552,8 @@
   "armorArmoireSchoolUniformSkirtNotes": "Whether you’re attending a school for magical wizards, dragon riders, sportsball players, creative artisans, or members of a profession too secret to list here, you’ll fit right in with this uniform. Increases Intelligence by <%= int %>. Enchanted Armoire: School Uniform Set (Item 1 of 4).",
   "armorArmoireSchoolUniformPantsText": "School Uniform with Pants",
   "armorArmoireSchoolUniformPantsNotes": "Whether you’re attending a school for magical wizards, dragon riders, sportsball players, creative artisans, or members of a profession too secret to list here, you’ll fit right in with this uniform. Increases Intelligence by <%= int %>. Enchanted Armoire: School Uniform Set (Item 2 of 4).",
+  "armorArmoireSoftWhiteText": "Soft White Suit",
+  "armorArmoireSoftWhiteNotes": "White is a peaceful color. Whether you’re facing a crisp white bedsheet or a blanket of newly fallen snow, you’ll have a clear and ready mind. Increases Constitution and Perception by <%= attrs %> each. Enchanted Armoire: White Loungewear Set (Item 2 of 3)", 
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -2189,6 +2191,8 @@
   "headMystery202311Notes": "Bind even space and time to your will. Confers no benefit. November 2023 Subscriber Item.",
   "headMystery202312Text": "Wintry Blue Hair",
   "headMystery202312Notes": "This fancy hairdo evokes the snowy colors of the season. Confers no benefit. December 2023 Subscriber Item.",
+  "headMystery202402Text": "Paradise Pink Hair",
+  "headMystery202402Notes": "This pretty pink mane is the perfect accessory for February and beyond. Confers no benefit. February 2024 Subscriber Item.",  
 
   "headMystery301404Text": "Fancy Top Hat",
   "headMystery301404Notes": "A fancy top hat for the finest of gentlefolk! January 3015 Subscriber Item. Confers no benefit.",
@@ -2379,6 +2383,8 @@
   "headArmoireBlackSpookySorceryHatNotes": "Black as night and full of secrets, this hat is suited to all your sorcerous needs. Increases Intelligence by <%= int %> and Constitution by <%= con %>. Enchanted Armoire: Spooky Sorcery Set (Item 3 of 3).",
   "headArmoireGreenTrapperHatText": "Green Trapper Hat",
   "headArmoireGreenTrapperHatNotes": "Everyone says your hat looks so warm! And it really is. Just be sure to lift the flaps off your ears when they’re talking to you, or everyone will sound more like “yrrr hah ooks ss wrrm!” Increases Constitution and Perception by <%= attrs %> each. Enchanted Armoire: Trapper Hat Set (Item 1 of 2).",
+  "headArmoireSoftWhiteHatText": "White Floppy Hat",
+  "headArmoireSoftWhiteHatNotes": "Many spells have been sewn into this simple hat, giving it a wondrous white color. Increases Strength, Intelligence, and Constitution by <%= attrs %> each. Enchanted Armoire: White Loungewear Set (Item 1 of 3).",  
 
   "offhand": "off-hand item",
   "offHandCapitalized": "Off-Hand Item",
@@ -2819,6 +2825,8 @@
   "shieldArmoireSaucepanNotes": "Look inside this steaming saucepan for the answer to the most closely guarded secret in life! (Soup. The answer is always soup.) Increases Perception by <%= per %> . Enchanted Armoire: Cooking Implements Set 2 (Item 1 of 2).",
   "shieldArmoireTrustyPencilText": "Trusty Pencil",
   "shieldArmoireTrustyPencilNotes": "You know what they say: the pencil is mightier than the sword-cil. Wait... that doesn’t sound quite right... Increases Intelligence by <%= int %>. Enchanted Armoire: School Uniform Set (Item 4 of 4).",
+  "shieldArmoireSoftWhitePillowText": "Soft White Pillow",
+  "shieldArmoireSoftWhitePillowNotes": "The organized warrior packs a pillow for any expedition. Protect yourself from overlooked obligations… even while you nap. Increases Intelligence and Perception by <%= attrs %> each. Enchanted Armoire: White Loungewear Set (Item 3 of 3)",  
 
   "back": "Back Accessory",
   "backBase0Text": "No Back Accessory",
@@ -2895,6 +2903,8 @@
   "backMystery202309Notes": "Flutter across forests, glide over mountains, and soar over oceans on these bright and beautiful wings. Confers no benefit. September 2023 Subscriber Item.",
   "backMystery202401Text": "Snowy Spell",
   "backMystery202401Notes": "Conjure softly falling flurries or call a mighty blizzard. The choice is yours! Confers no benefit. January 2024 Subscriber Item.",  
+  "backMystery202402Text": "Paradise Pink Hearts",
+  "backMystery202402Notes": "Let an aura of loving energy surround you wherever you go! Confers no benefit. February 2024 Subscriber Item.",  
 
   "backSpecialWonderconRedText": "Mighty Cape",
   "backSpecialWonderconRedNotes": "Swishes with strength and beauty. Confers no benefit. Special Edition Convention Item.",
