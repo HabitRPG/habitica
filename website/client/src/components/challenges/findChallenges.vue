@@ -20,7 +20,6 @@
           <!-- tried to disable button here, still bringe up the challenge creation button -->
           <button
             class="btn btn-secondary create-challenge-button float-right"
-            :class="{ disabled: user.flags.chatRevoked }"
             @click="createChallenge()"
           >
             <div
@@ -202,9 +201,6 @@ export default {
     },
 
     createChallenge () {
-      if (this.user.flags.chatRevoked) {
-        return;
-      }
       this.$root.$emit('habitica:create-challenge');
     },
 
