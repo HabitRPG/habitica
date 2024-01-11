@@ -189,8 +189,8 @@
         <div>
           <button
             class="btn"
-            :disabled="flaggedAndHidden || user.flags.chatRevoked"
-            :class="flaggedAndHidden || user.flags.chatRevoked
+            :disabled="flaggedAndHidden || chatRevocation"
+            :class="flaggedAndHidden || chatRevocation
               ? 'disabled btn-disabled' : 'btn-primary'"
             @click="cloneChallenge()"
           >
@@ -278,17 +278,6 @@
 
     button {
       width: 100%;
-    }
-  }
-
-  .btn-disabled {
-    background-color: $gray-700;
-    color: $gray-50;
-    box-shadow: none;
-    cursor: arrow;
-
-    &:hover {
-      box-shadow: none;
     }
   }
 
@@ -473,6 +462,10 @@ export default {
     // flaggedAndHidden should only allow admin to see challenge & flags
     flaggedAndHidden () {
       return this.challenge.flagCount > 1;
+    },
+    chatRevocation () {
+      return this.user.flags.chatRevoked
+        && this.challenge.group && this.challenge.group.name === 'Tavern';
     },
   },
   watch: {

@@ -172,13 +172,6 @@
     background: $maroon-100;
     border: 1px solid transparent;
   }
-
-  &:disabled, &.disabled {
-    background: $maroon-100;
-    border: 1px solid transparent;
-    cursor: default;
-    opacity: 0.75;
-  }
 }
 
 .btn-success {

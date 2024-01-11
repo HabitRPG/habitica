@@ -242,51 +242,37 @@ api.createChallenge = {
       throw new NotFound(res.t('groupNotFound'));
     }
 
-    // checks public challenge for slurs
-
-    if (group.privacy === 'public'
-      && ((textContainsBannedSlur(req.body.name))
-            || (textContainsBannedSlur(req.body.shortName))
-            || (textContainsBannedSlur(req.body.summary))
-            || (textContainsBannedSlur(req.body.description)))) {
-      // slack flagged-posts
-      const authorEmail = getUserInfo(user, ['email']).email;
-      const problemContent = `Challenge Name: ${req.body.name}\n
-        Challenge Tag: ${req.body.shortName}\n
-        Challenge Summary: ${req.body.summary}\n
-        Challenge Description: ${req.body.description}`;
-
-      slack.sendChallengeSlurNotification({
-        authorEmail,
-        author: user,
-        displayName: user.profile.name,
-        username: user.auth.local.username,
-        uuid: user.id,
-        language: user.preferences.language,
-        problemContent,
-      });
-
-      // user flags
-      user.flags.chatRevoked = true;
-      await user.save();
-
-      // toast notification
-      throw new BadRequest(res.t('challengeBannedSlurs'));
-    }
-
-    // checks public challenges for banned words
-    if (group.privacy === 'public'
-      && ((textContainsBannedWord(req.body.name))
-            || (textContainsBannedWord(req.body.shortName))
-            || (textContainsBannedWord(req.body.summary))
-            || (textContainsBannedWord(req.body.description)))) {
-      // toast error
-      throw new BadRequest(res.t('challengeBannedWords'));
-    }
-
-    // possible code for blocking chat revoked users from invoking the API
-    if (user.flags.chatRevoked) {
-      throw new BadRequest(res.t('cannotMakeChallenge'));
+    // check public challenges for banned words & chat revocation
+    if (group.privacy === 'public') {
+      const textToCheck = `${req.body.name} ${req.body.shortName} ${req.body.summary} ${req.body.description}`;
+      if (textContainsBannedSlur(textToCheck)) {
+        const authorEmail = getUserInfo(user, ['email']).email;
+        const problemContent = `Challenge Name: ${req.body.name}\n
+          Challenge Tag: ${req.body.shortName}\n
+          Challenge Summary: ${req.body.summary}\n
+          Challenge Description: ${req.body.description}`;
+  
+        slack.sendChallengeSlurNotification({
+          authorEmail,
+          author: user,
+          displayName: user.profile.name,
+          username: user.auth.local.username,
+          uuid: user.id,
+          language: user.preferences.language,
+          problemContent,
+        });
+  
+        user.flags.chatRevoked = true;
+        await user.save();
+  
+        throw new BadRequest(res.t('challengeBannedSlurs'));
+      }
+      if (textContainsBannedWord(textToCheck)) {
+        throw new BadRequest(res.t('challengeBannedWords'));
+      }
+      if (user.flags.chatRevoked) {
+        throw new BadRequest(res.t('cannotMakeChallenge'));
+      }
     }
 
     const { savedChal } = await createChallenge(user, req, res);

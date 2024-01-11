@@ -64,6 +64,7 @@
           <button
             class="btn btn-primary send-chat float-right"
             :disabled="!communityGuidelinesAccepted"
+            :class="{ disabled: !communityGuidelinesAccepted }"
             @click="sendMessage()"
           >
             {{ $t('send') }}
