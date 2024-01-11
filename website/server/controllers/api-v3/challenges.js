@@ -251,7 +251,7 @@ api.createChallenge = {
           Challenge Tag: ${req.body.shortName}\n
           Challenge Summary: ${req.body.summary}\n
           Challenge Description: ${req.body.description}`;
-  
+
         slack.sendChallengeSlurNotification({
           authorEmail,
           author: user,
@@ -261,10 +261,10 @@ api.createChallenge = {
           language: user.preferences.language,
           problemContent,
         });
-  
+
         user.flags.chatRevoked = true;
         await user.save();
-  
+
         throw new BadRequest(res.t('challengeBannedSlurs'));
       }
       if (textContainsBannedWord(textToCheck)) {
