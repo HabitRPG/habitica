@@ -3,9 +3,11 @@ import { EVENTS } from './constants';
 // Magic Hatching Potions are configured like this:
 // type: 'premiumHatchingPotion',  // note no "s" at the end
 // path: 'premiumHatchingPotions.Rainbow',
+
+// hatching potions and food names should be capitalized lest you break the market
 const featuredItems = {
   market () {
-    if (moment().isBetween(EVENTS.winter2024.start, EVENTS.winter2024.end)) {
+    if (moment().isBetween(EVENTS.february2024.start, EVENTS.february2024.end)) {
       return [
         {
           type: 'armoire',
@@ -13,15 +15,15 @@ const featuredItems = {
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.StainedGlass',
+          path: 'premiumHatchingPotions.RoseGold',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Peppermint',
+          path: 'premiumHatchingPotions.Cupid',
         },
         {
-          type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.IcySnow',
+          type: 'hatchingPotions',
+          path: 'hatchingPotion.Red',
         },
       ];
     }
@@ -32,32 +34,32 @@ const featuredItems = {
       },
       {
         type: 'food',
-        path: 'food.Honey',
+        path: 'food.Chocolate',
       },
       {
         type: 'hatchingPotions',
-        path: 'hatchingPotions.Golden',
+        path: 'hatchingPotions.Desert',
       },
       {
         type: 'eggs',
-        path: 'eggs.BearCub',
+        path: 'eggs.Cactus',
       },
     ];
   },
   quests () {
-    if (moment().isBetween(EVENTS.winter2024.start, EVENTS.winter2024.end)) {
+    if (moment().isBetween(EVENTS.bundle202402.start, EVENTS.bundle202402.end)) {
       return [
         {
           type: 'bundles',
-          path: 'bundles.winterQuests',
+          path: 'bundles.mythicalMarvels',
         },
         {
           type: 'quests',
-          path: 'quests.ghost_stag',
+          path: 'quests.Nudibranch',
         },
         {
           type: 'quests',
-          path: 'quests.penguin',
+          path: 'quests.Axolotl',
         },
       ];
     }
@@ -65,15 +67,15 @@ const featuredItems = {
     return [
       {
         type: 'quests',
-        path: 'quests.rat',
+        path: 'quests.Rat',
       },
       {
         type: 'quests',
-        path: 'quests.kraken',
+        path: 'quests.Cuttlefish',
       },
       {
         type: 'quests',
-        path: 'quests.axolotl',
+        path: 'quests.Axolotl',
       },
     ];
   },

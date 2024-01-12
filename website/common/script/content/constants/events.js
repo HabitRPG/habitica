@@ -10,10 +10,26 @@ const gemsPromo = {
 
 export const EVENTS = {
   noEvent: {
-    start: '2024-02-01T00:00-05:00',
+    start: '2024-03-01T00:00-05:00',
     end: '2024-03-20T08:00-05:00',
     season: 'normal',
     npcImageSuffix: '',
+  },
+  bundle202402: {
+    start: '2024-01-12T00:00-05:00', // canonical date 2024-02-20
+    end: '2024-02-29T08:00-05:00',
+  },
+  potions202402: {
+    start: '2024-01-12T00:00-05:00', // canonical date 2024-02-12
+    end: '2024-02-29T08:00-05:00',
+  },
+  valentine2024: {
+    start: '2024-01-12T00:00-05:00', // canonical date 2024-02-12
+    end: '2024-02-16T08:00-05:00',
+  },
+  february2024: {
+    start: '2024-01-12T00:00-05:00', // canonical date 2024-02-01
+    end: '2024-02-29T08:00-05:00',
   },
   nye2023: {
     start: '2023-12-28T08:00-05:00',
