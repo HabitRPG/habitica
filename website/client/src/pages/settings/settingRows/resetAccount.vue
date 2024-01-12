@@ -102,7 +102,7 @@
             </div>
           </div>
           <save-cancel-buttons
-            :disable-save="passwordValue === ''"
+            :disable-save="!enableDelete"
             primary-button-color="btn-danger"
             primary-button-label="resetAccount"
             @saveClicked="reset()"
@@ -151,6 +151,9 @@ export default {
     }),
     hasPassword () {
       return this.user.auth.local.has_password;
+    },
+    enableReset () {
+      return this.hasPassword ? Boolean(this.passwordValue) : this.passwordValue === 'RESET';
     },
   },
   methods: {
