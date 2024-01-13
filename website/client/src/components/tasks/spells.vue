@@ -448,8 +448,10 @@ export default {
       this.$store.state.spellOptions.spellDrawOpen = newState;
 
       if (newState) {
-        setLocalSetting(CONSTANTS.keyConstants.SPELL_DRAWER_STATE,
-          CONSTANTS.drawerStateValues.DRAWER_OPEN);
+        setLocalSetting(
+          CONSTANTS.keyConstants.SPELL_DRAWER_STATE,
+          CONSTANTS.drawerStateValues.DRAWER_OPEN
+        );
         return;
       }
 

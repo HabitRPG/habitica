@@ -3,7 +3,8 @@ module.exports = {
   extends: [
     'habitrpg/lib/node'
   ],
-  rules: {
-    'import/no-extraneous-dependencies': 'off',
-  }
+    rules: {
+      'prefer-regex-literals': 'warn',
+        'import/no-extraneous-dependencies': 'warn',
+    }
 }
