@@ -50,6 +50,7 @@ module.exports = {
       rules: [
         {
           test: /\.svg/,
+          dependency: { not: ['url'] },
           type: 'asset/source',
         },
       ],
