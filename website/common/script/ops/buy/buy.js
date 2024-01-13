@@ -10,7 +10,7 @@ import { BuyQuestWithGoldOperation } from './buyQuestGold';
 import { BuySpellOperation } from './buySpell';
 import purchaseOp from './purchase';
 import hourglassPurchase from './hourglassPurchase';
-import errorMessage from '../../libs/errorMessage';
+import { errorMessage } from '../../libs/errorMessage';
 import { BuyGemOperation } from './buyGem';
 import { BuyQuestWithGemOperation } from './buyQuestGem';
 import { BuyPetWithGemOperation } from './buyPetGem';

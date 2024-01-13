@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="150" height="48" viewBox="0 0 150 48">
+<svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 150 48">
     <defs>
-        <filter id="a" width="225%" height="225%" x="-62.5%" y="-62.5%" filterUnits="objectBoundingBox">
+        <filter id="a"  x="-62.5%" y="-62.5%" filterUnits="objectBoundingBox">
             <feOffset dy="2" in="SourceAlpha" result="shadowOffsetOuter1"/>
             <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="4"/>
             <feColorMatrix in="shadowBlurOuter1" result="shadowMatrixOuter1" values="0 0 0 0 0.101960784 0 0 0 0 0.0941176471 0 0 0 0 0.11372549 0 0 0 0.32 0"/>

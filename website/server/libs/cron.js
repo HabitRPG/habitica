@@ -5,7 +5,7 @@ import nconf from 'nconf';
 import { model as User } from '../models/user';
 import common from '../../common';
 import { preenUserHistory } from './preening';
-import sleep from './sleep';
+import { sleep } from './sleep';
 import { revealMysteryItems } from './payments/subscriptions';
 
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';

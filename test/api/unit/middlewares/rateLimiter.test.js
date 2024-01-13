@@ -7,7 +7,7 @@ import {
   generateNext,
 } from '../../../helpers/api-unit.helper';
 import { TooManyRequests } from '../../../../website/server/libs/errors';
-import apiError from '../../../../website/server/libs/apiError';
+import { apiError } from '../../../../website/server/libs/apiError';
 import logger from '../../../../website/server/libs/logger';
 
 describe('rateLimiter middleware', () => {

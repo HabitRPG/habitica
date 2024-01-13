@@ -9,7 +9,7 @@ import {
   generateUser,
 } from '../../../helpers/common.helper';
 import content from '../../../../website/common/script/content/index';
-import errorMessage from '../../../../website/common/script/libs/errorMessage';
+import { errorMessage } from '../../../../website/common/script/libs/errorMessage';
 
 describe('shared.ops.buySpecialSpell', () => {
   let user;

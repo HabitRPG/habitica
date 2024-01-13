@@ -8,7 +8,7 @@ import common from '../../../common';
 import {
   NotFound,
 } from '../../libs/errors';
-import apiError from '../../libs/apiError';
+import { apiError } from '../../libs/apiError';
 import {
   validateItemPath,
   castItemVal,

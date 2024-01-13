@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-commonjs
 module.exports = {
   extends: [
     'habitrpg/lib/mocha',
@@ -7,9 +8,9 @@ module.exports = {
     chai: true,
     expect: true,
     sinon: true,
-    sandbox: true
+    sandbox: true,
   },
   rules: {
     'import/no-extraneous-dependencies': 'warn',
   },
-}
+};
