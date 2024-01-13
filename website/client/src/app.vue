@@ -434,8 +434,8 @@ export default {
               Pragma: 'no-cache',
               Expires: '0',
             },
-          }
-          );
+          },
+        );
       }).then(() => {
         const i18nData = window && window['habitica-i18n'];
         this.$loadLocale(i18nData);

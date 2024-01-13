@@ -450,7 +450,7 @@ export default {
       if (newState) {
         setLocalSetting(
           CONSTANTS.keyConstants.SPELL_DRAWER_STATE,
-          CONSTANTS.drawerStateValues.DRAWER_OPEN
+          CONSTANTS.drawerStateValues.DRAWER_OPEN,
         );
         return;
       }
