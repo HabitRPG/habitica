@@ -94,7 +94,6 @@
         margin-right: .5em;
       }
     }
-
   }
 
   .no-challenges {
