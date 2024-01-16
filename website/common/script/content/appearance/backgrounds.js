@@ -603,9 +603,9 @@ const plannedBackgrounds = {
     ice_bubble_lake: { },
   },
   backgrounds022024: {
-    colorfulStreet: { },
-    swanBoat: { },
-    heartTreeTunnel: { },
+    colorful_street: { },
+    swan_boat: { },
+    heart_tree_tunnel: { },
   },
   eventBackgrounds: {
     birthday_bash: {
