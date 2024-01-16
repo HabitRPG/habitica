@@ -222,5 +222,21 @@
     "questionDescriptionText": "英語で話すことに苦手な場合は、母国語で質問しても構いません。",
     "questionPlaceholder": "ご質問はこちらから",
     "submitQuestion": "質問を投稿する",
-    "refreshList": "リストの更新"
+    "refreshList": "リストの更新",
+    "blockPlayer": "プレーヤーをブロックする",
+    "unblockPlayer": "プレーヤーをブロック解除する",
+    "adminTools": "管理ツール",
+    "shadowMute": "シャドーミュート",
+    "mutePlayer": "ミュート",
+    "banPlayer": "プレーヤをアカウント停止する",
+    "unbanPlayer": "プレーヤーのアカウント復帰",
+    "whyReportingPlayer": "なぜこのプレーヤーを報告するのですか？",
+    "whyReportingPlayerPlaceholder": "通報の理由",
+    "allNotifications": "すべての通知",
+    "playerReportModalBody": "<%= firstLinkStart %>コミュニティガイドライン<%= linkEnd %>および/または<%= secondLinkStart %>利用規約<%= linkEnd %>に違反しているプレイヤーだけを報告してください。虚偽の報告を提出することは、ハビティカのコミュニティガイドラインに違反します。",
+    "reportPlayer": "プレーヤーを通報する",
+    "viewAdminPanel": "管理パネルを見る",
+    "bannedPlayer": "このプレーヤーはアカウント停止されました。",
+    "skipExternalLinkModal": "リンクをクリックするときにCTRL（Windows）またはCommand（Mac）を押したままにすると、このモーダルがスキップされます。",
+    "general": "一般的な"
 }

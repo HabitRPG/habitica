@@ -127,7 +127,7 @@
     "achievementZodiacZookeeperModalText": "Ви зібрали всіх зодіакальних тварин!",
     "achievementZodiacZookeeper": "Зодіакальний звіролов",
     "achievementZodiacZookeeperText": "Вилупив усіх стандартних зодіакальних тварин: Щура, Корову, Кролика, Змію, Коня, Вівцю, Мавпу, Півня, Вовка, Тигра, Свиню та Дракона!",
-    "achievementBirdsOfAFeatherText": "Зібрав(-ла) усіх літаючих тварин: летюче порося, сову, папугу, птеродактиля, ґрифона, сокола, павича та півня!",
+    "achievementBirdsOfAFeatherText": "Зібрано усіх літаючих тварин: летюче порося, сову, папугу, птеродактиля, грифона, сокола, павича та півня!",
     "achievementBirdsOfAFeatherModalText": "Ви зібрали всіх тварин, що літають!",
     "achievementBirdsOfAFeather": "Повітряний легіон",
     "achievementReptacularRumbleText": "Зібрали усіх рептилій стандартних кольорів, а саме: алігатора, птеродактиля, змію, трицератопса, черепаху, тиранозавра і велоцираптора!",
@@ -156,5 +156,8 @@
     "achievementBonelessBossModalText": "Ви зібрали всіх безхребетних тварин!",
     "achievementDuneBuddyNotes": "Ви зібрали всіх домашніх тварин, що живуть у пустелі!",
     "achievementDuneBuddyText": "Зібрали всіх пустельних тваринок всі стандартних кольорів: броненосця, кактуса, лиса, жабу, змію та павука!",
-    "achievementDuneBuddy": "Пустельний приятель"
+    "achievementDuneBuddy": "Пустельний приятель",
+    "achievementRoughRider": "Вправний вершник",
+    "achievementRoughRiderText": "Зібрано всі основні кольори незручних улюбленці та скакунів: Кактуса, Їжака та Каменя!",
+    "achievementRoughRiderNotes": "Ви зібрали всі основні кольори незручних улюбленці та скакунів!"
 }

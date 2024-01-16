@@ -94,7 +94,7 @@
     "summaryRequired": "必須填寫簡介",
     "summaryTooLong": "簡介太長",
     "descriptionRequired": "必須填寫介紹",
-    "locationRequired": "必須填寫挑戰所在位置（「新增至」）",
+    "locationRequired": "Location of Challenge is required ('Add to')",
     "categoiresRequired": "必須選擇一種以上的類別",
     "viewProgressOf": "查看進度",
     "viewProgress": "查看進度",
@@ -104,5 +104,6 @@
     "wonChallengeDesc": "<%= challengeName %> 選擇您作為獲勝者！您的勝利已記錄在您的成就中。",
     "yourReward": "獎勵",
     "filters": "過濾器",
-    "removeTasks": "刪除任務"
+    "removeTasks": "刪除任務",
+    "messageChallengeFlagAlreadyReported": "你已經回報過這項挑戰了。"
 }

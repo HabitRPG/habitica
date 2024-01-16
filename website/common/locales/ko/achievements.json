@@ -112,5 +112,12 @@
     "achievementVioletsAreBlue": "제비꽃은 파래요",
     "achievementVioletsAreBlueText": "모든 솜사탕 파랑 펫을 모았습니다.",
     "achievementVioletsAreBlueModalText": "모든 솜사탕 파랑 펫을 모았습니다!",
-    "achievementWildBlueYonderText": "솜사탕 파랑 탑승펫을 모두 길들였습니다."
+    "achievementWildBlueYonderText": "솜사탕 파랑 탑승펫을 모두 길들였습니다.",
+    "achievementWildBlueYonderModalText": "당신은 모든 파란 솜사탕 탈것을 길들였습니다!",
+    "achievementDomesticated": "이야이야오",
+    "achievementWildBlueYonder": "거친 푸른 하늘 너머",
+    "achievementDomesticatedText": "기본 표준색상의 애완동물을 모두 부화시켰습니다. 패럿, 기니피그, 수탉, 날아다니는 되지, 쥐, 토끼, 말 그리고 소까지!",
+    "achievementDomesticatedModalText": "당신은 모든 애완동물을 모았습니다!",
+    "achievementShadyCustomer": "수상한 손님",
+    "achievementShadyCustomerText": "그늘진(어두운) 펫을 모두 모았습니다."
 }

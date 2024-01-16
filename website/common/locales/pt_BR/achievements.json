@@ -153,5 +153,11 @@
     "achievementDinosaurDynastyModalText": "Você coletou todos os Mascotes Aves e Dinossauros!",
     "achievementBonelessBoss": "Chefão Sem Ossos",
     "achievementBonelessBossText": "Chocou todas as cores padrão de mascotes invertebrados: Besouro, Borboleta, Lula, Nudibrânquio, Polvo, Cobra e Aranha!",
-    "achievementBonelessBossModalText": "Você coletou todos os mascotes invertebrados!"
+    "achievementBonelessBossModalText": "Você coletou todos os mascotes invertebrados!",
+    "achievementDuneBuddyText": "Chocou todas as cores padrão de mascotes que vivem no deserto: Tatu, Cacto, Raposa, Sapo, Cobra e Aranha!",
+    "achievementDuneBuddy": "Amigo Desértico",
+    "achievementDuneBuddyNotes": "Você coletou todos os mascotes do deserto!",
+    "achievementRoughRider": "Cavaleiro do Desconforto",
+    "achievementRoughRiderNotes": "Você coletou todas as cores padrão dos mascotes e montarias desconfortáveis!",
+    "achievementRoughRiderText": "Chocou todas as cores padrão dos mascotes e montarias desconfortáveis: Cacto, Ouriço e Pedra!"
 }
