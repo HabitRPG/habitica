@@ -433,10 +433,12 @@ export default {
         }
       }
 
-      this.groups.push({
-        name: this.$t('publicChallengesTitle'),
-        _id: TAVERN_ID,
-      });
+      if (!this.user.flags.chatRevoked) {
+        this.groups.push({
+          name: this.$t('publicChallengesTitle'),
+          _id: TAVERN_ID,
+        });
+      }
 
       this.setUpWorkingChallenge();
     },

@@ -11,9 +11,7 @@ const bannedSlurRegexes = bannedSlurs.map(word => new RegExp(`\\b([^a-z]+)?${wor
 const bannedWordRegexes = bannedWords.map(word => new RegExp(`\\b([^a-z]+)?${word}([^a-z]+)?\\b`, 'i'));
 
 export function stringContainsProfanity (str, profanityType = 'bannedWord') {
-  const bannedRegexes = profanityType === 'slur'
-    ? bannedSlurRegexes
-    : bannedWordRegexes;
+  const bannedRegexes = profanityType === 'slur' ? bannedSlurRegexes : bannedWordRegexes;
 
   for (let i = 0; i < bannedRegexes.length; i += 1) {
     const regEx = bannedRegexes[i];
