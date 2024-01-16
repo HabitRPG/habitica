@@ -117,7 +117,7 @@
     "missingPassword": "パスワードがありません。",
     "missingNewPassword": "新しいパスワードがありません。",
     "invalidEmailDomain": "以下のドメインのメールアドレスは登録できません : <%= domains %>",
-    "wrongPassword": "パスワードが間違っています。",
+    "wrongPassword": "パスワードが間違っています。パスワードを忘れた場合は、「パスワードを忘れた」をクリックしてください。",
     "incorrectDeletePhrase": "アカウントを削除するには、すべて大文字で <%= magicWord %> と入力してください。",
     "notAnEmail": "メールアドレスが無効です。",
     "emailTaken": "このメールアドレスは、すでに登録されています。",

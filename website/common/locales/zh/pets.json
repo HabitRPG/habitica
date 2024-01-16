@@ -1,9 +1,9 @@
 {
-    "stable": "马厩",
+    "stable": "宠物与坐骑",
     "pets": "宠物",
-    "activePet": "参战的宠物",
-    "noActivePet": "休息的宠物",
-    "petsFound": "拥有的宠物",
+    "activePet": "活跃的宠物",
+    "noActivePet": "非活跃宠物",
+    "petsFound": "已发现宠物",
     "magicPets": "魔法药水宠物",
     "questPets": "副本宠物",
     "mounts": "坐骑",
@@ -59,7 +59,7 @@
     "mountMasterText2": " 并且释放了全部90只坐骑共<%= count %> 次",
     "triadBingoName": "三全大师称号",
     "triadBingoText": "发现所有90只宠物，所有90只坐骑，和再次发现90只宠物（你怎么做到的！ ）",
-    "triadBingoText2": " 并且清空所有马厩共<%= count %>次",
+    "triadBingoText2": " 并且释放所有宠物与坐骑共<%= count %>次",
     "triadBingoAchievement": "由于找到了所有宠物，驯养了所有坐骑和再次找到了所有宠物，你获得了“三全大师称号”成就！",
     "dropsEnabled": "启用了物品掉落功能！",
     "firstDrop": "你解锁了物品掉落功能！从今以后，只要你完成每个任务都会有一定的几率能找到一件物品，包括蛋，药水和食物。刚刚你找到了一颗<strong><%= eggText %>蛋</strong>！<%= eggNotes %>",
@@ -114,5 +114,6 @@
     "invalidAmount": "食物数量无效，必须为正整数",
     "tooMuchFood": "你正在喂宠物过多食物，行动已取消",
     "notEnoughFood": "你没有足够的食物",
-    "jubilantGryphatrice": "欢沁狮鹫蛇"
+    "jubilantGryphatrice": "欢沁狮鹫蛇",
+    "veteranDragon": "退役龙"
 }

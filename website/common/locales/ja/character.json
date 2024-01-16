@@ -175,9 +175,9 @@
     "editProfile": "プロフィールを編集",
     "challengesWon": "優勝したチャレンジ",
     "questsCompleted": "達成したクエスト",
-    "headAccess": "頭部アクセ",
-    "backAccess": "背のアクセ",
-    "bodyAccess": "胴のアクセ",
+    "headAccess": "頭部のアクセ。",
+    "backAccess": "背中のアクセ。",
+    "bodyAccess": "胴のアクセ。",
     "mainHand": "利き手",
     "offHand": "反対の手",
     "statPoints": "ステータスポイント",
@@ -188,5 +188,6 @@
     "purchasePetItemConfirm": "この購入は、<%= itemText %>ペットを全てかえすために必要なアイテム数より多いようです。よろしいですか？",
     "notEnoughGold": "ゴールドが足りません。",
     "chatCastSpellPartyTimes": "<%= username %>はパーティーに<%= spell %>を<%= times %>回唱えた。",
-    "chatCastSpellUserTimes": "<%= username %>は <%= target %>に<%= spell %>を<%= times %>回唱えた。"
+    "chatCastSpellUserTimes": "<%= username %>は <%= target %>に<%= spell %>を<%= times %>回唱えた。",
+    "nextReward": "次回のログイン特典"
 }

@@ -140,5 +140,7 @@
     "counter": "Contador",
     "resetCounter": "Reiniciar Contador",
     "editTagsText": "Editar Tags",
-    "taskSummary": "<%= type %> Resumo"
+    "taskSummary": "<%= type %> Resumo",
+    "scoreUp": "Pontuação",
+    "scoreDown": "Pontuação baixa"
 }

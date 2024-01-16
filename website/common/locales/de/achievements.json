@@ -150,5 +150,14 @@
     "achievementPlantParentText": "Hat alle Standardfarben der Pflanzen-Haustiere ausgebrütet: Kaktus und Baumchen!",
     "achievementDinosaurDynastyText": "Hat alle Standardfarben der Vogel- und Dinosaurier-Haustiere ausgebrütet: Falke, Eule, Papagei, Pinguin, Hahn, Flugfinger, T-Rex, Triceratops, und Velociraptor!",
     "achievementDinosaurDynastyModalText": "Du hast alle Vogel- und Dinosaurier-Haustiere gesammelt!",
-    "achievementDinosaurDynasty": "Dinosaurier Dynastie"
+    "achievementDinosaurDynasty": "Dinosaurier Dynastie",
+    "achievementBonelessBoss": "Knochenloser Boss",
+    "achievementBonelessBossText": "Hat alle wirbellosen Tiere ausgebrütet: Käfer, Schmetterling, Tintenfisch, Nacktschnecke, Oktopus, Schnecke und Spinnen!",
+    "achievementBonelessBossModalText": "Du hast alle wirbellosen Tiere gesammelt!",
+    "achievementDuneBuddyText": "Hat alle Standardfarben der Wüstenbewohnern ausgebrütet: Gürteltier, Kaktus, Fuchs, Frosch, Schlange und Spinne!",
+    "achievementDuneBuddyNotes": "Du hast alle wüstenbewohnenden Haustiere gesammelt!",
+    "achievementRoughRiderNotes": "Du hast alle unbequemen Haustiere und Reittiere gesammelt!",
+    "achievementRoughRider": "Harter Reiter",
+    "achievementRoughRiderText": "Hat alle Standardfarben der unbequemen Haustiere und Reittiere ausgebrütet: Kaktus, Igel und Fels!",
+    "achievementDuneBuddy": "Dünenkumpel"
 }
