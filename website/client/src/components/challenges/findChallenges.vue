@@ -13,11 +13,6 @@
           </h1>
         </div>
         <div class="col-md-4">
-          <!-- @TODO: implement sorting span.dropdown-label
-           {{ $t('sortBy') }}b-dropdown(:text="$t('sort')", right=true)
-          b-dropdown-item(v-for='sortOption in sortOptions',
-           :key="sortOption.value", @click='sort(sortOption.value)') {{sortOption.text}}-->
-          <!-- tried to disable button here, still bringe up the challenge creation button -->
           <button
             class="btn btn-secondary create-challenge-button float-right"
             @click="createChallenge()"
@@ -199,11 +194,9 @@ export default {
       this.page = 0;
       this.loadChallenges();
     },
-
     createChallenge () {
       this.$root.$emit('habitica:create-challenge');
     },
-
     async loadChallenges () {
       this.loading = true;
 

@@ -117,7 +117,6 @@
         margin-right: .5em;
       }
     }
-
   }
 
   .no-challenges {
@@ -213,7 +212,6 @@ export default {
   updated () {
     this.handleExternalLinks();
   },
-
   methods: {
     updateSearch (eventData) {
       this.search = eventData.searchTerm;
