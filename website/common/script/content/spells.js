@@ -281,7 +281,7 @@ spells.special = {
     target: 'user',
     notes: t('spellSpecialSnowballAuraNotes'),
     canOwn () {
-      return moment().isBetween('2022-12-27T08:00-05:00', EVENTS.winter2023.end);
+      return moment().isBetween('2024-01-09T08:00-05:00', EVENTS.winter2024.end);
     },
     cast (user, target, req) {
       if (!user.items.special.snowball) throw new NotAuthorized(t('spellNotOwned')(req.language));
@@ -427,7 +427,7 @@ spells.special = {
     target: 'user',
     notes: t('nyeCardNotes'),
     canOwn () {
-      return moment().isBetween('2022-12-28T08:00-05:00', '2023-01-02T20:00-05:00');
+      return moment().isBetween(EVENTS.nye2023.start, EVENTS.nye2023.end);
     },
     cast (user, target) {
       if (user === target) {

@@ -149,10 +149,6 @@
     color: $header-color;
   }
 
-  .profile-name-character {
-
-  }
-
   .character-name {
     margin-bottom: 1px;
     color: $white;

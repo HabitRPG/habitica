@@ -21,22 +21,40 @@
           Group plan ID:
           <strong>{{ hero.purchased.plan.owner }}</strong>
         </div>
-        <div v-if="hero.purchased.plan.dateCreated">
+        <div v-if="hero.purchased.plan.dateCreated" class="form-inline">
+          <label>
           Creation date:
-          <strong>{{ dateFormat(hero.purchased.plan.dateCreated) }}</strong>
+            <input
+              v-model="hero.purchased.plan.dateCreated"
+              class="form-control"
+              type="text"
+            > <strong class="ml-2">{{ dateFormat(hero.purchased.plan.dateCreated) }}</strong>
+            </label>
         </div>
-        <div v-if="hero.purchased.plan.dateCurrentTypeCreated">
+        <div v-if="hero.purchased.plan.dateCurrentTypeCreated" class="form-inline">
+          <label>
           Start date for current subscription type:
-          <strong>{{ dateFormat(hero.purchased.plan.dateCurrentTypeCreated) }}</strong>
+            <input
+              v-model="hero.purchased.plan.dateCurrentTypeCreated"
+              class="form-control"
+              type="text"
+            >
+            </label>
+            <strong class="ml-2">{{dateFormat(hero.purchased.plan.dateCurrentTypeCreated)}}</strong>
         </div>
-        <div>
+        <div class="form-inline">
+          <label>
           Termination date:
-          <strong
-            v-if="hero.purchased.plan.dateTerminated"
-          >
-            {{ dateFormat(hero.purchased.plan.dateTerminated) }}
-          </strong>
-          <strong v-else> None </strong>
+          <div
+            v-if="hero.purchased.plan.dateTerminated">
+          <input
+              v-model="hero.purchased.plan.dateTerminated"
+              class="form-control"
+              type="text"
+            > <strong class="ml-2">{{ dateFormat(hero.purchased.plan.dateTerminated) }}</strong>
+          </div>
+          <strong v-else> None</strong>
+          </label>
         </div>
         <div class="form-inline">
           <label>
@@ -50,9 +68,17 @@
             >
           </label>
         </div>
-        <div>
-          Perk offset months:
-          <strong>{{ hero.purchased.plan.consecutive.offset }}</strong>
+        <div class="form-inline">
+          <label>
+            Perk offset months:
+            <input
+              v-model="hero.purchased.plan.consecutive.offset"
+              class="form-control"
+              type="number"
+              min="0"
+              step="1"
+            >
+          </label>
         </div>
         <div class="form-inline">
           Perk month count:

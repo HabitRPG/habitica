@@ -290,7 +290,7 @@ export function getPlanContext (user, now) {
   const planMonths = subscriptionBlocks[plan.planId] ? subscriptionBlocks[plan.planId].months : 1;
   let monthsTillNextHourglass;
   if (planMonths > 1) {
-    monthsTillNextHourglass = plan.consecutive.offset + 1;
+    monthsTillNextHourglass = Number(plan.consecutive.offset) + 1;
   } else {
     monthsTillNextHourglass = 3 - plan.perkMonthCount;
   }
