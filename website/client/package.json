@@ -53,7 +53,7 @@
     "vue-mugen-scroll": "^0.2.6",
     "vue-router": "^3.6.5",
     "vue-template-babel-compiler": "^2.0.0",
-    "vue-template-compiler": "^2.7.10",
+    "vue-template-compiler": "^2.7.16",
     "vuedraggable": "^2.24.3",
     "vuejs-datepicker": "git://github.com/habitrpg/vuejs-datepicker.git#153d339e4dbebb73733658aeda1d5b7fcc55b0a0",
     "webpack": "^4.47.0"
