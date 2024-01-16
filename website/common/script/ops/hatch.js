@@ -86,16 +86,26 @@ export default function hatch (user, req = {}, analytics) {
   if (content.dropHatchingPotions[hatchingPotion]) {
     forEach(content.animalSetAchievements, achievement => {
       if (!user.achievements[achievement.achievementKey]) {
-        if (achievement.type === 'pet') {
+        if (achievement.type === 'pet' || achievement.type === 'petMount') {
           let achieved = true;
           forEach(achievement.species, species => {
             if (!achieved) return;
             const petIndex = findIndex(
               keys(content.dropHatchingPotions),
-              color => !user.items.pets[`${species}-${color}`],
+              color => !user.items.pets[`${species}-${color}`] || user.items.pets[`${species}-${color}`] === -1,
             );
             if (petIndex !== -1) achieved = false;
           });
+          if (achievement.type === 'petMount') {
+            forEach(achievement.species, species => {
+              if (!achieved) return;
+              const mountIndex = findIndex(
+                keys(content.dropHatchingPotions),
+                color => !user.items.mounts[`${species}-${color}`],
+              );
+              if (mountIndex !== -1) achieved = false;
+            });
+          }
           if (achieved) {
             user.achievements[achievement.achievementKey] = true;
             if (user.addNotification) {

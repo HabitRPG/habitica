@@ -44,13 +44,11 @@
 </template>
 
 <script>
+import taskDefaults from '@/../../common/script/libs/taskDefaults';
 import { mapActions } from '@/libs/store';
 import markdownDirective from '@/directives/markdown';
 import notificationsMixin from '@/mixins/notifications';
 import Task from '@/components/tasks/task';
-
-import taskDefaults from '@/../../common/script/libs/taskDefaults';
-import { TAVERN_ID } from '@/../../common/script/constants';
 
 const baseUrl = 'https://habitica.com';
 
@@ -89,9 +87,7 @@ export default {
       createTask: 'tasks:create',
     }),
     groupPath () {
-      if (this.groupId === TAVERN_ID) {
-        return `${baseUrl}/groups/tavern`;
-      } if (this.groupType === 'party') {
+      if (this.groupType === 'party') {
         return `${baseUrl}/party`;
       }
       return `${baseUrl}/groups/guild/${this.groupId}`;

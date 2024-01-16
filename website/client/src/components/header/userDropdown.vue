@@ -40,7 +40,7 @@
       >{{ $t('editAvatar') }}</a>
       <a
         class="topbar-dropdown-item dropdown-item dropdown-separated"
-        @click="showAvatar('backgrounds', '2023')"
+        @click="showAvatar('backgrounds', '2024')"
       >{{ $t('backgrounds') }}</a>
       <a
         class="topbar-dropdown-item dropdown-item"
@@ -56,7 +56,7 @@
       >{{ $t('achievements') }}</a>
       <router-link
         class="topbar-dropdown-item dropdown-item"
-        :to="{name: 'site'}"
+        :to="{name: 'general'}"
       >
         {{ $t('settings') }}
       </router-link>
@@ -141,7 +141,7 @@
 import { mapState } from '@/libs/store';
 import userIcon from '@/assets/svg/user.svg';
 import MenuDropdown from '../ui/customMenuDropdown';
-import MessageCount from './messageCount';
+import MessageCount from './messageCount.functional.vue';
 import { EVENTS } from '@/libs/events';
 import { PAGES } from '@/libs/consts';
 

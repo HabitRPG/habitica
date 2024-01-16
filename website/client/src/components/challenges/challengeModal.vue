@@ -276,11 +276,10 @@
 import clone from 'lodash/clone';
 import throttle from 'lodash/throttle';
 
-import markdownDirective from '@/directives/markdown';
-import { userStateMixin } from '../../mixins/userState';
-
 import { TAVERN_ID, MIN_SHORTNAME_SIZE_FOR_CHALLENGES, MAX_SUMMARY_SIZE_FOR_CHALLENGES } from '@/../../common/script/constants';
 import CategoryOptions from '@/../../common/script/content/categoryOptions';
+import markdownDirective from '@/directives/markdown';
+import { userStateMixin } from '../../mixins/userState';
 
 export default {
   directives: {
@@ -418,6 +417,9 @@ export default {
   methods: {
     async shown () {
       this.groups = await this.$store.dispatch('guilds:getMyGuilds');
+      this.groups = this.groups.filter(group => !(
+        group.leaderOnly.challenges && group.leader !== this.user._id
+      ));
 
       if (this.user.party && this.user.party._id) {
         await this.$store.dispatch('party:getParty');
@@ -431,10 +433,12 @@ export default {
         }
       }
 
-      this.groups.push({
-        name: this.$t('publicChallengesTitle'),
-        _id: TAVERN_ID,
-      });
+      if (!this.user.flags.chatRevoked) {
+        this.groups.push({
+          name: this.$t('publicChallengesTitle'),
+          _id: TAVERN_ID,
+        });
+      }
 
       this.setUpWorkingChallenge();
     },

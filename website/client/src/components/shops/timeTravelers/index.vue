@@ -273,6 +273,9 @@ import _sortBy from 'lodash/sortBy';
 import _throttle from 'lodash/throttle';
 import _groupBy from 'lodash/groupBy';
 import _map from 'lodash/map';
+import _find from 'lodash/find';
+import isPinned from '@/../../common/script/libs/isPinned';
+import shops from '@/../../common/script/libs/shops';
 import { mapState } from '@/libs/store';
 
 import ShopItem from '../shopItem';
@@ -285,9 +288,6 @@ import toggleSwitch from '@/components/ui/toggleSwitch';
 import BuyQuestModal from '../quests/buyQuestModal.vue';
 
 import svgHourglass from '@/assets/svg/hourglass.svg';
-
-import isPinned from '@/../../common/script/libs/isPinned';
-import shops from '@/../../common/script/libs/shops';
 
 import pinUtils from '@/mixins/pinUtils';
 import FilterSidebar from '@/components/ui/filterSidebar';
@@ -330,6 +330,8 @@ export default {
       hidePinned: false,
 
       backgroundUpdate: new Date(),
+
+      currentEvent: null,
     };
   },
   computed: {
@@ -339,7 +341,7 @@ export default {
       user: 'user.data',
       userStats: 'user.data.stats',
       userItems: 'user.data.items',
-      currentEvent: 'worldState.data.currentEvent',
+      currentEventList: 'worldState.data.currentEventList',
     }),
 
     closed () {
@@ -422,6 +424,7 @@ export default {
         this.$root.$emit('buyModal::hidden', this.selectedItemToBuy.key);
       }
     });
+    this.currentEvent = _find(this.currentEventList, event => Boolean(['winter', 'spring', 'summer', 'fall'].includes(event.season)));
   },
   beforeDestroy () {
     this.$root.$off('buyModal::boughtItem');

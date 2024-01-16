@@ -26,11 +26,11 @@ input, textarea, input.form-control, textarea.form-control {
   color: $gray-50;
   border: 1px solid $gray-400;
 
-  &:hover:not(:disabled) {
+  &:hover:not(:disabled):not(:read-only) {
     border-color: $gray-300;
   }
 
-  &:active:not(:disabled), &:focus:not(:disabled) {
+  &:active:not(:disabled):not(:read-only), &:focus:not(:disabled):not(:read-only) {
     border-color: $purple-400;
     outline: 0;
     box-shadow: none;
@@ -56,13 +56,13 @@ input, textarea, input.form-control, textarea.form-control {
 
   &.input-valid, &.input-invalid {
     background-repeat: no-repeat;
-    background-position: center right 16px;
+    background-position: center right 0.5rem;
   }
 
   &.input-valid {
-    padding-right: 37px;
+    padding-right: 27px;
     background-image: url(~@/assets/svg/for-css/check.svg);
-    background-size: 13px 10px;
+    background-size: 1rem;
   }
 
   &.input-invalid {
@@ -91,8 +91,10 @@ input, textarea, input.form-control, textarea.form-control {
     border-color: $gray-300;
   }
 
-  &:focus, &:active, &:focus-within {
-    border: solid 1px $purple-400;
+  &:not(:read-only) {
+    &:focus, &:active, &:focus-within {
+      border: solid 1px $purple-400;
+    }
   }
 
   .input-group-prepend , .input-group-append {
@@ -163,8 +165,22 @@ input, textarea, input.form-control, textarea.form-control {
   input {
     height: 30px;
     border: 0;
-    background: $white !important;
   }
+
+  &.is-valid {
+    border-color: $green-10 !important;
+  }
+
+  &.is-invalid {
+    border-color: $red-100 !important;
+  }
+}
+
+.input-error {
+  font-size: 12px;
+  line-height: 1.33;
+
+  color: $maroon-10;
 }
 
 .input-group-spaced {
@@ -231,20 +247,20 @@ $bg-disabled-control: $gray-10;
       background-color: inherit;
     }
 
-    &:focus:not(:checked):not(:disabled)~.custom-control-label::before, 
+    &:focus:not(:checked):not(:disabled)~.custom-control-label::before,
     &:active:not(:checked):not(:disabled)~.custom-control-label::before  {
       border: 2px solid $gray-300;
       box-shadow: 0 0 0 2px rgba(146, 92, 243, 0.5);
     }
 
-    &:focus:checked:not(:disabled)~.custom-control-label::before, 
+    &:focus:checked:not(:disabled)~.custom-control-label::before,
     &:active:checked:not(:disabled)~.custom-control-label::before  {
       box-shadow: 0 0 0 2px rgba(146, 92, 243, 0.5);
       border-color: 2 px solid $purple-400;
       background-color: $purple-400;
     }
 
-    &:focus:disabled~.custom-control-label::before, 
+    &:focus:disabled~.custom-control-label::before,
     &:active:disabled~.custom-control-label::before  {
       box-shadow: 0 0 0 6px rgba($bg-disabled-control, 0.1);
     }
@@ -397,8 +413,6 @@ $bg-color: $purple-400;
 .toggle-switch-container.no-margin {
   margin-top: 0 !important;
 }
-
-
 
 // Disable default style Firefox for invalid elements.
 // Selectors taken from view-source:resource://gre-resources/forms.css on Firefox

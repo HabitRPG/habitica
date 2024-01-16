@@ -150,6 +150,8 @@ import find from 'lodash/find';
 import _filter from 'lodash/filter';
 import _map from 'lodash/map';
 import _throttle from 'lodash/throttle';
+import getItemInfo from '@/../../common/script/libs/getItemInfo';
+import shops from '@/../../common/script/libs/shops';
 import { mapState } from '@/libs/store';
 
 import KeysToKennel from './keysToKennel';
@@ -165,8 +167,6 @@ import FilterDropdown from '@/components/ui/filterDropdown';
 import MarketFilter from './filter';
 
 import SellModal from './sellModal.vue';
-import getItemInfo from '@/../../common/script/libs/getItemInfo';
-import shops from '@/../../common/script/libs/shops';
 
 import notifications from '@/mixins/notifications';
 import buyMixin from '@/mixins/buy';

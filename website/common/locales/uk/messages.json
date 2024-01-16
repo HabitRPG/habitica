@@ -15,7 +15,7 @@
     "messageMissingEggPotion": "У Вас немає потрібного яйця або зілля",
     "messageInvalidEggPotionCombo": "Ви не можете вивести квестового улюбленця за допомогою магічного інкубаційного зілля. Спробуйте інше яйце.",
     "messageAlreadyPet": "У вас уже є така тваринка. Спробуйте вивести інше поєднання!",
-    "messageHatched": "Яйце дозріло! Зайдіть до стайні та оберіть улюбленця.",
+    "messageHatched": "Яйце дозріло! Завітайте в \"Улюбленці та скакуни\", щоб обрати улюбленця.",
     "messageNotEnoughGold": "Замало золота",
     "messageTwoHandedEquip": "<%= twoHandedText %> — дворучна зброя, тому <%= offHandedText %> повертається в інвентар.",
     "messageTwoHandedUnequip": "<%= twoHandedText %> — дворучна зброя, тому <%= offHandedText %> заміняє її.",
@@ -27,7 +27,7 @@
     "previousGearNotOwned": "Вам потрібно купити спорядження нижчого рівня перед покупкою цього.",
     "messageHealthAlreadyMax": "Ви і так повністю здорові.",
     "messageHealthAlreadyMin": "О, ні! Уже пізно купувати цілюще зілля — у Вас закінчилося здоров'я. Та не хвилюйтеся: Ви можете воскреснути!",
-    "armoireEquipment": "<%= image %> Ви знайшли частину рідкісного обладнання: <%= dropText %>! Неймовірно!",
+    "armoireEquipment": "<%= image %> Ви знайшли частину рідкісного спорядження: <%= dropText %>! Неймовірно!",
     "armoireFood": "<%= image %> Понишпоривши у скрині, Ви дістаєте наступне: <%= dropText %>. Що це тут робить?",
     "armoireExp": "Ви боретеся зі скринею та отримуєте досвід. Тримай на горіхи!",
     "messageInsufficientGems": "Не вистачає самоцвітів!",
@@ -59,5 +59,6 @@
     "messageBackgroundUnEquipped": "Фон скинуто.",
     "messagePetMountUnEquipped": "Улюбленець та скакун повернулися в стійло.",
     "messageCostumeUnEquipped": "Знято костюм.",
-    "messageBattleGearUnEquipped": "Знято бойове спорядження."
+    "messageBattleGearUnEquipped": "Знято бойове спорядження.",
+    "featureRetired": "Ця функція більше не підтримується."
 }

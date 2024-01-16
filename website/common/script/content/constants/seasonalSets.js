@@ -53,6 +53,10 @@ const SEASONAL_SETS = {
     'winter2023FairyLightsMageSet',
     'winter2023CardinalHealerSet',
 
+    'winter2024SnowyOwlRogueSet',
+    'winter2024PeppermintBarkWarriorSet',
+    'winter2024NarwhalWizardMageSet',
+    'winter2024FrozenHealerSet',
   ],
   spring: [
     // spring 2014
@@ -209,6 +213,11 @@ const SEASONAL_SETS = {
     'fall2022OrcWarriorSet',
     'fall2022HarpyMageSet',
     'fall2022WatcherHealerSet',
+
+    'fall2023WitchsBrewRogueSet',
+    'fall2023BogCreatureHealerSet',
+    'fall2023ScaryMovieWarriorSet',
+    'fall2023ScarletWarlockMageSet',
   ],
 };
 

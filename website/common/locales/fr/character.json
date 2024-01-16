@@ -170,8 +170,8 @@
     "photo": "Photo",
     "info": "Information",
     "joined": "A rejoint",
-    "totalLogins": "Total de connexions",
-    "latestCheckin": "Dernière connexion",
+    "totalLogins": "Connexions totales",
+    "latestCheckin": "Dernière Connexion",
     "editProfile": "Modifier le profil",
     "challengesWon": "Défis remportés",
     "questsCompleted": "Quêtes accomplies",
@@ -186,5 +186,8 @@
     "chatCastSpellParty": "<%= username %> lance <%= spell %> pour l'équipe.",
     "purchasePetItemConfirm": "Cet achat vous donnerait plus d'objets que nécessaire pour faire éclore tous les familiers <%= itemText %>. Confirmez-vous ?",
     "purchaseForGold": "Acheter pour <%= cost %> pièces d'or ?",
-    "notEnoughGold": "Pas assez d'or."
+    "notEnoughGold": "Pas assez d'or.",
+    "nextReward": "Prochaine récompense de connexion",
+    "chatCastSpellPartyTimes": "<%= username %> lance <%= spell %> pour l'équipe <%= times %> fois.",
+    "chatCastSpellUserTimes": "<%= username %> lance <%= spell %> sur <%= target %> <%= times %> fois."
 }

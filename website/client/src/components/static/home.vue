@@ -781,6 +781,7 @@
 import hello from 'hellojs';
 import debounce from 'lodash/debounce';
 import isEmail from 'validator/lib/isEmail';
+import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
 import { buildAppleAuthUrl } from '../../libs/auth';
 import googlePlay from '@/assets/images/home/google-play-badge.svg';
 import iosAppStore from '@/assets/images/home/ios-app-store.svg';
@@ -800,7 +801,6 @@ import kickstarter from '@/assets/images/home/kickstarter.svg';
 import lifehacker from '@/assets/images/home/lifehacker.svg';
 import makeuseof from '@/assets/images/home/make-use-of.svg';
 import thenewyorktimes from '@/assets/images/home/the-new-york-times.svg';
-import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
 
 export default {
   data () {
@@ -880,8 +880,6 @@ export default {
   },
   mounted () {
     hello.init({
-      facebook: process.env.FACEBOOK_KEY, // eslint-disable-line
-      // windows: WINDOWS_CLIENT_ID,
       google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line
     });
     this.$store.dispatch('common:setTitle', {

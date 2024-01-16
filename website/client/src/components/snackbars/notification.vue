@@ -270,6 +270,11 @@ export default {
       return `${this.notification.type} ${this.negative}`;
     },
   },
+  mounted () {
+    if (this.notification.type === 'drop' && this.notification.emptied) {
+      this.$root.$emit('bv::show::modal', 'armoire-empty');
+    }
+  },
   methods: {
     handleOnClick () {
       if (typeof this.notification.onClick === 'function') {

@@ -22,7 +22,7 @@
             @click="createChallenge()"
           >
             <div
-              class="svg-icon positive-icon"
+              class="svg svg-icon positive-icon color"
               v-html="icons.positiveIcon"
             ></div>
             <span v-once>{{ $t('createChallenge') }}</span>
@@ -51,7 +51,7 @@
       </div>
       <div class="row">
         <div
-          v-if="!loading && challenges.length > 0 && this.filteredChallenges.length === 0"
+          v-if="!loading && challenges.length > 0 && filteredChallenges.length === 0"
           class="no-challenges text-center col-md-6 offset-3"
         >
           <h2 v-once>
@@ -61,7 +61,7 @@
       </div>
       <div class="row">
         <div
-          v-for="challenge in this.filteredChallenges"
+          v-for="challenge in filteredChallenges"
           :key="challenge._id"
           class="col-12 col-md-6"
         >
@@ -106,13 +106,16 @@
 
     .create-challenge-button {
       margin-left: 1em;
-    }
 
-    .positive-icon {
-      color: $green-10;
-      width: 10px;
-      display: inline-block;
-      margin-right: .5em;
+      &:not(.disabled) .svg {
+        color: $green-10;
+      }
+
+      .positive-icon {
+        width: 10px;
+        display: inline-block;
+        margin-right: .5em;
+      }
     }
   }
 

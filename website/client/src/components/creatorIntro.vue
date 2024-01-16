@@ -121,7 +121,7 @@
             v-if="editing"
             class="menu-container col-2"
             :class="{active: activeTopPage === 'backgrounds'}"
-            @click="changeTopPage('backgrounds', '2023')"
+            @click="changeTopPage('backgrounds', '2024')"
           >
             <div class="menu-item">
               <div
@@ -182,8 +182,8 @@
           </div>
           <div
             v-for="bg in backgroundShopSets[0].items"
-            :key="bg.key"
             :id="bg.key"
+            :key="bg.key"
             class="col-2"
             @click="unlock('background.' + bg.key)"
           >
@@ -215,8 +215,8 @@
           >
             <div
               v-for="bg in backgroundShopSets[2].items"
-              :key="bg.key"
               :id="bg.key"
+              :key="bg.key"
               class="col-4 text-center customize-option background-button"
               @click="unlock('background.' + bg.key)"
             >
@@ -245,8 +245,8 @@
           >
             <div
               v-for="bg in backgroundShopSets[1].items"
-              :key="bg.key"
               :id="bg.key"
+              :key="bg.key"
               class="col-4 text-center customize-option background-button"
               @click="!user.purchased.background[bg.key]
                 ? backgroundSelected(bg) : unlock('background.' + bg.key)"
@@ -316,8 +316,8 @@
             </div>
             <div
               v-for="bg in set.items"
-              :key="bg.key"
               :id="bg.key"
+              :key="bg.key"
               class="col-4 text-center customize-option background-button"
               @click="!user.purchased.background[bg.key]
                 ? backgroundSelected(bg) : unlock('background.' + bg.key)"
@@ -377,8 +377,8 @@
         >
           <div
             v-for="(bg) in ownedBackgrounds"
-            :key="bg.key"
             :id="bg.key"
+            :key="bg.key"
             class="col-4 text-center customize-option background-button"
             @click="unlock('background.' + bg.key)"
           >
@@ -1159,10 +1159,12 @@
 <script>
 import axios from 'axios';
 import map from 'lodash/map';
+import shops from '@/../../common/script/libs/shops';
+import isPinned from '@/../../common/script/libs/isPinned';
+import content from '@/../../common/script/content/index';
 import { mapState } from '@/libs/store';
 import avatar from './avatar';
 import usernameForm from './settings/usernameForm';
-import shops from '@/../../common/script/libs/shops';
 import guide from '@/mixins/guide';
 import notifications from '@/mixins/notifications';
 import PinBadge from '@/components/ui/pinBadge';
@@ -1185,10 +1187,7 @@ import gold from '@/assets/svg/gold.svg';
 import arrowRight from '@/assets/svg/arrow_right.svg';
 import arrowLeft from '@/assets/svg/arrow_left.svg';
 import svgClose from '@/assets/svg/close.svg';
-import isPinned from '@/../../common/script/libs/isPinned';
 import { avatarEditorUtilies } from '../mixins/avatarEditUtilities';
-
-import content from '@/../../common/script/content/index';
 
 export default {
   components: {
@@ -1237,7 +1236,7 @@ export default {
         },
       ],
 
-      bgSubMenuItems: ['2023', '2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014'].map(y => ({
+      bgSubMenuItems: ['2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014'].map(y => ({
         id: y,
         label: y,
       })),
@@ -1267,6 +1266,7 @@ export default {
         2021: [],
         2022: [],
         2023: [],
+        2024: [],
       };
 
       // Hack to force update for now until we restructure the data

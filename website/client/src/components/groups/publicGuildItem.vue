@@ -213,6 +213,7 @@
 
 <script>
 import moment from 'moment';
+import { MAX_SUMMARY_SIZE_FOR_GUILDS } from '@/../../common/script/constants';
 import { mapState } from '@/libs/store';
 import categoryTags from '../categories/categoryTags';
 import groupUtilities from '@/mixins/groupsUtilities';
@@ -221,7 +222,6 @@ import gemIcon from '@/assets/svg/gem.svg';
 import goldGuildBadgeIcon from '@/assets/svg/gold-guild-badge-large.svg';
 import silverGuildBadgeIcon from '@/assets/svg/silver-guild-badge-large.svg';
 import bronzeGuildBadgeIcon from '@/assets/svg/bronze-guild-badge-large.svg';
-import { MAX_SUMMARY_SIZE_FOR_GUILDS } from '@/../../common/script/constants';
 
 export default {
   directives: {

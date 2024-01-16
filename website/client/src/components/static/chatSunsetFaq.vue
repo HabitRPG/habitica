@@ -69,7 +69,16 @@
         <p v-html="$t('sunsetFaqPara9')"></p> <!-- there's html in here -->
       </div>
 
-      <!-- Can I access guild chats? -->
+      <!-- Can I access guild chats? Or banked Gems? -->
+      <div>
+        <h3 class="headings">
+          {{ $t('sunsetFaqHeader12') }}
+        </h3>
+      </div>
+      <div class="body-text">
+        <p v-html="$t('sunsetFaqPara21')"></p>
+      </div>
+
       <div>
         <h3 class="headings">
           {{ $t('sunsetFaqHeader6') }}

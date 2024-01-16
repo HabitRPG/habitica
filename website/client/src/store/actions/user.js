@@ -1,13 +1,14 @@
 import setProps from 'lodash/set';
 import axios from 'axios';
-import { loadAsyncResource } from '@/libs/asyncResource';
 
 import { togglePinnedItem as togglePinnedItemOp } from '@/../../common/script/ops/pinnedGearUtils';
 import changeClassOp from '@/../../common/script/ops/changeClass';
 import disableClassesOp from '@/../../common/script/ops/disableClasses';
 import openMysteryItemOp from '@/../../common/script/ops/openMysteryItem';
+import { loadAsyncResource } from '@/libs/asyncResource';
 import { unEquipByType } from '../../../../common/script/ops/unequip';
 import markPMSRead from '../../../../common/script/ops/markPMSRead';
+import updateStats from '../../../../common/script/fns/updateStats';
 
 export function fetch (store, options = {}) { // eslint-disable-line no-shadow
   return loadAsyncResource({
@@ -65,7 +66,7 @@ export async function sleep (store) {
 }
 
 export async function addWebhook (store, payload) {
-  const response = await axios.post('/api/v4/user/webhook', payload.webhookInfo);
+  const response = await axios.post('/api/v4/user/webhook', payload.webhook);
   return response.data.data;
 }
 
@@ -179,6 +180,10 @@ export async function getPurchaseHistory () {
   return response.data.data;
 }
 
+export function statSync (store) {
+  updateStats(store.state.user.data, store.state.user.data.stats);
+  return axios.post('/api/v4/user/stat-sync');
+}
 
 export function newPrivateMessageTo (store, params) {
   const { member } = params;

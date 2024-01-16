@@ -1,455 +1,643 @@
 <template>
-  <div
-    v-if="!user && userLoaded"
-  >
-    <error404 />
-  </div>
-  <div
-    v-else-if="userLoaded"
-    class="profile"
-  >
-    <div class="header">
-      <div class="profile-actions d-flex">
-        <router-link
-          :to="{ path: '/private-messages', query: { uuid: user._id } }"
-          replace
+  <div>
+    <div
+      v-if="!user && userLoaded"
+    >
+      <error404 />
+    </div>
+    <div
+      v-else-if="userLoaded"
+      class="profile mt-n3"
+    >
+      <!-- HEADER -->
+      <div class="header">
+        <div
+          class="avatar mr-auto"
         >
-          <button
-            v-b-tooltip.hover.left="$t('sendMessage')"
-            class="btn btn-secondary message-icon"
-          >
-            <div
-              v-once
-              class="svg-icon message-icon"
-              v-html="icons.message"
-            ></div>
-          </button>
-        </router-link>
-        <button
-          v-b-tooltip.hover.bottom="$t('sendGems')"
-          class="btn btn-secondary gift-icon"
-          @click="openSendGemsModal()"
+          <member-details
+            :member="user"
+            :class-badge-position="'hidden'"
+            class="mx-4"
+          />
+        </div>
+      </div>
+      <!-- PAGE STATE CHANGES -->
+      <div class="state-pages pt-3">
+        <div
+          v-if="userBlocked"
+          class="blocked-banned text-center mb-3 mx-4 py-2 px-3"
+          v-html="$t('blockedUser')"
         >
-          <div
-            class="svg-icon gift-icon"
-            v-html="icons.gift"
-          ></div>
-        </button>
-        <button
-          v-if="user._id !== userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) === -1"
-          v-b-tooltip.hover.right="$t('blockWarning')"
-          class="btn btn-secondary block-icon d-flex justify-content-center align-items-center"
-          @click="blockUser()"
+        </div>
+        <div
+          v-if="hasPermission(userLoggedIn, 'moderator') && hero.auth.blocked"
+          class="blocked-banned mb-3 mx-4 py-2 px-3
+            d-flex align-items-middle justify-content-center"
         >
           <div
             v-once
-            class="svg-icon block-icon"
+            class="svg-icon icon-16 color my-auto ml-auto mr-2"
             v-html="icons.block"
           ></div>
-        </button>
-        <button
-          v-if="user._id !== userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) !== -1"
-          v-b-tooltip.hover.right="$t('unblock')"
-          class="btn btn-secondary positive-icon"
-          @click="unblockUser()"
-        >
           <div
-            class="svg-icon positive-icon"
-            v-html="icons.positive"
-          ></div>
-        </button>
-        <button
-          v-if="hasPermission(userLoggedIn, 'moderator')"
-          v-b-tooltip.hover.right="'Admin - Toggle Tools'"
-          class="btn btn-secondary positive-icon d-flex justify-content-center align-items-center"
-          @click="toggleAdminTools()"
-        >
+            class="my-auto mr-auto"
+            v-html="$t('bannedUser')"
+          >
+          </div>
+        </div>
+        <div class="text-center nav">
           <div
-            class="svg-icon positive-icon"
-            v-html="icons.staff"
-          ></div>
-        </button>
-      </div>
-      <div
-        v-if="hasPermission(userLoggedIn, 'moderator') && adminToolsLoaded"
-        class="row admin-profile-actions"
-      >
-        <div class="col-12 text-right">
-          <span
-            v-if="!hero.flags || (hero.flags && !hero.flags.chatShadowMuted)"
-            v-b-tooltip.hover.bottom="'Turn on Shadow Muting'"
-            class="admin-action"
-            @click="adminTurnOnShadowMuting()"
-          >shadow-mute</span>
-          <span
-            v-if="hero.flags && hero.flags.chatShadowMuted"
-            v-b-tooltip.hover.bottom="'Turn off Shadow Muting'"
-            class="admin-action"
-            @click="adminTurnOffShadowMuting()"
-          >un-shadow-mute</span>
-          <span
-            v-if="!hero.flags || (hero.flags && !hero.flags.chatRevoked)"
-            v-b-tooltip.hover.bottom="'Revoke Chat Privileges'"
-            class="admin-action"
-            @click="adminRevokeChat()"
-          >mute</span>
-          <span
-            v-if="hero.flags && hero.flags.chatRevoked"
-            v-b-tooltip.hover.bottom="'Reinstate Chat Privileges'"
-            class="admin-action"
-            @click="adminReinstateChat()"
-          >un-mute</span>
-          <span
-            v-if="!hero.auth.blocked"
-            v-b-tooltip.hover.bottom="'Ban User'"
-            class="admin-action"
-            @click="adminBlockUser()"
-          >ban</span>
-          <span
-            v-if="hero.auth.blocked"
-            v-b-tooltip.hover.bottom="'Un-Ban User'"
-            class="admin-action"
-            @click="adminUnblockUser()"
-          >un-ban</span>
-          <router-link
-            :to="{ name: 'adminPanelUser', params: { userIdentifier: userId } }"
-            replace
+            class="nav-item"
+            :class="{active: selectedPage === 'profile'}"
+            @click="selectPage('profile')"
           >
-            Admin Panel
-          </router-link>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12">
-          <member-details :member="user" />
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="text-center nav">
-        <div
-          class="nav-item"
-          :class="{active: selectedPage === 'profile'}"
-          @click="selectPage('profile')"
-        >
-          {{ $t('profile') }}
-        </div>
-        <div
-          class="nav-item"
-          :class="{active: selectedPage === 'stats'}"
-          @click="selectPage('stats')"
-        >
-          {{ $t('stats') }}
-        </div>
-        <div
-          class="nav-item"
-          :class="{active: selectedPage === 'achievements'}"
-          @click="selectPage('achievements')"
-        >
-          {{ $t('achievements') }}
-        </div>
-      </div>
-    </div>
-    <div
-      v-show="selectedPage === 'profile'"
-      v-if="user.profile"
-      id="userProfile"
-      class="standard-page"
-    >
-      <div class="row">
-        <div class="col-12 col-md-8">
-          <div class="header mb-3">
-            <h1>{{ user.profile.name }}</h1>
-            <div
-              v-if="user.auth && user.auth.local && user.auth.local.username"
-              class="name"
-            >
-              @{{ user.auth.local.username }}
-            </div>
+            {{ $t('profile') }}
           </div>
-        </div>
-        <div class="col-12 col-md-4">
-          <button
-            v-if="user._id === userLoggedIn._id"
-            class="btn btn-secondary"
-            style="float:right;"
-            @click="editing = !editing"
-          >
-            {{ $t('edit') }}
-          </button>
-        </div>
-      </div>
-      <div
-        v-if="!editing"
-        class="row"
-      >
-        <div class="col-12 col-md-8">
-          <div class="about profile-section">
-            <h2>{{ $t('about') }}</h2>
-            <p
-              v-if="user.profile.blurb"
-              v-markdown="user.profile.blurb"
-            ></p>
-            <p v-else>
-              {{ $t('noDescription') }}
-            </p>
-          </div>
-          <div class="photo profile-section">
-            <h2>{{ $t('photo') }}</h2>
-            <img
-              v-if="user.profile.imageUrl"
-              class="img-rendering-auto"
-              :src="user.profile.imageUrl"
-            >
-            <p v-else>
-              {{ $t('noPhoto') }}
-            </p>
-          </div>
-        </div>
-        <div class="col-12 col-md-4">
-          <div class="info profile-section">
-            <h2>{{ $t('info') }}</h2>
-            <div class="info-item">
-              <div class="info-item-label">
-                {{ $t('joined') }}:
-              </div>
-              <div class="info-item-value">
-                {{ userJoinedDate }}
-              </div>
-            </div>
-            <div class="info-item">
-              <div class="info-item-label">
-                {{ $t('totalLogins') }}:
-              </div>
-              <div class="info-item-value">
-                {{ user.loginIncentives }}
-              </div>
-            </div>
-            <div class="info-item">
-              <div class="info-item-label">
-                {{ $t('latestCheckin') }}:
-              </div>
-              <div class="info-item-value">
-                {{ userLastLoggedIn }}
-              </div>
-            </div>
-            <div class="info-item">
-              {{ getProgressDisplay() }}
-              <div class="progress">
-                <div
-                  class="progress-bar"
-                  role="progressbar"
-                  :aria-valuenow="incentivesProgress"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                  :style="{width: incentivesProgress + '%'}"
-                >
-                  <span class="sr-only">{{ incentivesProgress }}% {{ $t('complete') }}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- @TODO: Implement in V2 .social-->
-        </div>
-      </div>
-      <div
-        v-if="editing"
-        class="row"
-      >
-        <h1>{{ $t('editProfile') }}</h1>
-        <div class="col-12">
           <div
-            class="alert alert-info alert-sm"
-            v-html="$t('communityGuidelinesWarning', managerEmail)"
-          ></div>
-          <!-- TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak-->
-          <div class="form-group">
-            <label>{{ $t('displayName') }}</label>
-            <input
-              v-model="editingProfile.name"
-              class="form-control"
-              type="text"
-              :placeholder="$t('fullName')"
-            >
-          </div>
-          <div class="form-group">
-            <label>{{ $t('photoUrl') }}</label>
-            <input
-              v-model="editingProfile.imageUrl"
-              class="form-control"
-              type="url"
-              :placeholder="$t('imageUrl')"
-            >
-          </div>
-          <div class="form-group">
-            <label>{{ $t('about') }}</label>
-            <textarea
-              v-model="editingProfile.blurb"
-              class="form-control"
-              rows="5"
-              :placeholder="$t('displayBlurbPlaceholder')"
-            ></textarea>
-            <!-- include ../../shared/formatting-help-->
-          </div>
-        </div>
-        <div class="col-12 text-center">
-          <button
-            class="btn btn-primary mr-2"
-            @click="save()"
+            class="nav-item"
+            :class="{active: selectedPage === 'stats'}"
+            @click="selectPage('stats')"
           >
-            {{ $t("save") }}
-          </button>
-          <button
-            class="btn btn-secondary"
-            @click="editing = false"
+            {{ $t('stats') }}
+          </div>
+          <div
+            class="nav-item"
+            :class="{active: selectedPage === 'achievements'}"
+            @click="selectPage('achievements')"
           >
-            {{ $t("cancel") }}
-          </button>
+            {{ $t('achievements') }}
+          </div>
         </div>
       </div>
-    </div>
-    <div
-      v-show="selectedPage === 'achievements'"
-      v-if="user.achievements"
-      id="achievements"
-      class="standard-page container"
-    >
+      <!-- SHOW PROFILE -->
       <div
-        v-for="(category, key) in achievements"
-        :key="key"
-        class="row category-row"
+        v-show="selectedPage === 'profile'"
+        v-if="user.profile"
+        id="userProfile"
+        class="standard-page"
       >
-        <h3 class="col-12 text-center mb-3">
-          {{ $t(`${key}Achievs`) }}
-        </h3>
-        <div class="col-12">
-          <div class="row achievements-row justify-content-center">
-            <div
-              v-for="(achievement, achievKey) in achievementsCategory(key, category)"
-              :key="achievKey"
-              class="achievement-wrapper col text-center"
-            >
-              <div
-                :id="achievKey + '-achievement'"
-                class="box achievement-container"
-                :class="{'achievement-unearned': !achievement.earned}"
+        <!-- PROFILE STUFF -->
+        <div
+          v-if="!editing"
+          class="flex-container"
+        >
+          <div class="flex-left">
+            <div class="about mb-0">
+              <h2>{{ $t('about') }}</h2>
+            </div>
+            <div class="flex-left">
+              <div class="about profile-section">
+                <p
+                  v-if="user.profile.blurb"
+                  v-markdown="user.profile.blurb"
+                  class="markdown"
+                ></p>
+                <p v-else>
+                  {{ $t('noDescription') }}
+                </p>
+              </div>
+            </div>
+            <div class="photo profile-section">
+              <h2>{{ $t('photo') }}</h2>
+              <img
+                v-if="user.profile.imageUrl"
+                class="img-rendering-auto"
+                :src="user.profile.imageUrl"
               >
-                <b-popover
-                  :target="'#' + achievKey + '-achievement'"
-                  triggers="hover"
-                  placement="top"
+              <p v-else>
+                {{ $t('noPhoto') }}
+              </p>
+            </div>
+          </div>
+          <div class="ml-auto">
+            <button
+              v-if="user._id === userLoggedIn._id"
+              class="btn btn-primary flex-right edit-profile"
+              @click="editing = !editing"
+            >
+              {{ $t('editProfile') }}
+            </button>
+            <span
+              v-else-if="user._id !== userLoggedIn._id"
+              class="flex-right d-flex justify-content-between"
+            >
+              <router-link
+                :to="{ path: '/private-messages', query: { uuid: user._id } }"
+                replace
+              >
+                <button
+                  class="btn btn-primary send-message"
                 >
-                  <h4 class="popover-content-title">
-                    {{ achievement.title }}
-                  </h4>
-                  <div
-                    class="popover-content-text"
-                    v-html="achievement.text"
-                  ></div>
-                </b-popover>
-                <div
-                  v-if="achievement.earned"
-                  class="achievement"
-                  :class="achievement.icon + '2x'"
-                >
-                  <div
-                    v-if="achievement.optionalCount"
-                    class="counter badge badge-pill stack-count"
+                  {{ $t('sendMessage') }}
+                </button>
+              </router-link>
+
+              <!-- KEBAB MENU DROPDOWN -->
+              <b-dropdown
+                right="right"
+                toggle-class="with-icon"
+                class="mx-auto"
+                :no-caret="true"
+              >
+                <template #button-content>
+                  <span
+                    v-once
+                    class="svg-icon dots-icon with-icon"
+                    v-html="icons.dots"
                   >
-                    {{ achievement.optionalCount }}
-                  </div>
-                </div>
+                  </span>
+                </template>
+
+                <!-- SEND GIFT -->
+                <b-dropdown-item
+                  class="selectListItem"
+                  @click="openSendGemsModal()"
+                >
+                  <span class="with-icon">
+                    <span
+                      v-once
+                      class="svg-icon icon-16 color"
+                      v-html="icons.gift"
+                    ></span>
+                    <span
+                      v-once
+                      class="send-gift"
+                    >
+                      {{ $t('sendGift') }}
+                    </span>
+                  </span>
+                </b-dropdown-item>
+
+                <!-- REPORT PLAYER -->
+                <b-dropdown-item
+                  class="selectListItem"
+                  :class="{ disabled: !canReport }"
+                  :disabled="!canReport"
+                  @click="reportPlayer()"
+                >
+                  <span class="with-icon">
+                    <span
+                      v-once
+                      class="svg-icon icon-16 color"
+                      v-html="icons.report"
+                    ></span>
+                    <span v-once>
+                      {{ $t('reportPlayer') }}
+                    </span>
+                  </span>
+                </b-dropdown-item>
+
+                <!-- BLOCK PLAYER -->
+                <b-dropdown-item
+                  v-if="!userBlocked"
+                  class="selectListItem block-ban"
+                  @click.native.capture.stop="blockUser()"
+                >
+                  <span class="with-icon">
+                    <span
+                      v-once
+                      class="svg-icon icon-16 color"
+                      v-html="icons.block"
+                    ></span>
+                    <span v-once>
+                      {{ $t('blockPlayer') }}
+                    </span>
+                  </span>
+                </b-dropdown-item>
+                <b-dropdown-item
+                  v-else
+                  class="selectListItem block-ban"
+                  @click.native.capture.stop="unblockUser()"
+                >
+                  <span class="with-icon">
+                    <span
+                      v-once
+                      class="svg-icon icon-16 color"
+                      v-html="icons.block"
+                    ></span>
+                    <span v-once>
+                      {{ $t('unblock') }}
+                    </span>
+                  </span>
+                </b-dropdown-item>
+
+                <!-- REST OF DROPDOWN ONLY VISIBLE IF ADMIN -->
                 <div
-                  v-if="!achievement.earned"
-                  class="achievement achievement-unearned achievement-unearned2x"
-                ></div>
+                  v-if="hasPermission(userLoggedIn, 'moderator')"
+                >
+                  <!-- ADMIN TOOLS HEADER -->
+                  <div
+                    class="admin-tools-divider"
+                  >
+                    <span v-once>
+                      <strong>{{ $t('adminTools') }}</strong>
+                    </span>
+                  </div>
+
+                  <!-- ADMIN PANEL -->
+                  <b-dropdown-item
+                    v-if="hasPermission(userLoggedIn, 'userSupport')"
+                    class="selectListItem"
+                    @click="openAdminPanel()"
+                  >
+                    <span class="with-icon">
+                      <span
+                        v-once
+                        class="svg-icon icon-16 color"
+                        v-html="icons.crown"
+                      ></span>
+                      <span v-once>
+                        {{ $t('viewAdminPanel') }}
+                      </span>
+                    </span>
+                  </b-dropdown-item>
+
+                  <!-- BAN USER -->
+                  <b-dropdown-item
+                    v-if="!hero.auth.blocked"
+                    class="selectListItem block-ban"
+                    @click.native.capture.stop="adminToggleBan()"
+                  >
+                    <span class="with-icon">
+                      <span
+                        v-once
+                        class="svg-icon icon-16 color"
+                        v-html="icons.block"
+                      ></span>
+                      <span v-once>
+                        {{ $t('banPlayer') }}
+                      </span>
+                    </span>
+                  </b-dropdown-item>
+                  <b-dropdown-item
+                    v-else
+                    class="selectListItem block-ban"
+                    @click.native.capture.stop="adminToggleBan()"
+                  >
+                    <span class="with-icon">
+                      <span
+                        v-once
+                        class="svg-icon icon-16 color"
+                        v-html="icons.block"
+                      ></span>
+                      <span v-once>
+                        {{ $t('unbanPlayer') }}
+                      </span>
+                    </span>
+                  </b-dropdown-item>
+
+                  <!-- SHADOW MUTE PLAYER WITH TOGGLE -->
+                  <b-dropdown-item
+                    class="selectListItem"
+                    @click.native.capture.stop="adminToggleShadowMute()"
+                  >
+                    <span class="with-icon">
+                      <span
+                        v-once
+                        class="svg-icon icon-16 color"
+                        v-html="icons.shadowMute"
+                      ></span>
+                      <span
+                        v-once
+                        class="admin-action"
+                      >
+                        {{ $t('shadowMute') }}
+                      </span>
+                      <toggle-switch
+                        v-model="hero.flags.chatShadowMuted"
+                        class="toggle-switch-outer ml-auto"
+                        @change.native.capture.stop="adminToggleShadowMute()"
+                      />
+                    </span>
+                  </b-dropdown-item>
+
+                  <!-- MUTE PLAYER WITH TOGGLE -->
+                  <b-dropdown-item
+                    class="selectListItem"
+                    @click.native.capture.stop="adminToggleChatRevoke()"
+                  >
+                    <span class="with-icon">
+                      <span
+                        v-once
+                        class="svg-icon icon-16 color"
+                        v-html="icons.mute"
+                      ></span>
+                      <span v-once>
+                        {{ $t('mutePlayer') }}
+                      </span>
+                      <toggle-switch
+                        v-model="hero.flags.chatRevoked"
+                        class="toggle-switch-outer ml-auto"
+                        @change.native.capture.stop="adminToggleChatRevoke()"
+                      />
+                    </span>
+                  </b-dropdown-item>
+                </div>
+              </b-dropdown>
+            </span>
+
+            <!-- ACCOUNT DATES, LOG IN COUNTER -->
+            <div class="info profile-section">
+              <div class="info-item">
+                <div class="info-item-label">
+                  {{ $t('joined') }}:
+                </div>
+                <div class="info-item-value">
+                  {{ userJoinedDate }}
+                </div>
+              </div>
+              <div class="info-item">
+                <div class="info-item-label">
+                  {{ $t('totalLogins') }}:
+                </div>
+                <div class="info-item-value">
+                  {{ user.loginIncentives }}
+                </div>
+              </div>
+              <div class="info-item">
+                <div class="info-item-label">
+                  {{ $t('latestCheckin') }}:
+                </div>
+                <div class="info-item-value">
+                  {{ userLastLoggedIn }}
+                </div>
+              </div>
+              <div class="info-item">
+                <div class="info-item-label">
+                  {{ $t('nextReward') }}:
+                </div>
+                <div class="info-item-value">
+                  {{ getNextIncentive() }} {{ getNextIncentive() === 1 ? $t('day') : $t('days') }}
+                </div>
               </div>
             </div>
           </div>
-          <div
-            v-if="achievementsCategories[key].number > 5"
-            class="btn btn-flat btn-show-more"
-            @click="toggleAchievementsCategory(key)"
-          >
-            {{ achievementsCategories[key].open ?
-              $t('hideAchievements', {category: $t(`${key}Achievs`)}) :
-              $t('showAllAchievements', {category: $t(`${key}Achievs`)})
-            }}
+        </div>
+        <!-- EDITING PROFILE -->
+        <div
+          v-if="editing"
+          class="row"
+        >
+          <h1>{{ $t('editProfile') }}</h1>
+          <div class="">
+            <div
+              class="alert alert-info alert-sm"
+              v-html="$t('communityGuidelinesWarning', managerEmail)"
+            ></div>
+            <!-- TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak-->
+            <div class="form-group">
+              <label>{{ $t('displayName') }}</label>
+              <input
+                v-model="editingProfile.name"
+                class="form-control"
+                type="text"
+                :placeholder="$t('fullName')"
+              >
+            </div>
+            <div class="form-group">
+              <label>{{ $t('photoUrl') }}</label>
+              <input
+                v-model="editingProfile.imageUrl"
+                class="form-control"
+                type="url"
+                :placeholder="$t('imageUrl')"
+              >
+            </div>
+            <div class="form-group">
+              <label>{{ $t('about') }}</label>
+              <textarea
+                v-model="editingProfile.blurb"
+                class="form-control"
+                rows="5"
+                :placeholder="$t('displayBlurbPlaceholder')"
+              ></textarea>
+              <!-- include ../../shared/formatting-help-->
+            </div>
+          </div>
+          <div class=" text-center">
+            <button
+              class="btn btn-primary"
+              @click="save()"
+            >
+              {{ $t("save") }}
+            </button>
+            <button
+              class="btn btn-secondary"
+              @click="editing = false"
+            >
+              {{ $t("cancel") }}
+            </button>
           </div>
         </div>
       </div>
-      <hr class="col-12">
-      <div class="row">
+      <!-- ACHIEVEMENTS -->
+      <div
+        v-show="selectedPage === 'achievements'"
+        v-if="user.achievements"
+        id="achievements"
+        class="standard-page container "
+      >
         <div
-          v-if="user.achievements.challenges"
-          class="col-12 col-md-6"
+          v-for="(category, key) in achievements"
+          :key="key"
+          class="row category-row d-flex flex-column"
         >
-          <div class="achievement-icon achievement-karaoke-2x"></div>
-          <h3 class="text-center mt-2 mb-4">
-            {{ $t('challengesWon') }}
+          <h3 class="text-center">
+            {{ $t(`${key}Achievs`) }}
           </h3>
-          <div
-            v-for="chal in user.achievements.challenges"
-            :key="chal"
-            class="achievement-list-item"
-          >
-            <span v-markdown="chal"></span>
-          </div>
-        </div>
-        <div
-          v-if="user.achievements.quests"
-          class="col-12 col-md-6"
-        >
-          <div class="achievement-icon achievement-alien2x"></div>
-          <h3 class="text-center mt-2 mb-4">
-            {{ $t('questsCompleted') }}
-          </h3>
-          <div
-            v-for="(value, key) in user.achievements.quests"
-            :key="key"
-            class="achievement-list-item d-flex justify-content-between"
-          >
-            <span>{{ content.quests[key].text() }}</span>
-            <span
-              v-if="value > 1"
-              class="badge badge-pill stack-count"
+          <div class="">
+            <div class="row achievements-row justify-content-center">
+              <div
+                v-for="(achievement, achievKey) in achievementsCategory(key, category)"
+                :key="achievKey"
+                class="achievement-wrapper col text-center"
+              >
+                <div
+                  :id="achievKey + '-achievement'"
+                  class="box achievement-container d-flex justify-content-center align-items-middle"
+                  :class="{'achievement-unearned': !achievement.earned}"
+                >
+                  <b-popover
+                    :target="'#' + achievKey + '-achievement'"
+                    triggers="hover"
+                    placement="top"
+                  >
+                    <h4 class="popover-content-title">
+                      {{ achievement.title }}
+                    </h4>
+                    <div
+                      class="popover-content-text"
+                      v-html="achievement.text"
+                    ></div>
+                  </b-popover>
+                  <div
+                    v-if="achievement.earned"
+                    class="achievement m-auto"
+                    :class="achievement.icon + '2x'"
+                  >
+                    <div
+                      v-if="achievement.optionalCount"
+                      class="counter badge badge-pill stack-count"
+                    >
+                      {{ achievement.optionalCount }}
+                    </div>
+                  </div>
+                  <div
+                    v-if="!achievement.earned"
+                    class="achievement achievement-unearned achievement-unearned2x m-auto"
+                  ></div>
+                </div>
+              </div>
+            </div>
+            <div
+              v-if="achievementsCategories[key].number > 5"
+              class="btn btn-flat btn-show-more"
+              @click="toggleAchievementsCategory(key)"
             >
-              {{ value }}
-            </span>
+              {{ achievementsCategories[key].open ?
+                $t('hideAchievements', {category: $t(`${key}Achievs`)}) :
+                $t('showAllAchievements', {category: $t(`${key}Achievs`)})
+              }}
+            </div>
           </div>
         </div>
+        <hr class="">
+        <div class="row">
+          <div
+            v-if="user.achievements.challenges"
+            class="col-12 col-md-6"
+          >
+            <div class="achievement-icon achievement-karaoke-2x"></div>
+            <h3 class="text-center">
+              {{ $t('challengesWon') }}
+            </h3>
+            <div
+              v-for="chal in user.achievements.challenges"
+              :key="chal"
+              class="achievement-list-item"
+            >
+              <span v-markdown="chal"></span>
+            </div>
+          </div>
+          <div
+            v-if="user.achievements.quests"
+            class="col-12 col-md-6"
+          >
+            <div class="achievement-icon achievement-alien2x"></div>
+            <h3 class="text-center">
+              {{ $t('questsCompleted') }}
+            </h3>
+            <div
+              v-for="(value, key) in user.achievements.quests"
+              :key="key"
+              class="achievement-list-item d-flex justify-content-between"
+            >
+              <span>{{ content.quests[key].text() }}</span>
+              <span
+                v-if="value > 1"
+                class="badge badge-pill stack-count"
+              >
+                {{ value }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- STATS -->
+      <div>
+        <profileStats
+          v-show="selectedPage === 'stats'"
+          v-if="user.preferences"
+          :user="user"
+          :show-allocation="showAllocation()"
+        />
       </div>
     </div>
-    <profileStats
-      v-show="selectedPage === 'stats'"
-      v-if="user.preferences"
-      :user="user"
-      :show-allocation="showAllocation()"
-    />
   </div>
 </template>
 
 <style lang="scss" >
   @import '~@/assets/scss/colors.scss';
 
-  .profile {
-    .member-details {
-      .character-name, small, .small-text {
-        color: #878190;
+  #userProfile {
+
+    .dropdown-menu {
+      margin-left: -48px;
+      width: 210px;
+    }
+
+    .dropdown-item {
+      svg {
+        color: $gray-50;
+      }
+      &.disabled {
+        color: $gray-50 !important;
+        opacity: 0.75;
+        svg {
+          color: $gray-50;
+          opacity: 0.75;
+        }
+      }
+      &:not(.disabled):hover, &:not(.disabled):focus {
+        a, svg {
+          color: $purple-300;
+        }
       }
     }
 
-    .standard-page {
-      padding-bottom: 0rem;
+    .drawer-toggle-icon {
+      position: absolute;
+      right: 16px;
+      bottom: 0;
+
+      &.closed {
+        top: 10px;
+      }
     }
 
-    .modal-content {
-      background: #f9f9f9;
+    .toggle-switch-outer {
+      margin-bottom: 2px;
+    }
+
+    .selectListItem {
+      &:not(.disabled):hover svg {
+        color: $purple-300;
+      }
+      &.block-ban {
+        &:hover, .dropdown-item:hover {
+          color: $maroon-50 !important;
+          background-color: rgba($red-500, 0.25) !important;
+          svg {
+            color: $maroon-50;
+          }
+        }
+        &:focus, .dropdown-item:focus {
+          color: $maroon-50 !important;
+          svg {
+            color: $maroon-50;
+          }
+        &:active, .dropdown-item:active {
+          color: $gray-50 !important;
+        }
+        }
+      }
+    }
+  }
+
+  .profile {
+    .member-details {
+      background-color: $white;
+    }
+
+    .avatar-container {
+      padding-top: 16px;
     }
 
     .progress-container > .progress {
       background-color: $gray-500 !important;
+      border-radius: 2px;
       height: 16px !important;
+      min-width: 375px !important;
       vertical-align: middle !important;
 
       .progress-bar {
@@ -457,8 +645,82 @@
       }
     }
 
-    .profile-name-character {
-      margin-left: 4px !important;
+    .progress-container > .svg-icon {
+      width: 28px;
+      margin-top: -2px !important;
+      height: 28px;
+      margin-right: 8px;
+    }
+
+    .profile-first-row,
+    .progress-container {
+      margin-left: 4px;
+      margin-top: 4px;
+
+      .small-text {
+        color: $gray-50;
+      }
+    }
+
+    .character-name {
+      color: $gray-50;
+      font-weight: bold;
+      height: 24px;
+      line-height: 1.71;
+      margin-bottom: 0px;
+    }
+
+    small {
+      color: $gray-50;
+      font-size: 0.75em;
+      line-height: 1.33;
+    }
+  }
+
+</style>
+
+<style lang="scss" scoped>
+  @import '~@/assets/scss/colors.scss';
+
+  .avatar {
+    width: fit-content;
+  }
+
+  .header {
+    width: 100%;
+  }
+
+  .markdown p {
+    padding-bottom: 24px;
+  }
+
+  .standard-page {
+    background-color: $gray-700;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding-top: 0px;
+  }
+
+  .flex-container {
+    display: flex;
+    flex-direction: row;
+    padding-top: 18px;
+  }
+
+  .flex-left {
+    width: 424px;
+  }
+
+  .flex-right {
+    width: 188px;
+  }
+
+  .admin-profile-actions {
+    margin-bottom: 48px;
+
+    .admin-action {
+      color: $red-500;
+      cursor: pointer;
     }
   }
 
@@ -467,69 +729,24 @@
     margin-top: 1px;
   }
 
-  .gift-icon svg {
-    height: 14px;
+  .dots-icon {
+    height: 16px;
+    width: 4px;
   }
 
-</style>
-
-<style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
-
-  .header {
-    width: 100%;
+  .toggle-switch-outer {
+    margin-bottom: 2px;
   }
 
-  .admin-profile-actions {
-    margin-bottom: 3em;
-
-    .admin-action {
-      color: blue;
-      cursor: pointer;
-      padding: 0 1em;
+  .photo {
+    img {
+      max-width: 100%;
     }
-  }
-
-  .profile-actions {
-    float: right;
-    margin-right: 1em;
-
-    button {
-      width: 32px;
-      height: 32px;
-      padding: 0.5em;
-      margin-right: 0.5em;
-    }
-  }
-
-  .message-icon,
-  .gift-icon {
-    width: 14px;
-    margin: auto;
-    color: $gray-100;
-  }
-
-  .gift-icon {
-    width: 12px;
-  }
-
-  .block-icon {
-    width: 16px;
-    color: $gray-100;
-  }
-
-  .positive-icon {
-    width: 14px;
-    color: $gray-100;
-  }
-
-  .photo img {
-    max-width: 100%;
   }
 
   .header {
     h1 {
-      color: $purple-200;
+      color: $gray-50;
       margin-bottom: 0.2rem;
     }
 
@@ -538,22 +755,42 @@
     }
   }
 
-  .nav {
+  .blocked-banned {
+    background-color: $maroon-100;
+    border-radius: 4px;
+    color: $white;
+    line-height: 1.71;
+
+    svg {
+      color: $white;
+    }
+  }
+
+  .state-pages {
+    background-color: $gray-700;
+    margin-left: 0px;
+    margin-right: 0px;
     width: 100%;
+  }
+
+  .nav {
+    font-size: 0.75rem;
     font-weight: bold;
-    min-height: 40px;
     justify-content: center;
+    min-height: 40px;
+    padding-top: 16px;
+    width: 100%;
   }
 
   .nav-item {
+    color: $gray-50;
     display: inline-block;
-    margin: 0 1.2em;
-    padding: 1em;
+    margin: 0 8px 8px 6px;
   }
 
   .nav-item:hover, .nav-item.active {
-    color: #4f2a93;
-    border-bottom: 2px solid #4f2a93;
+    border-bottom: 2px solid $purple-300;
+    color: $purple-300;
     cursor: pointer;
   }
 
@@ -562,9 +799,105 @@
     font-size: 16px;
   }
 
+  .white {
+    background: $white;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.15), 0 1px 4px 0 rgba(26, 24, 29, 0.1);
+  }
+
+  .item-wrapper {
+    h3 {
+      text-align: center;
+    }
+  }
+
+  .profile-section {
+    h2 {
+      color: $gray-50;
+      margin-bottom: 20px !important;
+      overflow: hidden;
+      size: 1.125em;
+    }
+  }
+
+  .about {
+    line-height: 1.71;
+  }
+
+ .edit-profile {
+    font-size: 1em;
+    margin-left: 24px;
+    padding: 4px 16px;
+    width: 188px;
+  }
+
+  .send-message {
+    font-size: 1em;
+    line-height: 1.71;
+    margin-left: 24px;
+    margin-right: 8px;
+    margin-top: 0px;
+    width: 148px;
+  }
+
+  .dot-menu {
+    height: 32px;
+    margin-right: -24px;
+    width: 32px;
+  }
+
+  .send-gift {
+    margin-top: 3px;
+  }
+
+  .admin-tools-divider {
+    color: $gray-50;
+    cursor: default;
+    background-color: $gray-700;
+    font-size: 0.875em;
+    line-height: 1.71;
+    padding: 4px 12px;
+    height: 32px;
+  }
+
+  .info {
+    margin-top: 16px;
+    line-height: 1.71;
+    size: 0.875em;
+    width: 212px;
+
+    .info-item {
+      color: $gray-50;
+      margin-bottom: 4px;
+      margin-left: 24px;
+
+      .info-item-label {
+        display: inline-block;
+        font-weight: bold;
+      }
+
+      .info-item-value {
+        float: right;
+      }
+    }
+  }
+
+  .achievement {
+    margin: 0 auto;
+  }
+
+  .box {
+    border: dotted 1px #c3c0c7;
+    border-radius: 2px;
+    height: 92px;
+    width: 94px;
+  }
+
   #achievements {
     .category-row {
       margin-bottom: 34px;
+      justify-content: center;
 
       &:last-child {
         margin-bottom: 0px;
@@ -572,24 +905,23 @@
     }
 
     .achievements-row {
-      max-width: 590px;
       margin: 0 auto;
+      max-width: 590px;
     }
 
     .achievement-wrapper {
-      width: 94px;
+      margin-left: 12px;
+      margin-right: 12px;
       max-width: 94px;
       min-width: 94px;
-      margin-right: 12px;
-      margin-left: 12px;
       padding: 0px;
+      width: 94px;
     }
 
     .box {
-      margin: 0 auto;
-      margin-bottom: 1em;
-      padding-top: 1.2em;
       background: $white;
+      margin: 0 auto;
+      margin-bottom: 16px;
     }
 
     hr {
@@ -602,12 +934,12 @@
     }
 
     .counter.badge {
-      position: absolute;
-      top: -0.8em;
-      right: -0.5em;
-      color: $white;
       background-color: $orange-100;
+      color: $white;
       max-height: 24px;
+      position: absolute;
+      right: -8px;
+      top: -12.8px;
     }
 
     .achievement-icon {
@@ -615,113 +947,20 @@
     }
 
     .achievement-list-item {
-      padding-top: 11px;
-      padding-bottom: 12px;
       border-top: 1px solid $gray-500;
+      padding-bottom: 12px;
+      padding-top: 11px;
 
       &:last-child {
         border-bottom: 1px solid $gray-500;
       }
 
       .badge {
-        margin-right: 8px;
         background: $gray-600;
         color: $gray-300;
         height: fit-content;
+        margin-right: 8px;
       }
-    }
-  }
-
-  .achievement {
-    margin: 0 auto;
-  }
-
-  .box {
-    width: 94px;
-    height: 92px;
-    border-radius: 2px;
-    border: dotted 1px #c3c0c7;
-  }
-
-  .white {
-    border-radius: 2px;
-    background: #FFFFFF;
-    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.15), 0 1px 4px 0 rgba(26, 24, 29, 0.1);
-    border: 1px solid transparent;
-  }
-
-  .item-wrapper {
-    h3 {
-      text-align: center;
-    }
-  }
-
-    .member-details {
-      .character-name, small, .small-text {
-        color: #878190;
-      }
-
-      .progress-container > .progress {
-        border-radius: 1px;
-        background-color: $gray-500;
-      }
-    }
-
-  .profile-section {
-    h2 {
-      overflow: hidden;
-      size: 16px;
-      color: $gray-50;
-    }
-    h2:after {
-      background-color: $gray-500;
-      content: "";
-      display: inline-block;
-      height: 1px;
-      position: relative;
-      vertical-align: middle;
-      width: 100%;
-    }
-  }
-
-  .info {
-
-    .info-item {
-      color: $gray-200;
-      size: 14px;
-      margin-bottom: 8px;
-
-      .info-item-label {
-        font-weight: bold;
-        display: inline-block;
-      }
-
-      .info-item-value {
-        display: inline-block;
-        float: right;
-      }
-    }
-
-    .progress {
-      height: 8px;
-      border-radius: 1px;
-
-      .progress-bar {
-        border-radius: 1px;
-        background-color: $green-10 !important;
-      }
-    }
-  }
-
-  @media (max-width: 990px) {
-    .profile-actions {
-      flex-direction: column;
-    }
-    .profile-actions :not(:last-child) {
-      margin-bottom: 15px;
-    }
-    .profile-actions {
-      margin-right: 0;
     }
   }
 
@@ -735,17 +974,19 @@
   }
 </style>
 
+// eslint-disable-next-line vue/component-tags-order
 <script>
 import moment from 'moment';
 import axios from 'axios';
 import each from 'lodash/each';
 import cloneDeep from 'lodash/cloneDeep';
+import achievementsLib from '@/../../common/script/libs/achievements';
+import Content from '@/../../common/script/content';
+import toggleSwitch from '../ui/toggleSwitch';
 import { mapState } from '@/libs/store';
 
 import MemberDetails from '../memberDetails';
 import markdown from '@/directives/markdown';
-import achievementsLib from '@/../../common/script/libs/achievements';
-import Content from '@/../../common/script/content';
 import profileStats from './profileStats';
 
 import message from '@/assets/svg/message.svg';
@@ -758,6 +999,10 @@ import lock from '@/assets/svg/lock.svg';
 import challenge from '@/assets/svg/challenge.svg';
 import member from '@/assets/svg/member-icon.svg';
 import staff from '@/assets/svg/tier-staff.svg';
+import report from '@/assets/svg/report.svg';
+import crown from '@/assets/svg/crown.svg';
+import mute from '@/assets/svg/mute.svg';
+import shadowMute from '@/assets/svg/shadow-mute.svg';
 import error404 from '../404';
 import externalLinks from '../../mixins/externalLinks';
 import { userCustomStateMixin } from '../../mixins/userState';
@@ -772,6 +1017,7 @@ export default {
     MemberDetails,
     profileStats,
     error404,
+    toggleSwitch,
   },
   mixins: [externalLinks, userCustomStateMixin('userLoggedIn')],
   props: ['userId', 'startingPage'],
@@ -788,8 +1034,11 @@ export default {
         lock,
         member,
         staff,
+        report,
+        crown,
+        mute,
+        shadowMute,
       }),
-      adminToolsLoaded: false,
       userIdToMessage: '',
       editing: false,
       editingProfile: {
@@ -808,6 +1057,7 @@ export default {
       user: null,
       userLoaded: false,
       oldTitle: null,
+      isOpened: true,
     };
   },
   computed: {
@@ -828,10 +1078,6 @@ export default {
     costumeItems () {
       return this.user.items.gear.costume;
     },
-    incentivesProgress () {
-      return this.getIncentivesProgress();
-    },
-
     classText () {
       const classTexts = {
         warrior: this.$t('warrior'),
@@ -847,6 +1093,24 @@ export default {
     },
     hasClass () {
       return this.$store.getters['members:hasClass'](this.userLoggedIn);
+    },
+    isOpen () {
+      // Open status is a number so we can tell if the value was passed
+      if (this.openStatus !== undefined) return this.openStatus === 1;
+      return this.isOpened;
+    },
+    userBlocked () {
+      return this.userLoggedIn.inbox.blocks.indexOf(this.user._id) !== -1;
+    },
+    // userBanned () {
+    //   return this.userLoggedIn.auth.blocked.valueOf(this.user._id.auth.blocked);
+    // },
+    canReport () {
+      if (!this.user || !this.user.profile || !this.user.profile.flags) {
+        return true;
+      }
+      return Boolean(this.hasPermission(this.userLoggedIn, 'moderator')
+        || !this.user.profile.flags[this.userLoggedIn._id]);
     },
   },
   watch: {
@@ -865,6 +1129,9 @@ export default {
     this.oldTitle = this.$store.state.title;
     this.handleExternalLinks();
     this.selectPage(this.startingPage);
+    this.$root.$on('habitica:report-profile-result', () => {
+      this.loadUser();
+    });
   },
   updated () {
     this.handleExternalLinks();
@@ -875,6 +1142,7 @@ export default {
         fullTitle: this.oldTitle,
       });
     }
+    this.$root.$off('habitica:report-profile-result');
   },
   methods: {
     async loadUser () {
@@ -884,7 +1152,6 @@ export default {
       this.editing = false;
       this.hero = {};
       this.userLoaded = false;
-      this.adminToolsLoaded = false;
 
       const profileUserId = this.userId;
 
@@ -934,6 +1201,10 @@ export default {
         this.user = user;
       }
 
+      if (this.hasPermission(this.userLoggedIn, 'moderator')) {
+        this.hero = await this.$store.dispatch('hall:getHero', { uuid: this.user._id });
+      }
+
       this.userLoaded = true;
     },
     selectPage (page) {
@@ -944,132 +1215,119 @@ export default {
         subSection: this.$t(this.startingPage),
       });
     },
-    getProgressDisplay () {
-      // let currentLoginDay = Content.loginIncentives[this.user.loginIncentives];
-      // if (!currentLoginDay) return this.$t('checkinReceivedAllRewardsMessage');
-      // let nextRewardAt = currentLoginDay.nextRewardAt;
-      // if (!nextRewardAt) return this.$t('moreIncentivesComingSoon');
-      // // if we are on a reward day, let's show progress relative to this
-      // if (currentLoginDay.reward) currentLoginDay.prevRewardKey = this.user.loginIncentives;
-      // if (!currentLoginDay.prevRewardKey) currentLoginDay.prevRewardKey = 0;
-      //
-      // let start = this.user.loginIncentives - currentLoginDay.prevRewardKey;
-      // let end = nextRewardAt - currentLoginDay.prevRewardKey;
-      // return `${this.$t('checkinProgressTitle')} ${start}/${end}`;
-    },
-    getIncentivesProgress () {
+    getNextIncentive () {
       const currentLoginDay = Content.loginIncentives[this.user.loginIncentives];
       if (!currentLoginDay) return 0;
-      const previousRewardDay = currentLoginDay.prevRewardKey;
+      const previousRewardDay = currentLoginDay.prevRewardKey || 0;
       const { nextRewardAt } = currentLoginDay;
-      return ((this.user.loginIncentives - previousRewardDay)
-        / (nextRewardAt - previousRewardDay)) * 100;
+      return ((nextRewardAt - previousRewardDay));
     },
-    save () {
+    async save () {
       const values = {};
-
       const edits = cloneDeep(this.editingProfile);
+      const oldProfile = cloneDeep(this.user.profile);
 
       each(edits, (value, key) => {
         // Using toString because we need to compare two arrays (websites)
         const curVal = this.user.profile[key];
-
         if (!curVal || value.toString() !== curVal.toString()) {
           values[`profile.${key}`] = value;
           this.$set(this.user.profile, key, value);
         }
       });
 
-      this.$store.dispatch('user:set', values);
-
+      await this.$store.dispatch('user:set', values).catch(() => {
+        this.user.profile = oldProfile;
+        this.editingProfile.name = this.user.profile.name;
+        this.editingProfile.imageUrl = this.user.profile.imageUrl;
+        this.editingProfile.blurb = this.user.profile.blurb;
+      });
       this.editing = false;
     },
+
     blockUser () {
       this.userLoggedIn.inbox.blocks.push(this.user._id);
       axios.post(`/api/v4/user/block/${this.user._id}`);
     },
+
     unblockUser () {
       const index = this.userLoggedIn.inbox.blocks.indexOf(this.user._id);
       this.userLoggedIn.inbox.blocks.splice(index, 1);
       axios.post(`/api/v4/user/block/${this.user._id}`);
     },
+
     openSendGemsModal () {
       this.$store.state.giftModalOptions.startingPage = 'buyGems';
       this.$root.$emit('habitica::send-gift', this.user);
     },
-    adminTurnOnShadowMuting () {
+
+    adminToggleShadowMute () {
       if (!this.hero.flags) {
         this.hero.flags = {};
-      }
-      this.hero.flags.chatShadowMuted = true;
-
-      this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
-    },
-    adminTurnOffShadowMuting () {
-      if (!this.hero.flags) {
-        this.hero.flags = {};
-      }
-      this.hero.flags.chatShadowMuted = false;
-
-      this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
-    },
-    adminRevokeChat () {
-      if (!this.hero.flags) {
-        this.hero.flags = {};
-      }
-      this.hero.flags.chatRevoked = true;
-
-      this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
-    },
-    adminReinstateChat () {
-      if (!this.hero.flags) {
-        this.hero.flags = {};
-      }
-      this.hero.flags.chatRevoked = false;
-
-      this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
-    },
-    adminBlockUser () {
-      this.hero.auth.blocked = true;
-
-      this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
-    },
-    adminUnblockUser () {
-      this.hero.auth.blocked = false;
-
-      this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
-    },
-    async toggleAdminTools () {
-      if (this.adminToolsLoaded) {
-        this.adminToolsLoaded = false;
+        this.hero.flags.chatShadowMuted = true;
       } else {
-        this.hero = await this.$store.dispatch('hall:getHero', { uuid: this.user._id });
-        this.adminToolsLoaded = true;
+        this.hero.flags.chatShadowMuted = !this.hero.flags.chatShadowMuted;
       }
+      this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
     },
+
+    adminToggleChatRevoke () {
+      if (!this.hero.flags) {
+        this.hero.flags = {};
+        this.hero.flags.chatRevoked = true;
+      } else {
+        this.hero.flags.chatRevoked = !this.hero.flags.chatRevoked;
+      }
+      this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
+    },
+
+    adminToggleBan () {
+      this.hero.auth.blocked = !this.hero.auth.blocked;
+      this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
+    },
+
     showAllocation () {
       return this.user._id === this.userLoggedIn._id && this.hasClass;
     },
+
     achievementsCategory (categoryKey, category) {
       const achievementsKeys = Object.keys(category.achievements);
-
       if (this.achievementsCategories[categoryKey].open === true) {
         return category.achievements;
       }
-
       const fiveAchievements = achievementsKeys.slice(0, 5);
-
       const categoryAchievements = {};
-
       fiveAchievements.forEach(key => {
         categoryAchievements[key] = category.achievements[key];
       });
-
       return categoryAchievements;
     },
+
     toggleAchievementsCategory (categoryKey) {
       const status = this.achievementsCategories[categoryKey].open;
       this.achievementsCategories[categoryKey].open = !status;
+    },
+
+    toggle () {
+      this.isOpened = !this.isOpen;
+      this.$emit('toggled', this.isOpened);
+    },
+
+    open () {
+      this.isOpened = true;
+      this.$emit('toggled', this.isOpened);
+    },
+
+    reportPlayer () {
+      this.$root.$emit('habitica::report-profile', {
+        memberId: this.user._id,
+        displayName: this.user.profile.name,
+        username: this.user.auth.local.username,
+      });
+    },
+
+    openAdminPanel () {
+      this.$router.push(`/admin-panel/${this.hero._id}`);
     },
   },
 };

@@ -1,10 +1,10 @@
 <template>
   <base-banner
+    v-if="showChatWarning"
     banner-id="chat-warning"
     banner-class="chat-banner"
     class="chat-banner"
     height="3rem"
-    v-if="showChatWarning"
     :class="{faq: faqPage}"
   >
     <div
@@ -56,10 +56,7 @@ export default {
       return (this.$route.fullPath.indexOf('/faq')) !== -1;
     },
     showChatWarning () {
-      if (this.$route.fullPath.indexOf('/groups') !== -1) return true;
-      if (this.$route.fullPath.indexOf('/tavern-and-guilds') !== -1) return false;
-      if (this.$route.fullPath.indexOf('/tavern') !== -1) return true;
-      return this.faqPage;
+      return false;
     },
   },
 };

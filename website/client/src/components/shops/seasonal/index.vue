@@ -346,6 +346,11 @@ import _sortBy from 'lodash/sortBy';
 import _throttle from 'lodash/throttle';
 import _groupBy from 'lodash/groupBy';
 import _reverse from 'lodash/reverse';
+import _find from 'lodash/find';
+import isPinned from '@/../../common/script/libs/isPinned';
+import getOfficialPinnedItems from '@/../../common/script/libs/getOfficialPinnedItems';
+import i18n from '@/../../common/script/i18n';
+import shops from '@/../../common/script/libs/shops';
 import { mapState } from '@/libs/store';
 
 import Checkbox from '@/components/ui/checkbox';
@@ -361,12 +366,6 @@ import svgWizard from '@/assets/svg/wizard.svg';
 import svgRogue from '@/assets/svg/rogue.svg';
 import svgHealer from '@/assets/svg/healer.svg';
 
-import isPinned from '@/../../common/script/libs/isPinned';
-import getOfficialPinnedItems from '@/../../common/script/libs/getOfficialPinnedItems';
-
-import i18n from '@/../../common/script/i18n';
-
-import shops from '@/../../common/script/libs/shops';
 import SelectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
 import FilterSidebar from '@/components/ui/filterSidebar';
 import FilterGroup from '@/components/ui/filterGroup';
@@ -413,7 +412,7 @@ export default {
 
       hidePinned: false,
       featuredGearBought: false,
-
+      currentEvent: null,
       backgroundUpdate: new Date(),
     };
   },
@@ -422,7 +421,7 @@ export default {
       content: 'content',
       user: 'user.data',
       userStats: 'user.data.stats',
-      currentEvent: 'worldState.data.currentEvent',
+      currentEventList: 'worldState.data.currentEventList',
     }),
 
     usersOfficalPinnedItems () {
@@ -518,6 +517,7 @@ export default {
     });
 
     this.triggerGetWorldState();
+    this.currentEvent = _find(this.currentEventList, event => Boolean(['winter', 'spring', 'summer', 'fall'].includes(event.season)));
   },
   beforeDestroy () {
     this.$root.$off('buyModal::boughtItem');

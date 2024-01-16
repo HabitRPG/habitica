@@ -11,8 +11,6 @@
     <low-health />
     <level-up />
     <choose-class />
-    <testing />
-    <testingletiant />
     <rebirth-enabled />
     <contributor />
     <won-challenge />
@@ -111,8 +109,8 @@ import Vue from 'vue';
 import { toNextLevel } from '@/../../common/script/statHelpers';
 import { shouldDo } from '@/../../common/script/cron';
 import { onOnboardingComplete } from '@/../../common/script/libs/onboarding';
-import { mapState } from '@/libs/store';
 import { MAX_LEVEL_HARD_CAP } from '@/../../common/script/constants';
+import { mapState } from '@/libs/store';
 import notifications from '@/mixins/notifications';
 import guide from '@/mixins/guide';
 import { CONSTANTS, setLocalSetting } from '@/libs/userlocalManager';
@@ -127,8 +125,6 @@ import chooseClass from './achievements/chooseClass';
 import armoireEmpty from './achievements/armoireEmpty';
 import questCompleted from './achievements/questCompleted';
 import questInvitation from './achievements/questInvitation';
-import testing from './achievements/testing';
-import testingletiant from './achievements/testingletiant';
 import rebirthEnabled from './achievements/rebirthEnabled';
 import contributor from './achievements/contributor';
 import invitedFriend from './achievements/invitedFriend';
@@ -269,8 +265,6 @@ export default {
     armoireEmpty,
     questCompleted,
     questInvitation,
-    testing,
-    testingletiant,
     rebirthEnabled,
     contributor,
     loginIncentives,
@@ -300,7 +294,6 @@ export default {
       // general notifications
       'CRON',
       'FIRST_DROPS',
-      'GUILD_PROMPT',
       'LOGIN_INCENTIVE',
       'NEW_CONTRIBUTOR_LEVEL',
       'ONBOARDING_COMPLETE',
@@ -346,7 +339,6 @@ export default {
       userMp: 'user.data.stats.mp',
       userNotifications: 'user.data.notifications',
       userAchievements: 'user.data.achievements', // @TODO: does this watch deeply?
-      armoireEmpty: 'user.data.flags.armoireEmpty',
       questCompleted: 'user.data.party.quest.completed',
     }),
     userClassSelect () {
@@ -416,10 +408,6 @@ export default {
     userNotifications (after) {
       if (this.user.needsCron) return;
       this.handleUserNotifications(after);
-    },
-    armoireEmpty (after, before) {
-      if (after === before || after === false) return;
-      this.$root.$emit('bv::show::modal', 'armoire-empty');
     },
     questCompleted () {
       if (!this.questCompleted) return;
@@ -703,14 +691,6 @@ export default {
               this.$store.state.firstDropsOptions.egg = notification.data.egg;
               this.$store.state.firstDropsOptions.hatchingPotion = notification.data.hatchingPotion;
               this.$root.$emit('bv::show::modal', 'first-drops');
-            }
-            break;
-          case 'GUILD_PROMPT':
-            // @TODO: I'm pretty sure we can find better names for these
-            if (notification.data.textletiant === -1) {
-              this.$root.$emit('bv::show::modal', 'testing');
-            } else {
-              this.$root.$emit('bv::show::modal', 'testingletiant');
             }
             break;
           case 'REBIRTH_ENABLED':

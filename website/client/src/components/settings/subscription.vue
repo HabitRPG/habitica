@@ -279,7 +279,10 @@
             </div>
           </div>
 
-          <div class="mt-4 nextHourglassDescription" v-once>
+          <div
+            v-once
+            class="mt-4 nextHourglassDescription"
+          >
             *{{ $t('nextHourglassDescription') }}
           </div>
         </div>
@@ -616,10 +619,11 @@
 <script>
 import axios from 'axios';
 import moment from 'moment';
-import { mapState } from '@/libs/store';
-
 import subscriptionBlocks from '@/../../common/script/content/subscriptionBlocks';
 import planGemLimits from '@/../../common/script/libs/planGemLimits';
+import { getPlanContext } from '@/../../common/script/cron';
+import { mapState } from '@/libs/store';
+
 import paymentsMixin from '../../mixins/payments';
 import notificationsMixin from '../../mixins/notifications';
 
@@ -640,7 +644,6 @@ import logo from '@/assets/svg/habitica-logo-purple.svg';
 import paypalLogo from '@/assets/svg/paypal-logo.svg';
 import subscriberGems from '@/assets/svg/subscriber-gems.svg';
 import subscriberHourglasses from '@/assets/svg/subscriber-hourglasses.svg';
-import { getPlanContext } from '@/../../common/script/cron';
 
 export default {
   components: {

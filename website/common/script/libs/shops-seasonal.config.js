@@ -29,22 +29,25 @@ export default {
 
   pinnedSets: CURRENT_EVENT
     ? {
-      rogue: 'summer2023GuppyRogueSet',
-      warrior: 'summer2023GoldfishWarriorSet',
-      wizard: 'summer2023CoralMageSet',
-      healer: 'summer2023KelpHealerSet',
+      rogue: 'winter2024SnowyOwlRogueSet',
+      warrior: 'winter2024PeppermintBarkWarriorSet',
+      wizard: 'winter2024NarwhalWizardMageSet',
+      healer: 'winter2024FrozenHealerSet',
     }
     : {},
 
-  availableSpells: CURRENT_EVENT && moment().isBetween('2023-07-11T08:00-04:00', CURRENT_EVENT.end)
+  availableSpells: CURRENT_EVENT && moment().isBetween('2024-01-09T08:00-04:00', CURRENT_EVENT.end)
     ? [
-      'seafoam',
+      'snowball',
     ]
     : [],
 
-  availableQuests: CURRENT_EVENT && moment().isBetween('2023-07-11T08:00-04:00', CURRENT_EVENT.end)
-    ? []
+  availableQuests: CURRENT_EVENT && moment().isBetween(CURRENT_EVENT.start, CURRENT_EVENT.end)
+    ? [
+      'evilsanta',
+      'evilsanta2',
+    ]
     : [],
 
-  featuredSet: 'summer2022MantaRayMageSet',
+  featuredSet: 'winter2019PoinsettiaSet',
 };

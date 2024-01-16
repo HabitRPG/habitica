@@ -1,10 +1,10 @@
 <template>
   <div
-    class="member-details"
-    :class="{ condensed, expanded, 'd-flex': isHeader, row: !isHeader, }"
+    class="member-details d-flex"
+    :class="{ condensed, expanded }"
     @click="showMemberModal(member)"
   >
-    <div class="avatar-container" :class="{ 'col-4': !isHeader }">
+    <div class="avatar-container">
       <avatar
         :member="member"
         :hide-class-badge="classBadgePosition !== 'under-avatar'"
@@ -15,14 +15,17 @@
     </div>
     <div
       class="member-stats"
-      :class="{'col-8': !expanded && !isHeader}"
+      :class="{ 'mt-2': !isHeader }"
     >
       <div class="d-flex align-items-center profile-first-row">
         <class-badge
           v-if="classBadgePosition === 'next-to-name'"
           :member-class="member.stats.class"
         />
-        <div class="d-flex flex-column profile-name-character">
+        <div
+          class="d-flex flex-column"
+          :class="{ 'ml-2': classBadgePosition === 'next-to-name' }"
+        >
           <h3 class="character-name">
             <span v-if="member.contributor && member.contributor.level > 0 && !disableNameStyling">
               <user-link
@@ -30,18 +33,22 @@
                 :name="member.profile.name"
                 :backer="member.backer"
                 :contributor="member.contributor"
+                :show-buffed="isBuffed"
+                :context="'profile'"
               />
             </span>
-            <span v-else>{{ member.profile.name }}</span>
-            <div
-              v-if="isBuffed"
-              v-b-tooltip.hover.bottom="$t('buffed')"
-              class="is-buffed"
-            >
+            <div v-else>
+              <span>{{ member.profile.name }}</span>
               <div
-                class="svg-icon"
-                v-html="icons.buff"
-              ></div>
+                v-if="isBuffed"
+                v-b-tooltip.hover.bottom="$t('buffed')"
+                class="is-buffed ml-2 mt-n1"
+              >
+                <div
+                  class="svg-icon"
+                  v-html="icons.buff"
+                ></div>
+              </div>
             </div>
           </h3>
           <div class="small-text character-level">
@@ -98,9 +105,12 @@
     }
   }
 
+  .standard-page .member-details {
+    padding-left: 24px;
+  }
+
   .member-stats {
     padding-left: 12px;
-    padding-right: 24px;
     opacity: 1;
     transition: width 0.15s ease-out;
   }
@@ -112,10 +122,6 @@
 
   .small-text {
     color: $header-color;
-  }
-
-  .profile-name-character {
-    margin-left: 12px;
   }
 
   .character-name {
@@ -133,7 +139,6 @@
     height: 20px;
     background: $header-dark-background;
     display: inline-block;
-    margin-left: 16px;
     vertical-align: middle;
     padding-top: 4px;
 
@@ -179,15 +184,14 @@
 </style>
 
 <script>
+import { toNextLevel } from '@/../../common/script/statHelpers';
+import statsComputed from '@/../../common/script/libs/statsComputed';
+import percent from '@/../../common/script/libs/percent';
 import Avatar from './avatar';
 import ClassBadge from './members/classBadge';
 import { mapState } from '@/libs/store';
 import StatsBar from './ui/statsbar';
 import userLink from './userLink';
-
-import { toNextLevel } from '@/../../common/script/statHelpers';
-import statsComputed from '@/../../common/script/libs/statsComputed';
-import percent from '@/../../common/script/libs/percent';
 
 import buffIcon from '@/assets/svg/buff.svg';
 import healthIcon from '@/assets/svg/health.svg';
@@ -270,6 +274,9 @@ export default {
   methods: {
     percent,
     showMemberModal (member) {
+      if (this.$route.name === 'userProfile' && this.$route.params?.userId === member._id) {
+        return;
+      }
       this.$router.push({ name: 'userProfile', params: { userId: member._id } });
     },
   },

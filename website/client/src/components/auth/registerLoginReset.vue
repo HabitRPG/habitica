@@ -615,9 +615,9 @@ import hello from 'hellojs';
 import debounce from 'lodash/debounce';
 import isEmail from 'validator/lib/isEmail';
 import DOMPurify from 'dompurify';
+import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
 import { buildAppleAuthUrl } from '../../libs/auth';
 
-import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
 import exclamation from '@/assets/svg/exclamation.svg';
 import gryphon from '@/assets/svg/gryphon.svg';
 import habiticaIcon from '@/assets/svg/habitica-logo.svg';
@@ -731,6 +731,8 @@ export default {
     },
   },
   mounted () {
+    this.forgotPassword = this.$route.path.startsWith('/forgot-password');
+
     hello.init({
       google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line
     });

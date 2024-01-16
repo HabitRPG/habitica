@@ -92,7 +92,7 @@
                 :item="item"
                 :price="item.goldValue ? item.goldValue : item.value"
                 :price-type="item.goldValue ? 'gold' : 'gem'"
-                :item-content-class="'inventory_quest_scroll_'+item.key"
+                :item-content-class="`inventory_quest_scroll_${item.key}`"
                 :empty-item="false"
                 :popover-position="'top'"
                 @click="selectItem(item)"
@@ -405,6 +405,8 @@ import _groupBy from 'lodash/groupBy';
 import _map from 'lodash/map';
 import _each from 'lodash/each';
 import * as stopword from 'stopword/dist/stopword.esm.mjs';
+import shops from '@/../../common/script/libs/shops';
+import isPinned from '@/../../common/script/libs/isPinned';
 import { mapState } from '@/libs/store';
 
 import ShopItem from '../shopItem';
@@ -420,9 +422,6 @@ import BuyModal from './buyQuestModal.vue';
 import PinBadge from '@/components/ui/pinBadge';
 import QuestInfo from './questInfo.vue';
 
-import shops from '@/../../common/script/libs/shops';
-
-import isPinned from '@/../../common/script/libs/isPinned';
 import FilterSidebar from '@/components/ui/filterSidebar';
 import FilterGroup from '@/components/ui/filterGroup';
 import SelectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
@@ -447,7 +446,6 @@ function removeStopwordsFromText (text, language) {
     de: stopword.deu,
     en: stopword.eng,
     en_GB: stopword.eng,
-    'en@pirate': stopword.eng.concat(["th'"]),
     es: stopword.spa,
     es_419: stopword.spa,
     fr: stopword.fra,
@@ -463,7 +461,6 @@ function removeStopwordsFromText (text, language) {
     ro: stopword.ron,
     ru: stopword.rus,
     sk: stopword.slv,
-    // sr: stopword.,
     sv: stopword.swe,
     tr: stopword.tur,
     uk: stopword.ukr,

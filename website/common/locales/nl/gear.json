@@ -2519,5 +2519,13 @@
     "weaponArmoireHuntingHornText": "Jachthoorn",
     "weaponMystery202306Text": "Regenboog Paraplu",
     "weaponSpecialSummer2023HealerText": "Wuifende Kelp",
-    "weaponArmoireBlueKiteText": "Blauwe Vlieger"
+    "weaponArmoireBlueKiteText": "Blauwe Vlieger",
+    "weaponSpecialSummer2023HealerNotes": "Ze zien er misschien leuk uit, maar worden zeer nors als je hun \"planten\" noemt. Verhoog Intelligentie bij <%=int%>. Beperkte Oplage 2023 Zomer Gerei.",
+    "weaponSpecialFall2023RogueText": "Soupernatuurlijk Lepel",
+    "weaponSpecialFall2023RogueNotes": "Het heeft een hele sterke roerder nodig om bubbles en zwoegende problemen te coken. Verhoogt Kracht met <%= str %>.. Beperkte Oplage 2023 Herfstuitrusting.",
+    "weaponSpecialFall2023WarriorText": "Lekkere Popcorn",
+    "weaponSpecialFall2023WarriorNotes": "Het meest enge ding van alle is de gedachte van een enge film avond zonder snacks! Verhoogt Kracht met <%= str %>. Beperkte Oplage 2023 Herfstuitrusting.",
+    "weaponSpecialFall2023MageText": "Schijnde Staf",
+    "weaponSpecialFall2023HealerText": "Log grote hamer",
+    "weaponSpecialFall2023HealerNotes": "Met langzaam, zware aanvalen, deze knoestige hamer doet een genezing klap inplaats van schade. Verhoogt Intelligentie met <%= int %>. Beperkte Oplage 2023 Herfstuitrusting."
 }

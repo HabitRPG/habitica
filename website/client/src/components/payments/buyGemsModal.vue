@@ -165,13 +165,22 @@
           v-if="eventName === 'fall_extra_gems' || eventName === 'spooky_extra_gems'"
           class="d-flex flex-column justify-content-center"
         >
-          <h4 class="mt-3 mx-auto"> {{ $t('howItWorks') }}</h4>
+          <h4 class="mt-3 mx-auto">
+            {{ $t('howItWorks') }}
+          </h4>
           <small class="text-center">
             {{ $t('gemSaleHow', { eventStartMonth, eventStartOrdinal, eventEndOrdinal }) }}
           </small>
-          <h4 class="mt-3 mx-auto"> {{ $t('limitations') }}</h4>
+          <h4 class="mt-3 mx-auto">
+            {{ $t('limitations') }}
+          </h4>
           <small class="text-center">
-            {{ $t('gemSaleLimitations', { eventStartMonth, eventStartOrdinal, eventEndOrdinal }) }}
+            {{ $t('gemSaleLimitations', {
+              eventStartMonth,
+              eventStartOrdinal,
+              eventEndMonth,
+              eventEndOrdinal,
+            }) }}
           </small>
         </div>
       </div>
@@ -184,7 +193,6 @@
 
   #buy-gems {
     small {
-      color: $gray-100;
       font-size: 12px;
       margin-left: 20px;
       margin-right: 20px;
@@ -440,6 +448,9 @@ export default {
     },
     eventStartOrdinal () {
       return moment(this.currentEvent.start).format('Do');
+    },
+    eventEndMonth () {
+      return moment(this.currentEvent.end).format('MMMM');
     },
     eventEndOrdinal () {
       return moment(this.currentEvent.end).format('Do');

@@ -2852,5 +2852,20 @@
     "weaponSpecialSummer2023HealerText": "摇摆的海带",
     "weaponArmoirePaintbrushText": "画笔",
     "armorSpecialSummer2023RogueText": "古皮包装",
-    "armorSpecialSummer2023WarriorText": "金鱼战甲"
+    "armorSpecialSummer2023WarriorText": "金鱼战甲",
+    "eyewearMystery202308Notes": "你困吗，还是只是闭目养神，期待下一场精彩的战斗？没有属性加成。2023年 8月 订阅者物品。",
+    "eyewearMystery202308Text": "睡眼",
+    "headAccessoryMystery202309Notes": "这些触角不但羽流时髦，还能帮你导航！没有属性加成。2023年 9月 订阅者物品。",
+    "headAccessoryMystery202309Text": "庞大的彗星蛾的触角",
+    "headAccessoryMystery202307Notes": "这威武的圆环召唤风暴和气旋！没有属性加成。2023年7月订阅者物品。",
+    "headAccessoryMystery202307Text": "海怪的王冠",
+    "headAccessoryMystery202305Notes": "这些触角在反射的月光下闪闪发光。没有属性加成。2023年5月订阅者物品。",
+    "headAccessoryMystery202305Text": "黄昏触角",
+    "armorMystery202304Text": "绝品茶壶盔甲",
+    "headMystery202304Notes": "戴上这顶头盔，你就可以喝到安心茶了。没有属性加成。2023年4月订阅者物品。",
+    "headAccessorySpecialHeroicCircletText": "英勇圆环",
+    "armorMystery202304Notes": "这是你的壶柄！那是你的壶口！没有属性加成。2023年4月订阅者物品。",
+    "headArmoireBeaniePropellerHatText": "毛线帽的螺旋桨帽",
+    "headMystery202304Text": "绝品茶壶盖",
+    "headArmoireBeaniePropellerHatNotes": "现在不是脚踏实地的时候！旋转这个小螺旋桨，上升到你的野心所能达到的高度。增加全属性<%= attrs %>点。魔法衣橱：独立装备。"
 }

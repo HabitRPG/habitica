@@ -144,5 +144,13 @@
     "achievementShadyCustomerModalText": "Você coletou todos os Mascotes Sombrios!",
     "achievementShadeOfItAll": "A Sombra de Tudo",
     "achievementShadeOfItAllText": "Domesticou todas as Montarias Sombrias.",
-    "achievementShadeOfItAllModalText": "Você Domesticou todas as Montarias Sombrias!"
+    "achievementShadeOfItAllModalText": "Você Domesticou todas as Montarias Sombrias!",
+    "achievementPlantParentText": "Eclodiu todos os mascotes planta de cor padrão: Cacto e Árvore!",
+    "achievementPlantParent": "Pai de Planta",
+    "achievementPlantParentModalText": "Você coletou todos os mascotes planta!",
+    "achievementDinosaurDynasty": "Dinastia do Dinossauro",
+    "achievementDinosaurDynastyText": "Eclodiu todas as cores padrão dos mascote pássaros e dinossauro: Falcão, Coruja, Papagaio, Pavão, Pinguim, Galo, Pterodáctilo, Tiranossauro Rex, Tricerátops e Velociraptor!",
+    "achievementDinosaurDynastyModalText": "Você coletou todos os mascotes pássaro e dinossauro!",
+    "achievementBonelessBoss": "Chefão sem Osso",
+    "achievementBonelessBossModalText": "Você coletou todos os mascotes invertebrados!"
 }

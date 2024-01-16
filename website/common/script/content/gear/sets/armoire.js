@@ -1,6 +1,7 @@
 import defaults from 'lodash/defaults';
 import find from 'lodash/find';
 import forEach from 'lodash/forEach';
+import moment from 'moment';
 import upperFirst from 'lodash/upperFirst';
 import { ownsItem } from '../gear-helper';
 import { ATTRIBUTES } from '../../../constants';
@@ -439,6 +440,23 @@ const armor = {
     str: 7,
     set: 'admiralsSet',
   },
+  karateGi: {
+    str: 10,
+    set: 'karateSet',
+  },
+  greenFluffTrimmedCoat: {
+    str: 8,
+    int: 8,
+    set: 'greenTrapper',
+  },
+  schoolUniformSkirt: {
+    int: 5,
+    set: 'schoolUniform',
+  },
+  schoolUniformPants: {
+    int: 5,
+    set: 'schoolUniform',
+  },
 };
 
 const body = {
@@ -457,6 +475,42 @@ const body = {
     con: 2,
     per: 2,
     set: 'clown',
+  },
+  karateYellowBelt: {
+    per: 3,
+    set: 'karateSet',
+  },
+  karateWhiteBelt: {
+    int: 3,
+    set: 'karateSet',
+  },
+  karateRedBelt: {
+    per: 3,
+    set: 'karateSet',
+  },
+  karatePurpleBelt: {
+    con: 3,
+    set: 'karateSet',
+  },
+  karateOrangeBelt: {
+    con: 3,
+    set: 'karateSet',
+  },
+  karateGreenBelt: {
+    str: 3,
+    set: 'karateSet',
+  },
+  karateBrownBelt: {
+    str: 3,
+    set: 'karateSet',
+  },
+  karateBlueBelt: {
+    con: 3,
+    set: 'karateSet',
+  },
+  karateBlackBelt: {
+    int: 3,
+    set: 'karateSet',
   },
 };
 
@@ -879,6 +933,21 @@ const head = {
     per: 7,
     set: 'admiralsSet',
   },
+  blackSpookySorceryHat: {
+    int: 5,
+    con: 3,
+    set: 'somethingSpooky',
+  },
+  purpleSpookySorceryHat: {
+    per: 5,
+    con: 3,
+    set: 'somethingSpooky',
+  },
+  greenTrapperHat: {
+    con: 6,
+    per: 6,
+    set: 'greenTrapper',
+  },
 };
 
 const shield = {
@@ -1192,6 +1261,19 @@ const shield = {
   paintersPalette: {
     str: 7,
     set: 'painters',
+  },
+  bucket: {
+    str: 4,
+    int: 4,
+    set: 'cleaningSuppliesTwo',
+  },
+  saucepan: {
+    per: 10,
+    set: 'cookingImplementsTwo',
+  },
+  trustyPencil: {
+    int: 10,
+    set: 'schoolUniform',
   },
 };
 
@@ -1639,6 +1721,36 @@ const weapon = {
     int: 8,
     set: 'painters',
   },
+  mop: {
+    con: 4,
+    per: 4,
+    set: 'cleaningSuppliesTwo',
+  },
+  cleaningCloth: {
+    str: 4,
+    con: 4,
+    set: 'cleaningSuppliesTwo',
+  },
+  ridingBroom: {
+    str: 5,
+    int: 3,
+    set: 'somethingSpooky',
+  },
+  rollingPin: {
+    str: 10,
+    set: 'cookingImplementsTwo',
+  },
+  scholarlyTextbooks: {
+    int: 10,
+    set: 'schoolUniform',
+  },
+};
+
+const releaseDates = {
+  somethingSpooky: '2023-10-10T08:00-04:00',
+  cookingImplementsTwo: '2023-11-07T08:00-05:00',
+  greenTrapper: '2023-12-05T08:00-05:00',
+  schoolUniform: '2024-01-04T08:00-05:00',
 };
 
 forEach({
@@ -1674,11 +1786,15 @@ forEach({
       notes = t(`${setKey}Armoire${upperFirst(gearKey)}Notes`);
     }
     defaults(gearItem, {
+      released: releaseDates[gearItem.set] ? moment().isAfter(releaseDates[gearItem.set]) : true,
       canOwn: ownsItem(`${setKey}_armoire_${gearKey}`),
       notes,
       text: t(`${setKey}Armoire${upperFirst(gearKey)}Text`),
       value: 100,
     });
+    if (gearItem.released === false) {
+      delete set[gearKey];
+    }
   });
 });
 

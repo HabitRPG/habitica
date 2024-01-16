@@ -1,8 +1,8 @@
 {
     "tavern": "在酒馆里闲谈",
     "tavernChat": "酒馆",
-    "innCheckOutBanner": "你已入住客栈。未完成的每日任务不会对你造成伤害，但你也无法通过完成任务取得副本进展。",
-    "innCheckOutBannerShort": "你现在入住了酒馆。",
+    "innCheckOutBanner": "你已暂停伤害。未完成的每日任务不会对你造成伤害，但你也无法通过完成任务取得副本进展。",
+    "innCheckOutBannerShort": "你现在暂停了伤害。",
     "resumeDamage": "继续伤害",
     "helpfulLinks": "有帮助的链接",
     "communityGuidelinesLink": "社区准则",
@@ -190,7 +190,7 @@
     "needsWork": "需要处理",
     "viewRequests": "查看申请",
     "groupSubscriptionPrice": "每月9美元+每个额外组员每月3美元",
-    "groupBenefitsDescription": "不久前我们推出了团队计划的Beta测试版！现在就升级到团队计划来解锁一些新功能（比如社交方面）吧。",
+    "groupBenefitsDescription": "不久前我们推出了Beta版团队计划！现在就升级到团队计划，解锁社交等方面的新功能吧。",
     "teamBasedTasks": "团队任务",
     "cannotDeleteActiveGroup": "该小组的订购计划尚在进行中，你无法将其解散",
     "groupTasksTitle": "团队任务列表",
@@ -418,5 +418,15 @@
     "groupUse": "哪一点最适合用来描述您的团队用途？*",
     "nextPaymentMethod": "下一步：付款方式",
     "sendGiftLabel": "您想通过私信发送礼物吗？",
-    "invitedToPartyBy": "<a href=\"/profile/<%- userId %>\" target=\"_blank\">@<%- userName %></a>邀请你加入队伍<span class=\"notification-bold\"><%- party %></span>"
+    "invitedToPartyBy": "<a href=\"/profile/<%- userId %>\" target=\"_blank\">@<%- userName %></a>邀请你加入队伍<span class=\"notification-bold\"><%- party %></span>",
+    "lookForParty": "寻找队伍",
+    "languageLabel": "语言：",
+    "sendTotal": "总计：",
+    "findPartyMembers": "寻找队友",
+    "noOneLooking": "目前没有玩家想要加入新队伍。<br>稍后再来吧！",
+    "lookingForPartyTitle": "寻找队友",
+    "findMorePartyMembers": "寻找更多队友",
+    "classLabel": "职业：",
+    "checkinsLabel": "总签到次数：",
+    "invitedToYourParty": "<strong>已邀请！</strong>&nbsp;&nbsp;点击可取消邀请"
 }

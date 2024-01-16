@@ -10,10 +10,68 @@ const gemsPromo = {
 
 export const EVENTS = {
   noEvent: {
-    start: '2023-08-01T23:59-04:00',
-    end: '2023-08-31T08:00-04:00',
+    start: '2024-02-01T00:00-05:00',
+    end: '2024-03-20T08:00-05:00',
     season: 'normal',
     npcImageSuffix: '',
+  },
+  nye2023: {
+    start: '2023-12-28T08:00-05:00',
+    end: '2024-01-04T23:59-05:00',
+    season: 'nye',
+    npcImageSuffix: '_nye',
+  },
+  winter2024: {
+    start: '2023-12-19T08:00-05:00',
+    end: '2024-01-31T23:59-05:00',
+    npcImageSuffix: '_winter',
+    season: 'winter',
+    gear: true,
+  },
+  g1g12023: {
+    start: '2023-12-18T08:00-05:00',
+    end: '2024-01-09T23:59-05:00',
+    promo: 'g1g1',
+  },
+  potions202311: {
+    start: '2023-11-14T08:00-04:00',
+    end: '2023-11-30T23:59-04:00',
+  },
+  bundle202311: {
+    start: '2023-11-09T08:00-04:00',
+    end: '2023-11-30T23:59-04:00',
+  },
+  spooky_extra_gems: {
+    start: '2023-10-24T08:00-04:00',
+    end: '2023-10-31T23:59-04:00',
+    gemsPromo,
+  },
+  bundle202310: {
+    start: '2023-10-17T08:00-04:00',
+    end: '2023-10-31T23:59-04:00',
+  },
+  potions202310: {
+    start: '2023-09-21T08:00-04:00',
+    end: '2023-10-31T23:59-04:00',
+  },
+  fall2023: {
+    start: '2023-09-21T08:00-04:00',
+    end: '2023-10-31T23:59-04:00',
+    npcImageSuffix: '_fall',
+    season: 'fall',
+    gear: true,
+  },
+  bundle202309: {
+    start: '2023-09-12T08:00-04:00',
+    end: '2023-09-30T23:59-04:00',
+  },
+  bundle202308: {
+    start: '2023-08-15T08:00-04:00',
+    end: '2023-08-31T23:59-04:00',
+  },
+  potions202308: {
+    start: '2023-08-15T08:00-04:00',
+    end: '2023-08-31T23:59-04:00',
   },
   summer2023: {
     start: '2023-06-20T08:00-04:00',
@@ -104,11 +162,6 @@ export const EVENTS = {
     npcImageSuffix: '_fall',
     season: 'fall',
     gear: true,
-  },
-  spooky_extra_gems: {
-    start: '2022-10-27T08:00-04:00',
-    end: '2022-10-31T20:00-04:00',
-    gemsPromo,
   },
   fall_extra_gems: {
     start: '2022-10-06T08:00-04:00',

@@ -37,5 +37,5 @@ if (CORES !== 0 && cluster.isMaster && (IS_DEV || IS_PROD)) {
     logger.info(`[${new Date()}] [master:${process.pid}] worker:${worker.process.pid} disconnect! new worker:${w.process.pid} fork`);
   });
 } else {
-  module.exports = require('./server.js');
+  module.exports = require('./server');
 }

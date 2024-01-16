@@ -49,7 +49,7 @@
               key-prop="value"
               @select="changeSortOption($event)"
             >
-              <template v-slot:item="{ item }">
+              <template #item="{ item }">
                 <span
                   v-if="item"
                   class="label"
@@ -64,7 +64,7 @@
               key-prop="value"
               @select="changeSortDirection($event)"
             >
-              <template v-slot:item="{ item }">
+              <template #item="{ item }">
                 <span
                   v-if="item"
                   class="label"
@@ -84,7 +84,7 @@
         v-if="invites.length > 0"
         class="row"
       >
-        <div class="col-6 offset-3 nav">
+        <div class="col-6 offset-3 nav mt-2 mb-3">
           <div
             class="nav-item"
             :class="{active: selectedPage === 'members'}"
@@ -111,17 +111,18 @@
           :key="member._id"
           class="row"
         >
-          <div class="col-11 no-padding-left">
+          <div class="col-11 pl-0">
             <member-details
               :member="member"
               :class-badge-position="'next-to-name'"
+              class="ml-4"
             />
           </div>
           <div class="col-1 actions">
             <b-dropdown right="right">
               <div
                 slot="button-content"
-                class="svg-icon inline dots"
+                class="svg-icon inline dots pt-1"
                 v-html="icons.dots"
               ></div>
               <b-dropdown-item @click="sendMessage(member)">
@@ -216,7 +217,7 @@
           :key="member._id"
           class="row"
         >
-          <div class="col-11 no-padding-left">
+          <div class="col-11 pl-0">
             <member-details :member="member" />
           </div>
           <div class="col-1 actions">
@@ -259,10 +260,6 @@
       color: #878190;
     }
 
-    .no-padding-left {
-      padding-left: 0;
-    }
-
     .modal-body {
       padding-left: 0;
       padding-right: 0;
@@ -303,20 +300,14 @@
   }
 
   .actions {
-    padding-top: 5em;
-
+    .b-dropdown {
+      position: absolute;
+      right: 24px;
+      top: 8px;
+    }
     .dots {
       height: 16px;
       width: 4px;
-    }
-
-    .btn-group {
-      margin-left: -2em;
-      margin-top: -2em;
-    }
-
-    .action-icon {
-      margin-right: 1em;
     }
   }
 
@@ -353,8 +344,6 @@
 
   .nav {
     font-weight: bold;
-    margin-bottom: .5em;
-    margin-top: .5em;
   }
 
   .nav-item {

@@ -126,17 +126,11 @@ api.createGroup = {
     if (validationErrors) throw validationErrors;
 
     if (group.type === 'guild') {
-      if (group.privacy === 'public' && user.flags.chatRevoked) throw new NotAuthorized(res.t('chatPrivilegesRevoked'));
-      if (user.balance < 1) throw new NotAuthorized(res.t('messageInsufficientGems'));
-
-      group.balance = 1;
-
-      await user.updateBalance(-1, 'create_guild', group._id, group.name);
-      user.guilds.push(group._id);
-      if (!user.achievements.joinedGuild) {
-        user.achievements.joinedGuild = true;
-        user.addNotification('GUILD_JOINED_ACHIEVEMENT');
+      if (!user.hasPermission('fullAccess')) {
+        throw new BadRequest(res.t('featureRetired'));
       }
+      group.balance = 1;
+      user.guilds.push(group._id);
     } else {
       if (group.privacy !== 'private') throw new NotAuthorized(res.t('partyMustbePrivate'));
       if (user.party._id) throw new NotAuthorized(res.t('messageGroupAlreadyInParty'));
@@ -327,7 +321,7 @@ api.getGroups = {
       throw new BadRequest(apiError('guildsOnlyPaginate'));
     }
 
-    const groupFields = basicGroupFields.concat(' description memberCount balance');
+    const groupFields = basicGroupFields.concat(' description memberCount balance leaderOnly');
     const sort = '-memberCount';
 
     const filters = {};
@@ -493,7 +487,9 @@ api.updateGroup = {
     if (group.leader !== user._id && group.type === 'party') throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
     else if (group.leader !== user._id && !user.hasPermission('moderator')) throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
 
-    if (req.body.leader !== user._id && group.hasNotCancelled()) throw new NotAuthorized(res.t('cannotChangeLeaderWithActiveGroupPlan'));
+    if (req.body.leader && req.body.leader !== user._id && group.hasNotCancelled()) {
+      throw new NotAuthorized(res.t('cannotChangeLeaderWithActiveGroupPlan'));
+    }
 
     const handleArrays = (currentValue, updatedValue) => {
       if (!_.isArray(currentValue)) {
@@ -568,6 +564,7 @@ api.joinGroup = {
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     let isUserInvited = false;
+    const seekingParty = Boolean(user.party.seeking);
 
     if (group.type === 'party') {
       // Check if was invited to party
@@ -733,12 +730,11 @@ api.joinGroup = {
       invited: isUserInvited,
     };
     if (group.type === 'party') {
-      analyticsObject.seekingParty = Boolean(user.party.seeking);
+      analyticsObject.seekingParty = seekingParty;
     }
     if (group.privacy === 'public') {
       analyticsObject.groupName = group.name;
     }
-    user.party.seeking = undefined;
 
     if (inviter) promises.push(inviter.save());
     promises = await Promise.all(promises);

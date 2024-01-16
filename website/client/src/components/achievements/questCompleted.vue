@@ -54,9 +54,9 @@
 <script>
 import * as quests from '@/../../common/script/content/quests';
 
-import { mapState } from '@/libs/store';
 import percent from '@/../../common/script/libs/percent';
 import { MAX_HEALTH as maxHealth } from '@/../../common/script/constants';
+import { mapState } from '@/libs/store';
 import QuestRewards from '../shops/quests/questRewards';
 
 export default {
@@ -91,6 +91,7 @@ export default {
       this.close();
     },
     hide () {
+      this.$store.dispatch('user:statSync');
       this.$store.dispatch('user:set', { 'party.quest.completed': '' });
     },
   },

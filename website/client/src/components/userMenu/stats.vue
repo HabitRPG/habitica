@@ -147,10 +147,10 @@
           class="row"
         >
           <div
-            class="col-4"
             :id="statInfo.title"
+            class="col-4"
           >
-            <strong> {{ $t(statInfo.title)}} </strong>
+            <strong> {{ $t(statInfo.title) }} </strong>
             <strong>: {{ statsComputed[stat] }}</strong>
             <b-popover
               :target="statInfo.title"
@@ -442,13 +442,13 @@
 <script>
 import size from 'lodash/size';
 import keys from 'lodash/keys';
-import { mapState } from '@/libs/store';
 import Content from '@/../../common/script/content';
 import { beastMasterProgress, mountMasterProgress } from '@/../../common/script/count';
 import statsComputed from '@/../../common/script/libs/statsComputed';
 import autoAllocate from '@/../../common/script/fns/autoAllocate';
 import changeClass from '@/../../common/script/ops/changeClass';
 import allocate from '@/../../common/script/ops/stats/allocate';
+import { mapState } from '@/libs/store';
 
 const DROP_ANIMALS = keys(Content.pets);
 const TOTAL_NUMBER_OF_DROP_ANIMALS = DROP_ANIMALS.length;

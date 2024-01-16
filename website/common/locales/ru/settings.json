@@ -2,7 +2,7 @@
     "settings": "Настройки",
     "language": "Язык",
     "americanEnglishGovern": "В случае несоответствия информации в переводах, правильной следует считать версию на американском английском.",
-    "helpWithTranslation": "Хотите помочь с переводом Habitica? Отлично! Посетите гильдию <a href=\"/groups/guild/7732f64c-33ee-4cce-873c-fc28f147a6f7\">Aspiring Linguists</a>!",
+    "helpWithTranslation": "Хотите помочь с переводом Habitica? Отлично! Посетите гильдию <a href=\"https://translate.habitica.com\">Habitica's Weblate site</a>!",
     "stickyHeader": "Закрепить область персонажа",
     "newTaskEdit": "Открывать режим редактирования для новых заданий",
     "dailyDueDefaultView": "Вкладка «Сегодня» отображается в Ежедневных заданиях по умолчанию",

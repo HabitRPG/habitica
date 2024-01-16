@@ -203,16 +203,15 @@
         <template
           v-if="task.type !== 'reward'"
         >
-          <div class="d-flex mt-3">
+          <div class="d-flex mt-3 align-items-center">
             <lockable-label
               :locked="challengeAccessRequired"
               :text="$t('difficulty')"
             />
-            <div
-              v-b-tooltip.hover.righttop="$t('difficultyHelp')"
-              class="svg-icon info-icon mb-auto ml-1"
-              v-html="icons.information"
-            ></div>
+            <information-icon
+              tooltip-id="difficultyHelp"
+              :tooltip="$t('difficultyHelp')"
+            />
           </div>
           <select-difficulty
             :value="task.priority"
@@ -452,7 +451,7 @@
           >
             <div>
               <div
-                v-if="task.type === 'daily' && isUserTask && purpose === 'edit'"
+                v-if="advancedSettingsShowRestoreStreak"
                 class="option mt-3"
               >
                 <div class="form-group">
@@ -479,8 +478,7 @@
                 </div>
               </div>
               <div
-                v-if="task.type === 'habit'
-                  && isUserTask && purpose === 'edit' && (task.up || task.down)"
+                v-if="advancedSettingsShowAdjustCounter"
                 class="option mt-3"
               >
                 <div class="form-group">
@@ -536,6 +534,31 @@
                         >
                       </div>
                     </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                v-if="advancedSettingsShowTaskAlias"
+                class="option mt-3"
+              >
+                <div class="form-group">
+                  <label
+                    v-once
+                    class="mb-1"
+                  >{{ $t('taskAlias') }}
+
+                    <information-icon
+                      tooltip-id="taskAlias"
+                      :tooltip="$t('taskAliasPopover')"
+                    />
+                  </label>
+                  <div class="input-group">
+                    <input
+                      v-model="task.alias"
+                      class="form-control"
+                      :placeholder="$t('taskAliasPlaceholder')"
+                      type="text"
+                    >
                   </div>
                 </div>
               </div>
@@ -882,6 +905,11 @@
     height: 1rem;
   }
 
+  label {
+    display: inline-flex;
+    align-items: center;
+  }
+
   .habit-option {
     &-container {
       min-width: 3rem;
@@ -997,7 +1025,6 @@ import lockableLabel from '@/components/tasks/modal-controls/lockableLabel';
 
 import syncTask from '../../mixins/syncTask';
 
-import informationIcon from '@/assets/svg/information.svg';
 import positiveIcon from '@/assets/svg/positive.svg';
 import negativeIcon from '@/assets/svg/negative.svg';
 import streakIcon from '@/assets/svg/streak.svg';
@@ -1006,10 +1033,11 @@ import goldIcon from '@/assets/svg/gold.svg';
 import chevronIcon from '@/assets/svg/chevron.svg';
 import calendarIcon from '@/assets/svg/calendar.svg';
 import gripIcon from '@/assets/svg/grip.svg';
-
+import InformationIcon from '@/components/ui/informationIcon.vue';
 
 export default {
   components: {
+    InformationIcon,
     SelectMulti,
     Datepicker,
     checklist,
@@ -1029,7 +1057,6 @@ export default {
       showAssignedSelect: false,
       newChecklistItem: null,
       icons: Object.freeze({
-        information: informationIcon,
         negative: negativeIcon,
         positive: positiveIcon,
         destroy: deleteIcon,
@@ -1064,25 +1091,25 @@ export default {
       dayMapping: 'constants.DAY_MAPPING',
       ATTRIBUTES: 'constants.ATTRIBUTES',
     }),
-    advancedSettingsAvailable () {
-      if (
-        this.task.type === 'reward'
-        || this.task.type === 'todo'
-        || this.purpose === 'create'
-        || !this.isUserTask
-      ) {
-        return false;
-      }
-
-      if (this.task.type === 'habit'
-        && !this.task.up
-        && !this.task.down
-      ) {
-        return false;
-      }
-
-      return true;
+    // region advanced settings
+    advancedSettingsShowAdjustCounter () {
+      return this.task.type === 'habit'
+        && this.isUserTask && this.purpose === 'edit'
+        && (this.task.up || this.task.down);
     },
+    advancedSettingsShowRestoreStreak () {
+      return this.task.type === 'daily' && this.isUserTask
+        && this.purpose === 'edit';
+    },
+    advancedSettingsShowTaskAlias () {
+      return this.isUserTask && this.user.preferences.developerMode;
+    },
+    advancedSettingsAvailable () {
+      return this.advancedSettingsShowRestoreStreak
+          || this.advancedSettingsShowAdjustCounter
+          || this.advancedSettingsShowTaskAlias;
+    },
+    // endregion advanced settings
     checklistEnabled () {
       return ['daily', 'todo'].indexOf(this.task.type) > -1 && !this.isOriginalChallengeTask;
     },
@@ -1157,7 +1184,6 @@ export default {
     },
   },
   async mounted () {
-    this.showAdvancedOptions = !this.user.preferences.advancedCollapsed;
     if (this.groupId) {
       const groupResponse = await axios.get(`/api/v4/groups/${this.groupId}`);
       this.managers = Object.keys(groupResponse.data.data.managers);

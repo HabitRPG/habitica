@@ -120,27 +120,27 @@
         </h2>
         <div class="well pet-mount-well">
           <div class="pet-mount-well-image">
+            <div
+              class="box"
+              :class="{white: user.items.currentPet}"
+            >
               <div
-                class="box"
-                :class="{white: user.items.currentPet}"
-              >
-                <div
-                  class="Pet"
-                  :class="`Pet-${user.items.currentPet}`"
-                ></div>
-              </div>
+                class="Pet"
+                :class="`Pet-${user.items.currentPet}`"
+              ></div>
             </div>
-            <div class="pet-mount-well-text">
-              <div>{{ formatAnimal(user.items.currentPet, 'pet') }}</div>
-              <div>
-                <strong>{{ $t('petsFound') }}:</strong>
-                {{ totalCount(user.items.pets) }}
-              </div>
-              <div>
-                <strong>{{ $t('beastMasterProgress') }}:</strong>
-                {{ beastMasterProgress(user.items.pets) }}
-              </div>
+          </div>
+          <div class="pet-mount-well-text">
+            <div>{{ formatAnimal(user.items.currentPet, 'pet') }}</div>
+            <div>
+              <strong>{{ $t('petsFound') }}:</strong>
+              {{ totalCount(user.items.pets) }}
             </div>
+            <div>
+              <strong>{{ $t('beastMasterProgress') }}:</strong>
+              {{ beastMasterProgress(user.items.pets) }}
+            </div>
+          </div>
         </div>
       </div>
       <div class="stats-section-mounts col-12 col-md-6">
@@ -321,15 +321,15 @@
 import axios from 'axios';
 import size from 'lodash/size';
 import keys from 'lodash/keys';
-import toggleSwitch from '@/components/ui/toggleSwitch';
-import attributesGrid from '@/components/inventory/equipment/attributesGrid';
 
-import { mapState } from '@/libs/store';
 import Content from '@/../../common/script/content';
 import { beastMasterProgress, mountMasterProgress } from '@/../../common/script/count';
 import autoAllocate from '@/../../common/script/fns/autoAllocate';
 import allocateBulk from '@/../../common/script/ops/stats/allocateBulk';
 import statsComputed from '@/../../common/script/libs/statsComputed';
+import { mapState } from '@/libs/store';
+import attributesGrid from '@/components/inventory/equipment/attributesGrid';
+import toggleSwitch from '@/components/ui/toggleSwitch';
 
 const DROP_ANIMALS = keys(Content.pets);
 const TOTAL_NUMBER_OF_DROP_ANIMALS = DROP_ANIMALS.length;

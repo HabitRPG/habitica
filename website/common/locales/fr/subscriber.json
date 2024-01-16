@@ -132,8 +132,8 @@
     "subscriptionBenefit5": "Obtenez le familier jackalope pourpre royal lorsque vous vous abonnez.",
     "subscriptionBenefit6": "Obtenez des Sabliers mystiques pour acheter des objets dans la boutique des Voyageurs Temporels !",
     "purchaseAll": "Acheter l'ensemble",
-    "gemsRemaining": "gemmes restantes",
-    "notEnoughGemsToBuy": "Vous ne pouvez pas acheter autant de gemmes",
+    "gemsRemaining": "restant·e·s",
+    "notEnoughGemsToBuy": "Vous ne pouvez plus acheter de gemmes ce mois-ci. D'autres seront disponibles dans les 3 premiers jours de chaque mois.",
     "mysterySet201902": "Ensemble cryptique",
     "confirmCancelSub": "Voulez-vous vraiment annuler votre abonnement ? Vous perdrez tous les bénéfices de l'abonnement.",
     "subWillBecomeInactive": "Deviendra inactive",
@@ -224,5 +224,11 @@
     "subscriptionCreditConversion": "Commencer un nouvel abonnement convertira vos mois restants en crédit qui seront utilisés à l'annulation de votre abonnement récurrent.",
     "mysterySet202302": "Ensemble de chat-tigré rusé",
     "mysterySet202303": "Ensemble du perso principal",
-    "mysterySet202304": "Ensemble de théière tip-top"
+    "mysterySet202304": "Ensemble de théière tip-top",
+    "mysterySet202306": "Ensemble Arc-en-ciel Tralala",
+    "mysterySet202308": "Ensemble Violet du Protagoniste",
+    "monthlyGems": "Gemmes Mensuelles :",
+    "mysterySet202307": "Ensemble Kraken Périlleux",
+    "mysterySet202305": "Ensemble Dragon du Crépuscule",
+    "mysterySet202309": "Ensemble du Papillon de Nuit Comète Colossal"
 }
