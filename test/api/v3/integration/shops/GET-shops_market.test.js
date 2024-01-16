@@ -27,7 +27,7 @@ describe('GET /shops/market', () => {
   });
 
   it('can purchase anything returned from the shops object using the /user/purchase route', async () => {
-    await user.update({
+    await user.updateOne({
       balance: 99999999,
       'stats.gp': 99999999,
     });

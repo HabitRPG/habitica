@@ -186,7 +186,7 @@ describe('GET challenges/groups/:groupId', () => {
 
     before(async () => {
       user = await generateUser();
-      await user.update({ balance: 0.5 });
+      await user.updateOne({ balance: 0.5 });
       tavern = await user.get(`/groups/${TAVERN_ID}`);
 
       challenge = await generateChallenge(user, tavern, { prize: 1 });
@@ -269,7 +269,7 @@ describe('GET challenges/groups/:groupId', () => {
       let officialChallenge; let unofficialChallenges;
 
       before(async () => {
-        await user.update({
+        await user.updateOne({
           'permissions.challengeAdmin': true,
           balance: 3,
         });

@@ -14,7 +14,7 @@ describe('POST /user/equip/:type/:key', () => {
   // More tests in common code unit tests
 
   it('equip an item', async () => {
-    await user.update({
+    await user.updateOne({
       'items.gear.owned': {
         weapon_warrior_0: true,
         weapon_warrior_1: true,

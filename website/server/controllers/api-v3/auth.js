@@ -351,15 +351,17 @@ api.resetPassword = {
       { auth: 1 },
     ).exec();
     if (!user) { // If no local auth with that email...
-      const potentialUsers = await User.find({
-        $or: [
-          { 'auth.local.username': email.replace(/^@/, '') },
-          { 'auth.apple.emails.value': email },
-          { 'auth.google.emails.value': email },
-          { 'auth.facebook.emails.value': email },
-        ],
-      },
-      { auth: 1 }).exec();
+      const potentialUsers = await User.find(
+        {
+          $or: [
+            { 'auth.local.username': email.replace(/^@/, '') },
+            { 'auth.apple.emails.value': email },
+            { 'auth.google.emails.value': email },
+            { 'auth.facebook.emails.value': email },
+          ],
+        },
+        { auth: 1 },
+      ).exec();
       // ...prefer oldest social account or username with matching email
       [user] = sortBy(potentialUsers, candidate => candidate.auth.timestamps.created);
     }
@@ -512,7 +514,7 @@ api.deleteSocial = {
     const unset = {
       [`auth.${network}`]: 1,
     };
-    await User.update({ _id: user._id }, { $unset: unset }).exec();
+    await User.updateOne({ _id: user._id }, { $unset: unset }).exec();
 
     res.respond(200, {});
   },

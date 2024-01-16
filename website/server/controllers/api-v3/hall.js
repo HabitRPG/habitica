@@ -299,7 +299,9 @@ api.updateHero = {
           if (changedHourglassTrinkets !== 0) {
             await hero.updateHourglasses(
               changedHourglassTrinkets,
-              'admin_update_hourglasses', '', 'Updated by Habitica staff',
+              'admin_update_hourglasses',
+              '',
+              'Updated by Habitica staff',
             );
           }
 

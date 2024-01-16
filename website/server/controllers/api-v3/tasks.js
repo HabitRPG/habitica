@@ -1266,7 +1266,7 @@ api.unlinkAllTasks = {
           removeFromArray(user.tasksOrder[`${task.type}s`], task._id);
         }
 
-        toSave.push(task.remove());
+        toSave.push(task.deleteOne());
       });
 
       toSave.push(user.save());
@@ -1322,9 +1322,9 @@ api.unlinkOneTask = {
     } else { // remove
       if (task.type !== 'todo' || !task.completed) { // eslint-disable-line no-lonely-if
         removeFromArray(user.tasksOrder[`${task.type}s`], taskId);
-        await Promise.all([user.save(), task.remove()]);
+        await Promise.all([user.save(), task.deleteOne()]);
       } else {
-        await task.remove();
+        await task.deleteOne();
       }
     }
 
@@ -1356,7 +1356,7 @@ api.clearCompletedTodos = {
 
     // Clear completed todos
     // Do not delete completed todos from challenges or groups, unless the task is broken
-    await Tasks.Task.remove({
+    await Tasks.Task.deleteMany({
       userId: user._id,
       type: 'todo',
       completed: true,
@@ -1440,9 +1440,9 @@ api.deleteTask = {
       // See https://github.com/HabitRPG/habitica/pull/9321#issuecomment-354187666 for more info
       if (!challenge) user._v += 1;
 
-      await Promise.all([taskOrderUpdate, task.remove()]);
+      await Promise.all([taskOrderUpdate, task.deleteOne()]);
     } else {
-      await task.remove();
+      await task.deleteOne();
     }
 
     res.respond(200, {});

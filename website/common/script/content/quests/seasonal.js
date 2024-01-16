@@ -3,9 +3,8 @@ import moment from 'moment';
 import { EVENTS } from '../constants/events';
 import t from '../translation';
 
-const CURRENT_EVENT = find(
-  EVENTS, event => moment().isBetween(event.start, event.end) && Boolean(event.season),
-);
+const CURRENT_EVENT = find(EVENTS, event => moment()
+  .isBetween(event.start, event.end) && Boolean(event.season));
 
 const QUEST_SEASONAL = {
   // winter

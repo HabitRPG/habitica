@@ -1,6 +1,6 @@
+import content from 'habitica/website/common/script/content/content';
 import rightSidebar from '@/components/groups/rightSidebar';
 import getters from '@/store/getters';
-import content from '../../../../common/script/content';
 
 export function createStory ({
   template,

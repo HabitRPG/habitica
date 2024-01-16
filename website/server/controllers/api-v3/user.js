@@ -304,11 +304,11 @@ api.deleteUser = {
 
     await Promise.all(groupLeavePromises);
 
-    await Tasks.Task.remove({
+    await Tasks.Task.deleteMany({
       userId: user._id,
     }).exec();
 
-    await user.remove();
+    await user.deleteOne();
 
     if (feedback) {
       sendTxn({ email: TECH_ASSISTANCE_EMAIL }, 'admin-feedback', [

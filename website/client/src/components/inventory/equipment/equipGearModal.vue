@@ -179,6 +179,7 @@
 </style>
 
 <script>
+import { getClassName } from '@/../../common/script/libs/getClassName';
 import { mapState } from '@/libs/store';
 
 import svgClose from '@/assets/svg/close.svg';
@@ -193,7 +194,6 @@ import Avatar from '@/components/avatar';
 import attributesGrid from '@/components/inventory/equipment/attributesGrid.vue';
 import closeIcon from '@/components/shared/closeIcon';
 // TODO @common/ path alias
-import { getClassName } from '../../../../../common/script/libs/getClassName';
 
 export default {
   components: {

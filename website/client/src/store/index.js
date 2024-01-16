@@ -43,7 +43,7 @@ if (i18nData) {
 // always export the same route
 
 let existingStore;
-export default function () {
+export default function clientStore () {
   if (!IS_TEST && existingStore) return existingStore;
 
   existingStore = new Store({

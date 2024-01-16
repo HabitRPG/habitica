@@ -139,6 +139,7 @@ input[type="number"] {
 
 <script>
 // import clone from 'lodash/clone';
+import { MAX_LEVEL_HARD_CAP, MAX_FIELD_HARD_CAP } from '@/../../common/script/constants';
 import SaveCancelButtons from '../components/saveCancelButtons.vue';
 import { InlineSettingMixin } from '../components/inlineSettingMixin';
 import healthIcon from '@/assets/svg/health.svg';
@@ -148,7 +149,6 @@ import svgGold from '@/assets/svg/gold.svg';
 import level from '@/assets/svg/level.svg';
 import streakIcon from '@/assets/svg/streak.svg';
 import { mapState } from '@/libs/store';
-import { MAX_LEVEL_HARD_CAP, MAX_FIELD_HARD_CAP } from '../../../../../common/script/constants';
 
 export default {
   components: { SaveCancelButtons },

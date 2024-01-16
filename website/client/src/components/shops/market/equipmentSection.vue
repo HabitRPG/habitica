@@ -75,6 +75,7 @@
 import _filter from 'lodash/filter';
 import _orderBy from 'lodash/orderBy';
 import shops from '@/../../common/script/libs/shops';
+import { getClassName } from '@/../../common/script/libs/getClassName';
 import { mapState } from '@/libs/store';
 import LayoutSection from '@/components/ui/layoutSection';
 import FilterDropdown from '@/components/ui/filterDropdown';
@@ -88,7 +89,6 @@ import svgRogue from '@/assets/svg/rogue.svg';
 import svgHealer from '@/assets/svg/healer.svg';
 
 import pinUtils from '../../../mixins/pinUtils';
-import { getClassName } from '../../../../../common/script/libs/getClassName';
 
 const sortGearTypes = [
   'sortByType', 'sortByPrice', 'sortByCon',

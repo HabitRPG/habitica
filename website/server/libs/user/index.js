@@ -284,7 +284,7 @@ export async function reset (req, res, { isV3 = false }) {
   }
 
   await Promise.all([
-    Tasks.Task.remove({ _id: { $in: resetRes[0].tasksToRemove }, userId: user._id }),
+    Tasks.Task.deleteMany({ _id: { $in: resetRes[0].tasksToRemove }, userId: user._id }),
     user.save(),
   ]);
 

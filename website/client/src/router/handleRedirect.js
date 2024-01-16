@@ -1,6 +1,6 @@
 import { CONSTANTS, getLocalSetting, setLocalSetting } from '@/libs/userlocalManager';
 
-export default function (to, from, next) {
+export default function handleRedirect (to, from, next) {
   const { redirect } = to.params;
 
   switch (redirect) {

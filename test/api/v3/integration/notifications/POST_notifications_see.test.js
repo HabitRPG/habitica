@@ -30,7 +30,7 @@ describe('POST /notifications/see', () => {
     const id2 = generateUUID();
     const id3 = generateUUID();
 
-    await user.update({
+    await user.updateOne({
       notifications: [{
         id,
         type: 'DROPS_ENABLED',

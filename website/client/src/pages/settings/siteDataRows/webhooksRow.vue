@@ -209,10 +209,10 @@ table {
 
 <script>
 import * as validator from 'validator';
+import uuid from '@/../../common/script/libs/uuid';
 import { mapState } from '@/libs/store';
 
 import { InlineSettingMixin } from '../components/inlineSettingMixin';
-import uuid from '../../../../../common/script/libs/uuid';
 import positiveIcon from '@/assets/svg/positive.svg';
 import ToggleSwitch from '@/components/ui/toggleSwitch.vue';
 import menuIcon from '@/assets/svg/menu.svg';

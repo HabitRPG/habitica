@@ -26,7 +26,7 @@ describe('POST /user/unlock', () => {
   // More tests in common code unit tests
 
   it('reduces a user\'s balance', async () => {
-    await user.update({
+    await user.updateOne({
       balance: usersStartingGems,
     });
     const response = await user.post(`/user/unlock?path=${unlockPath}`);
@@ -37,7 +37,7 @@ describe('POST /user/unlock', () => {
   });
 
   it('does not reduce a user\'s balance twice', async () => {
-    await user.update({
+    await user.updateOne({
       balance: usersStartingGems,
     });
     const response = await user.post(`/user/unlock?path=${unlockGearSetPath}`);

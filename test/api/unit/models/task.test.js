@@ -221,7 +221,8 @@ describe('Task Model', () => {
 
       it('returns task by alias', async () => {
         const foundTasks = await Tasks.Task.findMultipleByIdOrAlias(
-          [taskWithAlias.alias], user._id,
+          [taskWithAlias.alias],
+          user._id,
         );
 
         expect(foundTasks[0].text).to.eql(taskWithAlias.text);
@@ -229,7 +230,8 @@ describe('Task Model', () => {
 
       it('returns multiple tasks', async () => {
         const foundTasks = await Tasks.Task.findMultipleByIdOrAlias(
-          [taskWithAlias.alias, secondTask._id], user._id,
+          [taskWithAlias.alias, secondTask._id],
+          user._id,
         );
 
         expect(foundTasks.length).to.eql(2);
@@ -239,7 +241,8 @@ describe('Task Model', () => {
 
       it('returns a task only once if searched by both id and alias', async () => {
         const foundTasks = await Tasks.Task.findMultipleByIdOrAlias(
-          [taskWithAlias.alias, taskWithAlias._id], user._id,
+          [taskWithAlias.alias, taskWithAlias._id],
+          user._id,
         );
 
         expect(foundTasks.length).to.eql(1);

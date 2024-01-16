@@ -78,7 +78,7 @@ describe('POST /group/:groupId/join', () => {
       });
 
       it('does not increment basilist quest count to inviter with basilist when joining a guild', async () => {
-        await user.update({ 'items.quests.basilist': 1 });
+        await user.updateOne({ 'items.quests.basilist': 1 });
 
         await invitedUser.post(`/groups/${guild._id}/join`);
 
@@ -146,7 +146,7 @@ describe('POST /group/:groupId/join', () => {
       });
 
       it('Issue #12291: accepting a redundant party invite will let the user stay in the party', async () => {
-        await invitedUser.update({
+        await invitedUser.updateOne({
           'party._id': party._id,
         });
         await expect(invitedUser.get('/user')).to.eventually.have.nested.property('party._id', party._id);
@@ -193,7 +193,7 @@ describe('POST /group/:groupId/join', () => {
       });
 
       it('increments basilist quest item count to inviter when joining a party', async () => {
-        await user.update({ 'items.quests.basilist': 1 });
+        await user.updateOne({ 'items.quests.basilist': 1 });
 
         await invitedUser.post(`/groups/${party._id}/join`);
 
@@ -201,7 +201,7 @@ describe('POST /group/:groupId/join', () => {
       });
 
       it('invites joining member to active quest', async () => {
-        await user.update({
+        await user.updateOne({
           [`items.quests.${PET_QUEST}`]: 1,
         });
         await user.post(`/groups/${party._id}/quests/invite/${PET_QUEST}`);

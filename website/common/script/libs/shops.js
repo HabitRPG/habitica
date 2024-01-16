@@ -405,8 +405,11 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
 const flatGearArray = toArray(content.gear.flat);
 
 shops.getSeasonalGearBySet = function getSeasonalGearBySet (
-  user, set, officialPinnedItems,
-  language, ignoreAlreadyOwned = false,
+  user,
+  set,
+  officialPinnedItems,
+  language,
+  ignoreAlreadyOwned = false,
 ) {
   return flatGearArray.filter(gear => {
     if (!ignoreAlreadyOwned && user.items.gear.owned[gear.key] !== undefined) return false;

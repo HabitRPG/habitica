@@ -200,7 +200,7 @@ describe('PUT /tasks/:id', () => {
     it('does not send task activity webhooks if task is not user owned', async () => {
       const uuid = generateUUID();
 
-      await user.update({
+      await user.updateOne({
         balance: 10,
       });
       const guild = await generateGroup(user);
