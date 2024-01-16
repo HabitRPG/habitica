@@ -953,9 +953,10 @@ const head = {
     per: 6,
     set: 'greenTrapper',
   },
-  softWhitePillow: {
-    int: 6,
-    per: 6,
+  whiteFloppyHat: {
+    str: 5,
+    int: 5,
+    con: 5,
     set: 'whiteLoungeWear',
   },
 };
@@ -1285,10 +1286,9 @@ const shield = {
     int: 10,
     set: 'schoolUniform',
   },
-  whiteFloppyHat: {
-    str: 5,
-    int: 5,
-    con: 5,
+  softWhitePillow: {
+    int: 6,
+    per: 6,
     set: 'whiteLoungeWear',
   },
 };

@@ -7,7 +7,7 @@ import { EVENTS } from './constants';
 // hatching potions and food names should be capitalized lest you break the market
 const featuredItems = {
   market () {
-    if (moment().isBetween(EVENTS.february2024.start, EVENTS.february2024.end)) {
+    if (moment().isBetween(EVENTS.potions202402.start, EVENTS.potions202402.end)) {
       return [
         {
           type: 'armoire',
@@ -23,7 +23,7 @@ const featuredItems = {
         },
         {
           type: 'hatchingPotions',
-          path: 'hatchingPotion.Red',
+          path: 'hatchingPotions.Red',
         },
       ];
     }
@@ -55,11 +55,11 @@ const featuredItems = {
         },
         {
           type: 'quests',
-          path: 'quests.Nudibranch',
+          path: 'quests.nudibranch',
         },
         {
           type: 'quests',
-          path: 'quests.Axolotl',
+          path: 'quests.axolotl',
         },
       ];
     }
@@ -67,15 +67,15 @@ const featuredItems = {
     return [
       {
         type: 'quests',
-        path: 'quests.Rat',
+        path: 'quests.rat',
       },
       {
         type: 'quests',
-        path: 'quests.Cuttlefish',
+        path: 'quests.kraken',
       },
       {
         type: 'quests',
-        path: 'quests.Axolotl',
+        path: 'quests.slime',
       },
     ];
   },
