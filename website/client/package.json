@@ -23,7 +23,7 @@
     "babel-eslint": "^10.1.0",
     "bootstrap": "^4.6.0",
     "bootstrap-vue": "^2.23.1",
-    "chai": "^4.3.7",
+    "chai": "^5.0.0",
     "core-js": "^3.33.1",
     "dompurify": "^3.0.3",
     "eslint": "^7.32.0",
