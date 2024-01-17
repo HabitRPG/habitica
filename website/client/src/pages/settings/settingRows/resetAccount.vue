@@ -102,7 +102,7 @@
             </div>
           </div>
           <save-cancel-buttons
-            :disable-save="!enableDelete"
+            :disable-save="!enableReset"
             primary-button-color="btn-danger"
             primary-button-label="resetAccount"
             @saveClicked="reset()"
