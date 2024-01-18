@@ -350,6 +350,7 @@ api.updateHero = {
     if (updateData.itemPath && updateData.itemVal && validateItemPath(updateData.itemPath)) {
       // Sanitization at 5c30944 (deemed unnecessary)
       _.set(hero, updateData.itemPath, castItemVal(updateData.itemPath, updateData.itemVal));
+      hero.markModified('items');
     }
 
     if (updateData.auth && updateData.auth.blocked === true) {
