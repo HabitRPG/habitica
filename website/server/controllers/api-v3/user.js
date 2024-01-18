@@ -285,7 +285,7 @@ api.deleteUser = {
       (user.auth.facebook.id || user.auth.google.id || user.auth.apple.id)
       && password !== DELETE_CONFIRMATION
     ) {
-      throw new NotAuthorized(res.t('incorrectDeletePhrase', { magicWord: 'DELETE' }));
+      throw new NotAuthorized(res.t('incorrectDeletePhrase', { magicWord: DELETE_CONFIRMATION }));
     }
 
     const { feedback } = req.body;
