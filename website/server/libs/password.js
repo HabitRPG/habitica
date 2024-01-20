@@ -87,7 +87,6 @@ export async function validatePasswordResetCodeAndFindUser (code) {
 
   if (isCodeValid) {
     user = await User.findById(userId).exec();
-
     // check if user is found
     if (!user) {
       isCodeValid = false;

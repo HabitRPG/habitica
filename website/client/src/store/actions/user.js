@@ -5,10 +5,10 @@ import { togglePinnedItem as togglePinnedItemOp } from '@/../../common/script/op
 import changeClassOp from '@/../../common/script/ops/changeClass';
 import disableClassesOp from '@/../../common/script/ops/disableClasses';
 import openMysteryItemOp from '@/../../common/script/ops/openMysteryItem';
+import { unEquipByType } from '@/../../common/script/ops/unequip';
+import markPMSRead from '@/../../common/script/ops/markPMSRead';
+import updateStats from '@/../../common/script/fns/updateStats';
 import { loadAsyncResource } from '@/libs/asyncResource';
-import { unEquipByType } from '../../../../common/script/ops/unequip';
-import markPMSRead from '../../../../common/script/ops/markPMSRead';
-import updateStats from '../../../../common/script/fns/updateStats';
 
 export function fetch (store, options = {}) { // eslint-disable-line no-shadow
   return loadAsyncResource({
@@ -140,10 +140,12 @@ export async function rebirth () {
 }
 
 export async function togglePrivateMessagesOpt (store) {
-  const response = await axios.put('/api/v4/user',
+  const response = await axios.put(
+    '/api/v4/user',
     {
       'inbox.optOut': !store.state.user.data.inbox.optOut,
-    });
+    },
+  );
   store.state.user.data.inbox.optOut = !store.state.user.data.inbox.optOut;
   return response;
 }

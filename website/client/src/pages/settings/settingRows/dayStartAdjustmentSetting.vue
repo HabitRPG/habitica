@@ -95,12 +95,12 @@
 <script>
 import axios from 'axios';
 import moment from 'moment/moment';
+import getUtcOffset from '@/../../common/script/fns/getUtcOffset';
 import { mapState } from '@/libs/store';
 
 import { InlineSettingMixin } from '../components/inlineSettingMixin';
 import SaveCancelButtons from '../components/saveCancelButtons.vue';
 import SelectList from '@/components/ui/selectList.vue';
-import getUtcOffset from '../../../../../common/script/fns/getUtcOffset';
 
 export default {
   components: { SelectList, SaveCancelButtons },

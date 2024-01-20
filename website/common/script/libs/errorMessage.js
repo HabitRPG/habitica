@@ -5,7 +5,7 @@ import _template from 'lodash/template';
 
 import messages from '../errors/commonErrorMessages';
 
-export default function (msgKey, vars = {}) {
+export default function errorMessage (msgKey, vars = {}) {
   const message = messages[msgKey];
   if (!message) throw new Error(`Error processing the common message "${msgKey}".`);
 

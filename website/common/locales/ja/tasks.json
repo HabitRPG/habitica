@@ -142,5 +142,8 @@
     "editTagsText": "タグを編集",
     "taskSummary": "<%= type %>の概要",
     "scoreDown": "スコアダウン",
-    "scoreUp": "スコアアップ"
+    "scoreUp": "スコアアップ",
+    "taskAlias": "タスクの別名",
+    "taskAliasPopover": "タスクの別名は、サードパーティの統合と統合するときに使用できます。ダッシュ、アンダースコア、英数字のみがサポートされています。タスクの別名はすべてのタスクの中で一意でなければなりません。",
+    "taskAliasPlaceholder": "-タスクの別名はここ-"
 }

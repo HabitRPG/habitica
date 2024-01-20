@@ -6,6 +6,8 @@ import {
   translate as t,
 } from '../../../helpers/api-integration/v4';
 
+const RESET_CONFIRMATION = 'RESET';
+
 describe('POST /user/reset', () => {
   let user;
 
@@ -171,5 +173,69 @@ describe('POST /user/reset', () => {
 
     expect(heroRes.secret).to.exist;
     expect(heroRes.secret.text).to.be.eq('Super-Hero');
+  });
+
+  context('user with Google auth', async () => {
+    beforeEach(async () => {
+      user = await generateUser({
+        auth: {
+          google: {
+            id: 'google-id',
+          },
+        },
+      });
+    });
+
+    it('resets a Google user', async () => {
+      const task = await user.post('/tasks/user', {
+        text: 'test habit',
+        type: 'habit',
+      });
+
+      await user.post('/user/reset', {
+        password: RESET_CONFIRMATION,
+      });
+      await user.sync();
+
+      await expect(user.get(`/tasks/${task._id}`)).to.eventually.be.rejected.and.eql({
+        code: 404,
+        error: 'NotFound',
+        message: t('messageTaskNotFound'),
+      });
+
+      expect(user.tasksOrder.habits).to.be.empty;
+    });
+  });
+
+  context('user with Apple auth', async () => {
+    beforeEach(async () => {
+      user = await generateUser({
+        auth: {
+          apple: {
+            id: 'apple-id',
+          },
+        },
+      });
+    });
+
+    it('resets an Apple user', async () => {
+      const task = await user.post('/tasks/user', {
+        text: 'test habit',
+        type: 'habit',
+      });
+
+      await user.post('/user/reset', {
+        password: RESET_CONFIRMATION,
+      });
+      await user.sync();
+
+      await expect(user.get(`/tasks/${task._id}`)).to.eventually.be.rejected.and.eql({
+        code: 404,
+        error: 'NotFound',
+        message: t('messageTaskNotFound'),
+      });
+
+      expect(user.tasksOrder.habits).to.be.empty;
+    });
   });
 });

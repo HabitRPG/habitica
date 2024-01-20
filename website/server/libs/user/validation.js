@@ -11,9 +11,7 @@ const bannedSlurRegexes = bannedSlurs.map(word => new RegExp(`\\b([^a-z]+)?${wor
 const bannedWordRegexes = bannedWords.map(word => new RegExp(`\\b([^a-z]+)?${word}([^a-z]+)?\\b`, 'i'));
 
 export function stringContainsProfanity (str, profanityType = 'bannedWord') {
-  const bannedRegexes = profanityType === 'slur'
-    ? bannedSlurRegexes
-    : bannedWordRegexes;
+  const bannedRegexes = profanityType === 'slur' ? bannedSlurRegexes : bannedWordRegexes;
 
   for (let i = 0; i < bannedRegexes.length; i += 1) {
     const regEx = bannedRegexes[i];
@@ -30,11 +28,11 @@ export function nameContainsNewline (username) {
 }
 
 function usernameIsForbidden (username) {
-  const forbidddenWordsMatched = getMatchesByWordArray(username, forbiddenUsernames);
-  return forbidddenWordsMatched.length > 0;
+  const forbiddenWordsMatched = getMatchesByWordArray(username, forbiddenUsernames);
+  return forbiddenWordsMatched.length > 0;
 }
 
-const invalidCharsRegex = new RegExp('[^a-z0-9_-]', 'i');
+const invalidCharsRegex = /[^a-z0-9_-]/i;
 function usernameContainsInvalidCharacters (username) {
   const match = username.match(invalidCharsRegex);
   return match !== null && match[0] !== null;
@@ -43,7 +41,6 @@ function usernameContainsInvalidCharacters (username) {
 export function verifyDisplayName (displayName, res) {
   const issues = [];
   if (displayName.length < 1 || displayName.length > 30) issues.push(res.t('displaynameIssueLength'));
-  if (stringContainsProfanity(displayName)) issues.push(res.t('bannedWordUsedInProfile'));
   if (stringContainsProfanity(displayName, 'slur')) issues.push(res.t('bannedSlurUsedInProfile'));
   if (nameContainsNewline(displayName)) issues.push(res.t('displaynameIssueNewline'));
 

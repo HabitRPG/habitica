@@ -38,12 +38,12 @@ api.unsubscribe = {
     const data = JSON.parse(decrypt(req.query.code));
 
     if (data._id) {
-      const userUpdated = await User.update(
+      const userUpdated = await User.updateOne(
         { _id: data._id },
         { $set: { 'preferences.emailNotifications.unsubscribeFromAll': true } },
       ).exec();
 
-      if (userUpdated.nModified !== 1) throw new NotFound(res.t('userNotFound'));
+      if (userUpdated.modifiedCount !== 1) throw new NotFound(res.t('userNotFound'));
 
       res.send(`<h1>${res.t('unsubscribedSuccessfully')}</h1> ${res.t('unsubscribedTextUsers')}`);
     } else {

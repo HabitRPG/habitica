@@ -7,6 +7,7 @@ import { BadRequest, NotAuthorized } from '../../libs/errors';
 import * as passwordUtils from '../../libs/password';
 
 const api = {};
+const RESET_CONFIRMATION = 'RESET';
 
 /*
 * NOTE most user routes are still in the v3 controller
@@ -224,9 +225,14 @@ api.userReset = {
       throw new BadRequest(res.t('missingPassword'));
     }
 
-    const isValidPassword = await passwordUtils.compare(user, password);
-    if (!isValidPassword) {
-      throw new NotAuthorized(res.t('wrongPassword'));
+    if (user.auth.local.hashed_password && user.auth.local.email) {
+      const isValidPassword = await passwordUtils.compare(user, password);
+      if (!isValidPassword) throw new NotAuthorized(res.t('wrongPassword'));
+    } else if (
+      (user.auth.facebook.id || user.auth.google.id || user.auth.apple.id)
+      && password !== RESET_CONFIRMATION
+    ) {
+      throw new NotAuthorized(res.t('incorrectResetPhrase', { magicWord: RESET_CONFIRMATION }));
     }
 
     await userLib.reset(req, res, { isV3: false });

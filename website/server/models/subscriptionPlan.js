@@ -84,11 +84,13 @@ schema.methods.incrementPerkCounterAndReward = async function incrementPerkCount
   }
 };
 
-schema.methods.updateHourglasses = async function updateHourglasses (userId,
+schema.methods.updateHourglasses = async function updateHourglasses (
+  userId,
   amount,
   transactionType,
   reference,
-  referenceText) {
+  referenceText,
+) {
   this.consecutive.trinkets += amount;
   await Transaction.create({
     currency: 'hourglasses',

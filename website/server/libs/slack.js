@@ -324,33 +324,58 @@ function sendShadowMutedPostNotification ({
     .catch(err => logger.error(err, 'Error while sending flag data to Slack.'));
 }
 
-function sendSlurNotification ({
+// slack slur notification for Profiles
+function sendProfileSlurNotification ({
   authorEmail,
   author,
-  group,
-  message,
+  uuid,
+  language,
+  problemContent,
 }) {
   if (SKIP_FLAG_METHODS) {
     return;
   }
-  const text = `${author.profile.name} (${author._id}) tried to post a slur`;
+  const title = 'User Profile Report: Slur';
+  const titleLink = `${BASE_URL}/profile/${uuid}`;
 
-  let titleLink;
-  let title = `Slur in ${group.name}`;
+  const text = `@${author} ${authorEmail} (${uuid}, ${language}) tried to post a slur in their Profile.`;
 
-  if (group.id === TAVERN_ID) {
-    titleLink = `${BASE_URL}/groups/tavern`;
-  } else if (group.privacy === 'public') {
-    titleLink = `${BASE_URL}/groups/guild/${group.id}`;
-  } else {
-    title += ` - (${group.privacy} ${group.type})`;
+  flagSlack
+    .send({
+      text,
+      attachments: [{
+        fallback: 'Slur Message',
+        color: 'danger',
+        author_email: authorEmail,
+        title,
+        title_link: titleLink,
+        text: problemContent,
+        mrkdwn_in: [
+          'text',
+        ],
+      }],
+    })
+    .catch(err => logger.error(err, 'Error while sending flag data to Slack.'));
+}
+
+function sendChallengeSlurNotification ({
+  authorEmail,
+  author,
+  language,
+  problemContent,
+  uuid,
+}) {
+  if (SKIP_FLAG_METHODS) {
+    return;
   }
+  const text = `${author.profile.name} ${authorEmail} (${uuid}, ${language}) tried to create a Challenge with a slur or banned word.`;
 
   const authorName = formatUser({
     name: author.auth.local.username,
     displayName: author.profile.name,
     email: authorEmail,
     uuid: author.id,
+    language,
   });
 
   flagSlack
@@ -360,9 +385,7 @@ function sendSlurNotification ({
         fallback: 'Slur Message',
         color: 'danger',
         author_name: authorName,
-        title,
-        title_link: titleLink,
-        text: message,
+        text: problemContent,
         mrkdwn_in: [
           'text',
         ],
@@ -378,6 +401,7 @@ export {
   sendProfileFlagNotification,
   sendSubscriptionNotification,
   sendShadowMutedPostNotification,
-  sendSlurNotification,
+  sendProfileSlurNotification,
+  sendChallengeSlurNotification,
   formatUser,
 };

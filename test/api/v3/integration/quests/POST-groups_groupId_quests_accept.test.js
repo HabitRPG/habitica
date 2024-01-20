@@ -26,7 +26,7 @@ describe('POST /groups/:groupId/quests/accept', () => {
     leader = groupLeader;
     partyMembers = members;
 
-    await leader.update({
+    await leader.updateOne({
       [`items.quests.${PET_QUEST}`]: 1,
     });
   });

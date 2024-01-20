@@ -175,7 +175,7 @@ api.groupMoveTask = {
       }
       const fixQuery = { $set: {} };
       fixQuery.$set[`tasksOrder.${task.type}s`] = order;
-      await group.update(fixQuery).exec();
+      await group.updateOne(fixQuery).exec();
     }
 
     moveTask(order, task._id, to);

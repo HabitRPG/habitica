@@ -12,7 +12,7 @@ describe('POST /user/mark-pms-read', () => {
   // More tests in common code unit tests
 
   it('marks user\'s private messages as read', async () => {
-    await user.update({
+    await user.updateOne({
       'inbox.newMessages': 1,
     });
     await user.post('/user/mark-pms-read');

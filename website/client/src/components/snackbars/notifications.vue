@@ -68,9 +68,9 @@
 import debounce from 'lodash/debounce';
 import find from 'lodash/find';
 
+import { sleepAsync } from '@/../../common/script/libs/sleepAsync';
 import { mapState } from '@/libs/store';
 import notification from './notification';
-import { sleepAsync } from '../../../../common/script/libs/sleepAsync';
 import { getBannerHeight } from '@/libs/banner.func';
 import { EVENTS } from '@/libs/events';
 import { worldStateMixin } from '@/mixins/worldState';

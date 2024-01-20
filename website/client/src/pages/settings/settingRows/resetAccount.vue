@@ -35,7 +35,7 @@
           v-html="$t('resetText1')"
         >
         </div>
-        <div class="split-lists my-3 ">
+        <div class="split-lists my-3">
           <ul>
             <li
               v-once
@@ -60,18 +60,49 @@
         <div
           v-once
           v-html="$t('resetText2')"
+          class="mb-3"
+        >
+        </div>
+
+        <div
+          v-if="hasPassword"
+          v-html="$t('resetTextLocal')"
+        >
+        </div>
+        <div
+          v-else
+          v-html="$t('resetTextSocial', {magicWord: 'RESET'})"
         >
         </div>
 
         <div class="input-area">
           <current-password-input
+            v-if="hasPassword"
             :show-forget-password="true"
             :is-valid="mixinData.currentPasswordIssues.length === 0"
             :invalid-issues="mixinData.currentPasswordIssues"
             @passwordValue="passwordValue = $event"
           />
+
+          <div
+            v-else
+            class="input-area"
+          >
+            <div class="form">
+              <div class="settings-label">
+                {{ $t("confirm") }}
+              </div>
+              <div class="form-group">
+                <input
+                  v-model="passwordValue"
+                  class="form-control"
+                  type="text"
+                >
+              </div>
+            </div>
+          </div>
           <save-cancel-buttons
-            :disable-save="passwordValue === ''"
+            :disable-save="!enableReset"
             primary-button-color="btn-danger"
             primary-button-label="resetAccount"
             @saveClicked="reset()"
@@ -118,6 +149,12 @@ export default {
     ...mapState({
       user: 'user.data',
     }),
+    hasPassword () {
+      return this.user.auth.local.has_password;
+    },
+    enableReset () {
+      return this.hasPassword ? Boolean(this.passwordValue) : this.passwordValue === 'RESET';
+    },
   },
   methods: {
     async reset () {

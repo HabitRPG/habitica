@@ -73,8 +73,12 @@ api.verifyPurchase = async function verifyPurchase (options) {
 };
 
 api.subscribe = async function subscribe (
-  sku, user, receipt, signature,
-  headers, nextPaymentProcessing = undefined,
+  sku,
+  user,
+  receipt,
+  signature,
+  headers,
+  nextPaymentProcessing = undefined,
 ) {
   if (!sku) throw new BadRequest(shared.i18n.t('missingSubscriptionCode'));
   let subCode;

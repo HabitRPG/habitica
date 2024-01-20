@@ -53,6 +53,10 @@ const SEASONAL_SETS = {
     'winter2023FairyLightsMageSet',
     'winter2023CardinalHealerSet',
 
+    'winter2024SnowyOwlRogueSet',
+    'winter2024PeppermintBarkWarriorSet',
+    'winter2024NarwhalWizardMageSet',
+    'winter2024FrozenHealerSet',
   ],
   spring: [
     // spring 2014

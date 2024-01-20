@@ -27,7 +27,7 @@ describe('POST /chat/:chatId/like', () => {
     }));
 
     [anotherUser] = members;
-    await anotherUser.update({ 'auth.timestamps.created': new Date('2022-01-01') });
+    await anotherUser.updateOne({ 'auth.timestamps.created': new Date('2022-01-01') });
   });
 
   it('Returns an error when chat message is not found', async () => {

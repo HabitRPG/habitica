@@ -68,7 +68,7 @@ describe('GET challenges/user', () => {
 
       challenge = await generateChallenge(user, group);
       challenge2 = await generateChallenge(user, group);
-      await user.update({ balance: 0.25 });
+      await user.updateOne({ balance: 0.25 });
       publicChallenge = await generateChallenge(user, tavern, { prize: 1 });
 
       await member.post(`/challenges/${challenge._id}/join`);
@@ -234,7 +234,7 @@ describe('GET challenges/user', () => {
         upgradeToGroupPlan: true,
       }));
 
-      await user.update({
+      await user.updateOne({
         'permissions.challengeAdmin': true,
       });
 
@@ -308,7 +308,7 @@ describe('GET challenges/user', () => {
       guild = group;
       member = members[0]; // eslint-disable-line prefer-destructuring
 
-      await user.update({ balance: 20 });
+      await user.updateOne({ balance: 20 });
 
       for (let i = 0; i < 11; i += 1) {
         let challenge = await generateChallenge(user, group); // eslint-disable-line

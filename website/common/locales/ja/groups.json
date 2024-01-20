@@ -45,7 +45,7 @@
     "groupID": "グループID",
     "members": "メンバー",
     "memberList": "メンバー一覧",
-    "invited": "招待された方",
+    "invited": "招待されました",
     "name": "名前",
     "description": "説明",
     "public": "公共",
@@ -274,7 +274,7 @@
     "inviteMembersNow": "すぐにメンバーを招待したいですか？",
     "playInPartyTitle": "パーティーに参加してHabiticaをプレイしましょう！",
     "playInPartyDescription": "ひとりで、あるいは仲間と一緒にクエストに挑戦しましょう。モンスターと戦い、チャレンジを作り、パーティーによって自分の責任感を維持することができます。",
-    "wantToJoinPartyTitle": "パーティーに参加したいですか？",
+    "wantToJoinPartyTitle": "パーティーをお探しですか？",
     "wantToJoinPartyDescription": "すでにパーティーを持っている友達にあなたのユーザー名を知らせるか、<a href='/groups/guild/f2db2a7f-13c5-454d-b3ee-ea1f5089e601'>Party Wanted [英語] </a>ギルド、もしくは<a href='/groups/guild/4f969d70-0765-4284-b192-b89a9b2ef333'>パーティー募集 [日本語] </a>ギルドに行って、未来の仲間に出会いましょう！",
     "copy": "コピー",
     "inviteToPartyOrQuest": "パーティーをクエストに招待する",
@@ -434,5 +434,10 @@
     "noOneLooking": "今、パーティーを探している人はいません。<br>後でチェックしてください！",
     "tavernDiscontinued": "キャンプ場とギルドは廃止されました",
     "startPartyDetail": "自分でパーティーを始めるか、すでにあるパーティーに参加して<br/>クエストに挑み、モチベーションを高めましょう！",
-    "sendTotal": "合計："
+    "sendTotal": "合計：",
+    "bannedUser": "<strong>このプレーヤーはアカウント停止されました。</strong>",
+    "tavernDiscontinuedLinks": "<a href='/static/faq/tavern-and-guilds'>キャンプ場とギルドの廃止</a>について詳細を読むか、<a href='/'>ホームページ</a>に戻る。",
+    "blockedUser": "<strong>あなたがこのプレーヤーをブロックすると</strong>&nbsp;彼らはあなたにプライベートメッセージを送ることはできませんが、あなたは彼らの投稿を見ることができます。",
+    "invitedToYourParty": "<strong>あなたのパーティーの招待しました！</strong>&nbsp;&nbsp;取り消すにはクリックしてください",
+    "tavernDiscontinuedDetail": "プレイヤーによるハビティカへの関わり方の変化など、様々な要因により、これらのスペースを維持するために必要なリソースが、参加人数と比例しなくなり、長期的に維持できなくなりました。"
 }

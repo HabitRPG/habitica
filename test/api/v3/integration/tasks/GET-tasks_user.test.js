@@ -154,7 +154,7 @@ describe('GET /tasks/user', () => {
 
   xit('returns dailies with isDue for the date specified and will add CDS offset if time is not supplied and assumes timezones', async () => {
     const timezoneOffset = 420;
-    await user.update({
+    await user.updateOne({
       'preferences.dayStart': 0,
       'preferences.timezoneOffset': timezoneOffset,
     });
@@ -181,7 +181,7 @@ describe('GET /tasks/user', () => {
 
   xit('returns dailies with isDue for the date specified and will add CDS offset if time is not supplied and assumes timezones', async () => {
     const timezoneOffset = 240;
-    await user.update({
+    await user.updateOne({
       'preferences.dayStart': 0,
       'preferences.timezoneOffset': timezoneOffset,
     });
@@ -208,7 +208,7 @@ describe('GET /tasks/user', () => {
 
   xit('returns dailies with isDue for the date specified and will add CDS offset if time is not supplied and assumes timezones', async () => {
     const timezoneOffset = 540;
-    await user.update({
+    await user.updateOne({
       'preferences.dayStart': 0,
       'preferences.timezoneOffset': timezoneOffset,
     });

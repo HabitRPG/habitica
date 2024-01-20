@@ -148,10 +148,6 @@
     color: $header-color;
   }
 
-  .profile-name-character {
-
-  }
-
   .character-name {
     margin-bottom: 1px;
     color: $white;
@@ -228,6 +224,7 @@
 import { toNextLevel } from '@/../../common/script/statHelpers';
 import statsComputed from '@/../../common/script/libs/statsComputed';
 import percent from '@/../../common/script/libs/percent';
+import { getClassName } from '@/../../common/script/libs/getClassName';
 import Avatar from './avatar';
 import ClassBadge from './members/classBadge';
 import { mapState } from '@/libs/store';
@@ -239,7 +236,6 @@ import healthIcon from '@/assets/svg/health.svg';
 import experienceIcon from '@/assets/svg/experience.svg';
 import manaIcon from '@/assets/svg/mana.svg';
 import InlineClassBadge from './members/inlineClassBadge';
-import { getClassName } from '../../../common/script/libs/getClassName';
 
 export default {
   components: {

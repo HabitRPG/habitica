@@ -285,7 +285,7 @@ api.deleteUser = {
       (user.auth.facebook.id || user.auth.google.id || user.auth.apple.id)
       && password !== DELETE_CONFIRMATION
     ) {
-      throw new NotAuthorized(res.t('incorrectDeletePhrase', { magicWord: 'DELETE' }));
+      throw new NotAuthorized(res.t('incorrectDeletePhrase', { magicWord: DELETE_CONFIRMATION }));
     }
 
     const { feedback } = req.body;
@@ -304,11 +304,11 @@ api.deleteUser = {
 
     await Promise.all(groupLeavePromises);
 
-    await Tasks.Task.remove({
+    await Tasks.Task.deleteMany({
       userId: user._id,
     }).exec();
 
-    await user.remove();
+    await user.deleteOne();
 
     if (feedback) {
       sendTxn({ email: TECH_ASSISTANCE_EMAIL }, 'admin-feedback', [

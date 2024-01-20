@@ -48,6 +48,7 @@ describe('DELETE /user', () => {
     });
 
     it('deletes the user', async () => {
+      await expect(checkExistence('users', user._id)).to.eventually.eql(true);
       await user.del('/user', {
         password,
       });
@@ -157,11 +158,12 @@ describe('DELETE /user', () => {
     });
 
     it('deletes the user with a legacy sha1 password', async () => {
+      await expect(checkExistence('users', user._id)).to.eventually.eql(true);
       const textPassword = 'mySecretPassword';
       const salt = sha1MakeSalt();
       const sha1HashedPassword = sha1EncryptPassword(textPassword, salt);
 
-      await user.update({
+      await user.updateOne({
         'auth.local.hashed_password': sha1HashedPassword,
         'auth.local.passwordHashMethod': 'sha1',
         'auth.local.salt': salt,
@@ -211,6 +213,7 @@ describe('DELETE /user', () => {
     });
 
     it('deletes a Google user', async () => {
+      await expect(checkExistence('users', user._id)).to.eventually.eql(true);
       await user.del('/user', {
         password: DELETE_CONFIRMATION,
       });
@@ -230,6 +233,7 @@ describe('DELETE /user', () => {
     });
 
     it('deletes a Apple user', async () => {
+      await expect(checkExistence('users', user._id)).to.eventually.eql(true);
       await user.del('/user', {
         password: DELETE_CONFIRMATION,
       });

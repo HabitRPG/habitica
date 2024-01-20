@@ -444,7 +444,7 @@ describe('POST /user/auth/local/register', () => {
       });
     });
     it('succeeds', async () => {
-      await user.update({ 'auth.facebook.id': 'some-fb-id', 'auth.local': { ok: true } });
+      await user.updateOne({ 'auth.facebook.id': 'some-fb-id', 'auth.local': { ok: true } });
       await user.post('/user/auth/local/register', {
         username,
         email,
@@ -478,7 +478,7 @@ describe('POST /user/auth/local/register', () => {
       });
     });
     it('succeeds', async () => {
-      await user.update({ 'auth.google.id': 'some-google-id', 'auth.local': { ok: true } });
+      await user.updateOne({ 'auth.google.id': 'some-google-id', 'auth.local': { ok: true } });
       await user.post('/user/auth/local/register', {
         username,
         email,
@@ -512,7 +512,7 @@ describe('POST /user/auth/local/register', () => {
       });
     });
     it('succeeds', async () => {
-      await user.update({ 'auth.apple.id': 'some-apple-id', 'auth.local': { ok: true } });
+      await user.updateOne({ 'auth.apple.id': 'some-apple-id', 'auth.local': { ok: true } });
       await user.post('/user/auth/local/register', {
         username,
         email,

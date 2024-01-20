@@ -6,10 +6,8 @@ import {
   SEASONAL_SETS,
 } from '../content/constants';
 
-const CURRENT_EVENT = find(
-  EVENTS, event => moment().isBetween(event.start, event.end)
-    && ['winter', 'spring', 'summer', 'fall'].includes(event.season),
-);
+const CURRENT_EVENT = find(EVENTS, event => moment().isBetween(event.start, event.end)
+    && ['winter', 'spring', 'summer', 'fall'].includes(event.season));
 
 export default {
   opened: CURRENT_EVENT,
@@ -29,22 +27,25 @@ export default {
 
   pinnedSets: CURRENT_EVENT
     ? {
-      rogue: 'fall2023WitchsBrewRogueSet',
-      warrior: 'fall2023ScaryMovieWarriorSet',
-      wizard: 'fall2023ScarletWarlockMageSet',
-      healer: 'fall2023BogCreatureHealerSet',
+      rogue: 'winter2024SnowyOwlRogueSet',
+      warrior: 'winter2024PeppermintBarkWarriorSet',
+      wizard: 'winter2024NarwhalWizardMageSet',
+      healer: 'winter2024FrozenHealerSet',
     }
     : {},
 
-  availableSpells: CURRENT_EVENT && moment().isBetween('2023-10-03T08:00-04:00', CURRENT_EVENT.end)
+  availableSpells: CURRENT_EVENT && moment().isBetween('2024-01-09T08:00-04:00', CURRENT_EVENT.end)
     ? [
-      'spookySparkles',
+      'snowball',
     ]
     : [],
 
-  availableQuests: CURRENT_EVENT && moment().isBetween('2023-07-11T08:00-04:00', CURRENT_EVENT.end)
-    ? []
+  availableQuests: CURRENT_EVENT && moment().isBetween(CURRENT_EVENT.start, CURRENT_EVENT.end)
+    ? [
+      'evilsanta',
+      'evilsanta2',
+    ]
     : [],
 
-  featuredSet: 'fall2022HarpyMageSet',
+  featuredSet: 'winter2019PoinsettiaSet',
 };

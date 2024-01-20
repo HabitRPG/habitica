@@ -30,7 +30,7 @@ describe('POST /groups/:groupId/leave', () => {
 
       [member] = members;
       memberCount = groupToLeave.memberCount;
-      await leader.update({ 'auth.timestamps.created': new Date('2022-01-01') });
+      await leader.updateOne({ 'auth.timestamps.created': new Date('2022-01-01') });
     });
 
     it('prevents non members from leaving', async () => {
@@ -135,7 +135,7 @@ describe('POST /groups/:groupId/leave', () => {
       [member] = members;
       [invitedUser] = invitees;
       memberCount = groupToLeave.memberCount;
-      await leader.update({ 'auth.timestamps.created': new Date('2022-01-01') });
+      await leader.updateOne({ 'auth.timestamps.created': new Date('2022-01-01') });
     });
 
     it('prevents non members from leaving', async () => {
@@ -317,7 +317,7 @@ describe('POST /groups/:groupId/leave', () => {
           upgradeToGroupPlan: true,
         }));
         [member] = members;
-        await member.update({
+        await member.updateOne({
           'purchased.plan.extraMonths': extraMonths,
         });
       });

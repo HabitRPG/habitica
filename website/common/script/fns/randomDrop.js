@@ -57,7 +57,8 @@ export default function randomDrop (user, options, req = {}, analytics) {
     // +50% per checklist item complete. TODO: make this into X individual drop chances instead
     * (user._tmp.crit || 1)
     * (1 + 0.5 * (reduce(
-      task.checklist, (m, i) => m + (i.completed ? 1 : 0), // eslint-disable-line indent
+      task.checklist,
+(m, i) => m + (i.completed ? 1 : 0), // eslint-disable-line indent
       0,
 ) || 0)); // eslint-disable-line indent
   chance = diminishingReturns(chance, 0.75);

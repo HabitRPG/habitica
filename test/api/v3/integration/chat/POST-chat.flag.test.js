@@ -27,11 +27,11 @@ describe('POST /chat/:chatId/flag', () => {
     }));
 
     [admin, anotherUser, newUser, userToDelete] = members;
-    await user.update({ permissions: {} });
-    await admin.update({ permissions: { moderator: true } });
-    await anotherUser.update({ 'auth.timestamps.created': moment().subtract(USER_AGE_FOR_FLAGGING + 1, 'days').toDate() });
-    await newUser.update({ 'auth.timestamps.created': moment().subtract(1, 'days').toDate() });
-    await userToDelete.update({
+    await user.updateOne({ permissions: {} });
+    await admin.updateOne({ permissions: { moderator: true } });
+    await anotherUser.updateOne({ 'auth.timestamps.created': moment().subtract(USER_AGE_FOR_FLAGGING + 1, 'days').toDate() });
+    await newUser.updateOne({ 'auth.timestamps.created': moment().subtract(1, 'days').toDate() });
+    await userToDelete.updateOne({
       'auth.timestamps.created': moment().subtract(1, 'days').toDate(),
       'purchased.plan.dateTerminated': moment().subtract(1, 'minutes').toDate(),
     });

@@ -106,7 +106,7 @@ describe('POST /tasks/:id/score/:direction', () => {
 
         const initialLvl = user.stats.lvl;
 
-        await user.update({
+        await user.updateOne({
           'stats.exp': 3000,
         });
         const task = await user.post('/tasks/user', {

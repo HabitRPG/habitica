@@ -181,7 +181,7 @@ schema.statics.sanitizeUpdate = function sanitizeUpdate (updateObj) {
 // Basic fields to fetch for populating a group info
 export const basicFields = 'name type privacy leader summary categories';
 
-schema.pre('remove', true, async function preRemoveGroup (next, done) {
+schema.pre('deleteOne', { document: true }, async function preRemoveGroup (next, done) {
   next();
   try {
     await this.removeGroupInvitations();
@@ -317,7 +317,7 @@ schema.statics.getGroups = async function getGroups (options = {}) {
         _.assign(query, filters);
         const privateGuildsQuery = this.find(query).select(groupFields);
         if (populateLeader === true) privateGuildsQuery.populate('leader', nameFields);
-        privateGuildsQuery.sort(sort).exec();
+        privateGuildsQuery.sort(sort);
         queries.push(privateGuildsQuery);
         break;
       }
@@ -645,12 +645,12 @@ schema.methods.handleQuestInvitation = async function handleQuestInvitation (use
     { $set: { [`quest.members.${user._id}`]: accept } },
   ).exec();
 
-  if (result.nModified) {
+  if (result.modifiedCount) {
     // update also current instance so future operations will work correctly
     this.quest.members[user._id] = accept;
   }
 
-  return Boolean(result.nModified);
+  return Boolean(result.modifiedCount);
 };
 
 schema.methods.startQuest = async function startQuest (user) {
@@ -988,7 +988,10 @@ schema.methods.finishQuest = async function finishQuest (quest) {
       };
 
       promises.push(participants.map(userId => _updateUserWithRetries(
-        userId, questAchievementUpdate, null, questAchievementQuery,
+        userId,
+        questAchievementUpdate,
+        null,
+        questAchievementQuery,
       )));
     }
   });
@@ -1195,7 +1198,7 @@ schema.statics.processQuestProgress = async function processQuestProgress (user,
 };
 
 // to set a boss:
-// `db.groups.update({_id:TAVERN_ID},
+// `db.groups.updateOne({_id:TAVERN_ID},
 // {$set:{quest:{key:'dilatory',active:true,progress:{hp:1000,rage:1500}}}}).exec()`
 // we export an empty object that is then populated with the query-returned data
 export const tavernQuest = {};
@@ -1391,7 +1394,7 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
     _.remove(members, { _id: user._id });
 
     if (members.length === 0) {
-      promises.push(group.remove());
+      promises.push(group.deleteOne());
       return Promise.all(promises);
     }
   }
@@ -1407,7 +1410,7 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
     // with 1 member who is leaving
     if (seniorMember) update.$set = { leader: seniorMember._id };
   }
-  promises.push(group.update(update).exec());
+  promises.push(group.updateOne(update).exec());
 
   return Promise.all(promises);
 };
@@ -1432,11 +1435,6 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, users, assig
       completed: false,
     };
 
-    if (!taskToSync.group.assignedUsers) {
-      taskToSync.group.assignedUsers = [];
-    }
-    taskToSync.group.assignedUsers.push(user._id);
-
     if (!taskToSync.group.assignedUsersDetail) {
       taskToSync.group.assignedUsersDetail = {};
     }
@@ -1444,6 +1442,8 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, users, assig
       taskToSync.group.assignedUsersDetail[user._id] = assignmentData;
     }
     taskToSync.markModified('group.assignedUsersDetail');
+
+    taskToSync.group.assignedUsers = _.keys(taskToSync.group.assignedUsersDetail);
 
     // Sync tags
     const userTags = user.tags;
@@ -1469,8 +1469,10 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, users, assig
 };
 
 schema.methods.unlinkTask = async function groupUnlinkTask (
-  unlinkingTask, user,
-  keep, saveUser = true,
+  unlinkingTask,
+  user,
+  keep,
+  saveUser = true,
 ) {
   const findQuery = {
     'group.taskId': unlinkingTask._id,
@@ -1478,8 +1480,7 @@ schema.methods.unlinkTask = async function groupUnlinkTask (
   };
 
   delete unlinkingTask.group.assignedUsersDetail[user._id];
-  const assignedUserIndex = unlinkingTask.group.assignedUsers.indexOf(user._id);
-  unlinkingTask.group.assignedUsers.splice(assignedUserIndex, 1);
+  unlinkingTask.group.assignedUsers = _.keys(unlinkingTask.group.assignedUsersDetail);
   unlinkingTask.markModified('group');
 
   const promises = [unlinkingTask.save()];
@@ -1501,7 +1502,7 @@ schema.methods.unlinkTask = async function groupUnlinkTask (
     }
 
     if (task) {
-      promises.push(task.remove());
+      promises.push(task.deleteOne());
     }
     // When multiple tasks are being unlinked at the same time,
     // save the user once outside of this function
@@ -1550,7 +1551,7 @@ schema.methods.removeTask = async function groupRemoveTask (task) {
       assignedUser.notifications.splice(notificationIndex, 1);
     }
 
-    await Tasks.Task.remove({ _id: userTask._id });
+    await Tasks.Task.deleteOne({ _id: userTask._id });
     removeFromArray(assignedUser.tasksOrder[`${task.type}s`], userTask._id);
     removalPromises.push(assignedUser.save());
   });
@@ -1640,15 +1641,15 @@ export const model = mongoose.model('Group', schema);
 // initialize tavern if !exists (fresh installs)
 // do not run when testing as it's handled by the tests and can easily cause a race condition
 if (!nconf.get('IS_TEST')) {
-  model.countDocuments({ _id: TAVERN_ID }, (err, ct) => {
-    if (err) throw err;
-    if (ct > 0) return;
-    new model({ // eslint-disable-line new-cap
-      _id: TAVERN_ID,
-      leader: '7bde7864-ebc5-4ee2-a4b7-1070d464cdb0', // Siena Leslie
-      name: 'Tavern',
-      type: 'guild',
-      privacy: 'public',
-    }).save();
+  model.countDocuments({ _id: TAVERN_ID }).then(count => {
+    if (count === 0) {
+      new model({ // eslint-disable-line new-cap
+        _id: TAVERN_ID,
+        leader: '7bde7864-ebc5-4ee2-a4b7-1070d464cdb0', // Siena Leslie
+        name: 'Tavern',
+        type: 'guild',
+        privacy: 'public',
+      }).save();
+    }
   });
 }

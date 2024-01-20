@@ -80,7 +80,7 @@ describe('PUT /user/auth/update-email', () => {
       const sha1HashedPassword = sha1EncryptPassword(textPassword, salt);
       const myNewEmail = 'my-new-random-email@example.net';
 
-      await user.update({
+      await user.updateOne({
         'auth.local.hashed_password': sha1HashedPassword,
         'auth.local.passwordHashMethod': 'sha1',
         'auth.local.salt': salt,
@@ -115,7 +115,7 @@ describe('PUT /user/auth/update-email', () => {
 
     beforeEach(async () => {
       socialUser = await generateUser();
-      await socialUser.update({ 'auth.local': { ok: true } });
+      await socialUser.updateOne({ 'auth.local': { ok: true } });
     });
 
     it('does not change email if user.auth.local.email does not exist for this user', async () => {

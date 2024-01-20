@@ -199,5 +199,6 @@
     "addPasswordAuth": "加密碼",
     "transactions": "交易",
     "gemTransactions": "寶石交易",
-    "hourglassTransactions": "神秘沙漏交易"
+    "hourglassTransactions": "神秘沙漏交易",
+    "generalSettings": "一般設定"
 }
