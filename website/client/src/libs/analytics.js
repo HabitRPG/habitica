@@ -8,8 +8,10 @@ import Vue from 'vue';
 import getStore from '@/store';
 
 const IS_PRODUCTION = process.env.NODE_ENV === 'production'; // eslint-disable-line no-process-env
-const { AMPLITUDE_KEY } = process.env; // eslint-disable-line no-process-env
+const { AMPLITUDE_KEY, LOG_AMPLITUDE_EVENTS } = process.env; // eslint-disable-line no-process-env
 const { GA_ID } = process.env; // eslint-disable-line no-process-env
+
+const ENABLE_AMPLITUDE = LOG_AMPLITUDE_EVENTS !== 'false' && AMPLITUDE_KEY !== undefined;
 
 const REQUIRED_FIELDS = ['hitType', 'eventCategory', 'eventAction'];
 const ALLOWED_HIT_TYPES = [
@@ -78,7 +80,12 @@ function _gatherUserStats (properties) {
 export function setUser () {
   const store = getStore();
   const user = store.state.user.data;
-  amplitude.getInstance().setUserId(user._id);
+  if (ENABLE_AMPLITUDE) {
+    console.log(LOG_AMPLITUDE_EVENTS)
+    console.log(AMPLITUDE_KEY)
+    console.log('Setting Amplitude user ID to', user._id);
+    amplitude.getInstance().setUserId(user._id);
+  }
   window.ga('set', { userId: user._id });
 }
 
@@ -91,7 +98,10 @@ export function track (properties, options = {}) {
     const trackOnClient = options && options.trackOnClient === true;
     // Track events on the server by default
     if (trackOnClient === true) {
-      amplitude.getInstance().logEvent(properties.eventAction, properties);
+      if (ENABLE_AMPLITUDE) {
+        console.log('Tracking Amplitude event', properties.eventAction);
+        amplitude.getInstance().logEvent(properties.eventAction, properties);
+      }
       window.ga('send', properties);
     } else {
       const store = getStore();
@@ -105,10 +115,12 @@ export function updateUser (properties = {}) {
   Vue.nextTick(() => {
     _gatherUserStats(properties);
 
-    forEach(properties, (value, key) => {
-      const identify = new amplitude.Identify().set(key, value);
-      amplitude.getInstance().identify(identify);
-    });
+    if (ENABLE_AMPLITUDE) {
+      forEach(properties, (value, key) => {
+        const identify = new amplitude.Identify().set(key, value);
+        amplitude.getInstance().identify(identify);
+      });
+    }
 
     window.ga('set', properties);
   });
@@ -118,9 +130,10 @@ export function setup () {
   // Setup queues until the real scripts are loaded
 
   /* eslint-disable */
-
-  // Amplitude
-  amplitude.getInstance().init(AMPLITUDE_KEY);
+  if (ENABLE_AMPLITUDE) {
+    // Amplitude
+    amplitude.getInstance().init(AMPLITUDE_KEY);
+  }
 
   // Google Analytics (aka Universal Analytics)
   window['GoogleAnalyticsObject'] = 'ga';
