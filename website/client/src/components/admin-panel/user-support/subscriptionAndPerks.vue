@@ -45,15 +45,13 @@
         <div class="form-inline">
           <label>
           Termination date:
-          <div
-            v-if="hero.purchased.plan.dateTerminated">
+          <div>
           <input
               v-model="hero.purchased.plan.dateTerminated"
               class="form-control"
               type="text"
             > <strong class="ml-2">{{ dateFormat(hero.purchased.plan.dateTerminated) }}</strong>
           </div>
-          <strong v-else> None</strong>
           </label>
         </div>
         <div class="form-inline">
@@ -199,6 +197,9 @@ export default {
   },
   methods: {
     dateFormat (date) {
+      if (!date) {
+        return '--';
+      }
       return moment(date).format('YYYY/MM/DD');
     },
   },

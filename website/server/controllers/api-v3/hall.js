@@ -285,7 +285,7 @@ api.updateHero = {
       if (plan.dateCurrentTypeCreated) {
         hero.purchased.plan.dateCurrentTypeCreated = plan.dateCurrentTypeCreated;
       }
-      if (plan.dateTerminated) {
+      if (plan.dateTerminated != hero.purchased.plan.dateTerminated) {
         hero.purchased.plan.dateTerminated = plan.dateTerminated;
       }
       if (plan.perkMonthCount) {
