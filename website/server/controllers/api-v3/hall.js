@@ -342,6 +342,28 @@ api.updateHero = {
       hero.purchased.ads = updateData.purchased.ads;
     }
 
+    if (updateData.purchasedPath && updateData.purchasedVal !== undefined
+      && validateItemPath(updateData.purchasedPath)) {
+      const parts = updateData.purchasedPath.split('.');
+      const key = _.last(parts);
+      const type = parts[parts.length - 2];
+      // using _.set causes weird issues
+      if (updateData.purchasedVal === true) {
+        if (updateData.purchasedPath.indexOf('hair.') === 10) {
+          if (hero.purchased.hair[type] === undefined) hero.purchased.hair[type] = {};
+          hero.purchased.hair[type][key] = true;
+        } else {
+          if (hero.purchased[type] === undefined) hero.purchased[type] = {};
+          hero.purchased[type][key] = true;
+        }
+      } else if (updateData.purchasedPath.indexOf('hair.') === 10) {
+        delete hero.purchased.hair[type][key];
+      } else {
+        delete hero.purchased[type][key];
+      }
+      hero.markModified('purchased');
+    }
+
     // give them the Dragon Hydra pet if they're above level 6
     if (hero.contributor.level >= 6) {
       hero.items.pets['Dragon-Hydra'] = 5;
