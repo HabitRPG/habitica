@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@vue/cli-plugin-babel": "^5.0.8",
-    "@vue/cli-plugin-eslint": "^4.5.19",
+    "@vue/cli-plugin-eslint": "^5.0.8",
     "@vue/cli-plugin-router": "^5.0.8",
     "@vue/cli-plugin-unit-mocha": "^5.0.8",
     "@vue/cli-service": "^4.5.15",
