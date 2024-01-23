@@ -103,7 +103,7 @@
     "client:unit": "cd website/client && npm run test:unit",
     "start": "gulp nodemon",
     "debug": "gulp nodemon --inspect",
-    "mongo:dev": "run-rs -v 4.4.26 -l ubuntu1804 --keep --dbpath mongodb-data --number 1 --quiet",
+    "mongo:dev": "run-rs -v 5.0.23 -l ubuntu1804 --keep --dbpath mongodb-data --number 1 --quiet",
     "postinstall": "git config --global url.\"https://\".insteadOf git:// && gulp build && cd website/client && npm install",
     "apidoc": "gulp apidoc"
   },
