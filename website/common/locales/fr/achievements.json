@@ -156,5 +156,8 @@
     "achievementBonelessBossModalText": "Vous avez collecté tous les familiers invertébrés !",
     "achievementDuneBuddyNotes": "Vous avez collecté tous les familiers du désert !",
     "achievementDuneBuddy": "Amis des Dunes",
-    "achievementDuneBuddyText": "A collecté toutes les couleurs de base des familiers du désert : Tatou, Cactus, Renard, Grenouille, Serpent et Araignée !"
+    "achievementDuneBuddyText": "A collecté toutes les couleurs de base des familiers du désert : Tatou, Cactus, Renard, Grenouille, Serpent et Araignée !",
+    "achievementRoughRider": "Chevaucheu·r·se Robuste",
+    "achievementRoughRiderText": "A collecté toutes les couleurs de base des familiers et montures inconfortables : Cactus, Hérisson et Caillou !",
+    "achievementRoughRiderNotes": "Vous avez collecté toutes les couleurs de base des familiers et montures inconfortables !"
 }

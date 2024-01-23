@@ -1358,7 +1358,7 @@ describe('Group Model', () => {
 
     describe('#sendChat', () => {
       beforeEach(() => {
-        sandbox.spy(User, 'update');
+        sandbox.spy(User, 'updateOne');
         sandbox.spy(User, 'updateMany');
       });
 
@@ -1450,7 +1450,7 @@ describe('Group Model', () => {
 
         party.sendChat({ message: 'message' });
 
-        expect(User.update).to.not.be.called;
+        expect(User.updateMany).to.not.be.called;
       });
 
       it('skips sending messages to the tavern', () => {
@@ -1458,7 +1458,7 @@ describe('Group Model', () => {
 
         party.sendChat({ message: 'message' });
 
-        expect(User.update).to.not.be.called;
+        expect(User.updateMany).to.not.be.called;
       });
     });
 

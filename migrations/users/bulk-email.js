@@ -16,6 +16,7 @@ async function updateUser (user) {
 
   if (count % progressCount === 0) {
     console.warn(`${count} ${user._id}`);
+    // eslint-disable-next-line no-promise-executor-return
     await new Promise(resolve => setTimeout(resolve, 5000));
   }
 

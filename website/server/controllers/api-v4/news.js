@@ -190,7 +190,7 @@ api.deleteNews = {
     const newsPost = await NewsPost.findById(req.params.postId).exec();
     if (!newsPost) throw new NotFound(res.t('newsPostNotFound'));
 
-    await NewsPost.remove({ _id: req.params.postId }).exec();
+    await NewsPost.deleteOne({ _id: req.params.postId }).exec();
 
     res.respond(200, {});
   },

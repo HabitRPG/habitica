@@ -8,7 +8,7 @@ import common from '../../common';
 const commonErrors = common.errorMessages.common;
 const apiErrors = common.errorMessages.api;
 
-export function apiError (msgKey, vars = {}) {
+export default function apiError (msgKey, vars = {}) {
   let message = apiErrors[msgKey];
   if (!message) message = commonErrors[msgKey];
   if (!message) throw new Error(`Error processing the API message "${msgKey}".`);

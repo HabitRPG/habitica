@@ -11,9 +11,9 @@ import * as Tasks from '../../website/server/models/task';
 
 export { translationCheck } from './translate';
 
-afterEach(done => {
+afterEach(() => {
   sandbox.restore();
-  mongoose.connection.dropDatabase(done);
+  return mongoose.connection.dropDatabase();
 });
 
 export { sleep } from './sleep';

@@ -342,10 +342,12 @@ describe('Apple Payments', () => {
             }]);
           sub = common.content.subscriptionBlocks[newOption.subKey];
 
-          await applePayments.subscribe(user,
+          await applePayments.subscribe(
+            user,
             receipt,
             headers,
-            nextPaymentProcessing);
+            nextPaymentProcessing,
+          );
 
           expect(iapSetupStub).to.be.calledOnce;
           expect(iapValidateStub).to.be.calledOnce;
@@ -387,10 +389,12 @@ describe('Apple Payments', () => {
             }]);
           sub = common.content.subscriptionBlocks[newOption.subKey];
 
-          await applePayments.subscribe(user,
+          await applePayments.subscribe(
+            user,
             receipt,
             headers,
-            nextPaymentProcessing);
+            nextPaymentProcessing,
+          );
 
           expect(iapSetupStub).to.be.calledOnce;
           expect(iapValidateStub).to.be.calledOnce;
@@ -517,9 +521,7 @@ describe('Apple Payments', () => {
 
         const secondUser = new User();
         await secondUser.save();
-        await expect(applePayments.subscribe(
-          secondUser, receipt, headers, nextPaymentProcessing,
-        ))
+        await expect(applePayments.subscribe(secondUser, receipt, headers, nextPaymentProcessing))
           .to.eventually.be.rejected.and.to.eql({
             httpCode: 401,
             name: 'NotAuthorized',
@@ -559,9 +561,7 @@ describe('Apple Payments', () => {
 
         const thirdUser = new User();
         await thirdUser.save();
-        await expect(applePayments.subscribe(
-          thirdUser, receipt, headers, nextPaymentProcessing,
-        ))
+        await expect(applePayments.subscribe(thirdUser, receipt, headers, nextPaymentProcessing))
           .to.eventually.be.rejected.and.to.eql({
             httpCode: 401,
             name: 'NotAuthorized',

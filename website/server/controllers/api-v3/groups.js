@@ -672,7 +672,7 @@ api.joinGroup = {
       if (group.memberCount > 1) {
         const notification = new UserNotification({ type: 'ACHIEVEMENT_PARTY_UP' });
 
-        promises.push(User.update(
+        promises.push(User.updateMany(
           {
             $or: [{ 'party._id': group._id }, { _id: user._id }],
             'achievements.partyUp': { $ne: true },
@@ -682,7 +682,6 @@ api.joinGroup = {
             $set: { 'achievements.partyUp': true },
             $push: { notifications: notification.toObject() },
           },
-          { multi: true },
         ).exec());
 
         if (inviter) {
@@ -696,7 +695,7 @@ api.joinGroup = {
       if (group.memberCount > 3) {
         const notification = new UserNotification({ type: 'ACHIEVEMENT_PARTY_ON' });
 
-        promises.push(User.update(
+        promises.push(User.updateMany(
           {
             $or: [{ 'party._id': group._id }, { _id: user._id }],
             'achievements.partyOn': { $ne: true },
@@ -706,7 +705,6 @@ api.joinGroup = {
             $set: { 'achievements.partyOn': true },
             $push: { notifications: notification.toObject() },
           },
-          { multi: true },
         ).exec());
 
         if (inviter) {

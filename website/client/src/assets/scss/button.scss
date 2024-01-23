@@ -28,7 +28,15 @@
 
   &:disabled, &.disabled {
     cursor: default;
+    color: $gray-50;
     opacity: 0.75;
+    box-shadow: 0 1px 3px 0 rgba(26, 24, 29, 0.12), 0 1px 2px 0 rgba(26, 24, 29, 0.24);
+    background-color: $gray-700;
+    border: 1px solid transparent;
+
+    .svg {
+      color: $gray-300;
+    }
   }
 
   &.with-icon {
@@ -77,16 +85,6 @@
     }
   }
 
-  &:disabled, &.disabled {
-    background: $gray-700;
-    border: 1px solid transparent;
-    cursor: default;
-    color: $gray-50;
-
-    --icon-color: #{$gray-300};
-  }
-
-
   &.with-icon {
     .svg-icon.color {
       color: var(--icon-color);
@@ -134,17 +132,10 @@
       border: 1px solid transparent;
 
       --icon-color: #{$purple-300};
+      .svg {
+        color: $purple-300;
+      }
     }
-  }
-
-  &:disabled, &.disabled {
-    color: $gray-50;
-    background: $white;
-    border: 1px solid transparent;
-    cursor: default;
-    opacity: 0.75;
-
-    --icon-color: #{$gray-300};
   }
 
   &.with-icon {
@@ -181,13 +172,6 @@
     background: $maroon-100;
     border: 1px solid transparent;
   }
-
-  &:disabled, &.disabled {
-    background: $maroon-100;
-    border: 1px solid transparent;
-    cursor: default;
-    opacity: 0.75;
-  }
 }
 
 .btn-success {
@@ -212,13 +196,6 @@
   &:not(:disabled):not(.disabled):active, &:not(:disabled):not(.disabled).active {
     background: $green-50;
     border: 1px solid transparent;
-  }
-
-  &:disabled, &.disabled {
-    background: $green-50;
-    border: 1px solid transparent;
-    cursor: default;
-    opacity: 0.75;
   }
 }
 

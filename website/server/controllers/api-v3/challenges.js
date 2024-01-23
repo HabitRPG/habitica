@@ -2,6 +2,11 @@ import _ from 'lodash';
 import cloneDeep from 'lodash/cloneDeep';
 import { authWithHeaders, authWithSession } from '../../middlewares/auth';
 import { model as Challenge } from '../../models/challenge';
+import bannedWords from '../../libs/bannedWords';
+import bannedSlurs from '../../libs/bannedSlurs';
+import { getMatchesByWordArray } from '../../libs/stringUtils';
+import * as slack from '../../libs/slack';
+import { getUserInfo } from '../../libs/email';
 import {
   model as Group,
   basicFields as basicGroupFields,
@@ -12,6 +17,7 @@ import {
   nameFields,
 } from '../../models/user';
 import {
+  BadRequest,
   NotFound,
   NotAuthorized,
 } from '../../libs/errors';
@@ -38,6 +44,22 @@ import {
 const { MAX_SUMMARY_SIZE_FOR_CHALLENGES } = common.constants;
 
 const api = {};
+
+function textContainsBannedWord (message) {
+  if (!message) {
+    return false;
+  }
+  const bannedWordsMatched = getMatchesByWordArray(message, bannedWords);
+  return bannedWordsMatched.length > 0;
+}
+
+function textContainsBannedSlur (message) {
+  if (!message) {
+    return false;
+  }
+  const bannedSlursMatched = getMatchesByWordArray(message, bannedSlurs);
+  return bannedSlursMatched.length > 0;
+}
 
 /**
  * @apiDefine ChallengeLeader Challenge Leader
@@ -212,7 +234,50 @@ api.createChallenge = {
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    const { savedChal, group } = await createChallenge(user, req, res);
+    const group = await Group.getGroup({
+      user, groupId: req.body.group, fields: basicGroupFields, optionalMembership: true,
+    });
+
+    if (!group) {
+      throw new NotFound(res.t('groupNotFound'));
+    }
+
+    // check public challenges for banned words & chat revocation
+    if (group.privacy === 'public') {
+      const textToCheck = `${req.body.name} ${req.body.shortName} ${req.body.summary} ${req.body.description}`;
+      if (textContainsBannedSlur(textToCheck)) {
+        const authorEmail = getUserInfo(user, ['email']).email;
+        const problemContent = `Challenge Name: ${req.body.name}\n
+          Challenge Tag: ${req.body.shortName}\n
+          Challenge Summary: ${req.body.summary}\n
+          Challenge Description: ${req.body.description}`;
+
+        slack.sendChallengeSlurNotification({
+          authorEmail,
+          author: user,
+          displayName: user.profile.name,
+          username: user.auth.local.username,
+          uuid: user.id,
+          language: user.preferences.language,
+          problemContent,
+        });
+
+        user.flags.chatRevoked = true;
+        await user.save();
+
+        throw new BadRequest(res.t('challengeBannedSlurs'));
+      }
+      if (textContainsBannedWord(textToCheck)) {
+        throw new BadRequest(res.t('challengeBannedWords'));
+      }
+      if (user.flags.chatRevoked) {
+        throw new BadRequest(res.t('cannotMakeChallenge'));
+      }
+    }
+
+    const { savedChal } = await createChallenge(user, req, res);
+
+    await user.save();
 
     const response = savedChal.toJSON();
     response.leader = { // the leader is the authenticated user
@@ -712,7 +777,8 @@ api.exportChallengeCsv = {
     // repeated n times for the n challenge tasks
     const challengeTasks = _.reduce(
       challenge.tasksOrder.toObject(),
-      (result, array) => result.concat(array), [],
+      (result, array) => result.concat(array),
+      [],
     ).sort();
     resArray.unshift(['UUID', 'Display Name', 'Username']);
 

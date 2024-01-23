@@ -142,5 +142,8 @@
     "editTagsText": "Editar Etiquetas",
     "taskSummary": "<%= type %> Resumo",
     "scoreDown": "Pontuação negativa",
-    "scoreUp": "Pontuação positiva"
+    "scoreUp": "Pontuação positiva",
+    "taskAlias": "Nome de Tarefa",
+    "taskAliasPopover": "Este nome de tarefa pode ser usado para integração com terceiros. Apenas traços, sublinhados e caracteres alfanum[ericos são permitidos. O nome da tarefa precisa ser único entre suas tarefas.",
+    "taskAliasPlaceholder": "seu-nome-de-tarefa-aqui"
 }

@@ -30,14 +30,14 @@ describe('POST /chat', () => {
       upgradeToGroupPlan: true,
     });
     user = groupLeader;
-    await user.update({
+    await user.updateOne({
       'contributor.level': SPAM_MIN_EXEMPT_CONTRIB_LEVEL,
       'auth.timestamps.created': new Date('2022-01-01'),
     }); // prevent tests accidentally throwing messageGroupChatSpam
     groupWithChat = group;
     [member, additionalMember] = members;
-    await member.update({ 'auth.timestamps.created': new Date('2022-01-01') });
-    await additionalMember.update({ 'auth.timestamps.created': new Date('2022-01-01') });
+    await member.updateOne({ 'auth.timestamps.created': new Date('2022-01-01') });
+    await additionalMember.updateOne({ 'auth.timestamps.created': new Date('2022-01-01') });
   });
 
   it('Returns an error when no message is provided', async () => {
@@ -77,11 +77,11 @@ describe('POST /chat', () => {
 
   describe('mute user', () => {
     afterEach(() => {
-      member.update({ 'flags.chatRevoked': false });
+      member.updateOne({ 'flags.chatRevoked': false });
     });
 
     it('does not error when chat privileges are revoked when sending a message to a private guild', async () => {
-      await member.update({
+      await member.updateOne({
         'flags.chatRevoked': true,
       });
 
@@ -101,7 +101,7 @@ describe('POST /chat', () => {
       });
 
       const privatePartyMemberWithChatsRevoked = members[0];
-      await privatePartyMemberWithChatsRevoked.update({
+      await privatePartyMemberWithChatsRevoked.updateOne({
         'flags.chatRevoked': true,
         'auth.timestamps.created': new Date('2022-01-01'),
       });
@@ -120,11 +120,11 @@ describe('POST /chat', () => {
 
     afterEach(() => {
       sandbox.restore();
-      member.update({ 'flags.chatShadowMuted': false });
+      member.updateOne({ 'flags.chatShadowMuted': false });
     });
 
     it('creates a chat with zero flagCount when sending a message to a private guild', async () => {
-      await member.update({
+      await member.updateOne({
         'flags.chatShadowMuted': true,
       });
 
@@ -145,7 +145,7 @@ describe('POST /chat', () => {
       });
 
       const userWithChatShadowMuted = members[0];
-      await userWithChatShadowMuted.update({
+      await userWithChatShadowMuted.updateOne({
         'flags.chatShadowMuted': true,
         'auth.timestamps.created': new Date('2022-01-01'),
       });
@@ -167,7 +167,7 @@ describe('POST /chat', () => {
         },
         members: 1,
       });
-      await members[0].update({ 'auth.timestamps.created': new Date('2022-01-01') });
+      await members[0].updateOne({ 'auth.timestamps.created': new Date('2022-01-01') });
 
       const message = await members[0].post(`/groups/${group._id}/chat`, { message: testBannedWordMessage });
 
@@ -189,7 +189,7 @@ describe('POST /chat', () => {
 
     afterEach(() => {
       sandbox.restore();
-      user.update({ 'flags.chatRevoked': false });
+      user.updateOne({ 'flags.chatRevoked': false });
     });
 
     it('allows slurs in private groups', async () => {
@@ -201,7 +201,7 @@ describe('POST /chat', () => {
         },
         members: 1,
       });
-      await members[0].update({ 'auth.timestamps.created': new Date('2022-01-01') });
+      await members[0].updateOne({ 'auth.timestamps.created': new Date('2022-01-01') });
 
       const message = await members[0].post(`/groups/${group._id}/chat`, { message: testSlurMessage });
 
@@ -210,14 +210,14 @@ describe('POST /chat', () => {
   });
 
   it('errors when user account is too young', async () => {
-    await user.update({ 'auth.timestamps.created': new Date() });
+    await user.updateOne({ 'auth.timestamps.created': new Date() });
     await expect(user.post(`/groups/${groupWithChat._id}/chat`, { message: 'hi im new' }))
       .to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
         message: t('chatTemporarilyUnavailable'),
       });
-    await user.update({ 'auth.timestamps.created': new Date('2022-01-01') });
+    await user.updateOne({ 'auth.timestamps.created': new Date('2022-01-01') });
   });
 
   it('creates a chat', async () => {
@@ -258,7 +258,7 @@ describe('POST /chat', () => {
 
   it('chat message with mentions - mention link should not count towards 3000 chars limit', async () => {
     const memberUsername = 'memberUsername';
-    await member.update({ 'auth.local.username': memberUsername });
+    await member.updateOne({ 'auth.local.username': memberUsername });
 
     const messageWithMentions = `hi @${memberUsername} 123456789
      123456789 123456789 123456789 123456789 123456789 123456789 89 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 12345678 END.`;
@@ -278,7 +278,7 @@ describe('POST /chat', () => {
     const mount = 'test-mount';
     const pet = 'test-pet';
     const style = 'test-style';
-    await user.update({
+    await user.updateOne({
       'items.currentMount': mount,
       'items.currentPet': pet,
       'preferences.style': style,
@@ -308,7 +308,7 @@ describe('POST /chat', () => {
   });
 
   it('creates costume to user styles', async () => {
-    await user.update({ 'preferences.costume': true });
+    await user.updateOne({ 'preferences.costume': true });
 
     const message = await user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage });
 
@@ -323,7 +323,7 @@ describe('POST /chat', () => {
       tier: 800,
       tokensApplied: true,
     };
-    await user.update({
+    await user.updateOne({
       backer: backerInfo,
     });
 
@@ -375,7 +375,7 @@ describe('POST /chat', () => {
 
   context('chat notifications', () => {
     beforeEach(() => {
-      member.update({ newMessages: {}, notifications: [] });
+      member.updateOne({ newMessages: {}, notifications: [] });
     });
 
     it('notifies other users of new messages for a guild', async () => {

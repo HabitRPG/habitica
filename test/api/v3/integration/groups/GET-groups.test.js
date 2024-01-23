@@ -37,7 +37,7 @@ describe('GET /groups', () => {
       upgradeToGroupPlan: true,
     }));
     [user] = members;
-    await user.update({ balance: 4 });
+    await user.updateOne({ balance: 4 });
 
     ({ group: secondGroup, groupLeader: secondLeader } = await createAndPopulateGroup({
       groupDetails: {

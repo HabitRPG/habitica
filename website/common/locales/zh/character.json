@@ -170,8 +170,8 @@
     "photo": "图片",
     "info": "信息",
     "joined": "已加入",
-    "totalLogins": "总签到次数",
-    "latestCheckin": "最近一次的签到",
+    "totalLogins": "总登录次数",
+    "latestCheckin": "最后一次登录",
     "editProfile": "编辑角色信息",
     "challengesWon": "赢得的奖励",
     "questsCompleted": "已完成的副本",
@@ -188,5 +188,6 @@
     "purchaseForGold": "花费<%= cost %> 个金币购买？",
     "notEnoughGold": "没有足够金币。",
     "chatCastSpellPartyTimes": "<%= username %> 对队伍使用了 <%= times %> 次 <%= spell %>。",
-    "chatCastSpellUserTimes": "<%= username %> 对 <%= target %> 使用了 <%= times %> 次 <%= spell %>。"
+    "chatCastSpellUserTimes": "<%= username %> 对 <%= target %> 使用了 <%= times %> 次 <%= spell %>。",
+    "nextReward": "下一个登录奖励"
 }

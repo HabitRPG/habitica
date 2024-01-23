@@ -49,7 +49,7 @@ describe('Post /groups/:groupId/invite', () => {
     });
 
     it('returns error when recipient has blocked the senders', async () => {
-      const inviterNoBlocks = await inviter.update({ 'inbox.blocks': [] });
+      const inviterNoBlocks = await inviter.updateOne({ 'inbox.blocks': [] });
       const userWithBlockedInviter = await generateUser({ 'inbox.blocks': [inviter._id] });
       await expect(inviterNoBlocks.post(`/groups/${group._id}/invite`, {
         usernames: [userWithBlockedInviter.auth.local.lowerCaseUsername],
@@ -107,7 +107,7 @@ describe('Post /groups/:groupId/invite', () => {
 
   describe('user id invites', () => {
     it('returns an error when inviter has no chat privileges', async () => {
-      const inviterMuted = await inviter.update({ 'flags.chatRevoked': true });
+      const inviterMuted = await inviter.updateOne({ 'flags.chatRevoked': true });
       const userToInvite = await generateUser();
       await expect(inviterMuted.post(`/groups/${group._id}/invite`, {
         uuids: [userToInvite._id],
@@ -197,7 +197,7 @@ describe('Post /groups/:groupId/invite', () => {
     });
 
     it('returns error when recipient has blocked the senders', async () => {
-      const inviterNoBlocks = await inviter.update({ 'inbox.blocks': [] });
+      const inviterNoBlocks = await inviter.updateOne({ 'inbox.blocks': [] });
       const userWithBlockedInviter = await generateUser({ 'inbox.blocks': [inviter._id] });
       await expect(inviterNoBlocks.post(`/groups/${group._id}/invite`, {
         uuids: [userWithBlockedInviter._id],
@@ -269,7 +269,7 @@ describe('Post /groups/:groupId/invite', () => {
     const testInvite = { name: 'test', email: 'test@habitica.com' };
 
     it('returns an error when inviter has no chat privileges', async () => {
-      const inviterMuted = await inviter.update({ 'flags.chatRevoked': true });
+      const inviterMuted = await inviter.updateOne({ 'flags.chatRevoked': true });
       await expect(inviterMuted.post(`/groups/${group._id}/invite`, {
         emails: [testInvite],
         inviter: 'inviter name',
@@ -439,7 +439,7 @@ describe('Post /groups/:groupId/invite', () => {
 
   describe('party invites', () => {
     it('returns an error when inviter has no chat privileges', async () => {
-      const inviterMuted = await inviter.update({ 'flags.chatRevoked': true });
+      const inviterMuted = await inviter.updateOne({ 'flags.chatRevoked': true });
       const userToInvite = await generateUser();
       await expect(inviterMuted.post(`/groups/${group._id}/invite`, {
         uuids: [userToInvite._id],

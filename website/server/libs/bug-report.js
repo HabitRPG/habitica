@@ -1,9 +1,7 @@
 import nconf from 'nconf';
 import { convertVariableObjectToArray, sendTxn } from './email';
 
-export async function bugReportLogic (
-  user, userEmail, message, BROWSER_UA, question,
-) {
+export async function bugReportLogic (user, userEmail, message, BROWSER_UA, question) {
   const emailData = {
     USER_ID: user._id,
     USER_EMAIL: userEmail,

@@ -79,7 +79,7 @@ describe('POST /challenges', () => {
       });
 
       groupLeader = await populatedGroup.groupLeader.sync();
-      await groupLeader.update({ permissions: {} });
+      await groupLeader.updateOne({ permissions: {} });
       group = populatedGroup.group;
       groupMember = populatedGroup.members[0]; // eslint-disable-line prefer-destructuring
     });
@@ -177,7 +177,7 @@ describe('POST /challenges', () => {
       const oldUserBalance = groupLeader.balance;
       const prize = 8;
 
-      await group.update({ balance: 0 });
+      await group.updateOne({ balance: 0 });
       await groupLeader.post('/challenges', {
         group: group._id,
         name: 'Test Challenge',
@@ -202,7 +202,7 @@ describe('POST /challenges', () => {
     });
 
     it('sets challenge as official if created by admin and official flag is set', async () => {
-      await groupLeader.update({
+      await groupLeader.updateOne({
         permissions: {
           challengeAdmin: true,
         },

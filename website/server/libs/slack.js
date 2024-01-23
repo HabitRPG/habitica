@@ -358,6 +358,42 @@ function sendProfileSlurNotification ({
     .catch(err => logger.error(err, 'Error while sending flag data to Slack.'));
 }
 
+function sendChallengeSlurNotification ({
+  authorEmail,
+  author,
+  language,
+  problemContent,
+  uuid,
+}) {
+  if (SKIP_FLAG_METHODS) {
+    return;
+  }
+  const text = `${author.profile.name} ${authorEmail} (${uuid}, ${language}) tried to create a Challenge with a slur or banned word.`;
+
+  const authorName = formatUser({
+    name: author.auth.local.username,
+    displayName: author.profile.name,
+    email: authorEmail,
+    uuid: author.id,
+    language,
+  });
+
+  flagSlack
+    .send({
+      text,
+      attachments: [{
+        fallback: 'Slur Message',
+        color: 'danger',
+        author_name: authorName,
+        text: problemContent,
+        mrkdwn_in: [
+          'text',
+        ],
+      }],
+    })
+    .catch(err => logger.error(err, 'Error while sending flag data to Slack.'));
+}
+
 export {
   sendFlagNotification,
   sendInboxFlagNotification,
@@ -366,5 +402,6 @@ export {
   sendSubscriptionNotification,
   sendShadowMutedPostNotification,
   sendProfileSlurNotification,
+  sendChallengeSlurNotification,
   formatUser,
 };

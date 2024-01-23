@@ -463,7 +463,7 @@ api.seenChat = {
     // See https://github.com/HabitRPG/habitica/pull/9321#issuecomment-354187666 for more info
     user._v += 1;
 
-    await User.update({ _id: user._id }, update).exec();
+    await User.updateOne({ _id: user._id }, update).exec();
     res.respond(200, {});
   },
 };
@@ -523,7 +523,7 @@ api.deleteChat = {
       lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg
     );
 
-    await Chat.remove({ _id: message._id }).exec();
+    await Chat.deleteOne({ _id: message._id }).exec();
 
     if (chatUpdated) {
       removeFromArray(chatRes.chat, { id: chatId });

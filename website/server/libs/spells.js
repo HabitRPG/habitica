@@ -218,8 +218,13 @@ async function castSpell (req, res, { isV3 = false }) {
       partyMembers = await castPartySpell(req, party, user, spell, quantity);
     } else {
       partyMembers = await castUserSpell(
-        res, req, party,
-        targetId, user, spell, quantity,
+        res,
+        req,
+        party,
+        targetId,
+        user,
+        spell,
+        quantity,
       );
     }
 
@@ -266,7 +271,7 @@ async function castSpell (req, res, { isV3 = false }) {
             },
           });
           await newChatMessage.save();
-          await lastMessage.remove();
+          await lastMessage.deleteOne();
         } else { // Single target spell, not repeated
           const newChatMessage = party.sendChat({
             message: `\`${common.i18n.t('chatCastSpellUser', { username: user.profile.name, spell: spell.text(), target: partyMembers.profile.name }, 'en')}\``,
@@ -298,7 +303,7 @@ async function castSpell (req, res, { isV3 = false }) {
           },
         });
         await newChatMessage.save();
-        await lastMessage.remove();
+        await lastMessage.deleteOne();
       } else {
         const newChatMessage = party.sendChat({ // Non-repetitive partywide spell
           message: `\`${common.i18n.t('chatCastSpellParty', { username: user.profile.name, spell: spell.text() }, 'en')}\``,

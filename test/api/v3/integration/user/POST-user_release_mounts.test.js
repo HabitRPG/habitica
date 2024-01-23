@@ -36,7 +36,7 @@ describe('POST /user/release-mounts', () => {
   // More tests in common code unit tests
 
   it('releases mounts', async () => {
-    await user.update({
+    await user.updateOne({
       balance: 1,
     });
 

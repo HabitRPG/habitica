@@ -1,7 +1,7 @@
 {
   "name": "habitica",
   "description": "A habit tracker app which treats your goals like a Role Playing Game.",
-  "version": "5.15.2",
+  "version": "5.16.1",
   "main": "./website/server/index.js",
   "dependencies": {
     "@babel/core": "^7.22.10",
@@ -39,7 +39,6 @@
     "gulp.spritesmith": "^6.13.0",
     "habitica-markdown": "^3.0.0",
     "helmet": "^4.6.0",
-    "image-size": "^1.0.2",
     "in-app-purchase": "^1.11.3",
     "js2xmlparser": "^5.0.0",
     "jsonwebtoken": "^9.0.2",
@@ -49,7 +48,7 @@
     "method-override": "^3.0.0",
     "moment": "^2.29.4",
     "moment-recur": "^1.0.7",
-    "mongoose": "^5.13.20",
+    "mongoose": "^7.6.3",
     "morgan": "^1.10.0",
     "nconf": "^0.12.1",
     "node-gcm": "^1.0.5",
@@ -64,7 +63,6 @@
     "ps-tree": "^1.0.0",
     "rate-limiter-flexible": "^2.4.2",
     "redis": "^3.1.2",
-    "regenerator-runtime": "^0.13.11",
     "remove-markdown": "^0.5.0",
     "rimraf": "^3.0.2",
     "short-uuid": "^4.2.2",
@@ -74,7 +72,6 @@
     "useragent": "^2.1.9",
     "uuid": "^9.0.0",
     "validator": "^13.11.0",
-    "vinyl-buffer": "^1.0.1",
     "winston": "^3.10.0",
     "winston-loggly-bulk": "^3.3.0",
     "xml2js": "^0.6.2"

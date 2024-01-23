@@ -170,7 +170,7 @@ describe('PUT /group', () => {
       },
       upgradeToGroupPlan: true,
     });
-    await groupLeader.update({ permissions: {} });
+    await groupLeader.updateOne({ permissions: {} });
 
     const updateGroupDetails = {
       id: group._id,

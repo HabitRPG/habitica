@@ -38,9 +38,7 @@ api.bugReport = {
 
     const {
       emailData, sendMailResult,
-    } = bugReportLogic(
-      user, email, message, BROWSER_UA, question,
-    );
+    } = bugReportLogic(user, email, message, BROWSER_UA, question);
 
     res.status(200).send({
       ok: true,

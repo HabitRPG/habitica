@@ -186,5 +186,8 @@
     "chatCastSpellParty": "<%= username %> lanza <%= spell %> para el equipo.",
     "purchasePetItemConfirm": "Esta compra supera el número que necesitas para eclosionar todos los <%= itemText %> . ¿Quieres hacerla?",
     "purchaseForGold": "¿Comprar por <%= cost %> monedas de oro?",
-    "notEnoughGold": "No hay suficiente Oro."
+    "notEnoughGold": "No hay suficiente Oro.",
+    "chatCastSpellPartyTimes": "<%= username %> lanza <%= spell %> para el equipo <%= times %> veces.",
+    "chatCastSpellUserTimes": "<%= username %> lanza <%= spell %> sobre <%= target %> <%= times %> veces.",
+    "nextReward": "Próxima recompensa de Registro"
 }

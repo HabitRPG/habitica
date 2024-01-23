@@ -15,10 +15,8 @@ import * as wonderconGear from './special-wondercon';
 import t from '../../../translation';
 import { getClassName } from '../../../../libs/getClassName';
 
-const CURRENT_EVENT = find(
-  EVENTS, event => moment().isBetween(event.start, event.end)
-    && ['winter', 'spring', 'summer', 'fall'].includes(event.season),
-);
+const CURRENT_EVENT = find(EVENTS, event => moment().isBetween(event.start, event.end)
+    && ['winter', 'spring', 'summer', 'fall'].includes(event.season));
 
 const gearEvents = pickBy(EVENTS, event => event.gear);
 
@@ -874,7 +872,7 @@ const armor = {
     text: t('armorSpecialBirthday2024Text'),
     notes: t('armorSpecialBirthday2024Notes'),
     value: 0,
-    canOwn: ownsItem('armor_special_birthday2023'),
+    canOwn: ownsItem('armor_special_birthday2024'),
   },
 };
 

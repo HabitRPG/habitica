@@ -212,7 +212,7 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
 
     it('removes user from quest when removing user from party after quest starts', async () => {
       const petQuest = 'whale';
-      await partyLeader.update({
+      await partyLeader.updateOne({
         [`items.quests.${petQuest}`]: 1,
       });
 
@@ -234,7 +234,7 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
 
     it('removes user from quest when removing user from party before quest starts', async () => {
       const petQuest = 'whale';
-      await partyLeader.update({
+      await partyLeader.updateOne({
         [`items.quests.${petQuest}`]: 1,
       });
       await partyInvitedUser.post(`/groups/${party._id}/join`);
@@ -257,7 +257,7 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
 
     it('prevents user from being removed if they are the quest owner', async () => {
       const petQuest = 'whale';
-      await partyMember.update({
+      await partyMember.updateOne({
         [`items.quests.${petQuest}`]: 1,
       });
 

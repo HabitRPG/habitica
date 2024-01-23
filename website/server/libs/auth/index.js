@@ -205,7 +205,7 @@ async function registerLocal (req, res, { isV3 = false }) {
 
   // Clean previous email preferences and send welcome email
   EmailUnsubscription
-    .remove({ email: savedUser.auth.local.email })
+    .deleteOne({ email: savedUser.auth.local.email })
     .then(() => {
       if (existingUser) return;
       if (newUser.registeredThrough === 'habitica-web') {

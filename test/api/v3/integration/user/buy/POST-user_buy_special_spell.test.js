@@ -29,7 +29,7 @@ describe('POST /user/buy-special-spell/:key', () => {
     const key = 'thankyou';
     const item = content.special[key];
 
-    await user.update({ 'stats.gp': 250 });
+    await user.updateOne({ 'stats.gp': 250 });
     const res = await user.post(`/user/buy-special-spell/${key}`);
     await user.sync();
 
@@ -45,7 +45,7 @@ describe('POST /user/buy-special-spell/:key', () => {
   it('returns an error if user does not have enough gold', async () => {
     const key = 'thankyou';
 
-    await user.update({
+    await user.updateOne({
       'stats.gp': 5,
     });
 

@@ -86,7 +86,7 @@ export async function getUserInboxMessage (user, messageId) {
 export async function deleteMessage (user, messageId) {
   const message = await Inbox.findOne({ _id: messageId, ownerId: user._id }).exec();
   if (!message) return false;
-  await Inbox.remove({ _id: message._id, ownerId: user._id }).exec();
+  await Inbox.deleteOne({ _id: message._id, ownerId: user._id }).exec();
 
   return true;
 }
@@ -96,6 +96,6 @@ export async function clearPMs (user) {
 
   await Promise.all([
     user.save(),
-    Inbox.remove({ ownerId: user._id }).exec(),
+    Inbox.deleteMany({ ownerId: user._id }).exec(),
   ]);
 }

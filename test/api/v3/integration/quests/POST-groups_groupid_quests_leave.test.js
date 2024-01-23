@@ -23,7 +23,7 @@ describe('POST /groups/:groupId/quests/leave', () => {
     leader = groupLeader;
     partyMembers = members;
 
-    await leader.update({
+    await leader.updateOne({
       [`items.quests.${PET_QUEST}`]: 1,
     });
     user = await generateUser();

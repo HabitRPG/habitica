@@ -24,7 +24,7 @@ describe('POST /debug/quest-progress', () => {
   });
 
   it('increases boss quest progress by 1000', async () => {
-    await user.update({
+    await user.updateOne({
       'party.quest.key': 'whale',
     });
 
@@ -36,7 +36,7 @@ describe('POST /debug/quest-progress', () => {
   });
 
   it('increases collection quest progress by 300 items', async () => {
-    await user.update({
+    await user.updateOne({
       'party.quest.key': 'evilsanta2',
     });
 

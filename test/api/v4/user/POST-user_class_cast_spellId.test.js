@@ -18,7 +18,7 @@ describe('POST /user/class/cast/:spellId', () => {
   });
 
   it('returns an error if spell does not exist', async () => {
-    await user.update({ 'stats.class': 'rogue' });
+    await user.updateOne({ 'stats.class': 'rogue' });
     const spellId = 'invalidSpell';
     await expect(user.post(`/user/class/cast/${spellId}`))
       .to.eventually.be.rejected.and.eql({
@@ -39,7 +39,7 @@ describe('POST /user/class/cast/:spellId', () => {
   });
 
   it('returns an error if spell.mana > user.mana', async () => {
-    await user.update({ 'stats.class': 'rogue' });
+    await user.updateOne({ 'stats.class': 'rogue' });
     await expect(user.post('/user/class/cast/backStab'))
       .to.eventually.be.rejected.and.eql({
         code: 401,
@@ -58,7 +58,7 @@ describe('POST /user/class/cast/:spellId', () => {
   });
 
   it('returns an error if spell.lvl > user.level', async () => {
-    await user.update({ 'stats.mp': 200, 'stats.class': 'wizard' });
+    await user.updateOne({ 'stats.mp': 200, 'stats.class': 'wizard' });
     await expect(user.post('/user/class/cast/earth'))
       .to.eventually.be.rejected.and.eql({
         code: 401,
@@ -86,7 +86,7 @@ describe('POST /user/class/cast/:spellId', () => {
   });
 
   it('returns an error if targetId is required but missing', async () => {
-    await user.update({ 'stats.class': 'rogue', 'stats.lvl': 11 });
+    await user.updateOne({ 'stats.class': 'rogue', 'stats.lvl': 11 });
     await expect(user.post('/user/class/cast/pickPocket'))
       .to.eventually.be.rejected.and.eql({
         code: 400,
@@ -96,7 +96,7 @@ describe('POST /user/class/cast/:spellId', () => {
   });
 
   it('returns an error if targeted task doesn\'t exist', async () => {
-    await user.update({ 'stats.class': 'rogue', 'stats.lvl': 11 });
+    await user.updateOne({ 'stats.class': 'rogue', 'stats.lvl': 11 });
     await expect(user.post(`/user/class/cast/pickPocket?targetId=${generateUUID()}`))
       .to.eventually.be.rejected.and.eql({
         code: 404,
@@ -112,7 +112,7 @@ describe('POST /user/class/cast/:spellId', () => {
     await groupLeader.post(`/tasks/challenge/${challenge._id}`, [
       { type: 'habit', text: 'task text' },
     ]);
-    await groupLeader.update({ 'stats.class': 'rogue', 'stats.lvl': 11 });
+    await groupLeader.updateOne({ 'stats.class': 'rogue', 'stats.lvl': 11 });
     await sleep(0.5);
     await groupLeader.sync();
     await expect(groupLeader.post(`/user/class/cast/pickPocket?targetId=${groupLeader.tasksOrder.habits[0]}`))
@@ -131,7 +131,7 @@ describe('POST /user/class/cast/:spellId', () => {
       type: 'todo',
     });
     await groupLeader.post(`/tasks/${groupTask._id}/assign`, [groupLeader._id]);
-    await groupLeader.update({ 'stats.class': 'rogue', 'stats.lvl': 11 });
+    await groupLeader.updateOne({ 'stats.class': 'rogue', 'stats.lvl': 11 });
     await sleep(0.5);
     await groupLeader.sync();
 
@@ -148,7 +148,7 @@ describe('POST /user/class/cast/:spellId', () => {
       groupDetails: { type: 'party', privacy: 'private' },
       members: 1,
     });
-    await groupLeader.update({ 'items.special.snowball': 3 });
+    await groupLeader.updateOne({ 'items.special.snowball': 3 });
 
     const target = generateUUID();
     await expect(groupLeader.post(`/user/class/cast/snowball?targetId=${target}`))
@@ -160,7 +160,7 @@ describe('POST /user/class/cast/:spellId', () => {
   });
 
   it('returns an error if party does not exists', async () => {
-    await user.update({ 'items.special.snowball': 3 });
+    await user.updateOne({ 'items.special.snowball': 3 });
 
     await expect(user.post(`/user/class/cast/snowball?targetId=${generateUUID()}`))
       .to.eventually.be.rejected.and.eql({
@@ -175,7 +175,7 @@ describe('POST /user/class/cast/:spellId', () => {
       groupDetails: { type: 'party', privacy: 'private' },
       members: 1,
     });
-    await groupLeader.update({ 'stats.mp': 200, 'stats.class': 'wizard', 'stats.lvl': 13 });
+    await groupLeader.updateOne({ 'stats.mp': 200, 'stats.class': 'wizard', 'stats.lvl': 13 });
 
     await groupLeader.post('/user/class/cast/earth');
     await sleep(1);
@@ -192,11 +192,11 @@ describe('POST /user/class/cast/:spellId', () => {
     });
 
     let promises = [];
-    promises.push(group.groupLeader.update({ 'stats.mp': 200, 'stats.class': 'wizard', 'stats.lvl': 20 }));
-    promises.push(group.members[0].update({ 'stats.mp': 0, 'stats.class': 'warrior', 'stats.lvl': 20 }));
-    promises.push(group.members[1].update({ 'stats.mp': 0, 'stats.class': 'wizard', 'stats.lvl': 20 }));
-    promises.push(group.members[2].update({ 'stats.mp': 0, 'stats.class': 'rogue', 'stats.lvl': 20 }));
-    promises.push(group.members[3].update({ 'stats.mp': 0, 'stats.class': 'healer', 'stats.lvl': 20 }));
+    promises.push(group.groupLeader.updateOne({ 'stats.mp': 200, 'stats.class': 'wizard', 'stats.lvl': 20 }));
+    promises.push(group.members[0].updateOne({ 'stats.mp': 0, 'stats.class': 'warrior', 'stats.lvl': 20 }));
+    promises.push(group.members[1].updateOne({ 'stats.mp': 0, 'stats.class': 'wizard', 'stats.lvl': 20 }));
+    promises.push(group.members[2].updateOne({ 'stats.mp': 0, 'stats.class': 'rogue', 'stats.lvl': 20 }));
+    promises.push(group.members[3].updateOne({ 'stats.mp': 0, 'stats.class': 'healer', 'stats.lvl': 20 }));
     await Promise.all(promises);
 
     await group.groupLeader.post('/user/class/cast/mpheal');
@@ -244,7 +244,7 @@ describe('POST /user/class/cast/:spellId', () => {
               groupDetails: { type: 'party', privacy: 'private' },
               members: 3,
             });
-            await groupLeader.update({
+            await groupLeader.updateOne({
               'stats.mp': 200, 'stats.class': habitClass.className, 'stats.lvl': 20, 'stats.hp': 40,
             });
             // need this for task spells and for stealth
@@ -261,7 +261,7 @@ describe('POST /user/class/cast/:spellId', () => {
             expect(groupLeader.stats.mp).to.be.lessThan(200);
           });
           it('works without a party', async () => {
-            await user.update({
+            await user.updateOne({
               'stats.mp': 200, 'stats.class': habitClass.className, 'stats.lvl': 20, 'stats.hp': 40,
             });
             // need this for task spells and for stealth
@@ -288,7 +288,7 @@ describe('POST /user/class/cast/:spellId', () => {
       members: 1,
     });
 
-    await groupLeader.update({ 'stats.mp': 200, 'stats.class': 'wizard', 'stats.lvl': 13 });
+    await groupLeader.updateOne({ 'stats.mp': 200, 'stats.class': 'wizard', 'stats.lvl': 13 });
     await groupLeader.post('/user/class/cast/earth', { quantity: 2 });
 
     await sleep(1);
@@ -311,7 +311,7 @@ describe('POST /user/class/cast/:spellId', () => {
       text: 'todo group',
       type: 'todo',
     });
-    await user.update({ 'stats.class': 'healer', 'stats.mp': 200, 'stats.lvl': 15 });
+    await user.updateOne({ 'stats.class': 'healer', 'stats.mp': 200, 'stats.lvl': 15 });
     await user.post(`/tasks/${groupTask._id}/assign`, [user._id]);
     await user.put('/user', {
       'preferences.tasks.mirrorGroupTasks': [guild._id],
@@ -341,7 +341,7 @@ describe('POST /user/class/cast/:spellId', () => {
     });
     const leader = party.groupLeader;
     const recipient = party.members[0];
-    await leader.update({ 'stats.gp': 10 });
+    await leader.updateOne({ 'stats.gp': 10 });
     await leader.post(`/user/class/cast/birthday?targetId=${recipient._id}`);
     await leader.sync();
     await recipient.sync();
@@ -350,14 +350,14 @@ describe('POST /user/class/cast/:spellId', () => {
   });
 
   it('only increases user\'s achievement one if target == caster', async () => {
-    await user.update({ 'stats.gp': 10 });
+    await user.updateOne({ 'stats.gp': 10 });
     await user.post(`/user/class/cast/birthday?targetId=${user._id}`);
     await user.sync();
     expect(user.achievements.birthday).to.equal(1);
   });
 
   it('passes correct target to spell when targetType === \'task\'', async () => {
-    await user.update({ 'stats.class': 'wizard', 'stats.lvl': 11 });
+    await user.updateOne({ 'stats.class': 'wizard', 'stats.lvl': 11 });
 
     const task = await user.post('/tasks/user', {
       text: 'test habit',
@@ -370,7 +370,7 @@ describe('POST /user/class/cast/:spellId', () => {
   });
 
   it('passes correct target to spell when targetType === \'self\'', async () => {
-    await user.update({ 'stats.class': 'wizard', 'stats.lvl': 14, 'stats.mp': 50 });
+    await user.updateOne({ 'stats.class': 'wizard', 'stats.lvl': 14, 'stats.mp': 50 });
 
     const result = await user.post('/user/class/cast/frost');
 

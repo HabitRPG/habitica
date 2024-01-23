@@ -13,16 +13,12 @@
           </h1>
         </div>
         <div class="col-md-4">
-          <!-- @TODO: implement sorting span.dropdown-label
-           {{ $t('sortBy') }}b-dropdown(:text="$t('sort')", right=true)
-          b-dropdown-item(v-for='sortOption in sortOptions',
-           :key="sortOption.value", @click='sort(sortOption.value)') {{sortOption.text}}-->
           <button
             class="btn btn-secondary create-challenge-button float-right"
             @click="createChallenge()"
           >
             <div
-              class="svg-icon positive-icon"
+              class="svg svg-icon positive-icon color"
               v-html="icons.positiveIcon"
             ></div>
             <span v-once>{{ $t('createChallenge') }}</span>
@@ -87,13 +83,16 @@
 
     .create-challenge-button {
       margin-left: 1em;
-    }
 
-    .positive-icon {
-      color: $green-10;
-      width: 10px;
-      display: inline-block;
-      margin-right: .5em;
+      &:not(.disabled) .svg {
+        color: $green-10;
+      }
+
+      .positive-icon {
+        width: 10px;
+        display: inline-block;
+        margin-right: .5em;
+      }
     }
   }
 

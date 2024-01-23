@@ -48,9 +48,13 @@ function calculateBonus (value, stat, critVal = 1, statScale = 0.5) {
 }
 
 export function stealthBuffsToAdd (user) {
-  return Math.ceil(diminishingReturns(
-    statsComputed(user).per, user.tasksOrder.dailys.length * 0.64, 55,
-  ));
+  return Math.ceil(
+    diminishingReturns(
+      statsComputed(user).per,
+      user.tasksOrder.dailys.length * 0.64,
+      55,
+    ),
+  );
 }
 
 const spells = {};

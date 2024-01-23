@@ -351,6 +351,7 @@ import isPinned from '@/../../common/script/libs/isPinned';
 import getOfficialPinnedItems from '@/../../common/script/libs/getOfficialPinnedItems';
 import i18n from '@/../../common/script/i18n';
 import shops from '@/../../common/script/libs/shops';
+import { getClassName } from '@/../../common/script/libs/getClassName';
 import { mapState } from '@/libs/store';
 
 import Checkbox from '@/components/ui/checkbox';
@@ -369,7 +370,6 @@ import svgHealer from '@/assets/svg/healer.svg';
 import SelectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
 import FilterSidebar from '@/components/ui/filterSidebar';
 import FilterGroup from '@/components/ui/filterGroup';
-import { getClassName } from '../../../../../common/script/libs/getClassName';
 import { worldStateMixin } from '@/mixins/worldState';
 
 export default {

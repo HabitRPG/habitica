@@ -30,7 +30,7 @@ describe('POST /user/buy/:key', () => {
   });
 
   it('buys a potion', async () => {
-    await user.update({
+    await user.updateOne({
       'stats.gp': 400,
       'stats.hp': 40,
     });
@@ -45,7 +45,7 @@ describe('POST /user/buy/:key', () => {
   });
 
   it('returns an error if user tries to buy a potion with full health', async () => {
-    await user.update({
+    await user.updateOne({
       'stats.gp': 40,
       'stats.hp': 50,
     });
@@ -72,7 +72,7 @@ describe('POST /user/buy/:key', () => {
     const item = content.special[key];
     const stub = sinon.stub(item, 'canOwn').returns(true);
 
-    await user.update({ 'stats.gp': 250 });
+    await user.updateOne({ 'stats.gp': 250 });
     const res = await user.post(`/user/buy/${key}`);
     await user.sync();
 
@@ -88,7 +88,7 @@ describe('POST /user/buy/:key', () => {
   });
 
   it('allows for bulk purchases', async () => {
-    await user.update({
+    await user.updateOne({
       'stats.gp': 400,
       'stats.hp': 20,
     });
