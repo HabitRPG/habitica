@@ -872,7 +872,7 @@ const armor = {
     text: t('armorSpecialBirthday2024Text'),
     notes: t('armorSpecialBirthday2024Notes'),
     value: 0,
-    canOwn: ownsItem('armor_special_birthday2023'),
+    canOwn: ownsItem('armor_special_birthday2024'),
   },
 };
 
