@@ -52,6 +52,11 @@
           :reset-counter="resetCounter"
         />
 
+        <achievements
+          :hero="hero"
+          :reset-counter="resetCounter"
+        />
+
         <transactions
           :hero="hero"
           :reset-counter="resetCounter"
@@ -109,6 +114,7 @@ import ContributorDetails from './contributorDetails';
 import Transactions from './transactions';
 import SubscriptionAndPerks from './subscriptionAndPerks';
 import CustomizationsOwned from './customizationsOwned.vue';
+import Achievements from './achievements.vue';
 
 import { userStateMixin } from '../../../mixins/userState';
 
@@ -124,6 +130,7 @@ export default {
     ContributorDetails,
     Transactions,
     SubscriptionAndPerks,
+    Achievements,
   },
   mixins: [userStateMixin],
   beforeRouteUpdate (to, from, next) {
