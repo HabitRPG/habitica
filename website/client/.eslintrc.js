@@ -13,7 +13,7 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     // TODO find a way to let eslint understand webpack aliases
     'import/no-unresolved': 'off',
-    'import/no-extraneous-dependencies': 'warn',
+    'import/no-extraneous-dependencies': 'off',
     'import/extensions': 'off',
     'prefer-regex-literals': 'warn',
     'vue/no-v-html': 'off',

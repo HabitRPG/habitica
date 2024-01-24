@@ -4,6 +4,9 @@ export default {
   methods: {
     handleExternalLinks () {
       const { TRUSTED_DOMAINS } = process.env;
+      if (!TRUSTED_DOMAINS) {
+        return;
+      }
       const allLinks = document.getElementsByTagName('a');
 
       for (let i = 0; i < allLinks.length; i += 1) {
