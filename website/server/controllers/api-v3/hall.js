@@ -146,7 +146,7 @@ api.getHeroes = {
 // Note, while the following routes are called getHero / updateHero
 // they can be used by admins to get/update any user
 
-const heroAdminFields = 'auth balance contributor flags items lastCron party preferences profile purchased secret permissions';
+const heroAdminFields = 'auth balance contributor flags items lastCron party preferences profile purchased secret permissions achievements';
 const heroAdminFieldsToFetch = heroAdminFields; // these variables will make more sense when...
 const heroAdminFieldsToShow = heroAdminFields; // ... apiTokenObscured is added
 
@@ -362,6 +362,29 @@ api.updateHero = {
         delete hero.purchased[type][key];
       }
       hero.markModified('purchased');
+    }
+
+    if (updateData.achievementPath && updateData.achievementVal !== undefined) {
+      const parts = updateData.achievementPath.split('.');
+      const key = _.last(parts);
+      const type = parts[parts.length - 2];
+      // using _.set causes weird issues
+      if (updateData.achievementVal !== false) {
+        if (type !== 'achievements') {
+          if (hero.achievements[type] === undefined) hero.achievements[type] = {};
+          hero.achievements[type][key] = true;
+        } else {
+          hero.achievements[key] = true;
+        }
+      } else {
+        if (type !== 'achievements') {
+          delete hero.achievements[type][key];
+        } else {
+          delete hero.achievements[key];
+        }
+      }
+      console.log(hero.achievements);
+      hero.markModified('achievements');
     }
 
     // give them the Dragon Hydra pet if they're above level 6
