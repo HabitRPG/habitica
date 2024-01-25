@@ -169,8 +169,6 @@ function collateItemData (self) {
   }
 
   for (const key of Object.keys(allAchievements)) {
-    console.log(key);
-    console.log(ownedAchievements[key]);
     if (ownedAchievements[key] === undefined) {
       const valueIsInteger = self.integerTypes.includes(key);
       achievements.push({
