@@ -17,10 +17,10 @@
         aria-label="Habitica"
       >
         <div
-          class="logo svg-icon d-none d-xl-block"
-          v-html="icons.logo"
+          class="logo svg-icon svg color"
+          v-html="icons.melior"
         ></div>
-        <div class="svg-icon gryphon d-xs-block d-xl-none"></div>
+        <div class="svg-icon gryphon"></div>
       </b-navbar-brand>
       <b-navbar-toggle
         class="menu-toggle"
@@ -553,9 +553,10 @@ body.modal-open #habitica-menu {
   }
 
   .logo {
-    padding-left: 10px;
-    width: 128px;
-    height: 28px;
+    color: $white;
+    height: 32px;
+    object-fit: contain;
+    width: 32px;
   }
 
   .quick-menu {
@@ -727,7 +728,7 @@ import goldIcon from '@/assets/svg/gold.svg';
 import syncIcon from '@/assets/svg/sync.svg';
 import svgHourglasses from '@/assets/svg/hourglass.svg';
 import chevronDownIcon from '@/assets/svg/chevron-down.svg';
-import logo from '@/assets/svg/logo.svg';
+import melior from '@/assets/svg/melior.svg';
 
 import creatorIntro from '../creatorIntro';
 import notificationMenu from './notificationsDropdown';
@@ -762,7 +763,7 @@ export default {
         gold: goldIcon,
         hourglasses: svgHourglasses,
         sync: syncIcon,
-        logo,
+        melior,
         chevronDown: chevronDownIcon,
       }),
     };

@@ -7,13 +7,13 @@
       >
         <div
           v-if="$route.name === 'plans'"
-          class="logo svg-icon"
-          v-html="icons.purpleLogo"
+          class="logo svg-icon svg color purple"
+          v-html="icons.melior"
         ></div>
         <div
           v-else
-          class="logo svg-icon"
-          v-html="icons.logo"
+          class="logo svg-icon color svg"
+          v-html="icons.melior"
         ></div>
       </router-link>
     </div>
@@ -168,8 +168,14 @@
     margin-right: 48px;
 
     .logo {
-      width: 128px;
-      height: 28px;
+      color: $white;
+      height: 32px;
+      object-fit: contain;
+      width: 32px;
+    }
+
+    .purple {
+      color: $purple-100;
     }
   }
 
@@ -260,14 +266,14 @@
 </style>
 
 <script>
-import logo from '@/assets/svg/logo.svg';
+import melior from '@/assets/svg/melior.svg';
 import purpleLogo from '@/assets/svg/purple-logo.svg';
 
 export default {
   data () {
     return {
       icons: Object.freeze({
-        logo,
+        melior,
         purpleLogo,
       }),
     };
