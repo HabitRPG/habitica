@@ -285,7 +285,7 @@ api.updateHero = {
       if (plan.dateCurrentTypeCreated) {
         hero.purchased.plan.dateCurrentTypeCreated = plan.dateCurrentTypeCreated;
       }
-      if (plan.dateTerminated != hero.purchased.plan.dateTerminated) {
+      if (plan.dateTerminated !== hero.purchased.plan.dateTerminated) {
         hero.purchased.plan.dateTerminated = plan.dateTerminated;
       }
       if (plan.perkMonthCount) {
@@ -376,14 +376,11 @@ api.updateHero = {
         } else {
           hero.achievements[key] = true;
         }
+      } else if (type !== 'achievements') {
+        delete hero.achievements[type][key];
       } else {
-        if (type !== 'achievements') {
-          delete hero.achievements[type][key];
-        } else {
-          delete hero.achievements[key];
-        }
+        delete hero.achievements[key];
       }
-      console.log(hero.achievements);
       hero.markModified('achievements');
     }
 
