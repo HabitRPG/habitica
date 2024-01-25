@@ -1,10 +1,33 @@
 import nconf from 'nconf';
+import fs from 'fs';
 import { langCodes } from '../../libs/i18n';
 import { CONTENT_CACHE_PATH, getLocalizedContentResponse } from '../../libs/content';
 
 const IS_PROD = nconf.get('IS_PROD');
 
 const api = {};
+
+const CACHED_HASHES = [
+
+];
+
+const MOBILE_FILTER = `achievements,questSeriesAchievements,animalColorAchievements,animalSetAchievements,stableAchievements,
+mystery,bundles,loginIncentives,pets,premiumPets,specialPets,questPets,wackyPets,mounts,premiumMounts,specialMounts,questMounts,
+events,dropEggs,questEggs,dropHatchingPotions,premiumHatchingPotions,wackyHatchingPotions,backgroundsFlat,questsByLevel,gear.tree,
+tasksByCategory,userDefaults,timeTravelStable,gearTypes,cardTypes`;
+
+function hashForFilter (filter) {
+  let hash = 0;
+  let i; let
+    chr;
+  if (filter.length === 0) return '';
+  for (i = 0; i < filter.length; i++) { // eslint-disable-line
+    chr = filter.charCodeAt(i);
+    hash = ((hash << 5) - hash) + chr; // eslint-disable-line
+    hash |= 0; // eslint-disable-line
+  }
+  return String(hash);
+}
 
 /**
  * @api {get} /api/v3/content Get all available content objects
@@ -65,14 +88,54 @@ api.getContent = {
       language = proposedLang;
     }
 
+    let filter = req.query.filter || '';
+    // apply defaults for mobile clients
+    if (filter === '') {
+      if (req.headers['x-client'] === 'habitica-android') {
+        filter = `${MOBILE_FILTER},appearance.background`;
+      } else if (req.headers['x-client'] === 'habitica-ios') {
+        filter = `${MOBILE_FILTER},backgrounds`;
+      }
+    }
+
+    // Build usable filter object
+    const filterObj = {};
+    filter.split(',').forEach(item => {
+      if (item.includes('.')) {
+        const [key, subkey] = item.split('.');
+        if (!filterObj[key]) {
+          filterObj[key] = {};
+        }
+        filterObj[key][subkey.trim()] = true;
+      } else {
+        filterObj[item.trim()] = true;
+      }
+    });
+
     if (IS_PROD) {
-      res.sendFile(`${CONTENT_CACHE_PATH}${language}.json`);
+      const filterHash = language + hashForFilter(filter);
+      if (CACHED_HASHES.includes(filterHash)) {
+        // Content is already cached, so just send it.
+        res.sendFile(`${CONTENT_CACHE_PATH}${filterHash}.json`);
+      } else {
+        // Content is not cached, so cache it and send it.
+        res.set({
+          'Content-Type': 'application/json',
+        });
+        const jsonResString = getLocalizedContentResponse(language, filterObj);
+        fs.writeFileSync(
+          `${CONTENT_CACHE_PATH}${filterHash}.json`,
+          jsonResString,
+          'utf8',
+        );
+        CACHED_HASHES.push(filterHash);
+        res.status(200).send(jsonResString);
+      }
     } else {
       res.set({
         'Content-Type': 'application/json',
       });
-
-      const jsonResString = getLocalizedContentResponse(language);
+      const jsonResString = getLocalizedContentResponse(language, filterObj);
       res.status(200).send(jsonResString);
     }
   },
