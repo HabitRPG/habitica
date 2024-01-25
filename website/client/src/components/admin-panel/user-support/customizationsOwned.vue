@@ -36,6 +36,7 @@
                     :
                     <span :class="{ ownedItem: !item.neverOwned }">{{ item.value }}</span>
                   </span>
+                    {{  item.set }}
 
                   <div
                     v-if="item.modified"
@@ -82,6 +83,17 @@ import content from '@/../../common/script/content';
 import getItemDescription from '../mixins/getItemDescription';
 import saveHero from '../mixins/saveHero';
 
+function makeSetText (set) {
+  if (set === undefined) {
+    return '';
+  }
+  if (set.key.indexOf('backgrounds') === 0) {
+    const { text } = set;
+    return `Backgrounds ${text.slice(11, 13)}.${text.slice(13)}`;
+  }
+  return set.key;
+}
+
 function collateItemData (self) {
   const collatedItemData = {};
   self.itemTypes.forEach(itemType => {
@@ -105,12 +117,14 @@ function collateItemData (self) {
     // Collate data for items that the user owns or used to own:
     for (const key of Object.keys(ownedItems)) {
       // Do not sort keys. The order in the items object gives hints about order received.
+      const item = allItems[key];
       itemData.push({
         itemType,
         key,
         modified: false,
         path: `${basePath}.${key}`,
         value: ownedItems[key],
+        set: makeSetText(item.set),
       });
     }
 
@@ -121,12 +135,14 @@ function collateItemData (self) {
         !(key in ownedItems)
         && allItems[key].price > 0
       ) {
+        const item = allItems[key];
         itemData.push({
           itemType,
           key,
           modified: false,
           path: `${basePath}.${key}`,
           value: false,
+          set: makeSetText(item.set),
         });
       }
     }
