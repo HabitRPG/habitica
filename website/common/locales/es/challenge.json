@@ -114,5 +114,6 @@
     "abuseFlagModalBodyChallenge": "Solo deberías hacer un informe sobre un Desafío si viola las <%= firstLinkStart %>Normas de la Comunidad<%= linkEnd %> y/o los <%= secondLinkStart %>Terminos de Servicio<%= linkEnd %>. Presentar un informe falso va en contra de las Normas de la Comunidad de Habitica.",
     "cannotClone": "Este Desafío no puede cerrarse porque uno o más jugadores lo han marcado como inapropiado. Un miembro del Personal te contactará pronto con instrucciones. Si han pasado más de 48 horas y no has recibido noticias de ellos, envía un correo a admin@habitica.com para solicitar ayuda.",
     "resetFlags": "Reiniciar marcas",
-    "cannotClose": "Este Desafío no puede cerrarse porque uno o más jugadores lo han marcado como inapropiado. Un miembro del Personal te contactará pronto con instrucciones. Si han pasado más de 48 horas y no has recibido noticias de ellos, envía un correo a admin@habitica.com para solicitar ayuda."
+    "cannotClose": "Este Desafío no puede cerrarse porque uno o más jugadores lo han marcado como inapropiado. Un miembro del Personal te contactará pronto con instrucciones. Si han pasado más de 48 horas y no has recibido noticias de ellos, envía un correo a admin@habitica.com para solicitar ayuda.",
+    "cannotMakeChallenge": "No puedes crear un Desafío público porque tu cuenta no tiene privilegios de chat en este momento. Envía un mensaje a admin@habitica.com para obtener más información."
 }

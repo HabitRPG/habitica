@@ -1,6 +1,4 @@
 {
-   
-    "jsDisabledHeadingFull": "哎呀！你的浏览器不允许使用JavaScript，没有它，Habitica无法正常工作",
-   
+    "jsDisabledHeadingFull": "哎呀！你的浏览器未启用 JavaScript，没有它Habitica将无法正常运行",
     "jsDisabledLink": "请启用JavaScript以继续！"
 }
