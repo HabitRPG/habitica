@@ -406,12 +406,16 @@ body.modal-open #habitica-menu {
     }
 
     .gryphon {
-      background-image: url('~@/assets/images/melior@3x.png');
-      width: 30px;
-      height: 30px;
+      // background-image: url('~@/assets/images/melior@3x.png');
       background-size: cover;
+      height: 30px;
       color: $white;
       margin: 0 auto;
+      width: 30px;
+    }
+
+    .logo {
+      padding-top: 12px;
     }
 
     .topbar-item {

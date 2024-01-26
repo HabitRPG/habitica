@@ -10,11 +10,8 @@
     >
       <div class="text-center">
         <div>
-          <div class="svg-icon gryphon"></div>
-        </div>
-        <div>
           <div
-            class="svg-icon habitica-logo"
+            class="svg-icon svg habitica-logo"
             v-html="icons.habiticaIcon"
           ></div>
         </div>
@@ -232,7 +229,7 @@
         <div>
           <div
             class="svg-icon habitica-logo"
-            v-html="icons.habiticaIcon"
+            v-html="icons.melior"
           ></div>
         </div>
         <div class="header">
@@ -280,7 +277,7 @@
         <div>
           <div
             class="svg-icon habitica-logo"
-            v-html="icons.habiticaIcon"
+            v-html="icons.melior"
           ></div>
         </div>
         <div class="header">
@@ -441,8 +438,8 @@
     }
 
     .habitica-logo {
-      width: 144px;
-      height: 31px;
+      width: 304px;
+      height: 64px;
       margin: 2em auto;
     }
 
@@ -609,6 +606,7 @@
   }
 </style>
 
+// eslint-disable-next-line vue/component-tags-order
 <script>
 import axios from 'axios';
 import hello from 'hellojs';
@@ -620,7 +618,7 @@ import { buildAppleAuthUrl } from '../../libs/auth';
 
 import exclamation from '@/assets/svg/exclamation.svg';
 import gryphon from '@/assets/svg/gryphon.svg';
-import habiticaIcon from '@/assets/svg/habitica-logo.svg';
+import habiticaIcon from '@/assets/svg/logo-horizontal.svg';
 import googleIcon from '@/assets/svg/google.svg';
 import appleIcon from '@/assets/svg/apple_black.svg';
 

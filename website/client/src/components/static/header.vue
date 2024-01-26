@@ -12,8 +12,8 @@
         ></div>
         <div
           v-else
-          class="logo svg-icon color svg"
-          v-html="icons.melior"
+          class="logo svg-icon svg"
+          v-html="icons.habiticaLogo"
         ></div>
       </router-link>
     </div>
@@ -176,6 +176,7 @@
 
     .purple {
       color: $purple-100;
+      z-index: 0;
     }
   }
 
@@ -266,14 +267,14 @@
 </style>
 
 <script>
-import melior from '@/assets/svg/melior.svg';
+import habiticaLogo from '@/assets/svg/logo-horizontal.svg';
 import purpleLogo from '@/assets/svg/purple-logo.svg';
 
 export default {
   data () {
     return {
       icons: Object.freeze({
-        melior,
+        habiticaLogo,
         purpleLogo,
       }),
     };
