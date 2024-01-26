@@ -97,11 +97,11 @@
     "cannotSendGemsToYourself": "No te puedes enviar gemas a ti mismo, en su lugar, intenta con una subscripción.",
     "badAmountOfGemsToSend": "La cantidad debe estar entre 1 y tu número actual de gemas.",
     "report": "Reportar",
-    "abuseFlagModalHeading": "Reportar Infracción",
-    "abuseFlagModalBody": "¿Estás seguro de que quieres reportar este mensaje? <strong>Solo</strong> debes reportar un mensaje que infringe las <%= firstLinkStart %>Normas de la comunidad<%= linkEnd %> y/o los <%= secondLinkStart %>Términos de Servicio<%= linkEnd %>. Al reportar inapropiadamente un mensaje, infringes las Normas de la comunidad, lo que podría costarte una infracción.",
+    "abuseFlagModalHeading": "Reportar una Infracción",
+    "abuseFlagModalBody": "Solo debes reportar un mensaje que infringe las <%= firstLinkStart %>Normas de la Comunidad<%= linkEnd %> y/o los <%= secondLinkStart %>Términos de Servicio<%= linkEnd %>. Enviar un informe falso es una infracción de Normas de la comunidad de Habitica.",
     "abuseReported": "Gracias por denunciar esta infracción. Los moderadores han sido informados.",
     "whyReportingPost": "¿Por qué estás reportando este mensaje?",
-    "whyReportingPostPlaceholder": "Por favor, ayuda a nuestros moderadores dejándonos saber el por qué estás reportando este mensaje como infracción. Por ejemplo: spam, groserías, juramentos religiosos, intolerancia, difamaciones, temas para adultos, o violencia.",
+    "whyReportingPostPlaceholder": "Motivo del informe",
     "optional": "Opcional",
     "needsTextPlaceholder": "Escribe tu mensaje aquí.",
     "copyMessageAsToDo": "Copiar mensaje como Tarea Pendiente",
@@ -439,5 +439,8 @@
     "newGroupsEnjoy": "¡Esperamos que disfrutes de tu experiencia con los Planes de Grupo!",
     "tavernDiscontinued": "La Taberna y los Gremios han dejado de funcionar",
     "tavernDiscontinuedLinks": "Obtén más información sobre el <a href='/static/faq/tavern-and-guilds'>Cese de Servicio de la Taberna y los Gremios</a> o regresa a la<a href='/'>página de inicio</a>.",
-    "sendTotal": "Total:"
+    "sendTotal": "Total:",
+    "challengeBannedSlurs": "Tu Desafío contiene un insulto que viola las Normas de la Comunidad de Habitica y se han revocado tus permisos de creación de chat y Desafío. Contacta con admin@habitica.com para obtener más información.",
+    "challengeBannedWords": "Tu Desafío contiene una palabrota o una referencia a un tema para mayores de edad. Edita tu Desafío para guardarlo. Debes eliminar la palabra, no solo censurarla.",
+    "challengeBannedSlursPrivate": "Tu Desafío contiene un insulto que viola las Normas de la Comunidad de Habitica. Elimínalo para poder guardar tu Desafío."
 }

@@ -98,10 +98,10 @@
     "badAmountOfGemsToSend": "ジェムの数は 1 以上、あなたが持っている分までで指定してください。",
     "report": "報告",
     "abuseFlagModalHeading": "違反を報告する",
-    "abuseFlagModalBody": "本当にこの投稿を報告しますか？<%= firstLinkStart %>コミュニティガイドライン<%= linkEnd %>、もしくは<%= secondLinkStart %>利用規約<%= linkEnd %>違反の投稿<strong>のみ</strong>を報告してください。不適切な報告はコミュニティガイドラインの違反となり、あなた自身が罰則を受ける可能性があります。",
+    "abuseFlagModalBody": "<%= firstLinkStart %>コミュニティガイドライン<%= linkEnd %>や<%= secondLinkStart %>利用規約<%= linkEnd %>に違反している投稿>のみを報告してください。虚偽の報告はコミュニティガイドラインの違反となります。",
     "abuseReported": "違反報告ありがとうございます。モデレータに通知されます。",
     "whyReportingPost": "この投稿を報告する理由は何ですか？",
-    "whyReportingPostPlaceholder": "モデレーターが判断しやすいように、なぜこの投稿を報告したのかを教えてください。例：スパム行為、乱暴な言葉、宗教的な誓約、偏見、中傷、成人向けの事柄、暴力など。",
+    "whyReportingPostPlaceholder": "報告の理由",
     "optional": "オプション",
     "needsTextPlaceholder": "ここにメッセージを入力してください。",
     "copyMessageAsToDo": "メッセージをコピーしてTo Doに追加",
@@ -439,5 +439,6 @@
     "tavernDiscontinuedLinks": "<a href='/static/faq/tavern-and-guilds'>キャンプ場とギルドの廃止</a>について詳細を読むか、<a href='/'>ホームページ</a>に戻る。",
     "blockedUser": "<strong>あなたがこのプレーヤーをブロックすると</strong>&nbsp;彼らはあなたにプライベートメッセージを送ることはできませんが、あなたは彼らの投稿を見ることができます。",
     "invitedToYourParty": "<strong>あなたのパーティーの招待しました！</strong>&nbsp;&nbsp;取り消すにはクリックしてください",
-    "tavernDiscontinuedDetail": "プレイヤーによるハビティカへの関わり方の変化など、様々な要因により、これらのスペースを維持するために必要なリソースが、参加人数と比例しなくなり、長期的に維持できなくなりました。"
+    "tavernDiscontinuedDetail": "プレイヤーによるハビティカへの関わり方の変化など、様々な要因により、これらのスペースを維持するために必要なリソースが、参加人数と比例しなくなり、長期的に維持できなくなりました。",
+    "challengeBannedSlursPrivate": "あなたのチャレンジには、ハビティカのコミュニティガイドラインに違反する中傷が含まれています。あなたのチャレンジを保存するには、それを削除してください。"
 }
