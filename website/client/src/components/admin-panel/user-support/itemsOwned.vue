@@ -68,7 +68,9 @@
                     class="enableValueChange"
                     @click="enableValueChange(item)"
                   >
+                  <span :class="item.value ? 'owned' : 'not-owned'">
                     {{ item | displayValue }}
+                    </span>
                     :
                     <span :class="{ ownedItem: !item.neverOwned }">{{ item.key }} : </span>
                   </span>
@@ -102,6 +104,9 @@
 </template>
 
 <style lang="scss" scoped>
+  ul li {
+    margin-bottom: 0.2em;
+  }
   .ownedItem {
     font-weight: bold;
   }
@@ -111,6 +116,13 @@
   }
   .valueField {
     min-width: 10ch;
+  }
+  .owned {
+    color: green;
+  }
+
+  .not-owned {
+    color: red;
   }
 </style>
 

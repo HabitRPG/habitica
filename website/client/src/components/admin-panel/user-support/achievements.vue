@@ -18,11 +18,11 @@
                     class="enableValueChange"
                     @click="enableValueChange(item)"
                   >
-                    {{ item.key }}
-                    :
                     <span :class="item.value ? 'achieved' : 'not-achieved'">
                       {{ item.value }}
                     </span>
+                    :
+                    {{ item.text || item.key }}
                   </span>
 
                   <div
@@ -69,11 +69,11 @@
                     class="enableValueChange"
                     @click="enableValueChange(item)"
                   >
-                    {{ item.text || item.key }}
-                    :
-                    <span :class="item.value ? 'achieved' : 'not-achieved'">
+                  <span :class="item.value ? 'achieved' : 'not-achieved'">
                       {{ item.value }}
                     </span>
+                    :
+                    {{ item.text || item.key }}
                   </span>
 
                   <div
@@ -104,6 +104,9 @@
 </template>
 
 <style lang="scss" scoped>
+  ul li {
+    margin-bottom: 0.2em;
+  }
   .ownedItem {
     font-weight: bold;
   }
@@ -126,7 +129,20 @@
 
 <script>
 import content from '@/../../common/script/content';
+import i18n from '@/../../common/script/i18n';
 import saveHero from '../mixins/saveHero';
+
+function getText (achievementItem) {
+  const { titleKey } = achievementItem;
+  if (titleKey !== undefined) {
+    return i18n.t(titleKey, 'en');
+  }
+  const { singularTitleKey } = achievementItem;
+  if (singularTitleKey !== undefined) {
+    return i18n.t(singularTitleKey, 'en');
+  }
+  return achievementItem.key;
+}
 
 function collateItemData (self) {
   const achievements = [];
@@ -140,11 +156,11 @@ function collateItemData (self) {
     if (typeof value === 'object') {
       nestedAchievements[key] = [];
       for (const nestedKey of Object.keys(value)) {
+        const valueIsInteger = self.integerTypes.includes(key);
         let text = nestedKey;
         if (allAchievements[key] && allAchievements[key][nestedKey]) {
-          text = allAchievements[key][nestedKey].text;
+          text = getText(allAchievements[key][nestedKey]);
         }
-        const valueIsInteger = self.integerTypes.includes(key);
         nestedAchievements[key].push({
           key: nestedKey,
           text,
@@ -159,7 +175,7 @@ function collateItemData (self) {
       const valueIsInteger = self.integerTypes.includes(key);
       achievements.push({
         key,
-        text: allAchievements[key],
+        text: getText(allAchievements[key]),
         modified: false,
         path: `${basePath}.${key}`,
         value: ownedAchievements[key],
@@ -173,7 +189,7 @@ function collateItemData (self) {
       const valueIsInteger = self.integerTypes.includes(key);
       achievements.push({
         key,
-        text: allAchievements[key],
+        text: getText(allAchievements[key]),
         modified: false,
         path: `${basePath}.${key}`,
         value: valueIsInteger ? 0 : false,

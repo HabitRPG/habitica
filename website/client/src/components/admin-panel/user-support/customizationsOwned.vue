@@ -12,7 +12,7 @@
         v-for="itemType in itemTypes"
         :key="itemType"
       >
-        <div class="accordion-group">
+        <div class="accordion-group" v-if="collatedItemData[itemType]">
           <h4
             class="expand-toggle"
             :class="{'open': expandItemType[itemType]}"
@@ -32,9 +32,11 @@
                     class="enableValueChange"
                     @click="enableValueChange(item)"
                   >
-                    {{ item.key }}
+                  <span :class="item.value ? 'owned' : 'not-owned'">
+                    {{ item.value }}
+                  </span>
                     :
-                    <span :class="{ ownedItem: !item.neverOwned }">{{ item.value }}</span>
+                    <span :class="{ ownedItem: !item.neverOwned }">{{ item.text }}</span>
                   </span>
                     {{  item.set }}
 
@@ -66,6 +68,9 @@
 </template>
 
 <style lang="scss" scoped>
+  ul li {
+    margin-bottom: 0.2em;
+  }
   .ownedItem {
     font-weight: bold;
   }
@@ -76,6 +81,13 @@
   .valueField {
     min-width: 10ch;
   }
+  .owned {
+    color: green;
+  }
+
+  .not-owned {
+    color: red;
+  }
 </style>
 
 <script>
@@ -83,13 +95,18 @@ import content from '@/../../common/script/content';
 import getItemDescription from '../mixins/getItemDescription';
 import saveHero from '../mixins/saveHero';
 
+const months = [
+  'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August',
+  'September', 'October', 'November', 'December',
+];
+
 function makeSetText (set) {
   if (set === undefined) {
     return '';
   }
   if (set.key.indexOf('backgrounds') === 0) {
     const { text } = set;
-    return `Backgrounds ${text.slice(11, 13)}.${text.slice(13)}`;
+    return `${months[parseInt(text.slice(11, 13), 10)]} ${text.slice(13)}`;
   }
   return set.key;
 }
@@ -106,7 +123,11 @@ function collateItemData (self) {
     if (itemType.indexOf('hair') === 0) {
       const hairType = itemType.split('.')[1];
       allItems = content.appearances.hair[hairType];
-      ownedItems = self.hero.purchased.hair[hairType] || {};
+      if (self.hero.purchased.hair) {
+        ownedItems = self.hero.purchased.hair[hairType] || {};
+      } else {
+        ownedItems = {};
+      }
     } else {
       allItems = content.appearances[itemType];
       ownedItems = self.hero.purchased[itemType] || {};
@@ -121,6 +142,7 @@ function collateItemData (self) {
       itemData.push({
         itemType,
         key,
+        text: item.text ? item.text() : key,
         modified: false,
         path: `${basePath}.${key}`,
         value: ownedItems[key],
@@ -139,6 +161,7 @@ function collateItemData (self) {
         itemData.push({
           itemType,
           key,
+          text: item.text ? item.text() : key,
           modified: false,
           path: `${basePath}.${key}`,
           value: false,
@@ -146,7 +169,9 @@ function collateItemData (self) {
         });
       }
     }
-    collatedItemData[itemType] = itemData;
+    if (itemData.length > 0) {
+      collatedItemData[itemType] = itemData;
+    }
   });
   return collatedItemData;
 }
