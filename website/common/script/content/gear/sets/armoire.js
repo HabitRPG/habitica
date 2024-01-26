@@ -457,6 +457,11 @@ const armor = {
     int: 5,
     set: 'schoolUniform',
   },
+  softWhiteSuit: {
+    con: 7,
+    per: 10,
+    set: 'whiteLoungeWear',
+  },
 };
 
 const body = {
@@ -948,6 +953,12 @@ const head = {
     per: 6,
     set: 'greenTrapper',
   },
+  whiteFloppyHat: {
+    str: 5,
+    int: 5,
+    con: 5,
+    set: 'whiteLoungeWear',
+  },
 };
 
 const shield = {
@@ -1274,6 +1285,11 @@ const shield = {
   trustyPencil: {
     int: 10,
     set: 'schoolUniform',
+  },
+  softWhitePillow: {
+    int: 6,
+    per: 6,
+    set: 'whiteLoungeWear',
   },
 };
 
@@ -1751,6 +1767,7 @@ const releaseDates = {
   cookingImplementsTwo: '2023-11-07T08:00-05:00',
   greenTrapper: '2023-12-05T08:00-05:00',
   schoolUniform: '2024-01-04T08:00-05:00',
+  whiteLoungeWear: '2024-02-06T08:00-05:00',
 };
 
 forEach({
