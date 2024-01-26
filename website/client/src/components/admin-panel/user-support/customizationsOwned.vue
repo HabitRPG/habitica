@@ -106,7 +106,7 @@ function makeSetText (set) {
   }
   if (set.key.indexOf('backgrounds') === 0) {
     const { text } = set;
-    return `${months[parseInt(text.slice(11, 13), 10)-1]} ${text.slice(13)}`;
+    return `${months[parseInt(text.slice(11, 13), 10) - 1]} ${text.slice(13)}`;
   }
   return set.key;
 }
