@@ -213,7 +213,7 @@
   "winter2024NarwhalWizardMageSet": "Narwhal Wizard Set (Mage)",
   "eventAvailability": "Available for purchase until <%= date(locale) %>.",
   "dateEndJanuary": "January 31",
-  "dateEndFebruary": "February 29 ",
+  "dateEndFebruary": "February 29",
   "dateEndMarch": "March 31",
   "dateEndApril": "April 30",
   "dateEndMay": "May 31",
