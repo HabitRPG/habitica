@@ -206,7 +206,7 @@
     "reportDescription": "Descripción",
     "reportDescriptionPlaceholder": "Describe el error detalladamente aquí",
     "submitBugReport": "Enviar informe de error",
-    "reportSent": "¡Informe de errores enviado!",
+    "reportSent": "¡Gracias por tu contribución!",
     "emptyReportBugMessage": "No se ha encontrado mensaje de informe de errores",
     "reportBugHeaderDescribe": "Por favor, describe el error que estás experimentando y nuestro equipo se pondrá en contacto contigo.",
     "reportEmailText": "Esto solo se utilizará para contactar contigo en relación con el informe de error.",
@@ -217,5 +217,11 @@
     "skipExternalLinkModal": "Mantenga presionada la tecla CTRL (Windows) o Comando (Mac) al hacer clic en un enlace para omitir este modal.",
     "refreshList": "Actualizar lista",
     "leaveHabitica": "Estás a punto de salir de Habitica.com",
-    "leaveHabiticaText": "Habitica no es responsable del contenido de ningún sitio web vinculado que no sea propiedad ni esté operado por HabitRPG.<br>Tenga en cuenta que las prácticas de estos sitios web pueden diferir de las pautas de la comunidad de Habitica."
+    "leaveHabiticaText": "Habitica no es responsable del contenido de ningún sitio web vinculado que no sea propiedad ni esté operado por HabitRPG.<br>Tenga en cuenta que las prácticas de estos sitios web pueden diferir de las pautas de la comunidad de Habitica.",
+    "questionEmailText": "Solo se utilizará para contactarte en relación con tu pregunta.",
+    "question": "Pregunta",
+    "questionDescriptionText": "Puedes enviar tus preguntas en tu idioma materno si no te sientes cómodo hablando en inglés.",
+    "questionPlaceholder": "Haz tu pregunta aquí",
+    "askQuestionHeaderDescribe": "¿Eres nuevo en Habitica y no sabes lo que haces?¿Eres veterano pero no consigues descubrir cómo se usa alguna de las funciones? Rellena este formulario y nuestro equipo se pondrá en contacto contigo.",
+    "submitQuestion": "Enviar pregunta"
 }
