@@ -42,13 +42,13 @@
     padding-right: 5em !important;
 
     .logo.svg-icon {
-      width: 200px !important;
+      width: 175px !important;
     }
 
     .nav-item a {
       font-size: 14px !important;
       color: $purple-600 !important;
-      padding-top: 2.8em !important;
+      padding-top: 2.0em !important;
     }
 
     .nav-item a:hover {

@@ -438,9 +438,10 @@
     }
 
     .habitica-logo {
-      width: 304px;
+      width: 175px;
       height: 64px;
       margin: 2em auto;
+      z-index: 0;
     }
 
     label {
