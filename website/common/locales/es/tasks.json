@@ -140,5 +140,10 @@
     "resetCounter": "Resetear contador",
     "adjustCounter": "Ajustar contador",
     "editTagsText": "Editar Etiquetas",
-    "taskSummary": "<%= type %> Resumen"
+    "taskSummary": "<%= type %> Resumen",
+    "taskAlias": "Alias de Tarea",
+    "taskAliasPopover": "El alias de tarea puede usarse al conectar con integraciones de terceros. Solo se admiten guiones, guiones bajos y caracteres alfanuméricos. El alias de la tarea debe ser único entre todas tus tareas.",
+    "taskAliasPlaceholder": "tu-alias-de-tarea-aquí",
+    "scoreUp": "Puntuar positivamente",
+    "scoreDown": "Puntuar negativamente"
 }
