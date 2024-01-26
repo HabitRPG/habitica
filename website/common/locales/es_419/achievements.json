@@ -143,5 +143,9 @@
     "achievementBoneToPickModalText": "¡Tú conseguiste todas las mascotas clásicas y las mascotas de esqueleto de misión!",
     "achievementBoneToPick": "Hueso para elegir",
     "achievementPolarPro": "Profesional polar",
-    "achievementPolarProText": "¡Ha conseguido todas los colores estandár de mascotas polar: Oso, Zorro, Pingüino, Ballena y Lobo!"
+    "achievementPolarProText": "¡Ha conseguido todas los colores estandár de mascotas polar: Oso, Zorro, Pingüino, Ballena y Lobo!",
+    "achievementPolarProModalText": "¡Has coleccionado todas las mascotas Polares!",
+    "achievementPlantParent": "Cuidador de Plantas",
+    "achievementPlantParentText": "¡Ha eclosionado todos los colores estándar de mascotas planta: Cactus y Arbolito!",
+    "achievementDinosaurDynasty": "Dinastía de Dinosaurios"
 }
