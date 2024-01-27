@@ -22,24 +22,6 @@ describe('POST /inbox/like-private-message/:messageId', () => {
       });
   });
 
-  it('Returns an error when user tries to like their own message', async () => {
-    const receiver = await generateUser();
-
-    await userToSendMessage.post('/members/send-private-message', {
-      message: 'some message :)',
-      toUserId: receiver._id,
-    });
-
-    const allMessages = await userToSendMessage.get('/inbox/messages');
-
-    await expect(userToSendMessage.post(getLikeUrl(allMessages[0].id)))
-      .to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: t('messageGroupChatLikeOwnMessage'),
-      });
-  });
-
   it('Likes a message', async () => {
     const receiver = await generateUser();
 
@@ -58,6 +40,26 @@ describe('POST /inbox/like-private-message/:messageId', () => {
 
     const messageToCheck = find(messages, { id: sentMessage.message.id });
     expect(messageToCheck.likes[receiver._id]).to.equal(true);
+  });
+
+  it('Allows to likes their own private message', async () => {
+    const receiver = await generateUser();
+
+    const sentMessage = await userToSendMessage.post('/members/send-private-message', {
+      message: 'some message :)',
+      toUserId: receiver._id,
+    });
+
+    const receiversMessages = await userToSendMessage.get('/inbox/messages');
+
+    const likeResult = await userToSendMessage.post(getLikeUrl(receiversMessages[0].id));
+
+    expect(likeResult.likes[userToSendMessage._id]).to.equal(true);
+
+    const messages = await userToSendMessage.get('/inbox/messages');
+
+    const messageToCheck = find(messages, { id: sentMessage.message.id });
+    expect(messageToCheck.likes[userToSendMessage._id]).to.equal(true);
   });
 
   it('Unlikes a message', async () => {

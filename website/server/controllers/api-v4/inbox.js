@@ -1,9 +1,6 @@
 import { authWithHeaders } from '../../middlewares/auth';
 import apiError from '../../libs/apiError';
-import {
-  BadRequest,
-  NotFound,
-} from '../../libs/errors';
+import { NotFound } from '../../libs/errors';
 import { listConversations } from '../../libs/inbox/conversation.methods';
 import { clearPMs, deleteMessage, getUserInbox } from '../../libs/inbox';
 import { chatReporterFactory } from '../../libs/chatReporting/chatReporterFactory';
@@ -206,8 +203,6 @@ api.flagPrivateMessage = {
  * @apiSuccess {Object} data The liked <a href='https://github.com/HabitRPG/habitica/blob/develop/website/server/models/message.js#L42' target='_blank'>private message</a>
  *
  * @apiUse MessageNotFound
- *
- * @apiError (400) {BadRequest} messageGroupChatLikeOwnMessage A user can't like their own message
  */
 api.likePrivateMessage = {
   method: 'POST',
@@ -224,8 +219,6 @@ api.likePrivateMessage = {
 
     const message = await inboxLib.getUserInboxMessage(user, messageId);
     if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
-
-    if (message.sent) throw new BadRequest(res.t('messageGroupChatLikeOwnMessage'));
 
     // update like for the owners message (each message is saved for both users)
     if (!message.likes) message.likes = {};
