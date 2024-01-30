@@ -369,17 +369,11 @@ api.updateHero = {
       const key = _.last(parts);
       const type = parts[parts.length - 2];
       // using _.set causes weird issues
-      if (updateData.achievementVal !== false) {
-        if (type !== 'achievements') {
-          if (hero.achievements[type] === undefined) hero.achievements[type] = {};
-          hero.achievements[type][key] = true;
-        } else {
-          hero.achievements[key] = true;
-        }
-      } else if (type !== 'achievements') {
-        delete hero.achievements[type][key];
+      if (type !== 'achievements') {
+        if (hero.achievements[type] === undefined) hero.achievements[type] = {};
+        hero.achievements[type][key] = updateData.achievementVal;
       } else {
-        delete hero.achievements[key];
+        hero.achievements[key] = updateData.achievementVal;
       }
       hero.markModified('achievements');
     }

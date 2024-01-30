@@ -185,17 +185,19 @@ function collateItemData (self) {
   }
 
   for (const key of Object.keys(allAchievements)) {
-    if (ownedAchievements[key] === undefined) {
-      const valueIsInteger = self.integerTypes.includes(key);
-      achievements.push({
-        key,
-        text: getText(allAchievements[key]),
-        modified: false,
-        path: `${basePath}.${key}`,
-        value: valueIsInteger ? 0 : false,
-        valueIsInteger,
-        neverOwned: true,
-      });
+    if (key !== '' && !key.endsWith('UltimateGear') && !key.endsWith('Quest')) {
+      if (ownedAchievements[key] === undefined) {
+        const valueIsInteger = self.integerTypes.includes(key);
+        achievements.push({
+          key,
+          text: getText(allAchievements[key]),
+          modified: false,
+          path: `${basePath}.${key}`,
+          value: valueIsInteger ? 0 : false,
+          valueIsInteger,
+          neverOwned: true,
+        });
+      }
     }
   }
 
