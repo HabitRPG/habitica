@@ -71,8 +71,10 @@ shops.getMarketCategories = function getMarket (user, language) {
     text: i18n.t('magicHatchingPotions', language),
     notes: i18n.t('premiumPotionNoDropExplanation', language),
   };
+  const matchers = assembleScheduledMatchers(new Date()).filter(matcher => matcher.type === 'premiumHatchingPotions').map(matcher => matcher.matcher);
   premiumHatchingPotionsCategory.items = sortBy(values(content.hatchingPotions)
-    .filter(hp => hp.limited && hp.canBuy(user))
+    .filter(hp => hp.limited
+        && matchers.map(matcher => matcher(hp.key)).every(matcher => matcher === true))
     .map(premiumHatchingPotion => getItemInfo(user, 'premiumHatchingPotion', premiumHatchingPotion, officialPinnedItems, language)), 'key');
   if (premiumHatchingPotionsCategory.items.length > 0) {
     categories.push(premiumHatchingPotionsCategory);

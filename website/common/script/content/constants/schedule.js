@@ -67,6 +67,14 @@ export const MONTHLY_SCHEDULE = {
       },
     ],
     [FOURTH_RELEASE_DAY]: [
+      {
+        type: 'premiumHatchingPotions',
+        matcher: inListMatcher([
+          'Aurora',
+          'Moonglow',
+          'IcySnow',
+        ]),
+      },
     ],
   },
   1: {
@@ -106,6 +114,14 @@ export const MONTHLY_SCHEDULE = {
       },
     ],
     [FOURTH_RELEASE_DAY]: [
+      {
+        type: 'premiumHatchingPotions',
+        matcher: inListMatcher([
+          'PolkaDot',
+          'Cupid',
+          'RoseGold',
+        ]),
+      },
     ],
   },
   2: {
@@ -144,6 +160,14 @@ export const MONTHLY_SCHEDULE = {
       },
     ],
     [FOURTH_RELEASE_DAY]: [
+      {
+        type: 'premiumHatchingPotions',
+        matcher: inListMatcher([
+          'Birch',
+          'StainedGlass',
+          'Porcelain',
+        ]),
+      },
     ],
   },
   3: {
@@ -183,6 +207,13 @@ export const MONTHLY_SCHEDULE = {
       },
     ],
     [FOURTH_RELEASE_DAY]: [
+      {
+        type: 'premiumHatchingPotions',
+        matcher: inListMatcher([
+          'Shimmer',
+          'Glass',
+        ]),
+      },
     ],
   },
   4: {
@@ -221,6 +252,14 @@ export const MONTHLY_SCHEDULE = {
       },
     ],
     [FOURTH_RELEASE_DAY]: [
+      {
+        type: 'premiumHatchingPotions',
+        matcher: inListMatcher([
+          'Floral',
+          'Fairy',
+          'RoseQuartz',
+        ]),
+      },
     ],
   },
   5: {
@@ -266,6 +305,13 @@ export const MONTHLY_SCHEDULE = {
       },
     ],
     [FOURTH_RELEASE_DAY]: [
+      {
+        type: 'premiumHatchingPotions',
+        matcher: inListMatcher([
+          'Rainbow',
+          'Sunshine',
+        ]),
+      },
     ],
   },
   6: {
@@ -311,6 +357,14 @@ export const MONTHLY_SCHEDULE = {
       },
     ],
     [FOURTH_RELEASE_DAY]: [
+      {
+        type: 'premiumHatchingPotions',
+        matcher: inListMatcher([
+          'Celestial',
+          'SandCastle',
+          'Watery',
+        ]),
+      },
     ],
   },
   7: {
@@ -350,6 +404,14 @@ export const MONTHLY_SCHEDULE = {
       },
     ],
     [FOURTH_RELEASE_DAY]: [
+      {
+        type: 'premiumHatchingPotions',
+        matcher: inListMatcher([
+          'Aquatic',
+          'StarryNight',
+          'Sunset',
+        ]),
+      },
     ],
   },
   8: {
@@ -389,6 +451,14 @@ export const MONTHLY_SCHEDULE = {
       },
     ],
     [FOURTH_RELEASE_DAY]: [
+      {
+        type: 'premiumHatchingPotions',
+        matcher: inListMatcher([
+          'Glow',
+          'AutumnLeaf',
+          'Shadow',
+        ]),
+      },
     ],
   },
   9: {
@@ -428,6 +498,14 @@ export const MONTHLY_SCHEDULE = {
       },
     ],
     [FOURTH_RELEASE_DAY]: [
+      {
+        type: 'premiumHatchingPotions',
+        matcher: inListMatcher([
+          'Vampire',
+          'Ghost',
+          'Spooky',
+        ]),
+      },
     ],
   },
   10: {
@@ -468,6 +546,14 @@ export const MONTHLY_SCHEDULE = {
       },
     ],
     [FOURTH_RELEASE_DAY]: [
+      {
+        type: 'premiumHatchingPotions',
+        matcher: inListMatcher([
+          'Ember',
+          'Frost',
+          'Thunderstorm',
+        ]),
+      },
     ],
   },
   11: {
@@ -502,6 +588,13 @@ export const MONTHLY_SCHEDULE = {
       },
     ],
     [FOURTH_RELEASE_DAY]: [
+      {
+        type: 'premiumHatchingPotions',
+        matcher: inListMatcher([
+          'Peppermint',
+          'Holly',
+        ]),
+      },
     ],
   },
 };

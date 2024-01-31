@@ -101,7 +101,12 @@ export default async function purchase (user, req = {}, analytics) {
 
   const { price, item } = getItemAndPrice(user, type, key, req);
 
-  if (!item.canBuy(user)) {
+  if (item.type === 'hatchingPotion' && item.premium === true) {
+    const matchers = assembleScheduledMatchers(new Date()).filter(matcher => matcher.type === 'premiumHatchingPotions').map(matcher => matcher.matcher);
+    if (matchers.length && !matchers.some(matcher => matcher(item.key))) {
+      throw new NotAuthorized(i18n.t('messageNotAvailable', req.language));
+    }
+  } else if (!item.canBuy(user)) {
     throw new NotAuthorized(i18n.t('messageNotAvailable', req.language));
   }
 
