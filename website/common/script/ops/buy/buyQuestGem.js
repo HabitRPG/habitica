@@ -53,6 +53,7 @@ export class BuyQuestWithGemOperation extends AbstractGemItemOperation { // esli
     }
 
     const matchers = assembleScheduledMatchers(new Date()).filter(matcher => matcher.type === `${item.category}Quests`).map(matcher => matcher.matcher);
+    console.log(item, matchers);
     if (matchers.length && !matchers.some(matcher => matcher(item.key))) {
       throw new NotAuthorized(this.i18n('notAvailable', { key: item.key }));
     }

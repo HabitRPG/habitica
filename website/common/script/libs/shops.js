@@ -265,14 +265,18 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
    * ]
    *
    */
+  const scheduledMatchers = assembleScheduledMatchers(new Date());
 
   const bundleCategory = {
     identifier: 'bundle',
     text: i18n.t('questBundles', language),
   };
 
+  const bundleMatchers = scheduledMatchers.filter(matcher => matcher.type === 'bundles').map(matcher => matcher.matcher);
+  console.log(bundleMatchers);
   bundleCategory.items = sortBy(values(content.bundles)
-    .filter(bundle => bundle.type === 'quests' && bundle.canBuy())
+    .filter(bundle => bundle.type === 'quests'
+      && bundleMatchers.map(matcher => matcher(bundle.key)).every(matcher => matcher === true))
     .map(bundle => getItemInfo(user, 'bundles', bundle, officialPinnedItems, language)));
 
   if (bundleCategory.items.length > 0) {
@@ -289,7 +293,7 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
       .filter(quest => quest.canBuy(user) && quest.category === type);
 
     if (type === 'pet' || type === 'hatchingPotion') {
-      const matchers = assembleScheduledMatchers(new Date())
+      const matchers = scheduledMatchers
         .filter(matcher => matcher.type === `${type}Quests`).map(matcher => matcher.matcher);
       filteredQuests = filteredQuests.filter(quest => matchers.map(matcher => matcher(quest.key))
         .every(matcher => matcher === true));

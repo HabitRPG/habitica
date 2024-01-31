@@ -46,17 +46,23 @@ export const MONTHLY_SCHEDULE = {
       {
         type: 'petQuests',
         matcher: inListMatcher([
-          'ghost_stag',
-          'trex_undead',
-          'harpy',
-          'sabretooth',
-          'dolphin',
+          'nudibranch',
+          'seaserpent',
+          'gryphon',
+          'yarn',
+          'axolotl',
         ]),
       },
       {
         type: 'hatchingPotionQuests',
         matcher: inListMatcher([
-          'ruby',
+          'silver',
+        ]),
+      },
+      {
+        type: 'bundles',
+        matcher: inListMatcher([
+          'winterQuests',
         ]),
       },
     ],
@@ -80,17 +86,22 @@ export const MONTHLY_SCHEDULE = {
       {
         type: 'petQuests',
         matcher: inListMatcher([
-          'nudibranch',
-          'seaserpent',
-          'gryphon',
-          'yarn',
-          'axolotl',
+          'rooster',
+          'slime',
+          'peacock',
+          'bunny',
         ]),
       },
       {
         type: 'hatchingPotionQuests',
         matcher: inListMatcher([
-          'silver',
+          'pinkMarble',
+        ]),
+      },
+      {
+        type: 'bundles',
+        matcher: inListMatcher([
+          'cuddleBuddies',
         ]),
       },
     ],
@@ -114,16 +125,21 @@ export const MONTHLY_SCHEDULE = {
       {
         type: 'petQuests',
         matcher: inListMatcher([
-          'rooster',
-          'slime',
-          'peacock',
-          'bunny',
+          'frog',
+          'spider',
+          'cow',
+          'pterodactyl',
         ]),
       },
       {
         type: 'hatchingPotionQuests',
         matcher: inListMatcher([
-          'pinkMarble',
+        ]),
+      },
+      {
+        type: 'bundles',
+        matcher: inListMatcher([
+          'birdBuddies',
         ]),
       },
     ],
@@ -147,15 +163,22 @@ export const MONTHLY_SCHEDULE = {
       {
         type: 'petQuests',
         matcher: inListMatcher([
-          'frog',
-          'spider',
-          'cow',
-          'pterodactyl',
+          'snake',
+          'monkey',
+          'falcon',
+          'aligator',
         ]),
       },
       {
         type: 'hatchingPotionQuests',
         matcher: inListMatcher([
+          'mossyStone',
+        ]),
+      },
+      {
+        type: 'bundles',
+        matcher: inListMatcher([
+          'hugabug',
         ]),
       },
     ],
@@ -179,16 +202,21 @@ export const MONTHLY_SCHEDULE = {
       {
         type: 'petQuests',
         matcher: inListMatcher([
-          'snake',
-          'monkey',
-          'falcon',
-          'aligator',
+          'octopus',
+          'horse',
+          'kraken',
+          'sloth',
         ]),
       },
       {
         type: 'hatchingPotionQuests',
         matcher: inListMatcher([
-          'mossyStone',
+        ]),
+      },
+      {
+        type: 'bundles',
+        matcher: inListMatcher([
+          'splashyPals',
         ]),
       },
     ],
@@ -212,15 +240,28 @@ export const MONTHLY_SCHEDULE = {
       {
         type: 'petQuests',
         matcher: inListMatcher([
-          'octopus',
-          'horse',
-          'kraken',
-          'sloth',
+          'trex',
+          'unicorn',
+          'veolociraptor',
+          'hippo',
         ]),
       },
       {
         type: 'hatchingPotionQuests',
         matcher: inListMatcher([
+          'turquiose',
+        ]),
+      },
+      {
+        type: 'bundles',
+        matcher: inListMatcher([
+          'rockingReptiles',
+        ]),
+      },
+      {
+        type: 'bundles',
+        matcher: inListMatcher([
+          'delightfulDinos',
         ]),
       },
     ],
@@ -244,16 +285,28 @@ export const MONTHLY_SCHEDULE = {
       {
         type: 'petQuests',
         matcher: inListMatcher([
-          'trex',
-          'unicorn',
-          'veolociraptor',
-          'hippo',
+          'whale',
+          'seahorse',
+          'armadillo',
+          'guineapig',
         ]),
       },
       {
         type: 'hatchingPotionQuests',
         matcher: inListMatcher([
-          'turquiose',
+          'fluorite',
+        ]),
+      },
+      {
+        type: 'bundles',
+        matcher: inListMatcher([
+          'winterQuests',
+        ]),
+      },
+      {
+        type: 'bundles',
+        matcher: inListMatcher([
+          'aquaticAmigos',
         ]),
       },
     ],
@@ -277,16 +330,22 @@ export const MONTHLY_SCHEDULE = {
       {
         type: 'petQuests',
         matcher: inListMatcher([
-          'whale',
-          'seahorse',
-          'armadillo',
-          'guineapig',
+          'turtle',
+          'penguin',
+          'butterfly',
+          'cheetah',
         ]),
       },
       {
         type: 'hatchingPotionQuests',
         matcher: inListMatcher([
-          'fluorite',
+          'blackPearl',
+        ]),
+      },
+      {
+        type: 'bundles',
+        matcher: inListMatcher([
+          'featheredFriends',
         ]),
       },
     ],
@@ -310,16 +369,22 @@ export const MONTHLY_SCHEDULE = {
       {
         type: 'petQuests',
         matcher: inListMatcher([
-          'turtle',
-          'penguin',
-          'butterfly',
-          'cheetah',
+          'squirrel',
+          'triceratops',
+          'treeling',
+          'beetle',
         ]),
       },
       {
         type: 'hatchingPotionQuests',
         matcher: inListMatcher([
-          'blackPearl',
+          'bronze',
+        ]),
+      },
+      {
+        type: 'bundles',
+        matcher: inListMatcher([
+          'farmFriends',
         ]),
       },
     ],
@@ -343,16 +408,22 @@ export const MONTHLY_SCHEDULE = {
       {
         type: 'petQuests',
         matcher: inListMatcher([
-          'squirrel',
-          'triceratops',
-          'treeling',
-          'beetle',
+          'snail',
+          'rock',
+          'ferret',
+          'hedgehog',
         ]),
       },
       {
         type: 'hatchingPotionQuests',
         matcher: inListMatcher([
-          'bronze',
+          'onyx',
+        ]),
+      },
+      {
+        type: 'bundles',
+        matcher: inListMatcher([
+          'witchyFamiliars',
         ]),
       },
     ],
@@ -376,16 +447,23 @@ export const MONTHLY_SCHEDULE = {
       {
         type: 'petQuests',
         matcher: inListMatcher([
-          'snail',
-          'rock',
-          'ferret',
-          'hedgehog',
+          'sheep',
+          'kangaroo',
+          'owl',
+          'rat',
+          'badger',
         ]),
       },
       {
         type: 'hatchingPotionQuests',
         matcher: inListMatcher([
-          'onyx',
+          'amber',
+        ]),
+      },
+      {
+        type: 'bundles',
+        matcher: inListMatcher([
+          'forestFriends',
         ]),
       },
     ],
@@ -409,17 +487,17 @@ export const MONTHLY_SCHEDULE = {
       {
         type: 'petQuests',
         matcher: inListMatcher([
-          'sheep',
-          'kangaroo',
-          'owl',
-          'rat',
-          'badger',
+          'ghost_stag',
+          'trex_undead',
+          'harpy',
+          'sabretooth',
+          'dolphin',
         ]),
       },
       {
         type: 'hatchingPotionQuests',
         matcher: inListMatcher([
-          'amber',
+          'ruby',
         ]),
       },
     ],
