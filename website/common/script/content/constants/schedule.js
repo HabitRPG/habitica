@@ -46,35 +46,35 @@ export const MONTHLY_SCHEDULE = {
     [THIRD_RELEASE_DAY]: [
       {
         type: 'petQuests',
-        matcher: inListMatcher([
+        items: [
           'nudibranch',
           'seaserpent',
           'gryphon',
           'yarn',
           'axolotl',
-        ]),
+        ],
       },
       {
         type: 'hatchingPotionQuests',
-        matcher: inListMatcher([
+        items: [
           'silver',
-        ]),
+        ],
       },
       {
         type: 'bundles',
-        matcher: inListMatcher([
+        items: [
           'winterQuests',
-        ]),
+        ],
       },
     ],
     [FOURTH_RELEASE_DAY]: [
       {
         type: 'premiumHatchingPotions',
-        matcher: inListMatcher([
+        items: [
           'Aurora',
           'Moonglow',
           'IcySnow',
-        ]),
+        ],
       },
     ],
   },
@@ -94,34 +94,34 @@ export const MONTHLY_SCHEDULE = {
     [THIRD_RELEASE_DAY]: [
       {
         type: 'petQuests',
-        matcher: inListMatcher([
+        items: [
           'rooster',
           'slime',
           'peacock',
           'bunny',
-        ]),
+        ],
       },
       {
         type: 'hatchingPotionQuests',
-        matcher: inListMatcher([
+        items: [
           'pinkMarble',
-        ]),
+        ],
       },
       {
         type: 'bundles',
-        matcher: inListMatcher([
+        items: [
           'cuddleBuddies',
-        ]),
+        ],
       },
     ],
     [FOURTH_RELEASE_DAY]: [
       {
         type: 'premiumHatchingPotions',
-        matcher: inListMatcher([
+        items: [
           'PolkaDot',
           'Cupid',
           'RoseGold',
-        ]),
+        ],
       },
     ],
   },
@@ -141,33 +141,33 @@ export const MONTHLY_SCHEDULE = {
     [THIRD_RELEASE_DAY]: [
       {
         type: 'petQuests',
-        matcher: inListMatcher([
+        items: [
           'frog',
           'spider',
           'cow',
           'pterodactyl',
-        ]),
+        ],
       },
       {
         type: 'hatchingPotionQuests',
-        matcher: inListMatcher([
-        ]),
+        items: [
+        ],
       },
       {
         type: 'bundles',
-        matcher: inListMatcher([
+        items: [
           'birdBuddies',
-        ]),
+        ],
       },
     ],
     [FOURTH_RELEASE_DAY]: [
       {
         type: 'premiumHatchingPotions',
-        matcher: inListMatcher([
+        items: [
           'Birch',
           'StainedGlass',
           'Porcelain',
-        ]),
+        ],
       },
     ],
   },
@@ -187,33 +187,33 @@ export const MONTHLY_SCHEDULE = {
     [THIRD_RELEASE_DAY]: [
       {
         type: 'petQuests',
-        matcher: inListMatcher([
+        items: [
           'snake',
           'monkey',
           'falcon',
           'aligator',
-        ]),
+        ],
       },
       {
         type: 'hatchingPotionQuests',
-        matcher: inListMatcher([
+        items: [
           'mossyStone',
-        ]),
+        ],
       },
       {
         type: 'bundles',
-        matcher: inListMatcher([
+        items: [
           'hugabug',
-        ]),
+        ],
       },
     ],
     [FOURTH_RELEASE_DAY]: [
       {
         type: 'premiumHatchingPotions',
-        matcher: inListMatcher([
+        items: [
           'Shimmer',
           'Glass',
-        ]),
+        ],
       },
     ],
   },
@@ -233,33 +233,33 @@ export const MONTHLY_SCHEDULE = {
     [THIRD_RELEASE_DAY]: [
       {
         type: 'petQuests',
-        matcher: inListMatcher([
+        items: [
           'octopus',
           'horse',
           'kraken',
           'sloth',
-        ]),
+        ],
       },
       {
         type: 'hatchingPotionQuests',
-        matcher: inListMatcher([
-        ]),
+        items: [
+        ],
       },
       {
         type: 'bundles',
-        matcher: inListMatcher([
+        items: [
           'splashyPals',
-        ]),
+        ],
       },
     ],
     [FOURTH_RELEASE_DAY]: [
       {
         type: 'premiumHatchingPotions',
-        matcher: inListMatcher([
+        items: [
           'Floral',
           'Fairy',
           'RoseQuartz',
-        ]),
+        ],
       },
     ],
   },
@@ -279,39 +279,39 @@ export const MONTHLY_SCHEDULE = {
     [THIRD_RELEASE_DAY]: [
       {
         type: 'petQuests',
-        matcher: inListMatcher([
+        items: [
           'trex',
           'unicorn',
           'veolociraptor',
           'hippo',
-        ]),
+        ],
       },
       {
         type: 'hatchingPotionQuests',
-        matcher: inListMatcher([
+        items: [
           'turquiose',
-        ]),
+        ],
       },
       {
         type: 'bundles',
-        matcher: inListMatcher([
+        items: [
           'rockingReptiles',
-        ]),
+        ],
       },
       {
         type: 'bundles',
-        matcher: inListMatcher([
+        items: [
           'delightfulDinos',
-        ]),
+        ],
       },
     ],
     [FOURTH_RELEASE_DAY]: [
       {
         type: 'premiumHatchingPotions',
-        matcher: inListMatcher([
+        items: [
           'Rainbow',
           'Sunshine',
-        ]),
+        ],
       },
     ],
   },
@@ -331,40 +331,40 @@ export const MONTHLY_SCHEDULE = {
     [THIRD_RELEASE_DAY]: [
       {
         type: 'petQuests',
-        matcher: inListMatcher([
+        items: [
           'whale',
           'seahorse',
           'armadillo',
           'guineapig',
-        ]),
+        ],
       },
       {
         type: 'hatchingPotionQuests',
-        matcher: inListMatcher([
+        items: [
           'fluorite',
-        ]),
+        ],
       },
       {
         type: 'bundles',
-        matcher: inListMatcher([
+        items: [
           'winterQuests',
-        ]),
+        ],
       },
       {
         type: 'bundles',
-        matcher: inListMatcher([
+        items: [
           'aquaticAmigos',
-        ]),
+        ],
       },
     ],
     [FOURTH_RELEASE_DAY]: [
       {
         type: 'premiumHatchingPotions',
-        matcher: inListMatcher([
+        items: [
           'Celestial',
           'SandCastle',
           'Watery',
-        ]),
+        ],
       },
     ],
   },
@@ -384,34 +384,34 @@ export const MONTHLY_SCHEDULE = {
     [THIRD_RELEASE_DAY]: [
       {
         type: 'petQuests',
-        matcher: inListMatcher([
+        items: [
           'turtle',
           'penguin',
           'butterfly',
           'cheetah',
-        ]),
+        ],
       },
       {
         type: 'hatchingPotionQuests',
-        matcher: inListMatcher([
+        items: [
           'blackPearl',
-        ]),
+        ],
       },
       {
         type: 'bundles',
-        matcher: inListMatcher([
+        items: [
           'featheredFriends',
-        ]),
+        ],
       },
     ],
     [FOURTH_RELEASE_DAY]: [
       {
         type: 'premiumHatchingPotions',
-        matcher: inListMatcher([
+        items: [
           'Aquatic',
           'StarryNight',
           'Sunset',
-        ]),
+        ],
       },
     ],
   },
@@ -431,34 +431,34 @@ export const MONTHLY_SCHEDULE = {
     [THIRD_RELEASE_DAY]: [
       {
         type: 'petQuests',
-        matcher: inListMatcher([
+        items: [
           'squirrel',
           'triceratops',
           'treeling',
           'beetle',
-        ]),
+        ],
       },
       {
         type: 'hatchingPotionQuests',
-        matcher: inListMatcher([
+        items: [
           'bronze',
-        ]),
+        ],
       },
       {
         type: 'bundles',
-        matcher: inListMatcher([
+        items: [
           'farmFriends',
-        ]),
+        ],
       },
     ],
     [FOURTH_RELEASE_DAY]: [
       {
         type: 'premiumHatchingPotions',
-        matcher: inListMatcher([
+        items: [
           'Glow',
           'AutumnLeaf',
           'Shadow',
-        ]),
+        ],
       },
     ],
   },
@@ -478,34 +478,34 @@ export const MONTHLY_SCHEDULE = {
     [THIRD_RELEASE_DAY]: [
       {
         type: 'petQuests',
-        matcher: inListMatcher([
+        items: [
           'snail',
           'rock',
           'ferret',
           'hedgehog',
-        ]),
+        ],
       },
       {
         type: 'hatchingPotionQuests',
-        matcher: inListMatcher([
+        items: [
           'onyx',
-        ]),
+        ],
       },
       {
         type: 'bundles',
-        matcher: inListMatcher([
+        items: [
           'witchyFamiliars',
-        ]),
+        ],
       },
     ],
     [FOURTH_RELEASE_DAY]: [
       {
         type: 'premiumHatchingPotions',
-        matcher: inListMatcher([
+        items: [
           'Vampire',
           'Ghost',
           'Spooky',
-        ]),
+        ],
       },
     ],
   },
@@ -525,35 +525,35 @@ export const MONTHLY_SCHEDULE = {
     [THIRD_RELEASE_DAY]: [
       {
         type: 'petQuests',
-        matcher: inListMatcher([
+        items: [
           'sheep',
           'kangaroo',
           'owl',
           'rat',
           'badger',
-        ]),
+        ],
       },
       {
         type: 'hatchingPotionQuests',
-        matcher: inListMatcher([
+        items: [
           'amber',
-        ]),
+        ],
       },
       {
         type: 'bundles',
-        matcher: inListMatcher([
+        items: [
           'forestFriends',
-        ]),
+        ],
       },
     ],
     [FOURTH_RELEASE_DAY]: [
       {
         type: 'premiumHatchingPotions',
-        matcher: inListMatcher([
+        items: [
           'Ember',
           'Frost',
           'Thunderstorm',
-        ]),
+        ],
       },
     ],
   },
@@ -573,28 +573,28 @@ export const MONTHLY_SCHEDULE = {
     [THIRD_RELEASE_DAY]: [
       {
         type: 'petQuests',
-        matcher: inListMatcher([
+        items: [
           'ghost_stag',
           'trex_undead',
           'harpy',
           'sabretooth',
           'dolphin',
-        ]),
+        ],
       },
       {
         type: 'hatchingPotionQuests',
-        matcher: inListMatcher([
+        items: [
           'ruby',
-        ]),
+        ],
       },
     ],
     [FOURTH_RELEASE_DAY]: [
       {
         type: 'premiumHatchingPotions',
-        matcher: inListMatcher([
+        items: [
           'Peppermint',
           'Holly',
-        ]),
+        ],
       },
     ],
   },
@@ -605,25 +605,56 @@ export const GALA_SCHEDULE = {
   0: [
     {
       type: 'seasonalGear',
-      matcher: inListMatcher(SEASONAL_SETS.winter),
+      items: SEASONAL_SETS.winter,
+    },
+    {
+      type: 'seasonalSpells',
+      items: [
+        'snowball',
+      ],
+    },
+    {
+      type: 'seasonalQuests',
+      items: [
+        'evilsanta',
+        'evilsanta2',
+      ],
     },
   ],
   1: [
     {
       type: 'seasonalGear',
-      matcher: inListMatcher(SEASONAL_SETS.spring),
+      items: SEASONAL_SETS.spring,
+    },
+    {
+      type: 'seasonalSpells',
+      items: [
+        'shinySeed',
+      ],
     },
   ],
   2: [
     {
       type: 'seasonalGear',
-      matcher: inListMatcher(SEASONAL_SETS.fall),
+      items: SEASONAL_SETS.fall,
+    },
+    {
+      type: 'seasonalSpells',
+      items: [
+        'spookySparkles',
+      ],
     },
   ],
   3: [
     {
       type: 'seasonalGear',
-      matcher: inListMatcher(SEASONAL_SETS.summer),
+      items: SEASONAL_SETS.summer,
+    },
+    {
+      type: 'seasonalSpells',
+      items: [
+        'seafoam',
+      ],
     },
   ],
 };
@@ -659,17 +690,35 @@ export function getScheduleMatchingGroup (type, date) {
   if (!cachedScheduleMatchers) {
     cachedScheduleMatchers = {};
     assembleScheduledMatchers(date !== undefined ? date : new Date()).forEach(matcher => {
-      if (cachedScheduleMatchers[matcher.type]) {
-        cachedScheduleMatchers[matcher.type].matchers.push(matcher.matcher);
-      } else {
+      if (!cachedScheduleMatchers[matcher.type]) {
         cachedScheduleMatchers[matcher.type] = {
-          matchers: [matcher.matcher],
+          matchers: [],
+          items: [],
           match (key) {
+            if (this.items.length > 0 && !inListMatcher(this.items)(key)) {
+              console.log(this.items);
+              console.log(key, 'not in list');
+              return false;
+            }
+            console.log(this.matchers.every(m => m(key)));
             return this.matchers.every(m => m(key));
           },
         };
       }
+      if (matcher.matcher instanceof Function) {
+        cachedScheduleMatchers[matcher.type].matchers.push(matcher.matcher);
+      } else if (matcher.items instanceof Array) {
+        cachedScheduleMatchers[matcher.type].items.push(...matcher.items);
+      }
     });
+  }
+  if (!cachedScheduleMatchers[type]) {
+    return {
+      items: [],
+      match () {
+        return true;
+      },
+    };
   }
   return cachedScheduleMatchers[type];
 }

@@ -106,6 +106,12 @@ export default async function purchase (user, req = {}, analytics) {
     if (!matchers.match(item.key)) {
       throw new NotAuthorized(i18n.t('messageNotAvailable', req.language));
     }
+  } else if (item.event && item.event.gear) {
+    const matchers = getScheduleMatchingGroup('seasonalGear');
+    console.log(matchers);
+    if (!matchers.match(item.set)) {
+      throw new NotAuthorized(i18n.t('messageNotAvailable', req.language));
+    }
   } else if (!item.canBuy(user)) {
     throw new NotAuthorized(i18n.t('messageNotAvailable', req.language));
   }

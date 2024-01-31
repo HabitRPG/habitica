@@ -474,19 +474,15 @@ shops.getSeasonalShop = function getSeasonalShop (user, language) {
 shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, language) {
   const officialPinnedItems = getOfficialPinnedItems(user);
 
-  const AVAILABLE_SPELLS = [
-    ...seasonalShopConfig.availableSpells,
-  ];
-
-  const AVAILABLE_QUESTS = [
-    ...seasonalShopConfig.availableQuests,
-  ];
+  const spellMatcher = getScheduleMatchingGroup('seasonalSpells');
+  const questMatcher = getScheduleMatchingGroup('seasonalQuests');
+  const gearMatcher = getScheduleMatchingGroup('seasonalGear');
 
   const categories = [];
 
   const spells = pickBy(
     content.spells.special,
-    (spell, key) => AVAILABLE_SPELLS.indexOf(key) !== -1,
+    (spell, key) => spellMatcher.match(key),
   );
 
   if (keys(spells).length > 0) {
@@ -503,7 +499,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
     categories.push(category);
   }
 
-  const quests = pickBy(content.quests, (quest, key) => AVAILABLE_QUESTS.indexOf(key) !== -1);
+  const quests = pickBy(content.quests, (quest, key) => questMatcher.match(key));
 
   if (keys(quests).length > 0) {
     const category = {
@@ -516,7 +512,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
     categories.push(category);
   }
 
-  for (const set of seasonalShopConfig.availableSets) {
+  for (const set of gearMatcher.items) {
     const category = {
       identifier: set,
       text: i18n.t(set),
