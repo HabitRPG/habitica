@@ -660,7 +660,6 @@ export const GALA_SCHEDULE = {
 };
 
 export function assembleScheduledMatchers (date) {
-  console.log('Assembling new Schedule!');
   const items = [];
   const month = date instanceof moment ? date.month() : date.getMonth();
   const todayDay = date instanceof moment ? date.date() : date.getDate();
@@ -696,11 +695,8 @@ export function getScheduleMatchingGroup (type, date) {
           items: [],
           match (key) {
             if (this.items.length > 0 && !inListMatcher(this.items)(key)) {
-              console.log(this.items);
-              console.log(key, 'not in list');
               return false;
             }
-            console.log(this.matchers.every(m => m(key)));
             return this.matchers.every(m => m(key));
           },
         };
