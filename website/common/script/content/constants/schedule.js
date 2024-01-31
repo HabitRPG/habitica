@@ -47,10 +47,16 @@ export const MONTHLY_SCHEDULE = {
         type: 'petQuests',
         matcher: inListMatcher([
           'ghost_stag',
-          'trex',
+          'trex_undead',
           'harpy',
           'sabretooth',
           'dolphin',
+        ]),
+      },
+      {
+        type: 'hatchingPotionQuests',
+        matcher: inListMatcher([
+          'ruby',
         ]),
       },
     ],
@@ -71,6 +77,22 @@ export const MONTHLY_SCHEDULE = {
       },
     ],
     [THIRD_RELEASE_DAY]: [
+      {
+        type: 'petQuests',
+        matcher: inListMatcher([
+          'nudibranch',
+          'seaserpent',
+          'gryphon',
+          'yarn',
+          'axolotl',
+        ]),
+      },
+      {
+        type: 'hatchingPotionQuests',
+        matcher: inListMatcher([
+          'silver',
+        ]),
+      },
     ],
     [FOURTH_RELEASE_DAY]: [
     ],
@@ -89,6 +111,21 @@ export const MONTHLY_SCHEDULE = {
       },
     ],
     [THIRD_RELEASE_DAY]: [
+      {
+        type: 'petQuests',
+        matcher: inListMatcher([
+          'rooster',
+          'slime',
+          'peacock',
+          'bunny',
+        ]),
+      },
+      {
+        type: 'hatchingPotionQuests',
+        matcher: inListMatcher([
+          'pinkMarble',
+        ]),
+      },
     ],
     [FOURTH_RELEASE_DAY]: [
     ],
@@ -107,6 +144,20 @@ export const MONTHLY_SCHEDULE = {
       },
     ],
     [THIRD_RELEASE_DAY]: [
+      {
+        type: 'petQuests',
+        matcher: inListMatcher([
+          'frog',
+          'spider',
+          'cow',
+          'pterodactyl',
+        ]),
+      },
+      {
+        type: 'hatchingPotionQuests',
+        matcher: inListMatcher([
+        ]),
+      },
     ],
     [FOURTH_RELEASE_DAY]: [
     ],
@@ -125,6 +176,21 @@ export const MONTHLY_SCHEDULE = {
       },
     ],
     [THIRD_RELEASE_DAY]: [
+      {
+        type: 'petQuests',
+        matcher: inListMatcher([
+          'snake',
+          'monkey',
+          'falcon',
+          'aligator',
+        ]),
+      },
+      {
+        type: 'hatchingPotionQuests',
+        matcher: inListMatcher([
+          'mossyStone',
+        ]),
+      },
     ],
     [FOURTH_RELEASE_DAY]: [
     ],
@@ -143,6 +209,20 @@ export const MONTHLY_SCHEDULE = {
       },
     ],
     [THIRD_RELEASE_DAY]: [
+      {
+        type: 'petQuests',
+        matcher: inListMatcher([
+          'octopus',
+          'horse',
+          'kraken',
+          'sloth',
+        ]),
+      },
+      {
+        type: 'hatchingPotionQuests',
+        matcher: inListMatcher([
+        ]),
+      },
     ],
     [FOURTH_RELEASE_DAY]: [
     ],
@@ -161,6 +241,21 @@ export const MONTHLY_SCHEDULE = {
       },
     ],
     [THIRD_RELEASE_DAY]: [
+      {
+        type: 'petQuests',
+        matcher: inListMatcher([
+          'trex',
+          'unicorn',
+          'veolociraptor',
+          'hippo',
+        ]),
+      },
+      {
+        type: 'hatchingPotionQuests',
+        matcher: inListMatcher([
+          'turquiose',
+        ]),
+      },
     ],
     [FOURTH_RELEASE_DAY]: [
     ],
@@ -179,6 +274,21 @@ export const MONTHLY_SCHEDULE = {
       },
     ],
     [THIRD_RELEASE_DAY]: [
+      {
+        type: 'petQuests',
+        matcher: inListMatcher([
+          'whale',
+          'seahorse',
+          'armadillo',
+          'guineapig',
+        ]),
+      },
+      {
+        type: 'hatchingPotionQuests',
+        matcher: inListMatcher([
+          'fluorite',
+        ]),
+      },
     ],
     [FOURTH_RELEASE_DAY]: [
     ],
@@ -197,6 +307,21 @@ export const MONTHLY_SCHEDULE = {
       },
     ],
     [THIRD_RELEASE_DAY]: [
+      {
+        type: 'petQuests',
+        matcher: inListMatcher([
+          'turtle',
+          'penguin',
+          'butterfly',
+          'cheetah',
+        ]),
+      },
+      {
+        type: 'hatchingPotionQuests',
+        matcher: inListMatcher([
+          'blackPearl',
+        ]),
+      },
     ],
     [FOURTH_RELEASE_DAY]: [
     ],
@@ -215,6 +340,21 @@ export const MONTHLY_SCHEDULE = {
       },
     ],
     [THIRD_RELEASE_DAY]: [
+      {
+        type: 'petQuests',
+        matcher: inListMatcher([
+          'squirrel',
+          'triceratops',
+          'treeling',
+          'beetle',
+        ]),
+      },
+      {
+        type: 'hatchingPotionQuests',
+        matcher: inListMatcher([
+          'bronze',
+        ]),
+      },
     ],
     [FOURTH_RELEASE_DAY]: [
     ],
@@ -233,6 +373,21 @@ export const MONTHLY_SCHEDULE = {
       },
     ],
     [THIRD_RELEASE_DAY]: [
+      {
+        type: 'petQuests',
+        matcher: inListMatcher([
+          'snail',
+          'rock',
+          'ferret',
+          'hedgehog',
+        ]),
+      },
+      {
+        type: 'hatchingPotionQuests',
+        matcher: inListMatcher([
+          'onyx',
+        ]),
+      },
     ],
     [FOURTH_RELEASE_DAY]: [
     ],
@@ -251,6 +406,22 @@ export const MONTHLY_SCHEDULE = {
       },
     ],
     [THIRD_RELEASE_DAY]: [
+      {
+        type: 'petQuests',
+        matcher: inListMatcher([
+          'sheep',
+          'kangaroo',
+          'owl',
+          'rat',
+          'badger',
+        ]),
+      },
+      {
+        type: 'hatchingPotionQuests',
+        matcher: inListMatcher([
+          'amber',
+        ]),
+      },
     ],
     [FOURTH_RELEASE_DAY]: [
     ],

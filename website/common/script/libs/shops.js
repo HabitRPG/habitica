@@ -285,9 +285,17 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
       text: i18n.t(`${type}Quests`, language),
     };
 
-    category.items = content.questsByLevel
-      .filter(quest => quest.canBuy(user) && quest.category === type)
-      .map(quest => getItemInfo(user, 'quests', quest, officialPinnedItems, language));
+    let filteredQuests = content.questsByLevel
+      .filter(quest => quest.canBuy(user) && quest.category === type);
+
+    if (type === 'pet' || type === 'hatchingPotion') {
+      const matchers = assembleScheduledMatchers(new Date())
+        .filter(matcher => matcher.type === `${type}Quests`).map(matcher => matcher.matcher);
+      filteredQuests = filteredQuests.filter(quest => matchers.map(matcher => matcher(quest.key))
+        .every(matcher => matcher === true));
+    }
+
+    category.items = filteredQuests.map(quest => getItemInfo(user, 'quests', quest, officialPinnedItems, language));
 
     categories.push(category);
   });
