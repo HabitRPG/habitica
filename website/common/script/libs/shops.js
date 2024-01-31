@@ -17,6 +17,7 @@ import featuredItems from '../content/shop-featuredItems';
 
 import getOfficialPinnedItems from './getOfficialPinnedItems';
 import { getClassName } from './getClassName';
+import { assembleScheduledMatchers } from '../content/constants/schedule';
 
 const shops = {};
 
@@ -529,15 +530,18 @@ shops.getBackgroundShopSets = function getBackgroundShopSets (language) {
   const sets = [];
   const officialPinnedItems = getOfficialPinnedItems();
 
+  const matchers = assembleScheduledMatchers(new Date()).filter(matcher => matcher.type === 'backgrounds').map(matcher => matcher.matcher);
   eachRight(content.backgrounds, (group, key) => {
-    const set = {
-      identifier: key,
-      text: i18n.t(key, language),
-    };
+    if (matchers.map(matcher => matcher(key)).every(matcher => matcher === true)) {
+      const set = {
+        identifier: key,
+        text: i18n.t(key, language),
+      };
 
-    set.items = map(group, background => getItemInfo(null, 'background', background, officialPinnedItems, language));
+      set.items = map(group, background => getItemInfo(null, 'background', background, officialPinnedItems, language));
 
-    sets.push(set);
+      sets.push(set);
+    }
   });
 
   return sets;

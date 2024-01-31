@@ -77,6 +77,7 @@
   "userItemsNotEnough": "You do not have enough <%= type %>",
   "pathRequired": "Path string is required",
   "unlocked": "Items have been unlocked",
+  "notAvailable": "This item is not available.",
   "alreadyUnlocked": "Full set already unlocked.",
   "alreadyUnlockedPart": "Full set already partially unlocked. It is cheaper to buy the remaining items individually.",
   "invalidUnlockSet": "This set of items is invalid and cannot be unlocked.",

@@ -7,6 +7,7 @@ import { removeItemByPath } from './pinnedGearUtils';
 import getItemInfo from '../libs/getItemInfo';
 import content from '../content/index';
 import updateUserBalance from './updateUserBalance';
+import { assembleScheduledMatchers } from '../content/constants/schedule';
 
 const incentiveBackgrounds = ['blue', 'green', 'red', 'purple', 'yellow'];
 
@@ -222,6 +223,17 @@ export default async function unlock (user, req = {}, analytics) {
   // We take the first path and use it to get the set,
   // The passed paths are not used anymore after this point for full sets
   const { set, items, paths } = getSet(setType, firstPath, req);
+
+  if (isBackground) {
+    const matchers = assembleScheduledMatchers(new Date())
+      .filter(matcher => matcher.type === 'backgrounds')
+      .map(matcher => matcher.matcher);
+    const isAvailable = matchers.map(matcher => matcher(set.key))
+      .every(matcher => matcher === true);
+    if (!isAvailable) {
+      throw new NotAuthorized(i18n.t('notAvailable', req.language));
+    }
+  }
 
   let cost;
   let unlockedAlready = false;
