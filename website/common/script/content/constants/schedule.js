@@ -1,4 +1,5 @@
 import moment from 'moment';
+import SEASONAL_SETS from './seasonalSets';
 
 function backgroundMatcher (month1, month2, oddYear) {
   return function call (key) {
@@ -601,13 +602,34 @@ export const MONTHLY_SCHEDULE = {
 
 export const GALA_SWITCHOVER_DAY = 21;
 export const GALA_SCHEDULE = {
-  0: [],
-  1: [],
-  2: [],
-  3: [],
+  0: [
+    {
+      type: 'seasonalGear',
+      matcher: inListMatcher(SEASONAL_SETS.winter),
+    },
+  ],
+  1: [
+    {
+      type: 'seasonalGear',
+      matcher: inListMatcher(SEASONAL_SETS.spring),
+    },
+  ],
+  2: [
+    {
+      type: 'seasonalGear',
+      matcher: inListMatcher(SEASONAL_SETS.fall),
+    },
+  ],
+  3: [
+    {
+      type: 'seasonalGear',
+      matcher: inListMatcher(SEASONAL_SETS.summer),
+    },
+  ],
 };
 
 export function assembleScheduledMatchers (date) {
+  console.log('Assembling new Schedule!');
   const items = [];
   const month = date instanceof moment ? date.month() : date.getMonth();
   const todayDay = date instanceof moment ? date.date() : date.getDate();
@@ -629,4 +651,25 @@ export function assembleScheduledMatchers (date) {
   }
   items.push(...GALA_SCHEDULE[parseInt((galaCount / 12) * galaMonth, 10)]);
   return items;
+}
+
+let cachedScheduleMatchers = null;
+
+export function getScheduleMatchingGroup (type, date) {
+  if (!cachedScheduleMatchers) {
+    cachedScheduleMatchers = {};
+    assembleScheduledMatchers(date !== undefined ? date : new Date()).forEach(matcher => {
+      if (cachedScheduleMatchers[matcher.type]) {
+        cachedScheduleMatchers[matcher.type].matchers.push(matcher.matcher);
+      } else {
+        cachedScheduleMatchers[matcher.type] = {
+          matchers: [matcher.matcher],
+          match (key) {
+            return this.matchers.every(m => m(key));
+          },
+        };
+      }
+    });
+  }
+  return cachedScheduleMatchers[type];
 }

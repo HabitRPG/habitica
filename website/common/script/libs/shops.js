@@ -17,7 +17,7 @@ import featuredItems from '../content/shop-featuredItems';
 
 import getOfficialPinnedItems from './getOfficialPinnedItems';
 import { getClassName } from './getClassName';
-import { assembleScheduledMatchers } from '../content/constants/schedule';
+import { getScheduleMatchingGroup } from '../content/constants/schedule';
 
 const shops = {};
 
@@ -71,10 +71,10 @@ shops.getMarketCategories = function getMarket (user, language) {
     text: i18n.t('magicHatchingPotions', language),
     notes: i18n.t('premiumPotionNoDropExplanation', language),
   };
-  const matchers = assembleScheduledMatchers(new Date()).filter(matcher => matcher.type === 'premiumHatchingPotions').map(matcher => matcher.matcher);
+  const matchers = getScheduleMatchingGroup('premiumHatchingPotions');
   premiumHatchingPotionsCategory.items = sortBy(values(content.hatchingPotions)
     .filter(hp => hp.limited
-        && matchers.map(matcher => matcher(hp.key)).every(matcher => matcher === true))
+        && matchers.match(hp.key))
     .map(premiumHatchingPotion => getItemInfo(user, 'premiumHatchingPotion', premiumHatchingPotion, officialPinnedItems, language)), 'key');
   if (premiumHatchingPotionsCategory.items.length > 0) {
     categories.push(premiumHatchingPotionsCategory);
@@ -267,18 +267,16 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
    * ]
    *
    */
-  const scheduledMatchers = assembleScheduledMatchers(new Date());
 
   const bundleCategory = {
     identifier: 'bundle',
     text: i18n.t('questBundles', language),
   };
 
-  const bundleMatchers = scheduledMatchers.filter(matcher => matcher.type === 'bundles').map(matcher => matcher.matcher);
-  console.log(bundleMatchers);
+  const bundleMatchers = getScheduleMatchingGroup('bundles');
   bundleCategory.items = sortBy(values(content.bundles)
     .filter(bundle => bundle.type === 'quests'
-      && bundleMatchers.map(matcher => matcher(bundle.key)).every(matcher => matcher === true))
+      && bundleMatchers.match(bundle.key))
     .map(bundle => getItemInfo(user, 'bundles', bundle, officialPinnedItems, language)));
 
   if (bundleCategory.items.length > 0) {
@@ -295,10 +293,8 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
       .filter(quest => quest.canBuy(user) && quest.category === type);
 
     if (type === 'pet' || type === 'hatchingPotion') {
-      const matchers = scheduledMatchers
-        .filter(matcher => matcher.type === `${type}Quests`).map(matcher => matcher.matcher);
-      filteredQuests = filteredQuests.filter(quest => matchers.map(matcher => matcher(quest.key))
-        .every(matcher => matcher === true));
+      const matchers = getScheduleMatchingGroup(`${type}Quests`);
+      filteredQuests = filteredQuests.filter(quest => matchers.match(quest.key));
     }
 
     category.items = filteredQuests.map(quest => getItemInfo(user, 'quests', quest, officialPinnedItems, language));
@@ -544,9 +540,9 @@ shops.getBackgroundShopSets = function getBackgroundShopSets (language) {
   const sets = [];
   const officialPinnedItems = getOfficialPinnedItems();
 
-  const matchers = assembleScheduledMatchers(new Date()).filter(matcher => matcher.type === 'backgrounds').map(matcher => matcher.matcher);
+  const matchers = getScheduleMatchingGroup('backgrounds');
   eachRight(content.backgrounds, (group, key) => {
-    if (matchers.map(matcher => matcher(key)).every(matcher => matcher === true)) {
+    if (matchers.match(key)) {
       const set = {
         identifier: key,
         text: i18n.t(key, language),

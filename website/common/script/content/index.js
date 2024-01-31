@@ -33,7 +33,7 @@ import gemsBlock from './gems';
 import faq from './faq';
 import timeTravelers from './time-travelers';
 
-import { assembleScheduledMatchers } from './constants/schedule';
+import { getScheduleMatchingGroup } from './constants/schedule';
 
 import loginIncentives from './loginIncentives';
 
@@ -730,6 +730,6 @@ api.faq = faq;
 
 api.loginIncentives = loginIncentives(api);
 
-api.assembleScheduledMatchers = assembleScheduledMatchers;
+api.getScheduleMatchingGroup = getScheduleMatchingGroup;
 
 export default api;

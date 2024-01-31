@@ -8,7 +8,7 @@ import content from '../../content/index';
 
 import { errorMessage } from '../../libs/errorMessage';
 import { AbstractGemItemOperation } from './abstractBuyOperation';
-import { assembleScheduledMatchers } from '../../content/constants/schedule';
+import { getScheduleMatchingGroup } from '../../content/constants/schedule';
 
 export class BuyQuestWithGemOperation extends AbstractGemItemOperation { // eslint-disable-line import/prefer-default-export, max-len
   multiplePurchaseAllowed () { // eslint-disable-line class-methods-use-this
@@ -52,9 +52,8 @@ export class BuyQuestWithGemOperation extends AbstractGemItemOperation { // esli
       }
     }
 
-    const matchers = assembleScheduledMatchers(new Date()).filter(matcher => matcher.type === `${item.category}Quests`).map(matcher => matcher.matcher);
-    console.log(item, matchers);
-    if (matchers.length && !matchers.some(matcher => matcher(item.key))) {
+    const matchers = getScheduleMatchingGroup(`${item.category}Quests`);
+    if (matchers.match(item.key)) {
       throw new NotAuthorized(this.i18n('notAvailable', { key: item.key }));
     }
 

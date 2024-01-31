@@ -13,7 +13,7 @@ import {
 import { removeItemByPath } from '../pinnedGearUtils';
 import getItemInfo from '../../libs/getItemInfo';
 import updateUserBalance from '../updateUserBalance';
-import { assembleScheduledMatchers } from '../../content/constants/schedule';
+import { getScheduleMatchingGroup } from '../../content/constants/schedule';
 
 function getItemAndPrice (user, type, key, req) {
   let item;
@@ -55,8 +55,8 @@ async function purchaseItem (user, item, price, type, key) {
     if (user.markModified) user.markModified('items.gear.owned');
   } else if (type === 'bundles') {
     const subType = item.type;
-    const matchers = assembleScheduledMatchers(new Date()).filter(matcher => matcher.type === 'bundles').map(matcher => matcher.matcher);
-    if (matchers.length && !matchers.some(matcher => matcher(item.key))) {
+    const matchers = getScheduleMatchingGroup('bundles');
+    if (!matchers.match(item.key)) {
       throw new NotAuthorized(i18n.t('notAvailable', { key: item.key }));
     }
     forEach(item.bundleKeys, bundledKey => {
@@ -102,8 +102,8 @@ export default async function purchase (user, req = {}, analytics) {
   const { price, item } = getItemAndPrice(user, type, key, req);
 
   if (item.type === 'hatchingPotion' && item.premium === true) {
-    const matchers = assembleScheduledMatchers(new Date()).filter(matcher => matcher.type === 'premiumHatchingPotions').map(matcher => matcher.matcher);
-    if (matchers.length && !matchers.some(matcher => matcher(item.key))) {
+    const matchers = getScheduleMatchingGroup('premiumHatchingPotions');
+    if (!matchers.match(item.key)) {
       throw new NotAuthorized(i18n.t('messageNotAvailable', req.language));
     }
   } else if (!item.canBuy(user)) {

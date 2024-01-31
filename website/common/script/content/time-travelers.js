@@ -7,7 +7,7 @@ import moment from 'moment';
 
 import mysterySets from './mystery-sets';
 import gear from './gear';
-import { assembleScheduledMatchers } from './constants/schedule';
+import { getScheduleMatchingGroup } from './constants/schedule';
 
 const mystery = mysterySets;
 
@@ -19,7 +19,7 @@ each(mystery, (v, k) => {
 });
 
 const timeTravelerStore = (user, date) => {
-  const availabilityMatchers = assembleScheduledMatchers(date).filter(matcher => matcher.type === 'timeTravelers').map(matcher => matcher.matcher);
+  const availabilityMatchers = getScheduleMatchingGroup('timeTravelers', date);
   let ownedKeys;
   const { owned } = user.items.gear;
   const { mysteryItems } = user.purchased.plan;
@@ -31,7 +31,7 @@ const timeTravelerStore = (user, date) => {
       k !== 'wondercon'
       && ownedKeys.indexOf(v.items[0].key) === -1
       && (moment(k).isAfter('3000-01-01')
-      || availabilityMatchers.map(matcher => matcher(k)).every(matcher => matcher === true))
+      || availabilityMatchers.match(k))
     ) {
       m[k] = v;
     }
