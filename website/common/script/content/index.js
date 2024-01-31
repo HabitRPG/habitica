@@ -33,6 +33,8 @@ import gemsBlock from './gems';
 import faq from './faq';
 import timeTravelers from './time-travelers';
 
+import { assembleScheduledMatchers } from './constants/schedule';
+
 import loginIncentives from './loginIncentives';
 
 import officialPinnedItems from './officialPinnedItems';
@@ -727,5 +729,7 @@ api.userDefaultsMobile = {
 api.faq = faq;
 
 api.loginIncentives = loginIncentives(api);
+
+api.assembleScheduledMatchers = assembleScheduledMatchers;
 
 export default api;

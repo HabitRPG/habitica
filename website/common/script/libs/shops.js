@@ -369,7 +369,7 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
     }
   }
 
-  const sets = content.timeTravelerStore(user);
+  const sets = content.timeTravelerStore(user, new Date());
   for (const setKey of Object.keys(sets)) {
     const set = sets[setKey];
     const category = {
