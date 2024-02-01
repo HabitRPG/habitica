@@ -3,7 +3,6 @@ import SEASONAL_SETS from './seasonalSets';
 
 function backgroundMatcher (month1, month2, oddYear) {
   return function call (key) {
-    if (!key.startsWith('backgrounds')) return true;
     const keyLength = key.length;
     const month = parseInt(key.substring(keyLength - 6, keyLength - 4), 10);
     return (month === month1 || month === month2)
@@ -20,6 +19,26 @@ function timeTravelersMatcher (month1, month2) {
 
 function inListMatcher (list) {
   return function call (item) {
+    return list.indexOf(item) !== -1;
+  };
+}
+
+const ALWAYS_AVAILABLE_CUSTOMIZATIONS = [
+  'animalSkins',
+  'rainbowSkins',
+  'rainbowHairColors',
+  'specialShirts',
+  'facialHair',
+  'baseHair1',
+  'baseHair2',
+  'baseHair3',
+];
+
+function customizationMatcher (list) {
+  return function call (item) {
+    if (ALWAYS_AVAILABLE_CUSTOMIZATIONS.indexOf(item) !== -1) {
+      return true;
+    }
     return list.indexOf(item) !== -1;
   };
 }
@@ -601,6 +620,12 @@ export const MONTHLY_SCHEDULE = {
 };
 
 export const GALA_SWITCHOVER_DAY = 21;
+export const GALA_KEYS = [
+  'winter',
+  'spring',
+  'summer',
+  'fall',
+];
 export const GALA_SCHEDULE = {
   0: [
     {
@@ -620,6 +645,13 @@ export const GALA_SCHEDULE = {
         'evilsanta2',
       ],
     },
+    {
+      type: 'customizations',
+      matcher: customizationMatcher([
+        'winteryHairColors',
+        'winterySkins',
+      ]),
+    },
   ],
   1: [
     {
@@ -632,20 +664,15 @@ export const GALA_SCHEDULE = {
         'shinySeed',
       ],
     },
+    {
+      type: 'customizations',
+      matcher: customizationMatcher([
+        'shimmerHairColors',
+        'pastelSkins',
+      ]),
+    },
   ],
   2: [
-    {
-      type: 'seasonalGear',
-      items: SEASONAL_SETS.fall,
-    },
-    {
-      type: 'seasonalSpells',
-      items: [
-        'spookySparkles',
-      ],
-    },
-  ],
-  3: [
     {
       type: 'seasonalGear',
       items: SEASONAL_SETS.summer,
@@ -656,8 +683,44 @@ export const GALA_SCHEDULE = {
         'seafoam',
       ],
     },
+    {
+      type: 'customizations',
+      matcher: customizationMatcher([
+        'splashySkins',
+      ]),
+    },
+  ],
+  3: [
+    {
+      type: 'seasonalGear',
+      items: SEASONAL_SETS.fall,
+    },
+    {
+      type: 'seasonalSpells',
+      items: [
+        'spookySparkles',
+      ],
+    },
+    {
+      type: 'customizations',
+      matcher: customizationMatcher([
+        'hauntedHairColors',
+        'supernaturalSkins',
+      ]),
+    },
   ],
 };
+
+function getGalaIndex (date) {
+  const month = date instanceof moment ? date.month() : date.getMonth();
+  const todayDay = date instanceof moment ? date.date() : date.getDate();
+  let galaMonth = month;
+  const galaCount = Object.keys(GALA_SCHEDULE).length;
+  if (todayDay >= GALA_SWITCHOVER_DAY) {
+    galaMonth += 1;
+  }
+  return parseInt((galaCount / 12) * galaMonth, 10);
+}
 
 export function assembleScheduledMatchers (date) {
   const items = [];
@@ -674,12 +737,8 @@ export function assembleScheduledMatchers (date) {
       items.push(...value);
     }
   }
-  let galaMonth = month;
-  const galaCount = Object.keys(GALA_SCHEDULE).length;
-  if (todayDay >= GALA_SWITCHOVER_DAY) {
-    galaMonth += 1;
-  }
-  items.push(...GALA_SCHEDULE[parseInt((galaCount / 12) * galaMonth, 10)]);
+
+  items.push(...GALA_SCHEDULE[getGalaIndex(date)]);
   return items;
 }
 
@@ -688,7 +747,7 @@ let cachedScheduleMatchers = null;
 export function getScheduleMatchingGroup (type, date) {
   if (!cachedScheduleMatchers) {
     cachedScheduleMatchers = {};
-    assembleScheduledMatchers(date !== undefined ? date : new Date()).forEach(matcher => {
+    assembleScheduledMatchers(date || new Date()).forEach(matcher => {
       if (!cachedScheduleMatchers[matcher.type]) {
         cachedScheduleMatchers[matcher.type] = {
           matchers: [],
@@ -717,4 +776,8 @@ export function getScheduleMatchingGroup (type, date) {
     };
   }
   return cachedScheduleMatchers[type];
+}
+
+export function getCurrentGalaKey (date) {
+  return GALA_KEYS[getGalaIndex(date || new Date())];
 }

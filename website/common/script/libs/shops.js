@@ -449,8 +449,8 @@ shops.getSeasonalShop = function getSeasonalShop (user, language) {
     identifier: 'seasonalShop',
     text: i18n.t('seasonalShop'),
     notes: i18n.t(`seasonalShop${seasonalShopConfig.currentSeason}Text`),
-    imageName: seasonalShopConfig.opened ? 'seasonalshop_open' : 'seasonalshop_closed',
-    opened: seasonalShopConfig.opened,
+    imageName: 'seasonalshop_open',
+    opened: true,
     categories: this.getSeasonalShopCategories(user, language),
     featured: {
       text: i18n.t(seasonalShopConfig.featuredSet),
@@ -467,10 +467,6 @@ shops.getSeasonalShop = function getSeasonalShop (user, language) {
   return resObject;
 };
 
-// To switch seasons/available inventory, edit the AVAILABLE_SETS object to whatever should be sold.
-// let AVAILABLE_SETS = {
-//   setKey: i18n.t('setTranslationString', language),
-// };
 shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, language) {
   const officialPinnedItems = getOfficialPinnedItems(user);
 
@@ -551,6 +547,109 @@ shops.getBackgroundShopSets = function getBackgroundShopSets (language) {
   });
 
   return sets;
+};
+
+/* Customization Shop */
+
+shops.getCustomizationShop = function getCustomizationShop (user, language) {
+  return {
+    identifier: 'customizationShop',
+    text: i18n.t('titleCustomizations'),
+    notes: i18n.t('timeTravelersPopover'),
+    imageName: 'npc_timetravelers_active',
+    categories: shops.getCustomizationShopCategories(user, language),
+  };
+};
+
+shops.getCustomizationShopCategories = function getCustomizationShopCategories (user, language) {
+  const categories = [];
+  const officialPinnedItems = getOfficialPinnedItems(user);
+
+  const backgroundCategory = {
+    identifier: 'backgrounds',
+    text: i18n.t('backgrounds', language),
+    items: [],
+  };
+
+  const matchers = getScheduleMatchingGroup('backgrounds');
+  eachRight(content.backgrounds, (group, key) => {
+    if (matchers.match(key)) {
+      each(group, bg => {
+        if (!user.purchased.background[bg.key]) {
+          const item = getItemInfo(
+            user,
+            'background',
+            bg,
+            officialPinnedItems,
+            language,
+          );
+          backgroundCategory.items.push(item);
+        }
+      });
+    }
+  });
+  categories.push(backgroundCategory);
+
+  const facialHairCategory = {
+    identifier: 'facialHair',
+    text: i18n.t('titleFacialHair', language),
+    items: [],
+  };
+  const customizationMatcher = getScheduleMatchingGroup('customizations');
+  each(['color', 'base', 'mustache', 'beard'], hairType => {
+    let category;
+    if (hairType === 'beard' || hairType === 'mustache') {
+      category = facialHairCategory;
+    } else {
+      category = {
+        identifier: hairType,
+        text: i18n.t(`titleHair${hairType}`, language),
+        items: [],
+      };
+    }
+    eachRight(content.appearances.hair[hairType], (hairStyle, key) => {
+      if (hairStyle.price > 0 && (!user.purchased.hair || !user.purchased.hair[hairType]
+          || !user.purchased.hair[hairType][key])
+          && customizationMatcher.match(hairStyle.set.key)) {
+        const item = getItemInfo(
+          user,
+          `hair${hairType}`,
+          hairStyle,
+          officialPinnedItems,
+          language,
+        );
+        category.items.push(item);
+      }
+    });
+    // only add the facial hair category once
+    if (hairType !== 'beard') {
+      categories.push(category);
+    }
+  });
+
+  each(['shirt', 'skin'], type => {
+    const category = {
+      identifier: type,
+      text: i18n.t(type, language),
+      items: [],
+    };
+    eachRight(content.appearances[type], (appearance, key) => {
+      if (appearance.price > 0 && (!user.purchased[type] || !user.purchased[type][key])
+          && customizationMatcher.match(appearance.set.key)) {
+        const item = getItemInfo(
+          user,
+          type,
+          appearance,
+          officialPinnedItems,
+          language,
+        );
+        category.items.push(item);
+      }
+    });
+    categories.push(category);
+  });
+
+  return categories;
 };
 
 export default shops;

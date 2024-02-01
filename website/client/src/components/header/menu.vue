@@ -146,6 +146,12 @@
               >
                 {{ $t('titleTimeTravelers') }}
               </router-link>
+              <router-link
+                class="topbar-dropdown-item dropdown-item"
+                :to="{name: 'customizations'}"
+              >
+                {{ $t('titleCustomizations') }}
+              </router-link>
             </div>
           </li>
           <b-nav-item

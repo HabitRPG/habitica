@@ -26,6 +26,12 @@
       >
         {{ $t('titleTimeTravelers') }}
       </router-link>
+      <router-link
+        class="nav-link"
+        :to="{name: 'customizations'}"
+      >
+        {{ $t('titleCustomizations') }}
+      </router-link>
     </secondary-menu>
     <div class="col-12">
       <router-view />

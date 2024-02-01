@@ -379,6 +379,96 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
       };
       break;
     }
+    case 'haircolor': {
+      itemInfo = {
+        key: item.key,
+        class: `hair_bangs_${user.preferences.hair.bangs}_${item.key}`,
+        text: item.key,
+        notes: '',
+        value: item.price,
+        set: item.set,
+        locked: false,
+        currency: 'gems',
+        path: `customizations.hair.color.${item.key}`,
+        pinType: 'timeTravelersStable',
+      };
+      break;
+    }
+    case 'hairbase': {
+      itemInfo = {
+        key: item.key,
+        class: `hair_base_${item.key}_${user.preferences.hair.color}`,
+        text: item.key,
+        notes: '',
+        value: item.price,
+        set: item.set,
+        locked: false,
+        currency: 'gems',
+        path: `customizations.hair.base.${item.key}`,
+        pinType: 'timeTravelersStable',
+      };
+      break;
+    }
+    case 'hairmustache': {
+      itemInfo = {
+        key: item.key,
+        class: `hair_mustache_${item.key}_${user.preferences.hair.color}`,
+        text: item.key,
+        notes: '',
+        value: item.price,
+        set: item.set,
+        locked: false,
+        currency: 'gems',
+        path: `customizations.hair.mustache.${item.key}`,
+        pinType: 'timeTravelersStable',
+      };
+      break;
+    }
+    case 'hairbeard': {
+      itemInfo = {
+        key: item.key,
+        class: `hair_beard_${item.key}_${user.preferences.hair.color}`,
+        text: item.key,
+        notes: '',
+        value: item.price,
+        set: item.set,
+        locked: false,
+        currency: 'gems',
+        path: `customizations.hair.beard.${item.key}`,
+        pinType: 'timeTravelersStable',
+      };
+      break;
+    }
+    case 'shirt': {
+      itemInfo = {
+        key: item.key,
+        class: `${user.preferences.size}_shirt_${item.key}`,
+        text: item.key,
+        notes: '',
+        value: item.price,
+        set: item.set,
+        locked: false,
+        currency: 'gems',
+        path: `customizations.shirt.${item.key}`,
+        pinType: 'timeTravelersStable',
+      };
+      break;
+    }
+    case 'skin': {
+      itemInfo = {
+        key: item.key,
+        class: `skin_${item.key}`,
+        text: item.key,
+        notes: '',
+        value: item.price,
+        set: item.set,
+        locked: false,
+        currency: 'gems',
+        path: `customizations.skin.${item.key}`,
+        pinType: 'timeTravelersStable',
+      };
+      break;
+    }
   }
 
   if (itemInfo) {
