@@ -48,6 +48,7 @@
           :user-sent-message="user._id === msg.uuid"
           :group-id="'privateMessage'"
           :private-message-mode="true"
+          @message-liked="messageLiked"
           @message-removed="messageRemoved"
           @show-member-modal="showMemberModal"
           @message-card-mounted="itemWasMounted"
@@ -271,6 +272,9 @@ export default {
         // container.style.overflowY = 'scroll';
       }
     }, 50),
+    messageLiked (message) {
+      this.$emit('message-liked', message);
+    },
     messageRemoved (message) {
       this.$emit('message-removed', message);
     },
