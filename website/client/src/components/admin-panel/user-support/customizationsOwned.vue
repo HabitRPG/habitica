@@ -123,7 +123,7 @@ function collateItemData (self) {
     if (itemType.indexOf('hair') === 0) {
       const hairType = itemType.split('.')[1];
       allItems = content.appearances.hair[hairType];
-      if (self.hero.purchased.hair) {
+      if (self.hero.purchased && self.hero.purchased.hair) {
         ownedItems = self.hero.purchased.hair[hairType] || {};
       } else {
         ownedItems = {};

@@ -133,6 +133,9 @@ import i18n from '@/../../common/script/i18n';
 import saveHero from '../mixins/saveHero';
 
 function getText (achievementItem) {
+  if (achievementItem === undefined) {
+    return '';
+  }
   const { titleKey } = achievementItem;
   if (titleKey !== undefined) {
     return i18n.t(titleKey, 'en');
