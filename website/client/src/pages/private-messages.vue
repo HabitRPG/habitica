@@ -136,6 +136,7 @@
           :can-load-more="canLoadMore"
           :is-loading="messagesLoading"
           @message-removed="messageRemoved"
+          @message-liked="messageLiked"
           @triggerLoad="infiniteScrollTrigger"
         />
         <div
@@ -556,6 +557,7 @@ import orderBy from 'lodash/orderBy';
 import habiticaMarkdown from 'habitica-markdown';
 import axios from 'axios';
 import { MAX_MESSAGE_LENGTH } from '@/../../common/script/constants';
+import findIndex from 'lodash/findIndex';
 import { mapState } from '@/libs/store';
 import styleHelper from '@/mixins/styleHelper';
 import toggleSwitch from '@/components/ui/toggleSwitch';
@@ -849,6 +851,12 @@ export default {
       const loadedConversations = conversationRes.data.data;
       this.canLoadMoreConversations = loadedConversations.length === CONVERSATIONS_PER_PAGE;
       this.loadedConversations.push(...loadedConversations);
+    },
+    async messageLiked (message) {
+      const messages = this.messagesByConversation[this.selectedConversation.key];
+
+      const chatIndex = findIndex(messages, chatMessage => chatMessage.id === message.id);
+      messages.splice(chatIndex, 1, message);
     },
     messageRemoved (message) {
       const messages = this.messagesByConversation[this.selectedConversation.key];
