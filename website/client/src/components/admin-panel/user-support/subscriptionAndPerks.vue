@@ -21,37 +21,43 @@
           Group plan ID:
           <strong>{{ hero.purchased.plan.owner }}</strong>
         </div>
-        <div v-if="hero.purchased.plan.dateCreated" class="form-inline">
+        <div
+          v-if="hero.purchased.plan.dateCreated"
+          class="form-inline"
+        >
           <label>
-          Creation date:
+            Creation date:
             <input
               v-model="hero.purchased.plan.dateCreated"
               class="form-control"
               type="text"
             > <strong class="ml-2">{{ dateFormat(hero.purchased.plan.dateCreated) }}</strong>
-            </label>
+          </label>
         </div>
-        <div v-if="hero.purchased.plan.dateCurrentTypeCreated" class="form-inline">
+        <div
+          v-if="hero.purchased.plan.dateCurrentTypeCreated"
+          class="form-inline"
+        >
           <label>
-          Start date for current subscription type:
+            Start date for current subscription type:
             <input
               v-model="hero.purchased.plan.dateCurrentTypeCreated"
               class="form-control"
               type="text"
             >
-            </label>
-            <strong class="ml-2">{{dateFormat(hero.purchased.plan.dateCurrentTypeCreated)}}</strong>
+          </label>
+          <strong class="ml-2">{{ dateFormat(hero.purchased.plan.dateCurrentTypeCreated) }}</strong>
         </div>
         <div class="form-inline">
           <label>
-          Termination date:
-          <div>
-          <input
-              v-model="hero.purchased.plan.dateTerminated"
-              class="form-control"
-              type="text"
-            > <strong class="ml-2">{{ dateFormat(hero.purchased.plan.dateTerminated) }}</strong>
-          </div>
+            Termination date:
+            <div>
+              <input
+                v-model="hero.purchased.plan.dateTerminated"
+                class="form-control"
+                type="text"
+              > <strong class="ml-2">{{ dateFormat(hero.purchased.plan.dateTerminated) }}</strong>
+            </div>
           </label>
         </div>
         <div class="form-inline">

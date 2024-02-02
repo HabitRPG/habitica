@@ -12,7 +12,10 @@
         v-for="itemType in itemTypes"
         :key="itemType"
       >
-        <div class="accordion-group" v-if="collatedItemData[itemType]">
+        <div
+          v-if="collatedItemData[itemType]"
+          class="accordion-group"
+        >
           <h4
             class="expand-toggle"
             :class="{'open': expandItemType[itemType]}"
@@ -32,13 +35,13 @@
                     class="enableValueChange"
                     @click="enableValueChange(item)"
                   >
-                  <span :class="item.value ? 'owned' : 'not-owned'">
-                    {{ item.value }}
-                  </span>
+                    <span :class="item.value ? 'owned' : 'not-owned'">
+                      {{ item.value }}
+                    </span>
                     :
                     <span :class="{ ownedItem: !item.neverOwned }">{{ item.text }}</span>
                   </span>
-                    {{  item.set }}
+                  {{ item.set }}
 
                   <div
                     v-if="item.modified"

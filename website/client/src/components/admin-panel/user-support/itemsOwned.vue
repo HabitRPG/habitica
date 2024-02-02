@@ -68,8 +68,8 @@
                     class="enableValueChange"
                     @click="enableValueChange(item)"
                   >
-                  <span :class="item.value ? 'owned' : 'not-owned'">
-                    {{ item | displayValue }}
+                    <span :class="item.value ? 'owned' : 'not-owned'">
+                      {{ item | displayValue }}
                     </span>
                     :
                     <span :class="{ ownedItem: !item.neverOwned }">{{ item.key }} : </span>

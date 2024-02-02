@@ -9,42 +9,42 @@
     </h3>
     <div v-if="expand">
       <ul>
-              <li
-                v-for="item in achievements"
-                :key="item.path"
-              >
-                <form @submit.prevent="saveItem(item)">
-                  <span
-                    class="enableValueChange"
-                    @click="enableValueChange(item)"
-                  >
-                    <span :class="item.value ? 'achieved' : 'not-achieved'">
-                      {{ item.value }}
-                    </span>
-                    :
-                    {{ item.text || item.key }}
-                  </span>
+        <li
+          v-for="item in achievements"
+          :key="item.path"
+        >
+          <form @submit.prevent="saveItem(item)">
+            <span
+              class="enableValueChange"
+              @click="enableValueChange(item)"
+            >
+              <span :class="item.value ? 'achieved' : 'not-achieved'">
+                {{ item.value }}
+              </span>
+              :
+              {{ item.text || item.key }}
+            </span>
 
-                  <div
-                    v-if="item.modified"
-                    class="form-inline"
-                  >
-                    <input
-                      v-if="item.valueIsInteger"
-                      v-model="item.value"
-                      class="form-control valueField"
-                      type="number"
-                    >
-                    <input
-                      v-if="item.modified"
-                      type="submit"
-                      value="Save"
-                      class="btn btn-primary"
-                    >
-                  </div>
-                </form>
-              </li>
-            </ul>
+            <div
+              v-if="item.modified"
+              class="form-inline"
+            >
+              <input
+                v-if="item.valueIsInteger"
+                v-model="item.value"
+                class="form-control valueField"
+                type="number"
+              >
+              <input
+                v-if="item.modified"
+                type="submit"
+                value="Save"
+                class="btn btn-primary"
+              >
+            </div>
+          </form>
+        </li>
+      </ul>
       <div
         v-for="achievementType in nestedAchievementKeys"
         :key="achievementType"
@@ -69,7 +69,7 @@
                     class="enableValueChange"
                     @click="enableValueChange(item)"
                   >
-                  <span :class="item.value ? 'achieved' : 'not-achieved'">
+                    <span :class="item.value ? 'achieved' : 'not-achieved'">
                       {{ item.value }}
                     </span>
                     :
