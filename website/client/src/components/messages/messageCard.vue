@@ -266,6 +266,10 @@ hr {
   color: $red-50;
 }
 
+.selectListItem:not(:hover) .svg-icon.icon-16.color {
+  color: #{$gray-100}
+}
+
 .custom-hover--red {
   --hover-color: #{$maroon-50};
   --hover-background: #{rgba($red-500, 0.25)};
