@@ -318,6 +318,7 @@ import moment from 'moment';
 
 import cloneDeep from 'lodash/cloneDeep';
 import escapeRegExp from 'lodash/escapeRegExp';
+import { CHAT_FLAG_FROM_SHADOW_MUTE, CHAT_FLAG_LIMIT_FOR_HIDING } from '@/../../common/script/constants';
 import externalLinks from '../../mixins/externalLinks';
 
 import { CopyToClipboardMixin } from '@/mixins/copyToClipboard';
@@ -332,7 +333,6 @@ import menuIcon from '@/assets/svg/menu.svg';
 import { userStateMixin } from '@/mixins/userState';
 import copyIcon from '@/assets/svg/copy.svg';
 import LikeButton from '@/components/messages/likeButton.vue';
-import { CHAT_FLAG_FROM_SHADOW_MUTE, CHAT_FLAG_LIMIT_FOR_HIDING } from '../../../../common/script/constants';
 
 const LikeLogicMixin = {
   computed: {
