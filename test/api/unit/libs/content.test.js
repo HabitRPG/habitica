@@ -34,7 +34,7 @@ describe('contentLib', () => {
   });
 
   it('generates a hash for a filter', () => {
-    const hash = contentLib.hashForFilter('backgroundsFlat,gear.flat');
+    const hash = contentLib.hashForFilter(['backgroundsFlat', 'gear.flat']);
     expect(hash).to.equal('-1791877526');
   });
 
@@ -46,7 +46,7 @@ describe('contentLib', () => {
 
   it('serves filtered content', () => {
     const resSpy = generateRes();
-    contentLib.serveContent(resSpy, 'en', 'backgroundsFlat,gear.flat', false);
+    contentLib.serveContent(resSpy, 'en', ['backgroundsFlat', 'gear.flat'], false);
     expect(resSpy.send).to.have.been.calledOnce;
   });
 
@@ -81,7 +81,7 @@ describe('contentLib', () => {
     });
 
     it('caches filtered requests', async () => {
-      const filter = 'backgroundsFlat,gear.flat';
+      const filter = ['backgroundsFlat', 'gear.flat'];
       const hash = contentLib.hashForFilter(filter);
       expect(fs.existsSync(`${contentLib.CONTENT_CACHE_PATH}en${hash}.json`)).to.be.false;
       contentLib.serveContent(resSpy, 'en', filter, true);
@@ -89,7 +89,7 @@ describe('contentLib', () => {
     });
 
     it('serves filtered cached requests', async () => {
-      const filter = 'backgroundsFlat,gear.flat';
+      const filter = ['backgroundsFlat', 'gear.flat'];
       const hash = contentLib.hashForFilter(filter);
       fs.writeFileSync(
         `${contentLib.CONTENT_CACHE_PATH}en${hash}.json`,
