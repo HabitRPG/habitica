@@ -74,7 +74,7 @@ api.getContent = {
       language = proposedLang;
     }
 
-    const filter = req.query.filter || '';
+    let filter = req.query.filter || '';
     // apply defaults for mobile clients
     if (filter === '') {
       if (req.headers['x-client'] === 'habitica-android') {
