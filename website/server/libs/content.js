@@ -55,7 +55,7 @@ export function hashForFilter (filter) {
 export function serveContent (res, language, filter, isProd) {
   // Build usable filter object
   const filterObj = {};
-  filter.forEach(item => {
+  filter.split(',').forEach(item => {
     if (item.includes('.')) {
       const [key, subkey] = item.split('.');
       if (!filterObj[key]) {
