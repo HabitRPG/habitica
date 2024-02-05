@@ -63,7 +63,7 @@ async function updateUser (user) {
       && pets['Wolf-Shade']
       && pets['Wolf-Skeleton']
       && pets['Wolf-White']
-      && pets['Wolf-Zombie'] {
+      && pets['Wolf-Zombie']) {
         set['achievements.polarPro'] = true;
       }
   }
@@ -75,7 +75,7 @@ async function updateUser (user) {
 
 export default async function processUsers () {
   let query = {
-    // migration: { $ne: MIGRATION_NAME },
+    migration: { $ne: MIGRATION_NAME },
     'auth.timestamps.loggedin': { $gt: new Date('2022-11-01') },
   };
 
