@@ -12,8 +12,8 @@ const MOBILE_FILTER = ['achievements', 'questSeriesAchievements', 'animalColorAc
   'premiumHatchingPotions', 'wackyHatchingPotions', 'backgroundsFlat', 'questsByLevel', 'gear.tree', 'tasksByCategory',
   'userDefaults', 'timeTravelStable', 'gearTypes', 'cardTypes'];
 
-const ANDROID_FILTER = [...MOBILE_FILTER, 'appearances.background'];
-const IOS_FILTER = [...MOBILE_FILTER, 'backgrounds'];
+const ANDROID_FILTER = [...MOBILE_FILTER, 'appearances.background'].join(',');
+const IOS_FILTER = [...MOBILE_FILTER, 'backgrounds'].join(',');
 
 /**
  * @api {get} /api/v3/content Get all available content objects
@@ -74,20 +74,17 @@ api.getContent = {
       language = proposedLang;
     }
 
-    let filterList = [];
     const filter = req.query.filter || '';
     // apply defaults for mobile clients
     if (filter === '') {
       if (req.headers['x-client'] === 'habitica-android') {
-        filterList = ANDROID_FILTER;
+        filter = ANDROID_FILTER;
       } else if (req.headers['x-client'] === 'habitica-ios') {
-        filterList = IOS_FILTER;
+        filter = IOS_FILTER;
       }
-    } else {
-      filterList = filter.split(',');
     }
 
-    serveContent(res, language, filterList, IS_PROD);
+    serveContent(res, language, filter, IS_PROD);
   },
 };
 
