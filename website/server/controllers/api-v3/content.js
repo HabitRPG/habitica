@@ -6,10 +6,14 @@ const IS_PROD = nconf.get('IS_PROD');
 
 const api = {};
 
-const MOBILE_FILTER = `achievements,questSeriesAchievements,animalColorAchievements,animalSetAchievements,stableAchievements,
-mystery,bundles,loginIncentives,pets,premiumPets,specialPets,questPets,wackyPets,mounts,premiumMounts,specialMounts,questMounts,
-events,dropEggs,questEggs,dropHatchingPotions,premiumHatchingPotions,wackyHatchingPotions,backgroundsFlat,questsByLevel,gear.tree,
-tasksByCategory,userDefaults,timeTravelStable,gearTypes,cardTypes`;
+const MOBILE_FILTER = ['achievements', 'questSeriesAchievements', 'animalColorAchievements', 'animalSetAchievements',
+'stableAchievements', 'mystery', 'bundles', 'loginIncentives', 'pets', 'premiumPets', 'specialPets', 'questPets',
+'wackyPets', 'mounts', 'premiumMounts,specialMounts,questMounts', 'events', 'dropEggs', 'questEggs', 'dropHatchingPotions',
+'premiumHatchingPotions', 'wackyHatchingPotions', 'backgroundsFlat', 'questsByLevel', 'gear.tree', 'tasksByCategory',
+'userDefaults', 'timeTravelStable', 'gearTypes', 'cardTypes'];
+
+const ANDROID_FILTER = [...MOBILE_FILTER, 'appearances.background'];
+const IOS_FILTER = [...MOBILE_FILTER, 'backgrounds'];
 
 /**
  * @api {get} /api/v3/content Get all available content objects
@@ -70,17 +74,20 @@ api.getContent = {
       language = proposedLang;
     }
 
+    let filter_list = [];
     let filter = req.query.filter || '';
     // apply defaults for mobile clients
     if (filter === '') {
       if (req.headers['x-client'] === 'habitica-android') {
-        filter = `${MOBILE_FILTER},appearances.background`;
+        filter_list = ANDROID_FILTER;
       } else if (req.headers['x-client'] === 'habitica-ios') {
-        filter = `${MOBILE_FILTER},backgrounds`;
+        filter_list = IOS_FILTER;
       }
+    } else {
+      filter_list = filter.split(',');
     }
 
-    serveContent(res, language, filter, IS_PROD);
+    serveContent(res, language, filter_list, IS_PROD);
   },
 };
 
