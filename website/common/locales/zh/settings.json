@@ -277,5 +277,7 @@
     "changeClassDisclaimer": "改变你的职业将退还所有你现有的属性点。一旦你选择了新的职业，请在你的角色信息中重新调整属性点。",
     "connected": "已连接",
     "connect": "连接",
-    "remove": "移除"
+    "remove": "移除",
+    "resetTextLocal": "如果您已确定，请在下方的文本框中输入您的密码。",
+    "resetTextSocial": "如果您已确定，请在下方的文本框中输入 <b>\"<%=magicWord %>\"</b>。"
 }
