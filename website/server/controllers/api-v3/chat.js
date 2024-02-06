@@ -75,10 +75,10 @@ api.getChat = {
 
     const { groupId } = req.params;
     const group = await Group.getGroup({ user, groupId, fields: 'chat privacy' });
+    if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.privacy === 'public') {
       throw new BadRequest(res.t('featureRetired'));
     }
-    if (!group) throw new NotFound(res.t('groupNotFound'));
 
     const groupChat = await Group.toJSONCleanChat(group, user);
     res.respond(200, groupChat.chat);
