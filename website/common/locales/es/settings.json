@@ -277,5 +277,7 @@
     "changeClassDisclaimer": "Al cambiar de clase se te devolverán todos los Puntos de Atributo que hayas acumulado. Cuando selecciones tu nueva clase, ajusta los Puntos de Atributo desde la sección de Atributos de tu perfil.",
     "connected": "Conectado",
     "connect": "Conectar",
-    "remove": "Eliminar"
+    "remove": "Eliminar",
+    "resetTextLocal": "Si estás completamente seguro, escribe tu contraseña en el siguiente cuadro de texto.",
+    "resetTextSocial": "Si estás completamente seguro, escribe<b>\"<%= magicWord %>\"</b> en el siguiente cuadro de texto."
 }

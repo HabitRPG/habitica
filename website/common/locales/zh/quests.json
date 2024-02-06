@@ -40,7 +40,7 @@
     "sureAbort": "你确定要放弃这个副本吗？所有的副本进度都将丢失。副本卷轴将返还给副本所有者。",
     "doubleSureAbort": "你真的真的要这样做吗？要确保他们不会讨厌你一辈子哟！",
     "bossRageTitle": "怒气值",
-    "bossRageDescription": "当此条蓄满的时候，boss会发动特殊攻击！",
+    "bossRageDescription": "当此条蓄满时，boss会发动特殊攻击！",
     "startAQuest": "开始一个副本",
     "startQuest": "开始副本",
     "questInvitationDoesNotExist": "尚未发出副本邀请。",
@@ -61,7 +61,7 @@
     "cantCancelActiveQuest": "你不能取消一个进行中的副本，请放弃副本。",
     "onlyLeaderCancelQuest": "只有团队队长或副本发起者才能取消一个副本。",
     "questNotPending": "没有可开始的副本。",
-    "questOrGroupLeaderOnlyStartQuest": "只有团队队长或副本发起者才能强制开始一个副本",
+    "questOrGroupLeaderOnlyStartQuest": "只有副本发起者或团队队长才能强制开始一个副本",
     "loginIncentiveQuest": "你还需要登录Habitica再签到<%= count %>天才能解锁此副本！",
     "loginReward": "<%= count %>次签到",
     "questBundles": "打折的副本包",
@@ -98,5 +98,5 @@
     "yourPartyIsNotOnQuest": "你的队伍没有正在进行的副本",
     "selectQuest": "选择副本",
     "sureLeaveInactive": "你确定要退出这个副本吗？你将无法再次加入。",
-    "questItemsPending": "<%= amount %> 件待收集物品"
+    "questItemsPending": "<%= amount %> 件物品待结算"
 }
