@@ -55,6 +55,6 @@
     "challengeTasksNoCast": "スキルはチャレンジのタスクには唱えられません。",
     "groupTasksNoCast": "スキルはグループのタスクには唱えられません。",
     "spellNotOwned": "あなたはこのスキルを習得していません。",
-    "spellLevelTooHigh": "このスキルを使うにはレベル<%= level %>が必要です。",
+    "spellLevelTooHigh": "このスキルを使うにはレベル <%= level %> が必要です。",
     "spellAlreadyCast": "このスキルを使っても追加効果はありません。"
 }

@@ -189,5 +189,6 @@
     "socialAlreadyExists": "Cet identifiant social est déjà lié à un compte Habitica existant.",
     "emailUsernamePlaceholder": "par exemple habitrabbit ou gryphon@example.com",
     "footerProduct": "Produit",
-    "translateHabitica": "Traduire Habitica"
+    "translateHabitica": "Traduire Habitica",
+    "incorrectResetPhrase": "Merci de taper <%= magicWord %> en lettres capitales pour réinitialiser votre compte."
 }
