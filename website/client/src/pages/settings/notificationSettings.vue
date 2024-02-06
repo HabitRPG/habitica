@@ -271,6 +271,7 @@ export default {
         'onboarding',
         'importantAnnouncements',
         'subscriptionReminders',
+        'contentRelease',
       ]),
       // list of email-only notifications
       onlyEmailsIds: Object.freeze([
