@@ -19,7 +19,7 @@
     "footerDevs": "开发者",
     "footerCommunity": "社区",
     "footerCompany": "公司",
-    "footerMobile": "手机版",
+    "footerMobile": "移动端",
     "footerSocial": "社交",
     "free": "免费加入",
     "guidanceForBlacksmiths": "铁匠指南",
@@ -53,7 +53,7 @@
     "marketing4Lead3-1": "想游戏化你的生活？",
     "marketing4Lead3-2": "希望组织一个教育，健康，或其他类型的小组？",
     "marketing4Lead3Title": "游戏化任何事情",
-    "mobileAndroid": "安卓App",
+    "mobileAndroid": "安卓应用",
     "mobileIOS": "iOS应用",
     "oldNews": "新闻",
     "newsArchive": "Fandom上的新闻档案（多语言）",
@@ -61,7 +61,7 @@
     "password": "密码",
     "playButton": "开始",
     "playButtonFull": "进入Habitica",
-    "presskit": "资料包",
+    "presskit": "媒体资料",
     "presskitText": "感谢您对Habitica的关注，以下图片可以为关于Habitica的文章或视频所使用。更多信息请咨询我们<%= pressEnquiryEmail %>。",
     "pkQuestion1": "是什么启发了Habitica呢？它是怎么开始的呢？",
     "pkAnswer1": "如果你曾经投入很多时间来给你的游戏虚拟化身升级，这就让人很难不去联想如若你把那些努力用于改进真实生活中的你自身，而不是你的虚拟形象，那么你的生活该会变得多么美好啊。为了处理这样的问题，我们开始建设Habitica。<br />Habitica于2013年通过Kickstarter众筹网站正式启动，我们的灵光一现从此开始腾飞。自从那时起，它成长为了一个巨大的项目，被我们了不起的开源志愿者们和慷慨的用户们支持着。",
@@ -189,5 +189,6 @@
     "socialAlreadyExists": "该社交账号已与现存的Habitica账户连接。",
     "emailUsernamePlaceholder": "例如 habitrabbit 或者 gryphon@example.com",
     "footerProduct": "产品",
-    "translateHabitica": "翻译Habitica"
+    "translateHabitica": "翻译Habitica",
+    "incorrectResetPhrase": "请用大写字母输入 <%= magicWord %> 以重置你的账号。"
 }
