@@ -229,7 +229,7 @@
         <div>
           <div
             class="svg-icon habitica-logo"
-            v-html="icons.melior"
+            v-html="icons.habiticaIcon"
           ></div>
         </div>
         <div class="header">
@@ -276,8 +276,8 @@
         </div>
         <div>
           <div
-            class="svg-icon habitica-logo"
-            v-html="icons.melior"
+            class="svg-icon habitica-logo color"
+            v-html="icons.habiticaIcon"
           ></div>
         </div>
         <div class="header">
