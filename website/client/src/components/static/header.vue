@@ -7,12 +7,12 @@
       >
         <div
           v-if="$route.name === 'plans'"
-          class="logo svg-icon svg color purple"
-          v-html="icons.melior"
+          class="habitica-logo svg-icon svg color purple"
+          v-html="icons.habiticaLogo"
         ></div>
         <div
           v-else
-          class="logo svg-icon svg"
+          class="habitica-logo svg-icon svg"
           v-html="icons.habiticaLogo"
         ></div>
       </router-link>
@@ -146,6 +146,13 @@
     }
   }
 
+  .habitica-logo {
+    width: 175px;
+    height: 64px;
+    margin: 28px auto 0px auto;
+    z-index: 0;
+  }
+
   .home-header, .home-header .btn {
     font-family: 'Varela Round', sans-serif;
     font-weight: normal;
@@ -175,6 +182,10 @@
 
     .purple {
       color: $purple-100;
+    }
+
+    .white {
+      color: $white;
     }
   }
 
