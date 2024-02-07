@@ -416,6 +416,7 @@ body.modal-open #habitica-menu {
 
     .logo {
       padding-top: 12px;
+      color: $white;
     }
 
     .topbar-item {

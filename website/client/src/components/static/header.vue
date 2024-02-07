@@ -13,7 +13,7 @@
         <div
           v-else
           class="logo svg-icon svg"
-          v-html="icons.melior"
+          v-html="icons.habiticaLogo"
         ></div>
       </router-link>
     </div>
@@ -171,12 +171,10 @@
       color: $white;
       height: 32px;
       object-fit: contain;
-      width: 32px;
     }
 
     .purple {
       color: $purple-100;
-      z-index: 0;
     }
   }
 

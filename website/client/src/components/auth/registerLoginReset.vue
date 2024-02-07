@@ -272,9 +272,6 @@
     >
       <div class="text-center">
         <div>
-          <div class="svg-icon gryphon"></div>
-        </div>
-        <div>
           <div
             class="svg-icon habitica-logo color"
             v-html="icons.habiticaIcon"
@@ -429,7 +426,7 @@
     }
 
     .gryphon {
-      background-image: url('~@/assets/images/melior@3x.png');
+      // background-image: url('~@/assets/images/melior@3x.png');
       width: 63.2px;
       height: 69.4px;
       background-size: cover;
