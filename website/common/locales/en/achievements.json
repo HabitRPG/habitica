@@ -156,8 +156,12 @@
   "achievementBonelessBossModalText": "You collected all the invertebrate pets!",
   "achievementDuneBuddy": "Dune Buddy",
   "achievementDuneBuddyText": "Has hatched all standard colors of desert dwelling pets: Armadillo, Cactus, Fox, Frog, Snake, and Spider!",
-  "achievementDuneBuddyNotes": "You collected all the desert dwelling pets!",
+  "achievementDuneBuddyModalText": "You collected all the desert dwelling pets!",
   "achievementRoughRider": "Rough Rider",
   "achievementRoughRiderText": "Has hatched all basic colors of the uncomfortable pets and mounts: Cactus, Hedgehog, and Rock!",
-  "achievementRoughRiderNotes": "You collected all the basic colors of the uncomfortable pets and mounts!"
+  "achievementRoughRiderModalText": "You collected all the basic colors of the uncomfortable pets and mounts!",
+  "achievementRodentRuler": "Rodent Ruler",
+  "achievementRodentRulerText": "Has hatched all standard colors of rodent pets: Guinea Pig, Rat, and Squirrel!",
+  "achievementRodentRulerModalText": "You collected all the rodent pets!"
+  
 }

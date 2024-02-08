@@ -343,6 +343,11 @@
   width: 60px;
   height: 64px;
 }
+.achievement-rodentRuler2x {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/achievement-rodentRuler2x.png');
+  width: 68px;
+  height: 68px;
+}
 .achievement-rosyOutlook2x {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/achievement-rosyOutlook2x.png');
   width: 64px;
