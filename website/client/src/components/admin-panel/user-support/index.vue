@@ -47,6 +47,16 @@
           :reset-counter="resetCounter"
         />
 
+        <customizations-owned
+          :hero="hero"
+          :reset-counter="resetCounter"
+        />
+
+        <achievements
+          :hero="hero"
+          :reset-counter="resetCounter"
+        />
+
         <transactions
           :hero="hero"
           :reset-counter="resetCounter"
@@ -103,6 +113,8 @@ import PrivilegesAndGems from './privilegesAndGems';
 import ContributorDetails from './contributorDetails';
 import Transactions from './transactions';
 import SubscriptionAndPerks from './subscriptionAndPerks';
+import CustomizationsOwned from './customizationsOwned.vue';
+import Achievements from './achievements.vue';
 
 import { userStateMixin } from '../../../mixins/userState';
 
@@ -110,6 +122,7 @@ export default {
   components: {
     BasicDetails,
     ItemsOwned,
+    CustomizationsOwned,
     CronAndAuth,
     PartyAndQuest,
     AvatarAndDrops,
@@ -117,6 +130,7 @@ export default {
     ContributorDetails,
     Transactions,
     SubscriptionAndPerks,
+    Achievements,
   },
   mixins: [userStateMixin],
   beforeRouteUpdate (to, from, next) {
