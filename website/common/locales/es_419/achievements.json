@@ -65,7 +65,7 @@
     "achievementCompletedTaskModalText": "Marca cualquiera de tus tareas para ganar recompensas",
     "yourProgress": "Tu Progreso",
     "achievementTickledPinkModalText": "¡Lograste obtener todas las mascotas de algodón de azúcar rosa!",
-    "achievementTickledPinkText": "Ha obtenido todas las mascotas de algodón de azúcar rosa .",
+    "achievementTickledPinkText": "Ha obtenido todas las mascotas de algodón de azúcar rosa.",
     "achievementTickledPink": "Rosa cosquillosa",
     "foundNewItemsCTA": "¡Ve a tu inventario e intenta combinar tu nueva poción de eclosión y un huevo!",
     "foundNewItemsExplanation": "Completar tareas te da la oportunidad de encontrar artículos como Huevos, Pociones de Eclosión y Comida para Mascotas.",
@@ -143,5 +143,9 @@
     "achievementBoneToPickModalText": "¡Tú conseguiste todas las mascotas clásicas y las mascotas de esqueleto de misión!",
     "achievementBoneToPick": "Hueso para elegir",
     "achievementPolarPro": "Profesional polar",
-    "achievementPolarProText": "¡Ha conseguido todas los colores estandár de mascotas polar: Oso, Zorro, Pingüino, Ballena y Lobo!"
+    "achievementPolarProText": "¡Ha conseguido todas los colores estandár de mascotas polar: Oso, Zorro, Pingüino, Ballena y Lobo!",
+    "achievementPolarProModalText": "¡Has coleccionado todas las mascotas Polares!",
+    "achievementPlantParent": "Cuidador de Plantas",
+    "achievementPlantParentText": "¡Ha eclosionado todos los colores estándar de mascotas planta: Cactus y Arbolito!",
+    "achievementDinosaurDynasty": "Dinastía de Dinosaurios"
 }

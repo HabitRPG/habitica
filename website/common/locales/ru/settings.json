@@ -36,8 +36,8 @@
     "userData": "Пользовательские данные",
     "exportUserData": "Экспорт данных пользователя:",
     "export": "Экспорт",
-    "xml": "(XML)",
-    "json": "(JSON)",
+    "xml": "XML",
+    "json": "JSON",
     "customDayStart": "Персональное начало суток",
     "sureChangeCustomDayStartTime": "Вы уверены, что хотите изменить начало дня? Ваши ежедневные задания будут сбрасываться, когда вы первый раз за день зайдёте в страну Habitica после <%= time %>. Убедитесь, что завершили свои ежедневные задания до этого времени!",
     "customDayStartHasChanged": "Ваше персональное начало дня изменилось.",
@@ -227,5 +227,14 @@
     "timestamp": "Метка времени",
     "amount": "Количество",
     "action": "Действие",
-    "thirdPartyTools": "Найдите сторонние приложения, расширения и другие различные инструменты, которые можно использовать с вашей учетной записью на странице <a href='https://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations' target='_blank'>Habitica wiki</a>."
+    "thirdPartyTools": "Найдите сторонние приложения, расширения и другие различные инструменты, которые можно использовать с вашей учетной записью на странице <a href='https://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations' target='_blank'>Habitica wiki</a>.",
+    "generalSettings": "Основные настройки",
+    "character": "Персонаж",
+    "siteLanguage": "Язык сайта",
+    "remove": "Удалить",
+    "siteData": "Данные Сайта",
+    "taskSettings": "Настройки задачи",
+    "confirmCancelChanges": "Вы уверены? Все несохраненные изменения будут потеряны.",
+    "account": "Аккаунт",
+    "loginMethods": "Методы входа в систему"
 }

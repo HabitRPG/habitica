@@ -39,19 +39,21 @@ describe('POST /chat/:chatId/like', () => {
       });
   });
 
-  it('Returns an error when user tries to like their own message', async () => {
-    const message = await user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage });
-
-    await expect(user.post(`/groups/${groupWithChat._id}/chat/${message.message.id}/like`))
-      .to.eventually.be.rejected.and.eql({
-        code: 404,
-        error: 'NotFound',
-        message: t('messageGroupChatLikeOwnMessage'),
-      });
-  });
-
   it('Likes a chat', async () => {
     const message = await anotherUser.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage });
+
+    const likeResult = await user.post(`/groups/${groupWithChat._id}/chat/${message.message.id}/like`);
+
+    expect(likeResult.likes[user._id]).to.equal(true);
+
+    const groupWithChatLikes = await user.get(`/groups/${groupWithChat._id}`);
+
+    const messageToCheck = find(groupWithChatLikes.chat, { id: message.message.id });
+    expect(messageToCheck.likes[user._id]).to.equal(true);
+  });
+
+  it('Allows to likes their own chat message', async () => {
+    const message = await user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage });
 
     const likeResult = await user.post(`/groups/${groupWithChat._id}/chat/${message.message.id}/like`);
 

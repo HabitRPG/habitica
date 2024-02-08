@@ -59,8 +59,8 @@
 
         <div
           v-once
-          v-html="$t('resetText2')"
           class="mb-3"
+          v-html="$t('resetText2')"
         >
         </div>
 

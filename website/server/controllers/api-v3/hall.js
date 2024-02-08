@@ -146,7 +146,7 @@ api.getHeroes = {
 // Note, while the following routes are called getHero / updateHero
 // they can be used by admins to get/update any user
 
-const heroAdminFields = 'auth balance contributor flags items lastCron party preferences profile purchased secret permissions';
+const heroAdminFields = 'auth balance contributor flags items lastCron party preferences profile purchased secret permissions achievements';
 const heroAdminFieldsToFetch = heroAdminFields; // these variables will make more sense when...
 const heroAdminFieldsToShow = heroAdminFields; // ... apiTokenObscured is added
 
@@ -285,7 +285,7 @@ api.updateHero = {
       if (plan.dateCurrentTypeCreated) {
         hero.purchased.plan.dateCurrentTypeCreated = plan.dateCurrentTypeCreated;
       }
-      if (plan.dateTerminated) {
+      if (plan.dateTerminated !== hero.purchased.plan.dateTerminated) {
         hero.purchased.plan.dateTerminated = plan.dateTerminated;
       }
       if (plan.perkMonthCount) {
@@ -342,6 +342,42 @@ api.updateHero = {
       hero.purchased.ads = updateData.purchased.ads;
     }
 
+    if (updateData.purchasedPath && updateData.purchasedVal !== undefined
+      && validateItemPath(updateData.purchasedPath)) {
+      const parts = updateData.purchasedPath.split('.');
+      const key = _.last(parts);
+      const type = parts[parts.length - 2];
+      // using _.set causes weird issues
+      if (updateData.purchasedVal === true) {
+        if (updateData.purchasedPath.indexOf('hair.') === 10) {
+          if (hero.purchased.hair[type] === undefined) hero.purchased.hair[type] = {};
+          hero.purchased.hair[type][key] = true;
+        } else {
+          if (hero.purchased[type] === undefined) hero.purchased[type] = {};
+          hero.purchased[type][key] = true;
+        }
+      } else if (updateData.purchasedPath.indexOf('hair.') === 10) {
+        delete hero.purchased.hair[type][key];
+      } else {
+        delete hero.purchased[type][key];
+      }
+      hero.markModified('purchased');
+    }
+
+    if (updateData.achievementPath && updateData.achievementVal !== undefined) {
+      const parts = updateData.achievementPath.split('.');
+      const key = _.last(parts);
+      const type = parts[parts.length - 2];
+      // using _.set causes weird issues
+      if (type !== 'achievements') {
+        if (hero.achievements[type] === undefined) hero.achievements[type] = {};
+        hero.achievements[type][key] = updateData.achievementVal;
+      } else {
+        hero.achievements[key] = updateData.achievementVal;
+      }
+      hero.markModified('achievements');
+    }
+
     // give them the Dragon Hydra pet if they're above level 6
     if (hero.contributor.level >= 6) {
       hero.items.pets['Dragon-Hydra'] = 5;
@@ -367,6 +403,7 @@ api.updateHero = {
     if (updateData.flags && _.isBoolean(updateData.flags.chatShadowMuted)) {
       hero.flags.chatShadowMuted = updateData.flags.chatShadowMuted;
     }
+    if (updateData.profile) _.assign(hero.profile, updateData.profile);
 
     if (updateData.secret) {
       if (typeof updateData.secret.text !== 'undefined') {

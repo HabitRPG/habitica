@@ -277,7 +277,6 @@ api.postChat = {
  * @apiUse MessageNotFound
  * @apiUse GroupIdRequired
  * @apiUse ChatIdRequired
- * @apiError (400) {NotFound} messageGroupChatLikeOwnMessage A user can't like their own message
  */
 api.likeChat = {
   method: 'POST',
@@ -298,10 +297,8 @@ api.likeChat = {
 
     const message = await Chat.findOne({ _id: req.params.chatId }).exec();
     if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
-    // @TODO correct this error type
-    if (message.uuid === user._id) throw new NotFound(res.t('messageGroupChatLikeOwnMessage'));
-
     if (!message.likes) message.likes = {};
+
     message.likes[user._id] = !message.likes[user._id];
     message.markModified('likes');
     await message.save();
