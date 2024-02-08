@@ -117,7 +117,7 @@
     "missingPassword": "Отсутствует пароль.",
     "missingNewPassword": "Отсутствует новый пароль.",
     "invalidEmailDomain": "Нельзя регистрироваться с электронной почтой этих доменов: <%= domains %>",
-    "wrongPassword": "Неправильный пароль.",
+    "wrongPassword": "Неправильный пароль. Если вы забыли свой пароль, нажмите на \"Забыл пароль.\"",
     "incorrectDeletePhrase": "Пожалуйста, введите <%= magicWord %> прописными буквами, чтобы удалить свой аккаунт.",
     "notAnEmail": "Неверный адрес электронной почты.",
     "emailTaken": "Адрес электронной почты уже используется.",
@@ -189,5 +189,6 @@
     "emailUsernamePlaceholder": "Например, habitrabbit или gryphon@example.com",
     "socialAlreadyExists": "Этот ник уже связан с другим аккаунтом Хабитики.",
     "footerProduct": "Продукт",
-    "translateHabitica": "перевести Хабитику"
+    "translateHabitica": "перевести Хабитику",
+    "incorrectResetPhrase": "Пожалуйста, напечатайте <%= magicWord %> заглавными буквами, чтобы сбросить ваш аккаунт."
 }

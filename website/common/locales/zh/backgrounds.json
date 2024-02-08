@@ -813,7 +813,7 @@
     "backgroundBaobabForestText": "猴面包树森林",
     "backgroundBaobabForestNotes": "惊叹地注视猴面包树森林。",
     "backgrounds102023": "第 113 组：2023 年 10 月推出",
-    "backgroundSpectralCandleRoomText": "光谱蜡烛室",
+    "backgroundSpectralCandleRoomText": "幽灵蜡烛室",
     "backgroundSpectralCandleRoomNotes": "在幽灵蜡烛室与灵魂交流。",
     "backgroundMonstrousCaveText": "怪兽洞穴",
     "backgroundIceBubbleLakeNotes": "小心地站在冰泡湖上。",
@@ -839,5 +839,12 @@
     "backgroundIceBubbleLakeText": "冰泡湖",
     "backgroundMonstrousCaveNotes": "凝视怪物洞穴的洞口。",
     "backgroundJackOLanternStacksText": "南瓜灯笼堆",
-    "backgroundJackOLanternStacksNotes": "欣赏南瓜灯笼堆。"
+    "backgroundJackOLanternStacksNotes": "欣赏南瓜灯笼堆。",
+    "backgrounds022024": "第117组：2024年2月推出",
+    "backgroundColorfulStreetText": "多彩的街道",
+    "backgroundColorfulStreetNotes": "观赏一条多彩的街道。",
+    "backgroundSwanBoatText": "天鹅船",
+    "backgroundSwanBoatNotes": "乘坐天鹅船。",
+    "backgroundHeartTreeTunnelText": "心形树道",
+    "backgroundHeartTreeTunnelNotes": "穿过心形树道。"
 }
