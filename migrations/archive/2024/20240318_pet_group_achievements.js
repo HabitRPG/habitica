@@ -45,8 +45,8 @@ async function updateUser (user) {
       && pets['Rat-CottonCandyBlue'] > 0
       && pets['Rat-CottonCandyPink'] > 0 ) {
         set['achievements.rodentRuler'] = true;
-      }
-  }
+      
+    }
   }
 
   if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
