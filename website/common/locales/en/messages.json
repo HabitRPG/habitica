@@ -41,7 +41,6 @@
   "messageGroupRequiresInvite": "Can't join a group you're not invited to.",
   "messageGroupCannotRemoveSelf": "You cannot remove yourself!",
   "messageGroupChatBlankMessage": "You cannot send a blank message",
-  "messageGroupChatLikeOwnMessage": "Can't like your own message. Don't be that person.",
   "messageGroupChatFlagAlreadyReported": "You have already reported this message",
   "messageGroupChatNotFound": "Message not found!",
   "messageGroupChatAdminClearFlagCount": "Only an admin can clear the flag count!",

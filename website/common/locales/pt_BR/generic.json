@@ -223,5 +223,16 @@
     "question": "Pergunta",
     "questionDescriptionText": "Não há problema em fazer perguntas em seu idioma principal se você não se sentir confortável falando em inglês.",
     "questionPlaceholder": "Faça sua pergunta aqui",
-    "submitQuestion": "Enviar pergunta"
+    "submitQuestion": "Enviar pergunta",
+    "unblockPlayer": "Desbloquear Jogador",
+    "whyReportingPlayer": "Por que você está reportando este jogador?",
+    "general": "Geral",
+    "allNotifications": "Todas as Notificações",
+    "reportPlayer": "Reportar Jogador",
+    "blockPlayer": "Bloquear Jogador",
+    "adminTools": "Ferramentas de Administrador",
+    "viewAdminPanel": "Ver Painel de Administrador",
+    "banPlayer": "Banir Jogador",
+    "unbanPlayer": "Desbanir Jogador",
+    "bannedPlayer": "Este jogador está banido."
 }

@@ -414,14 +414,14 @@ li {
 .donate {
   align-items: flex-end;
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   grid-area: donate;
   padding-top: 12px;
 }
 .donate-text {
   grid-area: donate-text;
   font-size: 0.75rem;
-  font-color: $gray-100;
+  color: $gray-100;
   line-height: 1.33;
   display: flex;
   flex-shrink: 1;
@@ -433,7 +433,7 @@ li {
 .social {
   align-items: flex-start;
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   grid-area: social;
   padding-top: 12px;
 }
@@ -453,7 +453,7 @@ li {
 .privacy-terms {
   grid-area: privacy-terms;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   line-height: 1.71;
 }
 .terms {
@@ -529,8 +529,8 @@ h3 {
 
 .terms {
   padding-left: 16px;
-  display:flex;
-  justify-content: end;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .desktop {

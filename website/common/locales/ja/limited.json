@@ -160,7 +160,7 @@
     "marchYYYY": "<%= year %>年3月",
     "decemberYYYY": "<%= year %>年12月",
     "augustYYYY": "<%= year %>年9月",
-    "eventAvailabilityReturning": "<%= availableDate(locale) %>まで購入できます。このたまごがえしの薬は前回は<%= previousDate(locale) %>に販売しました。",
+    "eventAvailabilityReturning": "<%= availableDate(locale) %>まで購入できます。",
     "spring2020LapisLazuliRogueSet": "ラピスラズリ（盗賊）",
     "spring2020IrisHealerSet": "アイリス（治療師）",
     "spring2020PuddleMageSet": "水溜り（魔道士）",
@@ -188,7 +188,7 @@
     "fall2020WraithWarriorSet": "レイス（戦士）",
     "royalPurpleJackolantern": "ロイヤルパープルのジャック･オ･ランタン",
     "novemberYYYY": "<%= year %>年11月",
-    "g1g1Limitations": "このイベントは日本時間で12月15日の22:00から1月9日13:59までの期間限定です。プロモーションは他のプレイヤーにギフトを贈った際にのみ適用されます。もしギフトを受け取った人がすでに有料会員の場合、有料会員期間が延長されます。この延長は、現在の有料会員期間を満了もしくはキャンセルした後にのみ適用されます。",
+    "g1g1Limitations": "このイベントは<%= promoStartMonth %> <%= promoStartOrdinal %>の<%= promoStartTime %>から<%= promoEndMonth %> <%= promoEndOrdinal %> の <%= promoEndTime %>までの期間限定です。プロモーションは他のプレイヤーにギフトを贈った際にのみ適用されます。もしギフトを受け取った人がすでに有料会員の場合、有料会員期間が延長されます。この延長は、現在の有料会員期間を満了もしくはキャンセルした後にのみ適用されます。",
     "limitations": "制限事項",
     "g1g1HowItWorks": "「有料プランをプレゼントする」をタップして、贈る相手のユーザーネームを入力し、プレゼントする有料プランの期間を選択してください。自動的にあなたのアカウントにもプレゼントした分と同じ期間のプランが無料で適用されます。",
     "howItWorks": "機能説明",
@@ -280,5 +280,9 @@
     "fourForFree": "4個で無料",
     "anniversaryLimitations": "これは1月30日8:00 AM ET (13:00 UTC)から2月8日11:59 PM ET (04:59 UTC)までの期間限定イベントです。期間中、限定版「喜びに満ちたグリファトリス」と10個の「魔法のたまごがえしの薬」を購入することができます。4つで無料のギフトに記載されているその他のギフトは、ギフトが送られる日の前30日間にアクティブだったすべてのアカウントに自動的に配信されます。ギフトが送られた後に作成されたアカウントは、ギフトを受け取ることができません。",
     "plentyOfPotionsText": "コミュニティで人気の魔法のたまごがえしの薬10種を復活させます。コレクションを充実させるために、市場に行きましょう！",
-    "fourForFreeText": "パーティーを盛り上げるために、パーティー・ローブ、ジェム20個、バースデー限定背景、さらにケープ、ショルダーガード、アイマスクのアイテム・セットをプレゼントします。"
+    "fourForFreeText": "パーティーを盛り上げるために、パーティー・ローブ、ジェム20個、バースデー限定背景、さらにケープ、ショルダーガード、アイマスクのアイテム・セットをプレゼントします。",
+    "winter2024NarwhalWizardMageSet": "イッカククジラの魔術使いセット (魔道士)",
+    "winter2024SnowyOwlRogueSet": "雪フクロウ (盗賊)",
+    "winter2024FrozenHealerSet": "氷漬け (治療師)",
+    "winter2024PeppermintBarkWarriorSet": "ペパーミントの樹皮セット (戦士)"
 }
