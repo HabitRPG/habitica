@@ -13,7 +13,7 @@
     "dropEggTigerCubAdjective": "一只凶猛的",
     "dropEggPandaCubText": "熊猫幼崽",
     "dropEggPandaCubMountText": "熊猫",
-    "dropEggPandaCubAdjective": "一只温顺的",
+    "dropEggPandaCubAdjective": "一只温和的",
     "dropEggLionCubText": "狮子幼崽",
     "dropEggLionCubMountText": "狮子",
     "dropEggLionCubAdjective": "一只威严的",
@@ -22,7 +22,7 @@
     "dropEggFoxAdjective": "一只狡猾的",
     "dropEggFlyingPigText": "飞猪",
     "dropEggFlyingPigMountText": "飞猪",
-    "dropEggFlyingPigAdjective": "一只滑稽的",
+    "dropEggFlyingPigAdjective": "一只离奇的",
     "dropEggDragonText": "龙",
     "dropEggDragonMountText": "龙",
     "dropEggDragonAdjective": "一只威猛的",
@@ -374,5 +374,6 @@
     "hatchingPotionVirtualPet": "电子宠物",
     "hatchingPotionPorcelain": "瓷器",
     "hatchingPotionPinkMarble": "粉色大理石",
-    "hatchingPotionTeaShop": "茶馆"
+    "hatchingPotionTeaShop": "茶馆",
+    "hatchingPotionRoseGold": "玫瑰金"
 }
