@@ -28,6 +28,9 @@ module.exports = {
       svg: 'never',
       math: 'never',
     }],
+    'vue/component-tags-order': ['warn', {
+      order: [ 'template', 'style', 'script' ],
+    }],
   },
   parserOptions: {
     parser: 'babel-eslint',
