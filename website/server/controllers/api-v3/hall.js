@@ -403,6 +403,7 @@ api.updateHero = {
     if (updateData.flags && _.isBoolean(updateData.flags.chatShadowMuted)) {
       hero.flags.chatShadowMuted = updateData.flags.chatShadowMuted;
     }
+    if (updateData.profile) _.assign(hero.profile, updateData.profile);
 
     if (updateData.secret) {
       if (typeof updateData.secret.text !== 'undefined') {
