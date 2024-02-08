@@ -17,10 +17,10 @@
         aria-label="Habitica"
       >
         <div
-          class="logo svg-icon svg color"
+          class="logo svg-icon svg color gryphon"
           v-html="icons.melior"
         ></div>
-        <div class="svg-icon gryphon"></div>
+        <div class="svg-icon"></div>
       </b-navbar-brand>
       <b-navbar-toggle
         class="menu-toggle"
@@ -406,12 +406,13 @@ body.modal-open #habitica-menu {
     }
 
     .gryphon {
-      // background-image: url('~@/assets/images/melior@3x.png');
       background-size: cover;
-      height: 30px;
+      height: 32px;
       color: $white;
       margin: 0 auto;
-      width: 30px;
+      width: 32px;
+      top: -10px;
+      position: relative;
     }
 
     .logo {
@@ -467,7 +468,7 @@ body.modal-open #habitica-menu {
     .gryphon {
       position: absolute;
       left: calc(50% - 30px);
-      top: 10px;
+      top: -2px;
     }
 
     #menu_collapse {
