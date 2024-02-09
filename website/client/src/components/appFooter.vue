@@ -775,7 +775,7 @@ import moment from 'moment';
 
 // images
 import gryphon from '@/assets/svg/gryphon.svg';
-import twitter from '@/assets/svg/twitter.svg';
+import twitter from '@/assets/svg/twitter-x.svg';
 import facebook from '@/assets/svg/facebook.svg';
 import instagram from '@/assets/svg/instagram.svg';
 import tumblr from '@/assets/svg/tumblr.svg';
