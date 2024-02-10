@@ -183,7 +183,7 @@
   margin-bottom: 1.2rem !important;
 }
 
-.message-card {
+.message-card:not(.system-message) {
   background: white;
 }
 
