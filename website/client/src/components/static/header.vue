@@ -7,8 +7,8 @@
       >
         <div
           v-if="$route.name === 'plans'"
-          class="habitica-logo svg-icon purple color"
-          v-html="icons.habiticaLogo"
+          class="habitica-logo svg-icon"
+          v-html="icons.purpleLogo"
         ></div>
         <div
           v-else
@@ -273,7 +273,7 @@
 
 <script>
 import habiticaLogo from '@/assets/svg/logo-horizontal.svg';
-import purpleLogo from '@/assets/svg/purple-logo.svg';
+import purpleLogo from '@/assets/svg/logo-horizontal-purple.svg';
 import melior from '@/assets/svg/melior.svg';
 
 export default {
