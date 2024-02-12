@@ -179,10 +179,6 @@
       height: 32px;
       object-fit: contain;
     }
-
-    .purple {
-      color: $purple-200;
-      }
   }
 
   .nav-item {
