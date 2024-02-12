@@ -66,7 +66,7 @@
     "remove-markdown": "^0.5.0",
     "rimraf": "^3.0.2",
     "short-uuid": "^4.2.2",
-    "stripe": "^12.18.0",
+    "stripe": "^14.16.0",
     "superagent": "^8.1.2",
     "universal-analytics": "^0.5.3",
     "useragent": "^2.1.9",
