@@ -231,5 +231,10 @@
     "generalSettings": "Основные настройки",
     "character": "Персонаж",
     "siteLanguage": "Язык сайта",
-    "remove": "Удалить"
+    "remove": "Удалить",
+    "siteData": "Данные Сайта",
+    "taskSettings": "Настройки задачи",
+    "confirmCancelChanges": "Вы уверены? Все несохраненные изменения будут потеряны.",
+    "account": "Аккаунт",
+    "loginMethods": "Методы входа в систему"
 }
