@@ -426,18 +426,17 @@
     }
 
     .gryphon {
-      // background-image: url('~@/assets/images/melior@3x.png');
-      width: 63.2px;
-      height: 69.4px;
       background-size: cover;
       color: $white;
+      height: 69.4px;
       margin: 0 auto;
+      width: 63.2px;
     }
 
     .habitica-logo {
       width: 175px;
       height: 64px;
-      margin: 2em auto;
+      margin: 2em auto 0;
       z-index: 0;
     }
 
