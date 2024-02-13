@@ -26,6 +26,11 @@
           :reset-counter="resetCounter"
         />
 
+        <user-profile
+          :hero="hero"
+          :reset-counter="resetCounter"
+        />
+
         <party-and-quest
           v-if="adminHasPrivForParty"
           :user-id="hero._id"
@@ -43,6 +48,16 @@
         />
 
         <items-owned
+          :hero="hero"
+          :reset-counter="resetCounter"
+        />
+
+        <customizations-owned
+          :hero="hero"
+          :reset-counter="resetCounter"
+        />
+
+        <achievements
           :hero="hero"
           :reset-counter="resetCounter"
         />
@@ -97,12 +112,15 @@
 import BasicDetails from './basicDetails';
 import ItemsOwned from './itemsOwned';
 import CronAndAuth from './cronAndAuth';
+import UserProfile from './userProfile';
 import PartyAndQuest from './partyAndQuest';
 import AvatarAndDrops from './avatarAndDrops';
 import PrivilegesAndGems from './privilegesAndGems';
 import ContributorDetails from './contributorDetails';
 import Transactions from './transactions';
 import SubscriptionAndPerks from './subscriptionAndPerks';
+import CustomizationsOwned from './customizationsOwned.vue';
+import Achievements from './achievements.vue';
 
 import { userStateMixin } from '../../../mixins/userState';
 
@@ -110,6 +128,7 @@ export default {
   components: {
     BasicDetails,
     ItemsOwned,
+    CustomizationsOwned,
     CronAndAuth,
     PartyAndQuest,
     AvatarAndDrops,
@@ -117,6 +136,8 @@ export default {
     ContributorDetails,
     Transactions,
     SubscriptionAndPerks,
+    UserProfile,
+    Achievements,
   },
   mixins: [userStateMixin],
   beforeRouteUpdate (to, from, next) {

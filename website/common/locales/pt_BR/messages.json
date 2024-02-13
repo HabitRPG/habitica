@@ -15,7 +15,7 @@
     "messageMissingEggPotion": "Está faltando o ovo ou a poção",
     "messageInvalidEggPotionCombo": "Você não pode chocar Ovos de Mascotes de Missões com Poções Mágicas de Eclosão! Tente um ovo diferente.",
     "messageAlreadyPet": "Você já possui esse mascote. Tente uma combinação diferente!",
-    "messageHatched": "Seu ovo chocou! Visite seu estábulo para equipar seu mascote.",
+    "messageHatched": "Seu ovo chocou! Visite Mascotes e Pets para equipar seu mascote.",
     "messageNotEnoughGold": "Ouro insuficiente",
     "messageTwoHandedEquip": "<%= twoHandedText %> precisa das duas mãos, então <%= offHandedText %> foi desequipado.",
     "messageTwoHandedUnequip": "<%= twoHandedText %> precisa das duas mãos, portanto foi desequipado quando você se armou com <%= offHandedText %>.",

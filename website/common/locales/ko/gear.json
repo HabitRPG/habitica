@@ -1783,5 +1783,7 @@
     "weaponSpecialSpring2020MageText": "빗방울",
     "weaponSpecialFall2019HealerText": "무시무시한 부적",
     "weaponSpecialWinter2020WarriorText": "뾰족한 솔방울",
-    "weaponSpecialSpring2020RogueText": "청금석 칼"
+    "weaponSpecialSpring2020RogueText": "청금석 칼",
+    "weaponSpecialWinter2020RogueNotes": "어둠은 도적의 속성입니다. 그렇다면 일 년 중 가장 어두운 시기에 길을 밝히는 데 이보다 더 좋은 사람은 없겠죠? 체력이 <%= str %>만큼 증가합니다. 2019-2020 겨울 한정판 장비.",
+    "weaponSpecialFall2019HealerNotes": "이 부적은 오래 전에 죽임을 당한 대상의 영혼을 소환하고 그 치유력을 사용할 수 있습니다. 지력이 <%= int %>만큼 증가합니다. 2019년 가을 한정판 장비."
 }

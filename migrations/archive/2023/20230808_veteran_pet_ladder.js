@@ -110,7 +110,7 @@ async function updateUser (user) {
 export default async function processUsers () {
   let query = {
     migration: {$ne: MIGRATION_NAME},
-    // 'auth.timestamps.loggedin': { $gt: new Date('2023-07-08') },
+    'auth.timestamps.loggedin': { $gt: new Date('2023-07-08') },
   };
 
   const fields = {

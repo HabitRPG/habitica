@@ -10,7 +10,7 @@ describe('PUT /heroes/:heroId', () => {
 
   const heroFields = [
     '_id', 'auth', 'balance', 'contributor', 'flags', 'items', 'lastCron',
-    'party', 'preferences', 'profile', 'purchased', 'secret', 'permissions',
+    'party', 'preferences', 'profile', 'purchased', 'secret', 'permissions', 'achievements',
   ];
 
   before(async () => {
@@ -250,5 +250,160 @@ describe('PUT /heroes/:heroId', () => {
     const updatedHero = await User.findById(hero._id).exec();
     expect(updatedHero.apiToken).to.not.equal(originalToken);
     expect(updatedHero.apiTokenObscured).to.not.exist;
+  });
+
+  it('updates purchased hair customization', async () => {
+    const hero = await generateUser();
+    const heroRes = await user.put(`/hall/heroes/${hero._id}`, {
+      purchasedPath: 'purchased.hair.bangs.1',
+      purchasedVal: true,
+    });
+
+    // test response
+    expect(heroRes).to.have.all.keys(heroFields);
+    expect(heroRes.auth.local).not.to.have.keys(['salt', 'hashed_password']);
+    expect(heroRes.profile).to.have.all.keys(['name']);
+
+    // test response values
+    expect(heroRes.purchased.hair.bangs['1']).to.equal(true);
+    // test hero values
+    await hero.sync();
+    expect(hero.purchased.hair.bangs['1']).to.equal(true);
+  });
+
+  it('updates purchased customization', async () => {
+    const hero = await generateUser();
+    const heroRes = await user.put(`/hall/heroes/${hero._id}`, {
+      purchasedPath: 'purchased.background.beach',
+      purchasedVal: true,
+    });
+
+    // test response
+    expect(heroRes).to.have.all.keys(heroFields);
+    expect(heroRes.auth.local).not.to.have.keys(['salt', 'hashed_password']);
+    expect(heroRes.profile).to.have.all.keys(['name']);
+
+    // test response values
+    expect(heroRes.purchased.background.beach).to.equal(true);
+    // test hero values
+    await hero.sync();
+    expect(hero.purchased.background.beach).to.equal(true);
+  });
+
+  it('updates giving nested achievement', async () => {
+    const hero = await generateUser();
+    const heroRes = await user.put(`/hall/heroes/${hero._id}`, {
+      achievementPath: 'achievements.quests.dilatory',
+      achievementVal: 2,
+    });
+
+    // test response
+    expect(heroRes).to.have.all.keys(heroFields);
+    expect(heroRes.auth.local).not.to.have.keys(['salt', 'hashed_password']);
+    expect(heroRes.profile).to.have.all.keys(['name']);
+
+    // test response values
+    expect(heroRes.achievements.quests.dilatory).to.equal(2);
+    // test hero values
+    await hero.sync();
+    expect(hero.achievements.quests.dilatory).to.equal(2);
+  });
+
+  it('updates taking away nested achievement', async () => {
+    const hero = await generateUser({ 'achievements.quests.dilatory': 3 });
+    expect(hero.achievements.quests.dilatory).to.equal(3);
+    const heroRes = await user.put(`/hall/heroes/${hero._id}`, {
+      achievementPath: 'achievements.quests.dilatory',
+      achievementVal: 0,
+    });
+
+    // test response
+    expect(heroRes).to.have.all.keys(heroFields);
+    expect(heroRes.auth.local).not.to.have.keys(['salt', 'hashed_password']);
+    expect(heroRes.profile).to.have.all.keys(['name']);
+
+    // test response values
+    expect(heroRes.achievements.quests.dilatory).to.equal(0);
+    // test hero values
+    await hero.sync();
+    expect(hero.achievements.quests.dilatory).to.equal(0);
+  });
+
+  it('updates giving achievement', async () => {
+    const hero = await generateUser();
+    const heroRes = await user.put(`/hall/heroes/${hero._id}`, {
+      achievementPath: 'achievements.partyOn',
+      achievementVal: true,
+    });
+
+    // test response
+    expect(heroRes).to.have.all.keys(heroFields);
+    expect(heroRes.auth.local).not.to.have.keys(['salt', 'hashed_password']);
+    expect(heroRes.profile).to.have.all.keys(['name']);
+
+    // test response values
+    expect(heroRes.achievements.partyOn).to.equal(true);
+    // test hero values
+    await hero.sync();
+    expect(hero.achievements.partyOn).to.equal(true);
+  });
+
+  it('updates taking away achievement', async () => {
+    const hero = await generateUser({ 'achievements.partyUp': true });
+    expect(hero.achievements.partyUp).to.equal(true);
+    const heroRes = await user.put(`/hall/heroes/${hero._id}`, {
+      achievementPath: 'achievements.partyUp',
+      achievementVal: false,
+    });
+
+    // test response
+    expect(heroRes).to.have.all.keys(heroFields);
+    expect(heroRes.auth.local).not.to.have.keys(['salt', 'hashed_password']);
+    expect(heroRes.profile).to.have.all.keys(['name']);
+
+    // test response values
+    expect(heroRes.achievements.partyUp).to.equal(false);
+    // test hero values
+    await hero.sync();
+    expect(hero.achievements.partyUp).to.equal(false);
+  });
+
+  it('updates giving numbered achievement', async () => {
+    const hero = await generateUser();
+    const heroRes = await user.put(`/hall/heroes/${hero._id}`, {
+      achievementPath: 'achievements.streak',
+      achievementVal: 42,
+    });
+
+    // test response
+    expect(heroRes).to.have.all.keys(heroFields);
+    expect(heroRes.auth.local).not.to.have.keys(['salt', 'hashed_password']);
+    expect(heroRes.profile).to.have.all.keys(['name']);
+
+    // test response values
+    expect(heroRes.achievements.streak).to.equal(42);
+    // test hero values
+    await hero.sync();
+    expect(hero.achievements.streak).to.equal(42);
+  });
+
+  it('updates setting numbered achievement to 0', async () => {
+    const hero = await generateUser({ 'achievements.streak': 42 });
+    expect(hero.achievements.streak).to.equal(42);
+    const heroRes = await user.put(`/hall/heroes/${hero._id}`, {
+      achievementPath: 'achievements.streak',
+      achievementVal: 0,
+    });
+
+    // test response
+    expect(heroRes).to.have.all.keys(heroFields);
+    expect(heroRes.auth.local).not.to.have.keys(['salt', 'hashed_password']);
+    expect(heroRes.profile).to.have.all.keys(['name']);
+
+    // test response values
+    expect(heroRes.achievements.streak).to.equal(0);
+    // test hero values
+    await hero.sync();
+    expect(hero.achievements.streak).to.equal(0);
   });
 });
