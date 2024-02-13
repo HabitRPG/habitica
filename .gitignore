@@ -8,7 +8,7 @@ i18n_cache
 apidoc/html
 *.swp
 .idea*
-config.json
+config*.json
 npm-debug.log*
 lib
 newrelic_agent.log
