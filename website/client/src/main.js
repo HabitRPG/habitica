@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import sinon from 'sinon';
 import BootstrapVue from 'bootstrap-vue';
 import Fragment from 'vue-fragment';
 import AppComponent from './app';
@@ -13,6 +14,7 @@ import './filters/registerGlobals';
 import i18n from './libs/i18n';
 import 'smartbanner.js/dist/smartbanner';
 
+let jumped = false;
 const IS_PRODUCTION = process.env.NODE_ENV === 'production'; // eslint-disable-line no-process-env
 
 // Configure Vue global options, see https://vuejs.org/v2/api/#Global-Config
@@ -34,6 +36,21 @@ Vue.use(Fragment.Plugin);
 setUpLogging();
 setupAnalytics(); // just create queues for analytics, no scripts loaded at this time
 const store = getStore();
+
+const time = new Date(2024, 2, 18);
+const clock = sinon.useFakeTimers({
+  now: time,
+  shouldAdvanceTime: true,
+});
+
+setInterval(() => {
+  if (jumped) {
+    jumped = false;
+    return;
+  }
+  jumped = true;
+  clock.jump(36000);
+}, 1000);
 
 const vueInstance = new Vue({
   el: '#app',

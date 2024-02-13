@@ -300,6 +300,9 @@
         >
           Toggle Debug Menu
         </button>
+        <div>
+          Today is {{ new Date() }}
+        </div>
         <div
           v-if="debugMenuShown"
           class="debug-toggle debug-group"
