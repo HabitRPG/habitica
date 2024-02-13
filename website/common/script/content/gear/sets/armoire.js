@@ -463,6 +463,7 @@ const armor = {
     set: 'whiteLoungeWear',
   },
   hattersSuit: {
+    con: 9,
     set: 'hatterSet',
   },
 };
@@ -963,6 +964,7 @@ const head = {
     set: 'whiteLoungeWear',
   },
   hattersTopHat: {
+    per: 10,
     set: 'hatterSet',
   },
 };
@@ -1298,6 +1300,7 @@ const shield = {
     set: 'whiteLoungeWear',
   },
   hattersPocketWatch: {
+    int: 9,
     set: 'hatterSet',
   },
 };
@@ -1770,6 +1773,7 @@ const weapon = {
     set: 'schoolUniform',
   },
   hattersShears: {
+    str: 10,
     set: 'hatterSet',
   },
 };
