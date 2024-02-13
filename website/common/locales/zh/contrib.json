@@ -22,7 +22,7 @@
     "contribModal": "<%= name %>，你太棒啦！你现在是帮助了Habitica的<%= level %>级贡献者。",
     "contribLink": "看看您的贡献为您赢得了什么奖励！",
     "contribName": "贡献者",
-    "contribText": "通过代码、艺术、音乐、写作或其他方式为 Habitica 做出过贡献。",
+    "contribText": "通过代码、艺术、音乐、写作或其他方式为Habitica做出了贡献。",
     "kickstartName": "Kickstarter资助人-$<%= key %>级",
     "kickstartText": "资助了Kickstarter项目",
     "helped": "帮助Habitica发展壮大",

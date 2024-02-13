@@ -59,7 +59,7 @@
     "mountMasterText2": " e soltou todas as 90 mascotes um total de <%= count %> vez(es)",
     "triadBingoName": "Bingo da Tríade",
     "triadBingoText": "Encontrou todos os 90 mascotes, todas as 90 montadas, e encontrou todos os 90 mascotes NOVAMENTE (COMO CONSEGUIU ISSO!)",
-    "triadBingoText2": " e soltou um estábulo completo um total de <%= count %> vez(es)",
+    "triadBingoText2": " e soltou um estábulo completo com um total de <%= count %> vez(es)",
     "triadBingoAchievement": "Você ganhou a conquista \"Bingo Tríade\" por ter encontrado todos os mascotes, domado todas as montarias, e encontrado todos os mascotes de novo!",
     "dropsEnabled": "Drops Activados!",
     "firstDrop": "Você liberou o Sistema de Drops! Agora quando completar tarefas, você terá uma pequena chance de encontrar um item, incluindo ovos, poções e comida! Você acabou de encontrar um <strong><%= eggText %>Ovo</strong>! <%= eggNotes %>",
@@ -114,5 +114,6 @@
     "tooMuchFood": "Você está tentando dar muita comida para o seu mascote, ação cancelada",
     "invalidAmount": "Quantidade inválida de comida, deve ser um número inteiro positivo",
     "filterByWacky": "Maluco",
-    "jubilantGryphatrice": "Gryphatrice Radiante"
+    "jubilantGryphatrice": "Gryphatrice Radiante",
+    "veteranDragon": "Dragão Ancião"
 }

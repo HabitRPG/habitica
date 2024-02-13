@@ -3004,5 +3004,15 @@
     "headMystery202312Notes": "Cette coupe de cheveux raffinée évoque les couleurs neigeuses de la saison. Ne confère aucun bonus. Équipement d'Abonnement Décembre 2023.",
     "headArmoireGreenTrapperHatNotes": "Tout le monde dit que votre chapeau a l'air si chaud ! Et il l'est. Pensez juste à relever les rabats de vos oreilles quand il·elle·s vous parlent, sinon vous aurez plutôt l'impression d'entendre \"Tnn chpm a lrr ss chmm !\" Augmente la Constitution et la Perception de <%= attrs %> chacune. Armoire Enchantée : Chapeau d·u·e la Trappeu·r·se (Objet 1 sur 2).",
     "eyewearMystery202312Text": "Yeux du Blues de l'Hiver",
-    "eyewearMystery202312Notes": "Ne vous inquiétez pas, ces yeux d'un bleu glacial vous aideront à voir à travers cette froide et sombre saison jusqu'à la chaleur des mois à venir. Ne confère aucun bonus. Équipement d'Abonnement Décembre 2023."
+    "eyewearMystery202312Notes": "Ne vous inquiétez pas, ces yeux d'un bleu glacial vous aideront à voir à travers cette froide et sombre saison jusqu'à la chaleur des mois à venir. Ne confère aucun bonus. Équipement d'Abonnement Décembre 2023.",
+    "weaponSpecialWinter2024RogueText": "Brassard de la Chouette des Neiges",
+    "weaponSpecialWinter2024RogueNotes": "Vous voilà équipé·e avec une envolée de plumes et de serres ! Houhou ! Augmente la Force de <%= str %>. Édition Limitée Équipement Hiver 2023-2024.",
+    "weaponSpecialWinter2024MageNotes": "Grâce à un généreux et magique narval qui a senti votre grand potentiel, vous avez reçu une défense qui vous permet de ressentir les changements autour de vous. Augmente l'intelligence de <%= int %>. Édition Limitée Équipement Hiver 2023-2024.",
+    "weaponArmoireScholarlyTextbooksNotes": "Voici une opportunité pour vous plongez dans des sujets qui vous intéressent, et pour en apprendre plus. Quelle est votre hyperfixation du moment ? Augmente l'Intelligence de <%= int %>. Armoire Enchantée : Ensemble Uniforme Scolaire (Objet 3 sur 4).",
+    "weaponSpecialWinter2024WarriorText": "Masse Bonbon",
+    "weaponSpecialWinter2024WarriorNotes": "Une arme efficace, tant que vous arrivez à vous retenir de la manger. Augmente la Force de <%= str %>. Édition Limitée Équipement Hiver 2023-2024.",
+    "weaponSpecialWinter2024MageText": "Baguette Narval",
+    "weaponSpecialWinter2024HealerText": "Torche",
+    "weaponSpecialWinter2024HealerNotes": "Fondez de ce bourbier en deux temps, trois mouvement ! Augmente l'Intelligence de <%= int %>. Édition Limitée Équipement Hiver 2023-2024.",
+    "weaponArmoireScholarlyTextbooksText": "Livres d'École"
 }

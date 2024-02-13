@@ -22,37 +22,49 @@ export function getDefaultOwnedGear () {
 // Example of an item path: `items.gear.owned.head_warrior_0`
 export function validateItemPath (itemPath) {
   // The item path must start with `items.`
-  if (itemPath.indexOf('items.') !== 0) return false;
-  if (User.schema.paths[itemPath]) return true;
+  if (itemPath.indexOf('items.') === 0) {
+    if (User.schema.paths[itemPath]) return true;
 
-  const key = last(itemPath.split('.'));
+    const key = last(itemPath.split('.'));
 
-  if (itemPath.indexOf('items.gear.owned') === 0) {
-    return Boolean(shared.content.gear.flat[key]);
+    if (itemPath.indexOf('items.gear.owned') === 0) {
+      return Boolean(shared.content.gear.flat[key]);
+    }
+
+    if (itemPath.indexOf('items.pets') === 0) {
+      return Boolean(shared.content.petInfo[key]);
+    }
+
+    if (itemPath.indexOf('items.eggs') === 0) {
+      return Boolean(shared.content.eggs[key]);
+    }
+
+    if (itemPath.indexOf('items.hatchingPotions') === 0) {
+      return Boolean(shared.content.hatchingPotions[key]);
+    }
+
+    if (itemPath.indexOf('items.food') === 0) {
+      return Boolean(shared.content.food[key]);
+    }
+
+    if (itemPath.indexOf('items.mounts') === 0) {
+      return Boolean(shared.content.mountInfo[key]);
+    }
+
+    if (itemPath.indexOf('items.quests') === 0) {
+      return Boolean(shared.content.quests[key]);
+    }
   }
 
-  if (itemPath.indexOf('items.pets') === 0) {
-    return Boolean(shared.content.petInfo[key]);
-  }
+  if (itemPath.indexOf('purchased.') === 0) {
+    const parts = itemPath.split('.');
+    const key = last(parts);
+    const type = parts[parts.length - 2];
 
-  if (itemPath.indexOf('items.eggs') === 0) {
-    return Boolean(shared.content.eggs[key]);
-  }
-
-  if (itemPath.indexOf('items.hatchingPotions') === 0) {
-    return Boolean(shared.content.hatchingPotions[key]);
-  }
-
-  if (itemPath.indexOf('items.food') === 0) {
-    return Boolean(shared.content.food[key]);
-  }
-
-  if (itemPath.indexOf('items.mounts') === 0) {
-    return Boolean(shared.content.mountInfo[key]);
-  }
-
-  if (itemPath.indexOf('items.quests') === 0) {
-    return Boolean(shared.content.quests[key]);
+    if (itemPath.indexOf('hair.') === 10) {
+      return Boolean(shared.content.appearances.hair[type][key]);
+    }
+    return Boolean(shared.content.appearances[type][key]);
   }
 
   return false;
