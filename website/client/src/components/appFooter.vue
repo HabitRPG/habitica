@@ -291,7 +291,8 @@
       </div>
 
       <div
-        v-if="ENABLE_TIME_TRAVEL && user.permissions.fullAccess">
+        v-if="ENABLE_TIME_TRAVEL && user.permissions.fullAccess"
+        :key="lastTimeJump">
         <a
           class="btn btn-secondary mr-1"
           @click="jumpTime(-1)">-1 Day</a>
@@ -302,7 +303,7 @@
           class="btn btn-secondary mr-1"
           @click="jumpTime(-30)">-30 Days</a>
         <div class="my-2">
-          Time Traveling! It is {{ new Date().toLocaleString() }}
+          Time Traveling! It is {{ new Date().toLocaleDateString() }}
         </div>
         <a
           class="btn btn-secondary mr-1"
@@ -832,6 +833,7 @@ export default {
       debugMenuShown: false,
       IS_PRODUCTION,
       ENABLE_TIME_TRAVEL,
+      lastTimeJump: null,
     };
   },
   computed: {
@@ -895,12 +897,12 @@ export default {
     },
     async jumpTime (amount) {
       const response = await axios.post('/api/v4/debug/jump-time', { offsetDays: amount });
-      console.log(response.data.data);
       if (amount > 0) {
         Vue.config.clock.jump(amount * 24 * 60 * 60 * 1000);
       } else {
         Vue.config.clock.setSystemTime(moment().add(amount, 'days').toDate());
       }
+      this.lastTimeJump = response.data.data.time;
     },
     addExp () {
       // @TODO: Name these variables better
