@@ -852,7 +852,7 @@ export default {
       this.canLoadMoreConversations = loadedConversations.length === CONVERSATIONS_PER_PAGE;
       this.loadedConversations.push(...loadedConversations);
     },
-    async messageLiked (message) {
+    messageLiked (message) {
       const messages = this.messagesByConversation[this.selectedConversation.key];
 
       const chatIndex = findIndex(messages, chatMessage => chatMessage.id === message.id);

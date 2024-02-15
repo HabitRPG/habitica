@@ -45,6 +45,7 @@ const inboxSchema = new mongoose.Schema({
   // we store two copies of each inbox messages:
   // one for the sender and one for the receiver
   ownerId: { $type: String, ref: 'User' },
+  uniqueMessageId: String,
   ...defaultSchema(),
 }, {
   minimize: false, // Allow for empty flags to be saved

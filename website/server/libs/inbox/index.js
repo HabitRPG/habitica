@@ -1,4 +1,4 @@
-import { mapInboxMessage, inboxModel as Inbox } from '../../models/message';
+import { mapInboxMessage, inboxModel } from '../../models/message';
 import { getUserInfo, sendTxn as sendTxnEmail } from '../email'; // eslint-disable-line import/no-cycle
 import { sendNotification as sendPushNotification } from '../pushNotifications'; // eslint-disable-line import/no-cycle
 
@@ -50,7 +50,7 @@ export async function getUserInbox (user, optionParams = getUserInboxDefaultOpti
     findObj.uuid = options.conversation;
   }
 
-  let query = Inbox
+  let query = inboxModel
     .find(findObj)
     .sort({ timestamp: -1 });
 
@@ -79,26 +79,18 @@ export async function getUserInbox (user, optionParams = getUserInboxDefaultOpti
   return messagesObj;
 }
 
-export async function getUserInboxMessage (user, messageId) {
-  return Inbox.findOne({ ownerId: user._id, _id: messageId }).exec();
+export async function getInboxMessagesByUniqueId (uniqueMessageId) {
+  return inboxModel.find({ uniqueMessageId }).exec();
 }
 
-export async function getInboxMessageOfOppositeTarget (user, messageId) {
-  const usersMessage = await getUserInboxMessage(user, messageId);
-
-  return Inbox.findOne({
-    ownerId: usersMessage.uuid,
-    uuid: user._id,
-    text: usersMessage.text,
-    // timestamp not possible (ms difference..)
-    // id not possible (different ID per same message across both owners)
-  }).exec();
+export async function getUserInboxMessage (user, messageId) {
+  return inboxModel.findOne({ ownerId: user._id, _id: messageId }).exec();
 }
 
 export async function deleteMessage (user, messageId) {
-  const message = await Inbox.findOne({ _id: messageId, ownerId: user._id }).exec();
+  const message = await inboxModel.findOne({ _id: messageId, ownerId: user._id }).exec();
   if (!message) return false;
-  await Inbox.deleteOne({ _id: message._id, ownerId: user._id }).exec();
+  await inboxModel.deleteOne({ _id: message._id, ownerId: user._id }).exec();
 
   return true;
 }
@@ -108,6 +100,6 @@ export async function clearPMs (user) {
 
   await Promise.all([
     user.save(),
-    Inbox.deleteMany({ ownerId: user._id }).exec(),
+    inboxModel.deleteMany({ ownerId: user._id }).exec(),
   ]);
 }
