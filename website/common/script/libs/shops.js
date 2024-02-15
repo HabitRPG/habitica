@@ -543,4 +543,72 @@ shops.getBackgroundShopSets = function getBackgroundShopSets (language) {
   return sets;
 };
 
+shops.getCustomizationsShopCategories = function getCustomizationsShopCategories (user, language) {
+  const categories = [];
+  const officialPinnedItems = getOfficialPinnedItems();
+  const backgroundsCategory = {
+    identifier: 'backgrounds',
+    text: i18n.t('backgrounds', language),
+  };
+
+  backgroundsCategory.items = values(content.backgroundsFlat)
+    .filter(bg => !user.purchased.background[bg.key] && (!bg.currency || bg.currency === 'gems'))
+    .map(bg => getItemInfo(user, 'background', bg, officialPinnedItems, language));
+  categories.push(backgroundsCategory);
+
+  const hairColorsCategory = {
+    identifier: 'hairColors',
+    text: i18n.t('hairColors', language),
+  };
+  categories.push(hairColorsCategory);
+
+  const hairStylesCategory = {
+    identifier: 'hairStyles',
+    text: i18n.t('hairStyles', language),
+  };
+  categories.push(hairStylesCategory);
+
+  const skinsCategory = {
+    identifier: 'skins',
+    text: i18n.t('skins', language),
+  };
+  categories.push(skinsCategory);
+
+  const animalEarsCategory = {
+    identifier: 'animalEars',
+    text: i18n.t('animalEars', language),
+  };
+  categories.push(animalEarsCategory);
+
+  const animalTailsCategory = {
+    identifier: 'animalTails',
+    text: i18n.t('animalTails', language),
+  };
+  categories.push(animalTailsCategory);
+
+  const shirtsCategory = {
+    identifier: 'shirts',
+    text: i18n.t('shirts', language),
+  };
+  categories.push(shirtsCategory);
+
+  const facialHairCategory = {
+    identifier: 'facialHair',
+    text: i18n.t('facialHairs', language),
+  };
+  categories.push(facialHairCategory);
+
+  return categories;
+};
+
+shops.getCustomizationsShop = function getCustomizationsShop (user, language) {
+  return {
+    identifier: 'customizations',
+    text: i18n.t('customizations'),
+    // notes: i18n.t('customizations'),
+    imageName: 'npc_alex',
+    categories: shops.getCustomizationsShopCategories(user, language),
+  };
+};
+
 export default shops;

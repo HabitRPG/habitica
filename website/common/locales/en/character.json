@@ -187,5 +187,10 @@
   "mainHand": "Main-Hand",
   "offHand": "Off-Hand",
   "statPoints": "Stat Points",
-  "pts": "pts"
+  "pts": "pts",
+  "customizations": "Customizations",
+  "hairColors": "Hair Colors",
+  "hairStyles": "Hair Styles",
+  "skins": "Skins",
+  "facialHairs": "Facial Hair"
 }

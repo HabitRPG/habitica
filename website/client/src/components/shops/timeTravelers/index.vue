@@ -1,7 +1,6 @@
 <template>
   <div class="row timeTravelers">
     <div
-      v-if="!closed"
       class="standard-sidebar d-none d-sm-block"
     >
       <filter-sidebar>
@@ -88,7 +87,7 @@
       <!-- eslint-disable vue/no-use-v-if-with-v-for -->
       <div
         v-for="category in categories"
-        v-if="!anyFilterSelected || (!closed && viewOptions[category.identifier].selected)"
+        v-if="!closed && (!anyFilterSelected || viewOptions[category.identifier].selected)"
         :key="category.identifier"
         :class="category.identifier"
       >
