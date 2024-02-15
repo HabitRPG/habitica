@@ -495,6 +495,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
     categories.push(category);
   }
 
+  console.log(questMatcher);
   const quests = pickBy(content.quests, (quest, key) => questMatcher.match(key));
 
   if (keys(quests).length > 0) {

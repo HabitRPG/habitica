@@ -673,6 +673,13 @@ export const GALA_SCHEDULE = {
         ],
       },
       {
+        type: 'seasonalQuests',
+        items: [
+          'egg',
+          'waffle',
+        ],
+      },
+      {
         type: 'customizations',
         matcher: customizationMatcher([
           'shimmerHairColors',
@@ -696,6 +703,11 @@ export const GALA_SCHEDULE = {
         ],
       },
       {
+        type: 'seasonalQuests',
+        items: [
+        ],
+      },
+      {
         type: 'customizations',
         matcher: customizationMatcher([
           'splashySkins',
@@ -715,6 +727,11 @@ export const GALA_SCHEDULE = {
         type: 'seasonalSpells',
         items: [
           'spookySparkles',
+        ],
+      },
+      {
+        type: 'seasonalQuests',
+        items: [
         ],
       },
       {
@@ -799,10 +816,17 @@ export function getScheduleMatchingGroup (type, date) {
           matchers: [],
           items: [],
           match (key) {
-            if (this.items.length > 0 && !inListMatcher(this.items)(key)) {
-              return false;
+            if (this.matchers.length === 0) {
+              if (this.items.length > 0) {
+                return inListMatcher(this.items)(key);
+              }
+            } else {
+              if (this.items.length > 0 && !inListMatcher(this.items)(key)) {
+                return false;
+              }
+              return this.matchers.every(m => m(key));
             }
-            return this.matchers.every(m => m(key));
+            return false;
           },
         };
       }
