@@ -2,9 +2,12 @@ import { authWithHeaders } from '../../middlewares/auth';
 import apiError from '../../libs/apiError';
 import { NotFound } from '../../libs/errors';
 import { listConversations } from '../../libs/inbox/conversation.methods';
-import { clearPMs, deleteMessage, getUserInbox } from '../../libs/inbox';
+import {
+  clearPMs, deleteMessage, getUserInbox,
+} from '../../libs/inbox';
 import { chatReporterFactory } from '../../libs/chatReporting/chatReporterFactory';
 import * as inboxLib from '../../libs/inbox';
+import logger from '../../libs/logger';
 
 const api = {};
 
@@ -193,12 +196,14 @@ api.flagPrivateMessage = {
 };
 
 /**
- * @api {post} /api/v4//inbox/like-private-message/:messageId Like a private message
+ * @api {post} /api/v4//inbox/like-private-message/:uniqueMessageId Like a private message
  * @apiName LikePrivateMessage
  * @apiGroup Inbox
- * @apiDescription Likes a private message
+ * @apiDescription Likes a private message, this uses the uniqueMessageId which is a shared ID
+ * between message copies of both chat participants
  *
- * @apiParam (Path) {UUID} messageId The private message id
+ * @apiParam (Path) {UUID} uniqueMessageId This is NOT private message.id,
+ * but rather message.uniqueMessageId
  *
  * @apiSuccess {Object} data The liked <a href='https://github.com/HabitRPG/habitica/blob/develop/website/server/models/message.js#L42' target='_blank'>private message</a>
  *
@@ -206,37 +211,38 @@ api.flagPrivateMessage = {
  */
 api.likePrivateMessage = {
   method: 'POST',
-  url: '/inbox/like-private-message/:messageId',
+  url: '/inbox/like-private-message/:uniqueMessageId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('messageId', apiError('messageIdRequired')).notEmpty();
+    req.checkParams('uniqueMessageId', apiError('messageIdRequired')).notEmpty();
 
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
     const { user } = res.locals;
-    const { messageId } = req.params;
+    const { uniqueMessageId } = req.params;
 
-    const message = await inboxLib.getUserInboxMessage(user, messageId);
-    if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
+    const messages = await inboxLib.getInboxMessagesByUniqueId(uniqueMessageId);
 
-    // update like for the owners message (each message is saved for both users)
-    if (!message.likes) message.likes = {};
-    message.likes[user._id] = !message.likes[user._id];
-    message.markModified('likes');
-    await message.save();
-
-    // user message it themselves
-    if (message.uuid !== user._id) {
-      const otherMessage = await inboxLib.getInboxMessageOfOppositeTarget(user, messageId);
-
-      if (!otherMessage.likes) otherMessage.likes = {};
-      otherMessage.likes[user._id] = !otherMessage.likes[user._id];
-      otherMessage.markModified('likes');
-      await otherMessage.save();
+    if (messages.length === 0) {
+      throw new NotFound(res.t('messageGroupChatNotFound'));
     }
 
-    res.respond(200, message);
+    if (messages.length > 2) {
+      logger.error(`More than 2 Messages exist with this uniqueMessageId: ${uniqueMessageId} check in Database!`);
+    }
+
+    for (const message of messages) {
+      if (!message.likes) message.likes = {};
+      message.likes[user._id] = !message.likes[user._id];
+      message.markModified('likes');
+      // eslint-disable-next-line no-await-in-loop
+      await message.save();
+    }
+
+    const messageToReturn = messages.find(m => m.uuid === user._id);
+
+    res.respond(200, messageToReturn);
   },
 };
 

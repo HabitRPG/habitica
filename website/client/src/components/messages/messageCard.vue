@@ -288,7 +288,7 @@ hr {
 }
 
 .card-menu {
-  // icon-color is the menu icon itsem
+  // icon-color is the menu icon itself
   --icon-color: #{$gray-100};
 
   --dropdown-item-hover-icon-color: #{$gray-100};

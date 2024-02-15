@@ -294,7 +294,7 @@ export default {
         container.style.overflowY = 'scroll';
       }
     }, 50),
-    async messageLiked (message) {
+    messageLiked (message) {
       const chatIndex = findIndex(this.chat, chatMessage => chatMessage.id === message.id);
       this.chat.splice(chatIndex, 1, message);
     },
