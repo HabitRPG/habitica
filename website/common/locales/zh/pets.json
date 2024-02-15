@@ -90,7 +90,7 @@
     "welcomeStable": "欢迎来到宠物与坐骑！",
     "welcomeStableText": "欢迎来到马厩！我是驯兽师Matt。每当完成任务，你都有机会获得宠物蛋或用来孵化宠物的孵化药水。孵化出宠物后，它会出现在这里！点击宠物图标，它会显示在你的头像中。用找到的宠物食品喂养它们，它们就会成长为强力的坐骑。",
     "petLikeToEat": "我的宠物喜欢吃什么？",
-    "petLikeToEatText": "无论你给宠物喂食什么，它们都会长大。但是如果你给它们喂食它们最喜欢的宠物食品，它们会长得更快。通过实践找出规律，或在这里看答案：<br/><a href=\"https://habitica.fandom.com/zh/wiki/食物偏好\" target=\"_blank\">https://habitica.fandom.com/zh/wiki/食物偏好</a>",
+    "petLikeToEatText": "无论你给宠物喂什么食物，它们都会长大。但是如果你喂给宠物它们最喜欢的宠物食品，它们会长得更快。你可以通过实践找出规律，或直接在这里查看答案：<br/><a href=\"https://habitica.fandom.com/zh/wiki/食物偏好\" target=\"_blank\">https://habitica.fandom.com/zh/wiki/食物偏好</a>",
     "filterByStandard": "标准",
     "filterByMagicPotion": "魔法药水",
     "filterByQuest": "副本",

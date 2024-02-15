@@ -279,5 +279,6 @@
     "connect": "连接",
     "remove": "移除",
     "resetTextLocal": "如果您已确定，请在下方的文本框中输入您的密码。",
-    "resetTextSocial": "如果您已确定，请在下方的文本框中输入 <b>\"<%=magicWord %>\"</b>。"
+    "resetTextSocial": "如果您已确定，请在下方的文本框中输入 <b>\"<%=magicWord %>\"</b>。",
+    "contentRelease": "内容发布与活动"
 }
