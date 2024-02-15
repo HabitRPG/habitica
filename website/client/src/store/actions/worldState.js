@@ -6,6 +6,7 @@ export async function getWorldState (store, options = {}) {
     path: 'worldState',
     url: '/api/v4/world-state',
     deserialize (response) {
+      console.log(response.data.data);
       return response.data.data;
     },
     forceLoad: options.forceLoad,

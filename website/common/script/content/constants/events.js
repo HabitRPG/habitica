@@ -8,6 +8,33 @@ const gemsPromo = {
   '84gems': 125,
 };
 
+export const REPEATING_EVENTS = {
+  nye: {
+    start: '1970-12-28T08:00-05:00',
+    end: '1970-01-04T23:59-05:00',
+    season: 'nye',
+    npcImageSuffix: '_nye',
+  },
+  valentines: {
+    start: '1970-02-13T08:00-05:00',
+    end: '1970-02-17T23:59-05:00',
+    season: 'valentines',
+    npcImageSuffix: '_valentines',
+  },
+  birthday: {
+    start: '1970-01-30T08:00-05:00',
+    end: '1970-02-08T23:59-05:00',
+    season: 'birthday',
+    npcImageSuffix: '_birthday',
+  },
+  harvestFeast: {
+    start: '1970-11-22T08:00-05:00',
+    end: '1970-11-27T20:00-05:00',
+    season: 'thanksgiving',
+    npcImageSuffix: '_thanksgiving',
+  },
+};
+
 export const EVENTS = {
   noEvent: {
     start: '2024-05-01T00:00-04:00',

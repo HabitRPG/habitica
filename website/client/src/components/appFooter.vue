@@ -812,6 +812,7 @@ import heart from '@/assets/svg/heart.svg';
 import { mapState } from '@/libs/store';
 import buyGemsModal from './payments/buyGemsModal.vue';
 import reportBug from '@/mixins/reportBug.js';
+import { worldStateMixin } from '@/mixins/worldState';
 
 const IS_PRODUCTION = process.env.NODE_ENV === 'production'; // eslint-disable-line no-process-env
 const ENABLE_TIME_TRAVEL = process.env.ENABLE_TIME_TRAVEL === 'true'; // eslint-disable-line no-process-env
@@ -819,7 +820,10 @@ export default {
   components: {
     buyGemsModal,
   },
-  mixins: [reportBug],
+  mixins: [
+    reportBug,
+    worldStateMixin,
+  ],
   data () {
     return {
       icons: Object.freeze({
@@ -903,6 +907,7 @@ export default {
         Vue.config.clock.setSystemTime(moment().add(amount, 'days').toDate());
       }
       this.lastTimeJump = response.data.data.time;
+      this.triggerGetWorldState(true);
     },
     addExp () {
       // @TODO: Name these variables better

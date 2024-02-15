@@ -627,88 +627,104 @@ export const GALA_KEYS = [
   'fall',
 ];
 export const GALA_SCHEDULE = {
-  0: [
-    {
-      type: 'seasonalGear',
-      items: SEASONAL_SETS.winter,
-    },
-    {
-      type: 'seasonalSpells',
-      items: [
-        'snowball',
-      ],
-    },
-    {
-      type: 'seasonalQuests',
-      items: [
-        'evilsanta',
-        'evilsanta2',
-      ],
-    },
-    {
-      type: 'customizations',
-      matcher: customizationMatcher([
-        'winteryHairColors',
-        'winterySkins',
-      ]),
-    },
-  ],
-  1: [
-    {
-      type: 'seasonalGear',
-      items: SEASONAL_SETS.spring,
-    },
-    {
-      type: 'seasonalSpells',
-      items: [
-        'shinySeed',
-      ],
-    },
-    {
-      type: 'customizations',
-      matcher: customizationMatcher([
-        'shimmerHairColors',
-        'pastelSkins',
-      ]),
-    },
-  ],
-  2: [
-    {
-      type: 'seasonalGear',
-      items: SEASONAL_SETS.summer,
-    },
-    {
-      type: 'seasonalSpells',
-      items: [
-        'seafoam',
-      ],
-    },
-    {
-      type: 'customizations',
-      matcher: customizationMatcher([
-        'splashySkins',
-      ]),
-    },
-  ],
-  3: [
-    {
-      type: 'seasonalGear',
-      items: SEASONAL_SETS.fall,
-    },
-    {
-      type: 'seasonalSpells',
-      items: [
-        'spookySparkles',
-      ],
-    },
-    {
-      type: 'customizations',
-      matcher: customizationMatcher([
-        'hauntedHairColors',
-        'supernaturalSkins',
-      ]),
-    },
-  ],
+  0: {
+    startMonth: 11,
+    endMonth: 1,
+    filters: [
+      {
+        type: 'seasonalGear',
+        items: SEASONAL_SETS.winter,
+      },
+      {
+        type: 'seasonalSpells',
+        items: [
+          'snowball',
+        ],
+      },
+      {
+        type: 'seasonalQuests',
+        items: [
+          'evilsanta',
+          'evilsanta2',
+        ],
+      },
+      {
+        type: 'customizations',
+        matcher: customizationMatcher([
+          'winteryHairColors',
+          'winterySkins',
+        ]),
+      },
+    ],
+  },
+  1: {
+    startMonth: 2,
+    endMonth: 4,
+    filters: [
+      {
+        type: 'seasonalGear',
+        items: SEASONAL_SETS.spring,
+      },
+      {
+        type: 'seasonalSpells',
+        items: [
+          'shinySeed',
+        ],
+      },
+      {
+        type: 'customizations',
+        matcher: customizationMatcher([
+          'shimmerHairColors',
+          'pastelSkins',
+        ]),
+      },
+    ],
+  },
+  2: {
+    startMonth: 5,
+    endMonth: 7,
+    filters: [
+      {
+        type: 'seasonalGear',
+        items: SEASONAL_SETS.summer,
+      },
+      {
+        type: 'seasonalSpells',
+        items: [
+          'seafoam',
+        ],
+      },
+      {
+        type: 'customizations',
+        matcher: customizationMatcher([
+          'splashySkins',
+        ]),
+      },
+    ],
+  },
+  3: {
+    startMonth: 8,
+    endMonth: 10,
+    filters: [
+      {
+        type: 'seasonalGear',
+        items: SEASONAL_SETS.fall,
+      },
+      {
+        type: 'seasonalSpells',
+        items: [
+          'spookySparkles',
+        ],
+      },
+      {
+        type: 'customizations',
+        matcher: customizationMatcher([
+          'hauntedHairColors',
+          'supernaturalSkins',
+        ]),
+      },
+    ],
+  },
 };
 
 function getDay (date) {
@@ -752,17 +768,14 @@ export function assembleScheduledMatchers (date) {
     }
   }
 
-  items.push(...GALA_SCHEDULE[getGalaIndex(date)]);
+  items.push(...GALA_SCHEDULE[getGalaIndex(date)].filters);
   return items;
 }
 
 let cachedScheduleMatchers = null;
 
 export function getScheduleMatchingGroup (type, date) {
-  let checkedDate = date;
-  if (checkedDate === undefined) {
-    checkedDate = new Date();
-  }
+  const checkedDate = date || new Date();
   if (cacheDate !== null && (getDay(checkedDate) !== getDay(cacheDate)
     || getMonth(checkedDate) !== getMonth(cacheDate))) {
     cacheDate = null;
@@ -805,4 +818,19 @@ export function getScheduleMatchingGroup (type, date) {
 
 export function getCurrentGalaKey (date) {
   return GALA_KEYS[getGalaIndex(date || new Date())];
+}
+
+export function getCurrentGalaEvent (date) {
+  const checkedDate = date || new Date();
+  const index = getGalaIndex(checkedDate);
+  const key = GALA_KEYS[index];
+  const gala = GALA_SCHEDULE[index];
+  const today = new Date();
+  return {
+    event: key,
+    npcImageSuffix: `_${key}`,
+    season: key,
+    start: `${today.getFullYear()}.${gala.startMonth + 1}.${GALA_SWITCHOVER_DAY}`,
+    end: `${today.getFullYear()}.${gala.endMonth + 1}.${GALA_SWITCHOVER_DAY}`,
+  };
 }

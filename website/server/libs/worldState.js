@@ -5,6 +5,8 @@ import { // eslint-disable-line import/no-cycle
   TAVERN_ID as tavernId,
 } from '../models/group';
 import common from '../../common';
+import { REPEATING_EVENTS } from '../../common/script/content/constants';
+import { getCurrentGalaEvent } from '../../common/script/content/constants/schedule';
 
 export async function getWorldBoss () {
   const tavern = await Group
@@ -18,26 +20,32 @@ export async function getWorldBoss () {
 }
 
 export function getCurrentEvent () {
-  const currEvtKey = Object.keys(common.content.events).find(evtKey => {
-    const event = common.content.events[evtKey];
+  const now = moment();
+  const currEvtKey = Object.keys(REPEATING_EVENTS).find(evtKey => {
+    const event = REPEATING_EVENTS[evtKey];
+    const startDate = event.start.replace('1970', now.year());
+    const endDate = event.end.replace('1970', now.year());
 
-    const now = moment();
-
-    return now.isBetween(event.start, event.end); // && Boolean(event.npcImageSuffix);
+    return now.isBetween(startDate, endDate);
   });
 
-  if (!currEvtKey) return null;
+  if (!currEvtKey) {
+    return getCurrentGalaEvent()
+  }
   return {
     event: currEvtKey,
-    ...common.content.events[currEvtKey],
+    ...REPEATING_EVENTS[currEvtKey],
   };
 }
 
 export function getCurrentEventList () {
-  const currentEventKeys = filter(Object.keys(common.content.events), eventKey => {
-    const eventData = common.content.events[eventKey];
+  const now = moment();
+  const currentEventKeys = filter(Object.keys(REPEATING_EVENTS), eventKey => {
+    const eventData = REPEATING_EVENTS[eventKey];
+    const startDate = eventData.start.replace('1970', now.year());
+    const endDate = eventData.end.replace('1970', now.year());
 
-    return moment().isBetween(eventData.start, eventData.end);
+    return now.isBetween(startDate, endDate);
   });
 
   const currentEventList = [];
@@ -45,9 +53,12 @@ export function getCurrentEventList () {
   currentEventKeys.forEach(key => {
     currentEventList.push({
       event: key,
-      ...common.content.events[key],
+      ...REPEATING_EVENTS[key],
     });
   });
 
+  currentEventList.push(getCurrentGalaEvent());
+
+  console.log(currentEventList);
   return currentEventList;
 }
