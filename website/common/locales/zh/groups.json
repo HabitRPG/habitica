@@ -440,7 +440,7 @@
     "partyFinderDescription": "想和其他人一起参加队伍，但不认识其他玩家？让队伍首领知道您正在寻求组队！",
     "tavernDiscontinuedDetail": "由于包括玩家群体与 Habitica 互动方式的变化在内的多种因素，维护这些场所所需的资源与参与其中的人数不成比例，因而无法长期维持。",
     "blockedUser": "<strong>您已屏蔽该玩家。</strong>&nbsp;他们无法向您发送私信，但您仍能看到他们的帖子。",
-    "bannedUser": "<strong>该玩家已被禁言。</strong>",
+    "bannedUser": "<strong>该玩家已被封禁。</strong>",
     "tavernDiscontinued": "酒馆和公会已停止运营",
     "tavernDiscontinuedLinks": "阅读更多有关<a href='/static/faq/tavern-and-guilds'>酒馆和公会服务停止运营</a>的信息，或返回<a href='/'>主页</a>。"
 }
