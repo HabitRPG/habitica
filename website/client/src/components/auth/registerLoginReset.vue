@@ -603,7 +603,6 @@
   }
 </style>
 
-// eslint-disable-next-line vue/component-tags-order
 <script>
 import axios from 'axios';
 import hello from 'hellojs';
