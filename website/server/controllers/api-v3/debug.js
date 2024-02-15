@@ -1,4 +1,6 @@
 import _ from 'lodash';
+import nconf from 'nconf';
+import moment from 'moment';
 import { authWithHeaders } from '../../middlewares/auth';
 import ensureDevelpmentMode from '../../middlewares/ensureDevelpmentMode';
 import { BadRequest } from '../../libs/errors';
@@ -200,5 +202,58 @@ api.questProgress = {
     res.respond(200, {});
   },
 };
+
+let clock;
+if (nconf.get('ENABLE_TIME_TRAVEL')) {
+  (async () => {
+    const sinon = await import('sinon');
+    const time = new Date();
+    clock = sinon.useFakeTimers({
+      now: time,
+      shouldAdvanceTime: true,
+    });
+  })();
+
+  api.timeTravelTime = {
+    method: 'GET',
+    url: '/debug/time-travel-time',
+    middlewares: [authWithHeaders()],
+    async handler (req, res) {
+      const { user } = res.locals;
+
+      if (!user.permissions.fullAccess) {
+        throw new BadRequest('You do not have permission to time travel.');
+      }
+
+      res.respond(200, {
+        time: new Date(),
+      });
+    },
+  }
+
+  api.timeTravelAdjust = {
+    method: 'POST',
+    url: '/debug/jump-time',
+    middlewares: [authWithHeaders()],
+    async handler (req, res) {
+      const { user } = res.locals;
+
+      if (!user.permissions.fullAccess) {
+        throw new BadRequest('You do not have permission to time travel.');
+      }
+
+      const { offsetDays } = req.body;
+      if (offsetDays > 0) {
+        clock.jump(offsetDays * 24 * 60 * 60 * 1000)
+      } else {
+        clock.setSystemTime(moment().add(offsetDays, 'days').toDate());
+      }
+
+      res.respond(200, {
+        time: new Date(),
+      });
+    },
+  }
+}
 
 export default api;

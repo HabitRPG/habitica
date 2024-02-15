@@ -291,6 +291,31 @@
       </div>
 
       <div
+        v-if="ENABLE_TIME_TRAVEL && user.permissions.fullAccess">
+        <a
+          class="btn btn-secondary mr-1"
+          @click="jumpTime(-1)">-1 Day</a>
+        <a
+          class="btn btn-secondary mr-1"
+          @click="jumpTime(-7)">-7 Days</a>
+        <a
+          class="btn btn-secondary mr-1"
+          @click="jumpTime(-30)">-30 Days</a>
+        <div class="my-2">
+          Time Traveling! It is {{ new Date().toLocaleString() }}
+        </div>
+        <a
+          class="btn btn-secondary mr-1"
+          @click="jumpTime(1)">+1 Day</a>
+        <a
+          class="btn btn-secondary mr-1"
+          @click="jumpTime(7)">+7 Days</a>
+        <a
+          class="btn btn-secondary mr-1"
+          @click="jumpTime(30)">+30 Days</a>
+      </div>
+
+      <div
         v-if="!IS_PRODUCTION && isUserLoaded"
         class="debug-toggle"
       >
@@ -300,9 +325,6 @@
         >
           Toggle Debug Menu
         </button>
-        <div>
-          Today is {{ new Date() }}
-        </div>
         <div
           v-if="debugMenuShown"
           class="debug-toggle debug-group"
@@ -775,6 +797,7 @@ h3 {
 // modules
 import axios from 'axios';
 import moment from 'moment';
+import Vue from 'vue';
 
 // images
 import melior from '@/assets/svg/melior.svg';
@@ -790,6 +813,7 @@ import buyGemsModal from './payments/buyGemsModal.vue';
 import reportBug from '@/mixins/reportBug.js';
 
 const IS_PRODUCTION = process.env.NODE_ENV === 'production'; // eslint-disable-line no-process-env
+const ENABLE_TIME_TRAVEL = process.env.ENABLE_TIME_TRAVEL === 'true'; // eslint-disable-line no-process-env
 export default {
   components: {
     buyGemsModal,
@@ -807,6 +831,7 @@ export default {
       }),
       debugMenuShown: false,
       IS_PRODUCTION,
+      ENABLE_TIME_TRAVEL,
     };
   },
   computed: {
@@ -867,6 +892,15 @@ export default {
         'stats.gp': this.user.stats.gp + 10000,
         'stats.mp': this.user.stats.mp + 10000,
       });
+    },
+    async jumpTime (amount) {
+      const response = await axios.post('/api/v4/debug/jump-time', { offsetDays: amount });
+      console.log(response.data.data);
+      if (amount > 0) {
+        Vue.config.clock.jump(amount * 24 * 60 * 60 * 1000);
+      } else {
+        Vue.config.clock.setSystemTime(moment().add(amount, 'days').toDate());
+      }
     },
     addExp () {
       // @TODO: Name these variables better
