@@ -711,6 +711,20 @@ export const GALA_SCHEDULE = {
   ],
 };
 
+function getDay (date) {
+  if (date === undefined) {
+    return 0;
+  }
+  return date instanceof moment ? date.date() : date.getDate();
+}
+
+function getMonth (date) {
+  if (date === undefined) {
+    return 0;
+  }
+  return date instanceof moment ? date.month() : date.getMonth();
+}
+
 function getGalaIndex (date) {
   const month = date instanceof moment ? date.month() : date.getMonth();
   const todayDay = date instanceof moment ? date.date() : date.getDate();
@@ -745,11 +759,22 @@ export function assembleScheduledMatchers (date) {
 let cachedScheduleMatchers = null;
 
 export function getScheduleMatchingGroup (type, date) {
+  let checkedDate = date;
+  if (checkedDate === undefined) {
+    checkedDate = new Date();
+  }
+  if (cacheDate !== null && (getDay(checkedDate) !== getDay(cacheDate)
+    || getMonth(checkedDate) !== getMonth(cacheDate))) {
+    cacheDate = null;
+    cachedScheduleMatchers = null;
+  }
+  console.log('Loading content for', type, 'on', checkedDate, 'with cached date', cacheDate, 'and cached schedule');
   if (!cachedScheduleMatchers) {
-    cachedScheduleMatchers = {};
-    assembleScheduledMatchers(date || new Date()).forEach(matcher => {
-      if (!cachedScheduleMatchers[matcher.type]) {
-        cachedScheduleMatchers[matcher.type] = {
+    cacheDate = new Date();
+    const scheduleMatchers = {};
+    assembleScheduledMatchers(checkedDate).forEach(matcher => {
+      if (!scheduleMatchers[matcher.type]) {
+        scheduleMatchers[matcher.type] = {
           matchers: [],
           items: [],
           match (key) {
