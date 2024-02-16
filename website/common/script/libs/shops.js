@@ -559,42 +559,49 @@ shops.getCustomizationsShopCategories = function getCustomizationsShopCategories
   const hairColorsCategory = {
     identifier: 'hairColors',
     text: i18n.t('hairColors', language),
+    items: [],
   };
   categories.push(hairColorsCategory);
 
   const hairStylesCategory = {
     identifier: 'hairStyles',
     text: i18n.t('hairStyles', language),
+    items: [],
   };
   categories.push(hairStylesCategory);
 
   const skinsCategory = {
     identifier: 'skins',
     text: i18n.t('skins', language),
+    items: [],
   };
   categories.push(skinsCategory);
 
   const animalEarsCategory = {
     identifier: 'animalEars',
     text: i18n.t('animalEars', language),
+    items: [],
   };
   categories.push(animalEarsCategory);
 
   const animalTailsCategory = {
     identifier: 'animalTails',
     text: i18n.t('animalTails', language),
+    items: [],
   };
   categories.push(animalTailsCategory);
 
   const shirtsCategory = {
     identifier: 'shirts',
     text: i18n.t('shirts', language),
+    items: [],
   };
   categories.push(shirtsCategory);
 
   const facialHairCategory = {
     identifier: 'facialHair',
     text: i18n.t('facialHairs', language),
+    items: [],
   };
   categories.push(facialHairCategory);
 

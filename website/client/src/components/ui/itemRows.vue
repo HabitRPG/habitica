@@ -69,6 +69,9 @@ export default {
     noItemsLabel: {
       type: String,
     },
+    maxItemsPerRow: {
+      type: Number,
+    },
   },
   data () {
     return {
@@ -80,6 +83,9 @@ export default {
   },
   computed: {
     itemsPerRow () {
+      if (this.maxItemsPerRow > 0) {
+        return this.maxItemsPerRow;
+      }
       return Math.floor(this.currentWidth / (this.itemWidth + this.itemMargin));
     },
   },

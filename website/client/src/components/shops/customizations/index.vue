@@ -2,6 +2,17 @@
   <div class="row market">
     <div class="standard-sidebar">
       <filter-sidebar>
+        <div
+          slot="search"
+          class="form-group"
+        >
+          <input
+            v-model="searchText"
+            class="form-control input-search"
+            type="text"
+            :placeholder="$t('search')"
+          >
+        </div>
         <filter-group>
           <checkbox
             v-for="category in unfilteredCategories"
@@ -38,12 +49,26 @@
           <h2 class="mb-3">
             {{ category.text }}
           </h2>
-          <div
-            v-for="item in category.items"
-            :key="item.key"
+          <item-rows
+            :items="customizationsItems({category, searchBy: searchTextThrottled})"
+            :type="category.identifier"
+            :item-width="94"
+            :item-margin="24"
+            :max-items-per-row="8"
           >
-            {{ item.text }}
-          </div>
+            <template
+              slot="item"
+              slot-scope="ctx"
+            >
+              <shop-item
+                :item="ctx.item"
+                :key="ctx.item.key"
+                :price="ctx.item.value"
+                :price-type="ctx.item.currency"
+                :empty-item="false"
+              />
+            </template>
+          </item-rows>
         </div>
       </div>
     </div>
@@ -68,20 +93,27 @@
 
 <script>
 import shops from '@/../../common/script/libs/shops';
+import throttle from 'lodash/throttle';
 import { mapState } from '@/libs/store';
 
 import Checkbox from '@/components/ui/checkbox';
-import FilterSidebar from '@/components/ui/filterSidebar';
 import FilterGroup from '@/components/ui/filterGroup';
+import FilterSidebar from '@/components/ui/filterSidebar';
+import ItemRows from '@/components/ui/itemRows';
+import ShopItem from '../shopItem';
 
 export default {
   components: {
     Checkbox,
     FilterGroup,
     FilterSidebar,
+    ItemRows,
+    ShopItem,
   },
   data () {
     return {
+      searchText: null,
+      searchTextThrottled: null,
       viewOptions: {},
     };
   },
@@ -99,7 +131,7 @@ export default {
       if (!currentEvent) {
         return {
           background: 'url(/static/npc/normal/market_background.png)',
-          npc: 'url(/static/npc/normal/market_npc.png)',
+          npc: 'url(/static/npc/normal/market_banner_npc.png)',
         };
       }
       return {
@@ -131,11 +163,24 @@ export default {
         || this.viewOptions[category.identifier].selected);
     },
   },
+  watch: {
+    // TODO mixin?
+    searchText: throttle(function throttleSearch () {
+      this.searchTextThrottled = this.searchText.toLowerCase();
+    }, 250),
+  },
   mounted () {
     this.$store.dispatch('common:setTitle', {
       subSection: this.$t('customizations'),
       section: this.$t('shops'),
     });
+  },
+  methods: {
+    customizationsItems (options = {}) {
+      const { category, searchBy } = options;
+      return category.items.filter(item => !searchBy
+        || item.text.toLowerCase().includes(searchBy));
+    },
   },
 };
 </script>
