@@ -98,10 +98,10 @@
     "badAmountOfGemsToSend": "Le total doit être compris entre 1 et votre nombre actuel de gemmes.",
     "report": "Signaler",
     "abuseFlagModalHeading": "Signaler une infraction",
-    "abuseFlagModalBody": "Confirmez-vous le signalement de ce message ? Vous ne devriez signaler un message <strong>que</strong> s'il enfreint les <%= firstLinkStart %>Règles de vie en communauté<%= linkEnd %> et/ou les <%= secondLinkStart %>Conditions générales d'utilisation<%= linkEnd %>. Signaler inutilement un message est une violation de ces Règles de vie en communauté et vous expose à un avertissement.",
+    "abuseFlagModalBody": "Vous ne devriez signaler un message seulement s'il enfreint les <%= firstLinkStart %>Règles de vie en communauté<%= linkEnd %> et/ou les <%= secondLinkStart %>Conditions générales d'utilisation<%= linkEnd %>. Signaler inutilement un message est une violation de ces Règles de vie en communauté.",
     "abuseReported": "Merci d'avoir signalé cette infraction. Les modérateurs en ont été informé.",
     "whyReportingPost": "Pourquoi signalez-vous ce message ?",
-    "whyReportingPostPlaceholder": "Merci d'aider nos modérateurs en nous faisant savoir pourquoi vous signalez ce message pour infraction, par exemple envoi en masse, jurons, exclamations religieuses, insultes, sujets adultes, violence.",
+    "whyReportingPostPlaceholder": "Raison du signalement",
     "optional": "Facultatif",
     "needsTextPlaceholder": "Écrivez votre message ici.",
     "copyMessageAsToDo": "Copier le message comme tâche à faire",
@@ -439,5 +439,7 @@
     "tavernDiscontinuedDetail": "Dû à de nombreux facteurs, dont particulièrement la façon dont les joueu·r·se·s interagissent sur Habitica, les ressources nécessaires au maintien de ces espaces sont disproportionnées par rapport au nombre de personnes les utilisant, et non-durable sur le long terme.",
     "tavernDiscontinuedLinks": "En savoir plus sur <a href='/static/faq/tavern-and-guilds'>l'arrêt des services de Guildes et de la Taverne</a> ou retourner à la <a href='/'>page d'accueil</a>.",
     "bannedUser": "<strong>Ce·tte joueu·r·se a été banni·e.</strong>",
-    "blockedUser": "<strong>Vous avez bloqué ce·tte joueu·r·se. </strong>&nbsp; Il·elle·s ne peuvent pas vous envoyer de Messages Privés mais vous pouvez voir ses publications."
+    "blockedUser": "<strong>Vous avez bloqué ce·tte joueu·r·se. </strong>&nbsp; Il·elle·s ne peuvent pas vous envoyer de Messages Privés mais vous pouvez voir ses publications.",
+    "challengeBannedSlurs": "Votre Challenge contiens une injure qui viole les lignes de conduite de la communauté d'Habitica et vos privilèges tchat et de création de Challenge ont été révoqués. Contactez admin@habitica.com pour plus d'informations.",
+    "challengeBannedWords": "Votre Challenge contient une injure ou une référence à un sujet mature. Merci de bien vouloir modifier votre Challenge afin de pouvoir l'enregistrer. Vous devez enlever le mot en question, pas le censurer."
 }
