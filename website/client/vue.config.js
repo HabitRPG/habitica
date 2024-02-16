@@ -35,11 +35,11 @@ const envObject = {};
 
 envVars
   .forEach(key => {
-    envObject[key] = nconf.get(key);
+    envObject[`process.env.${key}`] = `'${nconf.get(key)}'`;
   });
 
 const webpackPlugins = [
-  new webpack.EnvironmentPlugin(envObject),
+  new webpack.DefinePlugin(envObject),
   new webpack.ContextReplacementPlugin(/moment[\\/]locale$/, /^\.\/(NOT_EXISTING)$/),
 ];
 
