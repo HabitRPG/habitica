@@ -66,6 +66,7 @@
                 :price="ctx.item.value"
                 :price-type="ctx.item.currency"
                 :empty-item="false"
+                :show-popover="Boolean(ctx.item.text)"
               />
             </template>
           </item-rows>
@@ -127,7 +128,7 @@ export default {
       return Object.values(this.viewOptions).some(g => g.selected);
     },
     imageURLs () {
-      const currentEvent = this.currentEventList.find(event => Boolean(event.season));
+      const currentEvent = this.currentEventList?.find(event => Boolean(event.season));
       if (!currentEvent) {
         return {
           background: 'url(/static/npc/normal/market_background.png)',

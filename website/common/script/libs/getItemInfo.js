@@ -379,6 +379,15 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
       };
       break;
     }
+    case 'hairColor': {
+      itemInfo = {
+        key: item.key,
+        class: `hair hair_bangs_${user.preferences.hair.bangs}_${item.key}`,
+        value: item.price,
+        currency: 'gems',
+      };
+      break;
+    }
   }
 
   if (itemInfo) {

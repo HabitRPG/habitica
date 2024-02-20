@@ -142,6 +142,11 @@
     &.locked .price {
       opacity: 0.5;
     }
+
+   .hair {
+      height: 68px;
+      margin-left: -24px;
+    }
   }
 
   .image {

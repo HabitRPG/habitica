@@ -1,3 +1,4 @@
+import moment from 'moment';
 import values from 'lodash/values';
 import map from 'lodash/map';
 import keys from 'lodash/keys';
@@ -546,21 +547,39 @@ shops.getBackgroundShopSets = function getBackgroundShopSets (language) {
 shops.getCustomizationsShopCategories = function getCustomizationsShopCategories (user, language) {
   const categories = [];
   const officialPinnedItems = getOfficialPinnedItems();
+
   const backgroundsCategory = {
     identifier: 'backgrounds',
     text: i18n.t('backgrounds', language),
   };
-
   backgroundsCategory.items = values(content.backgroundsFlat)
-    .filter(bg => !user.purchased.background[bg.key] && (!bg.currency || bg.currency === 'gems'))
+    .filter(bg => !user.purchased.background[bg.key] && (!bg.currency || bg.currency === 'gems')
+      && !(bg.price === 0))
     .map(bg => getItemInfo(user, 'background', bg, officialPinnedItems, language));
   categories.push(backgroundsCategory);
 
   const hairColorsCategory = {
     identifier: 'hairColors',
     text: i18n.t('hairColors', language),
-    items: [],
   };
+  hairColorsCategory.items = values(content.appearances.hair.color)
+    .filter(color => {
+      const { hair } = user.purchased;
+      if (hair && hair.color && hair.color[color.key]) {
+        return false;
+      }
+      if (color.set) {
+        if (color.set.availableFrom) {
+          return moment().isBetween(color.set.availableFrom, color.set.availableUntil);
+        }
+        if (color.set.availableUntil) {
+          return moment().isBefore(color.set.availableTo);
+        }
+        return true;
+      }
+      return false;
+    })
+    .map(color => getItemInfo(user, 'hairColor', color, officialPinnedItems, language));
   categories.push(hairColorsCategory);
 
   const hairStylesCategory = {
