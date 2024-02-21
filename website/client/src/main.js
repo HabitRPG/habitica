@@ -45,7 +45,6 @@ if (process.env.ENABLE_TIME_TRAVEL) {
       now: time,
       shouldAdvanceTime: true,
     });
-
   })();
 }
 

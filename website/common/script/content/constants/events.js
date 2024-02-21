@@ -25,6 +25,13 @@ export const REPEATING_EVENTS = {
       },
     ],
   },
+  birthday: {
+    start: '1970-01-30T08:00-05:00',
+    end: '1970-02-08T23:59-05:00',
+    season: 'birthday',
+    npcImageSuffix: '_birthday',
+    foodSeason: 'Cake',
+  },
   valentines: {
     start: '1970-02-13T08:00-05:00',
     end: '1970-02-17T23:59-05:00',
@@ -39,17 +46,27 @@ export const REPEATING_EVENTS = {
       },
     ],
   },
-  birthday: {
-    start: '1970-01-30T08:00-05:00',
-    end: '1970-02-08T23:59-05:00',
-    season: 'birthday',
-    npcImageSuffix: '_birthday',
+  piDay: {
+    start: '1970-03-13T08:00-05:00',
+    end: '1970-03-15T23:59-05:00',
+    foodSeason: 'Pie',
+  },
+  namingDay: {
+    start: '1970-07-30T08:00-05:00',
+    end: '1970-08-01T23:59-05:00',
+    foodSeason: 'Cake',
+  },
+  habitoween: {
+    start: '1970-10-30T08:00-05:00',
+    end: '1970-11-01T23:59-05:00',
+    foodSeason: 'Candy',
   },
   harvestFeast: {
     start: '1970-11-22T08:00-05:00',
     end: '1970-11-27T20:00-05:00',
     season: 'thanksgiving',
     npcImageSuffix: '_thanksgiving',
+    foodSeason: 'Pie',
   },
 };
 

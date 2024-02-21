@@ -34,6 +34,7 @@ import faq from './faq';
 import timeTravelers from './time-travelers';
 
 import { getScheduleMatchingGroup } from './constants/schedule';
+import { getRepeatingEvents } from './constants/events';
 
 import loginIncentives from './loginIncentives';
 
@@ -201,9 +202,6 @@ api.questMounts = stable.questMounts;
 api.premiumMounts = stable.premiumMounts;
 api.specialMounts = stable.specialMounts;
 api.mountInfo = stable.mountInfo;
-
-// For seasonal events, change this constant:
-const FOOD_SEASON = moment().isBefore('2023-03-15T12:00-05:00') ? 'Pie' : 'Normal';
 
 api.food = {
   Meat: {
@@ -456,6 +454,12 @@ api.food = {
   /* eslint-enable camelcase */
 };
 
+let FOOD_SEASON = 'Normal';
+getRepeatingEvents(moment()).forEach(event => {
+  if (event.foodSeason) {
+    FOOD_SEASON = event.foodSeason;
+  }
+});
 each(api.food, (food, key) => {
   let foodType = 'Normal';
   if (key.startsWith('Cake_')) {
