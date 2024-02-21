@@ -790,7 +790,6 @@ export function getScheduleMatchingGroup (type, date) {
     cacheDate = null;
     cachedScheduleMatchers = null;
   }
-  console.log('Loading content for', type, 'on', checkedDate, 'with cached date', cacheDate, 'and cached schedule');
   if (!cachedScheduleMatchers) {
     cacheDate = new Date();
     const scheduleMatchers = {};

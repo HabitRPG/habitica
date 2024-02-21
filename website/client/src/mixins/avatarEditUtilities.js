@@ -1,4 +1,3 @@
-import moment from 'moment';
 import axios from 'axios';
 
 import get from 'lodash/get';
@@ -6,6 +5,7 @@ import unlock from '@/../../common/script/ops/unlock';
 import buy from '@/../../common/script/ops/buy/buy';
 
 import appearanceSets from '@/../../common/script/content/appearance/sets';
+import { getScheduleMatchingGroup } from '@/../../common/script/content/constants/schedule';
 
 import { userStateMixin } from './userState';
 
@@ -18,13 +18,8 @@ export const avatarEditorUtilies = { // eslint-disable-line import/prefer-defaul
   },
   methods: {
     hideSet (setKey) {
-      if (appearanceSets[setKey].availableFrom) {
-        return !moment().isBetween(
-          appearanceSets[setKey].availableFrom,
-          appearanceSets[setKey].availableUntil,
-        );
-      }
-      return moment(appearanceSets[setKey].availableUntil).isBefore(moment());
+      const matcher = getScheduleMatchingGroup('customizations');
+      return !matcher.match(setKey);
     },
     mapKeysToFreeOption (key, type, subType) {
       const userPreference = subType

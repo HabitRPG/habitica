@@ -424,7 +424,6 @@ export default {
         this.$root.$emit('buyModal::hidden', this.selectedItemToBuy.key);
       }
     });
-    console.log('setting current event');
     this.currentEvent = _find(this.currentEventList, event => Boolean(['winter', 'spring', 'summer', 'fall'].includes(event.season)));
   },
   beforeDestroy () {

@@ -18,10 +18,6 @@ const bundles = {
       'harpy',
       'owl',
     ],
-    event: EVENTS.bundle202309,
-    canBuy () {
-      return moment().isBetween(EVENTS.bundle202309.start, EVENTS.bundle202309.end);
-    },
     type: 'quests',
     class: 'quest_bundle_featheredFriends',
     value: 7,
@@ -35,10 +31,6 @@ const bundles = {
       'turtle',
       'whale',
     ],
-    event: EVENTS.bundle202306,
-    canBuy () {
-      return moment().isBetween(EVENTS.bundle202306.start, EVENTS.bundle202306.end);
-    },
     type: 'quests',
     class: 'quest_bundle_splashyPals',
     value: 7,
@@ -52,10 +44,6 @@ const bundles = {
       'horse',
       'sheep',
     ],
-    event: EVENTS.bundle202209,
-    canBuy () {
-      return moment().isBetween(EVENTS.bundle202209.start, EVENTS.bundle202209.end);
-    },
     type: 'quests',
     value: 7,
   },
@@ -68,10 +56,6 @@ const bundles = {
       'spider',
       'frog',
     ],
-    event: EVENTS.bundle202210,
-    canBuy () {
-      return moment().isBetween(EVENTS.bundle202210.start, EVENTS.bundle202210.end);
-    },
     type: 'quests',
     value: 7,
   },
@@ -85,10 +69,6 @@ const bundles = {
       'evilsanta2',
       'penguin',
     ],
-    event: EVENTS.winter2024,
-    canBuy () {
-      return moment().isBetween(EVENTS.winter2024.start, EVENTS.winter2024.end);
-    },
     type: 'quests',
     value: 7,
   },
@@ -101,9 +81,6 @@ const bundles = {
       'beetle',
       'butterfly',
     ],
-    canBuy () {
-      return moment().isBetween(EVENTS.bundle202308.start, EVENTS.bundle202308.end);
-    },
     type: 'quests',
     value: 7,
   },
@@ -116,10 +93,6 @@ const bundles = {
       'ferret',
       'guineapig',
     ],
-    event: EVENTS.bundle202403,
-    canBuy () {
-      return moment().isBetween(EVENTS.bundle202403.start, EVENTS.bundle202403.end);
-    },
     type: 'quests',
     value: 7,
   },
@@ -132,10 +105,6 @@ const bundles = {
       'kraken',
       'octopus',
     ],
-    event: EVENTS.bundle202206,
-    canBuy () {
-      return moment().isBetween(EVENTS.bundle202206.start, EVENTS.bundle202206.end);
-    },
     type: 'quests',
     value: 7,
   },
@@ -148,10 +117,6 @@ const bundles = {
       'hedgehog',
       'treeling',
     ],
-    event: EVENTS.bundle202208,
-    canBuy () {
-      return moment().isBetween(EVENTS.bundle202208.start, EVENTS.bundle202208.end);
-    },
     type: 'quests',
     value: 7,
   },
@@ -164,10 +129,6 @@ const bundles = {
       'rock',
       'yarn',
     ],
-    event: EVENTS.bundle202311,
-    canBuy () {
-      return moment().isBetween(EVENTS.bundle202311.start, EVENTS.bundle202311.end);
-    },
     type: 'quests',
     value: 7,
   },
@@ -180,10 +141,6 @@ const bundles = {
       'penguin',
       'rooster',
     ],
-    event: EVENTS.bundle202305,
-    canBuy () {
-      return moment().isBetween(EVENTS.bundle202305.start, EVENTS.bundle202305.end);
-    },
     type: 'quests',
     value: 7,
   },
@@ -196,10 +153,6 @@ const bundles = {
       'seaserpent',
       'gryphon',
     ],
-    event: EVENTS.bundle202402,
-    canBuy () {
-      return moment().isBetween(EVENTS.bundle202402.start, EVENTS.bundle202402.end);
-    },
     type: 'quests',
     value: 7,
   },
@@ -212,10 +165,6 @@ const bundles = {
       'snake',
       'velociraptor',
     ],
-    event: EVENTS.bundle202211,
-    canBuy () {
-      return moment().isBetween(EVENTS.bundle202211.start, EVENTS.bundle202211.end);
-    },
     type: 'quests',
     value: 7,
   },
@@ -228,9 +177,6 @@ const bundles = {
       'triceratops',
       'trex_undead',
     ],
-    canBuy () {
-      return moment().isBetween('2022-05-16', '2022-05-31');
-    },
     type: 'quests',
     value: 7,
   },
@@ -243,10 +189,6 @@ const bundles = {
       'sloth',
       'treeling',
     ],
-    event: EVENTS.bundle202303,
-    canBuy () {
-      return moment().isBetween(EVENTS.bundle202303.start, EVENTS.bundle202303.end);
-    },
     type: 'quests',
     value: 7,
   },
@@ -259,10 +201,6 @@ const bundles = {
       'snake',
       'spider',
     ],
-    event: EVENTS.bundle202310,
-    canBuy () {
-      return moment().isBetween(EVENTS.bundle202310.start, EVENTS.bundle202310.end);
-    },
     type: 'quests',
     value: 7,
   },

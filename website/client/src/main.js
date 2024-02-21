@@ -40,14 +40,12 @@ if (process.env.ENABLE_TIME_TRAVEL) {
     const sinon = await import('sinon');
     const axios = await import('axios');
     const response = await axios.get('/api/v4/debug/time-travel-time');
-    console.log(response.data.data.time);
     const time = new Date(response.data.data.time);
     Vue.config.clock = sinon.useFakeTimers({
       now: time,
       shouldAdvanceTime: true,
     });
 
-    console.log('Time travel mode activated. It is now', new Date());
   })();
 }
 

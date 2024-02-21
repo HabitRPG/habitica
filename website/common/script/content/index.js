@@ -211,105 +211,62 @@ api.food = {
     textA: t('foodMeatA'),
     textThe: t('foodMeatThe'),
     target: 'Base',
-    canBuy () {
-      return FOOD_SEASON === 'Normal';
-    },
-    canDrop: FOOD_SEASON === 'Normal',
   },
   Milk: {
     text: t('foodMilk'),
     textA: t('foodMilkA'),
     textThe: t('foodMilkThe'),
     target: 'White',
-    canBuy () {
-      return FOOD_SEASON === 'Normal';
-    },
-    canDrop: FOOD_SEASON === 'Normal',
   },
   Potatoe: {
     text: t('foodPotatoe'),
     textA: t('foodPotatoeA'),
     textThe: t('foodPotatoeThe'),
     target: 'Desert',
-    canBuy () {
-      return FOOD_SEASON === 'Normal';
-    },
-    canDrop: FOOD_SEASON === 'Normal',
   },
   Strawberry: {
     text: t('foodStrawberry'),
     textA: t('foodStrawberryA'),
     textThe: t('foodStrawberryThe'),
     target: 'Red',
-    canBuy () {
-      return FOOD_SEASON === 'Normal';
-    },
-    canDrop: FOOD_SEASON === 'Normal',
   },
   Chocolate: {
     text: t('foodChocolate'),
     textA: t('foodChocolateA'),
     textThe: t('foodChocolateThe'),
     target: 'Shade',
-    canBuy () {
-      return FOOD_SEASON === 'Normal';
-    },
-    canDrop: FOOD_SEASON === 'Normal',
   },
   Fish: {
     text: t('foodFish'),
     textA: t('foodFishA'),
     textThe: t('foodFishThe'),
     target: 'Skeleton',
-    canBuy () {
-      return FOOD_SEASON === 'Normal';
-    },
-    canDrop: FOOD_SEASON === 'Normal',
   },
   RottenMeat: {
     text: t('foodRottenMeat'),
     textA: t('foodRottenMeatA'),
     textThe: t('foodRottenMeatThe'),
     target: 'Zombie',
-    canBuy () {
-      return FOOD_SEASON === 'Normal';
-    },
-    canDrop: FOOD_SEASON === 'Normal',
   },
   CottonCandyPink: {
     text: t('foodCottonCandyPink'),
     textA: t('foodCottonCandyPinkA'),
     textThe: t('foodCottonCandyPinkThe'),
     target: 'CottonCandyPink',
-    canBuy () {
-      return FOOD_SEASON === 'Normal';
-    },
-    canDrop: FOOD_SEASON === 'Normal',
   },
   CottonCandyBlue: {
     text: t('foodCottonCandyBlue'),
     textA: t('foodCottonCandyBlueA'),
     textThe: t('foodCottonCandyBlueThe'),
     target: 'CottonCandyBlue',
-    canBuy () {
-      return FOOD_SEASON === 'Normal';
-    },
-    canDrop: FOOD_SEASON === 'Normal',
   },
   Honey: {
     text: t('foodHoney'),
     textA: t('foodHoneyA'),
     textThe: t('foodHoneyThe'),
     target: 'Golden',
-    canBuy () {
-      return FOOD_SEASON === 'Normal';
-    },
-    canDrop: FOOD_SEASON === 'Normal',
   },
   Saddle: {
-    canBuy () {
-      return true;
-    },
     sellWarningNote: t('foodSaddleSellWarningNote'),
     text: t('foodSaddleText'),
     value: 5,
@@ -321,313 +278,201 @@ api.food = {
     textA: t('foodCakeSkeletonA'),
     textThe: t('foodCakeSkeletonThe'),
     target: 'Skeleton',
-    canBuy () {
-      return FOOD_SEASON === 'Cake';
-    },
-    canDrop: FOOD_SEASON === 'Cake',
   },
   Cake_Base: {
     text: t('foodCakeBase'),
     textA: t('foodCakeBaseA'),
     textThe: t('foodCakeBaseThe'),
     target: 'Base',
-    canBuy () {
-      return FOOD_SEASON === 'Cake';
-    },
-    canDrop: FOOD_SEASON === 'Cake',
   },
   Cake_CottonCandyBlue: {
     text: t('foodCakeCottonCandyBlue'),
     textA: t('foodCakeCottonCandyBlueA'),
     textThe: t('foodCakeCottonCandyBlueThe'),
     target: 'CottonCandyBlue',
-    canBuy () {
-      return FOOD_SEASON === 'Cake';
-    },
-    canDrop: FOOD_SEASON === 'Cake',
   },
   Cake_CottonCandyPink: {
     text: t('foodCakeCottonCandyPink'),
     textA: t('foodCakeCottonCandyPinkA'),
     textThe: t('foodCakeCottonCandyPinkThe'),
     target: 'CottonCandyPink',
-    canBuy () {
-      return FOOD_SEASON === 'Cake';
-    },
-    canDrop: FOOD_SEASON === 'Cake',
   },
   Cake_Shade: {
     text: t('foodCakeShade'),
     textA: t('foodCakeShadeA'),
     textThe: t('foodCakeShadeThe'),
     target: 'Shade',
-    canBuy () {
-      return FOOD_SEASON === 'Cake';
-    },
-    canDrop: FOOD_SEASON === 'Cake',
   },
   Cake_White: {
     text: t('foodCakeWhite'),
     textA: t('foodCakeWhiteA'),
     textThe: t('foodCakeWhiteThe'),
     target: 'White',
-    canBuy () {
-      return FOOD_SEASON === 'Cake';
-    },
-    canDrop: FOOD_SEASON === 'Cake',
   },
   Cake_Golden: {
     text: t('foodCakeGolden'),
     textA: t('foodCakeGoldenA'),
     textThe: t('foodCakeGoldenThe'),
     target: 'Golden',
-    canBuy () {
-      return FOOD_SEASON === 'Cake';
-    },
-    canDrop: FOOD_SEASON === 'Cake',
   },
   Cake_Zombie: {
     text: t('foodCakeZombie'),
     textA: t('foodCakeZombieA'),
     textThe: t('foodCakeZombieThe'),
     target: 'Zombie',
-    canBuy () {
-      return FOOD_SEASON === 'Cake';
-    },
-    canDrop: FOOD_SEASON === 'Cake',
   },
   Cake_Desert: {
     text: t('foodCakeDesert'),
     textA: t('foodCakeDesertA'),
     textThe: t('foodCakeDesertThe'),
     target: 'Desert',
-    canBuy () {
-      return FOOD_SEASON === 'Cake';
-    },
-    canDrop: FOOD_SEASON === 'Cake',
   },
   Cake_Red: {
     text: t('foodCakeRed'),
     textA: t('foodCakeRedA'),
     textThe: t('foodCakeRedThe'),
     target: 'Red',
-    canBuy () {
-      return FOOD_SEASON === 'Cake';
-    },
-    canDrop: FOOD_SEASON === 'Cake',
   },
   Candy_Skeleton: {
     text: t('foodCandySkeleton'),
     textA: t('foodCandySkeletonA'),
     textThe: t('foodCandySkeletonThe'),
     target: 'Skeleton',
-    canBuy () {
-      return FOOD_SEASON === 'Candy';
-    },
-    canDrop: FOOD_SEASON === 'Candy',
   },
   Candy_Base: {
     text: t('foodCandyBase'),
     textA: t('foodCandyBaseA'),
     textThe: t('foodCandyBaseThe'),
     target: 'Base',
-    canBuy () {
-      return FOOD_SEASON === 'Candy';
-    },
-    canDrop: FOOD_SEASON === 'Candy',
   },
   Candy_CottonCandyBlue: {
     text: t('foodCandyCottonCandyBlue'),
     textA: t('foodCandyCottonCandyBlueA'),
     textThe: t('foodCandyCottonCandyBlueThe'),
     target: 'CottonCandyBlue',
-    canBuy () {
-      return FOOD_SEASON === 'Candy';
-    },
-    canDrop: FOOD_SEASON === 'Candy',
   },
   Candy_CottonCandyPink: {
     text: t('foodCandyCottonCandyPink'),
     textA: t('foodCandyCottonCandyPinkA'),
     textThe: t('foodCandyCottonCandyPinkThe'),
     target: 'CottonCandyPink',
-    canBuy () {
-      return FOOD_SEASON === 'Candy';
-    },
-    canDrop: FOOD_SEASON === 'Candy',
   },
   Candy_Shade: {
     text: t('foodCandyShade'),
     textA: t('foodCandyShadeA'),
     textThe: t('foodCandyShadeThe'),
     target: 'Shade',
-    canBuy () {
-      return FOOD_SEASON === 'Candy';
-    },
-    canDrop: FOOD_SEASON === 'Candy',
   },
   Candy_White: {
     text: t('foodCandyWhite'),
     textA: t('foodCandyWhiteA'),
     textThe: t('foodCandyWhiteThe'),
     target: 'White',
-    canBuy () {
-      return FOOD_SEASON === 'Candy';
-    },
-    canDrop: FOOD_SEASON === 'Candy',
   },
   Candy_Golden: {
     text: t('foodCandyGolden'),
     textA: t('foodCandyGoldenA'),
     textThe: t('foodCandyGoldenThe'),
     target: 'Golden',
-    canBuy () {
-      return FOOD_SEASON === 'Candy';
-    },
-    canDrop: FOOD_SEASON === 'Candy',
   },
   Candy_Zombie: {
     text: t('foodCandyZombie'),
     textA: t('foodCandyZombieA'),
     textThe: t('foodCandyZombieThe'),
     target: 'Zombie',
-    canBuy () {
-      return FOOD_SEASON === 'Candy';
-    },
-    canDrop: FOOD_SEASON === 'Candy',
   },
   Candy_Desert: {
     text: t('foodCandyDesert'),
     textA: t('foodCandyDesertA'),
     textThe: t('foodCandyDesertThe'),
     target: 'Desert',
-    canBuy () {
-      return FOOD_SEASON === 'Candy';
-    },
-    canDrop: FOOD_SEASON === 'Candy',
   },
   Candy_Red: {
     text: t('foodCandyRed'),
     textA: t('foodCandyRedA'),
     textThe: t('foodCandyRedThe'),
     target: 'Red',
-    canBuy () {
-      return FOOD_SEASON === 'Candy';
-    },
-    canDrop: FOOD_SEASON === 'Candy',
   },
   Pie_Skeleton: {
     text: t('foodPieSkeleton'),
     textA: t('foodPieSkeletonA'),
     textThe: t('foodPieSkeletonThe'),
     target: 'Skeleton',
-    canBuy () {
-      return FOOD_SEASON === 'Pie';
-    },
-    canDrop: FOOD_SEASON === 'Pie',
   },
   Pie_Base: {
     text: t('foodPieBase'),
     textA: t('foodPieBaseA'),
     textThe: t('foodPieBaseThe'),
     target: 'Base',
-    canBuy () {
-      return FOOD_SEASON === 'Pie';
-    },
-    canDrop: FOOD_SEASON === 'Pie',
   },
   Pie_CottonCandyBlue: {
     text: t('foodPieCottonCandyBlue'),
     textA: t('foodPieCottonCandyBlueA'),
     textThe: t('foodPieCottonCandyBlueThe'),
     target: 'CottonCandyBlue',
-    canBuy () {
-      return FOOD_SEASON === 'Pie';
-    },
-    canDrop: FOOD_SEASON === 'Pie',
   },
   Pie_CottonCandyPink: {
     text: t('foodPieCottonCandyPink'),
     textA: t('foodPieCottonCandyPinkA'),
     textThe: t('foodPieCottonCandyPinkThe'),
     target: 'CottonCandyPink',
-    canBuy () {
-      return FOOD_SEASON === 'Pie';
-    },
-    canDrop: FOOD_SEASON === 'Pie',
   },
   Pie_Shade: {
     text: t('foodPieShade'),
     textA: t('foodPieShadeA'),
     textThe: t('foodPieShadeThe'),
     target: 'Shade',
-    canBuy () {
-      return FOOD_SEASON === 'Pie';
-    },
-    canDrop: FOOD_SEASON === 'Pie',
   },
   Pie_White: {
     text: t('foodPieWhite'),
     textA: t('foodPieWhiteA'),
     textThe: t('foodPieWhiteThe'),
     target: 'White',
-    canBuy () {
-      return FOOD_SEASON === 'Pie';
-    },
-    canDrop: FOOD_SEASON === 'Pie',
   },
   Pie_Golden: {
     text: t('foodPieGolden'),
     textA: t('foodPieGoldenA'),
     textThe: t('foodPieGoldenThe'),
     target: 'Golden',
-    canBuy () {
-      return FOOD_SEASON === 'Pie';
-    },
-    canDrop: FOOD_SEASON === 'Pie',
   },
   Pie_Zombie: {
     text: t('foodPieZombie'),
     textA: t('foodPieZombieA'),
     textThe: t('foodPieZombieThe'),
     target: 'Zombie',
-    canBuy () {
-      return FOOD_SEASON === 'Pie';
-    },
-    canDrop: FOOD_SEASON === 'Pie',
   },
   Pie_Desert: {
     text: t('foodPieDesert'),
     textA: t('foodPieDesertA'),
     textThe: t('foodPieDesertThe'),
     target: 'Desert',
-    canBuy () {
-      return FOOD_SEASON === 'Pie';
-    },
-    canDrop: FOOD_SEASON === 'Pie',
   },
   Pie_Red: {
     text: t('foodPieRed'),
     textA: t('foodPieRedA'),
     textThe: t('foodPieRedThe'),
     target: 'Red',
-    canBuy () {
-      return FOOD_SEASON === 'Pie';
-    },
-    canDrop: FOOD_SEASON === 'Pie',
   },
   /* eslint-enable camelcase */
 };
 
-each(api.food, (food, key) => defaults(food, {
-  value: 1,
-  key,
-  notes: t('foodNotes'),
-  canBuy () {
-    return false;
-  },
-  canDrop: false,
-}));
+each(api.food, (food, key) => {
+  let foodType = 'Normal';
+  if (key.startsWith('Cake_')) {
+    foodType = 'Cake';
+  } else if (key.startsWith('Candy_')) {
+    foodType = 'Candy';
+  } else if (key.startsWith('Pie_')) {
+    foodType = 'Pie';
+  }
+  defaults(food, {
+    value: 1,
+    key,
+    notes: t('foodNotes'),
+    canBuy: () => FOOD_SEASON === foodType,
+    canDrop: FOOD_SEASON === foodType,
+  });
+});
 
 api.appearances = appearances;
 

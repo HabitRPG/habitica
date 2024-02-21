@@ -8,7 +8,6 @@ export default {
   },
   methods: {
     npcClass (name) {
-      console.log('npcClass', name, this.currentEvent);
       if (!this.currentEvent || !this.currentEvent.season) return `npc_${name}`;
       return `npc_${name} npc_${name}_${this.currentEvent.season}`;
     },
