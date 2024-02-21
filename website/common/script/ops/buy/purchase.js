@@ -55,10 +55,6 @@ async function purchaseItem (user, item, price, type, key) {
     if (user.markModified) user.markModified('items.gear.owned');
   } else if (type === 'bundles') {
     const subType = item.type;
-    const matchers = getScheduleMatchingGroup('bundles');
-    if (!matchers.match(item.key)) {
-      throw new NotAuthorized(i18n.t('notAvailable', { key: item.key }));
-    }
     forEach(item.bundleKeys, bundledKey => {
       if (!user.items[subType][bundledKey] || user.items[subType][bundledKey] < 0) {
         user.items[subType][bundledKey] = 0;
@@ -101,7 +97,7 @@ export default async function purchase (user, req = {}, analytics) {
 
   const { price, item } = getItemAndPrice(user, type, key, req);
 
-  if (item.type === 'hatchingPotion' && item.premium === true) {
+  if (type === 'hatchingPotions' && item.premium === true) {
     const matchers = getScheduleMatchingGroup('premiumHatchingPotions');
     if (!matchers.match(item.key)) {
       throw new NotAuthorized(i18n.t('messageNotAvailable', req.language));
@@ -110,6 +106,11 @@ export default async function purchase (user, req = {}, analytics) {
     const matchers = getScheduleMatchingGroup('seasonalGear');
     if (!matchers.match(item.set)) {
       throw new NotAuthorized(i18n.t('messageNotAvailable', req.language));
+    }
+  } else if (type === 'bundles') {
+    const matchers = getScheduleMatchingGroup('bundles');
+    if (!matchers.match(item.key)) {
+      throw new NotAuthorized(i18n.t('notAvailable', { key: item.key }));
     }
   } else if (!item.canBuy(user)) {
     throw new NotAuthorized(i18n.t('messageNotAvailable', req.language));

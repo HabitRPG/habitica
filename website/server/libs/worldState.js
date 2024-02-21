@@ -4,7 +4,6 @@ import { // eslint-disable-line import/no-cycle
   model as Group,
   TAVERN_ID as tavernId,
 } from '../models/group';
-import common from '../../common';
 import { REPEATING_EVENTS } from '../../common/script/content/constants';
 import { getCurrentGalaEvent } from '../../common/script/content/constants/schedule';
 
