@@ -234,5 +234,8 @@
     "viewAdminPanel": "Ver Painel de Administrador",
     "banPlayer": "Banir Jogador",
     "unbanPlayer": "Desbanir Jogador",
-    "bannedPlayer": "Este jogador está banido."
+    "bannedPlayer": "Este jogador está banido.",
+    "shadowMute": "Sombra muda",
+    "mutePlayer": "Mudo",
+    "whyReportingPlayerPlaceholder": "Motivo da denúncia"
 }
