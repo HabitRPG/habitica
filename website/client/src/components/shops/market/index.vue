@@ -152,6 +152,7 @@ import _map from 'lodash/map';
 import _throttle from 'lodash/throttle';
 import getItemInfo from '@/../../common/script/libs/getItemInfo';
 import shops from '@/../../common/script/libs/shops';
+import { getScheduleMatchingGroup } from '@/../../common/script/content/constants/schedule';
 import { mapState } from '@/libs/store';
 
 import KeysToKennel from './keysToKennel';
@@ -218,6 +219,7 @@ export default {
 
       hideLocked: false,
       hidePinned: false,
+      cardMatcher: getScheduleMatchingGroup('cards'),
     };
   },
   computed: {
@@ -241,7 +243,8 @@ export default {
       categories.push({
         identifier: 'cards',
         text: this.$t('cards'),
-        items: _map(_filter(this.content.cardTypes, value => value.yearRound), value => ({
+        items: _map(_filter(this.content.cardTypes, value => value.yearRound
+                    || this.cardMatcher.items.indexOf(value.key) !== -1), value => ({
           ...getItemInfo(this.user, 'card', value),
           showCount: false,
         })),

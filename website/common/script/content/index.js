@@ -129,7 +129,6 @@ api.cardTypes = {
   nye: {
     key: 'nye',
     messageOptions: 5,
-    yearRound: moment().isBetween(EVENTS.nye2023.start, EVENTS.nye2023.end),
   },
   thankyou: {
     key: 'thankyou',
@@ -139,7 +138,6 @@ api.cardTypes = {
   valentine: {
     key: 'valentine',
     messageOptions: 4,
-    yearRound: moment().isBetween(EVENTS.valentine2024.start, EVENTS.valentine2024.end),
   },
   birthday: {
     key: 'birthday',

@@ -58,7 +58,5 @@ export function getCurrentEventList () {
   });
 
   currentEventList.push(getCurrentGalaEvent());
-
-  console.log(currentEventList);
   return currentEventList;
 }

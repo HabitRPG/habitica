@@ -1,4 +1,6 @@
 /* eslint-disable key-spacing */
+import filter from 'lodash/filter';
+import moment from 'moment';
 
 // gem block: number of gems
 const gemsPromo = {
@@ -14,12 +16,28 @@ export const REPEATING_EVENTS = {
     end: '1970-01-04T23:59-05:00',
     season: 'nye',
     npcImageSuffix: '_nye',
+    content: [
+      {
+        type: 'cards',
+        items: [
+          'nye',
+        ],
+      },
+    ],
   },
   valentines: {
     start: '1970-02-13T08:00-05:00',
     end: '1970-02-17T23:59-05:00',
     season: 'valentines',
     npcImageSuffix: '_valentines',
+    content: [
+      {
+        type: 'cards',
+        items: [
+          'valentine',
+        ],
+      },
+    ],
   },
   birthday: {
     start: '1970-01-30T08:00-05:00',
@@ -34,6 +52,17 @@ export const REPEATING_EVENTS = {
     npcImageSuffix: '_thanksgiving',
   },
 };
+
+export function getRepeatingEvents (date) {
+  const momentDate = date instanceof moment ? date : moment(date);
+  return filter(Object.keys(REPEATING_EVENTS), eventKey => {
+    const eventData = REPEATING_EVENTS[eventKey];
+    const startDate = eventData.start.replace('1970', momentDate.year());
+    const endDate = eventData.end.replace('1970', momentDate.year());
+
+    return momentDate.isBetween(startDate, endDate);
+  });
+}
 
 export const EVENTS = {
   noEvent: {

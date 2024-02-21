@@ -1,5 +1,6 @@
 import moment from 'moment';
 import SEASONAL_SETS from './seasonalSets';
+import { getRepeatingEvents } from './events';
 
 function backgroundMatcher (month1, month2, oddYear) {
   return function call (key) {
@@ -749,6 +750,9 @@ function getGalaIndex (date) {
   if (todayDay >= GALA_SWITCHOVER_DAY) {
     galaMonth += 1;
   }
+  if (galaMonth >= 12) {
+    return 0;
+  }
   return parseInt((galaCount / 12) * galaMonth, 10);
 }
 
@@ -769,6 +773,11 @@ export function assembleScheduledMatchers (date) {
   }
 
   items.push(...GALA_SCHEDULE[getGalaIndex(date)].filters);
+  for (const event in getRepeatingEvents(date)) {
+    if (event.content) {
+      items.push(...event.content);
+    }
+  }
   return items;
 }
 
