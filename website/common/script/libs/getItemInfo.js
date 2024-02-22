@@ -388,6 +388,33 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
       };
       break;
     }
+    case 'hairBase': {
+      itemInfo = {
+        key: `hair-base-${item.key}`,
+        class: `hair hair_base_${item.key}_${user.preferences.hair.color}`,
+        value: item.price,
+        currency: 'gems',
+      };
+      break;
+    }
+    case 'mustache': {
+      itemInfo = {
+        key: `mustache-${item.key}`,
+        class: `hair hair_mustache_${item.key}_${user.preferences.hair.color}`,
+        value: item.price,
+        currency: 'gems',
+      };
+      break;
+    }
+    case 'beard': {
+      itemInfo = {
+        key: `beard-${item.key}`,
+        class: `hair hair_beard_${item.key}_${user.preferences.hair.color}`,
+        value: item.price,
+        currency: 'gems',
+      };
+      break;
+    }
   }
 
   if (itemInfo) {

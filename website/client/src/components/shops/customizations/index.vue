@@ -87,6 +87,14 @@
     height: 216px;
   }
 
+  .item-rows {
+    max-width: 920px;
+
+    .items > div:nth-of-type(8n) {
+      margin-right: 0px;
+    }
+  }
+
   .npc {
     background-repeat: no-repeat;
   }

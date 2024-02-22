@@ -573,7 +573,7 @@ shops.getCustomizationsShopCategories = function getCustomizationsShopCategories
           return moment().isBetween(color.set.availableFrom, color.set.availableUntil);
         }
         if (color.set.availableUntil) {
-          return moment().isBefore(color.set.availableTo);
+          return moment().isBefore(color.set.availableUntil);
         }
         return true;
       }
@@ -585,9 +585,70 @@ shops.getCustomizationsShopCategories = function getCustomizationsShopCategories
   const hairStylesCategory = {
     identifier: 'hairStyles',
     text: i18n.t('hairStyles', language),
-    items: [],
   };
+  hairStylesCategory.items = values(content.appearances.hair.base)
+    .filter(style => {
+      const { hair } = user.purchased;
+      if (hair && hair.base && hair.base[style.key]) {
+        return false;
+      }
+      if (style.set) {
+        if (style.set.availableFrom) {
+          return moment().isBetween(style.set.availableFrom, style.set.availableUntil);
+        }
+        if (style.set.availableUntil) {
+          return moment().isBefore(style.set.availableUntil);
+        }
+        return true;
+      }
+      return false;
+    })
+    .map(style => getItemInfo(user, 'hairBase', style, officialPinnedItems, language));
   categories.push(hairStylesCategory);
+
+  const facialHairCategory = {
+    identifier: 'facialHair',
+    text: i18n.t('facialHairs', language),
+  };
+  facialHairCategory.items = values(content.appearances.hair.mustache)
+    .filter(style => {
+      const { hair } = user.purchased;
+      if (hair && hair.mustache && hair.mustache[style.key]) {
+        return false;
+      }
+      if (style.set) {
+        if (style.set.availableFrom) {
+          return moment().isBetween(style.set.availableFrom, style.set.availableUntil);
+        }
+        if (style.set.availableUntil) {
+          return moment().isBefore(style.set.availableUntil);
+        }
+        return true;
+      }
+      return false;
+    })
+    .map(style => getItemInfo(user, 'mustache', style, officialPinnedItems, language))
+    .concat(
+      values(content.appearances.hair.beard)
+        .filter(style => {
+          const { hair } = user.purchased;
+          if (hair && hair.beard && hair.beard[style.key]) {
+            return false;
+          }
+          if (style.set) {
+            if (style.set.availableFrom) {
+              return moment().isBetween(style.set.availableFrom, style.set.availableUntil);
+            }
+            if (style.set.availableUntil) {
+              return moment().isBefore(style.set.availableUntil);
+            }
+            return true;
+          }
+          return false;
+        })
+        .map(style => getItemInfo(user, 'beard', style, officialPinnedItems, language)),
+    );
+  categories.push(facialHairCategory);
 
   const skinsCategory = {
     identifier: 'skins',
@@ -616,13 +677,6 @@ shops.getCustomizationsShopCategories = function getCustomizationsShopCategories
     items: [],
   };
   categories.push(shirtsCategory);
-
-  const facialHairCategory = {
-    identifier: 'facialHair',
-    text: i18n.t('facialHairs', language),
-    items: [],
-  };
-  categories.push(facialHairCategory);
 
   return categories;
 };
