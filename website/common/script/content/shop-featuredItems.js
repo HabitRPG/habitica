@@ -79,7 +79,7 @@ const featuredItems = {
       },
     ];
   },
-  seasonal: 'winter2021WinterMoonMageSet',
+  seasonal: 'spring2019CloudRogueSet',
   timeTravelers: [
     // TODO
   ],

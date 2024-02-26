@@ -27,16 +27,16 @@ export default {
 
   pinnedSets: CURRENT_EVENT
     ? {
-      rogue: 'winter2024SnowyOwlRogueSet',
-      warrior: 'winter2024PeppermintBarkWarriorSet',
-      wizard: 'winter2024NarwhalWizardMageSet',
-      healer: 'winter2024FrozenHealerSet',
+      rogue: 'spring2024MeltingSnowRogueSet',
+      warrior: 'spring2024FluoriteWarriorSet',
+      wizard: 'spring2024HibiscusMageSet',
+      healer: 'spring2024BluebirdHealerSet',
     }
     : {},
 
-  availableSpells: CURRENT_EVENT && moment().isBetween('2024-01-09T08:00-04:00', CURRENT_EVENT.end)
+  availableSpells: CURRENT_EVENT && moment().isBetween('2024-04-18T08:00-04:00', CURRENT_EVENT.end)
     ? [
-      'snowball',
+      'shinySeed',
     ]
     : [],
 
@@ -47,5 +47,5 @@ export default {
     ]
     : [],
 
-  featuredSet: 'winter2019PoinsettiaSet',
+  featuredSet: 'spring2020LapisLazuliRogueSet',
 };

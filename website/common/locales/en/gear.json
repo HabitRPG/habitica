@@ -504,6 +504,15 @@
   "weaponSpecialWinter2024HealerText": "Torch",
   "weaponSpecialWinter2024HealerNotes": "Melt yourself out of this jam in no time! Increases Intelligence by <%= int %>. Limited Edition Winter 2023-2024 Gear.",
 
+  "weaponSpecialSpring2024RogueText": "Melting Snow Rogue Weapon",
+  "weaponSpecialSpring2024RogueNotes": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Increases Strength by <%= str %>. Limited Edition Spring 2024 Gear.",
+  "weaponSpecialSpring2024WarriorText": "Fluorite Warrior Weapon",
+  "weaponSpecialSpring2024WarriorNotes": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Increases Strength by <%= str %>. Limited Edition Spring 2024 Gear.",
+  "weaponSpecialSpring2024MageText": "Hibiscus Mage Weapon",
+  "weaponSpecialSpring2024MageNotes": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition Spring 2024 Gear.",
+  "weaponSpecialSpring2024HealerText": "Bluebird Healer Weapon",
+  "weaponSpecialSpring2024HealerNotes": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Increases Intelligence by <%= int %>. Limited Edition Spring 2024 Gear.",
+
   "weaponMystery201411Text": "Pitchfork of Feasting",
   "weaponMystery201411Notes": "Stab your enemies or dig in to your favorite foods - this versatile pitchfork does it all! Confers no benefit. November 2014 Subscriber Item.",
   "weaponMystery201502Text": "Shimmery Winged Staff of Love and Also Truth",
@@ -1223,6 +1232,15 @@
   "armorSpecialWinter2024MageNotes": "Both practical and pretty, these robes will keep you toasty as you perform your magical abilities out in the cold. Increases Intelligence by <%= int %>. Limited Edition 2023-2024 Winter Gear.",
   "armorSpecialWinter2024HealerText": "Frozen Armor",
   "armorSpecialWinter2024HealerNotes": "This sparkling block of magic ice is at least protective while you figure out your escape. Increases Constitution by <%= con %>. Limited Edition 2023-2024 Winter Gear.",
+
+  "armorSpecialSpring2024RogueText": "Melting Snow Rogue Armor",
+  "armorSpecialSpring2024RogueNotes": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Increases Perception by <%= per %>. Limited Edition Spring 2024 Gear.",
+  "armorSpecialSpring2024WarriorText": "Fluorite Warrior Armor",
+  "armorSpecialSpring2024WarriorNotes": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Increases Constitution by <%= con %>. Limited Edition Spring 2024 Gear.",
+  "armorSpecialSpring2024MageText": "Hibiscus Mage Armor",
+  "armorSpecialSpring2024MageNotes": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Increases Intelligence by <%= int %>. Limited Edition Spring 2024 Gear.",
+  "armorSpecialSpring2024HealerText": "Blueburd Healer Armor",
+  "armorSpecialSpring2024HealerNotes": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Increases Constitution by <%= con %>. Limited Edition Spring 2024 Gear.",  
 
   "armorMystery201402Text": "Messenger Robes",
   "armorMystery201402Notes": "Shimmering and strong, these robes have many pockets to carry letters. Confers no benefit. February 2014 Subscriber Item.",
@@ -2034,6 +2052,16 @@
   "headSpecialWinter2024HealerText": "Frozen Helm",
   "headSpecialWinter2024HealerNotes": "Uh oh, a spell gone wrong has trapped you in ice! Increases Intelligence by <%= int %>. Limited Edition Winter 2023-2024 Gear.",
 
+  "headSpecialSpring2024RogueText": "Melting Snow Rogue Hat",
+  "headSpecialSpring2024RogueNotes": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Increases Perception by <%= per %>. Limited Edition Spring 2024 Gear.",
+  "headSpecialSpring2024WarriorText": "Fluorite Warrior Hat",
+  "headSpecialSpring2024WarriorNotes": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Increases Strength by <%= str %>. Limited Edition Spring 2024 Gear.",
+  "headSpecialSpring2024MageText": "Hibiscus Mage Hat",
+  "headSpecialSpring2024MageNotes": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Increases Perception by <%= per %>. Limited Edition Spring 2024 Gear.",
+  "headSpecialSpring2024HealerText": "Bluebird Healer Hat",
+  "headSpecialSpring2024HealerNotes": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Increases Intelligence by <%= int %>. Limited Edition Spring 2024 Gear.",
+
+
   "headSpecialGaymerxText": "Rainbow Warrior Helm",
   "headSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special helmet is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
 
@@ -2653,6 +2681,11 @@
   "shieldSpecialWinter2024WarriorNotes": "You’re a tough cookie who will never crumble! Increases Constitution by <%= con %>. Limited Edition Winter 2023-2024 Gear.",
   "shieldSpecialWinter2024HealerText": "Salt Shaker",
   "shieldSpecialWinter2024HealerNotes": "How convenient that you had ice-melting materials handy when you froze! Increases Constitution by <%= con %>. Limited Edition Winter 2023-2024 Gear.",
+
+  "shieldSpecialSpring2024WarriorText": "Fluorite Warrior Shield",
+  "shieldSpecialSpring2024WarriorNotes": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Increases Constitution by <%= con %>. Limited Edition Spring 2024 Gear.",
+  "shieldSpecialSpring2024HealerText": "Bluebird Healer Shield",
+  "shieldSpecialSpring2024HealerNotes": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Increases Constitution by <%= con %>. Limited Edition Spring 2024 Gear.",
 
   "shieldMystery201601Text": "Resolution Slayer",
   "shieldMystery201601Notes": "This blade can be used to parry away all distractions. Confers no benefit. January 2016 Subscriber Item.",
