@@ -441,5 +441,6 @@
     "bannedUser": "<strong>Ce·tte joueu·r·se a été banni·e.</strong>",
     "blockedUser": "<strong>Vous avez bloqué ce·tte joueu·r·se. </strong>&nbsp; Il·elle·s ne peuvent pas vous envoyer de Messages Privés mais vous pouvez voir ses publications.",
     "challengeBannedSlurs": "Votre Challenge contiens une injure qui viole les lignes de conduite de la communauté d'Habitica et vos privilèges tchat et de création de Challenge ont été révoqués. Contactez admin@habitica.com pour plus d'informations.",
-    "challengeBannedWords": "Votre Challenge contient une injure ou une référence à un sujet mature. Merci de bien vouloir modifier votre Challenge afin de pouvoir l'enregistrer. Vous devez enlever le mot en question, pas le censurer."
+    "challengeBannedWords": "Votre Challenge contient une injure ou une référence à un sujet mature. Merci de bien vouloir modifier votre Challenge afin de pouvoir l'enregistrer. Vous devez enlever le mot en question, pas le censurer.",
+    "challengeBannedSlursPrivate": "Votre Défi contient une injure qui viole les règles de la communauté d'Habitica. Merci de la retirer afin de pouvoir enregistrer votre Défi."
 }
