@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid';
 
 import { model as User } from '../../website/server/models/user';
 
-const MIGRATION_NAME = '20230314_pi_day';
+const MIGRATION_NAME = '20240314_pi_day';
 
 const progressCount = 1000;
 let count = 0;

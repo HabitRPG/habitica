@@ -214,6 +214,12 @@ const animalSetAchievs = {
     titleKey: 'achievementReptacularRumble',
     textKey: 'achievementReptacularRumbleText',
   },
+  rodentRuler: {
+    icon: 'achievement-rodentRuler',
+    titleKey: 'achievementRodentRuler',
+    textKey: 'achievementRodentRulerText',
+    release: '2024-03-19T08:00-05:00',
+  },
   roughRider: {
     icon: 'achievement-roughRider',
     titleKey: 'achievementRoughRider',
