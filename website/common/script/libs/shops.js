@@ -653,8 +653,25 @@ shops.getCustomizationsShopCategories = function getCustomizationsShopCategories
   const skinsCategory = {
     identifier: 'skins',
     text: i18n.t('skins', language),
-    items: [],
   };
+  skinsCategory.items = values(content.appearances.skin)
+    .filter(color => {
+      const { skin } = user.purchased;
+      if (skin && skin[color.key]) {
+        return false;
+      }
+      if (color.set) {
+        if (color.set.availableFrom) {
+          return moment().isBetween(color.set.availableFrom, color.set.availableUntil);
+        }
+        if (color.set.availableUntil) {
+          return moment().isBefore(color.set.availableUntil);
+        }
+        return true;
+      }
+      return false;
+    })
+    .map(color => getItemInfo(user, 'skin', color, officialPinnedItems, language));
   categories.push(skinsCategory);
 
   const animalEarsCategory = {
@@ -674,8 +691,25 @@ shops.getCustomizationsShopCategories = function getCustomizationsShopCategories
   const shirtsCategory = {
     identifier: 'shirts',
     text: i18n.t('shirts', language),
-    items: [],
   };
+  shirtsCategory.items = values(content.appearances.shirt)
+    .filter(color => {
+      const { shirt } = user.purchased;
+      if (shirt && shirt[color.key]) {
+        return false;
+      }
+      if (color.set) {
+        if (color.set.availableFrom) {
+          return moment().isBetween(color.set.availableFrom, color.set.availableUntil);
+        }
+        if (color.set.availableUntil) {
+          return moment().isBefore(color.set.availableUntil);
+        }
+        return true;
+      }
+      return false;
+    })
+    .map(color => getItemInfo(user, 'shirt', color, officialPinnedItems, language));
   categories.push(shirtsCategory);
 
   return categories;

@@ -143,9 +143,20 @@
       opacity: 0.5;
     }
 
-   .hair {
+    .hair, .facial-hair, .shirt, .skin {
       height: 68px;
-      margin-left: -24px;
+    }
+
+    .hair {
+      background-position: -24px -2px;
+    }
+
+    .facial-hair, .skin {
+      background-position: -24px -10px;
+    }
+
+    .shirt {
+      background-position: -23px -32px;
     }
   }
 

@@ -400,7 +400,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
     case 'mustache': {
       itemInfo = {
         key: `mustache-${item.key}`,
-        class: `hair hair_mustache_${item.key}_${user.preferences.hair.color}`,
+        class: `facial-hair hair_mustache_${item.key}_${user.preferences.hair.color}`,
         value: item.price,
         currency: 'gems',
       };
@@ -409,7 +409,25 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
     case 'beard': {
       itemInfo = {
         key: `beard-${item.key}`,
-        class: `hair hair_beard_${item.key}_${user.preferences.hair.color}`,
+        class: `facial-hair hair_beard_${item.key}_${user.preferences.hair.color}`,
+        value: item.price,
+        currency: 'gems',
+      };
+      break;
+    }
+    case 'skin': {
+      itemInfo = {
+        key: item.key,
+        class: `skin skin_${item.key}`,
+        value: item.price,
+        currency: 'gems',
+      };
+      break;
+    }
+    case 'shirt': {
+      itemInfo = {
+        key: item.key,
+        class: `shirt ${user.preferences.size}_shirt_${item.key}`,
         value: item.price,
         currency: 'gems',
       };
