@@ -31,7 +31,7 @@ async function updateUser (user) {
       && pets['Squirrel-Red'] > 0
       && pets['Squirrel-Shade'] > 0
       && pets['Squirrel-White'] > 0
-      && pets['Squirrel-Golder'] > 0
+      && pets['Squirrel-Golden'] > 0
       && pets['Squirrel-CottonCandyBlue'] > 0
       && pets['Squirrel-CottonCandyPink'] > 0
       && pets['Rat-Zombie'] > 0
@@ -51,13 +51,13 @@ async function updateUser (user) {
 
   if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
 
-  return await User.update({ _id: user._id }, { $set: set }).exec();
+  return await User.updateOne({ _id: user._id }, { $set: set }).exec();
 }
 
-module.exports = async function processUsers () {
+export default async function processUsers () {
   let query = {
     migration: { $ne: MIGRATION_NAME },
-    'auth.timestamps.loggedin': { $gt: new Date('2023-02-01') },
+    'auth.timestamps.loggedin': { $gt: new Date('2024-02-01') },
   };
 
   const fields = {
