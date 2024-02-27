@@ -5,11 +5,11 @@
     "buyGemsGold": "Kupi Dragulje Zlatnicima",
     "mustSubscribeToPurchaseGems": "Trebaš se pretplatiti za kupovinu dragulja bodovima Zlatnika",
     "reachedGoldToGemCap": "Dostigao/la si limit konverzije Zlatnika u Dragulje od <%= convCap %> za ovaj mjesec. On postoji da bi se spriječila zloupotreba ili gomilanje. Limit se resetira unutar prva tri dana svakog mjeseca.",
-    "reachedGoldToGemCapQuantity": "Količina od <%= quantity %> koju si tražio/la prelazi limit konverzije Zlatnika=>Dragulje od <%= convCap %> za ovaj mjesec. Ovo imamo kako bismo spriječili zloupotrebu / gomilanje. Limit se resetira unutar prva tri dana svakog mjeseca.",
+    "reachedGoldToGemCapQuantity": "Količina od <%= quantity %> koju si tražio/la prelazi količinu koju možeš kupiti ovaj mjesec. Limit se resetira unutar prva tri dana svakog mjeseca. Hvala vam što ste pretplatnik!",
     "mysteryItem": "Ekskluzivni mjesečni artikli",
     "mysteryItemText": "Svaki mjesec ćeš dobiti jedinstveni kozmetički predmet za svog avatara! Uz to, za svaka tri mjeseca uzastopne pretplate, misteriozni Vremenski Putnici će ti dati pristup povijesnim (i futurističkim!) kozmetičkim predmetima.",
     "exclusiveJackalopePet": "Ekskluzivni ljubimac",
-    "giftSubscription": "Želiš nekome pokloniti pretplatu?",
+    "giftSubscription": "Želiš nekome drugome pokloniti pretplatu?",
     "giftSubscriptionText4": "Hvala što podržavaš Habiticu!",
     "groupPlans": "Grupni planovi",
     "subscribe": "Pretplati se",
@@ -136,5 +136,7 @@
     "viewSubscriptions": "Pregledaj pretplate",
     "howManyGemsPurchase": "Koliko Dragulja bi želio/la kupiti?",
     "howManyGemsSend": "Koliko dragulja želiš poslati?",
-    "needToPurchaseGems": "Trebaš kupiti Dragulje kao dar?"
+    "needToPurchaseGems": "Trebaš kupiti Dragulje kao dar?",
+    "organization": "Organizacija",
+    "giftASubscription": "Pokloni Pretplatu"
 }
