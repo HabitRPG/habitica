@@ -20,7 +20,7 @@ export function getCurrentEvent () {
   const now = moment();
   const currEvtKey = Object.keys(common.content.repeatingEvents).find(
     evtKey => {
-      const event = common.content.repeatingEventsS[evtKey];
+      const event = common.content.repeatingEvents[evtKey];
       const startDate = event.start.replace('1970', now.year());
       const endDate = event.end.replace('1970', now.year());
 
