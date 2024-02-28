@@ -33,6 +33,7 @@ export async function notifyOfFlaggedChallenge (challenge, user, userComment) {
 
 export async function flagChallenge (challenge, user, res) {
   if (challenge.flags[user._id] && !user.contributor.admin) throw new NotFound(res.t('messageChallengeFlagAlreadyReported'));
+  if (challenge.official) throw new NotFound(res.t('messageChallengeFlagOfficial'));
 
   challenge.flags[user._id] = true;
   challenge.markModified('flags');

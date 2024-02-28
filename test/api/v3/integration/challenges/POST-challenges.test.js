@@ -331,5 +331,71 @@ describe('POST /challenges', () => {
 
       expect(updatedChallenge.summary).to.eql(summary);
     });
+
+    it('sets categories for challenges', async () => {
+      const testCategory = { _id: '65c1172997c0b24600371ea9', slug: 'test', name: 'Test' };
+      const challenge = await groupLeader.post('/challenges', {
+        group: group._id,
+        name: 'Test Challenge',
+        shortName: 'TC Label',
+        categories: [testCategory],
+      });
+
+      const updatedChallenge = await groupLeader.get(`/challenges/${challenge._id}`);
+
+      expect(updatedChallenge.categories).to.eql([testCategory]);
+    });
+
+    it('does not set habitica_official category for non-admins', async () => {
+      const testCategory = { _id: '65c1172997c0b24600371ea9', slug: 'habitica_official', name: 'habitica_official' };
+      await expect(groupLeader.post('/challenges', {
+        group: group._id,
+        name: 'Test Challenge',
+        shortName: 'TC Label',
+        categories: [testCategory],
+      })).to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('noPrivAccess'),
+      });
+    });
+
+    it('sets habitica_official category for admins', async () => {
+      await groupLeader.updateOne({
+        permissions: {
+          challengeAdmin: true,
+        },
+      });
+
+      const testCategory = { _id: '65c1172997c0b24600371ea9', slug: 'habitica_official', name: 'habitica_official' };
+      const challenge = await groupLeader.post('/challenges', {
+        group: group._id,
+        name: 'Test Challenge',
+        shortName: 'TC Label',
+        categories: [testCategory],
+      });
+
+      const updatedChallenge = await groupLeader.get(`/challenges/${challenge._id}`);
+      expect(updatedChallenge.categories).to.eql([testCategory]);
+    });
+
+    it('sets official if the habitica_official category is set for admins', async () => {
+      await groupLeader.updateOne({
+        permissions: {
+          challengeAdmin: true,
+        },
+      });
+
+      const testCategory = { _id: '65c1172997c0b24600371ea9', slug: 'habitica_official', name: 'habitica_official' };
+      const challenge = await groupLeader.post('/challenges', {
+        group: group._id,
+        name: 'Test Challenge',
+        shortName: 'TC Label',
+        categories: [testCategory],
+      });
+
+      const updatedChallenge = await groupLeader.get(`/challenges/${challenge._id}`);
+      expect(updatedChallenge.official).to.eql(true);
+    });
   });
 });
