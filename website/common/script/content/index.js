@@ -33,8 +33,7 @@ import gemsBlock from './gems';
 import faq from './faq';
 import timeTravelers from './time-travelers';
 
-import { getScheduleMatchingGroup } from './constants/schedule';
-import { getRepeatingEvents } from './constants/events';
+import { REPEATING_EVENTS, getRepeatingEvents } from './constants/events';
 
 import loginIncentives from './loginIncentives';
 
@@ -116,6 +115,7 @@ api.armoire = {
 };
 
 api.events = EVENTS;
+api.repeatingEvents = REPEATING_EVENTS;
 
 api.classes = CLASSES;
 
@@ -269,6 +269,7 @@ api.food = {
     text: t('foodSaddleText'),
     value: 5,
     notes: t('foodSaddleNotes'),
+    canDrop: false,
   },
   /* eslint-disable camelcase */
   Cake_Skeleton: {
@@ -576,7 +577,5 @@ api.userDefaultsMobile = {
 api.faq = faq;
 
 api.loginIncentives = loginIncentives(api);
-
-api.getScheduleMatchingGroup = getScheduleMatchingGroup;
 
 export default api;

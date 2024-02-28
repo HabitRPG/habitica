@@ -292,28 +292,35 @@
 
       <div
         v-if="ENABLE_TIME_TRAVEL && user.permissions.fullAccess"
-        :key="lastTimeJump">
+        :key="lastTimeJump"
+      >
         <a
           class="btn btn-secondary mr-1"
-          @click="jumpTime(-1)">-1 Day</a>
+          @click="jumpTime(-1)"
+        >-1 Day</a>
         <a
           class="btn btn-secondary mr-1"
-          @click="jumpTime(-7)">-7 Days</a>
+          @click="jumpTime(-7)"
+        >-7 Days</a>
         <a
           class="btn btn-secondary mr-1"
-          @click="jumpTime(-30)">-30 Days</a>
+          @click="jumpTime(-30)"
+        >-30 Days</a>
         <div class="my-2">
           Time Traveling! It is {{ new Date().toLocaleDateString() }}
         </div>
         <a
           class="btn btn-secondary mr-1"
-          @click="jumpTime(1)">+1 Day</a>
+          @click="jumpTime(1)"
+        >+1 Day</a>
         <a
           class="btn btn-secondary mr-1"
-          @click="jumpTime(7)">+7 Days</a>
+          @click="jumpTime(7)"
+        >+7 Days</a>
         <a
           class="btn btn-secondary mr-1"
-          @click="jumpTime(30)">+30 Days</a>
+          @click="jumpTime(30)"
+        >+30 Days</a>
       </div>
 
       <div

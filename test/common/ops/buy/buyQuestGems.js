@@ -10,6 +10,7 @@ import { BuyQuestWithGemOperation } from '../../../../website/common/script/ops/
 
 describe('shared.ops.buyQuestGems', () => {
   let user;
+  let clock;
   const goldPoints = 40;
   const analytics = { track () {} };
 
@@ -26,11 +27,13 @@ describe('shared.ops.buyQuestGems', () => {
   beforeEach(() => {
     sinon.stub(analytics, 'track');
     sinon.spy(pinnedGearUtils, 'removeItemByPath');
+    clock = sinon.useFakeTimers(new Date('2024-01-16'));
   });
 
   afterEach(() => {
     analytics.track.restore();
     pinnedGearUtils.removeItemByPath.restore();
+    clock.restore();
   });
 
   context('single purchase', () => {

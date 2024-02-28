@@ -25,6 +25,7 @@ import {
   MAX_GIFT_MESSAGE_LENGTH,
 } from './constants';
 import content from './content/index';
+import { getCurrentGalaEvent, getScheduleMatchingGroup } from './content/constants/schedule';
 import * as count from './count';
 // TODO under api.libs.cron?
 import {
@@ -106,6 +107,10 @@ const api = {
   getPlanMonths,
   daysSince,
   DAY_MAPPING,
+  schedule: {
+    getCurrentGalaEvent,
+    getScheduleMatchingGroup,
+  },
 };
 
 api.constants = {

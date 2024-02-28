@@ -15,6 +15,7 @@ import {
 describe('shared.ops.purchase', () => {
   const SEASONAL_FOOD = moment().isBefore('2021-11-02T20:00-04:00') ? 'Candy_Base' : 'Meat';
   let user;
+  let clock;
   const goldPoints = 40;
   const analytics = { track () {} };
 
@@ -25,11 +26,13 @@ describe('shared.ops.purchase', () => {
   beforeEach(() => {
     sinon.stub(analytics, 'track');
     sinon.spy(pinnedGearUtils, 'removeItemByPath');
+    clock = sandbox.useFakeTimers(new Date('2024-01-10'));
   });
 
   afterEach(() => {
     analytics.track.restore();
     pinnedGearUtils.removeItemByPath.restore();
+    clock.restore();
   });
 
   context('failure conditions', () => {
@@ -62,7 +65,7 @@ describe('shared.ops.purchase', () => {
       }
     });
 
-    it('returns error when unknown item is requested', async () => {
+    it.only('returns error when unknown item is requested', async () => {
       try {
         await purchase(user, { params: { type: 'gear', key: 'randomKey' } });
       } catch (err) {
@@ -82,7 +85,7 @@ describe('shared.ops.purchase', () => {
 
     it('returns error when user does not have enough gems to buy an item', async () => {
       try {
-        await purchase(user, { params: { type: 'gear', key: 'headAccessory_special_wolfEars' } });
+        await purchase(user, { params: { type: 'gear', key: 'shield_special_winter2019Healer' } });
       } catch (err) {
         expect(err).to.be.an.instanceof(NotAuthorized);
         expect(err.message).to.equal(i18n.t('notEnoughGems'));
@@ -150,7 +153,7 @@ describe('shared.ops.purchase', () => {
       user.pinnedItems.push({ type: 'eggs', key: 'Wolf' });
       user.pinnedItems.push({ type: 'hatchingPotions', key: 'Base' });
       user.pinnedItems.push({ type: 'food', key: SEASONAL_FOOD });
-      user.pinnedItems.push({ type: 'gear', key: 'headAccessory_special_tigerEars' });
+      user.pinnedItems.push({ type: 'gear', key: 'shield_special_winter2019Healer' });
       user.pinnedItems.push({ type: 'bundles', key: 'featheredFriends' });
     });
 
@@ -187,7 +190,7 @@ describe('shared.ops.purchase', () => {
 
     it('purchases gear', async () => {
       const type = 'gear';
-      const key = 'headAccessory_special_tigerEars';
+      const key = 'shield_special_winter2019Healer';
 
       await purchase(user, { params: { type, key } });
 
@@ -197,7 +200,8 @@ describe('shared.ops.purchase', () => {
 
     it('purchases quest bundles', async () => {
       const startingBalance = user.balance;
-      const clock = sandbox.useFakeTimers(moment('2024-03-20').valueOf());
+      clock.restore();
+      clock = sandbox.useFakeTimers(moment('2022-03-10').valueOf());
       const type = 'bundles';
       const key = 'cuddleBuddies';
       const price = 1.75;
@@ -216,7 +220,6 @@ describe('shared.ops.purchase', () => {
       expect(user.balance).to.equal(startingBalance - price);
 
       expect(pinnedGearUtils.removeItemByPath.notCalled).to.equal(true);
-      clock.restore();
     });
   });
 

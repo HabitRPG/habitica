@@ -1,8 +1,9 @@
 import _ from 'lodash';
-import nconf from 'nconf';
+import sinon from 'sinon';
 import moment from 'moment';
 import { authWithHeaders } from '../../middlewares/auth';
 import ensureDevelpmentMode from '../../middlewares/ensureDevelpmentMode';
+import ensureTimeTravelMode from '../../middlewares/ensureTimeTravelMode';
 import { BadRequest } from '../../libs/errors';
 import common from '../../../common';
 
@@ -204,56 +205,68 @@ api.questProgress = {
 };
 
 let clock;
-if (nconf.get('ENABLE_TIME_TRAVEL')) {
-  (async () => {
-    const sinon = await import('sinon');
-    const time = new Date();
-    clock = sinon.useFakeTimers({
-      now: time,
-      shouldAdvanceTime: true,
-    });
-  })();
 
-  api.timeTravelTime = {
-    method: 'GET',
-    url: '/debug/time-travel-time',
-    middlewares: [authWithHeaders()],
-    async handler (req, res) {
-      const { user } = res.locals;
-
-      if (!user.permissions.fullAccess) {
-        throw new BadRequest('You do not have permission to time travel.');
-      }
-
-      res.respond(200, {
-        time: new Date(),
-      });
-    },
-  }
-
-  api.timeTravelAdjust = {
-    method: 'POST',
-    url: '/debug/jump-time',
-    middlewares: [authWithHeaders()],
-    async handler (req, res) {
-      const { user } = res.locals;
-
-      if (!user.permissions.fullAccess) {
-        throw new BadRequest('You do not have permission to time travel.');
-      }
-
-      const { offsetDays } = req.body;
-      if (offsetDays > 0) {
-        clock.jump(offsetDays * 24 * 60 * 60 * 1000)
-      } else {
-        clock.setSystemTime(moment().add(offsetDays, 'days').toDate());
-      }
-
-      res.respond(200, {
-        time: new Date(),
-      });
-    },
-  }
+function fakeClock () {
+  if (clock) clock.restore();
+  const time = new Date();
+  clock = sinon.useFakeTimers({
+    now: time,
+    shouldAdvanceTime: true,
+  });
 }
+
+api.timeTravelTime = {
+  method: 'GET',
+  url: '/debug/time-travel-time',
+  middlewares: [ensureTimeTravelMode, authWithHeaders()],
+  async handler (req, res) {
+    if (clock === undefined) {
+      fakeClock();
+    }
+
+    const { user } = res.locals;
+
+    if (!user.permissions.fullAccess) {
+      throw new BadRequest('You do not have permission to time travel.');
+    }
+
+    res.respond(200, {
+      time: new Date(),
+    });
+  },
+};
+
+api.timeTravelAdjust = {
+  method: 'POST',
+  url: '/debug/jump-time',
+  middlewares: [ensureTimeTravelMode, authWithHeaders()],
+  async handler (req, res) {
+    const { user } = res.locals;
+
+    if (!user.permissions.fullAccess) {
+      throw new BadRequest('You do not have permission to time travel.');
+    }
+
+    const { offsetDays, reset, disable } = req.body;
+    if (reset) {
+      fakeClock();
+    } else if (disable) {
+      clock.restore();
+      clock = undefined;
+    } else if (clock !== undefined) {
+      try {
+        clock.setSystemTime(moment().add(offsetDays, 'days').toDate());
+      } catch (e) {
+        throw new BadRequest('Error adjusting time');
+      }
+    } else {
+      throw new BadRequest('Invalid command');
+    }
+
+    res.respond(200, {
+      time: new Date(),
+    });
+  },
+};
 
 export default api;
