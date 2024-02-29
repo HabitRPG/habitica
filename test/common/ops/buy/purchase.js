@@ -197,7 +197,7 @@ describe('shared.ops.purchase', () => {
 
     it('purchases quest bundles', async () => {
       const startingBalance = user.balance;
-      const clock = sandbox.useFakeTimers(moment('2022-03-16').valueOf());
+      const clock = sandbox.useFakeTimers(moment('2024-03-20').valueOf());
       const type = 'bundles';
       const key = 'cuddleBuddies';
       const price = 1.75;
