@@ -235,7 +235,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
     case 'gear':
       // spread operator not available
       itemInfo = Object.assign(getDefaultGearProps(item, language), {
-        value: item.twoHanded ? 2 : 1,
+        value: item.twoHanded || item.gearSet === 'animal' ? 2 : 1,
         currency: 'gems',
         pinType: 'gear',
       });

@@ -677,15 +677,31 @@ shops.getCustomizationsShopCategories = function getCustomizationsShopCategories
   const animalEarsCategory = {
     identifier: 'animalEars',
     text: i18n.t('animalEars', language),
-    items: [],
   };
+  animalEarsCategory.items = values(content.gear.tree.headAccessory.special)
+    .filter(gearItem => {
+      const { owned } = user.items.gear;
+      if (typeof owned[gearItem.key] !== 'undefined') {
+        return false;
+      }
+      return gearItem.gearSet === 'animal';
+    })
+    .map(gearItem => getItemInfo(user, 'gear', gearItem, officialPinnedItems, language));
   categories.push(animalEarsCategory);
 
   const animalTailsCategory = {
     identifier: 'animalTails',
     text: i18n.t('animalTails', language),
-    items: [],
   };
+  animalTailsCategory.items = values(content.gear.tree.back.special)
+    .filter(gearItem => {
+      const { owned } = user.items.gear;
+      if (typeof owned[gearItem.key] !== 'undefined') {
+        return false;
+      }
+      return gearItem.gearSet === 'animal';
+    })
+    .map(gearItem => getItemInfo(user, 'gear', gearItem, officialPinnedItems, language));
   categories.push(animalTailsCategory);
 
   const shirtsCategory = {
