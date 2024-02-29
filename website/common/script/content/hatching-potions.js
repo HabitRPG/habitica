@@ -76,10 +76,10 @@ const premium = {
     limited: true,
     event: EVENTS.birthday10,
     _addlNotes: t('eventAvailability', {
-      date: t('dateEndJanuary'),
+      date: t('dateEndApril'),
     }),
     canBuy () {
-      return moment().isBetween(EVENTS.birthday10.start, EVENTS.birthday10.end);
+      return moment().isBetween(EVENTS.spring2024.start, EVENTS.spring2024.end);
     },
   },
   Fairy: {
@@ -211,7 +211,7 @@ const premium = {
     }),
     event: EVENTS.spring2023,
     canBuy () {
-      return moment().isBefore(EVENTS.spring2023.end);
+      return moment().isBetween(EVENTS.spring2024.start, EVENTS.spring2024.end);
     },
   },
   Glass: {
@@ -278,12 +278,12 @@ const premium = {
     value: 2,
     text: t('hatchingPotionCelestial'),
     limited: true,
-    event: EVENTS.birthday10,
+    event: EVENTS.spring2024,
     _addlNotes: t('eventAvailability', {
-      date: t('dateStartFebruary'),
+      date: t('dateEndApril'),
     }),
     canBuy () {
-      return moment().isBetween(EVENTS.birthday10.start, EVENTS.birthday10.end);
+      return moment().isBetween(EVENTS.spring2024.start, EVENTS.spring2024.end);
     },
   },
   Sunshine: {
