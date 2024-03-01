@@ -3042,5 +3042,18 @@
     "shieldArmoireSoftWhitePillowText": "Travesseiro Branco Macio",
     "backMystery202402Text": "Corações Rosa Paraíso",
     "armorArmoireSoftWhiteSuitText": "Traje Branco Suave",
-    "headMystery202402Notes": "Esta juba rosa bonita é o acessório perfeito para fevereiro e além. Não confere benefícios. Item para Assinantes de Fevereiro de 2024."
+    "headMystery202402Notes": "Esta juba rosa bonita é o acessório perfeito para fevereiro e além. Não confere benefícios. Item para Assinantes de Fevereiro de 2024.",
+    "armorArmoireSoftWhiteSuitNotes": "Branco é uma cor pacífica. Seja enfrentando um lençol branco imaculado ou um manto de neve recém-caída, você terá uma mente clara e pronta. Aumenta Constituição em <% con %> e Percepção em <%= per %>. Armário Encantado: Conjunto Roupas para Ficar em Casa Brancas (Item 2 de 3).",
+    "bodyArmoireKarateGreenBeltText": "Faixa Verde",
+    "bodyArmoireKarateBlueBeltText": "Faixa Azul",
+    "bodyArmoireKarateBrownBeltText": "Faixa Marrom",
+    "bodyArmoireKaratePurpleBeltText": "Faixa Roxa",
+    "bodyArmoireKarateRedBeltText": "Faixa Vermelha",
+    "backMystery202402Notes": "Deixe uma aura de energia amorosa te cercar onde quer que você vá! Não confere benefícios. Item de Assinante de Fevereiro de 2024.",
+    "headArmoireWhiteFloppyHatNotes": "Muitos feitiços foram costurados neste simples chapéu, dando-lhe uma maravilhosa cor branca. Aumenta Força, Inteligência e Constituição em <%= attrs %> cada um. Armário Encantado: Conjunto Roupas de Ficar em Casa Branco (Item 1 de 3).",
+    "bodyArmoireKarateOrangeBeltText": "Faixa Laranja",
+    "bodyArmoireKarateOrangeBeltNotes": "Essa faixa é para aqueles que cresceram e dominaram o nível iniciante. Aumenta Constituição em <%= con %>. Armário Encantado: Conjunto de Karatê (Item 4 de 10).",
+    "bodyArmoireKarateGreenBeltNotes": "Essa faixa é para aqueles no nível intermediário aprendendo a fortalecer suas habilidades. Aumenta Força em <%= str %>. Armário Encantado: Conjunto de Karatê (Item 5 de 10).",
+    "bodyArmoireKarateBlueBeltNotes": "Essa faixa é para aqueles que estão aprendendo mais e desenvolvendo suas mentes e corpos. Aumenta Constituição em <%= con %>. Armário Encantado: Conjunto de Karatê (Item 6 de 10).",
+    "bodyArmoireKaratePurpleBeltNotes": "Essa faixa é para aqueles prontos para embarcar em estudos avançados. Aumenta Constituição em <%= con %>. Armário Encantado: Conjunto de Karatê (Item 7 de 10)."
 }

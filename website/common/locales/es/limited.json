@@ -141,7 +141,7 @@
     "dateEndOctober": "31 de octubre",
     "dateEndNovember": "30 de noviembre",
     "dateEndJanuary": "31 de enero",
-    "dateEndFebruary": "28 de febrero",
+    "dateEndFebruary": "29 de febrero",
     "winterPromoGiftHeader": "¡REGALA UNA SUSCRIPCIÓN, RECIBE OTRA GRATIS!",
     "winterPromoGiftDetails1": "Solo hasta el 6 de enero, cuando regales una suscripción a alguien, ¡obtienes la misma suscripción gratis!",
     "winterPromoGiftDetails2": "Por favor, ten en cuenta que si tú o la persona que recibe el regalo ya tenéis una suscripción recurrente, la suscripción regalada solo empezará después de que esa suscripción sea cancelada o haya expirado. ¡Muchas gracias por tu apoyo! <3",
@@ -267,5 +267,15 @@
     "fall2023ScaryMovieWarriorSet": "Película de miedo (Guerrero)",
     "fall2023ScarletWarlockMageSet": "Brujo escarlata (Mago)",
     "fall2023WitchsBrewRogueSet": "Pócima de la bruja (Pícaro)",
-    "fall2023BogCreatureHealerSet": "Criatura del pantano (Sanador)"
+    "fall2023BogCreatureHealerSet": "Criatura del pantano (Sanador)",
+    "buyNowGemsButton": "Compra Ahora por 60 Gemas",
+    "wantToPayWithMoneyText": "¿Quieres pagar con Stripe, Paypal o Amazon?",
+    "stableVisit": "¡Visita Mascotas y Monturas para equipar!",
+    "visitTheMarketButton": "Visita el Mercado",
+    "fourForFree": "Cuatro Gratis",
+    "takeMeToStable": "Llévame a Mascotas y Monturas",
+    "plentyOfPotions": "Muchas Pociones",
+    "buyNowMoneyButton": "Compra Ahora por $9.99",
+    "wantToPayWithGemsText": "¿Quieres pagar con Gemas?",
+    "partyRobes": "Batas de Fiesta"
 }
