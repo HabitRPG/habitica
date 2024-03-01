@@ -74,7 +74,7 @@ const premium = {
     value: 2,
     text: t('hatchingPotionShimmer'),
     limited: true,
-    event: EVENTS.birthday10,
+    event: EVENTS.spring2024,
     _addlNotes: t('eventAvailability', {
       date: t('dateEndApril'),
     }),
@@ -209,7 +209,7 @@ const premium = {
     _addlNotes: t('eventAvailability', {
       date: t('dateEndApril'),
     }),
-    event: EVENTS.spring2023,
+    event: EVENTS.spring2024,
     canBuy () {
       return moment().isBetween(EVENTS.spring2024.start, EVENTS.spring2024.end);
     },
