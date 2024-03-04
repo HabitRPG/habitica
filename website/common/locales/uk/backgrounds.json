@@ -4,7 +4,7 @@
     "backgroundShop": "Магазин фонів",
     "backgroundShopText": "Магазин тла",
     "noBackground": "Тло не вибрано",
-    "backgrounds062014": "Набір 1: червнь 2014",
+    "backgrounds062014": "Набір 1: червень 2014",
     "backgroundBeachText": "Пляж",
     "backgroundBeachNotes": "Відпочиньте на теплому пляжі.",
     "backgroundFairyRingText": "Чарівне коло",
@@ -839,5 +839,12 @@
     "backgroundFrozenBluePondText": "Замерзлий блакитний ставок",
     "backgroundFrozenBluePondNotes": "Розслабтеся біля Замерзлого блакитного ставку.",
     "backgroundIceBubbleLakeText": "Крижане бульбашкове озеро",
-    "backgroundIceBubbleLakeNotes": "Стійте обережно на крижаному бульбашковому озері."
+    "backgroundIceBubbleLakeNotes": "Стійте обережно на крижаному бульбашковому озері.",
+    "backgroundHeartTreeTunnelNotes": "Пройдіться тунелем серцевого дерева.",
+    "backgroundSwanBoatText": "Лебединий човен",
+    "backgroundColorfulStreetText": "Барвиста вулиця",
+    "backgroundColorfulStreetNotes": "Вид на барвисту вулицю.",
+    "backgrounds022024": "Набір 117: лютий 2024",
+    "backgroundHeartTreeTunnelText": "Тунель серцевого дерева",
+    "backgroundSwanBoatNotes": "Проїдьтеся лебединим човном."
 }
