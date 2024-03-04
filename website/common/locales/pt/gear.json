@@ -864,7 +864,7 @@
     "headSpecial0Notes": "Sangue e cinzas, lava e obsidiana dão aparência e poder para esse capacete. Aumenta Inteligência em <%= int %>.",
     "headSpecial1Text": "Elmo de Cristal",
     "headSpecial1Notes": "The favored crown of those who lead by example. Increases all Stats by <%= attrs %>.",
-    "headSpecial2Text": "Elmo Sem Nome",
+    "headSpecial2Text": "Elmo Inominável",
     "headSpecial2Notes": "Um testamento para aqueles que deram de si mesmos sem pedir nada em troca. Aumenta Inteligência e Força em <%= attrs %> cada.",
     "headSpecialTakeThisText": "Elmo Take This",
     "headSpecialTakeThisNotes": "This helm was earned by participating in a sponsored Challenge made by Take This. Congratulations! Increases all Stats by <%= attrs %>.",

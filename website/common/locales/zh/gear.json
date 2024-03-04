@@ -3058,5 +3058,17 @@
     "armorArmoireStripedRainbowShirtText": "条纹彩虹衬衫",
     "armorArmoireDiagonalRainbowShirtText": "斜纹彩虹衬衫",
     "armorArmoireDiagonalRainbowShirtNotes": "色彩绚丽，潇洒时尚。快乐起来！增加体质、感知各<%= attrs %>点。魔法宝箱：彩虹套装（2/2）。",
-    "armorArmoireStripedRainbowShirtNotes": "彩虹的颜色从未如此美丽。大胆一点！增加力量、智力各<%= attrs %>点。魔法宝箱：彩虹套装（1/2）。"
+    "armorArmoireStripedRainbowShirtNotes": "彩虹的颜色从未如此美丽。大胆一点！增加力量、智力各<%= attrs %>点。魔法宝箱：彩虹套装（1/2）。",
+    "weaponMystery202403Text": "幸运翡翠剑",
+    "weaponMystery202403Notes": "随身携带最大的剑无疑是为自己创造运气的一种方式！没有属性加成。2024年3月订阅者物品。",
+    "weaponArmoireHattersShearsText": "锋利的剪刀",
+    "weaponArmoireHattersShearsNotes": "直接剪开难应付的和复杂的事务。 当然，这把剪刀也能很好地裁剪布料。增加<%= str %>点力量。魔法宝箱：帽匠套装（3/4）。",
+    "armorArmoireHattersSuitText": "帽匠服装",
+    "headMystery202403Text": "幸运海蓝宝石帽",
+    "headMystery202403Notes": "你真幸运，能戴上这顶精美的镶嵌着海绿色宝石的翡翠色天鹅绒帽子。没有属性加成。2024年3月订阅者物品。",
+    "headArmoireHattersTopHatNotes": "我们向你脱帽，而你会依然戴着帽子！谁也不知道你的帽子里藏着什么（但我们希望是一只兔子）。增加<%= per %>点感知。魔法宝箱：帽匠套装（1/4）。",
+    "headArmoireHattersTopHatText": "帽匠高顶礼帽",
+    "shieldArmoireHattersPocketWatchText": "闪亮的怀表",
+    "shieldArmoireHattersPocketWatchNotes": "重要的约会不要迟到！ 经常查看你的怀表和通知。增加<%= int %>点智力。魔法宝箱：帽匠套装（4/4）。",
+    "armorArmoireHattersSuitNotes": "如果没有幸运绿领结，你的装扮就不完整。 穿上它去参加下一次疯狂的茶会吧。 或者愉快的茶会。 或者兴奋的茶会。 或者…… 增加<%= con %>点体质。魔法宝箱：帽匠套装（2/4）。"
 }
