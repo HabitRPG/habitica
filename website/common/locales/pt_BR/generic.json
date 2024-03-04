@@ -237,5 +237,6 @@
     "bannedPlayer": "Este jogador está banido.",
     "shadowMute": "Sombra muda",
     "mutePlayer": "Mudo",
-    "whyReportingPlayerPlaceholder": "Motivo da denúncia"
+    "whyReportingPlayerPlaceholder": "Motivo da denúncia",
+    "playerReportModalBody": "Você só deve reportar um jogador que viole as <%=firstLinkStart%>Diretrizes da Comunidade<%=linkEnd%> e/ou os <%=secondLinkStart%>Termos de Serviço<%=linkEnd%>. Enviar uma denúncia falsa é uma violação das Diretrizes da Comunidade do Habitica."
 }

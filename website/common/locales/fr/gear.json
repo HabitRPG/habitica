@@ -2941,7 +2941,7 @@
     "headAccessoryMystery202309Notes": "Ces antennes sont à la mode et plumées, mais vous aident aussi à naviguer ! Ne confère aucun bonus. Équipement d'Abonnement Septembre 2023.",
     "bodyArmoireKarateYellowBeltNotes": "Cette ceinture est pour les débutant·e·s ayant appris les bases. Augmente la Perception de <%= per %>. Armoire Enchantée : Ensemble Karaté (Objets 3 sur 10).",
     "bodyArmoireKarateOrangeBeltNotes": "Cette ceinture est pour ce·ux·lles qui ont grandi et acquis le niveau débutant. Augmente la Constitution de <%= con %>. Armoire Enchantée : Ensemble Karaté (Objet 4 sur 10).",
-    "bodyArmoireKarateGreenBeltNotes": "Cette ceinture est pour ce·ux·lles au niveau intermédiaire pour apprendre à améliorer leurs aptitudes. Augmente la Force de <%= for %>. Armoire Enchantée : Ensemble Karaté (Objet 5 sur 10).",
+    "bodyArmoireKarateGreenBeltNotes": "Cette ceinture est pour ce·ux·lles au niveau intermédiaire pour apprendre à améliorer leurs aptitudes. Augmente la Force de <%= str %>. Armoire Enchantée : Ensemble Karaté (Objet 5 sur 10).",
     "bodyArmoireKaratePurpleBeltNotes": "Cette ceinture est pour ce·ux·lles prêt·e·s à s'embarquer sur une étude avancée. Augmente la Constitution de <%= con %>. Armoire Enchantée : Ensemble Karaté (Objet 7 sur 10).",
     "bodyArmoireKarateRedBeltNotes": "Cette ceinture est pour ce·ux·lles qui appris à être précautionneu·x·ses dans leur pratique. Augmente la Perception de <%= per %>. Armoire Enchantée : Ensemble Karaté (Objet 8 sur 10).",
     "bodyArmoireKarateBlackBeltNotes": "Cette ceinture de haut niveau est pour ce·ux·lles qui cherchent une compréhension approfondie et transmettre leur savoir aux autres. Augmente l'Intelligence de <%= int %>. Armoire Enchantée : Ensemble Karaté (Objet 10 sur 10).",
@@ -3058,5 +3058,17 @@
     "backMystery202402Notes": "Entourez-vous d'un énergie d'amour où que vous soyez ! Ne confère aucun bonus. Équipement d'Abonnement Février 2024.",
     "shieldArmoireSoftWhitePillowNotes": "L·e·a Guerri·er·ère organisé·e emporte un oreiller pour toute sorte d'expéditions. Protégez-vous des obligations occultées... même en faisant la sieste. Augmente l'Intelligence et la Perception de <%= attrs %> chacune. Armoire Enchantée : Ensemble Vêtements d'Intérieur Blancs (Objet 3 sur 3)",
     "backMystery202401Notes": "Invoquez des doux flocons de neige ou appelez les force d'un puissant blizzard. Le choix vous revient ! Ne confère aucun bonus. Équipement d'Abonnement Janvier 2024.",
-    "shieldArmoireTrustyPencilNotes": "Vous savez ce que l'on dit : Le crayon est plus fort que l'épée-yon. Non attendez... Ça ne doit pas être ça... Augmente l'Intelligence de <%= int %>. Armoire Enchantée : Ensemble Uniforme Scolaire (Objet 4 sur 4)."
+    "shieldArmoireTrustyPencilNotes": "Vous savez ce que l'on dit : Le crayon est plus fort que l'épée-yon. Non attendez... Ça ne doit pas être ça... Augmente l'Intelligence de <%= int %>. Armoire Enchantée : Ensemble Uniforme Scolaire (Objet 4 sur 4).",
+    "weaponArmoireHattersShearsNotes": "Coupez à travers la surcharge et les complications. Ces cisailles peuvent aussi servir pour couper du tissu, évidemment. Augmente la Force de <%= str %>. Armoire Enchantée : Ensemble Chapeli·er·ère (Objet 3 sur 4).",
+    "armorArmoireHattersSuitNotes": "Votre tenue ne peut être complète sans votre nœud papillon vert porte-bonheur. Portez-la pour le prochain goû-thé fou. Ou goû-thé sympathique. Ou goû-thé excité. Ou... Augmente la Constitution de <%= con %>. Armoire Enchantée : Ensemble Chapeli·er·ère (Objet 2 sur 4).",
+    "headArmoireHattersTopHatNotes": "Nous vous tirons notre chapeau, et le votre reste sur votre tête ! Ce qui est caché dans le votre est un mystère (mais nous espérons que ce soit un lapin). Augmente la Perception de <%= per %>. Armoire Enchantée : Ensemble Chapeli·er·ère (Objet 1 sur 4).",
+    "shieldArmoireHattersPocketWatchNotes": "Ne soyez pas en retard pour ce rendez-vous important ! Vérifiez souvent votre montre à gousset et vos notifications. Augmente l'Intelligence de <%= int %>. Armoire Enchantée : Ensemble Chapeli·er·ère (Objet 4 sur 4).",
+    "weaponMystery202403Text": "Épée Émeraude de la Chance",
+    "weaponMystery202403Notes": "Portez la plus grosse épée qui soit où que vous alliez vous permettra sûrement de provoquer votre propre chance ! Ne confère aucun bonus. Équipement d'Abonnement Mars 2024.",
+    "weaponArmoireHattersShearsText": "Cisailles aiguisées",
+    "armorArmoireHattersSuitText": "Costume d·u·e la Chapeli·er·ère",
+    "headArmoireHattersTopHatText": "Haut de forme d·u·e la Chapeli·er·ère",
+    "shieldArmoireHattersPocketWatchText": "Montre à Gousset Brillante",
+    "headMystery202403Text": "Calotte Aigue-Marine de la Chance",
+    "headMystery202403Notes": "Quelle chance vous avez de pouvoir porter cette superbe calotte en velours émeraude, avec ses superbes joyaux vert d'eau. Ne confère aucun bonus. Équipement d'Abonnement Mars 2024."
 }
