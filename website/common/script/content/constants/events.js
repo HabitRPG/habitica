@@ -35,7 +35,7 @@ export const EVENTS = {
     end: '2024-02-29T08:00-05:00',
   },
   valentine2024: {
-    start: '2024-02-08T00:00-05:00',
+    start: '2024-02-12T00:00-05:00',
     end: '2024-02-16T08:00-05:00',
     season: 'valentines',
     npcImageSuffix: '_valentines',
