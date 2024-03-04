@@ -352,7 +352,7 @@ spells.special = {
     previousPurchase: true,
     target: 'user',
     notes: t('spellSpecialShinySeedNotes'),
-    event: EVENTS.spring2023,
+    event: EVENTS.spring2024,
     canOwn () {
       return moment().isBetween('2024-04-18T08:00-05:00', EVENTS.spring2024.end);
     },
