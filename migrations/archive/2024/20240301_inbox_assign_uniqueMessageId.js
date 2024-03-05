@@ -1,4 +1,4 @@
-/* eslint-disable no-console,no-await-in-loop */
+/* eslint-disable no-console,no-constant-condition,no-await-in-loop */
 import { v4 as uuid } from 'uuid';
 import groupBy from 'lodash/groupBy';
 import { model as User } from '../../../website/server/models/user';
@@ -197,8 +197,8 @@ export default async function processUsers () {
     _id: 1,
   };
 
-  while (true) { // eslint-disable-line no-constant-condition
-    const users = await User // eslint-disable-line no-await-in-loop
+  while (true) {
+    const users = await User
       .find(query)
       .limit(250)
       .sort({ _id: 1 })
@@ -212,12 +212,10 @@ export default async function processUsers () {
       break;
     } else {
       query._id = {
-        $gt: users[users.length - 1],
+        $gt: users[users.length - 1]._id,
       };
     }
 
-    for (const user of users) {
-      await updateUser(user);
-    }
+    await Promise.all(users.map(updateUser));
   }
 }
