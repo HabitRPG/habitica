@@ -38,7 +38,7 @@
       </div>
     </div>
     <div
-      v-if="quest.event && !abbreviated"
+      v-if="quest.end && !abbreviated"
       class="m-auto"
     >
       {{ limitedString }}
@@ -210,14 +210,14 @@ export default {
       return collect.text;
     },
     countdownString () {
-      if (!this.quest.event || this.purchased) return;
-      const diffDuration = moment.duration(moment(this.quest.event.end).diff(moment()));
+      if (!this.quest.end || this.purchased) return;
+      const diffDuration = moment.duration(moment(this.quest.end).diff(moment()));
 
       if (diffDuration.asSeconds() <= 0) {
         this.limitedString = this.$t('noLongerAvailable');
       } else if (diffDuration.days() > 0 || diffDuration.months() > 0) {
         this.limitedString = this.$t('limitedAvailabilityDays', {
-          days: moment(this.quest.event.end).diff(moment(), 'days'),
+          days: moment(this.quest.end).diff(moment(), 'days'),
           hours: diffDuration.hours(),
           minutes: diffDuration.minutes(),
         });

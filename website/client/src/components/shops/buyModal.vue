@@ -181,7 +181,7 @@
       </div>
     </div>
     <countdown-banner
-      v-if="item.event && item.owned == null"
+      v-if="item.end && item.owned == null"
       :end-date="endDate"
       class="limitedTime available"
     />
@@ -741,7 +741,7 @@ export default {
       return (!this.user.purchased.plan.customerId && !this.user.purchased.plan.consecutive.trinkets && this.getPriceClass() === 'hourglasses');
     },
     endDate () {
-      return moment(this.item.event.end);
+      return moment(this.item.end);
     },
     totalOwned () {
       return this.user.items[this.item.purchaseType][this.item.key] || 0;

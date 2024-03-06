@@ -65,7 +65,7 @@ describe('shared.ops.purchase', () => {
       }
     });
 
-    it.only('returns error when unknown item is requested', async () => {
+    it('returns error when unknown item is requested', async () => {
       try {
         await purchase(user, { params: { type: 'gear', key: 'randomKey' } });
       } catch (err) {

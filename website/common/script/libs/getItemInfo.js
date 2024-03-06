@@ -56,7 +56,7 @@ function getDefaultGearProps (item, language) {
   };
 }
 
-export default function getItemInfo (user, type, item, officialPinnedItems, language = 'en') {
+export default function getItemInfo (user, type, item, officialPinnedItems, language = 'en', matcher = null) {
   if (officialPinnedItems === undefined) {
     officialPinnedItems = getOfficialPinnedItems(user); // eslint-disable-line no-param-reassign
   }
@@ -476,6 +476,11 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
     itemInfo.pinned = isPinned(user, itemInfo, officialPinnedItems);
   } else {
     throw new BadRequest(i18n.t('wrongItemType', { type }, language));
+  }
+
+  if (matcher) {
+    itemInfo.end = matcher.getEndDate();
+    console.log(itemInfo);
   }
 
   return itemInfo;

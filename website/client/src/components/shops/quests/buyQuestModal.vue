@@ -470,7 +470,7 @@ export default {
       return this.icons.gems;
     },
     endDate () {
-      return moment(this.item.event.end);
+      return moment(this.item.end);
     },
   },
   watch: {

@@ -18,7 +18,7 @@
           :emptyItem="emptyItem"
         ></slot>
         <span
-          v-if="item.event && item.owned == null && showEventBadge"
+          v-if="item.end && item.owned == null && showEventBadge"
           class="badge badge-round badge-item badge-clock"
         >
           <span
@@ -114,7 +114,7 @@
           </div>
         </div>
         <div
-          v-if="item.event && item.purchaseType !== 'quests'"
+          v-if="item.end && item.purchaseType !== 'quests'"
           :class="item.purchaseType === 'gear' ? 'mt-4' : 'mt-2'"
         >
           {{ limitedString }}
@@ -370,14 +370,14 @@ export default {
       };
     },
     countdownString () {
-      if (!this.item.event) return;
-      const diffDuration = moment.duration(moment(this.item.event.end).diff(moment()));
+      if (!this.item.end) return;
+      const diffDuration = moment.duration(moment(this.item.end).diff(moment()));
 
       if (diffDuration.asSeconds() <= 0) {
         this.limitedString = this.$t('noLongerAvailable');
       } else if (diffDuration.days() > 0 || diffDuration.months() > 0) {
         this.limitedString = this.$t('limitedAvailabilityDays', {
-          days: moment(this.item.event.end).diff(moment(), 'days'),
+          days: moment(this.item.end).diff(moment(), 'days'),
           hours: diffDuration.hours(),
           minutes: diffDuration.minutes(),
         });

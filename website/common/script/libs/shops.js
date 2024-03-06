@@ -75,7 +75,7 @@ shops.getMarketCategories = function getMarket (user, language) {
   premiumHatchingPotionsCategory.items = sortBy(values(content.hatchingPotions)
     .filter(hp => hp.limited
         && matchers.match(hp.key))
-    .map(premiumHatchingPotion => getItemInfo(user, 'premiumHatchingPotion', premiumHatchingPotion, officialPinnedItems, language)), 'key');
+    .map(premiumHatchingPotion => getItemInfo(user, 'premiumHatchingPotion', premiumHatchingPotion, officialPinnedItems, language, matchers)), 'key');
   if (premiumHatchingPotionsCategory.items.length > 0) {
     categories.push(premiumHatchingPotionsCategory);
   }
@@ -277,7 +277,7 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
   bundleCategory.items = sortBy(values(content.bundles)
     .filter(bundle => bundle.type === 'quests'
       && bundleMatchers.match(bundle.key))
-    .map(bundle => getItemInfo(user, 'bundles', bundle, officialPinnedItems, language)));
+    .map(bundle => getItemInfo(user, 'bundles', bundle, officialPinnedItems, language, bundleMatchers)));
 
   if (bundleCategory.items.length > 0) {
     categories.push(bundleCategory);
@@ -489,13 +489,12 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
 
     category.items = map(
       spells,
-      spell => getItemInfo(user, 'seasonalSpell', spell, officialPinnedItems, language),
+      spell => getItemInfo(user, 'seasonalSpell', spell, officialPinnedItems, language, spellMatcher),
     );
 
     categories.push(category);
   }
 
-  console.log(questMatcher);
   const quests = pickBy(content.quests, (quest, key) => questMatcher.match(key));
 
   if (keys(quests).length > 0) {
@@ -504,7 +503,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
       text: i18n.t('quests', language),
     };
 
-    category.items = map(quests, quest => getItemInfo(user, 'seasonalQuest', quest, officialPinnedItems, language));
+    category.items = map(quests, quest => getItemInfo(user, 'seasonalQuest', quest, officialPinnedItems, language, questMatcher));
 
     categories.push(category);
   }
@@ -541,7 +540,7 @@ shops.getBackgroundShopSets = function getBackgroundShopSets (language) {
         text: i18n.t(key, language),
       };
 
-      set.items = map(group, background => getItemInfo(null, 'background', background, officialPinnedItems, language));
+      set.items = map(group, background => getItemInfo(null, 'background', background, officialPinnedItems, language, matchers));
 
       sets.push(set);
     }

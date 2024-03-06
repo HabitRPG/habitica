@@ -800,6 +800,29 @@ export function assembleScheduledMatchers (date) {
 
 let cachedScheduleMatchers = null;
 
+function makeMatcherClass () {
+  return {
+    matchers: [],
+    items: [],
+    match (key) {
+      if (this.matchers.length === 0) {
+        if (this.items.length > 0) {
+          return inListMatcher(this.items)(key);
+        }
+      } else {
+        if (this.items.length > 0 && !inListMatcher(this.items)(key)) {
+          return false;
+        }
+        return this.matchers.every(m => m(key));
+      }
+      return false;
+    },
+    getEndDate () {
+      return new Date();
+    },
+  };
+}
+
 export function getScheduleMatchingGroup (type, date) {
   const checkedDate = date || new Date();
   if (cacheDate !== null && (getDay(checkedDate) !== getDay(cacheDate)
@@ -812,23 +835,7 @@ export function getScheduleMatchingGroup (type, date) {
     const scheduleMatchers = {};
     assembleScheduledMatchers(checkedDate).forEach(matcher => {
       if (!scheduleMatchers[matcher.type]) {
-        scheduleMatchers[matcher.type] = {
-          matchers: [],
-          items: [],
-          match (key) {
-            if (this.matchers.length === 0) {
-              if (this.items.length > 0) {
-                return inListMatcher(this.items)(key);
-              }
-            } else {
-              if (this.items.length > 0 && !inListMatcher(this.items)(key)) {
-                return false;
-              }
-              return this.matchers.every(m => m(key));
-            }
-            return false;
-          },
-        };
+        scheduleMatchers[matcher.type] = makeMatcherClass();
       }
       if (matcher.matcher instanceof Function) {
         cachedScheduleMatchers[matcher.type].matchers.push(matcher.matcher);
