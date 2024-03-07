@@ -3011,6 +3011,8 @@ const shield = {
   },
   spring2024Rogue: {
     set: 'spring2024MeltingSnowRogueSet',
+    text: t('shieldSpecialSpring2024RogueText'),
+    notes: t('shieldSpecialSpring2024RogueNotes', { str: 8 }),
   },
 };
 
