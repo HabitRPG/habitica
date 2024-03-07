@@ -43,17 +43,16 @@
           :hide-class-badge="true"
           @click.native="showMemberModal(msg.uuid)"
         />
-        <div
-          class="card"
-          :class="{'card-right': user._id !== msg.uuid, 'card-left': user._id === msg.uuid}"
-        >
-          <message-card
-            :msg="msg"
-            @message-removed="messageRemoved"
-            @show-member-modal="showMemberModal"
-            @message-card-mounted="itemWasMounted"
-          />
-        </div>
+        <message-card
+          :msg="msg"
+          :user-sent-message="user._id === msg.uuid"
+          :group-id="'privateMessage'"
+          :private-message-mode="true"
+          @message-liked="messageLiked"
+          @message-removed="messageRemoved"
+          @show-member-modal="showMemberModal"
+          @message-card-mounted="itemWasMounted"
+        />
         <avatar
           v-if="user && user._id === msg.uuid"
           class="avatar-right"
@@ -91,6 +90,7 @@
     margin-bottom: 1rem;
     padding: 0rem;
     width: 684px;
+
   }
   .message-row {
     margin-left: 12px;
@@ -113,14 +113,6 @@
       margin-left: -15px;
       margin-right: -30px;
     }
-  }
-
-  .card-left {
-    border: 1px solid $purple-500;
-  }
-
-  .card-right {
-    border: 1px solid $gray-500;
   }
 
   .hr {
@@ -280,6 +272,9 @@ export default {
         // container.style.overflowY = 'scroll';
       }
     }, 50),
+    messageLiked (message) {
+      this.$emit('message-liked', message);
+    },
     messageRemoved (message) {
       this.$emit('message-removed', message);
     },
