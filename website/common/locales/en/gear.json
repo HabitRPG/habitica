@@ -538,6 +538,8 @@
   "weaponMystery202306Notes": "Shine proud and bring a shimmering prism of color wherever you go! Confers no benefit. June 2023 Subscriber Item.",  
   "weaponMystery202311Text": "All-Seeing Staff",
   "weaponMystery202311Notes": "See beyond the bounds of space and time! Confers no benefit. November 2023 Subscriber Item.",
+  "weaponMystery202403Text": "Lucky Emerald Sword",
+  "weaponMystery202403Notes": "Carrying the biggest sword around is surely a way to create your own luck! Confers no benefit. March 2024 Subscriber Item.",
 
   "weaponMystery301404Text": "Steampunk Cane",
   "weaponMystery301404Notes": "Excellent for taking a turn about town. March 3015 Subscriber Item. Confers no benefit.",
@@ -738,6 +740,8 @@
   "weaponArmoireRollingPinNotes": "Roll your dough as thin as you like in-between bonking bad habits when they pop up around you like a certain rodent-bopping game. Increases Strength by <%= str %>. Enchanted Armoire: Cooking Implements Set 2 (Item 2 of 2).",
   "weaponArmoireScholarlyTextbooksText": "Scholarly Textbooks",
   "weaponArmoireScholarlyTextbooksNotes": "Here’s your chance to dive deep and learn about any topic that interests you. What’s your current hyperfixation? Increases Intelligence by <%= int %>. Enchanted Armoire: School Uniform Set (Item 3 of 4).",
+  "weaponArmoireHattersShearsText": "Sharp Shears",
+  "weaponArmoireHattersShearsNotes": "Cut right through overwhelm and complications. These shears do a great job cutting fabric, as well, of course. Increases Strength by <%= str %>. Enchanted Armoire: Hatter Set (Item 3 of 4).",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -1554,6 +1558,8 @@
   "armorArmoireSchoolUniformPantsNotes": "Whether you’re attending a school for magical wizards, dragon riders, sportsball players, creative artisans, or members of a profession too secret to list here, you’ll fit right in with this uniform. Increases Intelligence by <%= int %>. Enchanted Armoire: School Uniform Set (Item 2 of 4).",
   "armorArmoireSoftWhiteSuitText": "Soft White Suit",
   "armorArmoireSoftWhiteSuitNotes": "White is a peaceful color. Whether you’re facing a crisp white bedsheet or a blanket of newly fallen snow, you’ll have a clear and ready mind. Increases Constitution by <% con %> and Perception by <%= per %>. Enchanted Armoire: White Loungewear Set (Item 2 of 3).", 
+  "armorArmoireHattersSuitText": "Hatter's Suit",
+  "armorArmoireHattersSuitNotes": "Your outfit isn’t complete without your lucky green bowtie. Wear this to your next mad tea party. Or pleasant tea party. Or excited tea party. Or... Increases Constitution by <%= con %>. Enchanted Armoire: Hatter Set (Item 2 of 4).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -2192,7 +2198,9 @@
   "headMystery202312Text": "Wintry Blue Hair",
   "headMystery202312Notes": "This fancy hairdo evokes the snowy colors of the season. Confers no benefit. December 2023 Subscriber Item.",
   "headMystery202402Text": "Paradise Pink Hair",
-  "headMystery202402Notes": "This pretty pink mane is the perfect accessory for February and beyond. Confers no benefit. February 2024 Subscriber Item.",  
+  "headMystery202402Notes": "This pretty pink mane is the perfect accessory for February and beyond. Confers no benefit. February 2024 Subscriber Item.",
+  "headMystery202403Text": "Lucky Aquamarine Cap",
+  "headMystery202403Notes": "Lucky you, to be able to don this fine cap of emerald velvet with its fine sea-green gem. Confers no benefit. March 2024 Subscriber Item.",
 
   "headMystery301404Text": "Fancy Top Hat",
   "headMystery301404Notes": "A fancy top hat for the finest of gentlefolk! January 3015 Subscriber Item. Confers no benefit.",
@@ -2384,7 +2392,9 @@
   "headArmoireGreenTrapperHatText": "Green Trapper Hat",
   "headArmoireGreenTrapperHatNotes": "Everyone says your hat looks so warm! And it really is. Just be sure to lift the flaps off your ears when they’re talking to you, or everyone will sound more like “yrrr hah ooks ss wrrm!” Increases Constitution and Perception by <%= attrs %> each. Enchanted Armoire: Trapper Hat Set (Item 1 of 2).",
   "headArmoireWhiteFloppyHatText": "White Floppy Hat",
-  "headArmoireWhiteFloppyHatNotes": "Many spells have been sewn into this simple hat, giving it a wondrous white color. Increases Strength, Intelligence, and Constitution by <%= attrs %> each. Enchanted Armoire: White Loungewear Set (Item 1 of 3).",  
+  "headArmoireWhiteFloppyHatNotes": "Many spells have been sewn into this simple hat, giving it a wondrous white color. Increases Strength, Intelligence, and Constitution by <%= attrs %> each. Enchanted Armoire: White Loungewear Set (Item 1 of 3).",
+  "headArmoireHattersTopHatText": "Hatter's Top Hat",
+  "headArmoireHattersTopHatNotes": "Our hats are off to you, and yours is on! What’s hidden in your hat is anybody’s guess (but we’re hoping it’s a bunny). Increases Perception by <%= per %>. Enchanted Armoire: Hatter Set (Item 1 of 4).",
 
   "offhand": "off-hand item",
   "offHandCapitalized": "Off-Hand Item",
@@ -2827,6 +2837,8 @@
   "shieldArmoireTrustyPencilNotes": "You know what they say: the pencil is mightier than the sword-cil. Wait... that doesn’t sound quite right... Increases Intelligence by <%= int %>. Enchanted Armoire: School Uniform Set (Item 4 of 4).",
   "shieldArmoireSoftWhitePillowText": "Soft White Pillow",
   "shieldArmoireSoftWhitePillowNotes": "The organized warrior packs a pillow for any expedition. Protect yourself from overlooked obligations… even while you nap. Increases Intelligence and Perception by <%= attrs %> each. Enchanted Armoire: White Loungewear Set (Item 3 of 3)",
+  "shieldArmoireHattersPocketWatchText": "Shiny Pocketwatch",
+  "shieldArmoireHattersPocketWatchNotes": "Don’t be late for a very important date! Check your pocketwatch and your notifications often. Increases Intelligence by <%= int %>. Enchanted Armoire: Hatter Set (Item 4 of 4).",
 
   "back": "Back Accessory",
   "backBase0Text": "No Back Accessory",

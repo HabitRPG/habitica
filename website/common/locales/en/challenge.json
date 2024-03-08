@@ -98,6 +98,7 @@
   "yourReward": "Your Reward",
   "wonChallengeDesc": "<%= challengeName %> selected you as the winner! Your win has been recorded in your Achievements.",
   "messageChallengeFlagAlreadyReported": "You have already reported this Challenge.",
+  "messageChallengeFlagOfficial": "Official Challenges can not be reported.",
   "flaggedNotHidden": "Challenge flagged once, not hidden",
   "flaggedAndHidden": "Challenge flagged and hidden",
   "resetFlagCount": "Reset Flag Count",
