@@ -1,4 +1,4 @@
-import sleep from './sleep';
+import { sleep } from './sleep';
 import revive from './revive';
 import reset from './reset';
 import reroll from './reroll';

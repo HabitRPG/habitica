@@ -11,7 +11,7 @@ import {
   NotAuthorized,
   NotFound,
 } from '../libs/errors';
-import errorMessage from '../libs/errorMessage';
+import { errorMessage } from '../libs/errorMessage';
 import { checkOnboardingStatus } from '../libs/onboarding';
 
 export default function hatch (user, req = {}, analytics) {

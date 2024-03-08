@@ -8,7 +8,7 @@ import common from '../../common';
 const commonErrors = common.errorMessages.common;
 const apiErrors = common.errorMessages.api;
 
-export default function apiError (msgKey, vars = {}) {
+function apiError (msgKey, vars = {}) {
   let message = apiErrors[msgKey];
   if (!message) message = commonErrors[msgKey];
   if (!message) throw new Error(`Error processing the API message "${msgKey}".`);
@@ -18,3 +18,7 @@ export default function apiError (msgKey, vars = {}) {
   // TODO cache the result of template() ? More memory usage, faster output
   return _.template(message)(clonedVars);
 }
+
+export {
+  apiError,
+};

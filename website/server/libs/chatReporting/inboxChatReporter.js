@@ -6,7 +6,7 @@ import {
 } from '../errors';
 import { getUserInfo } from '../email';
 import * as slack from '../slack';
-import apiError from '../apiError';
+import { apiError } from '../apiError';
 
 import * as inboxLib from '../inbox';
 import { getAuthorEmailFromMessage } from '../chat';

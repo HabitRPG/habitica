@@ -6,7 +6,7 @@ import {
   generateNext,
 } from '../../../helpers/api-unit.helper';
 import { Forbidden } from '../../../../website/server/libs/errors';
-import apiError from '../../../../website/server/libs/apiError';
+import { apiError } from '../../../../website/server/libs/apiError';
 
 function checkErrorThrown (next) {
   expect(next).to.have.been.calledOnce;

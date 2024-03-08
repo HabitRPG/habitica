@@ -26,7 +26,7 @@ import common from '../../../common';
 import payments from '../../libs/payments/payments';
 import stripePayments from '../../libs/payments/stripe';
 import amzLib from '../../libs/payments/amazon';
-import apiError from '../../libs/apiError';
+import { apiError } from '../../libs/apiError';
 import { model as UserNotification } from '../../models/userNotification';
 
 const { MAX_SUMMARY_SIZE_FOR_GUILDS } = common.constants;

@@ -6,7 +6,7 @@ import {
   NotFound,
   BadRequest,
 } from '../libs/errors';
-import errorMessage from '../libs/errorMessage';
+import { errorMessage } from '../libs/errorMessage';
 
 export default function equip (user, req = {}) {
   // Being type a parameter followed by another parameter

@@ -27,7 +27,7 @@ import {
   requiredGroupFields,
 } from '../../libs/tasks/utils';
 import common from '../../../common';
-import apiError from '../../libs/apiError';
+import { apiError } from '../../libs/apiError';
 
 /**
  * @apiDefine TaskNotFound

@@ -18,6 +18,7 @@ import domainMiddleware from './domain';
 // import favicon from 'serve-favicon';
 // import path from 'path';
 import maintenanceMode from './maintenanceMode';
+import { ENABLE_CLUSTER } from '../libs/config';
 import {
   forceSSL,
   forceHabitica,
@@ -42,7 +43,9 @@ const TEN_YEARS = 1000 * 60 * 60 * 24 * 365 * 10;
 export default function attachMiddlewares (app, server) {
   setupExpress(app);
 
-  app.use(domainMiddleware(server, mongoose));
+  if (ENABLE_CLUSTER) {
+    app.use(domainMiddleware(server, mongoose));
+  }
 
   if (!IS_PROD && !DISABLE_LOGGING) app.use(morgan('dev'));
 

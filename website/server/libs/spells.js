@@ -10,7 +10,7 @@ import common from '../../common';
 import {
   model as Group,
 } from '../models/group';
-import apiError from './apiError';
+import { apiError } from './apiError';
 
 const partyMembersFields = 'profile.name stats achievements items.special pinnedItems notifications flags';
 // Excluding notifications and flags from the list of public fields to return.

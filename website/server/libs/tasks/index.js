@@ -14,7 +14,7 @@ import { model as Challenge } from '../../models/challenge';
 import { model as Group } from '../../models/group';
 import { model as User } from '../../models/user';
 import * as Tasks from '../../models/task';
-import apiError from '../apiError';
+import { apiError } from '../apiError';
 import {
   BadRequest,
   NotFound,

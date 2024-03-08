@@ -3,7 +3,7 @@ import {
 } from '../../../../../helpers/api-integration/v3';
 import paypalPayments from '../../../../../../website/server/libs/payments/paypal';
 import shared from '../../../../../../website/common';
-import apiError from '../../../../../../website/server/libs/apiError';
+import { apiError } from '../../../../../../website/server/libs/apiError';
 
 describe('payments : paypal #subscribe', () => {
   const endpoint = '/paypal/subscribe';

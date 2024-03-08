@@ -7,7 +7,7 @@ import encodeParams from '@/libs/encodeParams';
 import notificationsMixin from '@/mixins/notifications';
 import { CONSTANTS, setLocalSetting } from '@/libs/userlocalManager';
 
-const { STRIPE_PUB_KEY } = process.env;
+const STRIPE_PUB_KEY = process.env.STRIPE_PUB_KEY;
 
 let stripeInstance = null;
 

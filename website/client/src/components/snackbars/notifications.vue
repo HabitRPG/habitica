@@ -44,14 +44,6 @@
     transition: transform 0.25s ease-in, opacity 0.25s ease-in;
   }
 
-  .notifications-move {
-    // transition: transform .5s;
-  }
-
-  .notifications-enter-active {
-    // transition: opacity .5s;
-  }
-
   .notifications-leave-active {
     position: absolute;
     right: 0;
@@ -300,11 +292,6 @@ export default {
       }
     },
     triggerRemovalTimerIfAllowed () {
-      // this is only for storybook
-      if (this.preventQueue) {
-        return;
-      }
-
       if (this.notificationStore.length !== 0) {
         this.startNotificationRemovalTimer();
       }

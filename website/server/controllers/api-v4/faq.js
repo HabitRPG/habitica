@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { langCodes } from '../../libs/i18n';
-import apiError from '../../libs/apiError';
+import { apiError } from '../../libs/apiError';
 import common from '../../../common';
 import { localizeContentData } from '../../libs/content';
 

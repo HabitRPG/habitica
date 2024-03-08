@@ -3,7 +3,7 @@ import {
   generateUser,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
-import apiError from '../../../../../website/server/libs/apiError';
+import { apiError } from '../../../../../website/server/libs/apiError';
 
 describe('POST /user/webhook', () => {
   let user; let

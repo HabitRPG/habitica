@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { authWithHeaders } from '../../middlewares/auth';
-import apiError from '../../libs/apiError';
+import { apiError } from '../../libs/apiError';
 import { model as NewsPost } from '../../models/newsPost';
 import { ensurePermission } from '../../middlewares/ensureAccessRight';
 import {

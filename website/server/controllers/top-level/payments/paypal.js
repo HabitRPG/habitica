@@ -9,7 +9,7 @@ import {
 import {
   BadRequest,
 } from '../../../libs/errors';
-import apiError from '../../../libs/apiError';
+import { apiError } from '../../../libs/apiError';
 
 const api = {};
 

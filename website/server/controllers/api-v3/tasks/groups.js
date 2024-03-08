@@ -18,7 +18,7 @@ import {
 import {
   moveTask,
 } from '../../../libs/tasks/utils';
-import apiError from '../../../libs/apiError';
+import { apiError } from '../../../libs/apiError';
 
 const requiredGroupFields = '_id leader tasksOrder name';
 // @TODO: abstract to task lib

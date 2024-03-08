@@ -1,5 +1,5 @@
 import { v4 as generateUUID } from 'uuid';
-import apiError from '../../../../../website/server/libs/apiError';
+import { apiError } from '../../../../../website/server/libs/apiError';
 import {
   generateUser,
   sleep,
