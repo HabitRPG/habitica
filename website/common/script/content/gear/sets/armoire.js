@@ -466,6 +466,11 @@ const armor = {
     con: 9,
     set: 'hatterSet',
   },
+  smileyFaceShirt: {
+    int: 4,
+    per: 4,
+    set: 'optimistSet',
+  },
 };
 
 const body = {
@@ -544,6 +549,10 @@ const eyewear = {
   jewelersEyeLoupe: {
     per: 10,
     set: 'jewelers',
+  },
+  roseColoredGlasses: {
+    per: 8,
+    set: 'optimistSet',
   },
 };
 
@@ -1303,6 +1312,13 @@ const shield = {
     int: 9,
     set: 'hatterSet',
   },
+  happyThoughts: {
+    int: 4,
+    per: 4,
+    con: 4,
+    str: 4,
+    set: 'optimistSet',
+  },
 };
 
 const headAccessory = {
@@ -1776,6 +1792,11 @@ const weapon = {
     str: 10,
     set: 'hatterSet',
   },
+  optimistsClover: {
+    str: 4,
+    con: 4,
+    set: 'optimistSet',
+  },
 };
 
 const releaseDates = {
@@ -1785,6 +1806,7 @@ const releaseDates = {
   schoolUniform: '2024-01-04T08:00-05:00',
   whiteLoungeWear: '2024-02-06T08:00-05:00',
   hatterSet: '2024-03-05T08:00-05:00',
+  optimistSet: '2024-04-04T00:00-04:00',
 };
 
 forEach({
