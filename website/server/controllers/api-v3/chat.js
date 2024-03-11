@@ -17,7 +17,10 @@ import { removeFromArray } from '../../libs/collectionManipulators';
 import { getUserInfo } from '../../libs/email';
 import * as slack from '../../libs/slack';
 import { chatReporterFactory } from '../../libs/chatReporting/chatReporterFactory';
-import apiError from '../../libs/apiError';
+import bannedWords from '../../libs/bannedWords';
+import { getMatchesByWordArray } from '../../libs/stringUtils';
+import bannedSlurs from '../../libs/bannedSlurs';
+import { apiError } from '../../libs/apiError';
 import highlightMentions from '../../libs/highlightMentions';
 import { getAnalyticsServiceByEnvironment } from '../../libs/analyticsService';
 
@@ -46,6 +49,11 @@ const ACCOUNT_MIN_CHAT_AGE = Number(nconf.get('ACCOUNT_MIN_CHAT_AGE'));
  */
 
 const api = {};
+
+function textContainsBannedSlur (message) {
+  const bannedSlursMatched = getMatchesByWordArray(message, bannedSlurs);
+  return bannedSlursMatched.length > 0;
+}
 
 /**
  * @api {get} /api/v3/groups/:groupId/chat Get chat messages from a group
@@ -81,6 +89,10 @@ api.getChat = {
     res.respond(200, groupChat.chat);
   },
 };
+
+function getBannedWordsFromText (message) {
+  return getMatchesByWordArray(message, bannedWords);
+}
 
 /**
  * @api {post} /api/v3/groups/:groupId/chat Post chat message to a group
@@ -123,6 +135,39 @@ api.postChat = {
 
     if (group.type !== 'party' && !isUpgraded) {
       throw new BadRequest(res.t('featureRetired'));
+    }
+
+    // Check message for banned slurs
+    if (group && group.privacy !== 'private' && textContainsBannedSlur(req.body.message)) {
+      const { message } = req.body;
+      user.flags.chatRevoked = true;
+      await user.save();
+
+      // Email the mods
+      const authorEmail = getUserInfo(user, ['email']).email;
+
+      // Slack the mods
+      slack.sendSlurNotification({
+        authorEmail,
+        author: user,
+        group,
+        message,
+      });
+
+      throw new BadRequest(res.t('bannedSlurUsed'));
+    }
+
+    if (group.privacy === 'public' && user.flags.chatRevoked) {
+      throw new NotAuthorized(res.t('chatPrivilegesRevoked'));
+    }
+
+    // prevent banned words being posted, except in private guilds/parties
+    // and in certain public guilds with specific topics
+    if (group.privacy === 'public' && !group.bannedWordsAllowed) {
+      const matchedBadWords = getBannedWordsFromText(req.body.message);
+      if (matchedBadWords.length > 0) {
+        throw new BadRequest(res.t('bannedWordUsed', { swearWordsUsed: matchedBadWords.join(', ') }));
+      }
     }
 
     const chatRes = await Group.toJSONCleanChat(group, user);

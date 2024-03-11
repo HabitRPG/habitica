@@ -7,7 +7,7 @@ import {
 import content from '../../content/index';
 
 import { AbstractGoldItemOperation } from './abstractBuyOperation';
-import errorMessage from '../../libs/errorMessage';
+import { errorMessage } from '../../libs/errorMessage';
 
 export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation { // eslint-disable-line import/prefer-default-export, max-len
   multiplePurchaseAllowed () { // eslint-disable-line class-methods-use-this

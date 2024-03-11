@@ -85,7 +85,7 @@ import reset from './ops/reset';
 import revive from './ops/revive';
 import scoreTask from './ops/scoreTask';
 import sell from './ops/sell';
-import sleep from './ops/sleep';
+import { sleep } from './ops/sleep';
 import allocate from './ops/stats/allocate';
 import allocateBulk from './ops/stats/allocateBulk';
 import allocateNow from './ops/stats/allocateNow';

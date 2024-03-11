@@ -17,7 +17,7 @@ import {
 } from '../../libs/email';
 import common from '../../../common';
 import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
-import apiError from '../../libs/apiError';
+import { apiError } from '../../libs/apiError';
 import { questActivityWebhook } from '../../libs/webhook';
 
 const analytics = getAnalyticsServiceByEnvironment();
