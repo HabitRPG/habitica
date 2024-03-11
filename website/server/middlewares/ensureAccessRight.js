@@ -1,7 +1,7 @@
 import {
   NotAuthorized,
 } from '../libs/errors';
-import apiError from '../libs/apiError';
+import { apiError } from '../libs/apiError';
 
 export function ensurePermission (permission) {
   return function ensurePermissionHandler (req, res, next) {

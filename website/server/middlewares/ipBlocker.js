@@ -2,7 +2,7 @@ import nconf from 'nconf';
 import {
   Forbidden,
 } from '../libs/errors';
-import apiError from '../libs/apiError';
+import { apiError } from '../libs/apiError';
 
 // Middleware to block unwanted IP addresses
 

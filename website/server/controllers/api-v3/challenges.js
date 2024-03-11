@@ -33,7 +33,7 @@ import {
   cleanUpTask,
   createChallengeQuery,
 } from '../../libs/challenges';
-import apiError from '../../libs/apiError';
+import { apiError } from '../../libs/apiError';
 import common from '../../../common';
 import {
   clearFlags,

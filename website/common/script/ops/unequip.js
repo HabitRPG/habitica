@@ -4,7 +4,7 @@ import i18n from '../i18n';
 import {
   BadRequest,
 } from '../libs/errors';
-import errorMessage from '../libs/errorMessage';
+import { errorMessage } from '../libs/errorMessage';
 
 export const UNEQUIP_PET_MOUNT = 'pet';
 export const UNEQUIP_BACKGROUND = 'background';

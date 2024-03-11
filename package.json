@@ -78,8 +78,8 @@
   },
   "private": true,
   "engines": {
-    "node": "^14",
-    "npm": "^6"
+    "node": "20",
+    "npm": "^10"
   },
   "scripts": {
     "lint": "eslint --ext .js --fix . && cd website/client && npm run lint",
@@ -123,6 +123,5 @@
     "sinon": "^15.2.0",
     "sinon-chai": "^3.7.0",
     "sinon-stub-promise": "^4.0.0"
-  },
-  "optionalDependencies": {}
+  }
 }

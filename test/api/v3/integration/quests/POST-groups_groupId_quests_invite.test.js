@@ -7,7 +7,7 @@ import {
 } from '../../../../helpers/api-integration/v3';
 import { quests as questScrolls } from '../../../../../website/common/script/content/quests';
 import { chatModel as Chat } from '../../../../../website/server/models/message';
-import apiError from '../../../../../website/server/libs/apiError';
+import { apiError } from '../../../../../website/server/libs/apiError';
 
 describe('POST /groups/:groupId/quests/invite/:questKey', () => {
   let questingGroup;
