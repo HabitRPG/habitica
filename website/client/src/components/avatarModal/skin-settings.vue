@@ -36,7 +36,7 @@ import appearance from '@/../../common/script/content/appearance';
 import appearanceSets from '@/../../common/script/content/appearance/sets';
 import { subPageMixin } from '../../mixins/subPage';
 import { userStateMixin } from '../../mixins/userState';
-import { avatarEditorUtilies } from '../../mixins/avatarEditUtilities';
+import { avatarEditorUtilities } from '../../mixins/avatarEditUtilities';
 import subMenu from './sub-menu';
 import customizeOptions from './customize-options';
 import gem from '@/assets/svg/gem.svg';
@@ -56,7 +56,7 @@ export default {
   mixins: [
     subPageMixin,
     userStateMixin,
-    avatarEditorUtilies,
+    avatarEditorUtilities,
   ],
   props: [
     'editing',

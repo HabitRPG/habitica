@@ -38,7 +38,6 @@
       <div class="p-4">
         <h1
           v-once
-          class="mb-4"
         >
           {{ $t('customizations') }}
         </h1>
@@ -46,7 +45,7 @@
           v-for="category in categories"
           :key="category.identifier"
         >
-          <h2 class="mb-3">
+          <h2 class="mb-3 mt-4">
             {{ category.text }}
           </h2>
           <item-rows
@@ -67,6 +66,7 @@
                 :price-type="ctx.item.currency"
                 :empty-item="false"
                 :show-popover="Boolean(ctx.item.text)"
+                @click="selectItem(ctx.item)"
               />
             </template>
           </item-rows>
@@ -189,6 +189,9 @@ export default {
       const { category, searchBy } = options;
       return category.items.filter(item => !searchBy
         || item.text.toLowerCase().includes(searchBy));
+    },
+    selectItem (item) {
+      this.$root.$emit('buyModal::showItem', item);
     },
   },
 };

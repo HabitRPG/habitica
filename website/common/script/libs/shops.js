@@ -549,7 +549,7 @@ shops.getCustomizationsShopCategories = function getCustomizationsShopCategories
   const officialPinnedItems = getOfficialPinnedItems();
 
   const backgroundsCategory = {
-    identifier: 'backgrounds',
+    identifier: 'background',
     text: i18n.t('backgrounds', language),
   };
   backgroundsCategory.items = values(content.backgroundsFlat)

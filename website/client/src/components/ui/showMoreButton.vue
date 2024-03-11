@@ -1,6 +1,6 @@
 <template>
   <button
-    class="btn btn-flat btn-show-more mb-4"
+    class="btn btn-flat btn-show-more mt-2"
     @click="$emit('click')"
   >
     <span class="button-text">

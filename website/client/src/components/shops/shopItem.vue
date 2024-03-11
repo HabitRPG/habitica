@@ -193,6 +193,7 @@
     font-size: 12px;
     font-weight: bold;
     line-height: 1.33;
+    margin-bottom: 1px;
 
     &.gems {
       color: $green-1;
@@ -367,6 +368,7 @@ export default {
       this.$emit('click', {});
     },
     blur () {
+      if (!this.$refs?.popover) return;
       this.$refs.popover.$emit('enable');
     },
     getPrice () {

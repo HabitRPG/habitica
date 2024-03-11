@@ -89,19 +89,19 @@
           v-if="item.value > 0 && !(item.key === 'gem' && gemsLeft < 1)"
           class="purchase-amount"
         >
-          <!-- this is where the pretty item cost element lives -->
-          <div class="item-cost">
+          <div class="item-cost justify-content-center my-3">
             <span
-              class="cost"
+              class="cost d-flex mx-auto"
               :class="getPriceClass()"
             >
               <span
-                class="svg-icon inline icon-24"
+                class="svg-icon icon-24 my-auto mr-1"
                 aria-hidden="true"
                 v-html="icons[getPriceClass()]"
               >
               </span>
               <span
+                class="my-auto"
                 :class="getPriceClass()"
               >{{ item.value }}</span>
             </span>
@@ -452,14 +452,11 @@
     }
 
     .item-cost {
-      display: inline-flex;
-      margin: 16px 0;
-      align-items: center;
       height: 40px;
     }
 
     .cost {
-      display: inline-block;
+      width: fit-content;
       font-family: sans-serif;
       font-size: 1.25rem;
       font-weight: bold;
@@ -470,19 +467,16 @@
       &.gems {
         color: $green-10;
         background-color: rgba(36, 204, 143, 0.15);
-        align-items: center;
       }
 
       &.gold {
         color: $yellow-5;
         background-color: rgba(255, 190, 93, 0.15);
-        align-items: center;
       }
 
       &.hourglasses {
         color: $hourglass-color;
         background-color: rgba(41, 149, 205, 0.15);
-        align-items: center;
       }
     }
 
