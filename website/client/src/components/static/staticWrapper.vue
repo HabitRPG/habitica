@@ -132,7 +132,7 @@
         }
       }
 
-      .twitter svg {
+      .X svg {
         background-color: $purple-50;
         fill: $purple-500;
         &:hover {
