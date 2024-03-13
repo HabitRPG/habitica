@@ -51,7 +51,7 @@
     "beginningOfConversation": "您与<%= userName %>的对话即将开始。",
     "messageDeletedUser": "抱歉，此用户已删除账户。",
     "messageMissingDisplayName": "缺少昵称。",
-    "reportedMessage": "你已将此信息报告给管理员。",
+    "reportedMessage": "你已将此信息举报给管理员。",
     "canDeleteNow": "现在，你可以根据自己的意愿删除信息。",
     "beginningOfConversationReminder": "切记友善、尊重他人并遵守社区准则！",
     "newsPostNotFound": "找不到新闻邮件，或你无权访问。",

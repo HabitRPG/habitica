@@ -16,7 +16,7 @@
     "mattBoch": "Matt Boch",
     "mattBochText1": "¡Bienvenido al establo! Soy Matt, el señor de las bestias. Cada vez que completas una tarea, tienes una posibilidad aleatoria de conseguir un Huevo o una Poción de eclosión con los cuales puedes eclosionar una Mascota. ¡Cuando nazca tu Mascota, aparecerá aquí! Haz clic en la imagen de una Mascota para añadirla a tu personaje. Aliméntalas con el alimento para mascotas que encuentres y se convertirán en vigorosas Monturas.",
     "welcomeToTavern": "¡Bienvenido a la taberna!",
-    "sleepDescription": "¿Necesitas un descanso? Pásate por el menú de Pausa de Daño (en Ajustes) para pausar algunas de las mecánicas de juego más difíciles de Habitica:",
+    "sleepDescription": "¿Necesitas un descanso? Pásate por la Posada de Daniel para pausar algunas de las mecánicas de juego más difíciles de Habitica:",
     "sleepBullet1": "Tus Tareas Diarias incumplidas no te dañarán (aunque los jefes te harán daño causado por las Tareas Diarias incumplidas por otro miembro del Equipo)",
     "sleepBullet2": "Las rachas de tus Tareas y Hábitos no se reiniciarán",
     "sleepBullet3": "El daño que produzcas a los Jefes de misión o los objetos de colección encontrados permanecerán pendientes hasta que reanudes el daño",
@@ -135,5 +135,5 @@
     "groupsPaymentSubBilling": "Tu próxima fecha de facturación es <strong><%= renewalDate %></strong>.",
     "groupsPaymentAutoRenew": "Esta suscripción se auto-renovará hasta que sea cancelada. Si quieres cancelarla, puedes hacerlo desde la pestaña de Cobro de grupos.",
     "helpSupportHabitica": "Ayuda a apoyar a Habitica",
-    "sellItems": "Vender artículos"
+    "sellItems": "Vender objetos"
 }
