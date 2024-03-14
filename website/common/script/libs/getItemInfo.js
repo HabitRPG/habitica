@@ -383,8 +383,11 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
       itemInfo = {
         key: item.key,
         class: `hair hair_bangs_${user.preferences.hair.bangs}_${item.key}`,
-        value: item.price,
         currency: 'gems',
+        option: item.key,
+        purchaseType: 'customization',
+        type: 'color',
+        value: item.price,
       };
       break;
     }
@@ -392,8 +395,11 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
       itemInfo = {
         key: `hair-base-${item.key}`,
         class: `hair hair_base_${item.key}_${user.preferences.hair.color}`,
-        value: item.price,
         currency: 'gems',
+        option: item.key,
+        purchaseType: 'customization',
+        type: 'base',
+        value: item.price,
       };
       break;
     }
@@ -401,8 +407,11 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
       itemInfo = {
         key: `mustache-${item.key}`,
         class: `facial-hair hair_mustache_${item.key}_${user.preferences.hair.color}`,
-        value: item.price,
         currency: 'gems',
+        option: item.key,
+        purchaseType: 'customization',
+        type: 'mustache',
+        value: item.price,
       };
       break;
     }
@@ -410,8 +419,11 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
       itemInfo = {
         key: `beard-${item.key}`,
         class: `facial-hair hair_beard_${item.key}_${user.preferences.hair.color}`,
-        value: item.price,
         currency: 'gems',
+        option: item.key,
+        purchaseType: 'customization',
+        type: 'beard',
+        value: item.price,
       };
       break;
     }
@@ -419,8 +431,10 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
       itemInfo = {
         key: item.key,
         class: `skin skin_${item.key}`,
-        value: item.price,
         currency: 'gems',
+        purchaseType: 'customization',
+        type: 'skin',
+        value: item.price,
       };
       break;
     }
@@ -428,8 +442,10 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
       itemInfo = {
         key: item.key,
         class: `shirt ${user.preferences.size}_shirt_${item.key}`,
-        value: item.price,
         currency: 'gems',
+        purchaseType: 'customization',
+        type: 'shirt',
+        value: item.price,
       };
       break;
     }

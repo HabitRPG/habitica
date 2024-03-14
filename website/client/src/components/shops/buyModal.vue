@@ -631,7 +631,7 @@ const amountOfDropPotions = size(dropPotions);
 const hideAmountSelectionForPurchaseTypes = [
   'gear', 'backgrounds', 'mystery_set', 'card',
   'rebirth_orb', 'fortify', 'armoire', 'keys',
-  'debuffPotion', 'pets', 'mounts',
+  'debuffPotion', 'pets', 'mounts', 'customization',
 ];
 
 export default {
@@ -684,7 +684,8 @@ export default {
   computed: {
     ...mapState({ user: 'user.data' }),
     showAvatar () {
-      return ['backgrounds', 'gear', 'mystery_set'].includes(this.item.purchaseType);
+      return ['backgrounds', 'gear', 'mystery_set', 'customization']
+        .includes(this.item.purchaseType);
     },
 
     preventHealthPotion () {
@@ -884,6 +885,27 @@ export default {
           });
 
           return gear;
+        }
+        case 'customization': {
+          if (item.type === 'skin') {
+            return {
+              skin: item.key,
+            };
+          }
+          if (item.type === 'shirt') {
+            return {
+              shirt: item.key,
+              armor: 'armor_base_0',
+            };
+          }
+          if (['base', 'beard', 'color', 'mustache'].includes(item.type)) {
+            return {
+              hair: {
+                [item.type]: item.option,
+              },
+              head: 'head_base_0',
+            };
+          }
         }
       }
 
