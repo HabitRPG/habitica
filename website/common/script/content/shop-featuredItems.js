@@ -7,7 +7,7 @@ import { EVENTS } from './constants';
 // hatching potions and food names should be capitalized lest you break the market
 const featuredItems = {
   market () {
-    if (moment().isBetween(EVENTS.potions202402.start, EVENTS.potions202402.end)) {
+    if (moment().isBetween(EVENTS.spring2024.start, EVENTS.spring2024.end)) {
       return [
         {
           type: 'armoire',
@@ -15,15 +15,15 @@ const featuredItems = {
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.RoseGold',
+          path: 'premiumHatchingPotions.Celestial',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Cupid',
+          path: 'premiumHatchingPotions.Shimmer',
         },
         {
-          type: 'hatchingPotions',
-          path: 'hatchingPotions.Red',
+          type: 'premiumHatchingPotion',
+          path: 'premiumHatchingPotions.Rainbow',
         },
       ];
     }
@@ -34,15 +34,15 @@ const featuredItems = {
       },
       {
         type: 'food',
-        path: 'food.Chocolate',
+        path: 'food.Fish',
       },
       {
         type: 'hatchingPotions',
-        path: 'hatchingPotions.Desert',
+        path: 'hatchingPotions.Skeleton',
       },
       {
         type: 'eggs',
-        path: 'eggs.Cactus',
+        path: 'eggs.Fox',
       },
     ];
   },
@@ -79,7 +79,7 @@ const featuredItems = {
       },
     ];
   },
-  seasonal: 'winter2021WinterMoonMageSet',
+  seasonal: 'spring2019CloudRogueSet',
   timeTravelers: [
     // TODO
   ],

@@ -111,5 +111,10 @@
     "flaggedNotHidden": "Herausforderung einmal markiert, nicht verborgen",
     "whyReportingChallenge": "Warum meldest du diese Herausforderung?",
     "whyReportingChallengePlaceholder": "Grund für Meldung",
-    "cannotClose": "Diese Herausforderung kann nicht geschlossen werden, weil einer oder mehrere Spieler sie als unangemessen gemeldet haben. Einer der Mitarbeiter wird dich in Kürze mit Anweisungen kontaktieren. Wenn mehr als 48 Stunden vergangen sind, und du nichts von ihnen gehört hast, schicke bitte eine Email an admin@habitica.com, um Unterstützung zu erhalten."
+    "cannotClose": "Diese Herausforderung kann nicht geschlossen werden, weil einer oder mehrere Spieler sie als unangemessen gemeldet haben. Einer der Mitarbeiter wird dich in Kürze mit Anweisungen kontaktieren. Wenn mehr als 48 Stunden vergangen sind, und du nichts von ihnen gehört hast, schicke bitte eine Email an admin@habitica.com, um Unterstützung zu erhalten.",
+    "cannotMakeChallenge": "Du kannst keine öffentlichen Herausforderungen erstellen, weil dein Account momentan keine Chat Privilegien hat. Bitte kontaktiere admin@habitica.com, um mehr Informationen zu erhalten.",
+    "resetFlagCount": "Markierungszähler zurücksetzen",
+    "cannotClone": "Diese Herausforderung kann nicht dupliziert werden, weil einer oder mehrere Spieler sie als unangemessen gemeldet haben. Einer der Mitarbeiter wird dich in Kürze mit Anweisungen kontaktieren. Wenn mehr als 48 Stunden vergangen sind, und du nichts von ihnen gehört hast, schicke bitte eine Email an admin@habitica.com, um Unterstützung zu erhalten.",
+    "resetFlags": "Markierungen zurücksetzen",
+    "messageChallengeFlagOfficial": "Offizielle Herausforderungen können nicht gemeldet werden."
 }

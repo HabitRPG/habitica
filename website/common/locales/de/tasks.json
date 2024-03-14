@@ -140,5 +140,8 @@
     "adjustCounter": "Zähler anpassen",
     "resetCounter": "Zähler zurücksetzen",
     "editTagsText": "Tags bearbeiten",
-    "taskSummary": "<%= type %> Zusammenfassung"
+    "taskSummary": "<%= type %> Zusammenfassung",
+    "taskAlias": "Aufgaben-Alias",
+    "taskAliasPopover": "Dieser Aufgaben-Alias kann für die Integrierung in Drittanbieter-Integrationen verwendet werden. Nur Bindestriche, Unterstriche und alphanumerische Zeichen werden unterstützt. Der Aufgaben-Alias muss über alle deine Aufgaben eindeutig sein.",
+    "taskAliasPlaceholder": "Dein-Aufgaben-Alias-hier"
 }
