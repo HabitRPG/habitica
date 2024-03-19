@@ -92,7 +92,11 @@ function updateInboxMessage (userId, groupedMessage) {
 
             duplicatedMessagesToDelete.push(...restLeftMessages);
             if (restRightMessages) {
-              duplicatedMessagesToDelete.push(...restRightMessages);
+              if (Array.isArray(restRightMessages)) {
+                duplicatedMessagesToDelete.push(...restRightMessages);
+              } else {
+                console.error('Check post migration - What ever this is right now: ', restRightMessages);
+              }
             }
 
             delete messagesByOwnerUUIDPair[leftEntryKey];
