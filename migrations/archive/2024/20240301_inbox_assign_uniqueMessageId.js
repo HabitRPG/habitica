@@ -81,7 +81,7 @@ function updateInboxMessage (userId, groupedMessage) {
             continue;
           }
 
-          const [firstRightMessage, restRightMessages] = rightEntryMessages;
+          const [firstRightMessage, ...restRightMessages] = rightEntryMessages;
 
           if (firstLeftMessage.uuid === firstRightMessage.ownerId
             && firstLeftMessage.ownerId === firstRightMessage.uuid) {
@@ -92,11 +92,7 @@ function updateInboxMessage (userId, groupedMessage) {
 
             duplicatedMessagesToDelete.push(...restLeftMessages);
             if (restRightMessages) {
-              if (Array.isArray(restRightMessages)) {
-                duplicatedMessagesToDelete.push(...restRightMessages);
-              } else {
-                console.error('Check post migration - What ever this is right now: ', restRightMessages);
-              }
+              duplicatedMessagesToDelete.push(...restRightMessages);
             }
 
             delete messagesByOwnerUUIDPair[leftEntryKey];
@@ -113,7 +109,7 @@ function updateInboxMessage (userId, groupedMessage) {
 
         // eslint-disable-next-line no-unused-vars
         for (const [_entryKey, rightEntryMessages] of Object.entries(messagesByOwnerUUIDPair)) {
-          const [firstMessage, restMessages] = rightEntryMessages;
+          const [firstMessage, ...restMessages] = rightEntryMessages;
 
           messagesToSetTheUniqueId.push(firstMessage);
 
