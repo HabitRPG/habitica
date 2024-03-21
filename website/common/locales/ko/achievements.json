@@ -119,5 +119,6 @@
     "achievementDomesticatedText": "기본 표준색상의 애완동물을 모두 부화시켰습니다. 패럿, 기니피그, 수탉, 날아다니는 되지, 쥐, 토끼, 말 그리고 소까지!",
     "achievementDomesticatedModalText": "당신은 모든 애완동물을 모았습니다!",
     "achievementShadyCustomer": "수상한 손님",
-    "achievementShadyCustomerText": "그늘진(어두운) 펫을 모두 모았습니다."
+    "achievementShadyCustomerText": "그늘진(어두운) 펫을 모두 모았습니다.",
+    "achievementShadyCustomerModalText": "당신은 그늘진 애완동물을 모두 모았습니다!"
 }

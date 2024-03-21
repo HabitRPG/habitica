@@ -159,5 +159,10 @@
     "achievementDinosaurDynastyText": "¡Has eclosionado todos los colores estándar de Mascotas pájaro y dinosaurio: Halcón, Búho, Loro, Pavo Real, Pingüino, Gallo, Pterodáctilo, T-Rex, Triceratops y Velociraptor!",
     "achievementBonelessBossText": "¡Has eclosionado todos los colores estándar de Mascotas invertebradas: Escarabajo, Mariposa, Sepia, Nudibranquio, Pulpo, Caracol y Araña!",
     "achievementDuneBuddy": "Amigo de Dunas",
-    "achievementDuneBuddyText": "¡Has eclosionado todos los colores estándar de mascotas de desierto: Armadillo, Cactus, Zorro, Rana, Serpiente y Araña!"
+    "achievementDuneBuddyText": "¡Has eclosionado todos los colores estándar de mascotas de desierto: Armadillo, Cactus, Zorro, Rana, Serpiente y Araña!",
+    "achievementDuneBuddyModalText": "¡Has coleccionado todas las mascotas de desierto!",
+    "achievementRodentRuler": "Regente Roedor",
+    "achievementRoughRiderModalText": "¡Has coleccionado todos los colores básicos de las mascotas y montas incómodas!",
+    "achievementRodentRulerText": "¡Has eclosionado todos los colores estándar de los roedores mascota: Cuy, Rata y Ardilla!",
+    "achievementRodentRulerModalText": "¡Has coleccionado todas las mascotas roedores!"
 }

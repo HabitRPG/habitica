@@ -1,7 +1,7 @@
 {
-    "lostAllHealth": "你的生命值耗尽了！",
+    "lostAllHealth": "你的生命值已耗尽！",
     "dontDespair": "别灰心！",
-    "deathPenaltyDetails": "你降了一级，失去了所有金币和一件装备。但你可以通过努力把它们都找回来！ 祝你好运——你能做到的。",
+    "deathPenaltyDetails": "你降了一级，失去了所有金币和一件装备。但你可以通过努力把它们都找回来！祝你好运——你能做到的。",
     "refillHealthTryAgain": "回满生命值并再试一次",
     "dyingOftenTips": "这种情况经常发生吗？ <a href='https://habitica.fandom.com/zh/wiki/死亡#存活的策略' target='_blank'>这里有一些提示！</a>",
     "losingHealthWarning": "当心——你的生命值正在减少！",

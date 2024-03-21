@@ -153,8 +153,8 @@
     "achievementDinosaurDynastyText": "已孵化所有基础颜色的鸟类和恐龙宠物：猎鹰、猫头鹰、鹦鹉、孔雀、企鹅、公鸡、翼龙、霸王龙、三角龙和迅猛龙！",
     "achievementBonelessBossModalText": "你集齐了所有无脊椎宠物！",
     "achievementDuneBuddy": "沙丘之友",
-    "achievementBonelessBossText": "已孵化出所有标准颜色的无脊椎宠物：甲虫、蝴蝶、乌贼、海兔、章鱼、蜗牛和蜘蛛！",
-    "achievementDuneBuddyText": "已孵化出所有标准颜色的沙漠宠物：犰狳、仙人掌、狐狸、青蛙、蛇和蜘蛛！",
+    "achievementBonelessBossText": "已孵化出所有基础颜色的无脊椎宠物：甲虫、蝴蝶、乌贼、海兔、章鱼、蜗牛和蜘蛛！",
+    "achievementDuneBuddyText": "已孵化出所有基础颜色的沙漠宠物：犰狳、仙人掌、狐狸、青蛙、蛇和蜘蛛！",
     "achievementDuneBuddyNotes": "你集齐了所有沙漠宠物！",
     "achievementBonelessBoss": "无骨头目",
     "achievementRodentRulerModalText": "你集齐了所有的啮齿类宠物！",
@@ -162,6 +162,6 @@
     "achievementDuneBuddyModalText": "你集齐了所有居住在沙漠的宠物！",
     "achievementRoughRider": "狂野骑士",
     "achievementRoughRiderText": "已孵化出所有基础颜色的不舒适宠物和坐骑： 仙人掌、刺猬和岩石！",
-    "achievementRodentRulerText": "已孵化出所有标准颜色的啮齿类宠物： 豚鼠、老鼠和松鼠！",
+    "achievementRodentRulerText": "已孵化出所有基础颜色的啮齿类宠物： 豚鼠、老鼠和松鼠！",
     "achievementRoughRiderModalText": "你集齐了所有基础颜色的不舒适宠物和坐骑！"
 }

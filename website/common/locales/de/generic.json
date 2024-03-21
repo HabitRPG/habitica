@@ -236,5 +236,7 @@
     "playerReportModalBody": "Du solltest nur Spieler melden, die gegen die <%= firstLinkStart %>Community Richtlinien<%= linkEnd %> und/oder die<%= secondLinkStart %>Service Bedingungen<%= linkEnd %> verstoßen. Eine falsche Meldung zu übermitteln, ist ein Verstoß gegen Habiticas Community Richtlinien.",
     "general": "Allgemein",
     "viewAdminPanel": "Admin Panel anzeigen",
-    "mutePlayer": "Stumm"
+    "mutePlayer": "Stumm",
+    "skipExternalLinkModal": "Halte STRG (Windows) oder Command (Mac) beim Anklicken eines Links, um dieses Modal zu überspringen.",
+    "shadowMute": "Unsichtbare Stummschaltung"
 }

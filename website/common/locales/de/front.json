@@ -188,5 +188,7 @@
     "enterHabitica": "Tritt ein in Habitica",
     "socialAlreadyExists": "Diese Social-Media-Zugangsdaten sind bereits mit einem schon bestehenden Habitica-Konto verknüpft.",
     "emailUsernamePlaceholder": "z.B., habitrabbit oder gryphon@beispiel.com",
-    "footerProduct": "Produkt"
+    "footerProduct": "Produkt",
+    "incorrectResetPhrase": "Bitte tippe <%= magicWord %> in Großbuchstaben um deinen Account zurückzusetzen.",
+    "translateHabitica": "Habitica übersetzen"
 }
