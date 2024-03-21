@@ -213,12 +213,12 @@
             </a>
             <a
               class="social-circle"
-              href="https://twitter.com/habitica/"
+              href="https://X.com/habitica/"
               target="_blank"
             >
               <div
-                class="social-icon svg-icon twitter"
-                v-html="icons.twitter"
+                class="social-icon svg-icon X"
+                v-html="icons.X"
               ></div>
             </a>
             <a
@@ -737,7 +737,7 @@ h3 {
   }
 }
 
-.twitter svg {
+.X svg {
   background-color: #e1e0e3;
   fill: #878190;
   height: 24px;
@@ -775,7 +775,7 @@ import moment from 'moment';
 
 // images
 import melior from '@/assets/svg/melior.svg';
-import twitter from '@/assets/svg/twitter.svg';
+import X from '@/assets/svg/X.svg';
 import facebook from '@/assets/svg/facebook.svg';
 import instagram from '@/assets/svg/instagram.svg';
 import tumblr from '@/assets/svg/tumblr.svg';
@@ -796,7 +796,7 @@ export default {
     return {
       icons: Object.freeze({
         melior,
-        twitter,
+        X,
         facebook,
         instagram,
         tumblr,
