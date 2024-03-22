@@ -1,7 +1,7 @@
 Habitica ![Build Status](https://github.com/HabitRPG/habitica/workflows/Test/badge.svg) [![Code Climate](https://codeclimate.com/github/HabitRPG/habitrpg.svg)](https://codeclimate.com/github/HabitRPG/habitrpg) [![Bountysource](https://api.bountysource.com/badge/tracker?tracker_id=68393)](https://www.bountysource.com/trackers/68393-habitrpg?utm_source=68393&utm_medium=shield&utm_campaign=TRACKER_BADGE)
 ===============
 
-[Habitica](https://habitica.com) is an open source habit building program which treats your life like a Role Playing Game. Level up as you succeed, lose HP as you fail, earn money to buy weapons and armor.
+[Habitica](https://habitica.com) is an open-source habit-building program that treats your life like a role-playing game. Level up as you succeed, lose HP as you fail, and earn money to buy weapons and armor.
 
 **We need more programmers!** Your assistance will be greatly appreciated. The wiki pages below and the additional pages they link to will tell you how to get started on contributing code and where you can go to seek further help or ask questions:
 * [Guidance for Blacksmiths](https://habitica.fandom.com/wiki/Guidance_for_Blacksmiths) - an introduction to the technologies used and how the software is organized.
