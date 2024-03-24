@@ -99,11 +99,21 @@ api.loginLocal = {
     if (validator.isEmail(String(username))) {
       login = { 'auth.local.email': username.toLowerCase() }; // Emails are stored lowercase
     } else {
-      login = { 'auth.local.username': username };
+      login = { 'auth.local.lowerCaseUsername': username.toLowerCase() };
     }
 
-    // load the entire user because we may have to save it to convert the password to bcrypt
-    const user = await User.findOne(login).exec();
+    // load the entire user because we may have to save it to convert the password to bcrypt.
+    // lookup the user by case-insensitive username.
+    // there's a rare chance for duplicates before registration enforced case-insensitive uniqueness
+    const potentialUsers = await User.find(login).exec();
+    let user;
+
+    if (potentialUsers.length > 1) {
+      // multiple users share the same username. fallback to case-sensitive username matching
+      user = potentialUsers.find(u => u.auth.local.username === username);
+    } else {
+      [user] = potentialUsers;
+    }
 
     // if user is using social login, then user will not have a hashed_password stored
     if (!user || !user.auth.local.hashed_password) throw new NotAuthorized(res.t('invalidLoginCredentialsLong'));

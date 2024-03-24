@@ -28,6 +28,15 @@ describe('POST /user/auth/local/login', () => {
     expect(response.apiToken).to.eql(user.apiToken);
   });
 
+  it('success with case-insensitive username', async () => {
+    user = await generateUser({}, { username: 'CASE-INSENSITIVE' });
+    const response = await api.post(endpoint, {
+      username: 'Case-Insensitive',
+      password,
+    });
+    expect(response.apiToken).to.eql(user.apiToken);
+  });
+
   it('success with email', async () => {
     const response = await api.post(endpoint, {
       username: user.auth.local.email,
