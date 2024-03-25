@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { v4 as uuid } from 'uuid';
-import { model as User } from '../../../website/server/models/user';
+import { model as User } from '../../website/server/models/user';
 
 const MIGRATION_NAME = '20240131_habit_birthday';
 const progressCount = 1000;
@@ -69,7 +69,7 @@ async function updateUser (user) {
 }
 
 export default async function processUsers () {
-  let query = {
+  const query = {
     migration: { $ne: MIGRATION_NAME },
     'auth.timestamps.loggedin': { $gt: new Date('2023-12-23') },
   };

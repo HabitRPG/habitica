@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { model as User } from '../../../../website/server/models/user';
+import { model as User } from '../../website/server/models/user';
 
 const MIGRATION_NAME = '20230808_veteran_pet_ladder';
 
@@ -126,7 +126,7 @@ export default async function processUsers () {
     const users = await User // eslint-disable-line no-await-in-loop
       .find(query)
       .limit(250)
-      .sort({_id: 1})
+      .sort({ _id: 1 })
       .select(fields)
       .lean()
       .exec();
