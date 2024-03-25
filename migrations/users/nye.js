@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
-import { model as User } from '../../../website/server/models/user';
 import { v4 as uuid } from 'uuid';
+import { model as User } from '../../../website/server/models/user';
 
 const MIGRATION_NAME = '20231228_nye';
 
@@ -11,7 +11,7 @@ async function updateUser (user) {
   count++;
 
   const set = { migration: MIGRATION_NAME };
-  let push = {};
+  const push = {};
 
   if (typeof user.items.gear.owned.head_special_nye2022 !== 'undefined') {
     set['items.gear.owned.head_special_nye2023'] = true;
@@ -55,7 +55,7 @@ async function updateUser (user) {
 }
 
 export default async function processUsers () {
-  let query = {
+  const query = {
     'auth.timestamps.loggedin': { $gt: new Date('2023-12-01') },
     migration: { $ne: MIGRATION_NAME },
   };
@@ -86,4 +86,4 @@ export default async function processUsers () {
 
     await Promise.all(users.map(updateUser)); // eslint-disable-line no-await-in-loop
   }
-};
+}
