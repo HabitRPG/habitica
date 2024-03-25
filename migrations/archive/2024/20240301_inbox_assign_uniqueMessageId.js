@@ -62,7 +62,7 @@ function updateInboxMessage (userId, groupedMessage) {
     const pairs = Object.keys(messagesByOwnerUUIDPair);
 
     if (pairs.length > 2) {
-      console.info(`Current User: ${userId} - More than 2 pairs`,
+      console.info(`Current User: ${userId} - More than 2 pairs (${pairs.length})`,
         messagesByOwnerUUIDPair);
 
       // find actual ownerId/uuid pair
@@ -230,6 +230,8 @@ async function updateUser (user) {
 export default async function processUsers () {
   const started = Date.now();
 
+  console.info('Began Migration: ', started);
+
   const query = {
     migration: { $ne: MIGRATION_NAME },
   };
@@ -241,7 +243,7 @@ export default async function processUsers () {
   while (true) {
     const users = await User
       .find(query)
-      .sort({ _id: 1 })
+      // .sort({ _id: 1 })
       .limit(250)
       .select(fields)
       .lean()
@@ -252,16 +254,18 @@ export default async function processUsers () {
       console.warn(`\n${countUsers} users processed\n`);
       break;
     } else {
-      query._id = {
+      /* query._id = {
         $gt: users[users.length - 1]._id,
-      };
+      }; */
     }
 
     await Promise.all(users.map(updateUser));
 
     const minutesTaken = (Date.now() - started) / 1000 / 60;
 
-    console.info(`\n\nTime Spent: ${minutesTaken} Minutes - User Count: ${countUsers} - Message Count: ${countTotalMessages} - Last User: ${query._id.$gt}\n\n`);
+    const lastUser = users.length > 0 ? users[users.length - 1]._id : 'None';
+
+    console.info(`\n\nTime Spent: ${minutesTaken} Minutes - User Count: ${countUsers} - Message Count: ${countTotalMessages} - Last User: ${lastUser}\n\n`);
 
     // just to see how things look in the first run
     // break;
