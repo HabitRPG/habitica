@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-import { v4 as uuid } from 'uuid';
 import { model as User } from '../../website/server/models/user';
 
 const MIGRATION_NAME = '20231228_nye';
@@ -8,7 +7,7 @@ const progressCount = 1000;
 let count = 0;
 
 async function updateUser (user) {
-  count++;
+  count += 1;
 
   const set = { migration: MIGRATION_NAME };
   const push = {};

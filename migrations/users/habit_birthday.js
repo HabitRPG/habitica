@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-import { v4 as uuid } from 'uuid';
 import { model as User } from '../../website/server/models/user';
 
 const MIGRATION_NAME = '20240131_habit_birthday';

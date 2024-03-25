@@ -7,14 +7,14 @@ const progressCount = 1000;
 let count = 0;
 
 async function updateUser (user) {
-  count++;
+  count += 1;
 
   const set = {
     migration: MIGRATION_NAME,
   };
 
   if (user && user.items && user.items.pets) {
-    const pets = user.items.pets;
+    const { pets } = user.items;
     if (pets['GuineaPig-Zombie'] > 0
       && pets['GuineaPig-Skeleton'] > 0
       && pets['GuineaPig-Base'] > 0

@@ -7,7 +7,7 @@ const progressCount = 1000;
 let count = 0;
 
 async function updateUser (user) {
-  count++;
+  count += 1;
 
   const set = { migration: MIGRATION_NAME };
   const push = {};
