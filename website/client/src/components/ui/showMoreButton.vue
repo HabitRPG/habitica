@@ -38,5 +38,9 @@ export default {
         color: $purple-300;
       }
     }
+
+    &:focus {
+      outline: 2px solid $purple-400;
+    }
   }
 </style>
