@@ -1,5 +1,11 @@
 // TODO move to item component?
 
+.item, .item-wrapper, .item > div > div {
+  &:focus-visible {
+    outline: none;
+  }
+}
+
 .items > div {
   display: inline-block;
   margin-right: 24px;
@@ -9,6 +15,15 @@
   position: relative;
   display: inline-block;
   margin-bottom: 12px;
+
+  &:focus {
+    outline: 2px solid $purple-400;
+    border-radius: 2px;
+  }
+
+  &:hover {
+    box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
+  }
 }
 
 .items-one-line .item-wrapper {
@@ -54,11 +69,6 @@
 
   &-active {
     background: $purple-500;
-  }
-
-  &:hover {
-    box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
-    border-color: $purple-400;
   }
 
   &.highlight {

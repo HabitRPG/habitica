@@ -60,6 +60,7 @@ const ChallengeDetail = () => import(/* webpackChunkName: "challenges" */ '@/com
 const ShopsContainer = () => import(/* webpackChunkName: "shops" */'@/components/shops/index');
 const MarketPage = () => import(/* webpackChunkName: "shops-market" */'@/components/shops/market/index');
 const QuestsPage = () => import(/* webpackChunkName: "shops-quest" */'@/components/shops/quests/index');
+const CustomizationsPage = () => import(/* webpackChunkName: "shops-customizations" */'@/components/shops/customizations/index');
 const SeasonalPage = () => import(/* webpackChunkName: "shops-seasonal" */'@/components/shops/seasonal/index');
 const TimeTravelersPage = () => import(/* webpackChunkName: "shops-timetravelers" */'@/components/shops/timeTravelers/index');
 const CustomizationsShopPage = () => import(/* webpackChunkName: "shops-customizations" */'@/components/shops/customizations/index');
@@ -112,6 +113,7 @@ const router = new VueRouter({
       children: [
         { name: 'market', path: 'market', component: MarketPage },
         { name: 'quests', path: 'quests', component: QuestsPage },
+        { name: 'customizations', path: 'customizations', component: CustomizationsPage },
         { name: 'seasonal', path: 'seasonal', component: SeasonalPage },
         { name: 'time', path: 'time', component: TimeTravelersPage },
         { name: 'customizations', path: 'customizations', component: CustomizationsShopPage },

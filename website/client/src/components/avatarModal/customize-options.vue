@@ -67,11 +67,11 @@
 <script>
 import gem from '@/assets/svg/gem.svg';
 import gold from '@/assets/svg/gold.svg';
-import { avatarEditorUtilies } from '../../mixins/avatarEditUtilities';
+import { avatarEditorUtilities } from '../../mixins/avatarEditUtilities';
 
 export default {
   mixins: [
-    avatarEditorUtilies,
+    avatarEditorUtilities,
   ],
   props: ['items', 'currentValue', 'fullSet'],
   data () {

@@ -22,19 +22,11 @@
       :show-all="showAll"
       @click="toggleItemsToShow()"
     />
-    <div
-      v-else
-      class="fill-height"
-    ></div>
   </div>
 </template>
 
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
-
-  .fill-height {
-    height: 38px; // button + margin + padding
-  }
 
   .item-rows {
     margin-right: -1.5rem;
@@ -69,6 +61,9 @@ export default {
     noItemsLabel: {
       type: String,
     },
+    maxItemsPerRow: {
+      type: Number,
+    },
   },
   data () {
     return {
@@ -80,6 +75,9 @@ export default {
   },
   computed: {
     itemsPerRow () {
+      if (this.maxItemsPerRow > 0) {
+        return this.maxItemsPerRow;
+      }
       return Math.floor(this.currentWidth / (this.itemWidth + this.itemMargin));
     },
   },

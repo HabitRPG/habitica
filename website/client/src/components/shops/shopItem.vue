@@ -142,6 +142,22 @@
     &.locked .price {
       opacity: 0.5;
     }
+
+    .hair, .facial-hair, .shirt, .skin {
+      height: 68px;
+    }
+
+    .hair {
+      background-position: -24px -2px;
+    }
+
+    .facial-hair, .skin {
+      background-position: -24px -10px;
+    }
+
+    .shirt {
+      background-position: -23px -32px;
+    }
   }
 
   .image {
@@ -177,6 +193,7 @@
     font-size: 12px;
     font-weight: bold;
     line-height: 1.33;
+    margin-bottom: 1px;
 
     &.gems {
       color: $green-1;
@@ -351,6 +368,7 @@ export default {
       this.$emit('click', {});
     },
     blur () {
+      if (!this.$refs?.popover) return;
       this.$refs.popover.$emit('enable');
     },
     getPrice () {

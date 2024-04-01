@@ -1187,7 +1187,7 @@ import gold from '@/assets/svg/gold.svg';
 import arrowRight from '@/assets/svg/arrow_right.svg';
 import arrowLeft from '@/assets/svg/arrow_left.svg';
 import svgClose from '@/assets/svg/close.svg';
-import { avatarEditorUtilies } from '../mixins/avatarEditUtilities';
+import { avatarEditorUtilities } from '../mixins/avatarEditUtilities';
 
 export default {
   components: {
@@ -1201,7 +1201,7 @@ export default {
     toggleSwitch,
     usernameForm,
   },
-  mixins: [guide, notifications, avatarEditorUtilies],
+  mixins: [guide, notifications, avatarEditorUtilities],
   data () {
     const backgroundShopSets = shops.getBackgroundShopSets();
 

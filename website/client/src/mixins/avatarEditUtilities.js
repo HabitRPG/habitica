@@ -9,7 +9,7 @@ import { getScheduleMatchingGroup } from '@/../../common/script/content/constant
 
 import { userStateMixin } from './userState';
 
-export const avatarEditorUtilies = { // eslint-disable-line import/prefer-default-export
+export const avatarEditorUtilities = { // eslint-disable-line import/prefer-default-export
   mixins: [userStateMixin],
   data () {
     return {
