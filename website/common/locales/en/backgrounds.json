@@ -969,7 +969,15 @@
   "backgroundWallFloweringVinesText": "Wall with Flowering Vines",
   "backgroundWallFloweringVinesNotes": "Hang out by a wall of Flowering Vines.",
   "backgroundContainerGardenText": "Container Garden",
-  "backgroundContainerGardenNotes": "Get your hands dirty wth the Container Garden.",  
+  "backgroundContainerGardenNotes": "Get your hands dirty wth the Container Garden.",
+
+  "backgrounds052024": "SET 120: Released May 2024",
+  "backgroundDragonsBackText": "Dragon's Back",
+  "backgroundDragonsBackNotes": "Sail the sky on a Dragon's Back.",
+  "backgroundMerryMaypoleText": "Merry Maypole",
+  "backgroundMerryMaypoleNotes": "Dance around a Merry Maypole",
+  "backgroundPottersStudioText": "Potter's Studio",
+  "backgroundPottersStudioNotes": "Create art in the Potter's Studio",
 
   "timeTravelBackgrounds": "Steampunk Backgrounds",
   "backgroundAirshipText": "Airship",

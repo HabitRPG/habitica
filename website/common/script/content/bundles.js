@@ -222,14 +222,15 @@ const bundles = {
   delightfulDinos: {
     key: 'delightfulDinos',
     text: t('delightfulDinosText'),
-    notes: t('delightfulDinosNotes', { date: moment('2022-05-31').format('LL') }), // needs update next time its run
+    notes: t('delightfulDinosNotes', { date: moment(EVENTS.bundle202405.end).format('LL') }),
     bundleKeys: [
       'pterodactyl',
       'triceratops',
       'trex_undead',
     ],
+    event: EVENTS.bundle202405,
     canBuy () {
-      return moment().isBetween('2022-05-16', '2022-05-31');
+      return moment().isBetween(EVENTS.bundle202405.start, EVENTS.bundle202405.end);
     },
     type: 'quests',
     value: 7,

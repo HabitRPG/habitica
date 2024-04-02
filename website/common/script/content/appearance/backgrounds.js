@@ -617,6 +617,11 @@ const plannedBackgrounds = {
     wall_flowering_vines: { },
     container_garden: { },
   },
+  backgrounds052024: {
+    dragons_back: { },
+    merry_maypole: { },
+    potters_studio: { },
+  },
   eventBackgrounds: {
     birthday_bash: {
       price: 0,
@@ -666,7 +671,8 @@ const releaseDates = {
   backgrounds012024: '2024-01-04T08:00-05:00',
   backgrounds022024: '2024-02-06T08:00-05:00',
   backgrounds032024: '2024-03-05T08:00-05:00',
-  backgrounds042024: '2023-04-04T00:00-04:00',
+  backgrounds042024: '2024-04-04T00:00-04:00',
+  backgrounds052024: '2024-05-07T00:00-04:00',
 };
 
 const flat = {};

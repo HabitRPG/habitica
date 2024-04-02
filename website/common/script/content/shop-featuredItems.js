@@ -47,19 +47,19 @@ const featuredItems = {
     ];
   },
   quests () {
-    if (moment().isBetween(EVENTS.bundle202403.start, EVENTS.bundle202403.end)) {
+    if (moment().isBetween(EVENTS.bundle202405.start, EVENTS.bundle202405.end)) {
       return [
         {
           type: 'bundles',
-          path: 'bundles.cuddleBuddies',
+          path: 'bundles.delightfulDinos',
         },
         {
           type: 'quests',
-          path: 'quests.hedgehog',
+          path: 'quests.rooster',
         },
         {
           type: 'quests',
-          path: 'quests.sheep',
+          path: 'quests.owl',
         },
       ];
     }
@@ -67,15 +67,15 @@ const featuredItems = {
     return [
       {
         type: 'quests',
-        path: 'quests.rat',
+        path: 'quests.cheetah',
       },
       {
         type: 'quests',
-        path: 'quests.kraken',
+        path: 'quests.nudibranch',
       },
       {
         type: 'quests',
-        path: 'quests.slime',
+        path: 'quests.monkey',
       },
     ];
   },
