@@ -40,6 +40,7 @@
     "nconf": "^0.12.1",
     "sass": "^1.63.4",
     "sass-loader": "^8.0.2",
+    "sinon": "^17.0.1",
     "smartbanner.js": "^1.19.3",
     "stopword": "^2.0.8",
     "uuid": "^9.0.1",
