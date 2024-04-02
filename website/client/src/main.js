@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import axios from 'axios';
 import BootstrapVue from 'bootstrap-vue';
 import Fragment from 'vue-fragment';
 import AppComponent from './app';
@@ -38,13 +39,14 @@ const store = getStore();
 if (process.env.ENABLE_TIME_TRAVEL) {
   (async () => {
     const sinon = await import('sinon');
-    const axios = await import('axios');
-    const response = await axios.get('/api/v4/debug/time-travel-time');
-    const time = new Date(response.data.data.time);
-    Vue.config.clock = sinon.useFakeTimers({
-      now: time,
-      shouldAdvanceTime: true,
-    });
+    if (axios.defaults.headers.common['x-api-user']) {
+      const response = await axios.get('/api/v4/debug/time-travel-time');
+      const time = new Date(response.data.data.time);
+      Vue.config.clock = sinon.useFakeTimers({
+        now: time,
+        shouldAdvanceTime: true,
+      });
+    }
   })();
 }
 

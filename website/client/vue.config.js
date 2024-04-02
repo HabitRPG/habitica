@@ -39,6 +39,8 @@ envVars
     envObject[`process.env.${key}`] = `'${nconf.get(key)}'`;
   });
 
+console.log(envObject)
+
 const webpackPlugins = [
   new webpack.DefinePlugin(envObject),
   new webpack.ContextReplacementPlugin(/moment[\\/]locale$/, /^\.\/(NOT_EXISTING)$/),
@@ -55,6 +57,11 @@ module.exports = {
           type: 'asset/source',
         },
       ],
+    },
+    resolve: {
+      fallback: {
+        "timers": require.resolve("timers-browserify")
+      },
     },
     plugins: webpackPlugins,
   },

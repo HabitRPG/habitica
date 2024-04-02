@@ -291,7 +291,7 @@
       </div>
 
       <div
-        v-if="ENABLE_TIME_TRAVEL && user.permissions.fullAccess"
+        v-if="ENABLE_TIME_TRAVEL && user.permissions && user.permissions.fullAccess"
         :key="lastTimeJump"
       >
         <a

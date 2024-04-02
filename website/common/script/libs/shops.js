@@ -272,7 +272,7 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
   };
 
   bundleCategory.items = sortBy(values(content.bundles)
-    .filter(bundle => bundle.type === 'quests' && bundle.canBuy())
+    .filter(bundle => bundle.type === 'quests')
     .map(bundle => getItemInfo(user, 'bundles', bundle, officialPinnedItems, language)));
 
   if (bundleCategory.items.length > 0) {

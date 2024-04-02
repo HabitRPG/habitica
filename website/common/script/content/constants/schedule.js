@@ -799,6 +799,7 @@ export function assembleScheduledMatchers (date) {
 }
 
 let cachedScheduleMatchers = null;
+let cacheDate = null;
 
 function makeMatcherClass () {
   return {
@@ -832,10 +833,10 @@ export function getScheduleMatchingGroup (type, date) {
   }
   if (!cachedScheduleMatchers) {
     cacheDate = new Date();
-    const scheduleMatchers = {};
+    cachedScheduleMatchers = {};
     assembleScheduledMatchers(checkedDate).forEach(matcher => {
-      if (!scheduleMatchers[matcher.type]) {
-        scheduleMatchers[matcher.type] = makeMatcherClass();
+      if (!cachedScheduleMatchers[matcher.type]) {
+        cachedScheduleMatchers[matcher.type] = makeMatcherClass();
       }
       if (matcher.matcher instanceof Function) {
         cachedScheduleMatchers[matcher.type].matchers.push(matcher.matcher);
