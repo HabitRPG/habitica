@@ -51,6 +51,7 @@
           <item-rows
             :items="customizationsItems({category, searchBy: searchTextThrottled})"
             :type="category.identifier"
+            :fold-button="category.identifier === 'background'"
             :item-width="94"
             :item-margin="24"
             :max-items-per-row="8"
@@ -85,14 +86,6 @@
 
   .background, .npc {
     height: 216px;
-  }
-
-  .item-rows {
-    max-width: 920px;
-
-    .items > div:nth-of-type(8n) {
-      margin-right: 0px;
-    }
   }
 
   .npc {
