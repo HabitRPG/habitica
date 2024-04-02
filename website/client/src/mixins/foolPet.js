@@ -40,15 +40,15 @@ export default {
         'Dragon',
         'Cactus',
       ];
-      if (!pet) return 'Pet-TigerCub-TeaShop';
+      if (!pet) return 'Pet-TigerCub-Fungi';
       if (SPECIAL_PETS.indexOf(pet) !== -1) {
-        return 'Pet-Dragon-TeaShop';
+        return 'Pet-Dragon-Fungi';
       }
       const species = pet.slice(0, pet.indexOf('-'));
       if (includes(BASE_PETS, species)) {
-        return `Pet-${species}-TeaShop`;
+        return `Pet-${species}-Fungi`;
       }
-      return 'Pet-BearCub-TeaShop';
+      return 'Pet-BearCub-Fungi';
     },
   },
 };

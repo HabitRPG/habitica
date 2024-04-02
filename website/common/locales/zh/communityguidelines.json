@@ -89,7 +89,7 @@
     "commGuideList11D": "工作人员删除有问题的内容",
     "commGuideList11E": "工作人员编辑有问题的内容",
     "commGuideHeadingRestoration": "恢复",
-    "commGuidePara061": "Habitica致力于自我完善，我们相信第二次机会。<strong>如果你有违规行为并受到了惩罚，请将其视为一次评估自己行为的机会，并努力成为社区中更好的一员</strong>。",
+    "commGuidePara061": "Habitica致力于自我提升，我们相信第二次机会。<strong>如果你有违规行为并受到了惩罚，请将其视为一次评估自己行为的机会，并努力成为社区中更好的一员</strong>。",
     "commGuidePara062": "<strong>如果你想要询问有关你的违规行为或惩罚的问题、道歉或请求恢复，请通过<a href='mailto:admin@habitica.com' target='_blank'>admin@habitica.com</a>与我们联系，并提供你的用户ID 或 @用户名</strong>。希望<strong>你</strong>能主动与我们联系。",
     "commGuidePara063": "如果你对你的惩罚或违规行为有任何疑问，或有其他相关问题，可通过<a href='mailto:admin@habitica.com' target='_blank'>admin@habitica.com</a>与工作人员进行联系和讨论。请配合所有已实施的限制措施，并努力达到要求，以解除处罚。",
     "commGuideHeadingMeet": "认识工作人员",
@@ -134,8 +134,8 @@
     "commGuideList02H": "<strong>所有昵称和用户名都必须遵守服务条款</strong>。修改昵称或用户名的方法：在移动端点击菜单 > 设置 > 账号，或从网页版顶部导航栏的用户图标进入设置。",
     "commGuideList02I": "<strong>挑战的名称将展示在获胜者的公开简介中，因此它们应当足够得体</strong>。 请在创建挑战时记住这一点，如有举报，我们可能会被迫编辑其简介中的记录。",
     "commGuideList02O": "<strong>队伍可根据成员的舒适和喜好制定自己的聊天规则</strong>。 但是，管理员无法在这些私人场所中强制执行聊天规则，除非有违反服务条款的行为，包括骚扰。 如果在你的队伍中有人造成了问题，我们支持队长将其移除。",
-    "commGuideList02Q": "<strong>不要试图绕过屏蔽</strong>。 如果有人屏蔽了你的私信，请不要在其他地方联系他们来要求其解除对你的屏蔽。",
-    "commGuideList02P": "<strong>我们不鼓励发送未经要求的私信</strong>。如果你收到让你不舒服的或违反本准则或服务条款的垃圾信息，请屏蔽发件人并向工作人员举报。",
+    "commGuideList02Q": "<strong>不要试图绕过拉黑</strong>。 如果有人拉黑了你的私信，请不要在其他地方联系他们来要求其解除对你的拉黑。",
+    "commGuideList02P": "<strong>我们不鼓励发送未经要求的私信</strong>。如果你收到让你不舒服的或违反本准则或服务条款的垃圾信息，请拉黑发件人并向工作人员举报。",
     "commGuideList09E": "永久移除发送私信或被列入搜索队伍玩家名单的权限",
     "commGuideList10G": "暂时取消发送私信或被列入搜索队伍玩家名单的权限"
 }

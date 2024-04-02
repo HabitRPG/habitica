@@ -955,13 +955,21 @@
   "backgroundHeartTreeTunnelText": "Heart Tree Tunnel",
   "backgroundHeartTreeTunnelNotes": "Drift through the Heart Tree Tunnel.",
 
-  "backgrounds032024": "SET 117: Released March 2024",
+  "backgrounds032024": "SET 118: Released March 2024",
   "backgroundFloweringForestText": "Flowering Forest",
   "backgroundFloweringForestNotes": "Breathe in the perfume of a Flowering Forest.",
   "backgroundRainyRainforestText": "Rainy Rainforest",
   "backgroundRainyRainforestNotes": "Enjoy a refreshing downpour in the Rainy Ranforest.",
   "backgroundDogParkText": "Dog Park",
   "backgroundDogParkNotes": "Frolic at the Dog Park.",
+
+  "backgrounds042024": "SET 119: Released April 2024",
+  "backgroundForestSunsetText": "Forest Sunset",
+  "backgroundForestSunsetNotes": "Bask in the glow of a Forest Sunset.",
+  "backgroundWallFloweringVinesText": "Wall with Flowering Vines",
+  "backgroundWallFloweringVinesNotes": "Hang out by a wall of Flowering Vines.",
+  "backgroundContainerGardenText": "Container Garden",
+  "backgroundContainerGardenNotes": "Get your hands dirty wth the Container Garden.",  
 
   "timeTravelBackgrounds": "Steampunk Backgrounds",
   "backgroundAirshipText": "Airship",

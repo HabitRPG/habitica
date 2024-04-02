@@ -549,6 +549,8 @@
   "weaponMystery202311Notes": "See beyond the bounds of space and time! Confers no benefit. November 2023 Subscriber Item.",
   "weaponMystery202403Text": "Lucky Emerald Sword",
   "weaponMystery202403Notes": "Carrying the biggest sword around is surely a way to create your own luck! Confers no benefit. March 2024 Subscriber Item.",
+  "weaponMystery202404Text": "Mycelial Magus Staff",  
+  "weaponMystery202404Notes": "This staff will bestow upon you an ancient wisdom as ageless as the rocks and trees. Confers no benefit. April 2024 Subscriber Item.",
 
   "weaponMystery301404Text": "Steampunk Cane",
   "weaponMystery301404Notes": "Excellent for taking a turn about town. March 3015 Subscriber Item. Confers no benefit.",
@@ -751,6 +753,8 @@
   "weaponArmoireScholarlyTextbooksNotes": "Here’s your chance to dive deep and learn about any topic that interests you. What’s your current hyperfixation? Increases Intelligence by <%= int %>. Enchanted Armoire: School Uniform Set (Item 3 of 4).",
   "weaponArmoireHattersShearsText": "Sharp Shears",
   "weaponArmoireHattersShearsNotes": "Cut right through overwhelm and complications. These shears do a great job cutting fabric, as well, of course. Increases Strength by <%= str %>. Enchanted Armoire: Hatter Set (Item 3 of 4).",
+  "weaponArmoireOptimistsCloverText": "Four-leaf Clover",
+  "weaponArmoireOptimistsCloverNotes": "Well, would you look at what you found? It never hurts to have just a little extra good luck on your side. Increases Strength and Constitution by <%= attrs %> each. Enchanted Armoire: Optimist Set (Item 4 of 4).",  
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -1578,6 +1582,9 @@
   "armorArmoireSoftWhiteSuitNotes": "White is a peaceful color. Whether you’re facing a crisp white bedsheet or a blanket of newly fallen snow, you’ll have a clear and ready mind. Increases Constitution by <% con %> and Perception by <%= per %>. Enchanted Armoire: White Loungewear Set (Item 2 of 3).", 
   "armorArmoireHattersSuitText": "Hatter's Suit",
   "armorArmoireHattersSuitNotes": "Your outfit isn’t complete without your lucky green bowtie. Wear this to your next mad tea party. Or pleasant tea party. Or excited tea party. Or... Increases Constitution by <%= con %>. Enchanted Armoire: Hatter Set (Item 2 of 4).",
+  "armorArmoireSmileyShirtText": "Smiley Face Shirt",
+  "armorArmoireSmileyShirtNotes": "Because you’re happy! Show the world you’re all smiles today. Increases Intelligence and Perception by <%= attrs %> each. Enchanted Armoire: Optimist Set (Item 1 of 4).",
+
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -2228,6 +2235,8 @@
   "headMystery202402Notes": "This pretty pink mane is the perfect accessory for February and beyond. Confers no benefit. February 2024 Subscriber Item.",
   "headMystery202403Text": "Lucky Aquamarine Cap",
   "headMystery202403Notes": "Lucky you, to be able to don this fine cap of emerald velvet with its fine sea-green gem. Confers no benefit. March 2024 Subscriber Item.",
+  "headMystery202404Text": "Mycelial Magus Hat",  
+  "headMystery202404Notes": "This hat will connect you with the earth and allow you to hear secret wishes from many creatures. Confers no benefit. April 2024 Subscriber Item.",
 
   "headMystery301404Text": "Fancy Top Hat",
   "headMystery301404Notes": "A fancy top hat for the finest of gentlefolk! January 3015 Subscriber Item. Confers no benefit.",
@@ -2873,6 +2882,8 @@
   "shieldArmoireSoftWhitePillowNotes": "The organized warrior packs a pillow for any expedition. Protect yourself from overlooked obligations… even while you nap. Increases Intelligence and Perception by <%= attrs %> each. Enchanted Armoire: White Loungewear Set (Item 3 of 3)",
   "shieldArmoireHattersPocketWatchText": "Shiny Pocketwatch",
   "shieldArmoireHattersPocketWatchNotes": "Don’t be late for a very important date! Check your pocketwatch and your notifications often. Increases Intelligence by <%= int %>. Enchanted Armoire: Hatter Set (Item 4 of 4).",
+  "shieldArmoireHappyThoughtsText": "Happy Thoughts",
+  "shieldArmoireHappyThoughtsNotes": "Whether you're remembering a joyful moment from your past or imagining the best outcome for the future, always look on the bright side of life. Increases all stats by <%= attrs %> each. Enchanted Armoire: Optimist Set (Item 3 of 4).",
 
   "back": "Back Accessory",
   "backBase0Text": "No Back Accessory",
@@ -3288,6 +3299,7 @@
   "eyewearMystery202312Text": "Wintry Blue Eyes",
   "eyewearMystery202312Notes": "No need to worry, these icy blues will help you see through the cold and dark season to the warmth of months ahead. Confers no benefit. December 2023 Subscriber Item.",
 
+
   "eyewearMystery301404Text": "Eyewear Goggles",
   "eyewearMystery301404Notes": "No eyewear could be fancier than a pair of goggles - except, perhaps, for a monocle. Confers no benefit. April 3015 Subscriber Item.",
   "eyewearMystery301405Text": "Monocle",
@@ -3307,6 +3319,8 @@
   "eyewearArmoireTragedyMaskNotes": "Alas! Here sits a heavy mask for thine poor player, strutting, fretting, and expressing woe and sorrow upon the stage. Increases Intelligence by <%= int %>. Enchanted Armoire: Theatre Masks Set (Item 2 of 2).",
   "eyewearArmoireJewelersEyeLoupeText": "Jeweler's Eye Loupe",
   "eyewearArmoireJewelersEyeLoupeNotes": "This eye loupe magnifies what you’re working on so you can see absolutely every detail. Increases Perception by <%= per %>. Enchanted Armoire: Jeweler Set (Item 2 of 4).",
+  "eyewearArmoireRoseColoredGlassesText": "Rose-colored Glasses",
+  "eyewearArmoireRoseColoredGlassesNotes": "These glasses will help you see the best in a situation, and these stylish frames help you look your best, too. Increases Perception by <%= per %>. Enchanted Armoire: Optimist Set (Item 2 of 4).",  
 
   "twoHandedItem": "Two-handed item."
 }
