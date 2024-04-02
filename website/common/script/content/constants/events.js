@@ -17,7 +17,7 @@ export const EVENTS = {
   },
   aprilFools2024: {
     start: '2024-04-01T00:00-04:00',
-    end: '2024-04-02T20:00-04:00',
+    end: '2024-04-02T08:00-04:00',
     aprilFools: 'Fungi',
   },
   spring2024: {
