@@ -400,13 +400,9 @@ const premium = {
     value: 2,
     text: t('hatchingPotionRoseGold'),
     limited: true,
-    event: EVENTS.potions202402,
     _addlNotes: t('eventAvailability', {
       date: t('dateEndFebruary'),
     }),
-    canBuy () {
-      return moment().isBetween(EVENTS.potions202402.start, EVENTS.potions202402.end);
-    },
   },
 };
 
