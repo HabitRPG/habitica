@@ -43,6 +43,7 @@
     "sinon": "^17.0.1",
     "smartbanner.js": "^1.19.3",
     "stopword": "^2.0.8",
+    "util": "^0.12.5",
     "uuid": "^9.0.1",
     "validator": "^13.9.0",
     "vue": "^2.7.10",
