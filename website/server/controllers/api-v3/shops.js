@@ -146,21 +146,21 @@ api.getBackgroundShopItems = {
 
 /**
  * @apiIgnore
- * @api {get} /api/v3/shops/customizations get the available items for the backgrounds shop
+ * @api {get} /api/v3/shops/customizations get the available items for the customizations shop
  * @apiName GetCustomizationShopItems
  * @apiGroup Shops
  *
  * @apiSuccess {Object} data List of available backgrounds
  * @apiSuccess {string} message Success message
  */
-api.getBackgroundShopItems = {
+api.getCustomizationsShop = {
   method: 'GET',
   url: '/shops/customizations',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
 
-    const resObject = shops.getCustomizationShop(user, req.language);
+    const resObject = shops.getCustomizationsShop(user, req.language);
 
     res.respond(200, resObject);
   },
