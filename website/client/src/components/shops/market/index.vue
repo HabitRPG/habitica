@@ -35,6 +35,7 @@
         :hide-pinned="hidePinned"
         :hide-locked="hideLocked"
         :search-by="searchTextThrottled"
+        class="mb-4"
       />
       <layout-section :title="$t('items')">
         <div slot="filters">
@@ -119,6 +120,10 @@
   .item-wrapper.bordered-item .item {
     width: 112px;
     height: 112px;
+  }
+
+  .items {
+    max-width: 944px;
   }
 
   .market {

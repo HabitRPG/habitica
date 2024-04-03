@@ -385,7 +385,9 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         class: `hair hair_bangs_${user.preferences.hair.bangs}_${item.key}`,
         currency: 'gems',
         option: item.key,
+        path: `hair.color.${item.key}`,
         purchaseType: 'customization',
+        text: item.text(language),
         type: 'color',
         value: item.price,
       };
@@ -397,7 +399,9 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         class: `hair hair_base_${item.key}_${user.preferences.hair.color}`,
         currency: 'gems',
         option: item.key,
+        path: `hair.base.${item.key}`,
         purchaseType: 'customization',
+        text: item.text(language),
         type: 'base',
         value: item.price,
       };
@@ -409,7 +413,9 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         class: `facial-hair hair_mustache_${item.key}_${user.preferences.hair.color}`,
         currency: 'gems',
         option: item.key,
+        path: `hair.mustache.${item.key}`,
         purchaseType: 'customization',
+        text: item.text(language),
         type: 'mustache',
         value: item.price,
       };
@@ -421,7 +427,9 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         class: `facial-hair hair_beard_${item.key}_${user.preferences.hair.color}`,
         currency: 'gems',
         option: item.key,
+        path: `hair.beard.${item.key}`,
         purchaseType: 'customization',
+        text: item.text(language),
         type: 'beard',
         value: item.price,
       };
@@ -432,7 +440,9 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         key: item.key,
         class: `skin skin_${item.key}`,
         currency: 'gems',
+        path: `skin.${item.key}`,
         purchaseType: 'customization',
+        text: item.text(language),
         type: 'skin',
         value: item.price,
       };
@@ -443,7 +453,9 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         key: item.key,
         class: `shirt ${user.preferences.size}_shirt_${item.key}`,
         currency: 'gems',
+        path: `shirt.${item.key}`,
         purchaseType: 'customization',
+        text: item.text(language),
         type: 'shirt',
         value: item.price,
       };

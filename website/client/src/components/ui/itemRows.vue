@@ -18,7 +18,7 @@
       </p>
     </div>
     <show-more-button
-      v-if="items.length > itemsPerRow"
+      v-if="foldButton && items.length > itemsPerRow"
       :show-all="showAll"
       @click="toggleItemsToShow()"
     />
@@ -29,7 +29,11 @@
   @import '~@/assets/scss/colors.scss';
 
   .item-rows {
-    margin-right: -1.5rem;
+    max-width: 944px;
+  }
+
+  .btn-show-more {
+    max-width: 920px;
   }
 </style>
 
@@ -64,6 +68,10 @@ export default {
     maxItemsPerRow: {
       type: Number,
     },
+    foldButton: {
+      type: Boolean,
+      default: true,
+    },
   },
   data () {
     return {
@@ -82,7 +90,7 @@ export default {
     },
   },
   created () {
-    this.showAll = this.$_openedItemRows_isToggled(this.type);
+    this.showAll = this.$_openedItemRows_isToggled(this.type) || !this.foldButton;
   },
   methods: {
     toggleItemsToShow () {

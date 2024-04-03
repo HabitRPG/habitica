@@ -541,10 +541,6 @@
         margin: auto -1rem -1rem;
       }
 
-      // .pt-015 {
-      //   padding-top: 0.15rem;
-      // }
-
     .gems-left {
       height: 32px;
       background-color: $green-100;
@@ -596,8 +592,10 @@ import moment from 'moment';
 import planGemLimits from '@/../../common/script/libs/planGemLimits';
 import { drops as dropEggs } from '@/../../common/script/content/eggs';
 import { drops as dropPotions } from '@/../../common/script/content/hatching-potions';
-import spellsMixin from '@/mixins/spells';
+import { avatarEditorUtilities } from '@/mixins/avatarEditUtilities';
 import numberInvalid from '@/mixins/numberInvalid';
+import spellsMixin from '@/mixins/spells';
+import sync from '@/mixins/sync';
 
 import svgClose from '@/assets/svg/close.svg';
 import svgGold from '@/assets/svg/gold.svg';
@@ -644,7 +642,15 @@ export default {
     CountdownBanner,
     numberIncrement,
   },
-  mixins: [buyMixin, currencyMixin, notifications, numberInvalid, spellsMixin],
+  mixins: [
+    avatarEditorUtilities,
+    buyMixin,
+    currencyMixin,
+    notifications,
+    numberInvalid,
+    spellsMixin,
+    sync,
+  ],
   props: {
     // eslint-disable-next-line vue/require-default-prop
     item: {
@@ -754,7 +760,7 @@ export default {
       this.selectedAmountToBuy = 1;
     },
 
-    buyItem () {
+    async buyItem () {
       // @TODO: I  think we should buying to the items.
       // Turn the items into classes, and use polymorphism
       if (this.item.buy) {
@@ -827,7 +833,10 @@ export default {
         return;
       }
 
-      if (this.genericPurchase) {
+      if (this.item.purchaseType === 'customization') {
+        await this.unlock(this.item.path);
+        this.sync();
+      } else if (this.genericPurchase) {
         this.makeGenericPurchase(this.item, 'buyModal', this.selectedAmountToBuy);
         this.purchased(this.item.text);
       }

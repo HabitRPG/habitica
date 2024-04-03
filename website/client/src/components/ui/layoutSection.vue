@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="layout-section">
     <div class="clearfix">
       <h2 class="float-left mb-3 filters-title">
         {{ title }}
@@ -22,13 +22,16 @@ export default {
 </script>
 
 <style scoped lang="scss">
- @media only screen and (max-width: 768px) {
-    .filters, .filters-title {
-      float: none;
-      button {
-        margin-right: 4em;
-        margin-bottom: 1em;
-      }
+.clearfix {
+  max-width: 920px;
+}
+@media only screen and (max-width: 768px) {
+  .filters, .filters-title {
+    float: none;
+    button {
+      margin-right: 4em;
+      margin-bottom: 1em;
     }
   }
+}
 </style>
