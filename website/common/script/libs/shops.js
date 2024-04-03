@@ -1,4 +1,3 @@
-import moment from 'moment';
 import values from 'lodash/values';
 import map from 'lodash/map';
 import keys from 'lodash/keys';
@@ -18,6 +17,7 @@ import featuredItems from '../content/shop-featuredItems';
 
 import getOfficialPinnedItems from './getOfficialPinnedItems';
 import { getClassName } from './getClassName';
+import { getScheduleMatchingGroup } from '../content/constants/schedule';
 
 const shops = {};
 
@@ -71,9 +71,11 @@ shops.getMarketCategories = function getMarket (user, language) {
     text: i18n.t('magicHatchingPotions', language),
     notes: i18n.t('premiumPotionNoDropExplanation', language),
   };
+  const matchers = getScheduleMatchingGroup('premiumHatchingPotions');
   premiumHatchingPotionsCategory.items = sortBy(values(content.hatchingPotions)
-    .filter(hp => hp.limited && hp.canBuy(user))
-    .map(premiumHatchingPotion => getItemInfo(user, 'premiumHatchingPotion', premiumHatchingPotion, officialPinnedItems, language)), 'key');
+    .filter(hp => hp.limited
+        && matchers.match(hp.key))
+    .map(premiumHatchingPotion => getItemInfo(user, 'premiumHatchingPotion', premiumHatchingPotion, officialPinnedItems, language, matchers)), 'key');
   if (premiumHatchingPotionsCategory.items.length > 0) {
     categories.push(premiumHatchingPotionsCategory);
   }
@@ -271,9 +273,11 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
     text: i18n.t('questBundles', language),
   };
 
+  const bundleMatchers = getScheduleMatchingGroup('bundles');
   bundleCategory.items = sortBy(values(content.bundles)
-    .filter(bundle => bundle.type === 'quests')
-    .map(bundle => getItemInfo(user, 'bundles', bundle, officialPinnedItems, language)));
+    .filter(bundle => bundle.type === 'quests'
+      && bundleMatchers.match(bundle.key))
+    .map(bundle => getItemInfo(user, 'bundles', bundle, officialPinnedItems, language, bundleMatchers)));
 
   if (bundleCategory.items.length > 0) {
     categories.push(bundleCategory);
@@ -285,9 +289,15 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
       text: i18n.t(`${type}Quests`, language),
     };
 
-    category.items = content.questsByLevel
-      .filter(quest => quest.canBuy(user) && quest.category === type)
-      .map(quest => getItemInfo(user, 'quests', quest, officialPinnedItems, language));
+    let filteredQuests = content.questsByLevel
+      .filter(quest => quest.canBuy(user) && quest.category === type);
+
+    if (type === 'pet' || type === 'hatchingPotion') {
+      const matchers = getScheduleMatchingGroup(`${type}Quests`);
+      filteredQuests = filteredQuests.filter(quest => matchers.match(quest.key));
+    }
+
+    category.items = filteredQuests.map(quest => getItemInfo(user, 'quests', quest, officialPinnedItems, language));
 
     categories.push(category);
   });
@@ -370,7 +380,7 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
     }
   }
 
-  const sets = content.timeTravelerStore(user);
+  const sets = content.timeTravelerStore(user, new Date());
   for (const setKey of Object.keys(sets)) {
     const set = sets[setKey];
     const category = {
@@ -439,8 +449,8 @@ shops.getSeasonalShop = function getSeasonalShop (user, language) {
     identifier: 'seasonalShop',
     text: i18n.t('seasonalShop'),
     notes: i18n.t(`seasonalShop${seasonalShopConfig.currentSeason}Text`),
-    imageName: seasonalShopConfig.opened ? 'seasonalshop_open' : 'seasonalshop_closed',
-    opened: seasonalShopConfig.opened,
+    imageName: 'seasonalshop_open',
+    opened: true,
     categories: this.getSeasonalShopCategories(user, language),
     featured: {
       text: i18n.t(seasonalShopConfig.featuredSet),
@@ -457,26 +467,18 @@ shops.getSeasonalShop = function getSeasonalShop (user, language) {
   return resObject;
 };
 
-// To switch seasons/available inventory, edit the AVAILABLE_SETS object to whatever should be sold.
-// let AVAILABLE_SETS = {
-//   setKey: i18n.t('setTranslationString', language),
-// };
 shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, language) {
   const officialPinnedItems = getOfficialPinnedItems(user);
 
-  const AVAILABLE_SPELLS = [
-    ...seasonalShopConfig.availableSpells,
-  ];
-
-  const AVAILABLE_QUESTS = [
-    ...seasonalShopConfig.availableQuests,
-  ];
+  const spellMatcher = getScheduleMatchingGroup('seasonalSpells');
+  const questMatcher = getScheduleMatchingGroup('seasonalQuests');
+  const gearMatcher = getScheduleMatchingGroup('seasonalGear');
 
   const categories = [];
 
   const spells = pickBy(
     content.spells.special,
-    (spell, key) => AVAILABLE_SPELLS.indexOf(key) !== -1,
+    (spell, key) => spellMatcher.match(key),
   );
 
   if (keys(spells).length > 0) {
@@ -487,13 +489,13 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
 
     category.items = map(
       spells,
-      spell => getItemInfo(user, 'seasonalSpell', spell, officialPinnedItems, language),
+      spell => getItemInfo(user, 'seasonalSpell', spell, officialPinnedItems, language, spellMatcher),
     );
 
     categories.push(category);
   }
 
-  const quests = pickBy(content.quests, (quest, key) => AVAILABLE_QUESTS.indexOf(key) !== -1);
+  const quests = pickBy(content.quests, (quest, key) => questMatcher.match(key));
 
   if (keys(quests).length > 0) {
     const category = {
@@ -501,12 +503,12 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
       text: i18n.t('quests', language),
     };
 
-    category.items = map(quests, quest => getItemInfo(user, 'seasonalQuest', quest, officialPinnedItems, language));
+    category.items = map(quests, quest => getItemInfo(user, 'seasonalQuest', quest, officialPinnedItems, language, questMatcher));
 
     categories.push(category);
   }
 
-  for (const set of seasonalShopConfig.availableSets) {
+  for (const set of gearMatcher.items) {
     const category = {
       identifier: set,
       text: i18n.t(set),
@@ -530,15 +532,18 @@ shops.getBackgroundShopSets = function getBackgroundShopSets (language) {
   const sets = [];
   const officialPinnedItems = getOfficialPinnedItems();
 
+  const matchers = getScheduleMatchingGroup('backgrounds');
   eachRight(content.backgrounds, (group, key) => {
-    const set = {
-      identifier: key,
-      text: i18n.t(key, language),
-    };
+    if (matchers.match(key)) {
+      const set = {
+        identifier: key,
+        text: i18n.t(key, language),
+      };
 
-    set.items = map(group, background => getItemInfo(null, 'background', background, officialPinnedItems, language));
+      set.items = map(group, background => getItemInfo(null, 'background', background, officialPinnedItems, language, matchers));
 
-    sets.push(set);
+      sets.push(set);
+    }
   });
 
   return sets;
