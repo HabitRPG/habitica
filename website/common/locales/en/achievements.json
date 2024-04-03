@@ -162,6 +162,9 @@
   "achievementRoughRiderModalText": "You collected all the basic colors of the uncomfortable pets and mounts!",
   "achievementRodentRuler": "Rodent Ruler",
   "achievementRodentRulerText": "Has hatched all standard colors of rodent pets: Guinea Pig, Rat, and Squirrel!",
-  "achievementRodentRulerModalText": "You collected all the rodent pets!"
+  "achievementRodentRulerModalText": "You collected all the rodent pets!",
+  "achievementCats": "Cat Herder",
+  "achievementCatsText": "Has hatched all the standard colors of cat pets: Cheetah, Lion, Sabretooth, Tiger!",  
+  "achievementCatsModalText": "You collected all the cat pets!"
   
 }
