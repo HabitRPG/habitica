@@ -526,7 +526,7 @@ export default {
           }
         });
 
-        return this.shop.categories;
+        return this.shop.categories.filter(category => category.items.length > 0);
       }
       return [];
     },
