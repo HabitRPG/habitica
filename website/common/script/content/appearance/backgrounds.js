@@ -619,7 +619,7 @@ const plannedBackgrounds = {
   },
   backgrounds052024: {
     dragons_back: { },
-    merry_maypole: { },
+    maypole: { },
     potters_studio: { },
   },
   eventBackgrounds: {

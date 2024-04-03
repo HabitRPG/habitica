@@ -14,26 +14,26 @@ async function updateUser (user) {
 
   if (user && user.items && user.items.pets) {
     const pets = user.items.pets;
-    if (pets['Lion-Zombie'] > 0
-      && pets['Lion-Skeleton'] > 0
-      && pets['Lion-Base'] > 0
-      && pets['Lion-Desert'] > 0
-      && pets['Lion-Red'] > 0
-      && pets['Lion-Shade'] > 0
-      && pets['Lion-White']> 0
-      && pets['Lion-Golden'] > 0
-      && pets['Lion-CottonCandyBlue'] > 0
-      && pets['Lion-CottonCandyPink'] > 0
-      && pets['Tiger-Zombie'] > 0
-      && pets['Tiger-Skeleton'] > 0
-      && pets['Tiger-Base'] > 0
-      && pets['Tiger-Desert'] > 0
-      && pets['Tiger-Red'] > 0
-      && pets['Tiger-Shade'] > 0
-      && pets['Tiger-White'] > 0
-      && pets['Tiger-Golden'] > 0
-      && pets['Tiger-CottonCandyBlue'] > 0
-      && pets['Tiger-CottonCandyPink'] > 0
+    if (pets['LionCub-Zombie'] > 0
+      && pets['LionCub-Skeleton'] > 0
+      && pets['LionCub-Base'] > 0
+      && pets['LionCub-Desert'] > 0
+      && pets['LionCub-Red'] > 0
+      && pets['LionCub-Shade'] > 0
+      && pets['LionCub-White']> 0
+      && pets['LionCub-Golden'] > 0
+      && pets['LionCub-CottonCandyBlue'] > 0
+      && pets['LionCub-CottonCandyPink'] > 0
+      && pets['TigerCub-Zombie'] > 0
+      && pets['TigerCub-Skeleton'] > 0
+      && pets['TigerCub-Base'] > 0
+      && pets['TigerCub-Desert'] > 0
+      && pets['TigerCub-Red'] > 0
+      && pets['TigerCub-Shade'] > 0
+      && pets['TigerCub-White'] > 0
+      && pets['TigerCub-Golden'] > 0
+      && pets['TigerCub-CottonCandyBlue'] > 0
+      && pets['TigerCub-CottonCandyPink'] > 0
       && pets['Sabretooth-Zombie'] > 0
       && pets['Sabretooth-Skeleton'] > 0
       && pets['Sabretooth-Base'] > 0

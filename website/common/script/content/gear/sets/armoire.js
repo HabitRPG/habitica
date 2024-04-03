@@ -980,7 +980,7 @@ const head = {
     set: 'hatterSet',
   },
   pottersBandana: {
-    set: 'potterSet',
+    set: 'pottersSet',
   },
 };
 
@@ -1819,7 +1819,7 @@ const releaseDates = {
   whiteLoungeWear: '2024-02-06T08:00-05:00',
   hatterSet: '2024-03-05T08:00-05:00',
   optimistSet: '2024-04-04T00:00-05:00',
-  pottersSet: '2024-04-07T00:00-04:00',
+  pottersSet: '2024-05-07T00:00-04:00',
 };
 
 forEach({

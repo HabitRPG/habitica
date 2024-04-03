@@ -44,12 +44,12 @@ const ANIMAL_SET_ACHIEVEMENTS = {
     type: 'pet',
     species: [
       'Cheetah',
-      'Lion',
+      'LionCub',
       'Sabretooth',
-      'Tiger',
+      'TigerCub',
     ],
     achievementKey: 'cats',
-    noitificationType: 'ACHIEVEMENT_ANIMAL_SET',
+    notificationType: 'ACHIEVEMENT_ANIMAL_SET',
   },
   dinosaurDynasty: {
     type: 'pet',

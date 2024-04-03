@@ -103,7 +103,7 @@ const premium = {
       availableDate: t('dateEndMay'),
     }),
     canBuy () {
-      return moment().isBefore(EVENTS.potions202405.end);
+      return moment().isBetween(EVENTS.potions202405.start, EVENTS.potions202405.end);
     },
   },
   Aquatic: {
@@ -295,7 +295,7 @@ const premium = {
       availableDate: t('dateEndMay'),
     }),
     canBuy () {
-      return moment().isBefore(EVENTS.potions202405.end);
+      return moment().isBetween(EVENTS.potions202405.start, EVENTS.potions202405.end);
     },
   },
   Bronze: {
