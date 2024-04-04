@@ -13,8 +13,11 @@
       </template>
     </div>
     <div v-if="items.length === 0">
-      <p v-once>
-        {{ noItemsLabel }}
+      <p
+        class="empty-state"
+        v-html="noItemsLabel"
+        @click.stop.prevent="$emit('emptyClick', $event)"
+      >
       </p>
     </div>
     <show-more-button
@@ -28,12 +31,16 @@
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
 
-  .item-rows {
-    max-width: 944px;
-  }
-
   .btn-show-more {
     max-width: 920px;
+  }
+
+  .empty-state {
+    color: $gray-100;
+  }
+
+  .item-rows {
+    max-width: 944px;
   }
 </style>
 
