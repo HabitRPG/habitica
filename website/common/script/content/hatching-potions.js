@@ -100,7 +100,7 @@ const premium = {
     limited: true,
     event: EVENTS.potions202405,
     _addlNotes: t('eventAvailability', {
-      availableDate: t('dateEndMay'),
+      date: t('dateEndMay'),
     }),
     canBuy () {
       return moment().isBetween(EVENTS.potions202405.start, EVENTS.potions202405.end);
@@ -292,7 +292,7 @@ const premium = {
     limited: true,
     event: EVENTS.potions202405,
     _addlNotes: t('eventAvailability', {
-      availableDate: t('dateEndMay'),
+      date: t('dateEndMay'),
     }),
     canBuy () {
       return moment().isBetween(EVENTS.potions202405.start, EVENTS.potions202405.end);
