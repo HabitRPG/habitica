@@ -825,20 +825,21 @@ export default {
         ) return;
       }
 
-      const shouldConfirmPurchase = this.item.currency === 'gems' || this.item.currency === 'hourglasses';
-      if (
-        shouldConfirmPurchase
-        && !this.confirmPurchase(this.item.currency, this.item.value * this.selectedAmountToBuy)
-      ) {
-        return;
-      }
-
       if (this.item.purchaseType === 'customization') {
         await this.unlock(this.item.path);
         this.sync();
-      } else if (this.genericPurchase) {
-        this.makeGenericPurchase(this.item, 'buyModal', this.selectedAmountToBuy);
-        this.purchased(this.item.text);
+      } else {
+        const shouldConfirmPurchase = this.item.currency === 'gems' || this.item.currency === 'hourglasses';
+        if (
+          shouldConfirmPurchase
+          && !this.confirmPurchase(this.item.currency, this.item.value * this.selectedAmountToBuy)
+        ) {
+          return;
+        }
+        if (this.genericPurchase) {
+          this.makeGenericPurchase(this.item, 'buyModal', this.selectedAmountToBuy);
+          this.purchased(this.item.text);
+        }
       }
 
       this.$emit('buyPressed', this.item);

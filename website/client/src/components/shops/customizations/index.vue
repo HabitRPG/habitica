@@ -55,6 +55,8 @@
             :item-width="94"
             :item-margin="24"
             :max-items-per-row="8"
+            :no-items-label="emptyStateString(category.identifier)"
+            @emptyClick="emptyClick(category.identifier, $event)"
           >
             <template
               slot="item"
@@ -182,6 +184,70 @@ export default {
       const { category, searchBy } = options;
       return category.items.filter(item => !searchBy
         || item.text.toLowerCase().includes(searchBy));
+    },
+    emptyClick (identifier, event) {
+      if (event.target.tagName !== 'A') return;
+      this.$store.state.avatarEditorOptions.editingUser = true;
+      switch (identifier) {
+        case 'animalEars':
+          this.$store.state.avatarEditorOptions.startingPage = 'extra';
+          this.$store.state.avatarEditorOptions.subpage = 'ears';
+          break;
+        case 'animalTails':
+          this.$store.state.avatarEditorOptions.startingPage = 'extra';
+          this.$store.state.avatarEditorOptions.subpage = 'tails';
+          break;
+        case 'background':
+          this.$store.state.avatarEditorOptions.startingPage = 'background';
+          this.$store.state.avatarEditorOptions.subpage = '2024';
+          break;
+        case 'facialHair':
+          this.$store.state.avatarEditorOptions.startingPage = 'hair';
+          this.$store.state.avatarEditorOptions.subpage = 'beard';
+          break;
+        case 'hairColors':
+          this.$store.state.avatarEditorOptions.startingPage = 'hair';
+          this.$store.state.avatarEditorOptions.subpage = 'color';
+          break;
+        case 'hairStyles':
+          this.$store.state.avatarEditorOptions.startingPage = 'hair';
+          this.$store.state.avatarEditorOptions.subpage = 'style';
+          break;
+        case 'shirts':
+          this.$store.state.avatarEditorOptions.startingPage = 'body';
+          this.$store.state.avatarEditorOptions.subpage = 'shirt';
+          break;
+        case 'skins':
+          this.$store.state.avatarEditorOptions.startingPage = 'skin';
+          this.$store.state.avatarEditorOptions.subpage = 'color';
+          break;
+        default:
+          throw new Error(`Unknown identifier ${identifier}`);
+      }
+      this.$root.$emit('bv::show::modal', 'avatar-modal');
+    },
+    emptyStateString (identifier) {
+      const { $t } = this;
+      switch (identifier) {
+        case 'animalEars':
+          return $t('allCustomizationsOwned');
+        case 'animalTails':
+          return $t('allCustomizationsOwned');
+        case 'background':
+          return `${$t('allCustomizationsOwned')} ${$t('checkNextMonth')}`;
+        case 'facialHair':
+          return $t('allCustomizationsOwned');
+        case 'hairColors':
+          return `${$t('allCustomizationsOwned')} ${$t('checkNextSeason')}`;
+        case 'hairStyles':
+          return $t('allCustomizationsOwned');
+        case 'shirts':
+          return $t('allCustomizationsOwned');
+        case 'skins':
+          return `${$t('allCustomizationsOwned')} ${$t('checkNextSeason')}`;
+        default:
+          return `Unknown identifier ${identifier}`;
+      }
     },
     selectItem (item) {
       this.$root.$emit('buyModal::showItem', item);
