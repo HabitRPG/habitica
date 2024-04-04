@@ -4,7 +4,7 @@ import t from '../../translation';
 
 export default prefill({
   0: {},
-  1: { text: t('ponytail')},
+  1: { text: t('ponytail') },
   2: { text: t('doublePonytail'), price: 2, set: sets.baseHair1 },
   3: { text: t('braid') },
   4: { text: t('doubleBraid'), price: 2, set: sets.baseHair1 },
