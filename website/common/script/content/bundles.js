@@ -1,6 +1,4 @@
-import moment from 'moment';
 import t from './translation';
-import { EVENTS } from './constants';
 
 /*
  ---------------------------------------------------------------
@@ -12,7 +10,7 @@ const bundles = {
   featheredFriends: {
     key: 'featheredFriends',
     text: t('featheredFriendsText'),
-    notes: t('featheredFriendsNotes', { date: moment(EVENTS.bundle202309.end).format('LL') }),
+    notes: t('featheredFriendsNotes'),
     bundleKeys: [
       'falcon',
       'harpy',
@@ -25,7 +23,7 @@ const bundles = {
   splashyPals: {
     key: 'splashyPals',
     text: t('splashyPalsText'),
-    notes: t('splashyPalsNotes', { date: moment(EVENTS.bundle202306.end).format('LL') }),
+    notes: t('splashyPalsNotes'),
     bundleKeys: [
       'dilatory_derby',
       'turtle',
@@ -38,7 +36,7 @@ const bundles = {
   farmFriends: {
     key: 'farmFriends',
     text: t('farmFriendsText'),
-    notes: t('farmFriendsNotes', { date: moment(EVENTS.bundle202209.end).format('LL') }),
+    notes: t('farmFriendsNotes'),
     bundleKeys: [
       'cow',
       'horse',
@@ -50,7 +48,7 @@ const bundles = {
   witchyFamiliars: {
     key: 'witchyFamiliars',
     text: t('witchyFamiliarsText'),
-    notes: t('witchyFamiliarsNotes', { date: moment(EVENTS.bundle202210.end).format('LL') }),
+    notes: t('witchyFamiliarsNotes'),
     bundleKeys: [
       'rat',
       'spider',
@@ -62,7 +60,7 @@ const bundles = {
   winterQuests: {
     key: 'winterQuests',
     text: t('winterQuestsText'),
-    notes: t('winterQuestsNotes', { date: moment(EVENTS.winter2024.end).format('LL') }),
+    notes: t('winterQuestsNotes'),
     addlNotes: t('evilSantaAddlNotes'),
     bundleKeys: [
       'evilsanta',
@@ -75,7 +73,7 @@ const bundles = {
   hugabug: {
     key: 'hugabug',
     text: t('hugabugText'),
-    notes: t('hugabugNotes', { date: moment(EVENTS.bundle202308.end).format('LL') }),
+    notes: t('hugabugNotes'),
     bundleKeys: [
       'snail',
       'beetle',
@@ -87,7 +85,7 @@ const bundles = {
   cuddleBuddies: {
     key: 'cuddleBuddies',
     text: t('cuddleBuddiesText'),
-    notes: t('cuddleBuddiesNotes', { date: moment(EVENTS.bundle202403.end).format('LL') }),
+    notes: t('cuddleBuddiesNotes'),
     bundleKeys: [
       'bunny',
       'ferret',
@@ -99,7 +97,7 @@ const bundles = {
   aquaticAmigos: {
     key: 'aquaticAmigos',
     text: t('aquaticAmigosText'),
-    notes: t('aquaticAmigosNotes', { date: moment(EVENTS.bundle202206.end).format('LL') }),
+    notes: t('aquaticAmigosNotes'),
     bundleKeys: [
       'axolotl',
       'kraken',
@@ -111,7 +109,7 @@ const bundles = {
   forestFriends: {
     key: 'forestFriends',
     text: t('forestFriendsText'),
-    notes: t('forestFriendsNotes', { date: moment(EVENTS.bundle202208.end).format('LL') }),
+    notes: t('forestFriendsNotes'),
     bundleKeys: [
       'ghost_stag',
       'hedgehog',
@@ -123,7 +121,7 @@ const bundles = {
   oddballs: {
     key: 'oddballs',
     text: t('oddballsText'),
-    notes: t('oddballsNotes', { date: moment(EVENTS.bundle202311.end).format('LL') }),
+    notes: t('oddballsNotes'),
     bundleKeys: [
       'slime',
       'rock',
@@ -135,7 +133,7 @@ const bundles = {
   birdBuddies: {
     key: 'birdBuddies',
     text: t('birdBuddiesText'),
-    notes: t('birdBuddiesNotes', { date: moment(EVENTS.bundle202305.end).format('LL') }),
+    notes: t('birdBuddiesNotes'),
     bundleKeys: [
       'peacock',
       'penguin',
@@ -147,7 +145,7 @@ const bundles = {
   mythicalMarvels: {
     key: 'mythicalMarvels',
     text: t('mythicalMarvelsText'),
-    notes: t('mythicalMarvelsNotes', { date: moment(EVENTS.bundle202402.end).format('LL') }),
+    notes: t('mythicalMarvelsNotes'),
     bundleKeys: [
       'unicorn',
       'seaserpent',
@@ -159,7 +157,7 @@ const bundles = {
   rockingReptiles: {
     key: 'rockingReptiles',
     text: t('rockingReptilesText'),
-    notes: t('rockingReptilesNotes', { date: moment(EVENTS.bundle202211.end).format('LL') }),
+    notes: t('rockingReptilesNotes'),
     bundleKeys: [
       'alligator',
       'snake',
@@ -171,7 +169,7 @@ const bundles = {
   delightfulDinos: {
     key: 'delightfulDinos',
     text: t('delightfulDinosText'),
-    notes: t('delightfulDinosNotes', { date: moment('2022-05-31').format('LL') }), // needs update next time its run
+    notes: t('delightfulDinosNotes'),
     bundleKeys: [
       'pterodactyl',
       'triceratops',
@@ -183,7 +181,7 @@ const bundles = {
   jungleBuddies: {
     key: 'jungleBuddies',
     text: t('jungleBuddiesText'),
-    notes: t('jungleBuddiesNotes', { date: moment(EVENTS.bundle202303.end).format('LL') }),
+    notes: t('jungleBuddiesNotes'),
     bundleKeys: [
       'monkey',
       'sloth',
@@ -195,7 +193,7 @@ const bundles = {
   sandySidekicks: {
     key: 'sandySidekicks',
     text: t('sandySidekicksText'),
-    notes: t('sandySidekicksNotes', { date: moment(EVENTS.bundle202310.end).format('LL') }),
+    notes: t('sandySidekicksNotes'),
     bundleKeys: [
       'armadillo',
       'snake',

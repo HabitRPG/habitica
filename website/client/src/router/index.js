@@ -63,7 +63,6 @@ const QuestsPage = () => import(/* webpackChunkName: "shops-quest" */'@/componen
 const CustomizationsPage = () => import(/* webpackChunkName: "shops-customizations" */'@/components/shops/customizations/index');
 const SeasonalPage = () => import(/* webpackChunkName: "shops-seasonal" */'@/components/shops/seasonal/index');
 const TimeTravelersPage = () => import(/* webpackChunkName: "shops-timetravelers" */'@/components/shops/timeTravelers/index');
-const CustomizationsShopPage = () => import(/* webpackChunkName: "shops-customizations" */'@/components/shops/customizations/index');
 
 Vue.use(VueRouter);
 
@@ -116,7 +115,6 @@ const router = new VueRouter({
         { name: 'customizations', path: 'customizations', component: CustomizationsPage },
         { name: 'seasonal', path: 'seasonal', component: SeasonalPage },
         { name: 'time', path: 'time', component: TimeTravelersPage },
-        { name: 'customizations', path: 'customizations', component: CustomizationsShopPage },
       ],
     },
     { name: 'party', path: '/party', component: GroupPage },

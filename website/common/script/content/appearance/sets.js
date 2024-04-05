@@ -10,28 +10,14 @@ export default prefill({
   winterHairColors: { setPrice: 5 },
   pastelHairColors: { setPrice: 5 },
   rainbowHairColors: { setPrice: 5, text: t('rainbowColors') },
-  shimmerHairColors: {
-    setPrice: 5, text: t('shimmerColors'),
-  },
-  hauntedHairColors: {
-    setPrice: 5, text: t('hauntedColors'),
-  },
-  winteryHairColors: {
-    setPrice: 5, text: t('winteryColors'),
-  },
+  shimmerHairColors: { setPrice: 5, text: t('shimmerColors') },
+  hauntedHairColors: { setPrice: 5, text: t('hauntedColors') },
+  winteryHairColors: { setPrice: 5, text: t('winteryColors') },
   rainbowSkins: { setPrice: 5, text: t('rainbowSkins') },
   animalSkins: { setPrice: 5, text: t('animalSkins') },
-  pastelSkins: {
-    setPrice: 5, text: t('pastelSkins'),
-  },
+  pastelSkins: { setPrice: 5, text: t('pastelSkins') },
   spookySkins: { setPrice: 5, text: t('spookySkins') },
-  supernaturalSkins: {
-    setPrice: 5, text: t('supernaturalSkins'),
-  },
-  splashySkins: {
-    setPrice: 5, text: t('splashySkins'),
-  },
-  winterySkins: {
-    setPrice: 5, text: t('winterySkins'),
-  },
+  supernaturalSkins: { setPrice: 5, text: t('supernaturalSkins') },
+  splashySkins: { setPrice: 5, text: t('splashySkins') },
+  winterySkins: { setPrice: 5, text: t('winterySkins') },
 });
