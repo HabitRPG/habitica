@@ -472,6 +472,7 @@ const armor = {
     set: 'optimistSet',
   },
   pottersApron: {
+    str: 8,
     set: 'pottersSet',
   },
 };
@@ -980,6 +981,7 @@ const head = {
     set: 'hatterSet',
   },
   pottersBandana: {
+    int: 8,
     set: 'pottersSet',
   },
 };
@@ -1326,6 +1328,7 @@ const shield = {
     set: 'optimistSet',
   },
   thrownVessel: {
+    con: 8,
     set: 'pottersSet',
   },
 };
@@ -1807,6 +1810,7 @@ const weapon = {
     set: 'optimistSet',
   },
   pottersWheel: {
+    per: 8,
     set: 'pottersSet',
   },
 };
