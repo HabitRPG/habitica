@@ -137,7 +137,7 @@
         </div>
 
         <like-button
-          v-if="msg.id && !isSystemMessage"
+          v-if="canLikeMessage"
           class="mt-75"
           :liked-by-current-user="msg.likes[user._id]"
           :like-count="likeCount"
@@ -355,7 +355,7 @@ const LikeLogicMixin = {
 
       await this.$store.dispatch('chat:like', {
         groupId: this.groupId,
-        chatId: message.id,
+        chatMessageId: this.privateMessageMode ? message.uniqueMessageId : message.id,
       });
 
       message.likes[this.user._id] = !message.likes[this.user._id];
@@ -423,6 +423,17 @@ export default {
     },
     isSystemMessage () {
       return this.msg.uuid === 'system';
+    },
+    canLikeMessage () {
+      if (this.isSystemMessage) {
+        return false;
+      }
+
+      if (this.privateMessageMode) {
+        return Boolean(this.msg.uniqueMessageId);
+      }
+
+      return this.msg.id;
     },
     canDeleteMessage () {
       return this.privateMessageMode
