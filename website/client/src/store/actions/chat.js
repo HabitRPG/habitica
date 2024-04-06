@@ -46,9 +46,9 @@ export async function like (store, payload) {
   let url = '';
 
   if (payload.groupId === 'privateMessage') {
-    url = `/api/v4/inbox/like-private-message/${payload.chatId}`;
+    url = `/api/v4/inbox/like-private-message/${payload.chatMessageId}`;
   } else {
-    url = `/api/v4/groups/${payload.groupId}/chat/${payload.chatId}/like`;
+    url = `/api/v4/groups/${payload.groupId}/chat/${payload.chatMessageId}/like`;
   }
 
   const response = await axios.post(url);
