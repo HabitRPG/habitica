@@ -189,5 +189,6 @@
     "socialAlreadyExists": "このソーシャルログインは、すでに存在しているHabiticaアカウントにリンクされています。",
     "emailUsernamePlaceholder": "例：habitrabbitもしくはgryphon@example.com",
     "footerProduct": "プロダクト",
-    "translateHabitica": "Habiticaの翻訳"
+    "translateHabitica": "Habiticaの翻訳",
+    "incorrectResetPhrase": "アカウントをリセットするには、すべて大文字で <%= magicWord %> と入力してください。"
 }

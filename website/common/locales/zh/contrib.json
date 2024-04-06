@@ -1,5 +1,5 @@
 {
-    "playerTiersDesc": "你在聊天中看到的用户名颜色代表了这个人的贡献者等级。等级越高，表示此人通过艺术、代码、社区等方式为 habitica 做出的贡献越大！",
+    "playerTiersDesc": "你在聊天中看到的彩色用户名代表了一个人的贡献者等级。等级越高，表示此人通过艺术、代码、社区等方式为habitica做出的贡献越大！",
     "tier1": "第1级（朋友）",
     "tier2": "第2级（朋友）",
     "tier3": "第3级（精英）",
@@ -47,7 +47,7 @@
     "gamemaster": "游戏管理员（工作人员/版主）",
     "backerTier": "资助人等级",
     "balance": "结余",
-    "playerTiers": "玩家层级",
+    "playerTiers": "贡献者等级",
     "tier": "层级",
     "conRewardsURL": "https://habitica.fandom.com/zh/wiki/贡献者的福利",
     "surveysSingle": "通过填写调查问卷或协助大型测试，帮助 Habitica 发展壮大。谢谢你！",

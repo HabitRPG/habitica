@@ -607,6 +607,16 @@ const plannedBackgrounds = {
     swan_boat: { },
     heart_tree_tunnel: { },
   },
+  backgrounds032024: {
+    flowering_forest: { },
+    dog_park: { },
+    rainy_rainforest: { },
+  },
+  backgrounds042024: {
+    forest_sunset: { },
+    wall_flowering_vines: { },
+    container_garden: { },
+  },
   eventBackgrounds: {
     birthday_bash: {
       price: 0,
@@ -655,6 +665,8 @@ const releaseDates = {
   backgrounds122023: '2023-12-05T08:00-05:00',
   backgrounds012024: '2024-01-04T08:00-05:00',
   backgrounds022024: '2024-02-06T08:00-05:00',
+  backgrounds032024: '2024-03-05T08:00-05:00',
+  backgrounds042024: '2023-04-04T00:00-04:00',
 };
 
 const flat = {};

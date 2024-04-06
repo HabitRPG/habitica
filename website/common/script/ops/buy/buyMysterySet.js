@@ -7,7 +7,7 @@ import {
   NotAuthorized,
   NotFound,
 } from '../../libs/errors';
-import errorMessage from '../../libs/errorMessage';
+import { errorMessage } from '../../libs/errorMessage';
 import updateUserHourglasses from '../updateUserHourglasses';
 import { removeItemByPath } from '../pinnedGearUtils';
 import getItemInfo from '../../libs/getItemInfo';

@@ -257,8 +257,8 @@
       </div>
       <div class="melior">
         <div
-          class="logo svg-icon"
-          v-html="icons.gryphon"
+          class="logo svg svg-icon color"
+          v-html="icons.melior"
         ></div>
       </div>
       <!-- DESKTOP PRIVACY & TERMS -->
@@ -521,10 +521,10 @@ h3 {
 }
 
 .logo {
-  width: 24px;
+  color: $gray-200;
   height: 24px;
   margin: 0px auto 5px;
-  color: $gray-200;
+  width: 24px;
 }
 
 .terms {
@@ -774,7 +774,7 @@ import axios from 'axios';
 import moment from 'moment';
 
 // images
-import gryphon from '@/assets/svg/gryphon.svg';
+import melior from '@/assets/svg/melior.svg';
 import twitter from '@/assets/svg/twitter.svg';
 import facebook from '@/assets/svg/facebook.svg';
 import instagram from '@/assets/svg/instagram.svg';
@@ -795,7 +795,7 @@ export default {
   data () {
     return {
       icons: Object.freeze({
-        gryphon,
+        melior,
         twitter,
         facebook,
         instagram,

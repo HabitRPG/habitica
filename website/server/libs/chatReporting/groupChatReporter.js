@@ -9,7 +9,7 @@ import {
 import * as slack from '../slack';
 import { model as Group } from '../../models/group';
 import { chatModel as Chat } from '../../models/message';
-import apiError from '../apiError';
+import { apiError } from '../apiError';
 
 const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS_COMMUNITY_MANAGER_EMAIL');
 const USER_AGE_FOR_FLAGGING = 3; // accounts less than this many days old don't increment flagCount

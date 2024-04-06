@@ -114,5 +114,6 @@
     "tooMuchFood": "Du versuchst zu viel Futter an Dein Haustier zu verfüttern, Aktion abgebrochen",
     "notEnoughFood": "Du hast nicht genug Futter",
     "invalidAmount": "Ungültige Menge Futter, positiver Integer benötigt",
-    "jubilantGryphatrice": "Jubelnder Greifatrice"
+    "jubilantGryphatrice": "Jubelnder Greifatrice",
+    "veteranDragon": "Veterandrache"
 }

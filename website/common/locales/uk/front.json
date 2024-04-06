@@ -189,5 +189,6 @@
     "emailUsernamePlaceholder": "наприклад, habitrabbit або gryphon@example.com",
     "socialAlreadyExists": "Цей соціальний логін уже пов’язано з наявним обліковим записом Habitica.",
     "footerProduct": "Продукт",
-    "translateHabitica": "Переклад Habitica"
+    "translateHabitica": "Переклад Habitica",
+    "incorrectResetPhrase": "Будь ласка, введіть <%= magicWord %> великими літерами, щоб скинути свій акаунт."
 }

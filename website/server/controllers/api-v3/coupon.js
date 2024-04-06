@@ -7,7 +7,7 @@ import {
 } from '../../middlewares/auth';
 import { ensurePermission } from '../../middlewares/ensureAccessRight';
 import * as couponsLib from '../../libs/coupons';
-import apiError from '../../libs/apiError';
+import { apiError } from '../../libs/apiError';
 import { model as Coupon } from '../../models/coupon';
 
 const api = {};

@@ -8,8 +8,8 @@ import Vue from 'vue';
 import getStore from '@/store';
 
 const IS_PRODUCTION = process.env.NODE_ENV === 'production'; // eslint-disable-line no-process-env
-const { AMPLITUDE_KEY } = process.env; // eslint-disable-line no-process-env
-const { GA_ID } = process.env; // eslint-disable-line no-process-env
+const AMPLITUDE_KEY = process.env.AMPLITUDE_KEY; // eslint-disable-line no-process-env
+const GA_ID = process.env.GA_ID; // eslint-disable-line no-process-env
 
 const REQUIRED_FIELDS = ['hitType', 'eventCategory', 'eventAction'];
 const ALLOWED_HIT_TYPES = [

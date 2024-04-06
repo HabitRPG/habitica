@@ -14,7 +14,7 @@ import ultimateGear from '../../fns/ultimateGear';
 import { removePinnedGearAddPossibleNewOnes } from '../pinnedGearUtils';
 
 import { AbstractGoldItemOperation } from './abstractBuyOperation';
-import errorMessage from '../../libs/errorMessage';
+import { errorMessage } from '../../libs/errorMessage';
 
 export class BuyMarketGearOperation extends AbstractGoldItemOperation { // eslint-disable-line import/prefer-default-export, max-len
   multiplePurchaseAllowed () { // eslint-disable-line class-methods-use-this

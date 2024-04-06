@@ -224,7 +224,7 @@
     "mysterySet202307": "Conjunto Kraken peligroso",
     "mysterySet202309": "Conjunto Mariposa cometa colosal",
     "mysterySet202312": "Conjunto azul invernal",
-    "mysterySet202303": "Conjunto de melenas",
+    "mysterySet202303": "Conjunto Melena de Protagonista",
     "subscriptionCreditConversion": "Al obtener una nueva subscripción los meses restantes se acumularán para ser usados después de que la subscripción periódica se cancele.",
     "mysterySet202306": "Conjunto del arcoíris chillón",
     "switchToRecurring": "¿Cambiar a una subscripción periódica?",
@@ -232,5 +232,7 @@
     "mysterySet202305": "Conjunto de dragón manto de noche",
     "mysterySet202304": "Conjunto de tetera picuda",
     "haveNonRecurringSub": "Tienes un regalo de una subscripción no periódica.",
-    "mysterySet202310": "Conjunto de espectro fantasmal"
+    "mysterySet202310": "Conjunto de espectro fantasmal",
+    "mysterySet202402": "Conjunto de Paraíso Rosado",
+    "mysterySet202403": "Conjunto Leyenda Afortunada"
 }

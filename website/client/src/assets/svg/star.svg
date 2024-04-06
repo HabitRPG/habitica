@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+<svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24">
     <g fill="none" fill-rule="evenodd">
         <path fill="#FFA623" d="M16 16l8-4-8-4-4-8-4 8-8 4 8 4 4 8z"/>
         <path fill="#FFF" d="M4.5 12l5-2.5L12 12zM12 19.5l-2.5-5L12 12zM19.5 12l-5 2.5L12 12zM12 4.5l2.5 5L12 12z" opacity=".25"/>

@@ -2740,5 +2740,20 @@
     "weaponArmoireMagicSpatulaText": "Magischer Pfannenwender",
     "weaponArmoireMagicSpatulaNotes": "Schau zu, wie Dein Essen durch die Luft fliegt und sich überschlägt. Du hast den Rest des Tages Glück wenn es dreimal magisch überschlägt, bevor es wieder am Pfannenwender landet. Erhöht Wahrnehmung um <%= per %>. Verzauberter Schrank: Küchenwerkzeugset (Gegenstand 1 von 2).",
     "shieldArmoireBubblingCauldronText": "Übersprudelnder Kessel",
-    "shieldArmoireBubblingCauldronNotes": "Der perfekte Kessel, um einen Produktivitätstrank zu brühen oder eine würzige Suppe zu kochen. Um genau zu sein gibt es zwischen diesen beiden kaum einen Unterschied! Erhöht Ausdauer um <%= con %>. Verzauberter Schrank: Küchenwerkzeugset (Gegenstand 2 von 2)."
+    "shieldArmoireBubblingCauldronNotes": "Der perfekte Kessel, um einen Produktivitätstrank zu brühen oder eine würzige Suppe zu kochen. Um genau zu sein gibt es zwischen diesen beiden kaum einen Unterschied! Erhöht Ausdauer um <%= con %>. Verzauberter Schrank: Küchenwerkzeugset (Gegenstand 2 von 2).",
+    "headSpecialNye2022Text": "Fabelhafter Partyhut",
+    "headSpecialNye2022Notes": "Du hast einen Fabelhaften Partyhut erhalten! Trag ihn mit Stolz, während Du das neue Jahr einläutest! Gewährt keinen Attributbonus.",
+    "weaponSpecialWinter2023RogueText": "Grüne Satinschärpe",
+    "weaponSpecialWinter2023WarriorText": "Stoßzahn Speer",
+    "weaponSpecialSpring2023MageText": "Mondstein Magie",
+    "weaponSpecialSpring2023MageNotes": "Je stärker ihr Glühen, desto größer ist ihre Macht. Erhöht Intelligenz um <%= int %>. Limitierte Ausgabe 2023 Frühlingsausrüstung.",
+    "weaponSpecialSpring2023HealerText": "Lilien Pollen",
+    "weaponSpecialSummer2023WarriorText": "Wasserelementar-Schwert",
+    "weaponSpecialSummer2023MageText": "Fisch",
+    "weaponSpecialFall2023RogueText": "Supper-naturaler Löffel",
+    "weaponSpecialFall2023WarriorText": "Leckeres Popcorn",
+    "weaponSpecialWinter2024HealerText": "Fackel",
+    "weaponSpecialWinter2024HealerNotes": "Schmelz die Blockade weg in Nullkommanichts! Erhöht Intelligenz um <%= int %>. Limitierte Ausgabe 2023-2024 Winterausrüstung.",
+    "weaponMystery202306Text": "Regenbogen Schirm",
+    "weaponSpecialWinter2023MageNotes": "Kein Fuchs, kein Feuer, aber viel Festliches! Erhöht Intelligenz um <%= int %> und Wahrnehmung um <%= per %>. Limitierte Ausgabe 2022-2023 Winterausrüstung."
 }

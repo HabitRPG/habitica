@@ -7,7 +7,7 @@ import {
   BadRequest,
   NotAuthorized,
 } from '../../libs/errors';
-import errorMessage from '../../libs/errorMessage';
+import { errorMessage } from '../../libs/errorMessage';
 import getItemInfo from '../../libs/getItemInfo';
 import { removeItemByPath } from '../pinnedGearUtils';
 import updateUserHourglasses from '../updateUserHourglasses';

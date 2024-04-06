@@ -1,5 +1,5 @@
 import { authWithHeaders } from '../../middlewares/auth';
-import apiError from '../../libs/apiError';
+import { apiError } from '../../libs/apiError';
 import { NotFound } from '../../libs/errors';
 import { listConversations } from '../../libs/inbox/conversation.methods';
 import {
