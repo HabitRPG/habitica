@@ -3,7 +3,7 @@ import {
 } from '../../helpers/common.helper';
 import cleanupPinnedItems from '../../../website/common/script/libs/cleanupPinnedItems';
 
-describe.only('cleanupPinnedItems', () => {
+describe('cleanupPinnedItems', () => {
   let user;
   let testPinnedItems;
   let clock;

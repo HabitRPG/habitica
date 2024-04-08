@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { EVENTS } from './constants';
+import { EVENTS, getScheduleMatchingGroup } from './constants';
 // Magic Hatching Potions are configured like this:
 // type: 'premiumHatchingPotion',  // note no "s" at the end
 // path: 'premiumHatchingPotions.Rainbow',
@@ -7,77 +7,40 @@ import { EVENTS } from './constants';
 // hatching potions and food names should be capitalized lest you break the market
 const featuredItems = {
   market () {
-    if (moment().isBetween(EVENTS.spring2024.start, EVENTS.spring2024.end)) {
-      return [
-        {
-          type: 'armoire',
-          path: 'armoire',
-        },
-        {
+    const featured = [{
+      type: 'armoire',
+      path: 'armoire',
+    }];
+    const itemKeys = getScheduleMatchingGroup('premiumHatchingPotions').items;
+    itemKeys.forEach(itemKey => {
+      if (featured.length < 4) {
+        featured.push({
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Celestial',
-        },
-        {
-          type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Shimmer',
-        },
-        {
-          type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Rainbow',
-        },
-      ];
-    }
-    return [
-      {
-        type: 'armoire',
-        path: 'armoire',
-      },
-      {
-        type: 'food',
-        path: 'food.Fish',
-      },
-      {
-        type: 'hatchingPotions',
-        path: 'hatchingPotions.Skeleton',
-      },
-      {
-        type: 'eggs',
-        path: 'eggs.Fox',
-      },
-    ];
+          path: `premiumHatchingPotions.${itemKey}`,
+        });
+      }
+    });
+    return featured;
   },
   quests () {
-    if (moment().isBetween(EVENTS.bundle202403.start, EVENTS.bundle202403.end)) {
-      return [
-        {
-          type: 'bundles',
-          path: 'bundles.cuddleBuddies',
-        },
-        {
+    const featured = [];
+    const bundleKeys = getScheduleMatchingGroup('bundles').items;
+    bundleKeys.forEach(itemKey => {
+      featured.push({
+        type: 'bundles',
+        path: `bundles.${itemKey}`,
+      });
+    });
+    const petQuestKeys = getScheduleMatchingGroup('petQuests').items;
+    petQuestKeys.forEach(itemKey => {
+      if (featured.length < 4) {
+        featured.push({
           type: 'quests',
-          path: 'quests.hedgehog',
-        },
-        {
-          type: 'quests',
-          path: 'quests.sheep',
-        },
-      ];
-    }
-
-    return [
-      {
-        type: 'quests',
-        path: 'quests.rat',
-      },
-      {
-        type: 'quests',
-        path: 'quests.kraken',
-      },
-      {
-        type: 'quests',
-        path: 'quests.slime',
-      },
-    ];
+          path: `quests.${itemKey}`,
+        });
+      }
+    });
+    return featured;
   },
   seasonal: 'spring2019CloudRogueSet',
   timeTravelers: [
