@@ -42,24 +42,24 @@ const featuredItems = {
       },
       {
         type: 'eggs',
-        path: 'eggs.Fox',
+        path: 'eggs.Dragon',
       },
     ];
   },
   quests () {
-    if (moment().isBetween(EVENTS.bundle202403.start, EVENTS.bundle202403.end)) {
+    if (moment().isBetween(EVENTS.aprilFoolsQuest2024.start, EVENTS.aprilFoolsQuest2024.end)) {
       return [
         {
-          type: 'bundles',
-          path: 'bundles.cuddleBuddies',
+          type: 'quests',
+          path: 'quests.fungi',
         },
         {
           type: 'quests',
-          path: 'quests.hedgehog',
+          path: 'quests.badger',
         },
         {
           type: 'quests',
-          path: 'quests.sheep',
+          path: 'quests.snake',
         },
       ];
     }

@@ -135,9 +135,9 @@ const QUEST_SEASONAL = {
     },
   },
   waffle: {
-    event: CURRENT_EVENT && CURRENT_EVENT.season === 'spring' ? CURRENT_EVENT : null,
+    event: EVENTS.aprilFoolsQuest2024,
     canBuy () {
-      return this.event && moment().isBetween(this.event.start, this.event.end);
+      return moment().isBetween(EVENTS.aprilFoolsQuest2024.start, EVENTS.aprilFoolsQuest2024.end);
     },
     text: t('questWaffleText'),
     notes: t('questWaffleNotes'),
@@ -178,9 +178,9 @@ const QUEST_SEASONAL = {
     },
   },
   virtualpet: {
-    event: CURRENT_EVENT && CURRENT_EVENT.season === 'spring' ? CURRENT_EVENT : null,
+    event: EVENTS.aprilFoolsQuest2024,
     canBuy () {
-      return this.event && moment().isBetween(this.event.start, this.event.end);
+      return moment().isBetween(EVENTS.aprilFoolsQuest2024.start, EVENTS.aprilFoolsQuest2024.end);
     },
     text: t('questVirtualPetText'),
     notes: t('questVirtualPetNotes'),
@@ -218,6 +218,49 @@ const QUEST_SEASONAL = {
       gp: 40,
       exp: 500,
       unlock: t('questVirtualPetUnlockText'),
+    },
+  },
+  fungi: {
+    event: EVENTS.aprilFoolsQuest2024,
+    canBuy () {
+      return moment().isBetween(EVENTS.aprilFoolsQuest2024.start, EVENTS.aprilFoolsQuest2024.end);
+    },
+    text: t('questFungiText'),
+    notes: t('questFungiNotes'),
+    completion: t('questFungiCompletion'),
+    value: 4,
+    category: 'hatchingPotion',
+    boss: {
+      name: t('questFungiBoss'),
+      hp: 500,
+      str: 2,
+      rage: {
+        title: t('questFungiRageTitle'),
+        description: t('questFungiRageDescription'),
+        value: 50,
+        mpDrain: .33,
+        effect: t('questFungiRageEffect'),
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'Fungi',
+          text: t('questFungiDropFungiPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Fungi',
+          text: t('questFungiDropFungiPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Fungi',
+          text: t('questFungiDropFungiPotion'),
+        },
+      ],
+      gp: 40,
+      exp: 500,
+      unlock: t('questFungiUnlockText'),
     },
   },
 };

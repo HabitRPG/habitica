@@ -37687,6 +37687,11 @@
   width: 221px;
   height: 213px;
 }
+.quest_fungi {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/quest_fungi.png');
+  width: 219px;
+  height: 219px;
+}
 .quest_ghost_stag {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/quest_ghost_stag.png');
   width: 219px;
@@ -38389,6 +38394,11 @@
 }
 .inventory_quest_scroll_frog {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/inventory_quest_scroll_frog.png');
+  width: 68px;
+  height: 68px;
+}
+.inventory_quest_scroll_fungi {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/inventory_quest_scroll_fungi.png');
   width: 68px;
   height: 68px;
 }
@@ -60804,6 +60814,11 @@
 }
 .Pet_HatchingPotion_Frost {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet_HatchingPotion_Frost.png');
+  width: 68px;
+  height: 68px;
+}
+.Pet_HatchingPotion_Fungi {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet_HatchingPotion_Fungi.png');
   width: 68px;
   height: 68px;
 }
