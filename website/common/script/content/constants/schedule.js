@@ -92,7 +92,7 @@ export const MONTHLY_SCHEDULE = {
         type: 'premiumHatchingPotions',
         items: [
           'Aurora',
-          'Moonglow',
+          'Cupid',
           'IcySnow',
         ],
       },
@@ -139,7 +139,7 @@ export const MONTHLY_SCHEDULE = {
         type: 'premiumHatchingPotions',
         items: [
           'PolkaDot',
-          'Cupid',
+          'Celestial',
           'RoseGold',
         ],
       },
@@ -381,7 +381,7 @@ export const MONTHLY_SCHEDULE = {
       {
         type: 'premiumHatchingPotions',
         items: [
-          'Celestial',
+          'Moonglow',
           'SandCastle',
           'Watery',
         ],
