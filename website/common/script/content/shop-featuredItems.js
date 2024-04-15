@@ -42,17 +42,12 @@ const featuredItems = {
       },
       {
         type: 'eggs',
-<<<<<<< HEAD
         path: 'eggs.Cactus',
 
-=======
-        path: 'eggs.Dragon',
->>>>>>> release
       },
     ];
   },
   quests () {
-<<<<<<< HEAD
     if (moment().isBetween(EVENTS.bundle202405.start, EVENTS.bundle202405.end)) {
       return [
         {
