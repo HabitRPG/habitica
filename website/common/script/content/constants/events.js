@@ -15,6 +15,7 @@ export const EVENTS = {
     season: 'normal',
     npcImageSuffix: '',
   },
+
   bundle202405:{
     start: '2024-05-21T00:00-04:00',
     end: '2024-05-30T23:59-04:00',
@@ -22,6 +23,11 @@ export const EVENTS = {
   potions202405: {
     start: '2024-05-14T00:00-04:00',
     end: '2024-05-30T23:59-04:00',
+
+  aprilFoolsQuest2024: {
+    start: '2024-04-09T08:00-04:00',
+    end: '2024-04-30T23:59-04:00',
+
   },
   aprilFools2024: {
     start: '2024-04-01T00:00-04:00',

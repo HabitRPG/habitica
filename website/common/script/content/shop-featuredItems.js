@@ -42,11 +42,14 @@ const featuredItems = {
       },
       {
         type: 'eggs',
+
         path: 'eggs.Cactus',
+
       },
     ];
   },
   quests () {
+
     if (moment().isBetween(EVENTS.bundle202405.start, EVENTS.bundle202405.end)) {
       return [
         {
@@ -60,6 +63,7 @@ const featuredItems = {
         {
           type: 'quests',
           path: 'quests.owl',
+
         },
       ];
     }

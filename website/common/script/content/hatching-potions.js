@@ -544,12 +544,12 @@ const wacky = {
   Veggie: {
     text: t('hatchingPotionVeggie'),
     limited: true,
-    event: EVENTS.spring2023,
+    event: EVENTS.aprilFoolsQuest2024,
     _addlNotes: t('eventAvailability', {
       date: t('dateEndApril'),
     }),
     canBuy () {
-      return moment().isBetween('2023-04-06T08:00-04:00', EVENTS.spring2023.end);
+      return moment().isBetween(EVENTS.aprilFoolsQuest2024.start, EVENTS.aprilFoolsQuest2024.end);
     },
   },
   Dessert: {
@@ -567,13 +567,22 @@ const wacky = {
   TeaShop: {
     text: t('hatchingPotionTeaShop'),
     limited: true,
-    event: EVENTS.spring2023,
+    event: EVENTS.aprilFoolsQuest2024,
     _addlNotes: t('premiumPotionAddlNotes', {
       date: t('dateEndApril'),
     }),
     canBuy () {
-      return moment().isBetween('2023-04-06T08:00-04:00', EVENTS.spring2023.end);
+      return moment().isBetween(EVENTS.aprilFoolsQuest2024.start, EVENTS.aprilFoolsQuest2024.end);
     },
+  },
+  Fungi: {
+    text: t('hatchingPotionFungi'),
+    limited: true,
+    event: EVENTS.aprilFoolsQuest2024,
+    _addlNotes: t('premiumPotionAddlNotes', {
+      date: t('dateEndApril'),
+    }),
+    canBuy: hasQuestAchievementFunction('fungi'),
   },
 };
 
