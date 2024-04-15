@@ -238,7 +238,7 @@ const QUEST_SEASONAL = {
         title: t('questFungiRageTitle'),
         description: t('questFungiRageDescription'),
         value: 50,
-        mpDrain: .33,
+        mpDrain: 0.33,
         effect: t('questFungiRageEffect'),
       },
     },
