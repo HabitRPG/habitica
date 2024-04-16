@@ -18,7 +18,7 @@ function expectMessagesLikeStatus (messages, uniqueMessageId, userId, likeStatus
 }
 
 // eslint-disable-next-line mocha/no-exclusive-tests
-describe.only('POST /inbox/like-private-message/:messageId', () => {
+describe('POST /inbox/like-private-message/:messageId', () => {
   let userToSendMessage;
   const getLikeUrl = messageId => `/inbox/like-private-message/${messageId}`;
 
