@@ -1,6 +1,6 @@
 import { mapInboxMessage, inboxModel } from '../../models/message';
 import { getUserInfo, sendTxn as sendTxnEmail } from '../email'; // eslint-disable-line import/no-cycle
-import { sendNotification as sendPushNotification } from '../pushNotifications'; // eslint-disable-line import/no-cycle
+import { sendNotification as sendPushNotification } from '../pushNotifications';
 
 export async function sentMessage (sender, receiver, message, translate) {
   const messageSent = await sender.sendMessage(receiver, { receiverMsg: message });
@@ -79,8 +79,33 @@ export async function getUserInbox (user, optionParams = getUserInboxDefaultOpti
   return messagesObj;
 }
 
+export async function applyLikeToMessages (user, uniqueMessages) {
+  const bulkWriteOperations = [];
+
+  for (const message of uniqueMessages) {
+    if (!message.likes) {
+      message.likes = {};
+    }
+
+    message.likes[user._id] = !message.likes[user._id];
+
+    bulkWriteOperations.push({
+      updateOne: {
+        filter: { _id: message._id },
+        update: {
+          $set: {
+            likes: message.likes,
+          },
+        },
+      },
+    });
+  }
+
+  await inboxModel.bulkWrite(bulkWriteOperations, {});
+}
+
 export async function getInboxMessagesByUniqueId (uniqueMessageId) {
-  return inboxModel.find({ uniqueMessageId }).exec();
+  return inboxModel.find({ uniqueMessageId }).lean().exec();
 }
 
 export async function getUserInboxMessage (user, messageId) {
