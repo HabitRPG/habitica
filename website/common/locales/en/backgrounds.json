@@ -245,7 +245,7 @@
   "backgroundWindyAutumnText": "Windy Autumn",
   "backgroundWindyAutumnNotes": "Chase leaves during a Windy Autumn.",
 
-  "incentiveBackgrounds": "Plain Background Set",
+  "incentiveBackgrounds": "Standard Backgrounds",
   "backgroundVioletText": "Violet",
   "backgroundVioletNotes": "A vibrant violet backdrop.",
   "backgroundBlueText": "Blue",
@@ -981,5 +981,7 @@
 
   "eventBackgrounds": "Event Backgrounds",
   "backgroundBirthdayBashText": "Birthday Bash",
-  "backgroundBirthdayBashNotes": "Habitica's having a birthday party, and everyone's invited!"
+  "backgroundBirthdayBashNotes": "Habitica's having a birthday party, and everyone's invited!",
+
+  "monthlyBackgrounds": "Monthly Backgrounds"
 }

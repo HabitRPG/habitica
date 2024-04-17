@@ -224,7 +224,7 @@ export default async function unlock (user, req = {}, analytics) {
   // The passed paths are not used anymore after this point for full sets
   const { set, items, paths } = getSet(setType, firstPath, req);
 
-  if (isBackground) {
+  if (isBackground && !alreadyUnlocked(user, setType, path)) {
     const matchers = getScheduleMatchingGroup('backgrounds');
     if (!matchers.match(set.key)) {
       throw new NotAuthorized(i18n.t('notAvailable', req.language));
