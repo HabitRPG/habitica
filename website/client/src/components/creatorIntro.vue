@@ -51,8 +51,6 @@
       class="section"
       :class="{'edit-modal': editing}"
     >
-      <!-- @TODO Implement in V2 .section.row.col-12.text-center
-      button.btn.btn-secondary(v-once) {{$t('randomize')}}-->
       <div
         id="options-nav"
         class="container section text-center customize-menu"
@@ -121,7 +119,7 @@
             v-if="editing"
             class="menu-container col-2"
             :class="{active: activeTopPage === 'backgrounds'}"
-            @click="changeTopPage('backgrounds', '2024')"
+            @click="changeTopPage('backgrounds')"
           >
             <div class="menu-item">
               <div
@@ -155,33 +153,22 @@
         id="backgrounds"
         class="section container customize-section"
       >
-        <div class="row title-row">
-          <toggle-switch
-            v-model="filterBackgrounds"
-            class="backgroundFilterToggle"
-            :label="$t('hideLockedBackgrounds')"
-          />
+        <div class="row text-center title-row">
+          <strong>{{ $t('incentiveBackgrounds') }}</strong>
         </div>
         <div
-          v-if="!filterBackgrounds"
-          class="row text-center title-row"
-        >
-          <strong>{{ backgroundShopSets[0].text }}</strong>
-        </div>
-        <div
-          v-if="!filterBackgrounds"
           class="row title-row"
+          v-if="!ownsSet('background', standardBackgrounds)"
         >
           <div
-            v-if="showPlainBackgroundBlurb(
-              backgroundShopSets[0].identifier, backgroundShopSets[0].items
-            )"
             class="col-12"
           >
             {{ $t('incentiveBackgroundsUnlockedWithCheckins') }}
           </div>
+        </div>
+        <div class="row">
           <div
-            v-for="bg in backgroundShopSets[0].items"
+            v-for="bg in standardBackgrounds"
             :id="bg.key"
             :key="bg.key"
             class="col-2"
@@ -198,23 +185,23 @@
               triggers="hover focus"
               placement="bottom"
               :prevent-overflow="false"
-              :content="bg.notes"
+              :content="bg.notes(user.preferences.language)"
             />
           </div>
         </div>
         <div
-          v-if="!filterBackgrounds && user.purchased.background.birthday_bash"
+          v-if="user.purchased.background.birthday_bash"
         >
           <div
             class="row text-center title-row"
           >
-            <strong>{{ backgroundShopSets[2].text }}</strong>
+            <strong>{{ allBackgrounds.eventBackgrounds.text }}</strong>
           </div>
           <div
             class="row title-row"
           >
             <div
-              v-for="bg in backgroundShopSets[2].items"
+              v-for="bg in allBackgrounds.eventBackgrounds.items"
               :id="bg.key"
               :key="bg.key"
               class="col-4 text-center customize-option background-button"
@@ -229,27 +216,26 @@
                 triggers="hover focus"
                 placement="bottom"
                 :prevent-overflow="false"
-                :content="bg.notes"
+                :content="bg.notes(user.preferences.language)"
               />
             </div>
           </div>
         </div>
-        <div v-if="!filterBackgrounds">
+        <div v-if="timeTravelBackgrounds.length > 0">
           <div
-            class="row text-center title-row"
+            class="row text-center title-row mt-4"
           >
-            <strong>{{ backgroundShopSets[1].text }}</strong>
+            <strong>{{ $t('timeTravelBackgrounds') }}</strong>
           </div>
           <div
             class="row title-row"
           >
             <div
-              v-for="bg in backgroundShopSets[1].items"
+              v-for="bg in timeTravelBackgrounds"
               :id="bg.key"
               :key="bg.key"
               class="col-4 text-center customize-option background-button"
-              @click="!user.purchased.background[bg.key]
-                ? backgroundSelected(bg) : unlock('background.' + bg.key)"
+              @click="unlock('background.' + bg.key)"
             >
               <div
                 class="background"
@@ -283,116 +269,37 @@
                 triggers="hover focus"
                 placement="bottom"
                 :prevent-overflow="false"
-                :content="bg.notes"
+                :content="bg.notes(user.preferences.language)"
               />
             </div>
           </div>
         </div>
-        <sub-menu
-          v-if="!filterBackgrounds"
-          class="text-center"
-          :items="bgSubMenuItems"
-          :active-sub-page="activeSubPage"
-          @changeSubPage="changeSubPage($event)"
-        />
-        <!-- eslint-disable vue/no-use-v-if-with-v-for -->
-        <div
-          v-for="(sets, key) in backgroundShopSetsByYear"
-          v-if="!filterBackgrounds"
-          :key="key"
-          class="row customize-menu"
-        >
-          <!-- eslint-enable vue/no-use-v-if-with-v-for -->
-          <!-- eslint-disable vue/no-use-v-if-with-v-for -->
+        <div v-if="monthlyBackgrounds.length > 0">
           <div
-            v-for="set in sets"
-            v-if="activeSubPage === key"
-            :key="set.identifier"
-            class="row background-set"
+            class="row text-center title-row mt-2"
           >
-            <!-- eslint-enable vue/no-use-v-if-with-v-for -->
-            <div class="col-8 offset-2 text-center set-title">
-              <strong>{{ set.text }}</strong>
-            </div>
+            <strong>{{ $t('monthlyBackgrounds') }}</strong>
+          </div>
+          <div class="row title-row">
             <div
-              v-for="bg in set.items"
+              v-for="(bg) in monthlyBackgrounds"
               :id="bg.key"
               :key="bg.key"
               class="col-4 text-center customize-option background-button"
-              @click="!user.purchased.background[bg.key]
-                ? backgroundSelected(bg) : unlock('background.' + bg.key)"
+              @click="unlock('background.' + bg.key)"
             >
               <div
                 class="background"
                 :class="[`background_${bg.key}`, backgroundLockedStatus(bg.key)]"
               ></div>
-              <i
-                v-if="!user.purchased.background[bg.key]"
-                class="glyphicon glyphicon-lock"
-              ></i>
-              <div
-                v-if="!user.purchased.background[bg.key]"
-                class="purchase-background single d-flex align-items-center justify-content-center"
-              >
-                <div
-                  class="svg-icon gem"
-                  v-html="icons.gem"
-                ></div>
-                <span class="price">7</span>
-              </div>
-              <span
-                v-if="!user.purchased.background[bg.key]"
-                class="badge-top"
-                @click.stop.prevent="togglePinned(bg)"
-              >
-                <pin-badge
-                  :pinned="isBackgroundPinned(bg)"
-                />
-              </span>
               <b-popover
                 :target="bg.key"
                 triggers="hover focus"
                 placement="bottom"
                 :prevent-overflow="false"
-                :content="bg.notes"
+                :content="bg.notes(user.preferences.language)"
               />
             </div>
-            <div
-              v-if="!ownsSet('background', set.items) && set.identifier !== 'incentiveBackgrounds'"
-              class="purchase-background set"
-              @click="unlock(setKeys('background', set.items))"
-            >
-              <span class="label">{{ $t('purchaseAll') }}</span>
-              <div
-                class="svg-icon gem"
-                v-html="icons.gem"
-              ></div>
-              <span class="price">15</span>
-            </div>
-          </div>
-        </div>
-        <div
-          v-if="filterBackgrounds"
-          class="row customize-menu"
-        >
-          <div
-            v-for="(bg) in ownedBackgrounds"
-            :id="bg.key"
-            :key="bg.key"
-            class="col-4 text-center customize-option background-button"
-            @click="unlock('background.' + bg.key)"
-          >
-            <div
-              class="background"
-              :class="[`background_${bg.key}`, backgroundLockedStatus(bg.key)]"
-            ></div>
-            <b-popover
-              :target="bg.key"
-              triggers="hover focus"
-              placement="bottom"
-              :prevent-overflow="false"
-              :content="bg.notes"
-            />
           </div>
         </div>
       </div>
@@ -1159,7 +1066,8 @@
 <script>
 import axios from 'axios';
 import map from 'lodash/map';
-import shops from '@/../../common/script/libs/shops';
+import forEach from 'lodash/forEach';
+import orderBy from 'lodash/orderBy';
 import isPinned from '@/../../common/script/libs/isPinned';
 import content from '@/../../common/script/content/index';
 import { mapState } from '@/libs/store';
@@ -1168,12 +1076,10 @@ import usernameForm from './settings/usernameForm';
 import guide from '@/mixins/guide';
 import notifications from '@/mixins/notifications';
 import PinBadge from '@/components/ui/pinBadge';
-import toggleSwitch from '@/components/ui/toggleSwitch';
 import bodySettings from './avatarModal/body-settings';
 import skinSettings from './avatarModal/skin-settings';
 import hairSettings from './avatarModal/hair-settings';
 import extraSettings from './avatarModal/extra-settings';
-import subMenu from './avatarModal/sub-menu';
 
 import logoPurple from '@/assets/svg/logo-purple.svg';
 import bodyIcon from '@/assets/svg/body.svg';
@@ -1197,19 +1103,17 @@ export default {
     hairSettings,
     PinBadge,
     skinSettings,
-    subMenu,
-    toggleSwitch,
     usernameForm,
   },
   mixins: [guide, notifications, avatarEditorUtilities],
   data () {
-    const backgroundShopSets = shops.getBackgroundShopSets();
-
     return {
       loading: false,
-      backgroundShopSets,
+      allBackgrounds: content.backgroundsFlat,
+      monthlyBackgrounds: [],
+      standardBackgrounds: [],
+      timeTravelBackgrounds: [],
       backgroundUpdate: new Date(),
-      filterBackgrounds: false,
 
       icons: Object.freeze({
         logoPurple,
@@ -1235,11 +1139,6 @@ export default {
           label: this.$t('color'),
         },
       ],
-
-      bgSubMenuItems: ['2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014'].map(y => ({
-        id: y,
-        label: y,
-      })),
     };
   },
   computed: {
@@ -1252,54 +1151,6 @@ export default {
     },
     startingPage () {
       return this.$store.state.avatarEditorOptions.startingPage;
-    },
-    backgroundShopSetsByYear () {
-      // @TODO: add dates to backgrounds
-      const backgroundShopSetsByYear = {
-        2014: [],
-        2015: [],
-        2016: [],
-        2017: [],
-        2018: [],
-        2019: [],
-        2020: [],
-        2021: [],
-        2022: [],
-        2023: [],
-        2024: [],
-      };
-
-      // Hack to force update for now until we restructure the data
-      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
-
-      this.backgroundShopSets.forEach(set => {
-        const year = set.identifier.substr(set.identifier.length - 4);
-        if (!backgroundShopSetsByYear[year]) return;
-
-        let setOwnedByUser = false;
-        for (const key in set.items) {
-          if (this.user.purchased.background[key]) setOwnedByUser = true;
-        }
-        set.userOwns = setOwnedByUser;
-
-        backgroundShopSetsByYear[year].push(set);
-      });
-      return backgroundShopSetsByYear;
-    },
-    ownedBackgrounds () {
-      const ownedBackgrounds = [];
-
-      // Hack to force update for now until we restructure the data
-      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
-
-      this.backgroundShopSets.forEach(set => {
-        set.items.forEach(bg => {
-          if (this.user.purchased.background[bg.key]) {
-            ownedBackgrounds.push(bg);
-          }
-        });
-      });
-      return ownedBackgrounds;
     },
     imageURL () {
       if (!this.currentEvent || !this.currentEvent.season) {
@@ -1321,9 +1172,19 @@ export default {
     },
   },
   mounted () {
+    forEach(this.allBackgrounds, bg => {
+      if (this.user.purchased.background[bg.key]) {
+        if (bg.set === 'incentiveBackgrounds') {
+          this.standardBackgrounds.push(bg);
+        } else if (bg.set === 'timeTravelBackgrounds') {
+          this.timeTravelBackgrounds.push(bg);
+        } else {
+          this.monthlyBackgrounds.push(bg);
+        }
+      }
+    });
+    this.monthlyBackgrounds = orderBy(this.monthlyBackgrounds, bg => bg.key, 'desc');
     if (this.editing) this.modalPage = 2;
-    // Buy modal is global, so we listen at root. I'd like to not
-    this.$root.$on('buyModal::boughtItem', this.backgroundPurchased);
   },
   methods: {
     close () {
@@ -1391,9 +1252,6 @@ export default {
         this.initTour();
         this.goto('intro', 0);
       }, 1000);
-    },
-    showPlainBackgroundBlurb (identifier, set) {
-      return identifier === 'incentiveBackgrounds' && !this.ownsSet('background', set);
     },
     ownsSet (type, set) {
       let setOwnedByUser = false;
