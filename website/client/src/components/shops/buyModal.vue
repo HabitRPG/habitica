@@ -911,7 +911,7 @@ export default {
           if (['base', 'beard', 'color', 'mustache'].includes(item.type)) {
             return {
               hair: {
-                [item.type]: item.option,
+                [item.type]: item.key,
               },
               head: 'head_base_0',
             };

@@ -549,135 +549,105 @@ shops.getBackgroundShopSets = function getBackgroundShopSets (language) {
   return sets;
 };
 
+/* Customization Shop */
+
+shops.getCustomizationsShop = function getCustomizationsShop (user, language) {
+  return {
+    identifier: 'customizationsShop',
+    text: i18n.t('titleCustomizations'),
+    notes: i18n.t('timeTravelersPopover'),
+    imageName: 'npc_timetravelers_active',
+    categories: shops.getCustomizationsShopCategories(user, language),
+  };
+};
+
 shops.getCustomizationsShopCategories = function getCustomizationsShopCategories (user, language) {
   const categories = [];
-  const officialPinnedItems = getOfficialPinnedItems();
+  const officialPinnedItems = getOfficialPinnedItems(user);
 
-  const backgroundsCategory = {
-    identifier: 'background',
+  const backgroundCategory = {
+    identifier: 'backgrounds',
     text: i18n.t('backgrounds', language),
+    items: [],
   };
-  backgroundsCategory.items = values(content.backgroundsFlat)
-    .filter(bg => !user.purchased.background[bg.key] && (!bg.currency || bg.currency === 'gems')
-      && !(bg.price === 0))
-    .map(bg => getItemInfo(user, 'background', bg, officialPinnedItems, language));
-  categories.push(backgroundsCategory);
 
-  const hairColorsCategory = {
-    identifier: 'hairColors',
-    text: i18n.t('hairColors', language),
-  };
-  hairColorsCategory.items = values(content.appearances.hair.color)
-    .filter(color => {
-      const { hair } = user.purchased;
-      if (hair && hair.color && hair.color[color.key]) {
-        return false;
-      }
-      if (color.set) {
-        if (color.set.availableFrom) {
-          return moment().isBetween(color.set.availableFrom, color.set.availableUntil);
+  const matchers = getScheduleMatchingGroup('backgrounds');
+  eachRight(content.backgrounds, (group, key) => {
+    if (matchers.match(key)) {
+      each(group, bg => {
+        if (!user.purchased.background[bg.key]) {
+          const item = getItemInfo(
+            user,
+            'background',
+            bg,
+            officialPinnedItems,
+            language,
+          );
+          backgroundCategory.items.push(item);
         }
-        if (color.set.availableUntil) {
-          return moment().isBefore(color.set.availableUntil);
-        }
-        return true;
-      }
-      return false;
-    })
-    .map(color => getItemInfo(user, 'hairColor', color, officialPinnedItems, language));
-  categories.push(hairColorsCategory);
-
-  const hairStylesCategory = {
-    identifier: 'hairStyles',
-    text: i18n.t('hairStyles', language),
-  };
-  hairStylesCategory.items = values(content.appearances.hair.base)
-    .filter(style => {
-      const { hair } = user.purchased;
-      if (hair && hair.base && hair.base[style.key]) {
-        return false;
-      }
-      if (style.set) {
-        if (style.set.availableFrom) {
-          return moment().isBetween(style.set.availableFrom, style.set.availableUntil);
-        }
-        if (style.set.availableUntil) {
-          return moment().isBefore(style.set.availableUntil);
-        }
-        return true;
-      }
-      return false;
-    })
-    .map(style => getItemInfo(user, 'hairBase', style, officialPinnedItems, language));
-  categories.push(hairStylesCategory);
+      });
+    }
+  });
+  categories.push(backgroundCategory);
 
   const facialHairCategory = {
     identifier: 'facialHair',
-    text: i18n.t('facialHairs', language),
+    text: i18n.t('titleFacialHair', language),
+    items: [],
   };
-  facialHairCategory.items = values(content.appearances.hair.mustache)
-    .filter(style => {
-      const { hair } = user.purchased;
-      if (hair && hair.mustache && hair.mustache[style.key]) {
-        return false;
+  const customizationMatcher = getScheduleMatchingGroup('customizations');
+  each(['color', 'base', 'mustache', 'beard'], hairType => {
+    let category;
+    if (hairType === 'beard' || hairType === 'mustache') {
+      category = facialHairCategory;
+    } else {
+      category = {
+        identifier: hairType,
+        text: i18n.t(`titleHair${hairType}`, language),
+        items: [],
+      };
+    }
+    eachRight(content.appearances.hair[hairType], (hairStyle, key) => {
+      if (hairStyle.price > 0 && (!user.purchased.hair || !user.purchased.hair[hairType]
+          || !user.purchased.hair[hairType][key])
+          && customizationMatcher.match(hairStyle.set.key)) {
+        const item = getItemInfo(
+          user,
+          `hair${hairType}`,
+          hairStyle,
+          officialPinnedItems,
+          language,
+        );
+        category.items.push(item);
       }
-      if (style.set) {
-        if (style.set.availableFrom) {
-          return moment().isBetween(style.set.availableFrom, style.set.availableUntil);
-        }
-        if (style.set.availableUntil) {
-          return moment().isBefore(style.set.availableUntil);
-        }
-        return true;
-      }
-      return false;
-    })
-    .map(style => getItemInfo(user, 'mustache', style, officialPinnedItems, language))
-    .concat(
-      values(content.appearances.hair.beard)
-        .filter(style => {
-          const { hair } = user.purchased;
-          if (hair && hair.beard && hair.beard[style.key]) {
-            return false;
-          }
-          if (style.set) {
-            if (style.set.availableFrom) {
-              return moment().isBetween(style.set.availableFrom, style.set.availableUntil);
-            }
-            if (style.set.availableUntil) {
-              return moment().isBefore(style.set.availableUntil);
-            }
-            return true;
-          }
-          return false;
-        })
-        .map(style => getItemInfo(user, 'beard', style, officialPinnedItems, language)),
-    );
-  categories.push(facialHairCategory);
+    });
+    // only add the facial hair category once
+    if (hairType !== 'beard') {
+      categories.push(category);
+    }
+  });
 
-  const skinsCategory = {
-    identifier: 'skins',
-    text: i18n.t('skins', language),
-  };
-  skinsCategory.items = values(content.appearances.skin)
-    .filter(color => {
-      const { skin } = user.purchased;
-      if (skin && skin[color.key]) {
-        return false;
+  each(['shirt', 'skin'], type => {
+    const category = {
+      identifier: type,
+      text: i18n.t(`${type}s`, language),
+      items: [],
+    };
+    eachRight(content.appearances[type], (appearance, key) => {
+      if (appearance.price > 0 && (!user.purchased[type] || !user.purchased[type][key])
+          && customizationMatcher.match(appearance.set.key)) {
+        const item = getItemInfo(
+          user,
+          type,
+          appearance,
+          officialPinnedItems,
+          language,
+        );
+        category.items.push(item);
       }
-      if (color.set) {
-        if (color.set.availableFrom) {
-          return moment().isBetween(color.set.availableFrom, color.set.availableUntil);
-        }
-        if (color.set.availableUntil) {
-          return moment().isBefore(color.set.availableUntil);
-        }
-        return true;
-      }
-      return false;
-    })
-    .map(color => getItemInfo(user, 'skin', color, officialPinnedItems, language));
-  categories.push(skinsCategory);
+    });
+    categories.push(category);
+  });
 
   const animalEarsCategory = {
     identifier: 'animalEars',
@@ -709,41 +679,7 @@ shops.getCustomizationsShopCategories = function getCustomizationsShopCategories
     .map(gearItem => getItemInfo(user, 'gear', gearItem, officialPinnedItems, language));
   categories.push(animalTailsCategory);
 
-  const shirtsCategory = {
-    identifier: 'shirts',
-    text: i18n.t('shirts', language),
-  };
-  shirtsCategory.items = values(content.appearances.shirt)
-    .filter(color => {
-      const { shirt } = user.purchased;
-      if (shirt && shirt[color.key]) {
-        return false;
-      }
-      if (color.set) {
-        if (color.set.availableFrom) {
-          return moment().isBetween(color.set.availableFrom, color.set.availableUntil);
-        }
-        if (color.set.availableUntil) {
-          return moment().isBefore(color.set.availableUntil);
-        }
-        return true;
-      }
-      return false;
-    })
-    .map(color => getItemInfo(user, 'shirt', color, officialPinnedItems, language));
-  categories.push(shirtsCategory);
-
   return categories;
-};
-
-shops.getCustomizationsShop = function getCustomizationsShop (user, language) {
-  return {
-    identifier: 'customizations',
-    text: i18n.t('customizations'),
-    // notes: i18n.t('customizations'),
-    imageName: 'npc_alex',
-    categories: shops.getCustomizationsShopCategories(user, language),
-  };
 };
 
 export default shops;
