@@ -64,7 +64,7 @@
             >
               <shop-item
                 :item="ctx.item"
-                :key="ctx.item.key"
+                :key="ctx.item.path"
                 :price="ctx.item.value"
                 :price-type="ctx.item.currency"
                 :empty-item="false"
@@ -197,7 +197,7 @@ export default {
           this.$store.state.avatarEditorOptions.startingPage = 'extra';
           this.$store.state.avatarEditorOptions.subpage = 'tails';
           break;
-        case 'background':
+        case 'backgrounds':
           this.$store.state.avatarEditorOptions.startingPage = 'background';
           this.$store.state.avatarEditorOptions.subpage = '2024';
           break;
@@ -205,19 +205,19 @@ export default {
           this.$store.state.avatarEditorOptions.startingPage = 'hair';
           this.$store.state.avatarEditorOptions.subpage = 'beard';
           break;
-        case 'hairColors':
+        case 'color':
           this.$store.state.avatarEditorOptions.startingPage = 'hair';
           this.$store.state.avatarEditorOptions.subpage = 'color';
           break;
-        case 'hairStyles':
+        case 'base':
           this.$store.state.avatarEditorOptions.startingPage = 'hair';
           this.$store.state.avatarEditorOptions.subpage = 'style';
           break;
-        case 'shirts':
+        case 'shirt':
           this.$store.state.avatarEditorOptions.startingPage = 'body';
           this.$store.state.avatarEditorOptions.subpage = 'shirt';
           break;
-        case 'skins':
+        case 'skin':
           this.$store.state.avatarEditorOptions.startingPage = 'skin';
           this.$store.state.avatarEditorOptions.subpage = 'color';
           break;
@@ -233,17 +233,17 @@ export default {
           return $t('allCustomizationsOwned');
         case 'animalTails':
           return $t('allCustomizationsOwned');
-        case 'background':
+        case 'backgrounds':
           return `${$t('allCustomizationsOwned')} ${$t('checkNextMonth')}`;
         case 'facialHair':
           return $t('allCustomizationsOwned');
-        case 'hairColors':
+        case 'color':
           return `${$t('allCustomizationsOwned')} ${$t('checkNextSeason')}`;
-        case 'hairStyles':
+        case 'base':
           return $t('allCustomizationsOwned');
-        case 'shirts':
+        case 'shirt':
           return $t('allCustomizationsOwned');
-        case 'skins':
+        case 'skin':
           return `${$t('allCustomizationsOwned')} ${$t('checkNextSeason')}`;
         default:
           return `Unknown identifier ${identifier}`;

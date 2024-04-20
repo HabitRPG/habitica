@@ -24,6 +24,7 @@
   "shirt": "Shirt",
   "specialShirts": "Special Shirts",
   "skin": "Skin",
+  "skins": "Skins",
   "color": "Color",
   "hair": "Hair",
   "bangs": "Bangs",
@@ -31,12 +32,11 @@
   "hairSet1": "Hairstyle Set 1",
   "hairSet2": "Hairstyle Set 2",
   "hairSet3": "Hairstyle Set 3",
-  "bodyFacialHair": "Facial Hair",
   "beard": "Beard",
   "mustache": "Mustache",
   "titleFacialHair": "Facial Hair",
   "titleHaircolor": "Hair Colors",
-  "titleHairbase": "Hair styles",
+  "titleHairbase": "Hair Styles",
   "flower": "Flower",
   "accent": "Accent",
   "headband": "Headband",
@@ -191,9 +191,5 @@
   "offHand": "Off-Hand",
   "statPoints": "Stat Points",
   "pts": "pts",
-  "customizations": "Customizations",
-  "hairColors": "Hair Colors",
-  "hairStyles": "Hair Styles",
-  "skins": "Skins",
-  "facialHairs": "Facial Hair"
+  "customizations": "Customizations"
 }

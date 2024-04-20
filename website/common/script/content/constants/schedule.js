@@ -745,6 +745,19 @@ export const GALA_SCHEDULE = {
   },
 };
 
+export const TYPE_SCHEDULE = {
+  timeTravelers: FIRST_RELEASE_DAY,
+  backgrounds: SECOND_RELEASE_DAY,
+  petQuests: THIRD_RELEASE_DAY,
+  hatchingPotionQuests: THIRD_RELEASE_DAY,
+  bundles: THIRD_RELEASE_DAY,
+  premiumHatchingPotions: FOURTH_RELEASE_DAY,
+  seasonalGear: GALA_SWITCHOVER_DAY,
+  seasonalSpells: GALA_SWITCHOVER_DAY,
+  seasonalQuests: GALA_SWITCHOVER_DAY,
+  customizations: GALA_SWITCHOVER_DAY,
+};
+
 function getDay (date) {
   if (date === undefined) {
     return 0;
@@ -804,6 +817,7 @@ let cacheDate = null;
 function makeMatcherClass () {
   return {
     matchers: [],
+    end: new Date(),
     items: [],
     match (key) {
       if (this.matchers.length === 0) {
@@ -817,9 +831,6 @@ function makeMatcherClass () {
         return this.matchers.every(m => m(key));
       }
       return false;
-    },
-    getEndDate () {
-      return new Date();
     },
   };
 }
@@ -846,7 +857,12 @@ export function getScheduleMatchingGroup (type, date) {
     });
   }
   if (!cachedScheduleMatchers[type]) {
+    let end = moment(checkedDate).date(TYPE_SCHEDULE[type]);
+    if (end.date() <= checkedDate.date()) {
+      end = moment(end).add(1, 'months');
+    }
     return {
+      end: end.toDate(),
       items: [],
       match () {
         return true;

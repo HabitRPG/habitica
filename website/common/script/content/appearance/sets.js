@@ -5,7 +5,7 @@ export default prefill({
   baseHair1: { setPrice: 5, text: t('hairSet1') },
   baseHair2: { setPrice: 5, text: t('hairSet2') },
   baseHair3: { setPrice: 5, text: t('hairSet3') },
-  facialHair: { setPrice: 5, text: t('bodyFacialHair') },
+  facialHair: { setPrice: 5, text: t('titleFacialHair') },
   specialShirts: { setPrice: 5, text: t('specialShirts') },
   winterHairColors: { setPrice: 5 },
   pastelHairColors: { setPrice: 5 },

@@ -150,7 +150,7 @@ api.getBackgroundShopItems = {
  * @apiName GetCustomizationShopItems
  * @apiGroup Shops
  *
- * @apiSuccess {Object} data List of available backgrounds
+ * @apiSuccess {Object} data List of available avatar customizations
  * @apiSuccess {string} message Success message
  */
 api.getCustomizationsShop = {

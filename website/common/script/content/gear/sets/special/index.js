@@ -773,6 +773,7 @@ const back = {
     text: t('backBearTailText'),
     notes: t('backBearTailNotes'),
     value: 20,
+    canBuy: () => true,
     canOwn: ownsItem('back_special_bearTail'),
   },
   cactusTail: {
@@ -780,6 +781,7 @@ const back = {
     text: t('backCactusTailText'),
     notes: t('backCactusTailNotes'),
     value: 20,
+    canBuy: () => true,
     canOwn: ownsItem('back_special_cactusTail'),
   },
   foxTail: {
@@ -787,6 +789,7 @@ const back = {
     text: t('backFoxTailText'),
     notes: t('backFoxTailNotes'),
     value: 20,
+    canBuy: () => true,
     canOwn: ownsItem('back_special_foxTail'),
   },
   lionTail: {
@@ -794,6 +797,7 @@ const back = {
     text: t('backLionTailText'),
     notes: t('backLionTailNotes'),
     value: 20,
+    canBuy: () => true,
     canOwn: ownsItem('back_special_lionTail'),
   },
   pandaTail: {
@@ -801,6 +805,7 @@ const back = {
     text: t('backPandaTailText'),
     notes: t('backPandaTailNotes'),
     value: 20,
+    canBuy: () => true,
     canOwn: ownsItem('back_special_pandaTail'),
   },
   pigTail: {
@@ -808,6 +813,7 @@ const back = {
     text: t('backPigTailText'),
     notes: t('backPigTailNotes'),
     value: 20,
+    canBuy: () => true,
     canOwn: ownsItem('back_special_pigTail'),
   },
   tigerTail: {
@@ -815,6 +821,7 @@ const back = {
     text: t('backTigerTailText'),
     notes: t('backTigerTailNotes'),
     value: 20,
+    canBuy: () => true,
     canOwn: ownsItem('back_special_tigerTail'),
   },
   wolfTail: {
@@ -822,6 +829,7 @@ const back = {
     text: t('backWolfTailText'),
     notes: t('backWolfTailNotes'),
     value: 20,
+    canBuy: () => true,
     canOwn: ownsItem('back_special_wolfTail'),
   },
   turkeyTailGilded: {
@@ -1868,6 +1876,7 @@ const headAccessory = {
     text: t('headAccessoryBearEarsText'),
     notes: t('headAccessoryBearEarsNotes'),
     value: 20,
+    canBuy: () => true,
     canOwn: ownsItem('headAccessory_special_bearEars'),
   },
   cactusEars: {
@@ -1875,6 +1884,7 @@ const headAccessory = {
     text: t('headAccessoryCactusEarsText'),
     notes: t('headAccessoryCactusEarsNotes'),
     value: 20,
+    canBuy: () => true,
     canOwn: ownsItem('headAccessory_special_cactusEars'),
   },
   foxEars: {
@@ -1882,6 +1892,7 @@ const headAccessory = {
     text: t('headAccessoryFoxEarsText'),
     notes: t('headAccessoryFoxEarsNotes'),
     value: 20,
+    canBuy: () => true,
     canOwn: ownsItem('headAccessory_special_foxEars'),
   },
   lionEars: {
@@ -1889,6 +1900,7 @@ const headAccessory = {
     text: t('headAccessoryLionEarsText'),
     notes: t('headAccessoryLionEarsNotes'),
     value: 20,
+    canBuy: () => true,
     canOwn: ownsItem('headAccessory_special_lionEars'),
   },
   pandaEars: {
@@ -1896,6 +1908,7 @@ const headAccessory = {
     text: t('headAccessoryPandaEarsText'),
     notes: t('headAccessoryPandaEarsNotes'),
     value: 20,
+    canBuy: () => true,
     canOwn: ownsItem('headAccessory_special_pandaEars'),
   },
   pigEars: {
@@ -1903,6 +1916,7 @@ const headAccessory = {
     text: t('headAccessoryPigEarsText'),
     notes: t('headAccessoryPigEarsNotes'),
     value: 20,
+    canBuy: () => true,
     canOwn: ownsItem('headAccessory_special_pigEars'),
   },
   tigerEars: {
@@ -1910,6 +1924,7 @@ const headAccessory = {
     text: t('headAccessoryTigerEarsText'),
     notes: t('headAccessoryTigerEarsNotes'),
     value: 20,
+    canBuy: () => true,
     canOwn: ownsItem('headAccessory_special_tigerEars'),
   },
   wolfEars: {
@@ -1917,6 +1932,7 @@ const headAccessory = {
     text: t('headAccessoryWolfEarsText'),
     notes: t('headAccessoryWolfEarsNotes'),
     value: 20,
+    canBuy: () => true,
     canOwn: ownsItem('headAccessory_special_wolfEars'),
   },
   spring2016Rogue: {

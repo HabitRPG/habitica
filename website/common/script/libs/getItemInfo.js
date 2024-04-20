@@ -56,7 +56,7 @@ function getDefaultGearProps (item, language) {
   };
 }
 
-export default function getItemInfo (user, type, item, officialPinnedItems, language = 'en') {
+export default function getItemInfo (user, type, item, officialPinnedItems, language = 'en', matcher = null) {
   if (officialPinnedItems === undefined) {
     officialPinnedItems = getOfficialPinnedItems(user); // eslint-disable-line no-param-reassign
   }
@@ -235,7 +235,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
     case 'gear':
       // spread operator not available
       itemInfo = Object.assign(getDefaultGearProps(item, language), {
-        value: item.twoHanded || item.gearSet === 'animal' ? 2 : 1,
+        value: item.twoHanded ? 2 : 1,
         currency: 'gems',
         pinType: 'gear',
       });
@@ -379,71 +379,70 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
       };
       break;
     }
-    case 'hairColor': {
+    case 'haircolor': {
       itemInfo = {
         key: item.key,
         class: `hair hair_bangs_${user.preferences.hair.bangs}_${item.key}`,
         currency: 'gems',
-        option: item.key,
+        locked: false,
+        notes: '',
         path: `hair.color.${item.key}`,
         purchaseType: 'customization',
+        pinType: 'timeTravelersStable',
+        set: item.set,
         text: item.text(language),
         type: 'color',
         value: item.price,
       };
       break;
     }
-    case 'hairBase': {
+    case 'hairbase': {
       itemInfo = {
-        key: `hair-base-${item.key}`,
+        key: item.key,
         class: `hair hair_base_${item.key}_${user.preferences.hair.color}`,
         currency: 'gems',
-        option: item.key,
+        locked: false,
+        notes: '',
         path: `hair.base.${item.key}`,
+        pinType: 'timeTravelersStable',
         purchaseType: 'customization',
+        set: item.set,
         text: item.text(language),
         type: 'base',
         value: item.price,
       };
       break;
     }
-    case 'mustache': {
+    case 'hairmustache': {
       itemInfo = {
-        key: `mustache-${item.key}`,
-        class: `facial-hair hair_mustache_${item.key}_${user.preferences.hair.color}`,
+        key: item.key,
+        class: `hair hair_mustache_${item.key}_${user.preferences.hair.color}`,
         currency: 'gems',
-        option: item.key,
+        locked: false,
+        notes: '',
         path: `hair.mustache.${item.key}`,
+        pinType: 'timeTravelersStable',
         purchaseType: 'customization',
+        set: item.set,
         text: item.text(language),
         type: 'mustache',
         value: item.price,
       };
       break;
     }
-    case 'beard': {
-      itemInfo = {
-        key: `beard-${item.key}`,
-        class: `facial-hair hair_beard_${item.key}_${user.preferences.hair.color}`,
-        currency: 'gems',
-        option: item.key,
-        path: `hair.beard.${item.key}`,
-        purchaseType: 'customization',
-        text: item.text(language),
-        type: 'beard',
-        value: item.price,
-      };
-      break;
-    }
-    case 'skin': {
+    case 'hairbeard': {
       itemInfo = {
         key: item.key,
-        class: `skin skin_${item.key}`,
+        class: `hair hair_beard_${item.key}_${user.preferences.hair.color}`,
         currency: 'gems',
-        path: `skin.${item.key}`,
+        locked: false,
+        notes: '',
+        path: `hair.beard.${item.key}`,
+        pinType: 'timeTravelersStable',
         purchaseType: 'customization',
+        set: item.set,
         text: item.text(language),
-        type: 'skin',
+        type: 'beard',
         value: item.price,
       };
       break;
@@ -453,10 +452,31 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         key: item.key,
         class: `shirt ${user.preferences.size}_shirt_${item.key}`,
         currency: 'gems',
+        locked: false,
+        notes: '',
         path: `shirt.${item.key}`,
+        pinType: 'timeTravelersStable',
         purchaseType: 'customization',
+        set: item.set,
         text: item.text(language),
         type: 'shirt',
+        value: item.price,
+      };
+      break;
+    }
+    case 'skin': {
+      itemInfo = {
+        key: item.key,
+        class: `skin skin_${item.key}`,
+        currency: 'gems',
+        locked: false,
+        path: `skin.${item.key}`,
+        notes: '',
+        pinType: 'timeTravelersStable',
+        purchaseType: 'customization',
+        set: item.set,
+        text: item.text(language),
+        type: 'skin',
         value: item.price,
       };
       break;
@@ -468,6 +488,10 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
     itemInfo.pinned = isPinned(user, itemInfo, officialPinnedItems);
   } else {
     throw new BadRequest(i18n.t('wrongItemType', { type }, language));
+  }
+
+  if (matcher) {
+    itemInfo.end = { matcher };
   }
 
   return itemInfo;
