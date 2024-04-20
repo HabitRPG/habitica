@@ -862,13 +862,13 @@ export function getAllScheduleMatchingGroups (date) {
       }
     });
   }
-  return cachedScheduleMatchers;
-}
-
-export function getScheduleMatchingGroup (type, date) {
-  const matchingGroups = getAllScheduleMatchingGroups(date);
-  if (!matchingGroups[type]) {
+  if (!cachedScheduleMatchers[type]) {
+    let end = moment(checkedDate).date(TYPE_SCHEDULE[type]);
+    if (end.date() <= checkedDate.date()) {
+      end = moment(end).add(1, 'months');
+    }
     return {
+      end: end.toDate(),
       items: [],
       match () {
         return true;
