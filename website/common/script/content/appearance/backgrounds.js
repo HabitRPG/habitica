@@ -1,9 +1,9 @@
-import camelCase from "lodash/camelCase";
-import forOwn from "lodash/forOwn";
-import moment from "moment";
-import omitBy from "lodash/omitBy";
-import upperFirst from "lodash/upperFirst";
-import t from "../translation";
+import camelCase from 'lodash/camelCase';
+import forOwn from 'lodash/forOwn';
+import moment from 'moment';
+import omitBy from 'lodash/omitBy';
+import upperFirst from 'lodash/upperFirst';
+import t from '../translation';
 
 /* eslint-disable camelcase */
 const plannedBackgrounds = {
@@ -120,8 +120,8 @@ const plannedBackgrounds = {
   backgrounds042016: {
     archery_range: {},
     giant_florals: {
-      text: t("backgroundGiantFlowersText"),
-      notes: t("backgroundGiantFlowersNotes"),
+      text: t('backgroundGiantFlowersText'),
+      notes: t('backgroundGiantFlowersNotes'),
     },
     rainbows_end: {},
   },
@@ -189,8 +189,8 @@ const plannedBackgrounds = {
     guardian_statues: {},
     habit_city_streets: {},
     on_tree_branch: {
-      text: t("backgroundOnATreeBranchText"),
-      notes: t("backgroundOnATreeBranchNotes"),
+      text: t('backgroundOnATreeBranchText'),
+      notes: t('backgroundOnATreeBranchNotes'),
     },
   },
   backgrounds062017: {
@@ -245,12 +245,12 @@ const plannedBackgrounds = {
   },
   backgrounds042018: {
     flying_over_an_ancient_forest: {
-      text: t("backgroundFlyingOverAncientForestText"),
-      notes: t("backgroundFlyingOverAncientForestNotes"),
+      text: t('backgroundFlyingOverAncientForestText'),
+      notes: t('backgroundFlyingOverAncientForestNotes'),
     },
     flying_over_a_field_of_wildflowers: {
-      text: t("backgroundFlyingOverWildflowerFieldText"),
-      notes: t("backgroundFlyingOverWildflowerFieldNotes"),
+      text: t('backgroundFlyingOverWildflowerFieldText'),
+      notes: t('backgroundFlyingOverWildflowerFieldNotes'),
     },
     tulip_garden: {},
   },
@@ -261,8 +261,8 @@ const plannedBackgrounds = {
   },
   backgrounds062018: {
     at_the_docks: {
-      text: t("backgroundDocksText"),
-      notes: t("backgroundDocksNotes"),
+      text: t('backgroundDocksText'),
+      notes: t('backgroundDocksNotes'),
     },
     rowboat: {},
     pirate_flag: {},
@@ -630,56 +630,56 @@ const plannedBackgrounds = {
   timeTravelBackgrounds: {
     airship: {
       price: 1,
-      currency: "hourglasses",
+      currency: 'hourglasses',
     },
     clocktower: {
       price: 1,
-      currency: "hourglasses",
+      currency: 'hourglasses',
     },
     steamworks: {
       price: 1,
-      currency: "hourglasses",
+      currency: 'hourglasses',
     },
   },
   incentiveBackgrounds: {
     violet: {
-      currency: "loginIncentive",
+      currency: 'loginIncentive',
     },
     blue: {
-      currency: "loginIncentive",
+      currency: 'loginIncentive',
     },
     green: {
-      currency: "loginIncentive",
+      currency: 'loginIncentive',
     },
     purple: {
-      currency: "loginIncentive",
+      currency: 'loginIncentive',
     },
     red: {
-      currency: "loginIncentive",
+      currency: 'loginIncentive',
     },
     yellow: {
-      currency: "loginIncentive",
+      currency: 'loginIncentive',
     },
   },
 };
 /* eslint-enable quote-props */
 
 const releaseDates = {
-  backgrounds102023: "2023-10-10T08:00-04:00",
-  backgrounds112023: "2023-11-07T08:00-05:00",
-  backgrounds122023: "2023-12-05T08:00-05:00",
-  backgrounds012024: "2024-01-04T08:00-05:00",
-  backgrounds022024: "2024-02-06T08:00-05:00",
-  backgrounds032024: "2024-03-05T08:00-05:00",
-  backgrounds042024: "2024-04-04T08:00-04:00",
-  backgrounds052024: "2024-05-07T08:00-04:00",
+  backgrounds102023: '2023-10-10T08:00-04:00',
+  backgrounds112023: '2023-11-07T08:00-05:00',
+  backgrounds122023: '2023-12-05T08:00-05:00',
+  backgrounds012024: '2024-01-04T08:00-05:00',
+  backgrounds022024: '2024-02-06T08:00-05:00',
+  backgrounds032024: '2024-03-05T08:00-05:00',
+  backgrounds042024: '2024-04-04T08:00-04:00',
+  backgrounds052024: '2024-05-07T08:00-04:00',
 };
 
 const flat = {};
 
 const backgrounds = omitBy(
   plannedBackgrounds,
-  (bgSet, key) => releaseDates[key] && moment().isBefore(releaseDates[key])
+  (bgSet, key) => releaseDates[key] && moment().isBefore(releaseDates[key]),
 );
 
 forOwn(backgrounds, (backgroundsInSet, set) => {
@@ -689,10 +689,8 @@ forOwn(backgrounds, (backgroundsInSet, set) => {
     if (background.price !== 0) {
       background.price = background.price || 7;
     }
-    background.text =
-      background.text || t(`background${upperFirst(camelCase(bgKey))}Text`);
-    background.notes =
-      background.notes || t(`background${upperFirst(camelCase(bgKey))}Notes`);
+    background.text = background.text || t(`background${upperFirst(camelCase(bgKey))}Text`);
+    background.notes = background.notes || t(`background${upperFirst(camelCase(bgKey))}Notes`);
 
     flat[bgKey] = background;
   });
@@ -700,10 +698,10 @@ forOwn(backgrounds, (backgroundsInSet, set) => {
 
 export default backgrounds;
 
-export function backgroundsTree() {
+export function backgroundsTree () {
   return backgrounds;
 }
 
-export function backgroundsFlat() {
+export function backgroundsFlat () {
   return flat;
 }
