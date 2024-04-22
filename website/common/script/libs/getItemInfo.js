@@ -491,7 +491,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
   }
 
   if (matcher) {
-    itemInfo.end = { matcher };
+    itemInfo.end = matcher.end;
   }
 
   return itemInfo;

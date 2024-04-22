@@ -582,6 +582,7 @@ shops.getCustomizationsShopCategories = function getCustomizationsShopCategories
             bg,
             officialPinnedItems,
             language,
+            matchers,
           );
           backgroundCategory.items.push(item);
         }

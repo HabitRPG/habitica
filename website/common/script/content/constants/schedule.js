@@ -857,9 +857,10 @@ export function getScheduleMatchingGroup (type, date) {
     });
   }
   if (!cachedScheduleMatchers[type]) {
-    let end = moment(checkedDate).date(TYPE_SCHEDULE[type]);
-    if (end.date() <= checkedDate.date()) {
-      end = moment(end).add(1, 'months');
+    let end = moment(checkedDate);
+    end.date(TYPE_SCHEDULE[type]);
+    if (end.date() <= moment(checkedDate).date()) {
+      moment(end).add(1, 'months');
     }
     return {
       end: end.toDate(),
