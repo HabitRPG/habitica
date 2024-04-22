@@ -131,6 +131,7 @@ export const MONTHLY_SCHEDULE = {
         type: 'bundles',
         items: [
           'cuddleBuddies',
+          'mythicalMarvels',
         ],
       },
     ],
@@ -315,13 +316,8 @@ export const MONTHLY_SCHEDULE = {
       {
         type: 'bundles',
         items: [
-          'rockingReptiles',
-        ],
-      },
-      {
-        type: 'bundles',
-        items: [
           'delightfulDinos',
+          'sandySidekicks',
         ],
       },
     ],
@@ -353,7 +349,7 @@ export const MONTHLY_SCHEDULE = {
         type: 'petQuests',
         items: [
           'whale',
-          'seahorse',
+          'dilatory_derby',
           'armadillo',
           'guineapig',
         ],
@@ -374,6 +370,7 @@ export const MONTHLY_SCHEDULE = {
         type: 'bundles',
         items: [
           'aquaticAmigos',
+          'jungleBuddies',
         ],
       },
     ],
@@ -563,6 +560,7 @@ export const MONTHLY_SCHEDULE = {
         type: 'bundles',
         items: [
           'forestFriends',
+          'oddBalls',
         ],
       },
     ],
@@ -605,6 +603,12 @@ export const MONTHLY_SCHEDULE = {
         type: 'hatchingPotionQuests',
         items: [
           'ruby',
+        ],
+      },
+      {
+        type: 'bundles',
+        items: [
+          'rockingReptiles',
         ],
       },
     ],
