@@ -1,413 +1,413 @@
-import defaults from 'lodash/defaults';
-import find from 'lodash/find';
-import forEach from 'lodash/forEach';
-import moment from 'moment';
-import upperFirst from 'lodash/upperFirst';
-import { ownsItem } from '../gear-helper';
-import { ATTRIBUTES } from '../../../constants';
-import t from '../../translation';
+import defaults from "lodash/defaults";
+import find from "lodash/find";
+import forEach from "lodash/forEach";
+import moment from "moment";
+import upperFirst from "lodash/upperFirst";
+import { ownsItem } from "../gear-helper";
+import { ATTRIBUTES } from "../../../constants";
+import t from "../../translation";
 
 const armor = {
   lunarArmor: {
-    notes: t('armorArmoireLunarArmorNotes', { str: 7, int: 7 }),
+    notes: t("armorArmoireLunarArmorNotes", { str: 7, int: 7 }),
     str: 7,
     int: 7,
-    set: 'soothing',
+    set: "soothing",
   },
   gladiatorArmor: {
-    notes: t('armorArmoireGladiatorArmorNotes', { str: 7, per: 7 }),
+    notes: t("armorArmoireGladiatorArmorNotes", { str: 7, per: 7 }),
     str: 7,
     per: 7,
-    set: 'gladiator',
+    set: "gladiator",
   },
   rancherRobes: {
-    notes: t('armorArmoireRancherRobesNotes', { str: 5, per: 5, int: 5 }),
+    notes: t("armorArmoireRancherRobesNotes", { str: 5, per: 5, int: 5 }),
     str: 5,
     per: 5,
     int: 5,
-    set: 'rancher',
+    set: "rancher",
   },
   goldenToga: {
     str: 8,
     con: 8,
-    set: 'goldenToga',
+    set: "goldenToga",
   },
   hornedIronArmor: {
     con: 9,
     per: 7,
-    set: 'hornedIron',
+    set: "hornedIron",
   },
   plagueDoctorOvercoat: {
     int: 6,
     str: 5,
     con: 6,
-    set: 'plagueDoctor',
+    set: "plagueDoctor",
   },
   shepherdRobes: {
     str: 9,
     per: 9,
-    set: 'shepherd',
+    set: "shepherd",
   },
   royalRobes: {
     con: 5,
     per: 5,
     int: 5,
-    set: 'royal',
+    set: "royal",
   },
   crystalCrescentRobes: {
     per: 7,
     con: 7,
-    set: 'crystalCrescent',
+    set: "crystalCrescent",
   },
   dragonTamerArmor: {
     con: 15,
-    set: 'dragonTamer',
+    set: "dragonTamer",
   },
   barristerRobes: {
     con: 10,
-    set: 'barrister',
+    set: "barrister",
   },
   jesterCostume: {
     int: 15,
-    set: 'jester',
+    set: "jester",
   },
   minerOveralls: {
     con: 10,
-    set: 'miner',
+    set: "miner",
   },
   basicArcherArmor: {
     per: 12,
-    set: 'basicArcher',
+    set: "basicArcher",
   },
   graduateRobe: {
     int: 10,
-    set: 'graduate',
+    set: "graduate",
   },
   stripedSwimsuit: {
     con: 13,
-    set: 'seaside',
+    set: "seaside",
   },
   cannoneerRags: {
     con: 15,
-    set: 'cannoneer',
+    set: "cannoneer",
   },
   falconerArmor: {
     con: 10,
-    set: 'falconer',
+    set: "falconer",
   },
   vermilionArcherArmor: {
     per: 15,
-    set: 'vermilionArcher',
+    set: "vermilionArcher",
   },
   ogreArmor: {
     con: 15,
-    set: 'ogre',
+    set: "ogre",
   },
   ironBlueArcherArmor: {
     str: 12,
-    set: 'blueArcher',
+    set: "blueArcher",
   },
   redPartyDress: {
     str: 7,
     con: 7,
     int: 7,
-    set: 'redHairbow',
+    set: "redHairbow",
   },
   woodElfArmor: {
     per: 12,
-    set: 'woodElf',
+    set: "woodElf",
   },
   ramFleeceRobes: {
     con: 9,
     str: 7,
-    set: 'ramBarbarian',
+    set: "ramBarbarian",
   },
   gownOfHearts: {
     con: 13,
-    set: 'queenOfHearts',
+    set: "queenOfHearts",
   },
   mushroomDruidArmor: {
     con: 7,
     per: 8,
-    set: 'mushroomDruid',
+    set: "mushroomDruid",
   },
   greenFestivalYukata: {
     con: 8,
     per: 8,
-    set: 'festivalAttire',
+    set: "festivalAttire",
   },
   merchantTunic: {
     per: 10,
-    set: 'merchant',
+    set: "merchant",
   },
   vikingTunic: {
     con: 6,
     str: 8,
-    set: 'viking',
+    set: "viking",
   },
   swanDancerTutu: {
     int: 8,
     str: 8,
-    set: 'swanDancer',
+    set: "swanDancer",
   },
   yellowPartyDress: {
     per: 7,
     int: 7,
     str: 7,
-    set: 'yellowHairbow',
+    set: "yellowHairbow",
   },
   antiProcrastinationArmor: {
     str: 15,
-    set: 'antiProcrastination',
+    set: "antiProcrastination",
   },
   farrierOutfit: {
     con: 6,
     int: 6,
     per: 6,
-    set: 'farrier',
+    set: "farrier",
   },
   candlestickMakerOutfit: {
     con: 12,
-    set: 'candlestickMaker',
+    set: "candlestickMaker",
   },
   wovenRobes: {
     con: 8,
     int: 9,
-    set: 'weaver',
+    set: "weaver",
   },
   lamplightersGreatcoat: {
     per: 14,
-    set: 'lamplighter',
+    set: "lamplighter",
   },
   coachDriverLivery: {
     str: 12,
-    set: 'coachDriver',
+    set: "coachDriver",
   },
   robeOfDiamonds: {
     per: 13,
-    set: 'kingOfDiamonds',
+    set: "kingOfDiamonds",
   },
   flutteryFrock: {
     con: 5,
     per: 5,
     str: 5,
-    set: 'fluttery',
+    set: "fluttery",
   },
   cobblersCoveralls: {
     per: 7,
     str: 7,
-    set: 'cobbler',
+    set: "cobbler",
   },
   glassblowersCoveralls: {
     con: 8,
-    set: 'glassblower',
+    set: "glassblower",
   },
   bluePartyDress: {
     con: 7,
     per: 7,
     str: 7,
-    set: 'blueHairbow',
+    set: "blueHairbow",
   },
   piraticalPrincessGown: {
     per: 7,
-    set: 'piraticalPrincess',
+    set: "piraticalPrincess",
   },
   jeweledArcherArmor: {
     con: 15,
-    set: 'jeweledArcher',
+    set: "jeweledArcher",
   },
   coverallsOfBookbinding: {
     con: 10,
     per: 5,
-    set: 'bookbinder',
+    set: "bookbinder",
   },
   robeOfSpades: {
     str: 13,
-    set: 'aceOfSpades',
+    set: "aceOfSpades",
   },
   softBlueSuit: {
     int: 10,
     per: 5,
-    set: 'blueLoungewear',
+    set: "blueLoungewear",
   },
   softGreenSuit: {
     int: 7,
     con: 7,
-    set: 'greenLoungewear',
+    set: "greenLoungewear",
   },
   softRedSuit: {
     int: 8,
     str: 5,
-    set: 'redLoungewear',
+    set: "redLoungewear",
   },
   scribesRobe: {
     int: 7,
     per: 7,
-    set: 'scribe',
+    set: "scribe",
   },
   chefsJacket: {
     int: 10,
-    set: 'chef',
+    set: "chef",
   },
   vernalVestment: {
     str: 6,
     int: 6,
-    set: 'vernalVestments',
+    set: "vernalVestments",
   },
   nephriteArmor: {
     str: 7,
     per: 6,
-    set: 'nephrite',
+    set: "nephrite",
   },
   boatingJacket: {
     int: 6,
     per: 6,
     str: 6,
-    set: 'boating',
+    set: "boating",
   },
   astronomersRobe: {
     per: 8,
     con: 8,
-    set: 'astronomer',
+    set: "astronomer",
   },
   invernessCape: {
     per: 7,
     int: 7,
-    set: 'detective',
+    set: "detective",
   },
   shadowMastersRobe: {
     con: 12,
-    set: 'shadowMaster',
+    set: "shadowMaster",
   },
   alchemistsRobe: {
     con: 8,
     per: 5,
-    set: 'alchemist',
+    set: "alchemist",
   },
   duffleCoat: {
     con: 7,
     per: 7,
-    set: 'duffle',
+    set: "duffle",
   },
   layerCakeArmor: {
     con: 13,
-    set: 'birthday',
+    set: "birthday",
   },
   matchMakersApron: {
     con: 7,
     str: 7,
     int: 7,
-    set: 'matchMaker',
+    set: "matchMaker",
   },
   baseballUniform: {
     con: 10,
     str: 10,
-    set: 'baseball',
+    set: "baseball",
   },
   boxArmor: {
     per: 5,
     con: 5,
-    set: 'paperKnight',
+    set: "paperKnight",
   },
   fiddlersCoat: {
     con: 6,
-    set: 'fiddler',
+    set: "fiddler",
   },
   pirateOutfit: {
     con: 4,
     int: 4,
-    set: 'pirate',
+    set: "pirate",
   },
   heroicHerbalistRobe: {
     con: 7,
     int: 7,
-    set: 'herbalist',
+    set: "herbalist",
   },
   guardiansGown: {
     int: 7,
-    set: 'grazerGuardian',
+    set: "grazerGuardian",
   },
   autumnEnchantersCloak: {
     int: 12,
-    set: 'autumnEnchanter',
+    set: "autumnEnchanter",
   },
   doubletOfClubs: {
     con: 10,
-    set: 'jackOfClubs',
+    set: "jackOfClubs",
   },
   dressingGown: {
     con: 12,
-    set: 'dressingGown',
+    set: "dressingGown",
   },
   blueMoonShozoku: {
     con: 8,
-    set: 'blueMoon',
+    set: "blueMoon",
   },
   softPinkSuit: {
     per: 12,
-    set: 'pinkLoungewear',
+    set: "pinkLoungewear",
   },
   jadeArmor: {
     per: 8,
-    set: 'jadeWarrior',
+    set: "jadeWarrior",
   },
   clownsMotley: {
     str: 7,
-    set: 'clown',
+    set: "clown",
   },
   medievalLaundryOutfit: {
     con: 6,
-    set: 'medievalLaunderers',
+    set: "medievalLaunderers",
   },
   medievalLaundryDress: {
     con: 6,
-    set: 'medievalLaunderers',
+    set: "medievalLaunderers",
   },
   bathtub: {
     con: 8,
-    set: 'bath',
+    set: "bath",
   },
   bagpipersKilt: {
     con: 6,
-    set: 'bonnieBagpiper',
+    set: "bonnieBagpiper",
   },
   heraldsTunic: {
     con: 6,
-    set: 'herald',
+    set: "herald",
   },
   softBlackSuit: {
     con: 7,
     per: 7,
-    set: 'blackLoungewear',
+    set: "blackLoungewear",
   },
   shootingStarCostume: {
     con: 10,
-    set: 'shootingStar',
+    set: "shootingStar",
   },
   softVioletSuit: {
     con: 7,
     str: 7,
-    set: 'violetLoungewear',
+    set: "violetLoungewear",
   },
   gardenersOveralls: {
     con: 7,
-    set: 'gardenerSet',
+    set: "gardenerSet",
   },
   strawRaincoat: {
     con: 9,
-    set: 'strawRaincoat',
+    set: "strawRaincoat",
   },
   fancyPirateSuit: {
     con: 4,
     int: 4,
-    set: 'fancyPirate',
+    set: "fancyPirate",
   },
   sheetGhostCostume: {
     con: 10,
   },
   jewelersApron: {
     int: 10,
-    set: 'jewelers',
+    set: "jewelers",
   },
   shawlCollarCoat: {
     con: 8,
@@ -415,65 +415,65 @@ const armor = {
   teaGown: {
     str: 5,
     int: 5,
-    set: 'teaParty',
+    set: "teaParty",
   },
   basketballUniform: {
     per: 10,
-    set: 'oldTimeyBasketball',
+    set: "oldTimeyBasketball",
   },
   paintersApron: {
     con: 10,
-    set: 'painters',
+    set: "painters",
   },
   stripedRainbowShirt: {
     str: 7,
     int: 7,
-    set: 'rainbow',
+    set: "rainbow",
   },
   diagonalRainbowShirt: {
     con: 7,
     per: 7,
-    set: 'rainbow',
+    set: "rainbow",
   },
   admiralsUniform: {
     con: 7,
     str: 7,
-    set: 'admiralsSet',
+    set: "admiralsSet",
   },
   karateGi: {
     str: 10,
-    set: 'karateSet',
+    set: "karateSet",
   },
   greenFluffTrimmedCoat: {
     str: 8,
     int: 8,
-    set: 'greenTrapper',
+    set: "greenTrapper",
   },
   schoolUniformSkirt: {
     int: 5,
-    set: 'schoolUniform',
+    set: "schoolUniform",
   },
   schoolUniformPants: {
     int: 5,
-    set: 'schoolUniform',
+    set: "schoolUniform",
   },
   softWhiteSuit: {
     con: 7,
     per: 10,
-    set: 'whiteLoungeWear',
+    set: "whiteLoungeWear",
   },
   hattersSuit: {
     con: 9,
-    set: 'hatterSet',
+    set: "hatterSet",
   },
   smileyShirt: {
     int: 4,
     per: 4,
-    set: 'optimistSet',
+    set: "optimistSet",
   },
   pottersApron: {
     str: 8,
-    set: 'pottersSet',
+    set: "pottersSet",
   },
 };
 
@@ -481,54 +481,54 @@ const body = {
   cozyScarf: {
     con: 5,
     per: 5,
-    set: 'lamplighter',
+    set: "lamplighter",
   },
   lifeguardWhistle: {
     int: 12,
-    set: 'lifeguard',
+    set: "lifeguard",
   },
   clownsBowtie: {
     str: 2,
     int: 2,
     con: 2,
     per: 2,
-    set: 'clown',
+    set: "clown",
   },
   karateYellowBelt: {
     per: 3,
-    set: 'karateSet',
+    set: "karateSet",
   },
   karateWhiteBelt: {
     int: 3,
-    set: 'karateSet',
+    set: "karateSet",
   },
   karateRedBelt: {
     per: 3,
-    set: 'karateSet',
+    set: "karateSet",
   },
   karatePurpleBelt: {
     con: 3,
-    set: 'karateSet',
+    set: "karateSet",
   },
   karateOrangeBelt: {
     con: 3,
-    set: 'karateSet',
+    set: "karateSet",
   },
   karateGreenBelt: {
     str: 3,
-    set: 'karateSet',
+    set: "karateSet",
   },
   karateBrownBelt: {
     str: 3,
-    set: 'karateSet',
+    set: "karateSet",
   },
   karateBlueBelt: {
     con: 3,
-    set: 'karateSet',
+    set: "karateSet",
   },
   karateBlackBelt: {
     int: 3,
-    set: 'karateSet',
+    set: "karateSet",
   },
 };
 
@@ -536,7 +536,7 @@ const eyewear = {
   plagueDoctorMask: {
     con: 5,
     int: 5,
-    set: 'plagueDoctor',
+    set: "plagueDoctor",
   },
   goofyGlasses: {
     per: 10,
@@ -552,86 +552,86 @@ const eyewear = {
   },
   jewelersEyeLoupe: {
     per: 10,
-    set: 'jewelers',
+    set: "jewelers",
   },
   roseColoredGlasses: {
     per: 8,
-    set: 'optimistSet',
+    set: "optimistSet",
   },
 };
 
 const head = {
   lunarCrown: {
-    notes: t('headArmoireLunarCrownNotes', { con: 7, per: 7 }),
+    notes: t("headArmoireLunarCrownNotes", { con: 7, per: 7 }),
     con: 7,
     per: 7,
-    set: 'soothing',
+    set: "soothing",
   },
   redHairbow: {
-    notes: t('headArmoireRedHairbowNotes', { str: 5, int: 5, con: 5 }),
+    notes: t("headArmoireRedHairbowNotes", { str: 5, int: 5, con: 5 }),
     str: 5,
     int: 5,
     con: 5,
-    set: 'redHairbow',
+    set: "redHairbow",
   },
   violetFloppyHat: {
-    notes: t('headArmoireVioletFloppyHatNotes', { per: 5, int: 5, con: 5 }),
+    notes: t("headArmoireVioletFloppyHatNotes", { per: 5, int: 5, con: 5 }),
     per: 5,
     int: 5,
     con: 5,
-    set: 'violetLoungewear',
+    set: "violetLoungewear",
   },
   gladiatorHelm: {
-    notes: t('headArmoireGladiatorHelmNotes', { per: 7, int: 7 }),
+    notes: t("headArmoireGladiatorHelmNotes", { per: 7, int: 7 }),
     per: 7,
     int: 7,
-    set: 'gladiator',
+    set: "gladiator",
   },
   rancherHat: {
-    notes: t('headArmoireRancherHatNotes', { str: 5, per: 5, int: 5 }),
+    notes: t("headArmoireRancherHatNotes", { str: 5, per: 5, int: 5 }),
     str: 5,
     per: 5,
     int: 5,
-    set: 'rancher',
+    set: "rancher",
   },
   royalCrown: {
     str: 10,
-    set: 'royal',
+    set: "royal",
   },
   blueHairbow: {
-    notes: t('headArmoireBlueHairbowNotes', { per: 5, int: 5, con: 5 }),
+    notes: t("headArmoireBlueHairbowNotes", { per: 5, int: 5, con: 5 }),
     per: 5,
     int: 5,
     con: 5,
-    set: 'blueHairbow',
+    set: "blueHairbow",
   },
   goldenLaurels: {
     per: 8,
     con: 8,
-    set: 'goldenToga',
+    set: "goldenToga",
   },
   hornedIronHelm: {
     con: 9,
     str: 7,
-    set: 'hornedIron',
+    set: "hornedIron",
   },
   yellowHairbow: {
     int: 5,
     per: 5,
     str: 5,
-    set: 'yellowHairbow',
+    set: "yellowHairbow",
   },
   redFloppyHat: {
     con: 6,
     int: 6,
     per: 6,
-    set: 'redLoungewear',
+    set: "redLoungewear",
   },
   plagueDoctorHat: {
     int: 5,
     str: 6,
     con: 5,
-    set: 'plagueDoctor',
+    set: "plagueDoctor",
   },
   blackCat: {
     int: 9,
@@ -645,127 +645,127 @@ const head = {
     per: 7,
     int: 7,
     con: 7,
-    set: 'blueLoungewear',
+    set: "blueLoungewear",
   },
   shepherdHeaddress: {
     int: 9,
-    set: 'shepherd',
+    set: "shepherd",
   },
   crystalCrescentHat: {
     int: 7,
     per: 7,
-    set: 'crystalCrescent',
+    set: "crystalCrescent",
   },
   dragonTamerHelm: {
     int: 15,
-    set: 'dragonTamer',
+    set: "dragonTamer",
   },
   barristerWig: {
     str: 10,
-    set: 'barrister',
+    set: "barrister",
   },
   jesterCap: {
     per: 15,
-    set: 'jester',
+    set: "jester",
   },
   minerHelmet: {
     int: 5,
-    set: 'miner',
+    set: "miner",
   },
   basicArcherCap: {
     per: 6,
-    set: 'basicArcher',
+    set: "basicArcher",
   },
   graduateCap: {
     int: 9,
-    set: 'graduate',
+    set: "graduate",
   },
   greenFloppyHat: {
     per: 8,
     int: 8,
     con: 8,
-    set: 'greenLoungewear',
+    set: "greenLoungewear",
   },
   cannoneerBandanna: {
     int: 15,
     per: 15,
-    set: 'cannoneer',
+    set: "cannoneer",
   },
   falconerCap: {
     int: 10,
-    set: 'falconer',
+    set: "falconer",
   },
   vermilionArcherHelm: {
     per: 12,
-    set: 'vermilionArcher',
+    set: "vermilionArcher",
   },
   ogreMask: {
     con: 7,
     str: 7,
-    set: 'ogre',
+    set: "ogre",
   },
   ironBlueArcherHelm: {
     con: 9,
-    set: 'blueArcher',
+    set: "blueArcher",
   },
   woodElfHelm: {
     con: 12,
-    set: 'woodElf',
+    set: "woodElf",
   },
   ramHeaddress: {
     con: 9,
     per: 7,
-    set: 'ramBarbarian',
+    set: "ramBarbarian",
   },
   crownOfHearts: {
     str: 13,
-    set: 'queenOfHearts',
+    set: "queenOfHearts",
   },
   mushroomDruidCap: {
     int: 6,
     str: 7,
-    set: 'mushroomDruid',
+    set: "mushroomDruid",
   },
   merchantChaperon: {
     int: 7,
     per: 7,
-    set: 'merchant',
+    set: "merchant",
   },
   vikingHelm: {
     str: 6,
     per: 8,
-    set: 'viking',
+    set: "viking",
   },
   swanFeatherCrown: {
     int: 8,
-    set: 'swanDancer',
+    set: "swanDancer",
   },
   antiProcrastinationHelm: {
     per: 15,
-    set: 'antiProcrastination',
+    set: "antiProcrastination",
   },
   candlestickMakerHat: {
     int: 6,
     per: 6,
-    set: 'candlestickMaker',
+    set: "candlestickMaker",
   },
   lamplightersTopHat: {
     con: 14,
-    set: 'lamplighter',
+    set: "lamplighter",
   },
   coachDriversHat: {
     int: 12,
-    set: 'coachDriver',
+    set: "coachDriver",
   },
   crownOfDiamonds: {
     int: 13,
-    set: 'kingOfDiamonds',
+    set: "kingOfDiamonds",
   },
   flutteryWig: {
     int: 5,
     per: 5,
     str: 5,
-    set: 'fluttery',
+    set: "fluttery",
   },
   bigWig: {
     str: 10,
@@ -778,28 +778,28 @@ const head = {
   },
   glassblowersHat: {
     per: 8,
-    set: 'glassblower',
+    set: "glassblower",
   },
   piraticalPrincessHeaddress: {
     per: 8,
     int: 8,
-    set: 'piraticalPrincess',
+    set: "piraticalPrincess",
   },
   jeweledArcherHelm: {
     int: 15,
-    set: 'jeweledArcher',
+    set: "jeweledArcher",
   },
   veilOfSpades: {
     per: 13,
-    set: 'aceOfSpades',
+    set: "aceOfSpades",
   },
   toqueBlanche: {
     per: 10,
-    set: 'chef',
+    set: "chef",
   },
   vernalHennin: {
     per: 12,
-    set: 'vernalVestments',
+    set: "vernalVestments",
   },
   tricornHat: {
     per: 10,
@@ -807,138 +807,138 @@ const head = {
   nephriteHelm: {
     per: 7,
     int: 6,
-    set: 'nephrite',
+    set: "nephrite",
   },
   boaterHat: {
     str: 6,
     con: 6,
     per: 6,
-    set: 'boating',
+    set: "boating",
   },
   astronomersHat: {
     con: 10,
-    set: 'astronomer',
+    set: "astronomer",
   },
   deerstalkerCap: {
     int: 14,
-    set: 'detective',
+    set: "detective",
   },
   shadowMastersHood: {
     per: 5,
     con: 5,
-    set: 'shadowMaster',
+    set: "shadowMaster",
   },
   alchemistsHat: {
     per: 7,
-    set: 'alchemist',
+    set: "alchemist",
   },
   earflapHat: {
     int: 7,
     str: 7,
-    set: 'duffle',
+    set: "duffle",
   },
   frostedHelm: {
     int: 13,
-    set: 'birthday',
+    set: "birthday",
   },
   matchMakersBeret: {
     con: 15,
-    set: 'matchMaker',
+    set: "matchMaker",
   },
   baseballCap: {
     con: 8,
     str: 8,
-    set: 'baseball',
+    set: "baseball",
   },
   fiddlersCap: {
     per: 6,
-    set: 'fiddler',
+    set: "fiddler",
   },
   heroicHerbalistCrispinette: {
     int: 9,
-    set: 'herbalist',
+    set: "herbalist",
   },
   guardiansBonnet: {
     con: 8,
-    set: 'grazerGuardian',
+    set: "grazerGuardian",
   },
   hornsOfAutumn: {
     str: 12,
-    set: 'autumnEnchanter',
+    set: "autumnEnchanter",
   },
   capOfClubs: {
     int: 10,
-    set: 'jackOfClubs',
+    set: "jackOfClubs",
   },
   nightcap: {
     per: 12,
-    set: 'dressingGown',
+    set: "dressingGown",
   },
   blueMoonHelm: {
     int: 8,
-    set: 'blueMoon',
+    set: "blueMoon",
   },
   pinkFloppyHat: {
     int: 12,
-    set: 'pinkLoungewear',
+    set: "pinkLoungewear",
   },
   jadeHelm: {
     con: 8,
-    set: 'jadeWarrior',
+    set: "jadeWarrior",
   },
   clownsWig: {
     con: 5,
-    set: 'clown',
+    set: "clown",
   },
   medievalLaundryCap: {
     int: 6,
-    set: 'medievalLaunderers',
+    set: "medievalLaunderers",
   },
   medievalLaundryHat: {
     int: 6,
-    set: 'medievalLaunderers',
+    set: "medievalLaunderers",
   },
   rubberDucky: {
     int: 10,
-    set: 'bath',
+    set: "bath",
   },
   glengarry: {
     int: 6,
-    set: 'bonnieBagpiper',
+    set: "bonnieBagpiper",
   },
   heraldsCap: {
     int: 6,
-    set: 'herald',
+    set: "herald",
   },
   blackFloppyHat: {
     con: 7,
     per: 7,
     str: 7,
-    set: 'blackLoungewear',
+    set: "blackLoungewear",
   },
   regalCrown: {
     int: 7,
-    set: 'regal',
+    set: "regal",
   },
   shootingStarCrown: {
     per: 10,
-    set: 'shootingStar',
+    set: "shootingStar",
   },
   gardenersSunHat: {
     per: 7,
-    set: 'gardenerSet',
+    set: "gardenerSet",
   },
   strawRainHat: {
     per: 9,
-    set: 'strawRaincoat',
+    set: "strawRaincoat",
   },
   fancyPirateHat: {
     per: 8,
-    set: 'fancyPirate',
+    set: "fancyPirate",
   },
   teaHat: {
     per: 10,
-    set: 'teaParty',
+    set: "teaParty",
   },
   beaniePropellerHat: {
     con: 3,
@@ -948,50 +948,50 @@ const head = {
   },
   paintersBeret: {
     per: 9,
-    set: 'painters',
+    set: "painters",
   },
   admiralsBicorne: {
     int: 7,
     per: 7,
-    set: 'admiralsSet',
+    set: "admiralsSet",
   },
   blackSpookySorceryHat: {
     int: 5,
     con: 3,
-    set: 'somethingSpooky',
+    set: "somethingSpooky",
   },
   purpleSpookySorceryHat: {
     per: 5,
     con: 3,
-    set: 'somethingSpooky',
+    set: "somethingSpooky",
   },
   greenTrapperHat: {
     con: 6,
     per: 6,
-    set: 'greenTrapper',
+    set: "greenTrapper",
   },
   whiteFloppyHat: {
     str: 5,
     int: 5,
     con: 5,
-    set: 'whiteLoungeWear',
+    set: "whiteLoungeWear",
   },
   hattersTopHat: {
     per: 10,
-    set: 'hatterSet',
+    set: "hatterSet",
   },
   pottersBandana: {
     int: 8,
-    set: 'pottersSet',
+    set: "pottersSet",
   },
 };
 
 const shield = {
   gladiatorShield: {
-    notes: t('shieldArmoireGladiatorShieldNotes', { con: 5, str: 5 }),
+    notes: t("shieldArmoireGladiatorShieldNotes", { con: 5, str: 5 }),
     con: 5,
     str: 5,
-    set: 'gladiator',
+    set: "gladiator",
   },
   midnightShield: {
     con: 10,
@@ -1001,11 +1001,11 @@ const shield = {
     con: 5,
     int: 5,
     per: 5,
-    set: 'royal',
+    set: "royal",
   },
   dragonTamerShield: {
     per: 15,
-    set: 'dragonTamer',
+    set: "dragonTamer",
   },
   mysticLamp: {
     per: 15,
@@ -1015,16 +1015,16 @@ const shield = {
   },
   sandyBucket: {
     per: 10,
-    set: 'seaside',
+    set: "seaside",
   },
   perchingFalcon: {
     str: 16,
-    set: 'falconer',
+    set: "falconer",
   },
   ramHornShield: {
     str: 7,
     con: 7,
-    set: 'ramBarbarian',
+    set: "ramBarbarian",
   },
   redRose: {
     per: 10,
@@ -1032,20 +1032,20 @@ const shield = {
   mushroomDruidShield: {
     con: 9,
     str: 8,
-    set: 'mushroomDruid',
+    set: "mushroomDruid",
   },
   festivalParasol: {
     con: 8,
-    set: 'festivalAttire',
+    set: "festivalAttire",
   },
   vikingShield: {
     per: 6,
     int: 8,
-    set: 'viking',
+    set: "viking",
   },
   swanFeatherFan: {
     str: 8,
-    set: 'swanDancer',
+    set: "swanDancer",
   },
   goldenBaton: {
     int: 4,
@@ -1053,76 +1053,76 @@ const shield = {
   },
   antiProcrastinationShield: {
     con: 15,
-    set: 'antiProcrastination',
+    set: "antiProcrastination",
   },
   horseshoe: {
     con: 6,
     per: 6,
     str: 6,
-    set: 'farrier',
+    set: "farrier",
   },
   handmadeCandlestick: {
     str: 12,
-    set: 'candlestickMaker',
+    set: "candlestickMaker",
   },
   weaversShuttle: {
     per: 9,
     int: 8,
-    set: 'weaver',
+    set: "weaver",
   },
   shieldOfDiamonds: {
     con: 10,
-    set: 'kingOfDiamonds',
+    set: "kingOfDiamonds",
   },
   flutteryFan: {
     con: 5,
     int: 5,
     per: 5,
-    set: 'fluttery',
+    set: "fluttery",
   },
   fancyShoe: {
     int: 7,
     per: 7,
-    set: 'cobbler',
+    set: "cobbler",
   },
   fancyBlownGlassVase: {
     int: 6,
-    set: 'glassblower',
+    set: "glassblower",
   },
   piraticalSkullShield: {
     per: 4,
     int: 4,
-    set: 'piraticalPrincess',
+    set: "piraticalPrincess",
   },
   unfinishedTome: {
     int: 10,
-    set: 'bookbinder',
+    set: "bookbinder",
   },
   softBluePillow: {
     con: 10,
-    set: 'blueLoungewear',
+    set: "blueLoungewear",
   },
   softGreenPillow: {
     con: 8,
     int: 6,
-    set: 'greenLoungewear',
+    set: "greenLoungewear",
   },
   softRedPillow: {
     con: 5,
     str: 5,
-    set: 'redLoungewear',
+    set: "redLoungewear",
   },
   mightyQuill: {
     per: 9,
-    set: 'scribe',
+    set: "scribe",
   },
   mightyPizza: {
     per: 8,
-    set: 'chef',
+    set: "chef",
   },
   trustyUmbrella: {
     int: 7,
-    set: 'detective',
+    set: "detective",
   },
   polishedPocketwatch: {
     int: 9,
@@ -1130,206 +1130,206 @@ const shield = {
   masteredShadow: {
     per: 5,
     con: 5,
-    set: 'shadowMaster',
+    set: "shadowMaster",
   },
   alchemistsScale: {
     int: 7,
-    set: 'alchemist',
+    set: "alchemist",
   },
   birthdayBanner: {
     str: 7,
-    set: 'birthday',
+    set: "birthday",
   },
   perfectMatch: {
     per: 15,
-    set: 'matchMaker',
+    set: "matchMaker",
   },
   baseballGlove: {
     str: 9,
-    set: 'baseball',
+    set: "baseball",
   },
   hobbyHorse: {
     per: 4,
     con: 4,
-    set: 'paperKnight',
+    set: "paperKnight",
   },
   fiddle: {
     int: 6,
-    set: 'fiddler',
+    set: "fiddler",
   },
   lifeBuoy: {
     con: 12,
-    set: 'lifeguard',
+    set: "lifeguard",
   },
   piratesCompanion: {
     per: 8,
-    set: 'pirate',
+    set: "pirate",
   },
   mortarAndPestle: {
     con: 9,
-    set: 'herbalist',
+    set: "herbalist",
   },
   darkAutumnFlame: {
     con: 12,
-    set: 'autumnEnchanter',
+    set: "autumnEnchanter",
   },
   blueMoonSai: {
     per: 8,
-    set: 'blueMoon',
+    set: "blueMoon",
   },
   softPinkPillow: {
     str: 6,
     con: 6,
-    set: 'pinkLoungewear',
+    set: "pinkLoungewear",
   },
   clownsBalloons: {
     per: 5,
-    set: 'clown',
+    set: "clown",
   },
   strawberryFood: {
     str: 5,
-    set: 'petFood',
+    set: "petFood",
   },
   rottenMeatFood: {
     con: 5,
-    set: 'petFood',
+    set: "petFood",
   },
   potatoFood: {
     per: 5,
-    set: 'petFood',
+    set: "petFood",
   },
   pinkCottonCandyFood: {
     int: 5,
-    set: 'petFood',
+    set: "petFood",
   },
   meatFood: {
     str: 5,
-    set: 'petFood',
+    set: "petFood",
   },
   honeyFood: {
     int: 3,
     per: 3,
-    set: 'petFood',
+    set: "petFood",
   },
   fishFood: {
     per: 5,
-    set: 'petFood',
+    set: "petFood",
   },
   chocolateFood: {
     int: 5,
-    set: 'petFood',
+    set: "petFood",
   },
   blueCottonCandyFood: {
     con: 5,
-    set: 'petFood',
+    set: "petFood",
   },
   milkFood: {
     con: 3,
     str: 3,
-    set: 'petFood',
+    set: "petFood",
   },
   medievalLaundry: {
     per: 6,
-    set: 'medievalLaunderers',
+    set: "medievalLaunderers",
   },
   bouncyBubbles: {
     str: 5,
-    set: 'bath',
+    set: "bath",
   },
   bagpipes: {
     str: 6,
-    set: 'bonnieBagpiper',
+    set: "bonnieBagpiper",
   },
   heraldsMessageScroll: {
     per: 6,
-    set: 'herald',
+    set: "herald",
   },
   softBlackPillow: {
     int: 5,
     per: 5,
-    set: 'blackLoungewear',
+    set: "blackLoungewear",
   },
   softVioletPillow: {
     int: 10,
-    set: 'violetLoungewear',
+    set: "violetLoungewear",
   },
   gardenersSpade: {
     str: 8,
-    set: 'gardenerSet',
+    set: "gardenerSet",
   },
   spanishGuitar: {
     per: 5, // this might need to go back to 6
     int: 6,
-    set: 'musicalInstrumentOne',
+    set: "musicalInstrumentOne",
   },
   snareDrum: {
     con: 5,
     int: 6,
-    set: 'musicalInstrumentOne',
+    set: "musicalInstrumentOne",
   },
   treasureMap: {
     int: 4,
     str: 4,
-    set: 'fancyPirate',
+    set: "fancyPirate",
   },
   dustpan: {
     int: 4,
     con: 4,
-    set: 'cleaningSupplies',
+    set: "cleaningSupplies",
   },
   bubblingCauldron: {
     con: 8,
-    set: 'cookingImplements',
+    set: "cookingImplements",
   },
   jewelersPliers: {
     str: 10,
-    set: 'jewelers',
+    set: "jewelers",
   },
   teaKettle: {
     con: 10,
-    set: 'teaParty',
+    set: "teaParty",
   },
   basketball: {
     con: 5,
     str: 5,
-    set: 'oldTimeyBasketball',
+    set: "oldTimeyBasketball",
   },
   paintersPalette: {
     str: 7,
-    set: 'painters',
+    set: "painters",
   },
   bucket: {
     str: 4,
     int: 4,
-    set: 'cleaningSuppliesTwo',
+    set: "cleaningSuppliesTwo",
   },
   saucepan: {
     per: 10,
-    set: 'cookingImplementsTwo',
+    set: "cookingImplementsTwo",
   },
   trustyPencil: {
     int: 10,
-    set: 'schoolUniform',
+    set: "schoolUniform",
   },
   softWhitePillow: {
     int: 6,
     per: 6,
-    set: 'whiteLoungeWear',
+    set: "whiteLoungeWear",
   },
   hattersPocketWatch: {
     int: 9,
-    set: 'hatterSet',
+    set: "hatterSet",
   },
   happyThoughts: {
     int: 4,
     per: 4,
     con: 4,
     str: 4,
-    set: 'optimistSet',
+    set: "optimistSet",
   },
   thrownVessel: {
     con: 8,
-    set: 'pottersSet',
+    set: "pottersSet",
   },
 };
 
@@ -1339,40 +1339,40 @@ const headAccessory = {
   },
   gogglesOfBookbinding: {
     per: 8,
-    set: 'bookbinder',
+    set: "bookbinder",
   },
 };
 
 const weapon = {
   basicCrossbow: {
-    notes: t('weaponArmoireBasicCrossbowNotes', { str: 5, per: 5, con: 5 }),
+    notes: t("weaponArmoireBasicCrossbowNotes", { str: 5, per: 5, con: 5 }),
     str: 5,
     per: 5,
     con: 5,
   },
   lunarSceptre: {
-    notes: t('weaponArmoireLunarSceptreNotes', { con: 7, int: 7 }),
+    notes: t("weaponArmoireLunarSceptreNotes", { con: 7, int: 7 }),
     con: 7,
     int: 7,
-    set: 'soothing',
+    set: "soothing",
   },
   rancherLasso: {
     twoHanded: true,
-    notes: t('weaponArmoireRancherLassoNotes', { str: 5, per: 5, int: 5 }),
+    notes: t("weaponArmoireRancherLassoNotes", { str: 5, per: 5, int: 5 }),
     str: 5,
     per: 5,
     int: 5,
-    set: 'rancher',
+    set: "rancher",
   },
   mythmakerSword: {
     str: 6,
     per: 6,
-    set: 'goldenToga',
+    set: "goldenToga",
   },
   ironCrook: {
     str: 7,
     per: 7,
-    set: 'hornedIron',
+    set: "hornedIron",
   },
   goldWingStaff: {
     con: 4,
@@ -1386,19 +1386,19 @@ const weapon = {
   },
   shepherdsCrook: {
     con: 9,
-    set: 'shepherd',
+    set: "shepherd",
   },
   crystalCrescentStaff: {
     int: 7,
     str: 7,
-    set: 'crystalCrescent',
+    set: "crystalCrescent",
   },
   blueLongbow: {
     per: 9,
     con: 8,
     str: 7,
     twoHanded: true,
-    set: 'blueArcher',
+    set: "blueArcher",
   },
   glowingSpear: {
     str: 15,
@@ -1406,50 +1406,50 @@ const weapon = {
   barristerGavel: {
     str: 5,
     con: 5,
-    set: 'barrister',
+    set: "barrister",
   },
   jesterBaton: {
     int: 8,
     per: 8,
-    set: 'jester',
+    set: "jester",
   },
   miningPickax: {
     per: 15,
-    set: 'miner',
+    set: "miner",
   },
   basicLongbow: {
     str: 6,
     twoHanded: true,
-    set: 'basicArcher',
+    set: "basicArcher",
   },
   habiticanDiploma: {
     int: 11,
-    set: 'graduate',
+    set: "graduate",
   },
   sandySpade: {
     str: 10,
-    set: 'seaside',
+    set: "seaside",
   },
   cannon: {
     str: 15,
-    set: 'cannoneer',
+    set: "cannoneer",
   },
   vermilionArcherBow: {
     str: 15,
     twoHanded: true,
-    set: 'vermilionArcher',
+    set: "vermilionArcher",
   },
   ogreClub: {
     str: 15,
-    set: 'ogre',
+    set: "ogre",
   },
   woodElfStaff: {
     int: 12,
-    set: 'woodElf',
+    set: "woodElf",
   },
   wandOfHearts: {
     int: 13,
-    set: 'queenOfHearts',
+    set: "queenOfHearts",
   },
   forestFungusStaff: {
     int: 8,
@@ -1457,11 +1457,11 @@ const weapon = {
   },
   festivalFirecracker: {
     per: 8,
-    set: 'festivalAttire',
+    set: "festivalAttire",
   },
   merchantsDisplayTray: {
     int: 10,
-    set: 'merchant',
+    set: "merchant",
   },
   battleAxe: {
     int: 6,
@@ -1471,70 +1471,70 @@ const weapon = {
     con: 6,
     int: 6,
     str: 6,
-    set: 'farrier',
+    set: "farrier",
   },
   weaversComb: {
     per: 8,
     str: 9,
-    set: 'weaver',
+    set: "weaver",
   },
   lamplighter: {
     per: 6,
     con: 8,
-    set: 'lamplighter',
+    set: "lamplighter",
   },
   coachDriversWhip: {
     str: 6,
     int: 8,
-    set: 'coachDriver',
+    set: "coachDriver",
   },
   scepterOfDiamonds: {
     str: 13,
-    set: 'kingOfDiamonds',
+    set: "kingOfDiamonds",
   },
   flutteryArmy: {
     con: 5,
     int: 5,
     str: 5,
-    set: 'fluttery',
+    set: "fluttery",
   },
   cobblersHammer: {
     con: 7,
     str: 7,
-    set: 'cobbler',
+    set: "cobbler",
   },
   glassblowersBlowpipe: {
     str: 6,
-    set: 'glassblower',
+    set: "glassblower",
   },
   poisonedGoblet: {
     int: 7,
-    set: 'piraticalPrincess',
+    set: "piraticalPrincess",
   },
   jeweledArcherBow: {
     twoHanded: true,
     int: 15,
-    set: 'jeweledArcher',
+    set: "jeweledArcher",
   },
   needleOfBookbinding: {
     str: 8,
-    set: 'bookbinder',
+    set: "bookbinder",
   },
   spearOfSpades: {
     con: 13,
-    set: 'aceOfSpades',
+    set: "aceOfSpades",
   },
   arcaneScroll: {
     int: 9,
-    set: 'scribe',
+    set: "scribe",
   },
   chefsSpoon: {
     int: 8,
-    set: 'chef',
+    set: "chef",
   },
   vernalTaper: {
     con: 8,
-    set: 'vernalVestments',
+    set: "vernalVestments",
   },
   jugglingBalls: {
     int: 10,
@@ -1545,22 +1545,22 @@ const weapon = {
   nephriteBow: {
     int: 7,
     str: 6,
-    set: 'nephrite',
+    set: "nephrite",
     twoHanded: true,
   },
   bambooCane: {
     int: 6,
     per: 6,
     con: 6,
-    set: 'boating',
+    set: "boating",
   },
   astronomersTelescope: {
     per: 10,
-    set: 'astronomer',
+    set: "astronomer",
   },
   magnifyingGlass: {
     per: 7,
-    set: 'detective',
+    set: "detective",
   },
   floridFan: {
     con: 9,
@@ -1570,76 +1570,76 @@ const weapon = {
   },
   shadowMastersMace: {
     per: 12,
-    set: 'shadowMaster',
+    set: "shadowMaster",
   },
   alchemistsDistiller: {
     str: 8,
     int: 5,
-    set: 'alchemist',
+    set: "alchemist",
   },
   happyBanner: {
     per: 7,
-    set: 'birthday',
+    set: "birthday",
   },
   livelyMatch: {
     str: 15,
-    set: 'matchMaker',
+    set: "matchMaker",
   },
   baseballBat: {
     con: 9,
-    set: 'baseball',
+    set: "baseball",
   },
   paperCutter: {
     str: 9,
-    set: 'paperKnight',
+    set: "paperKnight",
   },
   fiddlersBow: {
     str: 6,
-    set: 'fiddler',
+    set: "fiddler",
   },
   beachFlag: {
     per: 12,
-    set: 'lifeguard',
+    set: "lifeguard",
   },
   handyHook: {
     str: 8,
-    set: 'pirate',
+    set: "pirate",
   },
   guardiansCrook: {
     str: 10,
-    set: 'grazerGuardian',
+    set: "grazerGuardian",
   },
   enchantersStaff: {
     per: 12,
-    set: 'autumnEnchanter',
+    set: "autumnEnchanter",
   },
   clubOfClubs: {
     str: 10,
-    set: 'jackOfClubs',
+    set: "jackOfClubs",
   },
   eveningTea: {
     int: 12,
-    set: 'dressingGown',
+    set: "dressingGown",
   },
   blueMoonSai: {
     str: 8,
-    set: 'blueMoon',
+    set: "blueMoon",
   },
   jadeGlaive: {
     str: 10,
-    set: 'jadeWarrior',
+    set: "jadeWarrior",
   },
   medievalWashboard: {
     str: 6,
-    set: 'medievalLaunderers',
+    set: "medievalLaunderers",
   },
   buoyantBubbles: {
     per: 5,
-    set: 'bath',
+    set: "bath",
   },
   heraldsBuisine: {
     str: 6,
-    set: 'herald',
+    set: "herald",
   },
   skullLantern: {
     int: 10,
@@ -1649,61 +1649,61 @@ const weapon = {
     int: 3,
     con: 3,
     per: 3,
-    set: 'hatchingPotions',
+    set: "hatchingPotions",
   },
   potionBlue: {
     int: 4,
     con: 8,
-    set: 'hatchingPotions',
+    set: "hatchingPotions",
   },
   potionDesert: {
     str: 4,
     con: 8,
-    set: 'hatchingPotions',
+    set: "hatchingPotions",
   },
   potionGolden: {
     str: 6,
     int: 6,
-    set: 'hatchingPotions',
+    set: "hatchingPotions",
   },
   potionPink: {
     int: 4,
     con: 8,
-    set: 'hatchingPotions',
+    set: "hatchingPotions",
   },
   potionRed: {
     str: 6,
     con: 6,
-    set: 'hatchingPotions',
+    set: "hatchingPotions",
   },
   potionShade: {
     int: 9,
     per: 3,
-    set: 'hatchingPotions',
+    set: "hatchingPotions",
   },
   potionSkeleton: {
     str: 9,
     int: 3,
-    set: 'hatchingPotions',
+    set: "hatchingPotions",
   },
   potionWhite: {
     con: 5,
     per: 7,
-    set: 'hatchingPotions',
+    set: "hatchingPotions",
   },
   potionZombie: {
     con: 4,
     per: 8,
-    set: 'hatchingPotions',
+    set: "hatchingPotions",
   },
   regalSceptre: {
     per: 7,
-    set: 'regal',
+    set: "regal",
   },
   shootingStarSpell: {
     str: 5,
     int: 5,
-    set: 'shootingStar',
+    set: "shootingStar",
     twoHanded: true,
   },
   pinkLongbow: {
@@ -1713,170 +1713,170 @@ const weapon = {
   },
   gardenersWateringCan: {
     int: 8,
-    set: 'gardenerSet',
+    set: "gardenerSet",
   },
   huntingHorn: {
     str: 5,
     int: 6,
-    set: 'musicalInstrumentOne',
+    set: "musicalInstrumentOne",
   },
   blueKite: {
     str: 3,
     con: 3,
     int: 3,
     per: 3,
-    set: 'kite',
+    set: "kite",
   },
   greenKite: {
     str: 3,
     con: 3,
     int: 3,
     per: 3,
-    set: 'kite',
+    set: "kite",
   },
   orangeKite: {
     str: 3,
     con: 3,
     int: 3,
     per: 3,
-    set: 'kite',
+    set: "kite",
   },
   pinkKite: {
     str: 3,
     con: 3,
     int: 3,
     per: 3,
-    set: 'kite',
+    set: "kite",
   },
   yellowKite: {
     str: 3,
     con: 3,
     int: 3,
     per: 3,
-    set: 'kite',
+    set: "kite",
   },
   pushBroom: {
     str: 4,
     int: 4,
-    set: 'cleaningSupplies',
+    set: "cleaningSupplies",
   },
   featherDuster: {
     con: 4,
     per: 4,
-    set: 'cleaningSupplies',
+    set: "cleaningSupplies",
   },
   magicSpatula: {
     per: 8,
-    set: 'cookingImplements',
+    set: "cookingImplements",
   },
   finelyCutGem: {
     con: 10,
-    set: 'jewelers',
+    set: "jewelers",
   },
   paintbrush: {
     int: 8,
-    set: 'painters',
+    set: "painters",
   },
   mop: {
     con: 4,
     per: 4,
-    set: 'cleaningSuppliesTwo',
+    set: "cleaningSuppliesTwo",
   },
   cleaningCloth: {
     str: 4,
     con: 4,
-    set: 'cleaningSuppliesTwo',
+    set: "cleaningSuppliesTwo",
   },
   ridingBroom: {
     str: 5,
     int: 3,
-    set: 'somethingSpooky',
+    set: "somethingSpooky",
   },
   rollingPin: {
     str: 10,
-    set: 'cookingImplementsTwo',
+    set: "cookingImplementsTwo",
   },
   scholarlyTextbooks: {
     int: 10,
-    set: 'schoolUniform',
+    set: "schoolUniform",
   },
   hattersShears: {
     str: 10,
-    set: 'hatterSet',
+    set: "hatterSet",
   },
   optimistsClover: {
     str: 4,
     con: 4,
-    set: 'optimistSet',
+    set: "optimistSet",
   },
   pottersWheel: {
     per: 8,
-    set: 'pottersSet',
+    set: "pottersSet",
   },
 };
 
 const releaseDates = {
-  somethingSpooky: '2023-10-10T08:00-04:00',
-  cookingImplementsTwo: '2023-11-07T08:00-05:00',
-  greenTrapper: '2023-12-05T08:00-05:00',
-  schoolUniform: '2024-01-04T08:00-05:00',
-  whiteLoungeWear: '2024-02-06T08:00-05:00',
-  hatterSet: '2024-03-05T08:00-05:00',
-  optimistSet: '2024-04-04T00:00-04:00',
-  pottersSet: '2024-05-07T00:00-04:00',
+  somethingSpooky: "2023-10-10T08:00-04:00",
+  cookingImplementsTwo: "2023-11-07T08:00-05:00",
+  greenTrapper: "2023-12-05T08:00-05:00",
+  schoolUniform: "2024-01-04T08:00-05:00",
+  whiteLoungeWear: "2024-02-06T08:00-05:00",
+  hatterSet: "2024-03-05T08:00-05:00",
+  optimistSet: "2024-04-04T08:00-04:00",
+  pottersSet: "2024-05-07T08:00-04:00",
 };
 
-forEach({
-  armor,
-  body,
-  eyewear,
-  head,
-  headAccessory,
-  shield,
-  weapon,
-}, (set, setKey) => {
-  forEach(set, (gearItem, gearKey) => {
-    const gearStats = {};
-    const gearStatValues = [];
-    let notes;
-    if (!gearItem.notes) {
-      forEach(ATTRIBUTES, stat => {
-        if (gearItem[stat]) {
-          gearStats[stat] = gearItem[stat];
-          gearStatValues.push(gearItem[stat]);
-        }
-      });
-    }
-    if (gearStatValues.length > 0) {
-      if (gearStatValues.length === 1
-        || find(gearStats, gearStat => gearStat !== gearStatValues[0])
-      ) {
-        notes = t(`${setKey}Armoire${upperFirst(gearKey)}Notes`, gearStats);
-      } else {
-        notes = t(`${setKey}Armoire${upperFirst(gearKey)}Notes`, { attrs: gearStatValues[0] });
+forEach(
+  {
+    armor,
+    body,
+    eyewear,
+    head,
+    headAccessory,
+    shield,
+    weapon,
+  },
+  (set, setKey) => {
+    forEach(set, (gearItem, gearKey) => {
+      const gearStats = {};
+      const gearStatValues = [];
+      let notes;
+      if (!gearItem.notes) {
+        forEach(ATTRIBUTES, (stat) => {
+          if (gearItem[stat]) {
+            gearStats[stat] = gearItem[stat];
+            gearStatValues.push(gearItem[stat]);
+          }
+        });
       }
-    } else {
-      notes = t(`${setKey}Armoire${upperFirst(gearKey)}Notes`);
-    }
-    defaults(gearItem, {
-      released: releaseDates[gearItem.set] ? moment().isAfter(releaseDates[gearItem.set]) : true,
-      canOwn: ownsItem(`${setKey}_armoire_${gearKey}`),
-      notes,
-      text: t(`${setKey}Armoire${upperFirst(gearKey)}Text`),
-      value: 100,
+      if (gearStatValues.length > 0) {
+        if (
+          gearStatValues.length === 1 ||
+          find(gearStats, (gearStat) => gearStat !== gearStatValues[0])
+        ) {
+          notes = t(`${setKey}Armoire${upperFirst(gearKey)}Notes`, gearStats);
+        } else {
+          notes = t(`${setKey}Armoire${upperFirst(gearKey)}Notes`, {
+            attrs: gearStatValues[0],
+          });
+        }
+      } else {
+        notes = t(`${setKey}Armoire${upperFirst(gearKey)}Notes`);
+      }
+      defaults(gearItem, {
+        released: releaseDates[gearItem.set]
+          ? moment().isAfter(releaseDates[gearItem.set])
+          : true,
+        canOwn: ownsItem(`${setKey}_armoire_${gearKey}`),
+        notes,
+        text: t(`${setKey}Armoire${upperFirst(gearKey)}Text`),
+        value: 100,
+      });
+      if (gearItem.released === false) {
+        delete set[gearKey];
+      }
     });
-    if (gearItem.released === false) {
-      delete set[gearKey];
-    }
-  });
-});
+  }
+);
 
-export {
-  armor,
-  body,
-  eyewear,
-  head,
-  headAccessory,
-  shield,
-  weapon,
-};
+export { armor, body, eyewear, head, headAccessory, shield, weapon };
