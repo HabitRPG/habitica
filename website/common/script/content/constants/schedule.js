@@ -849,10 +849,10 @@ export function getAllScheduleMatchingGroups (date) {
       if (!cachedScheduleMatchers[matcher.type]) {
         cachedScheduleMatchers[matcher.type] = makeMatcherClass();
       }
-      let end = moment(checkedDate);
-      end.date(TYPE_SCHEDULE[matcher.type]);
+      const end = moment(checkedDate);
+      end.date(TYPE_SCHEDULE[type]);
       if (end.date() <= moment(checkedDate).date()) {
-        end = moment(end).add(1, 'months');
+        moment(end).add(1, 'months');
       }
       cachedScheduleMatchers[matcher.type].end = end.toDate();
       if (matcher.matcher instanceof Function) {
@@ -863,12 +863,8 @@ export function getAllScheduleMatchingGroups (date) {
     });
   }
   if (!cachedScheduleMatchers[type]) {
-    let end = moment(checkedDate).date(TYPE_SCHEDULE[type]);
-    if (end.date() <= checkedDate.date()) {
-      end = moment(end).add(1, 'months');
-    }
+    // No matchers exist for this type
     return {
-      end: end.toDate(),
       items: [],
       match () {
         return true;
