@@ -132,7 +132,7 @@ export default {
   },
   methods: {
     getKeyProp (item) {
-      return this.keyProp ? item[this.keyProp] : item;
+      return this.keyProp ? item[this.keyProp] : item.key;
     },
     isDisabled (item) {
       return typeof item[this.disabledProp] === 'undefined' ? false : item[this.disabledProp];

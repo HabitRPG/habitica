@@ -24,7 +24,7 @@ function inListMatcher (list) {
   };
 }
 
-const ALWAYS_AVAILABLE_CUSTOMIZATIONS = [
+export const ALWAYS_AVAILABLE_CUSTOMIZATIONS = [
   'animalSkins',
   'rainbowSkins',
   'rainbowHairColors',
@@ -843,16 +843,23 @@ export function getScheduleMatchingGroup (type, date) {
   const checkedDate = date || new Date();
   if (cacheDate !== null && (getDay(checkedDate) !== getDay(cacheDate)
     || getMonth(checkedDate) !== getMonth(cacheDate))) {
+    // Clear cached matchers, since they are old
     cacheDate = null;
     cachedScheduleMatchers = null;
   }
   if (!cachedScheduleMatchers) {
+    // No matchers exist, make new ones
     cacheDate = new Date();
     cachedScheduleMatchers = {};
     assembleScheduledMatchers(checkedDate).forEach(matcher => {
       if (!cachedScheduleMatchers[matcher.type]) {
         cachedScheduleMatchers[matcher.type] = makeMatcherClass();
       }
+      let end = moment(checkedDate);
+      end.date(TYPE_SCHEDULE[type]);
+      if (end.date() <= moment(checkedDate).date()) {
+        end = moment(end).add(1, 'months');
+      }      
       cachedScheduleMatchers[matcher.type].end = end.toDate();
       if (matcher.matcher instanceof Function) {
         cachedScheduleMatchers[matcher.type].matchers.push(matcher.matcher);
@@ -862,6 +869,7 @@ export function getScheduleMatchingGroup (type, date) {
     });
   }
   if (!cachedScheduleMatchers[type]) {
+    // No matchers exist for this type
     return {
       items: [],
       match () {
