@@ -839,7 +839,7 @@ function makeMatcherClass () {
   };
 }
 
-export function getAllScheduleMatchingGroups (date) {
+export function getScheduleMatchingGroup (type, date) {
   const checkedDate = date || new Date();
   if (cacheDate !== null && (getDay(checkedDate) !== getDay(cacheDate)
     || getMonth(checkedDate) !== getMonth(cacheDate))) {
@@ -853,6 +853,7 @@ export function getAllScheduleMatchingGroups (date) {
       if (!cachedScheduleMatchers[matcher.type]) {
         cachedScheduleMatchers[matcher.type] = makeMatcherClass();
       }
+      cachedScheduleMatchers[matcher.type].end = end.toDate();
       if (matcher.matcher instanceof Function) {
         cachedScheduleMatchers[matcher.type].matchers.push(matcher.matcher);
       } else if (matcher.items instanceof Array) {
@@ -861,19 +862,14 @@ export function getAllScheduleMatchingGroups (date) {
     });
   }
   if (!cachedScheduleMatchers[type]) {
-    let end = moment(checkedDate).date(TYPE_SCHEDULE[type]);
-    if (end.date() <= checkedDate.date()) {
-      end = moment(end).add(1, 'months');
-    }
     return {
-      end: end.toDate(),
       items: [],
       match () {
         return true;
       },
     };
   }
-  return matchingGroups[type];
+  return cachedScheduleMatchers[type];
 }
 
 export function getCurrentGalaKey (date) {
