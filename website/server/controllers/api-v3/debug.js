@@ -224,12 +224,6 @@ api.timeTravelTime = {
       fakeClock();
     }
 
-    const { user } = res.locals;
-
-    if (!user.permissions.fullAccess) {
-      throw new BadRequest('You do not have permission to time travel.');
-    }
-
     res.respond(200, {
       time: new Date(),
     });
