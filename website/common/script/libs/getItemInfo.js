@@ -8,6 +8,8 @@ import isPinned from './isPinned';
 import isFreeRebirth from './isFreeRebirth';
 import getOfficialPinnedItems from './getOfficialPinnedItems';
 
+import { ALWAYS_AVAILABLE_CUSTOMIZATIONS } from '../content/constants/schedule';
+
 function lockQuest (quest, user) {
   // checks series quests, including Masterclasser
   if (quest.prereqQuests) {
@@ -490,7 +492,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
     throw new BadRequest(i18n.t('wrongItemType', { type }, language));
   }
 
-  if (matcher) {
+  if (matcher && (!itemInfo.set || ALWAYS_AVAILABLE_CUSTOMIZATIONS.indexOf(itemInfo.set.key) === -1)) {
     itemInfo.end = matcher.end;
   }
 

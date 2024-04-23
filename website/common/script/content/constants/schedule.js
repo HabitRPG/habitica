@@ -24,7 +24,7 @@ function inListMatcher (list) {
   };
 }
 
-const ALWAYS_AVAILABLE_CUSTOMIZATIONS = [
+export const ALWAYS_AVAILABLE_CUSTOMIZATIONS = [
   'animalSkins',
   'rainbowSkins',
   'rainbowHairColors',
@@ -851,11 +851,11 @@ export function getScheduleMatchingGroup (type, date) {
       if (!cachedScheduleMatchers[matcher.type]) {
         cachedScheduleMatchers[matcher.type] = makeMatcherClass();
       }
-      const end = moment(checkedDate);
+      let end = moment(checkedDate);
       end.date(TYPE_SCHEDULE[type]);
       if (end.date() <= moment(checkedDate).date()) {
-        moment(end).add(1, 'months');
-      }
+        end = moment(end).add(1, 'months');
+      }      
       cachedScheduleMatchers[matcher.type].end = end.toDate();
       if (matcher.matcher instanceof Function) {
         cachedScheduleMatchers[matcher.type].matchers.push(matcher.matcher);

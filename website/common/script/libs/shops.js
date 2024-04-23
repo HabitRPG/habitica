@@ -618,6 +618,7 @@ shops.getCustomizationsShopCategories = function getCustomizationsShopCategories
           hairStyle,
           officialPinnedItems,
           language,
+          hairType === 'color' ? customizationMatcher : null,
         );
         category.items.push(item);
       }
@@ -643,6 +644,7 @@ shops.getCustomizationsShopCategories = function getCustomizationsShopCategories
           appearance,
           officialPinnedItems,
           language,
+          type === 'skin' ? customizationMatcher : null,
         );
         category.items.push(item);
       }
