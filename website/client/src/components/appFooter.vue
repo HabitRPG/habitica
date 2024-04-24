@@ -308,6 +308,10 @@
         >-30 Days</a>
         <div class="my-2">
           Time Traveling! It is {{ new Date().toLocaleDateString() }}
+        <a
+          class="btn btn-warning mr-1"
+          @click="resetTime()"
+        >Reset</a>
         </div>
         <a
           class="btn btn-secondary mr-1"
@@ -913,6 +917,17 @@ export default {
       } else {
         Vue.config.clock.setSystemTime(moment().add(amount, 'days').toDate());
       }
+      this.lastTimeJump = response.data.data.time;
+      this.triggerGetWorldState(true);
+    },
+    async resetTime () {
+      const response = await axios.post('/api/v4/debug/jump-time', { reset: true });
+      const time = new Date(response.data.data.time);
+      Vue.config.clock.restore();
+      Vue.config.clock = sinon.useFakeTimers({
+        now: time,
+        shouldAdvanceTime: true,
+      });
       this.lastTimeJump = response.data.data.time;
       this.triggerGetWorldState(true);
     },
