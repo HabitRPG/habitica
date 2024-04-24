@@ -218,7 +218,7 @@ export const MONTHLY_SCHEDULE = {
       {
         type: 'hatchingPotionQuests',
         items: [
-          'mossyStone',
+          'stone',
         ],
       },
       {
@@ -303,14 +303,14 @@ export const MONTHLY_SCHEDULE = {
         items: [
           'trex',
           'unicorn',
-          'veolociraptor',
+          'velociraptor',
           'hippo',
         ],
       },
       {
         type: 'hatchingPotionQuests',
         items: [
-          'turquiose',
+          'turquoise',
         ],
       },
       {
@@ -358,12 +358,6 @@ export const MONTHLY_SCHEDULE = {
         type: 'hatchingPotionQuests',
         items: [
           'fluorite',
-        ],
-      },
-      {
-        type: 'bundles',
-        items: [
-          'winterQuests',
         ],
       },
       {
