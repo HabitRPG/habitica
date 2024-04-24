@@ -105,7 +105,14 @@ export async function applyLikeToMessages (user, uniqueMessages) {
 }
 
 export async function getInboxMessagesByUniqueId (uniqueMessageId) {
-  return inboxModel.find({ uniqueMessageId }).lean().exec();
+  return inboxModel
+    .find({ uniqueMessageId })
+    // prevents creating the proxies, no .save() and other stuff
+    .lean()
+    // since there can be only 2 messages maximum for this uniqueMessageId,
+    // this might speed up the query
+    .limit(2)
+    .exec();
 }
 
 export async function getUserInboxMessage (user, messageId) {
