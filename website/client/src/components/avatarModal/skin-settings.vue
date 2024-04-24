@@ -1,7 +1,8 @@
 <template>
   <div
     id="skin"
-    class="customize-section d-flex flex-column justify-content-between"
+    class="customize-section d-flex flex-column"
+    :class="{ 'justify-content-between': editing }"
   >
     <sub-menu
       class="text-center"
@@ -13,7 +14,7 @@
       :items="userSkins"
       :current-value="user.preferences.skin"
     />
-    <customize-banner />
+    <customize-banner v-if="editing" />
   </div>
 </template>
 

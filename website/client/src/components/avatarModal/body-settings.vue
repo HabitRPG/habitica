@@ -1,7 +1,8 @@
 <template>
   <div
     id="body"
-    class="customize-section d-flex flex-column justify-content-between"
+    class="customize-section d-flex flex-column"
+    :class="{ 'justify-content-between': editing }"
   >
     <sub-menu
       class="text-center"
@@ -21,7 +22,7 @@
         :current-value="user.preferences.shirt"
       />
     </div>
-    <customize-banner />
+    <customize-banner v-if="editing" />
   </div>
 </template>
 

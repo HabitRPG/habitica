@@ -301,7 +301,7 @@
               />
             </div>
           </div>
-          <customize-banner />
+          <customize-banner class="padding-fix"/>
         </div>
         <div v-else>
           <h3 v-once> {{ $t('noItemsOwned') }} </h3>
@@ -641,6 +641,10 @@
       color: $gray-100;
       font-weight: 700;
       line-height: 24px;
+    }
+
+    .padding-fix {
+      padding-top: 1px;
     }
 
     .purchase-all {

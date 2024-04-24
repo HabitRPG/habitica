@@ -128,5 +128,6 @@
   "checkNextMonth": "Be sure to check back later for next month's options!",
   "checkNextSeason": "Be sure to check back later for next season's options!",
   "noItemsOwned": "You don't own any of these items",
-  "visitCustomizationsShop": "Head over to the <a href='/shops/customizations'>Customizations Shop</a> to browse the many ways you can customize your avatar!"
+  "visitCustomizationsShop": "Head over to the <a href='/shops/customizations'>Customizations Shop</a> to browse the many ways you can customize your avatar!",
+  "lookingForMore": "Looking for more?"
 }

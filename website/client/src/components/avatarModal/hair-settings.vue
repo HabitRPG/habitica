@@ -2,7 +2,7 @@
   <div
     id="hair"
     class="customize-section d-flex flex-column"
-    :class="{ 'justify-content-between': !showEmptySection}"
+    :class="{ 'justify-content-between': editing && !showEmptySection}"
   >
     <sub-menu
       class="text-center"
@@ -42,11 +42,11 @@
       id="facialhair"
     >
       <customize-options
-        v-if="editing && userMustaches.length > 1"
+        v-if="userMustaches.length > 1"
         :items="userMustaches"
       />
       <customize-options
-        v-if="editing && userBeards.length > 1"
+        v-if="userBeards.length > 1"
         :items="userBeards"
       />
       <div
@@ -64,7 +64,7 @@
       </div>
     </div>
     <customize-banner
-      v-if="!showEmptySection"
+      v-if="editing && !showEmptySection"
     />
   </div>
 </template>
@@ -169,7 +169,7 @@ export default {
       return [none, ...options];
     },
     showEmptySection () {
-      return this.editing && this.activeSubPage === 'facialhair'
+      return this.activeSubPage === 'facialhair'
         && this.userMustaches.length === 1 && this.userBeards.length === 1;
     },
   },

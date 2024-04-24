@@ -856,10 +856,10 @@ export function getScheduleMatchingGroup (type, date) {
         cachedScheduleMatchers[matcher.type] = makeMatcherClass();
       }
       let end = moment(checkedDate);
-      end.date(TYPE_SCHEDULE[type]);
+      end.date(TYPE_SCHEDULE[matcher.type]);
       if (end.date() <= moment(checkedDate).date()) {
         end = moment(end).add(1, 'months');
-      }      
+      }
       cachedScheduleMatchers[matcher.type].end = end.toDate();
       if (matcher.matcher instanceof Function) {
         cachedScheduleMatchers[matcher.type].matchers.push(matcher.matcher);

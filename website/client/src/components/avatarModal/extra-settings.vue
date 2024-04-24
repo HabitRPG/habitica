@@ -66,7 +66,7 @@
       ></p>
     </div>
     <customize-banner
-      v-else
+      v-else-if="editing"
     />
   </div>
 </template>

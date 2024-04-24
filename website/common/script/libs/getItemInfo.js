@@ -384,7 +384,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
     case 'haircolor': {
       itemInfo = {
         key: item.key,
-        class: `hair hair_bangs_${user.preferences.hair.bangs}_${item.key}`,
+        class: `hair hair_bangs_${user.preferences.hair.bangs || 1}_${item.key}`,
         currency: 'gems',
         locked: false,
         notes: '',
