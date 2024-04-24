@@ -151,14 +151,14 @@
       <div
         v-if="activeTopPage === 'backgrounds'"
         id="backgrounds"
-        class="section container customize-section"
+        class="section customize-section"
       >
         <div class="row text-center title-row">
           <strong>{{ $t('incentiveBackgrounds') }}</strong>
         </div>
         <div
           class="row title-row"
-          v-if="!ownsSet('background', standardBackgrounds)"
+          v-if="standardBackgrounds.length < standardBackgroundMax"
         >
           <div
             class="col-12"
@@ -274,12 +274,12 @@
             </div>
           </div>
         </div>
+        <div
+          class="row text-center title-row mt-2"
+        >
+          <strong>{{ $t('monthlyBackgrounds') }}</strong>
+        </div>
         <div v-if="monthlyBackgrounds.length > 0">
-          <div
-            class="row text-center title-row mt-2"
-          >
-            <strong>{{ $t('monthlyBackgrounds') }}</strong>
-          </div>
           <div class="row title-row">
             <div
               v-for="(bg) in monthlyBackgrounds"
@@ -301,6 +301,15 @@
               />
             </div>
           </div>
+          <customize-banner />
+        </div>
+        <div v-else>
+          <h3 v-once> {{ $t('noItemsOwned') }} </h3>
+          <p
+            v-once
+            v-html="$t('visitCustomizationsShop')"
+            class="w-50 mx-auto"
+          ></p>
         </div>
       </div>
     </div>
@@ -605,7 +614,10 @@
 
     .customize-section {
       text-align: center;
-      padding-bottom: 2em;
+      background-color: #f9f9f9;
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+      min-height: 256px;
     }
 
     #creator-background {
@@ -626,9 +638,9 @@
     }
 
     h3 {
-      font-size: 20px;
-      font-weight: normal;
-      color: $gray-200;
+      color: $gray-100;
+      font-weight: 700;
+      line-height: 24px;
     }
 
     .purchase-all {
@@ -817,11 +829,6 @@
 
     .gold-lock span {
       color: $yellow-10
-    }
-
-    .customize-section {
-      background-color: #f9f9f9;
-      min-height: 280px;
     }
 
     .interests-section {
@@ -1076,6 +1083,7 @@ import usernameForm from './settings/usernameForm';
 import guide from '@/mixins/guide';
 import notifications from '@/mixins/notifications';
 import PinBadge from '@/components/ui/pinBadge';
+import customizeBanner from './avatarModal/customize-banner';
 import bodySettings from './avatarModal/body-settings';
 import skinSettings from './avatarModal/skin-settings';
 import hairSettings from './avatarModal/hair-settings';
@@ -1098,6 +1106,7 @@ import { avatarEditorUtilities } from '../mixins/avatarEditUtilities';
 export default {
   components: {
     avatar,
+    customizeBanner,
     bodySettings,
     extraSettings,
     hairSettings,
@@ -1112,6 +1121,7 @@ export default {
       allBackgrounds: content.backgroundsFlat,
       monthlyBackgrounds: [],
       standardBackgrounds: [],
+      standardBackgroundMax: 0,
       timeTravelBackgrounds: [],
       backgroundUpdate: new Date(),
 
@@ -1173,6 +1183,9 @@ export default {
   },
   mounted () {
     forEach(this.allBackgrounds, bg => {
+      if (bg.set === 'incentiveBackgrounds') {
+        this.standardBackgroundMax += 1;
+      }
       if (this.user.purchased.background[bg.key]) {
         if (bg.set === 'incentiveBackgrounds') {
           this.standardBackgrounds.push(bg);
