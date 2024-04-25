@@ -1827,15 +1827,13 @@ const releaseDates = {
 };
 
 forEach(
-  {
-    armor,
-    body,
-    eyewear,
-    head,
-    headAccessory,
-    shield,
-    weapon,
-  },
+  armor,
+  body,
+  eyewear,
+  head,
+  headAccessory,
+  shield,
+  weapon,
   (set, setKey) => {
     forEach(set, (gearItem, gearKey) => {
       const gearStats = {};
