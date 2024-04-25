@@ -1826,7 +1826,7 @@ const releaseDates = {
   pottersSet: '2024-05-07T08:00-04:00',
 };
 
-forEach(
+forEach({
   armor,
   body,
   eyewear,
@@ -1834,48 +1834,42 @@ forEach(
   headAccessory,
   shield,
   weapon,
-  (set, setKey) => {
-    forEach(set, (gearItem, gearKey) => {
-      const gearStats = {};
-      const gearStatValues = [];
-      let notes;
-      if (!gearItem.notes) {
-        forEach(ATTRIBUTES, stat => {
-          if (gearItem[stat]) {
-            gearStats[stat] = gearItem[stat];
-            gearStatValues.push(gearItem[stat]);
-          }
-        });
-      }
-      if (gearStatValues.length > 0) {
-        if (
-          gearStatValues.length === 1
-          || find(gearStats, gearStat => gearStat !== gearStatValues[0])
-        ) {
-          notes = t(`${setKey}Armoire${upperFirst(gearKey)}Notes`, gearStats);
-        } else {
-          notes = t(`${setKey}Armoire${upperFirst(gearKey)}Notes`, {
-            attrs: gearStatValues[0],
-          });
+}, (set, setKey) => {
+  forEach(set, (gearItem, gearKey) => {
+    const gearStats = {};
+    const gearStatValues = [];
+    let notes;
+    if (!gearItem.notes) {
+      forEach(ATTRIBUTES, stat => {
+        if (gearItem[stat]) {
+          gearStats[stat] = gearItem[stat];
+          gearStatValues.push(gearItem[stat]);
         }
-      } else {
-        notes = t(`${setKey}Armoire${upperFirst(gearKey)}Notes`);
-      }
-      defaults(gearItem, {
-        released: releaseDates[gearItem.set]
-          ? moment().isAfter(releaseDates[gearItem.set])
-          : true,
-        canOwn: ownsItem(`${setKey}_armoire_${gearKey}`),
-        notes,
-        text: t(`${setKey}Armoire${upperFirst(gearKey)}Text`),
-        value: 100,
       });
-      if (gearItem.released === false) {
-        delete set[gearKey];
+    }
+    if (gearStatValues.length > 0) {
+      if (gearStatValues.length === 1
+        || find(gearStats, gearStat => gearStat !== gearStatValues[0])
+      ) {
+        notes = t(`${setKey}Armoire${upperFirst(gearKey)}Notes`, gearStats);
+      } else {
+        notes = t(`${setKey}Armoire${upperFirst(gearKey)}Notes`, { attrs: gearStatValues[0] });
       }
+    } else {
+      notes = t(`${setKey}Armoire${upperFirst(gearKey)}Notes`);
+    }
+    defaults(gearItem, {
+      released: releaseDates[gearItem.set] ? moment().isAfter(releaseDates[gearItem.set]) : true,
+      canOwn: ownsItem(`${setKey}_armoire_${gearKey}`),
+      notes,
+      text: t(`${setKey}Armoire${upperFirst(gearKey)}Text`),
+      value: 100,
     });
-  },
-);
+    if (gearItem.released === false) {
+      delete set[gearKey];
+    }
+  });
+});
 
 export {
   armor,
