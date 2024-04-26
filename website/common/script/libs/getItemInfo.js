@@ -492,7 +492,8 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
     throw new BadRequest(i18n.t('wrongItemType', { type }, language));
   }
 
-  if (matcher && (!itemInfo.set || ALWAYS_AVAILABLE_CUSTOMIZATIONS.indexOf(itemInfo.set.key) === -1)) {
+  if (matcher && (!itemInfo.set
+    || ALWAYS_AVAILABLE_CUSTOMIZATIONS.indexOf(itemInfo.set.key) === -1)) {
     itemInfo.end = matcher.end;
   }
 

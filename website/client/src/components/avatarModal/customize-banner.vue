@@ -20,7 +20,7 @@
       class="check-link"
     >
       <span>Check out the </span>
-      <a href='/shops/customizations'>Customizations Shop</a>
+      <a href="/shops/customizations">Customizations Shop</a>
       <span> for even more ways to customize your avatar!</span>
     </div>
   </div>

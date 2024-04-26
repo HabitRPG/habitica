@@ -308,10 +308,10 @@
         >-30 Days</a>
         <div class="my-2">
           Time Traveling! It is {{ new Date().toLocaleDateString() }}
-        <a
-          class="btn btn-warning mr-1"
-          @click="resetTime()"
-        >Reset</a>
+          <a
+            class="btn btn-warning mr-1"
+            @click="resetTime()"
+          >Reset</a>
         </div>
         <a
           class="btn btn-secondary mr-1"
@@ -810,6 +810,7 @@ h3 {
 import axios from 'axios';
 import moment from 'moment';
 import Vue from 'vue';
+import sinon from 'sinon';
 
 // images
 import melior from '@/assets/svg/melior.svg';

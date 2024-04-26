@@ -21,7 +21,7 @@ export default function cleanupPinnedItems (user) {
     .filter(pinnedItem => {
       const { type } = pinnedItem;
       const key = pinnedItem.path.split('.').slice(-1)[0];
-      if (simpleSeasonalPins.indexOf(type) != -1) {
+      if (simpleSeasonalPins.indexOf(type) !== -1) {
         if (type === 'background') {
           return matchers.backgrounds.match(pinnedItem.path.split('.')[1]);
         } if (type === 'premiumHatchingPotion') {
@@ -32,7 +32,7 @@ export default function cleanupPinnedItems (user) {
           return matchers.seasonalQuests.match(key);
         }
         return matchers[type].match(key);
-      } if (detailSeasonalPins.indexOf(type) != -1) {
+      } if (detailSeasonalPins.indexOf(type) !== -1) {
         const item = getItemByPathAndType(type, pinnedItem.path);
         if (type === 'gear' && item.klass === 'special') {
           return matchers.seasonalGear.match(item.set);

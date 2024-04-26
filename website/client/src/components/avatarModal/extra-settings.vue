@@ -58,11 +58,13 @@
     >
       <h3
         v-once
-      > {{ $t('noItemsOwned') }} </h3>
+      >
+        {{ $t('noItemsOwned') }}
+      </h3>
       <p
         v-once
-        v-html="$t('visitCustomizationsShop')"
         class="w-50 mx-auto"
+        v-html="$t('visitCustomizationsShop')"
       ></p>
     </div>
     <customize-banner

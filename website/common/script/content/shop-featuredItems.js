@@ -1,5 +1,4 @@
-import moment from 'moment';
-import { EVENTS, getScheduleMatchingGroup } from './constants';
+import { getScheduleMatchingGroup } from './constants';
 // Magic Hatching Potions are configured like this:
 // type: 'premiumHatchingPotion',  // note no "s" at the end
 // path: 'premiumHatchingPotions.Rainbow',

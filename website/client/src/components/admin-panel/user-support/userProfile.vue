@@ -28,15 +28,15 @@
         <div class="form-group">
           <label>About</label>
           <div class="row about-row">
-          <textarea
-            v-model="hero.profile.blurb"
-            class="form-control col"
-            rows="10"
-          ></textarea>
-          <div
-            v-markdown="hero.profile.blurb"
-            class="markdownPreview col"
-          ></div>
+            <textarea
+              v-model="hero.profile.blurb"
+              class="form-control col"
+              rows="10"
+            ></textarea>
+            <div
+              v-markdown="hero.profile.blurb"
+              class="markdownPreview col"
+            ></div>
           </div>
         </div>
         <input

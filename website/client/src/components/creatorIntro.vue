@@ -157,8 +157,8 @@
           <strong>{{ $t('incentiveBackgrounds') }}</strong>
         </div>
         <div
-          class="row title-row"
           v-if="standardBackgrounds.length < standardBackgroundMax"
+          class="row title-row"
         >
           <div
             class="col-12"
@@ -301,14 +301,16 @@
               />
             </div>
           </div>
-          <customize-banner class="padding-fix"/>
+          <customize-banner class="padding-fix" />
         </div>
         <div v-else>
-          <h3 v-once> {{ $t('noItemsOwned') }} </h3>
+          <h3 v-once>
+            {{ $t('noItemsOwned') }}
+          </h3>
           <p
             v-once
-            v-html="$t('visitCustomizationsShop')"
             class="w-50 mx-auto"
+            v-html="$t('visitCustomizationsShop')"
           ></p>
         </div>
       </div>

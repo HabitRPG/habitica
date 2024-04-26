@@ -15,8 +15,8 @@
     <div v-if="items.length === 0">
       <p
         class="empty-state"
-        v-html="noItemsLabel"
         @click.stop.prevent="$emit('emptyClick', $event)"
+        v-html="noItemsLabel"
       >
       </p>
     </div>

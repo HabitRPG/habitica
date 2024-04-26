@@ -853,7 +853,7 @@ function makeMatcherClass () {
   };
 }
 
-function makeEndDate(checkedDate, matcher) {
+function makeEndDate (checkedDate, matcher) {
   let end = moment(checkedDate);
   end.date(TYPE_SCHEDULE[matcher.type]);
   if (matcher.endMonth !== undefined) {

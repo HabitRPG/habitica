@@ -63,8 +63,8 @@
               slot-scope="ctx"
             >
               <shop-item
-                :item="ctx.item"
                 :key="ctx.item.path"
+                :item="ctx.item"
                 :price="ctx.item.value"
                 :price-type="ctx.item.currency"
                 :empty-item="false"
