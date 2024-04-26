@@ -2755,5 +2755,16 @@
     "weaponSpecialWinter2024HealerText": "Fackel",
     "weaponSpecialWinter2024HealerNotes": "Schmelz die Blockade weg in Nullkommanichts! Erhöht Intelligenz um <%= int %>. Limitierte Ausgabe 2023-2024 Winterausrüstung.",
     "weaponMystery202306Text": "Regenbogen Schirm",
-    "weaponSpecialWinter2023MageNotes": "Kein Fuchs, kein Feuer, aber viel Festliches! Erhöht Intelligenz um <%= int %> und Wahrnehmung um <%= per %>. Limitierte Ausgabe 2022-2023 Winterausrüstung."
+    "weaponSpecialWinter2023MageNotes": "Kein Fuchs, kein Feuer, aber viel Festliches! Erhöht Intelligenz um <%= int %> und Wahrnehmung um <%= per %>. Limitierte Ausgabe 2022-2023 Winterausrüstung.",
+    "weaponSpecialWinter2023RogueNotes": "Mythen erzählen von Schurken, die ihren Gegnern die Waffen einfangen, sie entwaffnen, und ihnen dann ihre Sachen zurückgeben, nur um nett zu sein. Erhöht Stärke um <%= str %>. Limitierte Ausgabe der 2022-2023 Winterausrüstung.",
+    "weaponSpecialWinter2023HealerText": "Wurf-Kranz",
+    "weaponSpecialWinter2023MageText": "Fuchsfeuer",
+    "weaponSpecialSpring2023RogueText": "Angeknabbertes Blatt",
+    "weaponSpecialSummer2023WarriorNotes": "Rufe mächtige Wasserstrahlen herbei, um deinen Weg von Hindernissen zu befreien. Erhöht Stärke um <%= str %>. Limitierte Ausgabe der 2023 Sommerausrüstung.",
+    "weaponSpecialSummer2023MageNotes": "Diese freundlichen Fische werden dir zur Seite stehen als die besten verantwortungsvollen Kumpel im Ozean. Erhöht Intelligenz um <%= int %>. Limitierte Ausgabe der 2023 Sommerausrüstung.",
+    "weaponSpecialWinter2023WarriorNotes": "Die beiden Zacken dieses Speers sind wie Walroß-Stoßzähne geformt, sind aber doppelt so stark. Stoß nach Zweifeln und albernen Gedichten, bis sie klein beigeben!Erhöht Stärke um <%= str %>. Limitierte Ausgabe der 2022-2023 Winterausrüstung.",
+    "weaponSpecialFall2023MageText": "Glänzender Stab",
+    "weaponSpecialFall2023MageNotes": "Mit einem Kristall in seinem Zentrum lockt dieser Stab Magie aus dem Profanen heraus. Erhöht Intelligenz um <%= int %>. Limitierte Ausgabe der 2023 Herbstausrüstung.",
+    "weaponSpecialSpring2023WarriorText": "Kolibri Florett",
+    "weaponSpecialSpring2023WarriorNotes": "En garde! Fechte Feinde von deinen Blumen fort mit diesem Florett! Erhöht Stärke by <%= str %>. Limitierte Ausgabe der 2023 Frühlingsausrüstung."
 }
