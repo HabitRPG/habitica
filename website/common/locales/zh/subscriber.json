@@ -118,7 +118,7 @@
     "couponUsed": "优惠券代码已使用。",
     "couponCodeRequired": "优惠券代码必填。",
     "paypalCanceled": "您的捐赠已取消",
-    "choosePaymentMethod": "选择付款方式",
+    "choosePaymentMethod": "选择支付方式",
     "buyGemsSupportsDevs": "购买宝石支持开发人员，并帮助Habitica成长",
     "support": "支持",
     "gemBenefitLeadin": "宝石可以购买什么？",
@@ -126,7 +126,7 @@
     "gemBenefit2": "让你的角色的沉浸于 Habitica 世界的背景！",
     "gemBenefit3": "掉落宠物蛋的精彩任务链。",
     "gemBenefit4": "重置角色属性点数及更改角色职业。",
-    "subscriptionBenefit1": "现在，商人Alexander会从市场上以每颗 20 金币的价格向你出售宝石！",
+    "subscriptionBenefit1": "现在，商人Alexander会从市场上以每颗20金币的价格向你出售宝石！",
     "subscriptionBenefit3": "在Habitica发现更多物品，每日享受双倍物品掉落上限。",
     "subscriptionBenefit4": "每月为你提供独一无二的装备，装饰你的头像。",
     "subscriptionBenefit5": "首次订阅可获得皇家紫色鹿角兔宠物。",
@@ -237,5 +237,6 @@
     "mysterySet202309": "巨型彗尾蛾套装",
     "mysterySet202310": "鬼灯幽灵套装",
     "mysterySet202402": "天堂粉色套装",
-    "mysterySet202403": "幸运传说套装"
+    "mysterySet202403": "幸运传说套装",
+    "mysterySet202404": "菌丝术士套装"
 }

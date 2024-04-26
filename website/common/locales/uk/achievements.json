@@ -24,7 +24,7 @@
     "letsGetStarted": "Почнемо!",
     "achievementJustAddWater": "Просто додайте води",
     "achievementMindOverMatterModalText": "Ви завершили завдання домашніх улюбленців: \"Камінь\", \"Слиз\" та \"Пряжа\"!",
-    "achievementMindOverMatterText": "Завершено завдання домашніх тварин: \"Камінь\", \"Слиз\" та \"Пряжа\".",
+    "achievementMindOverMatterText": "Завершено квести для улюбленців: Камінь, Зефірний слиз та Пряжа.",
     "achievementJustAddWaterText": "Виконано завдання домашніх тварин: \"Восьминіг\", \"Морський Коник\", \"Каракатиця\", \"Кит\", \"Черепаха\", \"Морський Слимак\", \"Морський Змій\" та \"Дельфін\".",
     "achievementDustDevilModalText": "Ви зібрали всіх Пустельних Улюбленців!",
     "achievementDustDevilText": "Зібрані всі Пустельні Улюбленці.",
@@ -159,5 +159,10 @@
     "achievementDuneBuddy": "Пустельний приятель",
     "achievementRoughRider": "Вправний вершник",
     "achievementRoughRiderText": "Зібрано всі основні кольори незручних улюбленці та скакунів: Кактуса, Їжака та Каменя!",
-    "achievementRoughRiderNotes": "Ви зібрали всі основні кольори незручних улюбленці та скакунів!"
+    "achievementRoughRiderNotes": "Ви зібрали всі основні кольори незручних улюбленці та скакунів!",
+    "achievementRodentRulerText": "Виведені всі стандартні забарвлення улюбленців-гризунів: Морської свинки, Щура та Білки!",
+    "achievementRoughRiderModalText": "Ви зібрали всі основні кольори незручних улюбленців та скакунів!",
+    "achievementDuneBuddyModalText": "Ви зібрали всіх пустельних улюбленців!",
+    "achievementRodentRulerModalText": "Ви зібрали усіх улюбленців-гризунів!",
+    "achievementRodentRuler": "Володар гризунів"
 }
