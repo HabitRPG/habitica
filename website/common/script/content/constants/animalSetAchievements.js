@@ -40,6 +40,17 @@ const ANIMAL_SET_ACHIEVEMENTS = {
     achievementKey: 'bonelessBoss',
     notificationType: 'ACHIEVEMENT_ANIMAL_SET',
   },
+  cats: {
+    type: 'pet',
+    species: [
+      'Cheetah',
+      'LionCub',
+      'Sabretooth',
+      'TigerCub',
+    ],
+    achievementKey: 'cats',
+    notificationType: 'ACHIEVEMENT_ANIMAL_SET',
+  },
   dinosaurDynasty: {
     type: 'pet',
     species: [

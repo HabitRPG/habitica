@@ -98,12 +98,12 @@ const premium = {
     value: 2,
     text: t('hatchingPotionFloral'),
     limited: true,
-    event: EVENTS.potions202305,
+    event: EVENTS.potions202405,
     _addlNotes: t('eventAvailability', {
       date: t('dateEndMay'),
     }),
     canBuy () {
-      return moment().isBefore(EVENTS.potions202305.end);
+      return moment().isBetween(EVENTS.potions202405.start, EVENTS.potions202405.end);
     },
   },
   Aquatic: {
@@ -290,12 +290,12 @@ const premium = {
     value: 2,
     text: t('hatchingPotionSunshine'),
     limited: true,
-    event: EVENTS.potions202205,
+    event: EVENTS.potions202405,
     _addlNotes: t('eventAvailability', {
       date: t('dateEndMay'),
     }),
     canBuy () {
-      return moment().isBefore(EVENTS.potions202205.end);
+      return moment().isBetween(EVENTS.potions202405.start, EVENTS.potions202405.end);
     },
   },
   Bronze: {

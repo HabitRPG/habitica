@@ -159,6 +159,7 @@ export const UserSchema = new Schema({
     duneBuddy: Boolean,
     roughRider: Boolean,
     rodentRuler: Boolean,
+    cats: Boolean,
     // Onboarding Guide
     createdTask: Boolean,
     completedTask: Boolean,

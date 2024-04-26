@@ -7,7 +7,7 @@ import { EVENTS } from './constants';
 // hatching potions and food names should be capitalized lest you break the market
 const featuredItems = {
   market () {
-    if (moment().isBetween(EVENTS.spring2024.start, EVENTS.spring2024.end)) {
+    if (moment().isBetween(EVENTS.potions202405.start, EVENTS.potions202405.end)) {
       return [
         {
           type: 'armoire',
@@ -15,15 +15,15 @@ const featuredItems = {
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Celestial',
+          path: 'premiumHatchingPotions.Floral',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Shimmer',
+          path: 'premiumHatchingPotions.Sunshine',
         },
         {
-          type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Rainbow',
+          type: 'hatchingPotions',
+          path: 'hatchingPotions.Golden',
         },
       ];
     }
@@ -34,32 +34,33 @@ const featuredItems = {
       },
       {
         type: 'food',
-        path: 'food.Fish',
+        path: 'food.Strawberry',
       },
       {
         type: 'hatchingPotions',
-        path: 'hatchingPotions.Skeleton',
+        path: 'hatchingPotions.Red',
       },
       {
         type: 'eggs',
-        path: 'eggs.Dragon',
+        path: 'eggs.Cactus',
+
       },
     ];
   },
   quests () {
-    if (moment().isBetween(EVENTS.aprilFoolsQuest2024.start, EVENTS.aprilFoolsQuest2024.end)) {
+    if (moment().isBetween(EVENTS.bundle202405.start, EVENTS.bundle202405.end)) {
       return [
         {
-          type: 'quests',
-          path: 'quests.fungi',
+          type: 'bundles',
+          path: 'bundles.delightfulDinos',
         },
         {
           type: 'quests',
-          path: 'quests.badger',
+          path: 'quests.rooster',
         },
         {
           type: 'quests',
-          path: 'quests.snake',
+          path: 'quests.owl',
         },
       ];
     }
@@ -67,15 +68,15 @@ const featuredItems = {
     return [
       {
         type: 'quests',
-        path: 'quests.rat',
+        path: 'quests.cheetah',
       },
       {
         type: 'quests',
-        path: 'quests.kraken',
+        path: 'quests.nudibranch',
       },
       {
         type: 'quests',
-        path: 'quests.slime',
+        path: 'quests.monkey',
       },
     ];
   },

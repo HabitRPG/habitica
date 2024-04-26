@@ -135,7 +135,7 @@
   "achievementReptacularRumbleModalText": "You collected all the reptile pets!",
   "achievementGroupsBeta2022": "Interactive Beta Tester",
   "achievementGroupsBeta2022Text": "You and your group provided invaluable feedback to help Habitica test.",
-  "achievementGroupsBeta2022ModalText":"You and your groups helped Habitica by testing and providing feedback!",
+  "achievementGroupsBeta2022ModalText": "You and your groups helped Habitica by testing and providing feedback!",
   "achievementWoodlandWizard": "Woodland Wizard",
   "achievementWoodlandWizardText": "Has hatched all standard colors of forest creatures: Badger, Bear, Deer, Fox, Frog, Hedgehog, Owl, Snail, Squirrel, and Treeling!",
   "achievementWoodlandWizardModalText": "You collected all the forest pets!",
@@ -162,6 +162,8 @@
   "achievementRoughRiderModalText": "You collected all the basic colors of the uncomfortable pets and mounts!",
   "achievementRodentRuler": "Rodent Ruler",
   "achievementRodentRulerText": "Has hatched all standard colors of rodent pets: Guinea Pig, Rat, and Squirrel!",
-  "achievementRodentRulerModalText": "You collected all the rodent pets!"
-  
+  "achievementRodentRulerModalText": "You collected all the rodent pets!",
+  "achievementCats": "Cat Herder",
+  "achievementCatsText": "Has hatched all the standard colors of cat pets: Cheetah, Lion, Sabretooth, and Tiger!",
+  "achievementCatsModalText": "You collected all the cat pets!"
 }
