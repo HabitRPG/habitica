@@ -641,8 +641,8 @@ export const GALA_SCHEDULE = {
   // Winter
   0: {
     startMonth: 11,
-    endMonth: 1,
-    filters: [
+    endMonth: 2,
+    matchers: [
       {
         type: 'seasonalGear',
         items: SEASONAL_SETS.winter,
@@ -672,8 +672,8 @@ export const GALA_SCHEDULE = {
   // Spring
   1: {
     startMonth: 2,
-    endMonth: 4,
-    filters: [
+    endMonth: 5,
+    matchers: [
       {
         type: 'seasonalGear',
         items: SEASONAL_SETS.spring,
@@ -703,8 +703,8 @@ export const GALA_SCHEDULE = {
   // Summer
   2: {
     startMonth: 5,
-    endMonth: 7,
-    filters: [
+    endMonth: 8,
+    matchers: [
       {
         type: 'seasonalGear',
         items: SEASONAL_SETS.summer,
@@ -731,8 +731,8 @@ export const GALA_SCHEDULE = {
   // Fall
   3: {
     startMonth: 8,
-    endMonth: 10,
-    filters: [
+    endMonth: 11,
+    matchers: [
       {
         type: 'seasonalGear',
         items: SEASONAL_SETS.fall,
@@ -815,8 +815,12 @@ export function assembleScheduledMatchers (date) {
       items.push(...value);
     }
   }
-
-  items.push(...GALA_SCHEDULE[getGalaIndex(date)].filters);
+  const gala = GALA_SCHEDULE[getGalaIndex(date)];
+  const galaMatchers = gala.matchers;
+  galaMatchers.forEach(matcher => {
+    matcher.endMonth = gala.endMonth;
+  });
+  items.push(...galaMatchers);
   for (const event in getRepeatingEvents(date)) {
     if (event.content) {
       items.push(...event.content);
@@ -849,6 +853,17 @@ function makeMatcherClass () {
   };
 }
 
+function makeEndDate(checkedDate, matcher) {
+  let end = moment(checkedDate);
+  end.date(TYPE_SCHEDULE[matcher.type]);
+  if (matcher.endMonth !== undefined) {
+    end.month(matcher.endMonth);
+  } else if (end.date() <= moment(checkedDate).date()) {
+    end = moment(end).add(1, 'months');
+  }
+  return end.toDate();
+}
+
 export function getAllScheduleMatchingGroups (date) {
   const checkedDate = date || new Date();
   if (cacheDate !== null && (getDay(checkedDate) !== getDay(cacheDate)
@@ -865,12 +880,7 @@ export function getAllScheduleMatchingGroups (date) {
       if (!cachedScheduleMatchers[matcher.type]) {
         cachedScheduleMatchers[matcher.type] = makeMatcherClass();
       }
-      const end = moment(checkedDate);
-      end.date(TYPE_SCHEDULE[type]);
-      if (end.date() <= moment(checkedDate).date()) {
-        moment(end).add(1, 'months');
-      }
-      cachedScheduleMatchers[matcher.type].end = end.toDate();
+      cachedScheduleMatchers[matcher.type].end = makeEndDate(checkedDate, matcher);
       if (matcher.matcher instanceof Function) {
         cachedScheduleMatchers[matcher.type].matchers.push(matcher.matcher);
       } else if (matcher.items instanceof Array) {
