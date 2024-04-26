@@ -50,6 +50,7 @@ export const THIRD_RELEASE_DAY = 14;
 export const FOURTH_RELEASE_DAY = 21;
 
 export const MONTHLY_SCHEDULE = {
+  // January
   0: {
     [FIRST_RELEASE_DAY]: [
       {
@@ -98,6 +99,7 @@ export const MONTHLY_SCHEDULE = {
       },
     ],
   },
+  // February
   1: {
     [FIRST_RELEASE_DAY]: [
       {
@@ -146,6 +148,7 @@ export const MONTHLY_SCHEDULE = {
       },
     ],
   },
+  // March
   2: {
     [FIRST_RELEASE_DAY]: [
       {
@@ -192,6 +195,7 @@ export const MONTHLY_SCHEDULE = {
       },
     ],
   },
+  // April
   3: {
     [FIRST_RELEASE_DAY]: [
       {
@@ -238,6 +242,7 @@ export const MONTHLY_SCHEDULE = {
       },
     ],
   },
+  // May
   4: {
     [FIRST_RELEASE_DAY]: [
       {
@@ -284,6 +289,7 @@ export const MONTHLY_SCHEDULE = {
       },
     ],
   },
+  // June
   5: {
     [FIRST_RELEASE_DAY]: [
       {
@@ -331,6 +337,7 @@ export const MONTHLY_SCHEDULE = {
       },
     ],
   },
+  // July
   6: {
     [FIRST_RELEASE_DAY]: [
       {
@@ -379,6 +386,7 @@ export const MONTHLY_SCHEDULE = {
       },
     ],
   },
+  // August
   7: {
     [FIRST_RELEASE_DAY]: [
       {
@@ -426,6 +434,7 @@ export const MONTHLY_SCHEDULE = {
       },
     ],
   },
+  // September
   8: {
     [FIRST_RELEASE_DAY]: [
       {
@@ -473,6 +482,7 @@ export const MONTHLY_SCHEDULE = {
       },
     ],
   },
+  // October
   9: {
     [FIRST_RELEASE_DAY]: [
       {
@@ -520,6 +530,7 @@ export const MONTHLY_SCHEDULE = {
       },
     ],
   },
+  // November
   10: {
     [FIRST_RELEASE_DAY]: [
       {
@@ -569,6 +580,7 @@ export const MONTHLY_SCHEDULE = {
       },
     ],
   },
+  // December
   11: {
     [FIRST_RELEASE_DAY]: [
       {
@@ -626,6 +638,7 @@ export const GALA_KEYS = [
   'fall',
 ];
 export const GALA_SCHEDULE = {
+  // Winter
   0: {
     startMonth: 11,
     endMonth: 1,
@@ -656,6 +669,7 @@ export const GALA_SCHEDULE = {
       },
     ],
   },
+  // Spring
   1: {
     startMonth: 2,
     endMonth: 4,
@@ -686,6 +700,7 @@ export const GALA_SCHEDULE = {
       },
     ],
   },
+  // Summer
   2: {
     startMonth: 5,
     endMonth: 7,
@@ -713,6 +728,7 @@ export const GALA_SCHEDULE = {
       },
     ],
   },
+  // Fall
   3: {
     startMonth: 8,
     endMonth: 10,
