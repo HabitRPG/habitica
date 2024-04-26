@@ -112,8 +112,12 @@ async function grantEndOfTheMonthPerks (user, now) {
           // (subtract 1 because we should have run this when the payment was taken last month)
           plan.consecutive.offset = planMonthsLength - 1;
         }
-        // eslint-disable-next-line no-await-in-loop
-        await plan.incrementPerkCounterAndReward(user._id, planMonthsLength);
+        if (!plan.gift && plan.customerId.indexOf('Gift') === -1) {
+          // Don't process gifted subs here, since they already got their perks.
+
+          // eslint-disable-next-line no-await-in-loop
+          await plan.incrementPerkCounterAndReward(user._id, planMonthsLength);
+        }
       }
     }
   }
