@@ -7,7 +7,6 @@ import common from '../../common';
 import { preenUserHistory } from './preening';
 import { sleep } from './sleep';
 import { revealMysteryItems } from './payments/subscriptions';
-import cleanupPinnedItems from '../../common/script/libs/cleanupPinnedItems';
 
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
@@ -501,7 +500,7 @@ export async function cron (options = {}) {
   }
 
   if (user.pinnedItems && user.pinnedItems.length > 0) {
-    user.pinnedItems = cleanupPinnedItems(user);
+    user.pinnedItems = common.cleanupPinnedItems(user);
   }
 
   // Send notification for changes in HP and MP.

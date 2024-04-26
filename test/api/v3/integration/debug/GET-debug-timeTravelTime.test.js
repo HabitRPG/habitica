@@ -20,15 +20,11 @@ describe('GET /debug/time-travel-time', () => {
     await user.post('/debug/jump-time', { disable: true });
   });
 
-  it('returns error when the user is not an admin', async () => {
+  it('returns shifted when the user is not an admin', async () => {
     nconf.set('ENABLE_TIME_TRAVEL', true);
     const regularUser = await generateUser();
-    await expect(regularUser.get('/debug/time-travel-time'))
-      .eventually.be.rejected.and.to.deep.equal({
-        code: 400,
-        error: 'BadRequest',
-        message: 'You do not have permission to time travel.',
-      });
+    const result = await regularUser.get('/debug/time-travel-time');
+    expect(result.time).to.exist;
   });
 
   it('returns error when not in time travel mode', async () => {

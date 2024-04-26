@@ -102,7 +102,7 @@ export default async function purchase (user, req = {}, analytics) {
     if (!matchers.match(item.key)) {
       throw new NotAuthorized(i18n.t('messageNotAvailable', req.language));
     }
-  } else if (item.end && item.event.gear) {
+  } else if (item.klass === 'special') {
     const matchers = getScheduleMatchingGroup('seasonalGear');
     if (!matchers.match(item.set)) {
       throw new NotAuthorized(i18n.t('messageNotAvailable', req.language));
@@ -112,7 +112,7 @@ export default async function purchase (user, req = {}, analytics) {
     if (!matchers.match(item.key)) {
       throw new NotAuthorized(i18n.t('notAvailable', { key: item.key }));
     }
-  } else if (!item.canBuy(user)) {
+  } else if (!item.canBuy || !item.canBuy(user)) {
     throw new NotAuthorized(i18n.t('messageNotAvailable', req.language));
   }
 

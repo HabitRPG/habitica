@@ -96,6 +96,7 @@ import updateTask from './ops/updateTask';
 import * as statHelpers from './statHelpers';
 import { unEquipByType } from './ops/unequip';
 import getOfficialPinnedItems from './libs/getOfficialPinnedItems';
+import cleanupPinnedItems from './libs/cleanupPinnedItems';
 import { sleepAsync } from './libs/sleepAsync';
 
 const api = {
@@ -164,6 +165,7 @@ api.onboarding = onboarding;
 api.setDebuffPotionItems = setDebuffPotionItems;
 api.getDebuffPotionItems = getDebuffPotionItems;
 api.getOfficialPinnedItems = getOfficialPinnedItems;
+api.cleanupPinnedItems = cleanupPinnedItems;
 api.sleepAsync = sleepAsync;
 
 api.fns = {

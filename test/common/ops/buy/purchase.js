@@ -92,6 +92,24 @@ describe('shared.ops.purchase', () => {
       }
     });
 
+    it('returns error when gear is not available', async () => {
+      try {
+        await purchase(user, { params: { type: 'gear', key: 'shield_special_spring2019Healer' } });
+      } catch (err) {
+        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err.message).to.equal(i18n.t('messageNotAvailable'));
+      }
+    });
+
+    it('returns error when gear is not gem purchasable', async () => {
+      try {
+        await purchase(user, { params: { type: 'gear', key: 'shield_healer_3' } });
+      } catch (err) {
+        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err.message).to.equal(i18n.t('messageNotAvailable'));
+      }
+    });
+
     it('returns error when item is not found', async () => {
       const params = { key: 'notExisting', type: 'food' };
 
