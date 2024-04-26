@@ -862,7 +862,12 @@ export function getAllScheduleMatchingGroups (date) {
       }
     });
   }
-  if (!cachedScheduleMatchers[type]) {
+  return cachedScheduleMatchers;
+}
+
+export function getScheduleMatchingGroup (type, date) {
+  const matchingGroups = getAllScheduleMatchingGroups(date);
+  if (!matchingGroups[type]) {
     // No matchers exist for this type
     return {
       items: [],
