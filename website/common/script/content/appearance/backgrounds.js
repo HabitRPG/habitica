@@ -677,10 +677,8 @@ const releaseDates = {
 
 const flat = {};
 
-const backgrounds = omitBy(
-  plannedBackgrounds,
-  (bgSet, key) => releaseDates[key] && moment().isBefore(releaseDates[key]),
-);
+const backgrounds = omitBy(plannedBackgrounds, (bgSet, key) => releaseDates[key]
+  && moment().isBefore(releaseDates[key]));
 
 forOwn(backgrounds, (backgroundsInSet, set) => {
   forOwn(backgroundsInSet, (background, bgKey) => {
