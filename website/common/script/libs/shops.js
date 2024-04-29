@@ -557,8 +557,8 @@ shops.getCustomizationsShop = function getCustomizationsShop (user, language) {
   return {
     identifier: 'customizationsShop',
     text: i18n.t('titleCustomizations'),
-    notes: i18n.t('timeTravelersPopover'),
-    imageName: 'npc_timetravelers_active',
+    notes: i18n.t('customizationsShopText'),
+    imageName: 'npc_customizations',
     categories: shops.getCustomizationsShopCategories(user, language),
   };
 };
