@@ -21,7 +21,7 @@
     "axios": "^0.28.0",
     "axios-progress-bar": "^1.2.0",
     "babel-eslint": "^10.1.0",
-    "bootstrap": "^4.6.0",
+    "bootstrap": "^5.3.3",
     "bootstrap-vue": "^2.23.1",
     "chai": "^5.1.0",
     "core-js": "^3.33.1",
