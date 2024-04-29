@@ -17,7 +17,7 @@
     "apple-auth": "^1.0.9",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
-    "bootstrap": "^4.6.2",
+    "bootstrap": "^5.3.3",
     "compression": "^1.7.4",
     "cookie-session": "^2.0.0",
     "coupon-code": "^0.4.5",
