@@ -40,7 +40,7 @@
     "nconf": "^0.12.1",
     "sass": "^1.63.4",
     "sass-loader": "^14.1.1",
-    "smartbanner.js": "^1.19.3",
+    "smartbanner.js": "^1.24.1",
     "stopword": "^2.0.8",
     "uuid": "^9.0.1",
     "validator": "^13.9.0",
