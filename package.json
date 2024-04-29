@@ -32,7 +32,7 @@
     "express-validator": "^5.2.0",
     "glob": "^8.1.0",
     "got": "^11.8.6",
-    "gulp": "^4.0.0",
+    "gulp": "^5.0.0",
     "gulp-babel": "^8.0.0",
     "gulp-imagemin": "^7.1.0",
     "gulp-nodemon": "^2.5.0",
