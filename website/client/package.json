@@ -38,7 +38,7 @@
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "nconf": "^0.12.1",
-    "sass": "^1.63.4",
+    "sass": "^1.75.0",
     "sass-loader": "^14.1.1",
     "smartbanner.js": "^1.19.3",
     "stopword": "^2.0.8",
