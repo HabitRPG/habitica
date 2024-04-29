@@ -39,7 +39,7 @@
     "moment": "^2.29.4",
     "nconf": "^0.12.1",
     "sass": "^1.63.4",
-    "sass-loader": "^14.1.1",
+    "sass-loader": "^14.2.1",
     "smartbanner.js": "^1.19.3",
     "stopword": "^2.0.8",
     "uuid": "^9.0.1",
