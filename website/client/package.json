@@ -29,7 +29,7 @@
     "eslint": "7.32.0",
     "eslint-config-habitrpg": "6.2.0",
     "eslint-plugin-mocha": "5.3.0",
-    "eslint-plugin-vue": "7.20.0",
+    "eslint-plugin-vue": "9.25.0",
     "habitica-markdown": "^3.0.0",
     "hellojs": "^1.20.0",
     "inspectpack": "^4.7.1",
