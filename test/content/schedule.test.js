@@ -79,4 +79,45 @@ describe('Content Schedule', () => {
       }
     }
   });
+
+  describe('backgrounds matcher', () => {
+    it('allows background matching the month for new backgrounds', () => {
+      const date = new Date('2024-07-08');
+      const matcher = getAllScheduleMatchingGroups(date).backgrounds;
+      expect(matcher.match('backgroundkey072024')).to.be.true;
+    });
+
+    it('disallows background in the future', () => {
+      const date = new Date('2024-07-08');
+      const matcher = getAllScheduleMatchingGroups(date).backgrounds;
+      expect(matcher.match('backgroundkey072025')).to.be.false;
+    });
+
+    it('disallows background for the inverse month for new backgrounds', () => {
+      const date = new Date('2024-07-08');
+      const matcher = getAllScheduleMatchingGroups(date).backgrounds;
+      expect(matcher.match('backgroundkey012024')).to.be.false;
+    });
+
+    it('allows background for the inverse month for old backgrounds', () => {
+      const date = new Date('2024-08-08');
+      const matcher = getAllScheduleMatchingGroups(date).backgrounds;
+      expect(matcher.match('backgroundkey022023')).to.be.true;
+      expect(matcher.match('backgroundkey022021')).to.be.true;
+    });
+
+    it('allows background even yeared backgrounds in first half of year', () => {
+      const date = new Date('2025-02-08');
+      const matcher = getAllScheduleMatchingGroups(date).backgrounds;
+      expect(matcher.match('backgroundkey022024')).to.be.true;
+      expect(matcher.match('backgroundkey082022')).to.be.true;
+    });
+
+    it('allows background odd yeared backgrounds in second half of year', () => {
+      const date = new Date('2024-08-08');
+      const matcher = getAllScheduleMatchingGroups(date).backgrounds;
+      expect(matcher.match('backgroundkey022023')).to.be.true;
+      expect(matcher.match('backgroundkey082021')).to.be.true;
+    });
+  });
 });

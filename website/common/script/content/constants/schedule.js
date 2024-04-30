@@ -2,12 +2,24 @@ import moment from 'moment';
 import SEASONAL_SETS from './seasonalSets';
 import { getRepeatingEvents } from './events';
 
+function isAfterNewSchedule (year, month) {
+  if (year >= 2025) {
+    return true;
+  } if (year === 2024) {
+    return month >= 6;
+  }
+  return false;
+}
+
 function backgroundMatcher (month1, month2, oddYear) {
-  return function call (key) {
+  return function call (key, date) {
     const keyLength = key.length;
     const month = parseInt(key.substring(keyLength - 6, keyLength - 4), 10);
-    return (month === month1 || month === month2)
-        && parseInt(key.substring(keyLength - 2, keyLength), 10) % 2 === (oddYear ? 1 : 0);
+    const year = parseInt(key.substring(keyLength - 4, keyLength), 10);
+    if (isAfterNewSchedule(year, month)) {
+      return month === month1 && date.getFullYear() >= year && (date.getMonth() + 1) >= month;
+    }
+    return (month === month1 || month === month2) && year % 2 === (oddYear ? 1 : 0);
   };
 }
 
@@ -832,21 +844,22 @@ export function assembleScheduledMatchers (date) {
 let cachedScheduleMatchers = null;
 let cacheDate = null;
 
-function makeMatcherClass () {
+function makeMatcherClass (date) {
   return {
     matchers: [],
     end: new Date(),
     items: [],
+    matchingDate: date,
     match (key) {
       if (this.matchers.length === 0) {
         if (this.items.length > 0) {
-          return inListMatcher(this.items)(key);
+          return inListMatcher(this.items)(key, this.matchingDate);
         }
       } else {
-        if (this.items.length > 0 && !inListMatcher(this.items)(key)) {
+        if (this.items.length > 0 && !inListMatcher(this.items)(key, this.matchingDate)) {
           return false;
         }
-        return this.matchers.every(m => m(key));
+        return this.matchers.every(m => m(key, this.matchingDate));
       }
       return false;
     },
@@ -878,7 +891,7 @@ export function getAllScheduleMatchingGroups (date) {
     cachedScheduleMatchers = {};
     assembleScheduledMatchers(checkedDate).forEach(matcher => {
       if (!cachedScheduleMatchers[matcher.type]) {
-        cachedScheduleMatchers[matcher.type] = makeMatcherClass();
+        cachedScheduleMatchers[matcher.type] = makeMatcherClass(date);
       }
       cachedScheduleMatchers[matcher.type].end = makeEndDate(checkedDate, matcher);
       if (matcher.matcher instanceof Function) {
