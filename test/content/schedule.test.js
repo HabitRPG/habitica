@@ -10,7 +10,7 @@ function validateMatcher (matcher, checkedDate) {
   expect(matcher.end).to.be.greaterThan(checkedDate);
 }
 
-describe.only('Content Schedule', () => {
+describe('Content Schedule', () => {
   it('assembles scheduled items on january 15th', () => {
     const date = new Date('2024-01-15');
     const matchers = getAllScheduleMatchingGroups(date);
