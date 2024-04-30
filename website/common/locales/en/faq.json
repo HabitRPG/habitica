@@ -195,6 +195,72 @@
   "sunsetFaqPara21": "Gems in the Guild Bank will be refunded to the leader of the Guild on August 8th when Guild Services end.",
 
   "anotherQuestion": "Have another question?",
-  "contactAdmin": "Contact <a href='mailto:admin@habitica.com'>admin@habitica.com</a>"
+  "contactAdmin": "Contact <a href='mailto:admin@habitica.com'>admin@habitica.com</a>",
 
+  "contentReleaseChanges": "Content Release Changes",
+
+  "contentFaqTitle": "Habitica Content Release Change FAQ",
+
+  "contentFaqPara0": "Habitica has so much fun and engaging content to offer, and we want everyone to be able to enjoy it all! Changes are coming to make it easier for new players to get started on their collection as well as for veteran players to complete theirs!",
+  "contentFaqPara1": "Want to know more? Read on below!",
+
+  "contentQuestion0": "What is changing?",
+  "contentAnswer00": "Magic Hatching Potions, re-released Backgrounds, past Subscriber Sets, and Pet Quests will switch out on a predictable monthly schedule.",
+  "contentAnswer01": "<strong>Grand Galas are being extended</strong> to be active throughout the whole season, along with all their Class gear, Avatar Customizations, and other goodies.",
+  "contentAnswer02": "Brand new <strong>Pet Quests, Magic Hatching Potion Quests, and Magic Hatching Potions</strong> will be released to fill out this new schedule!",
+  "contentAnswer03": "Backgrounds, Hair Colors, Hair Styles, Skins, Animal Ears, Animal Tails, and Shirts will now be purchasable from the brand new <strong>Customization Shop!</strong>",
+
+  "contentQuestion1": "Why is Habitica making these changes?",
+  "contentAnswer10": "Habitica has been around since 2013 (wow!) and over time we’ve released thousands of items players can collect. This can be overwhelming, especially for new players. We want to be sure that we showcase everything we have to offer, and that excellent items released earlier in our history aren’t overlooked.",
+  "contentAnswer11": "When new players join between Grand Galas they are often unaware of these events and miss out on the fun. We want to be sure all new players can join in on our seasonal festivities no matter when they choose to start their journeys.",
+  "contentAnswer12": "Players will have an easier time completing their collections with items releasing on a more predictable schedule.",
+
+  "contentQuestion2": "How are Grand Galas changing?",
+  "contentAnswer20": "There will always be a Grand Gala active every day of the year when the schedule changes go into effect.",
+  "contentAnswer200": "Summer Splash: June 21 Sept 21",
+  "contentAnswer201": "Fall Festival: Sept 21 to Dec 21",
+  "contentAnswer202": "Winter Wonderland: Dec 21 to March 21",
+  "contentAnswer203": "Spring Fling: March 21 to June 21",
+  "contentAnswer21": "All Gala goodies (Class gear, Skins and Hair Colors, Transformation Items, Seasonal Quests) will be released at Gala start and will be available for the entire time the Gala is active.",
+  "contentAnswer22": "Magic Hatching Potions will no longer be tied to Galas and will instead be on their own monthly release schedule themed to the ongoing festivities.",
+
+  "contentQuestion3": "How is the content release schedule changing?",
+  "contentAnswer30": "Shops will rotate a selection of their items every month. This will help keep the amount of content in the shops manageable and easy to browse. The new schedule will offer fresh items to check out each month for newer players while creating a predictable schedule for veteran collectors.",
+  "contentAnswer300": "1st of each month:",
+  "contentAnswer3000": "New Subscriber set is released. Subscriber sets available in Time Travelers Shop rotate.",
+  "contentAnswer301": "7th of each month:",
+  "contentAnswer3010": "New Enchanted Armoire items and one new Background released. Backgrounds available in the Customization Shop rotate.",
+  "contentAnswer302": "14th of each month:",
+  "contentAnswer3020": "Pet Quests, Potion Quests, and Quest Bundles available in the Quest Shop rotate.",
+  "contentAnswer303": "21st of each month:",
+  "contentAnswer3030": "Magic Hatching Potions available in the Market rotate.",
+
+  "contentQuestion4": "What brand-new content is coming?",
+  "contentAnswer40": "To fill this new schedule, we’ve been hard at work creating new items in a variety of categories including:",
+  "contentAnswer400": "Pet Quests",
+  "contentAnswer401": "Magic Hatching Potion Quests",
+  "contentAnswer402": "Magic Hatching Potions",
+  "contentAnswer403": "Summer Hair Colors",
+  "contentAnswer41": "What will these new additions be?",
+  "contentAnswer410": "Stick around to find out! Many of the new additions were highly requested and will be released throughout the year.",
+
+  "contentQuestion5": "What is the Customization Shop?",
+  "contentAnswer50": "The Customization Shop is the new home for all purchasable Avatar Customization items including:",
+  "contentAnswer501": "Skins",
+  "contentAnswer502": "Hair Colors and Styles",
+  "contentAnswer51": "Customizations you own (both standard and purchased) will be accessible from the current Avatar Customization interface.",
+  "contentAnswer510": "We hope this change will help players sort through the customizations they own when editing their avatar’s appearance while carrying over the familiar shop experience for other purchasable items.",
+  "contentAnswer52": "The Customization Shop will be found alongside the other shops in the Menu.",
+
+  "contentQuestion6": "What will happen to other seasonal events, like Habitoween, April Fools’ Day, and Birthday?",
+  "contentAnswer60": "All other current events will continue as normal! Everyone will still get their special rewards and themed food as they do now.",
+  "contentAnswer61": "Valentine’s Day and New Year cards will be released on set dates.",
+  "contentAnswer62": "Valentine’s Day Magic Hatching Potions are now worked into the monthly schedule.",
+  "contentAnswer63": "Wacky Pets will remain available throughout most of April.",
+
+  "contentQuestion7": "What about other items available in the Time Traveler’s shop besides past Subscriber Sets?",
+  "contentAnswer70": "Backgrounds, Quests, Pets, and Mounts available in the Time Traveler’s shop will remain available all year round.",
+  "contentAnswer71": "Stay tuned for further updates on planned improvements to the Time Traveler shop experience.",
+
+  "contentFaqPara3": "If you have any questions not covered by the answers above, you can always contact our team at <%= mailto %>! We’re excited for this new content release schedule and looking forward to even more projects in the future to help make Habitica better for all players."
 } 
