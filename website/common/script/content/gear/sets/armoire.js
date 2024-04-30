@@ -1799,14 +1799,15 @@ const weapon = {
   },
 };
 
+const releaseDay = 7;
 const releaseDates = {
-  somethingSpooky: '2023-10-10T08:00-04:00',
-  cookingImplementsTwo: '2023-11-07T08:00-05:00',
-  greenTrapper: '2023-12-05T08:00-05:00',
-  schoolUniform: '2024-01-04T08:00-05:00',
-  whiteLoungeWear: '2024-02-06T08:00-05:00',
-  hatterSet: '2024-03-05T08:00-05:00',
-  optimistSet: '2024-03-05T00:00-05:00',
+  somethingSpooky: { year: 2023, month: 10 },
+  cookingImplementsTwo: { year: 2023, month: 11 },
+  greenTrapper: { year: 2023, month: 12 },
+  schoolUniform: { year: 2024, month: 1 },
+  whiteLoungeWear: { year: 2024, month: 2 },
+  hatterSet: { year: 2024, month: 3 },
+  optimistSet: { year: 2024, month: 4 },
 };
 
 forEach({
@@ -1818,6 +1819,8 @@ forEach({
   shield,
   weapon,
 }, (set, setKey) => {
+  const today = moment();
+  const releaseDateEndPart = `${releaseDay}T08:00-05:00`;
   forEach(set, (gearItem, gearKey) => {
     const gearStats = {};
     const gearStatValues = [];
@@ -1841,8 +1844,14 @@ forEach({
     } else {
       notes = t(`${setKey}Armoire${upperFirst(gearKey)}Notes`);
     }
+    let released;
+    if (releaseDates[gearItem.set]) {
+      released = today.isAfter(`${releaseDates[gearItem.set].year}-${releaseDates[gearItem.set].month}-${releaseDateEndPart}`);
+    } else {
+      released = true;
+    }
     defaults(gearItem, {
-      released: releaseDates[gearItem.set] ? moment().isAfter(releaseDates[gearItem.set]) : true,
+      released,
       canOwn: ownsItem(`${setKey}_armoire_${gearKey}`),
       notes,
       text: t(`${setKey}Armoire${upperFirst(gearKey)}Text`),
