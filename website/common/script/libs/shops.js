@@ -381,6 +381,7 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
   }
 
   const sets = content.timeTravelerStore(user, new Date());
+  const availabilityMatchers = getScheduleMatchingGroup('timeTravelers');
   for (const setKey of Object.keys(sets)) {
     const set = sets[setKey];
     const category = {
@@ -389,6 +390,7 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
       path: `mystery.${set.key}`,
       pinType: 'mystery_set',
       purchaseAll: true,
+      end: Number(set.key) < 300000 ? availabilityMatchers.end : null,
     };
 
     category.items = map(set.items, item => ({
