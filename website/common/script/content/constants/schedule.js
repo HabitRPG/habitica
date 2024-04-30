@@ -24,9 +24,13 @@ function backgroundMatcher (month1, month2, oddYear) {
 }
 
 function timeTravelersMatcher (month1, month2) {
-  return function call (item) {
-    const itemMonth = parseInt(item.substring(4, 6), 10);
-    return itemMonth === month1 || itemMonth === month2;
+  return function call (item, date) {
+    const month = parseInt(item.substring(4, 6), 10);
+    const year = parseInt(item.substring(0, 4), 10);
+    if (date.getFullYear() === year && (date.getMonth() + 1) >= month) {
+      return false;
+    }
+    return month === month1 || month === month2;
   };
 }
 

@@ -10,7 +10,7 @@ function validateMatcher (matcher, checkedDate) {
   expect(matcher.end).to.be.greaterThan(checkedDate);
 }
 
-describe('Content Schedule', () => {
+describe.only('Content Schedule', () => {
   it('assembles scheduled items on january 15th', () => {
     const date = new Date('2024-01-15');
     const matchers = getAllScheduleMatchingGroups(date);
@@ -118,6 +118,34 @@ describe('Content Schedule', () => {
       const matcher = getAllScheduleMatchingGroups(date).backgrounds;
       expect(matcher.match('backgroundkey022023')).to.be.true;
       expect(matcher.match('backgroundkey082021')).to.be.true;
+    });
+  });
+
+  describe('timeTravelers matcher', () => {
+    it('allows sets matching the month', () => {
+      const date = new Date('2024-07-08');
+      const matcher = getAllScheduleMatchingGroups(date).timeTravelers;
+      expect(matcher.match('202307')).to.be.true;
+      expect(matcher.match('202207')).to.be.true;
+    });
+
+    it('disallows sets not matching the month', () => {
+      const date = new Date('2024-07-08');
+      const matcher = getAllScheduleMatchingGroups(date).timeTravelers;
+      expect(matcher.match('202306')).to.be.false;
+      expect(matcher.match('202402')).to.be.false;
+    });
+
+    it('disallows sets from current month', () => {
+      const date = new Date('2024-07-08');
+      const matcher = getAllScheduleMatchingGroups(date).timeTravelers;
+      expect(matcher.match('202407')).to.be.false;
+    });
+
+    it('disallows sets from the future', () => {
+      const date = new Date('2024-07-08');
+      const matcher = getAllScheduleMatchingGroups(date).backgrounds;
+      expect(matcher.match('202507')).to.be.false;
     });
   });
 });
