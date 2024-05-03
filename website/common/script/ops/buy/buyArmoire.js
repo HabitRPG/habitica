@@ -136,7 +136,6 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation { // eslint-d
     if (this.analytics) {
       this._trackDropAnalytics(user._id, drop.key);
     }
-    console.log(drop);
     return {
       message: this.i18n('armoireFood', {
         image: `<span class="Pet_Food_${drop.key} pull-left"></span>`,
