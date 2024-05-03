@@ -875,7 +875,7 @@ function makeEndDate (checkedDate, matcher) {
   end.date(TYPE_SCHEDULE[matcher.type]);
   if (matcher.endMonth !== undefined) {
     end.month(matcher.endMonth);
-  } else if (end.date() <= moment(checkedDate).date()) {
+  } else if (end.date() <= checkedDate) {
     end = moment(end).add(1, 'months');
   }
   return end.toDate();
@@ -895,7 +895,7 @@ export function getAllScheduleMatchingGroups (date) {
     cachedScheduleMatchers = {};
     assembleScheduledMatchers(checkedDate).forEach(matcher => {
       if (!cachedScheduleMatchers[matcher.type]) {
-        cachedScheduleMatchers[matcher.type] = makeMatcherClass(date);
+        cachedScheduleMatchers[matcher.type] = makeMatcherClass(checkedDate);
       }
       cachedScheduleMatchers[matcher.type].end = makeEndDate(checkedDate, matcher);
       if (matcher.matcher instanceof Function) {

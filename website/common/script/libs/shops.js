@@ -294,10 +294,11 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
 
     if (type === 'pet' || type === 'hatchingPotion') {
       const matchers = getScheduleMatchingGroup(`${type}Quests`);
-      filteredQuests = filteredQuests.filter(quest => matchers.match(quest.key));
+      filteredQuests = filteredQuests.filter(quest => matchers.match(quest.key))
+        .map(quest => getItemInfo(user, 'quests', quest, officialPinnedItems, language, matchers));
     }
 
-    category.items = filteredQuests.map(quest => getItemInfo(user, 'quests', quest, officialPinnedItems, language));
+    category.items = filteredQuests;
 
     categories.push(category);
   });
@@ -379,7 +380,6 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
       categories.push(category);
     }
   }
-
   const sets = content.timeTravelerStore(user, new Date());
   const availabilityMatchers = getScheduleMatchingGroup('timeTravelers');
   for (const setKey of Object.keys(sets)) {
@@ -404,6 +404,7 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
       currency: 'hourglasses',
       class: `shop_${item.key}`,
       pinKey: `timeTravelers!gear.flat.${item.key}`,
+      end: availabilityMatchers.end,
     }));
     if (category.items.length > 0) {
       categories.push(category);
