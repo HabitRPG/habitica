@@ -1820,7 +1820,7 @@ forEach({
   weapon,
 }, (set, setKey) => {
   const today = moment();
-  const releaseDateEndPart = `${releaseDay}T08:00-05:00`;
+  const releaseDateEndPart = `${String(releaseDay).padStart(2, '0')}T08:00-0500`;
   forEach(set, (gearItem, gearKey) => {
     const gearStats = {};
     const gearStatValues = [];
@@ -1846,7 +1846,7 @@ forEach({
     }
     let released;
     if (releaseDates[gearItem.set]) {
-      released = today.isAfter(`${releaseDates[gearItem.set].year}-${releaseDates[gearItem.set].month}-${releaseDateEndPart}`);
+      released = today.isAfter(`${releaseDates[gearItem.set].year}-${String(releaseDates[gearItem.set].month).padStart(2, '0')}-${releaseDateEndPart}`);
     } else {
       released = true;
     }
