@@ -8,121 +8,75 @@
         <p>{{ $t('contentFaqPara0') }}</p>
         <p>{{ $t('contentFaqPara1') }}</p>
       </div>
+      <h3>{{ $t('contentQuestion0') }}</h3>
       <ul>
-        <li>
-          {{ $t('contentQuestion0') }}
+        <li>{{ $t('contentAnswer00') }}</li>
+        <li v-html="$t('contentAnswer01')"></li>
+        <li v-html="$t('contentAnswer02')"></li>
+        <li v-html="$t('contentAnswer03')"></li>
+      </ul>
+      <h3>{{ $t('contentQuestion1') }}</h3>
+      <ul>
+        <li>{{ $t('contentAnswer10') }}</li>
+        <li>{{ $t('contentAnswer11') }}</li>
+        <li>{{ $t('contentAnswer12') }}</li>
+      </ul>
+      <h3>{{ $t('contentQuestion2') }}</h3>
+      <ul>
+        <li>{{ $t('contentAnswer20') }}
           <ul>
-            <li>{{ $t('contentAnswer00') }}</li>
-            <li v-html="$t('contentAnswer01')"></li>
-            <li v-html="$t('contentAnswer02')"></li>
-            <li v-html="$t('contentAnswer03')"></li>
+            <li v-html="$t('contentAnswer200')"></li>
+            <li v-html="$t('contentAnswer201')"></li>
+            <li v-html="$t('contentAnswer202')"></li>
+            <li v-html="$t('contentAnswer203')"></li>
           </ul>
         </li>
-        <li>
-          {{ $t('contentQuestion1') }}
+        <li>{{ $t('contentAnswer21') }}</li>
+        <li>{{ $t('contentAnswer22') }}</li>
+      </ul>
+      <h3>{{ $t('contentQuestion3') }}</h3>
+      <p>{{ $t('contentAnswer30') }}</p>
+      <ul>
+        <li v-html="$t('contentAnswer300')"></li>
+        <li v-html="$t('contentAnswer301')"></li>
+        <li v-html="$t('contentAnswer302')"></li>
+        <li v-html="$t('contentAnswer303')"></li>
+      </ul>
+      <h3>{{ $t('contentQuestion4') }}</h3>
+      <p>{{ $t('contentAnswer40') }}</p>
+      <ul>
+        <li>{{ $t('contentAnswer400') }}</li>
+        <li>{{ $t('contentAnswer401') }}</li>
+        <li>{{ $t('contentAnswer402') }}</li>
+        <li>{{ $t('contentAnswer403') }}</li>
+      </ul>
+      <h3>{{ $t('contentAnswer41') }}</h3>
+      <p>{{ $t('contentAnswer410') }}</p>
+      <h3>{{ $t('contentQuestion5') }}</h3>
+      <ul>
+        <li>{{ $t('contentAnswer50') }}
           <ul>
-            <li>{{ $t('contentAnswer10') }}</li>
-            <li>{{ $t('contentAnswer11') }}</li>
-            <li>{{ $t('contentAnswer12') }}</li>
+            <li>{{ $t('backgrounds') }}</li>
+            <li>{{ $t('contentAnswer501') }}</li>
+            <li>{{ $t('contentAnswer502') }}</li>
+            <li>{{ $t('shirts') }}</li>
           </ul>
         </li>
-        <li>
-          {{ $t('contentQuestion2') }}
-          <ul>
-            <li>{{ $t('contentAnswer20') }}
-              <ul>
-                <li>{{ $t('contentAnswer200') }}</li>
-                <li>{{ $t('contentAnswer201') }}</li>
-                <li>{{ $t('contentAnswer202') }}</li>
-                <li>{{ $t('contentAnswer203') }}</li>
-              </ul>
-            </li>
-            <li>{{ $t('contentAnswer21') }}</li>
-            <li>{{ $t('contentAnswer22') }}</li>
-          </ul>
-        </li>
-        <li>
-          {{ $t('contentQuestion3') }}
-          <ul>
-            <li>{{ $t('contentAnswer30') }}
-              <ul>
-                <li>{{ $t('contentAnswer300') }}
-                  <ul>
-                    <li>{{ $t('contentAnswer3000') }}</li>
-                  </ul>
-                </li>
-                <li>{{ $t('contentAnswer301') }}
-                  <ul>
-                    <li>{{ $t('contentAnswer3010') }}</li>
-                  </ul>
-                </li>
-                <li>{{ $t('contentAnswer302') }}
-                  <ul>
-                    <li>{{ $t('contentAnswer3020') }}</li>
-                  </ul>
-                </li>
-                <li>{{ $t('contentAnswer303') }}
-                  <ul>
-                    <li>{{ $t('contentAnswer3030') }}</li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <li>
-          {{ $t('contentQuestion4') }}
-          <ul>
-            <li>{{ $t('contentAnswer40') }}
-              <ul>
-                <li>{{ $t('contentAnswer400') }}</li>
-                <li>{{ $t('contentAnswer401') }}</li>
-                <li>{{ $t('contentAnswer402') }}</li>
-                <li>{{ $t('contentAnswer403') }}</li>
-              </ul>
-            </li>
-            <li>{{ $t('contentAnswer41') }}
-              <ul>
-                <li>{{ $t('contentAnswer410') }}</li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <li>
-          {{ $t('contentQuestion5') }}
-          <ul>
-            <li>{{ $t('contentAnswer50') }}
-              <ul>
-                <li>{{ $t('backgrounds') }}</li>
-                <li>{{ $t('contentAnswer501') }}</li>
-                <li>{{ $t('contentAnswer502') }}</li>
-                <li>{{ $t('shirts') }}</li>
-              </ul>
-            </li>
-            <li>{{ $t('contentAnswer51') }}
-              <ul>
-                <li>{{ $t('contentAnswer510') }}</li>
-              </ul>
-            </li>
-            <li>{{ $t('contentAnswer52') }}</li>
-          </ul>
-        </li>
-        <li>
-          {{ $t('contentQuestion6') }}
-          <ul>
-            <li>{{ $t('contentAnswer60') }}</li>
-            <li>{{ $t('contentAnswer61') }}</li>
-            <li>{{ $t('contentAnswer62') }}</li>
-            <li>{{ $t('contentAnswer63') }}</li>
-          </ul>
-        </li>
-        <li>
-          {{ $t('contentQuestion7') }}
-          <ul>
-            <li>{{ $t('contentAnswer70') }}</li>
-            <li>{{ $t('contentAnswer71') }}</li>
-          </ul>
-        </li>
+        <li>{{ $t('contentAnswer51') }}</li>
+        <li>{{ $t('contentAnswer52') }}</li>
+        <li>{{ $t('contentAnswer53') }}</li>
+      </ul>
+      <h3>{{ $t('contentQuestion6') }}</h3>
+      <p>{{ $t('contentAnswer60') }}</p>
+      <ul>
+        <li>{{ $t('contentAnswer61') }}</li>
+        <li>{{ $t('contentAnswer62') }}</li>
+        <li>{{ $t('contentAnswer63') }}</li>
+      </ul>
+      <h3>{{ $t('contentQuestion7') }}</h3>
+      <ul>
+        <li>{{ $t('contentAnswer70') }}</li>
+        <li>{{ $t('contentAnswer71') }}</li>
       </ul>
       <p v-html="$t('contentFaqPara3',
         { mailto: '<a href=mailto:admin@habitica.com>admin@habitica.com</a>'}

@@ -37,16 +37,16 @@ ul {
 }
 
 .main-text {
-  .body-text {
-    font-size: 1em;
-    color: $gray-10;
-    line-height: 1.71;
-  }
-
-  .headings {
+  h3 {
     font-size: 1.15em;
     font-weight: 400;
     line-height: 1.75;
     color: $purple-200;
+  }
+
+  .body-text {
+    font-size: 1em;
+    color: $gray-10;
+    line-height: 1.71;
   }
 }
