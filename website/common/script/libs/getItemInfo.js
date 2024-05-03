@@ -384,7 +384,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
     case 'haircolor': {
       itemInfo = {
         key: item.key,
-        class: `hair hair_bangs_${user.preferences.hair.bangs || 1}_${item.key}`,
+        class: `icon_color_hair_bangs_${user.preferences.hair.bangs || 1}_${item.key}`,
         currency: 'gems',
         locked: false,
         notes: '',
@@ -401,7 +401,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
     case 'hairbase': {
       itemInfo = {
         key: item.key,
-        class: `hair hair_base_${item.key}_${user.preferences.hair.color}`,
+        class: `icon_hair_base_${item.key}_${user.preferences.hair.color}`,
         currency: 'gems',
         locked: false,
         notes: '',
@@ -418,7 +418,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
     case 'hairmustache': {
       itemInfo = {
         key: item.key,
-        class: `hair hair_mustache_${item.key}_${user.preferences.hair.color}`,
+        class: `icon_hair_mustache_${item.key}_${user.preferences.hair.color}`,
         currency: 'gems',
         locked: false,
         notes: '',
@@ -435,7 +435,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
     case 'hairbeard': {
       itemInfo = {
         key: item.key,
-        class: `hair hair_beard_${item.key}_${user.preferences.hair.color}`,
+        class: `icon_hair_beard_${item.key}_${user.preferences.hair.color}`,
         currency: 'gems',
         locked: false,
         notes: '',
@@ -452,7 +452,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
     case 'shirt': {
       itemInfo = {
         key: item.key,
-        class: `shirt ${user.preferences.size}_shirt_${item.key}`,
+        class: `icon_${user.preferences.size}_shirt_${item.key}`,
         currency: 'gems',
         locked: false,
         notes: '',
@@ -469,7 +469,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
     case 'skin': {
       itemInfo = {
         key: item.key,
-        class: `skin skin_${item.key}`,
+        class: `icon_skin_${item.key}`,
         currency: 'gems',
         locked: false,
         path: `skin.${item.key}`,

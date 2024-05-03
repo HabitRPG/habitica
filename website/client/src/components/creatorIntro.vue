@@ -151,22 +151,20 @@
       <div
         v-if="activeTopPage === 'backgrounds'"
         id="backgrounds"
-        class="section customize-section"
+        class="section customize-section pt-4"
       >
-        <div class="row text-center title-row">
+        <div class="row text-center title-row mb-1">
           <strong>{{ $t('incentiveBackgrounds') }}</strong>
         </div>
         <div
           v-if="standardBackgrounds.length < standardBackgroundMax"
-          class="row title-row"
+          class="row title-row mb-3"
         >
-          <div
-            class="col-12"
-          >
+          <div>
             {{ $t('incentiveBackgroundsUnlockedWithCheckins') }}
           </div>
         </div>
-        <div class="row">
+        <div class="row justify-content-center mb-4 pb-2">
           <div
             v-for="bg in standardBackgrounds"
             :id="bg.key"
@@ -274,12 +272,12 @@
             </div>
           </div>
         </div>
-        <div
-          class="row text-center title-row mt-2"
-        >
-          <strong>{{ $t('monthlyBackgrounds') }}</strong>
-        </div>
         <div v-if="monthlyBackgrounds.length > 0">
+          <div
+            class="row text-center title-row mt-2"
+          >
+            <strong>{{ $t('monthlyBackgrounds') }}</strong>
+          </div>
           <div class="row title-row">
             <div
               v-for="(bg) in monthlyBackgrounds"
@@ -301,18 +299,8 @@
               />
             </div>
           </div>
-          <customize-banner class="padding-fix" />
         </div>
-        <div v-else>
-          <h3 v-once>
-            {{ $t('noItemsOwned') }}
-          </h3>
-          <p
-            v-once
-            class="w-50 mx-auto"
-            v-html="$t('visitCustomizationsShop')"
-          ></p>
-        </div>
+        <customize-banner v-else class="padding-fix" />
       </div>
     </div>
     <div
@@ -619,7 +607,6 @@
       background-color: #f9f9f9;
       border-bottom-left-radius: 12px;
       border-bottom-right-radius: 12px;
-      min-height: 256px;
     }
 
     #creator-background {
@@ -848,12 +835,6 @@
     }
 
     #backgrounds {
-      padding-top: 12px;
-
-      .title-row {
-        margin-bottom: 1em;
-      }
-
       .backgroundFilterToggle {
         display: flex;
         flex: 1;

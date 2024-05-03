@@ -218,11 +218,10 @@
     </div>
     <div
       slot="modal-footer"
-      class="clearfix"
     >
-      <span class="user-balance float-left">{{ $t('yourBalance') }}</span>
+      <span class="user-balance ml-3 my-auto">{{ $t('yourBalance') }}</span>
       <balanceInfo
-        class="currency-totals"
+        class="mr-3"
         :currency-needed="getPriceClass()"
         :amount-needed="item.value"
       />
@@ -250,24 +249,21 @@
       border-bottom-left-radius: 8px;
       display: block;
       margin: 24px 0 0 0;
-      padding: 16px 24px;
-      align-content: center;
+      padding: 0px;
+
+      > div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0px;
+        height: 100%;
+      }
 
       .user-balance {
-        width: 150px;
-        height: 16px;
         font-size: 0.75rem;
         font-weight: bold;
         line-height: 1.33;
         color: $gray-100;
-        margin-bottom: 16px;
-        margin-top: -4px;
-        margin-left: -4px;
-      }
-
-      .currency-totals {
-        margin-right: -8px;
-        float: right;
       }
     }
 

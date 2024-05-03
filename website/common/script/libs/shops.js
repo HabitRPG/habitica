@@ -631,6 +631,7 @@ shops.getCustomizationsShopCategories = function getCustomizationsShopCategories
     }
   });
 
+  let shirtsCategory; // shirts need to be at end
   each(['shirt', 'skin'], type => {
     const category = {
       identifier: type,
@@ -651,7 +652,11 @@ shops.getCustomizationsShopCategories = function getCustomizationsShopCategories
         category.items.push(item);
       }
     });
-    categories.push(category);
+    if (type === 'skin') {
+      categories.push(category);
+    } else {
+      shirtsCategory = category;
+    }
   });
 
   const animalEarsCategory = {
@@ -683,6 +688,8 @@ shops.getCustomizationsShopCategories = function getCustomizationsShopCategories
     })
     .map(gearItem => getItemInfo(user, 'gear', gearItem, officialPinnedItems, language));
   categories.push(animalTailsCategory);
+
+  categories.push(shirtsCategory);
 
   return categories;
 };

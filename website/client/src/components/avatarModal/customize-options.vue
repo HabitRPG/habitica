@@ -1,6 +1,6 @@
 <template>
   <div
-    class="customize-options"
+    class="customize-options mb-4"
   >
     <div
       v-for="option in items"
