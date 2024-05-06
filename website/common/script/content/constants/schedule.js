@@ -940,6 +940,7 @@ export function getCurrentGalaEvent (date) {
     event: key,
     npcImageSuffix: `_${key}`,
     season: key,
+    gear: true,
     start: `${today.getFullYear()}.${gala.startMonth + 1}.${GALA_SWITCHOVER_DAY}`,
     end: `${today.getFullYear()}.${gala.endMonth + 1}.${GALA_SWITCHOVER_DAY}`,
   };
