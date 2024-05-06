@@ -217,16 +217,16 @@
 
   "contentQuestion2": "How are Grand Galas changing?",
   "contentAnswer20": "There will always be a Grand Gala active every day of the year when the schedule changes go into effect.",
-  "contentAnswer200": "<strong>Summer Splash</strong>: June 21 Sept 21",
-  "contentAnswer201": "<strong>Fall Festival</strong>: Sept 21 to Dec 21",
-  "contentAnswer202": "<strong>Winter Wonderland</strong>: Dec 21 to March 21",
-  "contentAnswer203": "<strong>Spring Fling</strong>: March 21 to June 21",
+  "contentAnswer200": "<strong>Summer Splash</strong>: June 21 to Sept 20",
+  "contentAnswer201": "<strong>Fall Festival</strong>: Sept 21 to Dec 20",
+  "contentAnswer202": "<strong>Winter Wonderland</strong>: Dec 21 to March 20",
+  "contentAnswer203": "<strong>Spring Fling</strong>: March 21 to June 20",
   "contentAnswer21": "All Gala goodies (Class gear, Skins and Hair Colors, Transformation Items, Seasonal Quests) will be released at Gala start and will be available for the entire time the Gala is active.",
   "contentAnswer22": "Magic Hatching Potions will no longer be tied to Galas and will instead be on their own monthly release schedule themed to the ongoing festivities.",
 
   "contentQuestion3": "How is the content release schedule changing?",
   "contentAnswer30": "Shops will rotate a selection of their items every month. This will help keep the amount of content in the shops manageable and easy to browse. The new schedule will offer fresh items to check out each month for newer players while creating a predictable schedule for veteran collectors.",
-  "contentAnswer300": "<strong>1st of each month:</strong> New Subscriber set is released. Subscriber sets available in Time Travelers Shop rotate.",
+  "contentAnswer300": "<strong>1st of each month:</strong> New Subscriber set is released. Subscriber sets available in the Time Travelers Shop rotate.",
   "contentAnswer301": "<strong>7th of each month:</strong> New Enchanted Armoire items and one new Background released. Backgrounds available in the Customization Shop rotate.",
   "contentAnswer302": "<strong>14th of each month:</strong> Pet Quests, Potion Quests, and Quest Bundles available in the Quest Shop rotate.",
   "contentAnswer303": "<strong>21st of each month:</strong> Magic Hatching Potions available in the Market rotate.",
@@ -254,9 +254,9 @@
   "contentAnswer62": "Valentine’s Day Magic Hatching Potions are now worked into the monthly schedule.",
   "contentAnswer63": "Wacky Pets will remain available throughout most of April.",
 
-  "contentQuestion7": "What about other items available in the Time Traveler’s shop besides past Subscriber Sets?",
-  "contentAnswer70": "Backgrounds, Quests, Pets, and Mounts available in the Time Traveler’s shop will remain available all year round.",
-  "contentAnswer71": "Stay tuned for further updates on planned improvements to the Time Traveler shop experience.",
+  "contentQuestion7": "What about other items available in the Time Travelers Shop besides past Subscriber Sets?",
+  "contentAnswer70": "Backgrounds, Quests, Pets, and Mounts available in the Time Travelers Shop will remain available all year round.",
+  "contentAnswer71": "Stay tuned for further updates on planned improvements to the Time Travelers Shop experience.",
 
   "contentFaqPara3": "If you have any questions not covered by the answers above, you can always contact our team at <%= mailto %>! We’re excited for this new content release schedule and looking forward to even more projects in the future to help make Habitica better for all players."
 } 
