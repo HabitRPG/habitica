@@ -3,7 +3,8 @@ import {
   expectValidTranslationString,
 } from '../helpers/content.helper'; */
 // eslint-disable-next-line max-len
-import { getAllScheduleMatchingGroups } from '../../website/common/script/content/constants/schedule';
+import moment from 'moment';
+import { getAllScheduleMatchingGroups, clearCachedMatchers } from '../../website/common/script/content/constants/schedule';
 
 function validateMatcher (matcher, checkedDate) {
   expect(matcher.end).to.be.a('date');
@@ -11,6 +12,10 @@ function validateMatcher (matcher, checkedDate) {
 }
 
 describe('Content Schedule', () => {
+  beforeEach(() => {
+    clearCachedMatchers();
+  });
+
   it('assembles scheduled items on january 15th', () => {
     const date = new Date('2024-01-15');
     const matchers = getAllScheduleMatchingGroups(date);
@@ -78,6 +83,61 @@ describe('Content Schedule', () => {
         validateMatcher(matchers[key], date);
       }
     }
+  });
+
+  it('sets the end date if its in the same month', () => {
+    const date = new Date('2024-04-03');
+    const matchers = getAllScheduleMatchingGroups(date);
+    for (const key in matchers) {
+      if (matchers[key]) {
+        validateMatcher(matchers[key], date);
+      }
+    }
+    expect(matchers.backgrounds.end).to.eql(moment('2024-04-07').toDate());
+  });
+
+  it('sets the end date if its in the next day', () => {
+    const date = new Date('2024-05-06T14:00:00.000Z');
+    const matchers = getAllScheduleMatchingGroups(date);
+    for (const key in matchers) {
+      if (matchers[key]) {
+        validateMatcher(matchers[key], date);
+      }
+    }
+    expect(matchers.backgrounds.end).to.eql(moment('2024-05-07').toDate());
+  });
+
+  it('sets the end date if its on the release day', () => {
+    const date = new Date('2024-05-07');
+    const matchers = getAllScheduleMatchingGroups(date);
+    for (const key in matchers) {
+      if (matchers[key]) {
+        validateMatcher(matchers[key], date);
+      }
+    }
+    expect(matchers.backgrounds.end).to.eql(moment('2024-06-07').toDate());
+  });
+
+  it('sets the end date if its next month', () => {
+    const date = new Date('2024-05-20T01:00:00.000Z');
+    const matchers = getAllScheduleMatchingGroups(date);
+    for (const key in matchers) {
+      if (matchers[key]) {
+        validateMatcher(matchers[key], date);
+      }
+    }
+    expect(matchers.backgrounds.end).to.eql(moment('2024-06-07').toDate());
+  });
+
+  it('sets the end date for a gala', () => {
+    const date = new Date('2024-05-20');
+    const matchers = getAllScheduleMatchingGroups(date);
+    for (const key in matchers) {
+      if (matchers[key]) {
+        validateMatcher(matchers[key], date);
+      }
+    }
+    expect(matchers.seasonalGear.end).to.eql(moment('2024-06-21').toDate());
   });
 
   describe('backgrounds matcher', () => {

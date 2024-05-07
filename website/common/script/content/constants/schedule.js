@@ -873,12 +873,20 @@ function makeMatcherClass (date) {
 function makeEndDate (checkedDate, matcher) {
   let end = moment(checkedDate);
   end.date(TYPE_SCHEDULE[matcher.type]);
+  end.hour(0);
+  end.minute(0);
+  end.second(0);
   if (matcher.endMonth !== undefined) {
     end.month(matcher.endMonth);
-  } else if (end.date() <= checkedDate) {
+  } else if (end.date() <= checkedDate.getDate()) {
     end = moment(end).add(1, 'months');
   }
   return end.toDate();
+}
+
+export function clearCachedMatchers () {
+  cacheDate = null;
+  cachedScheduleMatchers = null;
 }
 
 export function getAllScheduleMatchingGroups (date) {
@@ -886,8 +894,7 @@ export function getAllScheduleMatchingGroups (date) {
   if (cacheDate !== null && (getDay(checkedDate) !== getDay(cacheDate)
     || getMonth(checkedDate) !== getMonth(cacheDate))) {
     // Clear cached matchers, since they are old
-    cacheDate = null;
-    cachedScheduleMatchers = null;
+    clearCachedMatchers();
   }
   if (!cachedScheduleMatchers) {
     // No matchers exist, make new ones
