@@ -33,6 +33,20 @@ describe('POST /user/purchase/:type/:key', () => {
     expect(user.items[type][key]).to.equal(1);
   });
 
+  it('purchases animal ears', async () => {
+    await user.post('/user/purchase/gear/headAccessory_special_tigerEars');
+    await user.sync();
+
+    expect(user.items.gear.owned.headAccessory_special_tigerEars).to.equal(true);
+  });
+
+  it('purchases animal tails', async () => {
+    await user.post('/user/purchase/gear/back_special_pandaTail');
+    await user.sync();
+
+    expect(user.items.gear.owned.back_special_pandaTail).to.equal(true);
+  });
+
   it('can convert gold to gems if subscribed', async () => {
     const oldBalance = user.balance;
     await user.updateOne({
