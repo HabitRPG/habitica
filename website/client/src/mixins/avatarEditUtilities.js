@@ -140,13 +140,9 @@ export const avatarEditorUtilities = { // eslint-disable-line import/prefer-defa
 
       if (loginIncentives.indexOf(path) === -1) {
         if (fullSet) {
-          if (window.confirm(this.$t('purchaseFor', { cost: cost * 4 })) !== true) return; // eslint-disable-line no-alert
-          // @TODO: implement gem modal
-          // if (this.user.balance < cost) return $rootScope.openModal('buyGems');
+          if (window.confirm(this.$t('purchaseFor', { cost: cost * 4 })) !== true) return false; // eslint-disable-line no-alert
         } else if (!get(this.user, `purchased.${path}`)) {
-          if (window.confirm(this.$t('purchaseFor', { cost: cost * 4 })) !== true) return; // eslint-disable-line no-alert
-          // @TODO: implement gem modal
-          // if (this.user.balance < cost) return $rootScope.openModal('buyGems');
+          if (window.confirm(this.$t('purchaseFor', { cost: cost * 4 })) !== true) return false; // eslint-disable-line no-alert
         }
       }
 
@@ -158,8 +154,10 @@ export const avatarEditorUtilities = { // eslint-disable-line import/prefer-defa
           },
         });
         this.backgroundUpdate = new Date();
+        return true;
       } catch (e) {
         window.alert(e.message); // eslint-disable-line no-alert
+        return false;
       }
     },
     async buy (item) {

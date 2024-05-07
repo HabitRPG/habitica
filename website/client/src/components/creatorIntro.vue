@@ -153,28 +153,29 @@
         id="backgrounds"
         class="section customize-section pt-4"
       >
-        <div class="row text-center title-row mb-1">
+        <div class="row justify-content-center title-row mb-3">
           <strong>{{ $t('incentiveBackgrounds') }}</strong>
         </div>
         <div
           v-if="standardBackgrounds.length < standardBackgroundMax"
-          class="row title-row mb-3"
+          class="row justify-content-center title-row mb-3"
         >
           <div>
             {{ $t('incentiveBackgroundsUnlockedWithCheckins') }}
           </div>
         </div>
-        <div class="row justify-content-center mb-4 pb-2">
+        <div class="row justify-content-center mb-4">
           <div
             v-for="bg in standardBackgrounds"
             :id="bg.key"
             :key="bg.key"
-            class="col-2"
+            class="background-item"
+            :class="{selected: bg.key === user.preferences.background}"
             @click="unlock('background.' + bg.key)"
           >
             <div
               class="incentive-background"
-              :class="[`background_${bg.key}`]"
+              :class="`background_${bg.key}`"
             >
               <div class="small-rectangle"></div>
             </div>
@@ -202,12 +203,13 @@
               v-for="bg in allBackgrounds.eventBackgrounds.items"
               :id="bg.key"
               :key="bg.key"
-              class="col-4 text-center customize-option background-button"
+              class="background-item"
+              :class="{selected: bg.key === user.preferences.background}"
               @click="unlock('background.' + bg.key)"
             >
               <div
                 class="background"
-                :class="`background_${bg.key}`"
+                :class="`icon_background_${bg.key}`"
               ></div>
               <b-popover
                 :target="bg.key"
@@ -232,36 +234,14 @@
               v-for="bg in timeTravelBackgrounds"
               :id="bg.key"
               :key="bg.key"
-              class="col-4 text-center customize-option background-button"
+              class="background-item"
+              :class="{selected: bg.key === user.preferences.background}"
               @click="unlock('background.' + bg.key)"
             >
               <div
                 class="background"
-                :class="[`background_${bg.key}`, backgroundLockedStatus(bg.key)]"
+                :class="`icon_background_${bg.key}`"
               ></div>
-              <i
-                v-if="!user.purchased.background[bg.key]"
-                class="glyphicon glyphicon-lock"
-              ></i>
-              <div
-                v-if="!user.purchased.background[bg.key]"
-                class="purchase-background single d-flex align-items-center justify-content-center"
-              >
-                <div
-                  class="svg-icon hourglass"
-                  v-html="icons.hourglass"
-                ></div>
-                <span class="price">1</span>
-              </div>
-              <span
-                v-if="!user.purchased.background[bg.key]"
-                class="badge-top"
-                @click.stop.prevent="togglePinned(bg)"
-              >
-                <pin-badge
-                  :pinned="isBackgroundPinned(bg)"
-                />
-              </span>
               <b-popover
                 :target="bg.key"
                 triggers="hover focus"
@@ -274,21 +254,22 @@
         </div>
         <div v-if="monthlyBackgrounds.length > 0">
           <div
-            class="row text-center title-row mt-2"
+            class="row text-center title-row mb-3"
           >
             <strong>{{ $t('monthlyBackgrounds') }}</strong>
           </div>
-          <div class="row title-row">
+          <div class="row justify-content-center mb-4">
             <div
               v-for="(bg) in monthlyBackgrounds"
               :id="bg.key"
               :key="bg.key"
-              class="col-4 text-center customize-option background-button"
+              class="background-item"
+              :class="{selected: bg.key === user.preferences.background}"
               @click="unlock('background.' + bg.key)"
             >
               <div
                 class="background"
-                :class="[`background_${bg.key}`, backgroundLockedStatus(bg.key)]"
+                :class="`icon_background_${bg.key}`"
               ></div>
               <b-popover
                 :target="bg.key"
@@ -300,7 +281,7 @@
             </div>
           </div>
         </div>
-        <customize-banner v-else class="padding-fix" />
+        <customize-banner class="padding-fix" />
       </div>
     </div>
     <div
@@ -791,39 +772,6 @@
       }
     }
 
-    .text-center {
-      .gem-lock, .gold-lock {
-        display: inline-block;
-        margin-right: 1em;
-        margin-bottom: 1.6em;
-        vertical-align: bottom;
-      }
-    }
-
-    .gem-lock, .gold-lock {
-      .svg-icon {
-        width: 16px;
-      }
-
-      span {
-        font-weight: bold;
-        margin-left: .5em;
-      }
-
-      .svg-icon, span {
-        display: inline-block;
-        vertical-align: bottom;
-      }
-    }
-
-    .gem-lock span {
-      color: $green-10
-    }
-
-    .gold-lock span {
-      color: $yellow-10
-    }
-
     .interests-section {
       margin-top: 3em;
       margin-bottom: 60px;
@@ -835,21 +783,29 @@
     }
 
     #backgrounds {
-      .backgroundFilterToggle {
-        display: flex;
-        flex: 1;
-        justify-content: center;
-      }
+      .background-item {
+        outline: 4px solid transparent;
 
-      .set-title {
-        margin-top: 1em;
-        margin-bottom: 1em;
-      }
+        .background {
+          border-radius: 4px;
+          width: 60px;
+          height: 60px;
+          background-position: -4px -4px;
+        }
 
-      .background {
-        margin: 0 auto;
-        box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
-        border-radius: 2px;
+        &:not(:first-of-type) {
+          margin-left: 24px;
+        }
+
+        &:hover {
+          outline: 4px solid rgba($purple-300, .25);
+          border-radius: 4px;
+          cursor: pointer;
+        }
+        &.selected {
+          border-radius: 4px;
+          outline: 4px solid $purple-300;
+        }
       }
 
       strong {
@@ -860,9 +816,8 @@
         background-image: none;
         width: 68px;
         height: 68px;
-        border-radius: 8px;
+        border-radius: 4px;
         background-color: #92b6bd;
-        margin: 0 auto;
         padding-top: .3em;
 
         .small-rectangle {
@@ -901,61 +856,6 @@
 
       .incentive-background:hover {
         cursor: pointer;
-      }
-
-      .background:hover {
-        cursor: pointer;
-      }
-
-      .purchase-background {
-        margin: 0 auto;
-        background: #fff;
-        padding: 0.5em;
-        border-radius: 0 0 2px 2px;
-        box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
-        cursor: pointer;
-
-        span {
-          font-weight: bold;
-          font-size: 12px;
-        }
-
-        span.price {
-          color: #24cc8f;
-        }
-
-        .gem, .coin, .hourglass {
-          width: 16px;
-        }
-
-        &.single {
-          width: 141px;
-        }
-
-        &.set {
-          width: 100%;
-
-          span {
-            font-size: 14px;
-          }
-
-          .gem, .coin {
-            width: 20px;
-          }
-        }
-      }
-
-      .gem, .coin, .hourglass {
-        margin: 0 .5em;
-        display: inline-block;
-        vertical-align: bottom;
-      }
-
-      .background-set {
-        width: 100%;
-        margin: 10px;
-        background-color: #edecee;
-        border-radius: 2px;
       }
     }
 
@@ -1042,34 +942,19 @@
         }
       }
     }
-
-    .background-button {
-      margin-bottom: 15px;
-
-      .badge-pin:not(.pinned) {
-        display: none;
-      }
-
-      &:hover .badge-pin {
-        display: block;
-      }
-    }
   }
 </style>
 
 <script>
 import axios from 'axios';
-import map from 'lodash/map';
 import forEach from 'lodash/forEach';
 import orderBy from 'lodash/orderBy';
-import isPinned from '@/../../common/script/libs/isPinned';
 import content from '@/../../common/script/content/index';
 import { mapState } from '@/libs/store';
 import avatar from './avatar';
 import usernameForm from './settings/usernameForm';
 import guide from '@/mixins/guide';
 import notifications from '@/mixins/notifications';
-import PinBadge from '@/components/ui/pinBadge';
 import customizeBanner from './avatarModal/customize-banner';
 import bodySettings from './avatarModal/body-settings';
 import skinSettings from './avatarModal/skin-settings';
@@ -1097,7 +982,6 @@ export default {
     bodySettings,
     extraSettings,
     hairSettings,
-    PinBadge,
     skinSettings,
     usernameForm,
   },
@@ -1110,7 +994,6 @@ export default {
       standardBackgrounds: [],
       standardBackgroundMax: 0,
       timeTravelBackgrounds: [],
-      backgroundUpdate: new Date(),
 
       icons: Object.freeze({
         logoPurple,
@@ -1190,13 +1073,6 @@ export default {
     close () {
       this.$root.$emit('bv::hide::modal', 'avatar-modal');
     },
-    purchase (type, key) {
-      this.$store.dispatch('shops:purchase', {
-        type,
-        key,
-      });
-      this.backgroundUpdate = new Date();
-    },
     prev () {
       this.modalPage -= 1;
     },
@@ -1252,42 +1128,6 @@ export default {
         this.initTour();
         this.goto('intro', 0);
       }, 1000);
-    },
-    ownsSet (type, set) {
-      let setOwnedByUser = false;
-
-      for (let key of Object.keys(set)) {
-        const value = set[key];
-        if (type === 'background') key = value.key;
-        if (this.user.purchased[type][key]) setOwnedByUser = true;
-      }
-
-      return setOwnedByUser;
-    },
-    setKeys (type, _set) {
-      return map(_set, (v, k) => {
-        if (type === 'background') k = v.key; // eslint-disable-line no-param-reassign
-        return `${type}.${k}`;
-      }).join(',');
-    },
-    backgroundLockedStatus (bgKey) {
-      let backgroundClass = 'background-locked';
-      if (this.user.purchased.background[bgKey]) backgroundClass = 'background-unlocked';
-      return backgroundClass;
-    },
-    isBackgroundPinned (bg) {
-      return isPinned(this.user, bg);
-    },
-    togglePinned (bg) {
-      if (!this.$store.dispatch('user:togglePinnedItem', { type: bg.pinType, path: bg.path })) {
-        this.text(this.$t('unpinnedItem', { item: bg.text }));
-      }
-    },
-    backgroundSelected (bg) {
-      this.$root.$emit('buyModal::showItem', bg);
-    },
-    backgroundPurchased () {
-      this.backgroundUpdate = new Date();
     },
   },
 };

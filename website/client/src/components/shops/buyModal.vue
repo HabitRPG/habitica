@@ -822,8 +822,10 @@ export default {
       }
 
       if (this.item.purchaseType === 'customization') {
-        await this.unlock(this.item.path);
+        const buySuccess = await this.unlock(this.item.path);
+        if (!buySuccess) return;
         this.sync();
+        this.purchased(this.item.text);
       } else {
         const shouldConfirmPurchase = this.item.currency === 'gems' || this.item.currency === 'hourglasses';
         if (
