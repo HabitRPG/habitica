@@ -192,12 +192,12 @@
           v-if="user.purchased.background.birthday_bash"
         >
           <div
-            class="row text-center title-row"
+            class="row justify-content-center title-row mb-3"
           >
             <strong>{{ allBackgrounds.eventBackgrounds.text }}</strong>
           </div>
           <div
-            class="row title-row"
+            class="row justify-content-center mb-4"
           >
             <div
               v-for="bg in allBackgrounds.eventBackgrounds.items"
@@ -223,12 +223,12 @@
         </div>
         <div v-if="timeTravelBackgrounds.length > 0">
           <div
-            class="row text-center title-row mt-4"
+            class="row justify-content-center title-row mb-3"
           >
             <strong>{{ $t('timeTravelBackgrounds') }}</strong>
           </div>
           <div
-            class="row title-row"
+            class="row justify-content-center mb-4"
           >
             <div
               v-for="bg in timeTravelBackgrounds"
@@ -258,7 +258,7 @@
           >
             <strong>{{ $t('monthlyBackgrounds') }}</strong>
           </div>
-          <div class="row justify-content-center mb-4">
+          <div class="d-flex background-row justify-content-center mx-auto mb-4">
             <div
               v-for="(bg) in monthlyBackgrounds"
               :id="bg.key"
@@ -783,6 +783,11 @@
     }
 
     #backgrounds {
+      .background-row {
+        width: 85%;
+        flex-wrap: wrap;
+      }
+
       .background-item {
         outline: 4px solid transparent;
 
@@ -793,8 +798,12 @@
           background-position: -4px -4px;
         }
 
-        &:not(:first-of-type) {
+        &:not(:first-of-type):not(:nth-of-type(9n)) {
           margin-left: 24px;
+        }
+
+        &:nth-of-type(n+9) {
+          margin-top: 24px;
         }
 
         &:hover {
@@ -802,6 +811,7 @@
           border-radius: 4px;
           cursor: pointer;
         }
+
         &.selected {
           border-radius: 4px;
           outline: 4px solid $purple-300;
