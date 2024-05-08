@@ -1846,7 +1846,8 @@ forEach({
     }
     let released;
     if (releaseDates[gearItem.set]) {
-      released = today.isAfter(`${releaseDates[gearItem.set].year}-${String(releaseDates[gearItem.set].month).padStart(2, '0')}-${releaseDateEndPart}`);
+      const releaseDateString = `${releaseDates[gearItem.set].year}-${String(releaseDates[gearItem.set].month).padStart(2, '0')}-${releaseDateEndPart}`;
+      released = today.isAfter(releaseDateString);
     } else {
       released = true;
     }
