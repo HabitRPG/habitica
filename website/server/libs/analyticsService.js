@@ -353,14 +353,10 @@ const mockAnalyticsService = {
 
 // Return the production or mock service based on the current environment
 function getServiceByEnvironment () {
-  if (nconf.get('IS_PROD')) {
-    return {
-      track,
-      trackPurchase,
-    };
-  }
-
-  return mockAnalyticsService;
+  return {
+    track,
+    trackPurchase,
+  };
 }
 
 export {
