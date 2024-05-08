@@ -12,8 +12,8 @@ const gemsPromo = {
 
 export const REPEATING_EVENTS = {
   nye: {
-    start: '1970-12-28T08:00-05:00',
-    end: '1970-01-04T23:59-05:00',
+    start: new Date('1970-12-28T08:00-05:00'),
+    end: new Date('1970-01-04T23:59-05:00'),
     season: 'nye',
     npcImageSuffix: '_nye',
     content: [
@@ -26,15 +26,15 @@ export const REPEATING_EVENTS = {
     ],
   },
   birthday: {
-    start: '1970-01-30T08:00-05:00',
-    end: '1970-02-08T23:59-05:00',
+    start: new Date('1970-01-30T08:00-05:00'),
+    end: new Date('1970-02-08T23:59-05:00'),
     season: 'birthday',
     npcImageSuffix: '_birthday',
     foodSeason: 'Cake',
   },
   valentines: {
-    start: '1970-02-13T08:00-05:00',
-    end: '1970-02-17T23:59-05:00',
+    start: new Date('1970-02-13T08:00-05:00'),
+    end: new Date('1970-02-17T23:59-05:00'),
     season: 'valentines',
     npcImageSuffix: '_valentines',
     content: [
@@ -47,23 +47,23 @@ export const REPEATING_EVENTS = {
     ],
   },
   piDay: {
-    start: '1970-03-13T08:00-05:00',
-    end: '1970-03-15T23:59-05:00',
+    start: new Date('1970-03-13T08:00-05:00'),
+    end: new Date('1970-03-15T23:59-05:00'),
     foodSeason: 'Pie',
   },
   namingDay: {
-    start: '1970-07-30T08:00-05:00',
-    end: '1970-08-01T23:59-05:00',
+    start: new Date('1970-07-30T08:00-05:00'),
+    end: new Date('1970-08-01T23:59-05:00'),
     foodSeason: 'Cake',
   },
   habitoween: {
-    start: '1970-10-30T08:00-05:00',
-    end: '1970-11-01T23:59-05:00',
+    start: new Date('1970-10-30T08:00-05:00'),
+    end: new Date('1970-11-01T23:59-05:00'),
     foodSeason: 'Candy',
   },
   harvestFeast: {
-    start: '1970-11-22T08:00-05:00',
-    end: '1970-11-27T20:00-05:00',
+    start: new Date('1970-11-22T08:00-05:00'),
+    end: new Date('1970-11-27T20:00-05:00'),
     season: 'thanksgiving',
     npcImageSuffix: '_thanksgiving',
     foodSeason: 'Pie',
@@ -72,13 +72,18 @@ export const REPEATING_EVENTS = {
 
 export function getRepeatingEvents (date) {
   const momentDate = date instanceof moment ? date : moment(date);
-  return filter(Object.keys(REPEATING_EVENTS), eventKey => {
-    const eventData = REPEATING_EVENTS[eventKey];
-    const startDate = eventData.start.replace('1970', momentDate.year());
-    const endDate = eventData.end.replace('1970', momentDate.year());
-
-    return momentDate.isBetween(startDate, endDate);
-  }).map(eventKey => REPEATING_EVENTS[eventKey]);
+  return Object.keys(REPEATING_EVENTS).map(eventKey => {
+    const event = REPEATING_EVENTS[eventKey];
+    event.key = eventKey;
+    event.start.setYear(momentDate.year());
+    event.end.setYear(momentDate.year());
+    if (event.end < event.start && momentDate < event.start) {
+      event.start.setYear(momentDate.year() - 1);
+    } else if (event.end < event.start && momentDate > event.end) {
+      event.end.setYear(momentDate.year() + 1);
+    }
+    return event;
+  }).filter(event => momentDate.isBetween(event.start, event.end));
 }
 
 export const EVENTS = {
