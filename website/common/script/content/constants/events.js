@@ -78,7 +78,7 @@ export function getRepeatingEvents (date) {
     const endDate = eventData.end.replace('1970', momentDate.year());
 
     return momentDate.isBetween(startDate, endDate);
-  });
+  }).map(eventKey => REPEATING_EVENTS[eventKey]);
 }
 
 export const EVENTS = {
