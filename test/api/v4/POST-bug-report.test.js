@@ -9,6 +9,16 @@ describe('POST /bug-report', () => {
     user = await generateUser();
   });
 
+  it('returns an success when message and email is added', async () => {
+    await expect(user.post('/bug-report', {
+      message: 'Something is wrong here',
+      email: user.auth.local.email,
+    }))
+      .to.eventually.to.contain({
+        code: 200,
+      });
+  });
+
   it('returns an error when message is not added', async () => {
     await expect(user.post('/bug-report', {
       message: '',
