@@ -1,5 +1,4 @@
 /* eslint-disable key-spacing */
-import filter from 'lodash/filter';
 import moment from 'moment';
 
 // gem block: number of gems

@@ -1,9 +1,9 @@
 <template>
   <div class="d-flex align-items-center">
     <div
-      class="d-flex align-items-center"
       v-for="currency of currencies"
       :key="currency.key"
+      class="d-flex align-items-center"
     >
       <div
         class="svg-icon icon-16 ml-1"
