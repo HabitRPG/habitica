@@ -701,7 +701,6 @@ export const GALA_SCHEDULE = {
         type: 'seasonalQuests',
         items: [
           'egg',
-          'waffle',
         ],
       },
       {
@@ -835,11 +834,11 @@ export function assembleScheduledMatchers (date) {
     matcher.endMonth = gala.endMonth;
   });
   items.push(...galaMatchers);
-  for (const event in getRepeatingEvents(date)) {
+  getRepeatingEvents(date).forEach(event => {
     if (event.content) {
       items.push(...event.content);
     }
-  }
+  });
   return items;
 }
 

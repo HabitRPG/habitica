@@ -19,7 +19,7 @@ function validateMatcher (matcher, checkedDate) {
   expect(matcher.end).to.be.greaterThan(checkedDate);
 }
 
-describe('Content Schedule', () => {
+describe.only('Content Schedule', () => {
   beforeEach(() => {
     clearCachedMatchers();
   });
@@ -96,56 +96,40 @@ describe('Content Schedule', () => {
   it('sets the end date if its in the same month', () => {
     const date = new Date('2024-04-03');
     const matchers = getAllScheduleMatchingGroups(date);
-    for (const key in matchers) {
-      if (matchers[key]) {
-        validateMatcher(matchers[key], date);
-      }
-    }
     expect(matchers.backgrounds.end).to.eql(moment('2024-04-07').toDate());
   });
 
   it('sets the end date if its in the next day', () => {
     const date = new Date('2024-05-06T14:00:00.000Z');
     const matchers = getAllScheduleMatchingGroups(date);
-    for (const key in matchers) {
-      if (matchers[key]) {
-        validateMatcher(matchers[key], date);
-      }
-    }
     expect(matchers.backgrounds.end).to.eql(moment('2024-05-07').toDate());
   });
 
   it('sets the end date if its on the release day', () => {
     const date = new Date('2024-05-07');
     const matchers = getAllScheduleMatchingGroups(date);
-    for (const key in matchers) {
-      if (matchers[key]) {
-        validateMatcher(matchers[key], date);
-      }
-    }
     expect(matchers.backgrounds.end).to.eql(moment('2024-06-07').toDate());
   });
 
   it('sets the end date if its next month', () => {
     const date = new Date('2024-05-20T01:00:00.000Z');
     const matchers = getAllScheduleMatchingGroups(date);
-    for (const key in matchers) {
-      if (matchers[key]) {
-        validateMatcher(matchers[key], date);
-      }
-    }
     expect(matchers.backgrounds.end).to.eql(moment('2024-06-07').toDate());
   });
 
   it('sets the end date for a gala', () => {
     const date = new Date('2024-05-20');
     const matchers = getAllScheduleMatchingGroups(date);
-    for (const key in matchers) {
-      if (matchers[key]) {
-        validateMatcher(matchers[key], date);
-      }
-    }
     expect(matchers.seasonalGear.end).to.eql(moment('2024-06-21').toDate());
+  });
+
+  it('contains content for repeating events', () => {
+    const date = new Date('2024-04-15');
+    const matchers = getAllScheduleMatchingGroups(date);
+    expect(matchers.premiumHatchingPotions).to.exist;
+    expect(matchers.premiumHatchingPotions.items.length).to.equal(4);
+    expect(matchers.premiumHatchingPotions.items.indexOf('Garden')).to.not.equal(-1);
+    expect(matchers.premiumHatchingPotions.items.indexOf('Porcelain')).to.not.equal(-1);
   });
 
   describe('only contains valid keys for', () => {

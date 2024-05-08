@@ -51,6 +51,26 @@ export const REPEATING_EVENTS = {
     end: new Date('1970-03-15T23:59-05:00'),
     foodSeason: 'Pie',
   },
+  aprilFoolsResale: {
+    start: new Date('1970-04-07T08:00-05:00'),
+    end: new Date('1970-04-30T23:59-05:00'),
+    content: [
+      {
+        type: 'hatchingPotionQuests',
+        items: [
+          'virtualpet',
+          'waffle',
+        ],
+      },
+      {
+        type: 'premiumHatchingPotions',
+        items: [
+          'Garden',
+          'TeaShop',
+        ],
+      },
+    ],
+  },
   namingDay: {
     start: new Date('1970-07-30T08:00-05:00'),
     end: new Date('1970-08-01T23:59-05:00'),
