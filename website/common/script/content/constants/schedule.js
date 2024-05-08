@@ -159,7 +159,6 @@ export const MONTHLY_SCHEDULE = {
         items: [
           'PolkaDot',
           'Celestial',
-          'RoseGold',
         ],
       },
     ],
@@ -204,7 +203,6 @@ export const MONTHLY_SCHEDULE = {
       {
         type: 'premiumHatchingPotions',
         items: [
-          'Birch',
           'StainedGlass',
           'Porcelain',
         ],
@@ -232,7 +230,7 @@ export const MONTHLY_SCHEDULE = {
           'snake',
           'monkey',
           'falcon',
-          'aligator',
+          'alligator',
         ],
       },
       {
@@ -397,7 +395,6 @@ export const MONTHLY_SCHEDULE = {
         type: 'premiumHatchingPotions',
         items: [
           'Moonglow',
-          'SandCastle',
           'Watery',
         ],
       },
@@ -582,7 +579,6 @@ export const MONTHLY_SCHEDULE = {
         type: 'bundles',
         items: [
           'forestFriends',
-          'oddBalls',
         ],
       },
     ],

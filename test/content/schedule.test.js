@@ -4,14 +4,22 @@ import {
 } from '../helpers/content.helper'; */
 // eslint-disable-next-line max-len
 import moment from 'moment';
-import { getAllScheduleMatchingGroups, clearCachedMatchers } from '../../website/common/script/content/constants/schedule';
+import {
+  getAllScheduleMatchingGroups, clearCachedMatchers, MONTHLY_SCHEDULE, GALA_SCHEDULE,
+} from '../../website/common/script/content/constants/schedule';
+import QUEST_PETS from '../../website/common/script/content/quests/pets';
+import QUEST_HATCHINGPOTIONS from '../../website/common/script/content/quests/potions';
+import QUEST_BUNDLES from '../../website/common/script/content/bundles';
+import { premium } from '../../website/common/script/content/hatching-potions';
+import SPELLS from '../../website/common/script/content/spells';
+import QUEST_SEASONAL from '../../website/common/script/content/quests/seasonal';
 
 function validateMatcher (matcher, checkedDate) {
   expect(matcher.end).to.be.a('date');
   expect(matcher.end).to.be.greaterThan(checkedDate);
 }
 
-describe('Content Schedule', () => {
+describe.only('Content Schedule', () => {
   beforeEach(() => {
     clearCachedMatchers();
   });
@@ -138,6 +146,74 @@ describe('Content Schedule', () => {
       }
     }
     expect(matchers.seasonalGear.end).to.eql(moment('2024-06-21').toDate());
+  });
+
+  describe('only contains valid keys for', () => {
+    it('pet quests', () => {
+      const petKeys = Object.keys(QUEST_PETS);
+      Object.keys(MONTHLY_SCHEDULE).forEach(key => {
+        const petQuests = MONTHLY_SCHEDULE[key][14].find(item => item.type === 'petQuests');
+        for (const petQuest of petQuests.items) {
+          expect(petQuest).to.be.a('string');
+          expect(petKeys).to.include(petQuest);
+        }
+      });
+    });
+
+    it('hatchingpotion quests', () => {
+      const potionKeys = Object.keys(QUEST_HATCHINGPOTIONS);
+      Object.keys(MONTHLY_SCHEDULE).forEach(key => {
+        const potionQuests = MONTHLY_SCHEDULE[key][14].find(item => item.type === 'hatchingPotionQuests');
+        for (const potionQuest of potionQuests.items) {
+          expect(potionQuest).to.be.a('string');
+          expect(potionKeys).to.include(potionQuest);
+        }
+      });
+    });
+
+    it('bundles', () => {
+      const bundleKeys = Object.keys(QUEST_BUNDLES);
+      Object.keys(MONTHLY_SCHEDULE).forEach(key => {
+        const bundles = MONTHLY_SCHEDULE[key][14].find(item => item.type === 'bundles');
+        for (const bundle of bundles.items) {
+          expect(bundle).to.be.a('string');
+          expect(bundleKeys).to.include(bundle);
+        }
+      });
+    });
+
+    it('premium hatching potions', () => {
+      const potionKeys = Object.keys(premium);
+      Object.keys(MONTHLY_SCHEDULE).forEach(key => {
+        const potions = MONTHLY_SCHEDULE[key][21].find(item => item.type === 'premiumHatchingPotions');
+        for (const potion of potions.items) {
+          expect(potion).to.be.a('string');
+          expect(potionKeys).to.include(potion);
+        }
+      });
+    });
+
+    it('seasonal quests', () => {
+      const questKeys = Object.keys(QUEST_SEASONAL);
+      Object.keys(GALA_SCHEDULE).forEach(key => {
+        const quests = GALA_SCHEDULE[key].matchers.find(item => item.type === 'seasonalQuests');
+        for (const quest of quests.items) {
+          expect(quest).to.be.a('string');
+          expect(questKeys).to.include(quest);
+        }
+      });
+    });
+
+    it('seasonal spells', () => {
+      const spellKeys = Object.keys(SPELLS.special);
+      Object.keys(GALA_SCHEDULE).forEach(key => {
+        const petQuests = GALA_SCHEDULE[key].matchers.find(item => item.type === 'seasonalSpells');
+        for (const petQuest of petQuests.items) {
+          expect(petQuest).to.be.a('string');
+          expect(spellKeys).to.include(petQuest);
+        }
+      });
+    });
   });
 
   describe('backgrounds matcher', () => {
