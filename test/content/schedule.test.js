@@ -19,7 +19,7 @@ function validateMatcher (matcher, checkedDate) {
   expect(matcher.end).to.be.greaterThan(checkedDate);
 }
 
-describe.only('Content Schedule', () => {
+describe('Content Schedule', () => {
   beforeEach(() => {
     clearCachedMatchers();
   });

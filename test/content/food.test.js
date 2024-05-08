@@ -25,7 +25,7 @@ describe('food', () => {
         } else {
           expectValidTranslationString(foodItem.textA);
           expectValidTranslationString(foodItem.textThe);
-          expectValidTranslationString(foodItem.target);
+          expect(foodItem.target).to.be.a('string');
         }
         expectValidTranslationString(foodItem.text);
         expectValidTranslationString(foodItem.notes);

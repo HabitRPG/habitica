@@ -1,6 +1,6 @@
 import { getRepeatingEvents } from '../../website/common/script/content/constants/events';
 
-describe.only('events', () => {
+describe('events', () => {
   let clock;
 
   afterEach(() => {
