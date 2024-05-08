@@ -296,6 +296,9 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
       const matchers = getScheduleMatchingGroup(`${type}Quests`);
       filteredQuests = filteredQuests.filter(quest => matchers.match(quest.key))
         .map(quest => getItemInfo(user, 'quests', quest, officialPinnedItems, language, matchers));
+    } else {
+      filteredQuests = filteredQuests
+        .map(quest => getItemInfo(user, 'quests', quest, officialPinnedItems, language));
     }
 
     category.items = filteredQuests;

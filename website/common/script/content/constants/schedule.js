@@ -327,6 +327,7 @@ export const MONTHLY_SCHEDULE = {
           'unicorn',
           'velociraptor',
           'hippo',
+          'giraffe',
         ],
       },
       {
@@ -739,6 +740,7 @@ export const GALA_SCHEDULE = {
       {
         type: 'customizations',
         matcher: customizationMatcher([
+          'summerHairColors',
           'splashySkins',
         ]),
       },

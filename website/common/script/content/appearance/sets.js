@@ -11,6 +11,7 @@ export default prefill({
   pastelHairColors: { setPrice: 5 },
   rainbowHairColors: { setPrice: 5, text: t('rainbowColors') },
   shimmerHairColors: { setPrice: 5, text: t('shimmerColors') },
+  summerHairColors: { setPrice: 5, text: t('summerColors') },
   hauntedHairColors: { setPrice: 5, text: t('hauntedColors') },
   winteryHairColors: { setPrice: 5, text: t('winteryColors') },
   rainbowSkins: { setPrice: 5, text: t('rainbowSkins') },

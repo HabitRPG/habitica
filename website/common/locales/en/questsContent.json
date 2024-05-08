@@ -887,5 +887,12 @@
   "questPinkMarbleRageDescription": "This bar fills when you don't complete your Dailies. When it is full, Cupido will take away some of your party's pending damage!",
   "questPinkMarbleRageEffect": "`Cupido uses Pink Punch!` That wasn't affectionate at all! Your partymates are taken aback. Pending damage reduced.",
   "questPinkMarbleDropPinkMarblePotion": "Pink Marble Hatching Potion",
-  "QuestPinkMarbleUnlockText": "Unlocks Pink Marble Hatching Potions for purchase in the Market."
+  "QuestPinkMarbleUnlockText": "Unlocks Pink Marble Hatching Potions for purchase in the Market.",
+
+  "questGiraffeText": "The Gear-affe",
+  "questGiraffeNotes": "You’re strolling across the tall grass of the Sloenstedi Savannah, enjoying a nice walk in nature as a break from your tasks. As you pass through the rolling landscape, you notice a collection of items in the distance. It’s a pile of musical instruments, art supplies, electronic equipment, and more! You venture near for a better look.<br><br>“Hey, what do you think you’re doing?” yells a voice from behind an acacia. A tall and imposing giraffe emerges, wearing a fancy pair of shades. a guitar, and a fancy camera around its long neck. “This is all my gear, be careful and don’t touch anything!”<br><br>You notice dust on many of the items. “Wow, you sure have a lot of hobbies!” you say. “Can you show me some art or play me a tune?”<br><br>The giraffe’s face falls as he looks at all his supplies. “I have so much of this stuff but don’t know where to begin! Why don't you give me some of your motivation so I can have the productive energy I need to finally get started!”",
+  "questGiraffeCompletion": "After helping the Gear-Affe with some basic organization of his stash, you’re both feeling more energized and upbeat!<br><br>He grabs his guitar and a book of beginner exercises and strums a few notes. “It feels good to take a step in the right direction, even a small one. Thanks for helping me out! Take these, I hear you have a stash of pets and these fellas could be a nice addition!”",
+  "questGiraffeBoss": "Gear-affe",
+  "questGiraffeDropGiraffeEgg": "Giraffe (Egg)",
+  "QuestGiraffeUnlockText": "Unlocks Giraffe Eggs for purchase in the Market."
 }
