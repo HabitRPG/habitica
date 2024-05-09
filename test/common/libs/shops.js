@@ -254,7 +254,6 @@ describe('shops', () => {
         category.items.forEach(item => {
           expect(item.end).to.be.a('date');
           expect(item.end).to.be.greaterThan(today);
-          console.log(item.end)
         });
       });
     });
