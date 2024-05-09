@@ -18904,6 +18904,11 @@
   width: 114px;
   height: 90px;
 }
+.broad_armor_armoire_bluestripedSwimsuit {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_armoire_bluestripedSwimsuit.png');
+  width: 114px;
+  height: 90px;
+}
 .broad_armor_armoire_boatingJacket {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_armoire_boatingJacket.png');
   width: 114px;
@@ -19347,6 +19352,11 @@
 .broad_armor_armoire_yellowPartyDress {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_armoire_yellowPartyDress.png');
   width: 90px;
+  height: 90px;
+}
+.broad_armor_armoire_yellowStripedSwimsuit {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_armoire_yellowStripedSwimsuit.png');
+  width: 114px;
   height: 90px;
 }
 .eyewear_armoire_clownsNose {
@@ -19914,6 +19924,11 @@
   width: 114px;
   height: 90px;
 }
+.shield_armoire_buoyantBeachBall {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shield_armoire_buoyantBeachBall.png');
+  width: 114px;
+  height: 90px;
+}
 .shield_armoire_chocolateFood {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shield_armoire_chocolateFood.png');
   width: 90px;
@@ -20316,6 +20331,11 @@
 }
 .shop_armor_armoire_bluePartyDress {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_armor_armoire_bluePartyDress.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_armor_armoire_bluestripedSwimsuit {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_armor_armoire_bluestripedSwimsuit.png');
   width: 68px;
   height: 68px;
 }
@@ -20761,6 +20781,11 @@
 }
 .shop_armor_armoire_yellowPartyDress {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_armor_armoire_yellowPartyDress.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_armor_armoire_yellowStripedSwimsuit {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_armor_armoire_yellowStripedSwimsuit.png');
   width: 68px;
   height: 68px;
 }
@@ -21386,6 +21411,11 @@
 }
 .shop_shield_armoire_bucket {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_shield_armoire_bucket.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_shield_armoire_buoyantBeachBall {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_shield_armoire_buoyantBeachBall.png');
   width: 68px;
   height: 68px;
 }
@@ -22179,6 +22209,11 @@
   width: 68px;
   height: 68px;
 }
+.shop_weapon_armoire_shadyBeachUmbrella {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_armoire_shadyBeachUmbrella.png');
+  width: 68px;
+  height: 68px;
+}
 .shop_weapon_armoire_shepherdsCrook {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_armoire_shepherdsCrook.png');
   width: 68px;
@@ -22296,6 +22331,11 @@
 }
 .slim_armor_armoire_bluePartyDress {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_armoire_bluePartyDress.png');
+  width: 114px;
+  height: 90px;
+}
+.slim_armor_armoire_blueStripedSwimsuit {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_armoire_blueStripedSwimsuit.png');
   width: 114px;
   height: 90px;
 }
@@ -22742,6 +22782,11 @@
 .slim_armor_armoire_yellowPartyDress {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_armoire_yellowPartyDress.png');
   width: 90px;
+  height: 90px;
+}
+.slim_armor_armoire_yellowStripedSwimsuit {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_armoire_yellowStripedSwimsuit.png');
+  width: 114px;
   height: 90px;
 }
 .weapon_armoire_alchemistsDistiller {
@@ -23191,6 +23236,11 @@
 }
 .weapon_armoire_shadowMastersMace {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_armoire_shadowMastersMace.png');
+  width: 114px;
+  height: 90px;
+}
+.weapon_armoire_shadyBeachUmbrella {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_armoire_shadyBeachUmbrella.png');
   width: 114px;
   height: 90px;
 }
@@ -29448,6 +29498,46 @@
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_set_mystery_202405.png');
   width: 68px;
   height: 68px;
+}
+.broad_armor_mystery_202406 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_mystery_202406.png');
+  width: 114px;
+  height: 90px;
+}
+.eyewear_mystery_202406 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/eyewear_mystery_202406.png');
+  width: 114px;
+  height: 90px;
+}
+.head_mystery_202406 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_mystery_202406.png');
+  width: 114px;
+  height: 90px;
+}
+.shop_armor_mystery_202406 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_armor_mystery_202406.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_eyewear_mystery_202406 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_eyewear_mystery_202406.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_head_mystery_202406 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_head_mystery_202406.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_set_mystery_202406 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_set_mystery_202406.png');
+  width: 68px;
+  height: 68px;
+}
+.slim_armor_mystery_202406 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_mystery_202406.png');
+  width: 114px;
+  height: 90px;
 }
 .broad_armor_mystery_301404 {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_mystery_301404.png');
