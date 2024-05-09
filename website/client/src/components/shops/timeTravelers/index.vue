@@ -69,7 +69,6 @@
           </div>
         </div>
       </div><div
-        v-if="!closed"
         class="clearfix"
       >
         <div class="float-right">
@@ -87,7 +86,7 @@
       <!-- eslint-disable vue/no-use-v-if-with-v-for -->
       <div
         v-for="category in categories"
-        v-if="!closed && (!anyFilterSelected || viewOptions[category.identifier].selected)"
+        v-if="!anyFilterSelected || viewOptions[category.identifier].selected"
         :key="category.identifier"
         :class="category.identifier"
       >
@@ -99,6 +98,7 @@
           :item-width="94"
           :item-margin="24"
           :type="category.identifier"
+          :foldButton="false"
         >
           <template
             slot="item"
@@ -229,10 +229,7 @@
         justify-content: center;
         align-items: center;
       }
-      .background-open {
-        height: 188px;
-      }
-      .background-closed {
+      .background-open, .background-closed {
         height: 216px;
       }
 
@@ -257,7 +254,7 @@
           position: absolute;
           bottom: -14px;
           margin: 0;
-          left: 40px;
+          left: 78px;
         }
       }
     }

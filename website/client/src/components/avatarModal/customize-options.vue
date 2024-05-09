@@ -7,7 +7,6 @@
       :key="option.key"
       class="outer-option-background"
       :class="{
-        locked: option.gemLocked || option.goldLocked,
         premium: Boolean(option.gem),
         active: option.active || currentValue === option.key,
         none: option.none,
@@ -117,7 +116,7 @@ export default {
 
     &:not(.locked):not(.active) {
       .option:hover {
-        background-color: rgba(213, 200, 255, .32);
+        background-color: rgba($purple-300, .25);
       }
     }
 
@@ -183,9 +182,6 @@ export default {
       margin-top: 0;
       margin-left: 0;
 
-      &.color-bangs {
-        margin-top: 3px;
-      }
       &.skin {
         margin-top: -4px;
         margin-left: -4px;
@@ -204,14 +200,14 @@ export default {
           margin-top: -5px;
         }
       }
-      &.color, &.bangs {
-          margin-top: 4px;
-          margin-left: -3px;
+      &.color, &.bangs, &.beard {
+        background-position-x: -5px;
+        background-position-y: -12px;
       }
 
       &.hair.base {
-          margin-top: 0px;
-          margin-left: -5px;
+        background-position-x: -6px;
+        background-position-y: -4px;
       }
 
       &.headAccessory {
@@ -225,89 +221,4 @@ export default {
       }
     }
   }
-
-  .text-center {
-    .gem-lock, .gold-lock {
-      display: inline-block;
-      margin: 0 auto 8px;
-      vertical-align: bottom;
-    }
-  }
-
-  .gem-lock, .gold-lock {
-    .svg-icon {
-      width: 16px;
-    }
-
-    span {
-      font-weight: bold;
-      margin-left: .5em;
-    }
-
-    .svg-icon, span {
-      display: inline-block;
-      vertical-align: bottom;
-    }
-  }
-
-  .gem-lock span {
-    color: $green-10
-  }
-
-  .purchase-set {
-    background: #fff;
-    padding: 0.5em;
-    border-radius: 0 0 2px 2px;
-    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
-    cursor: pointer;
-
-    span {
-      font-weight: bold;
-      font-size: 12px;
-    }
-
-    span.price {
-      color: #24cc8f;
-    }
-
-    .gem, .coin {
-      width: 16px;
-    }
-
-    &.single {
-      width: 141px;
-    }
-
-    width: 100%;
-
-    span {
-      font-size: 14px;
-    }
-
-    .gem, .coin {
-      width: 20px;
-      margin: 0 .5em;
-      display: inline-block;
-      vertical-align: bottom;
-    }
-  }
-
-  .background-set {
-    background-color: #edecee;
-    border-radius: 2px;
-
-    padding-top: 12px;
-    margin-left: 12px;
-    margin-right: 12px;
-    margin-bottom: 12px;
-
-    width: calc(100% - 24px);
-
-    padding-left: 0;
-    padding-right: 0;
-
-    max-width: unset; // disable col12 styling
-    flex: unset;
-  }
-
 </style>
