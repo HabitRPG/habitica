@@ -868,7 +868,7 @@ function makeMatcherClass (date) {
 }
 
 function makeEndDate (checkedDate, matcher) {
-  let end = moment(checkedDate);
+  let end = moment.utc(checkedDate);
   end.date(TYPE_SCHEDULE[matcher.type]);
   end.hour(0);
   end.minute(0);
