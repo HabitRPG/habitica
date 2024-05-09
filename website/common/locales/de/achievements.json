@@ -164,5 +164,8 @@
     "achievementRodentRulerText": "Hat alle Standardfarben der Nagetiere ausgebrütet: Meerschweinchen, Ratte und Eichhörnchen!",
     "achievementRodentRulerModalText": "Du hast alle Nagetiere gesammelt!",
     "achievementDuneBuddyModalText": "Du hast alle wüstenbewohnenden Tiere gesammelt!",
-    "achievementRoughRiderModalText": "Du hast alle Standardfarben der unbequemen Haustiere und Reittiere gesammelt!"
+    "achievementRoughRiderModalText": "Du hast alle Standardfarben der unbequemen Haustiere und Reittiere gesammelt!",
+    "achievementCats": "Katzen Horter",
+    "achievementCatsText": "Hat alle Standardfarben der Katzen-Haustiere ausgebrütet: Gepard, Löwe, Säbelzahn und Tiger!",
+    "achievementCatsModalText": "Du hast alle Katzen-Haustiere gesammelt!"
 }

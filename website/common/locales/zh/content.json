@@ -204,7 +204,7 @@
     "hatchingPotionHolly": "冬青",
     "hatchingPotionCupid": "丘比特",
     "hatchingPotionShimmer": "微光",
-    "hatchingPotionFairy": "仙女",
+    "hatchingPotionFairy": "仙子",
     "hatchingPotionStarryNight": "星夜",
     "hatchingPotionRainbow": "彩虹",
     "hatchingPotionGlass": "玻璃",
@@ -375,5 +375,6 @@
     "hatchingPotionPorcelain": "瓷器",
     "hatchingPotionPinkMarble": "粉色大理石",
     "hatchingPotionTeaShop": "茶馆",
-    "hatchingPotionRoseGold": "玫瑰金"
+    "hatchingPotionRoseGold": "玫瑰金",
+    "hatchingPotionFungi": "蘑菇"
 }

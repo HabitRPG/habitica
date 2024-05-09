@@ -239,8 +239,8 @@
     "backgroundBlizzardNotes": "勇敢地面对这凶猛的暴风雪吧。",
     "backgroundSparklingSnowflakeText": "闪烁的雪花",
     "backgroundSparklingSnowflakeNotes": "在闪闪发光的雪花中飞行。",
-    "backgroundStoikalmVolcanoesText": "Stoïkalm火山",
-    "backgroundStoikalmVolcanoesNotes": "到Stoïkalm火山探险。",
+    "backgroundStoikalmVolcanoesText": "坚忍火山",
+    "backgroundStoikalmVolcanoesNotes": "探索坚忍火山。",
     "backgrounds022017": "第33组：2017年2月推出",
     "backgroundBellTowerText": "钟塔",
     "backgroundBellTowerNotes": "登上钟塔。",
@@ -860,5 +860,12 @@
     "backgroundWallFloweringVinesText": "花藤之墙",
     "backgroundWallFloweringVinesNotes": "在花藤墙边闲逛。",
     "backgroundContainerGardenText": "容器花园",
-    "backgroundContainerGardenNotes": "在容器花园中劳作。"
+    "backgroundContainerGardenNotes": "在容器花园中劳作。",
+    "backgrounds052024": "第120组：2024年5月推出",
+    "backgroundDragonsBackText": "龙背",
+    "backgroundDragonsBackNotes": "在龙背上遨游天际。",
+    "backgroundMaypoleText": "五朔节花柱",
+    "backgroundPottersStudioText": "陶艺工作室",
+    "backgroundPottersStudioNotes": "在陶艺工作室进行艺术创作。",
+    "backgroundMaypoleNotes": "围绕着快乐的五朔节花柱起舞。"
 }

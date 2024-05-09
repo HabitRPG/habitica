@@ -3112,5 +3112,17 @@
     "shieldSpecialSpring2024HealerNotes": "Proyecta los rayos del Sol primaveral para derretir corazones y sanar almas. Aumenta la Constitución en <%= con %>. Equipamiento de edición limitada Primavera 2024.",
     "shieldArmoireHappyThoughtsText": "Pensamientos felices",
     "shieldArmoireHappyThoughtsNotes": "Ya sea que estes recordando un momento feliz o imaginándote el futuro más prometedor, siempre verás el lado más positivo de la vida. Aumenta todas las estadisticas en <%= attrs %>. Armario Encantado: Conjunto de Optimista (Artículo 3 de 4).",
-    "eyewearArmoireRoseColoredGlassesText": "Gafas de Cristal Rosa"
+    "eyewearArmoireRoseColoredGlassesText": "Gafas de Cristal Rosa",
+    "weaponArmoirePottersWheelText": "Torno de Alfarero",
+    "armorArmoirePottersApronText": "Delantal de Alfarero",
+    "armorArmoirePottersApronNotes": "Llegaste completamente preparado con tus herramientas para desarrollar tu arte. Fue buena idea ponerte este delantal. ¡Tiene muchos bolsillos! Aumenta la Fuerza en <%= str %>. Armario Encantado: Conjunto de Alfarero (Artículo 1 de 4).",
+    "headArmoirePottersBandanaText": "Pañuelo Bandana",
+    "headArmoirePottersBandanaNotes": "Te favorece y además mantiene tu pelo en su sitio mientras trabajas. ¡Doble beneficio! Aumenta la Inteligencia en <%= int %>. Armario Encantado: Conjunto de Alfarero (Artículo 2 de 4).",
+    "shieldArmoireThrownVesselText": "Vasija Arrojadiza",
+    "shieldArmoireThrownVesselNotes": "Ya sabes lo que dicen: la práctica hace maestros. ¡Y esto es lo mejor q has podido conseguir hasta ahora! Aumenta la Constitución en <%= con %>. Armario Encantado: Conjunto de Alfarero (Artículo 3 de 4).",
+    "backMystery202405Text": "Alas de Draco de Oropel",
+    "backMystery202405Notes": "Estas majestuosas alas poseen el brillo del oro puro pero son ligeras como una pluma. No otorga ningún beneficio. Artículo de Suscriptor Mayo 2024.",
+    "headAccessoryMystery202405Text": "Cuernos de Draco de Oropel",
+    "headAccessoryMystery202405Notes": "El resplandor metalizado de estos estilizados cuernos refleja el baile de colores del fuego de dragón. No otorga ningún beneficio. Artículo de Suscriptor Mayo 2024.",
+    "weaponArmoirePottersWheelNotes": "Pon algo de arcilla en este torno y haz una bonita vasija o una taza o un jarrón o quizás, por que no una vasija estrambótica. ¡Si tienes suerte, un fantasma podría visitarte en plena apoteosis creativa! Aumenta la Percepción en <%= per %>. Armario Encantado: Conjunto de Alfarero (Artículo 4 de 4)."
 }
