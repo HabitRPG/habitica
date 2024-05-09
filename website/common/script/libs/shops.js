@@ -426,6 +426,7 @@ shops.getSeasonalGearBySet = function getSeasonalGearBySet (
   set,
   officialPinnedItems,
   language,
+  gearMatcher,
   ignoreAlreadyOwned = false,
 ) {
   return flatGearArray.filter(gear => {
@@ -436,7 +437,7 @@ shops.getSeasonalGearBySet = function getSeasonalGearBySet (
     const currentSet = gear.set === seasonalShopConfig.pinnedSets[gear.specialClass];
 
     // only the current season set can be purchased by gold
-    const itemInfo = getItemInfo(null, currentSet ? 'marketGear' : 'gear', gear, officialPinnedItems, language);
+    const itemInfo = getItemInfo(null, currentSet ? 'marketGear' : 'gear', gear, officialPinnedItems, language, gearMatcher);
     itemInfo.locked = currentSet && user.stats.class !== gear.specialClass;
 
     // gear that has previously been owned should be repurchaseable with gold
@@ -520,7 +521,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
       text: i18n.t(set),
     };
 
-    category.items = shops.getSeasonalGearBySet(user, set, officialPinnedItems, language, false);
+    category.items = shops.getSeasonalGearBySet(user, set, officialPinnedItems, language, gearMatcher, false);
 
     if (category.items.length > 0) {
       const item = category.items[0];
