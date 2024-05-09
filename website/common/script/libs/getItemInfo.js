@@ -53,7 +53,6 @@ function getDefaultGearProps (item, language) {
     per: item.per,
     con: item.con,
     klass: item.klass,
-    event: item.event,
     set: item.set,
   };
 }
@@ -106,7 +105,6 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         purchaseType: 'hatchingPotions',
         path: item.wacky ? `wackyHatchingPotions.${item.key}` : `premiumHatchingPotions.${item.key}`,
         pinType: 'premiumHatchingPotion',
-        event: item.event,
       };
       break;
     case 'food':
@@ -135,7 +133,6 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         purchaseType: 'bundles',
         path: `bundles.${item.key}`,
         pinType: 'bundles',
-        event: item.event,
       };
       break;
     case 'quests': // eslint-disable-line no-case-declarations
@@ -147,7 +144,6 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         notes: item.notes(language),
         addlNotes: item.addlNotes ? item.addlNotes(language) : null,
         group: item.group,
-        event: item.event,
         value: item.goldValue ? item.goldValue : item.value,
         locked,
         previous: content.quests[item.previous]
@@ -193,7 +189,6 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         class: `inventory_special_${item.key}`,
         path: `spells.special.${item.key}`,
         pinType: 'seasonalSpell',
-        event: item.event,
       };
       break;
     case 'debuffPotion':

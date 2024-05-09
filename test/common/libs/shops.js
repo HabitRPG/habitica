@@ -35,6 +35,14 @@ describe('shops', () => {
       });
     });
 
+    it('does not return items with event data', async () => {
+      shopCategories.forEach(category => {
+        category.items.forEach(item => {
+          expect(item.event).to.not.exist;
+        });
+      });
+    });
+
     it('shows relevant non class gear in special category', () => {
       const contributor = generateUser({
         contributor: {
@@ -163,6 +171,14 @@ describe('shops', () => {
         }
       });
     });
+
+    it('does not return items with event data', async () => {
+      shopCategories.forEach(category => {
+        category.items.forEach(item => {
+          expect(item.event).to.not.exist;
+        });
+      });
+    });
   });
 
   describe('timeTravelers', () => {
@@ -189,10 +205,19 @@ describe('shops', () => {
         });
       });
     });
+
+    it('does not return items with event data', async () => {
+      shopCategories.forEach(category => {
+        category.items.forEach(item => {
+          expect(item.event).to.not.exist;
+        });
+      });
+    });
   });
 
   describe('seasonalShop', () => {
     const shopCategories = shared.shops.getSeasonalShopCategories(user);
+    const today = new Date();
 
     it('does not contain an empty category', () => {
       _.each(shopCategories, category => {
@@ -206,12 +231,30 @@ describe('shops', () => {
       expect(identifiers.length).to.eql(shopCategories.length);
     });
 
+    it('does not return items with event data', async () => {
+      shopCategories.forEach(category => {
+        category.items.forEach(item => {
+          expect(item.event).to.not.exist;
+        });
+      });
+    });
+
     it('items contain required fields', () => {
       _.each(shopCategories, category => {
         _.each(category.items, item => {
           _.each(['key', 'text', 'notes', 'value', 'currency', 'locked', 'purchaseType', 'type'], key => {
             expect(_.has(item, key)).to.eql(true);
           });
+        });
+      });
+    });
+
+    it('items have a valid end date', () => {
+      shopCategories.forEach(category => {
+        category.items.forEach(item => {
+          expect(item.end).to.be.a('date');
+          expect(item.end).to.be.greaterThan(today);
+          console.log(item.end)
         });
       });
     });
