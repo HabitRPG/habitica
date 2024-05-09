@@ -116,6 +116,7 @@ api.armoire = {
 
 api.events = EVENTS;
 api.repeatingEvents = REPEATING_EVENTS;
+api.getRepeatingEventsOnDate = getRepeatingEvents;
 
 api.classes = CLASSES;
 

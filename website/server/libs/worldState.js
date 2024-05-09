@@ -18,46 +18,21 @@ export async function getWorldBoss () {
 
 export function getCurrentEvent () {
   const now = moment();
-  const currEvtKey = Object.keys(common.content.repeatingEvents).find(
-    evtKey => {
-      const event = common.content.repeatingEvents[evtKey];
-      const startDate = event.start.replace('1970', now.year());
-      const endDate = event.end.replace('1970', now.year());
+  const currentEvents = common.content.getRepeatingEventsOnDate(now);
 
-      return now.isBetween(startDate, endDate);
-    },
-  );
-
-  if (!currEvtKey) {
+  if (currentEvents.length === 0) {
     return common.schedule.getCurrentGalaEvent();
   }
   return {
-    event: currEvtKey,
-    ...common.content.repeatingEvents[currEvtKey],
+    event: currentEvents[0].key,
+    ...currentEvents[0],
   };
 }
 
 export function getCurrentEventList () {
   const now = moment();
-  const currentEventKeys = filter(
-    Object.keys(common.content.repeatingEvents),
-    eventKey => {
-      const eventData = common.content.repeatingEvents[eventKey];
-      const startDate = eventData.start.replace('1970', now.year());
-      const endDate = eventData.end.replace('1970', now.year());
-
-      return now.isBetween(startDate, endDate);
-    },
-  );
-
-  const currentEventList = [];
-
-  currentEventKeys.forEach(key => {
-    currentEventList.push({
-      event: key,
-      ...common.content.repeatingEvents[key],
-    });
-  });
-  currentEventList.push(common.schedule.getCurrentGalaEvent());
-  return currentEventList;
+  console.log(common.content.getRepeatingEventsOnDate);
+  const currentEvents = common.content.getRepeatingEventsOnDate(now);
+  currentEvents.push(common.schedule.getCurrentGalaEvent());
+  return currentEvents;
 }
