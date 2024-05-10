@@ -1339,8 +1339,8 @@ const shield = {
     con: 8,
     set: 'pottersSet',
   },
-  shadyBeachUmbrella: {
-    per: 12,
+  buoyantBeachBall: {
+    str: 12,
     set: 'beachsideSet',
   },
 };
@@ -1825,8 +1825,8 @@ const weapon = {
     per: 8,
     set: 'pottersSet',
   },
-  buoyantBeachBall: {
-    str: 12,
+  shadyBeachUmbrella: {
+    per: 12,
     set: 'beachsideSet',
   },
 };
