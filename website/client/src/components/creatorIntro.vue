@@ -9,12 +9,10 @@
     :no-close-on-esc="!editing"
     :no-close-on-backdrop="!editing"
   >
-    <span
+    <close-x
       v-if="editing"
-      class="close-icon svg-icon inline icon-10"
-      @click="close()"
-      v-html="icons.close"
-    ></span>
+      @close="close()"
+    />
     <div
       v-if="modalPage === 1 && !editing"
       class="section row welcome-section"
@@ -29,39 +27,47 @@
         ></div>
       </div>
     </div>
+    <h2
+      class="text-center pt-2 mt-4 mb-4"
+      v-if="editing"
+    >
+      {{ $t('editAvatar')}}
+    </h2>
     <div
       v-if="modalPage > 1"
-      class="avatar-section row"
+      class="avatar-section d-flex justify-content-center"
       :class="{'page-2': modalPage === 2}"
     >
-      <div class="col-6 offset-3">
+      <div>
         <div
           v-if="!editing"
-          class="user-creation-bg"
-        ></div>
+          class="user-creation-bg mt-5"
+        >
+          <avatar
+            class="new-user"
+            :member="user"
+            :avatar-only="true"
+          />
+        </div>
         <avatar
+          v-else
           :member="user"
-          :avatar-only="!editing"
-          :class="{'edit-avatar': editing}"
+          :avatar-only="false"
         />
       </div>
     </div>
     <div
       v-if="modalPage === 2"
       class="section"
-      :class="{'edit-modal': editing}"
     >
       <div
         id="options-nav"
-        class="container section text-center customize-menu"
+        class="container section text-center customize-menu px-5"
       >
-        <div class="row">
+        <div class="row justify-content-around">
           <div
             class="menu-container"
-            :class="{
-              'col-3': !editing,
-              'col-2 offset-1': editing,
-              active: activeTopPage === 'body'}"
+            :class="{active: activeTopPage === 'body'}"
             @click="changeTopPage('body', 'size')"
           >
             <div class="menu-item">
@@ -75,7 +81,7 @@
           </div>
           <div
             class="menu-container"
-            :class="{'col-3': !editing, 'col-2': editing, active: activeTopPage === 'skin'}"
+            :class="{active: activeTopPage === 'skin'}"
             @click="changeTopPage('skin', 'color')"
           >
             <div class="menu-item">
@@ -89,7 +95,7 @@
           </div>
           <div
             class="menu-container"
-            :class="{'col-3': !editing, 'col-2': editing, active: activeTopPage === 'hair'}"
+            :class="{active: activeTopPage === 'hair'}"
             @click="changeTopPage('hair', 'color')"
           >
             <div class="menu-item">
@@ -103,7 +109,7 @@
           </div>
           <div
             class="menu-container"
-            :class="{'col-3': !editing, 'col-2': editing, active: activeTopPage === 'extra'}"
+            :class="{active: activeTopPage === 'extra'}"
             @click="changeTopPage('extra', 'glasses')"
           >
             <div class="menu-item">
@@ -117,7 +123,7 @@
           </div>
           <div
             v-if="editing"
-            class="menu-container col-2"
+            class="menu-container"
             :class="{active: activeTopPage === 'backgrounds'}"
             @click="changeTopPage('backgrounds')"
           >
@@ -558,18 +564,7 @@
   $dialogMarginTop: 56px;
   $userCreationBgHeight:  105px;
 
-  /* @TODO do not rely on avatar-modal___BV_modal_body_,
-     it already changed once when bootstrap-vue reached version 1 */
-
-  #avatar-modal___BV_modal_body_, #avatar-modal___BV_modal_body_ {
-    padding: 0;
-  }
-
   .page-2 {
-    #avatar-modal___BV_modal_body_ {
-      margin-top: $dialogMarginTop;
-    }
-
     &#avatar-modal {
       .modal-dialog.modal-md {
         margin-top: 186px;
@@ -578,6 +573,26 @@
   }
 
   #avatar-modal {
+    .avatar {
+      cursor: auto;
+
+      &:not(.new-user) {
+        box-shadow: 0px 1px 3px 0px rgba(26, 24, 29, 0.12), 0px 1px 2px 0px rgba(26, 24, 29, 0.24);
+      }
+
+      &.new-user {
+        padding-top: 0px;
+        padding-left: 30px;
+      }
+    }
+
+    .modal-body {
+      padding: 0px;
+    }
+
+    .modal-content {
+      border-radius: 12px;
+    }
 
     .first-page-footer {
       margin-bottom: 32px;
@@ -617,14 +632,6 @@
       padding-top: 1px;
     }
 
-    .purchase-all {
-      margin-bottom: 1em;
-    }
-
-    .edit-modal {
-      margin-top: 10em;
-    }
-
     .row.sub-menu + .row.sub-menu {
       margin-top: 0.5em;
     }
@@ -646,12 +653,6 @@
       margin: 0 auto;
     }
 
-    .avatar {
-      position: absolute !important; // was overwritten in production build
-      top: -22px;
-      left: 4em;
-    }
-
     .top {
       position: absolute;
       top: -($dialogMarginTop + $userCreationBgHeight - 16px);
@@ -665,10 +666,6 @@
 
     .avatar-section {
       margin-bottom: 30px;
-    }
-
-    .edit-avatar {
-      left: 9.2em;
     }
 
     .justin-section {
@@ -742,14 +739,18 @@
     }
 
     .customize-menu {
-      .menu-item .svg-icon {
-        width: 32px;
-        height: 32px;
-        margin: 0 auto;
+      .menu-item {
+        width: 83px;
+
+        .svg-icon {
+          width: 32px;
+          height: 32px;
+          margin: 0 auto;
+        }
       }
 
       .menu-container {
-        color: #a5a1ac;
+        color: $gray-100;
       }
 
       .menu-container:hover, .menu-container.active {
@@ -970,6 +971,7 @@ import bodySettings from './avatarModal/body-settings';
 import skinSettings from './avatarModal/skin-settings';
 import hairSettings from './avatarModal/hair-settings';
 import extraSettings from './avatarModal/extra-settings';
+import closeX from './ui/closeX';
 
 import logoPurple from '@/assets/svg/logo-purple.svg';
 import bodyIcon from '@/assets/svg/body.svg';
@@ -988,6 +990,7 @@ import { avatarEditorUtilities } from '../mixins/avatarEditUtilities';
 export default {
   components: {
     avatar,
+    closeX,
     customizeBanner,
     bodySettings,
     extraSettings,

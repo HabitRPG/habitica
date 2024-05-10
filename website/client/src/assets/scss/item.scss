@@ -80,9 +80,15 @@
   }
 }
 
-.flat .item {
-  box-shadow: none;
-  border: none;
+.flat {
+  .item {
+    box-shadow: none;
+    border: none;
+  }
+
+  .item-wrapper:hover {
+    box-shadow: none;
+  }
 }
 
 .bordered-item .item {

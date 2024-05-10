@@ -7,6 +7,7 @@ export default prefill({
   baseHair3: { setPrice: 5, text: t('hairSet3') },
   facialHair: { setPrice: 5, text: t('titleFacialHair') },
   specialShirts: { setPrice: 5, text: t('specialShirts') },
+  legacyShirts: { },
   winterHairColors: { setPrice: 5 },
   pastelHairColors: { setPrice: 5 },
   rainbowHairColors: { setPrice: 5, text: t('rainbowColors') },

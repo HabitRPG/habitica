@@ -70,9 +70,9 @@ export const avatarEditorUtilities = { // eslint-disable-line import/prefer-defa
         }
         case 'hair': {
           if (subType === 'color') {
-            str += `hair_bangs_${this.user.preferences.hair.bangs || 1}_${key}`; // todo get current hair-bang setting
+            str += `icon_hair_bangs_${this.user.preferences.hair.bangs || 1}_${key}`;
           } else {
-            str += `hair_${subType}_${key}_${this.user.preferences.hair.color}`;
+            str += `icon_hair_${subType}_${key}_${this.user.preferences.hair.color}`;
           }
           break;
         }

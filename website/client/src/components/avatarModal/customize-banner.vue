@@ -31,8 +31,8 @@
 
   .bottom-banner {
     background: linear-gradient(114.26deg, $purple-300 0%, $purple-200 100%);
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
     color: $white;
     height: 80px;
     line-height: 24px;
