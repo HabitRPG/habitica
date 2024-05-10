@@ -93,7 +93,9 @@ export function getRepeatingEvents (date) {
   const momentDate = date instanceof moment ? date : moment(date);
   return Object.keys(REPEATING_EVENTS).map(eventKey => {
     const event = REPEATING_EVENTS[eventKey];
-    event.key = eventKey;
+    if (!event.key) {
+      event.key = eventKey;
+    }
     event.start.setYear(momentDate.year());
     event.end.setYear(momentDate.year());
     if (event.end < event.start && momentDate < event.start) {
