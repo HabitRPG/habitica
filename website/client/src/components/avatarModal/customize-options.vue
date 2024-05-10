@@ -200,8 +200,8 @@ export default {
           margin-top: -5px;
         }
       }
-      &.color, &.bangs, &.beard {
-        background-position-x: -5px;
+      &.color, &.bangs, &.beard, &.flower {
+        background-position-x: -6px;
         background-position-y: -12px;
       }
 

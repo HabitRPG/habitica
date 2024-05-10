@@ -237,7 +237,7 @@ export default {
           option.none = true;
         }
         option.active = this.user.preferences.hair.flower === key;
-        option.class = `hair_flower_${key} flower`;
+        option.class = `icon_hair_flower_${key} flower`;
         option.click = () => this.set({ 'preferences.hair.flower': key });
         return option;
       });
