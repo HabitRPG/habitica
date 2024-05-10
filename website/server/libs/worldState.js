@@ -31,7 +31,6 @@ export function getCurrentEvent () {
 
 export function getCurrentEventList () {
   const now = moment();
-  console.log(common.content.getRepeatingEventsOnDate);
   const currentEvents = common.content.getRepeatingEventsOnDate(now);
   currentEvents.push(common.schedule.getCurrentGalaEvent());
   return currentEvents;
