@@ -52,25 +52,11 @@
             @change="toggleOpt()"
           />
         </div>
-        <div
-          v-if="filtersConversations.length > 0"
-          class="conversations"
-        >
-          <conversation-item
-            v-for="conversation in filtersConversations"
-            :key="conversation.key"
-            :active-key="selectedConversation.key"
-            :contributor="conversation.contributor"
-            :backer="conversation.backer"
-            :uuid="conversation.key"
-            :display-name="conversation.name"
-            :username="conversation.username"
-            :last-message-date="conversation.date"
-            :last-message-text="conversation.lastMessageText
-              ? removeTags(parseMarkdown(conversation.lastMessageText)) : ''"
-            @click="selectConversation(conversation.key)"
-          />
-        </div>
+        <pm-conversations-list
+          :filters-conversations="filtersConversations"
+          :selected-conversation="selectedConversation"
+          @selectConversation="selectConversation($event)"
+        />
         <button
           v-if="canLoadMoreConversations"
           class="btn btn-secondary"
@@ -145,7 +131,10 @@
           <h4>{{ disabledTexts.title }}</h4>
           <p>{{ disabledTexts.description }}</p>
         </div>
-        <div class="full-width">
+        <div
+          v-if="shouldShowInputPanel"
+          class="full-width"
+        >
           <div
             class="new-message-row d-flex align-items-center"
           >
@@ -184,372 +173,366 @@
 </template>
 
 <style lang="scss">
-  @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/variables.scss';
+@import '~@/assets/scss/colors.scss';
+@import '~@/assets/scss/variables.scss';
 
-  $pmHeaderHeight: 56px;
+$pmHeaderHeight: 56px;
 
-  // Content of Private Message should be always full-size (minus the toolbar/resting banner)
+// Content of Private Message should be always full-size (minus the toolbar/resting banner)
 
-  #private-message {
-    height: calc(100vh - #{$menuToolbarHeight} -
-      var(--banner-gift-promo-height, 0px) -
-      var(--banner-damage-paused-height, 0px) -
-      var(--banner-gems-promo-height, 0px)
-    ); // css variable magic :), must be 0px, 0 alone won't work
+#private-message {
+  height: calc(100vh - #{$menuToolbarHeight} -
+  var(--banner-gift-promo-height, 0px) -
+  var(--banner-damage-paused-height, 0px) -
+  var(--banner-gems-promo-height, 0px)
+  ); // css variable magic :), must be 0px, 0 alone won't work
 
-    .content {
-      flex: 1;
-      height: calc(100vh - #{$menuToolbarHeight} - #{$pmHeaderHeight} -
-        var(--banner-gift-promo-height, 0px) -
-        var(--banner-damage-paused-height, 0px) -
-        var(--banner-gems-promo-height, 0px)
-      );
-    }
-
-    .disable-background {
-      .toggle-switch-description {
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        flex: 1;
-      }
-
-      .toggle-switch-outer {
-        display: flex;
-      }
-
-    }
-
-    .modal-body {
-      padding: 0rem;
-    }
-
-    .modal-content {
-      width: 66vw;
-    }
-
-    .modal-dialog {
-      margin: 10vh 15vw 0rem;
-    }
-
-    .modal-header {
-      padding: 1rem 0rem;
-
-      .close {
-        cursor: pointer;
-        margin: 0rem 1.5rem;
-        min-width: 0.75rem;
-        padding: 0rem;
-        width: 0.75rem;
-      }
-    }
-
-    .toggle-switch-description {
-      font-size: 14px;
-      font-weight: bold;
-      font-style: normal;
-      font-stretch: normal;
-      line-height: 1.43;
-      letter-spacing: normal;
-      color: $gray-50;
-    }
-  }
-</style>
-
-<style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/tiers.scss';
-  @import '~@/assets/scss/variables.scss';
-
-  $pmHeaderHeight: 56px;
-  $background: $white;
-
-  .header-bar {
-    height: 56px;
-    background-color: $white;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    align-items: center;
-
-    .mail-icon {
-      width: 32px;
-      height: 24px;
-      object-fit: contain;
-    }
-
-    .mail-icon-label {
-      margin-bottom: 0;
-    }
-
-    .placeholder.svg-icon {
-      width: 32px;
-    }
-  }
-
-  .full-height {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .user-link {
-    margin-left: 12px;
-  }
-
-  .selected-conversion {
-    justify-content: center;
-    align-items: center;
-  }
-
-  #private-message {
-    background-color: $background;
-    position: relative;
+  .content {
+    flex: 1;
+    height: calc(100vh - #{$menuToolbarHeight} - #{$pmHeaderHeight} -
+    var(--banner-gift-promo-height, 0px) -
+    var(--banner-damage-paused-height, 0px) -
+    var(--banner-gems-promo-height, 0px)
+    );
   }
 
   .disable-background {
-    height: 44px;
-    background-color: $gray-600;
-    padding: 0.75rem 1.5rem;
-
-    border-bottom: 1px solid $gray-500;
-  }
-
-  .conversations {
-    overflow-x: hidden;
-    overflow-y: auto;
-    height: 100%;
-  }
-
-  .empty-messages {
-    h3, p {
-      color: $gray-200;
-      margin: 0rem;
-    }
-
-    h2 {
-      color: $gray-200;
-      margin-bottom: 1rem;
-    }
-
-    p {
-      font-size: 12px;
-    }
-
-    .no-messages-box {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 330px;
-    }
-
-    .envelope {
-      color: $gray-400 !important;
-      margin-bottom: 1.5rem;
-
-      ::v-deep svg {
-        width: 64px;
-        height: 48px;
-      }
-    }
-  }
-
-  h3 {
-    margin: 0rem;
-
-    .svg-icon {
-      width: 10px;
-      display: inline-block;
-      margin-left: .5em;
-    }
-  }
-
-  .header-wrap {
-    padding: 0.5em;
-
-    h2 {
-      margin: 0;
-      line-height: 1;
-    }
-  }
-
-  .messagePreview {
-    display: block;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    word-break: break-word;
-  }
-
-  .selected-conversion {
-    flex: 1;
-  }
-
-  .messages-column {
-    flex: 1;
-    padding: 0rem;
-    display: flex;
-    flex-direction: column;
-
-    .empty-messages, .message-scroll {
+    .toggle-switch-description {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
       flex: 1;
     }
-  }
 
-  .message-scroll {
-    overflow-x: hidden;
-    padding-top: 0.5rem;
-
-    @media (min-width: 992px) {
-      overflow-x: hidden;
-      overflow-y: scroll;
+    .toggle-switch-outer {
+      display: flex;
     }
+
   }
 
-  .full-width {
-    width: 100%;
+  .modal-body {
+    padding: 0rem;
   }
 
-  .new-message-row {
-    width: 100%;
-    padding-left: 1.5rem;
-    padding-top: 1.5rem;
-    padding-right: 1.5rem;
+  .modal-content {
+    width: 66vw;
+  }
 
-    textarea {
-      background: $white;
-      display: inline-block;
-      vertical-align: bottom;
-      border-radius: 2px;
-      z-index: 5;
+  .modal-dialog {
+    margin: 10vh 15vw 0rem;
+  }
 
-      &.disabled {
-        pointer-events: none;
-        opacity: 0.64;
-        background-color: $gray-500;
-      }
+  .modal-header {
+    padding: 1rem 0rem;
 
-      &.has-content {
-        --textarea-auto-height: 80px;
-      }
-
-      height: var(--textarea-auto-height, 40px);
-      min-height: var(--textarea-auto-height, 40px);
-      max-height: 300px;
+    .close {
+      cursor: pointer;
+      margin: 0rem 1.5rem;
+      min-width: 0.75rem;
+      padding: 0rem;
+      width: 0.75rem;
     }
   }
 
-  .sub-new-message-row {
-    padding: 1.5rem;
+  .toggle-switch-description {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.43;
+    letter-spacing: normal;
+    color: $gray-50;
+  }
+}
+</style>
 
-    .guidelines {
-      height: 32px;
-      font-size: 12px;
-      font-weight: normal;
-      font-style: normal;
-      font-stretch: normal;
-      line-height: 1.33;
-      letter-spacing: normal;
-      color: $gray-200;
-      margin-top: 0.25rem;
-      margin-bottom: 0.25rem;
-    }
+<style lang="scss" scoped>
+@import '~@/assets/scss/colors.scss';
+@import '~@/assets/scss/tiers.scss';
+@import '~@/assets/scss/variables.scss';
 
-    button {
-      height: 40px;
-      border-radius: 2px;
-      margin-left: 1.5rem;
+$pmHeaderHeight: 56px;
+$background: $white;
 
-      &.disabled {
-        cursor: default;
-        pointer-events: none;
-        opacity: 0.64;
-        background-color: $gray-500;
-        color: $gray-100;
-      }
-    }
+.header-bar {
+  height: 56px;
+  background-color: $white;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  align-items: center;
+
+  .mail-icon {
+    width: 32px;
+    height: 24px;
+    object-fit: contain;
   }
 
-  .pm-disabled-caption {
-    padding-top: 1em;
-    z-index: 2;
-
-    h4, p {
-      color: $gray-200;
-    }
-
-    h4 {
-      margin-top: 0;
-      margin-bottom: 0.4em;
-    }
-
-    p {
-      font-size: 12px;
-      margin-bottom: 0;
-    }
+  .mail-icon-label {
+    margin-bottom: 0;
   }
 
-  .left-header {
-    max-width: calc(330px - 2rem); // minus the left padding
+  .placeholder.svg-icon {
+    width: 32px;
+  }
+}
+
+.full-height {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.user-link {
+  margin-left: 12px;
+}
+
+.selected-conversion {
+  justify-content: center;
+  align-items: center;
+}
+
+#private-message {
+  background-color: $background;
+  position: relative;
+}
+
+.disable-background {
+  height: 44px;
+  background-color: $gray-600;
+  padding: 0.75rem 1.5rem;
+
+  border-bottom: 1px solid $gray-500;
+}
+
+.empty-messages {
+  h3, p {
+    color: $gray-200;
+    margin: 0rem;
+  }
+
+  h2 {
+    color: $gray-200;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 12px;
+  }
+
+  .no-messages-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 330px;
+  }
+
+  .envelope {
+    color: $gray-400 !important;
+    margin-bottom: 1.5rem;
+
+    ::v-deep svg {
+      width: 64px;
+      height: 48px;
+    }
+  }
+}
+
+h3 {
+  margin: 0rem;
+
+  .svg-icon {
+    width: 10px;
+    display: inline-block;
+    margin-left: .5em;
+  }
+}
+
+.header-wrap {
+  padding: 0.5em;
+
+  h2 {
+    margin: 0;
+    line-height: 1;
+  }
+}
+
+.messagePreview {
+  display: block;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+}
+
+.selected-conversion {
+  flex: 1;
+}
+
+.messages-column {
+  flex: 1;
+  padding: 0rem;
+  display: flex;
+  flex-direction: column;
+
+  .empty-messages, .message-scroll {
     flex: 1;
   }
+}
 
-  .sidebar {
-    width: 330px;
-    background-color: $gray-700;
-    padding: 0;
-    border-bottom-left-radius: 8px;
+.message-scroll {
+  overflow-x: hidden;
+  padding-top: 0.5rem;
 
-    @media only screen and (max-width: 768px) {
-      width: 280px;
+  @media (min-width: 992px) {
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+}
+
+.full-width {
+  width: 100%;
+}
+
+.new-message-row {
+  width: 100%;
+  padding-left: 1.5rem;
+  padding-top: 1.5rem;
+  padding-right: 1.5rem;
+
+  textarea {
+    background: $white;
+    display: inline-block;
+    vertical-align: bottom;
+    border-radius: 2px;
+    z-index: 5;
+
+    &.disabled {
+      pointer-events: none;
+      opacity: 0.64;
+      background-color: $gray-500;
+    }
+
+    &.has-content {
+      --textarea-auto-height: 80px;
+    }
+
+    height: var(--textarea-auto-height, 40px);
+    min-height: var(--textarea-auto-height, 40px);
+    max-height: 300px;
+  }
+}
+
+.sub-new-message-row {
+  padding: 1.5rem;
+
+  .guidelines {
+    height: 32px;
+    font-size: 12px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.33;
+    letter-spacing: normal;
+    color: $gray-200;
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+  }
+
+  button {
+    height: 40px;
+    border-radius: 2px;
+    margin-left: 1.5rem;
+
+    &.disabled {
+      cursor: default;
+      pointer-events: none;
+      opacity: 0.64;
+      background-color: $gray-500;
+      color: $gray-100;
     }
   }
+}
 
-  .time {
-    font-size: 12px;
+.pm-disabled-caption {
+  padding-top: 1em;
+  z-index: 2;
+
+  h4, p {
     color: $gray-200;
-    margin-bottom: 0.5rem;
   }
 
-  .to-form input {
-    width: 60%;
-    display: inline-block;
-    margin-left: 1em;
+  h4 {
+    margin-top: 0;
+    margin-bottom: 0.4em;
   }
 
-  .empty-sidebar {
-    display: flex;
-    align-items: center;
+  p {
+    font-size: 12px;
+    margin-bottom: 0;
   }
+}
 
-  .floating-message-input {
-    background: $background;
-    position: fixed;
-    bottom: 0;
+.left-header {
+  max-width: calc(330px - 2rem); // minus the left padding
+  flex: 1;
+}
+
+.sidebar {
+  width: 330px;
+  background-color: $gray-700;
+  padding: 0;
+  border-bottom-left-radius: 8px;
+
+  @media only screen and (max-width: 768px) {
+    width: 280px;
   }
+}
 
-  .floating-header-shadow {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 56px;
-    right: 0;
-    z-index: 1;
-    pointer-events: none;
+.time {
+  font-size: 12px;
+  color: $gray-200;
+  margin-bottom: 0.5rem;
+}
 
-    box-shadow: 0 3px 12px 0 rgba(26, 24, 29, 0.24);
-  }
+.to-form input {
+  width: 60%;
+  display: inline-block;
+  margin-left: 1em;
+}
 
-  .center-avatar {
-    margin: 0 auto;
-  }
+.empty-sidebar {
+  display: flex;
+  align-items: center;
+}
+
+.floating-message-input {
+  background: $background;
+  position: fixed;
+  bottom: 0;
+}
+
+.floating-header-shadow {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 56px;
+  right: 0;
+  z-index: 1;
+  pointer-events: none;
+
+  box-shadow: 0 3px 12px 0 rgba(26, 24, 29, 0.24);
+}
+
+.center-avatar {
+  margin: 0 auto;
+}
 </style>
 
 <script>
-import Vue from 'vue';
+import Vue, { defineComponent } from 'vue';
 import moment from 'moment';
 import groupBy from 'lodash/groupBy';
 import orderBy from 'lodash/orderBy';
@@ -564,21 +547,28 @@ import userLink from '@/components/userLink';
 import messageList from '@/components/messages/messageList';
 import messageIcon from '@/assets/svg/message.svg';
 import mail from '@/assets/svg/mail.svg';
-import conversationItem from '@/components/messages/conversationItem';
 import faceAvatar from '@/components/faceAvatar';
 import Avatar from '@/components/avatar';
 import { EVENTS } from '@/libs/events';
+import PmConversationsList from './private-messages/pm-conversations-list.vue';
 
 // extract to a shared path
 const CONVERSATIONS_PER_PAGE = 10;
 const PM_PER_PAGE = 10;
 
-export default {
+const UI_STATES = {
+  NO_CONVERSATIONS: 'NO_CONVERSATIONS',
+  NO_CONVERSATIONS_SELECTED: 'NO_CONVERSATIONS_SELECTED',
+  START_NEW_CONVERSATION: 'START_NEW_CONVERSATION',
+  CONVERSATION_SELECTED: 'CONVERSATION_SELECTED',
+};
+
+export default defineComponent({
   components: {
+    PmConversationsList,
     Avatar,
     messageList,
     toggleSwitch,
-    conversationItem,
     userLink,
     faceAvatar,
   },
@@ -627,6 +617,7 @@ export default {
       messages: [],
       messagesLoading: false,
       MAX_MESSAGE_LENGTH: MAX_MESSAGE_LENGTH.toString(),
+      uiState: '',
     };
   },
   computed: {
@@ -709,9 +700,6 @@ export default {
 
       return ordered;
     },
-    currentLength () {
-      return this.newMessage.length;
-    },
     placeholderTexts () {
       if (this.user.flags.chatRevoked) {
         return {
@@ -779,6 +767,27 @@ export default {
       return !this.selectedConversation || !this.selectedConversation.key
         || this.disabledTexts !== null;
     },
+    shouldShowInputPanel () {
+      const currentUiState = this.uiState;
+
+      switch (currentUiState) {
+        case UI_STATES.NO_CONVERSATIONS: {
+          return false;
+        }
+        case UI_STATES.NO_CONVERSATIONS_SELECTED: {
+          return false;
+        }
+        case UI_STATES.START_NEW_CONVERSATION: {
+          return true;
+        }
+        case UI_STATES.CONVERSATION_SELECTED: {
+          return true;
+        }
+        default: {
+          return false;
+        }
+      }
+    },
   },
   async mounted () {
     this.$store.dispatch('common:setTitle', {
@@ -834,6 +843,8 @@ export default {
       this.loadedConversations = [];
       this.selectedConversation = {};
 
+      this.uiState = UI_STATES.NO_CONVERSATIONS;
+
       await this.loadConversations();
 
       await this.$store.dispatch('user:markPrivMessagesRead');
@@ -849,6 +860,10 @@ export default {
       const loadedConversations = conversationRes.data.data;
       this.canLoadMoreConversations = loadedConversations.length === CONVERSATIONS_PER_PAGE;
       this.loadedConversations.push(...loadedConversations);
+
+      if (this.loadedConversations.length !== 0 && !this.selectedConversation) {
+        this.uiState = UI_STATES.NO_CONVERSATIONS_SELECTED;
+      }
     },
     messageRemoved (message) {
       const messages = this.messagesByConversation[this.selectedConversation.key];
@@ -876,6 +891,8 @@ export default {
       if (!this.messagesByConversation[this.selectedConversation.key] || forceLoadMessage) {
         await this.loadMessages();
       }
+
+      this.uiState = UI_STATES.CONVERSATION_SELECTED;
 
       this.scrollToBottom();
     },
@@ -939,11 +956,6 @@ export default {
         chatscroll.scrollTop = chatscroll.scrollHeight;
       });
     },
-    removeTags (html) {
-      const tmp = document.createElement('DIV');
-      tmp.innerHTML = html;
-      return tmp.textContent || tmp.innerText || '';
-    },
     parseMarkdown (text) {
       if (!text) return null;
       return habiticaMarkdown.render(String(text));
@@ -989,5 +1001,5 @@ export default {
       }
     },
   },
-};
+});
 </script>
