@@ -255,11 +255,10 @@ $pmHeaderHeight: 56px;
 
     .envelope {
       color: $gray-400 !important;
-      margin-bottom: 1.5rem;
 
-      ::v-deep svg {
-        width: 64px;
-        height: 48px;
+      svg {
+        width: 86px;
+        height: 64px;
       }
     }
   }
@@ -504,7 +503,6 @@ import Vue, { defineComponent } from 'vue';
 import moment from 'moment';
 import groupBy from 'lodash/groupBy';
 import orderBy from 'lodash/orderBy';
-import habiticaMarkdown from 'habitica-markdown';
 import axios from 'axios';
 import { MAX_MESSAGE_LENGTH } from '@/../../common/script/constants';
 import { mapState } from '@/libs/store';
@@ -882,8 +880,6 @@ export default defineComponent({
         await this.loadMessages();
       }
 
-      this.uiState = UI_STATES.CONVERSATION_SELECTED;
-
       this.scrollToBottom();
     },
     sendPrivateMessage () {
@@ -945,10 +941,6 @@ export default defineComponent({
         const chatscroll = this.$refs.chatscroll.$el;
         chatscroll.scrollTop = chatscroll.scrollHeight;
       });
-    },
-    parseMarkdown (text) {
-      if (!text) return null;
-      return habiticaMarkdown.render(String(text));
     },
     infiniteScrollTrigger () {
       // show loading and wait until the loadMore debounced

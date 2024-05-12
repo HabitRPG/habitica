@@ -5,12 +5,12 @@
     <div class="no-messages-box">
       <div
         v-once
-        class="svg-icon envelope"
-        v-html="icons.messageIcon"
+        class="svg-icon envelope mb-4"
+        v-html="icons.mailIcon"
       ></div>
-      <h2 v-once>
+      <strong v-once>
         {{ $t('emptyMessagesLine1') }}
-      </h2>
+      </strong>
       <p v-if="!chatRevoked">
         {{ $t('emptyMessagesLine2') }}
       </p>
@@ -25,10 +25,16 @@
 </template>
 
 <style scoped lang="scss">
+@import '~@/assets/scss/colors.scss';
+
+strong {
+  line-height: 1.71;
+  color: $gray-100;
+}
 </style>
 
 <script>
-import messageIcon from '@/assets/svg/message.svg';
+import mailIcon from '@/assets/svg/mail.svg';
 
 export default {
   props: {
@@ -37,7 +43,7 @@ export default {
   data () {
     return {
       icons: Object.freeze({
-        messageIcon,
+        mailIcon,
       }),
     };
   },
