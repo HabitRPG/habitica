@@ -95,11 +95,11 @@ function _parseRes (res) {
   } if (apiVersion === 'v3' || apiVersion === 'v4') {
     if (res.body.message) {
       return {
-        data: res._body.data,
+        data: res.body.data,
         message: res.body.message,
       };
     }
-    if (res.body.data) {
+    if (res.body.hasOwnProperty("data")) {
       return res.body.data;
     }
     return {
