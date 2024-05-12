@@ -45,7 +45,7 @@ function runInChildProcess (command, options = {}, envVariables = '') {
 }
 
 function integrationTestCommand (testDir, coverageDir) {
-  return `istanbul cover --dir coverage/${coverageDir} --report lcovonly node_modules/mocha/bin/_mocha -- ${testDir} --recursive --require ./test/helpers/start-server`;
+  return `nyc --report-dir coverage/${coverageDir} --reporter lcovonly --reporter html node_modules/mocha/bin/_mocha --recursive ${testDir} ./test/helpers/start-server`;
 }
 
 /* Test task definitions */
