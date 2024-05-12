@@ -66,25 +66,15 @@
         </button>
       </div>
       <div class="messages-column d-flex flex-column align-items-center">
-        <div
-          v-if="filtersConversations.length === 0
-            && (!selectedConversation || !selectedConversation.key)"
-          class="empty-messages m-auto text-center empty-sidebar"
-        >
-          <div class="no-messages-box">
-            <div
-              v-once
-              class="svg-icon envelope"
-              v-html="icons.messageIcon"
-            ></div>
-            <h2 v-once>
-              {{ $t('emptyMessagesLine1') }}
-            </h2>
-            <p v-if="!user.flags.chatRevoked">
-              {{ $t('emptyMessagesLine2') }}
-            </p>
-          </div>
-        </div>
+        <pm-empty-state
+          v-if="uiState === UI_STATES.NO_CONVERSATIONS"
+          :chat-revoked="user.flags.chatRevoked"
+        />
+        <pm-disabled-state
+          v-if="uiState === UI_STATES.DISABLED"
+          :disabled-texts="disabledTexts"
+        />
+
         <div
           v-if="filtersConversations.length !== 0 && !selectedConversation.key"
           class="empty-messages full-height m-auto text-center"
@@ -124,13 +114,7 @@
           @message-removed="messageRemoved"
           @triggerLoad="infiniteScrollTrigger"
         />
-        <div
-          v-if="disabledTexts"
-          class="pm-disabled-caption text-center"
-        >
-          <h4>{{ disabledTexts.title }}</h4>
-          <p>{{ disabledTexts.description }}</p>
-        </div>
+
         <div
           v-if="shouldShowInputPanel"
           class="full-width"
@@ -243,6 +227,42 @@ $pmHeaderHeight: 56px;
     letter-spacing: normal;
     color: $gray-50;
   }
+
+  .empty-messages {
+    flex-flow: column;
+    justify-content: center;
+
+    h3, p {
+      color: $gray-200;
+      margin: 0rem;
+    }
+
+    h2 {
+      color: $gray-200;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 12px;
+    }
+
+    .no-messages-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 330px;
+    }
+
+    .envelope {
+      color: $gray-400 !important;
+      margin-bottom: 1.5rem;
+
+      ::v-deep svg {
+        width: 64px;
+        height: 48px;
+      }
+    }
+  }
 }
 </style>
 
@@ -303,39 +323,6 @@ $background: $white;
   padding: 0.75rem 1.5rem;
 
   border-bottom: 1px solid $gray-500;
-}
-
-.empty-messages {
-  h3, p {
-    color: $gray-200;
-    margin: 0rem;
-  }
-
-  h2 {
-    color: $gray-200;
-    margin-bottom: 1rem;
-  }
-
-  p {
-    font-size: 12px;
-  }
-
-  .no-messages-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 330px;
-  }
-
-  .envelope {
-    color: $gray-400 !important;
-    margin-bottom: 1.5rem;
-
-    ::v-deep svg {
-      width: 64px;
-      height: 48px;
-    }
-  }
 }
 
 h3 {
@@ -456,25 +443,6 @@ h3 {
   }
 }
 
-.pm-disabled-caption {
-  padding-top: 1em;
-  z-index: 2;
-
-  h4, p {
-    color: $gray-200;
-  }
-
-  h4 {
-    margin-top: 0;
-    margin-bottom: 0.4em;
-  }
-
-  p {
-    font-size: 12px;
-    margin-bottom: 0;
-  }
-}
-
 .left-header {
   max-width: calc(330px - 2rem); // minus the left padding
   flex: 1;
@@ -551,20 +519,25 @@ import faceAvatar from '@/components/faceAvatar';
 import Avatar from '@/components/avatar';
 import { EVENTS } from '@/libs/events';
 import PmConversationsList from './private-messages/pm-conversations-list.vue';
+import PmEmptyState from './private-messages/pm-empty-state.vue';
+import PmDisabledState from '@/pages/private-messages/pm-disabled-state.vue';
 
 // extract to a shared path
 const CONVERSATIONS_PER_PAGE = 10;
 const PM_PER_PAGE = 10;
 
-const UI_STATES = {
+const UI_STATES = Object.freeze({
   NO_CONVERSATIONS: 'NO_CONVERSATIONS',
   NO_CONVERSATIONS_SELECTED: 'NO_CONVERSATIONS_SELECTED',
   START_NEW_CONVERSATION: 'START_NEW_CONVERSATION',
   CONVERSATION_SELECTED: 'CONVERSATION_SELECTED',
-};
+  DISABLED: 'DISABLED',
+});
 
 export default defineComponent({
   components: {
+    PmDisabledState,
+    PmEmptyState,
     PmConversationsList,
     Avatar,
     messageList,
@@ -601,6 +574,7 @@ export default defineComponent({
         messageIcon,
         mail,
       }),
+      UI_STATES,
       loaded: false,
       showPopover: false,
 
@@ -617,7 +591,6 @@ export default defineComponent({
       messages: [],
       messagesLoading: false,
       MAX_MESSAGE_LENGTH: MAX_MESSAGE_LENGTH.toString(),
-      uiState: '',
     };
   },
   computed: {
@@ -700,6 +673,7 @@ export default defineComponent({
 
       return ordered;
     },
+    // TODO might be deleted once all states are done
     placeholderTexts () {
       if (this.user.flags.chatRevoked) {
         return {
@@ -766,6 +740,28 @@ export default defineComponent({
     newMessageDisabled () {
       return !this.selectedConversation || !this.selectedConversation.key
         || this.disabledTexts !== null;
+    },
+    uiState () {
+      if (true) {
+        // testing states
+        return UI_STATES.NO_CONVERSATIONS;
+      }
+
+      if (this.disabledTexts) {
+        return UI_STATES.DISABLED;
+      }
+
+      if (this.loadedConversations.length === 0) {
+        return UI_STATES.NO_CONVERSATIONS;
+      }
+
+      if (!this.selectedConversation) {
+        this.uiState = UI_STATES.NO_CONVERSATIONS_SELECTED;
+      }
+
+      // TODO start new conversation
+
+      return UI_STATES.CONVERSATION_SELECTED;
     },
     shouldShowInputPanel () {
       const currentUiState = this.uiState;
@@ -843,8 +839,6 @@ export default defineComponent({
       this.loadedConversations = [];
       this.selectedConversation = {};
 
-      this.uiState = UI_STATES.NO_CONVERSATIONS;
-
       await this.loadConversations();
 
       await this.$store.dispatch('user:markPrivMessagesRead');
@@ -860,10 +854,6 @@ export default defineComponent({
       const loadedConversations = conversationRes.data.data;
       this.canLoadMoreConversations = loadedConversations.length === CONVERSATIONS_PER_PAGE;
       this.loadedConversations.push(...loadedConversations);
-
-      if (this.loadedConversations.length !== 0 && !this.selectedConversation) {
-        this.uiState = UI_STATES.NO_CONVERSATIONS_SELECTED;
-      }
     },
     messageRemoved (message) {
       const messages = this.messagesByConversation[this.selectedConversation.key];

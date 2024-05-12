@@ -206,7 +206,7 @@
   "dismissAll": "Dismiss All",
   "messages": "Messages",
   "emptyMessagesLine1": "You don't have any messages",
-  "emptyMessagesLine2": "You can send a new message to a user by visiting their profile and clicking the \"Message\" button.",
+  "emptyMessagesLine2": "Send a message to start a conversation with your Party members or another Habitica player",
   "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> sent you a message",
   "letsgo": "Let's Go!",
   "selected": "Selected",
