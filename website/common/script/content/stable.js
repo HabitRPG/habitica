@@ -93,6 +93,7 @@ const canFindSpecial = {
     'Bear-Veteran': false,
     'Fox-Veteran': false,
     'Dragon-Veteran': false,
+    'Cactus-Veteran': false,
 
     // Thanksgiving pet ladder
     'Turkey-Base': false,
