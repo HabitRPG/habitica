@@ -254,6 +254,7 @@ const premium = {
   PinkMarble: {
     canBuy: hasQuestAchievementFunction('pinkMarble'),
   },
+  Koi: {},
 };
 
 const wacky = {
