@@ -622,6 +622,9 @@ const plannedBackgrounds = {
     maypole: { },
     potters_studio: { },
   },
+  backgrounds062024: {
+    shell_gate: { },
+  },
   eventBackgrounds: {
     birthday_bash: {
       price: 0,
