@@ -183,6 +183,12 @@ const animalSetAchievs = {
     titleKey: 'achievementBonelessBoss',
     textKey: 'achievementBonelessBossText',
   },
+  cats: {
+    icon: 'achievement-cats',
+    titleKey: 'achievementCats',
+    textKey: 'achievementCatsText',
+    release: '2024-05-16T08:00-04:00',
+  },
   dinosaurDynasty: {
     icon: 'achievement-dinosaurDynasty',
     titleKey: 'achievementDinosaurDynasty',

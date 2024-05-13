@@ -3070,5 +3070,8 @@
     "shieldArmoireHattersPocketWatchText": "Relógio de bolso brilhante",
     "shieldArmoireHattersPocketWatchNotes": "Não se atrase para uma data muito importante! Confira seu relógio de bolso e suas notificações com frequência. Aumenta Inteligência em <%=int%>. Armário Encantado: Conjunto de Chapeleiro (Item 4 de 4).",
     "bodyArmoireKarateBrownBeltNotes": "Esse cinto é para aqueles que amadureceram suas técnicas e habilidades. Aumenta Força em <%= str %>. Armário Encantado: Conjunto de Karatê (Item 9 de 10).",
-    "bodyArmoireKarateRedBeltNotes": "Esse cinto é para aqueles que aprenderam a ser cuidadosos em sua prática. Aumenta Percepção em <%= per %>. Armário Encantado: Conjunto de Karatê (Item 8 de 10)."
+    "bodyArmoireKarateRedBeltNotes": "Esse cinto é para aqueles que aprenderam a ser cuidadosos em sua prática. Aumenta Percepção em <%= per %>. Armário Encantado: Conjunto de Karatê (Item 8 de 10).",
+    "weaponSpecialSpring2024RogueText": "Lâmina Prateada",
+    "weaponSpecialSpring2024RogueNotes": "Desafios tão difíceis quanto gelo podem ser cortados em pedaços menores. Aumenta a Força em <%= str %>. Equipamento de edição limitada da primavera de 2024.",
+    "weaponSpecialSpring2024WarriorText": "Lança de Fluorita"
 }

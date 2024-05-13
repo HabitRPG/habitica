@@ -194,6 +194,45 @@ const QUEST_SEASONAL = {
       unlock: t('questVirtualPetUnlockText'),
     },
   },
+  fungi: {
+    text: t('questFungiText'),
+    notes: t('questFungiNotes'),
+    completion: t('questFungiCompletion'),
+    value: 4,
+    category: 'hatchingPotion',
+    boss: {
+      name: t('questFungiBoss'),
+      hp: 500,
+      str: 2,
+      rage: {
+        title: t('questFungiRageTitle'),
+        description: t('questFungiRageDescription'),
+        value: 50,
+        mpDrain: 0.33,
+        effect: t('questFungiRageEffect'),
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'Fungi',
+          text: t('questFungiDropFungiPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Fungi',
+          text: t('questFungiDropFungiPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Fungi',
+          text: t('questFungiDropFungiPotion'),
+        },
+      ],
+      gp: 40,
+      exp: 500,
+      unlock: t('questFungiUnlockText'),
+    },
+  },
 };
 
 export default QUEST_SEASONAL;

@@ -279,5 +279,6 @@
     "connect": "Conectar",
     "remove": "Eliminar",
     "resetTextLocal": "Si estás completamente seguro, escribe tu contraseña en el siguiente cuadro de texto.",
-    "resetTextSocial": "Si estás completamente seguro, escribe<b>\"<%= magicWord %>\"</b> en el siguiente cuadro de texto."
+    "resetTextSocial": "Si estás completamente seguro, escribe<b>\"<%= magicWord %>\"</b> en el siguiente cuadro de texto.",
+    "contentRelease": "Nuevos Contenidos + Eventos"
 }

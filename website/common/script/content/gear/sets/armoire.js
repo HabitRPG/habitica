@@ -471,6 +471,10 @@ const armor = {
     per: 4,
     set: 'optimistSet',
   },
+  pottersApron: {
+    str: 8,
+    set: 'pottersSet',
+  },
 };
 
 const body = {
@@ -976,6 +980,10 @@ const head = {
     per: 10,
     set: 'hatterSet',
   },
+  pottersBandana: {
+    int: 8,
+    set: 'pottersSet',
+  },
 };
 
 const shield = {
@@ -1318,6 +1326,10 @@ const shield = {
     con: 4,
     str: 4,
     set: 'optimistSet',
+  },
+  thrownVessel: {
+    con: 8,
+    set: 'pottersSet',
   },
 };
 
@@ -1797,6 +1809,10 @@ const weapon = {
     con: 4,
     set: 'optimistSet',
   },
+  pottersWheel: {
+    per: 8,
+    set: 'pottersSet',
+  },
 };
 
 const releaseDay = 7;
@@ -1808,6 +1824,7 @@ const releaseDates = {
   whiteLoungeWear: { year: 2024, month: 2 },
   hatterSet: { year: 2024, month: 3 },
   optimistSet: { year: 2024, month: 4 },
+  pottersSet: { year: 2024, month: 5 },
 };
 
 forEach({

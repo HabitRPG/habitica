@@ -895,4 +895,15 @@
   "questGiraffeBoss": "Gear-affe",
   "questGiraffeDropGiraffeEgg": "Giraffe (Egg)",
   "QuestGiraffeUnlockText": "Unlocks Giraffe Eggs for purchase in the Market."
+  "questPinkMarbleUnlockText": "Unlocks Pink Marble Hatching Potions for purchase in the Market.",
+
+  "questFungiText": "The Moody Mushroom",
+  "questFungiNotes": "It’s been a rainy spring in Habitica and the ground around the stables is spongy and damp. You notice quite a few mushrooms have appeared along the wooden stable walls and fences. There’s a fog hanging about, not quite letting the sun peek through, and it’s a bit dispiriting.<br><br>Out of the mist you see the outline of the April Fool, not at all his usual bouncy self.<br><br>”I’d hoped to bring you all some delightful Fungi Magic Hatching Potions so that you can keep your mushroom friends from my special day forever,” he says, his expression alarmingly unsmiling. “But this cold fog is really getting to me, it’s making me feel too tired and dismal to work my usual magic.”<br><br>“Oh no, sorry to hear that,” you say, noticing your own increasingly somber mood. “This fog is really making the day gloomy. I wonder where it came from…”<br><br>A low rumble sounds across the fields, and you see an outline emerging from the mist. You’re alarmed to see a gigantic and unhappy looking mushroom creature, and the mist appears to be emanating from it.<br><br>“Aha,” says the Fool, “I think this fungal fellow may be the source of our blues. Let’s see if we can summon a little cheer for our friend here and ourselves.”",
+  "questFungiCompletion": "You and the April Fool look at each other with a sign of relief as the mushroom retreats to the forest.<br><br>“Ah,” the Fool exclaims, “that was quite a mycelial melancholy. I’m glad we could improve his mood, and ours too! I feel my energy coming back. Come with me and we’ll get those Fungi potions going together.”",
+  "questFungiBoss": "Moody Mushroom",
+  "questFungiRageTitle": "Moody Mushroom Mist",
+  "questFungiRageDescription": "This bar fills when you don't complete your Dailies. When it's full, the Moody Mushroom will take away some of your party's pending damage",
+  "questFungiRageEffect": "A Mist emanates from the Moody Mushroom and surrounds your party, dampening the mood and subduing your magic. The party's MP is reduced!",
+  "questFungiDropFungiPotion": "Fungi Hatching Potion",
+  "questFungiUnlockText": "Unlocks Fungi Hatching Potions for purchase in the Market."
 }
