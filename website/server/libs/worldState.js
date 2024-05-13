@@ -1,4 +1,3 @@
-import filter from 'lodash/filter';
 import moment from 'moment';
 import { // eslint-disable-line import/no-cycle
   model as Group,

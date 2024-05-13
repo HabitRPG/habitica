@@ -1,5 +1,3 @@
-import { TAVERN_ID } from '../../../../../website/server/models/group';
-import { updateDocument } from '../../../../helpers/mongo';
 import {
   requester,
   resetHabiticaDB,

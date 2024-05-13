@@ -98,7 +98,7 @@
           :item-width="94"
           :item-margin="24"
           :type="category.identifier"
-          :foldButton="false"
+          :fold-button="false"
         >
           <template
             slot="item"

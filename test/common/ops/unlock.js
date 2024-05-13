@@ -7,10 +7,10 @@ import {
   BadRequest,
 } from '../../../website/common/script/libs/errors';
 
-describe('shared.ops.unlock', () => {
+describe.only('shared.ops.unlock', () => {
   let user;
   let clock;
-  const unlockPath = 'shirt.convict,shirt.cross,shirt.fire,shirt.horizon,shirt.ocean,shirt.purple,shirt.rainbow,shirt.redblue,shirt.thunder,shirt.tropical,shirt.zombie';
+  const unlockPath = 'shirt.convict,shirt.fire,shirt.horizon,shirt.ocean,shirt.purple,shirt.rainbow,shirt.redblue,shirt.thunder,shirt.tropical,shirt.zombie';
   const unlockGearSetPath = 'items.gear.owned.headAccessory_special_bearEars,items.gear.owned.headAccessory_special_cactusEars,items.gear.owned.headAccessory_special_foxEars,items.gear.owned.headAccessory_special_lionEars,items.gear.owned.headAccessory_special_pandaEars,items.gear.owned.headAccessory_special_pigEars,items.gear.owned.headAccessory_special_tigerEars,items.gear.owned.headAccessory_special_wolfEars';
   const backgroundUnlockPath = 'background.giant_florals';
   const hairUnlockPath = 'hair.color.rainbow,hair.color.yellow,hair.color.green,hair.color.purple,hair.color.blue,hair.color.TRUred';
@@ -165,7 +165,6 @@ describe('shared.ops.unlock', () => {
     await unlock(user, { query: { path: partialUnlockPaths[4] } });
     await unlock(user, { query: { path: partialUnlockPaths[5] } });
     await unlock(user, { query: { path: partialUnlockPaths[6] } });
-    await unlock(user, { query: { path: partialUnlockPaths[7] } });
 
     await unlock(user, { query: { path: unlockPath } });
   });

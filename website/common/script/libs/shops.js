@@ -521,7 +521,14 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
       text: i18n.t(set),
     };
 
-    category.items = shops.getSeasonalGearBySet(user, set, officialPinnedItems, language, gearMatcher, false);
+    category.items = shops.getSeasonalGearBySet(
+      user,
+      set,
+      officialPinnedItems,
+      language,
+      gearMatcher,
+      false,
+    );
 
     if (category.items.length > 0) {
       const item = category.items[0];

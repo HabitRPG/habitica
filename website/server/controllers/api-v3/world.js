@@ -1,5 +1,4 @@
 import {
-  getCurrentEvent,
   getCurrentEventList,
   getWorldBoss,
 } from '../../libs/worldState';

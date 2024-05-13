@@ -28,10 +28,10 @@
       </div>
     </div>
     <h2
-      class="text-center pt-2 mt-4 mb-4"
       v-if="editing"
+      class="text-center pt-2 mt-4 mb-4"
     >
-      {{ $t('editAvatar')}}
+      {{ $t('editAvatar') }}
     </h2>
     <div
       v-if="modalPage > 1"
