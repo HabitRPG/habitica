@@ -721,6 +721,18 @@ const armor = {
   spring2024Rogue: {
     set: 'spring2024MeltingSnowRogueSet',
   },
+  summer2024Warrior: {
+    set: 'summer2024WhaleSharkWarriorSet',
+  },
+  summer2024Mage: {
+    set: 'summer2024SeaAnemoneMageSet',
+  },
+  summer2024Healer: {
+    set: 'summer2024SeaSnailHealerSet',
+  },
+  summer2024Rogue: {
+    set: 'summer2024NudibranchRogueSet',
+  },
 };
 
 const armorStats = {
@@ -1789,6 +1801,18 @@ const head = {
   spring2024Rogue: {
     set: 'spring2024MeltingSnowRogueSet',
   },
+  summer2024Warrior: {
+    set: 'summer2024WhaleSharkWarriorSet',
+  },
+  summer2024Mage: {
+    set: 'summer2024SeaAnemoneMageSet',
+  },
+  summer2024Healer: {
+    set: 'summer2024SeaSnailHealerSet',
+  },
+  summer2024Rogue: {
+    set: 'summer2024NudibranchRogueSet',
+  },
 };
 
 const headStats = {
@@ -2525,6 +2549,15 @@ const shield = {
     text: t('shieldSpecialSpring2024RogueText'),
     notes: t('shieldSpecialSpring2024RogueNotes', { str: 8 }),
   },
+  summer2024Warrior: {
+    set: 'summer2024WhaleSharkWarriorSet',
+  },
+  summer2024Healer: {
+    set: 'summer2024SeaSnailHealerSet',
+  },
+  summer2024Rogue: {
+    set: 'summer2024NudibranchRogueSet',
+  },
 };
 
 const shieldStats = {
@@ -3189,6 +3222,18 @@ const weapon = {
   },
   spring2024Rogue: {
     set: 'spring2024MeltingSnowRogueSet',
+  },
+  summer2024Warrior: {
+    set: 'summer2024WhaleSharkWarriorSet',
+  },
+  summer2024Mage: {
+    set: 'summer2024SeaAnemoneMageSet',
+  },
+  summer2024Healer: {
+    set: 'summer2024SeaSnailHealerSet',
+  },
+  summer2024Rogue: {
+    set: 'summer2024NudibranchRogueSet',
   },
 };
 

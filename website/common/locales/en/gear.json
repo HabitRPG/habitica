@@ -513,6 +513,15 @@
   "weaponSpecialSpring2024HealerText": "Bluebird Feather Wand",
   "weaponSpecialSpring2024HealerNotes": "A wisp of happiness emerges at will to improve any mood. Increases Intelligence by <%= int %>. Limited Edition Spring 2024 Gear.",
 
+  "weaponSpecialSummer2024RogueText": "Nudibranch Trident",
+  "weaponSpecialSummer2024RogueNotes": "Turn others’ sharp stings against them! Increases Strength by <%= str %>. Limited Edition Summer 2024 Gear.",
+  "weaponSpecialSummer2024WarriorText": "Whale Shark Tooth Slicer",
+  "weaponSpecialSummer2024WarriorNotes": "Some shed shark teeth transform this into a weapon able to deliver damage from any direction. Increases Strength by <%= str %>. Limited Edition Summer 2024 Gear.",
+  "weaponSpecialSummer2024MageText": "Sea Anemone Wand",
+  "weaponSpecialSummer2024MageNotes": "These terrific tentacles can distract, deflect, and direct magic all at once. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition Summer 2024 Gear.",
+  "weaponSpecialSummer2024HealerText": "Sea Snail Staff",
+  "weaponSpecialSummer2024HealerNotes": "You’ll be amazed to discover out how hard the shell at the end of this staff is. Increases Intelligence by <%= int %>. Limited Edition Summer 2024 Gear.",
+
   "weaponMystery201411Text": "Pitchfork of Feasting",
   "weaponMystery201411Notes": "Stab your enemies or dig in to your favorite foods - this versatile pitchfork does it all! Confers no benefit. November 2014 Subscriber Item.",
   "weaponMystery201502Text": "Shimmery Winged Staff of Love and Also Truth",
@@ -1251,6 +1260,15 @@
   "armorSpecialSpring2024MageNotes": "These pretty petals will help you show off your power in style. Increases Intelligence by <%= int %>. Limited Edition Spring 2024 Gear.",
   "armorSpecialSpring2024HealerText": "Bluebird Suit",
   "armorSpecialSpring2024HealerNotes": "These fabulous feathers will help your happiest dreams take flight. Increases Constitution by <%= con %>. Limited Edition Spring 2024 Gear.",  
+
+  "armorSpecialSummer2024RogueText": "Nudibranch Tail",
+  "armorSpecialSummer2024RogueNotes": "You may be a sea slug without a shell, but you’re a sea slug with sea wings! Increases Perception by <%= per %>. Limited Edition Summer 2024 Gear.",
+  "armorSpecialSummer2024WarriorText": "Whale Shark Tail",
+  "armorSpecialSummer2024WarriorNotes": "After you’re transformed into a real Whale Shark Warrior, swim boldly toward your tasks! Increases Constitution by <%= con %>. Limited Edition Summer 2024 Gear.",
+  "armorSpecialSummer2024MageText": "Sea Anemone Tail",
+  "armorSpecialSummer2024MageNotes": "Tell your enemy to watch out for an anemone! (Now tell them to say that five times fast.) Increases Intelligence by <%= int %>. Limited Edition Summer 2024 Gear.",
+  "armorSpecialSummer2024HealerText": "Sea Snail Armor",
+  "armorSpecialSummer2024HealerNotes": "Don’t listen to the naysayers. Slow and steady is a valid approach to tackling tasks! Increases Constitution by <%= con %>. Limited Edition Summer 2024 Gear.",  
 
   "armorMystery201402Text": "Messenger Robes",
   "armorMystery201402Notes": "Shimmering and strong, these robes have many pockets to carry letters. Confers no benefit. February 2014 Subscriber Item.",
@@ -2077,6 +2095,15 @@
   "headSpecialSpring2024HealerText": "Bluebird Helmet",
   "headSpecialSpring2024HealerNotes": "What happy songs will you sing when you wear this helmet? Increases Intelligence by <%= int %>. Limited Edition Spring 2024 Gear.",
 
+  "headSpecialSummer2024RogueText": "Nudibranch Helmet",
+  "headSpecialSummer2024RogueNotes": "This helm with its horn-like tentacles helps you hide so you can strike on your own terms. Increases Perception by <%= per %>. Limited Edition Summer 2024 Gear.",
+  "headSpecialSummer2024WarriorText": "Whale Shark Helmet",
+  "headSpecialSummer2024WarriorNotes": "Bite those tricky tasks in two with this helpful helm. Increases Strength by <%= str %>. Limited Edition Summer 2024 Gear.",
+  "headSpecialSummer2024MageText": "Sea Anemone Hat",
+  "headSpecialSummer2024MageNotes": "This hat waves gently in the ocean currents as it helps you channel your wisdom. Increases Perception by <%= per %>. Limited Edition Summer 2024 Gear.",
+  "headSpecialSummer2024HealerText": "Sea Snail Shell",
+  "headSpecialSummer2024HealerNotes": "This spiral shell helps remind you to stop spiraling out of control. Increases Intelligence by <%= int %>. Limited Edition Summer 2024 Gear.",
+
   "headSpecialGaymerxText": "Rainbow Warrior Helm",
   "headSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special helmet is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
 
@@ -2711,6 +2738,14 @@
   "shieldSpecialSpring2024WarriorNotes": "This popular, protective stone is the perfect choice for a strong shield. Increases Constitution by <%= con %>. Limited Edition Spring 2024 Gear.",
   "shieldSpecialSpring2024HealerText": "Shining Shield",
   "shieldSpecialSpring2024HealerNotes": "Focus rays of the spring sun outward to warm and heal. Increases Constitution by <%= con %>. Limited Edition Spring 2024 Gear.",
+
+  "shieldSpecialSummer2024RogueText": "Nudibranch Trident",
+  "shieldSpecialSummer2024RogueNotes": "Turn others’ sharp stings against them! Increases Strength by <%= str %>. Limited Edition Summer 2024 Gear.",
+  "shieldSpecialSummer2024WarriorText": "Whale Shark Flipper",
+  "shieldSpecialSummer2024WarriorNotes": "To those who claim you can’t reach your goals, just say: talk to the hand, er, flipper! Increases Constitution by <%= con %>. Limited Edition Summer 2024 Gear.",
+  "shieldSpecialSummer2024HealerText": "Sea Snail Shield",
+  "shieldSpecialSummer2024HealerNotes": "This shiny shield is even stronger than a Sea Snail Staff. Increases Constitution by <%= con %>. Limited Edition Summer 2024 Gear.",
+
 
   "shieldMystery201601Text": "Resolution Slayer",
   "shieldMystery201601Notes": "This blade can be used to parry away all distractions. Confers no benefit. January 2016 Subscriber Item.",
