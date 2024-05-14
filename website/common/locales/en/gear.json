@@ -2739,8 +2739,6 @@
   "shieldSpecialSpring2024HealerText": "Shining Shield",
   "shieldSpecialSpring2024HealerNotes": "Focus rays of the spring sun outward to warm and heal. Increases Constitution by <%= con %>. Limited Edition Spring 2024 Gear.",
 
-  "shieldSpecialSummer2024RogueText": "Nudibranch Trident",
-  "shieldSpecialSummer2024RogueNotes": "Turn others’ sharp stings against them! Increases Strength by <%= str %>. Limited Edition Summer 2024 Gear.",
   "shieldSpecialSummer2024WarriorText": "Whale Shark Flipper",
   "shieldSpecialSummer2024WarriorNotes": "To those who claim you can’t reach your goals, just say: talk to the hand, er, flipper! Increases Constitution by <%= con %>. Limited Edition Summer 2024 Gear.",
   "shieldSpecialSummer2024HealerText": "Sea Snail Shield",

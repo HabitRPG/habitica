@@ -1,8 +1,6 @@
-import pickBy from 'lodash/pickBy';
 import defaults from 'lodash/defaults';
 import upperFirst from 'lodash/upperFirst';
 import {
-  CLASSES,
   EVENTS,
 } from '../../../constants';
 import { ownsItem } from '../../gear-helper';
@@ -11,9 +9,35 @@ import * as contributorGear from './special-contributor';
 import * as takeThisGear from './special-takeThis';
 import * as wonderconGear from './special-wondercon';
 import t from '../../../translation';
-import { getClassName } from '../../../../libs/getClassName';
 
-const gearEvents = pickBy(EVENTS, event => event.gear);
+function isSeasonalEventKey (key) {
+  return key.includes('spring') || key.includes('summer') || key.includes('fall') || key.includes('winter');
+}
+
+function fillSpecialGear (gearItems, gearType, value, stats) {
+  Object.keys(gearItems).forEach(key => {
+    if (isSeasonalEventKey(key)) {
+      let klass = key.split(/(?=[A-Z])/)[1].toLowerCase();
+      if (klass === 'mage') {
+        klass = 'wizard';
+      }
+      const actualGearType = (typeof gearType === 'function') ? gearType(klass) : gearType;
+      const textKey = `${actualGearType}Special${upperFirst(key)}`;
+      const actualValue = (typeof value === 'function') ? value(klass) : value;
+      defaults(gearItems[key], {
+        specialClass: klass,
+        text: t(`${textKey}Text`),
+        notes: t(`${textKey}Notes`, stats),
+        value: actualValue,
+      }, stats);
+      if (klass === 'wizard') {
+        defaults(gearItems[key], {
+          twoHanded: true,
+        });
+      }
+    }
+  });
+}
 
 const armor = {
   0: backerGear.armorSpecial0,
@@ -742,20 +766,7 @@ const armorStats = {
   wizard: { int: 9 },
 };
 
-Object.keys(gearEvents).forEach(event => {
-  CLASSES.forEach(klass => {
-    const classNameString = getClassName(klass);
-    const eventString = `${event}${upperFirst(classNameString)}`;
-    const textString = `armorSpecial${upperFirst(event)}${upperFirst(classNameString)}`;
-    defaults(armor[eventString], {
-      event: gearEvents[event],
-      specialClass: klass,
-      text: t(`${textString}Text`),
-      notes: t(`${textString}Notes`, armorStats[klass]),
-      value: 90,
-    }, armorStats[klass]);
-  });
-});
+fillSpecialGear(armor, 'armor', 90, armorStats);
 
 const back = {
   wondercon_red: wonderconGear.backSpecialWonderconRed, // eslint-disable-line camelcase
@@ -1822,20 +1833,7 @@ const headStats = {
   wizard: { per: 7 },
 };
 
-Object.keys(gearEvents).forEach(event => {
-  CLASSES.forEach(klass => {
-    const classNameString = getClassName(klass);
-    const eventString = `${event}${upperFirst(classNameString)}`;
-    const textString = `headSpecial${upperFirst(event)}${upperFirst(classNameString)}`;
-    defaults(head[eventString], {
-      event: gearEvents[event],
-      specialClass: klass,
-      text: t(`${textString}Text`),
-      notes: t(`${textString}Notes`, headStats[klass]),
-      value: 60,
-    }, headStats[klass]);
-  });
-});
+fillSpecialGear(head, 'head', 60, headStats);
 
 const headAccessory = {
   heroicCirclet: contributorGear.headAccessorySpecialHeroicCirclet,
@@ -2566,21 +2564,7 @@ const shieldStats = {
   warrior: { con: 7 },
 };
 
-Object.keys(gearEvents).forEach(event => {
-  CLASSES.forEach(klass => {
-    if (klass === 'wizard') return;
-    const eventString = `${event}${upperFirst(klass)}`;
-    const textString = klass === 'rogue' ? `weaponSpecial${upperFirst(event)}Rogue`
-      : `shieldSpecial${upperFirst(event)}${upperFirst(klass)}`;
-    defaults(shield[eventString], {
-      event: gearEvents[event],
-      specialClass: klass,
-      text: t(`${textString}Text`),
-      notes: t(`${textString}Notes`, shieldStats[klass]),
-      value: klass === 'rogue' ? 80 : 70,
-    }, shieldStats[klass]);
-  });
-});
+fillSpecialGear(shield, klass => (klass === 'rogue' ? 'weapon' : 'shield'), 80, shieldStats);
 
 const weapon = {
   0: backerGear.weaponSpecial0,
@@ -3251,21 +3235,7 @@ const weaponCosts = {
   wizard: 160,
 };
 
-Object.keys(gearEvents).forEach(event => {
-  CLASSES.forEach(klass => {
-    const classNameString = getClassName(klass);
-    const eventString = `${event}${upperFirst(classNameString)}`;
-    const textString = `weaponSpecial${upperFirst(event)}${upperFirst(classNameString)}`;
-    defaults(weapon[eventString], {
-      event: gearEvents[event],
-      specialClass: klass,
-      text: t(`${textString}Text`),
-      notes: t(`${textString}Notes`, weaponStats[klass]),
-      value: weaponCosts[klass],
-      twoHanded: klass === 'wizard',
-    }, weaponStats[klass]);
-  });
-});
+fillSpecialGear(weapon, 'weapon', klass => weaponCosts[klass], weaponStats);
 
 export {
   armor,
