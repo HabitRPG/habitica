@@ -38,22 +38,22 @@ describe('armoire', () => {
     const items = makeArmoireIitemList();
     expect(items.length).to.equal(377);
     forEach(items, item => {
-      expect(item.released).to.be.true;
+      expect(item.released, item.key).to.be.true;
     });
   });
 
   it('released gear has all required properties', async () => {
     clock = sinon.useFakeTimers(new Date('2024-05-08'));
     const items = makeArmoireIitemList();
-    expect(items.length).to.equal(392);
+    expect(items.length).to.equal(396);
     forEach(items, item => {
       if (item.set !== undefined) {
-        expect(item.set).to.be.a('string');
-        expect(item.set).to.not.be.empty;
+        expect(item.set, item.key).to.be.a('string');
+        expect(item.set, item.key).to.not.be.empty;
       }
       expectValidTranslationString(item.text);
-      expect(item.released).to.be.a('boolean');
-      expect(item.value).to.be.a('number');
+      expect(item.released, item.key).to.be.a('boolean');
+      expect(item.value, item.key).to.be.a('number');
     });
   });
 

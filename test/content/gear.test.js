@@ -4,6 +4,8 @@ import {
   expectValidTranslationString,
 } from '../helpers/content.helper';
 
+import { CLASSES } from '../../website/common/script/content/constants';
+
 import gearData from '../../website/common/script/content/gear';
 import * as backerGear from '../../website/common/script/content/gear/sets/special/special-backer';
 import * as contributorGear from '../../website/common/script/content/gear/sets/special/special-contributor';
@@ -17,35 +19,48 @@ describe('Gear', () => {
         context(`${klass} ${gearType}s`, () => {
           it('have a value of at least 0 for each stat', () => {
             each(items, gear => {
-              expect(gear.con).to.be.at.least(0);
-              expect(gear.int).to.be.at.least(0);
-              expect(gear.per).to.be.at.least(0);
-              expect(gear.str).to.be.at.least(0);
+              expect(gear.con, gear.key).to.be.at.least(0);
+              expect(gear.int, gear.key).to.be.at.least(0);
+              expect(gear.per, gear.key).to.be.at.least(0);
+              expect(gear.str, gear.key).to.be.at.least(0);
             });
           });
 
           it('have a purchase value of at least 0', () => {
             each(items, gear => {
-              expect(gear.value).to.be.at.least(0);
+              expect(gear.value, gear.key).to.be.at.least(0);
             });
           });
 
           it('has a canBuy function', () => {
             each(items, gear => {
-              expect(gear.canBuy).to.be.a('function');
+              expect(gear.canBuy, gear.key).to.be.a('function');
             });
           });
 
           it('have valid translation strings for text and notes', () => {
             each(items, gear => {
-              expectValidTranslationString(gear.text);
-              expectValidTranslationString(gear.notes);
+              expectValidTranslationString(gear.text, gear.key);
+              expectValidTranslationString(gear.notes, gear.key);
             });
           });
 
           it('has a set attribue', () => {
             each(items, gear => {
-              expect(gear.set).to.exist;
+              expect(gear.set, gear.key).to.exist;
+            });
+          });
+
+          it('has a valid value for klass or specialClass', () => {
+            const validClassValues = CLASSES + ['base', 'mystery', 'armoire'];
+            each(items, gear => {
+              const field = gear.klass === 'special' ? gear.specialClass : gear.klass;
+              if (gear.klass === 'special' && field === undefined) {
+                // some special gear doesn't have a klass
+                return;
+              }
+              expect(field, gear.key).to.exist;
+              expect(validClassValues, gear.key).to.include(field);
             });
           });
         });

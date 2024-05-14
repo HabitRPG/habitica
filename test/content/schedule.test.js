@@ -96,31 +96,31 @@ describe('Content Schedule', () => {
   it('sets the end date if its in the same month', () => {
     const date = new Date('2024-04-03');
     const matchers = getAllScheduleMatchingGroups(date);
-    expect(matchers.backgrounds.end).to.eql(moment('2024-04-07').toDate());
+    expect(matchers.backgrounds.end).to.eql(moment.utc('2024-04-07').toDate());
   });
 
   it('sets the end date if its in the next day', () => {
     const date = new Date('2024-05-06T14:00:00.000Z');
     const matchers = getAllScheduleMatchingGroups(date);
-    expect(matchers.backgrounds.end).to.eql(moment('2024-05-07').toDate());
+    expect(matchers.backgrounds.end).to.eql(moment.utc('2024-05-07').toDate());
   });
 
   it('sets the end date if its on the release day', () => {
     const date = new Date('2024-05-07');
     const matchers = getAllScheduleMatchingGroups(date);
-    expect(matchers.backgrounds.end).to.eql(moment('2024-06-07').toDate());
+    expect(matchers.backgrounds.end).to.eql(moment.utc('2024-06-07').toDate());
   });
 
   it('sets the end date if its next month', () => {
     const date = new Date('2024-05-20T01:00:00.000Z');
     const matchers = getAllScheduleMatchingGroups(date);
-    expect(matchers.backgrounds.end).to.eql(moment('2024-06-07').toDate());
+    expect(matchers.backgrounds.end).to.eql(moment.utc('2024-06-07').toDate());
   });
 
   it('sets the end date for a gala', () => {
     const date = new Date('2024-05-20');
     const matchers = getAllScheduleMatchingGroups(date);
-    expect(matchers.seasonalGear.end).to.eql(moment('2024-06-21').toDate());
+    expect(matchers.seasonalGear.end).to.eql(moment.utc('2024-06-21').toDate());
   });
 
   it('contains content for repeating events', () => {
