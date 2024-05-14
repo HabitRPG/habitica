@@ -3,9 +3,7 @@ import {
   generateUser,
 } from '../../helpers/common.helper';
 
-import {
-  currentSeason,
-} from '../../../website/common/script/libs/shops-seasonal.config';
+import seasonalConfig from '../../../website/common/script/libs/shops-seasonal.config';
 
 describe('shops', () => {
   const user = generateUser();
@@ -149,7 +147,7 @@ describe('shops', () => {
 
     it('does not contain an empty category', () => {
       _.each(shopCategories, category => {
-        expect(category.items.length).to.be.greaterThan(0);
+        expect(category.items.length, category.identifier).to.be.greaterThan(0);
       });
     });
 
@@ -264,9 +262,12 @@ describe('shops', () => {
     });
 
     it('items match current season', () => {
+      const currentSeason = seasonalConfig.currentSeason.toLowerCase();
       shopCategories.forEach(category => {
         category.items.forEach(item => {
-          expect(item.season).to.eql(currentSeason);
+          if (item.klass === 'special') {
+            expect(item.season, item.key).to.eql(currentSeason);
+          }
         });
       });
     });

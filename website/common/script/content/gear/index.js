@@ -1,6 +1,5 @@
 import each from 'lodash/each';
 import defaults from 'lodash/defaults';
-import moment from 'moment';
 
 import {
   CLASSES,
@@ -55,22 +54,6 @@ each(GEAR_TYPES, type => {
         con: 0,
         canBuy: () => false,
       });
-
-      if (item.event) {
-        const canOwnFuncTrue = () => true;
-        const _canOwn = item.canOwn || canOwnFuncTrue;
-
-        item.canOwn = user => {
-          const userHasOwnedItem = ownsItem(key)(user);
-          const eventIsCurrent = moment()
-            .isAfter(item.event.start) && moment().isBefore(item.event.end);
-          const compatibleWithUserClass = item.specialClass
-            ? user.stats.class === item.specialClass
-            : true;
-
-          return _canOwn(user) && (userHasOwnedItem || eventIsCurrent) && compatibleWithUserClass;
-        };
-      }
 
       if (item.mystery || key.indexOf('takeThis') !== -1) {
         item.canOwn = ownsItem(key);

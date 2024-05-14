@@ -54,6 +54,7 @@ function getDefaultGearProps (item, language) {
     con: item.con,
     klass: item.klass,
     set: item.set,
+    season: item.season,
   };
 }
 
@@ -226,7 +227,6 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         purchaseType: 'quests',
         path: `quests.${item.key}`,
         pinType: 'seasonalQuest',
-        event: item.event,
       };
       break;
     case 'gear':

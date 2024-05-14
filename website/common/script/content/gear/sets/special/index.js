@@ -17,7 +17,10 @@ function isSeasonalEventKey (key) {
 function fillSpecialGear (gearItems, gearType, value, stats) {
   Object.keys(gearItems).forEach(key => {
     if (isSeasonalEventKey(key)) {
-      const season = key.split(/(?=[A-Z])/)[1];
+      let season = key.split(/[0-9]+/)[0];
+      if (season.length === key.length) {
+        [season] = key.split(/(?=[A-Z])/);
+      }
       let klass = key.split(/(?=[A-Z])/)[1].toLowerCase();
       if (klass === 'mage') {
         klass = 'wizard';
@@ -25,13 +28,14 @@ function fillSpecialGear (gearItems, gearType, value, stats) {
       const actualGearType = (typeof gearType === 'function') ? gearType(klass) : gearType;
       const textKey = `${actualGearType}Special${upperFirst(key)}`;
       const actualValue = (typeof value === 'function') ? value(klass) : value;
+      const actualStats = stats !== undefined ? stats[klass] : {};
       defaults(gearItems[key], {
         specialClass: klass,
         text: t(`${textKey}Text`),
-        notes: t(`${textKey}Notes`, stats),
+        notes: t(`${textKey}Notes`, actualStats),
         value: actualValue,
         season,
-      }, stats);
+      }, actualStats);
       if (klass === 'wizard') {
         defaults(gearItems[key], {
           twoHanded: true,
@@ -178,39 +182,51 @@ const armor = {
   },
   springRogue: {
     set: 'stealthyKittySet',
+    season: 'spring',
   },
   springWarrior: {
     set: 'mightyBunnySet',
+    season: 'spring',
   },
   springMage: {
     set: 'magicMouseSet',
+    season: 'spring',
   },
   springHealer: {
     set: 'lovingPupSet',
+    season: 'spring',
   },
   summerRogue: {
     set: 'roguishPirateSet',
+    season: 'summer',
   },
   summerWarrior: {
     set: 'daringSwashbucklerSet',
+    season: 'summer',
   },
   summerMage: {
     set: 'emeraldMermageSet',
+    season: 'summer',
   },
   summerHealer: {
     set: 'reefSeahealerSet',
+    season: 'summer',
   },
   fallRogue: {
     set: 'vampireSmiterSet',
+    season: 'fall',
   },
   fallWarrior: {
     set: 'monsterOfScienceSet',
+    season: 'fall',
   },
   fallMage: {
     set: 'witchyWizardSet',
+    season: 'fall',
   },
   fallHealer: {
     set: 'mummyMedicSet',
+    season: 'fall',
   },
   winter2015Rogue: {
     set: 'icicleDrakeSet',
@@ -1233,39 +1249,51 @@ const head = {
   },
   springRogue: {
     set: 'stealthyKittySet',
+    season: 'spring',
   },
   springWarrior: {
     set: 'mightyBunnySet',
+    season: 'spring',
   },
   springMage: {
     set: 'magicMouseSet',
+    season: 'spring',
   },
   springHealer: {
     set: 'lovingPupSet',
+    season: 'spring',
   },
   summerRogue: {
     set: 'roguishPirateSet',
+    season: 'summer',
   },
   summerWarrior: {
     set: 'daringSwashbucklerSet',
+    season: 'summer',
   },
   summerMage: {
     set: 'emeraldMermageSet',
+    season: 'summer',
   },
   summerHealer: {
     set: 'reefSeahealerSet',
+    season: 'summer',
   },
   fallRogue: {
     set: 'vampireSmiterSet',
+    season: 'fall',
   },
   fallWarrior: {
     set: 'monsterOfScienceSet',
+    season: 'fall',
   },
   fallMage: {
     set: 'witchyWizardSet',
+    season: 'fall',
   },
   fallHealer: {
     set: 'mummyMedicSet',
+    season: 'fall',
   },
   winter2015Rogue: {
     set: 'icicleDrakeSet',
@@ -1840,46 +1868,22 @@ fillSpecialGear(head, 'head', 60, headStats);
 const headAccessory = {
   heroicCirclet: contributorGear.headAccessorySpecialHeroicCirclet,
   springRogue: {
-    specialClass: 'rogue',
     set: 'stealthyKittySet',
-    text: t('headAccessorySpecialSpringRogueText'),
-    notes: t('headAccessorySpecialSpringRogueNotes'),
-    value: 20,
   },
   springWarrior: {
-    specialClass: 'warrior',
     set: 'mightyBunnySet',
-    text: t('headAccessorySpecialSpringWarriorText'),
-    notes: t('headAccessorySpecialSpringWarriorNotes'),
-    value: 20,
   },
   springMage: {
-    specialClass: 'wizard',
     set: 'magicMouseSet',
-    text: t('headAccessorySpecialSpringMageText'),
-    notes: t('headAccessorySpecialSpringMageNotes'),
-    value: 20,
   },
   springHealer: {
-    specialClass: 'healer',
     set: 'lovingPupSet',
-    text: t('headAccessorySpecialSpringHealerText'),
-    notes: t('headAccessorySpecialSpringHealerNotes'),
-    value: 20,
   },
   spring2015Rogue: {
-    specialClass: 'rogue',
     set: 'sneakySqueakerSet',
-    text: t('headAccessorySpecialSpring2015RogueText'),
-    notes: t('headAccessorySpecialSpring2015RogueNotes'),
-    value: 20,
   },
   spring2015Warrior: {
-    specialClass: 'warrior',
     set: 'bewareDogSet',
-    text: t('headAccessorySpecialSpring2015WarriorText'),
-    notes: t('headAccessorySpecialSpring2015WarriorNotes'),
-    value: 20,
   },
   spring2015Mage: {
     specialClass: 'wizard',
@@ -1960,60 +1964,28 @@ const headAccessory = {
     canOwn: ownsItem('headAccessory_special_wolfEars'),
   },
   spring2016Rogue: {
-    specialClass: 'rogue',
     set: 'cleverDogSet',
-    text: t('headAccessorySpecialSpring2016RogueText'),
-    notes: t('headAccessorySpecialSpring2016RogueNotes'),
-    value: 20,
   },
   spring2016Warrior: {
-    specialClass: 'warrior',
     set: 'braveMouseSet',
-    text: t('headAccessorySpecialSpring2016WarriorText'),
-    notes: t('headAccessorySpecialSpring2016WarriorNotes'),
-    value: 20,
   },
   spring2016Mage: {
-    specialClass: 'wizard',
     set: 'grandMalkinSet',
-    text: t('headAccessorySpecialSpring2016MageText'),
-    notes: t('headAccessorySpecialSpring2016MageNotes'),
-    value: 20,
   },
   spring2016Healer: {
-    specialClass: 'healer',
     set: 'springingBunnySet',
-    text: t('headAccessorySpecialSpring2016HealerText'),
-    notes: t('headAccessorySpecialSpring2016HealerNotes'),
-    value: 20,
   },
   spring2017Rogue: {
-    specialClass: 'rogue',
     set: 'spring2017SneakyBunnySet',
-    text: t('headAccessorySpecialSpring2017RogueText'),
-    notes: t('headAccessorySpecialSpring2017RogueNotes'),
-    value: 20,
   },
   spring2017Warrior: {
-    specialClass: 'warrior',
     set: 'spring2017FelineWarriorSet',
-    text: t('headAccessorySpecialSpring2017WarriorText'),
-    notes: t('headAccessorySpecialSpring2017WarriorNotes'),
-    value: 20,
   },
   spring2017Mage: {
-    specialClass: 'wizard',
     set: 'spring2017CanineConjurorSet',
-    text: t('headAccessorySpecialSpring2017MageText'),
-    notes: t('headAccessorySpecialSpring2017MageNotes'),
-    value: 20,
   },
   spring2017Healer: {
-    specialClass: 'healer',
     set: 'spring2017FloralMouseSet',
-    text: t('headAccessorySpecialSpring2017HealerText'),
-    notes: t('headAccessorySpecialSpring2017HealerNotes'),
-    value: 20,
   },
   blackHeadband: {
     gearSet: 'headband',
@@ -2065,6 +2037,8 @@ const headAccessory = {
     canOwn: ownsItem('headAccessory_special_yellowHeadband'),
   },
 };
+
+fillSpecialGear(headAccessory, 'headAccessory', 20);
 
 const shield = {
   0: backerGear.shieldSpecial0,
@@ -2153,30 +2127,39 @@ const shield = {
   },
   springRogue: {
     set: 'stealthyKittySet',
+    season: 'spring',
   },
   springWarrior: {
     set: 'mightyBunnySet',
+    season: 'spring',
   },
   springHealer: {
     set: 'lovingPupSet',
+    season: 'spring',
   },
   summerRogue: {
     set: 'roguishPirateSet',
+    season: 'summer',
   },
   summerWarrior: {
     set: 'daringSwashbucklerSet',
+    season: 'summer',
   },
   summerHealer: {
     set: 'reefSeahealerSet',
+    season: 'summer',
   },
   fallRogue: {
     set: 'vampireSmiterSet',
+    season: 'fall',
   },
   fallWarrior: {
     set: 'monsterOfScienceSet',
+    season: 'fall',
   },
   fallHealer: {
     set: 'mummyMedicSet',
+    season: 'fall',
   },
   winter2015Rogue: {
     set: 'icicleDrakeSet',

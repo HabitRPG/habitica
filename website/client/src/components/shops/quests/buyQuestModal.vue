@@ -99,7 +99,7 @@
       </div>
     </div>
     <countdown-banner
-      v-if="item.event"
+      v-if="item.end"
       :end-date="endDate"
     />
     <div

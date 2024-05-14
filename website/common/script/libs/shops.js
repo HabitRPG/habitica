@@ -303,8 +303,9 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
     }
 
     category.items = filteredQuests;
-
-    categories.push(category);
+    if (category.items.length > 0) {
+      categories.push(category);
+    }
   });
 
   return categories;
@@ -535,7 +536,6 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
       const item = category.items[0];
 
       category.specialClass = item.specialClass;
-      category.event = item.event;
       categories.push(category);
     }
   }
