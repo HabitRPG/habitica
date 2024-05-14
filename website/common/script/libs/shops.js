@@ -149,6 +149,7 @@ shops.getMarketGearCategories = function getMarketGear (user, language) {
 
     const result = filter(content.gear.flat, gearItem => {
       if (gearItem.klass === classType) return true;
+      if (gearItem.season) return false;
       const classShift = {
         items: user.items,
         stats: {

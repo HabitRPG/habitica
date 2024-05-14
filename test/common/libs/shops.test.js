@@ -3,6 +3,10 @@ import {
   generateUser,
 } from '../../helpers/common.helper';
 
+import {
+  currentSeason,
+} from '../../../website/common/script/libs/shops-seasonal.config';
+
 describe('shops', () => {
   const user = generateUser();
 
@@ -39,6 +43,7 @@ describe('shops', () => {
       shopCategories.forEach(category => {
         category.items.forEach(item => {
           expect(item.event).to.not.exist;
+          expect(item.season).to.not.exist;
         });
       });
     });
@@ -60,12 +65,12 @@ describe('shops', () => {
 
       const gearCategories = shared.shops.getMarketGearCategories(contributor);
       const specialCategory = gearCategories.find(o => o.identifier === 'none');
-      expect(specialCategory.items.find(item => item.key === 'weapon_special_1'));
-      expect(specialCategory.items.find(item => item.key === 'armor_special_1'));
-      expect(specialCategory.items.find(item => item.key === 'head_special_1'));
-      expect(specialCategory.items.find(item => item.key === 'shield_special_1'));
-      expect(specialCategory.items.find(item => item.key === 'weapon_special_critical'));
-      expect(specialCategory.items.find(item => item.key === 'weapon_armoire_basicCrossbow'));// eslint-disable-line camelcase
+      expect(specialCategory.items.find(item => item.key === 'weapon_special_1'), 'weapon_special_1');
+      expect(specialCategory.items.find(item => item.key === 'armor_special_1'), 'armor_special_1');
+      expect(specialCategory.items.find(item => item.key === 'head_special_1'), 'head_special_1');
+      expect(specialCategory.items.find(item => item.key === 'shield_special_1'), 'shield_special_1');
+      expect(specialCategory.items.find(item => item.key === 'weapon_special_critical'), 'weapon_special_critical');
+      expect(specialCategory.items.find(item => item.key === 'weapon_armoire_basicCrossbow'), 'weapon_armoire_basicCrossbow');// eslint-disable-line camelcase
     });
 
     it('does not show gear when it is all owned', () => {
@@ -234,7 +239,7 @@ describe('shops', () => {
     it('does not return items with event data', async () => {
       shopCategories.forEach(category => {
         category.items.forEach(item => {
-          expect(item.event).to.not.exist;
+          expect(item.event, item.key).to.not.exist;
         });
       });
     });
@@ -243,7 +248,7 @@ describe('shops', () => {
       _.each(shopCategories, category => {
         _.each(category.items, item => {
           _.each(['key', 'text', 'notes', 'value', 'currency', 'locked', 'purchaseType', 'type'], key => {
-            expect(_.has(item, key)).to.eql(true);
+            expect(_.has(item, key), item.key).to.eql(true);
           });
         });
       });
@@ -252,8 +257,16 @@ describe('shops', () => {
     it('items have a valid end date', () => {
       shopCategories.forEach(category => {
         category.items.forEach(item => {
-          expect(item.end).to.be.a('date');
-          expect(item.end).to.be.greaterThan(today);
+          expect(item.end, item.key).to.be.a('date');
+          expect(item.end, item.key).to.be.greaterThan(today);
+        });
+      });
+    });
+
+    it('items match current season', () => {
+      shopCategories.forEach(category => {
+        category.items.forEach(item => {
+          expect(item.season).to.eql(currentSeason);
         });
       });
     });

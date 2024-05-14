@@ -17,6 +17,7 @@ function isSeasonalEventKey (key) {
 function fillSpecialGear (gearItems, gearType, value, stats) {
   Object.keys(gearItems).forEach(key => {
     if (isSeasonalEventKey(key)) {
+      const season = key.split(/(?=[A-Z])/)[1];
       let klass = key.split(/(?=[A-Z])/)[1].toLowerCase();
       if (klass === 'mage') {
         klass = 'wizard';
@@ -29,6 +30,7 @@ function fillSpecialGear (gearItems, gearType, value, stats) {
         text: t(`${textKey}Text`),
         notes: t(`${textKey}Notes`, stats),
         value: actualValue,
+        season,
       }, stats);
       if (klass === 'wizard') {
         defaults(gearItems[key], {
