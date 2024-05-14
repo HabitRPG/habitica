@@ -7,7 +7,7 @@ import {
   BadRequest,
 } from '../../../website/common/script/libs/errors';
 
-describe.only('shared.ops.unlock', () => {
+describe('shared.ops.unlock', () => {
   let user;
   let clock;
   const unlockPath = 'shirt.convict,shirt.fire,shirt.horizon,shirt.ocean,shirt.purple,shirt.rainbow,shirt.redblue,shirt.thunder,shirt.tropical,shirt.zombie';
