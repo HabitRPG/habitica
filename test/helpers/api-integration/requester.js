@@ -99,7 +99,7 @@ function _parseRes (res) {
         message: res.body.message,
       };
     }
-    if (res.body.hasOwnProperty("data")) {
+    if (Object.prototype.hasOwnProperty.call(res.body, 'data')) {
       return res.body.data;
     }
     return {
