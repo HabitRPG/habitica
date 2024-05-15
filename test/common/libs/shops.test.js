@@ -219,7 +219,7 @@ describe('shops', () => {
   });
 
   describe('seasonalShop', () => {
-    const shopCategories = shared.shops.getSeasonalShopCategories(user);
+    const shopCategories = shared.shops.getSeasonalShopCategories(user, null, seasonalConfig());
     const today = new Date();
 
     it('does not contain an empty category', () => {
@@ -262,7 +262,7 @@ describe('shops', () => {
     });
 
     it('items match current season', () => {
-      const currentSeason = seasonalConfig.currentSeason.toLowerCase();
+      const currentSeason = seasonalConfig().currentSeason.toLowerCase();
       shopCategories.forEach(category => {
         category.items.forEach(item => {
           if (item.klass === 'special') {

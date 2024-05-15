@@ -18,7 +18,7 @@ function getCurrentSeasonalSets (currentEvent) {
 
 export default () => {
   const currentEvent = getCurrentGalaKey();
-  const pinnedSets = getCurrentSeasonalSets(currentEvent)
+  const pinnedSets = getCurrentSeasonalSets(currentEvent);
   return {
     currentSeason: currentEvent ? upperFirst(currentEvent) : 'Closed',
     pinnedSets,
