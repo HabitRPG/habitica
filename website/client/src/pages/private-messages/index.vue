@@ -17,10 +17,21 @@
         </h2>
         <div class="placeholder svg-icon">
           <!-- placeholder -->
+          <button
+            class="btn btn-secondary"
+            @click="showStartNewConversationInput = true"
+          >
+            +
+          </button>
         </div>
       </div>
+      <start-new-conversation-input-header
+        v-if="uiState === UI_STATES.START_NEW_CONVERSATION"
+        @startNewConversation="startNewConversation($event)"
+        @cancelNewConversation="showStartNewConversationInput = false"
+      />
       <div
-        v-if="selectedConversation && selectedConversation.key"
+        v-else-if="selectedConversation && selectedConversation.key"
         class="d-flex selected-conversion"
       >
         <router-link
@@ -69,10 +80,14 @@
         <pm-empty-state
           v-if="uiState === UI_STATES.NO_CONVERSATIONS"
           :chat-revoked="user.flags.chatRevoked"
+          @newMessageClicked="showStartNewConversationInput = true"
         />
         <pm-disabled-state
           v-if="uiState === UI_STATES.DISABLED"
           :disabled-texts="disabledTexts"
+        />
+        <pm-new-message-started
+          v-if="uiState === UI_STATES.START_NEW_CONVERSATION && newConversationTargetUser"
         />
 
         <div
@@ -157,8 +172,8 @@
 </template>
 
 <style lang="scss">
-@import '~@/assets/scss/colors.scss';
-@import '~@/assets/scss/variables.scss';
+@import '~@/assets/scss/colors';
+@import '~@/assets/scss/variables';
 
 $pmHeaderHeight: 56px;
 
@@ -266,9 +281,9 @@ $pmHeaderHeight: 56px;
 </style>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
-@import '~@/assets/scss/tiers.scss';
-@import '~@/assets/scss/variables.scss';
+@import '~@/assets/scss/colors';
+@import '~@/assets/scss/tiers';
+@import '~@/assets/scss/variables';
 
 $pmHeaderHeight: 56px;
 $background: $white;
@@ -504,21 +519,23 @@ import moment from 'moment';
 import groupBy from 'lodash/groupBy';
 import orderBy from 'lodash/orderBy';
 import axios from 'axios';
-import { MAX_MESSAGE_LENGTH } from '@/../../common/script/constants';
+import { MAX_MESSAGE_LENGTH } from '../../../../common/script/constants';
 import { mapState } from '@/libs/store';
 import styleHelper from '@/mixins/styleHelper';
-import toggleSwitch from '@/components/ui/toggleSwitch';
-import userLink from '@/components/userLink';
+import toggleSwitch from '@/components/ui/toggleSwitch.vue';
+import userLink from '@/components/userLink.vue';
 
-import messageList from '@/components/messages/messageList';
+import messageList from '@/components/messages/messageList.vue';
 import messageIcon from '@/assets/svg/message.svg';
 import mail from '@/assets/svg/mail.svg';
-import faceAvatar from '@/components/faceAvatar';
-import Avatar from '@/components/avatar';
+import faceAvatar from '@/components/faceAvatar.vue';
+import Avatar from '@/components/avatar.vue';
 import { EVENTS } from '@/libs/events';
-import PmConversationsList from './private-messages/pm-conversations-list.vue';
-import PmEmptyState from './private-messages/pm-empty-state.vue';
-import PmDisabledState from '@/pages/private-messages/pm-disabled-state.vue';
+import PmConversationsList from './pm-conversations-list.vue';
+import PmEmptyState from './pm-empty-state.vue';
+import PmDisabledState from './pm-disabled-state.vue';
+import PmNewMessageStarted from './pm-new-message-started.vue';
+import StartNewConversationInputHeader from './start-new-conversation-input-header.vue';
 
 // extract to a shared path
 const CONVERSATIONS_PER_PAGE = 10;
@@ -534,6 +551,8 @@ const UI_STATES = Object.freeze({
 
 export default defineComponent({
   components: {
+    StartNewConversationInputHeader,
+    PmNewMessageStarted,
     PmDisabledState,
     PmEmptyState,
     PmConversationsList,
@@ -573,6 +592,8 @@ export default defineComponent({
         mail,
       }),
       UI_STATES,
+      showStartNewConversationInput: false,
+      newConversationTargetUser: null,
       loaded: false,
       showPopover: false,
 
@@ -740,21 +761,20 @@ export default defineComponent({
         || this.disabledTexts !== null;
     },
     uiState () {
-      if (true) {
-        // testing states
-        return UI_STATES.NO_CONVERSATIONS;
-      }
-
       if (this.disabledTexts) {
         return UI_STATES.DISABLED;
+      }
+
+      if (this.showStartNewConversationInput) {
+        return UI_STATES.START_NEW_CONVERSATION;
       }
 
       if (this.loadedConversations.length === 0) {
         return UI_STATES.NO_CONVERSATIONS;
       }
 
-      if (!this.selectedConversation) {
-        this.uiState = UI_STATES.NO_CONVERSATIONS_SELECTED;
+      if (!this.selectedConversation.key) {
+        return UI_STATES.NO_CONVERSATIONS_SELECTED;
       }
 
       // TODO start new conversation
@@ -765,14 +785,11 @@ export default defineComponent({
       const currentUiState = this.uiState;
 
       switch (currentUiState) {
-        case UI_STATES.NO_CONVERSATIONS: {
-          return false;
-        }
-        case UI_STATES.NO_CONVERSATIONS_SELECTED: {
-          return false;
-        }
         case UI_STATES.START_NEW_CONVERSATION: {
-          return true;
+          if (this.newConversationTargetUser) {
+            return true;
+          }
+          return false;
         }
         case UI_STATES.CONVERSATION_SELECTED: {
           return true;
@@ -981,6 +998,11 @@ export default defineComponent({
       if (this.loadedConversations.length > 0) {
         this.selectConversation(this.loadedConversations[0].uuid, true);
       }
+    },
+    startNewConversation (targetUser) {
+      console.info({
+        targetUser,
+      });
     },
   },
 });

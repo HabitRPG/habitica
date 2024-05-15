@@ -18,6 +18,7 @@
 
     <button
       class="btn btn-primary mt-4"
+      @click="$emit('newMessageClicked')"
     >
       new message
     </button>
