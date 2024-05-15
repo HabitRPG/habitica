@@ -32,7 +32,7 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation { // eslint-d
     let result = {};
 
     const armoireResult = randomValFns.trueRandom();
-    const eligibleEquipment = filter(content.gear.flat, eligible => eligible.klass === 'armoire' && eligible.released && !user.items.gear.owned[eligible.key]);
+    const eligibleEquipment = filter(content.gear.flat, eligible => eligible.klass === 'armoire' && !user.items.gear.owned[eligible.key]);
     const armoireHasEquipment = !isEmpty(eligibleEquipment);
 
     if (

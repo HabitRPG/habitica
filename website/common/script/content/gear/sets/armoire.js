@@ -6,6 +6,7 @@ import upperFirst from 'lodash/upperFirst';
 import { ownsItem } from '../gear-helper';
 import { ATTRIBUTES } from '../../../constants';
 import t from '../../translation';
+import memoize from '../../../fns/datedMemoize';
 
 const armor = {
   lunarArmor: {
@@ -1339,7 +1340,7 @@ const shield = {
     con: 8,
     set: 'pottersSet',
   },
-  buoyantBeachball: {
+  buoyantBeachBall: {
     str: 12,
     set: 'beachsideSet',
   },
@@ -1853,8 +1854,6 @@ forEach({
   shield,
   weapon,
 }, (set, setKey) => {
-  const today = moment();
-  const releaseDateEndPart = `${String(releaseDay).padStart(2, '0')}T08:00-0500`;
   forEach(set, (gearItem, gearKey) => {
     const gearStats = {};
     const gearStatValues = [];
@@ -1878,6 +1877,20 @@ forEach({
     } else {
       notes = t(`${setKey}Armoire${upperFirst(gearKey)}Notes`);
     }
+    defaults(gearItem, {
+      canOwn: ownsItem(`${setKey}_armoire_${gearKey}`),
+      notes,
+      text: t(`${setKey}Armoire${upperFirst(gearKey)}Text`),
+      value: 100,
+    });
+  });
+});
+
+function updateReleased (type) {
+  const today = moment();
+  const releaseDateEndPart = `${String(releaseDay).padStart(2, '0')}T08:00-0500`;
+  const returnType = {};
+  forEach(type, (gearItem, gearKey) => {
     let released;
     if (releaseDates[gearItem.set]) {
       const releaseDateString = `${releaseDates[gearItem.set].year}-${String(releaseDates[gearItem.set].month).padStart(2, '0')}-${releaseDateEndPart}`;
@@ -1885,25 +1898,35 @@ forEach({
     } else {
       released = true;
     }
-    defaults(gearItem, {
-      released,
-      canOwn: ownsItem(`${setKey}_armoire_${gearKey}`),
-      notes,
-      text: t(`${setKey}Armoire${upperFirst(gearKey)}Text`),
-      value: 100,
-    });
-    if (gearItem.released === false) {
-      delete set[gearKey];
+    if (released) {
+      returnType[gearKey] = gearItem;
     }
   });
-});
+  return returnType;
+}
 
-export {
-  armor,
-  body,
-  eyewear,
-  head,
-  headAccessory,
-  shield,
-  weapon,
+const memoizedUpdatReleased = memoize(updateReleased);
+
+export default {
+  get armor () {
+    return memoizedUpdatReleased({ identifier: 'armor', memoizeConfig: true }, armor);
+  },
+  get body () {
+    return memoizedUpdatReleased({ identifier: 'body', memoizeConfig: true }, body);
+  },
+  get eyewear () {
+    return memoizedUpdatReleased({ identifier: 'eyewear', memoizeConfig: true }, eyewear);
+  },
+  get head () {
+    return memoizedUpdatReleased({ identifier: 'head', memoizeConfig: true }, head);
+  },
+  get headAccessory () {
+    return memoizedUpdatReleased({ identifier: 'headAccessory', memoizeConfig: true }, headAccessory);
+  },
+  get shield () {
+    return memoizedUpdatReleased({ identifier: 'shield', memoizeConfig: true }, shield);
+  },
+  get weapon () {
+    return memoizedUpdatReleased({ identifier: 'weapon', memoizeConfig: true }, weapon);
+  },
 };

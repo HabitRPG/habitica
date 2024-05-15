@@ -801,8 +801,8 @@ function getMonth (date) {
 }
 
 function getGalaIndex (date) {
-  const month = date instanceof moment ? date.month() : date.getMonth();
-  const todayDay = date instanceof moment ? date.date() : date.getDate();
+  const month = getMonth(date);
+  const todayDay = getDay(date);
   let galaMonth = month;
   const galaCount = Object.keys(GALA_SCHEDULE).length;
   if (todayDay >= GALA_SWITCHOVER_DAY) {
@@ -816,8 +816,8 @@ function getGalaIndex (date) {
 
 export function assembleScheduledMatchers (date) {
   const items = [];
-  const month = date instanceof moment ? date.month() : date.getMonth();
-  const todayDay = date instanceof moment ? date.date() : date.getDate();
+  const month = getMonth(date);
+  const todayDay = getDay(date);
   const previousMonth = month === 0 ? 11 : month - 1;
   for (const [day, value] of Object.entries(MONTHLY_SCHEDULE[previousMonth])) {
     if (day > todayDay) {

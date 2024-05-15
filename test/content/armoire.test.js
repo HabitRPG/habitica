@@ -5,23 +5,15 @@ import {
 } from '../helpers/content.helper';
 
 function makeArmoireIitemList () {
-  const {
-    armor,
-    body,
-    eyewear,
-    head,
-    headAccessory,
-    shield,
-    weapon,
-  } = require('../../website/common/script/content/gear/sets/armoire');
+  const armoire = require('../../website/common/script/content/gear/sets/armoire').default;
   const items = [];
-  items.push(...Object.values(armor));
-  items.push(...Object.values(body));
-  items.push(...Object.values(eyewear));
-  items.push(...Object.values(head));
-  items.push(...Object.values(headAccessory));
-  items.push(...Object.values(shield));
-  items.push(...Object.values(weapon));
+  items.push(...Object.values(armoire.armor));
+  items.push(...Object.values(armoire.body));
+  items.push(...Object.values(armoire.eyewear));
+  items.push(...Object.values(armoire.head));
+  items.push(...Object.values(armoire.headAccessory));
+  items.push(...Object.values(armoire.shield));
+  items.push(...Object.values(armoire.weapon));
   return items;
 }
 
@@ -37,9 +29,7 @@ describe('armoire', () => {
     clock = sinon.useFakeTimers(new Date('2024-01-01'));
     const items = makeArmoireIitemList();
     expect(items.length).to.equal(377);
-    forEach(items, item => {
-      expect(item.released, item.key).to.be.true;
-    });
+    expect(items.filter(item => item.set === 'pottersSet' || item.set === 'optimistSet' || item.set === 'schoolUniform')).to.be.an('array').that.is.empty;
   });
 
   it('released gear has all required properties', async () => {
@@ -52,7 +42,6 @@ describe('armoire', () => {
         expect(item.set, item.key).to.not.be.empty;
       }
       expectValidTranslationString(item.text);
-      expect(item.released, item.key).to.be.a('boolean');
       expect(item.value, item.key).to.be.a('number');
     });
   });
