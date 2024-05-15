@@ -2549,7 +2549,7 @@ const shieldStats = {
   warrior: { con: 7 },
 };
 
-fillSpecialGear(shield, klass => (klass === 'rogue' ? 'weapon' : 'shield'), 80, shieldStats);
+fillSpecialGear(shield, klass => (klass === 'rogue' ? 'weapon' : 'shield'), klass => (klass === 'rogue' ? 80 : 70), shieldStats);
 
 const weapon = {
   0: backerGear.weaponSpecial0,
