@@ -40,7 +40,6 @@
       <div class="featuredItems">
         <div
           class="background"
-          :class="{opened: seasonal.opened}"
           :style="{'background-image': imageURLs.background}"
         >
           <div
@@ -54,20 +53,7 @@
             </div>
           </div>
           <div
-            v-if="!seasonal.opened"
-            class="content"
-          >
-            <div class="featured-label with-border closed">
-              <span class="rectangle"></span>
-              <span
-                class="text"
-                v-html="seasonal.notes"
-              ></span>
-              <span class="rectangle"></span>
-            </div>
-          </div>
-          <div
-            v-else-if="seasonal.featured.items.length !== 0"
+            v-if="seasonal.featured.items.length !== 0"
             class="content"
           >
             <div

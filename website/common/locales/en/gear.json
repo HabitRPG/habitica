@@ -2934,8 +2934,8 @@
   "shieldArmoireHappyThoughtsNotes": "Whether you're remembering a joyful moment from your past or imagining the best outcome for the future, always look on the bright side of life. Increases all stats by <%= attrs %> each. Enchanted Armoire: Optimist Set (Item 3 of 4).",
   "shieldArmoireThrownVesselText": "Thrown Vessel",
   "shieldArmoireThrownVesselNotes": "You know what they say: practice makes progress. And this is the best one you’ve made so far! Increases Constitution by <%= con %>. Enchanted Armoire: Potter Set (Item 3 of 4).",
-  "shieldArmoireBuoyantBeachballText": "Beachball",
-  "shieldArmoireBuoyantBeachballNotes": "Got too many balls up in the air already? Here’s one that you can safely set down, roll, bounce and bounce and bounce… Increases Strength by <%= str %>. Enchanted Armoire: Beachside Set (Item 4 of 4).",
+  "shieldArmoireBuoyantBeachBallText": "Beachball",
+  "shieldArmoireBuoyantBeachBallNotes": "Got too many balls up in the air already? Here’s one that you can safely set down, roll, bounce and bounce and bounce… Increases Strength by <%= str %>. Enchanted Armoire: Beachside Set (Item 4 of 4).",
 
   "back": "Back Accessory",
   "backBase0Text": "No Back Accessory",
