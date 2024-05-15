@@ -50,161 +50,101 @@ const premium = {
     value: 2,
     text: t('hatchingPotionCupid'),
     limited: true,
-    _addlNotes: t('eventAvailability', {
-      date: t('dateEndFebruary'),
-    }),
   },
   Shimmer: {
     value: 2,
     text: t('hatchingPotionShimmer'),
     limited: true,
-    _addlNotes: t('eventAvailability', {
-      date: t('dateEndApril'),
-    }),
   },
   Fairy: {
     value: 2,
     text: t('hatchingPotionFairy'),
     limited: true,
-    _addlNotes: t('eventAvailability', {
-      date: t('dateEndMay'),
-    }),
   },
   Floral: {
     value: 2,
     text: t('hatchingPotionFloral'),
     limited: true,
-    _addlNotes: t('eventAvailability', {
-      date: t('dateEndMay'),
-    }),
   },
   Aquatic: {
     value: 2,
     text: t('hatchingPotionAquatic'),
     limited: true,
-    _addlNotes: t('eventAvailability', {
-      date: t('dateEndFebruary'),
-    }),
   },
   Ember: {
     value: 2,
     text: t('hatchingPotionEmber'),
     limited: true,
-    _addlNotes: t('eventAvailability', {
-      date: t('dateEndNovember'),
-    }),
   },
   Thunderstorm: {
     value: 2,
     text: t('hatchingPotionThunderstorm'),
     limited: true,
-    _addlNotes: t('eventAvailability', {
-      date: t('dateEndAugust'),
-    }),
   },
   Spooky: {
     value: 2,
     text: t('hatchingPotionSpooky'),
     limited: true,
-    _addlNotes: t('eventAvailability', {
-      date: t('dateEndOctober'),
-    }),
   },
   Ghost: {
     value: 2,
     text: t('hatchingPotionGhost'),
     limited: true,
-    _addlNotes: t('eventAvailability', {
-      date: t('dateEndOctober'),
-    }),
   },
   Holly: {
     value: 2,
     text: t('hatchingPotionHolly'),
     limited: true,
-    _addlNotes: t('eventAvailability', {
-      date: t('dateEndJanuary'),
-    }),
   },
   Peppermint: {
     value: 2,
     text: t('hatchingPotionPeppermint'),
     limited: true,
-    _addlNotes: t('eventAvailability', {
-      date: t('dateEndJanuary'),
-    }),
   },
   StarryNight: {
     value: 2,
     text: t('hatchingPotionStarryNight'),
     limited: true,
-    _addlNotes: t('eventAvailability', {
-      date: t('dateEndJanuary'),
-    }),
   },
   Rainbow: {
     value: 2,
     text: t('hatchingPotionRainbow'),
     limited: true,
-    _addlNotes: t('eventAvailability', {
-      date: t('dateEndApril'),
-    }),
   },
   Glass: {
     value: 2,
     text: t('hatchingPotionGlass'),
     limited: true,
-    _addlNotes: t('eventAvailability', {
-      date: t('dateEndJuly'),
-    }),
   },
   Glow: {
     value: 2,
     text: t('hatchingPotionGlow'),
     limited: true,
-    _addlNotes: t('eventAvailability', {
-      date: t('dateEndOctober'),
-    }),
   },
   Frost: {
     value: 2,
     text: t('hatchingPotionFrost'),
     limited: true,
-    _addlNotes: t('eventAvailability', {
-      date: t('dateEndNovember'),
-    }),
   },
   IcySnow: {
     value: 2,
     text: t('hatchingPotionIcySnow'),
     limited: true,
-    _addlNotes: t('eventAvailability', {
-      date: t('dateEndJanuary'),
-    }),
   },
   RoseQuartz: {
     value: 2,
     text: t('hatchingPotionRoseQuartz'),
     limited: true,
-    _addlNotes: t('eventAvailability', {
-      date: t('dateEndFebruary'),
-    }),
   },
   Celestial: {
     value: 2,
     text: t('hatchingPotionCelestial'),
     limited: true,
-    _addlNotes: t('eventAvailability', {
-      date: t('dateEndApril'),
-    }),
   },
   Sunshine: {
     value: 2,
     text: t('hatchingPotionSunshine'),
     limited: true,
-    _addlNotes: t('eventAvailability', {
-      date: t('dateEndMay'),
-    }),
   },
   Bronze: {
     canBuy: hasQuestAchievementFunction('bronze'),
@@ -261,9 +201,6 @@ const wacky = {
   Veggie: {
     text: t('hatchingPotionVeggie'),
     limited: true,
-    _addlNotes: t('eventAvailability', {
-      date: t('dateEndApril'),
-    }),
   },
   Dessert: {
     canBuy: hasQuestAchievementFunction('waffle'),
@@ -274,16 +211,10 @@ const wacky = {
   TeaShop: {
     text: t('hatchingPotionTeaShop'),
     limited: true,
-    _addlNotes: t('premiumPotionAddlNotes', {
-      date: t('dateEndApril'),
-    }),
   },
   Fungi: {
     text: t('hatchingPotionFungi'),
     limited: true,
-    _addlNotes: t('premiumPotionAddlNotes', {
-      date: t('dateEndApril'),
-    }),
     canBuy: hasQuestAchievementFunction('fungi'),
   },
 };
