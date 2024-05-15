@@ -102,6 +102,7 @@ shops.checkMarketGearLocked = function checkMarketGearLocked (user, items) {
   const result = filter(items, ['pinType', 'marketGear']);
   const officialPinnedItems = getOfficialPinnedItems(user);
   const availableGear = map(updateStore(user), item => getItemInfo(user, 'marketGear', item, officialPinnedItems).path);
+  const { pinnedSets } = seasonalShopConfig();
   for (const gear of result) {
     if (gear.klass !== user.stats.class) {
       gear.locked = true;
@@ -122,7 +123,7 @@ shops.checkMarketGearLocked = function checkMarketGearLocked (user, items) {
     }
 
     if (Boolean(gear.specialClass) && Boolean(gear.set)) {
-      const currentSet = gear.set === seasonalShopConfig.pinnedSets[gear.specialClass];
+      const currentSet = gear.set === pinnedSets[gear.specialClass];
 
       gear.locked = currentSet && user.stats.class !== gear.specialClass;
     }
@@ -140,6 +141,7 @@ shops.checkMarketGearLocked = function checkMarketGearLocked (user, items) {
 shops.getMarketGearCategories = function getMarketGear (user, language) {
   const categories = [];
   const officialPinnedItems = getOfficialPinnedItems(user);
+  const { pinnedSets } = seasonalShopConfig();
 
   for (const classType of content.classes) {
     const category = {
@@ -159,7 +161,7 @@ shops.getMarketGearCategories = function getMarketGear (user, language) {
       if (
         gearItem.specialClass === classType
         && user.items.gear.owned[gearItem.key] !== false
-        && gearItem.set === seasonalShopConfig.pinnedSets[gearItem.specialClass]
+        && gearItem.set === pinnedSets[gearItem.specialClass]
       ) return gearItem.canOwn(classShift);
       return false;
     });
@@ -425,6 +427,7 @@ const flatGearArray = toArray(content.gear.flat);
 
 shops.getSeasonalGearBySet = function getSeasonalGearBySet (
   user,
+  shopConfig,
   set,
   officialPinnedItems,
   language,
@@ -436,7 +439,7 @@ shops.getSeasonalGearBySet = function getSeasonalGearBySet (
 
     return gear.set === set;
   }).map(gear => {
-    const currentSet = gear.set === seasonalShopConfig.pinnedSets[gear.specialClass];
+    const currentSet = gear.set === shopConfig.pinnedSets[gear.specialClass];
 
     // only the current season set can be purchased by gold
     const itemInfo = getItemInfo(null, currentSet ? 'marketGear' : 'gear', gear, officialPinnedItems, language, gearMatcher);
@@ -452,20 +455,23 @@ shops.getSeasonalGearBySet = function getSeasonalGearBySet (
 };
 
 shops.getSeasonalShop = function getSeasonalShop (user, language) {
+  const shopConfig = seasonalShopConfig();
   const officialPinnedItems = getOfficialPinnedItems(user);
+
+  console.log('shopConfig', shopConfig);
 
   const resObject = {
     identifier: 'seasonalShop',
     text: i18n.t('seasonalShop'),
-    notes: i18n.t(`seasonalShop${seasonalShopConfig.currentSeason}Text`),
+    notes: i18n.t(`seasonalShop${shopConfig.currentSeason}Text`),
     imageName: 'seasonalshop_open',
     opened: true,
-    categories: this.getSeasonalShopCategories(user, language),
+    categories: this.getSeasonalShopCategories(user, language, shopConfig),
     featured: {
-      text: i18n.t(seasonalShopConfig.featuredSet),
+      text: i18n.t(shopConfig.featuredSet),
       items: shops.getSeasonalGearBySet(
         user,
-        seasonalShopConfig.featuredSet,
+        shopConfig.featuredSet,
         officialPinnedItems,
         language,
         true,
@@ -476,7 +482,7 @@ shops.getSeasonalShop = function getSeasonalShop (user, language) {
   return resObject;
 };
 
-shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, language) {
+shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, language, shopConfig) {
   const officialPinnedItems = getOfficialPinnedItems(user);
 
   const spellMatcher = getScheduleMatchingGroup('seasonalSpells');
@@ -525,6 +531,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
 
     category.items = shops.getSeasonalGearBySet(
       user,
+      shopConfig,
       set,
       officialPinnedItems,
       language,
