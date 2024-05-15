@@ -5,7 +5,7 @@
     "groupBy": "Agrupar por <%= type %>",
     "classBonus": "(Este equipamiento es de tu clase por lo que gana un multiplicador de 1,5 a sus atributos)",
     "classArmor": "Armadura de clase",
-    "featuredset": "Conjunto destacado <%= name %>",
+    "featuredset": "Conjunto destacado: <%= name %>",
     "mysterySets": "Conjuntos misteriosos",
     "gearNotOwned": "No tienes este objeto.",
     "noGearItemsOfType": "No tienes ninguno de estos.",

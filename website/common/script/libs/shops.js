@@ -458,8 +458,6 @@ shops.getSeasonalShop = function getSeasonalShop (user, language) {
   const shopConfig = seasonalShopConfig();
   const officialPinnedItems = getOfficialPinnedItems(user);
 
-  console.log('shopConfig', shopConfig);
-
   const resObject = {
     identifier: 'seasonalShop',
     text: i18n.t('seasonalShop'),
@@ -468,14 +466,8 @@ shops.getSeasonalShop = function getSeasonalShop (user, language) {
     opened: true,
     categories: this.getSeasonalShopCategories(user, language, shopConfig),
     featured: {
-      text: i18n.t(shopConfig.featuredSet),
-      items: shops.getSeasonalGearBySet(
-        user,
-        shopConfig.featuredSet,
-        officialPinnedItems,
-        language,
-        true,
-      ),
+      text: i18n.t(shopConfig.featuredSet(user)),
+      items: officialPinnedItems.map(i => getItemInfo(user, i.type, get(content, i.path))),
     },
   };
 
