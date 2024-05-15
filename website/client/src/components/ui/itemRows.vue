@@ -14,8 +14,15 @@
     </div>
     <div v-if="items.length === 0">
       <p
+        v-if="clickHandler"
         class="empty-state"
         @click.stop.prevent="$emit('emptyClick', $event)"
+        v-html="noItemsLabel"
+      >
+      </p>
+      <p
+        v-else
+        class="empty-state"
         v-html="noItemsLabel"
       >
       </p>
@@ -57,27 +64,31 @@ export default {
   },
   mixins: [openedItemRowsMixin],
   props: {
-    items: {
-      type: Array,
+    clickHandler: {
+      type: Boolean,
+      default: true,
     },
-    type: {
-      type: String,
+    foldButton: {
+      type: Boolean,
+      default: true,
+    },
+    itemMargin: {
+      type: Number,
     },
     itemWidth: {
       type: Number,
     },
-    itemMargin: {
+    items: {
+      type: Array,
+    },
+    maxItemsPerRow: {
       type: Number,
     },
     noItemsLabel: {
       type: String,
     },
-    maxItemsPerRow: {
-      type: Number,
-    },
-    foldButton: {
-      type: Boolean,
-      default: true,
+    type: {
+      type: String,
     },
   },
   data () {

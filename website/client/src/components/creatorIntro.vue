@@ -573,10 +573,14 @@
   }
 
   #avatar-modal {
+    h2 {
+      color: $purple-300;
+    }
+
     .avatar {
       cursor: auto;
 
-      &:not(.new-user) {
+      &:not(.new-user)[class*=background] {
         box-shadow: 0px 1px 3px 0px rgba(26, 24, 29, 0.12), 0px 1px 2px 0px rgba(26, 24, 29, 0.24);
       }
 

@@ -99,6 +99,8 @@
           :item-margin="24"
           :type="category.identifier"
           :fold-button="false"
+          :no-items-label="$t('allEquipmentOwned')"
+          :click-handler="false"
         >
           <template
             slot="item"
@@ -163,105 +165,10 @@
   </div>
 </template>
 
-<!-- eslint-disable max-len -->
-<style lang="scss">
+<style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
-
-  // these styles may be applied to other pages too
-
-  .featured-label {
-    margin: 24px auto;
-  }
-
-  .group {
-    display: inline-block;
-    width: 33%;
-    margin-bottom: 24px;
-
-    .items {
-      border-radius: 2px;
-      background-color: #edecee;
-      display: inline-block;
-      padding: 8px;
-    }
-
-    .item-wrapper {
-      margin-bottom: 0;
-    }
-
-    .items > div:not(:last-of-type) {
-      margin-right: 16px;
-    }
-  }
-
-  .timeTravelers {
-    .standard-page {
-      position: relative;
-    }
-
-    .badge-pin:not(.pinned) {
-        display: none;
-      }
-
-    .item:hover .badge-pin {
-      display: block;
-    }
-
-    .avatar {
-      cursor: default;
-      margin: 0 auto;
-    }
-
-    .featuredItems {
-      height: 216px;
-
-      .background {
-        background-repeat: repeat-x;
-
-        width: 100%;
-        position: absolute;
-
-        top: 0;
-        left: 0;
-
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      }
-      .background-open, .background-closed {
-        height: 216px;
-      }
-
-      .content {
-        display: flex;
-        flex-direction: column;
-      }
-
-      .npc {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 216px;
-        background-repeat: no-repeat;
-
-        &.closed {
-          background-repeat: no-repeat;
-        }
-
-        .featured-label {
-          position: absolute;
-          bottom: -14px;
-          margin: 0;
-          left: 78px;
-        }
-      }
-    }
-
-  }
+  @import '~@/assets/scss/shops.scss';
 </style>
-<!-- eslint-enable max-len -->
 
 <script>
 import _filter from 'lodash/filter';
@@ -328,6 +235,11 @@ export default {
       backgroundUpdate: new Date(),
 
       currentEvent: null,
+
+      imageURLs: {
+        background: '',
+        npc: '',
+      },
     };
   },
   computed: {
@@ -388,19 +300,6 @@ export default {
     anyFilterSelected () {
       return Object.values(this.viewOptions).some(g => g.selected);
     },
-    imageURLs () {
-      if (!this.currentEvent || !this.currentEvent.season || this.currentEvent.season === 'thanksgiving') {
-        return {
-          background: 'url(/static/npc/normal/time_travelers_background.png)',
-          npc: this.closed ? 'url(/static/npc/normal/time_travelers_closed_banner.png)'
-            : 'url(/static/npc/normal/time_travelers_open_banner.png)',
-        };
-      }
-      return {
-        background: `url(/static/npc/${this.currentEvent.season}/time_travelers_background.png)`,
-        npc: `url(/static/npc/${this.currentEvent.season}/time_travelers_open_banner.png)`,
-      };
-    },
   },
   watch: {
     searchText: _throttle(function throttleSearch () {
@@ -421,6 +320,14 @@ export default {
       }
     });
     this.currentEvent = _find(this.currentEventList, event => Boolean(['winter', 'spring', 'summer', 'fall'].includes(event.season)));
+    if (!this.currentEvent || !this.currentEvent.season || this.currentEvent.season === 'thanksgiving' || this.closed) {
+      this.imageURLs.background = 'url(/static/npc/normal/time_travelers_background.png)';
+      this.imageURLs.npc = this.closed ? 'url(/static/npc/normal/time_travelers_closed_banner.png)'
+        : 'url(/static/npc/normal/time_travelers_open_banner.png)';
+    } else {
+      this.imageURLs.background = `url(/static/npc/${this.currentEvent.season}/time_travelers_background.png)`;
+      this.imageURLs.npc = `url(/static/npc/${this.currentEvent.season}/time_travelers_open_banner.png)`;
+    }
   },
   beforeDestroy () {
     this.$root.$off('buyModal::boughtItem');

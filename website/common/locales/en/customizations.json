@@ -135,5 +135,7 @@
   "checkNextSeason": "Be sure to check back later for next season's options!",
   "noItemsOwned": "You don't own any of these items",
   "visitCustomizationsShop": "Head over to the <a href='/shops/customizations'>Customizations Shop</a> to browse the many ways you can customize your avatar!",
-  "lookingForMore": "Looking for more?"
+  "lookingForMore": "Looking for more?",
+  "allEquipmentOwned": "You own all of these items. You can find them in your <a href='/inventory/equipment'>Equipment</a>. Be sure to check back later for next month's options!",
+  "customizationsNPC": "Felicitus Fennec"
 }

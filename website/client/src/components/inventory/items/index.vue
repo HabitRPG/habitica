@@ -444,7 +444,7 @@ export default {
             const isSearched = !searchText || item.text()
               .toLowerCase()
               .indexOf(searchText) !== -1;
-            if (isSearched) {
+            if (isSearched && item) {
               itemsArray.push({
                 ...item,
                 class: `${group.classPrefix}${item.key}`,

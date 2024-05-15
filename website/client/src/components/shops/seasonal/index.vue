@@ -400,6 +400,10 @@ export default {
       featuredGearBought: false,
       currentEvent: null,
       backgroundUpdate: new Date(),
+      imageURLs: {
+        background: '',
+        npc: '',
+      },
     };
   },
   computed: {
@@ -470,21 +474,8 @@ export default {
       }
       return [];
     },
-
     anyFilterSelected () {
       return Object.values(this.viewOptions).some(g => g.selected);
-    },
-    imageURLs () {
-      if (!this.seasonal.opened || !this.currentEvent || !this.currentEvent.season) {
-        return {
-          background: 'url(/static/npc/normal/seasonal_shop_closed_background.png)',
-          npc: 'url(/static/npc/normal/seasonal_shop_closed_npc.png)',
-        };
-      }
-      return {
-        background: `url(/static/npc/${this.currentEvent.season}/seasonal_shop_opened_background.png)`,
-        npc: `url(/static/npc/${this.currentEvent.season}/seasonal_shop_opened_npc.png)`,
-      };
     },
   },
   watch: {
@@ -492,7 +483,7 @@ export default {
       this.searchTextThrottled = this.searchText.toLowerCase();
     }, 250),
   },
-  mounted () {
+  async mounted () {
     this.$store.dispatch('common:setTitle', {
       subSection: this.$t('seasonalShop'),
       section: this.$t('shops'),
@@ -502,8 +493,10 @@ export default {
       this.backgroundUpdate = new Date();
     });
 
-    this.triggerGetWorldState();
+    await this.triggerGetWorldState();
     this.currentEvent = _find(this.currentEventList, event => Boolean(['winter', 'spring', 'summer', 'fall'].includes(event.season)));
+    this.imageURLs.background = `url(/static/npc/${this.currentEvent.season}/seasonal_shop_opened_background.png)`;
+    this.imageURLs.npc = `url(/static/npc/${this.currentEvent.season}/seasonal_shop_opened_npc.png)`;
   },
   beforeDestroy () {
     this.$root.$off('buyModal::boughtItem');

@@ -33,6 +33,12 @@
           class="npc"
           :style="{'background-image': imageURLs.npc}"
         >
+          <div class="featured-label">
+            <span class="rectangle"></span><span
+              v-once
+              class="text"
+            >{{ $t('customizationsNPC') }}</span><span class="rectangle"></span>
+          </div>
         </div>
       </div>
       <div class="p-4">
@@ -81,6 +87,7 @@
 
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
+  @import '~@/assets/scss/shops.scss';
 
   h1 {
     color: $purple-200;
@@ -88,6 +95,11 @@
 
   .background, .npc {
     height: 216px;
+  }
+
+  .featured-label {
+    margin-left: 52px;
+    margin-top: 200px;
   }
 
   .npc {
@@ -131,16 +143,9 @@ export default {
       return Object.values(this.viewOptions).some(g => g.selected);
     },
     imageURLs () {
-      const currentEvent = this.currentEventList?.find(event => Boolean(event.season));
-      if (!currentEvent) {
-        return {
-          background: 'url(/static/npc/normal/market_background.png)',
-          npc: 'url(/static/npc/normal/market_banner_npc.png)',
-        };
-      }
       return {
-        background: `url(/static/npc/${currentEvent.season}/market_background.png)`,
-        npc: `url(/static/npc/${currentEvent.season}/market_banner_npc.png)`,
+        background: 'url(/static/npc/normal/customizations_background.png)',
+        npc: 'url(/static/npc/normal/customizations_npc.png)',
       };
     },
     shop () {

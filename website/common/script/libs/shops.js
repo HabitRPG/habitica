@@ -364,7 +364,9 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
       backgroundCategory.items.push(item);
     }
   }
-  categories.push(backgroundCategory);
+  if (backgroundCategory.length > 0) {
+    categories.push(backgroundCategory);
+  }
 
   for (const type of Object.keys(stable)) {
     const category = {
