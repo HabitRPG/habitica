@@ -280,9 +280,7 @@ spells.special = {
     previousPurchase: true,
     target: 'user',
     notes: t('spellSpecialSnowballAuraNotes'),
-    canOwn () {
-      return moment().isBetween('2024-01-09T08:00-05:00', EVENTS.winter2024.end);
-    },
+    limited: true,
     cast (user, target, req) {
       if (!user.items.special.snowball) throw new NotAuthorized(t('spellNotOwned')(req.language));
       target.stats.buffs.snowball = true;
@@ -316,9 +314,7 @@ spells.special = {
     previousPurchase: true,
     target: 'user',
     notes: t('spellSpecialSpookySparklesNotes'),
-    canOwn () {
-      return moment().isBetween('2023-10-03T08:00-04:00', EVENTS.fall2023.end);
-    },
+    limited: true,
     cast (user, target, req) {
       if (!user.items.special.spookySparkles) throw new NotAuthorized(t('spellNotOwned')(req.language));
       target.stats.buffs.snowball = false;
@@ -352,10 +348,7 @@ spells.special = {
     previousPurchase: true,
     target: 'user',
     notes: t('spellSpecialShinySeedNotes'),
-    event: EVENTS.spring2024,
-    canOwn () {
-      return moment().isBetween('2024-04-18T08:00-05:00', EVENTS.spring2024.end);
-    },
+    limited: true,
     cast (user, target, req) {
       if (!user.items.special.shinySeed) throw new NotAuthorized(t('spellNotOwned')(req.language));
       target.stats.buffs.snowball = false;
@@ -389,9 +382,7 @@ spells.special = {
     previousPurchase: true,
     target: 'user',
     notes: t('spellSpecialSeafoamNotes'),
-    canOwn () {
-      return moment().isBetween('2023-07-11T08:00-04:00', EVENTS.summer2023.end);
-    },
+    limited: true,
     cast (user, target, req) {
       if (!user.items.special.seafoam) throw new NotAuthorized(t('spellNotOwned')(req.language));
       target.stats.buffs.snowball = false;
@@ -426,9 +417,7 @@ spells.special = {
     silent: true,
     target: 'user',
     notes: t('nyeCardNotes'),
-    canOwn () {
-      return moment().isBetween(EVENTS.nye2023.start, EVENTS.nye2023.end);
-    },
+    limited: true,
     cast (user, target) {
       if (user === target) {
         if (!user.achievements.nye) user.achievements.nye = 0;
@@ -466,9 +455,7 @@ spells.special = {
     silent: true,
     target: 'user',
     notes: t('valentineCardNotes'),
-    canOwn () {
-      return moment().isBetween(EVENTS.valentine2024.start, EVENTS.valentine2024.end);
-    },
+    limited: true,
     cast (user, target) {
       if (user === target) {
         if (!user.achievements.valentine) user.achievements.valentine = 0;
