@@ -216,6 +216,26 @@ describe('shops', () => {
         });
       });
     });
+
+    it('returns pets', () => {
+      const pets = shopCategories.find(cat => cat.identifier === 'pets').items;
+      expect(pets.length).to.be.greaterThan(0);
+    });
+
+    it('returns mounts', () => {
+      const mounts = shopCategories.find(cat => cat.identifier === 'mounts').items;
+      expect(mounts.length).to.be.greaterThan(0);
+    });
+
+    it('returns quests', () => {
+      const quests = shopCategories.find(cat => cat.identifier === 'quests').items;
+      expect(quests.length).to.be.greaterThan(0);
+    });
+
+    it('returns backgrounds', () => {
+      const backgrounds = shopCategories.find(cat => cat.identifier === 'backgrounds').items;
+      expect(backgrounds.length).to.be.greaterThan(0);
+    });
   });
 
   describe('seasonalShop', () => {
