@@ -48,3 +48,4 @@ webpack.webstorm.config
 # mongodb replica set for local dev
 mongodb-*.tgz
 /mongodb-data
+/.nyc_output
