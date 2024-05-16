@@ -23,7 +23,7 @@ const taskFilters = {
     label: 'todos',
     filters: [
       { label: 'remaining', filterFn: t => !t.completed, default: true }, // active
-      { label: 'scheduled', filterFn: t => !t.completed && t.date, sort: t => t.date },
+      { label: 'scheduled', filterFn: t => !t.completed && t.date && (!t.startShowing || new Date(t.startShowing) <= new Date()), sort: t => t.date },
       { label: 'complete2', filterFn: t => t.completed },
     ],
   },

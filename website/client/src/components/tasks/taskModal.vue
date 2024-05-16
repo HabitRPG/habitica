@@ -220,6 +220,23 @@
           />
         </template>
         <div
+          v-if="task.type === 'todo' && (!challengeAccessRequired || task.startShowing)"
+          class="option mt-3"
+        >
+          <div class="form-group">
+            <lockable-label
+              :locked="challengeAccessRequired"
+              :text="$t('startShowing')"
+            />
+            <datepicker
+              :date.sync="task.startShowing"
+              :disabled="challengeAccessRequired"
+              :highlighted="calendarHighlights"
+              :clear-button="true"
+            />
+          </div>
+        </div>
+        <div
           v-if="task.type === 'todo' && (!challengeAccessRequired || task.date)"
           class="option mt-3"
         >

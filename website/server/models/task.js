@@ -411,6 +411,7 @@ export const daily = Task.discriminator('daily', DailySchema);
 export const TodoSchema = new Schema(_.defaults({
   dateCompleted: Date,
   date: Date, // due date for todos
+  startShowing: Date, // Start showing date for ToDo planning.
 }, dailyTodoSchema()), subDiscriminatorOptions);
 export const todo = Task.discriminator('todo', TodoSchema);
 
