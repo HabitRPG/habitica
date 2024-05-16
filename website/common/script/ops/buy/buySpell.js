@@ -5,10 +5,10 @@ import splitWhitespace from '../../libs/splitWhitespace';
 import {
   BadRequest,
   NotFound,
+  NotAuthorized,
 } from '../../libs/errors';
 import { AbstractGoldItemOperation } from './abstractBuyOperation';
 import { errorMessage } from '../../libs/errorMessage';
-import { NotAuthorized } from '../../../../server/libs/errors';
 import { getScheduleMatchingGroup } from '../../content/constants/schedule';
 
 export class BuySpellOperation extends AbstractGoldItemOperation { // eslint-disable-line import/prefer-default-export, max-len
