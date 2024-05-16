@@ -383,7 +383,7 @@ api.updateHero = {
       hero.items.pets['Dragon-Hydra'] = 5;
       hero.markModified('items.pets');
     }
-    if (updateData.itemPath && updateData.itemVal && validateItemPath(updateData.itemPath)) {
+    if (updateData.itemPath && (updateData.itemVal || updateData.itemVal === '') && validateItemPath(updateData.itemPath)) {
       // Sanitization at 5c30944 (deemed unnecessary)
       _.set(hero, updateData.itemPath, castItemVal(updateData.itemPath, updateData.itemVal));
       hero.markModified('items');

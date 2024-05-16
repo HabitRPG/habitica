@@ -305,7 +305,7 @@
           position: absolute;
           bottom: -14px;
           margin: 0;
-          left: 60px;
+          left: 32px;
         }
       }
 

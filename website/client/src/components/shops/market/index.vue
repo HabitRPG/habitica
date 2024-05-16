@@ -138,7 +138,7 @@
           position: absolute;
           bottom: -14px;
           margin: 0;
-          left: 80px;
+          left: 75px;
         }
       }
     }

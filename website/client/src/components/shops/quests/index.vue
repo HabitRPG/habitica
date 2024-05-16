@@ -389,7 +389,7 @@
           position: absolute;
           bottom: -14px;
           margin: 0;
-          left: 70px;
+          left: 62px;
         }
       }
     }

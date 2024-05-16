@@ -30,28 +30,6 @@
   margin-bottom: 8px;
 }
 
-.item.pet-slot {
-  // Desktop XL (1440)
-  @media only screen and (min-width: 1440px){
-    margin-right: 1.71em;
-  }
-
-  // Desktop L (1280)
-  @media only screen and (min-width: 1280px) and (max-width: 1439px) {
-    margin-right: 0.43em;
-  }
-
-  // Desktop M (1024)
-  @media only screen and (min-width: 1024px) and (max-width: 1279px) {
-    margin-right: 0.86em;
-  }
-
-  // Tablets and mobile
-  @media only screen and (max-width: 1023px) {
-    margin-right: 1.71em;
-  }
-}
-
 .item {
   position: relative;
   width: 94px;

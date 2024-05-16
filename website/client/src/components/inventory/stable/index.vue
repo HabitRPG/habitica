@@ -144,7 +144,7 @@
           v-for="(group, key, index) in pets(petGroup, hideMissing, selectedSortBy, searchTextThrottled)"
           v-if="index === 0 || $_openedItemRows_isToggled(petGroup.key)"
           :key="key"
-          class="pet-row d-flex"
+          class="pet-row d-inline-flex"
         >
           <!-- eslint-enable vue/no-use-v-if-with-v-for -->
           <div
@@ -177,13 +177,13 @@
               </template>
             </petItem>
           </div>
+          <show-more-button
+            v-if="petRowCount[petGroup.key] > 1 && petGroup.key !== 'specialPets' && !(petGroup.key === 'wackyPets' && selectedSortBy !== 'sortByColor')"
+            :show-all="$_openedItemRows_isToggled(petGroup.key)"
+            class="show-more-button"
+            @click="setShowMore(petGroup.key)"
+          />
         </div>
-        <show-more-button
-          v-if="petRowCount[petGroup.key] > 1 && petGroup.key !== 'specialPets' && !(petGroup.key === 'wackyPets' && selectedSortBy !== 'sortByColor')"
-          :show-all="$_openedItemRows_isToggled(petGroup.key)"
-          class="show-more-button"
-          @click="setShowMore(petGroup.key)"
-        />
       </div>
       <h2>
         {{ $t('mounts') }}
@@ -309,15 +309,6 @@
     height: 130px;
     overflow: hidden;
   }
-
-  .pet-row {
-    max-width: 100%;
-    flex-wrap: wrap;
-
-    .item {
-      margin-right: .5em;
-    }
-  }
 </style>
 
 <style lang="scss">
@@ -328,6 +319,15 @@
     padding: 20px;
     border: 1px solid;
     display: inline-block;
+  }
+
+  .pet-row {
+    max-width: 100%;
+    flex-wrap: wrap;
+
+    .item-wrapper {
+      margin-right: 24px;
+    }
   }
 
   .GreyedOut {
