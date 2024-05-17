@@ -22,6 +22,7 @@ async function buyGear (user, req, analytics) {
 describe('shared.ops.buyMarketGear', () => {
   let user;
   const analytics = { track () {} };
+  let clock;
 
   beforeEach(() => {
     user = generateUser({
@@ -54,6 +55,10 @@ describe('shared.ops.buyMarketGear', () => {
     shared.fns.predictableRandom.restore();
     shared.onboarding.checkOnboardingStatus.restore();
     analytics.track.restore();
+
+    if (clock) {
+      clock.restore();
+    }
   });
 
   context('Gear', () => {
@@ -184,30 +189,28 @@ describe('shared.ops.buyMarketGear', () => {
     });
 
     // TODO after user.ops.equip is done
-    xit('removes one-handed weapon and shield if auto-equip is on and a two-hander is bought', async () => {
+    it('removes one-handed weapon and shield if auto-equip is on and a two-hander is bought', async () => {
       user.stats.gp = 100;
       user.preferences.autoEquip = true;
-      await buyGear(user, { params: { key: 'shield_warrior_1' } });
-      user.ops.equip({ params: { key: 'shield_warrior_1' } });
-      await buyGear(user, { params: { key: 'weapon_warrior_1' } });
-      user.ops.equip({ params: { key: 'weapon_warrior_1' } });
+      user.items.gear.equipped.weapon = 'weapon_warrior_1';
+      user.items.gear.equipped.shield = 'shield_warrior_1';
+      user.stats.class = 'wizard';
 
-      await buyGear(user, { params: { key: 'weapon_wizard_1' } });
+      await buyGear(user, { params: { key: 'weapon_wizard_0' } });
 
       expect(user.items.gear.equipped).to.have.property('shield', 'shield_base_0');
-      expect(user.items.gear.equipped).to.have.property('weapon', 'weapon_wizard_1');
+      expect(user.items.gear.equipped).to.have.property('weapon', 'weapon_wizard_0');
     });
 
     // TODO after user.ops.equip is done
-    xit('buyGears two-handed equipment but does not automatically remove sword or shield', async () => {
+    it('buyGears two-handed equipment but does not automatically remove sword or shield', async () => {
       user.stats.gp = 100;
       user.preferences.autoEquip = false;
-      await buyGear(user, { params: { key: 'shield_warrior_1' } });
-      user.ops.equip({ params: { key: 'shield_warrior_1' } });
-      await buyGear(user, { params: { key: 'weapon_warrior_1' } });
-      user.ops.equip({ params: { key: 'weapon_warrior_1' } });
+      user.items.gear.equipped.weapon = 'weapon_warrior_1';
+      user.items.gear.equipped.shield = 'shield_warrior_1';
+      user.stats.class = 'wizard';
 
-      await buyGear(user, { params: { key: 'weapon_wizard_1' } });
+      await buyGear(user, { params: { key: 'weapon_wizard_0' } });
 
       expect(user.items.gear.equipped).to.have.property('shield', 'shield_warrior_1');
       expect(user.items.gear.equipped).to.have.property('weapon', 'weapon_warrior_1');
@@ -282,6 +285,41 @@ describe('shared.ops.buyMarketGear', () => {
       await buyGear(user, { params: { key: 'shield_armoire_ramHornShield' } });
 
       expect(user.items.gear.owned).to.have.property('shield_armoire_ramHornShield', true);
+    });
+
+    it('buys current seasonal gear', async () => {
+      user.stats.gp = 200;
+      clock = sinon.useFakeTimers(new Date('2024-01-01'));
+
+      await buyGear(user, { params: { key: 'armor_special_winter2024Warrior' } });
+
+      expect(user.items.gear.owned).to.have.property('armor_special_winter2024Warrior', true);
+    });
+
+    it('errors when buying past seasonal gear', async () => {
+      clock = sinon.useFakeTimers(new Date('2024-01-01'));
+      user.stats.gp = 200;
+
+      try {
+        await buyGear(user, { params: { key: 'armor_special_winter2023Warrior' } });
+      } catch (err) {
+        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err.message).to.equal(i18n.t('notAvailable'));
+        expect(user.items.gear.owned).to.not.have.property('armor_special_winter2023Warrior');
+      }
+    });
+
+    it('errors when buying gear from wrong season', async () => {
+      clock = sinon.useFakeTimers(new Date('2024-01-01'));
+      user.stats.gp = 200;
+
+      try {
+        await buyGear(user, { params: { key: 'weapon_special_spring2024Warrior' } });
+      } catch (err) {
+        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err.message).to.equal(i18n.t('notAvailable'));
+        expect(user.items.gear.owned).to.not.have.property('weapon_special_spring2024Warrior');
+      }
     });
   });
 });

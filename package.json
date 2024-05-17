@@ -97,7 +97,7 @@
     "test:common": "nyc --silent --no-clean mocha test/common --recursive",
     "test:content": "nyc --silent --no-clean mocha test/content --recursive",
     "test:nodemon": "gulp test:nodemon",
-    "coverage": "nyc report --reporter=html --report-dir coverage/results; open coverage.html",
+    "coverage": "nyc report --reporter=html --report-dir coverage/results; open coverage/results/index.html",
     "sprites": "gulp sprites:compile",
     "client:dev": "cd website/client && npm run serve",
     "client:build": "cd website/client && npm run build",
