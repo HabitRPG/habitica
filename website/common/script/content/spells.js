@@ -1,12 +1,10 @@
 import each from 'lodash/each';
-import moment from 'moment';
 import t from './translation';
 import { NotAuthorized, BadRequest } from '../libs/errors';
 import statsComputed from '../libs/statsComputed'; // eslint-disable-line import/no-cycle
 import setDebuffPotionItems from '../libs/setDebuffPotionItems'; // eslint-disable-line import/no-cycle
 import crit from '../fns/crit'; // eslint-disable-line import/no-cycle
 import updateStats from '../fns/updateStats';
-import { EVENTS } from './constants';
 
 /*
   ---------------------------------------------------------------

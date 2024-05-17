@@ -59,6 +59,7 @@ export const REPEATING_EVENTS = {
         items: [
           'virtualpet',
           'waffle',
+          'fungi',
         ],
       },
       {
