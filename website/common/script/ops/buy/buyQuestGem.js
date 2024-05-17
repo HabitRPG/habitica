@@ -52,8 +52,25 @@ export class BuyQuestWithGemOperation extends AbstractGemItemOperation { // esli
       }
     }
 
-    const matchers = getScheduleMatchingGroup(`${item.category}Quests`);
-    if (!matchers.match(item.key)) {
+    let matchers = [];
+    if (item.category === 'hatchingPotion') {
+      matchers = [
+        getScheduleMatchingGroup('hatchingPotionQuests'),
+      ];
+    } else if (item.category === 'pet') {
+      matchers = [
+        getScheduleMatchingGroup('seasonalQuests'),
+        getScheduleMatchingGroup('petQuests'),
+      ];
+    }
+    let isAvailable = matchers.length === 0;
+    matchers.forEach(matcher => {
+      if (matcher.match(item.key)) {
+        isAvailable = true;
+      }
+    });
+
+    if (!isAvailable) {
       throw new NotAuthorized(this.i18n('notAvailable', { key: item.key }));
     }
 
