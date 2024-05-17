@@ -101,6 +101,34 @@ describe('shared.ops.purchase', () => {
       }
     });
 
+    it('returns an error when purchasing current seasonal gear', async () => {
+      user.balance = 2;
+      try {
+        await purchase(user, { params: { type: 'gear', key: 'shield_special_winter2024Healer' } });
+      } catch (err) {
+        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err.message).to.equal(i18n.t('messageNotAvailable'));
+      }
+    });
+
+    it('returns error when hatching potion is not available', async () => {
+      try {
+        await purchase(user, { params: { type: 'hatchingPotions', key: 'PolkaDot' } });
+      } catch (err) {
+        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err.message).to.equal(i18n.t('messageNotAvailable'));
+      }
+    });
+
+    it('returns error when bundle is not available', async () => {
+      try {
+        await purchase(user, { params: { type: 'bundles', key: 'forestFriends' } });
+      } catch (err) {
+        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err.message).to.equal(i18n.t('notAvailable'));
+      }
+    });
+
     it('returns error when gear is not gem purchasable', async () => {
       try {
         await purchase(user, { params: { type: 'gear', key: 'shield_healer_3' } });
@@ -118,44 +146,6 @@ describe('shared.ops.purchase', () => {
       } catch (err) {
         expect(err).to.be.an.instanceof(NotFound);
         expect(err.message).to.equal(i18n.t('contentKeyNotFound', params));
-      }
-    });
-
-    it('returns error when user supplies a non-numeric quantity', async () => {
-      const type = 'eggs';
-      const key = 'Wolf';
-
-      try {
-        await purchase(user, { params: { type, key }, quantity: 'jamboree' }, analytics);
-      } catch (err) {
-        expect(err).to.be.an.instanceof(BadRequest);
-        expect(err.message).to.equal(i18n.t('invalidQuantity'));
-      }
-    });
-
-    it('returns error when user supplies a negative quantity', async () => {
-      const type = 'eggs';
-      const key = 'Wolf';
-      user.balance = 10;
-
-      try {
-        await purchase(user, { params: { type, key }, quantity: -2 }, analytics);
-      } catch (err) {
-        expect(err).to.be.an.instanceof(BadRequest);
-        expect(err.message).to.equal(i18n.t('invalidQuantity'));
-      }
-    });
-
-    it('returns error when user supplies a decimal quantity', async () => {
-      const type = 'eggs';
-      const key = 'Wolf';
-      user.balance = 10;
-
-      try {
-        await purchase(user, { params: { type, key }, quantity: 2.9 }, analytics);
-      } catch (err) {
-        expect(err).to.be.an.instanceof(BadRequest);
-        expect(err.message).to.equal(i18n.t('invalidQuantity'));
       }
     });
   });
@@ -206,7 +196,7 @@ describe('shared.ops.purchase', () => {
       expect(pinnedGearUtils.removeItemByPath.notCalled).to.equal(true);
     });
 
-    it('purchases gear', async () => {
+    it('purchases past seasonal gear', async () => {
       const type = 'gear';
       const key = 'shield_special_winter2019Healer';
 
@@ -214,6 +204,15 @@ describe('shared.ops.purchase', () => {
 
       expect(user.items.gear.owned[key]).to.be.true;
       expect(pinnedGearUtils.removeItemByPath.calledOnce).to.equal(true);
+    });
+
+    it('purchases hatching potion', async () => {
+      const type = 'hatchingPotions';
+      const key = 'Peppermint';
+
+      await purchase(user, { params: { type, key } });
+
+      expect(user.items.hatchingPotions[key]).to.eql(1);
     });
 
     it('purchases quest bundles', async () => {
@@ -278,5 +277,44 @@ describe('shared.ops.purchase', () => {
 
       expect(user.items[type][key]).to.equal(2);
     });
+
+    it('returns error when user supplies a non-numeric quantity', async () => {
+      const type = 'eggs';
+      const key = 'Wolf';
+
+      try {
+        await purchase(user, { params: { type, key }, quantity: 'jamboree' }, analytics);
+      } catch (err) {
+        expect(err).to.be.an.instanceof(BadRequest);
+        expect(err.message).to.equal(i18n.t('invalidQuantity'));
+      }
+    });
+
+    it('returns error when user supplies a negative quantity', async () => {
+      const type = 'eggs';
+      const key = 'Wolf';
+      user.balance = 10;
+
+      try {
+        await purchase(user, { params: { type, key }, quantity: -2 }, analytics);
+      } catch (err) {
+        expect(err).to.be.an.instanceof(BadRequest);
+        expect(err.message).to.equal(i18n.t('invalidQuantity'));
+      }
+    });
+
+    it('returns error when user supplies a decimal quantity', async () => {
+      const type = 'eggs';
+      const key = 'Wolf';
+      user.balance = 10;
+
+      try {
+        await purchase(user, { params: { type, key }, quantity: 2.9 }, analytics);
+      } catch (err) {
+        expect(err).to.be.an.instanceof(BadRequest);
+        expect(err.message).to.equal(i18n.t('invalidQuantity'));
+      }
+    });
+
   });
 });
