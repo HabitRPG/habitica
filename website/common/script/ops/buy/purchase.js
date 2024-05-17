@@ -97,7 +97,7 @@ export default async function purchase (user, req = {}, analytics) {
 
   const { price, item } = getItemAndPrice(user, type, key, req);
 
-  if (type === 'hatchingPotions' && item.premium === true) {
+  if (type === 'hatchingPotions' && item.premium === true && item.questPotion !== true) {
     const matchers = getScheduleMatchingGroup('premiumHatchingPotions');
     if (!matchers.match(item.key)) {
       throw new NotAuthorized(i18n.t('messageNotAvailable', req.language));

@@ -120,6 +120,24 @@ describe('shared.ops.purchase', () => {
       }
     });
 
+    it('returns error when quest for hatching potion was not yet completed', async () => {
+      try {
+        await purchase(user, { params: { type: 'hatchingPotions', key: 'BlackPearl' } });
+      } catch (err) {
+        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err.message).to.equal(i18n.t('messageNotAvailable'));
+      }
+    });
+
+    it('returns error when quest for egg was not yet completed', async () => {
+      try {
+        await purchase(user, { params: { type: 'eggs', key: 'Octopus' } });
+      } catch (err) {
+        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err.message).to.equal(i18n.t('messageNotAvailable'));
+      }
+    });
+
     it('returns error when bundle is not available', async () => {
       try {
         await purchase(user, { params: { type: 'bundles', key: 'forestFriends' } });
@@ -213,6 +231,26 @@ describe('shared.ops.purchase', () => {
       await purchase(user, { params: { type, key } });
 
       expect(user.items.hatchingPotions[key]).to.eql(1);
+    });
+
+    it('purchases hatching potion if user completed quest', async () => {
+      const type = 'hatchingPotions';
+      const key = 'Bronze';
+      user.achievements.quests.bronze = 1;
+
+      await purchase(user, { params: { type, key } });
+
+      expect(user.items.hatchingPotions[key]).to.eql(1);
+    });
+
+    it('purchases egg if user completed quest', async () => {
+      const type = 'eggs';
+      const key = 'Deer';
+      user.achievements.quests.ghost_stag = 1;
+
+      await purchase(user, { params: { type, key } });
+
+      expect(user.items.eggs[key]).to.eql(1);
     });
 
     it('purchases quest bundles', async () => {

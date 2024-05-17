@@ -41,180 +41,103 @@ const drops = {
 };
 
 const premium = {
-  RoyalPurple: {
-    value: 2,
-    text: t('hatchingPotionRoyalPurple'),
-    limited: true,
-  },
-  Cupid: {
-    value: 2,
-    text: t('hatchingPotionCupid'),
-    limited: true,
-  },
-  Shimmer: {
-    value: 2,
-    text: t('hatchingPotionShimmer'),
-    limited: true,
-  },
-  Fairy: {
-    value: 2,
-    text: t('hatchingPotionFairy'),
-    limited: true,
-  },
-  Floral: {
-    value: 2,
-    text: t('hatchingPotionFloral'),
-    limited: true,
-  },
-  Aquatic: {
-    value: 2,
-    text: t('hatchingPotionAquatic'),
-    limited: true,
-  },
-  Ember: {
-    value: 2,
-    text: t('hatchingPotionEmber'),
-    limited: true,
-  },
-  Thunderstorm: {
-    value: 2,
-    text: t('hatchingPotionThunderstorm'),
-    limited: true,
-  },
-  Spooky: {
-    value: 2,
-    text: t('hatchingPotionSpooky'),
-    limited: true,
-  },
-  Ghost: {
-    value: 2,
-    text: t('hatchingPotionGhost'),
-    limited: true,
-  },
-  Holly: {
-    value: 2,
-    text: t('hatchingPotionHolly'),
-    limited: true,
-  },
-  Peppermint: {
-    value: 2,
-    text: t('hatchingPotionPeppermint'),
-    limited: true,
-  },
-  StarryNight: {
-    value: 2,
-    text: t('hatchingPotionStarryNight'),
-    limited: true,
-  },
-  Rainbow: {
-    value: 2,
-    text: t('hatchingPotionRainbow'),
-    limited: true,
-  },
-  Glass: {
-    value: 2,
-    text: t('hatchingPotionGlass'),
-    limited: true,
-  },
-  Glow: {
-    value: 2,
-    text: t('hatchingPotionGlow'),
-    limited: true,
-  },
-  Frost: {
-    value: 2,
-    text: t('hatchingPotionFrost'),
-    limited: true,
-  },
-  IcySnow: {
-    value: 2,
-    text: t('hatchingPotionIcySnow'),
-    limited: true,
-  },
-  RoseQuartz: {
-    value: 2,
-    text: t('hatchingPotionRoseQuartz'),
-    limited: true,
-  },
-  Celestial: {
-    value: 2,
-    text: t('hatchingPotionCelestial'),
-    limited: true,
-  },
-  Sunshine: {
-    value: 2,
-    text: t('hatchingPotionSunshine'),
-    limited: true,
-  },
+  RoyalPurple: {},
+  Cupid: {},
+  Shimmer: {},
+  Fairy: {},
+  Floral: {},
+  Aquatic: {},
+  Ember: {},
+  Thunderstorm: {},
+  Spooky: {},
+  Ghost: {},
+  Holly: {},
+  Peppermint: {},
+  StarryNight: {},
+  Rainbow: {},
+  Glass: {},
+  Glow: {},
+  Frost: {},
+  IcySnow: {},
+  RoseQuartz: {},
+  Celestial: {},
+  Sunshine: {},
   Bronze: {
+    questPotion: true,
     canBuy: hasQuestAchievementFunction('bronze'),
   },
   Watery: {},
   Silver: {
+    questPotion: true,
     canBuy: hasQuestAchievementFunction('silver'),
   },
   Shadow: {},
   Amber: {
+    questPotion: true,
     canBuy: hasQuestAchievementFunction('amber'),
   },
   Aurora: {},
   Ruby: {
+    questPotion: true,
     canBuy: hasQuestAchievementFunction('ruby'),
   },
   BirchBark: {},
   Fluorite: {
+    questPotion: true,
     canBuy: hasQuestAchievementFunction('fluorite'),
   },
   SandSculpture: {},
   Windup: {
+    questPotion: true,
     canBuy: hasQuestAchievementFunction('windup'),
   },
   Turquoise: {
+    questPotion: true,
     canBuy: hasQuestAchievementFunction('turquoise'),
   },
   Vampire: {},
   AutumnLeaf: {},
   BlackPearl: {
+    questPotion: true,
     canBuy: hasQuestAchievementFunction('blackPearl'),
   },
   StainedGlass: {},
   PolkaDot: {},
   MossyStone: {
+    questPotion: true,
     canBuy: hasQuestAchievementFunction('stone'),
   },
   Sunset: {},
   Moonglow: {},
   SolarSystem: {
+    questPotion: true,
     canBuy: hasQuestAchievementFunction('solarSystem'),
   },
   Onyx: {
+    questPotion: true,
     canBuy: hasQuestAchievementFunction('onyx'),
   },
   Porcelain: {},
   PinkMarble: {
+    questPotion: true,
     canBuy: hasQuestAchievementFunction('pinkMarble'),
   },
   Koi: {},
 };
 
 const wacky = {
-  Veggie: {
-    text: t('hatchingPotionVeggie'),
-    limited: true,
-  },
+  Veggie: {},
   Dessert: {
+    questPotion: true,
     canBuy: hasQuestAchievementFunction('waffle'),
   },
   VirtualPet: {
+    questPotion: true,
     canBuy: hasQuestAchievementFunction('virtualpet'),
   },
-  TeaShop: {
-    text: t('hatchingPotionTeaShop'),
-    limited: true,
-  },
+  TeaShop: {},
   Fungi: {
-    text: t('hatchingPotionFungi'),
-    limited: true,
+    questPotion: true,
     canBuy: hasQuestAchievementFunction('fungi'),
   },
 };
