@@ -4,9 +4,17 @@ import {
 } from '../../helpers/common.helper';
 
 import seasonalConfig from '../../../website/common/script/libs/shops-seasonal.config';
+import { userActivityWebhook } from '../../../website/server/libs/webhook';
 
 describe('shops', () => {
   const user = generateUser();
+  let clock;
+
+  afterEach(() => {
+    if (clock) {
+      clock.restore();
+    }
+  });
 
   describe('market', () => {
     const shopCategories = shared.shops.getMarketCategories(user);
@@ -69,6 +77,48 @@ describe('shops', () => {
       expect(specialCategory.items.find(item => item.key === 'shield_special_1'), 'shield_special_1');
       expect(specialCategory.items.find(item => item.key === 'weapon_special_critical'), 'weapon_special_critical');
       expect(specialCategory.items.find(item => item.key === 'weapon_armoire_basicCrossbow'), 'weapon_armoire_basicCrossbow');// eslint-disable-line camelcase
+    });
+
+    describe('handles seasonal gear', () => {
+      beforeEach(() => {
+        clock = sinon.useFakeTimers(new Date('2024-04-01'));
+      });
+
+      it('shows current seasonal gear for warriors', () => {
+        const warriorItems = shared.shops.getMarketGearCategories(user).find(x => x.identifier === 'warrior').items.filter(x => x.key.indexOf('spring2024') !== -1);
+        expect(warriorItems.length, 'Warrior seasonal gear').to.eql(4);
+      });
+
+      it('shows current seasonal gear for mages', () => {
+        const mageItems = shared.shops.getMarketGearCategories(user).find(x => x.identifier === 'wizard').items.filter(x => x.key.indexOf('spring2024') !== -1);
+        expect(mageItems.length, 'Mage seasonal gear').to.eql(3);
+      });
+
+      it('shows current seasonal gear for healers', () => {
+        const healerItems = shared.shops.getMarketGearCategories(user).find(x => x.identifier === 'healer').items.filter(x => x.key.indexOf('spring2024') !== -1);
+        expect(healerItems.length, 'Healer seasonal gear').to.eql(4);
+      });
+
+      it('shows current seasonal gear for rogues', () => {
+        const rogueItems = shared.shops.getMarketGearCategories(user).find(x => x.identifier === 'rogue').items.filter(x => x.key.indexOf('spring2024') !== -1);
+        expect(rogueItems.length, 'Rogue seasonal gear').to.eql(4);
+      });
+
+      it('only shows gear for the current season', () => {
+        const categories = shared.shops.getMarketGearCategories(user);
+        categories.forEach(category => {
+          const otherSeasons = category.items.filter(item => item.key.indexOf('winter') !== -1 || item.key.indexOf('summer') !== -1 || item.key.indexOf('fall') !== -1);
+          expect(otherSeasons.length).to.eql(0);
+        });
+      });
+
+      it('does not show gear from past seasons', () => {
+        const categories = shared.shops.getMarketGearCategories(user);
+        categories.forEach(category => {
+          const otherYears = category.items.filter(item => item.key.indexOf('spring') !== -1 && item.key.indexOf('2024') === -1);
+          expect(otherYears.length).to.eql(0);
+        });
+      });
     });
 
     it('does not show gear when it is all owned', () => {

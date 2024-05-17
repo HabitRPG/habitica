@@ -151,18 +151,11 @@ shops.getMarketGearCategories = function getMarketGear (user, language) {
 
     const result = filter(content.gear.flat, gearItem => {
       if (gearItem.klass === classType) return true;
-      if (gearItem.season) return false;
-      const classShift = {
-        items: user.items,
-        stats: {
-          class: classType,
-        },
-      };
       if (
         gearItem.specialClass === classType
         && user.items.gear.owned[gearItem.key] !== false
         && gearItem.set === pinnedSets[gearItem.specialClass]
-      ) return gearItem.canOwn(classShift);
+      ) return true;
       return false;
     });
 
