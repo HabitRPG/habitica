@@ -99,6 +99,7 @@ export function castItemVal (itemPath, itemVal) {
     // Gear is true when you own it and false if you previously owned it but lost it (e.g., Death)
     // Null, empty string, or undefined are taken to mean "unset" i.e. never owned.
     if (['null', '', 'undefined'].includes(itemVal)) return undefined;
+    if (itemVal === 'false') return false;
     return Boolean(itemVal);
   }
 
