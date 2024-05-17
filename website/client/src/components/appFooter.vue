@@ -328,7 +328,7 @@
       </div>
 
       <div
-        v-if="!IS_PRODUCTION && isUserLoaded"
+        v-if="ENABLE_TIME_TRAVEL && isUserLoaded"
         class="debug-toggle"
       >
         <button
