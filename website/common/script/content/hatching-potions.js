@@ -578,10 +578,7 @@ const wacky = {
   Fungi: {
     text: t('hatchingPotionFungi'),
     limited: true,
-    event: EVENTS.aprilFoolsQuest2024,
-    _addlNotes: t('premiumPotionAddlNotes', {
-      date: t('dateEndApril'),
-    }),
+    _addlNotes: t('premiumPotionUnlimitedNotes'),
     canBuy: hasQuestAchievementFunction('fungi'),
   },
 };
