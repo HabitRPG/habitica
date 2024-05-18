@@ -43,6 +43,7 @@
             :label="$t('sortBy')"
             :initial-item="selectedSortItemsBy"
             :items="sortItemsBy"
+            :direct-select="true"
             @selected="selectedSortItemsBy = $event"
           >
             <span
@@ -181,7 +182,7 @@ import inventoryUtils from '@/mixins/inventoryUtils';
 import pinUtils from '@/mixins/pinUtils';
 import { worldStateMixin } from '@/mixins/worldState';
 
-const sortItems = ['AZ', 'sortByNumber'].map(g => ({ id: g }));
+const sortItems = ['AZ', 'sortByNumber'].map(g => ({ id: g, identifier: g }));
 
 export default {
   components: {

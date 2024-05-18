@@ -121,17 +121,6 @@
         <h2 class="float-left mb-3">
           {{ $t('classArmor') }}
         </h2>
-        <div class="float-right">
-          <span class="dropdown-label">{{ $t('sortBy') }}</span>
-          <select-translated-array
-            :right="true"
-            :value="selectedSortItemsBy"
-            :items="sortItemsBy"
-            :inline-dropdown="false"
-            class="inline"
-            @select="selectedSortItemsBy = $event"
-          />
-        </div>
       </div>
       <div
         v-for="(groupSets, categoryGroup) in getGroupedCategories(categories)"
@@ -160,7 +149,7 @@
             <div class="items">
               <!-- eslint-disable max-len -->
               <shopItem
-                v-for="item in seasonalItems(category, selectedSortItemsBy, searchTextThrottled, viewOptions, hidePinned)"
+                v-for="item in seasonalItems(category, 'AZ', searchTextThrottled, viewOptions, hidePinned)"
                 :key="item.key"
                 :item="item"
                 :price="item.value"
@@ -353,15 +342,11 @@ import svgWizard from '@/assets/svg/wizard.svg';
 import svgRogue from '@/assets/svg/rogue.svg';
 import svgHealer from '@/assets/svg/healer.svg';
 
-import SelectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
 import FilterSidebar from '@/components/ui/filterSidebar';
-import FilterGroup from '@/components/ui/filterGroup';
 import { worldStateMixin } from '@/mixins/worldState';
 
 export default {
   components: {
-    SelectTranslatedArray,
-    FilterGroup,
     FilterSidebar,
     Checkbox,
     PinBadge,
@@ -392,9 +377,6 @@ export default {
         back: i18n.t('back'),
         eyewear: i18n.t('eyewear'),
       }),
-
-      sortItemsBy: ['AZ'],
-      selectedSortItemsBy: 'AZ',
 
       hidePinned: false,
       featuredGearBought: false,

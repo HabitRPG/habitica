@@ -113,34 +113,7 @@
               :price-type="ctx.item.currency"
               :empty-item="false"
               @click="selectItemToBuy(ctx.item)"
-            >
-              <span
-                v-if="category !== 'quests'"
-                slot="popoverContent"
-                slot-scope="ctx"
-              ><div><h4 class="popover-content-title">{{ ctx.item.text }}</h4></div></span>
-              <span
-                v-if="category === 'quests'"
-                slot="popoverContent"
-              ><div class="questPopover">
-                <h4 class="popover-content-title">{{ item.text }}</h4>
-                <questInfo :quest="item" />
-              </div></span>
-              <template
-                slot="itemBadge"
-                slot-scope="ctx"
-              >
-                <span
-                  v-if="ctx.item.pinType !== 'IGNORE'"
-                  class="badge-top"
-                  @click.prevent.stop="togglePinned(ctx.item)"
-                >
-                  <pin-badge
-                    :pinned="ctx.item.pinned"
-                  />
-                </span>
-              </template>
-            </shopItem>
+            />
           </template>
         </itemRows>
       </div>
@@ -184,8 +157,6 @@ import { mapState } from '@/libs/store';
 import ShopItem from '../shopItem';
 import Item from '@/components/inventory/item';
 import ItemRows from '@/components/ui/itemRows';
-import QuestInfo from '../quests/questInfo.vue';
-import PinBadge from '@/components/ui/pinBadge';
 import toggleSwitch from '@/components/ui/toggleSwitch';
 
 import BuyQuestModal from '../quests/buyQuestModal.vue';
@@ -207,9 +178,7 @@ export default {
     ShopItem,
     Item,
     ItemRows,
-    PinBadge,
     toggleSwitch,
-    QuestInfo,
 
     BuyQuestModal,
   },

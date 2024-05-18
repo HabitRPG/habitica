@@ -104,6 +104,10 @@ export default {
     activeKeyProp: {
       type: String,
     },
+    directSelect: {
+      type: Boolean,
+      default: false,
+    },
     disabledProp: {
       type: String,
     },
@@ -132,13 +136,17 @@ export default {
   },
   methods: {
     getKeyProp (item) {
-      return this.keyProp ? item[this.keyProp] : item.key;
+      return this.keyProp ? item[this.keyProp] : item.key || item.identifier;
     },
     isDisabled (item) {
       return typeof item[this.disabledProp] === 'undefined' ? false : item[this.disabledProp];
     },
     selectItem (item) {
-      this.selected = this.getKeyProp(item);
+      if (this.directSelect) {
+        this.selected = item;
+      } else {
+        this.selected = this.getKeyProp(item);
+      }
       this.$emit('select', item);
     },
     isSelected (item) {

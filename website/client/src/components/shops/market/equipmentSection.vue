@@ -6,6 +6,7 @@
         :initial-item="selectedGearCategory"
         :items="marketGearCategories"
         :with-icon="true"
+        :direct-select="true"
         @selected="selectedGroupGearByClass = $event.id"
       >
         <span
@@ -23,6 +24,7 @@
         :label="$t('sortBy')"
         :initial-item="selectedSortGearBy"
         :items="sortGearBy"
+        :direct-select="true"
         @selected="selectedSortGearBy = $event"
       >
         <span
@@ -93,7 +95,7 @@ import pinUtils from '../../../mixins/pinUtils';
 const sortGearTypes = [
   'sortByType', 'sortByPrice', 'sortByCon',
   'sortByPer', 'sortByStr', 'sortByInt',
-].map(g => ({ id: g }));
+].map(g => ({ id: g, identifier: g }));
 
 const sortGearTypeMap = {
   sortByType: 'type',
