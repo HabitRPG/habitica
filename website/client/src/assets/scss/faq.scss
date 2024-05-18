@@ -1,0 +1,52 @@
+@import '~@/assets/scss/colors.scss';
+
+h1 {
+  margin-top: 0px;
+  line-height: 1.33;
+}
+
+li {
+  padding-bottom: 4px;
+
+  li {
+    &:first-of-type {
+      padding-top: 4px;
+    }
+    li li {
+      list-style-type: disc;
+    }
+  }
+}
+
+p {
+  margin-bottom: 21px;
+}
+
+ul {
+  padding-left: 20px;
+}
+
+.top-container {
+  width: 66.67%;
+  margin-top: 80px;
+  display: flex;
+
+  @media (max-width: 1024px) {
+    flex-wrap: wrap;
+  }
+}
+
+.main-text {
+  h3 {
+    font-size: 1.15em;
+    font-weight: 400;
+    line-height: 1.75;
+    color: $purple-200;
+  }
+
+  .body-text {
+    font-size: 1em;
+    color: $gray-10;
+    line-height: 1.71;
+  }
+}

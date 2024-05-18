@@ -120,5 +120,14 @@
     "achievementDomesticatedModalText": "당신은 모든 애완동물을 모았습니다!",
     "achievementShadyCustomer": "수상한 손님",
     "achievementShadyCustomerText": "그늘진(어두운) 펫을 모두 모았습니다.",
-    "achievementShadyCustomerModalText": "당신은 그늘진 애완동물을 모두 모았습니다!"
+    "achievementShadyCustomerModalText": "당신은 그늘진 애완동물을 모두 모았습니다!",
+    "achievementBirdsOfAFeather": "새의 깃털",
+    "achievementBirdsOfAFeatherText": "모든 표준색상의 날 수 있는 펫을 부화시켰습니다. 나는 돼지, 부엉이, 앵무새, 프테로닥틸루스, 그리폰, 매, 공작새 그리고 수탉!",
+    "achievementBirdsOfAFeatherModalText": "당신은 모든 날 수 있는 펫을 수집했습니다!",
+    "achievementZodiacZookeeper": "조디악 동물원 사육사",
+    "achievementZodiacZookeeperText": "모든 표준색상의 조디악 펫을 부화시켰습니다. 쥐, 소, 토끼, 뱀, 말, 양, 원숭이, 수탉, 늑대, 호랑이, 나는 돼지 그리고 드래곤!",
+    "achievementZodiacZookeeperModalText": "당신은 모든 조디악의 펫을 모았습니다!",
+    "achievementShadeOfItAll": "모든 것의 어두운 면",
+    "achievementShadeOfItAllText": "그늘진(어두운) 펫을 모두 길들였습니다.",
+    "achievementShadeOfItAllModalText": "당신은 모든 그늘진(어두운) 펫을 길들였습니다!"
 }
