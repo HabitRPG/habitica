@@ -12,3 +12,16 @@ Habitica's code is licensed as described at https://github.com/HabitRPG/habitica
 **Found a bug?** Please report it to [admin email](mailto:admin@habitica.com) rather than creating an issue (an admin will advise you if a new issue is necessary; usually it is not).
 
 **Have any questions about Habitica or its community?** See the links in the [habitica.com](https://habitica.com) website's Help menu or drop in to [Guilds > Tavern Chat](https://habitica.com/groups/tavern) to ask questions or chat socially!
+
+
+### Setup git hooks
+To improve code quality and rise feedback loop more efficient you can setup pre-push hooks.
+Hook will execute eslint verification without fixing.
+Eslint errors are restricted on pipeline level, so to reduce time for a feedback you can incorporate it in development stage.
+#### Setup hook
+From terminal/power shel execute script from
+```
+.\scripts\setup-pre-commit-scipts.sh
+```
+If you would like to skip pre-push hook you can push with additional parameter
+`git push --no-verify`
