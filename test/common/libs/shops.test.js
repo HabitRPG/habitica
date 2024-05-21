@@ -4,7 +4,6 @@ import {
 } from '../../helpers/common.helper';
 
 import seasonalConfig from '../../../website/common/script/libs/shops-seasonal.config';
-import { userActivityWebhook } from '../../../website/server/libs/webhook';
 
 describe('shops', () => {
   const user = generateUser();
@@ -14,6 +13,7 @@ describe('shops', () => {
     if (clock) {
       clock.restore();
     }
+    user.achievements.quests = {};
   });
 
   describe('market', () => {
@@ -42,6 +42,35 @@ describe('shops', () => {
             expect(_.has(item, key)).to.eql(true);
           });
         });
+      });
+    });
+
+    describe('premium hatching potions', () => {
+      it('contains current scheduled premium hatching potions', async () => {
+        clock = sinon.useFakeTimers(new Date('2024-04-01'));
+        const potions = shared.shops.getMarketCategories(user).find(x => x.identifier === 'premiumHatchingPotions');
+        expect(potions.items.length).to.eql(2);
+      });
+
+      it('does not contain past scheduled premium hatching potions', async () => {
+        const potions = shared.shops.getMarketCategories(user).find(x => x.identifier === 'premiumHatchingPotions');
+        expect(potions.items.filter(x => x.key === 'Aquatic' || x.key === 'Celestial').length).to.eql(0);
+      });
+
+      it('contains unlocked quest premium hatching potions', async () => {
+        user.achievements.quests = {
+          bronze: 1,
+          blackPearl: 1,
+        };
+        const potions = shared.shops.getMarketCategories(user).find(x => x.identifier === 'premiumHatchingPotions');
+        expect(potions.items.filter(x => x.key === 'Bronze' || x.key === 'BlackPearl').length).to.eql(2);
+      });
+
+      it('does not contain locked quest premium hatching potions', async () => {
+        clock = sinon.useFakeTimers(new Date('2024-04-01'));
+        const potions = shared.shops.getMarketCategories(user).find(x => x.identifier === 'premiumHatchingPotions');
+        expect(potions.items.length).to.eql(2);
+        expect(potions.items.filter(x => x.key === 'Bronze' || x.key === 'BlackPearl').length).to.eql(0);
       });
     });
 

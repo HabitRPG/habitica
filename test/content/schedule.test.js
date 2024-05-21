@@ -1,7 +1,3 @@
-/* import { each } from 'lodash';
-import {
-  expectValidTranslationString,
-} from '../helpers/content.helper'; */
 // eslint-disable-next-line max-len
 import moment from 'moment';
 import {
