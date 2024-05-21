@@ -88,5 +88,6 @@
   "REDIS_PORT": "1234",
   "REDIS_PASSWORD": "12345678",
   "TRUSTED_DOMAINS": "localhost,https://habitica.com",
-  "ENABLE_TIME_TRAVEL": "false"
+  "TIME_TRAVEL_ENABLED": "false",
+  "DEBUG_ENABLED": "false"
 }

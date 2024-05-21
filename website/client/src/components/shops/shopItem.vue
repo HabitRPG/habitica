@@ -165,11 +165,12 @@
   }
 
   .price {
-    height: 1.75rem;
-    width: 94px;
+    border-radius: 0px 0px 4px 4px;
+    font-size: 0.75rem;
+    line-height: 1;
     margin-left: -1px;
     margin-right: -1px;
-    border-radius: 0px 0px 4px 4px;
+    padding: 0.375rem 0;
 
     &.gems {
       background-color: rgba($green-100, 0.15);
@@ -190,10 +191,7 @@
 
   .price-label {
     font-family: Roboto;
-    font-size: 12px;
     font-weight: bold;
-    line-height: 1.33;
-    margin-bottom: 1px;
 
     &.gems {
       color: $green-1;

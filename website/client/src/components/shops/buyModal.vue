@@ -825,6 +825,7 @@ export default {
         const buySuccess = await this.unlock(this.item.path);
         if (!buySuccess) return;
         this.sync();
+        this.$root.$emit('playSound', 'Reward');
         this.purchased(this.item.text);
       } else {
         const shouldConfirmPurchase = this.item.currency === 'gems' || this.item.currency === 'hourglasses';

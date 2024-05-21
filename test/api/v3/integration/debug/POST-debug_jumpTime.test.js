@@ -12,13 +12,13 @@ describe('POST /debug/jump-time', () => {
   });
 
   after(async () => {
-    nconf.set('ENABLE_TIME_TRAVEL', true);
+    nconf.set('TIME_TRAVEL_ENABLED', true);
     await user.post('/debug/jump-time', { disable: true });
-    nconf.set('ENABLE_TIME_TRAVEL', false);
+    nconf.set('TIME_TRAVEL_ENABLED', false);
   });
 
   it('Jumps forward', async () => {
-    nconf.set('ENABLE_TIME_TRAVEL', true);
+    nconf.set('TIME_TRAVEL_ENABLED', true);
     const resultDate = new Date((await user.post('/debug/jump-time', { reset: true })).time);
     expect(resultDate.getDate()).to.eql(today.getDate());
     expect(resultDate.getMonth()).to.eql(today.getMonth());
@@ -30,7 +30,7 @@ describe('POST /debug/jump-time', () => {
   });
 
   it('jumps back', async () => {
-    nconf.set('ENABLE_TIME_TRAVEL', true);
+    nconf.set('TIME_TRAVEL_ENABLED', true);
     const resultDate = new Date((await user.post('/debug/jump-time', { reset: true })).time);
     expect(resultDate.getDate()).to.eql(today.getDate());
     expect(resultDate.getMonth()).to.eql(today.getMonth());
@@ -42,7 +42,7 @@ describe('POST /debug/jump-time', () => {
   });
 
   it('can jump a lot', async () => {
-    nconf.set('ENABLE_TIME_TRAVEL', true);
+    nconf.set('TIME_TRAVEL_ENABLED', true);
     const resultDate = new Date((await user.post('/debug/jump-time', { reset: true })).time);
     expect(resultDate.getDate()).to.eql(today.getDate());
     expect(resultDate.getMonth()).to.eql(today.getMonth());
@@ -52,7 +52,7 @@ describe('POST /debug/jump-time', () => {
   });
 
   it('returns error when the user is not an admin', async () => {
-    nconf.set('ENABLE_TIME_TRAVEL', true);
+    nconf.set('TIME_TRAVEL_ENABLED', true);
     const regularUser = await generateUser();
     await expect(regularUser.post('/debug/jump-time', { offsetDays: 1 }))
       .eventually.be.rejected.and.to.deep.equal({
@@ -63,7 +63,7 @@ describe('POST /debug/jump-time', () => {
   });
 
   it('returns error when not in time travel mode', async () => {
-    nconf.set('ENABLE_TIME_TRAVEL', false);
+    nconf.set('TIME_TRAVEL_ENABLED', false);
 
     await expect(user.post('/debug/jump-time', { offsetDays: 1 }))
       .eventually.be.rejected.and.to.deep.equal({

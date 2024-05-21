@@ -36,7 +36,7 @@ setUpLogging();
 setupAnalytics(); // just create queues for analytics, no scripts loaded at this time
 const store = getStore();
 
-if (process.env.ENABLE_TIME_TRAVEL) {
+if (process.env.TIME_TRAVEL_ENABLED) {
   (async () => {
     const sinon = await import('sinon');
     if (axios.defaults.headers.common['x-api-user']) {

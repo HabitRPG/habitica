@@ -28,7 +28,8 @@ const envVars = [
   'AMPLITUDE_KEY',
   'LOGGLY_CLIENT_TOKEN',
   'TRUSTED_DOMAINS',
-  'ENABLE_TIME_TRAVEL',
+  'TIME_TRAVEL_ENABLED',
+  'DEBUG_ENABLED'
   // TODO necessary? if yes how not to mess up with vue cli? 'NODE_ENV'
 ];
 

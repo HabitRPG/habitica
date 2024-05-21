@@ -291,7 +291,7 @@
       </div>
 
       <div
-        v-if="ENABLE_TIME_TRAVEL && user.permissions && user.permissions.fullAccess"
+        v-if="TIME_TRAVEL_ENABLED && user.permissions && user.permissions.fullAccess"
         :key="lastTimeJump"
       >
         <a
@@ -328,7 +328,7 @@
       </div>
 
       <div
-        v-if="ENABLE_TIME_TRAVEL && isUserLoaded"
+        v-if="DEBUG_ENABLED && isUserLoaded"
         class="debug-toggle"
       >
         <button
@@ -826,8 +826,8 @@ import buyGemsModal from './payments/buyGemsModal.vue';
 import reportBug from '@/mixins/reportBug.js';
 import { worldStateMixin } from '@/mixins/worldState';
 
-const IS_PRODUCTION = process.env.NODE_ENV === 'production'; // eslint-disable-line no-process-env
-const ENABLE_TIME_TRAVEL = process.env.ENABLE_TIME_TRAVEL === 'true'; // eslint-disable-line no-process-env
+const DEBUG_ENABLED = process.env.DEBUG_ENABLED; // eslint-disable-line no-process-env
+const TIME_TRAVEL_ENABLED = process.env.TIME_TRAVEL_ENABLED; // eslint-disable-line no-process-env
 export default {
   components: {
     buyGemsModal,
@@ -847,8 +847,8 @@ export default {
         heart,
       }),
       debugMenuShown: false,
-      IS_PRODUCTION,
-      ENABLE_TIME_TRAVEL,
+      DEBUG_ENABLED,
+      TIME_TRAVEL_ENABLED,
       lastTimeJump: null,
     };
   },

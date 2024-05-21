@@ -5,10 +5,10 @@ import {
   generateReq,
   generateNext,
 } from '../../../helpers/api-unit.helper';
+import ensureDevelopmentMode from '../../../../website/server/middlewares/ensureDevelopmentMode';
 import { NotFound } from '../../../../website/server/libs/errors';
-import ensureTimeTravelMode from '../../../../website/server/middlewares/ensureTimeTravelMode';
 
-describe('timetravelMode middleware', () => {
+describe('developmentMode middleware', () => {
   let res; let req; let
     next;
 
@@ -18,31 +18,31 @@ describe('timetravelMode middleware', () => {
     next = generateNext();
   });
 
-  it('returns not found when using production URL', () => {
-    sandbox.stub(nconf, 'get').withArgs('TIME_TRAVEL_ENABLED').returns(false);
+  it('returns not found when on production URL', () => {
+    sandbox.stub(nconf, 'get').withArgs('DEBUG_ENABLED').returns(true);
     sandbox.stub(nconf, 'get').withArgs('BASE_URL').returns('https://habitica.com');
 
-    ensureTimeTravelMode(req, res, next);
+    ensureDevelopmentMode(req, res, next);
 
     const calledWith = next.getCall(0).args;
     expect(calledWith[0] instanceof NotFound).to.equal(true);
   });
 
-  it('returns not found when not in time travel mode', () => {
-    sandbox.stub(nconf, 'get').withArgs('TIME_TRAVEL_ENABLED').returns(false);
+  it('returns not found when intentionally disabled', () => {
+    sandbox.stub(nconf, 'get').withArgs('DEBUG_ENABLED').returns(false);
     sandbox.stub(nconf, 'get').withArgs('BASE_URL').returns('http://localhost:3000');
 
-    ensureTimeTravelMode(req, res, next);
+    ensureDevelopmentMode(req, res, next);
 
     const calledWith = next.getCall(0).args;
     expect(calledWith[0] instanceof NotFound).to.equal(true);
   });
 
-  it('passes when in time travel mode', () => {
-    sandbox.stub(nconf, 'get').withArgs('TIME_TRAVEL_ENABLED').returns(true);
+  it('passes when enabled and on non-production URL', () => {
+    sandbox.stub(nconf, 'get').withArgs('DEBUG_ENABLED').returns(true);
     sandbox.stub(nconf, 'get').withArgs('BASE_URL').returns('http://localhost:3000');
 
-    ensureTimeTravelMode(req, res, next);
+    ensureDevelopmentMode(req, res, next);
 
     expect(next).to.be.calledOnce;
     expect(next.args[0]).to.be.empty;

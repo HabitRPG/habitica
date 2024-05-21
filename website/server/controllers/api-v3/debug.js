@@ -2,7 +2,7 @@ import _ from 'lodash';
 import sinon from 'sinon';
 import moment from 'moment';
 import { authWithHeaders } from '../../middlewares/auth';
-import ensureDevelpmentMode from '../../middlewares/ensureDevelpmentMode';
+import ensureDevelopmentMode from '../../middlewares/ensureDevelopmentMode';
 import ensureTimeTravelMode from '../../middlewares/ensureTimeTravelMode';
 import { BadRequest } from '../../libs/errors';
 import common from '../../../common';
@@ -33,7 +33,7 @@ const api = {};
 api.addTenGems = {
   method: 'POST',
   url: '/debug/add-ten-gems',
-  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  middlewares: [ensureDevelopmentMode, authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
 
@@ -56,7 +56,7 @@ api.addTenGems = {
 api.addHourglass = {
   method: 'POST',
   url: '/debug/add-hourglass',
-  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  middlewares: [ensureDevelopmentMode, authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
 
@@ -79,7 +79,7 @@ api.addHourglass = {
 api.setCron = {
   method: 'POST',
   url: '/debug/set-cron',
-  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  middlewares: [ensureDevelopmentMode, authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
     const cron = req.body.lastCron;
@@ -103,7 +103,7 @@ api.setCron = {
 api.makeAdmin = {
   method: 'POST',
   url: '/debug/make-admin',
-  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  middlewares: [ensureDevelopmentMode, authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
 
@@ -134,7 +134,7 @@ api.makeAdmin = {
 api.modifyInventory = {
   method: 'POST',
   url: '/debug/modify-inventory',
-  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  middlewares: [ensureDevelopmentMode, authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
     const { gear } = req.body;
@@ -176,7 +176,7 @@ api.modifyInventory = {
 api.questProgress = {
   method: 'POST',
   url: '/debug/quest-progress',
-  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  middlewares: [ensureDevelopmentMode, authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
     const key = _.get(user, 'party.quest.key');
