@@ -5,6 +5,8 @@ const nconf = require('nconf');
 const vueTemplateCompiler = require('vue-template-babel-compiler');
 const setupNconf = require('../server/libs/setupNconf');
 const pkg = require('./package.json');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const TerserPlugin = require("terser-webpack-plugin");
 
 const configFile = path.join(path.resolve(__dirname, '../../config.json'));
 
@@ -42,7 +44,19 @@ envVars
 
 const webpackPlugins = [
   new webpack.DefinePlugin(envObject),
-  new webpack.ContextReplacementPlugin(/moment[\\/]locale$/, /^\.\/(NOT_EXISTING)$/),
+  new webpack.IgnorePlugin({
+    checkResource(resource, context) {
+      if (context.includes('sinon') || context.includes('nise')) {
+        return true;
+      }
+      if (context.includes('bootstrap-vue')) {
+        if (resource.includes('/icons')) {
+          return true
+        }
+      }
+      return false;
+    },
+}),
 ];
 
 module.exports = {
