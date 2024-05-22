@@ -148,6 +148,8 @@ shops.getMarketGearCategories = function getMarketGear (user, language) {
   const officialPinnedItems = getOfficialPinnedItems(user);
   const { pinnedSets } = seasonalShopConfig();
 
+  const gearMatcher = getScheduleMatchingGroup('seasonalGear');
+
   for (const classType of content.classes) {
     const category = {
       identifier: classType,
@@ -164,7 +166,12 @@ shops.getMarketGearCategories = function getMarketGear (user, language) {
       return false;
     });
 
-    category.items = map(result, e => getItemInfo(user, 'marketGear', e, officialPinnedItems));
+    category.items = map(result, e => {
+      if (e.set === pinnedSets[e.specialClass]) {
+        return getItemInfo(user, 'marketGear', e, officialPinnedItems, language, gearMatcher);
+      }
+      return getItemInfo(user, 'marketGear', e, officialPinnedItems);
+    });
 
     const specialGear = filter(content.gear.flat, gear => user.items.gear.owned[gear.key] === false
         && gear.specialClass === classType

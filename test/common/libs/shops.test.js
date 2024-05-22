@@ -150,6 +150,16 @@ describe('shops', () => {
         expect(rogueItems.length, 'Rogue seasonal gear').to.eql(4);
       });
 
+
+      it('seasonal gear contains end date', () => {
+        const categories = shared.shops.getMarketGearCategories(user);
+        categories.forEach(category => {
+          category.items.filter(x => x.key.indexOf('spring2024') !== -1).forEach(item => {
+            expect(item.end, item.key).to.exist;
+          });
+        });
+      });
+
       it('only shows gear for the current season', () => {
         const categories = shared.shops.getMarketGearCategories(user);
         categories.forEach(category => {
