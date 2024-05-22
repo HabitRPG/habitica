@@ -829,7 +829,6 @@ const DEBUG_ENABLED = process.env.DEBUG_ENABLED === 'true'; // eslint-disable-li
 const TIME_TRAVEL_ENABLED = process.env.TIME_TRAVEL_ENABLED === 'true'; // eslint-disable-line no-process-env
 let sinon;
 if (TIME_TRAVEL_ENABLED) {
-  console.log(TIME_TRAVEL_ENABLED);
   // eslint-disable-next-line global-require
   sinon = await import('sinon');
 }
