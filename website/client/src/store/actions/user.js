@@ -1,3 +1,4 @@
+import getProps from 'lodash/get';
 import setProps from 'lodash/set';
 import axios from 'axios';
 
@@ -47,6 +48,9 @@ export async function set (store, changes) {
           tagsIndexesToRemove.forEach(i => task.tags.splice(i, 1));
         });
       });
+    } else if ((key.startsWith('preferences.hair') || key.startsWith('preferences.chair'))
+      && getProps(user, key) === changes[key]) {
+      setProps(user, key, key.startsWith('preferences.chair') ? 'none' : 0);
     } else {
       setProps(user, key, changes[key]);
     }

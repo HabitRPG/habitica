@@ -120,6 +120,9 @@ export const avatarEditorUtilities = { // eslint-disable-line import/prefer-defa
     async unlock (path) {
       const fullSet = path.indexOf(',') !== -1;
       const isBackground = path.indexOf('background.') !== -1;
+      if (isBackground && path === 'background.') {
+        return this.set({ 'preferences.background': '' });
+      }
 
       let cost;
 

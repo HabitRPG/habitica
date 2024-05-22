@@ -208,6 +208,11 @@ export default {
 
       for (const key of keys) {
         const option = this.createGearItem(key, 'headAccessory', 'special', 'headband');
+        const newKey = `headAccessory_special_${key}`;
+        option.click = () => {
+          const type = this.user.preferences.costume ? 'costume' : 'equipped';
+          return this.equip(newKey, type);
+        };
 
         options.push(option);
       }

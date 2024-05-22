@@ -9,7 +9,9 @@
   "mysterySets": "Mystery Sets",
   "gearNotOwned": "You do not own this item.",
   "noGearItemsOfType": "You don't own any of these.",
-  "noGearItemsOfClass": "You already have all your class equipment! More will be released during the Grand Galas, near the solstices and equinoxes.",
+  "gearItemsCompleted": "You own all <%= klass %> gear! New gear is released during the seasonal Galas.",
+  "moreArmoireGearAvailable": "Until then, there's <%= armoireCount %> pieces of gear in the Enchanted Armoire to find!",
+  "moreArmoireGearComing": "The Enchanted Armoire gets new stock every month too!",
   "classLockedItem": "This item is only available to a specific class. At level 10 or above, you can change your class under the User icon > Settings > Character Build!",
   "tierLockedItem": "This item is only available once you've purchased the previous items in sequence. Keep working your way up!",
 

@@ -176,10 +176,16 @@
             :id="bg.key"
             :key="bg.key"
             class="background-item"
-            :class="{selected: bg.key === user.preferences.background}"
+            :class="{ selected: bg.key === user.preferences.background }"
             @click="unlock('background.' + bg.key)"
           >
             <div
+              v-if="bg.key === ''"
+              class="incentive-background deselect"
+            >
+            </div>
+            <div
+              v-else
               class="incentive-background"
               :class="`background_${bg.key}`"
             >
@@ -264,7 +270,7 @@
           >
             <strong>{{ $t('monthlyBackgrounds') }}</strong>
           </div>
-          <div class="d-flex background-row justify-content-center mx-auto mb-4">
+          <div class="d-flex background-row justify-content-left mx-auto mb-4">
             <div
               v-for="(bg) in monthlyBackgrounds"
               :id="bg.key"
@@ -789,7 +795,7 @@
 
     #backgrounds {
       .background-row {
-        width: 85%;
+        width: 82%;
         flex-wrap: wrap;
       }
 
@@ -803,8 +809,19 @@
           background-position: -4px -4px;
         }
 
-        &:not(:first-of-type):not(:nth-of-type(9n)) {
-          margin-left: 24px;
+        .deselect {
+          height: 4px;
+          display: block;
+          opacity: 0.24;
+          background: red;
+          transform: rotate(-45deg);
+          top: 0;
+          margin-top: 32px;
+          margin-left: -1px;
+        }
+
+        &:not(:nth-of-type(8n)) {
+          margin-right: 24px;
         }
 
         &:nth-of-type(n+9) {
@@ -1009,7 +1026,7 @@ export default {
       allBackgrounds: content.backgroundsFlat,
       monthlyBackgrounds: [],
       standardBackgrounds: [],
-      standardBackgroundMax: 0,
+      standardBackgroundMax: 1,
       timeTravelBackgrounds: [],
 
       icons: Object.freeze({
@@ -1084,6 +1101,7 @@ export default {
       }
     });
     this.monthlyBackgrounds = orderBy(this.monthlyBackgrounds, bg => bg.key, 'desc');
+    this.standardBackgrounds.splice(0, 0, { key: '', notes: () => this.$t('noBackground') });
     if (this.editing) this.modalPage = 2;
   },
   methods: {

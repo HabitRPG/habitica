@@ -42,7 +42,7 @@
       :item-width="94"
       :item-margin="24"
       :type="'gear'"
-      :no-items-label="$t('noGearItemsOfClass')"
+      :no-items-label="noItemsLabel"
     >
       <template
         slot="item"
@@ -77,6 +77,7 @@
 import _filter from 'lodash/filter';
 import _orderBy from 'lodash/orderBy';
 import shops from '@/../../common/script/libs/shops';
+import { remainingGearInSet } from '@/../../common/script/count';
 import { getClassName } from '@/../../common/script/libs/getClassName';
 import { mapState } from '@/libs/store';
 import LayoutSection from '@/components/ui/layoutSection';
@@ -136,6 +137,17 @@ export default {
       userItems: 'user.data.items',
       userStats: 'user.data.stats',
     }),
+    armoireCount () {
+      return remainingGearInSet(this.userItems.gear.owned, 'armoire');
+    },
+    noItemsLabel () {
+      if (this.armoireCount > 0) {
+        return `${this.$t('gearItemsCompleted', { klass: this.$t(this.selectedGroupGearByClass) })}
+          ${this.$t('moreArmoireGearAvailable', { armoireCount: this.armoireCount })}`;
+      }
+      return `${this.$t('gearItemsCompleted', { klass: this.$t(this.selectedGroupGearByClass) })}
+        ${this.$t('moreArmoireComing')}`;
+    },
     marketGearCategories () {
       return shops.getMarketGearCategories(this.user).map(c => {
         c.id = c.identifier;
