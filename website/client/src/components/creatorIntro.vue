@@ -818,6 +818,7 @@
           top: 0;
           margin-top: 32px;
           margin-left: -1px;
+          border-radius: 0;
         }
 
         &:not(:nth-of-type(8n)) {

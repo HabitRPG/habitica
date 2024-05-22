@@ -146,7 +146,7 @@ export default {
           ${this.$t('moreArmoireGearAvailable', { armoireCount: this.armoireCount })}`;
       }
       return `${this.$t('gearItemsCompleted', { klass: this.$t(this.selectedGroupGearByClass) })}
-        ${this.$t('moreArmoireComing')}`;
+        ${this.$t('moreArmoireGearComing')}`;
     },
     marketGearCategories () {
       return shops.getMarketGearCategories(this.user).map(c => {
