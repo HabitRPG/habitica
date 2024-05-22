@@ -56,6 +56,12 @@ describe('shops', () => {
         const potions = shared.shops.getMarketCategories(user).find(x => x.identifier === 'premiumHatchingPotions');
         expect(potions.items.filter(x => x.key === 'Aquatic' || x.key === 'Celestial').length).to.eql(0);
       });
+      it('returns end date for scheduled premium potions', async () => {
+        const potions = shared.shops.getMarketCategories(user).find(x => x.identifier === 'premiumHatchingPotions');
+        potions.items.forEach(potion => {
+          expect(potion.end).to.exist;
+        });
+      });
 
       it('contains unlocked quest premium hatching potions', async () => {
         user.achievements.quests = {
@@ -71,6 +77,17 @@ describe('shops', () => {
         const potions = shared.shops.getMarketCategories(user).find(x => x.identifier === 'premiumHatchingPotions');
         expect(potions.items.length).to.eql(2);
         expect(potions.items.filter(x => x.key === 'Bronze' || x.key === 'BlackPearl').length).to.eql(0);
+      });
+
+      it('does not return end date for quest premium potions', async () => {
+        user.achievements.quests = {
+          bronze: 1,
+          blackPearl: 1,
+        };
+        const potions = shared.shops.getMarketCategories(user).find(x => x.identifier === 'premiumHatchingPotions');
+        potions.items.filter(x => x.key === 'Bronze' || x.key === 'BlackPearl').forEach(potion => {
+          expect(potion.end).to.not.exist;
+        });
       });
     });
 
