@@ -170,7 +170,7 @@
             {{ $t('incentiveBackgroundsUnlockedWithCheckins') }}
           </div>
         </div>
-        <div class="row justify-content-center mb-4">
+        <div class="background-row d-flex justify-content-center mb-4">
           <div
             v-for="bg in standardBackgrounds"
             :id="bg.key"
@@ -209,7 +209,7 @@
             <strong>{{ allBackgrounds.eventBackgrounds.text }}</strong>
           </div>
           <div
-            class="row justify-content-center mb-4"
+            class="background-row d-flex justify-content-center mb-4"
           >
             <div
               v-for="bg in allBackgrounds.eventBackgrounds.items"
@@ -240,7 +240,7 @@
             <strong>{{ $t('timeTravelBackgrounds') }}</strong>
           </div>
           <div
-            class="row justify-content-center mb-4"
+            class="background-row d-flex justify-content-center mb-4"
           >
             <div
               v-for="bg in timeTravelBackgrounds"
@@ -270,7 +270,7 @@
           >
             <strong>{{ $t('monthlyBackgrounds') }}</strong>
           </div>
-          <div class="d-flex background-row justify-content-left mx-auto mb-4">
+          <div class="background-row d-flex justify-content-center mx-auto mb-4 px-5">
             <div
               v-for="(bg) in monthlyBackgrounds"
               :id="bg.key"
@@ -795,8 +795,8 @@
 
     #backgrounds {
       .background-row {
-        width: 82%;
         flex-wrap: wrap;
+        gap: 1.5rem;
       }
 
       .background-item {
@@ -819,14 +819,6 @@
           margin-top: 32px;
           margin-left: -1px;
           border-radius: 0;
-        }
-
-        &:not(:nth-of-type(8n)) {
-          margin-right: 24px;
-        }
-
-        &:nth-of-type(n+9) {
-          margin-top: 24px;
         }
 
         &:hover {
