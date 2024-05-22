@@ -810,7 +810,6 @@ h3 {
 import axios from 'axios';
 import moment from 'moment';
 import Vue from 'vue';
-import sinon from 'sinon';
 
 // images
 import melior from '@/assets/svg/melior.svg';
@@ -826,8 +825,15 @@ import buyGemsModal from './payments/buyGemsModal.vue';
 import reportBug from '@/mixins/reportBug.js';
 import { worldStateMixin } from '@/mixins/worldState';
 
-const DEBUG_ENABLED = process.env.DEBUG_ENABLED; // eslint-disable-line no-process-env
-const TIME_TRAVEL_ENABLED = process.env.TIME_TRAVEL_ENABLED; // eslint-disable-line no-process-env
+const DEBUG_ENABLED = process.env.DEBUG_ENABLED === 'true'; // eslint-disable-line no-process-env
+const TIME_TRAVEL_ENABLED = process.env.TIME_TRAVEL_ENABLED === 'true'; // eslint-disable-line no-process-env
+let sinon;
+if (TIME_TRAVEL_ENABLED) {
+  console.log(TIME_TRAVEL_ENABLED);
+  // eslint-disable-next-line global-require
+  sinon = await import('sinon');
+}
+
 export default {
   components: {
     buyGemsModal,
