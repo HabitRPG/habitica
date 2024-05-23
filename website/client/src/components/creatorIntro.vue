@@ -47,6 +47,7 @@
             class="new-user"
             :member="user"
             :avatar-only="true"
+            :override-top-padding="'0px'"
           />
         </div>
         <avatar
@@ -1096,6 +1097,17 @@ export default {
     this.monthlyBackgrounds = orderBy(this.monthlyBackgrounds, bg => bg.key, 'desc');
     this.standardBackgrounds.splice(0, 0, { key: '', notes: () => this.$t('noBackground') });
     if (this.editing) this.modalPage = 2;
+    this.$root.$on('buyModal::boughtItem', item => {
+      if (item.path.includes('background')) {
+        const newBackground = this.allBackgrounds[item.path.split('.')[2]];
+        if (newBackground.set === 'timeTravelBackgrounds') {
+          this.timeTravelBackgrounds.push(newBackground);
+        } else {
+          this.monthlyBackgrounds.push(newBackground);
+          this.monthlyBackgrounds = orderBy(this.monthlyBackgrounds, bg => bg.key, 'desc');
+        }
+      }
+    });
   },
   methods: {
     close () {

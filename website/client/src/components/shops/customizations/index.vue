@@ -130,6 +130,7 @@ export default {
     return {
       searchText: null,
       searchTextThrottled: null,
+      unfilteredCategories: [],
       viewOptions: {},
     };
   },
@@ -148,23 +149,6 @@ export default {
         npc: 'url(/static/npc/normal/customizations_npc.png)',
       };
     },
-    shop () {
-      return shops.getCustomizationsShop(this.user);
-    },
-    unfilteredCategories () {
-      const apiCategories = this.shop.categories;
-
-      apiCategories.forEach(category => {
-        // do not reset the viewOptions if already set once
-        if (typeof this.viewOptions[category.identifier] === 'undefined') {
-          this.$set(this.viewOptions, category.identifier, {
-            selected: false,
-          });
-        }
-      });
-
-      return apiCategories;
-    },
     categories () {
       const { unfilteredCategories } = this;
 
@@ -182,6 +166,10 @@ export default {
     this.$store.dispatch('common:setTitle', {
       subSection: this.$t('customizations'),
       section: this.$t('shops'),
+    });
+    this.updateShop();
+    this.$root.$on('buyModal::boughtItem', () => {
+      this.updateShop();
     });
   },
   methods: {
@@ -256,6 +244,20 @@ export default {
     },
     selectItem (item) {
       this.$root.$emit('buyModal::showItem', item);
+    },
+    updateShop () {
+      const shop = shops.getCustomizationsShop(this.user);
+
+      shop.categories.forEach(category => {
+        // do not reset the viewOptions if already set once
+        if (typeof this.viewOptions[category.identifier] === 'undefined') {
+          this.$set(this.viewOptions, category.identifier, {
+            selected: false,
+          });
+        }
+      });
+
+      this.unfilteredCategories = shop.categories;
     },
   },
 };

@@ -826,6 +826,7 @@ export default {
         if (!buySuccess) return;
         this.sync();
         this.$root.$emit('playSound', 'Reward');
+        this.$root.$emit('buyModal::boughtItem', this.item);
         this.purchased(this.item.text);
       } else {
         const shouldConfirmPurchase = this.item.currency === 'gems' || this.item.currency === 'hourglasses';
