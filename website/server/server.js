@@ -12,6 +12,7 @@ import attachMiddlewares from './middlewares/index';
 // Load config files
 import './libs/setupMongoose';
 import './libs/setupPassport';
+import './libs/setupFirebase';
 
 // Load some schemas & models
 import './models/challenge';
