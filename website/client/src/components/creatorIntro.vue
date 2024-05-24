@@ -234,7 +234,10 @@
             </div>
           </div>
         </div>
-        <div v-if="timeTravelBackgrounds.length > 0">
+        <div
+          :key="`ttbg${timeTravelBackgrounds.length}`"
+          v-if="timeTravelBackgrounds.length > 0"
+        >
           <div
             class="row justify-content-center title-row mb-3"
           >
@@ -265,7 +268,10 @@
             </div>
           </div>
         </div>
-        <div v-if="monthlyBackgrounds.length > 0">
+        <div
+          :key="`monthly${monthlyBackgrounds.length}`"
+          v-if="monthlyBackgrounds.length > 0"
+        >
           <div
             class="row text-center title-row mb-3"
           >
@@ -650,6 +656,13 @@
     .welcome-section {
       margin-top: 2.5em;
       margin-bottom: 2.5em;
+
+      h3 {
+        font-size: 20px;
+        font-weight: 400;
+        color: $gray-200;
+        line-height: 1.71;
+      }
     }
 
     .logo {
@@ -1061,10 +1074,7 @@ export default {
       return this.$store.state.avatarEditorOptions.startingPage;
     },
     imageURL () {
-      if (!this.currentEvent || !this.currentEvent.season) {
-        return 'url(/static/npc/normal/npc_justin.png)';
-      }
-      return `url(/static/npc/${this.currentEvent.season}/npc_justin.png)`;
+      return 'url(/static/npc/normal/npc_justin.png)';
     },
   },
   watch: {
