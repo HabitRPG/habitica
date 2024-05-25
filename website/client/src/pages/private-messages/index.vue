@@ -15,16 +15,15 @@
         >
           {{ $t('messages') }}
         </h2>
-        <div class="placeholder svg-icon">
-          <!-- placeholder -->
-          <button
-            class="btn btn-secondary"
-            @click="showStartNewConversationInput = true"
-          >
-            +
-          </button>
-        </div>
+
+        <button
+          class="btn btn-secondary"
+          @click="showStartNewConversationInput = true"
+        >
+          +
+        </button>
       </div>
+
       <start-new-conversation-input-header
         v-if="uiState === UI_STATES.START_NEW_CONVERSATION"
         @startNewConversation="startNewConversation($event)"
@@ -291,9 +290,14 @@ $background: $white;
 .header-bar {
   height: 56px;
   background-color: $white;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
   align-items: center;
+
+  .left-header {
+    padding-left: 1.5rem;
+    max-width: 330px;
+    align-items: center;
+    flex: 1;
+  }
 
   .mail-icon {
     width: 32px;
@@ -307,6 +311,10 @@ $background: $white;
 
   .placeholder.svg-icon {
     width: 32px;
+  }
+
+  .btn {
+    width: 40px;
   }
 }
 
@@ -455,11 +463,6 @@ h3 {
       color: $gray-100;
     }
   }
-}
-
-.left-header {
-  max-width: calc(330px - 2rem); // minus the left padding
-  flex: 1;
 }
 
 .sidebar {
