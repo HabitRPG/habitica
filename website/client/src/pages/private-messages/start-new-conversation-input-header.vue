@@ -6,12 +6,15 @@
     ></strong>
     <input
       ref="targetUserInput"
+      v-model="targetUserInputValue"
       class="mx-2"
-      :value="targetUserInputValue"
+      placeholder="@user"
+      autofocus
     >
 
     <button
       class="btn btn-primary"
+      :disabled="!targetUserInputValue.includes('@') || targetUserInputValue.length < 2"
       @click="$emit('startNewConversation', $refs.targetUserInput.value)"
     >
       {{ $t('confirm') }}
@@ -59,6 +62,9 @@ export default {
     return {
       targetUserInputValue: '',
     };
+  },
+  mounted () {
+    this.$refs.targetUserInput.focus();
   },
 };
 </script>

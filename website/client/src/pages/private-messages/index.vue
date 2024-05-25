@@ -17,10 +17,14 @@
         </h2>
 
         <button
-          class="btn btn-secondary"
+          class="btn btn-secondary plus-button"
+          :class="{'new-message-mode':showStartNewConversationInput}"
           @click="showStartNewConversationInput = true"
         >
-          +
+          <div
+            class="svg-icon icon-10 color"
+            v-html="icons.positive"
+          ></div>
         </button>
       </div>
 
@@ -313,8 +317,12 @@ $background: $white;
     width: 32px;
   }
 
-  .btn {
-    width: 40px;
+  .plus-button {
+    padding: 10px 14px;
+
+    &.new-message-mode {
+      color: $gray-200;
+    }
   }
 }
 
@@ -539,6 +547,7 @@ import PmEmptyState from './pm-empty-state.vue';
 import PmDisabledState from './pm-disabled-state.vue';
 import PmNewMessageStarted from './pm-new-message-started.vue';
 import StartNewConversationInputHeader from './start-new-conversation-input-header.vue';
+import positiveIcon from '@/assets/svg/positive.svg';
 
 // extract to a shared path
 const CONVERSATIONS_PER_PAGE = 10;
@@ -593,6 +602,7 @@ export default defineComponent({
       icons: Object.freeze({
         messageIcon,
         mail,
+        positive: positiveIcon,
       }),
       UI_STATES,
       showStartNewConversationInput: false,
