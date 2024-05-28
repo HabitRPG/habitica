@@ -757,6 +757,8 @@
   "weaponArmoireOptimistsCloverNotes": "Well, would you look at what you found? It never hurts to have just a little extra good luck on your side. Increases Strength and Constitution by <%= attrs %> each. Enchanted Armoire: Optimist Set (Item 4 of 4).",
   "weaponArmoirePottersWheelText": "Potter's Wheel",
   "weaponArmoirePottersWheelNotes": "Throw some clay on this wheel and make a bowl or a mug or a vase or a slightly different bowl. If you're lucky, a ghost might visit while you create! Increases Perception by <%= per %>. Enchanted Armoire: Potter Set (Item 4 of 4).",
+  "weaponArmoireShadyBeachUmbrellaText": "Beach Umbrella",
+  "weaponArmoireShadyBeachUmbrellaNotes": "The shade of this rainbow-colored umbrella conceals you briefly from the day star and any unwanted bothers. Increases Perception by <%= per %>. Enchanted Armoire: Beachside Set (Item 3 of 4).",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -1376,6 +1378,8 @@
   "armorMystery202310Notes": "A ghostly garment that will curl and drift gracefully as you float amidst the haunted bogs and wastes. Confers no benefit. October 2023 Subscriber Item.",
   "armorMystery202401Text": "Snowy Spellbinder Robes",
   "armorMystery202401Notes": "These robes appear as delicate as crystal snowflakes, but will keep you plenty warm as you work your wintry magic. Confers no benefit. January 2024 Subscriber Item.", 
+  "armorMystery202406Text": "Phantom Buccaneer’s Attire",
+  "armorMystery202406Notes": "Haunt your enemies with style and flair! Confers no benefit. June 2024 Subscriber Item.",
 
   "armorMystery301404Text": "Steampunk Suit",
   "armorMystery301404Notes": "Dapper and dashing, wot! Confers no benefit. February 3015 Subscriber Item.",
@@ -1588,6 +1592,10 @@
   "armorArmoireSmileyShirtNotes": "Because you’re happy! Show the world you’re all smiles today. Increases Intelligence and Perception by <%= attrs %> each. Enchanted Armoire: Optimist Set (Item 1 of 4).",
   "armorArmoirePottersApronText": "Potter's Apron",
   "armorArmoirePottersApronNotes": "You came prepared with tools of the trade. Good thing you wore this apron. It has pockets! Increases Strength by <%= str %>. Enchanted Armoire: Potter Set (Item 1 of 4).",
+  "armorArmoireYellowStripedSwimsuitText": "Yellow Striped Swimsuit",
+  "armorArmoireYellowStripedSwimsuitNotes": "What could be more delightful than battling sea monsters on the beach? Increases Constitution by <%= con %>. Enchanted Armoire: Beachside Set (Item 1 of 4).",
+  "armorArmoireBlueStripedSwimsuitText": "Blue Striped Swimsuit",
+  "armorArmoireBlueStripedSwimsuitNotes": "What could be more exciting than battling sea monsters on the beach? Increases Constitution by <%= con %>. Enchanted Armoire: Beachside Set (Item 2 of 4).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -2240,6 +2248,8 @@
   "headMystery202403Notes": "Lucky you, to be able to don this fine cap of emerald velvet with its fine sea-green gem. Confers no benefit. March 2024 Subscriber Item.",
   "headMystery202404Text": "Mycelial Magus Hat",  
   "headMystery202404Notes": "This hat will connect you with the earth and allow you to hear secret wishes from many creatures. Confers no benefit. April 2024 Subscriber Item.",
+  "headMystery202406Text": "Phantom Buccaneer’s Hat",
+  "headMystery202406Notes": "The ghostly feathers that adorn this hat glow faintly, like the waves of a spectral sea. Confers no benefit. June 2024 Subscriber Item.",
 
   "headMystery301404Text": "Fancy Top Hat",
   "headMystery301404Notes": "A fancy top hat for the finest of gentlefolk! January 3015 Subscriber Item. Confers no benefit.",
@@ -2891,6 +2901,8 @@
   "shieldArmoireHappyThoughtsNotes": "Whether you're remembering a joyful moment from your past or imagining the best outcome for the future, always look on the bright side of life. Increases all stats by <%= attrs %> each. Enchanted Armoire: Optimist Set (Item 3 of 4).",
   "shieldArmoireThrownVesselText": "Thrown Vessel",
   "shieldArmoireThrownVesselNotes": "You know what they say: practice makes progress. And this is the best one you’ve made so far! Increases Constitution by <%= con %>. Enchanted Armoire: Potter Set (Item 3 of 4).",
+  "shieldArmoireBuoyantBeachBallText": "Beachball",
+  "shieldArmoireBuoyantBeachBallNotes": "Got too many balls up in the air already? Here’s one that you can safely set down, roll, bounce and bounce and bounce...  Increases Strength by <%= str %>. Enchanted Armoire: Beachside Set (Item 4 of 4).",
 
   "back": "Back Accessory",
   "backBase0Text": "No Back Accessory",
@@ -3309,6 +3321,8 @@
   "eyewearMystery202308Notes": "Are you sleepy, or just resting your eyes in anticipation of your next amazing battle? Confers no benefit. August 2023 Subscriber Item.",
   "eyewearMystery202312Text": "Wintry Blue Eyes",
   "eyewearMystery202312Notes": "No need to worry, these icy blues will help you see through the cold and dark season to the warmth of months ahead. Confers no benefit. December 2023 Subscriber Item.",
+  "eyewearMystery202406Text": "Phantom Buccaneer’s Mask",
+  "eyewearMystery202406Notes": "Try to avoid having this pulled off by a gang of meddling kids and their talking dog. Confers no benefit. June 2024 Subscriber Item.",
 
 
   "eyewearMystery301404Text": "Eyewear Goggles",
