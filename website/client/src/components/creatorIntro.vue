@@ -987,7 +987,6 @@
 <script>
 import axios from 'axios';
 import forEach from 'lodash/forEach';
-import orderBy from 'lodash/orderBy';
 import content from '@/../../common/script/content/index';
 import { mapState } from '@/libs/store';
 import avatar from './avatar';
@@ -1090,38 +1089,32 @@ export default {
     },
   },
   mounted () {
-    forEach(this.allBackgrounds, bg => {
-      if (bg.set === 'incentiveBackgrounds') {
-        this.standardBackgroundMax += 1;
-      }
-      if (this.user.purchased.background[bg.key]) {
-        if (bg.set === 'incentiveBackgrounds') {
-          this.standardBackgrounds.push(bg);
-        } else if (bg.set === 'timeTravelBackgrounds') {
-          this.timeTravelBackgrounds.push(bg);
-        } else {
-          this.monthlyBackgrounds.push(bg);
-        }
-      }
-    });
-    this.monthlyBackgrounds = orderBy(this.monthlyBackgrounds, bg => bg.key, 'desc');
-    this.standardBackgrounds.splice(0, 0, { key: '', notes: () => this.$t('noBackground') });
+    this.updateBackgrounds();
     if (this.editing) this.modalPage = 2;
-    this.$root.$on('buyModal::boughtItem', item => {
-      if (item.path.includes('background')) {
-        const newBackground = this.allBackgrounds[item.path.split('.')[2]];
-        if (newBackground.set === 'timeTravelBackgrounds') {
-          this.timeTravelBackgrounds.push(newBackground);
-        } else {
-          this.monthlyBackgrounds.push(newBackground);
-          this.monthlyBackgrounds = orderBy(this.monthlyBackgrounds, bg => bg.key, 'desc');
-        }
-      }
-    });
   },
   methods: {
     close () {
       this.$root.$emit('bv::hide::modal', 'avatar-modal');
+    },
+    updateBackgrounds () {
+      this.monthlyBackgrounds = [];
+      this.standardBackgrounds = [
+        { key: '', notes: () => this.$t('noBackground') },
+      ];
+      forEach(this.allBackgrounds, bg => {
+        if (bg.set === 'incentiveBackgrounds') {
+          this.standardBackgroundMax += 1;
+        }
+        if (this.user.purchased.background[bg.key]) {
+          if (bg.set === 'incentiveBackgrounds') {
+            this.standardBackgrounds.push(bg);
+          } else if (bg.set === 'timeTravelBackgrounds') {
+            this.timeTravelBackgrounds.push(bg);
+          } else {
+            this.monthlyBackgrounds.push(bg);
+          }
+        }
+      });
     },
     prev () {
       this.modalPage -= 1;
@@ -1130,6 +1123,9 @@ export default {
       this.modalPage += 1;
     },
     changeTopPage (page, subpage) {
+      if (page === 'backgrounds') {
+        this.updateBackgrounds();
+      }
       this.activeTopPage = page;
       if (subpage) this.activeSubPage = subpage;
     },
