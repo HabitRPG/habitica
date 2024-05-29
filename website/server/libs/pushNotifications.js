@@ -41,57 +41,21 @@ function sendFCMNotification (user, pushDevice, payload) {
   };
 
   messaging.send(message)
-    .then(response => {
-      console.log(response);
-    })
     .catch(err => {
-      console.log(err);
-    });
-
-  /* messaging.send(message, {
-    registrationTokens: [pushDevice.regId],
-  }, 5, (err, response) => {
-    if (err) {
-      logger.error(err, 'Unhandled FCM error.');
-      return;
-    }
-
-    // Handle failed push notifications deliveries
-    // Note that we're always sending to one device, not multiple
-    const failed = response
-      && response.results && response.results[0] && response.results[0].error;
-
-    if (failed) {
-      // See https://firebase.google.com/docs/cloud-messaging/http-server-ref#table9
-      // for the list of errors
-
-      // The regId is not valid anymore, remove it
-      if (failed === 'NotRegistered') {
+      if (err.code === 'messaging/registration-token-not-registered') {
         removePushDevice(user, pushDevice);
         logger.error(new Error('FCM error, unregistered pushDevice'), {
           regId: pushDevice.regId, userId: user._id,
         });
-      } else {
-        // An invalid token was registered by mistake
-        // Remove it but log the error differently so that it can be distinguished
-        // from when failed === NotRegistered
-        // Blacklisted can happen in some rare cases,
-        // see https://stackoverflow.com/questions/42136122/why-does-firebase-push-token-return-blacklisted
-        // MismatchSenderId could be due to old tokens,
-        // see https://stackoverflow.com/questions/11313342/why-do-i-get-mismatchsenderid-from-gcm-server-side
-        if (
-          failed === 'InvalidRegistration'
-          || failed === 'MismatchSenderId'
-          || pushDevice.regId === 'BLACKLISTED'
-        ) {
-          removePushDevice(user, pushDevice);
-        }
-        logger.error(new Error('FCM error'), {
-          response, regId: pushDevice.regId, userId: user._id,
+      } else if (err.code === 'messaging/invalid-registration-token') {
+        removePushDevice(user, pushDevice);
+        logger.error(new Error('FCM error, invalid pushDevice'), {
+          regId: pushDevice.regId, userId: user._id,
         });
+      } else {
+        logger.error(err, 'Unhandled FCM error.');
       }
-    }
-  }); */
+    });
 }
 
 function sendAPNNotification (user, pushDevice, details, payload) {
