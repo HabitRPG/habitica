@@ -37,6 +37,10 @@ function sendFCMNotification (user, pushDevice, payload) {
       title: payload.title,
       body: payload.body,
     },
+    data: {
+      identifier: payload.identifier,
+      notificationIdentifier: payload.identifier,
+    },
     token: pushDevice.regId,
   };
 
