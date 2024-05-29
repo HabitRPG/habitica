@@ -164,5 +164,8 @@
     "achievementRoughRiderModalText": "¡Has conseguido todos los colores básicos de las mascotas y monturas incómodas!",
     "achievementRodentRuler": "Gobernante Roedor",
     "achievementRodentRulerText": "¡Ha eclosionado todos los colores estándar de las mascotas roedores: Conejillo de Indias, Rata y Ardilla!",
-    "achievementRodentRulerModalText": "¡Has conseguido todos las roedores mascota!"
+    "achievementRodentRulerModalText": "¡Has conseguido todos las roedores mascota!",
+    "achievementCats": "Pastor de Gatos",
+    "achievementCatsText": "¡Ha eclosionado todos los colores estándar de las mascotas felinas: Guepardo, León, Tigre Dientes de Sable y Tigre!",
+    "achievementCatsModalText": "¡Has conseguido todas las mascotas felinas!"
 }
