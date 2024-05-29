@@ -36,8 +36,10 @@ function getUserFields (options, req) {
   const { userFields } = req.query;
   if (!userFields || urlPath !== '/user') return '';
 
-  const userFieldOptions = userFields.split(',');
+  let userFieldOptions = userFields.split(',');
   if (userFieldOptions.length === 0) return '';
+
+  userFieldOptions = userFieldOptions.filter(field => USER_FIELDS_ALWAYS_LOADED.indexOf(field.split('.')[0]) === -1);
 
   return userFieldOptions.concat(USER_FIELDS_ALWAYS_LOADED).join(' ');
 }
