@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import nconf from 'nconf';
 import apn from '@parse/node-apn';
-import { getMessaging } from 'firebase-admin/messaging';
+import admin from 'firebase-admin';
 import logger from './logger';
 import { // eslint-disable-line import/no-cycle
   model as User,
@@ -27,8 +27,8 @@ function removePushDevice (user, pushDevice) {
 
 export const MAX_MESSAGE_LENGTH = 300;
 
-function sendFCMNotification (user, pushDevice, payload) {
-  const messaging = getMessaging();
+async function sendFCMNotification (user, pushDevice, payload) {
+  const messaging = admin.messaging();
   if (messaging === undefined) {
     return;
   }
@@ -44,25 +44,26 @@ function sendFCMNotification (user, pushDevice, payload) {
     token: pushDevice.regId,
   };
 
-  messaging.send(message)
-    .catch(err => {
-      if (err.code === 'messaging/registration-token-not-registered') {
-        removePushDevice(user, pushDevice);
-        logger.error(new Error('FCM error, unregistered pushDevice'), {
-          regId: pushDevice.regId, userId: user._id,
-        });
-      } else if (err.code === 'messaging/invalid-registration-token') {
-        removePushDevice(user, pushDevice);
-        logger.error(new Error('FCM error, invalid pushDevice'), {
-          regId: pushDevice.regId, userId: user._id,
-        });
-      } else {
-        logger.error(err, 'Unhandled FCM error.');
-      }
-    });
+  try {
+    await messaging.send(message);
+  } catch (error) {
+    if (error.code === 'messaging/registration-token-not-registered') {
+      removePushDevice(user, pushDevice);
+      logger.error(new Error('FCM error, unregistered pushDevice'), {
+        regId: pushDevice.regId, userId: user._id,
+      });
+    } else if (error.code === 'messaging/invalid-registration-token') {
+      removePushDevice(user, pushDevice);
+      logger.error(new Error('FCM error, invalid pushDevice'), {
+        regId: pushDevice.regId, userId: user._id,
+      });
+    } else {
+      logger.error(error, 'Unhandled FCM error.');
+    }
+  }
 }
 
-function sendAPNNotification (user, pushDevice, details, payload) {
+async function sendAPNNotification (user, pushDevice, details, payload) {
   if (apnProvider) {
     const notification = new apn.Notification({
       alert: {
@@ -74,42 +75,43 @@ function sendAPNNotification (user, pushDevice, details, payload) {
       topic: 'com.habitrpg.ios.Habitica',
       payload,
     });
-    apnProvider.send(notification, pushDevice.regId)
-      .then(response => {
-        // Handle failed push notifications deliveries
-        response.failed.forEach(failure => {
-          if (failure.error) { // generic error
-            logger.error(new Error('Unhandled APN error'), {
+    try {
+      const response = await apnProvider.send(notification, pushDevice.regId);
+      // Handle failed push notifications deliveries
+      response.failed.forEach(failure => {
+        if (failure.error) { // generic error
+          logger.error(new Error('Unhandled APN error'), {
+            response, regId: pushDevice.regId, userId: user._id,
+          });
+        } else { // rejected
+          // see https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CommunicatingwithAPNs.html#//apple_ref/doc/uid/TP40008194-CH11-SW17
+          // for a list of rejection reasons
+          const { reason } = failure.response;
+          if (reason === 'Unregistered') {
+            removePushDevice(user, pushDevice);
+            logger.error(new Error('APN error, unregistered pushDevice'), {
+              regId: pushDevice.regId, userId: user._id,
+            });
+          } else {
+            if (reason === 'BadDeviceToken') {
+              // An invalid token was registered by mistake
+              // Remove it but log the error differently so that it can be distinguished
+              // from when reason === Unregistered
+              removePushDevice(user, pushDevice);
+            }
+            logger.error(new Error('APN error'), {
               response, regId: pushDevice.regId, userId: user._id,
             });
-          } else { // rejected
-            // see https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CommunicatingwithAPNs.html#//apple_ref/doc/uid/TP40008194-CH11-SW17
-            // for a list of rejection reasons
-            const { reason } = failure.response;
-            if (reason === 'Unregistered') {
-              removePushDevice(user, pushDevice);
-              logger.error(new Error('APN error, unregistered pushDevice'), {
-                regId: pushDevice.regId, userId: user._id,
-              });
-            } else {
-              if (reason === 'BadDeviceToken') {
-                // An invalid token was registered by mistake
-                // Remove it but log the error differently so that it can be distinguished
-                // from when reason === Unregistered
-                removePushDevice(user, pushDevice);
-              }
-              logger.error(new Error('APN error'), {
-                response, regId: pushDevice.regId, userId: user._id,
-              });
-            }
           }
-        });
-      })
-      .catch(err => logger.error(err, 'Unhandled APN error.'));
+        }
+      });
+    } catch (err) {
+      logger.error(err, 'Unhandled APN error.')
+    }
   }
 }
 
-export function sendNotification (user, details = {}) {
+export async function sendNotification (user, details = {}) {
   if (!user) throw new Error('User is required.');
   if (user.preferences.pushNotifications.unsubscribeFromAll === true) return;
   const pushDevices = user.pushDevices.toObject ? user.pushDevices.toObject() : user.pushDevices;
@@ -130,13 +132,13 @@ export function sendNotification (user, details = {}) {
     payload.message = _.truncate(payload.message, { length: MAX_MESSAGE_LENGTH });
   }
 
-  _.each(pushDevices, pushDevice => {
+  await _.each(pushDevices, async pushDevice => {
     switch (pushDevice.type) { // eslint-disable-line default-case
       case 'android':
         // Required for fcm to be received in background
         payload.title = details.title;
         payload.body = details.message;
-        sendFCMNotification(user, pushDevice, payload);
+        await sendFCMNotification(user, pushDevice, payload);
         break;
       case 'ios':
         sendAPNNotification(user, pushDevice, details, payload);

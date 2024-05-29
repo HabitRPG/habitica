@@ -214,7 +214,7 @@ api.postChat = {
       });
     }
 
-    const newChatMessage = group.sendChat({
+    const newChatMessage = await group.sendChat({
       message,
       user,
       flagCount,
