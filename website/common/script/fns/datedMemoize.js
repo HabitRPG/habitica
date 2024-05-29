@@ -1,10 +1,15 @@
 import moment from 'moment';
+import nconf from 'nconf';
+
+const SWITCHOVER_TIME = nconf.get('CONTENT_SWITCHOVER_TIME_OFFSET') || 0;
 
 function getDay (date) {
   if (date === undefined) {
     return 0;
   }
-  return date instanceof moment ? date.date() : date.getDate();
+  const checkDate = new Date(date.getTime());
+  checkDate.setHours(checkDate.getHours() - SWITCHOVER_TIME);
+  return checkDate.getDate();
 }
 
 function getMonth (date) {

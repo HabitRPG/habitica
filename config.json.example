@@ -89,5 +89,6 @@
   "REDIS_PASSWORD": "12345678",
   "TRUSTED_DOMAINS": "localhost,https://habitica.com",
   "TIME_TRAVEL_ENABLED": "false",
-  "DEBUG_ENABLED": "false"
+  "DEBUG_ENABLED": "false",
+  "CONTENT_SWITCHOVER_TIME_OFFSET": 8
 }

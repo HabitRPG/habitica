@@ -1,4 +1,5 @@
 import moment from 'moment';
+import nconf from 'nconf';
 import SEASONAL_SETS from './seasonalSets';
 import { getRepeatingEvents } from './events';
 
@@ -773,6 +774,8 @@ export const GALA_SCHEDULE = {
   },
 };
 
+const SWITCHOVER_TIME = nconf.get('CONTENT_SWITCHOVER_TIME_OFFSET') || 0;
+
 export const TYPE_SCHEDULE = {
   timeTravelers: FIRST_RELEASE_DAY,
   backgrounds: SECOND_RELEASE_DAY,
@@ -790,7 +793,9 @@ function getDay (date) {
   if (date === undefined) {
     return 0;
   }
-  return date instanceof moment ? date.date() : date.getDate();
+  const checkDate = new Date(date.getTime());
+  checkDate.setHours(checkDate.getHours() - SWITCHOVER_TIME);
+  return checkDate.getDate();
 }
 
 function getMonth (date) {
@@ -871,7 +876,7 @@ function makeMatcherClass (date) {
 function makeEndDate (checkedDate, matcher) {
   let end = moment.utc(checkedDate);
   end.date(TYPE_SCHEDULE[matcher.type]);
-  end.hour(0);
+  end.hour(SWITCHOVER_TIME);
   end.minute(0);
   end.second(0);
   if (matcher.endMonth !== undefined) {

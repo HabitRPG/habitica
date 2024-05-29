@@ -2,6 +2,7 @@ import defaults from 'lodash/defaults';
 import find from 'lodash/find';
 import forEach from 'lodash/forEach';
 import moment from 'moment';
+import nconf from 'nconf';
 import upperFirst from 'lodash/upperFirst';
 import { ownsItem } from '../gear-helper';
 import { ATTRIBUTES } from '../../../constants';
@@ -1832,6 +1833,7 @@ const weapon = {
   },
 };
 
+const SWITCHOVER_TIME = nconf.get('CONTENT_SWITCHOVER_TIME_OFFSET') || 0;
 const releaseDay = 7;
 const releaseDates = {
   somethingSpooky: { year: 2023, month: 10 },
@@ -1888,7 +1890,7 @@ forEach({
 
 function updateReleased (type) {
   const today = moment();
-  const releaseDateEndPart = `${String(releaseDay).padStart(2, '0')}T08:00-0500`;
+  const releaseDateEndPart = `${String(releaseDay).padStart(2, '0')}T${String(SWITCHOVER_TIME).padStart(2, '0')}:00-0500`;
   const returnType = {};
   forEach(type, (gearItem, gearKey) => {
     let released;

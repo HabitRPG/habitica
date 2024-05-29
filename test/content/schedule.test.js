@@ -1,5 +1,6 @@
 // eslint-disable-next-line max-len
 import moment from 'moment';
+import nconf from 'nconf';
 import {
   getAllScheduleMatchingGroups, clearCachedMatchers, MONTHLY_SCHEDULE, GALA_SCHEDULE,
 } from '../../website/common/script/content/constants/schedule';
@@ -16,7 +17,10 @@ function validateMatcher (matcher, checkedDate) {
 }
 
 describe('Content Schedule', () => {
+  let switchoverTime;
+
   beforeEach(() => {
+    switchoverTime = nconf.get('CONTENT_SWITCHOVER_TIME_OFFSET') || 0;
     clearCachedMatchers();
   });
 
@@ -50,8 +54,8 @@ describe('Content Schedule', () => {
     }
   });
 
-  it('assembles scheduled items on march 21st', () => {
-    const date = new Date('2024-03-21');
+  it('assembles scheduled items on march 22st', () => {
+    const date = new Date('2024-03-22');
     const matchers = getAllScheduleMatchingGroups(date);
     for (const key in matchers) {
       if (matchers[key]) {
@@ -92,31 +96,31 @@ describe('Content Schedule', () => {
   it('sets the end date if its in the same month', () => {
     const date = new Date('2024-04-03');
     const matchers = getAllScheduleMatchingGroups(date);
-    expect(matchers.backgrounds.end).to.eql(moment.utc('2024-04-07').toDate());
+    expect(matchers.backgrounds.end).to.eql(moment.utc(`2024-04-07T${String(switchoverTime).padStart(2, '0')}:00:00.000Z`).toDate());
   });
 
   it('sets the end date if its in the next day', () => {
     const date = new Date('2024-05-06T14:00:00.000Z');
     const matchers = getAllScheduleMatchingGroups(date);
-    expect(matchers.backgrounds.end).to.eql(moment.utc('2024-05-07').toDate());
+    expect(matchers.backgrounds.end).to.eql(moment.utc(`2024-05-07T${String(switchoverTime).padStart(2, '0')}:00:00.000Z`).toDate());
   });
 
   it('sets the end date if its on the release day', () => {
-    const date = new Date('2024-05-07');
+    const date = new Date('2024-05-07T07:00:00.000Z');
     const matchers = getAllScheduleMatchingGroups(date);
-    expect(matchers.backgrounds.end).to.eql(moment.utc('2024-06-07').toDate());
+    expect(matchers.backgrounds.end).to.eql(moment.utc(`2024-06-07T${String(switchoverTime).padStart(2, '0')}:00:00.000Z`).toDate());
   });
 
   it('sets the end date if its next month', () => {
     const date = new Date('2024-05-20T01:00:00.000Z');
     const matchers = getAllScheduleMatchingGroups(date);
-    expect(matchers.backgrounds.end).to.eql(moment.utc('2024-06-07').toDate());
+    expect(matchers.backgrounds.end).to.eql(moment.utc(`2024-06-07T${String(switchoverTime).padStart(2, '0')}:00:00.000Z`).toDate());
   });
 
   it('sets the end date for a gala', () => {
     const date = new Date('2024-05-20');
     const matchers = getAllScheduleMatchingGroups(date);
-    expect(matchers.seasonalGear.end).to.eql(moment.utc('2024-06-21').toDate());
+    expect(matchers.seasonalGear.end).to.eql(moment.utc(`2024-06-21T${String(switchoverTime).padStart(2, '0')}:00:00.000Z`).toDate());
   });
 
   it('contains content for repeating events', () => {
