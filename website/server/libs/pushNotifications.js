@@ -106,7 +106,7 @@ async function sendAPNNotification (user, pushDevice, details, payload) {
         }
       });
     } catch (err) {
-      logger.error(err, 'Unhandled APN error.')
+      logger.error(err, 'Unhandled APN error.');
     }
   }
 }

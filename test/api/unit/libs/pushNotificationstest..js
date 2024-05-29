@@ -22,7 +22,7 @@ describe('pushNotifications', () => {
 
   beforeEach(() => {
     user = new User();
-    fcmSendSpy = sinon.stub().returns(Promise.resolve("success"));
+    fcmSendSpy = sinon.stub().returns(Promise.resolve('success'));
     apnSendSpy = sinon.stub().returns(Promise.resolve());
 
     nconf.set('PUSH_CONFIGS_APN_ENABLED', 'true');
