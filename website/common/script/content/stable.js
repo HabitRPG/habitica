@@ -184,6 +184,7 @@ const specialPets = {
   'Gryphatrice-Jubilant': 'jubilantGryphatrice',
   'JackOLantern-RoyalPurple': 'royalPurpleJackolantern',
   'Dragon-Veteran': 'veteranDragon',
+  'Cactus-Veteran': 'veteranCactus',
 };
 
 const specialMounts = {
