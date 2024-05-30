@@ -3,7 +3,7 @@ import {
 } from '../../../helpers/api-integration/v4';
 import common from '../../../../website/common';
 
-describe.only('GET /user', () => {
+describe('GET /user', () => {
   let user;
 
   before(async () => {
