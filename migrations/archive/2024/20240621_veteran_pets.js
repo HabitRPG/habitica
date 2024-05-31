@@ -19,7 +19,7 @@ async function updateUser (user) {
       data: {
         icon: 'icon_pet_veteran_cactus',
         title: 'You’ve received a Veteran Pet!',
-        text: 'To commemorate being here for a new era of Habitica, we’ve awarded you a Veteran Cactus.',
+        text: 'To commemorate being here for a new era of Habitica, we’ve awarded you a Veteran Cactus and 24 Gems!',
         destination: '/inventory/stable',
       },
       seen: false,
@@ -31,7 +31,7 @@ async function updateUser (user) {
       data: {
         icon: 'icon_pet_veteran_dragon',
         title: 'You’ve received a Veteran Pet!',
-        text: 'To commemorate being here for a new era of Habitica, we’ve awarded you a Veteran Dragon.',
+        text: 'To commemorate being here for a new era of Habitica, we’ve awarded you a Veteran Dragon and 24 Gems!',
         destination: '/inventory/stable',
       },
       seen: false,
@@ -43,7 +43,7 @@ async function updateUser (user) {
       data: {
         icon: 'icon_pet_veteran_fox',
         title: 'You’ve received a Veteran Pet!',
-        text: 'To commemorate being here for a new era of Habitica, we’ve awarded you a Veteran Fox.',
+        text: 'To commemorate being here for a new era of Habitica, we’ve awarded you a Veteran Fox and 24 Gems!',
         destination: '/inventory/stable',
       },
       seen: false,
@@ -55,7 +55,7 @@ async function updateUser (user) {
       data: {
         icon: 'icon_pet_veteran_bear',
         title: 'You’ve received a Veteran Pet!',
-        text: 'To commemorate being here for a new era of Habitica, we’ve awarded you a Veteran Bear.',
+        text: 'To commemorate being here for a new era of Habitica, we’ve awarded you a Veteran Bear and 24 Gems!',
         destination: '/inventory/stable',
       },
       seen: false,
@@ -67,7 +67,7 @@ async function updateUser (user) {
       data: {
         icon: 'icon_pet_veteran_lion',
         title: 'You’ve received a Veteran Pet!',
-        text: 'To commemorate being here for a new era of Habitica, we’ve awarded you a Veteran Lion.',
+        text: 'To commemorate being here for a new era of Habitica, we’ve awarded you a Veteran Lion and 24 Gems!',
         destination: '/inventory/stable',
       },
       seen: false,
@@ -79,7 +79,7 @@ async function updateUser (user) {
       data: {
         icon: 'icon_pet_veteran_tiger',
         title: 'You’ve received a Veteran Pet!',
-        text: 'To commemorate being here for a new era of Habitica, we’ve awarded you a Veteran Tiger.',
+        text: 'To commemorate being here for a new era of Habitica, we’ve awarded you a Veteran Tiger and 24 Gems!',
         destination: '/inventory/stable',
       },
       seen: false,
@@ -91,7 +91,7 @@ async function updateUser (user) {
       data: {
         icon: 'icon_pet_veteran_wolf',
         title: 'You’ve received a Veteran Pet!',
-        text: 'To commemorate being here for a new era of Habitica, we’ve awarded you a Veteran Wolf.',
+        text: 'To commemorate being here for a new era of Habitica, we’ve awarded you a Veteran Wolf and 24 Gems!',
         destination: '/inventory/stable',
       },
       seen: false,
@@ -100,9 +100,16 @@ async function updateUser (user) {
 
   if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
 
+  await user.updateBalance(
+    6,
+    'admin_update_balance',
+    '',
+    'Veteran Ladder award',
+  );
+
   return await User.updateOne(
     { _id: user._id },
-    { $set: set, $push: push, $inc: { 'balance': 6 } },
+    { $set: set, $push: push },
   ).exec();
 }
 
@@ -125,7 +132,6 @@ export default async function processUsers () {
       .limit(250)
       .sort({_id: 1})
       .select(fields)
-      .lean()
       .exec();
 
     if (users.length === 0) {
