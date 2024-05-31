@@ -115,23 +115,25 @@
           </div>
         </div>
       </div>
-      <h1
-        v-once
-        class="mb-4 page-header"
-      >
-        {{ $t('quests') }}
-      </h1>
-      <div class="clearfix">
-        <div class="float-right">
-          <span class="dropdown-label">{{ $t('sortBy') }}</span>
-          <select-translated-array
-            :right="true"
-            :value="selectedSortItemsBy"
-            :items="sortItemsBy"
-            :inline-dropdown="false"
-            class="inline"
-            @select="selectedSortItemsBy = $event"
-          />
+      <div class="d-flex justify-content-between w-75">
+        <h1
+          v-once
+          class="mb-4 page-header"
+        >
+          {{ $t('quests') }}
+        </h1>
+        <div class="clearfix">
+          <div class="float-right">
+            <span class="dropdown-label">{{ $t('sortBy') }}</span>
+            <select-translated-array
+              :right="true"
+              :value="selectedSortItemsBy"
+              :items="sortItemsBy"
+              :inline-dropdown="false"
+              class="inline"
+              @select="selectedSortItemsBy = $event"
+            />
+          </div>
         </div>
       </div>
       <!-- eslint-disable vue/no-use-v-if-with-v-for -->
@@ -197,48 +199,52 @@
         </itemRows>
         <div
           v-else-if="category.identifier === 'unlockable' || category.identifier === 'gold'"
-          class="grouped-parent"
+          class="d-flex justify-content-between flex-wrap w-75"
         >
-          <!-- eslint-disable vue/no-use-v-if-with-v-for, max-len -->
           <div
-            v-for="(items, key) in getGrouped(questItems(category, selectedSortItemsBy,searchTextThrottled, hideLocked, hidePinned))"
+            v-for="(items, key) in getGrouped(
+              questItems(
+                category, selectedSortItemsBy,searchTextThrottled, hideLocked, hidePinned
+              )
+            )"
             :key="key"
-            class="group"
+            class="quest-group mb-3"
           >
-            <!-- eslint-enable vue/no-use-v-if-with-v-for, max-len -->
-            <h3>{{ $t(key) }}</h3>
-            <div class="items">
-              <shopItem
-                v-for="item in items"
-                :key="item.key"
-                :item="item"
-                :price="item.value"
-                :empty-item="false"
-                :popover-position="'top'"
-                :owned="!isNaN(userItems.quests[item.key])"
-                @click="selectItem(item)"
-              >
-                <span slot="popoverContent">
-                  <quest-popover :item="item" />
-                </span>
-                <template
-                  slot="itemBadge"
-                  slot-scope="ctx"
+            <div class="quest-container">
+              <h3>{{ $t(key) }}</h3>
+              <div class="items d-flex justify-content-left">
+                <shopItem
+                  v-for="item in items"
+                  :key="item.key"
+                  :item="item"
+                  :price="item.value"
+                  :empty-item="false"
+                  :popover-position="'top'"
+                  :owned="!isNaN(userItems.quests[item.key])"
+                  @click="selectItem(item)"
                 >
-                  <span
-                    class="badge-top"
-                    @click.prevent.stop="togglePinned(ctx.item)"
-                  >
-                    <pin-badge
-                      :pinned="ctx.item.pinned"
-                    />
+                  <span slot="popoverContent">
+                    <quest-popover :item="item" />
                   </span>
-                  <countBadge
-                    :show="userItems.quests[ctx.item.key] > 0"
-                    :count="userItems.quests[ctx.item.key] || 0"
-                  />
-                </template>
-              </shopItem>
+                  <template
+                    slot="itemBadge"
+                    slot-scope="ctx"
+                  >
+                    <span
+                      class="badge-top"
+                      @click.prevent.stop="togglePinned(ctx.item)"
+                    >
+                      <pin-badge
+                        :pinned="ctx.item.pinned"
+                      />
+                    </span>
+                    <countBadge
+                      :show="userItems.quests[ctx.item.key] > 0"
+                      :count="userItems.quests[ctx.item.key] || 0"
+                    />
+                  </template>
+                </shopItem>
+              </div>
             </div>
           </div>
         </div>
@@ -317,18 +323,16 @@
     margin: 24px auto;
   }
 
-  .group {
-    display: inline-block;
-    width: 33%;
-    margin-bottom: 24px;
-    vertical-align: top;
+  .quest-container {
+    min-width: 330px;
+  }
 
+  .quest-group {
     .items {
       border-radius: 2px;
+      width: fit-content;
       background-color: #edecee;
-      display: inline-block;
       padding: 0;
-      margin-right: 12px;
     }
 
     .item-wrapper {

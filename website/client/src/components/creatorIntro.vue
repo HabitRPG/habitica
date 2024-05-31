@@ -679,7 +679,7 @@
 
     .top {
       position: absolute;
-      top: -($dialogMarginTop + $userCreationBgHeight - 16px);
+      top: -80px;
       right: 50%;
       left: 50%;
     }
