@@ -94,6 +94,11 @@ module.exports = {
     },
     resolve: {
       fallback: {
+        crypto: false,
+        fs: false,
+        os: false,
+        path: false,
+        stream: false,
         timers: require.resolve('timers-browserify'),
       },
     },
