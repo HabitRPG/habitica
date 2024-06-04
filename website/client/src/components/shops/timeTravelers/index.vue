@@ -68,19 +68,28 @@
             </div>
           </div>
         </div>
-      </div><div
-        class="clearfix"
-      >
-        <div class="float-right">
-          <span class="dropdown-label">{{ $t('sortBy') }}</span>
-          <select-translated-array
-            :right="true"
-            :value="selectedSortItemsBy"
-            :items="sortItemsBy"
-            :inline-dropdown="false"
-            class="inline"
-            @select="selectedSortItemsBy = $event"
-          />
+      </div>
+      <div class="d-flex justify-content-between w-items mt-1">
+        <h1
+          v-once
+          class="mb-4 page-header"
+        >
+          {{ $t('timeTravelers') }}
+        </h1>
+        <div
+          class="clearfix"
+        >
+          <div class="float-right">
+            <span class="dropdown-label">{{ $t('sortBy') }}</span>
+            <select-translated-array
+              :right="true"
+              :value="selectedSortItemsBy"
+              :items="sortItemsBy"
+              :inline-dropdown="false"
+              class="inline"
+              @select="selectedSortItemsBy = $event"
+            />
+          </div>
         </div>
       </div>
       <!-- eslint-disable vue/no-use-v-if-with-v-for -->
@@ -141,6 +150,10 @@
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
   @import '~@/assets/scss/shops.scss';
+
+  .w-items {
+    max-width: 920px;
+  }
 </style>
 
 <script>

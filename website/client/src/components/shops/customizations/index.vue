@@ -98,7 +98,7 @@
   }
 
   .featured-label {
-    margin-left: 52px;
+    margin-left: 90px;
     margin-top: 200px;
   }
 

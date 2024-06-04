@@ -48,7 +48,7 @@ export async function set (store, changes) {
           tagsIndexesToRemove.forEach(i => task.tags.splice(i, 1));
         });
       });
-    } else if ((key.startsWith('preferences.hair') || key.startsWith('preferences.chair'))
+    } else if (((key.startsWith('preferences.hair') && !(key.startsWith('preferences.hair.color'))) || key.startsWith('preferences.chair'))
       && getProps(user, key) === changes[key]) {
       setProps(user, key, key.startsWith('preferences.chair') ? 'none' : 0);
     } else {

@@ -21,7 +21,7 @@
       id="animal-ears"
     >
       <customize-options
-        v-if="animalItems('back').length > 1"
+        v-if="animalItems('back').length > 0"
         :items="animalItems('headAccessory')"
       />
     </div>
@@ -30,7 +30,7 @@
       id="animal-tails"
     >
       <customize-options
-        v-if="animalItems('back').length > 1"
+        v-if="animalItems('back').length > 0"
         :items="animalItems('back')"
       />
     </div>
