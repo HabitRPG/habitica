@@ -23,21 +23,12 @@ const featuredItems = {
   },
   quests () {
     const featured = [];
-    const bundleKeys = getScheduleMatchingGroup('bundles').items;
-    bundleKeys.forEach(itemKey => {
-      featured.push({
-        type: 'bundles',
-        path: `bundles.${itemKey}`,
-      });
-    });
     const petQuestKeys = getScheduleMatchingGroup('petQuests').items;
     petQuestKeys.forEach(itemKey => {
-      if (featured.length < 4) {
         featured.push({
           type: 'quests',
           path: `quests.${itemKey}`,
         });
-      }
     });
     return featured;
   },
