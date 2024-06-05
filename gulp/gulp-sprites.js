@@ -42,10 +42,18 @@ function cssVarMap (sprite) {
   }
 }
 
-function createSpritesStream (name, src) {
+function filterFile (file) {
+  return file.relative.indexOf('Mount_Icon_') === -1;
+}
+
+async function createSpritesStream (name, src) {
   const stream = mergeStream();
+  const filter = await import('gulp-filter');
+
+  const f = filter.default(filterFile);
 
   const spriteData = gulp.src(src)
+    .pipe(f)
     .pipe(spritesmith({
       imgName: `spritesmith-${name}.png`,
       cssName: `spritesmith-${name}.css`,
@@ -63,9 +71,9 @@ function createSpritesStream (name, src) {
   return stream;
 }
 
-gulp.task('sprites:main', () => {
+gulp.task('sprites:main', async () => {
   const mainSrc = sync('habitica-images/**/*.png');
-  return createSpritesStream('main', mainSrc);
+  return await createSpritesStream('main', mainSrc);
 });
 
 gulp.task('sprites:clean', done => {

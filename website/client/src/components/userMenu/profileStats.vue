@@ -156,10 +156,10 @@
               class="box"
               :class="{white: user.items.currentMount}"
             >
-              <div
+              <Sprite
                 class="mount"
-                :class="`Mount_Icon_${user.items.currentMount}`"
-              ></div>
+                :imageName="`Mount_Icon_${user.items.currentMount}`"
+              >
             </div>
           </div>
           <div class="pet-mount-well-text">
@@ -330,6 +330,7 @@ import statsComputed from '@/../../common/script/libs/statsComputed';
 import { mapState } from '@/libs/store';
 import attributesGrid from '@/components/inventory/equipment/attributesGrid';
 import toggleSwitch from '@/components/ui/toggleSwitch';
+import Sprite from '@/components/ui/sprite';
 
 const DROP_ANIMALS = keys(Content.pets);
 const TOTAL_NUMBER_OF_DROP_ANIMALS = DROP_ANIMALS.length;
@@ -337,6 +338,7 @@ export default {
   components: {
     toggleSwitch,
     attributesGrid,
+    Sprite,
   },
   props: ['user', 'showAllocation'],
   data () {

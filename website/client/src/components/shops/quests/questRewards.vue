@@ -39,7 +39,7 @@
         label-class="purple"
       >
         <div slot="itemImage">
-          <div :class="getDropIcon(drop)"></div>
+          <Sprite :imageName="getDropIcon(drop)" />
         </div>
         <div slot="popoverContent">
           <quest-popover :item="drop" />
@@ -92,7 +92,7 @@
           :count="drop.amount"
         />
         <div slot="itemImage">
-          <div :class="getDropIcon(drop)"></div>
+          <Sprite :imageName="getDropIcon(drop)" />
         </div>
         <div slot="popoverContent">
           <equipmentAttributesPopover
@@ -133,6 +133,7 @@ import { QuestHelperMixin } from './quest-helper.mixin';
 import EquipmentAttributesPopover from '@/components/inventory/equipment/attributesPopover';
 import QuestPopover from './questPopover';
 import CountBadge from '../../ui/countBadge';
+import Sprite from '../../ui/sprite';
 
 export default {
   components: {
@@ -141,6 +142,7 @@ export default {
     ItemWithLabel,
     SectionButton,
     EquipmentAttributesPopover,
+    Sprite,
   },
   mixins: [QuestHelperMixin],
   props: ['quest'],
