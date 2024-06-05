@@ -19,7 +19,7 @@
         <button
           class="btn btn-secondary plus-button"
           :class="{'new-message-mode':showStartNewConversationInput}"
-          @click="showStartNewConversationInput = true"
+          @click="triggerStartNewConversationState()"
         >
           <div
             class="svg-icon icon-10 color"
@@ -29,8 +29,8 @@
       </div>
 
       <start-new-conversation-input-header
-        v-if="uiState === UI_STATES.START_NEW_CONVERSATION"
-        @startNewConversation="startNewConversation($event)"
+        v-if="showStartNewConversationInput"
+        @startNewConversation="startConversationByUsername($event)"
         @cancelNewConversation="showStartNewConversationInput = false"
       />
       <div
@@ -548,6 +548,7 @@ import PmDisabledState from './pm-disabled-state.vue';
 import PmNewMessageStarted from './pm-new-message-started.vue';
 import StartNewConversationInputHeader from './start-new-conversation-input-header.vue';
 import positiveIcon from '@/assets/svg/positive.svg';
+import NotificationMixins from '@/mixins/notifications';
 
 // extract to a shared path
 const CONVERSATIONS_PER_PAGE = 10;
@@ -579,7 +580,7 @@ export default defineComponent({
       return moment(new Date(value)).fromNow();
     },
   },
-  mixins: [styleHelper],
+  mixins: [styleHelper, NotificationMixins],
   beforeRouteEnter (to, from, next) {
     next(vm => {
       const data = vm.$store.state.privateMessageOptions;
@@ -611,12 +612,17 @@ export default defineComponent({
       showPopover: false,
 
       /* Conversation-specific data */
+      /**
+       * @type {PrivateMessages.InitiatedConversation}
+       */
       initiatedConversation: null,
       updateConversationsCounter: 0,
       selectedConversation: {},
       conversationPage: 0,
       canLoadMoreConversations: false,
+      /** @type {PrivateMessages.ConversationSummaryMessageEntry[]} */
       loadedConversations: [],
+      /** @type {Record<string, PrivateMessages.PrivateMessageEntry[]>} */
       messagesByConversation: {}, // cache {uuid: []}
 
       newMessage: '',
@@ -649,9 +655,15 @@ export default defineComponent({
         }];
       }
       // Create conversation objects
+
+      /** @type {PrivateMessages.ConversationEntry[]} */
       const convos = [];
+
       for (const key in inboxGroup) {
         if (Object.prototype.hasOwnProperty.call(inboxGroup, key)) {
+          /**
+           * @type {PrivateMessages.ConversationSummaryMessageEntry}
+           */
           const recentMessage = inboxGroup[key][0];
 
           const convoModel = {
@@ -778,7 +790,7 @@ export default defineComponent({
         return UI_STATES.DISABLED;
       }
 
-      if (this.showStartNewConversationInput) {
+      if (this.newConversationTargetUser) {
         return UI_STATES.START_NEW_CONVERSATION;
       }
 
@@ -799,10 +811,7 @@ export default defineComponent({
 
       switch (currentUiState) {
         case UI_STATES.START_NEW_CONVERSATION: {
-          if (this.newConversationTargetUser) {
-            return true;
-          }
-          return false;
+          return true;
         }
         case UI_STATES.CONVERSATION_SELECTED: {
           return true;
@@ -874,8 +883,10 @@ export default defineComponent({
       this.loaded = true;
     },
     async loadConversations () {
-      const query = ['/api/v4/inbox/conversations'];
-      query.push(`?page=${this.conversationPage}`);
+      const query = [
+        '/api/v4/inbox/conversations',
+        `?page=${this.conversationPage}`,
+      ];
       this.conversationPage += 1;
 
       const conversationRes = await axios.get(query.join(''));
@@ -1012,10 +1023,72 @@ export default defineComponent({
         this.selectConversation(this.loadedConversations[0].uuid, true);
       }
     },
-    startNewConversation (targetUser) {
-      console.info({
-        targetUser,
-      });
+    triggerStartNewConversationState () {
+      this.showStartNewConversationInput = true;
+    },
+    async startConversationByUsername (targetUserName) {
+      // check if the target user exists in current conversations, select that conversation
+      /** @type {PrivateMessages.ConversationSummaryMessageEntry} */
+      const foundConversation = this.loadedConversations.find(c => c.username === targetUserName);
+
+      if (foundConversation) {
+        this.selectConversation(foundConversation.uuid);
+        return;
+      }
+
+      let loadedMember = null;
+
+      try {
+        loadedMember = await this.$store.dispatch('members:fetchMemberByUsername', {
+          username: targetUserName,
+        });
+      } catch {
+        loadedMember = null;
+      }
+
+      if (!loadedMember) {
+        this.error(this.$t('targetUserNotExist', { userName: targetUserName }));
+        return;
+      }
+
+      const loadedMemberUUID = loadedMember.id;
+
+      this.showStartNewConversationInput = false;
+
+      // otherwise create a dummy conversation, load messages for that user
+      /**
+       * @type {PrivateMessages.ConversationEntry}
+       */
+      const newConversationItem = {
+        key: loadedMemberUUID,
+        name: loadedMember.user,
+        username: loadedMember.username,
+        backer: loadedMember.backer,
+        contributor: loadedMember.contributor,
+        userStyles: loadedMember.userStyles,
+        page: 0,
+        canLoadMore: true,
+        canReceive: true,
+        lastMessageText: '',
+      };
+      this.selectedConversation = newConversationItem;
+
+      this.selectConversation(loadedMemberUUID);
+
+      await this.loadMessages();
+
+      const messageLengthByConversation = this.messagesByConversation[loadedMemberUUID].length;
+
+      // if messages already exists, update the sidebar entry last message
+      if (messageLengthByConversation > 0) {
+        /** @type {PrivateMessages.PrivateMessageEntry} */
+        const lastMessage = this.messagesByConversation[loadedMemberUUID][messageLengthByConversation - 1];
+
+        newConversationItem.lastMessageText = lastMessage.text;
+      } else {
+        // TODO new conversation mode, maybe use the full object here?
+        this.newConversationTargetUser = targetUserName;
+      }
     },
   },
 });

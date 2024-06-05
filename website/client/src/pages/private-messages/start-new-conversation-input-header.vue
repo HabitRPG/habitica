@@ -15,7 +15,7 @@
     <button
       class="btn btn-primary"
       :disabled="!targetUserInputValue.includes('@') || targetUserInputValue.length < 2"
-      @click="$emit('startNewConversation', $refs.targetUserInput.value)"
+      @click="$emit('startNewConversation', $refs.targetUserInput.value.replace('@', ''))"
     >
       {{ $t('confirm') }}
     </button>

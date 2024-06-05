@@ -93,6 +93,7 @@ api.clearMessages = {
  * {"success":true,"data":[
  *    {
  *       "_id":"8a9d461b-f5eb-4a16-97d3-c03380c422a3",
+ *       "uuid":"8a9d461b-f5eb-4a16-97d3-c03380c422a3",
  *       "user":"user display name",
  *       "username":"some_user_name",
  *       "timestamp":"12315123123",
