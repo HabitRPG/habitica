@@ -207,13 +207,13 @@
           <div
             class="row justify-content-center title-row mb-3"
           >
-            <strong>{{ allBackgrounds.eventBackgrounds.text }}</strong>
+            <strong>{{ $t('eventBackgrounds') }}</strong>
           </div>
           <div
             class="background-row d-flex justify-content-center mb-4"
           >
             <div
-              v-for="bg in allBackgrounds.eventBackgrounds.items"
+              v-for="bg in eventBackgrounds"
               :id="bg.key"
               :key="bg.key"
               class="background-item"
@@ -1030,6 +1030,7 @@ export default {
     return {
       loading: false,
       allBackgrounds: content.backgroundsFlat,
+      eventBackgrounds: [],
       monthlyBackgrounds: [],
       standardBackgrounds: [],
       standardBackgroundMax: 1,
@@ -1097,16 +1098,20 @@ export default {
       this.$root.$emit('bv::hide::modal', 'avatar-modal');
     },
     updateBackgrounds () {
+      this.eventBackgrounds = [];
       this.monthlyBackgrounds = [];
       this.standardBackgrounds = [
         { key: '', notes: () => this.$t('noBackground') },
       ];
+      this.timeTravelBackgrounds = [];
       forEach(this.allBackgrounds, bg => {
         if (bg.set === 'incentiveBackgrounds') {
           this.standardBackgroundMax += 1;
         }
         if (this.user.purchased.background[bg.key]) {
-          if (bg.set === 'incentiveBackgrounds') {
+          if (bg.set === 'eventBackgrounds') {
+            this.eventBackgrounds.push(bg);
+          } else if (bg.set === 'incentiveBackgrounds') {
             this.standardBackgrounds.push(bg);
           } else if (bg.set === 'timeTravelBackgrounds') {
             this.timeTravelBackgrounds.push(bg);
