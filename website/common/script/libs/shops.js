@@ -586,13 +586,14 @@ shops.getCustomizationsShopCategories = function getCustomizationsShopCategories
   const categories = [];
   const officialPinnedItems = getOfficialPinnedItems(user);
 
+  const matchers = getScheduleMatchingGroup('backgrounds');
   const backgroundCategory = {
     identifier: 'backgrounds',
     text: i18n.t('backgrounds', language),
     items: [],
+    end: matchers.end
   };
 
-  const matchers = getScheduleMatchingGroup('backgrounds');
   eachRight(content.backgrounds, (group, key) => {
     if (matchers.match(key)) {
       each(group, bg => {
@@ -628,6 +629,10 @@ shops.getCustomizationsShopCategories = function getCustomizationsShopCategories
         text: i18n.t(`titleHair${hairType}`, language),
         items: [],
       };
+
+      if (hairType === 'color') {
+        category.end = customizationMatcher.end;
+      }
     }
     eachRight(content.appearances.hair[hairType], (hairStyle, key) => {
       if (hairStyle.price > 0 && (!user.purchased.hair || !user.purchased.hair[hairType]
@@ -672,6 +677,7 @@ shops.getCustomizationsShopCategories = function getCustomizationsShopCategories
       }
     });
     if (type === 'skin') {
+      category.end = customizationMatcher.end;
       categories.push(category);
     } else {
       shirtsCategory = category;

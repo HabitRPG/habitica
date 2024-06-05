@@ -344,6 +344,36 @@ describe('shops', () => {
     });
   });
 
+  describe('customizationShop', () => {
+    const shopCategories = shared.shops.getCustomizationsShopCategories(user, null);
+
+    it('does not return items with event data', async () => {
+      shopCategories.forEach(category => {
+        category.items.forEach(item => {
+          expect(item.event, item.key).to.not.exist;
+        });
+      });
+    });
+
+    it('backgrounds category contains end date', () => {
+      const backgroundCategory = shopCategories.find(cat => cat.identifier === 'backgrounds');
+      expect(backgroundCategory.end).to.exist;
+      expect(backgroundCategory.end).to.be.greaterThan(new Date());
+    });
+
+    it('hair color category contains end date', () => {
+      const colorCategory = shopCategories.find(cat => cat.identifier === 'color');
+      expect(colorCategory.end).to.exist;
+      expect(colorCategory.end).to.be.greaterThan(new Date());
+    });
+
+    it('skin category contains end date', () => {
+      const colorCategory = shopCategories.find(cat => cat.identifier === 'color');
+      expect(colorCategory.end).to.exist;
+      expect(colorCategory.end).to.be.greaterThan(new Date());
+    });
+  });
+
   describe('seasonalShop', () => {
     const shopCategories = shared.shops.getSeasonalShopCategories(user, null, seasonalConfig());
     const today = new Date();
