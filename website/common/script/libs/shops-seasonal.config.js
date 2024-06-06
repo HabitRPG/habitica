@@ -6,13 +6,29 @@ import {
   armor,
 } from '../content/gear/sets/special';
 
+function safeGetSet (currentEvent, year, className) {
+  const set = armor[`${currentEvent}${year}${className}`];
+  if (set) {
+    return set.set;
+  }
+  let checkedYear = year - 1;
+  while (checkedYear >= 2014) {
+    const oldSet = armor[`${currentEvent}${checkedYear}${className}`];
+    if (oldSet) {
+      return oldSet.set;
+    }
+    checkedYear -= 1;
+  }
+  return null;
+}
+
 function getCurrentSeasonalSets (currentEvent) {
   const year = new Date().getFullYear();
   return {
-    rogue: armor[`${currentEvent}${year}Rogue`].set,
-    warrior: armor[`${currentEvent}${year}Warrior`].set,
-    wizard: armor[`${currentEvent}${year}Mage`].set,
-    healer: armor[`${currentEvent}${year}Healer`].set,
+    rogue: safeGetSet(currentEvent, year, 'Rogue'),
+    warrior: safeGetSet(currentEvent, year, 'Warrior'),
+    wizard: safeGetSet(currentEvent, year, 'Mage'),
+    healer: safeGetSet(currentEvent, year, 'Healer'),
   };
 }
 
