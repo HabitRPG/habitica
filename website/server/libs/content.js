@@ -5,7 +5,25 @@ import common from '../../common';
 import packageInfo from '../../../package.json';
 
 export const CONTENT_CACHE_PATH = path.join(__dirname, '/../../../content_cache/');
+const SWITCHOVER_TIME = nconf.get('CONTENT_SWITCHOVER_TIME_OFFSET') || 0;
 
+function getDay (date) {
+  if (date === undefined) {
+    return 0;
+  }
+  const checkDate = new Date(date.getTime());
+  checkDate.setHours(checkDate.getHours() - SWITCHOVER_TIME);
+  return checkDate.getDate();
+}
+
+function getMonth (date) {
+  if (date === undefined) {
+    return 0;
+  }
+  return date instanceof moment ? date.month() : date.getMonth();
+}
+
+const CACHED_DATE = null;
 const CACHED_HASHES = [
 
 ];
@@ -68,6 +86,12 @@ export function serveContent (res, language, filter, isProd) {
   });
 
   if (isProd) {
+    if (CACHED_DATE && (getDay(checkedDate) !== getDay(CACHED_DATE)
+      || getMonth(checkedDate) !== getMonth(CACHED_DATE))) {
+      // Clear cached results, since they are old
+      CACHED_HASHES = [];
+      CACHED_DATE = undefined;
+    }
     const filterHash = language + hashForFilter(filter);
     if (CACHED_HASHES.includes(filterHash)) {
       // Content is already cached, so just send it.
@@ -84,6 +108,7 @@ export function serveContent (res, language, filter, isProd) {
         'utf8',
       );
       CACHED_HASHES.push(filterHash);
+      CACHED_DATE = new Date();
       res.status(200).send(jsonResString);
     }
   } else {
