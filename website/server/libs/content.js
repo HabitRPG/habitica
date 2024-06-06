@@ -2,6 +2,7 @@ import _ from 'lodash';
 import path from 'path';
 import fs from 'fs';
 import common from '../../common';
+import nconf from 'nconf';
 import packageInfo from '../../../package.json';
 
 export const CONTENT_CACHE_PATH = path.join(__dirname, '/../../../content_cache/');
