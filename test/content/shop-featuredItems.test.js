@@ -32,9 +32,9 @@ describe('Shop Featured Items', () => {
 
   describe('Quest Shop', () => {
     it('contains bundle', () => {
-      clock = Sinon.useFakeTimers(new Date('2024-04-08'));
+      clock = Sinon.useFakeTimers(new Date('2024-03-08'));
       const items = featuredItems.quests();
-      expect(_.find(items, item => item.path === 'bundles.birdBuddies')).to.exist;
+      expect(_.find(items, item => item.path === 'quests.pinkMarble')).to.exist;
     });
 
     it('contains pet quests', () => {
@@ -43,10 +43,10 @@ describe('Shop Featured Items', () => {
       expect(_.find(items, item => item.path === 'quests.frog')).to.exist;
     });
 
-    it('is featuring 4 items', () => {
+    it('is featuring 3 items', () => {
       clock = Sinon.useFakeTimers(new Date('2024-02-08'));
       const items = featuredItems.quests();
-      expect(items.length).to.eql(4);
+      expect(items.length).to.eql(3);
     });
   });
 });
