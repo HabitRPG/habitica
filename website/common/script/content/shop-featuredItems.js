@@ -3,6 +3,37 @@ import { getScheduleMatchingGroup } from './constants';
 // type: 'premiumHatchingPotion',  // note no "s" at the end
 // path: 'premiumHatchingPotions.Rainbow',
 
+const potentialFeaturedPetQuests = [
+  'nudibranch',
+  'yarn',
+
+  'slime',
+  'cat',
+  
+  'frog',
+
+  'monkey',
+
+  'sloth',
+
+  'hippo',
+  'giraffe',
+  
+  'guineapig',
+
+  'cheetah',
+
+  'beetle',
+
+  'snail',
+
+  'kangaroo',
+  'owl',
+
+  'ghost_stag',
+  'sabretooth'
+]
+
 // hatching potions and food names should be capitalized lest you break the market
 const featuredItems = {
   market () {
@@ -25,6 +56,15 @@ const featuredItems = {
     const featured = [];
     const petQuestKeys = getScheduleMatchingGroup('petQuests').items;
     petQuestKeys.forEach(itemKey => {
+      if (potentialFeaturedPetQuests.includes(itemKey)) {
+        featured.push({
+          type: 'quests',
+          path: `quests.${itemKey}`,
+        });
+      }
+    });
+    const hatchingPotionQuests = getScheduleMatchingGroup('hatchingPotionQuests').items;
+    hatchingPotionQuests.forEach(itemKey => {
         featured.push({
           type: 'quests',
           path: `quests.${itemKey}`,
