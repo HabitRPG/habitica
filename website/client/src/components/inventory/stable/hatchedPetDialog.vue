@@ -20,7 +20,7 @@
       </div>
       <div class="inner-content">
         <div class="pet-background d-flex align-items-center">
-          <div :class="pet.class"></div>
+          <Sprite :imageName="pet.class" />
         </div>
         <h4 class="title">
           {{ pet.name }}
@@ -103,8 +103,12 @@
 <script>
 import markdownDirective from '@/directives/markdown';
 import svgClose from '@/assets/svg/close.svg';
+import Sprite from '@/components/ui/sprite';
 
 export default {
+  components: {
+    Sprite,
+  },
   directives: {
     markdown: markdownDirective,
   },

@@ -43,7 +43,28 @@ function cssVarMap (sprite) {
 }
 
 function filterFile (file) {
-  return file.relative.indexOf('Mount_Icon_') === -1;
+  if (file.relative.indexOf('Mount_Icon_') !== -1) {
+    return false;
+  }
+  if (file.path.indexOf('shop/') !== -1) {
+    return false;
+  }
+  if (file.path.indexOf('stable/eggs') !== -1) {
+    return false;
+  }
+  if (file.path.indexOf('stable/food') !== -1) {
+    return false;
+  }
+  if (file.path.indexOf('stable/potions') !== -1) {
+    return false;
+  }
+  if (file.relative.indexOf('shop_') === 0) {
+    return false;
+  }
+  if (file.relative.indexOf('icon_background') === 0) {
+    return false;
+  }
+  return true;
 }
 
 async function createSpritesStream (name, src) {
