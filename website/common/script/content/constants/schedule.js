@@ -774,7 +774,7 @@ export const GALA_SCHEDULE = {
   },
 };
 
-const SWITCHOVER_TIME = nconf.get('CONTENT_SWITCHOVER_TIME_OFFSET') || 0;
+const SWITCHOVER_TIME = nconf.get('CONTENT_SWITCHOVER_TIME_OFFSET') || process.env.CONTENT_SWITCHOVER_TIME_OFFSET || 0;
 
 export const TYPE_SCHEDULE = {
   timeTravelers: FIRST_RELEASE_DAY,
