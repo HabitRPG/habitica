@@ -330,9 +330,9 @@
                   class="list-group-item"
                   ng-init="inv.mounts[mount] = user.items.mounts[mount]"
                 >
-                  <div
+                  <Sprite
                     class="pull-left"
-                    :class="'Mount_Icon_' + mount"
+                    :imageName="mount.key"
                     style="margin-right: 10px"
                   ></div>
                   {{ mount }}
@@ -363,9 +363,9 @@
                   class="list-group-item"
                   ng-init="inv.mounts[mount] = user.items.mounts[mount]"
                 >
-                  <div
+                  <Sprite
                     class="pull-left"
-                    :class="'Mount_Icon_' + mount"
+                    :imageName="mount.key"
                     style="margin-right: 10px"
                   ></div>
                   {{ mount }}
@@ -396,9 +396,9 @@
                   class="list-group-item"
                   ng-init="inv.mounts[mount] = user.items.mounts[mount]"
                 >
-                  <div
+                  <Sprite
                     class="pull-left"
-                    :class="'Mount_Icon_' + mount"
+                    :imageName="mount.key"
                     style="margin-right: 10px"
                   ></div>
                   {{ mount }}
@@ -429,9 +429,9 @@
                   class="list-group-item"
                   ng-init="inv.mounts[mount] = user.items.mounts[mount]"
                 >
-                  <div
+                  <Sprite
                     class="pull-left"
-                    :class="'Mount_Icon_' + mount"
+                    :imageName="mount.key"
                     style="margin-right: 10px"
                   ></div>
                   {{ mount }}
@@ -730,9 +730,13 @@
 import axios from 'axios';
 
 import Content from '@/../../common/script/content';
+import Sprite from '@/components/ui/sprite.vue';
 import { mapState } from '@/libs/store';
 
 export default {
+  components: {
+    Sprite,
+  },
   data () {
     const showInv = {};
     const inv = {

@@ -78,7 +78,7 @@ export default {
       return this.isOwned() ? '' : 'GreyedOut';
     },
     imageName () {
-      return this.isOwned() ? `Mount_Icon_${this.item.key}` : 'PixelPaw';
+      return this.isOwned() ? `stable_Mount_Icon_${this.item.key}` : 'PixelPaw';
     },
   },
 };

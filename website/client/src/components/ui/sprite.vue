@@ -1,6 +1,7 @@
 <template>
   <img
-  :src="imageUrl()" />
+  v-if="imageName && imageName !== ''"
+  :src="imageUrl()">
 </template>
 
 <script>
@@ -12,7 +13,7 @@ export default {
   },
   methods: {
     imageUrl () {
-      return 'https://habitica-assets.s3.amazonaws.com/mobileApp/images/' + this.imageName + '.png';
+      return `https://habitica-assets.s3.amazonaws.com/mobileApp/images/${this.imageName}.png`;
     },
   },
 };

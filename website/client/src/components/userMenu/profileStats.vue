@@ -124,10 +124,9 @@
               class="box"
               :class="{white: user.items.currentPet}"
             >
-              <div
-                class="Pet"
-                :class="`Pet-${user.items.currentPet}`"
-              ></div>
+              <Sprite
+                :imageName="user.items.currentPet ?
+                  `stable_Pet-${user.items.currentPet}` : ''" />
             </div>
           </div>
           <div class="pet-mount-well-text">
@@ -154,12 +153,10 @@
           <div class="pet-mount-well-image">
             <div
               class="box"
-              :class="{white: user.items.currentMount}"
-            >
+              :class="{white: user.items.currentMount}">
               <Sprite
-                class="mount"
-                :imageName="`Mount_Icon_${user.items.currentMount}`"
-              >
+                :imageName="user.items.currentMount ?
+                  `stable_Mount_Icon_${user.items.currentMount}` : ''" />
             </div>
           </div>
           <div class="pet-mount-well-text">
