@@ -56,11 +56,11 @@
                   class="list-group-item"
                   ng-init="inv.gear[item.key] = user.items.gear.owned[item.key]"
                 >
-                  <div
+                  <Sprite
                     class="pull-left"
-                    :class="'shop_' + item.key"
+                    :imageName="'shop_' + item.key"
                     style="margin-right: 10px"
-                  ></div>
+                  />
                   {{ item.text() }}
                   <div class="clearfix">
                     <label class="radio-inline">
