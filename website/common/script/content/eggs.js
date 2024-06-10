@@ -3,7 +3,7 @@ import each from 'lodash/each';
 import assign from 'lodash/assign';
 import t from './translation';
 import { filterReleased } from './is_released';
-import { EGGS_RELEASE_DATES } from './constants/release_dates';
+import { EGGS_RELEASE_DATES } from './constants/releaseDates';
 import datedMemoize from '../fns/datedMemoize';
 
 function applyEggDefaults (set, config) {

@@ -4,7 +4,7 @@ import { assign } from 'lodash';
 import t from './translation';
 import datedMemoize from '../fns/datedMemoize';
 import { filterReleased } from './is_released';
-import { HATCHING_POTIONS_RELEASE_DATES } from './constants/release_dates';
+import { HATCHING_POTIONS_RELEASE_DATES } from './constants/releaseDates';
 
 function hasQuestAchievementFunction (key) {
   return user => user.achievements.quests && user.achievements.quests[key] > 0;
