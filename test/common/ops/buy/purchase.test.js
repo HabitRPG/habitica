@@ -353,6 +353,5 @@ describe('shared.ops.purchase', () => {
         expect(err.message).to.equal(i18n.t('invalidQuantity'));
       }
     });
-
   });
 });

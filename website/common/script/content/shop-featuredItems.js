@@ -9,7 +9,7 @@ const potentialFeaturedPetQuests = [
 
   'slime',
   'cat',
-  
+
   'frog',
 
   'monkey',
@@ -18,7 +18,7 @@ const potentialFeaturedPetQuests = [
 
   'hippo',
   'giraffe',
-  
+
   'guineapig',
 
   'cheetah',
@@ -31,8 +31,8 @@ const potentialFeaturedPetQuests = [
   'owl',
 
   'ghost_stag',
-  'sabretooth'
-]
+  'sabretooth',
+];
 
 // hatching potions and food names should be capitalized lest you break the market
 const featuredItems = {
@@ -65,10 +65,10 @@ const featuredItems = {
     });
     const hatchingPotionQuests = getScheduleMatchingGroup('hatchingPotionQuests').items;
     hatchingPotionQuests.forEach(itemKey => {
-        featured.push({
-          type: 'quests',
-          path: `quests.${itemKey}`,
-        });
+      featured.push({
+        type: 'quests',
+        path: `quests.${itemKey}`,
+      });
     });
     return featured;
   },

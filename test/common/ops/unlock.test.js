@@ -36,7 +36,7 @@ describe('shared.ops.unlock', () => {
     }
   });
 
-  it('does not unlock lost gear', async () => { 
+  it('does not unlock lost gear', async () => {
     user.items.gear.owned.headAccessory_special_bearEars = false;
 
     await unlock(user, {

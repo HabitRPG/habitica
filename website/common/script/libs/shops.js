@@ -591,7 +591,7 @@ shops.getCustomizationsShopCategories = function getCustomizationsShopCategories
     identifier: 'backgrounds',
     text: i18n.t('backgrounds', language),
     items: [],
-    end: matchers.end
+    end: matchers.end,
   };
 
   eachRight(content.backgrounds, (group, key) => {

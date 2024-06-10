@@ -150,7 +150,6 @@ describe('shops', () => {
         expect(rogueItems.length, 'Rogue seasonal gear').to.eql(4);
       });
 
-
       it('seasonal gear contains end date', () => {
         const categories = shared.shops.getMarketGearCategories(user);
         categories.forEach(category => {
