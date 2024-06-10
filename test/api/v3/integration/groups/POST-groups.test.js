@@ -147,7 +147,7 @@ describe('POST /group', () => {
 
     it('removes seeking from user', async () => {
       await user.updateOne({ 'party.seeking': new Date() });
-      const party = await user.post('/groups', {
+      await user.post('/groups', {
         name: partyName,
         type: partyType,
       });
