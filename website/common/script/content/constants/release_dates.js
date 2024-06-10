@@ -13,3 +13,7 @@ export const ARMOIRE_RELEASE_DATES = {
 export const EGGS_RELEASE_DATES = {
   Giraffe: { year: 2024, month: 6, day: 1 },
 };
+
+export const HATCHING_POTIONS_RELEASE_DATES = {
+  Koi: { year: 2024, month: 6, day: 1 },
+};

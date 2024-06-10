@@ -1,5 +1,6 @@
 import defaults from 'lodash/defaults';
 import each from 'lodash/each';
+import assign from 'lodash/assign';
 import t from './translation';
 import { filterReleased } from './is_released';
 import { EGGS_RELEASE_DATES } from './constants/release_dates';
@@ -430,5 +431,8 @@ export default {
   },
   get quests () {
     return memoizedFilter({ memoizeConfig: true, identifier: 'quests' }, quests);
+  },
+  get all () {
+    return assign({}, this.drops, this.quests);
   },
 };

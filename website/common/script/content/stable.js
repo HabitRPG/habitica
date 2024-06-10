@@ -2,16 +2,8 @@ import each from 'lodash/each';
 import moment from 'moment';
 import { EVENTS } from './constants/events';
 import allEggs from './eggs';
-import {
-  drops as dropPotions,
-  premium as premiumPotions,
-  wacky as wackyPotions,
-} from './hatching-potions';
+import allPotions from './hatching-potions';
 import t from './translation';
-
-const STABLE_RELEASE_DATES = {
-
-};
 
 const petInfo = {};
 const mountInfo = {};
@@ -131,10 +123,10 @@ const canFindSpecial = {
   },
 };
 
-const [dropPets, dropMounts] = constructSet('drop', allEggs.drops, dropPotions);
-const [premiumPets, premiumMounts] = constructSet('premium', allEggs.drops, premiumPotions);
-const [questPets, questMounts] = constructSet('quest', allEggs.quests, dropPotions);
-const wackyPets = constructSet('wacky', allEggs.drops, wackyPotions, false);
+const [dropPets, dropMounts] = constructSet('drop', allEggs.drops, allPotions.drops);
+const [premiumPets, premiumMounts] = constructSet('premium', allEggs.drops, allPotions.premium);
+const [questPets, questMounts] = constructSet('quest', allEggs.quests, allPotions.drops);
+const wackyPets = constructSet('wacky', allEggs.drops, allPotions.wacky, false);
 
 const specialPets = {
   'Wolf-Veteran': 'veteranWolf',
