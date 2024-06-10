@@ -36,7 +36,7 @@ describe('shared.ops.unlock', () => {
     }
   });
 
-  it('does not unlock lost gear', async () => {
+  it('does not unlock lost gear', async () => { 
     user.items.gear.owned.headAccessory_special_bearEars = false;
 
     await unlock(user, {
@@ -344,5 +344,14 @@ describe('shared.ops.unlock', () => {
     );
     expect(get(user.purchased, backgroundUnlockPath)).to.be.true;
     expect(user.balance).to.equal(usersStartingGems - 1.75);
+  });
+
+  it('handles an invalid hair path gracefully', async () => {
+    try {
+      await unlock(user, { query: { path: 'hair.invalid' } });
+    } catch (err) {
+      expect(err).to.be.an.instanceof(BadRequest);
+      expect(err.message).to.equal(i18n.t('invalidUnlockSet'));
+    }
   });
 });

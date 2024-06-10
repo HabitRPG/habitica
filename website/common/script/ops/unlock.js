@@ -36,6 +36,7 @@ function getItemByPath (path, setType) {
   if (setType === 'hair') {
     // itemPathParent is in this format: hair.purple
     const hairType = itemPathParent.split('.')[1];
+    if (!content.appearances.hair[hairType]) return null;
     return content.appearances.hair[hairType][itemKey];
   }
 
