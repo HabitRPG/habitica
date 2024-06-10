@@ -145,6 +145,18 @@ describe('POST /group', () => {
       expect(updatedUser.party._id).to.eql(party._id);
     });
 
+    it('removes seeking from user', async () => {
+      await user.updateOne({ 'party.seeking': new Date() });
+      await user.post('/groups', {
+        name: partyName,
+        type: partyType,
+      });
+
+      const updatedUser = await user.get('/user');
+
+      expect(updatedUser.party.seeking).to.not.exist;
+    });
+
     it('does not award Party Up achievement to solo partier', async () => {
       await user.post('/groups', {
         name: partyName,
