@@ -1,7 +1,7 @@
 <template>
   <div
-    class="customize-options mb-4"
     v-if="items.length > 1"
+    class="customize-options mb-4"
   >
     <div
       v-for="option in items"

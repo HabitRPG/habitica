@@ -25,7 +25,7 @@ describe('datedMemoize', () => {
     const datedMemoize = require('../../../website/common/script/fns/datedMemoize').default;
     const memoized = datedMemoize(stub);
     memoized({ identifier: 'a', memoizeConfig: true }, 1, 2);
-    memoized({ identifier: 'b', memoizeConfig: true }), 1, 2;
+    memoized({ identifier: 'b', memoizeConfig: true }, 1, 2);
     expect(stub).to.have.been.calledTwice;
   });
 

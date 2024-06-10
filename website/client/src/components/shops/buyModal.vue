@@ -586,8 +586,8 @@ import reduce from 'lodash/reduce';
 import moment from 'moment';
 
 import planGemLimits from '@/../../common/script/libs/planGemLimits';
-import { drops as dropEggs } from '@/../../common/script/content/eggs';
-import { drops as dropPotions } from '@/../../common/script/content/hatching-potions';
+import eggs from '@/../../common/script/content/eggs';
+import potions from '@/../../common/script/content/hatching-potions';
 import { avatarEditorUtilities } from '@/mixins/avatarEditUtilities';
 import numberInvalid from '@/mixins/numberInvalid';
 import spellsMixin from '@/mixins/spells';
@@ -617,6 +617,8 @@ import EquipmentAttributesGrid from '../inventory/equipment/attributesGrid.vue';
 import Item from '@/components/inventory/item';
 import Avatar from '@/components/avatar';
 
+const dropEggs = eggs.drops;
+const dropPotions = potions.drops;
 const dropEggKeys = keys(dropEggs);
 
 const amountOfDropEggs = size(dropEggs);

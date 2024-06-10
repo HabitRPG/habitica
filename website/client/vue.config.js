@@ -3,9 +3,9 @@ const path = require('path');
 const webpack = require('webpack');
 const nconf = require('nconf');
 const vueTemplateCompiler = require('vue-template-babel-compiler');
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const setupNconf = require('../server/libs/setupNconf');
 const pkg = require('./package.json');
-const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 
 const configFile = path.join(path.resolve(__dirname, '../../config.json'));
 
@@ -68,17 +68,17 @@ const webpackPlugins = [
       'tr',
       'uk',
       'zh-cn',
-      'zh-tw'
+      'zh-tw',
     ],
   }),
   new webpack.IgnorePlugin({
-    checkResource(resource, context) {
+    checkResource (resource, context) {
       if ((context.includes('sinon') || resource.includes('sinon') || context.includes('nise')) && nconf.get('TIME_TRAVEL_ENABLED') !== 'true') {
         return true;
       }
       return false;
     },
-}),
+  }),
 ];
 
 module.exports = {

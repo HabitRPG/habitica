@@ -235,8 +235,8 @@
           </div>
         </div>
         <div
-          :key="`ttbg${timeTravelBackgrounds.length}`"
           v-if="timeTravelBackgrounds.length > 0"
+          :key="`ttbg${timeTravelBackgrounds.length}`"
         >
           <div
             class="row justify-content-center title-row mb-3"
@@ -269,8 +269,8 @@
           </div>
         </div>
         <div
-          :key="`monthly${monthlyBackgrounds.length}`"
           v-if="monthlyBackgrounds.length > 0"
+          :key="`monthly${monthlyBackgrounds.length}`"
         >
           <div
             class="row text-center title-row mb-3"

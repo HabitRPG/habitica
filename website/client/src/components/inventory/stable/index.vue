@@ -212,9 +212,9 @@
             <!-- eslint-enable vue/no-use-v-if-with-v-for -->
             <div
               v-for="item in group"
-              class="pet-group"
               v-show="show('mount', item)"
               :key="item.key"
+              class="pet-group"
             >
               <mountItem
                 :key="item.key"
