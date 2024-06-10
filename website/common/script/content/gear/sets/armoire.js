@@ -7,7 +7,7 @@ import { ownsItem } from '../gear-helper';
 import { ATTRIBUTES } from '../../../constants';
 import t from '../../translation';
 import memoize from '../../../fns/datedMemoize';
-import { ARMOIRE_RELEASE_DATES as releaseDates } from '../../constants/release_dates';
+import { ARMOIRE_RELEASE_DATES as releaseDates } from '../../constants/releaseDates';
 import { buildReleaseDate } from '../../is_released';
 
 const armor = {
