@@ -1,8 +1,9 @@
 import _ from 'lodash';
 import path from 'path';
 import fs from 'fs';
-import common from '../../common';
+import moment from 'moment';
 import nconf from 'nconf';
+import common from '../../common';
 import packageInfo from '../../../package.json';
 
 export const CONTENT_CACHE_PATH = path.join(__dirname, '/../../../content_cache/');
@@ -24,8 +25,8 @@ function getMonth (date) {
   return date instanceof moment ? date.month() : date.getMonth();
 }
 
-const CACHED_DATE = null;
-const CACHED_HASHES = [
+let CACHED_DATE = null;
+let CACHED_HASHES = [
 
 ];
 
@@ -87,8 +88,9 @@ export function serveContent (res, language, filter, isProd) {
   });
 
   if (isProd) {
-    if (CACHED_DATE && (getDay(checkedDate) !== getDay(CACHED_DATE)
-      || getMonth(checkedDate) !== getMonth(CACHED_DATE))) {
+    const today = new Date();
+    if (CACHED_DATE && (getDay(today) !== getDay(CACHED_DATE)
+      || getMonth(today) !== getMonth(CACHED_DATE))) {
       // Clear cached results, since they are old
       CACHED_HASHES = [];
       CACHED_DATE = undefined;
