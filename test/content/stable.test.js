@@ -8,7 +8,7 @@ import t from '../../website/common/script/content/translation';
 
 import * as stable from '../../website/common/script/content/stable';
 import eggs from '../../website/common/script/content/eggs';
-import * as potions from '../../website/common/script/content/hatching-potions';
+import potions from '../../website/common/script/content/hatching-potions';
 
 describe('stable', () => {
   describe('dropPets', () => {

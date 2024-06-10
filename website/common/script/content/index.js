@@ -1,6 +1,5 @@
 import defaults from 'lodash/defaults';
 import each from 'lodash/each';
-import assign from 'lodash/assign';
 import moment from 'moment';
 import t from './translation';
 import { tasksByCategory } from './tasks';
@@ -20,7 +19,7 @@ import {
 import achievements from './achievements';
 
 import eggs from './eggs';
-import * as hatchingPotions from './hatching-potions';
+import hatchingPotions from './hatching-potions';
 import * as stable from './stable';
 import gear from './gear';
 import { quests, questsByLevel, userCanOwnQuestCategories } from './quests';
@@ -168,7 +167,7 @@ api.special = api.spells.special;
 
 api.dropEggs = eggs.drops;
 api.questEggs = eggs.quests;
-api.eggs = assign({}, eggs.drops, eggs.quests);
+api.eggs = eggs.all;
 
 api.timeTravelStable = {
   pets: {
