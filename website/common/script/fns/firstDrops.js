@@ -1,9 +1,9 @@
-import { drops as eggs } from '../content/eggs';
+import allEggs from '../content/eggs';
 import { drops as hatchingPotions } from '../content/hatching-potions';
 import randomVal from '../libs/randomVal';
 
 export default function firstDrops (user) {
-  const eggDrop = randomVal(eggs);
+  const eggDrop = randomVal(allEggs.drops);
   const potionDrop = randomVal(hatchingPotions);
 
   user.items.eggs = {

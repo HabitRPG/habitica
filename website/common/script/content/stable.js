@@ -1,10 +1,7 @@
 import each from 'lodash/each';
 import moment from 'moment';
 import { EVENTS } from './constants/events';
-import {
-  drops as dropEggs,
-  quests as questEggs,
-} from './eggs';
+import allEggs from './eggs';
 import {
   drops as dropPotions,
   premium as premiumPotions,
@@ -12,10 +9,14 @@ import {
 } from './hatching-potions';
 import t from './translation';
 
+const STABLE_RELEASE_DATES = {
+
+};
+
 const petInfo = {};
 const mountInfo = {};
 
-function constructSet (type, eggs, potions) {
+function constructSet (type, eggs, potions, hasMounts = true) {
   const pets = {};
   const mounts = {};
 
@@ -37,51 +38,23 @@ function constructSet (type, eggs, potions) {
         potion: potion.text,
         egg: egg.text,
       }));
-      mountInfo[key] = getAnimalData(t('mountName', {
-        potion: potion.text,
-        mount: egg.mountText,
-      }));
-
       pets[key] = true;
-      mounts[key] = true;
-    });
-  });
 
-  return [pets, mounts];
-}
-
-function constructPetOnlySet (type, eggs, potions) {
-  const pets = {};
-
-  each(eggs, egg => {
-    each(potions, potion => {
-      const key = `${egg.key}-${potion.key}`;
-
-      function getAnimalData (text) {
-        return {
-          key,
-          type,
-          potion: potion.key,
-          egg: egg.key,
-          text,
-        };
+      if (hasMounts) {
+        mountInfo[key] = getAnimalData(t('mountName', {
+          potion: potion.text,
+          mount: egg.mountText,
+        }));
+        mounts[key] = true;
       }
-
-      petInfo[key] = getAnimalData(t('petName', {
-        potion: potion.text,
-        egg: egg.text,
-      }));
-      pets[key] = true;
     });
   });
 
+  if (hasMounts) {
+    return [pets, mounts];
+  }
   return pets;
 }
-
-const [dropPets, dropMounts] = constructSet('drop', dropEggs, dropPotions);
-const [premiumPets, premiumMounts] = constructSet('premium', dropEggs, premiumPotions);
-const [questPets, questMounts] = constructSet('quest', questEggs, dropPotions);
-const wackyPets = constructPetOnlySet('wacky', dropEggs, wackyPotions);
 
 const canFindSpecial = {
   pets: {
@@ -157,6 +130,11 @@ const canFindSpecial = {
     'Gryphon-Gryphatrice': false, // Pet once granted to kickstarter
   },
 };
+
+const [dropPets, dropMounts] = constructSet('drop', allEggs.drops, dropPotions);
+const [premiumPets, premiumMounts] = constructSet('premium', allEggs.drops, premiumPotions);
+const [questPets, questMounts] = constructSet('quest', allEggs.quests, dropPotions);
+const wackyPets = constructSet('wacky', allEggs.drops, wackyPotions, false);
 
 const specialPets = {
   'Wolf-Veteran': 'veteranWolf',
