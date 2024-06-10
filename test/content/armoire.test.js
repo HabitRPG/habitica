@@ -64,6 +64,6 @@ describe('armoire', () => {
     delete require.cache[require.resolve('../../website/common/script/content/gear/sets/armoire')];
     clock = sinon.useFakeTimers(new Date('2024-02-07T09:00:00.000Z'));
     const febuaryItems = makeArmoireIitemList();
-    expect(febuaryItems.length).to.equal(381);
+    expect(febuaryItems.length).to.equal(384);
   });
 });
