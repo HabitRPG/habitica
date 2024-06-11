@@ -59,8 +59,6 @@ export const avatarEditorUtilities = { // eslint-disable-line import/prefer-defa
     createImageName (type, subType, key) {
       let str = '';
 
-      console.log(type, subType, key);
-
       switch (type) {
         case 'shirt': {
           str += `${this.user.preferences.size}_shirt_${key}`;

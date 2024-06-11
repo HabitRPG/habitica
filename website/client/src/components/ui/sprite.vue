@@ -29,7 +29,6 @@ export default {
         return '';
       }
       let name = this.imageName;
-      console.log(this.imageName);
       if (name.indexOf(' ') !== -1) {
         const components = name.split(' ');
         name = components[components.length - 1];
