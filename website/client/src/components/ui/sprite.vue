@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import GIF_SPRITES from '@/../../common/script/content/constants/gifSprites';
+
 export default {
   props: {
     imageName: {
@@ -15,6 +17,12 @@ export default {
     },
   },
   methods: {
+    getFileType (name) {
+      if (GIF_SPRITES.includes(name)) {
+        return 'gif';
+      }
+      return 'png';
+    },
     imageUrl () {
       if (!this.imageName) {
         return '';
@@ -28,7 +36,7 @@ export default {
       if (this.prefix) {
         name = `${this.prefix}_${name}`;
       }
-      return `https://habitica-assets.s3.amazonaws.com/mobileApp/images/${name}.png`;
+      return `https://habitica-assets.s3.amazonaws.com/mobileApp/images/${name}.${this.getFileType(name)}`;
     },
   },
 };
