@@ -1,10 +1,7 @@
+import assign from 'lodash/assign';
 import defaults from 'lodash/defaults';
 import each from 'lodash/each';
-import assign from 'lodash/assign';
 import t from './translation';
-import { filterReleased } from './is_released';
-import { EGGS_RELEASE_DATES } from './constants/releaseDates';
-import datedMemoize from '../fns/datedMemoize';
 
 function applyEggDefaults (set, config) {
   each(set, (egg, key) => {
@@ -413,20 +410,10 @@ applyEggDefaults(quests, {
   },
 });
 
-function filterEggs (eggs) {
-  return filterReleased(eggs, 'key', EGGS_RELEASE_DATES);
-}
+const all = assign({}, drops, quests);
 
-const memoizedFilter = datedMemoize(filterEggs);
-
-export default {
-  get drops () {
-    return memoizedFilter({ memoizeConfig: true, identifier: 'drops' }, drops);
-  },
-  get quests () {
-    return memoizedFilter({ memoizeConfig: true, identifier: 'quests' }, quests);
-  },
-  get all () {
-    return assign({}, this.drops, this.quests);
-  },
+export {
+  drops,
+  quests,
+  all,
 };

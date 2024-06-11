@@ -18,8 +18,8 @@ import {
 
 import achievements from './achievements';
 
-import eggs from './eggs';
-import hatchingPotions from './hatching-potions';
+import * as eggs from './eggs';
+import * as hatchingPotions from './hatching-potions';
 import * as stable from './stable';
 import gear from './gear';
 import { quests, questsByLevel, userCanOwnQuestCategories } from './quests';
