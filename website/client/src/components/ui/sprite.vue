@@ -1,7 +1,8 @@
 <template>
   <img
-  v-if="imageName && imageName !== ''"
-  :src="imageUrl()">
+    v-if="imageName && imageName !== ''"
+    :src="imageUrl()"
+  >
 </template>
 
 <script>

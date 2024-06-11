@@ -47,7 +47,7 @@
           <div class="row">
             <div class="col-2">
               <Sprite
-                :imageName="currentMysterySet"
+                :image-name="currentMysterySet"
                 class="mt-n1"
               />
             </div>

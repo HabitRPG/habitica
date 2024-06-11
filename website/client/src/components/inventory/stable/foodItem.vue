@@ -16,10 +16,10 @@
         <Sprite
           v-drag.food="item.key"
           class="item-content"
-          :imageName="`Pet_Food_${item.key}`"
+          :image-name="`Pet_Food_${item.key}`"
           @itemDragEnd="dragend($event)"
           @itemDragStart="dragstart($event)"
-         />
+        />
       </div>
     </div>
     <b-popover

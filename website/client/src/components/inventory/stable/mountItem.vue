@@ -16,8 +16,8 @@
         <Sprite
           class="item-content"
           :class="itemClass()"
-          :imageName="imageName()"
-         />
+          :image-name="imageName()"
+        />
       </div>
     </div>
     <b-popover

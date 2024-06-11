@@ -75,7 +75,7 @@
               :class="{white: user.preferences.background}"
               style="overflow:hidden"
             >
-              <Sprite :imageName="'icon_background_' + user.preferences.background" />
+              <Sprite :image-name="'icon_background_' + user.preferences.background" />
             </div>
             <b-popover
               v-if="label !== 'skip'
@@ -125,8 +125,9 @@
               :class="{white: user.items.currentPet}"
             >
               <Sprite
-                :imageName="user.items.currentPet ?
-                  `stable_Pet-${user.items.currentPet}` : ''" />
+                :image-name="user.items.currentPet ?
+                  `stable_Pet-${user.items.currentPet}` : ''"
+              />
             </div>
           </div>
           <div class="pet-mount-well-text">
@@ -153,10 +154,12 @@
           <div class="pet-mount-well-image">
             <div
               class="box"
-              :class="{white: user.items.currentMount}">
+              :class="{white: user.items.currentMount}"
+            >
               <Sprite
-                :imageName="user.items.currentMount ?
-                  `stable_Mount_Icon_${user.items.currentMount}` : ''" />
+                :image-name="user.items.currentMount ?
+                  `stable_Mount_Icon_${user.items.currentMount}` : ''"
+              />
             </div>
           </div>
           <div class="pet-mount-well-text">

@@ -39,7 +39,7 @@
         label-class="purple"
       >
         <div slot="itemImage">
-          <Sprite :imageName="getDropIcon(drop)" />
+          <Sprite :image-name="getDropIcon(drop)" />
         </div>
         <div slot="popoverContent">
           <quest-popover :item="drop" />
@@ -92,7 +92,7 @@
           :count="drop.amount"
         />
         <div slot="itemImage">
-          <Sprite :imageName="getDropIcon(drop)" />
+          <Sprite :image-name="getDropIcon(drop)" />
         </div>
         <div slot="popoverContent">
           <equipmentAttributesPopover

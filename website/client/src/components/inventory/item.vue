@@ -23,8 +23,8 @@
           :item="item"
         ></slot><Sprite
           class="item-content"
-          :imageName="itemContentClass"
-         />
+          :image-name="itemContentClass"
+        />
       </div><span
         v-if="label"
         class="item-label"

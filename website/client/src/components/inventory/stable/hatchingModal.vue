@@ -6,7 +6,7 @@
     >
       <div class="potionEggGroup">
         <div class="potionEggBackground">
-          <Sprite :imageName="`Pet_HatchingPotion_${hatchablePet.potionKey}`" />
+          <Sprite :image-name="`Pet_HatchingPotion_${hatchablePet.potionKey}`" />
         </div>
         <div class="potionEggBackground">
           <Sprite :class="`Pet_Egg_${hatchablePet.eggKey}`" />

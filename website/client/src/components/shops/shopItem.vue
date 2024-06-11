@@ -43,7 +43,7 @@
         <div class="image">
           <Sprite
             v-once
-            :imageName="item.class"
+            :image-name="item.class"
           />
           <slot
             name="itemImage"

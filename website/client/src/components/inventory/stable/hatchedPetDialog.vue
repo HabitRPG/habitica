@@ -20,7 +20,7 @@
       </div>
       <div class="inner-content">
         <div class="pet-background d-flex align-items-center">
-          <Sprite :imageName="pet.class" />
+          <Sprite :image-name="pet.class" />
         </div>
         <h4 class="title">
           {{ pet.name }}

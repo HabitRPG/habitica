@@ -25,7 +25,8 @@
         <Sprite
           class="item-content"
           :class="itemClass()"
-          :imageName="imageName()" />
+          :image-name="imageName()"
+        />
         <span
           v-if="isAllowedToFeed() && progress() > 0"
           class="pet-progress-background"
