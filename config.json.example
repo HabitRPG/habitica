@@ -32,6 +32,7 @@
   "LOGGLY_CLIENT_TOKEN": "token",
   "LOGGLY_SUBDOMAIN": "example-subdomain",
   "LOGGLY_TOKEN": "example-token",
+  "LOG_REQUESTS_EXCESSIVE_MODE": "false",
   "MAINTENANCE_MODE": "false",
   "NODE_DB_URI": "mongodb://localhost:27017/habitica-dev?replicaSet=rs",
   "TEST_DB_URI": "mongodb://localhost:27017/habitica-test?replicaSet=rs",
