@@ -768,5 +768,6 @@
     "questFungiRageTitle": "憂鬱キノコの霧",
     "questFungiBoss": "憂鬱キノコ",
     "questFungiText": "憂鬱キノコ",
-    "questFungiUnlockText": "市場でキノコのたまごがえしの薬を買えるようになります。"
+    "questFungiUnlockText": "市場でキノコのたまごがえしの薬を買えるようになります。",
+    "questFungiRageDescription": "このバーはあなたが日課を完了しないと増えていきます。いっぱいになると、憂鬱キノコはパーティーの保留ダメージを持ち去ります!"
 }

@@ -3124,5 +3124,19 @@
     "headArmoirePottersBandanaText": "Bandana",
     "headArmoirePottersBandanaNotes": "Ayez du style tout en empêchant vos cheveux de tomber devant votre visage pendant que vous travaillez. C'est gagnant-gagnant ! Augmente l'Intelligence de <%= int %>. Armoire Enchantée : Ensemble Poti·er·ère (Objet 2 sur 4).",
     "shieldArmoireThrownVesselNotes": "Vous savez ce qu'on dit : c'est en forgeant qu'on devient forgeron·ne. Et c'est le mieux que vous ayez fait jusque là ! Augmente la Constitution de <%= con %>. Armoire Enchantée : Ensemble Poti·er·ère (Objet 3 sur 4).",
-    "shieldArmoireThrownVesselText": "Projet Abandonné"
+    "shieldArmoireThrownVesselText": "Projet Abandonné",
+    "weaponArmoireShadyBeachUmbrellaText": "Ombrelle de Plage",
+    "armorMystery202406Text": "Tenue du Spectre Boucanier",
+    "armorArmoireYellowStripedSwimsuitText": "Maillot de Bain à Rayures Jaunes",
+    "headMystery202406Text": "Chapeau du Boucanier Fantôme",
+    "headMystery202406Notes": "Les plumes fantomatiques qui ornent ce chapeau brillent légèrement, comme les vagues d'une mer spectrale. Ne confère aucun bonus. Équipement d'abonnement Juin 2024.",
+    "shieldArmoireBuoyantBeachBallText": "Ballon de Plage",
+    "eyewearMystery202406Text": "Masque du Boucanier Fantôme",
+    "armorArmoireYellowStripedSwimsuitNotes": "Qu'est-ce qui peut être plus agréable que de se batte contre des monstres marins à la plage ? Augmente la Constitution de <%= con %>. Armoire Enchantée : Ensemble Tenue de Plage (Objet 1 sur 4).",
+    "weaponArmoireShadyBeachUmbrellaNotes": "L'ombre produite par cette ombrelle aux couleurs de l'arc-en-ciel pour protège temporairement contre l'étoile du jour et autres désagréments. Augmente la Perception de <%= per %>. Armoire enchantée : Ensemble Tenue de Plage (Objet 3 sur 4).",
+    "shieldArmoireBuoyantBeachBallNotes": "Vous jonglez déjà avec trop de balles ? En voici une que vous pouvez poser au sol en toute sécurité, la faire rouler, et rebondir, rebondir, rebondir... Augmente la Force de <%= str %>. Armoire Enchantée : Ensemble Tenue de Plage (Objet 4 sur 4).",
+    "eyewearMystery202406Notes": "Essayez d'éviter de vous le faire retirer par un gang qui se mêle de tout et leur chien qui parle. Ne confère aucun bonus. Équipement d'abonnement Juin 2024.",
+    "armorMystery202406Notes": "Hantez vous ennemi·e·s avec élégance et panache ! Ne confère aucun bonus. Équipement d'Abonnement Juin 2024.",
+    "armorArmoireBlueStripedSwimsuitText": "Maillot de Bain Bleu Rayé",
+    "armorArmoireBlueStripedSwimsuitNotes": "Qu'est-ce qui peut être plus excitant que de se batte contre des monstres marins à la plage ? Augmente la Constitution de <%= con %>. Armoire Enchantée : Ensemble Tenue de Plage (Objet 2 sur 4)."
 }
