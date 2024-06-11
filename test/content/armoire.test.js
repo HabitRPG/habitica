@@ -64,6 +64,20 @@ describe('armoire', () => {
     delete require.cache[require.resolve('../../website/common/script/content/gear/sets/armoire')];
     clock = sinon.useFakeTimers(new Date('2024-02-07T09:00:00.000Z'));
     const febuaryItems = makeArmoireIitemList();
-    expect(febuaryItems.length).to.equal(381);
+    expect(febuaryItems.length).to.equal(384);
+  });
+
+  it('sets have at least 2 items', () => {
+    const armoire = makeArmoireIitemList();
+    const setMap = {};
+    forEach(armoire, item => {
+      if (setMap[item.set] === undefined) {
+        setMap[item.set] = 0;
+      }
+      setMap[item.set] += 1;
+    });
+    Object.keys(setMap).forEach(set => {
+      expect(setMap[set], set).to.be.at.least(2);
+    });
   });
 });
