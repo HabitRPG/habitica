@@ -50,7 +50,7 @@ async function buyGemGift (data) {
     data.gift.member._id !== data.user._id
     && data.gift.member.preferences.pushNotifications.giftedGems !== false
   ) {
-    sendPushNotification(
+    await sendPushNotification(
       data.gift.member,
       {
         title: shared.i18n.t('giftedGems', languages[1]),

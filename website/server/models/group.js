@@ -526,7 +526,7 @@ schema.methods.getMemberCount = async function getMemberCount () {
   return User.countDocuments(query).exec();
 };
 
-schema.methods.sendChat = function sendChat (options = {}) {
+schema.methods.sendChat = async function sendChat (options = {}) {
   const {
     message, user, metaData,
     client, flagCount = 0, info = {},
@@ -596,7 +596,7 @@ schema.methods.sendChat = function sendChat (options = {}) {
     sendChatPushNotifications(user, this, newChatMessage, mentions, translate);
   }
   if (mentionedMembers) {
-    mentionedMembers.forEach(member => {
+    await mentionedMembers.forEach(async member => {
       if (member._id === user._id) return;
       const pushNotifPrefs = member.preferences.pushNotifications;
       if (this.type === 'party') {
@@ -617,7 +617,7 @@ schema.methods.sendChat = function sendChat (options = {}) {
       }
 
       if (newChatMessage.unformattedText) {
-        sendPushNotification(member, {
+        await sendPushNotification(member, {
           identifier: 'chatMention',
           title: `${user.profile.name} mentioned you in ${this.name}`,
           message: newChatMessage.unformattedText,
@@ -751,7 +751,7 @@ schema.methods.startQuest = async function startQuest (user) {
     _id: { $in: nonMembers },
   }, _cleanQuestParty()).exec();
 
-  const newMessage = this.sendChat({
+  const newMessage = await this.sendChat({
     message: `\`${shared.i18n.t('chatQuestStarted', { questName: quest.text('en') }, 'en')}\``,
     metaData: {
       participatingMembers: this.getParticipatingQuestMembers().join(', '),
@@ -766,7 +766,7 @@ schema.methods.startQuest = async function startQuest (user) {
   const membersToEmail = [];
 
   // send notifications and webhooks in the background without blocking
-  members.forEach(member => {
+  await members.forEach(async member => {
     if (member._id !== user._id) {
       // send push notifications and filter users that disabled emails
       if (member.preferences.emailNotifications.questStarted !== false) {
@@ -776,7 +776,7 @@ schema.methods.startQuest = async function startQuest (user) {
       // send push notifications and filter users that disabled emails
       if (member.preferences.pushNotifications.questStarted !== false) {
         const memberLang = member.preferences.language;
-        sendPushNotification(member, {
+        await sendPushNotification(member, {
           title: quest.text(memberLang),
           message: shared.i18n.t('questStarted', memberLang),
           identifier: 'questStarted',
@@ -1021,7 +1021,7 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
 
   group.quest.progress.hp -= progress.up;
   if (CRON_SAFE_MODE || CRON_SEMI_SAFE_MODE) {
-    const groupMessage = group.sendChat({
+    const groupMessage = await group.sendChat({
       message: `\`${shared.i18n.t('chatBossDontAttack', { bossName: quest.boss.name('en') }, 'en')}\``,
       info: {
         type: 'boss_dont_attack',
@@ -1032,7 +1032,7 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
     });
     promises.push(groupMessage.save());
   } else {
-    const groupMessage = group.sendChat({
+    const groupMessage = await group.sendChat({
       message: `\`${shared.i18n.t('chatBossDamage', {
         username: user.profile.name, bossName: quest.boss.name('en'), userDamage: progress.up.toFixed(1), bossDamage: Math.abs(down).toFixed(1),
       }, user.preferences.language)}\``,
@@ -1051,7 +1051,7 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
   if (quest.boss.rage) {
     group.quest.progress.rage += Math.abs(down);
     if (group.quest.progress.rage >= quest.boss.rage.value) {
-      const rageMessage = group.sendChat({
+      const rageMessage = await group.sendChat({
         message: quest.boss.rage.effect('en'),
         info: {
           type: 'boss_rage',
@@ -1094,7 +1094,7 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
 
   // Boss slain, finish quest
   if (group.quest.progress.hp <= 0) {
-    const questFinishChat = group.sendChat({
+    const questFinishChat = await group.sendChat({
       message: `\`${shared.i18n.t('chatBossDefeated', { bossName: quest.boss.name('en') }, 'en')}\``,
       info: {
         type: 'boss_defeated',
@@ -1148,7 +1148,7 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
   }, []);
 
   foundText = foundText.join(', ');
-  const foundChat = group.sendChat({
+  const foundChat = await group.sendChat({
     message: `\`${shared.i18n.t('chatFindItems', { username: user.profile.name, items: foundText }, 'en')}\``,
     info: {
       type: 'user_found_items',
@@ -1164,7 +1164,7 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
   const questFinished = collectedItems.length === remainingItems.length;
   if (questFinished) {
     await group.finishQuest(quest);
-    const allItemsFoundChat = group.sendChat({
+    const allItemsFoundChat = await group.sendChat({
       message: `\`${shared.i18n.t('chatItemQuestFinish', 'en')}\``,
       info: {
         type: 'all_items_found',
@@ -1236,7 +1236,7 @@ schema.statics.tavernBoss = async function tavernBoss (user, progress) {
   const chatPromises = [];
 
   if (tavern.quest.progress.hp <= 0) {
-    const completeChat = tavern.sendChat({
+    const completeChat = await tavern.sendChat({
       message: quest.completionChat('en'),
       info: {
         type: 'tavern_quest_completed',
@@ -1273,7 +1273,7 @@ schema.statics.tavernBoss = async function tavernBoss (user, progress) {
     }
 
     if (!scene) {
-      const tiredChat = tavern.sendChat({
+      const tiredChat = await tavern.sendChat({
         message: `\`${shared.i18n.t('tavernBossTired', { rageName: quest.boss.rage.title('en'), bossName: quest.boss.name('en') }, 'en')}\``,
         info: {
           type: 'tavern_boss_rage_tired',
@@ -1283,7 +1283,7 @@ schema.statics.tavernBoss = async function tavernBoss (user, progress) {
       chatPromises.push(tiredChat.save());
       tavern.quest.progress.rage = 0; // quest.boss.rage.value;
     } else {
-      const rageChat = tavern.sendChat({
+      const rageChat = await tavern.sendChat({
         message: quest.boss.rage[scene]('en'),
         info: {
           type: 'tavern_boss_rage',
@@ -1306,7 +1306,7 @@ schema.statics.tavernBoss = async function tavernBoss (user, progress) {
     && tavern.quest.progress.hp < quest.boss.desperation.threshold
     && !tavern.quest.extra.desperate
   ) {
-    const progressChat = tavern.sendChat({
+    const progressChat = await tavern.sendChat({
       message: quest.boss.desperation.text('en'),
       info: {
         type: 'tavern_boss_desperation',

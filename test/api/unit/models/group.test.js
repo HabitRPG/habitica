@@ -1362,8 +1362,8 @@ describe('Group Model', () => {
         sandbox.spy(User, 'updateMany');
       });
 
-      it('formats message', () => {
-        const chatMessage = party.sendChat({
+      it('formats message', async () => {
+        const chatMessage = await party.sendChat({
           message: 'a _new_ message with *markdown*',
           user: {
             _id: 'user-id',
@@ -1396,8 +1396,8 @@ describe('Group Model', () => {
         expect(chat.user).to.eql('user name');
       });
 
-      it('formats message as system if no user is passed in', () => {
-        const chat = party.sendChat({ message: 'a system message' });
+      it('formats message as system if no user is passed in', async () => {
+        const chat = await party.sendChat({ message: 'a system message' });
 
         expect(chat.text).to.eql('a system message');
         expect(validator.isUUID(chat.id)).to.eql(true);
@@ -1411,8 +1411,8 @@ describe('Group Model', () => {
         expect(chat.user).to.not.exist;
       });
 
-      it('updates users about new messages in party', () => {
-        party.sendChat({ message: 'message' });
+      it('updates users about new messages in party', async () => {
+        await party.sendChat({ message: 'message' });
 
         expect(User.updateMany).to.be.calledOnce;
         expect(User.updateMany).to.be.calledWithMatch({
@@ -1421,12 +1421,12 @@ describe('Group Model', () => {
         });
       });
 
-      it('updates users about new messages in group', () => {
+      it('updates users about new messages in group', async () => {
         const group = new Group({
           type: 'guild',
         });
 
-        group.sendChat({ message: 'message' });
+        await group.sendChat({ message: 'message' });
 
         expect(User.updateMany).to.be.calledOnce;
         expect(User.updateMany).to.be.calledWithMatch({
@@ -1435,8 +1435,8 @@ describe('Group Model', () => {
         });
       });
 
-      it('does not send update to user that sent the message', () => {
-        party.sendChat({ message: 'message', user: { _id: 'user-id', profile: { name: 'user' } } });
+      it('does not send update to user that sent the message', async () => {
+        await party.sendChat({ message: 'message', user: { _id: 'user-id', profile: { name: 'user' } } });
 
         expect(User.updateMany).to.be.calledOnce;
         expect(User.updateMany).to.be.calledWithMatch({
@@ -1445,18 +1445,18 @@ describe('Group Model', () => {
         });
       });
 
-      it('skips sending new message notification for guilds with > 5000 members', () => {
+      it('skips sending new message notification for guilds with > 5000 members', async () => {
         party.memberCount = 5001;
 
-        party.sendChat({ message: 'message' });
+        await party.sendChat({ message: 'message' });
 
         expect(User.updateMany).to.not.be.called;
       });
 
-      it('skips sending messages to the tavern', () => {
+      it('skips sending messages to the tavern', async () => {
         party._id = TAVERN_ID;
 
-        party.sendChat({ message: 'message' });
+        await party.sendChat({ message: 'message' });
 
         expect(User.updateMany).to.not.be.called;
       });
@@ -2326,7 +2326,7 @@ describe('Group Model', () => {
 
         await guild.save();
 
-        const groupMessage = guild.sendChat({ message: 'Test message.' });
+        const groupMessage = await guild.sendChat({ message: 'Test message.' });
         await groupMessage.save();
 
         await sleep();
