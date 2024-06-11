@@ -31,7 +31,7 @@ export const avatarEditorUtilities = { // eslint-disable-line import/prefer-defa
       option.key = key;
       option.pathKey = pathKey;
       option.active = userPreference === key;
-      option.class = this.createClass(type, subType, key);
+      option.imageName = this.createImageName(type, subType, key);
       option.click = optionParam => (option.gemLocked ? this.unlock(`${optionParam.pathKey}.${key}`) : this.set({ [`preferences.${optionParam.pathKey}`]: optionParam.key }));
       return option;
     },
@@ -56,8 +56,10 @@ export const avatarEditorUtilities = { // eslint-disable-line import/prefer-defa
 
       return option;
     },
-    createClass (type, subType, key) {
-      let str = `${type} ${subType} `;
+    createImageName (type, subType, key) {
+      let str = '';
+
+      console.log(type, subType, key);
 
       switch (type) {
         case 'shirt': {
@@ -77,7 +79,7 @@ export const avatarEditorUtilities = { // eslint-disable-line import/prefer-defa
           break;
         }
         case 'skin': {
-          str += `skin skin_${key}`;
+          str += `skin_${key}`;
           break;
         }
         default: {
