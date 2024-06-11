@@ -202,6 +202,10 @@
       background-color: #edecee;
       display: inline-block;
       padding: 8px;
+
+      > div {
+        margin-right: auto;
+      }
     }
 
     .item-wrapper {

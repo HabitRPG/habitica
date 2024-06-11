@@ -89,7 +89,7 @@ export default {
 
 <style lang="scss" scoped>
 .featuredItems {
-  height: 216px;
+  height: 192px;
 
   .background {
     width: 100%;

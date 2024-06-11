@@ -26,7 +26,7 @@
       />
       <h1
         v-once
-        class="mb-4 page-header"
+        class="page-header mt-4 mb-4"
       >
         {{ $t('market') }}
       </h1>

@@ -69,15 +69,15 @@
           </div>
         </div>
       </div>
-      <div class="d-flex justify-content-between w-items mt-1">
+      <div class="d-flex justify-content-between w-items">
         <h1
           v-once
-          class="mb-4 page-header"
+          class="page-header mt-4 mb-4"
         >
           {{ $t('timeTravelers') }}
         </h1>
         <div
-          class="clearfix"
+          class="clearfix mt-4"
         >
           <div class="float-right">
             <span class="dropdown-label">{{ $t('sortBy') }}</span>

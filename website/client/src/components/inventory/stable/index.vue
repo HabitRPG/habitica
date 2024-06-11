@@ -134,6 +134,7 @@
         v-for="(petGroup) in petGroups"
         v-if="!anyFilterSelected || viewOptions[petGroup.key].selected"
         :key="petGroup.key"
+        :class="{ hide: viewOptions[petGroup.key].animalCount === 0 }"
       >
         <!-- eslint-enable vue/no-use-v-if-with-v-for -->
         <h4 v-if="viewOptions[petGroup.key].animalCount !== 0">
@@ -310,6 +311,10 @@
   .group {
     height: 130px;
     overflow: hidden;
+  }
+
+  .hide {
+    height: 0px;
   }
 </style>
 

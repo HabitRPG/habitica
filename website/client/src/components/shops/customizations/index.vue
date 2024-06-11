@@ -90,6 +90,7 @@
   @import '~@/assets/scss/shops.scss';
 
   h1 {
+    line-height: 32px;
     color: $purple-200;
   }
 
