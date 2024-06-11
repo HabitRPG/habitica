@@ -108,6 +108,20 @@ describe('PUT /user/auth/update-email', () => {
       const isValidPassword = await bcryptCompare(textPassword, user.auth.local.hashed_password);
       expect(isValidPassword).to.equal(true);
     });
+
+    it('invalidates any outstanding password reset code', async () => {
+      await user.updateOne({
+        'auth.local.passwordResetCode': 'impossible-reset-code',
+      });
+
+      await user.put(ENDPOINT, {
+        newEmail: 'bogo@example.com',
+        password: oldPassword,
+      });
+
+      await user.sync();
+      expect(user.auth.local.passwordResetCode).to.not.exist;
+    });
   });
 
   context('Social Login User', async () => {
