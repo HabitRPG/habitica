@@ -84,8 +84,9 @@
   "BLOCKED_IPS": "",
   "LOG_AMPLITUDE_EVENTS": "false",
   "RATE_LIMITER_ENABLED": "false",
+  "LIVELINESS_PROBE_KEY": "",
   "REDIS_HOST": "aaabbbcccdddeeefff",
   "REDIS_PORT": "1234",
   "REDIS_PASSWORD": "12345678",
-  "TRUSTED_DOMAINS": "localhost,habitica.com"
+  "TRUSTED_DOMAINS": "localhost,https://habitica.com"
 }

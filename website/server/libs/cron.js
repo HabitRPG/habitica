@@ -5,7 +5,7 @@ import nconf from 'nconf';
 import { model as User } from '../models/user';
 import common from '../../common';
 import { preenUserHistory } from './preening';
-import sleep from './sleep';
+import { sleep } from './sleep';
 import { revealMysteryItems } from './payments/subscriptions';
 
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
@@ -112,8 +112,12 @@ async function grantEndOfTheMonthPerks (user, now) {
           // (subtract 1 because we should have run this when the payment was taken last month)
           plan.consecutive.offset = planMonthsLength - 1;
         }
-        // eslint-disable-next-line no-await-in-loop
-        await plan.incrementPerkCounterAndReward(user._id, planMonthsLength);
+        if (!plan.gift && plan.customerId.indexOf('Gift') === -1) {
+          // Don't process gifted subs here, since they already got their perks.
+
+          // eslint-disable-next-line no-await-in-loop
+          await plan.incrementPerkCounterAndReward(user._id, planMonthsLength);
+        }
       }
     }
   }

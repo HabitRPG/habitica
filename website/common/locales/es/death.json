@@ -1,7 +1,7 @@
 {
-    "lostAllHealth": "No tienes mas Salud!",
-    "dontDespair": "¡No necesitas estar triste!",
-    "deathPenaltyDetails": "Has perdido un Nivel, tu Oro y un Articulo, ¡pero puedes recuperarlos todos con trabajo duro! Buena suerte--lo harás genial.",
+    "lostAllHealth": "¡Se te acabó tu Salud!",
+    "dontDespair": "¡No te desesperes!",
+    "deathPenaltyDetails": "Has perdido un Nivel, tu Oro y una pieza de equipamiento, ¡pero puedes recuperarlos con trabajo duro! Buena suerte--lo harás genial.",
     "refillHealthTryAgain": "Rellenar salud y volver a intentarlo",
     "dyingOftenTips": "¿Pasa esto a menudo? <a href='https://habitica.fandom.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'>¡Aqui tienes ayuda!</a>",
     "losingHealthWarning": "¡Cuidado, estás perdiendo salud rapidamente!",

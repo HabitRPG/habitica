@@ -8,7 +8,7 @@ import {
   NotFound,
 } from '../../../../website/common/script/libs/errors';
 import i18n from '../../../../website/common/script/i18n';
-import errorMessage from '../../../../website/common/script/libs/errorMessage';
+import { errorMessage } from '../../../../website/common/script/libs/errorMessage';
 
 describe('shared.ops.buyQuest', () => {
   let user;

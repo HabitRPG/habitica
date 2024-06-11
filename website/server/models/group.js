@@ -1068,7 +1068,7 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
       }
       if (group.quest.progress.hp > quest.boss.hp) group.quest.progress.hp = quest.boss.hp;
       if (quest.boss.rage.mpDrain) {
-        updates.$set = { 'stats.mp': 0 };
+        updates.$mul = { 'stats.mp': 1 - quest.boss.rage.mpDrain };
       }
       if (quest.boss.rage.progressDrain) {
         updates.$mul = { 'party.quest.progress.up': quest.boss.rage.progressDrain };

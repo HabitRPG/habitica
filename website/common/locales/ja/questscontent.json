@@ -762,5 +762,11 @@
     "questPinkMarbleRageEffect": "キューピッドはピンクパンチを使った！まったく愛情がこもっていない！パーティーの仲間は驚いている。保留中のダメージが減少する。",
     "questPinkMarbleDropPinkMarblePotion": "ピンク大理石のたまごがえしの薬",
     "QuestPinkMarbleUnlockText": "市場でピンク大理石のたまごがえしの薬を買えるようになります。",
-    "questPinkMarbleRageTitle": "ピンクパンチ"
+    "questPinkMarbleRageTitle": "ピンクパンチ",
+    "questPinkMarbleUnlockText": "市場で購入できる「ピンクマーブルのたまごがえしの薬」をアンロックします。",
+    "questFungiDropFungiPotion": "キノコのたまごがえしの薬",
+    "questFungiRageTitle": "憂鬱キノコの霧",
+    "questFungiBoss": "憂鬱キノコ",
+    "questFungiText": "憂鬱キノコ",
+    "questFungiUnlockText": "市場でキノコのたまごがえしの薬を買えるようになります。"
 }

@@ -7,7 +7,7 @@ import { EVENTS } from './constants';
 // hatching potions and food names should be capitalized lest you break the market
 const featuredItems = {
   market () {
-    if (moment().isBetween(EVENTS.potions202402.start, EVENTS.potions202402.end)) {
+    if (moment().isBetween(EVENTS.potions202405.start, EVENTS.potions202405.end)) {
       return [
         {
           type: 'armoire',
@@ -15,15 +15,15 @@ const featuredItems = {
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.RoseGold',
+          path: 'premiumHatchingPotions.Floral',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Cupid',
+          path: 'premiumHatchingPotions.Sunshine',
         },
         {
           type: 'hatchingPotions',
-          path: 'hatchingPotions.Red',
+          path: 'hatchingPotions.Golden',
         },
       ];
     }
@@ -34,32 +34,33 @@ const featuredItems = {
       },
       {
         type: 'food',
-        path: 'food.Chocolate',
+        path: 'food.Strawberry',
       },
       {
         type: 'hatchingPotions',
-        path: 'hatchingPotions.Desert',
+        path: 'hatchingPotions.Red',
       },
       {
         type: 'eggs',
         path: 'eggs.Cactus',
+
       },
     ];
   },
   quests () {
-    if (moment().isBetween(EVENTS.bundle202402.start, EVENTS.bundle202402.end)) {
+    if (moment().isBetween(EVENTS.bundle202405.start, EVENTS.bundle202405.end)) {
       return [
         {
           type: 'bundles',
-          path: 'bundles.mythicalMarvels',
+          path: 'bundles.delightfulDinos',
         },
         {
           type: 'quests',
-          path: 'quests.nudibranch',
+          path: 'quests.rooster',
         },
         {
           type: 'quests',
-          path: 'quests.axolotl',
+          path: 'quests.owl',
         },
       ];
     }
@@ -67,19 +68,19 @@ const featuredItems = {
     return [
       {
         type: 'quests',
-        path: 'quests.rat',
+        path: 'quests.cheetah',
       },
       {
         type: 'quests',
-        path: 'quests.kraken',
+        path: 'quests.nudibranch',
       },
       {
         type: 'quests',
-        path: 'quests.slime',
+        path: 'quests.monkey',
       },
     ];
   },
-  seasonal: 'winter2021WinterMoonMageSet',
+  seasonal: 'spring2019CloudRogueSet',
   timeTravelers: [
     // TODO
   ],

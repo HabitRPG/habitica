@@ -110,14 +110,15 @@ const bundles = {
   cuddleBuddies: {
     key: 'cuddleBuddies',
     text: t('cuddleBuddiesText'),
-    notes: t('cuddleBuddiesNotes', { date: moment('2022-03-31').format('LL') }), // needs update next time we run this
+    notes: t('cuddleBuddiesNotes', { date: moment(EVENTS.bundle202403.end).format('LL') }),
     bundleKeys: [
       'bunny',
       'ferret',
       'guineapig',
     ],
+    event: EVENTS.bundle202403,
     canBuy () {
-      return moment().isBetween('2022-03-15T08:00-04:00', '2022-03-31T20:00-04:00');
+      return moment().isBetween(EVENTS.bundle202403.start, EVENTS.bundle202403.end);
     },
     type: 'quests',
     value: 7,
@@ -221,14 +222,15 @@ const bundles = {
   delightfulDinos: {
     key: 'delightfulDinos',
     text: t('delightfulDinosText'),
-    notes: t('delightfulDinosNotes', { date: moment('2022-05-31').format('LL') }), // needs update next time its run
+    notes: t('delightfulDinosNotes', { date: moment(EVENTS.bundle202405.end).format('LL') }),
     bundleKeys: [
       'pterodactyl',
       'triceratops',
       'trex_undead',
     ],
+    event: EVENTS.bundle202405,
     canBuy () {
-      return moment().isBetween('2022-05-16', '2022-05-31');
+      return moment().isBetween(EVENTS.bundle202405.start, EVENTS.bundle202405.end);
     },
     type: 'quests',
     value: 7,

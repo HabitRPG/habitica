@@ -11,7 +11,7 @@ import {
   BadRequest, NotAuthorized, NotFound,
 } from '../../../../website/common/script/libs/errors';
 import i18n from '../../../../website/common/script/i18n';
-import errorMessage from '../../../../website/common/script/libs/errorMessage';
+import { errorMessage } from '../../../../website/common/script/libs/errorMessage';
 
 async function buyGear (user, req, analytics) {
   const buyOp = new BuyMarketGearOperation(user, req, analytics);

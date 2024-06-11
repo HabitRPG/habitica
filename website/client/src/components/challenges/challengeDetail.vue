@@ -223,6 +223,7 @@
         </button>
       </div>
       <div
+        v-if="!isOfficial"
         class="button-container"
       >
         <button
@@ -433,6 +434,7 @@ export default {
       taskFormPurpose: 'create',
       searchTerm: '',
       memberResults: [],
+      isOfficial: true,
     };
   },
   computed: {
@@ -478,9 +480,11 @@ export default {
       },
     },
   },
-  mounted () {
+  async mounted () {
     if (!this.searchId) this.searchId = this.challengeId;
-    if (!this.challenge._id) this.loadChallenge();
+    if (!this.challenge._id) await this.loadChallenge();
+    this.isOfficial = this.challenge.official
+      || this.challenge.categories?.some(category => category.name === 'habitica_official');
     this.handleExternalLinks();
   },
   updated () {
@@ -640,9 +644,6 @@ export default {
       });
     },
     async exportChallengeCsv () {
-      // let response = await this.$store.dispatch('challenges:exportChallengeCsv', {
-      //   challengeId: this.searchId,
-      // });
       window.location = `/api/v4/challenges/${this.searchId}/export/csv`;
     },
     cloneChallenge () {

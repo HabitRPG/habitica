@@ -5,7 +5,7 @@ import {
 } from '../../libs/errors';
 import content from '../../content/index';
 
-import errorMessage from '../../libs/errorMessage';
+import { errorMessage } from '../../libs/errorMessage';
 import { AbstractGemItemOperation } from './abstractBuyOperation';
 
 export class BuyPetWithGemOperation extends AbstractGemItemOperation { // eslint-disable-line import/prefer-default-export, max-len

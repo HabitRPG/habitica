@@ -10,7 +10,7 @@ import shared from '../../../common';
 import {
   BadRequest,
 } from '../errors';
-import apiError from '../apiError';
+import { apiError } from '../apiError';
 
 const analytics = getAnalyticsServiceByEnvironment();
 

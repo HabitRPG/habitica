@@ -40,6 +40,17 @@ const ANIMAL_SET_ACHIEVEMENTS = {
     achievementKey: 'bonelessBoss',
     notificationType: 'ACHIEVEMENT_ANIMAL_SET',
   },
+  cats: {
+    type: 'pet',
+    species: [
+      'Cheetah',
+      'LionCub',
+      'Sabretooth',
+      'TigerCub',
+    ],
+    achievementKey: 'cats',
+    notificationType: 'ACHIEVEMENT_ANIMAL_SET',
+  },
   dinosaurDynasty: {
     type: 'pet',
     species: [
@@ -118,6 +129,16 @@ const ANIMAL_SET_ACHIEVEMENTS = {
       'Velociraptor',
     ],
     achievementKey: 'reptacularRumble',
+    notificationType: 'ACHIEVEMENT_ANIMAL_SET',
+  },
+  rodentRuler: {
+    type: 'pet',
+    species: [
+      'Rat',
+      'GuineaPig',
+      'Squirrel',
+    ],
+    achievementKey: 'rodentRuler',
     notificationType: 'ACHIEVEMENT_ANIMAL_SET',
   },
   roughRider: {

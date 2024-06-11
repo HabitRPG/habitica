@@ -159,5 +159,13 @@
     "achievementDuneBuddyText": "A collecté toutes les couleurs de base des familiers du désert : Tatou, Cactus, Renard, Grenouille, Serpent et Araignée !",
     "achievementRoughRider": "Chevaucheu·r·se Robuste",
     "achievementRoughRiderText": "A collecté toutes les couleurs de base des familiers et montures inconfortables : Cactus, Hérisson et Caillou !",
-    "achievementRoughRiderNotes": "Vous avez collecté toutes les couleurs de base des familiers et montures inconfortables !"
+    "achievementRoughRiderNotes": "Vous avez collecté toutes les couleurs de base des familiers et montures inconfortables !",
+    "achievementDuneBuddyModalText": "Vous avez collecté tous les familiers du désert !",
+    "achievementRodentRuler": "R·oi·eine des Rongeurs",
+    "achievementRodentRulerModalText": "Vous avez collecté tous les familiers rongeurs !",
+    "achievementRoughRiderModalText": "Vous avez collecté toutes les couleurs de base des familiers et montures inconfortables !",
+    "achievementRodentRulerText": "A fait éclore toutes les couleurs standards des familiers rongeurs : Cochon d'Inde, Rat et Écureuil !",
+    "achievementCatsText": "A fait éclore toutes les couleurs standards des familiers félins : Guépard, Lion, Tigre à dents de sabre et Tigre !",
+    "achievementCats": "Éleveu·r·se de Félins",
+    "achievementCatsModalText": "Vous avez collecté tous les familiers félins !"
 }

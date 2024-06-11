@@ -141,7 +141,7 @@
     "dateEndOctober": "31 octobre",
     "dateEndNovember": "30 novembre",
     "dateEndJanuary": "31 janvier",
-    "dateEndFebruary": "28 février",
+    "dateEndFebruary": "29 Février",
     "winterPromoGiftHeader": "OFFREZ UN ABONNEMENT, OBTENEZ-EN UN GRATUIT !",
     "winterPromoGiftDetails1": "Jusqu'au 6 janvier seulement, lorsque vous offrez un abonnement, vous recevez le même abonnement pour vous gratuitement !",
     "winterPromoGiftDetails2": "Merci de noter que si vous, ou la personne à qui vous faites ce cadeau, détenez un abonnement récurrent, l'abonnement offert ne commencera qu'après que cet abonnement sera annulé ou expirera. Merci infiniment pour votre soutien <3",
@@ -188,7 +188,7 @@
     "septemberYYYY": "Septembre <%= year %>",
     "royalPurpleJackolantern": "Citrouille d'Habitoween pourpre royal",
     "novemberYYYY": "Novembre <%= year %>",
-    "g1g1Limitations": "Il s'agit d'un événement limité dans le temps, qui démarre le 15 décembre à 08h00 ET (13h00 UTC) et qui finit le 8 janvier à 23h59 ET (9 janvier04h59 UTC). Cette promotion ne s'applique que lorsque vous faites un cadeau à un autre Habiticien. Si la personne désignée a déjà un abonnement, la souscription offerte ajoutera des mois de crédit supplémentaires qui ne seront utilisés qu'après la fin de leur souscription actuelle.",
+    "g1g1Limitations": "Il s'agit d'un événement limité dans le temps, qui démarre le <%= promoStartMonth %> <%= promoStartOrdinal %> à <%= promoStartTime %> et se termine le <%= promoEndMonth %> <%= promoEndOrdinal %> à <%= promoEndTime %>. Cette promotion ne s'applique que lorsque vous faites un cadeau à un autre Habiticien. Si la personne désignée a déjà un abonnement, l'abonnement offert ajoutera des mois de crédit supplémentaires qui ne seront utilisés qu'après la fin de leur abonnement actuel.",
     "limitations": "Limitations",
     "g1g1HowItWorks": "Entrez l'identifiant du compte auquel vous voulez faire un cadeau. Puis choisissez la durée d'abonnement que vous voulez offrir et validez. Vous recevrez automatiquement la même durée d'abonnement que celle que vous venez d'offrir.",
     "howItWorks": "Comment ça marche",
@@ -281,5 +281,13 @@
     "fall2023ScaryMovieWarriorSet": "Film d'Horreur (Guerri·er·ère)",
     "fall2023ScarletWarlockMageSet": "Démoniste Pourpre (Mage)",
     "fall2023WitchsBrewRogueSet": "Potion de Sorcière (Voleu·r·se)",
-    "fall2023BogCreatureHealerSet": "Créature de la Tourbe (Guérisseu·r·se)"
+    "fall2023BogCreatureHealerSet": "Créature de la Tourbe (Guérisseu·r·se)",
+    "winter2024SnowyOwlRogueSet": "Chouette des Neiges (Voleur)",
+    "winter2024FrozenHealerSet": "Glacé (Guérisseu.r.se)",
+    "winter2024PeppermintBarkWarriorSet": "Ensemble de l'Aboiement à la Menthe Poivrée (Guerri.er.ère)",
+    "winter2024NarwhalWizardMageSet": "Ensemble du Sorcier Narval (Mage)",
+    "spring2024FluoriteWarriorSet": "Ensemble en Fluorite (Guerri·er·ère)",
+    "spring2024HibiscusMageSet": "Ensemble Hibiscus (Mage)",
+    "spring2024BluebirdHealerSet": "Ensemble Merlebleu (Guérisseu·r·se)",
+    "spring2024MeltingSnowRogueSet": "Ensemble de la Neige Fondante (Voleu·r·se)"
 }

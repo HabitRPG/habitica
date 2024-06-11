@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="32" height="15" viewBox="0 0 32 15">
+<svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 32 15">
     <g fill="none" fill-rule="evenodd">
         <path fill="#FFA624" d="M9.074 8.485L13.333 6.364 9.074 4.242 6.944 0 4.815 4.242 0.556 6.364 4.815 8.485 6.944 12.727z" transform="rotate(90 16 16)"/>
         <path fill="#FFBE5D" d="M12.634 19.632L15.19 18.359 12.634 17.087 11.356 14.541 10.079 17.087 7.523 18.359 10.079 19.632 11.356 22.177z" transform="rotate(90 16 16) rotate(53 11.356 18.36)"/>

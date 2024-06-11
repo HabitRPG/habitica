@@ -42,13 +42,13 @@
     padding-right: 5em !important;
 
     .logo.svg-icon {
-      width: 200px !important;
+      width: 175px !important;
     }
 
     .nav-item a {
       font-size: 14px !important;
       color: $purple-600 !important;
-      padding-top: 2.8em !important;
+      padding-top: 16px !important;
     }
 
     .nav-item a:hover {
@@ -62,8 +62,7 @@
 
     .login-button {
       padding-right: 1em;
-      margin-top: 1.8em !important;
-      border-radius: 2px;
+      border-radius: 4px;
       background-color: #9a62ff;
     }
 

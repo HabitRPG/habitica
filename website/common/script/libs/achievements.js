@@ -229,6 +229,8 @@ function _getBasicAchievements (user, language) {
   _addSimple(result, user, { path: 'bonelessBoss', language });
   _addSimple(result, user, { path: 'duneBuddy', language });
   _addSimple(result, user, { path: 'roughRider', language });
+  _addSimple(result, user, { path: 'rodentRuler', language });
+  _addSimple(result, user, { path: 'cats', language });
 
   _addSimpleWithMasterCount(result, user, { path: 'beastMaster', language });
   _addSimpleWithMasterCount(result, user, { path: 'mountMaster', language });

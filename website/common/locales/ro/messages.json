@@ -1,6 +1,6 @@
 {
     "messageLostItem": "Ți s-a stricat <%= itemText %>.",
-    "messageTaskNotFound": "Țelul nu a fost găsit.",
+    "messageTaskNotFound": "Sarcina nu a fost găsită.",
     "messageTagNotFound": "Eticheta nu a fost găsită.",
     "messagePetNotFound": ":pet nu a fost găsit în user.items.pets",
     "messageFoodNotFound": ":food nu a fost găsit în user.items.food",

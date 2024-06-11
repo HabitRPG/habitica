@@ -141,7 +141,7 @@
     "dateEndOctober": "10月31日",
     "dateEndNovember": "11月30日",
     "dateEndJanuary": "1月31日",
-    "dateEndFebruary": "2月28日",
+    "dateEndFebruary": "2月29日",
     "winterPromoGiftHeader": "有料プランをプレゼントすると、同じプランを無料で利用できます！",
     "winterPromoGiftDetails1": "1月6日までの間に限り、誰かに有料プランをプレゼントすると、あなた自身も同じプランを無料で利用できます！",
     "winterPromoGiftDetails2": "もしあなたやプレゼントする相手がすでに定期的な有料プランに加入している場合、プレゼントした有料プランは、すでに加入している有料プランを解約するか期限が切れた後にのみ有効になります。どうぞご注意ください。皆様のご支援に心から感謝します！ <3",
@@ -284,5 +284,9 @@
     "winter2024NarwhalWizardMageSet": "イッカククジラの魔術使いセット (魔道士)",
     "winter2024SnowyOwlRogueSet": "雪フクロウ (盗賊)",
     "winter2024FrozenHealerSet": "氷漬け (治療師)",
-    "winter2024PeppermintBarkWarriorSet": "ペパーミントの樹皮セット (戦士)"
+    "winter2024PeppermintBarkWarriorSet": "ペパーミントの樹皮セット (戦士)",
+    "spring2024FluoriteWarriorSet": "ホタル石のセット（戦士）",
+    "spring2024HibiscusMageSet": "ハイビスカスのセット（魔道士）",
+    "spring2024BluebirdHealerSet": "青い鳥のセット（治療師）",
+    "spring2024MeltingSnowRogueSet": "雪解けのセット（盗賊）"
 }

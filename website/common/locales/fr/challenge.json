@@ -115,5 +115,6 @@
     "cannotClose": "Ce Défi ne peut être fermé car un·e ou plusieurs joueu·r·se·s l'ont signalé comme inapproprié. Un·e membre de l'équipe va vous contacter sous peu avec des instructions. Si vous n'avez pas de nouvelles après 48 heures, merci d'envoyer un courriel à admin@habitica.com.",
     "cannotClone": "Ce Défi ne peut être dupliqué car un·e ou plusieurs joueu·r·se·s l'ont signalé comme inapproprié. Un·e membre de l'équipe va vous contacter sous peu avec des instructions. Si vous n'avez pas de nouvelles après 48 heures, merci d'envoyer un courriel à admin@habitica.com.",
     "resetFlags": "Réinitialiser les Signalements",
-    "cannotMakeChallenge": "Vous ne pouvez pas créer de Défis publics car votre compte n'a pour le moment pas les accès aux discussions. Merci de contacter admin@habitica.com pour plus d'informations."
+    "cannotMakeChallenge": "Vous ne pouvez pas créer de Défis publics car votre compte n'a pour le moment pas les accès aux discussions. Merci de contacter admin@habitica.com pour plus d'informations.",
+    "messageChallengeFlagOfficial": "Les Défis Officiels ne peuvent pas être signalés."
 }

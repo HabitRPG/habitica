@@ -462,6 +462,27 @@ const armor = {
     per: 10,
     set: 'whiteLoungeWear',
   },
+  hattersSuit: {
+    con: 9,
+    set: 'hatterSet',
+  },
+  smileyShirt: {
+    int: 4,
+    per: 4,
+    set: 'optimistSet',
+  },
+  pottersApron: {
+    str: 8,
+    set: 'pottersSet',
+  },
+  yellowStripedSwimsuit: {
+    con: 13,
+    set: 'beachsideSet',
+  },
+  blueStripedSwimsuit: {
+    con: 13,
+    set: 'beachsideSet',
+  },
 };
 
 const body = {
@@ -540,6 +561,10 @@ const eyewear = {
   jewelersEyeLoupe: {
     per: 10,
     set: 'jewelers',
+  },
+  roseColoredGlasses: {
+    per: 8,
+    set: 'optimistSet',
   },
 };
 
@@ -959,6 +984,14 @@ const head = {
     con: 5,
     set: 'whiteLoungeWear',
   },
+  hattersTopHat: {
+    per: 10,
+    set: 'hatterSet',
+  },
+  pottersBandana: {
+    int: 8,
+    set: 'pottersSet',
+  },
 };
 
 const shield = {
@@ -1290,6 +1323,25 @@ const shield = {
     int: 6,
     per: 6,
     set: 'whiteLoungeWear',
+  },
+  hattersPocketWatch: {
+    int: 9,
+    set: 'hatterSet',
+  },
+  happyThoughts: {
+    int: 4,
+    per: 4,
+    con: 4,
+    str: 4,
+    set: 'optimistSet',
+  },
+  thrownVessel: {
+    con: 8,
+    set: 'pottersSet',
+  },
+  buoyantBeachBall: {
+    str: 12,
+    set: 'beachsideSet',
   },
 };
 
@@ -1760,6 +1812,23 @@ const weapon = {
     int: 10,
     set: 'schoolUniform',
   },
+  hattersShears: {
+    str: 10,
+    set: 'hatterSet',
+  },
+  optimistsClover: {
+    str: 4,
+    con: 4,
+    set: 'optimistSet',
+  },
+  pottersWheel: {
+    per: 8,
+    set: 'pottersSet',
+  },
+  shadyBeachUmbrella: {
+    per: 12,
+    set: 'beachsideSet',
+  },
 };
 
 const releaseDates = {
@@ -1768,6 +1837,10 @@ const releaseDates = {
   greenTrapper: '2023-12-05T08:00-05:00',
   schoolUniform: '2024-01-04T08:00-05:00',
   whiteLoungeWear: '2024-02-06T08:00-05:00',
+  hatterSet: '2024-03-05T08:00-05:00',
+  optimistSet: '2024-04-04T08:00-04:00',
+  pottersSet: '2024-05-07T08:00-04:00',
+  beachsideSet: '2024-06-06T08:00-04:00',
 };
 
 forEach({

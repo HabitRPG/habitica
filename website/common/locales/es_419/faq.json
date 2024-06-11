@@ -55,5 +55,8 @@
     "iosFaqStillNeedHelp": "Si tienes una pregunta que no se encuentra en la lista o en las [Preguntas Frecuentes de la Wiki](https://habitica.fandom.com/wiki/FAQ), ¡pregúntanos en el chat de la Taberna en Menú > Taberna! Estaremos encantados de ayudarte.",
     "androidFaqStillNeedHelp": "Si tienes alguna pregunta que no esté en la lista o en las [preguntas frecuentes de la Wiki](https://habitica.fandom.com/wiki/FAQ), ¡ven a preguntar al chat de la Taberna, bajo el Menú > Taberna! Estaremos encantados de ayudar.",
     "webFaqStillNeedHelp": "Si tienes una pregunta que no está en esta lista o en [Wiki FAQ](https://habitica.fandom.com/wiki/FAQ), ¡ven y pregunta en el [gremio Habitica Help](https://habitica.com/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a)! Estamos felices de ayudar.",
-    "general": "Información general"
+    "general": "Información general",
+    "commonQuestions": "Preguntas Comunes",
+    "faqQuestion25": "Cuales son los diferentes tipos de tareas?",
+    "faqQuestion26": "¿Cuáles son algunas tareas de ejemplo?"
 }

@@ -115,5 +115,6 @@
     "cannotClone": "Este Desafío no puede cerrarse porque uno o más jugadores lo han marcado como inapropiado. Un miembro del Personal te contactará pronto con instrucciones. Si han pasado más de 48 horas y no has recibido noticias de ellos, envía un correo a admin@habitica.com para solicitar ayuda.",
     "resetFlags": "Reiniciar marcas",
     "cannotClose": "Este Desafío no puede cerrarse porque uno o más jugadores lo han marcado como inapropiado. Un miembro del Personal te contactará pronto con instrucciones. Si han pasado más de 48 horas y no has recibido noticias de ellos, envía un correo a admin@habitica.com para solicitar ayuda.",
-    "cannotMakeChallenge": "No puedes crear un Desafío público porque tu cuenta no tiene privilegios de chat en este momento. Envía un mensaje a admin@habitica.com para obtener más información."
+    "cannotMakeChallenge": "No puedes crear un Desafío público porque tu cuenta no tiene privilegios de chat en este momento. Envía un mensaje a admin@habitica.com para obtener más información.",
+    "messageChallengeFlagOfficial": "Los Desafíos Oficiales no se pueden notificar."
 }

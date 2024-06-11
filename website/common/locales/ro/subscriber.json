@@ -120,7 +120,7 @@
     "paypalCanceled": "Abonarea ta a fost dezactivată",
     "choosePaymentMethod": "Alege metoda de plată",
     "buyGemsSupportsDevs": "Cumpărarea nestematelor îi ajută pe programator și ajută la păstrarea Habitica în funcțiune",
-    "support": "SUPORT",
+    "support": "Suport",
     "gemBenefitLeadin": "Ce poți cumpăra cu Nestematele?",
     "gemBenefit1": "Costume unice și la modă pentru avatarul tău.",
     "gemBenefit2": "Fundaluri pentru a-ți introduce avatarul în lumea Habitica!",
@@ -132,8 +132,8 @@
     "subscriptionBenefit5": "Receive the Royal Purple Jackalope pet when you become a new subscriber.",
     "subscriptionBenefit6": "Earn Mystic Hourglasses to purchase items in the Time Traveler’s Shop!",
     "purchaseAll": "Purchase Set",
-    "gemsRemaining": "Gems remaining",
-    "notEnoughGemsToBuy": "You are unable to buy that amount of Gems",
+    "gemsRemaining": "Nestemate rămase",
+    "notEnoughGemsToBuy": "Nu mai există nestemate disponibile pentru achiziționare în această lună. Mai multe vor vi disponibile în primele 3 zile fiecărei luni.",
     "backgroundAlreadyOwned": "Background already owned.",
     "mysterySet202001": "Fabled Fox Set",
     "mysterySet201912": "Polar Pixie Set",
@@ -153,7 +153,7 @@
     "needToUpdateCard": "Need to update your card?",
     "subMonths": "Sub Months",
     "subscriptionStats": "Subscription Stats",
-    "subscriptionInactiveDate": "Your subscription benefits will become inactive on <strong><%= date %></strong>",
+    "subscriptionInactiveDate": "Your subscription benefits will become inactive on <br><strong><%= date %></strong>",
     "subscriptionCanceled": "Your subscription is canceled",
     "youAreSubscribed": "You are subscribed to Habitica",
     "doubleDropCap": "Double the Drops",
@@ -169,5 +169,5 @@
     "giftASubscription": "Gift a Subscription",
     "viewSubscriptions": "View Subscriptions",
     "organization": "Organizație",
-    "mysterySet202202": ""
+    "mysterySet202202": "Set de cozi turcoaz gemene"
 }
