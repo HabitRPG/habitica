@@ -5,50 +5,28 @@ import {
   expectValidTranslationString,
 } from '../helpers/content.helper';
 
-import hatchingPotions from '../../website/common/script/content/hatching-potions';
+import * as hatchingPotions from '../../website/common/script/content/hatching-potions';
 
 describe('hatchingPotions', () => {
-  let clock;
+  describe('all', () => {
+    it('is a combination of drop, premium, and wacky potions', () => {
+      const dropNumber = Object.keys(hatchingPotions.drops).length;
+      const premiumNumber = Object.keys(hatchingPotions.premium).length;
+      const wackyNumber = Object.keys(hatchingPotions.wacky).length;
+      const allNumber = Object.keys(hatchingPotions.all).length;
 
-  afterEach(() => {
-    if (clock) {
-      clock.restore();
-    }
-  });
+      expect(allNumber).to.be.greaterThan(0);
+      expect(allNumber).to.equal(dropNumber + premiumNumber + wackyNumber);
+    });
 
-  const potionTypes = [
-    'drops',
-    'quests',
-    'premium',
-    'wacky',
-  ];
-  potionTypes.forEach(potionType => {
-    describe(potionType, () => {
-      it('contains basic information about each potion', () => {
-        each(hatchingPotions.all, (potion, key) => {
-          expectValidTranslationString(potion.text);
-          expectValidTranslationString(potion.notes);
-          expect(potion.canBuy).to.be.a('function');
-          expect(potion.value).to.be.a('number');
-          expect(potion.key).to.equal(key);
-        });
+    it('contains basic information about each potion', () => {
+      each(hatchingPotions.all, (potion, key) => {
+        expectValidTranslationString(potion.text);
+        expectValidTranslationString(potion.notes);
+        expect(potion.canBuy).to.be.a('function');
+        expect(potion.value).to.be.a('number');
+        expect(potion.key).to.equal(key);
       });
     });
-  });
-
-  it('does not contain unreleased potions', () => {
-    clock = sinon.useFakeTimers(new Date('2024-05-20'));
-    const premiumPotions = hatchingPotions.premium;
-    expect(premiumPotions.Koi).to.not.exist;
-  });
-
-  it('Releases potions when appropriate without needing restarting', () => {
-    clock = sinon.useFakeTimers(new Date('2024-05-20'));
-    const mayPotions = hatchingPotions.premium;
-    clock.restore();
-    clock = sinon.useFakeTimers(new Date('2024-06-20'));
-    const junePotions = hatchingPotions.premium;
-    expect(junePotions.Koi).to.exist;
-    expect(Object.keys(mayPotions).length).to.equal(Object.keys(junePotions).length - 1);
   });
 });

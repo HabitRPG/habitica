@@ -7,7 +7,7 @@ import {
 import QUEST_PETS from '../../website/common/script/content/quests/pets';
 import QUEST_HATCHINGPOTIONS from '../../website/common/script/content/quests/potions';
 import QUEST_BUNDLES from '../../website/common/script/content/bundles';
-import potions from '../../website/common/script/content/hatching-potions';
+import { premium } from '../../website/common/script/content/hatching-potions';
 import SPELLS from '../../website/common/script/content/spells';
 import QUEST_SEASONAL from '../../website/common/script/content/quests/seasonal';
 
@@ -167,10 +167,10 @@ describe('Content Schedule', () => {
     });
 
     it('premium hatching potions', () => {
-      const potionKeys = Object.keys(potions.premium);
+      const potionKeys = Object.keys(premium);
       Object.keys(MONTHLY_SCHEDULE).forEach(key => {
-        const monthlyPotions = MONTHLY_SCHEDULE[key][21].find(item => item.type === 'premiumHatchingPotions');
-        for (const potion of monthlyPotions.items) {
+        const potions = MONTHLY_SCHEDULE[key][21].find(item => item.type === 'premiumHatchingPotions');
+        for (const potion of potions.items) {
           expect(potion).to.be.a('string');
           expect(potionKeys).to.include(potion);
         }
