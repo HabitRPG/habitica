@@ -1,7 +1,10 @@
-import assign from 'lodash/assign';
 import defaults from 'lodash/defaults';
 import each from 'lodash/each';
+import { assign } from 'lodash';
 import t from './translation';
+import datedMemoize from '../fns/datedMemoize';
+import { filterReleased } from './is_released';
+import { HATCHING_POTIONS_RELEASE_DATES } from './constants/release_dates';
 
 function hasQuestAchievementFunction (key) {
   return user => user.achievements.quests && user.achievements.quests[key] > 0;
@@ -193,8 +196,23 @@ each(wacky, (pot, key) => {
   });
 });
 
-const all = assign({}, drops, premium, wacky);
+function filterEggs (eggs) {
+  return filterReleased(eggs, 'key', HATCHING_POTIONS_RELEASE_DATES);
+}
 
-export {
-  drops, premium, wacky, all,
+const memoizedFilter = datedMemoize(filterEggs);
+
+export default {
+  get drops () {
+    return memoizedFilter({ memoizeConfig: true, identifier: 'drops' }, drops);
+  },
+  get premium () {
+    return memoizedFilter({ memoizeConfig: true, identifier: 'premium' }, premium);
+  },
+  get wacky () {
+    return memoizedFilter({ memoizeConfig: true, identifier: 'wacky' }, wacky);
+  },
+  get all () {
+    return assign({}, this.drops, this.premium, this.wacky);
+  },
 };
