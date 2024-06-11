@@ -69,9 +69,11 @@ function filterFile (file) {
 
 async function createSpritesStream (name, src) {
   const stream = mergeStream();
-  const filter = await import('gulp-filter');
+  // need to import this way bc of weird dependency things
+  // eslint-disable-next-line global-require
+  const filter = require('gulp-filter');
 
-  const f = filter.default(filterFile);
+  const f = filter(filterFile);
 
   const spriteData = gulp.src(src)
     .pipe(f)
@@ -94,7 +96,7 @@ async function createSpritesStream (name, src) {
 
 gulp.task('sprites:main', async () => {
   const mainSrc = sync('habitica-images/**/*.png');
-  return await createSpritesStream('main', mainSrc);
+  return createSpritesStream('main', mainSrc);
 });
 
 gulp.task('sprites:clean', done => {
