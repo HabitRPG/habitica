@@ -39,7 +39,7 @@ envVars
   });
 
 const webpackPlugins = [
-  new webpack.ProvidePlugin({'window.jQuery': 'jquery'}),
+  new webpack.ProvidePlugin({ 'window.jQuery': 'jquery' }),
   new webpack.DefinePlugin(envObject),
   new webpack.ContextReplacementPlugin(/moment[\\/]locale$/, /^\.\/(NOT_EXISTING)$/),
 ];
