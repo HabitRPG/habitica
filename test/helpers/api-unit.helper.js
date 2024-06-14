@@ -59,7 +59,17 @@ export function generateReq (options = {}) {
     header (header) {
       return this.headers[header];
     },
+    listeners: {},
     session: {},
+    on (key, func) {
+      if (!this.listeners[key]) {
+        this.listeners[key] = [];
+      }
+      this.listeners[key].push(func);
+    },
+    end () {
+      this.listeners.close.forEach(func => func());
+    },
   };
 
   const req = defaultsDeep(options, defaultReq);
