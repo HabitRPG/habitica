@@ -54,7 +54,7 @@
     "complete": "完了",
     "complete2": "完了",
     "today": "今日",
-    "dueIn": "期限: <%= dueIn %>",
+    "dueIn": "期限：<%= dueIn %>",
     "due": "期限",
     "notDue": "期限なし",
     "grey": "無効",

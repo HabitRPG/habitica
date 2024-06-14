@@ -1,7 +1,7 @@
 {
     "tavern": "선술집 채팅",
     "tavernChat": "Tavern Chat",
-    "innCheckOutBanner": "You are currently checked into the Inn. Your Dailies won't damage you and you won't make progress towards Quests.",
+    "innCheckOutBanner": "현재 피해가 일시 중지되었습니다. 일일 퀘스트가 당신에게 피해를 주지 않으며, 퀘스트 진행도 되지 않습니다.",
     "innCheckOutBannerShort": "You are checked into the Inn.",
     "resumeDamage": "Resume Damage",
     "helpfulLinks": "Helpful Links",
