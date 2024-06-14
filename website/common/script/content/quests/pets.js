@@ -232,6 +232,38 @@ const QUEST_PETS = {
       unlock: t('questButterflyUnlockText'),
     },
   },
+  chameleon: {
+    text: t('questChameleonText'),
+    notes: t('questChameleonNotes'),
+    completion: t('questChameleonCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questChameleonBoss'),
+      hp: 400,
+      str: 1.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Chameleon',
+          text: t('questChameleonDropChameleonEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Chameleon',
+          text: t('questChameleonDropChameleonEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Chameleon',
+          text: t('questChameleonDropChameleonEgg'),
+        },
+      ],
+    },
+    gp: 35,
+    xp: 250,
+    unlock: t('questChameleonUnlockText'),
+  },
   cheetah: {
     text: t('questCheetahText'),
     notes: t('questCheetahNotes'),

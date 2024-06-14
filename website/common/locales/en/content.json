@@ -255,6 +255,10 @@
   "questEggGiraffeMountText": "Giraffe",
   "questEggGiraffeAdjective": "a towering",
 
+  "questEggChameleonText": "Chameleon",
+  "questEggChameleonMountText": "Chameleon",
+  "questEggChameleonAdjective": "a chaotic",
+
   "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
 
   "hatchingPotionBase": "Base",
