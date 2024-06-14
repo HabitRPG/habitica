@@ -197,6 +197,7 @@
         v-for="mountGroup in mountGroups"
         v-if="!anyFilterSelected || viewOptions[mountGroup.key].selected"
         :key="mountGroup.key"
+        :class="{ hide: viewOptions[mountGroup.key].animalCount === 0 }"
       >
         <!-- eslint-enable vue/no-use-v-if-with-v-for -->
         <h4 v-if="viewOptions[mountGroup.key].animalCount != 0">
