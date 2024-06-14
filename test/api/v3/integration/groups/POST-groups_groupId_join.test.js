@@ -178,6 +178,15 @@ describe('POST /group/:groupId/join', () => {
         await expect(invitedUser.get('/user')).to.eventually.not.have.nested.property('invitations.parties[0].id');
       });
 
+      it('clears party.seeking from user when joining party', async () => {
+        await invitedUser.updateOne({ 'party.seeking': new Date() });
+        await invitedUser.post(`/groups/${party._id}/join`);
+
+        const updatedUser = await invitedUser.get('/user');
+
+        await expect(updatedUser.party.seeking).to.not.exist;
+      });
+
       it('increments memberCount when joining party', async () => {
         const oldMemberCount = party.memberCount;
 

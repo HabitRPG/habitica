@@ -21,6 +21,7 @@ const RATE_LIMITER_ENABLED = nconf.get('RATE_LIMITER_ENABLED') === 'true';
 const REDIS_HOST = nconf.get('REDIS_HOST');
 const REDIS_PASSWORD = nconf.get('REDIS_PASSWORD');
 const REDIS_PORT = nconf.get('REDIS_PORT');
+const LIVELINESS_PROBE_KEY = nconf.get('LIVELINESS_PROBE_KEY');
 
 let redisClient;
 let rateLimiter;
@@ -71,6 +72,7 @@ function setResponseHeaders (res, rateLimiterRes) {
 
 export default function rateLimiterMiddleware (req, res, next) {
   if (!RATE_LIMITER_ENABLED) return next();
+  if (LIVELINESS_PROBE_KEY && req.query.liveliness === LIVELINESS_PROBE_KEY) return next();
 
   const userId = req.header('x-api-user');
 

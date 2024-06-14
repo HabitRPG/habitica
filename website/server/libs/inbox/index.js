@@ -13,7 +13,7 @@ export async function sentMessage (sender, receiver, message, translate) {
   }
 
   if (receiver.preferences.pushNotifications.newPM !== false && messageSent.unformattedText) {
-    sendPushNotification(
+    await sendPushNotification(
       receiver,
       {
         title: translate(

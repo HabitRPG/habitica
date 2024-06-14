@@ -403,7 +403,7 @@ schema.methods.closeChal = async function closeChal (broken = {}) {
       ]);
     }
     if (savedWinner.preferences.pushNotifications.wonChallenge !== false) {
-      sendPushNotification(
+      await sendPushNotification(
         savedWinner,
         {
           title: challenge.name,

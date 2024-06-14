@@ -432,6 +432,7 @@ api.updateEmail = {
     }
 
     user.auth.local.email = req.body.newEmail.toLowerCase();
+    user.auth.local.passwordResetCode = undefined;
     await user.save();
 
     return res.respond(200, { email: user.auth.local.email });

@@ -16,12 +16,12 @@ import {
   model as Group,
 } from '../../models/group';
 
-function sendInvitePushNotification (userToInvite, groupLabel, group, publicGuild, res) {
+async function sendInvitePushNotification (userToInvite, groupLabel, group, publicGuild, res) {
   if (userToInvite.preferences.pushNotifications[`invited${groupLabel}`] === false) return;
 
   const identifier = group.type === 'guild' ? 'invitedGuild' : 'invitedParty';
 
-  sendPushNotification(
+  await sendPushNotification(
     userToInvite,
     {
       title: group.name,
@@ -110,7 +110,7 @@ async function addInvitationToUser (userToInvite, group, inviter, res) {
 
   const groupLabel = group.type === 'guild' ? 'Guild' : 'Party';
   sendInviteEmail(userToInvite, groupLabel, group, inviter);
-  sendInvitePushNotification(userToInvite, groupLabel, group, publicGuild, res);
+  await sendInvitePushNotification(userToInvite, groupLabel, group, publicGuild, res);
 
   const userInvited = await userToInvite.save();
   if (group.type === 'guild') {

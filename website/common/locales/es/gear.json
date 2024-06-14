@@ -3124,5 +3124,19 @@
     "backMystery202405Notes": "Estas majestuosas alas poseen el brillo del oro puro pero son ligeras como una pluma. No otorga ningún beneficio. Artículo de Suscriptor Mayo 2024.",
     "headAccessoryMystery202405Text": "Cuernos de Draco de Oropel",
     "headAccessoryMystery202405Notes": "El resplandor metalizado de estos estilizados cuernos refleja el baile de colores del fuego de dragón. No otorga ningún beneficio. Artículo de Suscriptor Mayo 2024.",
-    "weaponArmoirePottersWheelNotes": "Pon algo de arcilla en este torno y haz una bonita vasija o una taza o un jarrón o quizás, por que no una vasija estrambótica. ¡Si tienes suerte, un fantasma podría visitarte en plena apoteosis creativa! Aumenta la Percepción en <%= per %>. Armario Encantado: Conjunto de Alfarero (Artículo 4 de 4)."
+    "weaponArmoirePottersWheelNotes": "Pon algo de arcilla en este torno y haz una bonita vasija o una taza o un jarrón o quizás, por que no una vasija estrambótica. ¡Si tienes suerte, un fantasma podría visitarte en plena apoteosis creativa! Aumenta la Percepción en <%= per %>. Armario Encantado: Conjunto de Alfarero (Artículo 4 de 4).",
+    "armorMystery202406Notes": "¡Hostiga cruelmente a tus enemigos con estilo y elegancia! No otorga ningún beneficio. Artículo de Suscriptor Junio 2024.",
+    "armorArmoireYellowStripedSwimsuitText": "Clásico Bañador de Rallas Amarillas",
+    "armorArmoireYellowStripedSwimsuitNotes": "¿Qué podría hacer que te regodearas y disfrutaras más que una batalla marina contra horripilantes criaturas salidas de las profundidades desde la comodidad de la playa? Aumenta la Constitución en <%= con %>. Armario Encantado: Conjunto a Pie de Playa (Artículo 1 de 4).",
+    "shieldArmoireBuoyantBeachBallNotes": "¿Tratando de mantener demasiadas pelotas en el aire al mismo tiempo? Puede que esto ayude, aquí tienes una que puedes dejar caer, hacerla rodar y rebotar una y otra vez...  Aumenta la Fuerza en <%= str %>. Armario Encantado: Conjunto a Pie de Playa (Artículo 4 de 4).",
+    "weaponArmoireShadyBeachUmbrellaNotes": "La sombra de esta sombrilla de color arcoíris te protege por breves periodos del potente astro rey y de otras molestias indeseadas. Aumenta la Percepción en <%= per %>. Armario Encantado: Conjunto a Pie de Playa (Artículo 3 de 4).",
+    "armorArmoireBlueStripedSwimsuitNotes": "¿Qué hacer que te regodearas y disfrutaras más que una batalla marina contra horripilantes criaturas salidas de las profundidades desde la comodidad de la playa? Aumenta la Constitución en <%= con %>. Armario Encantado: Conjunto a Pie de Playa (Artículo 2 de 4).",
+    "eyewearMystery202406Text": "Máscara de Bucanero Fantasmal",
+    "eyewearMystery202406Notes": "Intenta evitar que una pandilla de mocosos entrometidos y su estrambótico perro parlante te quiten esta máscara. No otorga ningún beneficio. Artículo de Suscriptor Junio 2024.",
+    "armorMystery202406Text": "Atuendo de Bucanero Fantasmal",
+    "weaponArmoireShadyBeachUmbrellaText": "Sombrilla de Playa",
+    "armorArmoireBlueStripedSwimsuitText": "Clásico Bañador de Rallas Azules",
+    "headMystery202406Notes": "Las fantasmales plumas que adornan este sombrero brillan pálidamente, recuerdan las espectrales olas del mar de la desesperación. No otorga ningún beneficio. Artículo de Suscriptor Junio 2024.",
+    "headMystery202406Text": "Sombrero de Bucanero Fantasmal",
+    "shieldArmoireBuoyantBeachBallText": "Balón de Playa"
 }

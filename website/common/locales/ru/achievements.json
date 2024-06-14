@@ -157,5 +157,13 @@
     "achievementRoughRider": "Грубый наездник",
     "achievementRoughRiderText": "Выпали все основные цвета неудобных питомцев и скакунов: Кактус, Еж и Камень!",
     "achievementDuneBuddyText": "Выпали все стандартные окрасы пустынных питомцев: Броненосец, Кактус, Лиса, Лягушка, Змея и Паук!",
-    "achievementDuneBuddy": "Друг пустыни"
+    "achievementDuneBuddy": "Друг пустыни",
+    "achievementDuneBuddyModalText": "Вы собрали всех пустынных питомцев!",
+    "achievementRodentRulerText": "Выведены все стандартные расцветки питомцев-грызунов: Морская свинка, Крыса и Белка!",
+    "achievementRoughRiderModalText": "Вы собрали все основные цвета неуклюжих питомцев и скакунов!",
+    "achievementRodentRuler": "Владыка грызунов",
+    "achievementRodentRulerModalText": "Вы собрали всех питомцев-грызунов!",
+    "achievementCats": "Кот-пастух",
+    "achievementCatsText": "Выведены все стандартные расцветки питомцев-котов: Гепард, Лев, Саблезубый кот и Тигр!",
+    "achievementCatsModalText": "Вы собрали всех питомцев-котов!"
 }

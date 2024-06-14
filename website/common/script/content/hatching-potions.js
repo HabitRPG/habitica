@@ -140,6 +140,12 @@ const wacky = {
     questPotion: true,
     canBuy: hasQuestAchievementFunction('fungi'),
   },
+  Fungi: {
+    text: t('hatchingPotionFungi'),
+    limited: true,
+    _addlNotes: t('premiumPotionUnlimitedNotes'),
+    canBuy: hasQuestAchievementFunction('fungi'),
+  },
 };
 
 each(drops, (pot, key) => {

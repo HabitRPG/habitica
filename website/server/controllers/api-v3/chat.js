@@ -214,7 +214,7 @@ api.postChat = {
       });
     }
 
-    const newChatMessage = group.sendChat({
+    const newChatMessage = await group.sendChat({
       message,
       user,
       flagCount,
@@ -295,7 +295,7 @@ api.likeChat = {
     const group = await Group.getGroup({ user, groupId });
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    const message = await Chat.findOne({ _id: req.params.chatId }).exec();
+    const message = await Chat.findOne({ _id: req.params.chatId, groupId: group._id }).exec();
     if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
     if (!message.likes) message.likes = {};
 
