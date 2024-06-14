@@ -239,5 +239,6 @@
   "whyReportingPlayer": "Why are you reporting this player?",
   "whyReportingPlayerPlaceholder": "Reason for report",
   "playerReportModalBody": "You should only report a player who violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Submitting a false report is a violation of Habitica’s Community Guidelines.",
-  "targetUserNotExist": "Target User: '<%= userName %>' not exists."
+  "targetUserNotExist": "Target User: '<%= userName %>' not exists.",
+  "rememberToBeKind": "Please remember to be kind, respectful, and follow the <a href='/static/community-guidelines' target='_blank'>Community Guidelines</a>."
 }

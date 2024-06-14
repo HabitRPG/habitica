@@ -160,12 +160,12 @@ export default {
       type: Object,
     },
     width: {
-      type: Number,
-      default: 140,
+      type: String,
+      default: '140px',
     },
     height: {
-      type: Number,
-      default: 147,
+      type: String,
+      default: '147px',
     },
     spritesMargin: {
       type: String,

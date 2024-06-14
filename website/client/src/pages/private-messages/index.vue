@@ -90,11 +90,12 @@
           :disabled-texts="disabledTexts"
         />
         <pm-new-message-started
-          v-if="uiState === UI_STATES.START_NEW_CONVERSATION && newConversationTargetUser"
+          v-if="uiState === UI_STATES.START_NEW_CONVERSATION && selectedConversation.userStyles"
+          :member-obj="selectedConversation.userStyles"
         />
 
         <div
-          v-if="filtersConversations.length !== 0 && !selectedConversation.key"
+          v-if="uiState === UI_STATES.NO_CONVERSATIONS_SELECTED"
           class="empty-messages full-height m-auto text-center"
         >
           <div class="no-messages-box">
@@ -107,20 +108,7 @@
             <p v-html="placeholderTexts.description"></p>
           </div>
         </div>
-        <div
-          v-if="selectedConversation.key && selectedConversationMessages.length === 0"
-          class="empty-messages full-height mt-auto text-center"
-        >
-          <avatar
-            v-if="selectedConversation.userStyles"
-            :member="selectedConversation.userStyles"
-            :avatar-only="true"
-            sprites-margin="0 0 0 -45px"
-            class="center-avatar"
-          />
-          <h3>{{ $t('beginningOfConversation', {userName: selectedConversation.name}) }}</h3>
-          <p>{{ $t('beginningOfConversationReminder') }}</p>
-        </div>
+
         <messageList
           v-if="selectedConversation && selectedConversationMessages.length > 0"
           ref="chatscroll"
@@ -165,7 +153,7 @@
               :class="{'disabled':newMessageDisabled || newMessage === ''}"
               @click="sendPrivateMessage()"
             >
-              {{ $t('send') }}
+              {{ $t('sendMessage') }}
             </button>
           </div>
         </div>
@@ -175,112 +163,112 @@
 </template>
 
 <style lang="scss">
-@import '~@/assets/scss/colors';
-@import '~@/assets/scss/variables';
+  @import '~@/assets/scss/colors';
+  @import '~@/assets/scss/variables';
 
-$pmHeaderHeight: 56px;
+  $pmHeaderHeight: 56px;
 
-// Content of Private Message should be always full-size (minus the toolbar/resting banner)
+  // Content of Private Message should be always full-size (minus the toolbar/resting banner)
 
-#private-message {
-  height: calc(100vh - #{$menuToolbarHeight} -
-  var(--banner-gift-promo-height, 0px) -
-  var(--banner-damage-paused-height, 0px) -
-  var(--banner-gems-promo-height, 0px)
-  ); // css variable magic :), must be 0px, 0 alone won't work
-
-  .content {
-    flex: 1;
-    height: calc(100vh - #{$menuToolbarHeight} - #{$pmHeaderHeight} -
+  #private-message {
+    height: calc(100vh - #{$menuToolbarHeight} -
     var(--banner-gift-promo-height, 0px) -
     var(--banner-damage-paused-height, 0px) -
     var(--banner-gems-promo-height, 0px)
-    );
-  }
+    ); // css variable magic :), must be 0px, 0 alone won't work
 
-  .disable-background {
-    .toggle-switch-description {
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
+    .content {
       flex: 1;
+      height: calc(100vh - #{$menuToolbarHeight} - #{$pmHeaderHeight} -
+      var(--banner-gift-promo-height, 0px) -
+      var(--banner-damage-paused-height, 0px) -
+      var(--banner-gems-promo-height, 0px)
+      );
     }
 
-    .toggle-switch-outer {
-      display: flex;
+    .disable-background {
+      .toggle-switch-description {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        flex: 1;
+      }
+
+      .toggle-switch-outer {
+        display: flex;
+      }
+
     }
 
-  }
-
-  .modal-body {
-    padding: 0rem;
-  }
-
-  .modal-content {
-    width: 66vw;
-  }
-
-  .modal-dialog {
-    margin: 10vh 15vw 0rem;
-  }
-
-  .modal-header {
-    padding: 1rem 0rem;
-
-    .close {
-      cursor: pointer;
-      margin: 0rem 1.5rem;
-      min-width: 0.75rem;
+    .modal-body {
       padding: 0rem;
-      width: 0.75rem;
-    }
-  }
-
-  .toggle-switch-description {
-    font-size: 14px;
-    font-weight: bold;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: 1.43;
-    letter-spacing: normal;
-    color: $gray-50;
-  }
-
-  .empty-messages {
-    flex-flow: column;
-    justify-content: center;
-
-    h3, p {
-      color: $gray-200;
-      margin: 0rem;
     }
 
-    h2 {
-      color: $gray-200;
-      margin-bottom: 1rem;
+    .modal-content {
+      width: 66vw;
     }
 
-    p {
-      font-size: 12px;
+    .modal-dialog {
+      margin: 10vh 15vw 0rem;
     }
 
-    .no-messages-box {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 330px;
+    .modal-header {
+      padding: 1rem 0rem;
+
+      .close {
+        cursor: pointer;
+        margin: 0rem 1.5rem;
+        min-width: 0.75rem;
+        padding: 0rem;
+        width: 0.75rem;
+      }
     }
 
-    .envelope {
-      color: $gray-400 !important;
+    .toggle-switch-description {
+      font-size: 14px;
+      font-weight: bold;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.43;
+      letter-spacing: normal;
+      color: $gray-50;
+    }
 
-      svg {
-        width: 86px;
-        height: 64px;
+    .empty-messages {
+      flex-flow: column;
+      justify-content: center;
+
+      h3, p {
+        color: $gray-200;
+        margin: 0rem;
+      }
+
+      h2 {
+        color: $gray-200;
+        margin-bottom: 1rem;
+      }
+
+      p {
+        font-size: 12px;
+      }
+
+      .no-messages-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 330px;
+      }
+
+      .envelope {
+        color: $gray-400 !important;
+
+        svg {
+          width: 86px;
+          height: 64px;
+        }
       }
     }
   }
-}
 </style>
 
 <style lang="scss" scoped>
@@ -459,9 +447,10 @@ h3 {
   }
 
   button {
-    height: 40px;
-    border-radius: 2px;
+    height: 32px;
+    border-radius: 4px;
     margin-left: 1.5rem;
+    white-space: nowrap;
 
     &.disabled {
       cursor: default;
@@ -540,7 +529,6 @@ import messageList from '@/components/messages/messageList.vue';
 import messageIcon from '@/assets/svg/message.svg';
 import mail from '@/assets/svg/mail.svg';
 import faceAvatar from '@/components/faceAvatar.vue';
-import Avatar from '@/components/avatar.vue';
 import { EVENTS } from '@/libs/events';
 import PmConversationsList from './pm-conversations-list.vue';
 import PmEmptyState from './pm-empty-state.vue';
@@ -569,7 +557,6 @@ export default defineComponent({
     PmDisabledState,
     PmEmptyState,
     PmConversationsList,
-    Avatar,
     messageList,
     toggleSwitch,
     userLink,
@@ -730,6 +717,9 @@ export default defineComponent({
         description: this.$t('PMPlaceholderDescription'),
       };
     },
+    /**
+     * Any value return, switches the uiState to DISABLED
+     */
     disabledTexts () {
       if (this.user.flags.chatRevoked) {
         return {
@@ -782,16 +772,15 @@ export default defineComponent({
       return '';
     },
     newMessageDisabled () {
-      return !this.selectedConversation || !this.selectedConversation.key
-        || this.disabledTexts !== null;
+      return [
+        UI_STATES.NO_CONVERSATIONS_SELECTED,
+        UI_STATES.DISABLED,
+        UI_STATES.NO_CONVERSATIONS,
+      ].includes(this.uiState);
     },
     uiState () {
       if (this.disabledTexts) {
         return UI_STATES.DISABLED;
-      }
-
-      if (this.newConversationTargetUser) {
-        return UI_STATES.START_NEW_CONVERSATION;
       }
 
       if (this.loadedConversations.length === 0) {
@@ -802,7 +791,9 @@ export default defineComponent({
         return UI_STATES.NO_CONVERSATIONS_SELECTED;
       }
 
-      // TODO start new conversation
+      if (this.selectedConversationMessages.length === 0) {
+        return UI_STATES.START_NEW_CONVERSATION;
+      }
 
       return UI_STATES.CONVERSATION_SELECTED;
     },
@@ -1057,38 +1048,39 @@ export default defineComponent({
 
       // otherwise create a dummy conversation, load messages for that user
       /**
-       * @type {PrivateMessages.ConversationEntry}
+       * @type {PrivateMessages.ConversationSummaryMessageEntry}
        */
       const newConversationItem = {
-        key: loadedMemberUUID,
-        name: loadedMember.user,
-        username: loadedMember.username,
-        backer: loadedMember.backer,
+        uuid: loadedMemberUUID,
+        user: loadedMember.profile.name,
+        username: loadedMember.auth.local.username,
         contributor: loadedMember.contributor,
-        userStyles: loadedMember.userStyles,
-        page: 0,
-        canLoadMore: true,
-        canReceive: true,
-        lastMessageText: '',
+        userStyles: loadedMember,
+        canReceive: loadedMember.inbox.canReceive,
+        timestamp: new Date(),
+        count: 0,
+        text: '',
       };
-      this.selectedConversation = newConversationItem;
+
+      this.loadedConversations.splice(0, 0, newConversationItem);
 
       this.selectConversation(loadedMemberUUID);
 
-      await this.loadMessages();
+      if (this.messagesByConversation[loadedMemberUUID]) {
+        const messageLengthByConversation = this.messagesByConversation[loadedMemberUUID].length;
 
-      const messageLengthByConversation = this.messagesByConversation[loadedMemberUUID].length;
+        // if messages already exists, update the sidebar entry last message
+        if (messageLengthByConversation > 0) {
+          /** @type {PrivateMessages.PrivateMessageEntry} */
+          const lastMessage = this.messagesByConversation[loadedMemberUUID][messageLengthByConversation - 1];
 
-      // if messages already exists, update the sidebar entry last message
-      if (messageLengthByConversation > 0) {
-        /** @type {PrivateMessages.PrivateMessageEntry} */
-        const lastMessage = this.messagesByConversation[loadedMemberUUID][messageLengthByConversation - 1];
+          newConversationItem.lastMessageText = lastMessage.text;
 
-        newConversationItem.lastMessageText = lastMessage.text;
-      } else {
-        // TODO new conversation mode, maybe use the full object here?
-        this.newConversationTargetUser = targetUserName;
+          return;
+        }
       }
+
+      this.newConversationTargetUser = loadedMember;
     },
   },
 });

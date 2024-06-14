@@ -10,12 +10,13 @@
       class="mx-2"
       placeholder="@user"
       autofocus
+      @keyup.enter="!preventTrigger && triggerNewConversation()"
     >
 
     <button
       class="btn btn-primary"
-      :disabled="!targetUserInputValue.includes('@') || targetUserInputValue.length < 2"
-      @click="$emit('startNewConversation', $refs.targetUserInput.value.replace('@', ''))"
+      :disabled="preventTrigger"
+      @click="triggerNewConversation()"
     >
       {{ $t('confirm') }}
     </button>
@@ -63,8 +64,19 @@ export default {
       targetUserInputValue: '',
     };
   },
+  computed: {
+    preventTrigger () {
+      return !this.targetUserInputValue.includes('@')
+        || this.targetUserInputValue.length < 2;
+    },
+  },
   mounted () {
     this.$refs.targetUserInput.focus();
+  },
+  methods: {
+    triggerNewConversation () {
+      this.$emit('startNewConversation', this.$refs.targetUserInput.value.replace('@', ''));
+    },
   },
 };
 </script>
