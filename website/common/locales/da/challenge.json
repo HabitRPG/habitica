@@ -53,7 +53,7 @@
     "challengeNotFound": "Udfordringen findes ikke, eller du har ikke adgang.",
     "onlyLeaderDeleteChal": "Kun udfordringslederen kan slette den.",
     "onlyLeaderUpdateChal": "Kun udfordringslederen kan opdatere den.",
-    "winnerNotFound": "Vinder med ID  \"<%= userId %>\" blev ikke fundet, eller er ikke en del af udfordringen.",
+    "winnerNotFound": "Vinder med ID \"<%= userId %>\" blev ikke fundet, eller er ikke en del af udfordringen.",
     "onlyChalLeaderEditTasks": "Opgaver, der tilhører en udfordring, kan kun redigeres af lederen.",
     "userAlreadyInChallenge": "Bruger deltager allerede i denne udfordring.",
     "cantOnlyUnlinkChalTask": "Kun defekte opgaver fra udfordringer kan få fjernet tilknytningen.",

@@ -2865,5 +2865,9 @@
     "armorSpecialWinter2023MageNotes": "Nur weil du etwas Lichtes trägst, macht dich das nicht zu einem Baum! ...vielleicht in einem anderen Jahr mal. Erhöht Intelligenz um <%= int %>. Limitierte Ausgabe 2022-2023 Winterausrüstung.",
     "armorSpecialWinter2023MageText": "Lichtes Feenkleid",
     "armorSpecialWinter2023HealerText": "Kardinal Anzug",
-    "armorSpecialWinter2023HealerNotes": "Dieser helle Kardinalsanzug ist perfekt geeignet, um hoch über deinen Problemen zu fliegen. Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe 2022-2023 Winterausrüstung."
+    "armorSpecialWinter2023HealerNotes": "Dieser helle Kardinalsanzug ist perfekt geeignet, um hoch über deinen Problemen zu fliegen. Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe 2022-2023 Winterausrüstung.",
+    "armorSpecialSpring2023RogueNotes": "Du hast vielleicht nur vier Gliedmaßen, mit denen du arbeiten kannst, aber du kannst mit den besten Raupen mitklettern und krabbeln. Erhöht Wahrnehmung um <%= per %>. Limitierte Ausgabe 2023 Frühlingsausrüstung.",
+    "armorSpecialSpring2023RogueText": "Raupen-Umhang",
+    "armorSpecialSpring2023WarriorText": "Kolibri Rüstung",
+    "armorSpecialSpring2023WarriorNotes": "Das summende Geräusch, das du hörst, sind deine Flügel, die schneller schlagen, als du dir vorstellen kannst. Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe Frühlingsausrüstung."
 }
