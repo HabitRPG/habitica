@@ -45,7 +45,7 @@ function runInChildProcess (command, options = {}, envVariables = '') {
 }
 
 function integrationTestCommand (testDir, coverageDir) {
-  return `istanbul cover --dir coverage/${coverageDir} --report lcovonly node_modules/mocha/bin/_mocha -- ${testDir} --recursive --require ./test/helpers/start-server`;
+  return `nyc --report-dir coverage/${coverageDir} --reporter lcovonly --reporter html node_modules/mocha/bin/_mocha --recursive ${testDir} ./test/helpers/start-server`;
 }
 
 /* Test task definitions */
@@ -148,7 +148,7 @@ gulp.task('test:content:safe', gulp.series('test:prepare:build', cb => {
 
 gulp.task(
   'test:api:unit:run',
-  runInChildProcess(integrationTestCommand('test/api/unit', 'coverage/api-unit')),
+  runInChildProcess(integrationTestCommand('test/api/unit', '/api-unit')),
 );
 
 gulp.task('test:api:unit:watch', () => gulp.watch(['website/server/libs/*', 'test/api/unit/**/*', 'website/server/controllers/**/*'], gulp.series('test:api:unit:run', done => done())));
@@ -156,7 +156,7 @@ gulp.task('test:api:unit:watch', () => gulp.watch(['website/server/libs/*', 'tes
 gulp.task('test:api-v3:integration', gulp.series(
   'test:prepare:mongo',
   runInChildProcess(
-    integrationTestCommand('test/api/v3/integration', 'coverage/api-v3-integration'),
+    integrationTestCommand('test/api/v3/integration', '/api-v3-integration'),
     LIMIT_MAX_BUFFER_OPTIONS,
   ),
 ));

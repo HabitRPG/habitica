@@ -12,3 +12,24 @@ Habitica's code is licensed as described at https://github.com/HabitRPG/habitica
 **Found a bug?** Please report it to [admin email](mailto:admin@habitica.com) rather than creating an issue (an admin will advise you if a new issue is necessary; usually it is not).
 
 **Have any questions about Habitica or its community?** See the links in the [habitica.com](https://habitica.com) website's Help menu or drop in to [Guilds > Tavern Chat](https://habitica.com/groups/tavern) to ask questions or chat socially!
+
+## Dev environment description
+To set up dev environment please walk through above "Setting up Habitica Locally".
+Information below are related to development, project setup, and project code-specifics.
+
+### Git hooks
+To improve code quality and rise feedback loop more efficient you can setup pre-push hooks.
+Hook will execute eslint verification without fixing.
+Eslint errors are restricted on pipeline level, so to reduce time for a feedback you can incorporate it in development stage.
+#### Setup hook
+From terminal/power shel execute script from
+```
+.\scripts\setup-pre-commit-scipts.sh
+```
+#### Skipping git hubs
+If you would like to skip pre-push hook you can push with additional parameter. Anyway there is no possibility to skip linter on GitHub actions
+`git push --no-verify`
+
+### Test reports
+All tests generate HTML report with coverage. So after test you are able to check coverage status as static HTML page.
+Reports after tests execution are stored under `./coverage/<suite name>` folder.
