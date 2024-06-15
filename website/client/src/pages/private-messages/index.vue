@@ -704,7 +704,6 @@ export default defineComponent({
 
       return ordered;
     },
-    // TODO might be deleted once all states are done
     placeholderTexts () {
       if (this.user.flags.chatRevoked) {
         return {
