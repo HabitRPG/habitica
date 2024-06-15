@@ -1,7 +1,7 @@
 {
     "clearCompleted": "삭제 완료",
     "clearCompletedDescription": "완료된 할 일 목록은 비 구독 회원은 30일, 구독 회원은 90일 뒤에 삭제됩니다.",
-    "clearCompletedConfirm": "완료한 할 일 목록을 삭제하시겠습니까?",
+    "clearCompletedConfirm": "완료한 할 일을 삭제하시겠습니까?",
     "addMultipleTip": "<strong>Tip:</strong>한 번에 여러 개 추가를 원한다면 <%= taskType %>, 줄 바꿈 (Shift + Enter)을 이용해서 한 줄에 하나씩 입력한 뒤 \"Enter\"를 누르시면 됩니다.",
     "addATask": "<%= type %> 추가",
     "editATask": "<%= type %> 수정",

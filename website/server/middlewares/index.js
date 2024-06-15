@@ -31,10 +31,14 @@ import responseHandler from './response';
 import {
   attachTranslateFunction,
 } from './language';
+import {
+  logRequestData,
+} from './requestLogHandler';
 
 const IS_PROD = nconf.get('IS_PROD');
 const DISABLE_LOGGING = nconf.get('DISABLE_REQUEST_LOGGING') === 'true';
 const ENABLE_HTTP_AUTH = nconf.get('SITE_HTTP_AUTH_ENABLED') === 'true';
+const LOG_REQUESTS_EXCESSIVE_MODE = nconf.get('LOG_REQUESTS_EXCESSIVE_MODE') === 'true';
 // const PUBLIC_DIR = path.join(__dirname, '/../../client');
 
 const SESSION_SECRET = nconf.get('SESSION_SECRET');
@@ -42,6 +46,10 @@ const TEN_YEARS = 1000 * 60 * 60 * 24 * 365 * 10;
 
 export default function attachMiddlewares (app, server) {
   setupExpress(app);
+
+  if (LOG_REQUESTS_EXCESSIVE_MODE) {
+    app.use(logRequestData);
+  }
 
   if (ENABLE_CLUSTER) {
     app.use(domainMiddleware(server, mongoose));

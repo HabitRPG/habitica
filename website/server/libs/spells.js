@@ -254,7 +254,7 @@ async function castSpell (req, res, { isV3 = false }) {
         if (lastMessage && lastMessage.info.spell === spellId
           && lastMessage.info.user === user.profile.name
           && lastMessage.info.target === partyMembers.profile.name) {
-          const newChatMessage = party.sendChat({
+          const newChatMessage = await party.sendChat({
             message: `\`${common.i18n.t('chatCastSpellUserTimes', {
               username: user.profile.name,
               spell: spell.text(),
@@ -273,7 +273,7 @@ async function castSpell (req, res, { isV3 = false }) {
           await newChatMessage.save();
           await lastMessage.deleteOne();
         } else { // Single target spell, not repeated
-          const newChatMessage = party.sendChat({
+          const newChatMessage = await party.sendChat({
             message: `\`${common.i18n.t('chatCastSpellUser', { username: user.profile.name, spell: spell.text(), target: partyMembers.profile.name }, 'en')}\``,
             info: {
               type: 'spell_cast_user',
@@ -288,7 +288,7 @@ async function castSpell (req, res, { isV3 = false }) {
         }
       } else if (lastMessage && lastMessage.info.spell === spellId // Party spell, check for repeat
         && lastMessage.info.user === user.profile.name) {
-        const newChatMessage = party.sendChat({
+        const newChatMessage = await party.sendChat({
           message: `\`${common.i18n.t('chatCastSpellPartyTimes', {
             username: user.profile.name,
             spell: spell.text(),
@@ -305,7 +305,7 @@ async function castSpell (req, res, { isV3 = false }) {
         await newChatMessage.save();
         await lastMessage.deleteOne();
       } else {
-        const newChatMessage = party.sendChat({ // Non-repetitive partywide spell
+        const newChatMessage = await party.sendChat({ // Non-repetitive partywide spell
           message: `\`${common.i18n.t('chatCastSpellParty', { username: user.profile.name, spell: spell.text() }, 'en')}\``,
           info: {
             type: 'spell_cast_party',

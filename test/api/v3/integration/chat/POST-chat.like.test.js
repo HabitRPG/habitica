@@ -1,5 +1,6 @@
 import { find } from 'lodash';
 import {
+  generateUser,
   createAndPopulateGroup,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
@@ -78,5 +79,36 @@ describe('POST /chat/:chatId/like', () => {
 
     const messageToCheck = find(groupWithoutChatLikes.chat, { id: message.message.id });
     expect(messageToCheck.likes[user._id]).to.equal(false);
+  });
+
+  it('validates that the message belongs to the passed group', async () => {
+    const { group: anotherGroup, groupLeader: anotherLeader } = await createAndPopulateGroup({
+      groupDetails: {
+        name: 'Another Guild',
+        type: 'guild',
+        privacy: 'private',
+      },
+      upgradeToGroupPlan: true,
+    });
+
+    const message = await anotherUser.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage });
+    await expect(anotherLeader.post(`/groups/${anotherGroup._id}/chat/${message.message.id}/like`))
+      .to.eventually.be.rejected.and.eql({
+        code: 404,
+        error: 'NotFound',
+        message: t('messageGroupChatNotFound'),
+      });
+  });
+
+  it('does not like a message if the user is not in the group', async () => {
+    const thirdUser = await generateUser();
+
+    const message = await user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage });
+    await expect(thirdUser.post(`/groups/${groupWithChat._id}/chat/${message.message.id}/like`))
+      .to.eventually.be.rejected.and.eql({
+        code: 404,
+        error: 'NotFound',
+        message: t('groupNotFound'),
+      });
   });
 });

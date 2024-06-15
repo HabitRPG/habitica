@@ -367,7 +367,7 @@ async function createSubscription (data) {
       }
 
       if (data.gift.member.preferences.pushNotifications.giftedSubscription !== false) {
-        sendPushNotification(
+        await sendPushNotification(
           data.gift.member,
           {
             title: shared.i18n.t('giftedSubscription', languages[1]),

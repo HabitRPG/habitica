@@ -475,6 +475,14 @@ const armor = {
     str: 8,
     set: 'pottersSet',
   },
+  yellowStripedSwimsuit: {
+    con: 13,
+    set: 'beachsideSet',
+  },
+  blueStripedSwimsuit: {
+    con: 13,
+    set: 'beachsideSet',
+  },
 };
 
 const body = {
@@ -1331,6 +1339,10 @@ const shield = {
     con: 8,
     set: 'pottersSet',
   },
+  buoyantBeachBall: {
+    str: 12,
+    set: 'beachsideSet',
+  },
 };
 
 const headAccessory = {
@@ -1813,6 +1825,10 @@ const weapon = {
     per: 8,
     set: 'pottersSet',
   },
+  shadyBeachUmbrella: {
+    per: 12,
+    set: 'beachsideSet',
+  },
 };
 
 const releaseDates = {
@@ -1824,6 +1840,7 @@ const releaseDates = {
   hatterSet: '2024-03-05T08:00-05:00',
   optimistSet: '2024-04-04T08:00-04:00',
   pottersSet: '2024-05-07T08:00-04:00',
+  beachsideSet: '2024-06-06T08:00-04:00',
 };
 
 forEach({
