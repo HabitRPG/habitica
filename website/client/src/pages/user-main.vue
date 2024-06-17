@@ -176,7 +176,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['isUserLoggedIn', 'browserTimezoneUtcOffset', 'isUserLoaded', 'notificationsRemoved']),
+    ...mapState(['isUserLoggedIn', 'browserTimezoneUtcOffset', 'isUserLoaded']),
     ...mapState({ user: 'user.data' }),
     isStaticPage () {
       return this.$route.meta.requiresLogin === false;
@@ -199,7 +199,7 @@ export default {
         return;
       }
 
-      const file = `/static/audio/${theme}/${sound}`;
+      const file = `https://habitica-assets.s3.amazonaws.com/mobileApp/sounds/${theme}/${sound}`;
 
       if (this.audioSuffix === null) {
         this.audioSource = document.createElement('source');
