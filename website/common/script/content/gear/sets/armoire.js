@@ -1828,7 +1828,7 @@ const weapon = {
     set: 'pottersSet',
   },
   beachUmbrella: {
-    str: 12,
+    per: 12,
     set: 'beachsideSet',
   },
 };
