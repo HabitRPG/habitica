@@ -109,7 +109,7 @@ async function updateUser (user) {
 
   return await User.updateOne(
     { _id: user._id },
-    { $set: set, $push: push },
+    { $set: set, $push: push, $inc: { balance: 6 } },
   ).exec();
 }
 
