@@ -1332,11 +1332,16 @@ api.removeGroupManager = {
 api.getGroupPlans = {
   method: 'GET',
   url: '/group-plans',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({ userFieldsToInclude: ['guilds', 'party._id'] })],
   async handler (req, res) {
     const { user } = res.locals;
 
     const userGroups = user.getGroups();
+
+    if (userGroups.length === 0) {
+      res.respond(200, []);
+      return;
+    }
 
     const groups = await Group
       .find({
