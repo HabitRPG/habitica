@@ -259,10 +259,10 @@ const QUEST_PETS = {
           text: t('questChameleonDropChameleonEgg'),
         },
       ],
+      gp: 35,
+      exp: 250,
+      unlock: t('questChameleonUnlockText'),
     },
-    gp: 35,
-    xp: 250,
-    unlock: t('questChameleonUnlockText'),
   },
   cheetah: {
     text: t('questCheetahText'),

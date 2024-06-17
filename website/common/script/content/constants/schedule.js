@@ -376,6 +376,7 @@ export const MONTHLY_SCHEDULE = {
           'dilatory_derby',
           'armadillo',
           'guineapig',
+          'chameleon',
         ],
       },
       {
