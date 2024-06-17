@@ -168,7 +168,7 @@ api.getBuyList = {
  */
 api.getInAppRewardsList = {
   method: 'GET',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({ userFieldsToInclude: ['items', 'pinnedItems', 'unpinnedItems', 'pinnedItemsOrder'] })],
   url: '/user/in-app-rewards',
   async handler (req, res) {
     const list = common.inAppRewards(res.locals.user);
