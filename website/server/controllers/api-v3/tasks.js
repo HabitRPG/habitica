@@ -751,7 +751,7 @@ api.updateTask = {
 api.scoreTask = {
   method: 'POST',
   url: '/tasks/:taskId/score/:direction',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({ userFieldsToInclude: ['stats', 'items.equipped', 'items.eggs', 'items.food', 'items.hatchingPotions', 'items.lastDrop', 'achievements', 'tasksOrder', 'webhooks', 'party'] })],
   async handler (req, res) {
     // Parameters are validated in scoreTasks
 
