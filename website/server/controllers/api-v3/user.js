@@ -1537,7 +1537,7 @@ api.clearMessages = {
  */
 api.markPmsRead = {
   method: 'POST',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({ userFieldsToInclude: ['inbox'] })],
   url: '/user/mark-pms-read',
   async handler (req, res) {
     const { user } = res.locals;
