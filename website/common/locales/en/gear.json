@@ -1620,7 +1620,7 @@
   "armorArmoireYellowStripedSwimsuitNotes": "What could be more delightful than battling sea monsters on the beach? Increases Constitution by <%= con %>. Enchanted Armoire: Beachside Set (Item 1 of 4).",
   "armorArmoireBlueStripedSwimsuitText": "Blue Striped Swimsuit",
   "armorArmoireBlueStripedSwimsuitNotes": "What could be more exciting than battling sea monsters on the beach? Increases Constitution by <%= con %>. Enchanted Armoire: Beachside Set (Item 2 of 4).",
-  "armorArmoireCorsairsCoatAndCapeText": "Corsair’s Coat and Cape:",
+  "armorArmoireCorsairsCoatAndCapeText": "Corsair’s Coat and Cape",
   "armorArmoireCorsairsCoatAndCapeNotes": "Whether you’re biding your time on the docks or watching for danger on the open seas, these will surely keep you feeling dry and looking dramatic. Just keep your balance on deck. Increases Constitution by <%= con %>. Enchanted Armoire: Corsair Set (Item 1 of 3)",
 
   "headgear": "helm",
