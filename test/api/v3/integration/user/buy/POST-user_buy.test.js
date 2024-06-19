@@ -11,11 +11,18 @@ const { content } = shared;
 
 describe('POST /user/buy/:key', () => {
   let user;
+  let clock;
 
   beforeEach(async () => {
     user = await generateUser({
       'stats.gp': 400,
     });
+  });
+
+  afterEach(() => {
+    if (clock) {
+      clock.restore();
+    }
   });
 
   // More tests in common code unit tests
@@ -68,6 +75,7 @@ describe('POST /user/buy/:key', () => {
   });
 
   it('buys a special spell', async () => {
+    clock = sinon.useFakeTimers(new Date('2024-10-31T00:00:00Z'));
     const key = 'spookySparkles';
     const item = content.special[key];
 

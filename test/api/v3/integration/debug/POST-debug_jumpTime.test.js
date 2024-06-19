@@ -15,6 +15,7 @@ describe('POST /debug/jump-time', () => {
 
   beforeEach(() => {
     nconfStub = sandbox.stub(nconf, 'get');
+    nconfStub.withArgs('TIME_TRAVEL_ENABLED').returns(true);
   });
 
   afterEach(() => {
@@ -28,7 +29,6 @@ describe('POST /debug/jump-time', () => {
   });
 
   it('Jumps forward', async () => {
-    nconf.set('TIME_TRAVEL_ENABLED', true);
     const resultDate = new Date((await user.post('/debug/jump-time', { reset: true })).time);
     expect(resultDate.getDate()).to.eql(today.getDate());
     expect(resultDate.getMonth()).to.eql(today.getMonth());
@@ -40,7 +40,6 @@ describe('POST /debug/jump-time', () => {
   });
 
   it('jumps back', async () => {
-    nconf.set('TIME_TRAVEL_ENABLED', true);
     const resultDate = new Date((await user.post('/debug/jump-time', { reset: true })).time);
     expect(resultDate.getDate()).to.eql(today.getDate());
     expect(resultDate.getMonth()).to.eql(today.getMonth());
@@ -52,7 +51,6 @@ describe('POST /debug/jump-time', () => {
   });
 
   it('can jump a lot', async () => {
-    nconf.set('TIME_TRAVEL_ENABLED', true);
     const resultDate = new Date((await user.post('/debug/jump-time', { reset: true })).time);
     expect(resultDate.getDate()).to.eql(today.getDate());
     expect(resultDate.getMonth()).to.eql(today.getMonth());
@@ -62,7 +60,6 @@ describe('POST /debug/jump-time', () => {
   });
 
   it('returns error when the user is not an admin', async () => {
-    nconf.set('TIME_TRAVEL_ENABLED', true);
     const regularUser = await generateUser();
     await expect(regularUser.post('/debug/jump-time', { offsetDays: 1 }))
       .eventually.be.rejected.and.to.deep.equal({
