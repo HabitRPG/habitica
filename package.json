@@ -108,7 +108,7 @@
     "postinstall": "git config --global url.\"https://\".insteadOf git:// && gulp build && cd website/client && npm install",
     "apidoc": "gulp apidoc",
 
-    "heroku-postbuild": "npm run postinstall && npm run build:prod && npm run build:client"
+    "heroku-postbuild": "npm run postinstall && gulp build:prod && npm run build:client"
   },
   "devDependencies": {
     "axios": "^1.4.0",
