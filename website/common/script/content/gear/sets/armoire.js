@@ -1932,4 +1932,16 @@ export default {
   get weapon () {
     return memoizedUpdatReleased({ identifier: 'weapon', memoizeConfig: true }, weapon);
   },
+  // convenience method for tests mostly. Not used in the app
+  get all () {
+    const items = [];
+    items.push(...Object.values(this.armor));
+    items.push(...Object.values(this.body));
+    items.push(...Object.values(this.eyewear));
+    items.push(...Object.values(this.head));
+    items.push(...Object.values(this.headAccessory));
+    items.push(...Object.values(this.shield));
+    items.push(...Object.values(this.weapon));
+    return items;
+  },
 };
