@@ -45,7 +45,7 @@ function runInChildProcess (command, options = {}, envVariables = '') {
 }
 
 function integrationTestCommand (testDir) {
-  return `nyc --no-clean mocha ${testDir} --recursive --require ./test/helpers/start-server`;
+  return `nyc --silent --no-clean mocha ${testDir} --recursive --require ./test/helpers/start-server`;
 }
 
 /* Test task definitions */

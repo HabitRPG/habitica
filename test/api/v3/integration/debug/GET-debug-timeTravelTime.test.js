@@ -5,30 +5,36 @@ import {
 
 describe('GET /debug/time-travel-time', () => {
   let user;
+  let nconfStub;
+
   before(async () => {
     user = await generateUser({ permissions: { fullAccess: true } });
   });
 
-  after(() => {
-    nconf.set('TIME_TRAVEL_ENABLED', false);
+  beforeEach(() => {
+    nconfStub = sandbox.stub(nconf, 'get');
+  });
+
+  afterEach(() => {
+    nconfStub.restore();
   });
 
   it('returns the shifted time', async () => {
-    nconf.set('TIME_TRAVEL_ENABLED', true);
+    nconfStub.withArgs('TIME_TRAVEL_ENABLED').returns(true);
     const result = await user.get('/debug/time-travel-time');
     expect(result.time).to.exist;
     await user.post('/debug/jump-time', { disable: true });
   });
 
   it('returns shifted when the user is not an admin', async () => {
-    nconf.set('TIME_TRAVEL_ENABLED', true);
+    nconfStub.withArgs('TIME_TRAVEL_ENABLED').returns(true);
     const regularUser = await generateUser();
     const result = await regularUser.get('/debug/time-travel-time');
     expect(result.time).to.exist;
   });
 
   it('returns error when not in time travel mode', async () => {
-    sandbox.stub(nconf, 'get').withArgs('TIME_TRAVEL_ENABLED').returns(false);
+    nconfStub.withArgs('TIME_TRAVEL_ENABLED').returns(false);
 
     await expect(user.get('/debug/time-travel-time'))
       .eventually.be.rejected.and.to.deep.equal({

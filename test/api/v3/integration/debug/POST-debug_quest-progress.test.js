@@ -5,13 +5,20 @@ import {
 
 describe('POST /debug/quest-progress', () => {
   let user;
+  let nconfStub;
 
   beforeEach(async () => {
     user = await generateUser();
   });
 
+  beforeEach(() => {
+    nconfStub = sandbox.stub(nconf, 'get');
+    nconfStub.withArgs('DEBUG_ENABLED').returns(true);
+    nconfStub.withArgs('BASE_URL').returns('https://example.com');
+  });
+
   afterEach(() => {
-    nconf.set('IS_PROD', false);
+    nconfStub.restore();
   });
 
   it('errors if user is not on a quest', async () => {
@@ -48,7 +55,7 @@ describe('POST /debug/quest-progress', () => {
   });
 
   it('returns error when not in production mode', async () => {
-    sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(true);
+    nconfStub.withArgs('DEBUG_ENABLED').returns(false);
 
     await expect(user.post('/debug/quest-progress'))
       .eventually.be.rejected.and.to.deep.equal({
