@@ -9,18 +9,19 @@ import ensureDevelopmentMode from '../../../../website/server/middlewares/ensure
 import { NotFound } from '../../../../website/server/libs/errors';
 
 describe('developmentMode middleware', () => {
-  let res; let req; let
-    next;
+  let res; let req; let next;
+  let nconfStub;
 
   beforeEach(() => {
     res = generateRes();
     req = generateReq();
     next = generateNext();
+    nconfStub = sandbox.stub(nconf, 'get');
   });
 
   it('returns not found when on production URL', () => {
-    sandbox.stub(nconf, 'get').withArgs('DEBUG_ENABLED').returns(true);
-    sandbox.stub(nconf, 'get').withArgs('BASE_URL').returns('https://habitica.com');
+    nconfStub.withArgs('DEBUG_ENABLED').returns(true);
+    nconfStub.withArgs('BASE_URL').returns('https://habitica.com');
 
     ensureDevelopmentMode(req, res, next);
 
@@ -29,8 +30,8 @@ describe('developmentMode middleware', () => {
   });
 
   it('returns not found when intentionally disabled', () => {
-    sandbox.stub(nconf, 'get').withArgs('DEBUG_ENABLED').returns(false);
-    sandbox.stub(nconf, 'get').withArgs('BASE_URL').returns('http://localhost:3000');
+    nconfStub.withArgs('DEBUG_ENABLED').returns(false);
+    nconfStub.withArgs('BASE_URL').returns('http://localhost:3000');
 
     ensureDevelopmentMode(req, res, next);
 
@@ -39,8 +40,8 @@ describe('developmentMode middleware', () => {
   });
 
   it('passes when enabled and on non-production URL', () => {
-    sandbox.stub(nconf, 'get').withArgs('DEBUG_ENABLED').returns(true);
-    sandbox.stub(nconf, 'get').withArgs('BASE_URL').returns('http://localhost:3000');
+    nconfStub.withArgs('DEBUG_ENABLED').returns(true);
+    nconfStub.withArgs('BASE_URL').returns('http://localhost:3000');
 
     ensureDevelopmentMode(req, res, next);
 

@@ -9,18 +9,19 @@ import { NotFound } from '../../../../website/server/libs/errors';
 import ensureTimeTravelMode from '../../../../website/server/middlewares/ensureTimeTravelMode';
 
 describe('timetravelMode middleware', () => {
-  let res; let req; let
-    next;
+  let res; let req; let next;
+  let nconfStub;
 
   beforeEach(() => {
     res = generateRes();
     req = generateReq();
     next = generateNext();
+    nconfStub = sandbox.stub(nconf, 'get');
   });
 
   it('returns not found when using production URL', () => {
-    sandbox.stub(nconf, 'get').withArgs('TIME_TRAVEL_ENABLED').returns(false);
-    sandbox.stub(nconf, 'get').withArgs('BASE_URL').returns('https://habitica.com');
+    nconfStub.withArgs('TIME_TRAVEL_ENABLED').returns(false);
+    nconfStub.withArgs('BASE_URL').returns('https://habitica.com');
 
     ensureTimeTravelMode(req, res, next);
 
@@ -29,8 +30,8 @@ describe('timetravelMode middleware', () => {
   });
 
   it('returns not found when not in time travel mode', () => {
-    sandbox.stub(nconf, 'get').withArgs('TIME_TRAVEL_ENABLED').returns(false);
-    sandbox.stub(nconf, 'get').withArgs('BASE_URL').returns('http://localhost:3000');
+    nconfStub.withArgs('TIME_TRAVEL_ENABLED').returns(false);
+    nconfStub.withArgs('BASE_URL').returns('http://localhost:3000');
 
     ensureTimeTravelMode(req, res, next);
 
@@ -39,8 +40,8 @@ describe('timetravelMode middleware', () => {
   });
 
   it('passes when in time travel mode', () => {
-    sandbox.stub(nconf, 'get').withArgs('TIME_TRAVEL_ENABLED').returns(true);
-    sandbox.stub(nconf, 'get').withArgs('BASE_URL').returns('http://localhost:3000');
+    nconfStub.withArgs('TIME_TRAVEL_ENABLED').returns(true);
+    nconfStub.withArgs('BASE_URL').returns('http://localhost:3000');
 
     ensureTimeTravelMode(req, res, next);
 
