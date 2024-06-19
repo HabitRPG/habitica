@@ -70,7 +70,6 @@ describe('POST /user/buy/:key', () => {
   it('buys a special spell', async () => {
     const key = 'spookySparkles';
     const item = content.special[key];
-    const stub = sinon.stub(item, 'canOwn').returns(true);
 
     await user.updateOne({ 'stats.gp': 250 });
     const res = await user.post(`/user/buy/${key}`);
