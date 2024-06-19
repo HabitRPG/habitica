@@ -9,3 +9,4 @@ COPY . /usr/src/habitica
 WORKDIR /usr/src/habitica
 RUN npm install
 RUN npm run postinstall
+RUN npm run client:build
