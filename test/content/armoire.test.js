@@ -12,6 +12,7 @@ describe('armoire', () => {
       clock.restore();
     }
   });
+
   it('does not return unreleased gear', async () => {
     clock = sinon.useFakeTimers(new Date('2024-01-02'));
     const items = armoire.all;
