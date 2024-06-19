@@ -23,7 +23,7 @@ describe('POST /debug/make-admin', () => {
   });
 
   it('returns error when not in production mode', async () => {
-    nconf.set('IS_PROD', true);
+    sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(true);
 
     await expect(user.post('/debug/make-admin'))
       .eventually.be.rejected.and.to.deep.equal({

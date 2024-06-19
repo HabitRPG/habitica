@@ -23,7 +23,7 @@ describe('POST /debug/add-hourglass', () => {
   });
 
   it('returns error when not in production mode', async () => {
-    nconf.set('IS_PROD', true);
+    sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(true);
 
     await expect(userToGetHourGlass.post('/debug/add-hourglass'))
       .eventually.be.rejected.and.to.deep.equal({

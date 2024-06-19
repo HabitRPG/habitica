@@ -48,7 +48,7 @@ describe('POST /debug/quest-progress', () => {
   });
 
   it('returns error when not in production mode', async () => {
-    nconf.set('IS_PROD', true);
+    sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(true);
 
     await expect(user.post('/debug/quest-progress'))
       .eventually.be.rejected.and.to.deep.equal({
