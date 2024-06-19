@@ -117,7 +117,7 @@ schema.methods.addToUser = async function addChallengeToUser (user, session = nu
       challenges: { $nin: [this._id] },
     },
     { $push: { challenges: this._id } },
-    { session }
+    { session },
   ).exec();
 
   return !!result.modifiedCount;

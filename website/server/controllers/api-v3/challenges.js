@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import cloneDeep from 'lodash/cloneDeep';
+import mongoose from 'mongoose';
 import { authWithHeaders, authWithSession } from '../../middlewares/auth';
 import { model as Challenge } from '../../models/challenge';
 import bannedWords from '../../libs/bannedWords';
@@ -20,6 +21,7 @@ import {
   BadRequest,
   NotFound,
   NotAuthorized,
+  InternalServerError,
 } from '../../libs/errors';
 import * as Tasks from '../../models/task';
 import csvStringify from '../../libs/csvStringify';
@@ -337,19 +339,39 @@ api.joinChallenge = {
     if (!group || !challenge.canJoin(user, group)) throw new NotFound(res.t('challengeNotFound'));
     group.purchased = undefined;
 
-    const addedSuccessfully = await challenge.addToUser(user);
-    if (!addedSuccessfully) {
-      throw new NotAuthorized(res.t('userAlreadyInChallenge'));
+    // Start a mongo transaction
+    const session = await mongoose.startSession();
+    session.startTransaction();
+
+    let saveResult;
+
+    try {
+      // Add the challenge to the user
+      const addedSuccessfully = await challenge.addToUser(user, session);
+      if (!addedSuccessfully) {
+        throw new NotAuthorized(res.t('userAlreadyInChallenge'));
+      }
+
+      challenge.memberCount += 1;
+
+      addUserJoinChallengeNotification(user);
+      // Add all challenge's tasks to user's tasks and save the challenge
+      saveResult = await Promise.all([
+        challenge.syncTasksToUser(user, session),
+        challenge.save({ session }),
+      ]);
+
+      await session.commitTransaction();
+      session.endSession();
+    } catch (error) {
+      // Abort the transaction and end the session if an error occurs
+      await session.abortTransaction();
+      session.endSession();
+      if (error instanceof NotAuthorized) throw error;
+      throw new InternalServerError(error);
     }
 
-    challenge.memberCount += 1;
-
-    addUserJoinChallengeNotification(user);
-
-    // Add all challenge's tasks to user's tasks and save the challenge
-    const results = await Promise.all([challenge.syncTasksToUser(user), challenge.save()]);
-
-    const response = results[1].toJSON();
+    const response = saveResult[1].toJSON();
     response.group = getChallengeGroupResponse(group);
     const chalLeader = await User.findById(response.leader).select(nameFields).exec();
     response.leader = chalLeader ? chalLeader.toJSON({ minimize: true }) : null;
