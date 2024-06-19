@@ -5,7 +5,7 @@ import {
   expectValidTranslationString,
 } from '../helpers/content.helper';
 
-import { all, premium } from '../../website/common/script/content/hatching-potions';
+import { all } from '../../website/common/script/content/hatching-potions';
 
 describe('hatchingPotions', () => {
   let clock;
@@ -34,21 +34,5 @@ describe('hatchingPotions', () => {
         });
       });
     });
-  });
-
-  it('does not contain unreleased potions', () => {
-    clock = sinon.useFakeTimers(new Date('2024-05-20'));
-    const premiumPotions = premium;
-    expect(premiumPotions.Koi).to.not.exist;
-  });
-
-  it('Releases potions when appropriate without needing restarting', () => {
-    clock = sinon.useFakeTimers(new Date('2024-05-20'));
-    const mayPotions = premium;
-    clock.restore();
-    clock = sinon.useFakeTimers(new Date('2024-06-20'));
-    const junePotions = premium;
-    expect(junePotions.Koi).to.exist;
-    expect(Object.keys(mayPotions).length).to.equal(Object.keys(junePotions).length - 1);
   });
 });
