@@ -107,7 +107,7 @@ schema.methods.canJoin = function canJoinChallenge (user, group) {
 
 // Returns true if the challenge was successfully added to the user
 // or false if the user already in the challenge
-schema.methods.addToUser = async function addChallengeToUser (user) {
+schema.methods.addToUser = async function addChallengeToUser (user, session = null) {
   // Add challenge to users challenges atomically (with a condition that checks that it
   // is not there already) to prevent multiple concurrent requests from passing through
   // see https://github.com/HabitRPG/habitica/issues/11295
@@ -117,6 +117,7 @@ schema.methods.addToUser = async function addChallengeToUser (user) {
       challenges: { $nin: [this._id] },
     },
     { $push: { challenges: this._id } },
+    { session }
   ).exec();
 
   return !!result.modifiedCount;
@@ -132,7 +133,7 @@ schema.methods.canView = function canViewChallenge (user, group) {
 
 // Sync challenge tasks to user, including tags.
 // Used when user joins the challenge or to force sync.
-schema.methods.syncTasksToUser = async function syncChallengeTasksToUser (user) {
+schema.methods.syncTasksToUser = async function syncChallengeTasksToUser (user, session = null) {
   const challenge = this;
   challenge.shortName = challenge.shortName || challenge.name;
 
@@ -194,18 +195,18 @@ schema.methods.syncTasksToUser = async function syncChallengeTasksToUser (user) 
     if (!matchingTask.notes) matchingTask.notes = chalTask.notes;
     // add tag if missing
     if (matchingTask.tags.indexOf(challenge._id) === -1) matchingTask.tags.push(challenge._id);
-    toSave.push(matchingTask.save());
+    toSave.push(matchingTask.save({ session }));
   });
 
   // Flag deleted tasks as "broken"
   userTasks.forEach(userTask => {
     if (!_.find(challengeTasks, chalTask => chalTask._id === userTask.challenge.taskId)) {
       userTask.challenge.broken = 'TASK_DELETED';
-      toSave.push(userTask.save());
+      toSave.push(userTask.save({ session }));
     }
   });
 
-  toSave.push(user.save());
+  toSave.push(user.save({ session }));
   return Promise.all(toSave);
 };
 
