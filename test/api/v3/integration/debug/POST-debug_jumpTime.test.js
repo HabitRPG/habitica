@@ -63,7 +63,7 @@ describe('POST /debug/jump-time', () => {
   });
 
   it('returns error when not in time travel mode', async () => {
-    nconf.set('TIME_TRAVEL_ENABLED', false);
+    sandbox.stub(nconf, 'get').withArgs('TIME_TRAVEL_ENABLED').returns(false);
 
     await expect(user.post('/debug/jump-time', { offsetDays: 1 }))
       .eventually.be.rejected.and.to.deep.equal({

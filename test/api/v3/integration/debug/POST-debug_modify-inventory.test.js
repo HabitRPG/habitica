@@ -149,7 +149,7 @@ describe('POST /debug/modify-inventory', () => {
   });
 
   it('returns error when not in production mode', async () => {
-    nconf.set('IS_PROD', true);
+    sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(true);
 
     await expect(user.post('/debug/modify-inventory'))
       .eventually.be.rejected.and.to.deep.equal({
