@@ -6,6 +6,8 @@ import {
 describe('POST /debug/jump-time', () => {
   let user;
   let today;
+  let nconfStub;
+
   before(async () => {
     user = await generateUser({ permissions: { fullAccess: true } });
     today = new Date();
@@ -63,7 +65,7 @@ describe('POST /debug/jump-time', () => {
   });
 
   it('returns error when not in time travel mode', async () => {
-    sandbox.stub(nconf, 'get').withArgs('TIME_TRAVEL_ENABLED').returns(false);
+    nconfStub.withArgs('TIME_TRAVEL_ENABLED').returns(false);
 
     await expect(user.post('/debug/jump-time', { offsetDays: 1 }))
       .eventually.be.rejected.and.to.deep.equal({
