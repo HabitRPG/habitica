@@ -1,7 +1,5 @@
 import camelCase from 'lodash/camelCase';
 import forOwn from 'lodash/forOwn';
-import moment from 'moment';
-import omitBy from 'lodash/omitBy';
 import upperFirst from 'lodash/upperFirst';
 import t from '../translation';
 
