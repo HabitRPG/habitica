@@ -1,5 +1,0 @@
-build:
-  docker:
-    web: Dockerfile-Dev
-run:
-  web: node ./website/transpiled-babel/index.js
