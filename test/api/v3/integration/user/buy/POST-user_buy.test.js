@@ -82,8 +82,6 @@ describe('POST /user/buy/:key', () => {
     expect(res.message).to.equal(t('messageBought', {
       itemText: item.text(),
     }));
-
-    stub.restore();
   });
 
   it('allows for bulk purchases', async () => {
