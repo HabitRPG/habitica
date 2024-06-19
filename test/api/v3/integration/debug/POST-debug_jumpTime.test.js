@@ -13,6 +13,14 @@ describe('POST /debug/jump-time', () => {
     today = new Date();
   });
 
+  beforeEach(() => {
+    nconfStub = sandbox.stub(nconf, 'get');
+  });
+
+  afterEach(() => {
+    nconfStub.restore();
+  });
+
   after(async () => {
     nconf.set('TIME_TRAVEL_ENABLED', true);
     await user.post('/debug/jump-time', { disable: true });
