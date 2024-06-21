@@ -168,12 +168,15 @@ api.special = api.spells.special;
 
 Object.defineProperty(api, 'dropEggs', {
   get () { return eggs.drops; },
+  enumerable: true,
 });
 Object.defineProperty(api, 'questEggs', {
   get () { return eggs.quests; },
+  enumerable: true,
 });
 Object.defineProperty(api, 'eggs', {
   get () { return eggs.all; },
+  enumerable: true,
 });
 
 api.timeTravelStable = {
@@ -195,53 +198,68 @@ api.timeTravelStable = {
 
 Object.defineProperty(api, 'dropHatchingPotions', {
   get () { return hatchingPotions.drops; },
+  enumerable: true,
 });
 Object.defineProperty(api, 'premiumHatchingPotions', {
   get () { return hatchingPotions.premium; },
+  enumerable: true,
 });
 Object.defineProperty(api, 'wackyHatchingPotions', {
   get () { return hatchingPotions.wacky; },
+  enumerable: true,
 });
 Object.defineProperty(api, 'hatchingPotions', {
   get () { return hatchingPotions.all; },
+  enumerable: true,
 });
 
 Object.defineProperty(api, 'dropPets', {
   get () { return stable.dropPets; },
+  enumerable: true,
 });
 Object.defineProperty(api, 'premiumPets', {
   get () { return stable.premiumPets; },
+  enumerable: true,
 });
 Object.defineProperty(api, 'questPets', {
   get () { return stable.questPets; },
+  enumerable: true,
 });
 Object.defineProperty(api, 'specialPets', {
   get () { return stable.specialPets; },
+  enumerable: true,
 });
 Object.defineProperty(api, 'wackyPets', {
   get () { return stable.wackyPets; },
+  enumerable: true,
 });
 Object.defineProperty(api, 'petInfo', {
   get () { return stable.petInfo; },
+  enumerable: true,
 });
 
 Object.defineProperty(api, 'dropMounts', {
   get () { return stable.dropMounts; },
+  enumerable: true,
 });
 Object.defineProperty(api, 'premiumMounts', {
   get () { return stable.premiumMounts; },
+  enumerable: true,
 });
 Object.defineProperty(api, 'questMounts', {
   get () { return stable.questMounts; },
+  enumerable: true,
 });
 Object.defineProperty(api, 'specialMounts', {
   get () { return stable.specialMounts; },
+  enumerable: true,
 });
 Object.defineProperty(api, 'mountInfo', {
   get () { return stable.mountInfo; },
+  enumerable: true,
 });
 
-function buildFood() {
+function buildFood () {
   const food = {
     Meat: {
       text: t('foodMeat'),

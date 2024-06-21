@@ -55,7 +55,7 @@ describe('contentLib', () => {
     beforeEach(() => {
       resSpy = generateRes();
       if (fs.existsSync(contentLib.CONTENT_CACHE_PATH)) {
-        fs.rmdirSync(contentLib.CONTENT_CACHE_PATH, { recursive: true });
+        fs.rmSync(contentLib.CONTENT_CACHE_PATH, { recursive: true });
       }
       fs.mkdirSync(contentLib.CONTENT_CACHE_PATH);
     });
