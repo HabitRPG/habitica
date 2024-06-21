@@ -160,6 +160,7 @@ export const MONTHLY_SCHEDULE = {
         items: [
           'PolkaDot',
           'Celestial',
+          'RoseGold',
         ],
       },
     ],

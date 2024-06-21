@@ -122,6 +122,7 @@ const premium = {
     questPotion: true,
     canBuy: hasQuestAchievementFunction('pinkMarble'),
   },
+  RoseGold: {},
   Koi: {},
 };
 
