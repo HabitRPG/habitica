@@ -2,7 +2,7 @@
     "settings": "Pengaturan",
     "language": "Bahasa",
     "americanEnglishGovern": "Jika terdapat perbedaan penerjemahan, versi Bahasa Indonesia Ejaan Yang Disempurnakan akan diutamakan.",
-    "helpWithTranslation": "Apakah kamu ingin membantu menerjemahkan Habitica? Bagus! Silakan kunjungi <a href=\"/groups/guild/7732f64c-33ee-4cce-873c-fc28f147a6f7\">the Aspiring Linguists Guild</a>!",
+    "helpWithTranslation": "Apakah kamu ingin membantu menerjemahkan Habitica? Bagus! Silakan kunjungi <a href=\"https://translate.habitica.com\">situs Weblate Habitica</a>!",
     "stickyHeader": "Tampilan menempel",
     "newTaskEdit": "Buka tugas baru dalam mode edit",
     "dailyDueDefaultView": "Menyetel Keseharian pada tab 'tenggang waktu'",
@@ -26,7 +26,7 @@
     "resetAccPop": "Mulai dari awal, menyingkirkan semua level, emas, perlengkapan, riwayat, dan tugas.",
     "deleteAccount": "Hapus Akun",
     "deleteAccPop": "Menunda dan menghapus akun Habitica kamu.",
-    "feedback": "Jika kamu ingin memberikan umpan balik, silakan masukkan di bawah ini - kami ingin mengetahui apa yang kamu sukai atau tidak kamu sukai tentang Habitica! Tidak bisa Bahasa Inggris? Tidak masalah! Gunakan bahasa yang kamu bisa.",
+    "feedback": "Jika kamu ingin memberikan masukan, silakan tuliskan di bawah ini - kami sangat tertarik dengan masukanmu! Masukan yang kamu berikan bersifat anonim, kecuali kamu bersedia memasukkan rincian kontak kamu. Tidak bisa berbahasa Inggris dengan baik? Tak apa! Gunakan bahasa yang kamu inginkan.",
     "qrCode": "Kode QR",
     "dataExport": "Ekspor Data",
     "saveData": "Inilah beberapa pilihan untuk menyimpan datamu.",
@@ -226,5 +226,12 @@
     "transaction_release_mounts": "Telah melepaskan tunggangan",
     "transaction_reroll": "Telah menggunakan Ramuan Penguat",
     "transaction_subscription_perks": "Keuntungan <b>berlangganan</b>",
-    "thirdPartyTools": "Temukan aplikasi, ekstensi, dan semua jenis alat pihak ketiga lainnya yang dapat kamu gunakan dengan akunmu di <a href='https://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations' target='_blank'>Habitica wiki</a>."
+    "thirdPartyTools": "Temukan aplikasi, ekstensi, dan semua jenis alat pihak ketiga lainnya yang dapat kamu gunakan dengan akunmu di <a href='https://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations' target='_blank'>Habitica wiki</a>.",
+    "generalSettings": "Pengaturan Umum",
+    "confirmCancelChanges": "Apakah kamu yakin? Perubahan yang belum tersimpan akan hilang.",
+    "account": "Akun",
+    "loginMethods": "Metode Masuk Akun",
+    "siteLanguage": "Bahasa Situs",
+    "view": "Lihat",
+    "yourUserData": "Data Pengguna Kamu"
 }

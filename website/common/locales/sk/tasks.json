@@ -135,5 +135,15 @@
     "deleteTaskType": "Zmazať tento <%= type %>",
     "tomorrow": "Zajtra",
     "addNotes": "Pridať poznámky",
-    "addATitle": "Pridaj názov"
+    "addATitle": "Pridaj názov",
+    "taskSummary": "<%= type %> Sumár",
+    "counter": "Počítadlo",
+    "adjustCounter": "Upraviť počítadlo",
+    "resetCounter": "Resetovať počítadlo",
+    "editTagsText": "Upraviť štítky",
+    "scoreUp": "Zvýšiť skóre",
+    "scoreDown": "Znížiť skóre",
+    "taskAlias": "Alias úlohy",
+    "taskAliasPopover": "Alias tejto úlohy môže byť použitý počas integrovania s 3 - strannými integráciami. Povolené sú len čiarky, podtržníky, a alfanumerické znaky. Alias úlohy musí byť rozdielny pre každú tvoju úlohu.",
+    "taskAliasPlaceholder": "alias-tvojej-úlohy-tu"
 }

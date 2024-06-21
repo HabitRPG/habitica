@@ -152,7 +152,7 @@
     "purchasedPlanExtraMonths": "Broj mjeseci dodatnog pretplatničkog kredita: <%= months %>.",
     "consecutiveSubscription": "Uzastopna pretplata",
     "consecutiveMonths": "Uzastopni mjeseci:",
-    "gemCapExtra": "Višak na limit Dragulja:",
+    "gemCapExtra": "Višak na limit Dragulja",
     "mysticHourglasses": "Mistični pješčani satovi:",
     "mysticHourglassesTooltip": "Mistični pješčani satovi",
     "paypal": "PayPal",

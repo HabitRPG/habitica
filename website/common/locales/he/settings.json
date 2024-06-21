@@ -152,7 +152,7 @@
     "purchasedPlanExtraMonths": "יש לך <strong><%= months %> חודשים</strong> נוספים ליתרת המינוי.",
     "consecutiveSubscription": "מינוי רצוף",
     "consecutiveMonths": "חודשים רצופים:",
-    "gemCapExtra": "סף אבני-חן נוספות:",
+    "gemCapExtra": "סף אבני-חן נוספות",
     "mysticHourglasses": "שעוני-חול מיסטיים:",
     "mysticHourglassesTooltip": "",
     "paypal": "פיי-פאל",
