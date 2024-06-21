@@ -182,51 +182,39 @@ const armor = {
   },
   springRogue: {
     set: 'stealthyKittySet',
-    season: 'spring',
   },
   springWarrior: {
     set: 'mightyBunnySet',
-    season: 'spring',
   },
   springMage: {
     set: 'magicMouseSet',
-    season: 'spring',
   },
   springHealer: {
     set: 'lovingPupSet',
-    season: 'spring',
   },
   summerRogue: {
     set: 'roguishPirateSet',
-    season: 'summer',
   },
   summerWarrior: {
     set: 'daringSwashbucklerSet',
-    season: 'summer',
   },
   summerMage: {
     set: 'emeraldMermageSet',
-    season: 'summer',
   },
   summerHealer: {
     set: 'reefSeahealerSet',
-    season: 'summer',
   },
   fallRogue: {
     set: 'vampireSmiterSet',
-    season: 'fall',
   },
   fallWarrior: {
     set: 'monsterOfScienceSet',
-    season: 'fall',
   },
   fallMage: {
     set: 'witchyWizardSet',
-    season: 'fall',
   },
   fallHealer: {
     set: 'mummyMedicSet',
-    season: 'fall',
   },
   winter2015Rogue: {
     set: 'icicleDrakeSet',
@@ -2131,39 +2119,30 @@ const shield = {
   },
   springRogue: {
     set: 'stealthyKittySet',
-    season: 'spring',
   },
   springWarrior: {
     set: 'mightyBunnySet',
-    season: 'spring',
   },
   springHealer: {
     set: 'lovingPupSet',
-    season: 'spring',
   },
   summerRogue: {
     set: 'roguishPirateSet',
-    season: 'summer',
   },
   summerWarrior: {
     set: 'daringSwashbucklerSet',
-    season: 'summer',
   },
   summerHealer: {
     set: 'reefSeahealerSet',
-    season: 'summer',
   },
   fallRogue: {
     set: 'vampireSmiterSet',
-    season: 'fall',
   },
   fallWarrior: {
     set: 'monsterOfScienceSet',
-    season: 'fall',
   },
   fallHealer: {
     set: 'mummyMedicSet',
-    season: 'fall',
   },
   winter2015Rogue: {
     set: 'icicleDrakeSet',
