@@ -1112,6 +1112,8 @@ const eyewear = {
   },
 };
 
+fillSpecialGear(eyewear, 'eyewear', 20);
+
 const head = {
   0: backerGear.headSpecial0,
   1: contributorGear.headSpecial1,
