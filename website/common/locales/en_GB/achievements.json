@@ -150,5 +150,20 @@
     "achievementDinosaurDynastyModalText": "You collected all the bird and dinosaur pets!",
     "achievementPolarProText": "Has hatched all standard colours of Polar pets: Bear, Fox, Penguin, Whale, and Wolf!",
     "achievementPlantParentText": "Has hatched all standard colours of Plant pets: Cactus and Treeling!",
-    "achievementDinosaurDynastyText": "Has hatched all standard colours of bird and dinosaur pets: Falcon, Owl, Parrot, Peacock, Penguin, Rooster, Pterodactyl, T-Rex, Triceratops, and Velociraptor!"
+    "achievementDinosaurDynastyText": "Has hatched all standard colours of bird and dinosaur pets: Falcon, Owl, Parrot, Peacock, Penguin, Rooster, Pterodactyl, T-Rex, Triceratops, and Velociraptor!",
+    "achievementDuneBuddyModalText": "You collected all the desert dwelling pets!",
+    "achievementRoughRiderModalText": "You collected all the basic colors of the uncomfortable pets and mounts!",
+    "achievementRodentRuler": "Rodent Ruler",
+    "achievementRodentRulerText": "Has hatched all standard colors of rodent pets: Guinea Pig, Rat, and Squirrel!",
+    "achievementRodentRulerModalText": "You collected all the rodent pets!",
+    "achievementRoughRider": "Rough Rider",
+    "achievementRoughRiderText": "Has hatched all basic colours of the uncomfortable pets and mounts: Cactus, Hedgehog, and Rock!",
+    "achievementCats": "Cat Herder",
+    "achievementCatsText": "Has hatched all the standard colors of cat pets: Cheetah, Lion, Sabretooth, and Tiger!",
+    "achievementCatsModalText": "You collected all the cat pets!",
+    "achievementBonelessBoss": "Boneless Boss",
+    "achievementBonelessBossText": "Has hatched all standard colors of invertebrate pets: Beetle, Butterfly, Cuttlefish, Nudibranch, Octopus, Snail, and Spider!",
+    "achievementBonelessBossModalText": "You collected all the invertebrate pets!",
+    "achievementDuneBuddy": "Dune Buddy",
+    "achievementDuneBuddyText": "Has hatched all standard colours of desert dwelling pets: Armadillo, Cactus, Fox, Frog, Snake, and Spider!"
 }
