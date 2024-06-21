@@ -45857,11 +45857,6 @@
   width: 68px;
   height: 68px;
 }
-.slim_armor__special_summer2024Healer {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor__special_summer2024Healer.png');
-  width: 114px;
-  height: 90px;
-}
 .slim_armor_mystery_202406 {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_mystery_202406.png');
   width: 114px;
@@ -46046,6 +46041,11 @@
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_special_summer2023Warrior.png');
   width: 114px;
   height: 120px;
+}
+.slim_armor_special_summer2024Healer {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_special_summer2024Healer.png');
+  width: 114px;
+  height: 90px;
 }
 .slim_armor_special_summer2024Mage {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_special_summer2024Mage.png');
@@ -51272,8 +51272,8 @@
 }
 .inventory_quest_scroll_chameleon {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/inventory_quest_scroll_chameleon.png');
-  width: 60px;
-  height: 60px;
+  width: 68px;
+  height: 68px;
 }
 .inventory_quest_scroll_cheetah {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/inventory_quest_scroll_cheetah.png');

@@ -138,9 +138,7 @@ const wacky = {
   },
   TeaShop: {},
   Fungi: {
-    text: t('hatchingPotionFungi'),
-    limited: true,
-    _addlNotes: t('premiumPotionUnlimitedNotes'),
+    questPotion: true,
     canBuy: hasQuestAchievementFunction('fungi'),
   },
 };
