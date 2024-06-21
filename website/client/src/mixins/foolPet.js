@@ -28,6 +28,7 @@ export default {
         'Gryphon-Gryphatrice',
         'Gryphatrice-Jubilant',
         'JackOLantern-RoyalPurple',
+        'Cactus-Veteran',
       ];
       const BASE_PETS = [
         'Wolf',

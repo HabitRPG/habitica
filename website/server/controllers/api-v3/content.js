@@ -1,10 +1,19 @@
 import nconf from 'nconf';
 import { langCodes } from '../../libs/i18n';
-import { CONTENT_CACHE_PATH, getLocalizedContentResponse } from '../../libs/content';
+import { serveContent } from '../../libs/content';
 
 const IS_PROD = nconf.get('IS_PROD');
 
 const api = {};
+
+const MOBILE_FILTER = ['achievements', 'questSeriesAchievements', 'animalColorAchievements', 'animalSetAchievements',
+  'stableAchievements', 'mystery', 'bundles', 'loginIncentives', 'pets', 'premiumPets', 'specialPets', 'questPets',
+  'wackyPets', 'mounts', 'premiumMounts,specialMounts,questMounts', 'events', 'dropEggs', 'questEggs', 'dropHatchingPotions',
+  'premiumHatchingPotions', 'wackyHatchingPotions', 'backgroundsFlat', 'questsByLevel', 'gear.tree', 'tasksByCategory',
+  'userDefaults', 'timeTravelStable', 'gearTypes', 'cardTypes'];
+
+const ANDROID_FILTER = [...MOBILE_FILTER, 'appearances.background'].join(',');
+const IOS_FILTER = [...MOBILE_FILTER, 'backgrounds'].join(',');
 
 /**
  * @api {get} /api/v3/content Get all available content objects
@@ -65,16 +74,17 @@ api.getContent = {
       language = proposedLang;
     }
 
-    if (IS_PROD) {
-      res.sendFile(`${CONTENT_CACHE_PATH}${language}.json`);
-    } else {
-      res.set({
-        'Content-Type': 'application/json',
-      });
-
-      const jsonResString = getLocalizedContentResponse(language);
-      res.status(200).send(jsonResString);
+    let filter = req.query.filter || '';
+    // apply defaults for mobile clients
+    if (filter === '') {
+      if (req.headers['x-client'] === 'habitica-android') {
+        filter = ANDROID_FILTER;
+      } else if (req.headers['x-client'] === 'habitica-ios') {
+        filter = IOS_FILTER;
+      }
     }
+
+    serveContent(res, language, filter, IS_PROD);
   },
 };
 

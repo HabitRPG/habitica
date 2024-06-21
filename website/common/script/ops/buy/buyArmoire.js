@@ -32,7 +32,7 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation { // eslint-d
     let result = {};
 
     const armoireResult = randomValFns.trueRandom();
-    const eligibleEquipment = filter(content.gear.flat, eligible => eligible.klass === 'armoire' && eligible.released && !user.items.gear.owned[eligible.key]);
+    const eligibleEquipment = filter(content.gear.flat, eligible => eligible.klass === 'armoire' && !user.items.gear.owned[eligible.key]);
     const armoireHasEquipment = !isEmpty(eligibleEquipment);
 
     if (
@@ -136,7 +136,6 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation { // eslint-d
     if (this.analytics) {
       this._trackDropAnalytics(user._id, drop.key);
     }
-
     return {
       message: this.i18n('armoireFood', {
         image: `<span class="Pet_Food_${drop.key} pull-left"></span>`,

@@ -3,6 +3,7 @@ const path = require('path');
 const webpack = require('webpack');
 const nconf = require('nconf');
 const vueTemplateCompiler = require('vue-template-babel-compiler');
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const setupNconf = require('../server/libs/setupNconf');
 const pkg = require('./package.json');
 
@@ -28,6 +29,9 @@ const envVars = [
   'AMPLITUDE_KEY',
   'LOGGLY_CLIENT_TOKEN',
   'TRUSTED_DOMAINS',
+  'TIME_TRAVEL_ENABLED',
+  'DEBUG_ENABLED',
+  'CONTENT_SWITCHOVER_TIME_OFFSET',
   // TODO necessary? if yes how not to mess up with vue cli? 'NODE_ENV'
 ];
 
@@ -40,7 +44,41 @@ envVars
 
 const webpackPlugins = [
   new webpack.DefinePlugin(envObject),
-  new webpack.ContextReplacementPlugin(/moment[\\/]locale$/, /^\.\/(NOT_EXISTING)$/),
+  new MomentLocalesPlugin({
+    localesToKeep: ['bg',
+      'cs',
+      'da',
+      'de',
+      'en',
+      'es',
+      'fr',
+      'he',
+      'hu',
+      'id',
+      'it',
+      'ja',
+      'nl',
+      'pl',
+      'pt',
+      'pt-br',
+      'ro',
+      'ru',
+      'sk',
+      'sv',
+      'tr',
+      'uk',
+      'zh-cn',
+      'zh-tw',
+    ],
+  }),
+  new webpack.IgnorePlugin({
+    checkResource (resource, context) {
+      if ((context.includes('sinon') || resource.includes('sinon') || context.includes('nise')) && nconf.get('TIME_TRAVEL_ENABLED') !== 'true') {
+        return true;
+      }
+      return false;
+    },
+  }),
 ];
 
 module.exports = {
@@ -54,6 +92,16 @@ module.exports = {
           type: 'asset/source',
         },
       ],
+    },
+    resolve: {
+      fallback: {
+        crypto: false,
+        fs: false,
+        os: false,
+        path: false,
+        stream: false,
+        timers: require.resolve('timers-browserify'),
+      },
     },
     plugins: webpackPlugins,
   },

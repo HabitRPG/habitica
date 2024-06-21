@@ -136,6 +136,12 @@
               </router-link>
               <router-link
                 class="topbar-dropdown-item dropdown-item"
+                :to="{name: 'customizations'}"
+              >
+                {{ $t('customizations') }}
+              </router-link>
+              <router-link
+                class="topbar-dropdown-item dropdown-item"
                 :to="{name: 'seasonal'}"
               >
                 {{ $t('titleSeasonalShop') }}

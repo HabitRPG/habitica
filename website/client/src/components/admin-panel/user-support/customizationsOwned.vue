@@ -158,7 +158,6 @@ function collateItemData (self) {
       if (
         // ignore items the user owns because we captured them above:
         !(key in ownedItems)
-        && allItems[key].price > 0
       ) {
         const item = allItems[key];
         itemData.push({

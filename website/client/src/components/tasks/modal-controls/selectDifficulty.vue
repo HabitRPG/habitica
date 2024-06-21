@@ -7,6 +7,7 @@
       :disabled="disabled"
       :value="selected"
       :hide-icon="true"
+      :direct-select="true"
       @select="$emit('select', $event.value)"
     >
       <template #item="{ item, button }">

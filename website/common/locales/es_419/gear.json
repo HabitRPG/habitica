@@ -5,7 +5,7 @@
     "groupBy": "Agrupar Por <%= type %>",
     "classBonus": "(Este artículo coincide con tu clase, por lo que gana un multiplicador de Atributos de 1.5)",
     "classArmor": "Armadura de Clase",
-    "featuredset": "Conjunto Destacado <%= name %>",
+    "featuredset": "Conjunto Destacado: <%= name %>",
     "mysterySets": "Conjuntos Misteriosos",
     "gearNotOwned": "No posees este artículo.",
     "noGearItemsOfType": "No posees ninguno de estos.",

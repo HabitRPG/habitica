@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import axios from 'axios';
 import BootstrapVue from 'bootstrap-vue';
 import Fragment from 'vue-fragment';
 import AppComponent from './app';
@@ -34,6 +35,20 @@ Vue.use(Fragment.Plugin);
 setUpLogging();
 setupAnalytics(); // just create queues for analytics, no scripts loaded at this time
 const store = getStore();
+
+if (process.env.TIME_TRAVEL_ENABLED === 'true') {
+  (async () => {
+    const sinon = await import('sinon');
+    if (axios.defaults.headers.common['x-api-user']) {
+      const response = await axios.get('/api/v4/debug/time-travel-time');
+      const time = new Date(response.data.data.time);
+      Vue.config.clock = sinon.useFakeTimers({
+        now: time,
+        shouldAdvanceTime: true,
+      });
+    }
+  })();
+}
 
 const vueInstance = new Vue({
   el: '#app',

@@ -8,6 +8,8 @@ import isPinned from './isPinned';
 import isFreeRebirth from './isFreeRebirth';
 import getOfficialPinnedItems from './getOfficialPinnedItems';
 
+import { ALWAYS_AVAILABLE_CUSTOMIZATIONS } from '../content/constants/schedule';
+
 function lockQuest (quest, user) {
   // checks series quests, including Masterclasser
   if (quest.prereqQuests) {
@@ -51,12 +53,12 @@ function getDefaultGearProps (item, language) {
     per: item.per,
     con: item.con,
     klass: item.klass,
-    event: item.event,
     set: item.set,
+    season: item.season,
   };
 }
 
-export default function getItemInfo (user, type, item, officialPinnedItems, language = 'en') {
+export default function getItemInfo (user, type, item, officialPinnedItems, language = 'en', matcher = null) {
   if (officialPinnedItems === undefined) {
     officialPinnedItems = getOfficialPinnedItems(user); // eslint-disable-line no-param-reassign
   }
@@ -104,7 +106,6 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         purchaseType: 'hatchingPotions',
         path: item.wacky ? `wackyHatchingPotions.${item.key}` : `premiumHatchingPotions.${item.key}`,
         pinType: 'premiumHatchingPotion',
-        event: item.event,
       };
       break;
     case 'food':
@@ -133,7 +134,6 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         purchaseType: 'bundles',
         path: `bundles.${item.key}`,
         pinType: 'bundles',
-        event: item.event,
       };
       break;
     case 'quests': // eslint-disable-line no-case-declarations
@@ -145,7 +145,6 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         notes: item.notes(language),
         addlNotes: item.addlNotes ? item.addlNotes(language) : null,
         group: item.group,
-        event: item.event,
         value: item.goldValue ? item.goldValue : item.value,
         locked,
         previous: content.quests[item.previous]
@@ -191,7 +190,6 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         class: `inventory_special_${item.key}`,
         path: `spells.special.${item.key}`,
         pinType: 'seasonalSpell',
-        event: item.event,
       };
       break;
     case 'debuffPotion':
@@ -229,7 +227,6 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         purchaseType: 'quests',
         path: `quests.${item.key}`,
         pinType: 'seasonalQuest',
-        event: item.event,
       };
       break;
     case 'gear':
@@ -379,6 +376,108 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
       };
       break;
     }
+    case 'haircolor': {
+      itemInfo = {
+        key: item.key,
+        class: `icon_hair_bangs_${user.preferences.hair.bangs || 1}_${item.key}`,
+        currency: 'gems',
+        locked: false,
+        notes: '',
+        path: `hair.color.${item.key}`,
+        purchaseType: 'customization',
+        pinType: 'timeTravelersStable',
+        set: item.set,
+        text: item.text(language),
+        type: 'color',
+        value: item.price,
+      };
+      break;
+    }
+    case 'hairbase': {
+      itemInfo = {
+        key: item.key,
+        class: `icon_hair_base_${item.key}_${user.preferences.hair.color}`,
+        currency: 'gems',
+        locked: false,
+        notes: '',
+        path: `hair.base.${item.key}`,
+        pinType: 'timeTravelersStable',
+        purchaseType: 'customization',
+        set: item.set,
+        text: item.text(language),
+        type: 'base',
+        value: item.price,
+      };
+      break;
+    }
+    case 'hairmustache': {
+      itemInfo = {
+        key: item.key,
+        class: `icon_hair_mustache_${item.key}_${user.preferences.hair.color}`,
+        currency: 'gems',
+        locked: false,
+        notes: '',
+        path: `hair.mustache.${item.key}`,
+        pinType: 'timeTravelersStable',
+        purchaseType: 'customization',
+        set: item.set,
+        text: item.text(language),
+        type: 'mustache',
+        value: item.price,
+      };
+      break;
+    }
+    case 'hairbeard': {
+      itemInfo = {
+        key: item.key,
+        class: `icon_hair_beard_${item.key}_${user.preferences.hair.color}`,
+        currency: 'gems',
+        locked: false,
+        notes: '',
+        path: `hair.beard.${item.key}`,
+        pinType: 'timeTravelersStable',
+        purchaseType: 'customization',
+        set: item.set,
+        text: item.text(language),
+        type: 'beard',
+        value: item.price,
+      };
+      break;
+    }
+    case 'shirt': {
+      itemInfo = {
+        key: item.key,
+        class: `icon_${user.preferences.size}_shirt_${item.key}`,
+        currency: 'gems',
+        locked: false,
+        notes: '',
+        path: `shirt.${item.key}`,
+        pinType: 'timeTravelersStable',
+        purchaseType: 'customization',
+        set: item.set,
+        text: item.text(language),
+        type: 'shirt',
+        value: item.price,
+      };
+      break;
+    }
+    case 'skin': {
+      itemInfo = {
+        key: item.key,
+        class: `icon_skin_${item.key}`,
+        currency: 'gems',
+        locked: false,
+        path: `skin.${item.key}`,
+        notes: '',
+        pinType: 'timeTravelersStable',
+        purchaseType: 'customization',
+        set: item.set,
+        text: item.text(language),
+        type: 'skin',
+        value: item.price,
+      };
+      break;
+    }
   }
 
   if (itemInfo) {
@@ -386,6 +485,11 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
     itemInfo.pinned = isPinned(user, itemInfo, officialPinnedItems);
   } else {
     throw new BadRequest(i18n.t('wrongItemType', { type }, language));
+  }
+
+  if (matcher && (!itemInfo.set
+    || ALWAYS_AVAILABLE_CUSTOMIZATIONS.indexOf(itemInfo.set.key) === -1)) {
+    itemInfo.end = matcher.end;
   }
 
   return itemInfo;

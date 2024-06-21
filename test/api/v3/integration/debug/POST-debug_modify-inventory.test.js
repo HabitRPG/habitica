@@ -8,6 +8,7 @@ import {
 describe('POST /debug/modify-inventory', () => {
   let user; let
     originalItems;
+  let nconfStub;
 
   before(async () => {
     originalItems = {
@@ -39,8 +40,14 @@ describe('POST /debug/modify-inventory', () => {
     });
   });
 
+  beforeEach(() => {
+    nconfStub = sandbox.stub(nconf, 'get');
+    nconfStub.withArgs('DEBUG_ENABLED').returns(true);
+    nconfStub.withArgs('BASE_URL').returns('https://example.com');
+  });
+
   afterEach(() => {
-    nconf.set('IS_PROD', false);
+    nconfStub.restore();
   });
 
   it('sets equipment', async () => {
@@ -149,7 +156,7 @@ describe('POST /debug/modify-inventory', () => {
   });
 
   it('returns error when not in production mode', async () => {
-    nconf.set('IS_PROD', true);
+    nconfStub.withArgs('DEBUG_ENABLED').returns(false);
 
     await expect(user.post('/debug/modify-inventory'))
       .eventually.be.rejected.and.to.deep.equal({

@@ -15,6 +15,7 @@ import { errorMessage } from '../../../../website/common/script/libs/errorMessag
 describe('shared.ops.buyMysterySet', () => {
   let user;
   const analytics = { track () {} };
+  let clock;
 
   beforeEach(() => {
     user = generateUser({
@@ -31,6 +32,9 @@ describe('shared.ops.buyMysterySet', () => {
 
   afterEach(() => {
     analytics.track.restore();
+    if (clock) {
+      clock.restore();
+    }
   });
 
   context('Mystery Sets', () => {
@@ -41,7 +45,7 @@ describe('shared.ops.buyMysterySet', () => {
         } catch (err) {
           expect(err).to.be.an.instanceof(NotAuthorized);
           expect(err.message).to.eql(i18n.t('notEnoughHourglasses'));
-          expect(user.items.gear.owned).to.have.property('weapon_warrior_0', true);
+          expect(user.items.gear.owned).to.not.have.property('armor_mystery_201501');
         }
       });
 
@@ -72,6 +76,18 @@ describe('shared.ops.buyMysterySet', () => {
           expect(err.message).to.equal(errorMessage('missingKeyParam'));
         }
       });
+
+      it('returns error if the set is not available', async () => {
+        user.purchased.plan.consecutive.trinkets = 1;
+        clock = sinon.useFakeTimers(new Date('2024-01-16'));
+        try {
+          await buyMysterySet(user, { params: { key: '201501' } });
+        } catch (err) {
+          expect(err).to.be.an.instanceof(NotAuthorized);
+          expect(err.message).to.eql(i18n.t('notAvailable'));
+          expect(user.items.gear.owned).to.not.have.property('armor_mystery_201501');
+        }
+      });
     });
 
     context('successful purchases', () => {
@@ -85,6 +101,16 @@ describe('shared.ops.buyMysterySet', () => {
         expect(user.items.gear.owned).to.have.property('armor_mystery_301404', true);
         expect(user.items.gear.owned).to.have.property('head_mystery_301404', true);
         expect(user.items.gear.owned).to.have.property('eyewear_mystery_301404', true);
+      });
+
+      it('buys mystery set if it is available', async () => {
+        clock = sinon.useFakeTimers(new Date('2024-01-16'));
+        user.purchased.plan.consecutive.trinkets = 1;
+        await buyMysterySet(user, { params: { key: '201601' } }, analytics);
+
+        expect(user.purchased.plan.consecutive.trinkets).to.eql(0);
+        expect(user.items.gear.owned).to.have.property('shield_mystery_201601', true);
+        expect(user.items.gear.owned).to.have.property('head_mystery_201601', true);
       });
     });
   });

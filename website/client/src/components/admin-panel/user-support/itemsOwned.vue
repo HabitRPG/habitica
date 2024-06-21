@@ -282,20 +282,16 @@ export default {
       item.modified = true;
 
       // for non-integer items, toggle through the allowed values:
-      if (item.itemType === 'gear') {
-        // Allowed starting values are true, false, and '' (never owned)
-        // Allowed values to switch to are true and false
-        item.value = !item.value;
-      } else if (item.itemType === 'mounts') {
-        // Allowed starting values are true, null, and "never owned"
-        // Allowed values to switch to are true and null
-        if (item.value === true) {
-          item.value = null;
+      if (item.itemType === 'gear' || item.itemType === 'mounts') {
+        // Allowed starting values are true, false, and undefined (never owned)
+        if (item.value && item.value !== '') {
+          item.value = false;
+        } else if (typeof item.value === 'boolean') {
+          item.value = '';
         } else {
           item.value = true;
         }
       }
-      // @TODO add a delete option
     },
   },
 };
