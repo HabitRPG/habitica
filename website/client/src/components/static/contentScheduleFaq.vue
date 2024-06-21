@@ -1,5 +1,8 @@
 <template>
-  <div v-once class="top-container mx-auto">
+  <div
+    v-once
+    class="top-container mx-auto"
+  >
     <div class="main-text mr-4">
       <div class="title-details">
         <h1>{{ $t('contentFaqTitle') }}</h1>
@@ -23,7 +26,8 @@
       </ul>
       <h3>{{ $t('contentQuestion2') }}</h3>
       <ul>
-        <li>{{ $t('contentAnswer20') }}
+        <li>
+          {{ $t('contentAnswer20') }}
           <ul>
             <li v-html="$t('contentAnswer200')"></li>
             <li v-html="$t('contentAnswer201')"></li>
@@ -54,7 +58,8 @@
       <p>{{ $t('contentAnswer410') }}</p>
       <h3>{{ $t('contentQuestion5') }}</h3>
       <ul>
-        <li>{{ $t('contentAnswer50') }}
+        <li>
+          {{ $t('contentAnswer50') }}
           <ul>
             <li>{{ $t('backgrounds') }}</li>
             <li>{{ $t('contentAnswer501') }}</li>
@@ -78,9 +83,11 @@
         <li>{{ $t('contentAnswer70') }}</li>
         <li>{{ $t('contentAnswer71') }}</li>
       </ul>
-      <p v-html="$t('contentFaqPara3',
-        { mailto: '<a href=mailto:admin@habitica.com>admin@habitica.com</a>'}
-      )"></p>
+      <p
+        v-html="$t('contentFaqPara3',
+                   { mailto: '<a href=mailto:admin@habitica.com>admin@habitica.com</a>'}
+        )"
+      ></p>
     </div>
     <faq-sidebar />
   </div>

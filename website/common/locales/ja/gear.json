@@ -3101,5 +3101,19 @@
     "weaponSpecialSpring2024WarriorNotes": "このカラフルな水晶は、すべてのエネルギーを攻撃に集中させるのに役立ちます。力が<%= str %>上がります。2024年春の限定装備。",
     "weaponSpecialSpring2024HealerNotes": "どんな気分でも、幸福のさざ波が立ちのぼります。知能が<%= int %>上がります。2024年春の限定装備。",
     "weaponArmoirePottersWheelNotes": "このろくろの上に粘土を投げて、ボウルやマグカップ、花瓶やちょっと変わった器を作ってみよう。運が良ければ、制作中に幽霊が訪れるかもしれない！知覚が<%= per %>上がります。ラッキー宝箱：陶芸家セット(アイテム4/4)。",
-    "headSpecialSpring2024MageNotes": "この花粉まみれの帽子を見せびらかすこと以上に、敵に威圧感を与える方法があるでしょうか？知覚が<%= per %>上がります。2024年春の限定装備。"
+    "headSpecialSpring2024MageNotes": "この花粉まみれの帽子を見せびらかすこと以上に、敵に威圧感を与える方法があるでしょうか？知覚が<%= per %>上がります。2024年春の限定装備。",
+    "armorSpecialWinter2024WarriorNotes": "チョコレート、ミント、フロスティングは想像以上に強い素材であることがわかりました。体質が<%= con %>上がります。2023-2024年冬の限定装備。",
+    "armorArmoireSmileyShirtNotes": "あなたが幸せだから！今日のあなたの笑顔を世界に見せてください。知能と知覚がそれぞれ<%= attrs %>上がります。ラッキー宝箱：楽天家セット(アイテム1/4)。",
+    "shieldArmoireThrownVesselText": "投げられた器",
+    "shieldArmoireBuoyantBeachBallText": "ビーチボール",
+    "backMystery202405Text": "金色ドレイクの翼",
+    "headAccessoryMystery202405Text": "金色ドレイクの角",
+    "headAccessoryMystery202405Notes": "この上質な角のメタリックな光沢は、ドラゴンの炎の舞う色を映しています。効果なし。2024年5月の有料会員アイテム。",
+    "eyewearMystery202406Notes": "お節介な子供たちとおしゃべりな犬の一団に引き離されないようにしましょう。効果なし。2024年6月の有料会員アイテム。",
+    "eyewearArmoireRoseColoredGlassesNotes": "このメガネは、状況に応じて最高のものを見る手助けをし、このスタイリッシュなフレームは、あなたが最高のものを見る手助けもします。知覚が<%= per %>上がります。ラッキー宝箱：楽天家セット(アイテム2/4)。",
+    "eyewearArmoireRoseColoredGlassesText": "バラ色のメガネ",
+    "armorArmoireSmileyShirtText": "笑顔のシャツ",
+    "backMystery202405Notes": "この壮麗な翼は純金の輝きを放ちながらも羽のように軽い。効果なし。2024年5月の有料会員アイテム。",
+    "shieldArmoireHappyThoughtsNotes": "過去の楽しい瞬間を思い出しているときでも、未来の最高の結果を想像しているときでも、常に人生の明るい面を見てください。全てのステータスがそれぞれ<%= attrs %>上がります。ラッキー宝箱：楽天家セット(アイテム3/4)。",
+    "shieldArmoireHappyThoughtsText": "幸せな思い"
 }

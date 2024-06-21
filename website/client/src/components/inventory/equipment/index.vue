@@ -66,6 +66,7 @@
             :right="true"
             :hide-icon="false"
             :inline-dropdown="false"
+            :direct-select="true"
             @select="groupBy = $event"
           >
             <template #item="{ item }">

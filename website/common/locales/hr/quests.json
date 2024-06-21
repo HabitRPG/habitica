@@ -12,7 +12,7 @@
     "rewardsAllParticipants": "Nagrade za sve sudionike Pustolovine",
     "rewardsQuestOwner": "Dodatne Nagrade za Vlasnika Pustolovine",
     "inviteParty": "Pozovi Grupu na Pustolovinu",
-    "questInvitation": "Pozivnica za Pustolovinu:",
+    "questInvitation": "Pozivnica za Pustolovinu: ",
     "questInvitationInfo": "Pozivnica za Pustolovinu <%= quest %>",
     "invitedToQuest": "Bio/la si pozvan/a na Pustolovinu <span class=\"notification-bold-blue\"><%= quest %></span>",
     "askLater": "Pitaj kasnije",

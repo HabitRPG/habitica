@@ -274,6 +274,14 @@ describe('PUT /user', () => {
         expect(get(updatedUser.preferences, type)).to.eql(item);
       });
     });
+
+    it('updates user when background is unequipped', async () => {
+      expect(get(user.preferences, 'background')).to.not.eql('');
+
+      const updatedUser = await user.put('/user', { 'preferences.background': '' });
+
+      expect(get(updatedUser.preferences, 'background')).to.eql('');
+    });
   });
 
   context('Improvement Categories', () => {

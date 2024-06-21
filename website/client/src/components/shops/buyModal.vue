@@ -89,19 +89,19 @@
           v-if="item.value > 0 && !(item.key === 'gem' && gemsLeft < 1)"
           class="purchase-amount"
         >
-          <!-- this is where the pretty item cost element lives -->
-          <div class="item-cost">
+          <div class="item-cost justify-content-center my-3">
             <span
-              class="cost"
+              class="cost d-flex mx-auto"
               :class="getPriceClass()"
             >
               <span
-                class="svg-icon inline icon-24"
+                class="svg-icon icon-24 my-auto mr-1"
                 aria-hidden="true"
                 v-html="icons[getPriceClass()]"
               >
               </span>
               <span
+                class="my-auto"
                 :class="getPriceClass()"
               >{{ item.value }}</span>
             </span>
@@ -181,7 +181,7 @@
       </div>
     </div>
     <countdown-banner
-      v-if="item.event && item.owned == null"
+      v-if="item.end && item.owned == null"
       :end-date="endDate"
       class="limitedTime available"
     />
@@ -218,11 +218,10 @@
     </div>
     <div
       slot="modal-footer"
-      class="clearfix"
     >
-      <span class="user-balance float-left">{{ $t('yourBalance') }}</span>
+      <span class="user-balance ml-3 my-auto">{{ $t('yourBalance') }}</span>
       <balanceInfo
-        class="currency-totals"
+        class="mr-3"
         :currency-needed="getPriceClass()"
         :amount-needed="item.value"
       />
@@ -250,24 +249,21 @@
       border-bottom-left-radius: 8px;
       display: block;
       margin: 24px 0 0 0;
-      padding: 16px 24px;
-      align-content: center;
+      padding: 0px;
+
+      > div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0px;
+        height: 100%;
+      }
 
       .user-balance {
-        width: 150px;
-        height: 16px;
         font-size: 0.75rem;
         font-weight: bold;
         line-height: 1.33;
         color: $gray-100;
-        margin-bottom: 16px;
-        margin-top: -4px;
-        margin-left: -4px;
-      }
-
-      .currency-totals {
-        margin-right: -8px;
-        float: right;
       }
     }
 
@@ -452,14 +448,11 @@
     }
 
     .item-cost {
-      display: inline-flex;
-      margin: 16px 0;
-      align-items: center;
       height: 40px;
     }
 
     .cost {
-      display: inline-block;
+      width: fit-content;
       font-family: sans-serif;
       font-size: 1.25rem;
       font-weight: bold;
@@ -470,19 +463,16 @@
       &.gems {
         color: $green-10;
         background-color: rgba(36, 204, 143, 0.15);
-        align-items: center;
       }
 
       &.gold {
         color: $yellow-5;
         background-color: rgba(255, 190, 93, 0.15);
-        align-items: center;
       }
 
       &.hourglasses {
         color: $hourglass-color;
         background-color: rgba(41, 149, 205, 0.15);
-        align-items: center;
       }
     }
 
@@ -547,10 +537,6 @@
         margin: auto -1rem -1rem;
       }
 
-      // .pt-015 {
-      //   padding-top: 0.15rem;
-      // }
-
     .gems-left {
       height: 32px;
       background-color: $green-100;
@@ -602,8 +588,10 @@ import moment from 'moment';
 import planGemLimits from '@/../../common/script/libs/planGemLimits';
 import { drops as dropEggs } from '@/../../common/script/content/eggs';
 import { drops as dropPotions } from '@/../../common/script/content/hatching-potions';
-import spellsMixin from '@/mixins/spells';
+import { avatarEditorUtilities } from '@/mixins/avatarEditUtilities';
 import numberInvalid from '@/mixins/numberInvalid';
+import spellsMixin from '@/mixins/spells';
+import sync from '@/mixins/sync';
 
 import svgClose from '@/assets/svg/close.svg';
 import svgGold from '@/assets/svg/gold.svg';
@@ -637,7 +625,7 @@ const amountOfDropPotions = size(dropPotions);
 const hideAmountSelectionForPurchaseTypes = [
   'gear', 'backgrounds', 'mystery_set', 'card',
   'rebirth_orb', 'fortify', 'armoire', 'keys',
-  'debuffPotion', 'pets', 'mounts',
+  'debuffPotion', 'pets', 'mounts', 'customization',
 ];
 
 export default {
@@ -650,7 +638,15 @@ export default {
     CountdownBanner,
     numberIncrement,
   },
-  mixins: [buyMixin, currencyMixin, notifications, numberInvalid, spellsMixin],
+  mixins: [
+    avatarEditorUtilities,
+    buyMixin,
+    currencyMixin,
+    notifications,
+    numberInvalid,
+    spellsMixin,
+    sync,
+  ],
   props: {
     // eslint-disable-next-line vue/require-default-prop
     item: {
@@ -690,7 +686,8 @@ export default {
   computed: {
     ...mapState({ user: 'user.data' }),
     showAvatar () {
-      return ['backgrounds', 'gear', 'mystery_set'].includes(this.item.purchaseType);
+      return ['backgrounds', 'gear', 'mystery_set', 'customization']
+        .includes(this.item.purchaseType);
     },
 
     preventHealthPotion () {
@@ -741,7 +738,7 @@ export default {
       return (!this.user.purchased.plan.customerId && !this.user.purchased.plan.consecutive.trinkets && this.getPriceClass() === 'hourglasses');
     },
     endDate () {
-      return moment(this.item.event.end);
+      return moment(this.item.end);
     },
     totalOwned () {
       return this.user.items[this.item.purchaseType][this.item.key] || 0;
@@ -759,7 +756,7 @@ export default {
       this.selectedAmountToBuy = 1;
     },
 
-    buyItem () {
+    async buyItem () {
       // @TODO: I  think we should buying to the items.
       // Turn the items into classes, and use polymorphism
       if (this.item.buy) {
@@ -824,17 +821,25 @@ export default {
         ) return;
       }
 
-      const shouldConfirmPurchase = this.item.currency === 'gems' || this.item.currency === 'hourglasses';
-      if (
-        shouldConfirmPurchase
-        && !this.confirmPurchase(this.item.currency, this.item.value * this.selectedAmountToBuy)
-      ) {
-        return;
-      }
-
-      if (this.genericPurchase) {
-        this.makeGenericPurchase(this.item, 'buyModal', this.selectedAmountToBuy);
+      if (this.item.purchaseType === 'customization') {
+        const buySuccess = await this.unlock(this.item.path);
+        if (!buySuccess) return;
+        this.sync();
+        this.$root.$emit('playSound', 'Reward');
+        this.$root.$emit('buyModal::boughtItem', this.item);
         this.purchased(this.item.text);
+      } else {
+        const shouldConfirmPurchase = this.item.currency === 'gems' || this.item.currency === 'hourglasses';
+        if (
+          shouldConfirmPurchase
+          && !this.confirmPurchase(this.item.currency, this.item.value * this.selectedAmountToBuy)
+        ) {
+          return;
+        }
+        if (this.genericPurchase) {
+          this.makeGenericPurchase(this.item, 'buyModal', this.selectedAmountToBuy);
+          this.purchased(this.item.text);
+        }
       }
 
       this.$emit('buyPressed', this.item);
@@ -890,6 +895,27 @@ export default {
           });
 
           return gear;
+        }
+        case 'customization': {
+          if (item.type === 'skin') {
+            return {
+              skin: item.key,
+            };
+          }
+          if (item.type === 'shirt') {
+            return {
+              shirt: item.key,
+              armor: 'armor_base_0',
+            };
+          }
+          if (['base', 'beard', 'color', 'mustache'].includes(item.type)) {
+            return {
+              hair: {
+                [item.type]: item.key,
+              },
+              head: 'head_base_0',
+            };
+          }
         }
       }
 

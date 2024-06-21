@@ -13,31 +13,41 @@
       </template>
     </div>
     <div v-if="items.length === 0">
-      <p v-once>
-        {{ noItemsLabel }}
+      <p
+        v-if="clickHandler"
+        class="empty-state"
+        @click.stop.prevent="$emit('emptyClick', $event)"
+        v-html="noItemsLabel"
+      >
+      </p>
+      <p
+        v-else
+        class="empty-state"
+        v-html="noItemsLabel"
+      >
       </p>
     </div>
     <show-more-button
-      v-if="items.length > itemsPerRow"
+      v-if="foldButton && items.length > itemsPerRow"
       :show-all="showAll"
       @click="toggleItemsToShow()"
     />
-    <div
-      v-else
-      class="fill-height"
-    ></div>
   </div>
 </template>
 
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
 
-  .fill-height {
-    height: 38px; // button + margin + padding
+  .btn-show-more {
+    max-width: 920px;
+  }
+
+  .empty-state {
+    color: $gray-100;
   }
 
   .item-rows {
-    margin-right: -1.5rem;
+    max-width: 944px;
   }
 </style>
 
@@ -54,19 +64,30 @@ export default {
   },
   mixins: [openedItemRowsMixin],
   props: {
-    items: {
-      type: Array,
+    clickHandler: {
+      type: Boolean,
+      default: true,
     },
-    type: {
-      type: String,
-    },
-    itemWidth: {
-      type: Number,
+    foldButton: {
+      type: Boolean,
+      default: true,
     },
     itemMargin: {
       type: Number,
     },
+    itemWidth: {
+      type: Number,
+    },
+    items: {
+      type: Array,
+    },
+    maxItemsPerRow: {
+      type: Number,
+    },
     noItemsLabel: {
+      type: String,
+    },
+    type: {
       type: String,
     },
   },
@@ -80,11 +101,14 @@ export default {
   },
   computed: {
     itemsPerRow () {
+      if (this.maxItemsPerRow > 0) {
+        return this.maxItemsPerRow;
+      }
       return Math.floor(this.currentWidth / (this.itemWidth + this.itemMargin));
     },
   },
   created () {
-    this.showAll = this.$_openedItemRows_isToggled(this.type);
+    this.showAll = this.$_openedItemRows_isToggled(this.type) || !this.foldButton;
   },
   methods: {
     toggleItemsToShow () {

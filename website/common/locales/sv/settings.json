@@ -152,7 +152,7 @@
     "purchasedPlanExtraMonths": "Du har <%= months %> månader kvar av din prenumerationskredit.",
     "consecutiveSubscription": "Återkommande Prenumeration",
     "consecutiveMonths": "På rad följande månader:",
-    "gemCapExtra": "Juvel gräns extra:",
+    "gemCapExtra": "Juvel gräns extra",
     "mysticHourglasses": "Mystiskt timglas:",
     "mysticHourglassesTooltip": "Mystiska Timglas",
     "paypal": "PayPal",

@@ -186,5 +186,8 @@
     "purchaseForGold": "Acquistare per <%= cost %> oro?",
     "chatCastSpellUser": "<%= username %> lancia <%= spell %> su <%= target %>.",
     "chatCastSpellParty": "<%= username %> lancia <%= spell %> per la squadra.",
-    "notEnoughGold": "Non hai abbastanza oro."
+    "notEnoughGold": "Non hai abbastanza oro.",
+    "chatCastSpellUserTimes": "<%= username %> lancia <%= spell %> per <%= target %> <%= times %> volte.",
+    "chatCastSpellPartyTimes": "<%= username %> lancia <%= spell %> per la squadra <%= times %> volte.",
+    "nextReward": "Prossima ricompensa per l'accesso"
 }

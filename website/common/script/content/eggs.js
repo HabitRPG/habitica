@@ -390,6 +390,12 @@ const quests = {
     adjective: t('questEggRobotAdjective'),
     canBuy: hasQuestAchievementFunction('robot'),
   },
+  Giraffe: {
+    text: t('questEggGiraffeText'),
+    mountText: t('questEggGiraffeMountText'),
+    adjective: t('questEggGiraffeAdjective'),
+    canBuy: hasQuestAchievementFunction('giraffe'),
+  },
 };
 
 applyEggDefaults(drops, {

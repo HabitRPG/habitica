@@ -10,7 +10,7 @@ export default prefill({
   yellow: {},
 
   convict: { price: 2, set: sets.specialShirts },
-  cross: { price: 2, set: sets.specialShirts },
+  cross: { price: 2, set: sets.legacyShirts },
   fire: { price: 2, set: sets.specialShirts },
   horizon: { price: 2, set: sets.specialShirts },
   ocean: { price: 2, set: sets.specialShirts },

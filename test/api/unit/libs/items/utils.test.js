@@ -117,7 +117,7 @@ describe('Items Utils', () => {
     it('converts values for owned gear to true/false', () => {
       expect(castItemVal('items.gear.owned.shield_warrior_0', 'true')).to.equal(true);
       expect(castItemVal('items.gear.owned.invalid', 'false')).to.equal(false);
-      expect(castItemVal('items.gear.owned.invalid', 'null')).to.equal(false);
+      expect(castItemVal('items.gear.owned.invalid', 'null')).to.equal(undefined);
       expect(castItemVal('items.gear.owned.invalid', 'truthy')).to.equal(true);
       expect(castItemVal('items.gear.owned.invalid', 0)).to.equal(false);
     });
