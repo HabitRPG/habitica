@@ -8,6 +8,7 @@
       :right="true"
       :hide-icon="false"
       :inline-dropdown="false"
+      :direct-select="directSelect"
       @select="selectItem($event)"
     >
       <template #item="{ item }">
@@ -32,6 +33,10 @@ export default {
     items: Array,
     initialItem: Object,
     withIcon: {
+      type: Boolean,
+      default: false,
+    },
+    directSelect: {
       type: Boolean,
       default: false,
     },

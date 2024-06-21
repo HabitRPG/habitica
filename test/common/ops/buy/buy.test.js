@@ -49,7 +49,7 @@ describe('shared.ops.buy', () => {
     }
   });
 
-  it('recovers 15 hp', async () => {
+  it('buys health potion', async () => {
     user.stats.hp = 30;
     await buy(user, { params: { key: 'potion' } }, analytics);
     expect(user.stats.hp).to.eql(45);

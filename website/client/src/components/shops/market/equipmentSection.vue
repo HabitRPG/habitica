@@ -6,6 +6,7 @@
         :initial-item="selectedGearCategory"
         :items="marketGearCategories"
         :with-icon="true"
+        :direct-select="true"
         @selected="selectedGroupGearByClass = $event.id"
       >
         <span
@@ -23,6 +24,7 @@
         :label="$t('sortBy')"
         :initial-item="selectedSortGearBy"
         :items="sortGearBy"
+        :direct-select="true"
         @selected="selectedSortGearBy = $event"
       >
         <span
@@ -40,7 +42,7 @@
       :item-width="94"
       :item-margin="24"
       :type="'gear'"
-      :no-items-label="$t('noGearItemsOfClass')"
+      :no-items-label="noItemsLabel"
     >
       <template
         slot="item"
@@ -75,6 +77,7 @@
 import _filter from 'lodash/filter';
 import _orderBy from 'lodash/orderBy';
 import shops from '@/../../common/script/libs/shops';
+import { remainingGearInSet } from '@/../../common/script/count';
 import { getClassName } from '@/../../common/script/libs/getClassName';
 import { mapState } from '@/libs/store';
 import LayoutSection from '@/components/ui/layoutSection';
@@ -93,7 +96,7 @@ import pinUtils from '../../../mixins/pinUtils';
 const sortGearTypes = [
   'sortByType', 'sortByPrice', 'sortByCon',
   'sortByPer', 'sortByStr', 'sortByInt',
-].map(g => ({ id: g }));
+].map(g => ({ id: g, identifier: g }));
 
 const sortGearTypeMap = {
   sortByType: 'type',
@@ -134,6 +137,17 @@ export default {
       userItems: 'user.data.items',
       userStats: 'user.data.stats',
     }),
+    armoireCount () {
+      return remainingGearInSet(this.userItems.gear.owned, 'armoire');
+    },
+    noItemsLabel () {
+      if (this.armoireCount > 0) {
+        return `${this.$t('gearItemsCompleted', { klass: this.$t(this.selectedGroupGearByClass) })}
+          ${this.$t('moreArmoireGearAvailable', { armoireCount: this.armoireCount })}`;
+      }
+      return `${this.$t('gearItemsCompleted', { klass: this.$t(this.selectedGroupGearByClass) })}
+        ${this.$t('moreArmoireGearComing')}`;
+    },
     marketGearCategories () {
       return shops.getMarketGearCategories(this.user).map(c => {
         c.id = c.identifier;

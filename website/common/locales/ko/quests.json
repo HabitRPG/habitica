@@ -12,7 +12,7 @@
     "rewardsAllParticipants": "모든 퀘스트 파티원을 위한 보상",
     "rewardsQuestOwner": "퀘스트 소유자를 위한 추가 보상",
     "inviteParty": "퀘스트에 파티원 초대하기",
-    "questInvitation": "퀘스트 초대:",
+    "questInvitation": "퀘스트 초대: ",
     "questInvitationInfo": "<%= quest %> 퀘스트로의 초대",
     "invitedToQuest": "퀘스트 <span class=\"notification-bold-blue\"><%= quest %></span>에 초대받았습니다",
     "askLater": "나중에 묻기",

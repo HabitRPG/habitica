@@ -20,7 +20,7 @@ export default async function buyMysterySet (user, req = {}, analytics) {
     throw new NotAuthorized(i18n.t('notEnoughHourglasses', req.language));
   }
 
-  const ref = content.timeTravelerStore(user);
+  const ref = content.timeTravelerStore(user, new Date());
   const mysterySet = ref ? ref[key] : undefined;
 
   if (!mysterySet) {

@@ -5,9 +5,15 @@ import {
 
 describe('GET /shops/time-travelers', () => {
   let user;
+  let clock;
 
   beforeEach(async () => {
     user = await generateUser();
+    clock = sinon.useFakeTimers(new Date('2024-06-08'));
+  });
+
+  afterEach(() => {
+    clock.restore();
   });
 
   it('returns a valid shop object', async () => {

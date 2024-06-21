@@ -7,6 +7,7 @@ import moment from 'moment';
 
 import mysterySets from './mystery-sets';
 import gear from './gear';
+import { getScheduleMatchingGroup } from './constants/schedule';
 
 const mystery = mysterySets;
 
@@ -17,7 +18,8 @@ each(mystery, (v, k) => {
   if (v.items.length === 0) delete mystery[k];
 });
 
-const timeTravelerStore = user => {
+const timeTravelerStore = (user, date) => {
+  const availabilityMatchers = getScheduleMatchingGroup('timeTravelers', date);
   let ownedKeys;
   const { owned } = user.items.gear;
   const { mysteryItems } = user.purchased.plan;
@@ -26,13 +28,13 @@ const timeTravelerStore = user => {
   ownedKeys = union(ownedKeys, unopenedGifts);
   return reduce(mystery, (m, v, k) => {
     if (
-      k === 'wondercon'
-      || ownedKeys.indexOf(v.items[0].key) !== -1
-      || (moment(k).add(1, 'months').isAfter() && moment(k).isBefore('3000-01-01'))
+      k !== 'wondercon'
+      && ownedKeys.indexOf(v.items[0].key) === -1
+      && (moment(k).isAfter('3000-01-01')
+      || availabilityMatchers.match(k))
     ) {
-      return m;
+      m[k] = v;
     }
-    m[k] = v;
     return m;
   }, {});
 };

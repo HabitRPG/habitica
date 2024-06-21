@@ -404,7 +404,7 @@
     "invitedToPartyBy": "<a href=\"/profile/<%- userId %>\" target=\"_blank\">@<%- userName %></a> zaprosił(a) Cię do drużyny <span class=\"notification-bold\"><%- party %></span>",
     "newGroupsWhatsNew": "Sprawdź nowe funkcje:",
     "newGroupsBullet04": "Współdzielone Codzienne nie zadają Wam obrażeń ani nie pojawiają się w oknie wczorajszych Zadań",
-    "assignTo": "Przydziel do:",
+    "assignTo": "Przydziel do",
     "newGroupsBullet05": "Współdzielone Zadania zmieniają kolor, by odzwierciedlić postępy lub ich brak",
     "newGroupsBullet09": "Ukończenie współdzielonego Zadania może zostać wycofane, aby pokazać uczestnikom, że trzeba nad nim jeszcze popracować",
     "sendGiftLabel": "Czy chcesz załączyć wiadomość do prezentu?",

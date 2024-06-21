@@ -5,7 +5,7 @@
     "groupBy": "Group By <%= type %>",
     "classBonus": "(This item matches your class, so it gets an additional 1.5 Stat multiplier.)",
     "classArmor": "Class Armour",
-    "featuredset": "Featured Set <%= name %>",
+    "featuredset": "Featured Set: <%= name %>",
     "mysterySets": "Mystery Sets",
     "gearNotOwned": "You do not own this item.",
     "noGearItemsOfType": "You don't own any of these.",

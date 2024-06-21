@@ -47,7 +47,7 @@
     "messageNotificationNotFound": "Сповіщеня не знайдено.",
     "messageNotAbleToBuyInBulk": "Цей предмет не може бути куплений у кількості більше 1.",
     "notificationsRequired": "Необхідний ідентифікатор сповіщень.",
-    "unallocatedStatsPoints": "Ви маєте <span class=\"notification-bold-blue\"><%= points %> нерозподілених Очків Характеристики</span>",
+    "unallocatedStatsPoints": "Ви маєте <span class=\"notification-bold-blue\"><%= points %> нерозподілених очок характеристик</span>",
     "beginningOfConversation": "Це початок вашої бесіди з <%= userName %>.",
     "messageDeletedUser": "Вибачте, цей користувач видалив свій акаунт.",
     "messageMissingDisplayName": "Відсутнє ім'я.",

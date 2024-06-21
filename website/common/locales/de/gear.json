@@ -2869,5 +2869,21 @@
     "armorSpecialSpring2023RogueNotes": "Du hast vielleicht nur vier Gliedmaßen, mit denen du arbeiten kannst, aber du kannst mit den besten Raupen mitklettern und krabbeln. Erhöht Wahrnehmung um <%= per %>. Limitierte Ausgabe 2023 Frühlingsausrüstung.",
     "armorSpecialSpring2023RogueText": "Raupen-Umhang",
     "armorSpecialSpring2023WarriorText": "Kolibri Rüstung",
-    "armorSpecialSpring2023WarriorNotes": "Das summende Geräusch, das du hörst, sind deine Flügel, die schneller schlagen, als du dir vorstellen kannst. Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe Frühlingsausrüstung."
+    "armorSpecialSpring2023WarriorNotes": "Das summende Geräusch, das du hörst, sind deine Flügel, die schneller schlagen, als du dir vorstellen kannst. Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe Frühlingsausrüstung.",
+    "armorSpecialSpring2023HealerText": "Lilienblatt Kleid",
+    "armorSpecialSpring2023HealerNotes": "Ein Hauch von grünender Pracht macht dich zum Neid der Party. Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe 2023 Frühlingsausrüstung.",
+    "armorSpecialWinter2023RogueText": "Geschenkverpackungs-Band",
+    "armorSpecialWinter2023RogueNotes": "Erhalte Gegenstände. Pack sie zusammen in schönes Papier. Und gib sie deinem örtlichen Schurken! Die Jahreszeit verlangt es. Erhöht Wahrnehmung um <%= per %>. Limitierte Ausgabe 2022-2023 Winterausrüstung.",
+    "armorSpecialSpring2023MageText": "Mondstein Anzug",
+    "armorSpecialSpring2023MageNotes": "Dieser schicke Frühlingsanzug verstärkt Mondstein Magie. Erhöht Intelligenz um <%= int %>. Limitierte Ausgabe 2023 Frühlingsausrüstung.",
+    "armorSpecialSummer2023RogueNotes": "Gup mir fünf! Nach unten! Zu langsam... Erhöht Wahrnehmung um <%= per %>. Limitierte Ausgabe 2023 Sommerausrüstung.",
+    "armorSpecialSummer2023RogueText": "Guppy Umhang",
+    "armorSpecialSummer2023WarriorText": "Goldfisch Rüstung",
+    "armorSpecialSummer2023WarriorNotes": "Goldfisch Krieger haben tatsächlich ein exzellentes Gedächtnis, weil sie ihre Tagesaufgaben und To-Do's immer in Listen organisiert halten. Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe 2023 Sommerausrüstung.",
+    "armorSpecialSummer2023HealerText": "Seetang Kleid",
+    "armorSpecialSummer2023MageText": "Korallen Roben",
+    "armorSpecialSummer2023MageNotes": "Fühl dich beschützt und bequem in diesen fließenden Roben, perfekt koloriert für Unterwasser-Abenteuer. Erhöht Intelligenz um <%= int %>. Limitierte Ausgabe 2023 Sommerausrüstung.",
+    "armorSpecialSummer2023HealerNotes": "Halte an deinen Zielen und Überzeugungen fest, in diesem eleganten grünen Kleid. Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe 2023 Sommerausrüstung.",
+    "armorSpecialFall2023RogueText": "Verfluchter Hexenkessel",
+    "armorSpecialFall2023RogueNotes": "Du wurdest mit dem Versprechen einer schönen, heissen Trinkerei gelockt... der Spaß geht auf deine Kosten! Erhöht Wahrnehmung um <%= per %>. Limitierte Ausgabe 2023 Herbstausrüstung."
 }

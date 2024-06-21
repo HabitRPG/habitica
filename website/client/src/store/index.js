@@ -91,7 +91,7 @@ export default function clientStore () {
       avatarEditorOptions: {
         editingUser: false,
         startingPage: '',
-        subPage: '',
+        subpage: '',
       },
       challengeOptions: {
         cloning: false,

@@ -7,7 +7,7 @@ import { weapon as rogueWeapon } from './sets/rogue';
 import { shield as warriorShield } from './sets/warrior';
 import { shield as wizardShield } from './sets/wizard';
 
-import { shield as armoireShield } from './sets/armoire';
+import armoire from './sets/armoire';
 import { shield as mysteryShield } from './sets/mystery';
 import { shield as specialShield } from './sets/special';
 
@@ -23,7 +23,9 @@ const shield = {
 
   special: specialShield,
   mystery: mysteryShield,
-  armoire: armoireShield,
+  get armoire () {
+    return armoire.shield;
+  },
 };
 
 export default shield;
