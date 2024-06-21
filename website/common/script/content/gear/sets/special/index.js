@@ -962,6 +962,8 @@ const body = {
   },
 };
 
+fillSpecialGear(body, 'body', 20);
+
 const eyewear = {
   wondercon_red: wonderconGear.eyewearSpecialWonderconRed, // eslint-disable-line camelcase
   wondercon_black: wonderconGear.eyewearSpecialWonderconBlack, // eslint-disable-line camelcase
