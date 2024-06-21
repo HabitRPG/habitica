@@ -36,7 +36,7 @@ function fillSpecialGear (gearItems, gearType, value, stats) {
         value: actualValue,
         season,
       }, actualStats);
-      if (klass === 'wizard') {
+      if (klass === 'wizard' && gearType === 'weapon') {
         defaults(gearItems[key], {
           twoHanded: true,
         });

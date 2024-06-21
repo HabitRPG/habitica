@@ -68,6 +68,16 @@ describe('Gear', () => {
     });
   });
 
+  it('only assigns mage weapons twoHanded', () => {
+    each([allGear.armor.special, allGear.head.special, allGear.shield.special], gearType => {
+      each(gearType, gear => {
+        if (gear.specialClass === 'wizard') {
+          expect(gear.twoHanded, gear.key).to.not.eql(true);
+        }
+      });
+    });
+  });
+
   describe('backer gear', () => {
     let user;
 
