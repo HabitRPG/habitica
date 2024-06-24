@@ -404,22 +404,30 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
       path: `mystery.${set.key}`,
       pinType: 'mystery_set',
       purchaseAll: true,
-      end: Number(set.key) < 300000 ? availabilityMatchers.end : null,
     };
 
-    category.items = map(set.items, item => ({
-      key: item.key,
-      text: item.text(language),
-      notes: item.notes(language),
-      type: item.type,
-      purchaseType: 'gear',
-      value: 1,
-      locked: false,
-      currency: 'hourglasses',
-      class: `shop_${item.key}`,
-      pinKey: `timeTravelers!gear.flat.${item.key}`,
-      end: availabilityMatchers.end,
-    }));
+    if (!set.key.startsWith('30')) {
+      category.end = availabilityMatchers.end;
+    }
+
+    category.items = map(set.items, item => {
+      const shopItem = {
+        key: item.key,
+        text: item.text(language),
+        notes: item.notes(language),
+        type: item.type,
+        purchaseType: 'gear',
+        value: 1,
+        locked: false,
+        currency: 'hourglasses',
+        class: `shop_${item.key}`,
+        pinKey: `timeTravelers!gear.flat.${item.key}`,
+      };
+      if (!item.set.startsWith('mystery-30')) {
+        shopItem.end = availabilityMatchers.end;
+      }
+      return shopItem;
+    });
     if (category.items.length > 0) {
       categories.push(category);
     }
