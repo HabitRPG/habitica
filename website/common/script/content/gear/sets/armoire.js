@@ -485,6 +485,10 @@ const armor = {
     con: 13,
     set: 'beachsideSet',
   },
+  corsairsCoatAndCape: {
+    con: 14,
+    set: 'corsairSet',
+  },
 };
 
 const body = {
@@ -993,6 +997,10 @@ const head = {
   pottersBandana: {
     int: 8,
     set: 'pottersSet',
+  },
+  corsairsBandana: {
+    int: 7,
+    set: 'corsairSet',
   },
 };
 
@@ -1830,6 +1838,10 @@ const weapon = {
   shadyBeachUmbrella: {
     per: 12,
     set: 'beachsideSet',
+  },
+  corsairsBlade: {
+    str: 7,
+    set: 'corsairSet',
   },
 };
 
