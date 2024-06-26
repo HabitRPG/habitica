@@ -18,9 +18,9 @@
               v-if="label !== 'skip'"
               :id="key"
               class="gear box"
-              :class="{white: equippedItems[key] && equippedItems[key].indexOf('base_0') === -1}"
+              :class="{white: isUsed(equippedItems, key)}"
             >
-              <div :class="`shop_${equippedItems[key]}`"></div>
+              <Sprite v-if="isUsed(equippedItems, key)" :image-name="`shop_${equippedItems[key]}`"/>
             </div>
             <b-popover
               v-if="label !== 'skip'
@@ -64,9 +64,9 @@
               v-if="label !== 'skip'"
               :id="key + 'C'"
               class="gear box"
-              :class="{white: costumeItems[key] && costumeItems[key].indexOf('base_0') === -1}"
+              :class="{white: isUsed(costumeItems, key)}"
             >
-              <div :class="`shop_${costumeItems[key]}`"></div>
+            <Sprite v-if="isUsed(costumeItems, key)" :image-name="`shop_${costumeItems[key]}`"/>
             </div>
             <!-- Show background on 8th tile rather than a piece of equipment.-->
             <div
@@ -419,6 +419,9 @@ export default {
 
   },
   methods: {
+    isUsed (items, key) {
+      return items[key] && items[key].indexOf('base_0') === -1;
+    },
     getGearTitle (key) {
       return this.flatGear[key].text();
     },
