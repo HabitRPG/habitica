@@ -229,10 +229,10 @@
       class="eggInfo"
     >
       <div v-if="currentDraggingEgg != null">
-        <div
-          class="potion-icon"
-          :class="`Pet_Egg_${currentDraggingEgg.key}`"
-        ></div>
+        <Sprite
+          class="dragging-icon"
+          :imageName="`Pet_Egg_${currentDraggingEgg.key}`"
+        />
         <div class="popover">
           <div class="popover-content">
             {{ $t('dragThisEgg', {eggName: currentDraggingEgg.text }) }}
@@ -246,10 +246,10 @@
       class="eggInfo mouse"
     >
       <div v-if="currentDraggingEgg != null">
-        <div
-          class="potion-icon"
-          :class="`Pet_Egg_${currentDraggingEgg.key}`"
-        ></div>
+        <Sprite
+          class="dragging-icon"
+          :imageName="`Pet_Egg_${currentDraggingEgg.key}`"
+        />
         <div class="popover">
           <div
             class="popover-content"
@@ -264,10 +264,10 @@
       class="hatchingPotionInfo"
     >
       <div v-if="currentDraggingPotion != null">
-        <div
-          class="potion-icon"
-          :class="`Pet_HatchingPotion_${currentDraggingPotion.key}`"
-        ></div>
+        <Sprite
+          class="dragging-icon"
+          :imageName="`Pet_HatchingPotion_${currentDraggingPotion.key}`"
+        />
         <div class="popover">
           <div
             class="popover-content"
@@ -283,10 +283,10 @@
       class="hatchingPotionInfo mouse"
     >
       <div v-if="currentDraggingPotion != null">
-        <div
-          class="potion-icon"
-          :class="`Pet_HatchingPotion_${currentDraggingPotion.key}`"
-        ></div>
+        <Sprite
+          class="dragging-icon"
+          :imageName="`Pet_HatchingPotion_${currentDraggingPotion.key}`"
+        />
         <div class="popover">
           <div
             class="popover-content"
@@ -315,7 +315,8 @@
       pointer-events: none
     }
 
-    .potion-icon {
+    .dragging-icon {
+      width: 68px;
       margin: 0 auto 8px;
       transform: scale(1.5);
     }
@@ -358,6 +359,7 @@ import MouseMoveDirective from '@/directives/mouseposition.directive';
 import FilterGroup from '@/components/ui/filterGroup';
 import Checkbox from '@/components/ui/checkbox';
 import SelectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
+import Sprite from '@/components/ui/sprite';
 
 const allowedSpecialItems = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
 
@@ -391,6 +393,7 @@ export default {
     cardsModal,
     QuestInfo,
     FilterSidebar,
+    Sprite,
   },
   directives: {
     drag: DragDropDirective,
