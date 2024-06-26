@@ -544,6 +544,7 @@ const memoizedBuildFood = memoize(buildFood);
 
 Object.defineProperty(api, 'food', {
   get () { return memoizedBuildFood(); },
+  enumerable: true,
 });
 
 api.appearances = appearances;

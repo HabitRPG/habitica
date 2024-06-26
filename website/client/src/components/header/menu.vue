@@ -16,10 +16,13 @@
         class="brand"
         aria-label="Habitica"
       >
-        <div
+      <router-link to="/">
+          <div
           class="logo svg-icon svg color gryphon"
           v-html="icons.melior"
-        ></div>
+          ></div>
+          <div class="svg-icon"></div>
+        </router-link>
         <div class="svg-icon"></div>
       </b-navbar-brand>
       <b-navbar-toggle
