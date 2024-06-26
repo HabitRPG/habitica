@@ -57,7 +57,7 @@ async function updateUser (user) {
 export default async function processUsers () {
   const query = {
     migration: { $ne: MIGRATION_NAME },
-    'auth.local.lowerCaseUsername': 'SabreTest',
+    'auth.local.lowerCaseUsername': 'sabretest',
   };
 
   const fields = {
