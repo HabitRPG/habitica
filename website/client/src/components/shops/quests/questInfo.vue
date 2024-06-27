@@ -25,7 +25,10 @@
         <dt>{{ $t('bossHP') + ':' }}</dt>
         <dd>{{ quest.boss.hp }}</dd>
       </div>
-      <div class="table-row">
+      <div
+        class="table-row"
+        v-if="quest.purchaseType !== 'bundles'"
+      >
         <dt>{{ $t('difficulty') + ':' }}</dt>
         <dd>
           <div
@@ -39,7 +42,6 @@
     </div>
     <div
       v-if="quest.end && !abbreviated"
-      class="m-auto"
     >
       {{ limitedString }}
     </div>

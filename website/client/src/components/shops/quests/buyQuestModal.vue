@@ -233,8 +233,6 @@
     }
 
     .purchase-amount {
-      margin-top: 24px;
-
       .how-many-to-buy {
         margin-bottom: 16px;
       }
