@@ -227,5 +227,34 @@
           <p>We will use the information you provide for verification only for the purpose of verification. We may have a reason under the law why we do not have to respond to your request or respond to it in a more limited way than you anticipated. If we do, we will explain that to you in our response.</p>
         </ul>
   </div>
-  <!-- eslint-enable max-len -->
+<!-- eslint-enable max-len -->
 </template>
+
+<style lang="scss" scoped>
+  @import '~@/assets/scss/faq.scss';
+
+  table {
+    border-collapse: collapse;
+    border-radius: 2px;
+    border-style: hidden; /* hide standard table (collapsed) border */
+    box-shadow: 0 0 0 1px $gray-300; /* this draws the table border  */
+    overflow: hidden; /*  hides background color overflow */
+    }
+
+  th {
+    align-items: center;
+    background-color: $gray-600;
+    color: $gray-10;
+    font-weight: 700;
+    height: 32px;
+    padding-left: 12px;
+    width: 224px;
+  }
+
+  td {
+    border: 1px solid $gray-300;
+    height: 32px;
+    padding-left: 12px;
+    width: 248px;
+  }
+</style>
