@@ -346,7 +346,7 @@
           >
             <div
               v-b-tooltip.hover.bottom="$t('mysticHourglassesTooltip')"
-              class="top-menu-icon svg-icon"
+              class="top-menu-icon svg-icon hg-icon"
               v-html="icons.hourglasses"
             ></div>
             <span>{{ userHourglasses }}</span>
@@ -354,7 +354,7 @@
           <div class="item-with-icon">
             <a
               v-b-tooltip.hover.bottom="$t('gems')"
-              class="top-menu-icon svg-icon gem"
+              class="top-menu-icon svg-icon gem gem-gold-icon"
               :aria-label="$t('gems')"
               href="#buy-gems"
               @click.prevent="showBuyGemsModal()"
@@ -362,10 +362,10 @@
             ></a>
             <span>{{ userGems }}</span>
           </div>
-          <div class="item-with-icon gold">
+          <div class="item-with-icon gold gem-gold-icon">
             <div
               v-b-tooltip.hover.bottom="$t('gold')"
-              class="top-menu-icon svg-icon"
+              class="top-menu-icon svg-icon gold"
               :aria-label="$t('gold')"
               v-html="icons.gold"
             ></div>
@@ -445,6 +445,7 @@ body.modal-open #habitica-menu {
 
       .currency-tray {
         margin-left: auto;
+        margin-right: 24px;
       }
 
       .topbar-item {
@@ -650,6 +651,7 @@ body.modal-open #habitica-menu {
     font-size: 16px;
     font-weight: normal;
     white-space: nowrap;
+    margin-right:24px;
 
     span {
       font-weight: bold;
@@ -670,8 +672,16 @@ body.modal-open #habitica-menu {
       display: inline-block;
       width: 24px;
       height: 24px;
-      margin-right: 12px;
-      margin-left: 12px;
+      // margin-right: 12px;
+      // margin-left: 12px;
+    }
+
+    &.hg-icon {
+      margin-right: 4px;
+    }
+
+    &.gem-gold-icon {
+      margin-right: 24px;
     }
   }
 
@@ -681,6 +691,10 @@ body.modal-open #habitica-menu {
 
   .menu-icon {
     margin-left: 24px;
+  }
+
+  .hg-icon {
+    margin-right: 4px;
   }
 
   @keyframes rotateGemColors {
@@ -708,6 +722,10 @@ body.modal-open #habitica-menu {
     & ::v-deep path:nth-child(1) {
       animation: rotateGemColors 3s linear infinite alternate;
     }
+  }
+
+  .gem, .gold {
+    margin-right: 8px;
   }
 
   .message-count {
