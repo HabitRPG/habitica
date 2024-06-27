@@ -244,6 +244,7 @@
   th {
     align-items: center;
     background-color: $gray-600;
+    border-right: 1px solid $gray-300;
     color: $gray-10;
     font-weight: 700;
     height: 32px;
