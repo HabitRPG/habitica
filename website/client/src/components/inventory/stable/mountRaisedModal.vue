@@ -80,7 +80,7 @@
 </style>
 
 <script>
-import { mountInfo } from '@/../../common/script/content/stable';
+import stable from '@/../../common/script/content/stable';
 import markdownDirective from '@/directives/markdown';
 
 export default {
@@ -105,7 +105,7 @@ export default {
   },
   methods: {
     openDialog (mountKey) {
-      this.mount = mountInfo[mountKey];
+      this.mount = stable.mountInfo[mountKey];
       this.$root.$emit('bv::show::modal', 'mount-raised-modal');
     },
     close () {

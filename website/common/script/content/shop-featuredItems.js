@@ -20,6 +20,7 @@ const potentialFeaturedPetQuests = [
   'giraffe',
 
   'guineapig',
+  'chameleon',
 
   'cheetah',
 
@@ -34,7 +35,6 @@ const potentialFeaturedPetQuests = [
   'sabretooth',
 ];
 
-// hatching potions and food names should be capitalized lest you break the market
 const featuredItems = {
   market () {
     const featured = [{
