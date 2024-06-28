@@ -503,11 +503,11 @@
                   ng-init="inv.hatchingPotions[item.key] = user.items.hatchingPotions[item.key]"
                 >
                   <div class="form-inline clearfix">
-                    <div
+                    <Sprite
                       class="pull-left"
                       :class="'Pet_HatchingPotion_' + item.key"
                       style="margin-right: 10px"
-                    ></div>
+                    />
                     <p>{{ item.text() }}</p>
                     <input
                       class="form-control"
@@ -565,11 +565,11 @@
                   ng-init="inv.eggs[item.key] = user.items.eggs[item.key]"
                 >
                   <div class="form-inline clearfix">
-                    <div
+                    <Sprite
                       class="pull-left"
-                      :class="'Pet_Egg_' + item.key"
+                      :image-name="'Pet_Egg_' + item.key"
                       style="margin-right: 10px"
-                    ></div>
+                     />
                     <p>{{ item.text() }}</p>
                     <input
                       class="form-control"
@@ -627,11 +627,11 @@
                   ng-init="inv.food[item.key] = user.items.food[item.key]"
                 >
                   <div class="form-inline clearfix">
-                    <div
+                    <Sprite
                       class="pull-left"
                       :class="'Pet_Food_' + item.key"
                       style="margin-right: 10px"
-                    ></div>
+                    />
                     <p>{{ item.text() }}</p>
                     <input
                       class="form-control"
@@ -690,11 +690,11 @@
                   ng-if="item.category !== 'world'"
                 >
                   <div class="form-inline clearfix">
-                    <div
+                    <Sprite
                       class="pull-left"
                       :class="'inventory_quest_scroll_' + item.key"
                       style="margin-right: 10px"
-                    ></div>
+                    />
                     <p>{{ item.text() }}</p>
                     <input
                       class="form-control"

@@ -54,9 +54,9 @@
           v-html="$t('haveHatchablePet', { potion: item.potionName, egg: item.eggName })"
         ></div><div class="potionEggGroup">
           <div class="potionEggBackground">
-            <div :class="potionClass"></div>
+            <Sprite :image-name="potionClass" />
           </div><div class="potionEggBackground">
-            <div :class="eggClass"></div>
+            <Sprite :image-name="eggClass" />
           </div>
         </div>
       </div><div v-else>
