@@ -818,8 +818,10 @@
 
         .background {
           border-radius: 4px;
-          width: 76px;
-          height: 76px;
+          object-position: -4px -4px;
+          object-fit: none;
+          width: 60px;
+          height: 60px;
         }
 
         .deselect {
