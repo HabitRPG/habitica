@@ -213,7 +213,7 @@ Object.defineProperty(api, 'hatchingPotions', {
   enumerable: true,
 });
 
-Object.defineProperty(api, 'dropPets', {
+Object.defineProperty(api, 'pets', {
   get () { return stable.dropPets; },
   enumerable: true,
 });
@@ -238,7 +238,7 @@ Object.defineProperty(api, 'petInfo', {
   enumerable: true,
 });
 
-Object.defineProperty(api, 'dropMounts', {
+Object.defineProperty(api, 'mounts', {
   get () { return stable.dropMounts; },
   enumerable: true,
 });
