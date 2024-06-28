@@ -175,7 +175,7 @@ export default {
       return isAllowedToFeed(this.item, this.userItems);
     },
     itemClass () {
-      if (this.isOwned() || (this.mountOwned() && this.isHatchable()) || this.isSpecial()) {
+      if (this.isOwned() || this.isHatchable()) {
         return '';
       }
       return 'GreyedOut';
