@@ -388,7 +388,7 @@
             ></div>
           </a>
           <notification-menu class="item-with-icon" />
-          <user-dropdown class="item-with-icon" />
+          <user-dropdown class="item-with-icon margin-adj" />
         </div>
       </b-collapse>
     </b-navbar>
@@ -672,8 +672,6 @@ body.modal-open #habitica-menu {
       display: inline-block;
       width: 24px;
       height: 24px;
-      // margin-right: 12px;
-      // margin-left: 12px;
     }
 
     &.hg-icon {
@@ -695,6 +693,10 @@ body.modal-open #habitica-menu {
 
   .hg-icon {
     margin-right: 4px;
+  }
+
+  .margin-adj {
+    margin-right: 12px;
   }
 
   @keyframes rotateGemColors {
