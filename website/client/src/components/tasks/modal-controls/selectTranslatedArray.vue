@@ -10,6 +10,7 @@
       :hide-icon="false"
       :inline-dropdown="inlineDropdown"
       :placeholder="placeholder"
+      :direct-select="true"
       @select="selectItem($event)"
     >
       <template #item="{ item }">

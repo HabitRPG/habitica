@@ -353,13 +353,12 @@ const mockAnalyticsService = {
 
 // Return the production or mock service based on the current environment
 function getServiceByEnvironment () {
-  if (nconf.get('IS_PROD')) {
+  if (nconf.get('IS_PROD') || (nconf.get('DEBUG_ENABLED') && !nconf.get('BASE_URL').includes('localhost'))) {
     return {
       track,
       trackPurchase,
     };
   }
-
   return mockAnalyticsService;
 }
 

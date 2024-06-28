@@ -17,9 +17,5 @@ describe('GET /shops/backgrounds', () => {
     expect(shop.notes).to.eql(t('backgroundShop'));
     expect(shop.imageName).to.equal('background_shop');
     expect(shop.sets).to.be.an('array');
-
-    const sets = shop.sets.map(set => set.identifier);
-    expect(sets).to.include('incentiveBackgrounds');
-    expect(sets).to.include('backgrounds062014');
   });
 });

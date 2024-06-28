@@ -15,16 +15,15 @@
 @import '~@/assets/scss/colors.scss';
 
   .modal-close {
-    color: $black;
     position: absolute;
     right: 16px;
     top: 16px;
     cursor: pointer;
 
     .svg-close {
+      color: $gray-50;
       width: 18px;
       height: 18px;
-      vertical-align: middle;
       opacity: 0.5;
 
       &:hover {

@@ -499,6 +499,10 @@ export async function cron (options = {}) {
     _.merge(progress, { down: 0, up: 0, collectedItems: 0 });
   }
 
+  if (user.pinnedItems && user.pinnedItems.length > 0) {
+    user.pinnedItems = common.cleanupPinnedItems(user);
+  }
+
   // Send notification for changes in HP and MP.
   // First remove a possible previous cron notification because
   // we don't want to flood the users with many cron notifications at once.

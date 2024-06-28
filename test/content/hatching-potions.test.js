@@ -5,27 +5,33 @@ import {
   expectValidTranslationString,
 } from '../helpers/content.helper';
 
-import * as hatchingPotions from '../../website/common/script/content/hatching-potions';
+import { all } from '../../website/common/script/content/hatching-potions';
 
 describe('hatchingPotions', () => {
-  describe('all', () => {
-    it('is a combination of drop, premium, and wacky potions', () => {
-      const dropNumber = Object.keys(hatchingPotions.drops).length;
-      const premiumNumber = Object.keys(hatchingPotions.premium).length;
-      const wackyNumber = Object.keys(hatchingPotions.wacky).length;
-      const allNumber = Object.keys(hatchingPotions.all).length;
+  let clock;
 
-      expect(allNumber).to.be.greaterThan(0);
-      expect(allNumber).to.equal(dropNumber + premiumNumber + wackyNumber);
-    });
+  afterEach(() => {
+    if (clock) {
+      clock.restore();
+    }
+  });
 
-    it('contains basic information about each potion', () => {
-      each(hatchingPotions.all, (potion, key) => {
-        expectValidTranslationString(potion.text);
-        expectValidTranslationString(potion.notes);
-        expect(potion.canBuy).to.be.a('function');
-        expect(potion.value).to.be.a('number');
-        expect(potion.key).to.equal(key);
+  const potionTypes = [
+    'drops',
+    'quests',
+    'premium',
+    'wacky',
+  ];
+  potionTypes.forEach(potionType => {
+    describe(potionType, () => {
+      it('contains basic information about each potion', () => {
+        each(all, (potion, key) => {
+          expectValidTranslationString(potion.text);
+          expectValidTranslationString(potion.notes);
+          expect(potion.canBuy).to.be.a('function');
+          expect(potion.value).to.be.a('number');
+          expect(potion.key).to.equal(key);
+        });
       });
     });
   });

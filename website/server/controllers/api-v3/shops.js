@@ -144,4 +144,26 @@ api.getBackgroundShopItems = {
   },
 };
 
+/**
+ * @apiIgnore
+ * @api {get} /api/v3/shops/customizations get the available items for the customizations shop
+ * @apiName GetCustomizationShopItems
+ * @apiGroup Shops
+ *
+ * @apiSuccess {Object} data List of available avatar customizations
+ * @apiSuccess {string} message Success message
+ */
+api.getCustomizationsShop = {
+  method: 'GET',
+  url: '/shops/customizations',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    const { user } = res.locals;
+
+    const resObject = shops.getCustomizationsShop(user, req.language);
+
+    res.respond(200, resObject);
+  },
+};
+
 export default api;

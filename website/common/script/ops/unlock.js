@@ -7,6 +7,7 @@ import { removeItemByPath } from './pinnedGearUtils';
 import getItemInfo from '../libs/getItemInfo';
 import content from '../content/index';
 import updateUserBalance from './updateUserBalance';
+import { getScheduleMatchingGroup } from '../content/constants/schedule';
 
 const incentiveBackgrounds = ['blue', 'green', 'red', 'purple', 'yellow'];
 
@@ -35,6 +36,7 @@ function getItemByPath (path, setType) {
   if (setType === 'hair') {
     // itemPathParent is in this format: hair.purple
     const hairType = itemPathParent.split('.')[1];
+    if (!content.appearances.hair[hairType]) return null;
     return content.appearances.hair[hairType][itemKey];
   }
 
@@ -222,6 +224,13 @@ export default async function unlock (user, req = {}, analytics) {
   // We take the first path and use it to get the set,
   // The passed paths are not used anymore after this point for full sets
   const { set, items, paths } = getSet(setType, firstPath, req);
+
+  if (isBackground && !alreadyUnlocked(user, setType, path)) {
+    const matchers = getScheduleMatchingGroup('backgrounds');
+    if (!matchers.match(set.key)) {
+      throw new NotAuthorized(i18n.t('notAvailable', req.language));
+    }
+  }
 
   let cost;
   let unlockedAlready = false;

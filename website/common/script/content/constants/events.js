@@ -1,4 +1,5 @@
 /* eslint-disable key-spacing */
+import moment from 'moment';
 
 // gem block: number of gems
 const gemsPromo = {
@@ -7,6 +8,105 @@ const gemsPromo = {
   '42gems': 60,
   '84gems': 125,
 };
+
+export const REPEATING_EVENTS = {
+  nye: {
+    start: new Date('1970-12-28T08:00-05:00'),
+    end: new Date('1970-01-04T23:59-05:00'),
+    season: 'nye',
+    npcImageSuffix: '_nye',
+    content: [
+      {
+        type: 'cards',
+        items: [
+          'nye',
+        ],
+      },
+    ],
+  },
+  birthday: {
+    start: new Date('1970-01-30T08:00-05:00'),
+    end: new Date('1970-02-08T23:59-05:00'),
+    season: 'birthday',
+    npcImageSuffix: '_birthday',
+    foodSeason: 'Cake',
+  },
+  valentines: {
+    start: new Date('1970-02-13T08:00-05:00'),
+    end: new Date('1970-02-17T23:59-05:00'),
+    season: 'valentines',
+    npcImageSuffix: '_valentines',
+    content: [
+      {
+        type: 'cards',
+        items: [
+          'valentine',
+        ],
+      },
+    ],
+  },
+  piDay: {
+    start: new Date('1970-03-13T08:00-05:00'),
+    end: new Date('1970-03-15T23:59-05:00'),
+    foodSeason: 'Pie',
+  },
+  aprilFoolsResale: {
+    start: new Date('1970-04-07T08:00-05:00'),
+    end: new Date('1970-04-30T23:59-05:00'),
+    content: [
+      {
+        type: 'hatchingPotionQuests',
+        items: [
+          'virtualpet',
+          'waffle',
+          'fungi',
+        ],
+      },
+      {
+        type: 'premiumHatchingPotions',
+        items: [
+          'Garden',
+          'TeaShop',
+        ],
+      },
+    ],
+  },
+  namingDay: {
+    start: new Date('1970-07-30T08:00-05:00'),
+    end: new Date('1970-08-01T23:59-05:00'),
+    foodSeason: 'Cake',
+  },
+  habitoween: {
+    start: new Date('1970-10-30T08:00-05:00'),
+    end: new Date('1970-11-01T23:59-05:00'),
+    foodSeason: 'Candy',
+  },
+  harvestFeast: {
+    start: new Date('1970-11-22T08:00-05:00'),
+    end: new Date('1970-11-27T20:00-05:00'),
+    season: 'thanksgiving',
+    npcImageSuffix: '_thanksgiving',
+    foodSeason: 'Pie',
+  },
+};
+
+export function getRepeatingEvents (date) {
+  const momentDate = date instanceof moment ? date : moment(date);
+  return Object.keys(REPEATING_EVENTS).map(eventKey => {
+    const event = REPEATING_EVENTS[eventKey];
+    if (!event.key) {
+      event.key = eventKey;
+    }
+    event.start.setYear(momentDate.year());
+    event.end.setYear(momentDate.year());
+    if (event.end < event.start && momentDate < event.start) {
+      event.start.setYear(momentDate.year() - 1);
+    } else if (event.end < event.start && momentDate > event.end) {
+      event.end.setYear(momentDate.year() + 1);
+    }
+    return event;
+  }).filter(event => momentDate.isBetween(event.start, event.end));
+}
 
 export const EVENTS = {
   noEvent: {

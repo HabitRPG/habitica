@@ -245,7 +245,7 @@
   "backgroundWindyAutumnText": "Windy Autumn",
   "backgroundWindyAutumnNotes": "Chase leaves during a Windy Autumn.",
 
-  "incentiveBackgrounds": "Plain Background Set",
+  "incentiveBackgrounds": "Standard Backgrounds",
   "backgroundVioletText": "Violet",
   "backgroundVioletNotes": "A vibrant violet backdrop.",
   "backgroundBlueText": "Blue",
@@ -979,6 +979,10 @@
   "backgroundPottersStudioText": "Potter's Studio",
   "backgroundPottersStudioNotes": "Create art in the Potter's Studio.",
 
+  "backgrounds062024": "SET 121: Released June 2024",
+  "backgroundShellGateText": "Shell Gate",
+  "backgroundShellGateNotes": "March through the decorated coral of a Shell Gate.",
+
   "timeTravelBackgrounds": "Steampunk Backgrounds",
   "backgroundAirshipText": "Airship",
   "backgroundAirshipNotes": "Become a sky sailor on board your very own Airship.",
@@ -989,5 +993,7 @@
 
   "eventBackgrounds": "Event Backgrounds",
   "backgroundBirthdayBashText": "Birthday Bash",
-  "backgroundBirthdayBashNotes": "Habitica's having a birthday party, and everyone's invited!"
+  "backgroundBirthdayBashNotes": "Habitica's having a birthday party, and everyone's invited!",
+
+  "monthlyBackgrounds": "Monthly Backgrounds"
 }

@@ -25,6 +25,7 @@ import {
   MAX_GIFT_MESSAGE_LENGTH,
 } from './constants';
 import content from './content/index';
+import { getCurrentGalaEvent, getScheduleMatchingGroup } from './content/constants/schedule';
 import * as count from './count';
 // TODO under api.libs.cron?
 import {
@@ -95,6 +96,7 @@ import updateTask from './ops/updateTask';
 import * as statHelpers from './statHelpers';
 import { unEquipByType } from './ops/unequip';
 import getOfficialPinnedItems from './libs/getOfficialPinnedItems';
+import cleanupPinnedItems from './libs/cleanupPinnedItems';
 import { sleepAsync } from './libs/sleepAsync';
 
 const api = {
@@ -106,6 +108,10 @@ const api = {
   getPlanMonths,
   daysSince,
   DAY_MAPPING,
+  schedule: {
+    getCurrentGalaEvent,
+    getScheduleMatchingGroup,
+  },
 };
 
 api.constants = {
@@ -159,6 +165,7 @@ api.onboarding = onboarding;
 api.setDebuffPotionItems = setDebuffPotionItems;
 api.getDebuffPotionItems = getDebuffPotionItems;
 api.getOfficialPinnedItems = getOfficialPinnedItems;
+api.cleanupPinnedItems = cleanupPinnedItems;
 api.sleepAsync = sleepAsync;
 
 api.fns = {

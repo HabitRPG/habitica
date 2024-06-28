@@ -488,6 +488,38 @@ const QUEST_PETS = {
       unlock: t('questGhostStagUnlockText'),
     },
   },
+  giraffe: {
+    text: t('questGiraffeText'),
+    notes: t('questGiraffeNotes'),
+    completion: t('questGiraffeCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questGiraffeBoss'),
+      hp: 700,
+      str: 2,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Giraffe',
+          text: t('questGiraffeDropGiraffeEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Giraffe',
+          text: t('questGiraffeDropGiraffeEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Giraffe',
+          text: t('questGiraffeDropGiraffeEgg'),
+        },
+      ],
+      gp: 50,
+      exp: 450,
+      unlock: t('questGiraffeUnlockText'),
+    },
+  },
   gryphon: {
     text: t('questGryphonText'),
     notes: t('questGryphonNotes'),

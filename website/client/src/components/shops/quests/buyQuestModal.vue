@@ -99,7 +99,7 @@
       </div>
     </div>
     <countdown-banner
-      v-if="item.event"
+      v-if="item.end"
       :end-date="endDate"
     />
     <div
@@ -470,7 +470,7 @@ export default {
       return this.icons.gems;
     },
     endDate () {
-      return moment(this.item.event.end);
+      return moment(this.item.end);
     },
   },
   watch: {

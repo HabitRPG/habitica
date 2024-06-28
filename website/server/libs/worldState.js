@@ -1,4 +1,3 @@
-import filter from 'lodash/filter';
 import moment from 'moment';
 import { // eslint-disable-line import/no-cycle
   model as Group,
@@ -7,8 +6,7 @@ import { // eslint-disable-line import/no-cycle
 import common from '../../common';
 
 export async function getWorldBoss () {
-  const tavern = await Group
-    .findById(tavernId)
+  const tavern = await Group.findById(tavernId)
     .select('quest.progress quest.key quest.active quest.extra')
     .exec();
   if (tavern && tavern.quest && tavern.quest.active) {
@@ -18,36 +16,21 @@ export async function getWorldBoss () {
 }
 
 export function getCurrentEvent () {
-  const currEvtKey = Object.keys(common.content.events).find(evtKey => {
-    const event = common.content.events[evtKey];
+  const now = moment();
+  const currentEvents = common.content.getRepeatingEventsOnDate(now);
 
-    const now = moment();
-
-    return now.isBetween(event.start, event.end); // && Boolean(event.npcImageSuffix);
-  });
-
-  if (!currEvtKey) return null;
+  if (currentEvents.length === 0) {
+    return common.schedule.getCurrentGalaEvent();
+  }
   return {
-    event: currEvtKey,
-    ...common.content.events[currEvtKey],
+    event: currentEvents[0].key,
+    ...currentEvents[0],
   };
 }
 
 export function getCurrentEventList () {
-  const currentEventKeys = filter(Object.keys(common.content.events), eventKey => {
-    const eventData = common.content.events[eventKey];
-
-    return moment().isBetween(eventData.start, eventData.end);
-  });
-
-  const currentEventList = [];
-
-  currentEventKeys.forEach(key => {
-    currentEventList.push({
-      event: key,
-      ...common.content.events[key],
-    });
-  });
-
-  return currentEventList;
+  const now = moment();
+  const currentEvents = common.content.getRepeatingEventsOnDate(now);
+  currentEvents.push(common.schedule.getCurrentGalaEvent());
+  return currentEvents;
 }

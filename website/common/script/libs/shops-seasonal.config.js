@@ -1,50 +1,48 @@
-import find from 'lodash/find';
 import upperFirst from 'lodash/upperFirst';
-import moment from 'moment';
 import {
-  EVENTS,
-  SEASONAL_SETS,
+  getCurrentGalaKey,
 } from '../content/constants';
+import {
+  armor,
+} from '../content/gear/sets/special';
 
-const CURRENT_EVENT = find(EVENTS, event => moment().isBetween(event.start, event.end)
-    && ['winter', 'spring', 'summer', 'fall'].includes(event.season));
-
-export default {
-  opened: CURRENT_EVENT,
-
-  currentSeason: CURRENT_EVENT ? upperFirst(CURRENT_EVENT.season) : 'Closed',
-
-  dateRange: {
-    start: CURRENT_EVENT ? moment(CURRENT_EVENT.start) : moment().subtract(1, 'days').toDate(),
-    end: CURRENT_EVENT ? moment(CURRENT_EVENT.end) : moment().subtract(1, 'seconds').toDate(),
-  },
-
-  availableSets: CURRENT_EVENT
-    ? [
-      ...SEASONAL_SETS[CURRENT_EVENT.season],
-    ]
-    : [],
-
-  pinnedSets: CURRENT_EVENT
-    ? {
-      rogue: 'spring2024MeltingSnowRogueSet',
-      warrior: 'spring2024FluoriteWarriorSet',
-      wizard: 'spring2024HibiscusMageSet',
-      healer: 'spring2024BluebirdHealerSet',
+function safeGetSet (currentEvent, year, className) {
+  const set = armor[`${currentEvent}${year}${className}`];
+  if (set) {
+    return set.set;
+  }
+  let checkedYear = year - 1;
+  while (checkedYear >= 2014) {
+    const oldSet = armor[`${currentEvent}${checkedYear}${className}`];
+    if (oldSet) {
+      return oldSet.set;
     }
-    : {},
+    checkedYear -= 1;
+  }
+  return null;
+}
 
-  availableSpells: CURRENT_EVENT && moment().isBetween('2024-04-18T08:00-04:00', CURRENT_EVENT.end)
-    ? [
-      'shinySeed',
-    ]
-    : [],
+function getCurrentSeasonalSets (currentEvent) {
+  const year = new Date().getFullYear();
+  return {
+    rogue: safeGetSet(currentEvent, year, 'Rogue'),
+    warrior: safeGetSet(currentEvent, year, 'Warrior'),
+    wizard: safeGetSet(currentEvent, year, 'Mage'),
+    healer: safeGetSet(currentEvent, year, 'Healer'),
+  };
+}
 
-  availableQuests: CURRENT_EVENT && moment().isBetween('2024-03-26T08:00-04:00', CURRENT_EVENT.end)
-    ? [
-      'egg',
-    ]
-    : [],
-
-  featuredSet: 'spring2020LapisLazuliRogueSet',
+export default () => {
+  const currentEvent = getCurrentGalaKey();
+  const pinnedSets = getCurrentSeasonalSets(currentEvent);
+  return {
+    currentSeason: currentEvent ? upperFirst(currentEvent) : 'Closed',
+    pinnedSets,
+    featuredSet: user => {
+      if (user.stats.class) {
+        return pinnedSets[user.stats.class];
+      }
+      return null;
+    },
+  };
 };

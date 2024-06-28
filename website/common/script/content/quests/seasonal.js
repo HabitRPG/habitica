@@ -1,18 +1,8 @@
-import find from 'lodash/find';
-import moment from 'moment';
-import { EVENTS } from '../constants/events';
 import t from '../translation';
-
-const CURRENT_EVENT = find(EVENTS, event => moment()
-  .isBetween(event.start, event.end) && Boolean(event.season));
 
 const QUEST_SEASONAL = {
   // winter
   evilsanta: {
-    event: CURRENT_EVENT && CURRENT_EVENT.season === 'winter' ? CURRENT_EVENT : null,
-    canBuy () {
-      return this.event && moment().isBetween(this.event.start, this.event.end);
-    },
     text: t('questEvilSantaText'),
     notes: t('questEvilSantaNotes'),
     addlNotes: t('evilSantaAddlNotes'),
@@ -37,10 +27,6 @@ const QUEST_SEASONAL = {
     },
   },
   evilsanta2: {
-    event: CURRENT_EVENT && CURRENT_EVENT.season === 'winter' ? CURRENT_EVENT : null,
-    canBuy () {
-      return this.event && moment().isBetween(this.event.start, this.event.end);
-    },
     text: t('questEvilSanta2Text'),
     notes: t('questEvilSanta2Notes'),
     addlNotes: t('evilSantaAddlNotes'),
@@ -71,10 +57,6 @@ const QUEST_SEASONAL = {
   },
   // spring
   egg: {
-    event: CURRENT_EVENT && CURRENT_EVENT.season === 'spring' ? CURRENT_EVENT : null,
-    canBuy () {
-      return this.event && moment().isBetween('2024-03-26T08:00-04:00', this.event.end);
-    },
     text: t('questEggHuntText'),
     notes: t('questEggHuntNotes'),
     completion: t('questEggHuntCompletion'),
@@ -135,10 +117,6 @@ const QUEST_SEASONAL = {
     },
   },
   waffle: {
-    event: EVENTS.aprilFoolsQuest2024,
-    canBuy () {
-      return moment().isBetween(EVENTS.aprilFoolsQuest2024.start, EVENTS.aprilFoolsQuest2024.end);
-    },
     text: t('questWaffleText'),
     notes: t('questWaffleNotes'),
     completion: t('questWaffleCompletion'),
@@ -178,10 +156,6 @@ const QUEST_SEASONAL = {
     },
   },
   virtualpet: {
-    event: EVENTS.aprilFoolsQuest2024,
-    canBuy () {
-      return moment().isBetween(EVENTS.aprilFoolsQuest2024.start, EVENTS.aprilFoolsQuest2024.end);
-    },
     text: t('questVirtualPetText'),
     notes: t('questVirtualPetNotes'),
     completion: t('questVirtualPetCompletion'),
@@ -221,10 +195,6 @@ const QUEST_SEASONAL = {
     },
   },
   fungi: {
-    event: EVENTS.aprilFoolsQuest2024,
-    canBuy () {
-      return moment().isBetween(EVENTS.aprilFoolsQuest2024.start, EVENTS.aprilFoolsQuest2024.end);
-    },
     text: t('questFungiText'),
     notes: t('questFungiNotes'),
     completion: t('questFungiCompletion'),

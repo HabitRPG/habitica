@@ -1,5 +1,11 @@
 // TODO move to item component?
 
+.item, .item-wrapper, .item > div > div {
+  &:focus-visible {
+    outline: none;
+  }
+}
+
 .items > div {
   display: inline-block;
   margin-right: 24px;
@@ -9,32 +15,20 @@
   position: relative;
   display: inline-block;
   margin-bottom: 12px;
+
+  &:focus {
+    outline: 2px solid $purple-400;
+    border-radius: 2px;
+  }
+
+  &:hover {
+    box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
+    border-radius: 4px;
+  }
 }
 
 .items-one-line .item-wrapper {
   margin-bottom: 8px;
-}
-
-.item.pet-slot {
-  // Desktop XL (1440)
-  @media only screen and (min-width: 1440px){
-    margin-right: 1.71em;
-  }
-
-  // Desktop L (1280)
-  @media only screen and (min-width: 1280px) and (max-width: 1439px) {
-    margin-right: 0.43em;
-  }
-
-  // Desktop M (1024)
-  @media only screen and (min-width: 1024px) and (max-width: 1279px) {
-    margin-right: 0.86em;
-  }
-
-  // Tablets and mobile
-  @media only screen and (max-width: 1023px) {
-    margin-right: 1.71em;
-  }
 }
 
 .item {
@@ -56,11 +50,6 @@
     background: $purple-500;
   }
 
-  &:hover {
-    box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
-    border-color: $purple-400;
-  }
-
   &.highlight {
     box-shadow: 0 0 8px 8px rgba($black, 0.16), 0 5px 10px 0 rgba($black, 0.12) !important;
   }
@@ -70,9 +59,15 @@
   }
 }
 
-.flat .item {
-  box-shadow: none;
-  border: none;
+.flat {
+  .item {
+    box-shadow: none;
+    border: none;
+  }
+
+  .item-wrapper:hover {
+    box-shadow: none;
+  }
 }
 
 .bordered-item .item {

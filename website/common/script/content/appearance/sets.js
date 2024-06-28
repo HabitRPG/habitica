@@ -1,38 +1,25 @@
 import t from '../translation';
 import prefill from './prefill';
-import { EVENTS } from '../constants';
 
 export default prefill({
   baseHair1: { setPrice: 5, text: t('hairSet1') },
   baseHair2: { setPrice: 5, text: t('hairSet2') },
   baseHair3: { setPrice: 5, text: t('hairSet3') },
-  facialHair: { setPrice: 5, text: t('bodyFacialHair') },
+  facialHair: { setPrice: 5, text: t('titleFacialHair') },
   specialShirts: { setPrice: 5, text: t('specialShirts') },
-  winterHairColors: { setPrice: 5, availableUntil: '2016-01-01' },
-  pastelHairColors: { setPrice: 5, availableUntil: '2016-01-01' },
+  legacyShirts: { },
+  winterHairColors: { setPrice: 5 },
+  pastelHairColors: { setPrice: 5 },
   rainbowHairColors: { setPrice: 5, text: t('rainbowColors') },
-  shimmerHairColors: {
-    setPrice: 5, availableFrom: '2024-04-16T08:00-05:00', availableUntil: EVENTS.spring2024.end, text: t('shimmerColors'),
-  },
-  hauntedHairColors: {
-    setPrice: 5, availableFrom: '2023-10-03T08:00-04:00', availableUntil: EVENTS.fall2023.end, text: t('hauntedColors'),
-  },
-  winteryHairColors: {
-    setPrice: 5, availableFrom: '2023-01-16T08:00-05:00', availableUntil: EVENTS.winter2024.end, text: t('winteryColors'),
-  },
+  shimmerHairColors: { setPrice: 5, text: t('shimmerColors') },
+  summerHairColors: { setPrice: 5, text: t('summerColors') },
+  hauntedHairColors: { setPrice: 5, text: t('hauntedColors') },
+  winteryHairColors: { setPrice: 5, text: t('winteryColors') },
   rainbowSkins: { setPrice: 5, text: t('rainbowSkins') },
   animalSkins: { setPrice: 5, text: t('animalSkins') },
-  pastelSkins: {
-    setPrice: 5, availableFrom: '2024-04-16T08:00-05:00', availableUntil: EVENTS.spring2024.end, text: t('pastelSkins'),
-  },
-  spookySkins: { setPrice: 5, availableUntil: '2016-01-01', text: t('spookySkins') },
-  supernaturalSkins: {
-    setPrice: 5, availableFrom: '2023-10-03T08:00-04:00', availableUntil: EVENTS.fall2023.end, text: t('supernaturalSkins'),
-  },
-  splashySkins: {
-    setPrice: 5, availableFrom: '2023-07-11T08:00-05:00', availableUntil: EVENTS.summer2023.end, text: t('splashySkins'),
-  },
-  winterySkins: {
-    setPrice: 5, availableFrom: '2023-01-16T08:00-05:00', availableUntil: EVENTS.winter2024.end, text: t('winterySkins'),
-  },
+  pastelSkins: { setPrice: 5, text: t('pastelSkins') },
+  spookySkins: { setPrice: 5, text: t('spookySkins') },
+  supernaturalSkins: { setPrice: 5, text: t('supernaturalSkins') },
+  splashySkins: { setPrice: 5, text: t('splashySkins') },
+  winterySkins: { setPrice: 5, text: t('winterySkins') },
 });
