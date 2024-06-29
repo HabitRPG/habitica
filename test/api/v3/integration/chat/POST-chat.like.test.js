@@ -117,7 +117,7 @@ describe('POST /chat/:chatId/like', () => {
     const message = await anotherUser.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage });
 
     // Creation API is shut down, we need to simulate an extant public group
-    await Group.updateOne({ _id: groupWithChat._id }, { $set: { privacy: 'public' }, $unset: { 'purchased.plan': 1 }}).exec();
+    await Group.updateOne({ _id: groupWithChat._id }, { $set: { privacy: 'public' }, $unset: { 'purchased.plan': 1 } }).exec();
 
     await expect(user.post(`/groups/${groupWithChat._id}/chat/${message.message.id}/like`))
       .to.eventually.be.rejected.and.eql({
