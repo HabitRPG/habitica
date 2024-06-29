@@ -57,7 +57,7 @@ describe('GET /groups/:groupId/chat', () => {
       }));
 
       // Creation API is shut down, we need to simulate an extant public group
-      await Group.updateOne({ _id: group._id }, { $set: { privacy: 'public' }, $unset: { 'purchased.plan': 1 }}).exec();
+      await Group.updateOne({ _id: group._id }, { $set: { privacy: 'public' }, $unset: { 'purchased.plan': 1 } }).exec();
     });
 
     it('returns error if user attempts to fetch a sunset Guild', async () => {
