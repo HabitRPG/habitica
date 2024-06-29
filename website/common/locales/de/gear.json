@@ -2885,5 +2885,7 @@
     "armorSpecialSummer2023MageNotes": "Fühl dich beschützt und bequem in diesen fließenden Roben, perfekt koloriert für Unterwasser-Abenteuer. Erhöht Intelligenz um <%= int %>. Limitierte Ausgabe 2023 Sommerausrüstung.",
     "armorSpecialSummer2023HealerNotes": "Halte an deinen Zielen und Überzeugungen fest, in diesem eleganten grünen Kleid. Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe 2023 Sommerausrüstung.",
     "armorSpecialFall2023RogueText": "Verfluchter Hexenkessel",
-    "armorSpecialFall2023RogueNotes": "Du wurdest mit dem Versprechen einer schönen, heissen Trinkerei gelockt... der Spaß geht auf deine Kosten! Erhöht Wahrnehmung um <%= per %>. Limitierte Ausgabe 2023 Herbstausrüstung."
+    "armorSpecialFall2023RogueNotes": "Du wurdest mit dem Versprechen einer schönen, heissen Trinkerei gelockt... der Spaß geht auf deine Kosten! Erhöht Wahrnehmung um <%= per %>. Limitierte Ausgabe 2023 Herbstausrüstung.",
+    "armorSpecialFall2023WarriorText": "Videorekorder Rüstung",
+    "armorSpecialFall2023WarriorNotes": "Spielt sie DVDs ab? VHS?? Was für Kabel benötigt dieses Ding, um es mit dem TV zu verbinden?! Wie sich herausstellt, ist dies der beängstigendste Aspekt an der Sache. Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe 2023 Sommerausrüstung."
 }

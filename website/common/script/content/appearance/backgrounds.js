@@ -623,6 +623,9 @@ const backgrounds = {
   backgrounds062024: {
     shell_gate: { },
   },
+  backgrounds072024: {
+    river_bottom: { },
+  },
   eventBackgrounds: {
     birthday_bash: {
       price: 0,
