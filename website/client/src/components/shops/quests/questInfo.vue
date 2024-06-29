@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="row"
+      class="row mt-3"
     >
       <div
         v-if="quest.collect"

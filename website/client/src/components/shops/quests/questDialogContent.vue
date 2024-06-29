@@ -18,7 +18,6 @@
     </div>
     <div
       v-html="itemNotes"
-      class="mb-2"
     ></div>
     <questInfo
       class="questInfo"
