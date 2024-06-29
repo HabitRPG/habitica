@@ -158,6 +158,8 @@ export const UserSchema = new Schema({
     bonelessBoss: Boolean,
     duneBuddy: Boolean,
     roughRider: Boolean,
+    rodentRuler: Boolean,
+    cats: Boolean,
     // Onboarding Guide
     createdTask: Boolean,
     completedTask: Boolean,
@@ -576,6 +578,7 @@ export const UserSchema = new Schema({
       onboarding: { $type: Boolean, default: true },
       majorUpdates: { $type: Boolean, default: true },
       subscriptionReminders: { $type: Boolean, default: true },
+      contentRelease: { $type: Boolean, default: true },
     },
     pushNotifications: {
       unsubscribeFromAll: { $type: Boolean, default: false },
@@ -592,6 +595,7 @@ export const UserSchema = new Schema({
       mentionJoinedGuild: { $type: Boolean, default: true },
       mentionUnjoinedGuild: { $type: Boolean, default: true },
       partyActivity: { $type: Boolean, default: true },
+      contentRelease: { $type: Boolean, default: true },
     },
     suppressModals: {
       levelUp: { $type: Boolean, default: false },

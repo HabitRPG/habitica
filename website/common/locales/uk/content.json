@@ -1,9 +1,9 @@
 {
     "potionText": "Цілюще зілля",
-    "potionNotes": "Відновлює 15 одиниць здоров'я (можна придбати необмежену кількість)",
-    "armoireText": "Чарівна скриня",
-    "armoireNotesFull": "Відкрийте скриню, щоб отримати особливе спорядження, досвід чи їжу! Залишилося предметів спорядження:",
-    "armoireLastItem": "Ви знайшли останню частину рідкісного спорядження в Чарівній скрині.",
+    "potionNotes": "Відновлює 15 одиниць здоров'я (миттєво)",
+    "armoireText": "Зачарована скриня",
+    "armoireNotesFull": "Відкрийте скриню, щоб отримати особливе спорядження, досвід чи корм! Залишилося спорядження:",
+    "armoireLastItem": "Ви знайшли останню річ з рідкісного спорядження в Зачарованій скрині.",
     "armoireNotesEmpty": "Нове спорядження з'являтиметься у скрині на початку кожного місяця. А поки що, продовжуй клікати заради корму та досвіду!",
     "dropEggWolfText": "Вовк",
     "dropEggWolfMountText": "Вовк",
@@ -104,8 +104,8 @@
     "questEggUnicornText": "Єдиноріг",
     "questEggUnicornMountText": "Єдиноріг",
     "questEggUnicornAdjective": "чарівний",
-    "questEggSabretoothText": "Саблезубий кіт",
-    "questEggSabretoothMountText": "Саблезубий кіт",
+    "questEggSabretoothText": "Шаблезубий кіт",
+    "questEggSabretoothMountText": "Шаблезубий кіт",
     "questEggSabretoothAdjective": "жорстокий",
     "questEggMonkeyText": "Мавпа",
     "questEggMonkeyMountText": "Мавпа",
@@ -158,7 +158,7 @@
     "questEggHippoText": "Бегемот",
     "questEggHippoMountText": "Бегемот",
     "questEggHippoAdjective": "щасливий",
-    "questEggYarnText": "Килим",
+    "questEggYarnText": "Пряжа",
     "questEggYarnMountText": "Літаючий килим",
     "questEggYarnAdjective": "вовняний",
     "questEggPterodactylText": "Птеродактиль",
@@ -374,5 +374,7 @@
     "hatchingPotionVirtualPet": "Віртуальний",
     "hatchingPotionPorcelain": "Порцеляновий",
     "hatchingPotionPinkMarble": "Рожево-мармуровий",
-    "hatchingPotionTeaShop": "Чайний магазин"
+    "hatchingPotionTeaShop": "Чайний магазин",
+    "hatchingPotionRoseGold": "Рожеве золото",
+    "hatchingPotionFungi": "Грибний"
 }

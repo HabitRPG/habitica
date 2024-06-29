@@ -251,6 +251,14 @@
   "questEggRobotMountText": "Robot",
   "questEggRobotAdjective": "a futuristic",
 
+  "questEggGiraffeText": "Giraffe",
+  "questEggGiraffeMountText": "Giraffe",
+  "questEggGiraffeAdjective": "a towering",
+
+  "questEggChameleonText": "Chameleon",
+  "questEggChameleonMountText": "Chameleon",
+  "questEggChameleonAdjective": "a chaotic",
+
   "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
 
   "hatchingPotionBase": "Base",
@@ -313,10 +321,11 @@
   "hatchingPotionPinkMarble": "Pink Marble",
   "hatchingPotionTeaShop": "Tea Shop",
   "hatchingPotionRoseGold": "Rose Gold",
+  "hatchingPotionFungi": "Fungi",
+  "hatchingPotionKoi": "Koi",
 
-  "hatchingPotionNotes": "Pour this on an egg, and it will hatch as a <%= potText(locale) %> pet.",
-  "premiumPotionAddlNotes": "Not usable on quest pet eggs. Available for purchase until <%= date(locale) %>.",
-  "premiumPotionUnlimitedNotes": "Not usable on quest pet eggs.",
+  "hatchingPotionNotes": "Pour this on an egg, and it will hatch as a <%= potText(locale) %> Pet.",
+  "premiumPotionUnlimitedNotes": "Not usable on Quest Pet eggs.",
 
   "foodMeat": "Meat",
   "foodMeatThe": "the Meat",

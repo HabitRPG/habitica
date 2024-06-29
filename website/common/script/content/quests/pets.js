@@ -232,6 +232,38 @@ const QUEST_PETS = {
       unlock: t('questButterflyUnlockText'),
     },
   },
+  chameleon: {
+    text: t('questChameleonText'),
+    notes: t('questChameleonNotes'),
+    completion: t('questChameleonCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questChameleonBoss'),
+      hp: 400,
+      str: 1.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Chameleon',
+          text: t('questChameleonDropChameleonEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Chameleon',
+          text: t('questChameleonDropChameleonEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Chameleon',
+          text: t('questChameleonDropChameleonEgg'),
+        },
+      ],
+      gp: 35,
+      exp: 250,
+      unlock: t('questChameleonUnlockText'),
+    },
+  },
   cheetah: {
     text: t('questCheetahText'),
     notes: t('questCheetahNotes'),
@@ -486,6 +518,38 @@ const QUEST_PETS = {
       gp: 80,
       exp: 800,
       unlock: t('questGhostStagUnlockText'),
+    },
+  },
+  giraffe: {
+    text: t('questGiraffeText'),
+    notes: t('questGiraffeNotes'),
+    completion: t('questGiraffeCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questGiraffeBoss'),
+      hp: 700,
+      str: 2,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Giraffe',
+          text: t('questGiraffeDropGiraffeEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Giraffe',
+          text: t('questGiraffeDropGiraffeEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Giraffe',
+          text: t('questGiraffeDropGiraffeEgg'),
+        },
+      ],
+      gp: 50,
+      exp: 450,
+      unlock: t('questGiraffeUnlockText'),
     },
   },
   gryphon: {

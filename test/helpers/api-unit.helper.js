@@ -40,6 +40,7 @@ export function generateRes (options = {}) {
     redirect: sandbox.stub(),
     render: sandbox.stub(),
     send: sandbox.stub(),
+    sendFile: sandbox.stub(),
     sendStatus: sandbox.stub().returnsThis(),
     set: sandbox.stub(),
     status: sandbox.stub().returnsThis(),
@@ -59,7 +60,17 @@ export function generateReq (options = {}) {
     header (header) {
       return this.headers[header];
     },
+    listeners: {},
     session: {},
+    on (key, func) {
+      if (!this.listeners[key]) {
+        this.listeners[key] = [];
+      }
+      this.listeners[key].push(func);
+    },
+    end () {
+      this.listeners.close.forEach(func => func());
+    },
   };
 
   const req = defaultsDeep(options, defaultReq);

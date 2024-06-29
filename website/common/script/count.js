@@ -49,16 +49,17 @@ export function mountMasterProgress (mounts = {}) {
 
 export function remainingGearInSet (userGear = {}, set) {
   const gear = filter(content.gear.flat, item => {
-    const setMatches = item.klass === set;
+    if (item.klass !== set) {
+      return false;
+    }
     const hasItem = userGear[item.key];
     if (has(item, 'released')) {
-      return item.released && setMatches && !hasItem;
+      return item.released && !hasItem;
     }
-    return setMatches && !hasItem;
+    return !hasItem;
   });
 
   const count = size(gear);
-
   return count;
 }
 

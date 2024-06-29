@@ -17,7 +17,7 @@
     "suppressStreakModal": "连击达成时不再出现弹出窗口",
     "showTour": "显示教程",
     "showBailey": "呼叫Bailey",
-    "showBaileyPop": "呼叫城镇公告员Bailey以查看往期新闻。",
+    "showBaileyPop": "呼叫街头公告员Bailey以查看往期新闻。",
     "fixVal": "修复角色数值",
     "fixValPop": "手动修改诸如生命值、等级和金币等数值。",
     "invalidLevel": "数值无效：等级必须高于或等于1。",
@@ -272,10 +272,13 @@
     "audioThemeDisclaimer": "音效主题为Habitica网站添加可选音效。音量可通过电脑音量设置进行调节。",
     "noClassSelected": "未选择职业",
     "currentClass": "当前职业",
-    "changeClassSetting": "变更职业",
+    "changeClassSetting": "更改职业",
     "chooseClassSetting": "选择职业",
     "changeClassDisclaimer": "改变你的职业将退还所有你现有的属性点。一旦你选择了新的职业，请在你的角色信息中重新调整属性点。",
     "connected": "已连接",
     "connect": "连接",
-    "remove": "移除"
+    "remove": "移除",
+    "resetTextLocal": "如果您已确定，请在下方的文本框中输入您的密码。",
+    "resetTextSocial": "如果您已确定，请在下方的文本框中输入 <b>\"<%=magicWord %>\"</b>。",
+    "contentRelease": "内容发布与活动"
 }

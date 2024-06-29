@@ -7,7 +7,7 @@ import {
   generateNext,
 } from '../../../helpers/api-unit.helper';
 import { TooManyRequests } from '../../../../website/server/libs/errors';
-import apiError from '../../../../website/server/libs/apiError';
+import { apiError } from '../../../../website/server/libs/apiError';
 import logger from '../../../../website/server/libs/logger';
 
 describe('rateLimiter middleware', () => {
@@ -85,6 +85,67 @@ describe('rateLimiter middleware', () => {
 
     expect(logger.error).to.be.calledOnce;
     expect(logger.error).to.have.been.calledWithMatch(Error, 'Rate Limiter Error');
+  });
+
+  it('does not throw when LIVELINESS_PROBE_KEY is correct', async () => {
+    nconfGetStub.withArgs('RATE_LIMITER_ENABLED').returns('true');
+    nconfGetStub.withArgs('LIVELINESS_PROBE_KEY').returns('abc');
+    const attachRateLimiter = requireAgain(pathToRateLimiter).default;
+
+    req.query.liveliness = 'abc';
+    await attachRateLimiter(req, res, next);
+
+    expect(next).to.have.been.calledOnce;
+    const calledWith = next.getCall(0).args;
+    expect(typeof calledWith[0] === 'undefined').to.equal(true);
+    expect(res.set).to.not.have.been.called;
+  });
+
+  it('limits when LIVELINESS_PROBE_KEY is incorrect', async () => {
+    nconfGetStub.withArgs('RATE_LIMITER_ENABLED').returns('true');
+    nconfGetStub.withArgs('LIVELINESS_PROBE_KEY').returns('abc');
+    const attachRateLimiter = requireAgain(pathToRateLimiter).default;
+
+    req.query.liveliness = 'das';
+    await attachRateLimiter(req, res, next);
+
+    expect(next).to.have.been.calledOnce;
+    expect(res.set).to.have.been.calledWithMatch({
+      'X-RateLimit-Limit': 30,
+      'X-RateLimit-Remaining': 29,
+      'X-RateLimit-Reset': sinon.match(Date),
+    });
+  });
+
+  it('limits when LIVELINESS_PROBE_KEY is not set', async () => {
+    nconfGetStub.withArgs('RATE_LIMITER_ENABLED').returns('true');
+    nconfGetStub.withArgs('LIVELINESS_PROBE_KEY').returns(undefined);
+    const attachRateLimiter = requireAgain(pathToRateLimiter).default;
+
+    await attachRateLimiter(req, res, next);
+
+    expect(next).to.have.been.calledOnce;
+    expect(res.set).to.have.been.calledWithMatch({
+      'X-RateLimit-Limit': 30,
+      'X-RateLimit-Remaining': 29,
+      'X-RateLimit-Reset': sinon.match(Date),
+    });
+  });
+
+  it('throws when LIVELINESS_PROBE_KEY is blank', async () => {
+    nconfGetStub.withArgs('RATE_LIMITER_ENABLED').returns('true');
+    nconfGetStub.withArgs('LIVELINESS_PROBE_KEY').returns('');
+    const attachRateLimiter = requireAgain(pathToRateLimiter).default;
+
+    req.query.liveliness = '';
+    await attachRateLimiter(req, res, next);
+
+    expect(next).to.have.been.calledOnce;
+    expect(res.set).to.have.been.calledWithMatch({
+      'X-RateLimit-Limit': 30,
+      'X-RateLimit-Remaining': 29,
+      'X-RateLimit-Reset': sinon.match(Date),
+    });
   });
 
   it('throws when there are no available points remaining', async () => {

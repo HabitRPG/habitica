@@ -12,7 +12,7 @@
     "rewardsAllParticipants": "מזכה את כל המשתתפים של ההרפתקה",
     "rewardsQuestOwner": "פרסים נוספים לבעל ההרפתקה",
     "inviteParty": "הזמינו את החבורה להרפתקה",
-    "questInvitation": "הזמנה להרפתקה:",
+    "questInvitation": "הזמנה להרפתקה: ",
     "questInvitationInfo": "הזמנה להרפתקה <%= quest %> ",
     "invitedToQuest": "הוזמנת להרפתקה <span class=\"notification-bold-blue\"><%= quest %></span>",
     "askLater": "שאלו אחר כך",

@@ -10,6 +10,8 @@ const ClearBrowserDataPage = () => import(/* webpackChunkName: "static" */'@/com
 const CommunityGuidelinesPage = () => import(/* webpackChunkName: "static" */'@/components/static/communityGuidelines');
 const ContactPage = () => import(/* webpackChunkName: "static" */'@/components/static/contact');
 const FAQPage = () => import(/* webpackChunkName: "static" */'@/components/static/faq');
+const ChatSunsetFaq = () => import(/* webpackChunkName: "static" */'@/components/static/chatSunsetFaq');
+const ContentScheduleFaq = () => import(/* webpackChunkName: "static" */'@/components/static/contentScheduleFaq');
 const FeaturesPage = () => import(/* webpackChunkName: "static" */'@/components/static/features');
 const GroupPlansPage = () => import(/* webpackChunkName: "static" */'@/components/static/groupPlans');
 // Commenting out merch page see
@@ -19,7 +21,6 @@ const NewsPage = () => import(/* webpackChunkName: "static" */'@/components/stat
 const OverviewPage = () => import(/* webpackChunkName: "static" */'@/components/static/overview');
 const PressKitPage = () => import(/* webpackChunkName: "static" */'@/components/static/pressKit');
 const PrivacyPage = () => import(/* webpackChunkName: "static" */'@/components/static/privacy');
-const ChatSunsetFaq = () => import(/* webpackChunkName: "static" */'@/components/static/chatSunsetFaq');
 const TermsPage = () => import(/* webpackChunkName: "static" */'@/components/static/terms');
 
 export const STATIC_ROUTES = {
@@ -42,7 +43,10 @@ export const STATIC_ROUTES = {
       name: 'faq', path: 'faq', component: FAQPage, meta: { requiresLogin: false },
     },
     {
-      name: 'chatSunsetFaq', path: 'tavern-and-guilds', component: ChatSunsetFaq, meta: { requiresLogin: false },
+      name: 'chatSunsetFaq', path: 'faq/tavern-and-guilds', component: ChatSunsetFaq, meta: { requiresLogin: false },
+    },
+    {
+      name: 'contentScheduleFaq', path: 'faq/content-release-changes', component: ContentScheduleFaq, meta: { requiresLogin: false },
     },
     {
       name: 'features', path: 'features', component: FeaturesPage, meta: { requiresLogin: false },

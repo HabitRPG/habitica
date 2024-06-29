@@ -1741,5 +1741,10 @@
     "eyewearArmoirePlagueDoctorMaskNotes": "Autentična maska koju nose liječnici koji se bore protiv Kuge Odgađanja! Povećava Konstituciju i Inteligenciju za <%= attrs %> svaku. Začarani Ormar: Komplet Liječnika kuge (artikal 2 od 3).",
     "eyewearArmoireGoofyGlassesText": "Šašave naočale",
     "eyewearArmoireGoofyGlassesNotes": "Savršene za inkognito rad ili samo za nasmijavanje članove svoje družine. Povećava Percepciju za <%= per %>. Začarani Ormar: samostalni artikal.",
-    "twoHandedItem": "Dvoručni predmet."
+    "twoHandedItem": "Dvoručni predmet.",
+    "weaponSpecialSummer2019WarriorText": "Crveni koralj",
+    "weaponSpecialSummer2019MageText": "Briljantni Cvat",
+    "weaponSpecialSpring2019RogueNotes": "Ova oružja posjeduju snagu neba i kiše. Preporučamo da ih ne koristite u vodi. Povisuje Snagu za <%= str %>. Ograničeno izdanje 2019 Proljetne opreme.",
+    "weaponSpecialSpring2019WarriorText": "Parni Mač",
+    "weaponSpecialSpring2019RogueText": "Munja"
 }

@@ -223,4 +223,23 @@ describe('POST /chat/:chatId/flag', () => {
 
     expect(auMessageToCheck).to.not.exist;
   });
+
+  it('validates that the message belongs to the passed group', async () => {
+    const { group: anotherGroup, groupLeader: anotherLeader } = await createAndPopulateGroup({
+      groupDetails: {
+        name: 'Another Guild',
+        type: 'guild',
+        privacy: 'private',
+      },
+      upgradeToGroupPlan: true,
+    });
+
+    const message = await anotherUser.post(`/groups/${group._id}/chat`, { message: TEST_MESSAGE });
+    await expect(anotherLeader.post(`/groups/${anotherGroup._id}/chat/${message.message.id}/flag`))
+      .to.eventually.be.rejected.and.eql({
+        code: 404,
+        error: 'NotFound',
+        message: t('messageGroupChatNotFound'),
+      });
+  });
 });

@@ -9,7 +9,7 @@ import {
 import * as slack from '../slack';
 import { model as Group } from '../../models/group';
 import { chatModel as Chat } from '../../models/message';
-import apiError from '../apiError';
+import { apiError } from '../apiError';
 
 const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS_COMMUNITY_MANAGER_EMAIL');
 const USER_AGE_FOR_FLAGGING = 3; // accounts less than this many days old don't increment flagCount
@@ -36,7 +36,7 @@ export default class GroupChatReporter extends ChatReporter {
     });
     if (!group) throw new NotFound(this.res.t('groupNotFound'));
 
-    const message = await Chat.findOne({ _id: this.req.params.chatId }).exec();
+    const message = await Chat.findOne({ _id: this.req.params.chatId, groupId: group._id }).exec();
     if (!message) throw new NotFound(this.res.t('messageGroupChatNotFound'));
     if (message.uuid === 'system') throw new BadRequest(this.res.t('messageCannotFlagSystemMessages', { communityManagerEmail: COMMUNITY_MANAGER_EMAIL }));
 

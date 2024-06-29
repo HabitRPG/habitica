@@ -40,6 +40,7 @@ yarn.lock
 !.elasticbeanstalk/*.global.yml
 
 /.vscode
+habitica.code-workspace
 
 # webstorm fake webpack for path intellisense
 webpack.webstorm.config
@@ -47,3 +48,4 @@ webpack.webstorm.config
 # mongodb replica set for local dev
 mongodb-*.tgz
 /mongodb-data
+/.nyc_output

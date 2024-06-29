@@ -26,7 +26,7 @@ import common from '../../../common';
 import payments from '../../libs/payments/payments';
 import stripePayments from '../../libs/payments/stripe';
 import amzLib from '../../libs/payments/amazon';
-import apiError from '../../libs/apiError';
+import { apiError } from '../../libs/apiError';
 import { model as UserNotification } from '../../models/userNotification';
 
 const { MAX_SUMMARY_SIZE_FOR_GUILDS } = common.constants;
@@ -136,6 +136,7 @@ api.createGroup = {
       if (user.party._id) throw new NotAuthorized(res.t('messageGroupAlreadyInParty'));
 
       user.party._id = group._id;
+      user.party.seeking = undefined;
     }
 
     let savedGroup;
@@ -590,7 +591,7 @@ api.joinGroup = {
         // Clear all invitations of new user and reset looking for party state
         user.invitations.parties = [];
         user.invitations.party = {};
-        user.party.seeking = null;
+        user.party.seeking = undefined;
 
         // invite new user to pending quest
         if (group.quest.key && !group.quest.active) {

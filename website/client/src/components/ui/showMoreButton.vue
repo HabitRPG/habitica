@@ -1,6 +1,6 @@
 <template>
   <button
-    class="btn btn-flat btn-show-more mb-4"
+    class="btn btn-flat btn-show-more mt-2 mb-3"
     @click="$emit('click')"
   >
     <span class="button-text">
@@ -37,6 +37,10 @@ export default {
       .button-text {
         color: $purple-300;
       }
+    }
+
+    &:focus {
+      outline: 2px solid $purple-400;
     }
   }
 </style>

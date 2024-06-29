@@ -257,8 +257,8 @@
       </div>
       <div class="melior">
         <div
-          class="logo svg-icon"
-          v-html="icons.gryphon"
+          class="logo svg svg-icon color"
+          v-html="icons.melior"
         ></div>
       </div>
       <!-- DESKTOP PRIVACY & TERMS -->
@@ -291,7 +291,44 @@
       </div>
 
       <div
-        v-if="!IS_PRODUCTION && isUserLoaded"
+        v-if="TIME_TRAVEL_ENABLED && user.permissions && user.permissions.fullAccess"
+        :key="lastTimeJump"
+      >
+        <a
+          class="btn btn-secondary mr-1"
+          @click="jumpTime(-1)"
+        >-1 Day</a>
+        <a
+          class="btn btn-secondary mr-1"
+          @click="jumpTime(-7)"
+        >-7 Days</a>
+        <a
+          class="btn btn-secondary mr-1"
+          @click="jumpTime(-30)"
+        >-30 Days</a>
+        <div class="my-2">
+          Time Traveling! It is {{ new Date().toLocaleDateString() }}
+          <a
+            class="btn btn-warning mr-1"
+            @click="resetTime()"
+          >Reset</a>
+        </div>
+        <a
+          class="btn btn-secondary mr-1"
+          @click="jumpTime(1)"
+        >+1 Day</a>
+        <a
+          class="btn btn-secondary mr-1"
+          @click="jumpTime(7)"
+        >+7 Days</a>
+        <a
+          class="btn btn-secondary mr-1"
+          @click="jumpTime(30)"
+        >+30 Days</a>
+      </div>
+
+      <div
+        v-if="DEBUG_ENABLED && isUserLoaded"
         class="debug-toggle"
       >
         <button
@@ -521,10 +558,10 @@ h3 {
 }
 
 .logo {
-  width: 24px;
+  color: $gray-200;
   height: 24px;
   margin: 0px auto 5px;
-  color: $gray-200;
+  width: 24px;
 }
 
 .terms {
@@ -772,9 +809,10 @@ h3 {
 // modules
 import axios from 'axios';
 import moment from 'moment';
+import Vue from 'vue';
 
 // images
-import gryphon from '@/assets/svg/gryphon.svg';
+import melior from '@/assets/svg/melior.svg';
 import twitter from '@/assets/svg/twitter.svg';
 import facebook from '@/assets/svg/facebook.svg';
 import instagram from '@/assets/svg/instagram.svg';
@@ -785,17 +823,28 @@ import heart from '@/assets/svg/heart.svg';
 import { mapState } from '@/libs/store';
 import buyGemsModal from './payments/buyGemsModal.vue';
 import reportBug from '@/mixins/reportBug.js';
+import { worldStateMixin } from '@/mixins/worldState';
 
-const IS_PRODUCTION = process.env.NODE_ENV === 'production'; // eslint-disable-line no-process-env
+const DEBUG_ENABLED = process.env.DEBUG_ENABLED === 'true'; // eslint-disable-line no-process-env
+const TIME_TRAVEL_ENABLED = process.env.TIME_TRAVEL_ENABLED === 'true'; // eslint-disable-line no-process-env
+let sinon;
+if (TIME_TRAVEL_ENABLED) {
+  // eslint-disable-next-line global-require
+  sinon = await import('sinon');
+}
+
 export default {
   components: {
     buyGemsModal,
   },
-  mixins: [reportBug],
+  mixins: [
+    reportBug,
+    worldStateMixin,
+  ],
   data () {
     return {
       icons: Object.freeze({
-        gryphon,
+        melior,
         twitter,
         facebook,
         instagram,
@@ -803,7 +852,9 @@ export default {
         heart,
       }),
       debugMenuShown: false,
-      IS_PRODUCTION,
+      DEBUG_ENABLED,
+      TIME_TRAVEL_ENABLED,
+      lastTimeJump: null,
     };
   },
   computed: {
@@ -864,6 +915,27 @@ export default {
         'stats.gp': this.user.stats.gp + 10000,
         'stats.mp': this.user.stats.mp + 10000,
       });
+    },
+    async jumpTime (amount) {
+      const response = await axios.post('/api/v4/debug/jump-time', { offsetDays: amount });
+      if (amount > 0) {
+        Vue.config.clock.jump(amount * 24 * 60 * 60 * 1000);
+      } else {
+        Vue.config.clock.setSystemTime(moment().add(amount, 'days').toDate());
+      }
+      this.lastTimeJump = response.data.data.time;
+      this.triggerGetWorldState(true);
+    },
+    async resetTime () {
+      const response = await axios.post('/api/v4/debug/jump-time', { reset: true });
+      const time = new Date(response.data.data.time);
+      Vue.config.clock.restore();
+      Vue.config.clock = sinon.useFakeTimers({
+        now: time,
+        shouldAdvanceTime: true,
+      });
+      this.lastTimeJump = response.data.data.time;
+      this.triggerGetWorldState(true);
     },
     addExp () {
       // @TODO: Name these variables better

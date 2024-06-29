@@ -1,4 +1,4 @@
-import apiError from '../../../../website/server/libs/apiError';
+import { apiError } from '../../../../website/server/libs/apiError';
 
 describe('API Messages', () => {
   const message = 'Only public guilds support pagination.';

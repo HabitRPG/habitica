@@ -159,5 +159,10 @@
     "achievementDuneBuddyNotes": "Você coletou todos os mascotes do deserto!",
     "achievementRoughRider": "Cavaleiro do Desconforto",
     "achievementRoughRiderNotes": "Você coletou todas as cores padrão dos mascotes e montarias desconfortáveis!",
-    "achievementRoughRiderText": "Chocou todas as cores padrão dos mascotes e montarias desconfortáveis: Cacto, Ouriço e Pedra!"
+    "achievementRoughRiderText": "Chocou todas as cores padrão dos mascotes e montarias desconfortáveis: Cacto, Ouriço e Pedra!",
+    "achievementRodentRuler": "Rei dos Roedores",
+    "achievementRodentRulerText": "Chocou todas as cores padrão dos Mascotes Roedores: Porquinho-da-Índia, Rato e Esquilo!",
+    "achievementRodentRulerModalText": "Você coletou todos os Mascotes Roedores!",
+    "achievementDuneBuddyModalText": "Você coletou todos os Mascotes do Deserto!",
+    "achievementRoughRiderModalText": "Você coletou todas as cores padrão dos Mascotes e Montarias desconfortáveis!"
 }

@@ -16,11 +16,14 @@
         class="brand"
         aria-label="Habitica"
       >
-        <div
-          class="logo svg-icon d-none d-xl-block"
-          v-html="icons.logo"
-        ></div>
-        <div class="svg-icon gryphon d-xs-block d-xl-none"></div>
+      <router-link to="/">
+          <div
+          class="logo svg-icon svg color gryphon"
+          v-html="icons.melior"
+          ></div>
+          <div class="svg-icon"></div>
+        </router-link>
+        <div class="svg-icon"></div>
       </b-navbar-brand>
       <b-navbar-toggle
         class="menu-toggle"
@@ -133,6 +136,12 @@
                 :to="{name: 'quests'}"
               >
                 {{ $t('quests') }}
+              </router-link>
+              <router-link
+                class="topbar-dropdown-item dropdown-item"
+                :to="{name: 'customizations'}"
+              >
+                {{ $t('customizations') }}
               </router-link>
               <router-link
                 class="topbar-dropdown-item dropdown-item"
@@ -406,12 +415,18 @@ body.modal-open #habitica-menu {
     }
 
     .gryphon {
-      background-image: url('~@/assets/images/melior@3x.png');
-      width: 30px;
-      height: 30px;
       background-size: cover;
+      height: 32px;
       color: $white;
       margin: 0 auto;
+      width: 32px;
+      top: -10px;
+      position: relative;
+    }
+
+    .logo {
+      padding-top: 12px;
+      color: $white;
     }
 
     .topbar-item {
@@ -462,7 +477,7 @@ body.modal-open #habitica-menu {
     .gryphon {
       position: absolute;
       left: calc(50% - 30px);
-      top: 10px;
+      top: -2px;
     }
 
     #menu_collapse {
@@ -553,9 +568,10 @@ body.modal-open #habitica-menu {
   }
 
   .logo {
-    padding-left: 10px;
-    width: 128px;
-    height: 28px;
+    color: $white;
+    height: 32px;
+    object-fit: contain;
+    width: 32px;
   }
 
   .quick-menu {
@@ -727,7 +743,7 @@ import goldIcon from '@/assets/svg/gold.svg';
 import syncIcon from '@/assets/svg/sync.svg';
 import svgHourglasses from '@/assets/svg/hourglass.svg';
 import chevronDownIcon from '@/assets/svg/chevron-down.svg';
-import logo from '@/assets/svg/logo.svg';
+import melior from '@/assets/svg/melior.svg';
 
 import creatorIntro from '../creatorIntro';
 import notificationMenu from './notificationsDropdown';
@@ -762,7 +778,7 @@ export default {
         gold: goldIcon,
         hourglasses: svgHourglasses,
         sync: syncIcon,
-        logo,
+        melior,
         chevronDown: chevronDownIcon,
       }),
     };

@@ -7,6 +7,7 @@ import {
 
 describe('POST /challenges/:challengeId/flag', () => {
   let user;
+  let challengeGroup;
   let challenge;
 
   beforeEach(async () => {
@@ -20,6 +21,7 @@ describe('POST /challenges/:challengeId/flag', () => {
     });
 
     user = groupLeader;
+    challengeGroup = group;
 
     challenge = await generateChallenge(user, group);
   });
@@ -57,6 +59,21 @@ describe('POST /challenges/:challengeId/flag', () => {
         code: 404,
         error: 'NotFound',
         message: t('messageChallengeFlagAlreadyReported'),
+      });
+  });
+
+  it('returns an error when user tries to flag an official challenge', async () => {
+    await user.updateOne({
+      permissions: {
+        challengeAdmin: true,
+      },
+    });
+    challenge = await generateChallenge(user, challengeGroup, { official: true });
+    await expect(user.post(`/challenges/${challenge._id}/flag`))
+      .to.eventually.be.rejected.and.eql({
+        code: 404,
+        error: 'NotFound',
+        message: t('messageChallengeFlagOfficial'),
       });
   });
 });

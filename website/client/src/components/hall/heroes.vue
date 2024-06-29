@@ -320,7 +320,7 @@
 <script>
 import each from 'lodash/each';
 import * as quests from '@/../../common/script/content/quests';
-import { mountInfo, petInfo } from '@/../../common/script/content/stable';
+import stable from '@/../../common/script/content/stable';
 import content from '@/../../common/script/content';
 import gear from '@/../../common/script/content/gear';
 import styleHelper from '@/mixins/styleHelper';
@@ -329,6 +329,8 @@ import notifications from '@/mixins/notifications';
 import userLink from '../userLink';
 import PurchaseHistoryTable from '../ui/purchaseHistoryTable.vue';
 import { userStateMixin } from '../../mixins/userState';
+
+const { mountInfo, petInfo } = stable;
 
 export default {
   components: {

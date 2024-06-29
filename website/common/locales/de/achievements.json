@@ -159,5 +159,13 @@
     "achievementRoughRiderNotes": "Du hast alle unbequemen Haustiere und Reittiere gesammelt!",
     "achievementRoughRider": "Harter Reiter",
     "achievementRoughRiderText": "Hat alle Standardfarben der unbequemen Haustiere und Reittiere ausgebrütet: Kaktus, Igel und Fels!",
-    "achievementDuneBuddy": "Dünenkumpel"
+    "achievementDuneBuddy": "Dünenkumpel",
+    "achievementRodentRuler": "Nagetier Herrscher",
+    "achievementRodentRulerText": "Hat alle Standardfarben der Nagetiere ausgebrütet: Meerschweinchen, Ratte und Eichhörnchen!",
+    "achievementRodentRulerModalText": "Du hast alle Nagetiere gesammelt!",
+    "achievementDuneBuddyModalText": "Du hast alle wüstenbewohnenden Tiere gesammelt!",
+    "achievementRoughRiderModalText": "Du hast alle Standardfarben der unbequemen Haustiere und Reittiere gesammelt!",
+    "achievementCats": "Katzen Horter",
+    "achievementCatsText": "Hat alle Standardfarben der Katzen-Haustiere ausgebrütet: Gepard, Löwe, Säbelzahn und Tiger!",
+    "achievementCatsModalText": "Du hast alle Katzen-Haustiere gesammelt!"
 }

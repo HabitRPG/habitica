@@ -17,7 +17,7 @@ import {
 } from '../../libs/email';
 import common from '../../../common';
 import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
-import apiError from '../../libs/apiError';
+import { apiError } from '../../libs/apiError';
 import { questActivityWebhook } from '../../libs/webhook';
 
 const analytics = getAnalyticsServiceByEnvironment();
@@ -120,10 +120,10 @@ api.inviteToQuest = {
 
     // send out invites
     const inviterVars = getUserInfo(user, ['name', 'email']);
-    const membersToEmail = members.filter(member => {
+    const membersToEmail = members.filter(async member => {
       // send push notifications while filtering members before sending emails
       if (member.preferences.pushNotifications.invitedQuest !== false) {
-        sendPushNotification(
+        await sendPushNotification(
           member,
           {
             title: quest.text(member.preferences.language),
@@ -394,7 +394,7 @@ api.cancelQuest = {
     if (group.quest.active) throw new NotAuthorized(res.t('cantCancelActiveQuest'));
 
     const questName = questScrolls[group.quest.key].text('en');
-    const newChatMessage = group.sendChat({
+    const newChatMessage = await group.sendChat({
       message: `\`${user.profile.name} cancelled the party quest ${questName}.\``,
       info: {
         type: 'quest_cancel',
@@ -456,7 +456,7 @@ api.abortQuest = {
     if (user._id !== group.leader && user._id !== group.quest.leader) throw new NotAuthorized(res.t('onlyLeaderAbortQuest'));
 
     const questName = questScrolls[group.quest.key].text('en');
-    const newChatMessage = group.sendChat({
+    const newChatMessage = await group.sendChat({
       message: `\`${common.i18n.t('chatQuestAborted', { username: user.profile.name, questName }, 'en')}\``,
       info: {
         type: 'quest_abort',

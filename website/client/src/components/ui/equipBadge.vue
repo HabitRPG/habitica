@@ -7,13 +7,13 @@
   >
     <div
       v-once
-      class="svg-icon color equip-icon"
+      class="svg svg-icon color equip-icon"
       v-html="icons.equip"
     >
     </div>
     <div
       v-once
-      class="svg-icon color unequip-icon"
+      class="svg svg-icon color unequip-icon"
       v-html="icons.unEquip"
     >
     </div>

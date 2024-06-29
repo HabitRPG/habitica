@@ -1,7 +1,7 @@
 {
   "name": "habitica",
   "description": "A habit tracker app which treats your goals like a Role Playing Game.",
-  "version": "5.17.1",
+  "version": "5.26.0",
   "main": "./website/server/index.js",
   "dependencies": {
     "@babel/core": "^7.22.10",
@@ -27,9 +27,10 @@
     "eslint": "^8.55.0",
     "eslint-config-habitrpg": "^6.2.3",
     "eslint-plugin-mocha": "^5.0.0",
-    "express": "^4.18.2",
+    "express": "^4.19.2",
     "express-basic-auth": "^1.2.1",
     "express-validator": "^5.2.0",
+    "firebase-admin": "^12.1.1",
     "glob": "^8.1.0",
     "got": "^11.8.6",
     "gulp": "^4.0.0",
@@ -66,6 +67,7 @@
     "remove-markdown": "^0.5.0",
     "rimraf": "^3.0.2",
     "short-uuid": "^4.2.2",
+    "sinon": "^15.2.0",
     "stripe": "^12.18.0",
     "superagent": "^8.1.2",
     "universal-analytics": "^0.5.3",
@@ -78,8 +80,8 @@
   },
   "private": true,
   "engines": {
-    "node": "^14",
-    "npm": "^6"
+    "node": "20",
+    "npm": "^10"
   },
   "scripts": {
     "lint": "eslint --ext .js --fix . && cd website/client && npm run lint",
@@ -92,11 +94,11 @@
     "test:api-v3:integration:separate-server": "NODE_ENV=test gulp test:api-v3:integration:separate-server",
     "test:api-v4:integration": "gulp test:api-v4:integration",
     "test:api-v4:integration:separate-server": "NODE_ENV=test gulp test:api-v4:integration:separate-server",
-    "test:sanity": "istanbul cover --dir coverage/sanity --report lcovonly node_modules/mocha/bin/_mocha -- test/sanity --recursive",
-    "test:common": "istanbul cover --dir coverage/common --report lcovonly node_modules/mocha/bin/_mocha -- test/common --recursive",
-    "test:content": "istanbul cover --dir coverage/content --report lcovonly node_modules/mocha/bin/_mocha -- test/content --recursive",
+    "test:sanity": "nyc --silent --no-clean mocha test/sanity --recursive",
+    "test:common": "nyc --silent --no-clean mocha test/common --recursive",
+    "test:content": "nyc --silent --no-clean mocha test/content --recursive",
     "test:nodemon": "gulp test:nodemon",
-    "coverage": "COVERAGE=true mocha --require register-handlers.js --reporter html-cov > coverage.html; open coverage.html",
+    "coverage": "nyc report --reporter=html --report-dir coverage/results; open coverage/results/index.html",
     "sprites": "gulp sprites:compile",
     "client:dev": "cd website/client && npm run serve",
     "client:build": "cd website/client && npm run build",
@@ -105,7 +107,8 @@
     "debug": "gulp nodemon --inspect",
     "mongo:dev": "run-rs -v 5.0.23 -l ubuntu1804 --keep --dbpath mongodb-data --number 1 --quiet",
     "postinstall": "git config --global url.\"https://\".insteadOf git:// && gulp build && cd website/client && npm install",
-    "apidoc": "gulp apidoc"
+    "apidoc": "gulp apidoc",
+    "heroku-postbuild": "npm run client:build"
   },
   "devDependencies": {
     "axios": "^1.4.0",
@@ -114,15 +117,12 @@
     "chai-moment": "^0.1.0",
     "chalk": "^5.3.0",
     "cross-spawn": "^7.0.3",
-    "expect.js": "^0.3.1",
-    "istanbul": "^1.1.0-alpha.1",
     "mocha": "^5.1.1",
     "monk": "^7.3.4",
+    "nyc": "^15.1.0",
     "require-again": "^2.0.0",
     "run-rs": "^0.7.7",
-    "sinon": "^15.2.0",
     "sinon-chai": "^3.7.0",
     "sinon-stub-promise": "^4.0.0"
-  },
-  "optionalDependencies": {}
+  }
 }

@@ -183,6 +183,11 @@ const animalSetAchievs = {
     titleKey: 'achievementBonelessBoss',
     textKey: 'achievementBonelessBossText',
   },
+  cats: {
+    icon: 'achievement-cats',
+    titleKey: 'achievementCats',
+    textKey: 'achievementCatsText',
+  },
   dinosaurDynasty: {
     icon: 'achievement-dinosaurDynasty',
     titleKey: 'achievementDinosaurDynasty',
@@ -214,11 +219,15 @@ const animalSetAchievs = {
     titleKey: 'achievementReptacularRumble',
     textKey: 'achievementReptacularRumbleText',
   },
+  rodentRuler: {
+    icon: 'achievement-rodentRuler',
+    titleKey: 'achievementRodentRuler',
+    textKey: 'achievementRodentRulerText',
+  },
   roughRider: {
     icon: 'achievement-roughRider',
     titleKey: 'achievementRoughRider',
     textKey: 'achievementRoughRiderText',
-    release: '2023-11-14T08:00-05:00',
   },
   woodlandWizard: {
     icon: 'achievement-woodlandWizard',

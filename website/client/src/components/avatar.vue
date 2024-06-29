@@ -35,7 +35,7 @@
         <span :class="[skinClass, specialMountClass]"></span>
         <!-- eslint-disable max-len-->
         <span
-          :class="[member.preferences.size + '_shirt_' + member.preferences.shirt, specialMountClass]"
+          :class="[shirtClass, specialMountClass]"
         ></span>
         <!-- eslint-enable max-len-->
         <span :class="['head_0', specialMountClass]"></span>
@@ -46,12 +46,10 @@
         <template
           v-for="type in ['bangs', 'base', 'mustache', 'beard']"
         >
-          <!-- eslint-disable max-len-->
           <span
             :key="type"
-            :class="['hair_' + type + '_' + member.preferences.hair[type] + '_' + member.preferences.hair.color, specialMountClass]"
+            :class="[hairClass(type), specialMountClass]"
           ></span>
-          <!-- eslint-enable max-len-->
         </template>
         <span :class="[getGearClass('body'), specialMountClass]"></span>
         <span :class="[getGearClass('eyewear'), specialMountClass]"></span>
@@ -233,9 +231,19 @@ export default {
     },
     skinClass () {
       if (!this.member) return '';
+      if (this.overrideAvatarGear?.skin) {
+        return `skin_${this.overrideAvatarGear.skin}`;
+      }
       const baseClass = `skin_${this.member.preferences.skin}`;
 
       return `${baseClass}${this.member.preferences.sleep ? '_sleep' : ''}`;
+    },
+    shirtClass () {
+      if (!this.member) return '';
+      if (this.overrideAvatarGear?.shirt) {
+        return `${this.member.preferences.size}_shirt_${this.overrideAvatarGear.shirt}`;
+      }
+      return `${this.member.preferences.size}_shirt_${this.member.preferences.shirt}`;
     },
     costumeClass () {
       return this.member?.preferences.costume ? 'costume' : 'equipped';
@@ -250,7 +258,7 @@ export default {
     petClass () {
       if (some(
         this.currentEventList,
-        event => moment().isBetween(event.start, event.end) && event.aprilFools && event.aprilFools === 'teaShop',
+        event => moment().isBetween(event.start, event.end) && event.aprilFools && event.aprilFools === 'Fungi',
       )) {
         return this.foolPet(this.member.items.currentPet);
       }
@@ -268,6 +276,17 @@ export default {
       }
 
       return result;
+    },
+    hairClass (slot) {
+      if (this.overrideAvatarGear?.hair) {
+        if (this.overrideAvatarGear.hair[slot]) {
+          return `hair_${slot}_${this.overrideAvatarGear.hair[slot]}_${this.member.preferences.hair.color}`;
+        }
+        if (this.overrideAvatarGear.hair.color) {
+          return `hair_${slot}_${this.member.preferences.hair[slot]}_${this.overrideAvatarGear.hair.color}`;
+        }
+      }
+      return `hair_${slot}_${this.member.preferences.hair[slot]}_${this.member.preferences.hair.color}`;
     },
     hideGear (gearType) {
       if (!this.member) return true;

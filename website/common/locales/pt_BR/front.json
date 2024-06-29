@@ -1,5 +1,5 @@
 {
-    "FAQ": "FAQ",
+    "FAQ": "Perguntas Frequentes",
     "termsAndAgreement": "Ao clicar no botão abaixo, você afirma que leu e aceita os <a href='/static/terms'>Termos de Serviço</a> e <a href='/static/privacy'>Política de Privacidade</a>.",
     "accept1Terms": "Ao clicar no botão abaixo, eu concordo com os",
     "accept2Terms": "e com a",
@@ -117,7 +117,7 @@
     "missingPassword": "Faltando senha.",
     "missingNewPassword": "Faltando nova senha.",
     "invalidEmailDomain": "Você não pode se registrar com emails destes domínios: <%= domains %>",
-    "wrongPassword": "Senha incorreta.",
+    "wrongPassword": "Senha incorreta. Se você esqueceu sua senha, clique em \"Esqueci a Senha.\"",
     "incorrectDeletePhrase": "Por favor, digite <%= magicWord %> em letras maiúsculas para deletar sua conta.",
     "notAnEmail": "Endereço de e-mail inválido.",
     "emailTaken": "Endereço de e-mail já está sendo usado em uma conta.",
@@ -189,5 +189,6 @@
     "emailUsernamePlaceholder": "Ex: habitilebre ou grifo@exemplo.com",
     "socialAlreadyExists": "Este login já está vinculado a uma conta existente do Habitica.",
     "footerProduct": "Produto",
-    "translateHabitica": "Traduza o Habitica"
+    "translateHabitica": "Traduza o Habitica",
+    "incorrectResetPhrase": "Por favor, escreva <%= magicWord %> em letras maiúsculas para redefinir sua conta."
 }

@@ -159,5 +159,13 @@
     "achievementRoughRider": "粗野な乗り手",
     "achievementBonelessBoss": "骨のないボス",
     "achievementBonelessBossText": "無脊椎動物ペット（カブトムシ、蝶々、イカ、ウミウシ、タコ、カタツムリ、クモ）をすべての基本色でたまごからかえしました！",
-    "achievementRoughRiderText": "不快なペットと騎乗（サボテン、ハリネズミ、岩）をすべての基本色でたまごからかえしました！"
+    "achievementRoughRiderText": "不快なペットと乗騎（サボテン、ハリネズミ、岩）をすべての基本色でたまごからかえしました！",
+    "achievementRoughRiderModalText": "不快なペットと乗騎をすべて集めました！",
+    "achievementDuneBuddyModalText": "砂漠に住むペットをすべて集めました！",
+    "achievementRodentRuler": "げっ歯類の支配者",
+    "achievementRodentRulerModalText": "げっ歯類ペットををすべて集めました！",
+    "achievementRodentRulerText": "げっ歯類ペット（モルモット、ネズミ、リス）をすべての基本色でたまごからかえしました！",
+    "achievementCatsText": "ネコ科ペット（チーター、ライオン、サーベルタイガー、トラ）をすべての基本色でたまごからかえしました！",
+    "achievementCats": "ネコの世話人",
+    "achievementCatsModalText": "ネコ科ペットをすべて集めました！"
 }
