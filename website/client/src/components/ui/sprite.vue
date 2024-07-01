@@ -1,9 +1,16 @@
 <template>
   <img
+    class="pixel-art"
     v-if="imageName && imageName !== ''"
     :src="imageUrl()"
   >
 </template>
+
+<style>
+.pixel-art {
+  image-rendering: pixelated;
+}
+</style>
 
 <script>
 import GIF_SPRITES from '@/../../common/script/content/constants/gifSprites';
