@@ -9,7 +9,7 @@
           <Sprite :image-name="`Pet_HatchingPotion_${hatchablePet.potionKey}`" />
         </div>
         <div class="potionEggBackground">
-          <Sprite :class="`Pet_Egg_${hatchablePet.eggKey}`" />
+          <Sprite :image-name="`Pet_Egg_${hatchablePet.eggKey}`" />
         </div>
       </div>
       <h4 class="title">
@@ -105,7 +105,7 @@
         margin-right: 24px;
       }
 
-      div {
+      img {
         margin: 0 auto;
       }
     }
