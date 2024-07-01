@@ -318,6 +318,7 @@
     .dragging-icon {
       width: 68px;
       margin: 0 auto 8px;
+      display: block;
       transform: scale(1.5);
     }
 
