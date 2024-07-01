@@ -541,13 +541,11 @@ function buildFood () {
 }
 
 const memoizedBuildFood = memoize(buildFood);
-
 Object.defineProperty(api, 'food', {
   get () { return memoizedBuildFood(); },
+  enumerable: true,
 });
-
 api.appearances = appearances;
-
 api.backgrounds = backgroundsTree();
 api.backgroundsFlat = backgroundsFlat();
 
