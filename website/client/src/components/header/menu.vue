@@ -13,7 +13,7 @@
       type="dark"
     >
       <b-navbar-brand
-        class="brand"
+        class="brand pl-3"
         aria-label="Habitica"
       >
         <div
@@ -339,7 +339,7 @@
             </div>
           </li>
         </b-navbar-nav>
-        <div class="currency-tray form-inline">
+        <div class="currency-tray form-inline pl-6">
           <div
             v-if="userHourglasses > 0"
             class="item-with-icon"
@@ -445,7 +445,6 @@ body.modal-open #habitica-menu {
 
       .currency-tray {
         margin-left: auto;
-        margin-right: 24px;
       }
 
       .topbar-item {
