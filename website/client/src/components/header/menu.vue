@@ -44,7 +44,7 @@
       <b-collapse
         id="menu_collapse"
         v-model="menuIsOpen"
-        class="collapse navbar-collapse"
+        class="collapse navbar-collapse pl-2"
       >
         <b-navbar-nav class="menu-list">
           <b-nav-item
@@ -346,7 +346,7 @@
           >
             <div
               v-b-tooltip.hover.bottom="$t('mysticHourglassesTooltip')"
-              class="top-menu-icon svg-icon hg-icon"
+              class="top-menu-icon svg-icon mr-1"
               v-html="icons.hourglasses"
             ></div>
             <span>{{ userHourglasses }}</span>
@@ -354,7 +354,7 @@
           <div class="item-with-icon">
             <a
               v-b-tooltip.hover.bottom="$t('gems')"
-              class="top-menu-icon svg-icon gem gem-gold-icon"
+              class="top-menu-icon svg-icon gem mr-6"
               :aria-label="$t('gems')"
               href="#buy-gems"
               @click.prevent="showBuyGemsModal()"
@@ -362,7 +362,7 @@
             ></a>
             <span>{{ userGems }}</span>
           </div>
-          <div class="item-with-icon gold gem-gold-icon">
+          <div class="item-with-icon gold">
             <div
               v-b-tooltip.hover.bottom="$t('gold')"
               class="top-menu-icon svg-icon gold"
@@ -372,7 +372,7 @@
             <span>{{ Math.floor(user.stats.gp * 100) / 100 }}</span>
           </div>
         </div>
-        <div class="form-inline desktop-only">
+        <div class="form-inline desktop-only margin-adj">
           <a
             v-b-tooltip.hover.bottom="$t('sync')"
             class="item-with-icon"
@@ -388,7 +388,7 @@
             ></div>
           </a>
           <notification-menu class="item-with-icon" />
-          <user-dropdown class="item-with-icon margin-adj" />
+          <user-dropdown class="item-with-icon mr-2" />
         </div>
       </b-collapse>
     </b-navbar>
@@ -672,30 +672,10 @@ body.modal-open #habitica-menu {
       width: 24px;
       height: 24px;
     }
-
-    &.hg-icon {
-      margin-right: 4px;
-    }
-
-    &.gem-gold-icon {
-      margin-right: 24px;
-    }
   }
 
   a.item-with-icon:focus {
     outline: none;
-  }
-
-  .menu-icon {
-    margin-left: 24px;
-  }
-
-  .hg-icon {
-    margin-right: 4px;
-  }
-
-  .margin-adj {
-    margin-right: 12px;
   }
 
   @keyframes rotateGemColors {
@@ -748,6 +728,11 @@ body.modal-open #habitica-menu {
     top: -0.5em;
     padding: .2em;
   }
+
+  .margin-adj {
+    margin-left: 24px;
+  }
+
 </style>
 
 <script>
