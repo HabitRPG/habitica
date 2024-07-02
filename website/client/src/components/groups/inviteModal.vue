@@ -122,8 +122,8 @@
 <script>
 import clone from 'lodash/clone';
 import debounce from 'lodash/debounce';
-import isEmail from 'validator/lib/isEmail';
-import isUUID from 'validator/lib/isUUID';
+import isEmail from 'validator/es/lib/isEmail';
+import isUUID from 'validator/es/lib/isUUID';
 import { mapState } from '@/libs/store';
 import notifications from '@/mixins/notifications';
 import positiveIcon from '@/assets/svg/positive.svg';

@@ -131,7 +131,7 @@ input {
 
 <script>
 import axios from 'axios';
-import * as validator from 'validator';
+import isEmail from 'validator/es/lib/isEmail';
 import debounce from 'lodash/debounce';
 import { mapState } from '@/libs/store';
 
@@ -162,7 +162,7 @@ export default {
       user: 'user.data',
     }),
     validEmail () {
-      return validator.isEmail(this.updates.newEmail);
+      return isEmail(this.updates.newEmail);
     },
     allowedToSave () {
       return !this.validEmail || this.updates.password.length === 0;

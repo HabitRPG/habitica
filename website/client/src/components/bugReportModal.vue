@@ -167,7 +167,7 @@ label {
 
 <script>
 import axios from 'axios';
-import isEmail from 'validator/lib/isEmail';
+import isEmail from 'validator/es/lib/isEmail';
 import closeX from '@/components/ui/closeX';
 import { mapState } from '@/libs/store';
 import { MODALS } from '@/libs/consts';
