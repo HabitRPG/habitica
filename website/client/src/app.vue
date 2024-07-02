@@ -2,7 +2,8 @@
   <div>
     <div
       v-if="loading"
-      id="loading-screen-inapp">
+      id="loading-screen-inapp"
+    >
       <div class="row">
         <div class="col-12 text-center">
           <!-- eslint-disable max-len -->
