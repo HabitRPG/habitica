@@ -30,7 +30,7 @@
         />
         <div
           v-if="item.addlNotes"
-          class="mb-3"
+          class="mx-4 mb-3"
         >
           {{ item.addlNotes }}
         </div>
@@ -177,7 +177,6 @@
 
     .inner-content {
       margin: 33px auto auto;
-      padding: 0px 24px;
     }
 
     .item-notes {

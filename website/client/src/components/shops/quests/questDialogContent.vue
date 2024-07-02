@@ -17,6 +17,7 @@
       <user-label :user="leader" />
     </div>
     <div
+      class="mx-4"
       v-html="itemNotes"
     ></div>
     <questInfo
