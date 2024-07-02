@@ -6,6 +6,7 @@ const vueTemplateCompiler = require('vue-template-babel-compiler');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const setupNconf = require('../server/libs/setupNconf');
 const pkg = require('./package.json');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const configFile = path.join(path.resolve(__dirname, '../../config.json'));
 
@@ -76,8 +77,15 @@ const webpackPlugins = [
       if ((context.includes('sinon') || resource.includes('sinon') || context.includes('nise')) && nconf.get('TIME_TRAVEL_ENABLED') !== 'true') {
         return true;
       }
+      if (context.includes('yargs')) {
+        return true;
+      }
       return false;
     },
+  }),
+  new BundleAnalyzerPlugin({
+    analyzerMode: 'static',
+    openAnalyzer: false,
   }),
 ];
 
