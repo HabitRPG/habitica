@@ -234,11 +234,7 @@
   @import '~@/assets/scss/faq.scss';
 
   table {
-    border-collapse: collapse;
-    border-radius: 2px;
-    border-style: hidden; /* hide standard table (collapsed) border */
-    box-shadow: 0 0 0 1px $gray-300; /* this draws the table border  */
-    overflow: hidden; /*  hides background color overflow */
+    border: 1px solid $gray-300;
     }
 
   th {
@@ -249,13 +245,13 @@
     font-weight: 700;
     height: 32px;
     padding-left: 12px;
-    width: 224px;
+    padding-right: 12px;
   }
 
   td {
     border: 1px solid $gray-300;
     height: 32px;
     padding-left: 12px;
-    width: 248px;
+    padding-right: 12px;
   }
 </style>
