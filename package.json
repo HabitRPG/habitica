@@ -15,6 +15,7 @@
     "amplitude": "^6.0.0",
     "apidoc": "^0.54.0",
     "apple-auth": "^1.0.9",
+    "babel-preset-env": "^1.7.0",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
     "bootstrap": "^4.6.2",
@@ -74,6 +75,7 @@
     "useragent": "^2.1.9",
     "uuid": "^9.0.0",
     "validator": "^13.11.0",
+    "webpack-bundle-analyzer": "^4.10.2",
     "winston": "^3.10.0",
     "winston-loggly-bulk": "^3.3.0",
     "xml2js": "^0.6.2"
