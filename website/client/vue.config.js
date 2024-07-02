@@ -91,6 +91,17 @@ module.exports = {
           dependency: { not: ['url'] },
           type: 'asset/source',
         },
+        {
+          test: /\.js$/,
+          // Exclude transpiling `node_modules`, except `bootstrap-vue/src`
+          exclude: /node_modules\/(?!bootstrap-vue\/src\/)/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env'],
+            }
+          }
+        }
       ],
     },
     resolve: {
@@ -101,6 +112,10 @@ module.exports = {
         path: false,
         stream: false,
         timers: require.resolve('timers-browserify'),
+      },
+      alias: {
+        // Alias for using source of BootstrapVue
+        'bootstrap-vue$': 'bootstrap-vue/src/index.js'
       },
     },
     plugins: webpackPlugins,
