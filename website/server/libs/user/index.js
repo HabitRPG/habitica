@@ -25,7 +25,7 @@ export async function get (req, res, { isV3 = false }) {
   // Remove apiToken from response TODO make it private at the user level? returned in signup/login
   delete userToJSON.apiToken;
 
-  if (!req.query.userFields) {
+  if (!req.query.userFields || req.query.userFields.includes('needsCron')) {
     const { daysMissed } = user.daysUserHasMissed(new Date(), req);
     userToJSON.needsCron = false;
     if (daysMissed > 0) userToJSON.needsCron = true;
