@@ -6,7 +6,6 @@ const vueTemplateCompiler = require('vue-template-babel-compiler');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const setupNconf = require('../server/libs/setupNconf');
 const pkg = require('./package.json');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const configFile = path.join(path.resolve(__dirname, '../../config.json'));
 
@@ -83,10 +82,6 @@ const webpackPlugins = [
       return false;
     },
   }),
-  new BundleAnalyzerPlugin({
-    analyzerMode: 'static',
-    openAnalyzer: false,
-  }),
 ];
 
 module.exports = {
@@ -107,9 +102,20 @@ module.exports = {
             loader: 'babel-loader',
             options: {
               presets: ['@babel/preset-env'],
-            }
-          }
-        }
+            },
+          },
+        },
+        {
+          test: /\.js$/,
+          // Exclude transpiling `node_modules`, except `bootstrap-vue/src`
+          exclude: /node_modules\/(?!validator)/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env'],
+            },
+          },
+        },
       ],
     },
     resolve: {
@@ -123,7 +129,7 @@ module.exports = {
       },
       alias: {
         // Alias for using source of BootstrapVue
-        'bootstrap-vue$': 'bootstrap-vue/src/index.js'
+        'bootstrap-vue$': 'bootstrap-vue/src/index.js',
       },
     },
     plugins: webpackPlugins,
