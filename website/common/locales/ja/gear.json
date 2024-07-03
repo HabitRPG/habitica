@@ -2859,7 +2859,7 @@
     "armorArmoireBasketballUniformText": "バスケットボールのユニフォーム",
     "weaponArmoirePaintbrushText": "絵筆",
     "armorSpecialSpring2023HealerText": "ユリの葉のガウン",
-    "armorArmoireBasketballUniformNotes": "このユニフォームの背中に何がプリントされているのか気になりますか？もちろん、それはあなたのラッキーナンバーです！知覚が<%= per %>、力が<%= str %>上がります。ラッキー宝箱：昔懐かしいバスケットボールセット(アイテム1/2)。",
+    "armorArmoireBasketballUniformNotes": "このユニフォームの背中に何がプリントされているのか気になりますか？もちろん、それはあなたのラッキーナンバーです！知覚が<%= per %>、力が上がります。ラッキー宝箱：昔懐かしいバスケットボールセット(アイテム1/2)。",
     "headMystery202301Text": "勇敢な妖狐の耳",
     "backMystery202301Text": "武勇の五尾",
     "backMystery202302Notes": "このしっぽを付ければ、素敵な一日になること間違いなし！カルー！カライ！効果なし。2023年2月有料会員アイテム。",

@@ -13,7 +13,7 @@ export const ARMOIRE_RELEASE_DATES = {
 
 export const EGGS_RELEASE_DATES = {
   Giraffe: { year: 2024, month: 6, day: 1 },
-  Chameleon: { year: 2024, month: 7, day: 1 },
+  Chameleon: { year: 2024, month: 7, day: 14 },
 };
 
 export const HATCHING_POTIONS_RELEASE_DATES = {
