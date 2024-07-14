@@ -770,6 +770,8 @@
   "weaponArmoirePottersWheelNotes": "Throw some clay on this wheel and make a bowl or a mug or a vase or a slightly different bowl. If you're lucky, a ghost might visit while you create! Increases Perception by <%= per %>. Enchanted Armoire: Potter Set (Item 4 of 4).",
   "weaponArmoireShadyBeachUmbrellaText": "Beach Umbrella",
   "weaponArmoireShadyBeachUmbrellaNotes": "The shade of this rainbow-colored umbrella conceals you briefly from the day star and any unwanted bothers. Increases Perception by <%= per %>. Enchanted Armoire: Beachside Set (Item 3 of 4).",
+  "weaponArmoireCorsairsBladeText": "Corsair’s Blade",
+  "weaponArmoireCorsairsBladeNotes": "Whether you wield it to plunder or to protect, you can be glad you brought this fierce blade to sea with you. Just be sure to stow it safely when not in use. Increases Strength by <%= str %>. Enchanted Armoire: Corsair Set (Item 3 of 3)",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -1400,6 +1402,8 @@
   "armorMystery202401Notes": "These robes appear as delicate as crystal snowflakes, but will keep you plenty warm as you work your wintry magic. Confers no benefit. January 2024 Subscriber Item.", 
   "armorMystery202406Text": "Phantom Buccaneer’s Attire",
   "armorMystery202406Notes": "Haunt your enemies with style and flair! Confers no benefit. June 2024 Subscriber Item.",
+  "armorMystery202407Text": "Amiable Axolotl Suit",
+  "armorMystery202407Notes": "Glide through lakes and canals with your sweeping pink tail! Confers no benefit. July 2024 Subscriber Item.",
 
   "armorMystery301404Text": "Steampunk Suit",
   "armorMystery301404Notes": "Dapper and dashing, wot! Confers no benefit. February 3015 Subscriber Item.",
@@ -1616,6 +1620,8 @@
   "armorArmoireYellowStripedSwimsuitNotes": "What could be more delightful than battling sea monsters on the beach? Increases Constitution by <%= con %>. Enchanted Armoire: Beachside Set (Item 1 of 4).",
   "armorArmoireBlueStripedSwimsuitText": "Blue Striped Swimsuit",
   "armorArmoireBlueStripedSwimsuitNotes": "What could be more exciting than battling sea monsters on the beach? Increases Constitution by <%= con %>. Enchanted Armoire: Beachside Set (Item 2 of 4).",
+  "armorArmoireCorsairsCoatAndCapeText": "Corsair’s Coat and Cape",
+  "armorArmoireCorsairsCoatAndCapeNotes": "Whether you’re biding your time on the docks or watching for danger on the open seas, these will surely keep you feeling dry and looking dramatic. Just keep your balance on deck. Increases Constitution by <%= con %>. Enchanted Armoire: Corsair Set (Item 1 of 3)",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -2279,6 +2285,8 @@
   "headMystery202404Notes": "This hat will connect you with the earth and allow you to hear secret wishes from many creatures. Confers no benefit. April 2024 Subscriber Item.",
   "headMystery202406Text": "Phantom Buccaneer’s Hat",
   "headMystery202406Notes": "The ghostly feathers that adorn this hat glow faintly, like the waves of a spectral sea. Confers no benefit. June 2024 Subscriber Item.",
+  "headMystery202407Text": "Amiable Axolotl Hood",
+  "headMystery202407Notes": "These magical gills will let you breathe underwater! Confers no benefit. July 2024 Subscriber Item.",
 
   "headMystery301404Text": "Fancy Top Hat",
   "headMystery301404Notes": "A fancy top hat for the finest of gentlefolk! January 3015 Subscriber Item. Confers no benefit.",
@@ -2475,6 +2483,8 @@
   "headArmoireHattersTopHatNotes": "Our hats are off to you, and yours is on! What’s hidden in your hat is anybody’s guess (but we’re hoping it’s a bunny). Increases Perception by <%= per %>. Enchanted Armoire: Hatter Set (Item 1 of 4).",
   "headArmoirePottersBandanaText": "Bandana",
   "headArmoirePottersBandanaNotes": "Look the part and keep your hair out of your face while you work. It’s a win-win! Increases Intelligence by <%= int %>. Enchanted Armoire: Potter Set (Item 2 of 4).",
+  "headArmoireCorsairsBandanaText": "Corsair’s Bandana",
+  "headArmoireCorsairsBandanaNotes": "Whether you’re keeping your head covered in case a seagull flies overhead or making sure your foes never see you sweat, this bandana is essential. Just add a decorative bead for every adventure you complete. Increases Intelligence by <%= int %>. Enchanted Armoire: Corsair Set (Item 2 of 3)",
 
   "offhand": "off-hand item",
   "offHandCapitalized": "Off-Hand Item",

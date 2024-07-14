@@ -973,6 +973,7 @@ const eyewear = {
     text: t('eyewearSpecialSummerRogueText'),
     notes: t('eyewearSpecialSummerRogueNotes'),
     value: 20,
+    season: 'summer',
   },
   summerWarrior: {
     specialClass: 'warrior',
@@ -980,6 +981,7 @@ const eyewear = {
     text: t('eyewearSpecialSummerWarriorText'),
     notes: t('eyewearSpecialSummerWarriorNotes'),
     value: 20,
+    season: 'summer',
   },
   blackTopFrame: {
     gearSet: 'glasses',

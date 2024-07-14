@@ -85,7 +85,7 @@
     "allocatePerPop": "Add a Point to Perception",
     "allocateInt": "Points allocated to Intelligence:",
     "allocateIntPop": "Add a Point to Intelligence",
-    "noMoreAllocate": "Now that you've hit level 100, you won't gain any more Stat Points. You can continue levelling up, or start a new adventure at level 1 by using the <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a>!",
+    "noMoreAllocate": "Now that you've hit level 100, you won't gain any more Stat Points. You can continue levelling up, or start a new adventure at level 1 by using the <a href='https://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a>!",
     "stats": "Stats",
     "achievs": "Achievements",
     "strength": "Strength",
@@ -170,8 +170,8 @@
     "photo": "Photo",
     "info": "Info",
     "joined": "Joined",
-    "totalLogins": "Total Check Ins",
-    "latestCheckin": "Latest Check In",
+    "totalLogins": "Total Log Ins",
+    "latestCheckin": "Latest Log In",
     "editProfile": "Edit Profile",
     "challengesWon": "Challenges Won",
     "questsCompleted": "Quests Completed",
@@ -185,5 +185,9 @@
     "chatCastSpellUser": "<%= username %> casts <%= spell %> on <%= target %>.",
     "chatCastSpellParty": "<%= username %> casts <%= spell %> for the party.",
     "purchasePetItemConfirm": "This purchase would exceed the number of items you need to hatch all possible <%= itemText %> pets. Are you sure?",
-    "purchaseForGold": "Purchase for <%= cost %> Gold?"
+    "purchaseForGold": "Purchase for <%= cost %> Gold?",
+    "notEnoughGold": "Not enough gold.",
+    "chatCastSpellPartyTimes": "<%= username %> casts <%= spell %> for the party <%= times %> times.",
+    "chatCastSpellUserTimes": "<%= username %> casts <%= spell %> on <%= target %> <%= times %> times.",
+    "nextReward": "Next Log In Reward"
 }
