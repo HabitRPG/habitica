@@ -2,29 +2,31 @@
   <div class="row standard-page">
     <div class="well col-12">
       <h1>Admin Panel</h1>
-
-      <div>
-        <form
-          class="form-inline"
-          @submit.prevent="loadHero(userIdentifier)"
-        >
+      <form
+        class="form-inline"
+        @submit.prevent="loadUser(userIdentifier)"
+      >
+        <div class="input-group">
           <input
             v-model="userIdentifier"
             class="form-control uidField"
             type="text"
-            :placeholder="'User ID or Username; blank for your account'"
+            :placeholder="'User-ID, Username or E-Mail; blank for your account'"
           >
-          <input
-            type="submit"
-            value="Load User"
+          <div class="input-group-append">
+            <button
+            class="btn btn-primary"
+            type="button"
+            @click="loadUser(userIdentifier)">Load User</button>
+            <button
             class="btn btn-secondary"
-          >
-        </form>
-      </div>
+            type="button"
+            @click="searchUsers(userIdentifier)">Search</button>
+          </div>
+        </div>
+      </form>
 
-      <div>
-        <router-view @changeUserIdentifier="changeUserIdentifier" />
-      </div>
+      <router-view @changeUserIdentifier="changeUserIdentifier" class="mt-3" />
     </div>
   </div>
 </template>
@@ -32,6 +34,10 @@
 <style lang="scss" scoped>
   .uidField {
     min-width: 45ch;
+  }
+
+  .input-group-append {
+    width:auto;
   }
 </style>
 
@@ -62,7 +68,20 @@ export default {
       // (useful if we want to re-fetch the user after making changes).
       this.userIdentifier = newId;
     },
-    async loadHero (userIdentifier) {
+    async searchUsers (userIdentifier) {
+      this.$router.push({
+        name: 'adminPanelSearch',
+        params: { userIdentifier },
+      }).catch(failure => {
+        if (isNavigationFailure(failure, NavigationFailureType.duplicated)) {
+          // the admin has requested that the same user be displayed again so reload the page
+          // (e.g., if they changed their mind about changes they were making)
+          this.$router.go();
+        }
+      });
+    },
+
+    async loadUser (userIdentifier) {
       const id = userIdentifier || this.user._id;
 
       this.$router.push({
