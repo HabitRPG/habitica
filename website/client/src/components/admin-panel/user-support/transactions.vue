@@ -1,13 +1,15 @@
 <template>
-  <div class="accordion-group">
+  <div class="card mt-2">
+    <div class="card-header">
     <h3
-      class="expand-toggle"
+      class="mb-0 mt-0"
       :class="{'open': expand}"
       @click="toggleTransactionsOpen"
     >
-      Transactions
+    Transactions
     </h3>
-    <div v-if="expand">
+  </div>
+    <div v-if="expand" class="card-body">
       <purchase-history-table
         :gem-transactions="gemTransactions"
         :hourglass-transactions="hourglassTransactions"

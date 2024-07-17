@@ -389,12 +389,17 @@ api.updateHero = {
       hero.markModified('items');
     }
 
-    if (updateData.auth && updateData.auth.blocked === true) {
-      hero.auth.blocked = updateData.auth.blocked;
-      hero.preferences.sleep = true; // when blocking, have them rest at an inn to prevent damage
-    }
-    if (updateData.auth && updateData.auth.blocked === false) {
-      hero.auth.blocked = false;
+    if (updateData.auth) {
+      if (updateData.auth.blocked === true) {
+        hero.auth.blocked = updateData.auth.blocked;
+        hero.preferences.sleep = true; // when blocking, have them rest at an inn to prevent damage
+      } else if (updateData.auth.blocked === false) {
+        hero.auth.blocked = false;
+      }
+
+      if (updateData.auth.local && updateData.auth.local.email) {
+        hero.auth.local.email = updateData.auth.local.email;
+      }
     }
 
     if (updateData.flags && _.isBoolean(updateData.flags.chatRevoked)) {

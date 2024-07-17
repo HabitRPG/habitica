@@ -1,6 +1,6 @@
 <template>
-  <div class="row standard-page">
-    <div class="well col-12">
+  <div class="row standard-page col-12 d-flex justify-content-center">
+    <div class="admin-panel-content">
       <h1>Admin Panel</h1>
       <form
         class="form-inline"
@@ -38,6 +38,11 @@
 
   .input-group-append {
     width:auto;
+  }
+
+  .admin-panel-content {
+    flex: 0 0 800px;
+    max-width: unset;
   }
 </style>
 
