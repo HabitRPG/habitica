@@ -1,7 +1,9 @@
 <template>
-  <div class="accordion-group">
+      <form @submit.prevent="saveHero({ hero, msg: 'Authentication' })">
+  <div class="card mt-2">
+    <div class="card-header">
     <h3
-      class="expand-toggle"
+      class="mb-0 mt-0"
       :class="{'open': expand}"
       @click="expand = !expand"
     >
@@ -10,7 +12,8 @@
         v-if="errorsOrWarningsExist"
       >- ERRORS / WARNINGS EXIST</span>
     </h3>
-    <div v-if="expand">
+  </div>
+    <div v-if="expand" class="card-body">
       <p
         v-if="errorsOrWarningsExist"
         class="errorMessage"
@@ -18,13 +21,15 @@
         See error(s) below.
       </p>
 
-      <div>
-        Account created:
-        <strong>{{ hero.auth.timestamps.created | formatDate }}</strong>
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label">Account created:</label>
+        <strong class="col-sm-9 col-form-label">
+          {{ hero.auth.timestamps.created | formatDate }}</strong>
       </div>
-      <div v-if="hero.flags.thirdPartyTools">
+      <div class="form-group row" v-if="hero.flags.thirdPartyTools">
         User has employed <strong>third party tools</strong>. Last known usage:
-        <strong>{{ hero.flags.thirdPartyTools | formatDate }}</strong>
+        <strong class="col-sm-9 col-form-label">
+          {{ hero.flags.thirdPartyTools | formatDate }}</strong>
       </div>
       <div v-if="cronError">
         "lastCron" value:
@@ -35,26 +40,34 @@
           ("auth.timestamps.loggedin" and "lastCron" dates are different).
         </span>
       </div>
-      <div class="form-inline">
-        <div>
-          Most recent cron:
-          <strong>{{ hero.auth.timestamps.loggedin | formatDate }}</strong>
-          ("auth.timestamps.loggedin")
-        </div>
+      <div class="form-group row">
+          <label class="col-sm-3 col-form-label">Most recent cron:</label>
+
+        <div class="col-sm-9 col-form-label">
+          <strong>
+            {{ hero.auth.timestamps.loggedin | formatDate }}</strong>
         <button
-          class="btn btn-primary ml-2"
+          class="btn btn-warning btn-sm ml-4"
           @click="resetCron()"
         >
           Reset Cron to Yesterday
         </button>
+        </div>
       </div>
-      <div class="subsection-start">
-        Time zone:
-        <strong>{{ hero.preferences.timezoneOffset | formatTimeZone }}</strong>
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label">Time zone:</label>
+        <strong class="col-sm-9 col-form-label">
+          {{ hero.preferences.timezoneOffset | formatTimeZone }}</strong>
       </div>
-      <div>
-        Custom Day Start time (CDS):
-        <strong>{{ hero.preferences.dayStart }}</strong>
+      <div class="form-group row">
+          <label class="col-sm-3 col-form-label">Custom Day Start time (CDS)</label>
+          <div class="col-sm-9">
+          <input
+            v-model="hero.preferences.dayStart"
+            class="form-control levelField"
+            type="number"
+          >
+          </div>
       </div>
       <div v-if="timezoneDiffError || timezoneMissingError">
         Time zone at previous cron:
@@ -87,18 +100,17 @@
         </div>
       </div>
 
-      <div class="subsection-start form-inline">
-        API Token: &nbsp;
-        <form @submit.prevent="changeApiToken()">
-          <input
-            type="submit"
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label">API Token</label>
+        <div class="col-sm-9">
+          <button
+            @click="changeApiToken()"
             value="Change API Token"
-            class="btn btn-primary"
-          >
-        </form>
+            class="btn btn-danger">
+            Change API Token
+          </button>
         <div
           v-if="tokenModified"
-          class="form-inline"
         >
           <strong>API Token has been changed. Tell the player something like this:</strong>
           <br>
@@ -111,35 +123,53 @@
           For the iOS app, if you can't log out you might need to uninstall it,
           reboot your phone, then reinstall it.
         </div>
+        </div>
       </div>
 
-      <div class="subsection-start">
-        Local authentication:
-        <span v-if="hero.auth.local.email">Yes, &nbsp;
-          <strong>{{ hero.auth.local.email }}</strong></span>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">Local Authentication E-Mail</label>
+          <div class="col-sm-9">
+          <input
+            v-model="hero.auth.local.email"
+            class="form-control"
+            type="text"
+          >
+          </div>
+        </div>
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label">Google authentication</label>
+        <div class="col-sm-9">
+          <pre v-if="authMethodExists('google')">{{ hero.auth.google }}</pre>
         <span v-else><strong>None</strong></span>
+        </div>
       </div>
-      <div>
-        Google authentication:
-        <pre v-if="authMethodExists('google')">{{ hero.auth.google }}</pre>
-        <span v-else><strong>None</strong></span>
-      </div>
-      <div>
-        Facebook authentication:
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label">Facebook authentication</label>
+        <div class="col-sm-9">
         <pre v-if="authMethodExists('facebook')">{{ hero.auth.facebook }}</pre>
         <span v-else><strong>None</strong></span>
+        </div>
       </div>
-      <div>
-        Apple ID authentication:
-        <pre v-if="authMethodExists('apple')">{{ hero.auth.apple }}</pre>
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label">Apple ID authentication</label>
+        <div class="col-sm-9">
+          <pre v-if="authMethodExists('apple')">{{ hero.auth.apple }}</pre>
         <span v-else><strong>None</strong></span>
+        </div>
       </div>
       <div class="subsection-start">
         Full "auth" object for checking above is correct:
         <pre>{{ hero.auth }}</pre>
       </div>
     </div>
+    <div class="card-footer" v-if="expand">
+        <input
+          type="submit"
+          value="Save"
+          class="btn btn-primary mt-1"
+        ></div>
   </div>
+</form>
 </template>
 
 <script>

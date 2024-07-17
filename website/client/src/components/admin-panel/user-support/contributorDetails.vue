@@ -1,16 +1,18 @@
 <template>
-  <div class="accordion-group">
+      <form @submit.prevent="saveHero({hero, msg: 'Contributor details', clearData: true})">
+  <div class="card mt-2">
+    <div class="card-header">
     <h3
-      class="expand-toggle"
+      class="mb-0 mt-0"
       :class="{'open': expand}"
       @click="expand = !expand"
     >
-      Contributor Details
+    Contributor Details
     </h3>
-    <div v-if="expand">
-      <form @submit.prevent="saveHero({hero, msg: 'Contributor details', clearData: true})">
-        <div>
-          <label>Permissions</label>
+  </div>
+    <div v-if="expand" class="card-body">
+        <div class="mb-4">
+          <h3 class="mt-0">Permissions</h3>
           <div class="checkbox">
             <label>
               <input
@@ -72,8 +74,9 @@
             </label>
           </div>
         </div>
-        <div class="form-group">
-          <label>Title</label>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">Title</label>
+          <div class="col-sm-9">
           <input
             v-model="hero.contributor.text"
             class="form-control textField"
@@ -88,9 +91,11 @@
             Advisor, Chamberlain, Designer, Mathematician, Shirtster, Spokesperson,
             Statistician, Tinker, Transcriber, Troubadour.
           </small>
+          </div>
         </div>
-        <div class="form-group form-inline">
-          <label>Tier</label>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">Tier</label>
+          <div class="col-sm-9">
           <input
             v-model="hero.contributor.level"
             class="form-control levelField"
@@ -101,20 +106,12 @@
             This determines which items, pets, mounts are available, and name-tag coloring.
             Tiers 8 and 9 are automatically given admin status.
           </small>
+          </div>
         </div>
-        <div
-          v-if="hero.secret.text"
-          class="form-group"
-        >
-          <label>Moderation Notes</label>
-          <div
-            v-markdown="hero.secret.text"
-            class="markdownPreview"
-          ></div>
-        </div>
-        <div class="form-group">
-          <label>Contributions</label>
-          <textarea
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">Contributions</label>
+          <div class="col-sm-9">
+            <textarea
             v-model="hero.contributor.contributions"
             class="form-control"
             cols="5"
@@ -124,9 +121,11 @@
             v-markdown="hero.contributor.contributions"
             class="markdownPreview"
           ></div>
+          </div>
         </div>
-        <div class="form-group">
-          <label>Edit Moderation Notes</label>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">Moderation Notes</label>
+          <div class="col-sm-9">
           <textarea
             v-model="hero.secret.text"
             class="form-control"
@@ -137,15 +136,17 @@
             v-markdown="hero.secret.text"
             class="markdownPreview"
           ></div>
+          </div>
         </div>
+    </div>
+        <div class="card-footer" v-if="expand">
         <input
           type="submit"
-          value="Save and Clear Data"
-          class="btn btn-primary"
-        >
-      </form>
-    </div>
+          value="Save"
+          class="btn btn-primary mt-1"
+        ></div>
   </div>
+</form>
 </template>
 
 <style lang="scss" scoped>
