@@ -42,23 +42,23 @@ describe('content index', () => {
     expect(Object.keys(juneGear).length, '').to.equal(Object.keys(julyGear).length - 3);
   });
 
-  it('Releases pets gear when appropriate without needing restarting', () => {
+  it('Releases pets when appropriate without needing restarting', () => {
     clock = sinon.useFakeTimers(new Date('2024-06-20'));
     const junePets = content.petInfo;
     expect(junePets['Chameleon-Base']).to.not.exist;
     clock.restore();
-    clock = sinon.useFakeTimers(new Date('2024-07-10'));
+    clock = sinon.useFakeTimers(new Date('2024-07-18'));
     const julyPets = content.petInfo;
     expect(julyPets['Chameleon-Base']).to.exist;
     expect(Object.keys(junePets).length, '').to.equal(Object.keys(julyPets).length - 10);
   });
 
-  it('Releases mounts gear when appropriate without needing restarting', () => {
+  it('Releases mounts when appropriate without needing restarting', () => {
     clock = sinon.useFakeTimers(new Date('2024-06-20'));
     const juneMounts = content.mountInfo;
     expect(juneMounts['Chameleon-Base']).to.not.exist;
     clock.restore();
-    clock = sinon.useFakeTimers(new Date('2024-07-10'));
+    clock = sinon.useFakeTimers(new Date('2024-07-18'));
     const julyMounts = content.mountInfo;
     expect(julyMounts['Chameleon-Base']).to.exist;
     expect(Object.keys(juneMounts).length, '').to.equal(Object.keys(julyMounts).length - 10);
