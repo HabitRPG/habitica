@@ -13,7 +13,7 @@
       type="dark"
     >
       <b-navbar-brand
-        class="brand pl-3"
+        class="brand pl-2"
         aria-label="Habitica"
       >
       <router-link to="/">
@@ -710,18 +710,6 @@ body.modal-open #habitica-menu {
 
   .gem, .gold {
     margin-right: 8px;
-  }
-
-  .message-count {
-    background-color: $blue-50;
-    border-radius: 50%;
-    height: 20px;
-    width: 20px;
-    float: right;
-    color: $white;
-    text-align: center;
-    font-weight: bold;
-    font-size: 12px;
   }
 
   .message-count.top-count {
