@@ -22,6 +22,8 @@ const REDIS_HOST = nconf.get('REDIS_HOST');
 const REDIS_PASSWORD = nconf.get('REDIS_PASSWORD');
 const REDIS_PORT = nconf.get('REDIS_PORT');
 const LIVELINESS_PROBE_KEY = nconf.get('LIVELINESS_PROBE_KEY');
+const REGISTRATION_COST = nconf.get('REGISTRATION_RATE_LIMIT_COST') || 5;
+const IP_RATE_LIMIT_COST = nconf.get('IP_RATE_LIMIT_COST') || 5;
 
 let redisClient;
 let rateLimiter;
@@ -76,7 +78,14 @@ export default function rateLimiterMiddleware (req, res, next) {
 
   const userId = req.header('x-api-user');
 
-  return rateLimiter.consume(userId || req.ip)
+  let cost = 1;
+  if (req.path === '/api/v4/user/auth/local/register' || req.path === '/api/v3/user/auth/local/register') {
+    cost = REGISTRATION_COST;
+  } else if (!userId) {
+    cost = IP_RATE_LIMIT_COST;
+  }
+
+  return rateLimiter.consume(userId || req.ip, cost)
     .then(rateLimiterRes => {
       setResponseHeaders(res, rateLimiterRes);
       return next();
