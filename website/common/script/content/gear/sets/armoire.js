@@ -1844,7 +1844,7 @@ const weapon = {
     per: 8,
     set: 'pottersSet',
   },
-  shadyBeachUmbrella: {
+  beachUmbrella: {
     per: 12,
     set: 'beachsideSet',
   },
