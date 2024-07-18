@@ -426,6 +426,7 @@ export const MONTHLY_SCHEDULE = {
           'penguin',
           'butterfly',
           'cheetah',
+          'crab',
         ],
       },
       {

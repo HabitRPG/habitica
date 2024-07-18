@@ -328,6 +328,44 @@ const QUEST_PETS = {
       unlock: t('questCowUnlockText'),
     },
   },
+  crab: {
+    text: t('questCrabText'),
+    notes: t('questCrabNotes'),
+    completion: t('questCrabCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questCrabBoss'),
+      hp: 1200,
+      str: 2.5,
+      rage: {
+        title: t('questCrabRageTitle'),
+        description: t('questCrabRageDescription'),
+        value: 25, // placeholder
+        healing: 0.5, // placeholder
+        effect: t('questCrabRageEffect'),
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Crab',
+          text: t('questCrabDropCrabEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Crab',
+          text: t('questCrabDropCrabEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Crab',
+          text: t('questCrabDropCrabEgg'),
+        },
+      ],
+      gp: 90,
+      exp: 900,
+    },
+  },
   dilatory_derby: { // eslint-disable-line camelcase
     text: t('questSeahorseText'),
     notes: t('questSeahorseNotes'),
