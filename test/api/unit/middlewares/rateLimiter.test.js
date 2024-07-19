@@ -209,8 +209,9 @@ describe('rateLimiter middleware', () => {
 
   it('applies increased cost for registration calls with and without user id', async () => {
     nconfGetStub.withArgs('RATE_LIMITER_ENABLED').returns('true');
-    nconfGetStub.withArgs('RATE_LIMITER_IP_COST').returns(3);
+    nconfGetStub.withArgs('RATE_LIMITER_REGISTRATION_COST').returns(3);
     const attachRateLimiter = requireAgain(pathToRateLimiter).default;
+    req.path = '/api/v4/user/auth/local/register';
 
     req.ip = 1;
     await attachRateLimiter(req, res, next);
@@ -222,7 +223,7 @@ describe('rateLimiter middleware', () => {
     // user id an ip are counted as separate sources
     expect(res.set).to.have.been.calledWithMatch({
       'X-RateLimit-Limit': 30,
-      'X-RateLimit-Remaining': 26, // 2 calls with user id
+      'X-RateLimit-Remaining': 27, // 2 calls with user id
       'X-RateLimit-Reset': sinon.match(Date),
     });
 
