@@ -8,8 +8,8 @@ Habitica ![Build Status](https://github.com/HabitRPG/habitica/workflows/Test/bad
 * [Setting up Habitica Locally](https://github.com/HabitRPG/habitica/wiki/Setting-Up-Habitica-for-Local-Development) - how to set up a local install of Habitica for development and testing.
 
 **Interested in contributing to Habitica’s mobile apps?** Visit the links below for our mobile repositories.
-**Android:** https://github.com/HabitRPG/habitica-android
-**iOS:** https://github.com/HabitRPG/habitica-ios
+* **Android:** https://github.com/HabitRPG/habitica-android
+* **iOS:** https://github.com/HabitRPG/habitica-ios
 
 Habitica's code is licensed as described at https://github.com/HabitRPG/habitica/blob/develop/LICENSE
 
