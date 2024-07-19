@@ -54,6 +54,7 @@ describe('rateLimiter middleware', () => {
 
   it('does not throw when there are available points', async () => {
     nconfGetStub.withArgs('RATE_LIMITER_ENABLED').returns('true');
+    nconfGetStub.withArgs('RATE_LIMITER_IP_COST').returns(1);
     const attachRateLimiter = requireAgain(pathToRateLimiter).default;
     await attachRateLimiter(req, res, next);
 
@@ -71,6 +72,7 @@ describe('rateLimiter middleware', () => {
 
   it('does not throw when an unknown error is thrown by the rate limiter', async () => {
     nconfGetStub.withArgs('RATE_LIMITER_ENABLED').returns('true');
+    nconfGetStub.withArgs('RATE_LIMITER_IP_COST').returns(1);
     sandbox.stub(logger, 'error');
     sandbox.stub(RateLimiterMemory.prototype, 'consume')
       .returns(Promise.reject(new Error('Unknown error.')));
@@ -104,6 +106,7 @@ describe('rateLimiter middleware', () => {
   it('limits when LIVELINESS_PROBE_KEY is incorrect', async () => {
     nconfGetStub.withArgs('RATE_LIMITER_ENABLED').returns('true');
     nconfGetStub.withArgs('LIVELINESS_PROBE_KEY').returns('abc');
+    nconfGetStub.withArgs('RATE_LIMITER_IP_COST').returns(1);
     const attachRateLimiter = requireAgain(pathToRateLimiter).default;
 
     req.query.liveliness = 'das';
@@ -120,6 +123,7 @@ describe('rateLimiter middleware', () => {
   it('limits when LIVELINESS_PROBE_KEY is not set', async () => {
     nconfGetStub.withArgs('RATE_LIMITER_ENABLED').returns('true');
     nconfGetStub.withArgs('LIVELINESS_PROBE_KEY').returns(undefined);
+    nconfGetStub.withArgs('RATE_LIMITER_IP_COST').returns(1);
     const attachRateLimiter = requireAgain(pathToRateLimiter).default;
 
     await attachRateLimiter(req, res, next);
@@ -135,6 +139,7 @@ describe('rateLimiter middleware', () => {
   it('throws when LIVELINESS_PROBE_KEY is blank', async () => {
     nconfGetStub.withArgs('RATE_LIMITER_ENABLED').returns('true');
     nconfGetStub.withArgs('LIVELINESS_PROBE_KEY').returns('');
+    nconfGetStub.withArgs('RATE_LIMITER_IP_COST').returns(1);
     const attachRateLimiter = requireAgain(pathToRateLimiter).default;
 
     req.query.liveliness = '';
@@ -150,6 +155,7 @@ describe('rateLimiter middleware', () => {
 
   it('throws when there are no available points remaining', async () => {
     nconfGetStub.withArgs('RATE_LIMITER_ENABLED').returns('true');
+    nconfGetStub.withArgs('RATE_LIMITER_IP_COST').returns(1);
     const attachRateLimiter = requireAgain(pathToRateLimiter).default;
 
     // call for 31 times
@@ -173,6 +179,7 @@ describe('rateLimiter middleware', () => {
 
   it('uses the user id if supplied or the ip address', async () => {
     nconfGetStub.withArgs('RATE_LIMITER_ENABLED').returns('true');
+    nconfGetStub.withArgs('RATE_LIMITER_IP_COST').returns(1);
     const attachRateLimiter = requireAgain(pathToRateLimiter).default;
 
     req.ip = 1;
@@ -196,6 +203,52 @@ describe('rateLimiter middleware', () => {
     expect(res.set).to.have.been.calledWithMatch({
       'X-RateLimit-Limit': 30,
       'X-RateLimit-Remaining': 27, // 3 calls with only ip
+      'X-RateLimit-Reset': sinon.match(Date),
+    });
+  });
+
+  it('applies increased cost for registration calls with and without user id', async () => {
+    nconfGetStub.withArgs('RATE_LIMITER_ENABLED').returns('true');
+    nconfGetStub.withArgs('RATE_LIMITER_IP_COST').returns(3);
+    const attachRateLimiter = requireAgain(pathToRateLimiter).default;
+
+    req.ip = 1;
+    await attachRateLimiter(req, res, next);
+
+    req.headers['x-api-user'] = 'user-1';
+    await attachRateLimiter(req, res, next);
+    await attachRateLimiter(req, res, next);
+
+    // user id an ip are counted as separate sources
+    expect(res.set).to.have.been.calledWithMatch({
+      'X-RateLimit-Limit': 30,
+      'X-RateLimit-Remaining': 26, // 2 calls with user id
+      'X-RateLimit-Reset': sinon.match(Date),
+    });
+
+    req.headers['x-api-user'] = undefined;
+    await attachRateLimiter(req, res, next);
+    await attachRateLimiter(req, res, next);
+
+    expect(res.set).to.have.been.calledWithMatch({
+      'X-RateLimit-Limit': 30,
+      'X-RateLimit-Remaining': 24, // 3 calls with only ip
+      'X-RateLimit-Reset': sinon.match(Date),
+    });
+  });
+
+  it('applies increased cost for unauthenticated API calls', async () => {
+    nconfGetStub.withArgs('RATE_LIMITER_ENABLED').returns('true');
+    nconfGetStub.withArgs('RATE_LIMITER_IP_COST').returns(10);
+    const attachRateLimiter = requireAgain(pathToRateLimiter).default;
+
+    req.ip = 1;
+    await attachRateLimiter(req, res, next);
+    await attachRateLimiter(req, res, next);
+
+    expect(res.set).to.have.been.calledWithMatch({
+      'X-RateLimit-Limit': 30,
+      'X-RateLimit-Remaining': 10,
       'X-RateLimit-Reset': sinon.match(Date),
     });
   });
