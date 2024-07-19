@@ -28,6 +28,12 @@
           :item="item"
           :abbreviated="true"
         />
+        <div
+          v-if="item.addlNotes"
+          class="mx-4 mb-3"
+        >
+          {{ item.addlNotes }}
+        </div>
         <quest-rewards :quest="item" />
         <div
           v-if="!item.locked"
@@ -51,12 +57,6 @@
           </div>
           <div class="how-many-to-buy">
             <strong>{{ $t('howManyToBuy') }}</strong>
-          </div>
-          <div
-            v-if="item.addlNotes"
-            class="mb-3"
-          >
-            {{ item.addlNotes }}
           </div>
           <div>
             <number-increment
@@ -82,7 +82,7 @@
           v-if="priceType === 'gems'
             && !enoughCurrency(priceType, item.value * selectedAmountToBuy)
             && !item.locked"
-          class="btn btn-primary"
+          class="btn btn-primary mb-3"
           @click="purchaseGems()"
         >
           {{ $t('purchaseGems') }}
@@ -177,7 +177,6 @@
 
     .inner-content {
       margin: 33px auto auto;
-      padding: 0px 24px;
     }
 
     .item-notes {
@@ -233,8 +232,6 @@
     }
 
     .purchase-amount {
-      margin-top: 24px;
-
       .how-many-to-buy {
         margin-bottom: 16px;
       }

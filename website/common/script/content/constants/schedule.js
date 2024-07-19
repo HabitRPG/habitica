@@ -583,6 +583,7 @@ export const MONTHLY_SCHEDULE = {
         type: 'bundles',
         items: [
           'forestFriends',
+          'oddballs',
         ],
       },
     ],
