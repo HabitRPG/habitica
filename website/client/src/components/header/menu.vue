@@ -47,7 +47,7 @@
       <b-collapse
         id="menu_collapse"
         v-model="menuIsOpen"
-        class="collapse navbar-collapse pl-2"
+        class="collapse navbar-collapse"
       >
         <b-navbar-nav class="menu-list">
           <b-nav-item
@@ -342,7 +342,7 @@
             </div>
           </li>
         </b-navbar-nav>
-        <div class="currency-tray form-inline pl-6">
+        <div class="currency-tray form-inline pl-2">
           <div
             v-if="userHourglasses > 0"
             class="item-with-icon"
@@ -375,7 +375,7 @@
             <span>{{ Math.floor(user.stats.gp * 100) / 100 }}</span>
           </div>
         </div>
-        <div class="form-inline desktop-only margin-adj">
+        <div class="form-inline desktop-only">
           <a
             v-b-tooltip.hover.bottom="$t('sync')"
             class="item-with-icon"
@@ -718,10 +718,6 @@ body.modal-open #habitica-menu {
     right: 0;
     top: -0.5em;
     padding: .2em;
-  }
-
-  .margin-adj {
-    margin-left: 24px;
   }
 
 </style>
