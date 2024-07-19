@@ -22,8 +22,8 @@ const REDIS_HOST = nconf.get('REDIS_HOST');
 const REDIS_PASSWORD = nconf.get('REDIS_PASSWORD');
 const REDIS_PORT = nconf.get('REDIS_PORT');
 const LIVELINESS_PROBE_KEY = nconf.get('LIVELINESS_PROBE_KEY');
-const REGISTRATION_COST = nconf.get('REGISTRATION_RATE_LIMIT_COST') || 5;
-const IP_RATE_LIMIT_COST = nconf.get('IP_RATE_LIMIT_COST') || 5;
+const REGISTRATION_COST = nconf.get('RATE_LIMITER_REGISTRATION_COST') || 5;
+const IP_RATE_LIMIT_COST = nconf.get('RATE_LIMITER_IP_COST') || 5;
 
 let redisClient;
 let rateLimiter;
