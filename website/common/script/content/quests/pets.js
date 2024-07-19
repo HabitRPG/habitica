@@ -341,8 +341,8 @@ const QUEST_PETS = {
       rage: {
         title: t('questCrabRageTitle'),
         description: t('questCrabRageDescription'),
-        value: 25, // placeholder
-        healing: 0.5, // placeholder
+        value: 50,
+        mpDrain: 0.33,
         effect: t('questCrabRageEffect'),
       },
     },
