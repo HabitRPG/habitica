@@ -400,6 +400,7 @@ export const MONTHLY_SCHEDULE = {
         items: [
           'Moonglow',
           'Watery',
+          'SandSculpture',
         ],
       },
     ],
