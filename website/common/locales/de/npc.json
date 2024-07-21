@@ -135,5 +135,7 @@
     "helpSupportHabitica": "Hilf Habitica zu unterstützen",
     "groupsPaymentSubBilling": "Dein nächstes Rechnungsdatum ist <strong><%= renewalDate %></strong>.",
     "groupsPaymentAutoRenew": "Dieses Abonnement läuft automatisch weiter, bis es gekündigt wird. Du kannst es im Gruppen-Abrechnungs-Tab kündigen.",
-    "sellItems": "Items verkaufen"
+    "sellItems": "Items verkaufen",
+    "customizationsShopText": "Willst du deinen Style ändern? Hier bist du richtig! Wir haben die frischesten Looks, passend zur Saison, auf Lager.",
+    "notAvailable": "Dieser Gegenstand ist nicht verfügbar."
 }

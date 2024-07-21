@@ -4,7 +4,7 @@
     "armoireText": "Зачарована скриня",
     "armoireNotesFull": "Відкрийте скриню, щоб отримати особливе спорядження, досвід чи корм! Залишилося спорядження:",
     "armoireLastItem": "Ви знайшли останню річ з рідкісного спорядження в Зачарованій скрині.",
-    "armoireNotesEmpty": "Нове спорядження з'являтиметься у скрині на початку кожного місяця. А поки що, продовжуй клікати заради корму та досвіду!",
+    "armoireNotesEmpty": "Нове спорядження з'являтиметься у скрині на початку кожного місяця. А поки що, продовжуйте клікати заради корму та досвіду!",
     "dropEggWolfText": "Вовк",
     "dropEggWolfMountText": "Вовк",
     "dropEggWolfAdjective": "вірний",
@@ -300,7 +300,7 @@
     "foodCandyDesert": "Піщана цукерка",
     "foodCandyDesertThe": "Піщана цукерка",
     "foodCandyDesertA": "Піщана цукерка",
-    "foodCandyRed": "Цукерка з кориці",
+    "foodCandyRed": "Корична цукерка",
     "foodCandyRedThe": "Цукерка з кориці",
     "foodCandyRedA": "Цукерка з кориці",
     "foodSaddleText": "Сідло",
@@ -376,5 +376,12 @@
     "hatchingPotionPinkMarble": "Рожево-мармуровий",
     "hatchingPotionTeaShop": "Чайний магазин",
     "hatchingPotionRoseGold": "Рожеве золото",
-    "hatchingPotionFungi": "Грибний"
+    "hatchingPotionFungi": "Грибний",
+    "questEggChameleonText": "Хамелеон",
+    "questEggChameleonMountText": "Хамелеон",
+    "questEggChameleonAdjective": "хаотичний",
+    "hatchingPotionKoi": "Кої",
+    "questEggGiraffeText": "Жираф",
+    "questEggGiraffeMountText": "Жираф",
+    "questEggGiraffeAdjective": "височезний"
 }

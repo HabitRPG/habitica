@@ -214,7 +214,7 @@
     "backgroundStormyRooftopsNotes": "Se esgueire pelos Telhados Tempestuosos.",
     "backgroundWindyAutumnText": "Outono Ventoso",
     "backgroundWindyAutumnNotes": "Persiga folhas durante um Outono Ventoso.",
-    "incentiveBackgrounds": "Conjunto Básico de Cenários",
+    "incentiveBackgrounds": "Cenários Padrão",
     "backgroundVioletText": "Violeta",
     "backgroundVioletNotes": "Um cenário violeta vibrante.",
     "backgroundBlueText": "Azul",
@@ -861,5 +861,18 @@
     "backgroundWallFloweringVinesText": "Parede com Trepadeiras Floridas",
     "backgroundWallFloweringVinesNotes": "Pendure-se perto de uma parede de trepadeiras floridas.",
     "backgroundContainerGardenText": "Jardim de Contêineres",
-    "backgrounds052024": "Conjunto 120: lançado em maio de 2024"
+    "backgrounds052024": "Conjunto 120: lançado em maio de 2024",
+    "backgroundShellGateText": "Portal de Conchas",
+    "backgroundShellGateNotes": "Marche através do coral decorado de um Portal de Conchas.",
+    "backgrounds072024": "Conjunto 122: Lançado em julho de 2024",
+    "backgroundRiverBottomText": "Fundo do Rio",
+    "backgroundRiverBottomNotes": "Explore o fundo de um rio.",
+    "monthlyBackgrounds": "Cenários Mensais",
+    "backgrounds062024": "Conjunto 121: Lançado em junho de 2024",
+    "backgroundDragonsBackText": "Costas do Dragão",
+    "backgroundDragonsBackNotes": "Navegue pelo céu nas costas de um dragão.",
+    "backgroundMaypoleText": "Mastro",
+    "backgroundMaypoleNotes": "Dance ao redor de um Mastro alegre.",
+    "backgroundPottersStudioText": "Estúdio do Oleiro",
+    "backgroundPottersStudioNotes": "Crie arte no Estúdio do Oleiro."
 }

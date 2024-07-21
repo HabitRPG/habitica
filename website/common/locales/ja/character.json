@@ -2,7 +2,7 @@
     "communityGuidelinesWarning": "表示名、プロフィール写真、自己紹介文は、<a href='https://habitica.com/static/community-guidelines' target='_blank'>コミュニティ ガイドライン</a>に従わなくてはならないことを、心に刻んでおいてください（例 : 冒涜・不敬の禁止、成人向けの話題の禁止、侮辱行為の禁止など）。適切かどうかについてのご質問は、お気軽に <%= hrefBlankCommunityManagerEmail %> へメールをお寄せください！",
     "profile": "プロフィール",
     "avatar": "アバターのカスタマイズ",
-    "editAvatar": "アバターを編集する",
+    "editAvatar": "アバターをカスタマイズする",
     "noDescription": "このHabitica の住民はまだ説明文を追加していません。",
     "noPhoto": "このHabitica の住民はまだ写真を追加していません。",
     "other": "その他",
@@ -189,5 +189,10 @@
     "notEnoughGold": "ゴールドが足りません。",
     "chatCastSpellPartyTimes": "<%= username %>はパーティーに<%= spell %>を<%= times %>回唱えた。",
     "chatCastSpellUserTimes": "<%= username %>は <%= target %>に<%= spell %>を<%= times %>回唱えた。",
-    "nextReward": "次回のログイン特典"
+    "nextReward": "次回のログイン特典",
+    "titleFacialHair": "ひげ",
+    "titleHairbase": "ヘアスタイル",
+    "skins": "スキン",
+    "titleHaircolor": "髪の色",
+    "customizations": "カスタマイズ"
 }

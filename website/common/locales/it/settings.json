@@ -226,5 +226,12 @@
     "amount": "Totale",
     "note": "Nota",
     "action": "Azione",
-    "remainingBalance": "Saldo Rimanente"
+    "remainingBalance": "Saldo Rimanente",
+    "generalSettings": "Impostazioni Generali",
+    "taskSettings": "Impostazioni delle Attività",
+    "confirmCancelChanges": "Ne sei sicuro/a? I cambiamenti non salvati saranno perduti.",
+    "account": "Profilo",
+    "loginMethods": "Metodi di Accesso",
+    "character": "Personaggio",
+    "siteLanguage": "Lingua del Sito"
 }

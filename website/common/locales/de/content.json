@@ -376,5 +376,12 @@
     "hatchingPotionRoseGold": "Rotgold",
     "hatchingPotionPinkMarble": "Pink Marmor",
     "hatchingPotionTeaShop": "Teeladen",
-    "hatchingPotionFungi": "Fungus"
+    "hatchingPotionFungi": "Fungus",
+    "questEggGiraffeMountText": "Giraffe",
+    "questEggChameleonText": "Chamäleon",
+    "questEggChameleonMountText": "Chamäleon",
+    "hatchingPotionKoi": "Koi",
+    "questEggGiraffeText": "Giraffe",
+    "questEggGiraffeAdjective": "eine riesengroße",
+    "questEggChameleonAdjective": "ein chaotisches"
 }
