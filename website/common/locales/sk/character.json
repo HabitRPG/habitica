@@ -189,5 +189,10 @@
     "purchaseForGold": "Kúpiť za <%= cost %> zlata?",
     "chatCastSpellPartyTimes": "<%= username %> zoslal/a <%= spell %> na družinu <%= times %> krát.",
     "chatCastSpellUserTimes": "<%= username %> zoslal/a <%= spell %> na <%= target %> <%= times %> krát.",
-    "nextReward": "Ďalšia odmena za prihlásenie"
+    "nextReward": "Ďalšia odmena za prihlásenie",
+    "skins": "Vzhľady",
+    "titleFacialHair": "fúzy",
+    "titleHaircolor": "Farby vlasov",
+    "titleHairbase": "Účesy",
+    "customizations": "Úpravy"
 }

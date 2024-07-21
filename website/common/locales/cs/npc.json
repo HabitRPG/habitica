@@ -125,7 +125,7 @@
     "paymentSubBillingWithMethod": "Tvé předplatné <strong>$<%= amount %> bude účtováno </strong> každé/CZ <strong><%= months %> měsíce/ů </strong> skrze <strong><%= paymentMethod %></strong>.",
     "invalidUnlockSet": "Tento set předmětů je prošlý a nemůže být odemčen.",
     "amountExp": "<%= amount %> Zk",
-    "limitedAvailabilityDays": "K získání na <%= dny %>d <%= hodin%>h <%= minut %>m",
+    "limitedAvailabilityDays": "K získání na <%= day %>d <%= hours%>h <%= minutes %>m",
     "nGemsGift": "<%= nGems %> Drahokamy (Dárek)",
     "nMonthsSubscriptionGift": "<%= nMonths %> Měsíční odběr (Dárek)",
     "nGems": "<%= nGems %> Drahokamy",
