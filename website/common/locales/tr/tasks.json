@@ -2,7 +2,7 @@
     "clearCompleted": "Tamamlanmışları Sil",
     "clearCompletedDescription": "Tamamlanan görevler, abone olmayanlar için 30 gün ve aboneler için 90 gün sonra silinir.",
     "clearCompletedConfirm": "Tamamlanmış görevlerini silmek istediğine emin misin?",
-    "addMultipleTip": "<strong>İpucu:</strong> Birden fazla <%= taskType %> eklemek için her bir satır sonu \"Shift\" ve \"Enter\" tuşlarına aynı anda basarak ayırın ve ardından \"Enter\" tuşuna tekrardan basın.",
+    "addMultipleTip": "<strong>İpucu:</strong> Birden fazla <%= taskType %> eklemek için her birini satır sonunda \"Shift\" ve \"Enter\" tuşlarına aynı anda basarak ve ardından \"Enter\" tuşunu kullanarak ayır",
     "addATask": "<%= type %> ekle",
     "editATask": "<%= type %> düzenle",
     "createTask": "<%= type %> oluştur",
@@ -142,5 +142,8 @@
     "resetCounter": "Sayacı Sıfırla",
     "editTagsText": "Etiketleri Düzenle",
     "scoreUp": "Puan yukarı",
-    "scoreDown": "Puan aşağı"
+    "scoreDown": "Puan aşağı",
+    "taskAlias": "Görevin Takma Adı",
+    "taskAliasPlaceholder": "işinin-takma-ismi",
+    "taskAliasPopover": "Bu görev takma adı, üçüncü taraf entegrasyonlarıyla birleştirirken kullanılabilir. Yalnızca tireler, alt çizgiler ve alfanümerik karakterler desteklenmektedir. Görev takma adı, tüm görevlerin için farklı olmalıdır."
 }

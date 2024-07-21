@@ -8,7 +8,7 @@
     "rebirthOrb": "Ha utilizzato una Sfera della Rinascita per ricominciare dopo aver raggiunto il livello <%= level %>.",
     "rebirthOrb100": "Ha utilizzato una Sfera della Rinascita per ricominciare dopo aver raggiunto il livello 100+.",
     "rebirthOrbNoLevel": "Ha utilizzato una Sfera della Rinascita per ricominciare da capo.",
-    "rebirthPop": "Fai ripartire subito il tuo personaggio dal Livello 1 come Guerriero mantenendo medaglie, oggetti collezionabili ed equipaggiamento. Le tue attività e la loro cronologia rimarranno, ma torneranno al colore giallo. I contatori serie verranno resettati per tutte le attività, eccetto quelle appartenenti alle Sfide ed ai Piani di Gruppo. Il tuo oro, esperienza, mana ed effetti di tutte le abilità verranno rimossi. Tutto questo avrà effetto immediatamente. Per maggiori informazioni, visita la pagina della Wiki sulla <a href='https://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Sfera della Rinascita</a>.",
+    "rebirthPop": "Fai ripartire subito il tuo personaggio dal Livello 1 come Guerriero mantenendo medaglie, oggetti collezionabili ed equipaggiamento. Le tue attività e la loro cronologia rimarranno, ma torneranno al colore giallo. I contatori serie verranno resettati per tutte le attività, eccetto quelle appartenenti alle Sfide ed ai Piani di Gruppo. Il tuo oro, esperienza, mana ed effetti di tutte le abilità verranno rimossi. Tutto questo avrà effetto immediatamente.",
     "rebirthName": "Sfera della Rinascita",
     "rebirthComplete": "Rinascita completata!",
     "nextFreeRebirth": "<strong><%= days %> giorni </strong> alla Sfera di rinascita <strong>GRATUITA</strong>"

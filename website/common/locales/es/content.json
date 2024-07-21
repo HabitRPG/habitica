@@ -211,7 +211,7 @@
     "hatchingPotionGlow": "que brilla en la oscuridad",
     "hatchingPotionFrost": "Escarcha",
     "hatchingPotionIcySnow": "Nieve Glacial",
-    "hatchingPotionNotes": "Vierte esto en un huevo y eclosionará como una mascota <%= potText(locale) %>.",
+    "hatchingPotionNotes": "Vierte esto en un huevo y eclosionará como una Mascota <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "No puede usarse en huevos de Mascotas de Misiones. Disponible para su compra hasta <%= date(locale) %>.",
     "foodMeat": "Carne",
     "foodMeatThe": "La Carne",
@@ -351,7 +351,7 @@
     "questEggRobotAdjective": "un futurista",
     "questEggRobotMountText": "Robot",
     "questEggRobotText": "Robot",
-    "premiumPotionUnlimitedNotes": "No puede usarse en huevos de Mascotas de Misiones.",
+    "premiumPotionUnlimitedNotes": "No puede usarse en huevos de Mascota de Misiones.",
     "hatchingPotionAmber": "Ámbar",
     "hatchingPotionAurora": "Aurora",
     "hatchingPotionBirchBark": "Corteza de abedul",
@@ -376,5 +376,12 @@
     "hatchingPotionPinkMarble": "Mármol Rosa",
     "hatchingPotionTeaShop": "Tetería",
     "hatchingPotionRoseGold": "Oro Rosa",
-    "hatchingPotionFungi": "Setas"
+    "hatchingPotionFungi": "Setas",
+    "questEggGiraffeMountText": "Jirafa",
+    "questEggGiraffeAdjective": "una imponente",
+    "questEggChameleonText": "Camaleón",
+    "questEggChameleonMountText": "Camaleón",
+    "questEggChameleonAdjective": "del Caos",
+    "hatchingPotionKoi": "Koi",
+    "questEggGiraffeText": "Jirafa"
 }

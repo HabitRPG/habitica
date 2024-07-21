@@ -238,5 +238,6 @@
     "reportPlayer": "Signaler l·e·a Joueu·r·se",
     "bannedPlayer": "L·e·a Joueu·r·se est banni·e.",
     "playerReportModalBody": "Merci de ne signaler que les joueu·r·se· qui enfreignent les <%= firstLinkStart %>Guide de la Communauté<%= linkEnd %> et/ou <%= secondLinkStart %>Conditions d'utilisation<%= linkEnd %>. Déposer un faux signalement est une violation du Guide de la Communauté d'Habitica.",
-    "unblockPlayer": "Débloquer l·e·a Joueu·r·se"
+    "unblockPlayer": "Débloquer l·e·a Joueu·r·se",
+    "titleCustomizations": "Personnalisations"
 }
