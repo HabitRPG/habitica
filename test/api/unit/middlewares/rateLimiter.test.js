@@ -10,7 +10,7 @@ import { TooManyRequests } from '../../../../website/server/libs/errors';
 import { apiError } from '../../../../website/server/libs/apiError';
 import logger from '../../../../website/server/libs/logger';
 
-describe('rateLimiter middleware', () => {
+describe.only('rateLimiter middleware', () => {
   const pathToRateLimiter = '../../../../website/server/middlewares/rateLimiter';
 
   let res; let req; let next; let nconfGetStub;
@@ -251,6 +251,26 @@ describe('rateLimiter middleware', () => {
       'X-RateLimit-Limit': 30,
       'X-RateLimit-Remaining': 10,
       'X-RateLimit-Reset': sinon.match(Date),
+    });
+  });
+
+  describe('authentication rate limiting', async () => {
+    it('applies cost for failed login attempts', async () => {
+      nconfGetStub.withArgs('RATE_LIMITER_ENABLED').returns('true');
+      nconfGetStub.withArgs('RATE_LIMITER_IP_COST').returns(1);
+      const attachRateLimiter = requireAgain(pathToRateLimiter).default;
+
+      req.path = '/api/v4/user/auth/local/login';
+
+      req.ip = 1;
+      await attachRateLimiter(req, res, next);
+      await attachRateLimiter(req, res, next);
+
+      expect(res.set).to.have.been.calledWithMatch({
+        'X-RateLimit-Limit': 30,
+        'X-RateLimit-Remaining': 28,
+        'X-RateLimit-Reset': sinon.match(Date),
+      });
     });
   });
 });

@@ -3,7 +3,7 @@ import expressValidator from 'express-validator';
 import path from 'path';
 import analytics from './analytics';
 import setupBody from './setupBody';
-import rateLimiter from './rateLimiter';
+import { middleware as rateLimiter } from './rateLimiter';
 import setupExpress from '../libs/setupExpress';
 import * as routes from '../libs/routes';
 
@@ -51,6 +51,6 @@ const v4RouterOverrides = [
 const v4Router = express.Router(); // eslint-disable-line new-cap
 routes.walkControllers(v4Router, API_V3_CONTROLLERS_PATH, v4RouterOverrides);
 routes.walkControllers(v4Router, API_V4_CONTROLLERS_PATH);
-app.use('/api/v4', v4Router);
+app.use('/api/v4', rateLimiter, v4Router);
 
 export default app;

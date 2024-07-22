@@ -11,7 +11,11 @@ import {
   InternalServerError,
 } from '../libs/errors';
 
-export default function errorHandler (err, req, res, next) { // eslint-disable-line no-unused-vars
+import {
+  rateLimitErrors,
+} from './rateLimiter';
+
+export default async function errorHandler (err, req, res, next) {
   // In case of a CustomError class, use it's data
   // Otherwise try to identify the type of error (mongoose validation, mongodb unique, ...)
   // If we can't identify it, respond with a generic 500 error
@@ -85,6 +89,11 @@ export default function errorHandler (err, req, res, next) { // eslint-disable-l
     jsonRes.errors = responseErr.errors;
   }
 
+  const rateLimitRes = await rateLimitErrors(req, res, next);
+
+  if (rateLimitRes) {
+    return rateLimitRes.status(429);
+  }
   // In some occasions like when invalid JSON is supplied `res.respond` might be not yet available,
   // in this case we use the standard res.status(...).json(...)
   return res.status(responseErr.httpCode).json(jsonRes);
