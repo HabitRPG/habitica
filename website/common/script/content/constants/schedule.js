@@ -208,6 +208,7 @@ export const MONTHLY_SCHEDULE = {
         items: [
           'StainedGlass',
           'Porcelain',
+          'BirchBark',
         ],
       },
     ],
