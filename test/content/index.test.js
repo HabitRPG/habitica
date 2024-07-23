@@ -47,7 +47,7 @@ describe('content index', () => {
     const junePets = content.petInfo;
     expect(junePets['Chameleon-Base']).to.not.exist;
     clock.restore();
-    clock = sinon.useFakeTimers(new Date('2024-07-10'));
+    clock = sinon.useFakeTimers(new Date('2024-07-20'));
     const julyPets = content.petInfo;
     expect(julyPets['Chameleon-Base']).to.exist;
     expect(Object.keys(junePets).length, '').to.equal(Object.keys(julyPets).length - 10);
@@ -58,7 +58,7 @@ describe('content index', () => {
     const juneMounts = content.mountInfo;
     expect(juneMounts['Chameleon-Base']).to.not.exist;
     clock.restore();
-    clock = sinon.useFakeTimers(new Date('2024-07-10'));
+    clock = sinon.useFakeTimers(new Date('2024-07-20'));
     const julyMounts = content.mountInfo;
     expect(julyMounts['Chameleon-Base']).to.exist;
     expect(Object.keys(juneMounts).length, '').to.equal(Object.keys(julyMounts).length - 10);
