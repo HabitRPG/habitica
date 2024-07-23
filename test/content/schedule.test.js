@@ -127,8 +127,8 @@ describe('Content Schedule', () => {
     const date = new Date('2024-04-15');
     const matchers = getAllScheduleMatchingGroups(date);
     expect(matchers.premiumHatchingPotions).to.exist;
-    expect(matchers.premiumHatchingPotions.items.length).to.equal(4);
-    expect(matchers.premiumHatchingPotions.items.indexOf('Garden')).to.not.equal(-1);
+    expect(matchers.premiumHatchingPotions.items.length).to.equal(5);
+    expect(matchers.premiumHatchingPotions.items.indexOf('Veggie')).to.not.equal(-1);
     expect(matchers.premiumHatchingPotions.items.indexOf('Porcelain')).to.not.equal(-1);
   });
 
@@ -245,27 +245,33 @@ describe('Content Schedule', () => {
     it('allows sets matching the month', () => {
       const date = new Date('2024-07-08');
       const matcher = getAllScheduleMatchingGroups(date).timeTravelers;
-      expect(matcher.match('202307')).to.be.true;
-      expect(matcher.match('202207')).to.be.true;
+      expect(matcher.match('202307'), '202307').to.be.true;
+      expect(matcher.match('202207'), '202207').to.be.true;
     });
 
     it('disallows sets not matching the month', () => {
       const date = new Date('2024-07-08');
       const matcher = getAllScheduleMatchingGroups(date).timeTravelers;
-      expect(matcher.match('202306')).to.be.false;
-      expect(matcher.match('202402')).to.be.false;
+      expect(matcher.match('202306'), '202306').to.be.false;
+      expect(matcher.match('202402'), '202402').to.be.false;
     });
 
     it('disallows sets from current month', () => {
       const date = new Date('2024-07-08');
       const matcher = getAllScheduleMatchingGroups(date).timeTravelers;
-      expect(matcher.match('202407')).to.be.false;
+      expect(matcher.match('202407'), '202407').to.be.false;
     });
 
     it('disallows sets from the future', () => {
       const date = new Date('2024-07-08');
-      const matcher = getAllScheduleMatchingGroups(date).backgrounds;
-      expect(matcher.match('202507')).to.be.false;
+      const matcher = getAllScheduleMatchingGroups(date).timeTravelers;
+      expect(matcher.match('202507'), '202507').to.be.false;
+    });
+
+    it('matches sets released in the earlier half of the year', () => {
+      const date = new Date('2024-07-08');
+      const matcher = getAllScheduleMatchingGroups(date).timeTravelers;
+      expect(matcher.match('202401'), '202401').to.be.true;
     });
   });
 });
