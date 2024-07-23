@@ -98,7 +98,10 @@ export default {
     itemText () {
       if (this.draggedItem) {
         if (this.draggedItem.text) {
-          return this.draggedItem.text();
+          if (typeof this.draggedItem.text === 'function') {
+            return this.draggedItem.text();
+          }
+          return this.draggedItem.text;
         }
         return this.draggedItem.class;
       }
