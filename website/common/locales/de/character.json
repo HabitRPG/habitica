@@ -189,5 +189,10 @@
     "notEnoughGold": "Nicht genügend Gold.",
     "chatCastSpellPartyTimes": "<%= username %> verwendet <%= spell %> <%= times %> Male für Deine Party <%= times %>.",
     "chatCastSpellUserTimes": "<%= username %> spricht <%= times %> mal <%= spell %> auf <%= target %>.",
-    "nextReward": "Nächste Anmelde-Belohnung"
+    "nextReward": "Nächste Anmelde-Belohnung",
+    "skins": "Hautfarben",
+    "titleHaircolor": "Haarfarben",
+    "titleFacialHair": "Bärte",
+    "titleHairbase": "Frisuren",
+    "customizations": "Individualisierungen"
 }

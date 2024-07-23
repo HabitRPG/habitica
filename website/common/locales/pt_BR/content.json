@@ -198,7 +198,7 @@
     "hatchingPotionFloral": "Floral",
     "hatchingPotionAquatic": "do Mar",
     "hatchingPotionEmber": "Flamejante",
-    "hatchingPotionThunderstorm": "da Tempestade",
+    "hatchingPotionThunderstorm": "da Tempestade de Raios",
     "hatchingPotionGhost": "Espectral",
     "hatchingPotionRoyalPurple": "Roxo Real",
     "hatchingPotionHolly": "da Árvore de Natal",
@@ -375,5 +375,6 @@
     "hatchingPotionPorcelain": "de Porcelana",
     "hatchingPotionPinkMarble": "de Mármore Rosa",
     "hatchingPotionTeaShop": "da Loja de Chá",
-    "hatchingPotionRoseGold": "de Ouro Rosa"
+    "hatchingPotionRoseGold": "de Ouro Rosa",
+    "hatchingPotionFungi": "Fungi"
 }
