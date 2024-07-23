@@ -20,7 +20,7 @@
       </div>
       <div class="inner-content">
         <div class="pet-background d-flex align-items-center">
-          <Sprite :image-name="pet.class" />
+          <Sprite :image-name="pet.imageName" />
         </div>
         <h4 class="title">
           {{ pet.name }}
@@ -76,10 +76,11 @@
       height: 112px;
       border-radius: 4px;
       background-color: $gray-700;
-    }
 
-    .Pet {
-      margin: auto;
+      img {
+        transform: scale(1.5);
+        margin: auto;
+      }
     }
 
     .dialog-header {
@@ -134,6 +135,7 @@ export default {
   methods: {
     openDialog (item) {
       this.pet = item;
+      console.log(this.pet);
       this.$root.$emit('bv::show::modal', 'hatchedPet-modal');
     },
     close () {
