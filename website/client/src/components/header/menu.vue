@@ -545,6 +545,11 @@ body.modal-open #habitica-menu {
     .desktop-only {
       display: none !important;
     }
+
+    .navbar-toggler {
+      padding-left: 0px;
+      padding-right: 8px;
+    }
   }
 
   .menu-toggle {
