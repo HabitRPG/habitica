@@ -65,7 +65,7 @@ export const REPEATING_EVENTS = {
       {
         type: 'premiumHatchingPotions',
         items: [
-          'Garden',
+          'Veggie',
           'TeaShop',
         ],
       },
