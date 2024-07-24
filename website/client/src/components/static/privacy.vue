@@ -26,14 +26,15 @@
         <li><a href="#consent-to-international-transfer">Consent to International Transfer</a></li>
         <li><a href="#your-choices">Your Choices</a></li>
         <li><a href="#changes-to-this-privacy-policy">Changes to This Privacy Policy</a></li>
-        <li><a href="#contact-us">Contact Us</a></li>
         <li><a href="#jurisdiction-specific-rights">Jurisdiction-Specific Rights</a></li>
         <ul>
           <li><a href="#us-specific-rights">US Specific Rights</a></li>
           <li><a href="#additional-notice-to-california-residents">Additional Notice to California Residents</a></li>
           <li><a href="#additional-notice-to-nevada-residents">Additional Notice to Nevada Residents</a></li>
           <li><a href="#notice-to-uk-eea-switzerland-residents">Notice to UK/EEA/Switzerland Residents</a></li>
-          </ul>
+        </ul>
+        <li><a href="#contact-us">Contact Us</a></li>
+
       </ol>
     <h3 id="collection-of-information">1. Collection of Information</h3>
     <p>We and our third-party service providers and business partners may collect information from you directly and automatically when you visit the Services and from third parties. Some of this information may be considered “personal information” or “personal data” under various applicable laws. We consider information that identifies you as a specific, identified individual (such as your name, phone number, and e-mail address) to be personal information. We will also treat additional information, including IP addresses and cookie identifiers, as “personal information” or “personal data” where required by applicable law.</p>
@@ -53,7 +54,185 @@
       <h4 id="information-from-third-parties">1.4 Information from Third Parties</h4>
       <p>We may receive information about you from third parties. You may have the opportunity to log in through or otherwise connect your Apple and Google accounts. Additionally, when you interact with us through social media, you will be choosing to share information about your interactions with HabitRPG with that social media service.</p>
       <p>The following chart sets out by category the personal data collected (<strong>“Category”</strong>), the purposes for which the information is collected (<strong>“A. Purposes”</strong>), the categories of third parties to whom the information may be disclosed for a business purpose (<strong>“B. Disclosed To”</strong>), and the categories of third parties to whom the information may be sold for monetary value or other valuable consideration or shared for cross-context behavioral advertising/targeted marketing (<strong>“C. Sold/Shared To”</strong>).</p>
-      <p>CHART GOES HERE</p>
+      <input type="checkbox" id="title1">
+      <label for="title1" class="btn btn-primary">Show/Hide Information from Third Parties</label>
+        <div class="content">
+          <table>
+            <thead>
+              <tr>
+              <th rowspan="4">
+                <strong>Category of Data</strong>
+              </th>
+            </tr>
+            <tr>
+              <th colspan="1" class="internal-border">
+                <strong>A. Purpose for Collection;</strong>
+              </th>
+            </tr>
+            <tr>
+              <th colspan="1" class="internal-border">
+                <strong>B. Categories of Third Parties the Data is Disclosed To;</strong>
+              </th>
+            </tr>
+            <tr>
+              <th colspan="1">
+                <strong>C. Third Parties to whom the Data is Sold/Shared for Targeted Advertising</strong>
+              </th>
+            </tr>
+          </thead>
+            <tr>
+              <td rowspan="4">
+                <strong>Contact Information</strong> (such as your name, email address, mailing address)
+              </td>
+            </tr>
+              <td class="internal-border">
+                <p class="subhead">A. Purposes for Collection:</p>
+                  <p><strong>(1) Provide You the Service</strong> (to process and fulfill your purchases of products; enable you to use the Services and other products or services we offer, including maintaining your account information and verifying information you provide to us, such as that your email address is active and valid; send you transactional messages regarding your use of the Services, your purchases, and other account-related communications; respond to your inquiries and provide customer support or request feedback from you); <strong>(2) Advertising Activities and Marketing Messages</strong> (to customize and optimize content for you, such as to send you marketing communications if you have provided us your email address, as permitted by applicable law); <strong>(3) Administrative</strong> (to verify your identity, recognize you across the Services and your devices; contact you regarding your use of the Services, content, features, or products you use or request, and, in our discretion, changes to our policies); <strong>(4) Internal Business Purposes</strong> (to operate and improve the Services and our products, services, and marketing endeavors; market research; analyze the effectiveness of our marketing efforts through our third-party service providers; detect and troubleshoot problems; monetize our Services); <strong>(5) Security</strong> (to protect integrity of the Services); <strong>(6) Legal</strong> (to comply with the law; resolve disputes; enforce our agreements and policies; cooperate in governmental or other legal inquiries; fulfill regulatory reporting obligations; protect our or others’ rights, assets, safety or security); <strong>(7) Business Transitions</strong> (in connection with a merger, acquisition, consolidation, bankruptcy, or other corporate transition, including during due diligence); <strong>(8) Other Purposes as Disclosed</strong> at the time of collection/with your consent.</p>
+              </td>
+              <tr>
+              <td class="internal-border">
+                <p class="subhead">B. Categories of Third Parties Data Is Disclosed to:</p>
+                  <p>Analytics Partners (such as analytics companies); Social Media Platforms; Business Partners; Technology Systems Service Providers (such as webhosts, database hosts, cloud computing providers, software-as-a-service providers, and technology maintenance and repair vendors); Security Vendors; Communications Service Providers (such as email delivery and direct mail vendors); Customer Service Providers;  Government Agencies and Law Enforcement/Where Required by Law (including third parties in connection with a court or other legal proceeding);  Third Parties in connection with court or other legal actions;  Third Parties in connection with business transitions; Third Parties to whom you agree or direct us to share your data; Other Service Providers who use your data solely to provide services to us or to you</p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p class="subhead">C. Categories of Third Parties Data is Sold/Shared for Targeted Advertising to:</p>
+                <p><strong>Analytics Partners</strong></p>
+              </td>
+            </tr>
+            <tr>
+              <td rowspan="4">
+                <strong>User Account Information</strong> (such as account name, communication preferences, and account settings)
+              </td>
+            </tr>
+            <tr>
+              <td class="internal-border">
+                <p class="subhead">A. Purposes for Collection:</p>
+                  <p><strong>(1) Provide You the Service</strong> (to process your purchases; to enable you to use the Services and other products or services we offer, including maintaining your account information and verifying information you provide to us, such as that your email address is active and valid; send you transactional messages regarding your use of the Services and other account-related communications; respond to your inquiries and provide customer support or request feedback from you); <strong>(2) Advertising Activities and Marketing Messages</strong> (to customize and optimize content for you, such as to send you in-app announcements and marketing communications if you have provided us your email address, as permitted by applicable law); <strong>(3) Personalization</strong> (to tailor the content we display to you on the Services, including content in emails we may send to you, to tell you about new products, promotions, opportunities, or other general information about HabitRPG or our products that we believe will be of interest to you); <strong>(4) Administrative</strong> (to verify your identity, recognize you across the Services and your devices; contact you regarding your use of the Services, content, features, or products you use or request, and, in our discretion, changes to our policies); <strong>(5) Internal Business Purposes</strong> (to operate and improve the Services and our products, services, and marketing endeavors; market research; analyze the effectiveness of our marketing efforts; detect and troubleshoot problems; understand how you use the Services including tracking traffic, usage, trends, and navigation patterns); <strong>(6) Security</strong> (to protect integrity of the Services; to investigate, prevent, and detect, and protect against misuse of our systems, abuse, fraud or other crime, or illegal activities or those that violate our policies; to detect and troubleshoot problems); <strong>(7) Legal</strong> (to comply with the law; resolve disputes; enforce our agreements and policies; cooperate in governmental or other legal inquiries; fulfill regulatory reporting obligations; protect our or others’ rights, assets, safety or security); <strong>(8) Business Transitions</strong> (in connection with a merger, acquisition, consolidation, bankruptcy, or other corporate transition, including during due diligence); <strong>(9) Other Purposes as Disclosed</strong> at the time of collection/with your consent.</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="internal-border">
+                <p class="subhead">B. Categories of Third Parties Data Is Disclosed to:</p>
+                <p><strong>Technology Systems Service Providers</strong> (such as webhosts, database hosts, cloud computing providers, software-as-a-service providers, and technology maintenance and repair vendors); <strong>Security Vendors; Communications Service Providers; Customer Service Providers; Government Agencies and Law Enforcement/Where Required by Law</strong> (including third parties in connection with a court or other legal proceeding); <strong>Third Parties in connection with court or other legal actions; Third Parties in connection with business transitions;  Third Parties to whom you agree or direct us to share your data; Other Service Providers who use your data solely to provide services to us or to you.</strong></p>
+              </td>
+            </tr>
+            <tr>
+              <td class="internal-border">
+                <p class="subhead">C. Categories of Third Parties Data is Sold/Shared for Targeted Advertising to:</p>
+                <p>This category of data is not sold or shared for targeted advertising.</p>
+              </td>
+            </tr>
+            <tr>
+              <td rowspan="4"><strong>Demographic Information</strong> (such as your zip code, birth day/month)</td>
+            </tr>
+            <tr>
+              <td class="internal-border">
+                <p class="subhead">A. Purposes for Collection:</p>
+                <p><strong>(1) Provide You the Service</strong> (to enable you to use the Services and other products or services we offer, including verifying information you provide to us); <strong>(2) Advertising Activities and Marketing Messages</strong> (to customize and optimize content for you); <strong>(3) Personalization</strong> (to tailor the content and advertising we display to you or others, on the Services or elsewhere, including content in emails we may send to you); <strong>(4) Administrative</strong> (to verify your identity, recognize you across the Services and your devices); <strong>(5) Internal Business Purposes</strong> (to operate and improve the Services and our products, services, and marketing endeavors; market research; analyze the effectiveness of our marketing efforts; detect and troubleshoot problems; understand how you use the Services including tracking traffic, usage, trends, and navigation patterns); <strong>(6) Security</strong> (to protect integrity of the Services; to investigate, prevent, and detect, and protect against misuse of our systems, abuse, fraud or other crime, or illegal activities or those that violate our policies; to detect and troubleshoot problems); <strong>(7) Legal</strong> (to comply with the law; resolve disputes; enforce our agreements and policies; cooperate in governmental or other legal inquiries; fulfill regulatory reporting obligations; protect our or others’ rights, assets, safety or security); <strong>(8) Business Transitions</strong> (in connection with a merger, acquisition, consolidation, bankruptcy, or other corporate transition, including during due diligence); <strong>(9) Other Purposes as Disclosed</strong> at the time of collection/with your consent.</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="internal-border">
+                <p class="subhead">B. Categories of Third Parties Data Is Disclosed to:</p>
+                <p><strong>Social Media Platforms and Other Third Party Platforms; Third Party Business Partners; Order Fulfillment Vendors</strong> (such as payment processors); <strong>Technology Systems Service Providers</strong> (such as webhosts, database hosts, cloud computing providers, software-as-a-service providers, and technology maintenance and repair vendors); <strong>Security Vendors; Customer Service Providers; Government Agencies and Law Enforcement/Where Required by Law</strong> (including third parties in connection with a court or other legal proceeding); <strong>Third Parties in connection with court or other legal actions;  Third Parties in connection with business transitions; Third Parties to whom you agree or direct us to share your data; Other Service Providers who use your data solely to provide services to us or to you</strong></p>
+              </td>
+            </tr>
+            <tr>
+              <td class="internal-border">
+                <p class="subhead">C. Categories of Third Parties Data is Sold/Shared for Targeted Advertising to:</p>
+                <p>This category of data is not sold or shared for targeted advertising.</p>
+              </td>
+            </tr>
+            <tr>
+              <td rowspan="4"><strong>Device ID/Interaction Information</strong> (such as IP address or other unique ID for any computer, mobile phone or other device used to access the Services, device information (model, browser, operating system version), URL or advertisement that referred you to the Services, any search terms you entered into a search engine that led you to the Services; areas within Services that you visit, time of day you visited the Services, your time zone, location information, and mobile network (if applicable) information)</td>
+            </tr>
+            <tr>
+              <td class="internal-border">
+                <p class="subhead">A. Purposes for Collection:</p>
+                <p><strong>(1) Provide You the Service</strong> (to process and fulfill your purchases of products; to enable you to use the Services and other products or services we offer, including maintaining your account information and verifying information you provide to us, such as that your email address is active and valid; send you transactional messages regarding your use of the Services and other account-related communications); <strong>(2) Advertising Activities and Marketing Messages</strong> (to customize and optimize content for you, such as to send you in-app announcements and marketing communications if you have provided us your email address, as permitted by applicable law); <strong>(3) Personalization</strong> (to tailor the content and advertising we display to you or others, on the Services or elsewhere, including content in emails we may send to you, to tell you about new products, promotions, opportunities, or other general information about HabitRPG or our products that we believe will be of interest to you); <strong>(4) Administrative</strong> (to verify your identity, recognize you across the Services and your devices; contact you regarding your use of the Services, content, features, or products you use or request, and, in our discretion, changes to our policies); <strong>(5) Internal Business Purposes</strong> (to operate and improve the Services and our products, services, and marketing endeavors; market research; analyze the effectiveness of our marketing efforts; detect and troubleshoot problems; monetize our Services; understand how you use the Services including tracking traffic, usage, trends, and navigation patterns); <strong>(6) Security</strong> (to protect integrity of the Services; to investigate, prevent, and detect, and protect against misuse of our systems, abuse, fraud or other crime, or illegal activities or those that violate our policies; to detect and troubleshoot problems); <strong>(7) Legal</strong> (to comply with the law; resolve disputes; enforce our agreements and policies; cooperate in governmental or other legal inquiries; fulfill regulatory reporting obligations; protect our or others’ rights, assets, safety or security); <strong>(8) Business Transitions</strong> (in connection with a merger, acquisition, consolidation, bankruptcy, or other corporate transition, including during due diligence); <strong>(9) Other Purposes as Disclosed</strong> at the time of collection/with your consent.</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="internal-border">
+                <p class="subhead">B. Categories of Third Parties Data Is Disclosed to:</p>
+                <p><strong>Analytics Partners; Social Media Platforms and Other Third Party Platforms;  Third Party Business Partners; Order Fulfillment Vendors</strong> (such as payment processors, fulfillment centers, delivery services, order tracking vendors); <strong>Technology Systems Service Providers</strong> (such as webhosts, database hosts, cloud computing providers, software-as-a-service providers, and technology maintenance and repair vendors); <strong>Security Vendors; Communications Service Providers; Customer Service Providers;  Government Agencies and Law Enforcement/Where Required by Law</strong> (including third parties in connection with a court or other legal proceeding); <strong>Third Parties in connection with court or other legal actions; Third Parties in connection with business transitions; Third Parties to whom you agree or direct us to share your data;  Other Service Providers who use your data solely to provide services to us or to you</strong></p>
+              </td>
+            </tr>
+            <tr>
+              <td class="internal-border">
+                <p class="subhead">C. Categories of Third Parties Data is Sold/Shared for Targeted Advertising to:</p>
+                <p><strong>Analytics Partners</strong></p>
+              </td>
+            </tr>
+            <tr>
+              <td rowspan="4"><strong>Transaction Information</strong> (such as data about the products you purchase, obtained, or considered, customer service contacts)</td>
+            </tr>
+            <tr>
+              <td class="internal-border">
+                <p class="subhead">A. Purposes for Collection:</p>
+                <p><strong>(1) Provide You the Service</strong> (to enable you to use the Services and other products or services we offer, including maintaining your account information and verifying information you provide to us; send you transactional messages regarding your use of the Services, your purchases, and other account-related communications; respond to your inquiries and provide customer support or request feedback from you); <strong>(2) Advertising Activities and Marketing Messages</strong> (to customize and optimize content for you, such as to send you in-app announcements and marketing communications if you have provided us your email address, as permitted by applicable law); <strong>(3) Personalization</strong> (to tailor the content we display to you on the Services, including content in emails we may send to you, to tell you about new products, promotions, opportunities, or other general information about HabitRPG or our products that we believe will be of interest to you); <strong>(4) Administrative</strong> (to verify your identity, recognize you across the Services and your devices; contact you regarding your use of the Services, content, features, or products you use or request, and, in our discretion, changes to our policies); <strong>(5) Internal Business Purposes</strong> (to operate and improve the Services and our products, services, and marketing endeavors; market research; analyze the effectiveness of our marketing efforts; detect and troubleshoot problems; monetize our Services; understand how you use the Services including tracking traffic, usage, trends, and navigation patterns); <strong>(6) Security</strong> (to protect integrity of the Services; to investigate, prevent, and detect, and protect against misuse of our systems, abuse, fraud or other crime, or illegal activities or those that violate our policies; to detect and troubleshoot problems); <strong>(7) Legal</strong> (to comply with the law; resolve disputes; enforce our agreements and policies; cooperate in governmental or other legal inquiries; fulfill regulatory reporting obligations; protect our or others’ rights, assets, safety or security); <strong>(8) Business Transitions</strong> (in connection with a merger, acquisition, consolidation, bankruptcy, or other corporate transition, including during due diligence); <strong>(9) Other Purposes as Disclosed</strong> at the time of collection/with your consent.</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="internal-border">
+                <p class="subhead">B. Categories of Third Parties Data Is Disclosed to:</p>
+                <p><strong>Order Fulfillment Vendors</strong> (such as payment processors, fulfillment centers, delivery services, order tracking vendors); <strong>Technology Systems Service Providers</strong> (such as webhosts, database hosts, cloud computing providers, software-as-a-service providers, and technology maintenance and repair vendors); <strong>Security Vendors; Communications Service Providers; Customer Service Providers;  Government Agencies and Law Enforcement/Where Required by Law</strong> (including third parties in connection with a court or other legal proceeding); <strong>Third Parties in connection with court or other legal actions; Third Parties in connection with business transitions; Third Parties to whom you agree or direct us to share your data; Other Service Providers who use your data solely to provide services to us or to you</strong></p>
+              </td>
+            </tr>
+            <tr>
+              <td class="internal-border">
+                <p class="subhead">C. Categories of Third Parties Data is Sold/Shared for Targeted Advertising to:</p>
+                <p>This category of data is not sold or shared for targeted advertising.</p>
+              </td>
+            </tr>
+            <tr>
+              <td rowspan="4"><strong>Information about your Interests and Preferences</strong> (such as information about the products you purchased, obtained, or considered)</td>
+            </tr>
+            <tr>
+              <td class="internal-border">
+                <p class="subhead">A. Purposes for Collection:</p>
+                <p><strong>(1) Provide You the Service</strong> (to enable you to use the Services and other products or services we offer, including maintaining your account information and verifying information you provide to us; send you transactional messages regarding your use of the Services and other account-related communications; respond to your inquiries and provide customer support or request feedback from you); <strong>(2) Personalization</strong> (to tailor the content we display to you or others, on the Services or elsewhere, including content in emails we may send to you, to tell you about new products, promotions, opportunities, or other general information about HabitRPG or our products that we believe will be of interest to you); <strong>(3) Internal Business Purposes</strong> (to operate and improve the Services and our products, services, and marketing endeavors; market research; analyze the effectiveness of our marketing efforts; detect and troubleshoot problems; monetize our Services; understand how you use the Services including tracking traffic, usage, trends, and navigation patterns); <strong>(4) Security</strong> (to protect integrity of the Services; to investigate, prevent, and detect, and protect against misuse of our systems, abuse, fraud or other crime, or illegal activities or those that violate our policies; to detect and troubleshoot problems); <strong>(5) Legal</strong> (to comply with the law; resolve disputes; enforce our agreements and policies; cooperate in governmental or other legal inquiries; fulfill regulatory reporting obligations; protect our or others’ rights, assets, safety or security); <strong>(6) Business Transitions</strong> (in connection with a merger, acquisition, consolidation, bankruptcy, or other corporate transition, including during due diligence); <strong>(7) Other Purposes as Disclosed at the time of collection/with your consent.</strong></p>
+              </td>
+            </tr>
+            <tr>
+              <td class="internal-border">
+                <p class="subhead">B. Categories of Third Parties Data Is Disclosed to:</p>
+                <p><strong>Social Media Platforms and Other Third Party Platforms; Third Party Business Partners;  Technology Systems Service Providers</strong> (such as webhosts, database hosts, cloud computing providers, software-as-a-service providers, and technology maintenance and repair vendors); <strong>Security Vendors; Communications Service Providers; Customer Service Providers;  Government Agencies and Law Enforcement/Where Required by Law</strong> (including third parties in connection with a court or other legal proceeding); <strong>Third Parties in connection with court or other legal actions; Third Parties in connection with business transitions; Third Parties to whom you agree or direct us to share your data;  Other Service Providers who use your data solely to provide services to us or to you</strong></p>
+              </td>
+            </tr>
+            <tr>
+              <td class="internal-border">
+                <p class="subhead">C. Categories of Third Parties Data is Sold/Shared for Targeted Advertising to:</p>
+                <p>This category of data is not sold or shared for targeted advertising</p>
+              </td>
+            </tr>
+            <tr>
+            <td rowspan="4"><strong>Photo/Video Data, and Other User Generated Content</strong> (such as tasks, profile, chat messages)</td>
+            </tr>
+            <tr>
+              <td class="internal-border">
+                <p class="subhead">A. Purposes for Collection:</p>
+                <p><strong>(1) Provide You the Service</strong> (to enable you to use the Services and other products or services we offer, including maintaining your account information and permitting you to create to do lists and upload related content; send you transactional messages regarding your use of the Services and other account-related communications; respond to your inquiries and provide customer support or request feedback from you); <strong>(2) Administrative</strong> (to verify your identity, recognize you across the Services and your devices; contact you regarding your use of the Services, content, features, or products you use or request, and, in our discretion, changes to our policies); <strong>(3) Internal Business Purposes</strong> (to operate and improve the Services and our products, services, and marketing endeavors; market research; detect and troubleshoot problems; monetize our Services; understand how you use the Services including tracking traffic, usage, trends, and navigation patterns); <strong>(4) Security</strong> (to protect integrity of the Services; to investigate, prevent, and detect, and protect against misuse of our systems, abuse, fraud or other crime, or illegal activities or those that violate our policies; to detect and troubleshoot problems); <strong>(5) Legal</strong> (to comply with the law; resolve disputes; enforce our agreements and policies; cooperate in governmental or other legal inquiries; fulfill regulatory reporting obligations; protect our or others’ rights, assets, safety or security); <strong>(6) Business Transitions</strong> (in connection with a merger, acquisition, consolidation, bankruptcy, or other corporate transition, including during due diligence); <strong>(7) Other Purposes as Disclosed at the time of collection/with your consent.</strong></p>
+              </td>
+            </tr>
+            <tr>
+              <td class="internal-border">
+                <p class="subhead">B. Categories of Third Parties Data Is Disclosed to:</p>
+                <p><strong>Third Party Business Partners; Technology Systems Service Providers</strong> (such as webhosts, database hosts, cloud computing providers, software-as-a-service providers, and technology maintenance and repair vendors); <strong>Security Vendors; Communications Service Providers; Customer Service Providers; Government Agencies and Law Enforcement/Where Required by Law</strong> (including third parties in connection with a court or other legal proceeding); <strong>Third Parties in connection with court or other legal actions; Third Parties in connection with business transitions; Third Parties to whom you agree or direct us to share your data; Other Service Providers who use your data solely to provide services to us or to you</strong></p>
+              </td>
+            </tr>
+            <tr>
+              <td class="internal-border">
+                <p class="subhead">C. Categories of Third Parties Data is Sold/Shared for Targeted Advertising to:</p>
+                <p>This category of data is not sold or shared for targeted advertising</p>
+              </td>
+            </tr>
+          </table>
+        </div>
+        &nbsp;<br>
+        <br>
       <h3 id="purpose-and-use-of-information-we-collect">2. Purpose and Use of Information We Collect</h3>
       <p>We may use non-personal information for any purpose, including for research and marketing purposes. We also use information that we collect, including personal information and Usage Information, as disclosed in this Privacy Policy and as follows:</p>
       <ul>
@@ -172,28 +351,21 @@
       <p><em>Other Privacy Rights</em>: Certain jurisdictions provide additional rights. Please see the <a href="#jurisdiction-specific-rights">“Jurisdiction-Specific Rights”</a> section below for more information.</p>
       <h3 id="changes-to-this-privacy-policy">10. Changes to This Privacy Policy</h3>
       <p>To the extent permitted by applicable law, we reserve the right to change or modify this Privacy Policy at our discretion at any time. We will notify you of any material changes by posting the changed or modified Privacy Policy on our Services. We may also provide notice to you in other ways, such as through contact information you have provided. Any changes will be effective immediately upon the posting of the revised Privacy Policy unless otherwise specified. Your continued use of the Services after the effective date of the revised Privacy Policy (or such other act as specified in the revised Privacy Policy) will, to the fullest extent permitted by applicable law, constitute your consent to those changes. However, we will provide notice and obtain your consent (opt-in or opt-out) if required by law. We encourage you to regularly review this Privacy Policy for the latest information on our privacy practices.</p>
-      <h3 id="contact-us">11. Contact Us</h3>
-      <p>If you have any questions or concerns about this Privacy Policy, please contact us at <a href="mailto:privacy@habitica.com">privacy@habitica.com</a> with “Privacy Policy” in the subject line. You may also write to us at:</p>
-      <address>
-        HabitRPG, Inc.
-        <br>202 Bicknell Ave., Ground Floor
-        <br>Santa Monica, CA 90405
-      </address>
-      <h3 id="jurisdiction-specific-rights">12. Jurisdiction-Specific Rights</h3>
+      <h3 id="jurisdiction-specific-rights">11. Jurisdiction-Specific Rights</h3>
       <p>As set forth below, residents of certain jurisdictions may have additional rights and choices regarding their personal information. If you are a resident of Nevada, please see additional information <a href="#additional-notice-to-nevada-residents">here</a>. Residents of the US please see additional information <a href="#us-specific-rights">here</a>. Residents of the UK, Switzerland, and EEA, please see additional information <a href="#notice-to-uk-eea-switzerland-residents">here</a>.</p>
       <ul id="us-specific-rights">
         <li>
           <p><strong>US Specific Rights</strong>. Residents of U.S. states have the ability to exercise additional rights and choices regarding their personal data. We will take reasonable steps to accommodate your request but may need to verify your identity before doing so.<br><br>
-          We set forth above the categories of personal data we process, the purpose for processing personal data, the categories of personal data shared, and the categories of third parties with whom personal data is shared. If you would like to exercise your applicable rights, please contact us at <a href="mailto:privacy@habitica.com">privacy@habitica.com</a> to submit a request.</p>
-        </li>
-        <ul>
-          <li><strong>Access Your Personal Data/Data Portability &mdash; </strong>You have the right to confirm whether we are processing your personal data and request to access such data, obtain a copy of the personal data previously provided by you to us and, to the extent feasible, in a readily usable format to allow data portability.</li>
-          <li><strong>Delete Your Personal Data &mdash; </strong>You have the Right to Delete your personal data.</li>
-          <li><strong>Correct Your Personal Data &mdash; </strong>You have the Right to Correct the personal data we hold about you.</li>
-          <li><strong>Opt-Out of Sales of Your Personal Data and Targeted Advertising &mdash; </strong>You have the right to opt out of the sale of your data. Note that HabitRPG does not sell personal data to third parties for monetary compensation, but may share personal data for other valuable consideration such as with our third party analytics providers. If you would like to opt out of the sale of your personal data, please adjust your settings in our Cookie Preference Center. <strong><em>[LINK NEEDED]</em></strong></li>
-          <li><strong>Right to Appeal &mdash; </strong>If, for any reason, you would like to appeal our decision relating to your request, you have the right to submit an appeal if your state permits such right. Please include your full name, the basis for your appeal, and any additional information to consider.</li>
-          <li><strong>Opt-Out of Profiling in furtherance of legal or similarly significant effects &mdash; </strong>HabitRPG does not process your personal data for the purposes of profiling in furtherance of decisions that produce legal or similarly significant effects.</li>
-        </ul>
+            We set forth above the categories of personal data we process, the purpose for processing personal data, the categories of personal data shared, and the categories of third parties with whom personal data is shared. If you would like to exercise your applicable rights, please contact us at <a href="mailto:privacy@habitica.com">privacy@habitica.com</a> to submit a request.</p>
+          </li>
+          <ul>
+            <li><strong>Access Your Personal Data/Data Portability &mdash; </strong>You have the right to confirm whether we are processing your personal data and request to access such data, obtain a copy of the personal data previously provided by you to us and, to the extent feasible, in a readily usable format to allow data portability.</li>
+            <li><strong>Delete Your Personal Data &mdash; </strong>You have the Right to Delete your personal data.</li>
+            <li><strong>Correct Your Personal Data &mdash; </strong>You have the Right to Correct the personal data we hold about you.</li>
+            <li><strong>Opt-Out of Sales of Your Personal Data and Targeted Advertising &mdash; </strong>You have the right to opt out of the sale of your data. Note that HabitRPG does not sell personal data to third parties for monetary compensation, but may share personal data for other valuable consideration such as with our third party analytics providers. If you would like to opt out of the sale of your personal data, please adjust your settings in our Cookie Preference Center. <strong><em>[LINK NEEDED]</em></strong></li>
+            <li><strong>Right to Appeal &mdash; </strong>If, for any reason, you would like to appeal our decision relating to your request, you have the right to submit an appeal if your state permits such right. Please include your full name, the basis for your appeal, and any additional information to consider.</li>
+            <li><strong>Opt-Out of Profiling in furtherance of legal or similarly significant effects &mdash; </strong>HabitRPG does not process your personal data for the purposes of profiling in furtherance of decisions that produce legal or similarly significant effects.</li>
+          </ul>
         </ul>
         <ul id="additional-notice-to-california-residents">
           <li><strong>Additional Notice to California Residents.</strong></li>
@@ -214,18 +386,25 @@
             <li>improving and developing the Services; and</li>
             <li>conducting data analytics analyses to review and better understand consumer interaction.</li>
           </ul><br>
-          <p><strong>Right to lodge a complaint: </strong>Users that reside in the UK, EEA, or Switzerland have the right to seek information and assistance or lodge a complaint about our data collection and processing actions with the supervisory authority where they reside. Contact details for data protection authorities are available here. UK: <a href="https://ico.org.uk/">https://ico.org.uk/</a>, EEA: <a href="ttps://edpb.europa.eu/about-edpb/board/members_en">https://edpb.europa.eu/about-edpb/board/members_en</a> Switzerland: <a href="https://www.edoeb.admin.ch/edoeb/en/home/deredoeb/kontakt.html">//www.edoeb.admin.ch/edoeb/en/home/deredoeb/kontakt.html</a>.</p>
-          <p><strong>Transfers:</strong>Personal information we collect may be transferred to, and stored and processed in, the United States or any other country in which we or our affiliates or subcontractors maintain facilities. Transfers of personal data to a third country without an adequacy decision (as that term is understood pursuant to Article 45 of GDPR) are required to be subject to appropriate safeguards such as standard contractual clauses.  In certain cases, we rely on your consent to facilitate transfer, processing, and storage of your data in the United States and other jurisdictions, where laws regarding processing of personal information may be less stringent than the laws in the EEA, UK, and Switzerland.</p>
+          <p><strong>Right to lodge a complaint: </strong>Users that reside in the UK, EEA, or Switzerland have the right to seek information and assistance or lodge a complaint about our data collection and processing actions with the supervisory authority where they reside. Contact details for data protection authorities are available here. UK: <a href="https://ico.org.uk/">https://ico.org.uk/</a>, EEA: <a href="https://edpb.europa.eu/about-edpb/board/members_en">https://edpb.europa.eu/about-edpb/board/members_en</a> Switzerland: <a href="https://www.edoeb.admin.ch/edoeb/en/home/deredoeb/kontakt.html">//www.edoeb.admin.ch/edoeb/en/home/deredoeb/kontakt.html</a>.</p>
+          <p><strong>Transfers:</strong> Personal information we collect may be transferred to, and stored and processed in, the United States or any other country in which we or our affiliates or subcontractors maintain facilities. Transfers of personal data to a third country without an adequacy decision (as that term is understood pursuant to Article 45 of GDPR) are required to be subject to appropriate safeguards such as standard contractual clauses.  In certain cases, we rely on your consent to facilitate transfer, processing, and storage of your data in the United States and other jurisdictions, where laws regarding processing of personal information may be less stringent than the laws in the EEA, UK, and Switzerland.</p>
           <p><strong>Withdraw consent: </strong>If we have collected personal information with your consent, you have the right to withdraw that consent at any time.</p>
           <p><strong>Access: </strong>You have the right to request access to personal information we collected about you and information about its sources, purposes, and sharing.</p>
           <p><strong>Correction: </strong>You have the right to request that we correct the personal information we hold about you if it is inaccurate or incomplete.</p>
           <p><strong>Erasure: </strong>You have the right to request that we erase data we have collected from you. Please note that we may have a reason to deny your deletion request or delete data in a more limited way than you anticipated, e.g., because of a legal obligation to retain it.</p>
-          <p><strong>Portability:</strong>You have the right, in certain circumstances, to request that we provide your personal information to you in a format that can be transferred to another entity.</p>
+          <p><strong>Portability:</strong> You have the right, in certain circumstances, to request that we provide your personal information to you in a format that can be transferred to another entity.</p>
           <p><strong>Restrict Processing: </strong>You have the right, in certain circumstances, to request that we limit our processing of your personal information if you are (1) contesting the accuracy of your personal information, (2) asserting that our processing is unlawful; (3) asserting that we no longer need to keep the information for reasons related to the establishment, exercise, or defense of legal claims, or you object to our processing. You have the right, in certain circumstances, to request that we limit our processing of your personal information if you are contesting the accuracy of your personal information; asserting that our processing is unlawful; asserting that we no longer need to keep the information for reasons related to the establishment, exercise, or defense of legal claims, or you object to our processing</p>
           <p><strong>Objection: </strong>You have the right to object to our processing if we are processing your personal information based on legitimate interests, using your personal information for direct marketing (including profiling), or processing your personal information for purposes of scientific or historical research and statistics.</p>
           <p><strong>Verification Procedures: </strong>We must verify your identity for everyone’s protection, so we may require you to provide us with verification information prior to accessing any records containing personal information about you. We do this by asking you to provide personal identifiers we can match against information we may have collected from you previously and confirm your request using the email stated in the request.</p>
           <p>We will use the information you provide for verification only for the purpose of verification. We may have a reason under the law why we do not have to respond to your request or respond to it in a more limited way than you anticipated. If we do, we will explain that to you in our response.</p>
         </ul>
+        <h3 id="contact-us">12. Contact Us</h3>
+        <p>If you have any questions or concerns about this Privacy Policy, please contact us at <a href="mailto:privacy@habitica.com">privacy@habitica.com</a> with “Privacy Policy” in the subject line. You may also write to us at:</p>
+        <address>
+          HabitRPG, Inc.
+          <br>202 Bicknell Ave., Ground Floor
+          <br>Santa Monica, CA 90405
+        </address>
   </div>
 <!-- eslint-enable max-len -->
 </template>
@@ -253,5 +432,34 @@
     height: 32px;
     padding-left: 12px;
     padding-right: 12px;
+  }
+
+  p {
+    margin-bottom: 12px;
+    margin-top: 12px;
+  }
+
+  .internal-border {
+    border-bottom: 1px solid $gray-300;
+  }
+
+  .subhead {
+    font-weight: bold;
+  }
+
+  input {
+    display: none;
+  }
+
+  .content {
+    padding: 0px 0px; // padding: 10px 25px;
+  }
+
+  input + label + .content {
+    display: none;
+  }
+
+  input:checked + label + .content {
+    display: block;
   }
 </style>
