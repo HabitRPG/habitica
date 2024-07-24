@@ -5,6 +5,7 @@ import unlock from '@/../../common/script/ops/unlock';
 import buy from '@/../../common/script/ops/buy/buy';
 
 import appearanceSets from '@/../../common/script/content/appearance/sets';
+import appearances from '@/../../common/script/content/appearance';
 import { getScheduleMatchingGroup } from '@/../../common/script/content/constants/schedule';
 
 import { userStateMixin } from './userState';
@@ -33,6 +34,9 @@ export const avatarEditorUtilities = { // eslint-disable-line import/prefer-defa
       option.active = userPreference === key;
       option.class = this.createClass(type, subType, key);
       option.click = optionParam => (option.gemLocked ? this.unlock(`${optionParam.pathKey}.${key}`) : this.set({ [`preferences.${optionParam.pathKey}`]: optionParam.key }));
+      option.text = subType ? appearances[type][subType][key].text()
+        : appearances[type][key].text();
+
       return option;
     },
     mapKeysToOption (key, type, subType, set) {
