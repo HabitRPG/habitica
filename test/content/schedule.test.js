@@ -123,6 +123,12 @@ describe('Content Schedule', () => {
     expect(matchers.seasonalGear.end).to.eql(moment.utc(`2024-06-21T${String(switchoverTime).padStart(2, '0')}:00:00.000Z`).toDate());
   });
 
+  it('sets the end date for a winter gala', () => {
+    const date = new Date('2024-12-22');
+    const matchers = getAllScheduleMatchingGroups(date);
+    expect(matchers.seasonalGear.end).to.eql(moment.utc(`2025-03-21T${String(switchoverTime).padStart(2, '0')}:00:00.000Z`).toDate());
+  });
+
   it('contains content for repeating events', () => {
     const date = new Date('2024-04-15');
     const matchers = getAllScheduleMatchingGroups(date);
