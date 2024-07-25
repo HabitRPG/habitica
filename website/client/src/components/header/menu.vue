@@ -13,7 +13,7 @@
       type="dark"
     >
       <b-navbar-brand
-        class="brand pl-2"
+        class="brand"
         aria-label="Habitica"
       >
       <router-link to="/">
@@ -47,7 +47,7 @@
       <b-collapse
         id="menu_collapse"
         v-model="menuIsOpen"
-        class="collapse navbar-collapse pl-2"
+        class="collapse navbar-collapse"
       >
         <b-navbar-nav class="menu-list">
           <b-nav-item
@@ -342,14 +342,14 @@
             </div>
           </li>
         </b-navbar-nav>
-        <div class="currency-tray form-inline pl-6">
+        <div class="currency-tray form-inline">
           <div
             v-if="userHourglasses > 0"
             class="item-with-icon"
           >
             <div
               v-b-tooltip.hover.bottom="$t('mysticHourglassesTooltip')"
-              class="top-menu-icon svg-icon mr-1"
+              class="top-menu-icon svg-icon"
               v-html="icons.hourglasses"
             ></div>
             <span>{{ userHourglasses }}</span>
@@ -357,7 +357,7 @@
           <div class="item-with-icon">
             <a
               v-b-tooltip.hover.bottom="$t('gems')"
-              class="top-menu-icon svg-icon gem mr-6"
+              class="top-menu-icon svg-icon gem"
               :aria-label="$t('gems')"
               href="#buy-gems"
               @click.prevent="showBuyGemsModal()"
@@ -368,14 +368,14 @@
           <div class="item-with-icon gold">
             <div
               v-b-tooltip.hover.bottom="$t('gold')"
-              class="top-menu-icon svg-icon gold"
+              class="top-menu-icon svg-icon"
               :aria-label="$t('gold')"
               v-html="icons.gold"
             ></div>
             <span>{{ Math.floor(user.stats.gp * 100) / 100 }}</span>
           </div>
         </div>
-        <div class="form-inline desktop-only margin-adj">
+        <div class="form-inline desktop-only">
           <a
             v-b-tooltip.hover.bottom="$t('sync')"
             class="item-with-icon"
@@ -391,7 +391,7 @@
             ></div>
           </a>
           <notification-menu class="item-with-icon" />
-          <user-dropdown class="item-with-icon mr-2" />
+          <user-dropdown class="item-with-icon" />
         </div>
       </b-collapse>
     </b-navbar>
@@ -653,7 +653,6 @@ body.modal-open #habitica-menu {
     font-size: 16px;
     font-weight: normal;
     white-space: nowrap;
-    margin-right:24px;
 
     span {
       font-weight: bold;
@@ -674,11 +673,17 @@ body.modal-open #habitica-menu {
       display: inline-block;
       width: 24px;
       height: 24px;
+      margin-right: 12px;
+      margin-left: 12px;
     }
   }
 
   a.item-with-icon:focus {
     outline: none;
+  }
+
+  .menu-icon {
+    margin-left: 24px;
   }
 
   @keyframes rotateGemColors {
@@ -708,8 +713,16 @@ body.modal-open #habitica-menu {
     }
   }
 
-  .gem, .gold {
-    margin-right: 8px;
+  .message-count {
+    background-color: $blue-50;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    float: right;
+    color: $white;
+    text-align: center;
+    font-weight: bold;
+    font-size: 12px;
   }
 
   .message-count.top-count {
@@ -719,11 +732,6 @@ body.modal-open #habitica-menu {
     top: -0.5em;
     padding: .2em;
   }
-
-  .margin-adj {
-    margin-left: 24px;
-  }
-
 </style>
 
 <script>
