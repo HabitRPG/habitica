@@ -5,7 +5,7 @@
     >
       Could not find any matching users.
     </div>
-    <div class="list-group col-4"
+    <div class="list-group"
       v-if="users.length > 0">
       <a href="#" class="list-group-item list-group-item-action"
         v-for="user in users"
@@ -56,8 +56,12 @@ export default {
   watch: {
     userIdentifier () {
       this.$store.dispatch('adminPanel:searchUsers', { userIdentifier: this.userIdentifier }).then(users => {
-        this.users = users;
-        this.noUsersFound = users.length === 0;
+        if (users.length === 1) {
+          this.loadUser(users[0]._id);
+        } else {
+          this.users = users;
+          this.noUsersFound = users.length === 0;
+        }
       });
       this.$emit('changeUserIdentifier', this.userIdentifier); // change user identifier in Admin Panel's form
     },
