@@ -4,14 +4,14 @@
       <h1>Admin Panel</h1>
       <form
         class="form-inline"
-        @submit.prevent="loadUser(userIdentifier)"
+        @submit.prevent="searchUsers(userIdentifier)"
       >
-        <div class="input-group">
+        <div class="input-group col pl-0 pr-0">
           <input
             v-model="userIdentifier"
-            class="form-control uidField"
+            class="form-control"
             type="text"
-            :placeholder="'User-ID, Username or E-Mail; blank for your account'"
+            :placeholder="'UserID, username or email or leave blank for your account'"
           >
           <div class="input-group-append">
             <button
