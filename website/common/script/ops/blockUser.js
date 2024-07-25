@@ -1,4 +1,4 @@
-import isUUID from 'validator/es/lib/isUUID';
+import isUUID from 'validator/lib/isUUID';
 import i18n from '../i18n';
 import {
   BadRequest,
