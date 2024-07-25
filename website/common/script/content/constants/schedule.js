@@ -28,7 +28,8 @@ function timeTravelersMatcher (month1, month2) {
   return function call (item, date) {
     const month = parseInt(item.substring(4, 6), 10);
     const year = parseInt(item.substring(0, 4), 10);
-    if (date.getFullYear() === year && (date.getMonth() + 1) >= month) {
+    if (date.getFullYear() < year
+      || (date.getFullYear() === year && (date.getMonth() + 1) === month)) {
       return false;
     }
     return month === month1 || month === month2;
@@ -207,6 +208,7 @@ export const MONTHLY_SCHEDULE = {
         items: [
           'StainedGlass',
           'Porcelain',
+          'BirchBark',
         ],
       },
     ],

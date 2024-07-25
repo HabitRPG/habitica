@@ -6,6 +6,7 @@
     <div
       v-for="option in items"
       :key="option.key"
+      :id="option.class"
       class="outer-option-background"
       :class="{
         premium: Boolean(option.gem),
@@ -14,6 +15,14 @@
         hide: option.hide }"
       @click="option.click(option)"
     >
+      <b-popover
+        :target="option.class"
+        triggers="hover focus"
+        placement="bottom"
+        :prevent-overflow="false"
+      >
+        <strong> {{ option.text }} </strong>
+      </b-popover>
       <div class="option">
         <div
           class="sprite customize-option"
