@@ -80,6 +80,7 @@ export const REPEATING_EVENTS = {
     start: new Date('1970-10-30T08:00-05:00'),
     end: new Date('1970-11-01T23:59-05:00'),
     foodSeason: 'Candy',
+    season: 'halloween',
     npcImageSuffix: '_halloween',
   },
   harvestFeast: {
