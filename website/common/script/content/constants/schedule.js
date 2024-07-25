@@ -2,7 +2,6 @@ import moment from 'moment';
 import nconf from 'nconf';
 import SEASONAL_SETS from './seasonalSets';
 import { getRepeatingEvents } from './events';
-import { check } from 'express-validator/check';
 
 function isAfterNewSchedule (year, month) {
   if (year >= 2025) {
