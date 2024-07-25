@@ -18,7 +18,7 @@
       >
       <router-link to="/">
           <div
-          class="logo svg-icon svg color gryphon"
+          class="logo svg-icon svg color gryphon mx-auto"
           v-html="icons.melior"
           ></div>
           <div class="svg-icon"></div>
@@ -357,7 +357,7 @@
           <div class="item-with-icon">
             <a
               v-b-tooltip.hover.bottom="$t('gems')"
-              class="top-menu-icon svg-icon gem mr-6"
+              class="top-menu-icon svg-icon gem mr-4"
               :aria-label="$t('gems')"
               href="#buy-gems"
               @click.prevent="showBuyGemsModal()"
@@ -408,149 +408,6 @@ body.modal-open #habitica-menu {
   @import '~@/assets/scss/colors.scss';
   @import '~@/assets/scss/utils.scss';
   @import '~@/assets/scss/variables.scss';
-
-  @media only screen and (max-width: 1200px) {
-    .chevron {
-      display: none
-    }
-
-    .gryphon {
-      background-size: cover;
-      height: 32px;
-      color: $white;
-      margin: 0 auto;
-      width: 32px;
-      top: -10px;
-      position: relative;
-    }
-
-    .logo {
-      padding-top: 12px;
-      color: $white;
-    }
-
-    .topbar-item {
-      font-size: 14px !important;
-    }
-  }
-
-  @media only screen and (min-width: 992px) {
-    .chevron {
-      display: none
-    }
-
-    .mobile-only {
-      display: none !important;
-    }
-
-    .topbar {
-      max-height: $menuToolbarHeight;
-
-      .currency-tray {
-        margin-left: auto;
-      }
-
-      .topbar-item {
-        padding-top: 5px;
-        height: 56px;
-
-        &:hover {
-          background: $purple-200;
-        }
-
-        &.active:not(:hover) {
-          box-shadow: 0px -4px 0px $purple-300 inset;
-        }
-      }
-
-      .topbar-dropdown {
-        position: absolute;
-      }
-    }
-  }
-
-  @media only screen and (max-width: 992px) {
-    .brand {
-      margin: 0;
-    }
-
-    .gryphon {
-      position: absolute;
-      left: calc(50% - 30px);
-      top: -2px;
-    }
-
-    #menu_collapse {
-      margin: 0.6em -16px -8px;
-      overflow: auto;
-      flex-direction: column;
-      background-color: $purple-100;
-
-      .menu-list {
-        width: 100%;
-        order: 1;
-        text-align: center;
-
-        .topbar-dropdown  {
-          transition: max-height 0.25s ease;
-        }
-
-        .topbar-dropdown-item {
-          background: #432874;
-          border-bottom: #6133b4 solid 1px;
-        }
-
-        .chevron {
-          width: 20%;
-          height: 42px;
-          position: absolute;
-          right: 0;
-          top: 0;
-          display: block;
-        }
-
-        .chevron-icon-down {
-          width: 14px;
-          top: 11px;
-          right: 12px;
-          position: absolute;
-          display: block;
-          transition: transform 0.25s ease;
-        }
-
-        .down .rotate .chevron-icon-down {
-          transform: rotate(-180deg);
-          }
-
-        .topbar-item {
-          position: relative;
-
-          &.active {
-            background: #6133b4;
-          }
-
-          background: #4f2a93;
-          border-bottom: #6133b4 solid 1px;
-        }
-      }
-    }
-
-    .currency-tray {
-      justify-content: center;
-      min-height: 40px;
-      background: #271b3d;
-      width: 100%;
-    }
-
-    .desktop-only {
-      display: none !important;
-    }
-
-    .navbar-toggler {
-      padding-left: 0px;
-      padding-right: 8px;
-    }
-  }
 
   .menu-toggle {
     border: none;
@@ -723,6 +580,152 @@ body.modal-open #habitica-menu {
     right: 0;
     top: -0.5em;
     padding: .2em;
+  }
+  @media only screen and (max-width: 1200px) {
+    .chevron {
+      display: none
+    }
+
+    .gryphon {
+      background-size: cover;
+      height: 32px;
+      color: $white;
+      margin: 0 auto;
+      width: 32px;
+      top: -10px;
+      position: relative;
+    }
+
+    .logo {
+      padding-top: 12px;
+      color: $white;
+    }
+
+    .topbar-item {
+      font-size: 14px !important;
+    }
+  }
+
+  @media only screen and (min-width: 992px) {
+    .chevron {
+      display: none
+    }
+
+    .mobile-only {
+      display: none !important;
+    }
+
+    .topbar {
+      max-height: $menuToolbarHeight;
+
+      .currency-tray {
+        margin-left: auto;
+      }
+
+      .topbar-item {
+        padding-top: 5px;
+        height: 56px;
+
+        &:hover {
+          background: $purple-200;
+        }
+
+        &.active:not(:hover) {
+          box-shadow: 0px -4px 0px $purple-300 inset;
+        }
+      }
+
+      .topbar-dropdown {
+        position: absolute;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 992px) {
+    .brand {
+      margin: 0;
+    }
+
+    .gryphon {
+      position: absolute;
+      left: calc(50% - 30px);
+      top: -2px;
+    }
+
+    #menu_collapse {
+      margin: 0.6em -16px -8px;
+      overflow: auto;
+      flex-direction: column;
+      background-color: $purple-100;
+
+      .menu-list {
+        width: 100%;
+        order: 1;
+        text-align: center;
+
+        .topbar-dropdown  {
+          transition: max-height 0.25s ease;
+        }
+
+        .topbar-dropdown-item {
+          background: #432874;
+          border-bottom: #6133b4 solid 1px;
+        }
+
+        .chevron {
+          width: 20%;
+          height: 42px;
+          position: absolute;
+          right: 0;
+          top: 0;
+          display: block;
+        }
+
+        .chevron-icon-down {
+          width: 14px;
+          top: 11px;
+          right: 12px;
+          position: absolute;
+          display: block;
+          transition: transform 0.25s ease;
+        }
+
+        .down .rotate .chevron-icon-down {
+          transform: rotate(-180deg);
+          }
+
+        .topbar-item {
+          position: relative;
+
+          &.active {
+            background: #6133b4;
+          }
+
+          background: #4f2a93;
+          border-bottom: #6133b4 solid 1px;
+        }
+      }
+    }
+
+    .currency-tray {
+      justify-content: center;
+      min-height: 40px;
+      background: #271b3d;
+      width: 100%;
+    }
+
+    .desktop-only {
+      display: none !important;
+    }
+
+    .navbar-toggler {
+      padding-left: 0px;
+      padding-right: 8px;
+    }
+
+    .item-with-icon {
+      margin-right: 16px;
+    }
   }
 
 </style>
