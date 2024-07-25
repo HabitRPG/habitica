@@ -490,6 +490,10 @@ const armor = {
     con: 14,
     set: 'corsairSet',
   },
+  dragonKnightsArmor: {
+    str: 8,
+    set: 'dragonKnightSet',
+  },
 };
 
 const body = {
@@ -1002,6 +1006,10 @@ const head = {
   corsairsBandana: {
     int: 7,
     set: 'corsairSet',
+  },
+  dragonKnightsHelm: {
+    int: 8,
+    set: 'dragonKnightSet',
   },
 };
 
@@ -1843,6 +1851,10 @@ const weapon = {
   corsairsBlade: {
     str: 7,
     set: 'corsairSet',
+  },
+  dragonKnightsLance: {
+    con: 8,
+    set: 'dragonKnightSet',
   },
 };
 
