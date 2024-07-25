@@ -145,9 +145,16 @@ export default {
       return Object.values(this.viewOptions).some(g => g.selected);
     },
     imageURLs () {
+      const currentEvent = find(this.currentEventList, event => Boolean(event.season));
+      if (!currentEvent) {
+        return {
+          background: 'url(/static/npc/normal/customizations_background.png)',
+          npc: 'url(/static/npc/normal/customizations_npc.png)',
+        };
+      }
       return {
-        background: 'url(/static/npc/normal/customizations_background.png)',
-        npc: 'url(/static/npc/normal/customizations_npc.png)',
+        background: `url(/static/npc/${currentEvent.season}/customizations_background.png)`,
+        npc: `url(/static/npc/${currentEvent.season}/customizations_npc.png)`,
       };
     },
     categories () {
