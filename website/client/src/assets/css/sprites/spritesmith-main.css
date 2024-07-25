@@ -1925,6 +1925,11 @@
   width: 141px;
   height: 147px;
 }
+.background_savanna {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_savanna.png');
+  width: 141px;
+  height: 147px;
+}
 .background_school_of_fish {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_school_of_fish.png');
   width: 141px;
@@ -3825,6 +3830,11 @@
 }
 .icon_background_sandcastle {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_sandcastle.png');
+  width: 68px;
+  height: 68px;
+}
+.icon_background_savanna {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_background_savanna.png');
   width: 68px;
   height: 68px;
 }
@@ -31477,6 +31487,11 @@
   width: 114px;
   height: 90px;
 }
+.broad_armor_armoire_dragonKnightsArmor {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_armoire_dragonKnightsArmor.png');
+  width: 114px;
+  height: 90px;
+}
 .broad_armor_armoire_dragonTamerArmor {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_armoire_dragonTamerArmor.png');
   width: 90px;
@@ -32044,6 +32059,11 @@
 }
 .head_armoire_deerstalkerCap {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_armoire_deerstalkerCap.png');
+  width: 114px;
+  height: 90px;
+}
+.head_armoire_dragonKnightsHelm {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_armoire_dragonKnightsHelm.png');
   width: 114px;
   height: 90px;
 }
@@ -32917,6 +32937,11 @@
   width: 68px;
   height: 68px;
 }
+.shop_armor_armoire_dragonKnightsArmor {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_armor_armoire_dragonKnightsArmor.png');
+  width: 68px;
+  height: 68px;
+}
 .shop_armor_armoire_dragonTamerArmor {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_armor_armoire_dragonTamerArmor.png');
   width: 68px;
@@ -33544,6 +33569,11 @@
 }
 .shop_head_armoire_deerstalkerCap {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_head_armoire_deerstalkerCap.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_head_armoire_dragonKnightsHelm {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_head_armoire_dragonKnightsHelm.png');
   width: 68px;
   height: 68px;
 }
@@ -34397,6 +34427,11 @@
   width: 68px;
   height: 68px;
 }
+.shop_weapon_armoire_dragonKnightsLance {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_armoire_dragonKnightsLance.png');
+  width: 68px;
+  height: 68px;
+}
 .shop_weapon_armoire_enchantersStaff {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_armoire_enchantersStaff.png');
   width: 68px;
@@ -34932,6 +34967,11 @@
   width: 114px;
   height: 90px;
 }
+.slim_armor_armoire_dragonKnightsArmor {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_armoire_dragonKnightsArmor.png');
+  width: 114px;
+  height: 90px;
+}
 .slim_armor_armoire_dragonTamerArmor {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_armoire_dragonTamerArmor.png');
   width: 90px;
@@ -35435,6 +35475,11 @@
 .weapon_armoire_crystalCrescentStaff {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_armoire_crystalCrescentStaff.png');
   width: 90px;
+  height: 90px;
+}
+.weapon_armoire_dragonKnightsLance {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_armoire_dragonKnightsLance.png');
+  width: 114px;
   height: 90px;
 }
 .weapon_armoire_enchantersStaff {
@@ -42106,6 +42151,31 @@
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_mystery_202407.png');
   width: 117px;
   height: 120px;
+}
+.shield_mystery_202408 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shield_mystery_202408.png');
+  width: 114px;
+  height: 90px;
+}
+.shop_set_mystery_202408 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_set_mystery_202408.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_shield_mystery_202408 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_shield_mystery_202408.png');
+  width: 68px;
+  height: 68px;
+}
+.shop_weapon_mystery_202408 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shop_weapon_mystery_202408.png');
+  width: 68px;
+  height: 68px;
+}
+.weapon_mystery_202408 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_mystery_202408.png');
+  width: 114px;
+  height: 90px;
 }
 .broad_armor_mystery_301404 {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_mystery_301404.png');
@@ -50570,6 +50640,11 @@
   width: 174px;
   height: 213px;
 }
+.quest_crab {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/quest_crab.png');
+  width: 219px;
+  height: 219px;
+}
 .quest_dilatory {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/quest_dilatory.png');
   width: 219px;
@@ -51282,6 +51357,11 @@
 }
 .inventory_quest_scroll_cow {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/inventory_quest_scroll_cow.png');
+  width: 68px;
+  height: 68px;
+}
+.inventory_quest_scroll_crab {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/inventory_quest_scroll_crab.png');
   width: 68px;
   height: 68px;
 }
@@ -52162,6 +52242,11 @@
 }
 .Pet_Egg_Cow {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet_Egg_Cow.png');
+  width: 68px;
+  height: 68px;
+}
+.Pet_Egg_Crab {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet_Egg_Crab.png');
   width: 68px;
   height: 68px;
 }
@@ -53702,6 +53787,56 @@
 }
 .Mount_Body_Cow-Zombie {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Body_Cow-Zombie.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Crab-Base {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Body_Crab-Base.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Crab-CottonCandyBlue {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Body_Crab-CottonCandyBlue.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Crab-CottonCandyPink {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Body_Crab-CottonCandyPink.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Crab-Desert {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Body_Crab-Desert.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Crab-Golden {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Body_Crab-Golden.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Crab-Red {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Body_Crab-Red.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Crab-Shade {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Body_Crab-Shade.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Crab-Skeleton {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Body_Crab-Skeleton.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Crab-White {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Body_Crab-White.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Crab-Zombie {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Body_Crab-Zombie.png');
   width: 105px;
   height: 105px;
 }
@@ -59047,6 +59182,56 @@
 }
 .Mount_Head_Cow-Zombie {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Head_Cow-Zombie.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Head_Crab-Base {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Head_Crab-Base.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Head_Crab-CottonCandyBlue {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Head_Crab-CottonCandyBlue.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Head_Crab-CottonCandyPink {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Head_Crab-CottonCandyPink.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Head_Crab-Desert {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Head_Crab-Desert.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Head_Crab-Golden {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Head_Crab-Golden.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Head_Crab-Red {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Head_Crab-Red.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Head_Crab-Shade {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Head_Crab-Shade.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Head_Crab-Skeleton {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Head_Crab-Skeleton.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Head_Crab-White {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Head_Crab-White.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Head_Crab-Zombie {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Head_Crab-Zombie.png');
   width: 105px;
   height: 105px;
 }
@@ -64397,6 +64582,56 @@
 }
 .Mount_Icon_Cow-Zombie {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Icon_Cow-Zombie.png');
+  width: 81px;
+  height: 99px;
+}
+.Mount_Icon_Crab-Base {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Icon_Crab-Base.png');
+  width: 81px;
+  height: 99px;
+}
+.Mount_Icon_Crab-CottonCandyBlue {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Icon_Crab-CottonCandyBlue.png');
+  width: 81px;
+  height: 99px;
+}
+.Mount_Icon_Crab-CottonCandyPink {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Icon_Crab-CottonCandyPink.png');
+  width: 81px;
+  height: 99px;
+}
+.Mount_Icon_Crab-Desert {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Icon_Crab-Desert.png');
+  width: 81px;
+  height: 99px;
+}
+.Mount_Icon_Crab-Golden {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Icon_Crab-Golden.png');
+  width: 81px;
+  height: 99px;
+}
+.Mount_Icon_Crab-Red {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Icon_Crab-Red.png');
+  width: 81px;
+  height: 99px;
+}
+.Mount_Icon_Crab-Shade {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Icon_Crab-Shade.png');
+  width: 81px;
+  height: 99px;
+}
+.Mount_Icon_Crab-Skeleton {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Icon_Crab-Skeleton.png');
+  width: 81px;
+  height: 99px;
+}
+.Mount_Icon_Crab-White {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Icon_Crab-White.png');
+  width: 81px;
+  height: 99px;
+}
+.Mount_Icon_Crab-Zombie {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Icon_Crab-Zombie.png');
   width: 81px;
   height: 99px;
 }
@@ -69807,6 +70042,56 @@
 }
 .Pet-Cow-Zombie {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Cow-Zombie.png');
+  width: 81px;
+  height: 99px;
+}
+.Pet-Crab-Base {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Crab-Base.png');
+  width: 81px;
+  height: 99px;
+}
+.Pet-Crab-CottonCandyBlue {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Crab-CottonCandyBlue.png');
+  width: 81px;
+  height: 99px;
+}
+.Pet-Crab-CottonCandyPink {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Crab-CottonCandyPink.png');
+  width: 81px;
+  height: 99px;
+}
+.Pet-Crab-Desert {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Crab-Desert.png');
+  width: 81px;
+  height: 99px;
+}
+.Pet-Crab-Golden {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Crab-Golden.png');
+  width: 81px;
+  height: 99px;
+}
+.Pet-Crab-Red {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Crab-Red.png');
+  width: 81px;
+  height: 99px;
+}
+.Pet-Crab-Shade {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Crab-Shade.png');
+  width: 81px;
+  height: 99px;
+}
+.Pet-Crab-Skeleton {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Crab-Skeleton.png');
+  width: 81px;
+  height: 99px;
+}
+.Pet-Crab-White {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Crab-White.png');
+  width: 81px;
+  height: 99px;
+}
+.Pet-Crab-Zombie {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Crab-Zombie.png');
   width: 81px;
   height: 99px;
 }

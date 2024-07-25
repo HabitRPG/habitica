@@ -562,6 +562,8 @@
   "weaponMystery202403Notes": "Carrying the biggest sword around is surely a way to create your own luck! Confers no benefit. March 2024 Subscriber Item.",
   "weaponMystery202404Text": "Mycelial Magus Staff",  
   "weaponMystery202404Notes": "This staff will bestow upon you an ancient wisdom as ageless as the rocks and trees. Confers no benefit. April 2024 Subscriber Item.",
+  "weaponMystery202408Text": "Arcane Aegis",
+  "weaponMystery202408Notes": "A magic bubble shield that protects you from enemy spells or helps you float in the air or water. Confers no benefit. August 2024 Subscriber Item.",
 
   "weaponMystery301404Text": "Steampunk Cane",
   "weaponMystery301404Notes": "Excellent for taking a turn about town. March 3015 Subscriber Item. Confers no benefit.",
@@ -772,6 +774,8 @@
   "weaponArmoireShadyBeachUmbrellaNotes": "The shade of this rainbow-colored umbrella conceals you briefly from the day star and any unwanted bothers. Increases Perception by <%= per %>. Enchanted Armoire: Beachside Set (Item 3 of 4).",
   "weaponArmoireCorsairsBladeText": "Corsair’s Blade",
   "weaponArmoireCorsairsBladeNotes": "Whether you wield it to plunder or to protect, you can be glad you brought this fierce blade to sea with you. Just be sure to stow it safely when not in use. Increases Strength by <%= str %>. Enchanted Armoire: Corsair Set (Item 3 of 3)",
+  "weaponArmoireDragonKnightsLanceText": "Dragon Knight Lance",
+  "weaponArmoireDragonKnightsLanceNotes": "This red and silver lance has unseated many opponents from their mounts. Increases Constitution by <%= con %>. Enchanted Armoire: Dragon Knight Set (Item 3 of 3)",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -1622,6 +1626,8 @@
   "armorArmoireBlueStripedSwimsuitNotes": "What could be more exciting than battling sea monsters on the beach? Increases Constitution by <%= con %>. Enchanted Armoire: Beachside Set (Item 2 of 4).",
   "armorArmoireCorsairsCoatAndCapeText": "Corsair’s Coat and Cape",
   "armorArmoireCorsairsCoatAndCapeNotes": "Whether you’re biding your time on the docks or watching for danger on the open seas, these will surely keep you feeling dry and looking dramatic. Just keep your balance on deck. Increases Constitution by <%= con %>. Enchanted Armoire: Corsair Set (Item 1 of 3)",
+  "armorArmoireDragonKnightsArmorText": "Dragon Knight Armor",
+  "armorArmoireDragonKnightsArmorNotes": "Channel the strength and power of a dragon with this armor made of silver and shed scales. Increases Strength by <%= str %>. Enchanted Armoire: Dragon Knight Set (Item 2 of 3)",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -2485,6 +2491,8 @@
   "headArmoirePottersBandanaNotes": "Look the part and keep your hair out of your face while you work. It’s a win-win! Increases Intelligence by <%= int %>. Enchanted Armoire: Potter Set (Item 2 of 4).",
   "headArmoireCorsairsBandanaText": "Corsair’s Bandana",
   "headArmoireCorsairsBandanaNotes": "Whether you’re keeping your head covered in case a seagull flies overhead or making sure your foes never see you sweat, this bandana is essential. Just add a decorative bead for every adventure you complete. Increases Intelligence by <%= int %>. Enchanted Armoire: Corsair Set (Item 2 of 3)",
+  "headArmoireDragonKnightsHelmText": "Dragon Knight Helm",
+  "headArmoireDragonKnightsHelmNotes": "With the fiery features on this helmet, dragons might mistake you for one of their own. Increases Intelligence by <%= int %>. Enchanted Armoire: Dragon Knight Set (Item 1 of 3)",
 
   "offhand": "off-hand item",
   "offHandCapitalized": "Off-Hand Item",
@@ -2783,6 +2791,8 @@
   "shieldMystery202011Notes": "Harness the power of the autumn wind with this staff. Use for arcane magic or to make awesome leaf piles, the choice is yours! Confers no benefit. November 2020 Subscriber Item.",
   "shieldMystery202209Text": "Mound o' Magic Books",
   "shieldMystery202209Notes": "Building your sorcery knowledge takes a lot of reading, but you're sure to enjoy your education. Confers no benefit. September 2022 Subscriber Item.",
+  "shieldMystery202408Text": "Arcane Sparkles",
+  "shieldMystery202408Notes": "Magic lights will illuminate the inside of your bubble hideout, or anywhere else you need a little light! Confers no benefit. August 2024 Subscriber Item.",
   "shieldMystery301405Text": "Clock Shield",
   "shieldMystery301405Notes": "Time is on your side with this towering clock shield! Confers no benefit. June 3015 Subscriber Item.",
   "shieldMystery301704Text": "Fluttery Fan",
