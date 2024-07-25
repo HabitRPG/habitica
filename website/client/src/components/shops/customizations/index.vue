@@ -109,6 +109,7 @@
 </style>
 
 <script>
+import find from 'lodash/find';
 import shops from '@/../../common/script/libs/shops';
 import throttle from 'lodash/throttle';
 import { mapState } from '@/libs/store';
