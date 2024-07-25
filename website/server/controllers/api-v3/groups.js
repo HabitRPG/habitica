@@ -650,14 +650,6 @@ api.joinGroup = {
 
     // Check the inviter again, could be a deleted account
     if (inviter) {
-      const data = {
-        headerText: common.i18n.t('invitationAcceptedHeader', inviter.preferences.language),
-        bodyText: common.i18n.t('invitationAcceptedBody', {
-          groupName: group.name,
-          username: user.profile.name,
-        }, inviter.preferences.language),
-      };
-
       // Reward Inviter
       if (group.type === 'party') {
         if (!inviter.items.quests.basilist) {
