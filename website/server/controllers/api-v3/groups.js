@@ -657,7 +657,6 @@ api.joinGroup = {
           username: user.profile.name,
         }, inviter.preferences.language),
       };
-      inviter.addNotification('GROUP_INVITE_ACCEPTED', data);
 
       // Reward Inviter
       if (group.type === 'party') {
