@@ -2914,5 +2914,16 @@
     "armorSpecialWinter2024MageNotes": "Sowohl praktisch als auch hübsch, werden diese Roben dich angenehm warm halten, während du deine magischen Fähigkeiten draußen in der Kälte ausübst. Erhöht Intelligenz um <%= int %>. Limitierte Ausgabe 2023-2024 Winterausrüstung.",
     "armorSpecialWinter2024MageText": "Narwal Zauberer Roben",
     "armorSpecialWinter2024HealerText": "Gefrorene Rüstung",
-    "armorSpecialWinter2024HealerNotes": "Dieser glitzernde Block aus magischem Eis ist zumindest schützend, während du deine Flucht ausknobelst. Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe 2023-2024 Winterausrüstung."
+    "armorSpecialWinter2024HealerNotes": "Dieser glitzernde Block aus magischem Eis ist zumindest schützend, während du deine Flucht ausknobelst. Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe 2023-2024 Winterausrüstung.",
+    "armorSpecialSpring2024RogueNotes": "Diese rustikale Robe verbirgt dich, sogar wenn die Jahreszeiten rings um dich herum wechseln. Erhöht Wahrnehmung um <%= per %>. Limitierte Ausgabe 2024 Frühlingsausrüstung.",
+    "armorSpecialSpring2024RogueText": "Schmelzende Schnee Robe",
+    "armorSpecialSpring2024WarriorText": "Fluorit Rüstung",
+    "armorSpecialSpring2024WarriorNotes": "Diese stabilisierende Steinrüstung wird helfen, dich zu erden, während du alles blendest, dem du entgegentrittst. Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe 2024 Frühlingsausrüstung.",
+    "armorSpecialSpring2024MageText": "Hibiskus Roben",
+    "armorSpecialSpring2024MageNotes": "Diese hübschen Blüten werden dir helfen, stilvoll mit deinen Kräften zu posieren. Erhöht Intelligenz um <%= int %>. Limitierte Ausgabe 2024 Frühlingsausrüstung.",
+    "headSpecialSpring2024HealerText": "Blaukehlchen Helm",
+    "armorSpecialSpring2024HealerNotes": "Diese fabelhaften Federn werden helfen, deinen glücklichsten Träumen Flügel zu verleihen. Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe 2024 Frühlingsausrüstung.",
+    "armorSpecialSummer2024RogueText": "Nacktkiemerschnecken-Schwanz",
+    "armorSpecialSummer2024RogueNotes": "Du magst vielleicht eine Seeschnecke ohne Schneckenhaus sein, aber du bist eine Seeschnecke mit See-Schwingen! Erhöht Wahrnehmung um <%= per %>. Limitierte Ausgabe 2024 Sommerausrüstung.",
+    "armorSpecialSpring2024HealerText": "Blaukehlchen Anzug"
 }
