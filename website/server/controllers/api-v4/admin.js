@@ -33,7 +33,7 @@ api.getHero = {
 
     const { userIdentifier } = req.params;
 
-    const re = new RegExp(String.raw`${userIdentifier}`);
+    const re = new RegExp(String.raw`${userIdentifier.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`);
 
     let query;
     if (validator.isUUID(userIdentifier)) {
@@ -50,8 +50,6 @@ api.getHero = {
     } else {
       query = { 'auth.local.lowerCaseUsername': { $regex: re, $options: 'i' } };
     }
-
-    console.log(query);
 
     const users = await User
       .find(query)
