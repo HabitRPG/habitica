@@ -14,6 +14,7 @@
     >
       <b-navbar-brand
         class="brand"
+        class="brand"
         aria-label="Habitica"
       >
       <router-link to="/">
@@ -376,6 +377,7 @@
           </div>
         </div>
         <div class="form-inline desktop-only">
+        <div class="form-inline desktop-only">
           <a
             v-b-tooltip.hover.bottom="$t('sync')"
             class="item-with-icon ml-4"
@@ -515,7 +517,6 @@ body.modal-open #habitica-menu {
     font-size: 16px;
     font-weight: normal;
     white-space: nowrap;
-    margin-right:24px;
 
     span {
       font-weight: bold;
@@ -536,6 +537,8 @@ body.modal-open #habitica-menu {
       display: inline-block;
       width: 24px;
       height: 24px;
+      margin-right: 12px;
+      margin-left: 12px;
     }
   }
 

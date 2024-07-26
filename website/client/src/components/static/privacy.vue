@@ -1,20 +1,9 @@
 <template>
   <!-- eslint-disable max-len -->
   <div class="container-fluid">
-    <h1>Privacy Notice</h1>
+    <h1>HabitRPG Privacy Policy</h1>
     <p class="strong pagemeta">
-      Last Updated September 19, 2022: Removed reference to Facebook login, which is no longer supported.
-    </p>
-    <p>
-      HabitRPG, Inc. (“HabitRPG,” “we,” “us,” or “our”) welcomes you. This privacy notice (the “Privacy
-      Notice”) describes how we process the information we collect about or from you through our Website
-      located at <a href="https://habitica.com/static/home">https://habitica.com/static/home</a> and/or our Apps
-      (our “Digital Platforms”), from our users, subscribers, visitors and other users of our technology and
-      platforms (together with our Digital Platforms, the “Habitica Service” or the “Service”), and when you
-      otherwise interact with us. This Privacy Notice may be updated by us from time to time without notice to
-      you. By accepting this Privacy Notice, accessing or using the Service, or otherwise manifesting your
-      assent to this Privacy Notice, you agree to be bound by this Privacy Notice. If you do not agree to (or
-      cannot comply with) all of the terms of this Privacy Notice, you may not access or use the Service.
+      Last Updated June 20, 2024.
     </p>
     <p>
       This Privacy Policy applies when you interact with us through Habitica.com and any other feature or service owned or controlled by HabitRPG, Inc. (“HabitRPG”, “we,” or “us”) that posts or includes a valid link to this Privacy Policy (collectively, the “Service(s)”). This Privacy Policy informs you of our practices regarding the collection, use, and disclosure of personal information we receive from users of our Services. By accessing or using the Services, you consent to our Privacy Policy and our collection, use, and sharing of your information as described in this policy, our <a href="https://habitica.com/static/terms">Terms of Use</a>, and any additional policies and terms you may agree to in connection with the Services.
