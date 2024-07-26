@@ -14,7 +14,7 @@
           :top="true"
         />
         <div
-          class="top-menu-icon svg-icon"
+          class="top-menu-icon svg-icon mr-2"
           v-html="icons.user"
         ></div>
       </div>
