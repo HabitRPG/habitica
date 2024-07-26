@@ -12,13 +12,13 @@
 .message-count {
   background-color: $red-50;
   border-radius: 50%;
-  height: 20px;
-  width: 20px;
-  float: right;
   color: $white;
-  text-align: center;
-  font-weight: bold;
   font-size: 12px;
+  font-weight: bold;
+  height: 20px;
+  left: 24px;
+  text-align: center;
+  width: 20px;
 
   svg {
     width: 12px;
