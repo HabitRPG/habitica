@@ -521,7 +521,7 @@ body.modal-open #habitica-menu {
       font-weight: bold;
     }
 
-    &.gold, .gem, {
+    &.gold, .gem {
       margin-right: 24px;
     }
 
