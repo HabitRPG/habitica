@@ -14,7 +14,7 @@
           :top="true"
         />
         <div
-          class="top-menu-icon svg-icon user"
+          class="top-menu-icon svg-icon"
           v-html="icons.user"
         ></div>
       </div>
@@ -105,6 +105,11 @@
 
 <style lang='scss' scoped>
 @import '~@/assets/scss/colors.scss';
+@media only screen and (max-width: 992px) {
+  .item-with-icon.item-user {
+    margin-right: 0px;
+  }
+}
 
 .user-dropdown {
   width: 14.75em;
