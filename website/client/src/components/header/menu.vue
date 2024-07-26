@@ -376,7 +376,6 @@
           </div>
         </div>
         <div class="form-inline desktop-only">
-        <div class="form-inline desktop-only">
           <a
             v-b-tooltip.hover.bottom="$t('sync')"
             class="item-with-icon ml-4"
