@@ -14,7 +14,6 @@
     >
       <b-navbar-brand
         class="brand"
-        class="brand"
         aria-label="Habitica"
       >
       <router-link to="/">
@@ -376,7 +375,6 @@
             <span>{{ Math.floor(user.stats.gp * 100) / 100 }}</span>
           </div>
         </div>
-        <div class="form-inline desktop-only">
         <div class="form-inline desktop-only">
           <a
             v-b-tooltip.hover.bottom="$t('sync')"
