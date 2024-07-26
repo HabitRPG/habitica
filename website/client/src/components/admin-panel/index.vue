@@ -11,7 +11,7 @@
             v-model="userIdentifier"
             class="form-control"
             type="text"
-            :placeholder="'UserID, username or email or leave blank for your account'"
+            :placeholder="'UserID, username, email, or leave blank for your account'"
           >
           <div class="input-group-append">
             <button
@@ -74,6 +74,10 @@ export default {
       this.userIdentifier = newId;
     },
     async searchUsers (userIdentifier) {
+      if (!userIdentifier || userIdentifier === '') {
+        loadUser();
+        return;
+      }
       this.$router.push({
         name: 'adminPanelSearch',
         params: { userIdentifier },
