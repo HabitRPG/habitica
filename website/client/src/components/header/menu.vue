@@ -14,11 +14,12 @@
     >
       <b-navbar-brand
         class="brand"
+        class="brand"
         aria-label="Habitica"
       >
       <router-link to="/">
           <div
-          class="logo svg-icon svg color gryphon mx-auto"
+          class="logo svg-icon svg color gryphon pl-2 mr-4"
           v-html="icons.melior"
           ></div>
           <div class="svg-icon"></div>
@@ -342,22 +343,22 @@
             </div>
           </li>
         </b-navbar-nav>
-        <div class="currency-tray form-inline pl-2">
+        <div class="currency-tray form-inline">
           <div
             v-if="userHourglasses > 0"
-            class="item-with-icon"
+            class="item-with-icon hg"
           >
             <div
               v-b-tooltip.hover.bottom="$t('mysticHourglassesTooltip')"
-              class="top-menu-icon svg-icon"
+              class="top-menu-icon svg-icon hourglass"
               v-html="icons.hourglasses"
             ></div>
             <span>{{ userHourglasses }}</span>
           </div>
-          <div class="item-with-icon">
+          <div class="item-with-icon mr-4">
             <a
               v-b-tooltip.hover.bottom="$t('gems')"
-              class="top-menu-icon svg-icon gem mr-4"
+              class="top-menu-icon svg-icon gem mr-2"
               :aria-label="$t('gems')"
               href="#buy-gems"
               @click.prevent="showBuyGemsModal()"
@@ -365,10 +366,10 @@
             ></a>
             <span>{{ userGems }}</span>
           </div>
-          <div class="item-with-icon gold">
+          <div class="item-with-icon gold mr-4">
             <div
               v-b-tooltip.hover.bottom="$t('gold')"
-              class="top-menu-icon svg-icon"
+              class="top-menu-icon svg-icon mr-2"
               :aria-label="$t('gold')"
               v-html="icons.gold"
             ></div>
@@ -376,9 +377,10 @@
           </div>
         </div>
         <div class="form-inline desktop-only">
+        <div class="form-inline desktop-only">
           <a
             v-b-tooltip.hover.bottom="$t('sync')"
-            class="item-with-icon"
+            class="item-with-icon ml-4"
             role="link"
             :aria-label="$t('sync')"
             tabindex="0"
@@ -391,7 +393,7 @@
             ></div>
           </a>
           <notification-menu class="item-with-icon" />
-          <user-dropdown class="item-with-icon" />
+          <user-dropdown class="item-with-icon mr-1" />
         </div>
       </b-collapse>
     </b-navbar>
@@ -520,7 +522,7 @@ body.modal-open #habitica-menu {
       font-weight: bold;
     }
 
-    &.gold {
+    &.gold, .gem {
       margin-right: 24px;
     }
 
@@ -544,8 +546,8 @@ body.modal-open #habitica-menu {
     outline: none;
   }
 
-  .menu-icon {
-    margin-left: 24px;
+  .hourglass {
+    margin-right: 4px;
   }
 
   @keyframes rotateGemColors {
@@ -575,18 +577,6 @@ body.modal-open #habitica-menu {
     }
   }
 
-  .message-count {
-    background-color: $blue-50;
-    border-radius: 50%;
-    height: 20px;
-    width: 20px;
-    float: right;
-    color: $white;
-    text-align: center;
-    font-weight: bold;
-    font-size: 12px;
-  }
-
   .message-count.top-count {
     background-color: $red-50;
     position: absolute;
@@ -601,12 +591,13 @@ body.modal-open #habitica-menu {
 
     .gryphon {
       background-size: cover;
-      height: 32px;
       color: $white;
+      height: 32px;
       margin: 0 auto;
-      width: 32px;
       top: -10px;
+      padding-left: 8px;
       position: relative;
+      width: 32px;
     }
 
     .logo {
@@ -738,6 +729,11 @@ body.modal-open #habitica-menu {
 
     .item-with-icon {
       margin-right: 16px;
+    }
+
+    .hg {
+      margin-left: 24px;
+      margin-right: 24px;
     }
   }
 
