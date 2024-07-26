@@ -391,7 +391,7 @@
             ></div>
           </a>
           <notification-menu class="item-with-icon" />
-          <user-dropdown class="item-with-icon mr-1" />
+          <user-dropdown class="item-with-icon" />
         </div>
       </b-collapse>
     </b-navbar>
@@ -721,12 +721,18 @@ body.modal-open #habitica-menu {
     }
 
     .navbar-toggler {
-      padding-left: 0px;
+      padding-left: 8px;
       padding-right: 8px;
     }
 
     .item-with-icon {
+      margin-left: 0px;
       margin-right: 16px;
+
+      & ::v-deep .top-menu-icon.svg-icon {
+      margin-right: 0px;
+      margin-left: 0px;
+      }
     }
 
     .hg {
