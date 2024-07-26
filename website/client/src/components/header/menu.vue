@@ -14,7 +14,6 @@
     >
       <b-navbar-brand
         class="brand"
-        class="brand"
         aria-label="Habitica"
       >
       <router-link to="/">
