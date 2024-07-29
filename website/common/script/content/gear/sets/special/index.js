@@ -149,6 +149,7 @@ const armor = {
     notes: t('armorSpecialYetiNotes', { con: 9 }),
     con: 9,
     value: 90,
+    season: 'winter',
   },
   ski: {
     specialClass: 'rogue',
@@ -157,6 +158,7 @@ const armor = {
     notes: t('armorSpecialSkiNotes', { per: 15 }),
     per: 15,
     value: 90,
+    season: 'winter',
   },
   candycane: {
     specialClass: 'wizard',
@@ -165,6 +167,7 @@ const armor = {
     notes: t('armorSpecialCandycaneNotes', { int: 9 }),
     int: 9,
     value: 90,
+    season: 'winter',
   },
   snowflake: {
     specialClass: 'healer',
@@ -173,6 +176,7 @@ const armor = {
     notes: t('armorSpecialSnowflakeNotes', { con: 15 }),
     con: 15,
     value: 90,
+    season: 'winter',
   },
   birthday: {
     event: EVENTS.birthday,
@@ -182,51 +186,39 @@ const armor = {
   },
   springRogue: {
     set: 'stealthyKittySet',
-    season: 'spring',
   },
   springWarrior: {
     set: 'mightyBunnySet',
-    season: 'spring',
   },
   springMage: {
     set: 'magicMouseSet',
-    season: 'spring',
   },
   springHealer: {
     set: 'lovingPupSet',
-    season: 'spring',
   },
   summerRogue: {
     set: 'roguishPirateSet',
-    season: 'summer',
   },
   summerWarrior: {
     set: 'daringSwashbucklerSet',
-    season: 'summer',
   },
   summerMage: {
     set: 'emeraldMermageSet',
-    season: 'summer',
   },
   summerHealer: {
     set: 'reefSeahealerSet',
-    season: 'summer',
   },
   fallRogue: {
     set: 'vampireSmiterSet',
-    season: 'fall',
   },
   fallWarrior: {
     set: 'monsterOfScienceSet',
-    season: 'fall',
   },
   fallMage: {
     set: 'witchyWizardSet',
-    season: 'fall',
   },
   fallHealer: {
     set: 'mummyMedicSet',
-    season: 'fall',
   },
   winter2015Rogue: {
     set: 'icicleDrakeSet',
@@ -1228,6 +1220,7 @@ const head = {
     notes: t('headSpecialYetiNotes', { str: 9 }),
     str: 9,
     value: 60,
+    season: 'winter',
   },
   ski: {
     specialClass: 'rogue',
@@ -1236,6 +1229,7 @@ const head = {
     notes: t('headSpecialSkiNotes', { per: 9 }),
     per: 9,
     value: 60,
+    season: 'winter',
   },
   candycane: {
     specialClass: 'wizard',
@@ -1244,6 +1238,7 @@ const head = {
     notes: t('headSpecialCandycaneNotes', { per: 7 }),
     per: 7,
     value: 60,
+    season: 'winter',
   },
   snowflake: {
     specialClass: 'healer',
@@ -1252,54 +1247,43 @@ const head = {
     notes: t('headSpecialSnowflakeNotes', { int: 7 }),
     int: 7,
     value: 60,
+    season: 'winter',
   },
   springRogue: {
     set: 'stealthyKittySet',
-    season: 'spring',
   },
   springWarrior: {
     set: 'mightyBunnySet',
-    season: 'spring',
   },
   springMage: {
     set: 'magicMouseSet',
-    season: 'spring',
   },
   springHealer: {
     set: 'lovingPupSet',
-    season: 'spring',
   },
   summerRogue: {
     set: 'roguishPirateSet',
-    season: 'summer',
   },
   summerWarrior: {
     set: 'daringSwashbucklerSet',
-    season: 'summer',
   },
   summerMage: {
     set: 'emeraldMermageSet',
-    season: 'summer',
   },
   summerHealer: {
     set: 'reefSeahealerSet',
-    season: 'summer',
   },
   fallRogue: {
     set: 'vampireSmiterSet',
-    season: 'fall',
   },
   fallWarrior: {
     set: 'monsterOfScienceSet',
-    season: 'fall',
   },
   fallMage: {
     set: 'witchyWizardSet',
-    season: 'fall',
   },
   fallHealer: {
     set: 'mummyMedicSet',
-    season: 'fall',
   },
   winter2015Rogue: {
     set: 'icicleDrakeSet',
@@ -2114,6 +2098,7 @@ const shield = {
     notes: t('shieldSpecialYetiNotes', { con: 7 }),
     con: 7,
     value: 70,
+    season: 'winter',
   },
   ski: {
     specialClass: 'rogue',
@@ -2122,6 +2107,7 @@ const shield = {
     notes: t('weaponSpecialSkiNotes', { str: 8 }),
     str: 8,
     value: 90,
+    season: 'winter',
   },
   snowflake: {
     specialClass: 'healer',
@@ -2130,42 +2116,34 @@ const shield = {
     notes: t('shieldSpecialSnowflakeNotes', { con: 9 }),
     con: 9,
     value: 70,
+    season: 'winter',
   },
   springRogue: {
     set: 'stealthyKittySet',
-    season: 'spring',
   },
   springWarrior: {
     set: 'mightyBunnySet',
-    season: 'spring',
   },
   springHealer: {
     set: 'lovingPupSet',
-    season: 'spring',
   },
   summerRogue: {
     set: 'roguishPirateSet',
-    season: 'summer',
   },
   summerWarrior: {
     set: 'daringSwashbucklerSet',
-    season: 'summer',
   },
   summerHealer: {
     set: 'reefSeahealerSet',
-    season: 'summer',
   },
   fallRogue: {
     set: 'vampireSmiterSet',
-    season: 'fall',
   },
   fallWarrior: {
     set: 'monsterOfScienceSet',
-    season: 'fall',
   },
   fallHealer: {
     set: 'mummyMedicSet',
-    season: 'fall',
   },
   winter2015Rogue: {
     set: 'icicleDrakeSet',
@@ -2665,6 +2643,7 @@ const weapon = {
     notes: t('weaponSpecialYetiNotes', { str: 15 }),
     str: 15,
     value: 90,
+    season: 'winter',
   },
   ski: {
     specialClass: 'rogue',
@@ -2673,6 +2652,7 @@ const weapon = {
     notes: t('weaponSpecialSkiNotes', { str: 8 }),
     str: 8,
     value: 90,
+    season: 'winter',
   },
   candycane: {
     specialClass: 'wizard',
@@ -2683,6 +2663,7 @@ const weapon = {
     int: 15,
     per: 7,
     value: 160,
+    season: 'winter',
   },
   snowflake: {
     specialClass: 'healer',
@@ -2691,6 +2672,7 @@ const weapon = {
     notes: t('weaponSpecialSnowflakeNotes', { int: 9 }),
     int: 9,
     value: 90,
+    season: 'winter',
   },
   springRogue: {
     set: 'stealthyKittySet',

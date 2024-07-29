@@ -480,7 +480,7 @@ export default {
     });
 
     await this.triggerGetWorldState();
-    this.currentEvent = _find(this.currentEventList, event => Boolean(['winter', 'spring', 'summer', 'fall'].includes(event.season)));
+    this.currentEvent = _find(this.currentEventList, event => Boolean(event.season));
     this.imageURLs.background = `url(/static/npc/${this.currentEvent.season}/seasonal_shop_opened_background.png)`;
     this.imageURLs.npc = `url(/static/npc/${this.currentEvent.season}/seasonal_shop_opened_npc.png)`;
   },
