@@ -844,6 +844,7 @@ export function assembleScheduledMatchers (date) {
   const gala = GALA_SCHEDULE[getGalaIndex(date)];
   const galaMatchers = gala.matchers;
   galaMatchers.forEach(matcher => {
+    matcher.startMonth = gala.startMonth;
     matcher.endMonth = gala.endMonth;
   });
   items.push(...galaMatchers);
@@ -887,6 +888,9 @@ function makeEndDate (checkedDate, matcher) {
   end.minute(0);
   end.second(0);
   if (matcher.endMonth !== undefined) {
+    if (matcher.startMonth && matcher.startMonth > matcher.endMonth) {
+      end.year(checkedDate.getFullYear() + 1);
+    }
     end.month(matcher.endMonth);
   } else if (end.date() <= checkedDate.getDate()) {
     end = moment(end).add(1, 'months');
