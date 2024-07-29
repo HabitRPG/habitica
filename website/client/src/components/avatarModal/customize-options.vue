@@ -6,7 +6,7 @@
     <div
       v-for="option in items"
       :key="option.key"
-      :id="option.class"
+      :id="option.imageName"
       class="outer-option-background"
       :class="{
         premium: Boolean(option.gem),
@@ -16,7 +16,7 @@
       @click="option.click(option)"
     >
       <b-popover
-        :target="option.class"
+        :target="option.imageName"
         triggers="hover focus"
         placement="bottom"
         :prevent-overflow="false"
