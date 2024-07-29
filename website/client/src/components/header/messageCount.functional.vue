@@ -36,4 +36,11 @@
 .message-count.top-count-gray {
   background-color: $gray-200;
 }
+
+@media only screen and (max-width: 992px) {
+
+  .message-count {
+    left: 12px;
+  }
+}
 </style>
