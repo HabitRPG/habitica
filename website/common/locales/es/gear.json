@@ -3179,5 +3179,15 @@
     "headArmoireCorsairsBandanaText": "Pañuelo Badana de Corsario",
     "shieldSpecialSummer2024WarriorText": "Aleta de Tiburón-Ballena",
     "shieldSpecialSummer2024HealerText": "Escudo de Caracol Marino",
-    "shieldSpecialSummer2024HealerNotes": "Este escudo pulido es más duro aún que tu bastón de Caracol Marino así que tela. Aumenta la Constitución en <%= con %>. Equipamiento de edición limitada Verano 2024."
+    "shieldSpecialSummer2024HealerNotes": "Este escudo pulido es más duro aún que tu bastón de Caracol Marino así que tela. Aumenta la Constitución en <%= con %>. Equipamiento de edición limitada Verano 2024.",
+    "weaponMystery202408Text": "Égida Arcana",
+    "weaponArmoireDragonKnightsLanceText": "Lanza de Caballero Dragón",
+    "weaponArmoireDragonKnightsLanceNotes": "Esta lanza roja y plateada ha arrojado de sus monturas a innumerables oponentes. Aumenta la Constitución en <%= con %>. Armario Encantado: Conjunto de Caballero Dragón (Artículo 3 de 3)",
+    "armorArmoireDragonKnightsArmorText": "Armadura de placas Caballero de Dragón",
+    "armorArmoireDragonKnightsArmorNotes": "Hecha con escamas de dragón unidas con presillas de mithril esta armadura te permite canalizar la fuerza y el poder de un dragón. Aumenta la Fuerza en <%= str %>. Armario Encantado: Conjunto de Caballero Dragón (Artículo 2 de 3)",
+    "headArmoireDragonKnightsHelmText": "Yelmo Caballero Dragón",
+    "headArmoireDragonKnightsHelmNotes": "Con las resplandecientes llamas que emanan del aura de poder que desprende este yelmo, cualquier dragón podría confundirte con uno de ellos. Aumenta la Inteligencia en <%= int %>. Armario Encantado: Conjunto de Caballero Dragón (Artículo 1 de 3)",
+    "shieldMystery202408Text": "Destellos Arcanos",
+    "shieldMystery202408Notes": "¡Está luz mágica te iluminará y guiará ya sea que te adentres en la oscuridad de Cirith Ungol o en el cubil de Ella-Laraña! No otorga ningún beneficio. Artículo de Suscriptor Agosto 2024.",
+    "weaponMystery202408Notes": "Una esfera de poder que te protege de los hechizos dirigidos de tus enemigos o te ayuda a levitar en el aire o flotar en el agua. No otorga ningún beneficio. Artículo de Suscriptor Agosto 2024."
 }

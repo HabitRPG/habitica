@@ -128,7 +128,7 @@
     "gemGiftsAreOptional": "Por favor, note que o Habitica nunca exigirá que você presenteie outros jogadores com gemas. Pedir gemas para outras pessoas é uma <strong> violação das Diretrizes de Comunidade</strong> e todos esses pedidos devem ser informados, mandando um e-mail para <%= hrefTechAssistanceEmail %>.",
     "battleWithFriends": "Enfrente monstros com seus amigos",
     "startAParty": "Começar um Grupo",
-    "partyUpName": "É Perigoso Ir Sozinho!",
+    "partyUpName": "É perigoso ir sozinho(a)!",
     "partyOnName": "Trabalho em Equipe",
     "partyUpText": "Entrou num Grupo com uma outra pessoa! Divirta-se batalhando contra monstros e ajudando uns aos outros.",
     "partyOnText": "Entrou num Grupo com, pelo menos, quatro pessoas! Aproveite sua maior responsabilidade enquanto se une com seus amigos e destrói seus inimigos!",

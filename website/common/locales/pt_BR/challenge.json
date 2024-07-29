@@ -85,7 +85,7 @@
     "shortName": "Nome curto",
     "shortNamePlaceholder": "Que Etiqueta curta deve ser usada para identificar seu Desafio?",
     "updateChallenge": "Atualizar Desafio",
-    "haveNoChallenges": "Esse grupo não possui Desafios",
+    "haveNoChallenges": "Este Grupo não tem Desafios ativos",
     "loadMore": "Carregar mais",
     "exportChallengeCsv": "Exportar Desafio",
     "editingChallenge": "Editando o Desafio",
