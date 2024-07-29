@@ -238,5 +238,6 @@
     "viewAdminPanel": "Admin Panel anzeigen",
     "mutePlayer": "Stumm",
     "skipExternalLinkModal": "Halte STRG (Windows) oder Command (Mac) beim Anklicken eines Links, um dieses Modal zu überspringen.",
-    "shadowMute": "Unsichtbare Stummschaltung"
+    "shadowMute": "Unsichtbare Stummschaltung",
+    "titleCustomizations": "Individualisierungen"
 }

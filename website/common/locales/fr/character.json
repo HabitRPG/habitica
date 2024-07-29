@@ -2,7 +2,7 @@
     "communityGuidelinesWarning": "Veuillez garder à l'esprit que votre nom d'utilisateur, votre photo de profil et votre résumé doivent obéir aux <a href='https://habitica.com/static/community-guidelines' target='_blank'>Règles de vie en communauté</a> (par exemple, grossièretés, sujets adultes, insultes, etc. sont interdits). Si vous ne savez pas si quelque chose est inconvenant ou non, n'hésitez pas à envoyer un courriel à <%= hrefBlankCommunityManagerEmail %> !",
     "profile": "Profil",
     "avatar": "Personnalisez votre avatar",
-    "editAvatar": "Modifier votre avatar",
+    "editAvatar": "Personnaliser l'Avatar",
     "noDescription": "Cette personne n'a pas ajouté de description.",
     "noPhoto": "Cette personne n'a pas ajouté de photo.",
     "other": "Autres",
@@ -189,5 +189,10 @@
     "notEnoughGold": "Pas assez d'or.",
     "nextReward": "Prochaine récompense de connexion",
     "chatCastSpellPartyTimes": "<%= username %> lance <%= spell %> pour l'équipe <%= times %> fois.",
-    "chatCastSpellUserTimes": "<%= username %> lance <%= spell %> sur <%= target %> <%= times %> fois."
+    "chatCastSpellUserTimes": "<%= username %> lance <%= spell %> sur <%= target %> <%= times %> fois.",
+    "titleFacialHair": "Pilosité Faciale",
+    "titleHairbase": "Coupes de Cheveux",
+    "customizations": "Personnalisations",
+    "skins": "Peaux",
+    "titleHaircolor": "Couleurs de Cheveux"
 }

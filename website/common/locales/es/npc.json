@@ -135,5 +135,7 @@
     "groupsPaymentSubBilling": "Tu próxima fecha de facturación es <strong><%= renewalDate %></strong>.",
     "groupsPaymentAutoRenew": "Esta suscripción se auto-renovará hasta que sea cancelada. Si quieres cancelarla, puedes hacerlo desde la pestaña de Cobro de grupos.",
     "helpSupportHabitica": "Ayuda a apoyar a Habitica",
-    "sellItems": "Vender objetos"
+    "sellItems": "Vender objetos",
+    "notAvailable": "Este artículo no está disponible.",
+    "customizationsShopText": "¿Necesitas un cambio de estilo? ¡Has llegado al lugar adecuado! Tenemos los complementos más actuales para que encajes en la temporada."
 }

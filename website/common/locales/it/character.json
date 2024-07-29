@@ -2,7 +2,7 @@
     "communityGuidelinesWarning": "Ricorda che il tuo nome pubblico, la tua foto profilo e la tua descrizione personale devono rispettare le <a href='https://habitica.com/static/community-guidelines' target='_blank'>linee guida della community</a> (ad esempio sono vietate parolacce, argomenti per adulti, insulti, ecc.). Se vuoi sapere se ciò che hai scritto è appropriato, non esitare a inviare un'e-mail a <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "Profilo",
     "avatar": "Personalizza Avatar",
-    "editAvatar": "Modifica Avatar",
+    "editAvatar": "Modifica l'Avatar",
     "noDescription": "Questo Habitante non ha aggiunto una descrizione.",
     "noPhoto": "Questo Habitante non ha aggiunto una foto.",
     "other": "Altro",

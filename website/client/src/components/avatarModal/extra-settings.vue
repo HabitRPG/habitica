@@ -75,15 +75,13 @@
 
 <script>
 import appearance from '@/../../common/script/content/appearance';
+import upperFirst from 'lodash/upperFirst';
 import { subPageMixin } from '../../mixins/subPage';
 import { userStateMixin } from '../../mixins/userState';
 import { avatarEditorUtilities } from '../../mixins/avatarEditUtilities';
 import customizeBanner from './customize-banner';
 import customizeOptions from './customize-options';
 import subMenu from './sub-menu';
-
-const freeShirtKeys = Object.keys(appearance.shirt).filter(k => appearance.shirt[k].price === 0);
-const specialShirtKeys = Object.keys(appearance.shirt).filter(k => appearance.shirt[k].price !== 0);
 
 export default {
   components: {
@@ -106,17 +104,6 @@ export default {
         headAccessory: ['bearEars', 'cactusEars', 'foxEars', 'lionEars', 'pandaEars', 'pigEars', 'tigerEars', 'wolfEars'],
       },
       chairKeys: ['none', 'black', 'blue', 'green', 'pink', 'red', 'yellow', 'handleless_black', 'handleless_blue', 'handleless_green', 'handleless_pink', 'handleless_red', 'handleless_yellow'],
-      specialShirtKeys,
-      items: [
-        {
-          id: 'size',
-          label: this.$t('size'),
-        },
-        {
-          id: 'shirt',
-          label: this.$t('shirt'),
-        },
-      ],
     };
   },
   computed: {
@@ -167,6 +154,7 @@ export default {
       ];
       const noneOption = this.createGearItem(0, 'eyewear', 'base');
       noneOption.none = true;
+      noneOption.text = this.$t('none');
       const options = [
         noneOption,
       ];
@@ -184,24 +172,17 @@ export default {
 
           return this.equip(newKey, type);
         };
+        option.text = this.$t(`eyewearSpecial${upperFirst(key)}Text`);
         options.push(option);
       }
 
-      return options;
-    },
-    freeShirts () {
-      return freeShirtKeys.map(s => this.mapKeysToFreeOption(s, 'shirt'));
-    },
-    specialShirts () {
-      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
-      const keys = this.specialShirtKeys;
-      const options = keys.map(key => this.mapKeysToOption(key, 'shirt'));
       return options;
     },
     headbands () {
       const keys = ['blackHeadband', 'blueHeadband', 'greenHeadband', 'pinkHeadband', 'redHeadband', 'whiteHeadband', 'yellowHeadband'];
       const noneOption = this.createGearItem(0, 'headAccessory', 'base', 'headband');
       noneOption.none = true;
+      noneOption.text = this.$t('none');
       const options = [
         noneOption,
       ];
@@ -213,7 +194,7 @@ export default {
           const type = this.user.preferences.costume ? 'costume' : 'equipped';
           return this.equip(newKey, type);
         };
-
+        option.text = this.$t(`headAccessory${upperFirst(key)}Text`);
         options.push(option);
       }
 
@@ -229,6 +210,7 @@ export default {
         option.active = this.user.preferences.chair === key;
         option.class = `button_chair_${key} chair ${key.includes('handleless_') ? 'handleless' : ''}`;
         option.click = () => this.set({ 'preferences.chair': key });
+        option.text = appearance.chair[key].text();
         return option;
       });
       return options;
@@ -244,6 +226,7 @@ export default {
         option.active = this.user.preferences.hair.flower === key;
         option.class = `icon_hair_flower_${key} flower`;
         option.click = () => this.set({ 'preferences.hair.flower': key });
+        option.text = appearance.hair.flower[key].text();
         return option;
       });
       return options;
@@ -271,6 +254,7 @@ export default {
 
       const noneOption = this.createGearItem(0, category, 'base', category);
       noneOption.none = true;
+      noneOption.text = this.$t('none');
       const options = [
         noneOption,
       ];
@@ -284,9 +268,13 @@ export default {
           option.active = this.user.preferences.costume
             ? this.user.items.gear.costume[category] === newKey
             : this.user.items.gear.equipped[category] === newKey;
-          option.class = `headAccessory_special_${option.key} ${category}`;
+
           if (category === 'back') {
+            option.text = this.$t(`back${upperFirst(key)}Text`);
             option.class = `icon_back_special_${option.key} back`;
+          } else {
+            option.text = this.$t(`headAccessory${upperFirst(key)}Text`);
+            option.class = `headAccessory_special_${option.key} ${category}`;
           }
           option.click = () => {
             const type = this.user.preferences.costume ? 'costume' : 'equipped';

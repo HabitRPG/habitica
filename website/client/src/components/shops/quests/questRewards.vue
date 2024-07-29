@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="quest.drop"
-    class="quest-rewards"
+    class="quest-rewards mb-3"
   >
     <div
       class="header d-flex align-items-center"

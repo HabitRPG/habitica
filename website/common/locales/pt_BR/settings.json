@@ -277,5 +277,7 @@
     "dateFormatDisclaimer": "Ajustar a formatação de data em todo o Habitica.",
     "changePasswordDisclaimer": "A senha deve ter 8 caracteres ou mais. Recomendamos uma senha forte que você não esteja usando em outros lugares.",
     "contentRelease": "Lançamentos de Conteúdo + Eventos",
-    "baileyAnnouncement": "Último Anúncio da Bailey"
+    "baileyAnnouncement": "Último Anúncio da Bailey",
+    "showRaisePetModal": "Ao cuidar de um Mascote para virar Montaria",
+    "resetTextSocial": "Se você tiver certeza absoluta, digite <b>\"<%- Palavramágica $>\"</b> na caixa de texto abaixo."
 }

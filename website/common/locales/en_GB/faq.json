@@ -55,5 +55,9 @@
     "iosFaqStillNeedHelp": "If you have a question that isn't on this list or on the [Wiki FAQ](http://habitica.fandom.com/wiki/FAQ), come ask in the Tavern chat under Menu > Tavern! We're happy to help.",
     "androidFaqStillNeedHelp": "If you have a question that isn't on this list or on the [Wiki FAQ](http://habitica.fandom.com/wiki/FAQ), come ask in the Tavern chat under Menu > Tavern! We're happy to help.",
     "webFaqStillNeedHelp": "If you have a question that isn't on this list or on the [Wiki FAQ](http://habitica.fandom.com/wiki/FAQ), come ask in the [Habitica Help guild](https://habitica.com/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a)! We're happy to help.",
-    "general": "General"
+    "general": "General",
+    "commonQuestions": "Common Questions",
+    "faqQuestion25": "What are the different task types?",
+    "webFaqAnswer25": "Habitica uses three different task types to accommodate your needs: Habits, Dailies, and To Do’s.\n\nHabits can be positive or negative and represent something you may want to track multiple times per day, or on an unset schedule. Positive Habits will provide you with rewards, like Gold and Experience (Exp), while Negative Habits will cause you to lose health points (HP).\n\nDailies are repeated tasks you want to complete on a more structured schedule. E.g. Once per day, three times a week, or four times a month. Missing Dailies causes you to lose HP, but the more difficult they are, the better the rewards!\n\nTo Do’s are one-off tasks that provide rewards after you complete them. To Do’s can have a due date, but you won’t lose HP if you miss it.\n\nPick the task type that best fits what you want to achieve!",
+    "faqQuestion26": "What are some sample tasks?"
 }
