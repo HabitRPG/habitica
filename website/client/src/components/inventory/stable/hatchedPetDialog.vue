@@ -135,7 +135,6 @@ export default {
   methods: {
     openDialog (item) {
       this.pet = item;
-      console.log(this.pet);
       this.$root.$emit('bv::show::modal', 'hatchedPet-modal');
     },
     close () {
