@@ -1,15 +1,18 @@
 <template>
   <div class="card mt-2">
     <div class="card-header">
-    <h3
-      class="mb-0 mt-0"
-      :class="{'open': expand}"
-      @click="expand = !expand"
+      <h3
+        class="mb-0 mt-0"
+        :class="{'open': expand}"
+        @click="expand = !expand"
+      >
+        Items
+      </h3>
+    </div>
+    <div
+      v-if="expand"
+      class="card-body"
     >
-    Items
-    </h3>
-  </div>
-    <div v-if="expand" class="card-body">
       <div>
         The sections below display each item's key (bolded if the player has ever owned it),
         followed by the item's English name.

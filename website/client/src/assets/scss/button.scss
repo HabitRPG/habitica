@@ -175,16 +175,16 @@
 }
 
 .btn-warning {
-  background: $yellow-10;
+  background: $orange-10;
   border: 1px solid transparent;
 
   &:hover:not(:disabled):not(.disabled) {
-    background: $yellow-100;
+    background: $orange-100;
     border: 1px solid transparent;
   }
 
   &:focus {
-    background: $yellow-10;
+    background: $orange-10;
     border-color: $purple-400;
   }
 
@@ -194,7 +194,7 @@
   }
 
   &:not(:disabled):not(.disabled):active, &:not(:disabled):not(.disabled).active {
-    background: $yellow-10;
+    background: $orange-10;
     border: 1px solid transparent;
   }
 }

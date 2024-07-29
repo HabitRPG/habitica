@@ -2,11 +2,18 @@
   <form @submit.prevent="saveHero({ hero, msg: 'Subscription Perks' })">
     <div class="card mt-2">
       <div class="card-header">
-        <h3 class="mb-0 mt-0" :class="{ 'open': expand }" @click="expand = !expand">
+        <h3
+          class="mb-0 mt-0"
+          :class="{ 'open': expand }"
+          @click="expand = !expand"
+        >
           Subscription, Monthly Perks
         </h3>
       </div>
-      <div v-if="expand" class="card-body">
+      <div
+        v-if="expand"
+        class="card-body"
+      >
         <div v-if="hero.purchased.plan.paymentMethod">
           Payment method:
           <strong>{{ hero.purchased.plan.paymentMethod }}</strong>
@@ -19,13 +26,20 @@
           Group plan ID:
           <strong>{{ hero.purchased.plan.owner }}</strong>
         </div>
-        <div v-if="hero.purchased.plan.dateCreated" class="form-group row">
+        <div
+          v-if="hero.purchased.plan.dateCreated"
+          class="form-group row"
+        >
           <label class="col-sm-3 col-form-label">
             Creation date:
           </label>
           <div class="col-sm-9">
             <div class="input-group">
-              <input v-model="hero.purchased.plan.dateCreated" class="form-control" type="text">
+              <input
+                v-model="hero.purchased.plan.dateCreated"
+                class="form-control"
+                type="text"
+              >
               <div class="input-group-append">
                 <strong>
                   {{ dateFormat(hero.purchased.plan.dateCreated) }}
@@ -34,13 +48,20 @@
             </div>
           </div>
         </div>
-        <div v-if="hero.purchased.plan.dateCurrentTypeCreated" class="form-group row">
+        <div
+          v-if="hero.purchased.plan.dateCurrentTypeCreated"
+          class="form-group row"
+        >
           <label class="col-sm-3 col-form-label">
             Current sub start date:
           </label>
           <div class="col-sm-9">
             <div class="input-group">
-              <input v-model="hero.purchased.plan.dateCurrentTypeCreated" class="form-control" type="text">
+              <input
+                v-model="hero.purchased.plan.dateCurrentTypeCreated"
+                class="form-control"
+                type="text"
+              >
               <div class="input-group-append">
                 <strong>
                   {{ dateFormat(hero.purchased.plan.dateCurrentTypeCreated) }}
@@ -55,7 +76,11 @@
           </label>
           <div class="col-sm-9">
             <div class="input-group">
-              <input v-model="hero.purchased.plan.dateTerminated" class="form-control" type="text">
+              <input
+                v-model="hero.purchased.plan.dateTerminated"
+                class="form-control"
+                type="text"
+              >
               <div class="input-group-append">
                 <strong class="input-group-text">
                   {{ dateFormat(hero.purchased.plan.dateTerminated) }}
@@ -69,7 +94,13 @@
             Consecutive months:
           </label>
           <div class="col-sm-9">
-            <input v-model="hero.purchased.plan.consecutive.count" class="form-control" type="number" min="0" step="1">
+            <input
+              v-model="hero.purchased.plan.consecutive.count"
+              class="form-control"
+              type="number"
+              min="0"
+              step="1"
+            >
           </div>
         </div>
         <div class="form-group row">
@@ -77,7 +108,13 @@
             Perk offset months:
           </label>
           <div class="col-sm-9">
-            <input v-model="hero.purchased.plan.consecutive.offset" class="form-control" type="number" min="0" step="1">
+            <input
+              v-model="hero.purchased.plan.consecutive.offset"
+              class="form-control"
+              type="number"
+              min="0"
+              step="1"
+            >
           </div>
         </div>
         <div class="form-group row">
@@ -85,8 +122,14 @@
             Perk month count:
           </label>
           <div class="col-sm-9">
-            <input v-model="hero.purchased.plan.perkMonthCount" class="form-control" type="number" min="0" max="2"
-              step="1">
+            <input
+              v-model="hero.purchased.plan.perkMonthCount"
+              class="form-control"
+              type="number"
+              min="0"
+              max="2"
+              step="1"
+            >
           </div>
         </div>
         <div class="form-group row">
@@ -100,8 +143,13 @@
             Mystic Hourglasses:
           </label>
           <div class="col-sm-9">
-            <input v-model="hero.purchased.plan.consecutive.trinkets" class="form-control" type="number" min="0"
-              step="1">
+            <input
+              v-model="hero.purchased.plan.consecutive.trinkets"
+              class="form-control"
+              type="number"
+              min="0"
+              step="1"
+            >
           </div>
         </div>
         <div class="form-group row">
@@ -109,8 +157,14 @@
             Gem cap increase:
           </label>
           <div class="col-sm-9">
-            <input v-model="hero.purchased.plan.consecutive.gemCapExtra" class="form-control" type="number" min="0"
-              max="25" step="5">
+            <input
+              v-model="hero.purchased.plan.consecutive.gemCapExtra"
+              class="form-control"
+              type="number"
+              min="0"
+              max="25"
+              step="5"
+            >
           </div>
         </div>
         <div class="form-group row">
@@ -126,8 +180,14 @@
             Gems bought this month:
           </label>
           <div class="col-sm-9">
-            <input v-model="hero.purchased.plan.gemsBought" class="form-control" type="number" min="0"
-              :max="hero.purchased.plan.consecutive.gemCapExtra + 25" step="1">
+            <input
+              v-model="hero.purchased.plan.gemsBought"
+              class="form-control"
+              type="number"
+              min="0"
+              :max="hero.purchased.plan.consecutive.gemCapExtra + 25"
+              step="1"
+            >
           </div>
         </div>
         <div v-if="hero.purchased.plan.extraMonths > 0">
@@ -140,7 +200,10 @@
           </label>
           <div class="col-sm-9 col-form-label">
             <span v-if="hero.purchased.plan.mysteryItems.length > 0">
-              <span v-for="(item, index) in hero.purchased.plan.mysteryItems" :key="index">
+              <span
+                v-for="(item, index) in hero.purchased.plan.mysteryItems"
+                :key="index"
+              >
                 <strong v-if="index < hero.purchased.plan.mysteryItems.length - 1">
                   {{ item }},
                 </strong>
@@ -153,8 +216,15 @@
           </div>
         </div>
       </div>
-      <div class="card-footer" v-if="expand">
-        <input type="submit" value="Save" class="btn btn-primary mt-1">
+      <div
+        v-if="expand"
+        class="card-footer"
+      >
+        <input
+          type="submit"
+          value="Save"
+          class="btn btn-primary mt-1"
+        >
       </div>
     </div>
   </form>
@@ -185,20 +255,20 @@ export default {
       required: true,
     },
   },
-  data() {
+  data () {
     return {
       expand: false,
     };
   },
   computed: {
-    nextHourglassDate() {
+    nextHourglassDate () {
       const currentPlanContext = getPlanContext(this.hero, new Date());
 
       return currentPlanContext.nextHourglassDate.format('MMMM YYYY');
     },
   },
   methods: {
-    dateFormat(date) {
+    dateFormat (date) {
       if (!date) {
         return '--';
       }

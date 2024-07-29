@@ -1,32 +1,41 @@
 <template>
   <div>
-    <div class="alert alert-warning" role="alert"
+    <div
       v-if="noUsersFound"
+      class="alert alert-warning"
+      role="alert"
     >
       Could not find any matching users.
     </div>
-    <div class="list-group"
-      v-if="users.length > 0">
-      <a href="#" class="list-group-item list-group-item-action"
+    <div
+      v-if="users.length > 0"
+      class="list-group"
+    >
+      <a
         v-for="user in users"
         :key="user._id"
+        href="#"
+        class="list-group-item list-group-item-action"
         @click="loadUser(user._id)"
       >
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1">{{ user.profile.name }}</h5>
           <small>{{ user._id }}</small>
         </div>
-        <p class="mb-1"
-        :class="{'font-weight-bold': matchValueToIdentifier(user.auth.local.username)}">
+        <p
+          class="mb-1"
+          :class="{'font-weight-bold': matchValueToIdentifier(user.auth.local.username)}"
+        >
           @{{ user.auth.local.username }}</p>
-          <p class="mb-0">
-            <span
-              v-for="email in userEmails(user)"
-              :class="{'font-weigh-bold': matchValueToIdentifier(email)}"
-              :key="email">
-              {{ email }}
-            </span>
-          </p>
+        <p class="mb-0">
+          <span
+            v-for="email in userEmails(user)"
+            :key="email"
+            :class="{'font-weigh-bold': matchValueToIdentifier(email)}"
+          >
+            {{ email }}
+          </span>
+        </p>
       </a>
     </div>
   </div>
