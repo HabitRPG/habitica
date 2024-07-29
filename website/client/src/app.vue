@@ -105,11 +105,15 @@
 <script>
 import * as Analytics from '@/libs/analytics';
 import { mapState } from '@/libs/store';
+import userMain from '@/pages/user-main';
 
 const COMMUNITY_MANAGER_EMAIL = process.env.EMAILS_COMMUNITY_MANAGER_EMAIL; // eslint-disable-line
 
 export default {
   name: 'App',
+  components: {
+    userMain,
+  },
   data () {
     return {
       selectedItemToBuy: null,
@@ -123,7 +127,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['isUserLoggedIn']),
+    ...mapState(['isUserLoggedIn', 'isUserLoaded']),
     isStaticPage () {
       return this.$route.meta.requiresLogin === false;
     },
@@ -132,6 +136,11 @@ export default {
     // Setup listener for title
     this.$store.watch(state => state.title, title => {
       document.title = title;
+    });
+    this.$store.watch(state => state.isUserLoaded, () => {
+      if (this.isUserLoaded) {
+        this.hideLoadingScreen();
+      }
     });
     this.$nextTick(() => {
       // Load external scripts after the app has been rendered
@@ -149,6 +158,7 @@ export default {
   },
   methods: {
     hideLoadingScreen () {
+      console.log('done loading');
       this.loading = false;
     },
   },
