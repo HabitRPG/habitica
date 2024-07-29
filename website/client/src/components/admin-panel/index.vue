@@ -15,18 +15,27 @@
           >
           <div class="input-group-append">
             <button
-            class="btn btn-primary"
-            type="button"
-            @click="loadUser(userIdentifier)">Load User</button>
+              class="btn btn-primary"
+              type="button"
+              @click="loadUser(userIdentifier)"
+            >
+              Load User
+            </button>
             <button
-            class="btn btn-secondary"
-            type="button"
-            @click="searchUsers(userIdentifier)">Search</button>
+              class="btn btn-secondary"
+              type="button"
+              @click="searchUsers(userIdentifier)"
+            >
+              Search
+            </button>
           </div>
         </div>
       </form>
 
-      <router-view @changeUserIdentifier="changeUserIdentifier" class="mt-3" />
+      <router-view
+        class="mt-3"
+        @changeUserIdentifier="changeUserIdentifier"
+      />
     </div>
   </div>
 </template>
@@ -75,7 +84,7 @@ export default {
     },
     async searchUsers (userIdentifier) {
       if (!userIdentifier || userIdentifier === '') {
-        loadUser();
+        this.loadUser();
         return;
       }
       this.$router.push({

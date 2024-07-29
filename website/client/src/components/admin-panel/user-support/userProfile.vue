@@ -1,34 +1,38 @@
 <template>
-      <form @submit.prevent="saveHero({hero, msg: 'Users Profile'})">
-  <div class="card mt-2">
-    <div class="card-header">
-    <h3
-      class="mb-0 mt-0"
-      :class="{'open': expand}"
-      @click="expand = !expand"
-    >
-    User Profile
-    </h3>
-  </div>
-    <div v-if="expand" class="card-body">
+  <form @submit.prevent="saveHero({hero, msg: 'Users Profile'})">
+    <div class="card mt-2">
+      <div class="card-header">
+        <h3
+          class="mb-0 mt-0"
+          :class="{'open': expand}"
+          @click="expand = !expand"
+        >
+          User Profile
+        </h3>
+      </div>
+      <div
+        v-if="expand"
+        class="card-body"
+      >
         <div class="form-group row">
           <label class="col-sm-3 col-form-label">Display name</label>
           <div class="col-sm-9">
             <input
-            v-model="hero.profile.name"
-            class="form-control"
-            type="text"
-          >
+              v-model="hero.profile.name"
+              class="form-control"
+              type="text"
+            >
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-3 col-form-label">Photo URL</label>
           <div class="col-sm-9">
-          <input
-            v-model="hero.profile.imageUrl"
-            class="form-control"
-            type="text"
-          ></div>
+            <input
+              v-model="hero.profile.imageUrl"
+              class="form-control"
+              type="text"
+            >
+          </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-3 col-form-label">About</label>
@@ -44,15 +48,19 @@
             ></div>
           </div>
         </div>
-    </div>
-        <div class="card-footer" v-if="expand">
+      </div>
+      <div
+        v-if="expand"
+        class="card-footer"
+      >
         <input
           type="submit"
           value="Save"
           class="btn btn-primary mt-1"
-        ></div>
-  </div>
-</form>
+        >
+      </div>
+    </div>
+  </form>
 </template>
 
 <style lang="scss" scoped>

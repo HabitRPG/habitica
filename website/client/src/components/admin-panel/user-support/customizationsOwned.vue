@@ -1,15 +1,18 @@
 <template>
   <div class="card mt-2">
     <div class="card-header">
-    <h3
-      class="mb-0 mt-0"
-      :class="{'open': expand}"
-      @click="expand = !expand"
+      <h3
+        class="mb-0 mt-0"
+        :class="{'open': expand}"
+        @click="expand = !expand"
+      >
+        Customizations
+      </h3>
+    </div>
+    <div
+      v-if="expand"
+      class="card-body"
     >
-    Customizations
-    </h3>
-  </div>
-    <div v-if="expand" class="card-body">
       <div
         v-for="itemType in itemTypes"
         :key="itemType"

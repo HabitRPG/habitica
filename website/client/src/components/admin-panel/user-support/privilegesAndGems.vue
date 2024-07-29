@@ -1,47 +1,62 @@
 <template>
-      <form @submit.prevent="saveHero({hero, msg: 'Privileges or Gems or Moderation Notes'})">
-  <div class="card mt-2">
-    <div class="card-header">
-    <h3
-      class="mb-0 mt-0"
-      :class="{'open': expand}"
-      @click="expand = !expand"
-    >
-    Priviliges, Gem Balance
-    </h3>
-  </div>
-    <div v-if="expand" class="card-body">
-      <p
-        v-if="errorsOrWarningsExist"
-        class="errorMessage"
+  <form @submit.prevent="saveHero({hero, msg: 'Privileges or Gems or Moderation Notes'})">
+    <div class="card mt-2">
+      <div class="card-header">
+        <h3
+          class="mb-0 mt-0"
+          :class="{'open': expand}"
+          @click="expand = !expand"
+        >
+          Priviliges, Gem Balance
+        </h3>
+      </div>
+      <div
+        v-if="expand"
+        class="card-body"
       >
-        Player has had privileges removed or has moderation notes.
-      </p>
-        <div class="form-group row">
+        <p
+          v-if="errorsOrWarningsExist"
+          class="errorMessage"
+        >
+          Player has had privileges removed or has moderation notes.
+        </p>
+        <div
+          v-if="hero.flags"
+          class="form-group row"
+        >
           <div class="col-sm-9 offset-sm-3">
-            <div class="form-check">
+            <div class="custom-control custom-checkbox">
               <input
-              v-if="hero.flags"
-              v-model="hero.flags.chatShadowMuted"
-              class="form-check-input"
-              type="checkbox"
-            >
-              <label class="form-check-label">
+                id="chatShadowMuted"
+                v-model="hero.flags.chatShadowMuted"
+                class="custom-control-input"
+                type="checkbox"
+              >
+              <label
+                class="custom-control-label"
+                for="chatShadowMuted"
+              >
                 Shadow Mute
               </label>
             </div>
           </div>
         </div>
-        <div class="form-group row">
+        <div
+          v-if="hero.flags"
+          class="form-group row"
+        >
           <div class="col-sm-9 offset-sm-3">
-            <div class="form-check">
+            <div class="custom-control custom-checkbox">
               <input
-              v-if="hero.flags"
-              v-model="hero.flags.chatRevoked"
-              class="form-check-input"
-              type="checkbox"
-            >
-              <label class="form-check-label">
+                id="chatRevoked"
+                v-model="hero.flags.chatRevoked"
+                class="custom-control-input"
+                type="checkbox"
+              >
+              <label
+                class="custom-control-label"
+                for="chatRevoked"
+              >
                 Mute (Revoke Chat Privileges)
               </label>
             </div>
@@ -49,13 +64,17 @@
         </div>
         <div class="form-group row">
           <div class="col-sm-9 offset-sm-3">
-            <div class="form-check">
+            <div class="custom-control custom-checkbox">
               <input
-              v-model="hero.auth.blocked"
-              class="form-check-input"
-              type="checkbox"
-            >
-              <label class="form-check-label">
+                id="blocked"
+                v-model="hero.auth.blocked"
+                class="custom-control-input"
+                type="checkbox"
+              >
+              <label
+                class="custom-control-label"
+                for="blocked"
+              >
                 Ban / Block
               </label>
             </div>
@@ -83,27 +102,31 @@
         <div class="form-group row">
           <label class="col-sm-3 col-form-label">Moderation Notes</label>
           <div class="col-sm-9">
-          <textarea
-            v-model="hero.secret.text"
-            class="form-control"
-            cols="5"
-            rows="5"
-          ></textarea>
-          <div
-            v-markdown="hero.secret.text"
-            class="markdownPreview"
-          ></div>
+            <textarea
+              v-model="hero.secret.text"
+              class="form-control"
+              cols="5"
+              rows="5"
+            ></textarea>
+            <div
+              v-markdown="hero.secret.text"
+              class="markdownPreview"
+            ></div>
           </div>
         </div>
-    </div>
-    <div class="card-footer" v-if="expand">
+      </div>
+      <div
+        v-if="expand"
+        class="card-footer"
+      >
         <input
           type="submit"
           value="Save"
           class="btn btn-primary mt-1"
-        ></div>
-  </div>
-</form>
+        >
+      </div>
+    </div>
+  </form>
 </template>
 
 <style lang="scss" scoped>
