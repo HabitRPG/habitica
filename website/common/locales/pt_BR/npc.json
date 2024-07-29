@@ -53,7 +53,7 @@
     "cost": "Custo",
     "shops": "Lojas",
     "custom": "Personalizadas",
-    "wishlist": "Lista de desejos",
+    "wishlist": "Lista de Desejos",
     "wrongItemType": "O tipo de item \"<%= type %>\" não é válido.",
     "wrongItemPath": "O caminho de item \"<%= path %>\" não é válido.",
     "unpinnedItem": "Você desafixou <%= item %>! Isso não será mais exibido na coluna de Recompensas.",
