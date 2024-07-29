@@ -24,17 +24,19 @@
         <strong> {{ option.text }} </strong>
       </b-popover>
       <div class="option">
-        <div
-          class="sprite customize-option"
-          :class="option.class"
-        >
+        <Sprite
+          v-if="!option.none"
+          class="sprite"
+          :prefix="option.isGear ? 'shop' : 'icon'"
+          :imageName="option.imageName"
+          :image-name="option.imageName"
+        />
           <div
-            v-if="option.none"
+            v-else
             class="redline-outer"
           >
             <div class="redline"></div>
           </div>
-        </div>
       </div>
     </div>
   </div>
@@ -44,8 +46,12 @@
 import gem from '@/assets/svg/gem.svg';
 import gold from '@/assets/svg/gold.svg';
 import { avatarEditorUtilities } from '../../mixins/avatarEditUtilities';
+import Sprite from '@/components/ui/sprite.vue';
 
 export default {
+  components: {
+    Sprite,
+  },
   mixins: [
     avatarEditorUtilities,
   ],
@@ -84,7 +90,7 @@ export default {
     cursor: pointer;
 
     &.premium {
-      height: 112px;
+      height: 120px;
       width: 96px;
       margin-left: 8px;
       margin-right: 8px;
@@ -101,21 +107,9 @@ export default {
       box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
       background-color: $white;
 
-      .sprite.customize-option.shirt {
-        margin-left: -3px !important;
-        // otherwise its overriden by the .outer-option-background:not(.none) { rules
-      }
-
-      .sprite.customize-option.skin {
-        margin-left: -8px !important;
-        // otherwise its overriden by the .outer-option-background:not(.none) { rules
-      }
-
       .option {
         border: none;
         border-radius: 2px;
-        padding-left: 6px;
-        padding-top: 4px;
       }
 
       &:hover {
@@ -141,14 +135,14 @@ export default {
       }
 
       .redline-outer {
-        height: 60px;
-        width: 60px;
+        height: 68px;
+        width: 68px;
         position: absolute;
         bottom: 0;
         margin: 0 auto 0 0;
 
         .redline {
-          width: 60px;
+          width: 68px;
           height: 4px;
           display: block;
           background: red;
@@ -157,7 +151,6 @@ export default {
           top: 0;
           margin-top: 30px;
           margin-bottom: 20px;
-          margin-left: -1px;
         }
       }
     }
@@ -173,10 +166,9 @@ export default {
   }
   .option {
     vertical-align: bottom;
-    height: 64px;
-    width: 64px;
+    height: 76px;
+    width: 76px;
 
-    margin: 12px 8px;
     border: 4px solid transparent;
     border-radius: 10px;
     position: relative;
@@ -191,44 +183,6 @@ export default {
     .sprite.customize-option {
       margin-top: 0;
       margin-left: 0;
-
-      &.skin {
-        margin-top: -4px;
-        margin-left: -4px;
-      }
-      &.chair {
-        margin-left: -1px;
-        margin-top: -1px;
-
-        &.button_chair_black {
-          // different sprite margin?
-          margin-top: -3px;
-        }
-
-        &.handleless {
-          margin-left: -5px;
-          margin-top: -5px;
-        }
-      }
-      &.color, &.bangs, &.beard, &.flower, &.mustache {
-        background-position-x: -6px;
-        background-position-y: -12px;
-      }
-
-      &.hair.base {
-        background-position-x: -6px;
-        background-position-y: -4px;
-      }
-
-      &.headAccessory {
-        margin-top: 0;
-        margin-left: -4px;
-      }
-
-      &.headband {
-        margin-top: -6px;
-        margin-left: -27px;
-      }
     }
   }
 </style>

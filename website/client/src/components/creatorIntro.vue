@@ -220,10 +220,10 @@
               :class="{selected: bg.key === user.preferences.background}"
               @click="unlock('background.' + bg.key)"
             >
-              <div
+              <Sprite
                 class="background"
-                :class="`icon_background_${bg.key}`"
-              ></div>
+                :image-name="`icon_background_${bg.key}`"
+              />
               <b-popover
                 :target="bg.key"
                 triggers="hover focus"
@@ -254,10 +254,10 @@
               :class="{selected: bg.key === user.preferences.background}"
               @click="unlock('background.' + bg.key)"
             >
-              <div
+              <Sprite
                 class="background"
-                :class="`icon_background_${bg.key}`"
-              ></div>
+                :image-name="`icon_background_${bg.key}`"
+              />
               <b-popover
                 :target="bg.key"
                 triggers="hover focus"
@@ -286,10 +286,10 @@
               :class="{selected: bg.key === user.preferences.background}"
               @click="unlock('background.' + bg.key)"
             >
-              <div
+              <Sprite
                 class="background"
-                :class="`icon_background_${bg.key}`"
-              ></div>
+                :image-name="`icon_background_${bg.key}`"
+              />
               <b-popover
                 :target="bg.key"
                 triggers="hover focus"
@@ -818,9 +818,10 @@
 
         .background {
           border-radius: 4px;
+          object-position: -4px -4px;
+          object-fit: none;
           width: 60px;
           height: 60px;
-          background-position: -4px -4px;
         }
 
         .deselect {
@@ -1013,6 +1014,7 @@ import arrowRight from '@/assets/svg/arrow_right.svg';
 import arrowLeft from '@/assets/svg/arrow_left.svg';
 import svgClose from '@/assets/svg/close.svg';
 import { avatarEditorUtilities } from '../mixins/avatarEditUtilities';
+import Sprite from './ui/sprite';
 
 export default {
   components: {
@@ -1024,6 +1026,7 @@ export default {
     hairSettings,
     skinSettings,
     usernameForm,
+    Sprite,
   },
   mixins: [guide, notifications, avatarEditorUtilities],
   data () {

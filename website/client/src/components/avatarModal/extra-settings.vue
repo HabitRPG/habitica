@@ -166,7 +166,8 @@ export default {
         option.active = this.user.preferences.costume
           ? this.user.items.gear.costume.eyewear === newKey
           : this.user.items.gear.equipped.eyewear === newKey;
-        option.class = `eyewear_special_${key}`;
+        option.imageName = `eyewear_special_${key}`;
+        option.isGear = true;
         option.click = () => {
           const type = this.user.preferences.costume ? 'costume' : 'equipped';
 
@@ -180,7 +181,7 @@ export default {
     },
     headbands () {
       const keys = ['blackHeadband', 'blueHeadband', 'greenHeadband', 'pinkHeadband', 'redHeadband', 'whiteHeadband', 'yellowHeadband'];
-      const noneOption = this.createGearItem(0, 'headAccessory', 'base', 'headband');
+      const noneOption = this.createGearItem(0, 'headAccessory', 'base');
       noneOption.none = true;
       noneOption.text = this.$t('none');
       const options = [
@@ -188,7 +189,7 @@ export default {
       ];
 
       for (const key of keys) {
-        const option = this.createGearItem(key, 'headAccessory', 'special', 'headband');
+        const option = this.createGearItem(key, 'headAccessory', 'special');
         const newKey = `headAccessory_special_${key}`;
         option.click = () => {
           const type = this.user.preferences.costume ? 'costume' : 'equipped';
@@ -208,7 +209,7 @@ export default {
           option.none = true;
         }
         option.active = this.user.preferences.chair === key;
-        option.class = `button_chair_${key} chair ${key.includes('handleless_') ? 'handleless' : ''}`;
+        option.imageName = `chair_${key}`;
         option.click = () => this.set({ 'preferences.chair': key });
         option.text = appearance.chair[key].text();
         return option;
@@ -224,7 +225,9 @@ export default {
           option.none = true;
         }
         option.active = this.user.preferences.hair.flower === key;
-        option.class = `icon_hair_flower_${key} flower`;
+        if (key !== 0) {
+          option.imageName = `hair_flower_${key}`;
+        }
         option.click = () => this.set({ 'preferences.hair.flower': key });
         option.text = appearance.hair.flower[key].text();
         return option;
@@ -271,11 +274,12 @@ export default {
 
           if (category === 'back') {
             option.text = this.$t(`back${upperFirst(key)}Text`);
-            option.class = `icon_back_special_${option.key} back`;
+            option.imageName = `back_special_${option.key}`;
           } else {
             option.text = this.$t(`headAccessory${upperFirst(key)}Text`);
-            option.class = `headAccessory_special_${option.key} ${category}`;
+            option.imageName = `headAccessory_special_${option.key}`;
           }
+          option.isGear = true;
           option.click = () => {
             const type = this.user.preferences.costume ? 'costume' : 'equipped';
             return this.equip(newKey, type);
@@ -291,7 +295,7 @@ export default {
 
       return keys.join(',');
     },
-    createGearItem (key, gearType, subGearType, additionalClass) {
+    createGearItem (key, gearType, subGearType) {
       const newKey = `${gearType}_${subGearType ? `${subGearType}_` : ''}${key}`;
       const option = {};
       option.key = key;
@@ -299,6 +303,7 @@ export default {
       const currentlyEquippedValue = this.user.items.gear[visibleGearType][gearType];
 
       option.active = currentlyEquippedValue === newKey;
+      option.isGear = true;
 
       if (key === 0) {
         // if key is the "none" option check if a property
@@ -306,7 +311,7 @@ export default {
         option.active = option.active || !currentlyEquippedValue;
       }
 
-      option.class = `${newKey} ${additionalClass}`;
+      option.imageName = `${newKey}`;
       option.click = () => {
         const type = this.user.preferences.costume ? 'costume' : 'equipped';
         const currentlyEquipped = this.user.items.gear[type][gearType];
