@@ -18,7 +18,7 @@
       >
       <router-link to="/">
           <div
-          class="logo svg-icon svg color gryphon pl-2 mr-4"
+          class="logo svg-icon svg color gryphon pl-2 mr-3"
           v-html="icons.melior"
           ></div>
           <div class="svg-icon"></div>
@@ -349,12 +349,12 @@
           >
             <div
               v-b-tooltip.hover.bottom="$t('mysticHourglassesTooltip')"
-              class="top-menu-icon svg-icon hourglass"
+              class="top-menu-icon svg-icon hourglass mr-1"
               v-html="icons.hourglasses"
             ></div>
             <span>{{ userHourglasses }}</span>
           </div>
-          <div class="item-with-icon mr-4">
+          <div class="item-with-icon gem">
             <a
               v-b-tooltip.hover.bottom="$t('gems')"
               class="top-menu-icon svg-icon gem mr-2"
@@ -365,7 +365,7 @@
             ></a>
             <span>{{ userGems }}</span>
           </div>
-          <div class="item-with-icon gold mr-4">
+          <div class="item-with-icon gold ">
             <div
               v-b-tooltip.hover.bottom="$t('gold')"
               class="top-menu-icon svg-icon mr-2"
@@ -378,7 +378,7 @@
         <div class="form-inline desktop-only">
           <a
             v-b-tooltip.hover.bottom="$t('sync')"
-            class="item-with-icon ml-4"
+            class="item-with-icon"
             role="link"
             :aria-label="$t('sync')"
             tabindex="0"
@@ -520,8 +520,13 @@ body.modal-open #habitica-menu {
       font-weight: bold;
     }
 
-    &.gold, .gem {
-      margin-right: 24px;
+    &.gem {
+      margin-left: 12px;
+    }
+
+    &.gold {
+      margin-left: 12px;
+      margin-right: 36px;
     }
 
     &:focus ::v-deep .top-menu-icon.svg-icon,
@@ -737,7 +742,7 @@ body.modal-open #habitica-menu {
 
     .hg {
       margin-left: 24px;
-      margin-right: 24px;
+      margin-right: 12px;
     }
   }
 
