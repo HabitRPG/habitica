@@ -2,7 +2,7 @@
   <div class="quest-content">
     <div
       class="quest-image"
-      :class="'quest_' + item.key"
+      :class="item.purchaseType === 'bundles' ? `quest_bundle_${item.key}` : `quest_${item.key}`"
     ></div>
     <h3 class="text-center">
       {{ itemText }}
@@ -17,7 +17,7 @@
       <user-label :user="leader" />
     </div>
     <div
-      class="text"
+      class="mx-4"
       v-html="itemNotes"
     ></div>
     <questInfo
@@ -40,12 +40,6 @@
     margin: 0 auto;
     margin-bottom: 16px;
     margin-top: 24px;
-  }
-
-  .text {
-    margin: 16px 16px;
-    overflow-y: auto;
-    text-overflow: ellipsis;
   }
 
   .leader-label {

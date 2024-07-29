@@ -214,7 +214,7 @@
     "backgroundStormyRooftopsNotes": "Deslízate a través del Tempestuoso Techo.",
     "backgroundWindyAutumnText": "Otoño Ventoso",
     "backgroundWindyAutumnNotes": "Caza las hojas durante el Otoño Ventoso.",
-    "incentiveBackgrounds": "Conjunto de fondos lisos",
+    "incentiveBackgrounds": "Fondos Estándar",
     "backgroundVioletText": "violeta",
     "backgroundVioletNotes": "Un vibrante fondo violeta.",
     "backgroundBlueText": "Azul",
@@ -867,5 +867,13 @@
     "backgroundMaypoleText": "Palo de Mayo",
     "backgroundMaypoleNotes": "Baila alrededor de un divertido Palo de Mayo.",
     "backgroundPottersStudioText": "Taller de Alfarero",
-    "backgroundPottersStudioNotes": "Crea arte en el Taller de Alfarero."
+    "backgroundPottersStudioNotes": "Crea arte en el Taller de Alfarero.",
+    "backgrounds062024": "CONJUNTO 121: Publicado en Junio 2024",
+    "backgroundShellGateText": "Cancela de Concha",
+    "backgrounds072024": "CONJUNTO 122: Publicado en Julio 2024",
+    "backgroundShellGateNotes": "Pasa a través de la decoración coralina de la Cancela de Concha.",
+    "monthlyBackgrounds": "Fondos Mensuales",
+    "backgrounds082024": "CONJUNTO 123: Publicado en Agosto 2024",
+    "backgroundSavannaNotes": "Camina a través de estos Pastizales con Bruma.",
+    "backgroundSavannaText": "Pastizales con Bruma"
 }

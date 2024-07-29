@@ -85,7 +85,7 @@
     "allocatePerPop": "Pridať bod do Postrehu",
     "allocateInt": "Body pridelené do Inteligencie:",
     "allocateIntPop": "Pridať bod do Inteligencie",
-    "noMoreAllocate": "Teraz, keď si dosiahol/dosiahla level 100, už nebudeš dostávať žiadne Body . Môžeš pokračovať v levelovaní alebo začať nové dobrodružstvo na leveli 1, keď použiješ <a href='https://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Prstenec Znovuzrodenia</a>!",
+    "noMoreAllocate": "Teraz, keď si dosiahol/dosiahla level 100, už nebudeš dostávať žiadne Body . Môžeš pokračovať v levelovaní alebo začať nové dobrodružstvo na leveli 1, keď použiješ <a href='https://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Orb Znovuzrodenia</a>!",
     "stats": "Štatistiky",
     "achievs": "Odznaky",
     "strength": "Sila",
@@ -122,7 +122,7 @@
     "classAllocation": "Priradiť body na základe povolania",
     "classAllocationPop": "Priradí viac bodov k vlastnostiam dôležitým pre tvoje povolanie.",
     "taskAllocation": "Rozdeliť body na základe aktivity v úlohách",
-    "taskAllocationPop": "Priradí body na základe kategórií (Sila, Inteligencia, Obrana a Vnímanie) priradených k úlohám, ktoré dokončíš.",
+    "taskAllocationPop": "Priradí body na základe kategórií (Sila, Inteligencia, Odolnosť a Postreh) priradených k úlohám, ktoré dokončíš.",
     "distributePoints": "Rozdelenie nepridelených bodov",
     "distributePointsPop": "Priradí všetky nepriradené body v podľa zvoleného režimu prideľovania.",
     "warriorText": "Bojovníci ľahšie udelia \"kritický zásah\", ktorý náhodne dáva zlato, skúsenosti a zvyšuje šancu na získanie predmetov pri plnení úloh. Kritický zásah taktiež uštedrí silnú ranu boss monštrám. Hraj za bojovníka, ak ťa motivujú nepredvídateľné odmeny, ako keď vyhráš jackpot, alebo chceš naservírovať bossom riadne rany na výpravách!",
@@ -189,5 +189,10 @@
     "purchaseForGold": "Kúpiť za <%= cost %> zlata?",
     "chatCastSpellPartyTimes": "<%= username %> zoslal/a <%= spell %> na družinu <%= times %> krát.",
     "chatCastSpellUserTimes": "<%= username %> zoslal/a <%= spell %> na <%= target %> <%= times %> krát.",
-    "nextReward": "Ďalšia odmena za prihlásenie"
+    "nextReward": "Ďalšia odmena za prihlásenie",
+    "skins": "Vzhľady",
+    "titleFacialHair": "fúzy",
+    "titleHaircolor": "Farby vlasov",
+    "titleHairbase": "Účesy",
+    "customizations": "Úpravy"
 }

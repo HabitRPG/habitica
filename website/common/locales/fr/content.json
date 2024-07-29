@@ -211,7 +211,7 @@
     "hatchingPotionGlow": "phosphorescent",
     "hatchingPotionFrost": "du gel",
     "hatchingPotionIcySnow": "de neige verglacée",
-    "hatchingPotionNotes": "Versez-la sur un œuf et il en sortira un familier <%= potText(locale) %>.",
+    "hatchingPotionNotes": "Versez-la sur un œuf et il en sortira un Familier <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "N'est pas utilisable sur les œufs de quête. Disponible à l'achat jusqu'au <%= date(locale) %>.",
     "foodMeat": "Côtelette",
     "foodMeatThe": "la côtelette",
@@ -351,7 +351,7 @@
     "questEggRobotMountText": "Robot",
     "questEggRobotText": "Robot",
     "hatchingPotionShadow": "d'ombre",
-    "premiumPotionUnlimitedNotes": "Ne peut pas être utilisé sur des œufs de familiers de quête.",
+    "premiumPotionUnlimitedNotes": "Ne peut pas être utilisé sur des œufs de Familiers de Quête.",
     "hatchingPotionAmber": "d'ambre",
     "hatchingPotionAurora": "aurore",
     "hatchingPotionRuby": "rubis",
@@ -376,5 +376,14 @@
     "hatchingPotionPinkMarble": "bille rose",
     "hatchingPotionTeaShop": "Salon de thé",
     "hatchingPotionRoseGold": "Rose Dorée",
-    "hatchingPotionFungi": "Champignon"
+    "hatchingPotionFungi": "Champignon",
+    "questEggGiraffeMountText": "Girafe",
+    "questEggChameleonText": "Caméléon",
+    "questEggChameleonMountText": "Caméléon",
+    "questEggChameleonAdjective": "un chaos",
+    "hatchingPotionKoi": "Koï",
+    "questEggGiraffeText": "Girafe",
+    "questEggGiraffeAdjective": "un empilement",
+    "questEggCrabText": "Crabe",
+    "questEggCrabMountText": "Crabe"
 }

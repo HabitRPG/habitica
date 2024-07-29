@@ -13,10 +13,11 @@
           name="itemBadge"
           :item="item"
         ></slot>
-        <span
+        <Sprite
           class="item-content"
           :class="itemClass()"
-        ></span>
+          :image-name="imageName()"
+        />
       </div>
     </div>
     <b-popover
@@ -37,8 +38,12 @@
 import { v4 as uuid } from 'uuid';
 import { mapState } from '@/libs/store';
 import { isOwned } from '../../../libs/createAnimal';
+import Sprite from '@/components/ui/sprite';
 
 export default {
+  components: {
+    Sprite,
+  },
   props: {
     item: {
       type: Object,
@@ -70,7 +75,10 @@ export default {
       return isOwned('mount', this.item, this.userItems);
     },
     itemClass () {
-      return this.isOwned() ? `Mount_Icon_${this.item.key}` : 'PixelPaw GreyedOut';
+      return this.isOwned() ? '' : 'GreyedOut';
+    },
+    imageName () {
+      return this.isOwned() ? `stable_Mount_Icon_${this.item.key}` : 'PixelPaw';
     },
   },
 };

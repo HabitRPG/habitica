@@ -7,7 +7,7 @@
     "editATask": "Editar <%= type %>",
     "createTask": "Criar <%= type %>",
     "addTaskToUser": "Adicionar tarefa",
-    "scheduled": "Com data",
+    "scheduled": "Com Data",
     "theseAreYourTasks": "Essas são as suas <%= taskType %>",
     "habit": "Hábito",
     "habits": "Hábitos",

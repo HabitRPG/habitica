@@ -46,10 +46,10 @@
           </div>
           <div class="row">
             <div class="col-2">
-              <div
-                :class="currentMysterySet"
+              <Sprite
+                :image-name="currentMysterySet"
                 class="mt-n1"
-              ></div>
+              />
             </div>
             <div class="col-10">
               <h3> {{ $t('monthlyMysteryItems') }} </h3>
@@ -628,6 +628,7 @@ import paymentsMixin from '../../mixins/payments';
 import notificationsMixin from '../../mixins/notifications';
 
 import subscriptionOptions from './subscriptionOptions.vue';
+import Sprite from '@/components/ui/sprite';
 
 import amazonPayLogo from '@/assets/svg/amazonpay.svg';
 import applePayLogo from '@/assets/svg/apple-pay-logo.svg';
@@ -648,6 +649,7 @@ import subscriberHourglasses from '@/assets/svg/subscriber-hourglasses.svg';
 export default {
   components: {
     subscriptionOptions,
+    Sprite,
   },
   mixins: [paymentsMixin, notificationsMixin],
   data () {

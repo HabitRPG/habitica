@@ -2,12 +2,13 @@ import defaults from 'lodash/defaults';
 import find from 'lodash/find';
 import forEach from 'lodash/forEach';
 import moment from 'moment';
-import nconf from 'nconf';
 import upperFirst from 'lodash/upperFirst';
 import { ownsItem } from '../gear-helper';
 import { ATTRIBUTES } from '../../../constants';
 import t from '../../translation';
 import memoize from '../../../fns/datedMemoize';
+import { ARMOIRE_RELEASE_DATES as releaseDates } from '../../constants/releaseDates';
+import { buildReleaseDate } from '../../is_released';
 
 const armor = {
   lunarArmor: {
@@ -484,6 +485,14 @@ const armor = {
   blueStripedSwimsuit: {
     con: 13,
     set: 'beachsideSet',
+  },
+  corsairsCoatAndCape: {
+    con: 14,
+    set: 'corsairSet',
+  },
+  dragonKnightsArmor: {
+    str: 8,
+    set: 'dragonKnightSet',
   },
 };
 
@@ -993,6 +1002,14 @@ const head = {
   pottersBandana: {
     int: 8,
     set: 'pottersSet',
+  },
+  corsairsBandana: {
+    int: 7,
+    set: 'corsairSet',
+  },
+  dragonKnightsHelm: {
+    int: 8,
+    set: 'dragonKnightSet',
   },
 };
 
@@ -1831,21 +1848,17 @@ const weapon = {
     per: 12,
     set: 'beachsideSet',
   },
+  corsairsBlade: {
+    str: 7,
+    set: 'corsairSet',
+  },
+  dragonKnightsLance: {
+    con: 8,
+    set: 'dragonKnightSet',
+  },
 };
 
-const SWITCHOVER_TIME = nconf.get('CONTENT_SWITCHOVER_TIME_OFFSET') || 0;
 const releaseDay = 7;
-const releaseDates = {
-  somethingSpooky: { year: 2023, month: 10 },
-  cookingImplementsTwo: { year: 2023, month: 11 },
-  greenTrapper: { year: 2023, month: 12 },
-  schoolUniform: { year: 2024, month: 1 },
-  whiteLoungeWear: { year: 2024, month: 2 },
-  hatterSet: { year: 2024, month: 3 },
-  optimistSet: { year: 2024, month: 4 },
-  pottersSet: { year: 2024, month: 5 },
-  beachsideSet: { year: 2024, month: 6 },
-};
 
 forEach({
   armor,
@@ -1890,12 +1903,12 @@ forEach({
 
 function updateReleased (type) {
   const today = moment();
-  const releaseDateEndPart = `${String(releaseDay).padStart(2, '0')}T${String(SWITCHOVER_TIME).padStart(2, '0')}:00-0500`;
   const returnType = {};
   forEach(type, (gearItem, gearKey) => {
     let released;
     if (releaseDates[gearItem.set]) {
-      const releaseDateString = `${releaseDates[gearItem.set].year}-${String(releaseDates[gearItem.set].month).padStart(2, '0')}-${releaseDateEndPart}`;
+      const components = releaseDates[gearItem.set];
+      const releaseDateString = buildReleaseDate(components.year, components.month, releaseDay);
       released = today.isAfter(releaseDateString);
     } else {
       released = true;
@@ -1930,5 +1943,17 @@ export default {
   },
   get weapon () {
     return memoizedUpdatReleased({ identifier: 'weapon', memoizeConfig: true }, weapon);
+  },
+  // convenience method for tests mostly. Not used in the app
+  get all () {
+    const items = [];
+    items.push(...Object.values(this.armor));
+    items.push(...Object.values(this.body));
+    items.push(...Object.values(this.eyewear));
+    items.push(...Object.values(this.head));
+    items.push(...Object.values(this.headAccessory));
+    items.push(...Object.values(this.shield));
+    items.push(...Object.values(this.weapon));
+    return items;
   },
 };

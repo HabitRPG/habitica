@@ -33,6 +33,10 @@ const memoize = fn => {
           identifier = config.identifier;
         }
       }
+
+      if (identifier.length === 0) {
+        identifier = args.filter(arg => typeof arg === 'string').join('-');
+      }
     }
     if (!checkedDate) {
       checkedDate = new Date();

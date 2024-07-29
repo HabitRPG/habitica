@@ -586,8 +586,8 @@ import reduce from 'lodash/reduce';
 import moment from 'moment';
 
 import planGemLimits from '@/../../common/script/libs/planGemLimits';
-import { drops as dropEggs } from '@/../../common/script/content/eggs';
-import { drops as dropPotions } from '@/../../common/script/content/hatching-potions';
+import eggs from '@/../../common/script/content/eggs';
+import hatchingPotions from '@/../../common/script/content/hatching-potions';
 import { avatarEditorUtilities } from '@/mixins/avatarEditUtilities';
 import numberInvalid from '@/mixins/numberInvalid';
 import spellsMixin from '@/mixins/spells';
@@ -616,6 +616,9 @@ import EquipmentAttributesGrid from '../inventory/equipment/attributesGrid.vue';
 
 import Item from '@/components/inventory/item';
 import Avatar from '@/components/avatar';
+
+const dropEggs = eggs.drops;
+const dropPotions = hatchingPotions.drops;
 
 const dropEggKeys = keys(dropEggs);
 
@@ -711,6 +714,12 @@ export default {
     itemNotes () {
       if (this.item.notes instanceof Function) {
         return this.item.notes();
+      }
+      if (this.item.items) {
+        if (this.item.items[0].notes instanceof Function) {
+          return this.item.items[0].notes();
+        }
+        return this.item.items[0].notes;
       }
       return this.item.notes;
     },

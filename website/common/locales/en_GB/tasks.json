@@ -135,5 +135,15 @@
     "pressEnterToAddTag": "Press Enter to add tag: '<%= tagName %>'",
     "enterTag": "Enter a tag",
     "addTags": "Add tags...",
-    "tomorrow": "Tomorrow"
+    "tomorrow": "Tomorrow",
+    "counter": "Counter",
+    "taskSummary": "<%= type %> Summary",
+    "adjustCounter": "Adjust Counter",
+    "resetCounter": "Reset Counter",
+    "editTagsText": "Edit Tags",
+    "taskAlias": "Task Alias",
+    "taskAliasPopover": "This task alias can be used when integrating with 3rd party integrations. Only dashes, underscores, and alphanumeric characters are supported. The task alias must be unique among all your tasks.",
+    "taskAliasPlaceholder": "your-task-alias-here",
+    "scoreUp": "Score up",
+    "scoreDown": "Score down"
 }

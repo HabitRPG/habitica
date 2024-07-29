@@ -233,6 +233,17 @@ describe('shared.ops.purchase', () => {
       expect(user.items.hatchingPotions[key]).to.eql(1);
     });
 
+    it('purchases event hatching potion', async () => {
+      clock.restore();
+      clock = sandbox.useFakeTimers(moment('2022-04-10').valueOf());
+      const type = 'hatchingPotions';
+      const key = 'Veggie';
+
+      await purchase(user, { params: { type, key } });
+
+      expect(user.items.hatchingPotions[key]).to.eql(1);
+    });
+
     it('purchases hatching potion if user completed quest', async () => {
       const type = 'hatchingPotions';
       const key = 'Bronze';

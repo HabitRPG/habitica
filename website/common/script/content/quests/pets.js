@@ -232,6 +232,38 @@ const QUEST_PETS = {
       unlock: t('questButterflyUnlockText'),
     },
   },
+  chameleon: {
+    text: t('questChameleonText'),
+    notes: t('questChameleonNotes'),
+    completion: t('questChameleonCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questChameleonBoss'),
+      hp: 400,
+      str: 1.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Chameleon',
+          text: t('questChameleonDropChameleonEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Chameleon',
+          text: t('questChameleonDropChameleonEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Chameleon',
+          text: t('questChameleonDropChameleonEgg'),
+        },
+      ],
+      gp: 35,
+      exp: 250,
+      unlock: t('questChameleonUnlockText'),
+    },
+  },
   cheetah: {
     text: t('questCheetahText'),
     notes: t('questCheetahNotes'),
@@ -294,6 +326,44 @@ const QUEST_PETS = {
       gp: 31,
       exp: 200,
       unlock: t('questCowUnlockText'),
+    },
+  },
+  crab: {
+    text: t('questCrabText'),
+    notes: t('questCrabNotes'),
+    completion: t('questCrabCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questCrabBoss'),
+      hp: 1200,
+      str: 2.5,
+      rage: {
+        title: t('questCrabRageTitle'),
+        description: t('questCrabRageDescription'),
+        value: 50,
+        mpDrain: 0.33,
+        effect: t('questCrabRageEffect'),
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Crab',
+          text: t('questCrabDropCrabEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Crab',
+          text: t('questCrabDropCrabEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Crab',
+          text: t('questCrabDropCrabEgg'),
+        },
+      ],
+      gp: 90,
+      exp: 900,
     },
   },
   dilatory_derby: { // eslint-disable-line camelcase
