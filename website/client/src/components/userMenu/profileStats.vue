@@ -18,9 +18,9 @@
               v-if="label !== 'skip'"
               :id="key"
               class="gear box"
-              :class="{white: equippedItems[key] && equippedItems[key].indexOf('base_0') === -1}"
+              :class="{white: isUsed(equippedItems, key)}"
             >
-              <div :class="`shop_${equippedItems[key]}`"></div>
+              <Sprite v-if="isUsed(equippedItems, key)" :image-name="`shop_${equippedItems[key]}`"/>
             </div>
             <b-popover
               v-if="label !== 'skip'
@@ -64,9 +64,9 @@
               v-if="label !== 'skip'"
               :id="key + 'C'"
               class="gear box"
-              :class="{white: costumeItems[key] && costumeItems[key].indexOf('base_0') === -1}"
+              :class="{white: isUsed(costumeItems, key)}"
             >
-              <div :class="`shop_${costumeItems[key]}`"></div>
+            <Sprite v-if="isUsed(costumeItems, key)" :image-name="`shop_${costumeItems[key]}`"/>
             </div>
             <!-- Show background on 8th tile rather than a piece of equipment.-->
             <div
@@ -75,7 +75,7 @@
               :class="{white: user.preferences.background}"
               style="overflow:hidden"
             >
-              <div :class="'icon_background_' + user.preferences.background"></div>
+              <Sprite :image-name="'icon_background_' + user.preferences.background" />
             </div>
             <b-popover
               v-if="label !== 'skip'
@@ -124,10 +124,10 @@
               class="box"
               :class="{white: user.items.currentPet}"
             >
-              <div
-                class="Pet"
-                :class="`Pet-${user.items.currentPet}`"
-              ></div>
+              <Sprite
+                :image-name="user.items.currentPet ?
+                  `stable_Pet-${user.items.currentPet}` : ''"
+              />
             </div>
           </div>
           <div class="pet-mount-well-text">
@@ -156,10 +156,10 @@
               class="box"
               :class="{white: user.items.currentMount}"
             >
-              <div
-                class="mount"
-                :class="`Mount_Icon_${user.items.currentMount}`"
-              ></div>
+              <Sprite
+                :image-name="user.items.currentMount ?
+                  `stable_Mount_Icon_${user.items.currentMount}` : ''"
+              />
             </div>
           </div>
           <div class="pet-mount-well-text">
@@ -330,6 +330,7 @@ import statsComputed from '@/../../common/script/libs/statsComputed';
 import { mapState } from '@/libs/store';
 import attributesGrid from '@/components/inventory/equipment/attributesGrid';
 import toggleSwitch from '@/components/ui/toggleSwitch';
+import Sprite from '@/components/ui/sprite';
 
 const DROP_ANIMALS = keys(Content.pets);
 const TOTAL_NUMBER_OF_DROP_ANIMALS = DROP_ANIMALS.length;
@@ -337,6 +338,7 @@ export default {
   components: {
     toggleSwitch,
     attributesGrid,
+    Sprite,
   },
   props: ['user', 'showAllocation'],
   data () {
@@ -417,6 +419,9 @@ export default {
 
   },
   methods: {
+    isUsed (items, key) {
+      return items[key] && items[key].indexOf('base_0') === -1;
+    },
     getGearTitle (key) {
       return this.flatGear[key].text();
     },

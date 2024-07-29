@@ -42,10 +42,41 @@ function cssVarMap (sprite) {
   }
 }
 
-function createSpritesStream (name, src) {
+function filterFile (file) {
+  if (file.relative.indexOf('Mount_Icon_') !== -1) {
+    return false;
+  }
+  if (file.path.indexOf('shop/') !== -1) {
+    return false;
+  }
+  if (file.path.indexOf('stable/eggs') !== -1) {
+    return false;
+  }
+  if (file.path.indexOf('stable/food') !== -1) {
+    return false;
+  }
+  if (file.path.indexOf('stable/potions') !== -1) {
+    return false;
+  }
+  if (file.relative.indexOf('shop_') === 0) {
+    return false;
+  }
+  if (file.relative.indexOf('icon_background') === 0) {
+    return false;
+  }
+  return true;
+}
+
+async function createSpritesStream (name, src) {
   const stream = mergeStream();
+  // need to import this way bc of weird dependency things
+  // eslint-disable-next-line global-require
+  const filter = require('gulp-filter');
+
+  const f = filter(filterFile);
 
   const spriteData = gulp.src(src)
+    .pipe(f)
     .pipe(spritesmith({
       imgName: `spritesmith-${name}.png`,
       cssName: `spritesmith-${name}.css`,
@@ -63,7 +94,7 @@ function createSpritesStream (name, src) {
   return stream;
 }
 
-gulp.task('sprites:main', () => {
+gulp.task('sprites:main', async () => {
   const mainSrc = sync('habitica-images/**/*.png');
   return createSpritesStream('main', mainSrc);
 });
