@@ -92,13 +92,13 @@
               <tr>
               <td class="internal-border">
                 <p class="subhead">B. Categories of Third Parties Data Is Disclosed to:</p>
-                  <p>Analytics Partners (such as analytics companies); Social Media Platforms; Business Partners; Technology Systems Service Providers (such as webhosts, database hosts, cloud computing providers, software-as-a-service providers, and technology maintenance and repair vendors); Security Vendors; Communications Service Providers (such as email delivery and direct mail vendors); Customer Service Providers;  Government Agencies and Law Enforcement/Where Required by Law (including third parties in connection with a court or other legal proceeding);  Third Parties in connection with court or other legal actions;  Third Parties in connection with business transitions; Third Parties to whom you agree or direct us to share your data; Other Service Providers who use your data solely to provide services to us or to you</p>
+                  <p>Analytics Partners (such as analytics companies); Social Media Platforms; Business Partners; Technology Systems Service Providers (such as webhosts, database hosts, cloud computing providers, software-as-a-service providers, and technology maintenance and repair vendors); Security Vendors; Communications Service Providers (such as email delivery and direct mail vendors); Customer Service Providers;  Government Agencies and Law Enforcement/Where Required by Law (including third parties in connection with a court or other legal proceeding);  Third Parties in connection with court or other legal actions;  Third Parties in connection with business transitions; Third Parties to whom you agree or direct us to share your data; Other Service Providers who use your data solely to provide services to us or to you.</p>
               </td>
             </tr>
             <tr>
               <td>
                 <p class="subhead">C. Categories of Third Parties Data is Sold/Shared for Targeted Advertising to:</p>
-                <p><strong>Analytics Partners</strong></p>
+                <p><strong>Analytics Partners.</strong></p>
               </td>
             </tr>
             <tr>
@@ -136,7 +136,7 @@
             <tr>
               <td class="internal-border">
                 <p class="subhead">B. Categories of Third Parties Data Is Disclosed to:</p>
-                <p><strong>Social Media Platforms and Other Third Party Platforms; Third Party Business Partners; Order Fulfillment Vendors</strong> (such as payment processors); <strong>Technology Systems Service Providers</strong> (such as webhosts, database hosts, cloud computing providers, software-as-a-service providers, and technology maintenance and repair vendors); <strong>Security Vendors; Customer Service Providers; Government Agencies and Law Enforcement/Where Required by Law</strong> (including third parties in connection with a court or other legal proceeding); <strong>Third Parties in connection with court or other legal actions;  Third Parties in connection with business transitions; Third Parties to whom you agree or direct us to share your data; Other Service Providers who use your data solely to provide services to us or to you</strong></p>
+                <p><strong>Social Media Platforms and Other Third Party Platforms; Third Party Business Partners; Order Fulfillment Vendors</strong> (such as payment processors); <strong>Technology Systems Service Providers</strong> (such as webhosts, database hosts, cloud computing providers, software-as-a-service providers, and technology maintenance and repair vendors); <strong>Security Vendors; Customer Service Providers; Government Agencies and Law Enforcement/Where Required by Law</strong> (including third parties in connection with a court or other legal proceeding); <strong>Third Parties in connection with court or other legal actions;  Third Parties in connection with business transitions; Third Parties to whom you agree or direct us to share your data; Other Service Providers who use your data solely to provide services to us or to you.</strong></p>
               </td>
             </tr>
             <tr>
@@ -157,13 +157,13 @@
             <tr>
               <td class="internal-border">
                 <p class="subhead">B. Categories of Third Parties Data Is Disclosed to:</p>
-                <p><strong>Analytics Partners; Social Media Platforms and Other Third Party Platforms;  Third Party Business Partners; Order Fulfillment Vendors</strong> (such as payment processors, fulfillment centers, delivery services, order tracking vendors); <strong>Technology Systems Service Providers</strong> (such as webhosts, database hosts, cloud computing providers, software-as-a-service providers, and technology maintenance and repair vendors); <strong>Security Vendors; Communications Service Providers; Customer Service Providers;  Government Agencies and Law Enforcement/Where Required by Law</strong> (including third parties in connection with a court or other legal proceeding); <strong>Third Parties in connection with court or other legal actions; Third Parties in connection with business transitions; Third Parties to whom you agree or direct us to share your data;  Other Service Providers who use your data solely to provide services to us or to you</strong></p>
+                <p><strong>Analytics Partners; Social Media Platforms and Other Third Party Platforms;  Third Party Business Partners; Order Fulfillment Vendors</strong> (such as payment processors, fulfillment centers, delivery services, order tracking vendors); <strong>Technology Systems Service Providers</strong> (such as webhosts, database hosts, cloud computing providers, software-as-a-service providers, and technology maintenance and repair vendors); <strong>Security Vendors; Communications Service Providers; Customer Service Providers;  Government Agencies and Law Enforcement/Where Required by Law</strong> (including third parties in connection with a court or other legal proceeding); <strong>Third Parties in connection with court or other legal actions; Third Parties in connection with business transitions; Third Parties to whom you agree or direct us to share your data;  Other Service Providers who use your data solely to provide services to us or to you.</strong></p>
               </td>
             </tr>
             <tr>
               <td class="internal-border">
                 <p class="subhead">C. Categories of Third Parties Data is Sold/Shared for Targeted Advertising to:</p>
-                <p><strong>Analytics Partners</strong></p>
+                <p><strong>Analytics Partners.</strong></p>
               </td>
             </tr>
             <tr>
@@ -178,7 +178,7 @@
             <tr>
               <td class="internal-border">
                 <p class="subhead">B. Categories of Third Parties Data Is Disclosed to:</p>
-                <p><strong>Order Fulfillment Vendors</strong> (such as payment processors, fulfillment centers, delivery services, order tracking vendors); <strong>Technology Systems Service Providers</strong> (such as webhosts, database hosts, cloud computing providers, software-as-a-service providers, and technology maintenance and repair vendors); <strong>Security Vendors; Communications Service Providers; Customer Service Providers;  Government Agencies and Law Enforcement/Where Required by Law</strong> (including third parties in connection with a court or other legal proceeding); <strong>Third Parties in connection with court or other legal actions; Third Parties in connection with business transitions; Third Parties to whom you agree or direct us to share your data; Other Service Providers who use your data solely to provide services to us or to you</strong></p>
+                <p><strong>Order Fulfillment Vendors</strong> (such as payment processors, fulfillment centers, delivery services, order tracking vendors); <strong>Technology Systems Service Providers</strong> (such as webhosts, database hosts, cloud computing providers, software-as-a-service providers, and technology maintenance and repair vendors); <strong>Security Vendors; Communications Service Providers; Customer Service Providers;  Government Agencies and Law Enforcement/Where Required by Law</strong> (including third parties in connection with a court or other legal proceeding); <strong>Third Parties in connection with court or other legal actions; Third Parties in connection with business transitions; Third Parties to whom you agree or direct us to share your data; Other Service Providers who use your data solely to provide services to us or to you.</strong></p>
               </td>
             </tr>
             <tr>
@@ -199,13 +199,13 @@
             <tr>
               <td class="internal-border">
                 <p class="subhead">B. Categories of Third Parties Data Is Disclosed to:</p>
-                <p><strong>Social Media Platforms and Other Third Party Platforms; Third Party Business Partners;  Technology Systems Service Providers</strong> (such as webhosts, database hosts, cloud computing providers, software-as-a-service providers, and technology maintenance and repair vendors); <strong>Security Vendors; Communications Service Providers; Customer Service Providers;  Government Agencies and Law Enforcement/Where Required by Law</strong> (including third parties in connection with a court or other legal proceeding); <strong>Third Parties in connection with court or other legal actions; Third Parties in connection with business transitions; Third Parties to whom you agree or direct us to share your data;  Other Service Providers who use your data solely to provide services to us or to you</strong></p>
+                <p><strong>Social Media Platforms and Other Third Party Platforms; Third Party Business Partners;  Technology Systems Service Providers</strong> (such as webhosts, database hosts, cloud computing providers, software-as-a-service providers, and technology maintenance and repair vendors); <strong>Security Vendors; Communications Service Providers; Customer Service Providers;  Government Agencies and Law Enforcement/Where Required by Law</strong> (including third parties in connection with a court or other legal proceeding); <strong>Third Parties in connection with court or other legal actions; Third Parties in connection with business transitions; Third Parties to whom you agree or direct us to share your data;  Other Service Providers who use your data solely to provide services to us or to you.</strong></p>
               </td>
             </tr>
             <tr>
               <td class="internal-border">
                 <p class="subhead">C. Categories of Third Parties Data is Sold/Shared for Targeted Advertising to:</p>
-                <p>This category of data is not sold or shared for targeted advertising</p>
+                <p>This category of data is not sold or shared for targeted advertising.</p>
               </td>
             </tr>
             <tr>
@@ -220,13 +220,13 @@
             <tr>
               <td class="internal-border">
                 <p class="subhead">B. Categories of Third Parties Data Is Disclosed to:</p>
-                <p><strong>Third Party Business Partners; Technology Systems Service Providers</strong> (such as webhosts, database hosts, cloud computing providers, software-as-a-service providers, and technology maintenance and repair vendors); <strong>Security Vendors; Communications Service Providers; Customer Service Providers; Government Agencies and Law Enforcement/Where Required by Law</strong> (including third parties in connection with a court or other legal proceeding); <strong>Third Parties in connection with court or other legal actions; Third Parties in connection with business transitions; Third Parties to whom you agree or direct us to share your data; Other Service Providers who use your data solely to provide services to us or to you</strong></p>
+                <p><strong>Third Party Business Partners; Technology Systems Service Providers</strong> (such as webhosts, database hosts, cloud computing providers, software-as-a-service providers, and technology maintenance and repair vendors); <strong>Security Vendors; Communications Service Providers; Customer Service Providers; Government Agencies and Law Enforcement/Where Required by Law</strong> (including third parties in connection with a court or other legal proceeding); <strong>Third Parties in connection with court or other legal actions; Third Parties in connection with business transitions; Third Parties to whom you agree or direct us to share your data; Other Service Providers who use your data solely to provide services to us or to you.</strong></p>
               </td>
             </tr>
             <tr>
               <td class="internal-border">
                 <p class="subhead">C. Categories of Third Parties Data is Sold/Shared for Targeted Advertising to:</p>
-                <p>This category of data is not sold or shared for targeted advertising</p>
+                <p>This category of data is not sold or shared for targeted advertising.</p>
               </td>
             </tr>
           </table>
@@ -385,7 +385,7 @@
             <li>supporting internal administration;</li>
             <li>improving and developing the Services; and</li>
             <li>conducting data analytics analyses to review and better understand consumer interaction.</li>
-          </ul><br>
+          </ul>
           <p><strong>Right to lodge a complaint: </strong>Users that reside in the UK, EEA, or Switzerland have the right to seek information and assistance or lodge a complaint about our data collection and processing actions with the supervisory authority where they reside. Contact details for data protection authorities are available here. UK: <a href="https://ico.org.uk/">https://ico.org.uk/</a>, EEA: <a href="https://edpb.europa.eu/about-edpb/board/members_en">https://edpb.europa.eu/about-edpb/board/members_en</a> Switzerland: <a href="https://www.edoeb.admin.ch/edoeb/en/home/deredoeb/kontakt.html">//www.edoeb.admin.ch/edoeb/en/home/deredoeb/kontakt.html</a>.</p>
           <p><strong>Transfers:</strong> Personal information we collect may be transferred to, and stored and processed in, the United States or any other country in which we or our affiliates or subcontractors maintain facilities. Transfers of personal data to a third country without an adequacy decision (as that term is understood pursuant to Article 45 of GDPR) are required to be subject to appropriate safeguards such as standard contractual clauses.  In certain cases, we rely on your consent to facilitate transfer, processing, and storage of your data in the United States and other jurisdictions, where laws regarding processing of personal information may be less stringent than the laws in the EEA, UK, and Switzerland.</p>
           <p><strong>Withdraw consent: </strong>If we have collected personal information with your consent, you have the right to withdraw that consent at any time.</p>
