@@ -3,7 +3,7 @@
   <div class="container-fluid">
     <h1>HabitRPG Privacy Policy</h1>
     <p class="strong pagemeta">
-      Last Updated June 20, 2024.
+      Last Updated July 30, 2024.
     </p>
     <p>
       This Privacy Policy applies when you interact with us through Habitica.com and any other feature or service owned or controlled by HabitRPG, Inc. (“HabitRPG”, “we,” or “us”) that posts or includes a valid link to this Privacy Policy (collectively, the “Service(s)”). This Privacy Policy informs you of our practices regarding the collection, use, and disclosure of personal information we receive from users of our Services. By accessing or using the Services, you consent to our Privacy Policy and our collection, use, and sharing of your information as described in this policy, our <a href="https://habitica.com/static/terms">Terms of Use</a>, and any additional policies and terms you may agree to in connection with the Services.

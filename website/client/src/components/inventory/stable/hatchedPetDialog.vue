@@ -20,7 +20,7 @@
       </div>
       <div class="inner-content">
         <div class="pet-background d-flex align-items-center">
-          <div :class="pet.class"></div>
+          <Sprite :image-name="pet.imageName" />
         </div>
         <h4 class="title">
           {{ pet.name }}
@@ -76,10 +76,11 @@
       height: 112px;
       border-radius: 4px;
       background-color: $gray-700;
-    }
 
-    .Pet {
-      margin: auto;
+      img {
+        transform: scale(1.5);
+        margin: auto;
+      }
     }
 
     .dialog-header {
@@ -103,8 +104,12 @@
 <script>
 import markdownDirective from '@/directives/markdown';
 import svgClose from '@/assets/svg/close.svg';
+import Sprite from '@/components/ui/sprite';
 
 export default {
+  components: {
+    Sprite,
+  },
   directives: {
     markdown: markdownDirective,
   },

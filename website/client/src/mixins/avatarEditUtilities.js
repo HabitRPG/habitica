@@ -32,7 +32,7 @@ export const avatarEditorUtilities = { // eslint-disable-line import/prefer-defa
       option.key = key;
       option.pathKey = pathKey;
       option.active = userPreference === key;
-      option.class = this.createClass(type, subType, key);
+      option.imageName = this.createImageName(type, subType, key);
       option.click = optionParam => (option.gemLocked ? this.unlock(`${optionParam.pathKey}.${key}`) : this.set({ [`preferences.${optionParam.pathKey}`]: optionParam.key }));
       option.text = subType ? appearances[type][subType][key].text()
         : appearances[type][key].text();
@@ -60,8 +60,8 @@ export const avatarEditorUtilities = { // eslint-disable-line import/prefer-defa
 
       return option;
     },
-    createClass (type, subType, key) {
-      let str = `${type} ${subType} `;
+    createImageName (type, subType, key) {
+      let str = '';
 
       switch (type) {
         case 'shirt': {
@@ -74,14 +74,14 @@ export const avatarEditorUtilities = { // eslint-disable-line import/prefer-defa
         }
         case 'hair': {
           if (subType === 'color') {
-            str += `icon_hair_bangs_${this.user.preferences.hair.bangs || 1}_${key}`;
+            str += `color_hair_bangs_${this.user.preferences.hair.bangs || 1}_${key}`;
           } else {
-            str += `icon_hair_${subType}_${key}_${this.user.preferences.hair.color}`;
+            str += `hair_${subType}_${key}_${this.user.preferences.hair.color}`;
           }
           break;
         }
         case 'skin': {
-          str += `skin skin_${key}`;
+          str += `skin_${key}`;
           break;
         }
         default: {
