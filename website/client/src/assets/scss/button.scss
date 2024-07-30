@@ -176,11 +176,11 @@
 
 .btn-warning {
   background: $orange-10;
-  border: 1px solid transparent;
+  color: $white;
 
   &:hover:not(:disabled):not(.disabled) {
     background: $orange-100;
-    border: 1px solid transparent;
+    color: $white;
   }
 
   &:focus {
@@ -195,7 +195,6 @@
 
   &:not(:disabled):not(.disabled):active, &:not(:disabled):not(.disabled).active {
     background: $orange-10;
-    border: 1px solid transparent;
   }
 }
 

@@ -308,10 +308,12 @@
         >-30 Days</a>
         <div class="my-2">
           Time Traveling! It is {{ new Date().toLocaleDateString() }}
-          <a
+          <button
             class="btn btn-warning mr-1"
             @click="resetTime()"
-          >Reset</a>
+          >
+            Reset
+          </button>
         </div>
         <a
           class="btn btn-secondary mr-1"
