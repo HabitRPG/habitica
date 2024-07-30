@@ -18,7 +18,7 @@
       >
       <router-link to="/">
           <div
-          class="logo svg-icon svg color gryphon"
+          class="logo svg-icon svg color gryphon pl-2 mr-3"
           v-html="icons.melior"
           ></div>
           <div class="svg-icon"></div>
@@ -345,19 +345,19 @@
         <div class="currency-tray form-inline">
           <div
             v-if="userHourglasses > 0"
-            class="item-with-icon"
+            class="item-with-icon hg"
           >
             <div
               v-b-tooltip.hover.bottom="$t('mysticHourglassesTooltip')"
-              class="top-menu-icon svg-icon"
+              class="top-menu-icon svg-icon hourglass mr-1"
               v-html="icons.hourglasses"
             ></div>
             <span>{{ userHourglasses }}</span>
           </div>
-          <div class="item-with-icon">
+          <div class="item-with-icon gem">
             <a
               v-b-tooltip.hover.bottom="$t('gems')"
-              class="top-menu-icon svg-icon gem"
+              class="top-menu-icon svg-icon gem mr-2"
               :aria-label="$t('gems')"
               href="#buy-gems"
               @click.prevent="showBuyGemsModal()"
@@ -365,10 +365,10 @@
             ></a>
             <span>{{ userGems }}</span>
           </div>
-          <div class="item-with-icon gold">
+          <div class="item-with-icon gold ">
             <div
               v-b-tooltip.hover.bottom="$t('gold')"
-              class="top-menu-icon svg-icon"
+              class="top-menu-icon svg-icon mr-2"
               :aria-label="$t('gold')"
               v-html="icons.gold"
             ></div>
@@ -409,6 +409,184 @@ body.modal-open #habitica-menu {
   @import '~@/assets/scss/utils.scss';
   @import '~@/assets/scss/variables.scss';
 
+  .menu-toggle {
+    border: none;
+  }
+
+  #menu_collapse {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .topbar {
+    z-index: 1080;
+    background: $purple-100 url(~@/assets/svg/for-css/bits.svg) right top no-repeat;
+    min-height: 56px;
+    box-shadow: 0 1px 2px 0 rgba($black, 0.24);
+
+    a {
+      color: white !important;
+    }
+  }
+
+  .logo {
+    color: $white;
+    height: 32px;
+    object-fit: contain;
+    width: 32px;
+  }
+
+  .quick-menu {
+    display: flex;
+    margin-left: auto;
+  }
+
+  .currency-tray {
+    display: flex;
+  }
+
+  .topbar-item {
+    font-size: 16px;
+    color: $white !important;
+    font-weight: bold;
+    transition: none;
+
+    .topbar-dropdown  {
+        overflow: hidden;
+        max-height: 0;
+
+        .topbar-dropdown-item {
+          line-height: 1.5;
+          font-size: 16px;
+        }
+    }
+
+    >a {
+      padding: .8em 1em !important;
+    }
+
+    &.down {
+      color: $white !important;
+      background: $purple-200;
+
+      .topbar-dropdown {
+        margin-top: 0; // Remove gap between navbar and drop-down.
+        background: $purple-200;
+        border-radius: 0px;
+        border: none;
+        box-shadow: none;
+        padding: 0px;
+
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 5px;
+
+        .topbar-dropdown-item {
+          font-size: 16px;
+          box-shadow: none;
+          color: $white;
+          border: none;
+          line-height: 1.5;
+          display: list-item;
+
+          &.active {
+            background: $purple-300;
+          }
+
+          &:hover {
+            background: $purple-300;
+            text-decoration: none;
+
+            &:last-child {
+              border-bottom-right-radius: 5px;
+              border-bottom-left-radius: 5px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .dropdown + .dropdown {
+    margin-left: 0px;
+  }
+
+  .item-with-icon {
+    color: $white;
+    font-size: 16px;
+    font-weight: normal;
+    white-space: nowrap;
+
+    span {
+      font-weight: bold;
+    }
+
+    &.gem {
+      margin-left: 12px;
+    }
+
+    &.gold {
+      margin-left: 12px;
+      margin-right: 36px;
+    }
+
+    &:focus ::v-deep .top-menu-icon.svg-icon,
+    &:hover ::v-deep .top-menu-icon.svg-icon {
+      color: $white;
+    }
+
+    & ::v-deep .top-menu-icon.svg-icon {
+      color: $header-color;
+      vertical-align: bottom;
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      margin-right: 12px;
+      margin-left: 12px;
+    }
+  }
+
+  a.item-with-icon:focus {
+    outline: none;
+  }
+
+  .hourglass {
+    margin-right: 4px;
+  }
+
+  @keyframes rotateGemColors {
+    /* Gems are green by default, so we rotate through ROYGBIV starting with green. */
+    20% {
+      fill: #46A7D9; /* Blue */
+    }
+    40% {
+      fill: #925CF3; /* Purple */
+    }
+    60% {
+      fill: #DE3F3F; /* Red */
+    }
+    80% {
+      fill: #FA8537; /* Orange */
+    }
+    100% {
+      fill: #FFB445; /* Yellow */
+    }
+  }
+
+  .gem:hover {
+    cursor: pointer;
+
+    & ::v-deep path:nth-child(1) {
+      animation: rotateGemColors 3s linear infinite alternate;
+    }
+  }
+
+  .message-count.top-count {
+    background-color: $red-50;
+    position: absolute;
+    right: 0;
+    top: -0.5em;
+    padding: .2em;
+  }
   @media only screen and (max-width: 1200px) {
     .chevron {
       display: none
@@ -416,12 +594,13 @@ body.modal-open #habitica-menu {
 
     .gryphon {
       background-size: cover;
-      height: 32px;
       color: $white;
+      height: 32px;
       margin: 0 auto;
-      width: 32px;
       top: -10px;
+      padding-left: 8px;
       position: relative;
+      width: 32px;
     }
 
     .logo {
@@ -545,193 +724,28 @@ body.modal-open #habitica-menu {
     .desktop-only {
       display: none !important;
     }
-  }
 
-  .menu-toggle {
-    border: none;
-  }
-
-  #menu_collapse {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .topbar {
-    z-index: 1080;
-    background: $purple-100 url(~@/assets/svg/for-css/bits.svg) right top no-repeat;
-    min-height: 56px;
-    box-shadow: 0 1px 2px 0 rgba($black, 0.24);
-
-    a {
-      color: white !important;
-    }
-  }
-
-  .logo {
-    color: $white;
-    height: 32px;
-    object-fit: contain;
-    width: 32px;
-  }
-
-  .quick-menu {
-    display: flex;
-    margin-left: auto;
-  }
-
-  .currency-tray {
-    display: flex;
-  }
-
-  .topbar-item {
-    font-size: 16px;
-    color: $white !important;
-    font-weight: bold;
-    transition: none;
-
-    .topbar-dropdown  {
-        overflow: hidden;
-        max-height: 0;
-
-        .topbar-dropdown-item {
-          line-height: 1.5;
-          font-size: 16px;
-        }
+    .navbar-toggler {
+      padding-left: 8px;
+      padding-right: 8px;
     }
 
-    >a {
-      padding: .8em 1em !important;
-    }
+    .item-with-icon {
+      margin-left: 0px;
+      margin-right: 16px;
 
-    &.down {
-      color: $white !important;
-      background: $purple-200;
-
-      .topbar-dropdown {
-        margin-top: 0; // Remove gap between navbar and drop-down.
-        background: $purple-200;
-        border-radius: 0px;
-        border: none;
-        box-shadow: none;
-        padding: 0px;
-
-        border-bottom-right-radius: 5px;
-        border-bottom-left-radius: 5px;
-
-        .topbar-dropdown-item {
-          font-size: 16px;
-          box-shadow: none;
-          color: $white;
-          border: none;
-          line-height: 1.5;
-          display: list-item;
-
-          &.active {
-            background: $purple-300;
-          }
-
-          &:hover {
-            background: $purple-300;
-            text-decoration: none;
-
-            &:last-child {
-              border-bottom-right-radius: 5px;
-              border-bottom-left-radius: 5px;
-            }
-          }
-        }
+      & ::v-deep .top-menu-icon.svg-icon {
+      margin-right: 0px;
+      margin-left: 0px;
       }
     }
-  }
 
-  .dropdown + .dropdown {
-    margin-left: 0px;
-  }
-
-  .item-with-icon {
-    color: $white;
-    font-size: 16px;
-    font-weight: normal;
-    white-space: nowrap;
-
-    span {
-      font-weight: bold;
-    }
-
-    &.gold {
-      margin-right: 24px;
-    }
-
-    &:focus ::v-deep .top-menu-icon.svg-icon,
-    &:hover ::v-deep .top-menu-icon.svg-icon {
-      color: $white;
-    }
-
-    & ::v-deep .top-menu-icon.svg-icon {
-      color: $header-color;
-      vertical-align: bottom;
-      display: inline-block;
-      width: 24px;
-      height: 24px;
+    .hg {
+      margin-left: 24px;
       margin-right: 12px;
-      margin-left: 12px;
     }
   }
 
-  a.item-with-icon:focus {
-    outline: none;
-  }
-
-  .menu-icon {
-    margin-left: 24px;
-  }
-
-  @keyframes rotateGemColors {
-    /* Gems are green by default, so we rotate through ROYGBIV starting with green. */
-    20% {
-      fill: #46A7D9; /* Blue */
-    }
-    40% {
-      fill: #925CF3; /* Purple */
-    }
-    60% {
-      fill: #DE3F3F; /* Red */
-    }
-    80% {
-      fill: #FA8537; /* Orange */
-    }
-    100% {
-      fill: #FFB445; /* Yellow */
-    }
-  }
-
-  .gem:hover {
-    cursor: pointer;
-
-    & ::v-deep path:nth-child(1) {
-      animation: rotateGemColors 3s linear infinite alternate;
-    }
-  }
-
-  .message-count {
-    background-color: $blue-50;
-    border-radius: 50%;
-    height: 20px;
-    width: 20px;
-    float: right;
-    color: $white;
-    text-align: center;
-    font-weight: bold;
-    font-size: 12px;
-  }
-
-  .message-count.top-count {
-    background-color: $red-50;
-    position: absolute;
-    right: 0;
-    top: -0.5em;
-    padding: .2em;
-  }
 </style>
 
 <script>
