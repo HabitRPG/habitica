@@ -15,4 +15,6 @@ do
     fi
 done
 
+SERVER_NAME=":$SERVER_EMOJI: $SERVER_NAME"
+
 wget $SLACK_DEPLOY_URL --post-data="{\"server_name\": \"$SERVER_NAME\", \"developer\": \"$DEVELOPER\", \"base_url\": \"$BASE_URL\"}" -O /dev/null
