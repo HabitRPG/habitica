@@ -41,7 +41,7 @@
                 type="text"
               >
               <div class="input-group-append">
-                <strong>
+                <strong class="input-group-text">
                   {{ dateFormat(hero.purchased.plan.dateCreated) }}
                 </strong>
               </div>
@@ -63,7 +63,7 @@
                 type="text"
               >
               <div class="input-group-append">
-                <strong>
+                <strong class="input-group-text">
                   {{ dateFormat(hero.purchased.plan.dateCurrentTypeCreated) }}
                 </strong>
               </div>
@@ -230,14 +230,18 @@
   </form>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+  @import '~@/assets/scss/colors.scss';
+
 .input-group-append {
   width: auto;
 
   .input-group-text {
-
     border-bottom-right-radius: 2px;
     border-top-right-radius: 2px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: $gray-200;
   }
 }
 </style>
