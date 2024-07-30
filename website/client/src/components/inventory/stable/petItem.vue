@@ -13,16 +13,18 @@
           name="itemBadge"
           :item="item"
         ></slot><span
-          v-if="mountOwned() && isHatchable() && !item.isSpecial()"
+          v-if="isHatchable() && !item.isSpecial()"
           class="item-content hatchAgain"
-        ><span
+        ><Sprite
           class="egg"
-          :class="eggClass"
-        ></span><span
+          :image-name="eggClass"
+        /><Sprite
           class="potion"
-          :class="potionClass"
-        ></span></span>
+          :image-name="potionClass"
+        />
+        </span>
         <Sprite
+        v-else
           class="item-content"
           :class="itemClass()"
           :image-name="imageName()"
