@@ -1,12 +1,12 @@
 /* eslint-disable no-console */
-const MIGRATION_NAME = '20240731_naming_day';
 import { model as User } from '../../website/server/models/user';
 
+const MIGRATION_NAME = '20240731_naming_day';
 const progressCount = 1000;
 let count = 0;
 
 async function updateUser (user) {
-  count++;
+  count += 1;
 
   let set;
   let push;
@@ -113,14 +113,14 @@ async function updateUser (user) {
   if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
 
   if (push) {
-    return await user.updateOne({ $set: set, $inc: inc, $push: push }).exec();
-  } else {
-    return await user.updateOne({ $set: set, $inc: inc }).exec();
+    return user.updateOne({ $set: set, $inc: inc, $push: push }).exec();
   }
+
+  return user.updateOne({ $set: set, $inc: inc }).exec();
 }
 
 export default async function processUsers () {
-  let query = {
+  const query = {
     migration: { $ne: MIGRATION_NAME },
     'auth.timestamps.loggedin': { $gt: new Date('2024-07-01') },
   };
@@ -134,7 +134,7 @@ export default async function processUsers () {
     const users = await User // eslint-disable-line no-await-in-loop
       .find(query)
       .limit(250)
-      .sort({_id: 1})
+      .sort({ _id: 1 })
       .select(fields)
       .exec();
 
@@ -150,4 +150,4 @@ export default async function processUsers () {
 
     await Promise.all(users.map(updateUser)); // eslint-disable-line no-await-in-loop
   }
-};
+}
