@@ -23,6 +23,7 @@ const potentialFeaturedPetQuests = [
   'chameleon',
 
   'cheetah',
+  'crab',
 
   'beetle',
 
