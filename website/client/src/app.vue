@@ -27,6 +27,7 @@
         </div>
       </div>
     </div>
+    <snackbars />
     <router-view v-if="!isUserLoggedIn || isStaticPage" />
     <user-main v-else />
   </div>
@@ -103,15 +104,19 @@
 </style>
 
 <script>
+import axios from 'axios';
+
 import * as Analytics from '@/libs/analytics';
 import { mapState } from '@/libs/store';
 import userMain from '@/pages/user-main';
+import snackbars from '@/components/snackbars/notifications';
 
 const COMMUNITY_MANAGER_EMAIL = process.env.EMAILS_COMMUNITY_MANAGER_EMAIL; // eslint-disable-line
 
 export default {
   name: 'App',
   components: {
+    snackbars,
     userMain,
   },
   data () {
@@ -146,6 +151,116 @@ export default {
       // Load external scripts after the app has been rendered
       Analytics.load();
     });
+
+    axios.interceptors.response.use(response => { // Set up Response interceptors
+      // Verify that the user was not updated from another browser/app/client
+      // If it was, sync
+      const { url } = response.config;
+      const { method } = response.config;
+
+      const isApiCall = url.indexOf('api/v4') !== -1;
+      const userV = response.data && response.data.userV;
+
+      if (this.isUserLoaded && isApiCall && userV) {
+        const oldUserV = this.user._v;
+        this.user._v = userV;
+
+        // Do not sync again if already syncing
+        const isUserSync = url.indexOf('/api/v4/user') === 0 && method === 'get';
+        const isTasksSync = url.indexOf('/api/v4/tasks/user') === 0 && method === 'get';
+        // exclude chat seen requests because with real time chat they would be too many
+        const isChatSeen = url.indexOf('/chat/seen') !== -1 && method === 'post';
+        // exclude POST /api/v4/cron because the user is synced automatically after cron runs
+        const isCron = url.indexOf('/api/v4/cron') === 0 && method === 'post';
+        // exclude skills casting as they already return the synced user
+        const isCast = url.indexOf('/api/v4/user/class/cast') !== -1 && method === 'post';
+
+        // Something has changed on the user object that was not tracked here, sync the user
+        if (
+          userV - oldUserV > 1 && !isCron && !isChatSeen && !isUserSync && !isTasksSync && !isCast
+        ) {
+          Promise.all([
+            this.$store.dispatch('user:fetch', { forceLoad: true }),
+            this.$store.dispatch('tasks:fetchUserTasks', { forceLoad: true }),
+          ]);
+        }
+      }
+
+      // Store the app version from the server
+      const serverAppVersion = response.data && response.data.appVersion;
+
+      if (serverAppVersion && this.$store.state.serverAppVersion !== response.data.appVersion) {
+        this.$store.state.serverAppVersion = serverAppVersion;
+      }
+
+      // Store the notifications, filtering those that have already been read
+      // See store/index.js on why this is necessary
+      if (this.user && response.data && response.data.notifications) {
+        const filteredNotifications = response.data.notifications.filter(serverNotification => {
+          if (this.notificationsRemoved.includes(serverNotification.id)) return false;
+          return true;
+        });
+        this.$set(this.user, 'notifications', filteredNotifications);
+      }
+
+      return response;
+    }, error => { // Set up Error interceptors
+      if (error.response.status >= 400) {
+        const isBanned = this.checkForBannedUser(error);
+        if (isBanned === true) return null; // eslint-disable-line consistent-return
+
+        // Don't show errors from getting user details. These users have delete their account,
+        // but their chat message still exists.
+        const configExists = Boolean(error.response) && Boolean(error.response.config);
+        if (configExists && error.response.config.method === 'get' && error.response.config.url.indexOf('/api/v4/members/') !== -1) {
+          // @TODO: We resolve the promise because we need our caching to cache this user as tried
+          // Chat paging should help this, but maybe we can also find another solution..
+          return Promise.resolve(error);
+        }
+
+        const errorData = error.response.data;
+        const errorMessage = errorData.message || errorData;
+
+        // Check for conditions to reset the user auth
+        // TODO use a specific error like NotificationNotFound instead of checking for the string
+        const invalidUserMessage = [this.$t('invalidCredentials'), 'Missing authentication headers.'];
+        if (invalidUserMessage.indexOf(errorMessage) !== -1) {
+          this.$store.dispatch('auth:logout', { redirectToLogin: true });
+          return null;
+        }
+
+        // Most server errors should return is click to dismiss errors, with some exceptions
+        let snackbarTimeout = false;
+        if (error.response.status === 502) snackbarTimeout = true;
+
+        const errorsToShow = [];
+        // show only the first error for each param
+        const paramErrorsFound = {};
+        if (errorData.errors) {
+          for (const e of errorData.errors) {
+            if (!paramErrorsFound[e.param]) {
+              errorsToShow.push(e.message);
+              paramErrorsFound[e.param] = true;
+            }
+          }
+        } else {
+          errorsToShow.push(errorMessage);
+        }
+
+        // Ignore NotificationNotFound errors, see https://github.com/HabitRPG/habitica/issues/10391
+        if (errorData.error !== 'NotificationNotFound') {
+          // dispatch as one snackbar notification
+          this.$store.dispatch('snackbars:add', {
+            title: 'Habitica',
+            text: errorsToShow.join(' '),
+            type: 'error',
+            timeout: snackbarTimeout,
+          });
+        }
+      }
+
+      return Promise.reject(error);
+    });
   },
   mounted () {
     // Remove the index.html loading screen and now show the inapp loading
@@ -160,6 +275,26 @@ export default {
     hideLoadingScreen () {
       console.log('done loading');
       this.loading = false;
+    },
+    checkForBannedUser (error) {
+      const AUTH_SETTINGS = localStorage.getItem('habit-mobile-settings');
+      const parseSettings = JSON.parse(AUTH_SETTINGS);
+      const errorMessage = error.response.data.message;
+
+      // Case where user is not logged in
+      if (!parseSettings) {
+        return false;
+      }
+
+      const bannedMessage = this.$t('accountSuspended', {
+        communityManagerEmail: COMMUNITY_MANAGER_EMAIL,
+        userId: parseSettings.auth.apiId,
+      });
+
+      if (errorMessage !== bannedMessage) return false;
+
+      this.$store.dispatch('auth:logout', { redirectToLogin: true });
+      return true;
     },
   },
 };
