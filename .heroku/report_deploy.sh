@@ -21,5 +21,5 @@ PARTS=$(cut -d"." -f1 <<< $BASE_URL)
 SERVER_NAME=$(cut -d"/" -f3 <<< ${PARTS[0]})
 
 SERVER_NAME=":$SERVER_EMOJI: $SERVER_NAME"
-exit 0
+
 wget $SLACK_DEPLOY_URL --post-data="{\"server_name\": \"$SERVER_NAME\", \"developer\": \"$DEVELOPER\", \"base_url\": \"$BASE_URL\"}" -O /dev/null
