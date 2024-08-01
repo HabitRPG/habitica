@@ -2,7 +2,7 @@
   <nav class="navbar navbar-inverse fixed-top navbar-expand-md">
     <div class="navbar-header">
       <router-link
-        class="nav-item auto"
+        class="nav-item"
         :to="!isUserLoggedIn ? '/static/home' : '/'"
       >
         <div
