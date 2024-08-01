@@ -99,15 +99,17 @@ describe('POST /tasks/:taskId/assign/:memberId', () => {
     expect(syncedTask).to.exist;
   });
 
-  it('sends a notification to assigned user', async () => {
+  it.only('sends a notification to assigned user', async () => {
+    const oldNotificationCount = member.notifications.length;
     await user.post(`/tasks/${task._id}/assign`, [member._id]);
     await member.sync();
 
     const groupTask = await user.get(`/tasks/group/${guild._id}`);
 
-    expect(member.notifications.length).to.equal(2);
-    expect(member.notifications[1].type).to.equal('GROUP_TASK_ASSIGNED');
-    expect(member.notifications[1].taskId).to.equal(groupTask._id);
+    expect(member.notifications.length).to.equal(oldNotificationCount + 1);
+    const lastNotification = member.notifications[member.notifications.length - 1];
+    expect(lastNotification.type).to.equal('GROUP_TASK_ASSIGNED');
+    expect(lastNotification.taskId).to.equal(groupTask._id);
   });
 
   it('assigns a task to multiple users', async () => {

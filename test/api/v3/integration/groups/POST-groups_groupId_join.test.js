@@ -97,8 +97,9 @@ describe('POST /group/:groupId/join', () => {
           }),
         };
 
-        expect(inviter.notifications[1].type).to.eql('GROUP_INVITE_ACCEPTED');
-        expect(inviter.notifications[1].data).to.eql(expectedData);
+        const lastNotificationIndex = inviter.notifications.length - 1;
+        expect(inviter.notifications[lastNotificationIndex].type).to.eql('GROUP_INVITE_ACCEPTED');
+        expect(inviter.notifications[lastNotificationIndex].data).to.eql(expectedData);
       });
 
       it('awards Joined Guild achievement', async () => {
@@ -168,8 +169,9 @@ describe('POST /group/:groupId/join', () => {
           }),
         };
 
-        expect(inviter.notifications[0].type).to.eql('GROUP_INVITE_ACCEPTED');
-        expect(inviter.notifications[0].data).to.eql(expectedData);
+        const lastNotificationIndex = inviter.notifications.length - 1;
+        expect(inviter.notifications[lastNotificationIndex].type).to.eql('GROUP_INVITE_ACCEPTED');
+        expect(inviter.notifications[lastNotificationIndex].data).to.eql(expectedData);
       });
 
       it('clears invitation from user when joining party', async () => {
