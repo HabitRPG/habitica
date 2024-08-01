@@ -214,7 +214,7 @@
     "backgroundStormyRooftopsNotes": "从暴风屋顶上慢慢爬过。",
     "backgroundWindyAutumnText": "刮风的秋天",
     "backgroundWindyAutumnNotes": "在刮风的秋天中追赶落叶。",
-    "incentiveBackgrounds": "简约背景套装",
+    "incentiveBackgrounds": "基础背景套装",
     "backgroundVioletText": "紫罗兰境",
     "backgroundVioletNotes": "充满生气的紫罗兰境。",
     "backgroundBlueText": "蓝色",
@@ -872,5 +872,10 @@
     "backgroundShellGateNotes": "穿过装饰着珊瑚的贝壳门。",
     "backgroundShellGateText": "贝壳门",
     "backgrounds072024": "第122组：2024年7月发布",
-    "backgroundRiverBottomText": "河底"
+    "backgroundRiverBottomText": "河底",
+    "backgroundRiverBottomNotes": "探索河床。",
+    "monthlyBackgrounds": "每月背景",
+    "backgrounds082024": "第123组：2024年8月发布",
+    "backgroundSavannaText": "朦胧草原",
+    "backgroundSavannaNotes": "徒步穿越朦胧的草原。"
 }
