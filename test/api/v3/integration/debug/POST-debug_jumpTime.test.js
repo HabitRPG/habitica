@@ -34,9 +34,11 @@ describe('POST /debug/jump-time', () => {
     expect(resultDate.getMonth()).to.eql(today.getMonth());
     expect(resultDate.getFullYear()).to.eql(today.getFullYear());
     const newResultDate = new Date((await user.post('/debug/jump-time', { offsetDays: 1 })).time);
-    expect(newResultDate.getDate()).to.eql(today.getDate() + 1);
-    expect(newResultDate.getMonth()).to.eql(today.getMonth());
-    expect(newResultDate.getFullYear()).to.eql(today.getFullYear());
+    const tomorrow = new Date(today.valueOf());
+    tomorrow.setDate(today.getDate() + 1);
+    expect(newResultDate.getDate()).to.eql(tomorrow.getDate());
+    expect(newResultDate.getMonth()).to.eql(tomorrow.getMonth());
+    expect(newResultDate.getFullYear()).to.eql(tomorrow.getFullYear());
   });
 
   it('jumps back', async () => {
@@ -45,9 +47,11 @@ describe('POST /debug/jump-time', () => {
     expect(resultDate.getMonth()).to.eql(today.getMonth());
     expect(resultDate.getFullYear()).to.eql(today.getFullYear());
     const newResultDate = new Date((await user.post('/debug/jump-time', { offsetDays: -1 })).time);
-    expect(newResultDate.getDate()).to.eql(today.getDate() - 1);
-    expect(newResultDate.getMonth()).to.eql(today.getMonth());
-    expect(newResultDate.getFullYear()).to.eql(today.getFullYear());
+    const yesterday = new Date(today.valueOf());
+    yesterday.setDate(today.getDate() - 1);
+    expect(newResultDate.getDate()).to.eql(yesterday.getDate());
+    expect(newResultDate.getMonth()).to.eql(yesterday.getMonth());
+    expect(newResultDate.getFullYear()).to.eql(yesterday.getFullYear());
   });
 
   it('can jump a lot', async () => {
