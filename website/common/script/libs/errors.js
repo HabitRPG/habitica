@@ -60,6 +60,14 @@ export class TooManyRequests extends CustomError {
   }
 }
 
+export class RequestTimeout extends CustomError {
+  constructor (customMessage) {
+    super();
+    this.name = this.constructor.name;
+    this.httpCode = 408;
+    this.message = customMessage || 'The request timed out.';
+  }
+}
 export class NotImplementedError extends CustomError {
   constructor (str) {
     super();
