@@ -189,5 +189,10 @@
     "notEnoughGold": "金币不足。",
     "chatCastSpellPartyTimes": "<%= username %>对队伍使用了<%= times %>次<%= spell %>。",
     "chatCastSpellUserTimes": "<%= username %>对<%= target %>使用了<%= times %>次<%= spell %>。",
-    "nextReward": "下次登录奖励"
+    "nextReward": "下次登录奖励",
+    "skins": "皮肤",
+    "titleHaircolor": "发色",
+    "titleFacialHair": "胡须",
+    "customizations": "自定义",
+    "titleHairbase": "发型"
 }
