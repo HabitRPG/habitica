@@ -132,7 +132,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['isUserLoggedIn', 'isUserLoaded']),
+    ...mapState(['isUserLoggedIn', 'isUserLoaded', 'notificationsRemoved']),
     ...mapState({ user: 'user.data' }),
     isStaticPage () {
       return this.$route.meta.requiresLogin === false;
