@@ -99,7 +99,7 @@ describe('POST /tasks/:taskId/assign/:memberId', () => {
     expect(syncedTask).to.exist;
   });
 
-  it.only('sends a notification to assigned user', async () => {
+  it('sends a notification to assigned user', async () => {
     const oldNotificationCount = member.notifications.length;
     await user.post(`/tasks/${task._id}/assign`, [member._id]);
     await member.sync();
