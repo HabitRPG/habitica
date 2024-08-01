@@ -43,7 +43,7 @@
     "showAllAchievements": "Mostrar todo <%= category %>",
     "onboardingCompleteDesc": "Has ganado <strong>5 logros</strong> y <strong class=\"gold-amount\">100 de oro</strong> por completar la lista.",
     "earnedAchievement": "¡Has conseguido un logro!",
-    "viewAchievements": "Ver logros",
+    "viewAchievements": "Ver Logros",
     "letsGetStarted": "¡Comencemos!",
     "onboardingProgress": "<%= percentage %> % de progreso",
     "gettingStartedDesc": "¡Completa estas tareas de incorporación y ganarás <strong>5 logros</strong> y <strong class=\"gold-amount\">100 de oro</strong> una vez hayas terminado!",

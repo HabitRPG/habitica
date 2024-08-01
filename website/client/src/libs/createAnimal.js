@@ -37,6 +37,7 @@ export function createAnimal (egg, potion, type, _content, userItems) {
   return {
     key: animalKey,
     class: type === 'pet' ? `Pet Pet-${animalKey}` : `Mount_Icon_${animalKey}`,
+    imageName: type === 'pet' ? `stable_Pet-${animalKey}` : `stable_Mount_Icon_${animalKey}`,
     eggKey: egg.key,
     eggName: getText(egg.text),
     potionKey: potion.key,

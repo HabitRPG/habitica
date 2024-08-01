@@ -41,10 +41,10 @@
           class="suggestedDot"
         ></span>
         <div class="image">
-          <div
+          <Sprite
             v-once
-            :class="item.class"
-          ></div>
+            :image-name="item.class"
+          />
           <slot
             name="itemImage"
             :item="item"
@@ -281,11 +281,13 @@ import svgClock from '@/assets/svg/clock.svg';
 import EquipmentAttributesPopover from '@/components/inventory/equipment/attributesPopover';
 
 import QuestInfo from './quests/questInfo.vue';
+import Sprite from '@/components/ui/sprite';
 
 export default {
   components: {
     EquipmentAttributesPopover,
     QuestInfo,
+    Sprite,
   },
   props: {
     item: {

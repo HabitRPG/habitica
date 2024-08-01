@@ -376,5 +376,15 @@
     "hatchingPotionPinkMarble": "粉色大理石",
     "hatchingPotionTeaShop": "茶馆",
     "hatchingPotionRoseGold": "玫瑰金",
-    "hatchingPotionFungi": "蘑菇"
+    "hatchingPotionFungi": "蘑菇",
+    "questEggGiraffeText": "长颈鹿",
+    "questEggGiraffeMountText": "长颈鹿",
+    "questEggGiraffeAdjective": "一只卓越的",
+    "questEggChameleonText": "变色龙",
+    "questEggChameleonMountText": "变色龙",
+    "questEggChameleonAdjective": "一只混乱的",
+    "hatchingPotionKoi": "锦鲤",
+    "questEggCrabText": "螃蟹",
+    "questEggCrabMountText": "螃蟹",
+    "questEggCrabAdjective": "一只微不足道的"
 }

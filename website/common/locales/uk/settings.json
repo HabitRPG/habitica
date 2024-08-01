@@ -1,8 +1,8 @@
 {
     "settings": "Налаштування",
     "language": "Мова",
-    "americanEnglishGovern": "У разі невідповідності в перекладі, американська англійська версія є головною.",
-    "helpWithTranslation": "Ви зацікавлені в допомозі з перекладом Habitica? Чудово! Перейдіть до <a href=\"https://translate.habitica.com\">Habitica's Weblate site</a>!",
+    "americanEnglishGovern": "У разі розбіжностей в перекладі, версія американською англійською є головною.",
+    "helpWithTranslation": "Ви зацікавлені в допомозі з перекладом Habitica? Чудово! Навідайтесь до проєкту <a href=\"https://translate.habitica.com\">Habitica's Weblate site</a>!",
     "stickyHeader": "Закріпити заголовок",
     "newTaskEdit": "Відкривати нові завдання у режимі редагування",
     "dailyDueDefaultView": "Налаштуйте Щоденні завдання у належній вкладці за замовчуванням",

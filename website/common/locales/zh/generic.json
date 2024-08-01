@@ -238,5 +238,6 @@
     "general": "一般",
     "mutePlayer": "屏蔽",
     "shadowMute": "隐形屏蔽",
-    "playerReportModalBody": "您只能举报违反<%= firstLinkStart %>社区准则<%= linkEnd %>和/或<%= secondLinkStart %>服务条款<%= linkEnd %>的玩家。提交虚假举报是违反Habitica社区准则的行为。"
+    "playerReportModalBody": "您只能举报违反<%= firstLinkStart %>社区准则<%= linkEnd %>和/或<%= secondLinkStart %>服务条款<%= linkEnd %>的玩家。提交虚假举报是违反Habitica社区准则的行为。",
+    "titleCustomizations": "自定义"
 }
