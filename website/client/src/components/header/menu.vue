@@ -345,11 +345,11 @@
         <div class="currency-tray form-inline">
           <div
             v-if="userHourglasses > 0"
-            class="item-with-icon hg"
+            class="item-with-icon"
           >
             <div
               v-b-tooltip.hover.bottom="$t('mysticHourglassesTooltip')"
-              class="top-menu-icon svg-icon hourglass mr-1"
+              class="top-menu-icon svg-icon mr-1"
               v-html="icons.hourglasses"
             ></div>
             <span>{{ userHourglasses }}</span>
@@ -365,7 +365,7 @@
             ></a>
             <span>{{ userGems }}</span>
           </div>
-          <div class="item-with-icon gold ">
+          <div class="item-with-icon gold">
             <div
               v-b-tooltip.hover.bottom="$t('gold')"
               class="top-menu-icon svg-icon mr-2"
@@ -547,10 +547,6 @@ body.modal-open #habitica-menu {
 
   a.item-with-icon:focus {
     outline: none;
-  }
-
-  .hourglass {
-    margin-right: 4px;
   }
 
   @keyframes rotateGemColors {
@@ -735,14 +731,9 @@ body.modal-open #habitica-menu {
       margin-right: 16px;
 
       & ::v-deep .top-menu-icon.svg-icon {
-      margin-right: 0px;
-      margin-left: 0px;
+        margin-right: 0px;
+        margin-left: 0px;
       }
-    }
-
-    .hg {
-      margin-left: 24px;
-      margin-right: 12px;
     }
   }
 
