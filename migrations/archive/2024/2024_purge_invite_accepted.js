@@ -1,39 +1,33 @@
 /* eslint-disable no-console */
-const MIGRATION_NAME = '2024_purge_invite_accepted';
 import { model as User } from '../../../website/server/models/user';
 
+const MIGRATION_NAME = '2024_purge_invite_accepted';
 const progressCount = 1000;
 let count = 0;
 
-async function updateUser (user) {
-  count++;
+async function updateUsers (userIds) {
+  count += userIds.length;
+  if (count % progressCount === 0) console.warn(`${count} ${userIds[0]}`);
 
-  return await User.updateOne(
-    { _id: user._id },
+  return await User.updateMany(
+    { _id: { $in: userIds } },
     { $pull: { notifications: { type: 'GROUP_INVITE_ACCEPTED' } } },
   ).exec();
 }
 
 export default async function processUsers () {
   let query = {
-    migration: {$ne: MIGRATION_NAME},
+    migration: { $ne: MIGRATION_NAME },
     'notifications.type': 'GROUP_INVITE_ACCEPTED',
     'auth.timestamps.loggedin': { $gt: new Date('2024-06-25') },
-  };
-
-  const fields = {
-    _id: 1,
-    items: 1,
-    migration: 1,
-    contributor: 1,
   };
 
   while (true) { // eslint-disable-line no-constant-condition
     const users = await User // eslint-disable-line no-await-in-loop
       .find(query)
       .limit(250)
-      .sort({_id: 1})
-      .select(fields)
+      .sort({ _id: 1 })
+      .select({ _id: 1 })
       .exec();
 
     if (users.length === 0) {
@@ -46,6 +40,8 @@ export default async function processUsers () {
       };
     }
 
-    await Promise.all(users.map(updateUser)); // eslint-disable-line no-await-in-loop
+    const userIds = users.map(user => user._id);
+
+    await updateUsers(userIds); // eslint-disable-line no-await-in-loop
   }
 };

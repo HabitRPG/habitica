@@ -610,7 +610,6 @@ api.joinGroup = {
 
       if (hasInvitation) {
         isUserInvited = true;
-        inviter = hasInvitation.inviter;
       } else {
         isUserInvited = group.privacy !== 'private';
       }
@@ -634,33 +633,29 @@ api.joinGroup = {
       group.leader = user._id; // If new user is only member -> set as leader
     }
 
+    let promises = [group.save(), user.save()];
+
     if (group.type === 'party') {
       // For parties we count the number of members from the database to get the correct value.
       // See #12275 on why this is necessary and only done for parties.
       const currentMembers = await group.getMemberCount();
-      group.memberCount = currentMembers + 1;
-    } else {
-      group.memberCount += 1;
-    }
-
-    let promises = [group.save(), user.save()];
-
-    // Load the inviter
-    if (inviter) inviter = await User.findById(inviter).exec();
-
-    // Check the inviter again, could be a deleted account
-    if (inviter) {
-      // Reward Inviter
-      if (group.type === 'party') {
-        if (!inviter.items.quests.basilist) {
-          inviter.items.quests.basilist = 0;
+      // Load the inviter
+      if (inviter) inviter = await User.findById(inviter).exec();
+  
+      // Check the inviter again, could be a deleted account
+      if (inviter) {
+        // Reward Inviter
+        if (group.type === 'party') {
+          if (!inviter.items.quests.basilist) {
+            inviter.items.quests.basilist = 0;
+          }
+          inviter.items.quests.basilist += 1;
+          inviter.markModified('items.quests');
         }
-        inviter.items.quests.basilist += 1;
-        inviter.markModified('items.quests');
       }
-    }
+      group.memberCount = currentMembers + 1;
 
-    if (group.type === 'party' && inviter) {
+      // Handle awarding party-related achievements
       if (group.memberCount > 1) {
         const notification = new UserNotification({ type: 'ACHIEVEMENT_PARTY_UP' });
 
@@ -676,11 +671,9 @@ api.joinGroup = {
           },
         ).exec());
 
-        if (inviter) {
-          if (inviter.achievements.partyUp !== true) {
-            inviter.achievements.partyUp = true;
-            inviter.addNotification('ACHIEVEMENT_PARTY_UP');
-          }
+        if (inviter.achievements.partyUp !== true) {
+          inviter.achievements.partyUp = true;
+          inviter.addNotification('ACHIEVEMENT_PARTY_UP');
         }
       }
 
@@ -699,13 +692,14 @@ api.joinGroup = {
           },
         ).exec());
 
-        if (inviter) {
-          if (inviter.achievements.partyOn !== true) {
-            inviter.achievements.partyOn = true;
-            inviter.addNotification('ACHIEVEMENT_PARTY_ON');
-          }
+        if (inviter.achievements.partyOn !== true) {
+          inviter.achievements.partyOn = true;
+          inviter.addNotification('ACHIEVEMENT_PARTY_ON');
         }
       }
+      if (inviter) promises.push(inviter.save());
+    } else {
+      group.memberCount += 1;
     }
 
     const analyticsObject = {
@@ -718,15 +712,9 @@ api.joinGroup = {
       privacy: group.privacy,
       headers: req.headers,
       invited: isUserInvited,
+      seekingParty: group.type === 'party' ? seekingParty : null,
     };
-    if (group.type === 'party') {
-      analyticsObject.seekingParty = seekingParty;
-    }
-    if (group.privacy === 'public') {
-      analyticsObject.groupName = group.name;
-    }
 
-    if (inviter) promises.push(inviter.save());
     promises = await Promise.all(promises);
 
     if (group.hasNotCancelled()) {
