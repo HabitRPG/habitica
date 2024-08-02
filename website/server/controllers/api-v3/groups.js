@@ -633,7 +633,7 @@ api.joinGroup = {
       group.leader = user._id; // If new user is only member -> set as leader
     }
 
-    let promises = [group.save(), user.save()];
+    let promises = [user.save()];
 
     if (group.type === 'party') {
       // For parties we count the number of members from the database to get the correct value.
@@ -645,13 +645,12 @@ api.joinGroup = {
       // Check the inviter again, could be a deleted account
       if (inviter) {
         // Reward Inviter
-        if (group.type === 'party') {
-          if (!inviter.items.quests.basilist) {
-            inviter.items.quests.basilist = 0;
-          }
-          inviter.items.quests.basilist += 1;
-          inviter.markModified('items.quests');
+        if (!inviter.items.quests.basilist) {
+          inviter.items.quests.basilist = 0;
         }
+        inviter.items.quests.basilist += 1;
+        inviter.markModified('items.quests');
+        promises.push(inviter.save());
       }
       group.memberCount = currentMembers + 1;
 
@@ -663,18 +662,12 @@ api.joinGroup = {
           {
             $or: [{ 'party._id': group._id }, { _id: user._id }],
             'achievements.partyUp': { $ne: true },
-            _id: { $ne: inviter._id },
           },
           {
             $set: { 'achievements.partyUp': true },
             $push: { notifications: notification.toObject() },
           },
         ).exec());
-
-        if (inviter.achievements.partyUp !== true) {
-          inviter.achievements.partyUp = true;
-          inviter.addNotification('ACHIEVEMENT_PARTY_UP');
-        }
       }
 
       if (group.memberCount > 3) {
@@ -684,23 +677,18 @@ api.joinGroup = {
           {
             $or: [{ 'party._id': group._id }, { _id: user._id }],
             'achievements.partyOn': { $ne: true },
-            _id: { $ne: inviter._id },
           },
           {
             $set: { 'achievements.partyOn': true },
             $push: { notifications: notification.toObject() },
           },
         ).exec());
-
-        if (inviter.achievements.partyOn !== true) {
-          inviter.achievements.partyOn = true;
-          inviter.addNotification('ACHIEVEMENT_PARTY_ON');
-        }
       }
-      if (inviter) promises.push(inviter.save());
     } else {
       group.memberCount += 1;
     }
+
+    promises.push(group.save());
 
     const analyticsObject = {
       uuid: user._id,
@@ -722,7 +710,7 @@ api.joinGroup = {
       await group.updateGroupPlan();
     }
 
-    const response = await Group.toJSONCleanChat(promises[0], user);
+    const response = await Group.toJSONCleanChat(group, user);
     const leader = await User.findById(response.leader).select(nameFields).exec();
     if (leader) {
       response.leader = leader.toJSON({ minimize: true });
