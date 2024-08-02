@@ -641,7 +641,7 @@ api.joinGroup = {
       const currentMembers = await group.getMemberCount();
       // Load the inviter
       if (inviter) inviter = await User.findById(inviter).exec();
-  
+
       // Check the inviter again, could be a deleted account
       if (inviter) {
         // Reward Inviter
