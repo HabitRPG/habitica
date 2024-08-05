@@ -214,7 +214,7 @@
     "backgroundStormyRooftopsNotes": "Прокрадіться штормовими дахами.",
     "backgroundWindyAutumnText": "Вітряна осінь",
     "backgroundWindyAutumnNotes": "Поженіться за листям вітряною осінню.",
-    "incentiveBackgrounds": "Набір однокольорового тла",
+    "incentiveBackgrounds": "Стандартні фони",
     "backgroundVioletText": "Фіолетовий",
     "backgroundVioletNotes": "Яскраве фіолетове тло.",
     "backgroundBlueText": "Синє",
@@ -867,5 +867,12 @@
     "backgroundMaypoleNotes": "Потанцюйте навколо Травневого дерева.",
     "backgroundPottersStudioText": "Гончарна майстерня",
     "backgroundPottersStudioNotes": "Створють щось особливе в гончарній майстерні.",
-    "backgroundContainerGardenNotes": "Попрацюйте трохи в контейнерному саду."
+    "backgroundContainerGardenNotes": "Попрацюйте трохи в контейнерному саду.",
+    "backgroundShellGateText": "Брама мушель",
+    "backgrounds072024": "Набір 122: Випущено Липня 2024",
+    "backgroundRiverBottomText": "Дно ріки",
+    "backgroundRiverBottomNotes": "Дослідіть Дно ріки.",
+    "monthlyBackgrounds": "Місячні фони",
+    "backgrounds062024": "Набір 121: Випущено Червня 2024",
+    "backgroundShellGateNotes": "Пройдіть крізь декоровані коралі Брами мушель."
 }

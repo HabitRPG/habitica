@@ -134,5 +134,7 @@
     "helpSupportHabitica": "Contribuez à soutenir Habitica",
     "groupsPaymentSubBilling": "Votre prochaine date de facturation est <strong><%= renewalDate %></strong>.",
     "groupsPaymentAutoRenew": "Cet abonnement se renouvellera automatiquement jusqu'à son annulation. Si vous devez l'annuler, vous pouvez le faire depuis l'onglet de facturation de groupe.",
-    "sellItems": "Vendre des objets"
+    "sellItems": "Vendre des objets",
+    "notAvailable": "Cet objet n'est pas disponible.",
+    "customizationsShopText": "Vous voulez changer de style ? Vous êtes au bon endroit ! Nous fournissons des tenues de saison branchées."
 }

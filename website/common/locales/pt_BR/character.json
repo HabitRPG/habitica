@@ -2,7 +2,7 @@
     "communityGuidelinesWarning": "Por favor, tenha em mente que o seu Nome de Exibição, foto de perfil e Sobre devem estar de acordo com as <a href='https://habitica.com/static/community-guidelines' target='_blank'>Diretrizes da Comunidade</a> (ex.: nenhuma profanidade, nenhum tópico adulto, nenhum insulto, etc). Se você tiver quaisquer dúvidas se algo é ou não apropriado, sinta-se à vontade para mandar um e-mail para <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "Perfil",
     "avatar": "Personalizar Avatar",
-    "editAvatar": "Editar Avatar",
+    "editAvatar": "Personalizar Avatar",
     "noDescription": "Este(a) Habiticano(a) ainda não adicionou uma descrição.",
     "noPhoto": "Este(a) Habiticano(a) ainda não adicionou uma foto.",
     "other": "Outros",
@@ -189,5 +189,10 @@
     "notEnoughGold": "Sem ouro suficiente.",
     "chatCastSpellUserTimes": "<%= username %> lançou <%= spell %> em <%= target %> <%= times %> vezes.",
     "chatCastSpellPartyTimes": "<%= username %> lançou <%= spell %> no grupo <%= times %> vezes.",
-    "nextReward": "Próxima Recompensa de Login em"
+    "nextReward": "Próxima Recompensa de Login em",
+    "titleHairbase": "Estilos de Cabelo",
+    "skins": "Cores de Pele",
+    "titleFacialHair": "Rosto",
+    "titleHaircolor": "Cores de Cabelo",
+    "customizations": "Personalizações"
 }

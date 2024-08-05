@@ -214,7 +214,7 @@
     "backgroundStormyRooftopsNotes": "Schleiche über stürmische Hausdächer.",
     "backgroundWindyAutumnText": "Windiger Herbst",
     "backgroundWindyAutumnNotes": "Jage Laub an einem windigen Herbsttag.",
-    "incentiveBackgrounds": "Einfaches Hintergründe-Set",
+    "incentiveBackgrounds": "Standard Hintergründe",
     "backgroundVioletText": "Violett",
     "backgroundVioletNotes": "Ein vital-violetter Hintergrund.",
     "backgroundBlueText": "Blau",
@@ -871,5 +871,12 @@
     "backgroundPottersStudioText": "Töpfer Atelier",
     "backgroundPottersStudioNotes": "Erschaffe Kunst im Töpfer Atelier.",
     "backgrounds052024": "SET 120: Veröffentlicht im Mai 2024",
-    "backgroundDragonsBackNotes": "Segle durch den Himmel auf einem Drachenrücken."
+    "backgroundDragonsBackNotes": "Segle durch den Himmel auf einem Drachenrücken.",
+    "backgrounds062024": "SET 121: Veröffentlicht im Juni 2024",
+    "backgroundShellGateText": "Muscheltor",
+    "backgroundShellGateNotes": "Spaziere durch das korallenverzierte Muscheltor.",
+    "backgrounds072024": "SET 122: Veröffentlicht im Juli 2024",
+    "backgroundRiverBottomText": "Flussgrund",
+    "backgroundRiverBottomNotes": "Erkunde den Grund eines Flusses.",
+    "monthlyBackgrounds": "Hintergrund des Monats"
 }

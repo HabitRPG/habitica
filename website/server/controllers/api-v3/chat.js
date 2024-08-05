@@ -82,8 +82,11 @@ api.getChat = {
     if (validationErrors) throw validationErrors;
 
     const { groupId } = req.params;
-    const group = await Group.getGroup({ user, groupId, fields: 'chat' });
+    const group = await Group.getGroup({ user, groupId, fields: 'chat privacy' });
     if (!group) throw new NotFound(res.t('groupNotFound'));
+    if (group.privacy === 'public') {
+      throw new BadRequest(res.t('featureRetired'));
+    }
 
     const groupChat = await Group.toJSONCleanChat(group, user);
     res.respond(200, groupChat.chat);
@@ -294,6 +297,9 @@ api.likeChat = {
 
     const group = await Group.getGroup({ user, groupId });
     if (!group) throw new NotFound(res.t('groupNotFound'));
+    if (group.privacy === 'public') {
+      throw new BadRequest(res.t('featureRetired'));
+    }
 
     const message = await Chat.findOne({ _id: req.params.chatId, groupId: group._id }).exec();
     if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));

@@ -341,6 +341,16 @@ describe('shops', () => {
       const backgrounds = shopCategories.find(cat => cat.identifier === 'backgrounds').items;
       expect(backgrounds.length).to.be.greaterThan(0);
     });
+
+    it('does not add an end date to steampunk gear', () => {
+      const categories = shopCategories.filter(cat => cat.identifier.startsWith('30'));
+      categories.forEach(category => {
+        expect(category.end).to.not.exist;
+        category.items.forEach(item => {
+          expect(item.end).to.not.exist;
+        });
+      });
+    });
   });
 
   describe('customizationShop', () => {

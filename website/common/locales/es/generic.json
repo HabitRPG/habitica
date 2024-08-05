@@ -223,5 +223,21 @@
     "questionDescriptionText": "Puedes enviar tus preguntas en tu idioma materno si no te sientes cómodo hablando en inglés.",
     "questionPlaceholder": "Haz tu pregunta aquí",
     "askQuestionHeaderDescribe": "¿Eres nuevo en Habitica y no sabes lo que haces?¿Eres veterano pero no consigues descubrir cómo se usa alguna de las funciones? Rellena este formulario y nuestro equipo se pondrá en contacto contigo.",
-    "submitQuestion": "Enviar pregunta"
+    "submitQuestion": "Enviar pregunta",
+    "general": "General",
+    "allNotifications": "Todas las Notificaciones",
+    "blockPlayer": "Bloquear un Jugador",
+    "unblockPlayer": "Desbloquear un Jugador",
+    "adminTools": "Herramientas de Administrador",
+    "mutePlayer": "Silenciar",
+    "shadowMute": "Sombrear Silenciado",
+    "banPlayer": "Restringir un Jugador",
+    "unbanPlayer": "Permitir Jugador",
+    "bannedPlayer": "Este jugador está restringido.",
+    "whyReportingPlayerPlaceholder": "Motivos del informe",
+    "titleCustomizations": "Personalizaciones",
+    "whyReportingPlayer": "¿Por qué informas acerca de este jugador?",
+    "reportPlayer": "Informar acerca de un Jugador",
+    "viewAdminPanel": "Ver Comandos de Administrador",
+    "playerReportModalBody": "Solo deberías informar de un jugador que de alguna forma quebrantara las <%= firstLinkStart %>Normas de la Comunidad<%= linkEnd %> y/o <%= secondLinkStart %>los Terminos de Servicio<%= linkEnd %>. Enviar un informe falso es una clara violación de la Normas de la Comunidad de Habitica."
 }

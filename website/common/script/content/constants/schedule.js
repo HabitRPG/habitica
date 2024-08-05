@@ -28,7 +28,8 @@ function timeTravelersMatcher (month1, month2) {
   return function call (item, date) {
     const month = parseInt(item.substring(4, 6), 10);
     const year = parseInt(item.substring(0, 4), 10);
-    if (date.getFullYear() === year && (date.getMonth() + 1) >= month) {
+    if (date.getFullYear() < year
+      || (date.getFullYear() === year && (date.getMonth() + 1) === month)) {
       return false;
     }
     return month === month1 || month === month2;
@@ -207,6 +208,7 @@ export const MONTHLY_SCHEDULE = {
         items: [
           'StainedGlass',
           'Porcelain',
+          'BirchBark',
         ],
       },
     ],
@@ -400,6 +402,7 @@ export const MONTHLY_SCHEDULE = {
         items: [
           'Moonglow',
           'Watery',
+          'SandSculpture',
         ],
       },
     ],
@@ -426,6 +429,7 @@ export const MONTHLY_SCHEDULE = {
           'penguin',
           'butterfly',
           'cheetah',
+          'crab',
         ],
       },
       {
@@ -583,6 +587,7 @@ export const MONTHLY_SCHEDULE = {
         type: 'bundles',
         items: [
           'forestFriends',
+          'oddballs',
         ],
       },
     ],
@@ -839,6 +844,7 @@ export function assembleScheduledMatchers (date) {
   const gala = GALA_SCHEDULE[getGalaIndex(date)];
   const galaMatchers = gala.matchers;
   galaMatchers.forEach(matcher => {
+    matcher.startMonth = gala.startMonth;
     matcher.endMonth = gala.endMonth;
   });
   items.push(...galaMatchers);
@@ -882,6 +888,9 @@ function makeEndDate (checkedDate, matcher) {
   end.minute(0);
   end.second(0);
   if (matcher.endMonth !== undefined) {
+    if (matcher.startMonth && matcher.startMonth > matcher.endMonth) {
+      end.year(checkedDate.getFullYear() + 1);
+    }
     end.month(matcher.endMonth);
   } else if (end.date() <= checkedDate.getDate()) {
     end = moment(end).add(1, 'months');

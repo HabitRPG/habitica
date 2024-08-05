@@ -715,6 +715,12 @@ export default {
       if (this.item.notes instanceof Function) {
         return this.item.notes();
       }
+      if (this.item.items) {
+        if (this.item.items[0].notes instanceof Function) {
+          return this.item.items[0].notes();
+        }
+        return this.item.items[0].notes;
+      }
       return this.item.notes;
     },
     gemsLeft () {

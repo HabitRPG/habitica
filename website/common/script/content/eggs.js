@@ -405,6 +405,12 @@ const quests = {
     adjective: t('questEggChameleonAdjective'),
     canBuy: hasQuestAchievementFunction('chameleon'),
   },
+  Crab: {
+    text: t('questEggCrabText'),
+    mountText: t('questEggCrabMountText'),
+    adjective: t('questEggCrabAdjective'),
+    canBuy: hasQuestAchievementFunction('crab'),
+  },
 };
 
 applyEggDefaults(drops, {

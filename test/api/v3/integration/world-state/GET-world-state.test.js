@@ -123,7 +123,7 @@ describe('GET /world-state', () => {
 
       const res = await requester().get('/world-state');
 
-      expect(res.npcImageSuffix).to.equal('winter');
+      expect(res.npcImageSuffix).to.equal('fall');
     });
   });
 });

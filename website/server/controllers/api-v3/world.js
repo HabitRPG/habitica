@@ -35,7 +35,7 @@ api.getWorldState = {
     }
 
     worldState.currentEventList.forEach(event => {
-      if (event.npcImageSuffix) {
+      if (event.npcImageSuffix && !worldState.npcImageSuffix) {
         worldState.npcImageSuffix = event.npcImageSuffix;
       }
     });

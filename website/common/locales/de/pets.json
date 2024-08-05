@@ -115,5 +115,6 @@
     "notEnoughFood": "Du hast nicht genug Futter",
     "invalidAmount": "Ungültige Menge Futter, positiver Integer benötigt",
     "jubilantGryphatrice": "Jubelnder Greifatrice",
-    "veteranDragon": "Veterandrache"
+    "veteranDragon": "Veterandrache",
+    "veteranCactus": "Veterankaktus"
 }

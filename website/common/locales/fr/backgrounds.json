@@ -214,7 +214,7 @@
     "backgroundStormyRooftopsNotes": "Grimpez sur des toits orageux.",
     "backgroundWindyAutumnText": "Automne venteux",
     "backgroundWindyAutumnNotes": "Pourchassez les feuilles pendant un automne venteux.",
-    "incentiveBackgrounds": "Ensemble d'arrière-plans simples",
+    "incentiveBackgrounds": "Arrière-Plans de Base",
     "backgroundVioletText": "Violet",
     "backgroundVioletNotes": "Un arrière-plan violet vibrant.",
     "backgroundBlueText": "Bleu",
@@ -871,5 +871,15 @@
     "backgroundMaypoleNotes": "Dansez autour d'un bel Arbre de Mai.",
     "backgroundPottersStudioNotes": "Créez des œuvres d'art dans le Studio de Poti·er·ère.",
     "backgroundPottersStudioText": "Studio de Poti·er·ère",
-    "backgrounds052024": "Ensemble 120 : Sorti en Mai 2024"
+    "backgrounds052024": "Ensemble 120 : Sorti en Mai 2024",
+    "backgrounds062024": "Ensemble 121 : Sorti Juin 2024",
+    "backgroundShellGateText": "Portail de Coquillages",
+    "backgrounds072024": "Ensemble 122 : Sorti Juillet 2024",
+    "backgroundRiverBottomText": "Fond de Rivière",
+    "backgroundRiverBottomNotes": "Explorez le Fond d'une Rivière.",
+    "monthlyBackgrounds": "Arrière-plans Mensuels",
+    "backgroundShellGateNotes": "Passez sous les coraux ornant un Portail de Coquillages.",
+    "backgrounds082024": "Ensemble 123 : Sorti Août 2024",
+    "backgroundSavannaText": "Pâturage sous la Brume",
+    "backgroundSavannaNotes": "Randonnez à travers des Pâturages sous la Brume."
 }
