@@ -222,32 +222,22 @@ api.bossRage = {
   url: '/debug/boss-rage',
   middlewares: [ensureDevelopmentMode, authWithHeaders()],
   async handler (req, res) {
+    const { user } = res.locals;
     const party = await Group.getGroup({
+      user,
       groupId: 'party',
-      // fields: ['quest', 'progress', 'rage'], // do I need to bring in all these fields?
     });
-
-    console.log(party);
-    // fields.concat['quest', 'progress', 'rage'], // do I need to concatenate the fields?
 
     if (!party) {
       throw new BadRequest('Party is not on a valid quest.');
     }
 
-    console.log('party not on quest');
-
-    if (party.quest.progress.rage) {
-      if (!party.quest.progress.rage) party.quest.progress.rage = 0;
-      party.quest.progress.rage += 50;
-    }
-
-    console.log('added 50 rage');
+    if (!party.quest.progress.rage) party.quest.progress.rage = 0;
+    party.quest.progress.rage += 50;
 
     party.markModified('party.quest.progress.rage');
 
     await party.save();
-
-    console.log('procedure complete');
 
     res.respond(200, {});
   },
