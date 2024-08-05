@@ -229,7 +229,7 @@ api.bossRage = {
     });
 
     if (!party) {
-      throw new BadRequest('Party is not on a valid quest.');
+      throw new BadRequest('User not in a party.');
     }
 
     if (!party.quest.progress.rage) party.quest.progress.rage = 0;
