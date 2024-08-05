@@ -129,6 +129,24 @@ describe('Content Schedule', () => {
     expect(matchers.seasonalGear.end).to.eql(moment.utc(`2025-03-21T${String(switchoverTime).padStart(2, '0')}:00:00.000Z`).toDate());
   });
 
+  it('uses correct date for first hours of the month', () => {
+    // if the date is checked before CONTENT_SWITCHOVER_TIME_OFFSET,
+    // it should be considered the previous month
+    const date = new Date('2024-05-01T02:00:00.000Z');
+    const matchers = getAllScheduleMatchingGroups(date);
+    expect(matchers.petQuests.items).to.contain('snake');
+    expect(matchers.petQuests.items).to.not.contain('horse');
+  });
+
+  it('uses correct date after switchover time', () => {
+    // if the date is checked after CONTENT_SWITCHOVER_TIME_OFFSET,
+    // it should be considered the current
+    const date = new Date('2024-05-01T09:00:00.000Z');
+    const matchers = getAllScheduleMatchingGroups(date);
+    expect(matchers.petQuests.items).to.contain('snake');
+    expect(matchers.petQuests.items).to.not.contain('horse');
+  });
+
   it('contains content for repeating events', () => {
     const date = new Date('2024-04-15');
     const matchers = getAllScheduleMatchingGroups(date);

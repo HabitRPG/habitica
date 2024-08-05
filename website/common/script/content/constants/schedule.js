@@ -809,7 +809,9 @@ function getMonth (date) {
   if (date === undefined) {
     return 0;
   }
-  return date instanceof moment ? date.month() : date.getMonth();
+  const checkDate = new Date(date.getTime());
+  checkDate.setHours(checkDate.getHours() - SWITCHOVER_TIME);
+  return checkDate.getMonth();
 }
 
 function getGalaIndex (date) {
