@@ -18,10 +18,17 @@ function validateMatcher (matcher, checkedDate) {
 
 describe('Content Schedule', () => {
   let switchoverTime;
+  let clock;
 
   beforeEach(() => {
     switchoverTime = nconf.get('CONTENT_SWITCHOVER_TIME_OFFSET') || 0;
     clearCachedMatchers();
+  });
+
+  afterEach(() => {
+    if (clock) {
+      clock.restore();
+    }
   });
 
   it('assembles scheduled items on january 15th', () => {
@@ -146,6 +153,18 @@ describe('Content Schedule', () => {
     // it should be considered the current
     const date = new Date('2024-05-01T09:00:00.000Z');
     const matchers = getAllScheduleMatchingGroups(date);
+    expect(matchers.petQuests.items).to.contain('snake');
+    expect(matchers.petQuests.items).to.not.contain('horse');
+    expect(matchers.timeTravelers.match('202304'), '202304').to.be.false;
+    expect(matchers.timeTravelers.match('202305'), '202305').to.be.true;
+    expect(matchers.timeTravelers.match('202405'), '202405').to.be.false;
+  });
+
+  it('uses UTC timezone', () => {
+    // if the date is checked after CONTENT_SWITCHOVER_TIME_OFFSET,
+    // it should be considered the current
+    clock = sinon.useFakeTimers(new Date('2024-05-01T05:00:00.000-04:00'));
+    const matchers = getAllScheduleMatchingGroups();
     expect(matchers.petQuests.items).to.contain('snake');
     expect(matchers.petQuests.items).to.not.contain('horse');
     expect(matchers.timeTravelers.match('202304'), '202304').to.be.false;

@@ -906,7 +906,7 @@ export function clearCachedMatchers () {
 }
 
 export function getAllScheduleMatchingGroups (date) {
-  const checkedDate = date || new Date();
+  const checkedDate = date || moment.utc().toDate();
   if (cacheDate !== null && (getDay(checkedDate) !== getDay(cacheDate)
     || getMonth(checkedDate) !== getMonth(cacheDate))) {
     // Clear cached matchers, since they are old
