@@ -208,7 +208,7 @@ table {
 </style>
 
 <script>
-import * as validator from 'validator';
+import isURL from 'validator/es/lib/isURL';
 import uuid from '@/../../common/script/libs/uuid';
 import { mapState } from '@/libs/store';
 
@@ -247,7 +247,7 @@ export default {
   },
   methods: {
     isValidUrl (url) {
-      return validator.isURL(url, {
+      return isURL(url, {
         require_tld: true,
         require_protocol: true,
         protocols: ['http', 'https'],

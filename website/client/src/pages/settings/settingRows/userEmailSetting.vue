@@ -68,7 +68,7 @@
 
 <script>
 import axios from 'axios';
-import * as validator from 'validator';
+import isEmail from 'validator/es/lib/isEmail';
 import { mapState } from '@/libs/store';
 
 import SaveCancelButtons from '../components/saveCancelButtons.vue';
@@ -99,7 +99,7 @@ export default {
       return this.previousEmail !== this.updates.newEmail;
     },
     validEmail () {
-      return validator.isEmail(this.updates.newEmail);
+      return isEmail(this.updates.newEmail);
     },
     disallowedToSave () {
       return !this.emailChanged
