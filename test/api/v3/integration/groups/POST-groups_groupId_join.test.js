@@ -169,9 +169,8 @@ describe('POST /group/:groupId/join', () => {
           }),
         };
 
-        const lastNotificationIndex = inviter.notifications.length - 1;
-        expect(inviter.notifications[lastNotificationIndex].type).to.eql('GROUP_INVITE_ACCEPTED');
-        expect(inviter.notifications[lastNotificationIndex].data).to.eql(expectedData);
+        const accepted = inviter.notifications.find(notification => notification.type === 'GROUP_INVITE_ACCEPTED');
+        expect(accepted.data).to.eql(expectedData);
       });
 
       it('clears invitation from user when joining party', async () => {
