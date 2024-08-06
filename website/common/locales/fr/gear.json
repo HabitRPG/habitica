@@ -3179,5 +3179,10 @@
     "shieldSpecialSummer2024HealerText": "Bouclier de l'Escargot de Mer",
     "shieldSpecialSummer2024HealerNotes": "Ce bouclier brillant est encore plus fort qu'un Bâton d'Escargot de Mer. Augmente la Constitution de <%= con %>. Édition Limitée Équipement Été 2024.",
     "headSpecialSummer2024RogueNotes": "Ce casque couverts de tentacules aussi pointues que des cornes vous permet de vous cacher pour attaquer quand vous vous sentez prêt·e. Augmente la Perception de <%= per %>. Édition Limitée Équipement Été 2024.",
-    "armorArmoireCorsairsCoatAndCapeNotes": "Que vous attendiez votre moment de gloire sur les quais ou que vous surveilliez les dangers du grand large, ces vêtements vous garderont au sec et vous donneront un air dramatique. Faites juste en sorte de garder votre équilibre sur le pont. Augmente la Constitution de <%= con %>. Armoire Enchantée : Ensemble Corsaire (Objet 1 sur 3)"
+    "armorArmoireCorsairsCoatAndCapeNotes": "Que vous attendiez votre moment de gloire sur les quais ou que vous surveilliez les dangers du grand large, ces vêtements vous garderont au sec et vous donneront un air dramatique. Faites juste en sorte de garder votre équilibre sur le pont. Augmente la Constitution de <%= con %>. Armoire Enchantée : Ensemble Corsaire (Objet 1 sur 3)",
+    "weaponMystery202408Text": "Égide des Arcanes",
+    "weaponArmoireDragonKnightsLanceText": "Lance du Chevalier Dragon",
+    "armorArmoireDragonKnightsArmorText": "Armure du Chevalier Dragon",
+    "headArmoireDragonKnightsHelmText": "Heaume du Chevalier Dragon",
+    "shieldMystery202408Text": "Scintillements des Arcanes"
 }
