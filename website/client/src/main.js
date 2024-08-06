@@ -1,6 +1,15 @@
 import Vue from 'vue';
 import axios from 'axios';
-import BootstrapVue from 'bootstrap-vue';
+import {
+  ModalPlugin,
+  DropdownPlugin,
+  PopoverPlugin,
+  FormPlugin,
+  FormInputPlugin,
+  TooltipPlugin,
+  NavbarPlugin,
+  CollapsePlugin,
+} from 'bootstrap-vue';
 import Fragment from 'vue-fragment';
 import AppComponent from './app';
 import {
@@ -29,7 +38,14 @@ Vue.config.productionTip = IS_PRODUCTION;
 // window['habitica-i18n] is injected by the server
 Vue.use(i18n, { i18nData: window && window['habitica-i18n'] });
 Vue.use(StoreModule);
-Vue.use(BootstrapVue);
+Vue.use(ModalPlugin);
+Vue.use(DropdownPlugin);
+Vue.use(PopoverPlugin);
+Vue.use(FormPlugin);
+Vue.use(FormInputPlugin);
+Vue.use(TooltipPlugin);
+Vue.use(NavbarPlugin);
+Vue.use(CollapsePlugin);
 Vue.use(Fragment.Plugin);
 
 setUpLogging();
