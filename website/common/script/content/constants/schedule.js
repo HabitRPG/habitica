@@ -894,7 +894,7 @@ function makeEndDate (checkedDate, matcher) {
       end.year(checkedDate.getFullYear() + 1);
     }
     end.month(matcher.endMonth);
-  } else if (end.date() <= checkedDate.getDate()) {
+  } else if (end.valueOf() <= checkedDate.getTime()) {
     end = moment(end).add(1, 'months');
   }
   return end.toDate();
@@ -925,7 +925,7 @@ export function getAllScheduleMatchingGroups (date) {
       if (!cachedScheduleMatchers[matcher.type]) {
         cachedScheduleMatchers[matcher.type] = makeMatcherClass(adjustedDate);
       }
-      cachedScheduleMatchers[matcher.type].end = makeEndDate(adjustedDate, matcher);
+      cachedScheduleMatchers[matcher.type].end = makeEndDate(checkedDate, matcher);
       if (matcher.matcher instanceof Function) {
         cachedScheduleMatchers[matcher.type].matchers.push(matcher.matcher);
       } else if (matcher.items instanceof Array) {

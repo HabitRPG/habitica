@@ -112,8 +112,14 @@ describe('Content Schedule', () => {
     expect(matchers.backgrounds.end).to.eql(moment.utc(`2024-05-07T${String(switchoverTime).padStart(2, '0')}:00:00.000Z`).toDate());
   });
 
-  it('sets the end date if its on the release day', () => {
-    const date = new Date('2024-05-07T07:00:00.000Z');
+  it('sets the end date if its on the release day before switchover', () => {
+    const date = new Date('2024-05-07T07:00:00.000+00:00');
+    const matchers = getAllScheduleMatchingGroups(date);
+    expect(matchers.backgrounds.end).to.eql(moment.utc(`2024-05-07T${String(switchoverTime).padStart(2, '0')}:00:00.000Z`).toDate());
+  });
+
+  it('sets the end date if its on the release day after switchover', () => {
+    const date = new Date('2024-05-07T09:00:00.000+00:00');
     const matchers = getAllScheduleMatchingGroups(date);
     expect(matchers.backgrounds.end).to.eql(moment.utc(`2024-06-07T${String(switchoverTime).padStart(2, '0')}:00:00.000Z`).toDate());
   });
