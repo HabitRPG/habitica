@@ -809,7 +809,9 @@ function getMonth (date) {
   if (date === undefined) {
     return 0;
   }
-  return date instanceof moment ? date.month() : date.getMonth();
+  const checkDate = new Date(date.getTime());
+  checkDate.setHours(checkDate.getHours() - SWITCHOVER_TIME);
+  return checkDate.getMonth();
 }
 
 function getGalaIndex (date) {
@@ -892,7 +894,7 @@ function makeEndDate (checkedDate, matcher) {
       end.year(checkedDate.getFullYear() + 1);
     }
     end.month(matcher.endMonth);
-  } else if (end.date() <= checkedDate.getDate()) {
+  } else if (end.valueOf() <= checkedDate.getTime()) {
     end = moment(end).add(1, 'months');
   }
   return end.toDate();
@@ -904,7 +906,7 @@ export function clearCachedMatchers () {
 }
 
 export function getAllScheduleMatchingGroups (date) {
-  const checkedDate = date || new Date();
+  const checkedDate = date || moment.utc().toDate();
   if (cacheDate !== null && (getDay(checkedDate) !== getDay(cacheDate)
     || getMonth(checkedDate) !== getMonth(cacheDate))) {
     // Clear cached matchers, since they are old
@@ -914,9 +916,14 @@ export function getAllScheduleMatchingGroups (date) {
     // No matchers exist, make new ones
     cacheDate = new Date();
     cachedScheduleMatchers = {};
+    // subtract switchover time for the matcher classes, but
+    // NOT to decide which matchers to assemble.
+    // assembly uses getDate and getMonth which already adjust for switchover time
+    const adjustedDate = new Date(checkedDate.getTime());
+    adjustedDate.setHours(adjustedDate.getHours() - SWITCHOVER_TIME);
     assembleScheduledMatchers(checkedDate).forEach(matcher => {
       if (!cachedScheduleMatchers[matcher.type]) {
-        cachedScheduleMatchers[matcher.type] = makeMatcherClass(checkedDate);
+        cachedScheduleMatchers[matcher.type] = makeMatcherClass(adjustedDate);
       }
       cachedScheduleMatchers[matcher.type].end = makeEndDate(checkedDate, matcher);
       if (matcher.matcher instanceof Function) {

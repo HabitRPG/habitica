@@ -18,10 +18,17 @@ function validateMatcher (matcher, checkedDate) {
 
 describe('Content Schedule', () => {
   let switchoverTime;
+  let clock;
 
   beforeEach(() => {
     switchoverTime = nconf.get('CONTENT_SWITCHOVER_TIME_OFFSET') || 0;
     clearCachedMatchers();
+  });
+
+  afterEach(() => {
+    if (clock) {
+      clock.restore();
+    }
   });
 
   it('assembles scheduled items on january 15th', () => {
@@ -105,8 +112,14 @@ describe('Content Schedule', () => {
     expect(matchers.backgrounds.end).to.eql(moment.utc(`2024-05-07T${String(switchoverTime).padStart(2, '0')}:00:00.000Z`).toDate());
   });
 
-  it('sets the end date if its on the release day', () => {
-    const date = new Date('2024-05-07T07:00:00.000Z');
+  it('sets the end date if its on the release day before switchover', () => {
+    const date = new Date('2024-05-07T07:00:00.000+00:00');
+    const matchers = getAllScheduleMatchingGroups(date);
+    expect(matchers.backgrounds.end).to.eql(moment.utc(`2024-05-07T${String(switchoverTime).padStart(2, '0')}:00:00.000Z`).toDate());
+  });
+
+  it('sets the end date if its on the release day after switchover', () => {
+    const date = new Date('2024-05-07T09:00:00.000+00:00');
     const matchers = getAllScheduleMatchingGroups(date);
     expect(matchers.backgrounds.end).to.eql(moment.utc(`2024-06-07T${String(switchoverTime).padStart(2, '0')}:00:00.000Z`).toDate());
   });
@@ -127,6 +140,42 @@ describe('Content Schedule', () => {
     const date = new Date('2024-12-22');
     const matchers = getAllScheduleMatchingGroups(date);
     expect(matchers.seasonalGear.end).to.eql(moment.utc(`2025-03-21T${String(switchoverTime).padStart(2, '0')}:00:00.000Z`).toDate());
+  });
+
+  it('uses correct date for first hours of the month', () => {
+    // if the date is checked before CONTENT_SWITCHOVER_TIME_OFFSET,
+    // it should be considered the previous month
+    const date = new Date('2024-05-01T02:00:00.000Z');
+    const matchers = getAllScheduleMatchingGroups(date);
+    expect(matchers.petQuests.items).to.contain('snake');
+    expect(matchers.petQuests.items).to.not.contain('horse');
+    expect(matchers.timeTravelers.match('202304'), '202304').to.be.true;
+    expect(matchers.timeTravelers.match('202404'), '202404').to.be.false;
+    expect(matchers.timeTravelers.match('202305'), '202305').to.be.false;
+  });
+
+  it('uses correct date after switchover time', () => {
+    // if the date is checked after CONTENT_SWITCHOVER_TIME_OFFSET,
+    // it should be considered the current
+    const date = new Date('2024-05-01T09:00:00.000Z');
+    const matchers = getAllScheduleMatchingGroups(date);
+    expect(matchers.petQuests.items).to.contain('snake');
+    expect(matchers.petQuests.items).to.not.contain('horse');
+    expect(matchers.timeTravelers.match('202304'), '202304').to.be.false;
+    expect(matchers.timeTravelers.match('202305'), '202305').to.be.true;
+    expect(matchers.timeTravelers.match('202405'), '202405').to.be.false;
+  });
+
+  it('uses UTC timezone', () => {
+    // if the date is checked after CONTENT_SWITCHOVER_TIME_OFFSET,
+    // it should be considered the current
+    clock = sinon.useFakeTimers(new Date('2024-05-01T05:00:00.000-04:00'));
+    const matchers = getAllScheduleMatchingGroups();
+    expect(matchers.petQuests.items).to.contain('snake');
+    expect(matchers.petQuests.items).to.not.contain('horse');
+    expect(matchers.timeTravelers.match('202304'), '202304').to.be.false;
+    expect(matchers.timeTravelers.match('202305'), '202305').to.be.true;
+    expect(matchers.timeTravelers.match('202405'), '202405').to.be.false;
   });
 
   it('contains content for repeating events', () => {
