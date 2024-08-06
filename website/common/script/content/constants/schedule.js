@@ -916,11 +916,16 @@ export function getAllScheduleMatchingGroups (date) {
     // No matchers exist, make new ones
     cacheDate = new Date();
     cachedScheduleMatchers = {};
+    // subtract switchover time for the matcher classes, but
+    // NOT to decide which matchers to assemble.
+    // assembly uses getDate and getMonth which already adjust for switchover time
+    const adjustedDate = new Date(checkedDate.getTime());
+    adjustedDate.setHours(adjustedDate.getHours() - SWITCHOVER_TIME);
     assembleScheduledMatchers(checkedDate).forEach(matcher => {
       if (!cachedScheduleMatchers[matcher.type]) {
-        cachedScheduleMatchers[matcher.type] = makeMatcherClass(checkedDate);
+        cachedScheduleMatchers[matcher.type] = makeMatcherClass(adjustedDate);
       }
-      cachedScheduleMatchers[matcher.type].end = makeEndDate(checkedDate, matcher);
+      cachedScheduleMatchers[matcher.type].end = makeEndDate(adjustedDate, matcher);
       if (matcher.matcher instanceof Function) {
         cachedScheduleMatchers[matcher.type].matchers.push(matcher.matcher);
       } else if (matcher.items instanceof Array) {

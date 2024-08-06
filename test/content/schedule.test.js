@@ -136,6 +136,9 @@ describe('Content Schedule', () => {
     const matchers = getAllScheduleMatchingGroups(date);
     expect(matchers.petQuests.items).to.contain('snake');
     expect(matchers.petQuests.items).to.not.contain('horse');
+    expect(matchers.timeTravelers.match('202304'), '202304').to.be.true;
+    expect(matchers.timeTravelers.match('202404'), '202404').to.be.false;
+    expect(matchers.timeTravelers.match('202305'), '202305').to.be.false;
   });
 
   it('uses correct date after switchover time', () => {
@@ -145,6 +148,9 @@ describe('Content Schedule', () => {
     const matchers = getAllScheduleMatchingGroups(date);
     expect(matchers.petQuests.items).to.contain('snake');
     expect(matchers.petQuests.items).to.not.contain('horse');
+    expect(matchers.timeTravelers.match('202304'), '202304').to.be.false;
+    expect(matchers.timeTravelers.match('202305'), '202305').to.be.true;
+    expect(matchers.timeTravelers.match('202405'), '202405').to.be.false;
   });
 
   it('contains content for repeating events', () => {
