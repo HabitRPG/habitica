@@ -18,8 +18,8 @@
       >
         <router-link to="/">
           <div
-          class="logo svg-icon svg color gryphon pl-2 mr-3"
-          v-html="icons.melior"
+            class="logo svg-icon svg color gryphon pl-2 mr-3"
+            v-html="icons.melior"
           ></div>
           <div class="svg-icon"></div>
         </router-link>
