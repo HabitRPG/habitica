@@ -273,7 +273,6 @@ export default {
   },
   methods: {
     hideLoadingScreen () {
-      console.log('done loading');
       this.loading = false;
     },
     checkForBannedUser (error) {
