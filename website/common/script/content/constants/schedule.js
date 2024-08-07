@@ -796,22 +796,24 @@ export const TYPE_SCHEDULE = {
   customizations: GALA_SWITCHOVER_DAY,
 };
 
+function adjustDateForUTCAndSwitch (date) {
+  const checkDate = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
+  checkDate.setHours(checkDate.getHours() - SWITCHOVER_TIME);
+  return checkDate;
+}
+
 function getDay (date) {
   if (date === undefined) {
     return 0;
   }
-  const checkDate = new Date(date.getTime());
-  checkDate.setHours(checkDate.getHours() - SWITCHOVER_TIME);
-  return checkDate.getDate();
+  return adjustDateForUTCAndSwitch(date).getDate();
 }
 
 function getMonth (date) {
   if (date === undefined) {
     return 0;
   }
-  const checkDate = new Date(date.getTime());
-  checkDate.setHours(checkDate.getHours() - SWITCHOVER_TIME);
-  return checkDate.getMonth();
+  return adjustDateForUTCAndSwitch(date).getMonth();
 }
 
 function getGalaIndex (date) {
@@ -919,8 +921,7 @@ export function getAllScheduleMatchingGroups (date) {
     // subtract switchover time for the matcher classes, but
     // NOT to decide which matchers to assemble.
     // assembly uses getDate and getMonth which already adjust for switchover time
-    const adjustedDate = new Date(checkedDate.getTime());
-    adjustedDate.setHours(adjustedDate.getHours() - SWITCHOVER_TIME);
+    const adjustedDate = adjustDateForUTCAndSwitch(checkedDate);
     assembleScheduledMatchers(checkedDate).forEach(matcher => {
       if (!cachedScheduleMatchers[matcher.type]) {
         cachedScheduleMatchers[matcher.type] = makeMatcherClass(adjustedDate);
