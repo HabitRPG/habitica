@@ -1,14 +1,32 @@
 import nconf from 'nconf';
 import {
   generateUser,
+  createAndPopulateGroup,
 } from '../../../../helpers/api-integration/v3';
 
 describe('POST /debug/boss-rage', () => {
+  const PET_QUEST = 'trex_undead';
   let user;
+  let invitedUser;
+  let party;
+  let questingGroup;
+  let leader;
+  let partyMembers;
   let nconfStub;
 
   beforeEach(async () => {
     user = await generateUser();
+    const { group, groupLeader, invitees } = await createAndPopulateGroup({
+      groupDetails: {
+        name: 'Test Party',
+        type: 'party',
+      },
+      members: 2,
+      invites: 1,
+    });
+    party = group;
+    user = groupLeader;
+    [invitedUser] = invitees;
   });
 
   beforeEach(() => {
@@ -30,15 +48,26 @@ describe('POST /debug/boss-rage', () => {
       });
   });
 
+  it('adds user to party', async () => {
+    await invitedUser.post(`/groups/${party._id}/join`);
+  });
+
+  it('joins a quest from an invitation', async () => {
+    await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
+    await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
+
+    await Promise.all([partyMembers[0].sync(), questingGroup.sync()]);
+    expect(leader.party.quest.RSVPNeeded).to.equal(false);
+    expect(questingGroup.quest.members[partyMembers[0]._id]).to.equal(true);
+  });
+
   it('increases boss rage to 50', async () => {
     await user.updateOne({
       'party.quest.key': 'trex_undead',
     });
 
     await user.post('/debug/boss-rage');
-
     await user.sync();
-
     expect(user.party.quest.progress.rage).to.eql(50);
   });
 
