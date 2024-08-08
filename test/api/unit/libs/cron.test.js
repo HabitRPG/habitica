@@ -197,16 +197,14 @@ describe('cron', async () => {
       user.purchased.plan.dateTerminated = moment(new Date()).subtract({ days: 1 });
       user.purchased.plan.consecutive.gemCapExtra = 20;
       user.purchased.plan.consecutive.count = 5;
-      user.purchased.plan.consecutive.offset = 1;
 
       await cron({
         user, tasksByType, daysMissed, analytics,
       });
 
       expect(user.purchased.plan.customerId).to.not.exist;
-      expect(user.purchased.plan.consecutive.gemCapExtra).to.equal(0);
+      expect(user.purchased.plan.consecutive.gemCapExtra).to.equal(20);
       expect(user.purchased.plan.consecutive.count).to.equal(0);
-      expect(user.purchased.plan.consecutive.offset).to.equal(0);
     });
 
     describe('for a 1-month recurring subscription', async () => {
@@ -229,7 +227,7 @@ describe('cron', async () => {
         user1.purchased.plan.planId = 'basic';
         user1.purchased.plan.consecutive.count = 0;
         user1.purchased.plan.perkMonthCount = 0;
-        user1.purchased.plan.consecutive.trinkets = 0;
+        user1.purchased.plan.consecutive.trinkets = 1;
         user1.purchased.plan.consecutive.gemCapExtra = 0;
       });
 
@@ -256,7 +254,7 @@ describe('cron', async () => {
           user: user1, tasksByType, daysMissed, analytics,
         });
         expect(user1.purchased.plan.consecutive.count).to.equal(10);
-        expect(user1.purchased.plan.consecutive.trinkets).to.equal(10);
+        expect(user1.purchased.plan.consecutive.trinkets).to.equal(11);
         expect(user1.purchased.plan.consecutive.gemCapExtra).to.equal(20);
       });
     });
@@ -281,7 +279,7 @@ describe('cron', async () => {
         user3.purchased.plan.perkMonthCount = 0;
         user3.purchased.plan.consecutive.count = 0;
         user3.purchased.plan.consecutive.trinkets = 1;
-        user3.purchased.plan.consecutive.gemCapExtra = 5;
+        user3.purchased.plan.consecutive.gemCapExtra = 0;
       });
 
       it('increments consecutive benefits', async () => {
@@ -304,7 +302,7 @@ describe('cron', async () => {
           user: user3, tasksByType, daysMissed, analytics,
         });
         expect(user3.purchased.plan.consecutive.count).to.equal(10);
-        expect(user3.purchased.plan.consecutive.trinkets).to.equal(10);
+        expect(user3.purchased.plan.consecutive.trinkets).to.equal(11);
         expect(user3.purchased.plan.consecutive.gemCapExtra).to.equal(20);
       });
     });
@@ -328,8 +326,8 @@ describe('cron', async () => {
         user6.purchased.plan.planId = 'google_6mo';
         user6.purchased.plan.perkMonthCount = 0;
         user6.purchased.plan.consecutive.count = 0;
-        user6.purchased.plan.consecutive.trinkets = 2;
-        user6.purchased.plan.consecutive.gemCapExtra = 10;
+        user6.purchased.plan.consecutive.trinkets = 1;
+        user6.purchased.plan.consecutive.gemCapExtra = 0;
       });
 
       it('increments benefits', async () => {
@@ -362,8 +360,8 @@ describe('cron', async () => {
       user12.purchased.plan.dateUpdated = moment().toDate();
       user12.purchased.plan.planId = 'basic_12mo';
       user12.purchased.plan.consecutive.count = 0;
-      user12.purchased.plan.consecutive.trinkets = 4;
-      user12.purchased.plan.consecutive.gemCapExtra = 20;
+      user12.purchased.plan.consecutive.trinkets = 1;
+      user12.purchased.plan.consecutive.gemCapExtra = 26;
 
       it('increments consecutive benefits the month after the second paid period has started', async () => {
         clock = sinon.useFakeTimers(moment().utcOffset(0).startOf('month').add(1, 'months')
@@ -373,7 +371,7 @@ describe('cron', async () => {
           user: user12, tasksByType, daysMissed, analytics,
         });
         expect(user12.purchased.plan.consecutive.count).to.equal(1);
-        expect(user12.purchased.plan.consecutive.trinkets).to.equal(13);
+        expect(user12.purchased.plan.consecutive.trinkets).to.equal(2);
         expect(user12.purchased.plan.consecutive.gemCapExtra).to.equal(26);
       });
 
@@ -385,8 +383,8 @@ describe('cron', async () => {
           user: user12, tasksByType, daysMissed, analytics,
         });
         expect(user12.purchased.plan.consecutive.count).to.equal(10);
-        expect(user12.purchased.plan.consecutive.trinkets).to.equal(22);
-        expect(user12.purchased.plan.consecutive.gemCapExtra).to.equal(65);
+        expect(user12.purchased.plan.consecutive.trinkets).to.equal(11);
+        expect(user12.purchased.plan.consecutive.gemCapExtra).to.equal(26);
       });
     });
 
@@ -410,7 +408,7 @@ describe('cron', async () => {
       user3g.purchased.plan.planId = null;
       user3g.purchased.plan.consecutive.count = 0;
       user3g.purchased.plan.consecutive.trinkets = 1;
-      user3g.purchased.plan.consecutive.gemCapExtra = 5;
+      user3g.purchased.plan.consecutive.gemCapExtra = 0;
 
       it('increments benefits', async () => {
         clock = sinon.useFakeTimers(moment().utcOffset(0).startOf('month').add(1, 'months')
@@ -419,10 +417,9 @@ describe('cron', async () => {
         await cron({
           user: user3g, tasksByType, daysMissed, analytics,
         });
-        expect(user3g.purchased.plan.consecutive.count).to.equal(3);
-        expect(user3g.purchased.plan.consecutive.offset).to.equal(0);
-        expect(user3g.purchased.plan.consecutive.trinkets).to.equal(1);
-        expect(user3g.purchased.plan.consecutive.gemCapExtra).to.equal(5);
+        expect(user3g.purchased.plan.consecutive.count).to.equal(1);
+        expect(user3g.purchased.plan.consecutive.trinkets).to.equal(2);
+        expect(user3g.purchased.plan.consecutive.gemCapExtra).to.equal(2);
       });
 
       it('does not increment consecutive benefits in the month after the gift subscription has ended', async () => {
@@ -434,9 +431,8 @@ describe('cron', async () => {
         });
         // subscription has been erased by now
         expect(user3g.purchased.plan.consecutive.count).to.equal(0);
-        expect(user3g.purchased.plan.consecutive.offset).to.equal(0);
-        expect(user3g.purchased.plan.consecutive.trinkets).to.equal(1);
-        expect(user3g.purchased.plan.consecutive.gemCapExtra).to.equal(0); // erased
+        expect(user3g.purchased.plan.consecutive.trinkets).to.equal(2);
+        expect(user3g.purchased.plan.consecutive.gemCapExtra).to.equal(2);
       });
     });
   });

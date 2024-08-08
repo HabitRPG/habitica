@@ -249,24 +249,7 @@ async function createSubscription (data) {
     itemPurchased,
     purchaseType,
     emailType,
-    isNewSubscription,
   } = await prepareSubscriptionValues(data);
-
-  // Block sub perks
-  if (months > 1 && (!data.gift || !isNewSubscription)) {
-    if (!data.gift && !groupId) {
-      plan.consecutive.offset = block.months;
-    }
-  } else if (months === 1) {
-    plan.consecutive.offset = 0;
-  }
-  if (months > 1 || data.gift) {
-    await plan.incrementPerkCounterAndReward(recipient._id, months);
-  } else {
-    // Make sure the perkMonthCount field is initialized.
-    await plan.incrementPerkCounterAndReward(recipient._id, 0);
-  }
-
   if (recipient !== group) {
     recipient.items.pets['Jackalope-RoyalPurple'] = 5;
     recipient.markModified('items.pets');
@@ -276,6 +259,17 @@ async function createSubscription (data) {
   // @TODO: Create a factory pattern for use cases
   if (!data.gift && data.customerId !== paymentConstants.GROUP_PLAN_CUSTOMER_ID) {
     txnEmail(data.user, emailType);
+  }
+
+  if (months === 12) {
+    plan.consecutive.gemCapExtra = 26;
+  }
+
+  if (months === 12 && autoRenews && !recipient.purchased.plan.hourglassPromoReceived) {
+    recipient.purchased.plan.hourglassPromoReceived = new Date();
+    await plan.updateHourglasses(recipient._id, 12, '12_month_subscription');
+  } else if (!data.gift || (data.gift && !recipient.isSubscribed())) {
+    await plan.updateHourglasses(recipient._id, 1, 'subscribed');
   }
 
   if (!group && !data.promo) data.user.purchased.txnCount += 1;
