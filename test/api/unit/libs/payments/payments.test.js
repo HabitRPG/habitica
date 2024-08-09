@@ -110,8 +110,6 @@ describe('payments/index', () => {
       it('add a transaction entry to the recipient', async () => {
         await api.createSubscription(data);
 
-        expect(recipient.purchased.plan.extraMonths).to.eql(3);
-
         const transactions = await TransactionModel
           .find({ userId: recipient._id })
           .sort({ createdAt: -1 })
@@ -174,27 +172,26 @@ describe('payments/index', () => {
       });
 
       it('does not reset gemCapExtra if they already had one', async () => {
-        recipient.purchased.plan.gemCapExtra = 10;
+        recipient.purchased.plan.consecutive.gemCapExtra = 10;
 
         await api.createSubscription(data);
 
-        expect(recipient.purchased.plan.gemCapExtra).to.eql(10);
+        expect(recipient.purchased.plan.consecutive.gemCapExtra).to.eql(10);
       });
 
       it('sets gemCapExtra to max if they receive a 12 month sub', async () => {
-        recipient.purchased.plan.gemCapExtra = 10;
+        recipient.purchased.plan.consecutive.gemCapExtra = 10;
 
         data.gift.subscription.key = 'basic_12mo';
         data.gift.subscription.months = 12;
 
         await api.createSubscription(data);
 
-        expect(recipient.purchased.plan.gemCapExtra).to.eql(26);
+        expect(recipient.purchased.plan.consecutive.gemCapExtra).to.eql(26);
       });
 
       it('gives user 1 hourglass if they have no active subscription', async () => {
         await api.createSubscription(data);
-
         expect(recipient.purchased.plan.consecutive.trinkets).to.eql(1);
       });
 
@@ -583,7 +580,7 @@ describe('payments/index', () => {
           expect(user.purchased.plan.dateCreated).to.eql(created);
           expect(user.purchased.plan.dateUpdated).to.not.eql(updated);
           expect(user.purchased.plan.customerId).to.eql('customer-id');
-          expect(user.purchased.plan.gemCapExtra).to.eql(26);
+          expect(user.purchased.plan.consecutive.gemCapExtra).to.eql(26);
         });
       });
 
@@ -662,7 +659,7 @@ describe('payments/index', () => {
       });
 
       it('adds 1 plan.consecutive.trinkets for 12 month block if they had promo', async () => {
-        user.purchased.plan.hourGlassPromoReceived = new Date();
+        user.purchased.plan.hourglassPromoReceived = new Date();
         data.sub.key = 'basic_12mo';
 
         await api.createSubscription(data);
@@ -683,7 +680,7 @@ describe('payments/index', () => {
           beforeEach(async () => {
             data.updatedFrom = { logic: 'payDifference' };
           });
-          it('Adds 15 to plan.consecutive.gemCapExtra when upgrading from basic_3mo to basic_12mo', async () => {
+          it('Adds 26 to plan.consecutive.gemCapExtra when upgrading from basic_3mo to basic_12mo', async () => {
             expect(user.purchased.plan.planId).to.not.exist;
 
             await api.createSubscription(data);
@@ -735,7 +732,7 @@ describe('payments/index', () => {
             data.updatedFrom = { logic: 'payFull' };
           });
 
-          it('Adds 20 to plan.consecutive.gemCapExtra when upgrading from basic_3mo to basic_12mo', async () => {
+          it('Adds 26 to plan.consecutive.gemCapExtra when upgrading from basic_3mo to basic_12mo', async () => {
             expect(user.purchased.plan.planId).to.not.exist;
 
             await api.createSubscription(data);
@@ -750,7 +747,7 @@ describe('payments/index', () => {
             expect(user.purchased.plan.consecutive.gemCapExtra).to.eql(26);
           });
 
-          it('Adds 11 to plan.consecutive.trinkets when upgrading from basic_6mo to basic_12mo', async () => {
+          it('Adds 12 to plan.consecutive.trinkets when upgrading from basic_6mo to basic_12mo', async () => {
             data.sub.key = 'basic_6mo';
             expect(user.purchased.plan.planId).to.not.exist;
 
@@ -763,10 +760,10 @@ describe('payments/index', () => {
             data.updatedFrom.key = 'basic_6mo';
             await api.createSubscription(data);
             expect(user.purchased.plan.planId).to.eql('basic_12mo');
-            expect(user.purchased.plan.consecutive.trinkets).to.eql(12);
+            expect(user.purchased.plan.consecutive.trinkets).to.eql(13);
           });
 
-          it('Adds 11 to plan.consecutive.trinkets when upgrading from basic_3mo to basic_12mo', async () => {
+          it('Adds 12 to plan.consecutive.trinkets when upgrading from basic_3mo to basic_12mo', async () => {
             expect(user.purchased.plan.planId).to.not.exist;
 
             await api.createSubscription(data);
@@ -778,7 +775,7 @@ describe('payments/index', () => {
             data.updatedFrom.key = 'basic_3mo';
             await api.createSubscription(data);
             expect(user.purchased.plan.planId).to.eql('basic_12mo');
-            expect(user.purchased.plan.consecutive.trinkets).to.eql(12);
+            expect(user.purchased.plan.consecutive.trinkets).to.eql(13);
           });
         });
 
@@ -841,14 +838,14 @@ describe('payments/index', () => {
               expect(user.purchased.plan.consecutive.trinkets).to.eql(12);
             });
 
-            it('Adds 2 to plan.consecutive.trinkets when upgrading from basic_6mo to basic_12mo after initial cycle', async () => {
+            it('Adds 11 to plan.consecutive.trinkets when upgrading from basic_6mo to basic_12mo after initial cycle', async () => {
               data.sub.key = 'basic_6mo';
               expect(user.purchased.plan.planId).to.not.exist;
 
               await api.createSubscription(data);
 
               expect(user.purchased.plan.planId).to.eql('basic_6mo');
-              expect(user.purchased.plan.consecutive.trinkets).to.eql(2);
+              expect(user.purchased.plan.consecutive.trinkets).to.eql(1);
 
               data.sub.key = 'basic_12mo';
               data.updatedFrom.key = 'basic_6mo';
@@ -856,10 +853,10 @@ describe('payments/index', () => {
               clock = sinon.useFakeTimers(new Date('2022-08-28'));
               await api.createSubscription(data);
               expect(user.purchased.plan.planId).to.eql('basic_12mo');
-              expect(user.purchased.plan.consecutive.trinkets).to.eql(4);
+              expect(user.purchased.plan.consecutive.trinkets).to.eql(12);
             });
 
-            it('Adds 3 to plan.consecutive.trinkets when upgrading from basic_3mo to basic_12mo after initial cycle', async () => {
+            it('Adds 11 to plan.consecutive.trinkets when upgrading from basic_3mo to basic_12mo after initial cycle', async () => {
               expect(user.purchased.plan.planId).to.not.exist;
 
               await api.createSubscription(data);
@@ -873,11 +870,11 @@ describe('payments/index', () => {
               clock = sinon.useFakeTimers(new Date('2022-07-31'));
               await api.createSubscription(data);
               expect(user.purchased.plan.planId).to.eql('basic_12mo');
-              expect(user.purchased.plan.consecutive.trinkets).to.eql(4);
+              expect(user.purchased.plan.consecutive.trinkets).to.eql(12);
             });
           });
           context('Upgrades within second half of subscription', () => {
-            it('Adds 10 to plan.consecutive.gemCapExtra from basic_earned to basic_6mo', async () => {
+            it('Adds 0 to plan.consecutive.gemCapExtra from basic_earned to basic_6mo', async () => {
               data.sub.key = 'basic_earned';
               expect(user.purchased.plan.planId).to.not.exist;
 
@@ -892,16 +889,16 @@ describe('payments/index', () => {
               clock = sinon.useFakeTimers(new Date('2022-01-20'));
               await api.createSubscription(data);
               expect(user.purchased.plan.planId).to.eql('basic_6mo');
-              expect(user.purchased.plan.consecutive.gemCapExtra).to.eql(10);
+              expect(user.purchased.plan.consecutive.gemCapExtra).to.eql(0);
             });
 
-            it('Adds 20 to plan.consecutive.gemCapExtra when upgrading from basic_3mo to basic_12mo', async () => {
+            it('Adds 26 to plan.consecutive.gemCapExtra when upgrading from basic_3mo to basic_12mo', async () => {
               expect(user.purchased.plan.planId).to.not.exist;
 
               await api.createSubscription(data);
 
               expect(user.purchased.plan.planId).to.eql('basic_3mo');
-              expect(user.purchased.plan.consecutive.gemCapExtra).to.eql(5);
+              expect(user.purchased.plan.consecutive.gemCapExtra).to.eql(0);
 
               data.sub.key = 'basic_12mo';
               data.updatedFrom.key = 'basic_3mo';
@@ -909,17 +906,17 @@ describe('payments/index', () => {
               clock = sinon.useFakeTimers(new Date('2022-02-24'));
               await api.createSubscription(data);
               expect(user.purchased.plan.planId).to.eql('basic_12mo');
-              expect(user.purchased.plan.consecutive.gemCapExtra).to.eql(25);
+              expect(user.purchased.plan.consecutive.gemCapExtra).to.eql(26);
             });
 
-            it('Adds 2 to plan.consecutive.trinkets from basic_earned to basic_6mo', async () => {
+            it('Adds 1 to plan.consecutive.trinkets from basic_earned to basic_6mo', async () => {
               data.sub.key = 'basic_earned';
               expect(user.purchased.plan.planId).to.not.exist;
 
               await api.createSubscription(data);
 
               expect(user.purchased.plan.planId).to.eql('basic_earned');
-              expect(user.purchased.plan.consecutive.trinkets).to.eql(0);
+              expect(user.purchased.plan.consecutive.trinkets).to.eql(1);
 
               data.sub.key = 'basic_6mo';
               data.updatedFrom.key = 'basic_earned';
@@ -930,14 +927,14 @@ describe('payments/index', () => {
               expect(user.purchased.plan.consecutive.trinkets).to.eql(2);
             });
 
-            it('Adds 4 to plan.consecutive.trinkets when upgrading from basic_6mo to basic_12mo', async () => {
+            it('Adds 12 to plan.consecutive.trinkets when upgrading from basic_6mo to basic_12mo', async () => {
               data.sub.key = 'basic_6mo';
               expect(user.purchased.plan.planId).to.not.exist;
 
               await api.createSubscription(data);
 
               expect(user.purchased.plan.planId).to.eql('basic_6mo');
-              expect(user.purchased.plan.consecutive.trinkets).to.eql(2);
+              expect(user.purchased.plan.consecutive.trinkets).to.eql(1);
 
               data.sub.key = 'basic_12mo';
               data.updatedFrom.key = 'basic_6mo';
@@ -945,7 +942,7 @@ describe('payments/index', () => {
               clock = sinon.useFakeTimers(new Date('2022-05-28'));
               await api.createSubscription(data);
               expect(user.purchased.plan.planId).to.eql('basic_12mo');
-              expect(user.purchased.plan.consecutive.trinkets).to.eql(6);
+              expect(user.purchased.plan.consecutive.trinkets).to.eql(13);
             });
 
             it('Adds 11 to plan.consecutive.trinkets when upgrading from basic_3mo to basic_12mo', async () => {
@@ -962,10 +959,10 @@ describe('payments/index', () => {
               clock = sinon.useFakeTimers(new Date('2022-03-03'));
               await api.createSubscription(data);
               expect(user.purchased.plan.planId).to.eql('basic_12mo');
-              expect(user.purchased.plan.consecutive.trinkets).to.eql(12);
+              expect(user.purchased.plan.consecutive.trinkets).to.eql(13);
             });
 
-            it('Adds 11 to plan.consecutive.trinkets from basic_earned to basic_6mo after initial cycle', async () => {
+            it('Adds 1 to plan.consecutive.trinkets from basic_earned to basic_6mo after initial cycle', async () => {
               data.sub.key = 'basic_earned';
               expect(user.purchased.plan.planId).to.not.exist;
 
@@ -980,10 +977,10 @@ describe('payments/index', () => {
               clock = sinon.useFakeTimers(new Date('2022-05-28'));
               await api.createSubscription(data);
               expect(user.purchased.plan.planId).to.eql('basic_6mo');
-              expect(user.purchased.plan.consecutive.trinkets).to.eql(12);
+              expect(user.purchased.plan.consecutive.trinkets).to.eql(2);
             });
 
-            it('Adds 11 to plan.consecutive.trinkets when upgrading from basic_6mo to basic_12mo after initial cycle', async () => {
+            it('Adds 12 to plan.consecutive.trinkets when upgrading from basic_6mo to basic_12mo after initial cycle', async () => {
               data.sub.key = 'basic_6mo';
               expect(user.purchased.plan.planId).to.not.exist;
 
@@ -998,10 +995,10 @@ describe('payments/index', () => {
               clock = sinon.useFakeTimers(new Date('2023-05-28'));
               await api.createSubscription(data);
               expect(user.purchased.plan.planId).to.eql('basic_12mo');
-              expect(user.purchased.plan.consecutive.trinkets).to.eql(12);
+              expect(user.purchased.plan.consecutive.trinkets).to.eql(13);
             });
 
-            it('Adds 4 to plan.consecutive.trinkets when upgrading from basic_3mo to basic_12mo after initial cycle', async () => {
+            it('Adds 12 to plan.consecutive.trinkets when upgrading from basic_3mo to basic_12mo after initial cycle', async () => {
               expect(user.purchased.plan.planId).to.not.exist;
 
               await api.createSubscription(data);
@@ -1015,7 +1012,7 @@ describe('payments/index', () => {
               clock = sinon.useFakeTimers(new Date('2023-09-03'));
               await api.createSubscription(data);
               expect(user.purchased.plan.planId).to.eql('basic_12mo');
-              expect(user.purchased.plan.consecutive.trinkets).to.eql(5);
+              expect(user.purchased.plan.consecutive.trinkets).to.eql(13);
             });
           });
           afterEach(async () => {

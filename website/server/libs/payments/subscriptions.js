@@ -245,6 +245,7 @@ async function createSubscription (data) {
     itemPurchased,
     purchaseType,
     emailType,
+    isNewSubscription,
   } = await prepareSubscriptionValues(data);
   if (recipient !== group) {
     recipient.items.pets['Jackalope-RoyalPurple'] = 5;
@@ -257,15 +258,23 @@ async function createSubscription (data) {
     txnEmail(data.user, emailType);
   }
 
-  if (months === 12) {
-    plan.consecutive.gemCapExtra = 26;
-  }
+  if (months > 0) {
+    if (block.months === 12) {
+      recipient.purchased.plan.consecutive.gemCapExtra = 26;
+      recipient.markModified('purchased.plan.consecutive');
+    }
 
-  if (months === 12 && autoRenews && !recipient.purchased.plan.hourglassPromoReceived) {
-    recipient.purchased.plan.hourglassPromoReceived = new Date();
-    await plan.updateHourglasses(recipient._id, 12, '12_month_subscription');
-  } else if (!data.gift || (data.gift && !recipient.isSubscribed())) {
-    await plan.updateHourglasses(recipient._id, 1, 'subscribed');
+    if (block.months === 12 && autoRenews && !recipient.purchased.plan.hourglassPromoReceived) {
+      recipient.purchased.plan.hourglassPromoReceived = new Date();
+      if (months !== block.months) {
+        // user is upgrading their sub. Already got one hourglass when subscribing
+        await plan.updateHourglasses(recipient._id, 11, '12_month_subscription');
+      } else {
+        await plan.updateHourglasses(recipient._id, 12, '12_month_subscription');
+      }
+    } else if (!data.gift || (data.gift && isNewSubscription)) {
+      await plan.updateHourglasses(recipient._id, 1, 'subscribed');
+    }
   }
 
   if (!group && !data.promo) data.user.purchased.txnCount += 1;
