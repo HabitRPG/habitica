@@ -155,10 +155,6 @@ async function prepareSubscriptionValues (data) {
 
   const { plan } = recipient.purchased;
 
-  if (isNewSubscription) {
-    plan.perkMonthCount = 0;
-  }
-
   if (data.gift || !autoRenews) {
     if (plan.customerId && !plan.dateTerminated) { // User has active plan
       plan.extraMonths += months;

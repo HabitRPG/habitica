@@ -103,43 +103,12 @@
             >
           </div>
         </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label">
-            Perk offset months:
-          </label>
-          <div class="col-sm-9">
-            <input
-              v-model="hero.purchased.plan.consecutive.offset"
-              class="form-control"
-              type="number"
-              min="0"
-              step="1"
-            >
-          </div>
+        <div>
+          Next Mystic Hourglass:
+          <strong>{{ nextHourglassDate }}</strong>
         </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label">
-            Perk month count:
-          </label>
-          <div class="col-sm-9">
-            <input
-              v-model="hero.purchased.plan.perkMonthCount"
-              class="form-control"
-              type="number"
-              min="0"
-              max="2"
-              step="1"
-            >
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label">
-            Next Mystic Hourglass:
-          </label>
-          <strong class="col-sm-9 col-form-label">{{ nextHourglassDate }}</strong>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label">
+        <div class="form-inline">
+          <label>
             Mystic Hourglasses:
           </label>
           <div class="col-sm-9">

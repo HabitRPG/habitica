@@ -182,7 +182,7 @@ describe('cron utility functions', () => {
     });
   });
 
-  describe.only('getPlanContext', () => {
+  describe('getPlanContext', () => {
     function baseUserData (count, offset, planId) {
       return {
         purchased: {

@@ -235,8 +235,7 @@
                 >
                 </div>
                 <div class="number-heavy">
-                  {{ user.purchased.plan.consecutive.count +
-                    user.purchased.plan.consecutive.offset }}
+                  {{ user.purchased.plan.consecutive.count }}
                 </div>
               </div>
               <div class="stats-label">
@@ -739,8 +738,7 @@ export default {
       return this.user.purchased.plan.customerId === 'group-plan';
     },
     hasConsecutiveSubscription () {
-      return Boolean(this.user.purchased.plan.consecutive.count)
-        || Boolean(this.user.purchased.plan.consecutive.offset);
+      return Boolean(this.user.purchased.plan.consecutive.count);
     },
     purchasedPlanExtraMonthsDetails () {
       return {
