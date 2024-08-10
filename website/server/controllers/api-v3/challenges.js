@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import cloneDeep from 'lodash/cloneDeep';
-import mongoose from 'mongoose';
 import { authWithHeaders, authWithSession } from '../../middlewares/auth';
 import { model as Challenge } from '../../models/challenge';
 import bannedWords from '../../libs/bannedWords';
@@ -340,7 +339,7 @@ api.joinChallenge = {
     group.purchased = undefined;
 
     // Start a mongo transaction
-    const session = await mongoose.startSession();
+    const session = await Challenge.startSession();
     session.startTransaction();
 
     let saveResult;
