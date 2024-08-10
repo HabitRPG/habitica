@@ -383,5 +383,7 @@
     "hatchingPotionKoi": "Koi",
     "questEggGiraffeText": "Giraffe",
     "questEggGiraffeAdjective": "eine riesengroße",
-    "questEggChameleonAdjective": "ein chaotisches"
+    "questEggChameleonAdjective": "ein chaotisches",
+    "questEggCrabText": "Krabbe",
+    "questEggCrabMountText": "Krabbe"
 }

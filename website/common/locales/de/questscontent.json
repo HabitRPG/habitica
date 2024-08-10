@@ -778,5 +778,7 @@
     "questChameleonBoss": "Chaotisches Chamäleon",
     "questChameleonDropChameleonEgg": "Chamäleon (Ei)",
     "QuestChameleonUnlockText": "Schält Chamäleon Eier zum Kauf im Marktplatz frei",
-    "questGiraffeDropGiraffeEgg": "Giraffe (Ei)"
+    "questGiraffeDropGiraffeEgg": "Giraffe (Ei)",
+    "questGiraffeUnlockText": "Schält Giraffen Eier zum Kauf im Marktplatz frei.",
+    "questChameleonUnlockText": "Schält Chamäleon Eier zum Kauf im Marktplatz frei"
 }

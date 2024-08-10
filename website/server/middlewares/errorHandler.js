@@ -9,6 +9,7 @@ import {
   CustomError,
   BadRequest,
   InternalServerError,
+  RequestTimeout,
 } from '../libs/errors';
 
 export default function errorHandler (err, req, res, next) { // eslint-disable-line no-unused-vars
@@ -44,6 +45,10 @@ export default function errorHandler (err, req, res, next) { // eslint-disable-l
       path: mongooseErr.path,
       value: mongooseErr.value,
     }));
+  }
+
+  if (err.name === 'MongoNetworkTimeoutError') {
+    responseErr = new RequestTimeout();
   }
 
   // Handle Stripe Card errors errors (can be safely shown to the users)

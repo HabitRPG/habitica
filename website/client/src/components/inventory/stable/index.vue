@@ -1,8 +1,6 @@
 <template>
   <div
-    v-mousePosition="30"
     class="row stable"
-    @mouseMoved="mouseMoved($event)"
   >
     <div class="standard-sidebar d-none d-sm-block">
       <filter-sidebar>
@@ -265,43 +263,10 @@
       </inventoryDrawer>
     </div>
     <hatchedPetDialog :hide-text="true" />
-    <div
-      ref="dragginFoodInfo"
-      class="foodInfo"
-    >
-      <div v-if="currentDraggingFood != null">
-        <div
-          class="food-icon"
-          :class="`Pet_Food_${currentDraggingFood.key}`"
-        ></div>
-        <div class="popover">
-          <div
-            class="popover-content"
-          >
-            {{ $t('dragThisFood', {foodName: currentDraggingFood.text() }) }}
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      v-if="foodClickMode"
-      ref="clickFoodInfo"
-      class="foodInfo mouse"
-    >
-      <div v-if="currentDraggingFood != null">
-        <div
-          class="food-icon"
-          :class="`Pet_Food_${currentDraggingFood.key}`"
-        ></div>
-        <div class="popover">
-          <div
-            class="popover-content"
-          >
-            {{ $t('clickOnPetToFeed', {foodName: currentDraggingFood.text() }) }}
-          </div>
-        </div>
-      </div>
-    </div>
+    <ItemPopover
+      :dragged-item="currentDraggingFood"
+      popoverTextKey="clickOnPetToFeed"
+      translationKey="foodName" />
     <mount-raised-modal />
     <welcome-modal />
     <hatching-modal :hatchable-pet.sync="hatchablePet" />
@@ -364,34 +329,6 @@
     margin-bottom: 0;
   }
 
-  .foodInfo {
-    position: absolute;
-    left: -500px;
-
-    z-index: 1080;
-
-    &.mouse {
-      position: fixed;
-      pointer-events: none
-    }
-
-    .food-icon {
-      margin: 0 auto 8px;
-      transform: scale(1.5);
-    }
-
-    .popover {
-      position: inherit;
-      width: 180px;
-    }
-
-    .popover-content {
-      color: white;
-      margin: 15px;
-      text-align: center;
-    }
-  }
-
   .hatchablePopover {
     width: 180px;
 
@@ -428,6 +365,7 @@ import _throttle from 'lodash/throttle';
 import groupBy from 'lodash/groupBy';
 import { mapState } from '@/libs/store';
 
+import ItemPopover from '@/components/inventory/itemPopover';
 import PetItem from './petItem';
 import MountItem from './mountItem.vue';
 import FoodItem from './foodItem';
@@ -440,7 +378,6 @@ import InventoryDrawer from '@/components/shared/inventoryDrawer';
 
 import ResizeDirective from '@/directives/resize.directive';
 import DragDropDirective from '@/directives/dragdrop.directive';
-import MouseMoveDirective from '@/directives/mouseposition.directive';
 
 import { createAnimal } from '@/libs/createAnimal';
 
@@ -482,11 +419,11 @@ export default {
     WelcomeModal,
     HatchingModal,
     InventoryDrawer,
+    ItemPopover,
   },
   directives: {
     resize: ResizeDirective,
     drag: DragDropDirective,
-    mousePosition: MouseMoveDirective,
   },
   mixins: [notifications, openedItemRowsMixin, petMixin, seasonalNPC],
   data () {

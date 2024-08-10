@@ -224,7 +224,7 @@
 <script>
 import hello from 'hellojs';
 import debounce from 'lodash/debounce';
-import isEmail from 'validator/lib/isEmail';
+import isEmail from 'validator/es/lib/isEmail';
 import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
 import { setUpAxios, buildAppleAuthUrl } from '@/libs/auth';
 import googleIcon from '@/assets/svg/google.svg';

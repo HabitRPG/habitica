@@ -19,10 +19,10 @@
       </div>
       <div class="inner-content">
         <div class="achievement-background d-flex align-items-center">
-          <div
+          <Sprite
             class="icon"
-            :class="achievementClass"
-          ></div>
+            :image-name="achievementClass"
+          />
         </div>
         <h4
           class="title"
@@ -99,8 +99,12 @@
 import achievements from '@/../../common/script/content/achievements';
 import { mapState } from '@/libs/store';
 import svgClose from '@/assets/svg/close.svg';
+import Sprite from '@/components/ui/sprite.vue';
 
 export default {
+  components: {
+    Sprite,
+  },
   props: ['data'],
   data () {
     return {

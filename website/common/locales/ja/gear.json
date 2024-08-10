@@ -5,7 +5,7 @@
     "groupBy": "<%= type %>でグループ分け",
     "classBonus": "(このアイテムはあなたのクラス用なので、能力値のボーナスが1.5倍になります。)",
     "classArmor": "クラスのよろい",
-    "featuredset": "目玉商品 <%= name %>",
+    "featuredset": "目玉商品： <%= name %>",
     "mysterySets": "ミステリーセット",
     "gearNotOwned": "このアイテムを持っていません。",
     "noGearItemsOfType": "この中のどれも持っていません。",
