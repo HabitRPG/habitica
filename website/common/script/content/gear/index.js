@@ -49,16 +49,6 @@ function populateGear (key, klass, type, index, item) {
   }
 }
 
-each(GEAR_TYPES, type => {
-  const allGearTypes = CLASSES.concat(['base', 'special', 'mystery', 'armoire']);
-  each(allGearTypes, klass => {
-    each(gear[type][klass], (item, index) => {
-      const key = `${type}_${klass}_${index}`;
-      populateGear(key, klass, type, index, item);
-    });
-  });
-});
-
 function buildFlatList () {
   /*
     The gear is exported as a tree (defined above), and a flat list

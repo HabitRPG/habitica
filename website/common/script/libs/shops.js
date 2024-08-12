@@ -106,7 +106,7 @@ function getTranslatedClassName (classType, language) {
 shops.checkMarketGearLocked = function checkMarketGearLocked (user, items) {
   const result = filter(items, ['pinType', 'marketGear']);
   const officialPinnedItems = getOfficialPinnedItems(user);
-  const availableGear = map(updateStore(user), item => getItemInfo(user, 'marketGear', item, officialPinnedItems).path);
+  const availableGear = map(updateStore(user, result.map(item => item.key)), item => getItemInfo(user, 'marketGear', item, officialPinnedItems).path);
   const { pinnedSets } = seasonalShopConfig();
   for (const gear of result) {
     if (gear.klass !== user.stats.class) {
