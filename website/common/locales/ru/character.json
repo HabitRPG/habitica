@@ -189,5 +189,10 @@
     "notEnoughGold": "Недостаточно золота.",
     "chatCastSpellPartyTimes": "<%= username %> бросает <%= spell %> для команды <%= times %> времени.",
     "chatCastSpellUserTimes": "<%= username %> применяет <%= spell %> на <%= target %> <%= times %> раз.",
-    "nextReward": "Награда за следующий вход"
+    "nextReward": "Награда за следующий вход",
+    "skins": "Внешний вид",
+    "titleFacialHair": "Борода и усы",
+    "titleHaircolor": "Цвет волос",
+    "titleHairbase": "Прическа",
+    "customizations": "Стили"
 }
