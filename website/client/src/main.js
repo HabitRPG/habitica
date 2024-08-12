@@ -6,6 +6,7 @@ import {
   PopoverPlugin,
   FormPlugin,
   FormInputPlugin,
+  FormRadioPlugin,
   TooltipPlugin,
   NavbarPlugin,
   CollapsePlugin,
@@ -43,6 +44,7 @@ Vue.use(DropdownPlugin);
 Vue.use(PopoverPlugin);
 Vue.use(FormPlugin);
 Vue.use(FormInputPlugin);
+Vue.use(FormRadioPlugin);
 Vue.use(TooltipPlugin);
 Vue.use(NavbarPlugin);
 Vue.use(CollapsePlugin);
