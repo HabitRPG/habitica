@@ -3184,5 +3184,10 @@
     "weaponArmoireDragonKnightsLanceText": "Lance du Chevalier Dragon",
     "armorArmoireDragonKnightsArmorText": "Armure du Chevalier Dragon",
     "headArmoireDragonKnightsHelmText": "Heaume du Chevalier Dragon",
-    "shieldMystery202408Text": "Scintillements des Arcanes"
+    "shieldMystery202408Text": "Scintillements des Arcanes",
+    "weaponMystery202408Notes": "Une bulle de protection magique qui vous protège des sorts ennemis et vous permet de flotter dans sur l'eau comme dans les airs. Ne confère aucun bonus. Équipement d'Abonnement Août 2024.",
+    "weaponArmoireDragonKnightsLanceNotes": "Cette lance rouge et argent a désarçonner de nombreux opposant·e·s de leur montures. Augmente la Constitution de <%= con %>. Armoire Enchantée : Ensemble Chevalier Dragon (Objet 3 sur 3)",
+    "armorArmoireDragonKnightsArmorNotes": "Canalisez la force et le pouvoir d'un dragon avec cette armure faite d'argent et d'écailles. Augmente la Force de <%= str %>. Armoire Enchantée : Ensemble Chevalier Dragon (Objet 2 sur 3)",
+    "headArmoireDragonKnightsHelmNotes": "Avec ces apparats ardents ornant ce casque, les dragons pourraient vous prendre pour l'un·e des leurs. Augmente l'Intelligence de <%= int %>. Armoire Enchantée : Ensemble Chevalier Dragon (Objet 1 sur 3)",
+    "shieldMystery202408Notes": "De la lumière magique illuminera l'intérieur de votre cachette-bulle, ou dans quel qu'autre endroit nécessitant un peu de lumière ! Ne confère aucun bonus. Équipement d'Abonnement Août 2024."
 }

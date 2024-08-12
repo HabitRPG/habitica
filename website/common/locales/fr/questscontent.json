@@ -788,5 +788,10 @@
     "questGiraffeUnlockText": "Permet de débloquer l'achat des Œufs de Girafe au Marché.",
     "questChameleonUnlockText": "Permet de débloquer l'achat des Œufs de Caméléon au Marché",
     "questCrabDropCrabEgg": "Crabe (Œuf)",
-    "questCrabUnlockText": "Permet de débloquer l'achat des Œufs de Crabe au Marché."
+    "questCrabUnlockText": "Permet de débloquer l'achat des Œufs de Crabe au Marché.",
+    "questCrabText": "La Crabe Bouineuse",
+    "questCrabRageEffect": "La Crabe Bouineuse vous distrait avec ses décorations, vous ralentissant dans votre travail, creusant et drainant un peu de votre magie. Les PM de l'équipes sont réduits !",
+    "questCrabBoss": "Crabe Bouineuse",
+    "questCrabRageTitle": "Bouineuse Distrayante",
+    "questCrabRageDescription": "Cette barre se remplit quand vous n'effectuez pas vos Quotidiennes. Quand elle est pleine, La Crabe Bouineuse retirera des PM à toute votre équipe !"
 }
