@@ -250,7 +250,7 @@ async function getTasks (req, res, options = {}) {
   if (limit) mQuery.limit(limit);
   if (sort) mQuery.sort(sort);
 
-  const tasks = await mQuery.exec();
+  const tasks = await mQuery.lean().exec();
 
   if (dueDate) {
     tasks.forEach(task => {
@@ -288,6 +288,8 @@ async function getTasks (req, res, options = {}) {
 
   tasks.forEach((task, index) => {
     const taskId = task._id;
+    task.id = task._id;
+    delete task.__v;
     const i = order[index] === taskId ? index : order.indexOf(taskId);
     if (i === -1) {
       unorderedTasks.push(task);

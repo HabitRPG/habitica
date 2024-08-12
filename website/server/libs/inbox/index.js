@@ -58,11 +58,13 @@ export async function getUserInbox (user, optionParams = getUserInboxDefaultOpti
     query = query
       .skip(PM_PER_PAGE * Number(options.page))
       .limit(PM_PER_PAGE);
+  } else {
+    // Limit for legacy calls that are not paginated to prevent database issues
+    query = query.limit(200);
   }
 
-  const messages = (await query.exec()).map(msg => {
-    const msgObj = msg.toJSON();
-
+  const messages = (await query.lean().exec()).map(msgObj => {
+    delete msgObj.__v;
     if (options.mapProps) {
       mapInboxMessage(msgObj, user);
     }

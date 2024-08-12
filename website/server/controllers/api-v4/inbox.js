@@ -106,7 +106,7 @@ api.clearMessages = {
  */
 api.conversations = {
   method: 'GET',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({ userFieldsToInclude: ['profile', 'contributor', 'backer', 'inbox'] })],
   url: '/inbox/conversations',
   async handler (req, res) {
     const { user } = res.locals;
@@ -134,7 +134,7 @@ api.conversations = {
 api.getInboxMessages = {
   method: 'GET',
   url: '/inbox/paged-messages',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({ userFieldsToInclude: ['profile', 'contributor', 'backer', 'inbox'] })],
   async handler (req, res) {
     const { user } = res.locals;
     const { page, conversation } = req.query;

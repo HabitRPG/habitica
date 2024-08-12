@@ -19,7 +19,7 @@ const api = {};
 api.getInboxMessages = {
   method: 'GET',
   url: '/inbox/messages',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({ userFieldsToInclude: ['profile', 'contributor', 'backer', 'inbox'] })],
   async handler (req, res) {
     const { user } = res.locals;
     const { page } = req.query;
