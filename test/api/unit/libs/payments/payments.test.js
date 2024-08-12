@@ -179,6 +179,15 @@ describe('payments/index', () => {
         expect(recipient.purchased.plan.consecutive.gemCapExtra).to.eql(10);
       });
 
+      it('sets gemCapExtra to max if they receive a 3 month sub', async () => {
+        data.gift.subscription.key = 'basic_3mo';
+        data.gift.subscription.months = 3;
+
+        await api.createSubscription(data);
+
+        expect(recipient.purchased.plan.gemCapExtra).to.eql(0);
+      });
+
       it('sets gemCapExtra to max if they receive a 12 month sub', async () => {
         recipient.purchased.plan.consecutive.gemCapExtra = 10;
 
@@ -1164,6 +1173,22 @@ describe('payments/index', () => {
         await api.cancelSubscription(data);
 
         expect(user.purchased.plan.extraMonths).to.eql(0);
+      });
+
+      it('does not reset gemCapExtra', async () => {
+        user.purchased.plan.consecutive.gemCapExtra = 12;
+
+        await api.cancelSubscription(data);
+
+        expect(user.purchased.plan.consecutive.gemCapExtra).to.eql(12);
+      });
+
+      it('does not reset owned hourglasses', async () => {
+        user.purchased.plan.consecutive.trinkets = 12;
+
+        await api.cancelSubscription(data);
+
+        expect(user.purchased.plan.consecutive.trinkets).to.eql(12);
       });
 
       it('sends an email', async () => {
