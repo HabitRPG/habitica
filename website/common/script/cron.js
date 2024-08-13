@@ -286,10 +286,16 @@ export function getPlanContext (user, now) {
   const dateUpdatedMoment = moment(plan.dateUpdated).startOf('month');
   const elapsedMonths = moment(subscriptionEndDate).diff(dateUpdatedMoment, 'months');
 
+  let nextHourglassDate = moment(nowMoment).add(1, 'month');
+  if (plan.dateTerminated && moment(plan.dateTerminated).isBefore(nextHourglassDate)) {
+    nextHourglassDate = null;
+  }
+
   return {
     plan,
     subscriptionEndDate,
     dateUpdatedMoment,
     elapsedMonths,
+    nextHourglassDate,
   };
 }
