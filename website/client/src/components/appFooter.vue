@@ -401,6 +401,10 @@
             >Quest Progress Up</a>
             <a
               class="btn btn-secondary"
+              @click="bossRage()"
+            >+ Boss Rage 😡</a>
+            <a
+              class="btn btn-secondary"
               @click="makeAdmin()"
             >Make Admin</a>
           </div>
@@ -960,6 +964,10 @@ export default {
       //  @TODO:  Notification.text('Quest progress increased');
       //  @TODO:  User.sync();
     },
+    async bossRage () {
+      await axios.post('/api/v4/debug/boss-rage');
+    },
+
     async makeAdmin () {
       await axios.post('/api/v4/debug/make-admin');
       // @TODO: Notification.text('You are now an admin!

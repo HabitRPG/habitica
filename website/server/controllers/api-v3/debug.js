@@ -6,6 +6,10 @@ import ensureDevelopmentMode from '../../middlewares/ensureDevelopmentMode';
 import ensureTimeTravelMode from '../../middlewares/ensureTimeTravelMode';
 import { BadRequest } from '../../libs/errors';
 import common from '../../../common';
+import {
+  model as Group,
+  // basicFields as basicGroupFields,
+} from '../../models/group';
 
 const { content } = common;
 
@@ -199,6 +203,41 @@ api.questProgress = {
     user.markModified('party.quest.progress');
 
     await user.save();
+
+    res.respond(200, {});
+  },
+};
+
+/**
+ * @api {post} /api/v3/debug/boss-rage Artificially trigger boss rage bar
+ * @apiName bossRage
+ * @apiGroup Development
+ * @apiPermission Developers
+ *
+ * @apiSuccess {Object} data An empty Object
+ */
+
+api.bossRage = {
+  method: 'POST',
+  url: '/debug/boss-rage',
+  middlewares: [ensureDevelopmentMode, authWithHeaders()],
+  async handler (req, res) {
+    const { user } = res.locals;
+    const party = await Group.getGroup({
+      user,
+      groupId: 'party',
+    });
+
+    if (!party) {
+      throw new BadRequest('User not in a party.');
+    }
+
+    if (!party.quest.progress.rage) party.quest.progress.rage = 0;
+    party.quest.progress.rage += 50;
+
+    party.markModified('party.quest.progress.rage');
+
+    await party.save();
 
     res.respond(200, {});
   },
