@@ -200,18 +200,11 @@ async function prepareSubscriptionValues (data) {
       owner: data.user._id,
     });
 
-    // allow non-override if a plan was previously used
-    if (!plan.gemsBought) {
-      plan.gemsBought = 0;
-    }
-
-    if (!plan.dateCreated) {
-      plan.dateCreated = today;
-    }
-
-    if (!plan.mysteryItems) {
-      plan.mysteryItems = [];
-    }
+    _.defaults(plan, {
+      gemsBought: 0,
+      dateCreated: today,
+      mysteryItems: [],
+    });
 
     if (data.subscriptionId) {
       plan.subscriptionId = data.subscriptionId;
@@ -261,7 +254,6 @@ async function createSubscription (data) {
   if (months > 0) {
     if (block.months === 12) {
       recipient.purchased.plan.consecutive.gemCapExtra = 26;
-      recipient.markModified('purchased.plan.consecutive');
     }
 
     if (block.months === 12 && autoRenews && !recipient.purchased.plan.hourglassPromoReceived) {

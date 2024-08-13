@@ -65,7 +65,6 @@ describe('payments/index', () => {
       mysteryItems: [],
       consecutive: {
         trinkets: 0,
-        offset: 0,
         gemCapExtra: 0,
       },
     };
@@ -179,13 +178,13 @@ describe('payments/index', () => {
         expect(recipient.purchased.plan.consecutive.gemCapExtra).to.eql(10);
       });
 
-      it('sets gemCapExtra to max if they receive a 3 month sub', async () => {
+      it('sets gemCapExtra to 0 if they receive a 3 month sub', async () => {
         data.gift.subscription.key = 'basic_3mo';
         data.gift.subscription.months = 3;
 
         await api.createSubscription(data);
 
-        expect(recipient.purchased.plan.gemCapExtra).to.eql(0);
+        expect(recipient.purchased.plan.consecutive.gemCapExtra).to.eql(0);
       });
 
       it('sets gemCapExtra to max if they receive a 12 month sub', async () => {
@@ -1181,6 +1180,16 @@ describe('payments/index', () => {
         await api.cancelSubscription(data);
 
         expect(user.purchased.plan.consecutive.gemCapExtra).to.eql(12);
+      });
+
+      it('initializes gemCapExtra', async () => {
+        await api.cancelSubscription(data);
+        expect(user.purchased.plan.consecutive.gemCapExtra).to.eql(0);
+      });
+
+      it('initializes hourglasses', async () => {
+        await api.cancelSubscription(data);
+        expect(user.purchased.plan.consecutive.trinkets).to.eql(0);
       });
 
       it('does not reset owned hourglasses', async () => {
