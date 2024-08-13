@@ -42,8 +42,7 @@ describe('POST /debug/boss-rage', () => {
       });
   });
 
-  context('user is in a party', async () => { 
-    let user; 
+  context('user is in a party', async () => {
     let party;
 
     beforeEach(async () => {
@@ -63,7 +62,7 @@ describe('POST /debug/boss-rage', () => {
       await party.sync();
       expect(party.quest.progress.rage).to.eql(50);
     });
-  
+
     it('increases boss rage to 100', async () => {
       await user.post('/debug/boss-rage');
       await user.post('/debug/boss-rage');
