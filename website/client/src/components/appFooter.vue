@@ -1,7 +1,6 @@
 <template>
   <div>
     <buy-gems-modal v-if="user" />
-    <!--modify-inventory(v-if="isUserLoaded")-->
     <footer>
       <!-- Product -->
       <div class="product">
@@ -22,7 +21,7 @@
             </a>
           </li>
           <li>
-            <router-link to="/group-plans">
+            <router-link :to="user ? '/group-plans' : '/static/group-plans'">
               {{ $t('groupPlans') }}
             </router-link>
           </li>
