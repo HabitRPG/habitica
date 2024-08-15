@@ -12,7 +12,8 @@
             class="party"
             src="../../assets/images/group-plans-static/party@3x.png"
           >
-          <h1 class="mt-5">{{ $t('groupPlanTitle') }}</h1>
+          <h1 class="mt-5" v-if="upgradingGroup._id">{{ $t('upgradeYourCrew') }}</h1>
+          <h1 class="mt-5" v-else>{{ $t('groupPlanTitle') }}</h1>
           <p class="mb-0">{{ $t('groupPlanDesc') }}</p>
           <div class="pricing mt-5">
             <span>Just</span>
@@ -34,23 +35,25 @@
         <div class="top-right"></div>
         <div class="d-flex justify-content-between align-items-middle w-100 gap-72 mb-100">
           <div class="ml-auto my-auto w-448 text-left">
-            <h2>{{ $t('teamBasedTasksList') }}</h2>
+            <h2 class="mt-0">{{ $t('teamBasedTasksList') }}</h2>
             <small>{{ $t('teamBasedTasksListDesc') }}</small>
           </div>
           <div class="mr-auto my-auto">
-            <div
+            <img
               class="team-based"
-            ></div>
+              src="../../assets/images/group-plans-static/group-management@3x.png"
+            >
           </div>
         </div>
         <div class="d-flex justify-content-between align-items-middle w-100 gap-72 mb-100">
           <div class="ml-auto my-auto">
-            <div
+            <img
               class="group-management"
-            ></div>
+              src="../../assets/images/group-plans-static/team-based@3x.png"
+            >
           </div>
           <div class="mr-auto my-auto w-448 text-left">
-            <h2>{{ $t('groupManagementControls') }}</h2>
+            <h2 class="mt-0">{{ $t('groupManagementControls') }}</h2>
             <small>{{ $t('groupManagementControlsDesc') }}</small>
           </div>
         </div>
@@ -65,8 +68,11 @@
         <div class="text-center mb-128">
           <div class="bot-left"></div>
           <div class="col-6 offset-3">
-            <h2 class="purple mb-4">
-              {{ $t('inspireYourParty') }}
+            <h2 class="purple mt-0 mb-4" v-if="upgradingGroup._id">
+              {{ $t('readyToUpgrade') }}
+            </h2>
+            <h2 v-else class="purple mt-0 mb-4">
+              {{ $t('createGroupToday') }}
             </h2>
             <div class="pricing mb-4">
               <span>Just</span>
@@ -94,7 +100,7 @@
           :hide-footer="true"
           :hide-header="true"
         >
-          <div v-if="isStaticPage">
+          <div v-if="isStaticPage && !user">
             <h2>{{ $t('letsMakeAccount') }}</h2>
             <auth-form @authenticate="authenticate()" />
           </div>
@@ -143,6 +149,10 @@
     &.static {
       padding-top: 16px;
     }
+
+    &:not(.static) {
+      margin-left: -12px;
+    }
   }
 
   .gap-72 {
@@ -172,17 +182,11 @@
   }
 
   .team-based {
-    background-image: url('../../assets/images/group-plans-static/group-management@3x.png');
-    background-size: contain;
-    background-repeat: no-repeat;
     height: 252px;
     width: 448px;
   }
 
   .group-management {
-    background-image: url('../../assets/images/group-plans-static/team-based@3x.png');
-    background-size: contain;
-    background-repeat: no-repeat;
     height: 272px;
     width: 448px;
   }
@@ -271,6 +275,10 @@
     box-shadow: inset 0 -4px 0 0 rgba(52, 49, 58, 0.4);
     font-size: 20px;
     line-height: 28px;
+
+    &.btn-primary:hover {
+      background-color: $purple-400;
+    }
   }
 
   .pricing {
@@ -323,6 +331,12 @@ export default {
   computed: {
     isStaticPage () {
       return this.$route.meta.requiresLogin === false;
+    },
+    upgradingGroup () {
+      return this.$store.state.upgradingGroup;
+    },
+    user () {
+      return this.$store.state.user?.data;
     },
   },
   mounted () {

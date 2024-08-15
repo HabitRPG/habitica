@@ -24,7 +24,7 @@
       <app-menu />
       <div
         class="container-fluid"
-        :class="{'no-margin': noMargin}"
+        :class="{'no-margin': noMargin, 'groups-background': $route.fullPath === '/group-plans' }"
       >
         <app-header />
         <buyModal
@@ -67,6 +67,12 @@
 
     .container-fluid {
       flex: 1 0 auto;
+
+      &.groups-background {
+        background-color: white;
+        background-image: url('../assets/images/group-plans-static/top.svg');
+        background-repeat: no-repeat;
+      }
     }
 
     .no-margin {
