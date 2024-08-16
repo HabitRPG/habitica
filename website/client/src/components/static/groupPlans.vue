@@ -39,18 +39,12 @@
             <small>{{ $t('teamBasedTasksListDesc') }}</small>
           </div>
           <div class="mr-auto my-auto">
-            <img
-              class="team-based"
-              src="../../assets/images/group-plans-static/group-management@3x.png"
-            >
+            <img src="../../assets/images/group-plans-static/group-management@3x.png">
           </div>
         </div>
         <div class="d-flex justify-content-between align-items-middle w-100 gap-72 mb-100">
           <div class="ml-auto my-auto">
-            <img
-              class="group-management"
-              src="../../assets/images/group-plans-static/team-based@3x.png"
-            >
+            <img src="../../assets/images/group-plans-static/team-based@3x.png">
           </div>
           <div class="mr-auto my-auto w-448 text-left">
             <h2 class="mt-0">{{ $t('groupManagementControls') }}</h2>
@@ -103,6 +97,12 @@
           <div v-if="isStaticPage && !user">
             <h2>{{ $t('letsMakeAccount') }}</h2>
             <auth-form @authenticate="authenticate()" />
+          </div>
+          <div v-if="upgradingGroup">
+            <payments-buttons
+              :stripe-fn="() => pay(PAYMENTS.STRIPE)"
+              :amazon-data="pay(PAYMENTS.AMAZON)"
+            />
           </div>
           <div v-else>
             <create-group-modal-pages />
@@ -179,16 +179,6 @@
   .party {
     width: 386px;
     margin-top: 100px;
-  }
-
-  .team-based {
-    height: 252px;
-    width: 448px;
-  }
-
-  .group-management {
-    height: 272px;
-    width: 448px;
   }
 
   .top-left, .top-right, .bot-left, .bot-right {
@@ -312,20 +302,28 @@
 
 <script>
 import { setup as setupPayments } from '@/libs/payments';
-import amazonPaymentsModal from '@/components/payments/amazonModal';
+import paymentsMixin from '../../mixins/payments';
+import AmazonPaymentsModal from '@/components/payments/amazonModal';
 import AuthForm from '../auth/authForm.vue';
 import CreateGroupModalPages from '../group-plans/createGroupModalPages.vue';
+import PaymentsButtons from '@/components/payments/buttons/list';
 
 export default {
   components: {
     AuthForm,
     CreateGroupModalPages,
-    amazonPaymentsModal,
+    AmazonPaymentsModal,
+    PaymentsButtons,
   },
+  mixins: [paymentsMixin],
   data () {
     return {
       modalTitle: this.$t('register'),
       modalPage: 'account',
+      PAYMENTS: {
+        AMAZON: 'amazon',
+        STRIPE: 'stripe',
+      },
     };
   },
   computed: {
@@ -349,11 +347,35 @@ export default {
     });
   },
   methods: {
+    authenticate () {
+      this.modalPage = 'purchaseGroup';
+    },
     goToNewGroupPage () {
       this.$root.$emit('bv::show::modal', 'group-plan');
     },
-    authenticate () {
-      this.modalPage = 'purchaseGroup';
+    pay (paymentMethod) {
+      const subscriptionKey = 'group_monthly';
+      const paymentData = {
+        subscription: subscriptionKey,
+        coupon: null,
+      };
+
+      if (this.upgradingGroup && this.upgradingGroup._id) {
+        paymentData.groupId = this.upgradingGroup._id;
+        paymentData.group = this.upgradingGroup;
+      } else {
+        paymentData.groupToCreate = this.newGroup;
+      }
+
+      this.paymentMethod = paymentMethod;
+      if (this.paymentMethod === this.PAYMENTS.STRIPE) {
+        this.redirectToStripe(paymentData);
+      } else if (this.paymentMethod === this.PAYMENTS.AMAZON) {
+        paymentData.type = 'subscription';
+        return paymentData;
+      }
+
+      return null;
     },
   },
 };
