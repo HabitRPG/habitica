@@ -2526,8 +2526,8 @@
   "headArmoireCorsairsBandanaNotes": "Whether you’re keeping your head covered in case a seagull flies overhead or making sure your foes never see you sweat, this bandana is essential. Just add a decorative bead for every adventure you complete. Increases Intelligence by <%= int %>. Enchanted Armoire: Corsair Set (Item 2 of 3)",
   "headArmoireDragonKnightsHelmText": "Dragon Knight Helm",
   "headArmoireDragonKnightsHelmNotes": "With the fiery features on this helmet, dragons might mistake you for one of their own. Increases Intelligence by <%= int %>. Enchanted Armoire: Dragon Knight Set (Item 1 of 3)",
-  "headArmoireFunnyFoolText": "Funny Fool Cap",
-  "headArmoireFunnyFoolNotes": "The bells on this hat might make your opponents burst into giggles, but they just help you concentrate. Increases Constitution by <%= con %>. Enchanted Armoire: Funny Fool Set (Item 1 of 3)",
+  "headArmoireFunnyFoolCapText": "Funny Fool Cap",
+  "headArmoireFunnyFoolCapNotes": "The bells on this hat might make your opponents burst into giggles, but they just help you concentrate. Increases Constitution by <%= con %>. Enchanted Armoire: Funny Fool Set (Item 1 of 3)",
 
   "offhand": "off-hand item",
   "offHandCapitalized": "Off-Hand Item",

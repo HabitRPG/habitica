@@ -1860,7 +1860,7 @@ const head = {
     set: 'fall2024FieryImpWarriorSet',
   },
   fall2024Mage: {
-    set: 'fall2024UnderWorldSorcerorMageSet',
+    set: 'fall2024UnderworldSorcerorMageSet',
   },
   fall2024Healer: {
     set: 'fall2024SpaceInvaderHealerSet',
