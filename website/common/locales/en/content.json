@@ -263,9 +263,9 @@
   "questEggCrabMountText": "Crab",
   "questEggCrabAdjective": "a fiddling",
 
-  "questRaccoonText": "Raccoon",
-  "questRaccoonMountText": "Raccoon",
-  "questRaccoonAdjective": "a ravenous",  
+  "questEggRaccoonText": "Raccoon",
+  "questEggRaccoonMountText": "Raccoon",
+  "questEggRaccoonAdjective": "a ravenous",  
 
   "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
 

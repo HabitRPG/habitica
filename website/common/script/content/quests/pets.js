@@ -1106,10 +1106,10 @@ const QUEST_PETS = {
           text: t('questRaccoonDropRaccoonEgg'),
         },
       ],
+      gp: 70,
+      exp: 600,
+      unlock: t('questRaccoonUnlockText'),
     },
-    gp: 70,
-    exp: 600,
-    unlock: t('questRaccoonUnlockText'),
   },
   rat: {
     text: t('questRatText'),
