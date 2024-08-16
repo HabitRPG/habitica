@@ -524,6 +524,15 @@
   "weaponSpecialSummer2024HealerText": "Sea Snail Staff",
   "weaponSpecialSummer2024HealerNotes": "You’ll be amazed to discover out how hard the shell at the end of this staff is. Increases Intelligence by <%= int %>. Limited Edition Summer 2024 Gear.",
 
+  "weaponSpecialFall2024WarriorText": "Sword of Flame",
+  "weaponSpecialFall2024WarriorNotes": "Task obstacles are cut down immediately where they stand by this formidable weapon. Increases Strength by <%= str %>. Limited Edition Fall 2024 Gear.",
+  "weaponSpecialFall2024RogueText": "Ribbon Wand",
+  "weaponSpecialFall2024RogueNotes": "Tasks will freeze in place due to the twists and turns of this mesmerizing weapon. Increases Strength by <%= str %>. Limited Edition Fall 2024 Gear.",
+  "weaponSpecialFall2024HealerText": "Space Scythe",
+  "weaponSpecialFall2024HealerNotes": "Tasks that were one cosmically complicated are decimated by this striking blade. Increases Intelligence by <%= int %>. Limited Edition Fall 2024 Gear.",
+  "weaponSpecialFall2024MageText": "Staff of the Underworld",
+  "weaponSpecialFall2024MageNotes": "Task steps will instantly become simplified with one touch of this shining weapon. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition Fall 2024 Gear.",
+
   "weaponMystery201411Text": "Pitchfork of Feasting",
   "weaponMystery201411Notes": "Stab your enemies or dig in to your favorite foods - this versatile pitchfork does it all! Confers no benefit. November 2014 Subscriber Item.",
   "weaponMystery201502Text": "Shimmery Winged Staff of Love and Also Truth",
@@ -1280,7 +1289,16 @@
   "armorSpecialSummer2024MageText": "Sea Anemone Tail",
   "armorSpecialSummer2024MageNotes": "Tell your enemy to watch out for an anemone! (Now tell them to say that five times fast.) Increases Intelligence by <%= int %>. Limited Edition Summer 2024 Gear.",
   "armorSpecialSummer2024HealerText": "Sea Snail Armor",
-  "armorSpecialSummer2024HealerNotes": "Don’t listen to the naysayers. Slow and steady is a valid approach to tackling tasks! Increases Constitution by <%= con %>. Limited Edition Summer 2024 Gear.",  
+  "armorSpecialSummer2024HealerNotes": "Don’t listen to the naysayers. Slow and steady is a valid approach to tackling tasks! Increases Constitution by <%= con %>. Limited Edition Summer 2024 Gear.",
+
+  "armorSpecialFall2024WarriorText": "Fiery Imp Armor",
+  "armorSpecialFall2024WarriorNotes": "Be one with the flames and become immune to their destructive powers in this armor. Increases Constitution by <%= con %>. Limited Edition Fall 2024 Gear.",
+  "armorSpecialFall2024RogueText": "Black Cat Armor",
+  "armorSpecialFall2024RogueNotes": "Be one with the darkness and increase your agility and stealth in this armor. Increases Perception by <%= per %>. Limited Edition Fall 2024 Gear.",
+  "armorSpecialFall2024HealerText": "Space Invader Armor",
+  "armorSpecialFall2024HealerNotes": "Be one with the galaxy and mesmerize onlookers in this armor. Increases Constitution by <%= con %>. Limited Edition Fall 2024 Gear.",
+  "armorSpecialFall2024MageText": "Underworld Sorceror Armor",
+  "armorSpecialFall2024MageNotes": "Be one with the underworld and embrace the power of mages who’ve come before you in this armor. Increases Intelligence by <%= int %>. Limited Edition Fall 2024 Gear.",
 
   "armorMystery201402Text": "Messenger Robes",
   "armorMystery201402Notes": "Shimmering and strong, these robes have many pockets to carry letters. Confers no benefit. February 2014 Subscriber Item.",
@@ -2130,6 +2148,15 @@
   "headSpecialSummer2024HealerText": "Sea Snail Shell",
   "headSpecialSummer2024HealerNotes": "This spiral shell helps remind you to stop spiraling out of control. Increases Intelligence by <%= int %>. Limited Edition Summer 2024 Gear.",
 
+  "headSpecialFall2024WarriorText": "Fiery Imp Mask",
+  "headSpecialFall2024WarriorNotes": "Whether you’re mischievous or threatening, you won’t be missed when you wear this! Increases Strength by <%= str %>. Limited Edition Fall 2024 Gear.",
+  "headSpecialFall2024RogueText": "Black Cat Mask",
+  "headSpecialFall2024RogueNotes": "Whether you’re cuddly or cunning, you won’t be missed when you wear this! Increases Perception by <%= per %>. Limited Edition Fall 2024 Gear.",
+  "headSpecialFall2024HealerText": "Space Invader Mask",
+  "headSpecialFall2024HealerNotes": "Whether you’re defending your planet or exploring a new one, you won’t be missed when you wear this! Increases Intelligence by <%= int %>. Limited Edition Fall 2024 Gear.",
+  "headSpecialFall2024MageText": "Underworld Sorcerer Mask",
+  "headSpecialFall2024MageNotes": "Whether you’re mysterious or whimsical, you won’t be missed when you wear this! Increases Perception by <%= per %>. Limited Edition Fall 2024 Gear.",
+
   "headSpecialGaymerxText": "Rainbow Warrior Helm",
   "headSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special helmet is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
 
@@ -2782,6 +2809,12 @@
   "shieldSpecialSummer2024HealerText": "Sea Snail Shield",
   "shieldSpecialSummer2024HealerNotes": "This shiny shield is even stronger than a Sea Snail Staff. Increases Constitution by <%= con %>. Limited Edition Summer 2024 Gear.",
 
+  "shieldSpecialFall2024WarriorText": "Shield of Flame",
+  "shieldSpecialFall2024WarriorNotes": "Task complications are absorbed by your shield and make you more determined. Increases Constitution by <%= con %>. Limited Edition Fall 2024 Gear.",
+  "shieldSpecialFallRogue2024Text": "Ribbon Wand",
+  "shieldSpecialFallRogue2024Notes": "Tasks themselves will be overwhelmed by the swirls and spirals of this hypnotic weapon. Increases Strength by <%= str %>. Limited Edition Fall 2024 Gear.",
+  "shieldSpecialFall2024HealerText": "Space Shield",
+  "shieldSpecialFall2024HealerNotes": "New tasks wanting your attention bounce right off until you’ve completed your current mission. Increases Constitution by <%= con %>. Limited Edition Fall 2024 Gear.",
 
   "shieldMystery201601Text": "Resolution Slayer",
   "shieldMystery201601Notes": "This blade can be used to parry away all distractions. Confers no benefit. January 2016 Subscriber Item.",
