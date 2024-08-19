@@ -33,7 +33,7 @@ api.getHero = {
 
     const { userIdentifier } = req.params;
 
-    const re = new RegExp(String.raw`${userIdentifier.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`);
+    const re = new RegExp(String.raw`^${userIdentifier.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`);
 
     let query;
     if (validator.isUUID(userIdentifier)) {
@@ -55,7 +55,6 @@ api.getHero = {
       .find(query)
       .select('contributor backer profile auth')
       .limit(30)
-      .sort({ 'auth.timestamps.loggedin': 1 })
       .lean()
       .exec();
     res.respond(200, users);
