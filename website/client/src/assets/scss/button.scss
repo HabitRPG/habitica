@@ -176,7 +176,7 @@
 
 .btn-warning {
   background: $orange-10;
-  color: $white;
+  color: $white !important;
 
   &:hover:not(:disabled):not(.disabled) {
     background: $orange-100;
