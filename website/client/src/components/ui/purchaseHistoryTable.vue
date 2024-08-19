@@ -324,7 +324,8 @@
   }
 
   .timestamp-column, .action-column  {
-    width: 20%;
+    width: 27%;
+
   }
 
   .amount-column {
@@ -332,7 +333,7 @@
   }
 
   .note-column {
-    width: 50%;
+    width: 35%;
   }
 
   .entry-action {
