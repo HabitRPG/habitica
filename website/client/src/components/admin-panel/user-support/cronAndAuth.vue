@@ -29,16 +29,17 @@
           <strong class="col-sm-9 col-form-label">
             {{ hero.auth.timestamps.created | formatDate }}</strong>
         </div>
-        <div
-          v-if="hero.flags.thirdPartyTools"
-          class="form-group row"
-        >
-          User has employed <strong>third party tools</strong>. Last known usage:
-          <strong class="col-sm-9 col-form-label">
-            {{ hero.flags.thirdPartyTools | formatDate }}</strong>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">Used third party tools:</label>
+
+          <div class="col-sm-9 col-form-label">
+            <strong v-if="hero.flags.thirdPartyTools">
+              Yes - {{ hero.flags.thirdPartyTools | formatDate }}</strong>
+            <strong v-else>No</strong>
+          </div>
         </div>
-        <div v-if="cronError">
-          "lastCron" value:
+        <div v-if="cronError" class="form-group row">
+          <label class="col-sm-3 col-form-label">lastCron value:</label>
           <strong>{{ hero.lastCron | formatDate }}</strong>
           <br>
           <span class="errorMessage">

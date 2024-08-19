@@ -51,7 +51,7 @@
 
   .admin-panel-content {
     flex: 0 0 800px;
-    max-width: unset;
+    max-width: 800px;
   }
 </style>
 
