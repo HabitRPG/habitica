@@ -42,9 +42,9 @@ api.getHero = {
       query = {
         $or: [
           { 'auth.local.email': { $regex: re, $options: 'i' } },
-          { 'auth.google.email': { $regex: re, $options: 'i' } },
-          { 'auth.apple.email': { $regex: re, $options: 'i' } },
-          { 'auth.facebook.email': { $regex: re, $options: 'i' } },
+          { 'auth.google.emails.value': { $regex: re, $options: 'i' } },
+          { 'auth.apple.emails.value': { $regex: re, $options: 'i' } },
+          { 'auth.facebook.emails.value': { $regex: re, $options: 'i' } },
         ],
       };
     } else {
@@ -55,6 +55,7 @@ api.getHero = {
       .find(query)
       .select('contributor backer profile auth')
       .limit(30)
+      .sort({ 'auth.timestamps.loggedin': 1 })
       .lean()
       .exec();
     res.respond(200, users);
