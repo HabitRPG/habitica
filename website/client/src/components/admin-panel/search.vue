@@ -7,6 +7,7 @@
     >
       Could not find any matching users.
     </div>
+    <loading-spinner v-if="isSearching" />
     <div
       v-if="users.length > 0"
       class="list-group"
@@ -44,15 +45,20 @@
 <script>
 import VueRouter from 'vue-router';
 import { mapState } from '@/libs/store';
+import LoadingSpinner from '../ui/loadingSpinner';
 
 const { isNavigationFailure, NavigationFailureType } = VueRouter;
 
 export default {
+  components: {
+    LoadingSpinner,
+  },
   data () {
     return {
       userIdentifier: '',
       users: [],
       noUsersFound: false,
+      isSearching: false,
     };
   },
   computed: {
@@ -64,10 +70,15 @@ export default {
   },
   watch: {
     userIdentifier () {
+      this.isSearching = true;
       this.$store.dispatch('adminPanel:searchUsers', { userIdentifier: this.userIdentifier }).then(users => {
         if (users.length === 1) {
           this.loadUser(users[0]._id);
         } else {
+          const matchIndex = users.findIndex(user => this.isExactMatch(user));
+          if (matchIndex !== -1) {
+            users.splice(0, 0, users.splice(matchIndex, 1)[0]);
+          }
           this.users = users;
           this.noUsersFound = users.length === 0;
         }
@@ -83,24 +94,27 @@ export default {
       return value.toLowerCase().includes(this.userIdentifier.toLowerCase());
     },
     userEmails (user) {
-      const emails = [];
-      if (user.auth.local.email) emails.push(user.auth.local.email);
-      if (user.auth.google && user.auth.google.email) {
-        const email = user.auth.google.email;
-        if (typeof email === 'string') emails.push(email);
-        else if (Array.isArray(email)) emails.push(...email);
+      const allEmails = [];
+      if (user.auth.local.email) allEmails.push(user.auth.local.email);
+      if (user.auth.google && user.auth.google.emails) {
+        const emails = user.auth.google.emails;
+        allEmails.push(...this.findSocialEmails(emails));
       }
       if (user.auth.apple && user.auth.apple.email) {
-        const email = user.auth.apple.email;
-        if (typeof email === 'string') emails.push(email);
-        else if (Array.isArray(email)) emails.push(...email);
+        const emails = user.auth.apple.emails;
+        allEmails.push(...this.findSocialEmails(emails));
       }
       if (user.auth.facebook && user.auth.facebook.email) {
-        const email = user.auth.facebook.email;
-        if (typeof email === 'string') emails.push(email);
-        else if (Array.isArray(email)) emails.push(...email);
+        const emails = user.auth.facebook.emails;
+        allEmails.push(...this.findSocialEmails(emails));
       }
-      return emails;
+      return allEmails;
+    },
+    findSocialEmails (emails) {
+      if (typeof emails === 'string') return [emails];
+      if (Array.isArray(emails)) return emails.map(email => email.value);
+      if (typeof emails === 'object') return [emails.value];
+      return [];
     },
     async loadUser (userIdentifier) {
       const id = userIdentifier || this.user._id;
@@ -115,6 +129,19 @@ export default {
           this.$router.go();
         }
       });
+    },
+    isExactMatch (user) {
+      return user._id === this.userIdentifier
+        || user.auth.local.username === this.userIdentifier
+        || (user.auth.google && user.auth.google.emails && user.auth.google.emails.findIndex(
+          email => email.value === this.userIdentifier,
+        ) !== -1)
+        || (user.auth.apple && user.auth.apple.emails && user.auth.apple.emails.findIndex(
+          email => email.value === this.userIdentifier,
+        ) !== -1)
+        || (user.auth.facebook && user.auth.facebook.emails && user.auth.facebook.emails.findIndex(
+          email => email.value === this.userIdentifier,
+        ) !== -1);
     },
   },
 };
