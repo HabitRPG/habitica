@@ -2,6 +2,7 @@
   <div
     v-once
     class="loading-spinner"
+    :class="{'loading-spinner-purple': darkColor}"
     role="text"
     :aria-label="$t('loading')"
   >
@@ -39,6 +40,10 @@
     border-color: $white transparent transparent transparent;
   }
 
+  .loading-spinner-purple div {
+    border-color: $purple-200 transparent transparent transparent;
+  }
+
   .loading-spinner div:nth-child(1) {
     animation-delay: -0.45s;
   }
@@ -58,3 +63,16 @@
     }
   }
 </style>
+
+<script>
+
+export default {
+  props: {
+    darkColor: {
+      type: Boolean,
+      default: false,
+    },
+  },
+};
+
+</script>
