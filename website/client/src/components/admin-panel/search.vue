@@ -7,7 +7,7 @@
     >
       Could not find any matching users.
     </div>
-    <loading-spinner v-if="isSearching" />
+    <loading-spinner class="mx-auto mb-2" dark-color="true" v-if="isSearching" />
     <div
       v-if="users.length > 0"
       class="list-group"
@@ -72,6 +72,7 @@ export default {
     userIdentifier () {
       this.isSearching = true;
       this.$store.dispatch('adminPanel:searchUsers', { userIdentifier: this.userIdentifier }).then(users => {
+        this.isSearching = false;
         if (users.length === 1) {
           this.loadUser(users[0]._id);
         } else {
