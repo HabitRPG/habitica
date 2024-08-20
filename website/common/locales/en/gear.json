@@ -529,7 +529,7 @@
   "weaponSpecialFall2024RogueText": "Ribbon Wand",
   "weaponSpecialFall2024RogueNotes": "Tasks will freeze in place due to the twists and turns of this mesmerizing weapon. Increases Strength by <%= str %>. Limited Edition Fall 2024 Gear.",
   "weaponSpecialFall2024HealerText": "Space Scythe",
-  "weaponSpecialFall2024HealerNotes": "Tasks that were one cosmically complicated are decimated by this striking blade. Increases Intelligence by <%= int %>. Limited Edition Fall 2024 Gear.",
+  "weaponSpecialFall2024HealerNotes": "Tasks that were once cosmically complicated are decimated by this striking blade. Increases Intelligence by <%= int %>. Limited Edition Fall 2024 Gear.",
   "weaponSpecialFall2024MageText": "Staff of the Underworld",
   "weaponSpecialFall2024MageNotes": "Task steps will instantly become simplified with one touch of this shining weapon. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition Fall 2024 Gear.",
 
