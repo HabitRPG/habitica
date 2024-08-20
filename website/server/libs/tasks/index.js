@@ -252,6 +252,13 @@ async function getTasks (req, res, options = {}) {
 
   const tasks = await mQuery.lean().exec();
 
+  // Ensure we always include the "id" variant of "_id", and not the version counter
+  tasks.forEach(task => {
+    task.id = task._id;
+    delete task.__v;
+  });
+
+  // Calculate due dates for Dailies
   if (dueDate) {
     tasks.forEach(task => {
       setNextDue(task, user, dueDate);
@@ -288,8 +295,6 @@ async function getTasks (req, res, options = {}) {
 
   tasks.forEach((task, index) => {
     const taskId = task._id;
-    task.id = task._id;
-    delete task.__v;
     const i = order[index] === taskId ? index : order.indexOf(taskId);
     if (i === -1) {
       unorderedTasks.push(task);
