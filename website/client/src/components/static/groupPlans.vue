@@ -1,5 +1,6 @@
 <template>
   <div>
+    <group-plan-creation-modal />
     <div class="d-flex justify-content-center">
       <div
         class="group-plan-page text-center"
@@ -94,18 +95,15 @@
           :hide-footer="true"
           :hide-header="true"
         >
-          <div v-if="isStaticPage && !user">
+          <div v-if="modalOption === 'static'">
             <h2>{{ $t('letsMakeAccount') }}</h2>
             <auth-form @authenticate="authenticate()" />
           </div>
-          <div v-if="upgradingGroup">
+          <div v-else>
             <payments-buttons
               :stripe-fn="() => pay(PAYMENTS.STRIPE)"
               :amazon-data="pay(PAYMENTS.AMAZON)"
             />
-          </div>
-          <div v-else>
-            <create-group-modal-pages />
           </div>
         </b-modal>
       </div>
@@ -291,21 +289,22 @@ import { setup as setupPayments } from '@/libs/payments';
 import paymentsMixin from '../../mixins/payments';
 import AmazonPaymentsModal from '@/components/payments/amazonModal';
 import AuthForm from '../auth/authForm.vue';
-import CreateGroupModalPages from '../group-plans/createGroupModalPages.vue';
+import GroupPlanCreationModal from '../group-plans/groupPlanCreationModal.vue';
 import PaymentsButtons from '@/components/payments/buttons/list';
 
 export default {
   components: {
     AuthForm,
-    CreateGroupModalPages,
     AmazonPaymentsModal,
     PaymentsButtons,
+    GroupPlanCreationModal,
   },
   mixins: [paymentsMixin],
   data () {
     return {
-      modalTitle: this.$t('register'),
+      modalOption: '',
       modalPage: 'account',
+      modalTitle: this.$t('register'),
       PAYMENTS: {
         AMAZON: 'amazon',
         STRIPE: 'stripe',
@@ -337,7 +336,14 @@ export default {
       this.modalPage = 'purchaseGroup';
     },
     goToNewGroupPage () {
-      this.$root.$emit('bv::show::modal', 'group-plan');
+      if (this.isStaticPage && !this.user) {
+        this.modalOption = 'static';
+        return this.$root.$emit('bv::show::modal', 'group-plan');
+      }
+      if (this.upgradingGroup._id) {
+        return this.$root.$emit('bv::show::modal', 'group-plan');
+      }
+      return this.$root.$emit('bv::show::modal', 'create-group');
     },
     pay (paymentMethod) {
       const subscriptionKey = 'group_monthly';
