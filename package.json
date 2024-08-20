@@ -114,7 +114,7 @@
     "heroku-postbuild": "npm run client:build"
   },
   "devDependencies": {
-    "axios": "^1.4.0",
+    "axios": "^1.7.4",
     "chai": "^4.3.7",
     "chai-as-promised": "^7.1.1",
     "chai-moment": "^0.1.0",
