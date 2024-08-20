@@ -188,5 +188,11 @@
     "purchasePetItemConfirm": "Pembelian ini akan melebihi sejumlah item yang kamu butuhkan untuk menetaskan <%= itemText %> peliharaan. Apa kamu yakin?",
     "purchaseForGold": "Membeli dengan sejumlah <%= cost %> Gold?",
     "chatCastSpellPartyTimes": "<%= username %> menggunakan <%= spell %> untuk party sebanyak <%= times %> kali.",
-    "chatCastSpellUserTimes": "<%= username %> menggunakan <%= spell %> pada <%= target %> sebanyak <%= times %> kali."
+    "chatCastSpellUserTimes": "<%= username %> menggunakan <%= spell %> pada <%= target %> sebanyak <%= times %> kali.",
+    "skins": "Kostum",
+    "titleFacialHair": "Rambut Wajah",
+    "titleHaircolor": "Warna Rambut",
+    "titleHairbase": "Gaya Rambut",
+    "customizations": "Pengubahan",
+    "nextReward": "Hadiah Login Berikutnya"
 }

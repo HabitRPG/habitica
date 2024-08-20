@@ -103,5 +103,18 @@
     "selectParticipant": "Válassz ki egy résztvevőt",
     "wonChallengeDesc": "<%= challengeName %> kihívás győztese vagy! Győzelmedet a kitüntetések között megtalálhatod.",
     "yourReward": "Jutalmad",
-    "filters": "Szűrők"
+    "filters": "Szűrők",
+    "abuseFlagModalBodyChallenge": "Csak olyan kihívást jelents, amelyik megsérti a <%= firstLinkStart %>Közösségi irányelveket<%= linkEnd %> és/vagy a <%= secondLinkStart %>Felhasználási feltételeket<%= linkEnd %>. A hamis bejelntések sértik a Habitica közösségi irányelveit.",
+    "cannotClone": "Ezt a kihívást nem lehet klónozni mert egy vagy több játékos sértőnek ítélte. A személyzet egyik taga hamarosan felveszi veled a kapcsolatot. Ha 48 órán belül nem hallasz felőlünk, kérlek keress minket az admin@habitica.com címen.",
+    "messageChallengeFlagOfficial": "A hivatalos kihívások jelentése nem lehetséges.",
+    "flaggedAndHidden": "Kihívás megjelölve és elrejtve",
+    "cannotClose": "Ezt a kihívást nem lehet lezárni mert egy vagy több játékos sértőnek ítélte. A személyzet egyik taga hamarosan felveszi veled a kapcsolatot. Ha 48 órán belül nem hallasz felőlünk, kérlek keress minket az admin@habitica.com címen.",
+    "messageChallengeFlagAlreadyReported": "Már jelentetted ezt a Kihívást.",
+    "flaggedNotHidden": "Kihívás megjelölve egyszer, nincs elrejtve",
+    "whyReportingChallenge": "Miért jelented ezt a kihívást?",
+    "resetFlagCount": "Megjelölések lenullázása",
+    "whyReportingChallengePlaceholder": "Bejelentés oka",
+    "resetFlags": "Jelölések visszaállítása",
+    "cannotMakeChallenge": "Jelenleg nem tudsz publikus kihívásokat létrehozni, mert nem rendelkezel chat jogosultsággal. További információért kérlek keress minket az admin@habitica.com címen.",
+    "removeTasks": "Feladat eltávolítása"
 }

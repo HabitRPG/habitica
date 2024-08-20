@@ -115,5 +115,6 @@
     "invalidAmount": "Недопустимое количество еды, должно быть целым положительным числом",
     "notEnoughFood": "У вас недостаточно еды",
     "jubilantGryphatrice": "Ликующий грифолиск",
-    "veteranDragon": "Дракон-ветеран"
+    "veteranDragon": "Дракон-ветеран",
+    "veteranCactus": "Кактус-ветеран"
 }

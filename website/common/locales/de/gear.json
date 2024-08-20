@@ -2929,5 +2929,17 @@
     "weaponMystery202408Text": "Arkanes Aegis",
     "weaponMystery202408Notes": "Ein magisches Bläschen-Schild, das dich vor gegnerischen Zaubersprüchen schützt, oder dir hilft, im Wasser oder in der Luft zu schweben. Gewährt keinen Attributbonus. August 2024 Abonnentengegenstand.",
     "weaponArmoireDragonKnightsLanceText": "Drachenritter Lanze",
-    "weaponArmoireDragonKnightsLanceNotes": "Diese rot-silberne Lanze hat so manchen Gegner aus dem Sattel seines Reittiers gehoben. Erhöht Ausdauer um <%= con %>. Verzauberter Schrank: Drachenritter Set (Gegenstand 3 von 3)"
+    "weaponArmoireDragonKnightsLanceNotes": "Diese rot-silberne Lanze hat so manchen Gegner aus dem Sattel seines Reittiers gehoben. Erhöht Ausdauer um <%= con %>. Verzauberter Schrank: Drachenritter Set (Gegenstand 3 von 3)",
+    "armorSpecialSummer2024WarriorText": "Walhai Schwanzflosse",
+    "armorSpecialSummer2024WarriorNotes": "Nachdem du dich in einen echten Walhai Krieger verwandelt hast, schwimm kühn auf deine Aufgaben zu! Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe 2024 Sommerausrüstung.",
+    "armorSpecialSummer2024MageText": "Seeanemonen Flosse",
+    "armorSpecialSummer2024MageNotes": "Sag deinen Feinden, daß sie sich vor Seeanemonen vorsehen sollen! (Dann sag ihnen, sie sollen das fünf mal hintereinander schnell aufsagen.) Erhöht Intelligenz um <%= int %>. Limitierte Ausgabe 2024 Sommerausrüstung.",
+    "armorSpecialSummer2024HealerText": "Meeresschnecken Rüstung",
+    "armorSpecialSummer2024HealerNotes": "Hör nicht auf die Neinsager. Langsam und stetig ist ein fundierter Ansatz, um Aufgaben anzupacken! Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe 2024 Sommerausrüstung.",
+    "armorMystery202304Text": "Tiptop Teepot Rüstung",
+    "armorMystery202212Text": "Glaziales Kleid",
+    "armorMystery202212Notes": "Das Universum kann kalt sein, aber dieses bezaubernde Kleid wird dich kuschelig halten, während du fliegst. Gewährt keinen Attributbonus. Dezember 2022 Abonnentengegenstand.",
+    "armorMystery202304Notes": "Hier ist dein Henkel und hier ist dein Ausguss! Gewährt keinen Attributbonus. April 2023 Abonnentengegenstand.",
+    "armorMystery202306Text": "Regenbogen Parka",
+    "armorMystery202306Notes": "Niemand wird dir die Parade verregnen! Und wenn sie es versuchen, wirst du farbenfroh und trocken bleiben! Gewährt keinen Attributbonus. Juni 2023 Abonnentengegenstand."
 }
