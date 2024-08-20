@@ -30,13 +30,13 @@
               {{ $t('getStarted') }}
             </button>
           </div>
-          <small>{{ $t('billedMonthly') }}</small>
+          <p class="gray-200">{{ $t('billedMonthly') }}</p>
         </div>
         <div class="top-right"></div>
         <div class="d-flex justify-content-between align-items-middle w-100 gap-72 mb-100">
           <div class="ml-auto my-auto w-448 text-left">
             <h2 class="mt-0">{{ $t('teamBasedTasksList') }}</h2>
-            <small>{{ $t('teamBasedTasksListDesc') }}</small>
+            <p>{{ $t('teamBasedTasksListDesc') }}</p>
           </div>
           <div class="mr-auto my-auto">
             <img src="../../assets/images/group-plans-static/group-management@3x.png">
@@ -48,7 +48,7 @@
           </div>
           <div class="mr-auto my-auto w-448 text-left">
             <h2 class="mt-0">{{ $t('groupManagementControls') }}</h2>
-            <small>{{ $t('groupManagementControlsDesc') }}</small>
+            <p>{{ $t('groupManagementControlsDesc') }}</p>
           </div>
         </div>
         <div class="d-flex flex-column justify-content-center">
@@ -57,15 +57,15 @@
             src="../../assets/images/group-plans-static/big-gem@3x.png"
           >
           <h2 class="mt-3">{{ $t('inGameBenefits') }}</h2>
-          <small class="final-paragraph mx-auto">{{ $t('inGameBenefitsDesc') }}</small>
+          <p class="final-paragraph mx-auto">{{ $t('inGameBenefitsDesc') }}</p>
         </div>
         <div class="text-center mb-128">
           <div class="bot-left"></div>
           <div class="col-6 offset-3">
-            <h2 class="purple mt-0 mb-4" v-if="upgradingGroup._id">
+            <h2 class="purple-300 mt-0 mb-4" v-if="upgradingGroup._id">
               {{ $t('readyToUpgrade') }}
             </h2>
-            <h2 v-else class="purple mt-0 mb-4">
+            <h2 v-else class="purple-300 mt-0 mb-4">
               {{ $t('createGroupToday') }}
             </h2>
             <div class="pricing mb-4">
@@ -83,7 +83,7 @@
                 {{ $t('getStarted') }}
               </button>
             </div>
-            <small>{{ $t('billedMonthly') }}</small>
+            <p class="gray-200">{{ $t('billedMonthly') }}</p>
           </div>
           <div class="bot-right"></div>
         </div>
@@ -115,7 +115,7 @@
       :class="{ static: isStaticPage }"
     >
       <h2 class="white">{{ $t('interestedLearningMore') }}</h2>
-      <small class="purple-600" v-html="$t('checkGroupPlanFAQ')"></small>
+      <p class="purple-600" v-html="$t('checkGroupPlanFAQ')"></p>
     </div>
   </div>
 </template>
@@ -135,10 +135,32 @@
   @import url('https://fonts.googleapis.com/css?family=Varela+Round');
   @import '~@/assets/scss/colors.scss';
 
+  // General typography tweaks
+
   h1, h2 {
     font-family: 'Varela Round', sans-serif;
     font-weight: 400;
   }
+
+  h1 {
+    color: $purple-300;
+    font-size: 48px;
+    line-height: 56px;
+  }
+
+  h2 {
+    color: $gray-50;
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  p {
+    color: $gray-100;
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  // Major layout elements
 
   .bottom-banner {
     height: 152px;
@@ -155,107 +177,6 @@
     }
   }
 
-  .gap-72 {
-    gap: 72px;
-  }
-
-  .mb-100 {
-    margin-bottom: 100px !important;
-  }
-
-  .mb-128 {
-    margin-bottom: 128px !important;
-  }
-
-  .w-448 {
-    width: 448px;
-  }
-
-  .final-paragraph {
-    width: 684px;
-    margin-bottom: 11rem;
-  }
-
-  .party {
-    width: 386px;
-    margin-top: 100px;
-  }
-
-  .top-left, .top-right, .bot-left, .bot-right {
-    width: 246px;
-    height: 340px;
-    background-size: contain;
-    position: absolute;
-    background-repeat: no-repeat;
-  }
-
-  .top-left {
-    background-image: url('../../assets/images/group-plans-static/top-left@3x.png');
-    top: 48px;
-    left: 48px;
-  }
-
-  .top-right {
-    background-image: url('../../assets/images/group-plans-static/top-right@3x.png');
-    right: 48px;
-    top: 48px;
-  }
-
-  .bot-left {
-    background-image: url('../../assets/images/group-plans-static/bot-left@3x.png');
-    left: 48px;
-    bottom: 48px;
-  }
-
-  .bot-right {
-    background-image: url('../../assets/images/group-plans-static/bot-right@3x.png');
-    right: 48px;
-    bottom: 48px;
-  }
-
-  h1 {
-    color: $purple-300;
-    font-size: 48px;
-    line-height: 56px;
-  }
-
-  h2 {
-    color: $gray-50;
-    font-size: 32px;
-    line-height: 40px;
-  }
-
-  .purple {
-    color: $purple-300;
-  }
-
-  p {
-    font-size: 20px;
-    color: $gray-100;
-  }
-
-  .group-plan-page {
-    max-width: 1440px;
-    position: relative;
-
-    &.static {
-      margin-top: 56px;
-    }
-  }
-
-  .row {
-    margin-top: 10em;
-    margin-bottom: 10em;
-  }
-
-  .text-col {
-    margin-top: 3em;
-  }
-
-  .big-gem {
-    width: 138.5px;
-  }
-
   .cta-button {
     font-family: 'Varela Round', sans-serif;
     font-weight: normal;
@@ -268,6 +189,20 @@
 
     &.btn-primary:hover {
       background-color: $purple-400;
+    }
+  }
+
+  .final-paragraph {
+    width: 684px;
+    margin-bottom: 11rem;
+  }
+
+  .group-plan-page {
+    max-width: 1440px;
+    position: relative;
+
+    &.static {
+      margin-top: 56px;
     }
   }
 
@@ -289,14 +224,65 @@
     }
   }
 
-  small {
-    font-size: 20px;
-    line-height: 28px;
-    color: $gray-200;
+  // One-off spacing adjustments
+
+  .gap-72 {
+    gap: 72px;
   }
 
-  .white {
-    color: $white;
+  .mb-100 {
+    margin-bottom: 100px !important;
+  }
+
+  .mb-128 {
+    margin-bottom: 128px !important;
+  }
+
+  .w-448 {
+    width: 448px;
+  }
+
+  // Images
+
+  .big-gem {
+    width: 138.5px;
+  }
+
+  .bot-left, .bot-right, .top-left, .top-right  {
+    width: 246px;
+    height: 340px;
+    background-size: contain;
+    position: absolute;
+    background-repeat: no-repeat;
+  }
+
+  .bot-left {
+    background-image: url('../../assets/images/group-plans-static/bot-left@3x.png');
+    left: 48px;
+    bottom: 48px;
+  }
+
+  .bot-right {
+    background-image: url('../../assets/images/group-plans-static/bot-right@3x.png');
+    right: 48px;
+    bottom: 48px;
+  }
+
+  .party {
+    width: 386px;
+    margin-top: 100px;
+  }
+
+  .top-left {
+    background-image: url('../../assets/images/group-plans-static/top-left@3x.png');
+    top: 48px;
+    left: 48px;
+  }
+
+  .top-right {
+    background-image: url('../../assets/images/group-plans-static/top-right@3x.png');
+    right: 48px;
+    top: 48px;
   }
 </style>
 
