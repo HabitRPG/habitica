@@ -36,27 +36,39 @@ api.getHero = {
     const re = new RegExp(String.raw`^${userIdentifier.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`);
 
     let query;
+    let users = [];
     if (validator.isUUID(userIdentifier)) {
       query = { _id: userIdentifier };
     } else if (validator.isEmail(userIdentifier)) {
-      query = {
-        $or: [
-          { 'auth.local.email': { $regex: re, $options: 'i' } },
-          { 'auth.google.emails.value': { $regex: re, $options: 'i' } },
-          { 'auth.apple.emails.value': { $regex: re, $options: 'i' } },
-          { 'auth.facebook.emails.value': { $regex: re, $options: 'i' } },
-        ],
-      };
+      const emailFields = [
+        'auth.local.email',
+        'auth.google.email',
+        'auth.apple.email',
+        'auth.facebook.email',
+      ];
+      for (const field of emailFields) {
+        const emailQuery = { [field]: userIdentifier };
+        // eslint-disable-next-line no-await-in-loop
+        const found = await User.findOne(emailQuery)
+          .select('contributor backer profile auth')
+          .lean()
+          .exec();
+        if (found && found.size >= 0) {
+          users.push(found);
+        }
+      }
     } else {
       query = { 'auth.local.lowerCaseUsername': { $regex: re, $options: 'i' } };
     }
 
-    const users = await User
-      .find(query)
-      .select('contributor backer profile auth')
-      .limit(30)
-      .lean()
-      .exec();
+    if (query) {
+      users = await User
+        .find(query)
+        .select('contributor backer profile auth')
+        .limit(30)
+        .lean()
+        .exec();
+    }
     res.respond(200, users);
   },
 };
