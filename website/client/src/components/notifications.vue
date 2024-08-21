@@ -629,7 +629,6 @@ export default {
     async runCronAction () {
       // Run Cron
       const response = await axios.post('/api/v4/cron');
-      if (!response) return;
       if (response.status === 200) {
         // Reset daily analytics actions
         setLocalSetting(CONSTANTS.keyConstants.TASKS_SCORED_COUNT, 0);
