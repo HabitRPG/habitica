@@ -42,9 +42,9 @@ api.getHero = {
     } else if (validator.isEmail(userIdentifier)) {
       const emailFields = [
         'auth.local.email',
-        'auth.google.email',
-        'auth.apple.email',
-        'auth.facebook.email',
+        'auth.google.emails.value',
+        'auth.apple.emails.value',
+        'auth.facebook.emails.value',
       ];
       for (const field of emailFields) {
         const emailQuery = { [field]: userIdentifier };
@@ -53,7 +53,7 @@ api.getHero = {
           .select('contributor backer profile auth')
           .lean()
           .exec();
-        if (found && found.size >= 0) {
+        if (found) {
           users.push(found);
         }
       }
