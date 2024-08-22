@@ -115,7 +115,6 @@ export default {
         const emails = user.auth.facebook.emails;
         allEmails.push(...this.findSocialEmails(emails));
       }
-      console.log(allEmails);
       return allEmails;
     },
     findSocialEmails (emails) {
