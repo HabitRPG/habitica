@@ -47,6 +47,7 @@ export function loadAsyncResource ({
     });
   } if (loadingStatus === 'NOT_LOADED' || shouldUpdate) { // @TODO set loadingStatus back to LOADING?
     return axios.get(url).then(response => { // @TODO support more params
+      if (!response) return null;
       resource.loadingStatus = 'LOADED';
       // deserialize can be a promise
       return Promise.resolve(deserialize(response)).then(deserializedData => {
