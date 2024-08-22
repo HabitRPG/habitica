@@ -25,14 +25,14 @@
         </div>
         <p
           class="mb-1"
-          :class="{'font-weight-bold': matchValueToIdentifier(user.auth.local.username)}"
+          :class="{'highlighted-value': matchValueToIdentifier(user.auth.local.username)}"
         >
           @{{ user.auth.local.username }}</p>
         <p class="mb-0">
           <span
             v-for="email in userEmails(user)"
             :key="email"
-            :class="{'font-weigh-bold': matchValueToIdentifier(email)}"
+            :class="{'highlighted-value': matchValueToIdentifier(email)}"
           >
             {{ email }}
           </span>
@@ -41,6 +41,12 @@
     </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+  .highlighted-value {
+    font-weight: bold;
+  }
+</style>
 
 <script>
 import VueRouter from 'vue-router';
@@ -101,14 +107,15 @@ export default {
         const emails = user.auth.google.emails;
         allEmails.push(...this.findSocialEmails(emails));
       }
-      if (user.auth.apple && user.auth.apple.email) {
+      if (user.auth.apple && user.auth.apple.emails) {
         const emails = user.auth.apple.emails;
         allEmails.push(...this.findSocialEmails(emails));
       }
-      if (user.auth.facebook && user.auth.facebook.email) {
+      if (user.auth.facebook && user.auth.facebook.emails) {
         const emails = user.auth.facebook.emails;
         allEmails.push(...this.findSocialEmails(emails));
       }
+      console.log(allEmails);
       return allEmails;
     },
     findSocialEmails (emails) {
