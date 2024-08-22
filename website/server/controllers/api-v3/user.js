@@ -22,6 +22,7 @@ import {
 } from '../../libs/email';
 import * as inboxLib from '../../libs/inbox';
 import * as userLib from '../../libs/user';
+import { model as UserHistory } from '../../models/userHistory';
 
 const OFFICIAL_PLATFORMS = ['habitica-web', 'habitica-ios', 'habitica-android'];
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS_TECH_ASSISTANCE_EMAIL');
@@ -501,6 +502,13 @@ api.buy = {
     const buyRes = await common.ops.buy(user, req, res.analytics);
 
     await user.save();
+
+    if (type === 'armoire') {
+      await UserHistory.beginUserHistoryUpdate(user._id)
+        .withArmoire(buyRes[0].armoire.dropKey || 'experience')
+        .commit();
+    }
+
     res.respond(200, ...buyRes);
   },
 };
@@ -593,6 +601,9 @@ api.buyArmoire = {
     }
     const buyArmoireResponse = await common.ops.buy(user, req, res.analytics);
     await user.save();
+    await UserHistory.beginUserHistoryUpdate(user._id)
+      .withArmoire(buyArmoireResponse[1].data.armoire.dropKey)
+      .commit();
     res.respond(200, ...buyArmoireResponse);
   },
 };

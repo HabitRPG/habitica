@@ -15,6 +15,9 @@ import {
 import {
   model as NewsPost,
 } from '../newsPost';
+import {
+  model as UserHistory,
+} from '../userHistory';
 import { // eslint-disable-line import/no-cycle
   userActivityWebhook,
 } from '../../libs/webhook';
@@ -237,7 +240,7 @@ schema.pre('validate', function preValidateUser (next) {
   next();
 });
 
-schema.pre('save', true, function preSaveUser (next, done) {
+schema.pre('save', true, async function preSaveUser (next, done) {
   next();
 
   // VERY IMPORTANT NOTE: when only some fields from an user document are selected
@@ -360,6 +363,13 @@ schema.pre('save', true, function preSaveUser (next, done) {
       // Unset the field so this is run only once
       this.flags.lastWeeklyRecapDiscriminator = undefined;
     }
+    if (!this.flags.initializedUserHistory) {
+      this.flags.initializedUserHistory = true;
+      const history = UserHistory();
+      history.userId = this._id;
+      await history.save();
+      console.log('Initialized user history');
+    }
   }
 
   // Enforce min/max values without displaying schema errors to end user
@@ -396,12 +406,9 @@ schema.pre('save', true, function preSaveUser (next, done) {
 
   // Populate new users with default content
   if (this.isNew) {
-    _setUpNewUser(this)
-      .then(() => done())
-      .catch(done);
-  } else {
-    done();
+    await _setUpNewUser(this);
   }
+  done();
 });
 
 schema.pre('updateOne', function preUpdateUser () {
