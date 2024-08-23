@@ -1580,6 +1580,11 @@
   width: 141px;
   height: 147px;
 }
+.background_magic_door_in_forest {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_magic_door_in_forest.png');
+  width: 141px;
+  height: 147px;
+}
 .background_magical_candles {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_magical_candles.png');
   width: 141px;
@@ -29619,6 +29624,11 @@
   width: 114px;
   height: 90px;
 }
+.broad_armor_armoire_funnyFoolCostume {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_armoire_funnyFoolCostume.png');
+  width: 114px;
+  height: 90px;
+}
 .broad_armor_armoire_gardenersOveralls {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_armoire_gardenersOveralls.png');
   width: 114px;
@@ -30186,6 +30196,11 @@
 }
 .head_armoire_frostedHelm {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_armoire_frostedHelm.png');
+  width: 114px;
+  height: 90px;
+}
+.head_armoire_funnyFoolCap {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_armoire_funnyFoolCap.png');
   width: 114px;
   height: 90px;
 }
@@ -31069,6 +31084,11 @@
   width: 114px;
   height: 90px;
 }
+.slim_armor_armoire_funnyFoolCostume {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_armoire_funnyFoolCostume.png');
+  width: 114px;
+  height: 90px;
+}
 .slim_armor_armoire_gardenersOveralls {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_armoire_gardenersOveralls.png');
   width: 114px;
@@ -31582,6 +31602,11 @@
 .weapon_armoire_forestFungusStaff {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_armoire_forestFungusStaff.png');
   width: 90px;
+  height: 90px;
+}
+.weapon_armoire_funnyFoolBaton {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_armoire_funnyFoolBaton.png');
+  width: 114px;
   height: 90px;
 }
 .weapon_armoire_gardenersWateringCan {
@@ -32724,6 +32749,26 @@
   width: 114px;
   height: 90px;
 }
+.broad_armor_special_fall2024Healer {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_special_fall2024Healer.png');
+  width: 114px;
+  height: 90px;
+}
+.broad_armor_special_fall2024Mage {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_special_fall2024Mage.png');
+  width: 114px;
+  height: 90px;
+}
+.broad_armor_special_fall2024Rogue {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_special_fall2024Rogue.png');
+  width: 114px;
+  height: 90px;
+}
+.broad_armor_special_fall2024Warrior {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_special_fall2024Warrior.png');
+  width: 114px;
+  height: 90px;
+}
 .broad_armor_special_fallHealer {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_special_fallHealer.png');
   width: 90px;
@@ -32934,6 +32979,26 @@
   width: 114px;
   height: 90px;
 }
+.head_special_fall2024Healer {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_special_fall2024Healer.png');
+  width: 114px;
+  height: 90px;
+}
+.head_special_fall2024Mage {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_special_fall2024Mage.png');
+  width: 114px;
+  height: 90px;
+}
+.head_special_fall2024Rogue {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_special_fall2024Rogue.png');
+  width: 114px;
+  height: 90px;
+}
+.head_special_fall2024Warrior {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_special_fall2024Warrior.png');
+  width: 114px;
+  height: 90px;
+}
 .head_special_fallHealer {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_special_fallHealer.png');
   width: 90px;
@@ -33086,6 +33151,21 @@
 }
 .shield_special_fall2023Warrior {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shield_special_fall2023Warrior.png');
+  width: 114px;
+  height: 90px;
+}
+.shield_special_fall2024Healer {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shield_special_fall2024Healer.png');
+  width: 114px;
+  height: 90px;
+}
+.shield_special_fall2024Rogue {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shield_special_fall2024Rogue.png');
+  width: 114px;
+  height: 90px;
+}
+.shield_special_fall2024Warrior {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shield_special_fall2024Warrior.png');
   width: 114px;
   height: 90px;
 }
@@ -33281,6 +33361,26 @@
 }
 .slim_armor_special_fall2023Warrior {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_special_fall2023Warrior.png');
+  width: 114px;
+  height: 90px;
+}
+.slim_armor_special_fall2024Healer {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_special_fall2024Healer.png');
+  width: 114px;
+  height: 90px;
+}
+.slim_armor_special_fall2024Mage {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_special_fall2024Mage.png');
+  width: 114px;
+  height: 90px;
+}
+.slim_armor_special_fall2024Rogue {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_special_fall2024Rogue.png');
+  width: 114px;
+  height: 90px;
+}
+.slim_armor_special_fall2024Warrior {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_special_fall2024Warrior.png');
   width: 114px;
   height: 90px;
 }
@@ -33481,6 +33581,26 @@
 }
 .weapon_special_fall2023Warrior {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_special_fall2023Warrior.png');
+  width: 114px;
+  height: 90px;
+}
+.weapon_special_fall2024Healer {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_special_fall2024Healer.png');
+  width: 114px;
+  height: 90px;
+}
+.weapon_special_fall2024Mage {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_special_fall2024Mage.png');
+  width: 114px;
+  height: 90px;
+}
+.weapon_special_fall2024Rogue {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_special_fall2024Rogue.png');
+  width: 114px;
+  height: 90px;
+}
+.weapon_special_fall2024Warrior {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_special_fall2024Warrior.png');
   width: 114px;
   height: 90px;
 }
@@ -35146,6 +35266,16 @@
 }
 .weapon_mystery_202408 {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_mystery_202408.png');
+  width: 114px;
+  height: 90px;
+}
+.head_mystery_202409 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_mystery_202409.png');
+  width: 114px;
+  height: 90px;
+}
+.shield_mystery_202409 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shield_mystery_202409.png');
   width: 114px;
   height: 90px;
 }
@@ -40327,6 +40457,11 @@
   width: 219px;
   height: 219px;
 }
+.quest_raccoon {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/quest_raccoon.png');
+  width: 219px;
+  height: 219px;
+}
 .quest_rat {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/quest_rat.png');
   width: 219px;
@@ -41129,6 +41264,11 @@
 }
 .inventory_quest_scroll_pterodactyl {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/inventory_quest_scroll_pterodactyl.png');
+  width: 68px;
+  height: 68px;
+}
+.inventory_quest_scroll_raccoon {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/inventory_quest_scroll_raccoon.png');
   width: 68px;
   height: 68px;
 }
@@ -45154,6 +45294,56 @@
 }
 .Mount_Body_Pterodactyl-Zombie {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Body_Pterodactyl-Zombie.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Raccoon-Base {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Body_Raccoon-Base.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Raccoon-CottonCandyBlue {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Body_Raccoon-CottonCandyBlue.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Raccoon-CottonCandyPink {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Body_Raccoon-CottonCandyPink.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Raccoon-Desert {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Body_Raccoon-Desert.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Raccoon-Golden {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Body_Raccoon-Golden.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Raccoon-Red {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Body_Raccoon-Red.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Raccoon-Shade {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Body_Raccoon-Shade.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Raccoon-Skeleton {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Body_Raccoon-Skeleton.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Raccoon-White {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Body_Raccoon-White.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Raccoon-Zombie {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Body_Raccoon-Zombie.png');
   width: 105px;
   height: 105px;
 }
@@ -50549,6 +50739,56 @@
 }
 .Mount_Head_Pterodactyl-Zombie {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Head_Pterodactyl-Zombie.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Head_Raccoon-Base {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Head_Raccoon-Base.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Head_Raccoon-CottonCandyBlue {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Head_Raccoon-CottonCandyBlue.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Head_Raccoon-CottonCandyPink {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Head_Raccoon-CottonCandyPink.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Head_Raccoon-Desert {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Head_Raccoon-Desert.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Head_Raccoon-Golden {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Head_Raccoon-Golden.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Head_Raccoon-Red {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Head_Raccoon-Red.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Head_Raccoon-Shade {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Head_Raccoon-Shade.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Head_Raccoon-Skeleton {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Head_Raccoon-Skeleton.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Head_Raccoon-White {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Head_Raccoon-White.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Head_Raccoon-Zombie {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Head_Raccoon-Zombie.png');
   width: 105px;
   height: 105px;
 }
@@ -56144,6 +56384,56 @@
 }
 .Pet-Pterodactyl-Zombie {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Pterodactyl-Zombie.png');
+  width: 81px;
+  height: 99px;
+}
+.Pet-Raccoon-Base {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Raccoon-Base.png');
+  width: 81px;
+  height: 99px;
+}
+.Pet-Raccoon-CottonCandyBlue {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Raccoon-CottonCandyBlue.png');
+  width: 81px;
+  height: 99px;
+}
+.Pet-Raccoon-CottonCandyPink {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Raccoon-CottonCandyPink.png');
+  width: 81px;
+  height: 99px;
+}
+.Pet-Raccoon-Desert {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Raccoon-Desert.png');
+  width: 81px;
+  height: 99px;
+}
+.Pet-Raccoon-Golden {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Raccoon-Golden.png');
+  width: 81px;
+  height: 99px;
+}
+.Pet-Raccoon-Red {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Raccoon-Red.png');
+  width: 81px;
+  height: 99px;
+}
+.Pet-Raccoon-Shade {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Raccoon-Shade.png');
+  width: 81px;
+  height: 99px;
+}
+.Pet-Raccoon-Skeleton {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Raccoon-Skeleton.png');
+  width: 81px;
+  height: 99px;
+}
+.Pet-Raccoon-White {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Raccoon-White.png');
+  width: 81px;
+  height: 99px;
+}
+.Pet-Raccoon-Zombie {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Raccoon-Zombie.png');
   width: 81px;
   height: 99px;
 }

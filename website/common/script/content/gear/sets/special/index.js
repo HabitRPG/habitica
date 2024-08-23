@@ -767,6 +767,18 @@ const armor = {
   summer2024Rogue: {
     set: 'summer2024NudibranchRogueSet',
   },
+  fall2024Warrior: {
+    set: 'fall2024FieryImpWarriorSet',
+  },
+  fall2024Mage: {
+    set: 'fall2024UnderworldSorcerorMageSet',
+  },
+  fall2024Healer: {
+    set: 'fall2024SpaceInvaderHealerSet',
+  },
+  fall2024Rogue: {
+    set: 'fall2024BlackCatRogueSet',
+  },
 };
 
 const armorStats = {
@@ -1844,6 +1856,18 @@ const head = {
   summer2024Rogue: {
     set: 'summer2024NudibranchRogueSet',
   },
+  fall2024Warrior: {
+    set: 'fall2024FieryImpWarriorSet',
+  },
+  fall2024Mage: {
+    set: 'fall2024UnderworldSorcerorMageSet',
+  },
+  fall2024Healer: {
+    set: 'fall2024SpaceInvaderHealerSet',
+  },
+  fall2024Rogue: {
+    set: 'fall2024BlackCatRogueSet',
+  },
 };
 
 const headStats = {
@@ -2525,6 +2549,15 @@ const shield = {
   summer2024Rogue: {
     set: 'summer2024NudibranchRogueSet',
   },
+  fall2024Warrior: {
+    set: 'fall2024FieryImpWarriorSet',
+  },
+  fall2024Healer: {
+    set: 'fall2024SpaceInvaderHealerSet',
+  },
+  fall2024Rogue: {
+    set: 'fall2024BlackCatRogueSet',
+  },
 };
 
 const shieldStats = {
@@ -3191,6 +3224,18 @@ const weapon = {
   },
   summer2024Rogue: {
     set: 'summer2024NudibranchRogueSet',
+  },
+  fall2024Warrior: {
+    set: 'fall2024FieryImpWarriorSet',
+  },
+  fall2024Mage: {
+    set: 'fall2024UnderworldSorcerorMageSet',
+  },
+  fall2024Healer: {
+    set: 'fall2024SpaceInvaderHealerSet',
+  },
+  fall2024Rogue: {
+    set: 'fall2024BlackCatRogueSet',
   },
 };
 

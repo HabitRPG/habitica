@@ -494,6 +494,10 @@ const armor = {
     str: 8,
     set: 'dragonKnightSet',
   },
+  funnyFoolCostume: {
+    str: 15,
+    set: 'funnyFoolSet',
+  },
 };
 
 const body = {
@@ -1010,6 +1014,10 @@ const head = {
   dragonKnightsHelm: {
     int: 8,
     set: 'dragonKnightSet',
+  },
+  funnyFoolCap: {
+    con: 15,
+    set: 'funnyFoolSet',
   },
 };
 
@@ -1855,6 +1863,11 @@ const weapon = {
   dragonKnightsLance: {
     con: 8,
     set: 'dragonKnightSet',
+  },
+  funnyFoolBaton: {
+    con: 15,
+    str: 15,
+    set: 'funnyFoolSet',
   },
 };
 

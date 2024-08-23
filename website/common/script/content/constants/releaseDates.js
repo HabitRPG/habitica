@@ -10,12 +10,14 @@ export const ARMOIRE_RELEASE_DATES = {
   beachsideSet: { year: 2024, month: 6 },
   corsairSet: { year: 2024, month: 7 },
   dragonKnightSet: { year: 2024, month: 8 },
+  funnyFoolSet: { year: 2024, month: 9 },
 };
 
 export const EGGS_RELEASE_DATES = {
   Giraffe: { year: 2024, month: 6, day: 1 },
   Chameleon: { year: 2024, month: 7, day: 14 },
   Crab: { year: 2024, month: 8, day: 14 },
+  Raccoon: { year: 2024, month: 9, day: 14 },
 };
 
 export const HATCHING_POTIONS_RELEASE_DATES = {
