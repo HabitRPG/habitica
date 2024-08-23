@@ -6,7 +6,6 @@
         class="group-plan-page text-center"
         :class="{ static: isStaticPage }"
       >
-        <amazon-payments-modal />
         <div class="top-left"></div>
         <div class="col-6 offset-3 mb-100">
           <img
@@ -95,15 +94,9 @@
           :hide-footer="true"
           :hide-header="true"
         >
-          <div v-if="modalOption === 'static'">
+          <div>
             <h2>{{ $t('letsMakeAccount') }}</h2>
             <auth-form @authenticate="authenticate()" />
-          </div>
-          <div v-else>
-            <payments-buttons
-              :stripe-fn="() => pay(PAYMENTS.STRIPE)"
-              :amazon-data="pay(PAYMENTS.AMAZON)"
-            />
           </div>
         </b-modal>
       </div>
@@ -287,16 +280,12 @@
 <script>
 import { setup as setupPayments } from '@/libs/payments';
 import paymentsMixin from '../../mixins/payments';
-import AmazonPaymentsModal from '@/components/payments/amazonModal';
 import AuthForm from '../auth/authForm.vue';
 import GroupPlanCreationModal from '../group-plans/groupPlanCreationModal.vue';
-import PaymentsButtons from '@/components/payments/buttons/list';
 
 export default {
   components: {
     AuthForm,
-    AmazonPaymentsModal,
-    PaymentsButtons,
     GroupPlanCreationModal,
   },
   mixins: [paymentsMixin],
@@ -305,10 +294,6 @@ export default {
       modalOption: '',
       modalPage: 'account',
       modalTitle: this.$t('register'),
-      PAYMENTS: {
-        AMAZON: 'amazon',
-        STRIPE: 'stripe',
-      },
     };
   },
   computed: {
@@ -341,14 +326,13 @@ export default {
         return this.$root.$emit('bv::show::modal', 'group-plan');
       }
       if (this.upgradingGroup._id) {
-        return this.$root.$emit('bv::show::modal', 'group-plan');
+        return this.pay();
       }
       return this.$root.$emit('bv::show::modal', 'create-group');
     },
-    pay (paymentMethod) {
-      const subscriptionKey = 'group_monthly';
+    pay () {
       const paymentData = {
-        subscription: subscriptionKey,
+        subscription: 'group_monthly',
         coupon: null,
       };
 
@@ -359,15 +343,7 @@ export default {
         paymentData.groupToCreate = this.newGroup;
       }
 
-      this.paymentMethod = paymentMethod;
-      if (this.paymentMethod === this.PAYMENTS.STRIPE) {
-        this.redirectToStripe(paymentData);
-      } else if (this.paymentMethod === this.PAYMENTS.AMAZON) {
-        paymentData.type = 'subscription';
-        return paymentData;
-      }
-
-      return null;
+      this.redirectToStripe(paymentData);
     },
   },
 };
