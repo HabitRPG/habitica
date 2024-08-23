@@ -478,6 +478,7 @@ export const MONTHLY_SCHEDULE = {
           'triceratops',
           'treeling',
           'beetle',
+          'raccoon',
         ],
       },
       {

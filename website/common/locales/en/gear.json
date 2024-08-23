@@ -524,6 +524,15 @@
   "weaponSpecialSummer2024HealerText": "Sea Snail Staff",
   "weaponSpecialSummer2024HealerNotes": "You’ll be amazed to discover out how hard the shell at the end of this staff is. Increases Intelligence by <%= int %>. Limited Edition Summer 2024 Gear.",
 
+  "weaponSpecialFall2024WarriorText": "Sword of Flame",
+  "weaponSpecialFall2024WarriorNotes": "Task obstacles are cut down immediately where they stand by this formidable weapon. Increases Strength by <%= str %>. Limited Edition Fall 2024 Gear.",
+  "weaponSpecialFall2024RogueText": "Ribbon Wand",
+  "weaponSpecialFall2024RogueNotes": "Tasks will freeze in place due to the twists and turns of this mesmerizing weapon. Increases Strength by <%= str %>. Limited Edition Fall 2024 Gear.",
+  "weaponSpecialFall2024HealerText": "Space Scythe",
+  "weaponSpecialFall2024HealerNotes": "Tasks that were once cosmically complicated are decimated by this striking blade. Increases Intelligence by <%= int %>. Limited Edition Fall 2024 Gear.",
+  "weaponSpecialFall2024MageText": "Staff of the Underworld",
+  "weaponSpecialFall2024MageNotes": "Task steps will instantly become simplified with one touch of this shining weapon. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition Fall 2024 Gear.",
+
   "weaponMystery201411Text": "Pitchfork of Feasting",
   "weaponMystery201411Notes": "Stab your enemies or dig in to your favorite foods - this versatile pitchfork does it all! Confers no benefit. November 2014 Subscriber Item.",
   "weaponMystery201502Text": "Shimmery Winged Staff of Love and Also Truth",
@@ -776,6 +785,8 @@
   "weaponArmoireCorsairsBladeNotes": "Whether you wield it to plunder or to protect, you can be glad you brought this fierce blade to sea with you. Just be sure to stow it safely when not in use. Increases Strength by <%= str %>. Enchanted Armoire: Corsair Set (Item 3 of 3)",
   "weaponArmoireDragonKnightsLanceText": "Dragon Knight Lance",
   "weaponArmoireDragonKnightsLanceNotes": "This red and silver lance has unseated many opponents from their mounts. Increases Constitution by <%= con %>. Enchanted Armoire: Dragon Knight Set (Item 3 of 3)",
+  "weaponArmoireFunnyFoolBatonText": "Funny Fool Baton",
+  "weaponArmoireFunnyFoolBatonNotes": "With a wave of your baton you can deliver a punchline, redirect attention, or summon applause. Increases Constitution and Strength by <%= attrs %> each. Enchanted Armoire: Funny Fool Set (Item 3 of 3)",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -1278,7 +1289,16 @@
   "armorSpecialSummer2024MageText": "Sea Anemone Tail",
   "armorSpecialSummer2024MageNotes": "Tell your enemy to watch out for an anemone! (Now tell them to say that five times fast.) Increases Intelligence by <%= int %>. Limited Edition Summer 2024 Gear.",
   "armorSpecialSummer2024HealerText": "Sea Snail Armor",
-  "armorSpecialSummer2024HealerNotes": "Don’t listen to the naysayers. Slow and steady is a valid approach to tackling tasks! Increases Constitution by <%= con %>. Limited Edition Summer 2024 Gear.",  
+  "armorSpecialSummer2024HealerNotes": "Don’t listen to the naysayers. Slow and steady is a valid approach to tackling tasks! Increases Constitution by <%= con %>. Limited Edition Summer 2024 Gear.",
+
+  "armorSpecialFall2024WarriorText": "Fiery Imp Armor",
+  "armorSpecialFall2024WarriorNotes": "Be one with the flames and become immune to their destructive powers in this armor. Increases Constitution by <%= con %>. Limited Edition Fall 2024 Gear.",
+  "armorSpecialFall2024RogueText": "Black Cat Armor",
+  "armorSpecialFall2024RogueNotes": "Be one with the darkness and increase your agility and stealth in this armor. Increases Perception by <%= per %>. Limited Edition Fall 2024 Gear.",
+  "armorSpecialFall2024HealerText": "Space Invader Armor",
+  "armorSpecialFall2024HealerNotes": "Be one with the galaxy and mesmerize onlookers in this armor. Increases Constitution by <%= con %>. Limited Edition Fall 2024 Gear.",
+  "armorSpecialFall2024MageText": "Underworld Sorceror Armor",
+  "armorSpecialFall2024MageNotes": "Be one with the underworld and embrace the power of mages who’ve come before you in this armor. Increases Intelligence by <%= int %>. Limited Edition Fall 2024 Gear.",
 
   "armorMystery201402Text": "Messenger Robes",
   "armorMystery201402Notes": "Shimmering and strong, these robes have many pockets to carry letters. Confers no benefit. February 2014 Subscriber Item.",
@@ -1628,6 +1648,8 @@
   "armorArmoireCorsairsCoatAndCapeNotes": "Whether you’re biding your time on the docks or watching for danger on the open seas, these will surely keep you feeling dry and looking dramatic. Just keep your balance on deck. Increases Constitution by <%= con %>. Enchanted Armoire: Corsair Set (Item 1 of 3)",
   "armorArmoireDragonKnightsArmorText": "Dragon Knight Armor",
   "armorArmoireDragonKnightsArmorNotes": "Channel the strength and power of a dragon with this armor made of silver and shed scales. Increases Strength by <%= str %>. Enchanted Armoire: Dragon Knight Set (Item 2 of 3)",
+  "armorArmoireFunnyFoolCostumeText": "Funny Fool Costume",
+  "armorArmoireFunnyFoolCostumeNotes": "Dum-de-dum! Surely you jest. This colorful outfit looks amazing on you! Increases Strength by <%= str %>. Enchanted Armoire: Funny Fool Set (Item 2 of 3)",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -2126,6 +2148,15 @@
   "headSpecialSummer2024HealerText": "Sea Snail Shell",
   "headSpecialSummer2024HealerNotes": "This spiral shell helps remind you to stop spiraling out of control. Increases Intelligence by <%= int %>. Limited Edition Summer 2024 Gear.",
 
+  "headSpecialFall2024WarriorText": "Fiery Imp Mask",
+  "headSpecialFall2024WarriorNotes": "Whether you’re mischievous or threatening, you won’t be missed when you wear this! Increases Strength by <%= str %>. Limited Edition Fall 2024 Gear.",
+  "headSpecialFall2024RogueText": "Black Cat Mask",
+  "headSpecialFall2024RogueNotes": "Whether you’re cuddly or cunning, you won’t be missed when you wear this! Increases Perception by <%= per %>. Limited Edition Fall 2024 Gear.",
+  "headSpecialFall2024HealerText": "Space Invader Mask",
+  "headSpecialFall2024HealerNotes": "Whether you’re defending your planet or exploring a new one, you won’t be missed when you wear this! Increases Intelligence by <%= int %>. Limited Edition Fall 2024 Gear.",
+  "headSpecialFall2024MageText": "Underworld Sorcerer Mask",
+  "headSpecialFall2024MageNotes": "Whether you’re mysterious or whimsical, you won’t be missed when you wear this! Increases Perception by <%= per %>. Limited Edition Fall 2024 Gear.",
+
   "headSpecialGaymerxText": "Rainbow Warrior Helm",
   "headSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special helmet is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
 
@@ -2293,6 +2324,8 @@
   "headMystery202406Notes": "The ghostly feathers that adorn this hat glow faintly, like the waves of a spectral sea. Confers no benefit. June 2024 Subscriber Item.",
   "headMystery202407Text": "Amiable Axolotl Hood",
   "headMystery202407Notes": "These magical gills will let you breathe underwater! Confers no benefit. July 2024 Subscriber Item.",
+  "headMystery202409Text": "Heliotrope Magus Hat",
+  "headMystery202409Notes": "More than just jaunty decorations, the enchanted sunflowers on this hat fill the wearer with powerful magic energy. Confers no benefit. September 2024 Subscriber Item.",
 
   "headMystery301404Text": "Fancy Top Hat",
   "headMystery301404Notes": "A fancy top hat for the finest of gentlefolk! January 3015 Subscriber Item. Confers no benefit.",
@@ -2493,6 +2526,8 @@
   "headArmoireCorsairsBandanaNotes": "Whether you’re keeping your head covered in case a seagull flies overhead or making sure your foes never see you sweat, this bandana is essential. Just add a decorative bead for every adventure you complete. Increases Intelligence by <%= int %>. Enchanted Armoire: Corsair Set (Item 2 of 3)",
   "headArmoireDragonKnightsHelmText": "Dragon Knight Helm",
   "headArmoireDragonKnightsHelmNotes": "With the fiery features on this helmet, dragons might mistake you for one of their own. Increases Intelligence by <%= int %>. Enchanted Armoire: Dragon Knight Set (Item 1 of 3)",
+  "headArmoireFunnyFoolCapText": "Funny Fool Cap",
+  "headArmoireFunnyFoolCapNotes": "The bells on this hat might make your opponents burst into giggles, but they just help you concentrate. Increases Constitution by <%= con %>. Enchanted Armoire: Funny Fool Set (Item 1 of 3)",
 
   "offhand": "off-hand item",
   "offHandCapitalized": "Off-Hand Item",
@@ -2774,6 +2809,12 @@
   "shieldSpecialSummer2024HealerText": "Sea Snail Shield",
   "shieldSpecialSummer2024HealerNotes": "This shiny shield is even stronger than a Sea Snail Staff. Increases Constitution by <%= con %>. Limited Edition Summer 2024 Gear.",
 
+  "shieldSpecialFall2024WarriorText": "Shield of Flame",
+  "shieldSpecialFall2024WarriorNotes": "Task complications are absorbed by your shield and make you more determined. Increases Constitution by <%= con %>. Limited Edition Fall 2024 Gear.",
+  "shieldSpecialFallRogue2024Text": "Ribbon Wand",
+  "shieldSpecialFallRogue2024Notes": "Tasks themselves will be overwhelmed by the swirls and spirals of this hypnotic weapon. Increases Strength by <%= str %>. Limited Edition Fall 2024 Gear.",
+  "shieldSpecialFall2024HealerText": "Space Shield",
+  "shieldSpecialFall2024HealerNotes": "New tasks wanting your attention bounce right off until you’ve completed your current mission. Increases Constitution by <%= con %>. Limited Edition Fall 2024 Gear.",
 
   "shieldMystery201601Text": "Resolution Slayer",
   "shieldMystery201601Notes": "This blade can be used to parry away all distractions. Confers no benefit. January 2016 Subscriber Item.",
@@ -2793,6 +2834,9 @@
   "shieldMystery202209Notes": "Building your sorcery knowledge takes a lot of reading, but you're sure to enjoy your education. Confers no benefit. September 2022 Subscriber Item.",
   "shieldMystery202408Text": "Arcane Sparkles",
   "shieldMystery202408Notes": "Magic lights will illuminate the inside of your bubble hideout, or anywhere else you need a little light! Confers no benefit. August 2024 Subscriber Item.",
+  "shieldMystery202409Text": "Heliotrope Magus Staff",
+  "shieldMystery202409Notes": "The glowing ruby on this staff draws its power from the late summer sun. Confers no benefit. September 2024 Subscriber Item.",
+
   "shieldMystery301405Text": "Clock Shield",
   "shieldMystery301405Notes": "Time is on your side with this towering clock shield! Confers no benefit. June 3015 Subscriber Item.",
   "shieldMystery301704Text": "Fluttery Fan",
