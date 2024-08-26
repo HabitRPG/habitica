@@ -318,6 +318,10 @@
     color: $gray-50;
   }
 
+  td span {
+    line-break: anywhere;
+  }
+
   th, td {
     padding-top: 0.35rem !important;
     padding-bottom: 0.35rem !important;
