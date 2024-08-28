@@ -207,7 +207,7 @@
   "dismissAll": "Dismiss All",
   "messages": "Messages",
   "emptyMessagesLine1": "You don't have any messages",
-  "emptyMessagesLine2": "You can send a new message to a user by visiting their profile and clicking the \"Message\" button.",
+  "emptyMessagesLine2": "Send a message to start a conversation with your Party members or another Habitica player",
   "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> sent you a message",
   "letsgo": "Let's Go!",
   "selected": "Selected",
@@ -238,5 +238,7 @@
   "submitQuestion": "Submit Question",
   "whyReportingPlayer": "Why are you reporting this player?",
   "whyReportingPlayerPlaceholder": "Reason for report",
-  "playerReportModalBody": "You should only report a player who violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Submitting a false report is a violation of Habitica’s Community Guidelines."
+  "playerReportModalBody": "You should only report a player who violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Submitting a false report is a violation of Habitica’s Community Guidelines.",
+  "targetUserNotExist": "Target User: '<%= userName %>' not exists.",
+  "rememberToBeKind": "Please remember to be kind, respectful, and follow the <a href='/static/community-guidelines' target='_blank'>Community Guidelines</a>."
 }
