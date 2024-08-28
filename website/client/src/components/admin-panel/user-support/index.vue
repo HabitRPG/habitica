@@ -67,6 +67,11 @@
           :reset-counter="resetCounter"
         />
 
+        <user-history
+          :hero="hero"
+          :reset-counter="resetCounter"
+        />
+
         <contributor-details
           :hero="hero"
           :reset-counter="resetCounter"
@@ -121,6 +126,7 @@ import Transactions from './transactions';
 import SubscriptionAndPerks from './subscriptionAndPerks';
 import CustomizationsOwned from './customizationsOwned.vue';
 import Achievements from './achievements.vue';
+import UserHistory from './userHistory.vue';
 
 import { userStateMixin } from '../../../mixins/userState';
 
@@ -135,6 +141,7 @@ export default {
     PrivilegesAndGems,
     ContributorDetails,
     Transactions,
+    UserHistory,
     SubscriptionAndPerks,
     UserProfile,
     Achievements,
