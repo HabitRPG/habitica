@@ -534,7 +534,7 @@
         color: $white;
         height: 2rem;
         line-height: 16px;
-        margin: auto -1rem -1rem;
+        margin: 24px auto -24px;
       }
 
     .gems-left {
@@ -847,7 +847,7 @@ export default {
         }
         if (this.genericPurchase) {
           this.makeGenericPurchase(this.item, 'buyModal', this.selectedAmountToBuy);
-          this.purchased(this.item.text);
+          await this.purchased(this.item.text);
         }
       }
 
