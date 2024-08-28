@@ -47,6 +47,11 @@
           :preferences="hero.preferences"
         />
 
+        <stats
+          :hero="hero"
+          :reset-counter="resetCounter"
+        />
+
         <items-owned
           :hero="hero"
           :reset-counter="resetCounter"
@@ -127,6 +132,7 @@ import SubscriptionAndPerks from './subscriptionAndPerks';
 import CustomizationsOwned from './customizationsOwned.vue';
 import Achievements from './achievements.vue';
 import UserHistory from './userHistory.vue';
+import Stats from './stats.vue';
 
 import { userStateMixin } from '../../../mixins/userState';
 
@@ -142,6 +148,7 @@ export default {
     ContributorDetails,
     Transactions,
     UserHistory,
+    Stats,
     SubscriptionAndPerks,
     UserProfile,
     Achievements,

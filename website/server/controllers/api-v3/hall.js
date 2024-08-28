@@ -146,7 +146,7 @@ api.getHeroes = {
 // Note, while the following routes are called getHero / updateHero
 // they can be used by admins to get/update any user
 
-const heroAdminFields = 'auth balance contributor flags items lastCron party preferences profile purchased secret permissions achievements';
+const heroAdminFields = 'auth balance contributor flags items lastCron party preferences profile purchased secret permissions achievements stats';
 const heroAdminFieldsToFetch = heroAdminFields; // these variables will make more sense when...
 const heroAdminFieldsToShow = heroAdminFields; // ... apiTokenObscured is added
 
@@ -313,6 +313,42 @@ api.updateHero = {
       }
       if (plan.cumulativeCount) {
         hero.purchased.plan.cumulativeCount = plan.cumulativeCount;
+      }
+    }
+
+    if (updateData.stats) {
+      if (updateData.stats.hp) {
+        hero.stats.hp = updateData.stats.hp;
+      }
+      if (updateData.stats.mp) {
+        hero.stats.mp = updateData.stats.mp;
+      }
+      if (updateData.stats.exp) {
+        hero.stats.exp = updateData.stats.exp;
+      }
+      if (updateData.stats.gp) {
+        hero.stats.gp = updateData.stats.gp;
+      }
+      if (updateData.stats.lvl) {
+        hero.stats.lvl = updateData.stats.lvl;
+      }
+      if (updateData.stats.points) {
+        hero.stats.points = updateData.stats.points;
+      }
+      if (updateData.stats.str) {
+        hero.stats.str = updateData.stats.str;
+      }
+      if (updateData.stats.int) {
+        hero.stats.int = updateData.stats.int;
+      }
+      if (updateData.stats.per) {
+        hero.stats.per = updateData.stats.per;
+      }
+      if (updateData.stats.con) {
+        hero.stats.con = updateData.stats.con;
+      }
+      if (updateData.stats.buffs) {
+        hero.stats.buffs = updateData.stats.buffs;
       }
     }
 

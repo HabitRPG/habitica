@@ -1,5 +1,7 @@
 <template>
-  <form @submit.prevent="saveHero({ hero, msg: 'Subscription Perks' })">
+  <form @submit.prevent="saveHero({ hero: {
+    purchased: hero.purchased
+    }, msg: 'Subscription Perks' })">
     <div class="card mt-2">
       <div class="card-header">
         <h3
