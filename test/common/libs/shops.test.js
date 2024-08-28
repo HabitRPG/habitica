@@ -53,9 +53,11 @@ describe('shops', () => {
       });
 
       it('does not contain past scheduled premium hatching potions', async () => {
+        clock = sinon.useFakeTimers(new Date('2024-04-01T09:00:00.000Z'));
         const potions = shared.shops.getMarketCategories(user).find(x => x.identifier === 'premiumHatchingPotions');
-        expect(potions.items.filter(x => x.key === 'Aquatic' || x.key === 'Celestial').length).to.eql(0);
+        expect(potions.items.filter(x => x.key === 'Aquatic' || x.key === 'Celestial').length, 'Aquatic or Celestial found').to.eql(0);
       });
+
       it('returns end date for scheduled premium potions', async () => {
         const potions = shared.shops.getMarketCategories(user).find(x => x.identifier === 'premiumHatchingPotions');
         potions.items.forEach(potion => {
