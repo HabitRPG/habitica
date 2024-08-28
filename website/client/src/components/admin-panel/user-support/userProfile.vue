@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="saveHero({hero, msg: 'Users Profile'})">
+  <form @submit.prevent="saveHero({hero: { profile: hero.profile }, msg: 'Users Profile'})">
     <div class="card mt-2">
       <div class="card-header">
         <h3

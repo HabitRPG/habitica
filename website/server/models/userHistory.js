@@ -84,7 +84,7 @@ const commitUserHistoryUpdate = function commitUserHistoryUpdate (update) {
   ).exec();
 };
 
-model.beginUserHistoryUpdate = function beginUserHistoryUpdate (userID, client=null) {
+model.beginUserHistoryUpdate = function beginUserHistoryUpdate (userID, client = null) {
   return {
     userId: userID,
     data: {

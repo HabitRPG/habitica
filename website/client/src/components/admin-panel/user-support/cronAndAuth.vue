@@ -1,5 +1,8 @@
 <template>
-  <form @submit.prevent="saveHero({ hero, msg: 'Authentication' })">
+  <form @submit.prevent="saveHero({ hero: {
+    auth: hero.auth,
+    preferences: hero.preferences,
+    }, msg: 'Authentication' })">
     <div class="card mt-2">
       <div class="card-header">
         <h3
