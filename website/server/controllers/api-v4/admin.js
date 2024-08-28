@@ -2,6 +2,10 @@ import validator from 'validator';
 import { authWithHeaders } from '../../middlewares/auth';
 import { ensurePermission } from '../../middlewares/ensureAccessRight';
 import { model as User } from '../../models/user';
+import { model as UserHistory } from '../../models/userHistory';
+import {
+  NotFound,
+} from '../../libs/errors';
 
 const api = {};
 
@@ -21,7 +25,7 @@ const api = {};
  * @apiUse NoUser
  * @apiUse NotAdmin
  */
-api.getHero = {
+api.searchHero = {
   method: 'GET',
   url: '/admin/search/:userIdentifier',
   middlewares: [authWithHeaders(), ensurePermission('userSupport')],
@@ -70,6 +74,45 @@ api.getHero = {
         .exec();
     }
     res.respond(200, users);
+  },
+};
+
+/**
+ * @api {get} /api/v4/admin/user/:userId/history Get the history of a user
+ * @apiParam (Path) {String} userIdentifier The username or email of the user
+ * @apiName GetUserHistory
+ * @apiGroup Admin
+ * @apiPermission Admin
+ *
+ * @apiDescription Returns the history of a user
+ *
+ * @apiSuccess {Object} data The User history
+ *
+ * @apiUse NoAuthHeaders
+ * @apiUse NoAccount
+ * @apiUse NoUser
+ * @apiUse NotAdmin
+ */
+api.getUserHistory = {
+  method: 'GET',
+  url: '/admin/user/:userId/history',
+  middlewares: [authWithHeaders(), ensurePermission('userSupport')],
+  async handler (req, res) {
+    req.checkParams('userId', res.t('heroIdRequired')).notEmpty().isUUID();
+
+    const validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    const { userId } = req.params;
+
+    const history = await UserHistory
+      .findOne({ userId })
+      .lean()
+      .exec();
+
+    if (!history) throw new NotFound(res.t('userWithIDNotFound', { userId }));
+
+    res.respond(200, history);
   },
 };
 

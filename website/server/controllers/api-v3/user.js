@@ -504,7 +504,7 @@ api.buy = {
     await user.save();
 
     if (type === 'armoire') {
-      await UserHistory.beginUserHistoryUpdate(user._id)
+      await UserHistory.beginUserHistoryUpdate(user._id, req.headers['x-client'])
         .withArmoire(buyRes[0].armoire.dropKey || 'experience')
         .commit();
     }
@@ -601,7 +601,7 @@ api.buyArmoire = {
     }
     const buyArmoireResponse = await common.ops.buy(user, req, res.analytics);
     await user.save();
-    await UserHistory.beginUserHistoryUpdate(user._id)
+    await UserHistory.beginUserHistoryUpdate(user._id, req.headers['x-client'])
       .withArmoire(buyArmoireResponse[1].data.armoire.dropKey)
       .commit();
     res.respond(200, ...buyArmoireResponse);

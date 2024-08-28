@@ -17,6 +17,7 @@ export const schema = new Schema({
     {
       _id: false,
       timestamp: { $type: Date, required: true },
+      client: { $type: String, required: false },
       reward: { $type: String, required: true },
     },
   ],
@@ -24,6 +25,7 @@ export const schema = new Schema({
     {
       _id: false,
       timestamp: { $type: Date, required: true },
+      client: { $type: String, required: false },
       quest: { $type: String, required: true },
       response: { $type: String, required: true },
     },
@@ -32,6 +34,7 @@ export const schema = new Schema({
     {
       _id: false,
       timestamp: { $type: Date, required: true },
+      client: { $type: String, required: false },
     },
   ],
 }, {
@@ -81,10 +84,11 @@ const commitUserHistoryUpdate = function commitUserHistoryUpdate (update) {
   ).exec();
 };
 
-model.beginUserHistoryUpdate = function beginUserHistoryUpdate (userID) {
+model.beginUserHistoryUpdate = function beginUserHistoryUpdate (userID, client=null) {
   return {
     userId: userID,
     data: {
+      client,
       armoire: [],
       questInviteResponses: [],
       cron: [],
@@ -92,6 +96,7 @@ model.beginUserHistoryUpdate = function beginUserHistoryUpdate (userID) {
     withArmoire: function withArmoire (reward) {
       this.data.armoire.push({
         timestamp: new Date(),
+        client: this.data.client,
         reward,
       });
       return this;
@@ -99,6 +104,7 @@ model.beginUserHistoryUpdate = function beginUserHistoryUpdate (userID) {
     withQuestInviteResponse: function withQuestInviteResponse (quest, response) {
       this.data.questInviteResponses.push({
         timestamp: new Date(),
+        client: this.data.client,
         quest,
         response,
       });
@@ -107,6 +113,7 @@ model.beginUserHistoryUpdate = function beginUserHistoryUpdate (userID) {
     withCron: function withCron () {
       this.data.cron.push({
         timestamp: new Date(),
+        client: this.data.client,
       });
       return this;
     },

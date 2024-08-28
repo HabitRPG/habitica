@@ -229,7 +229,7 @@ api.acceptQuest = {
       headers: req.headers,
     });
 
-    await UserHistory.beginUserHistoryUpdate(user._id)
+    await UserHistory.beginUserHistoryUpdate(user._id, req.headers['x-client'])
       .withQuestInviteResponse(group.quest.key, 'accept')
       .commit();
   },
@@ -294,7 +294,7 @@ api.rejectQuest = {
       headers: req.headers,
     });
 
-    await UserHistory.beginUserHistoryUpdate(user._id)
+    await UserHistory.beginUserHistoryUpdate(user._id, req.headers['x-client'])
       .withQuestInviteResponse(group.quest.key, 'reject')
       .commit();
   },
