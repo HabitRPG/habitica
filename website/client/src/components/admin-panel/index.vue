@@ -1,30 +1,41 @@
 <template>
-  <div class="row standard-page">
-    <div class="well col-12">
+  <div class="row standard-page col-12 d-flex justify-content-center">
+    <div class="admin-panel-content">
       <h1>Admin Panel</h1>
-
-      <div>
-        <form
-          class="form-inline"
-          @submit.prevent="loadHero(userIdentifier)"
-        >
+      <form
+        class="form-inline"
+        @submit.prevent="searchUsers(userIdentifier)"
+      >
+        <div class="input-group col pl-0 pr-0">
           <input
             v-model="userIdentifier"
-            class="form-control uidField"
+            class="form-control"
             type="text"
-            :placeholder="'User ID or Username; blank for your account'"
+            :placeholder="'UserID, username, email, or leave blank for your account'"
           >
-          <input
-            type="submit"
-            value="Load User"
-            class="btn btn-secondary"
-          >
-        </form>
-      </div>
+          <div class="input-group-append">
+            <button
+              class="btn btn-primary"
+              type="button"
+              @click="loadUser(userIdentifier)"
+            >
+              Load User
+            </button>
+            <button
+              class="btn btn-secondary"
+              type="button"
+              @click="searchUsers(userIdentifier)"
+            >
+              Search
+            </button>
+          </div>
+        </div>
+      </form>
 
-      <div>
-        <router-view @changeUserIdentifier="changeUserIdentifier" />
-      </div>
+      <router-view
+        class="mt-3"
+        @changeUserIdentifier="changeUserIdentifier"
+      />
     </div>
   </div>
 </template>
@@ -32,6 +43,15 @@
 <style lang="scss" scoped>
   .uidField {
     min-width: 45ch;
+  }
+
+  .input-group-append {
+    width:auto;
+  }
+
+  .admin-panel-content {
+    flex: 0 0 800px;
+    max-width: 800px;
   }
 </style>
 
@@ -62,7 +82,24 @@ export default {
       // (useful if we want to re-fetch the user after making changes).
       this.userIdentifier = newId;
     },
-    async loadHero (userIdentifier) {
+    async searchUsers (userIdentifier) {
+      if (!userIdentifier || userIdentifier === '') {
+        this.loadUser();
+        return;
+      }
+      this.$router.push({
+        name: 'adminPanelSearch',
+        params: { userIdentifier },
+      }).catch(failure => {
+        if (isNavigationFailure(failure, NavigationFailureType.duplicated)) {
+          // the admin has requested that the same user be displayed again so reload the page
+          // (e.g., if they changed their mind about changes they were making)
+          this.$router.go();
+        }
+      });
+    },
+
+    async loadUser (userIdentifier) {
       const id = userIdentifier || this.user._id;
 
       this.$router.push({

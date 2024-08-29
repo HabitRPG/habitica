@@ -291,6 +291,7 @@
       </div>
 
       <div
+        class="time-travel"
         v-if="TIME_TRAVEL_ENABLED && user.permissions && user.permissions.fullAccess"
         :key="lastTimeJump"
       >
@@ -309,9 +310,11 @@
         <div class="my-2">
           Time Traveling! It is {{ new Date().toLocaleDateString() }}
           <a
-            class="btn btn-warning mr-1"
+            class="btn btn-warning btn-small"
             @click="resetTime()"
-          >Reset</a>
+          >
+            Reset
+        </a>
         </div>
         <a
           class="btn btn-secondary mr-1"
@@ -510,6 +513,8 @@ li {
   grid-area: debug-pop;
    }
 
+.time-travel { grid-area: time-travel;}
+
 footer {
   background-color: $gray-500;
   color: $gray-50;
@@ -530,7 +535,7 @@ footer {
     "donate-text donate-text donate-text donate-button social"
     "hr hr hr hr hr"
     "copyright copyright melior privacy-terms privacy-terms"
-    "debug-toggle debug-toggle debug-toggle blank blank";
+    "time-travel time-travel debug-toggle debug-toggle debug-toggle";
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: auto;
 

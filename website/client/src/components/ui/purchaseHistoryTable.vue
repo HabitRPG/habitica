@@ -318,13 +318,18 @@
     color: $gray-50;
   }
 
+  td span {
+    line-break: anywhere;
+  }
+
   th, td {
     padding-top: 0.35rem !important;
     padding-bottom: 0.35rem !important;
   }
 
   .timestamp-column, .action-column  {
-    width: 20%;
+    width: 27%;
+
   }
 
   .amount-column {
@@ -332,7 +337,7 @@
   }
 
   .note-column {
-    width: 50%;
+    width: 35%;
   }
 
   .entry-action {

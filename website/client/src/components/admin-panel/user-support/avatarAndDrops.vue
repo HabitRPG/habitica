@@ -1,13 +1,18 @@
 <template>
-  <div class="accordion-group">
-    <h3
-      class="expand-toggle"
-      :class="{'open': expand}"
-      @click="expand = !expand"
+  <div class="card mt-2">
+    <div class="card-header">
+      <h3
+        class="mb-0 mt-0"
+        :class="{'open': expand}"
+        @click="expand = !expand"
+      >
+        Current Avatar Appearance, Drop Count Today
+      </h3>
+    </div>
+    <div
+      v-if="expand"
+      class="card-body"
     >
-      Current Avatar Appearance, Drop Count Today
-    </h3>
-    <div v-if="expand">
       <div>Drops Today: {{ items.lastDrop.count }}</div>
       <div>Most Recent Drop: {{ items.lastDrop.date | formatDate }}</div>
       <div>Use Costume: {{ preferences.costume ? 'on' : 'off' }}</div>
