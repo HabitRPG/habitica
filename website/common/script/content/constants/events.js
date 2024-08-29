@@ -12,7 +12,7 @@ const gemsPromo = {
 export const REPEATING_EVENTS = {
   nye: {
     start: new Date('1970-12-28T04:00-05:00'),
-    end: new Date('1970-01-04T03:59-05:00'),
+    end: new Date('1971-01-04T03:59-05:00'),
     season: 'nye',
     npcImageSuffix: '_nye',
     content: [
@@ -102,7 +102,7 @@ export const REPEATING_EVENTS = {
   },
   giveOneGetOne: {
     start: new Date('1970-12-19T04:00-05:00'),
-    end: new Date('1970-01-06T03:59-05:00'),
+    end: new Date('1971-01-06T03:59-05:00'),
     promo: 'g1g1',
   },
 };
