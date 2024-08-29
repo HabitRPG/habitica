@@ -61,6 +61,6 @@
     "chai": "^5.1.0",
     "inspectpack": "^4.7.1",
     "terser-webpack-plugin": "^5.3.10",
-    "webpack": "^5.89.0"
+    "webpack": "^5.94.0"
   }
 }
