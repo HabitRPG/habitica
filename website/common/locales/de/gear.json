@@ -2941,5 +2941,11 @@
     "armorMystery202212Notes": "Das Universum kann kalt sein, aber dieses bezaubernde Kleid wird dich kuschelig halten, während du fliegst. Gewährt keinen Attributbonus. Dezember 2022 Abonnentengegenstand.",
     "armorMystery202304Notes": "Hier ist dein Henkel und hier ist dein Ausguss! Gewährt keinen Attributbonus. April 2023 Abonnentengegenstand.",
     "armorMystery202306Text": "Regenbogen Parka",
-    "armorMystery202306Notes": "Niemand wird dir die Parade verregnen! Und wenn sie es versuchen, wirst du farbenfroh und trocken bleiben! Gewährt keinen Attributbonus. Juni 2023 Abonnentengegenstand."
+    "armorMystery202306Notes": "Niemand wird dir die Parade verregnen! Und wenn sie es versuchen, wirst du farbenfroh und trocken bleiben! Gewährt keinen Attributbonus. Juni 2023 Abonnentengegenstand.",
+    "armorMystery202307Text": "Krakententakel",
+    "armorMystery202307Notes": "Saugnäpfe haben die beste Haftung am Meeresboden und an den Wänden widerspenstiger Schiffe. Gewährt keinen Attributbonus. Juli 2023 Abonnentengegenstand.",
+    "armorMystery202310Text": "Gespenster Robe",
+    "armorMystery202310Notes": "Ein gespenstisches Gewand, das sich graziös wellen und wehen wird, während du inmitten von Spuksümpfen und Ödlanden schwebst. Gewährt keinen Attributbonus. Oktober 2023 Abonnentengegenstand.",
+    "weaponSpecialFall2024WarriorText": "Flammenschwert",
+    "weaponSpecialFall2024WarriorNotes": "Aufgaben-Hindernisse werden auf der Stelle von dieser eindrucksvollen Waffe niedergestreckt. Erhöht Stärke um <%= str %>. Limitierte Ausgabe 2024 Herbstausrüstung."
 }

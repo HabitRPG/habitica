@@ -383,5 +383,11 @@
     "questEggGiraffeAdjective": "そびえ立つ",
     "questEggChameleonAdjective": "混沌とした",
     "hatchingPotionKoi": "コイ",
-    "questEggChameleonText": "カメレオン"
+    "questEggChameleonText": "カメレオン",
+    "questEggRaccoonText": "アライグマ",
+    "questEggRaccoonMountText": "アライグマ",
+    "questEggRaccoonAdjective": "大食いの",
+    "questEggCrabText": "カニ",
+    "questEggCrabMountText": "カニ",
+    "questEggCrabAdjective": "いじわるな"
 }

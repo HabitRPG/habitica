@@ -214,7 +214,7 @@
     "backgroundStormyRooftopsNotes": "嵐の屋上を匍匐前進しよう。",
     "backgroundWindyAutumnText": "風吹く秋",
     "backgroundWindyAutumnNotes": "秋風の中落ち葉を追いかけよう。",
-    "incentiveBackgrounds": "シンプルな背景セット",
+    "incentiveBackgrounds": "スタンダードな背景",
     "backgroundVioletText": "すみれ色",
     "backgroundVioletNotes": "鮮やかなすみれ色の背景です。",
     "backgroundBlueText": "青",
@@ -871,5 +871,11 @@
     "backgroundDragonsBackNotes": "ドラゴンの背中で空を飛びましょう。",
     "backgroundMaypoleText": "五月祭の柱",
     "backgroundPottersStudioText": "陶芸家のスタジオ",
-    "backgroundPottersStudioNotes": "陶芸家のスタジオで作品を作りましょう。"
+    "backgroundPottersStudioNotes": "陶芸家のスタジオで作品を作りましょう。",
+    "backgrounds062024": "セット121：2024年6月リリース",
+    "backgrounds072024": "セット122：2024年7月リリース",
+    "backgroundRiverBottomNotes": "川底を探検しましょう。",
+    "backgroundRiverBottomText": "川底",
+    "backgrounds082024": "セット123： 2024年8月リリース",
+    "monthlyBackgrounds": "月替わりの背景"
 }
