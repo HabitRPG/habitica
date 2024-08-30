@@ -535,7 +535,8 @@ footer {
     "donate-text donate-text donate-text donate-button social"
     "hr hr hr hr hr"
     "copyright copyright melior privacy-terms privacy-terms"
-    "time-travel time-travel debug-toggle debug-toggle debug-toggle";
+    "time-travel time-travel time-travel time-travel time-travel"
+    "debug-toggle debug-toggle debug-toggle debug-toggle debug-toggle";
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: auto;
 
@@ -739,6 +740,7 @@ h3 {
       "privacy-policy privacy-policy"
       "mobile-terms mobile-terms"
       "melior melior"
+      "time-travel time-travel"
       "debug-toggle debug-toggle";
     grid-template-columns: repeat(2, 2fr);
     grid-template-rows: auto;
