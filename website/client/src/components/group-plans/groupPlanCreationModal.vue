@@ -100,7 +100,7 @@
           :disabled="!newGroupIsReady"
           @click="stripeGroup({ group: newGroup })"
         >
-          {{ $t('next') }}
+          {{ $t('nextPaymentMethod') }}
         </button>
       </div>
     </div>
