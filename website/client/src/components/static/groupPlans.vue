@@ -318,7 +318,8 @@ export default {
   },
   methods: {
     authenticate () {
-      this.modalPage = 'purchaseGroup';
+      this.$root.$emit('bv::hide::modal', 'group-plan');
+      this.$root.$emit('bv::show::modal', 'create-group');
     },
     goToNewGroupPage () {
       if (this.isStaticPage && !this.user) {
@@ -326,24 +327,9 @@ export default {
         return this.$root.$emit('bv::show::modal', 'group-plan');
       }
       if (this.upgradingGroup._id) {
-        return this.pay();
+        return this.stripeGroup({ group: this.upgradingGroup, upgrade: true });
       }
       return this.$root.$emit('bv::show::modal', 'create-group');
-    },
-    pay () {
-      const paymentData = {
-        subscription: 'group_monthly',
-        coupon: null,
-      };
-
-      if (this.upgradingGroup && this.upgradingGroup._id) {
-        paymentData.groupId = this.upgradingGroup._id;
-        paymentData.group = this.upgradingGroup;
-      } else {
-        paymentData.groupToCreate = this.newGroup;
-      }
-
-      this.redirectToStripe(paymentData);
     },
   },
 };
