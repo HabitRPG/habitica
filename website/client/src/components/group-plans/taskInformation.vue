@@ -3,7 +3,6 @@
     class="standard-page"
     @click="openCreateBtn ? openCreateBtn = false : null"
   >
-    <group-plan-overview-modal />
     <task-modal
       ref="taskModal"
       :task="workingTask"
@@ -187,7 +186,6 @@ import taskDefaults from '@/../../common/script/libs/taskDefaults';
 import TaskColumn from '../tasks/column';
 import TaskModal from '../tasks/taskModal';
 import TaskSummary from '../tasks/taskSummary';
-import GroupPlanOverviewModal from './groupPlanOverviewModal';
 import toggleSwitch from '@/components/ui/toggleSwitch';
 
 import sync from '../../mixins/sync';
@@ -208,7 +206,6 @@ export default {
     TaskColumn,
     TaskModal,
     TaskSummary,
-    GroupPlanOverviewModal,
     toggleSwitch,
   },
   mixins: [sync],
@@ -308,10 +305,6 @@ export default {
   mounted () {
     if (!this.searchId) this.searchId = this.groupId;
     this.load();
-
-    if (this.$route.query.showGroupOverview) {
-      this.$root.$emit('bv::show::modal', 'group-plan-overview');
-    }
 
     this.$root.$on('habitica:team-sync', () => {
       this.loadTasks();
