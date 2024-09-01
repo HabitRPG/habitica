@@ -66,8 +66,7 @@ export default {
   },
   computed: {
     preventTrigger () {
-      return !this.targetUserInputValue.includes('@')
-        || this.targetUserInputValue.length < 2;
+      return this.targetUserInputValue.length < 2;
     },
   },
   mounted () {
@@ -75,7 +74,9 @@ export default {
   },
   methods: {
     triggerNewConversation () {
-      this.$emit('startNewConversation', this.$refs.targetUserInput.value.replace('@', ''));
+      const userWithoutAt = this.$refs.targetUserInput.value.replace('@', '');
+
+      this.$emit('startNewConversation', userWithoutAt);
     },
   },
 };

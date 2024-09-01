@@ -249,10 +249,6 @@
         margin-bottom: 1rem;
       }
 
-      p {
-        font-size: 12px;
-      }
-
       .no-messages-box {
         display: flex;
         flex-direction: column;
@@ -1035,6 +1031,8 @@ export default defineComponent({
 
       if (foundConversation) {
         this.selectConversation(foundConversation.uuid);
+        this.showStartNewConversationInput = false;
+
         return;
       }
 

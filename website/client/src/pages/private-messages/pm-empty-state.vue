@@ -17,10 +17,14 @@
     </div>
 
     <button
-      class="btn btn-primary mt-4"
+      class="btn btn-primary mt-4 d-flex align-items-center"
       @click="$emit('newMessageClicked')"
     >
-      new message
+      <div
+        class="svg-icon icon-10 color mr-2"
+        v-html="icons.positive"
+      ></div>
+      {{ $t('newMessage') }}
     </button>
   </div>
 </template>
@@ -32,10 +36,19 @@ strong {
   line-height: 1.71;
   color: $gray-100;
 }
+
+.btn-primary {
+  text-transform: uppercase;
+}
+
+.svg-icon.icon-10 {
+  margin: 3px;
+}
 </style>
 
 <script>
 import mailIcon from '@/assets/svg/mail.svg';
+import positiveIcon from '@/assets/svg/positive.svg';
 
 export default {
   props: {
@@ -45,6 +58,7 @@ export default {
     return {
       icons: Object.freeze({
         mailIcon,
+        positive: positiveIcon,
       }),
     };
   },
