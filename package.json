@@ -123,7 +123,6 @@
     "cross-spawn": "^7.0.3",
     "mocha": "^5.1.1",
     "monk": "^7.3.4",
-    "nodemon": "2.0.22",
     "nyc": "^15.1.0",
     "require-again": "^2.0.0",
     "run-rs": "^0.7.7",
