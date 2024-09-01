@@ -1,7 +1,7 @@
 {
   "name": "habitica",
   "description": "A habit tracker app which treats your goals like a Role Playing Game.",
-  "version": "5.27.4",
+  "version": "5.28.0",
   "main": "./website/server/index.js",
   "dependencies": {
     "@babel/core": "^7.22.10",
@@ -107,6 +107,7 @@
     "client:build": "cd website/client && npm run build",
     "client:unit": "cd website/client && npm run test:unit",
     "start": "gulp nodemon",
+    "start:simple": "node ./website/server/index.js",
     "debug": "gulp nodemon --inspect",
     "mongo:dev": "run-rs -v 5.0.23 -l ubuntu1804 --keep --dbpath mongodb-data --number 1 --quiet",
     "mongo:test": "run-rs -v 5.0.23 -l ubuntu1804 --keep --dbpath mongodb-data-testing --number 1 --quiet",

@@ -344,5 +344,7 @@
     "suggestedGroup": "Önerildi çünkü Habitica'da yenisin.",
     "blockedToSendToThisUser": "Bu oyuncuyu blokladığınız için bu oyuncuya gönderemezsiniz.",
     "PMDisabled": "Özel mesajları devre dışı bırak",
-    "editParty": "Takımı Düzenle"
+    "editParty": "Takımı Düzenle",
+    "languageSettings": "Dil Ayarları",
+    "bannedWordsAllowed": "Yasaklı Kelimelere İzin Ver"
 }

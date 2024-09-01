@@ -110,12 +110,12 @@
     "majorUpdates": "Pengumuman penting",
     "questStarted": "Misimu Telah Dimulai",
     "invitedQuest": "Diundang untuk mengikuti Misi",
-    "kickedGroup": "Dikeluarkan dari grup",
+    "kickedGroup": "Dihapus dari grup",
     "remindersToLogin": "Pengingat untuk main Habitica",
     "unsubscribedSuccessfully": "Pemberhentian langganan berhasil!",
     "unsubscribedTextUsers": "Kamu berhasil menonaktifkan semua email Habitica. Kamu bisa mengaktifkan hanya email-email yang ingin kamu terima dari <a href=\"/user/settings/notifications\">Pengaturan > &gt; Notifications</a> (membutuhkan login).",
     "unsubscribedTextOthers": "Kamu tidak akan menerima email lagi dari Habitica.",
-    "unsubscribeAllEmails": "Centang untuk Berhenti Mendapatkan Email",
+    "unsubscribeAllEmails": "Berhenti Berlangganan Email",
     "unsubscribeAllEmailsText": "Dengan mencentang kotak ini, saya menyatakan bahwa saya berhenti berlangganan dari semua email, Habitica tidak akan pernah bisa memberitahu saya melalui email tentang perubahan penting mengenai situs atau akun saya.",
     "unsubscribeAllPush": "Centang untuk berhenti berlanggan dari semua Notifikasi",
     "correctlyUnsubscribedEmailType": "Telah berhenti berlangganan dari email \"<%= emailType %>\".",
@@ -262,5 +262,6 @@
     "resetDetail1": "Anda akan kehilangan semua level, poin Emas, dan Pengalaman Anda.",
     "resetDetail2": "Anda akan mempertahankan kelas, prestasi, serta hewan peliharaan dan tunggangan Anda saat ini.",
     "resetDetail3": "Semua tugas Anda (kecuali yang berasal dari tantangan) akan dihapus secara permanen dan Anda akan kehilangan semua data historisnya.",
-    "resetDetail4": "Anda akan kehilangan semua perlengkapan Anda kecuali Item Misteri Pelanggan dan item peringatan gratis. Anda akan dapat membeli kembali item yang dihapus, termasuk semua perlengkapan edisi terbatas (Anda harus berada di kelas yang benar untuk membeli kembali perlengkapan khusus kelas)."
+    "resetDetail4": "Anda akan kehilangan semua perlengkapan Anda kecuali Item Misteri Pelanggan dan item peringatan gratis. Anda akan dapat membeli kembali item yang dihapus, termasuk semua perlengkapan edisi terbatas (Anda harus berada di kelas yang benar untuk membeli kembali perlengkapan khusus kelas).",
+    "contentRelease": "Rilis konten + Acara"
 }
