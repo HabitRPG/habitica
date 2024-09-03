@@ -14,151 +14,107 @@
         v-if="expand"
         class="card-body"
       >
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label red-label">Health</label>
-          <div class="col-sm-9">
-            <input
-              v-model="hero.stats.hp"
-              class="form-control"
-              type="number"
-            >
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label yellow-label">Experience</label>
-          <div class="col-sm-9">
-            <input
-              v-model="hero.stats.exp"
-              class="form-control"
-              type="number"
-            >
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label blue-label">Mana</label>
-          <div class="col-sm-9">
-            <input
-              v-model="hero.stats.mp"
-              class="form-control"
-              type="number"
-            >
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label">Level</label>
-          <div class="col-sm-9">
-            <input
-              v-model="hero.stats.lvl"
-              class="form-control"
-              type="number"
-            >
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label">Gold</label>
-          <div class="col-sm-9">
-            <input
-              v-model="hero.stats.gp"
-              class="form-control"
-              type="number"
-            >
-          </div>
-        </div>
+        <stats-row
+          label="Health"
+          color="red-label"
+          :max="maxHealth"
+          v-model="hero.stats.hp" />
+        <stats-row
+          label="Experience"
+          color="yellow-label"
+          min="0"
+          :max="maxFieldHardCap"
+          v-model="hero.stats.exp" />
+        <stats-row
+          label="Mana"
+          color="blue-label"
+          min="0"
+          :max="maxFieldHardCap"
+          v-model="hero.stats.mp" />
+        <stats-row
+          label="Level"
+          step="1"
+          min="0"
+          :max="maxLevelHardCap"
+          v-model="hero.stats.lvl" />
+        <stats-row
+          label="Gold"
+          min="0"
+          :max="maxFieldHardCap"
+          v-model="hero.stats.gp" />
         <h3>Stat Points</h3>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label">Unallocated</label>
-          <div class="col-sm-9">
-            <input
-              v-model="hero.stats.points"
-              class="form-control"
-              type="number"
-            >
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label red-label">Strength</label>
-          <div class="col-sm-9">
-            <input
-              v-model="hero.stats.str"
-              class="form-control"
-              type="number"
-            >
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label blue-label">Intelligence</label>
-          <div class="col-sm-9">
-            <input
-              v-model="hero.stats.int"
-              class="form-control"
-              type="number"
-            >
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label purple-label">Perception</label>
-          <div class="col-sm-9">
-            <input
-              v-model="hero.stats.per"
-              class="form-control"
-              type="number"
-            >
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label yellow-label">Constitution</label>
-          <div class="col-sm-9">
-            <input
-              v-model="hero.stats.con"
-              class="form-control"
-              type="number"
-            >
-          </div>
-        </div>
+        <stats-row
+          label="Unallocated"
+          min="0"
+          step="1"
+          :max="maxStatPoints"
+          v-model="hero.stats.points" />
+        <stats-row
+          label="Strength"
+          color="red-label"
+          min="0"
+          :max="maxStatPoints"
+          step="1"
+          v-model="hero.stats.str" />
+        <stats-row
+          label="Intelligence"
+          color="blue-label"
+          min="0"
+          :max="maxStatPoints"
+          step="1"
+          v-model="hero.stats.int" />
+        <stats-row
+          label="Perception"
+          color="purple-label"
+          min="0"
+          :max="maxStatPoints"
+          step="1"
+          v-model="hero.stats.per" />
+        <stats-row
+          label="Constitution"
+          color="yellow-label"
+          min="0"
+          :max="maxStatPoints"
+          step="1"
+          v-model="hero.stats.con" />
         <div class="form-group row" v-if="statPointsIncorrect">
-          <label class="col-sm-3 col-form-label"></label>
-          <div class="col-sm-9 red-label">Error: Sum of stat points should equal the users level
+          <div class="offset-sm-3 col-sm-9 red-label">
+            Error: Sum of stat points should equal the users level
           </div>
         </div>
         <h3>Buffs</h3>
+        <stats-row
+          label="Strength"
+          color="red-label"
+          min="0"
+          step="1"
+          v-model="hero.stats.buffs.str" />
+        <stats-row
+          label="Intelligence"
+          color="blue-label"
+          min="0"
+          step="1"
+          v-model="hero.stats.buffs.int" />
+        <stats-row
+          label="Perception"
+          color="purple-label"
+          min="0"
+          step="1"
+          v-model="hero.stats.buffs.per" />
+        <stats-row
+          label="Constitution"
+          color="yellow-label"
+          min="0"
+          step="1"
+          v-model="hero.stats.buffs.con" />
         <div class="form-group row">
-          <label class="col-sm-3 col-form-label red-label">Strength</label>
-          <div class="col-sm-9">
-            <input
-              v-model="hero.stats.buffs.str"
-              class="form-control"
-              type="number"
-            >
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label blue-label">Intelligence</label>
-          <div class="col-sm-9">
-            <input
-              v-model="hero.stats.buffs.int"
-              class="form-control"
-              type="number"
-            >
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label purple-label">Perception</label>
-          <div class="col-sm-9">
-            <input
-              v-model="hero.stats.buffs.per"
-              class="form-control"
-              type="number"
-            >
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label yellow-label">Constitution</label>
-          <div class="col-sm-9">
-            <input
-              v-model="hero.stats.buffs.con"
-              class="form-control"
-              type="number"
-            >
+          <div class="offset-sm-3 col-sm-9">
+            <button
+              type="button"
+              class="btn btn-warning btn-sm"
+              @click="resetBuffs">
+              Reset Buffs
+            </button>
           </div>
         </div>
       </div>
@@ -183,27 +139,22 @@
     margin-left: 0px;
     margin-right: 0px;
   }
-
-  .red-label {
-    color: $red_100;
-  }
-  .blue-label {
-    color: $blue_100;
-  }
-  .purple-label {
-    color: $purple_300;
-  }
-  .yellow-label {
-    color: $yellow_50;
-  }
 </style>
 
 <script>
+import {
+  MAX_HEALTH,
+  MAX_STAT_POINTS,
+  MAX_LEVEL_HARD_CAP,
+  MAX_FIELD_HARD_CAP,
+} from '@/../../common/script/constants';
 import markdownDirective from '@/directives/markdown';
 import saveHero from '../mixins/saveHero';
 
 import { mapState } from '@/libs/store';
 import { userStateMixin } from '../../../mixins/userState';
+
+import StatsRow from './stats-row';
 
 function resetData (self) {
   self.expand = false;
@@ -212,6 +163,9 @@ function resetData (self) {
 export default {
   directives: {
     markdown: markdownDirective,
+  },
+  components: {
+    StatsRow,
   },
   mixins: [
     userStateMixin,
@@ -244,6 +198,10 @@ export default {
   data () {
     return {
       expand: false,
+      maxHealth: MAX_HEALTH,
+      maxStatPoints: MAX_STAT_POINTS,
+      maxLevelHardCap: MAX_LEVEL_HARD_CAP,
+      maxFieldHardCap: MAX_FIELD_HARD_CAP,
     };
   },
   watch: {
@@ -259,8 +217,22 @@ export default {
       if (this.statPointsIncorrect) {
         return;
       }
-      this.saveHero({hero: { stats: this.hero.stats }, msg: 'Stats'})
+      this.saveHero({
+        hero: {
+          _id: this.hero._id,
+          stats: this.hero.stats,
+        },
+        msg: 'Stats',
+      });
     },
-  }
+    resetBuffs () {
+      this.hero.stats.buffs = {
+        str: 0,
+        int: 0,
+        per: 0,
+        con: 0,
+      };
+    },
+  },
 };
 </script>
