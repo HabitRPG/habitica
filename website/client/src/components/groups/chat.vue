@@ -16,7 +16,7 @@
         class="row"
       >
         <textarea
-          ref="user-entry"
+          :ref="setTextbox"
           v-model="newMessage"
           dir="auto"
           :placeholder="placeholder"
@@ -135,13 +135,15 @@ export default {
     },
   },
   mounted () {
-    this.textbox = this.$refs['user-entry'];
     this.handleExternalLinks();
   },
   updated () {
     this.handleExternalLinks();
   },
   methods: {
+    setTextbox (ref) {
+      this.textbox = ref;
+    },
     // https://medium.com/@_jh3y/how-to-where-s-the-caret-getting-the-xy-position-of-the-caret-a24ba372990a
     getCoord (e, text) {
       this.caretPosition = text.selectionEnd;
