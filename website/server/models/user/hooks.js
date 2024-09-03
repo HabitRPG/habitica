@@ -368,7 +368,6 @@ schema.pre('save', true, async function preSaveUser (next, done) {
       const history = UserHistory();
       history.userId = this._id;
       await history.save();
-      console.log('Initialized user history');
     }
   }
 
