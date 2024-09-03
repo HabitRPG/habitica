@@ -602,7 +602,7 @@ api.buyArmoire = {
     const buyArmoireResponse = await common.ops.buy(user, req, res.analytics);
     await user.save();
     await UserHistory.beginUserHistoryUpdate(user._id, req.headers)
-      .withArmoire(buyArmoireResponse[1].data.armoire.dropKey)
+      .withArmoire(buyArmoireResponse[0].armoire.dropKey || 'experience')
       .commit();
     res.respond(200, ...buyArmoireResponse);
   },
