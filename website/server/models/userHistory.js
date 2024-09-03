@@ -84,11 +84,11 @@ const commitUserHistoryUpdate = function commitUserHistoryUpdate (update) {
   ).exec();
 };
 
-model.beginUserHistoryUpdate = function beginUserHistoryUpdate (userID, client = null) {
+model.beginUserHistoryUpdate = function beginUserHistoryUpdate (userID, headers = null) {
   return {
     userId: userID,
     data: {
-      client,
+      headers: headers || {},
       armoire: [],
       questInviteResponses: [],
       cron: [],
@@ -96,7 +96,7 @@ model.beginUserHistoryUpdate = function beginUserHistoryUpdate (userID, client =
     withArmoire: function withArmoire (reward) {
       this.data.armoire.push({
         timestamp: new Date(),
-        client: this.data.client,
+        client: this.data.headers['x-client'],
         reward,
       });
       return this;
@@ -104,7 +104,7 @@ model.beginUserHistoryUpdate = function beginUserHistoryUpdate (userID, client =
     withQuestInviteResponse: function withQuestInviteResponse (quest, response) {
       this.data.questInviteResponses.push({
         timestamp: new Date(),
-        client: this.data.client,
+        client: this.data.headers['x-client'],
         quest,
         response,
       });
@@ -113,7 +113,7 @@ model.beginUserHistoryUpdate = function beginUserHistoryUpdate (userID, client =
     withCron: function withCron () {
       this.data.cron.push({
         timestamp: new Date(),
-        client: this.data.client,
+        client: this.data.headers['x-client'],
       });
       return this;
     },

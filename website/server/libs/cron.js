@@ -472,7 +472,7 @@ export async function cron (options = {}) {
   user.flags.cronCount += 1;
   trackCronAnalytics(analytics, user, _progress, options);
 
-  await UserHistory.beginUserHistoryUpdate(user._id, options.headers['x-client'])
+  await UserHistory.beginUserHistoryUpdate(user._id, options.headers)
     .withCron()
     .commit();
 
