@@ -1,16 +1,18 @@
 <template>
   <div class="form-group row">
-    <label class="col-sm-3 col-form-label"
-    :class="color">{{ label }}</label>
+    <label
+      class="col-sm-3 col-form-label"
+      :class="color"
+    >{{ label }}</label>
     <div class="col-sm-9">
       <input
-        v-bind:value="value"
-        v-on:input="$emit('input', parseInt($event.target.value, 10))"
+        :value="value"
         class="form-control"
         type="number"
         :step="step"
         :max="max"
         :min="min"
+        @input="$emit('input', parseInt($event.target.value, 10))"
       >
     </div>
   </div>

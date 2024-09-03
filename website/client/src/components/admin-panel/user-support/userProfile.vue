@@ -1,8 +1,10 @@
 <template>
-  <form @submit.prevent="saveHero({hero: {
+  <form
+    @submit.prevent="saveHero({hero: {
       _id: hero._id,
       profile: hero.profile
-    }, msg: 'Users Profile'})">
+    }, msg: 'Users Profile'})"
+  >
     <div class="card mt-2">
       <div class="card-header">
         <h3

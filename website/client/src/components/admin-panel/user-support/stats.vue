@@ -174,8 +174,6 @@ export default {
   computed: {
     ...mapState({ user: 'user.data' }),
     statPointsIncorrect () {
-        this.hero.stats.int, this.hero.stats.per,
-        this.hero.stats.con, this.hero.stats.lvl);
       return (parseInt(this.hero.stats.points, 10)
         + parseInt(this.hero.stats.str, 10)
         + parseInt(this.hero.stats.int, 10)
