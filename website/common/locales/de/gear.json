@@ -2947,5 +2947,18 @@
     "armorMystery202310Text": "Gespenster Robe",
     "armorMystery202310Notes": "Ein gespenstisches Gewand, das sich graziös wellen und wehen wird, während du inmitten von Spuksümpfen und Ödlanden schwebst. Gewährt keinen Attributbonus. Oktober 2023 Abonnentengegenstand.",
     "weaponSpecialFall2024WarriorText": "Flammenschwert",
-    "weaponSpecialFall2024WarriorNotes": "Aufgaben-Hindernisse werden auf der Stelle von dieser eindrucksvollen Waffe niedergestreckt. Erhöht Stärke um <%= str %>. Limitierte Ausgabe 2024 Herbstausrüstung."
+    "weaponSpecialFall2024WarriorNotes": "Aufgaben-Hindernisse werden auf der Stelle von dieser eindrucksvollen Waffe niedergestreckt. Erhöht Stärke um <%= str %>. Limitierte Ausgabe 2024 Herbstausrüstung.",
+    "weaponSpecialFall2024HealerNotes": "Aufgaben, die einst kosmisch kompliziert waren, werden von dieser eindrucksvollen Sense dezimiert. Erhöht Intelligenz um <%= int %>. Limitierte Ausgabe 2024 Herbstausrüstung.",
+    "weaponSpecialFall2024HealerText": "Kosmos Sense",
+    "weaponSpecialFall2024RogueNotes": "Aufgaben werden auf der Stelle erstarren wegen den Drehungen und Windungen dieser hypnotisierenden Waffe. Erhöht Stärke um <%= str %>. Limitierte Ausgabe 2024 Herbstausrüstung.",
+    "weaponSpecialFall2024RogueText": "Bänder-Zauberstab",
+    "weaponSpecialFall2024MageNotes": "Mit einer Berührung dieser leuchtenden Waffe werden Aufgabenschritte sofort vereinfacht. Erhöht die Intelligenz um <%= int %> und die Wahrnehmung um <%= pro %>. Limitierte Ausgabe Herbst 2024 Ausrüstung.",
+    "weaponSpecialFall2024MageText": "Stab der Unterwelt",
+    "weaponArmoireFunnyFoolBatonText": "Lustiger Narren Schlagstock",
+    "armorSpecialFall2024WarriorText": "Feurige Gnom Rüstung",
+    "armorSpecialFall2024WarriorNotes": "Sei eins mit den Flammen und werde in dieser Rüstung immun gegen ihre destruktiven Kräfte. Ausdauer um <%= con %>. Limitierte Ausgabe 2024 Herbstausrüstung.",
+    "armorSpecialFall2024RogueText": "Schwarze Katzenrüstung",
+    "armorSpecialFall2024RogueNotes": "Sei eins mit der Dunkelheit und verbessere deine Wendigkeit und dein Schleichen mit dieser Rüstung. Erhöht Wahrnehmung um <%= per %>. Limitierte Ausgabe 2024 Herbstausrüstung.",
+    "armorSpecialFall2024HealerText": "Space Invader Rüstung",
+    "armorSpecialFall2024HealerNotes": "Sei eins mit der Galaxis und hypnotisiere Zuschauer mit dieser Rüstung. Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe 2024 Herbstausrüstung."
 }
