@@ -13,124 +13,134 @@
       v-if="expand"
       class="card-body"
     >
-    <div>
-    <div class="clearfix">
-      <div class="mb-4 float-left">
-        <button
-          class="page-header btn-flat tab-button textCondensed"
-          :class="{'active': selectedTab === 'armoire'}"
-          @click="selectTab('armoire')"
-        >
-          Armoire
-        </button>
-        <button
-          class="page-header btn-flat tab-button textCondensed"
-          :class="{'active': selectedTab === 'questInvites'}"
-          @click="selectTab('questInvites')"
-        >
-          Quest Invitations
-        </button>
-        <button
-          class="page-header btn-flat tab-button textCondensed"
-          :class="{'active': selectedTab === 'cron'}"
-          @click="selectTab('cron')"
-        >
-          Cron
-        </button>
-      </div>
-    </div>
+      <div>
+        <div class="clearfix">
+          <div class="mb-4 float-left">
+            <button
+              class="page-header btn-flat tab-button textCondensed"
+              :class="{'active': selectedTab === 'armoire'}"
+              @click="selectTab('armoire')"
+            >
+              Armoire
+            </button>
+            <button
+              class="page-header btn-flat tab-button textCondensed"
+              :class="{'active': selectedTab === 'questInvites'}"
+              @click="selectTab('questInvites')"
+            >
+              Quest Invitations
+            </button>
+            <button
+              class="page-header btn-flat tab-button textCondensed"
+              :class="{'active': selectedTab === 'cron'}"
+              @click="selectTab('cron')"
+            >
+              Cron
+            </button>
+          </div>
+        </div>
 
-    <div class="row">
-      <div
-        v-if="selectedTab === 'armoire'"
-        class="col-12"
-      >
-        <table class="table">
-          <tr>
-            <th
-              v-once
-            >
-              {{ $t('timestamp') }}
-            </th>
-            <th v-once>Client</th>
-            <th
-              v-once
-            >
-              Received
-            </th>
-          </tr>
-          <tr
-            v-for="entry in armoire"
-            :key="entry.timestamp"
+        <div class="row">
+          <div
+            v-if="selectedTab === 'armoire'"
+            class="col-12"
           >
-            <td>
-              <span
-                v-b-tooltip.hover="entry.timestamp"
-              >{{ entry.timestamp | timeAgo }}</span>
-            </td>
-            <td>{{ entry.client }}</td>
-            <td>{{ entry.reward }}</td>
-          </tr>
-        </table>
-      </div>
-      <div
-        v-if="selectedTab === 'questInvites'"
-        class="col-12"
-      >
-        <table class="table">
-          <tr>
-            <th
-              v-once
-            >
-              {{ $t('timestamp') }}
-            </th>
-            <th v-once>Client</th>
-            <th v-once>Quest Key</th>
-            <th v-once>Response</th>
-          </tr>
-          <tr
-            v-for="entry in questInvites"
-            :key="entry.timestamp"
+            <table class="table">
+              <tr>
+                <th
+                  v-once
+                >
+                  {{ $t('timestamp') }}
+                </th>
+                <th v-once>
+                  Client
+                </th>
+                <th
+                  v-once
+                >
+                  Received
+                </th>
+              </tr>
+              <tr
+                v-for="entry in armoire"
+                :key="entry.timestamp"
+              >
+                <td>
+                  <span
+                    v-b-tooltip.hover="entry.timestamp"
+                  >{{ entry.timestamp | timeAgo }}</span>
+                </td>
+                <td>{{ entry.client }}</td>
+                <td>{{ entry.reward }}</td>
+              </tr>
+            </table>
+          </div>
+          <div
+            v-if="selectedTab === 'questInvites'"
+            class="col-12"
           >
-            <td>
-              <span
-                v-b-tooltip.hover="entry.timestamp"
-              >{{ entry.timestamp | timeAgo }}</span>
-            </td>
-            <td>{{ entry.client }}</td>
-            <td>{{ entry.quest }}</td>
-            <td>{{ entry.response }}</td>
-          </tr>
-        </table>
-      </div>
-      <div
-        v-if="selectedTab === 'cron'"
-        class="col-12"
-      >
-        <table class="table">
-          <tr>
-            <th
-              v-once
-            >
-              {{ $t('timestamp') }}
-            </th>
-            <th v-once>Client</th>
-          </tr>
-          <tr
-            v-for="entry in cron"
-            :key="entry.timestamp"
+            <table class="table">
+              <tr>
+                <th
+                  v-once
+                >
+                  {{ $t('timestamp') }}
+                </th>
+                <th v-once>
+                  Client
+                </th>
+                <th v-once>
+                  Quest Key
+                </th>
+                <th v-once>
+                  Response
+                </th>
+              </tr>
+              <tr
+                v-for="entry in questInvites"
+                :key="entry.timestamp"
+              >
+                <td>
+                  <span
+                    v-b-tooltip.hover="entry.timestamp"
+                  >{{ entry.timestamp | timeAgo }}</span>
+                </td>
+                <td>{{ entry.client }}</td>
+                <td>{{ entry.quest }}</td>
+                <td>{{ entry.response }}</td>
+              </tr>
+            </table>
+          </div>
+          <div
+            v-if="selectedTab === 'cron'"
+            class="col-12"
           >
-            <td>
-              <span
-                v-b-tooltip.hover="entry.timestamp"
-              >{{ entry.timestamp | timeAgo }}</span>
-            </td>
-            <td>{{ entry.client }}</td>
-          </tr>
-        </table>
+            <table class="table">
+              <tr>
+                <th
+                  v-once
+                >
+                  {{ $t('timestamp') }}
+                </th>
+                <th v-once>
+                  Client
+                </th>
+              </tr>
+              <tr
+                v-for="entry in cron"
+                :key="entry.timestamp"
+              >
+                <td>
+                  <span
+                    v-b-tooltip.hover="entry.timestamp"
+                  >{{ entry.timestamp | timeAgo }}</span>
+                </td>
+                <td>{{ entry.client }}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
     </div>
   </div>
 </template>
@@ -169,6 +179,11 @@ import moment from 'moment';
 import { userStateMixin } from '../../../mixins/userState';
 
 export default {
+  filters: {
+    timeAgo (value) {
+      return moment(value).fromNow();
+    },
+  },
   mixins: [userStateMixin],
   props: {
     hero: {
@@ -188,11 +203,6 @@ export default {
       questInviteResponses: [],
       cron: [],
     };
-  },
-  filters: {
-    timeAgo (value) {
-      return moment(value).fromNow();
-    },
   },
   watch: {
     resetCounter () {

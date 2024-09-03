@@ -1,8 +1,10 @@
 <template>
-  <form @submit.prevent="saveHero({ hero: {
-    auth: hero.auth,
-    preferences: hero.preferences,
-    }, msg: 'Authentication' })">
+  <form
+    @submit.prevent="saveHero({ hero: {
+      auth: hero.auth,
+      preferences: hero.preferences,
+    }, msg: 'Authentication' })"
+  >
     <div class="card mt-2">
       <div class="card-header">
         <h3
@@ -41,7 +43,10 @@
             <strong v-else>No</strong>
           </div>
         </div>
-        <div v-if="cronError" class="form-group row">
+        <div
+          v-if="cronError"
+          class="form-group row"
+        >
           <label class="col-sm-3 col-form-label">lastCron value:</label>
           <strong>{{ hero.lastCron | formatDate }}</strong>
           <br>
