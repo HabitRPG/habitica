@@ -34,7 +34,7 @@
     "marketing1Lead2": "Poprawiaj swoje nawyki, aby stworzyć swojego awatara. Pochwal się wspaniałym wyposażenie, jakie zdobyłeś!",
     "marketing1Lead3Title": "Znajdź losowe nagrody",
     "marketing1Lead3": "Dla niektórych to hazard, czyli nagrody stochastyczne, jest systemem ich motywującym. Habitica godzi wszystkie wzmocnienia i kary: pozytywne, negatywne, przewidywalne i losowe.",
-    "marketing2Header": "Konkuruj z przyjaciółmi, dołącz do grup zainteresowań",
+    "marketing2Header": "Konkuruj z przyjaciółmi.",
     "marketing2Lead1Title": "Produktywność Społeczna",
     "marketing2Lead1": "Choć w Habitica można grać w pojedynkę, prawdziwa zabawa zaczyna się kiedy starasz się współpracować i rywalizować z innymi graczami, którzy rozliczają cię z wykonanych zadań. Najefektywniejszą częścią każdego programu samodoskonalenia jest społeczna odpowiedzialność, a cóż może być lepszym miejscem dla odpowiedzialności i rywalizacji niż gra komputerowa?",
     "marketing2Lead2Title": "Walcz z potworami",
@@ -117,7 +117,7 @@
     "missingPassword": "Zapomniałem hasło.",
     "missingNewPassword": "Brakuje nowego hasła.",
     "invalidEmailDomain": "Nie możesz zarejestrować się używając adresów z podanych domen: <%= domains %>",
-    "wrongPassword": "Nieprawidłowe hasło.",
+    "wrongPassword": "Hasło jest niepoprawne. Jeśli zapomniałeś hasła, kliknij \"Zapomniałem Hasła\"",
     "incorrectDeletePhrase": "Napisz <%= magicWord %> wielkimi literami by usunąć swoje konto.",
     "notAnEmail": "Nieprawidłowy adres e-mail.",
     "emailTaken": "Adres e-mail jest już używany.",
@@ -189,5 +189,6 @@
     "footerProduct": "Produkt",
     "socialAlreadyExists": "Ten login społeczny jest już powiązany z innym kontem.",
     "emailUsernamePlaceholder": "np. zajączekzwyczajów lub gryf @example.com",
-    "translateHabitica": "Przetłumacz Habitica"
+    "translateHabitica": "Przetłumacz Habitica",
+    "incorrectResetPhrase": "Wpisz <%= magiczne słowo %> wielkimi literami, aby zresetować twoje konto."
 }

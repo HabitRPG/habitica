@@ -88,7 +88,7 @@
     "mountsAndPetsReleased": "Tunggangan dan Peliharaan dilepaskan",
     "mountsReleased": "Tunggangan dilepaskan",
     "welcomeStable": "Selamat datang di Kandang!",
-    "welcomeStableText": "Selamat datang di Kandang! Nama saya Matt, sang penjinak binatang. Setiap kali kamu menyelesaikan sebuah tugas, kamu memiliki kesempatan untuk mendapatkan Telur atau Ramuan Penetasan secara acak. Peliharaan yang kamu tetaskan akan muncul disini! Klik gambar Peliharaan untuk menambahkan pada Avatarmu. Beri mereka makan agar mereka dapat tumbuh menjadi Tunggangan yang gagah.",
+    "welcomeStableText": "Selamat datang di Kandang! Nama saya Matt, sang penjinak binatang. Setiap kali kamu menyelesaikan sebuah tugas, kamu memiliki kesempatan untuk mendapatkan Telur atau Ramuan Penetas secara acak. Peliharaan yang kamu tetaskan akan muncul disini! Klik gambar Peliharaan untuk ditambahkan ke Avatarmu. Beri mereka makan agar mereka dapat tumbuh menjadi Tunggangan yang gagah.",
     "petLikeToEat": "Apa makanan kesukaan peliharaanku?",
     "petLikeToEatText": "Peliharaan akan tumbuh selama diberi makan, tetapi akan tumbuh lebih cepat jika diberi makanan yang mereka paling sukai. Coba-coba untuk menemukan polanya, atau lihat jawabannya di: <br/><a href=\"http://habitica.fandom.com/wiki/Food_Preferences\" target=\"_blank\">http://habitica.fandom.com/wiki/Food_Preferences</a>",
     "filterByStandard": "Standar",
@@ -114,5 +114,7 @@
     "tooMuchFood": "Kamu mencoba memberikan terlalu banyak makanan untuk peliharaanmu, tindakan dibatalkan",
     "jubilantGryphatrice": "Gryphatrice Gembira",
     "invalidAmount": "Jumlah makanan tidak valid, harus berupa bilangan bulat positif",
-    "notEnoughFood": "Kamu tidak punya cukup makanan"
+    "notEnoughFood": "Kamu tidak punya cukup makanan",
+    "veteranCactus": "Kaktus Veteran",
+    "veteranDragon": "Naga Veteran"
 }

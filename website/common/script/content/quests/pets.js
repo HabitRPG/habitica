@@ -1070,6 +1070,47 @@ const QUEST_PETS = {
       unlock: t('questPterodactylUnlockText'),
     },
   },
+  raccoon: {
+    text: t('questRaccoonText'),
+    notes: t('questRaccoonNotes'),
+    completion: t('questRaccoonCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questRaccoonBoss'),
+      hp: 800,
+      str: 2,
+      rage: {
+        title: t('questRaccoonRageTitle'),
+        description: t('questRaccoonRageDescription'),
+        value: 50,
+        healing: 0.3,
+        effect: t('questRaccoonRageEffect'),
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Raccoon',
+          text: t('questRaccoonDropRaccoonEgg'),
+        },
+        {
+          type: 'eggs',
+          key: 'Raccoon',
+          text: t('questRaccoonDropRaccoonEgg'),
+        },
+        {
+          type: 'eggs',
+          key: 'Raccoon',
+          text: t('questRaccoonDropRaccoonEgg'),
+        },
+      ],
+      gp: 70,
+      exp: 600,
+      unlock: t('questRaccoonUnlockText'),
+    },
+  },
   rat: {
     text: t('questRatText'),
     notes: t('questRatNotes'),

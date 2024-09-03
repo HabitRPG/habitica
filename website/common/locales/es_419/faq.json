@@ -58,5 +58,6 @@
     "general": "Información general",
     "commonQuestions": "Preguntas Comunes",
     "faqQuestion25": "Cuales son los diferentes tipos de tareas?",
-    "faqQuestion26": "¿Cuáles son algunas tareas de ejemplo?"
+    "faqQuestion26": "¿Cuáles son algunas tareas de ejemplo?",
+    "webFaqAnswer25": "En Habitica se usa tres tipos diferentes de tareas para acomodarse a tus necesidades: Hábitos, Tareas Diarias y Pendientes.\n\nLos Hábitos pueden ser Negativos o Positivos y representa acciones que quieras seguir varias veces al día, o según un horario no establecido. Los Hábitos Positivos te dan recompensas, como Oro y Experiencia (EXP), mientras que las Hábitos Negativos te harán perder puntos de salud (PV).\n\nLas Tareas Diarias son tareas repetitivas siguiendo un horario mas estructurado. Por ejemplo, una vez al día, tres veces a la semana, o cuatro veces al mes. Si no realizas las tareas diarias, perderás PV si no las cumples.\n\n¡Elige el tipo de tarea que mejor se adapte a lo que quieres lograr!"
 }

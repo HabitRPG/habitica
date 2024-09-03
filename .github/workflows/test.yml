@@ -19,7 +19,8 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-    - run: sudo apt-get -y install libkrb5-dev
+    - run: sudo apt update
+    - run: sudo apt -y install libkrb5-dev
     - run: cp config.json.example config.json
     - name: npm install
       run: |
@@ -41,7 +42,8 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-    - run: sudo apt-get -y install libkrb5-dev
+    - run: sudo apt update
+    - run: sudo apt -y install libkrb5-dev
     - run: cp config.json.example config.json
     - name: npm install
       run: |
@@ -63,7 +65,8 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-    - run: sudo apt-get -y install libkrb5-dev
+    - run: sudo apt update
+    - run: sudo apt -y install libkrb5-dev
     - run: cp config.json.example config.json
     - name: npm install
       run: |
@@ -86,7 +89,8 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-    - run: sudo apt-get -y install libkrb5-dev
+    - run: sudo apt update
+    - run: sudo apt -y install libkrb5-dev
     - run: cp config.json.example config.json
     - name: npm install
       run: |
@@ -108,7 +112,8 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-    - run: sudo apt-get -y install libkrb5-dev
+    - run: sudo apt update
+    - run: sudo apt -y install libkrb5-dev
     - run: cp config.json.example config.json
     - name: npm install
       run: |
@@ -137,7 +142,8 @@ jobs:
       with:
         mongodb-version: ${{ matrix.mongodb-version }}
         mongodb-replica-set: rs
-    - run: sudo apt-get -y install libkrb5-dev
+    - run: sudo apt update
+    - run: sudo apt -y install libkrb5-dev
     - run: cp config.json.example config.json
     - name: npm install
       run: |
@@ -167,7 +173,8 @@ jobs:
       with:
         mongodb-version: ${{ matrix.mongodb-version }}
         mongodb-replica-set: rs
-    - run: sudo apt-get -y install libkrb5-dev
+    - run: sudo apt update
+    - run: sudo apt -y install libkrb5-dev
     - run: cp config.json.example config.json
     - name: npm install
       run: |
@@ -197,7 +204,8 @@ jobs:
       with:
         mongodb-version: ${{ matrix.mongodb-version }}
         mongodb-replica-set: rs
-    - run: sudo apt-get -y install libkrb5-dev
+    - run: sudo apt update
+    - run: sudo apt -y install libkrb5-dev
     - run: cp config.json.example config.json
     - name: npm install
       run: |
@@ -222,7 +230,8 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-    - run: sudo apt-get -y install libkrb5-dev
+    - run: sudo apt update
+    - run: sudo apt -y install libkrb5-dev
     - run: cp config.json.example config.json
     - name: npm install
       run: |
@@ -246,7 +255,8 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-    - run: sudo apt-get -y install libkrb5-dev
+    - run: sudo apt update
+    - run: sudo apt -y install libkrb5-dev
     - run: cp config.json.example config.json
     - name: npm install
       run: |

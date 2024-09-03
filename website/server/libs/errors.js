@@ -68,6 +68,19 @@ export const { Forbidden } = common.errors;
 export const { TooManyRequests } = common.errors;
 
 /**
+ * @apiDefine RequestTimeout
+ * @apiError RequestTimeout The request took too long to complete.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 408 RequestTimeout
+ *     {
+ *       "error": "RequestTimeout",
+ *       "message": "Access forbidden."
+ *     }
+ */
+export const { RequestTimeout } = common.errors;
+
+/**
  * @apiDefine NotificationNotFound
  * @apiError NotificationNotFound The notification was not found.
  *

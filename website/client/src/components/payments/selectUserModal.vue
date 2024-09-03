@@ -295,7 +295,7 @@ h2 {
 // import { nextTick } from 'vue'; // may not need this? I don't know!
 import debounce from 'lodash/debounce';
 import find from 'lodash/find';
-import isUUID from 'validator/lib/isUUID';
+import isUUID from 'validator/es/lib/isUUID';
 import moment from 'moment';
 import { mapState } from '@/libs/store';
 import closeIcon from '@/assets/svg/close.svg';

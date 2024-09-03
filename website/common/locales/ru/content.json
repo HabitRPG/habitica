@@ -375,5 +375,17 @@
     "hatchingPotionPorcelain": "Фарфоровый",
     "hatchingPotionPinkMarble": "Розово-мраморный",
     "hatchingPotionTeaShop": "Чайная лавка",
-    "hatchingPotionRoseGold": "Розовое золото"
+    "hatchingPotionRoseGold": "Розовое золото",
+    "questEggRaccoonText": "Енот",
+    "questEggRaccoonMountText": "Енот",
+    "questEggRaccoonAdjective": "прожорливый",
+    "questEggGiraffeText": "Жираф",
+    "questEggGiraffeMountText": "Жираф",
+    "questEggGiraffeAdjective": "высокий",
+    "questEggChameleonText": "Хамелеон",
+    "questEggChameleonMountText": "Хамелеон",
+    "questEggChameleonAdjective": "хаотичный",
+    "questEggCrabText": "Краб",
+    "questEggCrabMountText": "Краб",
+    "questEggCrabAdjective": "суетливый"
 }
