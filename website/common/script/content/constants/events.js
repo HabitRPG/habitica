@@ -83,6 +83,16 @@ export const REPEATING_EVENTS = {
     season: 'habitoween',
     npcImageSuffix: '_halloween',
   },
+  fallGemSale: {
+    start: new Date('1970-09-23T04:00-04:00'),
+    end: new Date('1970-09-27T23:59-04:00'),
+    event: 'fall_extra_gems',
+  },
+  spookyGemSale: {
+    start: new Date('1970-10-28T04:00-04:00'),
+    end: new Date('1970-11-01T23:59-04:00'),
+    event: 'spooky_extra_gems',
+  },
   harvestFeast: {
     start: new Date('1970-11-22T08:00-05:00'),
     end: new Date('1970-11-27T20:00-05:00'),
@@ -185,11 +195,6 @@ export const EVENTS = {
   bundle202311: {
     start: '2023-11-09T08:00-04:00',
     end: '2023-11-30T23:59-04:00',
-  },
-  spooky_extra_gems: {
-    start: '2023-10-24T08:00-04:00',
-    end: '2023-10-31T23:59-04:00',
-    gemsPromo,
   },
   bundle202310: {
     start: '2023-10-17T08:00-04:00',
@@ -307,11 +312,6 @@ export const EVENTS = {
     npcImageSuffix: '_fall',
     season: 'fall',
     gear: true,
-  },
-  fall_extra_gems: {
-    start: '2022-10-06T08:00-04:00',
-    end: '2022-10-13T20:00-04:00',
-    gemsPromo,
   },
   bundle202210: {
     start: '2022-10-13T08:00-04:00',

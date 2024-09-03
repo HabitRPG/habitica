@@ -37,6 +37,7 @@
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "moment-locales-webpack-plugin": "^1.2.0",
+    "moment-timezone": "^0.5.45",
     "nconf": "^0.12.1",
     "sass": "^1.63.4",
     "sass-loader": "^14.1.1",

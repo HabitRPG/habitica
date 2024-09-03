@@ -4,7 +4,7 @@
       id="buy-gems"
       :hide-footer="true"
       size="md"
-      :modal-class="eventClass"
+      :modal-class="eventInfo?.class"
     >
       <div
         slot="modal-header"
@@ -21,7 +21,7 @@
             class="col-12 text-center"
           >
             <img
-              v-if="eventName === 'fall_extra_gems'"
+              v-if="eventInfo?.name === 'fall_extra_gems'"
               :alt="$t('supportHabitica')"
               srcset="
           ~@/assets/images/gems/fall-header.png,
@@ -30,7 +30,7 @@
               src="~@/assets/images/gems/fall-header.png"
             >
             <img
-              v-else-if="eventName === 'spooky_extra_gems'"
+              v-else-if="eventInfo?.name === 'spooky_extra_gems'"
               :alt="$t('supportHabitica')"
               srcset="
           ~@/assets/images/gems/spooky-header.png,
@@ -51,7 +51,7 @@
         </div>
       </div>
       <div
-        v-if="currentEvent && currentEvent.promo && currentEvent.promo === 'g1g1'"
+        v-if="eventInfo?.promo === 'g1g1'"
         class="gift-promo-banner d-flex justify-content-around align-items-center px-4"
         @click="showSelectUser"
       >
@@ -162,24 +162,32 @@
           :amazon-data="{type: 'single', gemsBlock: selectedGemsBlock}"
         />
         <div
-          v-if="eventName === 'fall_extra_gems' || eventName === 'spooky_extra_gems'"
+          v-if="eventInfo?.name === 'fall_extra_gems' || eventInfo?.name === 'spooky_extra_gems'"
           class="d-flex flex-column justify-content-center"
         >
           <h4 class="mt-3 mx-auto">
             {{ $t('howItWorks') }}
           </h4>
           <small class="text-center">
-            {{ $t('gemSaleHow', { eventStartMonth, eventStartOrdinal, eventEndOrdinal }) }}
+            {{ $t('gemSaleHow', {
+              eventStartMonth: eventInfo.startMonth,
+              eventStartOrdinal: eventInfo.startOrdinal,
+              eventEndOrdinal: eventInfo.endOrdinal,
+            }) }}
           </small>
           <h4 class="mt-3 mx-auto">
             {{ $t('limitations') }}
           </h4>
           <small class="text-center">
-            {{ $t('gemSaleLimitations', {
-              eventStartMonth,
-              eventStartOrdinal,
-              eventEndMonth,
-              eventEndOrdinal,
+            {{ $t('gemSaleLimitationsText', {
+              eventStartMonth: eventInfo.startMonth,
+              eventStartOrdinal: eventInfo.startOrdinal,
+              eventStartTime: eventInfo.startTime,
+              eventStartUTC: eventInfo.startUTC,
+              eventEndMonth: eventInfo.endMonth,
+              eventEndOrdinal: eventInfo.endOrdinal,
+              eventEndTime: eventInfo.endTime,
+              eventEndUTC: eventInfo.endUTC,
             }) }}
           </small>
         </div>
@@ -385,7 +393,7 @@
 
 <script>
 import find from 'lodash/find';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { mapState } from '@/libs/store';
 import markdown from '@/directives/markdown';
 import paymentsMixin from '@/mixins/payments';
@@ -431,37 +439,31 @@ export default {
       originalGemsBlocks: 'content.gems',
       currentEventList: 'worldState.data.currentEventList',
     }),
-    currentEvent () {
-      return find(this.currentEventList, event => Boolean(event.gemsPromo) || Boolean(event.promo));
-    },
-    eventName () {
-      return this.currentEvent && this.currentEvent.event;
-    },
-    eventClass () {
-      if (this.currentEvent && this.currentEvent.gemsPromo) {
-        return `event-${this.eventName}`;
-      }
-      return '';
-    },
-    eventStartMonth () {
-      return moment(this.currentEvent.start).format('MMMM');
-    },
-    eventStartOrdinal () {
-      return moment(this.currentEvent.start).format('Do');
-    },
-    eventEndMonth () {
-      return moment(this.currentEvent.end).format('MMMM');
-    },
-    eventEndOrdinal () {
-      return moment(this.currentEvent.end).format('Do');
+    eventInfo () {
+      const currentEvent = find(
+        this.currentEventList, event => Boolean(event.gemsPromo) || Boolean(event.promo),
+      );
+      if (!currentEvent) return null;
+
+      const zone = moment.tz.guess();
+
+      return {
+        name: currentEvent.event,
+        class: currentEvent.gemsPromo ? `event-${currentEvent.event}` : '',
+        gemsPromo: currentEvent.gemsPromo,
+        promo: currentEvent.promo,
+        startMonth: moment(currentEvent.start).format('MMMM'),
+        startOrdinal: moment(currentEvent.start).format('Do'),
+        startTime: moment.tz(currentEvent.start, zone).format('hh:mm A z'),
+        startUTC: moment(currentEvent.start).utc().format('hh:mm A'),
+        endMonth: moment(currentEvent.end).format('MMMM'),
+        endOrdinal: moment(currentEvent.end).format('Do'),
+        endTime: moment.tz(currentEvent.end, zone).format('hh:mm A z'),
+        endUTC: moment(currentEvent.end).utc().format('hh:mm A'),
+      };
     },
     isGemsPromoActive () {
-      const currEvt = this.currentEvent;
-      if (currEvt && currEvt.gemsPromo && moment().isBefore(currEvt.end)) {
-        return true;
-      }
-
-      return false;
+      return Boolean(this.eventInfo);
     },
     gemsBlocks () {
       // We don't want to modify the original gems blocks when a promotion is running
@@ -476,7 +478,7 @@ export default {
         if (this.isGemsPromoActive) {
           newBlock.originalGems = originalBlock.gems;
           newBlock.gems = (
-            this.currentEvent.gemsPromo[gemsBlockKey] || originalBlock.gems
+            this.eventInfo.gemsPromo[gemsBlockKey] || originalBlock.gems
           );
         }
       });
