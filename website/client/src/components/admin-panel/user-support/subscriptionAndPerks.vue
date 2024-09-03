@@ -1,5 +1,6 @@
 <template>
   <form @submit.prevent="saveHero({ hero: {
+    _id: hero._id,
     purchased: hero.purchased
     }, msg: 'Subscription Perks' })">
     <div class="card mt-2">
