@@ -87,11 +87,13 @@ export const REPEATING_EVENTS = {
     start: new Date('1970-09-23T04:00-04:00'),
     end: new Date('1970-09-27T23:59-04:00'),
     event: 'fall_extra_gems',
+    gemsPromo,
   },
   spookyGemSale: {
     start: new Date('1970-10-28T04:00-04:00'),
     end: new Date('1970-11-01T23:59-04:00'),
     event: 'spooky_extra_gems',
+    gemsPromo,
   },
   harvestFeast: {
     start: new Date('1970-11-22T08:00-05:00'),
