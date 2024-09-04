@@ -46,8 +46,8 @@ export const REPEATING_EVENTS = {
     ],
   },
   piDay: {
-    start: new Date('1970-03-13T04:00-04:00'),
-    end: new Date('1970-03-16T03:59-05:00'),
+    start: new Date('1970-03-14T04:00-04:00'),
+    end: new Date('1970-03-16T03:59-04:00'),
     foodSeason: 'Pie',
   },
   aprilFoolsResale: {
