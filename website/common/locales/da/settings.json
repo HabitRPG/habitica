@@ -2,7 +2,7 @@
     "settings": "Indstillinger",
     "language": "Sprog",
     "americanEnglishGovern": "Hvis der er forskelle mellem oversættelsen og den amerikansk-engelske original, vil originalversionen anses for at være den korrekte.",
-    "helpWithTranslation": "Vil du hjælpe med at oversætte Habitica? Fedt! Besøg <a href=\"/groups/guild/7732f64c-33ee-4cce-873c-fc28f147a6f7\">denne</a> Klan!",
+    "helpWithTranslation": "Er du interesseret i at hjælpe med oversættelsen af Habitica? Fedt! Besøg <a href=\"https://translate.habitica.com\">Habiticas Weblate websted</a>!",
     "stickyHeader": "Fastgjort sidehoved",
     "newTaskEdit": "Åbn nye opgaver i redigeringstilstand",
     "dailyDueDefaultView": "Sæt Daglige som 'forfalden' som standard",
@@ -191,5 +191,13 @@
     "displaynameIssueNewline": "Displaynavne må ikke indeholde backslashes efterfulgt af bogstavet N.",
     "bannedWordUsedInProfile": "Dit Displaynavn eller Om-tekst indeholder upassende sprog.",
     "adjustment": "Tilpasning",
-    "dayStartAdjustment": "Tilpasning af starttidspunkt"
+    "dayStartAdjustment": "Tilpasning af starttidspunkt",
+    "generalSettings": "Generelle indstillinger",
+    "siteData": "Side Data",
+    "taskSettings": "Opgaveindstillinger",
+    "confirmCancelChanges": "Er du sikker? Du mister dine ikke-gemte ændringer.",
+    "account": "Konto",
+    "loginMethods": "Login metoder",
+    "character": "Karakter",
+    "siteLanguage": "Webstedets sprog"
 }
