@@ -18,7 +18,7 @@ describe('events', () => {
   it('returns events when active', () => {
     clock = sinon.useFakeTimers(new Date('2024-01-31'));
     const events = getRepeatingEvents();
-    expect(events).to.have.length();
+    expect(events).to.have.length(1);
     expect(events[0].key).to.equal('birthday');
     expect(events[0].end).to.be.greaterThan(new Date());
     expect(events[0].start).to.be.lessThan(new Date());
