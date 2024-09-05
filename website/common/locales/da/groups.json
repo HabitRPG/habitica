@@ -1,8 +1,8 @@
 {
     "tavern": "Værtshuschat",
     "tavernChat": "Værtshuschat",
-    "innCheckOutBanner": "Du sover lige nu på Kroen. Dine Daglige vil ikke skade dig, og dine fremskridt vil ikke tælle med i Quests.",
-    "innCheckOutBannerShort": "Du sover på Kroen.",
+    "innCheckOutBanner": "Du har i øjeblikket sat skade på pause. Dine Daglige vil ikke skade dig, og du vil ikke gøre fremskridt mod Quests.",
+    "innCheckOutBannerShort": "Du har sat skade på pause.",
     "resumeDamage": "Resume Damage",
     "helpfulLinks": "Hjælpsomme links",
     "communityGuidelinesLink": "Retningslinjer for Fællesskabet",

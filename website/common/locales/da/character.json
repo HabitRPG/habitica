@@ -2,7 +2,7 @@
     "communityGuidelinesWarning": "Vær venligst opmærksom på, at dit displaynavn, profilbillede og den korte tekst skal leve op til <a href='https://habitica.com/static/community-guidelines' target='_blank'>Retningslinjerne for fællesskabet</a> (f.eks. ingen bandeord, ingen +18-emner, ingen fornærmelser osv.). Hvis du har nogle spørgsmål til om noget er passende, så send endelig en mail til <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "Profil",
     "avatar": "Tilpas avatar",
-    "editAvatar": "Ret avatar",
+    "editAvatar": "Tilpas Avatar",
     "noDescription": "Denne Habiticaner har ikke tilføjet en beskrivelse.",
     "noPhoto": "Denne Habiticaner har ikke tilføjet et billede.",
     "other": "Andet",

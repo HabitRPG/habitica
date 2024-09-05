@@ -5,7 +5,7 @@
     "groupBy": "Grupper efter <%= type %>",
     "classBonus": "(Denne genstand passer til din klasse, så det giver et ekstra x1.5 Egenskabsboost.)",
     "classArmor": "Klasseudrustning",
-    "featuredset": "Spotlight-sæt <%= name %>",
+    "featuredset": "Spotlight-sæt: <%= name %>",
     "mysterySets": "Mystiske sæt",
     "gearNotOwned": "Du ejer ikke denne genstand.",
     "noGearItemsOfType": "Du ejer ikke nogle af disse.",
@@ -1874,5 +1874,6 @@
     "headSpecialNye2020Text": "Ekstravagant Festhat",
     "weaponSpecialWinter2021MageNotes": "Dette mægtige våben er bestemt mere end en fase. Kanalisér din energi, fokusér på en måneds flow, og studér tid og rum. Øger Intelligens med <%= int %> og Opfattelse med <%= per %>. Begrænset 2020-2021 Vinterudstyr.",
     "weaponSpecialWinter2021MageText": "Magisk Måne-faser",
-    "backSpecialNamingDay2020Text": "Purpurfarvet grifhale"
+    "backSpecialNamingDay2020Text": "Purpurfarvet grifhale",
+    "gearItemsCompleted": "Du ejer alt <%= klass %> gear! Nyt gear frigives under sæsonens gallaer."
 }

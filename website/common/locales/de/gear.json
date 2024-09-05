@@ -2960,5 +2960,7 @@
     "armorSpecialFall2024RogueText": "Schwarze Katzenrüstung",
     "armorSpecialFall2024RogueNotes": "Sei eins mit der Dunkelheit und verbessere deine Wendigkeit und dein Schleichen mit dieser Rüstung. Erhöht Wahrnehmung um <%= per %>. Limitierte Ausgabe 2024 Herbstausrüstung.",
     "armorSpecialFall2024HealerText": "Space Invader Rüstung",
-    "armorSpecialFall2024HealerNotes": "Sei eins mit der Galaxis und hypnotisiere Zuschauer mit dieser Rüstung. Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe 2024 Herbstausrüstung."
+    "armorSpecialFall2024HealerNotes": "Sei eins mit der Galaxis und hypnotisiere Zuschauer mit dieser Rüstung. Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe 2024 Herbstausrüstung.",
+    "armorSpecialFall2024MageText": "Unterwelt Hexer Rüstung",
+    "armorSpecialFall2024MageNotes": "Sei eins mit der Unterwelt und umarme die Macht der Magier, die vor dir diese Rüstung trugen. Erhöht Intelligenz um <%= int %>. Limitierte Ausgabe 2024 Herbstaausrüstung."
 }
