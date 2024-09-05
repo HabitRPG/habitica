@@ -131,7 +131,7 @@ describe('content index', () => {
   });
 
   it('marks pie as buyable and droppable during pi day', () => {
-    clock = sinon.useFakeTimers(new Date('2024-03-14'));
+    clock = sinon.useFakeTimers(new Date('2024-03-15'));
     const { food } = content;
     Object.keys(food).forEach(key => {
       if (key === 'Saddle') {
