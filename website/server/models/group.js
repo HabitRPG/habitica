@@ -38,6 +38,7 @@ import stripePayments from '../libs/payments/stripe'; // eslint-disable-line imp
 import { getGroupChat, translateMessage } from '../libs/chat/group-chat'; // eslint-disable-line import/no-cycle
 import { model as UserNotification } from './userNotification';
 import { sendChatPushNotifications } from '../libs/chat'; // eslint-disable-line import/no-cycle
+import { model as UserHistory } from './userHistory'; // eslint-disable-line import/no-cycle
 
 const questScrolls = shared.content.quests;
 const { questSeriesAchievements } = shared.content;
@@ -679,7 +680,8 @@ schema.methods.startQuest = async function startQuest (user) {
   }
 
   const nonMembers = Object.keys(_.pickBy(this.quest.members, member => !member));
-
+  const noResponseMembers = Object.keys(_.pickBy(this.quest.members, member => member === null));
+  console.log(this.quest.members, nonMembers, noResponseMembers);
   // Changes quest.members to only include participating members
   this.quest.members = _.pickBy(this.quest.members, _.identity);
 
@@ -750,6 +752,12 @@ schema.methods.startQuest = async function startQuest (user) {
   User.updateMany({
     _id: { $in: nonMembers },
   }, _cleanQuestParty()).exec();
+
+  noResponseMembers.forEach(member => {
+    UserHistory.beginUserHistoryUpdate(member)
+      .withQuestInviteResponse(this.quest.key, 'no response')
+      .commit();
+  });
 
   const newMessage = await this.sendChat({
     message: `\`${shared.i18n.t('chatQuestStarted', { questName: quest.text('en') }, 'en')}\``,

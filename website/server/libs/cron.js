@@ -525,7 +525,7 @@ export async function cron (options = {}) {
   trackCronAnalytics(analytics, user, _progress, options);
 
   await UserHistory.beginUserHistoryUpdate(user._id, options.headers)
-    .withCron()
+    .withCron(user.flags.cronCount)
     .commit();
 
   return _progress;
