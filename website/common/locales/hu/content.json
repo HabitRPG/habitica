@@ -211,7 +211,7 @@
     "hatchingPotionGlow": "Sötétben világító",
     "hatchingPotionFrost": "Jég",
     "hatchingPotionIcySnow": "Jeges hó",
-    "hatchingPotionNotes": "Öntsd ezt egy tojásra, és egy <%= potText(locale) %> háziállat fog belőle kikelni.",
+    "hatchingPotionNotes": "Öntsd ezt egy tojásra, és egy <%= potText(locale) %> kisállat fog belőle kikelni.",
     "premiumPotionAddlNotes": "Nem használható küldetésben szerzett tojásokhoz.",
     "foodMeat": "Hús",
     "foodMeatThe": "a hús",
@@ -352,5 +352,9 @@
     "hatchingPotionOnyx": "Ónix",
     "hatchingPotionPorcelain": "Porcelán",
     "hatchingPotionVirtualPet": "Virtuális kisállat",
-    "hatchingPotionPinkMarble": "Rózsaszín üveggolyó"
+    "hatchingPotionPinkMarble": "Rózsaszín üveggolyó",
+    "hatchingPotionKoi": "Koi",
+    "hatchingPotionRoseGold": "Rózsa arany",
+    "premiumPotionUnlimitedNotes": "Nem használható küldetésen szerzett kisállat tojásokon.",
+    "hatchingPotionFungi": "Gomba"
 }
