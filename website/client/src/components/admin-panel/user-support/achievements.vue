@@ -256,11 +256,14 @@ export default {
   },
   methods: {
     async saveItem (item) {
-      // prepare the item's new value and path for being saved
-      this.hero.achievementPath = item.path;
-      this.hero.achievementVal = item.value;
-
-      await this.saveHero({ hero: this.hero, msg: item.path });
+      await this.saveHero({
+        hero: {
+          _id: this.hero._id,
+          achievementPath: item.path,
+          achievementVal: item.value,
+        },
+        msg: item.path,
+      });
       item.modified = false;
     },
     enableValueChange (item) {

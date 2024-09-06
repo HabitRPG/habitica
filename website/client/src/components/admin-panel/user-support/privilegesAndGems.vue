@@ -1,5 +1,11 @@
 <template>
-  <form @submit.prevent="saveHero({hero, msg: 'Privileges or Gems or Moderation Notes'})">
+  <form @submit.prevent="saveHero({hero: {
+    _id: hero._id,
+    flags: hero.flags,
+    balance: hero.balance,
+    auth: hero.auth,
+    secret: hero.secret,
+  }, msg: 'Privileges or Gems or Moderation Notes'})">
     <div class="card mt-2">
       <div class="card-header">
         <h3

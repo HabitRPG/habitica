@@ -269,16 +269,19 @@ export default {
   methods: {
     async saveItem (item) {
       // prepare the item's new value and path for being saved
-      this.hero.itemPath = item.path;
+      const toSave = {
+        _id: this.hero._id,
+      };
+      toSave.itemPath = item.path;
       if (item.value === null) {
-        this.hero.itemVal = 'null';
+        toSave.itemVal = 'null';
       } else if (item.value === false) {
-        this.hero.itemVal = 'false';
+        toSave.itemVal = 'false';
       } else {
-        this.hero.itemVal = item.value;
+        toSave.itemVal = item.value;
       }
 
-      await this.saveHero({ hero: this.hero, msg: item.key });
+      await this.saveHero({ hero: toSave, msg: item.key });
       item.neverOwned = false;
       item.modified = false;
     },

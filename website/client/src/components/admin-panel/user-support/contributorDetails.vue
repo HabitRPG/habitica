@@ -1,5 +1,10 @@
 <template>
-  <form @submit.prevent="saveHero({ hero, msg: 'Contributor details', clearData: true })">
+  <form @submit.prevent="saveHero({ hero: {
+    _id: hero._id,
+    contributor: hero.contributor,
+    secret: hero.secret,
+    permissions: hero.permissions,
+  }, msg: 'Contributor details', clearData: true })">
     <div class="card mt-2">
       <div class="card-header">
         <h3
