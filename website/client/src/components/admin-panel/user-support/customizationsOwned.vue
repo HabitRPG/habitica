@@ -232,11 +232,14 @@ export default {
   },
   methods: {
     async saveItem (item) {
-      await this.saveHero({ hero: {
-        _id: this.hero._id,
-        purchasedPath: item.path,
-        purchasedVal: item.value,
-      }, msg: item.path });
+      await this.saveHero({
+        hero: {
+          _id: this.hero._id,
+          purchasedPath: item.path,
+          purchasedVal: item.value,
+        },
+        msg: item.path,
+      });
       item.modified = false;
     },
     enableValueChange (item) {
