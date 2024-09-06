@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import {
   generateUser,
   createAndPopulateGroup,
@@ -5,6 +6,8 @@ import {
   sleep,
 } from '../../../../helpers/api-integration/v3';
 import * as email from '../../../../../website/server/libs/email';
+import { schema as groupSchema } from '../../../../../website/server/models/group';
+import { schema as userSchema } from '../../../../../website/server/models/user/index';
 
 describe('POST /groups/:groupId/removeMember/:memberId', () => {
   let leader;
@@ -86,6 +89,58 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
       const oldMemberCount = guild.memberCount;
       await leader.post(`/groups/${guild._id}/removeMember/${member._id}`);
       await expect(leader.get(`/groups/${guild._id}`)).to.eventually.have.property('memberCount', oldMemberCount - 1);
+    });
+
+    it('updates memberCount when removal is successful', async () => {
+      const oldMemberCount = guild.memberCount;
+      await leader.post(`/groups/${guild._id}/removeMember/${member._id}`);
+
+      const updatedGuild = await leader.get(`/groups/${guild._id}`);
+      expect(updatedGuild.memberCount).to.equal(oldMemberCount - 1);
+    });
+
+    it('does not update memberCount when user removal fails', async () => {
+      const oldMemberCount = guild.memberCount;
+      const user = mongoose.model('User', userSchema);
+      sandbox.stub(user.prototype, 'save').throws();
+
+      await expect(leader.post(`/groups/${guild._id}/removeMember/${member._id}`))
+        .to.eventually.be.rejected;
+
+      const updatedGuild = await leader.get(`/groups/${guild._id}`);
+      expect(updatedGuild.memberCount).to.equal(oldMemberCount);
+    });
+
+    it('does not update memberCount when group save fails', async () => {
+      const oldMemberCount = guild.memberCount;
+      const group = mongoose.model('Group', groupSchema);
+
+      sandbox.stub(group.prototype, 'save').throws(new Error('Failed to save group'));
+
+      await expect(leader.post(`/groups/${guild._id}/removeMember/${member._id}`))
+        .to.eventually.be.rejected;
+
+      const updatedGuild = await leader.get(`/groups/${guild._id}`);
+      expect(updatedGuild.memberCount).to.equal(oldMemberCount);
+    });
+
+    it('rolls back memberCount update if transaction fails', async () => {
+      const oldMemberCount = guild.memberCount;
+
+      sandbox.stub(mongoose, 'startSession').returns({
+        startTransaction: () => {},
+        commitTransaction: () => {
+          throw new Error('Transaction failed');
+        },
+        abortTransaction: () => {},
+        endSession: () => {},
+      });
+
+      await expect(leader.post(`/groups/${guild._id}/removeMember/${member._id}`))
+        .to.eventually.be.rejected;
+
+      const updatedGuild = await leader.get(`/groups/${guild._id}`);
+      expect(updatedGuild.memberCount).to.equal(oldMemberCount);
     });
 
     it('can remove other invites', async () => {
