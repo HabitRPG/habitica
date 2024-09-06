@@ -72,5 +72,8 @@
     "rageAttack": "Őrjöngő támadás:",
     "bossRage": "<%= currentRage %> / <%= maxRage %> Őrjöngés",
     "rageStrikes": "Őrjöngéssel támad",
-    "hatchingPotionQuests": "Varázslatos keltetőfőzet küldetések"
+    "hatchingPotionQuests": "Varázslatos keltetőfőzet küldetések",
+    "bossDamage": "Megsebezted a szörnyet!",
+    "questInvitationNotificationInfo": "Meghívtak, hogy csatlakozz egy küldetéshez",
+    "questItemsPending": "<%= amount %> tárgy elbírálás alatt"
 }
