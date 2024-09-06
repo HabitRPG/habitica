@@ -97,7 +97,7 @@
                 </th>
               </tr>
               <tr
-                v-for="entry in questInvites"
+                v-for="entry in questInviteResponses"
                 :key="entry.timestamp"
               >
                 <td>
@@ -125,6 +125,9 @@
                 <th v-once>
                   Client
                 </th>
+                <th v-once>
+                  Checkin Count
+                </th>
               </tr>
               <tr
                 v-for="entry in cron"
@@ -136,6 +139,7 @@
                   >{{ entry.timestamp | timeAgo }}</span>
                 </td>
                 <td>{{ entry.client }}</td>
+                <td>{{ entry.checkinCount }}</td>
               </tr>
             </table>
           </div>

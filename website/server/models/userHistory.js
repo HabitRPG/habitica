@@ -34,6 +34,7 @@ export const schema = new Schema({
     {
       _id: false,
       timestamp: { $type: Date, required: true },
+      checkinCount: { $type: Number, required: true },
       client: { $type: String, required: false },
     },
   ],
@@ -110,9 +111,10 @@ model.beginUserHistoryUpdate = function beginUserHistoryUpdate (userID, headers 
       });
       return this;
     },
-    withCron: function withCron () {
+    withCron: function withCron (checkinCount) {
       this.data.cron.push({
         timestamp: new Date(),
+        checkinCount,
         client: this.data.headers['x-client'],
       });
       return this;
