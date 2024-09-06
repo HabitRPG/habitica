@@ -125,6 +125,90 @@ describe('POST /tasks/:id/score/:direction', () => {
         expect(body.finalLvl).to.eql(user.stats.lvl);
       });
     });
+
+    context('handles drops', async () => {
+      let randomStub;
+
+      afterEach(() => {
+        randomStub.restore();
+      });
+      it('gives user a drop', async () => {
+        user = await generateUser({
+          'stats.gp': 100,
+          'achievements.completedTask': true,
+          'items.eggs': {
+            Wolf: 1,
+          },
+        });
+        randomStub = sandbox.stub(Math, 'random').returns(0.1);
+        const task = await user.post('/tasks/user', {
+          text: 'test habit',
+          type: 'habit',
+        });
+
+        const res = await user.post(`/tasks/${task.id}/score/up`);
+        expect(res._tmp.drop).to.be.ok;
+      });
+
+      it('does not give a drop when non-sub drop cap is reached', async () => {
+        user = await generateUser({
+          'stats.gp': 100,
+          'achievements.completedTask': true,
+          'items.eggs': {
+            Wolf: 1,
+          },
+          'items.lastDrop.count': 5,
+        });
+        randomStub = sandbox.stub(Math, 'random').returns(0.1);
+        const task = await user.post('/tasks/user', {
+          text: 'test habit',
+          type: 'habit',
+        });
+
+        const res = await user.post(`/tasks/${task.id}/score/up`);
+        expect(res._tmp.drop).to.be.undefined;
+      });
+
+      it('gives a drop when subscriber is over regular cap but under subscriber cap', async () => {
+        user = await generateUser({
+          'stats.gp': 100,
+          'achievements.completedTask': true,
+          'items.eggs': {
+            Wolf: 1,
+          },
+          'items.lastDrop.count': 6,
+          'purchased.plan.customerId': '123',
+        });
+        randomStub = sandbox.stub(Math, 'random').returns(0.1);
+        const task = await user.post('/tasks/user', {
+          text: 'test habit',
+          type: 'habit',
+        });
+
+        const res = await user.post(`/tasks/${task.id}/score/up`);
+        expect(res._tmp.drop).to.be.ok;
+      });
+
+      it('does not give a drop when subscriber is at subscriber drop cap', async () => {
+        user = await generateUser({
+          'stats.gp': 100,
+          'achievements.completedTask': true,
+          'items.eggs': {
+            Wolf: 1,
+          },
+          'items.lastDrop.count': 10,
+          'purchased.plan.customerId': '123',
+        });
+        randomStub = sandbox.stub(Math, 'random').returns(0.1);
+        const task = await user.post('/tasks/user', {
+          text: 'test habit',
+          type: 'habit',
+        });
+
+        const res = await user.post(`/tasks/${task.id}/score/up`);
+        expect(res._tmp.drop).to.be.undefined;
+      });
+    });
   });
 
   context('todos', () => {
