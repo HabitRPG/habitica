@@ -393,7 +393,7 @@
 
 <script>
 import find from 'lodash/find';
-import moment from 'moment-timezone';
+import moment from 'moment';
 import { mapState } from '@/libs/store';
 import markdown from '@/directives/markdown';
 import paymentsMixin from '@/mixins/payments';
@@ -445,8 +445,6 @@ export default {
       );
       if (!currentEvent) return null;
 
-      const zone = moment.tz.guess();
-
       return {
         name: currentEvent.event,
         class: currentEvent.gemsPromo ? `event-${currentEvent.event}` : '',
@@ -454,11 +452,11 @@ export default {
         promo: currentEvent.promo,
         startMonth: moment(currentEvent.start).format('MMMM'),
         startOrdinal: moment(currentEvent.start).format('Do'),
-        startTime: moment.tz(currentEvent.start, zone).format('hh:mm A z'),
+        startTime: moment(currentEvent.start).format('hh:mm A'),
         startUTC: moment(currentEvent.start).utc().format('hh:mm A'),
         endMonth: moment(currentEvent.end).format('MMMM'),
         endOrdinal: moment(currentEvent.end).format('Do'),
-        endTime: moment.tz(currentEvent.end, zone).format('hh:mm A z'),
+        endTime: moment(currentEvent.end).format('hh:mm A'),
         endUTC: moment(currentEvent.end).utc().format('hh:mm A'),
       };
     },
