@@ -41,7 +41,7 @@ const StablePage = () => import(/* webpackChunkName: "inventory" */'@/components
 
 // Guilds & Parties
 const GroupPage = () => import(/* webpackChunkName: "guilds" */ '@/components/groups/group');
-const GroupPlansAppPage = () => import(/* webpackChunkName: "guilds" */ '@/components/groups/groupPlan');
+const GroupPlansAppPage = () => import(/* webpackChunkName: "guilds" */ '@/components/static/groupPlans');
 const LookingForParty = () => import(/* webpackChunkName: "guilds" */ '@/components/groups/lookingForParty');
 
 // Group Plans

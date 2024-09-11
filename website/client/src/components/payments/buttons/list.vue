@@ -28,12 +28,6 @@
         :alt="$t('paypal')"
       >&nbsp;
     </button>
-    <amazon-button
-      v-if="amazonAvailable"
-      class="payment-item"
-      :disabled="disabled"
-      :amazon-data="amazonData"
-    />
   </div>
 </template>
 
@@ -92,20 +86,13 @@
 </style>
 
 <script>
-import amazonButton from '@/components/payments/buttons/amazon';
 import creditCardIcon from '@/assets/svg/credit-card-icon.svg';
 
 export default {
-  components: {
-    amazonButton,
-  },
   props: {
     disabled: {
       type: Boolean,
       default: false,
-    },
-    amazonData: {
-      type: Object,
     },
     stripeFn: {
       type: Function,
@@ -127,9 +114,6 @@ export default {
     },
     paypalAvailable () {
       return typeof this.paypalFn === 'function';
-    },
-    amazonAvailable () {
-      return this.amazonData !== undefined;
     },
   },
 };
