@@ -386,5 +386,8 @@
     "questEggGiraffeAdjective": "un empilement",
     "questEggCrabText": "Crabe",
     "questEggCrabMountText": "Crabe",
-    "questEggCrabAdjective": "bouineux"
+    "questEggCrabAdjective": "bouineux",
+    "questEggRaccoonText": "Raton Laveur",
+    "questEggRaccoonMountText": "Raton Laveur",
+    "questEggRaccoonAdjective": "vorace"
 }
