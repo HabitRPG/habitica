@@ -784,6 +784,7 @@ import debounce from 'lodash/debounce';
 import isEmail from 'validator/es/lib/isEmail';
 import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
 import { buildAppleAuthUrl } from '../../libs/auth';
+import sanitizeRedirect from '@/mixins/sanitizeRedirect';
 import googlePlay from '@/assets/images/home/google-play-badge.svg';
 import iosAppStore from '@/assets/images/home/ios-app-store.svg';
 import iphones from '@/assets/images/home/iphones.svg';
@@ -804,6 +805,7 @@ import makeuseof from '@/assets/images/home/make-use-of.svg';
 import thenewyorktimes from '@/assets/images/home/the-new-york-times.svg';
 
 export default {
+  mixins: [sanitizeRedirect],
   data () {
     return {
       icons: Object.freeze({
@@ -923,7 +925,9 @@ export default {
         groupInvite,
       });
 
-      window.location.href = this.$route.query.redirectTo || '/';
+      const redirect = this.sanitizeRedirect(this.$route.query.redirectTo);
+
+      window.location.href = redirect;
     },
     playButtonClick () {
       this.$router.push('/register');
