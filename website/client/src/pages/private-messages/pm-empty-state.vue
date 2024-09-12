@@ -8,7 +8,10 @@
         class="svg-icon envelope mb-4"
         v-html="icons.mailIcon"
       ></div>
-      <strong v-once>
+      <strong
+        v-once
+        class="mb-1"
+      >
         {{ $t('emptyMessagesLine1') }}
       </strong>
       <p v-if="!chatRevoked">
@@ -37,12 +40,14 @@ strong {
   color: $gray-100;
 }
 
-.btn-primary {
-  text-transform: uppercase;
-}
-
 .svg-icon.icon-10 {
   margin: 3px;
+}
+
+p {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
 }
 </style>
 
