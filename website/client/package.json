@@ -25,7 +25,6 @@
     "bootstrap": "^4.6.0",
     "bootstrap-vue": "^2.23.1",
     "core-js": "^3.33.1",
-    "dompurify": "^3.0.3",
     "eslint": "7.32.0",
     "eslint-config-habitrpg": "6.2.0",
     "eslint-plugin-mocha": "5.3.0",
@@ -61,6 +60,6 @@
     "chai": "^5.1.0",
     "inspectpack": "^4.7.1",
     "terser-webpack-plugin": "^5.3.10",
-    "webpack": "^5.89.0"
+    "webpack": "^5.94.0"
   }
 }

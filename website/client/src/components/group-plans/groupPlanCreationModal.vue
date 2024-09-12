@@ -1,16 +1,13 @@
 <template>
   <b-modal
     id="create-group"
-    :title="activePage === PAGES.CREATE_GROUP ? 'Create your Group' : 'Select Payment'"
+    :title="$t('createGroupTitle')"
     :hide-footer="true"
     :hide-header="true"
     size="md"
     @hide="onHide()"
   >
-    <div
-      v-if="activePage === PAGES.CREATE_GROUP"
-      class="col-12"
-    >
+    <div class="col-12">
       <!-- HEADER -->
       <div
         class="modal-close"
@@ -25,7 +22,7 @@
           class="btn btn-primary next-button"
           :value="$t('next')"
           :disabled="!newGroupIsReady"
-          @click="createGroup()"
+          @click="stripeGroup({ group: newGroup })"
         >
           {{ $t('next') }}
         </button>
@@ -101,23 +98,10 @@
         <button
           class="btn btn-primary btn-lg btn-block btn-payment"
           :disabled="!newGroupIsReady"
-          @click="createGroup()"
+          @click="stripeGroup({ group: newGroup })"
         >
           {{ $t('nextPaymentMethod') }}
         </button>
-      </div>
-    </div>
-    <!-- PAYMENT -->
-    <!-- @TODO: Separate payment into a separate modal -->
-    <div
-      v-if="activePage === PAGES.PAY"
-      class="col-12 payments"
-    >
-      <div class="text-center">
-        <payments-buttons
-          :stripe-fn="() => pay(PAYMENTS.STRIPE)"
-          :amazon-data="pay(PAYMENTS.AMAZON)"
-        />
       </div>
     </div>
   </b-modal>
@@ -195,9 +179,6 @@
       width: 200px;
       height: 215px;
 
-      .dollar {
-      }
-
       .number {
         font-size: 60px;
       }
@@ -248,31 +229,17 @@
 <script>
 import paymentsMixin from '../../mixins/payments';
 import { mapState } from '@/libs/store';
-import paymentsButtons from '@/components/payments/buttons/list';
 import selectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
 import lockableLabel from '@/components/tasks/modal-controls/lockableLabel';
-import * as Analytics from '@/libs/analytics';
 
 export default {
   components: {
-    paymentsButtons,
     selectTranslatedArray,
     lockableLabel,
   },
   mixins: [paymentsMixin],
   data () {
     return {
-      amazonPayments: {},
-      PAGES: {
-        CREATE_GROUP: 'create-group',
-        // UPGRADE_GROUP: 'upgrade-group',
-        PAY: 'pay',
-      },
-      PAYMENTS: {
-        AMAZON: 'amazon',
-        STRIPE: 'stripe',
-      },
-      paymentMethod: '',
       newGroup: {
         type: 'guild',
         privacy: 'private',
@@ -284,7 +251,6 @@ export default {
         demographics: null,
         user: '',
       },
-      activePage: 'create-group',
       type: 'guild',
     };
   },
@@ -302,55 +268,9 @@ export default {
     close () {
       this.$root.$emit('bv::hide::modal', 'create-group');
     },
-    changePage (page) {
-      this.activePage = page;
-    },
-    createGroup () {
-      this.changePage(this.PAGES.PAY);
-    },
-    pay (paymentMethod) {
-      const subscriptionKey = 'group_monthly'; // @TODO: Get from content API?
-      const demographicsKey = this.newGroup.demographics;
-      const paymentData = {
-        subscription: subscriptionKey,
-        coupon: null,
-        demographics: demographicsKey,
-      };
-
-      Analytics.track({
-        hitType: 'event',
-        eventName: 'group plan create',
-        eventAction: 'group plan create',
-        eventCategory: 'behavior',
-        demographics: this.newGroup.demographics,
-        type: this.newGroup.type,
-      }, { trackOnClient: true });
-
-      if (this.upgradingGroup && this.upgradingGroup._id) {
-        paymentData.groupId = this.upgradingGroup._id;
-        paymentData.group = this.upgradingGroup;
-      } else {
-        paymentData.groupToCreate = this.newGroup;
-      }
-
-      this.paymentMethod = paymentMethod;
-
-      if (this.paymentMethod === this.PAYMENTS.AMAZON) {
-        paymentData.type = 'subscription';
-        return paymentData;
-      }
-
-      if (this.paymentMethod === this.PAYMENTS.STRIPE) {
-        this.redirectToStripe(paymentData);
-      }
-
-      return null;
-    },
-
     onHide () {
       this.sendingInProgress = false;
     },
-
   },
 };
 </script>

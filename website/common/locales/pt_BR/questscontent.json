@@ -780,5 +780,15 @@
     "questGiraffeNotes": "Você está passeando pela grama alta da Savana de Tvagaresempr, desfrutando de um agradável passeio na natureza - uma maneira de espairecer um pouco em relação às suas tarefas. Enquanto caminha pela paisagem ondulada, você nota uma coleção de itens aglomerando-se a distância. É uma pilha de instrumentos musicais, materiais de arte, equipamentos eletrônicos e mais! Você decide aproximar-se, então, para conferir melhor.<br><br>“Ei, o que você pensa que está fazendo?”, brada uma voz por trás de uma acácia. Uma girafa alta e imponente surge, portando um elegante par de óculos escuros, uma guitarra e uma câmera sofisticada pendurada em seu longo pescoço. “Esses são todos os meus equipamentos e materiais de arte, tenha cuidado e não toque em nada!”<br><br>Você nota a poeira aglomerando-se em muitos dos itens. “Uau, você com certeza tem muitos hobbies!”, diz. “Pode criar alguma coisa para mim ou tocar uma música?”<br><br>A girafa parece ficar desapontada consigo mesma, enquanto percorre com seu olhar todos os seus materiais. “Eu tenho tantas coisas aqui, mas não sei nem por onde começar! Por que você não me dá um pouco da sua motivação, para que eu possa ter a energia produtiva que preciso para finalmente começar?!\"",
     "questGiraffeCompletion": "Depois de ajudar a Girafartista a fazer uma organização básica em todo o seu material, vocês dois estão se sentindo com muito mais energia e animação!<br><br>Ela pega sua guitarra e um livro de exercícios para principiantes e dedilha algumas notas. “É bom demais dar um passo na direção correta, por menor que seja. Agradeço por me ajudar! Pegue estes ovos, ouvi dizer que você tem uma coleção de mascotes e estes amiguinhos aqui poderiam ser um bom acréscimo!”",
     "questChameleonBoss": "Camaleão Caótico",
-    "QuestChameleonUnlockText": "Desbloqueia Ovos de Camaleão para compra no Mercado."
+    "QuestChameleonUnlockText": "Desbloqueia Ovos de Camaleão para compra no Mercado.",
+    "questRaccoonText": "Guaxinim Magnata",
+    "questRaccoonRageDescription": "Esta barra se enche conforme você não completa as suas Diárias. Quando estiver cheia, o Guaxinim Magnata irá recuperar parte de sua vida!",
+    "questRaccoonDropRaccoonEgg": "Guaxinim (Ovo)",
+    "questRaccoonUnlockText": "Desbloqueia ovos de Guaxinim para compra no mercado.",
+    "questCrabRageDescription": "Esta barra enche quando você não completa suas tarefas diárias. Quando ela estiver cheia, o Caranguejo Brincalhão irá tirar um pouco do MP do seu grupo!",
+    "questCrabRageEffect": "O Caranguejo Brincalhão distrai você com decorações, retardando o seu trabalho sugando e drenando um pouco da sua magia. O MP do grupo é reduzido!",
+    "questCrabText": "O Caranguejo Brincalhão",
+    "questCrabDropCrabEgg": "Caranguejo (Ovo)",
+    "questCrabUnlockText": "Desbloqueia ovos de Caranguejo para compra no mercado.",
+    "questCrabBoss": "Caranguejo Brincalhão"
 }

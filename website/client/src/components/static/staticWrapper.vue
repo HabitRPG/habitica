@@ -8,7 +8,10 @@
         'white-header': $route.name === 'plans'
       }"
     />
-    <div class="static-wrapper">
+    <div
+      class="static-wrapper"
+      :class="{ 'groups-bg': $route.name === 'groupPlans' }"
+    >
       <router-view />
     </div>
     <div
@@ -204,6 +207,13 @@
 
     .strong {
       font-weight: bold;
+    }
+
+    &.groups-bg {
+      background-color: $white;
+      background-image: url('../../assets/images/group-plans-static/top.svg');
+      background-repeat: no-repeat;
+      background-position-y: 56px;
     }
   }
 </style>

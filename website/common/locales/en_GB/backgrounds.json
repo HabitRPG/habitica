@@ -214,7 +214,7 @@
     "backgroundStormyRooftopsNotes": "Creep across Stormy Rooftops.",
     "backgroundWindyAutumnText": "Windy Autumn",
     "backgroundWindyAutumnNotes": "Chase leaves during a Windy Autumn.",
-    "incentiveBackgrounds": "Plain Background Set",
+    "incentiveBackgrounds": "Standard Backgrounds",
     "backgroundVioletText": "Violet",
     "backgroundVioletNotes": "A vibrant violet backdrop.",
     "backgroundBlueText": "Blue",
@@ -867,5 +867,6 @@
     "backgroundMonstrousCaveText": "Monstrous Cave",
     "backgroundMonstrousCaveNotes": "Gaze into the maw of the Monstrous Cave.",
     "backgroundJackOLanternStacksText": "Jack O'Lantern Stacks",
-    "backgroundJackOLanternStacksNotes": "Admire a field of Jack O’Lantern Stacks."
+    "backgroundJackOLanternStacksNotes": "Admire a field of Jack O’Lantern Stacks.",
+    "backgrounds062024": "Set 121: Released June 2024"
 }
