@@ -51,6 +51,7 @@ describe('Stripe - Checkout', () => {
         gift: undefined,
         sub: undefined,
         gemsBlock: gemsBlockKey,
+        server_url: BASE_URL,
       };
 
       expect(gems.validateGiftMessage).to.not.be.called;
@@ -101,6 +102,7 @@ describe('Stripe - Checkout', () => {
         gift: JSON.stringify(gift),
         sub: undefined,
         gemsBlock: undefined,
+        server_url: BASE_URL,
       };
 
       expect(gems.validateGiftMessage).to.be.calledOnce;
@@ -155,6 +157,7 @@ describe('Stripe - Checkout', () => {
         gift: JSON.stringify(gift),
         sub: undefined,
         gemsBlock: undefined,
+        server_url: BASE_URL,
       };
 
       expect(oneTimePayments.getOneTimePaymentInfo).to.be.calledOnce;
@@ -192,6 +195,7 @@ describe('Stripe - Checkout', () => {
         userId: user._id,
         gift: undefined,
         sub: JSON.stringify(sub),
+        server_url: BASE_URL,
       };
 
       expect(subscriptions.checkSubData).to.be.calledOnce;
@@ -258,6 +262,7 @@ describe('Stripe - Checkout', () => {
         userId: user._id,
         gift: undefined,
         sub: JSON.stringify(sub),
+        server_url: BASE_URL,
         groupId,
       };
 
@@ -328,8 +333,9 @@ describe('Stripe - Checkout', () => {
       user.purchased.plan.customerId = customerId;
 
       const metadata = {
-        userId: user._id,
         type: 'edit-card-user',
+        userId: user._id,
+        server_url: BASE_URL,
       };
 
       const res = await createEditCardCheckoutSession({ user }, stripe);
@@ -418,6 +424,7 @@ describe('Stripe - Checkout', () => {
         const metadata = {
           userId: user._id,
           type: 'edit-card-group',
+          server_url: BASE_URL,
           groupId,
         };
 
@@ -455,6 +462,7 @@ describe('Stripe - Checkout', () => {
           userId: anotherUser._id,
           type: 'edit-card-group',
           groupId,
+          server_url: BASE_URL,
         };
 
         const res = await createEditCardCheckoutSession({ user: anotherUser, groupId }, stripe);
