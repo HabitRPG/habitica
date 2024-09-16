@@ -1,9 +1,10 @@
 <template>
   <div class="quest-content">
-    <div
+    <Sprite
       class="quest-image"
-      :class="item.purchaseType === 'bundles' ? `quest_bundle_${item.key}` : `quest_${item.key}`"
-    ></div>
+      :image-name="item.purchaseType === 'bundles'
+      ? `quest_bundle_${item.key}` : `quest_${item.key}`"
+    />
     <h3 class="text-center">
       {{ itemText }}
     </h3>
@@ -67,11 +68,13 @@
 <script>
 import QuestInfo from './questInfo.vue';
 import UserLabel from '../../userLabel';
+import Sprite from '../../ui/sprite';
 
 export default {
   components: {
     UserLabel,
     QuestInfo,
+    Sprite,
   },
   props: {
     item: {
