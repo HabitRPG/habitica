@@ -1370,6 +1370,10 @@ const shield = {
     str: 12,
     set: 'beachsideSet',
   },
+  spookyCandyBucket: {
+    int: 10,
+    set: 'trickOrTreatSet',
+  },
 };
 
 const headAccessory = {
@@ -1868,6 +1872,10 @@ const weapon = {
     con: 15,
     str: 15,
     set: 'funnyFoolSet',
+  },
+  safetyFlashlight: {
+    con: 10,
+    set: 'trickOrTreatSet',
   },
 };
 

@@ -11,6 +11,7 @@ export const ARMOIRE_RELEASE_DATES = {
   corsairSet: { year: 2024, month: 7 },
   dragonKnightSet: { year: 2024, month: 8 },
   funnyFoolSet: { year: 2024, month: 9 },
+  trickOrTreatSet: { year: 2024, month: 10 },
 };
 
 export const EGGS_RELEASE_DATES = {

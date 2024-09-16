@@ -787,6 +787,8 @@
   "weaponArmoireDragonKnightsLanceNotes": "This red and silver lance has unseated many opponents from their mounts. Increases Constitution by <%= con %>. Enchanted Armoire: Dragon Knight Set (Item 3 of 3)",
   "weaponArmoireFunnyFoolBatonText": "Funny Fool Baton",
   "weaponArmoireFunnyFoolBatonNotes": "With a wave of your baton you can deliver a punchline, redirect attention, or summon applause. Increases Constitution and Strength by <%= attrs %> each. Enchanted Armoire: Funny Fool Set (Item 3 of 3)",
+  "weaponArmoireSafetyFlashlightText": "Safety Flashlight",
+  "weaponArmoireSafetyFlashlightNotes": "Wait, did you hear that noise? Quick! Shine your flashlight into the shadows over there. Hmmm. Looks like it was just the wind. Or was it…?Increases Constitution by <%= con $>. Enchanted Armoire: Trick or Treat Set (Item 1 of 2)",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -3002,6 +3004,8 @@
   "shieldArmoireThrownVesselNotes": "You know what they say: practice makes progress. And this is the best one you’ve made so far! Increases Constitution by <%= con %>. Enchanted Armoire: Potter Set (Item 3 of 4).",
   "shieldArmoireBuoyantBeachBallText": "Beachball",
   "shieldArmoireBuoyantBeachBallNotes": "Got too many balls up in the air already? Here’s one that you can safely set down, roll, bounce and bounce and bounce...  Increases Strength by <%= str %>. Enchanted Armoire: Beachside Set (Item 4 of 4).",
+  "shieldArmoireSpookyCandyBucketText": "Spooky Candy Bucket",
+  "shieldArmoireSpookyCandyBucketNotes": "With an epic costume like that, you’re going to get so much candy! Good thing you’ve got this bottomless bucket to hold it all. Try not to snack on any until you get home. Increases Intelligence by <%= int %>. Enchanted Armoire: Trick or Treat Set (Item 2 of 2)",
 
   "back": "Back Accessory",
   "backBase0Text": "No Back Accessory",
