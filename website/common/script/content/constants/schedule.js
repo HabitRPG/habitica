@@ -527,6 +527,7 @@ export const MONTHLY_SCHEDULE = {
           'rock',
           'ferret',
           'hedgehog',
+          'dog',
         ],
       },
       {
