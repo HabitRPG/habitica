@@ -41,6 +41,7 @@
     margin: 0 auto;
     margin-bottom: 16px;
     margin-top: 24px;
+    display: block;
   }
 
   .leader-label {
