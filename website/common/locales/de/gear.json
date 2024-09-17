@@ -2963,5 +2963,9 @@
     "armorSpecialFall2024HealerNotes": "Sei eins mit der Galaxis und hypnotisiere Zuschauer mit dieser Rüstung. Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe 2024 Herbstausrüstung.",
     "armorSpecialFall2024MageText": "Unterwelt Hexer Rüstung",
     "armorSpecialFall2024MageNotes": "Sei eins mit der Unterwelt und umarme die Macht der Magier, die vor dir diese Rüstung trugen. Erhöht Intelligenz um <%= int %>. Limitierte Ausgabe 2024 Herbstaausrüstung.",
-    "weaponArmoireFunnyFoolBatonNotes": "Du kannst mit einem Schwung Deines Stabes eine Pointe vortragen, die Aufmerksamkeit erregen oder Beifall ernten. Erhöht Ausdauer und Stärke jeweils um <%= attrs %>. Verzauberter Schrank: Lustiges Narren-Set (Gegenstand 3 von 3)"
+    "weaponArmoireFunnyFoolBatonNotes": "Du kannst mit einem Schwung Deines Stabes eine Pointe vortragen, die Aufmerksamkeit erregen oder Beifall ernten. Erhöht Ausdauer und Stärke jeweils um <%= attrs %>. Verzauberter Schrank: Lustiges Narren-Set (Gegenstand 3 von 3)",
+    "armorArmoireTeaGownText": "Teeparty Kleid",
+    "armorArmoireTeaGownNotes": "Du bist zäh, kreativ, brilliant und so modisch! Erhöht Stärke und Intelligenz um jeweils <%= attrs %>. Verzauberter Schrank: Teeparty Set (Gegenstand 1 von 3).",
+    "armorMystery202401Text": "Verschneite Zauberer Roben",
+    "armorMystery202401Notes": "Diese Roben erscheinen filigran wie Schneeflocken, aber werden dich reichlich warm halten, während du deine winterliche Magie wirkst. Gewährt keinen Attributbonus. Januar 2024 Abonnentengegenstand."
 }

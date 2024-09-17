@@ -383,5 +383,11 @@
     "questEggChameleonAdjective": "Chaotický",
     "questEggGiraffeText": "Žirafa",
     "questEggGiraffeMountText": "Žirafa",
-    "hatchingPotionKoi": "Koi kapor"
+    "hatchingPotionKoi": "Koi kapor",
+    "questEggCrabText": "Krab",
+    "questEggCrabMountText": "Krab",
+    "questEggCrabAdjective": "Figliarsky",
+    "questEggRaccoonText": "Mýval",
+    "questEggRaccoonMountText": "Mýval",
+    "questEggRaccoonAdjective": "Pažravý"
 }

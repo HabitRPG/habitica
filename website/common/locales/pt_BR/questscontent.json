@@ -781,7 +781,7 @@
     "questGiraffeCompletion": "Depois de ajudar a Girafartista a fazer uma organização básica em todo o seu material, vocês dois estão se sentindo com muito mais energia e animação!<br><br>Ela pega sua guitarra e um livro de exercícios para principiantes e dedilha algumas notas. “É bom demais dar um passo na direção correta, por menor que seja. Agradeço por me ajudar! Pegue estes ovos, ouvi dizer que você tem uma coleção de mascotes e estes amiguinhos aqui poderiam ser um bom acréscimo!”",
     "questChameleonBoss": "Camaleão Caótico",
     "QuestChameleonUnlockText": "Desbloqueia Ovos de Camaleão para compra no Mercado.",
-    "questRaccoonText": "Guaxinim Magnata",
+    "questRaccoonText": "O Guaxinim Ganancioso",
     "questRaccoonRageDescription": "Esta barra se enche conforme você não completa as suas Diárias. Quando estiver cheia, o Guaxinim Magnata irá recuperar parte de sua vida!",
     "questRaccoonDropRaccoonEgg": "Guaxinim (Ovo)",
     "questRaccoonUnlockText": "Desbloqueia ovos de Guaxinim para compra no mercado.",
@@ -790,5 +790,6 @@
     "questCrabText": "O Caranguejo Brincalhão",
     "questCrabDropCrabEgg": "Caranguejo (Ovo)",
     "questCrabUnlockText": "Desbloqueia ovos de Caranguejo para compra no mercado.",
-    "questCrabBoss": "Caranguejo Brincalhão"
+    "questCrabBoss": "Caranguejo Brincalhão",
+    "questRaccoonBoss": "Guaxinim Ganancioso"
 }

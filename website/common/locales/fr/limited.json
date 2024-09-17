@@ -267,7 +267,7 @@
     "summer2024SeaAnemoneMageSet": "Ensemble de l'Anémone de Mer (Mage)",
     "summer2024SeaSnailHealerSet": "Ensemble de l'Escargot de Mer (Guérisseu·r·se)",
     "summer2024NudibranchRogueSet": "Ensemble du Nudibranche (Voleu·r·se)",
-    "gemSaleLimitationsText": "Cette promotion ne s'applique que pendant un évènement disponible durant un temps limité. Cet évènement commence le <%= eventStartMonth %> <%= eventStartOrdinal %> à <%= eventStartTime %> (<%= eventStartUTC %> UTC) et se terminera le <%= eventEndMonth %> <%= eventEndOrdinal %> à <%= eventEndTime %> (<%= eventEndUTC %> UTC). Cette promotion ne s'applique que si vous achetez des Gemmes pour vous-même.",
+    "gemSaleLimitationsText": "Cette promotion ne s'applique que pendant un évènement disponible durant un temps limité. Cet évènement commence le <%= eventStartMonth %> <%= eventStartOrdinal %> à <%= eventStartTime %> heure locale (<%= eventStartUTC %> UTC) et se terminera le <%= eventEndMonth %> <%= eventEndOrdinal %> à <%= eventEndTime %> heure locale (<%= eventEndUTC %> UTC). Cette promotion ne s'applique que si vous achetez des Gemmes pour vous-même.",
     "fall2024FieryImpWarriorSet": "Ensemble du Diablotin Ardent (Guerri·er·ère)",
     "fall2024BlackCatRogueSet": "Ensemble du Chat Noir (Voleu·r·se)",
     "fall2024UnderworldSorcerorMageSet": "Ensemble du Sorcier de l'Outre-Monde (Mage)",
