@@ -11,11 +11,10 @@
     </div>
     <div class="modal-body">
       <div class="pull-right-sm text-center">
-        <div
-        class="col-centered">
+        <div class="col-centered">
           <Sprite
-          :image-name="`quest_${quests[user.party.quest.key].key}`"
-        />
+            :image-name="`quest_${quests[user.party.quest.key].key}`"
+          />
         </div>
         <div ng-if="quests[user.party.quest.key].boss">
           <h4>{{ quests[user.party.quest.key].boss.name() }}</h4>

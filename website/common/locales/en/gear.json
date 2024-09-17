@@ -3005,7 +3005,7 @@
   "shieldArmoireBuoyantBeachBallText": "Beachball",
   "shieldArmoireBuoyantBeachBallNotes": "Got too many balls up in the air already? Here’s one that you can safely set down, roll, bounce and bounce and bounce...  Increases Strength by <%= str %>. Enchanted Armoire: Beachside Set (Item 4 of 4).",
   "shieldArmoireSafetyFlashlightText": "Safety Flashlight",
-  "shieldArmoireSafetyFlashlightNotes": "Wait, did you hear that noise? Quick! Shine your flashlight into the shadows over there. Hmmm. Looks like it was just the wind. Or was it…?Increases Constitution by <%= con $>. Enchanted Armoire: Trick or Treat Set (Item 1 of 2)",
+  "shieldArmoireSafetyFlashlightNotes": "Wait, did you hear that noise? Quick! Shine your flashlight into the shadows over there. Hmmm. Looks like it was just the wind. Or was it…? Increases Constitution by <%= con $>. Enchanted Armoire: Trick or Treat Set (Item 1 of 2)",
 
   "back": "Back Accessory",
   "backBase0Text": "No Back Accessory",
