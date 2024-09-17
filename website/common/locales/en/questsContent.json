@@ -929,6 +929,7 @@
   "questDogBoss": "Shiberus",
   "questDogRageTitle": "Triple Toy Toss",
   "questDogRageDescription": "This bar fills when you don't complete your Dailies. When it's full, Shiberus will take away some of your party's MP!",
+  "questDogRageEffect": "Shiberus throws toys at you rapid-fire and blocks your magic spells! The party’s MP is reduced!",
   "questDogDropDogEgg": "Dog (Egg)",
   "questDogUnlockText": "Unlocks Dog Eggs for purchase in the Market.",
 
