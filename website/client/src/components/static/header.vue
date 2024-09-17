@@ -152,7 +152,7 @@
   }
 
   .btn-primary.pull-right {
-    height: 2.5em;
+    line-height: 1.572;
     margin: auto 0px auto auto;
   }
 

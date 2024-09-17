@@ -3,7 +3,6 @@
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
   font-weight: bold;
-  line-height: 1.71;
   border: 1px solid transparent;
   padding: 4px 12px;
   border-radius: 4px;
@@ -40,7 +39,7 @@
   }
 
   &.with-icon {
-    height: 2rem; // otherwise would something set the height to 33px
+    height: 32px; // otherwise would something set the height to 33px
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -49,14 +48,17 @@
 
 .btn-front {
   font-size: 16px;
-  line-height: 1.5;
+  line-height: 1;
   padding: 7.5px 15.5px;
 }
 
 .btn-primary {
   background: $purple-200;
   border: 1px solid transparent;
+  padding-bottom: 4.5px;
+  padding-top: 4.5px;
   --icon-color: #{$purple-500};
+
 
   &:focus {
     background: $purple-200;
@@ -99,6 +101,8 @@
   background: $white;
   border: 1px solid transparent;
   color: $gray-50;
+  padding-top: 4.5px;
+  padding-bottom: 4.5px;
 
   --icon-color: #{$gray-200};
 
@@ -152,6 +156,7 @@
 .btn-danger {
   background: $maroon-100;
   border: 1px solid transparent;
+  padding: 4.5px 12px;
 
   &:hover:not(:disabled):not(.disabled) {
     background: #e14e4e;
@@ -171,6 +176,9 @@
   &:not(:disabled):not(.disabled):active, &:not(:disabled):not(.disabled).active {
     background: $maroon-100;
     border: 1px solid transparent;
+  }
+  &.disabled {
+    padding: 3.04px 12px;
   }
 }
 
@@ -201,6 +209,7 @@
 .btn-success {
   background: $green-50;
   border: 1px solid transparent;
+  padding: 4.5px 0px;
 
   &:hover:not(:disabled):not(.disabled) {
     background: #32bd8a;
@@ -225,6 +234,7 @@
 
 .btn-info {
   background: $blue-50;
+  line-height: 1.572;
 
   &:disabled {
     background: $blue-50;
@@ -267,7 +277,10 @@
 }
 
 .btn-small {
+  align-content: center;
+  display:inline-flex;
+  flex-wrap: wrap;
   font-size: 12px;
-  line-height: 1.33;
+  line-height: 1.167;
   padding: 4px 8px;
 }

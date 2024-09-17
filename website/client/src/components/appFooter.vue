@@ -584,9 +584,12 @@ h3 {
 }
 
 .debug {
-  margin-top: 16px;
-  display: flex;
+  align-content: center;
+  display:inline-flex;
+  flex-wrap: wrap;
   justify-content: center;
+  line-height: 1.143;
+  margin-top: 16px;
 }
 
 .debug-group {
@@ -605,7 +608,7 @@ h3 {
   background: $white;
   border-radius: 2px;
   width: 175px;
-  height: 32px;
+  line-height: 2.286;
   color: $gray-50;
   text-align: center;
   vertical-align: middle;
