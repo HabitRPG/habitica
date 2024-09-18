@@ -379,6 +379,7 @@
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+    line-clamp: 2;
     overflow: hidden;
     text-overflow: ellipsis;
     word-break: break-word;
@@ -459,7 +460,7 @@
     }
 
     button {
-      height: 40px;
+      height: 32px;
       border-radius: 2px;
       margin-left: 1.5rem;
 

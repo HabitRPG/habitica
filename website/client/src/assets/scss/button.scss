@@ -91,6 +91,10 @@
       color: var(--icon-color);
     }
   }
+
+  &.disabled {
+    line-height: 1;
+  }
 }
 
 .btn-secondary,

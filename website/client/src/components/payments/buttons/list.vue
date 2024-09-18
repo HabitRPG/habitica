@@ -57,6 +57,7 @@
 
         &.paypal-checkout {
           background: #009cde;
+          height: 32px;
 
           img {
             width: 157px;

@@ -66,7 +66,7 @@
   @import '~@/assets/scss/colors.scss';
 
   .margin-adjust {
-    margin-top: -1px;
+    margin-top: 2px;
   }
 
   .multi-list {
@@ -77,7 +77,7 @@
       flex-wrap: wrap;
 
       .multi-item {
-        margin-bottom: 0.375rem;
+        margin-bottom: 4px;
       }
     }
   }
