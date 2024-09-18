@@ -103,12 +103,14 @@
             >
           </div>
         </div>
-        <div>
-          Next Mystic Hourglass:
-          <strong>{{ nextHourglassDate }}</strong>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">
+            Next Mystic Hourglass:
+          </label>
+          <strong class="col-sm-9 col-form-label">{{ nextHourglassDate }}</strong>
         </div>
-        <div class="form-inline">
-          <label>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">
             Mystic Hourglasses:
           </label>
           <div class="col-sm-9">
@@ -237,6 +239,7 @@ export default {
     nextHourglassDate () {
       const currentPlanContext = getPlanContext(this.hero, new Date());
 
+      if (!currentPlanContext.nextHourglassDate) return 'N/A';
       return currentPlanContext.nextHourglassDate.format('MMMM YYYY');
     },
   },
