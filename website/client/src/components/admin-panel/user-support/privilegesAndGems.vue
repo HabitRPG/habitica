@@ -7,7 +7,7 @@
           :class="{'open': expand}"
           @click="expand = !expand"
         >
-          Priviliges, Gem Balance
+          Privileges, Gem Balance
         </h3>
       </div>
       <div

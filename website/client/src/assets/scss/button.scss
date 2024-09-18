@@ -48,15 +48,14 @@
 
 .btn-front {
   font-size: 16px;
-  line-height: 1;
+  line-height: 1.71;
   padding: 7.5px 15.5px;
 }
 
 .btn-primary {
   background: $purple-200;
   border: 1px solid transparent;
-  padding-bottom: 4.5px;
-  padding-top: 4.5px;
+  padding: 4.5px 12px;
   --icon-color: #{$purple-500};
 
 
@@ -101,8 +100,7 @@
   background: $white;
   border: 1px solid transparent;
   color: $gray-50;
-  padding-top: 4.5px;
-  padding-bottom: 4.5px;
+  padding: 4.5px 12px;
 
   --icon-color: #{$gray-200};
 
@@ -178,13 +176,15 @@
     border: 1px solid transparent;
   }
   &.disabled {
-    padding: 3.04px 12px;
+    line-height: 1.5;
+    padding: 4.5px 12px;
   }
 }
 
 .btn-warning {
   background: $orange-10;
   color: $white !important;
+  padding: 4.5px 12px;
 
   &:hover:not(:disabled):not(.disabled) {
     background: $orange-100;
@@ -209,7 +209,7 @@
 .btn-success {
   background: $green-50;
   border: 1px solid transparent;
-  padding: 4.5px 0px;
+  padding: 4.5px 12px;
 
   &:hover:not(:disabled):not(.disabled) {
     background: #32bd8a;
@@ -234,7 +234,7 @@
 
 .btn-info {
   background: $blue-50;
-  line-height: 1.572;
+  padding: 4.5px 12px;
 
   &:disabled {
     background: $blue-50;

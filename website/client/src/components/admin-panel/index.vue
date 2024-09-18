@@ -41,12 +41,19 @@
 </template>
 
 <style lang="scss" scoped>
+  .btn {
+    line-height:1.71;
+    padding: 4.5px 12px;
+    top: -1px;
+  }
+
   .uidField {
     min-width: 45ch;
   }
 
   .input-group-append {
-    width:auto;
+    height: 32px;
+    width: auto;
   }
 
   .admin-panel-content {
