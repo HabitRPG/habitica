@@ -190,7 +190,7 @@ describe('cron utility functions', () => {
             consecutive: {
               count,
               offset,
-              gemCapExtra: 25,
+              gemCapExtra: 26,
               trinkets: 19,
             },
             quantity: 1,
