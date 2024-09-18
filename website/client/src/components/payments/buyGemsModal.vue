@@ -183,11 +183,9 @@
               eventStartMonth: eventInfo.startMonth,
               eventStartOrdinal: eventInfo.startOrdinal,
               eventStartTime: eventInfo.startTime,
-              eventStartUTC: eventInfo.startUTC,
               eventEndMonth: eventInfo.endMonth,
               eventEndOrdinal: eventInfo.endOrdinal,
               eventEndTime: eventInfo.endTime,
-              eventEndUTC: eventInfo.endUTC,
               timeZone: eventInfo.timeZoneAbbrev,
             }) }}
           </small>
@@ -461,11 +459,9 @@ export default {
         startMonth: moment(currentEvent.start).format('MMMM'),
         startOrdinal: moment(currentEvent.start).format('Do'),
         startTime: moment(currentEvent.start).format('hh:mm A'),
-        startUTC: moment(currentEvent.start).utc().format('hh:mm A'),
         endMonth: moment(currentEvent.end).format('MMMM'),
         endOrdinal: moment(currentEvent.end).format('Do'),
         endTime: moment(currentEvent.end).format('hh:mm A'),
-        endUTC: moment(currentEvent.end).utc().format('hh:mm A'),
       };
     },
     isGemsPromoActive () {
