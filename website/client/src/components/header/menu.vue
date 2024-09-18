@@ -297,7 +297,7 @@
             <div class="topbar-dropdown">
               <router-link
                 v-if="user.permissions.fullAccess ||
-                  user.permissions.userSupport || user.permissions.newsPoster"
+                  user.permissions.userSupport"
                 class="topbar-dropdown-item dropdown-item"
                 :to="{name: 'adminPanel'}"
               >

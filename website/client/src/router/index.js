@@ -190,7 +190,6 @@ const router = new VueRouter({
       meta: {
         privilegeNeeded: [ // any one of these is enough to give access
           'userSupport',
-          'newsPoster',
         ],
       },
       children: [
