@@ -188,6 +188,7 @@
               eventEndOrdinal: eventInfo.endOrdinal,
               eventEndTime: eventInfo.endTime,
               eventEndUTC: eventInfo.endUTC,
+              timeZone: eventInfo.timeZoneAbbrev,
             }) }}
           </small>
         </div>
@@ -445,11 +446,18 @@ export default {
       );
       if (!currentEvent) return null;
 
+      // https://stackoverflow.com/questions/1954397/detect-timezone-abbreviation-using-javascript#answer-66180857
+      const timeZoneAbbrev = new Intl.DateTimeFormat('en-us', { timeZoneName: 'short' })
+        .formatToParts(new Date())
+        .find(part => part.type === 'timeZoneName')
+        .value;
+
       return {
         name: currentEvent.event,
         class: currentEvent.gemsPromo ? `event-${currentEvent.event}` : '',
         gemsPromo: currentEvent.gemsPromo,
         promo: currentEvent.promo,
+        timeZoneAbbrev,
         startMonth: moment(currentEvent.start).format('MMMM'),
         startOrdinal: moment(currentEvent.start).format('Do'),
         startTime: moment(currentEvent.start).format('hh:mm A'),

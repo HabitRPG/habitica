@@ -76,23 +76,6 @@ export const REPEATING_EVENTS = {
     end: new Date('1970-08-02T03:59-04:00'),
     foodSeason: 'Cake',
   },
-  fallGemFest: {
-    start: new Date('1970-09-23T04:00-04:00'),
-    end: new Date('1970-09-27T23:59-04:00'),
-    gemsPromo,
-  },
-  spookyGemFest: {
-    start: new Date('1970-10-28T04:00-04:00'),
-    end: new Date('1970-11-01T23:59-04:00'),
-    gemsPromo,
-  },
-  habitoween: {
-    start: new Date('1970-10-30T04:00-04:00'),
-    end: new Date('1970-11-01T23:59-04:00'),
-    foodSeason: 'Candy',
-    season: 'habitoween',
-    npcImageSuffix: '_halloween',
-  },
   fallGemSale: {
     start: new Date('1970-09-23T04:00-04:00'),
     end: new Date('1970-09-27T23:59-04:00'),
@@ -104,6 +87,13 @@ export const REPEATING_EVENTS = {
     end: new Date('1970-11-01T23:59-04:00'),
     event: 'spooky_extra_gems',
     gemsPromo,
+  },
+  habitoween: {
+    start: new Date('1970-10-30T04:00-04:00'),
+    end: new Date('1970-11-01T23:59-04:00'),
+    foodSeason: 'Candy',
+    season: 'habitoween',
+    npcImageSuffix: '_halloween',
   },
   harvestFeast: {
     start: new Date('1970-11-20T04:00-05:00'),
