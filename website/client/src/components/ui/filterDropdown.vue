@@ -12,7 +12,19 @@
       @select="selectItem($event)"
     >
       <template #item="{ item }">
-        <span :class="{'dropdown-icon-item': withIcon}">
+        <span
+          :class="{'dropdown-icon-item': withIcon}"
+          v-if="withIcon"
+          id="class-selector"
+        >
+          <slot
+            name="item"
+            :item="item"
+          ></slot>
+        </span>
+        <span
+          v-else
+        >
           <slot
             name="item"
             :item="item"
@@ -56,5 +68,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+#class-selector {
+  line-height: 1.37;
+  padding-top: 4.1px !important;
+  padding-bottom: 4.1px !important;
+}
 </style>

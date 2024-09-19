@@ -4,7 +4,7 @@
   font-size: 14px;
   font-weight: bold;
   border: 1px solid transparent;
-  padding: 4px 12px;
+  line-height: 1.5;
   border-radius: 4px;
   box-shadow: 0 1px 3px 0 rgba($black, 0.12), 0 1px 2px 0 rgba($black, 0.24);
   color: $white;
@@ -285,6 +285,6 @@
   display:inline-flex;
   flex-wrap: wrap;
   font-size: 12px;
-  line-height: 1.167;
+  line-height: 1.17;
   padding: 4px 8px;
 }

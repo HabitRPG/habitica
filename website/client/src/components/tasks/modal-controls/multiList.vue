@@ -20,7 +20,7 @@
       >
         <div
           v-markdown="item.name"
-          class="multi-label my-auto ml-75 mr-2"
+          class="multi-label ml-75 mr-2"
         ></div>
         <div
           class="remove ml-auto mr-75"
@@ -69,6 +69,10 @@
     margin-top: 2px;
   }
 
+  .markdown {
+    padding-top: 2px !important;
+  }
+
   .multi-list {
     width: 100%;
 
@@ -98,7 +102,7 @@
     .multi-label {
       height: 1rem;
       font-size: 12px;
-      line-height: 16px;
+      line-height: 1;
       letter-spacing: normal;
       color: $gray-100;
     }
@@ -106,7 +110,6 @@
     .remove {
       display: inline-block;
       object-fit: contain;
-      margin-top: -0.125rem;
     }
   }
 

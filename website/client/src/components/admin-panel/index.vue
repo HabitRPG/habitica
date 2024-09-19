@@ -22,7 +22,7 @@
               Load User
             </button>
             <button
-              class="btn btn-secondary"
+              class="btn btn-secondary buttons"
               type="button"
               @click="searchUsers(userIdentifier)"
             >
@@ -42,9 +42,7 @@
 
 <style lang="scss" scoped>
   .btn {
-    line-height:1.71;
     padding: 4.5px 12px;
-    top: -1px;
   }
 
   .uidField {
@@ -52,7 +50,6 @@
   }
 
   .input-group-append {
-    height: 32px;
     width: auto;
   }
 

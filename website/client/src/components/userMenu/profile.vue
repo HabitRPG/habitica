@@ -834,7 +834,7 @@
 
   .send-message {
     font-size: 1em;
-    line-height: 1.71;
+    line-height: 1.5;
     margin-left: 24px;
     margin-right: 8px;
     margin-top: 0px;

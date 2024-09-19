@@ -58,7 +58,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    padding: 4.101px 25px 4.1px 8px; // 25px allowed enough room for the down arrow to be displayed
+    padding-right: 25px; // 25px allows room for the down arrow display
   }
 
   .selectListItem {
