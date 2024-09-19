@@ -1372,7 +1372,7 @@ const shield = {
   },
   safetyFlashlight: {
     con: 10,
-    set: 'trickOrTreatSet',
+    set: 'frightNightSet',
   },
 };
 
@@ -1875,7 +1875,7 @@ const weapon = {
   },
   spookyCandyBucket: {
     int: 10,
-    set: 'trickOrTreatSet',
+    set: 'frightNightSet',
   },
 };
 

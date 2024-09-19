@@ -788,7 +788,7 @@
   "weaponArmoireFunnyFoolBatonText": "Funny Fool Baton",
   "weaponArmoireFunnyFoolBatonNotes": "With a wave of your baton you can deliver a punchline, redirect attention, or summon applause. Increases Constitution and Strength by <%= attrs %> each. Enchanted Armoire: Funny Fool Set (Item 3 of 3)",
   "weaponArmoireSpookyCandyBucketText": "Spooky Candy Bucket",
-  "weaponArmoireSpookyCandyBucketNotes": "With an epic costume like that, you’re going to get so much candy! Good thing you’ve got this bottomless bucket to hold it all. Try not to snack on any until you get home. Increases Intelligence by <%= int %>. Enchanted Armoire: Trick or Treat Set (Item 2 of 2)",
+  "weaponArmoireSpookyCandyBucketNotes": "With an epic costume like that, you’re going to get so much candy! Good thing you’ve got this bottomless bucket to hold it all. Try not to snack on any until you get home. Increases Intelligence by <%= int %>. Enchanted Armoire: Fright Night Set (Item 2 of 2)",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -3005,7 +3005,7 @@
   "shieldArmoireBuoyantBeachBallText": "Beachball",
   "shieldArmoireBuoyantBeachBallNotes": "Got too many balls up in the air already? Here’s one that you can safely set down, roll, bounce and bounce and bounce...  Increases Strength by <%= str %>. Enchanted Armoire: Beachside Set (Item 4 of 4).",
   "shieldArmoireSafetyFlashlightText": "Safety Flashlight",
-  "shieldArmoireSafetyFlashlightNotes": "Wait, did you hear that noise? Quick! Shine your flashlight into the shadows over there. Hmmm. Looks like it was just the wind. Or was it…? Increases Constitution by <%= con $>. Enchanted Armoire: Trick or Treat Set (Item 1 of 2)",
+  "shieldArmoireSafetyFlashlightNotes": "Wait, did you hear that noise? Quick! Shine your flashlight into the shadows over there. Hmmm. Looks like it was just the wind. Or was it…? Increases Constitution by <%= con %>. Enchanted Armoire: Fright Night Set (Item 1 of 2)",
 
   "back": "Back Accessory",
   "backBase0Text": "No Back Accessory",
