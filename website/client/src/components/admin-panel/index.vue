@@ -22,7 +22,7 @@
               Load User
             </button>
             <button
-              class="btn btn-secondary buttons"
+              class="btn btn-secondary"
               type="button"
               @click="searchUsers(userIdentifier)"
             >
