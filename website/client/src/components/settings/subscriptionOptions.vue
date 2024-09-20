@@ -1,17 +1,32 @@
 <template>
   <div id="subscription-form">
-    <b-form-group class="mb-3 w-100 h-100">
+    <div class="mb-3 w-100 h-100">
       <!-- eslint-disable vue/no-use-v-if-with-v-for -->
-      <b-form-radio
+      <div
         v-for="block in subscriptionBlocksOrdered"
         v-if="block.target !== 'group' && block.canSubscribe === true"
         :key="block.key"
-        v-model="subscription.key"
         :value="block.key"
-        class="subscribe-option pt-2 pl-5 pb-3 mb-0"
-        :class="{selected: subscription.key === block.key}"
-        @click.native="updateSubscriptionData(block.key)"
+        class="subscribe-option mb-2 d-flex"
+        :class="{selected: subscription.key === block.key, final: block.months === 12}"
+        @click="updateSubscriptionData(block.key)"
       >
+        <div
+          v-if="subscription.key === block.key"
+          class="selected-corner"
+        >
+        </div>
+        <div
+          class="svg svg-icon svg-check color m-2"
+          v-html="icons.check"
+        >
+        </div>
+        <div
+          v-if="block.months === 12"
+          class="ribbon mt-3 d-flex align-items-center"
+        >
+          <small class="bold teal-1"> {{ $t('popular') }} </small>
+        </div>
         <!-- eslint-enable vue/no-use-v-if-with-v-for -->
         <div
           v-if="userReceivingGift && userReceivingGift._id"
@@ -19,19 +34,77 @@
           v-html="$t('giftSubscriptionRateText', {price: block.price, months: block.months})"
         >
         </div>
-        <div
-          v-else
-          class="subscription-text ml-2 mb-1"
-          v-html="$t('subscriptionRateText', {price: block.price, months: block.months})"
-        >
+        <div v-else class="w-100">
+          <div class="ml-5" v-if="block.months < 12">
+            <h2 class="mt-3 mb-1"> ${{ block.price }}.00 USD </h2>
+            <small
+              v-if="block.months < 2"
+              class="bold mb-2"
+            >
+              {{ $t('recurringMonthly') }}
+            </small>
+            <small
+              v-else
+              class="bold mb-2"
+            >
+              {{ $t('recurringNMonthly', { length: block.months }) }}
+            </small>
+            <div class="d-flex flex-column">
+              <div class="d-flex align-items-center mb-1">
+                <div
+                  class="svg svg-icon svg-plus gray-300 color mr-1"
+                  v-html="icons.plus"
+                >
+                </div>
+                <div class="small" v-html="$t('unlockNGems', { count: 24 })"></div>
+              </div>
+              <div class="d-flex align-items-center">
+                <div
+                  class="svg svg-icon svg-plus gray-300 color mr-1"
+                  v-html="icons.plus"
+                >
+                </div>
+                <div class="small" v-html="$t('earn2Gems')"></div>
+              </div>
+            </div>
+          </div>
+          <div v-else>
+            <div class="bg-white py-3 pl-5">
+              <div class="d-flex align-items-center mb-1">
+                <h2 class="teal-10 mr-2 my-auto"> ${{ block.price }}.00 USD </h2>
+                <strike class="gray-200">$60.00 USD</strike>
+              </div>
+              <small class="bold teal-1 mb-2">
+                {{ $t('recurringNMonthly', { length: block.months }) }}
+              </small>
+              <div class="d-flex flex-column">
+                <div class="d-flex align-items-center mb-1">
+                  <div
+                    class="svg svg-icon svg-plus yellow-10 color mr-1"
+                    v-html="icons.plus"
+                  >
+                  </div>
+                  <div class="small teal-1" v-html="$t('unlockNGems', { count: 50 })"></div>
+                </div>
+                <div class="d-flex align-items-center">
+                  <div
+                    class="svg svg-icon svg-plus yellow-10 color mr-1"
+                    v-html="icons.plus"
+                  >
+                  </div>
+                  <div class="small teal-1" v-html="$t('maxGemCap')"></div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="gradient-banner text-center"
+            >
+              <small class="mt-3" v-html="$t('immediate12Hourglasses')"></small>
+            </div>
+          </div>
         </div>
-        <div
-          class="ml-2"
-          v-html="subscriptionBubbles(block.key)"
-        >
-        </div>
-      </b-form-radio>
-    </b-form-group>
+      </div>
+    </div>
     <div class="mx-4 mb-4 text-center">
       <small
         v-if="note"
@@ -51,20 +124,26 @@
       })"
       :amazon-data="{type: 'single', gift, giftedTo: userReceivingGift._id, receiverName}"
     />
-    <payments-buttons
+    <button
       v-else
-      :disabled="!subscription.key"
-      :stripe-fn="() => redirectToStripe({
-        subscription: subscription.key,
-        coupon: subscription.coupon,
-      })"
-      :paypal-fn="() => openPaypal({url: paypalPurchaseLink, type: 'subscription'})"
-      :amazon-data="{
-        type: 'subscription',
-        subscription: subscription.key,
-        coupon: subscription.coupon
-      }"
-    />
+      class="btn btn-primary w-100"
+      @click="$root.$emit('bv::show::modal', 'buy-subscription')"
+    > {{ $t('subscribe') }} </button>
+    <b-modal
+      id="buy-subscription"
+      size="md"
+      :hide-header="true"
+      :hide-footer="true"
+    >
+      <payments-buttons
+        :disabled="!subscription.key"
+        :stripe-fn="() => redirectToStripe({
+          subscription: subscription.key,
+          coupon: subscription.coupon,
+        })"
+        :paypal-fn="() => openPaypal({url: paypalPurchaseLink, type: 'subscription'})"
+      />
+    </b-modal>
   </div>
 </template>
 
@@ -77,9 +156,13 @@
       margin-top: 0.75rem;
     }
 
-    .selected {
-      background-color: rgba(213, 200, 255, 0.32);
+    .discount-bubble {
+      background-color: $green-10;
+      color: $white;
+    }
 
+    .selected {
+      outline: 2px solid $purple-300;
       .subscription-bubble {
         background-color: $purple-300;
         color: $white;
@@ -102,9 +185,8 @@
       color: $gray-200;
     }
 
-    .discount-bubble {
-      background-color: $green-10;
-      color: $white;
+    .teal-1 strong {
+      color: $yellow-5 !important;
     }
   }
 </style>
@@ -112,20 +194,82 @@
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
 
-  small {
+  small, .small {
     color: $gray-100;
     display: inline-block;
     font-size: 12px ;
     font-weight: normal;
-    line-height: 1.33;
+    line-height: 16px;
+
+    &.bold {
+      font-weight: 700;
+    }
+  }
+
+  strike {
+    line-height: 24px;
+  }
+
+  .gradient-banner {
+    padding-left: 100px;
+    padding-right: 100px;
+
+    small {
+      color: $teal-1;
+    }
+  }
+
+  .ribbon {
+    height: 24px;
+    width: fit-content;
+    background: linear-gradient(90deg, rgba(119, 244, 199, 1), rgba(114, 207, 255, 1));
+    border-radius: 4px;
+    clip-path: polygon(0px 0px, calc(100% + 1px) 0px, calc(100% + 1px) calc(100% + 1px),
+      0px calc(100% + 3px), 4px 50%);
+    box-shadow: 0px 1px 3px 0px rgba(26, 24, 29, 0.12), 0px 1px 2px 0px rgba(26, 24, 29, 0.24);
+    position: absolute;
+    right: -4px;
+    padding-left: 12px;
+    padding-right: 10px;
+  }
+
+  .selected-corner {
+    border-color: $purple-300 transparent transparent transparent;
+    border-style: solid;
+    border-width: 48px 48px 0 0;
+    border-top-left-radius: 4px;
+    position: absolute;
   }
 
   .subscribe-option {
-    background-color: $gray-700;
+    width: 448px;
+    height: 120px;
+    border-radius: 8px;
+    box-shadow: 0px 1px 3px 0px rgba(26, 24, 29, 0.12), 0px 1px 2px 0px rgba(26, 24, 29, 0.24);
+    position: relative;
 
-    &:not(:last-of-type) {
-      border-bottom: 1px solid $gray-600;
+    &.final {
+      height: 184px;
+      background: linear-gradient(90deg, rgba(119, 244, 199, 1), rgba(114, 207, 255, 1));
     }
+
+    h2 {
+      font-family: 'Roboto', sans-serif;
+      line-height: 24px;
+      color: $gray-50;
+    }
+  }
+
+  .svg-check {
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    color: $white;
+  }
+
+  .svg-plus {
+    width: 10px;
+    height: 10px;
   }
 </style>
 
@@ -136,6 +280,8 @@ import sortBy from 'lodash/sortBy';
 import subscriptionBlocks from '@/../../common/script/content/subscriptionBlocks';
 import paymentsButtons from '@/components/payments/buttons/list';
 import paymentsMixin from '../../mixins/payments';
+import check from '@/assets/svg/check.svg';
+import plus from '@/assets/svg/positive.svg';
 
 export default {
   components: {
@@ -160,12 +306,16 @@ export default {
   },
   data () {
     return {
-      subscription: {
-        key: 'basic_earned',
-      },
       gift: {
         type: 'subscription',
         subscription: { key: 'basic_earned' },
+      },
+      icons: Object.freeze({
+        check,
+        plus,
+      }),
+      subscription: {
+        key: 'basic_12mo',
       },
     };
   },
@@ -193,7 +343,7 @@ export default {
     },
     updateSubscriptionData (key) {
       this.subscription.key = key;
-      if (this.userReceivingGift._id) this.gift.subscription.key = key;
+      if (this.userReceivingGift?._id) this.gift.subscription.key = key;
     },
   },
 };
