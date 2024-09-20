@@ -298,6 +298,10 @@
     padding: .5em;
   }
 
+  .btn-success {
+    padding: 4.5px 12px !important;
+  }
+
   .sidebar {
     background-color: $gray-600;
   }

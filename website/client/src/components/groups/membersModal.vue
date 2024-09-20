@@ -24,7 +24,7 @@
           </div>
           <div class="col-6">
             <button
-              class="close"
+              class="close mr-0"
               type="button"
               aria-label="Close"
               @click="close()"
@@ -122,7 +122,7 @@
             <b-dropdown right="right">
               <div
                 slot="button-content"
-                class="svg-icon inline dots pt-1"
+                class="svg-icon inline dots"
                 v-html="icons.dots"
               ></div>
               <b-dropdown-item @click="sendMessage(member)">
@@ -250,6 +250,11 @@
 
 <style lang='scss'>
   #members-modal {
+    button {
+      line-height: 1.358;
+      width: 30px;
+    }
+
     .modal-header {
       background-color: #edecee;
       border-radius: 8px 8px 0 0;
@@ -307,6 +312,7 @@
     }
     .dots {
       height: 16px;
+      padding-top: 2px;
       width: 4px;
     }
   }
