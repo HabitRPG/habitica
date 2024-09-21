@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid';
 
 import { model as User } from '../../website/server/models/user';
 
-const MIGRATION_NAME = '20181203_take_this';
+const MIGRATION_NAME = 'take-this';
 
 const progressCount = 1000;
 let count = 0;
@@ -41,9 +41,9 @@ async function updateUser (user) {
   if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
 
   if (push) {
-    return User.update({ _id: user._id }, { $set: set, $push: push }).exec();
+    return User.updateOne({ _id: user._id }, { $set: set, $push: push }).exec();
   }
-  return User.update({ _id: user._id }, { $set: set }).exec();
+  return User.updateOne({ _id: user._id }, { $set: set }).exec();
 }
 
 export default async function processUsers () {
