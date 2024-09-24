@@ -520,7 +520,8 @@
       height: 32px;
 
       &:focus {
-        border: 2px solid black;
+        border: 2px solid $purple-400;
+        box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
       }
     }
 

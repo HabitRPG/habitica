@@ -93,6 +93,8 @@
   }
 
   &.disabled {
+    background-color: $white;
+    box-shadow: 0px 1px 2px 0px rgba(26, 24, 29, 0.24), 0px 1px 3px 0px rgba(26, 24, 29, 0.12);
     line-height: 1;
   }
 }
@@ -105,13 +107,13 @@
   border: 1px solid transparent;
   color: $gray-50;
   padding: 4.5px 12px;
+  border-color: $purple-400;
 
   --icon-color: #{$gray-200};
 
   &:focus, &:active {
     color: $gray-50;
     background: $white;
-    border-color: $purple-400;
 
     --icon-color: #{$purple-300};
   }

@@ -434,6 +434,10 @@ button {
   margin-bottom: 1rem;
   padding: .5rem 1rem;
   box-shadow: 0 1px 3px 0 rgb(26 24 29 / 12%), 0 1px 2px 0 rgb(26 24 29 / 24%);
+
+  &:focus {
+    outline: 2px solid $purple-400;
+  }
 }
 
 ul {
@@ -600,8 +604,8 @@ h3 {
   font-weight: 700;
   background-color: $gray-600;
 
- .btn {
-  margin: 2px;
+  .btn {
+    margin: 2px;
   }
 }
 
@@ -618,17 +622,15 @@ h3 {
     &:hover {
       color:$purple-300;
       box-shadow: 0 3px 6px 0 rgba(26, 24, 29, 0.16), 0 3px 6px 0 rgba(26, 24, 29, 0.24);
+    }
     &:active:not(:disabled) {
       color:$purple-300;
       border: 1px solid $purple-400;
       box-shadow: 0 3px 6px 0 rgba(26, 24, 29, 0.16), 0 3px 6px 0 rgba(26, 24, 29, 0.24);
     }
-  }
-
   a {
     display: flex;
   }
-
   .text{
     display: inline-block;
     vertical-align: bottom;
