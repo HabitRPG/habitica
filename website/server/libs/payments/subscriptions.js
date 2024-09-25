@@ -260,9 +260,9 @@ async function createSubscription (data) {
       recipient.purchased.plan.hourglassPromoReceived = new Date();
       if (months !== block.months) {
         // user is upgrading their sub. Already got one hourglass when subscribing
-        await plan.updateHourglasses(recipient._id, 11, '12_month_subscription');
-      } else {
         await plan.updateHourglasses(recipient._id, 12, '12_month_subscription');
+      } else {
+        await plan.updateHourglasses(recipient._id, 13, '12_month_subscription');
       }
     } else if (!data.gift || (data.gift && isNewSubscription)) {
       await plan.updateHourglasses(recipient._id, 1, 'subscribed');
