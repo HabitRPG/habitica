@@ -133,7 +133,7 @@
               class="form-control"
               type="number"
               min="0"
-              max="25"
+              max="26"
               step="5"
             >
           </div>
@@ -143,7 +143,7 @@
             Total Gem cap:
           </label>
           <strong class="col-sm-9 col-form-label">
-            {{ Number(hero.purchased.plan.consecutive.gemCapExtra) + 25 }}
+            {{ Number(hero.purchased.plan.consecutive.gemCapExtra) + 24 }}
           </strong>
         </div>
         <div class="form-group row">
@@ -156,7 +156,7 @@
               class="form-control"
               type="number"
               min="0"
-              :max="hero.purchased.plan.consecutive.gemCapExtra + 25"
+              :max="hero.purchased.plan.consecutive.gemCapExtra + 24"
               step="1"
             >
           </div>
