@@ -309,7 +309,7 @@
         <div class="my-2">
           Time Traveling! It is {{ new Date().toLocaleDateString() }}
           <a
-            class="btn btn-warning btn-small"
+            class="btn btn-danger btn-small"
             @click="resetTime()"
           >
             Reset
@@ -589,12 +589,12 @@ h3 {
 
 .debug {
   align-content: center;
+  border: 2px solid transparent;
   display:inline-flex;
   flex-wrap: wrap;
   justify-content: center;
-  line-height: 1.643;
   margin-top: 16px;
-  padding: 4.5px 12px;
+  padding: 2px 12px;
 }
 
 .debug-group {
@@ -606,7 +606,27 @@ h3 {
 
   .btn {
     margin: 2px;
+    padding: 2px 12px;
   }
+}
+
+.btn-small {
+  background-color: $maroon-100;
+  border: 2px solid transparent;
+  color: $white !important;
+
+  &:hover {
+    background-color: $maroon-100;
+    text-decoration: none !important;
+  }
+}
+
+.btn-secondary {
+  padding: 2px 12px;
+}
+
+.btn-secondary a:hover {
+  text-decoration: none !important;
 }
 
 .btn-contribute {

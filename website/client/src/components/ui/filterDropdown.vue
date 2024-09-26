@@ -69,8 +69,8 @@ export default {
 
 <style scoped lang="scss">
 #class-selector {
-  line-height: 1.37;
-  padding-top: 4.1px !important;
-  padding-bottom: 4.1px !important;
+  line-height: 1;
+  padding-top: 2px !important;
+  padding-bottom: 2px !important;
 }
 </style>

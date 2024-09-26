@@ -41,10 +41,6 @@
 </template>
 
 <style lang="scss" scoped>
-  .btn {
-    padding: 4.5px 12px;
-  }
-
   .uidField {
     min-width: 45ch;
   }

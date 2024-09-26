@@ -1,10 +1,12 @@
+/* use of "border: 2px solid transparent;" from https://stackoverflow.com/a/9612782 */
+
 .btn {
   cursor: pointer;
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
   font-weight: bold;
-  border: 1px solid transparent;
-  line-height: 1.5;
+  line-height: 1.714;
+  padding: 4px 12px;
   border-radius: 4px;
   box-shadow: 0 1px 3px 0 rgba($black, 0.12), 0 1px 2px 0 rgba($black, 0.24);
   color: $white;
@@ -18,10 +20,11 @@
   }
 
   &:focus {
-    border-color: $purple-400;
+    border: 2px solid $purple-400;
   }
 
   &:active, &.active:not(.btn-flat) {
+    border: 2px solid $purple-400;
     box-shadow: none;
   }
 
@@ -31,7 +34,7 @@
     opacity: 0.75;
     box-shadow: 0 1px 3px 0 rgba(26, 24, 29, 0.12), 0 1px 2px 0 rgba(26, 24, 29, 0.24);
     background-color: $gray-700;
-    border: 1px solid transparent;
+    border: 2px solid transparent;
 
     .svg {
       color: $gray-300;
@@ -54,8 +57,8 @@
 
 .btn-primary {
   background: $purple-200;
-  border: 1px solid transparent;
-  padding: 4.5px 12px;
+  border: 2px solid $purple-200;
+  padding: 2px 12px;
   --icon-color: #{$purple-500};
 
 
@@ -67,22 +70,23 @@
 
   &:not(:disabled):not(.disabled) {
     &:hover {
-      background: #5d3b9c;
-      border: 1px solid transparent;
+      background: $purple-200;
+      border: 2px solid $purple-200;
+      box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
 
       --icon-color: #{$white};
     }
 
     &:active, &.active {
       background: $purple-200;
-      border: 1px solid transparent;
+      border: 2px solid $purple-400;
 
       --icon-color: #{$white};
     }
 
     &:active:focus, &.active:focus {
       box-shadow: none;
-      border-color: $purple-400;
+      border: 2px solid $purple-400;
     }
   }
 
@@ -94,6 +98,7 @@
 
   &.disabled {
     background-color: $white;
+    border: 2px solid transparent;
     box-shadow: 0px 1px 2px 0px rgba(26, 24, 29, 0.24), 0px 1px 3px 0px rgba(26, 24, 29, 0.12);
     line-height: 1;
   }
@@ -104,9 +109,8 @@
 .show > .btn-secondary.dropdown-toggle:not(.btn-success)
 {
   background: $white;
-  border: 1px solid transparent;
+  border: 2px solid transparent;
   color: $gray-50;
-  padding: 4.5px 12px;
 
   --icon-color: #{$gray-200};
 
@@ -119,24 +123,24 @@
 
   &:not(:disabled):not(.disabled) {
     &:active, &.active {
+      border: 2px solid $purple-400;
       color: $purple-300;
       --icon-color: #{$purple-300};
 
       &:focus {
-        color: $purple-300;
+        border: 2px solid $purple-400;
         box-shadow: none;
-        border-color: $purple-400;
+        color: $purple-300;
       }
 
       background: $white;
-      border: 1px solid transparent;
+      border: 2px solid transparent;
     }
 
     &:hover {
       color: $purple-300;
-
       background: $white !important;
-      border: 1px solid transparent;
+      border: 2px solid transparent;
 
       --icon-color: #{$purple-300};
       .svg {
@@ -158,38 +162,35 @@
 
 .btn-danger {
   background: $maroon-100;
-  border: 1px solid transparent;
-  padding: 4.5px 12px;
+  border: 2px solid transparent;
 
   &:hover:not(:disabled):not(.disabled) {
     background: #e14e4e;
-    border: 1px solid transparent;
+    border: 2px solid transparent;
   }
 
   &:focus {
     background: $maroon-100;
-    border-color: $purple-400;
+    border: 2px solid $purple-400;
   }
 
   &:not(:disabled):not(.disabled):active:focus, &:not(:disabled):not(.disabled).active:focus {
     box-shadow: none;
-    border-color: $purple-400;
+    border: 2px solid $purple-400;
   }
 
   &:not(:disabled):not(.disabled):active, &:not(:disabled):not(.disabled).active {
     background: $maroon-100;
-    border: 1px solid transparent;
+    border: 2px solid $purple-400;
   }
   &.disabled {
     line-height: 1.5;
-    padding: 4.5px 12px;
   }
 }
 
 .btn-warning {
   background: $orange-10;
   color: $white !important;
-  padding: 4.5px 12px;
 
   &:hover:not(:disabled):not(.disabled) {
     background: $orange-100;
@@ -213,12 +214,11 @@
 
 .btn-success {
   background: $green-50;
-  border: 1px solid transparent;
-  padding: 4.5px 12px;
+  border: 2px solid transparent;
 
   &:hover:not(:disabled):not(.disabled) {
     background: #32bd8a;
-    border: 1px solid transparent;
+    border: 2px solid transparent;
   }
 
   &:focus {
@@ -233,13 +233,12 @@
 
   &:not(:disabled):not(.disabled):active, &:not(:disabled):not(.disabled).active {
     background: $green-50;
-    border: 1px solid transparent;
+    border: 2px solid transparent;
   }
 }
 
 .btn-info {
   background: $blue-50;
-  padding: 4.5px 12px;
 
   &:disabled {
     background: $blue-50;
