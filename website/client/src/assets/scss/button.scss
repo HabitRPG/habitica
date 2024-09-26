@@ -3,15 +3,15 @@
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
   font-weight: bold;
-  line-height: 1.71;
-  border: 1px solid transparent;
-  padding: 4px 12px;
+  line-height: 24px;
+  border: 2px solid transparent;
+  padding: 2px 12px;
   border-radius: 4px;
   box-shadow: 0 1px 3px 0 rgba($black, 0.12), 0 1px 2px 0 rgba($black, 0.24);
   color: $white;
 
   &:hover, &:focus {
-    box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
+    box-shadow: 0px 3px 6px 0px rgba(26, 24, 29, 0.16), 0px 3px 6px 0px rgba(26, 24, 29, 0.24);
 
     &.btn-flat {
       box-shadow: none;
@@ -19,7 +19,9 @@
   }
 
   &:focus {
+    border: 2px solid $purple-200;
     border-color: $purple-400;
+    box-shadow: 0px 3px 6px 0px rgba(26, 24, 29, 0.16), 0px 3px 6px 0px rgba(26, 24, 29, 0.24);
   }
 
   &:active, &.active:not(.btn-flat) {
@@ -32,7 +34,7 @@
     opacity: 0.75;
     box-shadow: 0 1px 3px 0 rgba(26, 24, 29, 0.12), 0 1px 2px 0 rgba(26, 24, 29, 0.24);
     background-color: $gray-700;
-    border: 1px solid transparent;
+    border: 2px solid transparent;
 
     .svg {
       color: $gray-300;
@@ -40,7 +42,7 @@
   }
 
   &.with-icon {
-    height: 2rem; // otherwise would something set the height to 33px
+    height: 32px; // otherwise would something set the height to 33px
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -49,39 +51,41 @@
 
 .btn-front {
   font-size: 16px;
-  line-height: 1.5;
+  line-height: 28px;
   padding: 7.5px 15.5px;
 }
 
 .btn-primary {
   background: $purple-200;
-  border: 1px solid transparent;
+  border: 2px solid transparent;
+  line-height: 24px;
   --icon-color: #{$purple-500};
 
   &:focus {
     background: $purple-200;
-    border-color: $purple-400;
+    border: 2px solid $purple-400;
+    box-shadow: 0px 3px 6px 0px rgba(26, 24, 29, 0.16), 0px 3px 6px 0px rgba(26, 24, 29, 0.24);
     --icon-color: #{$white};
   }
 
   &:not(:disabled):not(.disabled) {
     &:hover {
-      background: #5d3b9c;
-      border: 1px solid transparent;
+      background: $purple-200;;
+      border: 2px solid transparent;
 
       --icon-color: #{$white};
     }
 
     &:active, &.active {
       background: $purple-200;
-      border: 1px solid transparent;
+      border: 2px solid transparent;
 
       --icon-color: #{$white};
     }
 
     &:active:focus, &.active:focus {
-      box-shadow: none;
-      border-color: $purple-400;
+      box-shadow: 0px 3px 6px 0px rgba(26, 24, 29, 0.16), 0px 3px 6px 0px rgba(26, 24, 29, 0.24);
+      border: 2px solid $purple-200;
     }
   }
 
@@ -97,7 +101,7 @@
 .show > .btn-secondary.dropdown-toggle:not(.btn-success)
 {
   background: $white;
-  border: 1px solid transparent;
+  border: 2px solid transparent;
   color: $gray-50;
 
   --icon-color: #{$gray-200};
@@ -105,7 +109,8 @@
   &:focus, &:active {
     color: $gray-50;
     background: $white;
-    border-color: $purple-400;
+    border: 2px solid $purple-200;
+    box-shadow: 0px 3px 6px 0px rgba(26, 24, 29, 0.16), 0px 3px 6px 0px rgba(26, 24, 29, 0.24);
 
     --icon-color: #{$purple-300};
   }
@@ -117,19 +122,19 @@
 
       &:focus {
         color: $purple-300;
-        box-shadow: none;
-        border-color: $purple-400;
+        border: 2px solid $purple-200;
+        box-shadow: 0px 3px 6px 0px rgba(26, 24, 29, 0.16), 0px 3px 6px 0px rgba(26, 24, 29, 0.24);
       }
 
       background: $white;
-      border: 1px solid transparent;
+      border: 2px solid transparent;
     }
 
     &:hover {
       color: $purple-300;
 
       background: $white !important;
-      border: 1px solid transparent;
+      border: 2px solid transparent;
 
       --icon-color: #{$purple-300};
       .svg {
@@ -151,46 +156,50 @@
 
 .btn-danger {
   background: $maroon-100;
-  border: 1px solid transparent;
+  border: 2px solid transparent;
+  box-shadow: 0px 1px 3px 0px rgba(26, 24, 29, 0.16), 0px 1px 2px 0px rgba(26, 24, 29, 0.24);
+
 
   &:hover:not(:disabled):not(.disabled) {
-    background: #e14e4e;
-    border: 1px solid transparent;
+    background: $maroon-100;
+    border: 2px solid $purple-200;
+    box-shadow: 0px 3px 6px 0px rgba(26, 24, 29, 0.16), 0px 3px 6px 0px rgba(26, 24, 29, 0.24);
   }
 
   &:focus {
     background: $maroon-100;
-    border-color: $purple-400;
+    border: 2px solid $purple-200;
   }
 
   &:not(:disabled):not(.disabled):active:focus, &:not(:disabled):not(.disabled).active:focus {
     box-shadow: none;
-    border-color: $purple-400;
+    border: 2px solid $purple-200;
   }
 
   &:not(:disabled):not(.disabled):active, &:not(:disabled):not(.disabled).active {
     background: $maroon-100;
-    border: 1px solid transparent;
+    border: 2px solid transparent;
   }
 }
 
 .btn-warning {
   background: $orange-10;
+  box-shadow: 0px 1px 3px 0px rgba(26, 24, 29, 0.16), 0px 1px 26px 0px rgba(26, 24, 29, 0.24);
   color: $white !important;
 
   &:hover:not(:disabled):not(.disabled) {
-    background: $orange-100;
+    background: $orange-10;
     color: $white;
   }
 
   &:focus {
     background: $orange-10;
-    border-color: $purple-400;
+    border: 2px solid $purple-200;
   }
 
   &:not(:disabled):not(.disabled):active:focus, &:not(:disabled):not(.disabled).active:focus {
-    box-shadow: none;
-    border-color: $purple-400;
+    border: 2px solid $purple-200;
+    box-shadow: 0px 3px 6px 0px rgba(26, 24, 29, 0.16), 0px 3px 6px 0px rgba(26, 24, 29, 0.24);
   }
 
   &:not(:disabled):not(.disabled):active, &:not(:disabled):not(.disabled).active {
@@ -200,26 +209,28 @@
 
 .btn-success {
   background: $green-50;
-  border: 1px solid transparent;
+  border: 2px solid transparent;
 
   &:hover:not(:disabled):not(.disabled) {
-    background: #32bd8a;
-    border: 1px solid transparent;
+    background: $green-50;
+    border: 2px solid transparent;
+    box-shadow: 0px 3px 6px 0px rgba(26, 24, 29, 0.16), 0px 3px 6px 0px rgba(26, 24, 29, 0.24);
   }
 
   &:focus {
     background: $green-50;
-    border-color: $purple-400;
+    border: 2px solid $purple-200;
+    box-shadow: 0px 3px 6px 0px rgba(26, 24, 29, 0.16), 0px 3px 6px 0px rgba(26, 24, 29, 0.24);
   }
 
   &:not(:disabled):not(.disabled):active:focus, &:not(:disabled):not(.disabled).active:focus {
-    box-shadow: none;
-    border-color: $purple-400;
+    border: 2px solid $purple-200;
+    box-shadow: 0px 3px 6px 0px rgba(26, 24, 29, 0.16), 0px 3px 6px 0px rgba(26, 24, 29, 0.24);
   }
 
   &:not(:disabled):not(.disabled):active, &:not(:disabled):not(.disabled).active {
     background: $green-50;
-    border: 1px solid transparent;
+    border: 2px solid transparent;
   }
 }
 
