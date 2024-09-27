@@ -3,17 +3,18 @@
     <div class="pt-0 px-0">
       <div v-if="!hasSubscription && !hasCanceledSubscription">
         <div class="d-flex flex-column justify-content-center align-items-center
-          gradient-swoop mb-3"
+          purple-gradient full-banner mb-3"
         >
-          <p class="white block-header mb-2">
+          <p class="white header-top mt-4 mb-2">
             {{ $t('subscribeTo').toUpperCase() }}
           </p>
           <div
-            class="d-flex justify-content-center align-items-center mb-4"
+            class="header-mid d-flex justify-content-center align-items-center
+              mb-4 position-relative"
           >
             <div
               v-once
-              class="svg-icon flip"
+              class="svg-icon flip position-absolute left-0"
               v-html="icons.purpleStars"
             >
             </div>
@@ -25,12 +26,12 @@
             </div>
             <div
               v-once
-              class="svg-icon"
+              class="svg-icon position-absolute right-0"
               v-html="icons.purpleStars"
             >
             </div>
           </div>
-          <h2 class="white final-header">
+          <h2 class="white">
             {{ $t('subscribersReceiveBenefits') }}
           </h2>
         </div>
@@ -115,13 +116,13 @@
         v-if="hasSubscription"
         class="d-flex flex-column align-items-center"
       >
-        <h1 class="mt-4 mx-auto">
+        <h1 class="mt-4 mx-auto mb-3">
           {{ $t('subscription') }}
         </h1>
-        <div class="mx-auto">
+        <div class="sub-card bg-white p-4 mb-4">
           <div
             v-if="hasSubscription && !hasCanceledSubscription"
-            class="d-flex flex-column align-items-center pt-4"
+            class="d-flex flex-column align-items-center"
           >
             <div class="round-container bg-green-10
               d-flex align-items-center justify-content-center"
@@ -132,7 +133,7 @@
                 v-html="icons.checkmarkIcon"
               ></div>
             </div>
-            <h2 class="green-10 mx-auto mb-75">
+            <h2 class="green-10 mx-auto mb-3">
               {{ $t('youAreSubscribed') }}
             </h2>
             <div
@@ -141,42 +142,32 @@
             >
               {{ $t('youHaveGroupPlan') }}
             </div>
-            <div
+            <p
               v-else
-              class="w-55 text-center"
+              class="text-center mb-4"
               v-html="$t('paymentSubBillingWithMethod', {
                 amount: purchasedPlanIdInfo.price,
                 months: purchasedPlanIdInfo.months,
-                paymentMethod: purchasedPlanIdInfo.plan
+                paymentMethod: purchasedPlanIdInfo.plan,
               })"
+            >
+            </p>
+            <div
+              class="svg svg-icon mb-4"
+              :class="paymentMethodLogo.class"
+              v-html="paymentMethodLogo.icon"
             >
             </div>
             <div
               v-if="canEditCardDetails"
-              class="mt-4 text-center"
+              class="text-center"
             >
-              <div class="font-weight-bold gray-10 mb-2">
-                {{ $t('needToUpdateCard') }}
-              </div>
               <button
-                class="btn btn-primary btn-update-card
-                d-flex justify-content-center align-items-center mb-4"
+                class="btn btn-secondary btn-update-card mb-4"
                 @click="redirectToStripeEdit()"
               >
-                <div
-                  v-once
-                  class="svg-icon svg-credit-card mr-2"
-                  v-html="icons.creditCardIcon"
-                ></div>
                 <div>{{ $t('subUpdateCard') }}</div>
               </button>
-            </div>
-            <div
-              v-else
-              class="svg-icon mb-4"
-              :class="paymentMethodLogo.class"
-              v-html="paymentMethodLogo.icon"
-            >
             </div>
             <div
               v-if="purchasedPlanExtraMonthsDetails.months > 0"
@@ -199,7 +190,7 @@
                 v-html="icons.checkmarkIcon"
               ></div>
             </div>
-            <h2 class="green-10 mx-auto mb-75">
+            <h2 class="green-10 mx-auto mb-3">
               {{ $t('youAreSubscribed') }}
             </h2>
             <div
@@ -254,17 +245,15 @@
           </div>
           <div
             v-if="hasSubscription"
-            class="bg-gray-700 py-3 mb-3 text-center"
           >
-            <div class="header-mini mb-3">
-              {{ $t('subscriptionStats') }}
-            </div>
-            <div class="d-flex">
-              <div class="stat-column">
+            <div class="d-flex justify-content-around mb-3">
+              <div class="bg-gray-700 d-flex flex-column
+                justify-content-center align-items-center stats-card"
+              >
                 <div class="d-flex justify-content-center align-items-center">
                   <div
                     v-once
-                    class="svg-icon svg-calendar mr-1"
+                    class="svg-icon svg-calendar mr-2"
                     v-html="icons.calendarIcon"
                   >
                   </div>
@@ -272,16 +261,17 @@
                     {{ user.purchased.plan.consecutive.count }}
                   </div>
                 </div>
-                <div class="stats-label">
+                <div class="stats-label gray-50">
                   {{ $t('subMonths') }}
                 </div>
               </div>
-              <div class="stats-spacer"></div>
-              <div class="stat-column">
+              <div class="bg-gray-700 d-flex flex-column
+                justify-content-center align-items-center stats-card"
+              >
                 <div class="d-flex justify-content-center align-items-center">
                   <div
                     v-once
-                    class="svg-icon svg-gem mr-1"
+                    class="svg-icon svg-gem mr-2"
                     v-html="icons.gemIcon"
                   >
                   </div>
@@ -289,77 +279,64 @@
                     {{ gemCap }}
                   </div>
                 </div>
-                <div class="stats-label">
-                  {{ $t('gemCap') }}
-                </div>
-              </div>
-              <div class="stats-spacer"></div>
-              <div class="stat-column">
-                <div class="d-flex justify-content-center align-items-center">
-                  <div
-                    v-once
-                    class="svg-icon svg-hourglass mt-1 mr-1"
-                    v-html="icons.hourglassIcon"
-                  >
-                  </div>
-                  <div class="number-heavy">
-                    {{ nextHourGlass }}
-                  </div>
-                </div>
-                <div class="stats-label">
-                  {{ $t('nextHourglass') }}*
+                <div class="stats-label gray-50">
+                  {{ $t('monthlyGemsLabel') }}
                 </div>
               </div>
             </div>
             <div
-              v-once
-              class="mt-4 nextHourglassDescription"
+              class="hourglass-preview purple-gradient d-flex flex-column
+              justify-content-center align-items-center position-relative mb-4"
             >
-              *{{ $t('nextHourglassDescription') }}
+              <div
+                v-once
+                class="svg svg-icon position-absolute left-24"
+                v-html="icons.hourglassLeft"
+              >
+              </div>
+              <div class="white mb-1">
+                {{ nextHourGlass }}
+              </div>
+              <div
+                v-once
+                class="purple-600"
+              >
+                {{ $t('nextHourglass') }}
+              </div>
+              <div
+                v-once
+                class="svg svg-icon position-absolute right-24"
+                v-html="icons.hourglassRight"
+              >
+              </div>
             </div>
-          </div>
-          <div class="d-flex flex-column justify-content-center align-items-center mb-3">
             <div
               v-once
-              class="svg-icon svg-heart mb-2"
-              v-html="icons.heartIcon"
+              class="text-center next-hourglass-description gray-50"
             >
-            </div>
-            <div class="thanks-for-support">
-              {{ $t('giftSubscriptionText4') }}
+              {{ $t('nextHourglassDescription') }}
             </div>
           </div>
         </div>
       </div>
       <div
         v-if="hasSubscription && !hasCanceledSubscription"
-        class="d-flex flex-column align-items-center mt-3"
+        class="d-flex flex-column align-items-center mb-4"
       >
-        <div class="cancel-card p-4 text-center">
-          <h2 class="maroon-50">
-            {{ $t('cancelYourSubscription') }}
-          </h2>
-          <div v-if="hasGroupPlan">
-            {{ $t('cancelSubInfoGroupPlan') }}
-          </div>
-          <div
-            v-if="!hasGroupPlan && !canCancelSubscription"
-            v-html="$t(`cancelSubInfo${user.purchased.plan.paymentMethod}`)"
-          >
-          </div>
-          <div
-            v-if="canCancelSubscription"
-            v-html="$t('cancelSubAlternatives')"
-          >
-          </div>
-          <div
-            class="btn btn-danger mt-4"
-            :class="{disabled: !canCancelSubscription}"
-            :disabled="!canCancelSubscription"
-            @click="cancelSubscriptionConfirm({canCancel: canCancelSubscription})"
-          >
-            {{ $t('cancelSub') }}
-          </div>
+        <a
+          v-if="canCancelSubscription"
+          class="maroon-50"
+          @click="cancelSubscriptionConfirm({canCancel: canCancelSubscription})"
+        >
+          {{ $t('cancelYourSubscription') }}
+        </a>
+        <div v-if="hasGroupPlan">
+          {{ $t('cancelSubInfoGroupPlan') }}
+        </div>
+        <div
+          v-if="!hasGroupPlan && !canCancelSubscription"
+          v-html="$t(`cancelSubInfo${user.purchased.plan.paymentMethod}`)"
+        >
         </div>
       </div>
     </div>
@@ -383,7 +360,7 @@
         <p class="purple-300 mb-3">
           {{ $t('giftSubscription') }}
         </p>
-        <button class="btn btn-secondary mb-5" @click="showSelectUser()">
+        <button class="btn btn-secondary btn-gift mb-5" @click="showSelectUser()">
           {{ $t('giftASubscription') }}
         </button>
       </div>
@@ -408,7 +385,7 @@
 
   p {
     margin-bottom: 0px;
-    line-height: 24px;
+    line-height: 1.71;
   }
 
   small {
@@ -421,21 +398,15 @@
     font-size: 16px;
   }
 
-  .block-header {
-    letter-spacing: 1ch;
-    font-weight: 700;
-    top: 24px;
-  }
-
-  .btn-secondary {
+  .btn-gift {
     width: 448px;
   }
 
   .btn-update-card {
-    width: 12.5rem;
-    height: 2.5rem;
     border-radius: 4px;
     font-size: 14px;
+    padding: 4px 12px;
+    width: fit-content;
   }
 
   .cancel-card {
@@ -458,24 +429,62 @@
     border: 1px solid $green-50;
   }
 
-  .final-header {
-    margin-bottom: 70px;
-  }
-
   .flip {
-    filter: flipH;
     transform: scaleX(-1);
   }
 
-  .gradient-swoop {
-    background-image: url('@/assets/svg/gradient-swoop.svg');
-    height: 274px;
-    width: 1440px;
+  .full-banner {
+    height: 180px;
+    width: 100vw;
+  }
+
+  @media only screen and (max-width: 922px) {
+    .full-banner {
+      width: 100%;
+    }
+  }
+
+  .header-mid {
+    width: 347px;
+  }
+
+  .header-top {
+    letter-spacing: 1ch;
+    font-weight: 700;
+  }
+
+  .hourglass-preview {
+    height: 92px;
+    border-radius: 8px;
+    font-weight: 700;
+
+    .white {
+      font-family: 'Roboto Condensed';
+      font-size: 20px;
+      line-height: 1.4;
+    }
+
+    .purple-600 {
+      font-size: 12px;
+      line-height: 1.33;
+    }
   }
 
   .header-mini {
     font-size: 12px;
     font-weight: bold;
+  }
+
+  .justify-content-around {
+    gap: 16px;
+  }
+
+  .left-0 {
+    left: 0px;
+  }
+
+  .left-24 {
+    left: 24px;
   }
 
   .lh-71 {
@@ -487,6 +496,12 @@
     color: $gray-200;
   }
 
+  .next-hourglass-description {
+    font-size: 12px;
+    font-style: italic;
+    line-height: 1.33;
+  }
+
   .number-heavy {
     font-size: 20px;
     font-weight: bold;
@@ -494,14 +509,23 @@
     color: $gray-50;
   }
 
-  .position-absolute {
-    position: absolute;
-  }
-
   .purple-bar {
     background-color: $purple-400;
     height: 1px;
-    width: 432px;
+    width: 50%;
+    max-width: 432px;
+  }
+
+  .purple-gradient {
+    background-image: linear-gradient($purple-300, $purple-200);
+  }
+
+  .right-0 {
+    right: 0px;
+  }
+
+  .right-24 {
+    right: 24px;
   }
 
   .round-container {
@@ -512,24 +536,29 @@
     margin-bottom: 16px;
   }
 
-  .stats-label {
-    font-size: 12px;
-    color: $gray-100;
-    margin-top: 6px;
-    font-weight: bold;
-    line-height: 1.33;
+  .stats-card {
+    border-radius: 8px;
+    width: 192px;
+    height: 88px;
   }
 
-  .stats-spacer {
-    width: 1px;
-    height: 3rem;
-    background-color: $gray-500;
+  .stats-label {
+    font-size: 12px;
+    margin-top: 6px;
+    font-weight: 700;
+    line-height: 1.33;
   }
 
   .sub-benefit {
     width: 94px;
     height: 94px;
     border-radius: 8px;
+  }
+
+  .sub-card {
+    border-radius: 8px;
+    box-shadow: 0px 1px 3px 0px rgba($black, 0.12), 0px 1px 2px 0px rgba($black, 0.24);
+    width: 448px;
   }
 
   .svg-amazon-pay {
@@ -549,7 +578,7 @@
   }
 
   .svg-check {
-    width: 36px;
+    width: 48px;
     color: $white;
   }
 
@@ -627,36 +656,12 @@
     height: 40px;
   }
 
+  .svg-stripe {
+    width: 96px;
+  }
+
   .w-330p {
     width: 330px;
-  }
-
-  .w-55 {
-    width: 55%;
-  }
-
-  .nextHourglassDescription {
-    font-size: 12px;
-    font-style: italic;
-    line-height: 1.33;
-    color: $gray-100;
-    margin-left: 100px;
-    margin-right: 100px;
-  }
-
-  .justify-content-evenly {
-    justify-content: space-evenly;
-  }
-
-  .thanks-for-support {
-    font-size: 12px;
-    line-height: 1.33;
-    text-align: center;
-    color: $gray-100;
-  }
-
-  .stat-column {
-    width: 33%;
   }
 </style>
 
@@ -686,10 +691,13 @@ import giftBox from '@/assets/svg/gift-purple.svg';
 import googlePayLogo from '@/assets/svg/google-pay-logo.svg';
 import heartIcon from '@/assets/svg/health.svg';
 import hourglassIcon from '@/assets/svg/hourglass.svg';
+import hourglassLeft from '@/assets/svg/hourglass-sparkle-left.svg';
+import hourglassRight from '@/assets/svg/hourglass-sparkle-right.svg';
 import jackalope from '@/assets/svg/jackalope.svg';
 import logo from '@/assets/svg/habitica-logo-purple.svg';
 import paypalLogo from '@/assets/svg/paypal-logo.svg';
 import purpleStars from '@/assets/svg/stars-purple.svg';
+import stripeLogo from '@/assets/svg/stripe.svg';
 import subscriberFood from '@/assets/svg/subscriber-food.svg';
 import subscriberGems from '@/assets/svg/subscriber-gems.svg';
 import subscriberHourglasses from '@/assets/svg/subscriber-hourglasses.svg';
@@ -734,10 +742,13 @@ export default {
         googlePayLogo,
         heartIcon,
         hourglassIcon,
+        hourglassLeft,
+        hourglassRight,
         jackalope,
         logo,
         paypalLogo,
         purpleStars,
+        stripeLogo,
         subscriberFood,
         subscriberGems,
         subscriberHourglasses,
@@ -852,6 +863,11 @@ export default {
             icon: this.icons.paypalLogo,
             class: 'svg-paypal mt-4',
           };
+        case this.paymentMethods.STRIPE:
+          return {
+            icon: this.icons.stripeLogo,
+            class: 'svg-stripe',
+          };
         default:
           return {
             icon: null,
@@ -868,7 +884,7 @@ export default {
       return currentPlanContext.nextHourglassDate;
     },
     nextHourGlass () {
-      const nextHourglassMonth = this.nextHourGlassDate.format('MMM YYYY');
+      const nextHourglassMonth = this.nextHourGlassDate.format('MMMM');
 
       return nextHourglassMonth;
     },

@@ -35,36 +35,60 @@
         >
         </div>
         <div v-else class="w-100">
-          <div class="ml-5" v-if="block.months < 12">
-            <h2 class="mt-3 mb-1"> ${{ block.price }}.00 USD </h2>
+          <div
+            class="ml-5"
+            v-if="block.months < 12"
+          >
+            <h2
+              class="mt-3 mb-1"
+              :class="{ 'purple-200': subscription.key === block.key }"
+            > ${{ block.price }}.00 USD </h2>
             <small
               v-if="block.months < 2"
               class="bold mb-2"
+              :class="{ 'purple-200': subscription.key === block.key }"
             >
               {{ $t('recurringMonthly') }}
             </small>
             <small
               v-else
               class="bold mb-2"
+              :class="{ 'purple-200': subscription.key === block.key }"
             >
               {{ $t('recurringNMonthly', { length: block.months }) }}
             </small>
             <div class="d-flex flex-column">
               <div class="d-flex align-items-center mb-1">
                 <div
-                  class="svg svg-icon svg-plus gray-300 color mr-1"
+                  class="svg svg-icon svg-plus color mr-1"
+                  :class="{
+                    'yellow-10': subscription.key === block.key,
+                    'gray-300': subscription.key !== block.key,
+                  }"
                   v-html="icons.plus"
                 >
                 </div>
-                <div class="small" v-html="$t('unlockNGems', { count: 24 })"></div>
+                <div
+                  class="small"
+                  :class="{ 'purple-200': subscription.key === block.key }"
+                  v-html="$t('unlockNGems', { count: 24 })">
+                </div>
               </div>
               <div class="d-flex align-items-center">
                 <div
-                  class="svg svg-icon svg-plus gray-300 color mr-1"
+                  class="svg svg-icon svg-plus color mr-1"
+                  :class="{
+                    'yellow-10': subscription.key === block.key,
+                    'gray-300': subscription.key !== block.key,
+                  }"
                   v-html="icons.plus"
                 >
                 </div>
-                <div class="small" v-html="$t('earn2Gems')"></div>
+                <div
+                  class="small"
+                  :class="{ 'purple-200': subscription.key === block.key }"
+                  v-html="$t('earn2Gems')">
+                </div>
               </div>
             </div>
           </div>
@@ -185,7 +209,7 @@
       color: $gray-200;
     }
 
-    .teal-1 strong {
+    .teal-1 strong, .purple-200 strong {
       color: $yellow-5 !important;
     }
   }
@@ -245,12 +269,16 @@
     width: 448px;
     height: 120px;
     border-radius: 8px;
-    box-shadow: 0px 1px 3px 0px rgba(26, 24, 29, 0.12), 0px 1px 2px 0px rgba(26, 24, 29, 0.24);
+    box-shadow: 0px 1px 3px 0px rgba($black, 0.12), 0px 1px 2px 0px rgba($black, 0.24);
     position: relative;
+
+    &:hover {
+      box-shadow: 0px 3px 6px 0px rgba($black, 0.16), 0px 3px 6px 0px rgba($black, 0.24);
+    }
 
     &.final {
       height: 184px;
-      background: linear-gradient(90deg, rgba(119, 244, 199, 1), rgba(114, 207, 255, 1));
+      background: linear-gradient(90deg, rgba($green-500, 1), rgba(114, 207, 255, 1));
     }
 
     h2 {
