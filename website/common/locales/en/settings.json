@@ -253,6 +253,7 @@
     "transaction_release_mounts": "Released mounts",
     "transaction_reroll": "Used Fortify Potion",
     "transaction_subscription_perks": "<b>Subscription</b> perk",
+    "transaction_subscription_bonus": "<b>Subscription</b> bonus",
     "transaction_admin_update_balance": "<b>Admin</b> given",
     "transaction_admin_update_hourglasses": "<b>Admin</b> updated",
     "connected": "Connected",

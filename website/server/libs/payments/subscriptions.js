@@ -258,14 +258,10 @@ async function createSubscription (data) {
 
     if (block.months === 12 && autoRenews && !recipient.purchased.plan.hourglassPromoReceived) {
       recipient.purchased.plan.hourglassPromoReceived = new Date();
-      if (!isNewSubscription) {
-        // user is upgrading their sub. Already got one hourglass when subscribing
-        await plan.updateHourglasses(recipient._id, 12, '12_month_subscription');
-      } else {
-        await plan.updateHourglasses(recipient._id, 13, '12_month_subscription');
-      }
-    } else if (isNewSubscription) {
-      await plan.updateHourglasses(recipient._id, 1, 'subscribed');
+      await plan.updateHourglasses(recipient._id, 12, 'subscription_bonus');
+    }
+    if (isNewSubscription) {
+      await plan.updateHourglasses(recipient._id, 1, 'subscription_perks');
     }
   }
 
