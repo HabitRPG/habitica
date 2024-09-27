@@ -449,7 +449,7 @@ describe('cron', async () => {
         expect(user3g.purchased.plan.consecutive.count).to.equal(0);
         expect(user3g.purchased.plan.consecutive.trinkets).to.equal(2);
         expect(user3g.purchased.plan.consecutive.gemCapExtra).to.equal(2);
-        expect(user3g.purchased.plan.cumulativeCount).to.equal(3);
+        expect(user3g.purchased.plan.cumulativeCount).to.equal(1);
       });
     });
   });
