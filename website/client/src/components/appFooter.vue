@@ -592,10 +592,19 @@ h3 {
 
 .debug {
   border: 2px solid transparent;
+  box-shadow: 0 1px 3px 0 rgba(26, 24, 29, 0.12), 0 1px 2px 0 rgba(26, 24, 29, 0.24);
   display: flex;
   justify-content: center;
   margin-top: 16px;
   padding: 2px 12px;
+
+  &:hover {
+    box-shadow: 0 3px 6px 0 rgba(26, 24, 29, 0.12), 0 3px 6px 0 rgba(26, 24, 29, 0.24);
+  }
+  &:focus, :active {
+    border: 2px solid $purple-400 !important;
+    box-shadow: 0 3px 6px 0 rgba(26, 24, 29, 0.12), 0 3px 6px 0 rgba(26, 24, 29, 0.24);
+  }
 }
 
 .debug-group {
@@ -603,7 +612,7 @@ h3 {
   border-radius: 4px;
   box-shadow: 0 1px 3px 0 rgba(26, 24, 29, 0.12), 0 1px 2px 0 rgba(26, 24, 29, 0.24);
   font-weight: 700;
-  padding: 2 px 16px;
+  padding: 8px 16px;
 
  .btn {
   margin: 2px;
@@ -633,24 +642,7 @@ h3 {
 }
 
 .btn-contribute {
-  background: $white;
-  border-radius: 2px;
-  width: 175px;
-  height: 32px;
-  color: $gray-50;
-  text-align: center;
-  vertical-align: middle;
-  padding: 0;
-  margin: 0;
-    &:hover {
-      color:$purple-300;
-      box-shadow: 0 3px 6px 0 rgba(26, 24, 29, 0.16), 0 3px 6px 0 rgba(26, 24, 29, 0.24);
-    }
-    &:active:not(:disabled) {
-      color:$purple-300;
-      border: 1px solid $purple-400;
-      box-shadow: 0 3px 6px 0 rgba(26, 24, 29, 0.16), 0 3px 6px 0 rgba(26, 24, 29, 0.24);
-    }
+  border: 2px solid transparent;
 
   a {
     display: flex;

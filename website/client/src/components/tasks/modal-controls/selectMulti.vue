@@ -88,7 +88,7 @@ $itemHeight: 2rem;
 
 .inline-dropdown {
   &.select-multi .dropdown-toggle {
-    height: auto;
+    line-height: 22px;
     padding-bottom: 0px;
   }
 }

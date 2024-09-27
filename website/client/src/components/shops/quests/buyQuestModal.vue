@@ -208,12 +208,12 @@
     }
 
     button.btn.btn-primary {
-      margin-top: 14px;
-      padding: 4px 16px;
-      height: 32px;
+      margin-top: 16px;
+      padding: 2px 12px;
+      line-height: 24px;
 
       &:focus {
-        border: 2px solid black;
+        border: 2px solid $purple-400;
       }
     }
 

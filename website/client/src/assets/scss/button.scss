@@ -109,7 +109,7 @@
   &:focus, &:active {
     color: $gray-50;
     background: $white;
-    border: 2px solid $purple-200;
+    border: 2px solid $purple-400;
     box-shadow: 0px 3px 6px 0px rgba(26, 24, 29, 0.16), 0px 3px 6px 0px rgba(26, 24, 29, 0.24);
 
     --icon-color: #{$purple-300};
@@ -122,7 +122,7 @@
 
       &:focus {
         color: $purple-300;
-        border: 2px solid $purple-200;
+        border: 2px solid $purple-400;
         box-shadow: 0px 3px 6px 0px rgba(26, 24, 29, 0.16), 0px 3px 6px 0px rgba(26, 24, 29, 0.24);
       }
 
@@ -162,7 +162,7 @@
 
   &:hover:not(:disabled):not(.disabled) {
     background: $maroon-100;
-    border: 2px solid $purple-200;
+    border: 2px solid transparent;
     box-shadow: 0px 3px 6px 0px rgba(26, 24, 29, 0.16), 0px 3px 6px 0px rgba(26, 24, 29, 0.24);
   }
 

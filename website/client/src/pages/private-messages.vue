@@ -459,9 +459,10 @@
     }
 
     button {
-      height: 40px;
-      border-radius: 2px;
+      border-radius: 4px;
+      height: 32px;
       margin-left: 1.5rem;
+      padding: 2px 12px;
 
       &.disabled {
         cursor: default;
