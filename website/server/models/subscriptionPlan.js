@@ -25,6 +25,7 @@ export const schema = new mongoose.Schema({
   nextPaymentProcessing: Date,
   nextBillingDate: Date, // Next time google will bill this user.
   hourglassPromoReceived: Date,
+  cumulativeCount: { $type: Number, default: 0 },
   consecutive: {
     count: { $type: Number, default: 0 },
     // when gifted subs, offset++ for each month. offset-- each new-month (cron).

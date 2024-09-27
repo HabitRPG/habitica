@@ -70,6 +70,7 @@ async function grantEndOfTheMonthPerks (user, now) {
     revealMysteryItems(user, elapsedMonths);
 
     plan.consecutive.count += elapsedMonths;
+    plan.cumulativeCount += elapsedMonths;
     await plan.rewardPerks(user._id, elapsedMonths);
   }
 }

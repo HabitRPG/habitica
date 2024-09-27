@@ -154,6 +154,14 @@ describe('cron', async () => {
       expect(user.purchased.plan.consecutive.count).to.equal(1);
     });
 
+    it('increments plan.cumulativeCount', async () => {
+      user.purchased.plan.cumulativeCount = 0;
+      await cron({
+        user, tasksByType, daysMissed, analytics,
+      });
+      expect(user.purchased.plan.cumulativeCount).to.equal(1);
+    });
+
     it('increments plan.consecutive.count by more than 1 if user skipped months between logins', async () => {
       user.purchased.plan.dateUpdated = moment().subtract(2, 'months').toDate();
       user.purchased.plan.consecutive.count = 0;
@@ -161,6 +169,15 @@ describe('cron', async () => {
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.purchased.plan.consecutive.count).to.equal(2);
+    });
+
+    it('increments plan.cumulativeCount by more than 1 if user skipped months between logins', async () => {
+      user.purchased.plan.dateUpdated = moment().subtract(3, 'months').toDate();
+      user.purchased.plan.cumulativeCount = 0;
+      await cron({
+        user, tasksByType, daysMissed, analytics,
+      });
+      expect(user.purchased.plan.cumulativeCount).to.equal(3);
     });
 
     it('does not award unearned plan.consecutive.trinkets if subscription ended during an absence', async () => {
@@ -226,7 +243,6 @@ describe('cron', async () => {
         user1.purchased.plan.dateUpdated = moment().toDate();
         user1.purchased.plan.planId = 'basic';
         user1.purchased.plan.consecutive.count = 0;
-        user1.purchased.plan.perkMonthCount = 0;
         user1.purchased.plan.consecutive.trinkets = 1;
         user1.purchased.plan.consecutive.gemCapExtra = 0;
       });
@@ -276,7 +292,6 @@ describe('cron', async () => {
         user3.purchased.plan.customerId = 'subscribedId';
         user3.purchased.plan.dateUpdated = moment().toDate();
         user3.purchased.plan.planId = 'basic_3mo';
-        user3.purchased.plan.perkMonthCount = 0;
         user3.purchased.plan.consecutive.count = 0;
         user3.purchased.plan.consecutive.trinkets = 1;
         user3.purchased.plan.consecutive.gemCapExtra = 0;
@@ -324,7 +339,6 @@ describe('cron', async () => {
         user6.purchased.plan.customerId = 'subscribedId';
         user6.purchased.plan.dateUpdated = moment().toDate();
         user6.purchased.plan.planId = 'google_6mo';
-        user6.purchased.plan.perkMonthCount = 0;
         user6.purchased.plan.consecutive.count = 0;
         user6.purchased.plan.consecutive.trinkets = 1;
         user6.purchased.plan.consecutive.gemCapExtra = 0;
@@ -407,6 +421,7 @@ describe('cron', async () => {
         .toDate();
       user3g.purchased.plan.planId = null;
       user3g.purchased.plan.consecutive.count = 0;
+      user3g.purchased.plan.cumulativeCount = 0;
       user3g.purchased.plan.consecutive.trinkets = 1;
       user3g.purchased.plan.consecutive.gemCapExtra = 0;
 
@@ -418,6 +433,7 @@ describe('cron', async () => {
           user: user3g, tasksByType, daysMissed, analytics,
         });
         expect(user3g.purchased.plan.consecutive.count).to.equal(1);
+        expect(user3g.purchased.plan.cumulativeCount).to.equal(1);
         expect(user3g.purchased.plan.consecutive.trinkets).to.equal(2);
         expect(user3g.purchased.plan.consecutive.gemCapExtra).to.equal(2);
       });
@@ -433,6 +449,7 @@ describe('cron', async () => {
         expect(user3g.purchased.plan.consecutive.count).to.equal(0);
         expect(user3g.purchased.plan.consecutive.trinkets).to.equal(2);
         expect(user3g.purchased.plan.consecutive.gemCapExtra).to.equal(2);
+        expect(user3g.purchased.plan.cumulativeCount).to.equal(3);
       });
     });
   });
@@ -474,6 +491,14 @@ describe('cron', async () => {
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.purchased.plan.consecutive.count).to.equal(0);
+    });
+
+    it('does not increment plan.cumulativeCount', async () => {
+      user.purchased.plan.cumulativeCount = 0;
+      await cron({
+        user, tasksByType, daysMissed, analytics,
+      });
+      expect(user.purchased.plan.cumulativeCount).to.equal(0);
     });
 
     it('does not increment plan.consecutive.trinkets when user has reached a month that is a multiple of 3', async () => {

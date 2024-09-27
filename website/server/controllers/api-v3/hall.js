@@ -311,6 +311,9 @@ api.updateHero = {
           hero.purchased.plan.consecutive.count = plan.consecutive.count; // eslint-disable-line max-len
         }
       }
+      if (plan.cumulativeCount) {
+        hero.purchased.plan.cumulativeCount = plan.cumulativeCount;
+      }
     }
 
     // give them gems if they got an higher level

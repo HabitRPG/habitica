@@ -105,6 +105,20 @@
         </div>
         <div class="form-group row">
           <label class="col-sm-3 col-form-label">
+            Cumulative months:
+          </label>
+          <div class="col-sm-9">
+            <input
+              v-model="hero.purchased.plan.cumulativeCount"
+              class="form-control"
+              type="number"
+              min="0"
+              step="1"
+            >
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">
             Next Mystic Hourglass:
           </label>
           <strong class="col-sm-9 col-form-label">{{ nextHourglassDate }}</strong>
