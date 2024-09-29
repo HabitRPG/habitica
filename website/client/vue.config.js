@@ -43,6 +43,7 @@ envVars
   });
 
 const webpackPlugins = [
+  new webpack.ProvidePlugin({ 'window.jQuery': 'jquery' }),
   new webpack.DefinePlugin(envObject),
   new MomentLocalesPlugin({
     localesToKeep: ['bg',
