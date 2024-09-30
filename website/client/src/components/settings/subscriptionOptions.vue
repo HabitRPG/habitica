@@ -1,14 +1,18 @@
 <template>
   <div id="subscription-form">
-    <div class="mb-3 w-100 h-100">
+    <div class="w-100 h-100">
       <!-- eslint-disable vue/no-use-v-if-with-v-for -->
       <div
         v-for="block in subscriptionBlocksOrdered"
         v-if="block.target !== 'group' && block.canSubscribe === true"
         :key="block.key"
         :value="block.key"
-        class="subscribe-option mb-2 d-flex"
-        :class="{selected: subscription.key === block.key, final: block.months === 12}"
+        class="subscribe-option d-flex"
+        :class="{
+          selected: subscription.key === block.key,
+          'mb-2': block.months !== 12,
+          final: block.months === 12,
+        }"
         @click="updateSubscriptionData(block.key)"
       >
         <div
@@ -129,9 +133,11 @@
         </div>
       </div>
     </div>
-    <div class="mx-4 mb-4 text-center">
+    <div
+      v-if="note"
+      class="mx-4 mb-4 text-center"
+    >
       <small
-        v-if="note"
         v-once
         class="font-italic"
       >
@@ -151,6 +157,7 @@
     <button
       v-else
       class="btn btn-primary w-100"
+      :class="canceled ? 'mt-4' : 'mt-3'"
       @click="$root.$emit('bv::show::modal', 'buy-subscription')"
     > {{ $t('subscribe') }} </button>
     <b-modal
@@ -234,13 +241,9 @@
     line-height: 24px;
   }
 
-  .gradient-banner {
-    padding-left: 100px;
-    padding-right: 100px;
-
-    small {
-      color: $teal-1;
-    }
+  .gradient-banner small {
+    color: $teal-1;
+    width: 61%;
   }
 
   .ribbon {
@@ -266,7 +269,7 @@
   }
 
   .subscribe-option {
-    width: 448px;
+    max-width: 448px;
     height: 120px;
     border-radius: 8px;
     box-shadow: 0px 1px 3px 0px rgba($black, 0.12), 0px 1px 2px 0px rgba($black, 0.24);
@@ -330,6 +333,10 @@ export default {
     receiverName: {
       type: String,
       default: '',
+    },
+    canceled: {
+      type: Boolean,
+      default: false,
     },
   },
   data () {

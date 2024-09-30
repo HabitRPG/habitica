@@ -37,7 +37,30 @@
         </div>
         <div class="d-flex justify-content-center">
           <div class="d-flex flex-column mr-4">
-            <div class="d-flex mb-3 align-items-center">
+            <div
+              v-if="gemCap > 24"
+              class="w-100 green-gradient mb-3 text-center"
+            >
+              <div class='cap-readout bg-purple-300'>
+                <div
+                  v-once
+                  class="svg-icon svg-gems"
+                  v-html="icons.subscriberGems"
+                ></div>
+                <div class="white label"> {{ $t('gemCap') }}</div>
+                <div class="white readout"> {{ gemCap }} / 50</div>
+                <div class="progress-bar bg-purple-100">
+                  <div
+                    class="progress-fill h-100 bg-green-100"
+                    :style="`width: ${gemCap / 50 * 100}%`"
+                  >
+                  </div>
+                </div>
+                <img src="~@/assets/images/confetti.png">
+              </div>
+              <small class="teal-1">{{ $t('resubscribeToPickUp') }}</small>
+            </div>
+            <div v-else class="d-flex mb-3 align-items-center">
               <div class="sub-benefit bg-gray-600 d-flex mr-4">
                 <div
                   v-once
@@ -221,14 +244,14 @@
           </div>
           <div
             v-else-if="hasCanceledSubscription"
-            class="d-flex flex-column align-items-center mt-4"
+            class="d-flex flex-column align-items-center"
           >
-            <div class="round-container bg-gray-300
+            <div class="round-container bg-gray-100
               d-flex align-items-center justify-content-center"
             >
               <div
                 v-once
-                class="svg-icon svg-close"
+                class="svg svg-icon svg-close color white"
                 v-html="icons.closeIcon"
               ></div>
             </div>
@@ -236,12 +259,12 @@
               {{ $t('subscriptionCanceled') }}
             </h2>
             <div
-              class="w-75 text-center mb-4"
+              class="text-center mb-4"
               v-html="$t('subscriptionInactiveDate', {date: subscriptionEndDate})"
             >
             </div>
             <h2>{{ $t('readyToResubscribe') }}</h2>
-            <subscription-options class="w-100 mb-2" />
+            <subscription-options class="w-100 mb-4" :canceled="true"/>
           </div>
           <div
             v-if="hasSubscription"
@@ -415,6 +438,50 @@
     border-radius: 8px;
   }
 
+  .cap-readout {
+    height: 76px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    position: relative;
+
+    img {
+      position: absolute;
+      top: 2px;
+      right: 3px;
+    }
+
+    .label {
+      left: 92px;
+    }
+
+    .progress-bar {
+      position: absolute;
+      top: 42px;
+      left: 92px;
+      width: 330px;
+      height: 12px;
+      border-radius: 99px;
+    }
+
+    .readout {
+      right: 22px;
+    }
+
+    .svg-gems {
+      position: absolute;
+      left: 14px;
+      top: 14px;
+    }
+
+    .white {
+      position: absolute;
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 1.2;
+      top: 14px;
+    }
+  }
+
   .disabled {
     opacity: 0.64;
 
@@ -441,6 +508,19 @@
   @media only screen and (max-width: 922px) {
     .full-banner {
       width: 100%;
+    }
+  }
+
+  .green-gradient {
+    background: linear-gradient(90deg, rgba(119, 244, 199, 1), rgba(114, 207, 255, 1));
+    padding: 2px 2px 0px 2px;
+    border-radius: 8px;
+    height: 108px;
+
+    .teal-1 {
+      position: relative;
+      font-weight: 700;
+      top: 4px;
     }
   }
 
@@ -583,18 +663,8 @@
   }
 
   .svg-close {
-    width: 26px;
-    height: 26px;
-
-    & ::v-deep svg path {
-      stroke: $white;
-      stroke-width: 3;
-    }
-  }
-
-  .svg-credit-card {
-    width: 21.3px;
-    height: 16px;
+    width: 32px;
+    height: 32px;
   }
 
   .svg-food {
@@ -684,7 +754,6 @@ import applePayLogo from '@/assets/svg/apple-pay-logo.svg';
 import calendarIcon from '@/assets/svg/calendar-purple.svg';
 import checkmarkIcon from '@/assets/svg/check.svg';
 import closeIcon from '@/assets/svg/close.svg';
-import creditCardIcon from '@/assets/svg/credit-card-icon.svg';
 import dividerStars from '@/assets/svg/divider-stars.svg';
 import gemIcon from '@/assets/svg/gem.svg';
 import giftBox from '@/assets/svg/gift-purple.svg';
@@ -735,7 +804,6 @@ export default {
         calendarIcon,
         checkmarkIcon,
         closeIcon,
-        creditCardIcon,
         dividerStars,
         gemIcon,
         giftBox,
@@ -846,22 +914,22 @@ export default {
         case this.paymentMethods.AMAZON_PAYMENTS:
           return {
             icon: this.icons.amazonPayLogo,
-            class: 'svg-amazon-pay mt-3',
+            class: 'svg-amazon-pay',
           };
         case this.paymentMethods.APPLE:
           return {
             icon: this.icons.applePayLogo,
-            class: 'svg-apple-pay mt-4',
+            class: 'svg-apple-pay',
           };
         case this.paymentMethods.GOOGLE:
           return {
             icon: this.icons.googlePayLogo,
-            class: 'svg-google-pay mt-4',
+            class: 'svg-google-pay',
           };
         case this.paymentMethods.PAYPAL:
           return {
             icon: this.icons.paypalLogo,
-            class: 'svg-paypal mt-4',
+            class: 'svg-paypal',
           };
         case this.paymentMethods.STRIPE:
           return {
