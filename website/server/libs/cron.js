@@ -27,7 +27,7 @@ function setIsDueNextDue (task, user, now) {
   optionsForShouldDo.nextDue = true;
   const nextDue = common.shouldDo(now, task, optionsForShouldDo);
   if (nextDue && nextDue.length > 0) {
-    task.nextDue = nextDue;
+    task.nextDue = nextDue.toISOString();
   }
 }
 
