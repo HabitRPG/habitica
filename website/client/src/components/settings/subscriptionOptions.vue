@@ -15,15 +15,13 @@
         }"
         @click="updateSubscriptionData(block.key)"
       >
-        <div
-          v-if="subscription.key === block.key"
-          class="selected-corner"
-        >
-        </div>
-        <div
-          class="svg svg-icon svg-check color m-2"
-          v-html="icons.check"
-        >
+        <div v-if="subscription.key === block.key">
+          <div class="selected-corner"></div>
+          <div
+            class="svg svg-icon svg-check color m-2"
+            v-html="icons.check"
+          >
+          </div>
         </div>
         <div
           v-if="block.months === 12"
@@ -40,94 +38,75 @@
         </div>
         <div v-else class="w-100">
           <div
-            class="ml-5"
+            class="mx-5"
             v-if="block.months < 12"
           >
             <h2
               class="mt-3 mb-1"
-              :class="{ 'purple-200': subscription.key === block.key }"
             > ${{ block.price }}.00 USD </h2>
             <small
               v-if="block.months < 2"
               class="bold mb-2"
-              :class="{ 'purple-200': subscription.key === block.key }"
             >
               {{ $t('recurringMonthly') }}
             </small>
             <small
               v-else
               class="bold mb-2"
-              :class="{ 'purple-200': subscription.key === block.key }"
             >
               {{ $t('recurringNMonthly', { length: block.months }) }}
             </small>
-            <div class="d-flex flex-column">
+            <div class="d-flex flex-column mb-3">
               <div class="d-flex align-items-center mb-1">
                 <div
                   class="svg svg-icon svg-plus color mr-1"
-                  :class="{
-                    'yellow-10': subscription.key === block.key,
-                    'gray-300': subscription.key !== block.key,
-                  }"
                   v-html="icons.plus"
                 >
                 </div>
-                <div
-                  class="small"
-                  :class="{ 'purple-200': subscription.key === block.key }"
-                  v-html="$t('unlockNGems', { count: 24 })">
-                </div>
+                <small v-html="$t('unlockNGems', { count: 24 })"></small>
               </div>
               <div class="d-flex align-items-center">
                 <div
                   class="svg svg-icon svg-plus color mr-1"
-                  :class="{
-                    'yellow-10': subscription.key === block.key,
-                    'gray-300': subscription.key !== block.key,
-                  }"
                   v-html="icons.plus"
                 >
                 </div>
-                <div
-                  class="small"
-                  :class="{ 'purple-200': subscription.key === block.key }"
-                  v-html="$t('earn2Gems')">
-                </div>
+                <small v-html="$t('earn2Gems')"></small>
               </div>
             </div>
           </div>
           <div v-else>
             <div class="bg-white py-3 pl-5">
               <div class="d-flex align-items-center mb-1">
-                <h2 class="teal-10 mr-2 my-auto"> ${{ block.price }}.00 USD </h2>
+                <h2 class="mr-2 my-auto"> ${{ block.price }}.00 USD</h2>
                 <strike class="gray-200">$60.00 USD</strike>
               </div>
-              <small class="bold teal-1 mb-2">
+              <small class="bold mb-2">
                 {{ $t('recurringNMonthly', { length: block.months }) }}
               </small>
               <div class="d-flex flex-column">
                 <div class="d-flex align-items-center mb-1">
                   <div
-                    class="svg svg-icon svg-plus yellow-10 color mr-1"
+                    class="svg svg-icon svg-plus color mr-1"
                     v-html="icons.plus"
                   >
                   </div>
-                  <div class="small teal-1" v-html="$t('unlockNGems', { count: 50 })"></div>
+                  <small v-html="$t('unlockNGems', { count: 50 })"></small>
                 </div>
                 <div class="d-flex align-items-center">
                   <div
-                    class="svg svg-icon svg-plus yellow-10 color mr-1"
+                    class="svg svg-icon svg-plus color mr-1"
                     v-html="icons.plus"
                   >
                   </div>
-                  <div class="small teal-1" v-html="$t('maxGemCap')"></div>
+                  <small v-html="$t('maxGemCap')"></small>
                 </div>
               </div>
             </div>
             <div
               class="gradient-banner text-center"
             >
-              <small class="mt-3" v-html="$t('immediate12Hourglasses')"></small>
+              <small class="my-3" v-html="$t('immediate12Hourglasses')"></small>
             </div>
           </div>
         </div>
@@ -216,8 +195,12 @@
       color: $gray-200;
     }
 
-    .teal-1 strong, .purple-200 strong {
-      color: $yellow-5 !important;
+    .selected strong {
+      color: $yellow-5;
+    }
+
+    .selected .gradient-banner strong {
+      color: $teal-1;
     }
   }
 </style>
@@ -247,7 +230,6 @@
   }
 
   .ribbon {
-    height: 24px;
     width: fit-content;
     background: linear-gradient(90deg, rgba(119, 244, 199, 1), rgba(114, 207, 255, 1));
     border-radius: 4px;
@@ -256,8 +238,8 @@
     box-shadow: 0px 1px 3px 0px rgba(26, 24, 29, 0.12), 0px 1px 2px 0px rgba(26, 24, 29, 0.24);
     position: absolute;
     right: -4px;
-    padding-left: 12px;
-    padding-right: 10px;
+    line-height: 1.33;
+    padding: 4px 10px 4px 12px;
   }
 
   .selected-corner {
@@ -270,17 +252,35 @@
 
   .subscribe-option {
     max-width: 448px;
-    height: 120px;
     border-radius: 8px;
     box-shadow: 0px 1px 3px 0px rgba($black, 0.12), 0px 1px 2px 0px rgba($black, 0.24);
     position: relative;
 
-    &:hover {
+    &.final h2 {
+      color: $teal-10;
+    }
+
+    &:hover, &.selected {
       box-shadow: 0px 3px 6px 0px rgba($black, 0.16), 0px 3px 6px 0px rgba($black, 0.24);
     }
 
+    &.selected {
+      &.final {
+        small {
+          color: $teal-1;
+        }
+      }
+      &:not(.final) {
+        h2, small {
+          color: $purple-200;
+        }
+      }
+      .svg-plus {
+        color: $yellow-10;
+      }
+    }
+
     &.final {
-      height: 184px;
       background: linear-gradient(90deg, rgba($green-500, 1), rgba(114, 207, 255, 1));
     }
 
@@ -293,14 +293,13 @@
 
   .svg-check {
     width: 16px;
-    height: 16px;
     position: absolute;
     color: $white;
   }
 
   .svg-plus {
-    width: 10px;
-    height: 10px;
+    color: $gray-300;
+    min-width: 10px;
   }
 </style>
 

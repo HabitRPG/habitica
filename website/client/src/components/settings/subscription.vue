@@ -3,7 +3,7 @@
     <div class="pt-0 px-0">
       <div v-if="!hasSubscription && !hasCanceledSubscription">
         <div class="d-flex flex-column justify-content-center align-items-center
-          purple-gradient full-banner mb-3"
+          purple-gradient full-banner mb-4"
         >
           <p class="white header-top mt-4 mb-2">
             {{ $t('subscribeTo').toUpperCase() }}
