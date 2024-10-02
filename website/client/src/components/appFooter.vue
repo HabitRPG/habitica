@@ -601,9 +601,13 @@ h3 {
   &:hover {
     box-shadow: 0 3px 6px 0 rgba(26, 24, 29, 0.12), 0 3px 6px 0 rgba(26, 24, 29, 0.24);
   }
-  &:focus, :active {
+  &:focus  {
     border: 2px solid $purple-400 !important;
     box-shadow: 0 3px 6px 0 rgba(26, 24, 29, 0.12), 0 3px 6px 0 rgba(26, 24, 29, 0.24);
+  }
+  :active {
+    border: 2px solid $purple-600 !important;
+    box-shadow: none;
   }
 }
 

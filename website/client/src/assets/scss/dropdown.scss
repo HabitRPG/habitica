@@ -2,7 +2,7 @@
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
   font-weight: normal;
-  line-height: 24px;
+  line-height: 1.714;
   padding: 2px 12px;
 }
 
@@ -114,6 +114,10 @@
 }
 
 .dropdown-icon-item {
+  line-height: 1;
+  padding-top: 2px !important;
+  padding-bottom: 2px !important;
+
   .svg-icon {
     margin: 0px 16px 0px 0px;
     vertical-align: middle;

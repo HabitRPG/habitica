@@ -395,7 +395,7 @@
 
   .btn-update-card {
     width: 12.5rem;
-    line-height: 24px;
+    line-height: 1.714;
     border-radius: 4px;
     font-size: 14px;
   }

@@ -460,7 +460,7 @@
 
     button {
       border-radius: 4px;
-      height: 32px;
+      line-height: 1.571;
       margin-left: 1.5rem;
       padding: 2px 12px;
 

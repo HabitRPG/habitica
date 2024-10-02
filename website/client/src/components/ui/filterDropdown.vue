@@ -13,24 +13,12 @@
     >
       <template #item="{ item }">
         <span
-        v-if="withIcon"
         :class="{'dropdown-icon-item': withIcon}"
-        id="with-icon"
         >
           <slot
             name="item"
             :item="item"
           ></slot>
-        </span>
-        <span
-          v-else
-        >
-          <slot
-            name="item"
-            :item="item"
-          >
-          </slot>
-
         </span>
       </template>
     </select-list>
@@ -70,10 +58,4 @@ export default {
 </script>
 
 <style scoped lang="scss">
-#with-icon {
-  line-height: 1;
-  padding-top: 2px !important;
-  padding-bottom: 2px !important;
-}
-
 </style>

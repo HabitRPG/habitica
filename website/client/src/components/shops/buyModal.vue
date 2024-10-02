@@ -517,10 +517,15 @@
     button.btn.btn-primary {
       margin-top: 16px;
       padding: 2px 12px;
-      line-height: 24px;
+      line-height: 1.714;
 
       &:focus {
         border: 2px solid $purple-400;
+      }
+
+      &:active {
+        border: 2p solid $purple-400;
+        box-shadow:none;
       }
     }
 

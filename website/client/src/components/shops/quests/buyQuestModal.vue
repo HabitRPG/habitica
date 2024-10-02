@@ -215,6 +215,11 @@
       &:focus {
         border: 2px solid $purple-400;
       }
+
+      &:active {
+        border: 2px solid $purple-400;
+        box-shadow: none;
+      }
     }
 
     .balance {

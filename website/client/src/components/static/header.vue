@@ -152,8 +152,11 @@
   }
 
   .btn-primary.pull-right {
-    line-height: 32px;
+    line-height: 2.286;
     margin: auto 0px auto auto;
+    &:focus, :active {
+      border: 2px solid $purple-400;
+    }
   }
 
   nav.navbar {
