@@ -256,6 +256,11 @@
     box-shadow: 0px 1px 3px 0px rgba($black, 0.12), 0px 1px 2px 0px rgba($black, 0.24);
     position: relative;
 
+    .bg-white {
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+    }
+
     &.final h2 {
       color: $teal-10;
     }
