@@ -212,7 +212,6 @@
     "hatchingPotionFrost": "Frostiges",
     "hatchingPotionIcySnow": "Eisschnee",
     "hatchingPotionNotes": "Gieße dies über ein Ei und es wird ein <%= potText(locale) %> Haustier daraus schlüpfen.",
-    "premiumPotionAddlNotes": "Nicht auf Eier von Quest-Haustieren anwendbar. Zum Kauf verfügbar bis <%= date(locale) %>.",
     "foodMeat": "Fleisch",
     "foodMeatThe": "das Fleisch",
     "foodMeatA": "Fleisch",

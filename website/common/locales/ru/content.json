@@ -212,7 +212,6 @@
     "hatchingPotionFrost": "Морозный",
     "hatchingPotionIcySnow": "Ледяной",
     "hatchingPotionNotes": "Полейте его на яйцо и из него вылупится <%= potText(locale) %> питомец.",
-    "premiumPotionAddlNotes": "Несовместим с яйцами квестовых питомцев. Доступен для покупки до <%= date(locale) %>.",
     "foodMeat": "Мясо",
     "foodMeatThe": "Мясная пища",
     "foodMeatA": "Мясо",
@@ -387,5 +386,8 @@
     "questEggChameleonAdjective": "хаотичный",
     "questEggCrabText": "Краб",
     "questEggCrabMountText": "Краб",
-    "questEggCrabAdjective": "суетливый"
+    "questEggCrabAdjective": "суетливый",
+    "questEggDogMountText": "Собака",
+    "questEggDogAdjective": "дружелюбный",
+    "questEggDogText": "Щенок"
 }

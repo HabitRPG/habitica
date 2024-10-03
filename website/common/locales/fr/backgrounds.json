@@ -2,7 +2,6 @@
     "backgrounds": "Arrière-plans",
     "background": "Arrière-plan",
     "backgroundShop": "Boutique d'arrière-plans",
-    "backgroundShopText": "Boutique d'arrière-plans",
     "noBackground": "Aucun arrière-plan sélectionné",
     "backgrounds062014": "Ensemble 1 : sorti en juin 2014",
     "backgroundBeachText": "Plage",
@@ -654,13 +653,9 @@
     "backgrounds112021": "Ensemble 90 : sorti en novembre 2021",
     "backgroundFortuneTellersShopText": "Boutique de la diseuse de bonne aventure",
     "backgroundInsideAPotionBottleNotes": "Regarder à travers le verre en attendant les secours à l'intérieur d'une fiole à potion.",
-    "backgroundWinterCanyonShopText": "Canyon hivernal",
-    "backgroundIcePalaceShopText": "Palais de glace",
-    "backgroundIcePalaceShopNotes": "Reignez sur le palais de glace.",
     "backgroundFrozenPolarWatersText": "Calotte glacière",
     "backgroundFrozenPolarWatersNotes": "Explorez la calotte glacière.",
     "backgrounds122021": "Ensemble 91 : sorti en décembre 2021",
-    "backgroundWinterCanyonShopNotes": "Partez à l'aventure dans un canyon hivernal !",
     "backgroundWinterCanyonText": "Canyon hivernal",
     "backgroundWinterCanyonNotes": "Partez à l'aventure dans un canyon hivernal !",
     "backgroundIcePalaceText": "Palais de glace",
@@ -884,5 +879,8 @@
     "backgroundSavannaNotes": "Randonnez à travers des Pâturages sous la Brume.",
     "backgroundMagicDoorInForestText": "Porte Magique dans la Forêt",
     "backgroundMagicDoorInForestNotes": "Osez franchir la Porte Magique pour entrer dans la Forêt.",
-    "backgrounds092024": "Ensemble 124 : Sortie septembre 2024"
+    "backgrounds092024": "Ensemble 124 : Sortie septembre 2024",
+    "backgroundSurroundedByGhostsText": "Entouré·e de Fantômes",
+    "backgrounds102024": "Ensemble 124 : Sortie Septembre 2024",
+    "backgroundSurroundedByGhostsNotes": "Passez une soirée Entouré·e de Fantômes qui vous donnera la chair de poule."
 }

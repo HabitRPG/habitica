@@ -212,7 +212,6 @@
     "hatchingPotionFrost": "Морозний",
     "hatchingPotionIcySnow": "Крижаний сніг",
     "hatchingPotionNotes": "Вилийте це на яйце, і з нього вилупиться улюбленець, типу \"<%= potText(locale) %>\".",
-    "premiumPotionAddlNotes": "Неможливо використати на квестових яйцях з улюбленцями. Можна придбати до <%= date(locale) %>.",
     "foodMeat": "М'ясо",
     "foodMeatThe": "М'ясо",
     "foodMeatA": "М'ясо",

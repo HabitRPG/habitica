@@ -212,7 +212,6 @@
     "hatchingPotionFrost": "Frostig",
     "hatchingPotionIcySnow": "isig snö",
     "hatchingPotionNotes": "Häll det över ett ägg, så kläcks det som Husdjuret <%= potText(locale) %>.",
-    "premiumPotionAddlNotes": "Kan ej användas på djuruppdragsägg. Tillgängliga för köp till <%= date(locale) %>.",
     "foodMeat": "Kött",
     "foodMeatThe": "köttet",
     "foodMeatA": "Kött",

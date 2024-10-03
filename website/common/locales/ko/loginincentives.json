@@ -3,7 +3,6 @@
     "earnedRewardForDevotion": "삶을 향상시키기 위해 노력한 보상으로 <%= reward %>을(를) 받았습니다.",
     "nextRewardUnlocksIn": "다음 보상까지 남은 출석: <%= numberOfCheckinsLeft %>",
     "awesome": "멋져요!",
-    "countLeft": "다음 보상까지 남은 출석: <%= numberOfCheckinsLeft %>",
     "incentivesDescription": "습관을 들이는 데 가장 핵심적인 것은 꾸준한 노력입니다. 자주 출석할수록 보상에 점점 가까워집니다.",
     "checkinEarned": "출석 횟수가 올라갔습니다!",
     "unlockedCheckInReward": "출석 보상을 잠금해제했습니다!",

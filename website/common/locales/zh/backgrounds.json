@@ -2,7 +2,6 @@
     "backgrounds": "背景",
     "background": "背景",
     "backgroundShop": "背景商店",
-    "backgroundShopText": "背景商店",
     "noBackground": "未选择背景",
     "backgrounds062014": "第1组：2014年6月发布",
     "backgroundBeachText": "沙滩",
@@ -877,5 +876,11 @@
     "monthlyBackgrounds": "每月背景",
     "backgrounds082024": "第123组：2024年8月发布",
     "backgroundSavannaText": "朦胧草原",
-    "backgroundSavannaNotes": "徒步穿越朦胧的草原。"
+    "backgroundSavannaNotes": "徒步穿越朦胧的草原。",
+    "backgroundMagicDoorInForestText": "森林中的魔法之门",
+    "backgrounds092024": "第124组：2024年9月发布",
+    "backgroundMagicDoorInForestNotes": "敢于踏入森林中的魔法之门。",
+    "backgrounds102024": "第124组：2024年9月发布",
+    "backgroundSurroundedByGhostsNotes": "度过一个鬼魂缠身的阴森之夜。",
+    "backgroundSurroundedByGhostsText": "鬼魂环绕"
 }
