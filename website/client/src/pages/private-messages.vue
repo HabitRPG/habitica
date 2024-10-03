@@ -446,7 +446,6 @@
     padding: 1.5rem;
 
     .guidelines {
-      height: 32px;
       font-size: 12px;
       font-weight: normal;
       font-style: normal;
@@ -460,7 +459,7 @@
 
     button {
       border-radius: 4px;
-      line-height: 1.571;
+      line-height: 1.714;
       margin-left: 1.5rem;
       padding: 2px 12px;
 

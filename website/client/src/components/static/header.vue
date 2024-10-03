@@ -152,7 +152,7 @@
   }
 
   .btn-primary.pull-right {
-    line-height: 2.286;
+    line-height: 2.25;
     margin: auto 0px auto auto;
     &:focus, :active {
       border: 2px solid $purple-400;

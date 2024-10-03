@@ -650,7 +650,7 @@
     .btn-primary {
       width: 411px;
       height: 48px;
-      border-radius: 2px;
+      border-radius: 4px;
       background-color: $purple-400;
       box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.24), 0 1px 4px 0 rgba(26, 24, 29, 0.16);
       margin-bottom: 5em;
