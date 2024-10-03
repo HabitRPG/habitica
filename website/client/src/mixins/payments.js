@@ -8,7 +8,6 @@ import notificationsMixin from '@/mixins/notifications';
 import { CONSTANTS, setLocalSetting } from '@/libs/userlocalManager';
 import * as Analytics from '@/libs/analytics';
 
-const BASE_URL = process.env.BASE_URL;
 const STRIPE_PUB_KEY = process.env.STRIPE_PUB_KEY;
 
 let stripeInstance = null;
@@ -192,13 +191,9 @@ export default {
       setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(appState));
 
       try {
-        const checkoutOptions = {
+        const checkoutSessionResult = await stripeInstance.redirectToCheckout({
           sessionId: response.data.data.sessionId,
-        };
-        if (paymentType === 'subscription') {
-          checkoutOptions.successUrl = `${BASE_URL}/user/settings/subscription`;
-        }
-        const checkoutSessionResult = await stripeInstance.redirectToCheckout(checkoutOptions);
+        });
         if (checkoutSessionResult.error) {
           console.error(checkoutSessionResult.error); // eslint-disable-line
           alert(`Error while redirecting to Stripe: ${checkoutSessionResult.error.message}`);
@@ -247,7 +242,6 @@ export default {
       try {
         const checkoutSessionResult = await stripeInstance.redirectToCheckout({
           sessionId: response.data.data.sessionId,
-          successUrl: `${BASE_URL}/user/settings/subscription`,
         });
         if (checkoutSessionResult.error) {
           console.error(checkoutSessionResult.error); // eslint-disable-line
