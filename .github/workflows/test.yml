@@ -128,7 +128,7 @@ jobs:
     strategy:
       matrix:
         node-version: [21.x]
-        mongodb-version: [4.2]
+        mongodb-version: [7.0]
     steps:
     - uses: actions/checkout@v4
       with:
@@ -159,7 +159,7 @@ jobs:
     strategy:
       matrix:
         node-version: [21.x]
-        mongodb-version: [4.2]
+        mongodb-version: [7.0]
     steps:
     - uses: actions/checkout@v4
       with:
@@ -190,7 +190,7 @@ jobs:
     strategy:
       matrix:
         node-version: [21.x]
-        mongodb-version: [4.2]
+        mongodb-version: [7.0]
     steps:
     - uses: actions/checkout@v4
       with:
