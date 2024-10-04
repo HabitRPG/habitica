@@ -117,3 +117,39 @@ export class InternalServerError extends CustomError {
     this.message = customMessage || 'An unexpected error occurred.';
   }
 }
+
+/**
+ * @apiDefine TransactionError
+ * @apiError TransactionError An error occurred during a transaction that could not be resolved.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 500 Internal Server Error
+ *     {
+ *       "error": "TransactionError",
+ *       "message": "The transaction failed to commit after multiple attempts."
+ *     }
+ */
+export class TransactionError extends InternalServerError {
+  constructor (customMessage) {
+    super();
+    this.message = customMessage || 'The transaction failed to commit after multiple attempts.';
+  }
+}
+
+/**
+ * @apiDefine DatabaseError
+ * @apiError DatabaseError An error occurred while interacting with the database.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 500 Internal Server Error
+ *     {
+ *       "error": "DatabaseError",
+ *       "message": "A database error occurred."
+ *     }
+ */
+export class DatabaseError extends InternalServerError {
+  constructor (customMessage) {
+    super();
+    this.message = customMessage || 'A database error occurred.';
+  }
+}

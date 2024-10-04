@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import nconf from 'nconf';
 import moment from 'moment';
+import mongoose from 'mongoose';
 import { authWithHeaders } from '../../middlewares/auth';
 import {
   model as Group,
@@ -14,6 +15,9 @@ import {
   NotFound,
   BadRequest,
   NotAuthorized,
+  TransactionError,
+  DatabaseError,
+  InternalServerError,
 } from '../../libs/errors';
 import { removeFromArray } from '../../libs/collectionManipulators';
 import { sendTxn as sendTxnEmail } from '../../libs/email';
@@ -957,14 +961,7 @@ api.removeGroupMember = {
     }
 
     if (isInGroup) {
-      // For parties we count the number of members from the database to get the correct value.
-      // See #12275 on why this is necessary and only done for parties.
-      if (group.type === 'party') {
-        const currentMembers = await group.getMemberCount();
-        group.memberCount = currentMembers - 1;
-      } else {
-        group.memberCount -= 1;
-      }
+      group.memberCount -= 1;
 
       if (group.quest && group.quest.leader === member._id) {
         throw new NotAuthorized(res.t('cannotRemoveQuestOwner'));
@@ -1005,10 +1002,28 @@ api.removeGroupMember = {
     const message = req.query.message || req.body.message;
     _sendMessageToRemoved(group, member, message, isInGroup);
 
-    await Promise.all([
-      member.save(),
-      group.save(),
-    ]);
+    const session = await mongoose.startSession();
+
+    try {
+      await session.withTransaction(async () => {
+        await member.save({ session });
+        await group.save({ session });
+      }, {
+        retryWrites: true,
+      });
+    } catch (err) {
+      if (err.name === 'MongoError') {
+        throw err.hasErrorLabel('TransactionTooLargeForCache')
+          ? new TransactionError(`Transaction too large for cache: ${err.message}`)
+          : new DatabaseError(`Database error: ${err.message}`);
+      } else if (err.name === 'ValidationError') {
+        throw validationErrors;
+      } else {
+        throw new InternalServerError(`Unexpected error: ${err.message}`);
+      }
+    } finally {
+      session.endSession();
+    }
 
     if (isInGroup && group.hasNotCancelled()) {
       await group.updateGroupPlan(true);
