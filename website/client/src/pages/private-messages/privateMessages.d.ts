@@ -1,4 +1,4 @@
-namespace PrivateMessages {
+export namespace PrivateMessages {
   // Shared properties between message types
   interface SharedMessageProps {
     username: string;

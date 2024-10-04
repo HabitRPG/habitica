@@ -39,6 +39,7 @@
           class="avatar-left"
           :member="conversationOpponentUser"
           :avatar-only="true"
+          :show-weapon="false"
           :override-top-padding="'14px'"
           :hide-class-badge="true"
           @click.native="showMemberModal(msg.uuid)"
@@ -58,6 +59,7 @@
           class="avatar-right"
           :member="user"
           :avatar-only="true"
+          :show-weapon="false"
           :hide-class-badge="true"
           :override-top-padding="'14px'"
           @click.native="showMemberModal(msg.uuid)"
@@ -78,7 +80,12 @@
   }
 
   .avatar-right {
-    margin-left: -1rem;
+    overflow: clip;
+
+    ::v-deep .avatar {
+      margin-left: -2rem;
+      margin-right: 1rem;
+    }
 
     ::v-deep .character-sprites {
       margin-right: 1rem !important;

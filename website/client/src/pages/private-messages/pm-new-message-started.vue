@@ -7,11 +7,13 @@
       v-if="memberObj"
       :member="memberObj"
       :avatar-only="true"
+      :show-weapon="false"
       :hide-class-badge="true"
       :override-top-padding="'0px'"
       :sprites-margin="'0 0 0 -30px'"
-      class="center-avatar mb-3"
-      height="90px"
+      :debug-mode="false"
+      :center-avatar="true"
+      class="mb-3"
     />
 
     <strong>{{ memberObj.profile.name }}</strong>

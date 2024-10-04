@@ -1,93 +1,100 @@
 <template>
-  <div
-    v-if="member.preferences"
-    class="avatar"
-    :style="{width, height, paddingTop}"
-    :class="backgroundClass"
-    @click.prevent="castEnd()"
-  >
+  <div class="avatar-wrapper">
     <div
-      class="character-sprites"
-      :style="{margin: spritesMargin}"
+      v-if="member.preferences"
+      class="avatar"
+      :style="{width, height, paddingTop}"
+      :class="topLevelClassList"
+      @click.prevent="castEnd()"
     >
-      <template v-if="!avatarOnly">
-        <!-- Mount Body-->
-        <span
-          v-if="member.items.currentMount"
-          :class="'Mount_Body_' + member.items.currentMount"
-        ></span>
-      </template>
-      <!-- Buffs that cause visual changes to avatar: Snowman, Ghost, Flower, etc-->
-      <template v-for="(klass, item) in visualBuffs">
-        <span
-          v-if="member.stats.buffs[item] && showVisualBuffs"
-          :key="item"
-          :class="klass"
-        ></span>
-      </template>
-      <!-- Show flower ALL THE TIME!!!-->
-      <!-- See https://github.com/HabitRPG/habitica/issues/7133-->
-      <span :class="'hair_flower_' + member.preferences.hair.flower"></span>
-      <!-- Show avatar only if not currently affected by visual buff-->
-      <template v-if="showAvatar()">
-        <span :class="['chair_' + member.preferences.chair, specialMountClass]"></span>
-        <span :class="[getGearClass('back'), specialMountClass]"></span>
-        <span :class="[skinClass, specialMountClass]"></span>
-        <!-- eslint-disable max-len-->
-        <span
-          :class="[shirtClass, specialMountClass]"
-        ></span>
-        <!-- eslint-enable max-len-->
-        <span :class="['head_0', specialMountClass]"></span>
-        <!-- eslint-disable max-len-->
-        <span :class="[member.preferences.size + '_' + getGearClass('armor'), specialMountClass]"></span>
-        <!-- eslint-enable max-len-->
-        <span :class="[getGearClass('back_collar'), specialMountClass]"></span>
-        <template
-          v-for="type in ['bangs', 'base', 'mustache', 'beard']"
-        >
+      <div
+        class="character-sprites"
+        :style="{margin: spritesMargin}"
+      >
+        <template v-if="!avatarOnly">
+          <!-- Mount Body-->
           <span
-            :key="type"
-            :class="[hairClass(type), specialMountClass]"
+            v-if="member.items.currentMount"
+            :class="'Mount_Body_' + member.items.currentMount"
           ></span>
         </template>
-        <span :class="[getGearClass('body'), specialMountClass]"></span>
-        <span :class="[getGearClass('eyewear'), specialMountClass]"></span>
-        <span :class="[getGearClass('head'), specialMountClass]"></span>
-        <span :class="[getGearClass('headAccessory'), specialMountClass]"></span>
-        <span :class="['hair_flower_' + member.preferences.hair.flower, specialMountClass]"></span>
+        <!-- Buffs that cause visual changes to avatar: Snowman, Ghost, Flower, etc-->
+        <template v-for="(klass, item) in visualBuffs">
+          <span
+            v-if="member.stats.buffs[item] && showVisualBuffs"
+            :key="item"
+            :class="klass"
+          ></span>
+        </template>
+        <!-- Show flower ALL THE TIME!!!-->
+        <!-- See https://github.com/HabitRPG/habitica/issues/7133-->
+        <span :class="'hair_flower_' + member.preferences.hair.flower"></span>
+        <!-- Show avatar only if not currently affected by visual buff-->
+        <template v-if="showAvatar()">
+          <span :class="['chair_' + member.preferences.chair, specialMountClass]"></span>
+          <span :class="[getGearClass('back'), specialMountClass]"></span>
+          <span :class="[skinClass, specialMountClass]"></span>
+          <!-- eslint-disable max-len-->
+          <span
+            :class="[shirtClass, specialMountClass]"
+          ></span>
+          <!-- eslint-enable max-len-->
+          <span :class="['head_0', specialMountClass]"></span>
+          <!-- eslint-disable max-len-->
+          <span :class="[member.preferences.size + '_' + getGearClass('armor'), specialMountClass]"></span>
+          <!-- eslint-enable max-len-->
+          <span :class="[getGearClass('back_collar'), specialMountClass]"></span>
+          <template
+            v-for="type in ['bangs', 'base', 'mustache', 'beard']"
+          >
+            <span
+              :key="type"
+              :class="[hairClass(type), specialMountClass]"
+            ></span>
+          </template>
+          <span :class="[getGearClass('body'), specialMountClass]"></span>
+          <span :class="[getGearClass('eyewear'), specialMountClass]"></span>
+          <span :class="[getGearClass('head'), specialMountClass]"></span>
+          <span :class="[getGearClass('headAccessory'), specialMountClass]"></span>
+          <span
+            :class="[
+              'hair_flower_' + member.preferences.hair.flower, specialMountClass
+            ]"
+          ></span>
+          <span
+            v-if="!hideGear('shield')"
+            :class="[getGearClass('shield'), specialMountClass]"
+          ></span>
+          <span
+            v-if="!hideGear('weapon')"
+            :class="[getGearClass('weapon'), specialMountClass]"
+            class="weapon"
+          ></span>
+        </template>
+        <!-- Resting-->
         <span
-          v-if="!hideGear('shield')"
-          :class="[getGearClass('shield'), specialMountClass]"
+          v-if="member.preferences.sleep"
+          class="zzz"
         ></span>
-        <span
-          v-if="!hideGear('weapon')"
-          :class="[getGearClass('weapon'), specialMountClass]"
-        ></span>
-      </template>
-      <!-- Resting-->
-      <span
-        v-if="member.preferences.sleep"
-        class="zzz"
-      ></span>
-      <template v-if="!avatarOnly">
-        <!-- Mount Head-->
-        <span
-          v-if="member.items.currentMount"
-          :class="'Mount_Head_' + member.items.currentMount"
-        ></span>
-        <!-- Pet-->
-        <span
-          class="current-pet"
-          :class="petClass"
-        ></span>
-      </template>
+        <template v-if="!avatarOnly">
+          <!-- Mount Head-->
+          <span
+            v-if="member.items.currentMount"
+            :class="'Mount_Head_' + member.items.currentMount"
+          ></span>
+          <!-- Pet-->
+          <span
+            class="current-pet"
+            :class="petClass"
+          ></span>
+        </template>
+      </div>
+      <class-badge
+        v-if="hasClass && !hideClassBadge"
+        class="under-avatar"
+        :member-class="member.stats.class"
+      />
     </div>
-    <class-badge
-      v-if="hasClass && !hideClassBadge"
-      class="under-avatar"
-      :member-class="member.stats.class"
-    />
   </div>
 </template>
 
@@ -96,15 +103,23 @@
 
   .avatar {
     width: 141px;
-    height: 147px;
     image-rendering: pixelated;
     position: relative;
     cursor: pointer;
+
+    &.centered-avatar {
+      margin: 0 auto;
+    }
+
+    // resetting the additional padding
+    margin-bottom: -0.5rem !important;
   }
 
   .character-sprites {
     width: 90px;
     height: 90px;
+
+    display: inline-flex;
   }
 
   .character-sprites span {
@@ -123,6 +138,27 @@
   .invert {
     filter: invert(100%);
   }
+
+  .weapon {
+     // the only one that is relative so that it fits into the parent div
+    position: relative !important;
+  }
+
+  .debug {
+    border: 1px solid red;
+
+    .character-sprites {
+      border: 1px solid blue;
+    }
+
+    .weapon {
+      border: 1px solid green;
+    }
+
+    span {
+      border: 1px solid yellow;
+    }
+  }
 </style>
 
 <script>
@@ -133,12 +169,24 @@ import foolPet from '../mixins/foolPet';
 
 import ClassBadge from '@/components/members/classBadge';
 
+/**
+ * TODO replace avatarOnly with multiple options like
+ *    - showMount
+ *    - showPet
+ *    - showBackground
+ *    - showWeapons
+ */
+
 export default {
   components: {
     ClassBadge,
   },
   mixins: [foolPet],
   props: {
+    debugMode: {
+      type: Boolean,
+      default: false,
+    },
     member: {
       type: Object,
       required: true,
@@ -163,7 +211,11 @@ export default {
     },
     height: {
       type: String,
-      default: '147px',
+      default: undefined,
+    },
+    centerAvatar: {
+      type: Boolean,
+      default: false,
     },
     spritesMargin: {
       type: String,
@@ -173,6 +225,10 @@ export default {
       type: String,
     },
     showVisualBuffs: {
+      type: Boolean,
+      default: true,
+    },
+    showWeapon: {
       type: Boolean,
       default: true,
     },
@@ -203,6 +259,19 @@ export default {
       }
 
       return val;
+    },
+    topLevelClassList () {
+      const classes = [this.backgroundClass];
+
+      if (this.debugMode) {
+        classes.push('debug');
+      }
+
+      if (this.centerAvatar) {
+        classes.push('centered-avatar');
+      }
+
+      return classes.join(' ');
     },
     backgroundClass () {
       if (this.member) {
@@ -290,6 +359,10 @@ export default {
     },
     hideGear (gearType) {
       if (!this.member) return true;
+      if (!this.showWeapon) {
+        return true;
+      }
+
       if (gearType === 'weapon') {
         const equippedWeapon = this.member.items.gear[this.costumeClass][gearType];
 
