@@ -212,7 +212,6 @@
     "hatchingPotionFrost": "Zmrzlý",
     "hatchingPotionIcySnow": "Ledově Sněhový",
     "hatchingPotionNotes": "Nalij ho na vejce a vylíhne se ti <%= potText(locale) %> mazlíček.",
-    "premiumPotionAddlNotes": "Nelze použít na vejce mazlíčků z výprav. K dispozici ke koupi do <%= date(locale) %>.",
     "foodMeat": "Maso",
     "foodMeatThe": "Maso",
     "foodMeatA": "Maso",

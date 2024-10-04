@@ -212,7 +212,6 @@
     "hatchingPotionFrost": "Beku",
     "hatchingPotionIcySnow": "Salju Sedingin Es",
     "hatchingPotionNotes": "Berikan ini kepada sebuah telur, dan ia akan menetas menjadi binatang peliharaan <%= potText(locale) %>.",
-    "premiumPotionAddlNotes": "Tidak dapat digunakan kepada telur peliharaan yang didapat dari misi. Tersedia untuk pembelian sampai dengan <%= date(locale) %>.",
     "foodMeat": "Daging",
     "foodMeatThe": "Daging",
     "foodMeatA": "Daging",

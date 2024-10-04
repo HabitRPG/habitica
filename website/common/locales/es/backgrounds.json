@@ -2,7 +2,6 @@
     "backgrounds": "Fondos",
     "background": "Fondo",
     "backgroundShop": "Tienda de fondos",
-    "backgroundShopText": "Tienda de fondos",
     "noBackground": "Ningún fondo seleccionado",
     "backgrounds062014": "1.ª serie: publicada en junio de 2014",
     "backgroundBeachText": "Playa",
@@ -877,5 +876,11 @@
     "backgroundSavannaNotes": "Camina a través de estos Pastizales con Bruma.",
     "backgroundSavannaText": "Pastizales con Bruma",
     "backgroundRiverBottomText": "Fondo del Río",
-    "backgroundRiverBottomNotes": "Explora el fondo del río."
+    "backgroundRiverBottomNotes": "Explora el fondo del río.",
+    "backgrounds092024": "CONJUNTO 124: Publicado en Septiembre 2024",
+    "backgroundMagicDoorInForestText": "Portal Mágico en el Bosque",
+    "backgroundMagicDoorInForestNotes": "Atrévete a atravesar un extraño Portal Mágico en medio del Bosque.",
+    "backgroundSurroundedByGhostsText": "Rodeado de Fantasmas",
+    "backgroundSurroundedByGhostsNotes": "Pasa una noche espeluznante rodeado de fantasmas.",
+    "backgrounds102024": "CONJUNTO 124: Publicado en Septiembre 2024"
 }

@@ -39,11 +39,9 @@
     "hatchingPotion": "інкубаційний еліксир",
     "haveHatchablePet": "Ви маєте <%= potion %> інкубаційний еліксир і <%= egg %> яйце, щоб виростити цього улюбленця! <b>Натисніть</b>, щоб виростити!",
     "quickInventory": "Інвентар",
-    "foodText": "їжа",
     "food": "Корм та сідла",
     "noFoodAvailable": "У вас немає корму.",
     "noSaddlesAvailable": "У вас немає сідел.",
-    "noFood": "У Вас немає жодної їжі чи сідла.",
     "dropsExplanation": "Отримайте ці предмети швидше за допомогою самоцвітів, якщо ви не хочете чекати, поки вони випадуть під час виконання завдань. <a href=\"https://habitica.fandom.com/wiki/Drops\">Докладніше про систему випадіння предметів.</a>",
     "dropsExplanationEggs": "Витрачайте самоцвіти, щоб швидше отримати яйця, якщо ви не хочете чекати, поки випадуть звичайні яйця, або повторювати квести, щоб збирати квестові яйця. <a href=\"https://habitica.fandom.com/wiki/Drops\">Докладніше про систему випадіння предметів.</a>",
     "premiumPotionNoDropExplanation": "Магічні інкубаційні еліксири не можна використати на яйцях, отриманих з квестів. Єдиний спосіб отримати магічні інкубаційні еліксири – це купити їх нижче. Вони не випадають як трофеї.",
@@ -61,8 +59,6 @@
     "triadBingoText": "Знайдені всі 90 улюбленців, всі 90 скакунів, а також ЗНОВУ зібрані всі 90 улюбленців (ЯК ЖЕ ВИ ЦЕ ЗРОБИЛИ?!?)",
     "triadBingoText2": " та загалом всі улюбленці і скакуни звільнені <%= count %> раз(-и)",
     "triadBingoAchievement": "Ви здобули досягнення «Потрійне бінго» за те, що зібрали всіх улюбленців, приборкали всіх скакунів та ЗНОВУ зібрали всіх улюбленців!",
-    "dropsEnabled": "Випадають предмети, ага!",
-    "firstDrop": "You've unlocked the Drop System! Now when you complete tasks, you have a small chance of finding an item, including eggs, potions, and food! You just found a <strong><%= eggText %> Egg</strong>! <%= eggNotes %>",
     "hatchedPet": "Ви виростили нового улюбленця: <%= potion %> <%= egg %>!",
     "hatchedPetGeneric": "Ви виростили нового улюбленця!",
     "hatchedPetHowToUse": "Відвідайте [Улюбленців та скакунів](<%= stableUrl %>), щоб погодувати та спорядити свого нового вихованця!",
@@ -115,5 +111,6 @@
     "gryphatrice": "Грифолиск",
     "filterByWacky": "Дивакуваті",
     "jubilantGryphatrice": "Радісний грифолиск",
-    "veteranDragon": "Дракон-вояка"
+    "veteranDragon": "Дракон-вояка",
+    "veteranCactus": "Кактус-вояка"
 }

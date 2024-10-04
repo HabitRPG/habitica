@@ -398,6 +398,45 @@ const QUEST_PETS = {
       unlock: t('questSeahorseUnlockText'),
     },
   },
+  dog: {
+    text: t('questDogText'),
+    notes: t('questDogNotes'),
+    completion: t('questDogCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questDogBoss'),
+      hp: 600,
+      str: 1.5,
+      rage: {
+        title: t('questDogRageTitle'),
+        description: t('questDogRageDescription'),
+        value: 50,
+        mpDrain: 0.3,
+        effect: t('questDogRageEffect'),
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Dog',
+          text: t('questDogDropDogEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Dog',
+          text: t('questDogDropDogEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Dog',
+          text: t('questDogDropDogEgg'),
+        },
+      ],
+      gp: 55,
+      exp: 500,
+      unlock: t('questDogUnlockText'),
+    },
+  },
   dolphin: {
     text: t('questDolphinText'),
     notes: t('questDolphinNotes'),

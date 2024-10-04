@@ -3,7 +3,6 @@
     "earnedRewardForDevotion": "Kamu telah mendapatkan <%= reward %> karena telah bersemangat dalam mengembangkan dirimu.",
     "nextRewardUnlocksIn": "Jumlah masuk hingga hadiah berikutnya: <%= numberOfCheckinsLeft %>",
     "awesome": "Keren!",
-    "countLeft": "Jumlah cek in hungga hadiah selanjutnya: <%= count %>",
     "incentivesDescription": "Sewaktu membangun kebiasaan, kuncinya itu konsistensi. Setiap hari kamu masuk akan membawamu semakin dekat dengan sebuah hadiah.",
     "checkinEarned": "Penghitung Cek-inmu naik!",
     "unlockedCheckInReward": "Kamu telah membuka sebuah Hadiah Masuk!",

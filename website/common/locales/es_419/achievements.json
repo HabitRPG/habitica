@@ -148,11 +148,9 @@
     "achievementPlantParent": "Cuidador de Plantas",
     "achievementPlantParentText": "¡Ha eclosionado todos los colores estándar de mascotas planta: Cactus y Arbolito!",
     "achievementDinosaurDynasty": "Dinastía de Dinosaurios",
-    "achievementRoughRiderNotes": "¡Has coleccionado todos los colores básicos para las mascotas y montas incómodas!",
     "achievementDinosaurDynastyModalText": "¡Has coleccionado todas las mascotas Ave y Dinosaurio!",
     "achievementBonelessBoss": "Jefe Sin Huesos",
     "achievementBonelessBossModalText": "¡Has coleccionado todas las mascotas invertebradas!",
-    "achievementDuneBuddyNotes": "¡Has coleccionado todas las mascotas de desierto!",
     "achievementPlantParentModalText": "¡Has coleccionado todas las Mascotas Planta!",
     "achievementRoughRider": "Jinete Bruto",
     "achievementRoughRiderText": "¡Has eclosionado todos los colores básicos de las mascotas y montas incómodas: Cactus, Erizo y Roca!",
@@ -164,5 +162,8 @@
     "achievementRodentRuler": "Regente Roedor",
     "achievementRoughRiderModalText": "¡Has coleccionado todos los colores básicos de las mascotas y montas incómodas!",
     "achievementRodentRulerText": "¡Has eclosionado todos los colores estándar de los roedores mascota: Cuy, Rata y Ardilla!",
-    "achievementRodentRulerModalText": "¡Has coleccionado todas las mascotas roedores!"
+    "achievementRodentRulerModalText": "¡Has coleccionado todas las mascotas roedores!",
+    "achievementCats": "Arreador de gatos",
+    "achievementCatsText": "¡Ha incubado todos los colores estándar de las mascotas felinas: Guepardo, León, Dientes de sable y Tigre!",
+    "achievementCatsModalText": "¡Has coleccionado todas las mascotas felinas!"
 }

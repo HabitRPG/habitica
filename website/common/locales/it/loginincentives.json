@@ -3,7 +3,6 @@
     "earnedRewardForDevotion": "Hai meritato <%= reward %> per la tua costanza nel migliorare la tua vita.",
     "nextRewardUnlocksIn": "Il prossimo premio verrà sbloccato con altri <%= numberOfCheckinsLeft %> accessi",
     "awesome": "Fantastico!",
-    "countLeft": "Altri <%= count %> accessi per il prossimo premio",
     "incentivesDescription": "Quando si tratta di creare buone abitudini, la costanza è fondamentale. Ogni giorno che accedi ad Habitica ti avvicini ad un premio.",
     "checkinEarned": "Il tuo contatore accessi è aumentato!",
     "unlockedCheckInReward": "Hai sbloccato un Premio Accesso!",

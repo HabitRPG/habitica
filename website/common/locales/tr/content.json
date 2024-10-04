@@ -212,7 +212,6 @@
     "hatchingPotionFrost": "Donuk",
     "hatchingPotionIcySnow": "Buzlu Kar",
     "hatchingPotionNotes": "Bunu yumurtanın üstüne döktüğünde <%= potText(locale) %> türünde bir hayvan çıkacak.",
-    "premiumPotionAddlNotes": "Görev evcil hayvan yumurtalarında kullanılamaz. Şu tarihe kadar satın alınabilir <%= date(locale) %>.",
     "foodMeat": "Et",
     "foodMeatThe": "Et",
     "foodMeatA": "Et",
