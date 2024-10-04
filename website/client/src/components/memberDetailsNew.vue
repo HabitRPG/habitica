@@ -28,7 +28,6 @@
               :name="member.profile.name"
               :backer="member.backer"
               :contributor="member.contributor"
-              :smaller-style="true"
             />
             <inline-class-badge
               v-if="member.stats"

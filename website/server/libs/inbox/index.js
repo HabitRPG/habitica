@@ -1,6 +1,6 @@
-import { mapInboxMessage, inboxModel as Inbox } from '../../models/message';
+import { mapInboxMessage, inboxModel } from '../../models/message';
 import { getUserInfo, sendTxn as sendTxnEmail } from '../email'; // eslint-disable-line import/no-cycle
-import { sendNotification as sendPushNotification } from '../pushNotifications'; // eslint-disable-line import/no-cycle
+import { sendNotification as sendPushNotification } from '../pushNotifications';
 
 export async function sentMessage (sender, receiver, message, translate) {
   const messageSent = await sender.sendMessage(receiver, { receiverMsg: message });
@@ -50,7 +50,7 @@ export async function getUserInbox (user, optionParams = getUserInboxDefaultOpti
     findObj.uuid = options.conversation;
   }
 
-  let query = Inbox
+  let query = inboxModel
     .find(findObj)
     .sort({ timestamp: -1 });
 
@@ -81,14 +81,50 @@ export async function getUserInbox (user, optionParams = getUserInboxDefaultOpti
   return messagesObj;
 }
 
+export async function applyLikeToMessages (user, uniqueMessages) {
+  const bulkWriteOperations = [];
+
+  for (const message of uniqueMessages) {
+    if (!message.likes) {
+      message.likes = {};
+    }
+
+    message.likes[user._id] = !message.likes[user._id];
+
+    bulkWriteOperations.push({
+      updateOne: {
+        filter: { _id: message._id },
+        update: {
+          $set: {
+            likes: message.likes,
+          },
+        },
+      },
+    });
+  }
+
+  await inboxModel.bulkWrite(bulkWriteOperations, {});
+}
+
+export async function getInboxMessagesByUniqueId (uniqueMessageId) {
+  return inboxModel
+    .find({ uniqueMessageId })
+    // prevents creating the proxies, no .save() and other stuff
+    .lean()
+    // since there can be only 2 messages maximum for this uniqueMessageId,
+    // this might speed up the query
+    .limit(2)
+    .exec();
+}
+
 export async function getUserInboxMessage (user, messageId) {
-  return Inbox.findOne({ ownerId: user._id, _id: messageId }).exec();
+  return inboxModel.findOne({ ownerId: user._id, _id: messageId }).exec();
 }
 
 export async function deleteMessage (user, messageId) {
-  const message = await Inbox.findOne({ _id: messageId, ownerId: user._id }).exec();
+  const message = await inboxModel.findOne({ _id: messageId, ownerId: user._id }).exec();
   if (!message) return false;
-  await Inbox.deleteOne({ _id: message._id, ownerId: user._id }).exec();
+  await inboxModel.deleteOne({ _id: message._id, ownerId: user._id }).exec();
 
   return true;
 }
@@ -98,6 +134,6 @@ export async function clearPMs (user) {
 
   await Promise.all([
     user.save(),
-    Inbox.deleteMany({ ownerId: user._id }).exec(),
+    inboxModel.deleteMany({ ownerId: user._id }).exec(),
   ]);
 }

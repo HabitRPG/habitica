@@ -211,4 +211,14 @@ process.on('unhandledRejection', (reason, promise) => {
   loggerInterface.error(reason, { message: 'unhandledPromiseRejection', promise });
 });
 
+export function logTime (url, str) {
+  const now = Date.now();
+
+  logger.info(`${url} ${str} started`);
+
+  return () => {
+    logger.info(`${url} ${str} ended:  ${Date.now() - now}ms`);
+  };
+}
+
 export default loggerInterface;

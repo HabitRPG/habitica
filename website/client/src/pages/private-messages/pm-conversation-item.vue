@@ -62,7 +62,7 @@
 
 <script>
 import moment from 'moment';
-import userLabel from '../userLabel';
+import userLabel from '../../components/userLabel.vue';
 
 import dots from '@/assets/svg/dots.svg';
 import block from '@/assets/svg/block.svg';
@@ -117,7 +117,7 @@ export default {
 </script>
 
 <style lang="scss">
-  @import '~@/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors';
 
   .action-padding {
     height: 24px !important;
@@ -153,7 +153,7 @@ export default {
 </style>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors';
 
   .conversation {
     padding: 1rem 1.5rem;
