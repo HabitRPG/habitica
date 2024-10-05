@@ -12,6 +12,7 @@ const ContactPage = () => import(/* webpackChunkName: "static" */'@/components/s
 const FAQPage = () => import(/* webpackChunkName: "static" */'@/components/static/faq');
 const ChatSunsetFaq = () => import(/* webpackChunkName: "static" */'@/components/static/chatSunsetFaq');
 const ContentScheduleFaq = () => import(/* webpackChunkName: "static" */'@/components/static/contentScheduleFaq');
+const SubscriptionBenefitsFaq = () => import(/* webpackChunkName: "static" */'@/components/static/subscriptionBenefitsFaq');
 const FeaturesPage = () => import(/* webpackChunkName: "static" */'@/components/static/features');
 const GroupPlansPage = () => import(/* webpackChunkName: "static" */'@/components/static/groupPlans');
 // Commenting out merch page see
@@ -47,6 +48,9 @@ export const STATIC_ROUTES = {
     },
     {
       name: 'contentScheduleFaq', path: 'faq/content-release-changes', component: ContentScheduleFaq, meta: { requiresLogin: false },
+    },
+    {
+      name: 'subscriptionBenefitsFaq', path: 'faq/subscription-benefits-adjustments', component: SubscriptionBenefitsFaq, meta: { requiresLogin: false },
     },
     {
       name: 'features', path: 'features', component: FeaturesPage, meta: { requiresLogin: false },

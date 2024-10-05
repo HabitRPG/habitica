@@ -1,5 +1,10 @@
 <template>
   <div class="standard-page pt-0 px-0">
+    <div
+      class="announcement-banner"
+      v-html="$t('subscriptionChangeAnnouncement', { linkStart })"
+    >
+    </div>
     <div v-if="!hasSubscription && !hasCanceledSubscription">
       <div class="row mt-3">
         <div class="block-header mx-auto">
@@ -350,6 +355,23 @@
   </div>
 </template>
 
+<style lang="scss">
+  .announcement-banner {
+    color: #ffffff;
+    background-color: #46A7D9;
+    font-size: 14px;
+    line-height: 1.71;
+    text-align: center;
+    padding: 12px 0px 12px;
+    width: 100vw;
+
+    a {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+  }
+</style>
+
 <style scoped lang="scss">
   @import '~@/assets/scss/colors.scss';
 
@@ -689,6 +711,7 @@ export default {
         subscriberGems,
         subscriberHourglasses,
       }),
+      linkStart: '<a href="/static/faq/subscription-benefits-adjustments">',
     };
   },
   computed: {
