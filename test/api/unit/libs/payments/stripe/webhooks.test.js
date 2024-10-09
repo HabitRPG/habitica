@@ -16,6 +16,7 @@ import * as subscriptions from '../../../../../../website/server/libs/payments/s
 const { i18n } = common;
 
 describe('Stripe - Webhooks', () => {
+  const BASE_URL = nconf.get('BASE_URL');
   const stripe = stripeModule('test');
   const endpointSecret = nconf.get('STRIPE_WEBHOOKS_ENDPOINT_SECRET');
   const headers = {};
@@ -284,7 +285,9 @@ describe('Stripe - Webhooks', () => {
     const session = {};
 
     beforeEach(() => {
-      session.metadata = {};
+      session.metadata = {
+        server_url: BASE_URL,
+      };
       event = { type: eventType, data: { object: session } };
       constructEventStub = sandbox.stub(stripe.webhooks, 'constructEvent');
       constructEventStub.returns(event);
