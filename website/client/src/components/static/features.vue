@@ -7,17 +7,17 @@
     </div>
     <div class="row">
       <div class="col-md-6">
-        <img src="~@/assets/images/marketing/screenshot.png">
+        <img src="~@/assets/images/marketing/screenshot.png" class="feature-image">
         <h2>{{ $t('marketing1Lead1Title') }}</h2>
         <p>{{ $t('marketing1Lead1') }}</p>
       </div>
       <div class="col-md-6">
-        <img src="~@/assets/images/marketing/gear.png">
+        <img src="~@/assets/images/marketing/gear.png" class="feature-image">
         <h2>{{ $t('marketing1Lead2Title') }}</h2>
         <p>{{ $t('marketing1Lead2') }}</p>
         <img
           src="~@/assets/images/marketing/drops.png"
-          style="max-height: 200px;"
+          class="feature-image"
         >
         <h2>{{ $t('marketing1Lead3Title') }}</h2>
         <p>{{ $t('marketing1Lead3') }}</p>
@@ -33,12 +33,12 @@
       <div class="col-md-6">
         <h2>{{ $t('marketing2Lead1Title') }}</h2>
         <p>{{ $t('marketing2Lead1') }}</p>
-        <img src="~@/assets/images/marketing/vice3.png">
+        <img src="~@/assets/images/marketing/vice3.png" class="feature-image">
         <h2>{{ $t('marketing2Lead2Title') }}</h2>
         <p v-markdown="$t('marketing2Lead2')"></p>
       </div>
       <div class="col-md-6">
-        <img src="~@/assets/images/marketing/challenge.png">
+        <img src="~@/assets/images/marketing/challenge.png" class="feature-image">
         <h2>{{ $t('marketing2Lead3Title') }}</h2>
         <p>{{ $t('marketing2Lead3') }}</p>
       </div>
@@ -51,12 +51,12 @@
     </div>
     <div class="row">
       <div class="col-md-6">
-        <img src="~@/assets/images/marketing/android_iphone.png">
+        <img src="~@/assets/images/marketing/android_iphone.png" class="feature-image">
         <h2>{{ $t('footerMobile') }}</h2>
         <p v-markdown="$t('marketing3Lead1')"></p>
       </div>
       <div class="col-md-6">
-        <img src="~@/assets/images/marketing/integration.png">
+        <img src="~@/assets/images/marketing/integration.png" class="feature-image">
         <h2>{{ $t('marketing3Lead2Title') }}</h2>
         <p v-markdown="$t('marketing3Lead2')"></p>
       </div>
@@ -70,7 +70,7 @@
     <div class="row">
       <div class="col-md-6">
         <div class="media">
-          <img src="~@/assets/images/marketing/education.png">
+          <img src="~@/assets/images/marketing/education.png" class="media-image">
           <div class="media-body">
             <h2>{{ $t('marketing4Lead1Title') }}</h2>
             <p>{{ $t('marketing4Lead1') }}</p>
@@ -79,7 +79,7 @@
       </div>
       <div class="col-md-6">
         <div class="media">
-          <img src="~@/assets/images/marketing/wellness.png">
+          <img src="~@/assets/images/marketing/wellness.png" class="media-image">
           <div class="media-body">
             <h2>{{ $t('marketing4Lead2Title') }}</h2>
             <p>{{ $t('marketing4Lead2') }}</p>
@@ -90,7 +90,7 @@
     <div class="row">
       <div class="col-md-6 offset-md-3">
         <h2>{{ $t('marketing4Lead3Title') }}</h2>
-        <img src="~@/assets/images/marketing/lefnire.png">
+        <img src="~@/assets/images/marketing/lefnire.png" class="feature-image">
         <p class="span">
           <span>{{ $t('marketing4Lead3-1') }}</span>
           <button
@@ -118,7 +118,7 @@
     margin-left: 1em;
   }
 
-  img {
+  .feature-image {
     box-shadow: 0 0 10px 5px #888;
     margin: 0.5em;
     max-width: 500px;
@@ -126,6 +126,17 @@
     @media (max-width: 1200px) {
       max-width: 100%;
     }
+  }
+
+  .media-image {
+    max-width: 100px;
+    margin-right: 1em;
+  }
+
+  .media {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1em;
   }
 </style>
 
