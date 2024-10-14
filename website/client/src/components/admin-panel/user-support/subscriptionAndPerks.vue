@@ -91,20 +91,6 @@
         </div>
         <div class="form-group row">
           <label class="col-sm-3 col-form-label">
-            Consecutive months:
-          </label>
-          <div class="col-sm-9">
-            <input
-              v-model="hero.purchased.plan.consecutive.count"
-              class="form-control"
-              type="number"
-              min="0"
-              step="1"
-            >
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label">
             Cumulative months:
           </label>
           <div class="col-sm-9">
@@ -124,23 +110,17 @@
           <div class="col-sm-9">
             <div class="input-group">
               <input
-                v-model="hero.purchased.plan.cumulativeCount"
+                v-model="hero.purchased.plan.hourglassPromoReceived"
                 class="form-control"
                 type="text"
               >
               <div class="input-group-append">
                 <strong class="input-group-text">
-                  {{ dateFormat(hero.purchased.plan.cumulativeCount) }}
+                  {{ dateFormat(hero.purchased.plan.hourglassPromoReceived) }}
                 </strong>
               </div>
             </div>
           </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label">
-            Next Mystic Hourglass:
-          </label>
-          <strong class="col-sm-9 col-form-label">{{ nextHourglassDate }}</strong>
         </div>
         <div class="form-group row">
           <label class="col-sm-3 col-form-label">
@@ -167,7 +147,7 @@
               type="number"
               min="0"
               max="26"
-              step="5"
+              step="2"
             >
           </div>
         </div>
