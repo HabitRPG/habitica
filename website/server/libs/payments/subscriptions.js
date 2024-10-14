@@ -260,7 +260,9 @@ async function createSubscription (data) {
       recipient.purchased.plan.hourglassPromoReceived = new Date();
       await plan.updateHourglasses(recipient._id, 12, 'subscription_bonus');
     }
-    if (isNewSubscription) {
+    const { lastHourglassReceived } = recipient.purchased.plan.consecutive;
+    if (isNewSubscription
+      && (lastHourglassReceived === null || lastHourglassReceived === undefined || !moment().isSame(lastHourglassReceived, 'month'))) {
       await plan.updateHourglasses(recipient._id, 1, 'subscription_perks');
     }
   }

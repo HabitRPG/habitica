@@ -33,6 +33,7 @@ export const schema = new mongoose.Schema({
     offset: { $type: Number, default: 0 },
     gemCapExtra: { $type: Number, default: 0 },
     trinkets: { $type: Number, default: 0 },
+    lastHourglassReceived: Date,
   },
 }, {
   strict: true,
@@ -72,6 +73,7 @@ schema.methods.updateHourglasses = async function updateHourglasses (
   referenceText,
 ) {
   this.consecutive.trinkets += amount;
+  this.consecutive.lastHourglassReceived = new Date();
   await Transaction.create({
     currency: 'hourglasses',
     userId,
