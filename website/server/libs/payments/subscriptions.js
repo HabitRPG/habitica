@@ -255,12 +255,12 @@ async function createSubscription (data) {
     if (block.months === 12) {
       recipient.purchased.plan.consecutive.gemCapExtra = 26;
     }
+    const { lastHourglassReceived } = recipient.purchased.plan.consecutive;
 
     if (block.months === 12 && autoRenews && !recipient.purchased.plan.hourglassPromoReceived) {
       recipient.purchased.plan.hourglassPromoReceived = new Date();
       await plan.updateHourglasses(recipient._id, 12, 'subscription_bonus');
     }
-    const { lastHourglassReceived } = recipient.purchased.plan.consecutive;
     if (isNewSubscription
       && (lastHourglassReceived === null || lastHourglassReceived === undefined || !moment().isSame(lastHourglassReceived, 'month'))) {
       await plan.updateHourglasses(recipient._id, 1, 'subscription_perks');
