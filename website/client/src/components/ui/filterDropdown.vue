@@ -12,7 +12,9 @@
       @select="selectItem($event)"
     >
       <template #item="{ item }">
-        <span :class="{'dropdown-icon-item': withIcon}">
+        <span
+        :class="{'dropdown-icon-item': withIcon}"
+        >
           <slot
             name="item"
             :item="item"
@@ -56,5 +58,4 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
 </style>

@@ -395,7 +395,7 @@
 
   .btn-update-card {
     width: 12.5rem;
-    height: 2.5rem;
+    line-height: 1.714;
     border-radius: 4px;
     font-size: 14px;
   }
@@ -498,7 +498,7 @@
   .subscribe-card {
     width: 28rem;
     border-radius: 8px;
-    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+    box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
     background-color: $white;
   }
 

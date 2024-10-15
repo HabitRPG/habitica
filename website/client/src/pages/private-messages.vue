@@ -446,7 +446,6 @@
     padding: 1.5rem;
 
     .guidelines {
-      height: 32px;
       font-size: 12px;
       font-weight: normal;
       font-style: normal;
@@ -459,9 +458,10 @@
     }
 
     button {
-      height: 40px;
-      border-radius: 2px;
+      border-radius: 4px;
+      line-height: 1.714;
       margin-left: 1.5rem;
+      padding: 2px 12px;
 
       &.disabled {
         cursor: default;
@@ -540,7 +540,7 @@
     z-index: 1;
     pointer-events: none;
 
-    box-shadow: 0 3px 12px 0 rgba(26, 24, 29, 0.24);
+    box-shadow: 0 3px 12px 0 rgba($black, 0.24);
   }
 
   .center-avatar {

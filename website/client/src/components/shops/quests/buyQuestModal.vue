@@ -198,7 +198,7 @@
       top: 25px;
       border-radius: 8px;
       background-color: $gray-600;
-      box-shadow: 0 2px 16px 0 rgba(26, 24, 29, 0.32);
+      box-shadow: 0 2px 16px 0 rgba($black, 0.32);
       display: flex;
       align-items: center;
       flex-direction: column;
@@ -208,12 +208,17 @@
     }
 
     button.btn.btn-primary {
-      margin-top: 14px;
-      padding: 4px 16px;
-      height: 32px;
+      margin-top: 16px;
+      padding: 2px 12px;
+      line-height: 1.714;
 
       &:focus {
-        border: 2px solid black;
+        border: 2px solid $purple-400;
+      }
+
+      &:active {
+        border: 2px solid $purple-400;
+        box-shadow: none;
       }
     }
 
@@ -249,7 +254,7 @@
 
           &.gems {
             color: $green-10;
-            background-color: rgba(36, 204, 143, 0.15);
+            background-color: rgba($green-100, 0.15);
             line-height: 1.4;
             margin: 0 0 0 -4px;
             border-radius: 20px;
@@ -257,7 +262,7 @@
 
           &.gold {
             color: $yellow-5;
-            background-color: rgba(255, 190, 93, 0.15);
+            background-color: rgba($yellow-100, 0.15);
             line-height: 1.4;
             margin: 0 0 0 -4px;
             border-radius: 20px;
@@ -265,7 +270,7 @@
 
           &.hourglasses {
             color: $hourglass-color;
-            background-color: rgba(41, 149, 205, 0.15);
+            background-color: rgba($blue-10, 0.15);
             line-height: 1.4;
             margin: 0 0 0 -4px;
             border-radius: 20px;
