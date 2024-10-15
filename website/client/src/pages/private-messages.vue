@@ -540,7 +540,7 @@
     z-index: 1;
     pointer-events: none;
 
-    box-shadow: 0 3px 12px 0 rgba(26, 24, 29, 0.24);
+    box-shadow: 0 3px 12px 0 rgba($black, 0.24);
   }
 
   .center-avatar {

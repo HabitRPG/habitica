@@ -254,7 +254,7 @@
 
           &.gems {
             color: $green-10;
-            background-color: rgba(36, 204, 143, 0.15);
+            background-color: rgba($green-100, 0.15);
             line-height: 1.4;
             margin: 0 0 0 -4px;
             border-radius: 20px;
@@ -262,7 +262,7 @@
 
           &.gold {
             color: $yellow-5;
-            background-color: rgba(255, 190, 93, 0.15);
+            background-color: rgba($yellow-100, 0.15);
             line-height: 1.4;
             margin: 0 0 0 -4px;
             border-radius: 20px;
@@ -270,7 +270,7 @@
 
           &.hourglasses {
             color: $hourglass-color;
-            background-color: rgba(41, 149, 205, 0.15);
+            background-color: rgba($blue-10, 0.15);
             line-height: 1.4;
             margin: 0 0 0 -4px;
             border-radius: 20px;

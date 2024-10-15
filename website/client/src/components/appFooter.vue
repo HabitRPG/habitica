@@ -592,18 +592,18 @@ h3 {
 
 .debug {
   border: 2px solid transparent;
-  box-shadow: 0 1px 3px 0 rgba(26, 24, 29, 0.12), 0 1px 2px 0 rgba(26, 24, 29, 0.24);
+  box-shadow: 0 1px 3px 0 rgba($black, 0.12), 0 1px 2px 0 rgba($black, 0.24);
   display: flex;
   justify-content: center;
   margin-top: 16px;
   padding: 2px 12px;
 
   &:hover {
-    box-shadow: 0 3px 6px 0 rgba(26, 24, 29, 0.12), 0 3px 6px 0 rgba(26, 24, 29, 0.24);
+    box-shadow: 0 3px 6px 0 rgba($black, 0.12), 0 3px 6px 0 rgba($black, 0.24);
   }
   &:focus  {
     border: 2px solid $purple-400 !important;
-    box-shadow: 0 3px 6px 0 rgba(26, 24, 29, 0.12), 0 3px 6px 0 rgba(26, 24, 29, 0.24);
+    box-shadow: 0 3px 6px 0 rgba($black, 0.12), 0 3px 6px 0 rgba($black, 0.24);
   }
   :active {
     border: 2px solid $purple-600 !important;
@@ -614,7 +614,7 @@ h3 {
 .debug-group {
   background-color: $gray-600;
   border-radius: 4px;
-  box-shadow: 0 1px 3px 0 rgba(26, 24, 29, 0.12), 0 1px 2px 0 rgba(26, 24, 29, 0.24);
+  box-shadow: 0 1px 3px 0 rgba($black, 0.12), 0 1px 2px 0 rgba($black, 0.24);
   font-weight: 700;
   padding: 8px 16px;
 

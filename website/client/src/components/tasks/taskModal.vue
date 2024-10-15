@@ -651,9 +651,9 @@
 
     input, textarea {
       transition-property: border-color, box-shadow, color, background;
-      background-color: rgba(255, 255, 255, 0.5);
+      background-color: rgba($white, 0.5);
       &:focus:not(:disabled), &:active:not(:disabled), &:hover:not(:disabled) {
-        background-color: rgba(255, 255, 255, 0.75);
+        background-color: rgba($white, 0.75);
       }
     }
 
