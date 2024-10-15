@@ -11,7 +11,7 @@
   color: $white;
 
   &:hover, &:focus {
-    box-shadow: 0px 3px 6px 0px rgba(26, 24, 29, 0.16), 0px 3px 6px 0px rgba(26, 24, 29, 0.24);
+    box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
 
     &.btn-flat {
       box-shadow: none;
@@ -21,7 +21,7 @@
   &:focus {
     border: 2px solid $purple-200;
     border-color: $purple-400;
-    box-shadow: 0px 3px 6px 0px rgba(26, 24, 29, 0.16), 0px 3px 6px 0px rgba(26, 24, 29, 0.24);
+    box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
   }
 
   &:active, &.active:not(.btn-flat) {
@@ -32,7 +32,7 @@
     cursor: default;
     color: $gray-50;
     opacity: 0.75;
-    box-shadow: 0 1px 3px 0 rgba(26, 24, 29, 0.12), 0 1px 2px 0 rgba(26, 24, 29, 0.24);
+    box-shadow: 0 1px 3px 0 rgba($black, 0.12), 0 1px 2px 0 rgba($black, 0.24);
     background-color: $gray-700;
     border: 2px solid transparent;
 
@@ -64,7 +64,7 @@
   &:focus {
     background: $purple-200;
     border: 2px solid $purple-400;
-    box-shadow: 0px 3px 6px 0px rgba(26, 24, 29, 0.16), 0px 3px 6px 0px rgba(26, 24, 29, 0.24);
+    box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
     --icon-color: #{$white};
   }
 
@@ -125,7 +125,7 @@
       &:focus {
         color: $purple-300;
         border: 2px solid $purple-400;
-        box-shadow: 0px 3px 6px 0px rgba(26, 24, 29, 0.16), 0px 3px 6px 0px rgba(26, 24, 29, 0.24);
+        box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
       }
 
       &:active {
@@ -161,13 +161,13 @@
 .btn-danger {
   background: $maroon-100;
   border: 2px solid transparent;
-  box-shadow: 0px 1px 3px 0px rgba(26, 24, 29, 0.16), 0px 1px 2px 0px rgba(26, 24, 29, 0.24);
+  box-shadow: 0 1px 3px 0 rgba($black, 0.16), 0 1px 3px 0 rgba($black, 0.24);
 
 
   &:hover:not(:disabled):not(.disabled) {
     background: $maroon-100;
     border: 2px solid transparent;
-    box-shadow: 0px 3px 6px 0px rgba(26, 24, 29, 0.16), 0px 3px 6px 0px rgba(26, 24, 29, 0.24);
+    box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
   }
 
   &:focus {
@@ -188,7 +188,7 @@
 
 .btn-warning {
   background: $orange-10;
-  box-shadow: 0px 1px 3px 0px rgba(26, 24, 29, 0.16), 0px 1px 26px 0px rgba(26, 24, 29, 0.24);
+  box-shadow: 0 1px 3px 0 rgba($black, 0.16), 0 1px 3px 0 rgba($black, 0.24);
   color: $white !important;
 
   &:hover:not(:disabled):not(.disabled) {
@@ -219,13 +219,13 @@
   &:hover:not(:disabled):not(.disabled) {
     background: $green-50;
     border: 2px solid transparent;
-    box-shadow: 0px 3px 6px 0px rgba(26, 24, 29, 0.16), 0px 3px 6px 0px rgba(26, 24, 29, 0.24);
+    box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
   }
 
   &:focus {
     background: $green-50;
     border: 2px solid $purple-200;
-    box-shadow: 0px 3px 6px 0px rgba(26, 24, 29, 0.16), 0px 3px 6px 0px rgba(26, 24, 29, 0.24);
+    box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
   }
 
   &:not(:disabled):not(.disabled):active:focus, &:not(:disabled):not(.disabled).active:focus {
@@ -245,12 +245,12 @@
 
   &:disabled {
     background: $blue-50;
-    box-shadow: 0px 3px 6px 0px rgba(26, 24, 29, 0.16), 0px 3px 6px 0px rgba(26, 24, 29, 0.24);
+    box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
   }
 
   &:hover:not(:disabled):not(.disabled) {
     background-color: $blue-100;
-    box-shadow: 0px 3px 6px 0px rgba(26, 24, 29, 0.16), 0px 3px 6px 0px rgba(26, 24, 29, 0.24);
+    box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
   }
 
   &:active:not(:disabled):not(.disabled), &.active:not(:disabled):not(.disabled) {

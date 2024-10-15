@@ -198,7 +198,7 @@
       top: 25px;
       border-radius: 8px;
       background-color: $gray-600;
-      box-shadow: 0 2px 16px 0 rgba(26, 24, 29, 0.32);
+      box-shadow: 0 2px 16px 0 rgba($black, 0.32);
       display: flex;
       align-items: center;
       flex-direction: column;
@@ -210,7 +210,7 @@
     button.btn.btn-primary {
       margin-top: 16px;
       padding: 2px 12px;
-      line-height: 24px;
+      line-height: 1.714;
 
       &:focus {
         border: 2px solid $purple-400;
