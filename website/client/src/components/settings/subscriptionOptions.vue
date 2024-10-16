@@ -2,8 +2,14 @@
   <div id="subscription-form">
     <div
       class="w-100 h-100"
-      :class="{'mb-3': userReceivingGift?._id}"
+      :class="{'mb-2': userReceivingGift?._id}"
     >
+      <strong
+        v-if="userReceivingGift?._id"
+        class="text-center d-block mb-3 mx-5"
+      >
+        {{ $t('giftSubscriptionLeadText') }}
+      </strong>
       <!-- eslint-disable vue/no-use-v-if-with-v-for -->
       <div
         v-for="block in subscriptionBlocksOrdered"
@@ -15,7 +21,7 @@
           selected: subscription.key === block.key,
           'mb-2': block.months !== 12,
           final: block.months === 12,
-          'mx-3': userReceivingGift?._id,
+          'mx-4': userReceivingGift?._id,
         }"
         @click="updateSubscriptionData(block.key)"
       >
@@ -54,7 +60,10 @@
                   v-html="icons.plus"
                 >
                 </div>
-                <small v-html="$t('unlockNGems', { count: 24 })"></small>
+                <small
+                  v-html="userReceivingGift?._id ? $t('unlockNGemsGift', { count: 24 })
+                    : $t('unlockNGems', { count: 24 })"
+                ></small>
               </div>
               <div class="d-flex align-items-center">
                 <div
@@ -63,7 +72,7 @@
                 >
                 </div>
                 <small
-                  v-html="userReceivingGift?._id ? $t('plus2Gems') : $t('earn2Gems')"
+                  v-html="userReceivingGift?._id ? $t('earn2GemsGift') : $t('earn2Gems')"
                 ></small>
               </div>
             </div>
@@ -87,7 +96,10 @@
                     v-html="icons.plus"
                   >
                   </div>
-                  <small v-html="$t('unlockNGems', { count: 50 })"></small>
+                  <small
+                    v-html="userReceivingGift?._id ? $t('unlockNGemsGift', { count: 50 })
+                      : $t('unlockNGems', { count: 50 })"
+                  ></small>
                 </div>
                 <div class="d-flex align-items-center">
                   <div
@@ -95,7 +107,8 @@
                     v-html="icons.plus"
                   >
                   </div>
-                  <small v-html="$t('maxGemCap')"></small>
+                  <small v-html="userReceivingGift?._id ? $t('maxGemCapGift') : $t('maxGemCap')">
+                  </small>
                 </div>
               </div>
             </div>
@@ -108,6 +121,11 @@
           </div>
         </div>
       </div>
+      <button
+        class="btn btn-primary"
+        :class="[canceled ? 'mt-4' : 'mt-3', userReceivingGift?._id ? 'mx-4' : 'w-100']"
+        @click="$root.$emit('bv::show::modal', 'buy-subscription')"
+      > {{ userReceivingGift?._id ? $t('selectPayment') : $t('subscribe') }} </button>
     </div>
     <div
       v-if="note"
@@ -120,22 +138,6 @@
         {{ $t(note) }}
       </small>
     </div>
-    <!-- payment buttons first is for gift subs and the second is for renewing subs -->
-    <payments-buttons
-      v-if="userReceivingGift && userReceivingGift._id"
-      :disabled="!subscription.key"
-      :stripe-fn="() => redirectToStripe({gift, uuid: userReceivingGift._id, receiverName})"
-      :paypal-fn="() => openPaypalGift({
-        gift: gift, giftedTo: userReceivingGift._id, receiverName,
-      })"
-      :amazon-data="{type: 'single', gift, giftedTo: userReceivingGift._id, receiverName}"
-    />
-    <button
-      v-else
-      class="btn btn-primary w-100"
-      :class="canceled ? 'mt-4' : 'mt-3'"
-      @click="$root.$emit('bv::show::modal', 'buy-subscription')"
-    > {{ $t('subscribe') }} </button>
     <b-modal
       id="buy-subscription"
       size="md"
@@ -143,6 +145,15 @@
       :hide-footer="true"
     >
       <payments-buttons
+        v-if="userReceivingGift?._id"
+        :disabled="!subscription.key"
+        :stripe-fn="() => redirectToStripe({gift, uuid: userReceivingGift._id, receiverName})"
+        :paypal-fn="() => openPaypalGift({
+          gift: gift, giftedTo: userReceivingGift._id, receiverName,
+        })"
+      />
+      <payments-buttons
+        v-else
         :disabled="!subscription.key"
         :stripe-fn="() => redirectToStripe({
           subscription: subscription.key,
@@ -217,8 +228,12 @@
     }
   }
 
-  strike {
+  strike, strong {
     line-height: 24px;
+  }
+
+  .btn-primary {
+    min-width: 400px;
   }
 
   .gradient-banner small {
@@ -252,6 +267,7 @@
     border-radius: 8px;
     box-shadow: 0px 1px 3px 0px rgba($black, 0.12), 0px 1px 2px 0px rgba($black, 0.24);
     position: relative;
+    background-color: $white;
 
     .bg-white {
       border-top-left-radius: 8px;
@@ -372,7 +388,10 @@ export default {
   methods: {
     recurrenceText (months) {
       if (this.userReceivingGift?._id) {
-        return this.$t('oneTimeCharge');
+        if (months < 2) {
+          return this.$t('oneMonthGift');
+        }
+        return this.$t('nMonthsGift', { months });
       }
       if (months < 2) {
         return this.$t('recurringMonthly');

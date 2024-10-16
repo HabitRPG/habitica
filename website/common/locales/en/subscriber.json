@@ -248,6 +248,11 @@
     "popular": "Popular",
     "immediate12Hourglasses": "Get <strong>12 Mystic Hourglasses</strong> immediately after your first 12-month subscription!",
     "subscribe": "Subscribe",
-    "oneTimeCharge": "One time charge",
-    "plus2Gems": "<strong>+2 Gems</strong> every month of subscription"
+    "selectPayment": "Select Payment",
+    "giftSubscriptionLeadText": "Choose the subscription you'd like to gift below! This purchase will not automatically renew.",
+    "oneMonthGift": "For 1 month",
+    "nMonthsGift": "For <%= months %> months",
+    "unlockNGemsGift": "They'll unlock <strong><%= count %> Gems</strong> per month instantly",
+    "earn2GemsGift": "They'll earn <strong>+2 Gems</strong> every month they're subscribed",
+    "maxGemCapGift": "They'll have the max <strong>Gem Cap</strong>"
 }

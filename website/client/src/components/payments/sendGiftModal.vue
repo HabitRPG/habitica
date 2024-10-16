@@ -73,7 +73,7 @@
       <!-- subscriber block -->
       <subscription-options
         v-show="selectedPage === 'subscription'"
-        class="subscribe-option py-3"
+        class="bg-gray-700 py-3"
         :user-receiving-gift="userReceivingGift"
         :receiver-name="receiverName"
       />
@@ -248,6 +248,11 @@
 <style lang="scss">
   @import '~@/assets/scss/mixins.scss';
   #send-gift {
+    #subscription-form {
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 8px;
+    }
+
     .modal-dialog {
       max-width: 448px;
     }
@@ -279,9 +284,6 @@
           fill: #686274;
         }
       }
-    }
-    #subscription-form .subscribe-option {
-      background: #FFFFFF;
     }
   }
 </style>
@@ -317,7 +319,6 @@
   }
 
   .row {
-    background-color: $gray-700;
     margin: 0 0 0 0;
     min-height: 32px;
   }
