@@ -1,5 +1,5 @@
 <template>
-  <div class="payments-column mx-auto mt-auto">
+  <div class="payments-column mx-auto">
     <h4>{{ $t('choosePaymentMethod') }}</h4>
     <button
       v-if="stripeAvailable"

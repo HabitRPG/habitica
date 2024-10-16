@@ -73,7 +73,7 @@
       <!-- subscriber block -->
       <subscription-options
         v-show="selectedPage === 'subscription'"
-        class="subscribe-option"
+        class="subscribe-option py-3"
         :user-receiving-gift="userReceivingGift"
         :receiver-name="receiverName"
       />
@@ -281,14 +281,9 @@
       }
     }
     #subscription-form .subscribe-option {
-      background: #F9F9F9;
+      background: #FFFFFF;
     }
-
-    #subscription-form .selected {
-      background: rgba(213, 200, 255, 0.32);
-      // using rgba for transparency
-    }
-}
+  }
 </style>
 <style scoped lang="scss">
   @import '~@/assets/scss/colors.scss';

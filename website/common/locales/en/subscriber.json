@@ -247,5 +247,7 @@
     "monthlyGems": "Monthly Gems:",
     "popular": "Popular",
     "immediate12Hourglasses": "Get <strong>12 Mystic Hourglasses</strong> immediately after your first 12-month subscription!",
-    "subscribe": "Subscribe"
+    "subscribe": "Subscribe",
+    "oneTimeCharge": "One time charge",
+    "plus2Gems": "<strong>+2 Gems</strong> every month of subscription"
 }

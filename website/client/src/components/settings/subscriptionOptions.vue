@@ -1,6 +1,9 @@
 <template>
   <div id="subscription-form">
-    <div class="w-100 h-100">
+    <div
+      class="w-100 h-100"
+      :class="{'mb-3': userReceivingGift?._id}"
+    >
       <!-- eslint-disable vue/no-use-v-if-with-v-for -->
       <div
         v-for="block in subscriptionBlocksOrdered"
@@ -12,6 +15,7 @@
           selected: subscription.key === block.key,
           'mb-2': block.months !== 12,
           final: block.months === 12,
+          'mx-3': userReceivingGift?._id,
         }"
         @click="updateSubscriptionData(block.key)"
       >
@@ -30,13 +34,7 @@
           <small class="bold teal-1"> {{ $t('popular') }} </small>
         </div>
         <!-- eslint-enable vue/no-use-v-if-with-v-for -->
-        <div
-          v-if="userReceivingGift && userReceivingGift._id"
-          class="subscription-text ml-2 mb-1"
-          v-html="$t('giftSubscriptionRateText', {price: block.price, months: block.months})"
-        >
-        </div>
-        <div v-else class="w-100">
+        <div class="w-100">
           <div
             class="mx-5"
             v-if="block.months < 12"
@@ -45,16 +43,9 @@
               class="mt-3 mb-1"
             > ${{ block.price }}.00 USD </h2>
             <small
-              v-if="block.months < 2"
               class="bold mb-2"
             >
-              {{ $t('recurringMonthly') }}
-            </small>
-            <small
-              v-else
-              class="bold mb-2"
-            >
-              {{ $t('recurringNMonthly', { length: block.months }) }}
+              {{ recurrenceText(block.months) }}
             </small>
             <div class="d-flex flex-column mb-3">
               <div class="d-flex align-items-center mb-1">
@@ -71,18 +62,23 @@
                   v-html="icons.plus"
                 >
                 </div>
-                <small v-html="$t('earn2Gems')"></small>
+                <small
+                  v-html="userReceivingGift?._id ? $t('plus2Gems') : $t('earn2Gems')"
+                ></small>
               </div>
             </div>
           </div>
           <div v-else>
-            <div class="bg-white py-3 pl-5">
+            <div
+              class="bg-white py-3 pl-5"
+              :class="{ round: userReceivingGift?._id }"
+            >
               <div class="d-flex align-items-center mb-1">
                 <h2 class="mr-2 my-auto"> ${{ block.price }}.00 USD</h2>
                 <strike class="gray-200">$60.00 USD</strike>
               </div>
               <small class="bold mb-2">
-                {{ $t('recurringNMonthly', { length: block.months }) }}
+                {{ recurrenceText(block.months) }}
               </small>
               <div class="d-flex flex-column">
                 <div class="d-flex align-items-center mb-1">
@@ -105,6 +101,7 @@
             </div>
             <div
               class="gradient-banner text-center"
+              v-if="!userReceivingGift?._id"
             >
               <small class="my-3" v-html="$t('immediate12Hourglasses')"></small>
             </div>
@@ -259,6 +256,11 @@
     .bg-white {
       border-top-left-radius: 8px;
       border-top-right-radius: 8px;
+
+      &.round {
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+      }
     }
 
     &.final h2 {
@@ -368,6 +370,15 @@ export default {
     },
   },
   methods: {
+    recurrenceText (months) {
+      if (this.userReceivingGift?._id) {
+        return this.$t('oneTimeCharge');
+      }
+      if (months < 2) {
+        return this.$t('recurringMonthly');
+      }
+      return (this.$t('recurringNMonthly', { length: months }));
+    },
     subscriptionBubbles (subscription) {
       switch (subscription) {
         case 'basic_3mo':
