@@ -2170,6 +2170,11 @@
   width: 141px;
   height: 147px;
 }
+.background_surrounded_by_ghosts {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_surrounded_by_ghosts.png');
+  width: 141px;
+  height: 147px;
+}
 .background_swan_boat {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_swan_boat.png');
   width: 141px;
@@ -29924,8 +29929,8 @@
   width: 114px;
   height: 90px;
 }
-.broad_armor_armoire_stormKnightsArmor {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_armoire_stormKnightsArmor.png');
+.broad_armor_armoire_stormKnightArmor {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_armoire_stormKnightArmor.png');
   width: 114px;
   height: 90px;
 }
@@ -30449,8 +30454,8 @@
   width: 117px;
   height: 120px;
 }
-.head_armoire_stormKnightsHelm {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_armoire_stormKnightsHelm.png');
+.head_armoire_stormKnightHelm {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_armoire_stormKnightHelm.png');
   width: 114px;
   height: 90px;
 }
@@ -31394,8 +31399,8 @@
   width: 114px;
   height: 90px;
 }
-.slim_armor_armoire_stormKnightsArmor {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_armoire_stormKnightsArmor.png');
+.slim_armor_armoire_stormKnightArmor {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_armoire_stormKnightArmor.png');
   width: 114px;
   height: 90px;
 }
@@ -31954,8 +31959,8 @@
   width: 114px;
   height: 90px;
 }
-.weapon_armoire_stormKnightsAxe {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_armoire_stormKnightsAxe.png');
+.weapon_armoire_stormKnightAxe {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_armoire_stormKnightAxe.png');
   width: 114px;
   height: 90px;
 }

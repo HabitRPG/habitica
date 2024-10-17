@@ -1655,7 +1655,7 @@
   "armorArmoireFunnyFoolCostumeText": "Funny Fool Costume",
   "armorArmoireFunnyFoolCostumeNotes": "Dum-de-dum! Surely you jest. This colorful outfit looks amazing on you! Increases Strength by <%= str %>. Enchanted Armoire: Funny Fool Set (Item 2 of 3)",
   "armorArmoireStormKnightArmorText": "Storm Knight Armor",
-  "armorArmoireStormKnightArmorNotes": "In this armor, you are nearly invincible. Your enemies will never see the storm’s end. Increases Perception by <%= per >. Enchanted Armoire: Storm Knight Set (Item 2 of 3)",
+  "armorArmoireStormKnightArmorNotes": "In this armor, you are nearly invincible. Your enemies will never see the storm’s end. Increases Perception by <%= per %>. Enchanted Armoire: Storm Knight Set (Item 2 of 3)",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
