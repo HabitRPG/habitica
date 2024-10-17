@@ -363,7 +363,10 @@
               @click.prevent="showBuyGemsModal()"
               v-html="icons.gem"
             ></a>
-            <span>{{ userGems }}</span>
+            <span
+              @click.prevent="showBuyGemsModal()">
+                {{ userGems }}
+            </span>
           </div>
           <div class="item-with-icon gold">
             <div
