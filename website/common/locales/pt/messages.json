@@ -15,7 +15,7 @@
     "messageMissingEggPotion": "Está a perder o ovo ou essa poção",
     "messageInvalidEggPotionCombo": "Não pode chocar Ovos de Mascotes de Missões com Poções Mágicas de Incubação! Tente um ovo diferente.",
     "messageAlreadyPet": "Já possui esse mascote. Tente incubar uma combinação diferente!",
-    "messageHatched": "O seu ovo chocou! Visite o seu estábulo para equipar o seu mascote.",
+    "messageHatched": "O seu ovo chocou! Visite o seu Estábulo para equipar o seu mascote.",
     "messageNotEnoughGold": "Ouro Insuficiente",
     "messageTwoHandedEquip": "Para usar <%= twoHandedText %> são necessárias duas mãos, por isso <%= offHandedText %> foi desequipado.",
     "messageTwoHandedUnequip": "<%= twoHandedText %> precisa de duas mãos, então ele foi retirado ao equipar <%= offHandedText %>.",
@@ -57,5 +57,6 @@
     "beginningOfConversationReminder": "Lembre-se de ser gentil, respeitoso, e seguir as Diretrizes da Comunidade!",
     "canDeleteNow": "Agora, você pode apagar a mensagem, se desejar.",
     "newsPostNotFound": "Nova Publicação não foi encontrada ou você não possui acesso.",
-    "reportedMessage": "Você reportou esta mensagem aos moderadores."
+    "reportedMessage": "Você reportou esta mensagem aos moderadores.",
+    "featureRetired": "Esta funcionalidade já não é suportada."
 }

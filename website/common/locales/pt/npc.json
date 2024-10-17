@@ -128,5 +128,7 @@
     "helpSupportHabitica": "Ajude e Suporte Habitica",
     "cannotUnpinItem": "Este item não pode ser desequipado.",
     "groupsPaymentAutoRenew": "Esta inscrição será auto-renovada até ser cancelada. Se precisar cancelar, poderá fazê-lo na aba do Grupo de Faturamento.",
-    "invalidUnlockSet": "Este conjunto de itens é inválido e não pode ser desbloqueado."
+    "invalidUnlockSet": "Este conjunto de itens é inválido e não pode ser desbloqueado.",
+    "notAvailable": "Este artigo não está disponível.",
+    "sellItems": "Vender Artigos"
 }

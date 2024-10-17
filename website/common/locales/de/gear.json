@@ -2933,5 +2933,8 @@
     "armorMystery202406Notes": "Suche deine Feinde heim mit Stil und Flair! Gewährt keinen Attributbonus. Juni 2024 Abonnentengegenstand.",
     "armorMystery202407Text": "Liebenswerter Axolotl Anzug",
     "weaponArmoireSpookyCandyBucketNotes": "Mit einem epischen Kostüm wie diesem wirst du derart viel Süßigkeiten bekommen! Gut, daß du diesen bodenlosen Eimer hast, um das alles aufzunehmen. Versuche, nicht zu naschen, bevor du nachhause kommst. Erhöht Intelligenz um <%= int %>. Verzauberter Schrank: Süßes oder Saures Set (Gegenstand 2 von 2)",
-    "weaponArmoireSpookyCandyBucketText": "Grusliger Süßigkeiten Eimer"
+    "weaponArmoireSpookyCandyBucketText": "Grusliger Süßigkeiten Eimer",
+    "armorMystery202407Notes": "Gleite durch Seen und Kanäle mit deinem hin und her fegenden rosa Schwanz! Gewährt keinen Attributbonus. Juli 2024 Abonnentengegenstand.",
+    "armorArmoireJewelersApronText": "Juweliers-Schürze",
+    "armorArmoireJewelersApronNotes": "Diese Hochleistungsschürze ist genau das Richtige zum Anziehen, wenn du dich kreativ fühlst. Das Beste daran sind die Dutzende kleiner Taschen, um alles, was du brauchst, darin zu verstauen. Erhöht Intelligenz um <%= int %>. Verzauberter Schrank: Juwelier Set (Gegenstand 1 von 4)."
 }

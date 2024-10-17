@@ -161,5 +161,9 @@
     "achievementDuneBuddyModalText": "Você coletou todos os animais de estimação do deserto!",
     "achievementRoughRiderModalText": "Você coletou todas as cores básicas dos animais de estimação e montarias desconfortáveis!",
     "achievementRodentRulerText": "Chocou todas as cores padrão de animais de estimação roedores: porco da índia, rato e esquilo!",
-    "achievementRodentRulerModalText": "Você coletou todos os roedores de estimação!"
+    "achievementRodentRulerModalText": "Você coletou todos os roedores de estimação!",
+    "achievementRodentRuler": "Rei dos Roedores",
+    "achievementCatsModalText": "Você coletou todos os gatos estimação!",
+    "achievementCatsText": "Ecludiu todas as cores padrão de gato de estimação: Chita, Leão, Dente de Sabre, e Tigre!",
+    "achievementCats": "Pastor de Gatos"
 }

@@ -2,7 +2,7 @@
     "communityGuidelinesWarning": "Görünen İsminin, profil resminin ve tanıtıcı yazının <a href='https://habitica.com/static/community-guidelines' target='_blank'>Topluluk Kuralları</a>'na uyumlu olması gerektiğini lütfen unutma. (örn. küfür, yetişkin içerik, hakaret içermemeli vs.) Eğer bir şeyin uygun olup olmadığıyla ilgili bir sorun olursa, <%= hrefBlankCommunityManagerEmail %> adresine mail atabilirsin!",
     "profile": "Profil",
     "avatar": "Avatarını Düzenle",
-    "editAvatar": "Avatarını Düzenle",
+    "editAvatar": "Avatarını özelleştir",
     "noDescription": "Bu Habiticalı bir profil özeti eklememiş.",
     "noPhoto": "Bu Habiticalı bir fotoğraf eklememiş.",
     "other": "Diğer",

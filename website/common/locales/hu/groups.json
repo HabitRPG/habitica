@@ -25,8 +25,8 @@
     "invite": "Meghívás",
     "leave": "Kilép",
     "invitedToParty": "Meghívtak hogy csatlakozz a <span class=\"notification-bold\"><%- party %></span> nevű csapathoz",
-    "invitedToPrivateGuild": "Meghívtak hogy csatlakozz a <span class=\"notification-bold\"><%- guild %></span> nevű zártkörű céhhez",
-    "invitedToPublicGuild": "Meghívtak hogy csatlakozz a <span class=\"notification-bold-blue\"><%- guild %></span> nevű céhhez",
+    "invitedToPrivateGuild": "Meghívtak hogy csatlakozz a(z) <span class=\"notification-bold\"><%- guild %></span> nevű zártkörű csapathoz",
+    "invitedToPublicGuild": "Meghívtak hogy csatlakozz a(z) <span class=\"notification-bold-blue\"><%- guild %></span> nevű csapathoz",
     "invitationAcceptedHeader": "A meghívásodat elfogadták",
     "invitationAcceptedBody": "<%= username %> elfogadta a meghívásodat a <%= groupName %> nevű csapatba!",
     "systemMessage": "Rendszerüzenet",
@@ -50,7 +50,7 @@
     "createGuild": "Céh alapítása",
     "guild": "Céh",
     "guilds": "Céhek",
-    "sureKick": "Biztosan el akarod távolítani ezt a tagot a csapatból/céhből?",
+    "sureKick": "Biztosan el akarod távolítani ezt a tagot a csapatból?",
     "optionalMessage": "Opcionális üzenet",
     "yesRemove": "Igen, távolítsd el őket",
     "sortBackground": "Rendezés háttér alapján",
@@ -324,5 +324,12 @@
     "allAssignedCompletion": "Mindenki - A feladat teljesítve lesz ha a hozzárendelt tagok közül mindenki elvégi a feladatot",
     "challengeBannedSlurs": "Ez a kihívás sértő szót tartalmaz, ami szembe megy a Habitica közösségi irányelveivel, ezért a chat és kihívás készítési engedélyedet visszavontuk. További információért írj az admin@habitica.com címre.",
     "challengeBannedWords": "A kihívásod egy vagy több káromkodást vagy pedig felnőtt tartalmat tartalmaz. Szerkezd a kihívást, hogy elmenthesd. Távolítsd el a sértő szót, ne csak cenzúrázd.",
-    "challengeBannedSlursPrivate": "A kihívásod trágár szót tartalmaz, ami szembe megy a közösségi irányelvekkel. Távolítsd el a sértő szót, hogy elmenthesd a kihívást."
+    "challengeBannedSlursPrivate": "A kihívásod trágár szót tartalmaz, ami szembe megy a közösségi irányelvekkel. Távolítsd el a sértő szót, hogy elmenthesd a kihívást.",
+    "invitedToPartyBy": "<a href=\"/profile/<%- userId %>\" target=\"_blank\">@<%- userName %></a> meghívott, hogy csatlakozz a Csapathoz<span class=\"notification-bold\"><%- party %></span>",
+    "PMDisabled": "Privát üzenetek tiltása",
+    "editGuild": "Csoport szerkesztése",
+    "joinParty": "Csatlakozás",
+    "editParty": "Csapat szerkesztése",
+    "leaveGuild": "Csapat elhagyása",
+    "joinGuild": "Csatlakozás"
 }

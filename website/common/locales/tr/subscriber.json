@@ -114,7 +114,7 @@
     "couponUsed": "Kupon kodu önceden kullanılmış.",
     "couponCodeRequired": "Kupon kodu gerekli.",
     "choosePaymentMethod": "Ödeme metodunu seç",
-    "support": "DESTEK",
+    "support": "Destek",
     "gemBenefitLeadin": "Elmaslar ile ne satın alabilirsin?",
     "gemBenefit1": "Avatarın için eşsiz ve şık kostümler.",
     "gemBenefit2": "Avatarını Habitica dünyasına sokmak için arka planlar!",
@@ -127,5 +127,14 @@
     "subscriptionBenefit6": "Zaman Yolcularının Mağazasında kullanmak üzere Mistik Kum Saatleri kazan!",
     "purchaseAll": "Seti Satın Al",
     "gemsRemaining": "elmas kaldı",
-    "notEnoughGemsToBuy": "Bu miktarda elmas alamazsın"
+    "notEnoughGemsToBuy": "Bu miktarda elmas alamazsın",
+    "mysterySet202402": "Pembe Cennet Seti",
+    "supportHabitica": "Habitica'yı Destekleyin",
+    "viewSubscriptions": "Abonelikleri Görüntüle",
+    "howManyGemsSend": "Kaç tane Mücevher göndermek istersiniz?",
+    "giftASubscription": "Abonelik Hediye Et",
+    "mysterySet201907": "Plaj Arkadaşı Seti",
+    "confirmCancelSub": "Aboneliğinizi iptal etmek istediğinize emin misiniz? Aboneliğinizin tüm avantajlarını kaybedeceksiniz.",
+    "mysterySet202204": "Sanal Maceracılar Seti",
+    "subCanceledTitle": "Abonelik İptal Edildi"
 }

@@ -15,7 +15,7 @@
     "messageMissingEggPotion": "Ya yumurtan ya da iksirin eksik",
     "messageInvalidEggPotionCombo": "Sihirli Kuluçka İksirleri ile Görev Hayvanlarının Yumurtalarını açamazsın. Başka bir yumurtayı dene.",
     "messageAlreadyPet": "Bu hayvana zaten sahipsin. Farklı bir kombinasyonu dene!",
-    "messageHatched": "Yumurtan açıldı! Ahrı ziyaret edip hayvanını yanına alabilirsin.",
+    "messageHatched": "Yumurtan açıldı! Ahırı ziyaret edip hayvanını yanına alabilirsin.",
     "messageNotEnoughGold": "Yetersiz Altın",
     "messageTwoHandedEquip": "<%= twoHandedText %> iki elle tutulabilir, bu yüzden <%= offHandedText %> bırakıldı.",
     "messageTwoHandedUnequip": "<%= twoHandedText %> iki elle tutulabilir, bu yüzden <%= offHandedText %> kuşanıldığı için bırakıldı.",
@@ -51,11 +51,12 @@
     "messageMissingDisplayName": "Görünen isim eksik.",
     "canDeleteNow": "Dilerseniz şimdi mesajı silebilirsiniz.",
     "messagePetMountUnEquipped": "Evcil Hayvan ve Binek kaldırıldı.",
-    "beginningOfConversationReminder": "Kibar ve saygılı olup Kitle Yönlendirmelerine uymayı unutma!",
+    "beginningOfConversationReminder": "Kibar ve saygılı olup Kitle kurallarına uymayı unutmayın!",
     "messageCostumeUnEquipped": "Kostüm kaldırıldı.",
     "messageBattleGearUnEquipped": "Savaş Ekipmanı kaldırıldı.",
     "messageBackgroundUnEquipped": "Arkaplan kaldırıldı.",
     "messageAllUnEquipped": "Her şey kaldırıldı.",
-    "reportedMessage": "Bu mesajı moderatörlere raporladın.",
-    "newsPostNotFound": "Haber Gönderisi bulunamadı veya ona erişiminiz yok."
+    "reportedMessage": "Bu mesajı moderatörlere rapor ettiniz.",
+    "newsPostNotFound": "Haber Gönderisi bulunamadı veya ona erişiminiz yok.",
+    "featureRetired": "Bu özellik artık desteklenmiyor."
 }

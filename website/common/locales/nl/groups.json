@@ -3,12 +3,12 @@
     "tavernChat": "Herbergchat",
     "innCheckOutBanner": "Je bent momenteel in de Herberg. Je Dagelijkse Taken zullen je niet verwonden en je zal geen vooruitgang maken in Queesten.",
     "innCheckOutBannerShort": "Je bent ingecheckt bij de Herberg.",
-    "resumeDamage": "Schade Hervatten",
+    "resumeDamage": "Krijgen van schade Hervatten",
     "helpfulLinks": "Nuttige links",
     "lookingForGroup": "Berichten: gezelschap gezocht",
     "dataDisplayTool": "Gegevens weergeven",
     "requestFeature": "Functie aanvragen",
-    "askQuestionGuild": "Stel een vraag ('Habitica Help'-gilde)",
+    "askQuestionGuild": "Stel een vraag (Habitica Help gilde)",
     "contributing": "Bijdragen",
     "faq": "FAQ",
     "tutorial": "Handleiding",
@@ -361,5 +361,8 @@
     "joinGuild": "Lid worden van gilde",
     "editGuild": "Gilde aanpassen",
     "editParty": "Groep aanpassen",
-    "leaveGuild": "Verlaat Gilde"
+    "leaveGuild": "Verlaat Gilde",
+    "findPartyMembers": "Vind Party deelnemers",
+    "nextPaymentMethod": "Volgende: betaling",
+    "findMorePartyMembers": "Vind meer deelnemers"
 }

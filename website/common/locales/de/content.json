@@ -385,5 +385,11 @@
     "questEggChameleonAdjective": "ein chaotisches",
     "questEggCrabText": "Krabbe",
     "questEggCrabMountText": "Krabbe",
-    "questEggCrabAdjective": "eine Tüftelei"
+    "questEggCrabAdjective": "eine Tüftelei",
+    "questEggRaccoonText": "Waschbär",
+    "questEggRaccoonMountText": "Waschbär",
+    "questEggRaccoonAdjective": "ein gefräßiger",
+    "questEggDogText": "Welpe",
+    "questEggDogMountText": "Hund",
+    "questEggDogAdjective": "ein freundlicher"
 }

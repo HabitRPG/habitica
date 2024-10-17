@@ -32,7 +32,7 @@
     "marketing1Lead2": "Melhora os teus hábitos para fazeres progredir o teu avatar. Pavoneia-te com esse rico equipamento que ganhaste!",
     "marketing1Lead3Title": "Encontrar Prémios Aleatórios",
     "marketing1Lead3": "Para alguns, é o jogar que os motiva: um sistema chamado \"recompensas estocásticas\". O Habitica incorpora todos os estilos de reforço e castigo: positivo, negativo, previsível e aleatório.",
-    "marketing2Header": "Competir Com Amigos, Aderir a Grupos de Interesse",
+    "marketing2Header": "Competir com amigos",
     "marketing2Lead1Title": "Produtividade Social",
     "marketing2Lead1": "Embora possa jogar Habitica sozinho, as luzes ligam-se a sério quando começa a colaborar, competir e a manter outras pessoas responsáveis pelas suas acções. A parte mais eficaz de qualquer programa de melhoria pessoal é responsabilidade social e que melhor ambiente para competir e manter outros responsáveis que um jogo de vídeo?",
     "marketing2Lead2Title": "Lutar com Monstros",
@@ -179,5 +179,6 @@
     "footerProduct": "Produto",
     "socialAlreadyExists": "Este login social já está ligado a uma conta Habitica que já existe.",
     "translateHabitica": "Traduzir Habitica",
-    "enterHabitica": "Entre no Habitica"
+    "enterHabitica": "Entre no Habitica",
+    "incorrectResetPhrase": "Por favor escreva <%= magicWord %> para resetar a sua conta."
 }

@@ -167,8 +167,8 @@
     "photo": "Foto",
     "info": "Informatie",
     "joined": "Meedoen",
-    "totalLogins": "Totaal aantal Check-ins",
-    "latestCheckin": "Laatste Check-in",
+    "totalLogins": "Totaal aantal keer ingelogd",
+    "latestCheckin": "Laatste keer ingelogd",
     "editProfile": "Profiel bewerken",
     "challengesWon": "Uitdagingen gewonnen",
     "questsCompleted": "Queesten voltooid",
@@ -183,5 +183,13 @@
     "chatCastSpellParty": "<%= username %> spreekt <%= spell %> uit voor het gezelschap.",
     "purchasePetItemConfirm": "Deze aankoop zou het aantal voorwerpen dat je nodig hebt om alle mogelijke <%= itemText %> huisdieren uit te broeden, overschrijden. Weet je het zeker?",
     "purchaseForGold": "Kopen voor <%= cost %> Goud?",
-    "notEnoughGold": "Niet genoeg goud."
+    "notEnoughGold": "Niet genoeg goud.",
+    "titleFacialHair": "Gezichtshaar",
+    "titleHairbase": "Haar stijlen",
+    "skins": "Huid",
+    "titleHaircolor": "Haar kleuren",
+    "customizations": "Aanpassingsmogelijkheden",
+    "chatCastSpellPartyTimes": "<%= gebruikersnaam %> spreekt <%= spreuk uit %> voor de party <%= aantal keer %> aantal keer .",
+    "chatCastSpellUserTimes": "<%= gebruikersnaam %> spreekt <%= spreuk uit %> op <%= doelwit %> <%= aantal keer %> aantal keer .",
+    "nextReward": "Volgende inlog beloning"
 }

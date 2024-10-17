@@ -5,11 +5,11 @@
     "groupBy": "Rendezés <%= type %> szerint",
     "classBonus": "(Ez a tárgy megfelel a kasztod-hoz, ezért az értékeid 1.5-szörösére növekednek.)",
     "classArmor": "Kasztfüggő páncél",
-    "featuredset": "Kiemelt szett <%= name %>",
+    "featuredset": "Kiemelt szett: <%= name %>",
     "mysterySets": "Rejtélyes szettek",
     "gearNotOwned": "Nincs meg neked ez a tárgy.",
     "noGearItemsOfType": "Nincs ilyened.",
-    "classLockedItem": "Ez a tárgy csak egy bizonyos kasztnak elérhető. Kasztod megváltoztatásához kattints a Felhasználó ikon > Beállítások > Karakterépítés gombra!",
+    "classLockedItem": "Ez a tárgy csak egy bizonyos kasztnak elérhető. Ha elérted a 100. szintet, a kasztod megváltoztatásához kattints a Felhasználó ikon > Beállítások > Karakterépítés gombra!",
     "tierLockedItem": "Ez a tárgy csak akkor válik elérhetővé, ha az összes előző tárgyat már megvetted a sorozatban.  Csak így tovább!",
     "sortByType": "Típus",
     "sortByPrice": "Ár",
@@ -26,7 +26,7 @@
     "weaponWarrior1Text": "Kard",
     "weaponWarrior1Notes": "Átlagos katonai penge. Növeli az erődet <%= str %> ponttal.",
     "weaponWarrior2Text": "Fejsze",
-    "weaponWarrior2Notes": "Kétélű harci fejsze. Növeli az erődet <%= str %> ponttal",
+    "weaponWarrior2Notes": "Kétélű harci fejsze. Növeli az erődet <%= str %> ponttal.",
     "weaponWarrior3Text": "Tüskés buzogány",
     "weaponWarrior3Notes": "Nehéz buzogány brutális tüskékkel. Növeli az erődet <%= str %> ponttal.",
     "weaponWarrior4Text": "Zafír penge",
@@ -1709,5 +1709,8 @@
     "eyewearArmoirePlagueDoctorMaskNotes": "Ezt az eredeti maszkot azok a doktorok hordják akik a Halogatás pestise ellen harcolnak! Növeli a szívósságodat és az intelligenciádat <%= attrs %> ponttal. Elvarázsolt láda: Pestisdoktor szett (2. tárgy a 3-ból).",
     "eyewearArmoireGoofyGlassesText": "Bolondos szemüveg",
     "eyewearArmoireGoofyGlassesNotes": "Álcázáshoz tökéletes vagy ha meg akarod nevettetni a vendégeidet. Növeli az észlelésedet <%= per %> ponttal. Elvarázsolt láda: önálló tárgy.",
-    "twoHandedItem": "Kétkezes fegyver."
+    "twoHandedItem": "Kétkezes fegyver.",
+    "moreArmoireGearAvailable": "Addig is <%= armoireCount %> felszerelés darabot találhatsz a megbűvölt komódban!",
+    "gearItemsCompleted": "Megszerezted az összes <%= klass %> felszerelést! Új felszerelés a szezonális Gálákon kerül bemutatásra.",
+    "moreArmoireGearComing": "A megbűvölt komód havonta frissül új dolgokkal!"
 }

@@ -388,5 +388,8 @@
     "questEggCrabAdjective": "Figliarsky",
     "questEggRaccoonText": "Mýval",
     "questEggRaccoonMountText": "Mýval",
-    "questEggRaccoonAdjective": "Pažravý"
+    "questEggRaccoonAdjective": "Pažravý",
+    "questEggDogText": "Šteniatko",
+    "questEggDogMountText": "Pes",
+    "questEggDogAdjective": "priateľský"
 }
