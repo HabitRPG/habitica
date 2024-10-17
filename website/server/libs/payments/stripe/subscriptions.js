@@ -54,7 +54,7 @@ export async function applySubscription (session) {
     sub,
     groupId,
     subscriptionId,
-    autoRenews: gift ? false : true,
+    autoRenews: !Boolean(gift),
   });
 }
 
