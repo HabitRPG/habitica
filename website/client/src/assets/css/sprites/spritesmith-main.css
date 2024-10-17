@@ -805,11 +805,6 @@
   width: 141px;
   height: 147px;
 }
-.background_castle_hall_with_hearth {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_castle_hall_with_hearth.png');
-  width: 141px;
-  height: 147px;
-}
 .background_cemetery_gate {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_cemetery_gate.png');
   width: 141px;
@@ -29929,11 +29924,6 @@
   width: 114px;
   height: 90px;
 }
-.broad_armor_armoire_stormKnightArmor {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_armoire_stormKnightArmor.png');
-  width: 114px;
-  height: 90px;
-}
 .broad_armor_armoire_strawRaincoat {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_armoire_strawRaincoat.png');
   width: 114px;
@@ -30454,11 +30444,6 @@
   width: 117px;
   height: 120px;
 }
-.head_armoire_stormKnightHelm {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_armoire_stormKnightHelm.png');
-  width: 114px;
-  height: 90px;
-}
 .head_armoire_strawRainHat {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_armoire_strawRainHat.png');
   width: 114px;
@@ -30812,6 +30797,11 @@
 .shield_armoire_royalCane {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shield_armoire_royalCane.png');
   width: 90px;
+  height: 90px;
+}
+.shield_armoire_safetyFlashlight {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shield_armoire_safetyFlashlight.png');
+  width: 114px;
   height: 90px;
 }
 .shield_armoire_sandyBucket {
@@ -31399,11 +31389,6 @@
   width: 114px;
   height: 90px;
 }
-.slim_armor_armoire_stormKnightArmor {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_armoire_stormKnightArmor.png');
-  width: 114px;
-  height: 90px;
-}
 .slim_armor_armoire_strawRaincoat {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_armoire_strawRaincoat.png');
   width: 114px;
@@ -31959,8 +31944,8 @@
   width: 114px;
   height: 90px;
 }
-.weapon_armoire_stormKnightAxe {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_armoire_stormKnightAxe.png');
+.weapon_armoire_spookyCandyBucket {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_armoire_spookyCandyBucket.png');
   width: 114px;
   height: 90px;
 }
@@ -35309,13 +35294,13 @@
   width: 114px;
   height: 90px;
 }
-.body_mystery_202411 {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/body_mystery_202411.png');
+.back_mystery_202410 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/back_mystery_202410.png');
   width: 114px;
   height: 90px;
 }
-.head_mystery_202411 {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_mystery_202411.png');
+.headAccessory_mystery_202410 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_mystery_202410.png');
   width: 114px;
   height: 90px;
 }
@@ -40277,6 +40262,11 @@
   width: 219px;
   height: 219px;
 }
+.quest_dog {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/quest_dog.png');
+  width: 219px;
+  height: 219px;
+}
 .quest_dolphin {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/quest_dolphin.png');
   width: 219px;
@@ -40404,11 +40394,6 @@
 }
 .quest_lostMasterclasser3 {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/quest_lostMasterclasser3.png');
-  width: 219px;
-  height: 219px;
-}
-.quest_lostMasterclasser4 {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/quest_lostMasterclasser4.png');
   width: 219px;
   height: 219px;
 }
@@ -41009,6 +40994,11 @@
 }
 .inventory_quest_scroll_dilatory_derby {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/inventory_quest_scroll_dilatory_derby.png');
+  width: 68px;
+  height: 68px;
+}
+.inventory_quest_scroll_dog {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/inventory_quest_scroll_dog.png');
   width: 68px;
   height: 68px;
 }
@@ -42849,6 +42839,56 @@
 }
 .Mount_Body_Deer-Zombie {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Body_Deer-Zombie.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Dog-Base {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Body_Dog-Base.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Dog-CottonCandyBlue {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Body_Dog-CottonCandyBlue.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Dog-CottonCandyPink {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Body_Dog-CottonCandyPink.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Dog-Desert {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Body_Dog-Desert.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Dog-Golden {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Body_Dog-Golden.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Dog-Red {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Body_Dog-Red.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Dog-Shade {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Body_Dog-Shade.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Dog-Skeleton {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Body_Dog-Skeleton.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Dog-White {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Body_Dog-White.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Dog-Zombie {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Body_Dog-Zombie.png');
   width: 105px;
   height: 105px;
 }
@@ -48294,6 +48334,56 @@
 }
 .Mount_Head_Deer-Zombie {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Head_Deer-Zombie.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Head_Dog-Base {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Head_Dog-Base.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Head_Dog-CottonCandyBlue {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Head_Dog-CottonCandyBlue.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Head_Dog-CottonCandyPink {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Head_Dog-CottonCandyPink.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Head_Dog-Desert {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Head_Dog-Desert.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Head_Dog-Golden {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Head_Dog-Golden.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Head_Dog-Red {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Head_Dog-Red.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Head_Dog-Shade {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Head_Dog-Shade.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Head_Dog-Skeleton {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Head_Dog-Skeleton.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Head_Dog-White {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Head_Dog-White.png');
+  width: 105px;
+  height: 105px;
+}
+.Mount_Head_Dog-Zombie {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Head_Dog-Zombie.png');
   width: 105px;
   height: 105px;
 }
@@ -53799,6 +53889,56 @@
 }
 .Pet-Deer-Zombie {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Deer-Zombie.png');
+  width: 81px;
+  height: 99px;
+}
+.Pet-Dog-Base {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Dog-Base.png');
+  width: 81px;
+  height: 99px;
+}
+.Pet-Dog-CottonCandyBlue {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Dog-CottonCandyBlue.png');
+  width: 81px;
+  height: 99px;
+}
+.Pet-Dog-CottonCandyPink {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Dog-CottonCandyPink.png');
+  width: 81px;
+  height: 99px;
+}
+.Pet-Dog-Desert {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Dog-Desert.png');
+  width: 81px;
+  height: 99px;
+}
+.Pet-Dog-Golden {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Dog-Golden.png');
+  width: 81px;
+  height: 99px;
+}
+.Pet-Dog-Red {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Dog-Red.png');
+  width: 81px;
+  height: 99px;
+}
+.Pet-Dog-Shade {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Dog-Shade.png');
+  width: 81px;
+  height: 99px;
+}
+.Pet-Dog-Skeleton {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Dog-Skeleton.png');
+  width: 81px;
+  height: 99px;
+}
+.Pet-Dog-White {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Dog-White.png');
+  width: 81px;
+  height: 99px;
+}
+.Pet-Dog-Zombie {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Dog-Zombie.png');
   width: 81px;
   height: 99px;
 }
