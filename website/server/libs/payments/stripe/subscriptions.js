@@ -35,7 +35,7 @@ export async function checkSubData (sub, isGroup = false, coupon) {
 
 export async function applySubscription (session) {
   const { metadata, customer: customerId, subscription: subscriptionId } = session;
-  const { sub: subStringified, userId, groupId } = metadata;
+  const { sub: subStringified, userId, groupId, gift } = metadata;
 
   const sub = subStringified ? JSON.parse(subStringified) : undefined;
 
@@ -49,6 +49,7 @@ export async function applySubscription (session) {
     sub,
     groupId,
     subscriptionId,
+    autoRenews: Boolean(gift),
   });
 }
 
