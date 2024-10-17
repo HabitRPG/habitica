@@ -51,7 +51,7 @@
       </div>
 
       <!-- menu area -->
-      <div class="row">
+      <div class="row bg-gray-700">
         <div class="col-md-8 offset-md-2 text-center nav">
           <div
             class="nav-link"
@@ -332,7 +332,7 @@
   }
 
   .nav-link {
-    color: $gray-100;
+    color: $gray-50;
     display: inline-block;
     padding: 0px 8px 6px 8px;
 

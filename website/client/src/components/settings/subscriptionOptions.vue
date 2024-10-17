@@ -129,7 +129,7 @@
     </div>
     <div
       v-if="note"
-      class="mx-4 mb-4 text-center"
+      class="mx-4 my-3 text-center"
     >
       <small
         v-once
