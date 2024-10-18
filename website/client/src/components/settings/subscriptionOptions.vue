@@ -365,7 +365,7 @@ export default {
     return {
       gift: {
         type: 'subscription',
-        subscription: { key: 'basic_earned' },
+        subscription: { key: 'basic_12mo' },
       },
       icons: Object.freeze({
         check,
