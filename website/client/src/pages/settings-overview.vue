@@ -46,10 +46,13 @@
       </div>
     </div>
     <div
-      class="col-12 d-flex "
-      :class="{'justify-content-center': applyNarrowView}"
+      class="col-12 d-flex"
+      :class="{'justify-content-center': applyNarrowView || maxWidthView}"
     >
-      <div :class="{'settings-content': applyNarrowView, 'full-width-content': !applyNarrowView}">
+      <div :class="{
+        'settings-content': applyNarrowView,
+        'full-width-content': !applyNarrowView && !maxWidthView,
+      }">
         <router-view />
       </div>
     </div>
@@ -207,8 +210,11 @@ export default {
       if (!this.currentEvent || !this.currentEvent.promo) return 'none';
       return this.currentEvent.promo;
     },
+    maxWidthView () {
+      return this.$route.name === 'subscription';
+    },
     applyNarrowView () {
-      return !['subscription', 'transactions'].includes(this.$route.name);
+      return !this.maxWidthView && this.$route.name !== 'transactions';
     },
   },
   methods: {

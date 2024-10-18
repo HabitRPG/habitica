@@ -173,6 +173,7 @@ describe('Stripe - Subscriptions', () => {
         paymentMethod: 'Stripe',
         sub: sinon.match({ ...sub }),
         groupId: null,
+        autoRenews: true,
       });
     });
 
@@ -197,6 +198,7 @@ describe('Stripe - Subscriptions', () => {
         paymentMethod: 'Stripe',
         sub: sinon.match({ ...sub }),
         groupId,
+        autoRenews: true,
       });
     });
 
@@ -231,6 +233,7 @@ describe('Stripe - Subscriptions', () => {
         paymentMethod: 'Stripe',
         sub: sinon.match({ ...sub }),
         groupId,
+        autoRenews: true,
       });
     });
   });

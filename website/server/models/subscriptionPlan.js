@@ -3,9 +3,6 @@ import validator from 'validator';
 import baseModel from '../libs/baseModel';
 import { TransactionModel as Transaction } from './transaction';
 
-// multi-month subscriptions are for multiples of 3 months
-const SUBSCRIPTION_BASIC_BLOCK_LENGTH = 3;
-
 export const schema = new mongoose.Schema({
   planId: String,
   subscriptionId: String,
@@ -18,7 +15,6 @@ export const schema = new mongoose.Schema({
   dateUpdated: Date,
   dateCurrentTypeCreated: Date,
   extraMonths: { $type: Number, default: 0 },
-  perkMonthCount: { $type: Number, default: -1 },
   gemsBought: { $type: Number, default: 0 },
   mysteryItems: { $type: Array, default: () => [] },
   lastReminderDate: Date, // indicates the last time a subscription reminder was sent
@@ -28,6 +24,8 @@ export const schema = new mongoose.Schema({
   // indicates when the queue server should process this subscription again.
   nextPaymentProcessing: Date,
   nextBillingDate: Date, // Next time google will bill this user.
+  hourglassPromoReceived: Date,
+  cumulativeCount: { $type: Number, default: 0 },
   consecutive: {
     count: { $type: Number, default: 0 },
     // when gifted subs, offset++ for each month. offset-- each new-month (cron).
@@ -35,6 +33,7 @@ export const schema = new mongoose.Schema({
     offset: { $type: Number, default: 0 },
     gemCapExtra: { $type: Number, default: 0 },
     trinkets: { $type: Number, default: 0 },
+    lastHourglassReceived: Date,
   },
 }, {
   strict: true,
@@ -50,36 +49,18 @@ schema.plugin(baseModel, {
   _id: false,
 });
 
-schema.methods.incrementPerkCounterAndReward = async function incrementPerkCounterAndReward
+schema.methods.rewardPerks = async function rewardPerks
 (userID, adding) {
-  let addingNumber = adding;
+  let perks = adding;
   if (typeof adding === 'string' || adding instanceof String) {
-    addingNumber = parseInt(adding, 10);
+    perks = parseInt(adding, 10);
   }
-  const isSingleMonthPlan = this.planId === 'basic_earned' || this.planId === 'group_plan_auto' || this.planId === 'group_monthly';
-  // if perkMonthCount wasn't used before, initialize it.
-  if (this.perkMonthCount === undefined || this.perkMonthCount === -1) {
-    if (isSingleMonthPlan && this.consecutive.count > 0) {
-      this.perkMonthCount = (this.consecutive.count - 1) % SUBSCRIPTION_BASIC_BLOCK_LENGTH;
-    } else {
-      this.perkMonthCount = 0;
-    }
-  } else if (isSingleMonthPlan) {
-    const expectedPerkMonthCount = (this.consecutive.count - 1) % SUBSCRIPTION_BASIC_BLOCK_LENGTH;
-    if (this.perkMonthCount === (expectedPerkMonthCount - 1)) {
-      // User was affected by a bug that makes their perkMonthCount off by one
-      this.perkMonthCount += 1;
-    }
-  }
-  this.perkMonthCount += addingNumber;
 
-  const perks = Math.floor(this.perkMonthCount / 3);
   if (perks > 0) {
-    this.consecutive.gemCapExtra += 5 * perks; // 5 extra Gems every 3 months
-    // cap it at 50 (hard 25 limit + extra 25)
-    if (this.consecutive.gemCapExtra > 25) this.consecutive.gemCapExtra = 25;
-    this.perkMonthCount -= (perks * 3);
-    // one Hourglass every 3 months
+    this.consecutive.gemCapExtra += 2 * perks; // 2 extra Gems every month
+    // cap it at 50 (hard 24 limit + extra 26)
+    if (this.consecutive.gemCapExtra > 26) this.consecutive.gemCapExtra = 26;
+    // one Hourglass every month
     await this.updateHourglasses(userID, perks, 'subscription_perks'); // eslint-disable-line no-await-in-loop
   }
 };
@@ -92,6 +73,7 @@ schema.methods.updateHourglasses = async function updateHourglasses (
   referenceText,
 ) {
   this.consecutive.trinkets += amount;
+  this.consecutive.lastHourglassReceived = new Date();
   await Transaction.create({
     currency: 'hourglasses',
     userId,

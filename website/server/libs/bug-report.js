@@ -16,7 +16,6 @@ export async function bugReportLogic (user, userEmail, message, BROWSER_UA, ques
     USER_PAYMENT_PLATFORM: user.purchased.plan.paymentMethod,
     USER_CUSTOMER_ID: user.purchased.plan.customerId,
     USER_CONSECUTIVE_MONTHS: user.purchased.plan.consecutive.count,
-    USER_OFFSET_MONTHS: user.purchased.plan.consecutive.offset,
     USER_HOURGLASSES: user.purchased.plan.consecutive.trinkets,
     REPORT_MSG: message,
     BROWSER_UA,

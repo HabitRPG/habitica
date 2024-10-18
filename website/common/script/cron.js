@@ -8,7 +8,6 @@ import defaults from 'lodash/defaults';
 import invert from 'lodash/invert';
 import moment from 'moment';
 import 'moment-recur';
-import subscriptionBlocks from './content/subscriptionBlocks';
 
 export const DAY_MAPPING = {
   0: 'su',
@@ -287,23 +286,16 @@ export function getPlanContext (user, now) {
   const dateUpdatedMoment = moment(plan.dateUpdated).startOf('month');
   const elapsedMonths = moment(subscriptionEndDate).diff(dateUpdatedMoment, 'months');
 
-  const planMonths = subscriptionBlocks[plan.planId] ? subscriptionBlocks[plan.planId].months : 1;
-  let monthsTillNextHourglass;
-  if (planMonths > 1) {
-    monthsTillNextHourglass = Number(plan.consecutive.offset) + 1;
-  } else {
-    monthsTillNextHourglass = 3 - plan.perkMonthCount;
+  let nextHourglassDate = moment(nowMoment).add(1, 'month');
+  if (plan.dateTerminated && moment(plan.dateTerminated).isBefore(nextHourglassDate)) {
+    nextHourglassDate = null;
   }
-
-  const possibleNextHourglassDate = moment(plan.dateUpdated)
-    .add(monthsTillNextHourglass, 'months');
 
   return {
     plan,
     subscriptionEndDate,
     dateUpdatedMoment,
     elapsedMonths,
-    offset: plan.consecutive.offset, // months until the new hourglass is added
-    nextHourglassDate: possibleNextHourglassDate,
+    nextHourglassDate,
   };
 }
