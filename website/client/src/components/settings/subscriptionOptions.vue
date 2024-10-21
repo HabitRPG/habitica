@@ -114,7 +114,7 @@
             </div>
             <div
               class="gradient-banner text-center"
-              v-if="!userReceivingGift?._id"
+              v-if="!userReceivingGift?._id && !user?.purchased?.plan?.hourglassPromoReceived"
             >
               <small class="my-3" v-html="$t('immediate12Hourglasses')"></small>
             </div>

@@ -337,14 +337,13 @@
     padding: 0px 8px 6px 8px;
 
     &.active {
-    color: $purple-300;
-    border-bottom: 2px solid $purple-400;
+      color: $purple-300;
+      border-bottom: 2px solid $purple-400;
     }
 
     &:hover {
-    color: $purple-300;
-    border-bottom: 2px solid $purple-400;
-    cursor: pointer;
+      color: $purple-300;
+      cursor: pointer;
     }
   }
 
