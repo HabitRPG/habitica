@@ -137,7 +137,7 @@
 
   .danger {
     color: $red-50;
-    margin-bottom: 0px;
+    margin-bottom: 0;
   }
 
   .header-purple {
