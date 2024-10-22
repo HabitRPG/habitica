@@ -27,7 +27,7 @@
                 {{ item.value }}
               </span>
               :
-              {{ item.text || item.key }}
+              {{ itemText(item) }}
             </span>
 
             <div
@@ -78,7 +78,7 @@
                       {{ item.value }}
                     </span>
                     :
-                    {{ item.text || item.key }}
+                    {{ itemText(item) }}
                   </span>
 
                   <div
@@ -269,6 +269,15 @@ export default {
       if (!item.valueIsInteger) {
         item.value = !item.value;
       }
+    },
+    itemText (item) {
+      if (item.key === 'npc') {
+        return this.$t('npcAchievementName', { key: this.hero.backer && this.hero.backer.npc });
+      }
+      if (item.key === 'kickstarter') {
+        return this.$t('kickstartName', { key: this.hero.backer && this.hero.backer.tier });
+      }
+      return item.text || item.key;
     },
   },
 };
