@@ -143,7 +143,7 @@
   .header-purple {
     color: $purple-200;
     margin-top: 40px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
   }
 
   .modal-actions {
