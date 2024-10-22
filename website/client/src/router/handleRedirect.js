@@ -37,15 +37,6 @@ export default function handleRedirect (to, from, next) {
 
         const newGroup = newAppState.group;
         if (newGroup && newGroup._id) {
-          // Handle new user signup
-          if (newAppState.newSignup === true) {
-            return next({
-              name: 'groupPlanDetailTaskInformation',
-              params: { groupId: newGroup._id },
-              query: { showGroupOverview: 'true' },
-            });
-          }
-
           return next({
             name: 'groupPlanDetailTaskInformation',
             params: { groupId: newGroup._id },

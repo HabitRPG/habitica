@@ -45,7 +45,6 @@
     "notEnoughGems": "Ikke nok Ædelsten",
     "alreadyHave": "Ups! Du har allerede denne ting. Ingen grund til at købe den igen!",
     "delete": "Slet",
-    "gemsPopoverTitle": "Ædelsten",
     "gems": "Ædelsten",
     "needMoreGems": "Skal du bruge flere Ædelsten?",
     "needMoreGemsInfo": "Køb Ædelsten nu, eller bliv abonnent for at kunne købe Ædelsten med Guld, få månedlige mystiske genstande, flere drops og meget mere!",
@@ -201,5 +200,6 @@
     "loadEarlierMessages": "Indlæs tidligere beskeder",
     "finish": "Færdig",
     "congratulations": "Tillykke!",
-    "onboardingAchievs": "Introduktionspræstationer"
+    "onboardingAchievs": "Introduktionspræstationer",
+    "titleCustomizations": "Tilpasninger"
 }

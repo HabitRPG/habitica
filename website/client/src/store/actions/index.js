@@ -1,5 +1,6 @@
 import { flattenAndNamespace } from '@/libs/store/helpers/internals';
 
+import * as adminPanel from './adminPanel';
 import * as common from './common';
 import * as user from './user';
 import * as tasks from './tasks';
@@ -24,6 +25,7 @@ import * as faq from './faq';
 // Example: fetch in user.js -> 'user:fetch'
 
 const actions = flattenAndNamespace({
+  adminPanel,
   common,
   user,
   tasks,

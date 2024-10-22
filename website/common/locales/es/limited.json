@@ -140,9 +140,6 @@
     "spring2019AmberMageSet": "Ámbar (Mago)",
     "spring2019RobinHealerSet": "Petirrojo (Sanador)",
     "spring2019CloudRogueSet": "Nube (Pícaro)",
-    "september2018": "Septiembre del 2018",
-    "september2017": "Septiembre del 2017",
-    "june2018": "Junio 2018",
     "fall2019RavenSet": "Cuervo (Guerrero)",
     "fall2019LichSet": "Liche (Sanador)",
     "fall2019CyclopsSet": "Cíclope (Mago)",
@@ -206,7 +203,6 @@
     "summer2022AngelfishHealerSet": "Pez ángel (Sanador)",
     "fall2022HarpyMageSet": "Arpía (Mago)",
     "fall2022OrcWarriorSet": "Orca (Guerrero)",
-    "gemSaleLimitations": "Esta promoción solo aplica durante el tiempo limitado del evento. Este evento empieza el <%= eventStartOrdinal %> de <%= eventStartMonth %> a las 8:00 AM EDT (12:00 UTC) y acabará el <%= eventEndOrdinal %> de <%= eventEndMonth %> a las 8:00 PM EDT (00:00 UTC). Esta promoción solo está disponible cuando se compran Gemas para uno mismo.",
     "gemSaleHow": "Entre el <%= eventStartOrdinal %> y <%= eventEndOrdinal %> de <%= eventStartMonth %>, simplemente compra cualquier paquete de Gemas como normalmente, y se abonará en tu cuenta el número promocional de Gemas. ¡Más Gemas para gastar, compartir o guardar para futuras entregas!",
     "fall2022KappaRogueSet": "Kapa (Pícaro)",
     "fall2022WatcherHealerSet": "Mirador (Sanador)",
@@ -248,7 +244,7 @@
     "fourForFree": "Cuatro Gratis",
     "takeMeToStable": "Llévame a Mascotas y Monturas",
     "plentyOfPotions": "Muchas Pociones",
-    "buyNowMoneyButton": "Compra por $9.99",
+    "buyNowMoneyButton": "Compra por $9,99",
     "wantToPayWithGemsText": "¿Quieres pagar con Gemas?",
     "partyRobes": "Batas de Fiesta",
     "anniversaryLimitations": "Este es un evento de tiempo limitado que empieza el 30 de Enero a las 8:00 AM ET (13:00 UTC) y termina el 8 de Febrero a las 11:59 ET (04:49 UTC). El Grifatriz Jubiloso de Edición Limitada y diez Pociones de Eclosión Mágicas estarán a la venta durante este tiempo. Los otros Regalos listados en la sección de Cuatro Gratis serán enviados automáticamente a todas las cuentas que estuvieron activas en los 30 días previos al día que el regalo es enviado. Las cuentas creadas después que los regalos sean enviados no podrán reclamarlos.",
@@ -265,5 +261,10 @@
     "summer2024SeaAnemoneMageSet": "Conjunto de Anémona Marina (Mago)",
     "summer2024SeaSnailHealerSet": "Conjunto de Caracol Marino (Sanador)",
     "summer2024WhaleSharkWarriorSet": "Conjunto de Tiburón-Ballena (Guerrero)",
-    "summer2024NudibranchRogueSet": "Conjunto de Nudibranquio (Pícaro)"
+    "summer2024NudibranchRogueSet": "Conjunto de Nudibranquio (Pícaro)",
+    "gemSaleLimitationsText": "Esta promoción solo se aplica durante el periodo de tiempo limitado del evento. Este evento empieza el <%= eventStartMonth %> <%= eventStartOrdinal %> a las <%= eventStartTime %> <%= timeZone %> y termina el <%= eventEndMonth %> <%= eventEndOrdinal %> a las <%= eventEndTime %> <%= timeZone %>. La oferta de esta promoción está solo disponible para las Gemas que compres para ti mismo.",
+    "fall2024UnderworldSorcerorMageSet": "Conjunto de Alto Hechicero del Inframundo (Mago)",
+    "fall2024SpaceInvaderHealerSet": "Conjunto de Invasor del Espacio (Sanador)",
+    "fall2024BlackCatRogueSet": "Conjunto Gato Negro (Pícaro)",
+    "fall2024FieryImpWarriorSet": "Conjunto de Balrog Menor (Guerrero)"
 }

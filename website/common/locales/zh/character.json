@@ -27,12 +27,10 @@
     "color": "颜色",
     "hair": "头发",
     "bangs": "刘海",
-    "hairBangs": "刘海",
     "glasses": "眼镜",
     "hairSet1": "发型1",
     "hairSet2": "发型 2",
     "hairSet3": "发型 3",
-    "bodyFacialHair": "胡须",
     "beard": "下唇胡须",
     "mustache": "上唇胡须",
     "flower": "花",
@@ -87,7 +85,6 @@
     "allocateIntPop": "增加一点智力",
     "noMoreAllocate": "现在你已经达到了100级，你不会再获得任何属性点数。你可以继续升级，或者使用<a href='http://habitica.fandom.com/zh/wiki/重生球' target='_blank'>重生球</a>从1级开始新的冒险！",
     "stats": "属性",
-    "achievs": "成就",
     "strength": "力量",
     "strText": "力量会增加“暴击”的几率，并提高金币、经验值和物品掉落几率。它还有助于对BOSS怪物造成伤害。",
     "constitution": "体质",
@@ -189,5 +186,10 @@
     "notEnoughGold": "金币不足。",
     "chatCastSpellPartyTimes": "<%= username %>对队伍使用了<%= times %>次<%= spell %>。",
     "chatCastSpellUserTimes": "<%= username %>对<%= target %>使用了<%= times %>次<%= spell %>。",
-    "nextReward": "下次登录奖励"
+    "nextReward": "下次登录奖励",
+    "skins": "皮肤",
+    "titleHaircolor": "发色",
+    "titleFacialHair": "胡须",
+    "customizations": "自定义",
+    "titleHairbase": "发型"
 }

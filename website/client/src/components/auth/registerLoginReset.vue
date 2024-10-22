@@ -607,11 +607,10 @@
 import axios from 'axios';
 import hello from 'hellojs';
 import debounce from 'lodash/debounce';
-import isEmail from 'validator/lib/isEmail';
-import DOMPurify from 'dompurify';
+import isEmail from 'validator/es/lib/isEmail';
 import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
 import { buildAppleAuthUrl } from '../../libs/auth';
-
+import sanitizeRedirect from '@/mixins/sanitizeRedirect';
 import exclamation from '@/assets/svg/exclamation.svg';
 import gryphon from '@/assets/svg/gryphon.svg';
 import habiticaIcon from '@/assets/svg/logo-horizontal.svg';
@@ -619,6 +618,7 @@ import googleIcon from '@/assets/svg/google.svg';
 import appleIcon from '@/assets/svg/apple_black.svg';
 
 export default {
+  mixins: [sanitizeRedirect],
   data () {
     const data = {
       username: '',
@@ -747,11 +747,6 @@ export default {
         }
       });
     }, 500),
-    sanitizeRedirect (redirect) {
-      if (!redirect) return '/';
-      const sanitizedString = DOMPurify.sanitize(redirect).replace(/\\|\/\/|\./g, '');
-      return sanitizedString;
-    },
     async register () {
       // @TODO do not use alert
       if (!this.email) {

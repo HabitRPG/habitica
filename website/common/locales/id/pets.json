@@ -39,11 +39,9 @@
     "hatchingPotion": "ramuan penetas",
     "haveHatchablePet": "Kamu mempunyai ramuan penetas <%= potion %> dan telur <%= egg %> untuk menetaskan peliharaan ini! <b>Klik</b> jejak kaki hewan untuk menetaskannya!",
     "quickInventory": "Inventori Cepat",
-    "foodText": "makanan",
     "food": "Makanan dan Pelana",
     "noFoodAvailable": "Kamu tidak mempunyai Makanan apapun.",
     "noSaddlesAvailable": "Kamu tidak mempunyai Pelana apapun.",
-    "noFood": "Kamu tidak mempunyai makanan atau pelana.",
     "dropsExplanation": "Dapatkan item-item ini lebih cepat dengan Permata jika kamu tidak ingin menunggu jatuhan ketika menyelesaikan tugas. <a href=\"http://habitica.fandom.com/wiki/Drops\">Lebih lanjut mengenai sistem jatuhan.</a>",
     "dropsExplanationEggs": "Gunakan Permata untuk mendapatkan telur lebih cepat kalau kamu tidak mau menunggu drop telur biasa, atau mengulang Misi untuk mendapatkan telur Misi. <a href=\"http://habitica.fandom.com/wiki/Drops\">Baca lebih lanjut mengenai sistem drop.</a>",
     "premiumPotionNoDropExplanation": "Ramuan Penetas Ajaib tidak dapat digunakan untuk telur yang didapatkan dari Misi. Satu-satunya cara mendapatkan Ramuan Penetas Ajaib adalah dengan membelinya, bukan dari drop.",
@@ -61,8 +59,6 @@
     "triadBingoText": "Telah menemukan 90 peliharaan, 90 tunggangan, dan menemukan LAGI 90 peliharaan (GIMANA CARANYA)",
     "triadBingoText2": " dan telah melepaskan seisi kandang sebanyak <%= count %> kali",
     "triadBingoAchievement": "Kamu telah mendapatkan medali \"Triad Bingo\" karena sudah menemukan semua peliharaan, menjinakkan mereka semua, dan menemukan lagi semua peliharaan yang lain!",
-    "dropsEnabled": "Jatuhan Diaktifkan!",
-    "firstDrop": "Kamu telah membuka Sistem Jatuhan! Sekarang ketika kamu menyelesaikan tugas, kamu memiliki kesempatan kecil untuk menemukan item, termasuk telur, ramuan, dan makanan! Kamu baru saja menemukan sebuah <strong><%= eggText %> Telur</strong>! <%= eggNotes %>",
     "hatchedPet": "Kamu menetaskan <%= egg %> <%= potion %>!",
     "hatchedPetGeneric": "Kamu menetaskan seekor peliharaan baru!",
     "hatchedPetHowToUse": "Kunjungi [Kandang](<%= stableUrl %>) untuk memberi makan dan menggunakan peliharaan terbarumu!",
@@ -88,7 +84,7 @@
     "mountsAndPetsReleased": "Tunggangan dan Peliharaan dilepaskan",
     "mountsReleased": "Tunggangan dilepaskan",
     "welcomeStable": "Selamat datang di Kandang!",
-    "welcomeStableText": "Selamat datang di Kandang! Nama saya Matt, sang penjinak binatang. Setiap kali kamu menyelesaikan sebuah tugas, kamu memiliki kesempatan untuk mendapatkan Telur atau Ramuan Penetasan secara acak. Peliharaan yang kamu tetaskan akan muncul disini! Klik gambar Peliharaan untuk menambahkan pada Avatarmu. Beri mereka makan agar mereka dapat tumbuh menjadi Tunggangan yang gagah.",
+    "welcomeStableText": "Selamat datang di Kandang! Nama saya Matt, sang penjinak binatang. Setiap kali kamu menyelesaikan sebuah tugas, kamu memiliki kesempatan untuk mendapatkan Telur atau Ramuan Penetas secara acak. Peliharaan yang kamu tetaskan akan muncul disini! Klik gambar Peliharaan untuk ditambahkan ke Avatarmu. Beri mereka makan agar mereka dapat tumbuh menjadi Tunggangan yang gagah.",
     "petLikeToEat": "Apa makanan kesukaan peliharaanku?",
     "petLikeToEatText": "Peliharaan akan tumbuh selama diberi makan, tetapi akan tumbuh lebih cepat jika diberi makanan yang mereka paling sukai. Coba-coba untuk menemukan polanya, atau lihat jawabannya di: <br/><a href=\"http://habitica.fandom.com/wiki/Food_Preferences\" target=\"_blank\">http://habitica.fandom.com/wiki/Food_Preferences</a>",
     "filterByStandard": "Standar",
@@ -114,5 +110,7 @@
     "tooMuchFood": "Kamu mencoba memberikan terlalu banyak makanan untuk peliharaanmu, tindakan dibatalkan",
     "jubilantGryphatrice": "Gryphatrice Gembira",
     "invalidAmount": "Jumlah makanan tidak valid, harus berupa bilangan bulat positif",
-    "notEnoughFood": "Kamu tidak punya cukup makanan"
+    "notEnoughFood": "Kamu tidak punya cukup makanan",
+    "veteranCactus": "Kaktus Veteran",
+    "veteranDragon": "Naga Veteran"
 }

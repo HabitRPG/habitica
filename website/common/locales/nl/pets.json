@@ -39,11 +39,9 @@
     "hatchingPotion": "uitbroeddrank",
     "haveHatchablePet": "Je hebt een <%= potion %> uitbroeddrank en een <%= egg %> ei om dit huisdier uit te broeden! <b>Klik</b> om uit te broeden!",
     "quickInventory": "Snelle Inventaris",
-    "foodText": "voedsel",
     "food": "Huisdieren Voer en Zadels",
     "noFoodAvailable": "Je hebt geen huisdierenvoer.",
     "noSaddlesAvailable": "Je hebt geen zadels.",
-    "noFood": "Je hebt geen voedsel of zadels.",
     "dropsExplanation": "Verkrijg deze voorwerpen sneller met edelstenen als je niet wilt wachten tot je ze vindt als je een taak afrondt. <a href=\"https://habitica.fandom.com/nl/wiki/Drops\">Leer meer over het vondstensysteem.</a>",
     "dropsExplanationEggs": "Spendeer edelstenen om sneller eieren te krijgen, als je niet wil wachten tot je standaard eieren vindt of geen queesten wil herhalen om queeste-eieren te verdienen.<a href=\"https://habitica.fandom.com/nl/wiki/Drops\">Leer meer over het dropsysteem.</a>",
     "premiumPotionNoDropExplanation": "Magische uitbroeddranken kunnen niet worden gebruikt op eieren die je ontvangen hebt met queesten. De enige manier om magische uitbroeddranken te krijgen is door ze hier beneden te kopen; je krijgt ze niet door willekeurige vondsten.",
@@ -61,8 +59,6 @@
     "triadBingoText": "Heeft alle 90 huisdieren, alle 90 rijdieren, en daarna NOG een keer alle huisdieren gevonden (HOE HEB JE DAT VOOR ELKAAR GEKREGEN!)",
     "triadBingoText2": " en heeft in totaal <%= count %> keer alle Huisdieren en Rijdieren vrijgelaten",
     "triadBingoAchievement": "Je hebt de medaille voor 'Drie Keer Bingo' behaald door alle huisdieren te vinden, alle rijdieren te temmen, en daarna weer alle huisdieren te vinden!",
-    "dropsEnabled": "Vondsten vrijgespeeld!",
-    "firstDrop": "Je hebt het vondstensysteem vrijgespeeld! Als je nu een taak volbrengt, heb je een kleine kans om een voorwerp te vinden, zoals eieren, drankjes en voedsel! Je hebt net een <strong><%= eggText %> ei</strong> gevonden! <%= eggNotes %>",
     "hatchedPet": "Je hebt een <%= potion %> <%= egg %> uitgebroed!",
     "hatchedPetGeneric": "Je hebt een nieuw huisdier uitgebroed!",
     "hatchedPetHowToUse": "Bezoek de [Huisdieren en Rijdieren](<%= stableUrl %>) om je nieuwste huisdier te voeden en uit te rusten!",
@@ -115,5 +111,6 @@
     "tooMuchFood": "Je probeert je huisdier teveel te voederen, handeling geannuleerd",
     "notEnoughFood": "Je hebt niet genoeg voer",
     "jubilantGryphatrice": "Jubelende Schrijfmachine",
-    "veteranDragon": "Veteranendraak"
+    "veteranDragon": "Veteranendraak",
+    "veteranCactus": "Veteranencactus"
 }

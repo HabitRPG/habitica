@@ -47,15 +47,17 @@ describe('shops', () => {
 
     describe('premium hatching potions', () => {
       it('contains current scheduled premium hatching potions', async () => {
-        clock = sinon.useFakeTimers(new Date('2024-04-01'));
+        clock = sinon.useFakeTimers(new Date('2024-04-01T09:00:00.000Z'));
         const potions = shared.shops.getMarketCategories(user).find(x => x.identifier === 'premiumHatchingPotions');
-        expect(potions.items.length).to.eql(2);
+        expect(potions.items.length).to.eql(3);
       });
 
       it('does not contain past scheduled premium hatching potions', async () => {
+        clock = sinon.useFakeTimers(new Date('2024-04-01T09:00:00.000Z'));
         const potions = shared.shops.getMarketCategories(user).find(x => x.identifier === 'premiumHatchingPotions');
-        expect(potions.items.filter(x => x.key === 'Aquatic' || x.key === 'Celestial').length).to.eql(0);
+        expect(potions.items.filter(x => x.key === 'Aquatic' || x.key === 'Celestial').length, 'Aquatic or Celestial found').to.eql(0);
       });
+
       it('returns end date for scheduled premium potions', async () => {
         const potions = shared.shops.getMarketCategories(user).find(x => x.identifier === 'premiumHatchingPotions');
         potions.items.forEach(potion => {
@@ -73,9 +75,9 @@ describe('shops', () => {
       });
 
       it('does not contain locked quest premium hatching potions', async () => {
-        clock = sinon.useFakeTimers(new Date('2024-04-01'));
+        clock = sinon.useFakeTimers(new Date('2024-04-01T09:00:00.000Z'));
         const potions = shared.shops.getMarketCategories(user).find(x => x.identifier === 'premiumHatchingPotions');
-        expect(potions.items.length).to.eql(2);
+        expect(potions.items.length).to.eql(3);
         expect(potions.items.filter(x => x.key === 'Bronze' || x.key === 'BlackPearl').length).to.eql(0);
       });
 

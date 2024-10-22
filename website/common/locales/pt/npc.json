@@ -20,7 +20,6 @@
     "sleepBullet1": "Suas Tarefas Diárias perdidas não lhe darão dano (os chefes continuarão causando danos pelas faltas dos outros membros do grupo)",
     "sleepBullet2": "As suas linhas de Tarefas e Contadores de Hábitos não serão reiniciados",
     "sleepBullet3": "Os seus danos ao chefe da missão ou itens de coleção encontrados permanecerão pendentes até que se verifique fora da pousada.",
-    "sleepBullet4": "Teu dano no Chefão ou itens de Missão de Colecção ficarão acumulados até o fim do dia",
     "pauseDailies": "Pausar Dano",
     "unpauseDailies": "Resumir Dano",
     "staffAndModerators": "Equipa e Moderadores",
@@ -57,7 +56,6 @@
     "wrongItemType": "O tipo de item \"<%= type %>\" não é válido.",
     "wrongItemPath": "O caminho de item \"<%= path %>\" não é válido.",
     "unpinnedItem": "Você removeu <%= item %>! Isso não será mais exibido na coluna de Recompensas.",
-    "cannotUnpinArmoirPotion": "A Poção de Vida e Armário Encantado não podem ser removidos.",
     "purchasedItem": "Você comprou <%= itemName %>",
     "ianTextMobile": "Posso interessá-lo em alguns pergaminhos de missão? Ative-os para combater monstros com a sua Equipa!",
     "featuredQuests": "Missões Apresentadas!",
@@ -99,7 +97,6 @@
     "tourStatsPage": "Esta é a sua página de Estatísticas! Conquiste medalhas, completando as tarefas listadas.",
     "tourTavernPage": "Bem-vindo à Taverna, uma sala de conversa para todas as idades! Pode evitar que as suas Tarefas Diárias o/a magoem caso esteja doente ou em viagem, clicando em \"Descansar na Pousada\". Venha dizer Olá!",
     "tourPartyPage": "A sua Equipa irá ajudá-lo a manter-se responsável. Convide amigos para desbloquear um Pergaminho de Missão!",
-    "tourGuildsPage": "Guildas são grupos de conversação de interesse comum criadas pelos jogadores, para jogadores. Navegue pela lista e junte-se às Guildas que lhe interessam. Certifique-se de verificar a popular guilda Habitica Help: Ask a Question, onde qualquer pessoa pode fazer perguntas sobre Habitica!",
     "tourChallengesPage": "Desafios são listas de tarefas temáticas criadas pelos utilziadores! Participar num Desafio irá adicionar tarefas à sua conta. Compita contra outros utilizadores para ganhar prémios em Gemas!",
     "tourMarketPage": "Sempre que completar uma tarefa, terá uma oportunidade aleatória de receber um Ovo, uma Poção de Eclosão, ou um pedaço de Comida para Mascotes. Também pode comprar esses itens aqui.",
     "tourHallPage": "Bem-vindo ao Salão dos Heróis, onde os colaboradores open-source do Habitica são honrados. Seja através de programação, arte, música, escrita ou apenas vontade de ajudar, eles receberam Gemas, equipamentos exclusivos e títulos prestigiosos. Você também pode contribuir para o Habitica!",
@@ -108,7 +105,6 @@
     "tourEquipmentPage": "Aqui é onde o seu Equipamento fica guardado! O seu Equipamento de Batalha afeta os seus atributos. Se quiser mostrar um Equipamento diferente no seu Avatar sem mudar Atributos, carregue em \"Usar Traje.\"",
     "equipmentAlreadyOwned": "Você já possui esse equipamento",
     "tourOkay": "Okay!",
-    "tourAwesome": "Incrível!",
     "tourSplendid": "Esplêndido!",
     "welcomeToHabit": "Bem-vindo ao Habitica!",
     "welcome1": "Crie um avatar simples.",
@@ -117,7 +113,6 @@
     "welcome2notes": "O quão bem você vai no jogo depende do quão bem você é nas suas tarefas da vida real!",
     "welcome3": "Progrida na vida e no jogo!",
     "welcome3notes": "À medida que melhora a sua vida, o seu avatar sobe de nível e desbloqueia mascotes, missões, equipamentos e muito mais!",
-    "imReady": "Entre em Habitica",
     "limitedOffer": "Disponível até <%= date %>",
     "limitedAvailabilityMinutes": "Disponível por <%= minutes %>m <%= seconds %>s",
     "limitedAvailabilityHours": "Disponível por <%= hours %>h <%= minutes %>m",
@@ -133,5 +128,7 @@
     "helpSupportHabitica": "Ajude e Suporte Habitica",
     "cannotUnpinItem": "Este item não pode ser desequipado.",
     "groupsPaymentAutoRenew": "Esta inscrição será auto-renovada até ser cancelada. Se precisar cancelar, poderá fazê-lo na aba do Grupo de Faturamento.",
-    "invalidUnlockSet": "Este conjunto de itens é inválido e não pode ser desbloqueado."
+    "invalidUnlockSet": "Este conjunto de itens é inválido e não pode ser desbloqueado.",
+    "notAvailable": "Este artigo não está disponível.",
+    "sellItems": "Vender Artigos"
 }

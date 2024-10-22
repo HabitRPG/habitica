@@ -494,6 +494,10 @@ const armor = {
     str: 8,
     set: 'dragonKnightSet',
   },
+  funnyFoolCostume: {
+    str: 15,
+    set: 'funnyFoolSet',
+  },
 };
 
 const body = {
@@ -1011,6 +1015,10 @@ const head = {
     int: 8,
     set: 'dragonKnightSet',
   },
+  funnyFoolCap: {
+    con: 15,
+    set: 'funnyFoolSet',
+  },
 };
 
 const shield = {
@@ -1361,6 +1369,10 @@ const shield = {
   buoyantBeachBall: {
     str: 12,
     set: 'beachsideSet',
+  },
+  safetyFlashlight: {
+    con: 10,
+    set: 'frightNightSet',
   },
 };
 
@@ -1855,6 +1867,15 @@ const weapon = {
   dragonKnightsLance: {
     con: 8,
     set: 'dragonKnightSet',
+  },
+  funnyFoolBaton: {
+    con: 15,
+    str: 15,
+    set: 'funnyFoolSet',
+  },
+  spookyCandyBucket: {
+    int: 10,
+    set: 'frightNightSet',
   },
 };
 

@@ -1,7 +1,6 @@
 <template>
   <div>
     <buy-gems-modal v-if="user" />
-    <!--modify-inventory(v-if="isUserLoaded")-->
     <footer>
       <!-- Product -->
       <div class="product">
@@ -22,7 +21,7 @@
             </a>
           </li>
           <li>
-            <router-link to="/group-plans">
+            <router-link :to="user ? '/group-plans' : '/static/group-plans'">
               {{ $t('groupPlans') }}
             </router-link>
           </li>
@@ -291,7 +290,8 @@
       </div>
 
       <div
-        v-if="TIME_TRAVEL_ENABLED && user.permissions && user.permissions.fullAccess"
+        class="time-travel"
+        v-if="TIME_TRAVEL_ENABLED && user?.permissions?.fullAccess"
         :key="lastTimeJump"
       >
         <a
@@ -309,9 +309,11 @@
         <div class="my-2">
           Time Traveling! It is {{ new Date().toLocaleDateString() }}
           <a
-            class="btn btn-warning mr-1"
+            class="btn btn-warning btn-small"
             @click="resetTime()"
-          >Reset</a>
+          >
+            Reset
+        </a>
         </div>
         <a
           class="btn btn-secondary mr-1"
@@ -399,6 +401,10 @@
               tooltip="+1000 to boss quests. 300 items to collection quests"
               @click="addQuestProgress()"
             >Quest Progress Up</a>
+            <a
+              class="btn btn-secondary"
+              @click="bossRage()"
+            >+ Boss Rage 😡</a>
             <a
               class="btn btn-secondary"
               @click="makeAdmin()"
@@ -506,6 +512,8 @@ li {
   grid-area: debug-pop;
    }
 
+.time-travel { grid-area: time-travel;}
+
 footer {
   background-color: $gray-500;
   color: $gray-50;
@@ -526,7 +534,8 @@ footer {
     "donate-text donate-text donate-text donate-button social"
     "hr hr hr hr hr"
     "copyright copyright melior privacy-terms privacy-terms"
-    "debug-toggle debug-toggle debug-toggle blank blank";
+    "time-travel time-travel time-travel time-travel time-travel"
+    "debug-toggle debug-toggle debug-toggle debug-toggle debug-toggle";
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: auto;
 
@@ -730,6 +739,7 @@ h3 {
       "privacy-policy privacy-policy"
       "mobile-terms mobile-terms"
       "melior melior"
+      "time-travel time-travel"
       "debug-toggle debug-toggle";
     grid-template-columns: repeat(2, 2fr);
     grid-template-rows: auto;
@@ -960,6 +970,10 @@ export default {
       //  @TODO:  Notification.text('Quest progress increased');
       //  @TODO:  User.sync();
     },
+    async bossRage () {
+      await axios.post('/api/v4/debug/boss-rage');
+    },
+
     async makeAdmin () {
       await axios.post('/api/v4/debug/make-admin');
       // @TODO: Notification.text('You are now an admin!

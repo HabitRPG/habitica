@@ -89,10 +89,12 @@ describe('POST /tasks/:taskId/unassign/:memberId', () => {
   });
 
   it('removes task assignment notification from unassigned user', async () => {
+    await member.sync();
+    const oldNotificationCount = member.notifications.length;
     await user.post(`/tasks/${task._id}/unassign/${member._id}`);
 
     await member.sync();
-    expect(member.notifications.length).to.equal(1); // mystery items
+    expect(member.notifications.length).to.equal(oldNotificationCount - 1);
   });
 
   it('unassigns a user and only that user from a task', async () => {

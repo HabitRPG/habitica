@@ -20,7 +20,6 @@
     "sleepBullet1": "你未完成的日常任务不会对你造成伤害（Boss仍会因其他队友未完成的日常任务而造成伤害）",
     "sleepBullet2": "你的任务连击和习惯计数器将不会重置",
     "sleepBullet3": "你对副本Boss造成的伤害和已收集的物品将保持待结算状态，直至你恢复伤害",
-    "sleepBullet4": "结算前这里会预测你对boss造成的伤害以及收集到的物品数量",
     "pauseDailies": "暂停伤害",
     "unpauseDailies": "解除暂停",
     "staffAndModerators": "工作人员和管理员",
@@ -57,7 +56,6 @@
     "wrongItemType": "物品类型“<%= type %>”无效。",
     "wrongItemPath": "物品路径“<%= path %>”无效。",
     "unpinnedItem": "你已取消钉选<%= item %>！ 它将不再显示在你的奖励栏中。",
-    "cannotUnpinArmoirPotion": "治疗药水和魔法衣橱不能被取消固定。",
     "purchasedItem": "你购买了<%= itemName %>",
     "ianTextMobile": "我可以向你推荐一些副本卷轴吗？激活它们，和你的队伍一起与怪物战斗！",
     "featuredQuests": "精选副本！",
@@ -99,7 +97,6 @@
     "tourStatsPage": "这是你的属性界面！完成列表任务来获得成就。",
     "tourTavernPage": "欢迎来到酒馆，一个适合全年龄的聊天室！如果你生病了或正在旅行，可以点击“暂停伤害”来免受日常任务的伤害。来打声招呼吧！",
     "tourPartyPage": "欢迎来到你的新队伍！你可以通过用户名、电子邮件，或者从寻求组队的玩家列表中邀请其他玩家加入你的队伍，并赢得专属的清单魔蛇副本卷轴。<br/><br/>在“帮助”的下拉菜单中选择<a href='/static/faq#parties'>常见问题</a>，了解更多有关队伍的信息。",
-    "tourGuildsPage": "公会是勇士们创造来讨论共同兴趣的聊天组。浏览公会目录并选择你感兴趣的加入吧~！务必查看受欢迎的The Newbies公会，在那里所有人都可以询问关于Habitica的一切！",
     "tourChallengesPage": "挑战是用户创建的特定主题任务列表！参加挑战会将这些任务添加到你自己的任务列表中。与其他用户竞争，赢取宝石奖励！",
     "tourMarketPage": "每当完成任务，你都有机会获得宠物蛋、孵化药水或宠物食物。你也可以在这里购买这些物品。",
     "tourHallPage": "这里是英雄殿堂，我们在此纪念在开源项目中对Habitica做出贡献的人们。无论是代码、艺术、音乐、写作，或者只是有所帮助，他们都能得到宝石、专属装备以及尊贵头衔。您也可以为Habitica做出贡献！",
@@ -108,7 +105,6 @@
     "tourEquipmentPage": "这里存放着你的装备！你的战斗装备会影响你的属性。如果你想在头像上显示不同的装备而不改变你的属性，请点击 \"启用装扮\"",
     "equipmentAlreadyOwned": "你已拥有该装备",
     "tourOkay": "好的！",
-    "tourAwesome": "太好了！",
     "tourSplendid": "太棒了！",
     "welcomeToHabit": "欢迎来到Habitica！",
     "welcome1": "创建一个基本头像。",
@@ -117,7 +113,6 @@
     "welcome2notes": "你在现实生活中完成任务的好坏将决定你在游戏中的表现！",
     "welcome3": "在生活和游戏中同时进步！",
     "welcome3notes": "随着你生活的进步，你的角色也会提升等级，并解锁宠物、副本、装备等等！",
-    "imReady": "进入Habitica",
     "limitedOffer": "<%= date %>前可购买",
     "paymentCanceledDisputes": "我们已将取消确认发送至您的电子邮箱。如果您没有看到该邮件，请联系我们，以防日后出现账务纠纷。",
     "paymentAutoRenew": "此订阅在被取消前会自动续订。你可以在设置里取消订阅。",
@@ -134,5 +129,7 @@
     "helpSupportHabitica": "支持Habitica",
     "groupsPaymentSubBilling": "您的下一个续订日期是<strong><%= renewalDate %></strong>。",
     "groupsPaymentAutoRenew": "此订阅在被取消前会自动续订。你可以在团队账单选项卡中取消订阅。",
-    "sellItems": "出售物品"
+    "sellItems": "出售物品",
+    "customizationsShopText": "想要换换风格？你来对地方了！看看这儿最新的时令装扮吧。",
+    "notAvailable": "该物品目前无法使用。"
 }

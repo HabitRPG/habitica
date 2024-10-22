@@ -45,7 +45,7 @@ describe('time-travelers store', () => {
 
   describe('on may 1st', () => {
     beforeEach(() => {
-      date = new Date('2024-05-01');
+      date = new Date('2024-05-01T09:00:00.000Z');
     });
     it('returns the correct gear', () => {
       const items = timeTravelers.timeTravelerStore(user, date);

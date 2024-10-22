@@ -3,7 +3,6 @@
     "earnedRewardForDevotion": "Obtuviste <%= reward %> por estar comprometido a mejorar tu vida.",
     "nextRewardUnlocksIn": "Registros hasta tu próximo premio: <%= numberOfCheckinsLeft %>",
     "awesome": "¡Fantástico!",
-    "countLeft": "Registros hasta la próxima recompensa: <%= count %>",
     "incentivesDescription": "Cuando se trata de formar hábitos, la consistencia es la clave. Cada día que te registras te acercas más a un premio.",
     "checkinEarned": "¡Tu Contador de Registros subió!",
     "unlockedCheckInReward": "¡Desbloqueaste un Premio por tus Registros!",

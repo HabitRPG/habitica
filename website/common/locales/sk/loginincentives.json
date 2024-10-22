@@ -3,7 +3,6 @@
     "earnedRewardForDevotion": "Získal/a si <%= reward %> za odhodlanie vylepšiť si život.",
     "nextRewardUnlocksIn": "Prihlásenia do tvojej ďalšej odmeny: <%= numberOfCheckinsLeft %>",
     "awesome": "Úžasne!",
-    "countLeft": "Check-ins until next reward: <%= count %>",
     "incentivesDescription": "Kľúčom k vytváraniu si zvykov je pravidelnosť. Každý deň, ktorý sa prihlásiš, budeš preto bližšie k odmene.",
     "checkinEarned": "Tvoje počítadlo prihlásení sa zvýšilo!",
     "unlockedCheckInReward": "Odomkol/a si odmenu za prihlásenie!",

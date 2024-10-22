@@ -263,6 +263,14 @@
   "questEggCrabMountText": "Crab",
   "questEggCrabAdjective": "a fiddling",
 
+  "questEggRaccoonText": "Raccoon",
+  "questEggRaccoonMountText": "Raccoon",
+  "questEggRaccoonAdjective": "a ravenous",  
+
+  "questEggDogText": "Puppy",
+  "questEggDogMountText": "Dog",
+  "questEggDogAdjective": "a friendy",  
+
   "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
 
   "hatchingPotionBase": "Base",

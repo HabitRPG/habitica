@@ -27,7 +27,7 @@ function setIsDueNextDue (task, user, now) {
   optionsForShouldDo.nextDue = true;
   const nextDue = common.shouldDo(now, task, optionsForShouldDo);
   if (nextDue && nextDue.length > 0) {
-    task.nextDue = nextDue;
+    task.nextDue = nextDue.map(dueDate => dueDate.toISOString());
   }
 }
 
@@ -439,7 +439,7 @@ export async function cron (options = {}) {
   });
 
   // Finished tallying
-  user.history.todos.push({ date: now, value: todoTally });
+  user.history.todos.push({ date: now.toISOString(), value: todoTally });
 
   // tally experience
   let expTally = user.stats.exp;
@@ -449,7 +449,7 @@ export async function cron (options = {}) {
     expTally += common.tnl(lvl);
   }
 
-  user.history.exp.push({ date: now, value: expTally });
+  user.history.exp.push({ date: now.toISOString(), value: expTally });
 
   // Remove any remaining completed todos from the list of active todos
   user.tasksOrder.todos = user.tasksOrder.todos

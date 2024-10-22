@@ -15,7 +15,7 @@
     "messageMissingEggPotion": "Hiányzik vagy ez a tojás vagy ez a keltetőfőzet",
     "messageInvalidEggPotionCombo": "Küldetés háziállat tojást nem kelthetsz ki varázs keltetőfőzettel! Válassz másik tojást.",
     "messageAlreadyPet": "Már megvan ez a háziállat. Próbálj egy másik kombinációt!",
-    "messageHatched": "A tojásod kikelt! Látogasd meg az istállóban ha használni szeretnéd.",
+    "messageHatched": "A tojásod kikelt! Kattints a \"Kisállatok és hátasok\" menüpontra ha használni szeretnéd.",
     "messageNotEnoughGold": "Nincs elég aranyad",
     "messageTwoHandedEquip": "<%= twoHandedText %> használatához két kézre van szükséged, ezért <%= offHandedText %> el lett távolítva.",
     "messageTwoHandedUnequip": "<%= twoHandedText %> használatához két kézre van szükséged, ezért el lett távolítva amikor <%= offHandedText %> tárgyat használatba vetted.",
@@ -36,12 +36,10 @@
     "messageGroupRequiresInvite": "Nem léphetsz be olyan csoportba, ahova nem vagy meghívva.",
     "messageGroupCannotRemoveSelf": "Nem törölheted magadat!",
     "messageGroupChatBlankMessage": "Nem küldhetsz üres üzenetet",
-    "messageGroupChatLikeOwnMessage": "Nem kedvelheted a saját üzenetedet. Ne legyél ilyen.",
     "messageGroupChatFlagAlreadyReported": "Már bejelentetted ezt az üzenetet",
     "messageGroupChatNotFound": "Az üzenet nem található!",
     "messageGroupChatAdminClearFlagCount": "Csak egy adminisztrátor törölheti a megjelölt üzeneteket!",
     "messageCannotFlagSystemMessages": "Egy rendszerüzenetet nem jelenthetsz be. Ha szeretnéd bejelenteni ehhez az üzenethez tartozó közösségi irányelvek megszegését, küldj egy képet és egy magyarázatot a közösségi managernek a <%= communityManagerEmail %> e-mail címre.",
-    "messageGroupChatSpam": "Upsz, úgy néz ki túl sok üzenetet küldtél! Kérlek, várj egy kicsit és próbáld újra. A fogadó üzenőfala csak 200 üzenet tárolására képes, ezért a Habitica hosszabb és tartalmasabb üzenetek küldésére, illetve a válaszok összevonására bátorít. Alig várjuk, hogy ismét halljunk felőled. :)",
     "messageCannotLeaveWhileQuesting": "Nem fogadhatsz el meghívást egy csapatba miközben küldetésen veszel részt. Ha szeretnél ehhez a csapathoz csatlakozni, félbe kell hagynod a jelenlegi küldetést, amit megtehetsz a csapat menüben. A küldetéshez tartozó tekercset visszakapod.",
     "messageUserOperationProtected": "'<%= operation %>' elérési út nem menthető, mivel ez védett.",
     "messageNotificationNotFound": "Az értesítés nem található.",
@@ -59,5 +57,6 @@
     "messageBackgroundUnEquipped": "Háttér eltávolítva.",
     "messagePetMountUnEquipped": "Háziállat és hátas eltávolítva.",
     "messageCostumeUnEquipped": "Jelmez eltávolítva.",
-    "messageBattleGearUnEquipped": "Harci felszerelés eltávolítva."
+    "messageBattleGearUnEquipped": "Harci felszerelés eltávolítva.",
+    "featureRetired": "Ez a funkció már nem támogatott."
 }

@@ -1,5 +1,5 @@
 {
-    "stable": "Ahır",
+    "stable": "Evcil Hayvanlar ve Binekler",
     "pets": "Hayvanlar",
     "activePet": "Etkin Evcil Hayvan",
     "noActivePet": "Etkin Evcil Yok",
@@ -39,11 +39,9 @@
     "hatchingPotion": "kuluçka iksiri",
     "haveHatchablePet": "Bu hayvanı elde etmek için <%= potion %> kuluçka iksirin ve <%= egg %> yumurtan bulunuyor! Hayvana sahip olmak için pati izine <b>tıkla</b>!",
     "quickInventory": "Pratik Envanter",
-    "foodText": "yiyecek",
     "food": "Yiyecek ve Eyerler",
     "noFoodAvailable": "Hiç Evcil Hayvan Mamanız yok.",
     "noSaddlesAvailable": "Hiç Eyerin yok.",
-    "noFood": "Hiç yiyeceğin veya eyerin yok.",
     "dropsExplanation": "Eğer görevlerini tamamlayarak kazanmayı beklemek istemiyorsan, bu eşyaları Elmas karşılığında daha hızlı edinebilirsin. <a href=\"https://habitica.fandom.com/wiki/Drops\"> Eşya bulma sistemi ile ilgili detaylı bilgi al.</a>",
     "dropsExplanationEggs": "Standart yumurtaları veya Görev bitirerek Görev yumurtalarını bulmayı beklemek istemiyorsan, yumurtaları daha hızlı almak için Elmas harca. <a href=\"http://habitica.fandom.com/wiki/Drops\">Eşya bulma sistemi hakkında daha fazla bilgi edin.</a>",
     "premiumPotionNoDropExplanation": "Sihirli Kuluçka İksirleri, Görevlerden kazanılan yumurtaların üzerinde kullanılamaz. Sihirli Kuluçka İksirlerini edinmenin tek yolu buradan satın almaktır, rastgele ödül olarak kazanılamaz.",
@@ -61,8 +59,6 @@
     "triadBingoText": "90 tane hayvanı buldu, 90 tane bineğe dönüştürdü, sonra 90 tane hayvanı TEKRAR buldu. (NASIL BAŞARDIN BUNU?)",
     "triadBingoText2": " ve tüm ahırı toplamda <%= count %> kere serbest bıraktı",
     "triadBingoAchievement": "Tüm hayvanları bularak, tüm binek hayvanlarını yetiştirerek ve tüm hayvanları bir kez daha bularak \"Üçlü Bingo\" rozetini kazandın!",
-    "dropsEnabled": "Eşya Düşmesi Etkin!",
-    "firstDrop": "Eşya Bulma Sistemine erişim kazandın! Artık tamamladığın her iş için yumurta, iksir ve yiyecek bulmak için küçük bir şansın olacak! Hatta az önce bir <strong><%= eggText %> Yumurtası buldun</strong>! <%= eggNotes %>",
     "hatchedPet": "Yumurtadan bir <%= potion %> <%= egg %> çıktı!",
     "hatchedPetGeneric": "Yumurtadan bir evcil hayvan çıktı!",
     "hatchedPetHowToUse": "Yeni evcil hayvanını giydirmek ve beslemek için [ahırı](<%= stableUrl %>)ı ziyaret et!",
@@ -114,5 +110,7 @@
     "gryphatrice": "Grifatris",
     "notEnoughFood": "Yeterli yiyeceğin yok",
     "tooMuchFood": "Evcil hayvanınıza çok fazla yiyecek vermeye çalışıyorsunuz, işlem iptal edildi",
-    "jubilantGryphatrice": "Sevinçli Grifatris"
+    "jubilantGryphatrice": "Sevinçli Grifatris",
+    "veteranCactus": "Kıdemli Kaktüs",
+    "veteranDragon": "Kıdemli Ejderha"
 }

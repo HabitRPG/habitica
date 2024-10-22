@@ -39,11 +39,9 @@
     "hatchingPotion": "孵化药水",
     "haveHatchablePet": "你有一瓶<%= potion %>孵化药水和<%= egg %>来孵化这只宠物！<b>点击</b>进行孵化！",
     "quickInventory": "快捷背包",
-    "foodText": "食物",
     "food": "宠物食物和鞍",
     "noFoodAvailable": "你没有宠物食物。",
     "noSaddlesAvailable": "你没有鞍。",
-    "noFood": "你没有任何食物或鞍。",
     "dropsExplanation": "如果你不想等到完成任务后才能获得这些物品，可以使用宝石来更快获取这些物品。<a href=\"https://habitica.fandom.com/zh/wiki/掉落\">了解更多有关掉落系统的信息。</a>",
     "dropsExplanationEggs": "如果你不想等待基础宠物蛋掉落，或者不想靠反复刷副本得到副本宠物蛋，可花费宝石来更快获取它们。<a href=\"https://habitica.fandom.com/zh/wiki/掉落\">了解更多有关掉落系统的信息。</a>",
     "premiumPotionNoDropExplanation": "魔法孵化药水不能用来孵化从副本中获得的蛋。魔法孵化药水不会随机掉落，只能从下方购买。",
@@ -61,8 +59,6 @@
     "triadBingoText": "已找到全部90只宠物，全部90只坐骑，并再次找到全部90只宠物（你怎么做到的！ ）",
     "triadBingoText2": " 并已释放其所有宠物及坐骑共<%= count %>次",
     "triadBingoAchievement": "你找到了所有宠物，驯服了所有坐骑，并再次找到所有宠物，获得了“大三元”成就！",
-    "dropsEnabled": "启用了物品掉落功能！",
-    "firstDrop": "你解锁了物品掉落功能！从今以后，只要你完成每个任务都会有一定的几率能找到一件物品，包括蛋，药水和食物。刚刚你找到了一颗<strong><%= eggText %>蛋</strong>！<%= eggNotes %>",
     "hatchedPet": "你孵化出一只新的<%= potion %><%= egg %>！",
     "hatchedPetGeneric": "你孵化出一只新宠物！",
     "hatchedPetHowToUse": "访问[宠物与坐骑](<%= stableUrl %>)喂养和装备你的新宠物吧！",
@@ -115,5 +111,6 @@
     "tooMuchFood": "你给宠物喂得太多了，操作已取消",
     "notEnoughFood": "你没有足够的食物",
     "jubilantGryphatrice": "欢沁狮鹫蛇",
-    "veteranDragon": "退役军龙"
+    "veteranDragon": "退役军龙",
+    "veteranCactus": "退役仙人掌"
 }

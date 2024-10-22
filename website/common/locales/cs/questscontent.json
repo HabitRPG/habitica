@@ -646,5 +646,12 @@
     "questRobotDropRobotEgg": "Robot (Vejce)",
     "questAmberText": "Jantarová Aliance",
     "questAmberBoss": "Trerezin",
-    "questAmberDropAmberPotion": "Jantarový líhnoucí lektvar"
+    "questAmberDropAmberPotion": "Jantarový líhnoucí lektvar",
+    "questBronzeCompletion": "\"Pěkná trefa, válečníku!\" pochválí tě brouk a posadí se na zem. Snad se neusmívá? Těžko říct, za těmi kusadly. \"Opravdu jste si moje lektvary zasloužili!\" <br<br>“Páni, ještě jsem za souboj nikdy takovou odměnu nevyhrál!” řekne @UncommonCriminal, a natáčí třpytivou lahvičku v rukou ze strany na stranu. “Pojďme nechat vylíhnout pár nových mazlíčků!”",
+    "questDolphinText": "Delfín Pochyností",
+    "questDolphinNotes": "Procházíš se po březích Zálivu Nedodělků, hlavu plnou náročné práce, která tě očekává. Zaujme tě žblunknutí na vodní hladině. Překrásný delfín přeskočí mezi vlnami. Sluneční svit se odráží na jeho ploutvích. Ale počkej... to není sluneční světlo a delfín se nezanoří zpět do moře. Zahledí se na @khdarkwolf.<br><br>“Já své denní úkoly nikdy nezvládnu” hlesne @khdarkwolf.<br><br>“Asi nejsem dost dobrý, abych dosáhl svých cílů,” fňukne @confusedcicada když delfín přesune svůj přísný pohled na něj.<br><br>“Proč se vůbec namáhat?” zeptá se @mewrose a rozstřese se pod pohledem příšery.<br><br>Pak se delfín podívá na tebea ty cítíš, jak tvé odhodlání mizí pod záplavou pochybností. A vzchopíš se; Někdo musí tu příšeru zastavit a budeš to právě ty!",
+    "questBronzeNotes": "Během osvěžující přestávky mezi výpravami se ty a tví přátelé touláte po lesních stezkách v Taskwoodu. Najednou narazíte na velký padlý vykotlaný strom a z jeho dutiny se něco zaleskne. <br><br>A je to skrýš plná kouzelných líhnoucích lektvarů! Třpytivá bronzová tekutina se převaluje v lahvičkách a @Hachiseiko se po jedné natáhne, aby si ji prohlédl. <br><br> \"Nechej to!\" zasyčí za tebou neznámý hlas. Je to obrovský brouk s krovkami z lesklého bronzu a pozvedá proti tobě klepeta v bojovném postoji. \"To jsou mé lektvary a pokud si je chcete zasloužit, musíte se osvědčit v rytířském souboji!\"",
+    "evilSantaAddlNotes": "Dávej pozor,  Pytlačící  Ježíšek a Najdi Mládě mají sice na sebe navazující úspěchy z výprav, ale vzácného mazlíčka a jezdecké zvíře dostaneš pouze jednou.",
+    "questDolphinBoss": "Delfín Pochybností",
+    "mythicalMarvelsNotes": "Obsahuje výpravy na získání vajec jednorožce, grifona a mořského hada: Přesvědčení Královny Jednorožců, Ohnivý Grifon a Nebezpečí v Hlubinách: Mořský Had Útočí!"
 }

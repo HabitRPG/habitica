@@ -22,6 +22,7 @@ const HeroesPage = () => import(/* webpackChunkName: "hall" */'@/components/hall
 // Admin Panel
 const AdminPanelPage = () => import(/* webpackChunkName: "admin-panel" */'@/components/admin-panel');
 const AdminPanelUserPage = () => import(/* webpackChunkName: "admin-panel" */'@/components/admin-panel/user-support');
+const AdminPanelSearchPage = () => import(/* webpackChunkName: "admin-panel" */'@/components/admin-panel/search');
 
 // Except for tasks that are always loaded all the other main level
 // All the main level
@@ -40,7 +41,7 @@ const StablePage = () => import(/* webpackChunkName: "inventory" */'@/components
 
 // Guilds & Parties
 const GroupPage = () => import(/* webpackChunkName: "guilds" */ '@/components/groups/group');
-const GroupPlansAppPage = () => import(/* webpackChunkName: "guilds" */ '@/components/groups/groupPlan');
+const GroupPlansAppPage = () => import(/* webpackChunkName: "guilds" */ '@/components/static/groupPlans');
 const LookingForParty = () => import(/* webpackChunkName: "guilds" */ '@/components/groups/lookingForParty');
 
 // Group Plans
@@ -194,8 +195,18 @@ const router = new VueRouter({
       },
       children: [
         {
+          name: 'adminPanelSearch',
+          path: 'search/:userIdentifier',
+          component: AdminPanelSearchPage,
+          meta: {
+            privilegeNeeded: [
+              'userSupport',
+            ],
+          },
+        },
+        {
           name: 'adminPanelUser',
-          path: ':userIdentifier', // User ID or Username
+          path: ':userIdentifier',
           component: AdminPanelUserPage,
           meta: {
             privilegeNeeded: [

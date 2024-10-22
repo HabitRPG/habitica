@@ -76,6 +76,9 @@ const webpackPlugins = [
       if ((context.includes('sinon') || resource.includes('sinon') || context.includes('nise')) && nconf.get('TIME_TRAVEL_ENABLED') !== 'true') {
         return true;
       }
+      if (context.includes('yargs')) {
+        return true;
+      }
       return false;
     },
   }),
@@ -91,6 +94,28 @@ module.exports = {
           dependency: { not: ['url'] },
           type: 'asset/source',
         },
+        {
+          test: /\.js$/,
+          // Exclude transpiling `node_modules`, except `bootstrap-vue/src`
+          exclude: /node_modules\/(?!bootstrap-vue\/src\/)/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env'],
+            },
+          },
+        },
+        {
+          test: /\.js$/,
+          // Exclude transpiling `node_modules`, except `bootstrap-vue/src`
+          exclude: /node_modules\/(?!validator)/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env'],
+            },
+          },
+        },
       ],
     },
     resolve: {
@@ -101,6 +126,10 @@ module.exports = {
         path: false,
         stream: false,
         timers: require.resolve('timers-browserify'),
+      },
+      alias: {
+        // Alias for using source of BootstrapVue
+        'bootstrap-vue$': 'bootstrap-vue/src/index.js',
       },
     },
     plugins: webpackPlugins,

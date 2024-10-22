@@ -51,10 +51,10 @@
       :class="{'not-participating': !userIsOnQuest}"
     >
       <div class="col-12 text-center">
-        <div
+        <Sprite
           class="quest-boss"
-          :class="'quest_' + questData.key"
-        ></div>
+          :image-name="'quest_' + questData.key"
+        />
         <div class="quest-box">
           <div
             v-if="questData.collect"
@@ -66,7 +66,7 @@
               class="quest-item-row"
             >
               <div class="quest-item-icon">
-                <div :class="'quest_' + questData.key + '_' + key"></div>
+                <Sprite :image-name="'quest_' + questData.key + '_' + key" />
               </div>
               <div class="quest-item-info">
                 <span class="label quest-label">{{ value.text() }}</span>
@@ -643,6 +643,7 @@ import * as quests from '@/../../common/script/content/quests';
 import percent from '@/../../common/script/libs/percent';
 import { mapState } from '@/libs/store';
 import sidebarSection from '../sidebarSection';
+import Sprite from '../ui/sprite';
 
 import questIcon from '@/assets/svg/quest.svg';
 import swordIcon from '@/assets/svg/sword.svg';
@@ -653,6 +654,7 @@ import questActionsMixin from '@/components/groups/questActions.mixin';
 export default {
   components: {
     sidebarSection,
+    Sprite,
   },
   mixins: [questActionsMixin],
   props: ['group'],

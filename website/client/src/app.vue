@@ -27,72 +27,14 @@
         </div>
       </div>
     </div>
-    <div
-      id="app"
-      :class="{
-        'casting-spell': castingSpell,
-      }"
-    >
-      <!-- <banned-account-modal /> -->
-      <amazon-payments-modal v-if="!isStaticPage" />
-      <payments-success-modal />
-      <sub-cancel-modal-confirm v-if="isUserLoaded" />
-      <sub-canceled-modal v-if="isUserLoaded" />
-      <bug-report-modal v-if="isUserLoaded" />
-      <bug-report-success-modal v-if="isUserLoaded" />
-      <external-link-modal />
-      <birthday-modal />
-      <snackbars />
-      <router-view v-if="!isUserLoggedIn || isStaticPage" />
-      <template v-else>
-        <template v-if="isUserLoaded">
-          <chat-banner />
-          <damage-paused-banner />
-          <gems-promo-banner />
-          <gift-promo-banner />
-          <birthday-banner />
-          <notifications-display />
-          <app-menu />
-          <div
-            class="container-fluid"
-            :class="{'no-margin': noMargin}"
-          >
-            <app-header />
-            <buyModal
-              :item="selectedItemToBuy || {}"
-              :with-pin="true"
-              :generic-purchase="genericPurchase(selectedItemToBuy)"
-              @buyPressed="customPurchase($event)"
-            />
-            <selectMembersModal
-              :item="selectedSpellToBuy || {}"
-              :group="user.party"
-              @memberSelected="memberSelected($event)"
-            />
-            <div :class="{sticky: user.preferences.stickyHeader}">
-              <router-view />
-            </div>
-          </div>
-          <app-footer v-if="!hideFooter" />
-          <audio
-            id="sound"
-            ref="sound"
-            autoplay="autoplay"
-          ></audio>
-        </template>
-      </template>
-    </div>
+    <snackbars />
+    <router-view v-if="!isUserLoggedIn || isStaticPage" />
+    <user-main v-else />
   </div>
 </template>
 
 <style lang='scss' scoped>
   @import '~@/assets/scss/colors.scss';
-
-  #app {
-    display: flex;
-    flex-direction: column;
-    overflow-x: hidden;
-  }
 
   #loading-screen-inapp {
     #melior {
@@ -163,68 +105,20 @@
 
 <script>
 import axios from 'axios';
-import { loadProgressBar } from 'axios-progress-bar';
 
-import birthdayModal from '@/components/news/birthdayModal';
-import AppMenu from './components/header/menu';
-import AppHeader from './components/header/index';
-import ChatBanner from './components/header/banners/chatBanner';
-import DamagePausedBanner from './components/header/banners/damagePaused';
-import GemsPromoBanner from './components/header/banners/gemsPromo';
-import GiftPromoBanner from './components/header/banners/giftPromo';
-import BirthdayBanner from './components/header/banners/birthdayBanner';
-import AppFooter from './components/appFooter';
-import notificationsDisplay from './components/notifications';
-import snackbars from './components/snackbars/notifications';
-import { mapState } from '@/libs/store';
 import * as Analytics from '@/libs/analytics';
-import BuyModal from './components/shops/buyModal.vue';
-import SelectMembersModal from '@/components/selectMembersModal.vue';
-import notifications from '@/mixins/notifications';
-import { setup as setupPayments } from '@/libs/payments';
-import amazonPaymentsModal from '@/components/payments/amazonModal';
-import paymentsSuccessModal from '@/components/payments/successModal';
-import subCancelModalConfirm from '@/components/payments/cancelModalConfirm';
-import subCanceledModal from '@/components/payments/canceledModal';
-import externalLinkModal from '@/components/externalLinkModal.vue';
-
-import spellsMixin from '@/mixins/spells';
-import {
-  CONSTANTS,
-  getLocalSetting,
-  removeLocalSetting,
-} from '@/libs/userlocalManager';
-
-const bugReportModal = () => import(/* webpackChunkName: "bug-report-modal" */'@/components/bugReportModal');
-const bugReportSuccessModal = () => import(/* webpackChunkName: "bug-report-success-modal" */'@/components/bugReportSuccessModal');
+import { mapState } from '@/libs/store';
+import userMain from '@/pages/user-main';
+import snackbars from '@/components/snackbars/notifications';
 
 const COMMUNITY_MANAGER_EMAIL = process.env.EMAILS_COMMUNITY_MANAGER_EMAIL; // eslint-disable-line
 
 export default {
   name: 'App',
   components: {
-    AppMenu,
-    AppHeader,
-    AppFooter,
-    birthdayModal,
-    ChatBanner,
-    DamagePausedBanner,
-    GemsPromoBanner,
-    GiftPromoBanner,
-    BirthdayBanner,
-    notificationsDisplay,
     snackbars,
-    BuyModal,
-    SelectMembersModal,
-    amazonPaymentsModal,
-    paymentsSuccessModal,
-    subCancelModalConfirm,
-    subCanceledModal,
-    bugReportModal,
-    bugReportSuccessModal,
-    externalLinkModal,
+    userMain,
   },
-  mixins: [notifications, spellsMixin],
   data () {
     return {
       selectedItemToBuy: null,
@@ -238,71 +132,25 @@ export default {
     };
   },
   computed: {
-    ...mapState(['isUserLoggedIn', 'browserTimezoneUtcOffset', 'isUserLoaded', 'notificationsRemoved']),
+    ...mapState(['isUserLoggedIn', 'isUserLoaded', 'notificationsRemoved']),
     ...mapState({ user: 'user.data' }),
     isStaticPage () {
       return this.$route.meta.requiresLogin === false;
     },
-    castingSpell () {
-      return this.$store.state.spellOptions.castingSpell;
-    },
-    noMargin () {
-      return ['privateMessages'].includes(this.$route.name);
-    },
-    hideFooter () {
-      return ['privateMessages'].includes(this.$route.name);
-    },
   },
   created () {
-    this.$root.$on('playSound', sound => {
-      const theme = this.user.preferences.sound;
-
-      if (!theme || theme === 'off') {
-        return;
-      }
-
-      const file = `/static/audio/${theme}/${sound}`;
-
-      if (this.audioSuffix === null) {
-        this.audioSource = document.createElement('source');
-        if (this.$refs.sound.canPlayType('audio/ogg')) {
-          this.audioSuffix = '.ogg';
-          this.audioSource.type = 'audio/ogg';
-        } else {
-          this.audioSuffix = '.mp3';
-          this.audioSource.type = 'audio/mp3';
-        }
-        this.audioSource.src = file + this.audioSuffix;
-        this.$refs.sound.appendChild(this.audioSource);
-      } else {
-        this.audioSource.src = file + this.audioSuffix;
-      }
-
-      this.$refs.sound.load();
+    // Setup listener for title
+    this.$store.watch(state => state.title, title => {
+      document.title = title;
     });
-
-    // @TODO: I'm not sure these should be at the app level.
-    // Can we move these back into shop/inventory or maybe they need a lateral move?
-    this.$root.$on('buyModal::showItem', item => {
-      this.selectedItemToBuy = item;
-      this.$root.$emit('bv::show::modal', 'buy-modal');
-    });
-
-    this.$root.$on('bv::modal::hidden', event => {
-      if (event.componentId === 'buy-modal') {
-        this.$root.$emit('buyModal::hidden', this.selectedItemToBuy.key);
+    this.$store.watch(state => state.isUserLoaded, () => {
+      if (this.isUserLoaded) {
+        this.hideLoadingScreen();
       }
     });
-
-    this.$root.$on('selectMembersModal::showItem', item => {
-      this.selectedSpellToBuy = item;
-      this.$root.$emit('bv::show::modal', 'select-member-modal');
-    });
-
-    // @TODO split up this file, it's too big
-
-    loadProgressBar({
-      showSpinner: false,
+    this.$nextTick(() => {
+      // Load external scripts after the app has been rendered
+      Analytics.load();
     });
 
     axios.interceptors.response.use(response => { // Set up Response interceptors
@@ -414,79 +262,20 @@ export default {
 
       return Promise.reject(error);
     });
-
-    // Setup listener for title
-    this.$store.watch(state => state.title, title => {
-      document.title = title;
-    });
-    this.$nextTick(() => {
-      // Load external scripts after the app has been rendered
-      Analytics.load();
-    });
-
-    if (this.isUserLoggedIn && !this.isStaticPage) {
-      // Load the user and the user tasks
-      Promise.all([
-        this.$store.dispatch('user:fetch'),
-        this.$store.dispatch('tasks:fetchUserTasks'),
-      ]).then(() => {
-        this.$store.state.isUserLoaded = true;
-        Analytics.setUser();
-        Analytics.updateUser();
-        return axios.get(
-          '/api/v4/i18n/browser-script',
-          {
-            language: this.user.preferences.language,
-            headers: {
-              'Cache-Control': 'no-cache',
-              Pragma: 'no-cache',
-              Expires: '0',
-            },
-          },
-        );
-      }).then(() => {
-        const i18nData = window && window['habitica-i18n'];
-        this.$loadLocale(i18nData);
-        this.hideLoadingScreen();
-
-        // Adjust the timezone offset
-        const browserTimezoneOffset = -this.browserTimezoneUtcOffset;
-        if (this.user.preferences.timezoneOffset !== browserTimezoneOffset) {
-          this.$store.dispatch('user:set', {
-            'preferences.timezoneOffset': browserTimezoneOffset,
-          });
-        }
-
-        let appState = getLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE);
-        if (appState) {
-          appState = JSON.parse(appState);
-          if (appState.paymentCompleted) {
-            removeLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE);
-            this.$root.$emit('habitica:payment-success', appState);
-          }
-        }
-        this.$nextTick(() => {
-          // Load external scripts after the app has been rendered
-          setupPayments();
-        });
-      }).catch(err => {
-        console.error('Impossible to fetch user. Clean up localStorage and refresh.', err); // eslint-disable-line no-console
-      });
-    } else {
-      this.hideLoadingScreen();
-    }
-  },
-  beforeDestroy () {
-    this.$root.$off('playSound');
-    this.$root.$off('buyModal::showItem');
-    this.$root.$off('selectMembersModal::showItem');
   },
   mounted () {
     // Remove the index.html loading screen and now show the inapp loading
     const loadingScreen = document.getElementById('loading-screen');
     if (loadingScreen) document.body.removeChild(loadingScreen);
+
+    if (this.isStaticPage || !this.isUserLoggedIn) {
+      this.hideLoadingScreen();
+    }
   },
   methods: {
+    hideLoadingScreen () {
+      this.loading = false;
+    },
     checkForBannedUser (error) {
       const AUTH_SETTINGS = localStorage.getItem('habit-mobile-settings');
       const parseSettings = JSON.parse(AUTH_SETTINGS);
@@ -507,57 +296,9 @@ export default {
       this.$store.dispatch('auth:logout', { redirectToLogin: true });
       return true;
     },
-    itemSelected (item) {
-      this.selectedItemToBuy = item;
-    },
-    genericPurchase (item) {
-      if (!item) return false;
-
-      if (['card', 'debuffPotion'].includes(item.purchaseType)) return false;
-
-      return true;
-    },
-    customPurchase (item) {
-      if (item.purchaseType === 'card') {
-        this.selectedSpellToBuy = item;
-
-        // hide the dialog
-        this.$root.$emit('bv::hide::modal', 'buy-modal');
-        // remove the dialog from our modal-stack,
-        // the default hidden event is delayed
-        this.$root.$emit('bv::modal::hidden', {
-          target: {
-            id: 'buy-modal',
-          },
-        });
-
-        this.$root.$emit('bv::show::modal', 'select-member-modal');
-      }
-
-      if (item.purchaseType === 'debuffPotion') {
-        this.castStart(item, this.user);
-      }
-    },
-    async memberSelected (member) {
-      await this.castStart(this.selectedSpellToBuy, member);
-
-      this.selectedSpellToBuy = null;
-
-      if (this.user.party._id) {
-        this.$store.dispatch('party:getMembers', { forceLoad: true });
-      }
-
-      this.$root.$emit('bv::hide::modal', 'select-member-modal');
-    },
-    hideLoadingScreen () {
-      this.loading = false;
-    },
   },
 };
 </script>
 
-<style src="intro.js/minified/introjs.min.css"></style>
-<style src="axios-progress-bar/dist/nprogress.css"></style>
 <style src="@/assets/scss/index.scss" lang="scss"></style>
 <style src="@/assets/scss/sprites.scss" lang="scss"></style>
-<style src="smartbanner.js/dist/smartbanner.min.css"></style>

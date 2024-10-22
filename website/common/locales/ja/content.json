@@ -212,7 +212,6 @@
     "hatchingPotionFrost": "霜の",
     "hatchingPotionIcySnow": "冷たい雪の",
     "hatchingPotionNotes": "これをたまごにかけると、<%= potText(locale) %> ペットが生まれます。",
-    "premiumPotionAddlNotes": "クエストペットのたまごには使えません。<%= date(locale) %>まで購入できます。",
     "foodMeat": "肉",
     "foodMeatThe": "肉",
     "foodMeatA": "肉",
@@ -383,5 +382,11 @@
     "questEggGiraffeAdjective": "そびえ立つ",
     "questEggChameleonAdjective": "混沌とした",
     "hatchingPotionKoi": "コイ",
-    "questEggChameleonText": "カメレオン"
+    "questEggChameleonText": "カメレオン",
+    "questEggRaccoonText": "アライグマ",
+    "questEggRaccoonMountText": "アライグマ",
+    "questEggRaccoonAdjective": "大食いの",
+    "questEggCrabText": "カニ",
+    "questEggCrabMountText": "カニ",
+    "questEggCrabAdjective": "いじわるな"
 }

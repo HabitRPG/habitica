@@ -1,7 +1,7 @@
 {
   "name": "habitica",
   "description": "A habit tracker app which treats your goals like a Role Playing Game.",
-  "version": "5.27.0",
+  "version": "5.28.9",
   "main": "./website/server/index.js",
   "dependencies": {
     "@babel/core": "^7.22.10",
@@ -15,6 +15,7 @@
     "amplitude": "^6.0.0",
     "apidoc": "^0.54.0",
     "apple-auth": "^1.0.9",
+    "babel-preset-env": "^1.7.0",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
     "bootstrap": "^4.6.2",
@@ -75,6 +76,7 @@
     "useragent": "^2.1.9",
     "uuid": "^9.0.0",
     "validator": "^13.11.0",
+    "webpack-bundle-analyzer": "^4.10.2",
     "winston": "^3.10.0",
     "winston-loggly-bulk": "^3.3.0",
     "xml2js": "^0.6.2"
@@ -105,14 +107,15 @@
     "client:build": "cd website/client && npm run build",
     "client:unit": "cd website/client && npm run test:unit",
     "start": "gulp nodemon",
+    "start:simple": "node ./website/server/index.js",
     "debug": "gulp nodemon --inspect",
     "mongo:dev": "run-rs -v 5.0.23 -l ubuntu1804 --keep --dbpath mongodb-data --number 1 --quiet",
     "postinstall": "git config --global url.\"https://\".insteadOf git:// && gulp build && cd website/client && npm install",
     "apidoc": "gulp apidoc",
-    "heroku-postbuild": "npm run client:build"
+    "heroku-postbuild": ".heroku/report_deploy.sh"
   },
   "devDependencies": {
-    "axios": "^1.4.0",
+    "axios": "^1.7.4",
     "chai": "^4.3.7",
     "chai-as-promised": "^7.1.1",
     "chai-moment": "^0.1.0",
