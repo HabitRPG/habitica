@@ -498,6 +498,10 @@ const armor = {
     str: 15,
     set: 'funnyFoolSet',
   },
+  stormKnightArmor: {
+    per: 11,
+    set: 'stormKnightSet',
+  },
 };
 
 const body = {
@@ -1018,6 +1022,10 @@ const head = {
   funnyFoolCap: {
     con: 15,
     set: 'funnyFoolSet',
+  },
+  stormKnightHelm: {
+    con: 11,
+    set: 'stormKnightSet',
   },
 };
 
@@ -1876,6 +1884,10 @@ const weapon = {
   spookyCandyBucket: {
     int: 10,
     set: 'frightNightSet',
+  },
+  stormKnightAxe: {
+    str: 11,
+    set: 'stormKnightSet',
   },
 };
 

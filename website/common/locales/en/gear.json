@@ -789,6 +789,8 @@
   "weaponArmoireFunnyFoolBatonNotes": "With a wave of your baton you can deliver a punchline, redirect attention, or summon applause. Increases Constitution and Strength by <%= attrs %> each. Enchanted Armoire: Funny Fool Set (Item 3 of 3)",
   "weaponArmoireSpookyCandyBucketText": "Spooky Candy Bucket",
   "weaponArmoireSpookyCandyBucketNotes": "With an epic costume like that, you’re going to get so much candy! Good thing you’ve got this bottomless bucket to hold it all. Try not to snack on any until you get home. Increases Intelligence by <%= int %>. Enchanted Armoire: Fright Night Set (Item 2 of 2)",
+  "weaponArmoireStormKnightAxeText": "Storm Knight Axe",
+  "weaponArmoireStormKnightAxeNotes": "Gather your fury and strike a blow like thunder! Increases Strength by <%= str %>. Enchanted Armoire: Storm Knight Set (Item 3 of 3)",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -1652,6 +1654,8 @@
   "armorArmoireDragonKnightsArmorNotes": "Channel the strength and power of a dragon with this armor made of silver and shed scales. Increases Strength by <%= str %>. Enchanted Armoire: Dragon Knight Set (Item 2 of 3)",
   "armorArmoireFunnyFoolCostumeText": "Funny Fool Costume",
   "armorArmoireFunnyFoolCostumeNotes": "Dum-de-dum! Surely you jest. This colorful outfit looks amazing on you! Increases Strength by <%= str %>. Enchanted Armoire: Funny Fool Set (Item 2 of 3)",
+  "armorArmoireStormKnightArmorText": "Storm Knight Armor",
+  "armorArmoireStormKnightArmorNotes": "In this armor, you are nearly invincible. Your enemies will never see the storm’s end. Increases Perception by <%= per %>. Enchanted Armoire: Storm Knight Set (Item 2 of 3)",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -2328,6 +2332,8 @@
   "headMystery202407Notes": "These magical gills will let you breathe underwater! Confers no benefit. July 2024 Subscriber Item.",
   "headMystery202409Text": "Heliotrope Magus Hat",
   "headMystery202409Notes": "More than just jaunty decorations, the enchanted sunflowers on this hat fill the wearer with powerful magic energy. Confers no benefit. September 2024 Subscriber Item.",
+  "headMystery202411Text": "Bristled Helm",
+  "headMystery202411Notes": "This helm is quite intimidating to your tasks when you dive in headfirst! Confers no benefit. November 2024 Subscriber Item.",
 
   "headMystery301404Text": "Fancy Top Hat",
   "headMystery301404Notes": "A fancy top hat for the finest of gentlefolk! January 3015 Subscriber Item. Confers no benefit.",
@@ -2530,6 +2536,8 @@
   "headArmoireDragonKnightsHelmNotes": "With the fiery features on this helmet, dragons might mistake you for one of their own. Increases Intelligence by <%= int %>. Enchanted Armoire: Dragon Knight Set (Item 1 of 3)",
   "headArmoireFunnyFoolCapText": "Funny Fool Cap",
   "headArmoireFunnyFoolCapNotes": "The bells on this hat might make your opponents burst into giggles, but they just help you concentrate. Increases Constitution by <%= con %>. Enchanted Armoire: Funny Fool Set (Item 1 of 3)",
+  "headArmoireStormKnightHelmText": "Storm Knight Helm",
+  "headArmoireStormKnightHelmNotes": "Harness lightning through these antlers as you storm the castle. Increases Constitution by <%= con %>. Enchanted Armoire: Storm Knight Set (Item 1 of 3)",
 
   "offhand": "off-hand item",
   "offHandCapitalized": "Off-Hand Item",
@@ -3177,6 +3185,8 @@
   "bodyMystery202008Notes": "For now, your wings lie furled. But when you have concluded dispensing your wisdom, or you sight your prey in the grass, watch out! Confers no benefit. August 2020 Subscriber Item.",
   "bodyMystery202107Text": "Far-Out Floaty Flamingo",
   "bodyMystery202107Notes": "This trusty companion will never let you down and will always keep your spirits buoyant! Confers no benefit. July 2021 Subscriber Item.",
+  "bodyMystery202411Text": "Bristled Pauldrons",
+  "bodyMystery202411Notes": "The formidable spikes on these pauldrons are perfect for charging ahead with your to-do list. Confers no benefit. November 2024 Subscriber Item.",
 
   "bodyArmoireCozyScarfText": "Cozy Scarf",
   "bodyArmoireCozyScarfNotes": "This fine scarf will keep you warm as you go about your wintry business. Increases Constitution and Perception by <%= attrs %> each. Enchanted Armoire: Lamplighter's Set (Item 4 of 4).",
