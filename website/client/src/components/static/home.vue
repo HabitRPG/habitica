@@ -552,8 +552,16 @@
     }
 
     .sign-up {
+      border: 2px solid transparent;
+      box-shadow: 0 1px 3px 0 rgba($black, 0.16), 0 1px 3px 0 rgba($black, 0.24);
       padding-top: 11px;
       padding-bottom: 11px;
+
+      &:focus, &:active {
+        background-color: $blue-50;
+        border: 2px solid $purple-400;
+        box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
+      }
     }
 
     ::-webkit-input-placeholder { /* Chrome/Opera/Safari */

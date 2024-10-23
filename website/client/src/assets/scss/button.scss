@@ -19,8 +19,6 @@
   }
 
   &:focus {
-    border: 2px solid $purple-200;
-    border-color: $purple-400;
     box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
   }
 
@@ -53,6 +51,10 @@
   border: none !important;
   font-size: 16px;
   padding: 2px 17px;
+
+  &:hover {
+    border: none !important;
+  }
 }
 
 .btn-primary {
@@ -242,9 +244,22 @@
 
 .btn-info {
   background: $blue-50;
+  border: 2px solid transparent;
+  box-shadow: 0 1px 3px 0 rgba($black, 0.16), 0 1px 3px 0 rgba($black, 0.24);
 
   &:disabled {
     background: $blue-50;
+    box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
+  }
+
+  &:hover {
+    border: 2px solid transparent;
+    box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
+  }
+
+  &:focus {
+    background: $blue-100;
+    border: 2px solid $purple-400;
     box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
   }
 
@@ -254,8 +269,9 @@
   }
 
   &:active:not(:disabled):not(.disabled), &.active:not(:disabled):not(.disabled) {
-    background: $blue-50;
-    box-shadow: none;
+    background: $blue-100;
+    border: 2px solid $purple-400;
+    box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
   }
 }
 

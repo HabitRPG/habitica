@@ -613,6 +613,7 @@ h3 {
 
 .debug-group {
   background-color: $gray-600;
+  border: 2px solid transparent;
   border-radius: 4px;
   box-shadow: 0 1px 3px 0 rgba($black, 0.12), 0 1px 2px 0 rgba($black, 0.24);
   font-weight: 700;
@@ -623,6 +624,8 @@ h3 {
   }
 
   a:hover {
+    border: 2px solid transparent;
+    box-shadow: 0 1px 3px 0 rgba($black, 0.12), 0 1px 2px 0 rgba($black, 0.24);
     text-decoration: none !important;
   }
 }
