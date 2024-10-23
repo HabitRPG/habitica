@@ -105,6 +105,11 @@
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
 
+  .btn-primary:active {
+      border: 2px solid $purple-400 !important;
+      box-shadow: none !important;
+    }
+
   .class-badge {
     $badge-size: 32px;
 
