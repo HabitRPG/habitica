@@ -1,8 +1,9 @@
 .dropdown > .btn {
-  padding: 0.219rem 0.75rem;
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
   font-weight: normal;
+  line-height: 1.714;
+  padding: 2px 12px;
 }
 
 .dropdown-toggle:hover {
@@ -33,10 +34,10 @@
 }
 
 .dropdown-menu {
-  padding: 0px;
-  border: none;
+  border: transparent;
   border-radius: 2px;
-  box-shadow: 0 3px 6px 0 rgba(26, 24, 29, 0.16), 0 3px 6px 0 rgba(26, 24, 29, 0.24);
+  box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
+  padding: 0;
 
 }
 
@@ -113,6 +114,10 @@
 }
 
 .dropdown-icon-item {
+  line-height: 1;
+  padding-top: 2px !important;
+  padding-bottom: 2px !important;
+
   .svg-icon {
     margin: 0px 16px 0px 0px;
     vertical-align: middle;
@@ -128,7 +133,6 @@
 
   .dropdown-toggle {
     width: 100% !important;
-    height: 32px;
     text-align: left;
   }
 
