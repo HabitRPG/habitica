@@ -31,7 +31,7 @@ describe('POST /user/buy-mystery-set/:key', () => {
 
     expect(res.data).to.eql({
       items: JSON.parse(JSON.stringify(user.items)), // otherwise dates can't be compared
-      purchasedPlanConsecutive: user.purchased.plan.consecutive,
+      purchasedPlanConsecutive: JSON.parse(JSON.stringify(user.purchased.plan.consecutive)),
     });
     expect(res.message).to.equal(t('hourglassPurchaseSet'));
   });
