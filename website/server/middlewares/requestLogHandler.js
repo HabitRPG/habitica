@@ -31,7 +31,11 @@ export const logRequestData = (req, res, next) => {
   data.startTime = req.requestStartTime;
   logger.info('Request started', data);
   req.on('close', () => {
-    logRequestEnd(req, res);
+    try {
+      logRequestEnd(req, res);
+    } catch (error) {
+      logger.error('Error logging request end:', error);
+    }
   });
   next();
 };
