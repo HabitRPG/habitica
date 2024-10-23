@@ -341,7 +341,7 @@ describe('payments/index', () => {
         });
       });
 
-      context.only('Active Promotion', () => {
+      context('Active Promotion', () => {
         beforeEach(() => {
           sinon.stub(worldState, 'getCurrentEventList').returns([{
             ...REPEATING_EVENTS.giftOneGetOne,
