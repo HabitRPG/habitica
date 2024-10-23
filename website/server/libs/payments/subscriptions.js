@@ -257,7 +257,8 @@ async function createSubscription (data) {
     }
     const { lastHourglassReceived } = recipient.purchased.plan.consecutive;
 
-    if (block.months === 12 && autoRenews && !recipient.purchased.plan.hourglassPromoReceived) {
+    if (block.months === 12 && autoRenews && !data.gift
+      && !recipient.purchased.plan.hourglassPromoReceived) {
       recipient.purchased.plan.hourglassPromoReceived = new Date();
       await plan.updateHourglasses(recipient._id, 12, 'subscription_bonus');
     }

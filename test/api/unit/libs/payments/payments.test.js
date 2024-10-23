@@ -12,6 +12,7 @@ import {
 } from '../../../../helpers/api-unit.helper';
 import * as worldState from '../../../../../website/server/libs/worldState';
 import { TransactionModel } from '../../../../../website/server/models/transaction';
+import { REPEATING_EVENTS } from '../../../../../website/common/script/content/constants/events';
 
 describe('payments/index', () => {
   let user;
@@ -340,11 +341,11 @@ describe('payments/index', () => {
         });
       });
 
-      context('Active Promotion', () => {
+      context.only('Active Promotion', () => {
         beforeEach(() => {
           sinon.stub(worldState, 'getCurrentEventList').returns([{
-            ...common.content.events.winter2021Promo,
-            event: 'winter2021',
+            ...REPEATING_EVENTS.giftOneGetOne,
+            event: 'g1g1',
           }]);
         });
 
@@ -360,22 +361,30 @@ describe('payments/index', () => {
           expect(user.purchased.plan.dateTerminated).to.exist;
           expect(user.purchased.plan.dateUpdated).to.exist;
           expect(user.purchased.plan.dateCreated).to.exist;
+          expect(user.purchased.plan.consecutive.trinkets).to.eql(1);
+          expect(user.purchased.plan.consecutive.gemCapExtra).to.eql(0);
 
           expect(recipient.items.pets['Jackalope-RoyalPurple']).to.eql(5);
           expect(recipient.purchased.plan.customerId).to.eql('Gift');
           expect(recipient.purchased.plan.dateTerminated).to.exist;
           expect(recipient.purchased.plan.dateUpdated).to.exist;
           expect(recipient.purchased.plan.dateCreated).to.exist;
+          expect(recipient.purchased.plan.consecutive.trinkets).to.eql(1);
+          expect(recipient.purchased.plan.consecutive.gemCapExtra).to.eql(0);
         });
 
         it('adds extraMonths to existing subscription for purchaser and creates a gift subscription for recipient without sub', async () => {
           user.purchased.plan = plan;
 
           expect(user.purchased.plan.extraMonths).to.eql(0);
+          expect(user.purchased.plan.consecutive.trinkets).to.eql(0);
+          expect(user.purchased.plan.consecutive.gemCapExtra).to.eql(0);
 
           await api.createSubscription(data);
 
           expect(user.purchased.plan.extraMonths).to.eql(3);
+          expect(user.purchased.plan.consecutive.trinkets).to.eql(0);
+          expect(user.purchased.plan.consecutive.gemCapExtra).to.eql(0);
 
           expect(recipient.items.pets['Jackalope-RoyalPurple']).to.eql(5);
           expect(recipient.purchased.plan.customerId).to.eql('Gift');
@@ -388,10 +397,12 @@ describe('payments/index', () => {
           recipient.purchased.plan = plan;
 
           expect(recipient.purchased.plan.extraMonths).to.eql(0);
+          expect(recipient.purchased.plan.consecutive.trinkets).to.eql(0);
 
           await api.createSubscription(data);
 
           expect(recipient.purchased.plan.extraMonths).to.eql(3);
+          expect(recipient.purchased.plan.consecutive.trinkets).to.eql(0);
 
           expect(user.items.pets['Jackalope-RoyalPurple']).to.eql(5);
           expect(user.purchased.plan.customerId).to.eql('Gift');
@@ -406,11 +417,15 @@ describe('payments/index', () => {
 
           expect(user.purchased.plan.extraMonths).to.eql(0);
           expect(recipient.purchased.plan.extraMonths).to.eql(0);
+          expect(user.purchased.plan.consecutive.trinkets).to.eql(0);
+          expect(recipient.purchased.plan.consecutive.trinkets).to.eql(0);
 
           await api.createSubscription(data);
 
           expect(user.purchased.plan.extraMonths).to.eql(3);
           expect(recipient.purchased.plan.extraMonths).to.eql(3);
+          expect(user.purchased.plan.consecutive.trinkets).to.eql(0);
+          expect(recipient.purchased.plan.consecutive.trinkets).to.eql(0);
         });
 
         it('sends a private message about the promotion', async () => {
