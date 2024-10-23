@@ -1,0 +1,4 @@
+# Convert to CRLF line endings on checkout.
+text eol=lf
+# Set the default behavior for all files.
+text=auto

@@ -99,7 +99,13 @@ function _parseRes (res) {
         message: res.body.message,
       };
     }
-    return res.body.data;
+    if (Object.prototype.hasOwnProperty.call(res.body, 'data')) {
+      return res.body.data;
+    }
+    return {
+      body: res.body,
+      code: res.status,
+    };
   }
 
   return null;
