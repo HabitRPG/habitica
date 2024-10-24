@@ -8,7 +8,8 @@
     "rebirthOrb": "Použil Orb znovuzrodenia, aby začal odznovu, po dosiahnutí levelu <%= level %>.",
     "rebirthOrb100": "Použil Orb znovuzrodenia, aby začal odznovu, po dosiahnutí levelu 100 alebo vyššieho.",
     "rebirthOrbNoLevel": "Použil Orb znovuzrodenia, aby začal odznovu.",
-    "rebirthPop": "Instantly restart your character as a Level 1 Warrior while retaining achievements, collectibles, and equipment. Your tasks and their history will remain but they will be reset to yellow. Your streaks will be removed except from challenge tasks. Your Gold, Experience, Mana, and the effects of all Skills will be removed. All of this will take effect immediately. For more information, see the wiki's <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a> page.",
+    "rebirthPop": "Instantne reštartuje tvoju postavičku ako Bojovníka na Leveli 1 za zachovania odznakov, nazbieraných predmetov a vybavenia. Tvoje úlohy a ich história bude zachovaná ale resetujú sa na žlté. Tvoje série budú odstránené až na úlohy spojené s aktívnymi výzvami a skupinovými plánmi. Tvoje zlato, body skúsenosti, manna a efekty všetkých zručností budú odstránené. Toto všetko nastane okamžite.",
     "rebirthName": "Orb znovuzrodenia",
-    "rebirthComplete": "Bol si znovuzrodený!"
+    "rebirthComplete": "Bol si znovuzrodený!",
+    "nextFreeRebirth": "<strong><%= days %> dní</strong> do <strong>bezplatného</strong> Orbu znovuzrodenia"
 }

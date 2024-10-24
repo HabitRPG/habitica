@@ -2,15 +2,15 @@
   <div>
     <select-list
       :items="items"
-      :key-prop="'icon'"
       class="difficulty-select"
       :class="{disabled: disabled}"
       :disabled="disabled"
       :value="selected"
       :hide-icon="true"
+      :direct-select="true"
       @select="$emit('select', $event.value)"
     >
-      <template v-slot:item="{ item, button }">
+      <template #item="{ item, button }">
         <div
           v-if="item"
           class="difficulty-item"

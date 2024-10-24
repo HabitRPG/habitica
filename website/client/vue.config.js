@@ -2,7 +2,8 @@
 const path = require('path');
 const webpack = require('webpack');
 const nconf = require('nconf');
-const { DuplicatesPlugin } = require('inspectpack/plugin');
+const vueTemplateCompiler = require('vue-template-babel-compiler');
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const setupNconf = require('../server/libs/setupNconf');
 const pkg = require('./package.json');
 
@@ -27,6 +28,10 @@ const envVars = [
   'APPLE_AUTH_CLIENT_ID',
   'AMPLITUDE_KEY',
   'LOGGLY_CLIENT_TOKEN',
+  'TRUSTED_DOMAINS',
+  'TIME_TRAVEL_ENABLED',
+  'DEBUG_ENABLED',
+  'CONTENT_SWITCHOVER_TIME_OFFSET',
   // TODO necessary? if yes how not to mess up with vue cli? 'NODE_ENV'
 ];
 
@@ -34,25 +39,99 @@ const envObject = {};
 
 envVars
   .forEach(key => {
-    envObject[key] = nconf.get(key);
+    envObject[`process.env.${key}`] = `'${nconf.get(key)}'`;
   });
 
-const enableDuplicatesPlugin = process.env.npm_lifecycle_event !== 'storybook:serve';
-
 const webpackPlugins = [
-  new webpack.EnvironmentPlugin(envObject),
-  new webpack.ContextReplacementPlugin(/moment[\\/]locale$/, /^\.\/(NOT_EXISTING)$/),
+  new webpack.DefinePlugin(envObject),
+  new MomentLocalesPlugin({
+    localesToKeep: ['bg',
+      'cs',
+      'da',
+      'de',
+      'en',
+      'es',
+      'fr',
+      'he',
+      'hu',
+      'id',
+      'it',
+      'ja',
+      'nl',
+      'pl',
+      'pt',
+      'pt-br',
+      'ro',
+      'ru',
+      'sk',
+      'sv',
+      'tr',
+      'uk',
+      'zh-cn',
+      'zh-tw',
+    ],
+  }),
+  new webpack.IgnorePlugin({
+    checkResource (resource, context) {
+      if ((context.includes('sinon') || resource.includes('sinon') || context.includes('nise')) && nconf.get('TIME_TRAVEL_ENABLED') !== 'true') {
+        return true;
+      }
+      if (context.includes('yargs')) {
+        return true;
+      }
+      return false;
+    },
+  }),
 ];
-
-if (enableDuplicatesPlugin) {
-  webpackPlugins.splice(0, 0, new DuplicatesPlugin({
-    verbose: true,
-  }));
-}
 
 module.exports = {
   assetsDir: 'static',
   configureWebpack: {
+    module: {
+      rules: [
+        {
+          test: /\.svg/,
+          dependency: { not: ['url'] },
+          type: 'asset/source',
+        },
+        {
+          test: /\.js$/,
+          // Exclude transpiling `node_modules`, except `bootstrap-vue/src`
+          exclude: /node_modules\/(?!bootstrap-vue\/src\/)/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env'],
+            },
+          },
+        },
+        {
+          test: /\.js$/,
+          // Exclude transpiling `node_modules`, except `bootstrap-vue/src`
+          exclude: /node_modules\/(?!validator)/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env'],
+            },
+          },
+        },
+      ],
+    },
+    resolve: {
+      fallback: {
+        crypto: false,
+        fs: false,
+        os: false,
+        path: false,
+        stream: false,
+        timers: require.resolve('timers-browserify'),
+      },
+      alias: {
+        // Alias for using source of BootstrapVue
+        'bootstrap-vue$': 'bootstrap-vue/src/index.js',
+      },
+    },
     plugins: webpackPlugins,
   },
   chainWebpack: config => {
@@ -64,72 +143,23 @@ module.exports = {
         .set(dep, path.resolve(__dirname, `./node_modules/${dep}`));
     });
 
-    const svgRule = config.module.rule('svg');
-
-    // clear all existing loaders.
-    // if you don't do this, the loader below will be appended to
-    // existing loaders of the rule.
-    svgRule.uses.clear();
-
-    // add replacement loader(s)
-    svgRule
-      .test(/\.svg$/)
-      .oneOf('normal')
-      .exclude
-      .add(path.resolve(__dirname, 'src/assets/svg/for-css'))
-      .end()
-      .use('svg-inline-loader')
-      .loader('svg-inline-loader')
-      .end()
-      .use('svgo-loader')
-      .loader('svgo-loader')
-      .options({
-        plugins: [
-          { removeViewBox: false },
-          { convertPathData: { noSpaceAfterFlags: false } },
-        ],
-      })
-      .end()
-      .end()
-      .oneOf('in-css')
-      .include
-      .add(path.resolve(__dirname, 'src/assets/svg/for-css'))
-      .end()
-      .use('svg-in-css')
-      .loader('svg-url-loader')
-      .options({
-        limit: 4000,
-        name: 'static/svg/[contenthash].[ext]',
-      })
-      .end()
-      .use('svgo-loader')
-      .loader('svgo-loader')
-      .options({
-        plugins: [
-          { removeViewBox: false },
-          { convertPathData: { noSpaceAfterFlags: false } },
-        ],
-      });
-
-    // Disable eslint warnings when running the server
-    config.module
-      .rule('eslint')
-      .use('eslint-loader')
-      .loader('eslint-loader')
-      .tap(options => {
-        options.quiet = true;
-        return options;
-      });
-
     // Fix issue with Safari cache, see https://github.com/vuejs/vue-cli/issues/2509
     if (process.env.NODE_ENV === 'development') {
       config.plugins.delete('preload');
     }
+
+    // enable optional chaining in templates
+    config.module
+      .rule('vue')
+      .use('vue-loader')
+      .tap(options => {
+        options.compiler = vueTemplateCompiler;
+        return options;
+      });
   },
 
   devServer: {
     headers: { 'Cache-Control': 'no-store' },
-    disableHostCheck: true,
     proxy: {
       // proxy all requests to the server at IP:PORT as specified in the top-level config
       '^/api/v3': {

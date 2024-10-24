@@ -103,7 +103,7 @@ describe('POST /tasks/bulk-score', () => {
 
         const initialLvl = user.stats.lvl;
 
-        await user.update({
+        await user.updateOne({
           'stats.exp': 3000,
         });
         const task = await user.post('/tasks/user', {
@@ -160,7 +160,7 @@ describe('POST /tasks/bulk-score', () => {
         type: 'habit',
       });
 
-      await user.update({
+      await user.updateOne({
         'party.quest.key': 'gryphon',
       });
 

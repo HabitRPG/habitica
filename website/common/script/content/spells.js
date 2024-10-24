@@ -1,12 +1,10 @@
 import each from 'lodash/each';
-import moment from 'moment';
 import t from './translation';
 import { NotAuthorized, BadRequest } from '../libs/errors';
 import statsComputed from '../libs/statsComputed'; // eslint-disable-line import/no-cycle
 import setDebuffPotionItems from '../libs/setDebuffPotionItems'; // eslint-disable-line import/no-cycle
 import crit from '../fns/crit'; // eslint-disable-line import/no-cycle
 import updateStats from '../fns/updateStats';
-import { EVENTS } from './constants';
 
 /*
   ---------------------------------------------------------------
@@ -48,9 +46,13 @@ function calculateBonus (value, stat, critVal = 1, statScale = 0.5) {
 }
 
 export function stealthBuffsToAdd (user) {
-  return Math.ceil(diminishingReturns(
-    statsComputed(user).per, user.tasksOrder.dailys.length * 0.64, 55,
-  ));
+  return Math.ceil(
+    diminishingReturns(
+      statsComputed(user).per,
+      user.tasksOrder.dailys.length * 0.64,
+      55,
+    ),
+  );
 }
 
 const spells = {};
@@ -77,13 +79,11 @@ spells.wizard = {
     lvl: 12,
     target: 'party',
     notes: t('spellWizardMPHealNotes'),
-    cast (user, target) {
-      each(target, member => {
-        const bonus = statsComputed(user).int;
-        if (user._id !== member._id && member.stats.class !== 'wizard') {
-          member.stats.mp += Math.ceil(diminishingReturns(bonus, 25, 125));
-        }
-      });
+    bulk: true,
+    cast (user, data) {
+      const bonus = statsComputed(user).int;
+      data.query['stats.class'] = { $ne: 'wizard' };
+      data.update = { $inc: { 'stats.mp': Math.ceil(diminishingReturns(bonus, 25, 125)) } };
     },
   },
   earth: { // Earthquake
@@ -92,12 +92,10 @@ spells.wizard = {
     lvl: 13,
     target: 'party',
     notes: t('spellWizardEarthNotes'),
-    cast (user, target) {
-      each(target, member => {
-        const bonus = statsComputed(user).int - user.stats.buffs.int;
-        if (!member.stats.buffs.int) member.stats.buffs.int = 0;
-        member.stats.buffs.int += Math.ceil(diminishingReturns(bonus, 30, 200));
-      });
+    bulk: true,
+    cast (user, data) {
+      const bonus = statsComputed(user).int - user.stats.buffs.int;
+      data.update = { $inc: { 'stats.buffs.int': Math.ceil(diminishingReturns(bonus, 30, 200)) } };
     },
   },
   frost: { // Chilling Frost
@@ -147,12 +145,10 @@ spells.warrior = {
     lvl: 13,
     target: 'party',
     notes: t('spellWarriorValorousPresenceNotes'),
-    cast (user, target) {
-      each(target, member => {
-        const bonus = statsComputed(user).str - user.stats.buffs.str;
-        if (!member.stats.buffs.str) member.stats.buffs.str = 0;
-        member.stats.buffs.str += Math.ceil(diminishingReturns(bonus, 20, 200));
-      });
+    bulk: true,
+    cast (user, data) {
+      const bonus = statsComputed(user).str - user.stats.buffs.str;
+      data.update = { $inc: { 'stats.buffs.str': Math.ceil(diminishingReturns(bonus, 20, 200)) } };
     },
   },
   intimidate: { // Intimidating Gaze
@@ -161,12 +157,10 @@ spells.warrior = {
     lvl: 14,
     target: 'party',
     notes: t('spellWarriorIntimidateNotes'),
-    cast (user, target) {
-      each(target, member => {
-        const bonus = statsComputed(user).con - user.stats.buffs.con;
-        if (!member.stats.buffs.con) member.stats.buffs.con = 0;
-        member.stats.buffs.con += Math.ceil(diminishingReturns(bonus, 24, 200));
-      });
+    bulk: true,
+    cast (user, data) {
+      const bonus = statsComputed(user).con - user.stats.buffs.con;
+      data.update = { $inc: { 'stats.buffs.con': Math.ceil(diminishingReturns(bonus, 24, 200)) } };
     },
   },
 };
@@ -203,12 +197,10 @@ spells.rogue = {
     lvl: 13,
     target: 'party',
     notes: t('spellRogueToolsOfTradeNotes'),
-    cast (user, target) {
-      each(target, member => {
-        const bonus = statsComputed(user).per - user.stats.buffs.per;
-        if (!member.stats.buffs.per) member.stats.buffs.per = 0;
-        member.stats.buffs.per += Math.ceil(diminishingReturns(bonus, 100, 50));
-      });
+    bulk: true,
+    cast (user, data) {
+      const bonus = statsComputed(user).per - user.stats.buffs.per;
+      data.update = { $inc: { 'stats.buffs.per': Math.ceil(diminishingReturns(bonus, 100, 50)) } };
     },
   },
   stealth: { // Stealth
@@ -257,12 +249,10 @@ spells.healer = {
     lvl: 13,
     target: 'party',
     notes: t('spellHealerProtectAuraNotes'),
-    cast (user, target) {
-      each(target, member => {
-        const bonus = statsComputed(user).con - user.stats.buffs.con;
-        if (!member.stats.buffs.con) member.stats.buffs.con = 0;
-        member.stats.buffs.con += Math.ceil(diminishingReturns(bonus, 200, 200));
-      });
+    bulk: true,
+    cast (user, data) {
+      const bonus = statsComputed(user).con - user.stats.buffs.con;
+      data.update = { $inc: { 'stats.buffs.con': Math.ceil(diminishingReturns(bonus, 200, 200)) } };
     },
   },
   healAll: { // Blessing
@@ -288,9 +278,7 @@ spells.special = {
     previousPurchase: true,
     target: 'user',
     notes: t('spellSpecialSnowballAuraNotes'),
-    canOwn () {
-      return moment().isBetween('2021-12-30T08:00-04:00', EVENTS.winter2022.end);
-    },
+    limited: true,
     cast (user, target, req) {
       if (!user.items.special.snowball) throw new NotAuthorized(t('spellNotOwned')(req.language));
       target.stats.buffs.snowball = true;
@@ -324,9 +312,7 @@ spells.special = {
     previousPurchase: true,
     target: 'user',
     notes: t('spellSpecialSpookySparklesNotes'),
-    canOwn () {
-      return moment().isBetween('2021-10-11T08:00-04:00', EVENTS.fall2022.end);
-    },
+    limited: true,
     cast (user, target, req) {
       if (!user.items.special.spookySparkles) throw new NotAuthorized(t('spellNotOwned')(req.language));
       target.stats.buffs.snowball = false;
@@ -360,10 +346,7 @@ spells.special = {
     previousPurchase: true,
     target: 'user',
     notes: t('spellSpecialShinySeedNotes'),
-    event: EVENTS.spring2022,
-    canOwn () {
-      return moment().isBetween('2022-04-14T08:00-05:00', EVENTS.spring2022.end);
-    },
+    limited: true,
     cast (user, target, req) {
       if (!user.items.special.shinySeed) throw new NotAuthorized(t('spellNotOwned')(req.language));
       target.stats.buffs.snowball = false;
@@ -397,9 +380,7 @@ spells.special = {
     previousPurchase: true,
     target: 'user',
     notes: t('spellSpecialSeafoamNotes'),
-    canOwn () {
-      return moment().isBetween('2022-07-12T08:00-04:00', EVENTS.summer2022.end);
-    },
+    limited: true,
     cast (user, target, req) {
       if (!user.items.special.seafoam) throw new NotAuthorized(t('spellNotOwned')(req.language));
       target.stats.buffs.snowball = false;
@@ -434,9 +415,7 @@ spells.special = {
     silent: true,
     target: 'user',
     notes: t('nyeCardNotes'),
-    canOwn () {
-      return moment().isBetween('2021-12-30T08:00-04:00', '2022-01-02T20:00-04:00');
-    },
+    limited: true,
     cast (user, target) {
       if (user === target) {
         if (!user.achievements.nye) user.achievements.nye = 0;
@@ -474,9 +453,7 @@ spells.special = {
     silent: true,
     target: 'user',
     notes: t('valentineCardNotes'),
-    canOwn () {
-      return false;
-    },
+    limited: true,
     cast (user, target) {
       if (user === target) {
         if (!user.achievements.valentine) user.achievements.valentine = 0;

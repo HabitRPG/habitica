@@ -5,7 +5,7 @@ import nconf from 'nconf';
 import { model as User } from '../models/user';
 import common from '../../common';
 import { preenUserHistory } from './preening';
-import sleep from './sleep';
+import { sleep } from './sleep';
 import { revealMysteryItems } from './payments/subscriptions';
 
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
@@ -27,7 +27,7 @@ function setIsDueNextDue (task, user, now) {
   optionsForShouldDo.nextDue = true;
   const nextDue = common.shouldDo(now, task, optionsForShouldDo);
   if (nextDue && nextDue.length > 0) {
-    task.nextDue = nextDue;
+    task.nextDue = nextDue.map(dueDate => dueDate.toISOString());
   }
 }
 
@@ -63,9 +63,6 @@ const CLEAR_BUFFS = {
 };
 
 async function grantEndOfTheMonthPerks (user, now) {
-  // multi-month subscriptions are for multiples of 3 months
-  const SUBSCRIPTION_BASIC_BLOCK_LENGTH = 3;
-
   const { plan, elapsedMonths } = getPlanContext(user, now);
 
   if (elapsedMonths > 0) {
@@ -106,31 +103,20 @@ async function grantEndOfTheMonthPerks (user, now) {
           planMonthsLength = getPlanMonths(plan);
         }
 
-        // every 3 months you get one set of perks - this variable records how many sets you need
-        let perkAmountNeeded = 0;
         if (planMonthsLength === 1) {
-          // User has a single-month recurring subscription and are due for perks
-          // IF they've been subscribed for a multiple of 3 months.
-          if (plan.consecutive.count % SUBSCRIPTION_BASIC_BLOCK_LENGTH === 0) { // every 3 months
-            perkAmountNeeded = 1;
-          }
           plan.consecutive.offset = 0; // allow the same logic to be run next month
         } else {
           // User has a multi-month recurring subscription
           // and it renewed in the previous calendar month.
-
-          // e.g., for a 6-month subscription, give two sets of perks
-          perkAmountNeeded = planMonthsLength / SUBSCRIPTION_BASIC_BLOCK_LENGTH;
           // don't need to check for perks again for this many months
           // (subtract 1 because we should have run this when the payment was taken last month)
           plan.consecutive.offset = planMonthsLength - 1;
         }
-        if (perkAmountNeeded > 0) {
-          // one Hourglass every 3 months
-          await plan.updateHourglasses(user._id, perkAmountNeeded, 'subscription_perks'); // eslint-disable-line no-await-in-loop
-          plan.consecutive.gemCapExtra += 5 * perkAmountNeeded; // 5 extra Gems every 3 months
-          // cap it at 50 (hard 25 limit + extra 25)
-          if (plan.consecutive.gemCapExtra > 25) plan.consecutive.gemCapExtra = 25;
+        if (!plan.gift && plan.customerId.indexOf('Gift') === -1) {
+          // Don't process gifted subs here, since they already got their perks.
+
+          // eslint-disable-next-line no-await-in-loop
+          await plan.incrementPerkCounterAndReward(user._id, planMonthsLength);
         }
       }
     }
@@ -297,6 +283,8 @@ export async function cron (options = {}) {
 
   if (user.isSubscribed()) {
     await grantEndOfTheMonthPerks(user, now);
+  } if (!user.isSubscribed() && user.purchased.plan.perkMonthCount > 0) {
+    user.purchased.plan.perkMonthCount = 0;
   }
 
   const { plan } = user.purchased;
@@ -451,7 +439,7 @@ export async function cron (options = {}) {
   });
 
   // Finished tallying
-  user.history.todos.push({ date: now, value: todoTally });
+  user.history.todos.push({ date: now.toISOString(), value: todoTally });
 
   // tally experience
   let expTally = user.stats.exp;
@@ -461,7 +449,7 @@ export async function cron (options = {}) {
     expTally += common.tnl(lvl);
   }
 
-  user.history.exp.push({ date: now, value: expTally });
+  user.history.exp.push({ date: now.toISOString(), value: expTally });
 
   // Remove any remaining completed todos from the list of active todos
   user.tasksOrder.todos = user.tasksOrder.todos
@@ -509,6 +497,10 @@ export async function cron (options = {}) {
     const { progress } = user.party.quest;
     _progress = progress.toObject(); // clone the old progress object
     _.merge(progress, { down: 0, up: 0, collectedItems: 0 });
+  }
+
+  if (user.pinnedItems && user.pinnedItems.length > 0) {
+    user.pinnedItems = common.cleanupPinnedItems(user);
   }
 
   // Send notification for changes in HP and MP.

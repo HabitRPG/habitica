@@ -128,10 +128,10 @@ describe('POST /challenges/:challengeId/winner/:winnerId', () => {
       const oldBalance = winningUser.balance;
       const oldLeaderBalance = (await groupLeader.sync()).balance;
 
-      await winningUser.update({
+      await winningUser.updateOne({
         'purchased.plan.customerId': 'group-plan',
       });
-      await group.update({
+      await group.updateOne({
         'leaderOnly.getGems': true,
         'purchased.plan.customerId': 123,
       });

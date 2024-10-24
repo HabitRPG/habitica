@@ -1,19 +1,8 @@
-import find from 'lodash/find';
-import moment from 'moment';
-import { EVENTS } from '../constants/events';
 import t from '../translation';
-
-const CURRENT_EVENT = find(
-  EVENTS, event => moment().isBetween(event.start, event.end) && Boolean(event.season),
-);
 
 const QUEST_SEASONAL = {
   // winter
   evilsanta: {
-    event: CURRENT_EVENT && CURRENT_EVENT.season === 'winter' ? CURRENT_EVENT : null,
-    canBuy () {
-      return this.event && moment().isBetween(this.event.start, this.event.end);
-    },
     text: t('questEvilSantaText'),
     notes: t('questEvilSantaNotes'),
     addlNotes: t('evilSantaAddlNotes'),
@@ -38,10 +27,6 @@ const QUEST_SEASONAL = {
     },
   },
   evilsanta2: {
-    event: CURRENT_EVENT && CURRENT_EVENT.season === 'winter' ? CURRENT_EVENT : null,
-    canBuy () {
-      return this.event && moment().isBetween(this.event.start, this.event.end);
-    },
     text: t('questEvilSanta2Text'),
     notes: t('questEvilSanta2Notes'),
     addlNotes: t('evilSantaAddlNotes'),
@@ -72,10 +57,6 @@ const QUEST_SEASONAL = {
   },
   // spring
   egg: {
-    event: CURRENT_EVENT && CURRENT_EVENT.season === 'spring' ? CURRENT_EVENT : null,
-    canBuy () {
-      return this.event && moment().isBetween(this.event.start, this.event.end);
-    },
     text: t('questEggHuntText'),
     notes: t('questEggHuntNotes'),
     completion: t('questEggHuntCompletion'),
@@ -136,10 +117,6 @@ const QUEST_SEASONAL = {
     },
   },
   waffle: {
-    event: CURRENT_EVENT && CURRENT_EVENT.season === 'spring' ? CURRENT_EVENT : null,
-    canBuy () {
-      return this.event && moment().isBetween(this.event.start, this.event.end);
-    },
     text: t('questWaffleText'),
     notes: t('questWaffleNotes'),
     completion: t('questWaffleCompletion'),
@@ -179,10 +156,6 @@ const QUEST_SEASONAL = {
     },
   },
   virtualpet: {
-    event: CURRENT_EVENT && CURRENT_EVENT.season === 'spring' ? CURRENT_EVENT : null,
-    canBuy () {
-      return this.event && moment().isBetween(this.event.start, this.event.end);
-    },
     text: t('questVirtualPetText'),
     notes: t('questVirtualPetNotes'),
     completion: t('questVirtualPetCompletion'),
@@ -219,6 +192,45 @@ const QUEST_SEASONAL = {
       gp: 40,
       exp: 500,
       unlock: t('questVirtualPetUnlockText'),
+    },
+  },
+  fungi: {
+    text: t('questFungiText'),
+    notes: t('questFungiNotes'),
+    completion: t('questFungiCompletion'),
+    value: 4,
+    category: 'hatchingPotion',
+    boss: {
+      name: t('questFungiBoss'),
+      hp: 500,
+      str: 2,
+      rage: {
+        title: t('questFungiRageTitle'),
+        description: t('questFungiRageDescription'),
+        value: 50,
+        mpDrain: 0.33,
+        effect: t('questFungiRageEffect'),
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'Fungi',
+          text: t('questFungiDropFungiPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Fungi',
+          text: t('questFungiDropFungiPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Fungi',
+          text: t('questFungiDropFungiPotion'),
+        },
+      ],
+      gp: 40,
+      exp: 500,
+      unlock: t('questFungiUnlockText'),
     },
   },
 };

@@ -26,19 +26,17 @@ a:not([href]), a:not([href]):hover {
 
 a, a:not([href]):not([tabindex]) {
   cursor: pointer;
+  color: $purple-300;
 
-  &.standard-link {
-    color: $blue-10;
+  &:hover, &:active, &:focus {
+    text-decoration: underline;
+    color: $purple-300;
+  }
 
-    &:hover, &:active, &:focus {
-      text-decoration: underline;
-    }
-
-    &[disabled="disabled"] {
-      color: $gray-300;
-      text-decoration: none;
-      cursor: default;
-    }
+  &[disabled="disabled"] {
+    color: $gray-300;
+    text-decoration: none;
+    cursor: default;
   }
 
   &.small-link {

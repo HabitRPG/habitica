@@ -1,6 +1,6 @@
 import Vue from 'vue';
-import i18n from '@/libs/i18n';
 import commoni18n from '@/../../common/script/i18n';
+import i18n from '@/libs/i18n';
 
 describe('i18n plugin', () => {
   before(() => {

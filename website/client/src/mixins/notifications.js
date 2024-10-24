@@ -10,7 +10,7 @@ function toFixedWithoutRounding (num, fixed) {
   return num.toString().match(re)[0];
 }
 
-export default {
+export const NotificationMixins = {
   computed: {
     ...mapState({ notifications: 'notificationStore' }),
   },
@@ -33,6 +33,7 @@ export default {
       this.notify(`${this.sign(val)}${val}`, 'damage');
     },
     exp (val) {
+      if (val === 0) return;
       const message = getXPMessage(val);
       this.notify(message, 'xp', 'glyphicon glyphicon-star', this.sign(val));
     },
@@ -90,3 +91,5 @@ export default {
     },
   },
 };
+
+export default NotificationMixins;

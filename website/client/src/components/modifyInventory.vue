@@ -56,11 +56,11 @@
                   class="list-group-item"
                   ng-init="inv.gear[item.key] = user.items.gear.owned[item.key]"
                 >
-                  <div
+                  <Sprite
                     class="pull-left"
-                    :class="'shop_' + item.key"
+                    :imageName="'shop_' + item.key"
                     style="margin-right: 10px"
-                  ></div>
+                  />
                   {{ item.text() }}
                   <div class="clearfix">
                     <label class="radio-inline">
@@ -330,9 +330,9 @@
                   class="list-group-item"
                   ng-init="inv.mounts[mount] = user.items.mounts[mount]"
                 >
-                  <div
+                  <Sprite
                     class="pull-left"
-                    :class="'Mount_Icon_' + mount"
+                    :imageName="mount.key"
                     style="margin-right: 10px"
                   ></div>
                   {{ mount }}
@@ -363,9 +363,9 @@
                   class="list-group-item"
                   ng-init="inv.mounts[mount] = user.items.mounts[mount]"
                 >
-                  <div
+                  <Sprite
                     class="pull-left"
-                    :class="'Mount_Icon_' + mount"
+                    :imageName="mount.key"
                     style="margin-right: 10px"
                   ></div>
                   {{ mount }}
@@ -396,9 +396,9 @@
                   class="list-group-item"
                   ng-init="inv.mounts[mount] = user.items.mounts[mount]"
                 >
-                  <div
+                  <Sprite
                     class="pull-left"
-                    :class="'Mount_Icon_' + mount"
+                    :imageName="mount.key"
                     style="margin-right: 10px"
                   ></div>
                   {{ mount }}
@@ -429,9 +429,9 @@
                   class="list-group-item"
                   ng-init="inv.mounts[mount] = user.items.mounts[mount]"
                 >
-                  <div
+                  <Sprite
                     class="pull-left"
-                    :class="'Mount_Icon_' + mount"
+                    :imageName="mount.key"
                     style="margin-right: 10px"
                   ></div>
                   {{ mount }}
@@ -503,11 +503,11 @@
                   ng-init="inv.hatchingPotions[item.key] = user.items.hatchingPotions[item.key]"
                 >
                   <div class="form-inline clearfix">
-                    <div
+                    <Sprite
                       class="pull-left"
                       :class="'Pet_HatchingPotion_' + item.key"
                       style="margin-right: 10px"
-                    ></div>
+                    />
                     <p>{{ item.text() }}</p>
                     <input
                       class="form-control"
@@ -565,11 +565,11 @@
                   ng-init="inv.eggs[item.key] = user.items.eggs[item.key]"
                 >
                   <div class="form-inline clearfix">
-                    <div
+                    <Sprite
                       class="pull-left"
-                      :class="'Pet_Egg_' + item.key"
+                      :image-name="'Pet_Egg_' + item.key"
                       style="margin-right: 10px"
-                    ></div>
+                     />
                     <p>{{ item.text() }}</p>
                     <input
                       class="form-control"
@@ -627,11 +627,11 @@
                   ng-init="inv.food[item.key] = user.items.food[item.key]"
                 >
                   <div class="form-inline clearfix">
-                    <div
+                    <Sprite
                       class="pull-left"
                       :class="'Pet_Food_' + item.key"
                       style="margin-right: 10px"
-                    ></div>
+                    />
                     <p>{{ item.text() }}</p>
                     <input
                       class="form-control"
@@ -690,11 +690,11 @@
                   ng-if="item.category !== 'world'"
                 >
                   <div class="form-inline clearfix">
-                    <div
+                    <Sprite
                       class="pull-left"
                       :class="'inventory_quest_scroll_' + item.key"
                       style="margin-right: 10px"
-                    ></div>
+                    />
                     <p>{{ item.text() }}</p>
                     <input
                       class="form-control"
@@ -729,11 +729,14 @@
 <script>
 import axios from 'axios';
 
+import Content from '@/../../common/script/content';
+import Sprite from '@/components/ui/sprite.vue';
 import { mapState } from '@/libs/store';
 
-import Content from '@/../../common/script/content';
-
 export default {
+  components: {
+    Sprite,
+  },
   data () {
     const showInv = {};
     const inv = {

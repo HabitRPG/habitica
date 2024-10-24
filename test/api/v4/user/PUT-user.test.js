@@ -147,7 +147,7 @@ describe('PUT /user', () => {
       it(`updates user with ${type} that is a default`, async () => {
         const dbUpdate = {};
         dbUpdate[`purchased.${type}.${item}`] = true;
-        await user.update(dbUpdate);
+        await user.updateOne(dbUpdate);
 
         // Sanity checks to make sure user is not already equipped with item
         expect(get(user.preferences, type)).to.not.eql(item);
@@ -169,7 +169,7 @@ describe('PUT /user', () => {
     });
 
     it('can set beard to default', async () => {
-      await user.update({
+      await user.updateOne({
         'purchased.hair.beard': 3,
         'preferences.hair.beard': 3,
       });
@@ -182,7 +182,7 @@ describe('PUT /user', () => {
     });
 
     it('can set mustache to default', async () => {
-      await user.update({
+      await user.updateOne({
         'purchased.hair.mustache': 2,
         'preferences.hair.mustache': 2,
       });
@@ -221,7 +221,7 @@ describe('PUT /user', () => {
       it(`updates user with ${type} user does own`, async () => {
         const dbUpdate = {};
         dbUpdate[`purchased.${type}.${item}`] = true;
-        await user.update(dbUpdate);
+        await user.updateOne(dbUpdate);
 
         // Sanity check to make sure user is not already equipped with item
         expect(get(user.preferences, type)).to.not.eql(item);

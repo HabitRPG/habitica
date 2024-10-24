@@ -5,17 +5,24 @@ import {
   translate as t,
 } from '../../../../../helpers/api-integration/v3';
 import shared from '../../../../../../website/common/script';
-import apiError from '../../../../../../website/server/libs/apiError';
+import { apiError } from '../../../../../../website/server/libs/apiError';
 
 const { content } = shared;
 
 describe('POST /user/buy/:key', () => {
   let user;
+  let clock;
 
   beforeEach(async () => {
     user = await generateUser({
       'stats.gp': 400,
     });
+  });
+
+  afterEach(() => {
+    if (clock) {
+      clock.restore();
+    }
   });
 
   // More tests in common code unit tests
@@ -30,7 +37,7 @@ describe('POST /user/buy/:key', () => {
   });
 
   it('buys a potion', async () => {
-    await user.update({
+    await user.updateOne({
       'stats.gp': 400,
       'stats.hp': 40,
     });
@@ -45,7 +52,7 @@ describe('POST /user/buy/:key', () => {
   });
 
   it('returns an error if user tries to buy a potion with full health', async () => {
-    await user.update({
+    await user.updateOne({
       'stats.gp': 40,
       'stats.hp': 50,
     });
@@ -68,11 +75,11 @@ describe('POST /user/buy/:key', () => {
   });
 
   it('buys a special spell', async () => {
+    clock = sinon.useFakeTimers(new Date('2024-10-31T00:00:00Z'));
     const key = 'spookySparkles';
     const item = content.special[key];
-    const stub = sinon.stub(item, 'canOwn').returns(true);
 
-    await user.update({ 'stats.gp': 250 });
+    await user.updateOne({ 'stats.gp': 250 });
     const res = await user.post(`/user/buy/${key}`);
     await user.sync();
 
@@ -83,12 +90,10 @@ describe('POST /user/buy/:key', () => {
     expect(res.message).to.equal(t('messageBought', {
       itemText: item.text(),
     }));
-
-    stub.restore();
   });
 
   it('allows for bulk purchases', async () => {
-    await user.update({
+    await user.updateOne({
       'stats.gp': 400,
       'stats.hp': 20,
     });

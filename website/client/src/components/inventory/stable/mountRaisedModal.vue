@@ -12,10 +12,10 @@
       </div>
       <div class="inner-content">
         <div class="pet-background">
-          <div
+          <Sprite
             class="mount"
-            :class="`Mount_Icon_${mount.key}`"
-          ></div>
+            :image-name="`Mount_Icon_${mount.key}`"
+          />
         </div>
         <h4 class="title">
           {{ mount.text() }}
@@ -80,10 +80,14 @@
 </style>
 
 <script>
+import stable from '@/../../common/script/content/stable';
 import markdownDirective from '@/directives/markdown';
-import { mountInfo } from '@/../../common/script/content/stable';
+import Sprite from '@/components/ui/sprite';
 
 export default {
+  components: {
+    Sprite,
+  },
   directives: {
     markdown: markdownDirective,
   },
@@ -105,7 +109,7 @@ export default {
   },
   methods: {
     openDialog (mountKey) {
-      this.mount = mountInfo[mountKey];
+      this.mount = stable.mountInfo[mountKey];
       this.$root.$emit('bv::show::modal', 'mount-raised-modal');
     },
     close () {

@@ -13,8 +13,8 @@
       class="w-100 d-flex pt-2 justify-content-center"
     >
       <h2
-        class="mx-auto mt-4"
         v-once
+        class="mx-auto mt-4"
       >
         {{ $t('newGroupsWelcome') }}
       </h2>
@@ -43,8 +43,8 @@
         >
         </div>
         <h3
-          class="my-auto"
           v-once
+          class="my-auto"
         >
           {{ $t('newGroupsWhatsNew') }}
         </h3>
@@ -66,7 +66,8 @@
         <li>{{ $t('newGroupsBullet07') }}</li>
         <li>{{ $t('newGroupsBullet08') }}</li>
         <li>{{ $t('newGroupsBullet09') }}</li>
-        <li>{{ $t('newGroupsBullet10') }}
+        <li>
+          {{ $t('newGroupsBullet10') }}
           <ul class="p-0">
             <li v-html="$t('newGroupsBullet10a')"></li>
             <li v-html="$t('newGroupsBullet10b')"></li>
@@ -83,13 +84,13 @@
       >
         {{ $t('newGroupsEnjoy') }}
       </div>
-    <button
-      class="btn btn-primary mt-4 mb-1 mx-auto"
-      @click="close()"
-      @keypress.enter="close()"
-    >
-      {{ $t('getStarted') }}
-    </button>
+      <button
+        class="btn btn-primary mt-4 mb-1 mx-auto"
+        @click="close()"
+        @keypress.enter="close()"
+      >
+        {{ $t('getStarted') }}
+      </button>
     </div>
   </b-modal>
 </template>

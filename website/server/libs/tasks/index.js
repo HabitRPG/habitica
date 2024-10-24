@@ -14,7 +14,7 @@ import { model as Challenge } from '../../models/challenge';
 import { model as Group } from '../../models/group';
 import { model as User } from '../../models/user';
 import * as Tasks from '../../models/task';
-import apiError from '../apiError';
+import { apiError } from '../apiError';
 import {
   BadRequest,
   NotFound,
@@ -114,7 +114,7 @@ async function createTasks (req, res, options = {}) {
     };
   }
 
-  await owner.update(taskOrderUpdateQuery).exec();
+  await owner.updateOne(taskOrderUpdateQuery).exec();
 
   // tasks with aliases need to be validated asynchronously
   await validateTaskAlias(toSave, res);
@@ -250,8 +250,15 @@ async function getTasks (req, res, options = {}) {
   if (limit) mQuery.limit(limit);
   if (sort) mQuery.sort(sort);
 
-  const tasks = await mQuery.exec();
+  const tasks = await mQuery.lean().exec();
 
+  // Ensure we always include the "id" variant of "_id", and not the version counter
+  tasks.forEach(task => {
+    task.id = task._id;
+    delete task.__v;
+  });
+
+  // Calculate due dates for Dailies
   if (dueDate) {
     tasks.forEach(task => {
       setNextDue(task, user, dueDate);

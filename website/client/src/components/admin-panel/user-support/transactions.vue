@@ -1,13 +1,18 @@
 <template>
-  <div class="accordion-group">
-    <h3
-      class="expand-toggle"
-      :class="{'open': expand}"
-      @click="toggleTransactionsOpen"
+  <div class="card mt-2">
+    <div class="card-header">
+      <h3
+        class="mb-0 mt-0"
+        :class="{'open': expand}"
+        @click="toggleTransactionsOpen"
+      >
+        Transactions
+      </h3>
+    </div>
+    <div
+      v-if="expand"
+      class="card-body"
     >
-      Transactions
-    </h3>
-    <div v-if="expand">
       <purchase-history-table
         :gem-transactions="gemTransactions"
         :hourglass-transactions="hourglassTransactions"
@@ -30,6 +35,10 @@ export default {
       type: Object,
       required: true,
     },
+    resetCounter: {
+      type: Number,
+      required: true,
+    },
   },
   data () {
     return {
@@ -37,6 +46,14 @@ export default {
       gemTransactions: [],
       hourglassTransactions: [],
     };
+  },
+  watch: {
+    resetCounter () {
+      if (this.expand) {
+        this.expand = !this.expand;
+        this.toggleTransactionsOpen();
+      }
+    },
   },
   methods: {
     async toggleTransactionsOpen () {

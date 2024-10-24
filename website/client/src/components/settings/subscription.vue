@@ -46,10 +46,10 @@
           </div>
           <div class="row">
             <div class="col-2">
-              <div
-                :class="currentMysterySet"
+              <Sprite
+                :image-name="currentMysterySet"
                 class="mt-n1"
-              ></div>
+              />
             </div>
             <div class="col-10">
               <h3> {{ $t('monthlyMysteryItems') }} </h3>
@@ -93,7 +93,7 @@
       <div class="subscribe-card mx-auto">
         <div
           v-if="hasSubscription && !hasCanceledSubscription"
-          class="d-flex flex-column align-items-center"
+          class="d-flex flex-column align-items-center pt-4"
         >
           <div class="round-container bg-green-10 d-flex align-items-center justify-content-center">
             <div
@@ -107,7 +107,7 @@
           </h2>
           <div
             v-if="hasGroupPlan"
-            class="mx-5 text-center"
+            class="mx-5 mb-4 text-center"
           >
             {{ $t('youHaveGroupPlan') }}
           </div>
@@ -130,7 +130,7 @@
             </div>
             <button
               class="btn btn-primary btn-update-card
-              d-flex justify-content-center align-items-center"
+              d-flex justify-content-center align-items-center mb-4"
               @click="redirectToStripeEdit()"
             >
               <div
@@ -143,21 +143,61 @@
           </div>
           <div
             v-else
-            class="svg-icon"
+            class="svg-icon mb-4"
             :class="paymentMethodLogo.class"
             v-html="paymentMethodLogo.icon"
           >
           </div>
           <div
             v-if="purchasedPlanExtraMonthsDetails.months > 0"
-            class="extra-months green-10 py-2 px-3 mt-4"
+            class="extra-months green-10 py-2 px-3 mb-4"
             v-html="$t('purchasedPlanExtraMonths',
                        {months: purchasedPlanExtraMonthsDetails.months})"
           >
           </div>
         </div>
         <div
-          v-if="hasCanceledSubscription"
+          v-if="hasGiftSubscription"
+          class="d-flex flex-column align-items-center mt-4"
+        >
+          <div class="round-container bg-green-10 d-flex align-items-center justify-content-center">
+            <div
+              v-once
+              class="svg-icon svg-check"
+              v-html="icons.checkmarkIcon"
+            ></div>
+          </div>
+          <h2 class="green-10 mx-auto mb-75">
+            {{ $t('youAreSubscribed') }}
+          </h2>
+          <div
+            class="mx-4 text-center mb-4 lh-71"
+          >
+            <span v-once>
+              {{ $t('haveNonRecurringSub') }}
+            </span>
+            <span
+              v-once
+              v-html="$t('subscriptionInactiveDate', {date: subscriptionEndDate})"
+            >
+            </span>
+          </div>
+          <h2 v-once>
+            {{ $t('switchToRecurring') }}
+          </h2>
+          <small
+            v-once
+            class="mx-4 mb-3 text-center"
+          >
+            {{ $t('continueGiftSubBenefits') }}
+          </small>
+          <subscription-options
+            :note="'subscriptionCreditConversion'"
+            class="w-100 mb-2"
+          />
+        </div>
+        <div
+          v-else-if="hasCanceledSubscription"
           class="d-flex flex-column align-items-center mt-4"
         >
           <div class="round-container bg-gray-300 d-flex align-items-center justify-content-center">
@@ -180,7 +220,7 @@
         </div>
         <div
           v-if="hasSubscription"
-          class="bg-gray-700 py-3 mt-4 mb-3 text-center"
+          class="bg-gray-700 py-3 mb-3 text-center"
         >
           <div class="header-mini mb-3">
             {{ $t('subscriptionStats') }}
@@ -239,7 +279,10 @@
             </div>
           </div>
 
-          <div class="mt-4 nextHourglassDescription" v-once>
+          <div
+            v-once
+            class="mt-4 nextHourglassDescription"
+          >
             *{{ $t('nextHourglassDescription') }}
           </div>
         </div>
@@ -322,6 +365,12 @@
     max-width: 21rem;
   }
 
+  small {
+    color: $gray-100;
+    font-size: 12px ;
+    line-height: 1.33;
+  }
+
   strong {
     font-size: 16px;
   }
@@ -399,6 +448,10 @@
     height: 49px;
   }
 
+  .lh-71 {
+    line-height: 1.71;
+  }
+
   .maroon-50 {
     color: $maroon-50;
   }
@@ -443,7 +496,6 @@
   }
 
   .subscribe-card {
-    padding-top: 2rem;
     width: 28rem;
     border-radius: 8px;
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
@@ -472,8 +524,7 @@
   }
 
   .svg-check {
-    width: 35.1px;
-    height: 28px;
+    width: 36px;
     color: $white;
   }
 
@@ -568,14 +619,16 @@
 <script>
 import axios from 'axios';
 import moment from 'moment';
-import { mapState } from '@/libs/store';
-
 import subscriptionBlocks from '@/../../common/script/content/subscriptionBlocks';
 import planGemLimits from '@/../../common/script/libs/planGemLimits';
+import { getPlanContext } from '@/../../common/script/cron';
+import { mapState } from '@/libs/store';
+
 import paymentsMixin from '../../mixins/payments';
 import notificationsMixin from '../../mixins/notifications';
 
 import subscriptionOptions from './subscriptionOptions.vue';
+import Sprite from '@/components/ui/sprite';
 
 import amazonPayLogo from '@/assets/svg/amazonpay.svg';
 import applePayLogo from '@/assets/svg/apple-pay-logo.svg';
@@ -592,11 +645,11 @@ import logo from '@/assets/svg/habitica-logo-purple.svg';
 import paypalLogo from '@/assets/svg/paypal-logo.svg';
 import subscriberGems from '@/assets/svg/subscriber-gems.svg';
 import subscriberHourglasses from '@/assets/svg/subscriber-hourglasses.svg';
-import { getPlanContext } from '@/../../common/script/cron';
 
 export default {
   components: {
     subscriptionOptions,
+    Sprite,
   },
   mixins: [paymentsMixin, notificationsMixin],
   data () {
@@ -669,6 +722,9 @@ export default {
     },
     hasSubscription () {
       return Boolean(this.user.purchased.plan.customerId);
+    },
+    hasGiftSubscription () {
+      return this.user.purchased.plan.customerId === 'Gift';
     },
     hasCanceledSubscription () {
       return (
@@ -753,7 +809,7 @@ export default {
       return currentPlanContext.nextHourglassDate;
     },
     nextHourGlass () {
-      const nextHourglassMonth = this.nextHourGlassDate.format('MMM');
+      const nextHourglassMonth = this.nextHourGlassDate.format('MMM YYYY');
 
       return nextHourglassMonth;
     },

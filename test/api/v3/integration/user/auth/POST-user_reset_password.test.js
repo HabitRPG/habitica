@@ -27,7 +27,7 @@ describe('POST /user/reset-password', async () => {
 
   it('resets password for social users', async () => {
     const email = `${user.auth.local.username}+google@example.com`;
-    await user.update({ 'auth.google.emails': [{ value: email }] });
+    await user.updateOne({ 'auth.google.emails': [{ value: email }] });
     await user.sync();
     const previousPassword = user.auth.local.passwordResetCode;
     const response = await user.post(endpoint, {

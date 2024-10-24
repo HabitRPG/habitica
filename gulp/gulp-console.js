@@ -2,7 +2,6 @@ import mongoose from 'mongoose';
 import nconf from 'nconf';
 import repl from 'repl';
 import gulp from 'gulp';
-import logger from '../website/server/libs/logger';
 import {
   getDevelopmentConnectionUrl,
   getDefaultConnectionOptions,
@@ -39,10 +38,6 @@ const improveRepl = context => {
   mongoose.connect(
     connectionUrl,
     mongooseOptions,
-    err => {
-      if (err) throw err;
-      logger.info('Connected with Mongoose');
-    },
   );
 };
 

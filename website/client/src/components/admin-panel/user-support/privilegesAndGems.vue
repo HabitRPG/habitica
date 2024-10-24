@@ -1,87 +1,132 @@
 <template>
-  <div class="accordion-group">
-    <h3
-      class="expand-toggle"
-      :class="{'open': expand}"
-      @click="expand = !expand"
-    >
-      Privileges, Gem Balance
-    </h3>
-    <div v-if="expand">
-      <p
-        v-if="errorsOrWarningsExist"
-        class="errorMessage"
+  <form @submit.prevent="saveHero({hero, msg: 'Privileges or Gems or Moderation Notes'})">
+    <div class="card mt-2">
+      <div class="card-header">
+        <h3
+          class="mb-0 mt-0"
+          :class="{'open': expand}"
+          @click="expand = !expand"
+        >
+          Priviliges, Gem Balance
+        </h3>
+      </div>
+      <div
+        v-if="expand"
+        class="card-body"
       >
-        Player has had privileges removed or has moderation notes.
-      </p>
-
-      <form @submit.prevent="saveHero({hero, msg: 'Privileges or Gems or Moderation Notes'})">
-        <div class="checkbox">
-          <label>
-            <input
-              v-if="hero.flags"
-              v-model="hero.flags.chatShadowMuted"
-              type="checkbox"
-            > Shadow Mute
-          </label>
+        <p
+          v-if="errorsOrWarningsExist"
+          class="errorMessage"
+        >
+          Player has had privileges removed or has moderation notes.
+        </p>
+        <div
+          v-if="hero.flags"
+          class="form-group row"
+        >
+          <div class="col-sm-9 offset-sm-3">
+            <div class="custom-control custom-checkbox">
+              <input
+                id="chatShadowMuted"
+                v-model="hero.flags.chatShadowMuted"
+                class="custom-control-input"
+                type="checkbox"
+              >
+              <label
+                class="custom-control-label"
+                for="chatShadowMuted"
+              >
+                Shadow Mute
+              </label>
+            </div>
+          </div>
         </div>
-        <div class="checkbox">
-          <label>
-            <input
-              v-if="hero.flags"
-              v-model="hero.flags.chatRevoked"
-              type="checkbox"
-            > Mute (Revoke Chat Privileges)
-          </label>
+        <div
+          v-if="hero.flags"
+          class="form-group row"
+        >
+          <div class="col-sm-9 offset-sm-3">
+            <div class="custom-control custom-checkbox">
+              <input
+                id="chatRevoked"
+                v-model="hero.flags.chatRevoked"
+                class="custom-control-input"
+                type="checkbox"
+              >
+              <label
+                class="custom-control-label"
+                for="chatRevoked"
+              >
+                Mute (Revoke Chat Privileges)
+              </label>
+            </div>
+          </div>
         </div>
-        <div class="checkbox">
-          <label>
-            <input
-              v-model="hero.auth.blocked"
-              type="checkbox"
-            > Ban / Block
-          </label>
+        <div class="form-group row">
+          <div class="col-sm-9 offset-sm-3">
+            <div class="custom-control custom-checkbox">
+              <input
+                id="blocked"
+                v-model="hero.auth.blocked"
+                class="custom-control-input"
+                type="checkbox"
+              >
+              <label
+                class="custom-control-label"
+                for="blocked"
+              >
+                Ban / Block
+              </label>
+            </div>
+          </div>
         </div>
-        <div class="form-inline">
-          <label>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">
             Balance
+          </label>
+          <div class="col-sm-9">
             <input
               v-model="hero.balance"
               class="form-control balanceField"
               type="number"
               step="0.25"
             >
-          </label>
-          <span>
             <small>
               Balance is in USD, not in Gems.
               E.g., if this number is 1, it means 4 Gems.
               Arrows change Balance by 0.25 (i.e., 1 Gem per click).
               Do not use when awarding tiers; tier gems are automatic.
             </small>
-          </span>
+          </div>
         </div>
-        <div class="form-group">
-          <label>Moderation Notes</label>
-          <textarea
-            v-model="hero.secret.text"
-            class="form-control"
-            cols="5"
-            rows="5"
-          ></textarea>
-          <div
-            v-markdown="hero.secret.text"
-            class="markdownPreview"
-          ></div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">Moderation Notes</label>
+          <div class="col-sm-9">
+            <textarea
+              v-model="hero.secret.text"
+              class="form-control"
+              cols="5"
+              rows="5"
+            ></textarea>
+            <div
+              v-markdown="hero.secret.text"
+              class="markdownPreview"
+            ></div>
+          </div>
         </div>
+      </div>
+      <div
+        v-if="expand"
+        class="card-footer"
+      >
         <input
           type="submit"
           value="Save"
-          class="btn btn-primary"
+          class="btn btn-primary mt-1"
         >
-      </form>
+      </div>
     </div>
-  </div>
+  </form>
 </template>
 
 <style lang="scss" scoped>

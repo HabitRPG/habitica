@@ -212,7 +212,6 @@
     "hatchingPotionFrost": "Frost",
     "hatchingPotionIcySnow": "Icy Snow",
     "hatchingPotionNotes": "Pour this on an egg, and it will hatch as a <%= potText(locale) %> pet.",
-    "premiumPotionAddlNotes": "Not usable on quest pet eggs. Available for purchase until <%= date(locale) %>.",
     "foodMeat": "Meat",
     "foodMeatThe": "the Meat",
     "foodMeatA": "Meat",
@@ -370,5 +369,11 @@
     "hatchingPotionMossyStone": "Mossy Stone",
     "hatchingPotionSolarSystem": "Solar System",
     "hatchingPotionMoonglow": "Moonglow",
-    "hatchingPotionOnyx": "Onyx"
+    "hatchingPotionOnyx": "Onyx",
+    "hatchingPotionRoseGold": "Rose Gold",
+    "hatchingPotionFungi": "Fungi",
+    "hatchingPotionPorcelain": "Porcelain",
+    "hatchingPotionVirtualPet": "Virtual Pet",
+    "hatchingPotionPinkMarble": "Pink Marble",
+    "hatchingPotionTeaShop": "Tea Shop"
 }

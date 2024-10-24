@@ -13,13 +13,13 @@
           :show="true"
           :count="itemCount"
         />
-        <span
+        <Sprite
           v-drag.food="item.key"
           class="item-content"
-          :class="'Pet_Food_'+item.key"
+          :image-name="`Pet_Food_${item.key}`"
           @itemDragEnd="dragend($event)"
           @itemDragStart="dragstart($event)"
-        ></span>
+        />
       </div>
     </div>
     <b-popover
@@ -41,12 +41,14 @@
 <script>
 import { v4 as uuid } from 'uuid';
 import DragDropDirective from '@/directives/dragdrop.directive';
+import Sprite from '@/components/ui/sprite';
 
 import CountBadge from '@/components/ui/countBadge';
 
 export default {
   components: {
     CountBadge,
+    Sprite,
   },
   directives: {
     drag: DragDropDirective,

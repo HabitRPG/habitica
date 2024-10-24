@@ -1,7 +1,9 @@
 export default {
   computed: {
     numberInvalid () {
-      return this.selectedAmountToBuy < 1 || !Number.isInteger(this.selectedAmountToBuy);
+      const inputNumber = Number(this.selectedAmountToBuy);
+      return inputNumber < 1
+      || !Number.isInteger(inputNumber);
     },
   },
 };

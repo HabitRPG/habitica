@@ -2,7 +2,7 @@ import {
   generateUser,
 } from '../../../../../helpers/api-integration/v3';
 import paypalPayments from '../../../../../../website/server/libs/payments/paypal';
-import apiError from '../../../../../../website/server/libs/apiError';
+import { apiError } from '../../../../../../website/server/libs/apiError';
 
 describe('payments : paypal #checkoutSuccess', () => {
   const endpoint = '/paypal/checkout/success';

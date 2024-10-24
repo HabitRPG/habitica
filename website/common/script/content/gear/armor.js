@@ -7,7 +7,7 @@ import { armor as wizardArmor } from './sets/wizard';
 
 import { armor as specialArmor } from './sets/special';
 import { armor as mysteryArmor } from './sets/mystery';
-import { armor as armoireArmor } from './sets/armoire';
+import armoire from './sets/armoire';
 
 const armor = {
   base: baseArmor,
@@ -19,7 +19,9 @@ const armor = {
 
   special: specialArmor,
   mystery: mysteryArmor,
-  armoire: armoireArmor,
+  get armoire () {
+    return armoire.armor;
+  },
 };
 
 export default armor;

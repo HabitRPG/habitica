@@ -26,7 +26,9 @@ export default {
         'Fox-Veteran',
         'JackOLantern-Glow',
         'Gryphon-Gryphatrice',
+        'Gryphatrice-Jubilant',
         'JackOLantern-RoyalPurple',
+        'Cactus-Veteran',
       ];
       const BASE_PETS = [
         'Wolf',
@@ -39,15 +41,15 @@ export default {
         'Dragon',
         'Cactus',
       ];
-      if (!pet) return 'Pet-Cactus-Virtual';
+      if (!pet) return 'Pet-TigerCub-Fungi';
       if (SPECIAL_PETS.indexOf(pet) !== -1) {
-        return 'Pet-Wolf-Virtual';
+        return 'Pet-Dragon-Fungi';
       }
       const species = pet.slice(0, pet.indexOf('-'));
       if (includes(BASE_PETS, species)) {
-        return `Pet-${species}-Virtual`;
+        return `Pet-${species}-Fungi`;
       }
-      return 'Pet-Fox-Virtual';
+      return 'Pet-BearCub-Fungi';
     },
   },
 };

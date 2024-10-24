@@ -1,4 +1,5 @@
 /* eslint-disable key-spacing */
+import moment from 'moment';
 
 // gem block: number of gems
 const gemsPromo = {
@@ -8,12 +9,309 @@ const gemsPromo = {
   '84gems': 125,
 };
 
+export const REPEATING_EVENTS = {
+  nye: {
+    start: new Date('1970-12-28T04:00-05:00'),
+    end: new Date('1970-01-04T03:59-05:00'),
+    season: 'nye',
+    npcImageSuffix: '_nye',
+    content: [
+      {
+        type: 'cards',
+        items: [
+          'nye',
+        ],
+      },
+    ],
+  },
+  birthday: {
+    start: new Date('1970-01-30T04:00-05:00'),
+    end: new Date('1970-02-01T03:59-05:00'),
+    season: 'birthday',
+    npcImageSuffix: '_birthday',
+    foodSeason: 'Cake',
+  },
+  valentines: {
+    start: new Date('1970-02-10T04:00-05:00'),
+    end: new Date('1970-02-17T03:59-05:00'),
+    season: 'valentines',
+    npcImageSuffix: '_valentines',
+    content: [
+      {
+        type: 'cards',
+        items: [
+          'valentine',
+        ],
+      },
+    ],
+  },
+  piDay: {
+    start: new Date('1970-03-14T04:00-04:00'),
+    end: new Date('1970-03-16T03:59-04:00'),
+    foodSeason: 'Pie',
+  },
+  aprilFoolsResale: {
+    start: new Date('1970-04-07T04:00-04:00'),
+    end: new Date('1970-05-01T03:59-04:00'),
+    content: [
+      {
+        type: 'hatchingPotionQuests',
+        items: [
+          'virtualpet',
+          'waffle',
+          'fungi',
+        ],
+      },
+      {
+        type: 'premiumHatchingPotions',
+        items: [
+          'Veggie',
+          'TeaShop',
+        ],
+      },
+    ],
+  },
+  namingDay: {
+    start: new Date('1970-07-31T04:00-04:00'),
+    end: new Date('1970-08-02T03:59-04:00'),
+    foodSeason: 'Cake',
+  },
+  fallGemSale: {
+    start: new Date('1970-09-23T04:00-04:00'),
+    end: new Date('1970-09-27T23:59-04:00'),
+    event: 'fall_extra_gems',
+    gemsPromo,
+  },
+  spookyGemSale: {
+    start: new Date('1970-10-28T04:00-04:00'),
+    end: new Date('1970-11-01T23:59-04:00'),
+    event: 'spooky_extra_gems',
+    gemsPromo,
+  },
+  habitoween: {
+    start: new Date('1970-10-30T04:00-04:00'),
+    end: new Date('1970-11-01T23:59-04:00'),
+    foodSeason: 'Candy',
+    season: 'habitoween',
+    npcImageSuffix: '_halloween',
+  },
+  harvestFeast: {
+    start: new Date('1970-11-20T04:00-05:00'),
+    end: new Date('1970-12-01T03:59-05:00'),
+    season: 'thanksgiving',
+    npcImageSuffix: '_thanksgiving',
+    foodSeason: 'Pie',
+  },
+  giftOneGetOne: {
+    start: new Date('1970-12-19T04:00-05:00'),
+    end: new Date('1970-01-06T23:59-05:00'),
+    promo: 'g1g1',
+  },
+};
+
+export function getRepeatingEvents (date) {
+  const momentDate = date instanceof moment ? date : moment(date);
+  return Object.keys(REPEATING_EVENTS).map(eventKey => {
+    const event = REPEATING_EVENTS[eventKey];
+    if (!event.key) {
+      event.key = eventKey;
+    }
+    event.start.setYear(momentDate.year());
+    event.end.setYear(momentDate.year());
+    if (event.end < event.start && momentDate < event.start) {
+      event.start.setYear(momentDate.year() - 1);
+    } else if (event.end < event.start && momentDate > event.end) {
+      event.end.setYear(momentDate.year() + 1);
+    }
+    return event;
+  }).filter(event => momentDate.isBetween(event.start, event.end));
+}
+
 export const EVENTS = {
-  afterGala: {
-    start: '2022-10-31T20:00-04:00',
-    end: '2022-12-21T08:00-04:00',
+  noEvent: {
+    start: '2024-05-01T00:00-04:00',
+    end: '2024-05-13T23:59-04:00',
     season: 'normal',
     npcImageSuffix: '',
+  },
+  bundle202405: {
+    start: '2024-05-21T08:00-04:00',
+    end: '2024-05-31T23:59-04:00',
+  },
+  potions202405: {
+    start: '2024-05-14T08:00-04:00',
+    end: '2024-05-31T23:59-04:00',
+  },
+  aprilFoolsQuest2024: {
+    start: '2024-04-09T08:00-04:00',
+    end: '2024-04-30T23:59-04:00',
+  },
+
+  aprilFools2024: {
+    start: '2024-04-01T00:00-04:00',
+    end: '2024-04-02T08:00-04:00',
+    aprilFools: 'Fungi',
+  },
+  spring2024: {
+    start: '2024-03-21T00:00-04:00',
+    end: '2024-04-30T23:59-04:00',
+    npcImageSuffix: '_spring',
+    season: 'spring',
+    gear: true,
+  },
+  bundle202403: {
+    start: '2024-03-19T00:00-05:00',
+    end: '2024-03-31T08:00-05:00',
+  },
+  bundle202402: {
+    start: '2024-02-20T00:00-05:00',
+    end: '2024-02-29T08:00-05:00',
+  },
+  potions202402: {
+    start: '2024-02-12T00:00-05:00',
+    end: '2024-02-29T08:00-05:00',
+  },
+  valentine2024: {
+    start: '2024-02-12T00:00-05:00',
+    end: '2024-02-16T08:00-05:00',
+    season: 'valentines',
+    npcImageSuffix: '_valentines',
+  },
+  nye2023: {
+    start: '2023-12-28T08:00-05:00',
+    end: '2024-01-04T23:59-05:00',
+    season: 'nye',
+    npcImageSuffix: '_nye',
+  },
+  winter2024: {
+    start: '2023-12-19T08:00-05:00',
+    end: '2024-01-31T23:59-05:00',
+    npcImageSuffix: '_winter',
+    season: 'winter',
+    gear: true,
+  },
+  g1g12023: {
+    start: '2023-12-18T08:00-05:00',
+    end: '2024-01-09T23:59-05:00',
+    promo: 'g1g1',
+  },
+  potions202311: {
+    start: '2023-11-14T08:00-04:00',
+    end: '2023-11-30T23:59-04:00',
+  },
+  bundle202311: {
+    start: '2023-11-09T08:00-04:00',
+    end: '2023-11-30T23:59-04:00',
+  },
+  bundle202310: {
+    start: '2023-10-17T08:00-04:00',
+    end: '2023-10-31T23:59-04:00',
+  },
+  potions202310: {
+    start: '2023-09-21T08:00-04:00',
+    end: '2023-10-31T23:59-04:00',
+  },
+  fall2023: {
+    start: '2023-09-21T08:00-04:00',
+    end: '2023-10-31T23:59-04:00',
+    npcImageSuffix: '_fall',
+    season: 'fall',
+    gear: true,
+  },
+  bundle202309: {
+    start: '2023-09-12T08:00-04:00',
+    end: '2023-09-30T23:59-04:00',
+  },
+  bundle202308: {
+    start: '2023-08-15T08:00-04:00',
+    end: '2023-08-31T23:59-04:00',
+  },
+  potions202308: {
+    start: '2023-08-15T08:00-04:00',
+    end: '2023-08-31T23:59-04:00',
+  },
+  summer2023: {
+    start: '2023-06-20T08:00-04:00',
+    end: '2023-07-31T23:59-04:00',
+    npcImageSuffix: '_summer',
+    season: 'summer',
+    gear: true,
+  },
+  bundle202306: {
+    start: '2023-06-13T08:00-04:00',
+    end: '2023-06-30T23:59-04:00',
+  },
+  bundle202305: {
+    start: '2023-05-23T08:00-04:00',
+    end: '2023-05-31T23:59-04:00',
+  },
+  potions202305: {
+    start: '2023-05-16T08:00-04:00',
+    end: '2023-05-31T23:59-04:00',
+  },
+  aprilFools2023: {
+    start: '2023-04-01T08:00-04:00',
+    end: '2023-04-02T08:00-04:00',
+    aprilFools: 'teaShop',
+  },
+  spring2023: {
+    start: '2023-03-21T08:00-04:00',
+    end: '2023-04-30T23:59-04:00',
+    npcImageSuffix: '_spring',
+    season: 'spring',
+    gear: true,
+  },
+  bundle202303: {
+    start: '2023-03-16T08:00-04:00',
+    end: '2023-03-31T23:59-04:00',
+  },
+  bundle202302: {
+    start: '2023-02-21T08:00-05:00',
+    end: '2023-02-28T23:59-05:00',
+  },
+  potions202302: {
+    start: '2023-02-13T08:00-05:00',
+    end: '2023-02-28T23:59-05:00',
+  },
+  valentines2023: {
+    start: '2023-02-13T08:00-05:00',
+    end: '2023-02-17T23:59-05:00',
+    season: 'valentines',
+    npcImageSuffix: '_valentines',
+  },
+  birthday10: {
+    start: '2023-01-30T08:00-05:00',
+    end: '2023-02-08T23:59-05:00',
+    season: 'birthday',
+    npcImageSuffix: '_birthday',
+  },
+  winter2023: {
+    start: '2022-12-20T08:00-05:00',
+    end: '2023-01-31T23:59-05:00',
+    npcImageSuffix: '_winter',
+    season: 'winter',
+    gear: true,
+  },
+  g1g12022: {
+    start: '2022-12-15T08:00-05:00',
+    end: '2023-01-08T23:59-05:00',
+    promo: 'g1g1',
+  },
+  harvestFeast2022: {
+    start: '2022-11-22T08:00-05:00',
+    end: '2022-11-27T20:00-05:00',
+    season: 'thanksgiving',
+    npcImageSuffix: '_thanksgiving',
+  },
+  afterGala: {
+    start: '2022-10-31T20:00-04:00',
+    end: '2022-11-22T08:00-05:00',
+    season: 'normal',
+    npcImageSuffix: '',
+  },
+  bundle202211: {
+    start: '2022-11-15T08:00-05:00',
+    end: '2022-11-30T20:00-05:00',
   },
   fall2022: {
     start: '2022-09-20T08:00-04:00',
@@ -21,16 +319,6 @@ export const EVENTS = {
     npcImageSuffix: '_fall',
     season: 'fall',
     gear: true,
-  },
-  spooky_extra_gems: {
-    start: '2022-10-27T08:00-04:00',
-    end: '2022-10-31T20:00-04:00',
-    gemsPromo,
-  },
-  fall_extra_gems: {
-    start: '2022-10-06T08:00-04:00',
-    end: '2022-10-13T20:00-04:00',
-    gemsPromo,
   },
   bundle202210: {
     start: '2022-10-13T08:00-04:00',
@@ -66,8 +354,8 @@ export const EVENTS = {
     gear: true,
   },
   bundle202206: {
-    start:'2022-06-14T08:00-04:00',
-    end:'2022-06-30T20:00-04:00',
+    start: '2022-06-14T08:00-04:00',
+    end: '2022-06-30T20:00-04:00',
   },
   potions202205: {
     start: '2022-05-17T08:00-04:00',

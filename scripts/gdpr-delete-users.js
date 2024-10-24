@@ -44,6 +44,7 @@ async function deleteHabiticaData (user, email) {
     { _id: user._id },
     { $set: set },
   );
+  // eslint-disable-next-line no-promise-executor-return
   await new Promise(resolve => setTimeout(resolve, 1000));
   const response = await axios.delete(
     `${BASE_URL}/api/v3/user`,
@@ -96,6 +97,7 @@ async function processEmailAddress (email) {
     return console.log(`No users found with email address ${email}`);
   }
 
+  // eslint-disable-next-line no-promise-executor-return
   await new Promise(resolve => setTimeout(resolve, 1000));
   return Promise.all(users.map(user => (async () => {
     await deleteAmplitudeData(user._id, email); // eslint-disable-line no-await-in-loop

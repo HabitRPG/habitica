@@ -212,7 +212,6 @@
     "hatchingPotionFrost": "Zmrzlý",
     "hatchingPotionIcySnow": "Ledově Sněhový",
     "hatchingPotionNotes": "Nalij ho na vejce a vylíhne se ti <%= potText(locale) %> mazlíček.",
-    "premiumPotionAddlNotes": "Nelze použít na vejce mazlíčků z výprav. K dispozici ke koupi do <%= date(locale) %>.",
     "foodMeat": "Maso",
     "foodMeatThe": "Maso",
     "foodMeatA": "Maso",
@@ -364,5 +363,16 @@
     "hatchingPotionWindup": "Natahovací",
     "hatchingPotionBlackPearl": "Perlově černý",
     "hatchingPotionAutumnLeaf": "Podzimně listnatý",
-    "hatchingPotionStainedGlass": "Vitrážový"
+    "hatchingPotionStainedGlass": "Vitrážový",
+    "hatchingPotionMossyStone": "Omšele kamenný",
+    "hatchingPotionRoseGold": "Růžově zlatý",
+    "hatchingPotionPolkaDot": "Puntíkový",
+    "hatchingPotionSolarSystem": "Sluneční soustavy",
+    "hatchingPotionMoonglow": "Měsíčního svitu",
+    "hatchingPotionSunset": "Západ slunce",
+    "hatchingPotionOnyx": "Onyxový",
+    "hatchingPotionPorcelain": "Porcelánový",
+    "hatchingPotionVirtualPet": "Virtuálního mazlíčka",
+    "hatchingPotionPinkMarble": "Růžově mramorový",
+    "hatchingPotionTeaShop": "Čajovnový"
 }

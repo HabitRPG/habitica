@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="row"
+      class="row mt-3"
     >
       <div
         v-if="quest.collect"
@@ -25,7 +25,10 @@
         <dt>{{ $t('bossHP') + ':' }}</dt>
         <dd>{{ quest.boss.hp }}</dd>
       </div>
-      <div class="table-row">
+      <div
+        class="table-row"
+        v-if="quest.purchaseType !== 'bundles'"
+      >
         <dt>{{ $t('difficulty') + ':' }}</dt>
         <dd>
           <div
@@ -38,8 +41,7 @@
       </div>
     </div>
     <div
-      v-if="quest.event && !abbreviated"
-      class="m-auto"
+      v-if="quest.end && !abbreviated"
     >
       {{ limitedString }}
     </div>
@@ -210,14 +212,14 @@ export default {
       return collect.text;
     },
     countdownString () {
-      if (!this.quest.event || this.purchased) return;
-      const diffDuration = moment.duration(moment(this.quest.event.end).diff(moment()));
+      if (!this.quest.end || this.purchased) return;
+      const diffDuration = moment.duration(moment(this.quest.end).diff(moment()));
 
       if (diffDuration.asSeconds() <= 0) {
         this.limitedString = this.$t('noLongerAvailable');
       } else if (diffDuration.days() > 0 || diffDuration.months() > 0) {
         this.limitedString = this.$t('limitedAvailabilityDays', {
-          days: moment(this.quest.event.end).diff(moment(), 'days'),
+          days: moment(this.quest.end).diff(moment(), 'days'),
           hours: diffDuration.hours(),
           minutes: diffDuration.minutes(),
         });

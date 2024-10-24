@@ -53,15 +53,6 @@ export default {
             hideNavigation: true,
           },
         ]],
-        tavern: [[
-          {
-            orphan: true,
-            intro: this.$t('tourTavernPage'),
-            final: true,
-            proceed: this.$t('awesome'),
-            hideNavigation: true,
-          },
-        ]],
         party: [[
           {
             orphan: true,
@@ -69,11 +60,6 @@ export default {
             final: true,
             proceed: this.$t('tourSplendid'),
             hideNavigation: true,
-          },
-        ]],
-        guilds: [[
-          {
-            intro: this.$t('tourGuildsPage'),
           },
         ]],
         challenges: [[
@@ -129,9 +115,7 @@ export default {
       switch (this.$route.name) { // eslint-disable-line default-case
         // case 'options.profile.avatar':   return goto('intro', 5);
         case 'stats': return this.goto('stats', 0);
-        case 'tavern': return this.goto('tavern', 0);
         case 'party': return this.goto('party', 0);
-        case 'guildsDiscovery': return this.goto('guilds', 0);
         case 'challenges': return this.goto('challenges', 0);
         case 'patrons': return this.goto('hall', 0);
         case 'items': return this.goto('market', 0);

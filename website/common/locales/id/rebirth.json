@@ -10,5 +10,6 @@
     "rebirthOrbNoLevel": "Telah menggunakan Batu Kelahiran untuk memulai kembali dari awal.",
     "rebirthPop": "Mengembalikan karaktermu ke Warrior Level 1 dengan tetap menyimpan pencapaian, barang koleksi, dan perlengkapan. Tugasmu dan riwayatnya akan disimpan tapi warnanya akan kembali menjadi kuning. Runtunan-mu akan dihapus semua, kecuali tugas tantangan. Koin Emas, Pengalaman, Mana dan efek dari semua Kemampuan-mu akan dihapus. Efeknya akan berlaku seketika itu juga. Untuk info lebih lanjut, lihat laman wiki <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Batu Kelahiran</a>.",
     "rebirthName": "Batu Kelahiran",
-    "rebirthComplete": "Kamu telah lahir kembali!"
+    "rebirthComplete": "Kamu telah lahir kembali!",
+    "nextFreeRebirth": "<strong><%= days %> hari</strong> sampai harga Batu Kelahiran menjadi <strong>GRATIS</strong>"
 }

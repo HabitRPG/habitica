@@ -7,6 +7,10 @@
 
 .dropdown-toggle:hover {
   --caret-color: #{$purple-300};
+
+  &.disabled {
+    pointer-events: none;
+  }
 }
 
 .dropdown.show > .dropdown-toggle:not(.btn-success) {
@@ -136,6 +140,8 @@
 
   .dropdown-menu.show {
     min-width: 100% !important;
+    overflow: scroll;
+    max-height: 400px;
   }
 }
 

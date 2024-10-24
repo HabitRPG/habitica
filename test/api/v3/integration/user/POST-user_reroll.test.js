@@ -24,7 +24,7 @@ describe('POST /user/reroll', () => {
   // More tests in common code unit tests
 
   it('resets user\'s tasks', async () => {
-    await user.update({
+    await user.updateOne({
       balance: 2,
     });
 

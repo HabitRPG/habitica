@@ -13,7 +13,6 @@ import { // eslint-disable-line import/no-cycle
   model as Group,
   basicFields as basicGroupFields,
 } from '../../models/group';
-import { model as User } from '../../models/user'; // eslint-disable-line import/no-cycle
 import {
   NotAuthorized,
   NotFound,
@@ -80,8 +79,32 @@ async function prepareSubscriptionValues (data) {
     : undefined;
   let months;
   if (updatedFrom && Number(updatedFrom.months) !== 1) {
-    months = Math.max(0, Number(block.months) - Number(updatedFrom.months));
-  } else {
+    if (Number(updatedFrom.months) > Number(block.months)) {
+      months = 0;
+    } else if (data.updatedFrom.logic === 'payDifference') {
+      months = Math.max(0, Number(block.months) - Number(updatedFrom.months));
+    } else if (data.updatedFrom.logic === 'payFull') {
+      months = Number(block.months);
+    } else if (data.updatedFrom.logic === 'refundAndRepay') {
+      const originalMonths = Number(updatedFrom.months);
+      let currentCycleBegin = moment(recipient.purchased.plan.dateCurrentTypeCreated);
+      const today = moment();
+      while (currentCycleBegin.isBefore()) {
+        currentCycleBegin = currentCycleBegin.add({ months: originalMonths });
+      }
+      // Subtract last iteration again, because we overshot
+      currentCycleBegin = currentCycleBegin.subtract({ months: originalMonths });
+      // For simplicity we round every month to 30 days since moment can not add half months
+      if (currentCycleBegin.add({ days: (originalMonths * 30) / 2.0 }).isBefore(today)) {
+        // user is in second half of their subscription cycle. Give them full benefits.
+        months = Number(block.months);
+      } else {
+        // user is in first half of their subscription cycle. Give them the difference.
+        months = Math.max(0, Number(block.months) - Number(updatedFrom.months));
+      }
+    }
+  }
+  if (months === undefined) {
     months = Number(block.months);
   }
   const today = new Date();
@@ -91,22 +114,7 @@ async function prepareSubscriptionValues (data) {
   let purchaseType = 'subscribe';
   let emailType = 'subscription-begins';
   let recipientIsSubscribed = recipient.isSubscribed();
-
-  if (data.user && !data.gift && !data.groupId) {
-    const unlockedUser = await User.findOneAndUpdate(
-      {
-        _id: data.user._id,
-        $or: [
-          { _subSignature: 'NOT_RUNNING' },
-          { _subSignature: { $exists: false } },
-        ],
-      },
-      { $set: { _subSignature: 'SUB_IN_PROGRESS' } },
-    );
-    if (!unlockedUser) {
-      throw new NotFound('User not found or subscription already processing.');
-    }
-  }
+  const isNewSubscription = !recipientIsSubscribed;
 
   //  If we are buying a group subscription
   if (data.groupId) {
@@ -147,6 +155,10 @@ async function prepareSubscriptionValues (data) {
 
   const { plan } = recipient.purchased;
 
+  if (isNewSubscription) {
+    plan.perkMonthCount = 0;
+  }
+
   if (data.gift || !autoRenews) {
     if (plan.customerId && !plan.dateTerminated) { // User has active plan
       plan.extraMonths += months;
@@ -161,6 +173,7 @@ async function prepareSubscriptionValues (data) {
         plan.dateTerminated = moment().add({ months }).toDate();
         plan.dateCreated = today;
       }
+      plan.dateCurrentTypeCreated = today;
     }
 
     if (!plan.customerId) {
@@ -177,6 +190,7 @@ async function prepareSubscriptionValues (data) {
       planId: block.key,
       customerId: data.customerId,
       dateUpdated: today,
+      dateCurrentTypeCreated: today,
       paymentMethod: data.paymentMethod,
       extraMonths: Number(plan.extraMonths) + _dateDiff(today, plan.dateTerminated),
       dateTerminated: null,
@@ -219,6 +233,7 @@ async function prepareSubscriptionValues (data) {
     itemPurchased,
     purchaseType,
     emailType,
+    isNewSubscription,
   };
 }
 
@@ -234,15 +249,22 @@ async function createSubscription (data) {
     itemPurchased,
     purchaseType,
     emailType,
+    isNewSubscription,
   } = await prepareSubscriptionValues(data);
 
   // Block sub perks
-  const perks = Math.floor(months / 3);
-  if (perks) {
-    plan.consecutive.offset += months;
-    plan.consecutive.gemCapExtra += perks * 5;
-    if (plan.consecutive.gemCapExtra > 25) plan.consecutive.gemCapExtra = 25;
-    await plan.updateHourglasses(recipient._id, perks, 'subscription_perks'); // one Hourglass every 3 months
+  if (months > 1 && (!data.gift || !isNewSubscription)) {
+    if (!data.gift && !groupId) {
+      plan.consecutive.offset = block.months;
+    }
+  } else if (months === 1) {
+    plan.consecutive.offset = 0;
+  }
+  if (months > 1 || data.gift) {
+    await plan.incrementPerkCounterAndReward(recipient._id, months);
+  } else {
+    // Make sure the perkMonthCount field is initialized.
+    await plan.incrementPerkCounterAndReward(recipient._id, 0);
   }
 
   if (recipient !== group) {
@@ -345,16 +367,22 @@ async function createSubscription (data) {
       }
 
       if (data.gift.member.preferences.pushNotifications.giftedSubscription !== false) {
-        sendPushNotification(data.gift.member,
+        await sendPushNotification(
+          data.gift.member,
           {
             title: shared.i18n.t('giftedSubscription', languages[1]),
             message: shared.i18n.t('giftedSubscriptionInfo', { months, name: byUserName }, languages[1]),
             identifier: 'giftedSubscription',
             payload: { replyTo: data.user._id },
-          });
+          },
+        );
       }
     }
   }
+
+  if (group) await group.save();
+  if (data.user && data.user.isModified()) await data.user.save();
+  if (data.gift) await data.gift.member.save();
 
   slack.sendSubscriptionNotification({
     buyer: {
@@ -372,24 +400,6 @@ async function createSubscription (data) {
     groupId,
     autoRenews,
   });
-
-  if (group) {
-    await group.save();
-  }
-  if (data.user) {
-    if (data.user.isModified()) {
-      await data.user.save();
-    }
-    if (!data.gift && !data.groupId) {
-      await User.findOneAndUpdate(
-        { _id: data.user._id },
-        { $set: { _subSignature: 'NOT_RUNNING' } },
-      );
-    }
-  }
-  if (data.gift) {
-    await data.gift.member.save();
-  }
 }
 
 // Cancels a subscription or group plan, setting termination to happen later
@@ -437,7 +447,9 @@ async function cancelSubscription (data) {
   }
 
   plan.dateTerminated = calculateSubscriptionTerminationDate(
-    data.nextBill, plan, paymentConstants.GROUP_PLAN_CUSTOMER_ID,
+    data.nextBill,
+    plan,
+    paymentConstants.GROUP_PLAN_CUSTOMER_ID,
   );
 
   // clear extra time. If they subscribe again, it'll be recalculated from p.dateTerminated

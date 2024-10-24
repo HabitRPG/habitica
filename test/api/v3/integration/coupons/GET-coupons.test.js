@@ -2,7 +2,7 @@ import {
   generateUser,
   resetHabiticaDB,
 } from '../../../../helpers/api-integration/v3';
-import apiError from '../../../../../website/server/libs/apiError';
+import { apiError } from '../../../../../website/server/libs/apiError';
 
 describe('GET /coupons/', () => {
   let user;
@@ -24,7 +24,7 @@ describe('GET /coupons/', () => {
   });
 
   it('should return the coupons in CSV format ordered by creation date', async () => {
-    await user.update({
+    await user.updateOne({
       'permissions.coupons': true,
     });
 

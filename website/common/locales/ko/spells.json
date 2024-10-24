@@ -1,13 +1,12 @@
 {
-    "spellWizardFireballText": "불꽃 폭발",
-    "spellWizardFireballNotes": "You summon XP and deal fiery damage to Bosses! (Based on: INT)",
+    "spellWizardFireballText": "화염 폭발",
+    "spellWizardFireballNotes": "보스에게 피해를 주는 동시에 경험치를 획득합니다! (필요 능력치: 지능)",
     "spellWizardMPHealText": "천상의 물결",
-    "spellWizardMPHealNotes": "You sacrifice Mana so the rest of your Party, except Mages, gains MP! (Based on: INT)",
+    "spellWizardMPHealNotes": "MP를 소모하여 마법사를 제외한 파티원들의 MP를 회복합니다! (필요 능력치: 지능)",
     "spellWizardEarthText": "지진",
-    "spellWizardEarthNotes": "Your mental power shakes the earth and buffs your Party's Intelligence! (Based on: Unbuffed INT)",
+    "spellWizardEarthNotes": "당신의 정신력이 지구를 흔들어 파티원들의 지능을 상승시킵니다! (필요 능력치: 버프 전 지능)",
     "spellWizardFrostText": "차가운 서리",
     "spellWizardFrostNotes": "주문 한 번이면 얼음이 연속 카운터를 얼려버려서 내일 0부터 시작하지 않게 될 거예요!",
-    "spellWizardFrostAlreadyCast": "오늘은 이미 이 마법을 사용하였습니다. 연속 기록을 건너뛸 수 있으니 오늘 이 마법을 다시 사용할 필요 없습니다.",
     "spellWarriorSmashText": "난폭한 분쇄",
     "spellWarriorSmashNotes": "You make a task more blue/less red and deal extra damage to Bosses! (Based on: STR)",
     "spellWarriorDefensiveStanceText": "방어 자세",
@@ -24,8 +23,7 @@
     "spellRogueToolsOfTradeNotes": "당신의 교묘한 재주가 파티 전체의 통찰력에 버프를 주어 증가시킵니다! (버프받지 않은 통찰력에 기반함)",
     "spellRogueStealthText": "스텔스",
     "spellRogueStealthNotes": "With each cast, a few of your undone Dailies won't cause damage tonight. Their streaks and colors won't change. (Based on: PER)",
-    "spellRogueStealthDaliesAvoided": "<%= originalText %> 피한 일일과제의 개수: <%= number %>.",
-    "spellRogueStealthMaxedOut": "당신은 모든 일일과제를 이미 피했습니다. 이 마법을 더 이상 걸 필요가 없습니다.",
+    "spellRogueStealthDaliesAvoided": "<%= originalText %> 피할 일일 수: <%= number %>.",
     "spellHealerHealText": "치유의 빛",
     "spellHealerHealNotes": "Shining light restores your health! (Based on: CON and INT)",
     "spellHealerBrightnessText": "눈부시는 빛",
@@ -55,5 +53,6 @@
     "challengeTasksNoCast": "도전 과제에는 스킬을 사용하실 수 없습니다.",
     "groupTasksNoCast": "그룹 과제에는 마법 주문을 거는 기술을 사용할 수 없습니다.",
     "spellNotOwned": "해당 스킬을 가지고 있지 않습니다.",
-    "spellLevelTooHigh": "이 스킬을 사용하시려면 <%= level %>이 되셔야 합니다."
+    "spellLevelTooHigh": "이 스킬을 사용하시려면 <%= level %>이 되셔야 합니다.",
+    "spellAlreadyCast": "이 스킬을 사용해도 추가 효과는 없습니다."
 }

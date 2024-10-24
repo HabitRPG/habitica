@@ -212,7 +212,6 @@
     "hatchingPotionFrost": "冰霜",
     "hatchingPotionIcySnow": "冰雪",
     "hatchingPotionNotes": "將它倒在寵物蛋上即可孵化出一隻<%= potText(locale) %>寵物。",
-    "premiumPotionAddlNotes": "無法用於副本寵物蛋。在<%= date(locale) %>前仍可購買。",
     "foodMeat": "肉",
     "foodMeatThe": "肉",
     "foodMeatA": "肉",
@@ -372,5 +371,6 @@
     "hatchingPotionSolarSystem": "太陽系",
     "hatchingPotionOnyx": "縞瑪瑙",
     "hatchingPotionPorcelain": "瓷器",
-    "hatchingPotionVirtualPet": "電子寵物"
+    "hatchingPotionVirtualPet": "電子寵物",
+    "hatchingPotionPinkMarble": "粉色大理石"
 }

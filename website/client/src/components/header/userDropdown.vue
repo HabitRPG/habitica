@@ -14,7 +14,7 @@
           :top="true"
         />
         <div
-          class="top-menu-icon svg-icon user"
+          class="top-menu-icon svg-icon mr-2"
           v-html="icons.user"
         ></div>
       </div>
@@ -35,13 +35,9 @@
         />
       </a>
       <a
-        class="topbar-dropdown-item dropdown-item"
+        class="topbar-dropdown-item dropdown-item dropdown-separated"
         @click="showAvatar('body', 'size')"
       >{{ $t('editAvatar') }}</a>
-      <a
-        class="topbar-dropdown-item dropdown-item dropdown-separated"
-        @click="showAvatar('backgrounds', '2022')"
-      >{{ $t('backgrounds') }}</a>
       <a
         class="topbar-dropdown-item dropdown-item"
         @click="showProfile('profile')"
@@ -56,7 +52,7 @@
       >{{ $t('achievements') }}</a>
       <router-link
         class="topbar-dropdown-item dropdown-item"
-        :to="{name: 'site'}"
+        :to="{name: 'general'}"
       >
         {{ $t('settings') }}
       </router-link>
@@ -109,6 +105,11 @@
 
 <style lang='scss' scoped>
 @import '~@/assets/scss/colors.scss';
+@media only screen and (max-width: 992px) {
+  .item-with-icon.item-user {
+    margin-right: 0px;
+  }
+}
 
 .user-dropdown {
   width: 14.75em;
@@ -141,7 +142,7 @@
 import { mapState } from '@/libs/store';
 import userIcon from '@/assets/svg/user.svg';
 import MenuDropdown from '../ui/customMenuDropdown';
-import MessageCount from './messageCount';
+import MessageCount from './messageCount.functional.vue';
 import { EVENTS } from '@/libs/events';
 import { PAGES } from '@/libs/consts';
 

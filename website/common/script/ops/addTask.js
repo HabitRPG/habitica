@@ -12,7 +12,6 @@ export default function addTask (user, req = { body: {} }) {
   if (task._editing) {
     task._edit = clone(task);
   }
-  task._advanced = !user.preferences.advancedCollapsed;
 
   return task;
 }

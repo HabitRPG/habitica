@@ -1,5 +1,3 @@
-import { TAVERN_ID } from '../../../../../website/server/models/group';
-import { updateDocument } from '../../../../helpers/mongo';
 import {
   requester,
   resetHabiticaDB,
@@ -18,7 +16,9 @@ describe('GET /world-state', () => {
   });
 
   it('returns Tavern quest data when world boss is active', async () => {
-    await updateDocument('groups', { _id: TAVERN_ID }, { quest: { active: true, key: 'dysheartener', progress: { hp: 50000, rage: 9999 } } });
+    sinon.stub(worldState, 'getWorldBoss').returns({
+      active: true, extra: {}, key: 'dysheartener', progress: { hp: 50000, rage: 9999, collect: {} },
+    });
 
     const res = await requester().get('/world-state');
     expect(res).to.have.nested.property('worldBoss');
@@ -33,22 +33,29 @@ describe('GET /world-state', () => {
         rage: 9999,
       },
     });
+    worldState.getWorldBoss.restore();
   });
 
-  it('returns a string representing the current season for NPC sprites', async () => {
-    const res = await requester().get('/world-state');
+  it('calls getRepeatingEvents for data', async () => {
+    const getRepeatingEventsOnDate = sinon.stub(common.content, 'getRepeatingEventsOnDate').returns([]);
+    const getCurrentGalaEvent = sinon.stub(common.schedule, 'getCurrentGalaEvent').returns({});
 
-    expect(res).to.have.nested.property('npcImageSuffix');
-    expect(res.npcImageSuffix).to.be.a('string');
+    await requester().get('/world-state');
+
+    expect(getRepeatingEventsOnDate).to.have.been.calledOnce;
+    expect(getCurrentGalaEvent).to.have.been.calledOnce;
+
+    getRepeatingEventsOnDate.restore();
+    getCurrentGalaEvent.restore();
   });
 
   context('no current event', () => {
     beforeEach(async () => {
-      sinon.stub(worldState, 'getCurrentEvent').returns(null);
+      sinon.stub(worldState, 'getCurrentEventList').returns([]);
     });
 
     afterEach(() => {
-      worldState.getCurrentEvent.restore();
+      worldState.getCurrentEventList.restore();
     });
 
     it('returns null for the current event when there is none active', async () => {
@@ -58,24 +65,65 @@ describe('GET /world-state', () => {
     });
   });
 
-  context('no current event', () => {
+  context('active event', () => {
     const evt = {
       ...common.content.events.fall2020,
       event: 'fall2020',
     };
 
     beforeEach(async () => {
-      sinon.stub(worldState, 'getCurrentEvent').returns(evt);
+      sinon.stub(worldState, 'getCurrentEventList').returns([evt]);
     });
 
     afterEach(() => {
-      worldState.getCurrentEvent.restore();
+      worldState.getCurrentEventList.restore();
     });
 
     it('returns the current event when there is an active one', async () => {
       const res = await requester().get('/world-state');
 
       expect(res.currentEvent).to.eql(evt);
+    });
+  });
+
+  context('active event with NPC image suffix', () => {
+    const evt = {
+      ...common.content.events.fall2020,
+      event: 'fall2020',
+      npcImageSuffix: 'fall',
+    };
+
+    beforeEach(async () => {
+      sinon.stub(worldState, 'getCurrentEventList').returns([evt]);
+    });
+
+    afterEach(() => {
+      worldState.getCurrentEventList.restore();
+    });
+
+    it('returns the NPC image suffix when present', async () => {
+      const res = await requester().get('/world-state');
+
+      expect(res.npcImageSuffix).to.equal('fall');
+    });
+
+    it('returns the NPC image suffix with multiple events present', async () => {
+      const evt2 = {
+        ...common.content.events.winter2020,
+        event: 'test',
+      };
+
+      const evt3 = {
+        ...common.content.events.winter2020,
+        event: 'winter2020',
+        npcImageSuffix: 'winter',
+      };
+
+      worldState.getCurrentEventList.returns([evt, evt2, evt3]);
+
+      const res = await requester().get('/world-state');
+
+      expect(res.npcImageSuffix).to.equal('fall');
     });
   });
 });

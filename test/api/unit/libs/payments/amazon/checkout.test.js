@@ -2,7 +2,7 @@ import { model as User } from '../../../../../../website/server/models/user';
 import amzLib from '../../../../../../website/server/libs/payments/amazon';
 import payments from '../../../../../../website/server/libs/payments/payments';
 import common from '../../../../../../website/common';
-import apiError from '../../../../../../website/server/libs/apiError';
+import { apiError } from '../../../../../../website/server/libs/apiError';
 import * as gems from '../../../../../../website/server/libs/payments/gems';
 
 const { i18n } = common;
@@ -17,7 +17,7 @@ describe('Amazon Payments - Checkout', () => {
   let closeOrderReferenceSpy;
 
   let paymentBuyGemsStub;
-  let paymentCreateSubscritionStub;
+  let paymentCreateSubscriptionStub;
   let amount = gemsBlock.price / 100;
 
   function expectOrderReferenceSpy () {
@@ -85,8 +85,8 @@ describe('Amazon Payments - Checkout', () => {
     paymentBuyGemsStub = sinon.stub(payments, 'buyGems');
     paymentBuyGemsStub.resolves({});
 
-    paymentCreateSubscritionStub = sinon.stub(payments, 'createSubscription');
-    paymentCreateSubscritionStub.resolves({});
+    paymentCreateSubscriptionStub = sinon.stub(payments, 'createSubscription');
+    paymentCreateSubscriptionStub.resolves({});
 
     sinon.stub(common, 'uuid').returns('uuid-generated');
     sandbox.stub(gems, 'validateGiftMessage');
@@ -109,6 +109,7 @@ describe('Amazon Payments - Checkout', () => {
       user,
       paymentMethod,
       headers,
+      sku: undefined,
     };
     if (gift) {
       expectedArgs.gift = gift;
@@ -215,13 +216,14 @@ describe('Amazon Payments - Checkout', () => {
     });
 
     gift.member = receivingUser;
-    expect(paymentCreateSubscritionStub).to.be.calledOnce;
-    expect(paymentCreateSubscritionStub).to.be.calledWith({
+    expect(paymentCreateSubscriptionStub).to.be.calledOnce;
+    expect(paymentCreateSubscriptionStub).to.be.calledWith({
       user,
       paymentMethod: amzLib.constants.PAYMENT_METHOD_GIFT,
       headers,
       gift,
       gemsBlock: undefined,
+      sku: undefined,
     });
     expectAmazonStubs();
   });

@@ -6,13 +6,10 @@
     :style="{height}"
   >
     <slot name="content"></slot>
-    <div
+    <close-x
       v-if="canClose"
-      class="close-icon svg-icon icon-12"
-
-      @click="close()"
-      v-html="icons.close"
-    ></div>
+      @close="close()"
+    />
   </div>
 </template>
 
@@ -30,32 +27,24 @@ body.modal-open .habitica-top-banner {
   padding-left: 1.5rem;
   padding-right: 1.625rem;
   z-index: 1300;
-}
 
-.close-icon.svg-icon {
-  position: relative;
-  top: 0;
-  right: 0;
-  opacity: 0.48;
-
-  & ::v-deep svg path {
-    stroke: $white !important;
-  }
-
-  &:hover {
-    opacity: 0.75;
+  .modal-close {
+    position: unset;
   }
 }
 </style>
 
 <script>
-import closeIcon from '@/assets/svg/close.svg';
+import closeX from '@/components/ui/closeX';
 import {
   clearBannerSetting, hideBanner, isBannerHidden, updateBannerHeight,
 } from '@/libs/banner.func';
 import { EVENTS } from '@/libs/events';
 
 export default {
+  components: {
+    closeX,
+  },
   props: {
     bannerId: {
       type: String,
@@ -82,9 +71,6 @@ export default {
   },
   data () {
     return {
-      icons: Object.freeze({
-        close: closeIcon,
-      }),
       hidden: false,
     };
   },
@@ -119,8 +105,6 @@ export default {
     close () {
       hideBanner(this.bannerId);
       this.hidden = true;
-
-      this.$root.$emit(EVENTS.BANNER_HIDDEN, this.bannerId);
     },
   },
 };

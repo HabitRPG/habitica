@@ -38,31 +38,60 @@ context('avatar.vue', () => {
   });
 
   describe('hasClass', () => {
-    beforeEach(() => {
+    it('returns false if user is too low of level', () => {
+      vm.member = merge({
+        stats: { lvl: 3 },
+        preferences: { disableClasses: false },
+        flags: { classSelected: true },
+      }, baseMember);
+      expect(vm.hasClass).to.equal(false);
+    });
+
+    it('returns false if user has disabled the class system', () => {
       vm.member = merge({
         stats: { lvl: 17 },
         preferences: { disableClasses: true },
-        flags: { classSelected: false },
+        flags: { classSelected: true },
       }, baseMember);
+      expect(vm.hasClass).to.equal(false);
     });
 
-    it('accurately reports class status', () => {
+    it('returns false if user has not yet selected a class', () => {
+      vm.member = merge({
+        stats: { lvl: 20 },
+        preferences: { disableClasses: false },
+        flags: { classSelected: false },
+      }, baseMember);
       expect(vm.hasClass).to.equal(false);
+    });
 
-      vm.member.preferences.disableClasses = false;
-      vm.member.flags.classSelected = true;
-
+    it('returns true if user meets all prereqs for having a class', () => {
+      vm.member = merge({
+        stats: { lvl: 13 },
+        preferences: { disableClasses: false },
+        flags: { classSelected: true },
+      }, baseMember);
       expect(vm.hasClass).to.equal(true);
     });
   });
 
   describe('isBuffed', () => {
-    it('accurately reports if buffed', () => {
+    it('returns undefined if user is not buffed', () => {
       expect(vm.isBuffed).to.equal(undefined);
+    });
 
-      vm.member.stats.buffs = { str: 1 };
+    it('returns a value if user has buffs', () => {
+      vm.member = merge({
+        stats: {
+          buffs: {
+            str: 2,
+            int: 8,
+          },
+        },
+      }, baseMember);
 
-      expect(vm.isBuffed).to.equal(1);
+      expect(vm.isBuffed).to.be.a('Number');
+      expect(vm.isBuffed).to.be.gt(0);
     });
   });
 
@@ -149,13 +178,12 @@ context('avatar.vue', () => {
   });
 
   describe('specialMountClass', () => {
-    it('checks if riding a Kangaroo', () => {
+    it('returns null if not riding a Kangaroo', () => {
       expect(vm.specialMountClass).to.equal(null);
+    });
 
-      vm.member.items = {
-        currentMount: 'Kangaroo',
-        gear: { equipped: {} },
-      };
+    it('returns corresponding offset class if riding a Kangaroo', () => {
+      vm.member.items.currentMount = 'Kangaroo-Base';
 
       expect(vm.specialMountClass).to.equal('offset-kangaroo');
     });
@@ -166,23 +194,20 @@ context('avatar.vue', () => {
       vm.member = merge({
         preferences: {
           skin: 'blue',
+          sleep: false,
         },
       }, baseMember);
 
       expect(vm.skinClass).to.equal('skin_blue');
     });
 
-    it('returns if sleep or not', () => {
+    it('adds sleep if Dailies paused', () => {
       vm.member = merge({
         preferences: {
           skin: 'blue',
-          sleep: false,
+          sleep: true,
         },
       }, baseMember);
-
-      expect(vm.skinClass).to.equal('skin_blue');
-
-      vm.member.preferences.sleep = true;
 
       expect(vm.skinClass).to.equal('skin_blue_sleep');
     });

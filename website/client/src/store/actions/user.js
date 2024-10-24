@@ -1,13 +1,15 @@
+import getProps from 'lodash/get';
 import setProps from 'lodash/set';
 import axios from 'axios';
-import { loadAsyncResource } from '@/libs/asyncResource';
 
 import { togglePinnedItem as togglePinnedItemOp } from '@/../../common/script/ops/pinnedGearUtils';
 import changeClassOp from '@/../../common/script/ops/changeClass';
 import disableClassesOp from '@/../../common/script/ops/disableClasses';
 import openMysteryItemOp from '@/../../common/script/ops/openMysteryItem';
-import { unEquipByType } from '../../../../common/script/ops/unequip';
-import markPMSRead from '../../../../common/script/ops/markPMSRead';
+import { unEquipByType } from '@/../../common/script/ops/unequip';
+import markPMSRead from '@/../../common/script/ops/markPMSRead';
+import updateStats from '@/../../common/script/fns/updateStats';
+import { loadAsyncResource } from '@/libs/asyncResource';
 
 export function fetch (store, options = {}) { // eslint-disable-line no-shadow
   return loadAsyncResource({
@@ -46,6 +48,9 @@ export async function set (store, changes) {
           tagsIndexesToRemove.forEach(i => task.tags.splice(i, 1));
         });
       });
+    } else if (((key.startsWith('preferences.hair') && !(key.startsWith('preferences.hair.color'))) || key.startsWith('preferences.chair'))
+      && getProps(user, key) === changes[key]) {
+      setProps(user, key, key.startsWith('preferences.chair') ? 'none' : 0);
     } else {
       setProps(user, key, changes[key]);
     }
@@ -65,7 +70,7 @@ export async function sleep (store) {
 }
 
 export async function addWebhook (store, payload) {
-  const response = await axios.post('/api/v4/user/webhook', payload.webhookInfo);
+  const response = await axios.post('/api/v4/user/webhook', payload.webhook);
   return response.data.data;
 }
 
@@ -139,10 +144,12 @@ export async function rebirth () {
 }
 
 export async function togglePrivateMessagesOpt (store) {
-  const response = await axios.put('/api/v4/user',
+  const response = await axios.put(
+    '/api/v4/user',
     {
       'inbox.optOut': !store.state.user.data.inbox.optOut,
-    });
+    },
+  );
   store.state.user.data.inbox.optOut = !store.state.user.data.inbox.optOut;
   return response;
 }
@@ -179,6 +186,10 @@ export async function getPurchaseHistory () {
   return response.data.data;
 }
 
+export function statSync (store) {
+  updateStats(store.state.user.data, store.state.user.data.stats);
+  return axios.post('/api/v4/user/stat-sync');
+}
 
 export function newPrivateMessageTo (store, params) {
   const { member } = params;

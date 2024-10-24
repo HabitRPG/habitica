@@ -31,7 +31,7 @@
       >
         <avatar
           :member="userReceivingGift"
-          :hideClassBadge="true"
+          :hide-class-badge="true"
           class="d-flex flex-column mx-auto align-items-center"
         />
         <div class="avatar-spacer"></div>
@@ -74,8 +74,8 @@
       <subscription-options
         v-show="selectedPage === 'subscription'"
         class="subscribe-option"
-        :userReceivingGift="userReceivingGift"
-        :receiverName="receiverName"
+        :user-receiving-gift="userReceivingGift"
+        :receiver-name="receiverName"
       />
 
       <!-- gem block -->
@@ -126,7 +126,7 @@
 
           <!-- the word "total" -->
           <div class="buy-gem-total">
-            {{ $t('sendGiftTotal') }}
+            {{ $t('sendTotal') }}
           </div>
 
           <!-- the actual dollar amount -->

@@ -212,7 +212,6 @@
     "hatchingPotionFrost": "Escarcha",
     "hatchingPotionIcySnow": "Nieve Helada",
     "hatchingPotionNotes": "Vierte esto sobre un huevo, y nacerá una mascota <%= potText(locale) %>.",
-    "premiumPotionAddlNotes": "No se puede usar con huevos de mascotas de misión. A la venta hasta <%= date(locale) %>.",
     "foodMeat": "Carne",
     "foodMeatThe": "la Carne",
     "foodMeatA": "Carne",
@@ -371,5 +370,9 @@
     "hatchingPotionSolarSystem": "Sistema Solar",
     "hatchingPotionMoonglow": "Brillo de Luna",
     "hatchingPotionOnyx": "Ónice",
-    "hatchingPotionVirtualPet": "Mascota virtual"
+    "hatchingPotionVirtualPet": "Mascota virtual",
+    "hatchingPotionPorcelain": "Porcelana",
+    "hatchingPotionRoseGold": "Oro Rosa",
+    "hatchingPotionPinkMarble": "Mármol Rosa",
+    "hatchingPotionTeaShop": "Tienda de Té"
 }

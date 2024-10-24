@@ -5,16 +5,23 @@ import {
 
 describe('POST /debug/add-hourglass', () => {
   let userToGetHourGlass;
+  let nconfStub;
 
   before(async () => {
     userToGetHourGlass = await generateUser();
   });
 
-  after(() => {
-    nconf.set('IS_PROD', false);
+  beforeEach(() => {
+    nconfStub = sandbox.stub(nconf, 'get');
+    nconfStub.withArgs('BASE_URL').returns('https://example.com');
+  });
+
+  afterEach(() => {
+    nconfStub.restore();
   });
 
   it('adds Hourglass to the current user', async () => {
+    nconfStub.withArgs('DEBUG_ENABLED').returns(true);
     await userToGetHourGlass.post('/debug/add-hourglass');
 
     const userWithHourGlass = await userToGetHourGlass.get('/user');
@@ -23,7 +30,7 @@ describe('POST /debug/add-hourglass', () => {
   });
 
   it('returns error when not in production mode', async () => {
-    nconf.set('IS_PROD', true);
+    nconfStub.withArgs('DEBUG_ENABLED').returns(false);
 
     await expect(userToGetHourGlass.post('/debug/add-hourglass'))
       .eventually.be.rejected.and.to.deep.equal({

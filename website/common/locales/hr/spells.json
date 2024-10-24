@@ -6,8 +6,7 @@
     "spellWizardEarthText": "Potres",
     "spellWizardEarthNotes": "Tvoja mentalna moć potresa tlo i jača Inteligenciju tvoje Družine! (Na osnovi: neojačane INT)",
     "spellWizardFrostText": "Ledeni mraz",
-    "spellWizardFrostNotes": "S jednom bačenom čarolijom, led zamrzava sve tvoje nizove tako da se neće sutradan resetirati na nulu!",
-    "spellWizardFrostAlreadyCast": "Već si izveo/la ovo danas. Tvoji nizovi su zamrznuti i nema potrebe ovo ponovno koristiti.",
+    "spellWizardFrostNotes": "Jednim zamahom ruke led zamrzava sve tvoje nizove kako se sutra ne bi vratili na nulu!",
     "spellWarriorSmashText": "Brutalni sudar",
     "spellWarriorSmashNotes": "Činiš zadatak plavljim/manje crvenim i nanosiš dodatnu štetu Bosovima! (Na osnovi: SNA)",
     "spellWarriorDefensiveStanceText": "Obrambeni stav",
@@ -24,8 +23,7 @@
     "spellRogueToolsOfTradeNotes": "Tvoji varalački talenti jačaju Percepciju tvoje cijele Družine! (Na osnovi: neojačane PER)",
     "spellRogueStealthText": "Tajnost",
     "spellRogueStealthNotes": "Sa svakom bačenom čarolijom, nekolicina tvojih neobavljenih Svakodnevnih zadataka ti neće večeras nauditi. Njihovi nizovi i boje se neće promijeniti. (Na osnovi: PER)",
-    "spellRogueStealthDaliesAvoided": "<%= originalText %> Broj izbjegnutih svakodnevnih zadataka: <%= number %>.",
-    "spellRogueStealthMaxedOut": "Već si izbjegao/la sve svoje svakodnevne zadatke; nema potrebe koristiti ovu vještinu ponovno. ",
+    "spellRogueStealthDaliesAvoided": "<%= originalText %> Broj dnevnih zadataka koje će se izbjegavati: <%= number %>.",
     "spellHealerHealText": "Iscjeljujuće svjetlo",
     "spellHealerHealNotes": "Blistavo svjetlo ti vraća zdravlje! (Na osnovi: KON i INT)",
     "spellHealerBrightnessText": "Goruća svjetlost",
@@ -55,5 +53,6 @@
     "challengeTasksNoCast": "Upotreba vještina na zadatke izazova nije dozvoljeno.",
     "groupTasksNoCast": "Upotreba vještina na grupne zadatke nije dozvoljeno.",
     "spellNotOwned": "Ne posjeduješ ovu vještinu.",
-    "spellLevelTooHigh": "Moraš biti level <%= level %> da bi koristio/la ovu vještinu."
+    "spellLevelTooHigh": "Moraš biti level <%= level %> da bi koristio/la ovu vještinu.",
+    "spellAlreadyCast": "Korištenje ove vještine neće imati nikakav dodatni učinak."
 }

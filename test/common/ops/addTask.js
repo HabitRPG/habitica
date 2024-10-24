@@ -126,13 +126,5 @@ describe('shared.ops.addTask', () => {
       expect(addTask(user)._editing).not.be.ok;
       expect(addTask(user)._edit).to.not.be.ok;
     });
-
-    it('respects advancedCollapsed preference', () => {
-      user.preferences.advancedCollapsed = true;
-      expect(addTask(user)._advanced).not.be.ok;
-
-      user.preferences.advancedCollapsed = false;
-      expect(addTask(user)._advanced).to.be.ok;
-    });
   });
 });

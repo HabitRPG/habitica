@@ -4,7 +4,7 @@ import nconf from 'nconf';
 import paypalPayments from '../../../../../../website/server/libs/payments/paypal';
 import { model as User } from '../../../../../../website/server/models/user';
 import common from '../../../../../../website/common';
-import apiError from '../../../../../../website/server/libs/apiError';
+import { apiError } from '../../../../../../website/server/libs/apiError';
 import * as gems from '../../../../../../website/server/libs/payments/gems';
 
 const BASE_URL = nconf.get('BASE_URL');

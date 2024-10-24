@@ -4,7 +4,7 @@ import {
   translate as t,
   resetHabiticaDB,
 } from '../../../../helpers/api-integration/v3';
-import apiError from '../../../../../website/server/libs/apiError';
+import { apiError } from '../../../../../website/server/libs/apiError';
 
 describe('POST /coupons/generate/:event', () => {
   let user;
@@ -19,7 +19,7 @@ describe('POST /coupons/generate/:event', () => {
   });
 
   it('returns an error if user has no coupons permission', async () => {
-    await user.update({
+    await user.updateOne({
       'permissions.coupons': false,
     });
 
@@ -47,7 +47,7 @@ describe('POST /coupons/generate/:event', () => {
   });
 
   it('should generate coupons', async () => {
-    await user.update({
+    await user.updateOne({
       'permissions.coupons': true,
     });
 

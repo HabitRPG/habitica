@@ -13,6 +13,7 @@ import {
 import { removeItemByPath } from '../pinnedGearUtils';
 import getItemInfo from '../../libs/getItemInfo';
 import updateUserBalance from '../updateUserBalance';
+import { getScheduleMatchingGroup } from '../../content/constants/schedule';
 
 function getItemAndPrice (user, type, key, req) {
   let item;
@@ -96,7 +97,22 @@ export default async function purchase (user, req = {}, analytics) {
 
   const { price, item } = getItemAndPrice(user, type, key, req);
 
-  if (!item.canBuy(user)) {
+  if (type === 'hatchingPotions' && (item.premium === true || item.wacky === true) && item.questPotion !== true) {
+    const matchers = getScheduleMatchingGroup('premiumHatchingPotions');
+    if (!matchers.match(item.key)) {
+      throw new NotAuthorized(i18n.t('messageNotAvailable', req.language));
+    }
+  } else if (item.klass === 'special' && item.gearSet !== 'animal') {
+    const matchers = getScheduleMatchingGroup('seasonalGear');
+    if (!matchers.match(item.set)) {
+      throw new NotAuthorized(i18n.t('messageNotAvailable', req.language));
+    }
+  } else if (type === 'bundles') {
+    const matchers = getScheduleMatchingGroup('bundles');
+    if (!matchers.match(item.key)) {
+      throw new NotAuthorized(i18n.t('notAvailable', { key: item.key }));
+    }
+  } else if (!item.canBuy || !item.canBuy(user)) {
     throw new NotAuthorized(i18n.t('messageNotAvailable', req.language));
   }
 

@@ -6,6 +6,7 @@
         :initial-item="selectedGearCategory"
         :items="marketGearCategories"
         :with-icon="true"
+        :direct-select="true"
         @selected="selectedGroupGearByClass = $event.id"
       >
         <span
@@ -23,6 +24,7 @@
         :label="$t('sortBy')"
         :initial-item="selectedSortGearBy"
         :items="sortGearBy"
+        :direct-select="true"
         @selected="selectedSortGearBy = $event"
       >
         <span
@@ -40,7 +42,7 @@
       :item-width="94"
       :item-margin="24"
       :type="'gear'"
-      :no-items-label="$t('noGearItemsOfClass')"
+      :no-items-label="noItemsLabel"
     >
       <template
         slot="item"
@@ -74,6 +76,9 @@
 <script>
 import _filter from 'lodash/filter';
 import _orderBy from 'lodash/orderBy';
+import shops from '@/../../common/script/libs/shops';
+import { remainingGearInSet } from '@/../../common/script/count';
+import { getClassName } from '@/../../common/script/libs/getClassName';
 import { mapState } from '@/libs/store';
 import LayoutSection from '@/components/ui/layoutSection';
 import FilterDropdown from '@/components/ui/filterDropdown';
@@ -81,20 +86,17 @@ import ItemRows from '@/components/ui/itemRows';
 import PinBadge from '@/components/ui/pinBadge';
 import ShopItem from '../shopItem';
 
-import shops from '@/../../common/script/libs/shops';
-
 import svgWarrior from '@/assets/svg/warrior.svg';
 import svgWizard from '@/assets/svg/wizard.svg';
 import svgRogue from '@/assets/svg/rogue.svg';
 import svgHealer from '@/assets/svg/healer.svg';
 
 import pinUtils from '../../../mixins/pinUtils';
-import { getClassName } from '../../../../../common/script/libs/getClassName';
 
 const sortGearTypes = [
   'sortByType', 'sortByPrice', 'sortByCon',
   'sortByPer', 'sortByStr', 'sortByInt',
-].map(g => ({ id: g }));
+].map(g => ({ id: g, identifier: g }));
 
 const sortGearTypeMap = {
   sortByType: 'type',
@@ -135,6 +137,17 @@ export default {
       userItems: 'user.data.items',
       userStats: 'user.data.stats',
     }),
+    armoireCount () {
+      return remainingGearInSet(this.userItems.gear.owned, 'armoire');
+    },
+    noItemsLabel () {
+      if (this.armoireCount > 0) {
+        return `${this.$t('gearItemsCompleted', { klass: this.$t(this.selectedGroupGearByClass) })}
+          ${this.$t('moreArmoireGearAvailable', { armoireCount: this.armoireCount })}`;
+      }
+      return `${this.$t('gearItemsCompleted', { klass: this.$t(this.selectedGroupGearByClass) })}
+        ${this.$t('moreArmoireGearComing')}`;
+    },
     marketGearCategories () {
       return shops.getMarketGearCategories(this.user).map(c => {
         c.id = c.identifier;

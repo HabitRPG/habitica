@@ -2,7 +2,7 @@
   <div class="sidebar px-4">
     <div>
       <div class="buttons-wrapper">
-        <div class="button-container button-with-menu-row">
+        <div class="button-container d-flex">
           <button
             v-if="!isMember"
             class="btn btn-success btn-success"
@@ -23,7 +23,7 @@
             class="ml-2"
             :no-caret="true"
           >
-            <template v-slot:button-content>
+            <template #button-content>
               <span
                 v-once
                 class="svg-icon inline menuIcon"
@@ -201,10 +201,6 @@ export default {
     button {
       width: 100%;
     }
-  }
-
-  .button-with-menu-row {
-    display: flex;
   }
 
   .menuIcon {

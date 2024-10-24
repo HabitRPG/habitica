@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="quest.drop"
-    class="quest-rewards"
+    class="quest-rewards mb-3"
   >
     <div
       class="header d-flex align-items-center"
@@ -39,7 +39,7 @@
         label-class="purple"
       >
         <div slot="itemImage">
-          <div :class="getDropIcon(drop)"></div>
+          <Sprite :image-name="getDropIcon(drop)" />
         </div>
         <div slot="popoverContent">
           <quest-popover :item="drop" />
@@ -82,7 +82,7 @@
 
       <item-with-label
         v-for="drop in getDropsList(quest.drop.items, false)"
-        :key="drop.type+'_'+drop.key"
+        :key="`${drop.type}_${drop.key}`"
         :item="{}"
         class="item-with-label"
       >
@@ -92,7 +92,7 @@
           :count="drop.amount"
         />
         <div slot="itemImage">
-          <div :class="getDropIcon(drop)"></div>
+          <Sprite :image-name="getDropIcon(drop)" />
         </div>
         <div slot="popoverContent">
           <equipmentAttributesPopover
@@ -133,6 +133,7 @@ import { QuestHelperMixin } from './quest-helper.mixin';
 import EquipmentAttributesPopover from '@/components/inventory/equipment/attributesPopover';
 import QuestPopover from './questPopover';
 import CountBadge from '../../ui/countBadge';
+import Sprite from '../../ui/sprite';
 
 export default {
   components: {
@@ -141,6 +142,7 @@ export default {
     ItemWithLabel,
     SectionButton,
     EquipmentAttributesPopover,
+    Sprite,
   },
   mixins: [QuestHelperMixin],
   props: ['quest'],
@@ -177,9 +179,6 @@ export default {
   @import '~@/assets/scss/colors.scss';
 
   .quest-rewards {
-    margin-left: -1rem;
-    margin-right: -1rem;
-
     background-color: $gray-700;
   }
 

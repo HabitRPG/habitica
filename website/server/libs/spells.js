@@ -1,4 +1,5 @@
 import { model as User } from '../models/user';
+import { chatModel as Chat } from '../models/message';
 import * as Tasks from '../models/task';
 import {
   NotFound,
@@ -9,9 +10,9 @@ import common from '../../common';
 import {
   model as Group,
 } from '../models/group';
-import apiError from './apiError';
+import { apiError } from './apiError';
 
-const partyMembersFields = 'profile.name stats achievements items.special notifications flags pinnedItems';
+const partyMembersFields = 'profile.name stats achievements items.special pinnedItems notifications flags';
 // Excluding notifications and flags from the list of public fields to return.
 const partyMembersPublicFields = 'profile.name stats achievements items.special';
 
@@ -74,12 +75,13 @@ async function castSelfSpell (req, user, spell, quantity = 1) {
   await user.save();
 }
 
-async function castPartySpell (req, party, partyMembers, user, spell, quantity = 1) {
+async function getPartyMembers (user, party) {
+  let partyMembers;
   if (!party) {
     // Act as solo party
-    partyMembers = [user]; // eslint-disable-line no-param-reassign
+    partyMembers = [user];
   } else {
-    partyMembers = await User // eslint-disable-line no-param-reassign
+    partyMembers = await User
       .find({
         'party._id': party._id,
         _id: { $ne: user._id }, // add separately
@@ -89,22 +91,40 @@ async function castPartySpell (req, party, partyMembers, user, spell, quantity =
 
     partyMembers.unshift(user);
   }
-
-  for (let i = 0; i < quantity; i += 1) {
-    spell.cast(user, partyMembers, req);
-  }
-  await Promise.all(partyMembers.map(m => m.save()));
-
   return partyMembers;
 }
 
-async function castUserSpell (res, req, party, partyMembers, targetId, user, spell, quantity = 1) {
+async function castPartySpell (req, party, user, spell, quantity = 1) {
+  let partyMembers;
+  if (spell.bulk) {
+    const data = { };
+    if (party) {
+      data.query = { 'party._id': party._id };
+    } else {
+      data.query = { _id: user._id };
+    }
+    spell.cast(user, data);
+    await User.updateMany(data.query, data.update);
+    await user.save();
+    partyMembers = await getPartyMembers(user, party);
+  } else {
+    partyMembers = await getPartyMembers(user, party);
+    for (let i = 0; i < quantity; i += 1) {
+      spell.cast(user, partyMembers, req);
+    }
+    await Promise.all(partyMembers.map(m => m.save()));
+  }
+  return partyMembers;
+}
+
+async function castUserSpell (res, req, party, targetId, user, spell, quantity = 1) {
+  let partyMembers;
   if (!party && (!targetId || user._id === targetId)) {
-    partyMembers = user; // eslint-disable-line no-param-reassign
+    partyMembers = user;
   } else {
     if (!targetId) throw new BadRequest(res.t('targetIdUUID'));
     if (!party) throw new NotFound(res.t('partyNotFound'));
-    partyMembers = await User // eslint-disable-line no-param-reassign
+    partyMembers = await User
       .findOne({ _id: targetId, 'party._id': party._id })
       .select(partyMembersFields)
       .exec();
@@ -195,11 +215,16 @@ async function castSpell (req, res, { isV3 = false }) {
     let partyMembers;
 
     if (targetType === 'party') {
-      partyMembers = await castPartySpell(req, party, partyMembers, user, spell, quantity);
+      partyMembers = await castPartySpell(req, party, user, spell, quantity);
     } else {
       partyMembers = await castUserSpell(
-        res, req, party, partyMembers,
-        targetId, user, spell, quantity,
+        res,
+        req,
+        party,
+        targetId,
+        user,
+        spell,
+        quantity,
       );
     }
 
@@ -222,26 +247,72 @@ async function castSpell (req, res, { isV3 = false }) {
     });
 
     if (party && !spell.silent) {
-      if (targetType === 'user') {
-        const newChatMessage = party.sendChat({
-          message: `\`${common.i18n.t('chatCastSpellUser', { username: user.profile.name, spell: spell.text(), target: partyMembers.profile.name }, 'en')}\``,
+      const lastMessage = await Chat.findOne({ groupId: party._id })
+        .sort('-timestamp')
+        .exec();
+      if (targetType === 'user') { // Single target spell, check for repeat
+        if (lastMessage && lastMessage.info.spell === spellId
+          && lastMessage.info.user === user.profile.name
+          && lastMessage.info.target === partyMembers.profile.name) {
+          const newChatMessage = await party.sendChat({
+            message: `\`${common.i18n.t('chatCastSpellUserTimes', {
+              username: user.profile.name,
+              spell: spell.text(),
+              target: partyMembers.profile.name,
+              times: lastMessage.info.times + 1,
+            }, 'en')}\``,
+            info: {
+              type: 'spell_cast_user_multi',
+              user: user.profile.name,
+              class: klass,
+              spell: spellId,
+              target: partyMembers.profile.name,
+              times: lastMessage.info.times + 1,
+            },
+          });
+          await newChatMessage.save();
+          await lastMessage.deleteOne();
+        } else { // Single target spell, not repeated
+          const newChatMessage = await party.sendChat({
+            message: `\`${common.i18n.t('chatCastSpellUser', { username: user.profile.name, spell: spell.text(), target: partyMembers.profile.name }, 'en')}\``,
+            info: {
+              type: 'spell_cast_user',
+              user: user.profile.name,
+              class: klass,
+              spell: spellId,
+              target: partyMembers.profile.name,
+              times: 1,
+            },
+          });
+          await newChatMessage.save();
+        }
+      } else if (lastMessage && lastMessage.info.spell === spellId // Party spell, check for repeat
+        && lastMessage.info.user === user.profile.name) {
+        const newChatMessage = await party.sendChat({
+          message: `\`${common.i18n.t('chatCastSpellPartyTimes', {
+            username: user.profile.name,
+            spell: spell.text(),
+            times: lastMessage.info.times + 1,
+          }, 'en')}\``,
           info: {
-            type: 'spell_cast_user',
+            type: 'spell_cast_party_multi',
             user: user.profile.name,
             class: klass,
             spell: spellId,
-            target: partyMembers.profile.name,
+            times: lastMessage.info.times + 1,
           },
         });
         await newChatMessage.save();
+        await lastMessage.deleteOne();
       } else {
-        const newChatMessage = party.sendChat({
+        const newChatMessage = await party.sendChat({ // Non-repetitive partywide spell
           message: `\`${common.i18n.t('chatCastSpellParty', { username: user.profile.name, spell: spell.text() }, 'en')}\``,
           info: {
             type: 'spell_cast_party',
             user: user.profile.name,
             class: klass,
             spell: spellId,
+            times: 1,
           },
         });
         await newChatMessage.save();

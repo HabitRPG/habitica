@@ -31,6 +31,7 @@ const NOTIFICATION_TYPES = [
   'SCORED_TASK',
   'UNALLOCATED_STATS_POINTS',
   'WON_CHALLENGE',
+  'ITEM_RECEIVED', // notify user when they've got goodies via migration
   // achievement notifications
   'ACHIEVEMENT', // generic achievement notification, details inside `notification.data`
   'CHALLENGE_JOINED_ACHIEVEMENT',

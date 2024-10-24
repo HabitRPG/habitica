@@ -1,4 +1,4 @@
-export default function sleep (user, req = {}, analytics) {
+export function sleep (user, req = {}, analytics) {
   user.preferences.sleep = !user.preferences.sleep;
 
   if (analytics) {

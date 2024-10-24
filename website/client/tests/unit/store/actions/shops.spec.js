@@ -1,10 +1,10 @@
 import axios from 'axios';
-import generateStore from '@/store';
 
 import content from '@/../../common/script/content';
 import getItemInfo from '@/../../common/script/libs/getItemInfo';
 
 import getOfficialPinnedItems from '@/../../common/script/libs/getOfficialPinnedItems';
+import generateStore from '@/store';
 
 describe('shops actions', () => {
   let store;

@@ -170,6 +170,45 @@ const QUEST_POTIONS = {
       unlock: t('questOnyxUnlockText'),
     },
   },
+  pinkMarble: {
+    text: t('questPinkMarbleText'),
+    notes: t('questPinkMarbleNotes'),
+    completion: t('questPinkMarbleCompletion'),
+    value: 4,
+    category: 'hatchingPotion',
+    boss: {
+      name: t('questPinkMarbleBoss'),
+      hp: 1200,
+      str: 2,
+      rage: {
+        title: t('questPinkMarbleRageTitle'),
+        description: t('questPinkMarbleRageDescription'),
+        value: 50,
+        progressDrain: 0.5,
+        effect: t('questPinkMarbleRageEffect'),
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'PinkMarble',
+          text: t('questPinkMarbleDropPinkMarblePotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'PinkMarble',
+          text: t('questPinkMarbleDropPinkMarblePotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'PinkMarble',
+          text: t('questPinkMarbleDropPinkMarblePotion'),
+        },
+      ],
+      gp: 75,
+      exp: 800,
+      unlock: t('questPinkMarbleUnlockText'),
+    },
+  },
   ruby: {
     text: t('questRubyText'),
     notes: t('questRubyNotes'),

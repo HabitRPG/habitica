@@ -7,7 +7,7 @@ import { weapon as rogueWeapon } from './sets/rogue';
 import { weapon as warriorWeapon } from './sets/warrior';
 import { weapon as wizardWeapon } from './sets/wizard';
 
-import { weapon as armoireWeapon } from './sets/armoire';
+import armoire from './sets/armoire';
 import { weapon as mysteryWeapon } from './sets/mystery';
 import { weapon as specialWeapon } from './sets/special';
 
@@ -21,7 +21,9 @@ const weapon = {
 
   special: specialWeapon,
   mystery: mysteryWeapon,
-  armoire: armoireWeapon,
+  get armoire () {
+    return armoire.weapon;
+  },
 };
 
 // Add Two Handed message to all weapons

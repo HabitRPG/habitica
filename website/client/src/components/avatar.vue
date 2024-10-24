@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="member.preferences"
     class="avatar"
     :style="{width, height, paddingTop}"
     :class="backgroundClass"
@@ -34,7 +35,7 @@
         <span :class="[skinClass, specialMountClass]"></span>
         <!-- eslint-disable max-len-->
         <span
-          :class="[member.preferences.size + '_shirt_' + member.preferences.shirt, specialMountClass]"
+          :class="[shirtClass, specialMountClass]"
         ></span>
         <!-- eslint-enable max-len-->
         <span :class="['head_0', specialMountClass]"></span>
@@ -45,12 +46,10 @@
         <template
           v-for="type in ['bangs', 'base', 'mustache', 'beard']"
         >
-          <!-- eslint-disable max-len-->
           <span
             :key="type"
-            :class="['hair_' + type + '_' + member.preferences.hair[type] + '_' + member.preferences.hair.color, specialMountClass]"
+            :class="[hairClass(type), specialMountClass]"
           ></span>
-          <!-- eslint-enable max-len-->
         </template>
         <span :class="[getGearClass('body'), specialMountClass]"></span>
         <span :class="[getGearClass('eyewear'), specialMountClass]"></span>
@@ -135,10 +134,10 @@ import foolPet from '../mixins/foolPet';
 import ClassBadge from '@/components/members/classBadge';
 
 export default {
-  mixins: [foolPet],
   components: {
     ClassBadge,
   },
+  mixins: [foolPet],
   props: {
     member: {
       type: Object,
@@ -184,9 +183,11 @@ export default {
       currentEventList: 'worldState.data.currentEventList',
     }),
     hasClass () {
+      if (!this.member) return false;
       return this.$store.getters['members:hasClass'](this.member);
     },
     isBuffed () {
+      if (!this.member) return false;
       return this.$store.getters['members:isBuffed'](this.member);
     },
     paddingTop () {
@@ -197,28 +198,30 @@ export default {
       let val = '24px';
 
       if (!this.avatarOnly) {
-        if (this.member.items.currentPet) val = '24px';
-        if (this.member.items.currentMount) val = '0px';
+        if (this.member?.items.currentPet) val = '24px';
+        if (this.member?.items.currentMount) val = '0px';
       }
 
       return val;
     },
     backgroundClass () {
-      const { background } = this.member.preferences;
+      if (this.member) {
+        const { background } = this.member.preferences;
 
-      const allowToShowBackground = !this.avatarOnly || this.withBackground;
+        const allowToShowBackground = !this.avatarOnly || this.withBackground;
 
-      if (this.overrideAvatarGear && this.overrideAvatarGear.background) {
-        return `background_${this.overrideAvatarGear.background}`;
+        if (this.overrideAvatarGear && this.overrideAvatarGear.background) {
+          return `background_${this.overrideAvatarGear.background}`;
+        }
+
+        if (background && allowToShowBackground) {
+          return `background_${this.member.preferences.background}`;
+        }
       }
-
-      if (background && allowToShowBackground) {
-        return `background_${this.member.preferences.background}`;
-      }
-
       return '';
     },
     visualBuffs () {
+      if (!this.member) return {};
       return {
         snowball: `avatar_snowball_${this.member.stats.class}`,
         spookySparkles: 'ghost',
@@ -227,15 +230,26 @@ export default {
       };
     },
     skinClass () {
+      if (!this.member) return '';
+      if (this.overrideAvatarGear?.skin) {
+        return `skin_${this.overrideAvatarGear.skin}`;
+      }
       const baseClass = `skin_${this.member.preferences.skin}`;
 
       return `${baseClass}${this.member.preferences.sleep ? '_sleep' : ''}`;
     },
+    shirtClass () {
+      if (!this.member) return '';
+      if (this.overrideAvatarGear?.shirt) {
+        return `${this.member.preferences.size}_shirt_${this.overrideAvatarGear.shirt}`;
+      }
+      return `${this.member.preferences.size}_shirt_${this.member.preferences.shirt}`;
+    },
     costumeClass () {
-      return this.member.preferences.costume ? 'costume' : 'equipped';
+      return this.member?.preferences.costume ? 'costume' : 'equipped';
     },
     specialMountClass () {
-      if (!this.avatarOnly && this.member.items.currentMount && this.member.items.currentMount.includes('Kangaroo')) {
+      if (!this.avatarOnly && this.member?.items.currentMount && this.member?.items.currentMount.includes('Kangaroo')) {
         return 'offset-kangaroo';
       }
 
@@ -244,16 +258,17 @@ export default {
     petClass () {
       if (some(
         this.currentEventList,
-        event => moment().isBetween(event.start, event.end) && event.aprilFools && event.aprilFools === 'virtual',
+        event => moment().isBetween(event.start, event.end) && event.aprilFools && event.aprilFools === 'Fungi',
       )) {
         return this.foolPet(this.member.items.currentPet);
       }
-      if (this.member.items.currentPet) return `Pet-${this.member.items.currentPet}`;
+      if (this.member?.items.currentPet) return `Pet-${this.member.items.currentPet}`;
       return '';
     },
   },
   methods: {
     getGearClass (gearType) {
+      if (!this.member) return '';
       let result = this.member.items.gear[this.costumeClass][gearType];
 
       if (this.overrideAvatarGear && this.overrideAvatarGear[gearType]) {
@@ -262,7 +277,19 @@ export default {
 
       return result;
     },
+    hairClass (slot) {
+      if (this.overrideAvatarGear?.hair) {
+        if (this.overrideAvatarGear.hair[slot]) {
+          return `hair_${slot}_${this.overrideAvatarGear.hair[slot]}_${this.member.preferences.hair.color}`;
+        }
+        if (this.overrideAvatarGear.hair.color) {
+          return `hair_${slot}_${this.member.preferences.hair[slot]}_${this.overrideAvatarGear.hair.color}`;
+        }
+      }
+      return `hair_${slot}_${this.member.preferences.hair[slot]}_${this.member.preferences.hair.color}`;
+    },
     hideGear (gearType) {
+      if (!this.member) return true;
       if (gearType === 'weapon') {
         const equippedWeapon = this.member.items.gear[this.costumeClass][gearType];
 
@@ -288,6 +315,7 @@ export default {
       this.$root.$emit('castEnd', this.member, 'user', e);
     },
     showAvatar () {
+      if (!this.member) return false;
       if (!this.showVisualBuffs) return true;
 
       const { buffs } = this.member.stats;

@@ -6,10 +6,10 @@ import { mapState } from '@/libs/store';
 import encodeParams from '@/libs/encodeParams';
 import notificationsMixin from '@/mixins/notifications';
 import { CONSTANTS, setLocalSetting } from '@/libs/userlocalManager';
+import * as Analytics from '@/libs/analytics';
 
-const { STRIPE_PUB_KEY } = process.env;
+const STRIPE_PUB_KEY = process.env.STRIPE_PUB_KEY;
 
-// const habiticaUrl = `${window.location.protocol}//${window.location.host}`;
 let stripeInstance = null;
 
 export default {
@@ -70,6 +70,7 @@ export default {
         type,
         giftData,
         gemsBlock,
+        sku,
       } = data;
       let { url } = data;
 
@@ -91,6 +92,11 @@ export default {
       if (type === 'gems') {
         appState.gemsBlock = gemsBlock;
         url += `?gemsBlock=${gemsBlock.key}`;
+      }
+
+      if (type === 'sku') {
+        appState.sku = sku;
+        url += `?sku=${sku}`;
       }
 
       setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(appState));
@@ -129,6 +135,7 @@ export default {
       if (data.group || data.groupToCreate) paymentType = 'groupPlan';
       if (data.gift && data.gift.type === 'gems') paymentType = 'gift-gems';
       if (data.gift && data.gift.type === 'subscription') paymentType = 'gift-subscription';
+      if (data.sku) paymentType = 'sku';
 
       let url = '/stripe/checkout-session';
       const postData = {};
@@ -148,6 +155,7 @@ export default {
       if (data.coupon) postData.coupon = data.coupon;
       if (data.groupId) postData.groupId = data.groupId;
       if (data.demographics) postData.demographics = data.demographics;
+      if (data.sku) postData.sku = data.sku;
 
       const response = await axios.post(url, postData);
 
@@ -190,6 +198,16 @@ export default {
           console.error(checkoutSessionResult.error); // eslint-disable-line
           alert(`Error while redirecting to Stripe: ${checkoutSessionResult.error.message}`);
           throw checkoutSessionResult.error;
+        }
+        if (paymentType === 'groupPlan') {
+          Analytics.track({
+            hitType: 'event',
+            eventName: 'group plan create',
+            eventAction: 'group plan create',
+            eventCategory: 'behavior',
+            demographics: appState.newGroup.demographics,
+            type: appState.newGroup.type,
+          }, { trackOnClient: true });
         }
       } catch (err) {
         console.error('Error while redirecting to Stripe', err); // eslint-disable-line
@@ -250,6 +268,7 @@ export default {
 
       if (data.type === 'single') {
         this.amazonPayments.gemsBlock = data.gemsBlock;
+        this.amazonPayments.sku = data.sku;
       }
 
       if (data.gift) {
@@ -361,6 +380,21 @@ export default {
       } catch (e) {
         window.alert(e.response.data.message); // eslint-disable-line no-alert
       }
+    },
+    stripeGroup (options = { group: {}, upgrade: false }) {
+      const paymentData = {
+        subscription: 'group_monthly',
+        coupon: null,
+      };
+
+      if (options.upgrade && options.group._id) {
+        paymentData.groupId = options.group._id;
+        paymentData.group = options.group;
+      } else {
+        paymentData.groupToCreate = options.group;
+      }
+
+      this.redirectToStripe(paymentData);
     },
   },
 };

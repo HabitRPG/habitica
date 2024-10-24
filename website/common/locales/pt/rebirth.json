@@ -1,5 +1,5 @@
 {
-    "rebirthNew": "Renascimento: Disponível Nova Aventura!",
+    "rebirthNew": "Renascimento: Nova Aventura Disponível!",
     "rebirthUnlock": "Você liberou o Renascimento! Esse item especial do Mercado o permite começar um novo jogo do nível 1 mantendo suas tarefas, conquistas, mascotes, e mais. Use-o para respirar uma vida nova em Habitica se sentir que já conquistou tudo, ou para experimentar novas funcionalidades com olhos frescos de um personagem iniciante!",
     "rebirthAchievement": "Você iniciou uma nova aventura! Esse é o seu Renascimento número <%= number %>, e o nível mais alto que você atingiu foi <%= level %>. Para acumular essa Conquista, comece sua próxima nova aventura quando atingir um Nível ainda maior!",
     "rebirthAchievement100": "Você iniciou uma nova aventura! Esse é seu <%= number %> º Renascimento, e o nível mais alto que você atingiu foi 100 ou maior. Para acumular essa Conquista, comece sua próxima aventura quando atingir pelo menos nível 100!",
@@ -8,7 +8,7 @@
     "rebirthOrb": "Use uma Orbe de Renascimento para recomeçar tudo outra vez depois de alcançar o nível <%= level %>.",
     "rebirthOrb100": "Use uma Orbe de Renascimento para recomeçar tudo outra vez depois de alcançar nível 100 ou mais.",
     "rebirthOrbNoLevel": "Utilizou uma Orbe de Renascimento para começar tudo de novo.",
-    "rebirthPop": "Recomece instantaneamente o seu personagem como um Guerreiro de Nível 1, mantendo, no entanto, conquistas, colecionáveis e equipamento. As suas tarefas e o historial das mesmas irá manter-se mas serão reinizializadas a amarelo. Os seus combos serão removidos excepto em tarefas de desafio. O seu Ouro, Esperiencia, Mana e efeitos das todas as suas Habilidades serão removidos. Tudo isto terá efeito imediato. Para mais informação, veja a página de wiki acerca da <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Orbe de Renascimento</a>.",
+    "rebirthPop": "Recomece instantaneamente o seu personagem como um Guerreiro de Nível 1, mantendo, no entanto, conquistas, colecionáveis e equipamento. As suas tarefas e o historial das mesmas irá manter-se, mas serão reinicializadas para amarelo. Os seus combos serão removidos exceto em tarefas de desafio. O seu Ouro, Experiência, Mana e efeitos de todas as suas Habilidades serão removidos. Tudo isto terá efeito imediato. Para mais informações, veja a página de wiki sobre <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Orbe de Renascimento</a>.",
     "rebirthName": "Orbe do Renascimento",
     "rebirthComplete": "Renasceste!",
     "nextFreeRebirth": "<strong><%= days %> dias</strong> até Orbe de Renascimento <strong>GRÁTIS</strong>"

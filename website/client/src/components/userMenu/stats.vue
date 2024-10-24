@@ -146,17 +146,19 @@
           :key="stat"
           class="row"
         >
-          <div class="col-4">
-            <span
-              class="hint"
-              :popover-title="$t(statInfo.title)"
-              popover-placement="right"
-              :popover="$t(statInfo.popover)"
-              popover-trigger="mouseenter"
-            >
-              <strong>{{ $t(statInfo.title) }}</strong>
-            </span>
+          <div
+            :id="statInfo.title"
+            class="col-4"
+          >
+            <strong> {{ $t(statInfo.title) }} </strong>
             <strong>: {{ statsComputed[stat] }}</strong>
+            <b-popover
+              :target="statInfo.title"
+              triggers="hover focus"
+              placement="right"
+              :prevent-overflow="false"
+              :content="$t(statInfo.popover)"
+            />
           </div>
           <div class="col-6">
             <ul class="bonus-stats">
@@ -183,27 +185,38 @@
             </ul>
           </div>
         </div>
-        <div v-if="user.stats.buffs.stealth">
+        <div
+          v-if="user.stats.buffs.stealth"
+          id="stealthBuff"
+        >
           <strong
             v-once
             class="hint"
-            :popover-title="$t('stealth')"
-            popover-trigger="mouseenter"
-            popover-placement="right"
-            :popover="$t('stealthNewDay')"
           >{{ $t('stealth') }}</strong>
           <strong>: {{ user.stats.buffs.stealth }}&nbsp;</strong>
+          <b-popover
+            target="stealthBuff"
+            triggers="hover focus"
+            placement="right"
+            :prevent-overflow="false"
+            :content="$t('stealthNewDay')"
+          />
         </div>
-        <div v-if="user.stats.buffs.streaks">
+        <div
+          v-if="user.stats.buffs.streaks"
+          id="streaksFrozenBuff"
+        >
           <div>
-            <strong
-              class="hint"
-              popover-title="$t('streaksFrozen')"
-              popover-trigger="mouseenter"
-              popover-placement="right"
-              :popover="$t('streaksFrozenText')"
-            ></strong>
-            {{ $t('streaksFrozen') }}
+            <strong>
+              {{ $t('streaksFrozen') }}
+            </strong>
+            <b-popover
+              target="streaksFrozenBuff"
+              triggers="hover focus"
+              placement="right"
+              :prevent-overflow="false"
+              :content="$t('streaksFrozenText')"
+            />
           </div>
         </div>
       </div>
@@ -237,19 +250,27 @@
             >
               {{ $t('noMoreAllocate') }}
             </p>
-            <p v-if="user.stats.points || userLevel100Plus">
+            <p
+              v-if="user.stats.points || userLevel100Plus"
+              id="pointAllocation"
+            >
               <strong class="inline">{{ user.stats.points }}&nbsp;</strong>
-              <strong
-                class="hint"
-                popover-trigger="mouseenter"
-                popover-placement="right"
-                :popover="$t('levelPopover')"
-              >{{ $t('unallocated') }}</strong>
+              <strong> {{ $t('unallocated') }} </strong>
+              <b-popover
+                target="pointAllocation"
+                triggers="hover focus"
+                placement="right"
+                :prevent-overflow="false"
+                :content="$t('levelPopover')"
+              />
             </p>
           </div>
           <div>
             <fieldset class="auto-allocate">
-              <div class="checkbox">
+              <div
+                id="preferenceAutomaticAllocation"
+                class="checkbox"
+              >
                 <label>
                   <input
                     v-model="user.preferences.automaticAllocation"
@@ -259,19 +280,24 @@
                       'preferences.allocationMode': 'taskbased'
                     })"
                   >
-                  <span
-                    class="hint"
-                    popover-trigger="mouseenter"
-                    popover-placement="right"
-                    :popover="$t('autoAllocationPop')"
-                  >{{ $t('autoAllocation') }}</span>
+                  <b-popover
+                    target="preferenceAutomaticAllocation"
+                    triggers="hover focus"
+                    placement="right"
+                    :prevent-overflow="false"
+                    :content="$t('autoAllocationPop')"
+                  />
+                  {{ $t('autoAllocation') }}
                 </label>
               </div>
               <form
                 v-if="user.preferences.automaticAllocation"
                 style="margin-left:1em"
               >
-                <div class="radio">
+                <div
+                  id="optionFlatAllocation"
+                  class="radio"
+                >
                   <label>
                     <input
                       v-model="user.preferences.allocationMode"
@@ -280,15 +306,22 @@
                       value="flat"
                       @change="set({'preferences.allocationMode': 'flat'})"
                     >
-                    <span
-                      class="hint"
-                      popover-trigger="mouseenter"
-                      popover-placement="right"
-                      :popover="$t('evenAllocationPop')"
-                    >{{ $t('evenAllocation') }}</span>
+                    <span class="hint">
+                      {{ $t('evenAllocation') }}
+                    </span>
+                    <b-popover
+                      target="optionFlatAllocation"
+                      triggers="hover focus"
+                      placement="right"
+                      :prevent-overflow="false"
+                      :content="$t('evenAllocationPop')"
+                    />
                   </label>
                 </div>
-                <div class="radio">
+                <div
+                  id="optionClassAllocation"
+                  class="radio"
+                >
                   <label>
                     <input
                       v-model="user.preferences.allocationMode"
@@ -297,47 +330,63 @@
                       value="classbased"
                       @change="set({'preferences.allocationMode': 'classbased'})"
                     >
-                    <span
-                      class="hint"
-                      popover-trigger="mouseenter"
-                      popover-placement="right"
-                      :popover="$t('classAllocationPop')"
-                    >{{ $t('classAllocation') }}</span>
+                    <span class="hint">
+                      {{ $t('classAllocation') }}
+                    </span>
+                    <b-popover
+                      target="optionClassAllocation"
+                      triggers="hover focus"
+                      placement="right"
+                      :prevent-overflow="false"
+                      :content="$t('classAllocationPop')"
+                    />
                   </label>
                 </div>
-                <div class="radio">
+                <div
+                  id="optionTaskAllocation"
+                  class="radio"
+                >
                   <label>
                     <input
                       v-model="user.preferences.allocationMode"
                       type="radio"
                       name="allocationMode"
-                      value="taskbased"
+                      value="classbased"
                       @change="set({'preferences.allocationMode': 'taskbased'})"
                     >
-                    <span
-                      class="hint"
-                      popover-trigger="mouseenter"
-                      popover-placement="right"
-                      :popover="$t('taskAllocationPop')"
-                    >{{ $t('taskAllocation') }}</span>
+                    <span class="hint">
+                      {{ $t('taskAllocation') }}
+                    </span>
+                    <b-popover
+                      target="optionTaskAllocation"
+                      triggers="hover focus"
+                      placement="right"
+                      :prevent-overflow="false"
+                      :content="$t('taskAllocationPop')"
+                    />
                   </label>
                 </div>
               </form>
               <div
                 v-if="user.preferences.automaticAllocation
                   && !(user.preferences.allocationMode === 'taskbased') && (user.stats.points > 0)"
+                id="buttonDistributePoints"
               >
                 <button
                   class="btn btn-primary btn-xs"
-                  popover-trigger="mouseenter"
-                  popover-placement="right"
-                  :popover="$t('distributePointsPop')"
                   @click="allocateNow({})"
                 >
                   <span class="glyphicon glyphicon-download"></span>
                   &nbsp;
                   {{ $t('distributePoints') }}
                 </button>
+                <b-popover
+                  target="buttonDistributePoints"
+                  triggers="hover focus"
+                  placement="right"
+                  :prevent-overflow="false"
+                  :content="$t('distributePointsPop')"
+                />
               </div>
             </fieldset>
           </div>
@@ -346,28 +395,35 @@
             :key="stat"
             class="row"
           >
-            <div class="col-8">
-              <span
-                class="hint"
-                popover-trigger="mouseenter"
-                popover-placement="right"
-                :popover="$t(statInfo.popover)"
-              ></span>
+            <div
+              :id="`${stat}-info`"
+              class="col-8"
+            >
               {{ $t(statInfo.title) + user.stats[stat] }}
+              <b-popover
+                :target="`${stat}-info`"
+                triggers="hover focus"
+                placement="right"
+                :prevent-overflow="false"
+                :content="$t(statInfo.popover)"
+              />
             </div>
             <div
               v-if="user.stats.points"
+              :id="`${stat}-allocate`"
               class="col-4"
               @click="allocate(stat)"
             >
-              <button
-                class="btn btn-primary"
-                popover-trigger="mouseenter"
-                popover-placement="right"
-                :popover="$t(statInfo.allocatepop)"
-              >
+              <button class="btn btn-primary">
                 +
               </button>
+              <b-popover
+                :target="`${stat}-allocate`"
+                triggers="hover focus"
+                placement="right"
+                :prevent-overflow="false"
+                :content="$t(statInfo.allocatePop)"
+              />
             </div>
           </div>
         </div>
@@ -386,13 +442,13 @@
 <script>
 import size from 'lodash/size';
 import keys from 'lodash/keys';
-import { mapState } from '@/libs/store';
 import Content from '@/../../common/script/content';
 import { beastMasterProgress, mountMasterProgress } from '@/../../common/script/count';
 import statsComputed from '@/../../common/script/libs/statsComputed';
 import autoAllocate from '@/../../common/script/fns/autoAllocate';
 import changeClass from '@/../../common/script/ops/changeClass';
 import allocate from '@/../../common/script/ops/stats/allocate';
+import { mapState } from '@/libs/store';
 
 const DROP_ANIMALS = keys(Content.pets);
 const TOTAL_NUMBER_OF_DROP_ANIMALS = DROP_ANIMALS.length;

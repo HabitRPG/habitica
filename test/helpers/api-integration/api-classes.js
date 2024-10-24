@@ -19,7 +19,7 @@ class ApiObject {
     assign(this, options);
   }
 
-  async update (options) {
+  async updateOne (options) {
     if (isEmpty(options)) {
       return null;
     }
@@ -94,7 +94,7 @@ export class ApiGroup extends ApiObject {
 
     const update = { chat };
 
-    return this.update(update);
+    return this.updateOne(update);
   }
 
   async createCancelledSubscription () {
@@ -107,7 +107,7 @@ export class ApiGroup extends ApiObject {
       },
     };
 
-    return this.update(update);
+    return this.updateOne(update);
   }
 }
 

@@ -23,6 +23,7 @@ import {
 import * as inboxLib from '../../libs/inbox';
 import * as userLib from '../../libs/user';
 
+const OFFICIAL_PLATFORMS = ['habitica-web', 'habitica-ios', 'habitica-android'];
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS_TECH_ASSISTANCE_EMAIL');
 const DELETE_CONFIRMATION = 'DELETE';
 
@@ -167,7 +168,7 @@ api.getBuyList = {
  */
 api.getInAppRewardsList = {
   method: 'GET',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({ userFieldsToInclude: ['items', 'pinnedItems', 'unpinnedItems', 'pinnedItemsOrder', 'stats.class', 'achievements', 'purchased'] })],
   url: '/user/in-app-rewards',
   async handler (req, res) {
     const list = common.inAppRewards(res.locals.user);
@@ -284,7 +285,7 @@ api.deleteUser = {
       (user.auth.facebook.id || user.auth.google.id || user.auth.apple.id)
       && password !== DELETE_CONFIRMATION
     ) {
-      throw new NotAuthorized(res.t('incorrectDeletePhrase', { magicWord: 'DELETE' }));
+      throw new NotAuthorized(res.t('incorrectDeletePhrase', { magicWord: DELETE_CONFIRMATION }));
     }
 
     const { feedback } = req.body;
@@ -303,11 +304,11 @@ api.deleteUser = {
 
     await Promise.all(groupLeavePromises);
 
-    await Tasks.Task.remove({
+    await Tasks.Task.deleteMany({
       userId: user._id,
     }).exec();
 
-    await user.remove();
+    await user.deleteOne();
 
     if (feedback) {
       sendTxn({ email: TECH_ASSISTANCE_EMAIL }, 'admin-feedback', [
@@ -494,6 +495,9 @@ api.buy = {
     let quantity = 1;
     if (req.body.quantity) quantity = req.body.quantity;
     req.quantity = quantity;
+    if (OFFICIAL_PLATFORMS.indexOf(req.headers['x-client']) === -1) {
+      res.analytics = undefined;
+    }
     const buyRes = await common.ops.buy(user, req, res.analytics);
 
     await user.save();
@@ -584,6 +588,9 @@ api.buyArmoire = {
     const { user } = res.locals;
     req.type = 'armoire';
     req.params.key = 'armoire';
+    if (OFFICIAL_PLATFORMS.indexOf(req.headers['x-client']) === -1) {
+      res.analytics = undefined;
+    }
     const buyArmoireResponse = await common.ops.buy(user, req, res.analytics);
     await user.save();
     res.respond(200, ...buyArmoireResponse);
@@ -975,7 +982,7 @@ api.disableClasses = {
  * @apiGroup User
  *
  * @apiParam (Path) {String="gems","eggs","hatchingPotions","premiumHatchingPotions"
-                    ,"food","quests","gear"} type Type of item to purchase.
+                    ,"food","quests","gear","pets"} type Type of item to purchase.
  * @apiParam (Path) {String} key Item's key (use "gem" for purchasing gems)
  *
  * @apiParam (Body) {Integer} [quantity=1] Count of items to buy.
@@ -1530,7 +1537,7 @@ api.clearMessages = {
  */
 api.markPmsRead = {
   method: 'POST',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({ userFieldsToInclude: ['inbox'] })],
   url: '/user/mark-pms-read',
   async handler (req, res) {
     const { user } = res.locals;
@@ -1765,6 +1772,28 @@ api.movePinnedItem = {
     const userJson = user.toJSON();
 
     res.respond(200, userJson.pinnedItemsOrder);
+  },
+};
+
+/**
+ * @api {post} /api/v3/user/stat-sync
+ * Request a refresh of user stats, including processing of pending level-ups
+ * @apiName StatSync
+ * @apiGroup User
+ *
+ * @apiSuccess {Object} data The user object
+ */
+
+api.statSync = {
+  method: 'POST',
+  middlewares: [authWithHeaders()],
+  url: '/user/stat-sync',
+  async handler (req, res) {
+    const { user } = res.locals;
+    common.fns.updateStats(user, user.stats);
+    await user.save();
+
+    res.respond(200, user);
   },
 };
 

@@ -25,7 +25,7 @@ describe('POST /groups/:groupId/quests/reject', () => {
     leader = groupLeader;
     partyMembers = members;
 
-    await leader.update({
+    await leader.updateOne({
       [`items.quests.${PET_QUEST}`]: 1,
     });
     user = await generateUser();
@@ -53,6 +53,7 @@ describe('POST /groups/:groupId/quests/reject', () => {
     it('returns an error when group is a guild', async () => {
       const { group: guild, groupLeader: guildLeader } = await createAndPopulateGroup({
         groupDetails: { type: 'guild', privacy: 'private' },
+        upgradeToGroupPlan: true,
       });
 
       await expect(guildLeader.post(`/groups/${guild._id}/quests/reject`))

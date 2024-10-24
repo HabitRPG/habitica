@@ -5,43 +5,6 @@ import {
 } from '../../../../helpers/api-integration/v3';
 
 describe('POST /group/:groupId/reject-invite', () => {
-  context('Rejecting a public guild invite', () => {
-    let publicGuild; let
-      invitedUser;
-
-    beforeEach(async () => {
-      const { group, invitees } = await createAndPopulateGroup({
-        groupDetails: {
-          name: 'Test Guild',
-          type: 'guild',
-          privacy: 'public',
-        },
-        invites: 1,
-      });
-
-      publicGuild = group;
-      invitedUser = invitees[0]; // eslint-disable-line prefer-destructuring
-    });
-
-    it('returns error when user is not invited', async () => {
-      const userWithoutInvite = await generateUser();
-
-      await expect(userWithoutInvite.post(`/groups/${publicGuild._id}/reject-invite`)).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('messageGroupRequiresInvite'),
-      });
-    });
-
-    it('clears invitation from user', async () => {
-      await invitedUser.post(`/groups/${publicGuild._id}/reject-invite`);
-
-      await expect(invitedUser.get('/user'))
-        .to.eventually.have.nested.property('invitations.guilds')
-        .to.not.include({ id: publicGuild._id });
-    });
-  });
-
   context('Rejecting a private guild invite', () => {
     let invitedUser; let
       guild;
@@ -54,6 +17,7 @@ describe('POST /group/:groupId/reject-invite', () => {
           privacy: 'private',
         },
         invites: 1,
+        upgradeToGroupPlan: true,
       });
 
       guild = group;

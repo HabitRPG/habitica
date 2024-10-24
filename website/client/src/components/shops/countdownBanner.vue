@@ -16,9 +16,6 @@
 
   .limitedTime {
     height: 32px;
-    width: calc(100% + 30px);
-    margin: 0 -15px; // the modal content has its own padding
-
     font-size: 12px;
     line-height: 1.33;
     text-align: center;

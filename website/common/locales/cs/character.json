@@ -27,12 +27,10 @@
     "color": "Barva",
     "hair": "Vlasy",
     "bangs": "Ofina",
-    "hairBangs": "Ofina",
     "glasses": "Brýle",
     "hairSet1": "Účes Sada 1",
     "hairSet2": "Sada účesů č. 2",
     "hairSet3": "Sada účesů č. 3",
-    "bodyFacialHair": "Vousy",
     "beard": "Plnovous",
     "mustache": "Knír",
     "flower": "Květina",
@@ -87,7 +85,6 @@
     "allocateIntPop": "Přidat bod k inteligenci",
     "noMoreAllocate": "Nyní, když jsi dosáhl/a úrovně 100, už nebudeš dostávat žádné další atributové body. Můžeš pokračovat ve zvyšování své úrovně, nebo můžeš začít nové dobrodružství na úrovni 1, když použiješ <a href='https://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Orb Znovuzrození</a>!",
     "stats": "Statistiky",
-    "achievs": "Úspěchy",
     "strength": "Síla",
     "strText": "Síla zvyšuje šanci náhodných \"kritických zásahů\" a díky tomu i bonus ke zlaťákům, zkušenosti, a nalézání předmětů. Také ovlivňuje vážnost zranění, které způsobíš bossu.",
     "constitution": "Obrana",
@@ -186,5 +183,6 @@
     "chatCastSpellParty": "<%= username %> použil/a <%= spell %> pro skupinu.",
     "chatCastSpellUser": "<%= username %> použil/a <%= spell %> na <%= target %>.",
     "purchasePetItemConfirm": "Tento nákup by překročil počet položek, které potřebujete k vylíhnutí všech možných <%= itemText %> domácích zvířátek. Jsi si jistá?",
-    "notEnoughGold": "Nedostatek zlaťáků."
+    "notEnoughGold": "Nedostatek zlaťáků.",
+    "chatCastSpellPartyTimes": "<%= username %> použil/a <%= spell %> pro skupinu <%= times %> times."
 }

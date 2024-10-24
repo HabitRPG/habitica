@@ -176,6 +176,78 @@ function sendInboxFlagNotification ({
     .catch(err => logger.error(err, 'Error while sending flag data to Slack.'));
 }
 
+function sendChallengeFlagNotification ({
+  flagger,
+  challenge,
+  userComment,
+}) {
+  if (SKIP_FLAG_METHODS) {
+    return;
+  }
+  const titleLink = `${BASE_URL}/challenges/${challenge.id}`;
+  const title = `Flag in challenge "${challenge.name}"`;
+  let text = `${flagger.profile.name} (${flagger.id}; language: ${flagger.preferences.language}) flagged a challenge`;
+  const footer = '';
+
+  if (userComment) {
+    text += ` and commented: ${userComment}`;
+  }
+
+  const challengeText = challenge.summary;
+
+  flagSlack.send({
+    text,
+    attachments: [{
+      fallback: 'Flag Message',
+      color: 'danger',
+      title,
+      title_link: titleLink,
+      text: challengeText,
+      footer,
+      mrkdwn_in: [
+        'text',
+      ],
+    }],
+  });
+}
+
+function sendProfileFlagNotification ({
+  reporter,
+  flaggedUser,
+  userComment,
+  source,
+}) {
+  const title = 'User Profile Report';
+  const titleLink = `${BASE_URL}/profile/${flaggedUser._id}`;
+  let text = `@${reporter.auth.local.username} (${reporter._id}; language: ${reporter.preferences.language}) flagged @${flaggedUser.auth.local.username}'s profile from ${source}`;
+  if (userComment) {
+    text += ` and commented: ${userComment}`;
+  }
+  let profileData = `Display Name: ${flaggedUser.profile.name}`;
+  if (flaggedUser.profile.imageUrl) {
+    profileData += `\n\nImage URL: ${flaggedUser.profile.imageUrl}`;
+  }
+  if (flaggedUser.profile.blurb) {
+    profileData += `\n\nAbout: ${flaggedUser.profile.blurb}`;
+  }
+
+  flagSlack
+    .send({
+      text,
+      attachments: [{
+        fallback: 'Flag Profile',
+        color: 'danger',
+        title,
+        title_link: titleLink,
+        text: profileData,
+        mrkdwn_in: [
+          'text',
+        ],
+      }],
+    })
+    .catch(err => logger.error(err, 'Error while sending flag data to Slack.'));
+}
+
 function sendSubscriptionNotification ({
   buyer,
   recipient,
@@ -252,33 +324,58 @@ function sendShadowMutedPostNotification ({
     .catch(err => logger.error(err, 'Error while sending flag data to Slack.'));
 }
 
-function sendSlurNotification ({
+// slack slur notification for Profiles
+function sendProfileSlurNotification ({
   authorEmail,
   author,
-  group,
-  message,
+  uuid,
+  language,
+  problemContent,
 }) {
   if (SKIP_FLAG_METHODS) {
     return;
   }
-  const text = `${author.profile.name} (${author._id}) tried to post a slur`;
+  const title = 'User Profile Report: Slur';
+  const titleLink = `${BASE_URL}/profile/${uuid}`;
 
-  let titleLink;
-  let title = `Slur in ${group.name}`;
+  const text = `@${author} ${authorEmail} (${uuid}, ${language}) tried to post a slur in their Profile.`;
 
-  if (group.id === TAVERN_ID) {
-    titleLink = `${BASE_URL}/groups/tavern`;
-  } else if (group.privacy === 'public') {
-    titleLink = `${BASE_URL}/groups/guild/${group.id}`;
-  } else {
-    title += ` - (${group.privacy} ${group.type})`;
+  flagSlack
+    .send({
+      text,
+      attachments: [{
+        fallback: 'Slur Message',
+        color: 'danger',
+        author_email: authorEmail,
+        title,
+        title_link: titleLink,
+        text: problemContent,
+        mrkdwn_in: [
+          'text',
+        ],
+      }],
+    })
+    .catch(err => logger.error(err, 'Error while sending flag data to Slack.'));
+}
+
+function sendChallengeSlurNotification ({
+  authorEmail,
+  author,
+  language,
+  problemContent,
+  uuid,
+}) {
+  if (SKIP_FLAG_METHODS) {
+    return;
   }
+  const text = `${author.profile.name} ${authorEmail} (${uuid}, ${language}) tried to create a Challenge with a slur or banned word.`;
 
   const authorName = formatUser({
     name: author.auth.local.username,
     displayName: author.profile.name,
     email: authorEmail,
     uuid: author.id,
+    language,
   });
 
   flagSlack
@@ -288,9 +385,7 @@ function sendSlurNotification ({
         fallback: 'Slur Message',
         color: 'danger',
         author_name: authorName,
-        title,
-        title_link: titleLink,
-        text: message,
+        text: problemContent,
         mrkdwn_in: [
           'text',
         ],
@@ -302,8 +397,11 @@ function sendSlurNotification ({
 export {
   sendFlagNotification,
   sendInboxFlagNotification,
+  sendChallengeFlagNotification,
+  sendProfileFlagNotification,
   sendSubscriptionNotification,
   sendShadowMutedPostNotification,
-  sendSlurNotification,
+  sendProfileSlurNotification,
+  sendChallengeSlurNotification,
   formatUser,
 };

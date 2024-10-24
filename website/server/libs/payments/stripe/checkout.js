@@ -24,6 +24,7 @@ export async function createCheckoutSession (options, stripeInc) {
     sub,
     groupId,
     coupon,
+    sku,
   } = options;
 
   // @TODO: We need to mock this, but curently we don't have correct
@@ -37,6 +38,8 @@ export async function createCheckoutSession (options, stripeInc) {
     validateGiftMessage(gift, user);
   } else if (sub) {
     type = 'subscription';
+  } else if (sku) {
+    type = 'sku';
   }
 
   const metadata = {
@@ -70,6 +73,12 @@ export async function createCheckoutSession (options, stripeInc) {
     lineItems = [{
       price: sub.key,
       quantity,
+    }];
+  } else if (type === 'sku') {
+    metadata.sku = sku;
+    lineItems = [{
+      price: sku,
+      quantity: 1,
     }];
   } else {
     const {

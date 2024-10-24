@@ -1,65 +1,43 @@
 <template>
   <div
-    class="customize-options"
-    :class="{'background-set': fullSet}"
+    v-if="items.length > 1"
+    class="customize-options mb-4"
   >
     <div
       v-for="option in items"
       :key="option.key"
+      :id="option.imageName"
       class="outer-option-background"
       :class="{
-        locked: option.gemLocked || option.goldLocked,
         premium: Boolean(option.gem),
         active: option.active || currentValue === option.key,
         none: option.none,
         hide: option.hide }"
       @click="option.click(option)"
     >
+      <b-popover
+        :target="option.imageName"
+        triggers="hover focus"
+        placement="bottom"
+        :prevent-overflow="false"
+      >
+        <strong> {{ option.text }} </strong>
+      </b-popover>
       <div class="option">
-        <div
-          class="sprite customize-option"
-          :class="option.class"
-        >
+        <Sprite
+          v-if="!option.none"
+          class="sprite"
+          :prefix="option.isGear ? 'shop' : 'icon'"
+          :imageName="option.imageName"
+          :image-name="option.imageName"
+        />
           <div
-            v-if="option.none"
+            v-else
             class="redline-outer"
           >
             <div class="redline"></div>
           </div>
-        </div>
       </div>
-      <div
-        v-if="option.gemLocked"
-        class="gem-lock"
-      >
-        <div
-          class="svg-icon gem"
-          v-html="icons.gem"
-        ></div>
-        <span>{{ option.gem }}</span>
-      </div>
-      <div
-        v-if="option.goldLocked"
-        class="gold-lock"
-      >
-        <div
-          class="svg-icon gold"
-          v-html="icons.gold"
-        ></div>
-        <span>{{ option.gold }}</span>
-      </div>
-    </div>
-    <div
-      v-if="fullSet"
-      class="purchase-set"
-      @click="unlock()"
-    >
-      <span class="label">{{ $t('purchaseAll') }}</span>
-      <div
-        class="svg-icon gem"
-        v-html="icons.gem"
-      ></div>
-      <span class="price">5</span>
     </div>
   </div>
 </template>
@@ -67,13 +45,17 @@
 <script>
 import gem from '@/assets/svg/gem.svg';
 import gold from '@/assets/svg/gold.svg';
-import { avatarEditorUtilies } from '../../mixins/avatarEditUtilities';
+import { avatarEditorUtilities } from '../../mixins/avatarEditUtilities';
+import Sprite from '@/components/ui/sprite.vue';
 
 export default {
+  components: {
+    Sprite,
+  },
   mixins: [
-    avatarEditorUtilies,
+    avatarEditorUtilities,
   ],
-  props: ['items', 'currentValue', 'fullSet'],
+  props: ['items', 'currentValue'],
   data () {
     return {
       icons: Object.freeze({
@@ -108,7 +90,7 @@ export default {
     cursor: pointer;
 
     &.premium {
-      height: 112px;
+      height: 120px;
       width: 96px;
       margin-left: 8px;
       margin-right: 8px;
@@ -125,21 +107,9 @@ export default {
       box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
       background-color: $white;
 
-      .sprite.customize-option.shirt {
-        margin-left: -3px !important;
-        // otherwise its overriden by the .outer-option-background:not(.none) { rules
-      }
-
-      .sprite.customize-option.skin {
-        margin-left: -8px !important;
-        // otherwise its overriden by the .outer-option-background:not(.none) { rules
-      }
-
       .option {
         border: none;
         border-radius: 2px;
-        padding-left: 6px;
-        padding-top: 4px;
       }
 
       &:hover {
@@ -150,7 +120,7 @@ export default {
 
     &:not(.locked):not(.active) {
       .option:hover {
-        background-color: rgba(213, 200, 255, .32);
+        background-color: rgba($purple-300, .25);
       }
     }
 
@@ -165,14 +135,14 @@ export default {
       }
 
       .redline-outer {
-        height: 60px;
-        width: 60px;
+        height: 68px;
+        width: 68px;
         position: absolute;
         bottom: 0;
         margin: 0 auto 0 0;
 
         .redline {
-          width: 60px;
+          width: 68px;
           height: 4px;
           display: block;
           background: red;
@@ -181,7 +151,6 @@ export default {
           top: 0;
           margin-top: 30px;
           margin-bottom: 20px;
-          margin-left: -1px;
         }
       }
     }
@@ -197,10 +166,9 @@ export default {
   }
   .option {
     vertical-align: bottom;
-    height: 64px;
-    width: 64px;
+    height: 76px;
+    width: 76px;
 
-    margin: 12px 8px;
     border: 4px solid transparent;
     border-radius: 10px;
     position: relative;
@@ -215,132 +183,6 @@ export default {
     .sprite.customize-option {
       margin-top: 0;
       margin-left: 0;
-
-      &.color-bangs {
-        margin-top: 3px;
-      }
-      &.skin {
-        margin-top: -4px;
-        margin-left: -4px;
-      }
-      &.chair {
-        margin-left: -1px;
-        margin-top: -1px;
-
-        &.button_chair_black {
-          // different sprite margin?
-          margin-top: -3px;
-        }
-
-        &.handleless {
-          margin-left: -5px;
-          margin-top: -5px;
-        }
-      }
-      &.color, &.bangs {
-          margin-top: 4px;
-          margin-left: -3px;
-      }
-
-      &.hair.base {
-          margin-top: 0px;
-          margin-left: -5px;
-      }
-
-      &.headAccessory {
-        margin-top: 0;
-        margin-left: -4px;
-      }
-
-      &.headband {
-        margin-top: -6px;
-        margin-left: -27px;
-      }
     }
   }
-
-  .text-center {
-    .gem-lock, .gold-lock {
-      display: inline-block;
-      margin: 0 auto 8px;
-      vertical-align: bottom;
-    }
-  }
-
-  .gem-lock, .gold-lock {
-    .svg-icon {
-      width: 16px;
-    }
-
-    span {
-      font-weight: bold;
-      margin-left: .5em;
-    }
-
-    .svg-icon, span {
-      display: inline-block;
-      vertical-align: bottom;
-    }
-  }
-
-  .gem-lock span {
-    color: $green-10
-  }
-
-  .purchase-set {
-    background: #fff;
-    padding: 0.5em;
-    border-radius: 0 0 2px 2px;
-    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
-    cursor: pointer;
-
-    span {
-      font-weight: bold;
-      font-size: 12px;
-    }
-
-    span.price {
-      color: #24cc8f;
-    }
-
-    .gem, .coin {
-      width: 16px;
-    }
-
-    &.single {
-      width: 141px;
-    }
-
-    width: 100%;
-
-    span {
-      font-size: 14px;
-    }
-
-    .gem, .coin {
-      width: 20px;
-      margin: 0 .5em;
-      display: inline-block;
-      vertical-align: bottom;
-    }
-  }
-
-  .background-set {
-    background-color: #edecee;
-    border-radius: 2px;
-
-    padding-top: 12px;
-    margin-left: 12px;
-    margin-right: 12px;
-    margin-bottom: 12px;
-
-    width: calc(100% - 24px);
-
-    padding-left: 0;
-    padding-right: 0;
-
-    max-width: unset; // disable col12 styling
-    flex: unset;
-  }
-
 </style>

@@ -1,7 +1,7 @@
 import Vue from 'vue';
 
-import notifications from './notifications';
 import scoreTask from '@/../../common/script/ops/scoreTask';
+import notifications from './notifications';
 import { mapState } from '@/libs/store';
 import * as Analytics from '@/libs/analytics';
 import { CONSTANTS, getLocalSetting, setLocalSetting } from '@/libs/userlocalManager';

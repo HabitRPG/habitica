@@ -27,12 +27,10 @@
     "color": "Color",
     "hair": "Cabello",
     "bangs": "Flequillos",
-    "hairBangs": "Flequillo",
     "glasses": "Lentes",
     "hairSet1": "Conjunto de Peinados 1",
     "hairSet2": "Conjunto de Peinados 2",
     "hairSet3": "Conjunto de Peinados 3",
-    "bodyFacialHair": "Vello Facial",
     "beard": "Barba",
     "mustache": "Bigote",
     "flower": "Flor",
@@ -87,7 +85,6 @@
     "allocateIntPop": "Añadir un punto a Inteligencia",
     "noMoreAllocate": "Ahora que has alcanzado el nivel 100, ya no ganarás más Puntos de Atributo. Puedes seguir subiendo de nivel, o empezar una nueva aventura desde el nivel 1 utilizando la <a href='https://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Esfera de Renacimiento</a>!",
     "stats": "Atributos",
-    "achievs": "Logros",
     "strength": "Fuerza",
     "strText": "La Fuerza aumenta la probabilidad de conseguir \"golpes críticos\" aleatorios y el Oro, la Experiencia y la probabilidad de conseguir botín al asestarlos. También ayuda a hacer daño a los monstruos jefe.",
     "constitution": "Constitución",
@@ -186,5 +183,7 @@
     "chatCastSpellUser": "<%= username %> lanza <%= spell %> sobre <%= target %>.",
     "chatCastSpellParty": "<%= username %> lanza <%= spell %> para el grupo.",
     "purchasePetItemConfirm": "Este pago va a exceder el numero de artículos que necesitas para incubar todas las <%= itemText %> mascotas. ¿Estas seguro?",
-    "notEnoughGold": "Oro insuficiente."
+    "notEnoughGold": "Oro insuficiente.",
+    "chatCastSpellPartyTimes": "<%= username %> lanza <%= spell %> para el grupo <%= times %> veces.",
+    "chatCastSpellUserTimes": "<%= username %> lanza <%= spell %> sobre <%= target %> <%= times %> veces."
 }

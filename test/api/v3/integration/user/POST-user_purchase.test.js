@@ -33,9 +33,23 @@ describe('POST /user/purchase/:type/:key', () => {
     expect(user.items[type][key]).to.equal(1);
   });
 
+  it('purchases animal ears', async () => {
+    await user.post('/user/purchase/gear/headAccessory_special_tigerEars');
+    await user.sync();
+
+    expect(user.items.gear.owned.headAccessory_special_tigerEars).to.equal(true);
+  });
+
+  it('purchases animal tails', async () => {
+    await user.post('/user/purchase/gear/back_special_pandaTail');
+    await user.sync();
+
+    expect(user.items.gear.owned.back_special_pandaTail).to.equal(true);
+  });
+
   it('can convert gold to gems if subscribed', async () => {
     const oldBalance = user.balance;
-    await user.update({
+    await user.updateOne({
       'purchased.plan.customerId': 'group-plan',
       'stats.gp': 1000,
     });
@@ -51,15 +65,16 @@ describe('POST /user/purchase/:type/:key', () => {
         type: 'guild',
         privacy: 'private',
       },
+      upgradeToGroupPlan: true,
     });
-    await group.update({
+    await group.updateOne({
       'leaderOnly.getGems': true,
       'purchased.plan.customerId': 123,
     });
     await groupLeader.sync();
     const oldBalance = groupLeader.balance;
 
-    await groupLeader.update({
+    await groupLeader.updateOne({
       'purchased.plan.customerId': 'group-plan',
       'stats.gp': 1000,
     });
@@ -77,14 +92,15 @@ describe('POST /user/purchase/:type/:key', () => {
         privacy: 'private',
       },
       members: 1,
+      upgradeToGroupPlan: true,
     });
-    await group.update({
+    await group.updateOne({
       'leaderOnly.getGems': true,
       'purchased.plan.customerId': 123,
     });
     const oldBalance = members[0].balance;
 
-    await members[0].update({
+    await members[0].updateOne({
       'purchased.plan.customerId': 'group-plan',
       'stats.gp': 1000,
     });
@@ -109,7 +125,7 @@ describe('POST /user/purchase/:type/:key', () => {
 
     it('can convert gold to gems if subscribed', async () => {
       const oldBalance = user.balance;
-      await user.update({
+      await user.updateOne({
         'purchased.plan.customerId': 'group-plan',
         'stats.gp': 1000,
       });

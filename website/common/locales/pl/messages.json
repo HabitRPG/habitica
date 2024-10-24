@@ -36,12 +36,10 @@
     "messageGroupRequiresInvite": "Nie możesz dołączyć do grupy, do której cię nie zaproszono.",
     "messageGroupCannotRemoveSelf": "Nie możesz usunąć siebie!",
     "messageGroupChatBlankMessage": "Nie możesz wysłać pustej wiadomości",
-    "messageGroupChatLikeOwnMessage": "Nie możesz polubić własnej wiadomości. Nie bądź taki.",
     "messageGroupChatFlagAlreadyReported": "Już zgłosiłeś tę wiadomość",
     "messageGroupChatNotFound": "Nie znaleziono wiadomości!",
     "messageGroupChatAdminClearFlagCount": "Tylko administrator może wyczyścić licznik flag!",
     "messageCannotFlagSystemMessages": "Nie można zgłaszać wiadomości systemowej. Jeśli chcesz zgłosić naruszenie Wytycznych Społeczności związane z tą wiadomością, proszę przesłać e-mailem zrzut ekranu wraz z wyjaśnieniem do Menedżera Społeczności <%= communityManagerEmail %>.",
-    "messageGroupChatSpam": "Ups, zdaje się, że wysyłasz zbyt wiele wiadomości! Poczekaj minutę i spróbuj ponownie. Pogaduszki w Karczmie mieszczą równocześnie tylko 200 wiadomości, więc Habitica zaleca wysyłanie dłuższych i bardziej przemyślanych wiadomości oraz łączenie odpowiedzi. Nie możemy się doczekać żeby usłyszeć co masz do powiedzenia. :)",
     "messageCannotLeaveWhileQuesting": "Nie możesz zaakceptować zaproszenia tej drużyny gdy bierzesz udział w misji. Jeśli chcesz do niej dołączyć to musisz najpierw przerwać misję co możesz zrobić na stronie swojej drużyny. Dostaniesz z powrotem swój zwój misji.",
     "messageUserOperationProtected": "Ścieżka `<%= operation %>` nie została zapisana, gdyż jest chronniona przed zapisem.",
     "messageNotificationNotFound": "Nie znaleziono powiadomienia.",
@@ -59,5 +57,6 @@
     "messageBackgroundUnEquipped": "Tło zdjęte.",
     "messagePetMountUnEquipped": "Chować i Wierzchowiec zdjęty.",
     "messageCostumeUnEquipped": "Kostium zdjęty.",
-    "messageBattleGearUnEquipped": "Wyposażenie Bojowe zdjęte."
+    "messageBattleGearUnEquipped": "Wyposażenie Bojowe zdjęte.",
+    "featureRetired": "Ta funkcja nie jest już obsługiwana."
 }

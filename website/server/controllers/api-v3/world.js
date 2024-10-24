@@ -1,5 +1,4 @@
 import {
-  getCurrentEvent,
   getCurrentEventList,
   getWorldBoss,
 } from '../../libs/worldState';
@@ -27,13 +26,19 @@ api.getWorldState = {
   method: 'GET',
   url: '/world-state',
   async handler (req, res) {
-    const worldState = {};
+    const worldState = { npcImageSuffix: '', currentEvent: null };
 
     worldState.worldBoss = await getWorldBoss();
-    worldState.currentEvent = getCurrentEvent();
-    worldState.npcImageSuffix = worldState.currentEvent ? worldState.currentEvent.npcImageSuffix : '';
-
     worldState.currentEventList = getCurrentEventList();
+    if (worldState.currentEventList.length > 0) {
+      [worldState.currentEvent] = worldState.currentEventList;
+    }
+
+    worldState.currentEventList.forEach(event => {
+      if (event.npcImageSuffix && !worldState.npcImageSuffix) {
+        worldState.npcImageSuffix = event.npcImageSuffix;
+      }
+    });
 
     res.respond(200, worldState);
   },

@@ -35,7 +35,7 @@ export async function generateUser (update = {}, overrides = {}) {
 
   const apiUser = new ApiUser(user);
 
-  await apiUser.update(update);
+  await apiUser.updateOne(update);
 
   return apiUser;
 }
@@ -80,7 +80,7 @@ export async function generateGroup (leader, details = {}, update = {}) {
   const group = await leader.post('/groups', details);
   const apiGroup = new ApiGroup(group);
 
-  await apiGroup.update(update);
+  await apiGroup.updateOne(update);
 
   return apiGroup;
 }
@@ -127,6 +127,9 @@ export async function createAndPopulateGroup (settings = {}) {
   const upgradeToGroupPlan = settings.upgradeToGroupPlan || false;
   const { groupDetails } = settings;
   const leaderDetails = settings.leaderDetails || { balance: 10 };
+  if (upgradeToGroupPlan) {
+    leaderDetails.permissions = { fullAccess: true };
+  }
 
   const groupLeader = await generateUser(leaderDetails);
   const group = await generateGroup(groupLeader, groupDetails);
@@ -140,7 +143,7 @@ export async function createAndPopulateGroup (settings = {}) {
     times(numberOfMembers, () => generateUser(groupMembershipTypes[group.type])),
   );
 
-  await group.update({ memberCount: numberOfMembers + 1 });
+  await group.updateOne({ memberCount: numberOfMembers + 1 });
 
   const invitees = await Promise.all(
     times(numberOfInvites, () => generateUser()),
@@ -181,7 +184,7 @@ export async function generateChallenge (challengeCreator, group, details = {}, 
   const challenge = await challengeCreator.post('/challenges', details);
   const apiChallenge = new ApiChallenge(challenge);
 
-  await apiChallenge.update(update);
+  await apiChallenge.updateOne(update);
 
   return apiChallenge;
 }

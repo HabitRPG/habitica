@@ -16,7 +16,7 @@ async function checkForActiveCron (user, now) {
 
   // To avoid double cron we first set _cronSignature
   // and then check that it's not changed while processing
-  const userUpdateResult = await User.update({
+  const userUpdateResult = await User.updateOne({
     _id: user._id,
     $or: [ // Make sure last cron was successful or failed before cronRetryTime
       { _cronSignature: 'NOT_RUNNING' },
@@ -30,13 +30,13 @@ async function checkForActiveCron (user, now) {
 
   // If the cron signature is already set, cron is running in another request
   // throw an error and recover later,
-  if (userUpdateResult.nMatched === 0 || userUpdateResult.nModified === 0) {
+  if (userUpdateResult.matchedCount === 0 || userUpdateResult.modifiedCount === 0) {
     throw new Error('CRON_ALREADY_RUNNING');
   }
 }
 
 async function updateLastCron (user, now) {
-  await User.update({
+  await User.updateOne({
     _id: user._id,
   }, {
     lastCron: now, // setting lastCron now so we don't risk re-running parts of cron if it fails
@@ -44,7 +44,7 @@ async function updateLastCron (user, now) {
 }
 
 async function unlockUser (user) {
-  await User.update({
+  await User.updateOne({
     _id: user._id,
   }, {
     _cronSignature: 'NOT_RUNNING',
@@ -72,7 +72,6 @@ async function cronAsync (req, res) {
       await unlockUser(user);
       return null;
     }
-
     const tasks = await Tasks.Task.find({
       userId: user._id,
       $or: [ // Exclude completed todos
@@ -100,7 +99,7 @@ async function cronAsync (req, res) {
     // Clear old completed todos - 30 days for free users, 90 for subscribers
     // Do not delete challenges completed todos TODO unless the task is broken?
     // Do not delete group completed todos
-    Tasks.Task.remove({
+    Tasks.Task.deleteMany({
       userId: user._id,
       type: 'todo',
       completed: true,
@@ -125,7 +124,7 @@ async function cronAsync (req, res) {
     await Group.processQuestProgress(user, progress);
 
     // Set _cronSignature, lastCron and auth.timestamps.loggedin to signal end of cron
-    await User.update({
+    await User.updateOne({
       _id: user._id,
     }, {
       $set: {
@@ -153,7 +152,7 @@ async function cronAsync (req, res) {
       // For any other error make sure to reset _cronSignature
       // so that it doesn't prevent cron from running
       // at the next request
-      await User.update({
+      await User.updateOne({
         _id: user._id,
       }, {
         _cronSignature: 'NOT_RUNNING',

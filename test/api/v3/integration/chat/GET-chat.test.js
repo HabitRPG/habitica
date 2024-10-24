@@ -1,8 +1,9 @@
 import {
   generateUser,
-  generateGroup,
+  createAndPopulateGroup,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
+import { model as Group } from '../../../../../website/server/models/group';
 
 describe('GET /groups/:groupId/chat', () => {
   let user;
@@ -11,48 +12,22 @@ describe('GET /groups/:groupId/chat', () => {
     user = await generateUser();
   });
 
-  context('public Guild', () => {
-    let group;
-
-    before(async () => {
-      const leader = await generateUser({ balance: 2 });
-
-      group = await generateGroup(leader, {
-        name: 'test group',
-        type: 'guild',
-        privacy: 'public',
-      }, {
-        chat: [
-          { text: 'Hello', flags: {}, id: 1 },
-          { text: 'Welcome to the Guild', flags: {}, id: 2 },
-        ],
-      });
-    });
-
-    it('returns Guild chat', async () => {
-      const chat = await user.get(`/groups/${group._id}/chat`);
-
-      expect(chat[0].id).to.eql(group.chat[0].id);
-      expect(chat[1].id).to.eql(group.chat[1].id);
-    });
-  });
-
   context('private Guild', () => {
     let group;
-
     before(async () => {
-      const leader = await generateUser({ balance: 2 });
-
-      group = await generateGroup(leader, {
-        name: 'test group',
-        type: 'guild',
-        privacy: 'private',
-      }, {
+      ({ group } = await createAndPopulateGroup({
+        groupDetails: {
+          name: 'test group',
+          type: 'guild',
+          privacy: 'private',
+        },
+        members: 1,
+        upgradeToGroupPlan: true,
         chat: [
           'Hello',
           'Welcome to the Guild',
         ],
-      });
+      }));
     });
 
     it('returns error if user is not member of requested private group', async () => {
@@ -60,6 +35,36 @@ describe('GET /groups/:groupId/chat', () => {
         code: 404,
         error: 'NotFound',
         message: t('groupNotFound'),
+      });
+    });
+  });
+
+  context('public Guild', () => {
+    let group;
+    before(async () => {
+      ({ group } = await createAndPopulateGroup({
+        groupDetails: {
+          name: 'test group',
+          type: 'guild',
+          privacy: 'private',
+        },
+        members: 1,
+        upgradeToGroupPlan: true,
+        chat: [
+          'Hello',
+          'Welcome to the Guild',
+        ],
+      }));
+
+      // Creation API is shut down, we need to simulate an extant public group
+      await Group.updateOne({ _id: group._id }, { $set: { privacy: 'public' }, $unset: { 'purchased.plan': 1 } }).exec();
+    });
+
+    it('returns error if user attempts to fetch a sunset Guild', async () => {
+      await expect(user.get(`/groups/${group._id}/chat`)).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('featureRetired'),
       });
     });
   });

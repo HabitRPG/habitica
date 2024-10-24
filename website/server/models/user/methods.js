@@ -216,7 +216,10 @@ schema.methods.addNotification = function addUserNotification (type, data = {}, 
  * @param  data  The data to add to the notification
  */
 schema.statics.pushNotification = async function pushNotification (
-  query, type, data = {}, seen = false,
+  query,
+  type,
+  data = {},
+  seen = false,
 ) {
   const newNotification = new UserNotification({ type, data, seen });
 
@@ -225,10 +228,9 @@ schema.statics.pushNotification = async function pushNotification (
     throw validationResult;
   }
 
-  await this.update(
+  await this.updateMany(
     query,
     { $push: { notifications: newNotification.toObject() } },
-    { multi: true },
   ).exec();
 };
 
@@ -274,13 +276,12 @@ schema.statics.addAchievementUpdate = async function addAchievementUpdate (query
   const validationResult = newNotification.validateSync();
   if (validationResult) throw validationResult;
 
-  await this.update(
+  await this.updateMany(
     query,
     {
       $push: { notifications: newNotification.toObject() },
       $set: { [`achievements.${achievement}`]: true },
     },
-    { multi: true },
   ).exec();
 };
 
@@ -550,17 +551,27 @@ schema.methods.getSecretData = function getSecretData () {
   return user.secret;
 };
 
-schema.methods.updateBalance = async function updateBalance (amount,
+schema.methods.getFlagData = function getFlagData () {
+  const user = this;
+
+  return user.profile.flags;
+};
+
+schema.methods.updateBalance = async function updateBalance (
+  amount,
   transactionType,
   reference,
-  referenceText) {
+  referenceText,
+) {
   this.balance += amount;
 
   if (transactionType === 'buy_gold') {
     // Bulk these together in case the user is not using the bulk-buy feature
-    const lastTransaction = await Transaction.findOne({ userId: this._id },
+    const lastTransaction = await Transaction.findOne(
+      { userId: this._id },
       null,
-      { sort: { createdAt: -1 } });
+      { sort: { createdAt: -1 } },
+    );
     if (lastTransaction.transactionType === transactionType) {
       lastTransaction.amount += amount;
       await lastTransaction.save();

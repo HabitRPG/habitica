@@ -37,7 +37,7 @@ describe('POST /user/auth/local/login', () => {
   });
 
   it('user is blocked', async () => {
-    await user.update({ 'auth.blocked': 1 });
+    await user.updateOne({ 'auth.blocked': 1 });
     await expect(api.post(endpoint, {
       username: user.auth.local.username,
       password,
@@ -84,7 +84,7 @@ describe('POST /user/auth/local/login', () => {
     const salt = sha1MakeSalt();
     const sha1HashedPassword = sha1EncryptPassword(textPassword, salt);
 
-    await user.update({
+    await user.updateOne({
       'auth.local.hashed_password': sha1HashedPassword,
       'auth.local.passwordHashMethod': 'sha1',
       'auth.local.salt': salt,

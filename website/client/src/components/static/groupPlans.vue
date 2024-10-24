@@ -1,228 +1,204 @@
 <template>
-  <div class="group-plan-static text-center">
-    <amazon-payments-modal />
-    <div class="container">
-      <div class="row top">
+  <div>
+    <group-plan-creation-modal />
+    <div class="d-flex justify-content-center">
+      <div
+        class="group-plan-page text-center"
+        :class="{ static: isStaticPage }"
+      >
         <div class="top-left"></div>
-        <div class="col-6 offset-3">
+        <div class="col-6 offset-3 mb-100">
           <img
             class="party"
             src="../../assets/images/group-plans-static/party@3x.png"
           >
-          <h1>{{ $t('groupPlanTitle') }}</h1>
-          <p>{{ $t('groupPlanDesc') }}</p>
-          <div class="pricing">
+          <h1 class="mt-5" v-if="upgradingGroup._id">{{ $t('upgradeYourCrew') }}</h1>
+          <h1 class="mt-5" v-else>{{ $t('groupPlanTitle') }}</h1>
+          <p class="mb-0">{{ $t('groupPlanDesc') }}</p>
+          <div class="pricing mt-5">
             <span>Just</span>
             <span class="number">$9</span>
             <span class="bold">per month +</span>
             <span class="number">$3</span>
-            <span class="bold">per member*</span>
+            <span class="bold">per additional member*</span>
           </div>
           <div class="text-center">
             <button
-              class="btn btn-primary cta-button"
+              class="btn btn-primary cta-button white mt-4 mb-3"
               @click="goToNewGroupPage()"
             >
               {{ $t('getStarted') }}
             </button>
           </div>
-          <small>{{ $t('billedMonthly') }}</small>
+          <p class="gray-200">{{ $t('billedMonthly') }}</p>
         </div>
         <div class="top-right"></div>
-      </div>
-      <div class="row">
-        <div class="text-col col-12 col-md-6 text-left">
-          <h2>{{ $t('teamBasedTasksList') }}</h2>
-          <p>{{ $t('teamBasedTasksListDesc') }}</p>
+        <div class="d-flex justify-content-between align-items-middle w-100 gap-72 mb-100">
+          <div class="ml-auto my-auto w-448 text-left">
+            <h2 class="mt-0">{{ $t('teamBasedTasksList') }}</h2>
+            <p>{{ $t('teamBasedTasksListDesc') }}</p>
+          </div>
+          <div class="mr-auto my-auto">
+            <img src="../../assets/images/group-plans-static/group-management@3x.png">
+          </div>
         </div>
-        <div class="col-12 col-md-6">
-          <div
-            class="team-based"
-            v-html="svg.teamBased"
-          ></div>
+        <div class="d-flex justify-content-between align-items-middle w-100 gap-72 mb-100">
+          <div class="ml-auto my-auto">
+            <img src="../../assets/images/group-plans-static/team-based@3x.png">
+          </div>
+          <div class="mr-auto my-auto w-448 text-left">
+            <h2 class="mt-0">{{ $t('groupManagementControls') }}</h2>
+            <p>{{ $t('groupManagementControlsDesc') }}</p>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-12 col-md-6">
-          <div
-            class="group-management"
-            v-html="svg.groupManagement"
-          ></div>
-        </div>
-        <div class="text-col col-12 col-md-6 text-left">
-          <h2>{{ $t('groupManagementControls') }}</h2>
-          <p>{{ $t('groupManagementControlsDesc') }}</p>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12 col-md-6 offset-md-3 text-center">
+        <div class="d-flex flex-column justify-content-center">
           <img
-            class="big-gem"
+            class="big-gem mb-3 mx-auto"
             src="../../assets/images/group-plans-static/big-gem@3x.png"
           >
-          <h2>{{ $t('inGameBenefits') }}</h2>
-          <p>{{ $t('inGameBenefitsDesc') }}</p>
+          <h2 class="mt-3">{{ $t('inGameBenefits') }}</h2>
+          <p class="final-paragraph mx-auto">{{ $t('inGameBenefitsDesc') }}</p>
         </div>
-      </div>
-      <div class="row">
-        <div class="bot-left"></div>
-        <div class="col-6 offset-3">
-          <h2 class="purple">
-            {{ $t('inspireYourParty') }}
-          </h2>
-          <div class="pricing">
-            <span>Just</span>
-            <span class="number">$9</span>
-            <span class="bold">per month +</span>
-            <span class="number">$3</span>
-            <span class="bold">per member*</span>
+        <div class="text-center mb-128">
+          <div class="bot-left"></div>
+          <div class="col-6 offset-3">
+            <h2 class="purple-300 mt-0 mb-4" v-if="upgradingGroup._id">
+              {{ $t('readyToUpgrade') }}
+            </h2>
+            <h2 v-else class="purple-300 mt-0 mb-4">
+              {{ $t('createGroupToday') }}
+            </h2>
+            <div class="pricing mb-4">
+              <span>Just</span>
+              <span class="number">$9</span>
+              <span class="bold">per month +</span>
+              <span class="number">$3</span>
+              <span class="bold">per member*</span>
+            </div>
+            <div class="text-center mb-3">
+              <button
+                class="btn btn-primary cta-button white"
+                @click="goToNewGroupPage()"
+              >
+                {{ $t('getStarted') }}
+              </button>
+            </div>
+            <p class="gray-200">{{ $t('billedMonthly') }}</p>
           </div>
-          <div class="text-center">
-            <button
-              class="btn btn-primary cta-button"
-              @click="goToNewGroupPage()"
-            >
-              {{ $t('getStarted') }}
-            </button>
-          </div>
-          <small>{{ $t('billedMonthly') }}</small>
+          <div class="bot-right"></div>
         </div>
-        <div class="bot-right"></div>
+        <b-modal
+          id="group-plan"
+          title
+          size="md"
+          :hide-footer="true"
+          :hide-header="true"
+        >
+          <div>
+            <h2>{{ $t('letsMakeAccount') }}</h2>
+            <auth-form @authenticate="authenticate()" />
+          </div>
+        </b-modal>
       </div>
     </div>
-    <b-modal
-      id="group-plan"
-      title
-      size="md"
-      :hide-footer="true"
-      :hide-header="true"
+    <div
+      class="bottom-banner text-center"
+      :class="{ static: isStaticPage }"
     >
-      <div v-if="modalPage === 'account'">
-        <h2>{{ $t('letsMakeAccount') }}</h2>
-        <auth-form @authenticate="authenticate()" />
-      </div>
-      <div v-if="modalPage === 'purchaseGroup'">
-        <create-group-modal-pages />
-      </div>
-    </b-modal>
+      <h2 class="white">{{ $t('interestedLearningMore') }}</h2>
+      <p class="purple-600" v-html="$t('checkGroupPlanFAQ')"></p>
+    </div>
   </div>
 </template>
 
+<style lang='scss'>
+  .bottom-banner > .purple-600 {
+    color: #D5C8FF !important;
+
+    a {
+      color: #D5C8FF;
+      text-decoration: underline;
+    }
+  }
+</style>
+
 <style lang='scss' scoped>
   @import url('https://fonts.googleapis.com/css?family=Varela+Round');
+  @import '~@/assets/scss/colors.scss';
+
+  // General typography tweaks
 
   h1, h2 {
     font-family: 'Varela Round', sans-serif;
-    font-weight: normal;
-  }
-
-  .party {
-    width: 386px;
-    margin-top: 4em;
-  }
-
-  .team-based {
-    background-image: url('../../assets/images/group-plans-static/group-management@3x.png');
-    background-size: contain;
-    position: absolute;
-    height: 356px;
-    width: 411px;
-    margin-top: -2em;
-  }
-
-  .group-management {
-    background-image: url('../../assets/images/group-plans-static/team-based@3x.png');
-    background-size: contain;
-    position: absolute;
-    height: 294px;
-    width: 411px;
-  }
-
-  .top-left, .top-right, .bot-left, .bot-right {
-    width: 273px;
-    height: 396px;
-    background-size: contain;
-    position: absolute;
-  }
-
-  .top-left {
-    background-image: url('../../assets/images/group-plans-static/top-left@3x.png');
-    left: 4em;
-    height: 420px;
-  }
-
-  .top-right {
-    background-image: url('../../assets/images/group-plans-static/top-right@3x.png');
-    right: 4em;
-    height: 420px;
-  }
-
-  .bot-left {
-    background-image: url('../../assets/images/group-plans-static/bot-left@3x.png');
-    left: 4em;
-    bottom: 1em;
-  }
-
-  .bot-right {
-    background-image: url('../../assets/images/group-plans-static/bot-right@3x.png');
-    right: 4em;
-    bottom: 1em;
+    font-weight: 400;
   }
 
   h1 {
-    font-size: 42px;
-    color: #34313a;
-    line-height: 1.17;
+    color: $purple-300;
+    font-size: 48px;
+    line-height: 56px;
   }
 
   h2 {
-    font-size: 29px;
-    color: #34313a;
-    margin-top: 1em;
-  }
-
-  .purple {
-    color: #6133b4;
+    color: $gray-50;
+    font-size: 32px;
+    line-height: 40px;
   }
 
   p {
+    color: $gray-100;
     font-size: 20px;
-    color: #878190;
+    line-height: 28px;
   }
 
-  .group-plan-static {
-    margin-top: 6em;
-    position: relative;
-  }
+  // Major layout elements
 
-  .row {
-    margin-top: 10em;
-    margin-bottom: 10em;
-  }
+  .bottom-banner {
+    height: 152px;
+    background-image: linear-gradient(rgba(97, 51, 180), rgba(79, 42, 147));
+    padding-top: 32px;
+    width: 100vw;
 
-  .text-col {
-    margin-top: 3em;
-  }
+    &.static {
+      padding-top: 16px;
+    }
 
-  .big-gem {
-    width: 138.5px;
+    &:not(.static) {
+      margin-left: -12px;
+    }
   }
 
   .cta-button {
     font-family: 'Varela Round', sans-serif;
     font-weight: normal;
     padding: 1em 2em;
-    margin-top: 1em;
-    margin-bottom: 1em;
-    border-radius: 4px;
-    background-color: #6133b4;
+    border-radius: 8px;
+    background-color: $purple-300;
     box-shadow: inset 0 -4px 0 0 rgba(52, 49, 58, 0.4);
     font-size: 20px;
-    color: #fff;
+    line-height: 28px;
+
+    &.btn-primary:hover {
+      background-color: $purple-400;
+    }
+  }
+
+  .final-paragraph {
+    width: 684px;
+    margin-bottom: 11rem;
+  }
+
+  .group-plan-page {
+    max-width: 1440px;
+    position: relative;
+
+    &.static {
+      margin-top: 56px;
+    }
   }
 
   .pricing {
-    color: #878190;
+    color: $gray-100;
     font-size: 24px;
 
     span {
@@ -234,39 +210,102 @@
     }
 
     .number {
-      color: #1ca372;
+      color: $green-10;
       font-weight: bold;
     }
   }
 
-  small {
-    font-size: 16px;
-    color: #a5a1ac;
+  // One-off spacing adjustments
+
+  .gap-72 {
+    gap: 72px;
+  }
+
+  .mb-100 {
+    margin-bottom: 100px !important;
+  }
+
+  .mb-128 {
+    margin-bottom: 128px !important;
+  }
+
+  .w-448 {
+    width: 448px;
+  }
+
+  // Images
+
+  .big-gem {
+    width: 138.5px;
+  }
+
+  .bot-left, .bot-right, .top-left, .top-right  {
+    width: 246px;
+    height: 340px;
+    background-size: contain;
+    position: absolute;
+    background-repeat: no-repeat;
+  }
+
+  .bot-left {
+    background-image: url('../../assets/images/group-plans-static/bot-left@3x.png');
+    left: 48px;
+    bottom: 48px;
+  }
+
+  .bot-right {
+    background-image: url('../../assets/images/group-plans-static/bot-right@3x.png');
+    right: 48px;
+    bottom: 48px;
+  }
+
+  .party {
+    width: 386px;
+    margin-top: 100px;
+  }
+
+  .top-left {
+    background-image: url('../../assets/images/group-plans-static/top-left@3x.png');
+    top: 48px;
+    left: 48px;
+  }
+
+  .top-right {
+    background-image: url('../../assets/images/group-plans-static/top-right@3x.png');
+    right: 48px;
+    top: 48px;
   }
 </style>
 
 <script>
 import { setup as setupPayments } from '@/libs/payments';
-import amazonPaymentsModal from '@/components/payments/amazonModal';
+import paymentsMixin from '../../mixins/payments';
 import AuthForm from '../auth/authForm.vue';
-import CreateGroupModalPages from '../group-plans/createGroupModalPages.vue';
-
-import party from '../../assets/images/group-plans-static/party.svg';
+import GroupPlanCreationModal from '../group-plans/groupPlanCreationModal.vue';
 
 export default {
   components: {
     AuthForm,
-    CreateGroupModalPages,
-    amazonPaymentsModal,
+    GroupPlanCreationModal,
   },
+  mixins: [paymentsMixin],
   data () {
     return {
-      svg: {
-        party,
-      },
-      modalTitle: this.$t('register'),
+      modalOption: '',
       modalPage: 'account',
+      modalTitle: this.$t('register'),
     };
+  },
+  computed: {
+    isStaticPage () {
+      return this.$route.meta.requiresLogin === false;
+    },
+    upgradingGroup () {
+      return this.$store.state.upgradingGroup;
+    },
+    user () {
+      return this.$store.state.user?.data;
+    },
   },
   mounted () {
     this.$nextTick(() => {
@@ -278,11 +317,19 @@ export default {
     });
   },
   methods: {
-    goToNewGroupPage () {
-      this.$root.$emit('bv::show::modal', 'group-plan');
-    },
     authenticate () {
-      this.modalPage = 'purchaseGroup';
+      this.$root.$emit('bv::hide::modal', 'group-plan');
+      this.$root.$emit('bv::show::modal', 'create-group');
+    },
+    goToNewGroupPage () {
+      if (this.isStaticPage && !this.user) {
+        this.modalOption = 'static';
+        return this.$root.$emit('bv::show::modal', 'group-plan');
+      }
+      if (this.upgradingGroup._id) {
+        return this.stripeGroup({ group: this.upgradingGroup, upgrade: true });
+      }
+      return this.$root.$emit('bv::show::modal', 'create-group');
     },
   },
 };

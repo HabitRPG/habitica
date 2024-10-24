@@ -1,0 +1,90 @@
+.featured-label {
+  margin: 24px auto;
+}
+
+.group {
+  display: inline-block;
+  width: 33%;
+  margin-bottom: 24px;
+
+  .items {
+    border-radius: 2px;
+    background-color: #edecee;
+    display: inline-block;
+    padding: 8px;
+  }
+
+  .item-wrapper {
+    margin-bottom: 0;
+  }
+
+  .items > div:not(:last-of-type) {
+    margin-right: 16px;
+  }
+}
+
+.timeTravelers {
+  .standard-page {
+    position: relative;
+  }
+
+  .badge-pin:not(.pinned) {
+      display: none;
+    }
+
+  .item:hover .badge-pin {
+    display: block;
+  }
+
+  .avatar {
+    cursor: default;
+    margin: 0 auto;
+  }
+
+  .featuredItems {
+    height: 192px;
+
+    .background {
+      background-repeat: repeat-x;
+
+      width: 100%;
+      position: absolute;
+
+      top: 0;
+      left: 0;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .background-open, .background-closed {
+      height: 216px;
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .npc {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 216px;
+      background-repeat: no-repeat;
+
+      &.closed {
+        background-repeat: no-repeat;
+      }
+
+      .featured-label {
+        position: absolute;
+        bottom: -14px;
+        margin: 0;
+        left: 79px;
+      }
+    }
+  }
+}

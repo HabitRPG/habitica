@@ -542,7 +542,8 @@ export default {
       await this.$store.dispatch('guilds:leave', data);
 
       if (this.isParty) {
-        this.$router.push({ name: 'tasks' });
+        await this.$router.push({ name: 'tasks' });
+        window.location.reload(true);
       }
     },
     upgradeGroup () {

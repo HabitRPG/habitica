@@ -1,32 +1,42 @@
-import { find } from 'lodash';
+import find from 'lodash/find';
 import moment from 'moment';
-import nconf from 'nconf';
 import { IncomingWebhook } from '@slack/webhook';
 import {
-  generateUser,
+  createAndPopulateGroup,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
 
-const BASE_URL = nconf.get('BASE_URL');
-
 describe('POST /chat/:chatId/flag', () => {
   let user; let admin; let anotherUser; let newUser; let
-    group;
+    group; let members; let userToDelete;
   const TEST_MESSAGE = 'Test Message';
   const USER_AGE_FOR_FLAGGING = 3;
 
   beforeEach(async () => {
-    user = await generateUser({ balance: 1, 'auth.timestamps.created': moment().subtract(USER_AGE_FOR_FLAGGING + 1, 'days').toDate() });
-    admin = await generateUser({ balance: 1, 'permissions.moderator': true });
-    anotherUser = await generateUser({ 'auth.timestamps.created': moment().subtract(USER_AGE_FOR_FLAGGING + 1, 'days').toDate() });
-    newUser = await generateUser({ 'auth.timestamps.created': moment().subtract(1, 'days').toDate() });
-    sandbox.stub(IncomingWebhook.prototype, 'send').returns(Promise.resolve());
+    ({ group, groupLeader: user, members } = await createAndPopulateGroup({
+      groupDetails: {
+        name: 'Test Guild',
+        type: 'guild',
+        privacy: 'private',
+      },
+      leaderDetails: {
+        'auth.timestamps.created': moment().subtract(USER_AGE_FOR_FLAGGING + 1, 'days').toDate(),
+      },
+      members: 4,
+      upgradeToGroupPlan: true,
+    }));
 
-    group = await user.post('/groups', {
-      name: 'Test Guild',
-      type: 'guild',
-      privacy: 'public',
+    [admin, anotherUser, newUser, userToDelete] = members;
+    await user.updateOne({ permissions: {} });
+    await admin.updateOne({ permissions: { moderator: true } });
+    await anotherUser.updateOne({ 'auth.timestamps.created': moment().subtract(USER_AGE_FOR_FLAGGING + 1, 'days').toDate() });
+    await newUser.updateOne({ 'auth.timestamps.created': moment().subtract(1, 'days').toDate() });
+    await userToDelete.updateOne({
+      'auth.timestamps.created': moment().subtract(1, 'days').toDate(),
+      'purchased.plan.dateTerminated': moment().subtract(1, 'minutes').toDate(),
     });
+
+    sandbox.stub(IncomingWebhook.prototype, 'send').returns(Promise.resolve());
   });
 
   afterEach(() => {
@@ -69,8 +79,8 @@ describe('POST /chat/:chatId/flag', () => {
         fallback: 'Flag Message',
         color: 'danger',
         author_name: `@${anotherUser.auth.local.username} ${anotherUser.profile.name} (${anotherUser.auth.local.email}; ${anotherUser._id})\n${timestamp}`,
-        title: 'Flag in Test Guild',
-        title_link: `${BASE_URL}/groups/guild/${group._id}`,
+        title: 'Flag in Test Guild - (private guild)',
+        title_link: undefined,
         text: TEST_MESSAGE,
         footer: `<https://habitrpg.github.io/flag-o-rama/?groupId=${group._id}&chatId=${message.id}|Flag this message.>`,
         mrkdwn_in: [
@@ -78,7 +88,7 @@ describe('POST /chat/:chatId/flag', () => {
         ],
       }],
     });
-    /* eslint-ensable camelcase */
+    /* eslint-enable camelcase */
   });
 
   it('Does not increment message flag count and sends different message to moderator Slack when user is new', async () => {
@@ -104,8 +114,8 @@ describe('POST /chat/:chatId/flag', () => {
         fallback: 'Flag Message',
         color: 'danger',
         author_name: `@${newUser.auth.local.username} ${newUser.profile.name} (${newUser.auth.local.email}; ${newUser._id})\n${timestamp}`,
-        title: 'Flag in Test Guild',
-        title_link: `${BASE_URL}/groups/guild/${group._id}`,
+        title: 'Flag in Test Guild - (private guild)',
+        title_link: undefined,
         text: TEST_MESSAGE,
         footer: `<https://habitrpg.github.io/flag-o-rama/?groupId=${group._id}&chatId=${message.id}|Flag this message.> ${automatedComment}`,
         mrkdwn_in: [
@@ -113,15 +123,12 @@ describe('POST /chat/:chatId/flag', () => {
         ],
       }],
     });
-    /* eslint-ensable camelcase */
+    /* eslint-enable camelcase */
   });
 
   it('Flags a chat when the author\'s account was deleted', async () => {
-    const deletedUser = await generateUser({
-      'auth.timestamps.created': new Date('2022-01-01'),
-    });
-    const { message } = await deletedUser.post(`/groups/${group._id}/chat`, { message: TEST_MESSAGE });
-    await deletedUser.del('/user', {
+    const { message } = await userToDelete.post(`/groups/${group._id}/chat`, { message: TEST_MESSAGE });
+    await userToDelete.del('/user', {
       password: 'password',
     });
 
@@ -215,5 +222,24 @@ describe('POST /chat/:chatId/flag', () => {
     const auMessageToCheck = find(auGroupWithFlags.chat, { id: message.id });
 
     expect(auMessageToCheck).to.not.exist;
+  });
+
+  it('validates that the message belongs to the passed group', async () => {
+    const { group: anotherGroup, groupLeader: anotherLeader } = await createAndPopulateGroup({
+      groupDetails: {
+        name: 'Another Guild',
+        type: 'guild',
+        privacy: 'private',
+      },
+      upgradeToGroupPlan: true,
+    });
+
+    const message = await anotherUser.post(`/groups/${group._id}/chat`, { message: TEST_MESSAGE });
+    await expect(anotherLeader.post(`/groups/${anotherGroup._id}/chat/${message.message.id}/flag`))
+      .to.eventually.be.rejected.and.eql({
+        code: 404,
+        error: 'NotFound',
+        message: t('messageGroupChatNotFound'),
+      });
   });
 });

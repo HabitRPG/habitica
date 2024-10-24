@@ -42,7 +42,7 @@ api.readNotification = {
     // See https://github.com/HabitRPG/habitica/pull/9321#issuecomment-354187666 for more info
     user._v += 1;
 
-    await user.update({
+    await user.updateOne({
       $pull: { notifications: { id: req.params.notificationId } },
     }).exec();
 
@@ -80,7 +80,7 @@ api.readNotifications = {
       user.notifications.splice(index, 1);
     }
 
-    await user.update({
+    await user.updateOne({
       $pull: { notifications: { id: { $in: notificationsIds } } },
     }).exec();
 
@@ -127,7 +127,7 @@ api.seeNotification = {
 
     notification.seen = true;
 
-    await User.update({
+    await User.updateOne({
       _id: user._id,
       'notifications.id': notificationId,
     }, {

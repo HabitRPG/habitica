@@ -21,6 +21,18 @@ describe('Task Column', () => {
         getters: {
           'tasks:getFilteredTaskList': () => [],
         },
+
+        state: {
+          user: {
+            data: {
+              preferences: {
+                tasks: {
+                  activeFilter: {},
+                },
+              },
+            },
+          },
+        },
       },
       mocks,
       stubs,
@@ -76,7 +88,20 @@ describe('Task Column', () => {
         'tasks:getFilteredTaskList': () => () => habits,
       };
 
-      const store = new Store({ getters });
+      const store = new Store({
+        getters,
+        state: {
+          user: {
+            data: {
+              preferences: {
+                tasks: {
+                  activeFilter: {},
+                },
+              },
+            },
+          },
+        },
+      });
 
       wrapper = makeWrapper({ store });
     });

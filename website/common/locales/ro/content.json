@@ -212,7 +212,6 @@
     "hatchingPotionFrost": "Îngheţ",
     "hatchingPotionIcySnow": "Zăpadă înghețată",
     "hatchingPotionNotes": "Toarnă aceasta pe un ou și va ecloza ca un animal de companie <%= potText(locale) %>.",
-    "premiumPotionAddlNotes": "Neutilizabil pe ouă de companioni obținute din expediții. Disponibil pentru achiziție până la <%= date(locale) %>.",
     "foodMeat": "Carne",
     "foodMeatThe": "carnea",
     "foodMeatA": "Carne",

@@ -26,7 +26,7 @@
       />
       <h1
         v-once
-        class="mb-4 page-header"
+        class="page-header mt-4 mb-4"
       >
         {{ $t('market') }}
       </h1>
@@ -35,6 +35,7 @@
         :hide-pinned="hidePinned"
         :hide-locked="hideLocked"
         :search-by="searchTextThrottled"
+        class="mb-4"
       />
       <layout-section :title="$t('items')">
         <div slot="filters">
@@ -42,6 +43,7 @@
             :label="$t('sortBy')"
             :initial-item="selectedSortItemsBy"
             :items="sortItemsBy"
+            :direct-select="true"
             @selected="selectedSortItemsBy = $event"
           >
             <span
@@ -121,6 +123,10 @@
     height: 112px;
   }
 
+  .items {
+    max-width: 944px;
+  }
+
   .market {
     .avatar {
       cursor: default;
@@ -133,7 +139,7 @@
           position: absolute;
           bottom: -14px;
           margin: 0;
-          left: 80px;
+          left: 75px;
         }
       }
     }
@@ -146,9 +152,13 @@
 </style>
 
 <script>
+import find from 'lodash/find';
 import _filter from 'lodash/filter';
 import _map from 'lodash/map';
 import _throttle from 'lodash/throttle';
+import getItemInfo from '@/../../common/script/libs/getItemInfo';
+import shops from '@/../../common/script/libs/shops';
+import { getScheduleMatchingGroup } from '@/../../common/script/content/constants/schedule';
 import { mapState } from '@/libs/store';
 
 import KeysToKennel from './keysToKennel';
@@ -164,8 +174,6 @@ import FilterDropdown from '@/components/ui/filterDropdown';
 import MarketFilter from './filter';
 
 import SellModal from './sellModal.vue';
-import getItemInfo from '@/../../common/script/libs/getItemInfo';
-import shops from '@/../../common/script/libs/shops';
 
 import notifications from '@/mixins/notifications';
 import buyMixin from '@/mixins/buy';
@@ -174,7 +182,7 @@ import inventoryUtils from '@/mixins/inventoryUtils';
 import pinUtils from '@/mixins/pinUtils';
 import { worldStateMixin } from '@/mixins/worldState';
 
-const sortItems = ['AZ', 'sortByNumber'].map(g => ({ id: g }));
+const sortItems = ['AZ', 'sortByNumber'].map(g => ({ id: g, identifier: g }));
 
 export default {
   components: {
@@ -217,6 +225,7 @@ export default {
 
       hideLocked: false,
       hidePinned: false,
+      cardMatcher: getScheduleMatchingGroup('cards'),
     };
   },
   computed: {
@@ -225,7 +234,7 @@ export default {
       user: 'user.data',
       userStats: 'user.data.stats',
       userItems: 'user.data.items',
-      currentEvent: 'worldState.data.currentEvent',
+      currentEventList: 'worldState.data.currentEventList',
     }),
     market () {
       return shops.getMarketShop(this.user);
@@ -240,7 +249,8 @@ export default {
       categories.push({
         identifier: 'cards',
         text: this.$t('cards'),
-        items: _map(_filter(this.content.cardTypes, value => value.yearRound), value => ({
+        items: _map(_filter(this.content.cardTypes, value => value.yearRound
+                    || this.cardMatcher.items.indexOf(value.key) !== -1), value => ({
           ...getItemInfo(this.user, 'card', value),
           showCount: false,
         })),
@@ -292,15 +302,16 @@ export default {
       return Object.values(this.viewOptions).some(g => g.selected);
     },
     imageURLs () {
-      if (!this.currentEvent || !this.currentEvent.season) {
+      const currentEvent = find(this.currentEventList, event => Boolean(event.season));
+      if (!currentEvent) {
         return {
           background: 'url(/static/npc/normal/market_background.png)',
           npc: 'url(/static/npc/normal/market_banner_npc.png)',
         };
       }
       return {
-        background: `url(/static/npc/${this.currentEvent.season}/market_background.png)`,
-        npc: `url(/static/npc/${this.currentEvent.season}/market_banner_npc.png)`,
+        background: `url(/static/npc/${currentEvent.season}/market_background.png)`,
+        npc: `url(/static/npc/${currentEvent.season}/market_banner_npc.png)`,
       };
     },
   },

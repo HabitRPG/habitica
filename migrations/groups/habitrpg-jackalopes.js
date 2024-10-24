@@ -21,12 +21,14 @@ async function handOutJackalopes () {
     if (user.party._id) groupList.push(user.party._id);
     groupList = groupList.concat(user.guilds);
 
-    const subscribedGroup = await Group.findOne({
-      _id: { $in: groupList },
-      'purchased.plan.planId': 'group_monthly',
-      'purchased.plan.dateTerminated': null,
-    },
-    { _id: 1 });
+    const subscribedGroup = await Group.findOne(
+      {
+        _id: { $in: groupList },
+        'purchased.plan.planId': 'group_monthly',
+        'purchased.plan.dateTerminated': null,
+      },
+      { _id: 1 },
+    );
 
     if (subscribedGroup) {
       User.update({ _id: user._id }, { $set: { 'items.mounts.Jackalope-RoyalPurple': true } }).exec();

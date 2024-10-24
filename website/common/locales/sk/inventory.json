@@ -4,5 +4,7 @@
     "eggsItemType": "Vajíčka",
     "hatchingPotionsItemType": "Liahoxíry",
     "specialItemType": "Špeciálne predmety",
-    "lockedItem": "Zamknutý predmet"
+    "lockedItem": "Zamknutý predmet",
+    "petAndMount": "Mazlíček a jazdecké zviera",
+    "allItems": "Všetky predmety"
 }

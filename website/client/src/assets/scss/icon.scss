@@ -12,7 +12,7 @@
   }
 
   &.color {
-    svg path {
+    svg path, svg polygon {
       fill: currentColor;
     }
   }
@@ -24,9 +24,9 @@
   }
 }
 
-.icon-16 {
-  width: 16px;
-  height: 16px;
+.icon-10 {
+  width: 10px;
+  height: 10px;
 }
 
 .icon-12 {
@@ -34,19 +34,24 @@
   height: 12px;
 }
 
+.icon-16 {
+  width: 16px;
+  height: 16px;
+}
+
 .icon-24 {
   width: 24px;
   height: 24px;
 }
 
+.icon-32 {
+  width: 32px;
+  height: 32px;
+}
+
 .icon-48 {
   width: 48px;
   height: 48px;
-}
-
-.icon-10 {
-  width: 10px;
-  height: 10px;
 }
 
 .inline {

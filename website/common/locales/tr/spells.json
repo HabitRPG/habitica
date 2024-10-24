@@ -6,8 +6,7 @@
     "spellWizardEarthText": "Zelzele",
     "spellWizardEarthNotes": "Zihinsel gücün dünyayı sarsıyor. Tüm takımın Zeka ile kutsanır! (Baz alınan: Kutsanmamış Zeka)",
     "spellWizardFrostText": "Dondurucu Soğuk",
-    "spellWizardFrostNotes": "Bütün görevlerin buz ile kaplanır. Ertesi gün hiçbir tamamlama serin sıfırlanmayacak! ",
-    "spellWizardFrostAlreadyCast": "Bu büyüyü bugün zaten uyguladın. Tamamlama serilerin donduruldu ve büyüyü tekrar uygulamana gerek kalmadı.",
+    "spellWizardFrostNotes": "Bütün görevlerin buz ile kaplanır. Ertesi gün hiçbir tamamlama serin sıfırlanmayacak!",
     "spellWarriorSmashText": "Gaddar Vuruş",
     "spellWarriorSmashNotes": "Bir iş daha mavi/daha az kırmızı hale gelir ve Baş Düşmanlara ekstra hasar verirsin! (Baz alınan: Güç)",
     "spellWarriorDefensiveStanceText": "Savunma Vaziyeti",
@@ -24,8 +23,7 @@
     "spellRogueToolsOfTradeNotes": "Senin el çabuklukların tüm partinin sezgisini artırdı! (Baz alınan: Kutsanmamış Sezgi)",
     "spellRogueStealthText": "Gizlilik",
     "spellRogueStealthNotes": "Her kullanımla yerine getirmediğin bazı Günlük İşlerin bu gece sana zarar vermeyecek ve tamamlama serileri/renkleri değişmeyecek. (Baz alınan: Sezgi)",
-    "spellRogueStealthDaliesAvoided": "<%= originalText %> Kaçınılan günlük iş sayısı: <%= number %>.",
-    "spellRogueStealthMaxedOut": "Tüm günlük işlerinden zaten kaçındın; bunu tekrar uygulamana gerek yok.",
+    "spellRogueStealthDaliesAvoided": "<%= originalText %> Kaçınılacak günlük iş sayısı: <%= number %>.",
     "spellHealerHealText": "İyileştirici Işık",
     "spellHealerHealNotes": "Parlayan ışık sağlığını geri kazandırır! (Baz alınan: Bünye ve Zeka)",
     "spellHealerBrightnessText": "Dağlayan Aydınlık",
@@ -55,5 +53,6 @@
     "challengeTasksNoCast": "Mücadele işlerine büyü yapamazsın.",
     "groupTasksNoCast": "Grup işlerine büyü yapamazsın.",
     "spellNotOwned": "Bu yeteneğe sahip değilsin.",
-    "spellLevelTooHigh": "Bu yeteneği kullanmak için <%= level %>. seviyeye ulaşmalısın."
+    "spellLevelTooHigh": "Bu yeteneği kullanmak için <%= level %>. seviyeye ulaşmalısın.",
+    "spellAlreadyCast": "Bu yeteneği kullanmak herhangi bir etki sağlamayacak."
 }

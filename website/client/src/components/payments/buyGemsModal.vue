@@ -4,7 +4,7 @@
       id="buy-gems"
       :hide-footer="true"
       size="md"
-      :modal-class="eventClass"
+      :modal-class="eventInfo?.class"
     >
       <div
         slot="modal-header"
@@ -21,7 +21,7 @@
             class="col-12 text-center"
           >
             <img
-              v-if="eventName === 'fall_extra_gems'"
+              v-if="eventInfo?.name === 'fall_extra_gems'"
               :alt="$t('supportHabitica')"
               srcset="
           ~@/assets/images/gems/fall-header.png,
@@ -30,7 +30,7 @@
               src="~@/assets/images/gems/fall-header.png"
             >
             <img
-              v-else-if="eventName === 'spooky_extra_gems'"
+              v-else-if="eventInfo?.name === 'spooky_extra_gems'"
               :alt="$t('supportHabitica')"
               srcset="
           ~@/assets/images/gems/spooky-header.png,
@@ -51,7 +51,7 @@
         </div>
       </div>
       <div
-        v-if="currentEvent && currentEvent.promo && currentEvent.promo === 'g1g1'"
+        v-if="eventInfo?.promo === 'g1g1'"
         class="gift-promo-banner d-flex justify-content-around align-items-center px-4"
         @click="showSelectUser"
       >
@@ -162,16 +162,32 @@
           :amazon-data="{type: 'single', gemsBlock: selectedGemsBlock}"
         />
         <div
-          v-if="eventName === 'fall_extra_gems' || eventName === 'spooky_extra_gems'"
+          v-if="eventInfo?.name === 'fall_extra_gems' || eventInfo?.name === 'spooky_extra_gems'"
           class="d-flex flex-column justify-content-center"
         >
-          <h4 class="mt-3 mx-auto"> {{ $t('howItWorks') }}</h4>
+          <h4 class="mt-3 mx-auto">
+            {{ $t('howItWorks') }}
+          </h4>
           <small class="text-center">
-            {{ $t('gemSaleHow', { eventStartMonth, eventStartOrdinal, eventEndOrdinal }) }}
+            {{ $t('gemSaleHow', {
+              eventStartMonth: eventInfo.startMonth,
+              eventStartOrdinal: eventInfo.startOrdinal,
+              eventEndOrdinal: eventInfo.endOrdinal,
+            }) }}
           </small>
-          <h4 class="mt-3 mx-auto"> {{ $t('limitations') }}</h4>
+          <h4 class="mt-3 mx-auto">
+            {{ $t('limitations') }}
+          </h4>
           <small class="text-center">
-            {{ $t('gemSaleLimitations', { eventStartMonth, eventStartOrdinal, eventEndOrdinal }) }}
+            {{ $t('gemSaleLimitationsText', {
+              eventStartMonth: eventInfo.startMonth,
+              eventStartOrdinal: eventInfo.startOrdinal,
+              eventStartTime: eventInfo.startTime,
+              eventEndMonth: eventInfo.endMonth,
+              eventEndOrdinal: eventInfo.endOrdinal,
+              eventEndTime: eventInfo.endTime,
+              timeZone: eventInfo.timeZoneAbbrev,
+            }) }}
           </small>
         </div>
       </div>
@@ -184,7 +200,6 @@
 
   #buy-gems {
     small {
-      color: $gray-100;
       font-size: 12px;
       margin-left: 20px;
       margin-right: 20px;
@@ -359,8 +374,8 @@
 
   .svg-icon.check {
     color: $purple-400;
-    width: 0.77rem;
-    height: 0.615rem;
+    width: 16px;
+    height: 16px;
   }
 
   .text-leadin {
@@ -423,34 +438,34 @@ export default {
       originalGemsBlocks: 'content.gems',
       currentEventList: 'worldState.data.currentEventList',
     }),
-    currentEvent () {
-      return find(this.currentEventList, event => Boolean(event.gemsPromo) || Boolean(event.promo));
-    },
-    eventName () {
-      return this.currentEvent && this.currentEvent.event;
-    },
-    eventClass () {
-      if (this.currentEvent && this.currentEvent.gemsPromo) {
-        return `event-${this.eventName}`;
-      }
-      return '';
-    },
-    eventStartMonth () {
-      return moment(this.currentEvent.start).format('MMMM');
-    },
-    eventStartOrdinal () {
-      return moment(this.currentEvent.start).format('Do');
-    },
-    eventEndOrdinal () {
-      return moment(this.currentEvent.end).format('Do');
+    eventInfo () {
+      const currentEvent = find(
+        this.currentEventList, event => Boolean(event.gemsPromo) || Boolean(event.promo),
+      );
+      if (!currentEvent) return null;
+
+      // https://stackoverflow.com/questions/1954397/detect-timezone-abbreviation-using-javascript#answer-66180857
+      const timeZoneAbbrev = new Intl.DateTimeFormat('en-us', { timeZoneName: 'short' })
+        .formatToParts(new Date())
+        .find(part => part.type === 'timeZoneName')
+        .value;
+
+      return {
+        name: currentEvent.event,
+        class: currentEvent.gemsPromo ? `event-${currentEvent.event}` : '',
+        gemsPromo: currentEvent.gemsPromo,
+        promo: currentEvent.promo,
+        timeZoneAbbrev,
+        startMonth: moment(currentEvent.start).format('MMMM'),
+        startOrdinal: moment(currentEvent.start).format('Do'),
+        startTime: moment(currentEvent.start).format('hh:mm A'),
+        endMonth: moment(currentEvent.end).format('MMMM'),
+        endOrdinal: moment(currentEvent.end).format('Do'),
+        endTime: moment(currentEvent.end).format('hh:mm A'),
+      };
     },
     isGemsPromoActive () {
-      const currEvt = this.currentEvent;
-      if (currEvt && currEvt.gemsPromo && moment().isBefore(currEvt.end)) {
-        return true;
-      }
-
-      return false;
+      return Boolean(this.eventInfo);
     },
     gemsBlocks () {
       // We don't want to modify the original gems blocks when a promotion is running
@@ -465,7 +480,7 @@ export default {
         if (this.isGemsPromoActive) {
           newBlock.originalGems = originalBlock.gems;
           newBlock.gems = (
-            this.currentEvent.gemsPromo[gemsBlockKey] || originalBlock.gems
+            this.eventInfo.gemsPromo[gemsBlockKey] || originalBlock.gems
           );
         }
       });

@@ -178,15 +178,56 @@ const animalSetAchievs = {
     titleKey: 'achievementBirdsOfAFeather',
     textKey: 'achievementBirdsOfAFeatherText',
   },
+  bonelessBoss: {
+    icon: 'achievement-bonelessBoss',
+    titleKey: 'achievementBonelessBoss',
+    textKey: 'achievementBonelessBossText',
+  },
+  cats: {
+    icon: 'achievement-cats',
+    titleKey: 'achievementCats',
+    textKey: 'achievementCatsText',
+  },
+  dinosaurDynasty: {
+    icon: 'achievement-dinosaurDynasty',
+    titleKey: 'achievementDinosaurDynasty',
+    textKey: 'achievementDinosaurDynastyText',
+  },
   domesticated: {
     icon: 'achievement-domesticated',
     titleKey: 'achievementDomesticated',
     textKey: 'achievementDomesticatedText',
   },
+  duneBuddy: {
+    icon: 'achievement-duneBuddy',
+    titleKey: 'achievementDuneBuddy',
+    textKey: 'achievementDuneBuddyText',
+    release: '2023-10-17T08:00-04:00',
+  },
+  plantParent: {
+    icon: 'achievement-plantParent',
+    titleKey: 'achievementPlantParent',
+    textKey: 'achievementPlantParentText',
+  },
+  polarPro: {
+    icon: 'achievement-polarPro',
+    titleKey: 'achievementPolarPro',
+    textKey: 'achievementPolarProText',
+  },
   reptacularRumble: {
     icon: 'achievement-reptacularRumble',
     titleKey: 'achievementReptacularRumble',
     textKey: 'achievementReptacularRumbleText',
+  },
+  rodentRuler: {
+    icon: 'achievement-rodentRuler',
+    titleKey: 'achievementRodentRuler',
+    textKey: 'achievementRodentRulerText',
+  },
+  roughRider: {
+    icon: 'achievement-roughRider',
+    titleKey: 'achievementRoughRider',
+    textKey: 'achievementRoughRiderText',
   },
   woodlandWizard: {
     icon: 'achievement-woodlandWizard',

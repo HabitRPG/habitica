@@ -165,10 +165,6 @@ export default {
           question: 'pkQuestion7',
           answer: 'pkAnswer7',
         },
-        {
-          question: 'pkQuestion8',
-          answer: 'pkAnswer8',
-        },
       ],
     });
   },

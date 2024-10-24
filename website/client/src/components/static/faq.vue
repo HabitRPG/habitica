@@ -1,122 +1,114 @@
 <template>
-  <div
-    class="container-fluid"
-    role="tablist"
-  >
-    <div class="row">
-      <div class="col-12 col-md-6 offset-md-3">
-        <h1 id="faq-heading">
-          {{ $t('frequentlyAskedQuestions') }}
-        </h1>
-        <div
-          v-for="(heading, index) in headings"
-          :key="index"
-          class="faq-question"
-        >
-          <h2
-            v-b-toggle="heading"
-            role="tab"
-            variant="info"
-            @click="handleClick($event)"
+  <div class="top-container mx-auto">
+    <div class="main-text mr-4 col-8">
+      <!-- title -->
+      <div
+        class="title-details"
+        role="tablist"
+      >
+        <div class="body-text">
+          <h1
+            v-once
+            id="faq-heading"
           >
-            {{ $t(`faqQuestion${index}`) }}
-          </h2>
-          <b-collapse
-            :id="heading"
-            :visible="isVisible(heading)"
-            accordion="faq"
-            role="tabpanel"
+            {{ $t('frequentlyAskedQuestions') }}
+          </h1>
+          <!-- subheadings -->
+          <div
+            v-for="(entry, index) in faq.questions"
+            :key="index"
+            class="body-text"
           >
-            <div
-              v-markdown="$t(`webFaqAnswer${index}`, replacements)"
-              class="card-body"
-            ></div>
-          </b-collapse>
+            <h2
+              v-if="index === 0"
+              v-once
+            >
+              {{ $t('commonQuestions') }}
+            </h2>
+            <h2
+              v-if="entry.heading === 'play-with-others'"
+              v-once
+              id="parties"
+            >
+              {{ $t('parties') }}
+            </h2>
+            <h2
+              v-if="entry.heading === 'what-is-group-plan'"
+              v-once
+              id="group-plans"
+            >
+              {{ $t('groupPlan') }}
+            </h2>
+            <!-- entry header -->
+            <h3
+              v-once
+              v-b-toggle="entry.heading"
+              role="tab"
+              variant="info"
+              class="headings"
+              @click="handleClick($event)"
+            >
+              {{ entry.question }}
+            </h3>
+            <b-collapse
+              :id="entry.heading"
+              :visible="isVisible(entry.heading)"
+              accordion="faq"
+              role="tabpanel"
+            >
+              <!-- questions -->
+              <div
+                v-once
+                v-markdown="entry.web"
+                class="card-body p-0 pb-3"
+              ></div>
+            </b-collapse>
+          </div>
         </div>
-        <hr>
-        <p v-markdown="$t('webFaqStillNeedHelp')"></p>
       </div>
     </div>
+    <faq-sidebar />
   </div>
 </template>
 
-<style lang='scss' scoped>
-  .card-body {
-      margin-bottom: 1em;
-  }
-
-  .faq-question h2 {
-    cursor: pointer;
-  }
-
-  .faq-question .card-body {
-    padding: 0;
-  }
-
-  .static-wrapper .faq-question h2 {
-    margin: 0 0 16px 0;
-  }
-
-  .faq-question a {
-    text-decoration: none;
-    color: #4F2A93;
-  }
-
-  @media only screen and (max-width: 768px) {
-    .container-fluid {
-      margin: auto;
-    }
-  }
+<style lang="scss" scoped>
+  @import '~@/assets/scss/faq.scss';
 </style>
 
 <script>
-// @TODO:  env.EMAILS.TECH_ASSISTANCE_EMAIL
+import FaqSidebar from '@/components/shared/faqSidebar';
 import markdownDirective from '@/directives/markdown';
 
-const TECH_ASSISTANCE_EMAIL = 'admin@habitica.com';
-
 export default {
+  components: {
+    FaqSidebar,
+  },
   directives: {
     markdown: markdownDirective,
   },
   data () {
-    const headings = [
-      'overview',
-      'set-up-tasks',
-      'sample-tasks',
-      'task-color',
-      'health',
-      'party-with-friends',
-      'pets-mounts',
-      'character-classes',
-      'blue-mana-bar',
-      'monsters-quests',
-      'gems',
-      'bugs-features',
-      'world-boss',
-      'group-plans',
-    ];
-
-    const hash = window.location.hash.replace('#', '');
-
     return {
-      headings,
-      replacements: {
-        techAssistanceEmail: TECH_ASSISTANCE_EMAIL,
-        wikiTechAssistanceEmail: `mailto:${TECH_ASSISTANCE_EMAIL}`,
-      },
-      visible: hash && headings.includes(hash) ? hash : null,
+      faq: {},
+      headings: [],
+      stillNeedHelp: '',
     };
   },
-  mounted () {
+  async mounted () {
     this.$store.dispatch('common:setTitle', {
       section: this.$t('help'),
       subSection: this.$t('faq'),
     });
+    this.faq = await this.$store.dispatch('faq:getFAQ');
+    for (const entry of this.faq.questions) {
+      this.headings.push(entry.heading);
+    }
+    this.stillNeedHelp = this.faq.stillNeedHelp.web;
+    document.body.style.background = '#ffffff';
   },
   methods: {
     isVisible (heading) {
-      return this.visible && this.visible === heading;
+      const hash = window.location.hash.replace('#', '');
+      return hash && this.headings.includes(hash) && hash === heading;
     },
     handleClick (e) {
       if (!e) return;

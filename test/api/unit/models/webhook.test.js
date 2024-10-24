@@ -1,7 +1,7 @@
 import { v4 as generateUUID } from 'uuid';
 import { model as Webhook } from '../../../../website/server/models/webhook';
 import { BadRequest } from '../../../../website/server/libs/errors';
-import apiError from '../../../../website/server/libs/apiError';
+import { apiError } from '../../../../website/server/libs/apiError';
 
 describe('Webhook Model', () => {
   context('Instance Methods', () => {

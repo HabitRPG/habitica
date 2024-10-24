@@ -14,21 +14,19 @@ import {
   NotAuthorized,
 } from '../../libs/errors';
 import { removeFromArray } from '../../libs/collectionManipulators';
-import { getUserInfo, getGroupUrl, sendTxn } from '../../libs/email';
+import { getUserInfo } from '../../libs/email';
 import * as slack from '../../libs/slack';
 import { chatReporterFactory } from '../../libs/chatReporting/chatReporterFactory';
-import { getAuthorEmailFromMessage } from '../../libs/chat';
 import bannedWords from '../../libs/bannedWords';
 import { getMatchesByWordArray } from '../../libs/stringUtils';
 import bannedSlurs from '../../libs/bannedSlurs';
-import apiError from '../../libs/apiError';
+import { apiError } from '../../libs/apiError';
 import highlightMentions from '../../libs/highlightMentions';
 import { getAnalyticsServiceByEnvironment } from '../../libs/analyticsService';
 
 const analytics = getAnalyticsServiceByEnvironment();
 
 const ACCOUNT_MIN_CHAT_AGE = Number(nconf.get('ACCOUNT_MIN_CHAT_AGE'));
-const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map(email => ({ email, canSend: true }));
 
 /**
  * @apiDefine MessageNotFound
@@ -84,8 +82,11 @@ api.getChat = {
     if (validationErrors) throw validationErrors;
 
     const { groupId } = req.params;
-    const group = await Group.getGroup({ user, groupId, fields: 'chat' });
+    const group = await Group.getGroup({ user, groupId, fields: 'chat privacy' });
     if (!group) throw new NotFound(res.t('groupNotFound'));
+    if (group.privacy === 'public') {
+      throw new BadRequest(res.t('featureRetired'));
+    }
 
     const groupChat = await Group.toJSONCleanChat(group, user);
     res.respond(200, groupChat.chat);
@@ -129,6 +130,15 @@ api.postChat = {
     if (validationErrors) throw validationErrors;
 
     const group = await Group.getGroup({ user, groupId });
+    if (!group) throw new NotFound(res.t('groupNotFound'));
+
+    const { purchased } = group;
+    const isUpgraded = purchased && purchased.plan && purchased.plan.customerId
+      && (!purchased.plan.dateTerminated || moment().isBefore(purchased.plan.dateTerminated));
+
+    if (group.type !== 'party' && !isUpgraded) {
+      throw new BadRequest(res.t('featureRetired'));
+    }
 
     // Check message for banned slurs
     if (group && group.privacy !== 'private' && textContainsBannedSlur(req.body.message)) {
@@ -138,24 +148,6 @@ api.postChat = {
 
       // Email the mods
       const authorEmail = getUserInfo(user, ['email']).email;
-      const groupUrl = getGroupUrl(group);
-
-      const report = [
-        { name: 'MESSAGE_TIME', content: (new Date()).toString() },
-        { name: 'MESSAGE_TEXT', content: message },
-
-        { name: 'AUTHOR_USERNAME', content: user.profile.name },
-        { name: 'AUTHOR_UUID', content: user._id },
-        { name: 'AUTHOR_EMAIL', content: authorEmail },
-        { name: 'AUTHOR_MODAL_URL', content: `/profile/${user._id}` },
-
-        { name: 'GROUP_NAME', content: group.name },
-        { name: 'GROUP_TYPE', content: group.type },
-        { name: 'GROUP_ID', content: group._id },
-        { name: 'GROUP_URL', content: groupUrl },
-      ];
-
-      sendTxn(FLAG_REPORT_EMAILS, 'slur-report-to-mods', report);
 
       // Slack the mods
       slack.sendSlurNotification({
@@ -167,8 +159,6 @@ api.postChat = {
 
       throw new BadRequest(res.t('bannedSlurUsed'));
     }
-
-    if (!group) throw new NotFound(res.t('groupNotFound'));
 
     if (group.privacy === 'public' && user.flags.chatRevoked) {
       throw new NotAuthorized(res.t('chatPrivilegesRevoked'));
@@ -217,24 +207,6 @@ api.postChat = {
 
       // Email the mods
       const authorEmail = getUserInfo(user, ['email']).email;
-      const groupUrl = getGroupUrl(group);
-
-      const report = [
-        { name: 'MESSAGE_TIME', content: (new Date()).toString() },
-        { name: 'MESSAGE_TEXT', content: message },
-
-        { name: 'AUTHOR_USERNAME', content: user.profile.name },
-        { name: 'AUTHOR_UUID', content: user._id },
-        { name: 'AUTHOR_EMAIL', content: authorEmail },
-        { name: 'AUTHOR_MODAL_URL', content: `/profile/${user._id}` },
-
-        { name: 'GROUP_NAME', content: group.name },
-        { name: 'GROUP_TYPE', content: group.type },
-        { name: 'GROUP_ID', content: group._id },
-        { name: 'GROUP_URL', content: groupUrl },
-      ];
-
-      sendTxn(FLAG_REPORT_EMAILS, 'shadow-muted-post-report-to-mods', report);
 
       // Slack the mods
       slack.sendShadowMutedPostNotification({
@@ -245,7 +217,7 @@ api.postChat = {
       });
     }
 
-    const newChatMessage = group.sendChat({
+    const newChatMessage = await group.sendChat({
       message,
       user,
       flagCount,
@@ -282,6 +254,8 @@ api.postChat = {
       analyticsObject.groupName = group.name;
     }
 
+    res.analytics.track('group chat', analyticsObject);
+
     if (chatUpdated) {
       res.respond(200, { chat: chatRes.chat });
     } else {
@@ -306,7 +280,6 @@ api.postChat = {
  * @apiUse MessageNotFound
  * @apiUse GroupIdRequired
  * @apiUse ChatIdRequired
- * @apiError (400) {NotFound} messageGroupChatLikeOwnMessage A user can't like their own message
  */
 api.likeChat = {
   method: 'POST',
@@ -324,13 +297,14 @@ api.likeChat = {
 
     const group = await Group.getGroup({ user, groupId });
     if (!group) throw new NotFound(res.t('groupNotFound'));
+    if (group.privacy === 'public') {
+      throw new BadRequest(res.t('featureRetired'));
+    }
 
-    const message = await Chat.findOne({ _id: req.params.chatId }).exec();
+    const message = await Chat.findOne({ _id: req.params.chatId, groupId: group._id }).exec();
     if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
-    // @TODO correct this error type
-    if (message.uuid === user._id) throw new NotFound(res.t('messageGroupChatLikeOwnMessage'));
-
     if (!message.likes) message.likes = {};
+
     message.likes[user._id] = !message.likes[user._id];
     message.markModified('likes');
     await message.save();
@@ -434,30 +408,6 @@ api.clearChatFlags = {
     message.flagCount = 0;
     await message.save();
 
-    const adminEmailContent = getUserInfo(user, ['email']).email;
-    const authorEmail = getAuthorEmailFromMessage(message);
-    const groupUrl = getGroupUrl(group);
-
-    sendTxn(FLAG_REPORT_EMAILS, 'unflag-report-to-mods', [
-      { name: 'MESSAGE_TIME', content: (new Date(message.timestamp)).toString() },
-      { name: 'MESSAGE_TEXT', content: message.text },
-
-      { name: 'ADMIN_USERNAME', content: user.profile.name },
-      { name: 'ADMIN_UUID', content: user._id },
-      { name: 'ADMIN_EMAIL', content: adminEmailContent },
-      { name: 'ADMIN_MODAL_URL', content: `/profile/${user._id}` },
-
-      { name: 'AUTHOR_USERNAME', content: message.user },
-      { name: 'AUTHOR_UUID', content: message.uuid },
-      { name: 'AUTHOR_EMAIL', content: authorEmail },
-      { name: 'AUTHOR_MODAL_URL', content: `/profile/${message.uuid}` },
-
-      { name: 'GROUP_NAME', content: group.name },
-      { name: 'GROUP_TYPE', content: group.type },
-      { name: 'GROUP_ID', content: group._id },
-      { name: 'GROUP_URL', content: groupUrl },
-    ]);
-
     res.respond(200, {});
   },
 };
@@ -516,7 +466,7 @@ api.seenChat = {
     // See https://github.com/HabitRPG/habitica/pull/9321#issuecomment-354187666 for more info
     user._v += 1;
 
-    await User.update({ _id: user._id }, update).exec();
+    await User.updateOne({ _id: user._id }, update).exec();
     res.respond(200, {});
   },
 };
@@ -576,7 +526,7 @@ api.deleteChat = {
       lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg
     );
 
-    await Chat.remove({ _id: message._id }).exec();
+    await Chat.deleteOne({ _id: message._id }).exec();
 
     if (chatUpdated) {
       removeFromArray(chatRes.chat, { id: chatId });

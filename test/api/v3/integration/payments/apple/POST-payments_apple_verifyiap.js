@@ -21,11 +21,11 @@ describe('payments : apple #verify', () => {
     let verifyStub;
 
     beforeEach(async () => {
-      verifyStub = sinon.stub(applePayments, 'verifyGemPurchase').resolves({});
+      verifyStub = sinon.stub(applePayments, 'verifyPurchase').resolves({});
     });
 
     afterEach(() => {
-      applePayments.verifyGemPurchase.restore();
+      applePayments.verifyPurchase.restore();
     });
 
     it('makes a purchase', async () => {

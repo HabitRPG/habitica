@@ -27,7 +27,7 @@ describe('POST /user/buy-health-potion', () => {
   });
 
   it('buys a potion', async () => {
-    await user.update({
+    await user.updateOne({
       'stats.gp': 400,
     });
 

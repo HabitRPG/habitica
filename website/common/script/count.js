@@ -1,5 +1,6 @@
 import each from 'lodash/each';
 import filter from 'lodash/filter';
+import has from 'lodash/has';
 import keys from 'lodash/keys';
 import size from 'lodash/size';
 import content from './content/index';
@@ -48,14 +49,17 @@ export function mountMasterProgress (mounts = {}) {
 
 export function remainingGearInSet (userGear = {}, set) {
   const gear = filter(content.gear.flat, item => {
-    const setMatches = item.klass === set;
+    if (item.klass !== set) {
+      return false;
+    }
     const hasItem = userGear[item.key];
-
-    return setMatches && !hasItem;
+    if (has(item, 'released')) {
+      return item.released && !hasItem;
+    }
+    return !hasItem;
   });
 
   const count = size(gear);
-
   return count;
 }
 

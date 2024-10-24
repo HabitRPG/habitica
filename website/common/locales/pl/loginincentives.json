@@ -1,9 +1,8 @@
 {
     "unlockedReward": "Otrzymałeś <%= reward %>",
-    "earnedRewardForDevotion": "Zdobyłeś <%= reward %>  za przyczynienie się do poprawy swojego życia.",
+    "earnedRewardForDevotion": "Zdobyłeś <%= reward %> za przyczynienie się do poprawy swojego życia.",
     "nextRewardUnlocksIn": "Ilość wizyt do odblokowania następnej nagrody: <%= numberOfCheckinsLeft %>",
     "awesome": "Rewelacyjnie!",
-    "countLeft": "<%= count %> wizyt do następnej nagrody",
     "incentivesDescription": "Jeśli chodzi o wyrabianie przyzwyczajeń, konsekwencja jest kluczowa. Z każdym dniem gdy odwiedzasz Habitikę zbliżasz się do nagrody.",
     "checkinEarned": "Twój Licznik Odwiedzin wzrósł!",
     "unlockedCheckInReward": "Odblokowałeś Nagrodę za Wizyty!",

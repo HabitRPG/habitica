@@ -95,7 +95,6 @@ function _getGearSetDescription (key) {
   return (wantSetName) ? `${setType}: ${setName}` : setType;
 }
 
-
 export default {
   data () {
     return {

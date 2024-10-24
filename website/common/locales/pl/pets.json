@@ -39,11 +39,9 @@
     "hatchingPotion": "eliksir wyklucia",
     "haveHatchablePet": "Posiadasz <%= potion %> eliksir wyklucia oraz <%= egg %> jajo potrzebne do wyklucia tego Chowańca! <b>Kliknij</b>, aby go wykluć!",
     "quickInventory": "Szybki ekwipunek",
-    "foodText": "karma",
     "food": "Karma dla zwierząt i siodła",
     "noFoodAvailable": "Nie masz żadnej karmy.",
     "noSaddlesAvailable": "Nie masz żadnych siodeł.",
-    "noFood": "Nie masz żadnego jedzenia ani siodeł.",
     "dropsExplanation": "Zdobądź te przedmioty szybciej przy pomocy Klejnotów jeśli nie chcesz czekać aż wypadną przy ukończeniu zadania. <a href=\"https://habitica.fandom.com/wiki/Drops\">Dowiedz się więcej o systemie zdobyczy.</a>",
     "dropsExplanationEggs": "Wydaj Klejnoty, aby zdobyć jaja szybciej, jeśli nie chcesz czekać, aż je znajdziesz lub jeśli nie chcesz powtarzać misji, aby dostać z nich jajka. <a href=\"https://habitica.fandom.com/wiki/Drops\">Dowiedz się więcej o systemie zdobyczy.</a>",
     "premiumPotionNoDropExplanation": "Magiczne Eliksiry Wyklucia nie mogą zostać użyte na jajach otrzymanych z Misji. Jedynym sposobem na zdobycie Magicznych Eliksirów Wyklucia jest kupienie ich poniżej, nie stanowią losowych zdobyczy.",
@@ -61,8 +59,6 @@
     "triadBingoText": "Odnalazł wszystkie 90 chowańców, wszystkie 90 wierzchowców, a potem JESZCZE RAZ wszystkie 90 chowańców (JAK CI SIĘ TO UDAŁO!)",
     "triadBingoText2": " i wypuścił całą stajnię <%= count %> raz(y)",
     "triadBingoAchievement": "Zdobyłeś odznakę „Potrójne bingo” za odnalezienie wszystkich chowańców, oswojenie wierzchowców i ponowne odnalezienie wszystkich chowańców!",
-    "dropsEnabled": "Łupy włączone!",
-    "firstDrop": "Odblokowałeś System Zdobyczy! Od teraz po ukończeniu zadań, masz niewielką szansę znalezienia przedmiotu, włączając w to jaja, eliksiry i jedzenie! Właśnie znalazłeś <strong><%= eggText %> Jajo</strong>! <%= eggNotes %>",
     "hatchedPet": "Wyklułeś <%= potion %> <%= egg %>!",
     "hatchedPetGeneric": "Wyklułeś nowego Chowańca!",
     "hatchedPetHowToUse": "Odwiedź [Stajnię](<%= stableUrl %>), aby nakarmić swojego najnowszego chowańca!",
@@ -113,5 +109,7 @@
     "gryphatrice": "Bazyligryfek",
     "invalidAmount": "Błędna ilość jedzenia, musi być dodatnią liczbą całkowitą",
     "tooMuchFood": "Próbujesz nakarmić chowańca zbyt dużą ilością jedzenia, akcja została anulowana",
-    "notEnoughFood": "Nie masz wystarczającej ilości jedzenia"
+    "notEnoughFood": "Nie masz wystarczającej ilości jedzenia",
+    "jubilantGryphatrice": "Radosny Gryphatrice",
+    "veteranDragon": "Smok Weteran"
 }

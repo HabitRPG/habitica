@@ -27,7 +27,7 @@
           @remove-item="removeItem($event)"
         />
       </b-dropdown-header>
-      <template v-slot:button-content>
+      <template #button-content>
         <multi-list
           class="d-flex flex-wrap"
           :items="selectedItemsAsObjects"

@@ -19,8 +19,12 @@
   top: -16px !important;
 }
 
-.Pet.Pet-FlyingPig-Veggie, .Pet.Pet-FlyingPig-Dessert, .Pet.Pet-FlyingPig-VirtualPet {
-  top: -28px !important;
+$foolPets: Veggie, Dessert, VirtualPet, TeaShop, Fungi;
+
+@each $foolPet in $foolPets {
+  .Pet.Pet-FlyingPig-#{$foolPet} {
+    top: -28px !important;
+  }
 }
 
 .Pet[class*="Virtual"] {

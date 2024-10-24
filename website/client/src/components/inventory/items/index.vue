@@ -1,8 +1,6 @@
 <template>
   <div
-    v-mousePosition="30"
     class="row"
-    @mouseMoved="mouseMoved($event)"
   >
     <div class="standard-sidebar d-none d-sm-block">
       <filter-sidebar>
@@ -99,7 +97,7 @@
                   {{ context.item.text }}
                 </h4>
                 <div
-                  v-if="currentDraggingPotion == null"
+                  v-if="!currentDraggingPotion"
                   class="popover-content-text"
                 >
                   {{ context.item.notes }}
@@ -148,7 +146,7 @@
                 <h4 class="popover-content-title">
                   {{ context.item.text }}
                 </h4>
-                <div class="popover-content-text">
+                <div class="popover-content-text" v-if="!currentDraggingEgg">
                   {{ context.item.notes }}
                 </div>
               </template>
@@ -224,120 +222,24 @@
       </div>
     </div>
     <hatchedPetDialog />
-    <div
-      ref="draggingEggInfo"
-      class="eggInfo"
-    >
-      <div v-if="currentDraggingEgg != null">
-        <div
-          class="potion-icon"
-          :class="'Pet_Egg_'+currentDraggingEgg.key"
-        ></div>
-        <div class="popover">
-          <div class="popover-content">
-            {{ $t('dragThisEgg', {eggName: currentDraggingEgg.text }) }}
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      v-if="eggClickMode"
-      ref="clickEggInfo"
-      class="eggInfo mouse"
-    >
-      <div v-if="currentDraggingEgg != null">
-        <div
-          class="potion-icon"
-          :class="'Pet_Egg_'+currentDraggingEgg.key"
-        ></div>
-        <div class="popover">
-          <div
-            class="popover-content"
-          >
-            {{ $t('clickOnPotionToHatch', {eggName: currentDraggingEgg.text }) }}
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      ref="draggingPotionInfo"
-      class="hatchingPotionInfo"
-    >
-      <div v-if="currentDraggingPotion != null">
-        <div
-          class="potion-icon"
-          :class="'Pet_HatchingPotion_'+currentDraggingPotion.key"
-        ></div>
-        <div class="popover">
-          <div
-            class="popover-content"
-          >
-            {{ $t('dragThisPotion', {potionName: currentDraggingPotion.text }) }}
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      v-if="potionClickMode"
-      ref="clickPotionInfo"
-      class="hatchingPotionInfo mouse"
-    >
-      <div v-if="currentDraggingPotion != null">
-        <div
-          class="potion-icon"
-          :class="'Pet_HatchingPotion_'+currentDraggingPotion.key"
-        ></div>
-        <div class="popover">
-          <div
-            class="popover-content"
-          >
-            {{ $t('clickOnEggToHatch', {potionName: currentDraggingPotion.text }) }}
-          </div>
-        </div>
-      </div>
-    </div>
+    <ItemPopover
+      :dragged-item="currentDraggingEgg"
+      popoverTextKey="clickOnPotionToHatch"
+      translationKey="eggName" />
+    <ItemPopover
+      :dragged-item="currentDraggingPotion"
+      popoverTextKey="clickOnEggToHatch"
+      translationKey="potionName" />
     <questDetailModal :group="user.party" />
     <cards-modal :card-options="cardOptions" />
   </div>
 </template>
 
-<style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
-
-  .eggInfo, .hatchingPotionInfo {
-    position: absolute;
-    left: -500px;
-
-    z-index: 1080;
-
-    &.mouse {
-      position: fixed;
-      pointer-events: none
-    }
-
-    .potion-icon {
-      margin: 0 auto 8px;
-      transform: scale(1.5);
-    }
-
-    .popover {
-      position: inherit;
-      width: 180px;
-    }
-
-    .popover-content {
-      color: white;
-      margin: 15px;
-      text-align: center;
-    }
-  }
-
-</style>
-
 <script>
 import each from 'lodash/each';
 import throttle from 'lodash/throttle';
 import moment from 'moment';
+import ItemPopover from '@/components/inventory/itemPopover';
 import Item from '@/components/inventory/item';
 import ItemRows from '@/components/ui/itemRows';
 import CountBadge from '@/components/ui/countBadge';
@@ -354,7 +256,6 @@ import { createAnimal } from '@/libs/createAnimal';
 
 import notifications from '@/mixins/notifications';
 import DragDropDirective from '@/directives/dragdrop.directive';
-import MouseMoveDirective from '@/directives/mouseposition.directive';
 import FilterGroup from '@/components/ui/filterGroup';
 import Checkbox from '@/components/ui/checkbox';
 import SelectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
@@ -375,8 +276,6 @@ const groups = [
   allowedItems,
 }));
 
-let lastMouseMoveEvent = {};
-
 export default {
   name: 'Items',
   components: {
@@ -391,10 +290,10 @@ export default {
     cardsModal,
     QuestInfo,
     FilterSidebar,
+    ItemPopover,
   },
   directives: {
     drag: DragDropDirective,
-    mousePosition: MouseMoveDirective,
   },
   mixins: [notifications],
   data () {
@@ -405,9 +304,7 @@ export default {
       sortBy: 'quantity', // or 'AZ'
 
       currentDraggingEgg: null,
-      eggClickMode: false,
       currentDraggingPotion: null,
-      potionClickMode: false,
       cardOptions: {
         cardType: '',
         messageOptions: 0,
@@ -444,7 +341,7 @@ export default {
             const isSearched = !searchText || item.text()
               .toLowerCase()
               .indexOf(searchText) !== -1;
-            if (isSearched) {
+            if (isSearched && item) {
               itemsArray.push({
                 ...item,
                 class: `${group.classPrefix}${item.key}`,
@@ -567,22 +464,13 @@ export default {
         }
 
         this.currentDraggingPotion = null;
-        this.potionClickMode = false;
         return;
       }
 
       if (this.currentDraggingEgg === null || this.currentDraggingEgg !== egg) {
         this.currentDraggingEgg = egg;
-        this.eggClickMode = true;
-
-        // Wait for the div.eggInfo.mouse node to be added to the DOM before
-        // changing its position.
-        this.$nextTick(() => {
-          this.mouseMoved(lastMouseMoveEvent);
-        });
       } else {
         this.currentDraggingEgg = null;
-        this.eggClickMode = false;
       }
     },
     onPotionClicked ($event, potion) {
@@ -592,21 +480,12 @@ export default {
         }
 
         this.currentDraggingEgg = null;
-        this.eggClickMode = false;
         return;
       }
       if (this.currentDraggingPotion === null || this.currentDraggingPotion !== potion) {
         this.currentDraggingPotion = potion;
-        this.potionClickMode = true;
-
-        // Wait for the div.hatchingPotionInfo.mouse node to be added to the
-        // DOM before changing its position.
-        this.$nextTick(() => {
-          this.mouseMoved(lastMouseMoveEvent);
-        });
       } else {
         this.currentDraggingPotion = null;
-        this.potionClickMode = false;
       }
     },
 
@@ -638,23 +517,6 @@ export default {
         this.$root.$emit('bv::show::modal', 'quest-detail-modal', {
           key: item.key,
         });
-      }
-    },
-
-    mouseMoved ($event) {
-      // Keep track of the last mouse position even in click mode so that we
-      // know where to position the dragged potion/egg info on item click.
-      lastMouseMoveEvent = $event;
-
-      // Update the potion/egg popover if we are already dragging it.
-      if (this.potionClickMode) {
-        // dragging potioninfo is 180px wide (90 would be centered)
-        this.$refs.clickPotionInfo.style.left = `${$event.x - 60}px`;
-        this.$refs.clickPotionInfo.style.top = `${$event.y + 10}px`;
-      } else if (this.eggClickMode) {
-        // dragging eggInfo is 180px wide (90 would be centered)
-        this.$refs.clickEggInfo.style.left = `${$event.x - 60}px`;
-        this.$refs.clickEggInfo.style.top = `${$event.y + 10}px`;
       }
     },
   },

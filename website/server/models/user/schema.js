@@ -13,7 +13,7 @@ import { schema as WebhookSchema } from '../webhook';
 const RESTRICTED_EMAIL_DOMAINS = Object.freeze(['habitica.com', 'habitrpg.com']);
 
 // User schema definition
-export default new Schema({
+export const UserSchema = new Schema({
   apiToken: {
     $type: String,
     default: shared.uuid,
@@ -152,6 +152,14 @@ export default new Schema({
     reptacularRumble: Boolean,
     woodlandWizard: Boolean,
     boneToPick: Boolean,
+    polarPro: Boolean,
+    plantParent: Boolean,
+    dinosaurDynasty: Boolean,
+    bonelessBoss: Boolean,
+    duneBuddy: Boolean,
+    roughRider: Boolean,
+    rodentRuler: Boolean,
+    cats: Boolean,
     // Onboarding Guide
     createdTask: Boolean,
     completedTask: Boolean,
@@ -304,6 +312,7 @@ export default new Schema({
     cardReceived: { $type: Boolean, default: false },
     warnedLowHealth: { $type: Boolean, default: false },
     verifiedUsername: { $type: Boolean, default: false },
+    thirdPartyTools: { $type: Date },
   },
 
   history: {
@@ -374,7 +383,7 @@ export default new Schema({
       $type: Schema.Types.Mixed,
       default: () => ({}),
     },
-    currentPet: String, // Cactus-Desert
+    currentPet: { $type: String, default: '' }, // Cactus-Desert
 
     // eggs: {
     //  'PandaCub': 0, // 0 indicates "doesn't own"
@@ -412,7 +421,7 @@ export default new Schema({
       $type: Schema.Types.Mixed,
       default: () => ({}),
     },
-    currentMount: String,
+    currentMount: { $type: String, default: '' }, // Cactus-Desert
 
     // Quests: {
     //  'boss_0': 0, // 0 indicates "doesn't own"
@@ -472,6 +481,9 @@ export default new Schema({
         required: true,
         validate: [v => validator.isUUID(v), 'Invalid uuid for user invitation inviter id.'],
       },
+      cancelledPlan: {
+        $type: Boolean,
+      },
     }],
   },
 
@@ -499,6 +511,7 @@ export default new Schema({
       // invite is accepted or rejected, quest starts, or quest is cancelled
       RSVPNeeded: { $type: Boolean, default: false },
     },
+    seeking: Date,
   },
   preferences: {
     dayStart: {
@@ -524,17 +537,21 @@ export default new Schema({
     automaticAllocation: Boolean,
     allocationMode: { $type: String, enum: ['flat', 'classbased', 'taskbased'], default: 'flat' },
     autoEquip: { $type: Boolean, default: true },
-    costume: Boolean,
+    costume: { $type: Boolean, default: false },
     dateFormat: { $type: String, enum: ['MM/dd/yyyy', 'dd/MM/yyyy', 'yyyy/MM/dd'], default: 'MM/dd/yyyy' },
     sleep: { $type: Boolean, default: false },
     stickyHeader: { $type: Boolean, default: true },
     disableClasses: { $type: Boolean, default: false },
     newTaskEdit: { $type: Boolean, default: false },
+    // not used anymore, now the current filter is saved in preferences.activeFilter
     dailyDueDefaultView: { $type: Boolean, default: false },
+    // deprecated, unused
     advancedCollapsed: { $type: Boolean, default: false },
     toolbarCollapsed: { $type: Boolean, default: false },
     reverseChatOrder: { $type: Boolean, default: false },
+    developerMode: { $type: Boolean, default: false },
     background: String,
+    // deprecated, unused
     displayInviteToPartyWhenPartyIs1: { $type: Boolean, default: true },
     webhooks: {
       $type: Schema.Types.Mixed,
@@ -561,6 +578,7 @@ export default new Schema({
       onboarding: { $type: Boolean, default: true },
       majorUpdates: { $type: Boolean, default: true },
       subscriptionReminders: { $type: Boolean, default: true },
+      contentRelease: { $type: Boolean, default: true },
     },
     pushNotifications: {
       unsubscribeFromAll: { $type: Boolean, default: false },
@@ -577,6 +595,7 @@ export default new Schema({
       mentionJoinedGuild: { $type: Boolean, default: true },
       mentionUnjoinedGuild: { $type: Boolean, default: true },
       partyActivity: { $type: Boolean, default: true },
+      contentRelease: { $type: Boolean, default: true },
     },
     suppressModals: {
       levelUp: { $type: Boolean, default: false },
@@ -590,6 +609,12 @@ export default new Schema({
       mirrorGroupTasks: [
         { $type: String, validate: [v => validator.isUUID(v), 'Invalid group UUID.'], ref: 'Group' },
       ],
+      activeFilter: {
+        habit: { $type: String, default: 'all' },
+        daily: { $type: String, default: 'all' },
+        todo: { $type: String, default: 'remaining' },
+        reward: { $type: String, default: 'all' },
+      },
     },
     improvementCategories: {
       $type: Array,
@@ -609,12 +634,13 @@ export default new Schema({
       required: true,
       trim: true,
     },
+    flags: { $type: Schema.Types.Mixed },
   },
   stats: {
     hp: { $type: Number, default: shared.maxHealth },
-    mp: { $type: Number, default: 10 },
+    mp: { $type: Number, default: 10, min: 0 },
     exp: { $type: Number, default: 0 },
-    gp: { $type: Number, default: 0 },
+    gp: { $type: Number, default: 0, min: 0 },
     lvl: {
       $type: Number,
       default: 1,
@@ -624,19 +650,19 @@ export default new Schema({
 
     // Class System
     class: {
-      $type: String, enum: ['warrior', 'rogue', 'wizard', 'healer'], default: 'warrior', required: true,
+      $type: String, enum: shared.content.classes, default: 'warrior', required: true,
     },
-    points: { $type: Number, default: 0 },
-    str: { $type: Number, default: 0 },
-    con: { $type: Number, default: 0 },
-    int: { $type: Number, default: 0 },
-    per: { $type: Number, default: 0 },
+    points: { $type: Number, default: 0, min: 0 },
+    str: { $type: Number, default: 0, min: 0 },
+    con: { $type: Number, default: 0, min: 0 },
+    int: { $type: Number, default: 0, min: 0 },
+    per: { $type: Number, default: 0, min: 0 },
     buffs: {
-      str: { $type: Number, default: 0 },
-      int: { $type: Number, default: 0 },
-      per: { $type: Number, default: 0 },
-      con: { $type: Number, default: 0 },
-      stealth: { $type: Number, default: 0 },
+      str: { $type: Number, default: 0, min: 0 },
+      int: { $type: Number, default: 0, min: 0 },
+      per: { $type: Number, default: 0, min: 0 },
+      con: { $type: Number, default: 0, min: 0 },
+      stealth: { $type: Number, default: 0, min: 0 },
       streaks: { $type: Boolean, default: false },
       snowball: { $type: Boolean, default: false },
       spookySparkles: { $type: Boolean, default: false },
@@ -705,3 +731,5 @@ export default new Schema({
   minimize: false, // So empty objects are returned
   typeKey: '$type', // So that we can use fields named `type`
 });
+
+export default UserSchema; // fallback export until all imports using the Named one

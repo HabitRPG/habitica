@@ -35,7 +35,7 @@
             :key="item.key"
             :item="item"
             :price="item.value"
-            :item-content-class="'shop_'+item.key"
+            :item-content-class="`shop_${item.key}`"
             :empty-item="false"
             :popover-position="'top'"
             @click="featuredItemSelected(item)"
@@ -89,7 +89,7 @@ export default {
 
 <style lang="scss" scoped>
 .featuredItems {
-  height: 216px;
+  height: 192px;
 
   .background {
     width: 100%;

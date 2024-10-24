@@ -2,7 +2,6 @@
     "backgrounds": "Pozadia",
     "background": "Pozadie",
     "backgroundShop": "Obchod s pozadiami",
-    "backgroundShopText": "Obchod s pozadiami",
     "noBackground": "Nie je zvolené pozadie",
     "backgrounds062014": "1. sada: Vydaná v júni 2014",
     "backgroundBeachText": "Pláž",
@@ -408,5 +407,6 @@
     "backgroundArchaeologicalDigText": "Archaeological Dig",
     "backgroundArchaeologicalDigNotes": "Unearth secrets of the ancient past at an Archaeological Dig.",
     "backgroundScribesWorkshopText": "Scribe's Workshop",
-    "backgroundScribesWorkshopNotes": "Write your next great scroll in a Scribe's Workshop."
+    "backgroundScribesWorkshopNotes": "Write your next great scroll in a Scribe's Workshop.",
+    "hideLockedBackgrounds": "Skryť nedostupné pozadia"
 }

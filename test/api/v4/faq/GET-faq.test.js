@@ -12,7 +12,7 @@ describe('GET /faq', () => {
       expect(res).to.have.property('stillNeedHelp');
       expect(res.stillNeedHelp.ios).to.equal(translate('iosFaqStillNeedHelp'));
       expect(res).to.have.property('questions');
-      expect(res.questions[0].question).to.equal(translate('faqQuestion0'));
+      expect(res.questions[0].question).to.equal(translate('faqQuestion25'));
     });
 
     it('returns faq not in English', async () => {
@@ -29,18 +29,6 @@ describe('GET /faq', () => {
   });
 
   describe('platform parameter', () => {
-    it('returns faq with answers for ios platform only', async () => {
-      const res = await requester().get('/faq?platform=ios');
-
-      expect(res).to.have.property('stillNeedHelp');
-      expect(res.stillNeedHelp).to.eql({ ios: translate('iosFaqStillNeedHelp') });
-
-      expect(res).to.have.property('questions');
-      expect(res.questions[0]).to.eql({
-        question: translate('faqQuestion0'),
-        ios: translate('iosFaqAnswer0'),
-      });
-    });
     it('returns an error when invalid platform parameter is specified', async () => {
       const request = requester().get('/faq?platform=wrong');
       await expect(request)
@@ -57,8 +45,10 @@ describe('GET /faq', () => {
 
       expect(res).to.have.property('questions');
       expect(res.questions[0]).to.eql({
-        question: translate('faqQuestion0'),
-        android: translate('androidFaqAnswer0'),
+        exclusions: [],
+        heading: 'task-types',
+        question: translate('faqQuestion25'),
+        web: translate('webFaqAnswer25'),
       });
     });
   });

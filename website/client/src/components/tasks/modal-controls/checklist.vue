@@ -10,8 +10,8 @@
       <div
         class="svg-icon icon-16 my-auto ml-auto pointer"
         :class="{'chevron-flip': showChecklist}"
-        v-html="icons.chevron"
         @click="showChecklist = !showChecklist"
+        v-html="icons.chevron"
       >
       </div>
     </div>

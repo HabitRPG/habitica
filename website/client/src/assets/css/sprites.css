@@ -22,7 +22,7 @@
   height: 219px;
 }
 
-.Pet_HatchingPotion_Dessert, .Pet_HatchingPotion_Veggie, .Pet_HatchingPotion_Windup, .Pet_HatchingPotion_VirtualPet {
+.Pet_HatchingPotion_Dessert, .Pet_HatchingPotion_Veggie, .Pet_HatchingPotion_Windup, .Pet_HatchingPotion_VirtualPet, .Pet_HatchingPotion_Fungi {
   width: 68px;
   height: 68px;
 }
@@ -41,6 +41,10 @@
 
 .Pet_HatchingPotion_VirtualPet {
   background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet_HatchingPotion_VirtualPet.gif") no-repeat;
+}
+
+.Pet_HatchingPotion_Fungi {
+  background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet_HatchingPotion_Fungi.gif") no-repeat;
 }
 
 .Gems {
@@ -92,6 +96,12 @@
 .broad_armor_special_1, .slim_armor_special_1, .head_special_1 {
   width: 90px;
   height: 90px;
+}
+
+.back_special_heroicAureole {
+  width: 114px;
+  height: 90px;
+  background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/back_special_heroicAureole.gif") no-repeat;
 }
 
 .head_special_0 {
@@ -156,6 +166,12 @@
   height: 99px;
 }
 
+.Pet-Gryphatrice-Jubilant {
+  background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Gryphatrice-Jubilant.gif") no-repeat;
+  width: 81px;
+  height: 96px;
+}
+
 .Mount_Head_Gryphon-Gryphatrice, .Mount_Body_Gryphon-Gryphatrice {
   width: 135px;
   height: 135px;
@@ -185,14 +201,6 @@
 .background_steamworks {
   background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_steamworks.gif") no-repeat;
 }
-
-/* FIXME figure out how to handle customize menu!!
-.customize-menu .f_head_0 {
-  width: 60px;
-  height: 60px;
-  background-position: -1917px -9px;
-}
-*/
 
 [class*="Mount_Head_"],
 [class*="Mount_Body_"] {

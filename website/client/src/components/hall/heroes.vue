@@ -258,13 +258,22 @@
                 :key="hero._id"
               >
                 <td>
-                  <user-link
+                  <div
                     v-if="hasPermission(hero, 'userSupport')"
-                    :user="hero"
-                    :popover="$t('gamemaster')"
-                    popover-trigger="mouseenter"
-                    popover-placement="right"
-                  />
+                    class="width-content"
+                  >
+                    <user-link
+                      :id="hero._id"
+                      :user="hero"
+                    />
+                    <b-popover
+                      :target="hero._id"
+                      triggers="hover focus"
+                      placement="right"
+                      :prevent-overflow="false"
+                      :content="$t('gamemaster')"
+                    />
+                  </div>
                   <user-link
                     v-else
                     :user="hero"
@@ -302,20 +311,26 @@
   h4.expand-toggle::after {
     margin-left: 5px;
   }
+
+  .width-content {
+    width: fit-content;
+  }
 </style>
 
 <script>
 import each from 'lodash/each';
-import markdownDirective from '@/directives/markdown';
-import styleHelper from '@/mixins/styleHelper';
 import * as quests from '@/../../common/script/content/quests';
-import { mountInfo, petInfo } from '@/../../common/script/content/stable';
+import stable from '@/../../common/script/content/stable';
 import content from '@/../../common/script/content';
 import gear from '@/../../common/script/content/gear';
+import styleHelper from '@/mixins/styleHelper';
+import markdownDirective from '@/directives/markdown';
 import notifications from '@/mixins/notifications';
 import userLink from '../userLink';
 import PurchaseHistoryTable from '../ui/purchaseHistoryTable.vue';
 import { userStateMixin } from '../../mixins/userState';
+
+const { mountInfo, petInfo } = stable;
 
 export default {
   components: {

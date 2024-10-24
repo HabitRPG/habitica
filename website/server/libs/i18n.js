@@ -23,7 +23,7 @@ const momentLangsMapping = {
 };
 
 export const approvedLanguages = [
-  'bg', 'cs', 'da', 'de', 'en', 'en_GB', 'en@pirate',
+  'bg', 'cs', 'da', 'de', 'en', 'en_GB',
   'es', 'es_419', 'fr', 'he', 'hu', 'id', 'it',
   'ja', 'nl', 'pl', 'pt', 'pt_BR', 'ro', 'ru', 'sk',
   'sr', 'sv', 'tr', 'uk', 'zh', 'zh_TW',
@@ -50,7 +50,8 @@ approvedLanguages.forEach(file => {
   if (file === 'en' || fs.statSync(path.join(localePath, file)).isDirectory() === false) return;
   _loadTranslations(file);
 
-  // Merge missing strings from english
+  // Strip empty strings, then merge missing strings from english
+  translations[file] = _.pickBy(translations[file], string => string !== '');
   _.defaults(translations[file], translations.en);
 });
 

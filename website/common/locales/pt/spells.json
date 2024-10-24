@@ -6,8 +6,7 @@
     "spellWizardEarthText": "Terramoto",
     "spellWizardEarthNotes": "O seu poder mental abana a terra e aumenta a Inteligência da sua equipa! (Baseado em: INT base)",
     "spellWizardFrostText": "Geada Arrepiante",
-    "spellWizardFrostNotes": "Com um lançar de feitiço, gelo congela todas os seus combos para que não reinicializem amanhã!",
-    "spellWizardFrostAlreadyCast": "Já lançou isto hoje. Os seus elementos estão congelados, e não precisa de os lançar novamente.",
+    "spellWizardFrostNotes": "Com um lançar de feitiço, o gelo congela todas os seus combos para que não reinicializem amanhã!",
     "spellWarriorSmashText": "Destruição Brutal",
     "spellWarriorSmashNotes": "Você faz com que uma tarefa fique mais azul/menos vermelha e dá dano extra a Chefões! (Baseado em: STR)",
     "spellWarriorDefensiveStanceText": "Postura Defensiva",
@@ -24,8 +23,7 @@
     "spellRogueToolsOfTradeNotes": "Os teus talentos traiçoeiros aumentam a Percepção de toda a tua Equipa! (Baseado em: PER)",
     "spellRogueStealthText": "Furtividade",
     "spellRogueStealthNotes": "A cada conjuração, algumas de suas Diárias não cumpridas não causarão danos esta noite. Seus combos e cores não mudarão. (Baseado em: PER)",
-    "spellRogueStealthDaliesAvoided": "<%= originalText %> Número de tarefas diárias evitado: <%= number %>.",
-    "spellRogueStealthMaxedOut": "Você já evitou todas as suas tarefas diárias; não há necessidade de lançar isso de novo.",
+    "spellRogueStealthDaliesAvoided": "<%= originalText %> Número de tarefas diárias que serão evitadas: <%= number %>.",
     "spellHealerHealText": "Luz Curadora",
     "spellHealerHealNotes": "Luz brilhante restora a sua saúde! (Baseado em: CON e INT)",
     "spellHealerBrightnessText": "Brilho Escaldante",
@@ -55,5 +53,6 @@
     "challengeTasksNoCast": "O uso de habilidade em tarefas de desafio não é permitido.",
     "groupTasksNoCast": "Não é permitido lançar uma habilidade sobre uma tarefa de grupo.",
     "spellNotOwned": "Você não possui essa habilidade.",
-    "spellLevelTooHigh": "Precisas de ser nível <%= level %> para usares esta habilidade."
+    "spellLevelTooHigh": "Precisas de ser nível <%= level %> para usares esta habilidade.",
+    "spellAlreadyCast": "A utilização desta habilidade não terá qualquer efeito adicional."
 }

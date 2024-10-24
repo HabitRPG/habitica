@@ -227,7 +227,7 @@ api.deleteTag = {
     const tagFound = find(user.tags, tag => tag.id === req.params.tagId);
     if (!tagFound) throw new NotFound(res.t('tagNotFound'));
 
-    await user.update({
+    await user.updateOne({
       $pull: { tags: { id: tagFound.id } },
     }).exec();
 
@@ -237,13 +237,13 @@ api.deleteTag = {
     user._v += 1;
 
     // Remove from all the tasks TODO test
-    await Tasks.Task.update({
+    await Tasks.Task.updateMany({
       userId: user._id,
     }, {
       $pull: {
         tags: tagFound.id,
       },
-    }, { multi: true }).exec();
+    }).exec();
 
     res.respond(200, {});
   },

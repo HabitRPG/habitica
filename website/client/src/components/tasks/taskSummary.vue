@@ -43,7 +43,7 @@
       </div>
       <div class="summary-block">
         <h3> {{ $t('description') }} </h3>
-        <p v-html="summarySentence" ></p>
+        <p v-html="summarySentence"></p>
       </div>
       <div
         v-if="task.checklist && task.checklist.length > 0"
@@ -51,13 +51,13 @@
       >
         <checklist
           :items.sync="task.checklist"
-          :disableDrag="true"
-          :disableEdit="true"
+          :disable-drag="true"
+          :disable-edit="true"
         />
       </div>
       <div
-        class="summary-block"
         v-if="assignedUsernames.length > 0"
+        class="summary-block"
       >
         <h3> {{ $t('assignedTo') }} </h3>
         <div

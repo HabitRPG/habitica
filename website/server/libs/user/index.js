@@ -1,4 +1,6 @@
 import _ from 'lodash';
+import * as slack from '../slack';
+import { getUserInfo } from '../email';
 import common from '../../../common';
 import * as Tasks from '../../models/task';
 import { model as Groups } from '../../models/group';
@@ -51,6 +53,7 @@ const updatablePaths = [
   'party.orderAscending',
   'party.quest.completed',
   'party.quest.RSVPNeeded',
+  'party.seeking',
 
   'preferences',
   'profile',
@@ -94,25 +97,15 @@ const requiresPurchase = {
 };
 
 function checkPreferencePurchase (user, path, item) {
+  if (path === 'background' && item === '') return true;
   const itemPath = `${path}.${item}`;
   const appearance = _.get(common.content.appearances, itemPath);
   if (!appearance) return false;
-  if (appearance.price === 0) return true;
+  if (appearance.price === 0 && path !== 'background') {
+    return true;
+  }
 
   return _.get(user.purchased, itemPath);
-}
-
-async function checkNewInputForProfanity (user, res, newValue) {
-  const containsSlur = stringContainsProfanity(newValue, 'slur');
-  const containsBannedWord = stringContainsProfanity(newValue);
-  if (containsSlur || containsBannedWord) {
-    if (containsSlur) {
-      user.flags.chatRevoked = true;
-      await user.save();
-      throw new BadRequest(res.t('bannedSlurUsedInProfile'));
-    }
-    throw new BadRequest(res.t('bannedWordUsedInProfile'));
-  }
 }
 
 export async function update (req, res, { isV3 = false }) {
@@ -120,21 +113,57 @@ export async function update (req, res, { isV3 = false }) {
 
   let promisesForTagsRemoval = [];
 
+  if (req.body['party.seeking'] !== undefined && req.body['party.seeking'] !== null) {
+    user.invitations.party = {};
+    user.invitations.parties = [];
+    res.analytics.track('Starts Looking for Party', {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      headers: req.headers,
+    });
+  }
+
+  let slurWasUsed = false;
+  let problemContent = '';
+
   if (req.body['profile.name'] !== undefined) {
     const newName = req.body['profile.name'];
     if (newName === null) throw new BadRequest(res.t('invalidReqParams'));
     if (newName.length > 30) throw new BadRequest(res.t('displaynameIssueLength'));
     if (nameContainsNewline(newName)) throw new BadRequest(res.t('displaynameIssueNewline'));
-    await checkNewInputForProfanity(user, res, newName);
+    if (stringContainsProfanity(newName, 'slur')) {
+      slurWasUsed = true;
+      problemContent += `Profile Name: ${newName}\n\n`;
+    }
   }
 
   if (req.body['profile.blurb'] !== undefined) {
     const newBlurb = req.body['profile.blurb'];
-    await checkNewInputForProfanity(user, res, newBlurb);
+    if (stringContainsProfanity(newBlurb, 'slur')) {
+      slurWasUsed = true;
+      problemContent += `Profile Blurb: ${newBlurb}`;
+    }
   }
 
+  if (slurWasUsed) {
+    const authorEmail = getUserInfo(user, ['email']).email;
+    user.flags.chatRevoked = true;
+    await user.save();
+    slack.sendProfileSlurNotification({
+      authorEmail,
+      author: user.auth.local.username,
+      uuid: user.id,
+      language: user.preferences.language,
+      problemContent,
+    });
+    throw new BadRequest(res.t('bannedSlurUsedInProfile'));
+  }
+
+  let groupsToMirror;
+  let matchingGroupsArray;
   if (req.body['preferences.tasks.mirrorGroupTasks'] !== undefined) {
-    const groupsToMirror = req.body['preferences.tasks.mirrorGroupTasks'];
+    groupsToMirror = req.body['preferences.tasks.mirrorGroupTasks'];
     if (!Array.isArray(groupsToMirror)) {
       throw new BadRequest('Groups to copy tasks from must be an array.');
     }
@@ -146,7 +175,7 @@ export async function update (req, res, { isV3 = false }) {
       }
     }
 
-    const matchingGroupsCount = await Groups.countDocuments({
+    const matchingGroups = await Groups.find({
       _id: { $in: groupsToMirror },
       'purchased.plan.customerId': { $exists: true },
       $or: [
@@ -154,11 +183,11 @@ export async function update (req, res, { isV3 = false }) {
         { 'purchased.plan.dateTerminated': null },
         { 'purchased.plan.dateTerminated': { $gt: new Date() } },
       ],
+    }, {
+      _id: 1,
     }).exec();
 
-    if (matchingGroupsCount !== groupsToMirror.length) {
-      throw new BadRequest('Groups to copy tasks from must have subscriptions.');
-    }
+    matchingGroupsArray = _.map(matchingGroups, groupRecord => groupRecord._id);
   }
 
   _.each(req.body, (val, key) => {
@@ -168,7 +197,15 @@ export async function update (req, res, { isV3 = false }) {
       throw new NotAuthorized(res.t('mustPurchaseToSet', { val, key }));
     }
 
-    if (key === 'tags') {
+    if (key === 'party.seeking' && val === null) {
+      user.party.seeking = undefined;
+      res.analytics.track('Leaves Looking for Party', {
+        uuid: user._id,
+        hitType: 'event',
+        category: 'behavior',
+        headers: req.headers,
+      });
+    } else if (key === 'tags') {
       if (!Array.isArray(val)) throw new BadRequest('Tag list must be an array.');
 
       const removedTagsIds = [];
@@ -198,13 +235,13 @@ export async function update (req, res, { isV3 = false }) {
       // Remove from all the tasks
       // NOTE each tag to remove requires a query
 
-      promisesForTagsRemoval = removedTagsIds.map(tagId => Tasks.Task.update({
+      promisesForTagsRemoval = removedTagsIds.map(tagId => Tasks.Task.updateMany({
         userId: user._id,
       }, {
         $pull: {
           tags: tagId,
         },
-      }, { multi: true }).exec());
+      }).exec());
     } else if (key === 'flags.newStuff' && val === false) {
       // flags.newStuff was removed from the user schema and is only returned for compatibility
       // reasons but we're keeping the ability to set it in API v3
@@ -212,6 +249,8 @@ export async function update (req, res, { isV3 = false }) {
       if (lastNewsPost) {
         user.flags.lastNewStuffRead = lastNewsPost._id;
       }
+    } else if (key === 'preferences.tasks.mirrorGroupTasks') {
+      user.preferences.tasks.mirrorGroupTasks = _.intersection(groupsToMirror, matchingGroupsArray);
     } else if (acceptablePUTPaths[key]) {
       let adjustedVal = val;
       if (key === 'stats.lvl' && val > common.constants.MAX_LEVEL_HARD_CAP) {
@@ -246,7 +285,7 @@ export async function reset (req, res, { isV3 = false }) {
   }
 
   await Promise.all([
-    Tasks.Task.remove({ _id: { $in: resetRes[0].tasksToRemove }, userId: user._id }),
+    Tasks.Task.deleteMany({ _id: { $in: resetRes[0].tasksToRemove }, userId: user._id }),
     user.save(),
   ]);
 
@@ -254,6 +293,7 @@ export async function reset (req, res, { isV3 = false }) {
     uuid: user._id,
     hitType: 'event',
     category: 'behavior',
+    headers: req.headers,
   });
 
   res.respond(200, ...resetRes);

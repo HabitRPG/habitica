@@ -19,14 +19,14 @@
           />
         </div>
       </b-dropdown-header>
-      <template v-slot:button-content>
+      <template #button-content>
         <div
-          class="mr-1 d-inline-flex align-items-center"
-          @click.stop="selectItem({id: selectedItem})"
           v-markdown="
             allItemsMap[selectedItem] ? `@${allItemsMap[selectedItem].name}`
             : emptyMessage
           "
+          class="mr-1 d-inline-flex align-items-center"
+          @click.stop="selectItem({id: selectedItem})"
         >
         </div>
       </template>

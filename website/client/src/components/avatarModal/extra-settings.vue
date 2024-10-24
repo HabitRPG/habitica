@@ -1,7 +1,8 @@
 <template>
   <div
     id="extra"
-    class="section container customize-section"
+    class="customize-section d-flex flex-column"
+    :class="{ 'justify-content-between': !showEmptySection}"
   >
     <sub-menu
       class="text-center"
@@ -20,9 +21,8 @@
       id="animal-ears"
     >
       <customize-options
+        v-if="animalItems('back').length > 0"
         :items="animalItems('headAccessory')"
-        :full-set="!animalItemsOwned('headAccessory')"
-        @unlock="unlock(animalItemsUnlockString('headAccessory'))"
       />
     </div>
     <div
@@ -30,9 +30,8 @@
       id="animal-tails"
     >
       <customize-options
+        v-if="animalItems('back').length > 0"
         :items="animalItems('back')"
-        :full-set="!animalItemsOwned('back')"
-        @unlock="unlock(animalItemsUnlockString('back'))"
       />
     </div>
     <div
@@ -53,30 +52,47 @@
     >
       <customize-options :items="flowers" />
     </div>
+    <div
+      v-if="showEmptySection"
+      class="my-5"
+    >
+      <h3
+        v-once
+      >
+        {{ $t('noItemsOwned') }}
+      </h3>
+      <p
+        v-once
+        class="w-50 mx-auto"
+        v-html="$t('visitCustomizationsShop')"
+      ></p>
+    </div>
+    <customize-banner
+      v-else-if="editing"
+    />
   </div>
 </template>
 
 <script>
 import appearance from '@/../../common/script/content/appearance';
+import upperFirst from 'lodash/upperFirst';
 import { subPageMixin } from '../../mixins/subPage';
 import { userStateMixin } from '../../mixins/userState';
-import { avatarEditorUtilies } from '../../mixins/avatarEditUtilities';
-import subMenu from './sub-menu';
+import { avatarEditorUtilities } from '../../mixins/avatarEditUtilities';
+import customizeBanner from './customize-banner';
 import customizeOptions from './customize-options';
-import gem from '@/assets/svg/gem.svg';
-
-const freeShirtKeys = Object.keys(appearance.shirt).filter(k => appearance.shirt[k].price === 0);
-const specialShirtKeys = Object.keys(appearance.shirt).filter(k => appearance.shirt[k].price !== 0);
+import subMenu from './sub-menu';
 
 export default {
   components: {
-    subMenu,
+    customizeBanner,
     customizeOptions,
+    subMenu,
   },
   mixins: [
     subPageMixin,
     userStateMixin,
-    avatarEditorUtilies,
+    avatarEditorUtilities,
   ],
   props: [
     'editing',
@@ -88,20 +104,6 @@ export default {
         headAccessory: ['bearEars', 'cactusEars', 'foxEars', 'lionEars', 'pandaEars', 'pigEars', 'tigerEars', 'wolfEars'],
       },
       chairKeys: ['none', 'black', 'blue', 'green', 'pink', 'red', 'yellow', 'handleless_black', 'handleless_blue', 'handleless_green', 'handleless_pink', 'handleless_red', 'handleless_yellow'],
-      specialShirtKeys,
-      icons: Object.freeze({
-        gem,
-      }),
-      items: [
-        {
-          id: 'size',
-          label: this.$t('size'),
-        },
-        {
-          id: 'shirt',
-          label: this.$t('shirt'),
-        },
-      ],
     };
   },
   computed: {
@@ -152,6 +154,7 @@ export default {
       ];
       const noneOption = this.createGearItem(0, 'eyewear', 'base');
       noneOption.none = true;
+      noneOption.text = this.$t('none');
       const options = [
         noneOption,
       ];
@@ -163,37 +166,36 @@ export default {
         option.active = this.user.preferences.costume
           ? this.user.items.gear.costume.eyewear === newKey
           : this.user.items.gear.equipped.eyewear === newKey;
-        option.class = `eyewear_special_${key}`;
+        option.imageName = `eyewear_special_${key}`;
+        option.isGear = true;
         option.click = () => {
           const type = this.user.preferences.costume ? 'costume' : 'equipped';
 
           return this.equip(newKey, type);
         };
+        option.text = this.$t(`eyewearSpecial${upperFirst(key)}Text`);
         options.push(option);
       }
 
       return options;
     },
-    freeShirts () {
-      return freeShirtKeys.map(s => this.mapKeysToFreeOption(s, 'shirt'));
-    },
-    specialShirts () {
-        let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
-      const keys = this.specialShirtKeys;
-      const options = keys.map(key => this.mapKeysToOption(key, 'shirt'));
-      return options;
-    },
     headbands () {
       const keys = ['blackHeadband', 'blueHeadband', 'greenHeadband', 'pinkHeadband', 'redHeadband', 'whiteHeadband', 'yellowHeadband'];
-      const noneOption = this.createGearItem(0, 'headAccessory', 'base', 'headband');
+      const noneOption = this.createGearItem(0, 'headAccessory', 'base');
       noneOption.none = true;
+      noneOption.text = this.$t('none');
       const options = [
         noneOption,
       ];
 
       for (const key of keys) {
-        const option = this.createGearItem(key, 'headAccessory', 'special', 'headband');
-
+        const option = this.createGearItem(key, 'headAccessory', 'special');
+        const newKey = `headAccessory_special_${key}`;
+        option.click = () => {
+          const type = this.user.preferences.costume ? 'costume' : 'equipped';
+          return this.equip(newKey, type);
+        };
+        option.text = this.$t(`headAccessory${upperFirst(key)}Text`);
         options.push(option);
       }
 
@@ -207,8 +209,9 @@ export default {
           option.none = true;
         }
         option.active = this.user.preferences.chair === key;
-        option.class = `button_chair_${key} chair ${key.includes('handleless_') ? 'handleless' : ''}`;
+        option.imageName = `chair_${key}`;
         option.click = () => this.set({ 'preferences.chair': key });
+        option.text = appearance.chair[key].text();
         return option;
       });
       return options;
@@ -222,11 +225,24 @@ export default {
           option.none = true;
         }
         option.active = this.user.preferences.hair.flower === key;
-        option.class = `hair_flower_${key} flower`;
+        if (key !== 0) {
+          option.imageName = `hair_flower_${key}`;
+        }
         option.click = () => this.set({ 'preferences.hair.flower': key });
+        option.text = appearance.hair.flower[key].text();
         return option;
       });
       return options;
+    },
+    showEmptySection () {
+      switch (this.activeSubPage) {
+        case 'ears':
+          return this.editing && this.animalItems('headAccessory').length === 1;
+        case 'tails':
+          return this.editing && this.animalItems('back').length === 1;
+        default:
+          return false;
+      }
     },
   },
   mounted () {
@@ -236,11 +252,12 @@ export default {
     animalItems (category) {
       // @TODO: For some resonse when I use $set on the
       // user purchases object, this is not recomputed. Hack for now
-        let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
       const keys = this.animalItemKeys[category];
 
       const noneOption = this.createGearItem(0, category, 'base', category);
       noneOption.none = true;
+      noneOption.text = this.$t('none');
       const options = [
         noneOption,
       ];
@@ -248,36 +265,27 @@ export default {
       for (const key of keys) {
         const newKey = `${category}_special_${key}`;
         const userPurchased = this.user.items.gear.owned[newKey];
+        if (userPurchased) {
+          const option = {};
+          option.key = key;
+          option.active = this.user.preferences.costume
+            ? this.user.items.gear.costume[category] === newKey
+            : this.user.items.gear.equipped[category] === newKey;
 
-        const option = {};
-        option.key = key;
-        option.active = this.user.preferences.costume
-          ? this.user.items.gear.costume[category] === newKey
-          : this.user.items.gear.equipped[category] === newKey;
-        option.class = `headAccessory_special_${option.key} ${category}`;
-        if (category === 'back') {
-          option.class = `icon_back_special_${option.key} back`;
-        }
-        option.gemLocked = userPurchased === undefined;
-        option.goldLocked = userPurchased === false;
-        if (option.goldLocked) {
-          option.gold = 20;
-        }
-        if (option.gemLocked) {
-          option.gem = 2;
-        }
-        option.locked = option.gemLocked || option.goldLocked;
-        option.click = () => {
-          if (option.gemLocked) {
-            return this.unlock(`items.gear.owned.${newKey}`);
-          } if (option.goldLocked) {
-            return this.buy(newKey);
+          if (category === 'back') {
+            option.text = this.$t(`back${upperFirst(key)}Text`);
+            option.imageName = `back_special_${option.key}`;
+          } else {
+            option.text = this.$t(`headAccessory${upperFirst(key)}Text`);
+            option.imageName = `headAccessory_special_${option.key}`;
           }
-          const type = this.user.preferences.costume ? 'costume' : 'equipped';
-          return this.equip(newKey, type);
-        };
-
-        options.push(option);
+          option.isGear = true;
+          option.click = () => {
+            const type = this.user.preferences.costume ? 'costume' : 'equipped';
+            return this.equip(newKey, type);
+          };
+          options.push(option);
+        }
       }
 
       return options;
@@ -287,18 +295,7 @@ export default {
 
       return keys.join(',');
     },
-    animalItemsOwned (category) {
-      // @TODO: For some resonse when I use $set on the user purchases object,
-      // this is not recomputed. Hack for now
-        let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
-
-      let own = true;
-      this.animalItemKeys[category].forEach(key => {
-        if (this.user.items.gear.owned[`${category}_special_${key}`] === undefined) own = false;
-      });
-      return own;
-    },
-    createGearItem (key, gearType, subGearType, additionalClass) {
+    createGearItem (key, gearType, subGearType) {
       const newKey = `${gearType}_${subGearType ? `${subGearType}_` : ''}${key}`;
       const option = {};
       option.key = key;
@@ -306,6 +303,7 @@ export default {
       const currentlyEquippedValue = this.user.items.gear[visibleGearType][gearType];
 
       option.active = currentlyEquippedValue === newKey;
+      option.isGear = true;
 
       if (key === 0) {
         // if key is the "none" option check if a property
@@ -313,7 +311,7 @@ export default {
         option.active = option.active || !currentlyEquippedValue;
       }
 
-      option.class = `${newKey} ${additionalClass}`;
+      option.imageName = `${newKey}`;
       option.click = () => {
         const type = this.user.preferences.costume ? 'costume' : 'equipped';
         const currentlyEquipped = this.user.items.gear[type][gearType];
@@ -339,7 +337,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-
-</style>

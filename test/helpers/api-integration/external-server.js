@@ -12,8 +12,9 @@ const webhookData = {};
 
 app.use(bodyParser.urlencoded({
   extended: true,
+  limit: '10mb',
 }));
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '10mb' }));
 
 app.post('/webhooks/:id', (req, res) => {
   const { id } = req.params;

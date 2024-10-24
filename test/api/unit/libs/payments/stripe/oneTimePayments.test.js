@@ -1,4 +1,4 @@
-import apiError from '../../../../../../website/server/libs/apiError';
+import { apiError } from '../../../../../../website/server/libs/apiError';
 import common from '../../../../../../website/common';
 import {
   getOneTimePaymentInfo,

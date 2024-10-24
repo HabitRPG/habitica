@@ -1,13 +1,17 @@
 <template>
   <div>
+    <chat-banner />
     <static-header
       v-if="showContentWrap"
       :class="{
         'home-header': ['home', 'front'].indexOf($route.name) !== -1,
-        'white-header': this.$route.name === 'plans'
+        'white-header': $route.name === 'plans'
       }"
     />
-    <div class="static-wrapper">
+    <div
+      class="static-wrapper"
+      :class="{ 'groups-bg': $route.name === 'groupPlans' }"
+    >
       <router-view />
     </div>
     <div
@@ -41,13 +45,13 @@
     padding-right: 5em !important;
 
     .logo.svg-icon {
-      width: 200px !important;
+      width: 175px !important;
     }
 
     .nav-item a {
       font-size: 14px !important;
       color: $purple-600 !important;
-      padding-top: 2.8em !important;
+      padding-top: 16px !important;
     }
 
     .nav-item a:hover {
@@ -61,8 +65,7 @@
 
     .login-button {
       padding-right: 1em;
-      margin-top: 1.8em !important;
-      border-radius: 2px;
+      border-radius: 4px;
       background-color: #9a62ff;
     }
 
@@ -198,16 +201,19 @@
       color: $purple-200;
     }
 
-    li, p {
-      font-size: 16px;
-    }
-
     .media img {
       margin: 1em;
     }
 
     .strong {
       font-weight: bold;
+    }
+
+    &.groups-bg {
+      background-color: $white;
+      background-image: url('../../assets/images/group-plans-static/top.svg');
+      background-repeat: no-repeat;
+      background-position-y: 56px;
     }
   }
 </style>
@@ -247,11 +253,13 @@
 
 <script>
 import AppFooter from '@/components/appFooter';
+import ChatBanner from '@/components/header/banners/chatBanner';
 import StaticHeader from './header.vue';
 
 export default {
   components: {
     AppFooter,
+    ChatBanner,
     StaticHeader,
   },
   computed: {

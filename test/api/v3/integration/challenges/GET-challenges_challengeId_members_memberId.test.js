@@ -72,20 +72,6 @@ describe('GET /challenges/:challengeId/members/:memberId', () => {
     });
   });
 
-  it('works with challenges belonging to a public guild', async () => {
-    const groupLeader = await generateUser({ balance: 4 });
-    const group = await generateGroup(groupLeader, { type: 'guild', privacy: 'public', name: generateUUID() });
-    const challenge = await generateChallenge(groupLeader, group);
-    await groupLeader.post(`/challenges/${challenge._id}/join`);
-    const taskText = 'Test Text';
-    await groupLeader.post(`/tasks/challenge/${challenge._id}`, [{ type: 'habit', text: taskText }]);
-
-    const memberProgress = await user.get(`/challenges/${challenge._id}/members/${groupLeader._id}`);
-    expect(memberProgress).to.have.all.keys(['_id', 'auth', 'flags', 'id', 'profile', 'tasks']);
-    expect(memberProgress.profile).to.have.all.keys(['name']);
-    expect(memberProgress.tasks.length).to.equal(1);
-  });
-
   it('returns the member tasks for the challenges', async () => {
     const group = await generateGroup(user, { type: 'party', name: generateUUID() });
     const challenge = await generateChallenge(user, group);

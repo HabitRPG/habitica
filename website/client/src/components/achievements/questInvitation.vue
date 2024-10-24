@@ -11,10 +11,11 @@
     </div>
     <div class="modal-body">
       <div class="pull-right-sm text-center">
-        <div
-          class="col-centered"
-          :class="`quest_${quests[user.party.quest.key].key}`"
-        ></div>
+        <div class="col-centered">
+          <Sprite
+            :image-name="`quest_${quests[user.party.quest.key].key}`"
+          />
+        </div>
         <div ng-if="quests[user.party.quest.key].boss">
           <h4>{{ quests[user.party.quest.key].boss.name() }}</h4>
           <p>
@@ -90,11 +91,15 @@
 
 <script>
 import * as quests from '@/../../common/script/content/quests';
-import { mapState } from '@/libs/store';
 import percent from '@/../../common/script/libs/percent';
 import { MAX_HEALTH as maxHealth } from '@/../../common/script/constants';
+import { mapState } from '@/libs/store';
+import Sprite from '@/components/ui/sprite';
 
 export default {
+  components: [
+    Sprite,
+  ],
   data () {
     return {
       maxHealth,

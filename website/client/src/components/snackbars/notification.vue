@@ -8,10 +8,10 @@
         v-if="notification.type === 'drop'"
         class="icon-item"
       >
-        <div
-          :class="notification.icon"
+        <Sprite
+          :image-name="notification.icon"
           class="icon-negative-margin"
-        ></div>
+        />
       </div>
 
       <div
@@ -231,9 +231,13 @@ import star from '@/assets/svg/star.svg';
 import mana from '@/assets/svg/mana.svg';
 import sword from '@/assets/svg/sword.svg';
 import CloseIcon from '../shared/closeIcon';
+import Sprite from '@/components/ui/sprite';
 
 export default {
-  components: { CloseIcon },
+  components: {
+    CloseIcon,
+    Sprite,
+  },
   props: ['notification', 'visibleAmount'],
   data () {
     return {
@@ -269,6 +273,11 @@ export default {
     classes () {
       return `${this.notification.type} ${this.negative}`;
     },
+  },
+  mounted () {
+    if (this.notification.type === 'drop' && this.notification.emptied) {
+      this.$root.$emit('bv::show::modal', 'armoire-empty');
+    }
   },
   methods: {
     handleOnClick () {

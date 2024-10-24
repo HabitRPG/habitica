@@ -93,6 +93,9 @@
   "streakCoins": "Streak Bonus!",
   "taskToTop": "To top",
   "taskToBottom": "To bottom",
+  "taskAlias": "Task Alias",
+  "taskAliasPopover": "This task alias can be used when integrating with 3rd party integrations. Only dashes, underscores, and alphanumeric characters are supported. The task alias must be unique among all your tasks.",
+  "taskAliasPlaceholder": "your-task-alias-here",
   "taskAliasAlreadyUsed": "Task alias already used on another task.",
   "invalidTaskType": "Task type must be one of \"habit\", \"daily\", \"todo\", \"reward\".",
   "invalidTasksType": "Task type must be one of \"habits\", \"dailys\", \"todos\", \"rewards\".",
@@ -133,5 +136,7 @@
   "addTags": "Add tags...",
   "enterTag": "Enter a tag",
   "pressEnterToAddTag": "Press Enter to add tag: '<%= tagName %>'",
-  "taskSummary": "<%= type %> Summary"
+  "taskSummary": "<%= type %> Summary",
+  "scoreUp": "Score up",
+  "scoreDown": "Score down"
 }

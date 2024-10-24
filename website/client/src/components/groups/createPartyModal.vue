@@ -11,9 +11,12 @@
       <div class="quest_screen"></div>
       <div class="row heading">
         <div class="col-12 text-center pr-5 pl-5">
-          <h2 v-once>
+          <h1
+            v-once
+            class="mb-2"
+          >
             {{ $t('playInPartyTitle') }}
-          </h2>
+          </h1>
           <p
             v-once
             class="mb-4"
@@ -22,67 +25,91 @@
           </p>
           <button
             v-once
-            class="btn btn-primary"
+            class="btn btn-primary px-4 mb-2"
             @click="createParty()"
           >
             {{ $t('createParty') }}
           </button>
         </div>
       </div>
+      <close-x
+        @close="close()"
+      />
     </div>
     <div class="row grey-row">
-      <div class="col-12 text-center">
+      <div class="col-12 text-center px-0">
         <div class="join-party"></div>
-        <h2 v-once>
-          {{ $t('wantToJoinPartyTitle') }}
-        </h2>
-        <p v-html="$t('wantToJoinPartyDescription')"></p>
-        <div
-          class="form-group"
-          @click="copyUsername"
+        <h1
+          v-once
+          class="mb-2"
         >
-          <div class="d-flex align-items-center">
-            <label
-              v-once
-              class="mr-3"
-            >{{ $t('username') }}</label>
-            <div class="flex-grow-1">
-              <div class="input-group-prepend input-group-text">
-                @
-                <div class="text">
-                  {{ user.auth.local.username }}
-                </div>
-                <div
-                  class="svg-icon copy-icon"
-                  v-html="icons.copy"
-                ></div>
-                <div
-                  v-once
-                  class="small"
-                >
-                  {{ $t('copy') }}
-                </div>
-              </div>
+          {{ $t('wantToJoinPartyTitle') }}
+        </h1>
+        <p
+          v-once
+          class="mb-4"
+          v-html="$t('partyFinderDescription')"
+        >
+        </p>
+        <div
+          v-if="seeking"
+        >
+          <div
+            class="green-bar mb-3"
+          >
+            {{ $t('currentlyLookingForParty') }}
+          </div>
+          <div class="d-flex justify-content-center">
+            <div
+              class="red-link"
+              @click="seekParty()"
+            >
+              {{ $t('leave') }}
             </div>
           </div>
         </div>
+        <button
+          v-else
+          class="btn btn-primary px-4 mt-2 mb-1"
+          @click="seekParty()"
+        >
+          {{ $t('lookForParty') }}
+        </button>
       </div>
     </div>
   </b-modal>
 </template>
 
-<style>
-  #create-party-modal .modal-body {
-    padding: 0rem 0.75rem;
-  }
+<style lang="scss">
+  #create-party-modal {
+    display: flex !important;
+    overflow-y: hidden;
 
-  #create-party-modal .modal-dialog {
-    width: 35.75rem;
-  }
+    @media (max-height: 770px) {
+      overflow-y: auto;
+    }
 
-  #create-party-modal .modal-header {
-    padding: 0;
-    border-bottom: 0px;
+    .modal-body {
+      padding: 0rem 0.75rem;
+    }
+
+    .modal-content {
+      border-radius: 8px;
+    }
+
+    .modal-dialog {
+      width: 566px;
+      margin: auto;
+
+      @media (max-height: 826px) {
+        margin-top: 56px;
+      }
+    }
+
+    .modal-header {
+      padding: 0;
+      border-bottom: 0px;
+    }
   }
 </style>
 
@@ -107,15 +134,27 @@
     cursor: pointer;
   }
 
+  .green-bar {
+    height: 32px;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.71;
+    text-align: center;
+    color: $green-1;
+    background-color: $green-100;
+    border-radius: 2px;
+    padding: 4px 0px 4px 0px;
+  }
+
   .grey-row {
     background-color: $gray-700;
     color: #4e4a57;
     padding: 2em;
-    border-radius: 0px 0px 2px 2px;
+    border-radius: 0px 0px 8px 8px;
   }
 
-  h2 {
-    color: $gray-100;
+  h1 {
+    color: $purple-300;
   }
 
   .header-wrap {
@@ -131,10 +170,6 @@
       margin-bottom: 1.5rem;
       border-radius: 2px 2px 0 0;
       image-rendering: optimizequality;
-    }
-
-    h2 {
-      color: $purple-200;
     }
   }
 
@@ -182,6 +217,21 @@
     margin: 0.75rem auto 0.75rem 0.25rem;
   }
 
+  p {
+    line-height: 1.71;
+  }
+
+  .red-link {
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1.71;
+    text-align: center;
+    color: $maroon-50;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
   .small {
     color: $gray-200;
     margin: auto 0.5rem auto 0.25rem;
@@ -192,20 +242,29 @@
 import { mapState } from '@/libs/store';
 import * as Analytics from '@/libs/analytics';
 import notifications from '@/mixins/notifications';
+import closeX from '../ui/closeX';
 
 import copyIcon from '@/assets/svg/copy.svg';
+import copyToClipboard from '@/mixins/copyToClipboard';
 
 export default {
-  mixins: [notifications],
+  components: {
+    closeX,
+  },
+  mixins: [notifications, copyToClipboard],
   data () {
     return {
       icons: Object.freeze({
         copy: copyIcon,
       }),
+      seeking: false,
     };
   },
   computed: {
     ...mapState({ user: 'user.data' }),
+  },
+  mounted () {
+    this.seeking = Boolean(this.user.party.seeking);
   },
   methods: {
     async createParty () {
@@ -223,20 +282,22 @@ export default {
       });
 
       this.$root.$emit('bv::hide::modal', 'create-party-modal');
-      this.$router.push('/party');
+      await this.$router.push('/party');
+    },
+    close () {
+      this.$root.$emit('bv::hide::modal', 'create-party-modal');
     },
     copyUsername () {
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(this.user.auth.local.username);
-      } else {
-        const copyText = document.createElement('textarea');
-        copyText.value = this.user.auth.local.username;
-        document.body.appendChild(copyText);
-        copyText.select();
-        document.execCommand('copy');
-        document.body.removeChild(copyText);
-      }
-      this.text(this.$t('usernameCopied'));
+      this.mixinCopyToClipboard(
+        this.user.auth.local.username,
+        this.$t('usernameCopied'),
+      );
+    },
+    seekParty () {
+      this.$store.dispatch('user:set', {
+        'party.seeking': !this.user.party.seeking ? new Date() : null,
+      });
+      this.seeking = !this.seeking;
     },
   },
 };

@@ -1,7 +1,7 @@
 <template>
   <div>
     <challenge-modal
-      :group-id="groupId"
+      :group-id="group._id"
       @createChallenge="challengeCreated"
     />
     <div
@@ -81,6 +81,8 @@ import challengeModal from './challengeModal';
 import { mapState } from '@/libs/store';
 import markdownDirective from '@/directives/markdown';
 
+import externalLinks from '../../mixins/externalLinks';
+
 import challengeItem from './challengeItem';
 import challengeIcon from '@/assets/svg/challenge.svg';
 
@@ -92,6 +94,7 @@ export default {
   directives: {
     markdown: markdownDirective,
   },
+  mixins: [externalLinks],
   props: ['group'],
   data () {
     return {
@@ -118,6 +121,10 @@ export default {
   },
   mounted () {
     this.loadChallenges();
+    this.handleExternalLinks();
+  },
+  updated () {
+    this.handleExternalLinks();
   },
   methods: {
     async loadChallenges () {

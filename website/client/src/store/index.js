@@ -1,10 +1,10 @@
 import axios from 'axios';
 import moment from 'moment';
-import Store from '@/libs/store';
-import deepFreeze from '@/libs/deepFreeze';
 import content from '@/../../common/script/content/index';
 import * as commonConstants from '@/../../common/script/constants';
 import { DAY_MAPPING } from '@/../../common/script/cron';
+import deepFreeze from '@/libs/deepFreeze';
+import Store from '@/libs/store';
 import { asyncResourceFactory } from '@/libs/asyncResource';
 import { setUpAxios } from '@/libs/auth';
 
@@ -43,7 +43,7 @@ if (i18nData) {
 // always export the same route
 
 let existingStore;
-export default function () {
+export default function clientStore () {
   if (!IS_TEST && existingStore) return existingStore;
 
   existingStore = new Store({
@@ -91,7 +91,7 @@ export default function () {
       avatarEditorOptions: {
         editingUser: false,
         startingPage: '',
-        subPage: '',
+        subpage: '',
       },
       challengeOptions: {
         cloning: false,
@@ -148,6 +148,10 @@ export default function () {
         egg: '',
         hatchingPotion: '',
       },
+      bugReportOptions: {
+        question: false,
+      },
+      postLoadModal: '',
     },
   });
 

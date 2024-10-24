@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { langCodes } from '../../libs/i18n';
-import apiError from '../../libs/apiError';
+import { apiError } from '../../libs/apiError';
 import common from '../../../common';
 import { localizeContentData } from '../../libs/content';
 
@@ -22,6 +22,7 @@ function _deleteProperties (obj, keysToDelete, platform) {
 
 function _deleteOtherPlatformsAnswers (faqObject, platform) {
   const faqCopy = _.cloneDeep(faqObject);
+  _.remove(faqCopy.questions, question => question.exclusions.indexOf(platform) !== -1);
   const keysToDelete = _.without(['web', 'ios', 'android'], platform);
 
   _deleteProperties(faqCopy.stillNeedHelp, keysToDelete, platform);
@@ -40,7 +41,7 @@ function _deleteOtherPlatformsAnswers (faqObject, platform) {
  * @apiGroup Content
  *
  * @apiParam (Query) {String="bg","cs","da","de",
- *                   "en","en@pirate","en_GB",
+ *                   "en","en_GB",
  *                    "es","es_419","fr","he","hu",
  *                    "id","it","ja","nl","pl","pt","pt_BR",
  *                    "ro","ru","sk","sr","sv",
@@ -56,7 +57,7 @@ api.faq = {
   method: 'GET',
   url: '/faq',
   async handler (req, res) {
-    req.checkQuery('platform').optional().isIn(['web', 'android', 'ios'], apiError('guildsPaginateBooleanString'));
+    req.checkQuery('platform').optional().isIn(['web', 'android', 'ios'], apiError('invalidPlatform'));
 
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;

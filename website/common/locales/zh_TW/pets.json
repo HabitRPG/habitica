@@ -1,5 +1,5 @@
 {
-    "stable": "馬廄",
+    "stable": "寵物與坐騎",
     "pets": "寵物",
     "activePet": "攜帶中的寵物",
     "noActivePet": "未攜帶的寵物",
@@ -39,11 +39,9 @@
     "hatchingPotion": "孵化藥水",
     "haveHatchablePet": "你有一個<%= potion %>孵化藥水和<%= egg %>蛋去孵化這隻寵物！ <b>點擊</b>印孵化它！",
     "quickInventory": "快捷背包",
-    "foodText": "食物",
     "food": "寵物食品和鞍",
     "noFoodAvailable": "你沒有任何寵物食品。",
     "noSaddlesAvailable": "你沒有任何鞍。",
-    "noFood": "你沒有任何食物或鞍。",
     "dropsExplanation": "如果不想要再苦苦等待完成任務捲軸後掉落的獎賞的話，使用寶石將可以更快速的得到這些物品哦！<a href=\"https://habitica.fandom.com/wiki/Drops\">點擊這裡瞭解更多掉落系統</a>",
     "dropsExplanationEggs": "如果您不想等待標準蛋掉落或是重新完成任務以獲得副本蛋，可花費寶石來更快獲得蛋。<a href=\"https://habitica.fandom.com/wiki/Drops\">了解更多關於掉落物系統</a>",
     "premiumPotionNoDropExplanation": "魔法孵化藥水不能使用在從副本中獲得的蛋上。唯一可以得到魔法孵化藥水的辦法就是在下面購買，而不是從掉落系統中獲得。",
@@ -61,8 +59,6 @@
     "triadBingoText": "找到了全部90種寵物和總共90種座騎，然後再一次找齊所有90種寵物（你到底是怎麼辦到的啊！）",
     "triadBingoText2": " 並釋放整座馬廄達<%= count %>次",
     "triadBingoAchievement": "因為找到了所有寵物並馴養了所有座騎，並再一次找齊所有寵物，您獲得了「大三元」的成就！",
-    "dropsEnabled": "啟用了物品掉落功能！",
-    "firstDrop": "你解鎖了掉落物系統！你現在每完成一項任務，就有機會找到物品，包括蛋、孵化藥水、或是食物！你剛剛發現了<strong><%= eggText %>蛋</strong>！<%= eggNotes %>",
     "hatchedPet": "你孵化了一隻新的<%= potion %><%= egg %>！",
     "hatchedPetGeneric": "您孵化了一隻新寵物！",
     "hatchedPetHowToUse": "到[馬廄](<%= stableUrl %>)去餵食和帶上你的新寵物吧！",
@@ -113,5 +109,6 @@
     "gryphatrice": "獅鷲",
     "invalidAmount": "食物數量無效，必須為正整數",
     "tooMuchFood": "你正在餵寵物過多食物，行動已取消",
-    "notEnoughFood": "你沒有足夠的食物"
+    "notEnoughFood": "你沒有足夠的食物",
+    "jubilantGryphatrice": "節慶獅鷲"
 }

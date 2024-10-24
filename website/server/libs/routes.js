@@ -24,7 +24,7 @@ export function readController (router, controller, overrides = []) {
 
     // If an authentication middleware is used run getUserLanguage after it, otherwise before
     // for cron instead use it only if an authentication middleware is present
-    const authMiddlewareIndex = _.findIndex(middlewares, middleware => {
+    let authMiddlewareIndex = _.findIndex(middlewares, middleware => {
       if (middleware.name.indexOf('authWith') === 0) { // authWith{Headers|Session|Url|...}
         return true;
       }
@@ -36,6 +36,7 @@ export function readController (router, controller, overrides = []) {
     // disable caching for all routes with mandatory or optional authentication
     if (authMiddlewareIndex !== -1) {
       middlewares.unshift(disableCache);
+      authMiddlewareIndex += 1;
     }
 
     if (action.noLanguage !== true) { // unless getting the language is explictly disabled

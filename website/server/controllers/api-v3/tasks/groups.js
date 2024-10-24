@@ -18,7 +18,7 @@ import {
 import {
   moveTask,
 } from '../../../libs/tasks/utils';
-import apiError from '../../../libs/apiError';
+import { apiError } from '../../../libs/apiError';
 
 const requiredGroupFields = '_id leader tasksOrder name';
 // @TODO: abstract to task lib
@@ -68,6 +68,7 @@ api.createGroupTasks = {
         category: 'behavior',
         taskType: task.type,
         groupID: group._id,
+        headers: req.headers,
       });
     });
   },
@@ -174,7 +175,7 @@ api.groupMoveTask = {
       }
       const fixQuery = { $set: {} };
       fixQuery.$set[`tasksOrder.${task.type}s`] = order;
-      await group.update(fixQuery).exec();
+      await group.updateOne(fixQuery).exec();
     }
 
     moveTask(order, task._id, to);
@@ -255,6 +256,7 @@ api.assignTask = {
       category: 'behavior',
       taskType: task.type,
       groupID: group._id,
+      headers: req.headers,
     });
   },
 };

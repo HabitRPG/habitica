@@ -212,7 +212,6 @@
     "hatchingPotionFrost": "서리",
     "hatchingPotionIcySnow": "얼어붙은 눈",
     "hatchingPotionNotes": "이것을 알에 부으면 <%= potText(locale) %> 펫으로 부화하게 됩니다.",
-    "premiumPotionAddlNotes": "퀘스트 펫 알에 사용할 수 없음. <%= date(locale) %> 까지 구매 가능.",
     "foodMeat": "고기",
     "foodMeatThe": "고기",
     "foodMeatA": "고기 한 덩이",
@@ -371,5 +370,8 @@
     "hatchingPotionSunset": "노을",
     "foodPieSkeletonA": "골수 파이 한 조각",
     "hatchingPotionOnyx": "오닉스",
-    "hatchingPotionVirtualPet": "가상 펫"
+    "hatchingPotionVirtualPet": "가상 펫",
+    "hatchingPotionPorcelain": "도자기",
+    "hatchingPotionTeaShop": "차 상점",
+    "hatchingPotionPinkMarble": "분홍색 대리석"
 }

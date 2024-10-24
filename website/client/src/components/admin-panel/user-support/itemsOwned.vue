@@ -1,13 +1,18 @@
 <template>
-  <div class="accordion-group">
-    <h3
-      class="expand-toggle"
-      :class="{'open': expand}"
-      @click="expand = !expand"
+  <div class="card mt-2">
+    <div class="card-header">
+      <h3
+        class="mb-0 mt-0"
+        :class="{'open': expand}"
+        @click="expand = !expand"
+      >
+        Items
+      </h3>
+    </div>
+    <div
+      v-if="expand"
+      class="card-body"
     >
-      Items
-    </h3>
-    <div v-if="expand">
       <div>
         The sections below display each item's key (bolded if the player has ever owned it),
         followed by the item's English name.
@@ -68,7 +73,9 @@
                     class="enableValueChange"
                     @click="enableValueChange(item)"
                   >
-                    {{ item | displayValue }}
+                    <span :class="item.value ? 'owned' : 'not-owned'">
+                      {{ item | displayValue }}
+                    </span>
                     :
                     <span :class="{ ownedItem: !item.neverOwned }">{{ item.key }} : </span>
                   </span>
@@ -102,14 +109,25 @@
 </template>
 
 <style lang="scss" scoped>
+  ul li {
+    margin-bottom: 0.2em;
+  }
   .ownedItem {
     font-weight: bold;
   }
   .enableValueChange:hover {
     text-decoration: underline;
+    cursor: pointer;
   }
   .valueField {
     min-width: 10ch;
+  }
+  .owned {
+    color: green;
+  }
+
+  .not-owned {
+    color: red;
   }
 </style>
 
@@ -269,20 +287,16 @@ export default {
       item.modified = true;
 
       // for non-integer items, toggle through the allowed values:
-      if (item.itemType === 'gear') {
-        // Allowed starting values are true, false, and '' (never owned)
-        // Allowed values to switch to are true and false
-        item.value = !item.value;
-      } else if (item.itemType === 'mounts') {
-        // Allowed starting values are true, null, and "never owned"
-        // Allowed values to switch to are true and null
-        if (item.value === true) {
-          item.value = null;
+      if (item.itemType === 'gear' || item.itemType === 'mounts') {
+        // Allowed starting values are true, false, and undefined (never owned)
+        if (item.value && item.value !== '') {
+          item.value = false;
+        } else if (typeof item.value === 'boolean') {
+          item.value = '';
         } else {
           item.value = true;
         }
       }
-      // @TODO add a delete option
     },
   },
 };

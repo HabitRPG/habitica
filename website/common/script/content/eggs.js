@@ -1,7 +1,10 @@
-import assign from 'lodash/assign';
 import defaults from 'lodash/defaults';
 import each from 'lodash/each';
+import assign from 'lodash/assign';
 import t from './translation';
+import { filterReleased } from './is_released';
+import { EGGS_RELEASE_DATES } from './constants/releaseDates';
+import datedMemoize from '../fns/datedMemoize';
 
 function applyEggDefaults (set, config) {
   each(set, (egg, key) => {
@@ -390,6 +393,36 @@ const quests = {
     adjective: t('questEggRobotAdjective'),
     canBuy: hasQuestAchievementFunction('robot'),
   },
+  Giraffe: {
+    text: t('questEggGiraffeText'),
+    mountText: t('questEggGiraffeMountText'),
+    adjective: t('questEggGiraffeAdjective'),
+    canBuy: hasQuestAchievementFunction('giraffe'),
+  },
+  Chameleon: {
+    text: t('questEggChameleonText'),
+    mountText: t('questEggChameleonMountText'),
+    adjective: t('questEggChameleonAdjective'),
+    canBuy: hasQuestAchievementFunction('chameleon'),
+  },
+  Crab: {
+    text: t('questEggCrabText'),
+    mountText: t('questEggCrabMountText'),
+    adjective: t('questEggCrabAdjective'),
+    canBuy: hasQuestAchievementFunction('crab'),
+  },
+  Raccoon: {
+    text: t('questEggRaccoonText'),
+    mountText: t('questEggRaccoonMountText'),
+    adjective: t('questEggRaccoonAdjective'),
+    canBuy: hasQuestAchievementFunction('raccoon'),
+  },
+  Dog: {
+    text: t('questEggDogText'),
+    mountText: t('questEggDogMountText'),
+    adjective: t('questEggDogAdjective'),
+    canBuy: hasQuestAchievementFunction('dog'),
+  },
 };
 
 applyEggDefaults(drops, {
@@ -404,10 +437,20 @@ applyEggDefaults(quests, {
   },
 });
 
-const all = assign({}, drops, quests);
+function filterEggs (eggs) {
+  return filterReleased(eggs, 'key', EGGS_RELEASE_DATES);
+}
 
-export {
-  drops,
-  quests,
-  all,
+const memoizedFilter = datedMemoize(filterEggs);
+
+export default {
+  get drops () {
+    return memoizedFilter({ memoizeConfig: true, identifier: 'drops' }, drops);
+  },
+  get quests () {
+    return memoizedFilter({ memoizeConfig: true, identifier: 'quests' }, quests);
+  },
+  get all () {
+    return assign({}, this.drops, this.quests);
+  },
 };

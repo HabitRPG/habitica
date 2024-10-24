@@ -207,10 +207,9 @@ export default {
   computed: {
     ...mapState({ user: 'user.data' }),
     sortedMembers () {
-      const sortedMembers = this.members;
-      if (!this.sortOption) return sortedMembers;
+      if (!this.sortOption) return this.members;
 
-      sortBy(this.members, [member => {
+      const sortedMembers = sortBy(this.members, [member => {
         if (this.sortOption === 'tier') {
           if (!member.contributor) return;
           return member.contributor.level; // eslint-disable-line consistent-return
@@ -223,7 +222,7 @@ export default {
         }
       }]);
 
-      return this.members;
+      return sortedMembers;
     },
     isLoadMoreAvailable () {
       // Only available if the current length of `members` is less than the
@@ -243,6 +242,13 @@ export default {
         this.getMembers();
       }
     },
+    searchTerm () {
+      if (this.searchTerm) {
+        this.searchMembers(this.searchTerm);
+      } else {
+        this.getMembers();
+      }
+    },
   },
   methods: {
     loadMembers (payload = null) {
@@ -252,6 +258,14 @@ export default {
       }
 
       return this.$store.dispatch('members:getGroupMembers', payload);
+    },
+    async searchMembers (searchTerm = '') {
+      this.members = await this.$store.state.memberModalOptions.fetchMoreMembers({
+        challengeId: this.challengeId,
+        groupId: this.groupId,
+        searchTerm,
+        includeAllPublicFields: true,
+      });
     },
     async getMembers () {
       this.group = await this.$store.dispatch('party:getParty');

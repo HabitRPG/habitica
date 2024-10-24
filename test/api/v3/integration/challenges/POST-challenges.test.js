@@ -42,26 +42,7 @@ describe('POST /challenges', () => {
     });
   });
 
-  it('returns error when creating a challenge in a public guild and you are not a member of it', async () => {
-    const user = await generateUser();
-    const { group } = await createAndPopulateGroup({
-      groupDetails: {
-        type: 'guild',
-        privacy: 'public',
-      },
-    });
-
-    await expect(user.post('/challenges', {
-      group: group._id,
-      prize: 4,
-    })).to.eventually.be.rejected.and.eql({
-      code: 401,
-      error: 'NotAuthorized',
-      message: t('mustBeGroupMember'),
-    });
-  });
-
-  it('return error when creating a challenge with summary with greater than MAX_SUMMARY_SIZE_FOR_CHALLENGES characters', async () => {
+  it('returns error when creating a challenge with summary with greater than MAX_SUMMARY_SIZE_FOR_CHALLENGES characters', async () => {
     const user = await generateUser();
     const summary = 'A'.repeat(MAX_SUMMARY_SIZE_FOR_CHALLENGES + 1);
     const group = createAndPopulateGroup({
@@ -77,7 +58,7 @@ describe('POST /challenges', () => {
     });
   });
 
-  context('Creating a challenge for a valid group', () => {
+  context('creating a Challenge for a Group Plan', () => {
     let groupLeader;
     let group;
     let groupMember;
@@ -94,9 +75,11 @@ describe('POST /challenges', () => {
             challenges: true,
           },
         },
+        upgradeToGroupPlan: true,
       });
 
       groupLeader = await populatedGroup.groupLeader.sync();
+      await groupLeader.updateOne({ permissions: {} });
       group = populatedGroup.group;
       groupMember = populatedGroup.members[0]; // eslint-disable-line prefer-destructuring
     });
@@ -194,7 +177,7 @@ describe('POST /challenges', () => {
       const oldUserBalance = groupLeader.balance;
       const prize = 8;
 
-      await group.update({ balance: 0 });
+      await group.updateOne({ balance: 0 });
       await groupLeader.post('/challenges', {
         group: group._id,
         name: 'Test Challenge',
@@ -219,7 +202,7 @@ describe('POST /challenges', () => {
     });
 
     it('sets challenge as official if created by admin and official flag is set', async () => {
-      await groupLeader.update({
+      await groupLeader.updateOne({
         permissions: {
           challengeAdmin: true,
         },
@@ -347,6 +330,72 @@ describe('POST /challenges', () => {
       const updatedChallenge = await groupLeader.get(`/challenges/${challenge._id}`);
 
       expect(updatedChallenge.summary).to.eql(summary);
+    });
+
+    it('sets categories for challenges', async () => {
+      const testCategory = { _id: '65c1172997c0b24600371ea9', slug: 'test', name: 'Test' };
+      const challenge = await groupLeader.post('/challenges', {
+        group: group._id,
+        name: 'Test Challenge',
+        shortName: 'TC Label',
+        categories: [testCategory],
+      });
+
+      const updatedChallenge = await groupLeader.get(`/challenges/${challenge._id}`);
+
+      expect(updatedChallenge.categories).to.eql([testCategory]);
+    });
+
+    it('does not set habitica_official category for non-admins', async () => {
+      const testCategory = { _id: '65c1172997c0b24600371ea9', slug: 'habitica_official', name: 'habitica_official' };
+      await expect(groupLeader.post('/challenges', {
+        group: group._id,
+        name: 'Test Challenge',
+        shortName: 'TC Label',
+        categories: [testCategory],
+      })).to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('noPrivAccess'),
+      });
+    });
+
+    it('sets habitica_official category for admins', async () => {
+      await groupLeader.updateOne({
+        permissions: {
+          challengeAdmin: true,
+        },
+      });
+
+      const testCategory = { _id: '65c1172997c0b24600371ea9', slug: 'habitica_official', name: 'habitica_official' };
+      const challenge = await groupLeader.post('/challenges', {
+        group: group._id,
+        name: 'Test Challenge',
+        shortName: 'TC Label',
+        categories: [testCategory],
+      });
+
+      const updatedChallenge = await groupLeader.get(`/challenges/${challenge._id}`);
+      expect(updatedChallenge.categories).to.eql([testCategory]);
+    });
+
+    it('sets official if the habitica_official category is set for admins', async () => {
+      await groupLeader.updateOne({
+        permissions: {
+          challengeAdmin: true,
+        },
+      });
+
+      const testCategory = { _id: '65c1172997c0b24600371ea9', slug: 'habitica_official', name: 'habitica_official' };
+      const challenge = await groupLeader.post('/challenges', {
+        group: group._id,
+        name: 'Test Challenge',
+        shortName: 'TC Label',
+        categories: [testCategory],
+      });
+
+      const updatedChallenge = await groupLeader.get(`/challenges/${challenge._id}`);
+      expect(updatedChallenge.official).to.eql(true);
     });
   });
 });

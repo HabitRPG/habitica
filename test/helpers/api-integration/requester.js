@@ -53,7 +53,8 @@ function _requestMaker (user, method, additionalSets = {}) {
     if (user && user._id && user.apiToken) {
       request
         .set('x-api-user', user._id)
-        .set('x-api-key', user.apiToken);
+        .set('x-api-key', user.apiToken)
+        .set('x-client', 'habitica-web');
     }
 
     if (!isEmpty(additionalSets)) {

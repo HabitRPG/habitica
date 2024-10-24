@@ -1,10 +1,10 @@
 {
     "noItemsAvailableForType": "你没有<%= type %>。",
     "foodItemType": "宠物食物",
-    "eggsItemType": "蛋",
+    "eggsItemType": "宠物蛋",
     "hatchingPotionsItemType": "孵化药水",
     "specialItemType": "特殊物品",
-    "lockedItem": "已锁定物品",
+    "lockedItem": "未解锁物品",
     "allItems": "所有物品",
-    "petAndMount": "宠物和坐骑"
+    "petAndMount": "宠物与坐骑"
 }

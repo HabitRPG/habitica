@@ -10,9 +10,10 @@ import { BuyQuestWithGoldOperation } from './buyQuestGold';
 import { BuySpellOperation } from './buySpell';
 import purchaseOp from './purchase';
 import hourglassPurchase from './hourglassPurchase';
-import errorMessage from '../../libs/errorMessage';
+import { errorMessage } from '../../libs/errorMessage';
 import { BuyGemOperation } from './buyGem';
 import { BuyQuestWithGemOperation } from './buyQuestGem';
+import { BuyPetWithGemOperation } from './buyPetGem';
 import { BuyHourglassMountOperation } from './buyMount';
 
 // @TODO: remove the req option style. Dependency on express structure is an anti-pattern
@@ -21,7 +22,10 @@ import { BuyHourglassMountOperation } from './buyMount';
 // @TODO: when we are sure buy is the only function used, let's move the buy files to a folder
 
 export default async function buy (
-  user, req = {}, analytics, options = { quantity: 1, hourglass: false },
+  user,
+  req = {},
+  analytics,
+  options = { quantity: 1, hourglass: false },
 ) {
   const key = get(req, 'params.key');
   const { hourglass } = options;
@@ -86,7 +90,12 @@ export default async function buy (
       break;
     }
     case 'pets':
-      buyRes = hourglassPurchase(user, req, analytics);
+      if (key === 'Gryphatrice-Jubilant') {
+        const buyOp = new BuyPetWithGemOperation(user, req, analytics);
+        buyRes = await buyOp.purchase();
+      } else {
+        buyRes = hourglassPurchase(user, req, analytics);
+      }
       break;
     case 'quest': {
       const buyOp = new BuyQuestWithGoldOperation(user, req, analytics);

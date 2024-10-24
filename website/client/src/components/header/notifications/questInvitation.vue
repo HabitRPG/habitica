@@ -39,9 +39,9 @@
 </style>
 
 <script>
+import * as quests from '@/../../common/script/content/quests';
 import BaseNotification from './base';
 import { mapState } from '@/libs/store';
-import * as quests from '@/../../common/script/content/quests';
 import questInfo from '@/components/shops/quests/questInfo';
 
 export default {

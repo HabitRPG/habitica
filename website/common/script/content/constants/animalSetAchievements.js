@@ -26,6 +26,48 @@ const ANIMAL_SET_ACHIEVEMENTS = {
     achievementKey: 'birdsOfAFeather',
     notificationType: 'ACHIEVEMENT_ANIMAL_SET',
   },
+  bonelessBoss: {
+    type: 'pet',
+    species: [
+      'Beetle',
+      'Butterfly',
+      'Cuttlefish',
+      'Nudibranch',
+      'Octopus',
+      'Snail',
+      'Spider',
+    ],
+    achievementKey: 'bonelessBoss',
+    notificationType: 'ACHIEVEMENT_ANIMAL_SET',
+  },
+  cats: {
+    type: 'pet',
+    species: [
+      'Cheetah',
+      'LionCub',
+      'Sabretooth',
+      'TigerCub',
+    ],
+    achievementKey: 'cats',
+    notificationType: 'ACHIEVEMENT_ANIMAL_SET',
+  },
+  dinosaurDynasty: {
+    type: 'pet',
+    species: [
+      'Falcon',
+      'Owl',
+      'Parrot',
+      'Peacock',
+      'Penguin',
+      'Rooster',
+      'Pterodactyl',
+      'TRex',
+      'Triceratops',
+      'Velociraptor',
+    ],
+    achievementKey: 'dinosaurDynasty',
+    notificationType: 'ACHIEVEMENT_ANIMAL_SET',
+  },
   domesticated: {
     type: 'pet',
     species: [
@@ -41,6 +83,40 @@ const ANIMAL_SET_ACHIEVEMENTS = {
     achievementKey: 'domesticated',
     notificationType: 'ACHIEVEMENT_ANIMAL_SET',
   },
+  duneBuddy: {
+    type: 'pet',
+    species: [
+      'Armadillo',
+      'Cactus',
+      'Fox',
+      'Frog',
+      'Snake',
+      'Spider',
+    ],
+    achievementKey: 'duneBuddy',
+    notificationType: 'ACHIEVEMENT_ANIMAL_SET',
+  },
+  plantParent: {
+    type: 'pet',
+    species: [
+      'Cactus',
+      'Treeling',
+    ],
+    achievementKey: 'plantParent',
+    notificationType: 'ACHIEVEMENT_ANIMAL_SET',
+  },
+  polarPro: {
+    type: 'pet',
+    species: [
+      'BearCub',
+      'Fox',
+      'Penguin',
+      'Whale',
+      'Wolf',
+    ],
+    achievementKey: 'polarPro',
+    notificationType: 'ACHIEVEMENT_ANIMAL_SET',
+  },
   reptacularRumble: {
     type: 'pet',
     species: [
@@ -53,6 +129,26 @@ const ANIMAL_SET_ACHIEVEMENTS = {
       'Velociraptor',
     ],
     achievementKey: 'reptacularRumble',
+    notificationType: 'ACHIEVEMENT_ANIMAL_SET',
+  },
+  rodentRuler: {
+    type: 'pet',
+    species: [
+      'Rat',
+      'GuineaPig',
+      'Squirrel',
+    ],
+    achievementKey: 'rodentRuler',
+    notificationType: 'ACHIEVEMENT_ANIMAL_SET',
+  },
+  roughRider: {
+    type: 'petMount',
+    species: [
+      'Cactus',
+      'Hedgehog',
+      'Rock',
+    ],
+    achievementKey: 'roughRider',
     notificationType: 'ACHIEVEMENT_ANIMAL_SET',
   },
   woodlandWizard: {

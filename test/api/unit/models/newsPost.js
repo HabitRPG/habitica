@@ -103,7 +103,7 @@ describe('NewsPost Model', () => {
 
     beforeEach(async () => {
       // Delete all existing posts from the database
-      await NewsPost.remove();
+      await NewsPost.deleteMany();
     });
 
     afterEach(() => {
@@ -116,7 +116,7 @@ describe('NewsPost Model', () => {
         _id: v4(), publishDate: new Date(), published: true,
       };
       NewsPost.updateLastNewsPost(previousPost);
-      intervalId = refreshNewsPost(50); // refreshes every 50ms
+      intervalId = refreshNewsPost(100); // refreshes every 100ms
 
       await sleep(0.1); // wait 100ms to make sure the new post has a more recent publishDate
       const newPost = await NewsPost.create({

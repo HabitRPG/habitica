@@ -100,8 +100,11 @@ async function registerLocal (req, res, { isV3 = false }) {
       errorMessage: res.t('missingPassword'),
       equals: { options: [req.body.confirmPassword], errorMessage: res.t('passwordConfirmationMatch') },
       isLength: {
-        options: { min: common.constants.MINIMUM_PASSWORD_LENGTH },
-        errorMessage: res.t('minPasswordLength'),
+        options: {
+          min: common.constants.MINIMUM_PASSWORD_LENGTH,
+          max: common.constants.MAXIMUM_PASSWORD_LENGTH,
+        },
+        errorMessage: res.t('passwordIssueLength'),
       },
     },
   });
@@ -202,7 +205,7 @@ async function registerLocal (req, res, { isV3 = false }) {
 
   // Clean previous email preferences and send welcome email
   EmailUnsubscription
-    .remove({ email: savedUser.auth.local.email })
+    .deleteOne({ email: savedUser.auth.local.email })
     .then(() => {
       if (existingUser) return;
       if (newUser.registeredThrough === 'habitica-web') {

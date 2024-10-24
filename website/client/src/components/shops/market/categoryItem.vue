@@ -33,11 +33,11 @@
 </style>
 
 <script>
+import planGemLimits from '@/../../common/script/libs/planGemLimits';
 import { mapState } from '@/libs/store';
 import CountBadge from '@/components/ui/countBadge';
 
 import PinBadge from '@/components/ui/pinBadge';
-import planGemLimits from '@/../../common/script/libs/planGemLimits';
 import pinUtils from '../../../mixins/pinUtils';
 
 export default {

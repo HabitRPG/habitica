@@ -39,7 +39,7 @@
           v-if="user._id !== msg.uuid && msg.uuid !== 'system'"
           class="avatar-left"
           :class="{ invisible: avatarUnavailable(msg) }"
-          :member="msg.userStyles || cachedProfileData[msg.uuid]"
+          :member="msg.userStyles || cachedProfileData[msg.uuid] || {}"
           :avatar-only="true"
           :hide-class-badge="true"
           :override-top-padding="'14px'"
@@ -58,7 +58,7 @@
         <avatar
           v-if="user._id === msg.uuid"
           :class="{ invisible: avatarUnavailable(msg) }"
-          :member="msg.userStyles || cachedProfileData[msg.uuid]"
+          :member="msg.userStyles || cachedProfileData[msg.uuid] || {}"
           :avatar-only="true"
           :hide-class-badge="true"
           :override-top-padding="'14px'"

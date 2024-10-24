@@ -39,11 +39,9 @@
     "hatchingPotion": "Schlüpfelixier",
     "haveHatchablePet": "Du hast ein <%= potion %> Schlüpfelixier und ein <%= egg %>-Ei, um dieses Haustier auszubrüten! <b>Klicke</b>, damit es schlüpft!",
     "quickInventory": "Schnell-Inventar",
-    "foodText": "Futter",
     "food": "Futter und magische Sättel",
     "noFoodAvailable": "Du hast kein Futter.",
     "noSaddlesAvailable": "Du hast keinen Sattel.",
-    "noFood": "Du hast im Moment weder Futter noch magische Sättel.",
     "dropsExplanation": "Erhalte diese Gegenstände schneller mit Edelsteinen, wenn Du nicht warten möchtest, bis Du sie als Beute für erfüllte Aufgaben erhältst. <a href=\"https://habitica.fandom.com/de/wiki/Beute\">Erfahre mehr über das Beutesystem.</a>",
     "dropsExplanationEggs": "Du kannst Edelsteine für Eier ausgeben, wenn Du nicht warten willst, bis Du ein Standard-Ei als Beute erhältst, oder wenn Du eine Haustier-Quest nicht wiederholen willst, um weitere Quest-Eier zu erhalten. <a href=\"https://habitica.fandom.com/de/wiki/Beute\">Erfahre mehr über das Beute-System.</a>",
     "premiumPotionNoDropExplanation": "Magische Schlüpfelixiere können nicht auf Eier, die Du durch Quests erhalten hast, angewendet werden. Magische Schlüpfelixiere können nur gekauft und nicht durch zufällige Beute erworben werden.",
@@ -61,8 +59,6 @@
     "triadBingoText": "Hat alle 90 Haustiere gesammelt, alle 90 Reittiere gezähmt, und WIEDER alle 90 Haustiere gefunden (WIE HAST DU DAS GESCHAFFT?!)",
     "triadBingoText2": " und hat seinen kompletten Stall <%= count %> mal freigelassen",
     "triadBingoAchievement": "Du hast den Erfolg \"Triaden-Bingo\" erhalten, da Du alle Haustiere gefunden, alle Reittiere gezähmt und wieder alle Haustiere gefunden hast!",
-    "dropsEnabled": "Beutesystem aktiviert!",
-    "firstDrop": "Du hast das Beutesystem freigeschaltet! Ab jetzt hast Du jedes mal wenn Du eine Aufgabe abhakst eine kleine Chance einen Gegenstand zu finden, wie zum Beispiel Eier, Schlüpftränke und Futter! Du hast eben ein <strong><%= eggText %> Ei</strong> gefunden! <%= eggNotes %>",
     "hatchedPet": "Du hast ein neues <%= potion %> <%= egg %> ausgebrütet!",
     "hatchedPetGeneric": "Du hast ein neues Haustier ausgebrütet!",
     "hatchedPetHowToUse": "Geh in den [Stall](<%= stableUrl %>) um Dein neuestes Haustier zu füttern und auszurüsten!",
@@ -113,5 +109,8 @@
     "gryphatrice": "Greifatrice",
     "tooMuchFood": "Du versuchst zu viel Futter an Dein Haustier zu verfüttern, Aktion abgebrochen",
     "notEnoughFood": "Du hast nicht genug Futter",
-    "invalidAmount": "Ungültige Menge Futter, positiver Integer benötigt"
+    "invalidAmount": "Ungültige Menge Futter, positiver Integer benötigt",
+    "jubilantGryphatrice": "Jubelnder Greifatrice",
+    "veteranDragon": "Veterandrache",
+    "veteranCactus": "Veterankaktus"
 }

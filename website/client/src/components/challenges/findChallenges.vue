@@ -13,16 +13,12 @@
           </h1>
         </div>
         <div class="col-md-4">
-          <!-- @TODO: implement sorting span.dropdown-label
-           {{ $t('sortBy') }}b-dropdown(:text="$t('sort')", right=true)
-          b-dropdown-item(v-for='sortOption in sortOptions',
-           :key="sortOption.value", @click='sort(sortOption.value)') {{sortOption.text}}-->
           <button
             class="btn btn-secondary create-challenge-button float-right"
             @click="createChallenge()"
           >
             <div
-              class="svg-icon positive-icon"
+              class="svg svg-icon positive-icon color"
               v-html="icons.positiveIcon"
             ></div>
             <span v-once>{{ $t('createChallenge') }}</span>
@@ -32,7 +28,7 @@
       <div class="row">
         <div
           v-if="!loading &&
-            this.filteredChallenges.length === 0"
+            filteredChallenges.length === 0"
           class="no-challenges text-center col-md-6 offset-3"
         >
           <h2 v-once>
@@ -42,7 +38,7 @@
       </div>
       <div class="row">
         <div
-          v-for="challenge in this.filteredChallenges"
+          v-for="challenge in filteredChallenges"
           :key="challenge._id"
           class="col-12 col-md-6"
         >
@@ -87,13 +83,16 @@
 
     .create-challenge-button {
       margin-left: 1em;
-    }
 
-    .positive-icon {
-      color: $green-10;
-      width: 10px;
-      display: inline-block;
-      margin-right: .5em;
+      &:not(.disabled) .svg {
+        color: $green-10;
+      }
+
+      .positive-icon {
+        width: 10px;
+        display: inline-block;
+        margin-right: .5em;
+      }
     }
   }
 
@@ -120,6 +119,7 @@ import { mapState } from '@/libs/store';
 import Sidebar from './sidebar';
 import ChallengeItem from './challengeItem';
 import challengeModal from './challengeModal';
+import externalLinks from '@/mixins/externalLinks';
 import challengeUtilities from '@/mixins/challengeUtilities';
 
 import positiveIcon from '@/assets/svg/positive.svg';
@@ -131,7 +131,7 @@ export default {
     challengeModal,
     MugenScroll,
   },
-  mixins: [challengeUtilities],
+  mixins: [challengeUtilities, externalLinks],
   data () {
     return {
       loading: true,
@@ -177,6 +177,10 @@ export default {
       section: this.$t('challenges'),
     });
     this.loadChallenges();
+    this.handleExternalLinks();
+  },
+  updated () {
+    this.handleExternalLinks();
   },
   methods: {
     updateSearch (eventData) {

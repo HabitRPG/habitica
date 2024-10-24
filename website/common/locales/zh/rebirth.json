@@ -1,15 +1,15 @@
 {
     "rebirthNew": "重生：开始新的冒险！",
-    "rebirthUnlock": "恭喜你，成功解锁了“重生”！该特殊的物品将你的等级重置为1级，重新开始游戏。但是，你所拥有的副本卷轴、成就、宠物等都会保留。你的目标等级已达成？想尝试新的视角？请用它开启全新旅程！",
-    "rebirthAchievement": "恭喜你，开始了一段新冒险！这是你的第<%= number %>次冒险，你曾经获得的最高级别是<%= level %>级。有这个成就加持，祝你在全新的冒险中再创辉煌！",
-    "rebirthAchievement100": "恭喜你开始一段新的冒险！你已经完成了<%= number %>次冒险，这意味着你到达过100级乃至更高的等级。当新冒险的等级再次超过100级并选择再次重生，该成就数目将叠加！",
-    "rebirthBegan": "开始新的冒险",
-    "rebirthText": "完成了<%= rebirths %> 次新冒险",
-    "rebirthOrb": "达到<%= level %>级后，使用重生球重新开始一段旅程。",
-    "rebirthOrb100": "在达到100级或更高等级的情况下，使用重生之球重新开始。",
-    "rebirthOrbNoLevel": "使用重生之球重新开始。",
-    "rebirthPop": "立即重置你的角色成为1级战士，同时保留成就、物品、装备。将保留你的任务和历史，但重置为黄色；移除挑战任务和团队计划任务之外的任务历史；移除金币、经验值以及魔法值和技能。上述内容将立即生效。更多信息请查看wiki<a href='https://habitica.fandom.com/zh/wiki/重生球' target='_blank'>重生球</a>页面。",
-    "rebirthName": "重生球",
-    "rebirthComplete": "你已经重生了！",
-    "nextFreeRebirth": "距离下个<strong>免费</strong>的重生球还有<strong><%= days %>天</strong>"
+    "rebirthUnlock": "你已经解锁了重生之球！ 这个特殊的市场商品可使你从 1 级开始新的游戏，同时保留你的任务、成就、宠物等。 如果你觉得自己已经达成了所有目标，或者想要以新手的视角体验新功能，请使用它为Habitica注入新的活力！",
+    "rebirthAchievement": "你开始了新的冒险！ 这是你的第<%= number %>次重生，你达到的最高等级是<%= level %>。 要叠加此成就，请在达到更高等级时开始下一次新的冒险！",
+    "rebirthAchievement100": "你开始了新的冒险！ 这是你最高等级达到100级以上的第<%= number %>次重生。要叠加此成就，请在达到至少 100 级时开始下次新的冒险！",
+    "rebirthBegan": "已开始新的冒险",
+    "rebirthText": "已开始<%= rebirths %>次新的冒险",
+    "rebirthOrb": "在达到<%= level %>级后，使用了重生之球重新开始。",
+    "rebirthOrb100": "在达到100级或更高等级后，使用了重生之球重新开始。",
+    "rebirthOrbNoLevel": "使用了重生之球来重新开始。",
+    "rebirthPop": "立即将你的角色重置成为1级战士，同时保留成就、物品和装备。你的任务及其历史记录会保留，但会被重置为黄色；你的连击次数将被移除，挑战任务和团队计划任务除外；你的金币、经验值以及法力值和及所有技能的效果都将被移除。上述内容将立即生效。",
+    "rebirthName": "重生之球",
+    "rebirthComplete": "你已经重生！",
+    "nextFreeRebirth": "下个<strong>免费</strong>的重生之球<strong><%= days %>天</strong>后才能使用"
 }

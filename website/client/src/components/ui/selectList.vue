@@ -9,7 +9,7 @@
       @show="isOpened = true"
       @hide="isOpened = false"
     >
-      <template v-slot:button-content>
+      <template #button-content>
         <slot
           name="item"
           :item="selected || placeholder"
@@ -21,13 +21,13 @@
       </template>
       <b-dropdown-item
         v-for="item in items"
-        :key="keyProp ? item[keyProp] : item"
-        :disabled="typeof item[disabledProp] === 'undefined' ? false : item[disabledProp]"
-        :active="item === selected"
+        :key="getKeyProp(item)"
+        :disabled="isDisabled(item)"
+        :active="isSelected(item)"
         :class="{
-          active: item === selected,
+          active: isSelected(item),
           selectListItem: true,
-          showIcon: !hideIcon && item === selected
+          showIcon: !hideIcon && isSelected(item)
         }"
         @click="selectItem(item)"
       >
@@ -51,39 +51,39 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+@import '~@/assets/scss/colors.scss';
 
-  .select-list ::v-deep {
-    .dropdown-toggle {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      padding-right: 25px; /* To allow enough room for the down arrow to be displayed */
+.select-list ::v-deep {
+  .dropdown-toggle {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 25px; /* To allow enough room for the down arrow to be displayed */
+  }
+
+  .selectListItem {
+    position: relative;
+
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
-    .selectListItem {
-      position: relative;
-
-      .dropdown-item {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+    &:not(.showIcon) {
+      .svg-icon.check-icon {
+        display: none;
       }
+    }
 
-      &:not(.showIcon) {
-        .svg-icon.check-icon {
-          display: none;
-        }
-      }
-
-      .svg-icon.check-icon.color {
-        margin-left: 10px; /* So the flex item (checkmark) will have some spacing from the text */
-        width: 0.77rem;
-        height: 0.615rem;
-        color: $purple-300;
-      }
+    .svg-icon.check-icon.color {
+      margin-left: 10px; /* So the flex item (checkmark) will have some spacing from the text */
+      width: 0.77rem;
+      height: 0.615rem;
+      color: $purple-300;
     }
   }
+}
 </style>
 
 <script>
@@ -100,6 +100,13 @@ export default {
     value: [String, Number, Object],
     keyProp: {
       type: String,
+    },
+    activeKeyProp: {
+      type: String,
+    },
+    directSelect: {
+      type: Boolean,
+      default: false,
     },
     disabledProp: {
       type: String,
@@ -128,9 +135,26 @@ export default {
     };
   },
   methods: {
+    getKeyProp (item) {
+      return this.keyProp ? item[this.keyProp] : item.key || item.identifier;
+    },
+    isDisabled (item) {
+      return typeof item[this.disabledProp] === 'undefined' ? false : item[this.disabledProp];
+    },
     selectItem (item) {
-      this.selected = item;
+      if (this.directSelect) {
+        this.selected = item;
+      } else {
+        this.selected = this.getKeyProp(item);
+      }
       this.$emit('select', item);
+    },
+    isSelected (item) {
+      if (this.activeKeyProp) {
+        return item[this.activeKeyProp] === this.selected;
+      }
+
+      return item === this.selected;
     },
   },
 };

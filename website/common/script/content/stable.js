@@ -1,19 +1,12 @@
 import each from 'lodash/each';
-import {
-  drops as dropEggs,
-  quests as questEggs,
-} from './eggs';
-import {
-  drops as dropPotions,
-  premium as premiumPotions,
-  wacky as wackyPotions,
-} from './hatching-potions';
+import moment from 'moment';
+import { EVENTS } from './constants/events';
+import allEggs from './eggs';
+import allPotions from './hatching-potions';
 import t from './translation';
+import memoize from '../fns/datedMemoize';
 
-const petInfo = {};
-const mountInfo = {};
-
-function constructSet (type, eggs, potions) {
+function constructSet (type, eggs, potions, petInfo, mountInfo, hasMounts = true) {
   const pets = {};
   const mounts = {};
 
@@ -35,51 +28,23 @@ function constructSet (type, eggs, potions) {
         potion: potion.text,
         egg: egg.text,
       }));
-      mountInfo[key] = getAnimalData(t('mountName', {
-        potion: potion.text,
-        mount: egg.mountText,
-      }));
-
       pets[key] = true;
-      mounts[key] = true;
-    });
-  });
 
-  return [pets, mounts];
-}
-
-function constructPetOnlySet (type, eggs, potions) {
-  const pets = {};
-
-  each(eggs, egg => {
-    each(potions, potion => {
-      const key = `${egg.key}-${potion.key}`;
-
-      function getAnimalData (text) {
-        return {
-          key,
-          type,
-          potion: potion.key,
-          egg: egg.key,
-          text,
-        };
+      if (hasMounts) {
+        mountInfo[key] = getAnimalData(t('mountName', {
+          potion: potion.text,
+          mount: egg.mountText,
+        }));
+        mounts[key] = true;
       }
-
-      petInfo[key] = getAnimalData(t('petName', {
-        potion: potion.text,
-        egg: egg.text,
-      }));
-      pets[key] = true;
     });
   });
 
+  if (hasMounts) {
+    return [pets, mounts];
+  }
   return pets;
 }
-
-const [dropPets, dropMounts] = constructSet('drop', dropEggs, dropPotions);
-const [premiumPets, premiumMounts] = constructSet('premium', dropEggs, premiumPotions);
-const [questPets, questMounts] = constructSet('quest', questEggs, dropPotions);
-const wackyPets = constructPetOnlySet('wacky', dropEggs, wackyPotions);
 
 const canFindSpecial = {
   pets: {
@@ -90,6 +55,8 @@ const canFindSpecial = {
     'Lion-Veteran': false,
     'Bear-Veteran': false,
     'Fox-Veteran': false,
+    'Dragon-Veteran': false,
+    'Cactus-Veteran': false,
 
     // Thanksgiving pet ladder
     'Turkey-Base': false,
@@ -118,6 +85,9 @@ const canFindSpecial = {
     'Jackalope-RoyalPurple': true, // subscription
     'Wolf-Cerberus': false, // Pet once granted to backers
     'Gryphon-Gryphatrice': false, // Pet once granted to kickstarter
+
+    // Birthday Pet
+    'Gryphatrice-Jubilant': false,
   },
   mounts: {
     // Thanksgiving pet ladder
@@ -174,7 +144,10 @@ const specialPets = {
   'Fox-Veteran': 'veteranFox',
   'JackOLantern-Glow': 'glowJackolantern',
   'Gryphon-Gryphatrice': 'gryphatrice',
+  'Gryphatrice-Jubilant': 'jubilantGryphatrice',
   'JackOLantern-RoyalPurple': 'royalPurpleJackolantern',
+  'Dragon-Veteran': 'veteranDragon',
+  'Cactus-Veteran': 'veteranCactus',
 };
 
 const specialMounts = {
@@ -198,34 +171,88 @@ const specialMounts = {
   'JackOLantern-RoyalPurple': 'royalPurpleJackolantern',
 };
 
-each(specialPets, (translationString, key) => {
-  petInfo[key] = {
-    key,
-    type: 'special',
-    text: t(translationString),
-    canFind: canFindSpecial.pets[key],
-  };
-});
+function buildInfo () {
+  const petInfo = {};
+  const mountInfo = {};
 
-each(specialMounts, (translationString, key) => {
-  mountInfo[key] = {
-    key,
-    type: 'special',
-    text: t(translationString),
-    canFind: canFindSpecial.mounts[key],
-  };
-});
+  const [dropPets, dropMounts] = constructSet('drop', allEggs.drops, allPotions.drops, petInfo, mountInfo);
+  const [premiumPets, premiumMounts] = constructSet('premium', allEggs.drops, allPotions.premium, petInfo, mountInfo);
+  const [questPets, questMounts] = constructSet('quest', allEggs.quests, allPotions.drops, petInfo, mountInfo);
+  const wackyPets = constructSet('wacky', allEggs.drops, allPotions.wacky, petInfo, mountInfo, false);
 
-export {
-  dropPets,
-  premiumPets,
-  questPets,
-  wackyPets,
-  dropMounts,
-  questMounts,
-  premiumMounts,
+  each(specialPets, (translationString, key) => {
+    petInfo[key] = {
+      key,
+      type: 'special',
+      text: t(translationString),
+      canFind: canFindSpecial.pets[key],
+    };
+  });
+
+  Object.assign(petInfo['Gryphatrice-Jubilant'], {
+    canBuy () {
+      return moment().isBetween(EVENTS.birthday10.start, EVENTS.birthday10.end);
+    },
+    currency: 'gems',
+    event: 'birthday10',
+    value: 60,
+    purchaseType: 'pets',
+  });
+
+  each(specialMounts, (translationString, key) => {
+    mountInfo[key] = {
+      key,
+      type: 'special',
+      text: t(translationString),
+      canFind: canFindSpecial.mounts[key],
+    };
+  });
+
+  return {
+    dropPets,
+    premiumPets,
+    questPets,
+    wackyPets,
+    dropMounts,
+    questMounts,
+    premiumMounts,
+    specialPets,
+    specialMounts,
+    petInfo,
+    mountInfo,
+  };
+}
+
+const memoizedBuildInfo = memoize(buildInfo);
+
+export default {
+  get dropPets () {
+    return memoizedBuildInfo().dropPets;
+  },
+  get premiumPets () {
+    return memoizedBuildInfo().premiumPets;
+  },
+  get questPets () {
+    return memoizedBuildInfo().questPets;
+  },
+  get wackyPets () {
+    return memoizedBuildInfo().wackyPets;
+  },
+  get dropMounts () {
+    return memoizedBuildInfo().dropMounts;
+  },
+  get questMounts () {
+    return memoizedBuildInfo().questMounts;
+  },
+  get premiumMounts () {
+    return memoizedBuildInfo().premiumMounts;
+  },
+  get petInfo () {
+    return memoizedBuildInfo().petInfo;
+  },
+  get mountInfo () {
+    return memoizedBuildInfo().mountInfo;
+  },
   specialPets,
   specialMounts,
-  petInfo,
-  mountInfo,
 };

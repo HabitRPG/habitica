@@ -34,6 +34,13 @@ export default prefill({
   ppurple2: { price: 2, set: sets.shimmerHairColors },
   pyellow2: { price: 2, set: sets.shimmerHairColors },
 
+  sunset: { price: 2, set: sets.summerHairColors },
+  sunlitwaves: { price: 2, set: sets.summerHairColors },
+  seasprite: { price: 2, set: sets.summerHairColors },
+  sandnsea: { price: 2, set: sets.summerHairColors },
+  orchid: { price: 2, set: sets.summerHairColors },
+  lava: { price: 2, set: sets.summerHairColors },
+
   candycorn: { price: 2, set: sets.hauntedHairColors },
   ghostwhite: { price: 2, set: sets.hauntedHairColors },
   halloween: { price: 2, set: sets.hauntedHairColors },

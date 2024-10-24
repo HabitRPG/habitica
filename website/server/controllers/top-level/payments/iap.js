@@ -23,7 +23,7 @@ api.iapAndroidVerify = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     if (!req.body.transaction) throw new BadRequest(res.t('missingReceipt'));
-    const googleRes = await googlePayments.verifyGemPurchase({
+    const googleRes = await googlePayments.verifyPurchase({
       user: res.locals.user,
       receipt: req.body.transaction.receipt,
       signature: req.body.transaction.signature,
@@ -120,7 +120,7 @@ api.iapiOSVerify = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     if (!req.body.transaction) throw new BadRequest(res.t('missingReceipt'));
-    const appleRes = await applePayments.verifyGemPurchase({
+    const appleRes = await applePayments.verifyPurchase({
       user: res.locals.user,
       receipt: req.body.transaction.receipt,
       gift: req.body.gift,
@@ -144,7 +144,7 @@ api.iapSubscriptioniOS = {
     if (!req.body.sku) throw new BadRequest(res.t('missingSubscriptionCode'));
     if (!req.body.receipt) throw new BadRequest(res.t('missingReceipt'));
 
-    await applePayments.subscribe(req.body.sku, res.locals.user, req.body.receipt, req.headers);
+    await applePayments.subscribe(res.locals.user, req.body.receipt, req.headers);
 
     res.respond(200);
   },

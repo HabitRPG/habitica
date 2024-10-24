@@ -13,7 +13,6 @@
     "rewardsQuestOwner": "Ďalšie odmeny pre vlastníka výpravy",
     "inviteParty": "Pozvi družinu na výpravu",
     "questInvitation": "Pozvánka na výpravu: ",
-    "questInvitationInfo": "Pozvánka na výpravu <%= quest %>",
     "invitedToQuest": "You were invited to the Quest <span class=\"notification-bold-blue\"><%= quest %></span>",
     "askLater": "Spýtať sa neskôr",
     "buyQuest": "Kúpiť výpravu",
@@ -22,7 +21,6 @@
     "rejected": "Odmietnutá",
     "pending": "Čáká sa",
     "questCollection": "+ <%= val %> quest item(s) found",
-    "questDamage": "+ <%= val %> škody spôsobenej bossovi",
     "begin": "Začať",
     "bossHP": "Bossové HP",
     "bossStrength": "Sila bossa",
@@ -38,10 +36,7 @@
     "questConfirm": "Are you sure? Only <%= questmembers %> of your <%= totalmembers %> party members have joined this quest! Quests start automatically when all players have joined or rejected the invitation.",
     "sureCancel": "Si si istý, že chceš zrušiť túto výpravu? Všetky prijaté pozvania sa stratia. Vlastník výpravy získa naspäť zvitok.",
     "sureAbort": "Si si istý, že chceš ukončiť misiu? Zruší sa všetkým v družine a stratíte všetky svoje pokroky. Zvitok s výpravou sa vráti naspäť jeho vlastníkovi.",
-    "doubleSureAbort": "Si si naozaj istý? Uisti sa, že ťa potom nebudú naveky neznášať!",
-    "bossRageTitle": "Zúrivosť",
     "bossRageDescription": "Keď sa naplní ukazovateľ, boss rozpúta špeciálny útok!",
-    "startAQuest": "ZAČNI VÝPRAVU",
     "startQuest": "Začni výpravu",
     "questInvitationDoesNotExist": "Zatiaľ nebola poslaná žiadna pozvánka na výpravu.",
     "questInviteNotFound": "Žiadna pozvánka na výpravu nebola nájdená.",
@@ -51,7 +46,6 @@
     "questNotGemPurchasable": "Quest \"<%= key %>\" is not a Gem-purchasable quest.",
     "questAlreadyUnderway": "Tvoja družina je práve na výprave. Skús to znovu, keď vaša súčasná výprava skončí.",
     "questAlreadyAccepted": "Túto pozvánku si už prijal.",
-    "noActiveQuestToLeave": "Žiadna aktívna výprava, ktorá by sa dala opustiť",
     "questLeaderCannotLeaveQuest": "Vodca výpravy nemôže opustiť výpravu",
     "notPartOfQuest": "Nie si súčasťou výpravy",
     "youAreNotOnQuest": "You're not on a quest",
@@ -71,5 +65,6 @@
     "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Health",
     "rageAttack": "Rage Attack:",
     "bossRage": "<%= currentRage %> / <%= maxRage %> Rage",
-    "rageStrikes": "Rage Strikes"
+    "rageStrikes": "Rage Strikes",
+    "hatchingPotionQuests": "Výpravy za kúzelnými elixírmi"
 }

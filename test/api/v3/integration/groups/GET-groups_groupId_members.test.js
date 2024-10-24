@@ -1,5 +1,6 @@
 import { v4 as generateUUID } from 'uuid';
 import {
+  createAndPopulateGroup,
   generateUser,
   generateGroup,
   translate as t,
@@ -75,7 +76,15 @@ describe('GET /groups/:groupId/members', () => {
   });
 
   it('req.query.includeAllPublicFields === true works with guilds', async () => {
-    const group = await generateGroup(user, { type: 'guild', name: generateUUID() });
+    let group;
+    ({ group, groupLeader: user } = await createAndPopulateGroup({
+      type: 'guild',
+      privacy: 'private',
+      name: generateUUID(),
+      upgradeToGroupPlan: true,
+      members: 1,
+    }));
+
     const [memberRes] = await user.get(`/groups/${group._id}/members?includeAllPublicFields=true`);
 
     expect(memberRes).to.have.all.keys([ // works as: object has all and only these keys
@@ -206,20 +215,20 @@ describe('GET /groups/:groupId/members', () => {
 
   it('supports using req.query.lastId to get more members', async function test () {
     this.timeout(30000); // @TODO: times out after 8 seconds
-    const leader = await generateUser({ balance: 4 });
-    const group = await generateGroup(leader, { type: 'guild', privacy: 'public', name: generateUUID() });
+    const { group, groupLeader: leader, members: generatedUsers } = await createAndPopulateGroup({
+      type: 'guild',
+      privacy: 'private',
+      name: generateUUID(),
+      upgradeToGroupPlan: true,
+      leaderDetails: { balance: 4 },
+      members: 57,
+    });
 
-    const usersToGenerate = [];
-    for (let i = 0; i < 57; i += 1) {
-      usersToGenerate.push(generateUser({ guilds: [group._id] }));
-    }
-    // Group has 59 members (1 is the leader)
-    const generatedUsers = await Promise.all(usersToGenerate);
     const expectedIds = [leader._id].concat(generatedUsers.map(generatedUser => generatedUser._id));
 
-    const res = await user.get(`/groups/${group._id}/members`);
+    const res = await leader.get(`/groups/${group._id}/members`);
     expect(res.length).to.equal(30);
-    const res2 = await user.get(`/groups/${group._id}/members?lastId=${res[res.length - 1]._id}`);
+    const res2 = await leader.get(`/groups/${group._id}/members?lastId=${res[res.length - 1]._id}`);
     expect(res2.length).to.equal(28);
 
     const resIds = res.concat(res2).map(member => member._id);

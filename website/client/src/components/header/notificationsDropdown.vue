@@ -39,7 +39,7 @@
           {{ $t('notifications') }}
         </h4>
         <a
-          class="small-link standard-link"
+          class="small-link"
           :disabled="notificationsCount === 0"
           @click="dismissAll"
         >{{ $t('dismissAll') }}</a>
@@ -112,34 +112,35 @@
 </style>
 
 <script>
-import { mapState, mapActions } from '@/libs/store';
 import * as quests from '@/../../common/script/content/quests';
 import { hasCompletedOnboarding } from '@/../../common/script/libs/onboarding';
+import { mapState, mapActions } from '@/libs/store';
 import notificationsIcon from '@/assets/svg/notifications.svg';
 import MenuDropdown from '../ui/customMenuDropdown';
-import MessageCount from './messageCount';
+import MessageCount from './messageCount.functional.vue';
 import { CONSTANTS, getLocalSetting, setLocalSetting } from '@/libs/userlocalManager';
 import successImage from '@/assets/svg/success.svg';
 import starBadge from '@/assets/svg/star-badge.svg';
 
 // Notifications
-import NEW_STUFF from './notifications/newStuff';
-import GROUP_TASK_NEEDS_WORK from './notifications/groupTaskNeedsWork';
-import GUILD_INVITATION from './notifications/guildInvitation';
-import PARTY_INVITATION from './notifications/partyInvitation';
-import CHALLENGE_INVITATION from './notifications/challengeInvitation';
-import QUEST_INVITATION from './notifications/questInvitation';
+import CARD_RECEIVED from './notifications/cardReceived';
+import CHALLENGE_INVITATION from './notifications/challengeInvitation.functional.vue';
+import GIFT_ONE_GET_ONE from './notifications/g1g1';
 import GROUP_TASK_ASSIGNED from './notifications/groupTaskAssigned';
 import GROUP_TASK_CLAIMED from './notifications/groupTaskClaimed';
-import UNALLOCATED_STATS_POINTS from './notifications/unallocatedStatsPoints';
-import NEW_MYSTERY_ITEMS from './notifications/newMysteryItems';
-import CARD_RECEIVED from './notifications/cardReceived';
-import NEW_INBOX_MESSAGE from './notifications/newPrivateMessage';
+import GROUP_TASK_NEEDS_WORK from './notifications/groupTaskNeedsWork';
+import GUILD_INVITATION from './notifications/guildInvitation';
+import ITEM_RECEIVED from './notifications/itemReceived';
 import NEW_CHAT_MESSAGE from './notifications/newChatMessage';
-import WORLD_BOSS from './notifications/worldBoss';
-import VERIFY_USERNAME from './notifications/verifyUsername';
+import NEW_INBOX_MESSAGE from './notifications/newPrivateMessage';
+import NEW_MYSTERY_ITEMS from './notifications/newMysteryItems';
+import NEW_STUFF from './notifications/newStuff';
 import ONBOARDING_COMPLETE from './notifications/onboardingComplete';
-import GIFT_ONE_GET_ONE from './notifications/g1g1';
+import PARTY_INVITATION from './notifications/partyInvitation';
+import QUEST_INVITATION from './notifications/questInvitation';
+import UNALLOCATED_STATS_POINTS from './notifications/unallocatedStatsPoints';
+import VERIFY_USERNAME from './notifications/verifyUsername';
+import WORLD_BOSS from './notifications/worldBoss';
 import OnboardingGuide from './onboardingGuide';
 
 export default {
@@ -147,24 +148,25 @@ export default {
     MenuDropdown,
     MessageCount,
     // One component for each type
-    NEW_STUFF,
-    GROUP_TASK_NEEDS_WORK,
-    GUILD_INVITATION,
-    PARTY_INVITATION,
+    CARD_RECEIVED,
     CHALLENGE_INVITATION,
-    QUEST_INVITATION,
+    GIFT_ONE_GET_ONE,
     GROUP_TASK_ASSIGNED,
     GROUP_TASK_CLAIMED,
-    UNALLOCATED_STATS_POINTS,
-    NEW_MYSTERY_ITEMS,
-    CARD_RECEIVED,
-    NEW_INBOX_MESSAGE,
+    GROUP_TASK_NEEDS_WORK,
+    GUILD_INVITATION,
+    ITEM_RECEIVED,
     NEW_CHAT_MESSAGE,
-    WorldBoss: WORLD_BOSS,
-    VERIFY_USERNAME,
-    OnboardingGuide,
+    NEW_INBOX_MESSAGE,
+    NEW_MYSTERY_ITEMS,
+    NEW_STUFF,
     ONBOARDING_COMPLETE,
-    GIFT_ONE_GET_ONE,
+    PARTY_INVITATION,
+    QUEST_INVITATION,
+    UNALLOCATED_STATS_POINTS,
+    VERIFY_USERNAME,
+    WorldBoss: WORLD_BOSS,
+    OnboardingGuide,
   },
   data () {
     return {
@@ -185,6 +187,7 @@ export default {
       // NOTE: Those not listed here won't be shown in the notification panel!
       handledNotifications: [
         'NEW_STUFF',
+        'ITEM_RECEIVED',
         'GIFT_ONE_GET_ONE',
         'GROUP_TASK_NEEDS_WORK',
         'GUILD_INVITATION',

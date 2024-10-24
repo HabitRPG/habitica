@@ -168,12 +168,12 @@ input[type="radio"] {
 import toArray from 'lodash/toArray';
 import omitBy from 'lodash/omitBy';
 import orderBy from 'lodash/orderBy';
-import { mapState } from '@/libs/store';
 import planGemLimits from '@/../../common/script/libs/planGemLimits';
+import { MAX_GIFT_MESSAGE_LENGTH } from '@/../../common/script/constants';
+import { mapState } from '@/libs/store';
 import paymentsMixin from '@/mixins/payments';
 import notificationsMixin from '@/mixins/notifications';
 import paymentsButtons from '@/components/payments/buttons/list';
-import { MAX_GIFT_MESSAGE_LENGTH } from '@/../../common/script/constants';
 
 // @TODO: EMAILS.TECH_ASSISTANCE_EMAIL, load from config
 const TECH_ASSISTANCE_EMAIL = 'admin@habitica.com';

@@ -13,7 +13,7 @@ export async function sentMessage (sender, receiver, message, translate) {
   }
 
   if (receiver.preferences.pushNotifications.newPM !== false && messageSent.unformattedText) {
-    sendPushNotification(
+    await sendPushNotification(
       receiver,
       {
         title: translate(
@@ -58,11 +58,13 @@ export async function getUserInbox (user, optionParams = getUserInboxDefaultOpti
     query = query
       .skip(PM_PER_PAGE * Number(options.page))
       .limit(PM_PER_PAGE);
+  } else {
+    // Limit for legacy calls that are not paginated to prevent database issues
+    query = query.limit(200);
   }
 
-  const messages = (await query.exec()).map(msg => {
-    const msgObj = msg.toJSON();
-
+  const messages = (await query.lean().exec()).map(msgObj => {
+    delete msgObj.__v;
     if (options.mapProps) {
       mapInboxMessage(msgObj, user);
     }
@@ -86,7 +88,7 @@ export async function getUserInboxMessage (user, messageId) {
 export async function deleteMessage (user, messageId) {
   const message = await Inbox.findOne({ _id: messageId, ownerId: user._id }).exec();
   if (!message) return false;
-  await Inbox.remove({ _id: message._id, ownerId: user._id }).exec();
+  await Inbox.deleteOne({ _id: message._id, ownerId: user._id }).exec();
 
   return true;
 }
@@ -96,6 +98,6 @@ export async function clearPMs (user) {
 
   await Promise.all([
     user.save(),
-    Inbox.remove({ ownerId: user._id }).exec(),
+    Inbox.deleteMany({ ownerId: user._id }).exec(),
   ]);
 }

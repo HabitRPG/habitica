@@ -40,6 +40,24 @@ describe('GET /user', () => {
     expect(returnedUser.stats).to.not.exist;
   });
 
+  it('returns when ALWAYS_LOADED paths are requested', async () => {
+    const returnedUser = await user.get('/user?userFields=_id,notifications,preferences,auth,flags,permissions');
+
+    expect(returnedUser._id).to.equal(user._id);
+    expect(returnedUser.notifications).to.exist;
+    expect(returnedUser.preferences).to.exist;
+    expect(returnedUser.auth).to.exist;
+    expect(returnedUser.flags).to.exist;
+    expect(returnedUser.permissions).to.exist;
+  });
+
+  it('returns when subpaths paths are requested', async () => {
+    const returnedUser = await user.get('/user?userFields=auth.local.username');
+
+    expect(returnedUser._id).to.equal(user._id);
+    expect(returnedUser.auth.local.username).to.exist;
+  });
+
   it('does not return requested private properties', async () => {
     const returnedUser = await user.get('/user?userFields=apiToken,secret.text');
 

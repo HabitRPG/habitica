@@ -27,12 +27,10 @@
     "color": "Kolor",
     "hair": "Włosy",
     "bangs": "Grzywka",
-    "hairBangs": "Grzywka",
     "glasses": "Okulary",
     "hairSet1": "Zestaw Fryzur 1",
     "hairSet2": "Zestaw Fryzur 2",
     "hairSet3": "Zestaw Fryzur 3",
-    "bodyFacialHair": "Zarost",
     "beard": "Broda",
     "mustache": "Wąsy",
     "flower": "Kwiatek",
@@ -87,7 +85,6 @@
     "allocateIntPop": "Dodaj punkt do Inteligencji",
     "noMoreAllocate": "Teraz, gdy osiągnąłeś poziom 100, nie będziesz już zyskiwać punktów statystyk. Możesz dalej podnosić poziom lub zacząć nową przygodę od poziomu 1 używając <a href='https://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Kuli Odrodzenia</a>!",
     "stats": "Statystyki",
-    "achievs": "Osiągnięcia",
     "strength": "Siła",
     "strText": "Siła zwiększa szansę na losowe \"trafienia krytyczne\", a także wpływa na ilość otrzymanego za nie Złota, Doświadczenia i prawdopodobieństwa łupów. Pomaga także zadawać obrażenia bossom.",
     "constitution": "Kondycja",
@@ -186,5 +183,7 @@
     "chatCastSpellParty": "<%= username %> rzuca zaklęcie <%= spell %> dla drużyny.",
     "purchasePetItemConfirm": "Ten zakup przekroczyłby liczbę przedmiotów potrzebnych do wyklucia wszystkich możliwych <%= itemText %> chowańców. Czy nadal chcesz kupić?",
     "purchaseForGold": "Kupić za <%= cost %> szt. złota?",
-    "notEnoughGold": "Masz za mało złota."
+    "notEnoughGold": "Masz za mało złota.",
+    "chatCastSpellPartyTimes": "<%= username %> rzuca zaklęcie <%= spell %> dla drużyny <%= times %> raz.",
+    "chatCastSpellUserTimes": "<%= username %> rzuca zaklęcie <%= spell %> na <%= target %> <%= times %> raz."
 }

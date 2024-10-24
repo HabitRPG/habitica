@@ -45,7 +45,6 @@
     "notEnoughGems": "Nema dovoljno Dragulja",
     "alreadyHave": "Ups! Već imaš ovaj artikal. Nema potrebe da ga ponovno kupuješ!",
     "delete": "Obriši",
-    "gemsPopoverTitle": "Dragulji",
     "gems": "Dragulji",
     "needMoreGems": "Treba ti više Dragulja?",
     "needMoreGemsInfo": "Kupi Dragulje sada ili postani pretplatnik da bi Zlatnicima mogao/la kupovati Dragulje, dobivao/la mjesečne tajne artikle, uživao/la u povećanom limitu poklona i više!",
@@ -195,5 +194,6 @@
     "letsgo": "Idemo!",
     "selected": "Odabrano",
     "howManyToBuy": "Koliko bi ih htio/la kupiti?",
-    "contactForm": "Kontaktiraj tim Moderatora"
+    "contactForm": "Kontaktiraj tim Moderatora",
+    "finish": "Završi"
 }

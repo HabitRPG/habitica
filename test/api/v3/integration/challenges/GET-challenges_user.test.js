@@ -2,39 +2,44 @@ import {
   generateUser,
   generateChallenge,
   createAndPopulateGroup,
+  resetHabiticaDB,
 } from '../../../../helpers/api-integration/v3';
+import { TAVERN_ID } from '../../../../../website/common/script/constants';
 
 describe('GET challenges/user', () => {
   context('no official challenges', () => {
-    let user; let member; let nonMember; let challenge; let challenge2;
-    let publicGuild; let userData; let groupData;
+    let user; let member; let nonMember; let challenge; let challenge2; let publicChallenge;
+    let groupPlan; let userData; let groupData; let tavern; let tavernData;
 
     before(async () => {
+      await resetHabiticaDB();
+
       const { group, groupLeader, members } = await createAndPopulateGroup({
         groupDetails: {
           name: 'TestGuild',
           type: 'guild',
-          privacy: 'public',
+          privacy: 'private',
         },
         members: 1,
+        upgradeToGroupPlan: true,
       });
 
-      publicGuild = group;
+      groupPlan = group;
       groupData = {
-        _id: publicGuild._id,
+        _id: groupPlan._id,
         categories: [],
-        id: publicGuild._id,
-        type: publicGuild.type,
-        privacy: publicGuild.privacy,
-        name: publicGuild.name,
-        summary: publicGuild.name,
-        leader: publicGuild.leader._id,
+        id: groupPlan._id,
+        type: groupPlan.type,
+        privacy: groupPlan.privacy,
+        name: groupPlan.name,
+        summary: groupPlan.name,
+        leader: groupPlan.leader._id,
       };
 
       user = groupLeader;
       userData = {
-        _id: publicGuild.leader._id,
-        id: publicGuild.leader._id,
+        _id: groupPlan.leader._id,
+        id: groupPlan.leader._id,
         profile: { name: user.profile.name },
         auth: {
           local: {
@@ -46,17 +51,31 @@ describe('GET challenges/user', () => {
         },
       };
 
+      tavern = await user.get(`/groups/${TAVERN_ID}`);
+      tavernData = {
+        _id: TAVERN_ID,
+        categories: [],
+        id: TAVERN_ID,
+        type: tavern.type,
+        privacy: tavern.privacy,
+        name: tavern.name,
+        summary: tavern.name,
+        leader: tavern.leader._id,
+      };
+
       member = members[0]; // eslint-disable-line prefer-destructuring
       nonMember = await generateUser();
 
       challenge = await generateChallenge(user, group);
       challenge2 = await generateChallenge(user, group);
+      await user.updateOne({ balance: 0.25 });
+      publicChallenge = await generateChallenge(user, tavern, { prize: 1 });
 
-      await nonMember.post(`/challenges/${challenge._id}/join`);
+      await member.post(`/challenges/${challenge._id}/join`);
     });
     context('all challenges', () => {
       it('should return challenges user has joined', async () => {
-        const challenges = await nonMember.get('/challenges/user?page=0');
+        const challenges = await member.get('/challenges/user?page=0');
 
         const foundChallenge = _.find(challenges, { _id: challenge._id });
         expect(foundChallenge).to.exist;
@@ -64,11 +83,13 @@ describe('GET challenges/user', () => {
         expect(foundChallenge.group).to.eql(groupData);
       });
 
-      it('should not return challenges a non-member has not joined', async () => {
+      it('should return public challenges', async () => {
         const challenges = await nonMember.get('/challenges/user?page=0');
 
-        const foundChallenge2 = _.find(challenges, { _id: challenge2._id });
-        expect(foundChallenge2).to.not.exist;
+        const foundPublicChallenge = _.find(challenges, { _id: publicChallenge._id });
+        expect(foundPublicChallenge).to.exist;
+        expect(foundPublicChallenge.leader).to.eql(userData);
+        expect(foundPublicChallenge.group).to.eql(tavernData);
       });
 
       it('should return challenges user has created', async () => {
@@ -100,10 +121,10 @@ describe('GET challenges/user', () => {
       it('should return newest challenges first', async () => {
         let challenges = await user.get('/challenges/user?page=0');
 
-        let foundChallengeIndex = _.findIndex(challenges, { _id: challenge2._id });
+        let foundChallengeIndex = _.findIndex(challenges, { _id: publicChallenge._id });
         expect(foundChallengeIndex).to.eql(0);
 
-        const newChallenge = await generateChallenge(user, publicGuild);
+        const newChallenge = await generateChallenge(user, groupPlan);
         await user.post(`/challenges/${newChallenge._id}/join`);
 
         challenges = await user.get('/challenges/user?page=0');
@@ -113,52 +134,23 @@ describe('GET challenges/user', () => {
       });
 
       it('should not return challenges user doesn\'t have access to', async () => {
-        const { group, groupLeader } = await createAndPopulateGroup({
-          groupDetails: {
-            name: 'TestPrivateGuild',
-            summary: 'summary for TestPrivateGuild',
-            type: 'guild',
-            privacy: 'private',
-          },
-        });
-
-        const privateChallenge = await generateChallenge(groupLeader, group);
-        await groupLeader.post(`/challenges/${privateChallenge._id}/join`);
-
         const challenges = await nonMember.get('/challenges/user?page=0');
 
-        const foundChallenge = _.find(challenges, { _id: privateChallenge._id });
+        const foundChallenge = _.find(challenges, { _id: challenge._id });
         expect(foundChallenge).to.not.exist;
       });
 
       it('should not return challenges user doesn\'t have access to, even with query parameters', async () => {
-        const { group, groupLeader } = await createAndPopulateGroup({
-          groupDetails: {
-            name: 'TestPrivateGuild',
-            summary: 'summary for TestPrivateGuild',
-            type: 'guild',
-            privacy: 'private',
-          },
-        });
-
-        const privateChallenge = await generateChallenge(groupLeader, group, {
-          categories: [{
-            name: 'academics',
-            slug: 'academics',
-          }],
-        });
-        await groupLeader.post(`/challenges/${privateChallenge._id}/join`);
-
         const challenges = await nonMember.get('/challenges/user?page=0&categories=academics&owned=not_owned');
 
-        const foundChallenge = _.find(challenges, { _id: privateChallenge._id });
+        const foundChallenge = _.find(challenges, { _id: challenge._id });
         expect(foundChallenge).to.not.exist;
       });
     });
 
     context('my challenges', () => {
       it('should return challenges user has joined', async () => {
-        const challenges = await nonMember.get(`/challenges/user?page=0&member=${true}`);
+        const challenges = await member.get(`/challenges/user?page=0&member=${true}`);
 
         const foundChallenge = _.find(challenges, { _id: challenge._id });
         expect(foundChallenge).to.exist;
@@ -177,6 +169,10 @@ describe('GET challenges/user', () => {
         expect(foundChallenge2).to.exist;
         expect(foundChallenge2.leader).to.eql(userData);
         expect(foundChallenge2.group).to.eql(groupData);
+        const foundPublicChallenge = _.find(challenges, { _id: publicChallenge._id });
+        expect(foundPublicChallenge).to.exist;
+        expect(foundPublicChallenge.leader).to.eql(userData);
+        expect(foundPublicChallenge.group).to.eql(tavernData);
       });
 
       it('should return challenges user has created if filter by owned', async () => {
@@ -190,6 +186,10 @@ describe('GET challenges/user', () => {
         expect(foundChallenge2).to.exist;
         expect(foundChallenge2.leader).to.eql(userData);
         expect(foundChallenge2.group).to.eql(groupData);
+        const foundPublicChallenge = _.find(challenges, { _id: publicChallenge._id });
+        expect(foundPublicChallenge).to.exist;
+        expect(foundPublicChallenge.leader).to.eql(userData);
+        expect(foundPublicChallenge.group).to.eql(tavernData);
       });
 
       it('should not return challenges user has created if filter by not owned', async () => {
@@ -199,38 +199,42 @@ describe('GET challenges/user', () => {
         expect(foundChallenge1).to.not.exist;
         const foundChallenge2 = _.find(challenges, { _id: challenge2._id });
         expect(foundChallenge2).to.not.exist;
+        const foundPublicChallenge = _.find(challenges, { _id: publicChallenge._id });
+        expect(foundPublicChallenge).to.not.exist;
       });
 
       it('should not return challenges in user groups', async () => {
         const challenges = await member.get(`/challenges/user?page=0&member=${true}`);
 
-        const foundChallenge1 = _.find(challenges, { _id: challenge._id });
-        expect(foundChallenge1).to.not.exist;
-
         const foundChallenge2 = _.find(challenges, { _id: challenge2._id });
         expect(foundChallenge2).to.not.exist;
+      });
+
+      it('should not return public challenges', async () => {
+        const challenges = await member.get(`/challenges/user?page=0&member=${true}`);
+
+        const foundPublicChallenge = _.find(challenges, { _id: publicChallenge._id });
+        expect(foundPublicChallenge).to.not.exist;
       });
     });
   });
 
   context('official challenge is present', () => {
     let user; let officialChallenge; let unofficialChallenges; let
-      publicGuild;
+      group;
 
     before(async () => {
-      const { group, groupLeader } = await createAndPopulateGroup({
+      ({ group, groupLeader: user } = await createAndPopulateGroup({
         groupDetails: {
           name: 'TestGuild',
           summary: 'summary for TestGuild',
           type: 'guild',
-          privacy: 'public',
+          privacy: 'private',
         },
-      });
+        upgradeToGroupPlan: true,
+      }));
 
-      user = groupLeader;
-      publicGuild = group;
-
-      await user.update({
+      await user.updateOne({
         'permissions.challengeAdmin': true,
       });
 
@@ -271,7 +275,7 @@ describe('GET challenges/user', () => {
         }
       });
 
-      const newChallenge = await generateChallenge(user, publicGuild);
+      const newChallenge = await generateChallenge(user, group);
       await user.post(`/challenges/${newChallenge._id}/join`);
 
       challenges = await user.get('/challenges/user?page=0');
@@ -294,16 +298,17 @@ describe('GET challenges/user', () => {
         groupDetails: {
           name: 'TestGuild',
           type: 'guild',
-          privacy: 'public',
+          privacy: 'private',
         },
         members: 1,
+        upgradeToGroupPlan: true,
       });
 
       user = groupLeader;
       guild = group;
       member = members[0]; // eslint-disable-line prefer-destructuring
 
-      await user.update({ balance: 20 });
+      await user.updateOne({ balance: 20 });
 
       for (let i = 0; i < 11; i += 1) {
         let challenge = await generateChallenge(user, group); // eslint-disable-line

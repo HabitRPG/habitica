@@ -59,7 +59,7 @@ describe('POST /user/auth/reset-password-set-new-one', () => {
       userId: user._id,
       expiresAt: moment().subtract({ minutes: 1 }),
     }));
-    await user.update({
+    await user.updateOne({
       'auth.local.passwordResetCode': code,
     });
 
@@ -111,7 +111,7 @@ describe('POST /user/auth/reset-password-set-new-one', () => {
       userId: user._id,
       expiresAt: moment().add({ days: 1 }),
     }));
-    await user.update({
+    await user.updateOne({
       'auth.local.passwordResetCode': 'invalid',
     });
 
@@ -133,7 +133,7 @@ describe('POST /user/auth/reset-password-set-new-one', () => {
       userId: user._id,
       expiresAt: moment().add({ days: 1 }),
     }));
-    await user.update({
+    await user.updateOne({
       'auth.local.passwordResetCode': code,
     });
 
@@ -153,7 +153,7 @@ describe('POST /user/auth/reset-password-set-new-one', () => {
       userId: user._id,
       expiresAt: moment().add({ days: 1 }),
     }));
-    await user.update({
+    await user.updateOne({
       'auth.local.passwordResetCode': code,
     });
 
@@ -174,7 +174,7 @@ describe('POST /user/auth/reset-password-set-new-one', () => {
       userId: user._id,
       expiresAt: moment().add({ days: 1 }),
     }));
-    await user.update({
+    await user.updateOne({
       'auth.local.passwordResetCode': code,
     });
 
@@ -196,7 +196,7 @@ describe('POST /user/auth/reset-password-set-new-one', () => {
       userId: user._id,
       expiresAt: moment().add({ days: 1 }),
     }));
-    await user.update({
+    await user.updateOne({
       'auth.local.passwordResetCode': code,
     });
 
@@ -218,7 +218,7 @@ describe('POST /user/auth/reset-password-set-new-one', () => {
       userId: user._id,
       expiresAt: moment().add({ days: 1 }),
     }));
-    await user.update({
+    await user.updateOne({
       'auth.local.passwordResetCode': code,
     });
 
@@ -245,7 +245,7 @@ describe('POST /user/auth/reset-password-set-new-one', () => {
     const salt = sha1MakeSalt();
     const sha1HashedPassword = sha1EncryptPassword(textPassword, salt);
 
-    await user.update({
+    await user.updateOne({
       'auth.local.hashed_password': sha1HashedPassword,
       'auth.local.passwordHashMethod': 'sha1',
       'auth.local.salt': salt,
@@ -260,7 +260,7 @@ describe('POST /user/auth/reset-password-set-new-one', () => {
       userId: user._id,
       expiresAt: moment().add({ days: 1 }),
     }));
-    await user.update({
+    await user.updateOne({
       'auth.local.passwordResetCode': code,
     });
 

@@ -180,6 +180,7 @@ async function addSubToGroupUser (member, group) {
   }
 
   // save unused hourglass and mystery items
+  plan.perkMonthCount = memberPlan.perkMonthCount;
   plan.consecutive.trinkets = memberPlan.consecutive.trinkets;
   plan.mysteryItems = memberPlan.mysteryItems;
 
@@ -227,7 +228,7 @@ async function cancelGroupSubscriptionForUser (user, group, userWasRemoved = fal
   const index = userGroups.indexOf(group._id);
   if (index >= 0) userGroups.splice(index, 1);
 
-  await Tasks.Task.remove({ userId: user._id, 'group.id': group._id }).exec();
+  await Tasks.Task.deleteMany({ userId: user._id, 'group.id': group._id }).exec();
 
   const groupPlansQuery = {
     // type: { $in: ['guild', 'party'] },

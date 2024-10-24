@@ -1,46 +1,41 @@
 <template>
-  <div class="d-flex justify-content-around">
-    <span
+  <div class="d-flex align-items-center">
+    <div
       v-for="currency of currencies"
       :key="currency.key"
+      class="d-flex align-items-center"
     >
       <div
-        class="svg-icon ml-1"
+        class="svg-icon icon-16 ml-1"
         v-html="currency.icon"
       ></div>
-      <span
+      <div
         :class="{'notEnough': currency.notEnough}"
-        class="mx-1"
+        class="currency-value mx-1 my-auto"
       >
         {{ currency.value | roundBigNumber }}
-      </span>
-    </span>
+      </div>
+    </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
 
-span {
-  font-weight: normal;
-  font-size: 12px;
-  line-height: 1.33;
-  color: $gray-200;
-
-  display: inline-block;
-}
-
-.svg-icon {
-  vertical-align: middle;
-  width: 16px;
-  height: 16px;
-  display: inline-block;
-}
+  .currency-value {
+    font-size: 0.75rem;
+    line-height: 1.33;
+    color: $gray-100;
+    display: inline-block;
+  }
 
   .notEnough {
     color: #f23035 !important;
   }
 
+  .svg-icon {
+    margin-top: 1px;
+  }
 </style>
 
 <script>

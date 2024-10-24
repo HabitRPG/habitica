@@ -17,9 +17,10 @@ describe('POST /group/:groupId/add-manager', () => {
         groupDetails: {
           name: groupName,
           type: groupType,
-          privacy: 'public',
+          privacy: 'private',
         },
         members: 1,
+        upgradeToGroupPlan: true,
       });
 
       groupToUpdate = group;

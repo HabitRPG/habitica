@@ -1,52 +1,43 @@
 import { IncomingWebhook } from '@slack/webhook';
-import nconf from 'nconf';
 import { v4 as generateUUID } from 'uuid';
 import {
   createAndPopulateGroup,
-  generateUser,
   translate as t,
   sleep,
   server,
 } from '../../../../helpers/api-integration/v3';
 import {
-  SPAM_MESSAGE_LIMIT,
   SPAM_MIN_EXEMPT_CONTRIB_LEVEL,
-  TAVERN_ID,
 } from '../../../../../website/server/models/group';
-import { CHAT_FLAG_FROM_SHADOW_MUTE, MAX_MESSAGE_LENGTH } from '../../../../../website/common/script/constants';
+import { MAX_MESSAGE_LENGTH } from '../../../../../website/common/script/constants';
 import * as email from '../../../../../website/server/libs/email';
-
-const BASE_URL = nconf.get('BASE_URL');
 
 describe('POST /chat', () => {
   let user; let groupWithChat; let member; let
     additionalMember;
   const testMessage = 'Test Message';
   const testBannedWordMessage = 'TESTPLACEHOLDERSWEARWORDHERE';
-  const testBannedWordMessage1 = 'TESTPLACEHOLDERSWEARWORDHERE1';
   const testSlurMessage = 'message with TESTPLACEHOLDERSLURWORDHERE';
-  const testSlurMessage1 = 'TESTPLACEHOLDERSLURWORDHERE1';
-  const bannedWordErrorMessage = t('bannedWordUsed', { swearWordsUsed: testBannedWordMessage });
 
   before(async () => {
     const { group, groupLeader, members } = await createAndPopulateGroup({
       groupDetails: {
         name: 'Test Guild',
         type: 'guild',
-        privacy: 'public',
+        privacy: 'private',
       },
       members: 2,
+      upgradeToGroupPlan: true,
     });
     user = groupLeader;
-    await user.update({
+    await user.updateOne({
       'contributor.level': SPAM_MIN_EXEMPT_CONTRIB_LEVEL,
       'auth.timestamps.created': new Date('2022-01-01'),
     }); // prevent tests accidentally throwing messageGroupChatSpam
     groupWithChat = group;
-    member = members[0]; // eslint-disable-line prefer-destructuring
-    additionalMember = members[1]; // eslint-disable-line prefer-destructuring
-    await member.update({ 'auth.timestamps.created': new Date('2022-01-01') });
-    await additionalMember.update({ 'auth.timestamps.created': new Date('2022-01-01') });
+    [member, additionalMember] = members;
+    await member.updateOne({ 'auth.timestamps.created': new Date('2022-01-01') });
+    await additionalMember.updateOne({ 'auth.timestamps.created': new Date('2022-01-01') });
   });
 
   it('Returns an error when no message is provided', async () => {
@@ -86,35 +77,15 @@ describe('POST /chat', () => {
 
   describe('mute user', () => {
     afterEach(() => {
-      member.update({ 'flags.chatRevoked': false });
-    });
-
-    it('returns an error when chat privileges are revoked when sending a message to a public guild', async () => {
-      const userWithChatRevoked = await member.update({ 'flags.chatRevoked': true });
-      await expect(userWithChatRevoked.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage })).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('chatPrivilegesRevoked'),
-      });
+      member.updateOne({ 'flags.chatRevoked': false });
     });
 
     it('does not error when chat privileges are revoked when sending a message to a private guild', async () => {
-      const { group, members } = await createAndPopulateGroup({
-        groupDetails: {
-          name: 'Private Guild',
-          type: 'guild',
-          privacy: 'private',
-        },
-        members: 1,
-      });
-
-      const privateGuildMemberWithChatsRevoked = members[0];
-      await privateGuildMemberWithChatsRevoked.update({
+      await member.updateOne({
         'flags.chatRevoked': true,
-        'auth.timestamps.created': new Date('2022-01-01'),
       });
 
-      const message = await privateGuildMemberWithChatsRevoked.post(`/groups/${group._id}/chat`, { message: testMessage });
+      const message = await member.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage });
 
       expect(message.message.id).to.exist;
     });
@@ -130,7 +101,7 @@ describe('POST /chat', () => {
       });
 
       const privatePartyMemberWithChatsRevoked = members[0];
-      await privatePartyMemberWithChatsRevoked.update({
+      await privatePartyMemberWithChatsRevoked.updateOne({
         'flags.chatRevoked': true,
         'auth.timestamps.created': new Date('2022-01-01'),
       });
@@ -149,57 +120,15 @@ describe('POST /chat', () => {
 
     afterEach(() => {
       sandbox.restore();
-      member.update({ 'flags.chatShadowMuted': false });
-    });
-
-    it('creates a chat with flagCount already set and notifies mods when sending a message to a public guild', async () => {
-      const userWithChatShadowMuted = await member.update({ 'flags.chatShadowMuted': true });
-      const message = await userWithChatShadowMuted.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage });
-      expect(message.message.id).to.exist;
-      expect(message.message.flagCount).to.eql(CHAT_FLAG_FROM_SHADOW_MUTE);
-
-      // Email sent to mods
-      await sleep(0.5);
-      expect(email.sendTxn).to.be.calledOnce;
-      expect(email.sendTxn.args[0][1]).to.eql('shadow-muted-post-report-to-mods');
-
-      // Slack message to mods
-      expect(IncomingWebhook.prototype.send).to.be.calledOnce;
-      /* eslint-disable camelcase */
-      expect(IncomingWebhook.prototype.send).to.be.calledWith({
-        text: `@${member.auth.local.username} / ${member.profile.name} posted while shadow-muted`,
-        attachments: [{
-          fallback: 'Shadow-Muted Message',
-          color: 'danger',
-          author_name: `@${member.auth.local.username} ${member.profile.name} (${member.auth.local.email}; ${member._id})`,
-          title: 'Shadow-Muted Post in Test Guild',
-          title_link: `${BASE_URL}/groups/guild/${groupWithChat.id}`,
-          text: testMessage,
-          mrkdwn_in: [
-            'text',
-          ],
-        }],
-      });
-      /* eslint-enable camelcase */
+      member.updateOne({ 'flags.chatShadowMuted': false });
     });
 
     it('creates a chat with zero flagCount when sending a message to a private guild', async () => {
-      const { group, members } = await createAndPopulateGroup({
-        groupDetails: {
-          name: 'Private Guild',
-          type: 'guild',
-          privacy: 'private',
-        },
-        members: 1,
-      });
-
-      const userWithChatShadowMuted = members[0];
-      await userWithChatShadowMuted.update({
+      await member.updateOne({
         'flags.chatShadowMuted': true,
-        'auth.timestamps.created': new Date('2022-01-01'),
       });
 
-      const message = await userWithChatShadowMuted.post(`/groups/${group._id}/chat`, { message: testMessage });
+      const message = await member.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage });
 
       expect(message.message.id).to.exist;
       expect(message.message.flagCount).to.eql(0);
@@ -216,7 +145,7 @@ describe('POST /chat', () => {
       });
 
       const userWithChatShadowMuted = members[0];
-      await userWithChatShadowMuted.update({
+      await userWithChatShadowMuted.updateOne({
         'flags.chatShadowMuted': true,
         'auth.timestamps.created': new Date('2022-01-01'),
       });
@@ -226,100 +155,9 @@ describe('POST /chat', () => {
       expect(message.message.id).to.exist;
       expect(message.message.flagCount).to.eql(0);
     });
-
-    it('creates a chat with zero flagCount when non-shadow-muted user sends a message to a public guild', async () => {
-      const message = await member.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage });
-      expect(message.message.id).to.exist;
-      expect(message.message.flagCount).to.eql(0);
-    });
   });
 
   context('banned word', () => {
-    it('returns an error when chat message contains a banned word in tavern', async () => {
-      await expect(user.post('/groups/habitrpg/chat', { message: testBannedWordMessage }))
-        .to.eventually.be.rejected.and.eql({
-          code: 400,
-          error: 'BadRequest',
-          message: bannedWordErrorMessage,
-        });
-    });
-
-    it('returns an error when chat message contains a banned word in a public guild', async () => {
-      const { group, members } = await createAndPopulateGroup({
-        groupDetails: {
-          name: 'public guild',
-          type: 'guild',
-          privacy: 'public',
-        },
-        members: 1,
-      });
-
-      await expect(members[0].post(`/groups/${group._id}/chat`, { message: testBannedWordMessage }))
-        .to.eventually.be.rejected.and.eql({
-          code: 400,
-          error: 'BadRequest',
-          message: bannedWordErrorMessage,
-        });
-    });
-
-    it('errors when word is part of a phrase', async () => {
-      const wordInPhrase = `phrase ${testBannedWordMessage} end`;
-      await expect(user.post('/groups/habitrpg/chat', { message: wordInPhrase }))
-        .to.eventually.be.rejected.and.eql({
-          code: 400,
-          error: 'BadRequest',
-          message: bannedWordErrorMessage,
-        });
-    });
-
-    it('errors when word is surrounded by non alphabet characters', async () => {
-      const wordInPhrase = `_!${testBannedWordMessage}@_`;
-      await expect(user.post('/groups/habitrpg/chat', { message: wordInPhrase }))
-        .to.eventually.be.rejected.and.eql({
-          code: 400,
-          error: 'BadRequest',
-          message: bannedWordErrorMessage,
-        });
-    });
-
-    it('errors when word is typed in mixed case', async () => {
-      const substrLength = Math.floor(testBannedWordMessage.length / 2);
-      const chatMessage = testBannedWordMessage.substring(0, substrLength).toLowerCase()
-        + testBannedWordMessage.substring(substrLength).toUpperCase();
-      await expect(user.post('/groups/habitrpg/chat', { message: chatMessage }))
-        .to.eventually.be.rejected.and.eql({
-          code: 400,
-          error: 'BadRequest',
-          message: t('bannedWordUsed', { swearWordsUsed: chatMessage }),
-        });
-    });
-
-    it('checks error message has all the banned words used, regardless of case', async () => {
-      const testBannedWords = [
-        testBannedWordMessage.toUpperCase(),
-        testBannedWordMessage1.toLowerCase(),
-      ];
-      const chatMessage = `Mixing ${testBannedWords[0]} and ${testBannedWords[1]} is bad for you.`;
-      await expect(user.post('/groups/habitrpg/chat', { message: chatMessage }))
-        .to.eventually.be.rejected
-        .and.have.property('message')
-        .that.includes(testBannedWords.join(', '));
-    });
-
-    it('does not error when bad word is suffix of a word', async () => {
-      const wordAsSuffix = `prefix${testBannedWordMessage}`;
-      const message = await user.post('/groups/habitrpg/chat', { message: wordAsSuffix });
-
-      expect(message.message.id).to.exist;
-    });
-
-    it('does not error when bad word is prefix of a word', async () => {
-      const wordAsPrefix = `${testBannedWordMessage}suffix`;
-      const message = await user.post('/groups/habitrpg/chat', { message: wordAsPrefix });
-
-      expect(message.message.id).to.exist;
-    });
-
     it('does not error when sending a chat message containing a banned word to a party', async () => {
       const { group, members } = await createAndPopulateGroup({
         groupDetails: {
@@ -329,26 +167,7 @@ describe('POST /chat', () => {
         },
         members: 1,
       });
-      await members[0].update({ 'auth.timestamps.created': new Date('2022-01-01') });
-
-      const message = await members[0].post(`/groups/${group._id}/chat`, { message: testBannedWordMessage });
-
-      expect(message.message.id).to.exist;
-    });
-
-    it('does not error when sending a chat message containing a banned word to a public guild in which banned words are allowed', async () => {
-      const { group, members } = await createAndPopulateGroup({
-        groupDetails: {
-          name: 'public guild',
-          type: 'guild',
-          privacy: 'public',
-        },
-        members: 1,
-      });
-
-      // Update the bannedWordsAllowed property for the group
-      group.update({ bannedWordsAllowed: true });
-      await members[0].update({ 'auth.timestamps.created': new Date('2022-01-01') });
+      await members[0].updateOne({ 'auth.timestamps.created': new Date('2022-01-01') });
 
       const message = await members[0].post(`/groups/${group._id}/chat`, { message: testBannedWordMessage });
 
@@ -356,17 +175,7 @@ describe('POST /chat', () => {
     });
 
     it('does not error when sending a chat message containing a banned word to a private guild', async () => {
-      const { group, members } = await createAndPopulateGroup({
-        groupDetails: {
-          name: 'private guild',
-          type: 'guild',
-          privacy: 'private',
-        },
-        members: 1,
-      });
-      await members[0].update({ 'auth.timestamps.created': new Date('2022-01-01') });
-
-      const message = await members[0].post(`/groups/${group._id}/chat`, { message: testBannedWordMessage });
+      const message = await member.post(`/groups/${groupWithChat._id}/chat`, { message: testBannedWordMessage });
 
       expect(message.message.id).to.exist;
     });
@@ -380,46 +189,7 @@ describe('POST /chat', () => {
 
     afterEach(() => {
       sandbox.restore();
-      user.update({ 'flags.chatRevoked': false });
-    });
-
-    it('errors and revokes privileges when chat message contains a banned slur', async () => {
-      await expect(user.post(`/groups/${groupWithChat._id}/chat`, { message: testSlurMessage })).to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: t('bannedSlurUsed'),
-      });
-
-      // Email sent to mods
-      await sleep(0.5);
-      expect(email.sendTxn).to.be.calledOnce;
-      expect(email.sendTxn.args[0][1]).to.eql('slur-report-to-mods');
-
-      // Slack message to mods
-      expect(IncomingWebhook.prototype.send).to.be.calledOnce;
-      /* eslint-disable camelcase */
-      expect(IncomingWebhook.prototype.send).to.be.calledWith({
-        text: `${user.profile.name} (${user.id}) tried to post a slur`,
-        attachments: [{
-          fallback: 'Slur Message',
-          color: 'danger',
-          author_name: `@${user.auth.local.username} ${user.profile.name} (${user.auth.local.email}; ${user._id})`,
-          title: 'Slur in Test Guild',
-          title_link: `${BASE_URL}/groups/guild/${groupWithChat.id}`,
-          text: testSlurMessage,
-          mrkdwn_in: [
-            'text',
-          ],
-        }],
-      });
-      /* eslint-enable camelcase */
-
-      // Chat privileges are revoked
-      await expect(user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage })).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('chatPrivilegesRevoked'),
-      });
+      user.updateOne({ 'flags.chatRevoked': false });
     });
 
     it('allows slurs in private groups', async () => {
@@ -431,34 +201,23 @@ describe('POST /chat', () => {
         },
         members: 1,
       });
-      await members[0].update({ 'auth.timestamps.created': new Date('2022-01-01') });
+      await members[0].updateOne({ 'auth.timestamps.created': new Date('2022-01-01') });
 
       const message = await members[0].post(`/groups/${group._id}/chat`, { message: testSlurMessage });
 
       expect(message.message.id).to.exist;
     });
-
-    it('errors when slur is typed in mixed case', async () => {
-      const substrLength = Math.floor(testSlurMessage1.length / 2);
-      const chatMessage = testSlurMessage1.substring(0, substrLength).toLowerCase()
-        + testSlurMessage1.substring(substrLength).toUpperCase();
-      await expect(user.post('/groups/habitrpg/chat', { message: chatMessage }))
-        .to.eventually.be.rejected.and.eql({
-          code: 400,
-          error: 'BadRequest',
-          message: t('bannedSlurUsed'),
-        });
-    });
   });
 
   it('errors when user account is too young', async () => {
-    const brandNewUser = await generateUser();
-    await expect(brandNewUser.post('/groups/habitrpg/chat', { message: 'hi im new' }))
+    await user.updateOne({ 'auth.timestamps.created': new Date() });
+    await expect(user.post(`/groups/${groupWithChat._id}/chat`, { message: 'hi im new' }))
       .to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
         message: t('chatTemporarilyUnavailable'),
       });
+    await user.updateOne({ 'auth.timestamps.created': new Date('2022-01-01') });
   });
 
   it('creates a chat', async () => {
@@ -499,7 +258,7 @@ describe('POST /chat', () => {
 
   it('chat message with mentions - mention link should not count towards 3000 chars limit', async () => {
     const memberUsername = 'memberUsername';
-    await member.update({ 'auth.local.username': memberUsername });
+    await member.updateOne({ 'auth.local.username': memberUsername });
 
     const messageWithMentions = `hi @${memberUsername} 123456789
      123456789 123456789 123456789 123456789 123456789 123456789 89 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 12345678 END.`;
@@ -519,26 +278,43 @@ describe('POST /chat', () => {
     const mount = 'test-mount';
     const pet = 'test-pet';
     const style = 'test-style';
-    const userWithStyle = await generateUser({
+    await user.updateOne({
       'items.currentMount': mount,
       'items.currentPet': pet,
       'preferences.style': style,
-      'auth.timestamps.created': new Date('2022-01-01'),
     });
-    await userWithStyle.sync();
 
-    const message = await userWithStyle.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage });
+    const message = await user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage });
 
     expect(message.message.id).to.exist;
-    expect(message.message.userStyles.items.currentMount).to.eql(userWithStyle.items.currentMount);
-    expect(message.message.userStyles.items.currentPet).to.eql(userWithStyle.items.currentPet);
-    expect(message.message.userStyles.preferences.style).to.eql(userWithStyle.preferences.style);
-    expect(message.message.userStyles.preferences.hair).to.eql(userWithStyle.preferences.hair);
-    expect(message.message.userStyles.preferences.skin).to.eql(userWithStyle.preferences.skin);
-    expect(message.message.userStyles.preferences.shirt).to.eql(userWithStyle.preferences.shirt);
-    expect(message.message.userStyles.preferences.chair).to.eql(userWithStyle.preferences.chair);
+    expect(message.message.userStyles.items.currentMount).to.eql(user.items.currentMount);
+    expect(message.message.userStyles.items.currentPet).to.eql(user.items.currentPet);
+    expect(message.message.userStyles.preferences.style).to.eql(user.preferences.style);
+    expect(message.message.userStyles.preferences.hair).to.eql(user.preferences.hair);
+    expect(message.message.userStyles.preferences.skin).to.eql(user.preferences.skin);
+    expect(message.message.userStyles.preferences.shirt).to.eql(user.preferences.shirt);
+    expect(message.message.userStyles.preferences.chair).to.eql(user.preferences.chair);
     expect(message.message.userStyles.preferences.background)
-      .to.eql(userWithStyle.preferences.background);
+      .to.eql(user.preferences.background);
+  });
+
+  it('creates equipped to user styles', async () => {
+    const message = await user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage });
+
+    expect(message.message.id).to.exist;
+    expect(message.message.userStyles.items.gear.equipped)
+      .to.eql(user.items.gear.equipped);
+    expect(message.message.userStyles.items.gear.costume).to.not.exist;
+  });
+
+  it('creates costume to user styles', async () => {
+    await user.updateOne({ 'preferences.costume': true });
+
+    const message = await user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage });
+
+    expect(message.message.id).to.exist;
+    expect(message.message.userStyles.items.gear.costume).to.eql(user.items.gear.costume);
+    expect(message.message.userStyles.items.gear.equipped).to.not.exist;
   });
 
   it('adds backer info to chat', async () => {
@@ -547,12 +323,11 @@ describe('POST /chat', () => {
       tier: 800,
       tokensApplied: true,
     };
-    const backer = await generateUser({
+    await user.updateOne({
       backer: backerInfo,
-      'auth.timestamps.created': new Date('2022-01-01'),
     });
 
-    const message = await backer.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage });
+    const message = await user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage });
     const messageBackerInfo = message.message.backer;
 
     expect(messageBackerInfo.npc).to.equal(backerInfo.npc);
@@ -600,7 +375,7 @@ describe('POST /chat', () => {
 
   context('chat notifications', () => {
     beforeEach(() => {
-      member.update({ newMessages: {}, notifications: [] });
+      member.updateOne({ newMessages: {}, notifications: [] });
     });
 
     it('notifies other users of new messages for a guild', async () => {
@@ -631,44 +406,6 @@ describe('POST /chat', () => {
       expect(message.message.id).to.exist;
       expect(memberWithNotification.newMessages[`${group._id}`]).to.exist;
       expect(memberWithNotification.notifications.find(n => n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === group._id)).to.exist;
-    });
-
-    it('does not notify other users of a new message that is already hidden from shadow-muting', async () => {
-      await user.update({ 'flags.chatShadowMuted': true });
-      const message = await user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage });
-      const memberWithNotification = await member.get('/user');
-
-      await user.update({ 'flags.chatShadowMuted': false });
-
-      expect(message.message.id).to.exist;
-      expect(memberWithNotification.newMessages[`${groupWithChat._id}`]).to.not.exist;
-      expect(memberWithNotification.notifications.find(n => n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === groupWithChat._id)).to.not.exist;
-    });
-  });
-
-  context('Spam prevention', () => {
-    it('Returns an error when the user has been posting too many messages', async () => {
-      // Post as many messages are needed to reach the spam limit
-      for (let i = 0; i < SPAM_MESSAGE_LIMIT; i += 1) {
-        const result = await additionalMember.post(`/groups/${TAVERN_ID}/chat`, { message: testMessage }); // eslint-disable-line no-await-in-loop
-        expect(result.message.id).to.exist;
-      }
-
-      await expect(additionalMember.post(`/groups/${TAVERN_ID}/chat`, { message: testMessage })).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('messageGroupChatSpam'),
-      });
-    });
-
-    it('contributor should not receive spam alert', async () => {
-      const userSocialite = await member.update({ 'contributor.level': SPAM_MIN_EXEMPT_CONTRIB_LEVEL });
-
-      // Post 1 more message than the spam limit to ensure they do not reach the limit
-      for (let i = 0; i < SPAM_MESSAGE_LIMIT + 1; i += 1) {
-        const result = await userSocialite.post(`/groups/${TAVERN_ID}/chat`, { message: testMessage }); // eslint-disable-line no-await-in-loop
-        expect(result.message.id).to.exist;
-      }
     });
   });
 });

@@ -289,8 +289,11 @@ api.updatePassword = {
       newPassword: {
         notEmpty: { errorMessage: res.t('missingNewPassword') },
         isLength: {
-          options: { min: common.constants.MINIMUM_PASSWORD_LENGTH },
-          errorMessage: res.t('minPasswordLength'),
+          options: {
+            min: common.constants.MINIMUM_PASSWORD_LENGTH,
+            max: common.constants.MAXIMUM_PASSWORD_LENGTH,
+          },
+          errorMessage: res.t('passwordIssueLength'),
         },
       },
       confirmPassword: {
@@ -348,15 +351,17 @@ api.resetPassword = {
       { auth: 1 },
     ).exec();
     if (!user) { // If no local auth with that email...
-      const potentialUsers = await User.find({
-        $or: [
-          { 'auth.local.username': email.replace(/^@/, '') },
-          { 'auth.apple.emails.value': email },
-          { 'auth.google.emails.value': email },
-          { 'auth.facebook.emails.value': email },
-        ],
-      },
-      { auth: 1 }).exec();
+      const potentialUsers = await User.find(
+        {
+          $or: [
+            { 'auth.local.username': email.replace(/^@/, '') },
+            { 'auth.apple.emails.value': email },
+            { 'auth.google.emails.value': email },
+            { 'auth.facebook.emails.value': email },
+          ],
+        },
+        { auth: 1 },
+      ).exec();
       // ...prefer oldest social account or username with matching email
       [user] = sortBy(potentialUsers, candidate => candidate.auth.timestamps.created);
     }
@@ -427,6 +432,7 @@ api.updateEmail = {
     }
 
     user.auth.local.email = req.body.newEmail.toLowerCase();
+    user.auth.local.passwordResetCode = undefined;
     await user.save();
 
     return res.respond(200, { email: user.auth.local.email });
@@ -509,7 +515,7 @@ api.deleteSocial = {
     const unset = {
       [`auth.${network}`]: 1,
     };
-    await User.update({ _id: user._id }, { $unset: unset }).exec();
+    await User.updateOne({ _id: user._id }, { $unset: unset }).exec();
 
     res.respond(200, {});
   },

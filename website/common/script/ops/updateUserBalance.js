@@ -1,8 +1,10 @@
-export default async function updateUserBalance (user,
+export default async function updateUserBalance (
+  user,
   amount,
   transactionType,
   reference,
-  referenceText) {
+  referenceText,
+) {
   if (user.constructor.name === 'model') {
     await user.updateBalance(amount, transactionType, reference, referenceText);
   } else {

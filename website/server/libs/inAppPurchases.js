@@ -21,6 +21,8 @@ export default {
   setup: util.promisify(iap.setup.bind(iap)),
   validate: util.promisify(iap.validate.bind(iap)),
   isValidated: iap.isValidated,
+  isCanceled: iap.isCanceled,
+  isExpired: iap.isExpired,
   getPurchaseData: iap.getPurchaseData,
   GOOGLE: iap.GOOGLE,
   APPLE: iap.APPLE,

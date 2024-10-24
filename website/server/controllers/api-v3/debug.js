@@ -1,8 +1,15 @@
 import _ from 'lodash';
+import sinon from 'sinon';
+import moment from 'moment';
 import { authWithHeaders } from '../../middlewares/auth';
-import ensureDevelpmentMode from '../../middlewares/ensureDevelpmentMode';
+import ensureDevelopmentMode from '../../middlewares/ensureDevelopmentMode';
+import ensureTimeTravelMode from '../../middlewares/ensureTimeTravelMode';
 import { BadRequest } from '../../libs/errors';
 import common from '../../../common';
+import {
+  model as Group,
+  // basicFields as basicGroupFields,
+} from '../../models/group';
 
 const { content } = common;
 
@@ -30,7 +37,7 @@ const api = {};
 api.addTenGems = {
   method: 'POST',
   url: '/debug/add-ten-gems',
-  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  middlewares: [ensureDevelopmentMode, authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
 
@@ -53,7 +60,7 @@ api.addTenGems = {
 api.addHourglass = {
   method: 'POST',
   url: '/debug/add-hourglass',
-  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  middlewares: [ensureDevelopmentMode, authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
 
@@ -76,7 +83,7 @@ api.addHourglass = {
 api.setCron = {
   method: 'POST',
   url: '/debug/set-cron',
-  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  middlewares: [ensureDevelopmentMode, authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
     const cron = req.body.lastCron;
@@ -100,7 +107,7 @@ api.setCron = {
 api.makeAdmin = {
   method: 'POST',
   url: '/debug/make-admin',
-  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  middlewares: [ensureDevelopmentMode, authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
 
@@ -131,7 +138,7 @@ api.makeAdmin = {
 api.modifyInventory = {
   method: 'POST',
   url: '/debug/modify-inventory',
-  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  middlewares: [ensureDevelopmentMode, authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
     const { gear } = req.body;
@@ -173,7 +180,7 @@ api.modifyInventory = {
 api.questProgress = {
   method: 'POST',
   url: '/debug/quest-progress',
-  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  middlewares: [ensureDevelopmentMode, authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
     const key = _.get(user, 'party.quest.key');
@@ -198,6 +205,100 @@ api.questProgress = {
     await user.save();
 
     res.respond(200, {});
+  },
+};
+
+/**
+ * @api {post} /api/v3/debug/boss-rage Artificially trigger boss rage bar
+ * @apiName bossRage
+ * @apiGroup Development
+ * @apiPermission Developers
+ *
+ * @apiSuccess {Object} data An empty Object
+ */
+
+api.bossRage = {
+  method: 'POST',
+  url: '/debug/boss-rage',
+  middlewares: [ensureDevelopmentMode, authWithHeaders()],
+  async handler (req, res) {
+    const { user } = res.locals;
+    const party = await Group.getGroup({
+      user,
+      groupId: 'party',
+    });
+
+    if (!party) {
+      throw new BadRequest('User not in a party.');
+    }
+
+    if (!party.quest.progress.rage) party.quest.progress.rage = 0;
+    party.quest.progress.rage += 50;
+
+    party.markModified('party.quest.progress.rage');
+
+    await party.save();
+
+    res.respond(200, {});
+  },
+};
+
+let clock;
+
+function fakeClock () {
+  if (clock) clock.restore();
+  const time = new Date();
+  clock = sinon.useFakeTimers({
+    now: time,
+    shouldAdvanceTime: true,
+  });
+}
+
+api.timeTravelTime = {
+  method: 'GET',
+  url: '/debug/time-travel-time',
+  middlewares: [ensureTimeTravelMode, authWithHeaders()],
+  async handler (req, res) {
+    if (clock === undefined) {
+      fakeClock();
+    }
+
+    res.respond(200, {
+      time: new Date(),
+    });
+  },
+};
+
+api.timeTravelAdjust = {
+  method: 'POST',
+  url: '/debug/jump-time',
+  middlewares: [ensureTimeTravelMode, authWithHeaders()],
+  async handler (req, res) {
+    const { user } = res.locals;
+
+    if (!user.permissions.fullAccess) {
+      throw new BadRequest('You do not have permission to time travel.');
+    }
+
+    const { offsetDays, reset, disable } = req.body;
+    if (reset) {
+      fakeClock();
+    } else if (disable) {
+      clock.restore();
+      clock = undefined;
+    } else if (clock !== undefined) {
+      try {
+        clock.setSystemTime(moment().add(offsetDays, 'days').toDate());
+      } catch (e) {
+        throw new BadRequest('Error adjusting time');
+      }
+    } else {
+      throw new BadRequest('Invalid command');
+    }
+
+    res.respond(200, {
+      time: new Date(),
+    });
   },
 };
 

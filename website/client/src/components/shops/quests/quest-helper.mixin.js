@@ -19,9 +19,9 @@ export const QuestHelperMixin = {
         case 'quests':
           return `inventory_quest_scroll_${drop.key}`;
         case 'mounts':
-          return `rewards_mount Mount_Icon_${drop.key}`;
+          return `Mount_Icon_${drop.key}`;
         case 'pets':
-          return `rewards_pet Pet-${drop.key}`;
+          return `stable_Pet-${drop.key}`;
         default:
           return `shop_${drop.key}`;
       }
@@ -39,9 +39,16 @@ export const QuestHelperMixin = {
         return !drop.onlyOwner;
       }).map(item => {
         if (item.type === 'gear') {
-          const contentItem = this.content.gear.flat[item.key];
+          return this.content.gear.flat[item.key];
+        }
 
-          return contentItem;
+        if (item.type === 'quests') {
+          const questScroll = {};
+          Object.assign(questScroll, this.content.quests[item.key]);
+          questScroll.type = 'quests';
+          questScroll.text = item.text();
+          questScroll.onlyOwner = item.onlyOwner;
+          return questScroll;
         }
 
         return {

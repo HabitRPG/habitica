@@ -6,12 +6,12 @@
       :value="selectedItem"
       class="array-select inline"
       :right="true"
-      key-prop="id"
       :hide-icon="false"
       :inline-dropdown="false"
+      :direct-select="directSelect"
       @select="selectItem($event)"
     >
-      <template v-slot:item="{ item }">
+      <template #item="{ item }">
         <span :class="{'dropdown-icon-item': withIcon}">
           <slot
             name="item"
@@ -33,6 +33,10 @@ export default {
     items: Array,
     initialItem: Object,
     withIcon: {
+      type: Boolean,
+      default: false,
+    },
+    directSelect: {
       type: Boolean,
       default: false,
     },

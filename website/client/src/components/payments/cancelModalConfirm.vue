@@ -31,7 +31,6 @@
         </button>
         <a
           v-once
-          class="standard-link"
           @click="close()"
         >{{ $t('neverMind') }}</a>
       </div>

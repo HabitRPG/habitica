@@ -6,10 +6,10 @@
     >
       <div class="potionEggGroup">
         <div class="potionEggBackground">
-          <div :class="'Pet_HatchingPotion_'+hatchablePet.potionKey"></div>
+          <Sprite :image-name="`Pet_HatchingPotion_${hatchablePet.potionKey}`" />
         </div>
         <div class="potionEggBackground">
-          <div :class="'Pet_Egg_'+hatchablePet.eggKey"></div>
+          <Sprite :image-name="`Pet_Egg_${hatchablePet.eggKey}`" />
         </div>
       </div>
       <h4 class="title">
@@ -105,7 +105,7 @@
         margin-right: 24px;
       }
 
-      div {
+      img {
         margin: 0 auto;
       }
     }
@@ -116,8 +116,12 @@
 import svgClose from '@/assets/svg/close.svg';
 
 import petMixin from '@/mixins/petMixin';
+import Sprite from '@/components/ui/sprite';
 
 export default {
+  components: {
+    Sprite,
+  },
   mixins: [petMixin],
   props: ['hatchablePet'],
   data () {

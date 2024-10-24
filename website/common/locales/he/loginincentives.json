@@ -3,7 +3,6 @@
     "earnedRewardForDevotion": "זכית ב<%= reward %> עבור המחוייבות שלך לשפר את חייך.",
     "nextRewardUnlocksIn": "כניסות שנותרו עד הפרס הבא שלך: <%= numberOfCheckinsLeft %>",
     "awesome": "אחלה!",
-    "countLeft": "Check-ins until next reward: <%= count %>",
     "incentivesDescription": "כשזה מגיע לבניית הרגלים, עקביות היא המפתח. רצף של כניסה יומיומית יעניק לך פרס.",
     "checkinEarned": "מספר הכניסות היומיומיות שלך עולה ועולה!",
     "unlockedCheckInReward": "שחררת פרס של כניסה יומיומית!",

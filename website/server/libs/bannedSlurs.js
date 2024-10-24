@@ -15,7 +15,7 @@
 // Email admin@habitica.com to discuss the change you want made.
 //
 // All updates to this file must be done through a direct commit to limit
-// the words visibility in GitHub to protect our coders, socialites, and
+// the words visibility in GitHub to protect our coders and
 // wiki editors who look through PRs for information.
 //
 // When adding words that contain asterisks, put two backslashes before them.

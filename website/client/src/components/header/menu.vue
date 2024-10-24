@@ -3,6 +3,7 @@
     <creator-intro />
     <profileModal />
     <report-flag-modal />
+    <report-member-modal />
     <send-gift-modal />
     <select-user-modal />
     <b-navbar
@@ -15,11 +16,14 @@
         class="brand"
         aria-label="Habitica"
       >
-        <div
-          class="logo svg-icon d-none d-xl-block"
-          v-html="icons.logo"
-        ></div>
-        <div class="svg-icon gryphon d-xs-block d-xl-none"></div>
+        <router-link to="/">
+          <div
+            class="logo svg-icon svg color gryphon pl-2 mr-3"
+            v-html="icons.melior"
+          ></div>
+          <div class="svg-icon"></div>
+        </router-link>
+        <div class="svg-icon"></div>
       </b-navbar-brand>
       <b-navbar-toggle
         class="menu-toggle"
@@ -135,6 +139,12 @@
               </router-link>
               <router-link
                 class="topbar-dropdown-item dropdown-item"
+                :to="{name: 'customizations'}"
+              >
+                {{ $t('customizations') }}
+              </router-link>
+              <router-link
+                class="topbar-dropdown-item dropdown-item"
                 :to="{name: 'seasonal'}"
               >
                 {{ $t('titleSeasonalShop') }}
@@ -148,7 +158,7 @@
             </div>
           </li>
           <b-nav-item
-            v-if="user.party._id"
+            v-if="user.party._id && user._id !== partyLeaderId"
             class="topbar-item"
             :class="{'active': $route.path.startsWith('/party')}"
             tag="li"
@@ -156,18 +166,10 @@
           >
             {{ $t('party') }}
           </b-nav-item>
-          <b-nav-item
-            v-if="!user.party._id"
-            class="topbar-item"
-            :class="{'active': $route.path.startsWith('/party')}"
-            @click="openPartyModal()"
-          >
-            {{ $t('party') }}
-          </b-nav-item>
           <li
+            v-if="user.party._id && user._id === partyLeaderId"
             class="topbar-item droppable"
-            :class="{
-              'active': $route.path.startsWith('/groups')}"
+            :class="{'active': $route.path.startsWith('/party')}"
           >
             <div
               class="chevron rotate"
@@ -181,31 +183,27 @@
             </div>
             <router-link
               class="nav-link"
-              :to="{name: 'tavern'}"
+              :to="{name: 'party'}"
             >
-              {{ $t('guilds') }}
+              {{ $t('party') }}
             </router-link>
             <div class="topbar-dropdown">
               <router-link
                 class="topbar-dropdown-item dropdown-item"
-                :to="{name: 'tavern'}"
+                :to="{name: 'lookingForParty'}"
               >
-                {{ $t('tavern') }}
-              </router-link>
-              <router-link
-                class="topbar-dropdown-item dropdown-item"
-                :to="{name: 'myGuilds'}"
-              >
-                {{ $t('myGuilds') }}
-              </router-link>
-              <router-link
-                class="topbar-dropdown-item dropdown-item"
-                :to="{name: 'guildsDiscovery'}"
-              >
-                {{ $t('guildsDiscovery') }}
+                {{ $t('lookingForPartyTitle') }}
               </router-link>
             </div>
           </li>
+          <b-nav-item
+            v-if="!user.party._id"
+            class="topbar-item"
+            :class="{'active': $route.path.startsWith('/party')}"
+            @click="openPartyModal()"
+          >
+            {{ $t('party') }}
+          </b-nav-item>
           <li
             class="topbar-item droppable"
             :class="{
@@ -324,22 +322,18 @@
               >
                 {{ $t('reportBug') }}
               </a>
-              <router-link
+              <a
                 class="topbar-dropdown-item dropdown-item"
-                to="/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a"
+                target="_blank"
+                @click.prevent="openBugReportModal(true)"
               >
                 {{ $t('askQuestion') }}
-              </router-link>
+              </a>
               <a
                 class="topbar-dropdown-item dropdown-item"
                 href="https://docs.google.com/forms/d/e/1FAIpQLScPhrwq_7P1C6PTrI3lbvTsvqGyTNnGzp1ugi1Ml0PFee_p5g/viewform?usp=sf_link"
                 target="_blank"
               >{{ $t('requestFeature') }}</a>
-              <a
-                class="topbar-dropdown-item dropdown-item"
-                href="https://habitica.fandom.com/wiki/Contributing_to_Habitica"
-                target="_blank"
-              >{{ $t('contributing') }}</a>
               <a
                 class="topbar-dropdown-item dropdown-item"
                 href="https://habitica.fandom.com/wiki/Habitica_Wiki"
@@ -355,15 +349,15 @@
           >
             <div
               v-b-tooltip.hover.bottom="$t('mysticHourglassesTooltip')"
-              class="top-menu-icon svg-icon"
+              class="top-menu-icon svg-icon mr-1"
               v-html="icons.hourglasses"
             ></div>
             <span>{{ userHourglasses }}</span>
           </div>
-          <div class="item-with-icon">
+          <div class="item-with-icon gem">
             <a
               v-b-tooltip.hover.bottom="$t('gems')"
-              class="top-menu-icon svg-icon gem"
+              class="top-menu-icon svg-icon gem mr-2"
               :aria-label="$t('gems')"
               href="#buy-gems"
               @click.prevent="showBuyGemsModal()"
@@ -374,7 +368,7 @@
           <div class="item-with-icon gold">
             <div
               v-b-tooltip.hover.bottom="$t('gold')"
-              class="top-menu-icon svg-icon"
+              class="top-menu-icon svg-icon mr-2"
               :aria-label="$t('gold')"
               v-html="icons.gold"
             ></div>
@@ -415,18 +409,199 @@ body.modal-open #habitica-menu {
   @import '~@/assets/scss/utils.scss';
   @import '~@/assets/scss/variables.scss';
 
+  .menu-toggle {
+    border: none;
+  }
+
+  #menu_collapse {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .topbar {
+    z-index: 1080;
+    background: $purple-100 url(~@/assets/svg/for-css/bits.svg) right top no-repeat;
+    min-height: 56px;
+    box-shadow: 0 1px 2px 0 rgba($black, 0.24);
+
+    a {
+      color: white !important;
+    }
+  }
+
+  .logo {
+    color: $white;
+    height: 32px;
+    object-fit: contain;
+    width: 32px;
+  }
+
+  .quick-menu {
+    display: flex;
+    margin-left: auto;
+  }
+
+  .currency-tray {
+    display: flex;
+  }
+
+  .topbar-item {
+    font-size: 16px;
+    color: $white !important;
+    font-weight: bold;
+    transition: none;
+
+    .topbar-dropdown  {
+        overflow: hidden;
+        max-height: 0;
+
+        .topbar-dropdown-item {
+          line-height: 1.5;
+          font-size: 16px;
+        }
+    }
+
+    >a {
+      padding: .8em 1em !important;
+    }
+
+    &.down {
+      color: $white !important;
+      background: $purple-200;
+
+      .topbar-dropdown {
+        margin-top: 0; // Remove gap between navbar and drop-down.
+        background: $purple-200;
+        border-radius: 0px;
+        border: none;
+        box-shadow: none;
+        padding: 0px;
+
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 5px;
+
+        .topbar-dropdown-item {
+          font-size: 16px;
+          box-shadow: none;
+          color: $white;
+          border: none;
+          line-height: 1.5;
+          display: list-item;
+
+          &.active {
+            background: $purple-300;
+          }
+
+          &:hover {
+            background: $purple-300;
+            text-decoration: none;
+
+            &:last-child {
+              border-bottom-right-radius: 5px;
+              border-bottom-left-radius: 5px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .dropdown + .dropdown {
+    margin-left: 0px;
+  }
+
+  .item-with-icon {
+    color: $white;
+    font-size: 16px;
+    font-weight: normal;
+    white-space: nowrap;
+
+    span {
+      font-weight: bold;
+    }
+
+    &.gem {
+      margin-left: 12px;
+    }
+
+    &.gold {
+      margin-left: 12px;
+      margin-right: 36px;
+    }
+
+    &:focus ::v-deep .top-menu-icon.svg-icon,
+    &:hover ::v-deep .top-menu-icon.svg-icon {
+      color: $white;
+    }
+
+    & ::v-deep .top-menu-icon.svg-icon {
+      color: $header-color;
+      vertical-align: bottom;
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      margin-right: 12px;
+      margin-left: 12px;
+    }
+  }
+
+  a.item-with-icon:focus {
+    outline: none;
+  }
+
+  @keyframes rotateGemColors {
+    /* Gems are green by default, so we rotate through ROYGBIV starting with green. */
+    20% {
+      fill: #46A7D9; /* Blue */
+    }
+    40% {
+      fill: #925CF3; /* Purple */
+    }
+    60% {
+      fill: #DE3F3F; /* Red */
+    }
+    80% {
+      fill: #FA8537; /* Orange */
+    }
+    100% {
+      fill: #FFB445; /* Yellow */
+    }
+  }
+
+  .gem:hover {
+    cursor: pointer;
+
+    & ::v-deep path:nth-child(1) {
+      animation: rotateGemColors 3s linear infinite alternate;
+    }
+  }
+
+  .message-count.top-count {
+    background-color: $red-50;
+    position: absolute;
+    right: 0;
+    top: -0.5em;
+    padding: .2em;
+  }
   @media only screen and (max-width: 1200px) {
     .chevron {
       display: none
     }
 
     .gryphon {
-      background-image: url('~@/assets/images/melior@3x.png');
-      width: 30px;
-      height: 30px;
       background-size: cover;
       color: $white;
+      height: 32px;
       margin: 0 auto;
+      top: -10px;
+      padding-left: 8px;
+      position: relative;
+      width: 32px;
+    }
+
+    .logo {
+      padding-top: 12px;
+      color: $white;
     }
 
     .topbar-item {
@@ -477,7 +652,7 @@ body.modal-open #habitica-menu {
     .gryphon {
       position: absolute;
       left: calc(50% - 30px);
-      top: 10px;
+      top: -2px;
     }
 
     #menu_collapse {
@@ -545,191 +720,23 @@ body.modal-open #habitica-menu {
     .desktop-only {
       display: none !important;
     }
-  }
 
-  .menu-toggle {
-    border: none;
-  }
-
-  #menu_collapse {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .topbar {
-    z-index: 1080;
-    background: $purple-100 url(~@/assets/svg/for-css/bits.svg) right top no-repeat;
-    min-height: 56px;
-    box-shadow: 0 1px 2px 0 rgba($black, 0.24);
-
-    a {
-      color: white !important;
-    }
-  }
-
-  .logo {
-    padding-left: 10px;
-    width: 128px;
-    height: 28px;
-  }
-
-  .quick-menu {
-    display: flex;
-    margin-left: auto;
-  }
-
-  .currency-tray {
-    display: flex;
-  }
-
-  .topbar-item {
-    font-size: 16px;
-    color: $white !important;
-    font-weight: bold;
-    transition: none;
-
-    .topbar-dropdown  {
-        overflow: hidden;
-        max-height: 0;
-
-        .topbar-dropdown-item {
-          line-height: 1.5;
-          font-size: 16px;
-        }
+    .navbar-toggler {
+      padding-left: 8px;
+      padding-right: 8px;
     }
 
-    >a {
-      padding: .8em 1em !important;
-    }
+    .item-with-icon {
+      margin-left: 0px;
+      margin-right: 16px;
 
-    &.down {
-      color: $white !important;
-      background: $purple-200;
-
-      .topbar-dropdown {
-        margin-top: 0; // Remove gap between navbar and drop-down.
-        background: $purple-200;
-        border-radius: 0px;
-        border: none;
-        box-shadow: none;
-        padding: 0px;
-
-        border-bottom-right-radius: 5px;
-        border-bottom-left-radius: 5px;
-
-        .topbar-dropdown-item {
-          font-size: 16px;
-          box-shadow: none;
-          color: $white;
-          border: none;
-          line-height: 1.5;
-          display: list-item;
-
-          &.active {
-            background: $purple-300;
-          }
-
-          &:hover {
-            background: $purple-300;
-
-            &:last-child {
-              border-bottom-right-radius: 5px;
-              border-bottom-left-radius: 5px;
-            }
-          }
-        }
+      & ::v-deep .top-menu-icon.svg-icon {
+        margin-right: 0px;
+        margin-left: 0px;
       }
     }
   }
 
-  .dropdown + .dropdown {
-    margin-left: 0px;
-  }
-
-  .item-with-icon {
-    color: $white;
-    font-size: 16px;
-    font-weight: normal;
-    white-space: nowrap;
-
-    span {
-      font-weight: bold;
-    }
-
-    &.gold {
-      margin-right: 24px;
-    }
-
-    &:focus ::v-deep .top-menu-icon.svg-icon,
-    &:hover ::v-deep .top-menu-icon.svg-icon {
-      color: $white;
-    }
-
-    & ::v-deep .top-menu-icon.svg-icon {
-      color: $header-color;
-      vertical-align: bottom;
-      display: inline-block;
-      width: 24px;
-      height: 24px;
-      margin-right: 12px;
-      margin-left: 12px;
-    }
-  }
-
-  a.item-with-icon:focus {
-    outline: none;
-  }
-
-  .menu-icon {
-    margin-left: 24px;
-  }
-
-  @keyframes rotateGemColors {
-    /* Gems are green by default, so we rotate through ROYGBIV starting with green. */
-    20% {
-      fill: #46A7D9; /* Blue */
-    }
-    40% {
-      fill: #925CF3; /* Purple */
-    }
-    60% {
-      fill: #DE3F3F; /* Red */
-    }
-    80% {
-      fill: #FA8537; /* Orange */
-    }
-    100% {
-      fill: #FFB445; /* Yellow */
-    }
-  }
-
-  .gem:hover {
-    cursor: pointer;
-
-    & ::v-deep path:nth-child(1) {
-      animation: rotateGemColors 3s linear infinite alternate;
-    }
-  }
-
-  .message-count {
-    background-color: $blue-50;
-    border-radius: 50%;
-    height: 20px;
-    width: 20px;
-    float: right;
-    color: $white;
-    text-align: center;
-    font-weight: bold;
-    font-size: 12px;
-  }
-
-  .message-count.top-count {
-    background-color: $red-50;
-    position: absolute;
-    right: 0;
-    top: -0.5em;
-    padding: .2em;
-  }
 </style>
 
 <script>
@@ -741,12 +748,13 @@ import goldIcon from '@/assets/svg/gold.svg';
 import syncIcon from '@/assets/svg/sync.svg';
 import svgHourglasses from '@/assets/svg/hourglass.svg';
 import chevronDownIcon from '@/assets/svg/chevron-down.svg';
-import logo from '@/assets/svg/logo.svg';
+import melior from '@/assets/svg/melior.svg';
 
 import creatorIntro from '../creatorIntro';
 import notificationMenu from './notificationsDropdown';
 import profileModal from '../userMenu/profileModal';
 import reportFlagModal from '../chat/reportFlagModal';
+import reportMemberModal from '../members/reportMemberModal';
 import sendGiftModal from '@/components/payments/sendGiftModal';
 import selectUserModal from '@/components/payments/selectUserModal';
 import sync from '@/mixins/sync';
@@ -759,6 +767,7 @@ export default {
     notificationMenu,
     profileModal,
     reportFlagModal,
+    reportMemberModal,
     sendGiftModal,
     selectUserModal,
     userDropdown,
@@ -768,12 +777,13 @@ export default {
     return {
       isUserDropdownOpen: false,
       menuIsOpen: false,
+      partyLeaderId: null,
       icons: Object.freeze({
         gem: gemIcon,
         gold: goldIcon,
         hourglasses: svgHourglasses,
         sync: syncIcon,
-        logo,
+        melior,
         chevronDown: chevronDownIcon,
       }),
     };
@@ -796,14 +806,20 @@ export default {
       };
     },
   },
-  mounted () {
-    this.getUserGroupPlans();
-    Array.from(document.getElementById('menu_collapse').getElementsByTagName('a')).forEach(link => {
-      link.addEventListener('click', this.closeMenu);
-    });
+  async mounted () {
+    await this.getUserGroupPlans();
+    await this.getUserParty();
+    if (document.getElementById('menu_collapse')) {
+      Array.from(document.getElementById('menu_collapse').getElementsByTagName('a')).forEach(link => {
+        link.addEventListener('click', this.closeMenu);
+      });
+    }
     Array.from(document.getElementsByClassName('topbar-item')).forEach(link => {
       link.addEventListener('mouseenter', this.dropdownDesktop);
       link.addEventListener('mouseleave', this.dropdownDesktop);
+    });
+    this.$root.$on('update-party', () => {
+      this.getUserParty();
     });
   },
   methods: {
@@ -815,6 +831,12 @@ export default {
     },
     async getUserGroupPlans () {
       await this.$store.dispatch('guilds:getGroupPlans');
+    },
+    async getUserParty () {
+      if (this.user.party._id) {
+        await this.$store.dispatch('party:getParty');
+        this.partyLeaderId = this.$store.state.party.data.leader._id;
+      }
     },
     openPartyModal () {
       this.$root.$emit('bv::show::modal', 'create-party-modal');

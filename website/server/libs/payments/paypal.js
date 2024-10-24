@@ -77,7 +77,9 @@ api.paypalBillingAgreementCancel = util
 api.ipnVerifyAsync = util.promisify(paypalIpn.verify.bind(paypalIpn));
 
 api.checkout = async function checkout (options = {}) {
-  const { gift, user, gemsBlock: gemsBlockKey } = options;
+  const {
+    gift, gemsBlock: gemsBlockKey, sku, user,
+  } = options;
 
   let amount;
   let gemsBlock;
@@ -99,12 +101,17 @@ api.checkout = async function checkout (options = {}) {
       amount = Number(shared.content.subscriptionBlocks[gift.subscription.key].price).toFixed(2);
       description = 'mo. Habitica Subscription (Gift)';
     }
+  } else if (sku) {
+    if (sku === 'Pet-Gryphatrice-Jubilant') {
+      description = 'Jubilant Gryphatrice';
+      amount = 9.99;
+    }
   } else {
     gemsBlock = getGemsBlock(gemsBlockKey);
     amount = gemsBlock.price / 100;
   }
 
-  if (!gift || gift.type === 'gems') {
+  if (gemsBlock || (gift && gift.type === 'gems')) {
     const receiver = gift ? gift.member : user;
     const receiverCanGetGems = await receiver.canGetGems();
     if (!receiverCanGetGems) throw new NotAuthorized(shared.i18n.t('groupPolicyCannotGetGems', receiver.preferences.language));
@@ -146,10 +153,10 @@ api.checkout = async function checkout (options = {}) {
 
 api.checkoutSuccess = async function checkoutSuccess (options = {}) {
   const {
-    user, gift, gemsBlock: gemsBlockKey, paymentId, customerId,
+    user, gift, gemsBlock: gemsBlockKey, paymentId, customerId, sku,
   } = options;
 
-  let method = 'buyGems';
+  let method = sku ? 'buySkuItem' : 'buyGems';
   const data = {
     user,
     customerId,
@@ -164,6 +171,8 @@ api.checkoutSuccess = async function checkoutSuccess (options = {}) {
 
     data.paymentMethod = 'PayPal (Gift)';
     data.gift = gift;
+  } else if (sku) {
+    data.sku = sku;
   } else {
     data.gemsBlock = getGemsBlock(gemsBlockKey);
   }

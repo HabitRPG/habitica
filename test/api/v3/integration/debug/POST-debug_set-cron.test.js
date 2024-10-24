@@ -5,13 +5,20 @@ import {
 
 describe('POST /debug/set-cron', () => {
   let user;
+  let nconfStub;
 
   before(async () => {
     user = await generateUser();
   });
 
+  beforeEach(() => {
+    nconfStub = sandbox.stub(nconf, 'get');
+    nconfStub.withArgs('DEBUG_ENABLED').returns(true);
+    nconfStub.withArgs('BASE_URL').returns('https://example.com');
+  });
+
   afterEach(() => {
-    nconf.set('IS_PROD', false);
+    nconfStub.restore();
   });
 
   it('sets last cron', async () => {
@@ -27,7 +34,7 @@ describe('POST /debug/set-cron', () => {
   });
 
   it('returns error when not in production mode', async () => {
-    nconf.set('IS_PROD', true);
+    nconfStub.withArgs('DEBUG_ENABLED').returns(false);
 
     await expect(user.post('/debug/set-cron'))
       .eventually.be.rejected.and.to.deep.equal({

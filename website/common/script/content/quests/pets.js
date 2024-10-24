@@ -232,6 +232,38 @@ const QUEST_PETS = {
       unlock: t('questButterflyUnlockText'),
     },
   },
+  chameleon: {
+    text: t('questChameleonText'),
+    notes: t('questChameleonNotes'),
+    completion: t('questChameleonCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questChameleonBoss'),
+      hp: 400,
+      str: 1.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Chameleon',
+          text: t('questChameleonDropChameleonEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Chameleon',
+          text: t('questChameleonDropChameleonEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Chameleon',
+          text: t('questChameleonDropChameleonEgg'),
+        },
+      ],
+      gp: 35,
+      exp: 250,
+      unlock: t('questChameleonUnlockText'),
+    },
+  },
   cheetah: {
     text: t('questCheetahText'),
     notes: t('questCheetahNotes'),
@@ -296,6 +328,44 @@ const QUEST_PETS = {
       unlock: t('questCowUnlockText'),
     },
   },
+  crab: {
+    text: t('questCrabText'),
+    notes: t('questCrabNotes'),
+    completion: t('questCrabCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questCrabBoss'),
+      hp: 1200,
+      str: 2.5,
+      rage: {
+        title: t('questCrabRageTitle'),
+        description: t('questCrabRageDescription'),
+        value: 50,
+        mpDrain: 0.33,
+        effect: t('questCrabRageEffect'),
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Crab',
+          text: t('questCrabDropCrabEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Crab',
+          text: t('questCrabDropCrabEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Crab',
+          text: t('questCrabDropCrabEgg'),
+        },
+      ],
+      gp: 90,
+      exp: 900,
+    },
+  },
   dilatory_derby: { // eslint-disable-line camelcase
     text: t('questSeahorseText'),
     notes: t('questSeahorseNotes'),
@@ -326,6 +396,45 @@ const QUEST_PETS = {
       gp: 25,
       exp: 125,
       unlock: t('questSeahorseUnlockText'),
+    },
+  },
+  dog: {
+    text: t('questDogText'),
+    notes: t('questDogNotes'),
+    completion: t('questDogCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questDogBoss'),
+      hp: 600,
+      str: 1.5,
+      rage: {
+        title: t('questDogRageTitle'),
+        description: t('questDogRageDescription'),
+        value: 50,
+        mpDrain: 0.3,
+        effect: t('questDogRageEffect'),
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Dog',
+          text: t('questDogDropDogEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Dog',
+          text: t('questDogDropDogEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Dog',
+          text: t('questDogDropDogEgg'),
+        },
+      ],
+      gp: 55,
+      exp: 500,
+      unlock: t('questDogUnlockText'),
     },
   },
   dolphin: {
@@ -486,6 +595,38 @@ const QUEST_PETS = {
       gp: 80,
       exp: 800,
       unlock: t('questGhostStagUnlockText'),
+    },
+  },
+  giraffe: {
+    text: t('questGiraffeText'),
+    notes: t('questGiraffeNotes'),
+    completion: t('questGiraffeCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questGiraffeBoss'),
+      hp: 700,
+      str: 2,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Giraffe',
+          text: t('questGiraffeDropGiraffeEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Giraffe',
+          text: t('questGiraffeDropGiraffeEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Giraffe',
+          text: t('questGiraffeDropGiraffeEgg'),
+        },
+      ],
+      gp: 50,
+      exp: 450,
+      unlock: t('questGiraffeUnlockText'),
     },
   },
   gryphon: {
@@ -966,6 +1107,47 @@ const QUEST_PETS = {
       gp: 67,
       exp: 650,
       unlock: t('questPterodactylUnlockText'),
+    },
+  },
+  raccoon: {
+    text: t('questRaccoonText'),
+    notes: t('questRaccoonNotes'),
+    completion: t('questRaccoonCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questRaccoonBoss'),
+      hp: 800,
+      str: 2,
+      rage: {
+        title: t('questRaccoonRageTitle'),
+        description: t('questRaccoonRageDescription'),
+        value: 50,
+        healing: 0.3,
+        effect: t('questRaccoonRageEffect'),
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Raccoon',
+          text: t('questRaccoonDropRaccoonEgg'),
+        },
+        {
+          type: 'eggs',
+          key: 'Raccoon',
+          text: t('questRaccoonDropRaccoonEgg'),
+        },
+        {
+          type: 'eggs',
+          key: 'Raccoon',
+          text: t('questRaccoonDropRaccoonEgg'),
+        },
+      ],
+      gp: 70,
+      exp: 600,
+      unlock: t('questRaccoonUnlockText'),
     },
   },
   rat: {

@@ -1,10 +1,14 @@
 import defaults from 'lodash/defaults';
 import find from 'lodash/find';
 import forEach from 'lodash/forEach';
+import moment from 'moment';
 import upperFirst from 'lodash/upperFirst';
 import { ownsItem } from '../gear-helper';
 import { ATTRIBUTES } from '../../../constants';
 import t from '../../translation';
+import memoize from '../../../fns/datedMemoize';
+import { ARMOIRE_RELEASE_DATES as releaseDates } from '../../constants/releaseDates';
+import { buildReleaseDate } from '../../is_released';
 
 const armor = {
   lunarArmor: {
@@ -404,6 +408,100 @@ const armor = {
   sheetGhostCostume: {
     con: 10,
   },
+  jewelersApron: {
+    int: 10,
+    set: 'jewelers',
+  },
+  shawlCollarCoat: {
+    con: 8,
+  },
+  teaGown: {
+    str: 5,
+    int: 5,
+    set: 'teaParty',
+  },
+  basketballUniform: {
+    per: 10,
+    set: 'oldTimeyBasketball',
+  },
+  paintersApron: {
+    con: 10,
+    set: 'painters',
+  },
+  stripedRainbowShirt: {
+    str: 7,
+    int: 7,
+    set: 'rainbow',
+  },
+  diagonalRainbowShirt: {
+    con: 7,
+    per: 7,
+    set: 'rainbow',
+  },
+  admiralsUniform: {
+    con: 7,
+    str: 7,
+    set: 'admiralsSet',
+  },
+  karateGi: {
+    str: 10,
+    set: 'karateSet',
+  },
+  greenFluffTrimmedCoat: {
+    str: 8,
+    int: 8,
+    set: 'greenTrapper',
+  },
+  schoolUniformSkirt: {
+    int: 5,
+    set: 'schoolUniform',
+  },
+  schoolUniformPants: {
+    int: 5,
+    set: 'schoolUniform',
+  },
+  softWhiteSuit: {
+    con: 7,
+    per: 10,
+    set: 'whiteLoungeWear',
+  },
+  hattersSuit: {
+    con: 9,
+    set: 'hatterSet',
+  },
+  smileyShirt: {
+    int: 4,
+    per: 4,
+    set: 'optimistSet',
+  },
+  pottersApron: {
+    str: 8,
+    set: 'pottersSet',
+  },
+  yellowStripedSwimsuit: {
+    con: 13,
+    set: 'beachsideSet',
+  },
+  blueStripedSwimsuit: {
+    con: 13,
+    set: 'beachsideSet',
+  },
+  corsairsCoatAndCape: {
+    con: 14,
+    set: 'corsairSet',
+  },
+  dragonKnightsArmor: {
+    str: 8,
+    set: 'dragonKnightSet',
+  },
+  funnyFoolCostume: {
+    str: 15,
+    set: 'funnyFoolSet',
+  },
+  stormKnightArmor: {
+    per: 11,
+    set: 'stormKnightSet',
+  },
 };
 
 const body = {
@@ -422,6 +520,42 @@ const body = {
     con: 2,
     per: 2,
     set: 'clown',
+  },
+  karateYellowBelt: {
+    per: 3,
+    set: 'karateSet',
+  },
+  karateWhiteBelt: {
+    int: 3,
+    set: 'karateSet',
+  },
+  karateRedBelt: {
+    per: 3,
+    set: 'karateSet',
+  },
+  karatePurpleBelt: {
+    con: 3,
+    set: 'karateSet',
+  },
+  karateOrangeBelt: {
+    con: 3,
+    set: 'karateSet',
+  },
+  karateGreenBelt: {
+    str: 3,
+    set: 'karateSet',
+  },
+  karateBrownBelt: {
+    str: 3,
+    set: 'karateSet',
+  },
+  karateBlueBelt: {
+    con: 3,
+    set: 'karateSet',
+  },
+  karateBlackBelt: {
+    int: 3,
+    set: 'karateSet',
   },
 };
 
@@ -442,6 +576,14 @@ const eyewear = {
   },
   comedyMask: {
     con: 10,
+  },
+  jewelersEyeLoupe: {
+    per: 10,
+    set: 'jewelers',
+  },
+  roseColoredGlasses: {
+    per: 8,
+    set: 'optimistSet',
   },
 };
 
@@ -821,6 +963,70 @@ const head = {
     per: 8,
     set: 'fancyPirate',
   },
+  teaHat: {
+    per: 10,
+    set: 'teaParty',
+  },
+  beaniePropellerHat: {
+    con: 3,
+    per: 3,
+    str: 3,
+    int: 3,
+  },
+  paintersBeret: {
+    per: 9,
+    set: 'painters',
+  },
+  admiralsBicorne: {
+    int: 7,
+    per: 7,
+    set: 'admiralsSet',
+  },
+  blackSpookySorceryHat: {
+    int: 5,
+    con: 3,
+    set: 'somethingSpooky',
+  },
+  purpleSpookySorceryHat: {
+    per: 5,
+    con: 3,
+    set: 'somethingSpooky',
+  },
+  greenTrapperHat: {
+    con: 6,
+    per: 6,
+    set: 'greenTrapper',
+  },
+  whiteFloppyHat: {
+    str: 5,
+    int: 5,
+    con: 5,
+    set: 'whiteLoungeWear',
+  },
+  hattersTopHat: {
+    per: 10,
+    set: 'hatterSet',
+  },
+  pottersBandana: {
+    int: 8,
+    set: 'pottersSet',
+  },
+  corsairsBandana: {
+    int: 7,
+    set: 'corsairSet',
+  },
+  dragonKnightsHelm: {
+    int: 8,
+    set: 'dragonKnightSet',
+  },
+  funnyFoolCap: {
+    con: 15,
+    set: 'funnyFoolSet',
+  },
+  stormKnightHelm: {
+    con: 11,
+    set: 'stormKnightSet',
+  },
 };
 
 const shield = {
@@ -1117,6 +1323,64 @@ const shield = {
   bubblingCauldron: {
     con: 8,
     set: 'cookingImplements',
+  },
+  jewelersPliers: {
+    str: 10,
+    set: 'jewelers',
+  },
+  teaKettle: {
+    con: 10,
+    set: 'teaParty',
+  },
+  basketball: {
+    con: 5,
+    str: 5,
+    set: 'oldTimeyBasketball',
+  },
+  paintersPalette: {
+    str: 7,
+    set: 'painters',
+  },
+  bucket: {
+    str: 4,
+    int: 4,
+    set: 'cleaningSuppliesTwo',
+  },
+  saucepan: {
+    per: 10,
+    set: 'cookingImplementsTwo',
+  },
+  trustyPencil: {
+    int: 10,
+    set: 'schoolUniform',
+  },
+  softWhitePillow: {
+    int: 6,
+    per: 6,
+    set: 'whiteLoungeWear',
+  },
+  hattersPocketWatch: {
+    int: 9,
+    set: 'hatterSet',
+  },
+  happyThoughts: {
+    int: 4,
+    per: 4,
+    con: 4,
+    str: 4,
+    set: 'optimistSet',
+  },
+  thrownVessel: {
+    con: 8,
+    set: 'pottersSet',
+  },
+  buoyantBeachBall: {
+    str: 12,
+    set: 'beachsideSet',
+  },
+  safetyFlashlight: {
+    con: 10,
+    set: 'frightNightSet',
   },
 };
 
@@ -1556,7 +1820,78 @@ const weapon = {
     per: 8,
     set: 'cookingImplements',
   },
+  finelyCutGem: {
+    con: 10,
+    set: 'jewelers',
+  },
+  paintbrush: {
+    int: 8,
+    set: 'painters',
+  },
+  mop: {
+    con: 4,
+    per: 4,
+    set: 'cleaningSuppliesTwo',
+  },
+  cleaningCloth: {
+    str: 4,
+    con: 4,
+    set: 'cleaningSuppliesTwo',
+  },
+  ridingBroom: {
+    str: 5,
+    int: 3,
+    set: 'somethingSpooky',
+  },
+  rollingPin: {
+    str: 10,
+    set: 'cookingImplementsTwo',
+  },
+  scholarlyTextbooks: {
+    int: 10,
+    set: 'schoolUniform',
+  },
+  hattersShears: {
+    str: 10,
+    set: 'hatterSet',
+  },
+  optimistsClover: {
+    str: 4,
+    con: 4,
+    set: 'optimistSet',
+  },
+  pottersWheel: {
+    per: 8,
+    set: 'pottersSet',
+  },
+  shadyBeachUmbrella: {
+    per: 12,
+    set: 'beachsideSet',
+  },
+  corsairsBlade: {
+    str: 7,
+    set: 'corsairSet',
+  },
+  dragonKnightsLance: {
+    con: 8,
+    set: 'dragonKnightSet',
+  },
+  funnyFoolBaton: {
+    con: 15,
+    str: 15,
+    set: 'funnyFoolSet',
+  },
+  spookyCandyBucket: {
+    int: 10,
+    set: 'frightNightSet',
+  },
+  stormKnightAxe: {
+    str: 11,
+    set: 'stormKnightSet',
+  },
 };
+
+const releaseDay = 7;
 
 forEach({
   armor,
@@ -1599,12 +1934,59 @@ forEach({
   });
 });
 
-export {
-  armor,
-  body,
-  eyewear,
-  head,
-  headAccessory,
-  shield,
-  weapon,
+function updateReleased (type) {
+  const today = moment();
+  const returnType = {};
+  forEach(type, (gearItem, gearKey) => {
+    let released;
+    if (releaseDates[gearItem.set]) {
+      const components = releaseDates[gearItem.set];
+      const releaseDateString = buildReleaseDate(components.year, components.month, releaseDay);
+      released = today.isAfter(releaseDateString);
+    } else {
+      released = true;
+    }
+    if (released) {
+      returnType[gearKey] = gearItem;
+    }
+  });
+  return returnType;
+}
+
+const memoizedUpdatReleased = memoize(updateReleased);
+
+export default {
+  get armor () {
+    return memoizedUpdatReleased({ identifier: 'armor', memoizeConfig: true }, armor);
+  },
+  get body () {
+    return memoizedUpdatReleased({ identifier: 'body', memoizeConfig: true }, body);
+  },
+  get eyewear () {
+    return memoizedUpdatReleased({ identifier: 'eyewear', memoizeConfig: true }, eyewear);
+  },
+  get head () {
+    return memoizedUpdatReleased({ identifier: 'head', memoizeConfig: true }, head);
+  },
+  get headAccessory () {
+    return memoizedUpdatReleased({ identifier: 'headAccessory', memoizeConfig: true }, headAccessory);
+  },
+  get shield () {
+    return memoizedUpdatReleased({ identifier: 'shield', memoizeConfig: true }, shield);
+  },
+  get weapon () {
+    return memoizedUpdatReleased({ identifier: 'weapon', memoizeConfig: true }, weapon);
+  },
+  // convenience method for tests mostly. Not used in the app
+  get all () {
+    const items = [];
+    items.push(...Object.values(this.armor));
+    items.push(...Object.values(this.body));
+    items.push(...Object.values(this.eyewear));
+    items.push(...Object.values(this.head));
+    items.push(...Object.values(this.headAccessory));
+    items.push(...Object.values(this.shield));
+    items.push(...Object.values(this.weapon));
+    return items;
+  },
 };

@@ -181,7 +181,8 @@ describe('POST /members/transfer-gems', () => {
     const updatedSender = await userToSendMessage.get('/user');
 
     const sendersMessageInReceiversInbox = findMessage(
-      updatedReceiver.inbox.messages, userToSendMessage._id,
+      updatedReceiver.inbox.messages,
+      userToSendMessage._id,
     );
     const sendersMessageInSendersInbox = findMessage(updatedSender.inbox.messages, receiver._id);
 
@@ -212,7 +213,8 @@ describe('POST /members/transfer-gems', () => {
     const updatedSender = await userToSendMessage.get('/user');
 
     const sendersMessageInReceiversInbox = findMessage(
-      updatedReceiver.inbox.messages, userToSendMessage._id,
+      updatedReceiver.inbox.messages,
+      userToSendMessage._id,
     );
     const sendersMessageInSendersInbox = findMessage(updatedSender.inbox.messages, receiver._id);
 
@@ -233,10 +235,10 @@ describe('POST /members/transfer-gems', () => {
   });
 
   it('sends transfer gems message in each participant\'s language', async () => {
-    await receiver.update({
+    await receiver.updateOne({
       'preferences.language': 'es',
     });
-    await userToSendMessage.update({
+    await userToSendMessage.updateOne({
       'preferences.language': 'cs',
     });
     await userToSendMessage.post('/members/transfer-gems', {
@@ -248,7 +250,8 @@ describe('POST /members/transfer-gems', () => {
     const updatedSender = await userToSendMessage.get('/user');
 
     const sendersMessageInReceiversInbox = findMessage(
-      updatedReceiver.inbox.messages, userToSendMessage._id,
+      updatedReceiver.inbox.messages,
+      userToSendMessage._id,
     );
     const sendersMessageInSendersInbox = findMessage(updatedSender.inbox.messages, receiver._id);
 

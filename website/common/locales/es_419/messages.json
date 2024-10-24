@@ -15,7 +15,7 @@
     "messageMissingEggPotion": "Te hace falta ese huevo o esa poción",
     "messageInvalidEggPotionCombo": "¡No puedes eclosionar Huevos de Mascotas de Misión con Pociones de Eclosión Mágicas! Prueba con otro huevo.",
     "messageAlreadyPet": "Ya tienes esa mascota. ¡Intenta eclosionar una combinación diferente!",
-    "messageHatched": "¡Tu huevo eclosionó! Visita tu establo para equipar a tu mascota.",
+    "messageHatched": "¡Tu huevo eclosionó! Visita Mascotas y Monturas para equipar a tu mascota.",
     "messageNotEnoughGold": "No tienes oro suficiente",
     "messageTwoHandedEquip": "Empuñar <%= twoHandedText %> requiere dos manos, por lo cual <%= offHandedText %> ha sido removido.",
     "messageTwoHandedUnequip": "Empuñar <%= twoHandedText %> requiere dos manos, por lo cual fue removido cuando equipaste <%= offHandedText %>.",
@@ -36,12 +36,10 @@
     "messageGroupRequiresInvite": "No puedes unirte a un grupo al que no has sido invitado.",
     "messageGroupCannotRemoveSelf": "¡No puedes eliminarte a ti mismo!",
     "messageGroupChatBlankMessage": "No puedes enviar un mensaje en blanco",
-    "messageGroupChatLikeOwnMessage": "No puedes darle me gusta a tu propio mensaje. No seas ese tipo de persona.",
     "messageGroupChatFlagAlreadyReported": "Ya has denunciado este mensaje",
     "messageGroupChatNotFound": "¡Mensaje no encontrado!",
     "messageGroupChatAdminClearFlagCount": "¡Sólo un administrador puede borrar el número de denuncias!",
     "messageCannotFlagSystemMessages": "No puedes reportar un mensaje del sistema. Si necesitas informar una infracción de las Normas de la Comunidad relacionadas con este mensaje, envía un mensaje de correo electrónico con una captura de pantalla y una explicación a nuestro Administrador de la Comunidad a <%= communityManagerEmail %>.",
-    "messageGroupChatSpam": "Ups, ¡parece que estás publicando demasiados mensajes! Espera un minuto y vuelve a intentarlo. El chat de la Taberna solo puede con 200 mensajes a la vez, por lo que Habitica recomienda publicar mensajes más largos y meditados, así como respuestas unificadas. No podemos esperar a oir lo que tienes que decir. :)",
     "messageCannotLeaveWhileQuesting": "No puedes aceptar esta invitación de equipo mientras estas en una misión. Si te quieres unir a este equipo, tienes que abortar tu misión primero, puedes hacerlo desde la pantalla del equipo. Se te devolverá tu pergamino de misión.",
     "messageUserOperationProtected": "la ruta `<%= operation %>` no ha sido guardada, ya que es una ruta protegida.",
     "messageNotificationNotFound": "Notificación no encontrada.",
@@ -59,5 +57,6 @@
     "messageBackgroundUnEquipped": "Fondo no equipado.",
     "messagePetMountUnEquipped": "Mascota y Montura no equipados.",
     "messageCostumeUnEquipped": "Disfraz no equipado.",
-    "messageBattleGearUnEquipped": "Equipo de Batalla no equipado."
+    "messageBattleGearUnEquipped": "Equipo de Batalla no equipado.",
+    "featureRetired": "Esta función ya no es compatible."
 }

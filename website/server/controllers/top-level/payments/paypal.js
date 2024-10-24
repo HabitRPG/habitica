@@ -9,7 +9,7 @@ import {
 import {
   BadRequest,
 } from '../../../libs/errors';
-import apiError from '../../../libs/apiError';
+import { apiError } from '../../../libs/apiError';
 
 const api = {};
 
@@ -27,10 +27,13 @@ api.checkout = {
     const gift = req.query.gift ? JSON.parse(req.query.gift) : undefined;
     req.session.gift = req.query.gift;
 
-    const { gemsBlock } = req.query;
+    const { gemsBlock, sku } = req.query;
     req.session.gemsBlock = gemsBlock;
+    req.session.sku = sku;
 
-    const link = await paypalPayments.checkout({ gift, gemsBlock, user: res.locals.user });
+    const link = await paypalPayments.checkout({
+      gift, gemsBlock, sku, user: res.locals.user,
+    });
 
     if (req.query.noRedirect) {
       res.respond(200);
@@ -56,14 +59,15 @@ api.checkoutSuccess = {
     const { user } = res.locals;
     const gift = req.session.gift ? JSON.parse(req.session.gift) : undefined;
     delete req.session.gift;
-    const { gemsBlock } = req.session;
+    const { gemsBlock, sku } = req.session;
     delete req.session.gemsBlock;
+    delete req.session.sku;
 
     if (!paymentId) throw new BadRequest(apiError('missingPaymentId'));
     if (!customerId) throw new BadRequest(apiError('missingCustomerId'));
 
     await paypalPayments.checkoutSuccess({
-      user, gemsBlock, gift, paymentId, customerId, headers: req.headers,
+      user, gemsBlock, gift, paymentId, customerId, headers: req.headers, sku,
     });
 
     if (req.query.noRedirect) {

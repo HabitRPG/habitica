@@ -1,8 +1,6 @@
 <template>
   <div
-    v-mousePosition="30"
     class="row stable"
-    @mouseMoved="mouseMoved($event)"
   >
     <div class="standard-sidebar d-none d-sm-block">
       <filter-sidebar>
@@ -134,56 +132,57 @@
         v-for="(petGroup) in petGroups"
         v-if="!anyFilterSelected || viewOptions[petGroup.key].selected"
         :key="petGroup.key"
+        :class="{ hide: viewOptions[petGroup.key].animalCount === 0 }"
       >
         <!-- eslint-enable vue/no-use-v-if-with-v-for -->
         <h4 v-if="viewOptions[petGroup.key].animalCount !== 0">
           {{ petGroup.label }}
         </h4>
         <!-- eslint-disable vue/no-use-v-if-with-v-for, max-len -->
-        <div
-          v-for="(group, key, index) in pets(petGroup, hideMissing, selectedSortBy, searchTextThrottled)"
-          v-if="index === 0 || $_openedItemRows_isToggled(petGroup.key)"
-          :key="key"
-          class="pet-row d-flex"
-        >
-          <!-- eslint-enable vue/no-use-v-if-with-v-for -->
+        <div class="d-inline-flex flex-column">
           <div
-            v-for="item in group"
-            v-show="show('pet', item)"
-            :key="item.key"
-            v-drag.drop.food="item.key"
-            class="pet-group"
-            :class="{'last': item.isLastInRow}"
-            @itemDragOver="onDragOver($event, item)"
-            @itemDropped="onDrop($event, item)"
-            @itemDragLeave="onDragLeave()"
+            v-for="(group, key, index) in pets(petGroup, hideMissing, selectedSortBy, searchTextThrottled)"
+            v-if="index === 0 || $_openedItemRows_isToggled(petGroup.key)"
+            :key="key"
+            class="pet-row d-flex"
           >
-            <petItem
-              :item="item"
-              :popover-position="'top'"
-              :show-popover="currentDraggingFood == null"
-              :highlight-border="highlightPet == item.key"
-              @click="petClicked(item)"
+            <!-- eslint-enable vue/no-use-v-if-with-v-for -->
+            <div
+              v-for="item in group"
+              v-show="show('pet', item)"
+              :key="item.key"
+              v-drag.drop.food="item.key"
+              class="pet-group"
+              @itemDragOver="onDragOver($event, item)"
+              @itemDropped="onDrop($event, item)"
+              @itemDragLeave="onDragLeave()"
             >
-              <template
-                slot="itemBadge"
-                slot-scope="context"
+              <petItem
+                :item="item"
+                :popover-position="'top'"
+                :show-popover="currentDraggingFood == null"
+                :highlight-border="highlightPet == item.key"
+                @click="petClicked(item)"
               >
-                <equip-badge
-                  :equipped="context.item.key === currentPet"
-                  :show="isOwned('pet', context.item)"
-                  @click="selectPet(context.item)"
-                />
-              </template>
-            </petItem>
+                <template
+                  slot="itemBadge"
+                  slot-scope="context"
+                >
+                  <equip-badge
+                    :equipped="context.item.key === currentPet"
+                    :show="isOwned('pet', context.item)"
+                    @click="selectPet(context.item)"
+                  />
+                </template>
+              </petItem>
+            </div>
           </div>
+          <show-more-button
+            v-if="petRowCount[petGroup.key] > 1 && petGroup.key !== 'specialPets' && !(petGroup.key === 'wackyPets' && selectedSortBy !== 'sortByColor')"
+            :show-all="$_openedItemRows_isToggled(petGroup.key)"
+            @click="setShowMore(petGroup.key)"
+          />
         </div>
-        <show-more-button
-          v-if="petRowCount[petGroup.key] > 1 && petGroup.key !== 'specialPets' && !(petGroup.key === 'wackyPets' && selectedSortBy !== 'sortByColor')"
-          :show-all="$_openedItemRows_isToggled(petGroup.key)"
-          class="show-more-button"
-          @click="setShowMore(petGroup.key)"
-        />
       </div>
       <h2>
         {{ $t('mounts') }}
@@ -196,52 +195,55 @@
         v-for="mountGroup in mountGroups"
         v-if="!anyFilterSelected || viewOptions[mountGroup.key].selected"
         :key="mountGroup.key"
+        :class="{ hide: viewOptions[mountGroup.key].animalCount === 0 }"
       >
         <!-- eslint-enable vue/no-use-v-if-with-v-for -->
         <h4 v-if="viewOptions[mountGroup.key].animalCount != 0">
           {{ mountGroup.label }}
         </h4>
         <!-- eslint-disable vue/no-use-v-if-with-v-for, max-len -->
-        <div
-          v-for="(group, key, index) in mounts(mountGroup, hideMissing, selectedSortBy, searchTextThrottled)"
-          v-if="index === 0 || $_openedItemRows_isToggled(mountGroup.key)"
-          :key="key"
-          class="pet-row d-flex"
-        >
-          <!-- eslint-enable vue/no-use-v-if-with-v-for -->
+        <div class="d-inline-flex flex-column">
           <div
-            v-for="item in group"
-            v-show="show('mount', item)"
-            :key="item.key"
-            class="pet-group"
+            v-for="(group, key, index) in mounts(mountGroup, hideMissing, selectedSortBy, searchTextThrottled)"
+            v-if="index === 0 || $_openedItemRows_isToggled(mountGroup.key)"
+            :key="key"
+            class="pet-row d-flex"
           >
-            <mountItem
+            <!-- eslint-enable vue/no-use-v-if-with-v-for -->
+            <div
+              v-for="item in group"
+              v-show="show('mount', item)"
               :key="item.key"
-              :item="item"
-              :popover-position="'top'"
-              :show-popover="true"
-              @click="selectMount(item)"
+              class="pet-group"
             >
-              <span slot="popoverContent">
-                <h4 class="popover-content-title">{{ item.name }}</h4>
-              </span>
-              <template
-                slot="itemBadge"
+              <mountItem
+                :key="item.key"
+                :item="item"
+                :popover-position="'top'"
+                :show-popover="true"
+                @click="selectMount(item)"
               >
-                <equip-badge
-                  :equipped="item.key === currentMount"
-                  :show="isOwned('mount', item)"
-                  @click="selectMount(item)"
-                />
-              </template>
-            </mountItem>
+                <span slot="popoverContent">
+                  <h4 class="popover-content-title">{{ item.name }}</h4>
+                </span>
+                <template
+                  slot="itemBadge"
+                >
+                  <equip-badge
+                    :equipped="item.key === currentMount"
+                    :show="isOwned('mount', item)"
+                    @click="selectMount(item)"
+                  />
+                </template>
+              </mountItem>
+            </div>
           </div>
+          <show-more-button
+            v-if="mountRowCount[mountGroup.key] > 1 && mountGroup.key !== 'specialMounts'"
+            :show-all="$_openedItemRows_isToggled(mountGroup.key)"
+            @click="setShowMore(mountGroup.key)"
+          />
         </div>
-        <show-more-button
-          v-if="mountRowCount[mountGroup.key] > 1 && mountGroup.key !== 'specialMounts'"
-          :show-all="$_openedItemRows_isToggled(mountGroup.key)"
-          @click="setShowMore(mountGroup.key)"
-        />
       </div>
       <inventoryDrawer>
         <template
@@ -261,43 +263,10 @@
       </inventoryDrawer>
     </div>
     <hatchedPetDialog :hide-text="true" />
-    <div
-      ref="dragginFoodInfo"
-      class="foodInfo"
-    >
-      <div v-if="currentDraggingFood != null">
-        <div
-          class="food-icon"
-          :class="'Pet_Food_'+currentDraggingFood.key"
-        ></div>
-        <div class="popover">
-          <div
-            class="popover-content"
-          >
-            {{ $t('dragThisFood', {foodName: currentDraggingFood.text() }) }}
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      v-if="foodClickMode"
-      ref="clickFoodInfo"
-      class="foodInfo mouse"
-    >
-      <div v-if="currentDraggingFood != null">
-        <div
-          class="food-icon"
-          :class="'Pet_Food_'+currentDraggingFood.key"
-        ></div>
-        <div class="popover">
-          <div
-            class="popover-content"
-          >
-            {{ $t('clickOnPetToFeed', {foodName: currentDraggingFood.text() }) }}
-          </div>
-        </div>
-      </div>
-    </div>
+    <ItemPopover
+      :dragged-item="currentDraggingFood"
+      popoverTextKey="clickOnPetToFeed"
+      translationKey="foodName" />
     <mount-raised-modal />
     <welcome-modal />
     <hatching-modal :hatchable-pet.sync="hatchablePet" />
@@ -310,13 +279,8 @@
     overflow: hidden;
   }
 
-  .pet-row {
-    max-width: 100%;
-    flex-wrap: wrap;
-
-    .item {
-      margin-right: .5em;
-    }
+  .hide {
+    height: 0px;
   }
 </style>
 
@@ -328,6 +292,14 @@
     padding: 20px;
     border: 1px solid;
     display: inline-block;
+  }
+
+  .pet-row {
+    flex-wrap: wrap;
+
+    .pet-group:not(:last-of-type) {
+      margin-right: 24px;
+    }
   }
 
   .GreyedOut {
@@ -343,22 +315,9 @@
   }
 
   .stable {
-
-    .standard-page {
-      padding-right:0;
-    }
-
-    .standard-page .clearfix .float-right {
-      margin-right: 24px;
-    }
-
     .svg-icon.inline.icon-16 {
       vertical-align: bottom;
     }
-  }
-
-  .last {
-    margin-right: 0 !important;
   }
 
   .no-focus:focus {
@@ -368,34 +327,6 @@
 
   .popover-content-text {
     margin-bottom: 0;
-  }
-
-  .foodInfo {
-    position: absolute;
-    left: -500px;
-
-    z-index: 1080;
-
-    &.mouse {
-      position: fixed;
-      pointer-events: none
-    }
-
-    .food-icon {
-      margin: 0 auto 8px;
-      transform: scale(1.5);
-    }
-
-    .popover {
-      position: inherit;
-      width: 180px;
-    }
-
-    .popover-content {
-      color: white;
-      margin: 15px;
-      text-align: center;
-    }
   }
 
   .hatchablePopover {
@@ -434,6 +365,7 @@ import _throttle from 'lodash/throttle';
 import groupBy from 'lodash/groupBy';
 import { mapState } from '@/libs/store';
 
+import ItemPopover from '@/components/inventory/itemPopover';
 import PetItem from './petItem';
 import MountItem from './mountItem.vue';
 import FoodItem from './foodItem';
@@ -446,7 +378,6 @@ import InventoryDrawer from '@/components/shared/inventoryDrawer';
 
 import ResizeDirective from '@/directives/resize.directive';
 import DragDropDirective from '@/directives/dragdrop.directive';
-import MouseMoveDirective from '@/directives/mouseposition.directive';
 
 import { createAnimal } from '@/libs/createAnimal';
 
@@ -488,11 +419,11 @@ export default {
     WelcomeModal,
     HatchingModal,
     InventoryDrawer,
+    ItemPopover,
   },
   directives: {
     resize: ResizeDirective,
     drag: DragDropDirective,
-    mousePosition: MouseMoveDirective,
   },
   mixins: [notifications, openedItemRowsMixin, petMixin, seasonalNPC],
   data () {
@@ -787,18 +718,15 @@ export default {
       if (sortBy === 'sortByColor') {
         groupKey = 'potionKey';
       } else if (sortBy === 'AZ') {
-        groupKey = '';
+        groupKey = i => i.eggName[0];
       } else if (sortBy === 'sortByHatchable') {
         groupKey = i => (i.isHatchable() ? 0 : 1);
       }
       const groupedPets = groupBy(pets, groupKey);
 
       // Pets are rendered as grouped "rows". Count helps decide if show more button is necessary.
-      if (sortBy === 'AZ') {
-        this.petRowCount[animalGroup.key] = 1;
-      } else {
-        this.petRowCount[animalGroup.key] = Object.keys(groupedPets).length;
-      }
+      this.petRowCount[animalGroup.key] = Object.keys(groupedPets).length;
+
       return groupedPets;
     },
     mounts (animalGroup, hideMissing, sortBy, searchText) {
@@ -814,14 +742,12 @@ export default {
       if (sortBy === 'sortByColor') {
         groupKey = 'potionKey';
       } else if (sortBy === 'AZ') {
-        groupKey = '';
+        groupKey = i => i.eggName[0];
       }
       const groupedMounts = groupBy(mounts, groupKey);
-      if (sortBy === 'AZ') {
-        this.mountRowCount[animalGroup.key] = 1;
-      } else {
-        this.mountRowCount[animalGroup.key] = Object.keys(groupedMounts).length;
-      }
+
+      this.mountRowCount[animalGroup.key] = Object.keys(groupedMounts).length;
+
       return groupedMounts;
     },
     // Actions
@@ -884,7 +810,7 @@ export default {
           return;
         }
 
-        if (this.user.preferences.suppressModals.raisePet) {
+        if (this.user.preferences.suppressModals.hatchPet) {
           this.hatchPet(pet);
           return;
         }

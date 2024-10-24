@@ -9,86 +9,40 @@
           <!-- eslint-disable max-len -->
           <svg
             id="melior"
+            class="color svg svg-icon"
             xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 61.91 64"
+            viewBox="0 0 80 80"
           >
+            // eslint-disable-next-line vue/html-self-closing
             <path
-              d="M61.82,64H51.59c-3.08,0-3.72.37-3.67-1,0.07-1.87.67-1.94,2.63-2.49,1.63-.45,1-3.35-0.8-5.88-1.28-1.76-3.89-3.81-7.31-2.22a10.75,10.75,0,0,0-4.56,3.52c-1.68,2.33-1.59,4.54,1,4.54s5.39-1.5,6.23.64c1,2.64.33,2.89-.18,2.89H28.55v0C19.77,64,11,63.93,9,58.38c-2.82-7.68,7.43-10.64,7.75-15.46,0.13-2-1-2.85-2.34-2.85h-6V36.41H4.7v-11H8.36V29.1H12v3.65h3.65v5.08a5.76,5.76,0,0,1,3.07,5.05c-0.17,5.51-9.5,8.57-7.79,14.35,1.56,5.29,13.37,4,13,.74L23.7,56.1c-0.06-2.62-.47-6.12.08-9.22C24.64,42,27.67,37.78,33,37.74c1,0,1.78-.21,1.78-1s-1.55-.84-2.64-0.95a23.35,23.35,0,0,1-12.56-5c-2.43-2-6.21-8.3-3.74-7.83a21.74,21.74,0,0,0,4.06.4c1.24,0,4.44-.35,4.44-1.11,0-1-1.85-.42-4.57-0.68C16.48,21.22,9.6,19.83,6,9.35,4.71,5.43,3.83-1.91,6,.46c12.46,13.7,16.69,11.47,23.84,16.16,3.15,2.06,5.19,7,7,6.58,1.2-.27.46-1.37,0.64-3.93C37.66,17,38.75,16.48,36,15.79c-3.26-.81-6.52-4.38-4.39-4.33a11.89,11.89,0,0,0,5.53-.76c1.87-.81,6.43-4.28,9.18-2.89s5.08-.6,6.94-0.25c2.71,0.51,3.41,4.24,3.05,6.42-0.22,1.38-.22,1.38-2,1.28-3.61-.21-4.53,2.67-2,4.25,3.87,2.42,5.51,4.23,6.56,9.58,0.51,2.6.1,3.2-.76,2.72s-2.34-.72-0.29,4-1.29,10.28-2.39,10.9a1.3,1.3,0,0,0-.91,1.34c0,11.42,0,12.27,1.92,12.48,2.9,0.31,4.14-1.44,5.27.06C63.29,62.73,63.41,64,61.82,64ZM4.7,21.28H1v3.65H4.7V21.28Z"
-              transform="translate(-1.05)"
+              xmlns="http://www.w3.org/2000/svg"
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M79.05 72.15c-.8-1.766-2.643-2.62-3.845-1.766-1.201.855-2.867.985-4.448.602-1.584-.385-1.885-4.01-1.543-8.195.342-4.184.909-5.795 1.267-7.314.404-1.524 2.191-1.404 2.405-.209.215 1.196 1.454 1.196 3.266-.979 1.811-2.175 1.543-8.52-.546-13.684-2.088-5.163.817-4.661 1.66-4.149.844.513 1.362-.255 1.156-3.2-.204-2.945-2.916-5.247-5.096-6.657-2.184-1.41-4.842-2.967-4.78-6.745.063-3.777 5.2-3.658 5.897-3.596.697.063 2.037-.233 1.264-4.157-.773-3.924-3.575-4.673-5.332-4.567-1.758.106-2.943 1.071-5.427.133-2.484-.938-4.136-.572-6.45-.057-2.313.515-5.343 1.94-9.112 2.959-1.989.545-2.661.683-4.828.718-1.33.02-1.885 1.633-.106 3.61 1.408 1.608 4.597 2.036 6.515 1.768 1.236-.174 1.521.645 1.407 1.85a20.023 20.023 0 0 0-.024 4.488c.198 1.5.45 4.051-.258 5.713-.35.817-1.361 1.693-2.449 1.633-1.413-.084-2.555-1.75-3.537-3.726-2.06-4.152-4.48-5.033-13.509-8.835-8.12-3.417-12.516-8.749-15.24-12.185-2.421-3.042-4.846-1.89-4.626.855.179 2.128 1.48 9.008 4.781 13.141 4.058 6.314 10.32 9.177 17.534 9.739 1.885.149 3.065.52 3.225 1.383.236 1.835-1.557 3.11-4.898 2.722-3.341-.39-4.768.22-4.103 2.121 2.123 4.477 7.021 4.672 9.058 4.857.686.122 3.114 0 4.41.355 1.51.418 1.836 2.514-.353 3.648-3.892 1.903-5.59 3.479-7.561 7.075-1.486 2.826-2.77 7.555-1.435 14.365 1.283 6.62-8.342 6.83-12.497 5.89-1.793-.377-3.675-3.778.716-6.625 3.553-2.305 4.269-3.724 4.111-6.642-.184-3.4-2.058-3.644-2.053-6.598v-7.05c0-.602-.488-1.088-1.087-1.088h-3.334a1.087 1.087 0 0 1-1.087-1.087v-4.25c0-.602-.488-1.087-1.088-1.087h-3.317a1.087 1.087 0 0 1-1.087-1.088v-3.81c0-.602-.489-1.087-1.088-1.087h-4.04a1.087 1.087 0 0 1-1.089-1.088V26.25c0-.602-.488-1.088-1.087-1.088H1.088C.485 25.161 0 25.65 0 26.25v4.26c0 .602.488 1.087 1.088 1.087h4.049c.602 0 1.087.489 1.087 1.088v15.192c0 .602.489 1.087 1.088 1.087h4.277c.602 0 1.088.489 1.088 1.088v4.968c0 .602.488 1.087 1.087 1.087h6.005c1.836-.13 2.156 2.335 2.137 3.214-.04 2.007-2.308 2.652-3.382 3.487-2.861 2.21-5.077 4.459-3.78 8.781l.032.09c2.362 5.017 8.855 4.499 12.956 4.499h25.817c1.459 0 2.959.339 2.614-1.362-.342-1.7-1.063-4.024-3.162-4.024-2.1 0-1.758 1.166-3.81.57-2.054-.597-2.057-3.371 1.027-8.198 3.19-4.122 8.652-3.81 11.952-.895 3.301 2.915 2.325 7.978 1.633 10.885-.396 2.048.545 3.06 1.67 3.032H78.58c2.015-.035 1.62-1.391.464-4.035h.008z"
               fill="#fff"
-            ></path>
+            >
+            </path>
           </svg>
           <!-- eslint-enable max-len -->
         </div>
       </div>
     </div>
-    <div
-      id="app"
-      :class="{
-        'casting-spell': castingSpell,
-      }"
-    >
-      <!-- <banned-account-modal /> -->
-      <amazon-payments-modal v-if="!isStaticPage" />
-      <payments-success-modal />
-      <sub-cancel-modal-confirm v-if="isUserLoaded" />
-      <sub-canceled-modal v-if="isUserLoaded" />
-      <bug-report-modal v-if="isUserLoaded" />
-      <bug-report-success-modal v-if="isUserLoaded" />
-      <snackbars />
-      <router-view v-if="!isUserLoggedIn || isStaticPage" />
-      <template v-else>
-        <template v-if="isUserLoaded">
-          <damage-paused-banner />
-          <gems-promo-banner />
-          <gift-promo-banner />
-          <notifications-display />
-          <app-menu />
-          <div
-            class="container-fluid"
-            :class="{'no-margin': noMargin}"
-          >
-            <app-header />
-            <buyModal
-              :item="selectedItemToBuy || {}"
-              :with-pin="true"
-              :generic-purchase="genericPurchase(selectedItemToBuy)"
-              @buyPressed="customPurchase($event)"
-            />
-            <selectMembersModal
-              :item="selectedSpellToBuy || {}"
-              :group="user.party"
-              @memberSelected="memberSelected($event)"
-            />
-            <div :class="{sticky: user.preferences.stickyHeader}">
-              <router-view />
-            </div>
-          </div>
-          <app-footer v-if="!hideFooter" />
-          <audio
-            id="sound"
-            ref="sound"
-            autoplay="autoplay"
-          ></audio>
-        </template>
-      </template>
-    </div>
+    <snackbars />
+    <router-view v-if="!isUserLoggedIn || isStaticPage" />
+    <user-main v-else />
   </div>
 </template>
 
 <style lang='scss' scoped>
   @import '~@/assets/scss/colors.scss';
 
-  #app {
-    display: flex;
-    flex-direction: column;
-    overflow-x: hidden;
-  }
-
   #loading-screen-inapp {
     #melior {
+      color: $white;
+      height: 80px;
       margin: 0 auto;
-      width: 70.9px;
+      object-fit: contain;
+      width: 80px;
     }
 
     .row {
@@ -151,61 +105,20 @@
 
 <script>
 import axios from 'axios';
-import { loadProgressBar } from 'axios-progress-bar';
 
-import AppMenu from './components/header/menu';
-import AppHeader from './components/header/index';
-import DamagePausedBanner from './components/header/banners/damagePaused';
-import GemsPromoBanner from './components/header/banners/gemsPromo';
-import GiftPromoBanner from './components/header/banners/giftPromo';
-import AppFooter from './components/appFooter';
-import notificationsDisplay from './components/notifications';
-import snackbars from './components/snackbars/notifications';
-import { mapState } from '@/libs/store';
 import * as Analytics from '@/libs/analytics';
-import BuyModal from './components/shops/buyModal.vue';
-import SelectMembersModal from '@/components/selectMembersModal.vue';
-import notifications from '@/mixins/notifications';
-import { setup as setupPayments } from '@/libs/payments';
-import amazonPaymentsModal from '@/components/payments/amazonModal';
-import paymentsSuccessModal from '@/components/payments/successModal';
-import subCancelModalConfirm from '@/components/payments/cancelModalConfirm';
-import subCanceledModal from '@/components/payments/canceledModal';
-
-import spellsMixin from '@/mixins/spells';
-import {
-  CONSTANTS,
-  getLocalSetting,
-  removeLocalSetting,
-} from '@/libs/userlocalManager';
-
-const bugReportModal = () => import(/* webpackChunkName: "bug-report-modal" */'@/components/bugReportModal');
-const bugReportSuccessModal = () => import(/* webpackChunkName: "bug-report-success-modal" */'@/components/bugReportSuccessModal');
-
+import { mapState } from '@/libs/store';
+import userMain from '@/pages/user-main';
+import snackbars from '@/components/snackbars/notifications';
 
 const COMMUNITY_MANAGER_EMAIL = process.env.EMAILS_COMMUNITY_MANAGER_EMAIL; // eslint-disable-line
 
 export default {
   name: 'App',
   components: {
-    AppMenu,
-    AppHeader,
-    AppFooter,
-    DamagePausedBanner,
-    GemsPromoBanner,
-    GiftPromoBanner,
-    notificationsDisplay,
     snackbars,
-    BuyModal,
-    SelectMembersModal,
-    amazonPaymentsModal,
-    paymentsSuccessModal,
-    subCancelModalConfirm,
-    subCanceledModal,
-    bugReportModal,
-    bugReportSuccessModal,
+    userMain,
   },
-  mixins: [notifications, spellsMixin],
   data () {
     return {
       selectedItemToBuy: null,
@@ -219,71 +132,25 @@ export default {
     };
   },
   computed: {
-    ...mapState(['isUserLoggedIn', 'browserTimezoneUtcOffset', 'isUserLoaded', 'notificationsRemoved']),
+    ...mapState(['isUserLoggedIn', 'isUserLoaded', 'notificationsRemoved']),
     ...mapState({ user: 'user.data' }),
     isStaticPage () {
       return this.$route.meta.requiresLogin === false;
     },
-    castingSpell () {
-      return this.$store.state.spellOptions.castingSpell;
-    },
-    noMargin () {
-      return ['privateMessages'].includes(this.$route.name);
-    },
-    hideFooter () {
-      return ['privateMessages'].includes(this.$route.name);
-    },
   },
   created () {
-    this.$root.$on('playSound', sound => {
-      const theme = this.user.preferences.sound;
-
-      if (!theme || theme === 'off') {
-        return;
-      }
-
-      const file = `/static/audio/${theme}/${sound}`;
-
-      if (this.audioSuffix === null) {
-        this.audioSource = document.createElement('source');
-        if (this.$refs.sound.canPlayType('audio/ogg')) {
-          this.audioSuffix = '.ogg';
-          this.audioSource.type = 'audio/ogg';
-        } else {
-          this.audioSuffix = '.mp3';
-          this.audioSource.type = 'audio/mp3';
-        }
-        this.audioSource.src = file + this.audioSuffix;
-        this.$refs.sound.appendChild(this.audioSource);
-      } else {
-        this.audioSource.src = file + this.audioSuffix;
-      }
-
-      this.$refs.sound.load();
+    // Setup listener for title
+    this.$store.watch(state => state.title, title => {
+      document.title = title;
     });
-
-    // @TODO: I'm not sure these should be at the app level.
-    // Can we move these back into shop/inventory or maybe they need a lateral move?
-    this.$root.$on('buyModal::showItem', item => {
-      this.selectedItemToBuy = item;
-      this.$root.$emit('bv::show::modal', 'buy-modal');
-    });
-
-    this.$root.$on('bv::modal::hidden', event => {
-      if (event.componentId === 'buy-modal') {
-        this.$root.$emit('buyModal::hidden', this.selectedItemToBuy.key);
+    this.$store.watch(state => state.isUserLoaded, () => {
+      if (this.isUserLoaded) {
+        this.hideLoadingScreen();
       }
     });
-
-    this.$root.$on('selectMembersModal::showItem', item => {
-      this.selectedSpellToBuy = item;
-      this.$root.$emit('bv::show::modal', 'select-member-modal');
-    });
-
-    // @TODO split up this file, it's too big
-
-    loadProgressBar({
-      showSpinner: false,
+    this.$nextTick(() => {
+      // Load external scripts after the app has been rendered
+      Analytics.load();
     });
 
     axios.interceptors.response.use(response => { // Set up Response interceptors
@@ -395,77 +262,20 @@ export default {
 
       return Promise.reject(error);
     });
-
-    // Setup listener for title
-    this.$store.watch(state => state.title, title => {
-      document.title = title;
-    });
-    this.$nextTick(() => {
-      // Load external scripts after the app has been rendered
-      Analytics.load();
-    });
-
-    if (this.isUserLoggedIn && !this.isStaticPage) {
-      // Load the user and the user tasks
-      Promise.all([
-        this.$store.dispatch('user:fetch'),
-        this.$store.dispatch('tasks:fetchUserTasks'),
-      ]).then(() => {
-        this.$store.state.isUserLoaded = true;
-        Analytics.setUser();
-        Analytics.updateUser();
-        return axios.get('/api/v4/i18n/browser-script',
-          {
-            language: this.user.preferences.language,
-            headers: {
-              'Cache-Control': 'no-cache',
-              Pragma: 'no-cache',
-              Expires: '0',
-            },
-          });
-      }).then(() => {
-        const i18nData = window && window['habitica-i18n'];
-        this.$loadLocale(i18nData);
-        this.hideLoadingScreen();
-
-        // Adjust the timezone offset
-        const browserTimezoneOffset = -this.browserTimezoneUtcOffset;
-        if (this.user.preferences.timezoneOffset !== browserTimezoneOffset) {
-          this.$store.dispatch('user:set', {
-            'preferences.timezoneOffset': browserTimezoneOffset,
-          });
-        }
-
-        let appState = getLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE);
-        if (appState) {
-          appState = JSON.parse(appState);
-          if (appState.paymentCompleted) {
-            removeLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE);
-            this.$root.$emit('habitica:payment-success', appState);
-          }
-        }
-        this.$nextTick(() => {
-          // Load external scripts after the app has been rendered
-          setupPayments();
-        });
-      }).catch(err => {
-        console.error('Impossible to fetch user. Clean up localStorage and refresh.', err); // eslint-disable-line no-console
-      });
-    } else {
-      this.hideLoadingScreen();
-    }
-  },
-  beforeDestroy () {
-    this.$root.$off('playSound');
-    this.$root.$off('buyModal::showItem');
-    this.$root.$off('selectMembersModal::showItem');
   },
   mounted () {
     // Remove the index.html loading screen and now show the inapp loading
     const loadingScreen = document.getElementById('loading-screen');
     if (loadingScreen) document.body.removeChild(loadingScreen);
+
+    if (this.isStaticPage || !this.isUserLoggedIn) {
+      this.hideLoadingScreen();
+    }
   },
   methods: {
+    hideLoadingScreen () {
+      this.loading = false;
+    },
     checkForBannedUser (error) {
       const AUTH_SETTINGS = localStorage.getItem('habit-mobile-settings');
       const parseSettings = JSON.parse(AUTH_SETTINGS);
@@ -486,57 +296,9 @@ export default {
       this.$store.dispatch('auth:logout', { redirectToLogin: true });
       return true;
     },
-    itemSelected (item) {
-      this.selectedItemToBuy = item;
-    },
-    genericPurchase (item) {
-      if (!item) return false;
-
-      if (['card', 'debuffPotion'].includes(item.purchaseType)) return false;
-
-      return true;
-    },
-    customPurchase (item) {
-      if (item.purchaseType === 'card') {
-        this.selectedSpellToBuy = item;
-
-        // hide the dialog
-        this.$root.$emit('bv::hide::modal', 'buy-modal');
-        // remove the dialog from our modal-stack,
-        // the default hidden event is delayed
-        this.$root.$emit('bv::modal::hidden', {
-          target: {
-            id: 'buy-modal',
-          },
-        });
-
-        this.$root.$emit('bv::show::modal', 'select-member-modal');
-      }
-
-      if (item.purchaseType === 'debuffPotion') {
-        this.castStart(item, this.user);
-      }
-    },
-    async memberSelected (member) {
-      await this.castStart(this.selectedSpellToBuy, member);
-
-      this.selectedSpellToBuy = null;
-
-      if (this.user.party._id) {
-        this.$store.dispatch('party:getMembers', { forceLoad: true });
-      }
-
-      this.$root.$emit('bv::hide::modal', 'select-member-modal');
-    },
-    hideLoadingScreen () {
-      this.loading = false;
-    },
   },
 };
 </script>
 
-<style src="intro.js/minified/introjs.min.css"></style>
-<style src="axios-progress-bar/dist/nprogress.css"></style>
 <style src="@/assets/scss/index.scss" lang="scss"></style>
 <style src="@/assets/scss/sprites.scss" lang="scss"></style>
-<style src="smartbanner.js/dist/smartbanner.min.css"></style>

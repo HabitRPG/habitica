@@ -50,10 +50,7 @@ h3.markdown {
   }
 
   a {
-    color: $blue-10;
-
     &:hover, &:active, &:focus {
-      color: $blue-10;
       text-decoration: underline;
     }
   }

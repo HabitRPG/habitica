@@ -25,7 +25,7 @@ describe('Prevent multiple notifications', () => {
 
     for (let i = 0; i < 4; i += 1) {
       for (let memberIndex = 0; memberIndex < partyMembers.length; memberIndex += 1) {
-        await partyMembers[memberIndex].update({ 'auth.timestamps.created': new Date('2022-01-01') }); // eslint-disable-line no-await-in-loop
+        await partyMembers[memberIndex].updateOne({ 'auth.timestamps.created': new Date('2022-01-01') }); // eslint-disable-line no-await-in-loop
         multipleChatMessages.push(
           partyMembers[memberIndex].post(`/groups/${party._id}/chat`, { message: `Message ${i}_${memberIndex}` }),
         );

@@ -7,7 +7,7 @@ import i18n from '../../../../website/common/script/i18n';
 import {
   generateUser,
 } from '../../../helpers/common.helper';
-import errorMessage from '../../../../website/common/script/libs/errorMessage';
+import { errorMessage } from '../../../../website/common/script/libs/errorMessage';
 
 describe('shared.ops.allocate', () => {
   let user;

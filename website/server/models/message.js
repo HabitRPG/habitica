@@ -67,8 +67,11 @@ export function setUserStyles (newMessage, user) {
 
   if (userCopy.items) {
     userStyles.items.gear = {};
-    userStyles.items.gear.costume = { ...userCopy.items.gear.costume };
-    userStyles.items.gear.equipped = { ...userCopy.items.gear.equipped };
+    if (userCopy.preferences && userCopy.preferences.costume) {
+      userStyles.items.gear.costume = { ...userCopy.items.gear.costume };
+    } else {
+      userStyles.items.gear.equipped = { ...userCopy.items.gear.equipped };
+    }
 
     userStyles.items.currentMount = userCopy.items.currentMount;
     userStyles.items.currentPet = userCopy.items.currentPet;

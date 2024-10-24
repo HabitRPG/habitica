@@ -1,5 +1,5 @@
-import forOwn from 'lodash/forOwn';
 import camelCase from 'lodash/camelCase';
+import forOwn from 'lodash/forOwn';
 import upperFirst from 'lodash/upperFirst';
 import t from '../translation';
 
@@ -530,6 +530,119 @@ const backgrounds = {
     misty_autumn_forest: { },
     autumn_bridge: { },
   },
+  backgrounds122022: {
+    branches_of_a_holiday_tree: { },
+    inside_a_crystal: { },
+    snowy_village: { },
+  },
+  backgrounds012023: {
+    rime_ice: { },
+    snowy_temple: { },
+    winter_lake_with_swans: { },
+  },
+  backgrounds022023: {
+    in_front_of_fountain: { },
+    golden_birdcage: { },
+    fancy_bedroom: { },
+  },
+  backgrounds032023: {
+    jungle_watering_hole: { },
+    mangrove_forest: { },
+    old_timey_basketball_court: { },
+  },
+  backgrounds042023: {
+    leafy_tree_tunnel: { },
+    springtime_shower: { },
+    under_wisteria: { },
+  },
+  backgrounds052023: {
+    in_a_painting: { },
+    flying_over_hedge_maze: { },
+    cretaceous_forest: { },
+  },
+  backgrounds062023: {
+    in_an_aquarium: { },
+    inside_adventurers_hideout: { },
+    crater_lake: { },
+  },
+  backgrounds072023: {
+    on_a_paddlewheel_boat: { },
+    colorful_coral: { },
+    boardwalk_into_sunset: { },
+  },
+  backgrounds082023: {
+    bonsai_collection: { },
+    dreamy_island: { },
+    rock_garden: { },
+  },
+  backgrounds092023: {
+    moving_day: { },
+    covered_bridge_in_autumn: { },
+    baobab_forest: { },
+  },
+  backgrounds102023: {
+    spectral_candle_room: { },
+    monstrous_cave: { },
+    jack_o_lantern_stacks: { },
+  },
+  backgrounds112023: {
+    giant_cat: { },
+    barrel_cellar: { },
+    autumn_tree_tunnel: { },
+  },
+  backgrounds122023: {
+    holiday_tree_forest: { },
+    ice_sculpture_festival: { },
+    winter_full_moon: { },
+  },
+  backgrounds012024: {
+    winter_mountain_range: { },
+    frozen_blue_pond: { },
+    ice_bubble_lake: { },
+  },
+  backgrounds022024: {
+    colorful_street: { },
+    swan_boat: { },
+    heart_tree_tunnel: { },
+  },
+  backgrounds032024: {
+    flowering_forest: { },
+    dog_park: { },
+    rainy_rainforest: { },
+  },
+  backgrounds042024: {
+    forest_sunset: { },
+    wall_flowering_vines: { },
+    container_garden: { },
+  },
+  backgrounds052024: {
+    dragons_back: { },
+    maypole: { },
+    potters_studio: { },
+  },
+  backgrounds062024: {
+    shell_gate: { },
+  },
+  backgrounds072024: {
+    river_bottom: { },
+  },
+  backgrounds082024: {
+    savanna: { },
+  },
+  backgrounds092024: {
+    magic_door_in_forest: { },
+  },
+  backgrounds102024: {
+    surrounded_by_ghosts: { },
+  },
+  backgrounds112024: {
+    castle_hall_with_hearth: { },
+  },
+  eventBackgrounds: {
+    birthday_bash: {
+      price: 0,
+    },
+  },
   timeTravelBackgrounds: {
     airship: {
       price: 1,
@@ -573,7 +686,9 @@ forOwn(backgrounds, (backgroundsInSet, set) => {
   forOwn(backgroundsInSet, (background, bgKey) => {
     background.key = bgKey;
     background.set = set;
-    background.price = background.price || 7;
+    if (background.price !== 0) {
+      background.price = background.price || 7;
+    }
     background.text = background.text || t(`background${upperFirst(camelCase(bgKey))}Text`);
     background.notes = background.notes || t(`background${upperFirst(camelCase(bgKey))}Notes`);
 
