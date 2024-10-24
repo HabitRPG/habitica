@@ -237,5 +237,5 @@
     "continueGiftSubBenefits": "Want to continue your benefits? You can start a new subscription before your gifted one runs out to keep your benefits active.",
     "subscriptionCreditConversion": "Starting a new subscription will convert any remaining months to credit that will be used after the recurring subscription is canceled.",
     "monthlyGems": "Monthly Gems:",
-    "subscriptionChangeAnnouncement": "<strong>Subscription benefits and the way they are sent out will be changing on October 21.</strong> <%= linkStart %>Click here</a> to read more about this change."
+    "subscriptionChangeAnnouncement": "<strong>Subscription benefits and the way they are sent out will be changing on November 19.</strong> <%= linkStart %>Click here</a> to read more about this change."
 }
