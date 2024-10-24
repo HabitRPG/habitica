@@ -29,7 +29,7 @@ export default function handleRedirect (to, from, next) {
           });
         }
 
-        if (newAppState.paymentType === 'subscription') {
+        if (newAppState.paymentType.contains('subscription')) {
           return next({ name: 'subscription' });
         }
 
