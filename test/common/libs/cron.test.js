@@ -183,8 +183,6 @@ describe('cron utility functions', () => {
   });
 
   describe('getPlanContext', () => {
-    const now = new Date(2022, 5, 1);
-
     function baseUserData (count, offset, planId) {
       return {
         purchased: {
@@ -192,7 +190,7 @@ describe('cron utility functions', () => {
             consecutive: {
               count,
               offset,
-              gemCapExtra: 25,
+              gemCapExtra: 26,
               trinkets: 19,
             },
             quantity: 1,
@@ -213,52 +211,19 @@ describe('cron utility functions', () => {
       };
     }
 
-    it('monthly plan, next date in 3 months', () => {
+    it('elapsedMonths is 0 if its the same month', () => {
       const user = baseUserData(60, 0, 'group_plan_auto');
-      user.purchased.plan.perkMonthCount = 0;
 
-      const planContext = getPlanContext(user, now);
-
-      expect(planContext.nextHourglassDate)
-        .to.be.sameMoment('2022-08-10T02:00:00.144Z');
+      const planContext = getPlanContext(user, new Date(2022, 4, 20));
+      expect(planContext.elapsedMonths).to.equal(0);
     });
 
-    it('monthly plan, next date in 1 month', () => {
-      const user = baseUserData(62, 0, 'group_plan_auto');
-      user.purchased.plan.perkMonthCount = 2;
+    it('elapsedMonths is 1 after one month', () => {
+      const user = baseUserData(60, 0, 'group_plan_auto');
 
-      const planContext = getPlanContext(user, now);
+      const planContext = getPlanContext(user, new Date(2022, 5, 11));
 
-      expect(planContext.nextHourglassDate)
-        .to.be.sameMoment('2022-06-10T02:00:00.144Z');
-    });
-
-    it('multi-month plan, no offset', () => {
-      const user = baseUserData(60, 0, 'basic_3mo');
-
-      const planContext = getPlanContext(user, now);
-
-      expect(planContext.nextHourglassDate)
-        .to.be.sameMoment('2022-06-10T02:00:00.144Z');
-    });
-
-    it('multi-month plan with offset', () => {
-      const user = baseUserData(60, 1, 'basic_3mo');
-
-      const planContext = getPlanContext(user, now);
-
-      expect(planContext.nextHourglassDate)
-        .to.be.sameMoment('2022-07-10T02:00:00.144Z');
-    });
-
-    it('multi-month plan with perk count', () => {
-      const user = baseUserData(60, 1, 'basic_3mo');
-      user.purchased.plan.perkMonthCount = 2;
-
-      const planContext = getPlanContext(user, now);
-
-      expect(planContext.nextHourglassDate)
-        .to.be.sameMoment('2022-07-10T02:00:00.144Z');
+      expect(planContext.elapsedMonths).to.equal(1);
     });
   });
 });

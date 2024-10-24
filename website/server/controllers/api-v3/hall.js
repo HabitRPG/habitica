@@ -288,9 +288,6 @@ api.updateHero = {
       if (plan.dateTerminated !== hero.purchased.plan.dateTerminated) {
         hero.purchased.plan.dateTerminated = plan.dateTerminated;
       }
-      if (plan.perkMonthCount) {
-        hero.purchased.plan.perkMonthCount = plan.perkMonthCount;
-      }
       if (plan.consecutive) {
         if (plan.consecutive.trinkets) {
           const changedHourglassTrinkets = plan.consecutive.trinkets
@@ -313,9 +310,9 @@ api.updateHero = {
         if (plan.consecutive.count) {
           hero.purchased.plan.consecutive.count = plan.consecutive.count; // eslint-disable-line max-len
         }
-        if (plan.consecutive.offset) {
-          hero.purchased.plan.consecutive.offset = plan.consecutive.offset; // eslint-disable-line max-len
-        }
+      }
+      if (plan.cumulativeCount) {
+        hero.purchased.plan.cumulativeCount = plan.cumulativeCount;
       }
     }
 
