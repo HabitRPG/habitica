@@ -3,15 +3,6 @@
     ref="container"
     class="container-fluid"
   >
-    <div class="row">
-      <div class="col-12">
-        <copy-as-todo-modal
-          :group-type="groupType"
-          :group-name="groupName"
-          :group-id="groupId"
-        />
-      </div>
-    </div>
     <div class="row loadmore">
       <div v-if="canLoadMore">
         <div class="loadmore-divider"></div>
@@ -45,16 +36,14 @@
           :override-top-padding="'14px'"
           @click.native="showMemberModal(msg.uuid)"
         />
-        <div class="card">
-          <chat-card
-            :msg="msg"
-            :group-id="groupId"
-            @message-liked="messageLiked"
-            @message-removed="messageRemoved"
-            @show-member-modal="showMemberModal"
-            @chat-card-mounted="itemWasMounted"
-          />
-        </div>
+        <message-card
+          :msg="msg"
+          :group-id="groupId"
+          :user-sent-message="user._id === msg.uuid"
+          @message-liked="messageLiked"
+          @message-removed="messageRemoved"
+          @message-card-mounted="itemWasMounted"
+        />
         <avatar
           v-if="user._id === msg.uuid"
           :class="{ invisible: avatarUnavailable(msg) }"
@@ -137,6 +126,10 @@
     margin-bottom: .5em;
     padding: 0rem;
     width: 90%;
+
+    &.system-message {
+      width: 100%;
+    }
   }
 
   .message-scroll .d-flex {
@@ -152,13 +145,11 @@ import findIndex from 'lodash/findIndex';
 import { userStateMixin } from '../../mixins/userState';
 
 import Avatar from '../avatar';
-import copyAsTodoModal from './copyAsTodoModal';
-import chatCard from './chatCard';
+import MessageCard from '@/components/messages/messageCard.vue';
 
 export default {
   components: {
-    copyAsTodoModal,
-    chatCard,
+    MessageCard,
     Avatar,
   },
   mixins: [userStateMixin],
