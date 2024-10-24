@@ -91,7 +91,7 @@
           <div class="opt-out-wrapper">
             <span
               id="classOptOutBtn"
-              class="danger"
+              class="danger mb-0"
               @click="clickDisableClasses(); close();"
             >{{ $t('optOutOfClasses') }}</span>
           </div>
@@ -121,7 +121,7 @@
   }
 
   .class-explanation {
-    font-size: 1rem;
+    font-size: 1em;
     margin: 24px auto;
   }
 
@@ -137,7 +137,6 @@
 
   .danger {
     color: $red-50;
-    margin-bottom: 0;
   }
 
   .header-purple {
