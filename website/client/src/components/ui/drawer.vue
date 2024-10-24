@@ -171,9 +171,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      margin: auto;
 
       top: calc(50% - 30px);
-      left: 24px;
+      left: 0;
       right: 0;
       position: absolute;
 
