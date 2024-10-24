@@ -61,6 +61,12 @@
       left: calc((100% + 236px - 978px) / 2);
       right: 0%;
     }
+
+    @media screen and (max-width: 500px) {
+      max-width: none;
+      left: 3%;
+      right: 3%;
+    }
   }
 
   .drawer-toggle-icon {
@@ -165,9 +171,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      margin: auto;
 
       top: calc(50% - 30px);
-      left: 24px;
+      left: 0;
       right: 0;
       position: absolute;
 
