@@ -121,7 +121,7 @@
   }
 
   .class-explanation {
-    font-size: 1em;
+    font-size: 1rem;
     margin: 24px auto;
   }
 
