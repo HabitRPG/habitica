@@ -8,7 +8,7 @@
     :no-close-on-backdrop="true"
   >
     <div class="modal-body select-class">
-      <h1 class="header-purple text-center">
+      <h1 class="header-purple text-center mb-0">
         {{ $t('chooseClass') }}
       </h1>
       <div class="container-fluid">
@@ -142,7 +142,6 @@
   .header-purple {
     color: $purple-200;
     margin-top: 40px;
-    margin-bottom: 0;
   }
 
   .modal-actions {
