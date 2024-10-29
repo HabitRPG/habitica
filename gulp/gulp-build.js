@@ -51,7 +51,7 @@ gulp.task('build:prepare-mongo', async () => {
   console.log('MongoDB data folder is missing, setting up.'); // eslint-disable-line no-console
 
   // use run-rs without --keep, kill it as soon as the replica set starts
-  const runRsProcess = spawn('run-rs', ['-v', '7.0.14', '-l', 'ubuntu2204', '--dbpath', 'mongodb-data', '--number', '1', '--quiet']);
+  const runRsProcess = spawn('node', ['../scripts/start-local-mongo.mjs --build-db']);
 
   for await (const chunk of runRsProcess.stdout) {
     const stringChunk = chunk.toString();
