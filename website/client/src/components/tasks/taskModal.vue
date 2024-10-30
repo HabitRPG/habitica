@@ -891,11 +891,11 @@
       &:focus {
         background-color: $white;
         border: 2px solid $purple-400;
-        box-shadow: 0px 3px 6px 0px rgba(26, 24, 29, 0.16), 0px 3px 6px 0px rgba(26, 24, 29, 0.24);
+        box-shadow: none;
       }
 
       &:active {
-        box-shadow:none;
+        box-shadow: 0px 1px 3px 0px rgba(26, 24, 29, 0.12), 0px 1px 2px 0px rgba(26, 24, 29, 0.24);
       }
     }
   }

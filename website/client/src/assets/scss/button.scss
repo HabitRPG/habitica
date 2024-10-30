@@ -30,7 +30,7 @@
     cursor: default;
     color: $gray-50;
     opacity: 0.75;
-    box-shadow: 0 1px 3px 0 rgba($black, 0.12), 0 1px 2px 0 rgba($black, 0.24);
+    box-shadow: none;
     background-color: $gray-700;
     border: 2px solid transparent;
 
@@ -72,7 +72,7 @@
 
   &:not(:disabled):not(.disabled) {
     &:hover {
-      background: $purple-200;;
+      background: $purple-200;
       border: 2px solid transparent;
 
       --icon-color: #{$white};
@@ -88,7 +88,7 @@
 
     &:active:focus, &.active:focus {
       box-shadow: none;
-      border: 2px solid $purple-200;
+      border: 2px solid $purple-400;
     }
   }
 
@@ -120,7 +120,7 @@
   &:not(:disabled):not(.disabled) {
     &:active, &.active {
       background: $white;
-      border: 2px solid transparent;
+      border: 2px solid $purple-400;
       color: $purple-300;
       --icon-color: #{$purple-300};
 
@@ -174,17 +174,17 @@
 
   &:focus {
     background: $maroon-100;
-    border: 2px solid $purple-200;
+    border: 2px solid $purple-400;
   }
 
   &:not(:disabled):not(.disabled):active:focus, &:not(:disabled):not(.disabled).active:focus {
     box-shadow: none;
-    border: 2px solid $purple-200;
+    border: 2px solid $purple-400;
   }
 
   &:not(:disabled):not(.disabled):active, &:not(:disabled):not(.disabled).active {
     background: $maroon-100;
-    border: 2px solid transparent;
+    border: 2px solid $purple-400;
   }
 }
 
@@ -200,11 +200,11 @@
 
   &:focus {
     background: $orange-10;
-    border: 2px solid $purple-200;
+    border: 2px solid $purple-400;
   }
 
   &:not(:disabled):not(.disabled):active:focus, &:not(:disabled):not(.disabled).active:focus {
-    border: 2px solid $purple-200;
+    border: 2px solid $purple-400;
     box-shadow: none;
   }
 
@@ -226,18 +226,18 @@
 
   &:focus {
     background: $green-50;
-    border: 2px solid $purple-200;
+    border: 2px solid $purple-400;
     box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
   }
 
   &:not(:disabled):not(.disabled):active:focus, &:not(:disabled):not(.disabled).active:focus {
-    border: 2px solid $purple-200;
+    border: 2px solid $purple-400;
     box-shadow: none;
   }
 
   &:not(:disabled):not(.disabled):active, &:not(:disabled):not(.disabled).active {
     background: $green-50;
-    border: 2px solid transparent;
+    border: 2px solid $purple-400;
     box-shadow: none;
   }
 }
@@ -249,7 +249,7 @@
 
   &:disabled {
     background: $blue-50;
-    box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
+    box-shadow: none;
   }
 
   &:hover {

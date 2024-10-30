@@ -524,7 +524,7 @@
       }
 
       &:active {
-        border: 2p solid $purple-400;
+        border: 2px solid $purple-400 !important;
         box-shadow:none;
       }
     }
