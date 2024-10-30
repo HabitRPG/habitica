@@ -635,6 +635,9 @@ const backgrounds = {
   backgrounds102024: {
     surrounded_by_ghosts: { },
   },
+  backgrounds112024: {
+    castle_hall_with_hearth: { },
+  },
   eventBackgrounds: {
     birthday_bash: {
       price: 0,

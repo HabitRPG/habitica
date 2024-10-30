@@ -44,7 +44,6 @@ describe('bug-report', () => {
         USER_HOURGLASSES: 0,
         USER_ID: userId,
         USER_LEVEL: 1,
-        USER_OFFSET_MONTHS: 0,
         USER_PAYMENT_PLATFORM: undefined,
         USER_SUBSCRIPTION: undefined,
         USER_TIMEZONE_OFFSET: 0,

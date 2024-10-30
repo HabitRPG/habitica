@@ -212,7 +212,6 @@
     "hatchingPotionFrost": "Frost",
     "hatchingPotionIcySnow": "Isnende sne",
     "hatchingPotionNotes": "Hæld denne over et æg, og det vil udklækkes til et <%= potText(locale) %> kæledyr.",
-    "premiumPotionAddlNotes": "Kan ikke bruges på quest-æg. Kan købes frem til <%= date(locale) %>.",
     "foodMeat": "Kød",
     "foodMeatThe": "Kødet",
     "foodMeatA": "Kød",

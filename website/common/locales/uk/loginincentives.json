@@ -3,7 +3,6 @@
     "earnedRewardForDevotion": "Ви отримали <%= reward %> за те, що ви прагнете покращити своє життя.",
     "nextRewardUnlocksIn": "<%= numberOfCheckinsLeft %> входів в гру до наступного призу",
     "awesome": "Круто!",
-    "countLeft": "Check-ins until next reward: <%= count %>",
     "incentivesDescription": "Створення звички залежить від наполегливості та постійності. Щоденне входження в гру наближає вас до нагороди.",
     "checkinEarned": "Ваш лічильник входжень збільшується!",
     "unlockedCheckInReward": "Ви отримуєте нагороду за входження у гру!",

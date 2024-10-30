@@ -212,7 +212,6 @@
     "hatchingPotionFrost": "Mrzli",
     "hatchingPotionIcySnow": "Ledeni snijeg",
     "hatchingPotionNotes": "Polij ovo na jaje i izleći će se <%= potText(locale) %> ljubimac.",
-    "premiumPotionAddlNotes": "Ne može se koristiti na jaja pustolovnih ljubimaca.",
     "foodMeat": "Meso",
     "foodMeatThe": "meso",
     "foodMeatA": "Meso",

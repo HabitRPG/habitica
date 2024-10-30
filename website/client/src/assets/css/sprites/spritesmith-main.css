@@ -805,6 +805,11 @@
   width: 141px;
   height: 147px;
 }
+.background_castle_hall_with_hearth {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_castle_hall_with_hearth.png');
+  width: 141px;
+  height: 147px;
+}
 .background_cemetery_gate {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_cemetery_gate.png');
   width: 141px;
@@ -29924,6 +29929,11 @@
   width: 114px;
   height: 90px;
 }
+.broad_armor_armoire_stormKnightArmor {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_armoire_stormKnightArmor.png');
+  width: 114px;
+  height: 90px;
+}
 .broad_armor_armoire_strawRaincoat {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_armoire_strawRaincoat.png');
   width: 114px;
@@ -30443,6 +30453,11 @@
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_armoire_shootingStarCrown.png');
   width: 117px;
   height: 120px;
+}
+.head_armoire_stormKnightHelm {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_armoire_stormKnightHelm.png');
+  width: 114px;
+  height: 90px;
 }
 .head_armoire_strawRainHat {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_armoire_strawRainHat.png');
@@ -31389,6 +31404,11 @@
   width: 114px;
   height: 90px;
 }
+.slim_armor_armoire_stormKnightArmor {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_armoire_stormKnightArmor.png');
+  width: 114px;
+  height: 90px;
+}
 .slim_armor_armoire_strawRaincoat {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_armoire_strawRaincoat.png');
   width: 114px;
@@ -31946,6 +31966,11 @@
 }
 .weapon_armoire_spookyCandyBucket {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_armoire_spookyCandyBucket.png');
+  width: 114px;
+  height: 90px;
+}
+.weapon_armoire_stormKnightAxe {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/weapon_armoire_stormKnightAxe.png');
   width: 114px;
   height: 90px;
 }
@@ -35301,6 +35326,16 @@
 }
 .headAccessory_mystery_202410 {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/headAccessory_mystery_202410.png');
+  width: 114px;
+  height: 90px;
+}
+.body_mystery_202411 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/body_mystery_202411.png');
+  width: 114px;
+  height: 90px;
+}
+.head_mystery_202411 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_mystery_202411.png');
   width: 114px;
   height: 90px;
 }
@@ -40394,6 +40429,11 @@
 }
 .quest_lostMasterclasser3 {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/quest_lostMasterclasser3.png');
+  width: 219px;
+  height: 219px;
+}
+.quest_lostMasterclasser4 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/quest_lostMasterclasser4.png');
   width: 219px;
   height: 219px;
 }

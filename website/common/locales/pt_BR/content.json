@@ -212,7 +212,6 @@
     "hatchingPotionFrost": "da Geada",
     "hatchingPotionIcySnow": "do Gelo de Nevasca",
     "hatchingPotionNotes": "Use-a em um ovo e ele chocará como um mascote <%= potText(locale) %>.",
-    "premiumPotionAddlNotes": "Não utilizável em ovos de mascote de missões. Disponível para compra até <%= date(locale) %>.",
     "foodMeat": "Carne",
     "foodMeatThe": "a Carne",
     "foodMeatA": "Carne",
