@@ -62,7 +62,7 @@
       right: 0%;
     }
 
-    @media screen and (max-width: 500px) {
+    @media screen and (max-width: 575px) {
       max-width: none;
       left: 3%;
       right: 3%;
@@ -142,7 +142,7 @@
       color: $white !important;
       text-decoration: none !important;
       border-bottom: 2px solid transparent;
-      padding: 0.5rem;
+      padding: 8px;
 
       &-active, &:hover {
         color: $white !important;
@@ -163,7 +163,7 @@
   }
 
   .drawer-slider {
-    padding: 12px 0 0 8px;
+    padding: 0;
     white-space: nowrap;
     position: relative;
 
