@@ -638,6 +638,9 @@ const backgrounds = {
   backgrounds112024: {
     castle_hall_with_hearth: { },
   },
+  backgrounds122024: {
+    first_snow_forest: { },
+  },
   eventBackgrounds: {
     birthday_bash: {
       price: 0,
