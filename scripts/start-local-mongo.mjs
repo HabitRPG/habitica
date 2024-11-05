@@ -1,5 +1,5 @@
 /* eslint-disable-file */
-import { MongoMemoryServer } from 'mongodb-memory-server';
+import { MongoMemoryReplSet } from 'mongodb-memory-server';
 
 import { dirname } from 'node:path';
 import { existsSync, mkdirSync } from 'node:fs';
@@ -22,11 +22,24 @@ if (!existsSync(mongoDbPath)) {
   // async code in where
 
   // This will create an new instance of "MongoMemoryServer" and automatically start it
-  const mongod = await MongoMemoryServer.create({
-    instance: {
-      port: 27017,
+  const mongod = await MongoMemoryReplSet.create({
+    replSet: {
+      count: 3,
+      dbName: TEST_MODE ? 'habitica-test' : 'habitica-dev',
       dbPath: mongoDbPath,
+      name: 'rs',
     },
+    instanceOpts: [
+      {
+        port: 27017,
+      },
+      {
+        port: 27018,
+      },
+      {
+        port: 27019,
+      },
+    ],
     dispose: {
       cleanup: !BUILD_MODE && !TEST_MODE,
     }
