@@ -648,6 +648,7 @@ export const MONTHLY_SCHEDULE = {
         items: [
           'Peppermint',
           'Holly',
+          'Gingerbread',
         ],
       },
     ],
