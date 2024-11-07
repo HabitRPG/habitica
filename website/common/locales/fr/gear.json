@@ -3199,5 +3199,15 @@
     "backMystery202410Text": "Queue Candy Corn",
     "backMystery202410Notes": "Cette queue se redresse en entendant parler de friandises effrayantes. Ne confère aucun bonus. Équipement d'Abonnement Octobre 2024.",
     "headAccessoryMystery202410Text": "Oreilles Candy Corn",
-    "headAccessoryMystery202410Notes": "Serait-ce le son de farceu·r·se·s costumé·e·s à votre porte ? Ne confère aucun bonus. Équipement d'Abonnement Octobre 2024."
+    "headAccessoryMystery202410Notes": "Serait-ce le son de farceu·r·se·s costumé·e·s à votre porte ? Ne confère aucun bonus. Équipement d'Abonnement Octobre 2024.",
+    "weaponArmoireStormKnightAxeText": "Hache du Chevalier de la Tempête",
+    "armorArmoireStormKnightArmorText": "Armure du Chevalier de la Tempête",
+    "armorArmoireStormKnightArmorNotes": "Dans cette armure, vous êtes quasi invincible. Vos ennemi·e·s ne verront jamais la fin de la tempête. Augmente la Perception de <%= per %>. Armoire Enchantée : Ensemble Chevalier de la Tempête (Objet 3 sur 3)",
+    "weaponArmoireStormKnightAxeNotes": "Accumulez votre furie et faites éclater votre coup comme du tonnerre ! Augmente la Force de <%= str %>. Armoire Enchantée : Ensemble Chevalier de la Tempête. (Objet 3 sur 3)",
+    "headMystery202411Notes": "Ce heaume va sacrément intimider vos tâches quand vous foncerez dedans la tête la première ! Ne confère aucun bonus. Équipement d'Abonnement Novembre 2024.",
+    "headArmoireStormKnightHelmNotes": "Domptez les éclairs grâce à ces ramures électrisantes. Augmente la Constitution de <%= con %>. Armoire Enchantée : Ensemble Chevalier de la Tempête (Objet 1 sur 3)",
+    "bodyMystery202411Notes": "Les piquants impressionnants de ces épaulières sont parfaits pour foncer tête baissée dans votre liste de choses à faires. Ne confère aucun bonus. Équipement d'abonnement Novembre 2024.",
+    "headMystery202411Text": "Heaume Hérissé",
+    "headArmoireStormKnightHelmText": "Heaume du Chevalier de la Tempête",
+    "bodyMystery202411Text": "Épaulières Hérissées"
 }

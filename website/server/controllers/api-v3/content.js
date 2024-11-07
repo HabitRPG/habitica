@@ -7,7 +7,7 @@ const IS_PROD = nconf.get('IS_PROD');
 const api = {};
 
 const MOBILE_FILTER = ['achievements', 'questSeriesAchievements', 'animalColorAchievements', 'animalSetAchievements',
-  'stableAchievements', 'mystery', 'bundles', 'loginIncentives', 'pets', 'premiumPets', 'specialPets', 'questPets',
+  'stableAchievements', 'bundles', 'loginIncentives', 'pets', 'premiumPets', 'specialPets', 'questPets',
   'wackyPets', 'mounts', 'premiumMounts,specialMounts,questMounts', 'events', 'dropEggs', 'questEggs', 'dropHatchingPotions',
   'premiumHatchingPotions', 'wackyHatchingPotions', 'backgroundsFlat', 'questsByLevel', 'gear.tree', 'tasksByCategory',
   'userDefaults', 'timeTravelStable', 'gearTypes', 'cardTypes'];

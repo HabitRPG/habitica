@@ -2,7 +2,7 @@
     "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "Profile",
     "avatar": "Customise Avatar",
-    "editAvatar": "Edit Avatar",
+    "editAvatar": "Customise Avatar",
     "noDescription": "This Habitican hasn't added a description.",
     "noPhoto": "This Habitican hasn't added a photo.",
     "other": "Other",
@@ -186,5 +186,10 @@
     "notEnoughGold": "Not enough gold.",
     "chatCastSpellPartyTimes": "<%= username %> casts <%= spell %> for the party <%= times %> times.",
     "chatCastSpellUserTimes": "<%= username %> casts <%= spell %> on <%= target %> <%= times %> times.",
-    "nextReward": "Next Log In Reward"
+    "nextReward": "Next Log In Reward",
+    "titleFacialHair": "Facial Hair",
+    "titleHaircolor": "Hair Colours",
+    "titleHairbase": "Hair Styles",
+    "customizations": "Customisations",
+    "skins": "Skins"
 }

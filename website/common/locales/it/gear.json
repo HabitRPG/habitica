@@ -2885,5 +2885,21 @@
     "armorSpecialSpring2023RogueNotes": "Potrai anche avere solo quattro arti con cui muoverti, ma puoi arrampicarti e strisciare con la più grande delle larve. Aumenta la Percezione di <%= per %>. Equipaggiamento in edizione limitata, Primavera 2023.",
     "armorSpecialSpring2023MageText": "Abito delle Pietre Lunari",
     "armorSpecialSpring2023HealerText": "Abito da sera di Foglie di Giglio",
-    "armorSpecialSummer2023RogueText": "Vesti del Guppy"
+    "armorSpecialSummer2023RogueText": "Vesti del Guppy",
+    "armorSpecialSpring2024WarriorText": "Armatura di Fluorite",
+    "armorSpecialSpring2024MageText": "Vesti dell'Ibisco",
+    "armorSpecialSpring2024HealerText": "Abito dell'Uccello Azzurro",
+    "armorSpecialWinter2024MageText": "Vesti del Mago Narvalo",
+    "armorSpecialWinter2024MageNotes": "Sia carine che pratiche, queste vesti ti terranno al caldo mentre scateni le tue abilità magiche fuori al freddo. Aumenta l'Intelligenza di <%= int %>. Equipaggiamento in edizione limitata, Inverno 2023-2024.",
+    "armorSpecialWinter2024HealerNotes": "Questo scintillante blocco di ghiaccio magico almeno ti protegge mentre cerchi un modo per uscirne. Aumenta la Costituzione di <%= con %>. Equipaggiamento in Edizione Limitata, Inverno 2024.",
+    "armorSpecialSpring2024WarriorNotes": "Questa armatura di pietra stabile ti aiuterà a restare con i piedi per terra mentre abbaglierà tutto ciò che affronti. Aumenta la Costituzione di <%= con %>. Equipaggiamento in Edizione Limitata, Primavera 2024.",
+    "armorSpecialWinter2024RogueNotes": "Chi sarai quando indosserai queste vesti? Ricoperto di piume e morbidezza, sarai sia caldo che nascosto! Aumenta la Percezione di <%= per %>. Equipaggiamento in edizione limitata, Inverno 2023-2024.",
+    "armorSpecialSpring2024RogueText": "Veste della Neve Fondente",
+    "armorSpecialSpring2024RogueNotes": "Questa veste rustica ti nasconde persino quando le stagioni cambiano attorno a te. Aumenta la Percezione di <%= per %>. Equipaggiamento in Edizione Limitata, Inverno 2023-2024.",
+    "armorSpecialSpring2024MageNotes": "Questi petali carini ti aiuteranno a mostrare tutto il potere con stile. Aumenta l'Intelligenza di <%= int %>. Equipaggiamento in Edizione Limitata, Inverno 2024.",
+    "armorSpecialSpring2024HealerNotes": "Queste piume favolose aiuteranno i tuoi sogni più felici a prendere il volo. Aumenta la Costituzione di <%= con %>. Equipaggiamento in Edizione Limitata, Primavera 2024.",
+    "armorSpecialWinter2024WarriorNotes": "Alla fin fine il cioccolato, la menta e la glassa sono materiali più resistenti di quanto si pensi. Aumenta la Costituzione di <%= con %>. Equipaggiamento in edizione limitata, Inverno 2023-2024.",
+    "armorSpecialWinter2024HealerText": "Armatura Ghiacciata",
+    "armorSpecialWinter2024RogueText": "Vesti del Gufo delle Nevi",
+    "armorSpecialWinter2024WarriorText": "Armatura di Peppermint Bark"
 }

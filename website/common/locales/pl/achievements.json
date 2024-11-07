@@ -157,5 +157,11 @@
     "achievementRoughRider": "Ostry jeździec",
     "achievementRoughRiderText": "Wylęgły się wszystkie podstawowe kolory niewygodnych zwierzątek i wierzchowców: Kaktus, Jeż i Skała!",
     "achievementDuneBuddy": "Kumpel Diuny",
-    "achievementDuneBuddyText": "Pancernik"
+    "achievementDuneBuddyText": "Pancernik",
+    "achievementDuneBuddyModalText": "Zebrałeś wszystkie pustynne chowańce!",
+    "achievementRodentRuler": "Władca gryzoni",
+    "achievementRodentRulerText": "Wyhodował wszystkie podstawowe kolory gryzoni : świnka morska, szczur i wiewiórka!",
+    "achievementRodentRulerModalText": "Zdobyłeś wszystkie gryzonie!",
+    "achievementRoughRiderModalText": "Zebrałeś wszystkie podstawowe kolory niewygodnych chowańców i wierzchowców!",
+    "achievementCats": "Pasterz Kotów"
 }

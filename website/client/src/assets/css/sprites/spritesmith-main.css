@@ -39937,6 +39937,51 @@
   width: 28px;
   height: 28px;
 }
+.notif_habitoween_base_mount {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/notif_habitoween_base_mount.png');
+  width: 28px;
+  height: 28px;
+}
+.notif_habitoween_base_pet {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/notif_habitoween_base_pet.png');
+  width: 28px;
+  height: 28px;
+}
+.notif_habitoween_candy {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/notif_habitoween_candy.png');
+  width: 28px;
+  height: 28px;
+}
+.notif_habitoween_ghost_mount {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/notif_habitoween_ghost_mount.png');
+  width: 28px;
+  height: 28px;
+}
+.notif_habitoween_ghost_pet {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/notif_habitoween_ghost_pet.png');
+  width: 28px;
+  height: 28px;
+}
+.notif_habitoween_glow_mount {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/notif_habitoween_glow_mount.png');
+  width: 28px;
+  height: 28px;
+}
+.notif_habitoween_glow_pet {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/notif_habitoween_glow_pet.png');
+  width: 28px;
+  height: 28px;
+}
+.notif_habitoween_purple_mount {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/notif_habitoween_purple_mount.png');
+  width: 28px;
+  height: 28px;
+}
+.notif_habitoween_purple_pet {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/notif_habitoween_purple_pet.png');
+  width: 28px;
+  height: 28px;
+}
 .notif_head_special_nye {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/notif_head_special_nye.png');
   width: 28px;

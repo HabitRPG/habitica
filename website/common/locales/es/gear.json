@@ -3199,5 +3199,15 @@
     "backMystery202410Text": "Cola de Caramelo de Maíz",
     "backMystery202410Notes": "Esta cola se anima ante la mención de golosinas espeluznantes. No otorga ningún beneficio. Artículo de Suscriptor Octubre 2024.",
     "headAccessoryMystery202410Text": "Orejas de Caramelo de Maíz",
-    "headAccessoryMystery202410Notes": "¿Es ese el sonido de los truco o trato en tu puerta? No otorga ningún beneficio. Artículo de Suscriptor Octubre 2024."
+    "headAccessoryMystery202410Notes": "¿Es ese el sonido de los truco o trato en tu puerta? No otorga ningún beneficio. Artículo de Suscriptor Octubre 2024.",
+    "headArmoireStormKnightHelmText": "Yelmo de Caballero Llamatormentas",
+    "bodyMystery202411Notes": "Los devastadores pinchos de estas hombreras son perfectos para salir adelante con tu lista de tareas pendientes. No otorga ningún beneficio. Artículo de Suscriptor Noviembre 2024.",
+    "weaponArmoireStormKnightAxeText": "Hacha de Caballeros Llamatormentas",
+    "weaponArmoireStormKnightAxeNotes": "¡Reúne toda tu furia y lanza un golpe atronador! Aumenta la fuerza en <%= str %>. Armario Encantado: Conjunto Caballero Llamatormentas (Artículo 3 de 3)",
+    "armorArmoireStormKnightArmorText": "Armadura de Caballero Llamatormentas",
+    "armorArmoireStormKnightArmorNotes": "Con esta armadura, serás casi invencible. Tus enemigos nunca verán el fin a la furiosa tormenta que arremeterá contra ellos. Aumenta la percepcion en <%= per %>. Armario Encantado: Conjunto Caballero Llamatormentas (Artista 2 de 3)",
+    "headMystery202411Text": "Yelmo Erizado",
+    "headMystery202411Notes": "¡Este yelmo resulta bastante intimidante para tus tareas cuando te lanzas hacia ellas de cabeza! No otorga ningún beneficio. Artículo de Suscriptor Noviembre 2024.",
+    "headArmoireStormKnightHelmNotes": "En pleno asedio a un castillo utiliza las antenas de este yelmo para llamar el rayo de la tormenta y embestir las murallas exteriores. Aumenta la Constitución en <%= con %>. Armario Encantado: Conjunto Caballero Llamatormentas (Artículo 1 de 3)",
+    "bodyMystery202411Text": "Hombreras Erizadas"
 }

@@ -189,7 +189,7 @@
     "skins": "Huid",
     "titleHaircolor": "Haar kleuren",
     "customizations": "Aanpassingsmogelijkheden",
-    "chatCastSpellPartyTimes": "<%= gebruikersnaam %> spreekt <%= spreuk uit %> voor de party <%= aantal keer %> aantal keer .",
-    "chatCastSpellUserTimes": "<%= gebruikersnaam %> spreekt <%= spreuk uit %> op <%= doelwit %> <%= aantal keer %> aantal keer .",
+    "chatCastSpellPartyTimes": "<%= username %> spreekt <%= spell %> voor de party <%= times %> aantal keer .",
+    "chatCastSpellUserTimes": "<%= username %> spreekt <%= spell %> op <%= target %> <%= times %> aantal keer .",
     "nextReward": "Volgende inlog beloning"
 }
