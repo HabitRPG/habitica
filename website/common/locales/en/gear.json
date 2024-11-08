@@ -533,6 +533,15 @@
   "weaponSpecialFall2024MageText": "Staff of the Underworld",
   "weaponSpecialFall2024MageNotes": "Task steps will instantly become simplified with one touch of this shining weapon. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition Fall 2024 Gear.",
 
+  "weaponSpecialWinter2025WarriorText": "Moose Warrior Axe",
+  "weaponSpecialWinter2025WarriorNotes": "A mighty axe for a mighty moose! You’ll be unstoppable! Increases Strength by <%= str %>. Limited Edition Winter 2024-2025 Gear.",
+  "weaponSpecialWinter2025RogueText": "Snowflake Burst",
+  "weaponSpecialWinter2025RogueNotes": "Thump and dazzle those difficult tasks into submission! You’ll be unstoppable! Increases Strength by <%= str %>. Limited Edition Winter 2024-2025 Gear.",
+  "weaponSpecialWinter2025HealerText": "Star Wand",
+  "weaponSpecialWinter2025HealerNotes": "What you need now are more lights and a glowing star to go on top! Increases Intelligence by <%= int %>. Limited Edition Winter 2024-2025 Gear.",
+  "weaponSpecialWinter2025MageText": "Northern Lights Display",
+  "weaponSpecialWinter2025MageNotes": "This stunning, colorful show provides the perfect backdrop! You’ll be unstoppable! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition Winter 2024-2025 Gear.",
+
   "weaponMystery201411Text": "Pitchfork of Feasting",
   "weaponMystery201411Notes": "Stab your enemies or dig in to your favorite foods - this versatile pitchfork does it all! Confers no benefit. November 2014 Subscriber Item.",
   "weaponMystery201502Text": "Shimmery Winged Staff of Love and Also Truth",
@@ -1303,6 +1312,16 @@
   "armorSpecialFall2024HealerNotes": "Be one with the galaxy and mesmerize onlookers in this armor. Increases Constitution by <%= con %>. Limited Edition Fall 2024 Gear.",
   "armorSpecialFall2024MageText": "Underworld Sorceror Armor",
   "armorSpecialFall2024MageNotes": "Be one with the underworld and embrace the power of mages who’ve come before you in this armor. Increases Intelligence by <%= int %>. Limited Edition Fall 2024 Gear.",
+
+  "armorSpecialWinter2025WarriorText": "Moose Warrior Armor",
+  "armorSpecialWinter2025WarriorNotes": "Everyone’s going to step aside and make way for you when you wear this armor. Increases Constitution by <%= con %>. Limited Edition Winter 2024-2025 Gear.",
+  "armorSpecialWinter2025RogueText": "Snow Costume",
+  "armorSpecialWinter2025RogueNotes": "Although you look like you’re covered in cold snow, you are toasty, warm, jolly, and happy when you wear this costume. Increases Perception by <%= per %>. Limited Edition Winter 2024-2025 Gear.",
+  "armorSpecialWinter2025HealerText": "Robe of String Lights",
+  "armorSpecialWinter2025HealerNotes": "Twinkle your way through your tasks. Just be careful—if one bulb goes out, they all go out. Increases Constitution by <%= con %>. Limited Edition Winter 2024-2025 Gear.",
+  "armorSpecialWinter2025MageText": "Aurora Cloak",
+  "armorSpecialWinter2025MageNotes": "Wonder, whimsy, enchantment, and splendor will fill your days when you dance in this cloak. Increases Intelligence by <%= int %>. Limited Edition Winter 2024-2025 Gear.",
+
 
   "armorMystery201402Text": "Messenger Robes",
   "armorMystery201402Notes": "Shimmering and strong, these robes have many pockets to carry letters. Confers no benefit. February 2014 Subscriber Item.",
@@ -2167,6 +2186,15 @@
   "headSpecialFall2024MageText": "Underworld Sorcerer Mask",
   "headSpecialFall2024MageNotes": "Whether you’re mysterious or whimsical, you won’t be missed when you wear this! Increases Perception by <%= per %>. Limited Edition Fall 2024 Gear.",
 
+  "headSpecialWinter2025WarriorText": "Moose Warrior Helmet",
+  "headSpecialWinter2025WarriorNotes": "So, get this: now you look just like a moose. Wear those antlers with pride. Increases Strength by <%= str %>. Limited Edition Winter 2024-2025 Gear.",
+  "headSpecialWinter2025RogueText": "Snow Mask",
+  "headSpecialWinter2025RogueNotes": "There is definitely some magic in this hat, because it transforms you into snow person. Just don’t let the bunny get too close to your carrot nose. Increases Perception by <%= per %>. Limited Edition Winter 2024-2025 Gear.",
+  "headSpecialWinter2025HealerText": "Tangle of String Lights",
+  "headSpecialWinter2025HealerNotes": "Don’t bother untangling these because they are already in the shape of a hat. Increases Intelligence by <%= int %>. Limited Edition Winter 2024-2025 Gear.",
+  "headSpecialWinter2025MageText": "Aurora Hat",
+  "headSpecialWinter2025MageNotes": "More than just a fancy fascinator, this hat makes you look like the aurora borealis itself. Increases Perception by <%= per %>. Limited Edition Winter 2024-2025 Gear.",
+
   "headSpecialGaymerxText": "Rainbow Warrior Helm",
   "headSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special helmet is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
 
@@ -2833,6 +2861,11 @@
   "shieldSpecialFallRogue2024Notes": "Tasks themselves will be overwhelmed by the swirls and spirals of this hypnotic weapon. Increases Strength by <%= str %>. Limited Edition Fall 2024 Gear.",
   "shieldSpecialFall2024HealerText": "Space Shield",
   "shieldSpecialFall2024HealerNotes": "New tasks wanting your attention bounce right off until you’ve completed your current mission. Increases Constitution by <%= con %>. Limited Edition Fall 2024 Gear.",
+
+  "shieldSpecialWinter2025WarriorText": "Moose Warrior Shield",
+  "shieldSpecialWinter2025WarriorNotes": "Block out any unwanted distractions with this shield as strong as a moose. Increases Constitution by <%= con %>. Limited Edition Winter 2024-2025 Gear.",
+  "shieldSpecialWinter2025HealerText": "The Perfect Gift",
+  "shieldSpecialWinter2025HealerNotes": "The perfect gift is just waiting to be opened. What could be inside? Increases Constitution by <%= con %>. Limited Edition Winter 2024-2025 Gear.",
 
   "shieldMystery201601Text": "Resolution Slayer",
   "shieldMystery201601Notes": "This blade can be used to parry away all distractions. Confers no benefit. January 2016 Subscriber Item.",
