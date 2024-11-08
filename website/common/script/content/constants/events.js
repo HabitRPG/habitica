@@ -103,8 +103,8 @@ export const REPEATING_EVENTS = {
     foodSeason: 'Pie',
   },
   giftOneGetOne: {
-    start: new Date('1970-10-19T04:00-05:00'),
-    end: new Date('1970-11-06T23:59-05:00'),
+    start: new Date('1970-12-19T04:00-05:00'),
+    end: new Date('1970-01-06T23:59-05:00'),
     promo: 'g1g1',
   },
 };
