@@ -344,7 +344,7 @@
       </div>
       <div
         v-if="hasSubscription && !hasCanceledSubscription"
-        class="d-flex flex-column align-items-center mb-4 w-448p text-center"
+        class="d-flex flex-column align-items-center mb-4"
       >
         <a
           v-if="canCancelSubscription"
@@ -383,7 +383,7 @@
         <p class="purple-300 mb-3">
           {{ $t('giftSubscription') }}
         </p>
-        <button class="btn btn-secondary w-448p mb-5" @click="showSelectUser()">
+        <button class="btn btn-secondary btn-gift mb-5" @click="showSelectUser()">
           {{ $t('giftASubscription') }}
         </button>
       </div>
@@ -419,6 +419,10 @@
 
   strong {
     font-size: 16px;
+  }
+
+  .btn-gift {
+    width: 448px;
   }
 
   .btn-update-card {
@@ -728,10 +732,6 @@
 
   .w-330p {
     width: 330px;
-  }
-
-  .w-448p {
-    width: 448px;
   }
 </style>
 
