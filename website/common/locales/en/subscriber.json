@@ -256,6 +256,5 @@
     "nMonthsGift": "For <%= months %> months",
     "unlockNGemsGift": "They'll unlock <strong><%= count %> Gems</strong> per month instantly",
     "earn2GemsGift": "They'll earn <strong>+2 Gems</strong> every month they're subscribed",
-    "maxGemCapGift": "They'll have the max <strong>Gem Cap</strong>",
-    "subscribeAgainContinueHourglasses": "Subscribe again to continue receiving Mystic Hourglasses"
+    "maxGemCapGift": "They'll have the max <strong>Gem Cap</strong>"
 }

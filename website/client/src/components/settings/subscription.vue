@@ -310,6 +310,7 @@
             <div
               class="hourglass-preview purple-gradient d-flex flex-column
               justify-content-center align-items-center position-relative mb-4"
+              v-if="nextHourGlass"
             >
               <div
                 v-once
@@ -317,22 +318,15 @@
                 v-html="icons.hourglassLeft"
               >
               </div>
-              <div v-if="nextHourGlass">
-                <div
-                  class="white mb-1"
-                >
-                  {{ nextHourGlass }}
-                </div>
-                <div
-                  v-once
-                  class="purple-600"
-                  >
-                  {{ $t('nextHourglass') }}
-                </div>
+              <div class="white mb-1">
+                {{ nextHourGlass }}
               </div>
-              <p class="w-50 text-center" v-else>
-                {{ $t('subscribeAgainContinueHourglasses') }}
-              </p>
+              <div
+                v-once
+                class="purple-600"
+              >
+                {{ $t('nextHourglass') }}
+              </div>
               <div
                 v-once
                 class="svg svg-icon position-absolute right-24"
@@ -540,11 +534,6 @@
     height: 92px;
     border-radius: 8px;
     font-weight: 700;
-
-    p {
-      color: $white;
-      line-height: 1.4;
-    }
 
     .white {
       font-family: 'Roboto Condensed';
