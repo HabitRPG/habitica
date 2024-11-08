@@ -310,7 +310,6 @@
             <div
               class="hourglass-preview purple-gradient d-flex flex-column
               justify-content-center align-items-center position-relative mb-4"
-              v-if="nextHourGlass"
             >
               <div
                 v-once
@@ -953,9 +952,6 @@ export default {
       return currentPlanContext.nextHourglassDate;
     },
     nextHourGlass () {
-      if (!this.nextHourGlassDate) {
-        return null;
-      }
       const nextHourglassMonth = this.nextHourGlassDate.format('MMMM');
 
       return nextHourglassMonth;
