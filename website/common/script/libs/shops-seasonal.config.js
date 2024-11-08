@@ -25,7 +25,6 @@ function safeGetSet (currentEvent, year, className) {
 function getCurrentSeasonalSets (currentEvent) {
   const now = new Date();
   const year = now.getMonth() === 11 ? now.getFullYear() + 1 : now.getFullYear();
-  
   return {
     rogue: safeGetSet(currentEvent, year, 'Rogue'),
     warrior: safeGetSet(currentEvent, year, 'Warrior'),
