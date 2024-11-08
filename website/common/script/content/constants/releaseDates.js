@@ -13,6 +13,7 @@ export const ARMOIRE_RELEASE_DATES = {
   funnyFoolSet: { year: 2024, month: 9 },
   frightNightSet: { year: 2024, month: 10 },
   stormKnightSet: { year: 2024, month: 11 },
+  festiveHelperSet: { year: 2024, month: 12 },
 };
 
 export const EGGS_RELEASE_DATES = {
@@ -25,4 +26,5 @@ export const EGGS_RELEASE_DATES = {
 
 export const HATCHING_POTIONS_RELEASE_DATES = {
   Koi: { year: 2024, month: 6, day: 1 },
+  Gingerbread: { year: 2024, month: 12, day: 21 },
 };

@@ -502,6 +502,10 @@ const armor = {
     per: 11,
     set: 'stormKnightSet',
   },
+  festiveHelperOveralls: {
+    con: 12,
+    set: 'festiveHelperSet',
+  },
 };
 
 const body = {
@@ -1026,6 +1030,10 @@ const head = {
   stormKnightHelm: {
     con: 11,
     set: 'stormKnightSet',
+  },
+  festiveHelperHat: {
+    int: 12,
+    set: 'festiveHelperSet',
   },
 };
 

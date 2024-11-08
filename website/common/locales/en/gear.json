@@ -1432,6 +1432,8 @@
   "armorMystery202406Notes": "Haunt your enemies with style and flair! Confers no benefit. June 2024 Subscriber Item.",
   "armorMystery202407Text": "Amiable Axolotl Suit",
   "armorMystery202407Notes": "Glide through lakes and canals with your sweeping pink tail! Confers no benefit. July 2024 Subscriber Item.",
+  "armorMystery202412Text": "Candy Cane Cottontail Coat",
+  "armorMystery202412Notes": "A fun and fluffy look to keep you snug on a winter day. Confers no benefit. December 2024 Subscriber Item.",
 
   "armorMystery301404Text": "Steampunk Suit",
   "armorMystery301404Notes": "Dapper and dashing, wot! Confers no benefit. February 3015 Subscriber Item.",
@@ -1656,6 +1658,8 @@
   "armorArmoireFunnyFoolCostumeNotes": "Dum-de-dum! Surely you jest. This colorful outfit looks amazing on you! Increases Strength by <%= str %>. Enchanted Armoire: Funny Fool Set (Item 2 of 3)",
   "armorArmoireStormKnightArmorText": "Storm Knight Armor",
   "armorArmoireStormKnightArmorNotes": "In this armor, you are nearly invincible. Your enemies will never see the storm’s end. Increases Perception by <%= per %>. Enchanted Armoire: Storm Knight Set (Item 2 of 3)",
+  "armorArmoireFestiveHelperOverallsText": "Festive Helper Overalls",
+  "armorArmoireFestiveHelperOverallsNotes": "Durable and comfortable, these overalls are great for working, playing, and assisting others. Plus, it has pockets! Increases Constitution by <%= con %>. Enchanted Armoire: Festive Helper Set (Item 2 of 2)",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -2334,6 +2338,8 @@
   "headMystery202409Notes": "More than just jaunty decorations, the enchanted sunflowers on this hat fill the wearer with powerful magic energy. Confers no benefit. September 2024 Subscriber Item.",
   "headMystery202411Text": "Bristled Helm",
   "headMystery202411Notes": "This helm is quite intimidating to your tasks when you dive in headfirst! Confers no benefit. November 2024 Subscriber Item.",
+  "headMystery202412Text": "Candy Cane Cottontail Hood",
+  "headMystery202412Notes": "Warm and cozy, just like a cup of minty hot cocoa on a winter night! Confers no benefit. December 2024 Subscriber Item.",
 
   "headMystery301404Text": "Fancy Top Hat",
   "headMystery301404Notes": "A fancy top hat for the finest of gentlefolk! January 3015 Subscriber Item. Confers no benefit.",
@@ -2538,6 +2544,8 @@
   "headArmoireFunnyFoolCapNotes": "The bells on this hat might make your opponents burst into giggles, but they just help you concentrate. Increases Constitution by <%= con %>. Enchanted Armoire: Funny Fool Set (Item 1 of 3)",
   "headArmoireStormKnightHelmText": "Storm Knight Helm",
   "headArmoireStormKnightHelmNotes": "Harness lightning through these antlers as you storm the castle. Increases Constitution by <%= con %>. Enchanted Armoire: Storm Knight Set (Item 1 of 3)",
+  "headArmoireFestiveHelperHatText": "Festive Helper Hat",
+  "headArmoireFestiveHelperHatNotes": "Holiday tip #27: have a helper hat handy. This one is big enough to keep an emergency toy underneath! Increases Intelligence by <%= int %>. Enchanted Armoire: Festive Helper Set (Item 1 of 2)",
 
   "offhand": "off-hand item",
   "offHandCapitalized": "Off-Hand Item",
