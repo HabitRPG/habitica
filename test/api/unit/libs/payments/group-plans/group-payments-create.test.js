@@ -715,7 +715,7 @@ describe('Purchasing a group plan for group', () => {
     const mysteryItem = { title: 'item' };
     const mysteryItems = [mysteryItem];
     const consecutive = {
-      trinkets: 4,
+      trinkets: 3,
       gemCapExtra: 20,
       offset: 1,
       count: 13,

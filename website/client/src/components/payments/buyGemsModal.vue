@@ -465,7 +465,7 @@ export default {
       };
     },
     isGemsPromoActive () {
-      return Boolean(this.eventInfo?.gemsPromo);
+      return Boolean(this.eventInfo);
     },
     gemsBlocks () {
       // We don't want to modify the original gems blocks when a promotion is running

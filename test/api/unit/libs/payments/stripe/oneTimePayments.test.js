@@ -308,7 +308,6 @@ describe('Stripe - One Time Payments', () => {
           customerId,
           paymentMethod: 'Gift',
           gift,
-          autoRenews: false,
           gemsBlock: undefined,
         });
       });

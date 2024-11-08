@@ -91,11 +91,11 @@
         </div>
         <div class="form-group row">
           <label class="col-sm-3 col-form-label">
-            Cumulative months:
+            Consecutive months:
           </label>
           <div class="col-sm-9">
             <input
-              v-model="hero.purchased.plan.cumulativeCount"
+              v-model="hero.purchased.plan.consecutive.count"
               class="form-control"
               type="number"
               min="0"
@@ -105,22 +105,38 @@
         </div>
         <div class="form-group row">
           <label class="col-sm-3 col-form-label">
-            Received hourglass bonus:
+            Perk offset months:
           </label>
           <div class="col-sm-9">
-            <div class="input-group">
-              <input
-                v-model="hero.purchased.plan.hourglassPromoReceived"
-                class="form-control"
-                type="text"
-              >
-              <div class="input-group-append">
-                <strong class="input-group-text">
-                  {{ dateFormat(hero.purchased.plan.hourglassPromoReceived) }}
-                </strong>
-              </div>
-            </div>
+            <input
+              v-model="hero.purchased.plan.consecutive.offset"
+              class="form-control"
+              type="number"
+              min="0"
+              step="1"
+            >
           </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">
+            Perk month count:
+          </label>
+          <div class="col-sm-9">
+            <input
+              v-model="hero.purchased.plan.perkMonthCount"
+              class="form-control"
+              type="number"
+              min="0"
+              max="2"
+              step="1"
+            >
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">
+            Next Mystic Hourglass:
+          </label>
+          <strong class="col-sm-9 col-form-label">{{ nextHourglassDate }}</strong>
         </div>
         <div class="form-group row">
           <label class="col-sm-3 col-form-label">
@@ -146,8 +162,8 @@
               class="form-control"
               type="number"
               min="0"
-              max="26"
-              step="2"
+              max="25"
+              step="5"
             >
           </div>
         </div>
@@ -156,7 +172,7 @@
             Total Gem cap:
           </label>
           <strong class="col-sm-9 col-form-label">
-            {{ Number(hero.purchased.plan.consecutive.gemCapExtra) + 24 }}
+            {{ Number(hero.purchased.plan.consecutive.gemCapExtra) + 25 }}
           </strong>
         </div>
         <div class="form-group row">
@@ -169,7 +185,7 @@
               class="form-control"
               type="number"
               min="0"
-              :max="hero.purchased.plan.consecutive.gemCapExtra + 24"
+              :max="hero.purchased.plan.consecutive.gemCapExtra + 25"
               step="1"
             >
           </div>
@@ -252,7 +268,6 @@ export default {
     nextHourglassDate () {
       const currentPlanContext = getPlanContext(this.hero, new Date());
 
-      if (!currentPlanContext.nextHourglassDate) return 'N/A';
       return currentPlanContext.nextHourglassDate.format('MMMM YYYY');
     },
   },

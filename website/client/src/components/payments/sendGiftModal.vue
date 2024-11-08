@@ -51,7 +51,7 @@
       </div>
 
       <!-- menu area -->
-      <div class="row bg-gray-700">
+      <div class="row">
         <div class="col-md-8 offset-md-2 text-center nav">
           <div
             class="nav-link"
@@ -73,7 +73,7 @@
       <!-- subscriber block -->
       <subscription-options
         v-show="selectedPage === 'subscription'"
-        class="bg-gray-700 py-3"
+        class="subscribe-option"
         :user-receiving-gift="userReceivingGift"
         :receiver-name="receiverName"
       />
@@ -248,11 +248,6 @@
 <style lang="scss">
   @import '~@/assets/scss/mixins.scss';
   #send-gift {
-    #subscription-form {
-      border-bottom-left-radius: 8px;
-      border-bottom-right-radius: 8px;
-    }
-
     .modal-dialog {
       max-width: 448px;
     }
@@ -285,7 +280,15 @@
         }
       }
     }
-  }
+    #subscription-form .subscribe-option {
+      background: #F9F9F9;
+    }
+
+    #subscription-form .selected {
+      background: rgba(213, 200, 255, 0.32);
+      // using rgba for transparency
+    }
+}
 </style>
 <style scoped lang="scss">
   @import '~@/assets/scss/colors.scss';
@@ -319,6 +322,7 @@
   }
 
   .row {
+    background-color: $gray-700;
     margin: 0 0 0 0;
     min-height: 32px;
   }
@@ -332,18 +336,19 @@
   }
 
   .nav-link {
-    color: $gray-50;
+    color: $gray-100;
     display: inline-block;
     padding: 0px 8px 6px 8px;
 
     &.active {
-      color: $purple-300;
-      border-bottom: 2px solid $purple-400;
+    color: $purple-300;
+    border-bottom: 2px solid $purple-400;
     }
 
     &:hover {
-      color: $purple-300;
-      cursor: pointer;
+    color: $purple-300;
+    border-bottom: 2px solid $purple-400;
+    cursor: pointer;
     }
   }
 

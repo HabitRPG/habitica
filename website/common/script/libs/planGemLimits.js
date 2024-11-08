@@ -1,4 +1,4 @@
 export default {
   convRate: 20,
-  convCap: 24,
+  convCap: 25,
 };
