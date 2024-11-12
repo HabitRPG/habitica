@@ -1,35 +1,27 @@
 <template>
-  <div>
-    <div class="pt-0 px-0">
-      <div v-if="!hasSubscription && !hasCanceledSubscription">
-        <div class="d-flex flex-column justify-content-center align-items-center
-          purple-gradient full-banner mb-4"
-        >
-          <p class="white header-top mt-4 mb-2">
-            {{ $t('subscribeTo').toUpperCase() }}
-          </p>
-          <div
-            class="header-mid d-flex justify-content-center align-items-center
-              mb-4 position-relative"
-          >
-            <div
-              v-once
-              class="svg-icon flip position-absolute left-0"
-              v-html="icons.purpleStars"
-            >
-            </div>
-            <div
-              v-once
-              class="svg-icon svg-wordmark mx-4"
-              v-html="icons.wordmark"
-            >
-            </div>
-            <div
-              v-once
-              class="svg-icon position-absolute right-0"
-              v-html="icons.purpleStars"
-            >
-            </div>
+  <div class="standard-page pt-0 px-0">
+    <div
+      class="announcement-banner"
+      v-html="$t('subscriptionChangeAnnouncement', { linkStart })"
+    >
+    </div>
+    <div v-if="!hasSubscription && !hasCanceledSubscription">
+      <div class="row mt-3">
+        <div class="block-header mx-auto">
+          {{ $t('support') }}
+        </div>
+      </div>
+      <div class="row mb-5">
+        <div
+          v-once
+          class="svg-icon svg-logo mx-auto mt-1"
+          v-html="icons.logo"
+        ></div>
+      </div>
+      <div class="d-flex justify-content-center">
+        <div>
+          <div class="row col-12 ml-1">
+            <h2> {{ $t('subscribersReceiveBenefits') }} </h2>
           </div>
           <h2 class="white">
             {{ $t('subscribersReceiveBenefits') }}
@@ -397,6 +389,23 @@
     </div>
   </div>
 </template>
+
+<style lang="scss">
+  .announcement-banner {
+    color: #ffffff;
+    background-color: #46A7D9;
+    font-size: 14px;
+    line-height: 1.71;
+    text-align: center;
+    padding: 12px 0px 12px;
+    width: 100vw;
+
+    a {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+  }
+</style>
 
 <style scoped lang="scss">
   @import '~@/assets/scss/colors.scss';
@@ -834,6 +843,7 @@ export default {
         subscriberHourglasses,
         wordmark,
       }),
+      linkStart: '<a href="/static/faq/subscription-benefits-adjustments">',
     };
   },
   computed: {
