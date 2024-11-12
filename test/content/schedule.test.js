@@ -1,4 +1,5 @@
 // eslint-disable-next-line max-len
+import maxBy from 'lodash/maxBy';
 import moment from 'moment';
 import nconf from 'nconf';
 import {
@@ -10,6 +11,7 @@ import QUEST_BUNDLES from '../../website/common/script/content/bundles';
 import potions from '../../website/common/script/content/hatching-potions';
 import SPELLS from '../../website/common/script/content/spells';
 import QUEST_SEASONAL from '../../website/common/script/content/quests/seasonal';
+import { HATCHING_POTIONS_RELEASE_DATES } from '../../website/common/script/content/constants/releaseDates';
 
 function validateMatcher (matcher, checkedDate) {
   expect(matcher.end).to.be.a('date');
@@ -222,6 +224,8 @@ describe('Content Schedule', () => {
     });
 
     it('premium hatching potions', () => {
+      const lastReleaseDate = maxBy(Object.values(HATCHING_POTIONS_RELEASE_DATES), value => new Date(`${value.year}-${value.month}-${value.day}`));
+      clock = sinon.useFakeTimers(new Date(`${lastReleaseDate.year}-${lastReleaseDate.month}-${lastReleaseDate.day + 1}`));
       const potionKeys = Object.keys(potions.premium);
       Object.keys(MONTHLY_SCHEDULE).forEach(key => {
         const monthlyPotions = MONTHLY_SCHEDULE[key][21].find(item => item.type === 'premiumHatchingPotions');
