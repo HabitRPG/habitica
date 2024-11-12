@@ -67,6 +67,12 @@
       left: 3%;
       right: 3%;
     }
+
+    .message {
+      @media screen and (max-width: 450px) {
+        width: 100%;
+        }
+    }
   }
 
   .drawer-toggle-icon {
@@ -166,6 +172,7 @@
     padding: 0;
     white-space: nowrap;
     position: relative;
+    width: 100%;
 
     & .message {
       display: flex;
