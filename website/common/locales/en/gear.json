@@ -538,7 +538,7 @@
   "weaponSpecialWinter2025RogueText": "Snowflake Burst",
   "weaponSpecialWinter2025RogueNotes": "Thump and dazzle those difficult tasks into submission! You’ll be unstoppable! Increases Strength by <%= str %>. Limited Edition Winter 2024-2025 Gear.",
   "weaponSpecialWinter2025HealerText": "Star Wand",
-  "weaponSpecialWinter2025HealerNotes": "What you need now are more lights and a glowing star to go on top! Increases Intelligence by <%= int %>. Limited Edition Winter 2024-2025 Gear.",
+  "weaponSpecialWinter2025HealerNotes": "What you need now are more lights and a glowing star to go on top! You'll be unstoppable! Increases Intelligence by <%= int %>. Limited Edition Winter 2024-2025 Gear.",
   "weaponSpecialWinter2025MageText": "Northern Lights Display",
   "weaponSpecialWinter2025MageNotes": "This stunning, colorful show provides the perfect backdrop! You’ll be unstoppable! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition Winter 2024-2025 Gear.",
 
@@ -2189,7 +2189,7 @@
   "headSpecialWinter2025WarriorText": "Moose Warrior Helmet",
   "headSpecialWinter2025WarriorNotes": "So, get this: now you look just like a moose. Wear those antlers with pride. Increases Strength by <%= str %>. Limited Edition Winter 2024-2025 Gear.",
   "headSpecialWinter2025RogueText": "Snow Mask",
-  "headSpecialWinter2025RogueNotes": "There is definitely some magic in this hat, because it transforms you into snow person. Just don’t let the bunny get too close to your carrot nose. Increases Perception by <%= per %>. Limited Edition Winter 2024-2025 Gear.",
+  "headSpecialWinter2025RogueNotes": "There is definitely some magic in this hat, because it transforms you into a snow person. Just don’t let the bunny get too close to your carrot nose. Increases Perception by <%= per %>. Limited Edition Winter 2024-2025 Gear.",
   "headSpecialWinter2025HealerText": "Tangle of String Lights",
   "headSpecialWinter2025HealerNotes": "Don’t bother untangling these because they are already in the shape of a hat. Increases Intelligence by <%= int %>. Limited Edition Winter 2024-2025 Gear.",
   "headSpecialWinter2025MageText": "Aurora Hat",
