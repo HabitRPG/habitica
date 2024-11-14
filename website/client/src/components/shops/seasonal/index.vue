@@ -163,14 +163,7 @@
                   slot="itemBadge"
                   slot-scope="ctx"
                 >
-                  <span
-                    class="badge-top"
-                    @click.prevent.stop="togglePinned(ctx.item)"
-                  >
-                    <pin-badge
-                      :pinned="ctx.item.pinned"
-                    />
-                  </span>
+                  <category-item :item="ctx.item" />
                 </template>
               </shopItem>
             </div>
@@ -364,6 +357,7 @@ import svgRogue from '@/assets/svg/rogue.svg';
 import svgHealer from '@/assets/svg/healer.svg';
 
 import BuyQuestModal from '../quests/buyQuestModal.vue';
+import CategoryItem from '../market/categoryItem';
 import FilterGroup from '@/components/ui/filterGroup';
 import FilterSidebar from '@/components/ui/filterSidebar';
 import { worldStateMixin } from '@/mixins/worldState';
@@ -371,6 +365,7 @@ import { worldStateMixin } from '@/mixins/worldState';
 export default {
   components: {
     BuyQuestModal,
+    CategoryItem,
     FilterGroup,
     FilterSidebar,
     Checkbox,
