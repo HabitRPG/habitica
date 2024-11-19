@@ -117,7 +117,7 @@
     "paymentAutoRenew": "Esta suscripción se renovará automáticamente hasta que sea cancelada. Si necesitas cancelar está suscripción, puedes hacerlo desde tus Configuraciones.",
     "paymentCanceledDisputes": "Hemos enviado una confirmación de cancelación a tu correo electrónico. Si no ves el correo, por favor contáctanos para prevenir futuros problemas de facturación.",
     "cannotUnpinItem": "Este objeto no puede desanclarse.",
-    "paymentSubBillingWithMethod": "Tu suscripción será cobrada <strong>$<%= amount %></strong> cada <strong><%= months %> meses</strong> por medio de <strong><%= paymentMethod %></strong>.",
+    "paymentSubBillingWithMethod": "Tu suscripción se facturará <br><strong>$<%= amount %>.00 USD</strong> cada <strong><%= months %> meses</strong> a través de <strong><%= paymentMethod %></strong>",
     "invalidUnlockSet": "Este conjunto de artículos es inválido y no puede ser desbloqueado.",
     "nMonthsSubscriptionGift": "<%= nMonths %> mes(es) de suscripción (Regalo)",
     "nGemsGift": "<%= nGems %> Gemas (Regalo)",

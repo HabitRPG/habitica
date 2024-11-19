@@ -222,7 +222,7 @@
     "monthlyGems": "Gemmes Mensuelles :",
     "mysterySet202307": "Ensemble Kraken Périlleux",
     "mysterySet202305": "Ensemble Dragon du Crépuscule",
-    "mysterySet202309": "Ensemble de la Mite Comète Colossale",
+    "mysterySet202309": "Ensemble Colossal du Papillon Comète",
     "mysterySet202310": "Ensemble du Spectre de la Servante",
     "mysterySet202311": "Ensemble de l'Envoûteu·r·se Omniscient·e",
     "mysterySet202312": "Ensemble du Blues Hivernal",
@@ -236,5 +236,6 @@
     "mysterySet202408": "Ensemble Égide des Arcanes",
     "mysterySet202409": "Ensemble du Mage Héliotrope",
     "mysterySet202410": "Ensemble Renard Candy Corn",
-    "mysterySet202411": "Ensemble Bagarreu·r·se Hérissé·e"
+    "mysterySet202411": "Ensemble Bagarreu·r·se Hérissé·e",
+    "subscriptionChangeAnnouncement": "<strong>Les avantages liés aux abonnements et la façon dont ils sont envoyés changeront à partir du 19 Novembre.</strong> <%= linkStart %>Cliquez ici</a> pour en apprendre plus sur ces changements."
 }

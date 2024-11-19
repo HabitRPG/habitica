@@ -236,5 +236,6 @@
     "mysterySet202408": "Conjunto Égida Arcana",
     "mysterySet202409": "Conjunto de Mago Heliotropo de Jardín",
     "mysterySet202410": "Conjunto de Zorro Caramelo de Maíz",
-    "mysterySet202411": "Conjunto de Luchador Erizado"
+    "mysterySet202411": "Conjunto de Luchador Erizado",
+    "subscriptionChangeAnnouncement": "<strong>Los beneficios de suscriptor y la forma en que se envían cambiarán el 19 de Noviembre. </strong> <%= linkStart %>Pulsa aquí </a>para leer más acerca de este cambio."
 }

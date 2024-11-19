@@ -213,7 +213,7 @@
     "backgroundStormyRooftopsNotes": "Fırtınalı Çatıların üstünden süzül.",
     "backgroundWindyAutumnText": "Rüzgarlı Sonbahar",
     "backgroundWindyAutumnNotes": "Rüzgarlı Sonbaharda yaprakları kovala.",
-    "incentiveBackgrounds": "Sade Arka Plan Seti",
+    "incentiveBackgrounds": "Varsayılan Arka Planlar",
     "backgroundVioletText": "Eflatun",
     "backgroundVioletNotes": "Canlı eflatun bir arka plan.",
     "backgroundBlueText": "Mavi",
@@ -499,5 +499,15 @@
     "backgroundTeaPartyText": "Çay Partisi",
     "backgroundAmongGiantFlowersText": "Dev Çiçekler Arasında",
     "backgroundAmongGiantFlowersNotes": "Dev Çiçeklerin Arasında ve Üzerinde Oyalan.",
-    "backgroundButterflyGardenText": "Kelebek Bahçesi"
+    "backgroundButterflyGardenText": "Kelebek Bahçesi",
+    "backgroundTreehouseNotes": "Kendi ağaç evinde, tamamen kendine ait bir ağaçlık sığınakta vakit geçirebilirsin.",
+    "backgroundButterflyGardenNotes": "Kelebek bahçesinde polenatörlerle parti yap.",
+    "backgrounds042020": "SET 71: Nisan 2020'de yayınlandı",
+    "backgroundMonsterMakersWorkshopNotes": "Canavar Yapımcısının Atölyesi'nde itibarını yitirmiş bilimlerle deneyler yap.",
+    "backgroundSucculentGardenNotes": "Sukulent Bahçesi'nin (Etli Bitkiler) kurak güzelliğinin tadını çıkar.",
+    "backgroundFlyingInAThunderstormNotes": "Cesaret edebildiğin kadar gürültülü bir fırtınanın peşinden git.",
+    "backgroundFlyingInAThunderstormText": "Çalkantılı Fırtına",
+    "backgroundAnimalCloudsText": "Hayvan Şekilli Bulutlar",
+    "backgroundSucculentGardenText": "Sukulent Bahçesi (Etli Bitkiler)",
+    "backgroundAnimalCloudsNotes": "Bulutlardaki hayvan şekillerini bularak hayal gücünüzü çalıştırın."
 }

@@ -153,5 +153,17 @@
     "achievementPlantParentModalText": "Bitki evcil hayvanlarının hepsini topladın!",
     "achievementCatsModalText": "Tüm evcil kedileri topladın!",
     "achievementBonelessBossModalText": "Tüm omurgasız evcil hayvanları topladın!",
-    "achievementBonelessBoss": "Kemiksiz Patron"
+    "achievementBonelessBoss": "Kemiksiz Patron",
+    "achievementDuneBuddyModalText": "Tüm çöl sakinlerini topladın!",
+    "achievementRodentRuler": "Kemirgenlerin Efendisi",
+    "achievementRodentRulerText": "Tüm standart renklerdeki kemirgen evcil hayvanları yumurtadan çıkardı: Gine Domuzu, Sıçan ve Sincap!",
+    "achievementRodentRulerModalText": "Tüm kemirgen evcil hayvanları topladın!",
+    "achievementRoughRider": "Zorlu Sürücü",
+    "achievementRoughRiderText": "Tüm temel renklerde rahatsız evcil hayvanları ve binekleri yumurtadan çıkardı: Kaktüs, Kirpi ve Kaya!",
+    "achievementRoughRiderModalText": "Tüm temel renklerdeki rahatsız evcil hayvanları ve binekleri topladın!",
+    "achievementCats": "Kedi Çobanı",
+    "achievementCatsText": "Tüm standart renklerdeki kedi evcil hayvanlarını yumurtadan çıkardı: Çita, Aslan, Kılıç Dişli Kaplan ve Kaplan!",
+    "achievementBonelessBossText": "Tüm standart renklerde omurgasız evcil hayvanları yumurtadan çıkardı: Böcek, Kelebek, Mürekkep Balığı, Deniz Tavşanı, Ahtapot, Salyangoz ve Örümcek!",
+    "achievementDuneBuddy": "Kum Arkadaşı",
+    "achievementDuneBuddyText": "Tüm standart çöl sakinleri renklerini yumurtadan çıkardı: Armadillo, Kaktüs, Tilki, Kurbağa, Yılan ve Örümcek!"
 }

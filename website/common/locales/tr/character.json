@@ -185,5 +185,11 @@
     "purchasePetItemConfirm": "Bu satın alma, tüm olası <%= itemText %> evcil hayvanlarını yumurtadan çıkarmak için ihtiyacınız olan eşya sayısını aşacaktır. Emin misiniz?",
     "notEnoughGold": "Yeterince altın yok.",
     "chatCastSpellPartyTimes": "<%= username %> <%= times %> defa takıma <%= spell %> büyüsü yaptı.",
-    "chatCastSpellUserTimes": "<%= username %> <%= times %> defa <%= spell %> adlı büyüyü <%= target %>'a yaptı."
+    "chatCastSpellUserTimes": "<%= username %> <%= times %> defa <%= spell %> adlı büyüyü <%= target %>'a yaptı.",
+    "skins": "Kostümler",
+    "titleFacialHair": "Sakal",
+    "titleHaircolor": "Saç Renkleri",
+    "titleHairbase": "Saç Stilleri",
+    "customizations": "Özelleştirmeler",
+    "nextReward": "Sonraki Giriş Ödülü"
 }

@@ -96,5 +96,17 @@
     "yourReward": "Ödülün",
     "filters": "Filtreler",
     "wonChallengeDesc": "<%= challengeName %> seni kazanan olarak belirledi! Kazanışın, Başarılarına kaydedildi.",
-    "removeTasks": "Görevleri Kaldır"
+    "removeTasks": "Görevleri Kaldır",
+    "whyReportingChallenge": "Bu Mücadeleyi neden bildiriyorsunuz?",
+    "whyReportingChallengePlaceholder": "Raporlama nedeni",
+    "messageChallengeFlagOfficial": "Resmi Meydan Okumalar bildirilemez.",
+    "cannotClose": "Bu Meydan Okuma, bir veya daha fazla oyuncu tarafından uygunsuz olarak bildirildiği için kapatılamaz. Bir ekip üyesi size kısa süre içinde talimatlarla ulaşacaktır. Eğer 48 saatten fazla süre geçtiyse ve onlardan haber almadıysanız, yardım için admin@habitica.com adresine e-posta gönderin.",
+    "cannotClone": "Bu Meydan Okuma, bir veya daha fazla oyuncu tarafından uygunsuz olarak bildirildiği için kopyalanamaz. Bir ekip üyesi size kısa süre içinde talimatlarla ulaşacaktır. Eğer 48 saatten fazla süre geçtiyse ve onlardan haber almadıysanız, yardım için admin@habitica.com adresine e-posta gönderin.",
+    "cannotMakeChallenge": "Hesabınız şu anda sohbet ayrıcalıklarına sahip olmadığı için herkese açık Meydan Okumalar oluşturamazsınız. Daha fazla bilgi için lütfen admin@habitica.com adresine başvurun.",
+    "messageChallengeFlagAlreadyReported": "Bu Meydan Okuma’yı zaten bildirdiniz.",
+    "flaggedNotHidden": "Meydan Okuma bir kez işaretlendi, gizlenmedi.",
+    "flaggedAndHidden": "Meydan Okuma işaretlendi ve gizlendi.",
+    "resetFlagCount": "Bayrak Sayısını Sıfırla",
+    "abuseFlagModalBodyChallenge": "Bir Meydan Okuma'yı yalnızca <%= firstLinkStart %>Topluluk Kuralları<%= linkEnd %> ve/veya <%= secondLinkStart %>Hizmet Şartları<%= linkEnd %>nı ihlal ettiğinde bildirmelisiniz. Yanlış bir rapor göndermek, Habitica'nın Topluluk Kuralları’nın ihlalidir.",
+    "resetFlags": "Bayrakları Sıfırla"
 }

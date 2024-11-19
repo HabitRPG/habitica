@@ -2714,7 +2714,7 @@
     "shieldSpecialFall2022WarriorNotes": "DES BONBONS OU DES GROAR ! Augmente la constitution de <%= con %>. Objet en édition limitée de l'automne 2022.",
     "shieldSpecialFall2022HealerText": "Œil gauche du voyeur",
     "shieldSpecialFall2022HealerNotes": "Deuxième œil, regardez ce costume et tremblez. Augmente la constitution de <%= con %>. Objet en édition limitée de l'automne 2022.",
-    "eyewearArmoireJewelersEyeLoupeNotes": "Cette loupe oculaire magnifie ce sur quoi vous travaillez pour que vous puissiez en voir tous les détails. Augmente la perception de <%= per %>. Armoire enchantée : ensemble de bijouterie (objet 2 de 4).",
+    "eyewearArmoireJewelersEyeLoupeNotes": "Cette loupe oculaire grossit ce sur quoi vous travaillez pour que vous puissiez en voir tous les détails. Augmente la perception de <%= per %>. Armoire enchantée : ensemble de bijouterie (objet 2 sur 4).",
     "eyewearArmoireTragedyMaskNotes": "Hélas ! Voici un lourd masque pour ton pauvre avatar, qui se pavane, s'agite et exprime le malheur et la tristesse sur la scène. Augmente l'intelligence de <%= int %>. Armoire enchantée : ensemble de masques de théâtre (objet 2 de 2).",
     "eyewearArmoireJewelersEyeLoupeText": "Loupe oculaire de joaillerie",
     "headSpecialWinter2023RogueNotes": "Les tentations des gens de vous \"déballer\" les cheveux vous donneront des occasions de pratiquer vos esquives. Augmente la perception de <%= per %>. Équipement en édition limitée de l'hiver 2022-2023.",
