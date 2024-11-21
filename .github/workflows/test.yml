@@ -135,6 +135,7 @@ jobs:
     strategy:
       matrix:
         node-version: [21.x]
+        mongodb-version: [7.0]
     steps:
     - uses: actions/checkout@v4
       with:
@@ -143,6 +144,12 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
+
+    - name: Start MongoDB ${{ matrix.mongodb-version }} Replica Set
+      uses: supercharge/mongodb-github-action@1.3.0
+      with:
+        mongodb-version: ${{ matrix.mongodb-version }}
+        mongodb-replica-set: rs
 
     - run: sudo apt update
     - run: sudo apt -y install libkrb5-dev
@@ -154,18 +161,18 @@ jobs:
         CI: true
         NODE_ENV: test
 
-    - run: npm run mongo:dev -- -d
+    #- run: npm run mongo:dev -- -d
     - run: npm run test:api:unit
       env:
         REQUIRES_SERVER=true: true
 
-    - run: npm run mongo:dev:down
+    #- run: npm run mongo:dev:down
   api-v3-integration:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [21.x]
-
+        mongodb-version: [7.0]
     steps:
     - uses: actions/checkout@v4
       with:
@@ -174,6 +181,11 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
+    - name: Start MongoDB ${{ matrix.mongodb-version }} Replica Set
+      uses: supercharge/mongodb-github-action@1.3.0
+      with:
+        mongodb-version: ${{ matrix.mongodb-version }}
+        mongodb-replica-set: rs
 
     - run: sudo apt update
     - run: sudo apt -y install libkrb5-dev
@@ -185,17 +197,18 @@ jobs:
         CI: true
         NODE_ENV: test
 
-    - run: npm run mongo:dev -- -d
+    #- run: npm run mongo:dev -- -d
     - run: npm run test:api-v3:integration
       env:
         REQUIRES_SERVER=true: true
 
-    - run: npm run mongo:dev:down
+    #- run: npm run mongo:dev:down
   api-v4-integration:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [21.x]
+        mongodb-version: [7.0]
 
     steps:
     - uses: actions/checkout@v4
@@ -205,6 +218,11 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
+    - name: Start MongoDB ${{ matrix.mongodb-version }} Replica Set
+      uses: supercharge/mongodb-github-action@1.3.0
+      with:
+        mongodb-version: ${{ matrix.mongodb-version }}
+        mongodb-replica-set: rs
 
     - run: sudo apt update
     - run: sudo apt -y install libkrb5-dev
@@ -215,13 +233,13 @@ jobs:
       env:
         CI: true
         NODE_ENV: test
-    - run: npm run mongo:dev -- -d
+    #- run: npm run mongo:dev -- -d
     - run: npm run test:api-v4:integration
       env:
         REQUIRES_SERVER=true: true
 
 
-    - run: npm run mongo:dev:down
+    #- run: npm run mongo:dev:down
   client-unit:
     runs-on: ubuntu-latest
     strategy:
