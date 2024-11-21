@@ -34,7 +34,7 @@ services:
       - .:/usr/src/habitica
       - /usr/src/habitica/node_modules
   mongo:
-    image: mongo:5.0.23
+    image: mongo:7.0
     restart: unless-stopped
     command: ["--replSet", "rs", "--bind_ip_all", "--port", "27017"]
     healthcheck:
