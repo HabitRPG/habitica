@@ -135,10 +135,9 @@ jobs:
     strategy:
       matrix:
         node-version: [21.x]
-        mongodb-version: [7.0]
     services:
       mongodb:
-        image: mongo:{{ matrix.mongodb-version }}
+        image: mongo:7.0
         ports:
           - 27017:27017
         options: >-
@@ -169,10 +168,9 @@ jobs:
     strategy:
       matrix:
         node-version: [21.x]
-        mongodb-version: [7.0]
     services:
       mongodb:
-        image: mongo:{{ matrix.mongodb-version }}
+        image: mongo:7.0
         ports:
           - 27017:27017
         options: >-
@@ -203,10 +201,9 @@ jobs:
     strategy:
       matrix:
         node-version: [21.x]
-        mongodb-version: [7.0]
     services:
       mongodb:
-        image: mongo:{{ matrix.mongodb-version }}
+        image: mongo:7.0
         ports:
           - 27017:27017
         options: >-
