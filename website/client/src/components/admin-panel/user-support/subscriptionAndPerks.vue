@@ -90,6 +90,11 @@
                 <strong class="input-group-text">
                   {{ dateFormat(hero.purchased.plan.dateTerminated) }}
                 </strong>
+                <a class="btn btn-danger"
+                  @click="terminateSubscription"
+                  v-if="!hero.purchased.plan.dateTerminated">
+                  Terminate
+              </a>
               </div>
             </div>
             <small v-if="!hero.purchased.plan.dateTerminated" class="text-success">
@@ -110,7 +115,7 @@
               step="1"
             >
             <small class="text-secondary">
-              Cumulative subscribed months acress subscription periods.
+              Cumulative subscribed months across subscription periods.
             </small>
           </div>
         </div>
@@ -119,15 +124,24 @@
             Extra months:
           </label>
           <div class="col-sm-9">
-            <input
-              v-model="hero.purchased.plan.extraMonths"
-              class="form-control"
-              type="number"
-              min="0"
-              step="1"
-            >
+            <div class="input-group">
+              <input
+                v-model="hero.purchased.plan.extraMonths"
+                class="form-control"
+                type="number"
+                min="0"
+                step="1"
+              >
+              <div class="input-group-append">
+                <a class="btn btn-warning"
+                  @click="applyExtraMonths"
+                  v-if="hero.purchased.plan.dateTerminated && hero.purchased.plan.extraMonths > 0">
+                  Apply Credit
+              </a>
+              </div>
+            </div>
             <small class="text-secondary">
-              Extra banked months that are applied if a subscription is cancelled.
+              Additional credit that is applied if a subscription is cancelled.
             </small>
           </div>
         </div>
@@ -201,10 +215,6 @@
               step="1"
             >
           </div>
-        </div>
-        <div v-if="hero.purchased.plan.extraMonths > 0">
-          Additional credit (applied upon cancellation):
-          <strong>{{ hero.purchased.plan.extraMonths }}</strong>
         </div>
         <div class="form-group row">
           <label class="col-sm-3 col-form-label">
@@ -290,6 +300,19 @@ export default {
         return '--';
       }
       return moment(date).format('YYYY/MM/DD');
+    },
+    terminateSubscription () {
+      if (window.confirm('Terminate subscription with the current date? Any extra months will be applied.')) {
+        this.hero.purchased.plan.dateTerminated = moment(new Date());
+        this.applyExtraMonths();
+      }
+    },
+    applyExtraMonths () {
+      if (this.hero.purchased.plan.extraMonths > 0) {
+        const date = moment(this.hero.purchased.plan.dateTerminated || new Date());
+        this.hero.purchased.plan.dateTerminated = date.add(this.hero.purchased.plan.extraMonths, 'months');
+        this.hero.purchased.plan.extraMonths = 0;
+      }
     },
   },
 };
