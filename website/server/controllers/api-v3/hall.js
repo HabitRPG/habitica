@@ -314,6 +314,9 @@ api.updateHero = {
       if (plan.cumulativeCount) {
         hero.purchased.plan.cumulativeCount = plan.cumulativeCount;
       }
+      if (plan.extraMonths) {
+        hero.purchased.plan.extraMonths = plan.extraMonths;
+      }
     }
 
     if (updateData.stats) {
@@ -349,6 +352,9 @@ api.updateHero = {
       }
       if (updateData.stats.buffs) {
         hero.stats.buffs = updateData.stats.buffs;
+      }
+      if (updateData.stats.class) {
+        hero.stats.class = updateData.stats.class;
       }
     }
 

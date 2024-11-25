@@ -92,6 +92,9 @@
                 </strong>
               </div>
             </div>
+            <small v-if="!hero.purchased.plan.dateTerminated" class="text-success">
+              The subscription does not have a termination date and is active.
+            </small>
           </div>
         </div>
         <div class="form-group row">
@@ -106,6 +109,26 @@
               min="0"
               step="1"
             >
+            <small class="text-secondary">
+              Cumulative subscribed months acress subscription periods.
+            </small>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">
+            Extra months:
+          </label>
+          <div class="col-sm-9">
+            <input
+              v-model="hero.purchased.plan.extraMonths"
+              class="form-control"
+              type="number"
+              min="0"
+              step="1"
+            >
+            <small class="text-secondary">
+              Extra banked months that are applied if a subscription is cancelled.
+            </small>
           </div>
         </div>
         <div class="form-group row">

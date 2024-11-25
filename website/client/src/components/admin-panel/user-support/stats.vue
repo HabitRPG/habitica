@@ -42,6 +42,23 @@
           min="0"
           :max="maxFieldHardCap"
           v-model="hero.stats.gp" />
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">Selected Class</label>
+          <div class="col-sm-9">
+            <select
+                id="selectedClass"
+                v-model="hero.stats.class"
+                class="form-control"
+                :disabled="hero.stats.lvl < 10"
+              >
+                <option value="warrior">Warrior</option>
+                <option value="wizard">Mage</option>
+                <option value="healer">Healer</option>
+                <option value="rogue">Rogue</option>
+              </select>
+          </div>
+        </div>
+
         <h3>Stat Points</h3>
         <stats-row
           label="Unallocated"
@@ -77,11 +94,22 @@
           :max="maxStatPoints"
           step="1"
           v-model="hero.stats.con" />
+        <div class="form-group row">
+          <div class="offset-sm-3 col-sm-9">
+            <button
+              type="button"
+              class="btn btn-warning btn-sm"
+              @click="deallocateStatPoints">
+              Deallocate all stat points
+            </button>
+          </div>
+        </div>
         <div class="form-group row" v-if="statPointsIncorrect">
-          <div class="offset-sm-3 col-sm-9 red-label">
+          <div class="offset-sm-3 col-sm-9 text-danger">
             Error: Sum of stat points should equal the users level
           </div>
         </div>
+
         <h3>Buffs</h3>
         <stats-row
           label="Strength"
@@ -174,12 +202,15 @@ export default {
   computed: {
     ...mapState({ user: 'user.data' }),
     statPointsIncorrect () {
-      return (parseInt(this.hero.stats.points, 10)
-        + parseInt(this.hero.stats.str, 10)
-        + parseInt(this.hero.stats.int, 10)
-        + parseInt(this.hero.stats.per, 10)
-        + parseInt(this.hero.stats.con, 10)
-      ) !== this.hero.stats.lvl;
+      if (this.hero.stats.lvl >= 10) {
+        return (parseInt(this.hero.stats.points, 10)
+          + parseInt(this.hero.stats.str, 10)
+          + parseInt(this.hero.stats.int, 10)
+          + parseInt(this.hero.stats.per, 10)
+          + parseInt(this.hero.stats.con, 10)
+        ) !== this.hero.stats.lvl;
+      }
+      return false;
     },
   },
   props: {
@@ -229,6 +260,13 @@ export default {
         per: 0,
         con: 0,
       };
+    },
+    deallocateStatPoints () {
+      this.hero.stats.points = this.hero.stats.lvl;
+      this.hero.stats.str = 0;
+      this.hero.stats.int = 0;
+      this.hero.stats.per = 0;
+      this.hero.stats.con = 0;
     },
   },
 };
