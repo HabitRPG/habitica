@@ -107,7 +107,7 @@
                 </td>
                 <td>{{ entry.client }}</td>
                 <td>{{ entry.quest }}</td>
-                <td>{{ entry.response }}</td>
+                <td>{{ questInviteResponseText(entry.response) }}</td>
               </tr>
             </table>
           </div>
@@ -230,6 +230,18 @@ export default {
       this.armoire = history.armoire;
       this.questInviteResponses = history.questInviteResponses;
       this.cron = history.cron;
+    },
+    questInviteResponseText (response) {
+      if (response === 'accept') {
+        return 'Accepted';
+      }
+      if (response === 'reject') {
+        return 'Rejected';
+      }
+      if (response === 'invite') {
+        return 'Accepted as owner';
+      }
+      return 'Unknown';
     },
   },
 };

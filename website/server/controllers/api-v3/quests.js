@@ -173,6 +173,10 @@ api.inviteToQuest = {
       uuid: user._id,
       headers: req.headers,
     });
+
+    await UserHistory.beginUserHistoryUpdate(user._id, req.headers)
+      .withQuestInviteResponse(group.quest.key, 'invite')
+      .commit();
   },
 };
 
