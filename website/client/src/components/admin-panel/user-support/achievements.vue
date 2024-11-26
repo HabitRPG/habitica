@@ -194,7 +194,7 @@ export default {
       integerTypes: ['streak', 'perfect', 'birthday', 'habiticaDays', 'habitSurveys', 'habitBirthdays',
         'valentine', 'congrats', 'shinySeed', 'goodluck', 'thankyou', 'seafoam', 'snowball', 'quests',
         'rebirths', 'rebirthLevel', 'greeting', 'spookySparkles', 'nye', 'costumeContests', 'congrats',
-        'getwell',
+        'getwell', 'beastMasterCount', 'mountMasterCount', 'triadBingoCount',
       ],
       cardTypes: ['greeting', 'birthday', 'valentine', 'goodluck', 'thankyou', 'greeting', 'nye',
         'congrats', 'getwell'],
