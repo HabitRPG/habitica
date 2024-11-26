@@ -131,6 +131,7 @@
                 class="form-control"
                 type="number"
                 min="0"
+                step="any"
               >
               <div class="input-group-append">
                 <a class="btn btn-warning"
