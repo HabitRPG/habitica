@@ -31,22 +31,38 @@
           v-html="questErrors"
         ></p>
       </div>
-
-      <div>
-        Party:
-        <span v-if="userHasParty">
-          yes: party ID {{ groupPartyData._id }},
-          member count {{ groupPartyData.memberCount }} (may be wrong)
-          <br>
+      <div v-if="userHasParty">
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label">
+          Party ID
+        </label>
+        <strong class="col-sm-9 col-form-label">
+          {{ groupPartyData._id }}
+        </strong>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label">
+          Estimated Member Count
+        </label>
+        <strong class="col-sm-9 col-form-label">
+          {{ groupPartyData.memberCount }}
+        </strong>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label">
+          Leader
+        </label>
+        <strong class="col-sm-9 col-form-label">
           <span v-if="userIsPartyLeader">User is the party leader</span>
           <span v-else>Party leader is
             <router-link :to="{'name': 'userProfile', 'params': {'userId': groupPartyData.leader}}">
               {{ groupPartyData.leader }}
             </router-link>
           </span>
-        </span>
-        <span v-else>no</span>
+        </strong>
       </div>
+      </div>
+      <strong v-else>User is not in a party.</strong>
       <div class="subsection-start">
         <p v-html="questStatus"></p>
       </div>
