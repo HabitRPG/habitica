@@ -46,7 +46,7 @@
                     :
                     <span :class="{ ownedItem: !item.neverOwned }">{{ item.text }}</span>
                   </span>
-                  {{ item.set }}
+                  - {{ itemType }}.{{item.key}} - <i> {{ item.set }}</i>
 
                   <div
                     v-if="item.modified"

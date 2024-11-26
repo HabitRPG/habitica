@@ -91,6 +91,7 @@
                   {{ dateFormat(hero.purchased.plan.dateTerminated) }}
                 </strong>
                 <a class="btn btn-danger"
+              href="#"
                   @click="terminateSubscription"
                   v-if="!hero.purchased.plan.dateTerminated">
                   Terminate

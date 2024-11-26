@@ -56,6 +56,9 @@
                 <option value="healer">Healer</option>
                 <option value="rogue">Rogue</option>
               </select>
+            <small>
+              When changing class, players usually need stat points deallocated as well.
+            </small>
           </div>
         </div>
 
