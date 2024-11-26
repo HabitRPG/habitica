@@ -130,7 +130,6 @@
                 class="form-control"
                 type="number"
                 min="0"
-                step="1"
               >
               <div class="input-group-append">
                 <a class="btn btn-warning"
@@ -310,7 +309,9 @@ export default {
     applyExtraMonths () {
       if (this.hero.purchased.plan.extraMonths > 0) {
         const date = moment(this.hero.purchased.plan.dateTerminated || new Date());
-        this.hero.purchased.plan.dateTerminated = date.add(this.hero.purchased.plan.extraMonths, 'months');
+        const extraMonths = Math.max(this.hero.purchased.plan.extraMonths, 0);
+        const extraDays = Math.ceil(30.5 * extraMonths);
+        this.hero.purchased.plan.dateTerminated = date.add(extraDays, 'days');
         this.hero.purchased.plan.extraMonths = 0;
       }
     },
