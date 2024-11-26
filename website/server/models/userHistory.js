@@ -1,8 +1,11 @@
+import nconf from 'nconf';
 import mongoose from 'mongoose';
 import validator from 'validator';
 import baseModel from '../libs/baseModel';
 
 const { Schema } = mongoose;
+
+const userHistoryLength = nconf.get('USER_HISTORY_LENGTH') || 20;
 
 export const schema = new Schema({
   userId: {
@@ -62,21 +65,21 @@ const commitUserHistoryUpdate = function commitUserHistoryUpdate (update) {
     data.$push.armoire = {
       $each: update.data.armoire,
       $sort: { timestamp: -1 },
-      $slice: 10,
+      $slice: userHistoryLength,
     };
   }
   if (update.data.questInviteResponses.length) {
     data.$push.questInviteResponses = {
       $each: update.data.questInviteResponses,
       $sort: { timestamp: -1 },
-      $slice: 10,
+      $slice: userHistoryLength,
     };
   }
   if (update.data.cron.length > 0) {
     data.$push.cron = {
       $each: update.data.cron,
       $sort: { timestamp: -1 },
-      $slice: 10,
+      $slice: userHistoryLength,
     };
   }
   return model.updateOne(
