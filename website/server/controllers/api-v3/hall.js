@@ -317,6 +317,18 @@ api.updateHero = {
       if (plan.extraMonths) {
         hero.purchased.plan.extraMonths = plan.extraMonths;
       }
+      if (plan.customerId) {
+        hero.purchased.plan.customerId = plan.customerId;
+      }
+      if (plan.paymentMethod) {
+        hero.purchased.plan.paymentMethod = plan.paymentMethod;
+      }
+      if (plan.planId) {
+        hero.purchased.plan.planId = plan.planId;
+      }
+      if (plan.owner) {
+        hero.purchased.plan.owner = plan.owner;
+      }
     }
 
     if (updateData.stats) {

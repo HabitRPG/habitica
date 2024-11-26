@@ -6,11 +6,11 @@
     }, msg: 'Subscription Perks' })"
   >
     <div class="card mt-2">
-      <div class="card-header">
+      <div class="card-header"
+          @click="expand = !expand">
         <h3
           class="mb-0 mt-0"
           :class="{ 'open': expand }"
-          @click="expand = !expand"
         >
           Subscription, Monthly Perks
         </h3>
@@ -19,17 +19,74 @@
         v-if="expand"
         class="card-body"
       >
-        <div v-if="hero.purchased.plan.paymentMethod">
-          Payment method:
-          <strong>{{ hero.purchased.plan.paymentMethod }}</strong>
+      <div v-if="hero.purchased.plan.paymentMethod"
+          class="form-group row"
+        >
+          <label class="col-sm-3 col-form-label">
+            Payment method:
+          </label>
+          <div class="col-sm-9">
+            <input v-model="hero.purchased.plan.paymentMethod"
+              class="form-control"
+              type="text"
+              v-if="!isRegularPaymentMethod"
+            >
+              <select
+              v-else
+                v-model="hero.purchased.plan.paymentMethod"
+                class="form-control"
+                type="text"
+              >
+                <option value="Group Plan">Group Plan</option>
+                <option value="Stripe">Stripe</option>
+                <option value="Apple">Apple</option>
+                <option value="Google">Google</option>
+                <option value="Amazon Payments">Amazon</option>
+                <option value="PayPal">PayPal</option>
+                <option value="Gift">Gift</option>
+              </select>
+          </div>
         </div>
-        <div v-if="hero.purchased.plan.planId">
-          Payment schedule ("basic-earned" is monthly):
-          <strong>{{ hero.purchased.plan.planId }}</strong>
+        <div v-if="hero.purchased.plan.planId"
+          class="form-group row"
+        >
+          <label class="col-sm-3 col-form-label">
+            Payment schedule:
+          </label>
+          <div class="col-sm-9">
+            <input v-model="hero.purchased.plan.planId"
+              class="form-control"
+              type="text"
+              v-if="!isRegularPlanId"
+            >
+              <select
+              v-else
+                v-model="hero.purchased.plan.planId"
+                class="form-control"
+                type="text"
+              >
+                <option value="basic_earned">Monthly recurring</option>
+                <option value="basic_3mo">3 Months recurring</option>
+                <option value="basic_6mo">6 Months recurring</option>
+                <option value="basic_12mo">12 Months recurring</option>
+                <option value="group_monthly">Group Plan (legacy)</option>
+                <option value="group_plan_auto">Group Plan (auto)</option>
+              </select>
+          </div>
         </div>
-        <div v-if="hero.purchased.plan.planId == 'group_plan_auto'">
-          Group plan ID:
-          <strong>{{ hero.purchased.plan.owner }}</strong>
+        <div v-if="hero.purchased.plan.customerId"
+          class="form-group row"
+        >
+          <label class="col-sm-3 col-form-label">
+            Customer ID:
+          </label>
+          <div class="col-sm-9">
+              <input
+                v-model="hero.purchased.plan.customerId"
+                class="form-control"
+                type="text"
+              >
+          </div>
         </div>
         <div
           v-if="hero.purchased.plan.dateCreated"
@@ -238,6 +295,30 @@
             </span>
           </div>
         </div>
+        <div class="form-group row"
+              v-if="!isConvertingToGroupPlan && hero.purchased.plan.planId !== 'group_plan_auto'">
+          <div class="offset-sm-3 col-sm-9">
+            <button
+              type="button"
+              class="btn btn-secondary btn-sm"
+              @click="beginGroupPlanConvert">
+              Begin converting to group plan subscription
+            </button>
+          </div>
+        </div>
+        <div class="form-group row"
+          v-if="isConvertingToGroupPlan || hero.purchased.plan.owner">
+          <label class="col-sm-3 col-form-label">
+            Group Plan group ID:
+          </label>
+          <div class="col-sm-9">
+            <input
+              v-model="hero.purchased.plan.owner"
+              class="form-control"
+              type="text"
+            >
+          </div>
+        </div>
       </div>
       <div
         v-if="expand"
@@ -247,6 +328,7 @@
           type="submit"
           value="Save"
           class="btn btn-primary mt-1"
+          @click="saveClicked"
         >
       </div>
     </div>
@@ -270,9 +352,11 @@
 </style>
 
 <script>
+import isUUID from 'validator/es/lib/isUUID';
 import moment from 'moment';
 import { getPlanContext } from '@/../../common/script/cron';
 import saveHero from '../mixins/saveHero';
+import subscriptionBlocks from '../../../../../common/script/content/subscriptionBlocks';
 
 export default {
   mixins: [saveHero],
@@ -285,6 +369,8 @@ export default {
   data () {
     return {
       expand: false,
+      isConvertingToGroupPlan: false,
+      subscriptionBlocks,
     };
   },
   computed: {
@@ -293,6 +379,20 @@ export default {
 
       if (!currentPlanContext.nextHourglassDate) return 'N/A';
       return currentPlanContext.nextHourglassDate.format('MMMM YYYY');
+    },
+    isRegularPlanId () {
+      return this.subscriptionBlocks[this.hero.purchased.plan.planId] !== undefined;
+    },
+    isRegularPaymentMethod () {
+      return [
+        'Group Plan',
+        'Stripe',
+        'Apple',
+        'Google',
+        'Amazon Payments',
+        'PayPal',
+        'Gift',
+      ].includes(this.hero.purchased.plan.paymentMethod);
     },
   },
   methods: {
@@ -316,6 +416,28 @@ export default {
         this.hero.purchased.plan.dateTerminated = date.add(extraDays, 'days');
         this.hero.purchased.plan.extraMonths = 0;
       }
+    },
+    beginGroupPlanConvert () {
+      this.isConvertingToGroupPlan = true;
+    },
+    saveClicked (e) {
+      e.preventDefault();
+      if (this.isConvertingToGroupPlan) {
+        if (!isUUID(this.hero.purchased.plan.owner)) {
+          alert('Invalid group ID');
+          return;
+        }
+        const plan = this.hero.purchased.plan;
+        if (!plan.dateCreated) {
+          plan.dateCreated = new Date();
+        }
+        plan.dateCurrentTypeCreated = new Date();
+        plan.customerId = 'group-plan';
+        plan.paymentMethod = 'Group Plan';
+        plan.planId = 'group_plan_auto';
+        plan.dateTerminated = null;
+      }
+      this.saveHero({ hero: this.hero, msg: 'Subscription Perks' });
     },
   },
 };
