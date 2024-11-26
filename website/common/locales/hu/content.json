@@ -212,7 +212,6 @@
     "hatchingPotionFrost": "Jég",
     "hatchingPotionIcySnow": "Jeges hó",
     "hatchingPotionNotes": "Öntsd ezt egy tojásra, és egy <%= potText(locale) %> kisállat fog belőle kikelni.",
-    "premiumPotionAddlNotes": "Nem használható küldetésben szerzett tojásokhoz.",
     "foodMeat": "Hús",
     "foodMeatThe": "a hús",
     "foodMeatA": "Hús",
@@ -389,5 +388,8 @@
     "foodPieDesertThe": "a sivatagi desszert pite",
     "foodPieGoldenA": "egy szelet aranyló banánkrémes pite",
     "foodPieBaseThe": "a szimpla almás pite",
-    "foodPieZombie": "Romlott pite"
+    "foodPieZombie": "Romlott pite",
+    "questEggDogMountText": "Kutya",
+    "questEggDogAdjective": "egy barátságos",
+    "questEggDogText": "Kiskutya"
 }

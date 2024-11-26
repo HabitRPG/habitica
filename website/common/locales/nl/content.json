@@ -212,7 +212,6 @@
     "hatchingPotionFrost": "Bevroren",
     "hatchingPotionIcySnow": "IJzige Sneeuw",
     "hatchingPotionNotes": "Gebruik dit op een ei, en er zal een <%= potText(locale) %> huisdier uitkomen.",
-    "premiumPotionAddlNotes": "Kan niet gebruikt worden op eieren van queeste-huisdieren. Te koop tot <%= date(locale) %>.",
     "foodMeat": "Vlees",
     "foodMeatThe": "het Vlees",
     "foodMeatA": "Vlees",
@@ -371,5 +370,6 @@
     "hatchingPotionSolarSystem": "Zonnestelsel",
     "hatchingPotionMoonglow": "Maangloei",
     "hatchingPotionOnyx": "Onyx",
-    "hatchingPotionVirtualPet": "Virtuele Huisdier"
+    "hatchingPotionVirtualPet": "Virtuele Huisdier",
+    "questEggGiraffeText": "Giraffe"
 }

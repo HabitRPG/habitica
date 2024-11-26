@@ -212,7 +212,6 @@
     "hatchingPotionFrost": "du gel",
     "hatchingPotionIcySnow": "de neige verglacée",
     "hatchingPotionNotes": "Versez-la sur un œuf et il en sortira un Familier <%= potText(locale) %>.",
-    "premiumPotionAddlNotes": "N'est pas utilisable sur les œufs de quête. Disponible à l'achat jusqu'au <%= date(locale) %>.",
     "foodMeat": "Côtelette",
     "foodMeatThe": "la côtelette",
     "foodMeatA": "une côtelette",
@@ -387,7 +386,10 @@
     "questEggCrabText": "Crabe",
     "questEggCrabMountText": "Crabe",
     "questEggCrabAdjective": "bouineux",
-    "questEggRaccoonText": "Raton Laveur",
-    "questEggRaccoonMountText": "Raton Laveur",
-    "questEggRaccoonAdjective": "vorace"
+    "questEggRaccoonText": "Raton laveur",
+    "questEggRaccoonMountText": "Raton laveur",
+    "questEggRaccoonAdjective": "un affamé",
+    "questEggDogText": "Chiot",
+    "questEggDogMountText": "Chien",
+    "questEggDogAdjective": "amical"
 }

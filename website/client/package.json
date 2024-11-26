@@ -40,7 +40,6 @@
     "sass": "^1.63.4",
     "sass-loader": "^14.1.1",
     "sinon": "^17.0.1",
-    "smartbanner.js": "^1.19.3",
     "stopword": "^2.0.8",
     "timers-browserify": "^2.0.12",
     "uuid": "^9.0.1",

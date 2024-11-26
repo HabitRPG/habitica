@@ -498,6 +498,14 @@ const armor = {
     str: 15,
     set: 'funnyFoolSet',
   },
+  stormKnightArmor: {
+    per: 11,
+    set: 'stormKnightSet',
+  },
+  festiveHelperOveralls: {
+    con: 12,
+    set: 'festiveHelperSet',
+  },
 };
 
 const body = {
@@ -1019,6 +1027,14 @@ const head = {
     con: 15,
     set: 'funnyFoolSet',
   },
+  stormKnightHelm: {
+    con: 11,
+    set: 'stormKnightSet',
+  },
+  festiveHelperHat: {
+    int: 12,
+    set: 'festiveHelperSet',
+  },
 };
 
 const shield = {
@@ -1369,6 +1385,10 @@ const shield = {
   buoyantBeachBall: {
     str: 12,
     set: 'beachsideSet',
+  },
+  safetyFlashlight: {
+    con: 10,
+    set: 'frightNightSet',
   },
 };
 
@@ -1868,6 +1888,14 @@ const weapon = {
     con: 15,
     str: 15,
     set: 'funnyFoolSet',
+  },
+  spookyCandyBucket: {
+    int: 10,
+    set: 'frightNightSet',
+  },
+  stormKnightAxe: {
+    str: 11,
+    set: 'stormKnightSet',
   },
 };
 

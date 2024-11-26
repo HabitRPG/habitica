@@ -632,6 +632,15 @@ const backgrounds = {
   backgrounds092024: {
     magic_door_in_forest: { },
   },
+  backgrounds102024: {
+    surrounded_by_ghosts: { },
+  },
+  backgrounds112024: {
+    castle_hall_with_hearth: { },
+  },
+  backgrounds122024: {
+    first_snow_forest: { },
+  },
   eventBackgrounds: {
     birthday_bash: {
       price: 0,

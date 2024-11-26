@@ -95,7 +95,10 @@ export async function applyGemPayment (session) {
   };
 
   if (gift) {
-    if (gift.type === 'subscription') method = 'createSubscription';
+    if (gift.type === 'subscription') {
+      method = 'createSubscription';
+      data.autoRenews = false;
+    }
     data.paymentMethod = 'Gift';
 
     const member = await User.findById(gift.uuid).exec();

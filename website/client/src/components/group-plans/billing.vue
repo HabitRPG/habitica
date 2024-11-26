@@ -27,13 +27,13 @@
           </td>
         </tr>
         <tr
-          v-if="group.purchased.plan.consecutive.count || group.purchased.plan.consecutive.offset"
+          v-if="group.purchased.plan.consecutive.count"
         >
           <td>
             <span class="glyphicon glyphicon-forward"></span>
             {{ $t('consecutiveSubscription') }}
             <ul class="list-unstyled">
-              <li>{{ $t('consecutiveMonths') }} {{ group.purchased.plan.consecutive.count + group.purchased.plan.consecutive.offset }}</li> <!-- eslint-disable-line max-len -->
+              <li>{{ $t('consecutiveMonths') }} {{ group.purchased.plan.consecutive.count }}</li> <!-- eslint-disable-line max-len -->
               <li>{{ $t('gemCapExtra') }} {{ group.purchased.plan.consecutive.gemCapExtra }}</li>
               <li>{{ $t('mysticHourglasses') }} {{ group.purchased.plan.consecutive.trinkets }}</li>
             </ul>

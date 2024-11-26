@@ -22,7 +22,8 @@ services:
       dockerfile: ./Dockerfile-Dev
     command: ["npm", "start"]
     depends_on:
-      - mongo
+      mongo:
+        condition: service_healthy
     environment:
       - NODE_DB_URI=mongodb://mongo/habitrpg
     networks:
@@ -33,7 +34,16 @@ services:
       - .:/usr/src/habitica
       - /usr/src/habitica/node_modules
   mongo:
-    image: mongo:3.6
+    image: mongo:5.0.23
+    restart: unless-stopped
+    command: ["--replSet", "rs", "--bind_ip_all", "--port", "27017"]
+    healthcheck:
+      test: echo "try { rs.status() } catch (err) { rs.initiate() }" | mongosh --port 27017 --quiet
+      interval: 10s
+      timeout: 30s
+      start_period: 0s
+      start_interval: 1s
+      retries: 30
     networks:
       - habitica
     ports:

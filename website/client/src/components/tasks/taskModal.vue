@@ -651,9 +651,9 @@
 
     input, textarea {
       transition-property: border-color, box-shadow, color, background;
-      background-color: rgba(255, 255, 255, 0.5);
+      background-color: rgba($white, 0.5);
       &:focus:not(:disabled), &:active:not(:disabled), &:hover:not(:disabled) {
-        background-color: rgba(255, 255, 255, 0.75);
+        background-color: rgba($white, 0.75);
       }
     }
 
@@ -810,11 +810,7 @@
         margin-right: 16px;
         color: $blue-10;
       }
-
-      .btn-footer {
-        height: 2rem;
-      }
-    }
+  }
 
     .weekday-check {
       margin-left: 0px;
@@ -882,6 +878,24 @@
     .form-radio {
       .custom-control {
         margin-bottom: 0;
+      }
+    }
+
+    .disabled {
+      background-color: $white;
+      border: 2px solid transparent;
+      color: $gray-200;
+      line-height: 1.714;
+      box-shadow: 0px 1px 3px 0px rgba(26, 24, 29, 0.12), 0px 1px 2px 0px rgba(26, 24, 29, 0.24);
+
+      &:focus {
+        background-color: $white;
+        border: 2px solid $purple-400;
+        box-shadow: none;
+      }
+
+      &:active {
+        box-shadow: 0px 1px 3px 0px rgba(26, 24, 29, 0.12), 0px 1px 2px 0px rgba(26, 24, 29, 0.24);
       }
     }
   }

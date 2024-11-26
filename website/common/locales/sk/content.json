@@ -212,7 +212,6 @@
     "hatchingPotionFrost": "Zmrznutý",
     "hatchingPotionIcySnow": "Ľadový",
     "hatchingPotionNotes": "Vylej tento elixír na vajíčko a vyliahne sa z neho <%= potText(locale) %>.",
-    "premiumPotionAddlNotes": "Nedá sa použiť na vajíčka zvieratiek z výprav. Dostupné k zakúpeniu do <%= date(locale) %>.",
     "foodMeat": "Mäso",
     "foodMeatThe": "Mäso",
     "foodMeatA": "Mäso",
@@ -383,5 +382,14 @@
     "questEggChameleonAdjective": "Chaotický",
     "questEggGiraffeText": "Žirafa",
     "questEggGiraffeMountText": "Žirafa",
-    "hatchingPotionKoi": "Koi kapor"
+    "hatchingPotionKoi": "Koi kapor",
+    "questEggCrabText": "Krab",
+    "questEggCrabMountText": "Krab",
+    "questEggCrabAdjective": "Figliarsky",
+    "questEggRaccoonText": "Mýval",
+    "questEggRaccoonMountText": "Mýval",
+    "questEggRaccoonAdjective": "Pažravý",
+    "questEggDogText": "Šteniatko",
+    "questEggDogMountText": "Pes",
+    "questEggDogAdjective": "priateľský"
 }
