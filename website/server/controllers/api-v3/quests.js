@@ -412,13 +412,14 @@ api.cancelQuest = {
     }
     if (group.quest.active) throw new NotAuthorized(res.t('cantCancelActiveQuest'));
 
-    const questName = questScrolls[group.quest.key].text('en');
+    const questKey = group.quest.key;
+    const questName = questScrolls[questKey].text('en');
     const newChatMessage = await group.sendChat({
       message: `\`${user.profile.name} cancelled the party quest ${questName}.\``,
       info: {
         type: 'quest_cancel',
         user: user.profile.name,
-        quest: group.quest.key,
+        quest: questKey,
       },
     });
 
@@ -435,6 +436,15 @@ api.cancelQuest = {
     ]);
 
     res.respond(200, savedGroup.quest);
+
+    await UserHistory.beginUserHistoryUpdate(user._id, req.headers)
+      .withQuestInviteResponse(questKey, 'cancel')
+      .commit();
+    if (group.quest.leader !== user._id) {
+      await UserHistory.beginUserHistoryUpdate(group.quest.leader, req.headers)
+        .withQuestInviteResponse(questKey, 'cancelByLeader')
+        .commit();
+    }
   },
 };
 
@@ -474,13 +484,14 @@ api.abortQuest = {
     if (!group.quest.active) throw new NotFound(res.t('noActiveQuestToAbort'));
     if (user._id !== group.leader && user._id !== group.quest.leader) throw new NotAuthorized(res.t('onlyLeaderAbortQuest'));
 
-    const questName = questScrolls[group.quest.key].text('en');
+    const questKey = group.quest.key;
+    const questName = questScrolls[questKey].text('en');
     const newChatMessage = await group.sendChat({
       message: `\`${common.i18n.t('chatQuestAborted', { username: user.profile.name, questName }, 'en')}\``,
       info: {
         type: 'quest_abort',
         user: user.profile.name,
-        quest: group.quest.key,
+        quest: questKey,
       },
     });
     await newChatMessage.save();
@@ -493,7 +504,7 @@ api.abortQuest = {
       _id: group.quest.leader,
     }, {
       $inc: {
-        [`items.quests.${group.quest.key}`]: 1, // give back the quest to the quest leader
+        [`items.quests.${questKey}`]: 1, // give back the quest to the quest leader
       },
     }).exec();
 
@@ -503,6 +514,15 @@ api.abortQuest = {
     const [groupSaved] = await Promise.all([group.save(), memberUpdates, questLeaderUpdate]);
 
     res.respond(200, groupSaved.quest);
+
+    await UserHistory.beginUserHistoryUpdate(user._id, req.headers)
+      .withQuestInviteResponse(questKey, 'abort')
+      .commit();
+    if (group.quest.leader !== user._id) {
+      await UserHistory.beginUserHistoryUpdate(group.quest.leader, req.headers)
+        .withQuestInviteResponse(questKey, 'abortByLeader')
+        .commit();
+    }
   },
 };
 
@@ -550,6 +570,10 @@ api.leaveQuest = {
     ]);
 
     res.respond(200, savedGroup.quest);
+
+    await UserHistory.beginUserHistoryUpdate(user._id, req.headers)
+      .withQuestInviteResponse(group.quest.key, 'leave')
+      .commit();
   },
 };
 

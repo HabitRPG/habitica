@@ -238,10 +238,25 @@ export default {
       if (response === 'reject') {
         return 'Rejected';
       }
+      if (response === 'leave') {
+        return 'Left active quest';
+      }
       if (response === 'invite') {
         return 'Accepted as owner';
       }
-      return 'Unknown';
+      if (response === 'abort') {
+        return 'Aborted by owner';
+      }
+      if (response === 'abortByLeader') {
+        return 'Aborted by party leader';
+      }
+      if (response === 'cancel') {
+        return 'Cancelled before start';
+      }
+      if (response === 'cancelByLeader') {
+        return 'Cancelled before start by party leader';
+      }
+      return response;
     },
   },
 };
