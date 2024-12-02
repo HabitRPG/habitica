@@ -13,6 +13,9 @@
           :class="{ 'open': expand }"
         >
           Subscription, Monthly Perks
+        <b v-if="hasUnsavedChanges && !expand" class="text-warning float-right">
+          Unsaved changes
+        </b>
         </h3>
       </div>
       <div
@@ -337,7 +340,7 @@
       </div>
       <div
         v-if="expand"
-        class="card-footer"
+        class="card-footer d-flex align-items-center justify-content-between"
       >
         <input
           type="submit"
@@ -345,6 +348,9 @@
           class="btn btn-primary mt-1"
           @click="saveClicked"
         >
+        <b v-if="hasUnsavedChanges" class="text-warning float-right">
+          Unsaved changes
+        </b>
       </div>
     </div>
   </form>
@@ -378,6 +384,10 @@ export default {
   props: {
     hero: {
       type: Object,
+      required: true,
+    },
+    hasUnsavedChanges: {
+      type: Boolean,
       required: true,
     },
   },
@@ -444,7 +454,7 @@ export default {
           alert('Invalid group ID');
           return;
         }
-        this.hero.purchased.plan.convertToGroup = this.groupPlanID
+        this.hero.purchased.plan.convertToGroup = this.groupPlanID;
         this.saveHero({ hero: this.hero, msg: 'Group Plan Subscription' });
       } else {
         this.saveHero({ hero: this.hero, msg: 'Subscription Perks' });

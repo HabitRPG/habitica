@@ -15,10 +15,16 @@
         <privileges-and-gems
           :hero="hero"
           :reset-counter="resetCounter"
+          :has-unsaved-changes="hasUnsavedChanges([hero.flags, unModifiedHero.flags],
+                                                 [hero.auth, unModifiedHero.auth],
+                                                 [hero.balance, unModifiedHero.balance],
+                                                 [hero.secret, unModifiedHero.secret])"
         />
 
         <subscription-and-perks
           :hero="hero"
+          :has-unsaved-changes="hasUnsavedChanges([hero.purchased.plan,
+                                                   unModifiedHero.purchased.plan])"
         />
 
         <cron-and-auth
@@ -29,6 +35,7 @@
         <user-profile
           :hero="hero"
           :reset-counter="resetCounter"
+          :has-unsaved-changes="hasUnsavedChanges([hero.profile, unModifiedHero.profile])"
         />
 
         <party-and-quest
@@ -49,6 +56,7 @@
 
         <stats
           :hero="hero"
+          :has-unsaved-changes="hasUnsavedChanges([hero.stats, unModifiedHero.stats])"
           :reset-counter="resetCounter"
         />
 
@@ -79,6 +87,11 @@
 
         <contributor-details
           :hero="hero"
+          :hasUnsavedChanges="hasUnsavedChanges(
+            [hero.contributor, unModifiedHero.contributor],
+            [hero.permissions, unModifiedHero.permissions],
+            [hero.secret, unModifiedHero.secret],
+          )"
           :reset-counter="resetCounter"
           @clear-data="clearData"
         />
@@ -119,6 +132,7 @@
 </style>
 
 <script>
+import isEqualWith from 'lodash/isEqualWith';
 import BasicDetails from './basicDetails';
 import ItemsOwned from './itemsOwned';
 import CronAndAuth from './cronAndAuth';
@@ -162,6 +176,7 @@ export default {
     return {
       userIdentifier: '',
       resetCounter: 0,
+      unModifiedHero: {},
       hero: {},
       party: {},
       hasParty: false,
@@ -182,6 +197,7 @@ export default {
   },
   methods: {
     clearData () {
+      this.unModifiedHero = {};
       this.hero = {};
     },
 
@@ -190,6 +206,7 @@ export default {
       this.$emit('changeUserIdentifier', id); // change user identifier in Admin Panel's form
 
       this.hero = await this.$store.dispatch('hall:getHero', { uuid: id });
+      this.unModifiedHero = JSON.parse(JSON.stringify(this.hero));
 
       if (!this.hero.flags) {
         this.hero.flags = {
@@ -221,6 +238,28 @@ export default {
       }
 
       this.resetCounter += 1; // tell child components to reinstantiate from scratch
+    },
+    hasUnsavedChanges (...comparisons) {
+      for (const index in comparisons) {
+        if (index && comparisons[index]) {
+          const objs = comparisons[index];
+          const obj1 = objs[0];
+          const obj2 = objs[1];
+          if (!isEqualWith(obj1, obj2, (x, y) => {
+            if (typeof x === 'object' && typeof y === 'object') {
+              return undefined;
+            }
+            if (x === false && y === undefined) {
+              // Special case for checkboxes
+              return true;
+            }
+            return x == y; // eslint-disable-line eqeqeq
+          })) {
+            return true;
+          }
+        }
+      }
+      return false;
     },
   },
 };

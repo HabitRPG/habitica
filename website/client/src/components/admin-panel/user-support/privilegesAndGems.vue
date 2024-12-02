@@ -14,6 +14,9 @@
           @click="expand = !expand"
         >
           Privileges, Gem Balance
+          <b v-if="hasUnsavedChanges && !expand" class="text-warning float-right">
+          Unsaved changes
+        </b>
         </h3>
       </div>
       <div
@@ -123,13 +126,16 @@
       </div>
       <div
         v-if="expand"
-        class="card-footer"
+        class="card-footer d-flex align-items-center justify-content-between"
       >
         <input
           type="submit"
           value="Save"
           class="btn btn-primary mt-1"
         >
+        <b v-if="hasUnsavedChanges" class="text-warning float-right">
+          Unsaved changes
+        </b>
       </div>
     </div>
   </form>
@@ -173,6 +179,10 @@ export default {
     },
     hero: {
       type: Object,
+      required: true,
+    },
+    hasUnsavedChanges: {
+      type: Boolean,
       required: true,
     },
   },
