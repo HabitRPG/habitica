@@ -13,6 +13,7 @@ import {
   validateItemPath,
   castItemVal,
 } from '../../libs/items/utils';
+import { addSubToGroupUser } from '../../libs/payments/groupPayments';
 
 const api = {};
 
@@ -329,6 +330,17 @@ api.updateHero = {
       if (plan.owner) {
         hero.purchased.plan.owner = plan.owner;
       }
+
+      if (plan.convertToGroupPlan) {
+        const groupID = plan.convertToGroupPlan;
+        const group = await Group.getGroup({ hero, groupId: groupID });
+        if (!group) throw new NotFound(res.t('groupNotFound'));
+        hero.purchased.plan.customerId = null;
+        hero.purchased.plan.paymentMethod = null;
+        if (group.hasNotCancelled()) {
+          await addSubToGroupUser(hero, group);
+          await group.updateGroupPlan();
+        }
     }
 
     if (updateData.stats) {

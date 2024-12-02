@@ -44,6 +44,7 @@
                 <option value="Amazon Payments">Amazon</option>
                 <option value="PayPal">PayPal</option>
                 <option value="Gift">Gift</option>
+                <option value="">Clear out</option>
               </select>
           </div>
         </div>
@@ -71,6 +72,7 @@
                 <option value="basic_12mo">12 Months recurring</option>
                 <option value="group_monthly">Group Plan (legacy)</option>
                 <option value="group_plan_auto">Group Plan (auto)</option>
+                <option value="">Clear out</option>
               </select>
           </div>
         </div>
@@ -86,6 +88,19 @@
                 class="form-control"
                 type="text"
               >
+          </div>
+        </div>
+        <div class="form-group row"
+          v-if="hero.purchased.plan.planId === 'group_plan_auto'">
+          <label class="col-sm-3 col-form-label">
+            Group Plan group ID:
+          </label>
+          <div class="col-sm-9">
+            <input
+              v-model="groupPlanID"
+              class="form-control"
+              type="text"
+            >
           </div>
         </div>
         <div
@@ -307,13 +322,13 @@
           </div>
         </div>
         <div class="form-group row"
-          v-if="isConvertingToGroupPlan || hero.purchased.plan.owner">
+          v-if="isConvertingToGroupPlan">
           <label class="col-sm-3 col-form-label">
             Group Plan group ID:
           </label>
           <div class="col-sm-9">
             <input
-              v-model="hero.purchased.plan.owner"
+              v-model="groupPlanID"
               class="form-control"
               type="text"
             >
@@ -370,6 +385,7 @@ export default {
     return {
       expand: false,
       isConvertingToGroupPlan: false,
+      groupPlanID: '',
       subscriptionBlocks,
     };
   },
@@ -419,25 +435,20 @@ export default {
     },
     beginGroupPlanConvert () {
       this.isConvertingToGroupPlan = true;
+      this.purchased.plan.owner = '';
     },
     saveClicked (e) {
       e.preventDefault();
       if (this.isConvertingToGroupPlan) {
-        if (!isUUID(this.hero.purchased.plan.owner)) {
+        if (!isUUID(this.groupPlanID)) {
           alert('Invalid group ID');
           return;
         }
-        const plan = this.hero.purchased.plan;
-        if (!plan.dateCreated) {
-          plan.dateCreated = new Date();
-        }
-        plan.dateCurrentTypeCreated = new Date();
-        plan.customerId = 'group-plan';
-        plan.paymentMethod = 'Group Plan';
-        plan.planId = 'group_plan_auto';
-        plan.dateTerminated = null;
+        this.hero.purchased.plan.convertToGroup = this.groupPlanID
+        this.saveHero({ hero: this.hero, msg: 'Group Plan Subscription' });
+      } else {
+        this.saveHero({ hero: this.hero, msg: 'Subscription Perks' });
       }
-      this.saveHero({ hero: this.hero, msg: 'Subscription Perks' });
     },
   },
 };
