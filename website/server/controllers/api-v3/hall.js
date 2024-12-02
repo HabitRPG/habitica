@@ -7,6 +7,7 @@ import { model as Group } from '../../models/group';
 import common from '../../../common';
 import {
   NotFound,
+  BadRequest,
 } from '../../libs/errors';
 import { apiError } from '../../libs/apiError';
 import {
@@ -333,13 +334,15 @@ api.updateHero = {
 
       if (plan.convertToGroupPlan) {
         const groupID = plan.convertToGroupPlan;
-        const group = await Group.getGroup({ hero, groupId: groupID });
+        const group = await Group.getGroup({ user: hero, groupId: groupID });
         if (!group) throw new NotFound(res.t('groupNotFound'));
-        hero.purchased.plan.customerId = null;
-        hero.purchased.plan.paymentMethod = null;
         if (group.hasNotCancelled()) {
+          hero.purchased.plan.customerId = null;
+          hero.purchased.plan.paymentMethod = null;
           await addSubToGroupUser(hero, group);
           await group.updateGroupPlan();
+        } else {
+          throw new BadRequest('Group does not have a plan');
         }
       }
     }

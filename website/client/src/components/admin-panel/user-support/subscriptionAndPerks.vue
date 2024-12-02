@@ -445,7 +445,7 @@ export default {
     },
     beginGroupPlanConvert () {
       this.isConvertingToGroupPlan = true;
-      this.purchased.plan.owner = '';
+      this.hero.purchased.plan.owner = '';
     },
     saveClicked (e) {
       e.preventDefault();
@@ -454,7 +454,7 @@ export default {
           alert('Invalid group ID');
           return;
         }
-        this.hero.purchased.plan.convertToGroup = this.groupPlanID;
+        this.hero.purchased.plan.convertToGroupPlan = this.groupPlanID;
         this.saveHero({ hero: this.hero, msg: 'Group Plan Subscription' });
       } else {
         this.saveHero({ hero: this.hero, msg: 'Subscription Perks' });
