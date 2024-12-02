@@ -100,7 +100,7 @@
           </label>
           <div class="col-sm-9">
             <input
-              v-model="groupPlanID"
+              v-model="hero.purchased.plan.owner"
               class="form-control"
               type="text"
             >
