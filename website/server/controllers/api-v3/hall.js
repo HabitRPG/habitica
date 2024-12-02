@@ -341,6 +341,7 @@ api.updateHero = {
           await addSubToGroupUser(hero, group);
           await group.updateGroupPlan();
         }
+      }
     }
 
     if (updateData.stats) {
