@@ -10,7 +10,7 @@
     <loading-spinner
       v-if="isSearching"
       class="mx-auto mb-2"
-      dark-color="true"
+      dark-color=true
     />
     <div
       v-if="users.length > 0"

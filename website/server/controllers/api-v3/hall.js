@@ -561,4 +561,66 @@ api.getHeroParty = { // @TODO XXX add tests
   },
 };
 
+/**
+ * @api {get} /api/v3/hall/heroes/:heroId Get Group Plans for a user
+ * @apiParam (Path) {UUID} groupId party's group ID
+ * @apiName GetHeroGroupPlans
+ * @apiGroup Hall
+ * @apiPermission userSupport
+ *
+ * @apiDescription Returns some basic information about group plans,
+ * to assist admins with user support.
+ *
+ * @apiSuccess {Object} data The active group plans
+ *
+ * @apiUse NoAuthHeaders
+ * @apiUse NoAccount
+ * @apiUse NoUser
+ * @apiUse NoPrivs
+ */
+api.getHeroGroupPlans = {
+  method: 'GET',
+  url: '/hall/heroes/:heroId/group-plans',
+  middlewares: [authWithHeaders(), ensurePermission('userSupport')],
+  async handler (req, res) {
+    req.checkParams('heroId', res.t('heroIdRequired')).notEmpty();
+
+    const validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    const { heroId } = req.params;
+
+    let query;
+    if (validator.isUUID(heroId)) {
+      query = { _id: heroId };
+    } else {
+      query = { 'auth.local.lowerCaseUsername': heroId.toLowerCase() };
+    }
+
+    const hero = await User
+      .findOne(query)
+      .select('guilds party')
+      .exec();
+
+    if (!hero) throw new NotFound(res.t('userWithIDNotFound', { userId: heroId }));
+    const heroGroups = hero.getGroups();
+
+    if (heroGroups.length === 0) {
+      res.respond(200, []);
+      return;
+    }
+
+    const groups = await Group
+      .find({
+        _id: { $in: heroGroups },
+      })
+      .select('leaderOnly leader purchased name managers memberCount')
+      .exec();
+
+    const groupPlans = groups.filter(group => group.hasActiveGroupPlan());
+
+    res.respond(200, groupPlans);
+  },
+};
+
 export default api;

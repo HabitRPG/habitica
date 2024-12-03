@@ -23,6 +23,7 @@
 
         <subscription-and-perks
           :hero="hero"
+          :group-plans="groupPlans"
           :has-unsaved-changes="hasUnsavedChanges([hero.purchased.plan,
                                                    unModifiedHero.purchased.plan])"
         />
@@ -179,6 +180,7 @@ export default {
       unModifiedHero: {},
       hero: {},
       party: {},
+      groupPlans: [],
       hasParty: false,
       partyNotExistError: false,
       adminHasPrivForParty: true,
@@ -234,6 +236,14 @@ export default {
             // the API's error message isn't worth reporting ("Request failed with status code 404")
             this.partyNotExistError = true;
           }
+        }
+      }
+
+      if (this.hero.purchased.plan.planId === 'group_plan_auto') {
+        try {
+          this.groupPlans = await this.$store.dispatch('hall:getHeroGroupPlans', { heroId: this.hero._id });
+        } catch (e) {
+          this.groupPlans = [];
         }
       }
 

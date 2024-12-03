@@ -40,7 +40,7 @@
                 class="form-control"
                 type="text"
               >
-                <option value="Group Plan">Group Plan</option>
+                <option value="groupPlan">Group Plan</option>
                 <option value="Stripe">Stripe</option>
                 <option value="Apple">Apple</option>
                 <option value="Google">Google</option>
@@ -96,14 +96,39 @@
         <div class="form-group row"
           v-if="hero.purchased.plan.planId === 'group_plan_auto'">
           <label class="col-sm-3 col-form-label">
-            Group Plan group ID:
+            Group Plan Memberships:
           </label>
-          <div class="col-sm-9">
-            <input
-              v-model="hero.purchased.plan.owner"
-              class="form-control"
-              type="text"
-            >
+          <div class="col-sm-9 col-form-label">
+            <loading-spinner
+                v-if="!groupPlans"
+                dark-color=true
+              />
+            <b
+            v-else-if="groupPlans.length === 0"
+            class="text-danger col-form-label"
+            >User is not part of an active group plan!</b>
+            <div
+            v-else
+              v-for="group in groupPlans"
+              :key="group._id"
+              class="card mb-2">
+              <div class="card-body">
+                <h6 class="card-title">{{  group.name }}
+                  <small class="float-right">{{ group._id }}</small>
+                </h6>
+                <p class="card-text">
+                  <strong>Leader: </strong>
+                <a
+                v-if="group.leader !== hero._id"
+                @click="switchUser(group.leader)"
+                >{{ group.leader }}</a>
+                <strong v-else class="text-success">This user</strong>
+                </p>
+                <p class="card-text">
+                  <strong>Members: </strong> {{ group.memberCount }}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
         <div
@@ -378,9 +403,13 @@ import moment from 'moment';
 import { getPlanContext } from '@/../../common/script/cron';
 import saveHero from '../mixins/saveHero';
 import subscriptionBlocks from '../../../../../common/script/content/subscriptionBlocks';
+import LoadingSpinner from '@/components/ui/loadingSpinner';
 
 export default {
   mixins: [saveHero],
+  components: {
+    LoadingSpinner,
+  },
   props: {
     hero: {
       type: Object,
@@ -389,6 +418,10 @@ export default {
     hasUnsavedChanges: {
       type: Boolean,
       required: true,
+    },
+    groupPlans: {
+      type: Array,
+      default: null,
     },
   },
   data () {
@@ -411,6 +444,7 @@ export default {
     },
     isRegularPaymentMethod () {
       return [
+        'groupPlan',
         'Group Plan',
         'Stripe',
         'Apple',
@@ -458,6 +492,11 @@ export default {
         this.saveHero({ hero: this.hero, msg: 'Group Plan Subscription' });
       } else {
         this.saveHero({ hero: this.hero, msg: 'Subscription Perks' });
+      }
+    },
+    switchUser (id) {
+      if (window.confirm('Switch to this user?')) {
+        this.$emit('changeUserIdentifier', id);
       }
     },
   },
