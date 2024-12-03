@@ -1,15 +1,37 @@
+# big thanks to https://pakisan.github.io/posts/docker-compose-mongodb-single-node-replica-set/ <3
+
+version: "3.9"
+networks:
+  mongodb-network:
+    name: "mongodb-network"
+    driver: bridge
 services:
-  mongo:
-    image: mongo:7.0
-    restart: unless-stopped
-    command: ["--replSet", "rs", "--bind_ip_all", "--port", "27017"]
-    healthcheck:
-      test: echo "try { rs.status() } catch (err) { rs.initiate() }" | mongosh --port 27017 --quiet
-      interval: 10s
-      timeout: 30s
-      start_period: 0s
-      retries: 30
-    volumes:
-      - "./mongodb-data2:/data/db"
+  mongodb:
+    image: "mongo:7.0"
+    container_name: "mongodb"
+    networks:
+      - mongodb-network
+    hostname: "mongodb"
     ports:
       - "27017:27017"
+    restart: "unless-stopped"
+    volumes:
+      - "./mongodb-data:/data/db"
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs" ]
+  mongoinit:
+    image: "mongo:7.0"
+    container_name: "mongodb_replSet_initializer"
+    restart: "on-failure" # WITHOUT THIS, the initializer tries only once and fails
+    depends_on:
+      - mongodb
+    networks:
+      - mongodb-network
+
+    command: >
+      mongosh --host mongodb:27017 --eval "rs.initiate({
+       _id: \"rs\",
+       members: [
+         {_id: 0, host: \"mongodb\"}
+       ]
+      })"
+
