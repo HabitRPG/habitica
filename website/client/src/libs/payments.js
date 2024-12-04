@@ -1,8 +1,4 @@
-// import getStore from '@/store';
-
 export function setup () { // eslint-disable-line import/prefer-default-export
-  // const store = getStore();
-
   // Load the payment scripts
 
   // Stripe
