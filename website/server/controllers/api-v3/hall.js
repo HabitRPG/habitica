@@ -331,6 +331,9 @@ api.updateHero = {
       if (plan.owner) {
         hero.purchased.plan.owner = plan.owner;
       }
+      if (plan.hourglassPromoReceived) {
+        hero.purchased.plan.hourglassPromoReceived = plan.hourglassPromoReceived;
+      }
 
       if (plan.convertToGroupPlan) {
         const groupID = plan.convertToGroupPlan;
