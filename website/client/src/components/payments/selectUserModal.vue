@@ -218,7 +218,7 @@ a:not([href]) {
 
 .g1g1-cancel {
   margin-top: 16px;
-  color: $blue-10;
+  color: $purple-300;
   cursor: pointer;
 }
 
