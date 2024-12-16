@@ -466,7 +466,7 @@ export default {
       if (window.confirm('Terminate subscription with the current date? Any extra months will be applied.')) {
         this.hero.purchased.plan.dateTerminated = moment(new Date()).utc().format();
         this.applyExtraMonths();
-        this.saveHero({ hero: this.hero, msg: 'Subscription Termination' });
+        this.saveHero({ hero: this.hero, msg: 'Subscription Termination', reloadData: true });
       }
     },
     applyExtraMonths () {
@@ -490,9 +490,9 @@ export default {
           return;
         }
         this.hero.purchased.plan.convertToGroupPlan = this.groupPlanID;
-        this.saveHero({ hero: this.hero, msg: 'Group Plan Subscription' });
+        this.saveHero({ hero: this.hero, msg: 'Group Plan Subscription', reloadData: true });
       } else {
-        this.saveHero({ hero: this.hero, msg: 'Subscription Perks' });
+        this.saveHero({ hero: this.hero, msg: 'Subscription Perks', reloadData: true });
       }
     },
     switchUser (id) {
