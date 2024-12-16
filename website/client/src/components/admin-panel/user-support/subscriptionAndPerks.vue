@@ -464,8 +464,9 @@ export default {
     },
     terminateSubscription () {
       if (window.confirm('Terminate subscription with the current date? Any extra months will be applied.')) {
-        this.hero.purchased.plan.dateTerminated = moment(new Date());
+        this.hero.purchased.plan.dateTerminated = moment(new Date()).utc().format();
         this.applyExtraMonths();
+        this.saveHero({ hero: this.hero, msg: 'Subscription Termination' });
       }
     },
     applyExtraMonths () {
@@ -473,7 +474,7 @@ export default {
         const date = moment(this.hero.purchased.plan.dateTerminated || new Date());
         const extraMonths = Math.max(this.hero.purchased.plan.extraMonths, 0);
         const extraDays = Math.ceil(30.5 * extraMonths);
-        this.hero.purchased.plan.dateTerminated = date.add(extraDays, 'days');
+        this.hero.purchased.plan.dateTerminated = date.add(extraDays, 'days').utc().format();
         this.hero.purchased.plan.extraMonths = 0;
       }
     },
