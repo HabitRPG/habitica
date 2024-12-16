@@ -33,6 +33,7 @@ import {
   schema as SubscriptionPlanSchema,
 } from './subscriptionPlan';
 import logger from '../libs/logger';
+import amazonPayments from '../libs/payments/amazon'; // eslint-disable-line import/no-cycle
 import stripePayments from '../libs/payments/stripe'; // eslint-disable-line import/no-cycle
 import { getGroupChat, translateMessage } from '../libs/chat/group-chat'; // eslint-disable-line import/no-cycle
 import { model as UserNotification } from './userNotification';
@@ -1621,12 +1622,17 @@ schema.methods.hasCancelled = function hasCancelled () {
   return Boolean(this.hasActiveGroupPlan() && plan.dateTerminated);
 };
 
-schema.methods.updateGroupPlan = async function updateGroupPlan () {
+schema.methods.updateGroupPlan = async function updateGroupPlan (removingMember) {
   // Recheck the group plan count
   this.memberCount = await this.getMemberCount();
 
   if (this.purchased.plan.paymentMethod === stripePayments.constants.PAYMENT_METHOD) {
     await stripePayments.chargeForAdditionalGroupMember(this);
+  } else if (
+    this.purchased.plan.paymentMethod === amazonPayments.constants.PAYMENT_METHOD
+    && !removingMember
+  ) {
+    await amazonPayments.chargeForAdditionalGroupMember(this);
   }
 };
 

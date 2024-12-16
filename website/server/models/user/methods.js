@@ -19,6 +19,7 @@ import { model as UserNotification } from '../userNotification';
 import schema from './schema'; // eslint-disable-line import/no-cycle
 import payments from '../../libs/payments/payments'; // eslint-disable-line import/no-cycle
 import * as inboxLib from '../../libs/inbox'; // eslint-disable-line import/no-cycle
+import amazonPayments from '../../libs/payments/amazon'; // eslint-disable-line import/no-cycle
 import stripePayments from '../../libs/payments/stripe'; // eslint-disable-line import/no-cycle
 import paypalPayments from '../../libs/payments/paypal'; // eslint-disable-line import/no-cycle
 import { model as NewsPost } from '../newsPost';
@@ -325,6 +326,7 @@ schema.statics.addComputedStatsToJSONObj = function addComputedStatsToUserJSONOb
  * @param  options
  * @param  options.user  The user object who is purchasing
  * @param  options.groupId  The id of the group purchasing a subscription
+ * @param  options.headers The request headers (only for Amazon subscriptions)
  * @param  options.cancellationReason  A text string to control sending an email
  *
  * @return a Promise from api.cancelSubscription()
@@ -342,7 +344,9 @@ schema.methods.cancelSubscription = async function cancelSubscription (options =
   const { plan } = this.purchased;
 
   options.user = this;
-  if (plan.paymentMethod === stripePayments.constants.PAYMENT_METHOD) {
+  if (plan.paymentMethod === amazonPayments.constants.PAYMENT_METHOD) {
+    return amazonPayments.cancelSubscription(options);
+  } if (plan.paymentMethod === stripePayments.constants.PAYMENT_METHOD) {
     return stripePayments.cancelSubscription(options);
   } if (plan.paymentMethod === paypalPayments.constants.PAYMENT_METHOD) {
     return paypalPayments.subscribeCancel(options);

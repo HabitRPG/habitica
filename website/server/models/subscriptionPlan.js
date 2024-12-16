@@ -8,8 +8,8 @@ export const schema = new mongoose.Schema({
   subscriptionId: String,
   owner: { $type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid for subscription owner.'] },
   quantity: { $type: Number, default: 1 },
-  paymentMethod: String, // enum: ['Paypal', 'Stripe', 'Gift', 'Google', '']}
-  customerId: String,
+  paymentMethod: String, // enum: ['Paypal', 'Stripe', 'Gift', 'Amazon Payments', Google', '']}
+  customerId: String, // Billing Agreement Id in case of Amazon Payments
   dateCreated: Date,
   dateTerminated: Date,
   dateUpdated: Date,
@@ -18,7 +18,7 @@ export const schema = new mongoose.Schema({
   gemsBought: { $type: Number, default: 0 },
   mysteryItems: { $type: Array, default: () => [] },
   lastReminderDate: Date, // indicates the last time a subscription reminder was sent
-  lastBillingDate: Date,
+  lastBillingDate: Date, // Used only for Amazon Payments to keep track of billing date
   // Example for Google: {'receipt': 'serialized receipt json', 'signature': 'signature string'}
   additionalData: mongoose.Schema.Types.Mixed,
   // indicates when the queue server should process this subscription again.

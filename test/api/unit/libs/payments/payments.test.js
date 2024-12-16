@@ -62,6 +62,7 @@ describe('payments/index', () => {
       extraMonths: 0,
       dateTerminated: null,
       dateCreated: new Date(),
+      lastBillingDate: new Date(),
       mysteryItems: [],
       consecutive: {
         trinkets: 0,
@@ -1381,6 +1382,7 @@ describe('payments/index', () => {
       expect(updatedUser.purchased.plan.paymentMethod).to.eql('Group Plan');
       expect(updatedUser.purchased.plan.extraMonths).to.eql(0);
       expect(updatedUser.purchased.plan.dateTerminated).to.eql(null);
+      expect(updatedUser.purchased.plan.lastBillingDate).to.not.exist;
       expect(updatedUser.purchased.plan.dateCreated).to.exist;
     });
 
