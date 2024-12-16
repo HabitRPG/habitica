@@ -204,7 +204,6 @@ export default {
     },
 
     async loadHero (userIdentifier) {
-      console.log('loadHero', userIdentifier);
       const id = userIdentifier.replace(/@/, ''); // allow "@name" to be entered
       this.$emit('changeUserIdentifier', id); // change user identifier in Admin Panel's form
 

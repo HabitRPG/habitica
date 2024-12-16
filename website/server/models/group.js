@@ -685,7 +685,6 @@ schema.methods.startQuest = async function startQuest (user) {
 
   const nonMembers = Object.keys(_.pickBy(this.quest.members, member => !member));
   const noResponseMembers = Object.keys(_.pickBy(this.quest.members, member => member === null));
-  console.log(this.quest.members, nonMembers, noResponseMembers);
   // Changes quest.members to only include participating members
   this.quest.members = _.pickBy(this.quest.members, _.identity);
 
