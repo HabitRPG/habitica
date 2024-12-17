@@ -655,6 +655,9 @@ export const UserSchema = new Schema({
         return isValidCategory;
       },
     },
+    privacy: {
+      disableAnalytics: { $type: Boolean, default: false },
+    },
   },
   profile: {
     blurb: String,

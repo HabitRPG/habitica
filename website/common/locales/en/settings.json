@@ -257,5 +257,6 @@
     "transaction_admin_update_hourglasses": "<b>Admin</b> updated",
     "connected": "Connected",
     "connect": "Connect",
-    "remove": "Remove"
+    "remove": "Remove",
+    "privacyOverview": "In today's world, it feels like every company is looking to profit from your data. This can make it difficult to find the right app to improve your habits. Habitica uses cookies that store data only to analyze performance, handle support requests, and provide you with the best possible gamified experience. You can change this at any time from your account settings. To learn more, review our <a href='/static/privacy' target='_blank'>Privacy Policy</a>."
 }
