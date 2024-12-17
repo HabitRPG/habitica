@@ -279,7 +279,7 @@ export default {
       let paymentMethod = group
         ? group.purchased.plan.paymentMethod
         : this.user.purchased.plan.paymentMethod;
-      paymentMethod = paymentMethod.toLowerCase();
+      paymentMethod = paymentMethod === 'Amazon Payments' ? 'amazon' : paymentMethod.toLowerCase();
 
       const queryParams = {
         noRedirect: true,

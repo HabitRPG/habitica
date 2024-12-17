@@ -192,7 +192,7 @@ async function prepareSubscriptionValues (data) {
       dateTerminated: null,
       // Specify a lastBillingDate just for Amazon Payments
       // Resetted every time the subscription restarts
-      lastBillingDate: data.paymentMethod === 'Amazon Payments' ? today : undefined,
+      // lastBillingDate: data.paymentMethod === 'Amazon Payments' ? today : undefined,
       nextPaymentProcessing: data.nextPaymentProcessing,
       nextBillingDate: data.nextBillingDate,
       additionalData: data.additionalData,

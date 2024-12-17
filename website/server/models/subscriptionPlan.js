@@ -8,7 +8,7 @@ export const schema = new mongoose.Schema({
   subscriptionId: String,
   owner: { $type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid for subscription owner.'] },
   quantity: { $type: Number, default: 1 },
-  paymentMethod: String, // enum: ['Paypal', 'Stripe', 'Gift', 'Amazon Payments', Google', '']}
+  paymentMethod: String, // enum: ['Paypal', 'Stripe', 'Gift', 'Amazon Payments', 'Google', '']}
   customerId: String, // Billing Agreement Id in case of Amazon Payments
   dateCreated: Date,
   dateTerminated: Date,
