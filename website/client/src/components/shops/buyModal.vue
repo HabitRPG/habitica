@@ -378,7 +378,7 @@
         height: 40px;
         border-radius: 2px;
         background-color: $white;
-        box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+        box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
         margin-right: 24px;
 
         input {
@@ -462,17 +462,17 @@
 
       &.gems {
         color: $green-10;
-        background-color: rgba(36, 204, 143, 0.15);
+        background-color: rgba($green-100, 0.15);
       }
 
       &.gold {
         color: $yellow-5;
-        background-color: rgba(255, 190, 93, 0.15);
+        background-color: rgba($yellow-100, 0.15);
       }
 
       &.hourglasses {
         color: $hourglass-color;
-        background-color: rgba(41, 149, 205, 0.15);
+        background-color: rgba($blue-10, 0.15);
       }
     }
 
@@ -516,11 +516,16 @@
 
     button.btn.btn-primary {
       margin-top: 16px;
-      padding: 4px 16px;
-      height: 32px;
+      padding: 2px 12px;
+      line-height: 1.714;
 
       &:focus {
-        border: 2px solid black;
+        border: 2px solid $purple-400;
+      }
+
+      &:active {
+        border: 2px solid $purple-400 !important;
+        box-shadow:none;
       }
     }
 

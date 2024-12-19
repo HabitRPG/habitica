@@ -3,7 +3,6 @@
     "earnedRewardForDevotion": "Du har fått en <%= reward %> genom att vara engagerad i att förbättra ditt liv.",
     "nextRewardUnlocksIn": "Incheckningar till ditt nästa pris: <%= numberOfCheckinsLeft %>",
     "awesome": "Grymt!",
-    "countLeft": "Incheckningar till nästa belöning: <%= count %>",
     "incentivesDescription": "När det kommer till att bygga upp vanor är det viktigaste att vara konsekvent. Varje dag du checkar in kommer du närmar till ett pris.",
     "checkinEarned": "Din incheckningsmätare gick upp!",
     "unlockedCheckInReward": "Du låste upp ett Incheckningspris!",

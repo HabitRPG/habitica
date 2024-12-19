@@ -127,6 +127,7 @@ const premium = {
   },
   RoseGold: {},
   Koi: {},
+  Gingerbread: {},
 };
 
 const wacky = {

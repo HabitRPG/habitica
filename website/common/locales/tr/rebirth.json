@@ -8,7 +8,8 @@
     "rebirthOrb": "Reenkarnasyon Küresini <%= level %> seviyesine ulaştıktan sonra baştan başlamak için kullandı.",
     "rebirthOrb100": "100 ya da daha yüksek bir seviyeye ulaştıktan sonra Reenkarnasyon Küresi kullanarak baştan başladı.",
     "rebirthOrbNoLevel": "Reenkarnasyon Küresini baştan başlamak için kullandı.",
-    "rebirthPop": "Başarılarını, koleksiyon eşyalarını ve ekipmanlarını muhafaza ederken karakterini bir 1. Seviye Savaşçı olarak yeniden başlat. İşlerin ve iş geçmişin korunacak ancak hepsi sarıya sıfırlanacak. Mücadele işlerininkiler hariç tamamlama serilerin silinecek. Altının, Tecrüben, Manan ve tüm Yetenek etkilerin yok olacak. Tüm bunlar anında gerçekleşecek. Daha fazla bilgi için, wiki'deki <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Reenkarnasyon Küresi</a> sayfasına göz at.",
+    "rebirthPop": "Karakterinizi anında Seviye 1 Savaşçı olarak sıfırlayın, ancak başarılarınızı, koleksiyonlarınızı ve ekipmanınızı koruyun. Görevleriniz ve geçmişi kalacak ancak sarıya sıfırlanacaktır. Sadece aktif Zorluklar ve Grup Planlarına ait görevlerinizi hariç tutarak, tüm serileriniz silinecektir. Altın, Deneyim, Mana ve tüm Yeteneklerin etkileri kaldırılacaktır. Tüm bunlar hemen geçerli olacaktır.",
     "rebirthName": "Reenkarnasyon Küresi",
-    "rebirthComplete": "Yeniden doğdun!"
+    "rebirthComplete": "Yeniden doğdun!",
+    "nextFreeRebirth": "<strong><%= days %> gün</strong> kaldı <strong>ÜCRETSİZ</strong> Yeniden Doğuş Orbu için"
 }

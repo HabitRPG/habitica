@@ -59,6 +59,12 @@
         <template v-if="paymentData.paymentType === 'gift-subscription'">
           <div>
             <span
+              v-if="paymentData.g1g1"
+              v-html="$t('paymentYouSentSubscriptionG1G1', {
+                name: paymentData.giftReceiver, months: paymentData.subscription.months})"
+            ></span>
+            <span
+              v-else
               v-html="$t('paymentYouSentSubscription', {
                 name: paymentData.giftReceiver, months: paymentData.subscription.months})"
             ></span>

@@ -3,7 +3,6 @@
     "earnedRewardForDevotion": "あなたは、人生・生活を向上することを誓いました。それを称え、<%= reward %> を贈ります。",
     "nextRewardUnlocksIn": "次の賞品までのチェックイン：あと<%= numberOfCheckinsLeft %>回",
     "awesome": "すごい！",
-    "countLeft": "次の賞品までのチェックイン：あと<%= count %>回",
     "incentivesDescription": "習慣づけのカギは継続性です。毎日のチェックインで、賞品に近づきます。",
     "checkinEarned": "チェックイン・カウンターが上がりました！",
     "unlockedCheckInReward": "チェックインの賞品がアンロックされました！",

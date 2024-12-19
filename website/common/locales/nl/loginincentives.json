@@ -3,7 +3,6 @@
     "earnedRewardForDevotion": "Je hebt <%= reward %> verdiend, omdat je vastberaden bent je leven te verbeteren.",
     "nextRewardUnlocksIn": "Check-ins tot je volgende prijs: <%= numberOfCheckinsLeft %>",
     "awesome": "Super!",
-    "countLeft": "Check-ins tot je volgende beloning: <%= count %>",
     "incentivesDescription": "Als het gaat om gewoontes opbouwen is consistentie noodzakelijk. Elke dag die je incheckt zul je dichter bij een prijs komen.",
     "checkinEarned": "Je check-in-teller is omhoog gegaan!",
     "unlockedCheckInReward": "Je hebt een check-in-prijs ontgrendeld!",

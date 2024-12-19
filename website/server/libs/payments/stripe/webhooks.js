@@ -19,6 +19,8 @@ import { applySubscription, handlePaymentMethodChange } from './subscriptions'; 
 
 const endpointSecret = nconf.get('STRIPE_WEBHOOKS_ENDPOINT_SECRET');
 
+const BASE_URL = nconf.get('BASE_URL');
+
 export async function handleWebhooks (options, stripeInc) {
   const { body, headers } = options;
 
@@ -66,6 +68,10 @@ export async function handleWebhooks (options, stripeInc) {
       case 'checkout.session.completed': {
         const session = event.data.object;
         const { metadata } = session;
+
+        if (metadata.server_url !== BASE_URL) {
+          break;
+        }
 
         if (metadata.type === 'edit-card-group' || metadata.type === 'edit-card-user') {
           await handlePaymentMethodChange(session);

@@ -34,12 +34,6 @@
         <template
           v-for="item in showItems"
         >
-          <div
-            v-if="shouldAddVerticalLine(item)"
-            :key="item.key"
-            class="vertical-divider"
-            :style="dividerMargins"
-          ></div>
           <slot
             name="item"
             :item="item"
@@ -55,6 +49,10 @@
   @import '~@/assets/scss/colors.scss';
 
   $buttonAreaWidth: 60;
+
+  .items > div {
+    margin: 0 12px
+  }
 
   .slider-root {
     position: relative;
@@ -95,9 +93,11 @@
 
     &.left-button {
       left: 0;
+      padding-left: 0px;
     }
 
     &.right-button {
+      padding-left:20px;
       right: 0;
     }
   }
@@ -108,15 +108,6 @@
     justify-content: center;
     align-items: center;
     padding-top: 10px;
-    margin-left: $buttonAreaWidth+ px;
-    margin-right: $buttonAreaWidth+ px;
-  }
-
-  .vertical-divider {
-    height: 92px;
-    width: 1px;
-    background: #34313a;
-    margin-bottom: 8px;
   }
 
 </style>
@@ -198,9 +189,6 @@ export default {
     },
     itemsPerPage () {
       return Math.floor(this.currentWidth / (this.itemWidth + this.itemMargin));
-    },
-    shouldAddVerticalLine (item) {
-      return this.items[this.itemsPerPage() - 1] === item && this.pointer !== 5;
     },
     scrollButtonsVisible () {
       return this.items.length > this.itemsPerPage();

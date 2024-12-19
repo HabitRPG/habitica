@@ -779,6 +779,18 @@ const armor = {
   fall2024Rogue: {
     set: 'fall2024BlackCatRogueSet',
   },
+  winter2025Warrior: {
+    set: 'winter2025MooseWarriorSet',
+  },
+  winter2025Mage: {
+    set: 'winter2025AuroraMageSet',
+  },
+  winter2025Healer: {
+    set: 'winter2025StringLightsHealerSet',
+  },
+  winter2025Rogue: {
+    set: 'winter2025SnowRogueSet',
+  },
 };
 
 const armorStats = {
@@ -1868,6 +1880,18 @@ const head = {
   fall2024Rogue: {
     set: 'fall2024BlackCatRogueSet',
   },
+  winter2025Warrior: {
+    set: 'winter2025MooseWarriorSet',
+  },
+  winter2025Mage: {
+    set: 'winter2025AuroraMageSet',
+  },
+  winter2025Healer: {
+    set: 'winter2025StringLightsHealerSet',
+  },
+  winter2025Rogue: {
+    set: 'winter2025SnowRogueSet',
+  },
 };
 
 const headStats = {
@@ -2558,6 +2582,15 @@ const shield = {
   fall2024Rogue: {
     set: 'fall2024BlackCatRogueSet',
   },
+  winter2025Warrior: {
+    set: 'winter2025MooseWarriorSet',
+  },
+  winter2025Healer: {
+    set: 'winter2025StringLightsHealerSet',
+  },
+  winter2025Rogue: {
+    set: 'winter2025SnowRogueSet',
+  },
 };
 
 const shieldStats = {
@@ -3236,6 +3269,18 @@ const weapon = {
   },
   fall2024Rogue: {
     set: 'fall2024BlackCatRogueSet',
+  },
+  winter2025Warrior: {
+    set: 'winter2025MooseWarriorSet',
+  },
+  winter2025Mage: {
+    set: 'winter2025AuroraMageSet',
+  },
+  winter2025Healer: {
+    set: 'winter2025StringLightsHealerSet',
+  },
+  winter2025Rogue: {
+    set: 'winter2025SnowRogueSet',
   },
 };
 

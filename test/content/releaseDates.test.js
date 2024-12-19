@@ -19,8 +19,8 @@ describe('releaseDates', () => {
   });
   describe('armoire', () => {
     it('should only contain valid armoire names', () => {
-      const lastReleaseDate = maxBy(Object.values(ARMOIRE_RELEASE_DATES), value => new Date(`${value.year}-${value.month + 1}-20`));
-      clock = sinon.useFakeTimers(new Date(`${lastReleaseDate.year}-${lastReleaseDate.month + 1}-20`));
+      const lastReleaseDate = maxBy(Object.values(ARMOIRE_RELEASE_DATES), value => new Date(`${value.year}-${value.month}-22`));
+      clock = sinon.useFakeTimers(new Date(`${lastReleaseDate.year}-${lastReleaseDate.month}-22`));
       Object.keys(ARMOIRE_RELEASE_DATES).forEach(key => {
         expect(find(armoire.all, { set: key }), `${key} is not a valid armoire set`).to.exist;
       });
@@ -40,8 +40,8 @@ describe('releaseDates', () => {
 
   describe('eggs', () => {
     it('should only contain valid egg names', () => {
-      const lastReleaseDate = maxBy(Object.values(EGGS_RELEASE_DATES), value => new Date(`${value.year}-${value.month + 1}-${value.day}`));
-      clock = sinon.useFakeTimers(new Date(`${lastReleaseDate.year}-${lastReleaseDate.month + 1}-${lastReleaseDate.day}`));
+      const lastReleaseDate = maxBy(Object.values(EGGS_RELEASE_DATES), value => new Date(`${value.year}-${value.month}-${value.day}`));
+      clock = sinon.useFakeTimers(new Date(`${lastReleaseDate.year}-${lastReleaseDate.month}-${lastReleaseDate.day + 1}`));
       Object.keys(EGGS_RELEASE_DATES).forEach(key => {
         expect(eggs.all[key], `${key} is not a valid egg name`).to.exist;
       });
@@ -61,8 +61,8 @@ describe('releaseDates', () => {
 
   describe('hatchingPotions', () => {
     it('should only contain valid potion names', () => {
-      const lastReleaseDate = maxBy(Object.values(HATCHING_POTIONS_RELEASE_DATES), value => new Date(`${value.year}-${value.month + 1}-${value.day}`));
-      clock = sinon.useFakeTimers(new Date(`${lastReleaseDate.year}-${lastReleaseDate.month + 1}-${lastReleaseDate.day}`));
+      const lastReleaseDate = maxBy(Object.values(HATCHING_POTIONS_RELEASE_DATES), value => new Date(`${value.year}-${value.month}-${value.day}`));
+      clock = sinon.useFakeTimers(new Date(`${lastReleaseDate.year}-${lastReleaseDate.month}-${lastReleaseDate.day + 1}`));
       Object.keys(HATCHING_POTIONS_RELEASE_DATES).forEach(key => {
         expect(hatchingPotions.all[key], `${key} is not a valid potion name`).to.exist;
       });
