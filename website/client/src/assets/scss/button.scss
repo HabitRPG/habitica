@@ -3,9 +3,9 @@
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
   font-weight: bold;
-  line-height: 1.71;
-  border: 1px solid transparent;
-  padding: 4px 12px;
+  line-height: 1.714;
+  border: 2px solid transparent;
+  padding: 2px 12px;
   border-radius: 4px;
   box-shadow: 0 1px 3px 0 rgba($black, 0.12), 0 1px 2px 0 rgba($black, 0.24);
   color: $white;
@@ -19,7 +19,7 @@
   }
 
   &:focus {
-    border-color: $purple-400;
+    box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
   }
 
   &:active, &.active:not(.btn-flat) {
@@ -30,9 +30,9 @@
     cursor: default;
     color: $gray-50;
     opacity: 0.75;
-    box-shadow: 0 1px 3px 0 rgba(26, 24, 29, 0.12), 0 1px 2px 0 rgba(26, 24, 29, 0.24);
+    box-shadow: none;
     background-color: $gray-700;
-    border: 1px solid transparent;
+    border: 2px solid transparent;
 
     .svg {
       color: $gray-300;
@@ -40,7 +40,7 @@
   }
 
   &.with-icon {
-    height: 2rem; // otherwise would something set the height to 33px
+    height: 32px; // otherwise would something set the height to 33px
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -48,40 +48,47 @@
 }
 
 .btn-front {
+  border: none !important;
   font-size: 16px;
-  line-height: 1.5;
-  padding: 7.5px 15.5px;
+  padding: 2px 17px;
+
+  &:hover {
+    border: none !important;
+  }
 }
 
 .btn-primary {
   background: $purple-200;
-  border: 1px solid transparent;
+  border: 2px solid transparent;
+  line-height: 1.714;
   --icon-color: #{$purple-500};
 
   &:focus {
     background: $purple-200;
-    border-color: $purple-400;
+    border: 2px solid $purple-400;
+    box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
     --icon-color: #{$white};
   }
 
   &:not(:disabled):not(.disabled) {
     &:hover {
-      background: #5d3b9c;
-      border: 1px solid transparent;
+      background: $purple-200;
+      border: 2px solid transparent;
 
       --icon-color: #{$white};
     }
 
     &:active, &.active {
       background: $purple-200;
-      border: 1px solid transparent;
+      border: 2px solid transparent;
+      box-shadow: none;
 
       --icon-color: #{$white};
     }
 
     &:active:focus, &.active:focus {
       box-shadow: none;
-      border-color: $purple-400;
+      border: 2px solid $purple-400;
     }
   }
 
@@ -97,39 +104,43 @@
 .show > .btn-secondary.dropdown-toggle:not(.btn-success)
 {
   background: $white;
-  border: 1px solid transparent;
+  border: 2px solid transparent;
   color: $gray-50;
 
   --icon-color: #{$gray-200};
 
   &:focus, &:active {
-    color: $gray-50;
     background: $white;
-    border-color: $purple-400;
+    border: 2px solid $purple-400;
+    color: $gray-50;
 
     --icon-color: #{$purple-300};
   }
 
   &:not(:disabled):not(.disabled) {
     &:active, &.active {
+      background: $white;
+      border: 2px solid $purple-400;
       color: $purple-300;
       --icon-color: #{$purple-300};
 
       &:focus {
         color: $purple-300;
-        box-shadow: none;
-        border-color: $purple-400;
+        border: 2px solid $purple-400;
+        box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
       }
 
-      background: $white;
-      border: 1px solid transparent;
+      &:active {
+        box-shadow: none;
+      }
+
     }
 
     &:hover {
       color: $purple-300;
 
       background: $white !important;
-      border: 1px solid transparent;
+      border: 2px solid transparent;
 
       --icon-color: #{$purple-300};
       .svg {
@@ -151,91 +162,116 @@
 
 .btn-danger {
   background: $maroon-100;
-  border: 1px solid transparent;
+  border: 2px solid transparent;
+  box-shadow: 0 1px 3px 0 rgba($black, 0.16), 0 1px 3px 0 rgba($black, 0.24);
+
 
   &:hover:not(:disabled):not(.disabled) {
-    background: #e14e4e;
-    border: 1px solid transparent;
+    background: $maroon-100;
+    border: 2px solid transparent;
+    box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
   }
 
   &:focus {
     background: $maroon-100;
-    border-color: $purple-400;
+    border: 2px solid $purple-400;
   }
 
   &:not(:disabled):not(.disabled):active:focus, &:not(:disabled):not(.disabled).active:focus {
     box-shadow: none;
-    border-color: $purple-400;
+    border: 2px solid $purple-400;
   }
 
   &:not(:disabled):not(.disabled):active, &:not(:disabled):not(.disabled).active {
     background: $maroon-100;
-    border: 1px solid transparent;
+    border: 2px solid $purple-400;
   }
 }
 
 .btn-warning {
   background: $orange-10;
+  box-shadow: 0 1px 3px 0 rgba($black, 0.16), 0 1px 3px 0 rgba($black, 0.24);
   color: $white !important;
 
   &:hover:not(:disabled):not(.disabled) {
-    background: $orange-100;
+    background: $orange-10;
     color: $white;
   }
 
   &:focus {
     background: $orange-10;
-    border-color: $purple-400;
+    border: 2px solid $purple-400;
   }
 
   &:not(:disabled):not(.disabled):active:focus, &:not(:disabled):not(.disabled).active:focus {
+    border: 2px solid $purple-400;
     box-shadow: none;
-    border-color: $purple-400;
   }
 
   &:not(:disabled):not(.disabled):active, &:not(:disabled):not(.disabled).active {
     background: $orange-10;
+    box-shadow: none;
   }
 }
 
 .btn-success {
   background: $green-50;
-  border: 1px solid transparent;
+  border: 2px solid transparent;
 
   &:hover:not(:disabled):not(.disabled) {
-    background: #32bd8a;
-    border: 1px solid transparent;
+    background: $green-50;
+    border: 2px solid transparent;
+    box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
   }
 
   &:focus {
     background: $green-50;
-    border-color: $purple-400;
+    border: 2px solid $purple-400;
+    box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
   }
 
   &:not(:disabled):not(.disabled):active:focus, &:not(:disabled):not(.disabled).active:focus {
+    border: 2px solid $purple-400;
     box-shadow: none;
-    border-color: $purple-400;
   }
 
   &:not(:disabled):not(.disabled):active, &:not(:disabled):not(.disabled).active {
     background: $green-50;
-    border: 1px solid transparent;
+    border: 2px solid $purple-400;
+    box-shadow: none;
   }
 }
 
 .btn-info {
   background: $blue-50;
+  border: 2px solid transparent;
+  box-shadow: 0 1px 3px 0 rgba($black, 0.16), 0 1px 3px 0 rgba($black, 0.24);
 
   &:disabled {
     background: $blue-50;
+    box-shadow: none;
+  }
+
+  &:hover {
+    border: 2px solid transparent;
+    box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
+  }
+
+  &:focus {
+    background: $blue-100;
+    border: 2px solid $purple-400;
+    box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
   }
 
   &:hover:not(:disabled):not(.disabled) {
     background-color: $blue-100;
+    box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
   }
 
   &:active:not(:disabled):not(.disabled), &.active:not(:disabled):not(.disabled) {
-    background: $blue-50;
+    background: $blue-100;
+    border: 2px solid $purple-400;
+    box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
   }
 }
 
@@ -244,7 +280,7 @@
   width: 100%;
   padding: 8px;
   font-size: 14px;
-  line-height: 1.43;
+  line-height: 1.714;
   font-weight: bold;
   text-align: center;
   background: $gray-500;
@@ -268,6 +304,6 @@
 
 .btn-small {
   font-size: 12px;
-  line-height: 1.33;
-  padding: 4px 8px;
+  line-height: 2;
+  padding: 2px 2px;
 }

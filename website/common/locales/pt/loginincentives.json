@@ -3,7 +3,6 @@
     "earnedRewardForDevotion": "Recebeu <%= reward %> por se empenhar a melhorar a sua vida.",
     "nextRewardUnlocksIn": "Sua próxima recompensa será desbloqueada após: <%= numberOfCheckinsLeft %> logins",
     "awesome": "Incrível!",
-    "countLeft": "Logins até a próxima recompensa: <%= count %>",
     "incentivesDescription": "Quando se trata de construir hábitos, consistência é a chave. Cada dia que você logar você fica mais próximo(a) de uma recompensa.",
     "checkinEarned": "Sua Contagem de Login subiu!",
     "unlockedCheckInReward": "Você desbloqueou um Prêmio de Login!",

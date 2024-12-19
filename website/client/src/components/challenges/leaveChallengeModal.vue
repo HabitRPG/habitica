@@ -25,9 +25,13 @@
   </b-modal>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
   .modal-body {
     padding-bottom: 2em;
+
+    .btn {
+      margin: 0px 2px;
+    }
   }
 </style>
 

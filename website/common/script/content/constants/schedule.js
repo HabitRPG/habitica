@@ -527,6 +527,7 @@ export const MONTHLY_SCHEDULE = {
           'rock',
           'ferret',
           'hedgehog',
+          'dog',
         ],
       },
       {
@@ -647,6 +648,7 @@ export const MONTHLY_SCHEDULE = {
         items: [
           'Peppermint',
           'Holly',
+          'Gingerbread',
         ],
       },
     ],

@@ -26,7 +26,7 @@
     position: fixed;
     right: 10px;
     width: 350px;
-    z-index: 9999; // to keep it above modal overlays
+    z-index: 999; // to keep it above modal overlays
 
     top: var(--current-scrollY);
 

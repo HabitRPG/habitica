@@ -47,6 +47,7 @@ export async function createCheckoutSession (options, stripeInc) {
     userId: user._id,
     gift: gift ? JSON.stringify(gift) : undefined,
     sub: sub ? JSON.stringify(sub) : undefined,
+    server_url: BASE_URL,
   };
 
   let lineItems;
@@ -141,6 +142,7 @@ export async function createEditCardCheckoutSession (options, stripeInc) {
   const metadata = {
     type,
     userId: user._id,
+    server_url: BASE_URL,
   };
 
   let customerId;

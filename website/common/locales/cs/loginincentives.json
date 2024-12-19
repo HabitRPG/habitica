@@ -3,7 +3,6 @@
     "earnedRewardForDevotion": "Získal/a jsi <%= reward %> díky tvému odhodlání si vylepšit život.",
     "nextRewardUnlocksIn": "Přihlášení do tvé další odměny: <%= numberOfCheckinsLeft %>",
     "awesome": "Super!",
-    "countLeft": "Přihlášení do další odměny: <%= count %>",
     "incentivesDescription": "Když přijde na vytváření zvyků, pravidelnost je klíčem. Každý den, kdy se přihlásíš, budeš blíž k odměně.",
     "checkinEarned": "Tvoje počítadlo přihlášení se zvedlo!",
     "unlockedCheckInReward": "Odemknul jsi odměnu za přihlášení!",

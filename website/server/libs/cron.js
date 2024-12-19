@@ -15,7 +15,6 @@ const {
   shouldDo,
   i18n,
   getPlanContext,
-  getPlanMonths,
 } = common;
 const { scoreTask } = common.ops;
 const { loginIncentives } = common.content;
@@ -27,7 +26,7 @@ function setIsDueNextDue (task, user, now) {
   optionsForShouldDo.nextDue = true;
   const nextDue = common.shouldDo(now, task, optionsForShouldDo);
   if (nextDue && nextDue.length > 0) {
-    task.nextDue = nextDue;
+    task.nextDue = nextDue.map(dueDate => dueDate.toISOString());
   }
 }
 
@@ -67,59 +66,12 @@ async function grantEndOfTheMonthPerks (user, now) {
 
   if (elapsedMonths > 0) {
     plan.dateUpdated = now;
-    // For every month, inc their "consecutive months" counter.
-    // Give perks based on consecutive blocks
-    // If they already got perks for those blocks (eg, 6mo subscription,
-    // subscription gifts, etc) - then dec the offset until it hits 0
-
     // Award mystery items
     revealMysteryItems(user, elapsedMonths);
 
-    // 1 for one-month recurring or gift subscriptions; later set to 3 for 3-month recurring, etc.
-    let planMonthsLength = 1;
-
-    for (let i = 0; i < elapsedMonths; i += 1) {
-      plan.consecutive.count += 1;
-
-      plan.consecutive.offset -= 1;
-      // If offset is now greater than 0, the user is within a period
-      // for which they have already been given the consecutive months perks.
-      //
-      // If offset now equals 0, this is the final month for which
-      // the user has already been given the consecutive month perks.
-      // We do not give them more perks yet because they might cancel
-      // the subscription before the next payment is taken.
-      //
-      // If offset is now less than 0, the user EITHER has
-      // a single-month recurring subscription and MIGHT be due for perks,
-      // OR has a multi-month subscription that renewed some time
-      // in the previous calendar month and so they are due for a new set of perks
-      // (strictly speaking, they should have been given the perks
-      // at the time that next payment was taken, but we don't have support for
-      // tracking payments like that - giving the perks when offset is < 0 is a workaround).
-
-      if (plan.consecutive.offset < 0) {
-        if (plan.planId) {
-          planMonthsLength = getPlanMonths(plan);
-        }
-
-        if (planMonthsLength === 1) {
-          plan.consecutive.offset = 0; // allow the same logic to be run next month
-        } else {
-          // User has a multi-month recurring subscription
-          // and it renewed in the previous calendar month.
-          // don't need to check for perks again for this many months
-          // (subtract 1 because we should have run this when the payment was taken last month)
-          plan.consecutive.offset = planMonthsLength - 1;
-        }
-        if (!plan.gift && plan.customerId.indexOf('Gift') === -1) {
-          // Don't process gifted subs here, since they already got their perks.
-
-          // eslint-disable-next-line no-await-in-loop
-          await plan.incrementPerkCounterAndReward(user._id, planMonthsLength);
-        }
-      }
-    }
+    plan.consecutive.count += elapsedMonths;
+    plan.cumulativeCount += elapsedMonths;
+    await plan.rewardPerks(user._id, elapsedMonths);
   }
 }
 
@@ -135,8 +87,6 @@ function removeTerminatedSubscription (user) {
 
   _.merge(plan.consecutive, {
     count: 0,
-    offset: 0,
-    gemCapExtra: 0,
   });
 
   user.markModified('purchased.plan');
@@ -283,8 +233,6 @@ export async function cron (options = {}) {
 
   if (user.isSubscribed()) {
     await grantEndOfTheMonthPerks(user, now);
-  } if (!user.isSubscribed() && user.purchased.plan.perkMonthCount > 0) {
-    user.purchased.plan.perkMonthCount = 0;
   }
 
   const { plan } = user.purchased;
@@ -439,7 +387,7 @@ export async function cron (options = {}) {
   });
 
   // Finished tallying
-  user.history.todos.push({ date: now, value: todoTally });
+  user.history.todos.push({ date: now.toISOString(), value: todoTally });
 
   // tally experience
   let expTally = user.stats.exp;
@@ -449,7 +397,7 @@ export async function cron (options = {}) {
     expTally += common.tnl(lvl);
   }
 
-  user.history.exp.push({ date: now, value: expTally });
+  user.history.exp.push({ date: now.toISOString(), value: expTally });
 
   // Remove any remaining completed todos from the list of active todos
   user.tasksOrder.todos = user.tasksOrder.todos
