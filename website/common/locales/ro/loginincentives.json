@@ -3,7 +3,6 @@
     "earnedRewardForDevotion": "Ai câștigat <%= reward %> pentru că te-ai comis să îți îmbunătățești viața.",
     "nextRewardUnlocksIn": "Verificări până la următorul premiu: <%= numberOfCheckinsLeft %>",
     "awesome": "Mișto!",
-    "countLeft": "Check-in-uri până la următoarea recompensă: <%= count %>",
     "incentivesDescription": "Când vine vorba de formarea obiceiurilor, consistența este elementul cheie. Fiecare zi în care faceți check-in te va aduce mai aproape de un premiu.",
     "checkinEarned": "Contorul tău de înregistrare a crescut!",
     "unlockedCheckInReward": "Ai deblocat un Premiu pentru Check-In!",

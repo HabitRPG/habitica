@@ -3,7 +3,6 @@
     "earnedRewardForDevotion": "Votre persévérance à améliorer votre vie vous permet de remporter ceci : <%= reward %>.",
     "nextRewardUnlocksIn": "Connexion(s) jusqu'à votre prochaine récompense : <%= numberOfCheckinsLeft %>",
     "awesome": "Génial !",
-    "countLeft": "Connexion(s) avant votre prochaine récompense : <%= count %>",
     "incentivesDescription": "Lorsqu'il s'agit de construire des habitudes, la clé réside dans la constance. Chaque jour de connexion vous rapproche d'un prix.",
     "checkinEarned": "Votre compteur de connexion a augmenté !",
     "unlockedCheckInReward": "Vous avez débloqué un prix de connexion !",

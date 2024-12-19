@@ -3,7 +3,6 @@
     "earnedRewardForDevotion": "Mivel elkötelezted magad hogy javítasz az életeden, ezt a jutalmat kaptad cserébe: <%= reward %>.",
     "nextRewardUnlocksIn": "A következő jutalomig ennyi bejelentkezés szükséges: <%= numberOfCheckinsLeft %>",
     "awesome": "Fantasztikus!",
-    "countLeft": "Szükséges bejelentkezések száma a következő jutalomig: <%= count %>",
     "incentivesDescription": "Ha szokások építéséről van szó, állandóság a kulcsszó. Minden nap amikor bejelentkezel, közelebb kerülsz egy jutalomhoz.",
     "checkinEarned": "A bejelentkezéseid száma növekedett!",
     "unlockedCheckInReward": "Bejelentkezési jutalmat kaptál!",

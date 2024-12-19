@@ -51,7 +51,7 @@
   "webFaqAnswer40": "Gems are Habitica’s in-app paid currency used to purchase Equipment, Avatar Customizations, Backgrounds, and more! Gems can be purchased in bundles or with Gold if you’re a Habitica subscriber. You can also win Gems by being selected as the winner of a Challenge.",
 
   "faqQuestion41": "What are Mystic Hourglasses, and how do I get them?",
-  "webFaqAnswer41": "Mystic Hourglasses are Habitica’s exclusive Subscriber currency used in the Time Travelers Shop! Hourglasses are delivered on a set schedule based on your subscription plan.\n\nHourglass delivery schedule:\n * 1-Month subscribers get 1 Hourglass at the start of the month after the 3rd consecutive payment.\n * 3-Month subscribers get 1 Hourglass immediately after subscribing, then 1 more Hourglass at the start of the month after each renewal.\n * 6-Month subscribers get 2 Hourglasses immediately after subscribing, then 2 more Hourglasses at the start of the month after each renewal.\n * 12-Month subscribers get 4 Hourglasses immediately after subscribing, then 4 more Hourglasses at the start of the month after each renewal.",
+  "webFaqAnswer41": "Mystic Hourglasses are Habitica’s exclusive Subscriber currency used in the Time Travelers Shop. Subscribers receive a Mystic Hourglass at the start of each month they have subscription benefits, along with a bunch of other perks. Be sure to check out our subscription options if you’re interested in the special Backgrounds, Pets, Quests, and Equipment offered in the Time Travelers Shop!",
 
   "faqQuestion42": "What can I do to increase accountability?",
   "webFaqAnswer42": "One of the best ways to motivate yourself and hold yourself accountable for accomplishing your tasks is to join a Party! Partying with other Habitica players is a great way to take on Quests to receive Pets and Equipment, receive buffs from Party members’ Skills, and boost your motivation.\n\nAnother way to increase accountability is to join a Challenge. Challenges automatically add tasks related to a specific goal to your lists! They also add an element of competition against other Habitica players that may give you a motivation boost as you strive for the Gem prize. There are official Challenges created by the Habitica Team as well Challenges made by other players.",
@@ -198,7 +198,6 @@
   "contactAdmin": "Contact <a href='mailto:admin@habitica.com'>admin@habitica.com</a>",
 
   "contentReleaseChanges": "Content Release Changes",
-
   "contentFaqTitle": "Habitica Content Release Change FAQ",
 
   "contentFaqPara0": "Habitica has so much fun and engaging content to offer, and we want everyone to be able to enjoy it all! Changes are coming to make it easier for new players to get started on their collection as well as for veteran players to complete theirs!",
@@ -258,5 +257,67 @@
   "contentAnswer70": "Backgrounds, Quests, Pets, and Mounts available in the Time Travelers Shop will remain available all year round.",
   "contentAnswer71": "Stay tuned for further updates on planned improvements to the Time Travelers Shop experience.",
 
-  "contentFaqPara3": "If you have any questions not covered by the answers above, you can always contact our team at <%= mailto %>! We’re excited for this new content release schedule and looking forward to even more projects in the future to help make Habitica better for all players."
+  "contentFaqPara3": "If you have any questions not covered by the answers above, you can always contact our team at <%= mailto %>! We’re excited for this new content release schedule and looking forward to even more projects in the future to help make Habitica better for all players.",
+
+  "subscriptionBenefitsAdjustments": "Subscriber Benefit Adjustments",
+  "subscriptionBenefitsFaqTitle": "Subscriber Benefit Adjustments FAQ",
+  "subscriptionPara0": "We’re making Habitica subscriptions better than ever with even more Mystic Hourglasses and Gems! These changes make it much easier to understand your subscription benefits.",
+
+  "subscriptionHeading0": "Changes to Mystic Hourglasses",
+  "subscriptionDetail00": "All subscribers, including those with gifted subscriptions, will receive 1 Mystic Hourglass at the start of each month they have subscriber benefits.",
+  "subscriptionDetail000": "Being subscribed for 12 months will earn you 12 Mystic Hourglasses instead of the previous 4.",
+  "subscriptionDetail001": "All subscribers will receive Mystic Hourglasses on the same schedule, matching the release schedule of the monthly Mystery Gear Sets.",
+  "subscriptionDetail002": "Subscribers will no longer need to wait until the month following their recurring payment to receive any Mystic Hourglasses.",
+  "subscriptionDetail003": "All new subscribers will receive 1 Mystic Hourglass immediately after purchase. This will count as the current month’s Mystic Hourglass delivery.",
+  "subscriptionDetail01": "New 12 month recurring subscriptions will get an initial one-time bonus of an extra 12 Mystic Hourglasses upon purchase.",
+  "subscriptionDetail010": "This will be in addition to the one monthly Mystic Hourglass all new subscribers receive after initial purchase.",
+  "subscriptionDetail011": "Current players with an active 12 month recurring subscription will receive this bonus on the day these changes go into effect.",
+  "subscriptionDetail012": "This bonus does not apply to gifted subscriptions.",
+
+  "subscriptionHeading1": "Changes to Subscriber Gems",
+  "subscriptionDetail10": "The amount of Gems subscribers can purchase with Gold in the Market will increase by 2 each month they have benefits until reaching a max of 50.",
+  "subscriptionDetail100": "New 1, 3, and 6 month subscriptions will now start at 24 Gems per month and that value will increase each month they have benefits.",
+  "subscriptionDetail101": "Any subscribers that currently have an odd number of Gems per month will have their Gem cap rounded up to the nearest even number.",
+  "subscriptionDetail102": "New 12 month subscriptions will immediately start at the max amount of Gems per month immediately, 50 Gems instead of the previous 45.",
+  "subscriptionDetail11": "The amount of Gems you can purchase each month for Gold will no longer be reset if your subscription lapses.",
+  "subscriptionDetail110": "If you raise the amount of Gems you can buy each month then cancel your subscription, you can pick back up at the same amount any time in the future, even if you purchase a lower subscription tier.",
+
+  "subscriptionHeading2": "Why are we making these changes?",
+  "subscriptionDetail20": "Under the current structure, it can be difficult to understand how many Mystic Hourglasses you would receive and when.",
+  "subscriptionDetail21": "The four subscription tiers were known to cause complications when upgrading or downgrading to different tiers.",
+  "subscriptionDetail22": "Gifted and recurring subscriptions had conflicting benefit experiences and rules that we wanted to simplify.",
+  "subscriptionDetail23": "Giving one Mystic Hourglass per month allows subscribers to enjoy the rotating items in the Time Travelers Shop.",
+  "subscriptionDetail24": "We wanted subscribers to have more than four chances per year to collect items from the Time Travelers Shop.",
+  "subscriptionDetail25": "We understand that finances change and we didn’t want to punish subscribers for lapsed subscriptions by taking away benefits they had earned.",
+
+  "subscriptionHeading3": "Release day rewards",
+  "subscriptionPara1": "To help ease the transition to the new schedule, existing subscribers can expect some extra goodies on release day. We want to sincerely thank you for your continued support through this change!",
+  "subscriptionDetail30": "Players with recurring 1 month subscriptions or Group Plan subscriptions will receive 2 Mystic Hourglasses and 20 Gems.",
+  "subscriptionDetail31": "Players with recurring 3 or 6 month subscriptions will receive 4 Mystic Hourglasses and 20 Gems.",
+  "subscriptionDetail32": "Players with recurring 12 month subscriptions will receive the 12 Mystic Hourglass bonus noted above and 20 Gems.",
+  "subscriptionDetail33": "To receive these rewards, your account must have an active recurring subscription before November 19.",
+
+  "subscriptionDetail40": "I’m a subscriber, when will I get my first regular Mystic Hourglass and Gem cap increase from the new schedule?",
+  "subscriptionDetail400": "For current subscribers, you’ll get your first Mystic Hourglass and +2 Gems added to your monthly cap on your first login of the month after release. This means if you happen to have logged in already in November, your first regular increase will happen in December.",
+  "subscriptionDetail41": "Will the price of subscriptions change when this is released?",
+  "subscriptionDetail410": "These changes will not affect the current price of subscriptions.",
+  "subscriptionDetail42": "If I don’t log in for a month while subscribed, will I miss out on those benefits?",
+  "subscriptionDetail420": "Just like Mystery Gear Sets, you will not miss out on any Mystic Hourglasses or Gem cap increases if you don’t log in while subscribed. The next time you log in, you will receive all benefits owed for each month you were subscribed.",
+  "subscriptionDetail43": "If I sign up for a recurring subscription then cancel, will I still get benefits?",
+  "subscriptionDetail430": "Canceling a recurring subscription will set a termination date for your benefits, but you will still have full access to all perks of a subscription before that date. That means you will still receive monthly Mystic Hourglasses and Gem cap increases at the start of each month you have access to those benefits.",
+  "subscriptionDetail44": "I’m a current subscriber, how many Gems will I have available in the Market each month after the change?",
+  "subscriptionDetail440": "On the day these changes go into effect, current subscribers with an odd number of Gems per month will see these adjustments to their Gem cap:",
+  "subscriptionDetail4400": "If you currently have unlocked <%= initialNumber %> Gems per month, you will be set to <%= roundedNumber %>.",
+  "subscriptionDetail45": "Will purchasing extra gifted subscriptions get me more Mystic Hourglasses or a higher Gem cap faster?",
+  "subscriptionDetail450": "Since Mystic Hourglasses and raising the Gem cap is now a monthly benefit, purchasing multiple gifted subscriptions will not give more benefits at once.",
+  "subscriptionDetail451": "Each gifted subscription will add to the amount of months a player has subscription benefits, allowing them to continue receiving more Mystic Hourglasses and increases to their Gem cap each passing month.",
+  "subscriptionDetail46": "If I had a subscription in the past, can I unlock my old Gem cap if I resubscribe now?",
+  "subscriptionDetail460": "Since we used to reset the amount of Gems you could buy each month when your benefits ran out, players with lapsed subscription benefits will have to start fresh under this new system.",
+  "subscriptionDetail47": "I have a Group Plan subscription, how does this affect me?",
+  "subscriptionDetail470": "Group Plan subscribers’ benefits will behave the same as those for a 1 month recurring subscription. You’ll receive a Mystic Hourglass at the start of each month and the amount of Gems you can purchase each month in the Market will increase by 2 until reaching 50.",
+  "subscriptionDetail48": "Are there any changes to other subscription benefits, like Mystery Gear Sets?",
+  "subscriptionDetail480": "These changes only affect Mystic Hourglasses and subscriber Gems. All other benefits will remain the same.",
+
+  "subscriptionPara2": "If you have any questions not covered by the answers above, you can always contact our team at <%= mailto %>.",
+  "subscriptionPara3": "We hope this new schedule will be more predictable, allow more access to the amazing stock of items in the Time Travelers Shop, and give even more motivation to make progress on your tasks each month!"
 } 

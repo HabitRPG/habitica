@@ -8,7 +8,7 @@
     :no-close-on-backdrop="true"
   >
     <div class="modal-body select-class">
-      <h1 class="header-purple text-center">
+      <h1 class="header-purple text-center mb-0">
         {{ $t('chooseClass') }}
       </h1>
       <div class="container-fluid">
@@ -26,7 +26,7 @@
                 :with-background="false"
                 :override-avatar-gear="classGear(heroClass)"
                 :hide-class-badge="true"
-                :sprites-margin="'1.8em 1.5em'"
+                :sprites-margin="'20px 36px 36px 20px'"
                 :override-top-padding="'0px'"
                 :show-visual-buffs="false"
                 :class="selectionBox(selectedClass, heroClass)"
@@ -91,7 +91,7 @@
           <div class="opt-out-wrapper">
             <span
               id="classOptOutBtn"
-              class="danger"
+              class="danger mb-0"
               @click="clickDisableClasses(); close();"
             >{{ $t('optOutOfClasses') }}</span>
           </div>
@@ -105,6 +105,11 @@
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
 
+  .btn-primary:active {
+      border: 2px solid $purple-400 !important;
+      box-shadow: none !important;
+    }
+
   .class-badge {
     $badge-size: 32px;
 
@@ -112,7 +117,7 @@
     height: $badge-size;
     background: $white;
     box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
-    border-radius: 100px;
+    border-radius: 50px;
 
     .svg-icon {
       width: 19px;
@@ -121,8 +126,8 @@
   }
 
   .class-explanation {
-    font-size: 16px;
-    margin: 1.5em auto;
+    font-size: 1rem;
+    margin: 24px auto;
   }
 
   #classOptOutBtn {
@@ -130,35 +135,37 @@
   }
 
   .class-name {
-    font-size: 24px;
+    font-size: 1.5rem;
     font-weight: bold;
-    margin: auto 0.33333em;
+    margin: auto 5px;
   }
 
   .danger {
     color: $red-50;
-    margin-bottom: 0em;
   }
 
   .header-purple {
     color: $purple-200;
-    margin-top: 1.33333em;
-    margin-bottom: 0em;
+    margin-top: 40px;
   }
 
   .modal-actions {
-    margin: 2em auto;
+    margin: 28px auto;
   }
 
   .opt-out-wrapper {
-    margin: 1em 0 0.5em 0;
+    margin: 14px 0 7px 0;
   }
 
   .selection-box {
-    width: 140px;
-    height: 148px;
-    border-radius: 16px;
     border: solid 4px $purple-300;
+    border-radius: 16px;
+    bottom: -4px;
+    height: 150px;
+    left: -4px;
+    right: -4px;
+    top: -4px;
+    width: 150px;
   }
 
   .healer-color {
@@ -231,14 +238,6 @@ export default {
     },
     classGear (heroClass) {
       if (heroClass === 'rogue') {
-        if (this.eventName) {
-          return {
-            armor: `armor_special_${this.eventName}Rogue`,
-            head: `head_special_${this.eventName}Rogue`,
-            shield: `shield_special_${this.eventName}Rogue`,
-            weapon: `weapon_special_${this.eventName}Rogue`,
-          };
-        }
         return {
           armor: 'armor_rogue_5',
           head: 'head_rogue_5',
@@ -246,40 +245,24 @@ export default {
           weapon: 'weapon_rogue_6',
         };
       } if (heroClass === 'wizard') {
-        if (this.eventName) {
-          return {
-            armor: `armor_special_${this.eventName}Mage`,
-            head: `head_special_${this.eventName}Mage`,
-            weapon: `weapon_special_${this.eventName}Mage`,
-          };
-        }
         return {
           armor: 'armor_wizard_5',
           head: 'head_wizard_5',
           weapon: 'weapon_wizard_6',
         };
       } if (heroClass === 'healer') {
-        if (this.eventName) {
-          return {
-            armor: `armor_special_${this.eventName}Healer`,
-            head: `head_special_${this.eventName}Healer`,
-            shield: `shield_special_${this.eventName}Healer`,
-            weapon: `weapon_special_${this.eventName}Healer`,
-          };
-        }
         return {
           armor: 'armor_healer_5',
           head: 'head_healer_5',
           shield: 'shield_healer_5',
           weapon: 'weapon_healer_6',
         };
-      }
-      if (this.eventName) {
+      } if (heroClass === 'warrior') {
         return {
-          armor: `armor_special_${this.eventName}Warrior`,
-          head: `head_special_${this.eventName}Warrior`,
-          shield: `shield_special_${this.eventName}Warrior`,
-          weapon: `weapon_special_${this.eventName}Warrior`,
+          armor: 'armor_warrior_5',
+          head: 'head_warrior_5',
+          shield: 'shield_warrior_5',
+          weapon: 'weapon_warrior_6',
         };
       }
       return {

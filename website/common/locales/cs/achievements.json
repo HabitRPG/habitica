@@ -134,7 +134,6 @@
     "achievementShadeOfItAllModalText": "Zkrotil jsi všechny stínové držáky!",
     "achievementRoughRider": "Drsný jezdec",
     "achievementRoughRiderText": "Vylíhl/a jsi všechny základní barvy nepohodlných mazlíčků a zvířat: kaktus, ježka a kámen!",
-    "achievementRoughRiderNotes": "Získal/a jsi všechny základní barvy nepohodlných mazlíčků a zvířat!",
     "achievementGroupsBeta2022ModalText": "Vy a vaše skupiny jste testováním a poskytnutím zpětné vazby a pomohli Habitice!",
     "achievementPolarPro": "Polární profík",
     "achievementPolarProText": "Vylíhl/a jsi všechny základní barvy polárních mazlíčků: medvěda, lišku, tučňáka, velrybu a vlka!",
@@ -158,5 +157,5 @@
     "achievementBonelessBossModalText": "Získal/a jsi všechny bezobratlé mazlíčky!",
     "achievementDuneBuddy": "Kámoš z dun",
     "achievementDuneBuddyText": "Vylíhl/a jsi všechny, v poušti se vyskytující, mazlíčky: pásovce, kaktus, lišku, žábu, hada a pavouka!",
-    "achievementDuneBuddyNotes": "Získal/a jsi všechny, v poušti se vyskytující, mazlíčky!"
+    "achievementDuneBuddyModalText": "Sesbíral jsi všechna zvířata žijící v poušti!"
 }
