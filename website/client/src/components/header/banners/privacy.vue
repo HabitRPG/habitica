@@ -1,18 +1,18 @@
 <template>
   <div class="d-flex align-items-center justify-content-between py-3 px-4">
-    <div
-      class="mr-3"
+    <p
+      class="mr-3 mb-0"
       v-html="$t('privacyOverview')"
     >
-    </div>
+    </p>
     <div class="d-flex flex-column justify-content-around text-center ml-3">
       <button class="btn btn-primary mb-2">
-        Accept All Cookies
+        {{ $t('acceptAllCookies') }}
       </button>
       <button class="btn btn-secondary mb-2">
-        Deny Non-Essential Cookies
+        {{ $t('denyNonEssentialCookies') }}
       </button>
-      <a>Manage Your Privacy Preferences</a>
+      <a>{{ $t('managePrivacyPreferences') }}</a>
     </div>
   </div>
 </template>
@@ -21,6 +21,10 @@
   button {
     min-width: 40px;
     width: 558px;
+  }
+
+  a, p {
+    line-height: 1.714;
   }
 </style>
 

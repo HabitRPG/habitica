@@ -8,6 +8,9 @@
       <br />
       <a href="https://www.enable-javascript.com/" target="_blank">{{ $t('jsDisabledLink') }}</a>
     </noscript>
+    <privacy-banner
+      class="privacy-banner mx-4"
+    />
     <div
       id="intro-signup"
       class="purple-1"
@@ -354,8 +357,13 @@
 
 <style lang='scss'>
 @import '@/assets/scss/static.scss';
-  #front .form-text a {
-    color: $white !important;
+  #front {
+    .form-text a {
+      color: $white !important;
+    }
+    .privacy-banner p {
+      font-size: 14px;
+    }
   }
 </style>
 
@@ -426,6 +434,15 @@
     h1, h2, h3, h4, h5, h6, button, .strike > span, input {
       font-family: 'Varela Round', sans-serif;
       font-weight: normal;
+    }
+
+    .privacy-banner {
+      position: fixed;
+      bottom: 24px;
+      border-radius: 8px;
+      background-color: $white;
+      z-index: 1;
+      box-shadow: 0px 3px 6px 0px rgba(26, 24, 29, 0.16), 0px 3px 6px 0px rgba(26, 24, 29, 0.24);
     }
   }
 
@@ -793,6 +810,7 @@ import isEmail from 'validator/es/lib/isEmail';
 import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
 import { buildAppleAuthUrl } from '../../libs/auth';
 import sanitizeRedirect from '@/mixins/sanitizeRedirect';
+import PrivacyBanner from '@/components/header/banners/privacy';
 import googlePlay from '@/assets/images/home/google-play-badge.svg?raw';
 import iosAppStore from '@/assets/images/home/ios-app-store.svg?raw';
 import iphones from '@/assets/images/home/iphones.svg?raw';
@@ -813,6 +831,9 @@ import makeuseof from '@/assets/images/home/make-use-of.svg?raw';
 import thenewyorktimes from '@/assets/images/home/the-new-york-times.svg?raw';
 
 export default {
+  components: {
+    PrivacyBanner,
+  },
   mixins: [sanitizeRedirect],
   data () {
     return {

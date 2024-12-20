@@ -15,6 +15,7 @@
     <external-link-modal />
     <birthday-modal />
     <template v-if="isUserLoaded">
+      <privacy-banner />
       <chat-banner />
       <damage-paused-banner />
       <gems-promo-banner />
@@ -118,11 +119,12 @@ import { loadProgressBar } from 'axios-progress-bar';
 import birthdayModal from '@/components/news/birthdayModal';
 import AppMenu from '@/components/header/menu';
 import AppHeader from '@/components/header/index';
+import BirthdayBanner from '@/components/header/banners/birthdayBanner';
 import ChatBanner from '@/components/header/banners/chatBanner';
 import DamagePausedBanner from '@/components/header/banners/damagePaused';
 import GemsPromoBanner from '@/components/header/banners/gemsPromo';
 import GiftPromoBanner from '@/components/header/banners/giftPromo';
-import BirthdayBanner from '@/components/header/banners/birthdayBanner';
+import PrivacyBanner from '@/components/header/banners/privacy';
 import AppFooter from '@/components/appFooter';
 import notificationsDisplay from '@/components/notifications';
 import { mapState } from '@/libs/store';
@@ -159,6 +161,7 @@ export default {
     GemsPromoBanner,
     GiftPromoBanner,
     BirthdayBanner,
+    PrivacyBanner,
     notificationsDisplay,
     BuyModal,
     SelectMembersModal,
