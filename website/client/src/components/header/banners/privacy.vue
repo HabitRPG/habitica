@@ -1,33 +1,72 @@
 <template>
-  <div class="d-flex align-items-center justify-content-between py-3 px-4">
+  <div class="banner d-flex align-items-center justify-content-between py-3 px-4">
     <p
       class="mr-3 mb-0"
-      v-html="$t('privacyOverview')"
+      v-html="$t('privacyOverview') + ' ' + $t('learnMorePrivacy')"
     >
     </p>
-    <div class="d-flex flex-column justify-content-around text-center ml-3">
+    <div class="navigation d-flex flex-column justify-content-around text-center ml-2">
       <button class="btn btn-primary mb-2">
         {{ $t('acceptAllCookies') }}
       </button>
       <button class="btn btn-secondary mb-2">
         {{ $t('denyNonEssentialCookies') }}
       </button>
-      <a>{{ $t('managePrivacyPreferences') }}</a>
+      <a
+        v-if="isStaticPage"
+        @click="showPrivacyModal"
+      >
+        {{ $t('managePrivacyPreferences') }}
+      </a>
+      <router-link
+        v-else
+        to="/user/settings/siteData"
+      >
+        {{ $t('managePrivacyPreferences') }}
+      </router-link>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
   button {
-    min-width: 40px;
     width: 558px;
   }
 
   a, p {
     line-height: 1.714;
   }
+
+  @media only screen and (max-width: 992px) {
+    .banner {
+      flex-direction: column !important;
+
+      .navigation {
+        margin-left: 0px !important;
+      }
+
+      button {
+        width: calc(100vw - 48px);
+      }
+
+      p {
+        margin-bottom: 16px !important;
+      }
+    }
+  }
 </style>
 
 <script>
-
+export default {
+  computed: {
+    isStaticPage () {
+      return this.$route.meta.requiresLogin === false;
+    },
+  },
+  methods: {
+    showPrivacyModal () {
+      this.$root.$emit('bv::show::modal', 'privacy-preferences');
+    },
+  },
+};
 </script>

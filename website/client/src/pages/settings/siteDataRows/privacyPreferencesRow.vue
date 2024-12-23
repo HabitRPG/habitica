@@ -10,7 +10,7 @@
       <p
         v-once
         class="gray-50"
-        v-html="$t('privacySettingsOverview')"
+        v-html="$t('privacySettingsOverview') + ' ' + $t('learnMorePrivacy')"
       >
       </p>
       <div
@@ -18,7 +18,7 @@
         class="d-flex justify-content-center"
       >
         <div class="w-66">
-          <div class="mb-28">
+          <div class="mb-28p">
             <div
               class="d-flex justify-content-between align-items-center"
             >
@@ -62,13 +62,17 @@
     width: fit-content;
   }
 
-  .mb-28 {
+  .mb-28p {
     margin-bottom: 28px;
   }
 
   .settings-label.mini {
     font-size: 12px;
     text-align: right;
+  }
+
+  small {
+    line-height: 1.33;
   }
 
   .w-66 {

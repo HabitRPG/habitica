@@ -102,12 +102,6 @@
     max-width: unset;
 
     ::v-deep {
-      line-height: 1.71;
-
-      .small {
-        line-height: 1.33;
-      }
-
       table td {
         padding: 0.5rem;
       }
@@ -121,6 +115,14 @@
         color: $gray-50;
 
         width: 23%;
+      }
+
+      small {
+        line-height: 1.33;
+      }
+
+      .settings-label, .settings-value, a, p {
+        line-height: 1.71;
       }
 
       .input-area .settings-label {
