@@ -34,7 +34,10 @@
         <label class="mb-0">
           {{ $t('strictlyNecessary') }}
         </label>
-        <toggle-switch />
+        <toggle-switch
+          :checked="true"
+          :disabled="true"
+        />
       </div>
       <small>
         {{ $t('requiredToRun') }}
@@ -50,7 +53,10 @@
       <button class="btn btn-secondary mb-3">
         {{ $t('savePreferences') }}
       </button>
-      <a>
+      <a
+        href="/static/privacy"
+        target="_blank"
+      >
         {{ $t('habiticaPrivacyPolicy') }}
       </a>
     </div>

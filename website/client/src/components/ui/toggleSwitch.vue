@@ -26,12 +26,17 @@
           :checked="isChecked"
           :value="value"
           @change="handleChange"
+          :disabled="disabled"
         >
         <label
           class="toggle-switch-label"
           :for="toggleId"
         >
-          <span class="toggle-switch-inner"></span>
+          <span
+            class="toggle-switch-inner"
+            :class="{ disabled }"
+          >
+          </span>
           <span
             class="toggle-switch-switch"
             tabindex="0"
@@ -111,7 +116,7 @@
   .toggle-switch-inner:before {
     content: "";
     padding-left: 10px;
-    background-color: $green-50;
+    background-color: $green-10;
   }
 
   .toggle-switch-inner:after {
@@ -119,6 +124,10 @@
     padding-right: 10px;
     background-color: $gray-300;
     text-align: right;
+  }
+
+  .toggle-switch-inner.disabled:before, .toggle-switch-inner.disabled:after {
+    opacity: 0.5;
   }
 
   .toggle-switch-switch {
@@ -180,6 +189,10 @@ export default {
     },
     hoverText: {
       type: String,
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
   },
   data () {

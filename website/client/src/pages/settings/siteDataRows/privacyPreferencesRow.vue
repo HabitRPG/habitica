@@ -1,6 +1,26 @@
 <template>
   <tr>
-    <td colspan="3">
+    <td colspan="3"
+      v-if="!mixinData.inlineSettingMixin.modalVisible"
+    >
+      <div class="d-flex justify-content-between align-items-center">
+        <h3
+          v-once
+          class="gray-50 mb-0"
+        >
+          {{ $t('yourPrivacyPreferences') }}
+        </h3>
+        <a
+          class="edit-link"
+          @click.prevent="openModal()"
+        >
+          {{ $t('edit') }}
+        </a>
+      </div>
+    </td>
+    <td colspan="3"
+      v-if="mixinData.inlineSettingMixin.modalVisible"
+    >
       <h3
         v-once
         class="purple-200 mb-0"
@@ -43,12 +63,10 @@
               {{ $t('usedForSupport') }}
             </small>
           </div>
-          <div class="d-flex flex-column justify-content-center">
-            <button class="btn btn-primary mx-auto mb-2">
-              {{ $t('save') }}
-            </button>
-            <a class="mx-auto mb-4">{{ $t('cancel') }}</a>
-          </div>
+          <save-cancel-buttons
+            class="mb-4"
+            @cancelClicked="requestCloseModal()"
+          />
         </div>
       </div>
     </td>
@@ -81,15 +99,19 @@
 </style>
 
 <script>
-import { mapState } from '@/libs/store';
+import SaveCancelButtons from '@/pages/settings/components/saveCancelButtons.vue';
 import ToggleSwitch from '@/components/ui/toggleSwitch.vue';
 import { GenericUserPreferencesMixin } from '@/pages/settings/components/genericUserPreferencesMixin';
+import { InlineSettingMixin } from '../components/inlineSettingMixin';
+import { mapState } from '@/libs/store';
 
 export default {
   mixins: [
     GenericUserPreferencesMixin,
+    InlineSettingMixin,
   ],
   components: {
+    SaveCancelButtons,
     ToggleSwitch,
   },
   computed: {
