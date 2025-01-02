@@ -144,6 +144,12 @@ describe('Content Schedule', () => {
     expect(matchers.seasonalGear.end).to.eql(moment.utc(`2025-03-21T${String(switchoverTime).padStart(2, '0')}:00:00.000Z`).toDate());
   });
 
+  it('sets the end date in new year for a winter gala', () => {
+    const date = new Date('2025-01-04');
+    const matchers = getAllScheduleMatchingGroups(date);
+    expect(matchers.seasonalGear.end).to.eql(moment.utc(`2025-03-21T${String(switchoverTime).padStart(2, '0')}:00:00.000Z`).toDate());
+  });
+
   it('uses correct date for first hours of the month', () => {
     // if the date is checked before CONTENT_SWITCHOVER_TIME_OFFSET,
     // it should be considered the previous month
