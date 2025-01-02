@@ -31,10 +31,10 @@
         <label
           class="toggle-switch-label"
           :for="toggleId"
+          :class="{ disabled }"
         >
           <span
             class="toggle-switch-inner"
-            :class="{ disabled }"
           >
           </span>
           <span
@@ -126,8 +126,12 @@
     text-align: right;
   }
 
-  .toggle-switch-inner.disabled:before, .toggle-switch-inner.disabled:after {
-    opacity: 0.5;
+  .disabled {
+    cursor: auto;
+
+    .toggle-switch-inner:before, .toggle-switch-inner:after {
+      opacity: 0.5;
+    }
   }
 
   .toggle-switch-switch {

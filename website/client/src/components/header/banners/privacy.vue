@@ -5,7 +5,10 @@
       v-html="$t('privacyOverview') + ' ' + $t('learnMorePrivacy')"
     >
     </p>
-    <div class="navigation d-flex flex-column justify-content-around text-center ml-2">
+    <div
+      class="navigation d-flex flex-column justify-content-around text-center ml-2"
+      :class="{ static: isStaticPage }"
+    >
       <button class="btn btn-primary mb-2">
         {{ $t('acceptAllCookies') }}
       </button>
@@ -47,6 +50,10 @@
 
       button {
         width: calc(100vw - 48px);
+      }
+
+      .static button {
+        width: calc(100vw - 96px);
       }
 
       p {
