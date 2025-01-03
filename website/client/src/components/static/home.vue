@@ -443,6 +443,10 @@
       background-color: $white;
       z-index: 1;
       box-shadow: 0px 3px 6px 0px rgba(26, 24, 29, 0.16), 0px 3px 6px 0px rgba(26, 24, 29, 0.24);
+
+      @media only screen and (max-width: 992px) {
+        width: calc(100vw - 48px);
+      }
     }
   }
 
