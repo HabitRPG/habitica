@@ -87,10 +87,6 @@
           @newMessageClicked="showStartNewConversationInput = true"
         />
 
-        <pm-disabled-state
-          v-if="uiState === UI_STATES.DISABLED"
-          :disabled-texts="disabledTexts"
-        />
         <pm-new-message-started
           v-if="uiState === UI_STATES.START_NEW_CONVERSATION && selectedConversation.userStyles"
           :member-obj="selectedConversation.userStyles"
@@ -124,6 +120,10 @@
           @triggerLoad="infiniteScrollTrigger"
         />
 
+        <pm-disabled-state
+          v-if="disabledTexts"
+          :disabled-texts="disabledTexts"
+        />
         <div
           v-if="shouldShowInputPanel"
           class="full-width"
@@ -723,6 +723,7 @@ export default defineComponent({
     disabledTexts () {
       if (this.user.flags.chatRevoked) {
         return {
+          enableInput: false,
           title: this.$t('PMPlaceholderTitleRevoked'),
           description: this.$t('chatPrivilegesRevoked'),
         };
@@ -730,6 +731,7 @@ export default defineComponent({
 
       if (this.user.inbox.optOut) {
         return {
+          enableInput: true,
           title: this.$t('PMDisabledCaptionTitle'),
           description: this.$t('PMDisabledCaptionText'),
         };
@@ -738,6 +740,7 @@ export default defineComponent({
       if (this.selectedConversation?.key) {
         if (this.user.inbox.blocks.includes(this.selectedConversation.key)) {
           return {
+            enableInput: false,
             title: this.$t('PMDisabledCaptionTitle'),
             description: this.$t('PMUnblockUserToSendMessages'),
           };
@@ -745,6 +748,7 @@ export default defineComponent({
 
         if (!this.selectedConversation.canReceive) {
           return {
+            enableInput: false,
             title: this.$t('PMCanNotReply'),
             description: this.$t('PMUserDoesNotReceiveMessages'),
           };
@@ -772,6 +776,10 @@ export default defineComponent({
       return '';
     },
     newMessageDisabled () {
+      if (this.uiState === UI_STATES.DISABLED) {
+        return !this.disabledTexts.enableInput;
+      }
+
       return [
         UI_STATES.NO_CONVERSATIONS_SELECTED,
         UI_STATES.DISABLED,
@@ -809,12 +817,13 @@ export default defineComponent({
       const currentUiState = this.uiState;
 
       switch (currentUiState) {
-        case UI_STATES.START_NEW_CONVERSATION: {
+        case UI_STATES.CONVERSATION_SELECTED:
+        case UI_STATES.START_NEW_CONVERSATION:
+        case UI_STATES.DISABLED:
+        {
           return true;
         }
-        case UI_STATES.CONVERSATION_SELECTED: {
-          return true;
-        }
+
         default: {
           return false;
         }
@@ -994,7 +1003,6 @@ export default defineComponent({
 
       Vue.nextTick(() => {
         if (!this.$refs.chatscroll) {
-          alert('NO SCROLL');
           return;
         }
         const chatscroll = this.$refs.chatscroll.$el;

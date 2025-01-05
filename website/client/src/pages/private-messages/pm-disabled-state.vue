@@ -11,7 +11,7 @@
 @import '~@/assets/scss/colors.scss';
 
 .pm-disabled-caption {
-  padding-top: 1em;
+  padding-top: 1.5em;
   z-index: 2;
 
   h4, p {
