@@ -81,6 +81,20 @@
       </div>
 
       <div class="messages-column d-flex flex-column align-items-center">
+        <div
+          v-if="user.inbox.optOut"
+          class="disable-background-in-message-list"
+        >
+          <span
+            v-once
+            class="caption"
+          > {{ $t('PMDisabledCaptionTitle') }}. </span> &nbsp;
+          <span
+            v-once
+            class="text"
+          > {{ $t('PMDisabledCaptionText') }} </span>
+        </div>
+
         <pm-empty-state
           v-if="uiState === UI_STATES.NO_CONVERSATIONS"
           :chat-revoked="user.flags.chatRevoked"
@@ -121,7 +135,7 @@
         />
 
         <pm-disabled-state
-          v-if="disabledTexts"
+          v-if="disabledTexts?.showBottomInfo"
           :disabled-texts="disabledTexts"
         />
         <div
@@ -340,6 +354,25 @@ $background: $white;
   padding: 0.75rem 1.5rem;
 
   border-bottom: 1px solid $gray-500;
+}
+
+.disable-background-in-message-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  background: $yellow-500;
+  width: 100%;
+
+  .caption {
+    font-weight: 700;
+    line-height: 24px;
+  }
+
+  .text {
+    font-weight: 400;
+    line-height: 24px;
+  }
 }
 
 h3 {
@@ -724,6 +757,7 @@ export default defineComponent({
       if (this.user.flags.chatRevoked) {
         return {
           enableInput: false,
+          showBottomInfo: true,
           title: this.$t('PMPlaceholderTitleRevoked'),
           description: this.$t('chatPrivilegesRevoked'),
         };
@@ -732,6 +766,7 @@ export default defineComponent({
       if (this.user.inbox.optOut) {
         return {
           enableInput: true,
+          showBottomInfo: false,
           title: this.$t('PMDisabledCaptionTitle'),
           description: this.$t('PMDisabledCaptionText'),
         };
@@ -741,6 +776,7 @@ export default defineComponent({
         if (this.user.inbox.blocks.includes(this.selectedConversation.key)) {
           return {
             enableInput: false,
+            showBottomInfo: true,
             title: this.$t('PMDisabledCaptionTitle'),
             description: this.$t('PMUnblockUserToSendMessages'),
           };
@@ -749,6 +785,7 @@ export default defineComponent({
         if (!this.selectedConversation.canReceive) {
           return {
             enableInput: false,
+            showBottomInfo: true,
             title: this.$t('PMCanNotReply'),
             description: this.$t('PMUserDoesNotReceiveMessages'),
           };
@@ -819,8 +856,7 @@ export default defineComponent({
       switch (currentUiState) {
         case UI_STATES.CONVERSATION_SELECTED:
         case UI_STATES.START_NEW_CONVERSATION:
-        case UI_STATES.DISABLED:
-        {
+        case UI_STATES.DISABLED: {
           return true;
         }
 
