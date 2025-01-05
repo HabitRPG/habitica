@@ -74,7 +74,7 @@
       <slot name="additionRow"></slot>
       <div class="row">
         <div class="hr col-12"></div>
-        <chat-message
+        <chat-messages
           :chat.sync="group.chat"
           :group-type="group.type"
           :group-id="group._id"
@@ -91,7 +91,7 @@ import externalLinks from '../../mixins/externalLinks';
 
 import autocomplete from '../chat/autoComplete';
 import communityGuidelines from './communityGuidelines';
-import chatMessage from '../chat/chatMessages';
+import chatMessages from '../chat/chatMessages';
 import { mapState } from '@/libs/store';
 import markdownDirective from '@/directives/markdown';
 import { autoCompleteHelperMixin } from '@/mixins/autoCompleteHelper';
@@ -103,7 +103,7 @@ export default {
   components: {
     autocomplete,
     communityGuidelines,
-    chatMessage,
+    chatMessages,
   },
   mixins: [externalLinks, autoCompleteHelperMixin],
   props: ['label', 'group', 'placeholder'],

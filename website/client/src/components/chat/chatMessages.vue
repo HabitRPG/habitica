@@ -24,6 +24,8 @@
     <div
       v-for="msg in messages.filter(m => chat && canViewFlag(m))"
       :key="msg.id"
+      class="message-row"
+      :class="{ 'margin-right': user._id !== msg.uuid}"
     >
       <div class="d-flex">
         <avatar
@@ -135,6 +137,18 @@
   .message-scroll .d-flex {
     min-width: 1px;
   }
+
+  .message-row {
+    margin-left: 12px;
+    margin-right: 0;
+    margin-bottom: 1.2rem;
+
+    &:not(.margin-right) {
+      .d-flex {
+        justify-content: flex-end;
+      }
+    }
+  }
 </style>
 
 <script>
@@ -146,6 +160,8 @@ import { userStateMixin } from '../../mixins/userState';
 
 import Avatar from '../avatar';
 import MessageCard from '@/components/messages/messageCard.vue';
+
+// TODO merge chatMessages.vue (party message list) with messageList.vue (private message list)
 
 export default {
   components: {

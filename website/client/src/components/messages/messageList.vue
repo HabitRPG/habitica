@@ -111,7 +111,7 @@
 }
 
 .message-list {
- width: 100%;
+  width: 100%;
   padding-right: 10px;
   margin-right: 0 !important;
 }
