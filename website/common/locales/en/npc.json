@@ -96,6 +96,7 @@
   "paymentYouReceived": "You received:",
   "paymentYouSentGems": "You sent <strong><%- name %></strong>:",
   "paymentYouSentSubscription": "You sent <strong><%- name %></strong><br> a <%= months %> month(s) Habitica subscription.",
+  "paymentYouSentSubscriptionG1G1": "You sent <strong><%- name %></strong><br> a <%= months %> month(s) Habitica subscription, and the same subscription was applied to your account for our Gift One Get One promotion!",
   "paymentSubBilling": "Your subscription will be billed <strong>$<%= amount %></strong> every <strong><%= months %> months</strong>.",
   "groupsPaymentSubBilling": "Your next billing date is <strong><%= renewalDate %></strong>.",
   "paymentSubBillingWithMethod": "Your subscription will be billed<br><strong>$<%= amount %>.00 USD</strong> every <strong><%= months %> months</strong> via <strong><%= paymentMethod %></strong>",

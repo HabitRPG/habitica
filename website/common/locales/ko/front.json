@@ -89,5 +89,6 @@
     "password": "비밀번호",
     "playButton": "플레이",
     "enterHabitica": "Habitica 들어가기",
-    "pkQuestion2": "해비티카는 어떻게 작동하나요?"
+    "pkQuestion2": "해비티카는 어떻게 작동하나요?",
+    "passwordResetPage": "비밀번호 초기화"
 }

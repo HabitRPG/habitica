@@ -131,5 +131,6 @@
     "groupsPaymentAutoRenew": "Cet abonnement se renouvellera automatiquement jusqu'à son annulation. Si vous devez l'annuler, vous pouvez le faire depuis l'onglet de facturation de groupe.",
     "sellItems": "Vendre des objets",
     "notAvailable": "Cet objet n'est pas disponible.",
-    "customizationsShopText": "Vous voulez changer de style ? Vous êtes au bon endroit ! Nous fournissons des tenues de saison branchées."
+    "customizationsShopText": "Vous voulez changer de style ? Vous êtes au bon endroit ! Nous fournissons des tenues de saison branchées.",
+    "paymentYouSentSubscriptionG1G1": "Vous avez offert une abonnement Habitica de <%= months %> mois à <strong><%- name %></strong><br>, et vous profiterez du même abonnement sur votre compte grâce à l'offre Offrez-en Un Recevez-en Un !"
 }

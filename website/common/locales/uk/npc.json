@@ -123,7 +123,7 @@
     "invalidUnlockSet": "Цей набір недоступний і не може бути розблокований.",
     "nMonthsSubscriptionGift": "<%= nMonths %> міс. підписки (подарунок)",
     "limitedAvailabilityMinutes": "Доступно <%= minutes %>хв <%= seconds %>сек",
-    "paymentSubBillingWithMethod": "Плата за вашу підписку стягуватиметься у розмірі <strong>$<%= amount %></strong> кожен(-ні) <strong><%= months %> місяць(ці) </strong> за допомогою <strong><%= paymentMethod %></strong>.",
+    "paymentSubBillingWithMethod": "Плата за вашу підписку стягуватиметься у розмірі<br><strong>$<%= amount %>.00 USD</strong> кожен(-ні) <strong><%= months %> місяць(ці) </strong> за допомогою <strong><%= paymentMethod %></strong>",
     "paymentAutoRenew": "Підписка буде автоматично поновлюватися, доки її не буде скасовано. Якщо вам потрібно скасувати підписку, ви можете зробити це у налаштуваннях.",
     "paymentCanceledDisputes": "Ми надіслали підтвердження скасування на вашу електронну пошту. Якщо ви не отримали цього листа, зв’яжіться з нами, щоб запобігти суперечкам щодо оплати рахунків у майбутньому.",
     "helpSupportHabitica": "Підтримайте Habitica",

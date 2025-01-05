@@ -1679,6 +1679,8 @@
   "armorArmoireStormKnightArmorNotes": "In this armor, you are nearly invincible. Your enemies will never see the storm’s end. Increases Perception by <%= per %>. Enchanted Armoire: Storm Knight Set (Item 2 of 3)",
   "armorArmoireFestiveHelperOverallsText": "Festive Helper Overalls",
   "armorArmoireFestiveHelperOverallsNotes": "Durable and comfortable, these overalls are great for working, playing, and assisting others. Plus, it has pockets! Increases Constitution by <%= con %>. Enchanted Armoire: Festive Helper Set (Item 2 of 2)",
+  "armorArmoireSnowyFluffTrimmedCoatText": "Snowy Fluff-Trimmed Coat",
+  "armorArmoireSnowyFluffTrimmedCoatNotes": "As the first flakes fall around you, this coat will not only keep you toasty but also help you blend in perfectly with your snowy surroundings. Glide along the ice in style! Increases Strength and Intelligence by <%= attrs %> each. Enchanted Armoire: Snowy Trapper Hat Set (Item 2 of 2).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -2368,6 +2370,8 @@
   "headMystery202411Notes": "This helm is quite intimidating to your tasks when you dive in headfirst! Confers no benefit. November 2024 Subscriber Item.",
   "headMystery202412Text": "Candy Cane Cottontail Hood",
   "headMystery202412Notes": "Warm and cozy, just like a cup of minty hot cocoa on a winter night! Confers no benefit. December 2024 Subscriber Item.",
+  "headMystery202501Text": "Frostbinder’s Hat",  
+  "headMystery202501Notes": "This sparkling hat generates a light and festive flurry around you at all times. Confers no benefit. January 2025 Subscriber Item.",
 
   "headMystery301404Text": "Fancy Top Hat",
   "headMystery301404Notes": "A fancy top hat for the finest of gentlefolk! January 3015 Subscriber Item. Confers no benefit.",
@@ -2574,6 +2578,8 @@
   "headArmoireStormKnightHelmNotes": "Harness lightning through these antlers as you storm the castle. Increases Constitution by <%= con %>. Enchanted Armoire: Storm Knight Set (Item 1 of 3)",
   "headArmoireFestiveHelperHatText": "Festive Helper Hat",
   "headArmoireFestiveHelperHatNotes": "Holiday tip #27: have a helper hat handy. This one is big enough to keep an emergency toy underneath! Increases Intelligence by <%= int %>. Enchanted Armoire: Festive Helper Set (Item 1 of 2)",
+  "headArmoireSnowyTrapperHatText": "Snowy Trapper Hat",
+  "headArmoireSnowyTrapperHatNotes": "Blue, frostbitten ears will be a thing of the past. Embrace cozy warmth in style! Increases Constitution and Perception by <%= attrs %> each. Enchanted Armoire: Snowy Trapper Hat Set (Item 1 of 2).",
 
   "offhand": "off-hand item",
   "offHandCapitalized": "Off-Hand Item",
@@ -2887,6 +2893,8 @@
   "shieldMystery202408Notes": "Magic lights will illuminate the inside of your bubble hideout, or anywhere else you need a little light! Confers no benefit. August 2024 Subscriber Item.",
   "shieldMystery202409Text": "Heliotrope Magus Staff",
   "shieldMystery202409Notes": "The glowing ruby on this staff draws its power from the late summer sun. Confers no benefit. September 2024 Subscriber Item.",
+  "shieldMystery202501Text": "Frostbinder's Staff",
+  "shieldMystery202501Notes": "Decorate any outdoor scenery with a diamond coat of shimmering frost. Confers no benefit. January 2025 Subscriber Item.",
 
   "shieldMystery301405Text": "Clock Shield",
   "shieldMystery301405Notes": "Time is on your side with this towering clock shield! Confers no benefit. June 3015 Subscriber Item.",

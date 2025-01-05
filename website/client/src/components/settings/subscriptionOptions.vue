@@ -147,9 +147,17 @@
       <payments-buttons
         v-if="userReceivingGift?._id"
         :disabled="!subscription.key"
-        :stripe-fn="() => redirectToStripe({gift, uuid: userReceivingGift._id, receiverName})"
+        :stripe-fn="() => redirectToStripe({
+          gift,
+          uuid: userReceivingGift._id,
+          receiverName,
+          g1g1: userReceivingGift.g1g1,
+        })"
         :paypal-fn="() => openPaypalGift({
-          gift: gift, giftedTo: userReceivingGift._id, receiverName,
+          gift: gift,
+          giftedTo: userReceivingGift._id,
+          receiverName,
+          g1g1: userReceivingGift.g1g1,
         })"
       />
       <payments-buttons

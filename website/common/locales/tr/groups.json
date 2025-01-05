@@ -1,7 +1,7 @@
 {
     "tavern": "Taverna Sohbeti",
     "tavernChat": "Taverna Sohbeti",
-    "innCheckOutBanner": "Şu anda Handa dinleniyorsun. Günlük işlerin sana zarar vermez ve görevlere katkıda bulunmazsın.",
+    "innCheckOutBanner": "Şu anda hasar duraklatıldı. Günlük görevlerin sana zarar vermeyecek ve Görevler için ilerleme kaydetmeyeceksin.",
     "innCheckOutBannerShort": "Hasarı durdurdunuz.",
     "resumeDamage": "Handan çıkış yap",
     "helpfulLinks": "Yararlı Bağlantılar",
@@ -16,7 +16,7 @@
     "wiki": "Wiki",
     "resources": "Kaynaklar",
     "communityGuidelines": "Topluluk Kuralları",
-    "bannedWordUsed": "Hay aksi! Görünüyor ki bu gönderi bir küfür veya bağımlılık yapıcı bir madde veya yetişkin konularına gönderme yapıyor (<%=swearWordsUsed%>). Habitica mesajlarını tertemiz tutar. Mesajını gönderebileceğin şekilde düzenlemekte serbestsin! Kelimeyi kaldırmalısın, sansürlemek yetmez.",
+    "bannedWordUsed": "Hups! Görünüşe göre bu gönderi, küfürlü bir kelime veya bağımlılık yapıcı bir madde ya da yetişkin konusuna referans içeriyor (<%= swearWordsUsed %>). Habitica sohbetimizi çok temiz tutuyor. Gönderinizi düzenleyerek tekrar paylaşabilirsiniz! Kelimeyi sadece sansürlemek değil, tamamen kaldırmanız gerektiğini unutmayın.",
     "bannedSlurUsed": "Mesajındaki uygunsuz içerik sebebiyle sohbet ayrıcalıkların iptal edildi.",
     "party": "Takım",
     "usernameCopied": "Kullanıcı adı panoya kopyalandı.",
@@ -25,8 +25,8 @@
     "invite": "Davet Et",
     "leave": "Ayrıl",
     "invitedToParty": "<span class=\"notification-bold\"><%- party %></span> Takımına davet edildin",
-    "invitedToPrivateGuild": "<span class=\"notification-bold\"><%- guild %></span> adlı özel Loncaya davet edildin",
-    "invitedToPublicGuild": "<span class=\"notification-bold-blue\"><%- guild %></span> adlı Loncaya davet edildin",
+    "invitedToPrivateGuild": "Sizi <span class=\"notification-bold\"><%- guild %></span> özel grubuna katılmaya davet ettiler.",
+    "invitedToPublicGuild": "<span class=\"notification-bold-blue\"><%- guild %></span> grubuna katılmaya davet edildiniz.",
     "invitationAcceptedHeader": "Davetin kabul edildi",
     "invitationAcceptedBody": "<%= username %> <%= groupName %> grubuna davetini kabul etti!",
     "systemMessage": "Sistem Mesajı",
@@ -329,5 +329,9 @@
     "PMDisabled": "Özel mesajları devre dışı bırak",
     "editParty": "Takımı Düzenle",
     "languageSettings": "Dil Ayarları",
-    "bannedWordsAllowed": "Yasaklı Kelimelere İzin Ver"
+    "bannedWordsAllowed": "Yasaklı Kelimelere İzin Ver",
+    "invitedToPartyBy": "<a href=\"/profile/<%- userId %>\" target=\"_blank\">@<%- userName %></a> sizi <span class=\"notification-bold\"><%- party %></span> partisinde yer almaya davet etti",
+    "challengeBannedSlurs": "Zorluğunuz, Habitica'nın topluluk yönergelerini ihlal eden bir hakaret içeriyor ve sohbet ve Zorluk oluşturma ayrıcalıklarınız iptal edilmiştir. Daha fazla bilgi için admin@habitica.com ile iletişime geçin.",
+    "challengeBannedWords": "Zorluğunuz (Challenge), bir veya birden fazla küfürlü kelime veya yetişkin konusuna referans içeriyor. Zorluğunuzu kaydedebilmek için lütfen düzenleyin. Kelimeyi sadece sansürlemek değil, tamamen kaldırmanız gerektiğini unutmayın.",
+    "challengeBannedSlursPrivate": "Zorluğunuz, Habitica'nın topluluk yönergelerini ihlal eden bir küfür içeriyor. Zorluğunuzu kaydedebilmek için lütfen bunu kaldırın."
 }

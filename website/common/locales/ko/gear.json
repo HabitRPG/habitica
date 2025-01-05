@@ -1785,5 +1785,6 @@
     "headArmoireBlackFloppyHatText": "파랑색 헐렁한 모자",
     "eyewearSpecialPinkHalfMoonNotes": "렌즈 위로 분홍색 테가 있는 안경. 효과가 없음.",
     "headArmoireJadeHelmText": "검은 투구",
-    "shieldArmoireSoftBlackPillowText": "Soft Blue Pillow"
+    "shieldArmoireSoftBlackPillowText": "Soft Blue Pillow",
+    "gearItemsCompleted": "당신은 모든 <%=클라스 %> 장비를 소유하고 있습니다! 새로운 장비는 갈라스 시즌 동안 출시 됩니다."
 }

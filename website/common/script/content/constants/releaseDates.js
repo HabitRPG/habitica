@@ -14,6 +14,7 @@ export const ARMOIRE_RELEASE_DATES = {
   frightNightSet: { year: 2024, month: 10 },
   stormKnightSet: { year: 2024, month: 11 },
   festiveHelperSet: { year: 2024, month: 12 },
+  snowyTrapperSet: { year: 2025, month: 1 },
 };
 
 export const EGGS_RELEASE_DATES = {

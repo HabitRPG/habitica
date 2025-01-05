@@ -203,5 +203,8 @@
     "nextHourglassDescription": "Abonenci otrzymują Mistyczne Klepsydry\nw pierwszych trzech dniach miesiąca.",
     "transaction_admin_update_hourglasses": "Ustawienia <b>administratora</b> zaktualizowane",
     "timestamp": "Znacznik czasu",
-    "note": "Uwaga"
+    "note": "Uwaga",
+    "generalSettings": "Ustawienia główne",
+    "taskSettings": "Ustawienia odnośnie zadań",
+    "confirmCancelChanges": "Czy jesteś pewien? Stracisz niezapisane zmiany."
 }

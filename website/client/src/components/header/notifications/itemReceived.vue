@@ -41,7 +41,8 @@ export default {
   },
   methods: {
     action () {
-      if (!this.notification || !this.notification.data) {
+      if (!this.notification || !this.notification.data
+        || this.notification.data.destination === this.$route.path) {
         return;
       }
       if (this.notification.data.destination.indexOf('backgrounds') !== -1) {

@@ -857,7 +857,7 @@
     "backgroundForestSunsetNotes": "Наслаждайся сиянием лесного заката.",
     "backgroundForestSunsetText": "Лесной закат",
     "backgroundWallFloweringVinesText": "Стена с цветущими лозами",
-    "backgroundWallFloweringVinesNotes": "Посидите у стены из цветущих виноградных лоз.",
+    "backgroundWallFloweringVinesNotes": "Потусуйтесь у стены цветущих виноградных лоз.",
     "backgroundContainerGardenText": "Контейнерный Сад",
     "backgroundContainerGardenNotes": "Запачкайте свои руки в Контейнерном Саду.",
     "backgrounds052024": "Набор 120: Выпущен в мае 2024",
@@ -876,5 +876,17 @@
     "backgroundPottersStudioText": "Гончарная мастерская",
     "backgroundPottersStudioNotes": "Создавайте произведения искусства в гончарной мастерской.",
     "backgroundMaypoleText": "Майский Шест",
-    "backgroundMaypoleNotes": "Кружитесь в танце вокруг яркого Майского Шеста."
+    "backgroundMaypoleNotes": "Кружитесь в танце вокруг яркого Майского Шеста.",
+    "backgroundMagicDoorInForestText": "магическая дверь в лесу",
+    "backgroundMagicDoorInForestNotes": "осмелитесь пройти через магическую дверь в лесу.",
+    "backgroundSurroundedByGhostsText": "окружён призраками",
+    "backgroundSurroundedByGhostsNotes": "проведите жуткий вечер в окружении призраков",
+    "backgroundFirstSnowForestText": "первый снег в лесу",
+    "backgroundFirstSnowForestNotes": "шагните в первый снег в лесу.",
+    "backgroundCastleHallWithHearthText": "зал замка с камином",
+    "backgroundCastleHallWithHearthNotes": "насладитесь теплом зала замка с камином.",
+    "backgrounds092024": "НАБОР 124: Выпущен в сентябре 2024 года",
+    "backgrounds102024": "НАБОР 125: Выпущен в октябре 2024 года",
+    "backgrounds122024": "НАБОР 127: Выпущен в декабре 2024 года",
+    "backgrounds112024": "НАБОР 126: Выпущен в ноябре 2024 года"
 }

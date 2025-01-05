@@ -895,7 +895,9 @@ function makeEndDate (checkedDate, matcher) {
   end.minute(0);
   end.second(0);
   if (matcher.endMonth !== undefined) {
-    if (matcher.startMonth && matcher.startMonth > matcher.endMonth) {
+    if (matcher.startMonth
+        && matcher.startMonth > matcher.endMonth
+        && checkedDate.getMonth() > matcher.endMonth) {
       end.year(checkedDate.getFullYear() + 1);
     }
     end.month(matcher.endMonth);

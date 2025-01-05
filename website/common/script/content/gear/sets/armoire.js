@@ -506,6 +506,11 @@ const armor = {
     con: 12,
     set: 'festiveHelperSet',
   },
+  snowyFluffTrimmedCoat: {
+    str: 6,
+    int: 6,
+    set: 'snowyTrapperSet',
+  },
 };
 
 const body = {
@@ -1034,6 +1039,11 @@ const head = {
   festiveHelperHat: {
     int: 12,
     set: 'festiveHelperSet',
+  },
+  snowyTrapperHat: {
+    con: 6,
+    per: 6,
+    set: 'snowyTrapperSet',
   },
 };
 

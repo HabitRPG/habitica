@@ -54,7 +54,7 @@
     "battleGear": "戰鬥裝備",
     "gear": "裝備",
     "autoEquipBattleGear": "自動穿上新裝備",
-    "costume": "服飾",
+    "costume": "裝扮",
     "useCostume": "使用服裝",
     "costumePopoverText": "選擇「使用服裝」來更換角色圖像上的裝備，同時不影響戰鬥裝備的能力數值。此時您可以在右欄位為您的人物穿上最好看的服飾，同時仍配戴著最強的戰鬥裝備。",
     "autoEquipPopoverText": "開啟此選項以自動穿上您最新購買的裝備。",

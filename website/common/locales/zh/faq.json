@@ -186,5 +186,16 @@
     "contentAnswer53": "自定义商店将会与菜单中的其他商店并列。",
     "contentAnswer60": "所有其他的现有活动都将照常进行！每个人都能像现在一样获得特殊奖励和主题食物。",
     "contentQuestion7": "除了之前的订阅者套装，时空旅行者商店中还有哪些其他商品可以购买？",
-    "contentFaqPara3": "如果你有任何在上述解答中未涵盖的问题，你可以随时通过<%= mailto %>联系我们的团队！ 我们对这次的新内容发布时间表感到兴奋不已，并期待在未来发布更多方案以帮助Habitica更好地为所有玩家服务。"
+    "contentFaqPara3": "如果你有任何在上述解答中未涵盖的问题，你可以随时通过<%= mailto %>联系我们的团队！ 我们对这次的新内容发布时间表感到兴奋不已，并期待在未来发布更多方案以帮助Habitica更好地为所有玩家服务。",
+    "subscriptionDetail010": "这将是在全部新订阅者首次购买后每月所收到的神秘沙漏的基础上额外增加的。",
+    "subscriptionBenefitsAdjustments": "订阅者额外奖励调整",
+    "subscriptionBenefitsFaqTitle": "订阅者额外奖励调整FAQ",
+    "subscriptionPara0": "我们正在通过提供更多的神秘沙漏和宝石的方式让Habitica的订阅服务比以往任何时候都更好！这些改变使得您更加容易理解您订阅中的额外奖励。",
+    "subscriptionHeading0": "变更神秘沙漏",
+    "subscriptionDetail00": "全部订阅者，包括那些获赠订阅服务的订阅者，在每月月初都将获得 1 个神秘沙漏作为额外奖励。",
+    "subscriptionDetail000": "订阅满 12 个月，你将可获得 12 个神秘沙漏，而非原本的 4 个。",
+    "subscriptionDetail001": "全部订阅者都将按照相同的时间表获得神秘沙漏，该时间表与月度神秘装备套装的发布时间表相匹配。",
+    "subscriptionDetail002": "订阅者将不再需要等到定期付款后的那个月才能获得神秘沙漏。",
+    "subscriptionDetail003": "全部新订阅者在购买后将立即获得 1 个神秘沙漏，记全部作当月发放的神秘沙漏。",
+    "subscriptionDetail01": "在购买新的为期12个月的定期订阅服务时将获得一次性的初始奖励，内容为12个额外赠送的神秘沙漏。"
 }

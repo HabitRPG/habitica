@@ -145,12 +145,12 @@
     "timezoneInfo": "If that time zone is wrong, first reload this page using your browser's reload or refresh button to ensure that Habitica has the most recent information. If it is still wrong, adjust the time zone on your PC and then reload this page again.<br><br> <strong>If you use Habitica on other PCs or mobile devices, the time zone must be the same on them all.</strong> If your Dailies have been resetting at the wrong time, repeat this check on all other PCs and on a browser on your mobile devices.",
     "push": "푸시",
     "about": "About",
-    "setUsernameNotificationTitle": "Confirm your username!",
+    "setUsernameNotificationTitle": "아이디를 확인해주세요!",
     "usernameIssueSlur": "Usernames may not contain inappropriate language.",
-    "usernameIssueForbidden": "Usernames may not contain restricted words.",
-    "usernameIssueLength": "Usernames must be between 1 and 20 characters.",
+    "usernameIssueForbidden": "아이디에는 제한된 단어가 포함될 수 없습니다.",
+    "usernameIssueLength": "아이디는 1~20자 사이로 만들어주세요.",
     "usernameIssueInvalidCharacters": "Usernames can only contain letters a to z, numbers 0 to 9, hyphens, or underscores.",
-    "currentUsername": "Current username:",
+    "currentUsername": "현재 아이디:",
     "displaynameIssueLength": "Display Names must be between 1 and 30 characters.",
     "goToSettings": "Go to Settings",
     "usernameVerifiedConfirmation": "Your username, <%= username %>, is confirmed!",
@@ -187,5 +187,7 @@
     "developerMode": "개발자 모드",
     "api": "API",
     "currentPass": "현재 비밀번호",
-    "resetDetail1": "레벨, 골드, 경험치를 모두 잃게 됩니다."
+    "resetDetail1": "레벨, 골드, 경험치를 모두 잃게 됩니다.",
+    "passwordSuccess": "비밀번호가 성공적으로 변경되었습니다",
+    "passwordIssueLength": "비밀번호는 8~64자 사이여야 합니다."
 }

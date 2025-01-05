@@ -3066,5 +3066,16 @@
     "weaponSpecialSummer2024HealerText": "Cajado do Caramujo Marinho",
     "weaponSpecialSummer2024HealerNotes": "Você vai se surpreender ao descobrir o quão dura a concha na ponta deste cajado é. Aumenta Inteligência em <%= int %>. Equipamento de Edição Limitada do Verão de 2024.",
     "weaponMystery202404Text": "Cajado do Mago Micelial",
-    "weaponMystery202404Notes": "Este cajado concederá ao portador uma sabedoria ancestral tão eterna quanto as rochas e árvores. Não confere benefícios. Item de assinante de abril de 2024."
+    "weaponMystery202404Notes": "Este cajado concederá ao portador uma sabedoria ancestral tão eterna quanto as rochas e árvores. Não confere benefícios. Item de assinante de abril de 2024.",
+    "weaponArmoireStormKnightAxeText": "Machado do Cavaleiro da Tempestade",
+    "weaponSpecialWinter2025WarriorText": "Machado do Guerreiro Alce",
+    "weaponSpecialWinter2025WarriorNotes": "Um machado poderoso para um alce poderoso! Você será imparável! Aumenta a Força em <%= str %>. Equipamento de Edição Limitada Inverno 2024-2025.",
+    "weaponSpecialWinter2025RogueText": "Explosão de Flocos de Neve",
+    "weaponSpecialFall2024WarriorText": "Espada De Fogo",
+    "weaponSpecialFall2024WarriorNotes": "Obstáculos da tarefa são derrubados imediatamente onde estão por esta arma formidável. Aumenta a Força em <%= str %>. Equipamento de Edição Limitada Outono de 2024.",
+    "weaponSpecialFall2024HealerText": "Foice Espacial",
+    "weaponSpecialFall2024HealerNotes": "Tarefas que antes eram cosmicamente complicadas são dizimadas por esta lâmina impressionante. Aumenta a Inteligência em <%= int %>. Equipamento de Edição Limitada do Outono de 2024.",
+    "weaponSpecialFall2024MageText": "Staff de Outro Mundo",
+    "weaponSpecialFall2024MageNotes": "Os passos das tarefas serão instantaneamente simplificados com um toque desta arma brilhante. Aumenta a Inteligência em <%= int %> e a Percepção em <%= per %>. Equipamento de Edição Limitada do Outono de 2024.",
+    "weaponSpecialFall2024RogueNotes": "As tarefas congelarão no lugar devido às reviravoltas desta arma hipnotizante. Aumenta a Força em <%= str %>. Equipamento de Edição Limitada Outono de 2024."
 }

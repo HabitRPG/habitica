@@ -2396,6 +2396,11 @@
   width: 141px;
   height: 147px;
 }
+.background_winter_landscape_with_cabin {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_winter_landscape_with_cabin.png');
+  width: 141px;
+  height: 147px;
+}
 .background_winter_mountain_range {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_winter_mountain_range.png');
   width: 141px;
@@ -29904,6 +29909,11 @@
   width: 114px;
   height: 90px;
 }
+.broad_armor_armoire_snowyFluffTrimmedCoat {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_armoire_snowyFluffTrimmedCoat.png');
+  width: 114px;
+  height: 90px;
+}
 .broad_armor_armoire_softBlackSuit {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_armoire_softBlackSuit.png');
   width: 114px;
@@ -30468,6 +30478,11 @@
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_armoire_shootingStarCrown.png');
   width: 117px;
   height: 120px;
+}
+.head_armoire_snowyTrapperHat {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_armoire_snowyTrapperHat.png');
+  width: 114px;
+  height: 90px;
 }
 .head_armoire_stormKnightHelm {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_armoire_stormKnightHelm.png');
@@ -31386,6 +31401,11 @@
 }
 .slim_armor_armoire_smileyShirt {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_armoire_smileyShirt.png');
+  width: 114px;
+  height: 90px;
+}
+.slim_armor_armoire_snowyFluffTrimmedCoat {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_armoire_snowyFluffTrimmedCoat.png');
   width: 114px;
   height: 90px;
 }
@@ -33697,6 +33717,16 @@
 .slim_armor_special_gaymerx {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_special_gaymerx.png');
   width: 90px;
+  height: 90px;
+}
+.head_mystery_202501 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_mystery_202501.png');
+  width: 114px;
+  height: 90px;
+}
+.shield_mystery_202501 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shield_mystery_202501.png');
+  width: 114px;
   height: 90px;
 }
 .back_mystery_201402 {
@@ -40064,6 +40094,66 @@
 }
 .icon_pet_veteran_wolf {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/icon_pet_veteran_wolf.png');
+  width: 28px;
+  height: 28px;
+}
+.notif_2013hat_nye {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/notif_2013hat_nye.png');
+  width: 28px;
+  height: 28px;
+}
+.notif_2014hat_nye {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/notif_2014hat_nye.png');
+  width: 28px;
+  height: 28px;
+}
+.notif_2015hat_nye {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/notif_2015hat_nye.png');
+  width: 28px;
+  height: 28px;
+}
+.notif_2016hat_nye {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/notif_2016hat_nye.png');
+  width: 28px;
+  height: 28px;
+}
+.notif_2017hat_nye {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/notif_2017hat_nye.png');
+  width: 28px;
+  height: 28px;
+}
+.notif_2018hat_nye {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/notif_2018hat_nye.png');
+  width: 28px;
+  height: 28px;
+}
+.notif_2019hat_nye {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/notif_2019hat_nye.png');
+  width: 28px;
+  height: 28px;
+}
+.notif_2020hat_nye {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/notif_2020hat_nye.png');
+  width: 28px;
+  height: 28px;
+}
+.notif_2021hat_nye {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/notif_2021hat_nye.png');
+  width: 28px;
+  height: 28px;
+}
+.notif_2022hat_nye {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/notif_2022hat_nye.png');
+  width: 28px;
+  height: 28px;
+}
+.notif_2023hat_nye {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/notif_2023hat_nye.png');
+  width: 28px;
+  height: 28px;
+}
+.notif_candy_nye {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/notif_candy_nye.png');
   width: 28px;
   height: 28px;
 }

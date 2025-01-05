@@ -91,11 +91,17 @@
     "viewProgressOf": "查看進度",
     "viewProgress": "查看進度",
     "selectMember": "選擇成員",
-    "confirmKeepChallengeTasks": "你想要保留挑戰任務嗎？",
+    "confirmKeepChallengeTasks": "您要繼續挑戰任務嗎？",
     "selectParticipant": "選擇一名參與者",
     "wonChallengeDesc": "<%= challengeName %> 選擇您作為獲勝者！您的勝利已記錄在您的成就中。",
     "yourReward": "獎勵",
     "filters": "過濾器",
     "removeTasks": "刪除任務",
-    "messageChallengeFlagAlreadyReported": "你已經回報過這項挑戰了。"
+    "messageChallengeFlagAlreadyReported": "你已經回報過這項挑戰了。",
+    "cannotClose": "此挑戰無法結束，因為一名或多位玩家已報告其不當。工作人員將很快與您聯絡並提供指示。如果超過 48 小時後，您仍未收到他們的回覆，請發送電子郵件至 admin@habitica.com 尋求協助。",
+    "messageChallengeFlagOfficial": "官方挑戰無法回報。",
+    "whyReportingChallengePlaceholder": "回報原因",
+    "cannotClone": "此挑戰賽無法複製，因為有一位或多位玩家報告此挑戰賽不適當。工作人員將很快與您聯絡並提供指示。如果超過 48 小時，您仍未收到他們的回覆，請寄電子郵件至 admin@habitica.com 以尋求協助。",
+    "whyReportingChallenge": "為何要回報這項挑戰？",
+    "cannotMakeChallenge": "您無法建立公開挑戰，因為您的帳號目前沒有聊天權限。請聯絡 admin@habitica.com 取得更多資訊。"
 }

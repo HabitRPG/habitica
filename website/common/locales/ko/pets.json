@@ -109,5 +109,8 @@
     "mountMasterText2": " 그리고 탑승펫을 총 <%= count %>번 방생했습니다",
     "mountAchievement": "모든 탑승펫을 길들여서 \"탑승펫 마스터\" 업적을 획득했습니다!",
     "mountMasterProgress": "탑승펫 마스터 진행",
-    "beastMasterText2": " 그리고 펫을 총 <%= count %>번 방생했습니다"
+    "beastMasterText2": " 그리고 펫을 총 <%= count %>번 방생했습니다",
+    "veteranCactus": "베테랑 선인장",
+    "jubilantGryphatrice": "환희의 그리파트리스",
+    "veteranDragon": "베테랑 드래곤"
 }

@@ -189,10 +189,10 @@
     "transaction_subscription_perks": "Beneficio de la <b>suscripción</b>",
     "addPasswordAuth": "Añadir contraseña",
     "gemCap": "Límite de Gemas",
-    "nextHourglass": "Siguiente Reloj de Arena",
+    "nextHourglass": "Próxima Entrega de Reloj de Arena",
     "dayStartAdjustment": "Ajuste de inicio de día",
     "adjustment": "Ajuste",
-    "nextHourglassDescription": "Los subscriptores reciben Relojes de Arena Místicos\nen los tres primeros días del mes.",
+    "nextHourglassDescription": "Los subscriptores reciben Relojes de Arena Místicos, Conjuntos de Equipamiento Misterioso y suministro de Gemas en el Mercado en los primeros dos días del mes",
     "passwordSuccess": "Contraseña cambiada con éxito",
     "giftSubscriptionRateText": "<strong>$<%= price %> USD</strong> por <strong><%= months %> meses</strong>",
     "transaction_admin_update_hourglasses": "<b>Administración</b> actualizada",
@@ -257,5 +257,6 @@
     "remove": "Eliminar",
     "resetTextLocal": "Si estás completamente seguro, escribe tu contraseña en el siguiente cuadro de texto.",
     "resetTextSocial": "Si estás completamente seguro, escribe<b>\"<%= magicWord %>\"</b> en el siguiente cuadro de texto.",
-    "contentRelease": "Nuevos Contenidos + Eventos"
+    "contentRelease": "Nuevos Contenidos + Eventos",
+    "transaction_subscription_bonus": "<b>Bono de Suscripción</b>"
 }
