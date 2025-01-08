@@ -14,8 +14,6 @@ import logger from './logger';
 const AMPLITUDE_TOKEN = nconf.get('AMPLITUDE_KEY');
 const GA_TOKEN = nconf.get('GA_ID');
 
-const LOG_AMPLITUDE_EVENTS = nconf.get('LOG_AMPLITUDE_EVENTS') === 'true';
-
 const GA_POSSIBLE_LABELS = ['gaLabel', 'itemKey'];
 const GA_POSSIBLE_VALUES = ['gaValue', 'gemCost', 'goldCost'];
 const AMPLITUDE_PROPERTIES_TO_SCRUB = [
@@ -176,16 +174,10 @@ function _formatDataForAmplitude (data) {
   return ampData;
 }
 
-function _sendDataToAmplitude (eventType, data, loggerOnly) {
+function _sendDataToAmplitude (eventType, data) {
   const amplitudeData = _formatDataForAmplitude(data);
 
   amplitudeData.event_type = eventType;
-
-  if (LOG_AMPLITUDE_EVENTS) {
-    logger.info('Amplitude Event', amplitudeData);
-  }
-
-  if (loggerOnly) return Promise.resolve(null);
 
   return amplitude
     .track(amplitudeData)
@@ -261,10 +253,6 @@ function _sendPurchaseDataToAmplitude (data) {
   amplitudeData.event_type = 'purchase';
   amplitudeData.revenue = data.purchaseValue;
   amplitudeData.productId = data.itemPurchased;
-
-  if (LOG_AMPLITUDE_EVENTS) {
-    logger.info('Amplitude Purchase Event', amplitudeData);
-  }
 
   return amplitude
     .track(amplitudeData)
