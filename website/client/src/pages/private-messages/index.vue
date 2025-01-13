@@ -583,7 +583,6 @@ const UI_STATES = Object.freeze({
   NO_CONVERSATIONS_SELECTED: 'NO_CONVERSATIONS_SELECTED',
   START_NEW_CONVERSATION: 'START_NEW_CONVERSATION',
   CONVERSATION_SELECTED: 'CONVERSATION_SELECTED',
-  DISABLED: 'DISABLED',
 });
 
 export default defineComponent({
@@ -752,9 +751,7 @@ export default defineComponent({
         description: this.$t('PMPlaceholderDescription'),
       };
     },
-    /**
-     * Any value return, switches the uiState to DISABLED
-     */
+
     disabledTexts () {
       if (this.user.flags.chatRevoked) {
         return {
@@ -762,15 +759,6 @@ export default defineComponent({
           showBottomInfo: true,
           title: this.$t('PMPlaceholderTitleRevoked'),
           description: this.$t('chatPrivilegesRevoked'),
-        };
-      }
-
-      if (this.user.inbox.optOut) {
-        return {
-          enableInput: true,
-          showBottomInfo: false,
-          title: this.$t('PMDisabledCaptionTitle'),
-          description: this.$t('PMDisabledCaptionText'),
         };
       }
 
@@ -794,6 +782,15 @@ export default defineComponent({
         }
       }
 
+      if (this.user.inbox.optOut) {
+        return {
+          enableInput: true,
+          showBottomInfo: false,
+          title: this.$t('PMDisabledCaptionTitle'),
+          description: this.$t('PMDisabledCaptionText'),
+        };
+      }
+
       return null;
     },
     optTextSet () {
@@ -815,13 +812,12 @@ export default defineComponent({
       return '';
     },
     newMessageDisabled () {
-      if (this.uiState === UI_STATES.DISABLED) {
+      if (this.disabledTexts) {
         return !this.disabledTexts.enableInput;
       }
 
       return [
         UI_STATES.NO_CONVERSATIONS_SELECTED,
-        UI_STATES.DISABLED,
         UI_STATES.NO_CONVERSATIONS,
         UI_STATES.LOADING,
       ].includes(this.uiState);
@@ -829,10 +825,6 @@ export default defineComponent({
     uiState () {
       if (this.loadingConversations) {
         return UI_STATES.LOADING;
-      }
-
-      if (this.disabledTexts) {
-        return UI_STATES.DISABLED;
       }
 
       if (this.loadedConversations.length === 0) {
@@ -857,8 +849,7 @@ export default defineComponent({
 
       switch (currentUiState) {
         case UI_STATES.CONVERSATION_SELECTED:
-        case UI_STATES.START_NEW_CONVERSATION:
-        case UI_STATES.DISABLED: {
+        case UI_STATES.START_NEW_CONVERSATION: {
           return true;
         }
 
