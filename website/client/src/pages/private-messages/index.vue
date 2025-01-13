@@ -361,6 +361,8 @@ $background: $white;
   align-items: center;
   justify-content: center;
   height: 44px;
+
+  color: $yellow-1;
   background: $yellow-500;
   width: 100%;
 
