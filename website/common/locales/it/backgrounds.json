@@ -749,7 +749,7 @@
     "backgroundRimeIceText": "Brinata Scintillante",
     "backgroundRimeIceNotes": "Ammira la Brina Lucente.",
     "backgroundSnowyTempleText": "Templio Innevato",
-    "backgroundSnowyTempleNotes": "Osserva un Sereno Tempio Innevato.",
+    "backgroundSnowyTempleNotes": "Osserva un Tempio Sereno Innevato.",
     "backgroundWinterLakeWithSwansText": "Lago Invernale con i Cigni",
     "backgroundWinterLakeWithSwansNotes": "Goditi la natura presso un Lago Invernale con i Cigni.",
     "eventBackgrounds": "Sfondi Eventi",
@@ -847,7 +847,7 @@
     "backgroundSwanBoatText": "Barca a forma di Cigno",
     "backgroundHeartTreeTunnelText": "Tunnel nell'albero a forma di Cuore",
     "backgroundHeartTreeTunnelNotes": "Passa attraverso il Tunnel nell'albero a forma di Cuore.",
-    "backgrounds102024": "SET 124: Rilasciato Settembre 2024",
+    "backgrounds102024": "SET 124: Rilasciato Ottobre 2024",
     "backgroundSurroundedByGhostsText": "Circondato dai Fantasmi",
     "backgroundSurroundedByGhostsNotes": "Trascorri una serata lugubre circondato dai Fantasmi.",
     "backgroundAutumnTreeTunnelText": "Tunnel nell'albero Autunnale",
@@ -880,5 +880,10 @@
     "backgroundMaypoleNotes": "Balla intorno all'albero della cuccagna.",
     "backgroundPottersStudioText": "Studio del Vasaio",
     "backgroundPottersStudioNotes": "Crea arte nello studio del Vasaio.",
-    "monthlyBackgrounds": "Sfondi del Mese"
+    "monthlyBackgrounds": "Sfondi del Mese",
+    "backgroundFirstSnowForestText": "Prima neve nella foresta",
+    "backgrounds122024": "SET 127: rilasciato nel dicembre 2024",
+    "backgrounds012025": "SET 128: rilasciato nel gennaio 2025",
+    "backgroundFirstSnowForestNotes": "Calpesta la prima neve nella foresta.",
+    "backgrounds112024": "SET 126: Rilasciato a novembre 2024"
 }

@@ -131,13 +131,6 @@
             >{{ $t('requestFeature') }}
             </a>
           </li>
-          <li>
-            <a
-              href="https://habitica.fandom.com/"
-              target="_blank"
-            >{{ $t('wiki') }}
-            </a>
-          </li>
         </ul>
       </div>
       <!-- Developers -->

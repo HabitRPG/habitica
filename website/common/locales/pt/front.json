@@ -112,7 +112,7 @@
     "missingNewPassword": "Nova palavra-passe em falta.",
     "invalidEmailDomain": "Não pode registar com e-mails com os seguintes domínios : <%= domains %>",
     "wrongPassword": "Palavra-passe incorreta.",
-    "incorrectDeletePhrase": "Por favor escreva <%= magicWord %> em todas as letras maiúsculas para apagar a sua conta.",
+    "incorrectDeletePhrase": "Por favor, escreva <%= magicWord %> em todas as letras maiúsculas para apagar a sua conta.",
     "notAnEmail": "Endereço de e-mail inválido.",
     "emailTaken": "Endereço de email já está sendo usado em uma conta.",
     "newEmailRequired": "Novo endereço de e-mail em falta.",

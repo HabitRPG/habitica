@@ -18,7 +18,10 @@ function backgroundMatcher (month1, month2, oddYear) {
     const month = parseInt(key.substring(keyLength - 6, keyLength - 4), 10);
     const year = parseInt(key.substring(keyLength - 4, keyLength), 10);
     if (isAfterNewSchedule(year, month)) {
-      return month === month1 && date.getFullYear() >= year && (date.getMonth() + 1) >= month;
+      if (date.getMonth() === 0 && month1 === 12) {
+        return month === month1 && (date.getFullYear() - 1) >= year;
+      }
+      return month === month1 && date.getFullYear() >= year;
     }
     return (month === month1 || month === month2) && year % 2 === (oddYear ? 1 : 0);
   };

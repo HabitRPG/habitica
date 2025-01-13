@@ -129,6 +129,12 @@
     padding-top: 6px;
     padding-left: 24px;
     padding-right: 24px;
+
+    a {
+      line-height: 1.33;
+      color: $gray-500;
+      font-weight: normal;
+    }
   }
 
   .drawer-tab {

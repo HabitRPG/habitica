@@ -334,11 +334,6 @@
                 href="https://docs.google.com/forms/d/e/1FAIpQLScPhrwq_7P1C6PTrI3lbvTsvqGyTNnGzp1ugi1Ml0PFee_p5g/viewform?usp=sf_link"
                 target="_blank"
               >{{ $t('requestFeature') }}</a>
-              <a
-                class="topbar-dropdown-item dropdown-item"
-                href="https://habitica.fandom.com/wiki/Habitica_Wiki"
-                target="_blank"
-              >{{ $t('wiki') }}</a>
             </div>
           </li>
         </b-navbar-nav>

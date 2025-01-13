@@ -131,5 +131,6 @@
     "helpSupportHabitica": "Ayuda a apoyar a Habitica",
     "sellItems": "Vender objetos",
     "notAvailable": "Este artículo no está disponible.",
-    "customizationsShopText": "¿Necesitas un cambio de estilo? ¡Has llegado al lugar adecuado! Tenemos los complementos más actuales para que encajes en la temporada."
+    "customizationsShopText": "¿Necesitas un cambio de estilo? ¡Has llegado al lugar adecuado! Tenemos los complementos más actuales para que encajes en la temporada.",
+    "paymentYouSentSubscriptionG1G1": "Enviaste a <strong><%- name %></strong><br> una suscripción a Habitica de <%= months %> mes(es), ¡y la misma suscripción se aplicó a tu cuenta para nuestra promoción Regala uno y llévate otro!"
 }
