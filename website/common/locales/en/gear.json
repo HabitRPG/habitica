@@ -1453,8 +1453,8 @@
   "armorMystery202407Notes": "Glide through lakes and canals with your sweeping pink tail! Confers no benefit. July 2024 Subscriber Item.",
   "armorMystery202412Text": "Candy Cane Cottontail Coat",
   "armorMystery202412Notes": "A fun and fluffy look to keep you snug on a winter day. Confers no benefit. December 2024 Subscriber Item.",
-  "armorMystery202402Text": "Heartfelt Harlequin Suit",
-  "armorMystery202402Notes": "You’re full of kind-hearted jokes and japes from your ruffled collar to your gigantic shoes! Confers no benefit. February 2025 Subscriber Item",
+  "armorMystery202502Text": "Heartfelt Harlequin Suit",
+  "armorMystery202502Notes": "You’re full of kind-hearted jokes and japes from your ruffled collar to your gigantic shoes! Confers no benefit. February 2025 Subscriber Item",
 
 
   "armorMystery301404Text": "Steampunk Suit",
@@ -2586,8 +2586,8 @@
   "headArmoireFestiveHelperHatNotes": "Holiday tip #27: have a helper hat handy. This one is big enough to keep an emergency toy underneath! Increases Intelligence by <%= int %>. Enchanted Armoire: Festive Helper Set (Item 1 of 2)",
   "headArmoireSnowyTrapperHatText": "Snowy Trapper Hat",
   "headArmoireSnowyTrapperHatNotes": "Blue, frostbitten ears will be a thing of the past. Embrace cozy warmth in style! Increases Constitution and Perception by <%= attrs %> each. Enchanted Armoire: Snowy Trapper Hat Set (Item 1 of 2).",
-  "headArmoireFancyFloralText": "Fancy Floral Hat",
-  "headArmoireFancyFloralNotes": "Feast your eyes on this fancy hat full of fantastic flowers and frilly fastenings. Increases Intelligence by <%= int %>. Enchanted Armoire: Fancy Floral Accessories Set (Item 1 of 2).",  
+  "headArmoireFancyFloralHatText": "Fancy Floral Hat",
+  "headArmoireFancyFloralHatNotes": "Feast your eyes on this fancy hat full of fantastic flowers and frilly fastenings. Increases Intelligence by <%= int %>. Enchanted Armoire: Fancy Floral Accessories Set (Item 1 of 2).",  
 
   "offhand": "off-hand item",
   "offHandCapitalized": "Off-Hand Item",
