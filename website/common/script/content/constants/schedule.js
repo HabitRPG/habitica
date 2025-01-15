@@ -142,6 +142,7 @@ export const MONTHLY_SCHEDULE = {
           'slime',
           'peacock',
           'bunny',
+          'cat',
         ],
       },
       {

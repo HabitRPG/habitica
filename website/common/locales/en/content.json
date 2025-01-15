@@ -269,7 +269,11 @@
 
   "questEggDogText": "Puppy",
   "questEggDogMountText": "Dog",
-  "questEggDogAdjective": "a friendly",  
+  "questEggDogAdjective": "a friendly",
+
+  "questEggCatText": "Kitten",
+  "questEggCatMountText": "Cat",
+  "questEggCatAdjective": "a mischievous",
 
   "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
 
