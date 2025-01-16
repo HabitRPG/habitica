@@ -204,6 +204,7 @@ export default {
     },
     overrideAvatarGear: {
       type: Object,
+      default: {},
     },
     width: {
       type: String,
@@ -223,6 +224,7 @@ export default {
     },
     overrideTopPadding: {
       type: String,
+      default: null,
     },
     showVisualBuffs: {
       type: Boolean,
