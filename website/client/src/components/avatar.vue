@@ -204,7 +204,9 @@ export default {
     },
     overrideAvatarGear: {
       type: Object,
-      default: {},
+      default (data) {
+        return data;
+      },
     },
     width: {
       type: String,
