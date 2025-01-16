@@ -96,6 +96,7 @@ export default {
       notificationTopY: '0px',
       preventMultipleWatchExecution: false,
       eventPromoBannerHeight: null,
+      privacyBannerHeight: null,
       sleepingBannerHeight: null,
       warningBannerHeight: null,
     };
@@ -113,6 +114,10 @@ export default {
     },
     notificationBannerHeight () {
       let scrollPosToCheck = 56;
+
+      if (this.privacyBannerHeight) {
+        scrollPosToCheck += this.privacyBannerHeight;
+      }
 
       if (this.warningBannerHeight) {
         scrollPosToCheck += this.warningBannerHeight;
@@ -162,6 +167,9 @@ export default {
   },
   async mounted () {
     window.addEventListener('scroll', this.updateScrollY, {
+      passive: true,
+    });
+    window.addEventListener('resize', this.updateBannerHeightAndScrollY, {
       passive: true,
     });
 
@@ -339,6 +347,7 @@ export default {
 
     updateBannerHeightAndScrollY () {
       this.updateEventBannerHeight();
+      this.privacyBannerHeight = document.getElementById('privacy-banner').getBoundingClientRect().height;
       this.warningBannerHeight = getBannerHeight('chat-warning');
       this.sleepingBannerHeight = getBannerHeight('damage-paused');
       this.updateScrollY();

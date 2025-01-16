@@ -1,5 +1,8 @@
 <template>
-  <div class="banner d-flex align-items-center justify-content-between py-3 px-4">
+  <div
+    class="banner d-flex align-items-center justify-content-between py-3 px-4"
+    id="privacy-banner"
+  >
     <p
       class="mr-3 mb-0"
       v-html="$t('privacyOverview') + ' ' + $t('learnMorePrivacy')"
