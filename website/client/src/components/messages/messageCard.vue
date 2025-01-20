@@ -6,7 +6,9 @@
     }"
   >
     <div
+      v-b-tooltip.hover="messageDateForSystemMessage"
       class="message-card"
+
       :class="{
         'user-sent-message': userSentMessage,
         'user-received-message': !userSentMessage && !isSystemMessage,
@@ -413,6 +415,9 @@ export default {
     ...mapState({ user: 'user.data' }),
     isMessageReported () {
       return (this.msg.flags && this.msg.flags[this.user.id]) || this.reported;
+    },
+    messageDateForSystemMessage () {
+      return this.isSystemMessage ? this.messageDate : '';
     },
     messageDate () {
       const date = moment(this.msg.timestamp).toDate();
