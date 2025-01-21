@@ -208,7 +208,7 @@ api.getHero = {
 
 // e.g., tier 5 gives 4 gems. Tier 8 = moderator. Tier 9 = staff
 const gemsPerTier = {
-  1: 3, 2: 3, 3: 3, 4: 4, 5: 4, 6: 4, 7: 4, 8: 0, 9: 0,
+  1: 10, 2: 20, 3: 30, 4: 40, 5: 50, 6: 60, 7: 70, 8: 0, 9: 0,
 };
 
 /**
