@@ -212,7 +212,11 @@ $pmHeaderHeight: 56px;
     }
 
     .toggle-switch-outer {
-      display: flex;
+      display: block !important;
+    }
+
+    .toggle-switch {
+      float: right !important;
     }
 
   }
