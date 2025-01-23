@@ -326,18 +326,19 @@ api.updateHero = {
       let tierDiff = newTier - oldTier; // can be 2+ tier increases at once
       while (tierDiff) {
         await hero.updateBalance(gemsPerTier[newTier] / 4, 'contribution', newTier); // eslint-disable-line no-await-in-loop
-        if (newTier === 2) {
+        if (newTier === 2 || newTier === '2') {
           hero.items.gear.owned.armor_special_1 = true;
-        } else if (newTier === 3) {
+        } else if (newTier === 3 || newTier === '3') {
           hero.items.gear.owned.head_special_1 = true;
-        } else if (newTier === 4) {
+        } else if (newTier === 4 || newTier === '4') {
           hero.items.gear.owned.weapon_special_1 = true;
-        } else if (newTier === 5) {
+        } else if (newTier === 5 || newTier === '5') {
           hero.items.gear.owned.shield_special_1 = true;
         }
         tierDiff -= 1;
         newTier -= 1; // give them gems for the next tier down if they weren't already that tier
       }
+      hero.markModified('items.gear.owned');
 
       hero.addNotification('NEW_CONTRIBUTOR_LEVEL');
     }
