@@ -205,12 +205,12 @@
             </a>
             <a
               class="social-circle"
-              href="https://twitter.com/habitica/"
+              href="https://bsky.app/profile/habitica.com"
               target="_blank"
             >
               <div
-                class="social-icon svg-icon twitter"
-                v-html="icons.twitter"
+                class="social-icon svg-icon bluesky"
+                v-html="icons.bluesky"
               ></div>
             </a>
             <a
@@ -807,7 +807,7 @@ h3 {
   }
 }
 
-.twitter svg {
+.bluesky svg {
   background-color: #e1e0e3;
   fill: #878190;
   height: 24px;
@@ -846,7 +846,7 @@ import Vue from 'vue';
 
 // images
 import melior from '@/assets/svg/melior.svg';
-import twitter from '@/assets/svg/twitter.svg';
+import bluesky from '@/assets/svg/bluesky.svg';
 import facebook from '@/assets/svg/facebook.svg';
 import instagram from '@/assets/svg/instagram.svg';
 import tumblr from '@/assets/svg/tumblr.svg';
@@ -878,7 +878,7 @@ export default {
     return {
       icons: Object.freeze({
         melior,
-        twitter,
+        bluesky,
         facebook,
         instagram,
         tumblr,

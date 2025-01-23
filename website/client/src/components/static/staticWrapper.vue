@@ -135,7 +135,7 @@
         }
       }
 
-      .twitter svg {
+      .bluesky svg {
         background-color: $purple-50;
         fill: $purple-500;
         &:hover {
