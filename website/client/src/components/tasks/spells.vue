@@ -111,7 +111,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 .drawer-wrapper {
   width: 100vw;
@@ -394,7 +394,7 @@ import spellsMixin from '@/mixins/spells';
 import Drawer from '@/components/ui/drawer';
 import MouseMoveDirective from '@/directives/mouseposition.directive';
 
-import mana from '@/assets/svg/mana.svg';
+import mana from '@/assets/svg/mana.svg?raw';
 import {
   CONSTANTS,
   setLocalSetting,

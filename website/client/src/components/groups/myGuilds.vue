@@ -81,7 +81,7 @@ b-dropdown(:text="$t('sort')", right=true)
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
   .sort-select {
     margin: 2em;
   }
@@ -115,8 +115,8 @@ import groupUtilities from '@/mixins/groupsUtilities';
 import PublicGuildItem from './publicGuildItem';
 import Sidebar from './groupSidebar';
 
-import greyBadgeIcon from '@/assets/svg/grey-badge.svg';
-import positiveIcon from '@/assets/svg/positive.svg';
+import greyBadgeIcon from '@/assets/svg/grey-badge.svg?raw';
+import positiveIcon from '@/assets/svg/positive.svg?raw';
 
 export default {
   components: { PublicGuildItem, Sidebar },

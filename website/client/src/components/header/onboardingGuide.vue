@@ -68,7 +68,7 @@
 </template>
 
 <style lang='scss' scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .onboarding-guide-panel {
     white-space: normal;
@@ -193,8 +193,8 @@
 import achievs from '@/../../common/script/libs/achievements';
 import { mapState } from '@/libs/store';
 
-import onboardingGuideBanner from '@/assets/svg/onboarding-guide-banner.svg';
-import downIcon from '@/assets/svg/down.svg';
+import onboardingGuideBanner from '@/assets/svg/onboarding-guide-banner.svg?raw';
+import downIcon from '@/assets/svg/down.svg?raw';
 
 export default {
   props: {

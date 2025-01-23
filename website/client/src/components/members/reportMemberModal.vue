@@ -67,7 +67,7 @@
 </template>
 
 <style lang="scss">
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
   #report-profile {
     .modal-header {
       padding: 24px;
@@ -94,7 +94,7 @@
 </style>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
   strong, p {
     line-height: 1.71;
   }
@@ -127,7 +127,7 @@ import closeX from '@/components/ui/closeX';
 import notifications from '@/mixins/notifications';
 import markdownDirective from '@/directives/markdown';
 import { userStateMixin } from '../../mixins/userState';
-import report from '@/assets/svg/report.svg';
+import report from '@/assets/svg/report.svg?raw';
 
 export default {
   components: {

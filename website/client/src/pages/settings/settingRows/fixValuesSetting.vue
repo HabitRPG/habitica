@@ -87,7 +87,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 .input-group {
   position: relative;
@@ -138,12 +138,12 @@ input[type="number"] {
 import { MAX_LEVEL_HARD_CAP, MAX_FIELD_HARD_CAP } from '@/../../common/script/constants';
 import SaveCancelButtons from '../components/saveCancelButtons.vue';
 import { InlineSettingMixin } from '../components/inlineSettingMixin';
-import healthIcon from '@/assets/svg/health.svg';
-import experienceIcon from '@/assets/svg/experience.svg';
-import manaIcon from '@/assets/svg/mana.svg';
-import svgGold from '@/assets/svg/gold.svg';
-import level from '@/assets/svg/level.svg';
-import streakIcon from '@/assets/svg/streak.svg';
+import healthIcon from '@/assets/svg/health.svg?raw';
+import experienceIcon from '@/assets/svg/experience.svg?raw';
+import manaIcon from '@/assets/svg/mana.svg?raw';
+import svgGold from '@/assets/svg/gold.svg?raw';
+import level from '@/assets/svg/level.svg?raw';
+import streakIcon from '@/assets/svg/streak.svg?raw';
 import { mapState } from '@/libs/store';
 
 export default {

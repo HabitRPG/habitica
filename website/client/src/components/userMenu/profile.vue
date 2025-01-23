@@ -557,7 +557,7 @@
 </template>
 
 <style lang="scss" >
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   #userProfile {
 
@@ -680,7 +680,7 @@
 </style>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .avatar {
     width: fit-content;
@@ -990,20 +990,20 @@ import MemberDetails from '../memberDetails';
 import markdown from '@/directives/markdown';
 import profileStats from './profileStats';
 
-import message from '@/assets/svg/message.svg';
-import gift from '@/assets/svg/gift.svg';
-import block from '@/assets/svg/block.svg';
-import positive from '@/assets/svg/positive.svg';
-import dots from '@/assets/svg/dots.svg';
-import megaphone from '@/assets/svg/broken-megaphone.svg';
-import lock from '@/assets/svg/lock.svg';
-import challenge from '@/assets/svg/challenge.svg';
-import member from '@/assets/svg/member-icon.svg';
-import staff from '@/assets/svg/tier-staff.svg';
-import report from '@/assets/svg/report.svg';
-import crown from '@/assets/svg/crown.svg';
-import mute from '@/assets/svg/mute.svg';
-import shadowMute from '@/assets/svg/shadow-mute.svg';
+import message from '@/assets/svg/message.svg?raw';
+import gift from '@/assets/svg/gift.svg?raw';
+import block from '@/assets/svg/block.svg?raw';
+import positive from '@/assets/svg/positive.svg?raw';
+import dots from '@/assets/svg/dots.svg?raw';
+import megaphone from '@/assets/svg/broken-megaphone.svg?raw';
+import lock from '@/assets/svg/lock.svg?raw';
+import challenge from '@/assets/svg/challenge.svg?raw';
+import member from '@/assets/svg/member-icon.svg?raw';
+import staff from '@/assets/svg/tier-staff.svg?raw';
+import report from '@/assets/svg/report.svg?raw';
+import crown from '@/assets/svg/crown.svg?raw';
+import mute from '@/assets/svg/mute.svg?raw';
+import shadowMute from '@/assets/svg/shadow-mute.svg?raw';
 import error404 from '../404';
 import externalLinks from '../../mixins/externalLinks';
 import { userCustomStateMixin } from '../../mixins/userState';

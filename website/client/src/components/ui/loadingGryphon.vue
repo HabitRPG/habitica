@@ -30,7 +30,7 @@
 </style>
 
 <script>
-import gryphon from '@/assets/svg/gryphon.svg';
+import gryphon from '@/assets/svg/gryphon.svg?raw';
 
 export default {
   props: {

@@ -32,7 +32,7 @@
 </template>
 
 <style lang="scss">
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .multi-list {
     p {
@@ -63,7 +63,7 @@
 </style>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .margin-adjust {
     margin-top: -1px;
@@ -122,7 +122,7 @@
 </style>
 
 <script>
-import removeIcon from '@/assets/svg/remove.svg';
+import removeIcon from '@/assets/svg/remove.svg?raw';
 import markdownDirective from '@/directives/markdown';
 
 export default {

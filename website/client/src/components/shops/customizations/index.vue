@@ -86,8 +86,8 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/shops.scss';
+  @import '@/assets/scss/colors.scss';
+  @import '@/assets/scss/shops.scss';
 
   h1 {
     line-height: 32px;

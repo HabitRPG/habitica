@@ -147,7 +147,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   ::v-deep .draggable-cursor {
     cursor: grabbing;
@@ -370,10 +370,10 @@ import {
   sortAndFilterTasks,
 } from '@/libs/store/helpers/filterTasks';
 
-import habitIcon from '@/assets/svg/habit.svg';
-import dailyIcon from '@/assets/svg/daily.svg';
-import todoIcon from '@/assets/svg/todo.svg';
-import rewardIcon from '@/assets/svg/reward.svg';
+import habitIcon from '@/assets/svg/habit.svg?raw';
+import dailyIcon from '@/assets/svg/daily.svg?raw';
+import todoIcon from '@/assets/svg/todo.svg?raw';
+import rewardIcon from '@/assets/svg/reward.svg?raw';
 import { EVENTS } from '@/libs/events';
 
 export default {

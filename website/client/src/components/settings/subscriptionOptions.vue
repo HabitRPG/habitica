@@ -174,7 +174,7 @@
 </template>
 
 <style lang="scss">
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   #subscription-form {
     .custom-control .custom-control-label::before,
@@ -222,7 +222,7 @@
 </style>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   small, .small {
     color: $gray-100;
@@ -341,8 +341,8 @@ import sortBy from 'lodash/sortBy';
 import subscriptionBlocks from '@/../../common/script/content/subscriptionBlocks';
 import paymentsButtons from '@/components/payments/buttons/list';
 import paymentsMixin from '../../mixins/payments';
-import check from '@/assets/svg/check.svg';
-import plus from '@/assets/svg/positive.svg';
+import check from '@/assets/svg/check.svg?raw';
+import plus from '@/assets/svg/positive.svg?raw';
 
 export default {
   components: {

@@ -246,7 +246,7 @@
 </template>
 
 <style lang="scss">
-  @import '~@/assets/scss/mixins.scss';
+  @import '@/assets/scss/mixins.scss';
   #send-gift {
     #subscription-form {
       border-bottom-left-radius: 8px;
@@ -288,7 +288,7 @@
   }
 </style>
 <style scoped lang="scss">
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   h2 {
     color: $purple-300;
@@ -485,10 +485,10 @@ import subscriptionOptions from '../settings/subscriptionOptions.vue';
 import paymentsButtons from '@/components/payments/buttons/list';
 
 // svg imports
-import closeIcon from '@/assets/svg/close.svg';
-import gemIcon from '@/assets/svg/gem.svg';
-import positiveIcon from '@/assets/svg/positive.svg';
-import negativeIcon from '@/assets/svg/negative.svg';
+import closeIcon from '@/assets/svg/close.svg?raw';
+import gemIcon from '@/assets/svg/gem.svg?raw';
+import positiveIcon from '@/assets/svg/positive.svg?raw';
+import negativeIcon from '@/assets/svg/negative.svg?raw';
 
 export default {
   components: {

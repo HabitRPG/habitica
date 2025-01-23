@@ -27,7 +27,7 @@
 </template>
 
 <style lang='scss'>
-@import '~@/assets/scss/static.scss';
+@import '@/assets/scss/static.scss';
 </style>
 
 <style lang='scss' scoped>

@@ -402,9 +402,9 @@ body.modal-open #habitica-menu {
 </style>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/utils.scss';
-  @import '~@/assets/scss/variables.scss';
+  @import '@/assets/scss/colors.scss';
+  @import '@/assets/scss/utils.scss';
+  @import '@/assets/scss/variables.scss';
 
   .menu-toggle {
     border: none;
@@ -417,7 +417,7 @@ body.modal-open #habitica-menu {
 
   .topbar {
     z-index: 1080;
-    background: $purple-100 url(~@/assets/svg/for-css/bits.svg) right top no-repeat;
+    background: $purple-100 url(@/assets/svg/for-css/bits.svg) right top no-repeat;
     min-height: 56px;
     box-shadow: 0 1px 2px 0 rgba($black, 0.24);
 
@@ -740,12 +740,12 @@ body.modal-open #habitica-menu {
 import { mapState, mapGetters } from '@/libs/store';
 import { goToModForm } from '@/libs/modform';
 
-import gemIcon from '@/assets/svg/gem.svg';
-import goldIcon from '@/assets/svg/gold.svg';
-import syncIcon from '@/assets/svg/sync.svg';
-import svgHourglasses from '@/assets/svg/hourglass.svg';
-import chevronDownIcon from '@/assets/svg/chevron-down.svg';
-import melior from '@/assets/svg/melior.svg';
+import gemIcon from '@/assets/svg/gem.svg?raw';
+import goldIcon from '@/assets/svg/gold.svg?raw';
+import syncIcon from '@/assets/svg/sync.svg?raw';
+import svgHourglasses from '@/assets/svg/hourglass.svg?raw';
+import chevronDownIcon from '@/assets/svg/chevron-down.svg?raw';
+import melior from '@/assets/svg/melior.svg?raw';
 
 import creatorIntro from '../creatorIntro';
 import notificationMenu from './notificationsDropdown';

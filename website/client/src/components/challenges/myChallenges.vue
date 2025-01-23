@@ -86,7 +86,7 @@
 </template>
 
 <style lang='scss' scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   @media only screen and (max-width: 768px) {
     .header-row {
@@ -150,8 +150,8 @@ import challengeModal from './challengeModal';
 import challengeUtilities from '@/mixins/challengeUtilities';
 import externalLinks from '@/mixins/externalLinks';
 
-import challengeIcon from '@/assets/svg/challenge.svg';
-import positiveIcon from '@/assets/svg/positive.svg';
+import challengeIcon from '@/assets/svg/challenge.svg?raw';
+import positiveIcon from '@/assets/svg/positive.svg?raw';
 
 export default {
   components: {

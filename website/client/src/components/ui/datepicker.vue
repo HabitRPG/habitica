@@ -44,8 +44,8 @@
 <script>
 import moment from 'moment';
 import datepicker from 'vuejs-datepicker';
-import calendarIcon from '@/assets/svg/calendar.svg';
-import closeIcon from '@/assets/svg/close.svg';
+import calendarIcon from '@/assets/svg/calendar.svg?raw';
+import closeIcon from '@/assets/svg/close.svg?raw';
 
 export default {
   components: {
@@ -82,7 +82,7 @@ export default {
 </script>
 
 <style lang="scss">
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .vdp-datepicker__calendar {
     bottom: 2.125rem;  // 2rem input control height + 0.125rem margin above

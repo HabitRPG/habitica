@@ -295,8 +295,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/variables.scss';
+  @import '@/assets/scss/colors.scss';
+  @import '@/assets/scss/variables.scss';
 
   .chat-actions {
     margin-top: 1em;

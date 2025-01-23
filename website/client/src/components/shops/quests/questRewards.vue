@@ -124,9 +124,9 @@
 </template>
 
 <script>
-import sparkles from '@/assets/svg/sparkles-left.svg';
-import expIcon from '@/assets/svg/experience.svg';
-import goldIcon from '@/assets/svg/gold.svg';
+import sparkles from '@/assets/svg/sparkles-left.svg?raw';
+import expIcon from '@/assets/svg/experience.svg?raw';
+import goldIcon from '@/assets/svg/gold.svg?raw';
 import SectionButton from '../../sectionButton';
 import ItemWithLabel from '../itemWithLabel';
 import { QuestHelperMixin } from './quest-helper.mixin';
@@ -176,7 +176,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .quest-rewards {
     background-color: $gray-700;

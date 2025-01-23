@@ -137,7 +137,7 @@
 </template>
 
 <style lang="scss">
-@import '~@/assets/scss/mixins.scss';
+@import '@/assets/scss/mixins.scss';
 
 #select-user-modal {
   .modal-content {
@@ -172,7 +172,7 @@
 </style>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 a:not([href]) {
 
@@ -187,7 +187,7 @@ a:not([href]) {
 }
 
 .g1g1 {
-  background-image: url('~@/assets/images/g1g1-send.png');
+  background-image: url('@/assets/images/g1g1-send.png');
   background-size: 446px 152px;
   width: 446px;
   height: 152px;
@@ -297,8 +297,8 @@ import find from 'lodash/find';
 import isUUID from 'validator/es/lib/isUUID';
 import moment from 'moment';
 import { mapState } from '@/libs/store';
-import closeIcon from '@/assets/svg/close.svg';
-import bigGiftIcon from '@/assets/svg/big-gift.svg';
+import closeIcon from '@/assets/svg/close.svg?raw';
+import bigGiftIcon from '@/assets/svg/big-gift.svg?raw';
 import ValidatedTextInput from '@/components/ui/validatedTextInput.vue';
 
 export default {

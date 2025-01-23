@@ -166,7 +166,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .sidebar {
     height: fit-content;
@@ -337,16 +337,16 @@
 </style>
 
 <script>
-import tier1 from '@/assets/svg/tier-1.svg';
-import tier2 from '@/assets/svg/tier-2.svg';
-import tier3 from '@/assets/svg/tier-3.svg';
-import tier4 from '@/assets/svg/tier-4.svg';
-import tier5 from '@/assets/svg/tier-5.svg';
-import tier6 from '@/assets/svg/tier-6.svg';
-import tier7 from '@/assets/svg/tier-7.svg';
-import tierMod from '@/assets/svg/tier-mod.svg';
-import tierNPC from '@/assets/svg/tier-npc.svg';
-import tierStaff from '@/assets/svg/tier-staff.svg';
+import tier1 from '@/assets/svg/tier-1.svg?raw';
+import tier2 from '@/assets/svg/tier-2.svg?raw';
+import tier3 from '@/assets/svg/tier-3.svg?raw';
+import tier4 from '@/assets/svg/tier-4.svg?raw';
+import tier5 from '@/assets/svg/tier-5.svg?raw';
+import tier6 from '@/assets/svg/tier-6.svg?raw';
+import tier7 from '@/assets/svg/tier-7.svg?raw';
+import tierMod from '@/assets/svg/tier-mod.svg?raw';
+import tierNPC from '@/assets/svg/tier-npc.svg?raw';
+import tierStaff from '@/assets/svg/tier-staff.svg?raw';
 import staffList from '../../libs/staffList';
 
 export default {

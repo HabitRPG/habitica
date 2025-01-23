@@ -70,7 +70,7 @@
 </style>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   h2 {
     color: $purple-200;
@@ -100,7 +100,7 @@
 </style>
 
 <script>
-import closeIcon from '@/assets/svg/close.svg';
+import closeIcon from '@/assets/svg/close.svg?raw';
 import Sprite from '@/components/ui/sprite.vue';
 
 export default {

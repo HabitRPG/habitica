@@ -148,8 +148,8 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/shops.scss';
+  @import '@/assets/scss/colors.scss';
+  @import '@/assets/scss/shops.scss';
 
   .w-items {
     max-width: 920px;
@@ -174,7 +174,7 @@ import toggleSwitch from '@/components/ui/toggleSwitch';
 
 import BuyQuestModal from '../quests/buyQuestModal.vue';
 
-import svgHourglass from '@/assets/svg/hourglass.svg';
+import svgHourglass from '@/assets/svg/hourglass.svg?raw';
 
 import pinUtils from '@/mixins/pinUtils';
 import FilterSidebar from '@/components/ui/filterSidebar';

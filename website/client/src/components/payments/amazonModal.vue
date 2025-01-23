@@ -135,7 +135,7 @@ export default {
   methods: {
     amazonInitWidgets () {
       const walletParams = {
-        sellerId: process.env.AMAZON_PAYMENTS_SELLER_ID, // @TODO: Import
+        sellerId: import.meta.env.AMAZON_PAYMENTS_SELLER_ID, // @TODO: Import
         design: {
           designMode: 'responsive',
         },
@@ -150,7 +150,7 @@ export default {
           this.amazonPayments.billingAgreementId = billingAgreement.getAmazonBillingAgreementId();
 
           new window.OffAmazonPayments.Widgets.Consent({
-            sellerId: process.env.AMAZON_PAYMENTS_SELLER_ID,
+            sellerId: import.meta.env.AMAZON_PAYMENTS_SELLER_ID,
             amazonBillingAgreementId: this.amazonPayments.billingAgreementId,
             design: {
               designMode: 'responsive',

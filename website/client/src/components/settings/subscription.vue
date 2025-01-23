@@ -56,7 +56,7 @@
                   >
                   </div>
                 </div>
-                <img src="~@/assets/images/confetti.png">
+                <img src="@/assets/images/confetti.png">
               </div>
               <small class="teal-1">{{ $t('resubscribeToPickUp') }}</small>
             </div>
@@ -399,7 +399,7 @@
 </template>
 
 <style scoped lang="scss">
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   a {
     color: $purple-300;
@@ -763,28 +763,28 @@ import notificationsMixin from '../../mixins/notifications';
 import subscriptionOptions from './subscriptionOptions.vue';
 import Sprite from '@/components/ui/sprite';
 
-import amazonPayLogo from '@/assets/svg/amazonpay.svg';
-import applePayLogo from '@/assets/svg/apple-pay-logo.svg';
-import calendarIcon from '@/assets/svg/calendar-purple.svg';
-import checkmarkIcon from '@/assets/svg/check.svg';
-import closeIcon from '@/assets/svg/close.svg';
-import dividerStars from '@/assets/svg/divider-stars.svg';
-import gemIcon from '@/assets/svg/gem.svg';
-import giftBox from '@/assets/svg/gift-purple.svg';
-import googlePayLogo from '@/assets/svg/google-pay-logo.svg';
-import heartIcon from '@/assets/svg/health.svg';
-import hourglassIcon from '@/assets/svg/hourglass.svg';
-import hourglassLeft from '@/assets/svg/hourglass-sparkle-left.svg';
-import hourglassRight from '@/assets/svg/hourglass-sparkle-right.svg';
-import jackalope from '@/assets/svg/jackalope.svg';
-import logo from '@/assets/svg/habitica-logo-purple.svg';
-import paypalLogo from '@/assets/svg/paypal-logo.svg';
-import purpleStars from '@/assets/svg/stars-purple.svg';
-import stripeLogo from '@/assets/svg/stripe.svg';
-import subscriberFood from '@/assets/svg/subscriber-food.svg';
-import subscriberGems from '@/assets/svg/subscriber-gems.svg';
-import subscriberHourglasses from '@/assets/svg/subscriber-hourglasses.svg';
-import wordmark from '@/assets/svg/habitica-logo.svg';
+import amazonPayLogo from '@/assets/svg/amazonpay.svg?raw';
+import applePayLogo from '@/assets/svg/apple-pay-logo.svg?raw';
+import calendarIcon from '@/assets/svg/calendar-purple.svg?raw';
+import checkmarkIcon from '@/assets/svg/check.svg?raw';
+import closeIcon from '@/assets/svg/close.svg?raw';
+import dividerStars from '@/assets/svg/divider-stars.svg?raw';
+import gemIcon from '@/assets/svg/gem.svg?raw';
+import giftBox from '@/assets/svg/gift-purple.svg?raw';
+import googlePayLogo from '@/assets/svg/google-pay-logo.svg?raw';
+import heartIcon from '@/assets/svg/health.svg?raw';
+import hourglassIcon from '@/assets/svg/hourglass.svg?raw';
+import hourglassLeft from '@/assets/svg/hourglass-sparkle-left.svg?raw';
+import hourglassRight from '@/assets/svg/hourglass-sparkle-right.svg?raw';
+import jackalope from '@/assets/svg/jackalope.svg?raw';
+import logo from '@/assets/svg/habitica-logo-purple.svg?raw';
+import paypalLogo from '@/assets/svg/paypal-logo.svg?raw';
+import purpleStars from '@/assets/svg/stars-purple.svg?raw';
+import stripeLogo from '@/assets/svg/stripe.svg?raw';
+import subscriberFood from '@/assets/svg/subscriber-food.svg?raw';
+import subscriberGems from '@/assets/svg/subscriber-gems.svg?raw';
+import subscriberHourglasses from '@/assets/svg/subscriber-hourglasses.svg?raw';
+import wordmark from '@/assets/svg/habitica-logo.svg?raw';
 
 export default {
   components: {

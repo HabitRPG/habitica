@@ -312,7 +312,7 @@ label.custom-control-label(v-once) {{ $t('allowGuildInvitationsFromNonMembers') 
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .custom-control-input {
     z-index: 1 !important;
@@ -376,8 +376,8 @@ import { MAX_SUMMARY_SIZE_FOR_GUILDS } from '@/../../common/script/constants';
 import CategoryOptions from '@/../../common/script/content/categoryOptions';
 import toggleSwitch from '@/components/ui/toggleSwitch';
 import markdownDirective from '@/directives/markdown';
-import gemIcon from '@/assets/svg/gem.svg';
-import informationIcon from '@/assets/svg/information.svg';
+import gemIcon from '@/assets/svg/gem.svg?raw';
+import informationIcon from '@/assets/svg/information.svg?raw';
 
 import { userStateMixin } from '../../mixins/userState';
 

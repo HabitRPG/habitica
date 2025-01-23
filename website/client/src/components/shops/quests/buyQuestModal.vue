@@ -118,8 +118,8 @@
 </template>
 
 <style lang="scss">
-  @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/mixins.scss';
+  @import '@/assets/scss/colors.scss';
+  @import '@/assets/scss/mixins.scss';
 
   #buy-quest-modal {
     @include centeredModal();
@@ -359,7 +359,7 @@
 </style>
 
 <!-- <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .value {
     width: 28px;
@@ -388,14 +388,14 @@
 import moment from 'moment';
 import { mapState } from '@/libs/store';
 
-import svgClock from '@/assets/svg/clock.svg';
-import svgClose from '@/assets/svg/close.svg';
-import svgExperience from '@/assets/svg/experience.svg';
-import svgGem from '@/assets/svg/gem.svg';
-import svgGold from '@/assets/svg/gold.svg';
-import svgHourglasses from '@/assets/svg/hourglass.svg';
-import svgPositive from '@/assets/svg/positive.svg';
-import svgNegative from '@/assets/svg/negative.svg';
+import svgClock from '@/assets/svg/clock.svg?raw';
+import svgClose from '@/assets/svg/close.svg?raw';
+import svgExperience from '@/assets/svg/experience.svg?raw';
+import svgGem from '@/assets/svg/gem.svg?raw';
+import svgGold from '@/assets/svg/gold.svg?raw';
+import svgHourglasses from '@/assets/svg/hourglass.svg?raw';
+import svgPositive from '@/assets/svg/positive.svg?raw';
+import svgNegative from '@/assets/svg/negative.svg?raw';
 
 import BalanceInfo from '../balanceInfo.vue';
 import currencyMixin from '../_currencyMixin';

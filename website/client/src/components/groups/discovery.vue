@@ -65,7 +65,7 @@ b-dropdown(:text="$t('sort')", right=true)
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .sort-select {
     margin: 2em;
@@ -95,7 +95,7 @@ import PublicGuildItem from './publicGuildItem';
 import Sidebar from './groupSidebar';
 import groupUtilities from '@/mixins/groupsUtilities';
 
-import positiveIcon from '@/assets/svg/positive.svg';
+import positiveIcon from '@/assets/svg/positive.svg?raw';
 
 function _mapCategories (guilds) {
   guilds.forEach(guild => {
