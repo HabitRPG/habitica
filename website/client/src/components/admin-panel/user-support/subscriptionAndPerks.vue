@@ -509,6 +509,7 @@ export default {
     beginGroupPlanConvert () {
       this.isConvertingToGroupPlan = true;
       this.hero.purchased.plan.owner = '';
+      this.saveHero({ hero: this.hero, msg: 'Converted to group plan', reloadData: true });
     },
     saveClicked (e) {
       e.preventDefault();
