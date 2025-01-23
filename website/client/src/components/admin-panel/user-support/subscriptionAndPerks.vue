@@ -470,7 +470,7 @@ export default {
       }
     },
     applyExtraMonths () {
-      if (this.hero.purchased.plan.extraMonths > 0) {
+      if (this.hero.purchased.plan.extraMonths > 0 || this.hero.purchased.plan.extraMonths !== '0') {
         const date = moment(this.hero.purchased.plan.dateTerminated || new Date());
         const extraMonths = Math.max(this.hero.purchased.plan.extraMonths, 0);
         const extraDays = Math.ceil(30.5 * extraMonths);

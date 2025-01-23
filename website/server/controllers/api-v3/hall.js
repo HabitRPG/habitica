@@ -316,7 +316,7 @@ api.updateHero = {
       if (plan.cumulativeCount) {
         hero.purchased.plan.cumulativeCount = plan.cumulativeCount;
       }
-      if (plan.extraMonths) {
+      if (plan.extraMonths || plan.extraMonths === 0) {
         hero.purchased.plan.extraMonths = plan.extraMonths;
       }
       if (plan.customerId) {
