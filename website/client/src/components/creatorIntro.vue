@@ -572,7 +572,7 @@
 </template>
 
 <style lang="scss">
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   $dialogMarginTop: 56px;
   $userCreationBgHeight:  105px;
@@ -671,7 +671,7 @@
     }
 
     .user-creation-bg {
-      background-image: url('~@/assets/creator/creator-hills-bg.png');
+      background-image: url('@/assets/creator/creator-hills-bg.png');
       height: $userCreationBgHeight;
       width: 219px;
       margin: 0 auto;
@@ -1001,18 +1001,18 @@ import hairSettings from './avatarModal/hair-settings';
 import extraSettings from './avatarModal/extra-settings';
 import closeX from './ui/closeX';
 
-import logoPurple from '@/assets/svg/logo-purple.svg';
-import bodyIcon from '@/assets/svg/body.svg';
-import accessoriesIcon from '@/assets/svg/accessories.svg';
-import skinIcon from '@/assets/svg/skin.svg';
-import hairIcon from '@/assets/svg/hair.svg';
-import backgroundsIcon from '@/assets/svg/backgrounds.svg';
-import gem from '@/assets/svg/gem.svg';
-import hourglass from '@/assets/svg/hourglass.svg';
-import gold from '@/assets/svg/gold.svg';
-import arrowRight from '@/assets/svg/arrow_right.svg';
-import arrowLeft from '@/assets/svg/arrow_left.svg';
-import svgClose from '@/assets/svg/close.svg';
+import logoPurple from '@/assets/svg/logo-purple.svg?raw';
+import bodyIcon from '@/assets/svg/body.svg?raw';
+import accessoriesIcon from '@/assets/svg/accessories.svg?raw';
+import skinIcon from '@/assets/svg/skin.svg?raw';
+import hairIcon from '@/assets/svg/hair.svg?raw';
+import backgroundsIcon from '@/assets/svg/backgrounds.svg?raw';
+import gem from '@/assets/svg/gem.svg?raw';
+import hourglass from '@/assets/svg/hourglass.svg?raw';
+import gold from '@/assets/svg/gold.svg?raw';
+import arrowRight from '@/assets/svg/arrow_right.svg?raw';
+import arrowLeft from '@/assets/svg/arrow_left.svg?raw';
+import svgClose from '@/assets/svg/close.svg?raw';
 import { avatarEditorUtilities } from '../mixins/avatarEditUtilities';
 import Sprite from './ui/sprite';
 

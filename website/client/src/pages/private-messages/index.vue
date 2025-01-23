@@ -180,8 +180,8 @@
 </template>
 
 <style lang="scss">
-@import '~@/assets/scss/colors';
-@import '~@/assets/scss/variables';
+@import '@/assets/scss/colors';
+@import '@/assets/scss/variables';
 
 $pmHeaderHeight: 56px;
 
@@ -289,9 +289,9 @@ $pmHeaderHeight: 56px;
 </style>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors';
-@import '~@/assets/scss/tiers';
-@import '~@/assets/scss/variables';
+@import '@/assets/scss/colors';
+@import '@/assets/scss/tiers';
+@import '@/assets/scss/variables';
 
 $pmHeaderHeight: 56px;
 $background: $white;
@@ -565,8 +565,8 @@ import toggleSwitch from '@/components/ui/toggleSwitch.vue';
 import userLink from '@/components/userLink.vue';
 
 import messageList from '@/components/messages/messageList.vue';
-import messageIcon from '@/assets/svg/message.svg';
-import mail from '@/assets/svg/mail.svg';
+import messageIcon from '@/assets/svg/message.svg?raw';
+import mail from '@/assets/svg/mail.svg?raw';
 import faceAvatar from '@/components/faceAvatar.vue';
 import { EVENTS } from '@/libs/events';
 import PmConversationsList from './pm-conversations-list.vue';
@@ -574,7 +574,7 @@ import PmEmptyState from './pm-empty-state.vue';
 import PmDisabledState from './pm-disabled-state.vue';
 import PmNewMessageStarted from './pm-new-message-started.vue';
 import StartNewConversationInputHeader from './start-new-conversation-input-header.vue';
-import positiveIcon from '@/assets/svg/positive.svg';
+import positiveIcon from '@/assets/svg/positive.svg?raw';
 import NotificationMixins from '@/mixins/notifications';
 
 // extract to a shared path

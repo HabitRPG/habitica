@@ -33,7 +33,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 .your-balance {
   padding: 8px 16px;

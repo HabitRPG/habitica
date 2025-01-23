@@ -29,7 +29,7 @@
 </template>
 
 <style scoped lang="scss">
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .centered {
     align-content: center;

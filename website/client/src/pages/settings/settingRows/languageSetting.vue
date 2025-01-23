@@ -71,7 +71,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 input {
   margin-right: 2rem;

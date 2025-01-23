@@ -18,8 +18,8 @@
 </template>
 
 <style lang="scss">
-  @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/mixins.scss';
+  @import '@/assets/scss/colors.scss';
+  @import '@/assets/scss/mixins.scss';
 
 .item-cost {
  padding-bottom: 16px;
@@ -62,9 +62,9 @@
 </style>
 
 <script>
-import svgClose from '@/assets/svg/close.svg';
-import svgGold from '@/assets/svg/gold.svg';
-import svgGem from '@/assets/svg/gem.svg';
+import svgClose from '@/assets/svg/close.svg?raw';
+import svgGold from '@/assets/svg/gold.svg?raw';
+import svgGem from '@/assets/svg/gem.svg?raw';
 
 export default {
   data () {

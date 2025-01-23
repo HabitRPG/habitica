@@ -22,7 +22,7 @@
       </div>
       <div>
         <img
-          src="~@/assets/images/10-birthday.png"
+          src="@/assets/images/10-birthday.png"
           class="ten-birthday"
         >
       </div>
@@ -261,7 +261,7 @@
           </div>
           <div class="gift d-flex justify-content-center align-items-middle">
             <img
-              src="~@/assets/images/robes.webp"
+              src="@/assets/images/robes.webp"
               class="m-auto"
               width="40px"
               height="66px"
@@ -292,7 +292,7 @@
           </div>
           <div class="gift d-flex justify-content-center align-items-middle">
             <img
-              src="~@/assets/images/habitica-hero-goober.webp"
+              src="@/assets/images/habitica-hero-goober.webp"
               class="m-auto"
             ><!-- Birthday Set -->
           </div>
@@ -360,8 +360,8 @@
 </style>
 
 <style scoped lang="scss">
-  @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/mixins.scss';
+  @import '@/assets/scss/colors.scss';
+  @import '@/assets/scss/mixins.scss';
 
 #birthday-modal {
   h2 {
@@ -745,7 +745,7 @@
   }
 
   .left-divider, .right-divider {
-    background-image: url('~@/assets/images/fancy-divider.png');
+    background-image: url('@/assets/images/fancy-divider.png');
     background-position: right center;
     background-repeat: no-repeat;
     display: inline-flex;
@@ -799,15 +799,15 @@ import payments from '@/mixins/payments';
 import amazonButton from '@/components/payments/buttons/amazon';
 
 // import images
-import close from '@/assets/svg/new-close.svg';
-import confetti from '@/assets/svg/confetti.svg';
-import gifts from '@/assets/svg/gifts-birthday.svg';
-import cross from '@/assets/svg/cross.svg';
-import stripe from '@/assets/svg/stripe.svg';
-import paypal from '@/assets/svg/paypal-logo.svg';
-import amazon from '@/assets/svg/amazonpay.svg';
-import birthdayGems from '@/assets/svg/birthday-gems.svg';
-import birthdayBackground from '@/assets/svg/icon-background-birthday.svg';
+import close from '@/assets/svg/new-close.svg?raw';
+import confetti from '@/assets/svg/confetti.svg?raw';
+import gifts from '@/assets/svg/gifts-birthday.svg?raw';
+import cross from '@/assets/svg/cross.svg?raw';
+import stripe from '@/assets/svg/stripe.svg?raw';
+import paypal from '@/assets/svg/paypal-logo.svg?raw';
+import amazon from '@/assets/svg/amazonpay.svg?raw';
+import birthdayGems from '@/assets/svg/birthday-gems.svg?raw';
+import birthdayBackground from '@/assets/svg/icon-background-birthday.svg?raw';
 
 export default {
   components: {

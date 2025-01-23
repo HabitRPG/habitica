@@ -11,9 +11,9 @@ export function setUpLogging () { // eslint-disable-line import/prefer-default-e
   };
 
   const _LTracker = window._LTracker || [];
-  if (process.env.LOGGLY_CLIENT_TOKEN !== '') {
+  if (import.meta.env.LOGGLY_CLIENT_TOKEN !== '') {
     _LTracker.push({
-      logglyKey: process.env.LOGGLY_CLIENT_TOKEN, // eslint-disable-line no-process-env
+      logglyKey: import.meta.env.LOGGLY_CLIENT_TOKEN, // eslint-disable-line no-process-env
       sendConsoleErrors: true,
       tag: 'ClientJS',
       json: true,

@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import gemIcon from '@/assets/svg/gem.svg';
+import gemIcon from '@/assets/svg/gem.svg?raw';
 
 export default {
   name: 'GemPrice',
@@ -29,7 +29,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 .gem-price {
   font-size: 20px;

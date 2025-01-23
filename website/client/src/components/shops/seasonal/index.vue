@@ -193,8 +193,8 @@
 
 <!-- eslint-disable max-len -->
 <style lang="scss">
-  @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/variables.scss';
+  @import '@/assets/scss/colors.scss';
+  @import '@/assets/scss/variables.scss';
 
   // these styles may be applied to other pages too
 
@@ -351,10 +351,10 @@ import buyMixin from '@/mixins/buy';
 import currencyMixin from '../_currencyMixin';
 import pinUtils from '@/mixins/pinUtils';
 
-import svgWarrior from '@/assets/svg/warrior.svg';
-import svgWizard from '@/assets/svg/wizard.svg';
-import svgRogue from '@/assets/svg/rogue.svg';
-import svgHealer from '@/assets/svg/healer.svg';
+import svgWarrior from '@/assets/svg/warrior.svg?raw';
+import svgWizard from '@/assets/svg/wizard.svg?raw';
+import svgRogue from '@/assets/svg/rogue.svg?raw';
+import svgHealer from '@/assets/svg/healer.svg?raw';
 
 import BuyQuestModal from '../quests/buyQuestModal.vue';
 import CategoryItem from '../market/categoryItem';

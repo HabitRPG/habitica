@@ -37,7 +37,7 @@
 <script>
 
 import CopyToClipboard from '@/mixins/copyToClipboard';
-import svgLockSmall from '@/assets/svg/lock-small.svg';
+import svgLockSmall from '@/assets/svg/lock-small.svg?raw';
 
 export default {
   name: 'LockedInput',
@@ -54,7 +54,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 .label-line {
   display: flex;

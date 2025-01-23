@@ -19,7 +19,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   label {
     font-size: 14px;
@@ -39,7 +39,7 @@
 </style>
 
 <script>
-import lockIcon from '@/assets/svg/lock.svg';
+import lockIcon from '@/assets/svg/lock.svg?raw';
 
 export default {
   props: {

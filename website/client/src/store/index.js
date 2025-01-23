@@ -11,7 +11,7 @@ import { setUpAxios } from '@/libs/auth';
 import actions from './actions';
 import getters from './getters';
 
-const IS_TEST = process.env.NODE_ENV === 'test'; // eslint-disable-line no-process-env
+const IS_TEST = import.meta.env.NODE_ENV === 'test'; // eslint-disable-line no-process-env
 
 // Load user auth parameters and determine if it's logged in
 // before trying to load data

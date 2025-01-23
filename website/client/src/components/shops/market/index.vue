@@ -107,7 +107,7 @@
 </template>
 
 <style lang="scss">
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .fill-height {
     height: 38px; // button + margin + padding

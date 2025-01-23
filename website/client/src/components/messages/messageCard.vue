@@ -177,8 +177,8 @@
 </style>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
-@import '~@/assets/scss/tiers.scss';
+@import '@/assets/scss/colors.scss';
+@import '@/assets/scss/tiers.scss';
 
 .card {
   background: transparent !important;
@@ -329,11 +329,11 @@ import renderWithMentions from '@/libs/renderWithMentions';
 import { mapState } from '@/libs/store';
 import userLink from '../userLink';
 
-import deleteIcon from '@/assets/svg/delete.svg';
-import reportIcon from '@/assets/svg/report.svg';
-import menuIcon from '@/assets/svg/menu.svg';
+import deleteIcon from '@/assets/svg/delete.svg?raw';
+import reportIcon from '@/assets/svg/report.svg?raw';
+import menuIcon from '@/assets/svg/menu.svg?raw';
 import { userStateMixin } from '@/mixins/userState';
-import copyIcon from '@/assets/svg/copy.svg';
+import copyIcon from '@/assets/svg/copy.svg?raw';
 import LikeButton from '@/components/messages/likeButton.vue';
 
 const LikeLogicMixin = {

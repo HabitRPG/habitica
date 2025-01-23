@@ -79,7 +79,7 @@
 </template>
 
 <style lang='scss'>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   #invitation-list {
     .modal-header {
@@ -127,7 +127,7 @@
 </style>
 
 <style lang='scss' scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .header-wrap {
     width: 100%;
@@ -242,8 +242,8 @@ import CloseIcon from '../shared/closeIcon';
 import ClassBadge from '../members/classBadge';
 import UserLabel from '../userLabel';
 
-import svgClose from '@/assets/svg/close.svg';
-import svgCheck from '@/assets/svg/check.svg';
+import svgClose from '@/assets/svg/close.svg?raw';
+import svgCheck from '@/assets/svg/check.svg?raw';
 
 export default {
   components: {

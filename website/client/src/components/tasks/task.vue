@@ -423,7 +423,7 @@
 
 <!-- eslint-disable max-len -->
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
   .task-best-control-inner-habit:focus {
     transition: none;
   }
@@ -916,22 +916,22 @@ import { v4 as uuid } from 'uuid';
 import isEmpty from 'lodash/isEmpty';
 import { mapState, mapGetters, mapActions } from '@/libs/store';
 
-import positiveIcon from '@/assets/svg/positive.svg';
-import negativeIcon from '@/assets/svg/negative.svg';
-import goldIcon from '@/assets/svg/gold.svg';
-import streakIcon from '@/assets/svg/streak.svg';
-import calendarIcon from '@/assets/svg/calendar.svg';
-import challengeIcon from '@/assets/svg/challenge.svg';
-import brokenChallengeIcon from '@/assets/svg/broken-megaphone.svg';
-import tagsIcon from '@/assets/svg/tags.svg';
-import checkIcon from '@/assets/svg/check.svg';
-import editIcon from '@/assets/svg/edit.svg';
-import topIcon from '@/assets/svg/top.svg';
-import bottomIcon from '@/assets/svg/bottom.svg';
-import deleteIcon from '@/assets/svg/delete.svg';
-import checklistIcon from '@/assets/svg/checklist.svg';
-import lockIcon from '@/assets/svg/lock.svg';
-import menuIcon from '@/assets/svg/menu.svg';
+import positiveIcon from '@/assets/svg/positive.svg?raw';
+import negativeIcon from '@/assets/svg/negative.svg?raw';
+import goldIcon from '@/assets/svg/gold.svg?raw';
+import streakIcon from '@/assets/svg/streak.svg?raw';
+import calendarIcon from '@/assets/svg/calendar.svg?raw';
+import challengeIcon from '@/assets/svg/challenge.svg?raw';
+import brokenChallengeIcon from '@/assets/svg/broken-megaphone.svg?raw';
+import tagsIcon from '@/assets/svg/tags.svg?raw';
+import checkIcon from '@/assets/svg/check.svg?raw';
+import editIcon from '@/assets/svg/edit.svg?raw';
+import topIcon from '@/assets/svg/top.svg?raw';
+import bottomIcon from '@/assets/svg/bottom.svg?raw';
+import deleteIcon from '@/assets/svg/delete.svg?raw';
+import checklistIcon from '@/assets/svg/checklist.svg?raw';
+import lockIcon from '@/assets/svg/lock.svg?raw';
+import menuIcon from '@/assets/svg/menu.svg?raw';
 import markdownDirective from '@/directives/markdown';
 import scoreTask from '@/mixins/scoreTask';
 import sync from '@/mixins/sync';

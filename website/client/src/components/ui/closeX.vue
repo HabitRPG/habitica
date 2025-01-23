@@ -12,7 +12,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
   .modal-close {
     position: absolute;
@@ -34,7 +34,7 @@
 </style>
 
 <script>
-import close from '@/assets/svg/close.svg';
+import close from '@/assets/svg/close.svg?raw';
 
 export default {
   data () {

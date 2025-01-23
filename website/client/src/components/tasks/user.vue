@@ -229,8 +229,8 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/create-task.scss';
+  @import '@/assets/scss/colors.scss';
+  @import '@/assets/scss/create-task.scss';
 
   .user-tasks-page {
     padding-left: 12px;
@@ -301,7 +301,7 @@
       border-bottom: 1px solid $gray-500 !important;
       background-size: 10px 10px;
       padding-left: 40px;
-      background-image: url(~@/assets/svg/for-css/positive.svg);
+      background-image: url(@/assets/svg/for-css/positive.svg);
     }
 
     .tag-edit-item {
@@ -394,14 +394,14 @@ import TaskSummary from './taskSummary';
 import spells from './spells';
 import markdown from '@/directives/markdown';
 
-import positiveIcon from '@/assets/svg/positive.svg';
-import filterIcon from '@/assets/svg/filter.svg';
-import deleteIcon from '@/assets/svg/delete.svg';
-import habitIcon from '@/assets/svg/habit.svg';
-import dailyIcon from '@/assets/svg/daily.svg';
-import todoIcon from '@/assets/svg/todo.svg';
-import rewardIcon from '@/assets/svg/reward.svg';
-import dragIcon from '@/assets/svg/drag_indicator.svg';
+import positiveIcon from '@/assets/svg/positive.svg?raw';
+import filterIcon from '@/assets/svg/filter.svg?raw';
+import deleteIcon from '@/assets/svg/delete.svg?raw';
+import habitIcon from '@/assets/svg/habit.svg?raw';
+import dailyIcon from '@/assets/svg/daily.svg?raw';
+import todoIcon from '@/assets/svg/todo.svg?raw';
+import rewardIcon from '@/assets/svg/reward.svg?raw';
+import dragIcon from '@/assets/svg/drag_indicator.svg?raw';
 
 import { mapState, mapActions } from '@/libs/store';
 import brokenTaskModal from './brokenTaskModal';

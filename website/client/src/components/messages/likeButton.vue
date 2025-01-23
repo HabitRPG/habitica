@@ -35,8 +35,8 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
-@import '~@/assets/scss/tiers.scss';
+@import '@/assets/scss/colors.scss';
+@import '@/assets/scss/tiers.scss';
 
 .action {
   display: inline-block;
@@ -75,8 +75,8 @@
 </style>
 
 <script>
-import likeIcon from '@/assets/svg/like.svg';
-import likedIcon from '@/assets/svg/liked.svg';
+import likeIcon from '@/assets/svg/like.svg?raw';
+import likedIcon from '@/assets/svg/liked.svg?raw';
 
 export default {
   props: {

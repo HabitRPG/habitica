@@ -21,7 +21,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 ::v-deep {
   .toggle-switch-outer {
@@ -34,7 +34,7 @@
 import { mapState } from '@/libs/store';
 import ToggleSwitch from '@/components/ui/toggleSwitch.vue';
 import { GenericUserPreferencesMixin } from '@/pages/settings/components/genericUserPreferencesMixin';
-import informationIcon from '@/assets/svg/information.svg';
+import informationIcon from '@/assets/svg/information.svg?raw';
 import InformationIcon from '@/components/ui/informationIcon.vue';
 
 export default {

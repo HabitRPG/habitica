@@ -64,8 +64,8 @@
 import moment from 'moment';
 import userLabel from '../../components/userLabel.vue';
 
-import dots from '@/assets/svg/dots.svg';
-import block from '@/assets/svg/block.svg';
+import dots from '@/assets/svg/dots.svg?raw';
+import block from '@/assets/svg/block.svg?raw';
 
 import { mapState } from '@/libs/store';
 
@@ -117,7 +117,7 @@ export default {
 </script>
 
 <style lang="scss">
-  @import '~@/assets/scss/colors';
+  @import '@/assets/scss/colors';
 
   .action-padding {
     height: 24px !important;
@@ -153,7 +153,7 @@ export default {
 </style>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors';
+  @import '@/assets/scss/colors';
 
   .conversation {
     padding: 1rem 1.5rem;

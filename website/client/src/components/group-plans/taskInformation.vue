@@ -125,8 +125,8 @@
 </style>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/create-task.scss';
+  @import '@/assets/scss/colors.scss';
+  @import '@/assets/scss/create-task.scss';
 
   h1 {
     color: $purple-300;
@@ -190,13 +190,13 @@ import toggleSwitch from '@/components/ui/toggleSwitch';
 
 import sync from '../../mixins/sync';
 
-import positiveIcon from '@/assets/svg/positive.svg';
-import filterIcon from '@/assets/svg/filter.svg';
-import deleteIcon from '@/assets/svg/delete.svg';
-import habitIcon from '@/assets/svg/habit.svg';
-import dailyIcon from '@/assets/svg/daily.svg';
-import todoIcon from '@/assets/svg/todo.svg';
-import rewardIcon from '@/assets/svg/reward.svg';
+import positiveIcon from '@/assets/svg/positive.svg?raw';
+import filterIcon from '@/assets/svg/filter.svg?raw';
+import deleteIcon from '@/assets/svg/delete.svg?raw';
+import habitIcon from '@/assets/svg/habit.svg?raw';
+import dailyIcon from '@/assets/svg/daily.svg?raw';
+import todoIcon from '@/assets/svg/todo.svg?raw';
+import rewardIcon from '@/assets/svg/reward.svg?raw';
 
 import * as Analytics from '@/libs/analytics';
 import { mapState } from '@/libs/store';

@@ -11,18 +11,18 @@ import { DEPRECATED_ROUTES } from '@/router/deprecated-routes';
 
 // NOTE: when adding a page make sure to implement the `common:setTitle` action
 
-const RegisterLoginReset = () => import(/* webpackChunkName: "auth" */'@/components/auth/registerLoginReset');
-const Logout = () => import(/* webpackChunkName: "auth" */'@/components/auth/logout');
+const RegisterLoginReset = () => import('@/components/auth/registerLoginReset');
+const Logout = () => import('@/components/auth/logout');
 
 // Hall
-const HallPage = () => import(/* webpackChunkName: "hall" */'@/components/hall/index');
-const PatronsPage = () => import(/* webpackChunkName: "hall" */'@/components/hall/patrons');
-const HeroesPage = () => import(/* webpackChunkName: "hall" */'@/components/hall/heroes');
+const HallPage = () => import('@/components/hall/index');
+const PatronsPage = () => import('@/components/hall/patrons');
+const HeroesPage = () => import('@/components/hall/heroes');
 
 // Admin Panel
-const AdminPanelPage = () => import(/* webpackChunkName: "admin-panel" */'@/components/admin-panel');
-const AdminPanelUserPage = () => import(/* webpackChunkName: "admin-panel" */'@/components/admin-panel/user-support');
-const AdminPanelSearchPage = () => import(/* webpackChunkName: "admin-panel" */'@/components/admin-panel/search');
+const AdminPanelPage = () => import('@/components/admin-panel');
+const AdminPanelUserPage = () => import('@/components/admin-panel/user-support');
+const AdminPanelSearchPage = () => import('@/components/admin-panel/search');
 
 // Except for tasks that are always loaded all the other main level
 // All the main level
@@ -31,45 +31,45 @@ const AdminPanelSearchPage = () => import(/* webpackChunkName: "admin-panel" */'
 // for docs
 
 // Tasks
-const UserTasks = () => import(/* webpackChunkName: "userTasks" */'@/components/tasks/user');
+const UserTasks = () => import('@/components/tasks/user');
 
 // Inventory
-const InventoryContainer = () => import(/* webpackChunkName: "inventory" */'@/components/inventory/index');
-const ItemsPage = () => import(/* webpackChunkName: "inventory" */'@/components/inventory/items/index');
-const EquipmentPage = () => import(/* webpackChunkName: "inventory" */'@/components/inventory/equipment/index');
-const StablePage = () => import(/* webpackChunkName: "inventory" */'@/components/inventory/stable/index');
+const InventoryContainer = () => import('@/components/inventory/index');
+const ItemsPage = () => import('@/components/inventory/items/index');
+const EquipmentPage = () => import('@/components/inventory/equipment/index');
+const StablePage = () => import('@/components/inventory/stable/index');
 
 // Guilds & Parties
-const GroupPage = () => import(/* webpackChunkName: "guilds" */ '@/components/groups/group');
-const GroupPlansAppPage = () => import(/* webpackChunkName: "guilds" */ '@/components/static/groupPlans');
-const LookingForParty = () => import(/* webpackChunkName: "guilds" */ '@/components/groups/lookingForParty');
+const GroupPage = () => import( '@/components/groups/group');
+const GroupPlansAppPage = () => import( '@/components/static/groupPlans');
+const LookingForParty = () => import( '@/components/groups/lookingForParty');
 
 // Group Plans
-const GroupPlanIndex = () => import(/* webpackChunkName: "group-plans" */ '@/components/group-plans/index');
-const GroupPlanTaskInformation = () => import(/* webpackChunkName: "group-plans" */ '@/components/group-plans/taskInformation');
-const GroupPlanBilling = () => import(/* webpackChunkName: "group-plans" */ '@/components/group-plans/billing');
+const GroupPlanIndex = () => import( '@/components/group-plans/index');
+const GroupPlanTaskInformation = () => import( '@/components/group-plans/taskInformation');
+const GroupPlanBilling = () => import( '@/components/group-plans/billing');
 
-const MessagesIndex = () => import(/* webpackChunkName: "private-messages" */ '@/pages/private-messages/index.vue');
+const MessagesIndex = () => import( '@/pages/private-messages/index.vue');
 
 // Challenges
-const ChallengeIndex = () => import(/* webpackChunkName: "challenges" */ '@/components/challenges/index');
-const MyChallenges = () => import(/* webpackChunkName: "challenges" */ '@/components/challenges/myChallenges');
-const FindChallenges = () => import(/* webpackChunkName: "challenges" */ '@/components/challenges/findChallenges');
-const ChallengeDetail = () => import(/* webpackChunkName: "challenges" */ '@/components/challenges/challengeDetail');
+const ChallengeIndex = () => import( '@/components/challenges/index');
+const MyChallenges = () => import( '@/components/challenges/myChallenges');
+const FindChallenges = () => import( '@/components/challenges/findChallenges');
+const ChallengeDetail = () => import( '@/components/challenges/challengeDetail');
 
 // Shops
-const ShopsContainer = () => import(/* webpackChunkName: "shops" */'@/components/shops/index');
-const MarketPage = () => import(/* webpackChunkName: "shops-market" */'@/components/shops/market/index');
-const QuestsPage = () => import(/* webpackChunkName: "shops-quest" */'@/components/shops/quests/index');
-const CustomizationsPage = () => import(/* webpackChunkName: "shops-customizations" */'@/components/shops/customizations/index');
-const SeasonalPage = () => import(/* webpackChunkName: "shops-seasonal" */'@/components/shops/seasonal/index');
-const TimeTravelersPage = () => import(/* webpackChunkName: "shops-timetravelers" */'@/components/shops/timeTravelers/index');
+const ShopsContainer = () => import('@/components/shops/index');
+const MarketPage = () => import('@/components/shops/market/index');
+const QuestsPage = () => import('@/components/shops/quests/index');
+const CustomizationsPage = () => import('@/components/shops/customizations/index');
+const SeasonalPage = () => import('@/components/shops/seasonal/index');
+const TimeTravelersPage = () => import('@/components/shops/timeTravelers/index');
 
 Vue.use(VueRouter);
 
 const router = new VueRouter({
   mode: 'history',
-  base: process.env.NODE_ENV === 'production' ? '/' : __dirname, // eslint-disable-line no-process-env
+  base: '/', // eslint-disable-line no-process-env
   linkActiveClass: 'active',
   // When navigating to another route always scroll to the top
   // To customize the behavior see https://router.vuejs.org/en/advanced/scroll-behavior.html

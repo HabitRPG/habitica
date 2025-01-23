@@ -34,7 +34,7 @@
 </template>
 
 <style lang='scss' scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   #loading-screen-inapp {
     #melior {
@@ -90,7 +90,7 @@
 </style>
 
 <style lang='scss'>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .modal-backdrop {
     opacity: .9 !important;
@@ -111,7 +111,7 @@ import { mapState } from '@/libs/store';
 import userMain from '@/pages/user-main';
 import snackbars from '@/components/snackbars/notifications';
 
-const COMMUNITY_MANAGER_EMAIL = process.env.EMAILS_COMMUNITY_MANAGER_EMAIL; // eslint-disable-line
+const COMMUNITY_MANAGER_EMAIL = import.meta.env.EMAILS_COMMUNITY_MANAGER_EMAIL; // eslint-disable-line
 
 export default {
   name: 'App',

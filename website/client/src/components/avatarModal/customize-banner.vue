@@ -27,7 +27,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .bottom-banner {
     background: linear-gradient(114.26deg, $purple-300 0%, $purple-200 100%);
@@ -55,7 +55,7 @@
 </style>
 
 <script>
-import sparkles from '@/assets/svg/sparkles-left.svg';
+import sparkles from '@/assets/svg/sparkles-left.svg?raw';
 
 export default {
   data () {

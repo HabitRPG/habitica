@@ -8,7 +8,7 @@ import notificationsMixin from '@/mixins/notifications';
 import { CONSTANTS, setLocalSetting } from '@/libs/userlocalManager';
 import * as Analytics from '@/libs/analytics';
 
-const STRIPE_PUB_KEY = process.env.STRIPE_PUB_KEY;
+const STRIPE_PUB_KEY = import.meta.env.STRIPE_PUB_KEY;
 
 let stripeInstance = null;
 

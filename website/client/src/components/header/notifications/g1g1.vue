@@ -39,14 +39,14 @@
 </template>
 
 <style lang='scss' scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   small, strong {
     color: $white;
   }
 
   .notification {
-    background-image: url('~@/assets/images/g1g1-notif.png');
+    background-image: url('@/assets/images/g1g1-notif.png');
     height: 10rem;
     padding: 3rem;
     position: relative;
@@ -81,7 +81,7 @@
 </style>
 
 <script>
-import closeIcon from '@/assets/svg/close-teal.svg';
+import closeIcon from '@/assets/svg/close-teal.svg?raw';
 import { mapActions } from '@/libs/store';
 
 export default {

@@ -7,16 +7,16 @@
     </div>
     <div class="row">
       <div class="col-md-6">
-        <img src="~@/assets/images/marketing/screenshot.png">
+        <img src="@/assets/images/marketing/screenshot.png">
         <h2>{{ $t('marketing1Lead1Title') }}</h2>
         <p>{{ $t('marketing1Lead1') }}</p>
       </div>
       <div class="col-md-6">
-        <img src="~@/assets/images/marketing/gear.png">
+        <img src="@/assets/images/marketing/gear.png">
         <h2>{{ $t('marketing1Lead2Title') }}</h2>
         <p>{{ $t('marketing1Lead2') }}</p>
         <img
-          src="~@/assets/images/marketing/drops.png"
+          src="@/assets/images/marketing/drops.png"
           style="max-height: 200px;"
         >
         <h2>{{ $t('marketing1Lead3Title') }}</h2>
@@ -33,12 +33,12 @@
       <div class="col-md-6">
         <h2>{{ $t('marketing2Lead1Title') }}</h2>
         <p>{{ $t('marketing2Lead1') }}</p>
-        <img src="~@/assets/images/marketing/vice3.png">
+        <img src="@/assets/images/marketing/vice3.png">
         <h2>{{ $t('marketing2Lead2Title') }}</h2>
         <p v-markdown="$t('marketing2Lead2')"></p>
       </div>
       <div class="col-md-6">
-        <img src="~@/assets/images/marketing/challenge.png">
+        <img src="@/assets/images/marketing/challenge.png">
         <h2>{{ $t('marketing2Lead3Title') }}</h2>
         <p>{{ $t('marketing2Lead3') }}</p>
       </div>
@@ -51,12 +51,12 @@
     </div>
     <div class="row">
       <div class="col-md-6">
-        <img src="~@/assets/images/marketing/android_iphone.png">
+        <img src="@/assets/images/marketing/android_iphone.png">
         <h2>{{ $t('footerMobile') }}</h2>
         <p v-markdown="$t('marketing3Lead1')"></p>
       </div>
       <div class="col-md-6">
-        <img src="~@/assets/images/marketing/integration.png">
+        <img src="@/assets/images/marketing/integration.png">
         <h2>{{ $t('marketing3Lead2Title') }}</h2>
         <p v-markdown="$t('marketing3Lead2')"></p>
       </div>
@@ -70,7 +70,7 @@
     <div class="row">
       <div class="col-md-6">
         <div class="media">
-          <img src="~@/assets/images/marketing/education.png">
+          <img src="@/assets/images/marketing/education.png">
           <div class="media-body">
             <h2>{{ $t('marketing4Lead1Title') }}</h2>
             <p>{{ $t('marketing4Lead1') }}</p>
@@ -79,7 +79,7 @@
       </div>
       <div class="col-md-6">
         <div class="media">
-          <img src="~@/assets/images/marketing/wellness.png">
+          <img src="@/assets/images/marketing/wellness.png">
           <div class="media-body">
             <h2>{{ $t('marketing4Lead2Title') }}</h2>
             <p>{{ $t('marketing4Lead2') }}</p>
@@ -90,7 +90,7 @@
     <div class="row">
       <div class="col-md-6 offset-md-3">
         <h2>{{ $t('marketing4Lead3Title') }}</h2>
-        <img src="~@/assets/images/marketing/lefnire.png">
+        <img src="@/assets/images/marketing/lefnire.png">
         <p class="span">
           <span>{{ $t('marketing4Lead3-1') }}</span>
           <button
