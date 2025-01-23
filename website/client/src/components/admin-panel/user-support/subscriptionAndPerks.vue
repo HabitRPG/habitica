@@ -22,7 +22,7 @@
         v-if="expand"
         class="card-body"
       >
-      <div v-if="hero.purchased.plan.paymentMethod"
+      <div
           class="form-group row"
         >
           <label class="col-sm-3 col-form-label">
@@ -51,7 +51,7 @@
               </select>
           </div>
         </div>
-        <div v-if="hero.purchased.plan.planId"
+        <div
           class="form-group row"
         >
           <label class="col-sm-3 col-form-label">
@@ -79,7 +79,7 @@
               </select>
           </div>
         </div>
-        <div v-if="hero.purchased.plan.customerId"
+        <div
           class="form-group row"
         >
           <label class="col-sm-3 col-form-label">
@@ -192,7 +192,7 @@
                 </strong>
                 <a class="btn btn-danger"
               href="#"
-                  @click="terminateSubscription"
+                  v-b-modal.sub_termination_modal
                   v-if="!hero.purchased.plan.dateTerminated">
                   Terminate
               </a>
@@ -378,6 +378,23 @@
         </b>
       </div>
     </div>
+    <b-modal id="sub_termination_modal" title="Are you sure?">
+      <p>
+        Terminating the subscription will automatically process
+        the extra months and add them onto the selected termination date.
+      </p>
+      <template #modal-footer>
+        <div class="mt-3 btn btn-secondary" @click="$bvModal.hide('sub_termination_modal')">
+          Close
+        </div>
+        <div class="mt-3 btn btn-danger" @click="terminateSubscription()">
+          Terminate Today
+        </div>
+        <div class="mt-3 btn btn-danger" @click="terminateSubscription(todayWithRemainingCycle)">
+          Terminate on {{ todayWithRemainingCycle.utc().format('MM/DD/YYYY') }}
+        </div>
+      </template>
+    </b-modal>
   </form>
 </template>
 
@@ -454,6 +471,15 @@ export default {
         'Gift',
       ].includes(this.hero.purchased.plan.paymentMethod);
     },
+    todayWithRemainingCycle () {
+      const now = moment();
+      const monthCount = subscriptionBlocks[this.hero.purchased.plan.planId].months;
+      const terminationDate = moment(this.hero.purchased.plan.dateCurrentTypeCreated || new Date());
+      while (terminationDate.isBefore(now)) {
+        terminationDate.add(monthCount, 'months');
+      }
+      return terminationDate;
+    },
   },
   methods: {
     dateFormat (date) {
@@ -462,12 +488,14 @@ export default {
       }
       return moment(date).format('YYYY/MM/DD');
     },
-    terminateSubscription () {
-      if (window.confirm('Terminate subscription with the current date? Any extra months will be applied.')) {
+    terminateSubscription (terminationDate) {
+      if (terminationDate) {
+        this.hero.purchased.plan.dateTerminated = terminationDate.utc().format();
+      } else {
         this.hero.purchased.plan.dateTerminated = moment(new Date()).utc().format();
-        this.applyExtraMonths();
-        this.saveHero({ hero: this.hero, msg: 'Subscription Termination', reloadData: true });
       }
+      this.applyExtraMonths();
+      this.saveHero({ hero: this.hero, msg: 'Subscription Termination', reloadData: true });
     },
     applyExtraMonths () {
       if (this.hero.purchased.plan.extraMonths > 0 || this.hero.purchased.plan.extraMonths !== '0') {
