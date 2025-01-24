@@ -347,7 +347,7 @@ export default {
 
     updateBannerHeightAndScrollY () {
       this.updateEventBannerHeight();
-      this.privacyBannerHeight = document.getElementById('privacy-banner').getBoundingClientRect().height;
+      this.privacyBannerHeight = document.getElementById('privacy-banner')?.getBoundingClientRect().height || 0;
       this.warningBannerHeight = getBannerHeight('chat-warning');
       this.sleepingBannerHeight = getBannerHeight('damage-paused');
       this.updateScrollY();

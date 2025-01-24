@@ -657,6 +657,7 @@ export const UserSchema = new Schema({
     },
     privacy: {
       disableAnalytics: { $type: Boolean, default: false },
+      acceptedWebCookies: { $type: Boolean, default: false },
     },
   },
   profile: {

@@ -2,6 +2,7 @@
   <div
     class="banner d-flex align-items-center justify-content-between py-3 px-4"
     id="privacy-banner"
+    v-if="!hidden"
   >
     <p
       class="mr-3 mb-0"
@@ -12,7 +13,10 @@
       class="navigation d-flex flex-column justify-content-around text-center ml-2"
       :class="{ static: isStaticPage }"
     >
-      <button class="btn btn-primary mb-2">
+      <button
+        class="btn btn-primary mb-2"
+        @click="close()"
+      >
         {{ $t('acceptAllCookies') }}
       </button>
       <button class="btn btn-secondary mb-2">
@@ -67,13 +71,38 @@
 </style>
 
 <script>
+import { nextTick } from 'vue';
+import {
+  hideBanner, isBannerHidden,
+} from '@/libs/banner.func';
+import { EVENTS } from '@/libs/events';
+
+const BANNER_ID = 'privacy-preferences';
+
 export default {
   computed: {
     isStaticPage () {
       return this.$route.meta.requiresLogin === false;
     },
   },
+  data () {
+    return {
+      hidden: false,
+    };
+  },
+  mounted () {
+    if (isBannerHidden(BANNER_ID)) {
+      this.hidden = true;
+    }
+  },
   methods: {
+    close () {
+      hideBanner(BANNER_ID);
+      this.hidden = true;
+      nextTick(() => {
+        this.$root.$emit(EVENTS.BANNER_HEIGHT_UPDATED);
+      });
+    },
     showPrivacyModal () {
       this.$root.$emit('bv::show::modal', 'privacy-preferences');
     },
