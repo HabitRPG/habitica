@@ -139,11 +139,6 @@
     filter: invert(100%);
   }
 
-  .weapon {
-     // the only one that is relative so that it fits into the parent div
-    position: relative !important;
-  }
-
   .debug {
     border: 1px solid red;
 
