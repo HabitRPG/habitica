@@ -31,13 +31,6 @@
           &colon;&nbsp;
           <a href="mailto:admin@habitica.com">admin&commat;habitica&period;com</a>
           <br>
-          {{ $t('generalQuestionsSite') }}
-          &colon;&nbsp;
-          <a
-            target="_blank"
-            @click.prevent="openBugReportModal(true)"
-          > {{ $t('askQuestion') }}</a>
-          <br>
           {{ $t('businessInquiries') }}
           &colon;&nbsp;
           <a href="mailto:admin@habitica.com">admin@habitica.com</a>
@@ -54,10 +47,8 @@
 <script>
 import { mapState } from '@/libs/store';
 import { goToModForm } from '@/libs/modform';
-import reportBug from '@/mixins/reportBug.js';
 
 export default {
-  mixins: [reportBug],
   computed: {
     ...mapState({
       user: 'user.data',

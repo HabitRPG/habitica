@@ -15,6 +15,7 @@ export const ARMOIRE_RELEASE_DATES = {
   stormKnightSet: { year: 2024, month: 11 },
   festiveHelperSet: { year: 2024, month: 12 },
   snowyTrapperSet: { year: 2025, month: 1 },
+  fancyFloralSet: { year: 2025, month: 2 },
 };
 
 export const EGGS_RELEASE_DATES = {
@@ -23,6 +24,7 @@ export const EGGS_RELEASE_DATES = {
   Crab: { year: 2024, month: 8, day: 14 },
   Raccoon: { year: 2024, month: 9, day: 14 },
   Dog: { year: 2024, month: 10, day: 14 },
+  Cat: { year: 2025, month: 2, day: 14 },
 };
 
 export const HATCHING_POTIONS_RELEASE_DATES = {

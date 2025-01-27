@@ -232,6 +232,47 @@ const QUEST_PETS = {
       unlock: t('questButterflyUnlockText'),
     },
   },
+  cat: {
+    text: t('questCatText'),
+    notes: t('questCatNotes'),
+    completion: t('questCatCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questCatBoss'),
+      hp: 600,
+      str: 1.5,
+      rage: {
+        title: t('questCatRageTitle'),
+        description: t('questCatRageDescription'),
+        value: 50,
+        mpDrain: 0.33,
+        effect: t('questCatRageEffect'),
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Cat',
+          text: t('questCatDropCatEgg'),
+        },
+        {
+          type: 'eggs',
+          key: 'Cat',
+          text: t('questCatDropCatEgg'),
+        },
+        {
+          type: 'eggs',
+          key: 'Cat',
+          text: t('questCatDropCatEgg'),
+        },
+      ],
+      gp: 55,
+      exp: 500,
+      unlock: t('questCatUnlockText'),
+    },
+  },
   chameleon: {
     text: t('questChameleonText'),
     notes: t('questChameleonNotes'),

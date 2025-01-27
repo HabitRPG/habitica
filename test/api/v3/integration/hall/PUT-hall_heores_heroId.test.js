@@ -60,12 +60,12 @@ describe('PUT /heroes/:heroId', () => {
     expect(heroRes.profile).to.have.all.keys(['name']);
 
     // test response values
-    expect(heroRes.balance).to.equal(3 + 0.75); // 3+0.75 for first contrib level
+    expect(heroRes.balance).to.equal(3 + 2.5); // 3+2.5 for first contrib level
     expect(heroRes.contributor.level).to.equal(1);
     expect(heroRes.purchased.ads).to.equal(true);
     // test hero values
     await hero.sync();
-    expect(hero.balance).to.equal(3 + 0.75); // 3+0.75 for first contrib level
+    expect(hero.balance).to.equal(3 + 2.5); // 3+2.5 for first contrib level
     expect(hero.contributor.level).to.equal(1);
     expect(hero.purchased.ads).to.equal(true);
     expect(hero.auth.blocked).to.equal(prevBlockState);
@@ -136,12 +136,12 @@ describe('PUT /heroes/:heroId', () => {
     expect(heroRes.profile).to.have.all.keys(['name']);
 
     // test response values
-    expect(heroRes.balance).to.equal(1); // 0+1 for sixth contrib level
+    expect(heroRes.balance).to.equal(15); // 0+15 for sixth contrib level
     expect(heroRes.contributor.level).to.equal(6);
     expect(heroRes.items.pets['Dragon-Hydra']).to.equal(5);
     // test hero values
     await hero.sync();
-    expect(hero.balance).to.equal(1); // 0+1 for sixth contrib level
+    expect(hero.balance).to.equal(15); // 0+15 for sixth contrib level
     expect(hero.contributor.level).to.equal(6);
     expect(hero.items.pets['Dragon-Hydra']).to.equal(5);
   });

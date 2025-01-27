@@ -219,7 +219,7 @@ const router = new VueRouter({
 
     // Only used to handle some redirects
     // See router.beforeEach
-    { path: '/static/faq/tavern-and-guilds', redirect: '/static/tavern-and-guilds' },
+    { path: '/static/tavern-and-guilds', redirect: '/static/faq/tavern-and-guilds' },
     { path: '/redirect/:redirect', name: 'redirect' },
     { path: '*', redirect: { name: 'notFound' } },
   ],

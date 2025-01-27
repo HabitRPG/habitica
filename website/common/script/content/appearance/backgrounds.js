@@ -644,6 +644,9 @@ const backgrounds = {
   backgrounds012025: {
     winter_landscape_with_cabin: { },
   },
+  backgrounds022025: {
+    old_fashioned_tea_shop: { },
+  },
   eventBackgrounds: {
     birthday_bash: {
       price: 0,

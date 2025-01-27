@@ -1045,6 +1045,10 @@ const head = {
     per: 6,
     set: 'snowyTrapperSet',
   },
+  fancyFloralHat: {
+    int: 14,
+    set: 'fancyFloralSet',
+  },
 };
 
 const shield = {
@@ -1399,6 +1403,10 @@ const shield = {
   safetyFlashlight: {
     con: 10,
     set: 'frightNightSet',
+  },
+  fancyFloralFan: {
+    per: 14,
+    set: 'fancyFloralSet',
   },
 };
 

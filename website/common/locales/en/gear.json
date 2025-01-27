@@ -1453,6 +1453,8 @@
   "armorMystery202407Notes": "Glide through lakes and canals with your sweeping pink tail! Confers no benefit. July 2024 Subscriber Item.",
   "armorMystery202412Text": "Candy Cane Cottontail Coat",
   "armorMystery202412Notes": "A fun and fluffy look to keep you snug on a winter day. Confers no benefit. December 2024 Subscriber Item.",
+  "armorMystery202502Text": "Heartfelt Harlequin Suit",
+  "armorMystery202502Notes": "You’re full of kind-hearted jokes and japes from your ruffled collar to your gigantic shoes! Confers no benefit. February 2025 Subscriber Item.",
 
   "armorMystery301404Text": "Steampunk Suit",
   "armorMystery301404Notes": "Dapper and dashing, wot! Confers no benefit. February 3015 Subscriber Item.",
@@ -2372,6 +2374,8 @@
   "headMystery202412Notes": "Warm and cozy, just like a cup of minty hot cocoa on a winter night! Confers no benefit. December 2024 Subscriber Item.",
   "headMystery202501Text": "Frostbinder’s Hat",  
   "headMystery202501Notes": "This sparkling hat generates a light and festive flurry around you at all times. Confers no benefit. January 2025 Subscriber Item.",
+  "headMystery202502Text": "Heartfelt Harlequin Hat",
+  "headMystery202502Notes": "This jaunty little hat is sure to inspire joy in anyone who sees you! Confers no benefit. February 2025 Subscriber Item.",
 
   "headMystery301404Text": "Fancy Top Hat",
   "headMystery301404Notes": "A fancy top hat for the finest of gentlefolk! January 3015 Subscriber Item. Confers no benefit.",
@@ -2580,6 +2584,8 @@
   "headArmoireFestiveHelperHatNotes": "Holiday tip #27: have a helper hat handy. This one is big enough to keep an emergency toy underneath! Increases Intelligence by <%= int %>. Enchanted Armoire: Festive Helper Set (Item 1 of 2)",
   "headArmoireSnowyTrapperHatText": "Snowy Trapper Hat",
   "headArmoireSnowyTrapperHatNotes": "Blue, frostbitten ears will be a thing of the past. Embrace cozy warmth in style! Increases Constitution and Perception by <%= attrs %> each. Enchanted Armoire: Snowy Trapper Hat Set (Item 1 of 2).",
+  "headArmoireFancyFloralHatText": "Fancy Floral Hat",
+  "headArmoireFancyFloralHatNotes": "Feast your eyes on this fancy hat full of fantastic flowers and frilly fastenings. Increases Intelligence by <%= int %>. Enchanted Armoire: Fancy Floral Accessories Set (Item 1 of 2).",  
 
   "offhand": "off-hand item",
   "offHandCapitalized": "Off-Hand Item",
@@ -2895,6 +2901,8 @@
   "shieldMystery202409Notes": "The glowing ruby on this staff draws its power from the late summer sun. Confers no benefit. September 2024 Subscriber Item.",
   "shieldMystery202501Text": "Frostbinder's Staff",
   "shieldMystery202501Notes": "Decorate any outdoor scenery with a diamond coat of shimmering frost. Confers no benefit. January 2025 Subscriber Item.",
+  "shieldMystery202502Text": "Heartfelt Harlequin Balloons",
+  "shieldMystery202502Notes": "This Valentine’s Day and every day, may your heart be as light as these buoyant balloons. Confers no benefit. February 2025 Subscriber Item.",
 
   "shieldMystery301405Text": "Clock Shield",
   "shieldMystery301405Notes": "Time is on your side with this towering clock shield! Confers no benefit. June 3015 Subscriber Item.",
@@ -3063,6 +3071,8 @@
   "shieldArmoireBuoyantBeachBallNotes": "Got too many balls up in the air already? Here’s one that you can safely set down, roll, bounce and bounce and bounce...  Increases Strength by <%= str %>. Enchanted Armoire: Beachside Set (Item 4 of 4).",
   "shieldArmoireSafetyFlashlightText": "Safety Flashlight",
   "shieldArmoireSafetyFlashlightNotes": "Wait, did you hear that noise? Quick! Shine your flashlight into the shadows over there. Hmmm. Looks like it was just the wind. Or was it…? Increases Constitution by <%= con %>. Enchanted Armoire: Fright Night Set (Item 1 of 2)",
+  "shieldArmoireFancyFloralFanText": "Fancy Floral Fan",
+  "shieldArmoireFancyFloralFanNotes": "Finish your fancy look with this first-rate fan made of fabulous floral fabric. Increases Perception by <%= per %>. Enchanted Armoire: Fancy Floral Accessories Set (Item 2 of 2).",
 
   "back": "Back Accessory",
   "backBase0Text": "No Back Accessory",
