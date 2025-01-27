@@ -96,11 +96,6 @@
     }
   }
 
-  .avatar-left {
-    margin-left: -1.5rem;
-    margin-right: 2rem;
-  }
-
   .hr {
     width: 100%;
     height: 20px;

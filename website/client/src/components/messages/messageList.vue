@@ -39,7 +39,7 @@
           class="avatar-left"
           :member="conversationOpponentUser"
           :avatar-only="true"
-          :show-weapon="false"
+          :show-weapon="true"
           :debug-mode="false"
           :override-top-padding="'0'"
           :hide-class-badge="true"
@@ -60,7 +60,7 @@
           class="avatar-right"
           :member="user"
           :avatar-only="true"
-          :show-weapon="false"
+          :show-weapon="true"
           :debug-mode="false"
           :hide-class-badge="true"
           :override-top-padding="'0'"
@@ -86,19 +86,6 @@
   ::v-deep .avatar {
     margin-left: -1.75rem;
     margin-right: -0.5rem;
-  }
-}
-
-.avatar-left {
-  margin-right: 1.5rem;
-}
-
-.avatar-right {
-  overflow: clip;
-  margin-left: 1.5rem;
-
-  ::v-deep .character-sprites {
-    margin-right: 1rem !important;
   }
 }
 
