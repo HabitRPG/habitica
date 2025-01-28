@@ -513,7 +513,7 @@ api.updateHero = {
     if (updateData.removeFromParty) {
       await leaveGroup({
         user: savedHero,
-        groupId: savedHero.party,
+        groupId: savedHero.party._id,
         res,
         keep: false,
         keepChallenges: false,
