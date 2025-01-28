@@ -75,6 +75,7 @@
 
 <script>
 import * as quests from '@/../../common/script/content/quests';
+import saveHero from '../mixins/saveHero';
 
 function determineQuestStatus (self) {
   // Quest data is in the user doc and party doc. They can be out of sync.
@@ -290,6 +291,7 @@ function resetData (self) {
 }
 
 export default {
+  mixins: [saveHero],
   props: {
     resetCounter: {
       type: Number,
@@ -340,7 +342,7 @@ export default {
   methods: {
     removeFromParty () {
       this.saveHero({
-        hero: { removeFromParty: true },
+        hero: { _id: this.userId, removeFromParty: true },
         msg: 'Removed from party',
         reloadData: true,
       });

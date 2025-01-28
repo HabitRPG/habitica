@@ -511,7 +511,7 @@ api.updateHero = {
     const savedHero = await hero.save();
 
     if (updateData.removeFromParty) {
-      leaveGroup({
+      await leaveGroup({
         user: savedHero,
         groupId: savedHero.party,
         res,
