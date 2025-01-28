@@ -61,6 +61,9 @@
           </span>
         </strong>
       </div>
+      <div
+        class="btn btn-danger"
+        @click="removeFromParty()">Remove from Party</div>
       </div>
       <strong v-else>User is not in a party.</strong>
       <div class="subsection-start">
@@ -333,6 +336,15 @@ export default {
   },
   mounted () {
     resetData(this);
+  },
+  methods: {
+    removeFromParty () {
+      this.saveHero({
+        hero: { removeFromParty: true },
+        msg: 'Removed from party',
+        reloadData: true,
+      });
+    },
   },
 };
 </script>

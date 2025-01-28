@@ -15,6 +15,7 @@ import {
   castItemVal,
 } from '../../libs/items/utils';
 import { addSubToGroupUser } from '../../libs/payments/groupPayments';
+import { leaveGroup } from '../../libs/groups';
 
 const api = {};
 
@@ -508,6 +509,17 @@ api.updateHero = {
     }
 
     const savedHero = await hero.save();
+
+    if (updateData.removeFromParty) {
+      leaveGroup({
+        user: savedHero,
+        groupId: savedHero.party,
+        res,
+        keep: false,
+        keepChallenges: false,
+      });
+    }
+
     const heroJSON = savedHero.toJSON();
     heroJSON.secret = savedHero.getSecretData();
     const responseHero = { _id: heroJSON._id }; // only respond with important fields
