@@ -920,13 +920,13 @@ export default {
       await axios.post('/api/v4/debug/set-cron', {
         lastCron: date,
       });
-      // @TODO: Notification.text('-' + numberOfDays + ' day(s), remember to refresh');
+      window.alert(`Days reset by ${numberOfDays}.\nRemember to refresh.`);
       // @TODO: Sync user?
     },
     async addTenGems () {
       await axios.post('/api/v4/debug/add-ten-gems');
-      // @TODO: Notification.text('+10 Gems!');
       this.user.balance += 2.5;
+      window.alert('+10 Gems!');
     },
     async addHourglass () {
       await axios.post('/api/v4/debug/add-hourglass');
@@ -990,17 +990,17 @@ export default {
     },
     async addQuestProgress () {
       await axios.post('/api/v4/debug/quest-progress');
-      //  @TODO:  Notification.text('Quest progress increased');
+      window.alert('Quest progress increased.');
       //  @TODO:  User.sync();
     },
     async bossRage () {
       await axios.post('/api/v4/debug/boss-rage');
+      window.alert('Boss Rage increased.');
     },
 
     async makeAdmin () {
       await axios.post('/api/v4/debug/make-admin');
-      // @TODO: Notification.text('You are now an admin!
-      // Reload the website then go to Help > Admin Panel to set contributor level, etc.');
+      window.alert('You are now an Admin!\nReload the website then go to Help > Admin to set contributor level, etc.');
       // @TODO: sync()
     },
     donate () {
