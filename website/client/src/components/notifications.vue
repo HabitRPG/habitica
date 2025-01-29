@@ -427,7 +427,7 @@ export default {
       this.$store.dispatch('user:fetch'),
       this.$store.dispatch('tasks:fetchUserTasks'),
     ]).then(() => {
-      // @TODO: This is a timeout to ensure dom is loaded
+      // NOTE: This is a timeout to ensure dom is loaded
       window.setTimeout(() => {
         this.runForcedModals();
       }, 2000);

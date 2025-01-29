@@ -1177,7 +1177,7 @@ export default {
         'flags.welcomed': true,
       });
 
-      // @TODO: This is a timeout to ensure dom is loaded
+      // NOTE: This is a timeout to ensure dom is loaded
       window.setTimeout(() => {
         this.initTour();
         this.goto('intro', 0);
