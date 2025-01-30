@@ -2,7 +2,7 @@
     "achievement": "הישג",
     "onwards": "הלאה!",
     "levelup": "בזכות ביצוע משימות בחיים האמיתיים, עלית רמה והדמות שלך נרפאה לחלוטין!",
-    "reachedLevel": "הגעת לשלב <%= level %>",
+    "reachedLevel": "הגעת לרמה <%= level %>",
     "achievementLostMasterclasser": "משלים ההרפתקאות: סדרת הרב-אמן",
     "achievementLostMasterclasserText": "השלימו את כל שש-עשר המשימות בסדרת הרפתקאות של הרב-אמן ופתרו את תעלומת הרב-אמן האבוד!",
     "viewAchievements": "הצגת ההישגים",
@@ -153,5 +153,17 @@
     "achievementDinosaurDynastyModalText": "אספת את כל חיות המחמד של הציפורים והדינוזאורים!",
     "achievementBonelessBoss": "מנהל חסר-עצמות",
     "achievementBonelessBossText": "בקע את כל הצבעים הרגילים של חיות ים: חיפושית, פרפר, דיונון, חשופית ים, תמנון, חילזון, ועכביש!",
-    "achievementBonelessBossModalText": "אספת את כל החיות חסרות עמוד השדרה!"
+    "achievementBonelessBossModalText": "אספת את כל החיות חסרות עמוד השדרה!",
+    "achievementRodentRuler": "שליט.ת המכרסמים",
+    "achievementRodentRulerText": "בקעת את כל הצבעים הסטנדרטיים של מכרסמי מחמד: שרקן, חולדה וסנאי!",
+    "achievementRodentRulerModalText": "אספת את כל מכרסמי המחמד!",
+    "achievementCats": "רועה.ת חתולים",
+    "achievementCatsModalText": "אספת את כל חתולי המחמד!",
+    "achievementDuneBuddyModalText": "אספת את כל חיות המדבר!",
+    "achievementRoughRider": "רוכב מחוספס",
+    "achievementRoughRiderText": "בקעת את כל הצבעים הבסיסיים של חיות המחמד והמרכבים הלא נוחים: קקטוס, קיפוד ואבן!",
+    "achievementCatsText": "בקעת את כל הצבעים הסטנדרטיים של חתולי המחמד: צ׳יטה, אריה, טיגריס שנחרבי ונמר!",
+    "achievementRoughRiderModalText": "אספת את כל צבעי הבסיס של החיות מחמד והמרכבים הלא נוחים!",
+    "achievementDuneBuddy": "ידיד הדיונות",
+    "achievementDuneBuddyText": "הבקיע את כל חיות המדבר בצבעים סטנדרטיים: ארמדיל, קקטוס, שועל, צפרדע, נחש ועכביש!"
 }

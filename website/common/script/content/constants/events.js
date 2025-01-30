@@ -77,14 +77,14 @@ export const REPEATING_EVENTS = {
     foodSeason: 'Cake',
   },
   fallGemSale: {
-    start: new Date('1970-09-23T04:00-04:00'),
-    end: new Date('1970-09-27T23:59-04:00'),
+    start: new Date('1970-09-17T04:00-04:00'),
+    end: new Date('1970-09-24T23:59-04:00'),
     event: 'fall_extra_gems',
     gemsPromo,
   },
   spookyGemSale: {
-    start: new Date('1970-10-28T04:00-04:00'),
-    end: new Date('1970-11-01T23:59-04:00'),
+    start: new Date('1970-10-27T04:00-04:00'),
+    end: new Date('1970-10-31T23:59-04:00'),
     event: 'spooky_extra_gems',
     gemsPromo,
   },
@@ -103,8 +103,8 @@ export const REPEATING_EVENTS = {
     foodSeason: 'Pie',
   },
   giftOneGetOne: {
-    start: new Date('1970-12-19T04:00-05:00'),
-    end: new Date('1970-01-06T23:59-05:00'),
+    start: new Date('1970-12-17T04:00-05:00'),
+    end: new Date('1970-01-09T23:59-05:00'),
     promo: 'g1g1',
   },
 };

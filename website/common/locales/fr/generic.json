@@ -25,7 +25,7 @@
     "user": "Utilisateur",
     "market": "Marché",
     "newSubscriberItem": "Vous avez de nouveaux <span class=\"notification-bold-blue\">objets mystère</span>",
-    "subscriberItemText": "Les personnes abonnées recevront chaque mois un objet mystère. Il est disponible au début du mois. Consultez la page \"Objet mystère\" du wiki pour avoir plus d'information.",
+    "subscriberItemText": "Les Personnes Abonnées reçoivent un nouvel ensemble d'équipement mystère à chaque début de mois !",
     "all": "Tous",
     "none": "Aucun",
     "more": "<%= count %> de plus",
@@ -189,7 +189,7 @@
     "dismissAll": "Tout effacer",
     "messages": "Messages",
     "emptyMessagesLine1": "Vous n'avez aucun message",
-    "emptyMessagesLine2": "Vous pouvez envoyer un nouveau message à quelqu'un en regardant leur profil et en cliquant sur le bouton \"Message\".",
+    "emptyMessagesLine2": "Envoyez un message pour débuter une conversation avec les membres de votre Équipe ou un·e autre joueu·r·se d'Habitica",
     "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> vous a envoyé un message",
     "letsgo": "Allons-y !",
     "selected": "Selectionné",
@@ -238,5 +238,8 @@
     "bannedPlayer": "L·e·a Joueu·r·se est banni·e.",
     "playerReportModalBody": "Merci de ne signaler que les joueu·r·se· qui enfreignent les <%= firstLinkStart %>Guide de la Communauté<%= linkEnd %> et/ou <%= secondLinkStart %>Conditions d'utilisation<%= linkEnd %>. Déposer un faux signalement est une violation du Guide de la Communauté d'Habitica.",
     "unblockPlayer": "Débloquer l·e·a Joueu·r·se",
-    "titleCustomizations": "Personnalisations"
+    "titleCustomizations": "Personnalisations",
+    "newMessage": "Nouveau Message",
+    "targetUserNotExist": "L'Utilisat·eur·rice : '<%= userName %>' n'existe pas.",
+    "rememberToBeKind": "N'oubliez pas d'être bienveillant·e, respectueu·x·se, et de suivre le <a href='/static/community-guidelines' target='_blank'>Guide de la Communauté</a>."
 }

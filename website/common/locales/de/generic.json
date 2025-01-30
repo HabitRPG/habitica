@@ -25,7 +25,7 @@
     "user": "Benutzer",
     "market": "Marktplatz",
     "newSubscriberItem": "Du hast einen neuen <span class=\"notification-bold-blue\">Überraschungsgegenstand</span>",
-    "subscriberItemText": "Abonnenten bekommen jeden Monat einen Überraschungsgegenstand. Er wird Anfang des Monats verfügbar. Schaue auf der 'Überraschungsgegenstand'-Seite des Wikis für mehr Informationen nach.",
+    "subscriberItemText": "Abonnenten bekommen jeden Monatsanfang ein neues Überraschungsausrüstungsset!",
     "all": "Alle",
     "none": "Keine",
     "more": "<%= count %> mehr",
@@ -189,7 +189,7 @@
     "dismissAll": "Alle entfernen",
     "messages": "Nachrichten",
     "emptyMessagesLine1": "Du hast im Moment keine Nachrichten",
-    "emptyMessagesLine2": "Du kannst anderen eine neue Nachricht schicken, indem Du ihr Profil aufrufst und auf den \"Nachrichten\"-Knopf drückst.",
+    "emptyMessagesLine2": "Sende eine Nachricht, um eine Unterhaltung mit deinen Partymitgliedern oder anderen Habitica-Spieler*innen zu beginnen",
     "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> hat Dir eine Nachricht gesendet",
     "letsgo": "Auf geht's!",
     "selected": "Ausgewählt",
@@ -238,5 +238,8 @@
     "mutePlayer": "Stumm",
     "skipExternalLinkModal": "Halte STRG (Windows) oder Command (Mac) beim Anklicken eines Links, um dieses Modal zu überspringen.",
     "shadowMute": "Unsichtbare Stummschaltung",
-    "titleCustomizations": "Individualisierungen"
+    "titleCustomizations": "Individualisierungen",
+    "newMessage": "Neue Nachricht",
+    "targetUserNotExist": "Benutzer: '<%= userName %>' existiert nicht.",
+    "rememberToBeKind": "Denk bitte daran, freundlich und respektvoll zu sein und die <a href='/static/community-guidelines' target='_blank'>Community-Richtlinien</a> einzuhalten."
 }

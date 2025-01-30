@@ -3101,7 +3101,7 @@
     "armorMystery202406Notes": "Hantez vous ennemi·e·s avec élégance et panache ! Ne confère aucun bonus. Équipement d'Abonnement Juin 2024.",
     "armorArmoireBlueStripedSwimsuitText": "Maillot de Bain Bleu Rayé",
     "armorArmoireBlueStripedSwimsuitNotes": "Qu'est-ce qui peut être plus excitant que de se batte contre des monstres marins à la plage ? Augmente la Constitution de <%= con %>. Armoire Enchantée : Ensemble Tenue de Plage (Objet 2 sur 4).",
-    "gearItemsCompleted": "Vous possédez tou les équipements pour la classe <%= klass %> ! De nouveaux équipements seront déployés durant les Galas Saisonniers.",
+    "gearItemsCompleted": "Vous possédez tous les équipements pour la classe <%= klass %> ! De nouveaux équipements seront déployés durant les Galas Saisonniers.",
     "moreArmoireGearAvailable": "En attendant, il reste <%= armoireCount %> éléments d'équipement dans l'Armoire Enchantée à découvrir !",
     "moreArmoireGearComing": "L'Armoire Enchantée est également remplie d'un nouveau stock tous les mois !",
     "weaponSpecialSummer2024RogueNotes": "Utilisez les propres piquants aiguisés de vos ennemi·e·s contre e·ux·lles ! Augmente la Force de <%= str %>. Édition Limitée Équipement Été 2024.",

@@ -25,7 +25,7 @@
     "user": "Usuario",
     "market": "Mercado",
     "newSubscriberItem": "Tienes <span class=\"notification-bold-blue\">Objetos Misteriosos</span> nuevos",
-    "subscriberItemText": "Cada mes, los suscriptores recibirán un objeto misterioso, que estará disponible al comienzo del mes. Para más información, consulta la página de la wiki sobre los objetos misteriosos.",
+    "subscriberItemText": "¡Los suscriptores reciben una nueva colección de equipamiento misterioso al principio de cada mes!",
     "all": "Todo",
     "none": "Ninguno",
     "more": "<%= count %> más",
@@ -189,7 +189,7 @@
     "dismissAll": "Ignorar todas",
     "messages": "Mensajes",
     "emptyMessagesLine1": "No tienes ningún mensaje",
-    "emptyMessagesLine2": "Puedes enviar un nuevo mensaje a un usuario visitando su perfil y presionando \"Mensaje\".",
+    "emptyMessagesLine2": "Envía un mensaje para empezar una conversación con los miembros de tu Equipo o con otro jugador de Habitica",
     "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> te ha enviado un mensaje",
     "letsgo": "¡Vamos!",
     "selected": "Seleccionado",
@@ -238,5 +238,8 @@
     "whyReportingPlayer": "¿Por qué informas acerca de este jugador?",
     "reportPlayer": "Informar acerca de un Jugador",
     "viewAdminPanel": "Ver Comandos de Administrador",
-    "playerReportModalBody": "Solo deberías informar de un jugador que de alguna forma quebrantara las <%= firstLinkStart %>Normas de la Comunidad<%= linkEnd %> y/o <%= secondLinkStart %>los Terminos de Servicio<%= linkEnd %>. Enviar un informe falso es una clara violación de la Normas de la Comunidad de Habitica."
+    "playerReportModalBody": "Solo deberías informar de un jugador que de alguna forma quebrantara las <%= firstLinkStart %>Normas de la Comunidad<%= linkEnd %> y/o <%= secondLinkStart %>los Terminos de Servicio<%= linkEnd %>. Enviar un informe falso es una clara violación de la Normas de la Comunidad de Habitica.",
+    "targetUserNotExist": "Usuario Objetivo: '<%= userName %>' no existe.",
+    "rememberToBeKind": "Por favor recuerda ser amable y respetuoso, y sigue las <a href='/static/community-guidelines' target='_blank'>Normas de la Comunidad</a>.",
+    "newMessage": "Nuevo Mensaje"
 }

@@ -131,5 +131,6 @@
     "groupsPaymentAutoRenew": "此订阅在被取消前会自动续订。你可以在团队账单选项卡中取消订阅。",
     "sellItems": "出售物品",
     "customizationsShopText": "想要换换风格？你来对地方了！看看这儿最新的时令装扮吧。",
-    "notAvailable": "该物品目前无法使用。"
+    "notAvailable": "该物品目前无法使用。",
+    "paymentYouSentSubscriptionG1G1": "您已赠送<strong><%- name %></strong><br>为期<%= months %>个月的Habitica订阅，在我们的 “赠一得一 ”促销活动中，您的账户已使用了相同的订阅！"
 }

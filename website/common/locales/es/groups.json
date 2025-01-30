@@ -95,9 +95,6 @@
     "whyReportingPostPlaceholder": "Motivo del informe",
     "optional": "Opcional",
     "needsTextPlaceholder": "Escribe tu mensaje aquí.",
-    "copyMessageAsToDo": "Copiar mensaje como Tarea Pendiente",
-    "copyAsTodo": "Copiar como Tarea Pendiente",
-    "messageAddedAsToDo": "Mensaje copiado como Tarea pendiente.",
     "leaderOnlyChallenges": "Sólo el Líder del Grupo puede crear desafíos",
     "sendGift": "Enviar un regalo",
     "inviteFriends": "Invitar Amigos",
@@ -245,7 +242,7 @@
     "guildSummaryPlaceholder": "Escribe una breve descripción de tu Grupo. ¿Cuál es el propósito principal de tu Grupo y qué harán sus miembros?",
     "groupDescription": "Descripción",
     "guildDescriptionPlaceholder": "Usa esta sección para desarrollar más en detalle todo lo que los miembros del Grupo deberían saber sobre ella. ¡Los consejos de utilidad, enlaces de interés y frases motivacionales van aquí!",
-    "markdownFormattingHelp": "[Ayuda con el formato Markdown](https://habitica.fandom.com/es/wiki/Gu%C3%ADa_de_Markdown)",
+    "markdownFormattingHelp": "[Ayuda con el formato Markdown](https://github.com/HabitRPG/habitica/wiki/Markdown-in-Habitica)",
     "partyDescriptionPlaceholder": "Esta es la descripción de nuestro Equipo. Explica lo que hacemos en este Equipo. Si quieres saber más sobre lo que hacemos en este Equipo, lee la descripción. Toma equipo.",
     "guildGemCostInfo": "El coste de Gemas promueve una alta calidad en los Gremios y es transferido al banco de tu Gremio.",
     "noGuildsTitle": "No eres miembro de ningún Gremio.",
@@ -430,5 +427,6 @@
     "createGroupTitle": "Forma un Equipo",
     "readyToUpgrade": "¿Estás listo para Mejorar?",
     "interestedLearningMore": "¿Te gustaría saber más?",
-    "checkGroupPlanFAQ": "Echa un vistazo a <a href='/static/faq#what-is-group-plan'>FAQ Planes Grupales</a> para saber cómo obtener el máximo de tu experiencia en tareas compartidas."
+    "checkGroupPlanFAQ": "Echa un vistazo a <a href='/static/faq#what-is-group-plan'>FAQ Planes Grupales</a> para saber cómo obtener el máximo de tu experiencia en tareas compartidas.",
+    "messageCopiedToClipboard": "Mensaje copiado en el portapapeles."
 }

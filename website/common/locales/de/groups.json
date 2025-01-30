@@ -95,9 +95,6 @@
     "whyReportingPostPlaceholder": "Grund für die Beschwerde",
     "optional": "Optional",
     "needsTextPlaceholder": "Gib Deine Nachricht hier ein.",
-    "copyMessageAsToDo": "Nachricht als To-Do übernehmen",
-    "copyAsTodo": "Als To-Do kopieren",
-    "messageAddedAsToDo": "Nachricht als To-Do übernommen.",
     "leaderOnlyChallenges": "Nur die Gruppenleitung kann Herausforderungen erstellen",
     "sendGift": "Ein Geschenk schicken",
     "inviteFriends": "Lade Freunde ein",
@@ -245,7 +242,7 @@
     "guildSummaryPlaceholder": "Schreibe eine Kurzbeschreibung über deine Gruppe.. Was ist der Hauptzweck der Gruppe und was werden die Gruppenmitglieder tun?",
     "groupDescription": "Beschreibung",
     "guildDescriptionPlaceholder": "Nutze diesen Abschnitt um alles, was Mitglieder über Deine Gruppe wissen sollten, ausführlicher darzustellen. Nützliche Tipps, hilfreiche Links und ermutigende Worte gehören hier hin!",
-    "markdownFormattingHelp": "[Markdown Formatierungshilfe](https://habitica.fandom.com/wiki/Markdown_Cheat_Sheet)",
+    "markdownFormattingHelp": "[Markdown Formatierungshilfe](https://github.com/HabitRPG/habitica/wiki/Markdown-in-Habitica)",
     "partyDescriptionPlaceholder": "Das ist unsere Partybeschreibung. Sie beschreibt, was wir in unserer Party so tun. Wenn Du mehr darüber wissen willst, was wir in unserer Party so machen, lies die Beschreibung. Party on!",
     "guildGemCostInfo": "Eine Edelstein-Gebühr fördert die Qualität der Gilden und wird der Gildenbank gutgeschrieben.",
     "noGuildsTitle": "Du bist nicht Mitglied einer Gilde.",
@@ -430,5 +427,6 @@
     "createGroupTitle": "Erstelle Gruppe",
     "readyToUpgrade": "Bereit zum Aufrüsten?",
     "interestedLearningMore": "Willst du mehr erfahren?",
-    "checkGroupPlanFAQ": "Schau in die <a href='/static/faq#what-is-group-plan'>Gruppenpläne FAQ</a> um herauszufinden, wie du deine gemeinsamen Aufgaben optimal nutzen kannst."
+    "checkGroupPlanFAQ": "Schau in die <a href='/static/faq#what-is-group-plan'>Gruppenpläne FAQ</a> um herauszufinden, wie du deine gemeinsamen Aufgaben optimal nutzen kannst.",
+    "messageCopiedToClipboard": "Nachricht in Zwischenablage kopiert"
 }

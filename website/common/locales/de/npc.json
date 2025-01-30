@@ -126,7 +126,7 @@
     "limitedAvailabilityHours": "Für t <%= hours %>std und <%= minutes %>min verfügbar",
     "limitedAvailabilityDays": "Für <%= days %>t <%= hours %>std und <%= minutes %>min verfügbar",
     "amountExp": "<%= amount %> Exp",
-    "helpSupportHabitica": "Hilf Habitica zu unterstützen",
+    "helpSupportHabitica": "Hilf dabei, Habitica zu unterstützen",
     "groupsPaymentSubBilling": "Dein nächstes Rechnungsdatum ist <strong><%= renewalDate %></strong>.",
     "groupsPaymentAutoRenew": "Dieses Abonnement läuft automatisch weiter, bis es gekündigt wird. Du kannst es im Gruppen-Abrechnungs-Tab kündigen.",
     "sellItems": "Items verkaufen",

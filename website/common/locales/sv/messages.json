@@ -46,10 +46,8 @@
     "messageNotAbleToBuyInBulk": "Detta föremål kan inte köpas i större antal än 1.",
     "notificationsRequired": "Notifikations-id krävs.",
     "unallocatedStatsPoints": "Du har <span class=\"notification-bold-blue\"><%= points %> outdelat Egenskapspoäng</span>",
-    "beginningOfConversation": "Detta är början av din konversation med <%= userName %>. Kom ihåg att vara trevlig, respektfull, och att följa gemenskapens riktlinjer!",
     "messageDeletedUser": "Tyvärr har denna användare raderat sitt konto.",
     "messageMissingDisplayName": "Visningsnamn saknas.",
     "reportedMessage": "Du har rapporterat det här meddelandet till moderatorerna.",
-    "canDeleteNow": "Du kan radera meddelandet nu om du vill.",
-    "beginningOfConversationReminder": "Kom ihåg att vara trevlig, respektfull, och att följa gemenskapens riktlinjer!"
+    "canDeleteNow": "Du kan radera meddelandet nu om du vill."
 }
