@@ -1,3 +1,4 @@
+import { describe, expect, test, beforeEach } from 'vitest';
 import axios from 'axios';
 
 import content from '@/../../common/script/content';
@@ -5,6 +6,9 @@ import getItemInfo from '@/../../common/script/libs/getItemInfo';
 
 import getOfficialPinnedItems from '@/../../common/script/libs/getOfficialPinnedItems';
 import generateStore from '@/store';
+import sinon from 'sinon';
+
+const sandbox = sinon.createSandbox();
 
 describe('shops actions', () => {
   let store;
@@ -14,7 +18,7 @@ describe('shops actions', () => {
   });
 
   describe('genericPurchase', () => {
-    it('buy gear', async () => {
+    test('buy gear', async () => {
       const user = {
         id: 1,
         stats: {

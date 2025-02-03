@@ -1,3 +1,4 @@
+import { describe, expect, test } from 'vitest'
 import LevelUp from '@/components/achievements/levelUp.vue';
 
 /*
@@ -50,27 +51,27 @@ describe('LevelUp', () => {
   });
   */
 
-  it('displays the right level in the title', () => {
+  test('displays the right level in the title', () => {
     const title = testFunction('title', 12);
 
     expect(title()).to.equal('"reachedLevel" {"level":12}');
   });
 
-  it('does not display rewards for level 10', () => {
+  test('does not display rewards for level 10', () => {
     const displayRewardQuest = testFunction('displayRewardQuest', 10);
 
     expect(displayRewardQuest()).to.be.false;
   });
 
   [15, 30, 40, 60].forEach(level => {
-    it(`does display rewards for level ${level}`, () => {
+    test(`does display rewards for level ${level}`, () => {
       const displayRewardQuest = testFunction('displayRewardQuest', level);
 
       expect(displayRewardQuest()).to.be.true;
     });
   });
 
-  it('generates the right test class for level 15', () => {
+  test('generates the right test class for level 15', () => {
     const questClass = testFunction('questClass', 15);
 
     expect(questClass()).to.equal('scroll inventory_quest_scroll_atom1');
