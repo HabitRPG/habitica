@@ -9,8 +9,8 @@
         <div class="spell-border">
           <div class="mana">
             <Sprite
-            class="img"
-              :imageName="`shop_${spell.key}`"
+              class="img"
+              :image-name="`shop_${spell.key}`"
             />
           </div>
         </div>
@@ -76,8 +76,8 @@
                 >
                   <div class="details">
                     <Sprite
-              :imageName="`shop_${skill.key}`"
-            />
+                      :image-name="`shop_${skill.key}`"
+                    />
                   </div>
                   <div
                     v-if="user.stats.lvl < skill.lvl"

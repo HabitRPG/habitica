@@ -283,9 +283,9 @@
       </div>
 
       <div
-        class="time-travel"
         v-if="TIME_TRAVEL_ENABLED && user?.permissions?.fullAccess"
         :key="lastTimeJump"
+        class="time-travel"
       >
         <a
           class="btn btn-secondary mr-1"
@@ -306,7 +306,7 @@
             @click="resetTime()"
           >
             Reset
-        </a>
+          </a>
         </div>
         <a
           class="btn btn-secondary mr-1"
@@ -861,10 +861,10 @@ import { worldStateMixin } from '@/mixins/worldState';
 const DEBUG_ENABLED = import.meta.env.DEBUG_ENABLED === 'true'; // eslint-disable-line no-process-env
 const TIME_TRAVEL_ENABLED = import.meta.env.TIME_TRAVEL_ENABLED === 'true'; // eslint-disable-line no-process-env
 let sinon;
-/*if (TIME_TRAVEL_ENABLED) {
+/* if (TIME_TRAVEL_ENABLED) {
   // eslint-disable-next-line global-require
   sinon = await import('sinon');
-}*/
+} */
 
 export default {
   components: {

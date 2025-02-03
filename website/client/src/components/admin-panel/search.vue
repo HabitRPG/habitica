@@ -7,7 +7,11 @@
     >
       Could not find any matching users.
     </div>
-    <loading-spinner class="mx-auto mb-2" dark-color="true" v-if="isSearching" />
+    <loading-spinner
+      v-if="isSearching"
+      class="mx-auto mb-2"
+      dark-color="true"
+    />
     <div
       v-if="users.length > 0"
       class="list-group"

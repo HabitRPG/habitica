@@ -40,22 +40,22 @@ const EquipmentPage = () => import('@/components/inventory/equipment/index');
 const StablePage = () => import('@/components/inventory/stable/index');
 
 // Guilds & Parties
-const GroupPage = () => import( '@/components/groups/group');
-const GroupPlansAppPage = () => import( '@/components/static/groupPlans');
-const LookingForParty = () => import( '@/components/groups/lookingForParty');
+const GroupPage = () => import('@/components/groups/group');
+const GroupPlansAppPage = () => import('@/components/static/groupPlans');
+const LookingForParty = () => import('@/components/groups/lookingForParty');
 
 // Group Plans
-const GroupPlanIndex = () => import( '@/components/group-plans/index');
-const GroupPlanTaskInformation = () => import( '@/components/group-plans/taskInformation');
-const GroupPlanBilling = () => import( '@/components/group-plans/billing');
+const GroupPlanIndex = () => import('@/components/group-plans/index');
+const GroupPlanTaskInformation = () => import('@/components/group-plans/taskInformation');
+const GroupPlanBilling = () => import('@/components/group-plans/billing');
 
-const MessagesIndex = () => import( '@/pages/private-messages/index.vue');
+const MessagesIndex = () => import('@/pages/private-messages/index.vue');
 
 // Challenges
-const ChallengeIndex = () => import( '@/components/challenges/index');
-const MyChallenges = () => import( '@/components/challenges/myChallenges');
-const FindChallenges = () => import( '@/components/challenges/findChallenges');
-const ChallengeDetail = () => import( '@/components/challenges/challengeDetail');
+const ChallengeIndex = () => import('@/components/challenges/index');
+const MyChallenges = () => import('@/components/challenges/myChallenges');
+const FindChallenges = () => import('@/components/challenges/findChallenges');
+const ChallengeDetail = () => import('@/components/challenges/challengeDetail');
 
 // Shops
 const ShopsContainer = () => import('@/components/shops/index');

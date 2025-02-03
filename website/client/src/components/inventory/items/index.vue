@@ -146,7 +146,10 @@
                 <h4 class="popover-content-title">
                   {{ context.item.text }}
                 </h4>
-                <div class="popover-content-text" v-if="!currentDraggingEgg">
+                <div
+                  v-if="!currentDraggingEgg"
+                  class="popover-content-text"
+                >
                   {{ context.item.notes }}
                 </div>
               </template>
@@ -224,12 +227,14 @@
     <hatchedPetDialog />
     <ItemPopover
       :dragged-item="currentDraggingEgg"
-      popoverTextKey="clickOnPotionToHatch"
-      translationKey="eggName" />
+      popover-text-key="clickOnPotionToHatch"
+      translation-key="eggName"
+    />
     <ItemPopover
       :dragged-item="currentDraggingPotion"
-      popoverTextKey="clickOnEggToHatch"
-      translationKey="potionName" />
+      popover-text-key="clickOnEggToHatch"
+      translation-key="potionName"
+    />
     <questDetailModal :group="user.party" />
     <cards-modal :card-options="cardOptions" />
   </div>

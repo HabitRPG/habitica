@@ -42,12 +42,14 @@
         <!-- eslint-enable vue/no-use-v-if-with-v-for -->
         <div class="w-100">
           <div
-            class="mx-5"
             v-if="block.months < 12"
+            class="mx-5"
           >
             <h2
               class="mt-3 mb-1"
-            > ${{ block.price }}.00 USD </h2>
+            >
+              ${{ block.price }}.00 USD
+            </h2>
             <small
               class="bold mb-2"
             >
@@ -83,8 +85,12 @@
               :class="{ round: userReceivingGift?._id }"
             >
               <div class="d-flex align-items-center mb-1">
-                <h2 class="mr-2 my-auto"> ${{ block.price }}.00 USD</h2>
-                <strike class="gray-200">$60.00 USD</strike>
+                <h2 class="mr-2 my-auto">
+                  ${{ block.price }}.00 USD
+                </h2>
+                <strike class="gray-200">
+                  $60.00 USD
+                </strike>
               </div>
               <small class="bold mb-2">
                 {{ recurrenceText(block.months) }}
@@ -113,10 +119,13 @@
               </div>
             </div>
             <div
-              class="gradient-banner text-center"
               v-if="!userReceivingGift?._id && !user?.purchased?.plan?.hourglassPromoReceived"
+              class="gradient-banner text-center"
             >
-              <small class="my-3" v-html="$t('immediate12Hourglasses')"></small>
+              <small
+                class="my-3"
+                v-html="$t('immediate12Hourglasses')"
+              ></small>
             </div>
           </div>
         </div>
@@ -125,7 +134,9 @@
         class="btn btn-primary"
         :class="[canceled ? 'mt-4' : 'mt-3', userReceivingGift?._id ? 'mx-4' : 'w-100']"
         @click="$root.$emit('bv::show::modal', 'buy-subscription')"
-      > {{ userReceivingGift?._id ? $t('selectPayment') : $t('subscribe') }} </button>
+      >
+        {{ userReceivingGift?._id ? $t('selectPayment') : $t('subscribe') }}
+      </button>
     </div>
     <div
       v-if="note"

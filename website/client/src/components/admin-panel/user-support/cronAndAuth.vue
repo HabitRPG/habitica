@@ -38,7 +38,10 @@
             <strong v-else>No</strong>
           </div>
         </div>
-        <div v-if="cronError" class="form-group row">
+        <div
+          v-if="cronError"
+          class="form-group row"
+        >
           <label class="col-sm-3 col-form-label">lastCron value:</label>
           <strong>{{ hero.lastCron | formatDate }}</strong>
           <br>
