@@ -1,7 +1,7 @@
 import nconf from 'nconf';
 import path from 'path';
 import { defineConfig } from 'vite'
-import { createVuePlugin as vue } from 'vite-plugin-vue2'
+import vue from '@vitejs/plugin-vue2'
 import { fileURLToPath } from 'node:url'
 
 const configFile = path.join(path.resolve(__dirname, '../../config.json'));
@@ -39,7 +39,6 @@ envVars
     envObject[`import.meta.env.${key}`] = `'${nconf.get(key)}'`;
   });
 
-  console.log(envObject);
 // https://vitejs.dev/config/
 export default defineConfig({
   define: envObject,
@@ -51,16 +50,16 @@ export default defineConfig({
       extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue']
     },
     plugins: [
-      vue({
-        template: {
-          compilerOptions: {
-            compatConfig: {
-              MODE: 2,
-            }
-          }
-        }
-      })
+      vue()
     ],
+    optimizeDeps: {
+      include: ['moment-recur']
+    },
+    build: {
+      commonjsOptions: {
+        include: [/moment-recur/, /node_modules/]
+      }
+    },
     base: '/',
     server: {
       headers: { 'Cache-Control': 'no-store' },

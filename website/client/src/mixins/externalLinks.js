@@ -12,7 +12,6 @@ export function isTrustedDomain (linkUrl, trustedDomains) {
   return trustedDomains.some(domain => parsedURL.hostname.includes(domain.hostname));
 }
 
-console.log(import.meta);
 const TRUSTED_DOMAINS = import.meta.env.TRUSTED_DOMAINS.split(',')
   .map(u => (u === 'localhost' ? new URL('http://localhost') : new URL(u)));
 
