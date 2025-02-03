@@ -98,7 +98,6 @@
   @import '~/intro.js/minified/introjs.min.css';
   @import '~/axios-progress-bar/dist/nprogress.css';
 
-
   .modal-backdrop {
     opacity: .9 !important;
     background-color: $purple-100 !important;
@@ -146,7 +145,7 @@ import {
 const bugReportModal = () => import('@/components/bugReportModal');
 const bugReportSuccessModal = () => import('@/components/bugReportSuccessModal');
 
-  const COMMUNITY_MANAGER_EMAIL = import.meta.env.EMAILS_COMMUNITY_MANAGER_EMAIL; // eslint-disable-line
+const COMMUNITY_MANAGER_EMAIL = import.meta.env.EMAILS_COMMUNITY_MANAGER_EMAIL; // eslint-disable-line
 
 export default {
   name: 'App',
