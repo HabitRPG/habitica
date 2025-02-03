@@ -7,7 +7,7 @@
 import defaults from 'lodash/defaults';
 import invert from 'lodash/invert';
 import moment from 'moment';
-import 'moment-recur/moment-recur.js';
+import 'moment-recur';
 
 export const DAY_MAPPING = {
   0: 'su',
