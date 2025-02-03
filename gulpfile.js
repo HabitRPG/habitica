@@ -21,7 +21,6 @@ if (process.env.NODE_ENV === 'production') { // eslint-disable-line no-process-e
   require('./gulp/gulp-build'); // eslint-disable-line global-require
   require('./gulp/gulp-console'); // eslint-disable-line global-require
   require('./gulp/gulp-sprites'); // eslint-disable-line global-require
-  require('./gulp/gulp-start'); // eslint-disable-line global-require
   require('./gulp/gulp-tests'); // eslint-disable-line global-require
   require('./gulp/gulp-transifex-test'); // eslint-disable-line global-require
   require('gulp').task('default', gulp.series('test')); // eslint-disable-line global-require
