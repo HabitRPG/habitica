@@ -829,7 +829,7 @@ api.leaveGroup = {
     if (validationErrors) throw validationErrors;
 
     const { groupId } = req.params;
-    leaveGroup({
+    await leaveGroup({
       res,
       user,
       groupId,
