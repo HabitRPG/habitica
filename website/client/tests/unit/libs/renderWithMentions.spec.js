@@ -1,3 +1,4 @@
+import { describe, expect, test } from 'vitest';
 import renderMarkdown from '@/libs/renderWithMentions';
 
 describe('renderWithMentions', () => {
@@ -5,13 +6,13 @@ describe('renderWithMentions', () => {
     return { auth: { local: { username: name } }, profile: { name: displayName } };
   }
 
-  it('returns null if no text supplied', () => {
+  test('returns null if no text supplied', () => {
     const result = renderMarkdown('', user('a', 'b'));
 
     expect(result).to.be.null;
   });
 
-  it('highlights displayname', () => {
+  test('highlights displayname', () => {
     const text = 'hello @displayedUser with text after';
 
     const result = renderMarkdown(text, user('user', 'displayedUser'));
@@ -19,14 +20,14 @@ describe('renderWithMentions', () => {
     expect(result).to.contain('<span class="at-text at-highlight">@displayedUser</span>');
   });
 
-  it('highlights username', () => {
+  test('highlights username', () => {
     const text = 'hello @user';
 
     const result = renderMarkdown(text, user('user', 'displayedUser'));
     expect(result).to.contain('<span class="at-text at-highlight">@user</span>');
   });
 
-  it('highlights username sandwiched with underscores', () => {
+  test('highlights username sandwiched with underscores', () => {
     const text = 'hello @_user_';
 
     const result = renderMarkdown(text, user('_user_', 'displayedUser'));
@@ -35,7 +36,7 @@ describe('renderWithMentions', () => {
     expect(result).to.not.contain('</em>');
   });
 
-  it('highlights username sandwiched with double underscores', () => {
+  test('highlights username sandwiched with double underscores', () => {
     const text = 'hello @__user__';
 
     const result = renderMarkdown(text, user('diffUser', 'displayDiffUser'));
@@ -44,13 +45,13 @@ describe('renderWithMentions', () => {
     expect(result).to.not.contain('</strong>');
   });
 
-  it('not highlights any email', () => {
+  test('not highlights any email', () => {
     const result = renderMarkdown('hello@example.com', user('example', 'displayedUser'));
 
     expect(result).to.not.contain('<span class="at-highlight">@example</span>');
   });
 
-  it('complex highlight', () => {
+  test('complex highlight', () => {
     const plainText = 'a bit more @mentions to @use my@mentions.com broken @mail.com';
 
     const result = renderMarkdown(plainText, user('use', 'mentions'));

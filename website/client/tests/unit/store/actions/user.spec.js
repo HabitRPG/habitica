@@ -1,5 +1,9 @@
+import { describe, expect, test, beforeEach, afterEach } from 'vitest';
 import axios from 'axios';
 import generateStore from '@/store';
+import sinon from 'sinon';
+
+const sandbox = sinon.createSandbox();
 
 describe('user actions', () => {
   let store;
@@ -13,7 +17,7 @@ describe('user actions', () => {
   });
 
   describe('fetch', () => {
-    it('loads the user', async () => {
+    test('loads the user', async () => {
       expect(store.state.user.loadingStatus).to.equal('NOT_LOADED');
       const user = { _id: 1 };
       sandbox.stub(axios, 'get').withArgs('/api/v4/user').returns(Promise.resolve({ data: { data: user } }));
@@ -24,7 +28,7 @@ describe('user actions', () => {
       expect(store.state.user.loadingStatus).to.equal('LOADED');
     });
 
-    it('does not reload user by default', async () => {
+    test('does not reload user by default', async () => {
       const originalUser = { _id: 1 };
       store.state.user = {
         loadingStatus: 'LOADED',
@@ -40,7 +44,7 @@ describe('user actions', () => {
       expect(store.state.user.loadingStatus).to.equal('LOADED');
     });
 
-    it('can reload user if forceLoad is true', async () => {
+    test('can reload user if forceLoad is true', async () => {
       store.state.user = {
         loadingStatus: 'LOADED',
         data: { _id: 1 },

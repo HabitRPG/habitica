@@ -1,7 +1,8 @@
+import { describe, expect, test } from 'vitest';
 import { hasClass } from '@/store/getters/members';
 
 describe('hasClass getter', () => {
-  it('returns false if level < 10', () => {
+  test('returns false if level < 10', () => {
     const member = {
       stats: {
         lvl: 5,
@@ -16,7 +17,7 @@ describe('hasClass getter', () => {
     expect(hasClass()(member)).to.equal(false);
   });
 
-  it('returns false if member has disabled classes', () => {
+  test('returns false if member has disabled classes', () => {
     const member = {
       stats: {
         lvl: 10,
@@ -31,7 +32,7 @@ describe('hasClass getter', () => {
     expect(hasClass()(member)).to.equal(false);
   });
 
-  it('returns false if member has not yet selected a class', () => {
+  test('returns false if member has not yet selected a class', () => {
     const member = {
       stats: {
         lvl: 10,
@@ -46,7 +47,7 @@ describe('hasClass getter', () => {
     expect(hasClass()(member)).to.equal(false);
   });
 
-  it('returns true when all conditions are met', () => {
+  test('returns true when all conditions are met', () => {
     const member = {
       stats: {
         lvl: 10,

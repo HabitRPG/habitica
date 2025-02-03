@@ -1,3 +1,4 @@
+import { describe, expect, test, beforeEach } from 'vitest';
 import generateStore from '@/store';
 
 describe('Store Getters for Tasks', () => {
@@ -44,7 +45,7 @@ describe('Store Getters for Tasks', () => {
       };
     });
 
-    it('should returns all tasks by task type', () => {
+    test('should returns all tasks by task type', () => {
       let returnedTasks = store.getters['tasks:getUnfilteredTaskList']('habit');
       expect(returnedTasks).to.eq(habits);
 
@@ -80,7 +81,7 @@ describe('Store Getters for Tasks', () => {
       };
     });
 
-    it('should return weak habits', () => {
+    test('should return weak habits', () => {
       const returnedTasks = store.getters['tasks:getFilteredTaskList']({
         type: 'habit',
         filterType: 'yellowred',
@@ -89,7 +90,7 @@ describe('Store Getters for Tasks', () => {
       expect(returnedTasks[0]).to.eq(habits[0]);
     });
 
-    it('should return strong habits', () => {
+    test('should return strong habits', () => {
       const returnedTasks = store.getters['tasks:getFilteredTaskList']({
         type: 'habit',
         filterType: 'greenblue',
@@ -98,7 +99,7 @@ describe('Store Getters for Tasks', () => {
       expect(returnedTasks[0]).to.eq(habits[1]);
     });
 
-    it('should return scheduled todos', () => {
+    test('should return scheduled todos', () => {
       const returnedTasks = store.getters['tasks:getFilteredTaskList']({
         type: 'todo',
         filterType: 'scheduled',
@@ -107,7 +108,7 @@ describe('Store Getters for Tasks', () => {
       expect(returnedTasks[0]).to.eq(todos[0]);
     });
 
-    it('should return completed todos', () => {
+    test('should return completed todos', () => {
       const returnedTasks = store.getters['tasks:getFilteredTaskList']({
         type: 'todo',
         filterType: 'complete2',
