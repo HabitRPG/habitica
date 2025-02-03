@@ -49,10 +49,12 @@
       class="col-12 d-flex"
       :class="{'justify-content-center': applyNarrowView || maxWidthView}"
     >
-      <div :class="{
-        'settings-content': applyNarrowView,
-        'full-width-content': !applyNarrowView && !maxWidthView,
-      }">
+      <div
+        :class="{
+          'settings-content': applyNarrowView,
+          'full-width-content': !applyNarrowView && !maxWidthView,
+        }"
+      >
         <router-view />
       </div>
     </div>

@@ -3,7 +3,7 @@
     <Sprite
       class="quest-image"
       :image-name="item.purchaseType === 'bundles'
-      ? `quest_bundle_${item.key}` : `quest_${item.key}`"
+        ? `quest_bundle_${item.key}` : `quest_${item.key}`"
     />
     <h3 class="text-center">
       {{ itemText }}

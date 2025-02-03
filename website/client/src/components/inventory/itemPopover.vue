@@ -1,20 +1,21 @@
 <template>
   <div
-    ref="root"
     v-if="draggedItem"
-    class="draggedItemInfo mouse"
+    ref="root"
     v-mousePosition="30"
-    @mouseMoved="mouseMoved($event)">
-      <Sprite
-        class="dragging-icon"
-        :image-name="imageName()"
-      />
-      <div class="popover">
-        <div
-          class="popover-content"
-        >
-          {{ $t(popoverTextKey, { [translationKey]: itemText() }) }}
-        </div>
+    class="draggedItemInfo mouse"
+    @mouseMoved="mouseMoved($event)"
+  >
+    <Sprite
+      class="dragging-icon"
+      :image-name="imageName()"
+    />
+    <div class="popover">
+      <div
+        class="popover-content"
+      >
+        {{ $t(popoverTextKey, { [translationKey]: itemText() }) }}
+      </div>
     </div>
   </div>
 </template>

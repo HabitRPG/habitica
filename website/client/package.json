@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "vite",
+    "serve": "vite",
     "build": "vite build",
-    "serve": "vite preview",
+    "preview": "vite preview",
     "test:unit": "vue-cli-service test:unit --require ./tests/unit/helpers.js",
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix .",
-    "lint-no-fix": "eslint --ext .js,.vue --ignore-path .gitignore --no-fix src",
+    "lint": "eslint --ext .js,.vue --ignore-path ../../.gitignore --fix .",
+    "lint-no-fix": "eslint --ext .js,.vue --no-fix src",
     "postinstall": "node ./scripts/npm-postinstall.js"
   },
   "dependencies": {

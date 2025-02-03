@@ -26,8 +26,8 @@
         <dd>{{ quest.boss.hp }}</dd>
       </div>
       <div
-        class="table-row"
         v-if="quest.purchaseType !== 'bundles'"
+        class="table-row"
       >
         <dt>{{ $t('difficulty') + ':' }}</dt>
         <dd>

@@ -24,7 +24,7 @@
         />
         </span>
         <Sprite
-        v-else
+          v-else
           class="item-content"
           :class="itemClass()"
           :image-name="imageName()"

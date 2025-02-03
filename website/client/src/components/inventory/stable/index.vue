@@ -265,8 +265,9 @@
     <hatchedPetDialog :hide-text="true" />
     <ItemPopover
       :dragged-item="currentDraggingFood"
-      popoverTextKey="clickOnPetToFeed"
-      translationKey="foodName" />
+      popover-text-key="clickOnPetToFeed"
+      translation-key="foodName"
+    />
     <mount-raised-modal />
     <welcome-modal />
     <hatching-modal :hatchable-pet.sync="hatchablePet" />
