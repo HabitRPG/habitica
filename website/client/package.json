@@ -40,6 +40,7 @@
     "uuid": "^9.0.1",
     "validator": "^13.9.0",
     "vite": "^6.0.0",
+    "vite-plugin-prerender": "^1.0.8",
     "vue": "^2.7.10",
     "vue-fragment": "^1.6.0",
     "vue-mugen-scroll": "^0.2.6",
@@ -49,6 +50,8 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-optional-chaining": "^7.21.0",
+    "@prerenderer/renderer-puppeteer": "^1.2.4",
+    "@prerenderer/rollup-plugin": "^0.3.12",
     "@vitest/browser": "^3.0.5",
     "babel-plugin-lodash": "^3.3.4",
     "inspectpack": "^4.7.1",

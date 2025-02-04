@@ -2,32 +2,15 @@ import fs from 'fs';
 import path from 'path';
 import _ from 'lodash';
 import shared from '../../common';
+import {
+  approvedLanguages as capprovedLanguages,
+  multipleVersionsLanguages as cmultipleVersionsLanguages,
+} from '../../common/script/libs/i18n';
 
 export const localePath = path.join(__dirname, '../../common/locales/');
-export const BROWSER_SCRIPT_CACHE_PATH = path.join(__dirname, '/../../../i18n_cache/');
 
-// Store translations
 export const translations = {};
-// Store MomentJS localization files
 export const momentLangs = {};
-
-// Handle differences in language codes between MomentJS and /locales
-const momentLangsMapping = {
-  en: 'en-gb',
-  en_GB: 'en-gb', // eslint-disable-line camelcase
-  no: 'nn',
-  zh: 'zh-cn',
-  zh_TW: 'zh-tw', // eslint-disable-line camelcase
-  es_419: 'es', // eslint-disable-line camelcase
-  pt_BR: 'pt-br', // eslint-disable-line camelcase
-};
-
-export const approvedLanguages = [
-  'bg', 'cs', 'da', 'de', 'en', 'en_GB',
-  'es', 'es_419', 'fr', 'he', 'hu', 'id', 'it',
-  'ja', 'nl', 'pl', 'pt', 'pt_BR', 'ro', 'ru', 'sk',
-  'sr', 'sv', 'tr', 'uk', 'zh', 'zh_TW',
-];
 
 function _loadTranslations (locale) {
   const files = fs.readdirSync(path.join(localePath, locale));
@@ -46,7 +29,7 @@ function _loadTranslations (locale) {
 _loadTranslations('en');
 
 // Then load all other languages
-approvedLanguages.forEach(file => {
+capprovedLanguages.forEach(file => {
   if (file === 'en' || fs.statSync(path.join(localePath, file)).isDirectory() === false) return;
   _loadTranslations(file);
 
@@ -55,8 +38,16 @@ approvedLanguages.forEach(file => {
   _.defaults(translations[file], translations.en);
 });
 
-// Add translations to shared
-shared.i18n.translations = translations;
+// Handle differences in language codes between MomentJS and /locales
+const momentLangsMapping = {
+  en: 'en-gb',
+  en_GB: 'en-gb', // eslint-disable-line camelcase
+  no: 'nn',
+  zh: 'zh-cn',
+  zh_TW: 'zh-tw', // eslint-disable-line camelcase
+  es_419: 'es', // eslint-disable-line camelcase
+  pt_BR: 'pt-br', // eslint-disable-line camelcase
+};
 
 export const langCodes = Object.keys(translations);
 
@@ -64,6 +55,11 @@ export const availableLanguages = langCodes.map(langCode => ({
   code: langCode,
   name: translations[langCode].languageName,
 }));
+
+// Remove en_GB from langCodes checked by browser to avoid it being
+// used in place of plain original 'en'
+// (it's an optional language that can be enabled only in setting)
+export const defaultLangCodes = _.without(langCodes, 'en_GB');
 
 langCodes.forEach(code => {
   const lang = _.find(availableLanguages, { code });
@@ -82,41 +78,10 @@ langCodes.forEach(code => {
   }
 });
 
-// Remove en_GB from langCodes checked by browser to avoid it being
-// used in place of plain original 'en'
-// (it's an optional language that can be enabled only in setting)
-export const defaultLangCodes = _.without(langCodes, 'en_GB');
+// Add translations to shared
+shared.i18n.translations = translations;
 
-// A map of languages that have different versions and the relative versions
-export const multipleVersionsLanguages = {
-  es: {
-    'es-419': 'es_419',
-    'es-mx': 'es_419',
-    'es-gt': 'es_419',
-    'es-cr': 'es_419',
-    'es-pa': 'es_419',
-    'es-do': 'es_419',
-    'es-ve': 'es_419',
-    'es-co': 'es_419',
-    'es-pe': 'es_419',
-    'es-ar': 'es_419',
-    'es-ec': 'es_419',
-    'es-cl': 'es_419',
-    'es-uy': 'es_419',
-    'es-py': 'es_419',
-    'es-bo': 'es_419',
-    'es-sv': 'es_419',
-    'es-hn': 'es_419',
-    'es-ni': 'es_419',
-    'es-pr': 'es_419',
-  },
-  zh: {
-    'zh-tw': 'zh_TW',
-  },
-  pt: {
-    'pt-br': 'pt_BR',
-  },
-};
+export const multipleVersionsLanguages = cmultipleVersionsLanguages;
 
 export function geti18nBrowserScript (languageCode) {
   const language = _.find(availableLanguages, { code: languageCode });

@@ -22,6 +22,14 @@ import getStore from './store';
 import StoreModule from './libs/store';
 import './filters/registerGlobals';
 import i18n from './libs/i18n';
+import translations from 'virtual:translations';
+
+let urlParams = new URLSearchParams(window.location.search);
+let language = urlParams.get('lang');
+window['habitica-i18n'] = {
+    language,
+    strings: translations[language],
+};
 
 const IS_PRODUCTION = import.meta.env.NODE_ENV === 'production'; // eslint-disable-line no-process-env
 
