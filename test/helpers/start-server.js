@@ -3,7 +3,7 @@
 
 const nconf = require('nconf');
 const mongoose = require('mongoose');
-const setupNconf = require('../../website/server/libs/setupNconf');
+const setupNconf = require('../../website/server/libs/setupNconf').default;
 
 // fix further imports of require/import syntaxes
 require('@babel/register');

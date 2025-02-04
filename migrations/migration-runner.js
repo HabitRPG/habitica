@@ -6,7 +6,7 @@ require('@babel/register'); // eslint-disable-line import/no-extraneous-dependen
 function setUpServer () {
   const nconf = require('nconf'); // eslint-disable-line global-require, no-unused-vars
   const mongoose = require('mongoose'); // eslint-disable-line global-require, no-unused-vars
-  const setupNconf = require('../website/server/libs/setupNconf'); // eslint-disable-line global-require
+  const setupNconf = require('../website/server/libs/setupNconf').default; // eslint-disable-line global-require
 
   setupNconf();
 
