@@ -50,7 +50,8 @@ export default defineConfig({
       { find: '@', replacement: fileURLToPath(new URL('./src', import.meta.url)) },
       { find: '~', replacement: fileURLToPath(new URL('./node_modules', import.meta.url)) },
     ],
-    extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue']
+    extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
+    dedupe: ['moment', 'lodash', 'moment-recur'],
   },
   plugins: [
     vue()

@@ -1,6 +1,6 @@
 import defaults from 'lodash/defaults';
 import each from 'lodash/each';
-import { assign } from 'lodash';
+import assign from 'lodash/assign';
 import t from './translation';
 import datedMemoize from '../fns/datedMemoize';
 import { filterReleased } from './is_released';

@@ -1,11 +1,11 @@
 import intersection from 'lodash/intersection';
-import _ from 'lodash';
+import escapeRegExp from 'lodash/escapeRegExp';
 
 const containsAnyCi = (target, patterns) => patterns.some(el => target.match(new RegExp(el, 'i')));
 const isPassedSearch = ({ name, summary, description }, search) => {
   if (!search) return false;
 
-  const searchWords = _.escapeRegExp(search.trim()).split(/\s+/);
+  const searchWords = escapeRegExp(search.trim()).split(/\s+/);
 
   if (containsAnyCi(name, searchWords)) return true;
 

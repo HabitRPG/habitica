@@ -1,6 +1,6 @@
 import moment from 'moment';
 import filter from 'lodash/filter';
-import { pickBy } from 'lodash';
+import pickBy from 'lodash/pickBy';
 
 const SWITCHOVER_TIME = process.env.CONTENT_SWITCHOVER_TIME_OFFSET || 0;
 

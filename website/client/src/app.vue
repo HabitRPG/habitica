@@ -29,7 +29,9 @@
     </div>
     <snackbars />
     <router-view v-if="!isUserLoggedIn || isStaticPage" />
-    <user-main v-else />
+    <div v-else>
+      <user-main />
+    </div>
   </div>
 </template>
 
@@ -108,7 +110,6 @@ import axios from 'axios';
 
 import * as Analytics from '@/libs/analytics';
 import { mapState } from '@/libs/store';
-import userMain from '@/pages/user-main';
 import snackbars from '@/components/snackbars/notifications';
 
 const COMMUNITY_MANAGER_EMAIL = import.meta.env.EMAILS_COMMUNITY_MANAGER_EMAIL; // eslint-disable-line
@@ -117,7 +118,7 @@ export default {
   name: 'App',
   components: {
     snackbars,
-    userMain,
+    userMain: () => import('@/pages/user-main'),
   },
   data () {
     return {
