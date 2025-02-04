@@ -1,12 +1,7 @@
 <template>
   <div>
     <div
-      v-if="!user && userLoaded"
-    >
-      <error404 />
-    </div>
-    <div
-      v-else-if="userLoaded"
+      v-if="userLoaded"
       class="profile mt-n3"
     >
       <!-- HEADER -->
@@ -1004,7 +999,6 @@ import report from '@/assets/svg/report.svg?raw';
 import crown from '@/assets/svg/crown.svg?raw';
 import mute from '@/assets/svg/mute.svg?raw';
 import shadowMute from '@/assets/svg/shadow-mute.svg?raw';
-import error404 from '../404';
 import externalLinks from '../../mixins/externalLinks';
 import { userCustomStateMixin } from '../../mixins/userState';
 // @TODO: EMAILS.COMMUNITY_MANAGER_EMAIL
@@ -1017,7 +1011,6 @@ export default {
   components: {
     MemberDetails,
     profileStats,
-    error404,
     toggleSwitch,
   },
   mixins: [externalLinks, userCustomStateMixin('userLoggedIn')],
@@ -1208,6 +1201,10 @@ export default {
 
       if (this.hasPermission(this.userLoggedIn, 'moderator')) {
         this.hero = await this.$store.dispatch('hall:getHero', { uuid: this.user._id });
+      }
+
+      if (!this.user) {
+        this.$router.push('/404');
       }
 
       this.userLoaded = true;

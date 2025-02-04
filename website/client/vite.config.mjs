@@ -35,6 +35,7 @@ const envObject = {};
 envVars
   .forEach(key => {
     envObject[`import.meta.env.${key}`] = `'${nconf.get(key)}'`;
+    envObject[`process.env.${key}`] = `'${nconf.get(key)}'`;
   });
 if (nconf.get('BASE_URL').indexOf('//habitica.com') !== -1) {
   envObject['import.meta.env.DEBUG_ENABLED'] = `false`;
