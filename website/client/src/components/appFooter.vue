@@ -410,7 +410,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 .footer-row {
   margin: 0;
   flex: 0 1 auto;

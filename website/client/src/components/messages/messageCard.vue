@@ -79,8 +79,8 @@
 </style>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/tiers.scss';
+  @import '@/assets/scss/colors.scss';
+  @import '@/assets/scss/tiers.scss';
 
   .action {
     display: inline-block;
