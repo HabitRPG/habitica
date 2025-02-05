@@ -54,6 +54,9 @@ export default {
     amountNeeded: {
       type: Number,
     },
+    neededCurrencyOnly: {
+      type: String,
+    },
   },
   data () {
     return {

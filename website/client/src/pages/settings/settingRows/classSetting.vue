@@ -66,6 +66,7 @@
           <your-balance
             :amount-needed="amountNeeded"
             currency-needed="gems"
+            neededCurrencyOnly="gems"
           />
         </div>
       </td>
