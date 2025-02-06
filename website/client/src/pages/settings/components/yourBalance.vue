@@ -11,6 +11,7 @@
       class="balance-info"
       :currency-needed="currencyNeeded"
       :amount-needed="amountNeeded"
+      neededCurrencyOnly
     />
   </div>
 </template>
@@ -29,7 +30,7 @@ export default {
       type: Number,
     },
     neededCurrencyOnly: {
-      type: String,
+      type: Boolean,
     },
   },
 };

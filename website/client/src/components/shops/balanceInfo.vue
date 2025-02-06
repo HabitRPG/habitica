@@ -3,6 +3,7 @@
     <div
       v-for="currency of currencies"
       :key="currency.key"
+      :needed-currency-only="neededCurrencyOnly"
       class="d-flex align-items-center"
     >
       <div
@@ -55,7 +56,7 @@ export default {
       type: Number,
     },
     neededCurrencyOnly: {
-      type: String,
+      type: Boolean,
     },
   },
   data () {
@@ -97,6 +98,16 @@ export default {
         }
       }
 
+      for (const currency of currencies) {
+        if (
+          currency.type === this.neededCurrencyOnly
+        ) {
+          return this.currencyNeeded;
+        }
+      }
+      console.log(currencies);
+      console.log(this.neededCurrencyOnly);
+      console.log(this.currencyNeeded);
       return currencies;
     },
   },
