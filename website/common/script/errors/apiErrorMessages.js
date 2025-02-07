@@ -42,4 +42,7 @@ export default {
   invalidTaskIdentifier: 'A task is identified by its UUID or alias.',
   invalidTaskScorings: 'This API route expects a body in the form of [{id, direction}].',
   summaryLengthExceedsMax: 'Summary length is too high.',
+
+  amplitudeError: 'Error sending data to Amplitude.',
+  googleAnalyticsError: 'Error sending data to Google Analytics.',
 };

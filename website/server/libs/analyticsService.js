@@ -1,24 +1,24 @@
 /* eslint-disable camelcase */
 import nconf from 'nconf';
 import Amplitude from 'amplitude';
-import googleAnalytics from 'universal-analytics';
+import Analytics from 'analytics';
+import googleAnalytics from '@analytics/google-analytics';
 import useragent from 'useragent';
 import {
-  each,
   omit,
   toArray,
 } from 'lodash';
-import common from '../../common';
+import { content, apiErrors } from '../../common';
 import logger from './logger';
+import { v4 as generateUUID } from 'uuid';
 
 const AMPLITUDE_TOKEN = nconf.get('AMPLITUDE_KEY');
 const GA_TOKEN = nconf.get('GA_ID');
+const { amplitudeError, googleAnalyticsError } = apiErrors;
 
-const GA_POSSIBLE_LABELS = ['gaLabel', 'itemKey'];
-const GA_POSSIBLE_VALUES = ['gaValue', 'gemCost', 'goldCost'];
 const AMPLITUDE_PROPERTIES_TO_SCRUB = [
   'uuid', 'user', 'purchaseValue',
-  'gaLabel', 'gaValue', 'headers', 'registeredThrough',
+  'headers', 'registeredThrough',
 ];
 
 const PLATFORM_MAP = Object.freeze({
@@ -30,19 +30,24 @@ const PLATFORM_MAP = Object.freeze({
 let amplitude;
 if (AMPLITUDE_TOKEN) amplitude = new Amplitude(AMPLITUDE_TOKEN);
 
-const ga = googleAnalytics(GA_TOKEN);
-
-const Content = common.content;
+const ga = Analytics({
+  app: 'habitica',
+  plugins: [
+    googleAnalytics({
+      measurementIds: [GA_TOKEN],
+    }),
+  ],
+});
 
 function _lookUpItemName (itemKey) {
   if (!itemKey) return null;
 
-  const gear = Content.gear.flat[itemKey];
-  const egg = Content.eggs[itemKey];
-  const food = Content.food[itemKey];
-  const hatchingPotion = Content.hatchingPotions[itemKey];
-  const quest = Content.quests[itemKey];
-  const spell = Content.special[itemKey];
+  const gear = content.gear.flat[itemKey];
+  const egg = content.eggs[itemKey];
+  const food = content.food[itemKey];
+  const hatchingPotion = content.hatchingPotions[itemKey];
+  const quest = content.quests[itemKey];
+  const spell = content.special[itemKey];
 
   let itemName;
 
@@ -181,65 +186,13 @@ function _sendDataToAmplitude (eventType, data) {
 
   return amplitude
     .track(amplitudeData)
-    .catch(err => logger.error(err, 'Error while sending data to Amplitude.'));
-}
-
-function _generateLabelForGoogleAnalytics (data) {
-  let label;
-
-  each(GA_POSSIBLE_LABELS, key => {
-    if (data[key]) {
-      label = data[key];
-      return false; // exit each early
-    }
-
-    return true;
-  });
-
-  return label;
-}
-
-function _generateValueForGoogleAnalytics (data) {
-  let value;
-
-  each(GA_POSSIBLE_VALUES, key => {
-    if (data[key]) {
-      value = data[key];
-      return false; // exit each early
-    }
-
-    return true;
-  });
-
-  return value;
+    .catch(err => logger.error(err, amplitudeError));
 }
 
 function _sendDataToGoogle (eventType, data) {
-  const eventData = {
-    ec: data.gaCategory || data.category || 'behavior',
-    ea: eventType,
-  };
-
-  const label = _generateLabelForGoogleAnalytics(data);
-
-  if (label) {
-    eventData.el = label;
-  }
-
-  const value = _generateValueForGoogleAnalytics(data);
-
-  if (value) {
-    eventData.ev = value;
-  }
-
-  const promise = new Promise((resolve, reject) => {
-    ga.event(eventData, err => {
-      if (err) return reject(err);
-      return resolve();
-    });
-  });
-
-  return promise.catch(err => logger.error(err, 'Error while sending data to Google Analytics.'));
+  return ga
+    .track(eventType, data)
+    .catch(err => logger.error(err, googleAnalyticsError));
 }
 
 function _sendPurchaseDataToAmplitude (data) {
@@ -256,46 +209,33 @@ function _sendPurchaseDataToAmplitude (data) {
 
   return amplitude
     .track(amplitudeData)
-    .catch(err => logger.error(err, 'Error while sending data to Amplitude.'));
+    .catch(err => logger.error(err, amplitudeError));
 }
 
 function _sendPurchaseDataToGoogle (data) {
   const label = data.paymentMethod;
   const type = data.purchaseType;
   const price = data.purchaseValue;
-  const qty = data.quantity;
-  const { sku } = data;
-  const itemKey = data.itemPurchased;
+  const { itemPurchased, quantity, sku } = data;
+  
   let variation = type;
-
   if (data.gift) variation += ' - Gift';
 
-  const eventData = {
-    ec: 'commerce',
-    ea: type,
-    el: label,
-    ev: price,
-  };
-
-  const eventPromise = new Promise((resolve, reject) => {
-    ga.event(eventData, err => {
-      if (err) return reject(err);
-      return resolve();
-    });
-  });
-
-  const transactionPromise = new Promise((resolve, reject) => {
-    ga.transaction(data.uuid, price)
-      .item(price, qty, sku, itemKey, variation)
-      .send(err => {
-        if (err) return reject(err);
-        return resolve();
-      });
-  });
-
-  return Promise
-    .all([eventPromise, transactionPromise])
-    .catch(err => logger.error(err, 'Error while sending data to Google Analytics.'));
+  return ga.track('purchase', {
+    transaction_id: generateUUID(),
+    currency: 'USD',
+    value: price * quantity,
+    items: [
+      {
+        item_id: sku,
+        item_name: itemPurchased,
+        item_variant: variation,
+        price,
+        quantity,
+        label,
+      },
+    ],
+  }).catch(err => logger.error(err, googleAnalyticsError));
 }
 
 function _setOnce (dataToSetOnce, uuid) {
@@ -306,7 +246,7 @@ function _setOnce (dataToSetOnce, uuid) {
         $setOnce: dataToSetOnce,
       },
     })
-    .catch(err => logger.error(err, 'Error while sending data to Amplitude.'));
+    .catch(err => logger.error(err, amplitudeError));
 }
 
 // There's no error handling directly here because it's handled inside _sendDataTo{Amplitude|Google}
