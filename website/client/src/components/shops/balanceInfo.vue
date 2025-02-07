@@ -71,43 +71,40 @@ export default {
   computed: {
     currencies () {
       const currencies = [];
-      currencies.push({
-        type: 'hourglasses',
-        icon: this.icons.hourglasses,
-        value: this.userHourglasses,
-      });
+      if (this.neededCurrencyOnly === true) {
+        currencies.push({
+          type: 'gems',
+          icon: this.icons.gem,
+          value: this.userGems,
+        });
+      } else {
+        currencies.push({
+          type: 'hourglasses',
+          icon: this.icons.hourglasses,
+          value: this.userHourglasses,
+        });
 
-      currencies.push({
-        type: 'gems',
-        icon: this.icons.gem,
-        value: this.userGems,
-      });
+        currencies.push({
+          type: 'gems',
+          icon: this.icons.gem,
+          value: this.userGems,
+        });
 
-      currencies.push({
-        type: 'gold',
-        icon: this.icons.gold,
-        value: this.userGold,
-      });
+        currencies.push({
+          type: 'gold',
+          icon: this.icons.gold,
+          value: this.userGold,
+        });
 
-      for (const currency of currencies) {
-        if (
-          currency.type === this.currencyNeeded
-          && !this.enoughCurrency(this.currencyNeeded, this.amountNeeded)
-        ) {
-          currency.notEnough = true;
+        for (const currency of currencies) {
+          if (
+            currency.type === this.currencyNeeded
+            && !this.enoughCurrency(this.currencyNeeded, this.amountNeeded)
+          ) {
+            currency.notEnough = true;
+          }
         }
       }
-
-      for (const currency of currencies) {
-        if (
-          currency.type === this.neededCurrencyOnly
-        ) {
-          return this.currencyNeeded;
-        }
-      }
-      console.log(currencies);
-      console.log(this.neededCurrencyOnly);
-      console.log(this.currencyNeeded);
       return currencies;
     },
   },
