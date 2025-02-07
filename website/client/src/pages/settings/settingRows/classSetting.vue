@@ -67,6 +67,7 @@
             :amount-needed="amountNeeded"
             currency-needed="gems"
             :neededCurrencyOnly="true"
+            class="currency-align"
           />
         </div>
       </td>
@@ -79,6 +80,11 @@
 
 input {
   margin-right: 2rem;
+}
+
+.currency-align {
+  display: flex;
+  align-items: center;
 }
 
 .form-group {
