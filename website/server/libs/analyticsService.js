@@ -8,13 +8,14 @@ import {
   omit,
   toArray,
 } from 'lodash';
-import { content, apiErrors } from '../../common';
-import logger from './logger';
 import { v4 as generateUUID } from 'uuid';
+import { content } from '../../common';
+import logger from './logger';
 
 const AMPLITUDE_TOKEN = nconf.get('AMPLITUDE_KEY');
 const GA_TOKEN = nconf.get('GA_ID');
-const { amplitudeError, googleAnalyticsError } = apiErrors;
+const amplitudeError = 'Error sending data to Amplitude.';
+const googleAnalyticsError = 'Error sending data to Google Analytics.';
 
 const AMPLITUDE_PROPERTIES_TO_SCRUB = [
   'uuid', 'user', 'purchaseValue',
@@ -217,7 +218,7 @@ function _sendPurchaseDataToGoogle (data) {
   const type = data.purchaseType;
   const price = data.purchaseValue;
   const { itemPurchased, quantity, sku } = data;
-  
+
   let variation = type;
   if (data.gift) variation += ' - Gift';
 
