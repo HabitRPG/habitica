@@ -11,7 +11,7 @@
       class="balance-info"
       :currency-needed="currencyNeeded"
       :amount-needed="amountNeeded"
-      neededCurrencyOnly
+      neededCurrencyOnly=""
     />
   </div>
 </template>

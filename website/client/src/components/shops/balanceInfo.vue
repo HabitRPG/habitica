@@ -70,39 +70,40 @@ export default {
   },
   computed: {
     currencies () {
-      const currencies = [];
-      if (this.neededCurrencyOnly === true) {
-        currencies.push({
-          type: 'gems',
-          icon: this.icons.gem,
-          value: this.userGems,
-        });
-      } else {
-        currencies.push({
-          type: 'hourglasses',
-          icon: this.icons.hourglasses,
-          value: this.userHourglasses,
-        });
+      const currencies = [{
+        type: 'hourglasses',
+        icon: this.icons.hourglasses,
+        value: this.userHourglasses,
+      },
 
-        currencies.push({
-          type: 'gems',
-          icon: this.icons.gem,
-          value: this.userGems,
-        });
+      {
+        type: 'gems',
+        icon: this.icons.gem,
+        value: this.userGems,
+      },
 
-        currencies.push({
-          type: 'gold',
-          icon: this.icons.gold,
-          value: this.userGold,
-        });
+      {
+        type: 'gold',
+        icon: this.icons.gold,
+        value: this.userGold,
+      }];
 
-        for (const currency of currencies) {
-          if (
-            currency.type === this.currencyNeeded
-            && !this.enoughCurrency(this.currencyNeeded, this.amountNeeded)
-          ) {
-            currency.notEnough = true;
-          }
+      for (const currency of currencies) {
+        if (this.neededCurrencyOnly) {
+          const neededCurrency = [
+            // need to figure out how to abstract this so any currency can be called, not just gems
+            {
+              type: 'gems',
+              icon: this.icons.gem,
+              value: this.userGems,
+            },
+          ];
+          return neededCurrency;
+        }
+
+        if (currency.type === this.currencyNeeded
+          && !this.enoughCurrency(this.currencyNeeded, this.amountNeeded)) {
+          currency.notEnough = true;
         }
       }
       return currencies;
