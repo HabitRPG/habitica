@@ -864,7 +864,7 @@ const TIME_TRAVEL_ENABLED = import.meta.env.TIME_TRAVEL_ENABLED === 'true'; // e
 let sinon;
 if (import.meta.env.TIME_TRAVEL_ENABLED === 'true') {
   (async () => {
-    const sinon = await import('sinon');
+    sinon = await import('sinon');
   })();
 }
 
