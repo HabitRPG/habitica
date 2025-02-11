@@ -858,12 +858,14 @@ import buyGemsModal from './payments/buyGemsModal.vue';
 import reportBug from '@/mixins/reportBug.js';
 import { worldStateMixin } from '@/mixins/worldState';
 
-const DEBUG_ENABLED = process.env.DEBUG_ENABLED === 'true'; // eslint-disable-line no-process-env
-const TIME_TRAVEL_ENABLED = process.env.TIME_TRAVEL_ENABLED === 'true'; // eslint-disable-line no-process-env
+const DEBUG_ENABLED = import.meta.env.DEBUG_ENABLED === 'true'; // eslint-disable-line no-process-env
+const TIME_TRAVEL_ENABLED = import.meta.env.TIME_TRAVEL_ENABLED === 'true'; // eslint-disable-line no-process-env
+
 let sinon;
-if (TIME_TRAVEL_ENABLED) {
-  // eslint-disable-next-line global-require
-  sinon = await import('sinon');
+if (import.meta.env.TIME_TRAVEL_ENABLED === 'true') {
+  (async () => {
+    const sinon = await import('sinon');
+  })();
 }
 
 export default {
