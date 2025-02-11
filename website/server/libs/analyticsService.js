@@ -36,6 +36,7 @@ const ga = Analytics({
   plugins: [
     googleAnalytics({
       measurementIds: [GA_TOKEN],
+      debug: nconf.get('DEBUG_ENABLED'),
     }),
   ],
 });
