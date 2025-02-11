@@ -511,6 +511,11 @@ const armor = {
     int: 6,
     set: 'snowyTrapperSet',
   },
+  springPetalYukata: {
+    con: 8,
+    str: 8,
+    set: 'springPetalSet',
+  },
 };
 
 const body = {
@@ -1407,6 +1412,11 @@ const shield = {
   fancyFloralFan: {
     per: 14,
     set: 'fancyFloralSet',
+  },
+  springPetalUchiwa: {
+    int: 8,
+    per: 8,
+    set: 'springPetalSet',
   },
 };
 

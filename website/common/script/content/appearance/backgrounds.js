@@ -647,6 +647,9 @@ const backgrounds = {
   backgrounds022025: {
     old_fashioned_tea_shop: { },
   },
+  backgrounds032025: {
+    mountain_scene_with_blossoms: { },
+  },
   eventBackgrounds: {
     birthday_bash: {
       price: 0,
