@@ -1053,7 +1053,7 @@ const QUEST_PETS = {
         }, {
           type: 'eggs',
           key: 'Otter',
-          text: t('quesOtterDropOtterEgg'),
+          text: t('questOtterDropOtterEgg'),
         },
       ],
       gp: 90,
