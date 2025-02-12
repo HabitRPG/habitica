@@ -121,6 +121,11 @@ const SEASONAL_SETS = {
     'spring2024HibiscusMageSet',
     'spring2024BluebirdHealerSet',
     'spring2024MeltingSnowRogueSet',
+
+    'spring2025SunshineWarriorSet',
+    'spring2025CrystalPointRogueSet',
+    'spring2025PlumeriaHealerSet',
+    'spring2025MantisMageSet',
   ],
 
   summer: [

@@ -35459,13 +35459,13 @@
   width: 114px;
   height: 90px;
 }
-.eyewear_mystery_032025 {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/eyewear_mystery_032025.png');
+.eyewear_mystery_202503 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/eyewear_mystery_202503.png');
   width: 114px;
   height: 90px;
 }
-.head_mystery_032025 {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_mystery_032025.png');
+.head_mystery_202503 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_mystery_202503.png');
   width: 114px;
   height: 90px;
 }
@@ -40936,6 +40936,11 @@
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/quest_horse.png');
   width: 219px;
   height: 219px;
+}
+.quest_jade {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/quest_jade.png');
+  width: 216px;
+  height: 216px;
 }
 .quest_kangaroo {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/quest_kangaroo.png');

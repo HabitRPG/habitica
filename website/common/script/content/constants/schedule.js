@@ -192,11 +192,13 @@ export const MONTHLY_SCHEDULE = {
           'spider',
           'cow',
           'pterodactyl',
+          'otter',
         ],
       },
       {
         type: 'hatchingPotionQuests',
         items: [
+          'jade',
         ],
       },
       {

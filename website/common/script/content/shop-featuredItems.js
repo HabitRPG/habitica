@@ -11,6 +11,7 @@ const potentialFeaturedPetQuests = [
   'cat',
 
   'frog',
+  'otter',
 
   'monkey',
 

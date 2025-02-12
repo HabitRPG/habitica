@@ -128,6 +128,10 @@ const premium = {
   RoseGold: {},
   Koi: {},
   Gingerbread: {},
+  Jade: {
+    questPotion: true,
+    canBuy: hasQuestAchievementFunction('jade'),
+  },
 };
 
 const wacky = {

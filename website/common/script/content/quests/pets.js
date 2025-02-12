@@ -1022,6 +1022,45 @@ const QUEST_PETS = {
       unlock: t('questOctopusUnlockText'),
     },
   },
+  otter: {
+    text: t('questOtterText'),
+    notes: t('questOtterNotes'),
+    completion: t('questOtterCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questOtterBoss'),
+      hp: 1200,
+      str: 2.5,
+      rage: {
+        title: t('questOtterRageTitle'),
+        description: t('questOtterRageDescription'),
+        value: 50,
+        healing: 0.3,
+        effect: t('questOtterRageEffect'),
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Otter',
+          text: t('questOtterDropOtterEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Otter',
+          text: t('questOtterDropOtterEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Otter',
+          text: t('quesOtterDropOtterEgg'),
+        },
+      ],
+      gp: 90,
+      exp: 900,
+      unlock: t('questOtterUnlockText'),
+    },
+  },
   owl: {
     text: t('questOwlText'),
     notes: t('questOwlNotes'),

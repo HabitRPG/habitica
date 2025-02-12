@@ -791,6 +791,18 @@ const armor = {
   winter2025Rogue: {
     set: 'winter2025SnowRogueSet',
   },
+  spring2025Warrior: {
+    set: 'sunshineWarriorSet',
+  },
+  spring2025Rogue: {
+    set: 'crystalPointRogueSet',
+  },
+  spring2025Healer: {
+    set: 'plumeriaHealer',
+  },
+  spring2025Mage: {
+    set: 'mantisMageSet',
+  },
 };
 
 const armorStats = {
@@ -1892,6 +1904,18 @@ const head = {
   winter2025Rogue: {
     set: 'winter2025SnowRogueSet',
   },
+  spring2025Warrior: {
+    set: 'sunshineWarriorSet',
+  },
+  spring2025Rogue: {
+    set: 'crystalPointRogueSet',
+  },
+  spring2025Healer: {
+    set: 'plumeriaHealer',
+  },
+  spring2025Mage: {
+    set: 'mantisMageSet',
+  },
 };
 
 const headStats = {
@@ -2591,6 +2615,15 @@ const shield = {
   winter2025Rogue: {
     set: 'winter2025SnowRogueSet',
   },
+  spring2025Warrior: {
+    set: 'sunshineWarriorSet',
+  },
+  spring2025Rogue: {
+    set: 'crystalPointRogueSet',
+  },
+  spring2025Healer: {
+    set: 'plumeriaHealer',
+  },
 };
 
 const shieldStats = {
@@ -3281,6 +3314,18 @@ const weapon = {
   },
   winter2025Rogue: {
     set: 'winter2025SnowRogueSet',
+  },
+  spring2025Warrior: {
+    set: 'sunshineWarriorSet',
+  },
+  spring2025Rogue: {
+    set: 'crystalPointRogueSet',
+  },
+  spring2025Healer: {
+    set: 'plumeriaHealer',
+  },
+  spring2025Mage: {
+    set: 'mantisMageSet',
   },
 };
 
