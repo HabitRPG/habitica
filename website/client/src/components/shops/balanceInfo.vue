@@ -87,20 +87,9 @@ export default {
         icon: this.icons.gold,
         value: this.userGold,
       }];
-
+      // need some sort of filter or map function to check currency.type vs neededCurrencyOnly
+      // and then return a new array; not sure if this is the right approach
       for (const currency of currencies) {
-        if (this.neededCurrencyOnly) {
-          const neededCurrency = [
-            // need to figure out how to abstract this so any currency can be called, not just gems
-            {
-              type: 'gems',
-              icon: this.icons.gem,
-              value: this.userGems,
-            },
-          ];
-          return neededCurrency;
-        }
-
         if (currency.type === this.currencyNeeded
           && !this.enoughCurrency(this.currencyNeeded, this.amountNeeded)) {
           currency.notEnough = true;
