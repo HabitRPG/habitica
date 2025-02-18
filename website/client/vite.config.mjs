@@ -1,6 +1,7 @@
 import nconf from 'nconf';
 import path from 'path';
 import { defineConfig } from 'vite'
+import { ViteS3 } from '@froxz/vite-plugin-s3'
 import vue from '@vitejs/plugin-vue2'
 import { fileURLToPath } from 'node:url'
 import setupNconf from '../server/libs/setupNconf';
@@ -8,6 +9,13 @@ import setupNconf from '../server/libs/setupNconf';
 const configFile = path.join(path.resolve(__dirname, '../../config.json'));
 setupNconf(configFile, nconf);
 const DEV_BASE_URL = nconf.get('BASE_URL');
+
+let S3_URL = nconf.get('S3_URL');
+if (S3_URL && !S3_URL.endsWith('/')) {
+  S3_URL += '/';
+}
+
+const ENABLE_S3 = S3_URL && nconf.get('S3_ACCESS_KEY') && nconf.get('S3_SECRET_KEY');
 
 
 const envVars = [
@@ -54,8 +62,34 @@ export default defineConfig({
     dedupe: ['moment', 'lodash', 'moment-recur'],
   },
   plugins: [
-    vue()
+    vue(),
+    ViteS3(ENABLE_S3, {
+      basePath: '/cdn/web/',
+      clientConfig: {
+        credentials: {
+          accessKeyId: nconf.get('S3_ACCESS_KEY'),
+          secretAccessKey: nconf.get('S3_SECRET_KEY'),
+        },
+        region: nconf.get('S3_REGION'),
+      },
+      uploadOptions: {
+        Bucket: nconf.get('S3_BUCKET_NAME'),
+      }
+    })
   ],
+  experimental: {
+    renderBuiltUrl(filename, { hostType }) {
+      if (ENABLE_S3) {
+        if (hostType === 'js') {
+          return { relative: true }
+        } else {
+          return `${S3_URL}${filename}`
+        }
+      } else {
+        return { relative: true }
+      }
+    }
+  },
   optimizeDeps: {
     include: ['moment-recur']
   },

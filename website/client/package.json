@@ -13,6 +13,7 @@
     "postinstall": "node ./scripts/npm-postinstall.js"
   },
   "dependencies": {
+    "@froxz/vite-plugin-s3": "^1.6.0",
     "@vitejs/plugin-vue2": "^2.3.3",
     "@vue/test-utils": "1.0.0-beta.29",
     "amplitude-js": "^8.21.3",
@@ -50,6 +51,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-optional-chaining": "^7.21.0",
+    "@rollup/plugin-replace": "^6.0.2",
     "@vitest/browser": "^3.0.5",
     "babel-plugin-lodash": "^3.3.4",
     "inspectpack": "^4.7.1",
