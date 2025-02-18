@@ -64,7 +64,7 @@ export default defineConfig({
   plugins: [
     vue(),
     ViteS3(ENABLE_S3, {
-      basePath: '/cdn/web/',
+      basePath: nconf.get('S3_BASE_PATH'),
       clientConfig: {
         credentials: {
           accessKeyId: nconf.get('S3_ACCESS_KEY'),
