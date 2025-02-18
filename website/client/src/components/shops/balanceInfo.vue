@@ -87,9 +87,34 @@ export default {
         icon: this.icons.gold,
         value: this.userGold,
       }];
-      // need some sort of filter or map function to check currency.type vs neededCurrencyOnly
-      // and then return a new array; not sure if this is the right approach
+
+      const currencyNeeded = [];
+
       for (const currency of currencies) {
+        if (this.currencyNeeded === 'gems') {
+          currencyNeeded.push({
+            type: 'gems',
+            icon: this.icons.gem,
+            value: this.userGems,
+          });
+        } else if (this.currencyNeeded === 'hourglasses') {
+          currencyNeeded.push({
+            type: 'hourglasses',
+            icon: this.icons.hourglasses,
+            value: this.userHourglasses,
+          });
+        } else if (this.currencyNeeded === 'gold') {
+          currencyNeeded.push({
+            type: 'gold',
+            icon: this.icons.gold,
+            value: this.userGold,
+          });
+        } 
+
+        // filter/map might still be the way to go
+        // or maybe emptying out currencies[] and push items there if they're needed and then 
+        // if all are needed then push them all in at the end? 
+
         if (currency.type === this.currencyNeeded
           && !this.enoughCurrency(this.currencyNeeded, this.amountNeeded)) {
           currency.notEnough = true;
