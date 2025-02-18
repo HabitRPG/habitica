@@ -475,7 +475,7 @@
   "weaponSpecialSpring2023WarriorText": "Hummingbird Foil",
   "weaponSpecialSpring2023WarriorNotes": "En garde! Fend off foes from your flowers with this foil! Increases Strength by <%= str %>. Limited Edition 2023 Spring Gear.",
   "weaponSpecialSpring2023MageText": "Moonstone Magic",
-  "weaponSpecialSpring2023MageNotes": "The greater their glow, the more potent is their power. Increases Intelligence by <%= int %>. Limited Edition 2023 Spring Gear.",
+  "weaponSpecialSpring2023MageNotes": "The greater their glow, the more potent is their power. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2023 Spring Gear.",
   "weaponSpecialSpring2023HealerText": "Lilium Pollen",
   "weaponSpecialSpring2023HealerNotes": "With a puff and a sparkle, you deploy new growth, joy, and color. Increases Intelligence by <%= int %>. Limited Edition 2023 Spring Gear.",
 
@@ -549,7 +549,7 @@
   "weaponSpecialSpring2025HealerText": "Plumeria Crook",
   "weaponSpecialSpring2025HealerNotes": "With one wave, you can summon pollinators to your side to help you in your adventures. Increases Intelligence by <%= int %>. Limited Edition Spring 2025 Gear.",
   "weaponSpecialSpring2025MageText": "Mantis Staff",
-  "weaponSpecialSpring2025MageNotes": "With one slash, you can use elemental magic to control the environment around you. Take advantage and spring forward! Increases Intelligence by <%= int %>. Limited Edition Spring 2025 Gear.",
+  "weaponSpecialSpring2025MageNotes": "With one slash, you can use elemental magic to control the environment around you. Take advantage and spring forward! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition Spring 2025 Gear.",
 
   "weaponMystery201411Text": "Pitchfork of Feasting",
   "weaponMystery201411Notes": "Stab your enemies or dig in to your favorite foods - this versatile pitchfork does it all! Confers no benefit. November 2014 Subscriber Item.",
@@ -2223,7 +2223,7 @@
   "headSpecialSpring2025RogueText": "Crystal Point Hat",
   "headSpecialSpring2025RogueNotes": "The crystals in this hat encourage productive energy but also shine bright so you can work any time of day or night. Increases Perception by <%= per %>. Limited Edition Spring 2025 Gear.",
   "headSpecialSpring2025HealerText": "Plumeria Headdress",
-  "headSpecialSpring2025HealerNotes": "This flower symbolizes birth, love, and new beginnings! It also provides a beautiful scent you can enjoy as you work on your tasks. Improves Intelligence by <%= int %>. Limited Edition Spring 2025 Gear.",
+  "headSpecialSpring2025HealerNotes": "This flower symbolizes birth, love, and new beginnings! It also provides a beautiful scent you can enjoy as you work on your tasks. Increases Intelligence by <%= int %>. Limited Edition Spring 2025 Gear.",
   "headSpecialSpring2025MageText": "Mantis Mask",
   "headSpecialSpring2025MageNotes": "The mantis is known for camouflaging or moving slowly. Choose one tactic to help with each goal but know you can always change tactics if you need to. Increases Perception by <%= per %>. Limited Edition Spring 2025 Gear.",
 
