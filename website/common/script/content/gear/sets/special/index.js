@@ -792,16 +792,16 @@ const armor = {
     set: 'winter2025SnowRogueSet',
   },
   spring2025Warrior: {
-    set: 'sunshineWarriorSet',
+    set: 'spring2025SunshineWarriorSet',
   },
   spring2025Rogue: {
-    set: 'crystalPointRogueSet',
+    set: 'spring2025CrystalPointRogueSet',
   },
   spring2025Healer: {
-    set: 'plumeriaHealer',
+    set: 'spring2025PlumeriaHealerSet',
   },
   spring2025Mage: {
-    set: 'mantisMageSet',
+    set: 'spring2025MantisMageSet',
   },
 };
 
@@ -1905,16 +1905,16 @@ const head = {
     set: 'winter2025SnowRogueSet',
   },
   spring2025Warrior: {
-    set: 'sunshineWarriorSet',
+    set: 'spring2025SunshineWarriorSet',
   },
   spring2025Rogue: {
-    set: 'crystalPointRogueSet',
+    set: 'spring2025CrystalPointRogueSet',
   },
   spring2025Healer: {
-    set: 'plumeriaHealer',
+    set: 'spring2025PlumeriaHealerSet',
   },
   spring2025Mage: {
-    set: 'mantisMageSet',
+    set: 'spring2025MantisMageSet',
   },
 };
 
@@ -2616,13 +2616,15 @@ const shield = {
     set: 'winter2025SnowRogueSet',
   },
   spring2025Warrior: {
-    set: 'sunshineWarriorSet',
+    set: 'spring2025SunshineWarriorSet',
   },
   spring2025Rogue: {
-    set: 'crystalPointRogueSet',
+    set: 'spring2025CrystalPointRogueSet',
+    text: t('shieldSpecialSpring2025RogueText'),
+    notes: t('shieldSpecialSpring2025RogueNotes', { str: 8 }),
   },
   spring2025Healer: {
-    set: 'plumeriaHealer',
+    set: 'spring2025PlumeriaHealerSet',
   },
 };
 
@@ -3316,16 +3318,16 @@ const weapon = {
     set: 'winter2025SnowRogueSet',
   },
   spring2025Warrior: {
-    set: 'sunshineWarriorSet',
+    set: 'spring2025SunshineWarriorSet',
   },
   spring2025Rogue: {
-    set: 'crystalPointRogueSet',
+    set: 'spring2025CrystalPointRogueSet',
   },
   spring2025Healer: {
-    set: 'plumeriaHealer',
+    set: 'spring2025PlumeriaHealerSet',
   },
   spring2025Mage: {
-    set: 'mantisMageSet',
+    set: 'spring2025MantisMageSet',
   },
 };
 
