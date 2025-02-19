@@ -106,7 +106,7 @@ export default defineConfig({
           return { relative: true }
         } else {
           if (filename.endsWith('.js') || filename.endsWith('.css')) {
-            const name = filename.replace('assets/', 'compressed')
+            const name = filename.replace('assets/', 'compressed/')
             return `${S3_URL}${name}`
           }
           return `${S3_URL}${filename}`
