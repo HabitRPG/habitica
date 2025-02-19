@@ -88,33 +88,14 @@ export default {
         value: this.userGold,
       }];
 
-      const currencyNeeded = [];
+      const findCurrency = currency => currency.type === this.currencyNeeded;
+      const reqCurrency = currencies.find(type => findCurrency(type));
+      console.log(reqCurrency);
+      // this console logs the correct amount but doesn't effect the display.
+      // still not sure I'm on the right track.
 
+      reqCurrency();
       for (const currency of currencies) {
-        if (this.currencyNeeded === 'gems') {
-          currencyNeeded.push({
-            type: 'gems',
-            icon: this.icons.gem,
-            value: this.userGems,
-          });
-        } else if (this.currencyNeeded === 'hourglasses') {
-          currencyNeeded.push({
-            type: 'hourglasses',
-            icon: this.icons.hourglasses,
-            value: this.userHourglasses,
-          });
-        } else if (this.currencyNeeded === 'gold') {
-          currencyNeeded.push({
-            type: 'gold',
-            icon: this.icons.gold,
-            value: this.userGold,
-          });
-        } 
-
-        // filter/map might still be the way to go
-        // or maybe emptying out currencies[] and push items there if they're needed and then 
-        // if all are needed then push them all in at the end? 
-
         if (currency.type === this.currencyNeeded
           && !this.enoughCurrency(this.currencyNeeded, this.amountNeeded)) {
           currency.notEnough = true;
