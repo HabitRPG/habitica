@@ -94,7 +94,6 @@ export default {
       // this console logs the correct amount but doesn't effect the display.
       // still not sure I'm on the right track.
 
-      reqCurrency();
       for (const currency of currencies) {
         if (currency.type === this.currencyNeeded
           && !this.enoughCurrency(this.currencyNeeded, this.amountNeeded)) {
