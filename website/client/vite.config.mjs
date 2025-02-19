@@ -105,7 +105,10 @@ export default defineConfig({
         if (hostType === 'js') {
           return { relative: true }
         } else {
-          return `${S3_URL}gz-${filename}`
+          if (filename.endsWith('.js') || filename.endsWith('.css')) {
+            return `${S3_URL}gz-${filename}`
+          }
+          return `${S3_URL}${filename}`
         }
       } else {
         return { relative: true }
