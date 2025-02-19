@@ -2,6 +2,7 @@ import nconf from 'nconf';
 import path from 'path';
 import { defineConfig } from 'vite'
 import { ViteS3 } from '@froxz/vite-plugin-s3'
+import viteCompression from 'vite-plugin-compression';
 import vue from '@vitejs/plugin-vue2'
 import { fileURLToPath } from 'node:url'
 import setupNconf from '../server/libs/setupNconf';
@@ -63,6 +64,9 @@ export default defineConfig({
   },
   plugins: [
     vue(),
+    viteCompression({
+      threshold: 10000,
+    }),
     ViteS3(ENABLE_S3, {
       basePath: nconf.get('S3_BASE_PATH'),
       clientConfig: {
