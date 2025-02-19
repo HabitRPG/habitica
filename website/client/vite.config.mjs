@@ -65,7 +65,6 @@ export default defineConfig({
   plugins: [
     vue(),
     compression({
-      threshold: 10000,
       filename: 'compressed/[base]',
       compressionOptions: { level: 9 },
     }),
