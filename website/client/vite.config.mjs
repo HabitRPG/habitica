@@ -66,11 +66,11 @@ export default defineConfig({
     vue(),
     compression({
       threshold: 10000,
-      filename: '[path]gz-[base]',
+      filename: 'compressed/[base]',
       compressionOptions: { level: 9 },
     }),
     ViteS3(ENABLE_S3, {
-      include: [/\.js$/, /\.css$/],
+      include: [/compressed\/.*/],
       basePath: nconf.get('S3_BASE_PATH'),
       clientConfig: {
         credentials: {
@@ -106,7 +106,8 @@ export default defineConfig({
           return { relative: true }
         } else {
           if (filename.endsWith('.js') || filename.endsWith('.css')) {
-            return `${S3_URL}gz-${filename}`
+            const name = filename.replace('assets/', 'compressed')
+            return `${S3_URL}${name}`
           }
           return `${S3_URL}${filename}`
         }
