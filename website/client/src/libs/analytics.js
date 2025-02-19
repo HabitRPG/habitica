@@ -5,11 +5,14 @@ import pick from 'lodash/pick';
 import includes from 'lodash/includes';
 import amplitude from 'amplitude-js';
 import Vue from 'vue';
+import Analytics from 'analytics';
+import googleAnalytics from '@analytics/google-analytics';
 import getStore from '@/store';
 
-const IS_PRODUCTION = import.meta.env.NODE_ENV === 'production'; // eslint-disable-line no-process-env
-const AMPLITUDE_KEY = import.meta.env.AMPLITUDE_KEY; // eslint-disable-line no-process-env
-const GA_ID = import.meta.env.GA_ID; // eslint-disable-line no-process-env
+const IS_PRODUCTION = import.meta.env.NODE_ENV === 'production';
+const AMPLITUDE_KEY = import.meta.env.AMPLITUDE_KEY;
+const GA_ID = import.meta.env.GA_ID;
+const DEBUG_ENABLED = import.meta.env.DEBUG_ENABLED === 'true';
 
 const REQUIRED_FIELDS = ['hitType', 'eventCategory', 'eventAction'];
 const ALLOWED_HIT_TYPES = [
@@ -22,6 +25,16 @@ const ALLOWED_HIT_TYPES = [
   'exception',
   'timing',
 ];
+
+const ga = Analytics({
+  app: 'habitica',
+  plugins: [
+    googleAnalytics({
+      measurementIds: [GA_ID],
+      debug: !IS_PRODUCTION || DEBUG_ENABLED,
+    }),
+  ],
+});
 
 function _doesNotHaveRequiredFields (properties) {
   if (!isEqual(keys(pick(properties, REQUIRED_FIELDS)), REQUIRED_FIELDS)) {
@@ -79,7 +92,7 @@ export function setUser () {
   const store = getStore();
   const user = store.state.user.data;
   amplitude.getInstance().setUserId(user._id);
-  window.ga('set', { userId: user._id });
+  ga.identify(user._id);
 }
 
 export function track (properties, options = {}) {
@@ -92,7 +105,7 @@ export function track (properties, options = {}) {
     // Track events on the server by default
     if (trackOnClient === true) {
       amplitude.getInstance().logEvent(properties.eventAction, properties);
-      window.ga('send', properties);
+      ga.track(properties.eventAction, properties);
     } else {
       const store = getStore();
       store.dispatch('analytics:trackEvent', properties);
@@ -110,36 +123,13 @@ export function updateUser (properties = {}) {
       amplitude.getInstance().identify(identify);
     });
 
-    window.ga('set', properties);
+    ga.identify(properties.UUID, properties);
   });
 }
 
 export function setup () {
   // Setup queues until the real scripts are loaded
 
-  /* eslint-disable */
-
   // Amplitude
   amplitude.getInstance().init(AMPLITUDE_KEY);
-
-  // Google Analytics (aka Universal Analytics)
-  window['GoogleAnalyticsObject'] = 'ga';
-  window['ga'] = window['ga'] || function() {
-      (window['ga'].q = window['ga'].q || []).push(arguments)
-    }, window['ga'].l = 1 * new Date();
-  ga('create', GA_ID);
-  /* eslint-enable */
-}
-
-export function load () {
-  // Load real scripts
-  if (!IS_PRODUCTION) return;
-
-  let firstScript = document.getElementsByTagName('script')[0];
-  // Google Analytics
-  const gaScript = document.createElement('script');
-  [firstScript] = document.getElementsByTagName('script');
-  gaScript.async = 1;
-  gaScript.src = '//www.google-analytics.com/analytics.js';
-  firstScript.parentNode.insertBefore(gaScript, firstScript);
 }
