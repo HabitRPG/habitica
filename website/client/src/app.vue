@@ -302,4 +302,3 @@ export default {
 </script>
 
 <style src="@/assets/scss/index.scss" lang="scss"></style>
-<style src="@/assets/scss/sprites.scss" lang="scss"></style>
