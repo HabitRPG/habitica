@@ -2,7 +2,7 @@ import nconf from 'nconf';
 import path from 'path';
 import { defineConfig } from 'vite'
 import { ViteS3 } from '@froxz/vite-plugin-s3'
-import viteCompression from 'vite-plugin-compression';
+import { compression } from 'vite-plugin-compression2';
 import vue from '@vitejs/plugin-vue2'
 import { fileURLToPath } from 'node:url'
 import setupNconf from '../server/libs/setupNconf';
@@ -64,10 +64,28 @@ export default defineConfig({
   },
   plugins: [
     vue(),
-    viteCompression({
+    compression({
       threshold: 10000,
+      filename: '[path]gz-[base]',
+      compressionOptions: { level: 9 },
     }),
     ViteS3(ENABLE_S3, {
+      include: [/\.js$/, /\.css$/],
+      basePath: nconf.get('S3_BASE_PATH'),
+      clientConfig: {
+        credentials: {
+          accessKeyId: nconf.get('S3_ACCESS_KEY'),
+          secretAccessKey: nconf.get('S3_SECRET_KEY'),
+        },
+        region: nconf.get('S3_REGION'),
+      },
+      uploadOptions: {
+        Bucket: nconf.get('S3_BUCKET_NAME'),
+        ContentEncoding: 'gzip',
+      }
+    }),
+    ViteS3(ENABLE_S3, {
+      include: [/\.png$/],
       basePath: nconf.get('S3_BASE_PATH'),
       clientConfig: {
         credentials: {
@@ -87,7 +105,7 @@ export default defineConfig({
         if (hostType === 'js') {
           return { relative: true }
         } else {
-          return `${S3_URL}${filename}`
+          return `${S3_URL}gz-${filename}`
         }
       } else {
         return { relative: true }
