@@ -101,15 +101,13 @@ export default defineConfig({
   experimental: {
     renderBuiltUrl(filename, { hostType }) {
       if (ENABLE_S3) {
-        if (hostType === 'js') {
+        if (hostType === 'js' && (filename.endsWith('.js') || filename.endsWith('.css'))) {
           return { relative: true }
-        } else {
-          if (filename.endsWith('.js') || filename.endsWith('.css')) {
-            const name = filename.replace('assets/', 'compressed/')
-            return `${S3_URL}${name}`
-          }
-          return `${S3_URL}${filename}`
+        } else if (filename.endsWith('.js') || filename.endsWith('.css')) {
+          const name = filename.replace('assets/', 'compressed/')
+          return `${S3_URL}${name}`
         }
+        return `${S3_URL}${filename}`
       } else {
         return { relative: true }
       }
