@@ -120,6 +120,11 @@ export default defineConfig({
   build: {
     commonjsOptions: {
       include: [/moment-recur/, /node_modules/]
+    },
+    rollupOptions: {
+      output: {
+        experimentalMinChunkSize: 1000
+      }
     }
   },
   base: '/',
