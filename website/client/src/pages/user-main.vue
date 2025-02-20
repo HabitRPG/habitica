@@ -95,7 +95,7 @@
 
 <style lang='scss'>
   @import '@/assets/scss/sprites.scss';
-  
+
   @import '@/assets/scss/colors.scss';
   @import '~/intro.js/minified/introjs.min.css';
   @import '~/axios-progress-bar/dist/nprogress.css';
