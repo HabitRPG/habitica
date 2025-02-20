@@ -67,6 +67,7 @@ export default defineConfig({
     compression({
       filename: 'compressed/[base]',
       compressionOptions: { level: 9 },
+      skipIfLargerOrEqual: false,
     }),
     ViteS3(ENABLE_S3, {
       include: [/compressed\/.*/],
