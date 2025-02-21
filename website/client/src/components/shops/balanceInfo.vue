@@ -88,15 +88,13 @@ export default {
         value: this.userGold,
       }];
 
-      const findCurrency = currency => currency.type === this.currencyNeeded;
-      const reqCurrency = currencies.find(type => findCurrency(type));
-      console.log(reqCurrency);
-      // this console logs the correct amount but doesn't effect the display.
-      // still not sure I'm on the right track.
-
       for (const currency of currencies) {
+        if (currency.find(type => type === this.currencyNeeded)
+        && this.neededCurrencyOnly) {
+          console.log(this.currencies);
+        }
         if (currency.type === this.currencyNeeded
-          && !this.enoughCurrency(this.currencyNeeded, this.amountNeeded)) {
+        && !this.enoughCurrency(this.currencyNeeded, this.amountNeeded)) {
           currency.notEnough = true;
         }
       }
