@@ -89,17 +89,29 @@ export default {
       }];
 
       for (const currency of currencies) {
-        if (currency.find(type => type === this.currencyNeeded)
-        && this.neededCurrencyOnly) {
-          console.log(this.currencies);
-        }
         if (currency.type === this.currencyNeeded
-        && !this.enoughCurrency(this.currencyNeeded, this.amountNeeded)) {
+        && !this.enoughCurrency(this.currencyNeeded, this.amountNeeded)
+        ) {
           currency.notEnough = true;
         }
       }
       return currencies;
     },
+
+    requiredCurrency () {
+      if (this.currencies.type === this.currencyNeeded) {
+        const currencyRequired = [{
+          type: this.currencies.type,
+          icon: this.currencies.icon,
+          value: this.currencies.value,
+        }];
+        console.log(currencyRequired);
+        return currencyRequired;
+      }
+    },
+
+    //   this.currencies.find(type => type === this.currencyNeeded);
+
   },
 };
 </script>
