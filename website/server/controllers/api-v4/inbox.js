@@ -8,7 +8,7 @@ import {
 } from '../../libs/inbox';
 import { chatReporterFactory } from '../../libs/chatReporting/chatReporterFactory';
 import * as inboxLib from '../../libs/inbox';
-import logger, { logTime } from '../../libs/logger';
+import logger from '../../libs/logger';
 
 const api = {};
 
@@ -216,8 +216,6 @@ api.likePrivateMessage = {
   url: '/inbox/like-private-message/:uniqueMessageId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    const innerHandler = logTime(req.url, 'LIKE: innerHandler');
-
     req.checkParams('uniqueMessageId', apiError('messageIdRequired')).notEmpty();
 
     const validationErrors = req.validationErrors();
@@ -226,11 +224,7 @@ api.likePrivateMessage = {
     const { user } = res.locals;
     const { uniqueMessageId } = req.params;
 
-    const logTime1 = logTime(req.url, 'LIKE: getMessageByUnique');
-
     const messages = await inboxLib.getInboxMessagesByUniqueId(uniqueMessageId);
-
-    logTime1();
 
     if (messages.length === 0) {
       throw new NotFound(res.t('messageGroupChatNotFound'));
@@ -240,17 +234,11 @@ api.likePrivateMessage = {
       logger.error(`More than 2 Messages exist with this uniqueMessageId: ${uniqueMessageId} check in Database!`);
     }
 
-    const logTime2 = logTime(req.url, 'LIKE: before saving changes');
-
     await applyLikeToMessages(user, messages);
-
-    logTime2();
 
     const messageToReturn = messages.find(m => m.uuid === user._id);
 
     res.respond(200, messageToReturn);
-
-    innerHandler();
   },
 };
 
