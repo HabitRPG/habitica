@@ -73,13 +73,11 @@ input {
     }
 
     .input-group {
-        &:focus, &:active, &:focus-within {
-          border: solid 2px $purple-400;
-        }
+      &:focus, &:active, &:focus-within {
+        border: solid 2px $purple-400;
       }
-
     }
-
+  }
 }
 
 </style>
