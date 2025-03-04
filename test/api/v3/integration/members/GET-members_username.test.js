@@ -19,7 +19,7 @@ describe('GET /members/username/:username', () => {
     });
   });
 
-  it('returns a member public data only', async () => {
+  it('returns a member\'s public data only', async () => {
     // make sure user has all the fields that can be returned by the getMember call
     const member = await generateUser({
       contributor: { level: 1 },
