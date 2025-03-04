@@ -12,7 +12,7 @@
       ></div>
       <div
         :class="{'notEnough': currency.notEnough}"
-        class="currency-value mx-1 my-auto"
+        class="currency-value mx-1"
       >
         {{ currency.value | roundBigNumber }}
       </div>
@@ -94,24 +94,14 @@ export default {
         ) {
           currency.notEnough = true;
         }
+        if (this.neededCurrencyOnly) {
+          return currencies.filter(curr => curr.type === this.currencyNeeded);
+        }
       }
       return currencies;
     },
-
-    requiredCurrency () {
-      if (this.currencies.type === this.currencyNeeded) {
-        const currencyRequired = [{
-          type: this.currencies.type,
-          icon: this.currencies.icon,
-          value: this.currencies.value,
-        }];
-        console.log(currencyRequired);
-        return currencyRequired;
-      }
-    },
-
-    //   this.currencies.find(type => type === this.currencyNeeded);
-
   },
 };
 </script>
+
+<!-- currency.filter(type => type === this.currencyNeeded); -->
