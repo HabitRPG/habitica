@@ -26,7 +26,7 @@ describe('POST /inbox/like-private-message/:messageId', () => {
     userToSendMessage = await generateUser();
   });
 
-  it('Returns an error when private message is not found', async () => {
+  it('returns an error when private message is not found', async () => {
     await expect(userToSendMessage.post(getLikeUrl('some-unknown-id')))
       .to.eventually.be.rejected.and.eql({
         code: 404,
@@ -35,7 +35,7 @@ describe('POST /inbox/like-private-message/:messageId', () => {
       });
   });
 
-  it('Likes a message', async () => {
+  it('likes a message', async () => {
     const receiver = await generateUser();
 
     const sentMessageResult = await userToSendMessage.post('/members/send-private-message', {
@@ -57,7 +57,7 @@ describe('POST /inbox/like-private-message/:messageId', () => {
     expectMessagesLikeStatus(receiversMessages, uniqueMessageId, receiver._id, true);
   });
 
-  it('Allows to likes their own private message', async () => {
+  it('allows a user to like their own private message', async () => {
     const receiver = await generateUser();
 
     const sentMessageResult = await userToSendMessage.post('/members/send-private-message', {
@@ -78,7 +78,7 @@ describe('POST /inbox/like-private-message/:messageId', () => {
     expectMessagesLikeStatus(receiversMessages, uniqueMessageId, userToSendMessage._id, true);
   });
 
-  it('Unlikes a message', async () => {
+  it('unlikes a message', async () => {
     const receiver = await generateUser();
 
     const sentMessageResult = await userToSendMessage.post('/members/send-private-message', {
