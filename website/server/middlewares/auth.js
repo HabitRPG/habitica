@@ -10,7 +10,6 @@ import {
 import gcpStackdriverTracer from '../libs/gcpTraceAgent';
 import common from '../../common';
 import { getLanguageFromUser } from '../libs/language';
-import { logTime } from '../libs/logger';
 
 const OFFICIAL_PLATFORMS = ['habitica-web', 'habitica-ios', 'habitica-android'];
 const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS_COMMUNITY_MANAGER_EMAIL');
@@ -58,8 +57,6 @@ function stackdriverTraceUserId (userId) {
 // If optional is true, don't error on missing authentication
 export function authWithHeaders (options = {}) {
   return function authWithHeadersHandler (req, res, next) {
-    const authHandlerTime = logTime(req.url, 'authWithHeadersHandler');
-
     const userId = req.header('x-api-user');
     const apiToken = req.header('x-api-key');
     const client = req.header('x-client');
@@ -107,7 +104,6 @@ export function authWithHeaders (options = {}) {
         ) {
           User.updateOne(userQuery, { $set: { 'flags.thirdPartyTools': new Date() } }).exec();
         }
-        authHandlerTime();
         return next();
       })
       .catch(next);
