@@ -951,24 +951,28 @@ export default {
     },
     async jumpTime (amount) {
       const response = await axios.post('/api/v4/debug/jump-time', { offsetDays: amount });
-      if (amount > 0) {
-        Vue.config.clock.jump(amount * 24 * 60 * 60 * 1000);
-      } else {
-        Vue.config.clock.setSystemTime(moment().add(amount, 'days').toDate());
-      }
-      this.lastTimeJump = response.data.data.time;
-      this.triggerGetWorldState(true);
+      setTimeout(() => {
+        if (amount > 0) {
+          Vue.config.clock.jump(amount * 24 * 60 * 60 * 1000);
+        } else {
+          Vue.config.clock.setSystemTime(moment().add(amount, 'days').toDate());
+        }
+        this.lastTimeJump = response.data.data.time;
+        this.triggerGetWorldState(true);
+      }, 1000);
     },
     async resetTime () {
       const response = await axios.post('/api/v4/debug/jump-time', { reset: true });
       const time = new Date(response.data.data.time);
-      Vue.config.clock.restore();
-      Vue.config.clock = sinon.useFakeTimers({
-        now: time,
-        shouldAdvanceTime: true,
-      });
-      this.lastTimeJump = response.data.data.time;
-      this.triggerGetWorldState(true);
+      setTimeout(() => {
+        Vue.config.clock.restore();
+        Vue.config.clock = sinon.useFakeTimers({
+          now: time,
+          shouldAdvanceTime: true,
+        });
+        this.lastTimeJump = response.data.data.time;
+        this.triggerGetWorldState(true);
+      }, 1000);
     },
     addExp () {
       // @TODO: Name these variables better

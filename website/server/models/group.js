@@ -516,11 +516,15 @@ schema.methods.isMember = function isGroupMember (user) {
   return user.guilds.indexOf(this._id) !== -1;
 };
 
-schema.methods.getMemberCount = async function getMemberCount () {
+schema.methods.getMemberCount = async function getMemberCount (excludeUserId) {
   let query = { guilds: this._id };
 
   if (this.type === 'party') {
     query = { 'party._id': this._id };
+  }
+
+  if (excludeUserId) {
+    query._id = { $ne: excludeUserId };
   }
 
   return User.countDocuments(query).exec();
@@ -1338,6 +1342,10 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
     throw new NotAuthorized(shared.i18n.t('leaderCannotLeaveGroupWithActiveGroup'));
   }
 
+  if (group.purchased.plan.customerId) {
+    await payments.cancelGroupSubscriptionForUser(user, this);
+  }
+
   // only remove user from challenges if it's set to leave-challenges
   if (keepChallenges === 'leave-challenges') {
     const challenges = await Challenge.find({
@@ -1375,10 +1383,6 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
     promises.push(User.updateOne({ _id: user._id }, userUpdate).exec());
 
     update.$unset = { [`quest.members.${user._id}`]: 1 };
-  }
-
-  if (group.purchased.plan.customerId) {
-    promises.push(payments.cancelGroupSubscriptionForUser(user, this));
   }
 
   // If user is the last one in group and group is private, delete it

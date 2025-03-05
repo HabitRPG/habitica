@@ -1,4 +1,5 @@
-import _ from 'lodash';
+import mongoose from 'mongoose';
+import get from 'lodash/get';
 import sinon from 'sinon';
 import moment from 'moment';
 import { authWithHeaders } from '../../middlewares/auth';
@@ -10,6 +11,7 @@ import {
   model as Group,
   // basicFields as basicGroupFields,
 } from '../../models/group';
+import connectToMongoDB from '../../libs/mongoose';
 
 const { content } = common;
 
@@ -183,7 +185,7 @@ api.questProgress = {
   middlewares: [ensureDevelopmentMode, authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
-    const key = _.get(user, 'party.quest.key');
+    const key = get(user, 'party.quest.key');
     const quest = content.quests[key];
 
     if (!quest) {
@@ -286,7 +288,10 @@ api.timeTravelAdjust = {
     } else if (disable) {
       clock.restore();
       clock = undefined;
-    } else if (clock !== undefined) {
+    } else if (offsetDays) {
+      if (clock === undefined) {
+        fakeClock();
+      }
       try {
         clock.setSystemTime(moment().add(offsetDays, 'days').toDate());
       } catch (e) {
@@ -294,6 +299,10 @@ api.timeTravelAdjust = {
       }
     } else {
       throw new BadRequest('Invalid command');
+    }
+
+    if (mongoose.connection.readyState === 0) {
+      await connectToMongoDB();
     }
 
     res.respond(200, {

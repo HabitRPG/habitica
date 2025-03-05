@@ -2,13 +2,22 @@
 import moment from 'moment';
 import nconf from 'nconf';
 import requireAgain from 'require-again';
-import { recoverCron, cron } from '../../../../website/server/libs/cron';
+import { v4 as generateUUID } from 'uuid';
+import {
+  generateRes,
+  generateReq,
+  generateTodo,
+  generateDaily,
+} from '../../../helpers/api-unit.helper';
+import { cron, cronWrapper } from '../../../../website/server/libs/cron';
 import { model as User } from '../../../../website/server/models/user';
 import * as Tasks from '../../../../website/server/models/task';
 import common from '../../../../website/common';
 import * as analytics from '../../../../website/server/libs/analyticsService';
+import { model as Group } from '../../../../website/server/models/group';
 
-// const scoreTask = common.ops.scoreTask;
+const CRON_TIMEOUT_WAIT = new Date(5 * 60 * 1000).getTime();
+const CRON_TIMEOUT_UNIT = new Date(60 * 1000).getTime();
 
 const pathToCronLib = '../../../../website/server/libs/cron';
 
@@ -1200,7 +1209,7 @@ describe('cron', async () => {
     it('increments perfect day achievement if all (at least 1) due dailies were completed', async () => {
       daysMissed = 1;
       tasksByType.dailys[0].completed = true;
-      tasksByType.dailys[0].startDate = moment(new Date()).subtract({ days: 1 });
+      tasksByType.dailys[0].isDue = true;
 
       await cron({
         user, tasksByType, daysMissed, analytics,
@@ -1212,7 +1221,7 @@ describe('cron', async () => {
     it('does not increment perfect day achievement if no due dailies', async () => {
       daysMissed = 1;
       tasksByType.dailys[0].completed = true;
-      tasksByType.dailys[0].startDate = moment(new Date()).add({ days: 1 });
+      tasksByType.dailys[0].isDue = false;
 
       await cron({
         user, tasksByType, daysMissed, analytics,
@@ -1224,7 +1233,7 @@ describe('cron', async () => {
     it('gives perfect day buff if all (at least 1) due dailies were completed', async () => {
       daysMissed = 1;
       tasksByType.dailys[0].completed = true;
-      tasksByType.dailys[0].startDate = moment(new Date()).subtract({ days: 1 });
+      tasksByType.dailys[0].isDue = true;
 
       const previousBuffs = user.stats.buffs.toObject();
 
@@ -1242,7 +1251,7 @@ describe('cron', async () => {
       user.preferences.sleep = true;
       daysMissed = 1;
       tasksByType.dailys[0].completed = true;
-      tasksByType.dailys[0].startDate = moment(new Date()).subtract({ days: 1 });
+      tasksByType.dailys[0].isDue = true;
 
       const previousBuffs = user.stats.buffs.toObject();
 
@@ -1259,7 +1268,7 @@ describe('cron', async () => {
     it('clears buffs if user does not have a perfect day (no due dailys)', async () => {
       daysMissed = 1;
       tasksByType.dailys[0].completed = true;
-      tasksByType.dailys[0].startDate = moment(new Date()).add({ days: 1 });
+      tasksByType.dailys[0].isDue = false;
 
       user.stats.buffs = {
         str: 1,
@@ -1488,78 +1497,6 @@ describe('cron', async () => {
     });
   });
 
-  describe('notifications', async () => {
-    it('adds a user notification', async () => {
-      const mpBefore = user.stats.mp;
-      tasksByType.dailys[0].completed = true;
-
-      const statsComputedRes = common.statsComputed(user);
-      const stubbedStatsComputed = sinon.stub(common, 'statsComputed');
-      stubbedStatsComputed.returns(Object.assign(statsComputedRes, { maxMP: 100 }));
-
-      daysMissed = 1;
-      const hpBefore = user.stats.hp;
-      tasksByType.dailys[0].startDate = moment(new Date()).subtract({ days: 1 });
-
-      await cron({
-        user, tasksByType, daysMissed, analytics,
-      });
-
-      expect(user.notifications.length).to.be.greaterThan(0);
-      expect(user.notifications[1].type).to.equal('CRON');
-      expect(user.notifications[1].data).to.eql({
-        hp: user.stats.hp - hpBefore,
-        mp: user.stats.mp - mpBefore,
-      });
-
-      common.statsComputed.restore();
-    });
-
-    it('condenses multiple notifications into one', async () => {
-      const mpBefore1 = user.stats.mp;
-      tasksByType.dailys[0].completed = true;
-
-      const statsComputedRes = common.statsComputed(user);
-      const stubbedStatsComputed = sinon.stub(common, 'statsComputed');
-      stubbedStatsComputed.returns(Object.assign(statsComputedRes, { maxMP: 100 }));
-
-      daysMissed = 1;
-      const hpBefore1 = user.stats.hp;
-      tasksByType.dailys[0].startDate = moment(new Date()).subtract({ days: 1 });
-
-      await cron({
-        user, tasksByType, daysMissed, analytics,
-      });
-
-      expect(user.notifications.length).to.be.greaterThan(0);
-      expect(user.notifications[1].type).to.equal('CRON');
-      expect(user.notifications[1].data).to.eql({
-        hp: user.stats.hp - hpBefore1,
-        mp: user.stats.mp - mpBefore1,
-      });
-
-      const notifsBefore2 = user.notifications.length;
-      const hpBefore2 = user.stats.hp;
-      const mpBefore2 = user.stats.mp;
-
-      user.lastCron = moment(new Date()).subtract({ days: 2 });
-
-      await cron({
-        user, tasksByType, daysMissed, analytics,
-      });
-
-      expect(user.notifications.length - notifsBefore2).to.equal(0);
-      expect(user.notifications[0].type).to.not.equal('CRON');
-      expect(user.notifications[1].type).to.equal('CRON');
-      expect(user.notifications[1].data).to.eql({
-        hp: user.stats.hp - hpBefore2 - (hpBefore2 - hpBefore1),
-        mp: user.stats.mp - mpBefore2 - (mpBefore2 - mpBefore1),
-      });
-      expect(user.notifications[0].type).to.not.equal('CRON');
-      common.statsComputed.restore();
-    });
-  });
-
   describe('private messages', async () => {
     let lastMessageId;
 
@@ -1606,7 +1543,7 @@ describe('cron', async () => {
       await cron({
         user, tasksByType, daysMissed, analytics,
       });
-      expect(user.notifications.length).to.be.greaterThan(1);
+      expect(user.notifications.length).to.eql(1);
       expect(user.notifications[0].type).to.eql('LOGIN_INCENTIVE');
     });
 
@@ -1820,64 +1757,258 @@ describe('cron', async () => {
   });
 });
 
-describe('recoverCron', async () => {
-  let locals; let status; let
-    execStub;
+describe('cron wrapper', () => {
+  let res; let
+    req;
+  let user;
 
   beforeEach(async () => {
-    execStub = sandbox.stub();
-    sandbox.stub(User, 'findOne').returns({ exec: execStub });
-
-    status = { times: 0 };
-    locals = {
-      user: new User({
-        auth: {
-          local: {
-            username: 'username',
-            lowerCaseUsername: 'username',
-            email: 'email@example.com',
-            salt: 'salt',
-            hashed_password: 'hashed_password', // eslint-disable-line camelcase
-          },
-        },
-      }),
-    };
+    res = generateRes();
+    req = generateReq();
+    user = await res.locals.user.save();
+    res.analytics = analytics;
   });
 
-  afterEach(async () => {
+  afterEach(() => {
     sandbox.restore();
   });
 
-  it('throws an error if user cannot be found', async () => {
-    execStub.returns(Promise.resolve(null));
+  it('calls next when user is not attached', async () => {
+    res.locals.user = null;
+    await cronWrapper(req, res);
+  });
+
+  it('calls next when days have not been missed', async () => {
+    await cronWrapper(req, res);
+  });
+
+  it('should clear todos older than 30 days for free users', async () => {
+    user.lastCron = moment(new Date()).subtract({ days: 2 });
+    const task = generateTodo(user);
+    task.dateCompleted = moment(new Date()).subtract({ days: 31 });
+    task.completed = true;
+    await task.save();
+    await user.save();
+
+    await cronWrapper(req, res);
+    const taskRes = await Tasks.Task.findOne({ _id: task._id });
+    expect(taskRes).to.not.exist;
+  });
+
+  it('should not clear todos older than 30 days for subscribed users', async () => {
+    user.purchased.plan.customerId = 'subscribedId';
+    user.purchased.plan.dateUpdated = moment('012013', 'MMYYYY');
+    user.lastCron = moment(new Date()).subtract({ days: 2 });
+    const task = generateTodo(user);
+    task.dateCompleted = moment(new Date()).subtract({ days: 31 });
+    task.completed = true;
+    await Promise.all([task.save(), user.save()]);
+
+    await cronWrapper(req, res);
+    const taskRes = await Tasks.Task.findOne({ _id: task._id });
+    expect(taskRes).to.exist;
+  });
+
+  it('should clear todos older than 90 days for subscribed users', async () => {
+    user.purchased.plan.customerId = 'subscribedId';
+    user.purchased.plan.dateUpdated = moment('012013', 'MMYYYY');
+    user.lastCron = moment(new Date()).subtract({ days: 2 });
+
+    const task = generateTodo(user);
+    task.dateCompleted = moment(new Date()).subtract({ days: 91 });
+    task.completed = true;
+    await task.save();
+    await user.save();
+
+    await cronWrapper(req, res);
+    const taskRes = await Tasks.Task.findOne({ _id: task._id });
+    expect(taskRes).to.not.exist;
+  });
+
+  it('should call next if user was not modified after cron', async () => {
+    const hpBefore = user.stats.hp;
+    user.lastCron = moment(new Date()).subtract({ days: 2 });
+    await user.save();
+
+    await cronWrapper(req, res);
+    expect(hpBefore).to.equal(user.stats.hp);
+  });
+
+  it('runs cron if previous cron was incomplete', async () => {
+    user.lastCron = moment(new Date()).subtract({ days: 1 });
+    user.auth.timestamps.loggedin = moment(new Date()).subtract({ days: 4 });
+    const now = new Date();
+    await user.save();
+
+    await cronWrapper(req, res);
+    expect(moment(now).isSame(user.lastCron, 'day'));
+    expect(moment(now).isSame(user.auth.timestamps.loggedin, 'day'));
+  });
+
+  it('updates user.auth.timestamps.loggedin and lastCron', async () => {
+    user.lastCron = moment(new Date()).subtract({ days: 2 });
+    const now = new Date();
+    await user.save();
+
+    await cronWrapper(req, res);
+    expect(moment(now).isSame(user.lastCron, 'day'));
+    expect(moment(now).isSame(user.auth.timestamps.loggedin, 'day'));
+  });
+
+  it('does damage for missing dailies', async () => {
+    const hpBefore = user.stats.hp;
+    user.lastCron = moment(new Date()).subtract({ days: 2 });
+    const daily = generateDaily(user);
+    daily.startDate = moment(new Date()).subtract({ days: 2 });
+    await daily.save();
+    await user.save();
+
+    await cronWrapper(req, res);
+    const updatedUser = await User.findOne({ _id: user._id });
+    expect(updatedUser.stats.hp).to.be.lessThan(hpBefore);
+  });
+
+  it('updates tasks', async () => {
+    user.lastCron = moment(new Date()).subtract({ days: 2 });
+    const todo = generateTodo(user);
+    const todoValueBefore = todo.value;
+    await Promise.all([todo.save(), user.save()]);
+
+    await cronWrapper(req, res);
+    const todoFound = await Tasks.Task.findOne({ _id: todo._id });
+    expect(todoFound.value).to.be.lessThan(todoValueBefore);
+  });
+
+  it('updates large number of tasks', async () => {
+    user.lastCron = moment(new Date()).subtract({ days: 2 });
+    const todo = generateTodo(user);
+    const todoValueBefore = todo.value;
+    const start = new Date();
+    const saves = [todo.save(), user.save()];
+    for (let i = 0; i < 200; i += 1) {
+      const newTodo = generateTodo(user);
+      newTodo.value = i;
+      saves.push(newTodo.save());
+    }
+    await Promise.all(saves);
+
+    await cronWrapper(req, res);
+    const duration = new Date() - start;
+    expect(duration).to.be.lessThan(1000);
+    const todoFound = await Tasks.Task.findOne({ _id: todo._id });
+    expect(moment(start).isSame(user.lastCron, 'day'));
+    expect(moment(start).isSame(user.auth.timestamps.loggedin, 'day'));
+    expect(todoFound.value).to.be.lessThan(todoValueBefore);
+  });
+
+  it('fails entire cron if one task is failing', async () => {
+    const lastCron = moment(new Date()).subtract({ days: 2 });
+    user.lastCron = lastCron;
+    const todo = generateTodo(user);
+    const todoValueBefore = todo.value;
+    const badTodo = generateTodo(user);
+    badTodo.text = 'bad todo';
+    badTodo.attribute = 'bad';
+    await Promise.all([badTodo.save({ validateBeforeSave: false }), todo.save(), user.save()]);
 
     try {
-      await recoverCron(status, locals);
-      throw new Error('no exception when user cannot be found');
+      await cronWrapper(req, res);
     } catch (err) {
-      expect(err.message).to.eql(`User ${locals.user._id} not found while recovering.`);
+      expect(err).to.exist;
+    }
+    const todoFound = await Tasks.Task.findOne({ _id: todo._id });
+    expect(moment(lastCron).isSame(user.lastCron, 'day'));
+    expect(todoFound.value).to.be.equal(todoValueBefore);
+  });
+
+  it('applies quest progress', async () => {
+    const hpBefore = user.stats.hp;
+    user.lastCron = moment(new Date()).subtract({ days: 2 });
+    const daily = generateDaily(user);
+    daily.startDate = moment(new Date()).subtract({ days: 2 });
+    await daily.save();
+
+    const questKey = 'dilatory';
+    user.party.quest.key = questKey;
+
+    const party = new Group({
+      type: 'party',
+      name: generateUUID(),
+      leader: user._id,
+    });
+    party.quest.members[user._id] = true;
+    party.quest.key = questKey;
+    await party.save();
+
+    user.party._id = party._id;
+    await user.save();
+
+    party.startQuest(user);
+
+    await cronWrapper(req, res);
+    const updatedUser = await User.findOne({ _id: user._id });
+    expect(updatedUser.stats.hp).to.be.lessThan(hpBefore);
+  });
+
+  it('cronSignature less than 5 minutes ago should error', async () => {
+    user.lastCron = moment(new Date()).subtract({ days: 2 });
+    const now = new Date();
+    await User.updateOne({
+      _id: user._id,
+    }, {
+      $set: {
+        _cronSignature: now.getTime() - CRON_TIMEOUT_WAIT + CRON_TIMEOUT_UNIT,
+      },
+    }).exec();
+    await user.save();
+    try {
+      await cronWrapper(req, res);
+    } catch (err) {
+      expect(err).to.exist;
     }
   });
 
-  it('increases status.times count and reruns up to 4 times', async () => {
-    execStub.returns(Promise.resolve({ _cronSignature: 'RUNNING_CRON' }));
-    execStub.onCall(4).returns(Promise.resolve({ _cronSignature: 'NOT_RUNNING' }));
+  it('cronSignature longer than an hour ago should allow cron', async () => {
+    user.lastCron = moment(new Date()).subtract({ days: 2 });
+    const now = new Date();
+    await User.updateOne({
+      _id: user._id,
+    }, {
+      $set: {
+        _cronSignature: now.getTime() - CRON_TIMEOUT_WAIT - CRON_TIMEOUT_UNIT,
+      },
+    }).exec();
+    await user.save();
 
-    await recoverCron(status, locals);
-
-    expect(status.times).to.eql(4);
-    expect(locals.user).to.eql({ _cronSignature: 'NOT_RUNNING' });
+    await cronWrapper(req, res);
+    expect(moment(now).isSame(user.auth.timestamps.loggedin, 'day'));
+    expect(user._cronSignature).to.be.equal('NOT_RUNNING');
   });
 
-  it('throws an error if recoverCron runs 5 times', async () => {
-    execStub.returns(Promise.resolve({ _cronSignature: 'RUNNING_CRON' }));
+  it('cron should not run more than once', async () => {
+    user.lastCron = moment(new Date()).subtract({ days: 2 });
+    await user.save();
 
-    try {
-      await recoverCron(status, locals);
-      throw new Error('no exception when recoverCron runs 5 times');
-    } catch (err) {
-      expect(status.times).to.eql(5);
-      expect(err.message).to.eql(`Impossible to recover from cron for user ${locals.user._id}.`);
-    }
+    const result = await Promise.allSettled([
+      cronWrapper(req, res),
+      cronWrapper(req, res),
+      new Promise((resolve, reject) => {
+        setTimeout(async () => {
+          try {
+            const runResult = await cronWrapper(req, res);
+            if (runResult !== null) {
+              reject(new Error('cron ran more than once'));
+            } else {
+              resolve();
+            }
+          } catch (err) {
+            reject(err);
+          }
+        }, 200);
+      }),
+    ]);
+
+    expect(result.filter(r => r.status === 'fulfilled')).to.have.lengthOf(2);
+    expect(result.filter(r => r.status === 'rejected')).to.have.lengthOf(1);
   });
 });

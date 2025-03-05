@@ -638,7 +638,7 @@ api.joinGroup = {
     if (group.type === 'party') {
       // For parties we count the number of members from the database to get the correct value.
       // See #12275 on why this is necessary and only done for parties.
-      const currentMembers = await group.getMemberCount();
+      const currentMembers = await group.getMemberCount(user._id);
       // Load the inviter
       if (inviter) inviter = await User.findById(inviter).exec();
 
