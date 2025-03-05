@@ -225,10 +225,9 @@
         </a>
       </div>
       <div class="quest-icon">
-        <div
+        <Sprite
           class="quest"
-          :class="`inventory_quest_scroll_${questData.key}`"
-        ></div>
+          :image-name="`inventory_quest_scroll_${questData.key}`" />
       </div>
     </div>
     <div

@@ -692,7 +692,7 @@
                   <div class="form-inline clearfix">
                     <Sprite
                       class="pull-left"
-                      :class="'inventory_quest_scroll_' + item.key"
+                      :image-name="'inventory_quest_scroll_' + item.key"
                       style="margin-right: 10px"
                     />
                     <p>{{ item.text() }}</p>
