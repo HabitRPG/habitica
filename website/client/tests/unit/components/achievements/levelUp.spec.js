@@ -72,7 +72,11 @@ describe('LevelUp', () => {
 
   it('generates the right test class for level 15', () => {
     const questClass = testFunction('questClass', 15);
+    expect(questClass()).to.equal('inventory_quest_scroll_atom1');
+  });
 
-    expect(questClass()).to.equal('scroll inventory_quest_scroll_atom1');
+  it('generates empty test class for level 14', () => {
+    const questClass = testFunction('questClass', 14);
+    expect(questClass()).to.equal('');
   });
 });
