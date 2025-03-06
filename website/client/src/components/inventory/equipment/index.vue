@@ -410,7 +410,8 @@ export default {
           const ownedItem = this.flatGear[gearKey];
 
           const isSearched = !searchText
-            || ownedItem.text().toLowerCase().indexOf(searchText) !== -1;
+            || ownedItem.text().toLowerCase().indexOf(searchText) !== -1
+            || ownedItem.notes().toLowerCase().indexOf(searchText) !== -1;
 
           if (ownedItem.klass !== 'base' && isSearched) {
             const { type } = ownedItem;
