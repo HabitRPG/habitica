@@ -7,7 +7,7 @@
       class="d-flex align-items-center"
     >
       <div
-        class="svg-icon icon-16 ml-1"
+        class="svg-icon icon-16 ml-1 my-auto"
         v-html="currency.icon"
       ></div>
       <div
@@ -103,5 +103,3 @@ export default {
   },
 };
 </script>
-
-<!-- currency.filter(type => type === this.currencyNeeded); -->
