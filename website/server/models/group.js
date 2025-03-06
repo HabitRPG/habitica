@@ -516,7 +516,8 @@ schema.methods.isMember = function isGroupMember (user) {
   return user.guilds.indexOf(this._id) !== -1;
 };
 
-schema.methods.getMemberCount = async function getMemberCount (excludeUserId) {
+schema.methods.getMemberCount = async function getMemberCount (options) {
+  const { excludeUserId } = options;
   let query = { guilds: this._id };
 
   if (this.type === 'party') {
