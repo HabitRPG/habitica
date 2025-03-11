@@ -198,7 +198,8 @@
               </a>
               </div>
             </div>
-            <small v-if="!hero.purchased.plan.dateTerminated && hero.purchased.plan.plaId" class="text-success">
+            <small v-if="!hero.purchased.plan.dateTerminated
+              && hero.purchased.plan.plaId" class="text-success">
               The subscription does not have a termination date and is active.
             </small>
           </div>
