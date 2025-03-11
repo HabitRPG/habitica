@@ -12,6 +12,7 @@ import {
   CollapsePlugin,
 } from 'bootstrap-vue';
 import Fragment from 'vue-fragment';
+import LoadScript from 'vue-plugin-load-script';
 import AppComponent from './app';
 import {
   setup as setupAnalytics,
@@ -22,7 +23,6 @@ import getStore from './store';
 import StoreModule from './libs/store';
 import './filters/registerGlobals';
 import i18n from './libs/i18n';
-import LoadScript from 'vue-plugin-load-script';
 
 const IS_PRODUCTION = import.meta.env.NODE_ENV === 'production'; // eslint-disable-line no-process-env
 
