@@ -323,12 +323,9 @@ describe('analyticsService', () => {
   });
 
   describe('#trackPurchase', () => {
-    let data; let
-      itemSpy;
+    let data;
 
     beforeEach(() => {
-      itemSpy = sandbox.stub().returnsThis();
-
       data = {
         uuid: 'user-id',
         sku: 'paypal-checkout',
