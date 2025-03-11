@@ -193,12 +193,12 @@
                 <a class="btn btn-danger"
               href="#"
                   v-b-modal.sub_termination_modal
-                  v-if="!hero.purchased.plan.dateTerminated">
+                  v-if="!hero.purchased.plan.dateTerminated && hero.purchased.plan.plaId">
                   Terminate
               </a>
               </div>
             </div>
-            <small v-if="!hero.purchased.plan.dateTerminated" class="text-success">
+            <small v-if="!hero.purchased.plan.dateTerminated && hero.purchased.plan.plaId" class="text-success">
               The subscription does not have a termination date and is active.
             </small>
           </div>
@@ -378,20 +378,19 @@
         </b>
       </div>
     </div>
-    <b-modal id="sub_termination_modal" title="Are you sure?">
+    <b-modal id="sub_termination_modal" title="Set Termination Date">
       <p>
-        Terminating the subscription will automatically process
-        the extra months and add them onto the selected termination date.
+        You can set the sub benefit termination date to today or to the last day of the current billing cycle. Any extra subscription credit will then be processed and automatically added onto the selected date.
       </p>
       <template #modal-footer>
         <div class="mt-3 btn btn-secondary" @click="$bvModal.hide('sub_termination_modal')">
           Close
         </div>
         <div class="mt-3 btn btn-danger" @click="terminateSubscription()">
-          Terminate Today
+          Set to Today
         </div>
         <div class="mt-3 btn btn-danger" @click="terminateSubscription(todayWithRemainingCycle)">
-          Terminate on {{ todayWithRemainingCycle.utc().format('MM/DD/YYYY') }}
+          Set to {{ todayWithRemainingCycle.utc().format('MM/DD/YYYY') }}
         </div>
       </template>
     </b-modal>
