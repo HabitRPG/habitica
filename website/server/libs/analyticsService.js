@@ -3,7 +3,6 @@ import nconf from 'nconf';
 import Amplitude from 'amplitude';
 import useragent from 'useragent';
 import {
-  each,
   omit,
   toArray,
 } from 'lodash';

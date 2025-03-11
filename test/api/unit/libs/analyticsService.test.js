@@ -1,15 +1,11 @@
 /* eslint-disable camelcase */
 import nconf from 'nconf';
 import Amplitude from 'amplitude';
-import { Visitor } from 'universal-analytics';
 import * as analyticsService from '../../../../website/server/libs/analyticsService';
 
 describe('analyticsService', () => {
   beforeEach(() => {
     sandbox.stub(Amplitude.prototype, 'track').returns(Promise.resolve());
-
-    sandbox.stub(Visitor.prototype, 'event');
-    sandbox.stub(Visitor.prototype, 'transaction');
   });
 
   afterEach(() => {
@@ -37,8 +33,6 @@ describe('analyticsService', () => {
       data;
 
     beforeEach(() => {
-      Visitor.prototype.event.yields();
-
       eventType = 'Cron';
       data = {
         category: 'behavior',
@@ -326,21 +320,6 @@ describe('analyticsService', () => {
           });
       });
     });
-
-    context('GA', () => {
-      it('calls out to GA', () => analyticsService.track(eventType, data)
-        .then(() => {
-          expect(Visitor.prototype.event).to.be.calledOnce;
-        }));
-
-      it('sends details about event', () => analyticsService.track(eventType, data)
-        .then(() => {
-          expect(Visitor.prototype.event).to.be.calledWith({
-            ea: 'Cron',
-            ec: 'behavior',
-          });
-        }));
-    });
   });
 
   describe('#trackPurchase', () => {
@@ -348,14 +327,7 @@ describe('analyticsService', () => {
       itemSpy;
 
     beforeEach(() => {
-      Visitor.prototype.event.yields();
-
       itemSpy = sandbox.stub().returnsThis();
-
-      Visitor.prototype.transaction.returns({
-        item: itemSpy,
-        send: sandbox.stub().yields(),
-      });
 
       data = {
         uuid: 'user-id',
@@ -560,26 +532,6 @@ describe('analyticsService', () => {
             });
           });
       });
-    });
-
-    context('GA', () => {
-      it('calls out to GA', () => analyticsService.trackPurchase(data)
-        .then(() => {
-          expect(Visitor.prototype.event).to.be.calledOnce;
-          expect(Visitor.prototype.transaction).to.be.calledOnce;
-        }));
-
-      it('sends details about purchase', () => analyticsService.trackPurchase(data)
-        .then(() => {
-          expect(Visitor.prototype.event).to.be.calledWith({
-            ea: 'checkout',
-            ec: 'commerce',
-            el: 'PayPal',
-            ev: 8,
-          });
-          expect(Visitor.prototype.transaction).to.be.calledWith('user-id', 8);
-          expect(itemSpy).to.be.calledWith(8, 1, 'paypal-checkout', 'Gems', 'checkout');
-        }));
     });
   });
 
