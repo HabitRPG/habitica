@@ -359,7 +359,11 @@ schema.statics.toJSONCleanChat = async function groupToJSONCleanChat (group, use
     .map(chatMsg => {
       // Translate system messages
       if (!_.isEmpty(chatMsg.info)) {
-        chatMsg.text = translateMessage(userLang, chatMsg.info);
+        chatMsg.unformattedText = translateMessage(userLang, chatMsg.info);
+        chatMsg.text = chatMsg.unformattedText;
+        if (!chatMsg.text.includes('`')) {
+          chatMsg.text = `\`${chatMsg.text}\``;
+        }
       }
 
       // Convert to timestamps because Android expects it
