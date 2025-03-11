@@ -381,8 +381,9 @@
     </div>
     <b-modal id="sub_termination_modal" title="Set Termination Date">
       <p>
-        You can set the sub benefit termination date to today or to the last day of the current billing cycle.
-        Any extra subscription credit will then be processed and automatically added onto the selected date.
+        You can set the sub benefit termination date to today or to the last
+        day of the current billing cycle. Any extra subscription credit will
+        then be processed and automatically added onto the selected date.
       </p>
       <template #modal-footer>
         <div class="mt-3 btn btn-secondary" @click="$bvModal.hide('sub_termination_modal')">
