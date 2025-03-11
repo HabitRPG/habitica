@@ -94,9 +94,9 @@ export default {
         ) {
           currency.notEnough = true;
         }
-        if (this.neededCurrencyOnly) {
-          return currencies.filter(curr => curr.type === this.currencyNeeded);
-        }
+      }
+      if (this.neededCurrencyOnly) {
+        return currencies.filter(curr => curr.type === this.currencyNeeded);
       }
       return currencies;
     },

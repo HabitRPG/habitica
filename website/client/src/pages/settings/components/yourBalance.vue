@@ -29,9 +29,6 @@ export default {
     amountNeeded: {
       type: Number,
     },
-    neededCurrencyOnly: {
-      type: Boolean,
-    },
   },
 };
 </script>
