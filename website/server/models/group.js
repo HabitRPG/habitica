@@ -517,7 +517,7 @@ schema.methods.isMember = function isGroupMember (user) {
 };
 
 schema.methods.getMemberCount = async function getMemberCount (options) {
-  let excludeUserId = {};
+  let excludeUserId = null;
   if (options && options.excludeUserId) {
     excludeUserId = options.excludeUserId;
   }
