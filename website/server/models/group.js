@@ -517,7 +517,10 @@ schema.methods.isMember = function isGroupMember (user) {
 };
 
 schema.methods.getMemberCount = async function getMemberCount (options) {
-  const { excludeUserId } = options ?? {};
+  let excludeUserId = {};
+  if (options && options.excludeUserId) {
+    excludeUserId = options.excludeUserId;
+  }
   let query = { guilds: this._id };
 
   if (this.type === 'party') {
