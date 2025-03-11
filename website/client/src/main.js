@@ -22,6 +22,7 @@ import getStore from './store';
 import StoreModule from './libs/store';
 import './filters/registerGlobals';
 import i18n from './libs/i18n';
+import LoadScript from 'vue-plugin-load-script';
 
 const IS_PRODUCTION = import.meta.env.NODE_ENV === 'production'; // eslint-disable-line no-process-env
 
@@ -48,9 +49,10 @@ Vue.use(TooltipPlugin);
 Vue.use(NavbarPlugin);
 Vue.use(CollapsePlugin);
 Vue.use(Fragment.Plugin);
+Vue.use(LoadScript);
 
 setUpLogging();
-setupAnalytics(); // just create queues for analytics, no scripts loaded at this time
+setupAnalytics();
 const store = getStore();
 
 if (import.meta.env.TIME_TRAVEL_ENABLED === 'true') {
