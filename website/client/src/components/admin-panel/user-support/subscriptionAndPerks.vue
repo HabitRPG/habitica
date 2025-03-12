@@ -193,13 +193,13 @@
                 <a class="btn btn-danger"
               href="#"
                   v-b-modal.sub_termination_modal
-                  v-if="!hero.purchased.plan.dateTerminated && hero.purchased.plan.plaId">
+                  v-if="!hero.purchased.plan.dateTerminated && hero.purchased.plan.planId">
                   Terminate
               </a>
               </div>
             </div>
             <small v-if="!hero.purchased.plan.dateTerminated
-              && hero.purchased.plan.plaId" class="text-success">
+              && hero.purchased.plan.planId" class="text-success">
               The subscription does not have a termination date and is active.
             </small>
           </div>
