@@ -120,9 +120,12 @@ api.inviteToQuest = {
 
     // send out invites
     const inviterVars = getUserInfo(user, ['name', 'email']);
-    const membersToEmail = members.filter(async member => {
+    const membersToEmail = [];
+
+    for (const member of members) {
       // send push notifications while filtering members before sending emails
       if (member.preferences.pushNotifications.invitedQuest !== false) {
+        // eslint-disable-next-line no-await-in-loop
         await sendPushNotification(
           member,
           {
@@ -141,8 +144,11 @@ api.inviteToQuest = {
         quest,
       });
 
-      return member.preferences.emailNotifications.invitedQuest !== false;
-    });
+      if (member.preferences.emailNotifications.invitedQuest !== false) {
+        membersToEmail.push(member);
+      }
+    }
+
     sendTxnEmail(membersToEmail, `invite-${quest.boss ? 'boss' : 'collection'}-quest`, [
       { name: 'QUEST_NAME', content: quest.text() },
       { name: 'INVITER', content: inviterVars.name },

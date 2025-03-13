@@ -65,7 +65,13 @@ export function getGroupUrl (group) {
   return groupUrl;
 }
 
-// Send a transactional email using Mandrill through the external email server
+/**
+ * Send a transactional email using Mandrill through the external email server
+ *
+ * Individual "canSend" per type needs to be done before,
+ * internally it checks by `getUserInfo` if the
+ * `unsubscribeFromAll` is set to true, if so it won't send the email.
+ */
 export async function sendTxn (mailingInfoArray, emailType, variables, personalVariables) {
   if (!Array.isArray(mailingInfoArray)) {
     mailingInfoArray = [mailingInfoArray]; // eslint-disable-line no-param-reassign
@@ -73,7 +79,7 @@ export async function sendTxn (mailingInfoArray, emailType, variables, personalV
 
   for (const entry of mailingInfoArray) {
     if (typeof entry === 'string'
-      && (typeof entry._id === 'undefined' && typeof entry.email === 'undefined')
+      || (typeof entry._id === 'undefined' && typeof entry.email === 'undefined')
     ) {
       throw new Error('Argument Error mailingInfoArray: does not contain email or _id');
     }
@@ -100,7 +106,7 @@ export async function sendTxn (mailingInfoArray, emailType, variables, personalV
     // Always send reset-password emails
     // Don't check canSend for non registered users as already checked before
     .filter(mailingInfo => mailingInfo.email
-        && (!mailingInfo._id || mailingInfo.canSend || emailType === 'reset-password'));
+      && (!mailingInfo._id || mailingInfo.canSend || emailType === 'reset-password'));
 
   // Personal variables are personal to each email recipient, if they are missing
   // we manually create a structure for them with RECIPIENT_NAME and RECIPIENT_UNSUB_URL

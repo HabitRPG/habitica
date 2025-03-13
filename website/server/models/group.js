@@ -770,22 +770,27 @@ schema.methods.startQuest = async function startQuest (user) {
   const membersToEmail = [];
 
   // send notifications and webhooks in the background without blocking
-  await members.forEach(async member => {
-    if (member._id !== user._id) {
-      // send push notifications and filter users that disabled emails
-      if (member.preferences.emailNotifications.questStarted !== false) {
-        membersToEmail.push(member);
-      }
+  for (const member of members) {
+    if (member._id === user._id) {
+      // early "exit", saving one indention level
+      // eslint-disable-next-line no-continue
+      continue;
+    }
 
-      // send push notifications and filter users that disabled emails
-      if (member.preferences.pushNotifications.questStarted !== false) {
-        const memberLang = member.preferences.language;
-        await sendPushNotification(member, {
-          title: quest.text(memberLang),
-          message: shared.i18n.t('questStarted', memberLang),
-          identifier: 'questStarted',
-        });
-      }
+    // add email to send if that user did not disabled this email
+    if (member.preferences.emailNotifications.questStarted !== false) {
+      membersToEmail.push(member);
+    }
+
+    // send push notifications if that user did not disabled this notifications
+    if (member.preferences.pushNotifications.questStarted !== false) {
+      const memberLang = member.preferences.language;
+      // eslint-disable-next-line no-await-in-loop
+      await sendPushNotification(member, {
+        title: quest.text(memberLang),
+        message: shared.i18n.t('questStarted', memberLang),
+        identifier: 'questStarted',
+      });
     }
 
     // Send webhooks
@@ -794,7 +799,7 @@ schema.methods.startQuest = async function startQuest (user) {
       group: this,
       quest,
     });
-  });
+  }
 
   // Send emails in bulk
   sendTxnEmail(membersToEmail, 'quest-started', [
