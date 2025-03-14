@@ -15,7 +15,7 @@
         <div
           class="svg-icon mr-1"
           :title="$t('liked')"
-          v-html="icons.liked"
+          v-html="likedIcon"
         ></div>
         +{{ likeCount }}
       </div>
@@ -47,7 +47,7 @@
     width: 16px;
   }
 
-  &.isLiked {
+  &.isLiked.currentUserLiked {
     color: $purple-200;
     font-weight: bold;
 
@@ -95,7 +95,11 @@ export default {
       }),
     };
   },
-
+  computed: {
+    likedIcon () {
+      return this.likedByCurrentUser ? this.icons.liked : this.icons.like;
+    },
+  },
   methods: {
     async like () {
       this.$emit('toggle-like');
