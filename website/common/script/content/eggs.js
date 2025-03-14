@@ -437,9 +437,9 @@ const quests = {
   },
   Alpaca: {
     text: t('questEggAlpacaText'),
-    mountText: t('questEggAlpagaMountText'),
+    mountText: t('questEggAlpacaMountText'),
     adjective: t('questEggAlpacaAdjective'),
-    canbuy: hasQuestAchievementFunction('alpaca'),
+    canBuy: hasQuestAchievementFunction('alpaca'),
   },
 };
 

@@ -241,6 +241,7 @@ export const MONTHLY_SCHEDULE = {
           'monkey',
           'falcon',
           'alligator',
+          'alpaca',
         ],
       },
       {
