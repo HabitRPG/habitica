@@ -14,6 +14,7 @@ const potentialFeaturedPetQuests = [
   'otter',
 
   'monkey',
+  'alpaca',
 
   'sloth',
 

@@ -262,6 +262,7 @@ export const MONTHLY_SCHEDULE = {
         items: [
           'Shimmer',
           'Glass',
+          'Balloon',
         ],
       },
     ],

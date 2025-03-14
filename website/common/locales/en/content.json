@@ -279,6 +279,10 @@
   "questEggOtterMountText": "Otter",
   "questEggOtterAdjective": "a perfidious",
 
+  "questEggAlpacaText": "Alpaca",
+  "questEggAlpacaMountText": "Alpaca",
+  "questEggAlpacaAdjective": "an overpacked",
+
   "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
 
   "hatchingPotionBase": "Base",
@@ -345,6 +349,7 @@
   "hatchingPotionKoi": "Koi",
   "hatchingPotionGingerbread": "Gingerbread",
   "hatchingPotionJade": "Jade",
+  "hatchingPotionBalloon": "Balloon",
 
   "hatchingPotionNotes": "Pour this on an egg, and it will hatch as a <%= potText(locale) %> Pet.",
   "premiumPotionUnlimitedNotes": "Not usable on Quest Pet eggs.",
