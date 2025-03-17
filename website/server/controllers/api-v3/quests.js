@@ -19,6 +19,7 @@ import common from '../../../common';
 import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
 import { apiError } from '../../libs/apiError';
 import { questActivityWebhook } from '../../libs/webhook';
+import { model as UserHistory } from '../../models/userHistory';
 
 const analytics = getAnalyticsServiceByEnvironment();
 
@@ -233,6 +234,10 @@ api.acceptQuest = {
       uuid: user._id,
       headers: req.headers,
     });
+
+    await UserHistory.beginUserHistoryUpdate(user._id)
+      .withQuestInviteResponse(group.quest.key, 'accept')
+      .commit();
   },
 };
 
@@ -294,6 +299,10 @@ api.rejectQuest = {
       uuid: user._id,
       headers: req.headers,
     });
+
+    await UserHistory.beginUserHistoryUpdate(user._id)
+      .withQuestInviteResponse(group.quest.key, 'reject')
+      .commit();
   },
 };
 

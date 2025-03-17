@@ -7,6 +7,7 @@ import common from '../../common';
 import { preenUserHistory } from './preening';
 import { sleep } from './sleep';
 import { revealMysteryItems } from './payments/subscriptions';
+import { model as UserHistory } from '../models/userHistory';
 
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
@@ -470,6 +471,10 @@ export async function cron (options = {}) {
   // Analytics
   user.flags.cronCount += 1;
   trackCronAnalytics(analytics, user, _progress, options);
+
+  await UserHistory.beginUserHistoryUpdate(user._id)
+    .withCron()
+    .commit();
 
   return _progress;
 }
