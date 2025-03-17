@@ -1,10 +1,12 @@
 <template>
-  <form @submit.prevent="saveHero({ hero: {
-    _id: hero._id,
-    contributor: hero.contributor,
-    secret: hero.secret,
-    permissions: hero.permissions,
-  }, msg: 'Contributor details', clearData: true })">
+  <form
+    @submit.prevent="saveHero({ hero: {
+      _id: hero._id,
+      contributor: hero.contributor,
+      secret: hero.secret,
+      permissions: hero.permissions,
+    }, msg: 'Contributor details', clearData: true })"
+  >
     <div class="card mt-2">
       <div class="card-header">
         <h3
@@ -13,9 +15,12 @@
           @click="expand = !expand"
         >
           Contributor Details
-          <b v-if="hasUnsavedChanges && !expand" class="text-warning float-right">
-          Unsaved changes
-        </b>
+          <b
+            v-if="hasUnsavedChanges && !expand"
+            class="text-warning float-right"
+          >
+            Unsaved changes
+          </b>
         </h3>
       </div>
       <div
