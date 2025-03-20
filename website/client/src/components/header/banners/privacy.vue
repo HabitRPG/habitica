@@ -15,11 +15,14 @@
     >
       <button
         class="btn btn-primary mb-2"
-        @click="close()"
+        @click="consent(true)"
       >
         {{ $t('acceptAllCookies') }}
       </button>
-      <button class="btn btn-secondary mb-2">
+      <button
+        class="btn btn-secondary mb-2"
+        @click="consent(false)"
+      >
         {{ $t('denyNonEssentialCookies') }}
       </button>
       <a
@@ -72,18 +75,19 @@
 
 <script>
 import { nextTick } from 'vue';
-import {
-  hideBanner, isBannerHidden,
-} from '@/libs/banner.func';
+import { GenericUserPreferencesMixin } from '@/pages/settings/components/genericUserPreferencesMixin';
 import { EVENTS } from '@/libs/events';
-
-const BANNER_ID = 'privacy-preferences';
+import { mapState } from '@/libs/store';
 
 export default {
+  mixins: [GenericUserPreferencesMixin],
   computed: {
     isStaticPage () {
       return this.$route.meta.requiresLogin === false;
     },
+    ...mapState({
+      user: 'user.data',
+    }),
   },
   data () {
     return {
@@ -91,17 +95,27 @@ export default {
     };
   },
   mounted () {
-    if (isBannerHidden(BANNER_ID)) {
+    if (localStorage.getItem('analyticsConsent') !== null
+      || this.user?.preferences?.analyticsConsent !== undefined
+    ) {
       this.hidden = true;
     }
   },
   methods: {
     close () {
-      hideBanner(BANNER_ID);
       this.hidden = true;
       nextTick(() => {
         this.$root.$emit(EVENTS.BANNER_HEIGHT_UPDATED);
       });
+    },
+    consent (decision) {
+      if (this.user) {
+        this.user.preferences.analyticsConsent = decision;
+        this.setUserPreference('analyticsConsent');
+      } else {
+        localStorage.setItem('analyticsConsent', decision);
+      }
+      this.close();
     },
     showPrivacyModal () {
       this.$root.$emit('bv::show::modal', 'privacy-preferences');

@@ -54,8 +54,8 @@
           >
             <div class="settings-label w-50"> {{ $t('performanceAnalytics') }}</div>
             <toggle-switch
-              v-model="user.preferences.privacy.disableAnalytics"
-              @change="setUserPreference('privacy', 'disableAnalytics')"
+              v-model="user.preferences.analyticsConsent"
+              @change="setUserPreference('analyticsConsent')"
             />
           </div>
           <div class="mb-4">

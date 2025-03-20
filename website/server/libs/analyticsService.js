@@ -217,13 +217,17 @@ function _setOnce (dataToSetOnce, uuid) {
 
 // There's no error handling directly here because it's handled inside _sendDataTo{Amplitude|Google}
 async function track (eventType, data, loggerOnly = false) {
+  const { user } = data;
+  if (!user.preferences?.analyticsConsent) {
+    return;
+  }
   const promises = [
     _sendDataToAmplitude(eventType, data, loggerOnly),
   ];
-  if (data.user && data.user.registeredThrough) {
+  if (user.registeredThrough) {
     promises.push(_setOnce({
-      registeredPlatform: data.user.registeredThrough,
-    }, data.uuid || data.user._id));
+      registeredPlatform: user.registeredThrough,
+    }, data.uuid || user._id));
   }
 
   return Promise.all(promises);
@@ -232,6 +236,10 @@ async function track (eventType, data, loggerOnly = false) {
 // There's no error handling directly here because
 // it's handled inside _sendPurchaseDataTo{Amplitude|Google}
 async function trackPurchase (data) {
+  const { user } = data;
+  if (!user.preferences?.analyticsConsent) {
+    return;
+  }
   return Promise.all([
     _sendPurchaseDataToAmplitude(data),
   ]);

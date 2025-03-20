@@ -16,7 +16,7 @@ const REQUIRED_FIELDS = ['eventCategory', 'eventAction'];
 function _getConsentedUser () {
   const store = getStore();
   const user = store.state.user.data;
-  if (user.preferences?.privacy?.disableAnalytics) return false;
+  if (!user?.preferences?.analyticsConsent) return false;
   return user;
 }
 

@@ -265,6 +265,12 @@ export default {
       this.$store.state.isUserLoaded = true;
       Analytics.setUser();
       Analytics.updateUser();
+      const analyticsConsent = localStorage.getItem('analyticsConsent');
+      if (analyticsConsent !== null
+        && analyticsConsent !== this.user.preferences.analyticsConsent
+      ) {
+        this.$store.dispatch('user:set', { 'preferences.analyticsConsent': analyticsConsent });
+      }
       if (window && window['habitica-i18n']) {
         if (this.user.preferences.language === window['habitica-i18n'].language.code) {
           return null;

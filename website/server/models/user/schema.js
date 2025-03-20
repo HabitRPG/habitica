@@ -655,10 +655,7 @@ export const UserSchema = new Schema({
         return isValidCategory;
       },
     },
-    privacy: {
-      disableAnalytics: { $type: Boolean, default: false },
-      acceptedWebCookies: { $type: Boolean, default: false },
-    },
+    analyticsConsent: Boolean,
   },
   profile: {
     blurb: String,
