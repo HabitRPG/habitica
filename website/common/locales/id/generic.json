@@ -216,5 +216,8 @@
     "leaveHabitica": "Kamu akan meninggalkan Habitica.com",
     "skipExternalLinkModal": "Tahan CTRL (Windows) atau Command (Mac) saat mengklik tautan untuk melewati modal ini.",
     "refreshList": "Segarkan Daftar",
-    "leaveHabiticaText": "Habitica tidak bertanggung jawab atas konten situs web tertaut yang tidak dimiliki atau dioperasikan oleh HabitRPG.<br>Harap dicatat bahwa aturan di situs web ini mungkin berbeda dari pedoman komunitas Habitica."
+    "leaveHabiticaText": "Habitica tidak bertanggung jawab atas konten situs web tertaut yang tidak dimiliki atau dioperasikan oleh HabitRPG.<br>Harap dicatat bahwa aturan di situs web ini mungkin berbeda dari pedoman komunitas Habitica.",
+    "titleCustomizations": "Kustomisasi",
+    "allNotifications": "Semua Notifikasi",
+    "general": "Umum"
 }

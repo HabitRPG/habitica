@@ -1,8 +1,8 @@
 {
     "tavern": "Herberg Chat",
     "tavernChat": "Herbergchat",
-    "innCheckOutBanner": "Je bent momenteel in de Herberg. Je Dagelijkse Taken zullen je niet verwonden en je zal geen vooruitgang maken in Queesten.",
-    "innCheckOutBannerShort": "Je bent ingecheckt bij de Herberg.",
+    "innCheckOutBanner": "Je hebt schade momenteel gepauzeerd. Je Dagelijkse Taken brengen je geen schade toe en je boekt vooruitgang bij Queesten.",
+    "innCheckOutBannerShort": "Je hebt schade gepauzeerd.",
     "resumeDamage": "Krijgen van schade Hervatten",
     "helpfulLinks": "Nuttige links",
     "lookingForGroup": "Berichten: gezelschap gezocht",

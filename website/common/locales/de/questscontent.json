@@ -824,5 +824,12 @@
     "questOtterDropOtterEgg": "Otter (Ei)",
     "questOtterUnlockText": "Schält Otter Eier zum Kauf im Marktplatz frei",
     "questOtterBoss": "Der Verschwörer",
-    "questOtterRageEffect": "Der Verschwörer wirft Teile deiner To-Do Liste in die Luft! Der Boss erhält 30% seiner Lebenspunkte zurück!"
+    "questOtterRageEffect": "Der Verschwörer wirft Teile deiner To-Do Liste in die Luft! Der Boss erhält 30% seiner Lebenspunkte zurück!",
+    "questOtterRageDescription": "Dieser Balken füllt sich, wenn du deine Tagesaufgaben nicht erledigst. Wenn er voll ist, erhält Der Verschwörer einige Lebenspunkte zurück!",
+    "questJadeText": "Ein Matter Unglücksbringer",
+    "questJadeBoss": "Matter Unglücksbringer",
+    "questJadeDropJadePotion": "Jade Schlüpfelixier",
+    "questJadeUnlockText": "Schält Jade Schlüpfelixier zum Kauf im Marktplatz frei.",
+    "questOtterRageTitle": "To-Do Abriß!",
+    "questJadeNotes": "Du bist zu Hause und starrst auf den Stapel dreckigen Geschirrs in der Spüle. Auf den Haufen schmutziger Wäsche in einer wahllosen Ecke des Raums. Auf die leeren Tassen und Snackverpackungen um deinen Tisch herum...<br><br>Du seufzt. „Warum ist da immer noch mehr dreckiges Geschirr... Die Sauerei hört nie auf.“ Es ist so demotivierend. Du findest dich auf der Couch wieder, endlos durch die neuesten Trends scrollend. Wer weiß, wie lang du da warst...<br><br>Als du von deinem Telefon hochsiehst, ist alles grün. Dies ist nicht dein Wohnzimmer. Als du aufstehst, findest du dich an der Seite eines leuchtend grünen Berges wieder.<br><br>Bewegung in der Ferne erregt deine Aufmerksamkeit. Eine steinerne grüne Gestalt grunzt, während sie einen Fels das steinige Terrain hoch wälzt. Er macht einige Fortschritte, aber ein kleiner Ausrutscher seines Fußes lässt den glänzenden Fels zurück nach unten rollen, direkt auf dich zu!<br><br>Er entdeckt dich, als er zu dem Brocken Jade rennt, der auf dich zu poltert! „Du denkst also, der Abwasch ist übel?“ schreit die Gestalt, „Versuch das!“"
 }

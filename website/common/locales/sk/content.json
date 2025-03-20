@@ -392,5 +392,12 @@
     "questEggDogText": "Šteniatko",
     "questEggDogMountText": "Pes",
     "questEggDogAdjective": "priateľský",
-    "hatchingPotionGingerbread": "Perník"
+    "hatchingPotionGingerbread": "Perník",
+    "questEggCatText": "Mačiatko",
+    "questEggCatMountText": "Mačka",
+    "questEggCatAdjective": "zlomyseľná",
+    "questEggOtterText": "Vydra",
+    "questEggOtterMountText": "Vydra",
+    "questEggOtterAdjective": "zradná",
+    "hatchingPotionJade": "Jadeitový"
 }

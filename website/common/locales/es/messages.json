@@ -56,7 +56,5 @@
     "messagePetMountUnEquipped": "Mascota y Montura no equipadas.",
     "messageCostumeUnEquipped": "Disfraz no equipado.",
     "messageBattleGearUnEquipped": "Equipamiento de batalla no equipado.",
-    "featureRetired": "Esta función ya no está disponible.",
-    "beginningOfConversationReminder": "¡Recuerda que es muy importante que seas amable, respetuoso y que sigas la Normas de la Comunidad!",
-    "beginningOfConversation": "Este es el principio de tu conversación con <%= userName %>."
+    "featureRetired": "Esta función ya no está disponible."
 }

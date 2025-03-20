@@ -28,6 +28,10 @@ import stripePayments from '../../libs/payments/stripe';
 import amzLib from '../../libs/payments/amazon';
 import { apiError } from '../../libs/apiError';
 import { model as UserNotification } from '../../models/userNotification';
+import {
+  leaveGroup,
+  removeMessagesFromMember,
+} from '../../libs/groups';
 
 const { MAX_SUMMARY_SIZE_FOR_GUILDS } = common.constants;
 const MAX_EMAIL_INVITES_BY_USER = 200;
@@ -776,21 +780,6 @@ api.rejectGroupInvite = {
   },
 };
 
-function _removeMessagesFromMember (member, groupId) {
-  if (member.newMessages[groupId]) {
-    delete member.newMessages[groupId];
-    member.markModified('newMessages');
-  }
-
-  member.notifications = member.notifications.filter(n => {
-    if (n && n.type === 'NEW_CHAT_MESSAGE' && n.data && n.data.group && n.data.group.id === groupId) {
-      return false;
-    }
-
-    return true;
-  });
-}
-
 /**
  * @api {post} /api/v3/groups/:groupId/leave Leave a group
  * @apiName LeaveGroup
@@ -840,32 +829,13 @@ api.leaveGroup = {
     if (validationErrors) throw validationErrors;
 
     const { groupId } = req.params;
-    const group = await Group.getGroup({
-      user, groupId, fields: '-chat', requireMembership: true,
+    await leaveGroup({
+      res,
+      user,
+      groupId,
+      keep: req.query.keep,
+      keepChallenges: req.body.keepChallenges,
     });
-    if (!group) {
-      throw new NotFound(res.t('groupNotFound'));
-    }
-
-    // During quests, check if user can leave
-    if (group.type === 'party') {
-      if (group.quest && group.quest.leader === user._id) {
-        throw new NotAuthorized(res.t('questLeaderCannotLeaveGroup'));
-      }
-
-      if (
-        group.quest && group.quest.active
-        && group.quest.members && group.quest.members[user._id]
-      ) {
-        throw new NotAuthorized(res.t('cannotLeaveWhileActiveQuest'));
-      }
-    }
-
-    await group.leave(user, req.query.keep, req.body.keepChallenges);
-    _removeMessagesFromMember(user, group._id);
-    await user.save();
-
-    if (group.hasNotCancelled()) await group.updateGroupPlan(true);
     res.respond(200, {});
   },
 };
@@ -981,7 +951,7 @@ api.removeGroupMember = {
         member.party._id = undefined; // TODO remove quest information too? Use group.leave()?
       }
 
-      _removeMessagesFromMember(member, group._id);
+      removeMessagesFromMember(member, group._id);
 
       if (group.quest && group.quest.active && group.quest.leader === member._id) {
         member.items.quests[group.quest.key] += 1;

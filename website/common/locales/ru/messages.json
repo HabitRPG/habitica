@@ -56,7 +56,5 @@
     "newsPostNotFound": "Новости не найдены, либо вы не имеете доступа.",
     "messageAllUnEquipped": "Все снято.",
     "messageBackgroundUnEquipped": "Выбор фона сброшен.",
-    "featureRetired": "Данная функция не поддерживается.",
-    "beginningOfConversation": "Это начало вашего диалога с <%= имяпользователя %>.",
-    "beginningOfConversationReminder": "Не забывайте проявлять доброту, уважение и соблюдать Правила сообщества!"
+    "featureRetired": "Данная функция не поддерживается."
 }

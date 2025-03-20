@@ -1,5 +1,11 @@
 <template>
-  <form @submit.prevent="saveHero({hero, msg: 'Privileges or Gems or Moderation Notes'})">
+  <form @submit.prevent="saveHero({hero: {
+    _id: hero._id,
+    flags: hero.flags,
+    balance: hero.balance,
+    auth: hero.auth,
+    secret: hero.secret,
+  }, msg: 'Privileges or Gems or Moderation Notes'})">
     <div class="card mt-2">
       <div class="card-header">
         <h3
@@ -8,6 +14,9 @@
           @click="expand = !expand"
         >
           Privileges, Gem Balance
+          <b v-if="hasUnsavedChanges && !expand" class="text-warning float-right">
+          Unsaved changes
+        </b>
         </h3>
       </div>
       <div
@@ -117,13 +126,16 @@
       </div>
       <div
         v-if="expand"
-        class="card-footer"
+        class="card-footer d-flex align-items-center justify-content-between"
       >
         <input
           type="submit"
           value="Save"
           class="btn btn-primary mt-1"
         >
+        <b v-if="hasUnsavedChanges" class="text-warning float-right">
+          Unsaved changes
+        </b>
       </div>
     </div>
   </form>
@@ -167,6 +179,10 @@ export default {
     },
     hero: {
       type: Object,
+      required: true,
+    },
+    hasUnsavedChanges: {
+      type: Boolean,
       required: true,
     },
   },

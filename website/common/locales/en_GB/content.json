@@ -395,5 +395,9 @@
     "questEggCatText": "Kitten",
     "questEggCatMountText": "Cat",
     "questEggCatAdjective": "a mischievous",
-    "hatchingPotionGingerbread": "Gingerbread"
+    "hatchingPotionGingerbread": "Gingerbread",
+    "questEggOtterText": "Otter",
+    "questEggOtterMountText": "Otter",
+    "questEggOtterAdjective": "a perfidious",
+    "hatchingPotionJade": "Jade"
 }

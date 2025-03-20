@@ -53,7 +53,7 @@
     "mysterySet201602": "Conjunto de Rompecorazones",
     "mysterySet201603": "Conjunto de Trébol Afortunado",
     "mysterySet201604": "Conjunto de Guerrero Hoja",
-    "mysterySet201605": "Conjunto de Bardo de Marcha",
+    "mysterySet201605": "Conjunto de Mercader Bardo",
     "mysterySet201606": "Conjunto de Ropaje de Selkie",
     "mysterySet201607": "Conjunto de Picaro del Lecho marino",
     "mysterySet201608": "Conjunto de Tormenta eléctrica",
@@ -260,5 +260,6 @@
     "unlockNGemsGift": "Ellos desbloquearan <strong><%= count %> Gemas </strong> al mes en el mercado",
     "maxGemCapGift": "Ellos tendrán el máximo <strong>Capacidad de Gemas</strong>",
     "mysterySet202501": "Conjunto Vinculaescarcha Pálido",
-    "mysterySet202502": "Conjunto de Arlequín Sincero"
+    "mysterySet202502": "Conjunto de Arlequín Sincero",
+    "mysterySet202503": "Conjunto de Juggernaut Jade"
 }

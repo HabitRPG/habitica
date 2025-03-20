@@ -10,20 +10,21 @@
       slot="content"
       v-html="$t('newSubscriberItem')"
     ></div>
-    <div
+    <Sprite
       slot="icon"
-      :class="mysteryClass"
-    ></div>
+      :image-name="mysteryClass" />
   </base-notification>
 </template>
 
 <script>
 import moment from 'moment';
 import BaseNotification from './base';
+import Sprite from '@/components/ui/sprite.vue';
 
 export default {
   components: {
     BaseNotification,
+    Sprite,
   },
   props: ['notification', 'canRemove'],
   computed: {

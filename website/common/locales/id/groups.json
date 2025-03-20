@@ -413,5 +413,8 @@
     "lookingForPartyTitle": "Temukan Anggota",
     "findMorePartyMembers": "Temukan Lebih Banyak Anggota",
     "noOneLooking": "Tidak ada yang mencari Party sekarang. <br>Kamu bisa kembali lagi nanti!",
-    "chatSunsetWarning": "⚠️ <strong>Obrolan Guild Habitica dan Kedai Minuman akan dihentikan pada 8/8/2023.</strong> <a href='/static/faq/tavern-and-guilds'>Klik disini</a> untuk membaca selengkapnya tentang perubahan ini."
+    "chatSunsetWarning": "⚠️ <strong>Obrolan Guild Habitica dan Kedai Minuman akan dihentikan pada 8/8/2023.</strong> <a href='/static/faq/tavern-and-guilds'>Klik disini</a> untuk membaca selengkapnya tentang perubahan ini.",
+    "challengeBannedSlurs": "Tantanganmu mengandung kata kasar yang melanggar pedoman komunitas Habitica, dan hak istimewamu untuk mengobrol serta membuat Tantangan telah dicabut. Hubungi admin@habitica.com untuk informasi lebih lanjut.",
+    "challengeBannedWords": "Tantanganmu mengandung satu atau lebih kata kasar atau referensi ke topik dewasa. Silakan ubah Tantanganmu agar bisa disimpan. Kamu harus menghapus kata tersebut, bukan hanya menyensorinya.",
+    "challengeBannedSlursPrivate": "Tantanganmu mengandung kata kasar yang melanggar pedoman komunitas Habitica. Silakan hapus kata tersebut agar Tantanganmu bisa disimpan."
 }

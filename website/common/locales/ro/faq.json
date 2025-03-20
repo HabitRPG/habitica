@@ -2,5 +2,15 @@
     "frequentlyAskedQuestions": "Întrebări adresate frecvent",
     "iosFaqStillNeedHelp": "Dacă aveți o întrebare care nu se află pe această listă sau pe [Întrebări frecvente Wiki](https://habitica.fandom.com/wiki/FAQ), veniți să întrebați în chat-ul Taclale la Cârciumă sub Meniu > Taclale la Cârciumă! Suntem fericiți să vă ajutăm.",
     "androidFaqStillNeedHelp": "Dacă aveți o întrebare care nu se află pe această listă sau pe [Întrebări frecvente Wiki](https://habitica.fandom.com/wiki/FAQ), veniți să întrebați în chat-ul Taclale la Cârciumă sub Meniu > Taclale la Cârciumă! Suntem fericiți să vă ajutăm.",
-    "webFaqStillNeedHelp": "Dacă aveți o întrebare care nu se află pe această listă sau pe [Întrebări frecvente Wiki](https://habitica.fandom.com/wiki/FAQ), întrebați în [Ghilda Ajutor Habitica](https://habitica.com/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a)! Suntem fericiți să vă ajutăm."
+    "webFaqStillNeedHelp": "Dacă aveți o întrebare care nu se află pe această listă sau pe [Întrebări frecvente Wiki](https://habitica.fandom.com/wiki/FAQ), întrebați în [Ghilda Ajutor Habitica](https://habitica.com/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a)! Suntem fericiți să vă ajutăm.",
+    "commonQuestions": "Întrebări Frecvente",
+    "faqQuestion25": "Care sunt diferitele tipuri de sarcini?",
+    "faqQuestion26": "Care sunt niște exemple de sarcini?",
+    "faqQuestion27": "De ce se schimbă culorile sarcinilor?",
+    "faqQuestion28": "Pot întrerupe sarcinile zilnice dacă am nevoie de o pauză?",
+    "faqQuestion29": "Cum recuperez HP-ul?",
+    "webFaqAnswer29": "Poți recupera 15 HP dacă cumperi o Poțiune de Viață din coloana Recompense pentru 25 Aur. În plus, vei primi HP complet mereu când treci la următorul nivel!",
+    "faqQuestion30": "Ce se întâmplă atunci când rămân fără HP?",
+    "webFaqAnswer30": "Daca HP-ul tău ajunge la valoarea zero, vei pierde un nivel, tot aurul tău, și o piesă de Echipament care va putea fi rescumpărată.",
+    "faqQuestion31": "De ce pierd HP când interacționez cu o sarcină non-negativă?"
 }

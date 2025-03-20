@@ -1786,5 +1786,7 @@
     "eyewearSpecialPinkHalfMoonNotes": "렌즈 위로 분홍색 테가 있는 안경. 효과가 없음.",
     "headArmoireJadeHelmText": "검은 투구",
     "shieldArmoireSoftBlackPillowText": "Soft Blue Pillow",
-    "gearItemsCompleted": "당신은 모든 <%=클라스 %> 장비를 소유하고 있습니다! 새로운 장비는 갈라스 시즌 동안 출시 됩니다."
+    "gearItemsCompleted": "모든 <%= klass %> 장비를 소유했습니다! Galas 시즌 기간 동안 새로운 장비가 출시됩니다.",
+    "moreArmoireGearAvailable": "그때까지 마법의 장비상자에서 <%= armoireCount %>만큼의 장비를 찾으세요!",
+    "moreArmoireGearComing": "마법의 장비상자도 매달 새로운 상품이 출시됩니다!"
 }

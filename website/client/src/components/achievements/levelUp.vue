@@ -48,7 +48,7 @@
         ></span>
       </div>
 
-      <div :class="questClass"></div>
+      <Sprite :image-name="questClass" />
     </section>
     <!-- @TODO: Keep this? .checkboxinput(type='checkbox', v-model=
 'user.preferences.suppressModals.levelUp', @change='changeLevelupSuppress()')
@@ -150,15 +150,12 @@ label(style='display:inline-block') {{ $t('dontShowAgain') }}
     section.greyed {
       padding-bottom: 17px
     }
-
-    .scroll {
-      margin: -11px auto 0;
-    }
   }
 </style>
 
 <script>
 import Avatar from '../avatar';
+import Sprite from '@/components/ui/sprite';
 import { mapState } from '@/libs/store';
 import starGroup from '@/assets/svg/star-group.svg';
 import sparkles from '@/assets/svg/sparkles-left.svg';
@@ -173,6 +170,7 @@ const levelQuests = {
 export default {
   components: {
     Avatar,
+    Sprite,
   },
   data () {
     return {
@@ -191,7 +189,9 @@ export default {
       return this.user.stats.lvl in levelQuests;
     },
     questClass () {
-      return `scroll inventory_quest_scroll_${levelQuests[this.user.stats.lvl]}`;
+      const questKey = levelQuests[this.user.stats.lvl];
+      if (questKey) return `inventory_quest_scroll_${questKey}`;
+      return '';
     },
   },
   methods: {

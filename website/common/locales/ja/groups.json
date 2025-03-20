@@ -422,8 +422,5 @@
     "challengeBannedSlursPrivate": "あなたのチャレンジには、ハビティカのコミュニティガイドラインに違反する中傷が含まれています。あなたのチャレンジを保存するには、それを削除してください。",
     "challengeBannedSlurs": "あなたのチャレンジにはHabiticaのコミュニティガイドラインに違反する中傷が含まれており、あなたのチャットおよびチャレンジ作成権限は剥奪されました。詳しくは admin@habitica.com までお問い合わせください。",
     "challengeBannedWords": "あなたのチャレンジには、1 つ以上の汚い言葉またはアダルト トピックへの言及が含まれています。チャレンジを保存できるように編集してください。単に検閲するのではなく、その言葉を削除する必要があります。",
-    "copyMessageAsToDo": "メッセージをTo Doとしてコピー",
-    "copyAsTodo": "To Doとしてコピー",
-    "messageAddedAsToDo": "メッセージをTo Doとしてコピーしました。",
     "upgradeYourCrew": "チームをアップグレードする準備はできていますか？"
 }

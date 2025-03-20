@@ -395,5 +395,9 @@
     "questEggCatText": "子ネコ",
     "questEggCatMountText": "ネコ",
     "questEggCatAdjective": "わんぱくな",
-    "hatchingPotionGingerbread": "ジンジャーブレッド"
+    "hatchingPotionGingerbread": "ジンジャーブレッド",
+    "questEggOtterText": "カワウソ",
+    "questEggOtterMountText": "カワウソ",
+    "questEggOtterAdjective": "不実な",
+    "hatchingPotionJade": "ヒスイ"
 }

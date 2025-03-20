@@ -40,10 +40,10 @@
     "backerTier": "Úroveň podporovateľa",
     "playerTiers": "Úrovne hráčov",
     "tier": "Úroveň",
-    "conRewardsURL": "https://habitica.fandom.com/wiki/Contributor_Rewards",
+    "conRewardsURL": "https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tier-rewards",
     "surveysSingle": "Pomohol Habitice rásť vyplnením dotazníka alebo s testovaním. Ďakujeme!",
     "surveysMultiple": "Pomohol Habitice rásť v <%= count %> prípadoch, buď vyplnením dotazníka alebo pomocou pri veľkom testovaní. Ďakujeme!",
     "blurbHallPatrons": "Toto je Sieň Patrónov, kde si uctievame ušľachtilých dobrodruhov, ktorí podporili pôvodnú Habitiku na Kickstarteri. Ďakujeme im za to, že nám pomohli priviesť Habitiku k životu!",
-    "blurbHallContributors": "Toto je Sieň Prispievateľov, kde je vzdaná česť open-source prispievateľom Habitici. Či už kódom, ilustráciami, hudbou, písaním alebo len pomáhaním, získali <a href='https://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'> drahokamy, exkluzívne vybavenie</a>, a <a href='https://habitica.fandom.com/wiki/Contributor_Titles' target='_blank'>prestížne tituly</a>. Aj ty môžeš prispieť do Habitiky! <a href='https://habitica.fandom.com/wiki/Contributing_to_Habitica' target='_blank'> Tu zistíš viac. </a>",
+    "blurbHallContributors": "Toto je Sieň Prispievateľov, kde je vzdaná česť open-source prispievateľom Habitici. Či už kódom, ilustráciami, hudbou, písaním alebo len pomáhaním, získali<a href='https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tier-rewards' target='_blank'>drahokamy, exkluzívne vybavenie</a>, a<a href='https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tiers' target='_blank'>prestížne tituly</a>. Aj ty môžeš prispieť do Habitiky!<a href='https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica' target='_blank'>Zisti viac tu.</a>",
     "noPrivAccess": "Nemáš požadované privilégiá."
 }

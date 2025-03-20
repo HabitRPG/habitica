@@ -17,6 +17,7 @@
         <li
           v-for="item in achievements"
           :key="item.path"
+          v-b-tooltip.hover="item.notes"
         >
           <form @submit.prevent="saveItem(item)">
             <span
@@ -27,7 +28,7 @@
                 {{ item.value }}
               </span>
               :
-              {{ itemText(item) }}
+              {{ item.text || item.key }} - <i> {{ item.key }} </i>
             </span>
 
             <div
@@ -68,6 +69,7 @@
               <li
                 v-for="item in nestedAchievements[achievementType]"
                 :key="item.path"
+                v-b-tooltip.hover="item.notes"
               >
                 <form @submit.prevent="saveItem(item)">
                   <span
@@ -78,7 +80,7 @@
                       {{ item.value }}
                     </span>
                     :
-                    {{ itemText(item) }}
+                    {{ item.text || item.key }} - <i> {{ item.key }} </i>
                   </span>
 
                   <div
@@ -143,79 +145,28 @@ function getText (achievementItem) {
   }
   const { titleKey } = achievementItem;
   if (titleKey !== undefined) {
-    return i18n.t(titleKey, 'en');
+    return i18n.t(titleKey);
   }
   const { singularTitleKey } = achievementItem;
   if (singularTitleKey !== undefined) {
-    return i18n.t(singularTitleKey, 'en');
+    return i18n.t(singularTitleKey);
   }
   return achievementItem.key;
 }
 
-function collateItemData (self) {
-  const achievements = [];
-  const nestedAchievements = {};
-  const basePath = 'achievements';
-  const ownedAchievements = self.hero.achievements;
-  const allAchievements = content.achievements;
-
-  for (const key of Object.keys(ownedAchievements)) {
-    const value = ownedAchievements[key];
-    if (typeof value === 'object') {
-      nestedAchievements[key] = [];
-      for (const nestedKey of Object.keys(value)) {
-        const valueIsInteger = self.integerTypes.includes(key);
-        let text = nestedKey;
-        if (allAchievements[key] && allAchievements[key][nestedKey]) {
-          text = getText(allAchievements[key][nestedKey]);
-        }
-        nestedAchievements[key].push({
-          key: nestedKey,
-          text,
-          achievementType: key,
-          modified: false,
-          path: `${basePath}.${key}.${nestedKey}`,
-          value: value[nestedKey],
-          valueIsInteger,
-        });
-      }
-    } else {
-      const valueIsInteger = self.integerTypes.includes(key);
-      achievements.push({
-        key,
-        text: getText(allAchievements[key]),
-        modified: false,
-        path: `${basePath}.${key}`,
-        value: ownedAchievements[key],
-        valueIsInteger,
-      });
-    }
+function getNotes (achievementItem, count) {
+  if (achievementItem === undefined) {
+    return '';
   }
-
-  for (const key of Object.keys(allAchievements)) {
-    if (key !== '' && !key.endsWith('UltimateGear') && !key.endsWith('Quest')) {
-      if (ownedAchievements[key] === undefined) {
-        const valueIsInteger = self.integerTypes.includes(key);
-        achievements.push({
-          key,
-          text: getText(allAchievements[key]),
-          modified: false,
-          path: `${basePath}.${key}`,
-          value: valueIsInteger ? 0 : false,
-          valueIsInteger,
-          neverOwned: true,
-        });
-      }
-    }
+  const { textKey } = achievementItem;
+  if (textKey !== undefined) {
+    return i18n.t(textKey, { count });
   }
-
-  self.achievements = achievements;
-  self.nestedAchievements = nestedAchievements;
-}
-
-function resetData (self) {
-  collateItemData(self);
-  self.nestedAchievementKeys.forEach(itemType => { self.expandItemType[itemType] = false; });
+  const { singularTextKey } = achievementItem;
+  if (singularTextKey !== undefined) {
+    return i18n.t(singularTextKey, { count });
+  }
+  return '';
 }
 
 export default {
@@ -241,26 +192,34 @@ export default {
       },
       nestedAchievementKeys: ['quests', 'ultimateGearSets'],
       integerTypes: ['streak', 'perfect', 'birthday', 'habiticaDays', 'habitSurveys', 'habitBirthdays',
-        'valentine', 'congrats', 'shinySeed', 'goodluck', 'thankyou', 'seafoam', 'snowball', 'quests'],
+        'valentine', 'congrats', 'shinySeed', 'goodluck', 'thankyou', 'seafoam', 'snowball', 'quests',
+        'rebirths', 'rebirthLevel', 'greeting', 'spookySparkles', 'nye', 'costumeContests', 'congrats',
+        'getwell', 'beastMasterCount', 'mountMasterCount', 'triadBingoCount',
+      ],
+      cardTypes: ['greeting', 'birthday', 'valentine', 'goodluck', 'thankyou', 'greeting', 'nye',
+        'congrats', 'getwell'],
       achievements: [],
       nestedAchievements: {},
     };
   },
   watch: {
     resetCounter () {
-      resetData(this);
+      this.resetData();
     },
   },
   mounted () {
-    resetData(this);
+    this.resetData();
   },
   methods: {
     async saveItem (item) {
-      // prepare the item's new value and path for being saved
-      this.hero.achievementPath = item.path;
-      this.hero.achievementVal = item.value;
-
-      await this.saveHero({ hero: this.hero, msg: item.path });
+      await this.saveHero({
+        hero: {
+          _id: this.hero._id,
+          achievementPath: item.path,
+          achievementVal: item.value,
+        },
+        msg: item.path,
+      });
       item.modified = false;
     },
     enableValueChange (item) {
@@ -270,14 +229,84 @@ export default {
         item.value = !item.value;
       }
     },
-    itemText (item) {
-      if (item.key === 'npc') {
-        return this.$t('npcAchievementName', { key: this.hero.backer && this.hero.backer.npc });
+    resetData () {
+      this.collateItemData();
+      this.nestedAchievementKeys.forEach(itemType => { this.expandItemType[itemType] = false; });
+    },
+    collateItemData () {
+      const achievements = [];
+      const nestedAchievements = {};
+      const basePath = 'achievements';
+      const ownedAchievements = this.hero.achievements;
+      const allAchievements = content.achievements;
+
+      const ownedKeys = Object.keys(ownedAchievements).sort();
+      for (const key of ownedKeys) {
+        const value = ownedAchievements[key];
+        let contentKey = key;
+        if (this.cardTypes.indexOf(key) !== -1) {
+          contentKey += 'Cards';
+        }
+        if (typeof value === 'object') {
+          nestedAchievements[key] = [];
+          for (const nestedKey of Object.keys(value)) {
+            const valueIsInteger = this.integerTypes.includes(key);
+            let text = nestedKey;
+            if (allAchievements[key] && allAchievements[key][contentKey]) {
+              text = getText(allAchievements[key][contentKey]);
+            }
+            let notes = '';
+            if (allAchievements[key] && allAchievements[key][contentKey]) {
+              notes = getNotes(allAchievements[key][contentKey], ownedAchievements[key]);
+            }
+            nestedAchievements[key].push({
+              key: nestedKey,
+              text,
+              notes,
+              achievementType: key,
+              modified: false,
+              path: `${basePath}.${key}.${nestedKey}`,
+              value: value[nestedKey],
+              valueIsInteger,
+            });
+          }
+        } else {
+          const valueIsInteger = this.integerTypes.includes(key);
+          achievements.push({
+            key,
+            text: getText(allAchievements[contentKey]),
+            notes: getNotes(allAchievements[contentKey], ownedAchievements[key]),
+            modified: false,
+            path: `${basePath}.${key}`,
+            value: ownedAchievements[key],
+            valueIsInteger,
+          });
+        }
       }
-      if (item.key === 'kickstarter') {
-        return this.$t('kickstartName', { key: this.hero.backer && this.hero.backer.tier });
+
+      const allKeys = Object.keys(allAchievements).sort();
+
+      for (const key of allKeys) {
+        if (key !== '' && !key.endsWith('UltimateGear') && !key.endsWith('Quest')) {
+          const ownedKey = key.replace('Cards', '');
+          if (ownedAchievements[ownedKey] === undefined) {
+            const valueIsInteger = this.integerTypes.includes(ownedKey);
+            achievements.push({
+              key: ownedKey,
+              text: getText(allAchievements[key]),
+              notes: getNotes(allAchievements[key], 0),
+              modified: false,
+              path: `${basePath}.${ownedKey}`,
+              value: valueIsInteger ? 0 : false,
+              valueIsInteger,
+              neverOwned: true,
+            });
+          }
+        }
       }
-      return item.text || item.key;
+
+      this.achievements = achievements;
+      this.nestedAchievements = nestedAchievements;
     },
   },
 };

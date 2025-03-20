@@ -395,5 +395,9 @@
     "hatchingPotionGingerbread": "Pan de Jengibre",
     "questEggCatText": "Gatita",
     "questEggCatMountText": "Gato",
-    "questEggCatAdjective": "Traviesa"
+    "questEggCatAdjective": "Traviesa",
+    "questEggOtterMountText": "Nutria",
+    "questEggOtterAdjective": "latrocida",
+    "hatchingPotionJade": "Jade",
+    "questEggOtterText": "Nutria"
 }

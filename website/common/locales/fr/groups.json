@@ -428,7 +428,5 @@
     "readyToUpgrade": "Prêt·e à Passer à la Version Supérieure ?",
     "interestedLearningMore": "Vous souhaitez en Apprendre Plus ?",
     "checkGroupPlanFAQ": "Allez voir la <a href='/static/faq#what-is-group-plan'> FAQ des Offres de Groupe</a> pour en apprendre plus sur comment profiter complètement de l'expériences des tâches partagées.",
-    "copyAsTodo": "Copy comme \"À Faire\"",
-    "messageAddedAsToDo": "Message copié comme \"À Faire\".",
-    "copyMessageAsToDo": "Copier les message comme \"À Faire\""
+    "messageCopiedToClipboard": "Message copié dans le presse-papier."
 }

@@ -395,5 +395,9 @@
     "hatchingPotionGingerbread": "Pain d'Épices",
     "questEggCatText": "Chaton",
     "questEggCatMountText": "Chat",
-    "questEggCatAdjective": "espiègle"
+    "questEggCatAdjective": "espiègle",
+    "questEggOtterMountText": "Loutre",
+    "questEggOtterAdjective": "perfide",
+    "questEggOtterText": "Loutre",
+    "hatchingPotionJade": "de Jade"
 }

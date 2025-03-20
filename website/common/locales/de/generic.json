@@ -238,5 +238,8 @@
     "mutePlayer": "Stumm",
     "skipExternalLinkModal": "Halte STRG (Windows) oder Command (Mac) beim Anklicken eines Links, um dieses Modal zu überspringen.",
     "shadowMute": "Unsichtbare Stummschaltung",
-    "titleCustomizations": "Individualisierungen"
+    "titleCustomizations": "Individualisierungen",
+    "targetUserNotExist": "Zielbenutzer: '<%= userName %>' existiert nicht.",
+    "newMessage": "Neue Nachricht",
+    "rememberToBeKind": "Bitte sei freundlich, respektvoll, und folge den <a href='/static/community-guidelines' target='_blank'>Community-Richtlinien</a>."
 }

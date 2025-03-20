@@ -428,7 +428,5 @@
     "readyToUpgrade": "Bereit zum Aufrüsten?",
     "interestedLearningMore": "Willst du mehr erfahren?",
     "checkGroupPlanFAQ": "Schau in die <a href='/static/faq#what-is-group-plan'>Gruppenpläne FAQ</a> um herauszufinden, wie du deine gemeinsamen Aufgaben optimal nutzen kannst.",
-    "copyMessageAsToDo": "Nachricht als To-Do übernehmen",
-    "copyAsTodo": "Als To-Do übernehmen",
-    "messageAddedAsToDo": "Nachricht als To-Do übernommen."
+    "messageCopiedToClipboard": "Nachricht in Zwischenablage kopiert."
 }

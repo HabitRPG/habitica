@@ -2,7 +2,7 @@
     "settings": "Instellingen",
     "language": "Taal",
     "americanEnglishGovern": "Bij twijfel over de vertaling is de Engelse versie leidend.",
-    "helpWithTranslation": "Lijkt het je leuk mee te helpen om Habitica te vertalen? Geweldig! Ga dan naar <a href=\"/groups/guild/7732f64c-33ee-4cce-873c-fc28f147a6f7\">het Aspirant Linguisten Gilde</a>!",
+    "helpWithTranslation": "Lijkt het je leuk mee te helpen om Habitica te vertalen? Geweldig! Ga dan naar <a href=\"https://translate.habitica.com\">Habitica's Weblate site</a>!",
     "stickyHeader": "Bovenbalk vastzetten",
     "newTaskEdit": "Nieuwe taken openen in bewerkingsmodus",
     "reverseChatOrder": "Laat chatberichten zien in omgekeerde volgorde",
@@ -200,5 +200,8 @@
     "taskSettings": "Taak instellingen",
     "confirmCancelChanges": "Weet je het zeker? Je wijzigingen worden niet opgeslagen.",
     "loginMethods": "Inlog manieren",
-    "character": "Karakter"
+    "character": "Karakter",
+    "siteData": "Website informatie",
+    "account": "Account",
+    "siteLanguage": "Websitetaal"
 }

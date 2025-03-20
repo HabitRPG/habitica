@@ -395,5 +395,9 @@
     "hatchingPotionGingerbread": "Lebkuchen",
     "questEggCatText": "Kätzchen",
     "questEggCatMountText": "Katze",
-    "questEggCatAdjective": "ein schelmisches"
+    "questEggCatAdjective": "ein schelmisches",
+    "questEggOtterText": "Otter",
+    "questEggOtterMountText": "Otter",
+    "hatchingPotionJade": "Jade",
+    "questEggOtterAdjective": "Ein perfider"
 }

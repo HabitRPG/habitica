@@ -117,7 +117,7 @@
     "generate": "Générer",
     "getCodes": "Obtenir les Codes",
     "webhooks": "Webhooks",
-    "webhooksInfo": "Webhooks propose aux Développeu·r·se·s de recevoir des notification quand une action en particulier est faite, tel que valider ou mettre à jour une Tâche, ou envoyé un message dans un Groupe. En créant un webhook, vous pourrez écouter les changements dans Habitica et mettre au point des applis qui répondent à ces changement. <br><br>Pour des informations complémentaires et des exemples de webhooks, merci de visiter nos<a target=\"_blank\" href=\"https://habitica.com/apidoc/#api-Webhook-AddWebhook\"> Documents API</a>",
+    "webhooksInfo": "Webhooks propose aux Développeu·r·se·s de recevoir des notification quand une action en particulier est faite, tel que valider ou mettre à jour une Tâche, ou envoyé un message dans un Groupe. En créant un webhook, vous pourrez écouter les changements dans Habitica et mettre au point des applis qui répondent à ces changement. <br><br>Pour des informations complémentaires et des exemples de webhooks, merci de visiter nos<a target=\"_blank\" href=\"https://habitica.com/apidoc/#api-Webhook-AddWebhook\"> Documents API</a>.",
     "enabled": "Activé",
     "webhookURL": "URL du webhook",
     "invalidUrl": "URL invalide",

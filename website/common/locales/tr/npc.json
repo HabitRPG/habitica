@@ -99,7 +99,7 @@
     "tourPartyPage": "Yeni Partinize Hoş Geldiniz! Partinize, kullanıcı adı, e-posta veya Parti arayan oyuncular listesinden diğer oyuncuları davet edebilirsiniz. Bu şekilde, özel Basi-List Görev Parşömeni kazanabilirsiniz.<br/><br/>Partilerin nasıl çalıştığını öğrenmek için Yardım menüsünden <a href='/static/faq#parties'>SSS</a> seçeneğini tıklayın.",
     "tourChallengesPage": "Mücadeleler kullanıcılar tarafından oluşturulan, temalı görev listeleridir! Bir Mücadeleye katılınca ilgili görevler hesabına eklenir. Elmas ödülleri kazanmak için diğer kullanıcılara karşı yarış!",
     "tourMarketPage": "Her görev tamamladığınızda, rastgele bir şekilde bir Yumurta, Bir Yavru İksiri veya bir parça Pet Yemi kazanma şansınız olacak. Bu öğeleri burada ayrıca satın alabilirsiniz.",
-    "tourHallPage": "Habitica'ya açık kaynak katkıda bulunanların onurlandırıldığı Kahramanlar Salonu'na hoş geldin. Kod, görsel, müzik, metin, hatta sadece yardımseverlikle de olsa Elmaslar, özel ekipmanlar ve prestijli unvanlar kazandılar. Habitica'ya sen de katkıda bulunabilirsin!",
+    "tourHallPage": "Habitica'ya katkı sağlayan açık kaynak geliştiricilerinin onurlandırıldığı Kahramanlar Salonu'na hoş geldin. Kod, sanat, müzik, yazı veya sadece yardımla katkıda bulunanlar, Elmas, özel Ekipmanlar ve prestijli unvanlar kazandılar. Sen de Habitica'ya katkıda bulunabilirsin!",
     "tourPetsPage": "Ahıra hoş geldiniz! Her görev tamamladığınızda, rastgele bir şekilde bir Yumurta veya Yavru İksiri kazanma şansınız olacak. Bir Pet yuvadan çıktığında, burada görünecek! Bir Pet’in resmine tıklayarak onu Avatarınıza ekleyebilirsiniz. Bulduğunuz Pet Yemi ile onları besleyin ve sağlam Mounts'lara dönüşsünler.",
     "tourMountsPage": "Bir hayvana, bineğe dönüşmesi için yeterli miktarda yiyecek verdiğinde, artık burada görünür. Üzerine binmek için bir bineğe tıkla!",
     "tourEquipmentPage": "Ekipmanınızın burada saklandığı yerdir! Savaş Ekipmanınız, İstatistiklerinizi etkiler. İstatistiklerinizi değiştirmeden Avatarınızda farklı Ekipman göstermek isterseniz, \"Kostümü Etkinleştir\"e tıklayın.",
@@ -131,5 +131,6 @@
     "nGemsGift": "<%= nGems %> Mücevher (Hediye)",
     "cannotUnpinItem": "Bu öğenin sabitlenmesi kaldırılamaz.",
     "invalidUnlockSet": "Bu öğe seti geçersizdir ve kilidi açılamaz.",
-    "nMonthsSubscriptionGift": "<%= nMonths %> Ay Abonelik (Hediye)"
+    "nMonthsSubscriptionGift": "<%= nMonths %> Ay Abonelik (Hediye)",
+    "paymentYouSentSubscriptionG1G1": "<strong><%- name %></strong><br> isimli kişiye <%= months %> aylık Habitica aboneliği gönderdin ve aynı abonelik, Hediye Bir Al, Bir Bedava kampanyamız kapsamında senin hesabına da uygulandı!"
 }

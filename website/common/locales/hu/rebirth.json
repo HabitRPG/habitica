@@ -8,7 +8,7 @@
     "rebirthOrb": "Használtad az újjászületés gömbjét hogy új kalandot kezdj miután elérted a <%= level %>. szintet.",
     "rebirthOrb100": "Használtad az újjászületés gömbjét hogy új kalandot kezdj miután elérted a 100. vagy magasabb szintet.",
     "rebirthOrbNoLevel": "Használtad az újjászületés gömbjét hogy új kalandot kezdj.",
-    "rebirthPop": "Azonnal újrakezdheted a karaktered 1. szintű Harcosként, miközben megtartod az elért eredményeidet, gyűjteményeidet és felszerelésedet. A feladataid és azok előzményei megmaradnak, de mind sárgára lesznek visszaállítva. A sorozataid törlődnek, kivéve az aktív Kihívásokhoz és Csoportos csomagokhoz tartozó feladatok esetében. Az Aranyad, Tapasztalatod, Manád és az összes Képesség hatása eltűnik. Mindez azonnal életbe lép.",
+    "rebirthPop": "Azonnal újrakezdheted a karaktered 1. szintű Harcosként, miközben megtartod az elért kitüntetéseidet, gyűjteményeidet és felszerelésedet. A feladataid és azok előzményei megmaradnak, de mind sárgára lesznek visszaállítva. A szériáid törlődnek, kivéve az aktív kihívásokhoz és Csoportos csomagokhoz tartozó feladatok esetében. Az aranyad, tapasztalatod, manád és az összes képesség hatása eltűnik. Mindez azonnal életbe lép.",
     "rebirthName": "Újjászületés gömbje",
     "rebirthComplete": "Újjászülettél!",
     "nextFreeRebirth": "<strong><%= days %> nap </strong> amíg <strong> INGYENES </strong> újjászületés gömbjét szerzel"

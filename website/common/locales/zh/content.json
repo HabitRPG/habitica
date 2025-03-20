@@ -395,5 +395,9 @@
     "hatchingPotionGingerbread": "姜饼",
     "questEggCatText": "小猫",
     "questEggCatMountText": "猫",
-    "questEggCatAdjective": "一只顽皮的"
+    "questEggCatAdjective": "一只顽皮的",
+    "questEggOtterMountText": "水獭",
+    "hatchingPotionJade": "翡翠",
+    "questEggOtterText": "水獭",
+    "questEggOtterAdjective": "一只可疑的"
 }

@@ -313,6 +313,7 @@ export const UserSchema = new Schema({
     warnedLowHealth: { $type: Boolean, default: false },
     verifiedUsername: { $type: Boolean, default: false },
     thirdPartyTools: { $type: Date },
+    initializedUserHistory: { $type: Boolean, default: false },
   },
 
   history: {

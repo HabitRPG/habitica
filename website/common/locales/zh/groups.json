@@ -427,5 +427,6 @@
     "createGroupToday": "立即创建你的团队！",
     "createGroupTitle": "创建团队",
     "readyToUpgrade": "准备好升级了？",
-    "checkGroupPlanFAQ": "前往<a href='/static/faq#what-is-group-plan'>团队方案常见问题</a>以了解任务合作功能的最佳用法。"
+    "checkGroupPlanFAQ": "前往<a href='/static/faq#what-is-group-plan'>团队方案常见问题</a>以了解任务合作功能的最佳用法。",
+    "messageCopiedToClipboard": "信息已复制到剪贴板。"
 }

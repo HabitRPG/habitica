@@ -56,7 +56,5 @@
     "messageAllUnEquipped": "所持品を何も身につけていません。",
     "messageBackgroundUnEquipped": "背景を設定していません。",
     "messagePetMountUnEquipped": "ペットと乗騎を連れていません。",
-    "featureRetired": "この機能はサポートされなくなりました。",
-    "beginningOfConversation": "これがあなたと<%= userName %>の会話のはじまりです。",
-    "beginningOfConversationReminder": "思いやりと相手への敬意を忘れず、コミュニティガイドラインを守りましょう！"
+    "featureRetired": "この機能はサポートされなくなりました。"
 }

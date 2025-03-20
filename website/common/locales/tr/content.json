@@ -392,5 +392,12 @@
     "questEggCrabMountText": "Yengeç",
     "questEggCrabAdjective": "bir keman",
     "hatchingPotionFungi": "Mantarlar",
-    "hatchingPotionGingerbread": "Spekülatius ekmeği"
+    "hatchingPotionGingerbread": "Spekülatius ekmeği",
+    "questEggCatText": "Yavru kedi",
+    "questEggCatMountText": "Kedi",
+    "questEggCatAdjective": "yaramaz",
+    "questEggOtterMountText": "Su samuru",
+    "questEggOtterAdjective": "hain",
+    "hatchingPotionJade": "Yeşim taşı",
+    "questEggOtterText": "Su samuru"
 }

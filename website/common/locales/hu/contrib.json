@@ -1,5 +1,5 @@
 {
-    "playerTiersDesc": "A színes felhasználónevek amit a chat-ben látsz, a felhasználó támogatói szintjét jelzik. Minél magasabb ez a szint, annál többet segített a felhasználó a Habitica fejlesztésében számítógépes grafikával, kóddal, a közösségen keresztül és még sok mással.",
+    "playerTiersDesc": "A csevegésben látható színes felhasználónevek a hozzájárulói szintet jelölik. Minél magasabb a szint, annál többet tett hozzá az illető a Habitica fejlődéséhez művészet, kód, közösségi munka vagy más módon!",
     "tier1": "1. támogatói szint (barát)",
     "tier2": "2. támogatói szint (barát)",
     "tier3": "3. támogatói szint (elit)",
@@ -8,8 +8,8 @@
     "tier6": "6. támogatói szint (bajnok)",
     "tier7": "7. támogatói szint (legendás)",
     "tierModerator": "Moderátor",
-    "tierStaff": "Munkatársak",
-    "tierNPC": "NJK",
+    "tierStaff": "Staff",
+    "tierNPC": "NPC",
     "friend": "Barát",
     "elite": "Elit",
     "champion": "Bajnok",
@@ -22,7 +22,7 @@
     "contribModal": "Király vagy, <%= name %>! Mostantól <%= level %>. szintű közreműködő vagy, amiért segítetted a Habiticát.",
     "contribLink": "Nézd meg milyen díjakat szereztél a közreműködésedért!",
     "contribName": "Közreműködő",
-    "contribText": "Hozzájárult a Habiticához kóddal, grafikával, zenével, szöveggel, vagy más dologgal.",
+    "contribText": "Hozzájárult a Habitica fejlődéséhez kód, művészet, zene, írás vagy egyéb módon.",
     "kickstartName": "Kickstarter támogató - $<%= key %> szint",
     "kickstartText": "Támogatta a Kickstarter projektet!",
     "helped": "Segített a Habitica fejlődésében",
@@ -36,7 +36,7 @@
     "title": "Rang",
     "contributions": "Hozzájárulások",
     "admin": "Adminisztrátor",
-    "gamemaster": "Játék mester (stáb/moderátorok)",
+    "gamemaster": "Játék mester (staff/moderátorok)",
     "backerTier": "Támogatói szint",
     "playerTiers": "Játékos szintek",
     "tier": "Szint",
@@ -44,6 +44,6 @@
     "surveysSingle": "Segítette a Habitica fejlődését egy kérdőív kitöltésével vagy nagyobb tesztben való részvétellel. Köszönjük!",
     "surveysMultiple": "Segítette Habitica fejlődését <%= count %> alkalommal, egy kérdőív kitöltésével vagy nagyobb tesztben való részvétellel. Köszönjük!",
     "blurbHallPatrons": "Ez a Mecénások csarnoka, ahol megemlékezünk azokról a nemes kalandorokról, akik támogatták az eredeti Kickstarter projektet. Hálásak vagyunk, hogy a Habitica valósággá válhatott!",
-    "blurbHallContributors": "Ez a Közreműködők csarnoka, ahol a Habitica nyílt forráskódú hozzájárulóit tiszteljük. Legyen szó kódról, művészetről, zenéről, írásról vagy egyszerűen csak segítőkészségről, ők kiérdemelték a <a href='https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tier-rewards' target='_blank'>gyémántokat, exkluzív felszereléseket</a> és a <a href='https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tiers' target='_blank'>tekintélyes címeket</a>. Te is hozzájárulhatsz a Habiticához! <a href='https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica' target='_blank'>Tudj meg többet itt.</a>",
-    "noPrivAccess": "Nem rendelkezel a szükséges engedélyekkel."
+    "blurbHallContributors": "Ez itt a Közreműködők csarnoka, ahol a Habitica nyílt forráskódú közreműködőit ünnepeljük. Akár kóddal, grafikával, zenével, írással vagy akár pusztán segítőkészséggel járultak hozzá, mindannyian kiérdemelték a <a href='https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tier-rewards' target='_blank'>gyémántokat, exkluzív felszereléseket</a> és a <a href='https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tiers' target='_blank'>rangos címeket</a>. Te is hozzájárulhatsz a Habiticához! <a href='https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica' target='_blank'>Tudj meg többet itt.</a>",
+    "noPrivAccess": "Nincs meg a szükséges jogosultságod."
 }
