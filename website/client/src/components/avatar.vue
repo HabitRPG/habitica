@@ -203,11 +203,11 @@ export default {
     },
     width: {
       type: String,
-      default: '140px',
+      default: '141px',
     },
     height: {
       type: String,
-      default: undefined,
+      default: '147px',
     },
     centerAvatar: {
       type: Boolean,
