@@ -399,5 +399,12 @@
     "questEggOtterText": "Vidra",
     "questEggOtterMountText": "Vidra",
     "questEggOtterAdjective": "egy álnok",
-    "hatchingPotionJade": "Jáde"
+    "hatchingPotionJade": "Jáde",
+    "questEggAlpacaText": "Alpaka",
+    "questEggAlpacaMountText": "Alpaka",
+    "questEggAlpacaAdjective": "egy túlrakott",
+    "hatchingPotionBalloon": "Léggömb",
+    "wackyPotionAddlNotes": "Nem lehet hátassá fejleszteni, és küldetéses kisállat tojásra sem használható.",
+    "hatchingPotionCryptid": "Kriptid",
+    "wackyPotionNotes": "Öntsd ezt egy tojásra, és egy bolondos <%= potText(locale) %> kisállat fog kikelni belőle."
 }

@@ -116,10 +116,10 @@
     "choosePaymentMethod": "Válaszd ki a fizetési módot",
     "support": "Támogatás",
     "gemBenefitLeadin": "Mire költheted a gyémántokat?",
-    "gemBenefit1": "Egyedi és divatos jelmezek az avatárod számára.",
-    "gemBenefit2": "Háttérképek, amelyek még jobban elmerítenek Habitica világában!",
-    "gemBenefit3": "Izgalmas küldetések, amelyek kisállat tojásokat dobnak.",
-    "gemBenefit4": "Az avatárod tulajdonságpontjainak visszaállítása és a kaszt módosítása.",
+    "gemBenefit1": "Egyedi és divatos jelmezekre az avatárod számára.",
+    "gemBenefit2": "Háttérképekre, amelyek még jobban elmerítenek Habitica világában!",
+    "gemBenefit3": "Izgalmas küldetésekre, amelyek kisállat tojásokat dobnak.",
+    "gemBenefit4": "Az avatárod tulajdonságpontjainak visszaállítására és a kasztod módosítására.",
     "subscriptionBenefit1": "Vásárolj akár 50 gyémántot aranyért a piacon, és szerezz küldetéseket, testreszabásokat, kisállatokat és még sok mást!",
     "subscriptionBenefit3": "Találj kétszer annyi tojást, keltetőfőzetet és ételt minden nap, hogy bővíthesd a kisállat-gyűjteményedet!",
     "subscriptionBenefit4": "Viseld a legújabb exkluzív felszereléseket! Iratkozz fel most, és szerezd meg <%= month %> havi <%= currentMysterySetName %> szettet!",
@@ -260,5 +260,7 @@
     "usuallyGems": "Általában <%= originalGems %>",
     "sendAGift": "Ajándék küldése",
     "doubleDropCap": "Dupla zsákmány",
-    "youAreSubscribed": "Előfizettél a Habiticára"
+    "youAreSubscribed": "Előfizettél a Habiticára",
+    "mysterySet202503": "Jáde kolosszus szett",
+    "mysterySet202504": "Ritka jeti szett"
 }

@@ -252,8 +252,8 @@
     "backgroundMagicBeanstalkNotes": "Mássz meg egy mágikus paszulyt.",
     "backgroundMeanderingCaveText": "Kígyózó barlang",
     "backgroundMeanderingCaveNotes": "Fedezd fel a kigyózó barlangot.",
-    "backgroundMistiflyingCircusText": "Misztifelhő cirkusz",
-    "backgroundMistiflyingCircusNotes": "Mulass a Misztifelhő cirkuszban.",
+    "backgroundMistiflyingCircusText": "Ködligeti cirkusz",
+    "backgroundMistiflyingCircusNotes": "Mulass a Ködligeti cirkuszban.",
     "backgrounds042017": "KÉSZLET 35: Megjelent 2017. április",
     "backgroundBugCoveredLogText": "Bogárlepte farönk",
     "backgroundBugCoveredLogNotes": "Vizsgáld meg a bogárlepte farönköt.",
@@ -751,7 +751,7 @@
     "backgroundCottageConstructionText": "Épülő faház",
     "backgroundDragonsLairNotes": "Próbáld meg nem felébreszteni a sárkánybarlang lakóját.",
     "backgrounds092020": "KÉSZLET 76: Megjelent 2020. szeptember",
-    "backgroundGingerbreadHouseNotes": "Élvezd a Mézeskalácsház látványát, illatát és ha mered az ízét is!",
+    "backgroundGingerbreadHouseNotes": "Élvezd a mézeskalácsház látványát, illatát és ha mered az ízét is.",
     "backgrounds092022": "KÉSZLET 100: Megjelent 2022. szeptember",
     "backgroundTheatreStageText": "Színházi színpad",
     "backgroundTheatreStageNotes": "Lépj fel egy színházi színpadon.",
@@ -897,5 +897,8 @@
     "backgroundJackOLanternStacksNotes": "Csodáld meg a tök lámpásokkal teli mezőt.",
     "backgrounds032025": "KÉSZLET 130: Megjelent 2025. március",
     "backgroundMountainSceneWithBlossomsText": "Hegyi táj virágokkal",
-    "backgroundMountainSceneWithBlossomsNotes": "Merülj el a hegyi táj virágaival és élvezd a gyönyörű látványt és illatokat."
+    "backgroundMountainSceneWithBlossomsNotes": "Merülj el a hegyi táj virágaival és élvezd a gyönyörű látványt és illatokat.",
+    "backgrounds0420205": "KÉSZLET 131: Megjelent 2025. április",
+    "backgroundGardenWithFlowerBedsText": "Kert virágágyásokkal",
+    "backgroundGardenWithFlowerBedsNotes": "Élvezd a tavaszi virágzást egy kertben, tele virágágyásokkal."
 }

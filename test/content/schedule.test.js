@@ -190,7 +190,7 @@ describe('Content Schedule', () => {
     const date = new Date('2024-04-15');
     const matchers = getAllScheduleMatchingGroups(date);
     expect(matchers.premiumHatchingPotions).to.exist;
-    expect(matchers.premiumHatchingPotions.items.length).to.equal(5);
+    expect(matchers.premiumHatchingPotions.items.length).to.equal(6);
     expect(matchers.premiumHatchingPotions.items.indexOf('Veggie')).to.not.equal(-1);
     expect(matchers.premiumHatchingPotions.items.indexOf('Porcelain')).to.not.equal(-1);
   });

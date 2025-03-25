@@ -399,5 +399,12 @@
     "questEggOtterText": "Otter",
     "questEggOtterMountText": "Otter",
     "hatchingPotionJade": "Jade",
-    "questEggOtterAdjective": "Ein perfider"
+    "questEggOtterAdjective": "Ein perfider",
+    "questEggAlpacaText": "Alpaka",
+    "questEggAlpacaMountText": "Alpaka",
+    "questEggAlpacaAdjective": "ein überladenes",
+    "hatchingPotionBalloon": "Ballon",
+    "wackyPotionAddlNotes": "Kann nicht zum Reittier großgezogen oder für Quest-Haustier Eier benutzt werden.",
+    "hatchingPotionCryptid": "Kryptisch",
+    "wackyPotionNotes": "Schütte dies über ein Ei und es wird als Durchgeknalltes <%= potText(locale) %> Haustier schlüpfen."
 }

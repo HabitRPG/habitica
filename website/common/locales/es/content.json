@@ -399,5 +399,12 @@
     "questEggOtterMountText": "Nutria",
     "questEggOtterAdjective": "latrocida",
     "hatchingPotionJade": "Jade",
-    "questEggOtterText": "Nutria"
+    "questEggOtterText": "Nutria",
+    "questEggAlpacaText": "Alpaca",
+    "questEggAlpacaMountText": "Alpaca",
+    "hatchingPotionBalloon": "Globo",
+    "questEggAlpacaAdjective": "una colmada",
+    "hatchingPotionCryptid": "Críptido",
+    "wackyPotionNotes": "Vierte esto en un huevo y eclosionará como una Mascota Absurda <%= potText(locale) %>.",
+    "wackyPotionAddlNotes": "No puede convertirse en una Montura o usarse en huevos de Mascotas de Misión."
 }

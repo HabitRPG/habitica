@@ -50,8 +50,13 @@ export const REPEATING_EVENTS = {
     end: new Date('1970-03-16T03:59-04:00'),
     foodSeason: 'Pie',
   },
+  aprilFools: {
+    start: new Date('1970-04-01T04:00-04:00'),
+    end: new Date('1970-04-02T03:59-04:00'),
+    aprilFools: 'Cryptid',
+  },
   aprilFoolsResale: {
-    start: new Date('1970-04-07T04:00-04:00'),
+    start: new Date('1970-04-03T04:00-04:00'),
     end: new Date('1970-05-01T03:59-04:00'),
     content: [
       {
@@ -65,6 +70,7 @@ export const REPEATING_EVENTS = {
       {
         type: 'premiumHatchingPotions',
         items: [
+          'Cryptid',
           'Veggie',
           'TeaShop',
         ],
@@ -146,7 +152,6 @@ export const EVENTS = {
     start: '2024-04-09T08:00-04:00',
     end: '2024-04-30T23:59-04:00',
   },
-
   aprilFools2024: {
     start: '2024-04-01T00:00-04:00',
     end: '2024-04-02T08:00-04:00',

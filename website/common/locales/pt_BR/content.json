@@ -379,5 +379,21 @@
     "questEggRaccoonAdjective": "um ganancioso",
     "questEggCatText": "Gatinho",
     "questEggDogText": "Cachorrinho",
-    "hatchingPotionGingerbread": "de Gengibre"
+    "hatchingPotionGingerbread": "de Gengibre",
+    "questEggGiraffeText": "Girafa",
+    "questEggGiraffeMountText": "Girafa",
+    "questEggGiraffeAdjective": "uma torre alta",
+    "questEggChameleonText": "Camaleão",
+    "questEggChameleonMountText": "Camaleão",
+    "questEggChameleonAdjective": "um caótico",
+    "questEggCrabText": "Caranguejo",
+    "questEggCrabMountText": "Caranguejo",
+    "questEggCrabAdjective": "um violino",
+    "questEggRaccoonText": "Guaxinim",
+    "questEggRaccoonMountText": "Guaxinim",
+    "questEggDogMountText": "Cachorro",
+    "questEggDogAdjective": "um amigável",
+    "questEggCatAdjective": "um travesso",
+    "questEggCatMountText": "Gato",
+    "questEggOtterText": "Lontra"
 }

@@ -2792,7 +2792,7 @@
     "weaponSpecialSpring2023WarriorText": "Florete de Beija-Flor",
     "weaponSpecialSpring2023WarriorNotes": "Em guarda! Afaste os inimigos de suas flores com esta lâmina. Aumenta Força em <%= str %>. Edição Limitada do Equipamento de Primavera de 2023.",
     "weaponSpecialSpring2023MageText": "Pedra da Lua Mágica",
-    "weaponSpecialSpring2023MageNotes": "Quanto mais brilhantes, mais potentes são seus poderes. Aumenta a Inteligência em <%=int%>. Edição Limitada do Equipamento de Primavera de 2023.",
+    "weaponSpecialSpring2023MageNotes": "Quanto maior seu brilho, mais potente é seu poder. Aumenta a Inteligência em <%= int %> e a Percepção em <%= per %>. Equipamento de primavera de edição limitada de 2023.",
     "weaponSpecialSpring2023HealerText": "Pólen de Lírio",
     "armorSpecialSpring2023RogueText": "Capa de Lagarta",
     "armorSpecialSpring2023MageText": "Terno Pedra da Lua",
@@ -3090,5 +3090,12 @@
     "headMystery202502Text": "Chapéu de Amável Arlequim",
     "shieldMystery202502Text": "Balões de Amável Arlequim",
     "headMystery202503Text": "Cabelo do Lendário Super Guerreiro Jade",
-    "eyewearMystery202503Text": "Olhos do Lendário Super Guerreiro Jade"
+    "eyewearMystery202503Text": "Olhos do Lendário Super Guerreiro Jade",
+    "weaponSpecialSpring2025WarriorText": "Cimitarra do Sol",
+    "weaponSpecialWinter2025RogueNotes": "Bata e deslumbre essas tarefas difíceis até a submissão! Você será imparável! Aumenta a Força em <%= str %>. Equipamento de inverno de edição limitada de 2024-2025.",
+    "weaponSpecialWinter2025MageText": "Exibição de luzes do norte",
+    "weaponSpecialWinter2025HealerText": "Varinha de condão",
+    "weaponSpecialWinter2025HealerNotes": "Quanto maior seu brilho, mais potente é seu poder. Aumenta a Inteligência em <%= int %> e a Percepção em <%= per %>. Equipamento de primavera de edição limitada de 2023.",
+    "weaponSpecialWinter2025MageNotes": "Este show deslumbrante e colorido fornece o cenário perfeito! Você será imparável! Aumenta a Inteligência em <%= int %> e a Percepção em <%= per %>. Equipamento de inverno de edição limitada de 2024-2025.",
+    "weaponSpecialFall2024RogueText": "Varinha de fita"
 }

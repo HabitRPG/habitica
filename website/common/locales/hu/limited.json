@@ -25,7 +25,7 @@
     "glowJackolantern": "Sötétben világító töklámpás",
     "seasonalShop": "Szezonális bolt",
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
-    "seasonalShopTitle": "<%= linkStart %>Szezonális varázslónő<%= linkEnd %>",
+    "seasonalShopTitle": "<%= linkStart %>Szezonális boszorkány<%= linkEnd %>",
     "seasonalShopClosedText": "A Szezonális bolt jelenleg zárva van!! Csak Habitica négy nagy gálája alatt tart nyitva.",
     "seasonalShopSummerText": "Boldog nyári csobbanást!! Szeretnél ritka tárgyakat vásárolni? Szerezd be őket, mielőtt a gála véget ér!",
     "seasonalShopFallText": "Boldog őszi fesztivált!! Szeretnél ritka tárgyakat vásárolni? Szerezd be őket, mielőtt a gála véget ér!",

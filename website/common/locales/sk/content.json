@@ -399,5 +399,12 @@
     "questEggOtterText": "Vydra",
     "questEggOtterMountText": "Vydra",
     "questEggOtterAdjective": "zradná",
-    "hatchingPotionJade": "Jadeitový"
+    "hatchingPotionJade": "Jadeitový",
+    "questEggAlpacaText": "Alpaka",
+    "questEggAlpacaMountText": "Alpaka",
+    "questEggAlpacaAdjective": "preťažená",
+    "hatchingPotionBalloon": "Balónový",
+    "hatchingPotionCryptid": "Mýtický",
+    "wackyPotionNotes": "Vylej tento liahoxír na vajíčko a vyliahne sa z neho šialené <%= potText(locale) %> zvieratko.",
+    "wackyPotionAddlNotes": "Nemôže byť vychovaný na tátoša alebo použitý na Vajíčka z výprav."
 }

@@ -155,7 +155,6 @@
 </style>
 
 <script>
-import some from 'lodash/some';
 import moment from 'moment';
 import { mapState } from '@/libs/store';
 import foolPet from '../mixins/foolPet';
@@ -203,11 +202,11 @@ export default {
     },
     width: {
       type: String,
-      default: '140px',
+      default: '141px',
     },
     height: {
       type: String,
-      default: undefined,
+      default: '147px',
     },
     centerAvatar: {
       type: Boolean,
@@ -322,11 +321,10 @@ export default {
       return null;
     },
     petClass () {
-      if (some(
-        this.currentEventList,
-        event => moment().isBetween(event.start, event.end) && event.aprilFools && event.aprilFools === 'Fungi',
-      )) {
-        return this.foolPet(this.member.items.currentPet);
+      const foolEvent = this.currentEventList?.find(event => moment()
+        .isBetween(event.start, event.end) && event.aprilFools);
+      if (foolEvent) {
+        return this.foolPet(this.member.items.currentPet, foolEvent.aprilFools);
       }
       if (this.member?.items.currentPet) return `Pet-${this.member.items.currentPet}`;
       return '';

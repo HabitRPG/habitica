@@ -3301,5 +3301,17 @@
     "shieldSpecialSpring2025HealerNotes": "Puedes usar este pétalo mutante para promover la bondad y repeler el mal o para alejar los pensamientos negativos. ¡Aprovecha que ya es primavera en el…! Aumenta la Constitución en <%= con %>. Equipamiento de edición limitada Primavera 2025.",
     "shieldMystery202502Notes": "Este día de San Valentín y cada día al ser el hazmerreír de aquellos que te rodeen, que tu corazón sea tan ligero como estos globos flotantes que sostienes. No otorga ningún beneficio. Artículo de Suscriptor Febrero 2025.",
     "shieldArmoireSpringPetalUchiwaText": "Abanico Uchiwa de Pétalo Primaveral",
-    "eyewearMystery202503Text": "Ojos Jade de Juggernaut"
+    "eyewearMystery202503Text": "Ojos Jade de Juggernaut",
+    "armorMystery202504Text": "Armadura de Yeti Esquivo",
+    "armorMystery202504Notes": "¿Abominable? ¡Yo mas bien diría adorable! No otorga ningún beneficio. Artículo de Suscriptor Abril 2025.",
+    "armorArmoireSillyOrangeTuxedoText": "Esmoquin Tonto Anaranjado",
+    "armorArmoireSillierBlueTuxedoText": "Esmoquin MasTonto Azulado",
+    "armorArmoireSillierBlueTuxedoNotes": "Saca tu auténtico ser con este traje único. Aumenta la fuerza en <%= str %>. Armario Encantado: Conjunto Esmoquin MasTonto (Artículo 1 de 2).",
+    "headMystery202504Text": "Careta de Yeti Esquivo",
+    "headMystery202504Notes": "Lleva esta misteriosa careta y pasa así totalmente desapercibido como parte de la gran familia de oscuros críptidos. No otorga ningún beneficio. Artículo de Suscriptor Abril 2025.",
+    "headArmoireSillyOrangeTophatText": "Sombrero de Copa Tonto Anaranjado",
+    "headArmoireSillyOrangeTophatNotes": "Con un corte de pelo estilo tarta de calabaza vas a estar divino de la muerte. Aumenta la fuerza y la constitución en <%= attrs %> cada uno. Armario Encantado: Conjunto Esmoquin Tonto (Artículo 2 de 2).",
+    "headArmoireSillierBlueTophatText": "Sombrero de Copa MasTonto Azulado",
+    "headArmoireSillierBlueTophatNotes": "Un poco de clase, un gran abismo en tus cotas de sofisticación. Aumenta la fuerza y la constitución en <%= attrs %> cada uno. Armario Encantado: Conjunto Esmoquin MasTonto (Artículo 2 de 2).",
+    "armorArmoireSillyOrangeTuxedoNotes": "Un traje adecuado para tus labores diarias. Aumenta la Constitución en <%= con %>. Armario Encantado: Conjunto Esmoquin Tonto (Artículo 1 de 2)."
 }

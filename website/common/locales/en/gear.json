@@ -1472,7 +1472,9 @@
   "armorMystery202412Notes": "A fun and fluffy look to keep you snug on a winter day. Confers no benefit. December 2024 Subscriber Item.",
   "armorMystery202502Text": "Heartfelt Harlequin Suit",
   "armorMystery202502Notes": "You’re full of kind-hearted jokes and japes from your ruffled collar to your gigantic shoes! Confers no benefit. February 2025 Subscriber Item.",
-
+  "armorMystery202504Text": "Elusive Yeti Armor",
+  "armorMystery202504Notes": "Abominable? More like adorable! Confers no benefit. April 2025 Subscriber Item.",
+  
   "armorMystery301404Text": "Steampunk Suit",
   "armorMystery301404Notes": "Dapper and dashing, wot! Confers no benefit. February 3015 Subscriber Item.",
   "armorMystery301703Text": "Steampunk Peacock Gown",
@@ -1702,6 +1704,10 @@
   "armorArmoireSnowyFluffTrimmedCoatNotes": "As the first flakes fall around you, this coat will not only keep you toasty but also help you blend in perfectly with your snowy surroundings. Glide along the ice in style! Increases Strength and Intelligence by <%= attrs %> each. Enchanted Armoire: Snowy Trapper Hat Set (Item 2 of 2).",
   "armorArmoireSpringPetalYukataText": "Spring Petal Yukata",
   "armorArmoireSpringPetalYukataNotes": "This yukata is perfect to wear to celebrate the coming of spring. Be sure to pose by cherry blossoms for a photo. Increases Constitution and Strength by <%= attrs %> each. Enchanted Armoire: Spring Petal Set (Item 1 of 2).",
+  "armorArmoireSillyOrangeTuxedoText": "Silly Orange Tuxedo",
+  "armorArmoireSillyOrangeTuxedoNotes": "Your own personal suit du jour. Increases Constitution by <%= con %>. Enchanted Armoire: Silly Tuxedo Set (Item 1 of 2).",
+  "armorArmoireSillierBlueTuxedoText": "Sillier Blue Tuxedo",
+  "armorArmoireSillierBlueTuxedoNotes": "Put out the vibe in this unique outfit. Increases Strength by <%= str %>. Enchanted Armoire: Sillier Tuxedo Set (Item 1 of 2).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -2406,6 +2412,8 @@
   "headMystery202502Notes": "This jaunty little hat is sure to inspire joy in anyone who sees you! Confers no benefit. February 2025 Subscriber Item.",
   "headMystery202503Text": "Jade Juggernaut Hair",
   "headMystery202503Notes": "This verdant hairdo perfectly suits a brave warrior and defender of the planet. Confers no benefit. March 2025 Subscriber Item.",
+  "headMystery202504Text": "Elusive Yeti Cowl",
+  "headMystery202504Notes": "Wear this mysterious visage to dwell undetected among the world’s most obscure cyptids. Confers no benefit. April 2025 Subscriber Item.",
 
   "headMystery301404Text": "Fancy Top Hat",
   "headMystery301404Notes": "A fancy top hat for the finest of gentlefolk! January 3015 Subscriber Item. Confers no benefit.",
@@ -2615,7 +2623,11 @@
   "headArmoireSnowyTrapperHatText": "Snowy Trapper Hat",
   "headArmoireSnowyTrapperHatNotes": "Blue, frostbitten ears will be a thing of the past. Embrace cozy warmth in style! Increases Constitution and Perception by <%= attrs %> each. Enchanted Armoire: Snowy Trapper Hat Set (Item 1 of 2).",
   "headArmoireFancyFloralHatText": "Fancy Floral Hat",
-  "headArmoireFancyFloralHatNotes": "Feast your eyes on this fancy hat full of fantastic flowers and frilly fastenings. Increases Intelligence by <%= int %>. Enchanted Armoire: Fancy Floral Accessories Set (Item 1 of 2).",  
+  "headArmoireFancyFloralHatNotes": "Feast your eyes on this fancy hat full of fantastic flowers and frilly fastenings. Increases Intelligence by <%= int %>. Enchanted Armoire: Fancy Floral Accessories Set (Item 1 of 2).",
+  "headArmoireSillyOrangeTophatText": "Silly Orange Tophat",
+  "headArmoireSillyOrangeTophatNotes": "Goes well with a pumpkin pie hair cut. Increases Strength and Constitution by <%= attrs %> each. Enchanted Armoire: Silly Tuxedo Set (Item 2 of 2).",
+  "headArmoireSillierBlueTophatText": "Sillier Blue Tophat",
+  "headArmoireSillierBlueTophatNotes": "A little class, a little sophistication. Increases Strength and Constitution by <%= attrs %> each. Enchanted Armoire: Sillier Tuxedo Set (Item 2 of 2).",
 
   "offhand": "off-hand item",
   "offHandCapitalized": "Off-Hand Item",

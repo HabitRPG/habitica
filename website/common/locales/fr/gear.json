@@ -3301,5 +3301,17 @@
     "headMystery202503Notes": "Cette coiffure verdoyante convient parfaitement à un·e guerri·er·ère et défenseu·r·se de la planète. Ne confère aucun bonus. Équipement d'Abonnement Mars 2025.",
     "shieldSpecialSpring2025WarriorNotes": "Vous pouvez momentanément aveugler vos ennemi·e·s quand le soleil se reflète au bon moment sur ce bouclier. Profitez-en et prenez en de la graine ! Augmente la Constitution de <%= con %>. Équipement Édition Limitée Printemps 2025.",
     "shieldSpecialSpring2025HealerNotes": "Vous pouvez utiliser ce pétale spécial pour recueillir de la positivité et éloigner les pensées négatives. Profitez-en et prenez en de la graine ! Augmente la Constitution de <%= con %>. Équipement Édition Limitée Printemps 2025.",
-    "eyewearMystery202503Notes": "Ce regard perçant va instiller la terreur dans tout·e combattant·e qui vous lancera un défi ! Ne confère aucun bonus. Équipement d'Abonnement Mars 2025."
+    "eyewearMystery202503Notes": "Ce regard perçant va instiller la terreur dans tout·e combattant·e qui vous lancera un défi ! Ne confère aucun bonus. Équipement d'Abonnement Mars 2025.",
+    "armorArmoireSillyOrangeTuxedoText": "Smoking Orange Rigolodicule",
+    "armorArmoireSillyOrangeTuxedoNotes": "Votre propre costume \"du jour\" (ndlt : en Français dans le texte). Augmente la Constitution de <%= con %>. Armoire Enchantée : Ensemble Smoking Rigolodicule (Objet 1 sur 2).",
+    "armorMystery202504Text": "Armure du Yéti Insaisissable",
+    "armorMystery202504Notes": "Abominable ! Disons plutôt adorable ! Ne confère aucun bonus. Équipement d'Abonnement Avril 2025.",
+    "armorArmoireSillierBlueTuxedoText": "Smoking Bleu encore plus Rigolodicule",
+    "armorArmoireSillierBlueTuxedoNotes": "Envoyez du lourd dans cette tenue unique. Augmente la Force de <%= str %>. Armoire enchantée : Ensemble Smoking encore plus Rigolodicule (Objet 1 sur 2).",
+    "headMystery202504Text": "Cagoule du Yéti Insaisissable",
+    "headMystery202504Notes": "Arborez cette façade mystérieuse pour vous mélanger discrètement aux cryptides les plus mystérieu·x·ses. Ne confère aucun bonus. Équipement d'Abonnement Avril 2025.",
+    "headArmoireSillyOrangeTophatNotes": "Va très bien avec une coupe au bol. Augmente la Force et la Constitution de <%= attrs %> chacune. Armoire enchantée : Ensemble Smoking Rigolodicule (Objet 2 sur 2).",
+    "headArmoireSillyOrangeTophatText": "Haut-de-Forme Orange Rigolodicule",
+    "headArmoireSillierBlueTophatText": "Haut-de-Forme Bleu encore plus Rigolodicule",
+    "headArmoireSillierBlueTophatNotes": "Un peu de classe, un peu de sophistication. Augmente la Force et la Constitution de <%= attrs %> chacune. Armoire Enchantée : Ensemble Smoking encore plus Rigolodicule (Objet 2 sur 2)."
 }

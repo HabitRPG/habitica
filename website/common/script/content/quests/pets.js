@@ -33,6 +33,47 @@ const QUEST_PETS = {
       unlock: t('questAlligatorUnlockText'),
     },
   },
+  alpaca: {
+    text: t('questAlpacaText'),
+    notes: t('questAlpacaNotes'),
+    completion: t('questAlpacaCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questAlpacaBoss'),
+      hp: 800,
+      str: 2,
+      rage: {
+        title: t('questAlpacaRageTitle'),
+        description: t('questAlpacaRageDescription'),
+        value: 50,
+        healing: 0.3,
+        effect: t('questAlpacaRageEffect'),
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Alpaca',
+          text: t('questAlpacaDropAlpacaEgg'),
+        },
+        {
+          type: 'eggs',
+          key: 'Alpaca',
+          text: t('questAlpacaDropAlpacaEgg'),
+        },
+        {
+          type: 'eggs',
+          key: 'Alpaca',
+          text: t('questAlpacaDropAlpacaEgg'),
+        },
+      ],
+      gp: 90,
+      exp: 900,
+      unlock: t('questAlpacaUnlockText'),
+    },
+  },
   armadillo: {
     text: t('questArmadilloText'),
     notes: t('questArmadilloNotes'),

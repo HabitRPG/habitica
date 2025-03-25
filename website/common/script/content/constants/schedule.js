@@ -241,6 +241,7 @@ export const MONTHLY_SCHEDULE = {
           'monkey',
           'falcon',
           'alligator',
+          'alpaca',
         ],
       },
       {
@@ -262,6 +263,7 @@ export const MONTHLY_SCHEDULE = {
         items: [
           'Shimmer',
           'Glass',
+          'Balloon',
         ],
       },
     ],
@@ -839,6 +841,30 @@ function getGalaIndex (date) {
   return parseInt((galaCount / 12) * galaMonth, 10);
 }
 
+function makeEndDate (checkedDate, matcher) {
+  let end = moment.utc(checkedDate);
+  end.hour(SWITCHOVER_TIME);
+  end.minute(0);
+  end.second(0);
+  if (matcher.end !== undefined) {
+    end.date(matcher.end.getDate());
+    end.month(matcher.end.getMonth());
+  } else {
+    end.date(TYPE_SCHEDULE[matcher.type]);
+    if (matcher.endMonth !== undefined) {
+      if (matcher.startMonth
+          && matcher.startMonth > matcher.endMonth
+          && checkedDate.getMonth() > matcher.endMonth) {
+        end.year(checkedDate.getFullYear() + 1);
+      }
+      end.month(matcher.endMonth);
+    } else if (end.valueOf() <= checkedDate.getTime()) {
+      end = moment(end).add(1, 'months');
+    }
+  }
+  return end.toDate();
+}
+
 export function assembleScheduledMatchers (date) {
   const items = [];
   const month = getMonth(date);
@@ -863,7 +889,14 @@ export function assembleScheduledMatchers (date) {
   items.push(...galaMatchers);
   getRepeatingEvents(date).forEach(event => {
     if (event.content) {
-      items.push(...event.content);
+      const { content } = event;
+      const end = makeEndDate(date, event);
+      const m = content.map(matcher => {
+        const newMatcher = { ...matcher };
+        newMatcher.end = end;
+        return newMatcher;
+      });
+      items.push(...m);
     }
   });
   return items;
@@ -876,8 +909,15 @@ function makeMatcherClass (date) {
   return {
     matchers: [],
     end: new Date(),
+    specialEnds: {},
     items: [],
     matchingDate: date,
+    getEnd (key) {
+      if (this.specialEnds[key]) {
+        return this.specialEnds[key];
+      }
+      return this.end;
+    },
     match (key) {
       if (this.matchers.length === 0) {
         if (this.items.length > 0) {
@@ -892,25 +932,6 @@ function makeMatcherClass (date) {
       return false;
     },
   };
-}
-
-function makeEndDate (checkedDate, matcher) {
-  let end = moment.utc(checkedDate);
-  end.date(TYPE_SCHEDULE[matcher.type]);
-  end.hour(SWITCHOVER_TIME);
-  end.minute(0);
-  end.second(0);
-  if (matcher.endMonth !== undefined) {
-    if (matcher.startMonth
-        && matcher.startMonth > matcher.endMonth
-        && checkedDate.getMonth() > matcher.endMonth) {
-      end.year(checkedDate.getFullYear() + 1);
-    }
-    end.month(matcher.endMonth);
-  } else if (end.valueOf() <= checkedDate.getTime()) {
-    end = moment(end).add(1, 'months');
-  }
-  return end.toDate();
 }
 
 export function clearCachedMatchers () {
@@ -937,11 +958,19 @@ export function getAllScheduleMatchingGroups (date) {
       if (!cachedScheduleMatchers[matcher.type]) {
         cachedScheduleMatchers[matcher.type] = makeMatcherClass(adjustedDate);
       }
-      cachedScheduleMatchers[matcher.type].end = makeEndDate(checkedDate, matcher);
+      if (matcher.end === undefined) {
+        // we want the default end date to be for matcher type
+        cachedScheduleMatchers[matcher.type].end = makeEndDate(checkedDate, matcher);
+      }
       if (matcher.matcher instanceof Function) {
         cachedScheduleMatchers[matcher.type].matchers.push(matcher.matcher);
       } else if (matcher.items instanceof Array) {
         cachedScheduleMatchers[matcher.type].items.push(...matcher.items);
+        if (matcher.end !== undefined) {
+          matcher.items.forEach(item => {
+            cachedScheduleMatchers[matcher.type].specialEnds[item] = matcher.end;
+          });
+        }
       }
     });
   }

@@ -132,6 +132,7 @@ const premium = {
     questPotion: true,
     canBuy: hasQuestAchievementFunction('jade'),
   },
+  Balloon: {},
 };
 
 const wacky = {
@@ -149,6 +150,7 @@ const wacky = {
     questPotion: true,
     canBuy: hasQuestAchievementFunction('fungi'),
   },
+  Cryptid: {},
 };
 
 each(drops, (pot, key) => {
@@ -189,10 +191,10 @@ each(wacky, (pot, key) => {
     key,
     value: 2,
     text: t(`hatchingPotion${key}`),
-    notes: t('hatchingPotionNotes', {
+    notes: t('wackyPotionNotes', {
       potText: t(`hatchingPotion${key}`),
     }),
-    _addlNotes: t('premiumPotionUnlimitedNotes'),
+    _addlNotes: t('wackyPotionAddlNotes'),
     premium: false,
     limited: true,
     wacky: true,

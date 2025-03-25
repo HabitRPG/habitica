@@ -516,6 +516,14 @@ const armor = {
     str: 8,
     set: 'springPetalSet',
   },
+  sillyOrangeTuxedo: {
+    con: 12,
+    set: 'sillyTuxedoSet',
+  },
+  sillierBlueTuxedo: {
+    str: 12,
+    set: 'sillierTuxedoSet',
+  },
 };
 
 const body = {
@@ -1053,6 +1061,16 @@ const head = {
   fancyFloralHat: {
     int: 14,
     set: 'fancyFloralSet',
+  },
+  sillyOrangeTophat: {
+    str: 6,
+    con: 6,
+    set: 'sillyTuxedoSet',
+  },
+  sillierBlueTophat: {
+    str: 6,
+    con: 6,
+    set: 'sillierTuxedoSet',
   },
 };
 

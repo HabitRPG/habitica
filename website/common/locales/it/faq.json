@@ -27,5 +27,7 @@
     "faqQuestion35": "Ho dato da mangiare al mio animale domestico ed è scomparso! Cos'è successo?",
     "webFaqAnswer35": "Appena hai nutrito il tuo animale domestico abbastanza da farlo diventare una cavalcatura, dovrai covare quel tipo di animale domestico ancora una volta per averlo nella tua stalla.\n\nPer vedere le Cavalcature sull'app mobile:\n\n* Dal Menu, seleziona \"Animali e Cavalcature\" e vai alla tab Cavalcature\n\nPer vedere le Cavalcature sulla pagina web:\n\n* Dall'Inventario, seleziona \"Animali e Cavalcature\" e scorri in basso fino alla sezione Cavalcature",
     "faqQuestion36": "Come cambio l'aspetto del mio Avatar?",
-    "faqQuestion37": "Perché il mio Equipaggiamento non viene mostrato sul mio Avatar?"
+    "faqQuestion37": "Perché il mio Equipaggiamento non viene mostrato sul mio Avatar?",
+    "faqQuestion38": "Perché non posso comprare nessun oggetto?",
+    "webFaqAnswer38": "Nuovi giocatori di Habitica possono solo acquistare l'equipaggiamento base per la classe Guerriero. Giocatori devono comprare equipaggiamento il ordine sequenziale per sbloccare il prossimo articolo.\n\nMolti pezzi di equipaggiamento sono specifici per una classe in particolare, e di conseguenza i giocatori possono solo comprare equipaggiamento corrispondente alla loro classe attuale."
 }

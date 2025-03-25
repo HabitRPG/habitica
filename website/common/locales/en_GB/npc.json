@@ -99,7 +99,7 @@
     "tourPartyPage": "Welcome to your new Party! You can invite other players to your Party by username, email, or from a list of players looking for a Party to earn the exclusive Basi-List Quest Scroll.<br/><br/>Select <a href='/static/faq#parties'>FAQ</a> from the Help dropdown to learn more about how Parties work.",
     "tourChallengesPage": "Challenges are themed task lists created by users! Joining a Challenge will add its tasks to your account. Compete against other users to win Gem prizes!",
     "tourMarketPage": "Every time you complete a task, you'll have a random chance at receiving an Egg, a Hatching Potion, or a piece of Pet Food. You can also buy these items here.",
-    "tourHallPage": "Welcome to the Hall of Heroes, where open-source contributors to Habitica are honoured. Whether through code, art, music, writing, or even just helpfulness, they have earned Gems, exclusive equipment, and prestigious titles. You can contribute to Habitica, too!",
+    "tourHallPage": "Welcome to the Hall of Heroes, where open-source contributors to Habitica are honoured. Whether through code, art, music, writing, or even just helpfulness, they have earned Gems, exclusive Equipment, and prestigious titles. You can contribute to Habitica, too!",
     "tourPetsPage": "Welcome to the stable! Every time you complete a task, you'll have a random chance at receiving an Egg or a Hatching Potion to hatch Pets. When you hatch a Pet, it will appear here! Click a Pet's image to add it to your Avatar. Feed them with the Pet Food you find and they'll grow into hardy Mounts.",
     "tourMountsPage": "Once you've fed a pet enough food to turn it into a mount, it will appear here. Click a mount to saddle up!",
     "tourEquipmentPage": "This is where your Equipment is stored! Your Battle Gear affects your Stats. If you want to show different Equipment on your avatar without changing your Stats, click \"Enable Costume.\"",
@@ -117,7 +117,7 @@
     "paymentAutoRenew": "This subscription will auto-renew until it is cancelled. If you need to cancel this subscription, you can do so from your settings.",
     "paymentCanceledDisputes": "We’ve sent a cancellation confirmation to your email. If you don’t see the email, please contact us to prevent future billing disputes.",
     "cannotUnpinItem": "This item cannot be unpinned.",
-    "paymentSubBillingWithMethod": "Your subscription will be billed <strong>$<%= amount %></strong> every <strong><%= months %> months</strong> via <strong><%= paymentMethod %></strong>.",
+    "paymentSubBillingWithMethod": "Your subscription will be billed<br><strong>$<%= amount %>.00 USD</strong> every <strong><%= months %> month(s) </strong> via <strong><%= paymentMethod %></strong>.",
     "invalidUnlockSet": "This set of items is invalid and cannot be unlocked.",
     "nMonthsSubscriptionGift": "<%= nMonths %> Month(s) Subscription (Gift)",
     "nGemsGift": "<%= nGems %> Gems (Gift)",
@@ -130,5 +130,7 @@
     "limitedAvailabilityDays": "Available for <%= days %>d <%= hours %>h <%= minutes %>m",
     "limitedAvailabilityHours": "Available for <%= hours %>h <%= minutes %>m",
     "sellItems": "Sell Items",
-    "customizationsShopText": "Want to change up your style? You came to the right place! We stock the freshest looks to fit the season."
+    "customizationsShopText": "Want to change up your style? You came to the right place! We stock the freshest looks to fit the season.",
+    "notAvailable": "This item isn't available.",
+    "paymentYouSentSubscriptionG1G1": "You sent <strong><%- name %></strong><br> a <%= months %> month Habitica subscription, and the same subscription was applied to your account for our Gift One Get One promotion!"
 }

@@ -1,6 +1,6 @@
 {
     "stable": "Evcil Hayvanlar ve Binekler",
-    "pets": "Hayvanlar",
+    "pets": "Evcil Hayvanlar",
     "activePet": "Etkin Evcil Hayvan",
     "noActivePet": "Etkin Evcil Yok",
     "petsFound": "Bulunan Hayvanlar",
@@ -86,7 +86,7 @@
     "welcomeStable": "Ahır'a Hoşgeldin!",
     "welcomeStableText": "Ahıra hoş geldiniz! Ben Matt, canavar eğitmeni. Her görevi tamamladığınızda, rastgele bir şansla bir Yumurta veya Yumurtadan Çıkarma İksiri kazanabilirsiniz. Bir Evcil Hayvan çıkardığınızda, burada görünecektir! Bir Evcil Hayvanın resmine tıklayarak onu Avatarınıza ekleyebilirsiniz. Bulduğunuz Evcil Hayvan Yiyecekleriyle onları besleyin ve sağlam Binekler olarak büyüsünler.",
     "petLikeToEat": "Evcil hayvanım ne yemeyi sever?",
-    "petLikeToEatText": "Pets will grow no matter what you feed them, but they'll grow faster if you feed them the one Pet Food that they like best. Experiment to find out the pattern, or see the answers here:  \n<a href=\"https://habitica.com/static/faq#pet-foods\" target=\"_blank\">https://habitica.com/static/faq#pet-foods</a>",
+    "petLikeToEatText": "Evcil hayvanlar neyle beslerseniz besleyin büyüyeceklerdir, ancak en sevdikleri Evcil Hayvan Yemi ile beslerseniz daha hızlı büyürler. Deseni keşfetmek için deney yapın veya cevapları burada görün: \n<a href=\"https://habitica.com/static/faq#pet-foods\" target=\"_blank\">https://habitica.com/static/faq#pet-foods</a>",
     "filterByStandard": "Standart",
     "filterByMagicPotion": "Sihirli İksir",
     "filterByQuest": "Görev",
