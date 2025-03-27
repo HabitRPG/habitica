@@ -657,7 +657,6 @@ export default {
       }
 
       this.cachedAnimalList[key] = animals;
-
       return animals;
     },
     listAnimals (animalGroup, type, hideMissing, sort, searchText) {
@@ -670,7 +669,8 @@ export default {
       }
 
       if (searchText && searchText !== '') {
-        animals = _filter(animals, a => a.name.toLowerCase().indexOf(searchText) !== -1);
+        animals = _filter(animals, a => a.name.toLowerCase().indexOf(searchText) !== -1
+        || a.eggKey.toLowerCase().indexOf(searchText) !== -1);
       }
 
       // 2. Sort
