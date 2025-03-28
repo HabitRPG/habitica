@@ -668,6 +668,9 @@ export default {
         animals = _filter(animals, a => a.isOwned());
       }
 
+      // returns pet & mount if mount name (cat) is searched (eggKey)
+      // returns pet and not mount if pet name (kitten) is searched (eggName)
+      // eggName is somehow unreachable along with all other properties on the pet/mount objects
       if (searchText && searchText !== '') {
         animals = _filter(animals, a => a.name.toLowerCase().indexOf(searchText) !== -1
         || a.eggKey.toLowerCase().indexOf(searchText) !== -1);
@@ -693,7 +696,7 @@ export default {
       }
 
       this.viewOptions[animalGroup.key].animalCount = animals.length;
-
+      console.log(animals);
       return animals;
     },
     countOwnedAnimals (animalGroup, type) {
