@@ -696,7 +696,6 @@ export default {
       }
 
       this.viewOptions[animalGroup.key].animalCount = animals.length;
-      console.log(animals);
       return animals;
     },
     countOwnedAnimals (animalGroup, type) {
