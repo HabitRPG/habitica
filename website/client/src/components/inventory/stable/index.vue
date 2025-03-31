@@ -627,6 +627,7 @@ export default {
             animals.push({
               key: specialKey,
               eggKey,
+              eggName: text(),
               potionKey,
               name: text(),
               canFind,
@@ -673,7 +674,7 @@ export default {
       // eggName is somehow unreachable along with all other properties on the pet/mount objects
       if (searchText && searchText !== '') {
         animals = _filter(animals, a => a.name.toLowerCase().indexOf(searchText) !== -1
-        || a.eggKey.toLowerCase().indexOf(searchText) !== -1);
+        || a.eggName.toLowerCase().indexOf(searchText) !== -1);
       }
 
       // 2. Sort
