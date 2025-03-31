@@ -669,9 +669,8 @@ export default {
         animals = _filter(animals, a => a.isOwned());
       }
 
-      // returns pet & mount if mount name (cat) is searched (eggKey)
-      // returns pet and not mount if pet name (kitten) is searched (eggName)
-      // eggName is somehow unreachable along with all other properties on the pet/mount objects
+      // this does not return the yarn pet if user searches for flying carpet
+      // if yarn is searched, both items appear
       if (searchText && searchText !== '') {
         animals = _filter(animals, a => a.name.toLowerCase().indexOf(searchText) !== -1
         || a.eggName.toLowerCase().indexOf(searchText) !== -1);
