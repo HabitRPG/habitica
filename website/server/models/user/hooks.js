@@ -365,9 +365,13 @@ schema.pre('save', true, async function preSaveUser (next, done) {
     }
     if (!this.flags.initializedUserHistory) {
       this.flags.initializedUserHistory = true;
-      const history = UserHistory();
-      history.userId = this._id;
-      await history.save();
+      // Ensure that it does not try to create a new history if it already exists
+      const existingHistory = await UserHistory.findOne({ userId: this._id });
+      if (!existingHistory) {
+        const history = UserHistory();
+        history.userId = this._id;
+        await history.save();
+      }
     }
   }
 
