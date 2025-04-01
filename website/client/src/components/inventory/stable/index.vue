@@ -673,6 +673,7 @@ export default {
       // if yarn is searched, both items appear
       if (searchText && searchText !== '') {
         animals = _filter(animals, a => a.name.toLowerCase().indexOf(searchText) !== -1
+        || a.eggKey.toLowerCase().indexOf(searchText) !== -1
         || a.eggName.toLowerCase().indexOf(searchText) !== -1);
       }
 
