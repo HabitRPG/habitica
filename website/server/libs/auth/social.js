@@ -1,3 +1,4 @@
+import pick from 'lodash/pick';
 import passport from 'passport';
 import common from '../../../common';
 import { BadRequest, NotAuthorized } from '../errors';
@@ -145,12 +146,11 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
 
   if (!existingUser) {
     res.analytics.track('register', {
+      user: pick(savedUser, ['preferences', 'registeredThrough']),
+      uuid: savedUser._id,
       category: 'acquisition',
       type: network,
-      gaLabel: network,
-      uuid: savedUser._id,
       headers: req.headers,
-      user: savedUser,
     });
   }
 

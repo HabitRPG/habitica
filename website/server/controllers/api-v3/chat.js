@@ -1,3 +1,4 @@
+import pick from 'lodash/pick';
 import moment from 'moment';
 import nconf from 'nconf';
 import { authWithHeaders } from '../../middlewares/auth';
@@ -186,6 +187,7 @@ api.postChat = {
     // Check if account is newer than the minimum age for chat participation
     if (moment().diff(user.auth.timestamps.created, 'minutes') < ACCOUNT_MIN_CHAT_AGE) {
       analytics.track('chat age error', {
+        user: pick(user, ['preferences', 'registeredThrough']),
         uuid: user._id,
         hitType: 'event',
         category: 'behavior',
@@ -237,6 +239,7 @@ api.postChat = {
     await Promise.all(toSave);
 
     const analyticsObject = {
+      user: pick(user, ['preferences', 'registeredThrough']),
       uuid: user._id,
       hitType: 'event',
       category: 'behavior',

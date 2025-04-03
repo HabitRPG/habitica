@@ -218,8 +218,8 @@ function _setOnce (dataToSetOnce, uuid) {
 // There's no error handling directly here because it's handled inside _sendDataTo{Amplitude|Google}
 async function track (eventType, data, loggerOnly = false) {
   const { user } = data;
-  if (!user.preferences?.analyticsConsent) {
-    return;
+  if (!user || !user.preferences || !user.preferences.analyticsConsent) {
+    return null;
   }
   const promises = [
     _sendDataToAmplitude(eventType, data, loggerOnly),
@@ -237,8 +237,8 @@ async function track (eventType, data, loggerOnly = false) {
 // it's handled inside _sendPurchaseDataTo{Amplitude|Google}
 async function trackPurchase (data) {
   const { user } = data;
-  if (!user.preferences?.analyticsConsent) {
-    return;
+  if (!user || !user.preferences || !user.preferences.analyticsConsent) {
+    return null;
   }
   return Promise.all([
     _sendPurchaseDataToAmplitude(data),
@@ -253,13 +253,10 @@ const mockAnalyticsService = {
 
 // Return the production or mock service based on the current environment
 function getServiceByEnvironment () {
-  if (nconf.get('IS_PROD') || (nconf.get('DEBUG_ENABLED') && !nconf.get('BASE_URL').includes('localhost'))) {
-    return {
-      track,
-      trackPurchase,
-    };
-  }
-  return mockAnalyticsService;
+  return {
+    track,
+    trackPurchase,
+  };
 }
 
 export {

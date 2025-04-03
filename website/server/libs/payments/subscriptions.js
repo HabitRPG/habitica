@@ -1,6 +1,9 @@
 // TODO these files need to refactored.
 
-import _ from 'lodash';
+import defaults from 'lodash/defaults';
+import each from 'lodash/each';
+import find from 'lodash/find';
+import pick from 'lodash/pick';
 import moment from 'moment';
 
 import { getAnalyticsServiceByEnvironment } from '../analyticsService';
@@ -30,7 +33,7 @@ const analytics = getAnalyticsServiceByEnvironment();
 
 function _findMysteryItems (user, dateMoment) {
   const pushedItems = [];
-  _.each(shared.content.gear.flat, item => {
+  each(shared.content.gear.flat, item => {
     if (
       item.klass === 'mystery'
         && shared.content.mystery[item.mystery]
@@ -200,7 +203,7 @@ async function prepareSubscriptionValues (data) {
       owner: data.user._id,
     });
 
-    _.defaults(plan, {
+    defaults(plan, {
       gemsBought: 0,
       dateCreated: today,
       mysteryItems: [],
@@ -339,7 +342,7 @@ async function createSubscription (data) {
     // Only send push notifications if sending to a user other than yourself
     if (data.gift.member._id !== data.user._id) {
       const currentEventList = getCurrentEventList();
-      const currentEvent = _.find(currentEventList, event => Boolean(event.promo));
+      const currentEvent = find(currentEventList, event => Boolean(event.promo));
       if (currentEvent && currentEvent.promo === 'g1g1') {
         const promoData = {
           user: data.user,
@@ -462,9 +465,8 @@ async function cancelSubscription (data) {
 
   analytics.track(cancelType, {
     uuid: data.user._id,
+    user: pick(data.user, ['preferences', 'registeredThrough']),
     groupId,
-    gaCategory: 'commerce',
-    gaLabel: data.paymentMethod,
     paymentMethod: data.paymentMethod,
     headers: data.headers,
   });

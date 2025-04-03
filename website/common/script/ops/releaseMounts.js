@@ -1,3 +1,4 @@
+import pick from 'lodash/pick';
 import content from '../content/index';
 import { mountMasterProgress } from '../count';
 import i18n from '../i18n';
@@ -43,6 +44,7 @@ export default async function releaseMounts (user, req = {}, analytics) {
 
   if (analytics) {
     analytics.track('release mounts', {
+      user: pick(user, ['preferences', 'registeredThrough']),
       uuid: user._id,
       currency: 'Gems',
       gemCost: 4,

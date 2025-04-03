@@ -1,4 +1,5 @@
 import merge from 'lodash/merge';
+import pick from 'lodash/pick';
 import reduce from 'lodash/reduce';
 import each from 'lodash/each';
 import i18n from '../i18n';
@@ -111,9 +112,9 @@ export default function revive (user, req = {}, analytics) {
 
   if (analytics) {
     analytics.track('Death', {
+      user: pick(user, ['preferences', 'registeredThrough']),
       uuid: user._id,
       lostItem,
-      gaLabel: lostItem,
       category: 'behavior',
       headers: req.headers,
     });

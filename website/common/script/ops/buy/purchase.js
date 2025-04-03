@@ -132,6 +132,7 @@ export default async function purchase (user, req = {}, analytics) {
   /* eslint-enable no-await-in-loop */
   if (analytics) {
     analytics.track('buy', {
+      user: pick(user, ['preferences', 'registeredThrough']),
       uuid: user._id,
       itemKey: key,
       itemType: type,

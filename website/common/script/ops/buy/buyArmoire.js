@@ -69,11 +69,12 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation { // eslint-d
     ];
   }
 
-  _trackDropAnalytics (userId, key) {
+  _trackDropAnalytics (user, key) {
     this.analytics.track(
       'Enchanted Armoire',
       {
-        uuid: userId,
+        user: pick(user, ['preferences', 'registeredThrough']),
+        uuid: user._id,
         itemKey: key,
         category: 'behavior',
         headers: this.req.headers,
@@ -105,7 +106,7 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation { // eslint-d
     removeItemByPath(user, `gear.flat.${drop.key}`);
 
     if (this.analytics) {
-      this._trackDropAnalytics(user._id, drop.key);
+      this._trackDropAnalytics(user, drop.key);
     }
 
     const armoireResp = {
@@ -134,7 +135,7 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation { // eslint-d
     if (user.markModified) user.markModified('items.food');
 
     if (this.analytics) {
-      this._trackDropAnalytics(user._id, drop.key);
+      this._trackDropAnalytics(user, drop.key);
     }
     return {
       message: this.i18n('armoireFood', {

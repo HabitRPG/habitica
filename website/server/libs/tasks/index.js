@@ -3,6 +3,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import compact from 'lodash/compact';
 import forEach from 'lodash/forEach';
 import keys from 'lodash/keys';
+import pick from 'lodash/pick';
 import remove from 'lodash/remove';
 import validator from 'validator';
 import {
@@ -515,6 +516,7 @@ async function scoreTask (user, task, direction, req, res) {
       role = 'member';
     }
     res.analytics.track('team task scored', {
+      user: pick(user, ['preferences', 'registeredThrough']),
       uuid: user._id,
       hitType: 'event',
       category: 'behavior',

@@ -1,6 +1,7 @@
 /* eslint-disable max-classes-per-file */
-import _merge from 'lodash/merge';
-import _get from 'lodash/get';
+import get from 'lodash/get';
+import merge from 'lodash/merge';
+import pick from 'lodash/pick';
 import i18n from '../../i18n';
 import {
   NotAuthorized,
@@ -21,7 +22,7 @@ export class AbstractBuyOperation {
     this.req = req || {};
     this.analytics = analytics;
 
-    const quantity = _get(req, 'quantity');
+    const quantity = get(req, 'quantity');
 
     this.quantity = quantity ? Number(quantity) : 1;
     if (this.quantity < 1 || !Number.isInteger(this.quantity)) throw new BadRequest(this.i18n('invalidQuantity'));
@@ -112,8 +113,8 @@ export class AbstractBuyOperation {
 
   sendToAnalytics (additionalData = {}) {
     // spread-operator produces an "unexpected token" error
-    const analyticsData = _merge(additionalData, {
-      // ...additionalData,
+    const analyticsData = merge(additionalData, {
+      user: pick(this.user, ['preferences', 'registeredThrough']),
       uuid: this.user._id,
       category: 'behavior',
       headers: this.req.headers,

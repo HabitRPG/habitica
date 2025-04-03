@@ -1,5 +1,6 @@
 import validator from 'validator';
 import moment from 'moment';
+import pick from 'lodash/pick';
 import sortBy from 'lodash/sortBy';
 import nconf from 'nconf';
 import {
@@ -127,9 +128,9 @@ api.loginLocal = {
     await user.save();
 
     res.analytics.track('login', {
-      category: 'behaviour',
+      user: pick(user, ['preferences', 'registeredThrough']),
+      category: 'behavior',
       type: 'local',
-      gaLabel: 'local',
       uuid: user._id,
       headers: req.headers,
     });

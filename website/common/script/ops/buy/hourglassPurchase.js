@@ -1,6 +1,7 @@
 import get from 'lodash/get';
 import includes from 'lodash/includes';
 import keys from 'lodash/keys';
+import pick from 'lodash/pick';
 import i18n from '../../i18n';
 import content from '../../content/index';
 import {
@@ -95,6 +96,7 @@ export default async function purchaseHourglass (user, req = {}, analytics, quan
 
   if (analytics) {
     analytics.track('buy', {
+      user: pick(user, ['preferences', 'registeredThrough']),
       uuid: user._id,
       itemKey: key,
       itemType: type,

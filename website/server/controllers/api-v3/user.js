@@ -1,4 +1,7 @@
-import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
+import forEach from 'lodash/forEach';
+import isFunction from 'lodash/isFunction';
+import pick from 'lodash/pick';
 import nconf from 'nconf';
 import get from 'lodash/get';
 import { authWithHeaders } from '../../middlewares/auth';
@@ -124,13 +127,13 @@ api.getBuyList = {
   middlewares: [authWithHeaders()],
   url: '/user/inventory/buy',
   async handler (req, res) {
-    const list = _.cloneDeep(common.updateStore(res.locals.user));
+    const list = cloneDeep(common.updateStore(res.locals.user));
 
     // return text and notes strings
-    _.each(list, item => {
-      _.each(item, (itemPropVal, itemPropKey) => {
+    forEach(list, item => {
+      forEach(item, (itemPropVal, itemPropKey) => {
         if (
-          _.isFunction(itemPropVal)
+          isFunction(itemPropVal)
           && itemPropVal.i18nLangFunc
         ) item[itemPropKey] = itemPropVal(req.language);
       });
@@ -175,10 +178,10 @@ api.getInAppRewardsList = {
     const list = common.inAppRewards(res.locals.user);
 
     // return text and notes strings
-    _.each(list, item => {
-      _.each(item, (itemPropVal, itemPropKey) => {
+    forEach(list, item => {
+      forEach(item, (itemPropVal, itemPropKey) => {
         if (
-          _.isFunction(itemPropVal)
+          isFunction(itemPropVal)
           && itemPropVal.i18nLangFunc
         ) item[itemPropKey] = itemPropVal(req.language);
       });
@@ -323,6 +326,7 @@ api.deleteUser = {
     }
 
     res.analytics.track('account delete', {
+      user: pick(user, ['preferences', 'registeredThrough']),
       uuid: user._id,
       hitType: 'event',
       category: 'behavior',
@@ -333,7 +337,7 @@ api.deleteUser = {
 };
 
 function _cleanChecklist (task) {
-  _.forEach(task.checklist, (c, i) => {
+  forEach(task.checklist, (c, i) => {
     c.text = `item ${i}`;
   });
 }
@@ -386,11 +390,11 @@ api.getUserAnonymized = {
     delete user.secret;
     delete user.permissions;
 
-    _.forEach(user.inbox.messages, msg => {
+    forEach(user.inbox.messages, msg => {
       msg.text = 'inbox message text';
     });
 
-    _.forEach(user.tags, tag => {
+    forEach(user.tags, tag => {
       tag.name = 'tag';
       tag.challenge = 'challenge';
     });
@@ -404,7 +408,7 @@ api.getUserAnonymized = {
     };
     const tasks = await Tasks.Task.find(query).exec();
 
-    _.forEach(tasks, task => {
+    forEach(tasks, task => {
       task.text = 'task text';
       task.notes = 'task notes';
       if (task.type === 'todo' || task.type === 'daily') {

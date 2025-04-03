@@ -1,4 +1,5 @@
 import get from 'lodash/get';
+import pick from 'lodash/pick';
 import setWith from 'lodash/setWith';
 import i18n from '../i18n';
 import { NotAuthorized, BadRequest } from '../libs/errors';
@@ -317,6 +318,7 @@ export default async function unlock (user, req = {}, analytics) {
 
     if (analytics) {
       analytics.track('buy', {
+        user: pick(user, ['preferences', 'registeredThrough']),
         uuid: user._id,
         itemKey: path,
         itemType: 'customization',

@@ -1,5 +1,6 @@
 import moment from 'moment';
 import mongoose from 'mongoose';
+import pick from 'lodash/pick';
 import nconf from 'nconf';
 import { model as User } from '../models/user';
 import * as Tasks from '../models/task';
@@ -102,10 +103,8 @@ function processHabits (user, habits, now, daysMissed) {
 function trackCronAnalytics (analytics, user, _progress, options) {
   analytics.track('Cron', {
     category: 'behavior',
-    gaLabel: 'Cron Count',
-    gaValue: user.flags.cronCount,
     uuid: user._id,
-    user,
+    user: pick(user, ['preferences', 'registeredThrough']),
     resting: user.preferences.sleep,
     cronCount: user.flags.cronCount,
     progressUp: Math.min(_progress.up, 900),

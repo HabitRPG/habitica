@@ -117,6 +117,7 @@ export async function update (req, res, { isV3 = false }) {
     user.invitations.party = {};
     user.invitations.parties = [];
     res.analytics.track('Starts Looking for Party', {
+      user: _.pick(user, ['preferences', 'registeredThrough']),
       uuid: user._id,
       hitType: 'event',
       category: 'behavior',
@@ -200,6 +201,7 @@ export async function update (req, res, { isV3 = false }) {
     if (key === 'party.seeking' && val === null) {
       user.party.seeking = undefined;
       res.analytics.track('Leaves Looking for Party', {
+        user: _.pick(user, ['preferences', 'registeredThrough']),
         uuid: user._id,
         hitType: 'event',
         category: 'behavior',
@@ -290,6 +292,7 @@ export async function reset (req, res, { isV3 = false }) {
   ]);
 
   res.analytics.track('account reset', {
+    user: _.pick(user, ['preferences', 'registeredThrough']),
     uuid: user._id,
     hitType: 'event',
     category: 'behavior',

@@ -1,3 +1,4 @@
+import pick from 'lodash/pick';
 import moment from 'moment';
 import {
   BadRequest,
@@ -31,6 +32,7 @@ async function buyGryphatrice (data) {
   data.user.purchased.txnCount += 1;
 
   analytics.trackPurchase({
+    user: pick(data.user, ['preferences', 'registeredThrough']),
     uuid: data.user._id,
     itemPurchased: 'Gryphatrice',
     sku: `${data.paymentMethod.toLowerCase()}-checkout`,

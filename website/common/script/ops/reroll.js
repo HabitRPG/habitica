@@ -1,4 +1,5 @@
 import each from 'lodash/each';
+import pick from 'lodash/pick';
 import i18n from '../i18n';
 import {
   NotAuthorized,
@@ -23,6 +24,7 @@ export default async function reroll (user, tasks = [], req = {}, analytics) {
 
   if (analytics) {
     analytics.track('Fortify Potion', {
+      user: pick(user, ['preferences', 'registeredThrough']),
       uuid: user._id,
       currency: 'Gems',
       gemCost: 4,
