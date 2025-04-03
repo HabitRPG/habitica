@@ -628,6 +628,7 @@ export default {
               key: specialKey,
               eggKey,
               eggName: text(),
+              mountName: text(),
               potionKey,
               name: text(),
               canFind,
@@ -669,12 +670,10 @@ export default {
         animals = _filter(animals, a => a.isOwned());
       }
 
-      // this does not return the yarn pet if user searches for flying carpet
-      // if yarn is searched, both items appear
       if (searchText && searchText !== '') {
         animals = _filter(animals, a => a.name.toLowerCase().indexOf(searchText) !== -1
-        || a.eggKey.toLowerCase().indexOf(searchText) !== -1
-        || a.eggName.toLowerCase().indexOf(searchText) !== -1);
+        || a.eggName.toLowerCase().indexOf(searchText) !== -1
+        || a.mountName.toLowerCase().indexOf(searchText) !== -1);
       }
 
       // 2. Sort
