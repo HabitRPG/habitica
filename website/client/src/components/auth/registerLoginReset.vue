@@ -608,6 +608,7 @@ import axios from 'axios';
 import hello from 'hellojs';
 import debounce from 'lodash/debounce';
 import isEmail from 'validator/es/lib/isEmail';
+import emailExistence from 'email-existence';
 import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
 import { buildAppleAuthUrl } from '../../libs/auth';
 import sanitizeRedirect from '@/mixins/sanitizeRedirect';
@@ -619,7 +620,7 @@ import appleIcon from '@/assets/svg/apple_black.svg';
 
 export default {
   mixins: [sanitizeRedirect],
-  data () {
+  data() {
     const data = {
       username: '',
       email: '',
@@ -644,60 +645,62 @@ export default {
     return data;
   },
   computed: {
-    registering () {
+    registering() {
       if (this.$route.path.startsWith('/register')) {
         return true;
       }
       return false;
     },
-    resetPasswordSetNewOne () {
+    resetPasswordSetNewOne() {
       if (this.$route.path.startsWith('/reset-password')) {
         return true;
       }
       return false;
     },
-    emailValid () {
+    async emailValid() {
       if (this.email.length < 1) return false;
-      return isEmail(this.email);
+
+      // Check if it's a valid email format
+      if (!isEmail(this.email)) return false;
+
+      const emailDomainExists = await this.checkEmailDomain(this.email);
+      return emailDomainExists;
     },
-    emailInvalid () {
+    emailInvalid() {
       if (this.email.length < 1) return false;
       return !this.emailValid;
     },
-    usernameValid () {
+    usernameValid() {
       if (this.username.length < 1) return false;
       return this.usernameIssues.length === 0;
     },
-    usernameInvalid () {
+    usernameInvalid() {
       if (this.username.length < 1) return false;
       return !this.usernameValid;
     },
-    passwordValid () {
+    passwordValid() {
       if (this.password.length <= 0) return false;
       return this.password.length >= MINIMUM_PASSWORD_LENGTH;
     },
-    passwordInvalid () {
+    passwordInvalid() {
       if (this.password.length <= 0) return false;
       return this.password.length < MINIMUM_PASSWORD_LENGTH;
     },
-    passwordConfirmValid () {
+    passwordConfirmValid() {
       if (this.passwordConfirm.length <= 3) return false;
       return this.passwordConfirm === this.password;
     },
-    passwordConfirmInvalid () {
+    passwordConfirmInvalid() {
       if (this.passwordConfirm.length <= 3) return false;
       return !this.passwordConfirmValid;
     },
-    signupFormInvalid () {
-      return this.usernameInvalid
-        || this.emailInvalid
-        || this.passwordInvalid
-        || this.passwordConfirmInvalid;
+    signupFormInvalid() {
+      return this.usernameInvalid || this.emailInvalid || this.passwordInvalid || this.passwordConfirmInvalid;
     },
   },
   watch: {
     $route: {
-      handler () {
+      handler() {
         this.setTitle();
         if (this.resetPasswordSetNewOne) {
           const { query } = this.$route;
@@ -720,11 +723,11 @@ export default {
       },
       immediate: true,
     },
-    username () {
+    username() {
       this.validateUsername(this.username);
     },
   },
-  mounted () {
+  mounted() {
     this.forgotPassword = this.$route.path.startsWith('/forgot-password');
 
     hello.init({
@@ -732,6 +735,13 @@ export default {
     });
   },
   methods: {
+    async checkEmailDomain(email) {
+      return new Promise((resolve) => {
+        emailExistence.check(email, (error, response) => {
+          resolve(response); // True if domain exists, false if it doesn't
+        });
+      });
+    },
     // eslint-disable-next-line func-names
     validateUsername: debounce(function (username) {
       if (username.length <= 3 || !this.registering) {
@@ -747,7 +757,7 @@ export default {
         }
       });
     }, 500),
-    async register () {
+    async register() {
       // @TODO do not use alert
       if (!this.email) {
         window.alert(this.$t('missingEmail')); // eslint-disable-line no-alert
@@ -759,18 +769,6 @@ export default {
         return;
       }
 
-      // @TODO: implement language and invite accepting
-      // var url = ApiUrl.get() + "/api/v4/user/auth/local/register";
-      // if (location.search && location.search.indexOf('Invite=') !== -1)
-      // { // matches groupInvite and partyInvite
-      //   url += location.search;
-      // }
-      //
-      // if($rootScope.selectedLanguage) {
-      //   var toAppend = url.indexOf('?') !== -1 ? '&' : '?';
-      //   url = url + toAppend + 'lang=' + $rootScope.selectedLanguage.code;
-      // }
-
       await this.$store.dispatch('auth:register', {
         username: this.username,
         email: this.email,
@@ -780,18 +778,11 @@ export default {
 
       const redirectTo = this.sanitizeRedirect(this.$route.query.redirectTo);
 
-      // @TODO do not reload entire page
-      // problem is that app.vue created hook should be called again
-      // after user is logged in / just signed up
-      // ALSO it's the only way to make sure language data
-      // is reloaded and correct for the logged in user
-      // Same situation in login and socialAuth functions
       window.location.href = redirectTo;
     },
-    async login () {
+    async login() {
       await this.$store.dispatch('auth:login', {
         username: this.username,
-        // email: this.email,
         password: this.password,
       });
 
@@ -799,8 +790,7 @@ export default {
 
       window.location.href = redirectTo;
     },
-    // @TODO: Abstract hello in to action or lib
-    async socialAuth (network) {
+    async socialAuth(network) {
       if (network === 'apple') {
         window.location.href = buildAppleAuthUrl();
       } else {
@@ -824,7 +814,7 @@ export default {
         window.location.href = redirectTo;
       }
     },
-    setTitle () {
+    setTitle() {
       if (this.resetPasswordSetNewOne) {
         return;
       }
@@ -836,7 +826,7 @@ export default {
         section: this.$t(title),
       });
     },
-    handleSubmit () {
+    handleSubmit() {
       if (this.registering) {
         this.register();
         return;
@@ -854,7 +844,7 @@ export default {
 
       this.login();
     },
-    async forgotPasswordLink () {
+    async forgotPasswordLink() {
       if (!this.username) {
         window.alert(this.$t('missingEmail')); // eslint-disable-line no-alert
         return;
@@ -866,14 +856,13 @@ export default {
 
       window.alert(this.$t('newPassSent')); // eslint-disable-line no-alert
     },
-    async resetPasswordSetNewOneLink () {
+    async resetPasswordSetNewOneLink() {
       if (!this.password) {
         window.alert(this.$t('missingNewPassword')); // eslint-disable-line no-alert
         return;
       }
 
       if (this.password !== this.passwordConfirm) {
-        // @TODO i18n and don't use alerts
         window.alert(this.$t('passwordConfirmationMatch')); // eslint-disable-line no-alert
         return;
       }
