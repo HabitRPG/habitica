@@ -1,7 +1,9 @@
-import { describe, expect, test, beforeEach, afterEach } from 'vitest';
+import {
+  describe, expect, test, beforeEach, afterEach,
+} from 'vitest';
 import axios from 'axios';
-import generateStore from '@/store';
 import sinon from 'sinon';
+import generateStore from '@/store';
 
 const sandbox = sinon.createSandbox();
 

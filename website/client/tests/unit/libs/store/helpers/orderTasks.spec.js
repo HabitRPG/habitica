@@ -1,4 +1,6 @@
-import { describe, beforeEach, test, expect } from 'vitest';
+import {
+  describe, beforeEach, test, expect,
+} from 'vitest';
 import shuffle from 'lodash/shuffle';
 import {
   orderSingleTypeTasks,

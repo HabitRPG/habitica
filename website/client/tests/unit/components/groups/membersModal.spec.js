@@ -1,4 +1,6 @@
-import { describe, expect, test, beforeEach, afterEach } from 'vitest';
+import {
+  describe, expect, test, beforeEach, afterEach,
+} from 'vitest';
 import Vue from 'vue';
 import MembersModalComponent from '@/components/groups/membersModal.vue';
 

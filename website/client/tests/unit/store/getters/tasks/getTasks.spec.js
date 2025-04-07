@@ -1,4 +1,6 @@
-import { describe, expect, test, beforeEach } from 'vitest';
+import {
+  describe, expect, test, beforeEach,
+} from 'vitest';
 import generateStore from '@/store';
 
 describe('Store Getters for Tasks', () => {

@@ -180,8 +180,8 @@
 </template>
 
 <style lang="scss">
-@import '~@/assets/scss/colors';
-@import '~@/assets/scss/variables';
+@import '@/assets/scss/colors';
+@import '@/assets/scss/variables';
 
 $pmHeaderHeight: 56px;
 
@@ -289,9 +289,9 @@ $pmHeaderHeight: 56px;
 </style>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors';
-@import '~@/assets/scss/tiers';
-@import '~@/assets/scss/variables';
+@import '@/assets/scss/colors';
+@import '@/assets/scss/tiers';
+@import '@/assets/scss/variables';
 
 $pmHeaderHeight: 56px;
 $background: $white;

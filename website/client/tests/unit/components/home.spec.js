@@ -1,10 +1,12 @@
-import { describe, expect, test, beforeEach, afterEach } from 'vitest'
+import {
+  describe, expect, test, beforeEach, afterEach,
+} from 'vitest';
 import { shallowMount, createLocalVue } from '@vue/test-utils';
 
+import sinon from 'sinon';
 import Home from '@/components/static/home.vue';
 import Store from '@/libs/store';
 import * as Analytics from '@/libs/analytics';
-import sinon from 'sinon';
 
 const sandbox = sinon.createSandbox();
 const localVue = createLocalVue();

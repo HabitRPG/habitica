@@ -1,11 +1,14 @@
-import { describe, expect, test, afterEach, beforeEach, chai } from 'vitest';
+import {
+  describe, expect, test, afterEach, beforeEach, chai,
+} from 'vitest';
 import axios from 'axios';
 import { sleep } from '@/../../../test/helpers/sleep';
-import { asyncResourceFactory, loadAsyncResource } from '@/libs/asyncResource';
-import generateStore from '@/store';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 import chaiAsPromised from 'chai-as-promised';
+import generateStore from '@/store';
+import { asyncResourceFactory, loadAsyncResource } from '@/libs/asyncResource';
+
 chai.use(sinonChai);
 chai.use(chaiAsPromised);
 

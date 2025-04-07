@@ -1,4 +1,6 @@
-import { describe, expect, test, beforeEach } from 'vitest';
+import {
+  describe, expect, test, beforeEach,
+} from 'vitest';
 import Vue from 'vue';
 import commoni18n from '@/../../common/script/i18n';
 import i18n from '@/libs/i18n';

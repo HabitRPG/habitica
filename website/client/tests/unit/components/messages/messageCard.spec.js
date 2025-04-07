@@ -1,4 +1,6 @@
-import { describe, expect, test, beforeEach } from 'vitest';
+import {
+  describe, expect, test, beforeEach,
+} from 'vitest';
 import Vue from 'vue';
 import { shallowMount, createLocalVue } from '@vue/test-utils';
 

@@ -1,4 +1,6 @@
-import { describe, expect, test, beforeEach } from 'vitest';
+import {
+  describe, expect, test, beforeEach,
+} from 'vitest';
 import { createLocalVue } from '@vue/test-utils';
 import { TAVERN_ID } from '@/../../common/script/constants';
 import groupsUtilities from '@/mixins/groupsUtilities';

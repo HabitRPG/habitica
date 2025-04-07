@@ -33,7 +33,7 @@
 </template>
 
 <style scoped lang="scss">
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 strong {
   line-height: 1.71;

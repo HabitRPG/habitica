@@ -1,4 +1,6 @@
-import { describe, expect, test, beforeEach } from 'vitest';
+import {
+  describe, expect, test, beforeEach,
+} from 'vitest';
 import Vue from 'vue';
 import StoreModule, { mapState, mapGetters, mapActions } from '@/libs/store';
 import { flattenAndNamespace } from '@/libs/store/helpers/internals';

@@ -150,7 +150,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .page-header.btn-flat {
     background: transparent;

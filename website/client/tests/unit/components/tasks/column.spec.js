@@ -1,4 +1,6 @@
-import { describe, expect, test, beforeEach } from 'vitest';
+import {
+  describe, expect, test, beforeEach,
+} from 'vitest';
 import { shallowMount, createLocalVue } from '@vue/test-utils';
 import TaskColumn from '@/components/tasks/column.vue';
 import Store from '@/libs/store';

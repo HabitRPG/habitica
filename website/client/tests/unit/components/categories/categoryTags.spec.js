@@ -1,4 +1,6 @@
-import { describe, expect, test, beforeEach } from 'vitest'
+import {
+  describe, expect, test, beforeEach,
+} from 'vitest';
 import { mount } from '@vue/test-utils';
 import Vue from 'vue';
 

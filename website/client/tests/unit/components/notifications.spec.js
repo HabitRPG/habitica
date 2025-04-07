@@ -1,11 +1,14 @@
-import { describe, expect, test, beforeEach, chai } from 'vitest';
+import {
+  describe, expect, test, beforeEach, chai,
+} from 'vitest';
 import { shallowMount, createLocalVue } from '@vue/test-utils';
 import { toNextLevel } from '@/../../common/script/statHelpers';
+import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
 import NotificationsComponent from '@/components/notifications.vue';
 import Store from '@/libs/store';
 import { hasClass } from '@/store/getters/members';
-import sinon from 'sinon';
-import sinonChai from "sinon-chai";
+
 chai.use(sinonChai);
 
 const localVue = createLocalVue();

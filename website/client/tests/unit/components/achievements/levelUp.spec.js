@@ -1,4 +1,4 @@
-import { describe, expect, test } from 'vitest'
+import { describe, expect, test } from 'vitest';
 import LevelUp from '@/components/achievements/levelUp.vue';
 
 /*
@@ -76,7 +76,7 @@ describe('LevelUp', () => {
     expect(questClass()).to.equal('inventory_quest_scroll_atom1');
   });
 
-  it('generates empty test class for level 14', () => {
+  test('generates empty test class for level 14', () => {
     const questClass = testFunction('questClass', 14);
     expect(questClass()).to.equal('');
   });

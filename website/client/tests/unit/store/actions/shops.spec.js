@@ -1,12 +1,14 @@
-import { describe, expect, test, beforeEach } from 'vitest';
+import {
+  describe, expect, test, beforeEach,
+} from 'vitest';
 import axios from 'axios';
 
 import content from '@/../../common/script/content';
 import getItemInfo from '@/../../common/script/libs/getItemInfo';
 
 import getOfficialPinnedItems from '@/../../common/script/libs/getOfficialPinnedItems';
-import generateStore from '@/store';
 import sinon from 'sinon';
+import generateStore from '@/store';
 
 const sandbox = sinon.createSandbox();
 
