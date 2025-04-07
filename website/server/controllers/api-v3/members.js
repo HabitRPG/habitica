@@ -22,11 +22,6 @@ import {
 } from '../../libs/email';
 import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
 import common from '../../../common';
-import { sentMessage } from '../../libs/inbox';
-import {
-  sanitizeText as sanitizeMessageText,
-} from '../../models/message';
-import highlightMentions from '../../libs/highlightMentions';
 import { handleGetMembersForChallenge } from '../../libs/challenges/handleGetMembersForChallenge';
 import { chatReporterFactory } from '../../libs/chatReporting/chatReporterFactory';
 
@@ -105,7 +100,7 @@ const api = {};
 api.getMember = {
   method: 'GET',
   url: '/members/:memberId',
-  middlewares: [],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
 
@@ -134,7 +129,7 @@ api.getMember = {
 api.getMemberByUsername = {
   method: 'GET',
   url: '/members/username/:username',
-  middlewares: [],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('username', res.t('invalidReqParams')).notEmpty();
 
@@ -146,14 +141,24 @@ api.getMemberByUsername = {
 
     const member = await User
       .findOne({ 'auth.local.lowerCaseUsername': username, 'flags.verifiedUsername': true })
-      .select(memberFields)
+      .select(`${memberFields} blocks`)
       .exec();
 
     if (!member) throw new NotFound(res.t('userNotFound'));
 
+    const blocksArray = member.blocks || [];
+
+    delete member.blocks;
+
     // manually call toJSON with minimize: true so empty paths aren't returned
     const memberToJSON = member.toJSON({ minimize: true });
     User.addComputedStatsToJSONObj(memberToJSON.stats, member);
+
+    const { user } = res.locals;
+
+    const isRequestingUserBlocked = blocksArray.includes(user._id);
+
+    memberToJSON.inbox.canReceive = !(memberToJSON.inbox.optOut || isRequestingUserBlocked) || user.hasPermission('moderator');
 
     res.respond(200, memberToJSON);
   },
@@ -253,7 +258,7 @@ api.getMemberByUsername = {
 api.getMemberAchievements = {
   method: 'GET',
   url: '/members/:memberId/achievements',
-  middlewares: [],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
 
@@ -635,46 +640,6 @@ api.getObjectionsToInteraction = {
     const response = sender.getObjectionsToInteraction(interaction, receiver);
 
     res.respond(200, response.map(res.t));
-  },
-};
-
-/**
- * @api {post} /api/v3/members/send-private-message Send a private message to a member
- * @apiName SendPrivateMessage
- * @apiGroup Member
- *
- * @apiParam (Body) {String} message The message
- * @apiParam (Body) {UUID} toUserId The id of the user to contact
- *
- * @apiSuccess {Object} data.message The message just sent
- *
- * @apiUse UserNotFound
- */
-api.sendPrivateMessage = {
-  method: 'POST',
-  url: '/members/send-private-message',
-  middlewares: [authWithHeaders()],
-  async handler (req, res) {
-    req.checkBody('message', res.t('messageRequired')).notEmpty();
-    req.checkBody('toUserId', res.t('toUserIDRequired')).notEmpty().isUUID();
-
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
-
-    const sender = res.locals.user;
-    const sanitizedMessageText = sanitizeMessageText(req.body.message);
-    const message = (await highlightMentions(sanitizedMessageText))[0];
-
-    const receiver = await User.findById(req.body.toUserId).exec();
-    if (!receiver) throw new NotFound(res.t('userNotFound'));
-    if (!receiver.flags.verifiedUsername) delete receiver.auth.local.username;
-
-    const objections = sender.getObjectionsToInteraction('send-private-message', receiver);
-    if (objections.length > 0 && !sender.hasPermission('moderator')) throw new NotAuthorized(res.t(objections[0]));
-
-    const messageSent = await sentMessage(sender, receiver, message, res.t);
-
-    res.respond(200, { message: messageSent });
   },
 };
 

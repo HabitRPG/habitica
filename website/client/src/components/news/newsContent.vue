@@ -107,7 +107,7 @@ export default {
       if (lastPublishedPost) this.posts.push(lastPublishedPost);
 
       // If the user is authorized, show any draft
-      if (this.user && this.user.contributor.newsPoster) {
+      if (this.user && (this.user.permissions.news || this.user.permissions.fullAccess)) {
         this.posts.unshift(
           ...postsFromServer
             .filter(p => !p.published || moment().isBefore(p.publishDate)),

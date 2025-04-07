@@ -12,20 +12,21 @@
       <strong> {{ notification.data.title }} </strong>
       <span> {{ notification.data.text }} </span>
     </div>
-    <div
+    <Sprite
       slot="icon"
       class="mt-3"
-      :class="notification.data.icon"
-    ></div>
+      :image-name="notification.data.icon" />
   </base-notification>
 </template>
 
 <script>
 import BaseNotification from './base';
+import Sprite from '@/components/ui/sprite.vue';
 
 export default {
   components: {
     BaseNotification,
+    Sprite,
   },
   props: {
     notification: {

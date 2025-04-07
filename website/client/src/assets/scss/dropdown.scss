@@ -38,7 +38,12 @@
   border-radius: 2px;
   box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
   padding: 0;
+}
 
+.no-min-width {
+  .dropdown-menu {
+    min-width: 0 !important;
+  }
 }
 
 // shared dropdown-item styles
@@ -53,6 +58,8 @@
   line-height: 1.71;
   color: $gray-50 !important;
   cursor: pointer;
+
+  --dropdown-item-hover-icon-color: #{$gray-200};
 
   &:focus {
     outline: none;
@@ -88,7 +95,7 @@
 
   &:not(:hover) {
     .with-icon .svg-icon {
-      color: $gray-200;
+      color: var(dropdown-item-hover-icon-color);
     }
   }
 }
@@ -151,7 +158,7 @@
 
 // selectList.vue items sizing
 .selectListItem .dropdown-item {
-  padding: 0.25rem 0.75rem;
+  padding: 0.25rem 1rem 0.25rem 0.75rem;
   height: 32px;
 
   &:active, &:hover, &:focus, &.active {

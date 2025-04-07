@@ -1,7 +1,7 @@
 {
     "subscription": "정기 구독",
     "subscriptions": "정기 후원",
-    "sendGems": "Send Gems",
+    "sendGems": "보석 보내기",
     "buyGemsGold": "골드로 보석을 구입하세요",
     "mustSubscribeToPurchaseGems": "보석으로 GP를 구매하기 위해서는 정기 후원하세요",
     "reachedGoldToGemCapQuantity": "요청해주신 양은 <%= quantity %> 이번 달에 구매할 수 있는 양을 초과했습니다<%= convCap %>. 이 양은 매달 초 3일 안에 복구됩니다. 구독해 주셔서 감사합니다!",

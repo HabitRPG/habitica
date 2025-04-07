@@ -25,7 +25,7 @@
     "user": "Користувач",
     "market": "Ринок",
     "newSubscriberItem": "Ви маєте нові <span class=\"notification-bold-blue\">таємничі предмети</span>",
-    "subscriberItemText": "Щомісяця підписники отримають загадковий предмет. Він стає доступним на початку місяця. Для отримання додаткової інформації дивіться сторінку \"Mystery item\" у вікі.",
+    "subscriberItemText": "Підписники отримають новий загадковий набір спорядження на початку кожного місяця!",
     "all": "Усі",
     "none": "Жодного",
     "more": "ще <%= count %>",
@@ -189,7 +189,7 @@
     "dismissAll": "Очистити все",
     "messages": "Повідомлення",
     "emptyMessagesLine1": "Повідомлення відсутні",
-    "emptyMessagesLine2": "Ви можете надіслати нове повідомлення користувачу, відкривши його профіль та натиснувши кнопку \"Надіслати повідомлення\".",
+    "emptyMessagesLine2": "Надішліть повідомлення щоб почати розмову з членами вашої команди або іншим гравцем Habitica",
     "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> надіслав Вам повідомлення",
     "letsgo": "Почнімо!",
     "selected": "Обрано",
@@ -237,5 +237,9 @@
     "viewAdminPanel": "Переглянути панель адміна",
     "unbanPlayer": "Розбанити гравця",
     "whyReportingPlayer": "Чому ви повідомляєте про цього гравця?",
-    "whyReportingPlayerPlaceholder": "Причина для повідомлення"
+    "whyReportingPlayerPlaceholder": "Причина для повідомлення",
+    "titleCustomizations": "Для аватара",
+    "newMessage": "Нове повідомлення",
+    "targetUserNotExist": "Вибраний користувач: '<%= userName %>' не існує.",
+    "rememberToBeKind": "Не забувайте бути добрими, шанобливими та дотримуватися <a href='/static/community-guidelines' target='_blank'>Правил спільноти</a>."
 }

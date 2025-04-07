@@ -25,7 +25,7 @@
     "user": "Kullanıcı",
     "market": "Pazar",
     "newSubscriberItem": "Yeni <span class=\"notification-bold-blue\">Gizemli Eşyaların</span> var",
-    "subscriberItemText": "Her ay, aboneler bir gizemli öğe alacaklar. Bu öğe ayın başında kullanılabilir hale gelir. Daha fazla bilgi için wiki'deki 'Gizemli Öğe' sayfasına bakın.",
+    "subscriberItemText": "Abone olanlar her ayın başında yeni bir gizemli ekipman seti alırlar!",
     "all": "Hepsi",
     "none": "Hiçbiri",
     "more": "<%= count %> kez daha",
@@ -189,7 +189,7 @@
     "dismissAll": "Okundu Olarak İşaretle",
     "messages": "Mesajlar",
     "emptyMessagesLine1": "Hiç mesajın yok",
-    "emptyMessagesLine2": "Bir kullanıcının profiline gidip \"Mesaj\" butonuna tıklayarak ona yeni bir mesaj gönderebilirsiniz.",
+    "emptyMessagesLine2": "Parti üyelerinizle veya başka bir Habitica oyuncusuyla sohbet başlatmak için bir mesaj gönderin",
     "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> sana bir mesaj gönderdi",
     "letsgo": "Haydi!",
     "selected": "Seçilmiş",
@@ -238,5 +238,8 @@
     "question": "Soru",
     "questionDescriptionText": "Eğer İngilizce konuşmakta rahat değilseniz, sorularınızı ana dilinizde sormanızda bir sakınca yoktur.",
     "questionPlaceholder": "Sorunuzu buraya sorun",
-    "submitQuestion": "Soruyu Gönder"
+    "submitQuestion": "Soruyu Gönder",
+    "newMessage": "Yeni Mesaj",
+    "targetUserNotExist": "Hedef Kullanıcı: '<%= userName %>' mevcut değil.",
+    "rememberToBeKind": "Lütfen nazik, saygılı olun ve <a href='/static/community-guidelines' target='_blank'>Topluluk Kurallarına</a> uyun."
 }

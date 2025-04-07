@@ -489,7 +489,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
 
   if (matcher && (!itemInfo.set
     || ALWAYS_AVAILABLE_CUSTOMIZATIONS.indexOf(itemInfo.set.key) === -1)) {
-    itemInfo.end = matcher.end;
+    itemInfo.end = matcher.getEnd(itemInfo.key);
   }
 
   return itemInfo;

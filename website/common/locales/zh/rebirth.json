@@ -11,5 +11,5 @@
     "rebirthPop": "立即将你的角色重置成为1级战士，同时保留成就、物品和装备。你的任务及其历史记录会保留，但会被重置为黄色；你的连击次数将被移除，挑战任务和团队计划任务除外；你的金币、经验值以及法力值和及所有技能的效果都将被移除。上述内容将立即生效。",
     "rebirthName": "重生之球",
     "rebirthComplete": "你已经重生！",
-    "nextFreeRebirth": "下个<strong>免费</strong>的重生之球<strong><%= days %>天</strong>后才能使用"
+    "nextFreeRebirth": "下个<strong>免费</strong>的重生之球可在<strong><%= days %>天</strong>后获得"
 }

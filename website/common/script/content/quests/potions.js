@@ -373,5 +373,37 @@ const QUEST_POTIONS = {
       unlock: t('questTurquoiseUnlockText'),
     },
   },
+  jade: {
+    text: t('questJadeText'),
+    notes: t('questJadeNotes'),
+    completion: t('questJadeCompletion'),
+    value: 4,
+    category: 'hatchingPotion',
+    boss: {
+      name: t('questJadeBoss'),
+      hp: 400,
+      str: 1.25,
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'Jade',
+          text: t('questJadeDropJadePotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Jade',
+          text: t('questJadeDropJadePotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Jade',
+          text: t('questJadeDropJadePotion'),
+        },
+      ],
+      gp: 40,
+      exp: 400,
+      unlock: t('questJadeUnlockText'),
+    },
+  },
 };
 export default QUEST_POTIONS;

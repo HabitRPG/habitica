@@ -55,9 +55,9 @@
           </li>
           <li>
             <a
-              href="https://habitica.fandom.com/wiki/Whats_New"
-              target="_blank"
-            >{{ $t('oldNews') }}
+              @click="showBailey()"
+            >
+              {{ $t('oldNews') }}
             </a>
           </li>
         </ul>
@@ -80,7 +80,7 @@
           </li>
           <li>
             <a
-              href="https://habitica.fandom.com/wiki/Contributing_to_Habitica"
+              href="https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica"
               target="_blank"
             >{{ $t('companyContribute') }}
             </a>
@@ -156,13 +156,6 @@
               href="https://habitica.fandom.com/wiki/Guidance_for_Blacksmiths"
               target="_blank"
             >{{ $t('guidanceForBlacksmiths') }}
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations"
-              target="_blank"
-            >{{ $t('communityExtensions') }}
             </a>
           </li>
         </ul>
@@ -518,7 +511,7 @@ footer {
   background-color: $gray-500;
   color: $gray-50;
   padding: 32px 142px 40px;
-  a {
+  a, a:not([href]) {
     color: $gray-50;
   }
   a:hover {
@@ -953,24 +946,28 @@ export default {
     },
     async jumpTime (amount) {
       const response = await axios.post('/api/v4/debug/jump-time', { offsetDays: amount });
-      if (amount > 0) {
-        Vue.config.clock.jump(amount * 24 * 60 * 60 * 1000);
-      } else {
-        Vue.config.clock.setSystemTime(moment().add(amount, 'days').toDate());
-      }
-      this.lastTimeJump = response.data.data.time;
-      this.triggerGetWorldState(true);
+      setTimeout(() => {
+        if (amount > 0) {
+          Vue.config.clock.jump(amount * 24 * 60 * 60 * 1000);
+        } else {
+          Vue.config.clock.setSystemTime(moment().add(amount, 'days').toDate());
+        }
+        this.lastTimeJump = response.data.data.time;
+        this.triggerGetWorldState(true);
+      }, 1000);
     },
     async resetTime () {
       const response = await axios.post('/api/v4/debug/jump-time', { reset: true });
       const time = new Date(response.data.data.time);
-      Vue.config.clock.restore();
-      Vue.config.clock = sinon.useFakeTimers({
-        now: time,
-        shouldAdvanceTime: true,
-      });
-      this.lastTimeJump = response.data.data.time;
-      this.triggerGetWorldState(true);
+      setTimeout(() => {
+        Vue.config.clock.restore();
+        Vue.config.clock = sinon.useFakeTimers({
+          now: time,
+          shouldAdvanceTime: true,
+        });
+        this.lastTimeJump = response.data.data.time;
+        this.triggerGetWorldState(true);
+      }, 1000);
     },
     addExp () {
       // @TODO: Name these variables better
@@ -998,7 +995,6 @@ export default {
     async bossRage () {
       await axios.post('/api/v4/debug/boss-rage');
     },
-
     async makeAdmin () {
       await axios.post('/api/v4/debug/make-admin');
       // @TODO: Notification.text('You are now an admin!
@@ -1007,6 +1003,9 @@ export default {
     },
     donate () {
       this.$root.$emit('bv::show::modal', 'buy-gems', { alreadyTracked: true });
+    },
+    showBailey () {
+      this.$root.$emit('bv::show::modal', 'new-stuff');
     },
   },
 };

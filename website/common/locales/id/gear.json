@@ -2422,5 +2422,8 @@
     "eyewearMystery201907Notes": "Terlihat mengagumkan sekaligus melindungi mata dari sinar UV yang berbahaya! Tidak menambah status apapun. Item Pelanggan Juli 2019.",
     "eyewearSpecialFall2019HealerText": "Topeng Wajah Gelap",
     "eyewearSpecialKS2019Notes": "Berani seperti grifin ... Hmm, grifin tidak memiliki visor. Ini mengingatkanmu untuk... Oh, siapa yang kita bahas, itu keren banget! Tidak menambah status apapun.",
-    "armorArmoireBasketballUniformText": "Seragam Bola Basket"
+    "armorArmoireBasketballUniformText": "Seragam Bola Basket",
+    "gearItemsCompleted": "Kamu telah memiliki semua peralatan <%= klass %>! Peralatan baru dirilis selama Gala musiman.",
+    "moreArmoireGearAvailable": "Sampai saat itu, ada <%= armoireCount %> peralatan di Peti Ajaib yang bisa ditemukan!",
+    "moreArmoireGearComing": "Peti Ajaib juga mendapatkan stok baru setiap bulan!"
 }

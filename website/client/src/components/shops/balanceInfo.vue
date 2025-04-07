@@ -3,6 +3,7 @@
     <div
       v-for="currency of currencies"
       :key="currency.key"
+      :needed-currency-only="neededCurrencyOnly"
       class="d-flex align-items-center"
     >
       <div
@@ -54,6 +55,9 @@ export default {
     amountNeeded: {
       type: Number,
     },
+    neededCurrencyOnly: {
+      type: Boolean,
+    },
   },
   data () {
     return {
@@ -66,34 +70,34 @@ export default {
   },
   computed: {
     currencies () {
-      const currencies = [];
-      currencies.push({
+      const currencies = [{
         type: 'hourglasses',
         icon: this.icons.hourglasses,
         value: this.userHourglasses,
-      });
+      },
 
-      currencies.push({
+      {
         type: 'gems',
         icon: this.icons.gem,
         value: this.userGems,
-      });
+      },
 
-      currencies.push({
+      {
         type: 'gold',
         icon: this.icons.gold,
         value: this.userGold,
-      });
+      }];
 
       for (const currency of currencies) {
-        if (
-          currency.type === this.currencyNeeded
-          && !this.enoughCurrency(this.currencyNeeded, this.amountNeeded)
+        if (currency.type === this.currencyNeeded
+        && !this.enoughCurrency(this.currencyNeeded, this.amountNeeded)
         ) {
           currency.notEnough = true;
         }
       }
-
+      if (this.neededCurrencyOnly) {
+        return currencies.filter(curr => curr.type === this.currencyNeeded);
+      }
       return currencies;
     },
   },

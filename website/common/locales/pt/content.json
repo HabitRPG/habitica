@@ -387,5 +387,10 @@
     "questEggCrabMountText": "Caranguejo",
     "questEggDogMountText": "Cão",
     "hatchingPotionFungi": "Fungo",
-    "questEggChameleonAdjective": "um caótico"
+    "questEggChameleonAdjective": "um caótico",
+    "questEggRaccoonAdjective": "um voraz",
+    "questEggCatText": "Gatinho",
+    "questEggCatMountText": "Gato",
+    "questEggCatAdjective": "um travesso",
+    "questEggDogAdjective": "um amigável"
 }

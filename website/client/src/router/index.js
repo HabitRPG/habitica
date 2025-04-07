@@ -49,7 +49,7 @@ const GroupPlanIndex = () => import(/* webpackChunkName: "group-plans" */ '@/com
 const GroupPlanTaskInformation = () => import(/* webpackChunkName: "group-plans" */ '@/components/group-plans/taskInformation');
 const GroupPlanBilling = () => import(/* webpackChunkName: "group-plans" */ '@/components/group-plans/billing');
 
-const MessagesIndex = () => import(/* webpackChunkName: "private-messages" */ '@/pages/private-messages');
+const MessagesIndex = () => import(/* webpackChunkName: "private-messages" */ '@/pages/private-messages/index.vue');
 
 // Challenges
 const ChallengeIndex = () => import(/* webpackChunkName: "challenges" */ '@/components/challenges/index');
@@ -190,7 +190,6 @@ const router = new VueRouter({
       meta: {
         privilegeNeeded: [ // any one of these is enough to give access
           'userSupport',
-          'newsPoster',
         ],
       },
       children: [

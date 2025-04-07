@@ -114,7 +114,6 @@
 </style>
 
 <script>
-import some from 'lodash/some';
 import moment from 'moment';
 import { v4 as uuid } from 'uuid';
 import { mapState } from '@/libs/store';
@@ -183,13 +182,12 @@ export default {
       return 'GreyedOut';
     },
     imageName () {
-      if (this.isOwned() && some(
-        this.currentEventList,
-        event => moment().isBetween(event.start, event.end) && event.aprilFools && event.aprilFools === 'Fungi',
-      )) {
-        if (this.isSpecial()) return `stable_${this.foolPet(this.item.key)}`;
+      const foolEvent = this.currentEventList?.find(event => moment()
+        .isBetween(event.start, event.end) && event.aprilFools);
+      if (this.isOwned() && foolEvent) {
+        if (this.isSpecial()) return `stable_${this.foolPet(this.item.key, foolEvent.aprilFools)}`;
         const petString = `${this.item.eggKey}-${this.item.key}`;
-        return `stable_${this.foolPet(petString)}`;
+        return `stable_${this.foolPet(petString, foolEvent.aprilFools)}`;
       }
 
       if (this.isOwned() || (this.mountOwned() && this.isHatchable())) {

@@ -189,7 +189,7 @@
     "dismissAll": "Alle entfernen",
     "messages": "Nachrichten",
     "emptyMessagesLine1": "Du hast im Moment keine Nachrichten",
-    "emptyMessagesLine2": "Sende eine Nachricht, um eine Unterhaltung mit deinen Partymitgliedern oder anderen Habitica-Spieler*innen zu beginnen",
+    "emptyMessagesLine2": "Du kannst anderen eine neue Nachricht schicken, indem Du ihr Profil aufrufst und auf den \"Nachrichten\"-Knopf drückst.",
     "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> hat Dir eine Nachricht gesendet",
     "letsgo": "Auf geht's!",
     "selected": "Ausgewählt",
@@ -239,7 +239,7 @@
     "skipExternalLinkModal": "Halte STRG (Windows) oder Command (Mac) beim Anklicken eines Links, um dieses Modal zu überspringen.",
     "shadowMute": "Unsichtbare Stummschaltung",
     "titleCustomizations": "Individualisierungen",
+    "targetUserNotExist": "Zielbenutzer: '<%= userName %>' existiert nicht.",
     "newMessage": "Neue Nachricht",
-    "targetUserNotExist": "Benutzer: '<%= userName %>' existiert nicht.",
-    "rememberToBeKind": "Denk bitte daran, freundlich und respektvoll zu sein und die <a href='/static/community-guidelines' target='_blank'>Community-Richtlinien</a> einzuhalten."
+    "rememberToBeKind": "Bitte sei freundlich, respektvoll, und folge den <a href='/static/community-guidelines' target='_blank'>Community-Richtlinien</a>."
 }

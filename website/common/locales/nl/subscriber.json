@@ -2,7 +2,7 @@
     "subscription": "Abonnement",
     "subscriptions": "Abonnementen",
     "sendGems": "Edelstenen versturen",
-    "buyGemsGold": "Edelstenen kopen met goud",
+    "buyGemsGold": "Gratis Maandelijkse Edelstenen",
     "mustSubscribeToPurchaseGems": "Je moet een abonnement hebben om edelstenen te kunnen kopen met GP",
     "reachedGoldToGemCapQuantity": "Je verzoek voor <%= quantity %> is hoger dan de hoeveelheid die je nog kunt kopen deze maand. De volledige hoeveelheid wordt beschikbaar in de eerste drie dagen van elke maand. Bedankt voor het abboneren!",
     "mysteryItem": "Exclusieve maandelijkse artikelen",

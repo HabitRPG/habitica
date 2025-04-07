@@ -392,5 +392,19 @@
     "questEggDogText": "Welpe",
     "questEggDogMountText": "Hund",
     "questEggDogAdjective": "ein freundlicher",
-    "hatchingPotionGingerbread": "Lebkuchen"
+    "hatchingPotionGingerbread": "Lebkuchen",
+    "questEggCatText": "Kätzchen",
+    "questEggCatMountText": "Katze",
+    "questEggCatAdjective": "ein schelmisches",
+    "questEggOtterText": "Otter",
+    "questEggOtterMountText": "Otter",
+    "hatchingPotionJade": "Jade",
+    "questEggOtterAdjective": "Ein perfider",
+    "questEggAlpacaText": "Alpaka",
+    "questEggAlpacaMountText": "Alpaka",
+    "questEggAlpacaAdjective": "ein überladenes",
+    "hatchingPotionBalloon": "Ballon",
+    "wackyPotionAddlNotes": "Kann nicht zum Reittier großgezogen oder für Quest-Haustier Eier benutzt werden.",
+    "hatchingPotionCryptid": "Kryptisch",
+    "wackyPotionNotes": "Schütte dies über ein Ei und es wird als Durchgeknalltes <%= potText(locale) %> Haustier schlüpfen."
 }

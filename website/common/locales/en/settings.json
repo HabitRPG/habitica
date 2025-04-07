@@ -164,7 +164,7 @@
     "generate": "Generate",
     "getCodes": "Get Codes",
     "webhooks": "Webhooks",
-    "webhooksInfo": "Webhooks provide a way for developers to receive notifications when a particular action is performed, such as scoring or updating a Task, or sending a message in a Group. By creating a webhook, you will be able to listen to changes in Habitica and build apps that respond to these changes.<br><br>For additional information and examples on webhooks, please visit our <a target=\"_blank\" href=\"https://habitica.fandom.com/wiki/Webhooks\">API Docs</a>",
+    "webhooksInfo": "Webhooks provide a way for developers to receive notifications when a particular action is performed, such as scoring or updating a Task, or sending a message in a Group. By creating a webhook, you will be able to listen to changes in Habitica and build apps that respond to these changes.<br><br>For additional information and examples on webhooks, please visit our <a target=\"_blank\" href=\"https://habitica.com/apidoc/#api-Webhook-AddWebhook\">API Docs</a>.",
     "enabled": "Enabled",
     "webhookURL": "Webhook URL",
     "addWebhook": "Add Webhook",

@@ -33,12 +33,14 @@ import {
 } from './language';
 import {
   logRequestData,
+  logSlowRequests,
 } from './requestLogHandler';
 
 const IS_PROD = nconf.get('IS_PROD');
 const DISABLE_LOGGING = nconf.get('DISABLE_REQUEST_LOGGING') === 'true';
 const ENABLE_HTTP_AUTH = nconf.get('SITE_HTTP_AUTH_ENABLED') === 'true';
 const LOG_REQUESTS_EXCESSIVE_MODE = nconf.get('LOG_REQUESTS_EXCESSIVE_MODE') === 'true';
+const SLOW_REQUEST_THRESHOLD = nconf.get('SLOW_REQUEST_THRESHOLD');
 // const PUBLIC_DIR = path.join(__dirname, '/../../client');
 
 const SESSION_SECRET = nconf.get('SESSION_SECRET');
@@ -49,6 +51,10 @@ export default function attachMiddlewares (app, server) {
 
   if (LOG_REQUESTS_EXCESSIVE_MODE) {
     app.use(logRequestData);
+  }
+
+  if (SLOW_REQUEST_THRESHOLD > 0) {
+    app.use(logSlowRequests);
   }
 
   if (ENABLE_CLUSTER) {

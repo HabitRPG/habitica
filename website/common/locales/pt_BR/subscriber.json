@@ -171,7 +171,7 @@
     "supportHabitica": "Suporte Habitica",
     "organization": "Organização",
     "cancelSubInfoApple": "Siga as <a href=\"https://support.apple.com/en-us/HT202039\">instruções oficiais da Apple</a> para cancelar sua assinatura ou para ver a data de término da assinatura, caso já a tenha cancelado. Esta tela não mostra se sua assinatura foi cancelada.",
-    "cancelSubInfoGoogle": "Por favor, visite a seção \"Conta\" > \"Assinaturas\" do aplicativo Google Play Store para cancelar sua assinatura ou para ver a data de término de sua assinatura, caso já a tenha cancelado. Esta tela não mostra se sua assinatura foi cancelada.",
+    "cancelSubInfoGoogle": "Por favor, visite a seção <a href='https://play.google.com/store/account/subscriptions'>Google Play Store</a> para cancelar sua assinatura ou para ver a data de término de sua assinatura, caso já a tenha cancelado. Esta tela não mostra se sua assinatura foi cancelada.",
     "mysterySet202010": "Conjunto Sedutoramente Extravagante",
     "dropCapSubs": "Os assinantes do Habitica podem encontrar o dobro dos itens aleatórios por dia e receber mensalmente itens misteriosos!",
     "lookingForMoreItems": "Querendo mais itens?",
@@ -232,5 +232,6 @@
     "mysterySet202404": "Conjunto de Mago Micelial",
     "mysterySet202407": "Conjunto Salamandra Simpática",
     "mysterySet202405": "Conjunto Dragão Dourado",
-    "mysterySet202406": "Conjunto Bucaneiro Fantasma"
+    "mysterySet202406": "Conjunto Bucaneiro Fantasma",
+    "mysterySet202503": "Conjunto do Lendário Super Guerreiro Jade"
 }

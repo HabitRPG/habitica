@@ -5,7 +5,7 @@
     "groupBy": "Groeperen volgens <%= type %>",
     "classBonus": "(Dit voorwerp hoort bij je klasse, dus krijgt het een 1.5 Stat vermenigvuldiging.)",
     "classArmor": "Klasse Pantser",
-    "featuredset": "Uitgelichte Set <%= name %>",
+    "featuredset": "Uitgelichte Set <%= naam %>",
     "mysterySets": "Mysterie Sets",
     "gearNotOwned": "Je bezit dit voorwerp niet.",
     "noGearItemsOfType": "Je bezit geen van deze.",
@@ -2599,5 +2599,7 @@
     "armorSpecialSummer2022RogueNotes": "Perfect voor een informeel bezoek aan het strand. Verhoogt Perceptie met <%= per %>. Beperkte Editie 2022 Zomeruitrusting.",
     "armorSpecialSummer2022WarriorText": "Waterhoos Pantser",
     "armorSpecialSummer2022WarriorNotes": "Maak je klaar voor een waterige strijd terwijl je jezelf omringt met deze wervelende, spiralerende kolom van lucht en mist. Verhoogt Constitutie met <%= con %>. Beperkte Editie 2022 Zomeruitrusting.",
-    "armorSpecialSummer2022MageNotes": "Wanneer u dit pantser draagt, glijdt u gemakkelijk door uw werk zoals de mantarog door water glijdt. Verhoogt Intelligentie met <%= int %>. Beperkte Editie 2022 Zomeruitrusting."
+    "armorSpecialSummer2022MageNotes": "Wanneer u dit pantser draagt, glijdt u gemakkelijk door uw werk zoals de mantarog door water glijdt. Verhoogt Intelligentie met <%= int %>. Beperkte Editie 2022 Zomeruitrusting.",
+    "gearItemsCompleted": "Je bezit alle <%= klass %> uitrusting! Nieuwe uitrustingen worden uitgebracht tijdens de seizoensgebonden Gala's.",
+    "moreArmoireGearAvailable": "Tot dan kan je <%= armoireCount %> stukken uitrusting in de Betoverde Kast vinden!"
 }

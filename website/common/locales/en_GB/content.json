@@ -391,5 +391,13 @@
     "hatchingPotionKoi": "Koi",
     "questEggCrabText": "Crab",
     "questEggCrabMountText": "Crab",
-    "questEggCrabAdjective": "a fiddling"
+    "questEggCrabAdjective": "a fiddling",
+    "questEggCatText": "Kitten",
+    "questEggCatMountText": "Cat",
+    "questEggCatAdjective": "a mischievous",
+    "hatchingPotionGingerbread": "Gingerbread",
+    "questEggOtterText": "Otter",
+    "questEggOtterMountText": "Otter",
+    "questEggOtterAdjective": "a perfidious",
+    "hatchingPotionJade": "Jade"
 }

@@ -40,10 +40,10 @@
     "backerTier": "Destekçi Kademesi",
     "playerTiers": "Oyuncu Kademeleri",
     "tier": "Kademe",
-    "conRewardsURL": "https://tr.habitica.fandom.com/wiki/Katılımcı_Ödülleri",
+    "conRewardsURL": "https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tier-rewards",
     "surveysSingle": "Bir anket doldurarak veya test çözmeye vakit ayırarak Habitica'nın büyümesine yardımcı oldun. Teşekkürler!",
     "surveysMultiple": "Bir anket doldurarak veya büyük bir geliştirme uygulamasına katkı göstererek <%= count %> adet etkinlikte Habitica'nın büyümesine yardımcı oldu. Teşekkürler!",
     "blurbHallPatrons": "Burası Müdavimler Salonu. Burada, Habitica'nın orijinal Kickstarter kampanyasını desteklemiş olan soylu maceracıları anıyoruz. Habitica'yı hayata geçirmemizde yardımları için müteşekkiriz!",
-    "blurbHallContributors": "Burası Habitica'nın açık kaynak kodu katılımcılarını onurlandırdığı Katılımcılar Salonu. Katılımcılarımız kod, görsel, müzik, hikaye yazımı konularındaki katkılarıyla ya da yalnızca yardımseverlik sebebiyle <a href='https://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'>elmaslar, özel ekipmanlar</a> ve <a href='http://habitica.fandom.com/wiki/Contributor_Titles' target='_blank'>prestijli unvanlar</a> kazandılar. Sen de Habitica'ya katkıda bulunabilirsin! <a href='https://habitica.fandom.com/wiki/Contributing_to_Habitica' target='_blank'>Buradan daha fazlasını öğren. </a>",
+    "blurbHallContributors": "Burası Katkıda Bulunanlar Salonu; Habitica'ya açık kaynak katkıları yapanlar burada onurlandırılıyor. Kod, sanat, müzik, yazı veya sadece yardımseverlikle olsun, onlar <a href='https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tier-rewards' target='_blank'>Mücevherler, özel Ekipmanlar</a> ve <a href='https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tiers' target='_blank'>prestijli unvanlar</a> kazandılar. Sen de Habitica'ya katkıda bulunabilirsin! <a href='https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica' target='_blank'>Daha fazla bilgi al.</a>",
     "noPrivAccess": "Gerekli izinlere sahip değilsiniz."
 }

@@ -189,7 +189,7 @@
     "dismissAll": "Ignorar todas",
     "messages": "Mensajes",
     "emptyMessagesLine1": "No tienes ningún mensaje",
-    "emptyMessagesLine2": "Envía un mensaje para empezar una conversación con los miembros de tu Equipo o con otro jugador de Habitica",
+    "emptyMessagesLine2": "Envía un mensaje para empezar una conversación con un miembro de tu Equipo o otro jugador de Habitica",
     "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> te ha enviado un mensaje",
     "letsgo": "¡Vamos!",
     "selected": "Seleccionado",
@@ -239,7 +239,7 @@
     "reportPlayer": "Informar acerca de un Jugador",
     "viewAdminPanel": "Ver Comandos de Administrador",
     "playerReportModalBody": "Solo deberías informar de un jugador que de alguna forma quebrantara las <%= firstLinkStart %>Normas de la Comunidad<%= linkEnd %> y/o <%= secondLinkStart %>los Terminos de Servicio<%= linkEnd %>. Enviar un informe falso es una clara violación de la Normas de la Comunidad de Habitica.",
-    "targetUserNotExist": "Usuario Objetivo: '<%= userName %>' no existe.",
-    "rememberToBeKind": "Por favor recuerda ser amable y respetuoso, y sigue las <a href='/static/community-guidelines' target='_blank'>Normas de la Comunidad</a>.",
-    "newMessage": "Nuevo Mensaje"
+    "newMessage": "Nuevo Mensaje",
+    "targetUserNotExist": "Usuario objetivo: '<%= userName %>' no existe.",
+    "rememberToBeKind": "Por favor recuerda ser bondadoso, respetuoso y seguir las <a href='/static/community-guidelines' target='_blank'>Normas de la Comunidad</a>."
 }

@@ -392,5 +392,19 @@
     "questEggDogText": "Chiot",
     "questEggDogMountText": "Chien",
     "questEggDogAdjective": "amical",
-    "hatchingPotionGingerbread": "Pain d'Épices"
+    "hatchingPotionGingerbread": "Pain d'Épices",
+    "questEggCatText": "Chaton",
+    "questEggCatMountText": "Chat",
+    "questEggCatAdjective": "espiègle",
+    "questEggOtterMountText": "Loutre",
+    "questEggOtterAdjective": "perfide",
+    "questEggOtterText": "Loutre",
+    "hatchingPotionJade": "de Jade",
+    "questEggAlpacaText": "Alpaca",
+    "questEggAlpacaMountText": "Alpaca",
+    "questEggAlpacaAdjective": "un surchargé",
+    "hatchingPotionBalloon": "Ballon",
+    "wackyPotionAddlNotes": "Ne peut se transformer en Monture ni être utilisée sur les œufs de Familier de Quête.",
+    "hatchingPotionCryptid": "Cyptide",
+    "wackyPotionNotes": "Versez-la sur un œuf et il en sortira un Familier <%= potText(locale) %> Farfelu."
 }

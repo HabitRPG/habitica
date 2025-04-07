@@ -40,7 +40,7 @@
     "backerTier": "資金協力段位",
     "playerTiers": "プレイヤー段位",
     "tier": "段位",
-    "conRewardsURL": "https://habitica.fandom.com/wiki/Contributor_Rewards",
+    "conRewardsURL": "https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tier-rewards",
     "surveysSingle": "アンケートへの回答、または大きなテストに努力していただき、Habitica の成長を手伝っていただきました。ありがとうございます！",
     "surveysMultiple": "<%= count %> 回にわたって、アンケートへの回答、または大きなテストに努力していただき、Habitica の成長を手伝っていただきました。ありがとうございます！",
     "blurbHallPatrons": "こちらは、資金協力で後援いただいた方々の記念館です。Habitica の源流となった Kickstarter で資金協力してくださった気高い冒険者のみなさんを誇りに思っています。Habitica に命を吹き込むことに手を貸してくれた彼らに感謝をささげましょう！",

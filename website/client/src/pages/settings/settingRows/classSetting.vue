@@ -66,6 +66,7 @@
           <your-balance
             :amount-needed="amountNeeded"
             currency-needed="gems"
+            class="d-flex align-items-center"
           />
         </div>
       </td>

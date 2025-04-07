@@ -171,23 +171,23 @@ describe('emails', () => {
       expect(got.post).not.to.be.called;
     });
 
-    it('throws error when mail target is only a string', () => {
+    it('throws error when mail target is only a string', async () => {
       const emailType = 'an email type';
       const mailingInfo = 'my email';
 
-      expect(sendTxn(mailingInfo, emailType)).to.throw;
+      await expect(sendTxn(mailingInfo, emailType)).to.be.rejectedWith('Argument Error mailingInfoArray: does not contain email or _id');
     });
 
-    it('throws error when mail target has no _id or email', () => {
+    it('throws error when mail target has no _id or email', async () => {
       const emailType = 'an email type';
       const mailingInfo = {
 
       };
 
-      expect(sendTxn(mailingInfo, emailType)).to.throw;
+      await expect(sendTxn(mailingInfo, emailType)).to.be.rejectedWith('Argument Error mailingInfoArray: does not contain email or _id');
     });
 
-    it('throws error when variables not an array', () => {
+    it('throws error when variables not an array', async () => {
       const emailType = 'an email type';
       const mailingInfo = {
         name: 'my name',
@@ -195,9 +195,10 @@ describe('emails', () => {
       };
       const variables = {};
 
-      expect(sendTxn(mailingInfo, emailType, variables)).to.throw;
+      await expect(sendTxn(mailingInfo, emailType, variables)).to.be.rejectedWith('Argument Error variables: is not an array');
     });
-    it('throws error when variables array not contain name/content', () => {
+
+    it('throws error when variables array not contain name/content', async () => {
       const emailType = 'an email type';
       const mailingInfo = {
         name: 'my name',
@@ -209,8 +210,9 @@ describe('emails', () => {
         },
       ];
 
-      expect(sendTxn(mailingInfo, emailType, variables)).to.throw;
+      await expect(sendTxn(mailingInfo, emailType, variables)).to.be.rejectedWith('Argument Error variables: does not contain name or content');
     });
+
     it('throws no error when variables array contain name but no content', () => {
       const emailType = 'an email type';
       const mailingInfo = {

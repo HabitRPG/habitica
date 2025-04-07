@@ -63,6 +63,10 @@ export default {
   components: {
     LoadingSpinner,
   },
+  beforeRouteUpdate (to, from, next) {
+    this.userIdentifier = to.params.userIdentifier;
+    next();
+  },
   data () {
     return {
       userIdentifier: '',
@@ -73,10 +77,6 @@ export default {
   },
   computed: {
     ...mapState({ user: 'user.data' }),
-  },
-  beforeRouteUpdate (to, from, next) {
-    this.userIdentifier = to.params.userIdentifier;
-    next();
   },
   watch: {
     userIdentifier () {

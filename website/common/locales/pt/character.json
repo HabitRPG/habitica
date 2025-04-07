@@ -83,7 +83,7 @@
     "allocatePerPop": "Adicionar um Ponto a Percepção",
     "allocateInt": "Pontos alocados a Inteligência:",
     "allocateIntPop": "Adicionar um Ponto a Inteligência",
-    "noMoreAllocate": "Agora que atingiu o nível 100, você não ganhará mais Pontos de Atributo. Você poderá continuar a subir de nível ou começar uma nova aventura no nível 1 usando a <a href='https://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Orbe de Renascimento</a>!",
+    "noMoreAllocate": "Agora que atingiu o nível 100, você não ganhará mais Pontos de Atributo. Você poderá continuar a subir de nível ou começar uma nova aventura no nível 1 usando a <a href='/shops/market'>Orbe de Renascimento</a>!",
     "stats": "Estatísticas",
     "strength": "Força",
     "strText": "Força aumenta as hipóteses de \"golpes críticos\" aleatórios e reforça o Ouro, a Experiência e a hipótese de brindes que deles provenham. Também ajuda a infligir dano aos Bosses.",

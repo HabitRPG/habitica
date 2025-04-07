@@ -261,5 +261,14 @@
     "summer2024SeaSnailHealerSet": "巻貝のセット（治療師）",
     "summer2024NudibranchRogueSet": "ウミウシのセット（盗賊）",
     "summer2024WhaleSharkWarriorSet": "ジンベイザメのセット（戦士）",
-    "summer2024SeaAnemoneMageSet": "イソギンチャクのセット（魔道士）"
+    "summer2024SeaAnemoneMageSet": "イソギンチャクのセット（魔道士）",
+    "fall2024FieryImpWarriorSet": "ファイアインプセット（戦士）",
+    "fall2024UnderworldSorcerorMageSet": "黄泉の国の魔術師セット（魔道士）",
+    "gemSaleLimitationsText": "このプロモーションは期間限定イベント中のみ有効です。このイベントは<%= eventStartMonth %>月 <%= eventStartOrdinal %> 日 <%= eventStartTime %> <%= timeZone %>に始まり、<%= eventEndMonth %> 月<%= eventEndOrdinal %> 日<%= eventEndTime %> <%= timeZone %>に終了します。ジェムを自分で購入した方のみ対象です。",
+    "winter2025MooseWarriorSet": "ヘラジカの戦士セット",
+    "winter2025AuroraMageSet": "オーロラの魔道士セット",
+    "winter2025StringLightsHealerSet": "ストリングライトの治療師セット",
+    "winter2025SnowRogueSet": "雪の盗賊セット",
+    "fall2024SpaceInvaderHealerSet": "スペースインベーダーセット（治療師）",
+    "fall2024BlackCatRogueSet": "黒ネコセット（盗賊）"
 }

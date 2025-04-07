@@ -55,5 +55,6 @@
     "messageBackgroundUnEquipped": "Latar Belakang dilepaskan.",
     "messageAllUnEquipped": "Semuanya dilepaskan.",
     "reportedMessage": "Kamu telah melaporkan pesan ini ke moderator.",
-    "newsPostNotFound": "Tulisan Berita tidak ditemukan atau kamu tidak punya akses."
+    "newsPostNotFound": "Tulisan Berita tidak ditemukan atau kamu tidak punya akses.",
+    "featureRetired": "Fitur ini tidak lagi didukung."
 }

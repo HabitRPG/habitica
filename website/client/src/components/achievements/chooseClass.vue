@@ -95,7 +95,11 @@
               @click="clickDisableClasses(); close();"
             >{{ $t('optOutOfClasses') }}</span>
           </div>
-          <span class="opt-out-description">{{ $t('optOutOfClassesText') }}</span>
+          <div
+            v-once
+            class="opt-out-description"
+            v-html="$t('optOutOfClassesText')"
+          ></div>
         </div>
       </div>
     </div>

@@ -789,7 +789,7 @@
     "backgroundBirthdayBashNotes": "Habitica feiert eine Geburtstagsparty und alle sind eingeladen!",
     "eventBackgrounds": "Ereignis-Hintergründe",
     "backgroundBirthdayBashText": "Geburtstagsparty",
-    "backgroundInsideACrystalNotes": "Schau aus dem Inneren eines Kristalls heraus.",
+    "backgroundInsideACrystalNotes": "Schau aus dem Inneren eines Kristalls hinaus.",
     "backgrounds072023": "SET 110: Veröffentlicht im Juli 2023",
     "backgroundOnAPaddlewheelBoatText": "Auf einem Schaufelradboot",
     "backgroundOnAPaddlewheelBoatNotes": "Fahre mit einem Schaufelradboot.",
@@ -891,5 +891,14 @@
     "backgroundFirstSnowForestNotes": "Tritt in den ersten Schnee im Wald.",
     "backgrounds012025": "Set 128: Veröffentlicht im Januar 2025",
     "backgroundWinterLandscapeWithCabinText": "Winterlandschaft mit Hütte",
-    "backgroundWinterLandscapeWithCabinNotes": "Macht es dir in einer Winterlandschaft mit einer Hütte gemütlich."
+    "backgroundWinterLandscapeWithCabinNotes": "Macht es dir in einer Winterlandschaft mit einer Hütte gemütlich.",
+    "backgroundOldFashionedTeaShopText": "Altmodischer Teeladen",
+    "backgroundOldFashionedTeaShopNotes": "Genieße ein Getränk in einem Altmodischen Teeladen.",
+    "backgrounds022025": "Set 129: Veröffentlicht im Februar 2025",
+    "backgrounds032025": "SET 130: Veröffentlicht im März 2025",
+    "backgroundMountainSceneWithBlossomsText": "Bergszene mit Blüten",
+    "backgroundMountainSceneWithBlossomsNotes": "Erlebe den entzückenden Anblick und Geruch einer Bergszene mit Blüten.",
+    "backgroundGardenWithFlowerBedsNotes": "Genieße das Blühen des Frühlings in einem Garten mit Blumenbeeten.",
+    "backgrounds0420205": "SET 131: Veröffentlicht im April 2025",
+    "backgroundGardenWithFlowerBedsText": "Garten mit Blumenbeeten"
 }

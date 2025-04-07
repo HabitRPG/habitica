@@ -174,5 +174,8 @@
     "addPasswordAuth": "הוספת סיסמה",
     "adjustment": "כוונון",
     "transaction_debug": "פעולות לניפוי שגיאות",
-    "transaction_create_challenge": "יצירת אתגר"
+    "transaction_create_challenge": "יצירת אתגר",
+    "generalSettings": "הגדרות כלליות",
+    "siteData": "נתוני האתר",
+    "taskSettings": "הגדרות משימות"
 }

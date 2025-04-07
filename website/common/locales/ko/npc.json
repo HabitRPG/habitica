@@ -2,7 +2,7 @@
     "npc": "NPC",
     "npcAchievementName": "<%= key %> NPC",
     "npcAchievementText": "Kickstarter 프로젝트를 최고 레벨에서 후원했습니다!",
-    "welcomeTo": "어서 오세요!",
+    "welcomeTo": "어서 오세요",
     "welcomeBack": "돌아온 걸 환영합니다!",
     "justin": "저스틴",
     "justinIntroMessage1": "반가워! 네가 그 신입이구나? 아, 내 이름은 <strong>저스틴</strong>이야. 이 곳 Habitica에서 안내를 해 줄 가이드지.",

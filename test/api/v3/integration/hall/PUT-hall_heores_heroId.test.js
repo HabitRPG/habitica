@@ -11,6 +11,7 @@ describe('PUT /heroes/:heroId', () => {
   const heroFields = [
     '_id', 'auth', 'balance', 'contributor', 'flags', 'items', 'lastCron',
     'party', 'preferences', 'profile', 'purchased', 'secret', 'permissions', 'achievements',
+    'stats',
   ];
 
   before(async () => {

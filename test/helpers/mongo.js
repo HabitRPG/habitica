@@ -74,15 +74,10 @@ export async function getDocument (collectionName, doc) {
 }
 
 before(done => {
-  mongoose.connection.on('open', err => {
-    if (err) return done(err);
-    return resetHabiticaDB()
-      .then(() => {
-        done();
-      })
-      .catch(error => {
-        throw error;
-      });
+  mongoose.connection.once('open', async err => {
+    if (err) throw err;
+    await resetHabiticaDB();
+    done();
   });
 });
 

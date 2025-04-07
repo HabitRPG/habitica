@@ -392,5 +392,19 @@
     "questEggDogText": "Cachorro",
     "questEggDogMountText": "Perro",
     "questEggDogAdjective": "un amistoso",
-    "hatchingPotionGingerbread": "Pan de Jengibre"
+    "hatchingPotionGingerbread": "Pan de Jengibre",
+    "questEggCatText": "Gatita",
+    "questEggCatMountText": "Gato",
+    "questEggCatAdjective": "Traviesa",
+    "questEggOtterMountText": "Nutria",
+    "questEggOtterAdjective": "latrocida",
+    "hatchingPotionJade": "Jade",
+    "questEggOtterText": "Nutria",
+    "questEggAlpacaText": "Alpaca",
+    "questEggAlpacaMountText": "Alpaca",
+    "hatchingPotionBalloon": "Globo",
+    "questEggAlpacaAdjective": "una colmada",
+    "hatchingPotionCryptid": "Críptido",
+    "wackyPotionNotes": "Vierte esto en un huevo y eclosionará como una Mascota Absurda <%= potText(locale) %>.",
+    "wackyPotionAddlNotes": "No puede convertirse en una Montura o usarse en huevos de Mascotas de Misión."
 }

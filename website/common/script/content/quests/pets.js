@@ -33,6 +33,47 @@ const QUEST_PETS = {
       unlock: t('questAlligatorUnlockText'),
     },
   },
+  alpaca: {
+    text: t('questAlpacaText'),
+    notes: t('questAlpacaNotes'),
+    completion: t('questAlpacaCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questAlpacaBoss'),
+      hp: 800,
+      str: 2,
+      rage: {
+        title: t('questAlpacaRageTitle'),
+        description: t('questAlpacaRageDescription'),
+        value: 50,
+        healing: 0.3,
+        effect: t('questAlpacaRageEffect'),
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Alpaca',
+          text: t('questAlpacaDropAlpacaEgg'),
+        },
+        {
+          type: 'eggs',
+          key: 'Alpaca',
+          text: t('questAlpacaDropAlpacaEgg'),
+        },
+        {
+          type: 'eggs',
+          key: 'Alpaca',
+          text: t('questAlpacaDropAlpacaEgg'),
+        },
+      ],
+      gp: 90,
+      exp: 900,
+      unlock: t('questAlpacaUnlockText'),
+    },
+  },
   armadillo: {
     text: t('questArmadilloText'),
     notes: t('questArmadilloNotes'),
@@ -1020,6 +1061,45 @@ const QUEST_PETS = {
       gp: 80,
       exp: 800,
       unlock: t('questOctopusUnlockText'),
+    },
+  },
+  otter: {
+    text: t('questOtterText'),
+    notes: t('questOtterNotes'),
+    completion: t('questOtterCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questOtterBoss'),
+      hp: 1200,
+      str: 2.5,
+      rage: {
+        title: t('questOtterRageTitle'),
+        description: t('questOtterRageDescription'),
+        value: 50,
+        healing: 0.3,
+        effect: t('questOtterRageEffect'),
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Otter',
+          text: t('questOtterDropOtterEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Otter',
+          text: t('questOtterDropOtterEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Otter',
+          text: t('questOtterDropOtterEgg'),
+        },
+      ],
+      gp: 90,
+      exp: 900,
+      unlock: t('questOtterUnlockText'),
     },
   },
   owl: {

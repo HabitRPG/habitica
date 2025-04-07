@@ -25,7 +25,7 @@
     "user": "用户",
     "market": "市场",
     "newSubscriberItem": "你有新的<span class=\"notification-bold-blue\">神秘物品</span>",
-    "subscriberItemText": "订阅者每个月都会收到一件神秘物品。该物品在每月月初推出。详情请查看Wiki“神秘物品”页面。",
+    "subscriberItemText": "订阅者每个月初都能收到一套新的神秘装备套装！",
     "all": "全部",
     "none": "无",
     "more": "<%= count %>更多",
@@ -162,7 +162,7 @@
     "orderBy": "以<%= item %>排序",
     "you": "（你）",
     "loading": "加载中……",
-    "userIdRequired": "需要用户ID",
+    "userIdRequired": "用户ID必填",
     "resetFilters": "清除所有筛选",
     "applyFilters": "确认筛选",
     "wantToWorkOn": "想要努力的方向：",
@@ -189,7 +189,7 @@
     "dismissAll": "清除全部",
     "messages": "私信",
     "emptyMessagesLine1": "你没有任何私信",
-    "emptyMessagesLine2": "如果你想发信息给别的玩家，你可以通过他们的主页，然后点击“消息”按钮。",
+    "emptyMessagesLine2": "发送信息来与你的队友或其他Habitica玩家开始对话",
     "userSentMessage": "<span class=\"notification-bold\"><%- user %></span>给你发送了一条私信",
     "letsgo": "我们出发吧！",
     "selected": "已选择",
@@ -238,5 +238,8 @@
     "mutePlayer": "屏蔽",
     "shadowMute": "隐形屏蔽",
     "playerReportModalBody": "您只能举报违反<%= firstLinkStart %>社区准则<%= linkEnd %>和/或<%= secondLinkStart %>服务条款<%= linkEnd %>的玩家。提交虚假举报是违反Habitica社区准则的行为。",
-    "titleCustomizations": "自定义"
+    "titleCustomizations": "自定义",
+    "newMessage": "新信息",
+    "targetUserNotExist": "目标用户：'<%= userName %>'不存在。",
+    "rememberToBeKind": "请谨记友善、尊重他人，并遵守<a href='/static/community-guidelines' target='_blank'>社区准则</a>。"
 }

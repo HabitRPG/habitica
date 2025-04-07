@@ -117,7 +117,7 @@
     "generate": "Generar",
     "getCodes": "Obtener Códigos",
     "webhooks": "Webhooks",
-    "webhooksInfo": "Los webhooks ayudan a los desarrolladores a recibir una notificación cuando suceden ciertas acciones, como al completar o actualizar una Tarea o al enviar un mensaje a un Grupo. Al crear un webhook podrás estar al día de los cambios en Habitica y crear aplicaciones que respondan a esos cambios. En la wiki podrás encontrar más información y ejemplos de webhooks: consulta la página <a target=\"_blank\" href=\"https://habitica.fandom.com/wiki/Webhooks\">API Docs</a>",
+    "webhooksInfo": "Los webhooks ayudan a los desarrolladores a recibir una notificación cuando suceden ciertas acciones, como al completar o actualizar una Tarea o al enviar un mensaje a un Grupo. Al crear un webhook podrás estar al día de los cambios en Habitica y crear aplicaciones que respondan a esos cambios. En la wiki podrás encontrar más información y ejemplos de webhooks: consulta la página <a target=\"_blank\" href=\"https://habitica.com/apidoc/#api-Webhook-AddWebhook\">API Docs</a>.",
     "enabled": "Habilitado",
     "webhookURL": "URL del Webhook",
     "invalidUrl": "Url no válida",

@@ -5,7 +5,7 @@
     "groupBy": "<%= type %> 에 따른 그룹",
     "classBonus": "(이 아이템은 당신의 직업용 장비입니다, 그러므로 1.5배의 추가적인 스텟을 얻게됩니다.)",
     "classArmor": "직업 갑옷",
-    "featuredset": "Featured Set <%= name %>",
+    "featuredset": "특별상품 <%= name %>",
     "mysterySets": "미스테리 세트",
     "gearNotOwned": "이 아이템을 가지고 있지 않습니다.",
     "noGearItemsOfType": "이중 아무것도 가지지않고있습니다.",
@@ -1786,5 +1786,7 @@
     "eyewearSpecialPinkHalfMoonNotes": "렌즈 위로 분홍색 테가 있는 안경. 효과가 없음.",
     "headArmoireJadeHelmText": "검은 투구",
     "shieldArmoireSoftBlackPillowText": "Soft Blue Pillow",
-    "gearItemsCompleted": "당신은 모든 <%=클라스 %> 장비를 소유하고 있습니다! 새로운 장비는 갈라스 시즌 동안 출시 됩니다."
+    "gearItemsCompleted": "모든 <%= klass %> 장비를 소유했습니다! Galas 시즌 기간 동안 새로운 장비가 출시됩니다.",
+    "moreArmoireGearAvailable": "그때까지 마법의 장비상자에서 <%= armoireCount %>만큼의 장비를 찾으세요!",
+    "moreArmoireGearComing": "마법의 장비상자도 매달 새로운 상품이 출시됩니다!"
 }
