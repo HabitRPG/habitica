@@ -1,6 +1,10 @@
+import nconf from 'nconf';
 import {
   authWithHeaders,
 } from '../../middlewares/auth';
+import {
+  NotAuthorized,
+} from '../../libs/errors';
 import * as authLib from '../../libs/auth';
 import { model as User } from '../../models/user';
 import { verifyUsername } from '../../libs/user/validation';
@@ -80,6 +84,30 @@ api.registerLocal = {
   url: '/user/auth/local/register',
   async handler (req, res) {
     await authLib.registerLocal(req, res, { isV3: false });
+  },
+};
+
+/**
+ * @api {put} /api/v3/user/auth/check-email Check if email is used
+ * @apiDescription Check if the email is already used by another user
+ * @apiName CheckEmail
+ * @apiGroup User
+ *
+ * @apiParam (Body) {String} email The checked email address.
+ *
+ * @apiSuccess {String} data.email The checked email address
+ */
+api.checkEmail = {
+  method: 'POST',
+  url: '/user/auth/check-email',
+  async handler (req, res) {
+    const emailAlreadyInUse = await User.findOne({
+      'auth.local.email': req.body.email.toLowerCase(),
+    }).select({ _id: 1 }).lean().exec();
+
+    if (emailAlreadyInUse) throw new NotAuthorized(res.t('emailTaken'));
+
+    return res.respond(200, { email: req.body.email });
   },
 };
 
