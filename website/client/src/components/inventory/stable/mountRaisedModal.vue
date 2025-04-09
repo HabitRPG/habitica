@@ -14,7 +14,7 @@
         <div class="pet-background">
           <Sprite
             class="mount"
-            :image-name="`Mount_Icon_${mount.key}`"
+            :image-name="`stable_Mount_Icon_${mount.key}`"
           />
         </div>
         <h4 class="title">
