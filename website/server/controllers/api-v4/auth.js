@@ -101,6 +101,15 @@ api.checkEmail = {
   method: 'POST',
   url: '/user/auth/check-email',
   async handler (req, res) {
+    req.checkBody({
+      email: {
+        notEmpty: { errorMessage: res.t('missingEmail') },
+      },
+    });
+
+    const validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
     const emailAlreadyInUse = await User.findOne({
       'auth.local.email': req.body.email.toLowerCase(),
     }).select({ _id: 1 }).lean().exec();

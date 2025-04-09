@@ -7,7 +7,7 @@ import {
   getProperty,
 } from '../../../../../helpers/api-integration/v3';
 
-describe.only('POST /user/auth/social', () => {
+describe('POST /user/auth/social', () => {
   let api;
   let user;
   const endpoint = '/user/auth/social';
