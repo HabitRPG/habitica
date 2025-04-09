@@ -809,6 +809,8 @@
   "weaponArmoireSpookyCandyBucketNotes": "With an epic costume like that, you’re going to get so much candy! Good thing you’ve got this bottomless bucket to hold it all. Try not to snack on any until you get home. Increases Intelligence by <%= int %>. Enchanted Armoire: Fright Night Set (Item 2 of 2)",
   "weaponArmoireStormKnightAxeText": "Storm Knight Axe",
   "weaponArmoireStormKnightAxeNotes": "Gather your fury and strike a blow like thunder! Increases Strength by <%= str %>. Enchanted Armoire: Storm Knight Set (Item 3 of 3)",
+  "weaponArmoireGildedKnightsSpearText": "Gilded Knight Spear",
+  "weaponArmoireGildedKnightsSpearNotes": "With this weapon, you can make sure everybody always pays their debts. Increases Strength by <%= str %>. Enchanted Armoire: Gilded Knight Set (Item 3 of 3)",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -1708,6 +1710,8 @@
   "armorArmoireSillyOrangeTuxedoNotes": "Your own personal suit du jour. Increases Constitution by <%= con %>. Enchanted Armoire: Silly Tuxedo Set (Item 1 of 2).",
   "armorArmoireSillierBlueTuxedoText": "Sillier Blue Tuxedo",
   "armorArmoireSillierBlueTuxedoNotes": "Put out the vibe in this unique outfit. Increases Strength by <%= str %>. Enchanted Armoire: Sillier Tuxedo Set (Item 1 of 2).",
+  "armorArmoireGildedKnightsPlateText": "Gilded Knight Armor",
+  "armorArmoireGildedKnightsPlateNotes": "In this armor, you are nearly invincible. Your enemies will surely hear you roar! Increases Perception by <%= per %>. Enchanted Armoire: Gilded Knight Set (Item 2 of 3)",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -2628,6 +2632,8 @@
   "headArmoireSillyOrangeTophatNotes": "Goes well with a pumpkin pie hair cut. Increases Strength and Constitution by <%= attrs %> each. Enchanted Armoire: Silly Tuxedo Set (Item 2 of 2).",
   "headArmoireSillierBlueTophatText": "Sillier Blue Tophat",
   "headArmoireSillierBlueTophatNotes": "A little class, a little sophistication. Increases Strength and Constitution by <%= attrs %> each. Enchanted Armoire: Sillier Tuxedo Set (Item 2 of 2).",
+  "headArmoireGildedKnightsHelmText": "Gilded Knight Helm",
+  "headArmoireGildedKnightsHelmNotes": "Shine as bright as the sun through the darkness of any battle. Increases Constitution by <%= con %>. Enchanted Armoire: Gilded Knight Set (Item 1 of 3)",
 
   "offhand": "off-hand item",
   "offHandCapitalized": "Off-Hand Item",
@@ -3206,6 +3212,8 @@
   "backMystery202405Notes": "These magnificent wings have the glow of pure gold but are as light as a feather. Confers no benefit. May 2024 Subscriber Item.",  
   "backMystery202410Text": "Candy Corn Tail",
   "backMystery202410Notes": "This tail perks up at the mention of spooky treats. Confers no benefit. October 2024 Subscriber Item.",
+  "backMystery202505Text": "Soaring Swallowtail Wings",
+  "backMystery202505Notes": "Earn your stripes swooping and soaring on these aerodynamic wings. Confers no benefit. May 2025 Subscriber Item.",
 
   "backSpecialWonderconRedText": "Mighty Cape",
   "backSpecialWonderconRedNotes": "Swishes with strength and beauty. Confers no benefit. Special Edition Convention Item.",
@@ -3453,6 +3461,8 @@
   "headAccessoryMystery202405Notes": "The metallic sheen of these fine horns reflects the dancing colors of dragon fire. Confers no benefit. May 2024 Subscriber Item.",
   "headAccessoryMystery202410Text": "Candy Corn Ears",
   "headAccessoryMystery202410Notes": "Is that the sound of trick-or-treaters at your door? Confers no benefit. October 2024 Subscriber Item.",
+  "headAccessoryMystery202505Text": "Soaring Swallowtail Antennae",
+  "headAccessoryMystery202505Notes": "Detect the best patches of wildflowers with these sensitive appendages. Confers no benefit. May 2025 Subscriber Item.",
 
   "headAccessoryMystery301405Text": "Headwear Goggles",
   "headAccessoryMystery301405Notes": "\"Goggles are for your eyes,\" they said. \"Nobody wants goggles that you can only wear on your head,\" they said. Hah! You sure showed them! Confers no benefit. August 3015 Subscriber Item.",

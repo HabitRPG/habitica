@@ -653,6 +653,9 @@ const backgrounds = {
   backgrounds042025: {
     garden_with_flower_beds: { },
   },
+  backgrounds052025: {
+    trail_through_a_forest: { },
+  },
   eventBackgrounds: {
     birthday_bash: {
       price: 0,

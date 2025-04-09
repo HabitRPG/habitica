@@ -524,6 +524,10 @@ const armor = {
     str: 12,
     set: 'sillierTuxedoSet',
   },
+  gildedKnightsPlate: {
+    per: 11,
+    set: 'gildedKnightSet',
+  },
 };
 
 const body = {
@@ -1071,6 +1075,10 @@ const head = {
     str: 6,
     con: 6,
     set: 'sillierTuxedoSet',
+  },
+  gildedKnightsHelm: {
+    con: 11,
+    set: 'gildedKnightSet',
   },
 };
 
@@ -1942,6 +1950,10 @@ const weapon = {
   stormKnightAxe: {
     str: 11,
     set: 'stormKnightSet',
+  },
+  gildedKnightsSpear: {
+    str: 11,
+    set: 'gildedKnightSet',
   },
 };
 
