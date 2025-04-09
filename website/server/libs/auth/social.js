@@ -40,7 +40,7 @@ export async function socialEmailToLocal (user) {
 
 export async function loginSocial (req, res) { // eslint-disable-line import/prefer-default-export
   let existingUser = res.locals.user;
-  const { network } = req.body;
+  const { network, allowRegister = true } = req.body;
 
   const isSupportedNetwork = common.constants.SUPPORTED_SOCIAL_NETWORKS
     .find(supportedNetwork => supportedNetwork.key === network);
@@ -72,6 +72,10 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
       }
     }
     return loginRes(user, req, res);
+  }
+
+  if (!allowRegister) {
+    return res.respond(404, {});
   }
 
   let email;
