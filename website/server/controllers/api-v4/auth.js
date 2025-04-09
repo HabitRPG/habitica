@@ -1,4 +1,3 @@
-import nconf from 'nconf';
 import {
   authWithHeaders,
 } from '../../middlewares/auth';
