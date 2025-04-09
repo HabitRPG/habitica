@@ -1,6 +1,6 @@
 import passport from 'passport';
 import common from '../../../common';
-import { BadRequest, NotAuthorized } from '../errors';
+import { BadRequest, NotAuthorized, NotFound } from '../errors';
 import logger from '../logger';
 import {
   generateUsername,
@@ -75,7 +75,7 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
   }
 
   if (!allowRegister) {
-    return res.respond(404, {});
+    throw new NotFound(res.t('userNotFound'));
   }
 
   let email;
