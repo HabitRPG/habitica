@@ -441,6 +441,12 @@ const quests = {
     adjective: t('questEggAlpacaAdjective'),
     canBuy: hasQuestAchievementFunction('alpaca'),
   },
+  Platypus: {
+    text: t('questEggPlatypusText'),
+    mountText: t('questEggPlatypusMountText'),
+    adjective: t('questEggPlatypusAdjective'),
+    canBuy: hasQuestAchievementFunction('platypus'),
+  },
 };
 
 applyEggDefaults(drops, {

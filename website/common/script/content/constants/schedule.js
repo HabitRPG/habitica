@@ -290,11 +290,13 @@ export const MONTHLY_SCHEDULE = {
           'horse',
           'kraken',
           'sloth',
+          'platypus',
         ],
       },
       {
         type: 'hatchingPotionQuests',
         items: [
+          'opal',
         ],
       },
       {

@@ -17,6 +17,7 @@ const potentialFeaturedPetQuests = [
   'alpaca',
 
   'sloth',
+  'platypus',
 
   'hippo',
   'giraffe',

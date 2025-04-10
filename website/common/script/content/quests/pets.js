@@ -1198,6 +1198,45 @@ const QUEST_PETS = {
       unlock: t('questPenguinUnlockText'),
     },
   },
+  platypus: {
+    text: t('questPlatypusText'),
+    notes: t('questPlatypusNotes'),
+    completion: t('questPlatypusCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questPlatypusBoss'),
+      hp: 1000,
+      str: 2,
+      rage: {
+        title: t('questPlatypusRageTitle'),
+        description: t('questPlatypusRageDescription'),
+        value: 50,
+        mpDrain: 0.33,
+        effect: t('questPlatypusRageEffect'),
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Platypus',
+          text: t('questPlatypusDropPlatypusEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Platypus',
+          text: t('questPlatypusDropPlatypusEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Platypus',
+          text: t('questPlatypusDropPlatypusEgg'),
+        },
+      ],
+      gp: 100,
+      exp: 1000,
+      unlock: t('questPlatypusUnlockText'),
+    },
+  },
   pterodactyl: {
     text: t('questPterodactylText'),
     notes: t('questPterodactylNotes'),

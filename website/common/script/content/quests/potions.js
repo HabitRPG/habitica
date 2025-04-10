@@ -405,5 +405,46 @@ const QUEST_POTIONS = {
       unlock: t('questJadeUnlockText'),
     },
   },
+  opal: {
+    text: t('questOpalText'),
+    notes: t('questOpalNotes'),
+    completion: t('questOpalCompletion'),
+    value: 4,
+    category: 'hatchingPotion',
+    collect: {
+      opalGem: {
+        text: t('questOpalCollectOpalGems'),
+        count: 25,
+      },
+      libraRune: {
+        text: t('questOpalCollectLibraRunes'),
+        count: 10,
+      },
+      mercuryRune: {
+        text: t('questOpalCollectMercuryRunes'),
+        count: 10,
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'Opal',
+          text: t('questOpalDropOpalPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Opal',
+          text: t('questOpalDropOpalPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Opal',
+          text: t('questOpalDropOpalPotion'),
+        },
+      ],
+      gp: 50,
+      exp: 350,
+      unlock: t('questOpalUnlockText'),
+    },
+  },
 };
 export default QUEST_POTIONS;

@@ -19,6 +19,7 @@ export const ARMOIRE_RELEASE_DATES = {
   springPetalSet: { year: 2025, month: 3 },
   sillyTuxedoSet: { year: 2025, month: 4 },
   sillierTuxedoSet: { year: 2025, month: 4 },
+  gildedKnightSet: { year: 2025, month: 5 },
 };
 
 export const EGGS_RELEASE_DATES = {
@@ -30,6 +31,7 @@ export const EGGS_RELEASE_DATES = {
   Cat: { year: 2025, month: 2, day: 14 },
   Otter: { year: 2025, month: 3, day: 14 },
   Alpaca: { year: 2025, month: 4, day: 14 },
+  Platypus: { year: 2025, month: 5, day: 14 },
 };
 
 export const HATCHING_POTIONS_RELEASE_DATES = {
@@ -38,4 +40,5 @@ export const HATCHING_POTIONS_RELEASE_DATES = {
   Jade: { year: 2025, month: 3, day: 14 },
   Cryptid: { year: 2025, month: 4, day: 3 },
   Balloon: { year: 2025, month: 4, day: 21 },
+  Opal: { year: 2025, month: 5, day: 14 },
 };

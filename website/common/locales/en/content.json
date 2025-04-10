@@ -283,6 +283,10 @@
   "questEggAlpacaMountText": "Alpaca",
   "questEggAlpacaAdjective": "an overpacked",
 
+  "questEggPlatypusText": "Platypus",
+  "questEggPlatypusMountText": "Platypus",
+  "questEggPlatypusAdjective": "a perfectionist",
+
   "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
 
   "hatchingPotionBase": "Base",
@@ -351,6 +355,7 @@
   "hatchingPotionJade": "Jade",
   "hatchingPotionBalloon": "Balloon",
   "hatchingPotionCryptid": "Cryptid",
+  "hatchingPotionOpal": "Opal",
 
   "hatchingPotionNotes": "Pour this on an egg, and it will hatch as a <%= potText(locale) %> Pet.",
   "premiumPotionUnlimitedNotes": "Not usable on Quest Pet eggs.",

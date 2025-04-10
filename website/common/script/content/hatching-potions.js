@@ -133,6 +133,10 @@ const premium = {
     canBuy: hasQuestAchievementFunction('jade'),
   },
   Balloon: {},
+  Opal: {
+    questPotion: true,
+    canBuy: hasQuestAchievementFunction('opal'),
+  },
 };
 
 const wacky = {
