@@ -34,7 +34,7 @@ api.trackEvent = {
       user: pick(user, ['preferences', 'registeredThrough']),
       uuid: user._id,
       headers: req.headers,
-      category: 'behaviour',
+      category: 'behavior',
       ...eventProperties,
     });
 
