@@ -10,7 +10,6 @@ import common from '../../common';
 import logger from './logger';
 
 const LOG_AMPLITUDE_EVENTS = nconf.get('LOG_AMPLITUDE_EVENTS') === 'true';
-const IS_TEST = nconf.get('NODE_ENV') === 'test';
 const AMPLITUDE_TOKEN = nconf.get('AMPLITUDE_KEY');
 const AMPLITUDE_PROPERTIES_TO_SCRUB = [
   'uuid', 'user', 'purchaseValue',
@@ -254,13 +253,13 @@ const mockAnalyticsService = {
 
 // Return the production or mock service based on the current environment
 function getServiceByEnvironment () {
-  if (IS_TEST) {
-    return mockAnalyticsService;
+  if (nconf.get('IS_PROD') || (nconf.get('DEBUG_ENABLED') && !nconf.get('BASE_URL').includes('localhost'))) {
+    return {
+      track,
+      trackPurchase,
+    };
   }
-  return {
-    track,
-    trackPurchase,
-  };
+  return mockAnalyticsService;
 }
 
 export {
