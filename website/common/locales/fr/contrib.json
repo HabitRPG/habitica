@@ -40,10 +40,10 @@
     "backerTier": "Palier de Soutien",
     "playerTiers": "Paliers de joueur",
     "tier": "Palier",
-    "conRewardsURL": "https://habitica.fandom.com/fr/wiki/R%C3%A9compenses_de_Contribution",
+    "conRewardsURL": "https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tier-rewards (En anglais)",
     "surveysSingle": "A aidé à faire progresser Habitica, en participant à une enquête ou à une phase de test importante. Merci !",
     "surveysMultiple": "A aidé à faire progresser Habitica à <%= count %> reprises, que ce soit en participant à une enquête ou en contribuant à une phase de test importante. Merci !",
     "blurbHallPatrons": "Voici le Panthéon des Sponsors, où nous rendons hommage aux nobles aventuriers qui ont soutenu le Kickstarter original de Habitica. Nous les remercions de nous avoir aidés à donner la vie à Habitica !",
-    "blurbHallContributors": "Voici le Panthéon des contributeurs, où sont honorés tous les contributeurs et toutes les contributrices \"open-source\" d'Habitica. Que ce soit grâce à du code, de l'art, de la musique, de l'écriture ou même simplement de l'aide, ils ont gagné <a href='https://habitica.fandom.com/fr/wiki/R%C3%A9compenses_de_Contribution' target='_blank'>des gemmes, de l'équipement exclusif</a>, et <a href='https://habitica.fandom.com/fr/wiki/Titres_de_Contribution' target='_blank'>des titres prestigieux</a>. Vous pouvez, vous aussi, contribuer à Habitica ! <a href='https://habitica.fandom.com/fr/wiki/Contribuer_à_Habitica' target='_blank'>Apprenez-en plus ici.</a>",
+    "blurbHallContributors": "Voici le Panthéon des Contribut·eur·rice·s, où sont honoré·e·s tou·te·s les contribut·eur·rice·s open-source d'Habitica . Que ce soit grâce à du code, de l'art, de la musique, de l'écriture ou même simplement de l'aide, il·elles ont gagné <a href='https://habitica.fandom.com/wiki/Contributor_Rgithub.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tier-rewards' target='_blank'>des Gemmes, de l'Équipement exclusif</a>, et <a href='https://habitica.fandom.com/wiki/Contributor_Titlegithub.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tiers' target='_blank'>des titres prestigieux.</a>. Vous pouvez vous aussi contribuer à Habitica ! <a href='https://habitica.fandom.comgithub.com/HabitRPG/habitica/wiki/Contributing_-to_-Habitica' target='_blank'> pour en savoir plus.</a> (Site en Anglais pour le moment)",
     "noPrivAccess": "Vous n'avez pas les privilèges requis."
 }

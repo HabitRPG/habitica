@@ -2,7 +2,7 @@
     "settings": "Configurações",
     "language": "Idioma",
     "americanEnglishGovern": "No caso de uma discrepância nas traduções, a versão em Inglês Americano prevalece.",
-    "helpWithTranslation": "Gostaria de ajudar com a tradução do Habitica? Fantástico! Então visite <a href=\"https://translate.habitica.com\">O Weblate do Habitica</a>!",
+    "helpWithTranslation": "Interessado em ajudar com a tradução do Habitica? Fantástico! Então visite o <a href=\"https://translate.habitica.com\">Weblate do Habitica</a>!",
     "stickyHeader": "Cabeçalho Fixo",
     "newTaskEdit": "Abrir nova tarefa no modo de edição",
     "reverseChatOrder": "Mostrar mensagems do chat em ordem reversa",
@@ -196,5 +196,6 @@
     "downloadCSV": "Download CSV",
     "downloadAs": "Download como",
     "api": "API",
-    "currentPass": "Palavra-passe atual"
+    "currentPass": "Palavra-passe atual",
+    "showLevelUpModal": "Quando Subir um Nível"
 }

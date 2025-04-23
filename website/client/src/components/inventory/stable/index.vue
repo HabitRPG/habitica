@@ -627,6 +627,8 @@ export default {
             animals.push({
               key: specialKey,
               eggKey,
+              eggName: text(),
+              mountName: text(),
               potionKey,
               name: text(),
               canFind,
@@ -657,7 +659,6 @@ export default {
       }
 
       this.cachedAnimalList[key] = animals;
-
       return animals;
     },
     listAnimals (animalGroup, type, hideMissing, sort, searchText) {
@@ -670,7 +671,9 @@ export default {
       }
 
       if (searchText && searchText !== '') {
-        animals = _filter(animals, a => a.name.toLowerCase().indexOf(searchText) !== -1);
+        animals = _filter(animals, a => a.name.toLowerCase().indexOf(searchText) !== -1
+        || a.eggName.toLowerCase().indexOf(searchText) !== -1
+        || a.mountName.toLowerCase().indexOf(searchText) !== -1);
       }
 
       // 2. Sort
@@ -693,7 +696,6 @@ export default {
       }
 
       this.viewOptions[animalGroup.key].animalCount = animals.length;
-
       return animals;
     },
     countOwnedAnimals (animalGroup, type) {

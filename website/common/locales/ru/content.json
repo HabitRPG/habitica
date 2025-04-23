@@ -211,7 +211,7 @@
     "hatchingPotionGlow": "Светящийся-ночью",
     "hatchingPotionFrost": "Морозный",
     "hatchingPotionIcySnow": "Ледяной",
-    "hatchingPotionNotes": "Полейте его на яйцо и из него вылупится <%= potText(locale) %> питомец.",
+    "hatchingPotionNotes": "Полейте его на яйцо и из него вылупится <%= potText(locale) %> Питомец.",
     "foodMeat": "Мясо",
     "foodMeatThe": "Мясная пища",
     "foodMeatA": "Мясо",
@@ -350,7 +350,7 @@
     "questEggRobotMountText": "Робот",
     "questEggRobotText": "Робот",
     "hatchingPotionShadow": "Теневой",
-    "premiumPotionUnlimitedNotes": "Нельзя применить на квестовых яйцах питомцев.",
+    "premiumPotionUnlimitedNotes": "Нельзя применить на Квестовых яйцах Питомцев.",
     "hatchingPotionAmber": "Янтарный",
     "hatchingPotionAurora": "Полярно-сияющий",
     "hatchingPotionRuby": "Рубиновый",
@@ -389,5 +389,8 @@
     "questEggCrabAdjective": "суетливый",
     "questEggDogMountText": "Собака",
     "questEggDogAdjective": "дружелюбный",
-    "questEggDogText": "Щенок"
+    "questEggDogText": "Щенок",
+    "hatchingPotionKoi": "Кои",
+    "hatchingPotionGingerbread": "Пряник",
+    "hatchingPotionFungi": "Грибы"
 }

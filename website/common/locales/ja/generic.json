@@ -25,7 +25,7 @@
     "user": "ユーザー",
     "market": "市場",
     "newSubscriberItem": "新しい<span class=\"notification-bold-blue\">ミステリー アイテム</span>があります",
-    "subscriberItemText": "毎月、有料会員はミステリーアイテムを受け取れます。月初めに入手可能になります。詳しくはWiki の「Mystery Item（ミステリーアイテム）」のページをご覧ください。",
+    "subscriberItemText": "毎月の初めに、有料会員は新しいミステリーアイテムセットをお受け取りいただけます！",
     "all": "すべて",
     "none": "なし",
     "more": "あと <%= count %>",

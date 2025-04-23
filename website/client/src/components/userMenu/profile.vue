@@ -979,6 +979,7 @@
 import moment from 'moment';
 import axios from 'axios';
 import each from 'lodash/each';
+import find from 'lodash/find';
 import cloneDeep from 'lodash/cloneDeep';
 import achievementsLib from '@/../../common/script/libs/achievements';
 import Content from '@/../../common/script/content';
@@ -1062,8 +1063,12 @@ export default {
   },
   computed: {
     ...mapState({
+      currentEventList: 'worldState.data.currentEventList',
       flatGear: 'content.gear.flat',
     }),
+    currentEvent () {
+      return find(this.currentEventList, event => Boolean(event.promo));
+    },
     userJoinedDate () {
       return moment(this.user.auth.timestamps.created)
         .format(this.userLoggedIn.preferences.dateFormat.toUpperCase());
@@ -1257,6 +1262,7 @@ export default {
     },
 
     openSendGemsModal () {
+      this.user.g1g1 = this.currentEvent?.promo === 'g1g1';
       this.$store.state.giftModalOptions.startingPage = 'buyGems';
       this.$root.$emit('habitica::send-gift', this.user);
     },

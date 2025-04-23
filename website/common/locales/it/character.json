@@ -83,7 +83,7 @@
     "allocatePerPop": "Aggiungi un punto a Percezione",
     "allocateInt": "Punti assegnati a Intelligenza:",
     "allocateIntPop": "Aggiungi un punto a Intelligenza",
-    "noMoreAllocate": "Ora che hai raggiunto il livello 100, non potrai guadagnare ulteriori Punti Statistica. Puoi continuare a salire di livello, o iniziare una nuova avventura dal livello 1 usando la <a href='https://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Sfera della Rinascita</a>!",
+    "noMoreAllocate": "Ora che hai raggiunto il livello 100, non potrai guadagnare ulteriori Punti Statistica. Puoi continuare a salire di livello, o iniziare una nuova avventura dal livello 1 usando la <a href='/shops/market'>Sfera della Rinascita</a>!",
     "stats": "Statistiche",
     "strength": "Forza",
     "strText": "La tua Forza aumenta la probabilità di sferrare \"colpi critici\" e l'Oro, l'Esperienza e la probabilità di bottino che potrai guadagnare grazie ad essi. In più, permette di infliggere danni maggiori ai Boss delle missioni.",
@@ -129,8 +129,8 @@
     "healerText": "I Guaritori si stagliano impavidi contro i danni, ed estendono la propria protezione agli altri. Le Attività Giornaliere non completate e le cattive abitudini non li turbano molto, ed hanno diversi modi per recuperare la Salute persa a causa dei fallimenti. Diventa un Guaritore se ti piace assistere gli altri nella tua squadra, o se l'idea di giocare con la morte attraverso il duro lavoro ti ispira!",
     "optOutOfClasses": "Rinuncia",
     "chooseClass": "Scegli la tua Classe",
-    "chooseClassLearnMarkdown": "[Maggiori informazioni sul sistema delle classi di Habitica](https://habitica.fandom.com/wiki/Class_System)",
-    "optOutOfClassesText": "Il sistema delle classi non ti interessa? Vuoi scegliere in un secondo momento? Nessun problema - sarai un Guerriero senza alcuna abilità speciale. Puoi avere maggiori informazioni sul sistema delle classi nella wiki ed abilitare il sistema delle classi in qualsiasi momento sull'Icona Utente -> Configurazioni.",
+    "chooseClassLearnMarkdown": "[Maggiori informazioni sul sistema delle classi di Habitica](/static/faq#what-classes)",
+    "optOutOfClassesText": "Non sei pronto a scegliere? Non c'è fretta! Se decidi di non sceglierne una, puoi leggere informazioni su ogni classe nelle <a href='/static/faq#what-classes' target='_blank'>nostre FAQ</a> e visitare Impostazioni per abilitare il sistema di classi quando sei pronto.",
     "selectClass": "Seleziona <%= heroClass %>",
     "select": "Seleziona",
     "stealth": "Furtività",
@@ -186,5 +186,8 @@
     "notEnoughGold": "Non hai abbastanza oro.",
     "chatCastSpellUserTimes": "<%= username %> lancia <%= spell %> per <%= target %> <%= times %> volte.",
     "chatCastSpellPartyTimes": "<%= username %> lancia <%= spell %> per la squadra <%= times %> volte.",
-    "nextReward": "Prossima ricompensa per l'accesso"
+    "nextReward": "Prossima ricompensa per l'accesso",
+    "titleHaircolor": "Colore dei capelli",
+    "titleHairbase": "Capigliatura",
+    "customizations": "Personalizzazioni"
 }

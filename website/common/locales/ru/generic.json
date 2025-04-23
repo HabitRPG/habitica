@@ -216,5 +216,8 @@
     "leaveHabitica": "Вы собираетесь покинуть Habitica.com",
     "refreshList": "Обновить список",
     "leaveHabiticaText": "Habitica не несет ответственности за содержание веб-сайтов, которые не принадлежат и не управляются HabitRPG.<br>Пожалуйста, обратите внимание, что правила работы этих веб-сайтов могут отличаться от принципов сообщества Habitica.",
-    "skipExternalLinkModal": "Удерживайте CTRL (Windows) или Command (Mac) при клике по ссылке, чтобы пропустить модальное окно."
+    "skipExternalLinkModal": "Удерживайте CTRL (Windows) или Command (Mac) при клике по ссылке, чтобы пропустить модальное окно.",
+    "titleCustomizations": "Персонализация",
+    "general": "Общие",
+    "allNotifications": "Все уведомления"
 }

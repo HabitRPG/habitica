@@ -779,6 +779,30 @@ const armor = {
   fall2024Rogue: {
     set: 'fall2024BlackCatRogueSet',
   },
+  winter2025Warrior: {
+    set: 'winter2025MooseWarriorSet',
+  },
+  winter2025Mage: {
+    set: 'winter2025AuroraMageSet',
+  },
+  winter2025Healer: {
+    set: 'winter2025StringLightsHealerSet',
+  },
+  winter2025Rogue: {
+    set: 'winter2025SnowRogueSet',
+  },
+  spring2025Warrior: {
+    set: 'spring2025SunshineWarriorSet',
+  },
+  spring2025Rogue: {
+    set: 'spring2025CrystalPointRogueSet',
+  },
+  spring2025Healer: {
+    set: 'spring2025PlumeriaHealerSet',
+  },
+  spring2025Mage: {
+    set: 'spring2025MantisMageSet',
+  },
 };
 
 const armorStats = {
@@ -1868,6 +1892,30 @@ const head = {
   fall2024Rogue: {
     set: 'fall2024BlackCatRogueSet',
   },
+  winter2025Warrior: {
+    set: 'winter2025MooseWarriorSet',
+  },
+  winter2025Mage: {
+    set: 'winter2025AuroraMageSet',
+  },
+  winter2025Healer: {
+    set: 'winter2025StringLightsHealerSet',
+  },
+  winter2025Rogue: {
+    set: 'winter2025SnowRogueSet',
+  },
+  spring2025Warrior: {
+    set: 'spring2025SunshineWarriorSet',
+  },
+  spring2025Rogue: {
+    set: 'spring2025CrystalPointRogueSet',
+  },
+  spring2025Healer: {
+    set: 'spring2025PlumeriaHealerSet',
+  },
+  spring2025Mage: {
+    set: 'spring2025MantisMageSet',
+  },
 };
 
 const headStats = {
@@ -2558,6 +2606,26 @@ const shield = {
   fall2024Rogue: {
     set: 'fall2024BlackCatRogueSet',
   },
+  winter2025Warrior: {
+    set: 'winter2025MooseWarriorSet',
+  },
+  winter2025Healer: {
+    set: 'winter2025StringLightsHealerSet',
+  },
+  winter2025Rogue: {
+    set: 'winter2025SnowRogueSet',
+  },
+  spring2025Warrior: {
+    set: 'spring2025SunshineWarriorSet',
+  },
+  spring2025Rogue: {
+    set: 'spring2025CrystalPointRogueSet',
+    text: t('shieldSpecialSpring2025RogueText'),
+    notes: t('shieldSpecialSpring2025RogueNotes', { str: 8 }),
+  },
+  spring2025Healer: {
+    set: 'spring2025PlumeriaHealerSet',
+  },
 };
 
 const shieldStats = {
@@ -3236,6 +3304,30 @@ const weapon = {
   },
   fall2024Rogue: {
     set: 'fall2024BlackCatRogueSet',
+  },
+  winter2025Warrior: {
+    set: 'winter2025MooseWarriorSet',
+  },
+  winter2025Mage: {
+    set: 'winter2025AuroraMageSet',
+  },
+  winter2025Healer: {
+    set: 'winter2025StringLightsHealerSet',
+  },
+  winter2025Rogue: {
+    set: 'winter2025SnowRogueSet',
+  },
+  spring2025Warrior: {
+    set: 'spring2025SunshineWarriorSet',
+  },
+  spring2025Rogue: {
+    set: 'spring2025CrystalPointRogueSet',
+  },
+  spring2025Healer: {
+    set: 'spring2025PlumeriaHealerSet',
+  },
+  spring2025Mage: {
+    set: 'spring2025MantisMageSet',
   },
 };
 

@@ -71,7 +71,6 @@
           id="selectUser"
           v-model="userSearchTerm"
           :is-valid="foundUser._id"
-
           :placeholder="$t('usernameOrUserId')"
           :invalid-issues="userInputInvalidIssues"
         />
@@ -318,6 +317,7 @@ export default {
   computed: {
     ...mapState({
       currentEventList: 'worldState.data.currentEventList',
+      user: 'user.data',
     }),
     currentEvent () {
       return find(this.currentEventList, event => Boolean(event.gemsPromo) || Boolean(event.promo));
@@ -399,6 +399,8 @@ export default {
       this.foundUser = result;
     }, 500),
     selectUser () {
+      this.foundUser.g1g1 = this.currentEvent?.promo === 'g1g1'
+        && this.foundUser._id !== this.user._id;
       this.$root.$emit('habitica::send-gift', this.foundUser);
       this.close();
     },

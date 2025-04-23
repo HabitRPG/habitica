@@ -391,5 +391,17 @@
     "questEggRaccoonAdjective": "一只极度饥饿的",
     "questEggDogMountText": "狗",
     "questEggDogAdjective": "一只友好的",
-    "questEggDogText": "幼犬"
+    "questEggDogText": "幼犬",
+    "hatchingPotionGingerbread": "姜饼",
+    "questEggCatText": "小猫",
+    "questEggCatMountText": "猫",
+    "questEggCatAdjective": "一只顽皮的",
+    "questEggOtterMountText": "水獭",
+    "hatchingPotionJade": "翡翠",
+    "questEggOtterText": "水獭",
+    "questEggOtterAdjective": "一只不忠诚的",
+    "hatchingPotionBalloon": "气球",
+    "hatchingPotionCryptid": "神秘生物",
+    "questEggAlpacaText": "羊驼",
+    "questEggAlpacaMountText": "羊驼"
 }

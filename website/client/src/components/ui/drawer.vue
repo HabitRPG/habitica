@@ -61,6 +61,18 @@
       left: calc((100% + 236px - 978px) / 2);
       right: 0%;
     }
+
+    @media screen and (max-width: 575px) {
+      max-width: none;
+      left: 3%;
+      right: 3%;
+    }
+
+    .message {
+      @media screen and (max-width: 450px) {
+        width: 100%;
+        }
+    }
   }
 
   .drawer-toggle-icon {
@@ -117,6 +129,12 @@
     padding-top: 6px;
     padding-left: 24px;
     padding-right: 24px;
+
+    a {
+      line-height: 1.33;
+      color: $gray-500;
+      font-weight: normal;
+    }
   }
 
   .drawer-tab {
@@ -136,7 +154,7 @@
       color: $white !important;
       text-decoration: none !important;
       border-bottom: 2px solid transparent;
-      padding: 0.5rem;
+      padding: 8px;
 
       &-active, &:hover {
         color: $white !important;
@@ -157,17 +175,19 @@
   }
 
   .drawer-slider {
-    padding: 12px 0 0 8px;
+    padding: 0;
     white-space: nowrap;
     position: relative;
+    width: 100%;
 
     & .message {
       display: flex;
       align-items: center;
       justify-content: center;
+      margin: auto;
 
       top: calc(50% - 30px);
-      left: 24px;
+      left: 0;
       right: 0;
       position: absolute;
 

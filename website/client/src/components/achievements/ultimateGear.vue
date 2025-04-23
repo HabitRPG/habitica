@@ -55,7 +55,7 @@
           <p v-html="$t('moreGearAchievements')"></p>
           <br>
         </div>
-        <div class="shop_armoire"></div>
+        <Sprite image-name="shop_armoire" />
         <p v-html="$t('armoireUnlocked')"></p>
         <br>
         <button
@@ -87,11 +87,13 @@
 import achievementFooter from './achievementFooter';
 import achievementAvatar from './achievementAvatar';
 import { mapState } from '@/libs/store';
+import Sprite from '@/components/ui/sprite.vue';
 
 export default {
   components: {
     achievementFooter,
     achievementAvatar,
+    Sprite,
   },
   computed: {
     ...mapState({ user: 'user.data' }),

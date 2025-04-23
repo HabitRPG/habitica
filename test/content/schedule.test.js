@@ -1,4 +1,5 @@
 // eslint-disable-next-line max-len
+import maxBy from 'lodash/maxBy';
 import moment from 'moment';
 import nconf from 'nconf';
 import {
@@ -10,6 +11,7 @@ import QUEST_BUNDLES from '../../website/common/script/content/bundles';
 import potions from '../../website/common/script/content/hatching-potions';
 import SPELLS from '../../website/common/script/content/spells';
 import QUEST_SEASONAL from '../../website/common/script/content/quests/seasonal';
+import { HATCHING_POTIONS_RELEASE_DATES } from '../../website/common/script/content/constants/releaseDates';
 
 function validateMatcher (matcher, checkedDate) {
   expect(matcher.end).to.be.a('date');
@@ -142,6 +144,12 @@ describe('Content Schedule', () => {
     expect(matchers.seasonalGear.end).to.eql(moment.utc(`2025-03-21T${String(switchoverTime).padStart(2, '0')}:00:00.000Z`).toDate());
   });
 
+  it('sets the end date in new year for a winter gala', () => {
+    const date = new Date('2025-01-04');
+    const matchers = getAllScheduleMatchingGroups(date);
+    expect(matchers.seasonalGear.end).to.eql(moment.utc(`2025-03-21T${String(switchoverTime).padStart(2, '0')}:00:00.000Z`).toDate());
+  });
+
   it('uses correct date for first hours of the month', () => {
     // if the date is checked before CONTENT_SWITCHOVER_TIME_OFFSET,
     // it should be considered the previous month
@@ -182,7 +190,7 @@ describe('Content Schedule', () => {
     const date = new Date('2024-04-15');
     const matchers = getAllScheduleMatchingGroups(date);
     expect(matchers.premiumHatchingPotions).to.exist;
-    expect(matchers.premiumHatchingPotions.items.length).to.equal(5);
+    expect(matchers.premiumHatchingPotions.items.length).to.equal(6);
     expect(matchers.premiumHatchingPotions.items.indexOf('Veggie')).to.not.equal(-1);
     expect(matchers.premiumHatchingPotions.items.indexOf('Porcelain')).to.not.equal(-1);
   });
@@ -222,6 +230,8 @@ describe('Content Schedule', () => {
     });
 
     it('premium hatching potions', () => {
+      const lastReleaseDate = maxBy(Object.values(HATCHING_POTIONS_RELEASE_DATES), value => new Date(`${value.year}-${value.month}-${value.day}`));
+      clock = sinon.useFakeTimers(new Date(`${lastReleaseDate.year}-${lastReleaseDate.month}-${lastReleaseDate.day + 1}`));
       const potionKeys = Object.keys(potions.premium);
       Object.keys(MONTHLY_SCHEDULE).forEach(key => {
         const monthlyPotions = MONTHLY_SCHEDULE[key][21].find(item => item.type === 'premiumHatchingPotions');
@@ -262,6 +272,21 @@ describe('Content Schedule', () => {
       expect(matcher.match('backgroundkey072024')).to.be.true;
     });
 
+    it('allows background matching the month for new backgrounds from multiple years', () => {
+      const date = new Date('2026-07-08');
+      const matcher = getAllScheduleMatchingGroups(date).backgrounds;
+      expect(matcher.match('backgroundkey072024')).to.be.true;
+      expect(matcher.match('backgroundkey072025')).to.be.true;
+      expect(matcher.match('backgroundkey072026')).to.be.true;
+    });
+
+    it('allows background matching the previous month in the first week for new backgrounds', () => {
+      const date = new Date('2024-09-02');
+      const matcher = getAllScheduleMatchingGroups(date).backgrounds;
+      expect(matcher.match('backgroundkey082024')).to.be.true;
+      expect(matcher.match('backgroundkey092024')).to.be.false;
+    });
+
     it('disallows background in the future', () => {
       const date = new Date('2024-07-08');
       const matcher = getAllScheduleMatchingGroups(date).backgrounds;
@@ -281,18 +306,25 @@ describe('Content Schedule', () => {
       expect(matcher.match('backgroundkey022021')).to.be.true;
     });
 
-    it('allows background even yeared backgrounds in first half of year', () => {
+    it('allows even yeared backgrounds in first half of year', () => {
       const date = new Date('2025-02-08');
       const matcher = getAllScheduleMatchingGroups(date).backgrounds;
       expect(matcher.match('backgroundkey022024')).to.be.true;
       expect(matcher.match('backgroundkey082022')).to.be.true;
     });
 
-    it('allows background odd yeared backgrounds in second half of year', () => {
+    it('allows odd yeared backgrounds in second half of year', () => {
       const date = new Date('2024-08-08');
       const matcher = getAllScheduleMatchingGroups(date).backgrounds;
       expect(matcher.match('backgroundkey022023')).to.be.true;
       expect(matcher.match('backgroundkey082021')).to.be.true;
+    });
+
+    it('allows odd yeared backgrounds in beginning of january', () => {
+      const date = new Date('2025-01-06');
+      const matcher = getAllScheduleMatchingGroups(date).backgrounds;
+      expect(matcher.match('backgroundkey122024'), 'backgroundkey122024').to.be.true;
+      expect(matcher.match('backgroundkey062023'), 'backgroundkey062022').to.be.true;
     });
   });
 

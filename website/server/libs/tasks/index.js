@@ -207,11 +207,7 @@ async function getTasks (req, res, options = {}) {
       query.type = 'todo';
       query.completed = false; // Exclude completed todos
     } else if (type === 'completedTodos' || type === '_allCompletedTodos') { // _allCompletedTodos is currently in BETA and is likely to be removed in future
-      limit = 30;
-
-      if (type === '_allCompletedTodos') {
-        limit = 0; // no limit
-      }
+      limit = 0; // no limit, the 30/90 days of data for subscribers is handled during cron
 
       query.type = 'todo';
       query.completed = true;

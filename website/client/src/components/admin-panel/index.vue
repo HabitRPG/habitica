@@ -92,8 +92,6 @@ export default {
         params: { userIdentifier },
       }).catch(failure => {
         if (isNavigationFailure(failure, NavigationFailureType.duplicated)) {
-          // the admin has requested that the same user be displayed again so reload the page
-          // (e.g., if they changed their mind about changes they were making)
           this.$router.go();
         }
       });
@@ -101,14 +99,16 @@ export default {
 
     async loadUser (userIdentifier) {
       const id = userIdentifier || this.user._id;
-
-      this.$router.push({
+      if (this.$router.currentRoute.name === 'adminPanelUser') {
+        await this.$router.push({
+          name: 'adminPanel',
+        });
+      }
+      await this.$router.push({
         name: 'adminPanelUser',
         params: { userIdentifier: id },
       }).catch(failure => {
         if (isNavigationFailure(failure, NavigationFailureType.duplicated)) {
-          // the admin has requested that the same user be displayed again so reload the page
-          // (e.g., if they changed their mind about changes they were making)
           this.$router.go();
         }
       });

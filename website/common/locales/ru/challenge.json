@@ -106,5 +106,7 @@
     "resetFlagCount": "Сбросить Количество Флагов",
     "whyReportingChallenge": "Почему вы сообщаете об этой жалобе?",
     "whyReportingChallengePlaceholder": "Причина жалобы",
-    "resetFlags": "Сброс Флагов"
+    "resetFlags": "Сброс Флагов",
+    "messageChallengeFlagOfficial": "На официальные испытания нельзя пожаловаться.",
+    "abuseFlagModalBodyChallenge": "Вы должны сообщать только о испытаниях, которые нарушают <%= firstLinkStart %>Правила сообщества<%= linkEnd %> и/или <%= secondLinkStart %>Условия использования<%= linkEnd %>. Отправка ложного сообщения является нарушением Правил сообщества Habitica."
 }

@@ -388,5 +388,16 @@
     "questEggRaccoonAdjective": "大食いの",
     "questEggCrabText": "カニ",
     "questEggCrabMountText": "カニ",
-    "questEggCrabAdjective": "いじわるな"
+    "questEggCrabAdjective": "いじわるな",
+    "questEggDogText": "子犬",
+    "questEggDogMountText": "犬",
+    "questEggDogAdjective": "人なつっこい",
+    "questEggCatText": "子ネコ",
+    "questEggCatMountText": "ネコ",
+    "questEggCatAdjective": "わんぱくな",
+    "hatchingPotionGingerbread": "ジンジャーブレッド",
+    "questEggOtterText": "カワウソ",
+    "questEggOtterMountText": "カワウソ",
+    "questEggOtterAdjective": "不実な",
+    "hatchingPotionJade": "ヒスイ"
 }

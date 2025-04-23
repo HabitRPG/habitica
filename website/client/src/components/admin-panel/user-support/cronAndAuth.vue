@@ -1,5 +1,11 @@
 <template>
-  <form @submit.prevent="saveHero({ hero, msg: 'Authentication' })">
+  <form
+    @submit.prevent="saveHero({ hero: {
+      _id: hero._id,
+      auth: hero.auth,
+      preferences: hero.preferences,
+    }, msg: 'Authentication' })"
+  >
     <div class="card mt-2">
       <div class="card-header">
         <h3
@@ -38,7 +44,10 @@
             <strong v-else>No</strong>
           </div>
         </div>
-        <div v-if="cronError" class="form-group row">
+        <div
+          v-if="cronError"
+          class="form-group row"
+        >
           <label class="col-sm-3 col-form-label">lastCron value:</label>
           <strong>{{ hero.lastCron | formatDate }}</strong>
           <br>
@@ -53,12 +62,12 @@
           <div class="col-sm-9 col-form-label">
             <strong>
               {{ hero.auth.timestamps.loggedin | formatDate }}</strong>
-            <button
+            <a
               class="btn btn-warning btn-sm ml-4"
               @click="resetCron()"
             >
               Reset Cron to Yesterday
-            </button>
+            </a>
           </div>
         </div>
         <div class="form-group row">
@@ -110,13 +119,14 @@
         <div class="form-group row">
           <label class="col-sm-3 col-form-label">API Token</label>
           <div class="col-sm-9">
-            <button
+            <a
+              href="#"
               value="Change API Token"
               class="btn btn-danger"
               @click="changeApiToken()"
             >
               Change API Token
-            </button>
+          </a>
             <div
               v-if="tokenModified"
             >
@@ -268,13 +278,24 @@ export default {
       return false;
     },
     async changeApiToken () {
-      this.hero.changeApiToken = true;
-      await this.saveHero({ hero: this.hero, msg: 'API Token' });
+      await this.saveHero({
+        hero: {
+          _id: this.hero._id,
+          changeApiToken: true,
+        },
+        msg: 'API Token',
+      });
       this.tokenModified = true;
     },
     resetCron () {
-      this.hero.resetCron = true;
-      this.saveHero({ hero: this.hero, msg: 'Last Cron', clearData: true });
+      this.saveHero({
+        hero: {
+          _id: this.hero._id,
+          resetCron: true,
+        },
+        msg: 'Last Cron',
+        clearData: true,
+      });
     },
   },
 };

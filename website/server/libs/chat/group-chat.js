@@ -129,9 +129,5 @@ export function translateMessage (lang, info) {
     default:
       msg = 'Error translating party chat. Unknown message type.';
   }
-
-  if (!msg.includes('`')) {
-    msg = `\`${msg}\``;
-  }
   return msg;
 }

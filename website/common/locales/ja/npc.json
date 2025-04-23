@@ -52,7 +52,7 @@
     "cost": "価格",
     "shops": "ショップ",
     "custom": "カスタム",
-    "wishlist": "ほしい物",
+    "wishlist": "ほしい物リスト",
     "wrongItemType": "アイテムタイプ\"<%= type %>\"が無効です。",
     "wrongItemPath": "アイテムパス\"<%= path %>\"が無効です。",
     "unpinnedItem": "<%= item %>のピン留めを外しました！今後ごほうび欄には表示されません。",
@@ -87,7 +87,7 @@
     "paymentYouSentGems": "<strong><%- name %></strong> に送りました：",
     "paymentYouSentSubscription": "<strong><%- name %></strong><br> に <%= months %>ヶ月分のHabitica有料プランを送りました。",
     "paymentSubBilling": "あなたの有料プランは、<strong><%= months %>ヶ月</strong>ごとに <strong>$<%= amount %></strong> 請求されます。",
-    "success": "成功！",
+    "success": "成功しました！",
     "classGear": "クラス アイテム",
     "classGearText": "クラスの選択おめでとう！　あなたの新しい基本武器を所持品に加えました。下をのぞいて装備してみてください！",
     "autoAllocate": "自動割り当て",
@@ -117,7 +117,7 @@
     "paymentAutoRenew": "この有料プランは解約するまで自動更新されます。有料プランを解約する必要がある場合は、設定から解約できます。",
     "paymentCanceledDisputes": "キャンセルの承認のメールをあなたに送りました。もしそのメールが見つからない場合は、今後の請求についての論争を防ぐために、私たちにご連絡をお願いいたします。",
     "cannotUnpinItem": "このアイテムはピン留めを外せません。",
-    "paymentSubBillingWithMethod": "あなたの有料プランは、<strong><%= months %>ヶ月</strong>ごとに<strong><%= paymentMethod %></strong>によって <strong>$<%= amount %></strong> 請求されます。",
+    "paymentSubBillingWithMethod": "あなたの有料プランは、<br><strong><%= months %>ヶ月</strong>ごとに<strong><%= paymentMethod %></strong>によって <strong>$<%= amount %>.00 米ドル</strong> 請求されます。",
     "invalidUnlockSet": "このアイテムセットは無効なので、アンロックできません。",
     "nGems": "<%= nGems %>ジェム",
     "nMonthsSubscriptionGift": "<%= nMonths %>ヶ月の有料プラン（ギフト）",
@@ -131,5 +131,6 @@
     "groupsPaymentAutoRenew": "この有料プランは解約するまで自動更新されます。解約する必要がある場合は、グループの請求タブから解約できます。",
     "sellItems": "アイテムを売る",
     "customizationsShopText": "スタイルを変えたいですか？そんなあなたにぴったりの場所です！季節に合った新しい外見を取り揃えています。",
-    "notAvailable": "このアイテムはご利用いただけません。"
+    "notAvailable": "このアイテムはご利用いただけません。",
+    "paymentYouSentSubscriptionG1G1": "あなたは <strong><%- name %></strong>に<br><%= months %>ヶ月分のHabitica有料プランを送り、同じ分の有料プランが１つ贈って、１つ無料で手に入れようキャンペーンによってあなたにも適用されました！"
 }

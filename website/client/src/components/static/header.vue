@@ -66,16 +66,13 @@
             class="nav-link"
           >{{ $t('presskit') }}</a>
         </router-link>
-        <router-link
-          class="nav-item"
-          tag="li"
-          to="/static/contact"
-        >
+        <li class="nav-item">
           <a
             v-once
             class="nav-link"
+            href="mailto:admin@habitica.com"
           >{{ $t('contactUs') }}</a>
-        </router-link>
+        </li>
       </ul>
       <ul
         v-else
@@ -152,8 +149,11 @@
   }
 
   .btn-primary.pull-right {
-    height: 2.5em;
+    line-height: 2.25;
     margin: auto 0px auto auto;
+    &:focus, :active {
+      border: 2px solid $purple-400;
+    }
   }
 
   nav.navbar {

@@ -498,6 +498,36 @@ const armor = {
     str: 15,
     set: 'funnyFoolSet',
   },
+  stormKnightArmor: {
+    per: 11,
+    set: 'stormKnightSet',
+  },
+  festiveHelperOveralls: {
+    con: 12,
+    set: 'festiveHelperSet',
+  },
+  snowyFluffTrimmedCoat: {
+    str: 6,
+    int: 6,
+    set: 'snowyTrapperSet',
+  },
+  springPetalYukata: {
+    con: 8,
+    str: 8,
+    set: 'springPetalSet',
+  },
+  sillyOrangeTuxedo: {
+    con: 12,
+    set: 'sillyTuxedoSet',
+  },
+  sillierBlueTuxedo: {
+    str: 12,
+    set: 'sillierTuxedoSet',
+  },
+  gildedKnightsPlate: {
+    per: 11,
+    set: 'gildedKnightSet',
+  },
 };
 
 const body = {
@@ -1019,6 +1049,37 @@ const head = {
     con: 15,
     set: 'funnyFoolSet',
   },
+  stormKnightHelm: {
+    con: 11,
+    set: 'stormKnightSet',
+  },
+  festiveHelperHat: {
+    int: 12,
+    set: 'festiveHelperSet',
+  },
+  snowyTrapperHat: {
+    con: 6,
+    per: 6,
+    set: 'snowyTrapperSet',
+  },
+  fancyFloralHat: {
+    int: 14,
+    set: 'fancyFloralSet',
+  },
+  sillyOrangeTophat: {
+    str: 6,
+    con: 6,
+    set: 'sillyTuxedoSet',
+  },
+  sillierBlueTophat: {
+    str: 6,
+    con: 6,
+    set: 'sillierTuxedoSet',
+  },
+  gildedKnightsHelm: {
+    con: 11,
+    set: 'gildedKnightSet',
+  },
 };
 
 const shield = {
@@ -1373,6 +1434,15 @@ const shield = {
   safetyFlashlight: {
     con: 10,
     set: 'frightNightSet',
+  },
+  fancyFloralFan: {
+    per: 14,
+    set: 'fancyFloralSet',
+  },
+  springPetalUchiwa: {
+    int: 8,
+    per: 8,
+    set: 'springPetalSet',
   },
 };
 
@@ -1876,6 +1946,14 @@ const weapon = {
   spookyCandyBucket: {
     int: 10,
     set: 'frightNightSet',
+  },
+  stormKnightAxe: {
+    str: 11,
+    set: 'stormKnightSet',
+  },
+  gildedKnightsSpear: {
+    str: 11,
+    set: 'gildedKnightSet',
   },
 };
 

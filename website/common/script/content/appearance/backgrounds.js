@@ -635,6 +635,27 @@ const backgrounds = {
   backgrounds102024: {
     surrounded_by_ghosts: { },
   },
+  backgrounds112024: {
+    castle_hall_with_hearth: { },
+  },
+  backgrounds122024: {
+    first_snow_forest: { },
+  },
+  backgrounds012025: {
+    winter_landscape_with_cabin: { },
+  },
+  backgrounds022025: {
+    old_fashioned_tea_shop: { },
+  },
+  backgrounds032025: {
+    mountain_scene_with_blossoms: { },
+  },
+  backgrounds042025: {
+    garden_with_flower_beds: { },
+  },
+  backgrounds052025: {
+    trail_through_a_forest: { },
+  },
   eventBackgrounds: {
     birthday_bash: {
       price: 0,

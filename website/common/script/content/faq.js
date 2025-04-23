@@ -30,6 +30,10 @@ const questionList = [
     translationIndex: 31,
   },
   {
+    heading: 'what-classes',
+    translationIndex: 67,
+  },
+  {
     heading: 'choose-class',
     translationIndex: 32,
   },

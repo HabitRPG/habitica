@@ -10,7 +10,7 @@ describe('events', () => {
   });
 
   it('returns empty array when no events are active', () => {
-    clock = sinon.useFakeTimers(new Date('2024-01-08'));
+    clock = sinon.useFakeTimers(new Date('2024-01-11'));
     const events = getRepeatingEvents();
     expect(events).to.be.empty;
   });

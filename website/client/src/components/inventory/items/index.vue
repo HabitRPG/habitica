@@ -338,9 +338,10 @@ export default {
           if (itemQuantity > 0 && isAllowed) {
             const item = contentItems[itemKey];
 
-            const isSearched = !searchText || item.text()
-              .toLowerCase()
-              .indexOf(searchText) !== -1;
+            const isSearched = !searchText
+            || item.text().toLowerCase().indexOf(searchText) !== -1
+            || item.notes().toLowerCase().indexOf(searchText) !== -1;
+
             if (isSearched && item) {
               itemsArray.push({
                 ...item,

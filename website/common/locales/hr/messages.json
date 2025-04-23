@@ -46,7 +46,6 @@
     "messageNotAbleToBuyInBulk": "Nije moguće kupiti više od 1 komada ovog artikla.",
     "notificationsRequired": "Potrebni se ID-evi obavijesti.",
     "unallocatedStatsPoints": "Imaš <span class=\"notification-bold-blue\"><%= points %> neraspodijeljenih Statističkih bodova</span>",
-    "beginningOfConversation": "Ovo je početak tvog razgovora s <%= userName %>. Ne zaboravi iskazati ljubaznost, poštivanje i poštuj Smjernice za zajednicu!",
     "messageDeletedUser": "Žao nam je, ovaj korisnik je izbrisao svoj račun.",
     "messageMissingDisplayName": "Nedostaje ime za prikazivanje."
 }

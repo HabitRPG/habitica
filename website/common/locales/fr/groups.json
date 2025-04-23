@@ -95,9 +95,6 @@
     "whyReportingPostPlaceholder": "Raison du signalement",
     "optional": "Facultatif",
     "needsTextPlaceholder": "Écrivez votre message ici.",
-    "copyMessageAsToDo": "Copier le message comme tâche à faire",
-    "copyAsTodo": "Copier comme tâche à faire",
-    "messageAddedAsToDo": "Message copié comme tâche à faire.",
     "leaderOnlyChallenges": "Seul le responsable du groupe peut créer des défis",
     "sendGift": "Envoyer un cadeau",
     "inviteFriends": "Inviter des amis",
@@ -245,7 +242,7 @@
     "guildSummaryPlaceholder": "Écrivez une courte explication sur votre Groupe. Quel est l'objectif principal du Groupe et qu'y feront les membres ?",
     "groupDescription": "Description",
     "guildDescriptionPlaceholder": "Utilisez cette section pour décrire plus en détail ce que les membres devraient savoir à propos du Groupe. Astuces, liens pratiques et commentaires encourageants sont à placer ici !",
-    "markdownFormattingHelp": "[Aide à la saisie Markdown](https://habitica.fandom.com/fr/wiki/M%C3%A9mo_de_Markdown)",
+    "markdownFormattingHelp": "[Aide à la saisie Markdown](https://github.com/HabitRPG/habitica/wiki/Markdown-in-Habitica)",
     "partyDescriptionPlaceholder": "Ceci est la description de notre équipe. Elle décrit ce que nous y faisons. Si vous souhaitez en savoir plus, lisez la description. Équipe active.",
     "guildGemCostInfo": "Un coût en gemmes permet des guildes de grande qualité, et cette somme est transférée dans la banque de guilde.",
     "noGuildsTitle": "Vous n'êtes membre d'aucune guilde.",
@@ -430,5 +427,6 @@
     "createGroupTitle": "Créer un Groupe",
     "readyToUpgrade": "Prêt·e à Passer à la Version Supérieure ?",
     "interestedLearningMore": "Vous souhaitez en Apprendre Plus ?",
-    "checkGroupPlanFAQ": "Allez voir la <a href='/static/faq#what-is-group-plan'> FAQ des Offres de Groupe</a> pour en apprendre plus sur comment profiter complètement de l'expériences des tâches partagées."
+    "checkGroupPlanFAQ": "Allez voir la <a href='/static/faq#what-is-group-plan'> FAQ des Offres de Groupe</a> pour en apprendre plus sur comment profiter complètement de l'expériences des tâches partagées.",
+    "messageCopiedToClipboard": "Message copié dans le presse-papier."
 }

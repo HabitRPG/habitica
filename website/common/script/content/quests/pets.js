@@ -33,6 +33,47 @@ const QUEST_PETS = {
       unlock: t('questAlligatorUnlockText'),
     },
   },
+  alpaca: {
+    text: t('questAlpacaText'),
+    notes: t('questAlpacaNotes'),
+    completion: t('questAlpacaCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questAlpacaBoss'),
+      hp: 800,
+      str: 2,
+      rage: {
+        title: t('questAlpacaRageTitle'),
+        description: t('questAlpacaRageDescription'),
+        value: 50,
+        healing: 0.3,
+        effect: t('questAlpacaRageEffect'),
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Alpaca',
+          text: t('questAlpacaDropAlpacaEgg'),
+        },
+        {
+          type: 'eggs',
+          key: 'Alpaca',
+          text: t('questAlpacaDropAlpacaEgg'),
+        },
+        {
+          type: 'eggs',
+          key: 'Alpaca',
+          text: t('questAlpacaDropAlpacaEgg'),
+        },
+      ],
+      gp: 90,
+      exp: 900,
+      unlock: t('questAlpacaUnlockText'),
+    },
+  },
   armadillo: {
     text: t('questArmadilloText'),
     notes: t('questArmadilloNotes'),
@@ -230,6 +271,47 @@ const QUEST_PETS = {
       gp: 31,
       exp: 200,
       unlock: t('questButterflyUnlockText'),
+    },
+  },
+  cat: {
+    text: t('questCatText'),
+    notes: t('questCatNotes'),
+    completion: t('questCatCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questCatBoss'),
+      hp: 600,
+      str: 1.5,
+      rage: {
+        title: t('questCatRageTitle'),
+        description: t('questCatRageDescription'),
+        value: 50,
+        mpDrain: 0.33,
+        effect: t('questCatRageEffect'),
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Cat',
+          text: t('questCatDropCatEgg'),
+        },
+        {
+          type: 'eggs',
+          key: 'Cat',
+          text: t('questCatDropCatEgg'),
+        },
+        {
+          type: 'eggs',
+          key: 'Cat',
+          text: t('questCatDropCatEgg'),
+        },
+      ],
+      gp: 55,
+      exp: 500,
+      unlock: t('questCatUnlockText'),
     },
   },
   chameleon: {
@@ -981,6 +1063,45 @@ const QUEST_PETS = {
       unlock: t('questOctopusUnlockText'),
     },
   },
+  otter: {
+    text: t('questOtterText'),
+    notes: t('questOtterNotes'),
+    completion: t('questOtterCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questOtterBoss'),
+      hp: 1200,
+      str: 2.5,
+      rage: {
+        title: t('questOtterRageTitle'),
+        description: t('questOtterRageDescription'),
+        value: 50,
+        healing: 0.3,
+        effect: t('questOtterRageEffect'),
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Otter',
+          text: t('questOtterDropOtterEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Otter',
+          text: t('questOtterDropOtterEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Otter',
+          text: t('questOtterDropOtterEgg'),
+        },
+      ],
+      gp: 90,
+      exp: 900,
+      unlock: t('questOtterUnlockText'),
+    },
+  },
   owl: {
     text: t('questOwlText'),
     notes: t('questOwlNotes'),
@@ -1075,6 +1196,45 @@ const QUEST_PETS = {
       gp: 31,
       exp: 200,
       unlock: t('questPenguinUnlockText'),
+    },
+  },
+  platypus: {
+    text: t('questPlatypusText'),
+    notes: t('questPlatypusNotes'),
+    completion: t('questPlatypusCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questPlatypusBoss'),
+      hp: 1000,
+      str: 2,
+      rage: {
+        title: t('questPlatypusRageTitle'),
+        description: t('questPlatypusRageDescription'),
+        value: 50,
+        mpDrain: 0.33,
+        effect: t('questPlatypusRageEffect'),
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Platypus',
+          text: t('questPlatypusDropPlatypusEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Platypus',
+          text: t('questPlatypusDropPlatypusEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Platypus',
+          text: t('questPlatypusDropPlatypusEgg'),
+        },
+      ],
+      gp: 100,
+      exp: 1000,
+      unlock: t('questPlatypusUnlockText'),
     },
   },
   pterodactyl: {

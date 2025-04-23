@@ -49,7 +49,7 @@ const GroupPlanIndex = () => import(/* webpackChunkName: "group-plans" */ '@/com
 const GroupPlanTaskInformation = () => import(/* webpackChunkName: "group-plans" */ '@/components/group-plans/taskInformation');
 const GroupPlanBilling = () => import(/* webpackChunkName: "group-plans" */ '@/components/group-plans/billing');
 
-const MessagesIndex = () => import(/* webpackChunkName: "private-messages" */ '@/pages/private-messages');
+const MessagesIndex = () => import(/* webpackChunkName: "private-messages" */ '@/pages/private-messages/index.vue');
 
 // Challenges
 const ChallengeIndex = () => import(/* webpackChunkName: "challenges" */ '@/components/challenges/index');
@@ -190,7 +190,6 @@ const router = new VueRouter({
       meta: {
         privilegeNeeded: [ // any one of these is enough to give access
           'userSupport',
-          'newsPoster',
         ],
       },
       children: [
@@ -219,7 +218,7 @@ const router = new VueRouter({
 
     // Only used to handle some redirects
     // See router.beforeEach
-    { path: '/static/faq/tavern-and-guilds', redirect: '/static/tavern-and-guilds' },
+    { path: '/static/tavern-and-guilds', redirect: '/static/faq/tavern-and-guilds' },
     { path: '/redirect/:redirect', name: 'redirect' },
     { path: '*', redirect: { name: 'notFound' } },
   ],

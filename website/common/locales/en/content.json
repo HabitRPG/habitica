@@ -269,7 +269,23 @@
 
   "questEggDogText": "Puppy",
   "questEggDogMountText": "Dog",
-  "questEggDogAdjective": "a friendly",  
+  "questEggDogAdjective": "a friendly",
+
+  "questEggCatText": "Kitten",
+  "questEggCatMountText": "Cat",
+  "questEggCatAdjective": "a mischievous",
+
+  "questEggOtterText": "Otter",
+  "questEggOtterMountText": "Otter",
+  "questEggOtterAdjective": "a perfidious",
+
+  "questEggAlpacaText": "Alpaca",
+  "questEggAlpacaMountText": "Alpaca",
+  "questEggAlpacaAdjective": "an overpacked",
+
+  "questEggPlatypusText": "Platypus",
+  "questEggPlatypusMountText": "Platypus",
+  "questEggPlatypusAdjective": "a perfectionist",
 
   "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
 
@@ -335,9 +351,16 @@
   "hatchingPotionRoseGold": "Rose Gold",
   "hatchingPotionFungi": "Fungi",
   "hatchingPotionKoi": "Koi",
+  "hatchingPotionGingerbread": "Gingerbread",
+  "hatchingPotionJade": "Jade",
+  "hatchingPotionBalloon": "Balloon",
+  "hatchingPotionCryptid": "Cryptid",
+  "hatchingPotionOpal": "Opal",
 
   "hatchingPotionNotes": "Pour this on an egg, and it will hatch as a <%= potText(locale) %> Pet.",
   "premiumPotionUnlimitedNotes": "Not usable on Quest Pet eggs.",
+  "wackyPotionNotes": "Pour this on an egg, and it will hatch as a Wacky <%= potText(locale) %> Pet.",
+  "wackyPotionAddlNotes": "Cannot be raised to Mounts or used on Quest Pet eggs.",
 
   "foodMeat": "Meat",
   "foodMeatThe": "the Meat",

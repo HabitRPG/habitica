@@ -1726,5 +1726,7 @@
     "weaponSpecialFall2019MageText": "Buljavi Štap",
     "weaponSpecialWinter2020RogueText": "Svetilja",
     "weaponSpecialSpring2019WarriorText": "Parni Mač",
-    "weaponSpecialSpring2019MageText": "Štap od Smole"
+    "weaponSpecialSpring2019MageText": "Štap od Smole",
+    "gearItemsCompleted": "Imate svu <%= klass %> opremu! Nova oprema se dodaje tokom Gala godišnjih doba.",
+    "moreArmoireGearAvailable": "Do tad, imate još <%= armoireCount %> stvari da pronađete u Začaranom Kovčegu!"
 }

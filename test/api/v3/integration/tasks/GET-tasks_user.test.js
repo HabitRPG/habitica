@@ -101,34 +101,6 @@ describe('GET /tasks/user', () => {
     expect(allCompletedTodos[allCompletedTodos.length - 1].text).to.equal('todo to complete 2');
   });
 
-  it('returns only some completed todos if req.query.type is "completedTodos" or "_allCompletedTodos"', async () => {
-    const LIMIT = 30;
-    const numberOfTodos = LIMIT + 1;
-    const todosInput = [];
-
-    for (let i = 0; i < numberOfTodos; i += 1) {
-      todosInput[i] = { text: `todo to complete ${i}`, type: 'todo' };
-    }
-    const todos = await user.post('/tasks/user', todosInput);
-    await user.sync();
-    const initialTodoCount = user.tasksOrder.todos.length;
-
-    for (let i = 0; i < numberOfTodos; i += 1) {
-      const id = todos[i]._id;
-
-      await user.post(`/tasks/${id}/score/up`); // eslint-disable-line no-await-in-loop
-    }
-    await user.sync();
-
-    expect(user.tasksOrder.todos.length).to.equal(initialTodoCount - numberOfTodos);
-
-    const completedTodos = await user.get('/tasks/user?type=completedTodos');
-    expect(completedTodos.length).to.equal(LIMIT);
-
-    const allCompletedTodos = await user.get('/tasks/user?type=_allCompletedTodos');
-    expect(allCompletedTodos.length).to.equal(numberOfTodos);
-  });
-
   it('returns dailies with isDue for the date specified', async () => {
     // @TODO Add required format
     const startDate = moment().subtract('1', 'days').toISOString();

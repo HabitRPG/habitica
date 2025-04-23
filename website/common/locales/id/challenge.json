@@ -96,5 +96,7 @@
     "wonChallengeDesc": "<%= challengeName %> memilihmu sebagai pemenang! Kemenanganmu telah dimasukkan ke Pencapaian.",
     "yourReward": "Hadiahmu",
     "filters": "Filters",
-    "removeTasks": "Hapus Tugas"
+    "removeTasks": "Hapus Tugas",
+    "messageChallengeFlagOfficial": "Tantangan Resmi tidak dapat dilaporkan.",
+    "whyReportingChallengePlaceholder": "Alasan laporan"
 }

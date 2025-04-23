@@ -133,5 +133,10 @@
     "adjustCounter": "Aggiusta il Contatore",
     "counter": "Contatore",
     "editTagsText": "Modifica etichette",
-    "taskSummary": "<%= type %> Riepilogo"
+    "taskSummary": "<%= type %> Riepilogo",
+    "scoreUp": "Punteggio su",
+    "scoreDown": "Punteggio giù",
+    "taskAlias": "Alias Attività",
+    "taskAliasPopover": "Questo Alias di Attività può essere utilizzato quando si integra con terze parti. Sono supportati solo trattini, underscore e caratteri alfanumerici. L'Alias di Attività deve essere univoco tra tutte le attività.",
+    "taskAliasPlaceholder": "il-tuo-alias-qui"
 }

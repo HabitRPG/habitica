@@ -257,5 +257,22 @@
     "fall2023ScarletWarlockMageSet": "Scarlet Warlock (Mage)",
     "fall2023WitchsBrewRogueSet": "Witch's Brew (Rogue)",
     "fall2023BogCreatureHealerSet": "Bog Creature (Healer)",
-    "anniversaryGryphatricePrice": "Own it today for <strong>$9.99</strong> or <strong>60 gems</strong>"
+    "anniversaryGryphatricePrice": "Own it today for <strong>$9.99</strong> or <strong>60 gems</strong>",
+    "gemSaleLimitationsText": "This promotion only applies during the limited-time event. This event starts on <%= eventStartMonth %> <%= eventStartOrdinal %> at <%= eventStartTime %> <%= timeZone %> and will end on <%= eventEndMonth %> <%= eventEndOrdinal %> at <%= eventEndTime %> <%= timeZone %>. The promo offer is only available when buying Gems for yourself.",
+    "summer2024WhaleSharkWarriorSet": "Whale Shark Set (Warrior)",
+    "summer2024SeaAnemoneMageSet": "Sea Anemone Set (Mage)",
+    "summer2024SeaSnailHealerSet": "Sea Snail Set (Healer)",
+    "summer2024NudibranchRogueSet": "Nudibranch Set (Rogue)",
+    "winter2025AuroraMageSet": "Aurora Mage Set",
+    "winter2025SnowRogueSet": "Snow Rogue Set",
+    "spring2025SunshineWarriorSet": "Sunshine Warrior Set",
+    "spring2025CrystalPointRogueSet": "Crystal Point Rogue Set",
+    "spring2025PlumeriaHealerSet": "Plumeria Healer Set",
+    "spring2025MantisMageSet": "Mantis Mage Set",
+    "fall2024FieryImpWarriorSet": "Fiery Imp Set (Warrior)",
+    "fall2024UnderworldSorcerorMageSet": "Underworld Sorceror Set (Mage)",
+    "fall2024SpaceInvaderHealerSet": "Space Invader Set (Healer)",
+    "fall2024BlackCatRogueSet": "Black Cat Set (Rogue)",
+    "winter2025MooseWarriorSet": "Moose Warrior Set",
+    "winter2025StringLightsHealerSet": "String Lights Healer Set"
 }

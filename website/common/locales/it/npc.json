@@ -16,14 +16,14 @@
     "mattBoch": "Matt Boch",
     "mattBochText1": "Benvenuto alla Scuderia! Io sono Matt, il domatore.Ogni volta che completi una attività avrai una chance di ricevere un Uovo o una Pozione di Schiusa. Quando fai schiudere un uovo, apparirà qui! Fai click sull'immagine di un Animale per aggiungerlo al tuo Avatar. Dagli da mangiare il cibo che troverai e crescerà fino a diventare una potente Cavalcatura.",
     "welcomeToTavern": "Benvenuto nella Taverna!",
-    "sleepDescription": "Hai bisogno di una pausa? Riposa nella locanda di Daniel per mettere in pausa alcune meccaniche di gioco di Habitica:",
+    "sleepDescription": "Hai bisogno di una pausa? Sospendi i danni (dalle Impostazioni) per mettere in pausa alcune meccaniche di gioco di Habitica:",
     "sleepBullet1": "Le tue Attività Giornaliere non completate non ti danneggeranno (i boss potranno causarti danno comunque in base alle Attività Giornaliere non completate dei tuoi compagni di Squadra)",
     "sleepBullet2": "Il conteggio di serie delle tue attività giornaliere e delle tue abitudini non verranno resettate",
     "sleepBullet3": "Il danno che provochi ai boss delle missioni o gli oggetti trovati nelle missioni di tipo collezione, rimarranno in sospeso fino al check out dalla Locanda",
     "pauseDailies": "Sospendi danni",
     "unpauseDailies": "Riattiva danni",
     "staffAndModerators": "Staff e Moderatori",
-    "communityGuidelinesIntro": "Habitica cerca di creare un ambiente accogliente per utenti di tutte le età e origini, specialmente in luoghi pubblici come la Taverna. Se hai domande, sei pregato di consultare le nostre <a href='/static/community-guidelines' target='_blank'>Linee guida della community</a>.",
+    "communityGuidelinesIntro": "Habitica cerca di creare un ambiente accogliente per utenti di tutte le età e origini, specialmente in luoghi come i Gruppi e le Squadre. Se hai domande, sei pregato di consultare le nostre <a href='/static/community-guidelines' target='_blank'>Linee guida della community</a>.",
     "acceptCommunityGuidelines": "Accetto di seguire le linee guida della community",
     "worldBossEvent": "Evento Boss Mondiale",
     "worldBossDescription": "Descrizione Boss Mondiale",
@@ -128,5 +128,6 @@
     "amountExp": "<%= amount %> Exp",
     "helpSupportHabitica": "Aiutare a Supportare Habitica",
     "groupsPaymentAutoRenew": "Questo abbonamento si rinnoverà automaticamente fino a quando non verrà annullato. Se hai bisogno di annullarlo, puoi farlo dal pannello Fatturazione di Gruppo.",
-    "groupsPaymentSubBilling": "La tua prossima data di fatturazione è <strong><%= renewalDate %></strong>."
+    "groupsPaymentSubBilling": "La tua prossima data di fatturazione è <strong><%= renewalDate %></strong>.",
+    "customizationsShopText": "Vuoi cambiare il tuo stile? Sei nel posto giusto! Abbiamo in magazzino i look più freschi adatti alla stagione."
 }

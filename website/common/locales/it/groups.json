@@ -2,7 +2,7 @@
     "tavern": "Chat della Taverna",
     "tavernChat": "Chat della Taverna",
     "innCheckOutBanner": "Attualmente sei fermo nella locanda. Le tue Attività Giornaliere non ti danneggeranno e non progredirai nelle missioni.",
-    "innCheckOutBannerShort": "Sei a riposo in Taverna.",
+    "innCheckOutBannerShort": "Hai sospeso i danni.",
     "resumeDamage": "Riattiva Danni",
     "helpfulLinks": "Link utili",
     "lookingForGroup": "Sei in cerca di una squadra? Guarda qui! (in inglese)",
@@ -25,8 +25,8 @@
     "invite": "Invita",
     "leave": "Abbandona",
     "invitedToParty": "Hai ricevuto un invito per unirti alla Squadra <span class=\"notification-bold\"><%- party %></span>",
-    "invitedToPrivateGuild": "Hai ricevuto un invito per unirti alla Gilda privata <span class=\"notification-bold\"><%- guild %></span>",
-    "invitedToPublicGuild": "Hai ricevuto un invito per unirti alla Gilda <span class=\"notification-bold-blue\"><%- guild %></span>",
+    "invitedToPrivateGuild": "Hai ricevuto un invito per unirti al Gruppo privato <span class=\"notification-bold\"><%- guild %></span>",
+    "invitedToPublicGuild": "Hai ricevuto un invito per unirti al Gruppo <span class=\"notification-bold-blue\"><%- guild %></span>",
     "invitationAcceptedHeader": "Il tuo invito è stato accettato",
     "invitationAcceptedBody": "<%= username %> Ha accettato il tuo invito per <%= groupName %>!",
     "systemMessage": "Messaggio di sistema",
@@ -95,9 +95,6 @@
     "whyReportingPostPlaceholder": "Per favore aiuta i nostri moderatori facendoci sapere perché stai segnalando questo post per una infrazione, es. spam, imprecazioni, bestemmie, bigottismo, argomenti per adulti, violenza.",
     "optional": "Opzionale",
     "needsTextPlaceholder": "Scrivi il tuo messaggio qui.",
-    "copyMessageAsToDo": "Copia messaggio come Cosa da Fare",
-    "copyAsTodo": "Copia come Cosa da Fare",
-    "messageAddedAsToDo": "Messaggio copiato come Cosa da Fare.",
     "leaderOnlyChallenges": "Solo il leader del gruppo può creare le sfide",
     "sendGift": "Invia un regalo",
     "inviteFriends": "Invita amici",
@@ -399,5 +396,6 @@
     "createGroup": "Crea un Gruppo",
     "groupUse": "Quale tra questi descrive meglio l'utilizzo del tuo Gruppo?*",
     "groupTeacher": "Insegnante che imposta le attività per gli studenti",
-    "sendGiftLabel": "Vuoi inviare un messaggio col tuo regalo?"
+    "sendGiftLabel": "Vuoi inviare un messaggio col tuo regalo?",
+    "invitedToPartyBy": "<a href=\"/profile/<%- userId %>\" target=\"_blank\">@<%- userName %></a> ti ha invitato ad unirti alla Squadra <span class=\"notification-bold\"><%- party %></span>"
 }

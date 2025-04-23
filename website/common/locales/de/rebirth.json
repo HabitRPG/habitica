@@ -8,7 +8,7 @@
     "rebirthOrb": "Hat eine Sphäre der Wiedergeburt verwendet um noch einmal von vorne zu beginnen, nachdem Level <%= level %> erreicht wurde.",
     "rebirthOrb100": "Hat eine Sphäre der Wiedergeburt verwendet um noch einmal von vorne zu beginnen, nachdem Level 100 oder höher erreicht wurde.",
     "rebirthOrbNoLevel": "Hat eine Sphäre der Wiedergeburt verwendet um noch einmal von vorne zu beginnen.",
-    "rebirthPop": "Beginne sofort von vorn mit einem Charakter auf Level 1, aber behalte Erfolge, Sammelgegenstände und Ausrüstung. Deine Aufgaben und ihre Verläufe bleiben erhalten, werden aber auf gelb zurückgesetzt. Deine Strähnen verfallen, außer für Aufgaben, die von aktiven Herausforderungen oder Gruppenplänen stammen. Gold, Erfahrung, Mana und alle Effekte von Fähigkeiten werden entfernt. All das wird sofort in Kraft treten. Für mehr Informationen, schau im Wiki auf der Seite <a href='https://habitica.fandom.com/de/wiki/Sphäre_der_Wiedergeburt' target='_blank'>Sphäre der Wiedergeburt</a> nach.",
+    "rebirthPop": "Beginne sofort von vorn mit einem Charakter auf Level 1, aber behalte Erfolge, Sammelgegenstände und Ausrüstung. Deine Aufgaben und ihre Verläufe bleiben erhalten, werden aber auf gelb zurückgesetzt. Deine Strähnen verfallen, außer für Aufgaben, die von aktiven Herausforderungen oder Gruppenplänen stammen. Gold, Erfahrung, Mana und alle Effekte von Fähigkeiten werden entfernt. All das wird sofort in Kraft treten.",
     "rebirthName": "Sphäre der Wiedergeburt",
     "rebirthComplete": "Du wurdest wiedergeboren!",
     "nextFreeRebirth": "<strong><%= days %> Tage</strong> bis zur <strong>KOSTENLOSEN</strong> Sphäre der Wiedergeburt"

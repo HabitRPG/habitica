@@ -133,5 +133,10 @@
     "adjustCounter": "修正計數器",
     "resetCounter": "重設計數器",
     "editTagsText": "編輯標籤",
-    "taskSummary": "<%= type %> 摘要"
+    "taskSummary": "<%= type %> 摘要",
+    "scoreDown": "得分下降",
+    "scoreUp": "得分上升",
+    "taskAlias": "任務別名",
+    "taskAliasPopover": "與第三方整合時，可使用此任務別名。僅支援破折號、下劃線和字母數字字符。任務別名在所有任務中必須是唯一的。",
+    "taskAliasPlaceholder": "你的任務別名在這裡"
 }

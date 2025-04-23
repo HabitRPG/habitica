@@ -25,7 +25,7 @@
     "user": "Usuario",
     "market": "Mercado",
     "newSubscriberItem": "Tienes nuevos <span class=\"notification-bold-blue\">Artículos Misteriosos</span>",
-    "subscriberItemText": "Cada mes, los suscriptores recibirán un artículo misterioso. Se vuelve disponible al inicio del mes. Ve la página de la wiki \"Artículo Misterioso\" para más información.",
+    "subscriberItemText": "¡Los suscriptores obtienen un nuevo set de equipo misterioso al inicio de cada mes!",
     "all": "Todo",
     "none": "Ninguno",
     "more": "<%= count %> más",

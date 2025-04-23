@@ -25,9 +25,9 @@
           <router-link to="/">
             Homepage
           </router-link>or
-          <router-link :to="contactUsLink">
+          <a href="mailto:admin@habitica.com">
             Contact Us
-          </router-link>about the issue.
+          </a>about the issue.
         </p>
       </div>
     </div>
@@ -40,12 +40,6 @@ import { mapState } from '@/libs/store';
 export default {
   computed: {
     ...mapState(['isUserLoggedIn']),
-    contactUsLink () {
-      if (this.isUserLoggedIn) {
-        return { name: 'guild', params: { groupId: 'a29da26b-37de-4a71-b0c6-48e72a900dac' } };
-      }
-      return { name: 'contact' };
-    },
     retiredChatPage () {
       return this.$route.fullPath.indexOf('/groups') !== -1;
     },

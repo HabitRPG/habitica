@@ -255,7 +255,7 @@
     "dayTen": "Tag 10",
     "birthdaySet": "Geburtstags-Set",
     "fourForFreeText": "Um die Party am Laufen zu halten, verschenken wir Party Gewänder, 20 Edelsteine, und eine limitierte Geburtstags-Hintergrund Ausgabe und ein Gegenstände Set, das ein Cape, ein Schulterstück und eine Augenmaske enthält.",
-    "partyRobes": "Party Gewänder",
+    "partyRobes": "Party-Roben",
     "twentyGems": "20 Edelsteine",
     "dayOne": "Tag 1",
     "summer2024WhaleSharkWarriorSet": "Walhai Set (Krieger)",
@@ -266,5 +266,13 @@
     "fall2024UnderworldSorcerorMageSet": "Unterwelt Hexer Set (Magier)",
     "fall2024SpaceInvaderHealerSet": "Space Invader Set (Heiler)",
     "fall2024BlackCatRogueSet": "Schwarzes Katzen Set (Schurke)",
-    "gemSaleLimitationsText": "Dieses Angebot gilt nur während der zeitlich beschränkten Aktion. Diese Aktion startet am <%= eventStartMonth %> <%= eventStartOrdinal %> um <%= eventStartTime %> lokale Zeit (<%= eventStartUTC %> UTC) und endet am <%= eventEndMonth %> <%= eventEndOrdinal %> um <%= eventEndTime %> lokale Zeit (<%= eventEndUTC %> UTC). Das Aktionsangebot ist nur verfügbar, wenn du Edelsteine für dich selbst kaufst."
+    "gemSaleLimitationsText": "Dieses Angebot gilt nur während der zeitlich beschränkten Aktion. Diese Aktion startet am <%= eventStartMonth %> <%= eventStartOrdinal %> um <%= eventStartTime %> <%= timeZone %> und endet am <%= eventEndMonth %> <%= eventEndOrdinal %> um <%= eventEndTime %> <%= timeZone %>. Das Aktionsangebot ist nur verfügbar, wenn du Edelsteine für dich selbst kaufst.",
+    "winter2025StringLightsHealerSet": "Lichterketten Heiler Set",
+    "winter2025SnowRogueSet": "Schneeschurken Set",
+    "winter2025MooseWarriorSet": "Elchkrieger Set",
+    "winter2025AuroraMageSet": "Aurora Magier Set",
+    "spring2025PlumeriaHealerSet": "Plumeria Heiler Set",
+    "spring2025MantisMageSet": "Fangschrecken Magier Set",
+    "spring2025SunshineWarriorSet": "Sonnenschein Krieger Set",
+    "spring2025CrystalPointRogueSet": "Kristallspitzen Schurken Set"
 }

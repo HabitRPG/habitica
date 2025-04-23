@@ -43,7 +43,14 @@ export async function deleteChat (store, payload) {
 }
 
 export async function like (store, payload) {
-  const url = `/api/v4/groups/${payload.groupId}/chat/${payload.chatId}/like`;
+  let url = '';
+
+  if (payload.groupId === 'privateMessage') {
+    url = `/api/v4/inbox/like-private-message/${payload.chatMessageId}`;
+  } else {
+    url = `/api/v4/groups/${payload.groupId}/chat/${payload.chatMessageId}/like`;
+  }
+
   const response = await axios.post(url);
   return response.data.data;
 }

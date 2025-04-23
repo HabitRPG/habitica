@@ -297,7 +297,7 @@
             <div class="topbar-dropdown">
               <router-link
                 v-if="user.permissions.fullAccess ||
-                  user.permissions.userSupport || user.permissions.newsPoster"
+                  user.permissions.userSupport"
                 class="topbar-dropdown-item dropdown-item"
                 :to="{name: 'adminPanel'}"
               >
@@ -334,11 +334,6 @@
                 href="https://docs.google.com/forms/d/e/1FAIpQLScPhrwq_7P1C6PTrI3lbvTsvqGyTNnGzp1ugi1Ml0PFee_p5g/viewform?usp=sf_link"
                 target="_blank"
               >{{ $t('requestFeature') }}</a>
-              <a
-                class="topbar-dropdown-item dropdown-item"
-                href="https://habitica.fandom.com/wiki/Habitica_Wiki"
-                target="_blank"
-              >{{ $t('wiki') }}</a>
             </div>
           </li>
         </b-navbar-nav>
@@ -354,13 +349,15 @@
             ></div>
             <span>{{ userHourglasses }}</span>
           </div>
-          <div class="item-with-icon gem">
+          <div
+            class="item-with-icon gem"
+            @click.prevent="showBuyGemsModal()"
+          >
             <a
               v-b-tooltip.hover.bottom="$t('gems')"
               class="top-menu-icon svg-icon gem mr-2"
               :aria-label="$t('gems')"
               href="#buy-gems"
-              @click.prevent="showBuyGemsModal()"
               v-html="icons.gem"
             ></a>
             <span>{{ userGems }}</span>

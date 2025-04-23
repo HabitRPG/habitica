@@ -2,7 +2,7 @@
     "settings": "Nastavenia",
     "language": "Jazyk",
     "americanEnglishGovern": "V prípadne nesúladu v prekladoch sa riaďte verziou Americkej Angličtiny.",
-    "helpWithTranslation": "Chceš pomôcť s prekladom Habiticy? Výborne! Tak sa pozri na <a href=\"/groups/guild/7732f64c-33ee-4cce-873c-fc28f147a6f7\">the Aspiring Linguists Guild</a>!",
+    "helpWithTranslation": "Chceš pomôcť s prekladom Habiticy? Výborne! Tak sa pozri na <a href=\"https://translate.habitica.com\">Weblate stránku Habiticy</a>!",
     "stickyHeader": "Prilepené záhlavie",
     "newTaskEdit": "Otvárať nové úlohy v režime úpravy",
     "reverseChatOrder": "Ukáž chat správy v opačnom poradí",
@@ -18,7 +18,7 @@
     "resetAccPop": "Začať odznovu, zrušiť všetky levely, zlato, výzbroj, históriu a úlohy.",
     "deleteAccount": "Zrušiť konto",
     "deleteAccPop": "Zrušiť a zmazať tvoje Habitica konto.",
-    "feedback": "Ak by ste nám chceli poskytnúť spätnú väzbu, zadajte ju nižšie - radi by sme vedeli, čo sa vám páčilo alebo nepáčilo na Habitica! Nehovoríte dobre po anglicky? Žiaden problém! Použite preferovaný jazyk.",
+    "feedback": "Ak by ste nám chceli poskytnúť spätnú väzbu, zadajte ju nižšie - radi by sme počuli vašu spätnú väzbu! Údaje budú anonymizované ale môžete zadať svoje kontakné údaje. Nehovoríte dobre po anglicky? Žiaden problém! Použite preferovaný jazyk.",
     "dataExport": "Export dát",
     "saveData": "Tu je zopár možností ako si uložiť svoje dáta.",
     "habitHistory": "História Habitu",
@@ -156,5 +156,14 @@
     "usernameVerifiedConfirmation": "Your username, <%= username %>, is confirmed!",
     "usernameNotVerified": "Please confirm your username.",
     "changeUsernameDisclaimer": "We will be transitioning login names to unique, public usernames soon. This username will be used for invitations, @mentions in chat, and messaging.",
-    "verifyUsernameVeteranPet": "One of these Veteran Pets will be waiting for you after you've finished confirming!"
+    "verifyUsernameVeteranPet": "One of these Veteran Pets will be waiting for you after you've finished confirming!",
+    "resetAccount": "Obnoviť účet",
+    "generalSettings": "Základné nastavenia",
+    "taskSettings": "Nastavenia úloh",
+    "confirmCancelChanges": "Si si istý? Stratíš všetky neuložené zmeny.",
+    "account": "Účet",
+    "loginMethods": "Prihlasovacie metódy",
+    "character": "Postava",
+    "siteLanguage": "Jazyk stránky",
+    "showLevelUpModal": "Keď povýšiš svoju úroveň"
 }

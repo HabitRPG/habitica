@@ -1,6 +1,13 @@
 name: Test
 
-on: [push, pull_request]
+on:
+  push:
+    branches-ignore:
+    - 'phillip/**'
+    - 'sabrecat/**'
+    - 'kalista/**'
+    - 'natalie/**'
+  pull_request:
 
 permissions:
   contents: read

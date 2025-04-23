@@ -1,7 +1,7 @@
 {
     "achievement": "Dostignuće",
     "onwards": "Samo tako nastavi!",
-    "levelup": "Postižući svoje ciljeve, prešli ste na novi nivo i sada ste potpuno izlečeni!",
+    "levelup": "Radeći na svojim ciljevima, napredovali ste za nivo i sada ste potpuno izlečeni!",
     "reachedLevel": "Dostigli ste nivo <%= level %>",
     "achievementLostMasterclasser": "Komplet Pustolovina: Ekspert Serija",
     "achievementLostMasterclasserText": "Završeno je svih 16 pustolovina Ekspert Serije i rešena misterija Izgubljenog Eksperta!",
@@ -36,7 +36,7 @@
     "letsGetStarted": "Hajde da počnemo!",
     "gettingStartedDesc": "Završi ove zadatke i zaradićeš <strong>5 dostignuća</strong> i <strong class=\"gold-amount\">100 zlatnika</strong>!",
     "yourRewards": "Vaše nagrade",
-    "onboardingProgress": "<%= percentage %>% završeno",
+    "onboardingProgress": "<%= percentage %>% napredak",
     "achievementReptacularRumbleModalText": "Prikupili ste sve ljubimce gmizavce!",
     "achievementMindOverMatterModalText": "Završio/la si Kamen, Ljigavac i Klupko pustolovine!",
     "achievementMindOverMatterText": "Završene su Kamen, Ljigavac i Klupko pustolovine.",

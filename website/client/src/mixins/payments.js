@@ -71,6 +71,7 @@ export default {
         giftData,
         gemsBlock,
         sku,
+        g1g1,
       } = data;
       let { url } = data;
 
@@ -79,6 +80,10 @@ export default {
         paymentCompleted: false,
         paymentType: type,
       };
+
+      if (type === 'gift-subscription') {
+        appState.g1g1 = g1g1;
+      }
 
       if (type === 'subscription') {
         appState.subscriptionKey = this.subscriptionPlan || this.subscription.key;
@@ -164,6 +169,9 @@ export default {
         paymentCompleted: false,
         paymentType,
       };
+      if (paymentType === 'gift-subscription') {
+        appState.g1g1 = data.g1g1;
+      }
       if (paymentType === 'subscription') {
         appState.subscriptionKey = sub.key;
       } else if (paymentType === 'groupPlan') {
