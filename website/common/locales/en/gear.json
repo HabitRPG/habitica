@@ -1635,7 +1635,7 @@
   "armorArmoireSchoolUniformPantsText": "School Uniform with Pants",
   "armorArmoireSchoolUniformPantsNotes": "Whether you’re attending a school for magical wizards, dragon riders, sportsball players, creative artisans, or members of a profession too secret to list here, you’ll fit right in with this uniform. Increases Intelligence by <%= int %>. Enchanted Armoire: School Uniform Set (Item 2 of 4).",
   "armorArmoireSoftWhiteSuitText": "Soft White Suit",
-  "armorArmoireSoftWhiteSuitNotes": "White is a peaceful color. Whether you’re facing a crisp white bedsheet or a blanket of newly fallen snow, you’ll have a clear and ready mind. Increases Constitution by <% con %> and Perception by <%= per %>. Enchanted Armoire: White Loungewear Set (Item 2 of 3).", 
+  "armorArmoireSoftWhiteSuitNotes": "White is a peaceful color. Whether you’re facing a crisp white bedsheet or a blanket of newly fallen snow, you’ll have a clear and ready mind. Increases Constitution by <%= con %> and Perception by <%= per %>. Enchanted Armoire: White Loungewear Set (Item 2 of 3).", 
   "armorArmoireHattersSuitText": "Hatter's Suit",
   "armorArmoireHattersSuitNotes": "Your outfit isn’t complete without your lucky green bowtie. Wear this to your next mad tea party. Or pleasant tea party. Or excited tea party. Or... Increases Constitution by <%= con %>. Enchanted Armoire: Hatter Set (Item 2 of 4).",
   "armorArmoireSmileyShirtText": "Smiley Face Shirt",
