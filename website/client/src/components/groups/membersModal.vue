@@ -45,6 +45,9 @@
           <div class="col-5">
             <select-list
               :items="sortOptions"
+              :hide-icon="false"
+              :inline-dropdown="false"
+              :direct-select="true"
               :value="optionEntryBySelectedValue"
               key-prop="value"
               @select="changeSortOption($event)"
@@ -61,6 +64,9 @@
             <select-list
               :items="sortDirections"
               :value="directionEntryBySelectedValue"
+              :hide-icon="false"
+              :inline-dropdown="false"
+              :direct-select="true"
               key-prop="value"
               @select="changeSortDirection($event)"
             >
