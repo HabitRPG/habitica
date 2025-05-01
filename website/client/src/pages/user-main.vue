@@ -147,8 +147,6 @@ import {
 const bugReportModal = () => import('@/components/bugReportModal');
 const bugReportSuccessModal = () => import('@/components/bugReportSuccessModal');
 
-const COMMUNITY_MANAGER_EMAIL = import.meta.env.EMAILS_COMMUNITY_MANAGER_EMAIL;
-
 export default {
   name: 'App',
   components: {
@@ -325,29 +323,6 @@ export default {
     if (loadingScreen) document.body.removeChild(loadingScreen);
   },
   methods: {
-    checkForBannedUser (error) {
-      const AUTH_SETTINGS = localStorage.getItem('habit-mobile-settings');
-      const parseSettings = JSON.parse(AUTH_SETTINGS);
-      const errorMessage = error.response.data.message;
-
-      // Case where user is not logged in
-      if (!parseSettings) {
-        return false;
-      }
-
-      const bannedMessage = this.$t('accountSuspended', {
-        communityManagerEmail: COMMUNITY_MANAGER_EMAIL,
-        userId: parseSettings.auth.apiId,
-      });
-
-      if (errorMessage !== bannedMessage) return false;
-
-      this.$store.dispatch('auth:logout', { redirectToLogin: true });
-      return true;
-    },
-    itemSelected (item) {
-      this.selectedItemToBuy = item;
-    },
     genericPurchase (item) {
       if (!item) return false;
 

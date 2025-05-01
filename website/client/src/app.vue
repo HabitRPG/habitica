@@ -111,6 +111,7 @@ import axios from 'axios';
 import * as Analytics from '@/libs/analytics';
 import { mapState } from '@/libs/store';
 import snackbars from '@/components/snackbars/notifications';
+import { LOCALSTORAGE_AUTH_KEY } from '@/libs/auth';
 
 const COMMUNITY_MANAGER_EMAIL = import.meta.env.EMAILS_COMMUNITY_MANAGER_EMAIL;
 
@@ -280,7 +281,7 @@ export default {
       this.loading = false;
     },
     checkForBannedUser (error) {
-      const AUTH_SETTINGS = localStorage.getItem('habit-mobile-settings');
+      const AUTH_SETTINGS = localStorage.getItem(LOCALSTORAGE_AUTH_KEY);
       const parseSettings = JSON.parse(AUTH_SETTINGS);
       const errorMessage = error.response.data.message;
 

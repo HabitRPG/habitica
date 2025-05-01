@@ -158,7 +158,14 @@ export default {
           confirmPassword: this.passwordUpdates.confirmPassword,
         };
 
-        await axios.put('/api/v4/user/auth/update-password', localAuthData);
+        const updatePasswordResult = await axios.put('/api/v4/user/auth/update-password', localAuthData);
+
+        const newToken = updatePasswordResult.data.data.apiToken;
+
+        this.$store.dispatch('auth:setNewToken', {
+          userId: this.user._id,
+          apiToken: newToken,
+        });
 
         this.passwordUpdates = {};
         this.$store.dispatch('snackbars:add', {

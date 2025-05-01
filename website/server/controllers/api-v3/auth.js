@@ -271,7 +271,7 @@ api.updateUsername = {
  * @apiParam (Body) {String} newPassword The new password
  * @apiParam (Body) {String} confirmPassword New password confirmation
  *
- * @apiSuccess {Object} data An empty object
+ * @apiSuccess {String} data.apiToken The new apiToken
  * */
 api.updatePassword = {
   method: 'PUT',
@@ -316,9 +316,14 @@ api.updatePassword = {
 
     // set new password and make sure it's using bcrypt for hashing
     await passwordUtils.convertToBcrypt(user, newPassword);
+
+    user.apiToken = common.uuid();
+
     await user.save();
 
-    res.respond(200, {});
+    res.respond(200, {
+      apiToken: user.apiToken,
+    });
   },
 };
 
@@ -350,6 +355,7 @@ api.resetPassword = {
       { 'auth.local.email': email }, // Prefer to reset password for local auth
       { auth: 1 },
     ).exec();
+
     if (!user) { // If no local auth with that email...
       const potentialUsers = await User.find(
         {
@@ -486,6 +492,9 @@ api.resetPasswordSetNewOne = {
     await passwordUtils.convertToBcrypt(user, String(newPassword));
     user.auth.local.passwordResetCode = undefined; // Reset saved password reset code
     if (!user.auth.local.email) user.auth.local.email = await socialEmailToLocal(user);
+
+    user.apiToken = common.uuid();
+
     await user.save();
 
     return res.respond(200, {}, res.t('passwordChangeSuccess'));

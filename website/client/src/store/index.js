@@ -6,7 +6,7 @@ import { DAY_MAPPING } from '@/../../common/script/cron';
 import deepFreeze from '@/libs/deepFreeze';
 import Store from '@/libs/store';
 import { asyncResourceFactory } from '@/libs/asyncResource';
-import { setUpAxios } from '@/libs/auth';
+import { authAsCredentialsState, LOCALSTORAGE_AUTH_KEY, setUpAxios } from '@/libs/auth';
 
 import actions from './actions';
 import getters from './getters';
@@ -22,7 +22,7 @@ const browserTimezoneUtcOffset = moment().utcOffset();
 
 axios.defaults.headers.common['x-client'] = 'habitica-web';
 
-let AUTH_SETTINGS = window.localStorage.getItem('habit-mobile-settings');
+let AUTH_SETTINGS = window.localStorage.getItem(LOCALSTORAGE_AUTH_KEY);
 if (AUTH_SETTINGS) {
   AUTH_SETTINGS = JSON.parse(AUTH_SETTINGS);
   isUserLoggedIn = setUpAxios(AUTH_SETTINGS);
@@ -64,10 +64,7 @@ export default function clientStore () {
       // see https://github.com/HabitRPG/habitica/issues/9242
       notificationsRemoved: [],
       worldState: asyncResourceFactory(),
-      credentials: isUserLoggedIn ? {
-        API_ID: AUTH_SETTINGS.auth.apiId,
-        API_TOKEN: AUTH_SETTINGS.auth.apiToken,
-      } : {},
+      credentials: isUserLoggedIn ? authAsCredentialsState(AUTH_SETTINGS) : {},
       // store the timezone offset in case it's different than the one in
       // user.preferences.timezoneOffset and change it after the user is synced
       // in app.vue

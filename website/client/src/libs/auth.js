@@ -1,9 +1,18 @@
 import axios from 'axios';
 import moment from 'moment';
 
+export const LOCALSTORAGE_AUTH_KEY = 'habit-mobile-settings';
+
+export function authAsCredentialsState (authObject) {
+  return {
+    API_ID: authObject.auth.apiId,
+    API_TOKEN: authObject.auth.apiToken,
+  };
+}
+
 export function setUpAxios (AUTH_SETTINGS) { // eslint-disable-line import/prefer-default-export
   if (!AUTH_SETTINGS) {
-    AUTH_SETTINGS = localStorage.getItem('habit-mobile-settings'); // eslint-disable-line no-param-reassign, max-len
+    AUTH_SETTINGS = localStorage.getItem(LOCALSTORAGE_AUTH_KEY); // eslint-disable-line no-param-reassign, max-len
     if (!AUTH_SETTINGS) return false;
     AUTH_SETTINGS = JSON.parse(AUTH_SETTINGS); // eslint-disable-line no-param-reassign
   }
