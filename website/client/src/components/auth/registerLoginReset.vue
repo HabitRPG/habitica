@@ -726,7 +726,11 @@ export default {
   },
   mounted () {
     this.forgotPassword = this.$route.path.startsWith('/forgot-password');
-
+    if (this.forgotPassword) {
+      if (this.$route.query.email) {
+        this.username = this.$route.query.email;
+      }
+    }
     hello.init({
       google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line
     });
