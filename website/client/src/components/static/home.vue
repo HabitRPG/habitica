@@ -32,28 +32,9 @@
               {{ $t('singUpForFree') }}
             </h3>
             <form
-              class="form"
+              class="form pb-0"
               @submit.prevent.stop="register()"
             >
-              <p class="form-text">
-                {{ $t('usernameLimitations') }}
-              </p>
-              <input
-                id="usernameInput"
-                v-model="username"
-                class="form-control input-with-error"
-                type="text"
-                :placeholder="$t('username')"
-                :class="{'input-valid': usernameValid, 'input-invalid': usernameInvalid}"
-              >
-              <!-- eslint-disable vue/require-v-for-key -->
-              <div
-                v-for="issue in usernameIssues"
-                class="input-error"
-              >
-                <!-- eslint-enable vue/require-v-for-key -->
-                {{ issue }}
-              </div>
               <input
                 v-model="email"
                 class="form-control"
@@ -92,17 +73,12 @@
               >
                 {{ $t('passwordConfirmationMatch') }}
               </div>
-              <p
-                v-once
-                class="form-text"
-                v-html="$t('termsAndAgreement')"
-              ></p>
               <button
                 class="btn btn-block btn-info sign-up"
                 :disabled="signupFormInvalid"
                 type="submit"
               >
-                {{ $t('signup') }}
+                {{ $t('continue') }}
               </button>
             </form>
             <div class="strike">

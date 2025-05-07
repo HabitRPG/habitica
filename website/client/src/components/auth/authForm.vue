@@ -140,11 +140,6 @@
       >
         {{ $t('passwordConfirmationMatch') }}
       </div>
-      <small
-        v-once
-        class="form-text"
-        v-html="$t('termsAndAgreement')"
-      ></small>
     </div>
     <div class="text-center">
       <div

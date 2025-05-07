@@ -60,30 +60,6 @@
         <span>{{ $t('or') }}</span>
       </div>
       <div
-        v-if="registering"
-        class="form-group"
-      >
-        <label
-          v-once
-          for="usernameInput"
-        >{{ $t('username') }}</label>
-        <input
-          id="usernameInput"
-          v-model="username"
-          class="form-control input-with-error"
-          type="text"
-          :placeholder="$t('usernamePlaceholder')"
-          :class="{'input-valid': usernameValid, 'input-invalid': usernameInvalid}"
-        >
-        <div
-          v-for="issue in usernameIssues"
-          :key="issue"
-          class="input-error"
-        >
-          {{ issue }}
-        </div>
-      </div>
-      <div
         v-if="!registering"
         class="form-group"
       >
@@ -167,11 +143,6 @@
         >
           {{ $t('passwordConfirmationMatch') }}
         </div>
-        <small
-          v-once
-          class="form-text"
-          v-html="$t('termsAndAgreement')"
-        ></small>
       </div>
       <div class="text-center">
         <button
@@ -180,7 +151,7 @@
           class="btn btn-info"
           :disabled="signupFormInvalid"
         >
-          {{ $t('joinHabitica') }}
+          {{ $t('continue') }}
         </button>
         <button
           v-if="!registering"
