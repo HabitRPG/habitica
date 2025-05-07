@@ -479,7 +479,7 @@ api.updateHero = {
       }
 
       if (updateData.auth.local && updateData.auth.local.email) {
-        hero.auth.local.email = updateData.auth.local.email;
+        hero.auth.local.email = updateData.auth.local.email.toLowerCase();
       }
     }
 

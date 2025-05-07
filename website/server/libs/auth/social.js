@@ -33,7 +33,7 @@ export async function socialEmailToLocal (user) {
       { 'auth.local.email': socialEmail },
       { _id: 1 },
     ).exec();
-    if (!conflictingUser) return socialEmail;
+    if (!conflictingUser) return socialEmail.toLowerCase();
   }
   return undefined;
 }
