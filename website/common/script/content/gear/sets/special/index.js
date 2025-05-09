@@ -810,7 +810,7 @@ const armor = {
     set: 'summer2025SquidRogueSet',
   },
   summer2025Healer: {
-    set: 'summer2025SeaAngelSet',
+    set: 'summer2025SeaAngelHealerSet',
   },
   summer2025Mage: {
     set: 'summer2025FairyWrasseMageSet',
