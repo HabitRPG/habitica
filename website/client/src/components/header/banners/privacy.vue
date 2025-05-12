@@ -50,20 +50,17 @@
     line-height: 1.714;
   }
 
-  @media only screen and (max-width: 992px) {
+  @media only screen and (max-width: 1300px) {
     .banner {
       flex-direction: column !important;
 
-      .navigation {
-        margin-left: 0px !important;
-      }
-
       button {
-        width: calc(100vw - 48px);
+        width: 100%;
       }
 
-      .static button {
-        width: calc(100vw - 96px);
+      .navigation {
+        width: 100%;
+        margin-left: 0px !important;
       }
 
       p {

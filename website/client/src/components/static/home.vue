@@ -9,111 +9,109 @@
       <a href="https://www.enable-javascript.com/" target="_blank">{{ $t('jsDisabledLink') }}</a>
     </noscript>
     <privacy-banner
-      class="privacy-banner mx-4"
+      class="privacy-banner"
     />
     <div
       id="intro-signup"
       class="purple-1"
     >
-      <div class="container">
-        <div class="row">
-          <div class="col-12 col-md-6 col-lg-6">
-            <img
-              src="@/assets/images/home/home-main@3x.png"
-              width="357px"
+      <div class="d-flex justify-content-center">
+        <div class="w-33 mr-5 mt-5">
+          <img
+            src="@/assets/images/home/home-main@3x.png"
+            width="357px"
+          >
+          <h1>{{ $t('motivateYourself') }}</h1>
+          <p class="section-main">
+            {{ $t('timeToGetThingsDone', {userCountInMillions}) }}
+          </p>
+        </div>
+        <div class="w-33 ml-5">
+          <h3 class="text-center">
+            {{ $t('singUpForFree') }}
+          </h3>
+          <form
+            class="form pb-0"
+            @submit.prevent.stop="register()"
+          >
+            <input
+              v-model="email"
+              class="form-control"
+              type="email"
+              :placeholder="$t('email')"
+              :class="{'input-invalid': emailInvalid, 'input-valid': emailValid}"
             >
-            <h1>{{ $t('motivateYourself') }}</h1>
-            <p class="section-main">
-              {{ $t('timeToGetThingsDone', {userCountInMillions}) }}
-            </p>
-          </div>
-          <div class="col-12 col-md-6 col-lg-6">
-            <h3 class="text-center">
-              {{ $t('singUpForFree') }}
-            </h3>
-            <form
-              class="form pb-0"
-              @submit.prevent.stop="register()"
+            <input
+              v-model="password"
+              class="form-control input-with-error"
+              type="password"
+              :placeholder="$t('password')"
+              :class="{
+                'input-valid': passwordValid,
+                'input-invalid': passwordInvalid,
+              }"
             >
-              <input
-                v-model="email"
-                class="form-control"
-                type="email"
-                :placeholder="$t('email')"
-                :class="{'input-invalid': emailInvalid, 'input-valid': emailValid}"
-              >
-              <input
-                v-model="password"
-                class="form-control input-with-error"
-                type="password"
-                :placeholder="$t('password')"
-                :class="{
-                  'input-valid': passwordValid,
-                  'input-invalid': passwordInvalid,
-                }"
-              >
-              <div
-                v-if="passwordInvalid"
-                class="input-error"
-              >
-                {{ $t('minPasswordLength') }}
-              </div>
-              <input
-                v-model="passwordConfirm"
-                class="form-control input-with-error"
-                type="password"
-                :placeholder="$t('confirmPassword')"
-                :class="{
-                  'input-invalid': passwordConfirmInvalid,
-                  'input-valid': passwordConfirmValid}"
-              >
-              <div
-                v-if="passwordConfirmInvalid"
-                class="input-error"
-              >
-                {{ $t('passwordConfirmationMatch') }}
-              </div>
-              <button
-                class="btn btn-block btn-info sign-up"
-                :disabled="signupFormInvalid"
-                type="submit"
-              >
-                {{ $t('continue') }}
-              </button>
-            </form>
-            <div class="strike">
-              <span>{{ $t('or') }}</span>
-            </div>
-            <div class="text-center">
-              <button
-                class="social-button"
-                @click="socialAuth('google')"
-              >
-                <div
-                  class="svg-icon social-icon"
-                  v-html="icons.googleIcon"
-                ></div>
-                <span>{{ $t('signUpWithSocial', {social: 'Google'}) }}</span>
-              </button>
-              <button
-                class="social-button"
-                @click="socialAuth('apple')"
-              >
-                <div
-                  class="svg svg-icon social-icon apple-icon color"
-                  v-html="icons.appleIcon"
-                ></div>
-                <span>{{ $t('signUpWithSocial', {social: 'Apple'}) }}</span>
-              </button>
-            </div>
-          </div>
-          <div class="col-12">
             <div
-              class="spacer svg-icon"
-              v-html="icons.spacer"
-            ></div>
+              v-if="passwordInvalid"
+              class="input-error"
+            >
+              {{ $t('minPasswordLength') }}
+            </div>
+            <input
+              v-model="passwordConfirm"
+              class="form-control input-with-error"
+              type="password"
+              :placeholder="$t('confirmPassword')"
+              :class="{
+                'input-invalid': passwordConfirmInvalid,
+                'input-valid': passwordConfirmValid}"
+            >
+            <div
+              v-if="passwordConfirmInvalid"
+              class="input-error"
+            >
+              {{ $t('passwordConfirmationMatch') }}
+            </div>
+            <button
+              class="btn btn-block btn-info sign-up"
+              :disabled="signupFormInvalid"
+              type="submit"
+            >
+              {{ $t('continue') }}
+            </button>
+          </form>
+          <div class="strike">
+            <span>{{ $t('or') }}</span>
+          </div>
+          <div class="text-center">
+            <button
+              class="social-button"
+              @click="socialAuth('google')"
+            >
+              <div
+                class="svg-icon social-icon"
+                v-html="icons.googleIcon"
+              ></div>
+              <span>{{ $t('signUpWithSocial', {social: 'Google'}) }}</span>
+            </button>
+            <button
+              class="social-button"
+              @click="socialAuth('apple')"
+            >
+              <div
+                class="svg svg-icon social-icon apple-icon color"
+                v-html="icons.appleIcon"
+              ></div>
+              <span>{{ $t('signUpWithSocial', {social: 'Apple'}) }}</span>
+            </button>
           </div>
         </div>
+      </div>
+      <div class="col-12">
+        <div
+          class="spacer svg-icon"
+          v-html="icons.spacer"
+        ></div>
       </div>
     </div>
     <div
@@ -348,6 +346,10 @@
 
 @import url('https://fonts.googleapis.com/css?family=Varela+Round');
 
+  .w-33 {
+    width: 33%;
+  }
+
   #front {
     .container-fluid {
       margin: 0;
@@ -419,9 +421,13 @@
       background-color: $white;
       z-index: 1;
       box-shadow: 0px 3px 6px 0px rgba(26, 24, 29, 0.16), 0px 3px 6px 0px rgba(26, 24, 29, 0.24);
+      width: calc(66vw + 96px);
 
       @media only screen and (max-width: 992px) {
-        width: calc(100vw - 48px);
+        margin: auto 12.5%;
+      }
+      @media only screen and (min-width: 992px) {
+        margin: auto 14.5%;
       }
     }
   }
@@ -430,8 +436,9 @@
     background-image: url('@/assets/svg/for-css/confetti.svg?raw');
 
     img {
-      margin: 0 auto;
-      display: block;
+      @media only screen and (min-width: 992px) {
+        margin-left: 15%;
+      }
     }
 
     h1 {
