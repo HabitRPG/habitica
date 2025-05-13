@@ -551,6 +551,15 @@
   "weaponSpecialSpring2025MageText": "Mantis Staff",
   "weaponSpecialSpring2025MageNotes": "With one slash, you can use elemental magic to control the environment around you. Take advantage and spring forward! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition Spring 2025 Gear.",
 
+  "weaponSpecialSummer2025WarriorText": "Scallop Lance",
+  "weaponSpecialSummer2025WarriorNotes": "There’s no telling how old this is, but it will stick with you through many hard tasks. Increases Strength by <%= str %>. Limited Edition Summer 2025 Gear.",
+  "weaponSpecialSummer2025RogueText": "Squid Tentacle",
+  "weaponSpecialSummer2025RogueNotes": "This tentacle will grab on tight to your goals so you don’t lose momentum when completing tasks. Increases Strength by <%= str %>. Limited Edition Summer 2025 Gear.",
+  "weaponSpecialSummer2025HealerText": "Sea Angel Wing Paddle",
+  "weaponSpecialSummer2025HealerNotes": "Draw a figure eight as you move forward, making great progress on your tasks. Increases Intelligence by <%= int %>. Limited Edition Summer 2025 Gear.",
+  "weaponSpecialSummer2025MageText": "Branch Coral",
+  "weaponSpecialSummer2025MageNotes": "Branch out with your talents and skills to tackle a variety of tasks. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition Summer 2025 Gear", 
+
   "weaponMystery201411Text": "Pitchfork of Feasting",
   "weaponMystery201411Notes": "Stab your enemies or dig in to your favorite foods - this versatile pitchfork does it all! Confers no benefit. November 2014 Subscriber Item.",
   "weaponMystery201502Text": "Shimmery Winged Staff of Love and Also Truth",
@@ -811,6 +820,8 @@
   "weaponArmoireStormKnightAxeNotes": "Gather your fury and strike a blow like thunder! Increases Strength by <%= str %>. Enchanted Armoire: Storm Knight Set (Item 3 of 3)",
   "weaponArmoireGildedKnightsSpearText": "Gilded Knight Spear",
   "weaponArmoireGildedKnightsSpearNotes": "With this weapon, you can make sure everybody always pays their debts. Increases Strength by <%= str %>. Enchanted Armoire: Gilded Knight Set (Item 3 of 3)",
+  "weaponArmoireBeekeepersSmokerText": "Smoker",
+  "weaponArmoireBeekeepersSmokerNotes": "Use this to calm your bees so you can retrieve some honey. The bees won’t mind. Honestly, we could all use a few extra minutes of calm from time to time. Increases Intelligence by <%= int %>. Enchanted Armoire: Beekeeper Set (Item 3 of 4)",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -1342,6 +1353,15 @@
   "armorSpecialSpring2025MageText": "Mantis Uniform",
   "armorSpecialSpring2025MageNotes": "This stunning uniform contains flashy colors but also lets you stalk your hardest tasks with stealth. Increases Intelligence by <%= int %>. Limited Edition Spring 2025 Gear.",
 
+  "armorSpecialSummer2025WarriorText": "Scallop Armor",
+  "armorSpecialSummer2025WarriorNotes": "Not only does this armor make you tough, but it makes you swift as well. Fight or escape—the choice is yours! Increases Constitution by <%= con %>. Limited Edition Summer 2025 Gear.",
+  "armorSpecialSummer2025RogueText": "Squid Suit",
+  "armorSpecialSummer2025RogueNotes": "Not only will this suit change colors at will, but it may also eject a cloud of ink. Distract or conceal—the choice is yours! Increases Perception by <%= per %>. Limited Edition Summer 2025 Gear.",
+  "armorSpecialSummer2025HealerText": "Sea Angel Suit",
+  "armorSpecialSummer2025HealerNotes": "Not only does this suit make you graceful, but it makes you streamlined as well. Drift or swim—the choice is yours! Increases Constitution by <%= con %>. Limited Edition Summer 2025 Gear.",
+  "armorSpecialSummer2025MageText": "Fairy Wrasse Suit",
+  "armorSpecialSummer2025MageNotes": "Not only does this suit have stunning colors, but it allows you to glide beautifully through the water. Swim or dance—the choice is yours! Increases Intelligence by <%= int %>. Limited Edition Summer 2025 Gear.",
+
   "armorMystery201402Text": "Messenger Robes",
   "armorMystery201402Notes": "Shimmering and strong, these robes have many pockets to carry letters. Confers no benefit. February 2014 Subscriber Item.",
   "armorMystery201403Text": "Forest Walker Armor",
@@ -1712,6 +1732,8 @@
   "armorArmoireSillierBlueTuxedoNotes": "Put out the vibe in this unique outfit. Increases Strength by <%= str %>. Enchanted Armoire: Sillier Tuxedo Set (Item 1 of 2).",
   "armorArmoireGildedKnightsPlateText": "Gilded Knight Armor",
   "armorArmoireGildedKnightsPlateNotes": "In this armor, you are nearly invincible. Your enemies will surely hear you roar! Increases Perception by <%= per %>. Enchanted Armoire: Gilded Knight Set (Item 2 of 3)",
+  "armorArmoireBeekeepersSuitText": "Beekeeping Suit",
+  "armorArmoireBeekeepersSuitNotes": "Keep yourself safe as you look after your busy bumbles. Increases Constitution by <%= con %>. Enchanted Armoire: Beekeeper Set (Item 2 of 4)",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -2237,6 +2259,15 @@
   "headSpecialSpring2025MageText": "Mantis Mask",
   "headSpecialSpring2025MageNotes": "The mantis is known for camouflaging or moving slowly. Choose one tactic to help with each goal but know you can always change tactics if you need to. Increases Perception by <%= per %>. Limited Edition Spring 2025 Gear.",
 
+  "headSpecialSummer2025WarriorText": "Scallop Helm",
+  "headSpecialSummer2025WarriorNotes": "Impenetrable and perfectly pointy, this helmet will even protect you from starfish. Increases Strength by <%= str %>. Limited Edition Summer 2025 Gear.",
+  "headSpecialSummer2025RogueText": "Squid Mask",
+  "headSpecialSummer2025RogueNotes": "Your sight will improve the moment you put this mask on. Increases Perception by <%= per %>. Limited Edition Summer 2025 Gear.",
+  "headSpecialSummer2025HealerText": "Sea Angel Helmet",
+  "headSpecialSummer2025HealerNotes": "Congratulations, now you’re a sea butterfly. Increases Intelligence by <%= int %>. Limited Edition Summer 2025 Gear.",
+  "headSpecialSummer2025MageText": "Fairy Wrasse Headdress",
+  "headSpecialSummer2025MageNotes": "All will be mesmerized by the way your fins move with the currents. Increases Perception by <%= per %>. Limited Edition Summer 2025 Gear.",
+
   "headSpecialGaymerxText": "Rainbow Warrior Helm",
   "headSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special helmet is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
 
@@ -2634,6 +2665,8 @@
   "headArmoireSillierBlueTophatNotes": "A little class, a little sophistication. Increases Strength and Constitution by <%= attrs %> each. Enchanted Armoire: Sillier Tuxedo Set (Item 2 of 2).",
   "headArmoireGildedKnightsHelmText": "Gilded Knight Helm",
   "headArmoireGildedKnightsHelmNotes": "Shine as bright as the sun through the darkness of any battle. Increases Constitution by <%= con %>. Enchanted Armoire: Gilded Knight Set (Item 1 of 3)",
+  "headArmoireBeekeepersHatText": "Beekeeping Helmet and Veil",
+  "headArmoireBeekeepersHatNotes": "Keep your face safe as you tend to your buzzing buddies. Increases Perception by <%= per %>. Enchanted Armoire: Beekeeper Set (Item 1 of 4)",
 
   "offhand": "off-hand item",
   "offHandCapitalized": "Off-Hand Item",
@@ -2932,7 +2965,14 @@
   "shieldSpecialSpring2025RogueText": "Crystal Point Flail",
   "shieldSpecialSpring2025RogueNotes": "You can use the crystal to divine a productive future for yourself. Take advantage and spring forward! Increases Strength by <%= str %>. Limited Edition Spring 2025 Gear.",
   "shieldSpecialSpring2025HealerText": "Plumeria Shield",
-  "shieldSpecialSpring2025HealerNotes": "You can use this special petal to gather goodness or flick negative thoughts away. Take advantage and spring forward! Increases Constitution by <%= con %>. Limited Edition 2025 Gear.",
+  "shieldSpecialSpring2025HealerNotes": "You can use this special petal to gather goodness or flick negative thoughts away. Take advantage and spring forward! Increases Constitution by <%= con %>. Limited Edition Spring 2025 Gear.",
+
+  "shieldSpecialSummer2025WarriorText": "Scallop Shell Shield",
+  "shieldSpecialSummer2025WarriorNotes": "The colors are beautiful, but the ridges are dangerous. Foes, look out! Increases Constitution by <%= con %>. Limited Edition Summer 2025 Gear.",
+  "shieldSpecialSummer2025RogueText": "Squid Tentacle",
+  "shieldSpecialSummer2025RogueNotes": "This tentacle looks willowy, but its suckers grip tight. Foes, look out! Increases Strength by <%= str %>. Limited Edition Summer 2025 Gear.",
+  "shieldSpecialSummer2025HealerText": "Sea Angel Shield",
+  "shieldSpecialSummer2025HealerNotes": "This shield looks simple, but it has noxious properties. Foes, look out! Increases Constitution by <%= con %>. Limited Edition Summer 2025 Gear.",
 
   "shieldMystery201601Text": "Resolution Slayer",
   "shieldMystery201601Notes": "This blade can be used to parry away all distractions. Confers no benefit. January 2016 Subscriber Item.",
@@ -2958,6 +2998,8 @@
   "shieldMystery202501Notes": "Decorate any outdoor scenery with a diamond coat of shimmering frost. Confers no benefit. January 2025 Subscriber Item.",
   "shieldMystery202502Text": "Heartfelt Harlequin Balloons",
   "shieldMystery202502Notes": "This Valentine’s Day and every day, may your heart be as light as these buoyant balloons. Confers no benefit. February 2025 Subscriber Item.",
+  "shieldMystery202506Text": "Solar Shine Shield",
+  "shieldMystery202506Notes": "Dispel darkness and bestow warm and cheerful rays wherever you are. Confers no benefit. June 2025 Subscriber Item.",
 
   "shieldMystery301405Text": "Clock Shield",
   "shieldMystery301405Notes": "Time is on your side with this towering clock shield! Confers no benefit. June 3015 Subscriber Item.",
@@ -3130,6 +3172,8 @@
   "shieldArmoireFancyFloralFanNotes": "Finish your fancy look with this first-rate fan made of fabulous floral fabric. Increases Perception by <%= per %>. Enchanted Armoire: Fancy Floral Accessories Set (Item 2 of 2).",
   "shieldArmoireSpringPetalUchiwaText": "Spring Petal Uchiwa",
   "shieldArmoireSpringPetalUchiwaNotes": "This handheld fan featuring a beautiful petal pattern creates a small breeze just for you as the weather warms. Increases Intelligence and Perception by <%= attrs %> each. Enchanted Armoire: Spring Petal Set (Item 2 of 2).",
+  "shieldArmoireBeekeepersHiveText": "Beehive",
+  "shieldArmoireBeekeepersHiveNotes": "Beehives serve as both homes and worksites. You might need to talk to your bees about a good work-life balance. Increases Strength by <%= str %>. Enchanted Armoire: Beekeeper Set (Item 4 of 4)",
 
   "back": "Back Accessory",
   "backBase0Text": "No Back Accessory",
@@ -3214,6 +3258,8 @@
   "backMystery202410Notes": "This tail perks up at the mention of spooky treats. Confers no benefit. October 2024 Subscriber Item.",
   "backMystery202505Text": "Soaring Swallowtail Wings",
   "backMystery202505Notes": "Earn your stripes swooping and soaring on these aerodynamic wings. Confers no benefit. May 2025 Subscriber Item.",
+  "backMystery202506Text": "Solar Shine Aureole",
+  "backMystery202506Notes": "Bring a warm glow with you as you go about your daily tasks. Confers no benefit. June 2025 Subscriber Item.",
 
   "backSpecialWonderconRedText": "Mighty Cape",
   "backSpecialWonderconRedNotes": "Swishes with strength and beauty. Confers no benefit. Special Edition Convention Item.",

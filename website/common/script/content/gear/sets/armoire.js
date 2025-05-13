@@ -528,6 +528,10 @@ const armor = {
     per: 11,
     set: 'gildedKnightSet',
   },
+  beekeepersSuit: {
+    con: 12,
+    set: 'beekeepersSet',
+  },
 };
 
 const body = {
@@ -1080,6 +1084,10 @@ const head = {
     con: 11,
     set: 'gildedKnightSet',
   },
+  beekeepersHat: {
+    per: 12,
+    set: 'beekeepersSet',
+  },
 };
 
 const shield = {
@@ -1443,6 +1451,10 @@ const shield = {
     int: 8,
     per: 8,
     set: 'springPetalSet',
+  },
+  beekeepersHive: {
+    str: 12,
+    set: 'beekeepersSet',
   },
 };
 
@@ -1954,6 +1966,10 @@ const weapon = {
   gildedKnightsSpear: {
     str: 11,
     set: 'gildedKnightSet',
+  },
+  beekeepersSmoker: {
+    int: 12,
+    set: 'beekeepersSet',
   },
 };
 
