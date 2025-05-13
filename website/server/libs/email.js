@@ -1,19 +1,10 @@
 import nconf from 'nconf';
-import got from 'got';
 import { TAVERN_ID } from '../models/group'; // eslint-disable-line import/no-cycle
 import { encrypt } from './encryption';
-import logger from './logger';
 import common from '../../common';
 import { sendJob } from './worker';
 
 const IS_PROD = nconf.get('IS_PROD');
-const EMAIL_SERVER = {
-  url: nconf.get('EMAIL_SERVER_URL'),
-  auth: {
-    user: nconf.get('EMAIL_SERVER_AUTH_USER'),
-    password: nconf.get('EMAIL_SERVER_AUTH_PASSWORD'),
-  },
-};
 const BASE_URL = nconf.get('BASE_URL');
 
 export function getUserInfo (user, fields = []) {
