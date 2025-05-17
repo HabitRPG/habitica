@@ -238,7 +238,7 @@ describe('POST /user/auth/reset-password-set-new-one', () => {
     expect(isPassValid).to.equal(true);
   });
 
-  it('change the apiToken on password reset', async () => {
+  it('changes the apiToken on password reset', async () => {
     const user = await generateUser();
     const previousToken = user.apiToken;
 
