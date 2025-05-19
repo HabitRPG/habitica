@@ -3321,5 +3321,7 @@
     "headArmoireGildedKnightsHelmText": "Vergoldeter Ritter Helm",
     "headArmoireGildedKnightsHelmNotes": "Scheine hell wie die Sonne durch die Dunkelheit eines jeden Kampfes. Erhöht Ausdauer um <%= con %>. Verzauberter Schrank: Vergoldeter Ritter Set (Gegenstand 1 von 3)",
     "backMystery202505Text": "Hochfliegender Schwalbenschwanz Flügel",
-    "backMystery202505Notes": "Verdien dir deine Streifen bei Steig- und Sturzflügen mit diesen aerodynamischen Flügeln. Gewährt keinen Attributbonus. Mai 2025 Abonnentengegenstand."
+    "backMystery202505Notes": "Verdien dir deine Streifen bei Steig- und Sturzflügen mit diesen aerodynamischen Flügeln. Gewährt keinen Attributbonus. Mai 2025 Abonnentengegenstand.",
+    "headAccessoryMystery202505Text": "Hochfliegender Schwalbenschwanz Fühler",
+    "headAccessoryMystery202505Notes": "Entdecke die besten Wildblumen Flecken mit diesen feinfühligen Anhängseln. Gewährt keinen Attributbonus. Mai 2025 Abonnentengegenstand."
 }

@@ -61,5 +61,11 @@
     "faqQuestion28": "Kan ik mijn Dagelijkse Taken tijdelijk pauzeren, wanneer ik een pauze nodig heb?",
     "webFaqAnswer28": "Ja! De knop \"Pauzeer schade\" is te vinden in Instellingen. Het voorkomt dat je HP verliest door gemiste Dagelijkse Taken. Dit is handig als je op vakantie bent, rust nodig hebt of voor welke reden dan ook je een pauze wilt nemen. Als je deelneemt aan een Quest, word je eigen voortgang gepauzeerd, maar je zult nog wel schade oplopen door de gemiste Dailies van je Teamleden. \n\nOm specifieke Dagelijkse Taken te pauzeren, kun je de planning bewerken zodat ze elke 0 dagen gedaan moeten worden, totdat je klaar bent om ze weer te starten.",
     "faqQuestion29": "Hoe kan ik HP herstellen?",
-    "webFaqAnswer29": "Je kan 15 HP herstellen door een Levensdrankje te kopen uit de beloningen kolom voor 25 Goud. Daarnaast zal je HP altijd volledig herstellen als je een level omhoog gaat!"
+    "webFaqAnswer29": "Je kan 15 HP herstellen door een Levensdrankje te kopen uit de beloningen kolom voor 25 Goud. Daarnaast zal je HP altijd volledig herstellen als je een level omhoog gaat!",
+    "faqQuestion30": "Wat gebeurt er als ik geen HP meer heb?",
+    "webFaqAnswer30": "Als je HP nul bereikt verlies je een niveau, al je goud en een stuk uitrusting dat je opnieuw kunt kopen.",
+    "faqQuestion31": "Waarom verloor ik HP toen ik met een niet-negatieve taak bezig was?",
+    "webFaqAnswer31": "Als je een taak voltooit en HP verliest terwijl dat niet de bedoeling was, is er een vertraging opgetreden terwijl de server wijzigingen op andere platforms synchroniseert. Als je bijvoorbeeld goud of Mana gebruikt of HP verliest in de mobiele app en vervolgens een taak op de website voltooit, bevestigt de server gewoon dat alles gesynchroniseerd is.",
+    "faqQuestion32": "Hoe kan ik een klasse kiezen?",
+    "faqQuestion33": "Wat is de blauwe balk die verschijnt na niveau 10?"
 }

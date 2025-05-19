@@ -2784,7 +2784,7 @@
     "weaponSpecialSummer2023HealerText": "Alga Ondeggiante",
     "weaponSpecialSummer2023HealerNotes": "Possono sembrare frondose, ma diventano piuttosto scontrose se li chiamate 'piante'. Aumenta l'intelligenza di <%= int %>. Equipaggiamento in edizione limitata, Estate 2023.",
     "weaponSpecialSpring2023HealerNotes": "Con uno sbuffo e un luccichio, dispieghi una nuova crescita, gioia e colori. Aumenta l'Intelligenza di <%= int %>. Equipaggiamento in edizione limitata, Primavera 2023.",
-    "weaponSpecialSpring2023MageNotes": "Più brillano e più sono potenti. Aumenta l'Intelligenza di <%= int %>. Equipaggiamento in edizione limitata, Primavera 2023.",
+    "weaponSpecialSpring2023MageNotes": "Più brillano e più sono potenti. Aumenta l'Intelligenza di <%= int %> e la Percezione di <%= per %>. Equipaggiamento in edizione limitata, Primavera 2023.",
     "weaponSpecialSpring2023MageText": "Magia delle Pietre Lunari",
     "weaponSpecialSpring2023WarriorNotes": "In guardia! Difendi i tuoi fiori dai nemici con questo fioretto! Aumenta la Forza di <%= str %>. Equipaggiamento in edizione limitata, Primavera 2023.",
     "weaponSpecialSpring2023RogueNotes": "Squarcia! Colpisci! Mordi! Diventa forte e pronto per la tua metamorfosi in arrivo. Aumenta la Forza di <%= str %>. Equipaggiamento in edizione limitata, Primavera 2023.",

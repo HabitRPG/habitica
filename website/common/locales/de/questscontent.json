@@ -839,5 +839,8 @@
     "questAlpacaUnlockText": "Schaltet den Kauf von Alpaka Eiern auf dem Marktplatz frei",
     "questAlpacaRageDescription": "Dieser Balken füllt sich, wenn du deine Tagesaufgaben nicht erledigst. Wenn er voll ist, erhält Das Überladene Alpaka einen Teil seiner Gesundheit zurück!",
     "questAlpacaRageTitle": "Gepäck Erdbeben",
-    "questAlpacaCompletion": "Glücklicherweise waren keine der Taschen, die das Alpaka nach dir warf, schwer, aber deine Hände sind definitiv voll. „Was sollte das?“ fragst du genervt.<br><br>“Wenn du einen Ausflug mit deinen Freunden planst, solltest du deine Last nicht alleine tragen! Ich bin sicher, deine Freunde hätten es lieber, wenn du einige deiner Sachen zu ihnen abgibst, als dass du selbst unter ihrem Gewicht zusammenbrichst. Übrigens kannst du mir jene Taschen zurückgeben. Ich bin ein erfahrenes Tragetier und habe mein Argument vorgebracht,“ sagt es mit einem Zwinkern. „Behalte aber jenes blaue Bündel als eine Belohnung für eine harte Lektion, die du gelernt hast. Ich sehe dich auf dem Gipfel!“"
+    "questAlpacaCompletion": "Glücklicherweise waren keine der Taschen, die das Alpaka nach dir warf, schwer, aber deine Hände sind definitiv voll. „Was sollte das?“ fragst du genervt.<br><br>“Wenn du einen Ausflug mit deinen Freunden planst, solltest du deine Last nicht alleine tragen! Ich bin sicher, deine Freunde hätten es lieber, wenn du einige deiner Sachen zu ihnen abgibst, als dass du selbst unter ihrem Gewicht zusammenbrichst. Übrigens kannst du mir jene Taschen zurückgeben. Ich bin ein erfahrenes Tragetier und habe mein Argument vorgebracht,“ sagt es mit einem Zwinkern. „Behalte aber jenes blaue Bündel als eine Belohnung für eine harte Lektion, die du gelernt hast. Ich sehe dich auf dem Gipfel!“",
+    "questPlatypusText": "Das Perfektionisten Schnabeltier",
+    "questPlatypusBoss": "Das Perfektionisten Schnabeltier",
+    "questPlatypusRageTitle": "Schockierender Platscher"
 }

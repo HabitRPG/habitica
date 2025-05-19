@@ -1,11 +1,11 @@
 {
     "npc": "NPC",
     "npcAchievementName": "<%= key %> NPC",
-    "npcAchievementText": "Backed the Kickstarter project at the maximum level!",
+    "npcAchievementText": "Podporil projekt na Kickstarter najviac ako sa dalo!",
     "welcomeTo": "Vitaj v",
     "welcomeBack": "Vitaj späť!",
     "justin": "Justin",
-    "justinIntroMessage1": "Hello there! You must be new here. My name is <strong>Justin</strong>, and I'll be your guide in Habitica.",
+    "justinIntroMessage1": "Ahoj! Musíš tu byť nový. Volám sa <strong>Justin</strong>, a budem tvojím sprievodcom vo svete Habitici.",
     "justinIntroMessage3": "Skvelé! Teraz mi povedz, na čom by si chcel pracovať počas tejto cesty?",
     "justinIntroMessageUsername": "Before we begin, let’s figure out what to call you. Below you’ll find a display name and username I’ve generated for you. After you’ve picked a display name and username, we’ll get started by creating an avatar!",
     "justinIntroMessageAppearance": "So how would you like to look? Don’t worry, you can change this later.",
@@ -98,9 +98,9 @@
     "tourTavernPage": "Welcome to the Tavern, an all-ages chat room! You can keep your Dailies from hurting you in case of illness or travel by clicking \"Pause Damage\". Come say hi!",
     "tourPartyPage": "Vitaj vo svojej novej Družine! Do svojej družiny môžeš pozvať iných hráčov pomocou používateľského mena, emailom alebo zo zoznamu hráčov hľadajúcich družinu. Ako odmenu dostaneš exkluzívny zvitok výpravy Bazilist.<br/><br/>Pozri<a href='/static/faq#parties'>FAQ</a>v menu pomoci, aby si sa dozvedel viac o tom ako fungujú družiny.",
     "tourChallengesPage": "Challenges are themed task lists created by users! Joining a Challenge will add its tasks to your account. Compete against other users to win Gem prizes!",
-    "tourMarketPage": "",
-    "tourHallPage": "Welcome to the Hall of Heroes, where open-source contributors to Habitica are honored. Whether through code, art, music, writing, or even just helpfulness, they have earned Gems, exclusive equipment, and prestigious titles. You can contribute to Habitica, too!",
-    "tourPetsPage": "This is the Stable! After reaching level 3, you will gather pet eggs and hatching potions as you complete tasks. When you hatch a pet in the Market, it will appear here! Click a pet's image to add it to your avatar. Feed them with the food you find after level 3, and they'll grow into powerful mounts.",
+    "tourMarketPage": "Po každom splnení úlohy máš šancu na získanie náhodného vajca, liahoxíru alebo jedla pre tvoje zvieratká. Tieto predmety si taktiež môžeš zakúpiť tu.",
+    "tourHallPage": "Vitaj v Sieni Prispievateľov, kde je vzdaná česť open-source prispievateľom Habitici. Či už kódom, ilustráciami, hudbou, písaním alebo len pomáhaním, získali drahokamy, exkluzívne vybavenie, a prestížne tituly. Aj ty môžeš prispieť do Habitiky!",
+    "tourPetsPage": "Vitaj v stajni! Zakaždým keď splníš úlohu, budeš mať šancu na získanie náhodného vajca alebo liahoxíru. Keď si vyliahneš zvieratko, objaví sa tu! Klikni na obrázok zvieratka aby si ho pridal k svojmu avatarovi. Nakŕm ich krmivom, ktoré objavíš a vyrastú v majestátne tátoše.",
     "tourMountsPage": "Once you've fed a pet enough food to turn it into a mount, it will appear here. Click a mount to saddle up!",
     "tourEquipmentPage": "This is where your Equipment is stored! Your Battle Gear affects your Stats. If you want to show different Equipment on your avatar without changing your Stats, click \"Enable Costume.\"",
     "equipmentAlreadyOwned": "Tento kúsok výstroje už vlastníš",
@@ -129,5 +129,8 @@
     "groupsPaymentAutoRenew": "Toto predplatné sa bude automaticky obnovovať až do jeho zrušenia. Pokiaľ by si ho potreboval zrušiť, môžeš tak urobiť v záložke platieb skupiny.",
     "paymentCanceledDisputes": "Na tvoj email sme poslali potvrdenie o zrušení. Pokiaľ email nevidíš, prosím kontaktuj nás aby sme predišli budúcim sporom ohľadne fakturácií.",
     "paymentYouSentSubscriptionG1G1": "Daroval si <strong><%- name %></strong><br> <%= months %>-mesiac(ov) predplatenej Habitici a rovnaké predplatné bolo pridané aj k tvojmu účtu ako darček k našej akcií Daruj a dostaň!",
-    "paymentAutoRenew": "Toto predplatné sa bude automaticky obnovovať až do jeho zrušenia. Pokiaľ by si svoje predplatné potreboval zrušiť, môžeš tak urobiť v nastaveniach."
+    "paymentAutoRenew": "Toto predplatné sa bude automaticky obnovovať až do jeho zrušenia. Pokiaľ by si svoje predplatné potreboval zrušiť, môžeš tak urobiť v nastaveniach.",
+    "limitedAvailabilityHours": "Dostupné <%= hours %>h <%= minutes %>m",
+    "limitedAvailabilityDays": "Dostupné <%= days %>d <%= hours %>h <%= minutes %>m",
+    "limitedAvailabilityMinutes": "Dostupné <%= minutes %>m <%= seconds %>s"
 }
