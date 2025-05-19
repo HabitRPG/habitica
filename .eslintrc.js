@@ -5,6 +5,7 @@ module.exports = {
     'habitrpg/lib/node',
   ],
   rules: {
+    'linebreak-style': 0,
     'prefer-regex-literals': 'warn',
     'import/no-extraneous-dependencies': 'off',
     'require-await': 'error',
