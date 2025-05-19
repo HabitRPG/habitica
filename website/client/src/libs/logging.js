@@ -34,10 +34,12 @@ export function setUpLogging () { // eslint-disable-line import/prefer-default-e
     console.error('Component where it occurred:', vm);
     console.error('Info:', info);
 
-    _LTracker.push({
-      err,
-      info,
-    });
+    if (err && Object.keys(err).length) {
+      _LTracker.push({
+        err,
+        info,
+      });
+    }
   };
 }
 /* eslint-enable no-console */
