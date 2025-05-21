@@ -233,7 +233,7 @@ async function getTasks (req, res, options = {}) {
     } else {
       query.type = type.slice(0, -1); // removing the final "s"
     }
-  } else {
+  } else if (!challenge) {
     query.$and = [{
       $or: [ // Exclude completed todos
         { type: 'todo', completed: false },
