@@ -434,6 +434,7 @@
     }
 
     .habitica-logo {
+      color: $white;
       width: 175px;
       height: 64px;
       margin: 2em auto 0;
