@@ -131,6 +131,7 @@
             >
               <span
                 class="badge-top"
+                :class="{'disabled': !ctx.item.pinTogglable}"
                 @click.prevent.stop="togglePinned(ctx.item)"
                 @keypress.enter.prevent.stop="togglePinned(ctx.item)"
               >
@@ -155,6 +156,13 @@
 
   .badge-pin {
     display: none;
+  }
+
+  .badge-top.disabled {
+    .badge-pin {
+      background-color: $gray-50;
+      cursor: default;
+    }
   }
 
   .item:hover .badge-pin {
@@ -787,6 +795,10 @@ export default {
     togglePinned (item) {
       if (!item.pinType) {
         this.error(this.$t('errorTemporaryItem'));
+        return;
+      }
+
+      if (!item.pinTogglable) {
         return;
       }
 

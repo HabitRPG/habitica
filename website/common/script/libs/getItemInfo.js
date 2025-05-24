@@ -37,6 +37,13 @@ function isItemSuggested (officialPinnedItems, itemInfo) {
   }) > -1;
 }
 
+function pinIsTogglable (itemInfo) {
+  if (itemInfo.path === 'armoire' || itemInfo.path === 'potion' || itemInfo.type === 'debuffPotion') {
+    return false;
+  }
+  return true;
+}
+
 function getDefaultGearProps (item, language) {
   return {
     key: item.key,
@@ -483,6 +490,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
   if (itemInfo) {
     itemInfo.isSuggested = isItemSuggested(officialPinnedItems, itemInfo);
     itemInfo.pinned = isPinned(user, itemInfo, officialPinnedItems);
+    itemInfo.pinTogglable = pinIsTogglable(itemInfo);
   } else {
     throw new BadRequest(i18n.t('wrongItemType', { type }, language));
   }
