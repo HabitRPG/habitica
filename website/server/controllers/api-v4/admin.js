@@ -1,4 +1,6 @@
 import validator from 'validator';
+import _ from 'lodash';
+import { v4 as uuid } from 'uuid';
 import { authWithHeaders } from '../../middlewares/auth';
 import { ensurePermission } from '../../middlewares/ensureAccessRight';
 import { model as User } from '../../models/user';
@@ -123,11 +125,66 @@ api.getBlockers = {
   middlewares: [authWithHeaders(), ensurePermission('userSupport')],
   async handler (req, res) {
     const blockers = await Blocker
-      .find()
+      .find({ disabled: false })
       .lean()
       .exec();
 
     res.respond(200, blockers);
+  },
+};
+
+api.createBlocker = {
+  method: 'POST',
+  url: '/admin/blockers',
+  middlewares: [authWithHeaders(), ensurePermission('userSupport')],
+  async handler (req, res) {
+    const id = uuid();
+    const blocker = await Blocker({
+      _id: id,
+      ...Blocker.sanitize(req.body),
+    }).save();
+
+    res.respond(200, blocker);
+  },
+};
+
+api.updateBlocker = {
+  method: 'PUT',
+  url: '/admin/blockers/:blockerId',
+  middlewares: [authWithHeaders(), ensurePermission('userSupport')],
+  async handler (req, res) {
+    req.checkParams('blockerId', res.t('blockerIdRequired')).notEmpty().isUUID();
+
+    const validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    const blocker = await Blocker.findById(req.params.blockerId).exec();
+    if (!blocker) throw new NotFound(res.t('blockerNotFound'));
+
+    _.merge(blocker, Blocker.sanitize(req.body));
+    const savedBlocker = await blocker.save();
+
+    res.respond(200, savedBlocker);
+  },
+};
+
+api.deleteBlocker = {
+  method: 'DELETE',
+  url: '/admin/blockers/:blockerId',
+  middlewares: [authWithHeaders(), ensurePermission('userSupport')],
+  async handler (req, res) {
+    req.checkParams('blockerId', res.t('blockerIdRequired')).notEmpty().isUUID();
+
+    const validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    const blocker = await Blocker.findById(req.params.blockerId).exec();
+    if (!blocker) throw new NotFound(res.t('blockerNotFound'));
+
+    blocker.disabled = true;
+    const savedBlocker = await blocker.save();
+
+    res.respond(200, savedBlocker);
   },
 };
 
