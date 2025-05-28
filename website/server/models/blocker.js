@@ -2,8 +2,6 @@
 
 import mongoose from 'mongoose';
 import EventEmitter from 'events';
-import { v4 as uuid } from 'uuid';
-import validator from 'validator';
 import baseModel from '../libs/baseModel';
 
 export const blockTypes = [
@@ -17,12 +15,6 @@ export const blockArea = [
 ];
 
 export const schema = new mongoose.Schema({
-  id: {
-    $type: String,
-    default: uuid,
-    validate: [v => validator.isUUID(v), 'Invalid uuid for tag.'],
-    required: true,
-  },
   disabled: {
     $type: Boolean, default: false, // If true, the block is disabled
   },
@@ -44,14 +36,11 @@ export const schema = new mongoose.Schema({
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
-  _id: false, // use id instead of _id
   typeKey: '$type', // So that we can use fields named `type`
 });
 
 schema.plugin(baseModel, {
   timestamps: true,
-  noSet: ['_id'],
-  _id: false, // use id instead of _id
 });
 
 schema.statics.watchBlockers = function watchBlockers (query, options) {
