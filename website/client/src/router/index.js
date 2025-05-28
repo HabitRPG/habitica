@@ -23,7 +23,7 @@ const HeroesPage = () => import(/* webpackChunkName: "hall" */'@/components/hall
 const AdminPanelPage = () => import(/* webpackChunkName: "admin-panel" */'@/components/admin-panel');
 const AdminPanelUserPage = () => import(/* webpackChunkName: "admin-panel" */'@/components/admin-panel/user-support');
 const AdminPanelSearchPage = () => import(/* webpackChunkName: "admin-panel" */'@/components/admin-panel/search');
-
+const BlockerPage = () => import(/* webpackChunkName: "admin-panel" */'@/components/blocker');
 // Except for tasks that are always loaded all the other main level
 // All the main level
 // components are loaded in separate webpack chunks.
@@ -214,6 +214,16 @@ const router = new VueRouter({
           },
         },
       ],
+    },
+    {
+      name: 'blockers',
+      path: '/blockers',
+      component: BlockerPage,
+      meta: {
+        privilegeNeeded: [ // any one of these is enough to give access
+          'userSupport',
+        ],
+      },
     },
 
     // Only used to handle some redirects
