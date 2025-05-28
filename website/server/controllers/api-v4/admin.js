@@ -3,6 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 import { ensurePermission } from '../../middlewares/ensureAccessRight';
 import { model as User } from '../../models/user';
 import { model as UserHistory } from '../../models/userHistory';
+import { model as Blocker } from '../../models/blocker';
 import {
   NotFound,
 } from '../../libs/errors';
@@ -113,6 +114,20 @@ api.getUserHistory = {
     if (!history) throw new NotFound(res.t('userWithIDNotFound', { userId }));
 
     res.respond(200, history);
+  },
+};
+
+api.getBlockers = {
+  method: 'GET',
+  url: '/admin/blockers',
+  middlewares: [authWithHeaders(), ensurePermission('userSupport')],
+  async handler (req, res) {
+    const blockers = await Blocker
+      .find()
+      .lean()
+      .exec();
+
+    res.respond(200, blockers);
   },
 };
 
