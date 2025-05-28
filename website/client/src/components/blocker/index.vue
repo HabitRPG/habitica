@@ -144,12 +144,6 @@ export default {
     async createBlocker (blocker) {
       await this.$store.dispatch('blockers:createBlocker', { blocker });
       this.showCreateForm = false;
-      this.newBlocker = {
-        type: '',
-        area: '',
-        value: '',
-        reason: '',
-      };
       this.loadBlockers();
     },
 
