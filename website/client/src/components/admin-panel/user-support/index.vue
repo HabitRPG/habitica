@@ -96,6 +96,49 @@
           :reset-counter="resetCounter"
           @clear-data="clearData"
         />
+        <button
+          class="btn btn-danger mt-3"
+          @click="confirmDeleteHero">
+          Begin Member deletion
+        </button>
+        <b-modal
+          id="delete-member-modal"
+          title="Delete Member"
+          ok-title="Delete"
+          ok-variant="danger"
+          cancel-title="Cancel"
+          @ok="deleteHero">
+          <b-modal-body>
+            <p>
+              Are you sure you want to delete this member?
+            </p>
+            <p class="errorMessage">
+              Please note: This action cannot be undone!
+            </p>
+            <div class="ml-4">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                v-model="deleteHabiticaAccount"
+                id="deleteAccountCheck">
+              <label class="form-check-label" for="deleteAccountCheck">
+                Delete Habitica account
+              </label>
+            </div>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                v-model="deleteAmplitudeData"
+                id="deleteAmplitudeCheck">
+              <label class="form-check-label" for="deleteAmplitudeCheck">
+                Delete Amplitude data
+              </label>
+            </div>
+          </div>
+          </b-modal-body>
+          </b-modal>
       </div>
     </div>
   </div>
@@ -184,6 +227,8 @@ export default {
       hasParty: false,
       partyNotExistError: false,
       adminHasPrivForParty: true,
+      deleteHabiticaAccount: true,
+      deleteAmplitudeData: false,
     };
   },
   watch: {
@@ -248,6 +293,25 @@ export default {
       }
 
       this.resetCounter += 1; // tell child components to reinstantiate from scratch
+    },
+    confirmDeleteHero () {
+      if (this.hero._id === this.user._id) {
+        window.alert('You cannot delete your own account.');
+        return;
+      }
+      this.$root.$emit('bv::show::modal', 'delete-member-modal');
+    },
+    deleteHero () {
+      this.$store.dispatch('hall:deleteHero', {
+        uuid: this.hero._id,
+        deleteHabiticaAccount: this.deleteHabiticaAccount,
+        deleteAmplitudeData: this.deleteAmplitudeData,
+      }).then(() => {
+        this.$root.$emit('bv::hide::modal', 'delete-member-modal');
+        this.$router.push({ name: 'adminPanel' });
+      }).catch(err => {
+        window.alert(err);
+      });
     },
     hasUnsavedChanges (...comparisons) {
       for (const index in comparisons) {

@@ -38,3 +38,12 @@ export async function getHeroGroupPlans (store, payload) {
   const response = await axios.get(url);
   return response.data.data;
 }
+
+export async function deleteHero (store, payload) {
+  const url = `/api/v4/members/${payload.uuid}`;
+  const response = await axios.delete(url, {
+    deleteAccount: payload.deleteHabiticaAccount,
+    deleteAmplitude: payload.deleteAmplitudeData,
+  });
+  return response.data.data;
+}
