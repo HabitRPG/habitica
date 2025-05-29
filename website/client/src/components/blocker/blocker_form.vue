@@ -14,7 +14,8 @@
     <td><input v-model="blocker.reason"></td>
     <td>
       <button class="btn btn-primary mr-2" @click="$emit('save', blocker)">
-        <span>Save</span>
+        <span v-if="isNew">Create</span>
+        <span v-else>Save</span>
       </button>
       <button class="btn btn-danger" @click="$emit('cancel')">
         <span>Cancel</span>
