@@ -34,7 +34,7 @@ api.purchaseHistory = {
 
 /**
  * @api {delete} /api/v4/members/:memberId Delete a user
- * @apiName MemberGetPurchaseHistory
+ * @apiName DeleteMember
  * @apiGroup Member
  *
  */
@@ -51,6 +51,8 @@ api.deleteMember = {
     sendJob('delete-user', {
       data: {
         userId: req.params.memberId,
+        deleteAccount: req.body.deleteAccount === 'true',
+        deleteAmplitude: req.body.deleteAmplitude === 'true',
       },
     });
     res.respond(200, {});
