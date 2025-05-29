@@ -1316,13 +1316,13 @@ api.getLookingForParty = {
     const PAGE = req.query.page || 0;
     const PAGE_START = USERS_PER_PAGE * PAGE;
 
-    const partyLed = await Group
-      .findOne({
-        type: 'party',
-        leader: user._id,
-      })
-      .select('_id')
-      .exec();
+    let partyLed = false;
+    if (user.party._id) {
+      const party = await Group.getGroup({ user, groupId: user.party._id });
+      if (party && party.leader === user._id) {
+        partyLed = true;
+      }
+    }
 
     if (!partyLed) {
       throw new BadRequest(apiError('notPartyLeader'));
