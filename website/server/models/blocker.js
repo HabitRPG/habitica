@@ -11,7 +11,7 @@ export const blockTypes = [
 
 export const blockArea = [
   'full',
-  'payment',
+  'payments',
 ];
 
 export const schema = new mongoose.Schema({
