@@ -15,7 +15,6 @@ export function sendJob (type, config) {
   if (IS_PROD) {
     const { data, options } = config;
     const usedOptions = {
-      priority: 'high',
       backoff: { delay: 10 * 60 * 1000, type: 'exponential' },
       ...options,
     };
