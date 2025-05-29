@@ -44,15 +44,15 @@ api.deleteMember = {
   url: '/members/:memberId',
   async handler (req, res) {
     req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
-    req.checkBody('deleteAccount').optional().isIn(['true', 'false']);
-    req.checkBody('deleteAmplitude').optional().isIn(['true', 'false']);
+    req.checkQuery('deleteAccount').optional().isIn(['true', 'false']);
+    req.checkQuery('deleteAmplitude').optional().isIn(['true', 'false']);
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
     sendJob('delete-user', {
       data: {
         userId: req.params.memberId,
-        deleteAccount: req.body.deleteAccount === 'true',
-        deleteAmplitude: req.body.deleteAmplitude === 'true',
+        deleteAccount: req.query.deleteAccount === 'true',
+        deleteAmplitude: req.query.deleteAmplitude === 'true',
       },
     });
     res.respond(200, {});
