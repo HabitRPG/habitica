@@ -42,12 +42,11 @@
       <div class="featuredItems">
         <div
           class="background"
-          :class="{'background-closed': closed, 'background-open': !closed }"
+          :class="{'background-open': !closed }"
           :style="{'background-image': imageURLs.background}"
         >
           <div
             class="npc"
-            :class="{'closed': closed }"
             :style="{'background-image': imageURLs.npc}"
           >
             <div class="featured-label">
@@ -57,14 +56,19 @@
               >{{ $t('timeTravelers') }}</span><span class="rectangle"></span>
             </div>
           </div><div
-            v-if="closed"
             class="content"
           >
-            <div class="featured-label with-border closed">
-              <span class="rectangle"></span><span
+            <div
+              v-if="!open"
+              class="featured-label with-border closed">
+              <span
+                class="rectangle">
+              </span>
+              <span
                 v-once
                 class="text"
-              >{{ $t('timeTravelersPopoverNoSubMobile') }}</span><span class="rectangle"></span>
+              >{{ $t('timeTravelersPopoverNoSubMobile') }}</span><span class="rectangle">
+              </span>
             </div>
           </div>
         </div>
@@ -234,8 +238,8 @@ export default {
       currentEventList: 'worldState.data.currentEventList',
     }),
 
-    closed () {
-      return this.user.purchased.plan.consecutive.trinkets === 0;
+    open () {
+      return this.user.purchased.plan.consecutive.trinkets > 0;
     },
 
     shop () {
@@ -302,10 +306,8 @@ export default {
       }
     });
     this.currentEvent = _find(this.currentEventList, event => Boolean(['winter', 'spring', 'summer', 'fall'].includes(event.season)));
-    if (!this.currentEvent || !this.currentEvent.season || this.currentEvent.season === 'thanksgiving' || this.closed) {
+    if (!this.currentEvent || !this.currentEvent.season || this.currentEvent.season === 'thanksgiving') {
       this.imageURLs.background = 'url(/static/npc/normal/time_travelers_background.png)';
-      this.imageURLs.npc = this.closed ? 'url(/static/npc/normal/time_travelers_closed_banner.png)'
-        : 'url(/static/npc/normal/time_travelers_open_banner.png)';
     } else {
       this.imageURLs.background = `url(/static/npc/${this.currentEvent.season}/time_travelers_background.png)`;
       this.imageURLs.npc = `url(/static/npc/${this.currentEvent.season}/time_travelers_open_banner.png)`;
