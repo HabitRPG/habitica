@@ -42,14 +42,15 @@
       <div class="featuredItems">
         <div
           class="background"
-          :class="{'background-open': !closed }"
+          :class="{'background-open': open }"
           :style="{'background-image': imageURLs.background}"
         >
           <div
             class="npc"
             :style="{'background-image': imageURLs.npc}"
           >
-            <div class="featured-label">
+            <div
+              class="featured-label">
               <span class="rectangle"></span><span
                 v-once
                 class="text"
@@ -57,9 +58,10 @@
             </div>
           </div><div
             class="content"
-          >
+            >
             <div
-              v-if="!open"
+            v-if="!open && !subscriber"
+              :class="{'background-open': !open }"
               class="featured-label with-border closed">
               <span
                 class="rectangle">
@@ -240,6 +242,10 @@ export default {
 
     open () {
       return this.user.purchased.plan.consecutive.trinkets > 0;
+    },
+
+    subscriber () {
+      return this.user.purchased.plan.consecutive.count >= 1;
     },
 
     shop () {
