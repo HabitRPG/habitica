@@ -56,13 +56,14 @@
                 class="text"
               >{{ $t('timeTravelers') }}</span><span class="rectangle"></span>
             </div>
-          </div><div
+          </div>
+          <div
             class="content"
             >
             <div
-            v-if="!open && !subscriber"
+            v-if="!open || !subscriber"
               :class="{'background-open': !open }"
-              class="featured-label with-border closed">
+              class="shop-message featured-label with-border closed">
               <span
                 class="rectangle">
               </span>
