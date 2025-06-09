@@ -11,319 +11,363 @@
     <privacy-banner
       class="privacy-banner"
     />
-    <div
-      id="intro-signup"
-      class="purple-1"
-    >
-      <div class="d-flex justify-content-center">
-        <div class="w-33 mr-5 mt-5">
-          <img
-            src="@/assets/images/home/home-main@3x.png"
-            width="357px"
+    <div class="purple-1">
+      <div
+        v-if="!showTerms"
+        id="privacy-tos"
+        class="w-25 mx-auto text-center"
+      >
+        <img
+          src="@/assets/images/home/signup-quill@2x.png"
+          width="120px"
+        >
+        <h1 class="mt-0 mb-4">{{ $t('whatToCallYou') }}</h1>
+        <form
+          class="form"
+          @submit.prevent.stop="register()"
+        >
+          <input
+            id="usernameInput"
+            v-model="username"
+            class="form-control input-with-error mb-3"
+            type="text"
+            :placeholder="$t('username')"
+            :class="{'input-valid': usernameValid, 'input-invalid': usernameInvalid}"
           >
-          <h1>{{ $t('motivateYourself') }}</h1>
-          <p class="section-main">
-            {{ $t('timeToGetThingsDone', {userCountInMillions}) }}
-          </p>
-        </div>
-        <div class="w-33 ml-5">
-          <h3 class="text-center">
-            {{ $t('singUpForFree') }}
-          </h3>
-          <form
-            class="form pb-0"
-            @submit.prevent.stop="register()"
+          <!-- eslint-disable vue/require-v-for-key -->
+          <div
+            v-for="issue in usernameIssues"
+            class="input-error"
           >
-            <input
-              v-model="email"
-              class="form-control"
-              type="email"
-              :placeholder="$t('email')"
-              :class="{'input-invalid': emailInvalid, 'input-valid': emailValid}"
-            >
-            <input
-              v-model="password"
-              class="form-control input-with-error"
-              type="password"
-              :placeholder="$t('password')"
-              :class="{
-                'input-valid': passwordValid,
-                'input-invalid': passwordInvalid,
-              }"
-            >
-            <div
-              v-if="passwordInvalid"
-              class="input-error"
-            >
-              {{ $t('minPasswordLength') }}
+            <!-- eslint-enable vue/require-v-for-key -->
+            {{ issue }}
+          </div>
+          <p>{{ $t('usernameLimitations')}} </p>
+          <p v-html="$t('acceptPrivacyTOS')" class="mb-3"></p>
+          <button
+            class="btn btn-info sign-up mb-5"
+            :disabled="!username || usernameInvalid"
+            type="submit"
+          >
+            {{ $t('getStarted') }}
+          </button>
+        </form>
+      </div>
+      <div v-if="showTerms">
+        <div
+          id="intro-signup"
+        >
+          <div class="d-flex justify-content-center">
+            <div class="w-33 mr-5 mt-5">
+              <img
+                src="@/assets/images/home/home-main@3x.png"
+                width="357px"
+              >
+              <h1>{{ $t('motivateYourself') }}</h1>
+              <p class="section-main">
+                {{ $t('timeToGetThingsDone', {userCountInMillions}) }}
+              </p>
             </div>
-            <input
-              v-model="passwordConfirm"
-              class="form-control input-with-error"
-              type="password"
-              :placeholder="$t('confirmPassword')"
-              :class="{
-                'input-invalid': passwordConfirmInvalid,
-                'input-valid': passwordConfirmValid}"
-            >
-            <div
-              v-if="passwordConfirmInvalid"
-              class="input-error"
-            >
-              {{ $t('passwordConfirmationMatch') }}
+            <div class="w-33 ml-5">
+              <h3 class="text-center">
+                {{ $t('singUpForFree') }}
+              </h3>
+              <form
+                class="form pb-0"
+                @submit.prevent.stop="proceed()"
+              >
+                <input
+                  v-model="email"
+                  class="form-control"
+                  type="email"
+                  :placeholder="$t('email')"
+                  :class="{'input-invalid': emailInvalid, 'input-valid': emailValid}"
+                >
+                <input
+                  v-model="password"
+                  class="form-control input-with-error"
+                  type="password"
+                  :placeholder="$t('password')"
+                  :class="{
+                    'input-valid': passwordValid,
+                    'input-invalid': passwordInvalid,
+                  }"
+                >
+                <div
+                  v-if="passwordInvalid"
+                  class="input-error"
+                >
+                  {{ $t('minPasswordLength') }}
+                </div>
+                <input
+                  v-model="passwordConfirm"
+                  class="form-control input-with-error"
+                  type="password"
+                  :placeholder="$t('confirmPassword')"
+                  :class="{
+                    'input-invalid': passwordConfirmInvalid,
+                    'input-valid': passwordConfirmValid}"
+                >
+                <div
+                  v-if="passwordConfirmInvalid"
+                  class="input-error"
+                >
+                  {{ $t('passwordConfirmationMatch') }}
+                </div>
+                <button
+                  class="btn btn-block btn-info sign-up"
+                  :disabled="signupFormInvalid || !email || !password || !passwordConfirm"
+                  type="submit"
+                >
+                  {{ $t('continue') }}
+                </button>
+              </form>
+              <div class="strike">
+                <span>{{ $t('or') }}</span>
+              </div>
+              <div class="text-center">
+                <button
+                  class="social-button"
+                  @click="socialAuth('google')"
+                >
+                  <div
+                    class="svg-icon social-icon"
+                    v-html="icons.googleIcon"
+                  ></div>
+                  <span>{{ $t('signUpWithSocial', {social: 'Google'}) }}</span>
+                </button>
+                <button
+                  class="social-button"
+                  @click="socialAuth('apple')"
+                >
+                  <div
+                    class="svg svg-icon social-icon apple-icon color"
+                    v-html="icons.appleIcon"
+                  ></div>
+                  <span>{{ $t('signUpWithSocial', {social: 'Apple'}) }}</span>
+                </button>
+              </div>
             </div>
-            <button
-              class="btn btn-block btn-info sign-up"
-              :disabled="signupFormInvalid"
-              type="submit"
-            >
-              {{ $t('continue') }}
-            </button>
-          </form>
-          <div class="strike">
-            <span>{{ $t('or') }}</span>
           </div>
-          <div class="text-center">
-            <button
-              class="social-button"
-              @click="socialAuth('google')"
-            >
-              <div
-                class="svg-icon social-icon"
-                v-html="icons.googleIcon"
-              ></div>
-              <span>{{ $t('signUpWithSocial', {social: 'Google'}) }}</span>
-            </button>
-            <button
-              class="social-button"
-              @click="socialAuth('apple')"
-            >
-              <div
-                class="svg svg-icon social-icon apple-icon color"
-                v-html="icons.appleIcon"
-              ></div>
-              <span>{{ $t('signUpWithSocial', {social: 'Apple'}) }}</span>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="col-12">
-        <div
-          class="spacer svg-icon"
-          v-html="icons.spacer"
-        ></div>
-      </div>
-    </div>
-    <div
-      id="gamify-life"
-      class="purple-2"
-    >
-      <div class="container-fluid">
-        <div
-          class="pixel-horizontal svg-icon"
-          v-html="icons.pixelHorizontal"
-        ></div>
-      </div>
-      <div class="container">
-        <div class="row">
-          <div class="col-12 col-sm-6 col-md-6 col-lg-6 offset-sm-3 text-center">
-            <h2>{{ $t('gamifyYourLife') }}</h2>
-            <p class="section-main">
-              {{ $t('aboutHabitica') }}
-            </p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12 col-md-4">
-            <img
-              class="track-habits"
-              src="@/assets/images/home/track-habits@3x.png"
-              width="354px"
-              height="228px"
-            >
-            <strong>{{ $t('trackYourGoals') }}</strong>
-            <p>{{ $t('trackYourGoalsDesc') }}</p>
-          </div>
-          <div class="col-12 col-md-4">
-            <img
-              src="@/assets/images/home/earn-rewards@3x.png"
-              width="316px"
-              height="244px"
-            >
-            <strong>{{ $t('earnRewards') }}</strong>
-            <p>{{ $t('earnRewardsDesc') }}</p>
-          </div>
-          <div class="col-12 col-md-4">
-            <img
-              src="@/assets/images/home/battle-monsters@3x.png"
-              width="303px"
-              height="244px"
-            >
-            <strong>{{ $t('battleMonsters') }}</strong>
-            <p>{{ $t('battleMonstersDesc') }}</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-12">
-        <div
-          class="spacer svg-icon"
-          v-html="icons.spacer"
-        ></div>
-      </div>
-    </div>
-    <div
-      id="use-cases"
-      class="purple-2"
-    >
-      <div class="container text-center">
-        <div class="row">
           <div class="col-12">
-            <h2>{{ $t('playersUseToImprove') }}</h2>
+            <div
+              class="spacer svg-icon"
+              v-html="icons.spacer"
+            ></div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-12 col-sm-4">
-            <img
-              src="@/assets/images/home/health-fitness@3x.png"
-              width="300px"
-              height="300px"
-            >
-            <strong>{{ $t('healthAndFitness') }}</strong>
-            <p>{{ $t('healthAndFitnessDesc') }}</p>
-          </div>
-          <div class="col-12 col-sm-4">
-            <img
-              src="@/assets/images/home/school-work@3x.png"
-              width="300px"
-              height="300px"
-            >
-            <strong>{{ $t('schoolAndWork') }}</strong>
-            <p>{{ $t('schoolAndWorkDesc') }}</p>
-          </div>
-          <div class="col-12 col-sm-4">
-            <img
-              src="@/assets/images/home/much-more@3x.png"
-              width="300px"
-              height="300px"
-            >
-            <strong>{{ $t('muchmuchMore') }}</strong>
-            <p>{{ $t('muchmuchMoreDesc') }}</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-12">
         <div
-          class="spacer svg-icon"
-          v-html="icons.spacer"
-        ></div>
-      </div>
-      <div class="container-fluid">
+          id="gamify-life"
+          class="purple-2"
+        >
+          <div class="container-fluid">
+            <div
+              class="pixel-horizontal svg-icon"
+              v-html="icons.pixelHorizontal"
+            ></div>
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-sm-6 col-md-6 col-lg-6 offset-sm-3 text-center">
+                <h2>{{ $t('gamifyYourLife') }}</h2>
+                <p class="section-main">
+                  {{ $t('aboutHabitica') }}
+                </p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 col-md-4">
+                <img
+                  class="track-habits"
+                  src="@/assets/images/home/track-habits@3x.png"
+                  width="354px"
+                  height="228px"
+                >
+                <strong>{{ $t('trackYourGoals') }}</strong>
+                <p>{{ $t('trackYourGoalsDesc') }}</p>
+              </div>
+              <div class="col-12 col-md-4">
+                <img
+                  src="@/assets/images/home/earn-rewards@3x.png"
+                  width="316px"
+                  height="244px"
+                >
+                <strong>{{ $t('earnRewards') }}</strong>
+                <p>{{ $t('earnRewardsDesc') }}</p>
+              </div>
+              <div class="col-12 col-md-4">
+                <img
+                  src="@/assets/images/home/battle-monsters@3x.png"
+                  width="303px"
+                  height="244px"
+                >
+                <strong>{{ $t('battleMonsters') }}</strong>
+                <p>{{ $t('battleMonstersDesc') }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div
+              class="spacer svg-icon"
+              v-html="icons.spacer"
+            ></div>
+          </div>
+        </div>
         <div
-          class="pixel-horizontal-2 svg-icon"
-          v-html="icons.pixelHorizontal2"
-        ></div>
-      </div>
-    </div>
-    <div
-      id="level-up-anywhere"
-      class="purple-3"
-    >
-      <div class="container">
-        <div class="row">
-          <div class="col-12 col-md-6 col-lg-6">
-            <div class="iphones"></div>
+          id="use-cases"
+          class="purple-2"
+        >
+          <div class="container text-center">
+            <div class="row">
+              <div class="col-12">
+                <h2>{{ $t('playersUseToImprove') }}</h2>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 col-sm-4">
+                <img
+                  src="@/assets/images/home/health-fitness@3x.png"
+                  width="300px"
+                  height="300px"
+                >
+                <strong>{{ $t('healthAndFitness') }}</strong>
+                <p>{{ $t('healthAndFitnessDesc') }}</p>
+              </div>
+              <div class="col-12 col-sm-4">
+                <img
+                  src="@/assets/images/home/school-work@3x.png"
+                  width="300px"
+                  height="300px"
+                >
+                <strong>{{ $t('schoolAndWork') }}</strong>
+                <p>{{ $t('schoolAndWorkDesc') }}</p>
+              </div>
+              <div class="col-12 col-sm-4">
+                <img
+                  src="@/assets/images/home/much-more@3x.png"
+                  width="300px"
+                  height="300px"
+                >
+                <strong>{{ $t('muchmuchMore') }}</strong>
+                <p>{{ $t('muchmuchMoreDesc') }}</p>
+              </div>
+            </div>
           </div>
-          <div class="col-12 col-md-6 col-lg-6 text-column">
-            <h2>{{ $t('levelUpAnywhere') }}</h2>
-            <p>{{ $t('levelUpAnywhereDesc') }}</p>
-            <a
-              class="app svg-icon"
-              href="https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica"
-              target="_blank"
-              v-html="icons.googlePlay"
-            ></a>
-            <a
-              class="app svg-icon"
-              href="https://itunes.apple.com/us/app/habitica-gamified-task-manager/id994882113?mt=8"
-              target="_blank"
-              v-html="icons.iosAppStore"
-            ></a>
+          <div class="col-12">
+            <div
+              class="spacer svg-icon"
+              v-html="icons.spacer"
+            ></div>
+          </div>
+          <div class="container-fluid">
+            <div
+              class="pixel-horizontal-2 svg-icon"
+              v-html="icons.pixelHorizontal2"
+            ></div>
           </div>
         </div>
-      </div>
-      <div class="container-fluid">
         <div
-          class="pixel-horizontal-3 svg-icon"
-          v-html="icons.pixelHorizontal3"
-        ></div>
-      </div>
-    </div>
-    <div
-      id="call-to-action"
-      class="purple-4"
-    >
-      <div class="container featured">
-        <div class="row text-center">
-          <h3 class="col-12">
-            {{ $t('joinMany', {userCountInMillions}) }}
-          </h3>
-        </div>
-        <div class="row">
-          <div class="col-12 text-center">
-            <button
-              class="btn btn-primary btn-front join-button"
-              @click="playButtonClick()"
-            >
-              {{ $t('joinToday') }}
-            </button>
+          id="level-up-anywhere"
+          class="purple-3"
+        >
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-6 col-lg-6">
+                <div class="iphones"></div>
+              </div>
+              <div class="col-12 col-md-6 col-lg-6 text-column">
+                <h2>{{ $t('levelUpAnywhere') }}</h2>
+                <p>{{ $t('levelUpAnywhereDesc') }}</p>
+                <a
+                  class="app svg-icon"
+                  href="https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica"
+                  target="_blank"
+                  v-html="icons.googlePlay"
+                ></a>
+                <a
+                  class="app svg-icon"
+                  href="https://itunes.apple.com/us/app/habitica-gamified-task-manager/id994882113?mt=8"
+                  target="_blank"
+                  v-html="icons.iosAppStore"
+                ></a>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="row featured">
-          <div class="col-12 text-center">
-            <strong>{{ $t('featuredIn') }}</strong>
-          </div>
-        </div>
-      </div>
-      <div class="container-fluid featured">
-        <div class="row">
-          <div class="col-12 text-center">
+          <div class="container-fluid">
             <div
-              class="lifehacker svg-icon"
-              v-html="icons.lifehacker"
-            ></div>
-            <div
-              class="thenewyorktimes svg-icon"
-              v-html="icons.thenewyorktimes"
-            ></div>
-            <div
-              class="makeuseof svg-icon"
-              v-html="icons.makeuseof"
-            ></div>
-            <div
-              class="forbes svg-icon"
-              v-html="icons.forbes"
-            ></div>
-            <div
-              class="cnet svg-icon"
-              v-html="icons.cnet"
-            ></div>
-            <div
-              class="kickstarter svg-icon"
-              v-html="icons.kickstarter"
-            ></div>
-            <div
-              class="fast-company svg-icon"
-              v-html="icons.fastCompany"
-            ></div>
-            <div
-              class="discover svg-icon"
-              v-html="icons.discover"
+              class="pixel-horizontal-3 svg-icon"
+              v-html="icons.pixelHorizontal3"
             ></div>
           </div>
         </div>
-      </div>
-      <div class="container-fluid">
-        <div class="row seamless_stars_varied_opacity_repeat"></div>
+        <div
+          id="call-to-action"
+          class="purple-4"
+        >
+          <div class="container featured">
+            <div class="row text-center">
+              <h3 class="col-12">
+                {{ $t('joinMany', {userCountInMillions}) }}
+              </h3>
+            </div>
+            <div class="row">
+              <div class="col-12 text-center">
+                <button
+                  class="btn btn-primary btn-front join-button"
+                  @click="playButtonClick()"
+                >
+                  {{ $t('joinToday') }}
+                </button>
+              </div>
+            </div>
+            <div class="row featured">
+              <div class="col-12 text-center">
+                <strong>{{ $t('featuredIn') }}</strong>
+              </div>
+            </div>
+          </div>
+          <div class="container-fluid featured">
+            <div class="row">
+              <div class="col-12 text-center">
+                <div
+                  class="lifehacker svg-icon"
+                  v-html="icons.lifehacker"
+                ></div>
+                <div
+                  class="thenewyorktimes svg-icon"
+                  v-html="icons.thenewyorktimes"
+                ></div>
+                <div
+                  class="makeuseof svg-icon"
+                  v-html="icons.makeuseof"
+                ></div>
+                <div
+                  class="forbes svg-icon"
+                  v-html="icons.forbes"
+                ></div>
+                <div
+                  class="cnet svg-icon"
+                  v-html="icons.cnet"
+                ></div>
+                <div
+                  class="kickstarter svg-icon"
+                  v-html="icons.kickstarter"
+                ></div>
+                <div
+                  class="fast-company svg-icon"
+                  v-html="icons.fastCompany"
+                ></div>
+                <div
+                  class="discover svg-icon"
+                  v-html="icons.discover"
+                ></div>
+              </div>
+            </div>
+          </div>
+          <div class="container-fluid">
+            <div class="row seamless_stars_varied_opacity_repeat"></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -337,6 +381,14 @@
     }
     .privacy-banner p {
       font-size: 14px;
+    }
+  }
+
+  #privacy-tos {
+    a {
+      color: $white;
+      font-weight: bold;
+      text-decoration: underline;
     }
   }
 </style>
@@ -850,6 +902,7 @@ export default {
       passwordConfirm: '',
       email: '',
       usernameIssues: [],
+      showTerms: false,
     };
   },
   computed: {
@@ -886,8 +939,7 @@ export default {
       return this.passwordConfirm !== this.password;
     },
     signupFormInvalid () {
-      return this.usernameInvalid
-        || this.emailInvalid
+      return this.emailInvalid
         || this.passwordInvalid
         || this.passwordConfirmInvalid;
     },
@@ -922,6 +974,9 @@ export default {
         }
       });
     }, 500),
+    proceed () {
+      this.showTerms = true;
+    },
     // @TODO this is totally duplicate from the registerLogin component
     async register () {
       let groupInvite = '';

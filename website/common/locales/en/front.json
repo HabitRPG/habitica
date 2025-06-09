@@ -146,7 +146,7 @@
   "signUpWithSocial": "Continue with <%= social %>",
   "loginWithSocial": "Log in with <%= social %>",
   "confirmPassword": "Confirm Password",
-  "usernameLimitations": "Username must be 1 to 20 characters, containing only letters a to z, numbers 0 to 9, hyphens, or underscores, and cannot include any inappropriate terms.",
+  "usernameLimitations": "Usernames can be changed at any time. They must be 1 to 20 characters, containing only letters a to z, numbers 0 to 9, hyphens, or underscores.",
   "usernamePlaceholder": "e.g., HabitRabbit",
   "emailPlaceholder": "e.g., gryphon@example.com",
   "emailUsernamePlaceholder": "e.g., habitrabbit or gryphon@example.com",
@@ -183,5 +183,7 @@
   "getStarted": "Get Started",
   "mobileApps": "Mobile Apps",
   "learnMore": "Learn More",
-  "translateHabitica": "Translate Habitica"
+  "translateHabitica": "Translate Habitica",
+  "whatToCallYou": "What should we call you?",
+  "acceptPrivacyTOS": "You agree to our <a href='/static/terms' target='_blank'>Terms of Service</a> and have read our <a href='/static/privacy' target='_blank'>Privacy Policy</a>."
 }
