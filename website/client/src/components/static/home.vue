@@ -13,7 +13,7 @@
     />
     <div class="purple-1">
       <div
-        v-if="!showTerms"
+        v-if="showTerms"
         id="privacy-tos"
         class="w-25 mx-auto text-center"
       >
@@ -53,7 +53,7 @@
           </button>
         </form>
       </div>
-      <div v-if="showTerms">
+      <div v-else>
         <div
           id="intro-signup"
         >
