@@ -50,17 +50,39 @@
           >
             <div
               class="featured-label">
-              <span class="rectangle"></span><span
+              <span class="rectangle"></span>
+              <span
                 v-once
                 class="text"
-              >{{ $t('timeTravelers') }}</span><span class="rectangle"></span>
+              >{{ $t('timeTravelers') }}
+              </span>
+              <span class="rectangle"></span>
             </div>
           </div>
+        </div>
+        <div
+          class="content"
+          >
           <div
-            class="content"
-            >
+          v-if="!isSubscribed"
+          class="background"
+          :style="{'background-image': imageURLs.background}"
+          >
             <div
-            v-if="!isSubscribed"
+            class="npc"
+            :style="{'background-image': imageURLs.npc}"
+          >
+            <div
+              class="featured-label">
+              <span class="rectangle"></span>
+              <span
+                v-once
+                class="text"
+              >{{ $t('timeTravelers') }}</span>
+              <span class="rectangle"></span>
+            </div>
+            </div>
+            <div
             class="shop-message featured-label with-border closed">
               <span
                 class="rectangle">
@@ -68,8 +90,9 @@
               <span
                 v-once
                 class="text"
-              >{{ $t('timeTravelersPopoverNoSubMobile') }}</span><span class="rectangle">
+                >{{ $t('timeTravelersPopoverNoSubMobile') }}
               </span>
+              <span class="rectangle"></span>
             </div>
           </div>
         </div>
@@ -242,9 +265,9 @@ export default {
 
     isSubscribed () {
       const now = new Date();
-      const { plan } = this.purchased;
+      const { plan } = this.user.purchased;
       return plan && plan.customerId
-      && (!plan.dateTerminated || moment(plan.dateTerminated).isAfter(now))
+      && (!plan.dateTerminated || moment(plan.dateTerminated).isAfter(now));
     },
 
     shop () {
