@@ -42,7 +42,6 @@
       <div class="featuredItems">
         <div
           class="background"
-          :class="{'background-open': open }"
           :style="{'background-image': imageURLs.background}"
         >
           <div
@@ -61,9 +60,8 @@
             class="content"
             >
             <div
-            v-if="!open || !subscriber"
-              :class="{'background-open': !open }"
-              class="shop-message featured-label with-border closed">
+            v-if="!isSubscribed"
+            class="shop-message featured-label with-border closed">
               <span
                 class="rectangle">
               </span>
@@ -170,6 +168,7 @@ import _throttle from 'lodash/throttle';
 import _groupBy from 'lodash/groupBy';
 import _map from 'lodash/map';
 import _find from 'lodash/find';
+import moment from 'moment';
 import isPinned from '@/../../common/script/libs/isPinned';
 import shops from '@/../../common/script/libs/shops';
 import { mapState } from '@/libs/store';
@@ -241,12 +240,11 @@ export default {
       currentEventList: 'worldState.data.currentEventList',
     }),
 
-    open () {
-      return this.user.purchased.plan.consecutive.trinkets > 0;
-    },
-
-    subscriber () {
-      return this.user.purchased.plan.consecutive.count >= 1;
+    isSubscribed () {
+      const now = new Date();
+      const { plan } = this.purchased;
+      return plan && plan.customerId
+      && (!plan.dateTerminated || moment(plan.dateTerminated).isAfter(now))
     },
 
     shop () {
