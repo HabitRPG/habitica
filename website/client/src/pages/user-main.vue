@@ -147,7 +147,7 @@ import {
 const bugReportModal = () => import('@/components/bugReportModal');
 const bugReportSuccessModal = () => import('@/components/bugReportSuccessModal');
 
-const COMMUNITY_MANAGER_EMAIL = import.meta.env.EMAILS_COMMUNITY_MANAGER_EMAIL; // eslint-disable-line
+const COMMUNITY_MANAGER_EMAIL = import.meta.env.EMAILS_COMMUNITY_MANAGER_EMAIL;
 
 export default {
   name: 'App',
