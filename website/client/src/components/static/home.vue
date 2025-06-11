@@ -42,11 +42,24 @@
             <!-- eslint-enable vue/require-v-for-key -->
             {{ issue }}
           </div>
+          <div class="custom-control custom-checkbox">
+            <input
+              id="privacyTOS"
+              v-model="privacyAccepted"
+              class="custom-control-input"
+              type="checkbox"
+            >
+            <label
+              v-once
+              class="custom-control-label"
+              for="privacyTOS"
+              v-html="$t('acceptPrivacyTOS')"
+            ></label>
+          </div>
           <p>{{ $t('usernameLimitations')}} </p>
-          <p v-html="$t('acceptPrivacyTOS')" class="mb-3"></p>
           <button
             class="btn btn-info sign-up mb-5"
-            :disabled="!username || usernameInvalid"
+            :disabled="!username || usernameInvalid || !privacyAccepted"
             type="submit"
           >
             {{ $t('getStarted') }}
@@ -412,7 +425,7 @@
       padding-bottom: 5em;
     }
 
-    .purple-1, .purple-2, .purple-3, .purple-4, h1, h2, h3, h4, h5 {
+    .custom-control-label, .purple-1, .purple-2, .purple-3, .purple-4, h1, h2, h3, h4, h5 {
       color: $white;
     }
 
@@ -903,6 +916,7 @@ export default {
       email: '',
       usernameIssues: [],
       showTerms: false,
+      privacyAccepted: false,
     };
   },
   computed: {
@@ -975,6 +989,7 @@ export default {
       });
     }, 500),
     proceed () {
+      this.username = this.email.split('@')[0].replace(/[^a-zA-Z0-9\-_]/g, '');
       this.showTerms = true;
     },
     // @TODO this is totally duplicate from the registerLogin component
