@@ -112,7 +112,7 @@ import * as Analytics from '@/libs/analytics';
 import { mapState } from '@/libs/store';
 import snackbars from '@/components/snackbars/notifications';
 
-const COMMUNITY_MANAGER_EMAIL = import.meta.env.EMAILS_COMMUNITY_MANAGER_EMAIL; // eslint-disable-line
+const COMMUNITY_MANAGER_EMAIL = import.meta.env.EMAILS_COMMUNITY_MANAGER_EMAIL;
 
 export default {
   name: 'App',
