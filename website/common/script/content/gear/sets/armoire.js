@@ -532,6 +532,11 @@ const armor = {
     con: 12,
     set: 'beekeepersSet',
   },
+  flyFishingWaders: {
+    str: 7,
+    con: 7,
+    set: 'flyFishingSet',
+  },
 };
 
 const body = {
@@ -1088,6 +1093,11 @@ const head = {
     per: 12,
     set: 'beekeepersSet',
   },
+  flyFishingHat: {
+    str: 7,
+    per: 7,
+    set: 'flyFishingSet',
+  },
 };
 
 const shield = {
@@ -1455,6 +1465,11 @@ const shield = {
   beekeepersHive: {
     str: 12,
     set: 'beekeepersSet',
+  },
+  flyFishingRod: {
+    str: 7,
+    int: 7,
+    set: 'flyFishingSet',
   },
 };
 
