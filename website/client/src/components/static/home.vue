@@ -87,7 +87,7 @@
               </h3>
               <form
                 class="form pb-0"
-                @submit.prevent.stop="proceed()"
+                @submit.prevent.stop="proceed('local')"
               >
                 <input
                   v-model="email"
@@ -141,7 +141,7 @@
               <div class="text-center">
                 <button
                   class="social-button"
-                  @click="socialAuth('google')"
+                  @click="proceed('google')"
                 >
                   <div
                     class="svg-icon social-icon"
@@ -151,7 +151,7 @@
                 </button>
                 <button
                   class="social-button"
-                  @click="socialAuth('apple')"
+                  @click="proceed('apple')"
                 >
                   <div
                     class="svg svg-icon social-icon apple-icon color"
@@ -915,7 +915,7 @@ export default {
       passwordConfirm: '',
       email: '',
       usernameIssues: [],
-      showTerms: false,
+      showTerms: null,
       privacyAccepted: false,
     };
   },
@@ -988,32 +988,38 @@ export default {
         }
       });
     }, 500),
-    proceed () {
-      this.username = this.email.split('@')[0].replace(/[^a-zA-Z0-9\-_]/g, '');
-      this.showTerms = true;
+    proceed (accountType) {
+      if (accountType === 'local') {
+        this.username = this.email.split('@')[0].replace(/[^a-zA-Z0-9\-_]/g, '');
+      }
+      this.showTerms = accountType;
     },
     // @TODO this is totally duplicate from the registerLogin component
     async register () {
-      let groupInvite = '';
-      if (this.$route.query && this.$route.query.p) {
-        groupInvite = this.$route.query.p;
+      if (this.showTerms === 'local') {
+        let groupInvite = '';
+        if (this.$route.query && this.$route.query.p) {
+          groupInvite = this.$route.query.p;
+        }
+  
+        if (this.$route.query && this.$route.query.groupInvite) {
+          groupInvite = this.$route.query.groupInvite;
+        }
+  
+        await this.$store.dispatch('auth:register', {
+          username: this.username,
+          email: this.email,
+          password: this.password,
+          passwordConfirm: this.passwordConfirm,
+          groupInvite,
+        });
+  
+        const redirect = this.sanitizeRedirect(this.$route.query.redirectTo);
+  
+        window.location.href = redirect;
+      } else {
+        socialAuth(this.showTerms);
       }
-
-      if (this.$route.query && this.$route.query.groupInvite) {
-        groupInvite = this.$route.query.groupInvite;
-      }
-
-      await this.$store.dispatch('auth:register', {
-        username: this.username,
-        email: this.email,
-        password: this.password,
-        passwordConfirm: this.passwordConfirm,
-        groupInvite,
-      });
-
-      const redirect = this.sanitizeRedirect(this.$route.query.redirectTo);
-
-      window.location.href = redirect;
     },
     playButtonClick () {
       this.$router.push('/register');
