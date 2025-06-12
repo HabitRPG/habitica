@@ -59,7 +59,7 @@
     <div class="row">
       <div class="col-md-6 mb-5 mb-md-0">
         <img :src="makeUrl('features_mobile.png')">
-        <h2>{{ $t('footerMobile') }}</h2>
+        <h2>{{ $t('marketing3Lead1Title') }}</h2>
         <p class="description" v-markdown="$t('marketing3Lead1')"></p>
       </div>
       <div class="col-md-6 mb-5 mb-md-0">
@@ -77,7 +77,7 @@
     <div class="row">
       <div class="col-md-6 mb-5 mb-md-0">
         <div class="media">
-          <img src="~@/assets/images/marketing/education.png">
+          <img src="@/assets/images/marketing/education.png">
           <div class="media-body">
             <h2>{{ $t('marketing4Lead1Title') }}</h2>
             <p class="description">{{ $t('marketing4Lead1') }}</p>
@@ -86,7 +86,7 @@
       </div>
       <div class="col-md-6 mb-5 mb-md-0">
         <div class="media">
-          <img src="~@/assets/images/marketing/wellness.png">
+          <img src="@/assets/images/marketing/wellness.png">
           <div class="media-body">
             <h2>{{ $t('marketing4Lead2Title') }}</h2>
             <p class="description">{{ $t('marketing4Lead2') }}</p>
@@ -104,7 +104,7 @@
             class="btn btn-lg btn-primary"
             @click="playButtonClick()"
           >
-            {{ $t('playButton') }}
+            {{ $t('marketing4Lead3Button') }}
           </button>
         </div>
       </div>
