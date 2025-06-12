@@ -6,143 +6,126 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-12 mb-5 mb-md-0">
-        <img :src="makeUrl('features_taskboard.png')" class="img-fluid">
+      <div class="col-md-6">
+        <img src="@/assets/images/marketing/screenshot.png">
         <h2>{{ $t('marketing1Lead1Title') }}</h2>
-        <div class="row justify-content-md-center">
-          <p class="col col-lg-8 col-xl-6 margin-auto description">{{ $t('marketing1Lead1') }}</p>
-        </div>
+        <p>{{ $t('marketing1Lead1') }}</p>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6 mb-5 mb-md-0">
-        <img :src="makeUrl('features_gear.png')">
+      <div class="col-md-6">
+        <img src="@/assets/images/marketing/gear.png">
         <h2>{{ $t('marketing1Lead2Title') }}</h2>
-        <p class="description">{{ $t('marketing1Lead2') }}</p>
-      </div>
-      <div class="col-md-6 mb-5 mb-md-0">
-        <img :src="makeUrl('features_items.png')">
+        <p>{{ $t('marketing1Lead2') }}</p>
+        <img
+          src="@/assets/images/marketing/drops.png"
+          style="max-height: 200px;"
+        >
         <h2>{{ $t('marketing1Lead3Title') }}</h2>
-        <p class="description">{{ $t('marketing1Lead3') }}</p>
+        <p>{{ $t('marketing1Lead3') }}</p>
       </div>
     </div>
     <hr>
     <div class="row">
-      <div class="col-12">
+      <div class="col-md-12">
         <h1>{{ $t('marketing2Header') }}</h1>
       </div>
     </div>
-    <div class="row mb-5">
-      <div class="col-12">
-        <h2>{{ $t('marketing2Lead1Title') }}</h2>
-        <p class="description">{{ $t('marketing2Lead1') }}</p>
-      </div>
-    </div>
     <div class="row">
-      <div class="col-md-6 mb-5 mb-md-0">
-        <img :src="makeUrl('features_monsters.png')">
+      <div class="col-md-6">
+        <h2>{{ $t('marketing2Lead1Title') }}</h2>
+        <p>{{ $t('marketing2Lead1') }}</p>
+        <img src="@/assets/images/marketing/vice3.png">
         <h2>{{ $t('marketing2Lead2Title') }}</h2>
-        <p class="description" v-markdown="$t('marketing2Lead2')"></p>
+        <p v-markdown="$t('marketing2Lead2')"></p>
       </div>
-      <div class="col-md-6 mb-5 mb-md-0">
-        <img :src="makeUrl('features_challenges.png')">
+      <div class="col-md-6">
+        <img src="@/assets/images/marketing/challenge.png">
         <h2>{{ $t('marketing2Lead3Title') }}</h2>
-        <p class="description">{{ $t('marketing2Lead3') }}</p>
+        <p>{{ $t('marketing2Lead3') }}</p>
       </div>
     </div>
     <hr>
     <div class="row">
-      <div class="col-12">
+      <div class="col-md-12">
         <h1>{{ $t('marketing3Header') }}</h1>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-6 mb-5 mb-md-0">
-        <img :src="makeUrl('features_mobile.png')">
+      <div class="col-md-6">
+        <img src="@/assets/images/marketing/android_iphone.png">
         <h2>{{ $t('footerMobile') }}</h2>
-        <p class="description" v-markdown="$t('marketing3Lead1')"></p>
+        <p v-markdown="$t('marketing3Lead1')"></p>
       </div>
-      <div class="col-md-6 mb-5 mb-md-0">
-        <img :src="makeUrl('features_opensource.png')">
+      <div class="col-md-6">
+        <img src="@/assets/images/marketing/integration.png">
         <h2>{{ $t('marketing3Lead2Title') }}</h2>
-        <p class="description" v-markdown="$t('marketing3Lead2')"></p>
+        <p v-markdown="$t('marketing3Lead2')"></p>
       </div>
     </div>
     <hr>
     <div class="row">
-      <div class="col-12">
+      <div class="col-md-12">
         <h1>{{ $t('marketing4Header') }}</h1>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-6 mb-5 mb-md-0">
+      <div class="col-md-6">
         <div class="media">
           <img src="@/assets/images/marketing/education.png">
           <div class="media-body">
             <h2>{{ $t('marketing4Lead1Title') }}</h2>
-            <p class="description">{{ $t('marketing4Lead1') }}</p>
+            <p>{{ $t('marketing4Lead1') }}</p>
           </div>
         </div>
       </div>
-      <div class="col-md-6 mb-5 mb-md-0">
+      <div class="col-md-6">
         <div class="media">
           <img src="@/assets/images/marketing/wellness.png">
           <div class="media-body">
             <h2>{{ $t('marketing4Lead2Title') }}</h2>
-            <p class="description">{{ $t('marketing4Lead2') }}</p>
+            <p>{{ $t('marketing4Lead2') }}</p>
           </div>
         </div>
       </div>
     </div>
-    <div class="row mt-5">
-      <div class="col-md-6 offset-md-3 mb-5 mb-md-0">
-        <h1>{{ $t('marketing4Lead3Title') }}</h1>
-        <img :src="makeUrl('features_gamify.png')">
-        <div class="cta-container">
-          <h2>{{ $t('marketing4Lead3-1') }}</h2>
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <h2>{{ $t('marketing4Lead3Title') }}</h2>
+        <img src="@/assets/images/marketing/lefnire.png">
+        <p class="span">
+          <span>{{ $t('marketing4Lead3-1') }}</span>
           <button
-            class="btn btn-lg btn-primary"
+            class="btn btn-primary"
             @click="playButtonClick()"
           >
             {{ $t('playButton') }}
           </button>
-        </div>
+        </p>
+        <p class="span">
+          <span>{{ $t('marketing4Lead3-2') }}</span>
+          <a
+            class="btn btn-primary"
+            href="/static/plans"
+            target="_blank"
+          >{{ $t('contactUs') }}</a>
+        </p>
       </div>
     </div>
   </div>
 </template>
 
 <style lang='scss' scoped>
+  .btn {
+    margin-left: 1em;
+  }
+
   img {
-    max-width: 400px;
+    box-shadow: 0 0 10px 5px #888;
+    margin: 0.5em;
+    max-width: 500px;
 
     @media (max-width: 1200px) {
-      width: 100%;
+      max-width: 100%;
     }
-  }
-
-  .img-fluid {
-    width: 100%;
-    max-width: 900px;
-  }
-
-  .cta-container {
-    text-align: center;
-    margin: 2em auto;
-  }
-
-  h1 {
-    font-size: 2rem;
-  }
-
-  h2 {
-    font-size: 1.5rem;
-  }
-
-  .description {
-    max-width: 600px;
-    margin: auto;
-    font-size: 1.1rem;
   }
 </style>
 
@@ -161,9 +144,6 @@ export default {
   methods: {
     playButtonClick () {
       this.$router.push('/register');
-    },
-    makeUrl (filename) {
-      return `https://habitica-assets.s3.amazonaws.com/assets/${filename}`;
     },
   },
 };
