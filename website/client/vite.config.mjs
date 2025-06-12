@@ -85,7 +85,7 @@ export default defineConfig({
       }
     }),
     ViteS3(ENABLE_S3, {
-      include: [/\.png$/],
+      include: [/.*\.(png|jpg|jpeg|gif|svg|webp|ico)/],
       basePath: nconf.get('S3_BASE_PATH'),
       clientConfig: {
         credentials: {
