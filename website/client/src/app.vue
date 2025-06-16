@@ -271,8 +271,8 @@ export default {
 
     this.$router.onReady(() => {
       if (this.isStaticPage || !this.isUserLoggedIn) {
-      this.hideLoadingScreen();
-    }
+        this.hideLoadingScreen();
+      }
     });
   },
   methods: {
