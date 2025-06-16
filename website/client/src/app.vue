@@ -269,9 +269,11 @@ export default {
     const loadingScreen = document.getElementById('loading-screen');
     if (loadingScreen) document.body.removeChild(loadingScreen);
 
-    if (this.isStaticPage || !this.isUserLoggedIn) {
+    this.$router.onReady(() => {
+      if (this.isStaticPage || !this.isUserLoggedIn) {
       this.hideLoadingScreen();
     }
+    });
   },
   methods: {
     hideLoadingScreen () {
