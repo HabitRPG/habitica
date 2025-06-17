@@ -41,6 +41,7 @@
     <div class="standard-page">
       <div class="featuredItems">
         <div
+        v-if="isSubscribed"
           class="background"
           :style="{'background-image': imageURLs.background}"
         >
@@ -64,7 +65,6 @@
           class="content"
           >
           <div
-          v-if="!isSubscribed"
           class="background"
           :style="{'background-image': imageURLs.background}"
           >
@@ -83,7 +83,8 @@
             </div>
             </div>
             <div
-            class="shop-message featured-label with-border closed">
+              v-if="!isSubscribed"
+              class="shop-message featured-label with-border closed">
               <span
                 class="rectangle">
               </span>
