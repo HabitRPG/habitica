@@ -21,6 +21,20 @@ api.constants = {
   RESPONSE_STILL_VALID: 'SUBSCRIPTION_STILL_VALID',
 };
 
+async function safeBuySkuItem(opts) {
+  const maxRetries = 3;
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      await payments.buySkuItem(opts);
+      return;
+    } catch (err) {
+      if (attempt === maxRetries) throw err;
+      // exponential backoff: 1s, 2s, 4s
+      await new Promise(res => setTimeout(res, 1000 * Math.pow(2, attempt)));
+    }
+  }
+}
+
 api.verifyPurchase = async function verifyPurchase (options) {
   const {
     gift, user, receipt, signature, headers,
@@ -54,19 +68,22 @@ api.verifyPurchase = async function verifyPurchase (options) {
   }).exec();
   if (existingReceipt) throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
 
-  await IapPurchaseReceipt.create({
-    _id: token,
-    consumed: true,
-    // This should always be the buying user even for a gift.
-    userId: user._id,
-  });
 
-  await payments.buySkuItem({ // eslint-disable-line no-await-in-loop
+  // Credit the purchase (with retry logic) before ever touching the receipt record
+   await safeBuySkuItem({
     user,
     gift,
     paymentMethod: api.constants.PAYMENT_METHOD_GOOGLE,
     sku: googleRes.productId,
     headers,
+  });
+  
+  // Only once purchase have been successfully credited, mark the purchase token as consumed
+  await IapPurchaseReceipt.create({
+    _id: token,
+    consumed: true,
+    // This should always be the buying user even for a gift.
+    userId: user._id,
   });
 
   return googleRes;

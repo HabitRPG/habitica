@@ -22,7 +22,20 @@ api.constants = {
   RESPONSE_NO_ITEM_PURCHASED: 'NO_ITEM_PURCHASED',
 };
 
-api.verifyPurchase = async function verifyPurchase (options) {
+async function safeBuySkuItem(opts) {
+  const maxRetries = 3;
+  for (let i = 1; i <= maxRetries; i++) {
+    try {
+      await payments.buySkuItem(opts);
+      return;
+    } catch (err) {
+      if (i === maxRetries) throw err;
+      await new Promise(r => setTimeout(r, 1000 * 2 ** i));
+    }
+  }
+}
+
+api.verifyPurchase = async function verifyPurchase(options) {
   const {
     gift, user, receipt, headers,
   } = options;
@@ -54,27 +67,29 @@ api.verifyPurchase = async function verifyPurchase (options) {
     }).exec();
 
     if (!existingReceipt) {
-      await IapPurchaseReceipt.create({ // eslint-disable-line no-await-in-loop
-        _id: token,
-        consumed: true,
-        // This should always be the buying user even for a gift.
-        userId: user._id,
-      });
 
-      await payments.buySkuItem({ // eslint-disable-line no-await-in-loop
+      await safeBuySkuItem({
         user,
         gift,
         paymentMethod: api.constants.PAYMENT_METHOD_APPLE,
         sku: purchaseData.productId,
         headers,
       });
+
+      await IapPurchaseReceipt.create({
+        _id: token,
+        consumed: true,
+        // This should always be the buying user even for a gift.
+        userId: user._id,
+      });
+      
     }
   }
 
   return appleRes;
 };
 
-api.subscribe = async function subscribe (user, receipt, headers, nextPaymentProcessing) {
+api.subscribe = async function subscribe(user, receipt, headers, nextPaymentProcessing) {
   await iap.setup();
 
   const appleRes = await iap.validate(iap.APPLE, receipt);
@@ -169,7 +184,7 @@ api.subscribe = async function subscribe (user, receipt, headers, nextPaymentPro
   }
 };
 
-api.noRenewSubscribe = async function noRenewSubscribe (options) {
+api.noRenewSubscribe = async function noRenewSubscribe(options) {
   const {
     sku, gift, user, receipt, headers,
   } = options;
@@ -248,7 +263,7 @@ api.noRenewSubscribe = async function noRenewSubscribe (options) {
 };
 /* eslint-enable no-await-in-loop */
 
-api.cancelSubscribe = async function cancelSubscribe (user, headers) {
+api.cancelSubscribe = async function cancelSubscribe(user, headers) {
   const { plan } = user.purchased;
 
   if (plan.paymentMethod !== api.constants.PAYMENT_METHOD_APPLE) throw new NotAuthorized(shared.i18n.t('missingSubscription'));
