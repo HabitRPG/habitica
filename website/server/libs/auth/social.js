@@ -1,7 +1,7 @@
 import pick from 'lodash/pick';
 import passport from 'passport';
 import common from '../../../common';
-import { BadRequest, NotAuthorized } from '../errors';
+import { BadRequest, NotAuthorized, NotFound } from '../errors';
 import logger from '../logger';
 import {
   generateUsername,
@@ -34,14 +34,14 @@ export async function socialEmailToLocal (user) {
       { 'auth.local.email': socialEmail },
       { _id: 1 },
     ).exec();
-    if (!conflictingUser) return socialEmail;
+    if (!conflictingUser) return socialEmail.toLowerCase();
   }
   return undefined;
 }
 
 export async function loginSocial (req, res) { // eslint-disable-line import/prefer-default-export
   let existingUser = res.locals.user;
-  const { network } = req.body;
+  const { network, allowRegister = true } = req.body;
 
   const isSupportedNetwork = common.constants.SUPPORTED_SOCIAL_NETWORKS
     .find(supportedNetwork => supportedNetwork.key === network);
@@ -73,6 +73,10 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
     user.auth.timestamps.updated = new Date();
     await user.save();
     return loginRes(user, req, res);
+  }
+
+  if (!allowRegister) {
+    throw new NotFound(res.t('userNotFound'));
   }
 
   let email;
