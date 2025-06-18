@@ -29,7 +29,7 @@ export const schema = new mongoose.Schema({
     $type: String, required: true, // e.g. IP address
   },
   blockSource: {
-    $type: String, enum: ['user', 'system', 'worker'], default: 'user', // who created the block
+    $type: String, enum: ['administrator', 'system', 'worker'], default: 'administrator', // who created the block
   },
   reason: {
     $type: String, required: false, // e.g. 'abusive behavior'
