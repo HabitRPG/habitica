@@ -36,6 +36,27 @@ Blocker.watchBlockers({
   }
 });
 
+const BLOCKED_EMAILS = [];
+
+Blocker.watchBlockers({
+  type: 'email',
+  area: 'full',
+}, {
+  initial: true,
+}).on('change', async change => {
+  const { operation, blocker: { value } } = change;
+  if (operation === 'add') {
+    if (value && !BLOCKED_EMAILS.includes(value)) {
+      BLOCKED_EMAILS.push(value);
+    }
+  } else if (operation === 'delete') {
+    const index = BLOCKED_EMAILS.indexOf(value);
+    if (index !== -1) {
+      BLOCKED_EMAILS.splice(index, 1);
+    }
+  }
+});
+
 // User schema definition
 export const UserSchema = new Schema({
   apiToken: {
