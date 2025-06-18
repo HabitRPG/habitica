@@ -29,7 +29,7 @@ function checkErrorNotThrown (next) {
   expect(typeof calledWith[0] === 'undefined').to.equal(true);
 }
 
-describe('Blocker middleware', () => {
+describe.only('Blocker middleware', () => {
   const pathToBlocker = '../../../../website/server/middlewares/blocker';
 
   let res; let req; let next;
