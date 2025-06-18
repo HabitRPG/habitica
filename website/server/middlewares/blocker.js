@@ -23,34 +23,42 @@ const blockedIps = BLOCKED_IPS_RAW
     .filter(blockedIp => Boolean(blockedIp))
   : [];
 
+const blockedClients = [];
+
 Blocker.watchBlockers({
-  type: 'ipaddress',
+  $or: [
+    { type: 'ipaddress' },
+    { type: 'client' },
+  ],
   area: 'full',
 }, {
   initial: true,
 }).on('change', async change => {
   const { operation, blocker } = change;
+  const checkedList = blocker.type === 'ipaddress' ? blockedIps : blockedClients;
   if (operation === 'add') {
-    if (blocker.value && !blockedIps.includes(blocker.value)) {
-      blockedIps.push(blocker.value);
+    if (blocker.value && !checkedList.includes(blocker.value)) {
+      checkedList.push(blocker.value);
     }
   } else if (operation === 'delete') {
-    const index = blockedIps.indexOf(blocker.value);
+    const index = checkedList.indexOf(blocker.value);
     if (index !== -1) {
-      blockedIps.splice(index, 1);
+      checkedList.splice(index, 1);
     }
   }
 });
 
 export default function ipBlocker (req, res, next) {
-  // If there are no IPs to block, skip the middleware
-  if (blockedIps.length === 0) return next();
-  // Is the client IP, req.ip, blocked?
-  const match = blockedIps.find(blockedIp => blockedIp === req.ip) !== undefined;
+  if (blockedIps.length === 0 && blockedClients.length === 0) return next();
 
-  if (match === true) {
-    // Not translated because no user is loaded at this point
+  const ipMatch = blockedIps.find(blockedIp => blockedIp === req.ip) !== undefined;
+  if (ipMatch === true) {
     return next(new Forbidden(apiError('ipAddressBlocked')));
+  }
+
+  const clientMatch = blockedClients.find(blockedClient => blockedClient === req.headers['x-client']) !== undefined;
+  if (clientMatch === true) {
+    return next(new Forbidden(apiError('clientBlocked')));
   }
 
   return next();

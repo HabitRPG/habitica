@@ -149,7 +149,7 @@ import Achievements from './achievements.vue';
 import UserHistory from './userHistory.vue';
 import Stats from './stats.vue';
 
-import { userStateMixin } from '../../../mixins/userState';
+import { userStateMixin } from '../../../../mixins/userState';
 
 export default {
   components: {

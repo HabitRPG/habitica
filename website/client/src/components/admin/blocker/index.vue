@@ -101,7 +101,7 @@ export default {
       showCreateForm: false,
       newBlocker: {
         type: '',
-        area: '',
+        area: 'full',
         value: '',
         reason: '',
       },
@@ -118,7 +118,7 @@ export default {
   },
   mounted () {
     this.$store.dispatch('common:setTitle', {
-      section: 'Admin Panel',
+      section: this.$t('siteBlockers'),
     });
     this.loadBlockers();
   },
@@ -144,15 +144,23 @@ export default {
     async createBlocker (blocker) {
       await this.$store.dispatch('blockers:createBlocker', { blocker });
       this.showCreateForm = false;
+      this.newBlocker = {
+        type: '',
+        area: 'full',
+        value: '',
+        reason: '',
+      };
       this.loadBlockers();
     },
 
     getTypeName (type) {
       switch (type) {
         case 'ipaddress':
-          return 'IP Address';
+          return 'IP-Address';
         case 'email':
           return 'E-Mail';
+        case 'client':
+          return 'Client Identifier';
         default:
           return type;
       }

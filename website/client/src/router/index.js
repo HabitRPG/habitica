@@ -19,16 +19,12 @@ const HallPage = () => import(/* webpackChunkName: "hall" */'@/components/hall/i
 const PatronsPage = () => import(/* webpackChunkName: "hall" */'@/components/hall/patrons');
 const HeroesPage = () => import(/* webpackChunkName: "hall" */'@/components/hall/heroes');
 
-// Admin Panel
-const AdminPanelPage = () => import(/* webpackChunkName: "admin-panel" */'@/components/admin-panel');
-const AdminPanelUserPage = () => import(/* webpackChunkName: "admin-panel" */'@/components/admin-panel/user-support');
-const AdminPanelSearchPage = () => import(/* webpackChunkName: "admin-panel" */'@/components/admin-panel/search');
-const BlockerPage = () => import(/* webpackChunkName: "admin-panel" */'@/components/blocker');
-// Except for tasks that are always loaded all the other main level
-// All the main level
-// components are loaded in separate webpack chunks.
-// See https://webpack.js.org/guides/code-splitting-async/
-// for docs
+// Admin Pages
+const AdminContainerPage = () => import(/* webpackChunkName: "admin-panel" */'@/components/admin/container');
+const AdminPanelPage = () => import(/* webpackChunkName: "admin-panel" */'@/components/admin/admin-panel');
+const AdminPanelUserPage = () => import(/* webpackChunkName: "admin-panel" */'@/components/admin/admin-panel/user-support');
+const AdminPanelSearchPage = () => import(/* webpackChunkName: "admin-panel" */'@/components/admin/admin-panel/search');
+const BlockerPage = () => import(/* webpackChunkName: "admin-panel" */'@/components/admin/blocker');
 
 // Tasks
 const UserTasks = () => import(/* webpackChunkName: "userTasks" */'@/components/tasks/user');
@@ -185,8 +181,8 @@ const router = new VueRouter({
 
     {
       name: 'adminPanel',
-      path: '/admin-panel',
-      component: AdminPanelPage,
+      path: '/admin',
+      component: AdminContainerPage,
       meta: {
         privilegeNeeded: [ // any one of these is enough to give access
           'userSupport',
@@ -194,37 +190,50 @@ const router = new VueRouter({
       },
       children: [
         {
-          name: 'adminPanelSearch',
-          path: 'search/:userIdentifier',
-          component: AdminPanelSearchPage,
+          name: 'adminPanel',
+          path: 'panel',
+          component: AdminPanelPage,
           meta: {
-            privilegeNeeded: [
+            privilegeNeeded: [ // any one of these is enough to give access
               'userSupport',
             ],
           },
+          children: [
+            {
+              name: 'adminPanelSearch',
+              path: 'search/:userIdentifier',
+              component: AdminPanelSearchPage,
+              meta: {
+                privilegeNeeded: [
+                  'userSupport',
+                ],
+              },
+            },
+            {
+              name: 'adminPanelUser',
+              path: ':userIdentifier',
+              component: AdminPanelUserPage,
+              meta: {
+                privilegeNeeded: [
+                  'userSupport',
+                ],
+              },
+            },
+          ],
         },
         {
-          name: 'adminPanelUser',
-          path: ':userIdentifier',
-          component: AdminPanelUserPage,
+          name: 'blockers',
+          path: 'blockers',
+          component: BlockerPage,
           meta: {
-            privilegeNeeded: [
+            privilegeNeeded: [ // any one of these is enough to give access
               'userSupport',
             ],
           },
         },
-      ],
+      ]
     },
-    {
-      name: 'blockers',
-      path: '/blockers',
-      component: BlockerPage,
-      meta: {
-        privilegeNeeded: [ // any one of these is enough to give access
-          'userSupport',
-        ],
-      },
-    },
+
 
     // Only used to handle some redirects
     // See router.beforeEach

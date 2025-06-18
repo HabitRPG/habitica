@@ -3,12 +3,11 @@
     <td></td>
     <td><select class="form-control" v-model="blocker.type">
       <option value="ipaddress">IP-Address</option>
-      <option value="email">E-Mail</option>
+      <option value="client">Client Identifier</option>
       </select>
     </td>
     <td><select class="form-control" v-model="blocker.area">
       <option value="full">Full</option>
-      <option value="payments">Payments</option>
     </select></td>
     <td><input v-model="blocker.value"></td>
     <td><input v-model="blocker.reason"></td>

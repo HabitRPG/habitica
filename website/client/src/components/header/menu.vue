@@ -296,14 +296,6 @@
             </router-link>
             <div class="topbar-dropdown">
               <router-link
-                v-if="user.permissions.fullAccess ||
-                  user.permissions.userSupport"
-                class="topbar-dropdown-item dropdown-item"
-                :to="{name: 'adminPanel'}"
-              >
-                Admin Panel
-              </router-link>
-              <router-link
                 class="topbar-dropdown-item dropdown-item"
                 :to="{name: 'faq'}"
               >
@@ -334,6 +326,51 @@
                 href="https://docs.google.com/forms/d/e/1FAIpQLScPhrwq_7P1C6PTrI3lbvTsvqGyTNnGzp1ugi1Ml0PFee_p5g/viewform?usp=sf_link"
                 target="_blank"
               >{{ $t('requestFeature') }}</a>
+            </div>
+          </li>
+          <li
+            class="topbar-item droppable"
+                v-if="user.permissions.fullAccess ||
+                  user.permissions.userSupport"
+            :class="{
+              'active': $route.path.startsWith('/admin')}"
+          >
+            <div
+              class="chevron rotate"
+              @click="dropdownMobile($event)"
+            >
+              <div
+                v-once
+                class="chevron-icon-down"
+                v-html="icons.chevronDown"
+              ></div>
+            </div>
+            <router-link
+              class="nav-link"
+              :to="{name: 'adminPanel'}"
+            >
+              {{ $t('admin') }}
+            </router-link>
+            <div class="topbar-dropdown">
+              <router-link
+                class="topbar-dropdown-item dropdown-item"
+                :to="{name: 'adminPanel'}"
+              >
+                {{ $t("adminPanel") }}
+              </router-link>
+              <router-link
+                class="topbar-dropdown-item dropdown-item"
+                :to="{name: 'blockers'}"
+              >
+                {{ $t("siteBlockers") }}
+              </router-link>
+              <a
+                class="topbar-dropdown-item dropdown-item"
+                target="_blank"
+                href="https://panel.habitica.com"
+              >
+                {{ $t('newsroom') }}
+              </a>
             </div>
           </li>
         </b-navbar-nav>

@@ -7,6 +7,7 @@ import baseModel from '../libs/baseModel';
 export const blockTypes = [
   'ipaddress',
   'email',
+  'client',
 ];
 
 export const blockArea = [
