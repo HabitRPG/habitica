@@ -8,7 +8,16 @@ const TASK_VALUE_CHANGE_FACTOR = 0.9747;
 const MIN_TASK_VALUE = -47.27;
 
 async function updateTeamTasks (team) {
+  if (team.purchased.plan.dateTerminated) {
+    const dateTerminated = new Date(team.purchased.plan.dateTerminated);
+    if (dateTerminated < new Date()) {
+      team.purchased.plan.customerId = undefined;
+      return team.save();
+    }
+  }
+
   const toSave = [];
+
   let teamLeader = await User.findOne({ _id: team.leader }, 'preferences').exec();
 
   if (!teamLeader) { // why would this happen?
@@ -93,12 +102,7 @@ async function updateTeamTasks (team) {
 export default async function processTeamsCron () {
   const activeTeams = await Group.find({
     'purchased.plan.customerId': { $exists: true },
-    $or: [
-      { 'purchased.plan.dateTerminated': { $exists: false } },
-      { 'purchased.plan.dateTerminated': null },
-      { 'purchased.plan.dateTerminated': { $gt: new Date() } },
-    ],
-  }).exec();
+  }, { cron: 1, leader: 1, purchased: 1 }).exec();
 
   const cronPromises = activeTeams.map(updateTeamTasks);
   return Promise.all(cronPromises);
