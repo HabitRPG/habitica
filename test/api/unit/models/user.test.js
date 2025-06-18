@@ -917,7 +917,7 @@ describe('User Model', () => {
     });
   });
 
-  describe.only('validates email', () => {
+  describe('validates email', () => {
     it('does not throw an error for a valid email', () => {
       const user = new User();
       user.auth.local.email = 'hello@example.com';
@@ -946,7 +946,7 @@ describe('User Model', () => {
         },
       });
       const schema = requireAgain(pathToUserSchema).UserSchema;
-      const valid = schema.paths['auth.local.email'].options.validate.every(v => v.validator('blocked@example.com'))
+      const valid = schema.paths['auth.local.email'].options.validate.every(v => v.validator('blocked@example.com'));
       expect(valid).to.equal(false);
     });
 
